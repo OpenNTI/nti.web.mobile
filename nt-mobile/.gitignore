@@ -1,5 +1,10 @@
-/bower_components/*
-/.sass-cache/*
 *.DS_Store
-/stylesheets/*
+
 node_modules
+.sass-cache
+.tmp
+dist
+/src/main/resources/vendor
+/src/main/resources/css/*.css
+/src/main/js/main.js
+.ignore
