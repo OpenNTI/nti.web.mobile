@@ -5,8 +5,8 @@
 	"src": "src/main",
 	"test": "src/test",
 	"dist": "dist",
-	"mainInput": "app.js",
-	"mainOutput": "main",
+	"mainInput": "app.jsx",
+	"mainOutput": "main.js",
 	"dependencies": {
 		"react": "~0.10.0"
 	},

@@ -139,7 +139,7 @@ module.exports = function(grunt) {
 			'sass',
 			'open:dev',
 			'webpack-dev-server'
-			]);
+		]);
 	});
 
 	grunt.registerTask('test', ['karma']);

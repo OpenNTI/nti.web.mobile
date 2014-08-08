@@ -1,6 +1,13 @@
 @import "settings";
 @import "foundation";
 
+#content {
+}
+
+.main-section {
+	min-height:10em;
+}
+
 // Or selectively include components
 // @import
 //   "foundation/components/accordion",
