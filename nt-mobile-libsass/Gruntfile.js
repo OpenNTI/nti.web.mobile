@@ -118,7 +118,7 @@ module.exports = function(grunt) {
 			grunt: { files: ['Gruntfile.js'] },
 
 			sass: {
-				files: 'scss/**/*.scss',
+				files: 'src/main/resources/**/*.scss',
 				tasks: ['sass']
 			}
 		}

@@ -1,7 +1,17 @@
 @import "settings";
+@import "variables"; // we override some foundation settings so this has to come between settings and foundation.
 @import "foundation";
 
-#content {
+@mixin input-typography {
+	text-transform: uppercase;
+	letter-spacing:0.1em;
+}
+
+.button, input {
+	@include input-typography;	
+}
+
+#content {	
 }
 
 .main-section {
