@@ -2,7 +2,7 @@
  * LoginActions
  */
 
-var AppDispatcher = require('../dispatcher/AppDispatcher');
+var AppDispatcher = require('../../common/dispatcher/AppDispatcher');
 var LoginConstants = require('../constants/LoginConstants');
 
 var LoginActions = {

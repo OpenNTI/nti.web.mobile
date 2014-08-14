@@ -4,8 +4,8 @@
 
 var React = require('react/addons');
 
-var LoginPanel = require('./components/LoginPanel');
-var AppContainer = require('./components/AppContainer');
+var LoginPanel = require('./login/components/LoginPanel');
+var AppContainer = require('./common/components/AppContainer');
 
 React.renderComponent(
 	<AppContainer>

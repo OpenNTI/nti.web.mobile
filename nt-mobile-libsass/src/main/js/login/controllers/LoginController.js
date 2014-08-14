@@ -2,7 +2,7 @@
  * LoginController
  */
 
-var AppDispatcher = require('../dispatcher/AppDispatcher');
+var AppDispatcher = require('../../common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var LoginConstants = require('../constants/LoginConstants');
 var merge = require('react/lib/merge');
