@@ -3,10 +3,10 @@
  */
 'use strict';
 
-var AppDispatcher = require('../../common/dispatcher/AppDispatcher');
+var AppDispatcher = require('../common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var LoginConstants = require('../constants/LoginConstants');
-var Utils = require('../../common/Utils');
+var LoginConstants = require('./LoginConstants');
+var Utils = require('../common/Utils');
 var merge = require('react/lib/merge');
 
 var CHANGE_EVENT = 'change';

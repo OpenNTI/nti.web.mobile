@@ -3,8 +3,8 @@
 'use strict';
 
 var React = require('react/addons');
-var LoginController = require('../controllers/LoginController');
-var LoginActions = require('../actions/LoginActions');
+var LoginController = require('../LoginController');
+var LoginActions = require('../LoginActions');
 
 var LoginForm = React.createClass({
 
