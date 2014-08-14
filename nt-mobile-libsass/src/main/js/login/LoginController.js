@@ -1,10 +1,12 @@
 /*
  * LoginController
  */
+'use strict';
 
 var AppDispatcher = require('../../common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var LoginConstants = require('../constants/LoginConstants');
+var Utils = require('../../common/Utils');
 var merge = require('react/lib/merge');
 
 var CHANGE_EVENT = 'change';
@@ -15,8 +17,10 @@ function ping() {
 }
 
 function pong(o) {
-	debugger;
 	console.log('pong');
+	var link = Utils.getLink(o,'logon.handshake');
+	console.log(link);
+	debugger;
 }
 
 function call(url,data,back,forceMethod) {
