@@ -2,15 +2,15 @@
 
 'use strict';
 
+// global.React = require('react'); // needed for the react devtools chrome extension.
+
 var React = require('react/addons');
 
 var LoginPanel = require('./login/components/LoginPanel');
 var AppContainer = require('./common/components/AppContainer');
 
 React.renderComponent(
-	<AppContainer>
-		<LoginPanel />
-	</AppContainer>,
+	<AppContainer />,
 	document.getElementById('content')
 );
 

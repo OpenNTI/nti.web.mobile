@@ -2,8 +2,34 @@
 
 var React = require('react/addons');
 var LeftNav = require('./LeftNav');
+var LoginController = require('../../login/LoginController');
+var MainContentPanel = require('./MainContentPanel');
+
+
 
 module.exports = React.createClass({
+
+	getInitialState: function() {
+		return {loggedIn: false};
+	},
+
+	componentWillMount: function() {
+		LoginController.addChangeListener(this.loginStateChangeHandler);
+	},
+
+	componentWillUnmount: function() {
+		LoginController.removeChangeListener(this.loginStateChangeHandler);
+	},
+
+	loginStateChangeHandler: function() {
+		console.log('AppContainer.loginStateChangeHandler');
+		console.log('Is logged in? %s',LoginController.isLoggedIn());
+		if(LoginController.isLoggedIn()) {
+
+		}
+		this.setState({loggedIn: LoginController.isLoggedIn()});
+	},
+
 	render: function() {
 		return (
 			<div className="app-container">
@@ -32,7 +58,7 @@ module.exports = React.createClass({
 						</aside>
 
 						<section className="main-section">
-							{this.props.children}
+							<MainContentPanel loggedIn={this.state.loggedIn} />
 						</section>
 
 						<a className="exit-off-canvas"></a>
