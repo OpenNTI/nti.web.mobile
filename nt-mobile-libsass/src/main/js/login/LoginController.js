@@ -28,11 +28,6 @@ function log_in(credentials) {
 	console.log("LoginController::login", credentials);
 }
 
-// function ping() {
-// 	console.log('ping');
-// 	Utils.call('/dataserver2/logon.ping',null,pong);
-// }
-
 var ResponseHandlers = {
 	pong: function(response) {
 		var auth = {
@@ -56,7 +51,6 @@ var ResponseHandlers = {
 			var links_by_rel = Utils.indexArrayByKey(response['Links'],'rel');
 			LoginController.setState({links: links_by_rel});
 		}
-
 
 		// from NextThoughtLoginApp login.js:
 		//
@@ -82,7 +76,11 @@ var ResponseHandlers = {
 	}
 }
 
-
+/**
+ * Coordinates login actions between the view and the dataserver
+ * and emits related events.
+ * @class LoginController
+ */
 var LoginController = merge(EventEmitter.prototype, {
 
 	state: {
@@ -90,19 +88,48 @@ var LoginController = merge(EventEmitter.prototype, {
 		isLoggedIn: false
 	},
 
+	/**
+	* Indicates whether we have the necessary information required to attempt 
+	* a password login.
+	* The current implementation simply reflects whether we have a link
+	* with rel=logon.nti.password
+	*
+	* @method canDoPasswordLogin
+	* @return {boolean} Whether we have the necessary information required
+	* to attempt a password login.
+	*/
 	canDoPasswordLogin: function() {
 		return this.getHref(LoginConstants.LOGIN_PASSWORD_LINK) != null;
 	},
 
+	/**
+	* Indicates whether we're currently logged in.
+	* @method isLoggedIn
+	* @return {boolean} Whether we're currently logged in.
+	*/
 	isLoggedIn: function() {
 		return this.state.isLoggedIn;
 	},
 
+	/**
+	* Updates the state with properties from data. They will be merged with the
+	* current state so it is acceptable and expected for the argument to contain only the
+	* parts it cares about. While this mimicks the signature of the React method, this is
+	* not a React component and should not be confused with one.
+	* @method setState
+	* @param {Object} data Object representing the changed state.
+	*/
 	setState:function(data) {
 		this.state = merge(this.state,data);
 		this.emit(CHANGE_EVENT);
 	},
 
+	/**
+	* Looks up a link by its rel attribute and returns its href.
+	* @method getHref
+	* @param {String} link_rel The rel attribute of the sought link.
+	* @return {String} The href for the link with the specified rel attribute, or null.
+	*/
 	getHref: function(link_rel) {
 		return this.state.links.hasOwnProperty(link_rel) ? this.state.links[link_rel].href : null;
 	},
@@ -112,14 +139,18 @@ var LoginController = merge(EventEmitter.prototype, {
 	},
 
 	/**
-	 * @param {function} callback
+	 * Register to be notified of state changes for this LoginController.
+	 * @method addChangeListener
+	 * @param {function} callback Function to be invoked in response to a change event.
 	 */
 	addChangeListener: function(callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
 	/**
-	 * @param {function} callback
+	 * Un-register a previously registered event callback listener
+	 * @method removeChangeListener
+	 * @param {function} callback The callback to un-register.
 	 */
 	removeChangeListener: function(callback) {
 		this.removeListener(CHANGE_EVENT, callback);

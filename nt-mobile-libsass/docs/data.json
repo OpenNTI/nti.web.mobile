@@ -1,0 +1,425 @@
+{
+    "project": {
+        "name": "nt-mobile",
+        "description": "Mobile-first implementation of the NextThought web app.",
+        "version": "0.0.0"
+    },
+    "files": {
+        "src/main/js/common/dispatcher/AppDispatcher.js": {
+            "name": "src/main/js/common/dispatcher/AppDispatcher.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/dispatcher/Dispatcher.js": {
+            "name": "src/main/js/common/dispatcher/Dispatcher.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/dispatcher/invariant.js": {
+            "name": "src/main/js/common/dispatcher/invariant.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/login/LoginActions.js": {
+            "name": "src/main/js/login/LoginActions.js",
+            "modules": {
+                "LoginActions": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/login/LoginController.js": {
+            "name": "src/main/js/login/LoginController.js",
+            "modules": {},
+            "classes": {
+                "LoginController": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/login/TodoActions.js": {
+            "name": "src/main/js/login/TodoActions.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "LoginActions": {
+            "name": "LoginActions",
+            "submodules": {},
+            "classes": {
+                "LoginController": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/main/js/login/LoginController.js",
+            "line": 79
+        }
+    },
+    "classes": {
+        "LoginController": {
+            "name": "LoginController",
+            "shortname": "LoginController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "LoginActions",
+            "namespace": "",
+            "file": "src/main/js/login/LoginController.js",
+            "line": 79,
+            "description": "Coordinates login actions between the view and the dataserver\nand emits related events."
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/main/js/common/dispatcher/AppDispatcher.js",
+            "line": 20,
+            "description": "A bridge function between the views and the dispatcher, marking the action\nas a view action.  Another variant here could be handleServerAction.",
+            "params": [
+                {
+                    "name": "action",
+                    "description": "The data coming from the view.",
+                    "type": "Object"
+                }
+            ],
+            "class": "LoginController"
+        },
+        {
+            "file": "src/main/js/common/dispatcher/Dispatcher.js",
+            "line": 18,
+            "description": "Dispatcher is used to broadcast payloads to registered callbacks. This is\ndifferent from generic pub-sub systems in two ways:\n\n  1) Callbacks are not subscribed to particular events. Every payload is\n     dispatched to every registered callback.\n  2) Callbacks can be deferred in whole or part until other callbacks have\n     been executed.\n\nFor example, consider this hypothetical flight destination form, which\nselects a default city when a country is selected:\n\n  var flightDispatcher = new Dispatcher();\n\n  // Keeps track of which country is selected\n  var CountryStore = {country: null};\n\n  // Keeps track of which city is selected\n  var CityStore = {city: null};\n\n  // Keeps track of the base flight price of the selected city\n  var FlightPriceStore = {price: null}\n\nWhen a user changes the selected city, we dispatch the payload:\n\n  flightDispatcher.dispatch({\n    actionType: 'city-update',\n    selectedCity: 'paris'\n  });\n\nThis payload is digested by `CityStore`:\n\n  flightDispatcher.register(function(payload)) {\n    if (payload.actionType === 'city-update') {\n      CityStore.city = payload.selectedCity;\n    }\n  });\n\nWhen the user selects a country, we dispatch the payload:\n\n  flightDispatcher.dispatch({\n    actionType: 'country-update',\n    selectedCountry: 'australia'\n  });\n\nThis payload is digested by both stores:\n\n   CountryStore.dispatchToken = flightDispatcher.register(function(payload) {\n    if (payload.actionType === 'country-update') {\n      CountryStore.country = payload.selectedCountry;\n    }\n  });\n\nWhen the callback to update `CountryStore` is registered, we save a reference\nto the returned token. Using this token with `waitFor()`, we can guarantee\nthat `CountryStore` is updated before the callback that updates `CityStore`\nneeds to query its data.\n\n  CityStore.dispatchToken = flightDispatcher.register(function(payload) {\n    if (payload.actionType === 'country-update') {\n      // `CountryStore.country` may not be updated.\n      flightDispatcher.waitFor([CountryStore.dispatchToken]);\n      // `CountryStore.country` is now guaranteed to be updated.\n\n      // Select the default city for the new country\n      CityStore.city = getDefaultCityForCountry(CountryStore.country);\n    }\n  });\n\nThe usage of `waitFor()` can be chained, for example:\n\n  FlightPriceStore.dispatchToken =\n    flightDispatcher.register(function(payload)) {\n      switch (payload.actionType) {\n        case 'country-update':\n          flightDispatcher.waitFor([CityStore.dispatchToken]);\n          FlightPriceStore.price =\n            getFlightPriceStore(CountryStore.country, CityStore.city);\n          break;\n\n        case 'city-update':\n          FlightPriceStore.price =\n            FlightPriceStore(CountryStore.country, CityStore.city);\n          break;\n    }\n  });\n\nThe `country-update` payload will be guaranteed to invoke the stores'\nregistered callbacks in order: `CountryStore`, `CityStore`, then\n`FlightPriceStore`.",
+            "class": "LoginController"
+        },
+        {
+            "file": "src/main/js/common/dispatcher/Dispatcher.js",
+            "line": 118,
+            "description": "Registers a callback to be invoked with every dispatched payload. Returns\na token that can be used with `waitFor()`.",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "LoginController"
+        },
+        {
+            "file": "src/main/js/common/dispatcher/Dispatcher.js",
+            "line": 131,
+            "description": "Removes a callback based on its token.",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "LoginController"
+        },
+        {
+            "file": "src/main/js/common/dispatcher/Dispatcher.js",
+            "line": 145,
+            "description": "Waits for the callbacks specified to be invoked before continuing execution\nof the current callback. This method should only be used by a callback in\nresponse to a dispatched payload.",
+            "params": [
+                {
+                    "name": "ids",
+                    "description": "",
+                    "type": "Array<string>"
+                }
+            ],
+            "class": "LoginController"
+        },
+        {
+            "file": "src/main/js/common/dispatcher/Dispatcher.js",
+            "line": 177,
+            "description": "Dispatches a payload to all registered callbacks.",
+            "params": [
+                {
+                    "name": "payload",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "LoginController"
+        },
+        {
+            "file": "src/main/js/common/dispatcher/Dispatcher.js",
+            "line": 200,
+            "description": "Is this Dispatcher currently dispatching.",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "LoginController"
+        },
+        {
+            "file": "src/main/js/common/dispatcher/Dispatcher.js",
+            "line": 209,
+            "description": "Call the calback stored with the given id. Also do some internal\nbookkeeping.",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "internal": "",
+            "class": "LoginController"
+        },
+        {
+            "file": "src/main/js/common/dispatcher/Dispatcher.js",
+            "line": 222,
+            "description": "Set up bookkeeping needed when dispatching.",
+            "params": [
+                {
+                    "name": "payload",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "internal": "",
+            "class": "LoginController"
+        },
+        {
+            "file": "src/main/js/common/dispatcher/Dispatcher.js",
+            "line": 237,
+            "description": "Clear bookkeeping used for dispatching.",
+            "internal": "",
+            "class": "LoginController"
+        },
+        {
+            "file": "src/main/js/common/dispatcher/invariant.js",
+            "line": 1,
+            "description": "Copyright (c) 2014, Facebook, Inc.\nAll rights reserved.\n\nThis source code is licensed under the BSD-style license found in the\nLICENSE file in the root directory of this source tree. An additional grant\nof patent rights can be found in the PATENTS file in the same directory.",
+            "providesmodule": "invariant",
+            "class": "LoginController"
+        },
+        {
+            "file": "src/main/js/common/dispatcher/invariant.js",
+            "line": 14,
+            "description": "Use invariant() to assert state which your program assumes to be true.\n\nProvide sprintf-style format (only %s is supported) and arguments\nto provide information about what broke and what you were\nexpecting.\n\nThe invariant message will be stripped in production, but the invariant\nwill remain to ensure logic does not differ in production.",
+            "class": "LoginController"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 91,
+            "description": "Indicates whether we have the necessary information required to attempt \na password login.\nThe current implementation simply reflects whether we have a link\nwith rel=logon.nti.password",
+            "itemtype": "method",
+            "name": "canDoPasswordLogin",
+            "return": {
+                "description": "Whether we have the necessary information required\nto attempt a password login.",
+                "type": "Boolean"
+            },
+            "class": "LoginController",
+            "module": "LoginActions"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 105,
+            "description": "Indicates whether we're currently logged in.",
+            "itemtype": "method",
+            "name": "isLoggedIn",
+            "return": {
+                "description": "Whether we're currently logged in.",
+                "type": "Boolean"
+            },
+            "class": "LoginController",
+            "module": "LoginActions"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 114,
+            "description": "Updates the state with properties from data. They will be merged with the\ncurrent state so it is acceptable and expected for the argument to contain only the\nparts it cares about. While this mimicks the signature of the React method, this is\nnot a React component and should not be confused with one.",
+            "itemtype": "method",
+            "name": "setState",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "Object representing the changed state.",
+                    "type": "Object"
+                }
+            ],
+            "class": "LoginController",
+            "module": "LoginActions"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 127,
+            "description": "Looks up a link by its rel attribute and returns its href.",
+            "itemtype": "method",
+            "name": "getHref",
+            "params": [
+                {
+                    "name": "link_rel",
+                    "description": "The rel attribute of the sought link.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The href for the link with the specified rel attribute, or null.",
+                "type": "String"
+            },
+            "class": "LoginController",
+            "module": "LoginActions"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 141,
+            "description": "Register to be notified of state changes for this LoginController.",
+            "itemtype": "method",
+            "name": "addChangeListener",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "Function to be invoked in response to a change event.",
+                    "type": "Function"
+                }
+            ],
+            "class": "LoginController",
+            "module": "LoginActions"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 150,
+            "description": "Un-register a previously registered event callback listener",
+            "itemtype": "method",
+            "name": "removeChangeListener",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "The callback to un-register.",
+                    "type": "Function"
+                }
+            ],
+            "class": "LoginController",
+            "module": "LoginActions"
+        },
+        {
+            "file": "src/main/js/login/TodoActions.js",
+            "line": 10,
+            "params": [
+                {
+                    "name": "text",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "",
+            "module": "LoginActions"
+        },
+        {
+            "file": "src/main/js/login/TodoActions.js",
+            "line": 20,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "",
+            "module": "LoginActions"
+        },
+        {
+            "file": "src/main/js/login/TodoActions.js",
+            "line": 30,
+            "description": "Delete all the completed Logins",
+            "class": "",
+            "module": "LoginActions"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "unknown tag: internal",
+            "line": " src/main/js/common/dispatcher/Dispatcher.js:209"
+        },
+        {
+            "message": "unknown tag: internal",
+            "line": " src/main/js/common/dispatcher/Dispatcher.js:222"
+        },
+        {
+            "message": "unknown tag: internal",
+            "line": " src/main/js/common/dispatcher/Dispatcher.js:237"
+        },
+        {
+            "message": "unknown tag: providesmodule",
+            "line": " src/main/js/common/dispatcher/invariant.js:1"
+        },
+        {
+            "message": "Missing item type\nA bridge function between the views and the dispatcher, marking the action\nas a view action.  Another variant here could be handleServerAction.",
+            "line": " src/main/js/common/dispatcher/AppDispatcher.js:20"
+        },
+        {
+            "message": "Missing item type\nDispatcher is used to broadcast payloads to registered callbacks. This is\ndifferent from generic pub-sub systems in two ways:\n\n  1) Callbacks are not subscribed to particular events. Every payload is\n     dispatched to every registered callback.\n  2) Callbacks can be deferred in whole or part until other callbacks have\n     been executed.\n\nFor example, consider this hypothetical flight destination form, which\nselects a default city when a country is selected:\n\n  var flightDispatcher = new Dispatcher();\n\n  // Keeps track of which country is selected\n  var CountryStore = {country: null};\n\n  // Keeps track of which city is selected\n  var CityStore = {city: null};\n\n  // Keeps track of the base flight price of the selected city\n  var FlightPriceStore = {price: null}\n\nWhen a user changes the selected city, we dispatch the payload:\n\n  flightDispatcher.dispatch({\n    actionType: 'city-update',\n    selectedCity: 'paris'\n  });\n\nThis payload is digested by `CityStore`:\n\n  flightDispatcher.register(function(payload)) {\n    if (payload.actionType === 'city-update') {\n      CityStore.city = payload.selectedCity;\n    }\n  });\n\nWhen the user selects a country, we dispatch the payload:\n\n  flightDispatcher.dispatch({\n    actionType: 'country-update',\n    selectedCountry: 'australia'\n  });\n\nThis payload is digested by both stores:\n\n   CountryStore.dispatchToken = flightDispatcher.register(function(payload) {\n    if (payload.actionType === 'country-update') {\n      CountryStore.country = payload.selectedCountry;\n    }\n  });\n\nWhen the callback to update `CountryStore` is registered, we save a reference\nto the returned token. Using this token with `waitFor()`, we can guarantee\nthat `CountryStore` is updated before the callback that updates `CityStore`\nneeds to query its data.\n\n  CityStore.dispatchToken = flightDispatcher.register(function(payload) {\n    if (payload.actionType === 'country-update') {\n      // `CountryStore.country` may not be updated.\n      flightDispatcher.waitFor([CountryStore.dispatchToken]);\n      // `CountryStore.country` is now guaranteed to be updated.\n\n      // Select the default city for the new country\n      CityStore.city = getDefaultCityForCountry(CountryStore.country);\n    }\n  });\n\nThe usage of `waitFor()` can be chained, for example:\n\n  FlightPriceStore.dispatchToken =\n    flightDispatcher.register(function(payload)) {\n      switch (payload.actionType) {\n        case 'country-update':\n          flightDispatcher.waitFor([CityStore.dispatchToken]);\n          FlightPriceStore.price =\n            getFlightPriceStore(CountryStore.country, CityStore.city);\n          break;\n\n        case 'city-update':\n          FlightPriceStore.price =\n            FlightPriceStore(CountryStore.country, CityStore.city);\n          break;\n    }\n  });\n\nThe `country-update` payload will be guaranteed to invoke the stores'\nregistered callbacks in order: `CountryStore`, `CityStore`, then\n`FlightPriceStore`.",
+            "line": " src/main/js/common/dispatcher/Dispatcher.js:18"
+        },
+        {
+            "message": "Missing item type\nRegisters a callback to be invoked with every dispatched payload. Returns\na token that can be used with `waitFor()`.",
+            "line": " src/main/js/common/dispatcher/Dispatcher.js:118"
+        },
+        {
+            "message": "Missing item type\nRemoves a callback based on its token.",
+            "line": " src/main/js/common/dispatcher/Dispatcher.js:131"
+        },
+        {
+            "message": "Missing item type\nWaits for the callbacks specified to be invoked before continuing execution\nof the current callback. This method should only be used by a callback in\nresponse to a dispatched payload.",
+            "line": " src/main/js/common/dispatcher/Dispatcher.js:145"
+        },
+        {
+            "message": "Missing item type\nDispatches a payload to all registered callbacks.",
+            "line": " src/main/js/common/dispatcher/Dispatcher.js:177"
+        },
+        {
+            "message": "Missing item type\nIs this Dispatcher currently dispatching.",
+            "line": " src/main/js/common/dispatcher/Dispatcher.js:200"
+        },
+        {
+            "message": "Missing item type\nCall the calback stored with the given id. Also do some internal\nbookkeeping.",
+            "line": " src/main/js/common/dispatcher/Dispatcher.js:209"
+        },
+        {
+            "message": "Missing item type\nSet up bookkeeping needed when dispatching.",
+            "line": " src/main/js/common/dispatcher/Dispatcher.js:222"
+        },
+        {
+            "message": "Missing item type\nClear bookkeeping used for dispatching.",
+            "line": " src/main/js/common/dispatcher/Dispatcher.js:237"
+        },
+        {
+            "message": "Missing item type\nCopyright (c) 2014, Facebook, Inc.\nAll rights reserved.\n\nThis source code is licensed under the BSD-style license found in the\nLICENSE file in the root directory of this source tree. An additional grant\nof patent rights can be found in the PATENTS file in the same directory.",
+            "line": " src/main/js/common/dispatcher/invariant.js:1"
+        },
+        {
+            "message": "Missing item type\nUse invariant() to assert state which your program assumes to be true.\n\nProvide sprintf-style format (only %s is supported) and arguments\nto provide information about what broke and what you were\nexpecting.\n\nThe invariant message will be stripped in production, but the invariant\nwill remain to ensure logic does not differ in production.",
+            "line": " src/main/js/common/dispatcher/invariant.js:14"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/login/TodoActions.js:10"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/login/TodoActions.js:20"
+        },
+        {
+            "message": "Missing item type\nDelete all the completed Logins",
+            "line": " src/main/js/login/TodoActions.js:30"
+        }
+    ]
+}

@@ -114,20 +114,41 @@ module.exports = function(grunt) {
 			}
 		},
 
+		yuidoc: {
+			compile: {
+				name: '<%= pkg.name %>',
+				description: '<%= pkg.description %>',
+				version: '<%= pkg.version %>',
+				// url: '<%= pkg.homepage %>',
+				options: {
+					paths: 'src/main/js/',
+					themedir: 'node_modules/yuidoc-bootstrap-theme/',
+					helpers: ['node_modules/yuidoc-bootstrap-theme/helpers/helpers.js'],
+					outdir: 'docs/'
+				}
+			}
+		},
+
 		watch: {
 			grunt: { files: ['Gruntfile.js'] },
 
 			sass: {
 				files: 'src/main/resources/**/*.scss',
 				tasks: ['sass']
+			},
+
+			docs: {
+				files: ['src/main/**/*.js'],
+				tasks: ['yuidoc:compile']
 			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-yuidoc');
 
-	grunt.registerTask('build', ['sass']);
+	grunt.registerTask('build', ['sass','yuidoc']);
 	grunt.registerTask('default', ['build', 'watch']);
 
 	grunt.registerTask('serve', function(target) {
@@ -137,6 +158,7 @@ module.exports = function(grunt) {
 
 		grunt.task.run([
 			'sass',
+			'yuidoc',
 			'open:dev',
 			'webpack-dev-server'
 		]);
