@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/main/js/login/LoginController.js - nt-mobile</title>
+    <title>src/main/js/login/LoginController.js - NextThought Mobile</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -15,9 +15,9 @@
     <div class="navbar-inner">
         <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
         
-	    <img alt="nt-mobile" src="../assets/css/logo.png" style="max-height: 65%;" title="nt-mobile">
+	    <img alt="NextThought Mobile" src="../assets/css/logo.png" style="max-height: 65%;" title="NextThought Mobile">
         
-            nt-mobile
+            NextThought Mobile
         </h1>
 	<div class="nav">
             <li class="divider-vertical"></li>
@@ -28,7 +28,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/LoginController", "modules/LoginActions"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AppConfig", "classes/Button", "classes/DebugInfo", "classes/HTTP_STATUS_CODES", "classes/LoginActions", "classes/LoginConstants", "classes/LoginController", "classes/LoginForm", "classes/LoginPanel", "classes/ResponseHandlers", "classes/Utils"]'>
         </form>
     </div>
 </div>
@@ -51,15 +51,33 @@
             <div class="tab-pane active" id="classes">
                 <ul id="api-classes" class="nav nav-list">
                     
+                        <li><a href="../classes/AppConfig.html">AppConfig</a></li>
+                    
+                        <li><a href="../classes/Button.html">Button</a></li>
+                    
+                        <li><a href="../classes/DebugInfo.html">DebugInfo</a></li>
+                    
+                        <li><a href="../classes/HTTP_STATUS_CODES.html">HTTP_STATUS_CODES</a></li>
+                    
+                        <li><a href="../classes/LoginActions.html">LoginActions</a></li>
+                    
+                        <li><a href="../classes/LoginConstants.html">LoginConstants</a></li>
+                    
                         <li><a href="../classes/LoginController.html">LoginController</a></li>
+                    
+                        <li><a href="../classes/LoginForm.html">LoginForm</a></li>
+                    
+                        <li><a href="../classes/LoginPanel.html">LoginPanel</a></li>
+                    
+                        <li><a href="../classes/ResponseHandlers.html">ResponseHandlers</a></li>
+                    
+                        <li><a href="../classes/Utils.html">Utils</a></li>
                     
                 </ul>
             </div>
 
             <div class="tab-pane" id="modules">
                 <ul id="api-modules" class="nav nav-list">
-                    
-                        <li><a href="../modules/LoginActions.html">LoginActions</a></li>
                     
                 </ul>
             </div>
@@ -108,13 +126,19 @@
 &#x27;use strict&#x27;;
 
 var AppDispatcher = require(&#x27;../common/dispatcher/AppDispatcher&#x27;);
+var AppConfig = require(&#x27;../common/AppConfig&#x27;);
 var EventEmitter = require(&#x27;events&#x27;).EventEmitter;
 var LoginConstants = require(&#x27;./LoginConstants&#x27;);
+var HttpStatusCodes = require(&#x27;../common/constants/HttpStatusCodes&#x27;);
 var merge = require(&#x27;react/lib/merge&#x27;);
 var Utils = require(&#x27;../common/Utils&#x27;);
 
 var CHANGE_EVENT = &#x27;change&#x27;;
 
+/**
+* Sends a ping to the dataserver to retrieve a &#x27;Pong&#x27; containing links for available next steps.
+* @method begin
+*/
 function begin() {
 	$.ajax({
 		dataType: &#x27;json&#x27;,
@@ -128,11 +152,27 @@ function begin() {
 	});
 }
 
+/**
+* Attempt a login using the provided credentials.
+* @method log_in
+* @param {Object} credentials The credentials (currently expects username, password)
+*/
 function log_in(credentials) {
 	console.log(&quot;LoginController::login&quot;, credentials);
+	var url = LoginController.getHref(LoginConstants.LOGIN_PASSWORD_LINK);
+	Utils.call(url,credentials,ResponseHandlers.login,&#x27;GET&#x27;);
 }
 
+/**
+* Collection of methods for handling responses from the dataserver related to logins.
+* @class ResponseHandlers
+*/
 var ResponseHandlers = {
+	/**
+	* Handles a &#x27;pong&#x27; response from a call to dataserver &#x27;ping&#x27;.
+	* @method pong
+	* @param {mixed} response The response from the call.
+	*/
 	pong: function(response) {
 		var auth = {
 			username: &#x27;ray.hatfield@gmail.com&#x27;,
@@ -148,6 +188,60 @@ var ResponseHandlers = {
 		Utils.call(handshakeLink.href,auth,ResponseHandlers.handshake);
 	},
 
+	/**
+	* Handles response from a call to a dataserver password login attempt.
+	* @method login
+	* @param {mixed} response The response from the call.
+	*/
+	login: function(response) {
+
+		var responseType = typeof response;
+
+		if(responseType == &#x27;number&#x27;) {
+			switch(response) {
+				case HttpStatusCodes.NO_CONTENT:
+				case HttpStatusCodes.NO_CONTENT_IE8:
+					debugger;
+					console.log(&quot;Login successful.&quot;);
+					// TODO: login failed. communicate this to the user.
+					return;
+				break;
+			}
+		}
+		
+		if( responseType == &#x27;number&#x27; &amp;&amp; response !== HttpStatusCodes.NO_CONTENT
+			|| (responseType == &#x27;object&#x27; &amp;&amp; !response.success)
+			|| !response )
+		{
+			console.log(&#x27;login failed.&#x27;);
+			// TODO: login failed. communicate this to the user.
+			return;
+		}
+
+		// TODO: login successful. communicate this to the app.
+		console.log(&quot;Login successful.&quot;);
+		debugger;
+
+		// var t = typeof o;
+
+		// if((t === &#x27;number&#x27; &amp;&amp; o !== 204 &amp;&amp; o !== 1223) || (t === &#x27;object&#x27; &amp;&amp; !o.success) || !o){
+
+		// 	var msg = null;
+		// 	if(t === &#x27;number&#x27; &amp;&amp; o == 401){
+		// 		msg = getString(&#x27;The username or password you entered is incorrect. Please try again.&#x27;);
+		// 	}
+		// 	return error(msg);
+		// }
+		// document.getElementById(&#x27;mask-msg&#x27;).innerHTML = getString(&#x27;Redirecting...&#x27;);
+		// redirect();
+
+	},
+
+	/**
+	* Handles response from a dataserver handshake call.
+	* @method login
+	* @param {mixed} response The response from the call.
+	*/
 	handshake: function(response) {
 		console.log(&#x27;handshake handler.&#x27;);
 		if(response &amp;&amp; response.hasOwnProperty(&#x27;Links&#x27;)) {
@@ -155,6 +249,7 @@ var ResponseHandlers = {
 			var links_by_rel = Utils.indexArrayByKey(response[&#x27;Links&#x27;],&#x27;rel&#x27;);
 			LoginController.setState({links: links_by_rel});
 		}
+
 
 		// from NextThoughtLoginApp login.js:
 		//

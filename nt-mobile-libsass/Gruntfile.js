@@ -124,7 +124,8 @@ module.exports = function(grunt) {
 					paths: 'src/main/js/',
 					themedir: 'node_modules/yuidoc-bootstrap-theme/',
 					helpers: ['node_modules/yuidoc-bootstrap-theme/helpers/helpers.js'],
-					outdir: 'docs/'
+					outdir: 'docs/',
+					extension: '.js,.jsx'
 				}
 			}
 		},
@@ -138,7 +139,7 @@ module.exports = function(grunt) {
 			},
 
 			docs: {
-				files: ['src/main/**/*.js'],
+				files: ['src/main/**/*.js','src/main/**/*.jsx'],
 				tasks: ['yuidoc:compile']
 			}
 		}

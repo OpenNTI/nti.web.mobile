@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/main/js/common/dispatcher/invariant.js - NextThought Mobile</title>
+    <title>src/main/js/common/Utils.js - NextThought Mobile</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -115,64 +115,115 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>src/main/js/common/dispatcher/invariant.js <small>File</small></h1>
+    <h1>src/main/js/common/Utils.js <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
-/**
- * Copyright (c) 2014, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @providesModule invariant
- */
-
 &quot;use strict&quot;;
-
 /**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
+* @class Utils
+*/
+var Utils = {
+	getLink: function(o, rel) {
+		if (o &amp;&amp; o.Links) { o = o.Links; }
 
-var invariant = function(condition, format, a, b, c, d, e, f) {
-  if (false) {
-    if (format === undefined) {
-      throw new Error(&#x27;invariant requires an error message argument&#x27;);
-    }
-  }
+		var v, i = o.length - 1;
+		for (i; i&gt;=0; i--) {
+			v = o[i];
+			if (v &amp;&amp; v.rel === rel) {
+				return v;
+			}
+		}
+	},
+	/**
+	* Make a server request.
+	* @method call
+	* @param url {String} The url to request
+	* @param data {mixed} An object or query string to submit as part of the request
+	* @param callback {function} The function to invoke upon request completion
+	* @param forceMethod {String} Force the request to use this method (e.g. &#x27;GET&#x27; or &#x27;POST&#x27;)
+	*/
+	call: function(url,data,callback,forceMethod) {
+		var username = data? data.username : undefined,
+			password = data? data.password : undefined,
+			auth = password? (&#x27;Basic &#x27;+btoa(username+&#x27;:&#x27;+password)) : undefined,
+			m = forceMethod? forceMethod : data? &#x27;POST&#x27;:&#x27;GET&#x27;,
+			l = url,/* + &quot;?dc=&quot;+(new Date().getTime()),*/
+			f = { withCredentials: true },
+			h = {
+				Accept:&#x27;application/json&#x27;,
+				Authorization:auth,
+				&#x27;Content-Type&#x27;:&#x27;application/x-www-form-urlencoded&#x27;
+			};
 
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error(
-        &#x27;Minified exception occurred; use the non-minified dev environment &#x27; +
-        &#x27;for the full error message and additional helpful warnings.&#x27;
-      );
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(
-        &#x27;Invariant Violation: &#x27; +
-        format.replace(/%s/g, function() { return args[argIndex++]; })
-      );
-    }
+		if(!auth){ delete h.Authorization; f = {}; }
+		if(!data) { delete h[&#x27;Content-Type&#x27;]; }
 
-    error.framesToPop = 1; // we don&#x27;t care about invariant&#x27;s own frame
-    throw error;
-  }
-};
+		if (m === &#x27;GET&#x27; &amp;&amp; data){
+			delete data.password;
+			delete data.remember;
+			delete data.username;
+		}
 
-module.exports = invariant;
+		var x = $.ajax({
+			xhrFields: f,
+			url: l,
+			type: m,
+			headers: h,
+			data: data,
+			dataType: &#x27;json&#x27;
+		}).fail(function(jqXHR, textStatus){
+			//console.error(&#x27;The request failed. Server up? CORS?\nURL: &#x27;+l, textStatus, jqXHR.status);
+			if(callback){ callback.call(window, jqXHR.status ); }
+		}).done(function(data){
+			if(callback){ callback.call(window, data || x.status ); }
+		});
+	},
+
+	/**
+	* Serializes an object to be submitted as part of an web/ajax request.
+	* @method toQueryString
+	* @param {Object} obj The object to serialize.
+	* @return {String} Serialized, URI-encoded, querystring form of the given object.
+	*/
+	toQueryString: function(obj) {
+		var k, t,string = [];
+		for(k in o){
+			if(o.hasOwnProperty(k)){
+				t = typeof o[k];
+				if(t===&#x27;string&#x27; || t===&#x27;boolean&#x27; || t===&#x27;number&#x27;) {
+					string.push([encodeURIComponent(k),encodeURIComponent(o[k])].join(&#x27;=&#x27;));
+				} else {
+					console.log(typeof o[k], k, o[k]);
+				}
+			}
+		}
+		return string.join(&#x27;&amp;&#x27;);
+	},
+
+	/*
+	* Maps the given object array, indexed by element[key].
+	* Example:
+	* var in = [{name:&#x27;banana&#x27;, color:&#x27;yellow&#x27;}, {name:&#x27;apple&#x27;, color:&#x27;red&#x27;}];
+	* Utils.indexArrayByKey(in,&#x27;name&#x27;) returns:
+	* {
+	* 	&#x27;banana&#x27;: {name:&#x27;banana&#x27;, color:&#x27;yellow&#x27;},
+	* 	&#x27;apple&#x27;: {name:&#x27;apple&#x27;, color:&#x27;red&#x27;}
+	* }
+	* Note: No attempt is made to prevent items with
+	* the same key from stomping each other.
+	*/
+	indexArrayByKey: function(arr, key) {
+		var result = {};
+		arr.forEach(function(item) {
+			result[item[key]] = item;
+		});
+		return result;
+	}
+}
+
+module.exports = Utils;
 
     </pre>
 </div>

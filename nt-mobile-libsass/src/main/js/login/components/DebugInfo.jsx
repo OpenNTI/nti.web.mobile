@@ -7,6 +7,10 @@ var LoginController = require('../LoginController');
 var LoginActions = require('../LoginActions');
 var LoginConstants = require('../LoginConstants');
 
+/**
+* Utility React component for emitting debug info for LoginPanel.
+* @class DebugInfo
+*/
 module.exports = React.createClass({
 	render: function() {
 		var links = [];

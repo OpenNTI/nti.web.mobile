@@ -1,10 +1,91 @@
 {
     "project": {
-        "name": "nt-mobile",
+        "name": "NextThought Mobile",
         "description": "Mobile-first implementation of the NextThought web app.",
         "version": "0.0.0"
     },
     "files": {
+        "src/main/js/common/components/forms/Button.jsx": {
+            "name": "src/main/js/common/components/forms/Button.jsx",
+            "modules": {},
+            "classes": {
+                "Button": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/components/AppContainer.jsx": {
+            "name": "src/main/js/common/components/AppContainer.jsx",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/components/Avatar.jsx": {
+            "name": "src/main/js/common/components/Avatar.jsx",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/components/BrowseCourseDropdown.jsx": {
+            "name": "src/main/js/common/components/BrowseCourseDropdown.jsx",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/components/CatalogEntry.jsx": {
+            "name": "src/main/js/common/components/CatalogEntry.jsx",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/components/CourseSelector.jsx": {
+            "name": "src/main/js/common/components/CourseSelector.jsx",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/components/LeftNav.jsx": {
+            "name": "src/main/js/common/components/LeftNav.jsx",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/components/MainContentPanel.jsx": {
+            "name": "src/main/js/common/components/MainContentPanel.jsx",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/components/Nav.jsx": {
+            "name": "src/main/js/common/components/Nav.jsx",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/components/Profile.jsx": {
+            "name": "src/main/js/common/components/Profile.jsx",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/constants/HttpStatusCodes.js": {
+            "name": "src/main/js/common/constants/HttpStatusCodes.js",
+            "modules": {},
+            "classes": {
+                "HTTP_STATUS_CODES": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src/main/js/common/dispatcher/AppDispatcher.js": {
             "name": "src/main/js/common/dispatcher/AppDispatcher.js",
             "modules": {},
@@ -26,12 +107,58 @@
             "fors": {},
             "namespaces": {}
         },
+        "src/main/js/common/AppConfig.js": {
+            "name": "src/main/js/common/AppConfig.js",
+            "modules": {},
+            "classes": {
+                "AppConfig": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/Utils.js": {
+            "name": "src/main/js/common/Utils.js",
+            "modules": {},
+            "classes": {
+                "Utils": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/login/components/DebugInfo.jsx": {
+            "name": "src/main/js/login/components/DebugInfo.jsx",
+            "modules": {},
+            "classes": {
+                "DebugInfo": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/login/components/LoginPanel.jsx": {
+            "name": "src/main/js/login/components/LoginPanel.jsx",
+            "modules": {},
+            "classes": {
+                "LoginForm": 1,
+                "LoginPanel": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src/main/js/login/LoginActions.js": {
             "name": "src/main/js/login/LoginActions.js",
-            "modules": {
+            "modules": {},
+            "classes": {
                 "LoginActions": 1
             },
-            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/login/LoginConstants.js": {
+            "name": "src/main/js/login/LoginConstants.js",
+            "modules": {},
+            "classes": {
+                "LoginConstants": 1
+            },
             "fors": {},
             "namespaces": {}
         },
@@ -39,6 +166,7 @@
             "name": "src/main/js/login/LoginController.js",
             "modules": {},
             "classes": {
+                "ResponseHandlers": 1,
                 "LoginController": 1
             },
             "fors": {},
@@ -50,23 +178,136 @@
             "classes": {},
             "fors": {},
             "namespaces": {}
+        },
+        "src/main/js/app.jsx": {
+            "name": "src/main/js/app.jsx",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
         }
     },
-    "modules": {
+    "modules": {},
+    "classes": {
+        "Button": {
+            "name": "Button",
+            "shortname": "Button",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/main/js/common/components/forms/Button.jsx",
+            "line": 7,
+            "description": "React Button component"
+        },
+        "HTTP_STATUS_CODES": {
+            "name": "HTTP_STATUS_CODES",
+            "shortname": "HTTP_STATUS_CODES",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/main/js/common/constants/HttpStatusCodes.js",
+            "line": 1,
+            "description": "Constants for HTTP response codes."
+        },
+        "AppConfig": {
+            "name": "AppConfig",
+            "shortname": "AppConfig",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/main/js/common/AppConfig.js",
+            "line": 3,
+            "description": "Application configuration/settings"
+        },
+        "Utils": {
+            "name": "Utils",
+            "shortname": "Utils",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/main/js/common/Utils.js",
+            "line": 2
+        },
+        "DebugInfo": {
+            "name": "DebugInfo",
+            "shortname": "DebugInfo",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/main/js/login/components/DebugInfo.jsx",
+            "line": 10,
+            "description": "Utility React component for emitting debug info for LoginPanel."
+        },
+        "LoginForm": {
+            "name": "LoginForm",
+            "shortname": "LoginForm",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/main/js/login/components/LoginPanel.jsx",
+            "line": 12,
+            "description": "Login Form React component"
+        },
+        "LoginPanel": {
+            "name": "LoginPanel",
+            "shortname": "LoginPanel",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/main/js/login/components/LoginPanel.jsx",
+            "line": 53,
+            "description": "React component for housing LoginForm"
+        },
         "LoginActions": {
             "name": "LoginActions",
-            "submodules": {},
-            "classes": {
-                "LoginController": 1
-            },
-            "fors": {},
-            "namespaces": {},
-            "tag": "module",
+            "shortname": "LoginActions",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/main/js/login/LoginActions.js",
+            "line": 5,
+            "description": "Actions available to views for login-related functionality."
+        },
+        "LoginConstants": {
+            "name": "LoginConstants",
+            "shortname": "LoginConstants",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 1,
+            "description": "Constants related to (and used by) the login modules."
+        },
+        "ResponseHandlers": {
+            "name": "ResponseHandlers",
+            "shortname": "ResponseHandlers",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
             "file": "src/main/js/login/LoginController.js",
-            "line": 79
-        }
-    },
-    "classes": {
+            "line": 44,
+            "description": "Collection of methods for handling responses from the dataserver related to logins."
+        },
         "LoginController": {
             "name": "LoginController",
             "shortname": "LoginController",
@@ -75,14 +316,99 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "LoginActions",
-            "namespace": "",
             "file": "src/main/js/login/LoginController.js",
-            "line": 79,
+            "line": 156,
             "description": "Coordinates login actions between the view and the dataserver\nand emits related events."
         }
     },
     "classitems": [
+        {
+            "file": "src/main/js/common/components/forms/Button.jsx",
+            "line": 1,
+            "class": "Button"
+        },
+        {
+            "file": "src/main/js/common/components/AppContainer.jsx",
+            "line": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/components/Avatar.jsx",
+            "line": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/components/BrowseCourseDropdown.jsx",
+            "line": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/components/CatalogEntry.jsx",
+            "line": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/components/CourseSelector.jsx",
+            "line": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/components/LeftNav.jsx",
+            "line": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/components/MainContentPanel.jsx",
+            "line": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/components/Nav.jsx",
+            "line": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/components/Profile.jsx",
+            "line": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/constants/HttpStatusCodes.js",
+            "line": 7,
+            "itemtype": "property",
+            "name": "NO_CONTENT (204)",
+            "static": 1,
+            "final": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/constants/HttpStatusCodes.js",
+            "line": 14,
+            "description": "IE8 mangles 204 responses from ajax requests into 1223.",
+            "itemtype": "property",
+            "name": "NO_CONTENT_IE8 (1223)",
+            "static": 1,
+            "final": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/constants/HttpStatusCodes.js",
+            "line": 22,
+            "itemtype": "property",
+            "name": "UNAUTHORIZED (401)",
+            "static": 1,
+            "final": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/constants/HttpStatusCodes.js",
+            "line": 29,
+            "itemtype": "property",
+            "name": "NOT_FOUND (404)",
+            "static": 1,
+            "final": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
         {
             "file": "src/main/js/common/dispatcher/AppDispatcher.js",
             "line": 20,
@@ -94,13 +420,13 @@
                     "type": "Object"
                 }
             ],
-            "class": "LoginController"
+            "class": "AppConfig"
         },
         {
             "file": "src/main/js/common/dispatcher/Dispatcher.js",
             "line": 18,
             "description": "Dispatcher is used to broadcast payloads to registered callbacks. This is\ndifferent from generic pub-sub systems in two ways:\n\n  1) Callbacks are not subscribed to particular events. Every payload is\n     dispatched to every registered callback.\n  2) Callbacks can be deferred in whole or part until other callbacks have\n     been executed.\n\nFor example, consider this hypothetical flight destination form, which\nselects a default city when a country is selected:\n\n  var flightDispatcher = new Dispatcher();\n\n  // Keeps track of which country is selected\n  var CountryStore = {country: null};\n\n  // Keeps track of which city is selected\n  var CityStore = {city: null};\n\n  // Keeps track of the base flight price of the selected city\n  var FlightPriceStore = {price: null}\n\nWhen a user changes the selected city, we dispatch the payload:\n\n  flightDispatcher.dispatch({\n    actionType: 'city-update',\n    selectedCity: 'paris'\n  });\n\nThis payload is digested by `CityStore`:\n\n  flightDispatcher.register(function(payload)) {\n    if (payload.actionType === 'city-update') {\n      CityStore.city = payload.selectedCity;\n    }\n  });\n\nWhen the user selects a country, we dispatch the payload:\n\n  flightDispatcher.dispatch({\n    actionType: 'country-update',\n    selectedCountry: 'australia'\n  });\n\nThis payload is digested by both stores:\n\n   CountryStore.dispatchToken = flightDispatcher.register(function(payload) {\n    if (payload.actionType === 'country-update') {\n      CountryStore.country = payload.selectedCountry;\n    }\n  });\n\nWhen the callback to update `CountryStore` is registered, we save a reference\nto the returned token. Using this token with `waitFor()`, we can guarantee\nthat `CountryStore` is updated before the callback that updates `CityStore`\nneeds to query its data.\n\n  CityStore.dispatchToken = flightDispatcher.register(function(payload) {\n    if (payload.actionType === 'country-update') {\n      // `CountryStore.country` may not be updated.\n      flightDispatcher.waitFor([CountryStore.dispatchToken]);\n      // `CountryStore.country` is now guaranteed to be updated.\n\n      // Select the default city for the new country\n      CityStore.city = getDefaultCityForCountry(CountryStore.country);\n    }\n  });\n\nThe usage of `waitFor()` can be chained, for example:\n\n  FlightPriceStore.dispatchToken =\n    flightDispatcher.register(function(payload)) {\n      switch (payload.actionType) {\n        case 'country-update':\n          flightDispatcher.waitFor([CityStore.dispatchToken]);\n          FlightPriceStore.price =\n            getFlightPriceStore(CountryStore.country, CityStore.city);\n          break;\n\n        case 'city-update':\n          FlightPriceStore.price =\n            FlightPriceStore(CountryStore.country, CityStore.city);\n          break;\n    }\n  });\n\nThe `country-update` payload will be guaranteed to invoke the stores'\nregistered callbacks in order: `CountryStore`, `CityStore`, then\n`FlightPriceStore`.",
-            "class": "LoginController"
+            "class": "AppConfig"
         },
         {
             "file": "src/main/js/common/dispatcher/Dispatcher.js",
@@ -117,7 +443,7 @@
                 "description": "",
                 "type": "String"
             },
-            "class": "LoginController"
+            "class": "AppConfig"
         },
         {
             "file": "src/main/js/common/dispatcher/Dispatcher.js",
@@ -130,7 +456,7 @@
                     "type": "String"
                 }
             ],
-            "class": "LoginController"
+            "class": "AppConfig"
         },
         {
             "file": "src/main/js/common/dispatcher/Dispatcher.js",
@@ -143,7 +469,7 @@
                     "type": "Array<string>"
                 }
             ],
-            "class": "LoginController"
+            "class": "AppConfig"
         },
         {
             "file": "src/main/js/common/dispatcher/Dispatcher.js",
@@ -156,7 +482,7 @@
                     "type": "Object"
                 }
             ],
-            "class": "LoginController"
+            "class": "AppConfig"
         },
         {
             "file": "src/main/js/common/dispatcher/Dispatcher.js",
@@ -166,7 +492,7 @@
                 "description": "",
                 "type": "Boolean"
             },
-            "class": "LoginController"
+            "class": "AppConfig"
         },
         {
             "file": "src/main/js/common/dispatcher/Dispatcher.js",
@@ -180,7 +506,7 @@
                 }
             ],
             "internal": "",
-            "class": "LoginController"
+            "class": "AppConfig"
         },
         {
             "file": "src/main/js/common/dispatcher/Dispatcher.js",
@@ -194,31 +520,310 @@
                 }
             ],
             "internal": "",
-            "class": "LoginController"
+            "class": "AppConfig"
         },
         {
             "file": "src/main/js/common/dispatcher/Dispatcher.js",
             "line": 237,
             "description": "Clear bookkeeping used for dispatching.",
             "internal": "",
-            "class": "LoginController"
+            "class": "AppConfig"
         },
         {
             "file": "src/main/js/common/dispatcher/invariant.js",
             "line": 1,
             "description": "Copyright (c) 2014, Facebook, Inc.\nAll rights reserved.\n\nThis source code is licensed under the BSD-style license found in the\nLICENSE file in the root directory of this source tree. An additional grant\nof patent rights can be found in the PATENTS file in the same directory.",
             "providesmodule": "invariant",
-            "class": "LoginController"
+            "class": "AppConfig"
         },
         {
             "file": "src/main/js/common/dispatcher/invariant.js",
             "line": 14,
             "description": "Use invariant() to assert state which your program assumes to be true.\n\nProvide sprintf-style format (only %s is supported) and arguments\nto provide information about what broke and what you were\nexpecting.\n\nThe invariant message will be stripped in production, but the invariant\nwill remain to ensure logic does not differ in production.",
-            "class": "LoginController"
+            "class": "AppConfig"
+        },
+        {
+            "file": "src/main/js/common/AppConfig.js",
+            "line": 8,
+            "description": "Where to go upon successful login.",
+            "itemtype": "property",
+            "name": "login_success_url",
+            "static": 1,
+            "final": 1,
+            "class": "AppConfig"
+        },
+        {
+            "file": "src/main/js/common/Utils.js",
+            "line": 17,
+            "description": "Make a server request.",
+            "itemtype": "method",
+            "name": "call",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "The url to request",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "An object or query string to submit as part of the request",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "callback",
+                    "description": "The function to invoke upon request completion",
+                    "type": "Function"
+                },
+                {
+                    "name": "forceMethod",
+                    "description": "Force the request to use this method (e.g. 'GET' or 'POST')",
+                    "type": "String"
+                }
+            ],
+            "class": "Utils"
+        },
+        {
+            "file": "src/main/js/common/Utils.js",
+            "line": 62,
+            "description": "Serializes an object to be submitted as part of an web/ajax request.",
+            "itemtype": "method",
+            "name": "toQueryString",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "The object to serialize.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "Serialized, URI-encoded, querystring form of the given object.",
+                "type": "String"
+            },
+            "class": "Utils"
+        },
+        {
+            "file": "src/main/js/login/components/DebugInfo.jsx",
+            "line": 1,
+            "class": "DebugInfo"
+        },
+        {
+            "file": "src/main/js/login/components/LoginPanel.jsx",
+            "line": 1,
+            "class": "LoginForm"
+        },
+        {
+            "file": "src/main/js/login/components/LoginPanel.jsx",
+            "line": 25,
+            "description": "Submit-handler for the html login form; Invokes LoginActions.log_in.",
+            "itemtype": "method",
+            "name": "handleSubmit",
+            "class": "LoginForm"
+        },
+        {
+            "file": "src/main/js/login/LoginActions.js",
+            "line": 11,
+            "description": "Initializes the login system.",
+            "itemtype": "method",
+            "name": "begin",
+            "class": "LoginActions"
+        },
+        {
+            "file": "src/main/js/login/LoginActions.js",
+            "line": 22,
+            "description": "Attempt a login using the provided credentials.",
+            "itemtype": "method",
+            "name": "log_in",
+            "params": [
+                {
+                    "name": "credentials",
+                    "description": "The credentials to submit for authentication. Currently expects 'username' and 'password'.",
+                    "type": "Object"
+                }
+            ],
+            "class": "LoginActions"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 10,
+            "itemtype": "property",
+            "name": "ACCOUNT_CREATE",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 17,
+            "itemtype": "property",
+            "name": "ACCOUNT_PREFLIGHT_CREATE",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 24,
+            "itemtype": "property",
+            "name": "FORGOT_PASSCODE",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 31,
+            "itemtype": "property",
+            "name": "FORGOT_USERNAME",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 38,
+            "itemtype": "property",
+            "name": "HANDSHAKE",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 45,
+            "description": "The rel for the password login link from the dataserver.",
+            "itemtype": "property",
+            "name": "LOGIN_PASSWORD_LINK",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 53,
+            "itemtype": "property",
+            "name": "MIMETYPE_PONG",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 60,
+            "itemtype": "property",
+            "name": "RESET_PASSCODE",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 69,
+            "description": "The name of the action for initializing the LoginController.",
+            "itemtype": "property",
+            "name": "LOGIN_BEGIN",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 77,
+            "itemtype": "property",
+            "name": "LOGIN_SUCCESS",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 84,
+            "itemtype": "property",
+            "name": "LOGIN_FAILURE",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 91,
+            "description": "The event emitted by the LoginController when its links change.",
+            "itemtype": "property",
+            "name": "LOGIN_LINKS_CHANGED",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 91,
+            "line": 16,
+            "description": "Sends a ping to the dataserver to retrieve a 'Pong' containing links for available next steps.",
+            "itemtype": "method",
+            "name": "begin",
+            "class": "ResponseHandlers"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 33,
+            "description": "Attempt a login using the provided credentials.",
+            "itemtype": "method",
+            "name": "log_in",
+            "params": [
+                {
+                    "name": "credentials",
+                    "description": "The credentials (currently expects username, password)",
+                    "type": "Object"
+                }
+            ],
+            "class": "ResponseHandlers"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 49,
+            "description": "Handles a 'pong' response from a call to dataserver 'ping'.",
+            "itemtype": "method",
+            "name": "pong",
+            "params": [
+                {
+                    "name": "response",
+                    "description": "The response from the call.",
+                    "type": "Mixed"
+                }
+            ],
+            "class": "ResponseHandlers"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 69,
+            "description": "Handles response from a call to a dataserver password login attempt.",
+            "itemtype": "method",
+            "name": "login",
+            "params": [
+                {
+                    "name": "response",
+                    "description": "The response from the call.",
+                    "type": "Mixed"
+                }
+            ],
+            "class": "ResponseHandlers"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 118,
+            "description": "Handles response from a dataserver handshake call.",
+            "itemtype": "method",
+            "name": "login",
+            "params": [
+                {
+                    "name": "response",
+                    "description": "The response from the call.",
+                    "type": "Mixed"
+                }
+            ],
+            "class": "ResponseHandlers"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 168,
             "description": "Indicates whether we have the necessary information required to attempt \na password login.\nThe current implementation simply reflects whether we have a link\nwith rel=logon.nti.password",
             "itemtype": "method",
             "name": "canDoPasswordLogin",
@@ -226,12 +831,11 @@
                 "description": "Whether we have the necessary information required\nto attempt a password login.",
                 "type": "Boolean"
             },
-            "class": "LoginController",
-            "module": "LoginActions"
+            "class": "LoginController"
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 105,
+            "line": 182,
             "description": "Indicates whether we're currently logged in.",
             "itemtype": "method",
             "name": "isLoggedIn",
@@ -239,12 +843,11 @@
                 "description": "Whether we're currently logged in.",
                 "type": "Boolean"
             },
-            "class": "LoginController",
-            "module": "LoginActions"
+            "class": "LoginController"
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 114,
+            "line": 191,
             "description": "Updates the state with properties from data. They will be merged with the\ncurrent state so it is acceptable and expected for the argument to contain only the\nparts it cares about. While this mimicks the signature of the React method, this is\nnot a React component and should not be confused with one.",
             "itemtype": "method",
             "name": "setState",
@@ -255,12 +858,11 @@
                     "type": "Object"
                 }
             ],
-            "class": "LoginController",
-            "module": "LoginActions"
+            "class": "LoginController"
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 127,
+            "line": 204,
             "description": "Looks up a link by its rel attribute and returns its href.",
             "itemtype": "method",
             "name": "getHref",
@@ -275,12 +877,11 @@
                 "description": "The href for the link with the specified rel attribute, or null.",
                 "type": "String"
             },
-            "class": "LoginController",
-            "module": "LoginActions"
+            "class": "LoginController"
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 141,
+            "line": 218,
             "description": "Register to be notified of state changes for this LoginController.",
             "itemtype": "method",
             "name": "addChangeListener",
@@ -291,12 +892,11 @@
                     "type": "Function"
                 }
             ],
-            "class": "LoginController",
-            "module": "LoginActions"
+            "class": "LoginController"
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 150,
+            "line": 227,
             "description": "Un-register a previously registered event callback listener",
             "itemtype": "method",
             "name": "removeChangeListener",
@@ -307,8 +907,7 @@
                     "type": "Function"
                 }
             ],
-            "class": "LoginController",
-            "module": "LoginActions"
+            "class": "LoginController"
         },
         {
             "file": "src/main/js/login/TodoActions.js",
@@ -320,8 +919,7 @@
                     "type": "String"
                 }
             ],
-            "class": "",
-            "module": "LoginActions"
+            "class": ""
         },
         {
             "file": "src/main/js/login/TodoActions.js",
@@ -333,15 +931,18 @@
                     "type": "String"
                 }
             ],
-            "class": "",
-            "module": "LoginActions"
+            "class": ""
         },
         {
             "file": "src/main/js/login/TodoActions.js",
             "line": 30,
             "description": "Delete all the completed Logins",
-            "class": "",
-            "module": "LoginActions"
+            "class": ""
+        },
+        {
+            "file": "src/main/js/app.jsx",
+            "line": 1,
+            "class": ""
         }
     ],
     "warnings": [
@@ -360,6 +961,46 @@
         {
             "message": "unknown tag: providesmodule",
             "line": " src/main/js/common/dispatcher/invariant.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/common/components/forms/Button.jsx:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/common/components/AppContainer.jsx:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/common/components/Avatar.jsx:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/common/components/BrowseCourseDropdown.jsx:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/common/components/CatalogEntry.jsx:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/common/components/CourseSelector.jsx:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/common/components/LeftNav.jsx:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/common/components/MainContentPanel.jsx:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/common/components/Nav.jsx:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/common/components/Profile.jsx:1"
         },
         {
             "message": "Missing item type\nA bridge function between the views and the dispatcher, marking the action\nas a view action.  Another variant here could be handleServerAction.",
@@ -411,6 +1052,14 @@
         },
         {
             "message": "Missing item type",
+            "line": " src/main/js/login/components/DebugInfo.jsx:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/login/components/LoginPanel.jsx:1"
+        },
+        {
+            "message": "Missing item type",
             "line": " src/main/js/login/TodoActions.js:10"
         },
         {
@@ -420,6 +1069,10 @@
         {
             "message": "Missing item type\nDelete all the completed Logins",
             "line": " src/main/js/login/TodoActions.js:30"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/app.jsx:1"
         }
     ]
 }

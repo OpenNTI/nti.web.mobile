@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/main/js/common/dispatcher/invariant.js - NextThought Mobile</title>
+    <title>AppConfig - NextThought Mobile</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -115,66 +115,139 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>src/main/js/common/dispatcher/invariant.js <small>File</small></h1>
+    <h1>AppConfig <small>Class</small></h1>
 </div>
 
-<div class="file">
-    <pre class="prettyprint linenums">
-/**
- * Copyright (c) 2014, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @providesModule invariant
- */
+<div class="well well-small">
+    
 
-&quot;use strict&quot;;
+    
 
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
+    
+        <div class="foundat">
+            Defined in: <a href="../files/src_main_js_common_AppConfig.js.html#l3"><code>src&#x2F;main&#x2F;js&#x2F;common&#x2F;AppConfig.js:3</code></a>
+        </div>
+    
 
-var invariant = function(condition, format, a, b, c, d, e, f) {
-  if (false) {
-    if (format === undefined) {
-      throw new Error(&#x27;invariant requires an error message argument&#x27;);
-    }
-  }
+    
 
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error(
-        &#x27;Minified exception occurred; use the non-minified dev environment &#x27; +
-        &#x27;for the full error message and additional helpful warnings.&#x27;
-      );
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(
-        &#x27;Invariant Violation: &#x27; +
-        format.replace(/%s/g, function() { return args[argIndex++]; })
-      );
-    }
+    
+</div>
 
-    error.framesToPop = 1; // we don&#x27;t care about invariant&#x27;s own frame
-    throw error;
-  }
-};
 
-module.exports = invariant;
 
-    </pre>
+<div class="well well-small">
+    <p>Application configuration/settings</p>
+
+</div>
+
+
+
+<div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#index">Index</a></li>
+
+        
+        
+            <li><a data-toggle="tab" href="#properties">Properties</a></li>
+        
+        
+        
+    </ul>
+
+    <div class="tab-content">
+        <div id="index" class="tab-pane active">
+            <h2 class="off-left">Item Index</h2>
+
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties">
+                        
+                            <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_login_success_url" data-tablink="login_success_url">login_success_url</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+        </div>
+
+        
+
+        
+            <div id="properties" class="tab-pane">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property_login_success_url" class="property item">
+    <h3 class="name"><code>login_success_url</code></h3>
+    <span class="type">Unknown</span>
+
+    
+
+    
+
+    
+        <span class="flag final">final</span>
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_main_js_common_AppConfig.js.html#l8"><code>src&#x2F;main&#x2F;js&#x2F;common&#x2F;AppConfig.js:8</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Where to go upon successful login.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
+        
+    </div>
 </div>
 
                     </div>

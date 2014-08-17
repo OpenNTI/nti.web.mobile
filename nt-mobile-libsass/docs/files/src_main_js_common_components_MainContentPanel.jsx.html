@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/main/js/common/dispatcher/invariant.js - NextThought Mobile</title>
+    <title>src/main/js/common/components/MainContentPanel.jsx - NextThought Mobile</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -115,64 +115,33 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>src/main/js/common/dispatcher/invariant.js <small>File</small></h1>
+    <h1>src/main/js/common/components/MainContentPanel.jsx <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
-/**
- * Copyright (c) 2014, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @providesModule invariant
- */
+/** @jsx React.DOM */
 
-&quot;use strict&quot;;
+var React = require(&#x27;react/addons&#x27;);
+var LeftNav = require(&#x27;./LeftNav&#x27;);
+var AppDispatcher = require(&#x27;../dispatcher/AppDispatcher&#x27;);
+var LoginController = require(&#x27;../../login/LoginController&#x27;);
+var LoginPanel = require(&#x27;../../login/components/LoginPanel&#x27;);
 
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
+var MainContentPanel = React.createClass({
 
-var invariant = function(condition, format, a, b, c, d, e, f) {
-  if (false) {
-    if (format === undefined) {
-      throw new Error(&#x27;invariant requires an error message argument&#x27;);
-    }
-  }
 
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error(
-        &#x27;Minified exception occurred; use the non-minified dev environment &#x27; +
-        &#x27;for the full error message and additional helpful warnings.&#x27;
-      );
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(
-        &#x27;Invariant Violation: &#x27; +
-        format.replace(/%s/g, function() { return args[argIndex++]; })
-      );
-    }
+	render: function() {
+		return (
+			&lt;div&gt;
+				&lt;div&gt;{this.props.loggedIn ? &#x27;Yep&#x27; : &#x27;Nope&#x27;}&lt;/div&gt;
+				&lt;LoginPanel /&gt;
+			&lt;/div&gt;
+		);
+	}
+});
 
-    error.framesToPop = 1; // we don&#x27;t care about invariant&#x27;s own frame
-    throw error;
-  }
-};
-
-module.exports = invariant;
+module.exports = MainContentPanel;
 
     </pre>
 </div>

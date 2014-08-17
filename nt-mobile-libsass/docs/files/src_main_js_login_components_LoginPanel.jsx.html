@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/main/js/common/dispatcher/invariant.js - NextThought Mobile</title>
+    <title>src/main/js/login/components/LoginPanel.jsx - NextThought Mobile</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -115,64 +115,83 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>src/main/js/common/dispatcher/invariant.js <small>File</small></h1>
+    <h1>src/main/js/login/components/LoginPanel.jsx <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
-/**
- * Copyright (c) 2014, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @providesModule invariant
- */
+/** @jsx React.DOM */
 
-&quot;use strict&quot;;
+&#x27;use strict&#x27;;
+
+var React = require(&#x27;react/addons&#x27;);
+var LoginController = require(&#x27;../LoginController&#x27;);
+var LoginActions = require(&#x27;../LoginActions&#x27;);
+var LoginConstants = require(&#x27;../LoginConstants&#x27;);
+var DebugInfo = require(&#x27;./DebugInfo&#x27;);
+var Button = require(&#x27;../../common/components/forms/Button&#x27;);
 
 /**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
+* Login Form React component
+* @class LoginForm
+*/
+var LoginForm = React.createClass({
 
-var invariant = function(condition, format, a, b, c, d, e, f) {
-  if (false) {
-    if (format === undefined) {
-      throw new Error(&#x27;invariant requires an error message argument&#x27;);
-    }
-  }
+	getInitialState: function() {
+		return {
+			username: &#x27;&#x27;,
+			password: &#x27;&#x27;
+		};
+	},
 
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error(
-        &#x27;Minified exception occurred; use the non-minified dev environment &#x27; +
-        &#x27;for the full error message and additional helpful warnings.&#x27;
-      );
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(
-        &#x27;Invariant Violation: &#x27; +
-        format.replace(/%s/g, function() { return args[argIndex++]; })
-      );
-    }
+	/**
+	* Submit-handler for the html login form; Invokes LoginActions.log_in.
+	* @method handleSubmit
+	*/
+	handleSubmit: function(event) {
+		var username = this.refs.username.state.value;
+		var pw = this.refs.password.state.value;
+		LoginActions.log_in({username: username, password:pw});
+	},
 
-    error.framesToPop = 1; // we don&#x27;t care about invariant&#x27;s own frame
-    throw error;
-  }
-};
+	render: function() {
+		return (
+			&lt;div className=&quot;row&quot;&gt;
+				&lt;form className=&quot;login-form large-6 large-centered columns&quot; onSubmit={this.handleSubmit}&gt;
+					&lt;fieldset&gt;
+						&lt;input type=&quot;text&quot; ref=&quot;username&quot; placeholder=&quot;Username&quot; defaultValue={this.state.username} /&gt;
+						&lt;input type=&quot;password&quot; ref=&quot;password&quot; placeholder=&quot;Password&quot; defaulValue={this.state.password} /&gt;
+						&lt;Button
+							className={this.props.submitEnabled ? &#x27;&#x27; : &#x27;disabled&#x27;}
+							onClick={this.props.submitEnabled ? this.handleSubmit : function(){return false}}&gt;Log In&lt;/Button&gt;
+					&lt;/fieldset&gt;
+				&lt;/form&gt;
+				&lt;DebugInfo /&gt;
+			&lt;/div&gt;
+		);
+	}
+});
 
-module.exports = invariant;
+/**
+* React component for housing LoginForm
+* @class LoginPanel
+*/
+var LoginPanel = React.createClass({
+
+	componentDidMount: function() {
+		LoginActions.begin();
+	},
+
+	render: function() {
+		return (
+			&lt;div className=&quot;login-panel&quot;&gt;
+				&lt;LoginForm submitEnabled={LoginController.canDoPasswordLogin()}/&gt;
+			&lt;/div&gt;
+		);
+	}
+});
+
+module.exports = LoginPanel;
 
     </pre>
 </div>

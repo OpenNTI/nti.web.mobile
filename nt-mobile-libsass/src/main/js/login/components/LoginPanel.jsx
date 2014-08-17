@@ -9,6 +9,10 @@ var LoginConstants = require('../LoginConstants');
 var DebugInfo = require('./DebugInfo');
 var Button = require('../../common/components/forms/Button');
 
+/**
+* Login Form React component
+* @class LoginForm
+*/
 var LoginForm = React.createClass({
 
 	getInitialState: function() {
@@ -18,6 +22,10 @@ var LoginForm = React.createClass({
 		};
 	},
 
+	/**
+	* Submit-handler for the html login form; Invokes LoginActions.log_in.
+	* @method handleSubmit
+	*/
 	handleSubmit: function(event) {
 		var username = this.refs.username.state.value;
 		var pw = this.refs.password.state.value;
@@ -42,6 +50,10 @@ var LoginForm = React.createClass({
 	}
 });
 
+/**
+* React component for housing LoginForm
+* @class LoginPanel
+*/
 var LoginPanel = React.createClass({
 
 	componentDidMount: function() {

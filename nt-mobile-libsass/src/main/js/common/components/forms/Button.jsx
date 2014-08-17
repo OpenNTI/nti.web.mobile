@@ -4,9 +4,12 @@
 
 var React = require('react/addons');
 
+/**
+* React Button component
+* @class Button
+*/
 var Button = React.createClass({
 	render: function() {
-		debugger;
 		return this.transferPropsTo(
 			<a href="#" className='button tiny radius'>{this.props.children}</a>
 		);

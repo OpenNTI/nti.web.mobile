@@ -4,13 +4,19 @@
 'use strict';
 
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
+var AppConfig = require('../common/AppConfig');
 var EventEmitter = require('events').EventEmitter;
 var LoginConstants = require('./LoginConstants');
+var HttpStatusCodes = require('../common/constants/HttpStatusCodes');
 var merge = require('react/lib/merge');
 var Utils = require('../common/Utils');
 
 var CHANGE_EVENT = 'change';
 
+/**
+* Sends a ping to the dataserver to retrieve a 'Pong' containing links for available next steps.
+* @method begin
+*/
 function begin() {
 	$.ajax({
 		dataType: 'json',
@@ -24,11 +30,27 @@ function begin() {
 	});
 }
 
+/**
+* Attempt a login using the provided credentials.
+* @method log_in
+* @param {Object} credentials The credentials (currently expects username, password)
+*/
 function log_in(credentials) {
 	console.log("LoginController::login", credentials);
+	var url = LoginController.getHref(LoginConstants.LOGIN_PASSWORD_LINK);
+	Utils.call(url,credentials,ResponseHandlers.login,'GET');
 }
 
+/**
+* Collection of methods for handling responses from the dataserver related to logins.
+* @class ResponseHandlers
+*/
 var ResponseHandlers = {
+	/**
+	* Handles a 'pong' response from a call to dataserver 'ping'.
+	* @method pong
+	* @param {mixed} response The response from the call.
+	*/
 	pong: function(response) {
 		var auth = {
 			username: 'ray.hatfield@gmail.com',
@@ -44,6 +66,60 @@ var ResponseHandlers = {
 		Utils.call(handshakeLink.href,auth,ResponseHandlers.handshake);
 	},
 
+	/**
+	* Handles response from a call to a dataserver password login attempt.
+	* @method login
+	* @param {mixed} response The response from the call.
+	*/
+	login: function(response) {
+
+		var responseType = typeof response;
+
+		if(responseType == 'number') {
+			switch(response) {
+				case HttpStatusCodes.NO_CONTENT:
+				case HttpStatusCodes.NO_CONTENT_IE8:
+					debugger;
+					console.log("Login successful.");
+					// TODO: login failed. communicate this to the user.
+					return;
+				break;
+			}
+		}
+		
+		if( responseType == 'number' && response !== HttpStatusCodes.NO_CONTENT
+			|| (responseType == 'object' && !response.success)
+			|| !response )
+		{
+			console.log('login failed.');
+			// TODO: login failed. communicate this to the user.
+			return;
+		}
+
+		// TODO: login successful. communicate this to the app.
+		console.log("Login successful.");
+		debugger;
+
+		// var t = typeof o;
+
+		// if((t === 'number' && o !== 204 && o !== 1223) || (t === 'object' && !o.success) || !o){
+
+		// 	var msg = null;
+		// 	if(t === 'number' && o == 401){
+		// 		msg = getString('The username or password you entered is incorrect. Please try again.');
+		// 	}
+		// 	return error(msg);
+		// }
+		// document.getElementById('mask-msg').innerHTML = getString('Redirecting...');
+		// redirect();
+
+	},
+
+	/**
+	* Handles response from a dataserver handshake call.
+	* @method login
+	* @param {mixed} response The response from the call.
+	*/
 	handshake: function(response) {
 		console.log('handshake handler.');
 		if(response && response.hasOwnProperty('Links')) {
@@ -51,6 +127,7 @@ var ResponseHandlers = {
 			var links_by_rel = Utils.indexArrayByKey(response['Links'],'rel');
 			LoginController.setState({links: links_by_rel});
 		}
+
 
 		// from NextThoughtLoginApp login.js:
 		//

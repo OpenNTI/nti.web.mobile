@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/main/js/common/components/Profile.jsx - NextThought Mobile</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+        
+	    <img alt="NextThought Mobile" src="../assets/css/logo.png" style="max-height: 65%;" title="NextThought Mobile">
+        
+            NextThought Mobile
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AppConfig", "classes/Button", "classes/DebugInfo", "classes/HTTP_STATUS_CODES", "classes/LoginActions", "classes/LoginConstants", "classes/LoginController", "classes/LoginForm", "classes/LoginPanel", "classes/ResponseHandlers", "classes/Utils"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+    <h3>APIs</h3>
+    <div id="sidebar">
+        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" placeholder="Type to filter APIs">
+        </div>
+
+        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+            <div class="tab-pane active" id="classes">
+                <ul id="api-classes" class="nav nav-list">
+                    
+                        <li><a href="../classes/AppConfig.html">AppConfig</a></li>
+                    
+                        <li><a href="../classes/Button.html">Button</a></li>
+                    
+                        <li><a href="../classes/DebugInfo.html">DebugInfo</a></li>
+                    
+                        <li><a href="../classes/HTTP_STATUS_CODES.html">HTTP_STATUS_CODES</a></li>
+                    
+                        <li><a href="../classes/LoginActions.html">LoginActions</a></li>
+                    
+                        <li><a href="../classes/LoginConstants.html">LoginConstants</a></li>
+                    
+                        <li><a href="../classes/LoginController.html">LoginController</a></li>
+                    
+                        <li><a href="../classes/LoginForm.html">LoginForm</a></li>
+                    
+                        <li><a href="../classes/LoginPanel.html">LoginPanel</a></li>
+                    
+                        <li><a href="../classes/ResponseHandlers.html">ResponseHandlers</a></li>
+                    
+                        <li><a href="../classes/Utils.html">Utils</a></li>
+                    
+                </ul>
+            </div>
+
+            <div class="tab-pane" id="modules">
+                <ul id="api-modules" class="nav nav-list">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <div class="page-header">
+    <h1>src/main/js/common/components/Profile.jsx <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/** @jsx React.DOM */
+
+/*
+	A sample page to show how different components could work, plus displays the size and orientation of device.
+*/
+
+var React = require(&#x27;react/addons&#x27;);
+var Avatar = require(&#x27;./Avatar&#x27;);
+
+module.exports = React.createClass({
+	render: function() {
+		return (
+			&lt;div className=&quot;profile-body&quot;&gt;
+				&lt;ul className=&quot;small-block-grid-1 medium-block-grid-1 large-block-grid-1&quot;&gt;
+					&lt;li&gt;
+						&lt;ul className=&quot;small-block-grid-1 medium-block-grid-2 large-block-grid-3&quot;&gt;
+							&lt;li&gt;&lt;Avatar /&gt;&lt;/li&gt;
+							&lt;li&gt;
+								&lt;p className=&quot;panel&quot;&gt;
+									&lt;strong className=&quot;show-for-small-only&quot;&gt;This text is shown only on a small screen.&lt;/strong&gt;
+									&lt;strong className=&quot;show-for-medium-up&quot;&gt;This text is shown on medium screens and up.&lt;/strong&gt;
+									&lt;strong className=&quot;show-for-medium-only&quot;&gt;This text is shown only on a medium screen.&lt;/strong&gt;
+									&lt;strong className=&quot;show-for-large-up&quot;&gt;This text is shown on large screens and up.&lt;/strong&gt;
+									&lt;strong className=&quot;show-for-large-only&quot;&gt;This text is shown only on a large screen.&lt;/strong&gt;
+									&lt;strong className=&quot;show-for-xlarge-up&quot;&gt;This text is shown on xlarge screens and up.&lt;/strong&gt;
+									&lt;strong className=&quot;show-for-xlarge-only&quot;&gt;This text is shown only on an xlarge screen.&lt;/strong&gt;
+									&lt;strong className=&quot;show-for-xxlarge-up&quot;&gt;This text is shown on xxlarge screens and up.&lt;/strong&gt;
+								&lt;/p&gt;
+							&lt;/li&gt;
+							&lt;li&gt;
+								&lt;p className=&quot;panel&quot;&gt;
+									&lt;strong className=&quot;hide-for-small-only&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on a small screen.&lt;/strong&gt;
+									&lt;strong className=&quot;hide-for-medium-up&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on a medium, large, xlarge, or xxlarge screen.&lt;/strong&gt;
+									&lt;strong className=&quot;hide-for-medium-only&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on a medium screen.&lt;/strong&gt;
+									&lt;strong className=&quot;hide-for-large-up&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on a large, xlarge, or xxlarge screen.&lt;/strong&gt;
+									&lt;strong className=&quot;hide-for-large-only&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on a large screen.&lt;/strong&gt;
+									&lt;strong className=&quot;hide-for-xlarge-up&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on an xlarge screen and up.&lt;/strong&gt;
+									&lt;strong className=&quot;hide-for-xlarge-only&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on an xlarge screen.&lt;/strong&gt;
+									&lt;strong className=&quot;hide-for-xxlarge-up&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on an xxlarge screen.&lt;/strong&gt;
+								&lt;/p&gt;
+							&lt;/li&gt;
+							&lt;li&gt;
+								&lt;p className=&quot;panel&quot;&gt;
+									&lt;strong className=&quot;show-for-landscape&quot;&gt;You are in landscape orientation.&lt;/strong&gt;
+									&lt;strong className=&quot;show-for-portrait&quot;&gt;You are in portrait orientation.&lt;/strong&gt;
+								&lt;/p&gt;
+							&lt;/li&gt;
+							&lt;li&gt;
+								&lt;p className=&quot;panel&quot;&gt;
+									&lt;strong className=&quot;show-for-touch&quot;&gt;You are on a touch-enabled device.&lt;/strong&gt;
+									&lt;strong className=&quot;hide-for-touch&quot;&gt;You are not on a touch-enabled device.&lt;/strong&gt;
+								&lt;/p&gt;
+							&lt;/li&gt;
+							&lt;li&gt;
+								&lt;p className=&quot;panel&quot;&gt;
+									&lt;strong className=&quot;hidden-for-small-only&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on a small screen.&lt;/strong&gt;
+									&lt;strong className=&quot;hidden-for-medium-up&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on a medium, large, xlarge, or xxlarge screen.&lt;/strong&gt;
+									&lt;strong className=&quot;hidden-for-medium-only&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on a medium screen.&lt;/strong&gt;
+									&lt;strong className=&quot;hidden-for-large-up&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on a large, xlarge, or xxlarge screen.&lt;/strong&gt;
+									&lt;strong className=&quot;hidden-for-large-only&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on a large screen.&lt;/strong&gt;
+									&lt;strong className=&quot;hidden-for-xlarge-up&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on an xlarge screen and up.&lt;/strong&gt;
+									&lt;strong className=&quot;hidden-for-xlarge-only&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on an xlarge screen.&lt;/strong&gt;
+									&lt;strong className=&quot;hidden-for-xxlarge-up&quot;&gt;You are &lt;em&gt;not&lt;/em&gt; on an xxlarge screen.&lt;/strong&gt;
+								&lt;/p&gt;
+							&lt;/li&gt;
+							&lt;li&gt;
+								&lt;p className=&quot;panel&quot;&gt;
+									&lt;strong className=&quot;visible-for-small-only&quot;&gt;This text is shown only on a small screen.&lt;/strong&gt;
+									&lt;strong className=&quot;visible-for-medium-up&quot;&gt;This text is shown on medium screens and up.&lt;/strong&gt;
+									&lt;strong className=&quot;visible-for-medium-only&quot;&gt;This text is shown only on a medium screen.&lt;/strong&gt;
+									&lt;strong className=&quot;visible-for-large-up&quot;&gt;This text is shown on large screens and up.&lt;/strong&gt;
+									&lt;strong className=&quot;visible-for-large-only&quot;&gt;This text is shown only on a large screen.&lt;/strong&gt;
+									&lt;strong className=&quot;visible-for-xlarge-up&quot;&gt;This text is shown on xlarge screens and up.&lt;/strong&gt;
+									&lt;strong className=&quot;visible-for-xlarge-only&quot;&gt;This text is shown only on an xlarge screen.&lt;/strong&gt;
+									&lt;strong className=&quot;visible-for-xxlarge-up&quot;&gt;This text is shown on xxlarge screens and up.&lt;/strong&gt;
+								&lt;/p&gt;
+							&lt;/li&gt;
+						&lt;/ul&gt;
+					&lt;/li&gt;
+				&lt;/ul&gt;
+			&lt;/div&gt;
+		);
+	}
+});
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

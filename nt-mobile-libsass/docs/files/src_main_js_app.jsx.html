@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/main/js/common/dispatcher/invariant.js - NextThought Mobile</title>
+    <title>src/main/js/app.jsx - NextThought Mobile</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -115,64 +115,31 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>src/main/js/common/dispatcher/invariant.js <small>File</small></h1>
+    <h1>src/main/js/app.jsx <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
-/**
- * Copyright (c) 2014, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @providesModule invariant
- */
+/** @jsx React.DOM */
 
-&quot;use strict&quot;;
+&#x27;use strict&#x27;;
 
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
+// global.React = require(&#x27;react&#x27;); // needed for the react devtools chrome extension.
 
-var invariant = function(condition, format, a, b, c, d, e, f) {
-  if (false) {
-    if (format === undefined) {
-      throw new Error(&#x27;invariant requires an error message argument&#x27;);
-    }
-  }
+var React = require(&#x27;react/addons&#x27;);
 
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error(
-        &#x27;Minified exception occurred; use the non-minified dev environment &#x27; +
-        &#x27;for the full error message and additional helpful warnings.&#x27;
-      );
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(
-        &#x27;Invariant Violation: &#x27; +
-        format.replace(/%s/g, function() { return args[argIndex++]; })
-      );
-    }
+var LoginPanel = require(&#x27;./login/components/LoginPanel&#x27;);
+var AppContainer = require(&#x27;./common/components/AppContainer&#x27;);
 
-    error.framesToPop = 1; // we don&#x27;t care about invariant&#x27;s own frame
-    throw error;
-  }
-};
+React.renderComponent(
+	&lt;AppContainer /&gt;,
+	document.getElementById(&#x27;content&#x27;)
+);
 
-module.exports = invariant;
+// React.renderComponent(&lt;Nav /&gt;, document.getElementById(&#x27;content&#x27;));
+// React.renderComponent(&lt;LoginPanel /&gt;, document.getElementById(&#x27;content&#x27;));
+
+$(document).foundation();
 
     </pre>
 </div>

@@ -1,5 +1,5 @@
 {
-	"name": "nt-mobile",
+	"name": "NextThought Mobile",
 	"version": "0.0.0",
 	"description": "Mobile-first implementation of the NextThought web app.",
 	"src": "src/main",
