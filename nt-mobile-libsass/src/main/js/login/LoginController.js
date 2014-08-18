@@ -6,6 +6,7 @@
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
 var AppConfig = require('../common/AppConfig');
 var EventEmitter = require('events').EventEmitter;
+var LoginActions = require('./LoginActions');
 var LoginConstants = require('./LoginConstants');
 var HttpStatusCodes = require('../common/constants/HttpStatusCodes');
 var merge = require('react/lib/merge');
@@ -13,11 +14,16 @@ var Utils = require('../common/Utils');
 
 var CHANGE_EVENT = 'change';
 
+
+function begin() {
+	_ping();
+}
+
 /**
 * Sends a ping to the dataserver to retrieve a 'Pong' containing links for available next steps.
 * @method begin
 */
-function begin() {
+function _ping() {
 	$.ajax({
 		dataType: 'json',
 		url:'/dataserver2/logon.ping', // TODO: get this url from config?
@@ -26,8 +32,18 @@ function begin() {
 	})
 	.done(ResponseHandlers.pong)
 	.fail(function(){
-		console.log('LoginController::begin failed.');
-	});
+		console.log('LoginController::ping failed.');
+	});	
+}
+
+/**
+* Send a ping to dataserver to fetch available links.
+* @method updateLinks
+* @param {Object} credentials Object with username and password properties for which we're requesting links.
+*/
+function updateLinks(credentials) {
+	LoginController.setState(credentials);
+	_ping();
 }
 
 /**
@@ -35,10 +51,34 @@ function begin() {
 * @method log_in
 * @param {Object} credentials The credentials (currently expects username, password)
 */
-function log_in(credentials) {
-	console.log("LoginController::login", credentials);
+function logIn(credentials) {
 	var url = LoginController.getHref(LoginConstants.LOGIN_PASSWORD_LINK);
 	Utils.call(url,credentials,ResponseHandlers.login,'GET');
+}
+
+function logOut() {
+	var url = LoginController.getHref(LoginConstants.LOGOUT_LINK);
+	if(url) {
+		$.ajax({
+			url: url,
+			headers: {Accept:'application/json'},
+			type: 'GET'	
+		})
+		.done(ResponseHandlers.logOut)
+		.fail(ResponseHandlers.fail);	
+	}
+	else {
+		LoginController.setLoggedIn(false);
+	}
+}
+
+function initialState() {
+	return {
+		links:{},
+		isLoggedIn: false,
+		username: '',
+		password: ''
+	};
 }
 
 /**
@@ -48,22 +88,41 @@ function log_in(credentials) {
 var ResponseHandlers = {
 	/**
 	* Handles a 'pong' response from a call to dataserver 'ping'.
+	* If the pong includes a handshake link and we have a username
+	* this method will send the handshake request.
 	* @method pong
 	* @param {mixed} response The response from the call.
 	*/
 	pong: function(response) {
-		var auth = {
-			username: 'ray.hatfield@gmail.com',
-			password: 'ray.hatfield',
-			remember: true
-		};
-		var handshakeLink = Utils.getLink(response, LoginConstants.HANDSHAKE);
+		debugger;
 		if(response && response.hasOwnProperty('Links')) {
 			// index the links by their 'rel' attr
 			var links_by_rel = Utils.indexArrayByKey(response['Links'],'rel');
 			LoginController.setState({links: links_by_rel});
 		}
-		Utils.call(handshakeLink.href,auth,ResponseHandlers.handshake);
+		if(LoginController.getHref(LoginConstants.LOGIN_CONTINUE_LINK)) {
+			LoginController.setLoggedIn(true);
+			return;
+		}
+		var username = LoginController.state.username || '';
+		var password = LoginController.state.password || '';
+		var handshakeLink = LoginController.getHref(LoginConstants.HANDSHAKE_LINK);
+		if(handshakeLink && username.length > 0) {
+			var auth = {
+				username: username,
+				password: password,
+				remember: true
+			};
+			Utils.call(handshakeLink,auth,ResponseHandlers.handshake);	
+		}
+	},
+
+	/**
+	* General-purpose failure handler.
+	* @method fail
+	*/
+	fail:function(response) {
+		console.log('Ajax call failed.');
 	},
 
 	/**
@@ -73,46 +132,32 @@ var ResponseHandlers = {
 	*/
 	login: function(response) {
 
-		var responseType = typeof response;
+		function isSuccess(res) {
+			switch(typeof response) {
+				case 'number':
+					if (response == HttpStatusCodes.NO_CONTENT || response == HttpStatusCodes.NO_CONTENT_IE8) {
+						console.log('Login successful');
+						return true;
+					}
+					return false;
+				break;
 
-		if(responseType == 'number') {
-			switch(response) {
-				case HttpStatusCodes.NO_CONTENT:
-				case HttpStatusCodes.NO_CONTENT_IE8:
-					debugger;
-					console.log("Login successful.");
-					// TODO: login failed. communicate this to the user.
-					return;
+				case 'object':
+					return !!response.success;
 				break;
 			}
-		}
-		
-		if( responseType == 'number' && response !== HttpStatusCodes.NO_CONTENT
-			|| (responseType == 'object' && !response.success)
-			|| !response )
-		{
-			console.log('login failed.');
-			// TODO: login failed. communicate this to the user.
-			return;
+			return false;
 		}
 
-		// TODO: login successful. communicate this to the app.
-		console.log("Login successful.");
-		debugger;
+		LoginController.setLoggedIn(isSuccess(response));
+	},
 
-		// var t = typeof o;
-
-		// if((t === 'number' && o !== 204 && o !== 1223) || (t === 'object' && !o.success) || !o){
-
-		// 	var msg = null;
-		// 	if(t === 'number' && o == 401){
-		// 		msg = getString('The username or password you entered is incorrect. Please try again.');
-		// 	}
-		// 	return error(msg);
-		// }
-		// document.getElementById('mask-msg').innerHTML = getString('Redirecting...');
-		// redirect();
-
+	/**
+	* Response handler for logout call.
+	* @method logOut
+	*/
+	logOut: function(response) {
+		LoginController.setLoggedIn(false);
 	},
 
 	/**
@@ -121,37 +166,14 @@ var ResponseHandlers = {
 	* @param {mixed} response The response from the call.
 	*/
 	handshake: function(response) {
-		console.log('handshake handler.');
 		if(response && response.hasOwnProperty('Links')) {
 			// index the links by their 'rel' attr
 			var links_by_rel = Utils.indexArrayByKey(response['Links'],'rel');
 			LoginController.setState({links: links_by_rel});
 		}
-
-
-		// from NextThoughtLoginApp login.js:
-		//
-		// resetForPingHandshake();
-		// if(typeof o === 'number' || !o){
-		// 	error();
-		// 	return;
-		// }
-
-		// if(showErrorOnReady && $.isFunction(showErrorOnReady)){
-		// 	showErrorOnReady.call();
-		// 	showErrorOnReady = null;
-		// }
-
-		// if(o.offline){
-		// 	offline();
-		// 	return;
-		// }
-
-		// addOAuthButtons(o.Links || [], true);
-		// updateSubmitButton();
-
 	}
 }
+
 
 /**
  * Coordinates login actions between the view and the dataserver
@@ -160,10 +182,7 @@ var ResponseHandlers = {
  */
 var LoginController = merge(EventEmitter.prototype, {
 
-	state: {
-		links:{},
-		isLoggedIn: false
-	},
+	state: initialState(),
 
 	/**
 	* Indicates whether we have the necessary information required to attempt 
@@ -186,6 +205,11 @@ var LoginController = merge(EventEmitter.prototype, {
 	*/
 	isLoggedIn: function() {
 		return this.state.isLoggedIn;
+	},
+
+	setLoggedIn: function(loggedIn) {
+		console.log('setLoggedIn: %s', loggedIn ? 'true' : 'false');
+		this.setState(loggedIn ? {isLoggedIn: loggedIn} : initialState());
 	},
 
 	/**
@@ -234,6 +258,11 @@ var LoginController = merge(EventEmitter.prototype, {
 	}
 });
 
+// Listen for LoginForm input changes
+LoginActions.on(LoginConstants.LOGIN_FORM_CHANGED, function(payload) {
+	updateLinks(payload.credentials);
+});
+
 // Register to handle all updates
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
@@ -247,8 +276,18 @@ AppDispatcher.register(function(payload) {
 
 		case LoginConstants.LOGIN_PASSWORD:
 			console.log("LoginController: LOGIN_PASSWORD.");
-			log_in(action.credentials);
+			logIn(action.credentials);
 			LoginController.emitChange();
+		break;
+
+		case LoginConstants.LOGOUT:
+			console.log("LoginController: LOGOUT.");
+			logOut();
+		break;
+
+		case LoginConstants.UPDATE_LINKS:
+			console.log("LoginController: UPDATE_LINKS.");
+			updateLinks(action.credentials);
 		break;
 
 		default:

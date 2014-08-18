@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/main/js/login/components/LoginPanel.jsx - NextThought Mobile</title>
+    <title>src/main/js/login/components/LoginPanel.jsx - nt-mobile</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -15,9 +15,9 @@
     <div class="navbar-inner">
         <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
         
-	    <img alt="NextThought Mobile" src="../assets/css/logo.png" style="max-height: 65%;" title="NextThought Mobile">
+	    <img alt="nt-mobile" src="../assets/css/logo.png" style="max-height: 65%;" title="nt-mobile">
         
-            NextThought Mobile
+            nt-mobile
         </h1>
 	<div class="nav">
             <li class="divider-vertical"></li>
@@ -129,6 +129,7 @@ var LoginController = require(&#x27;../LoginController&#x27;);
 var LoginActions = require(&#x27;../LoginActions&#x27;);
 var LoginConstants = require(&#x27;../LoginConstants&#x27;);
 var DebugInfo = require(&#x27;./DebugInfo&#x27;);
+var merge = require(&#x27;react/lib/merge&#x27;);
 var Button = require(&#x27;../../common/components/forms/Button&#x27;);
 
 /**
@@ -151,7 +152,23 @@ var LoginForm = React.createClass({
 	handleSubmit: function(event) {
 		var username = this.refs.username.state.value;
 		var pw = this.refs.password.state.value;
-		LoginActions.log_in({username: username, password:pw});
+		LoginActions.logIn({username: username, password:pw});
+	},
+
+	/**
+	* onChange handler for the username field. Triggers LoginActions.update_links
+	* @method usernameChanged
+	*/
+	usernameChanged: function(event) {
+		var username = this.refs.username.getDOMNode().value.trim();
+		var password = this.refs.password.getDOMNode().value.trim();
+		LoginActions.emit(LoginConstants.LOGIN_FORM_CHANGED,{
+			credentials: {
+				username:username,
+				password:password	
+			},
+			event:event
+		});
 	},
 
 	render: function() {
@@ -159,7 +176,7 @@ var LoginForm = React.createClass({
 			&lt;div className=&quot;row&quot;&gt;
 				&lt;form className=&quot;login-form large-6 large-centered columns&quot; onSubmit={this.handleSubmit}&gt;
 					&lt;fieldset&gt;
-						&lt;input type=&quot;text&quot; ref=&quot;username&quot; placeholder=&quot;Username&quot; defaultValue={this.state.username} /&gt;
+						&lt;input type=&quot;text&quot; ref=&quot;username&quot; placeholder=&quot;Username&quot; defaultValue={this.state.username} onChange={this.usernameChanged}/&gt;
 						&lt;input type=&quot;password&quot; ref=&quot;password&quot; placeholder=&quot;Password&quot; defaulValue={this.state.password} /&gt;
 						&lt;Button
 							className={this.props.submitEnabled ? &#x27;&#x27; : &#x27;disabled&#x27;}

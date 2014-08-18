@@ -1,6 +1,6 @@
 {
     "project": {
-        "name": "NextThought Mobile",
+        "name": "nt-mobile",
         "description": "Mobile-first implementation of the NextThought web app.",
         "version": "0.0.0"
     },
@@ -44,6 +44,13 @@
         },
         "src/main/js/common/components/CourseSelector.jsx": {
             "name": "src/main/js/common/components/CourseSelector.jsx",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main/js/common/components/Footer.jsx": {
+            "name": "src/main/js/common/components/Footer.jsx",
             "modules": {},
             "classes": {},
             "fors": {},
@@ -257,7 +264,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/main/js/login/components/LoginPanel.jsx",
-            "line": 12,
+            "line": 13,
             "description": "Login Form React component"
         },
         "LoginPanel": {
@@ -269,7 +276,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/main/js/login/components/LoginPanel.jsx",
-            "line": 53,
+            "line": 70,
             "description": "React component for housing LoginForm"
         },
         "LoginActions": {
@@ -281,7 +288,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/main/js/login/LoginActions.js",
-            "line": 5,
+            "line": 7,
             "description": "Actions available to views for login-related functionality."
         },
         "LoginConstants": {
@@ -305,7 +312,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/main/js/login/LoginController.js",
-            "line": 44,
+            "line": 72,
             "description": "Collection of methods for handling responses from the dataserver related to logins."
         },
         "LoginController": {
@@ -317,7 +324,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/main/js/login/LoginController.js",
-            "line": 156,
+            "line": 190,
             "description": "Coordinates login actions between the view and the dataserver\nand emits related events."
         }
     },
@@ -349,6 +356,11 @@
         },
         {
             "file": "src/main/js/common/components/CourseSelector.jsx",
+            "line": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/components/Footer.jsx",
             "line": 1,
             "class": "HTTP_STATUS_CODES"
         },
@@ -405,6 +417,15 @@
             "line": 29,
             "itemtype": "property",
             "name": "NOT_FOUND (404)",
+            "static": 1,
+            "final": 1,
+            "class": "HTTP_STATUS_CODES"
+        },
+        {
+            "file": "src/main/js/common/constants/HttpStatusCodes.js",
+            "line": 36,
+            "itemtype": "property",
+            "name": "SERVER_ERROR (500)",
             "static": 1,
             "final": 1,
             "class": "HTTP_STATUS_CODES"
@@ -613,15 +634,23 @@
         },
         {
             "file": "src/main/js/login/components/LoginPanel.jsx",
-            "line": 25,
+            "line": 26,
             "description": "Submit-handler for the html login form; Invokes LoginActions.log_in.",
             "itemtype": "method",
             "name": "handleSubmit",
             "class": "LoginForm"
         },
         {
+            "file": "src/main/js/login/components/LoginPanel.jsx",
+            "line": 36,
+            "description": "onChange handler for the username field. Triggers LoginActions.update_links",
+            "itemtype": "method",
+            "name": "usernameChanged",
+            "class": "LoginForm"
+        },
+        {
             "file": "src/main/js/login/LoginActions.js",
-            "line": 11,
+            "line": 13,
             "description": "Initializes the login system.",
             "itemtype": "method",
             "name": "begin",
@@ -629,7 +658,7 @@
         },
         {
             "file": "src/main/js/login/LoginActions.js",
-            "line": 22,
+            "line": 23,
             "description": "Attempt a login using the provided credentials.",
             "itemtype": "method",
             "name": "log_in",
@@ -640,6 +669,14 @@
                     "type": "Object"
                 }
             ],
+            "class": "LoginActions"
+        },
+        {
+            "file": "src/main/js/login/LoginActions.js",
+            "line": 35,
+            "description": "Log the current user out of the system.",
+            "itemtype": "method",
+            "name": "logOut",
             "class": "LoginActions"
         },
         {
@@ -681,15 +718,26 @@
         {
             "file": "src/main/js/login/LoginConstants.js",
             "line": 38,
+            "description": "The rel/key for the handshake link",
             "itemtype": "property",
-            "name": "HANDSHAKE",
+            "name": "HANDSHAKE_LINK",
             "type": "String",
             "final": 1,
             "class": "LoginConstants"
         },
         {
             "file": "src/main/js/login/LoginConstants.js",
-            "line": 45,
+            "line": 46,
+            "description": "The rel/key for the log-out link.",
+            "itemtype": "property",
+            "name": "LOGOUT_LINK",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 54,
             "description": "The rel for the password login link from the dataserver.",
             "itemtype": "property",
             "name": "LOGIN_PASSWORD_LINK",
@@ -699,7 +747,7 @@
         },
         {
             "file": "src/main/js/login/LoginConstants.js",
-            "line": 53,
+            "line": 62,
             "itemtype": "property",
             "name": "MIMETYPE_PONG",
             "type": "String",
@@ -708,7 +756,7 @@
         },
         {
             "file": "src/main/js/login/LoginConstants.js",
-            "line": 60,
+            "line": 69,
             "itemtype": "property",
             "name": "RESET_PASSCODE",
             "type": "String",
@@ -717,7 +765,17 @@
         },
         {
             "file": "src/main/js/login/LoginConstants.js",
-            "line": 69,
+            "line": 79,
+            "description": "Event emitted by LoginForm input changes.",
+            "itemtype": "property",
+            "name": "LOGIN_FORM_CHANGED",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 87,
             "description": "The name of the action for initializing the LoginController.",
             "itemtype": "property",
             "name": "LOGIN_BEGIN",
@@ -727,7 +785,17 @@
         },
         {
             "file": "src/main/js/login/LoginConstants.js",
-            "line": 77,
+            "line": 95,
+            "description": "Action name for attempting a password login.",
+            "itemtype": "property",
+            "name": "LOGIN_PASSWORD",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 103,
             "itemtype": "property",
             "name": "LOGIN_SUCCESS",
             "type": "String",
@@ -736,7 +804,7 @@
         },
         {
             "file": "src/main/js/login/LoginConstants.js",
-            "line": 84,
+            "line": 110,
             "itemtype": "property",
             "name": "LOGIN_FAILURE",
             "type": "String",
@@ -745,7 +813,7 @@
         },
         {
             "file": "src/main/js/login/LoginConstants.js",
-            "line": 91,
+            "line": 117,
             "description": "The event emitted by the LoginController when its links change.",
             "itemtype": "property",
             "name": "LOGIN_LINKS_CHANGED",
@@ -754,8 +822,18 @@
             "class": "LoginConstants"
         },
         {
+            "file": "src/main/js/login/LoginConstants.js",
+            "line": 125,
+            "description": "Action for requesting a ping/pong/handshake with the\ndataserver to get links for a given username.",
+            "itemtype": "property",
+            "name": "UPDATE_LINKS",
+            "type": "String",
+            "final": 1,
+            "class": "LoginConstants"
+        },
+        {
             "file": "src/main/js/login/LoginController.js",
-            "line": 16,
+            "line": 17,
             "description": "Sends a ping to the dataserver to retrieve a 'Pong' containing links for available next steps.",
             "itemtype": "method",
             "name": "begin",
@@ -763,7 +841,22 @@
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 33,
+            "line": 39,
+            "description": "Send a ping to dataserver to fetch available links.",
+            "itemtype": "method",
+            "name": "updateLinks",
+            "params": [
+                {
+                    "name": "credentials",
+                    "description": "Object with username and password properties for which we're requesting links.",
+                    "type": "Object"
+                }
+            ],
+            "class": "ResponseHandlers"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 50,
             "description": "Attempt a login using the provided credentials.",
             "itemtype": "method",
             "name": "log_in",
@@ -778,7 +871,7 @@
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 49,
+            "line": 77,
             "description": "Handles a 'pong' response from a call to dataserver 'ping'.",
             "itemtype": "method",
             "name": "pong",
@@ -793,7 +886,15 @@
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 69,
+            "line": 101,
+            "description": "General-purpose failure handler.",
+            "itemtype": "method",
+            "name": "fail",
+            "class": "ResponseHandlers"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 109,
             "description": "Handles response from a call to a dataserver password login attempt.",
             "itemtype": "method",
             "name": "login",
@@ -808,7 +909,15 @@
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 118,
+            "line": 144,
+            "description": "Response handler for logout call.",
+            "itemtype": "method",
+            "name": "logOut",
+            "class": "ResponseHandlers"
+        },
+        {
+            "file": "src/main/js/login/LoginController.js",
+            "line": 152,
             "description": "Handles response from a dataserver handshake call.",
             "itemtype": "method",
             "name": "login",
@@ -823,7 +932,7 @@
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 168,
+            "line": 204,
             "description": "Indicates whether we have the necessary information required to attempt \na password login.\nThe current implementation simply reflects whether we have a link\nwith rel=logon.nti.password",
             "itemtype": "method",
             "name": "canDoPasswordLogin",
@@ -835,7 +944,7 @@
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 182,
+            "line": 218,
             "description": "Indicates whether we're currently logged in.",
             "itemtype": "method",
             "name": "isLoggedIn",
@@ -847,7 +956,7 @@
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 191,
+            "line": 227,
             "description": "Updates the state with properties from data. They will be merged with the\ncurrent state so it is acceptable and expected for the argument to contain only the\nparts it cares about. While this mimicks the signature of the React method, this is\nnot a React component and should not be confused with one.",
             "itemtype": "method",
             "name": "setState",
@@ -862,7 +971,7 @@
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 204,
+            "line": 240,
             "description": "Looks up a link by its rel attribute and returns its href.",
             "itemtype": "method",
             "name": "getHref",
@@ -881,7 +990,7 @@
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 218,
+            "line": 254,
             "description": "Register to be notified of state changes for this LoginController.",
             "itemtype": "method",
             "name": "addChangeListener",
@@ -896,7 +1005,7 @@
         },
         {
             "file": "src/main/js/login/LoginController.js",
-            "line": 227,
+            "line": 263,
             "description": "Un-register a previously registered event callback listener",
             "itemtype": "method",
             "name": "removeChangeListener",
@@ -985,6 +1094,10 @@
         {
             "message": "Missing item type",
             "line": " src/main/js/common/components/CourseSelector.jsx:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/main/js/common/components/Footer.jsx:1"
         },
         {
             "message": "Missing item type",

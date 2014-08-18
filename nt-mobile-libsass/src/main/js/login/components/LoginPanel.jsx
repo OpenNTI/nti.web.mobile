@@ -7,6 +7,7 @@ var LoginController = require('../LoginController');
 var LoginActions = require('../LoginActions');
 var LoginConstants = require('../LoginConstants');
 var DebugInfo = require('./DebugInfo');
+var merge = require('react/lib/merge');
 var Button = require('../../common/components/forms/Button');
 
 /**
@@ -27,9 +28,28 @@ var LoginForm = React.createClass({
 	* @method handleSubmit
 	*/
 	handleSubmit: function(event) {
-		var username = this.refs.username.state.value;
-		var pw = this.refs.password.state.value;
-		LoginActions.log_in({username: username, password:pw});
+		if(this.props.submitEnabled) {
+			var username = this.refs.username.state.value;
+			var pw = this.refs.password.state.value;
+			LoginActions.logIn({username: username, password:pw});	
+		}
+		console.log(this.state.submitEnabled ? 'submitEnabled' : 'submit not enabled');
+	},
+
+	/**
+	* onChange handler for the username field. Triggers LoginActions.update_links
+	* @method usernameChanged
+	*/
+	usernameChanged: function(event) {
+		var username = this.refs.username.getDOMNode().value.trim();
+		var password = this.refs.password.getDOMNode().value.trim();
+		LoginActions.emit(LoginConstants.LOGIN_FORM_CHANGED,{
+			credentials: {
+				username:username,
+				password:password	
+			},
+			event:event
+		});
 	},
 
 	render: function() {
@@ -37,7 +57,7 @@ var LoginForm = React.createClass({
 			<div className="row">
 				<form className="login-form large-6 large-centered columns" onSubmit={this.handleSubmit}>
 					<fieldset>
-						<input type="text" ref="username" placeholder="Username" defaultValue={this.state.username} />
+						<input type="text" ref="username" placeholder="Username" defaultValue={this.state.username} onChange={this.usernameChanged}/>
 						<input type="password" ref="password" placeholder="Password" defaulValue={this.state.password} />
 						<Button
 							className={this.props.submitEnabled ? '' : 'disabled'}

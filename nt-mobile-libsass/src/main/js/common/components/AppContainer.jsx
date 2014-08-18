@@ -2,10 +2,14 @@
 
 var React = require('react/addons');
 var LeftNav = require('./LeftNav');
+var Footer = require('./Footer');
 var LoginController = require('../../login/LoginController');
 var MainContentPanel = require('./MainContentPanel');
 
-
+var LoginPanel = require('../../login/components/LoginPanel');
+var Router = require('react-router-component');
+var Locations = Router.Locations;
+var Location = Router.Location;
 
 module.exports = React.createClass({
 
@@ -18,6 +22,7 @@ module.exports = React.createClass({
 	},
 
 	componentWillUnmount: function() {
+		console.log('AppContainer::componentWillUnmount');
 		LoginController.removeChangeListener(this.loginStateChangeHandler);
 	},
 
@@ -58,7 +63,8 @@ module.exports = React.createClass({
 						</aside>
 
 						<section className="main-section">
-							<MainContentPanel loggedIn={this.state.loggedIn} />
+							<MainContentPanel key="mcp" loggedIn={this.state.loggedIn} />
+							<Footer />
 						</section>
 
 						<a className="exit-off-canvas"></a>

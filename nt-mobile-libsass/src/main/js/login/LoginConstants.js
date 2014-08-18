@@ -36,11 +36,28 @@ var links = {
 	FORGOT_USERNAME: "logon.forgot.username",
 	
 	/**
-	* @property HANDSHAKE
+	* The rel/key for the handshake link
+	* @property HANDSHAKE_LINK
 	* @type String
 	* @final
 	*/
-	HANDSHAKE: "logon.handshake",
+	HANDSHAKE_LINK: "logon.handshake",
+
+	/**
+	* The rel/key for the logon continue link
+	* @property LOGIN_CONTINUE_LINK
+	* @type String
+	* @final
+	*/
+	LOGIN_CONTINUE_LINK: "logon.continue",
+
+	/**
+	* The rel/key for the log-out link.
+	* @property LOGOUT_LINK
+	* @type String
+	* @final
+	*/
+	LOGOUT_LINK: "logon.logout",
 
 	/**
 	* The rel for the password login link from the dataserver.
@@ -66,6 +83,15 @@ var links = {
 }
 
 module.exports = merge(links, keyMirror({
+
+	/**
+	* Event emitted by LoginForm input changes.
+	* @property LOGIN_FORM_CHANGED
+	* @type String
+	* @final
+	*/	
+	LOGIN_FORM_CHANGED: null,
+
 	/**
 	* The name of the action for initializing the LoginController.
 	* @property LOGIN_BEGIN
@@ -73,6 +99,14 @@ module.exports = merge(links, keyMirror({
 	* @final
 	*/
 	LOGIN_BEGIN: null,
+
+	/**
+	* Action name for attempting a password login.
+	* @property LOGIN_PASSWORD
+	* @type String
+	* @final
+	*/
+	LOGIN_PASSWORD: null,
 
 	/**
 	* @property LOGIN_SUCCESS
@@ -94,6 +128,15 @@ module.exports = merge(links, keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_LINKS_CHANGED: null
+	LOGIN_LINKS_CHANGED: null,
+
+	/**
+	* Action for requesting a ping/pong/handshake with the
+	* dataserver to get links for a given username.
+	* @property UPDATE_LINKS
+	* @type String
+	* @final
+	*/
+	UPDATE_LINKS: null
 
 }));

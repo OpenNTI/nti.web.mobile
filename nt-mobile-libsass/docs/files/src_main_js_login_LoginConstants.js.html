@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/main/js/login/LoginConstants.js - NextThought Mobile</title>
+    <title>src/main/js/login/LoginConstants.js - nt-mobile</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -15,9 +15,9 @@
     <div class="navbar-inner">
         <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
         
-	    <img alt="NextThought Mobile" src="../assets/css/logo.png" style="max-height: 65%;" title="NextThought Mobile">
+	    <img alt="nt-mobile" src="../assets/css/logo.png" style="max-height: 65%;" title="nt-mobile">
         
-            NextThought Mobile
+            nt-mobile
         </h1>
 	<div class="nav">
             <li class="divider-vertical"></li>
@@ -158,11 +158,20 @@ var links = {
 	FORGOT_USERNAME: &quot;logon.forgot.username&quot;,
 	
 	/**
-	* @property HANDSHAKE
+	* The rel/key for the handshake link
+	* @property HANDSHAKE_LINK
 	* @type String
 	* @final
 	*/
-	HANDSHAKE: &quot;logon.handshake&quot;,
+	HANDSHAKE_LINK: &quot;logon.handshake&quot;,
+
+	/**
+	* The rel/key for the log-out link.
+	* @property LOGOUT_LINK
+	* @type String
+	* @final
+	*/
+	LOGOUT_LINK: &quot;logon.logout&quot;,
 
 	/**
 	* The rel for the password login link from the dataserver.
@@ -188,6 +197,15 @@ var links = {
 }
 
 module.exports = merge(links, keyMirror({
+
+	/**
+	* Event emitted by LoginForm input changes.
+	* @property LOGIN_FORM_CHANGED
+	* @type String
+	* @final
+	*/	
+	LOGIN_FORM_CHANGED: null,
+
 	/**
 	* The name of the action for initializing the LoginController.
 	* @property LOGIN_BEGIN
@@ -195,6 +213,14 @@ module.exports = merge(links, keyMirror({
 	* @final
 	*/
 	LOGIN_BEGIN: null,
+
+	/**
+	* Action name for attempting a password login.
+	* @property LOGIN_PASSWORD
+	* @type String
+	* @final
+	*/
+	LOGIN_PASSWORD: null,
 
 	/**
 	* @property LOGIN_SUCCESS
@@ -216,7 +242,16 @@ module.exports = merge(links, keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_LINKS_CHANGED: null
+	LOGIN_LINKS_CHANGED: null,
+
+	/**
+	* Action for requesting a ping/pong/handshake with the
+	* dataserver to get links for a given username.
+	* @property UPDATE_LINKS
+	* @type String
+	* @final
+	*/
+	UPDATE_LINKS: null
 
 }));
 

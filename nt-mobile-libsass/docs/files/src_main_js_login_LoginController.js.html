@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/main/js/login/LoginController.js - NextThought Mobile</title>
+    <title>src/main/js/login/LoginController.js - nt-mobile</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -15,9 +15,9 @@
     <div class="navbar-inner">
         <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
         
-	    <img alt="NextThought Mobile" src="../assets/css/logo.png" style="max-height: 65%;" title="NextThought Mobile">
+	    <img alt="nt-mobile" src="../assets/css/logo.png" style="max-height: 65%;" title="nt-mobile">
         
-            NextThought Mobile
+            nt-mobile
         </h1>
 	<div class="nav">
             <li class="divider-vertical"></li>
@@ -128,6 +128,7 @@
 var AppDispatcher = require(&#x27;../common/dispatcher/AppDispatcher&#x27;);
 var AppConfig = require(&#x27;../common/AppConfig&#x27;);
 var EventEmitter = require(&#x27;events&#x27;).EventEmitter;
+var LoginActions = require(&#x27;./LoginActions&#x27;);
 var LoginConstants = require(&#x27;./LoginConstants&#x27;);
 var HttpStatusCodes = require(&#x27;../common/constants/HttpStatusCodes&#x27;);
 var merge = require(&#x27;react/lib/merge&#x27;);
@@ -140,6 +141,11 @@ var CHANGE_EVENT = &#x27;change&#x27;;
 * @method begin
 */
 function begin() {
+	_ping();
+}
+
+function _ping() {
+
 	$.ajax({
 		dataType: &#x27;json&#x27;,
 		url:&#x27;/dataserver2/logon.ping&#x27;, // TODO: get this url from config?
@@ -148,8 +154,19 @@ function begin() {
 	})
 	.done(ResponseHandlers.pong)
 	.fail(function(){
-		console.log(&#x27;LoginController::begin failed.&#x27;);
-	});
+		console.log(&#x27;LoginController::ping failed.&#x27;);
+	});	
+}
+
+/**
+* Send a ping to dataserver to fetch available links.
+* @method updateLinks
+* @param {Object} credentials Object with username and password properties for which we&#x27;re requesting links.
+*/
+function updateLinks(credentials) {
+	console.log(&#x27;LoginController::updateLinks&#x27;);
+	LoginController.setState(credentials);
+	_ping();
 }
 
 /**
@@ -157,10 +174,21 @@ function begin() {
 * @method log_in
 * @param {Object} credentials The credentials (currently expects username, password)
 */
-function log_in(credentials) {
+function logIn(credentials) {
 	console.log(&quot;LoginController::login&quot;, credentials);
 	var url = LoginController.getHref(LoginConstants.LOGIN_PASSWORD_LINK);
 	Utils.call(url,credentials,ResponseHandlers.login,&#x27;GET&#x27;);
+}
+
+function logOut() {
+	var url = LoginController.getHref(LoginConstants.LOGOUT_LINK);
+	$.ajax({
+		url: url,
+		headers: {Accept:&#x27;application/json&#x27;},
+		type: &#x27;GET&#x27;	
+	})
+	.done(ResponseHandlers.logOut)
+	.fail(ResponseHandlers.fail);
 }
 
 /**
@@ -174,12 +202,16 @@ var ResponseHandlers = {
 	* @param {mixed} response The response from the call.
 	*/
 	pong: function(response) {
-		var auth = {
-			username: &#x27;ray.hatfield@gmail.com&#x27;,
-			password: &#x27;ray.hatfield&#x27;,
-			remember: true
-		};
-		var handshakeLink = Utils.getLink(response, LoginConstants.HANDSHAKE);
+		debugger;
+		var auth;
+		if(LoginController.state.username) {
+			auth = {
+				username: LoginController.state.username,
+				password: LoginController.state.password,
+				remember: true
+			};	
+		}
+		var handshakeLink = Utils.getLink(response, LoginConstants.HANDSHAKE_LINK);
 		if(response &amp;&amp; response.hasOwnProperty(&#x27;Links&#x27;)) {
 			// index the links by their &#x27;rel&#x27; attr
 			var links_by_rel = Utils.indexArrayByKey(response[&#x27;Links&#x27;],&#x27;rel&#x27;);
@@ -189,52 +221,54 @@ var ResponseHandlers = {
 	},
 
 	/**
+	* General-purpose failure handler.
+	* @method fail
+	*/
+	fail:function(response) {
+		console.log(&#x27;Ajax call failed.&#x27;);
+	},
+
+	/**
 	* Handles response from a call to a dataserver password login attempt.
 	* @method login
 	* @param {mixed} response The response from the call.
 	*/
 	login: function(response) {
 
-		var responseType = typeof response;
-
-		if(responseType == &#x27;number&#x27;) {
-			switch(response) {
-				case HttpStatusCodes.NO_CONTENT:
-				case HttpStatusCodes.NO_CONTENT_IE8:
-					debugger;
-					console.log(&quot;Login successful.&quot;);
-					// TODO: login failed. communicate this to the user.
-					return;
+		function isSuccess(res) {
+			switch(typeof response) {
+				case &#x27;number&#x27;:
+					if (response == HttpStatusCodes.NO_CONTENT || response == HttpStatusCodes.NO_CONTENT_IE8) {
+						console.log(&#x27;Login successful&#x27;);
+						return true;
+					}
+					return false;
 				break;
+
+				case &#x27;object&#x27;:
+					return !!response.success;
+				break;
+
+				default:
+					return false;
 			}
+			return false;
+		}
+
+		if(isSuccess(response)) {
+
 		}
 		
-		if( responseType == &#x27;number&#x27; &amp;&amp; response !== HttpStatusCodes.NO_CONTENT
-			|| (responseType == &#x27;object&#x27; &amp;&amp; !response.success)
-			|| !response )
-		{
-			console.log(&#x27;login failed.&#x27;);
-			// TODO: login failed. communicate this to the user.
-			return;
-		}
-
-		// TODO: login successful. communicate this to the app.
-		console.log(&quot;Login successful.&quot;);
 		debugger;
 
-		// var t = typeof o;
+	},
 
-		// if((t === &#x27;number&#x27; &amp;&amp; o !== 204 &amp;&amp; o !== 1223) || (t === &#x27;object&#x27; &amp;&amp; !o.success) || !o){
-
-		// 	var msg = null;
-		// 	if(t === &#x27;number&#x27; &amp;&amp; o == 401){
-		// 		msg = getString(&#x27;The username or password you entered is incorrect. Please try again.&#x27;);
-		// 	}
-		// 	return error(msg);
-		// }
-		// document.getElementById(&#x27;mask-msg&#x27;).innerHTML = getString(&#x27;Redirecting...&#x27;);
-		// redirect();
-
+	/**
+	* Response handler for logout call.
+	* @method logOut
+	*/
+	logOut: function(response) {
+		debugger;
 	},
 
 	/**
@@ -284,7 +318,9 @@ var LoginController = merge(EventEmitter.prototype, {
 
 	state: {
 		links:{},
-		isLoggedIn: false
+		isLoggedIn: false,
+		username: null,
+		password: null
 	},
 
 	/**
@@ -356,6 +392,11 @@ var LoginController = merge(EventEmitter.prototype, {
 	}
 });
 
+// Listen for LoginForm input changes
+LoginActions.on(LoginConstants.LOGIN_FORM_CHANGED, function(payload) {
+	updateLinks(payload.credentials);
+});
+
 // Register to handle all updates
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
@@ -369,8 +410,13 @@ AppDispatcher.register(function(payload) {
 
 		case LoginConstants.LOGIN_PASSWORD:
 			console.log(&quot;LoginController: LOGIN_PASSWORD.&quot;);
-			log_in(action.credentials);
+			logIn(action.credentials);
 			LoginController.emitChange();
+		break;
+
+		case LoginConstants.UPDATE_LINKS:
+			console.log(&quot;LoginController: UPDATE_LINKS.&quot;);
+			updateLinks(action.credentials);
 		break;
 
 		default:

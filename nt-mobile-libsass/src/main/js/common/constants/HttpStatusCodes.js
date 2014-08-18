@@ -31,5 +31,12 @@ module.exports = {
 	* @static
 	* @final
 	*/
-	NOT_FOUND: 404
+	NOT_FOUND: 404,
+
+	/**
+	* @property SERVER_ERROR (500)
+	* @static
+	* @final
+	*/
+	SERVER_ERROR: 500
 }
