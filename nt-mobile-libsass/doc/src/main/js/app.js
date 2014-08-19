@@ -15,24 +15,24 @@ var Locations = Router.Locations;
 var Location = Router.Location;
 var Link = Router.Link;
 
-var Test = React.createClass({
+var Test = React.createClass({displayName: 'Test',
 	render: function() {
 		return (
-			<div>Test</div>
+			React.DOM.div(null, "Test")
 		);
 	}
 });
 
-var App = React.createClass({
+var App = React.createClass({displayName: 'App',
 	render: function() {
 		return (
-			<div>
-				<Locations>
-					<Location path="/mobile/" handler={Test} />
-					<Location path="/mobile/login" handler={Login.LoginPanel} />
-				</Locations>
-				<Link href="/mobile/login">Log in</Link>
-			</div>
+			React.DOM.div(null, 
+				Locations(null, 
+					Location( {path:"/mobile/", handler:Test} ),
+					Location( {path:"/mobile/login", handler:Login.LoginPanel} )
+				),
+				Link( {href:"/mobile/login"}, "Log in")
+			)
 		);
 	}
 });

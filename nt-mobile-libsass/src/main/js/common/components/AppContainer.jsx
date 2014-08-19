@@ -35,6 +35,7 @@ module.exports = React.createClass({
 		this.setState({loggedIn: LoginController.isLoggedIn()});
 	},
 
+	/** this is a test */
 	render: function() {
 		return (
 			<div className="app-container">

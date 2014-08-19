@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>doc/src/main/js/common/components/BrowseCourseDropdown.js - nt-mobile</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+        
+	    <img alt="nt-mobile" src="../assets/css/logo.png" style="max-height: 65%;" title="nt-mobile">
+        
+            nt-mobile
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AppConfig", "classes/Button", "classes/DebugInfo", "classes/HTTP_STATUS_CODES", "classes/LoginConstants", "classes/LoginController", "classes/LoginForm", "classes/LoginPanel", "classes/ResponseHandlers", "classes/Utils", "modules/common", "modules/login", "modules/nt-mobile"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+    <h3>APIs</h3>
+    <div id="sidebar">
+        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" placeholder="Type to filter APIs">
+        </div>
+
+        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+            <div class="tab-pane active" id="classes">
+                <ul id="api-classes" class="nav nav-list">
+                    
+                        <li><a href="../classes/AppConfig.html">AppConfig</a></li>
+                    
+                        <li><a href="../classes/Button.html">Button</a></li>
+                    
+                        <li><a href="../classes/DebugInfo.html">DebugInfo</a></li>
+                    
+                        <li><a href="../classes/HTTP_STATUS_CODES.html">HTTP_STATUS_CODES</a></li>
+                    
+                        <li><a href="../classes/LoginConstants.html">LoginConstants</a></li>
+                    
+                        <li><a href="../classes/LoginController.html">LoginController</a></li>
+                    
+                        <li><a href="../classes/LoginForm.html">LoginForm</a></li>
+                    
+                        <li><a href="../classes/LoginPanel.html">LoginPanel</a></li>
+                    
+                        <li><a href="../classes/ResponseHandlers.html">ResponseHandlers</a></li>
+                    
+                        <li><a href="../classes/Utils.html">Utils</a></li>
+                    
+                </ul>
+            </div>
+
+            <div class="tab-pane" id="modules">
+                <ul id="api-modules" class="nav nav-list">
+                    
+                        <li><a href="../modules/common.html">common</a></li>
+                    
+                        <li><a href="../modules/login.html">login</a></li>
+                    
+                        <li><a href="../modules/nt-mobile.html">nt-mobile</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <div class="page-header">
+    <h1>doc/src/main/js/common/components/BrowseCourseDropdown.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/** @jsx React.DOM */
+
+/*
+	A dropdown that shows when you click &#x27;Browse Courses&#x27;.
+*/
+
+var React = require(&#x27;react/addons&#x27;);
+var CatalogEntry = require(&#x27;./CatalogEntry&#x27;);
+
+module.exports = React.createClass({
+	handleChange: function(event){
+		this.setState({value: event.target.value});
+		console.log(event);
+	},
+	render: function() {
+		return (
+			React.DOM.div( {id:&quot;drop2&quot;, &#x27;data-dropdown-content&#x27;:true, className:&quot;medium f-dropdown content&quot;}, 
+				React.DOM.ul( {className:&quot;large small-block-grid-2 medium-block-grid-3 large-block-grid-3&quot;}, 
+					
+					CatalogEntry( {src:&quot;https://ou-alpha.nextthought.com/content/ANTH1613_Native_Peoples_of_Oklahoma/presentation-assets/webapp/v1/contentpackage-landing-232x170.png&quot;,
+							title:&quot;Native Peoples of Oklahoma&quot;}),
+					CatalogEntry( {src:&quot;https://ou-alpha.nextthought.com/content/ANTH4970_Practical_Importance_of_Human_Evolution/presentation-assets/webapp/v1/contentpackage-landing-232x170.png&quot;,
+							title:&quot;Practical Importance of Human Evolution&quot;} ),
+					CatalogEntry( {src:&quot;https://ou-alpha.nextthought.com/content/CHEM4970_Chemistry_of_Beer/presentation-assets/webapp/v1/contentpackage-landing-232x170.png&quot;,
+							title:&quot;Chemistry of Beer&quot;} ),
+					CatalogEntry( {src:&quot;https://ou-alpha.nextthought.com/content/COMM4970_Understanding_and_Detecting_Deception/presentation-assets/webapp/v1/contentpackage-landing-232x170.png&quot;,
+							title:&quot;Understanding and Detecting Deception&quot;} ),
+					CatalogEntry( {src:&quot;https://ou-alpha.nextthought.com/content/CS1300_Power_and_Elegance_of_Computational_Thinking/presentation-assets/webapp/v1/contentpackage-landing-232x170.png&quot;,
+							title:&quot;Power and Elegance of Computational Thinking&quot;} ),
+					CatalogEntry( {src:&quot;https://ou-alpha.nextthought.com/content/CS1323_Intro_to_Computer_Programming/presentation-assets/webapp/v1/contentpackage-landing-232x170.png&quot;,
+							title:&quot;Introduction to Computer Programming&quot;} ),
+					CatalogEntry( {src:&quot;https://ou-alpha.nextthought.com/content/EDAH5023_Admin_of_Adult_and_Higher_Education/presentation-assets/webapp/v1/contentpackage-landing-232x170.png&quot;,
+							title:&quot;Administration of Adult and Higher Eductation&quot;} ),
+					CatalogEntry( {src:&quot;https://ou-alpha.nextthought.com/content/ENGR1510_Intro_to_Water/presentation-assets/webapp/v1/contentpackage-landing-232x170.png&quot;,
+							title:&quot;Introduction to Water&quot;} ),
+					CatalogEntry( {src:&quot;https://ou-alpha.nextthought.com/content/GEOG3890_Hydraulic_Fracturing_and_Water_Resources/presentation-assets/webapp/v1/contentpackage-landing-232x170.png&quot;,
+							title:&quot;Hydralic Fracturing and Water Resources&quot;} ),
+					CatalogEntry( {src:&quot;https://ou-alpha.nextthought.com/content/GEOL1114_Physical_Geology/presentation-assets/webapp/v1/contentpackage-landing-232x170.png&quot;,
+							title:&quot;Physical Geology for Science and Engineering Majors&quot;} ),
+					CatalogEntry( {src:&quot;https://ou-alpha.nextthought.com/content/HSCI3013_History_of_Science/presentation-assets/webapp/v1/contentpackage-landing-232x170.png&quot;,
+							title:&quot;History of Science to the Age of Newton&quot;} ),
+					CatalogEntry( {src:&quot;https://ou-alpha.nextthought.com/content/PSC4283_Civil_Rights_and_Civil_Liberties/presentation-assets/webapp/v1/contentpackage-landing-232x170.png&quot;,
+							title:&quot;Civil Rights and Civil Liberties&quot;} ),
+					CatalogEntry( {src:&quot;https://ou-alpha.nextthought.com/content/SOC1113_Intro_to_Sociology/presentation-assets/webapp/v1/contentpackage-landing-232x170.png&quot;,
+							title:&quot;Introduction to Sociology&quot;} )
+				)
+			)
+		);
+	}
+});
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>
