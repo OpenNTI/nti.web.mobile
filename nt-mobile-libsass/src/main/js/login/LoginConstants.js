@@ -2,7 +2,7 @@
  * Constants related to (and used by) the login modules.
  * @class LoginConstants
  */
-var merge = require('merge');
+var merge = require('react/lib/merge');
 var keyMirror = require('react/lib/keyMirror');
 
 var links = {

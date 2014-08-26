@@ -8,15 +8,25 @@
 
 var merge = require('merge');
 var webpack = require('webpack');
-var e = module.exports = merge(true, require("./webpack.config.js"));
+var e = [];
+var cfg = require("./webpack.config.js");
+if (!Array.isArray(cfg)) {
+    cfg = [cfg];
+}
 
-e.debug = false;
-e.devtool = false;
+cfg.forEach(function(o) { e.push(merge(true, o)); });
 
-e.plugins = [
+
+e[0].debug = false;
+e[0].devtool = false;
+
+e[0].plugins.push(
     new webpack.optimize.CommonsChunkPlugin('js/common.js'),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin()
-];
+);
+
+
+module.exports = e;

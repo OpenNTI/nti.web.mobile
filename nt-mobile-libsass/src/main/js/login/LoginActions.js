@@ -3,7 +3,7 @@
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
 var LoginConstants = require('./LoginConstants');
 var EventEmitter = require('events').EventEmitter;
-var merge = require('merge')
+var merge = require('react/lib/merge')
 
 /**
  * Actions available to views for login-related functionality.

@@ -56,12 +56,34 @@ module.exports = function(grunt) {
 			}
 		},
 
+
+		express: {
+            options: {
+                // Override defaults here
+                port: 9000,
+                background: false,
+                script: '<%= pkg.dist %>/server/index.js'
+            },
+            dev: {
+                options: {
+                    debug: true,
+                    node_env: 'development'
+                }
+            },
+            dist: {
+                options: {
+                    debug: false,
+                    node_env: 'production'
+                }
+            }
+        },
+
 		open: {
 			options: {
 				delay: 500
 			},
 			dev: {
-				path: 'http://localhost:<%= connect.options.port %>/webpack-dev-server/'
+				path: 'http://localhost:<%= connect.options.port %>/'
 			},
 			dist: {
 				path: 'http://localhost:<%= connect.options.port %>/'
@@ -75,16 +97,24 @@ module.exports = function(grunt) {
 					{
 						flatten: true,
 						expand: true,
-						src: ['<%= pkgConfig.src %>/*'],
-						dest: '<%= pkgConfig.dist %>/',
+						src: ['<%= pkg.src %>/*'],
+						dest: '<%= pkg.dist %>/',
 						filter: 'isFile'
 					},
 					{
 						flatten: true,
 						expand: true,
-						src: ['<%= pkgConfig.src %>/images/*'],
-						dest: '<%= pkgConfig.dist %>/images/'
-					}
+						src: ['<%= pkg.src %>/images/*'],
+						dest: '<%= pkg.dist %>/images/'
+					},
+					{
+	                    // flatten: true,
+	                    cwd: '<%= pkg.src %>/../server/',
+	                    expand: true,
+	                    filter: 'isFile',
+	                    src: ['**'],
+	                    dest: '<%= pkg.dist %>/server/'
+	                }
 				]
 			}
 		},
@@ -94,7 +124,7 @@ module.exports = function(grunt) {
 				files: [{
 					dot: true,
 					src: [
-					'<%= pkgConfig.dist %>'
+					'<%= pkg.dist %>'
 					]
 				}]
 			}
@@ -114,6 +144,27 @@ module.exports = function(grunt) {
 			}
 		},
 
+		reactjsx: {
+			docs: {
+				files: [{
+					expand: true,
+					src: [
+						'<%= pkg.src %>/js/**/*.jsx',
+						'<%= pkg.src %>/js/**/*.js'
+					],
+					dest: '<%= pkg.jsDocSrc %>',
+					ext: '.js'
+				}]
+			},
+		},
+
+		jsdoc: {
+			dist: {
+				src: ['<%= pkg.jsDocSrc %>/src/main/js/**/*.js'],
+				dest: '<%= pkg.jsDocDest %>/jsdoc'
+			}
+		},
+
 		yuidoc: {
 			compile: {
 				name: '<%= pkg.name %>',
@@ -121,10 +172,10 @@ module.exports = function(grunt) {
 				version: '<%= pkg.version %>',
 				// url: '<%= pkg.homepage %>',
 				options: {
-					paths: 'src/main/js/',
+					paths: '<%= pkg.jsDocSrc %>/src/main/js/',
 					themedir: 'node_modules/yuidoc-bootstrap-theme/',
 					helpers: ['node_modules/yuidoc-bootstrap-theme/helpers/helpers.js'],
-					outdir: 'docs/',
+					outdir: '<%= pkg.jsDocDest %>/yuidoc/',
 					extension: '.js,.jsx'
 				}
 			}
@@ -138,30 +189,41 @@ module.exports = function(grunt) {
 				tasks: ['sass']
 			},
 
+			reactjsx: {
+				files: ['<%= pkg.src %>/js/**/*.js','<%= pkg.src %>/js/**/*.jsx'],
+				tasks: ['reactjsx:docs']
+			},
+
 			docs: {
-				files: ['src/main/**/*.js','src/main/**/*.jsx'],
-				tasks: ['yuidoc:compile']
+				files: ['<%= pkg.jsDocSrc %>/src/main/js/**/*.js'],
+				tasks: ['jsdoc:dist']
 			}
 		}
 	});
 
+	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
+	grunt.loadNpmTasks('grunt-reactjsx');
+	grunt.loadNpmTasks('grunt-jsdoc');
 
 	grunt.registerTask('build', ['sass','yuidoc']);
 	grunt.registerTask('default', ['build', 'watch']);
+	grunt.registerTask('docs',['reactjsx','jsdoc'])
 
 	grunt.registerTask('serve', function(target) {
 		if (target === 'dist') {
-			return grunt.task.run(['build', 'open:dist', 'connect:dist']);
+			return grunt.task.run(['build', 'open:dist', 'express:dist']);
 		}
 
 		grunt.task.run([
+			'build',
 			'sass',
 			'yuidoc',
 			'open:dev',
-			'webpack-dev-server'
+			//'webpack-dev-server'
+			'express:dev'
 		]);
 	});
 

@@ -37,3 +37,4 @@ dist
 /src/main/resources/css/*.css
 /src/main/js/main.js
 .ignore
+src/tutorial/
