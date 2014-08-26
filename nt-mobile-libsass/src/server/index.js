@@ -1,46 +1,45 @@
-"use strict";
+'use strict';
 
 if (typeof Promise === 'undefined') {
 	global.Promise = require('es6-promise').Promise;
 }
 
-var appRoutes = '/';
+var authedRoutes = /^\/($|content|contacts|library|forums|search)/;
+var appRoutes = /^\/($|login|content|contacts|library|forums|search)(.(?!\.[^.]+$))*$/;
 
-var express = require("express");
-var morgan = require('morgan');
-var path = require("path");
+var express = require('express');
+var path = require('path');
 
-var common = require("./common.js");
+var common = require('./common.js');
+var logger = require('./logger.js');
+var session = require('./dataserver/session');
+
 var generated = require('./generated.js');
-
-//var session = require("./dataserver/session");
-
-var entryPoint = generated.stats;
+var entryPoint = generated.entryPoint;
 var page = generated.page;
 
+
+//WWW Server
 var app = express();
 
-//patch morgan to read remote-user from an alternate place.
-// var loguser = morgan['remote-user'];
-// morgan['remote-user'] = function(req) {
-// 	var u = loguser(req);
-// 	if ((!u || u === '-') && req.username) {
-// 		u = req.username;
-// 	}
-// 	return u;
-// };
+logger.attachToExpress(app);
 
-//app.use(require('response-time')());
-//app.use(require('cookie-parser')());
-app.use(morgan('combined'));
-app.use(express.static(path.join(__dirname, "..")));
-//app.use(appRoutes, session.middleware.bind(session));
-
-app.get(appRoutes, function(req, res) {
+var mobileApp = express();
+mobileApp.use(express.static(path.join(__dirname, '..')));
+mobileApp.use(authedRoutes, session.middleware.bind(session));
+mobileApp.get(appRoutes, function(req, res) {
 	console.log('Rendering Inital View: %s %s', req.url, req.username);
 	res.end(page(req, entryPoint, common.clientConfig()));
 });
 
-var server = app.listen(9000, function() {
+app.use('/mobile', mobileApp);
+
+//Error Handler
+app.use(function(err, req, res, next){
+	console.error(err.stack);
+	res.status(500).send('Oops! Something broke!');
+});
+
+var server = app.listen(common.config().port || 9000, function() {
 	console.log('Listening on port %d', server.address().port);
 });

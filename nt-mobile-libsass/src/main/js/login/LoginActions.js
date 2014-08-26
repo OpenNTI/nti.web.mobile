@@ -8,7 +8,7 @@ var merge = require('react/lib/merge')
 /**
  * Actions available to views for login-related functionality.
  **/
-var LoginActions = merge(EventEmitter.prototype, {
+module.exports = merge(EventEmitter.prototype, {
 
 	/** Initializes the login system. */
 	begin: function() {
@@ -17,9 +17,7 @@ var LoginActions = merge(EventEmitter.prototype, {
 		});
 	},
 
-	/**
-	* Attempt a login using the provided credentials.
-	* @method log_in
+	/** Attempt a login using the provided credentials.
 	* @param {Object} credentials The credentials to submit for authentication. Currently expects 'username' and 'password'.
 	*/
 	logIn: function(credentials) {
@@ -29,10 +27,7 @@ var LoginActions = merge(EventEmitter.prototype, {
 		});
 	},
 
-	/**
-	* Log the current user out of the system.
-	* @method logOut
-	*/
+	/** Log the out of the system. */
 	logOut: function() {
 		AppDispatcher.handleViewAction({
 			actionType: LoginConstants.LOGOUT
@@ -40,4 +35,3 @@ var LoginActions = merge(EventEmitter.prototype, {
 	}
 });
 
-module.exports = LoginActions;

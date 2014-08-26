@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var env = require('./config/env.json');
 var merge = require('merge');
 

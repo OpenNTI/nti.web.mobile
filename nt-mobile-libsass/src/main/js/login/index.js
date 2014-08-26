@@ -4,7 +4,7 @@
 */
 
 /**
-* @see {@link LoginActions}
+* @see {@link module:login/LoginActions}
 */
 exports.LoginActions = require('./LoginActions');
 

@@ -16,6 +16,7 @@ var _lastID = 1;
 var _prefix = 'ID_';
 
 /**
+ * @class
  * Dispatcher is used to broadcast payloads to registered callbacks. This is
  * different from generic pub-sub systems in two ways:
  *

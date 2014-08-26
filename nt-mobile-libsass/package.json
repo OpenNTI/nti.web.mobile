@@ -6,7 +6,7 @@
 	"test": "./src/test",
 	"dist": "./dist",
 	"public_root": "/",
-	"mainInput": "app.jsx",
+	"mainInput": "index.js",
 	"mainOutput": "main.js",
 	"jsDocSrc": "doc",
 	"jsDocDest": "doc",

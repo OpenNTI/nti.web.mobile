@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 exports.collect = function(fn) {
 	var stuff = [];
@@ -9,7 +9,7 @@ exports.collect = function(fn) {
 	exports.add = add;
 	fn();
 	exports.add = old;
-	return stuff.join("\n");
+	return stuff.join('\n');
 };
 
 exports.add = function(a) {

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 module.exports = function clean(o) {
 	var key, v;
 

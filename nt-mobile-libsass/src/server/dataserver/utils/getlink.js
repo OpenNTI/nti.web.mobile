@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var fn = module.exports = function getLink(o, rel, raw) {
 

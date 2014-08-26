@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var Url = require('url');
 var request = require('request');

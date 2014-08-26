@@ -40,6 +40,7 @@ var App = React.createClass({
 				<Locations path={this.props.path}>
 					<NotFound handler={Test} />
 					<Location path="/mobile/" handler={Test} />
+					<Location path="/mobile/login" handler={Login.LoginPanel} />
 				</Locations>
 				<Link href="/mobile/login">Log in</Link>		
 			</div>

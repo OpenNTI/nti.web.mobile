@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 var http = require('http');
 var merge = require('merge');
-var server = require('../server');
+var server = require('../interface');
 
 var SessionManager = function () {};
 
@@ -35,7 +35,7 @@ merge(SessionManager.prototype, {
 		var url = req.originalUrl || req.url;
 
 
-		console.log("SESSION <- [%s] %s %s", new Date().toUTCString(), req.method, url);
+		console.log('SESSION <- [%s] %s %s', new Date().toUTCString(), req.method, url);
 
 		req.responseHeaders = {};
 
