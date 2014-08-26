@@ -9,7 +9,7 @@ global.React = require('react/addons');
 var App = require('./main');
 
 React.renderComponent(
-	App(),
+	App({basePath: $AppConfig.basepath || '/'}),
 	document.getElementById('content')
 );
 

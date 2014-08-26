@@ -22,6 +22,14 @@ var Test = React.createClass({
 	}
 });
 
+var errorNotFound = React.createClass({
+	render: function() {
+		return (
+			<div>not found</div>
+		);
+	}
+});
+
 var App = React.createClass({
 
 	// componentWillMount: function() {
@@ -36,13 +44,14 @@ var App = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<Test />
+				<p>{this.props.basePath}</p>
+
 				<Locations path={this.props.path}>
-					<NotFound handler={Test} />
-					<Location path="/mobile/" handler={Test} />
-					<Location path="/mobile/login" handler={Login.LoginPanel} />
+					<NotFound handler={errorNotFound} />
+					<Location path={this.props.basePath} handler={Test} />
+					<Location path={this.props.basePath + 'login/'} handler={Login.LoginPanel} />
 				</Locations>
-				<Link href="/mobile/login">Log in</Link>		
+				<Link href="/mobile/login/">Log in</Link>		
 			</div>
 		);
 	}

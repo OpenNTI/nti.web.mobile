@@ -41,7 +41,7 @@ module.exports = function(grunt) {
 
 		connect: {
 			options: {
-				port: 9000
+				port: 8082
 			},
 
 			dist: {
@@ -83,10 +83,10 @@ module.exports = function(grunt) {
 				delay: 500
 			},
 			dev: {
-				path: 'http://localhost:<%= connect.options.port %>/'
+				path: 'http://localhost:<%= connect.options.port %>/mobile/'
 			},
 			dist: {
-				path: 'http://localhost:<%= connect.options.port %>/'
+				path: 'http://localhost:<%= connect.options.port %>/mobile/'
 			}
 		},
 

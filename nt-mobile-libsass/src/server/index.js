@@ -32,7 +32,7 @@ mobileApp.get(appRoutes, function(req, res) {
 	res.end(page(req, entryPoint, common.clientConfig()));
 });
 
-app.use('/mobile', mobileApp);
+app.use(common.config().basepath, mobileApp);
 
 //Error Handler
 app.use(function(err, req, res, next){

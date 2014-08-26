@@ -14,6 +14,7 @@ var path = require("path");
 var commonLoaders = [
     { test: /\.js$/, loader: "jsx-loader" },
     { test: /\.jsx$/, loader: 'jsx-loader' },
+    { test: /\.json$/, loader: 'json-loader' },
     { test: /\.png$/, loader: "url-loader" },
     { test: /\.jpg$/, loader: "file-loader" }
 ];
