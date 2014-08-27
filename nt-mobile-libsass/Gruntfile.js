@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 		pkg: pkgConfig,
 
 		webpack: {
-			options: webpackDistConfig,
+			options: webpackDevConfig,
 
 			dist: {
 				cache: false
