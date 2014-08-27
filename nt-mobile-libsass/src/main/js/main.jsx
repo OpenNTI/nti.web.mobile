@@ -7,6 +7,8 @@
 var React = require('react/addons');
 
 var Login = require('./login');
+var Login2 = require('./login2');
+var LoginView = Login2.LoginView;
 
 var Router = require('react-router-component');
 var Locations = Router.Locations;
@@ -49,9 +51,10 @@ var App = React.createClass({
 				<Locations path={this.props.path}>
 					<NotFound handler={errorNotFound} />
 					<Location path={this.props.basePath} handler={Test} />
-					<Location path={this.props.basePath + 'login/'} handler={Login.LoginPanel} />
+					<Location path={this.props.basePath + 'login/'} handler={LoginView} />
 				</Locations>
-				<Link href="/mobile/login/">Log in</Link>		
+				<Link href="/mobile/login/">Log in</Link>
+				<Link href={this.props.basePath}>Test</Link>
 			</div>
 		);
 	}
