@@ -195,7 +195,7 @@ module.exports = function(grunt) {
 		}
 
 		grunt.task.run([
-			'build',
+			//'build',
 			'sass',
 			'yuidoc',
 			'express:dev'
