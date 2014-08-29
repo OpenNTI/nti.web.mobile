@@ -6,9 +6,9 @@
 
 var React = require('react/addons');
 
+// var Login = require('./login');
 var Login = require('./login');
-var Login2 = require('./login2');
-var LoginView = Login2.LoginView;
+var LoginView = Login.LoginView;
 
 var Router = require('react-router-component');
 var Locations = Router.Locations;

@@ -7,8 +7,13 @@ var CHANGE_EVENT = 'change';
 
 var _links = {};
 
-function begin() {
-	console.log('LoginStore::begin; (no actual implementation)');
+function _begin() {
+	console.log('LoginStore::_begin; (no actual implementation)');
+	LoginStore.emitChange();
+}
+
+function _ping() {
+	console.log('LoginStore::_ping() (not yet implemented)');
 	LoginStore.emitChange();
 }
 
@@ -40,7 +45,12 @@ AppDispatcher.register(function(payload) {
 	var action = payload.action;
 	switch(action.actionType) {
 		case LoginConstants.LOGIN_BEGIN:
-			begin();
+			_begin();
+		break;
+
+		case LoginConstants.LOGIN_FORM_CHANGED:
+			console.log("LoginStore responding to LOGIN_FORM_CHANGED event");
+			_ping();
 		break;
 
 		default:

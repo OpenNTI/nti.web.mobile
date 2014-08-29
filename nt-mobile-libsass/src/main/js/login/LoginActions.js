@@ -18,6 +18,16 @@ module.exports = merge(EventEmitter.prototype, {
 		});
 	},
 
+	/**
+	* Fired in response to user changes on the login form.
+	*/
+	userInputChanged: function(credentials) {
+		console.log('LoginActions::userInputChanged');
+		AppDispatcher.handleViewAction({
+			actionType: LoginConstants.LOGIN_FORM_CHANGED
+		});	
+	},
+
 	/** Attempt a login using the provided credentials.
 	* @param {Object} credentials The credentials to submit for authentication. Currently expects 'username' and 'password'.
 	*/
