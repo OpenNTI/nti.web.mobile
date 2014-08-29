@@ -1,0 +1,43 @@
+'use strict';
+
+module.exports = function(port) {
+
+	var webpackConfig = require('../../webpack.config')[0];
+
+	webpackConfig.output.path = '/';
+	webpackConfig.output.publicPath = '/';
+	webpackConfig.output.filename = 'js/main.js';
+	webpackConfig.entry = './src/main/js/index.jsx';
+
+	var WebpackServer = require("webpack-dev-server");
+	var webpack = require("webpack");
+
+
+	var webpackServer = new WebpackServer(webpack(webpackConfig), {
+		contentBase: port,
+		//hot: true,
+
+		noInfo: false,
+		quiet: false,
+		lazy: false,
+		watchDelay: 300,
+		publicPath: "/",
+		stats: {
+			colors: true
+		}
+	});
+
+	return {
+		middleware: webpackServer.middleware,
+		entry: webpackConfig.output.filename,
+		start: function(port) {
+			webpackServer.listen(port, 'localhost', function (err, result) {
+				if (err) {
+					console.log(err);
+				}
+
+				console.log('WebPack Dev Server listening on port %d', port);
+			});
+		}
+	};
+};
