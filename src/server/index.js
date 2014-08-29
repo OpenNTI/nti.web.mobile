@@ -21,6 +21,7 @@ var entryPoint = generated.entryPoint;
 var page = generated.page;
 
 var devmode;
+var assetPath = path.join(__dirname, '..');
 
 //WWW Server
 var app = express();
@@ -36,10 +37,11 @@ if (!entryPoint) {
 
 	entryPoint = devmode.entry;
 	app.use(devmode.middleware);//serve in-memory compiled sources/assets
+	assetPath = path.join(assetPath, 'main');
 }
 
 //Static files...
-app.use(express.static(path.join(__dirname, '..', 'main')));//static files
+app.use(express.static(assetPath));//static files
 
 //Session manager...
 app.use(authedRoutes, session.middleware.bind(session));
