@@ -13,7 +13,8 @@ var LoginView = React.createClass({
 	getInitialState: function() {
 		return {
 			username:'',
-			password:''
+			password:'',
+			submitEnabled: false
 		};
 	},
 
@@ -35,11 +36,19 @@ var LoginView = React.createClass({
 			<div className="row">
 				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
-						<input type="text" ref="username" placeholder="Username" defaultValue={this.state.username} onChange={this._usernameChanged}/>
-						<input type="password" ref="password" placeholder="Password" defaulValue={this.state.password} onChange={this._passwordChanged}/>
+						<input type="text"
+							ref="username"
+							placeholder="Username"
+							defaultValue={this.state.username}
+							onChange={this._usernameChanged} />
+						<input type="password"
+							ref="password"
+							placeholder="Password"
+							defaulValue={this.state.password}
+							onChange={this._passwordChanged} />
 						<Button
 							className={submitEnabled ? '' : 'disabled'}
-							onClick={submitEnabled ? this.handleSubmit : function(){return false}}>Log In</Button>
+							onClick={submitEnabled ? this._handleSubmit : function(){return false}}>Log In</Button>
 					</fieldset>
 				</form>
 			</div>
@@ -66,6 +75,10 @@ var LoginView = React.createClass({
 
 	_handleSubmit: function() {
 		console.log('LoginView::_handleSubmit');
+		LoginActions.logIn({
+			username:this._username(),
+			password:this._password()
+		})
 	},
 
 	_username: function() {

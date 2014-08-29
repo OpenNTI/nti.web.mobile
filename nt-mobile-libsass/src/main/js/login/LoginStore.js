@@ -38,6 +38,19 @@ function _ping(credentials) {
 	})
 }
 
+function _logIn(credentials) {
+	var p = dataserver().logInPassword(
+			_links[LoginConstants.LOGIN_PASSWORD_LINK],
+			credentials);
+	
+	p.then(function(r) {
+		console.log('login attempt resolved.');
+	});
+	p.catch(function(r) {
+		console.log('login attempt rejected.');
+	});
+}
+
 var LoginStore = merge(EventEmitter.prototype, {
 
 	emitChange: function() {
@@ -68,15 +81,18 @@ var LoginStore = merge(EventEmitter.prototype, {
 
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
+	console.log('LoginStore received %s action.', action.actionType);
 	switch(action.actionType) {
 		case LoginConstants.LOGIN_BEGIN:
 			_begin();
 		break;
 
 		case LoginConstants.LOGIN_FORM_CHANGED:
-			console.log("LoginStore responding to LOGIN_FORM_CHANGED event");
-			console.log(action);
 			_ping(action.credentials);
+		break;
+
+		case LoginConstants.LOGIN_PASSWORD:
+			_logIn(action.credentials);
 		break;
 
 		default:
