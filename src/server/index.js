@@ -39,7 +39,7 @@ if (!entryPoint) {
 }
 
 //Static files...
-app.use(express.static(path.join(__dirname, '..')));//static files
+app.use(express.static(path.join(__dirname, '..', 'main')));//static files
 
 //Session manager...
 app.use(authedRoutes, session.middleware.bind(session));

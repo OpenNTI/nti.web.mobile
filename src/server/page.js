@@ -13,7 +13,7 @@ var template;
 
 function basePathFix(original,attr,val) {
 	if (val.charAt(0) === '/' && val.charAt(1) !== '/') {
-		val = common.config().basepath + val.substr(1);
+		val = (common.config().basepath || '/') + val.substr(1);
 	}
 
 	return attr + '="' + val + '"';
