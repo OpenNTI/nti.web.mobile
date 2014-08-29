@@ -26,18 +26,19 @@ var devmode;
 var app = express();
 require('./logger').attachToExpress(app);
 
-
-
+var mobileapp = express();
+mobileapp.use(config.basepath, app);//re-root the app to /mobile/
 
 if (!entryPoint) {
 	devmode = require('./devmode')(port);
 
 	page = require('./page');
+
 	entryPoint = devmode.entry;
 	app.use(devmode.middleware);//serve in-memory compiled sources/assets
-	port += 1;
 }
 
+//Static files...
 app.use(express.static(path.join(__dirname, '..')));//static files
 
 //Session manager...
@@ -56,15 +57,14 @@ app.get(appRoutes, function(req, res) {
 	res.end(page(req, entryPoint, common.clientConfig()));
 });
 
+
 //Errors
 app.use(function(err, req, res, next){
 	console.error(err.stack);
 	res.status(500).send('Oops! Something broke!'); });
 
 //Go!
-var mobileapp = express();
-mobileapp.use(config.basepath, app);
-mobileapp.listen(port, function() {
+(mobileapp || app).listen(port, function() {
 	console.log('Listening on port %d', port); });
 
 if (devmode) {

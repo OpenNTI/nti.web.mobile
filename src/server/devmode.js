@@ -12,7 +12,6 @@ module.exports = function(port) {
 	var WebpackServer = require("webpack-dev-server");
 	var webpack = require("webpack");
 
-
 	var webpackServer = new WebpackServer(webpack(webpackConfig), {
 		contentBase: port,
 		//hot: true,
@@ -26,6 +25,8 @@ module.exports = function(port) {
 			colors: true
 		}
 	});
+
+	port += 1;
 
 	return {
 		middleware: webpackServer.middleware,
