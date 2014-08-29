@@ -29,6 +29,7 @@ require('./logger').attachToExpress(app);
 
 var mobileapp = express();
 mobileapp.use(config.basepath, app);//re-root the app to /mobile/
+mobileapp.all('/', function(_, res) { res.redirect('/mobile/'); });
 
 if (!entryPoint) {
 	devmode = require('./devmode')(port);
