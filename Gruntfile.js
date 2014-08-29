@@ -1,14 +1,9 @@
 'use strict';
 
-var mountFolder = function(connect, dir) {
-	return connect.static(require('path').resolve(dir));
-};
-
-var webpackDistConfig = require('./webpack.dist.config.js'),
-		webpackDevConfig = require('./webpack.config.js');
+var webpackDistConfig = require('./webpack.dist.config.js');
+var webpackDevConfig = require('./webpack.config.js');
 
 module.exports = function(grunt) {
-
 	// Let *load-grunt-tasks* require everything
 	require('load-grunt-tasks')(grunt);
 
@@ -19,43 +14,9 @@ module.exports = function(grunt) {
 		pkg: pkgConfig,
 
 		webpack: {
-			options: webpackDevConfig,
-
-			dist: {
-				cache: false
-			}
+			dist: webpackDistConfig,
+            dev: webpackDevConfig
 		},
-
-		'webpack-dev-server': {
-			options: {
-				port: 9000,
-				webpack: webpackDevConfig,
-				publicPath: '/',
-				contentBase: './<%= pkg.src %>/'
-			},
-
-			start: {
-				keepAlive: true
-			}
-		},
-
-		connect: {
-			options: {
-				port: 8082
-			},
-
-			dist: {
-				options: {
-					keepalive: true,
-					middleware: function(connect) {
-						return [
-						mountFolder(connect, pkgConfig.dist)
-						];
-					}
-				}
-			}
-		},
-
 
 		express: {
             options: {
@@ -67,6 +28,7 @@ module.exports = function(grunt) {
             dev: {
                 options: {
                     debug: true,
+					script: '<%= pkg.src %>/../server/index.js',
                     node_env: 'development'
                 }
             },
@@ -78,17 +40,23 @@ module.exports = function(grunt) {
             }
         },
 
-		open: {
-			options: {
-				delay: 500
-			},
-			dev: {
-				path: 'http://localhost:<%= connect.options.port %>/mobile/'
-			},
-			dist: {
-				path: 'http://localhost:<%= connect.options.port %>/mobile/'
-			}
-		},
+		// open: {
+		// 	options: {
+		// 		delay: 500
+		// 	},
+		// 	dev: {
+		// 		path: 'http://localhost:<%= express.options.port %>/mobile/'
+		// 	},
+		// 	dist: {
+		// 		path: 'http://localhost:<%= express.options.port %>/mobile/'
+		// 	}
+		// },
+
+		karma: {
+            unit: {
+                configFile: 'karma.conf.js'
+            }
+        },
 
 		copy: {
 			dist: {
@@ -219,28 +187,24 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-reactjsx');
 	grunt.loadNpmTasks('grunt-jsdoc');
 
-	grunt.registerTask('build', ['sass','yuidoc']);
-	grunt.registerTask('default', ['build', 'watch']);
-	grunt.registerTask('docs',['reactjsx','jsdoc'])
+	grunt.registerTask('docs',['reactjsx','jsdoc']);
 
 	grunt.registerTask('serve', function(target) {
 		if (target === 'dist') {
-			return grunt.task.run(['build', 'open:dist', 'express:dist']);
+			return grunt.task.run(['build', 'express:dist']);
 		}
 
 		grunt.task.run([
 			'build',
 			'sass',
 			'yuidoc',
-			'open:dev',
-			//'webpack-dev-server'
 			'express:dev'
 		]);
 	});
 
 	grunt.registerTask('test', ['karma']);
 
-	grunt.registerTask('build', ['clean', 'sass', 'copy', 'webpack']);
+	grunt.registerTask('build', ['clean', 'sass', 'copy', 'yuidoc', 'webpack:dist']);
 
 	grunt.registerTask('default', []);
 
