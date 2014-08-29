@@ -1,9 +1,6 @@
 /*
-* Webpack development server configuration
-*
-* This file is set up for serving the webpak-dev-server, which will watch for changes and recompile as required if
-* the subfolder /webpack-dev-server/ is visited. Visiting the root will not automatically reload.
-*/
+ * Webpack development server configuration
+ */
 
 'use strict';
 
@@ -12,8 +9,8 @@ var path = require("path");
 
 
 var commonLoaders = [
-    { test: /\.js$/, loader: "jsx-loader" },
-    { test: /\.jsx$/, loader: 'jsx-loader' },
+    { test: /\.js$/, loaders: ['jsx'] },
+    { test: /\.jsx$/, loaders: ['jsx'] },
     { test: /\.json$/, loader: 'json-loader' },
     { test: /\.png$/, loader: "url-loader" },
     { test: /\.jpg$/, loader: "file-loader" }
@@ -31,9 +28,14 @@ module.exports = [
 
         cache: true,
         debug: true,
-        devtool: 'source-map',
-        entry: '<%= pkg.src %>/js/index.js',
+        devtool: '#source-map',
+        entry: [
+            // 'webpack-dev-server/client?http://localhost:9001',
+            // 'webpack/hot/dev-server',
+            '<%= pkg.src %>/js/index.js'
+        ],
 
+        target: 'web',
         stats: {
             colors: true,
             reasons: true
@@ -47,6 +49,7 @@ module.exports = [
         resolve: {extensions: ["", ".jsx", ".js", ".css"] },
 
         plugins: [
+            //new webpack.HotModuleReplacementPlugin(),
             new webpack.optimize.CommonsChunkPlugin('js/common.js'),
             function(compiler) {
                 this.plugin("done", function(stats) {
@@ -65,8 +68,7 @@ module.exports = [
             }],
 
             loaders: commonLoaders.concat([
-                //{ test: /\.css$/, loader: 'style/url!url?limit=10&prefix=style/&postfix=.css' }
-                { test: /\.css$/, loader: "style-loader!css-loader" },
+                { test: /\.css$/, loader: "style-loader!css-loader" }
             ])
         }
     },
