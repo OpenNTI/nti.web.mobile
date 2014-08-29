@@ -7,7 +7,7 @@ module.exports = function(port) {
 	webpackConfig.output.path = '/';
 	webpackConfig.output.publicPath = '/';
 	webpackConfig.output.filename = 'js/main.js';
-	webpackConfig.entry = './src/main/js/index.jsx';
+	webpackConfig.entry = './src/main/js/index.js';
 
 	var WebpackServer = require("webpack-dev-server");
 	var webpack = require("webpack");
@@ -30,7 +30,7 @@ module.exports = function(port) {
 	return {
 		middleware: webpackServer.middleware,
 		entry: webpackConfig.output.filename,
-		start: function(port) {
+		start: function() {
 			webpackServer.listen(port, 'localhost', function (err, result) {
 				if (err) {
 					console.log(err);

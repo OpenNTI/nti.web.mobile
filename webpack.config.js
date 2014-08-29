@@ -32,7 +32,7 @@ module.exports = [
         entry: [
             // 'webpack-dev-server/client?http://localhost:9001',
             // 'webpack/hot/dev-server',
-            '<%= pkg.src %>/js/index.jsx'
+            '<%= pkg.src %>/js/index.js'
         ],
 
         target: 'web',
