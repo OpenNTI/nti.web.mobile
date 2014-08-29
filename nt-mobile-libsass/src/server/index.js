@@ -12,7 +12,7 @@ var path = require('path');
 
 var common = require('./common.js');
 var logger = require('./logger.js');
-var session = require('./dataserver/session');
+var session = require('dataserverinterface')(common.config()).session;
 
 var generated = require('./generated.js');
 var entryPoint = generated.entryPoint;

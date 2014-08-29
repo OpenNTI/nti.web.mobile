@@ -47,11 +47,13 @@ var App = React.createClass({
 		return (
 			<div>
 				<p>{this.props.basePath}</p>
+				<p>{this.props.path}</p>
 
 				<Locations path={this.props.path}>
 					<NotFound handler={errorNotFound} />
 					<Location path={this.props.basePath} handler={Test} />
 					<Location path={this.props.basePath + 'login/'} handler={LoginView} />
+					<Location path={'/login/'} handler={LoginView} />
 				</Locations>
 				<Link href="/mobile/login/">Log in</Link>
 				<Link href={this.props.basePath}>Test</Link>

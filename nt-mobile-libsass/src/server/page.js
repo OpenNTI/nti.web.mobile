@@ -34,6 +34,8 @@ module.exports = function(req, scriptFilename, additional) {
 	css = '<style type="text/css" id="server-side-style">' + css + '</style>';
 	var basepathreplace = /(src|href)="(.*?)"/igm;
 
+	console.log(scriptFilename);
+
 	return require('../main/page.html')
 			.replace(basepathreplace,basePathFix)
 			.replace(/<!--css:server-values-->/i, css)

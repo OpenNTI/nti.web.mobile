@@ -14,7 +14,8 @@ try {
 }
 
 try {
-	module.exports.entryPoint = stats.assetsByChunkName.main;
+	var entry = Array.isArray(stats.assetsByChunkName.main) ? stats.assetsByChunkName.main[0] : stats.assetsByChunkName.main;
+	module.exports.entryPoint = entry;
 } catch (e) {
 	console.warn('Could not resolve the entryPoint script name.');
 }

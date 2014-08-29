@@ -31,12 +31,17 @@ module.exports = [
 
         cache: true,
         debug: true,
-        devtool: true,
+        devtool: 'source-map',
         entry: '<%= pkg.src %>/js/index.js',
 
         stats: {
             colors: true,
             reasons: true
+        },
+
+        node: {
+             net: 'empty',
+             tls: 'empty'
         },
 
         resolve: {extensions: ["", ".jsx", ".js", ".css"] },
@@ -70,6 +75,7 @@ module.exports = [
         name: "server-side rendering",
         entry: '<%= pkg.src %>/../server/page.js',
         target: "node",
+        devtool: 'source-map',
         output: {
             path: "<%= pkg.dist %>",
             filename: "server/page.generated.js",

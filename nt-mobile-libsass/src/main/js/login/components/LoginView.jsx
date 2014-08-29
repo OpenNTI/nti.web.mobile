@@ -21,7 +21,7 @@ var LoginView = React.createClass({
 		debugger;
 		console.log('LoginView::componentDidMount');
 		LoginStore.addChangeListener(this._onLoginStoreChange);
-		LoginActions.begin();
+		// LoginActions.begin();
 	},
 
 	componentWillUnmount: function() {
@@ -30,15 +30,16 @@ var LoginView = React.createClass({
 	},
 
 	render: function() {
+		var submitEnabled = this.state.submitEnabled;
 		return (
 			<div className="row">
 				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
 						<input type="text" ref="username" placeholder="Username" defaultValue={this.state.username} onChange={this._usernameChanged}/>
-						<input type="password" ref="password" placeholder="Password" defaulValue={this.state.password} />
+						<input type="password" ref="password" placeholder="Password" defaulValue={this.state.password} onChange={this._passwordChanged}/>
 						<Button
-							className={this.props.submitEnabled ? '' : 'disabled'}
-							onClick={this.props.submitEnabled ? this.handleSubmit : function(){return false}}>Log In</Button>
+							className={submitEnabled ? '' : 'disabled'}
+							onClick={submitEnabled ? this.handleSubmit : function(){return false}}>Log In</Button>
 					</fieldset>
 				</form>
 			</div>
@@ -46,27 +47,47 @@ var LoginView = React.createClass({
 	},
 
 	/**
-	* onChange handler for the username field. Triggers LoginActions.update_links
+	* onChange handler for the username field. Triggers LoginActions.userInputChanged
 	* @method usernameChanged
 	*/
 	_usernameChanged: function(event) {
-		var username = this.refs.username.getDOMNode().value.trim();
-		var password = this.refs.password.getDOMNode().value.trim();
 		LoginActions.userInputChanged({
 			credentials: {
-				username:username,
-				password:password	
+				username:this._username(),
+				password:this._password()
 			},
 			event:event
 		});
+	},
+
+	_passwordChanged: function(event) {
+		this._updateSubmitButton();
 	},
 
 	_handleSubmit: function() {
 		console.log('LoginView::_handleSubmit');
 	},
 
+	_username: function() {
+		return this.refs.username.getDOMNode().value.trim();
+	},
+
+	_password: function() {
+		return this.refs.password.getDOMNode().value.trim();
+	},
+
+	_updateSubmitButton: function() {
+		this.setState({
+			submitEnabled:
+				this._username().length > 0
+				&& this._password().length > 0
+				&& LoginStore.canDoPasswordLogin()
+		});
+	},
+
 	_onLoginStoreChange: function() {
 		console.log('LoginView::_onLoginStoreChange invoked');
+		this._updateSubmitButton();
 	}
 
 });
