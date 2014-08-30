@@ -44,6 +44,7 @@ var App = React.createClass({
 	// },
 
 	render: function() {
+		require('../resources/scss/app.scss');
 		return (
 			<div>
 				<p>{this.props.basePath}</p>
