@@ -21,7 +21,6 @@ e[0].debug = false;
 e[0].devtool = false;
 
 e[0].plugins.push(
-    new webpack.optimize.CommonsChunkPlugin('js/common.js'),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
