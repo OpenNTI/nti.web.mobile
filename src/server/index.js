@@ -60,7 +60,7 @@ app.all('/*', function(req, res, next) {
 app.get(appRoutes, function(req, res) {
 	console.log('Rendering Inital View: %s %s', req.url, req.username);
 	res.end(page(req, entryPoint,
-		common.clientConfig() + datacache.serialize()
+		common.clientConfig() + datacache.getForRequest(req).serialize()
 		));
 });
 
