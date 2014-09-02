@@ -1,0 +1,1 @@
+exports.IllegalArgumentException = require('./IllegalArgumentException');

@@ -6,9 +6,14 @@
 
 var React = require('react/addons');
 
-// var Login = require('./login');
 var Login = require('./login');
+var AppDispatcher = require('./common/dispatcher/AppDispatcher');
 var LoginView = Login.LoginView;
+var LoginStore = Login.LoginStore;
+var LoginStoreProperties = Login.LoginStoreProperties;
+var NavigationActions = require('./navigation/NavigationActions');
+var NavigationConstants = require('./navigation/NavigationConstants');
+var Forms = require('./common/components/forms')
 
 var Router = require('react-router-component');
 var Locations = Router.Locations;
@@ -32,7 +37,22 @@ var errorNotFound = React.createClass({
 	}
 });
 
+function _loginStoreChange(evt) {
+	console.log('App received loginStoreChange %O', evt);
+	if(evt && evt.property === LoginStoreProperties.isLoggedIn) {
+		if(evt.value) {
+			console.log('Logged in. Redirect to content?');
+			NavigationActions.navigate('/testing123/');
+		}
+		else {
+			console.log('Logged out. Redirect to login?');
+			NavigationActions.navigate('/login/');
+		}
+	}
+}
+
 var App = React.createClass({
+
 
 	// componentWillMount: function() {
 	// 	Login.LoginController.addChangeListener(function(e) {
@@ -43,21 +63,38 @@ var App = React.createClass({
 	// 	Login.LoginActions.begin();
 	// },
 
+	_actionHandler:function(payload) {
+		var action = payload.action;
+		console.log('App received %s action.', action.actionType);
+		switch(action.actionType) {
+			case NavigationConstants.NAVIGATE:
+				this.refs.router.navigate(action.href);
+			break;
+		}
+		return true; // No errors. Needed by promise in Dispatcher.
+	},
+
+	componentWillMount: function() {
+		LoginStore.addChangeListener(_loginStoreChange);
+		AppDispatcher.register(this._actionHandler);
+	},
+
+	componentWillUnmount: function() {
+		LoginStore.removeChangeListener(_loginStoreChange);
+		AppDispatcher.unregister(this._actionHandler);
+	},
+
 	render: function() {
 		require('../resources/scss/app.scss');
 		return (
 			<div>
-				<p>{this.props.basePath}</p>
-				<p>{this.props.path}</p>
-
-				<Locations path={this.props.path}>
+				<Locations ref="router" path={this.props.path}>
 					<NotFound handler={errorNotFound} />
-					<Location path={this.props.basePath} handler={Test} />
 					<Location path={this.props.basePath + 'login/'} handler={LoginView} />
 					<Location path={'/login/'} handler={LoginView} />
+					<Location path={'/testing123/'} handler={Test} />
 				</Locations>
-				<Link href="/mobile/login/">Log in</Link>
-				<Link href={this.props.basePath}>Test</Link>
+				<Login.LogoutButton />
 			</div>
 		);
 	}

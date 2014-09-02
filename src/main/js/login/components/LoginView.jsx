@@ -19,7 +19,6 @@ var LoginView = React.createClass({
 	},
 
 	componentDidMount: function() {
-		debugger;
 		console.log('LoginView::componentDidMount');
 		LoginStore.addChangeListener(this._onLoginStoreChange);
 		// LoginActions.begin();

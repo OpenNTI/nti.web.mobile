@@ -1,13 +1,14 @@
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var LoginConstants = require('./LoginConstants');
+var LoginStoreProperties = require('./LoginStoreProperties');
 var ResponseHandlers = require('./LoginResponseHandlers');
 var merge = require('react/lib/merge');
 var Dataserver = require('dataserverinterface');
 var CHANGE_EVENT = 'change';
 
 var _links = {};
-// var handlers = new ResponseHandlers(LoginStore);
+var _isLoggedIn = false;
 
 var _dataserver;
 
@@ -29,13 +30,34 @@ function _ping(credentials) {
 	var p = dataserver().ping(null,username);
 	console.log(p);
 	p.then(function(res) {
-		LoginStore.emitChange();
+		debugger;
+		_setLinks(res.links || {});
 	})
 	p.catch(function(result) {
-		console.log('catch?');
-		_links = result.links;
-		LoginStore.emitChange();
+		_setLinks(result.links || {});
 	})
+}
+
+function _setLinks(links) {
+	var oldVal = _links;
+	_links = links || {};
+	LoginStore.emitChange(
+		new LoginStoreChangeEvent(LoginStoreProperties.links,_links,oldVal)
+	);
+}
+
+function _setLoggedIn(isLoggedIn) {
+	console.log('LoginStore::_setLoggedIn: %s', isLoggedIn);
+	// emit a change event if the new value is different.
+	if(_isLoggedIn !== (_isLoggedIn = isLoggedIn)) {
+		LoginStore.emitChange(
+			new LoginStoreChangeEvent(LoginStoreProperties.isLoggedIn,
+				_isLoggedIn,
+				!_isLoggedIn
+			)
+		);
+	};
+	return _isLoggedIn;
 }
 
 function _logIn(credentials) {
@@ -44,18 +66,36 @@ function _logIn(credentials) {
 			credentials);
 	
 	p.then(function(r) {
-		console.log('login attempt resolved.');
+		console.log('login attempt resolved. %O', r);
+		_setLoggedIn(true);
 	});
 	p.catch(function(r) {
 		console.log('login attempt rejected.');
 	});
 }
 
+function _logOut(action) {
+	var p = dataserver()._request(LoginConstants.LOGOUT_LINK);
+	p.then(function(r) {
+		console.log('Logout fulfilled. %O',r);
+		_setLoggedIn(false);
+	});
+}
+
+LoginStoreChangeEvent = function(prop,val,oldval) {
+	if(!prop in LoginStoreProperties) {
+		throw new IllegalArgumentException( '"' + prop + '" is not a property defined in LoginStoreProperties.');
+	}
+	this.property = prop;
+	this.value = val;
+	this.oldValue = oldval;
+}
+
 var LoginStore = merge(EventEmitter.prototype, {
 
-	emitChange: function() {
+	emitChange: function(evt) {
 		console.log('LoginStore: emitting change');
-		this.emit(CHANGE_EVENT);
+		this.emit(CHANGE_EVENT,evt);
 	},
 
 	/**
@@ -93,6 +133,10 @@ AppDispatcher.register(function(payload) {
 
 		case LoginConstants.LOGIN_PASSWORD:
 			_logIn(action.credentials);
+		break;
+
+		case LoginConstants.LOGOUT:
+			_logOut(action);
 		break;
 
 		default:

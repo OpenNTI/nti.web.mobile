@@ -130,6 +130,14 @@ module.exports = merge(links, keyMirror({
 	LOGIN_LINKS_CHANGED: null,
 
 	/**
+	* Action name for logout.
+	* @property LOGOUT
+	* @type String
+	* @final
+	*/
+	LOGOUT: null,
+
+	/**
 	* Action for requesting a ping/pong/handshake with the
 	* dataserver to get links for a given username.
 	* @property UPDATE_LINKS
