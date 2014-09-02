@@ -14,7 +14,9 @@ var common = require('./common');
 var config = common.config();
 var port = config.port || 9000;
 
-var session = require('dataserverinterface')(config).session;
+var dataserver = require('dataserverinterface')(config);
+var session = dataserver.session;
+var datacache = dataserver.datacache;
 
 var generated = require('./generated');
 var entryPoint = generated.entryPoint;
@@ -57,7 +59,9 @@ app.all('/*', function(req, res, next) {
 //HTML Renderer...
 app.get(appRoutes, function(req, res) {
 	console.log('Rendering Inital View: %s %s', req.url, req.username);
-	res.end(page(req, entryPoint, common.clientConfig()));
+	res.end(page(req, entryPoint,
+		common.clientConfig() + datacache.getForRequest(req).serialize()
+		));
 });
 
 
