@@ -1,16 +1,18 @@
-/**
-* @module nt-mobile
-*/
-
 'use strict';
+/**
+ * @module nt-mobile
+ */
+
+//TODO: move jQuery, foundation, typekit to requires()/provides() calls here and out of the html.
 
 global.React = require('react/addons');
 
-var App = require('./main');
+//TODO: dispatcher require goes here?
+var AppView = require('./main');
 
 React.renderComponent(
-	App({basePath: $AppConfig.basepath || '/'}),
+	AppView({basePath: $AppConfig.basepath || '/'}),
 	document.getElementById('content')
 );
 
-$(document).foundation();
+$(document).foundation();//Does this need to be called per-comonent render (scoped to the component)?
