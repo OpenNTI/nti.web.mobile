@@ -1,1 +1,0 @@
-exports.Button = require('./Button');
