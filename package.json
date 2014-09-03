@@ -19,6 +19,7 @@
     "file-loader": "*",
     "flux": "*",
     "html-loader": "*",
+    "i18n": "*",
     "jshint-loader": "*",
     "json-loader": "*",
     "jsx-loader": "*",

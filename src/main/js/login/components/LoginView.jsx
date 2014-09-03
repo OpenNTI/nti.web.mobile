@@ -3,8 +3,10 @@
 'use strict';
 
 var LoginStore = require('../LoginStore');
+var LoginStoreProperties = require('../LoginStoreProperties');
 var LoginActions = require('../LoginActions');
 var Button = require('../../common/components/forms/Button');
+var OAuthButtons = require('./OAuthButtons');
 
 var React = require('react/addons');
 
@@ -14,14 +16,14 @@ var LoginView = React.createClass({
 		return {
 			username:'',
 			password:'',
-			submitEnabled: false
+			submitEnabled: false,
+			links:{}
 		};
 	},
 
 	componentDidMount: function() {
 		console.log('LoginView::componentDidMount');
 		LoginStore.addChangeListener(this._onLoginStoreChange);
-		// LoginActions.begin();
 	},
 
 	componentWillUnmount: function() {
@@ -48,6 +50,8 @@ var LoginView = React.createClass({
 						<Button
 							className={submitEnabled ? '' : 'disabled'}
 							onClick={submitEnabled ? this._handleSubmit : function(){return false}}>Log In</Button>
+
+						<OAuthButtons links={this.state.links} />
 					</fieldset>
 				</form>
 			</div>
@@ -97,9 +101,12 @@ var LoginView = React.createClass({
 		});
 	},
 
-	_onLoginStoreChange: function() {
-		console.log('LoginView::_onLoginStoreChange invoked');
+	_onLoginStoreChange: function(evt) {
+		console.log('LoginView::_onLoginStoreChange invoked %O', evt);
 		this._updateSubmitButton();
+		if(evt && evt.property === LoginStoreProperties.links) {
+			this.setState({links: evt.value});
+		}
 	}
 
 });

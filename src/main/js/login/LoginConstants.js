@@ -59,6 +59,22 @@ var links = {
 	LOGOUT_LINK: "logon.logout",
 
 	/**
+	* The rel/key for the log in with facebook link.
+	* @property OAUTH_LINK_FACEBOOK
+	* @type String
+	* @final
+	*/
+	OAUTH_LINK_FACEBOOK: "logon.facebook",
+
+	/**
+	* The rel/key for the log in with google link.
+	* @property OAUTH_LINK_GOOGLE
+	* @type String
+	* @final
+	*/
+	OAUTH_LINK_GOOGLE: "logon.google",
+
+	/**
 	* The rel for the password login link from the dataserver.
 	* @property LOGIN_PASSWORD_LINK
 	* @type String
