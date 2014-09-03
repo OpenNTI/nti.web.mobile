@@ -17,6 +17,7 @@
     "es6-promise": "*",
     "express": "*",
     "file-loader": "*",
+    "flux": "*",
     "html-loader": "*",
     "jshint-loader": "*",
     "json-loader": "*",
