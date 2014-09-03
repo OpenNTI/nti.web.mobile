@@ -13,7 +13,4 @@ React.renderComponent(
 	document.getElementById('content')
 );
 
-// React.renderComponent(<Nav />, document.getElementById('content'));
-// React.renderComponent(<LoginPanel />, document.getElementById('content'));
-
 $(document).foundation();

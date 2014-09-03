@@ -6,13 +6,16 @@
 
 var React = require('react/addons');
 
-var Login = require('./login');
 var AppDispatcher = require('./common/dispatcher/AppDispatcher');
+
+var Login = require('./login');
 var LoginView = Login.LoginView;
 var LoginStore = Login.LoginStore;
 var LoginStoreProperties = Login.LoginStoreProperties;
+
 var NavigationActions = require('./navigation/NavigationActions');
 var NavigationConstants = require('./navigation/NavigationConstants');
+
 var Forms = require('./common/components/forms')
 
 var Router = require('react-router-component');
@@ -29,7 +32,7 @@ var Test = React.createClass({
 	}
 });
 
-var errorNotFound = React.createClass({
+var NotFound = React.createClass({
 	render: function() {
 		return (
 			<div>not found</div>
@@ -52,16 +55,6 @@ function _loginStoreChange(evt) {
 }
 
 var App = React.createClass({
-
-
-	// componentWillMount: function() {
-	// 	Login.LoginController.addChangeListener(function(e) {
-	// 		debugger;
-	// 		console.log('app component logincontroller change listener invoked.');
-	// 	});
-	// 	// initialize the login system to find out whether we're logged in.
-	// 	Login.LoginActions.begin();
-	// },
 
 	_actionHandler:function(payload) {
 		var action = payload.action;
@@ -89,7 +82,7 @@ var App = React.createClass({
 		return (
 			<div>
 				<Locations ref="router" path={this.props.path}>
-					<NotFound handler={errorNotFound} />
+					<NotFound handler={NotFound} />
 					<Location path={this.props.basePath + 'login/'} handler={LoginView} />
 					<Location path={'/login/'} handler={LoginView} />
 					<Location path={'/testing123/'} handler={Test} />
