@@ -33,17 +33,16 @@ var NotFound = Router.NotFound;
 var Test = React.createClass({render: function() {return (<div>Test</div>);}});
 
 
-
 function _loginStoreChange(evt) {
 	console.log('App received loginStoreChange %O', evt);
 	if(evt && evt.property === LoginStoreProperties.isLoggedIn) {
 		if(evt.value) {
 			console.log('Logged in. Redirect to content?');
-			NavigationActions.navigate('/testing123/');
+			NavigationActions.navigate($AppConfig.basepath + '/library/');
 		}
 		else {
-			console.log('Logged out. Redirect to login?');
-			NavigationActions.navigate('/login/');
+			console.log('Logged out. Redirect to login? %O');
+			NavigationActions.navigate($AppConfig.basepath + '/login/');
 		}
 	}
 }
