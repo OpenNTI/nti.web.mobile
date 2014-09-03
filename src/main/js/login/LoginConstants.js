@@ -124,6 +124,14 @@ module.exports = merge(links, keyMirror({
 	LOGIN_PASSWORD: null,
 
 	/**
+	* Action name for attempting an oauth login.
+	* @property LOGIN_OAUTH
+	* @type String
+	* @final
+	*/
+	LOGIN_OAUTH: null,
+
+	/**
 	* @property LOGIN_SUCCESS
 	* @type String
 	* @final

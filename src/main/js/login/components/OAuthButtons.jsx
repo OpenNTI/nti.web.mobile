@@ -6,48 +6,68 @@ var React = require('react/addons');
 
 var Button = require('../../common/components/forms/Button');
 var LoginConstants = require('../LoginConstants');
+var LoginActions = require('../LoginActions');
 var t = require('../../common/locale');
+var Dataserver = require('dataserverinterface');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-function _buttonClick(evt) {
-	console.log('oauth button click: %O', evt);
+var React = require('react');
+
+// shortcut for getting the service name off the oauth constants
+// (e.g. 'google' from 'OAUTH_LINK_GOOGLE')
+function _serviceName(k) {
+	return k.split('_').pop().toLowerCase();
 }
+
+var OAuthButton = React.createClass({
+
+	_click: function() {
+		console.log(this.props.link);
+		LoginActions.logInOAuth(this.props.link);
+	},
+
+	render: function() {
+		// link_key is the property name of the link as in 'logon.google'
+		// 'key' is used by react components as an identifier so we use this
+		// admittedly clumsy alternative 'link_key'.
+		var lkey = this.props.link_key;
+		return (
+			<Button className={lkey.toLowerCase()} key={lkey} onClick={this._click}>
+				{t('oauth.login',{service:_serviceName(lkey)})}
+			</Button>
+		);
+	}
+});
 
 module.exports = React.createClass({
 
 	render: function() {
+
+		// filter the list of LoginConstants to include those that
+		// begin with OAUTH_LINK
 		var authlinks = Object.keys(LoginConstants).filter(function(k) {
 			return k.indexOf('OAUTH_LINK') == 0;
 		});
 
 		var buttons = [];
-		var test = [];
-
 		var props = this.props;
-		authlinks.forEach(function(link_key) {
 
-			// shortcut for getting the service name off the oauth constants
-			// (e.g. 'google' from 'OAUTH_LINK_GOOGLE')
-			function _serviceName(k) {
-				return k.split('_').pop().toLowerCase();
-			}
+		authlinks.forEach(function(link_key) {
 
 			if(LoginConstants[link_key] in props.links) {
 				buttons.push(
-					<Button className={link_key.toLowerCase()} key={link_key} onClick={_buttonClick} link_key={link_key}>
-						{t('oauth.login',{service:_serviceName(link_key)})}
-					</Button>
+					<OAuthButton link_key={link_key} link={props.links[LoginConstants[link_key]]} />
 				);
 			}
 		});
 
 		return (
 			<div>
-				<div>
-				 <ReactCSSTransitionGroup transitionName="button">{buttons}</ReactCSSTransitionGroup>
-				</div>
+				<div><ReactCSSTransitionGroup transitionName="button">{buttons}</ReactCSSTransitionGroup></div>
 			</div>
 		);
+
 	}
+
 });

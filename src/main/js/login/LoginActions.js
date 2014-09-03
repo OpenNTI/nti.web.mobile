@@ -39,6 +39,16 @@ module.exports = merge(EventEmitter.prototype, {
 		});
 	},
 
+	/** Attempt an oauth login via the specified url
+	* @param {String} the url to hit.
+	*/
+	logInOAuth: function(url) {
+		AppDispatcher.handleViewAction({
+			actionType: LoginConstants.LOGIN_OAUTH,
+			url: url
+		});	
+	},
+
 	/** Log the out of the system. */
 	logOut: function() {
 		AppDispatcher.handleViewAction({

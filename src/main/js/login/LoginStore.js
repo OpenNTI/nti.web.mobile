@@ -72,6 +72,17 @@ function _logIn(credentials) {
 	});
 }
 
+function _logInOAuth(url) {
+	var p = dataserver().logInOAuth(url);
+	p.then(function(res) {
+		console.log('login attempt resolved. %O', res);
+		_setLoggedIn(true);
+	});
+	p.catch(function(res) {
+		console.log('login attempt rejected. %O', res);
+	});
+}
+
 function _logOut(action) {
 	var p = dataserver()._request(LoginConstants.LOGOUT_LINK);
 	p.then(function(r) {
@@ -131,6 +142,10 @@ AppDispatcher.register(function(payload) {
 
 		case LoginConstants.LOGIN_PASSWORD:
 			_logIn(action.credentials);
+		break;
+
+		case LoginConstants.LOGIN_OAUTH:
+			_logInOAuth(action.url);
 		break;
 
 		case LoginConstants.LOGOUT:
