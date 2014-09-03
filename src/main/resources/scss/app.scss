@@ -1,6 +1,7 @@
 @import "settings";
 @import "variables"; // we override some foundation settings so this has to come between settings and foundation.
 @import "foundation";
+@import "transitions";
 
 @mixin input-typography {
 	text-transform: uppercase;

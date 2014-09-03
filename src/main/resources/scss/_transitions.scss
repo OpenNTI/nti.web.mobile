@@ -1,0 +1,21 @@
+.button-enter {
+	opacity: 0.01;
+	transition: opacity .25s ease-in;
+}
+
+.button-enter.button-enter-active {
+	opacity: 1;
+}
+
+.button-leave {
+	opacity: 1;
+	transition: opacity .25s ease-in;
+}
+
+.button-leave.button-leave-active {
+	opacity: 0.01;
+}
+
+.button {
+	transition: opacity .25s ease-in;
+}

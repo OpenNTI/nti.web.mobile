@@ -28,9 +28,7 @@ function dataserver() {
 function _ping(credentials) {
 	var username = (credentials && credentials.username)
 	var p = dataserver().ping(null,username);
-	console.log(p);
 	p.then(function(res) {
-		debugger;
 		_setLinks(res.links || {});
 	})
 	p.catch(function(result) {

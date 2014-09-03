@@ -8,6 +8,8 @@ var Button = require('../../common/components/forms/Button');
 var LoginConstants = require('../LoginConstants');
 var t = require('../../common/locale');
 
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 function _buttonClick(evt) {
 	console.log('oauth button click: %O', evt);
 }
@@ -23,7 +25,7 @@ module.exports = React.createClass({
 		var test = [];
 
 		var props = this.props;
-		authlinks.forEach(function(key) {
+		authlinks.forEach(function(link_key) {
 
 			// shortcut for getting the service name off the oauth constants
 			// (e.g. 'google' from 'OAUTH_LINK_GOOGLE')
@@ -31,10 +33,10 @@ module.exports = React.createClass({
 				return k.split('_').pop().toLowerCase();
 			}
 
-			if(LoginConstants[key] in props.links) {
+			if(LoginConstants[link_key] in props.links) {
 				buttons.push(
-					<Button className={key} onClick={_buttonClick} key={key}>
-						{t('oauth.login',{service:_serviceName(key)})}
+					<Button className={link_key.toLowerCase()} key={link_key} onClick={_buttonClick} link_key={link_key}>
+						{t('oauth.login',{service:_serviceName(link_key)})}
 					</Button>
 				);
 			}
@@ -43,7 +45,8 @@ module.exports = React.createClass({
 		return (
 			<div>
 				<div>
-				{buttons}</div>
+				 <ReactCSSTransitionGroup transitionName="button">{buttons}</ReactCSSTransitionGroup>
+				</div>
 			</div>
 		);
 	}
