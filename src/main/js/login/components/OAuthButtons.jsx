@@ -6,7 +6,7 @@ var React = require('react/addons');
 
 var Button = require('../../common/components/forms/Button');
 var LoginConstants = require('../LoginConstants');
-// var i18n = require('i18n');
+var t = require('../../common/locale');
 
 function _buttonClick(evt) {
 	console.log('oauth button click: %O', evt);
@@ -24,16 +24,26 @@ module.exports = React.createClass({
 
 		var props = this.props;
 		authlinks.forEach(function(key) {
-			console.log('%s', key);
-			console.log('%O', props);
+
+			// shortcut for getting the service name off the oauth constants
+			// (e.g. 'google' from 'OAUTH_LINK_GOOGLE')
+			function _serviceName(k) {
+				return k.split('_').pop().toLowerCase();
+			}
+
 			if(LoginConstants[key] in props.links) {
-				buttons.push(<Button onClick={_buttonClick}>{key}</Button>);
+				buttons.push(
+					<Button className={key} onClick={_buttonClick} key={key}>
+						{t('oauth.login',{service:_serviceName(key)})}
+					</Button>
+				);
 			}
 		});
 
 		return (
 			<div>
-				<div>{buttons}</div>
+				<div>
+				{buttons}</div>
 			</div>
 		);
 	}
