@@ -26,7 +26,7 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var p = this.props.item;
+		var p = this.props.item.getPresentationProperties();
 		return (
 			<div>
 				<img src={p.icon}/>
