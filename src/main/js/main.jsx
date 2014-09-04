@@ -75,8 +75,8 @@ var App = React.createClass({
 		return (
 			<div>
 				<Locations ref="router" path={this.props.path}>
-					<Location path={this.props.basePath + 'login/'} handler={LoginView} />
-					<Location path={this.props.basePath + 'library/'} handler={LibraryView} />
+					<Location path={this.props.basePath + 'login/*'} handler={LoginView} />
+					<Location path={this.props.basePath + 'library/*'} handler={LibraryView} />
 					<Location path={this.props.basePath} handler={HomeView} />
 					<NotFound handler={NotFoundView} />
 				</Locations>

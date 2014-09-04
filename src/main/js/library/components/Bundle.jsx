@@ -6,27 +6,27 @@ var Actions = require('../LibraryActions');
 
 module.exports = React.createClass({
 	propTypes: {
-		contentBundle: React.PropTypes.object.isRequired
+		item: React.PropTypes.object.isRequired
 	},
 
 
 	componentWillMount: function() {
-		this.props.contentBundle.addListener('changed', this._onChange);
+		this.props.item.addListener('changed', this._onChange);
 	},
 
 
 	componentWillUnmount: function() {
-		this.props.contentBundle.removeListener('changed', this._onChange);
+		this.props.item.removeListener('changed', this._onChange);
 	},
 
 
-	_onChange: function(pkg) {
+	_onChange: function() {
 		this.setState(this.state);//force rerender
 	},
 
 
 	render: function() {
-		var p = this.props.contentBundle;
+		var p = this.props.item;
 		return (
 			<div>
 				<img src={p.icon}/>
