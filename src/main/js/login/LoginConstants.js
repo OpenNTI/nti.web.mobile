@@ -81,7 +81,15 @@ var links = {
 	* @final
 	*/
 	LOGIN_PASSWORD_LINK: "logon.nti.password",
-		
+
+	/**
+	* The rel for the OU4+4/ldap login link from the dataserver.
+	* @property LOGIN_OU4x4_LINK
+	* @type String
+	* @final
+	*/
+	LOGIN_OU4x4_LINK: "logon.ldap.ou",
+
 	/**
 	* @property MIMETYPE_PONG
 	* @type String

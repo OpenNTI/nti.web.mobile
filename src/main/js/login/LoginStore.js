@@ -59,8 +59,12 @@ function _setLoggedIn(isLoggedIn) {
 }
 
 function _logIn(credentials) {
+
+	// prefer the OU4x4 link if available.
+	var url = _links[LoginConstants.LOGIN_OU4x4_LINK] || _links[LoginConstants.LOGIN_PASSWORD_LINK];
+
 	var p = dataserver().logInPassword(
-			_links[LoginConstants.LOGIN_PASSWORD_LINK],
+			url,
 			credentials);
 	
 	p.then(function(r) {
@@ -69,17 +73,6 @@ function _logIn(credentials) {
 	});
 	p.catch(function(r) {
 		console.log('login attempt rejected.');
-	});
-}
-
-function _logInOAuth(url) {
-	var p = dataserver().logInOAuth(url);
-	p.then(function(res) {
-		console.log('login attempt resolved. %O', res);
-		_setLoggedIn(true);
-	});
-	p.catch(function(res) {
-		console.log('login attempt rejected. %O', res);
 	});
 }
 

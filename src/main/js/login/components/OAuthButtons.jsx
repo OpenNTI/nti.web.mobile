@@ -22,18 +22,22 @@ function _serviceName(k) {
 
 var OAuthButton = React.createClass({
 
-	_click: function() {
-		console.log(this.props.link);
-		LoginActions.logInOAuth(this.props.link);
-	},
+	// _click: function() {
+	// 	console.log(this.props.link);
+	// 	LoginActions.logInOAuth(this.props.link);
+	// },
 
 	render: function() {
-		// link_key is the property name of the link as in 'logon.google'
+		// link_key is the property name of the link (as in 'logon.google').
 		// 'key' is used by react components as an identifier so we use this
 		// admittedly clumsy alternative 'link_key'.
 		var lkey = this.props.link_key;
 		return (
-			<Button className={lkey.toLowerCase()} key={lkey} onClick={this._click}>
+			<Button
+				href={this.props.link + '&success=' + $AppConfig.basepath + '&failure=' + $AppConfig.basepath}
+				className={lkey.toLowerCase()}
+				key={lkey}
+			>
 				{t('oauth.login',{service:_serviceName(lkey)})}
 			</Button>
 		);
