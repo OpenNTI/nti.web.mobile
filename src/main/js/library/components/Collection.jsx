@@ -6,8 +6,8 @@ var React = require('react/addons');
 module.exports = React.createClass({
 	propTypes: {
 		title: React.PropTypes.string.isRequired,
-		type: React.PropTypes.component.isRequired,
-		list: React.PropTypes.array.isRequired
+		type: React.PropTypes.func.isRequired,
+		list: React.PropTypes.array
 	},
 
 

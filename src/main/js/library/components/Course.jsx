@@ -32,7 +32,7 @@ module.exports = React.createClass({
 				<img src={p.icon}/>
 				<div>
 					<h3>{p.title}</h3>
-					<h5>{p.author}</h5>
+					<h5>{p.label}</h5>
 				</div>
 			</div>
 		);
