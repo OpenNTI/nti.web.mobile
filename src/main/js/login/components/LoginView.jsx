@@ -29,6 +29,7 @@ var LoginView = React.createClass({
 	componentWillUnmount: function() {
 		console.log('LoginView::componentWillUnmount');
 		LoginStore.removeChangeListener(this._onLoginStoreChange);
+		delete this.state.password;
 	},
 
 	render: function() {
