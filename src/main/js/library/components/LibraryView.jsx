@@ -6,7 +6,8 @@ var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
 var NotFound = Router.NotFound;
-var Link = Router.Link
+
+var Link = require('../../common/components/controls/link/HighlightedLink');
 
 var Store = require('../LibraryStore');
 var Actions = require('../LibraryActions');
@@ -57,11 +58,17 @@ module.exports = React.createClass({
 		var library = this.state.library;
 
     	return (
-	      <div><Link href={$AppConfig.basepath + 'library/'}>Books</Link> |
-			<Link href={$AppConfig.basepath + 'library/courses'}>Courses</Link>
+	      <div>
+			<ul className="button-group">
+			  <li><Link baseClassName="button" activeClassName="secondary" href={$AppConfig.basepath + 'library/'}>Books</Link></li>
+			  <li><Link baseClassName="button" activeClassName="secondary" href={$AppConfig.basepath + 'library/courses'}>Courses</Link></li>
+			<li><Link baseClassName="button" activeClassName="secondary" href={$AppConfig.basepath + 'library/admin'}>Administered</Link></li>
+			</ul>
+
 			<Locations contextual>
 				<Location path='/' handler={ContentView} title='Books' library={library}/>
 				<Location path='/courses' handler={Collection} title='Courses' type={Course} list={library.courses}/>
+				<Location path='/admin' handler={Collection} title='Administered Courses' type={Course} list={library.coursesAdmin}/>
 			</Locations>
 	      </div>
 	    );
