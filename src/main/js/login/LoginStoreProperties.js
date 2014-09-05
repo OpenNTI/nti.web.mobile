@@ -7,5 +7,6 @@ var keyMirror = require('react/lib/keyMirror');
 
 module.exports = keyMirror({
 	isLoggedIn: null,
-	links: null
+	links: null,
+	errors: null
 });

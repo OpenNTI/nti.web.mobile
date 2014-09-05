@@ -1,8 +1,6 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-var LoginActions = require('../../login/LoginActions');
-var LoginController = require('../../login/LoginController');
 var Button = require('./forms/Button');
 
 module.exports = React.createClass({
@@ -20,7 +18,6 @@ module.exports = React.createClass({
 			        </select>
 				</li>
 				<li><Button>Browse Courses</Button></li>
-				<li><Button onClick={LoginActions.logOut} enabled={LoginController.state.isLoggedIn}>Log Out</Button></li>
 			</ul>
 		);
 	}

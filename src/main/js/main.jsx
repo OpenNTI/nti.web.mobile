@@ -18,6 +18,7 @@ var LoginView = Login.LoginView; //Can we get this down to just this? the View?
 var LoginStore = Login.LoginStore;
 var LoginStoreProperties = Login.LoginStoreProperties;
 
+var AppContainer = require('./common/components/AppContainer');
 
 //Not sure this is needed...
 var NavigationActions = require('./navigation/NavigationActions');
@@ -72,15 +73,18 @@ var App = React.createClass({
 
 	render: function() {
 		require('../resources/scss/app.scss');
+		var router = (
+			<Locations ref="router" path={this.props.path}>
+				<Location path={this.props.basePath + 'login/*'} handler={LoginView} />
+				<Location path={this.props.basePath + 'library/*'} handler={LibraryView} />
+				<Location path={this.props.basePath} handler={HomeView} />
+				<NotFound handler={NotFoundView} />
+			</Locations>
+		);
+
 		return (
 			<div>
-				<Locations ref="router" path={this.props.path}>
-					<Location path={this.props.basePath + 'login/*'} handler={LoginView} />
-					<Location path={this.props.basePath + 'library/*'} handler={LibraryView} />
-					<Location path={this.props.basePath} handler={HomeView} />
-					<NotFound handler={NotFoundView} />
-				</Locations>
-
+				<AppContainer router={router} />
 				<Login.LogoutButton />
 			</div>
 		);

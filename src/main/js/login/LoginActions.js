@@ -29,17 +29,9 @@ module.exports = merge(EventEmitter.prototype, {
 		});
 	},
 
-	addError: function(error) {
-		AppDispatcher.handleViewAction({
-			actionType: Actions.LOGIN_ADD_ERROR,
-			credentials: (data && data.credentials)
-		});	
-	},
-
 	clearErrors: function() {
 		AppDispatcher.handleViewAction({
-			actionType: Actions.LOGIN_CLEAR_ERRORS,
-			credentials: (data && data.credentials)
+			actionType: Actions.LOGIN_CLEAR_ERRORS
 		});
 	},
 

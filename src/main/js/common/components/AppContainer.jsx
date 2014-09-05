@@ -3,10 +3,8 @@
 var React = require('react/addons');
 var LeftNav = require('./LeftNav');
 var Footer = require('./Footer');
-var LoginController = require('../../login/LoginController');
 var MainContentPanel = require('./MainContentPanel');
 
-var LoginPanel = require('../../login/components/LoginPanel');
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
@@ -17,25 +15,24 @@ module.exports = React.createClass({
 		return {loggedIn: false};
 	},
 
-	componentWillMount: function() {
-		LoginController.addChangeListener(this.loginStateChangeHandler);
-	},
+	// componentWillMount: function() {
+	// 	LoginController.addChangeListener(this.loginStateChangeHandler);
+	// },
 
-	componentWillUnmount: function() {
-		console.log('AppContainer::componentWillUnmount');
-		LoginController.removeChangeListener(this.loginStateChangeHandler);
-	},
+	// componentWillUnmount: function() {
+	// 	console.log('AppContainer::componentWillUnmount');
+	// 	LoginController.removeChangeListener(this.loginStateChangeHandler);
+	// },
 
-	loginStateChangeHandler: function() {
-		console.log('AppContainer.loginStateChangeHandler');
-		console.log('Is logged in? %s',LoginController.isLoggedIn());
-		if(LoginController.isLoggedIn()) {
+	// loginStateChangeHandler: function() {
+	// 	console.log('AppContainer.loginStateChangeHandler');
+	// 	console.log('Is logged in? %s',LoginController.isLoggedIn());
+	// 	if(LoginController.isLoggedIn()) {
 
-		}
-		this.setState({loggedIn: LoginController.isLoggedIn()});
-	},
+	// 	}
+	// 	this.setState({loggedIn: LoginController.isLoggedIn()});
+	// },
 
-	/** this is a test */
 	render: function() {
 		return (
 			<div className="app-container">
@@ -64,6 +61,7 @@ module.exports = React.createClass({
 						</aside>
 
 						<section className="main-section">
+							{this.props.router}
 							<MainContentPanel key="mcp" loggedIn={this.state.loggedIn} />
 							<Footer />
 						</section>

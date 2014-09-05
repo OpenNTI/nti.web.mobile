@@ -124,6 +124,14 @@ var actions = keyMirror({
 	LOGIN_PASSWORD: null,
 
 	/**
+	* Action name for clearing login errors.
+	* @property LOGIN_CLEAR_ERRORS
+	* @type String
+	* @final
+	*/
+	LOGIN_CLEAR_ERRORS: null,
+
+	/**
 	* Action name for attempting an oauth login.
 	* @property LOGIN_OAUTH
 	* @type String
@@ -184,7 +192,11 @@ var events = keyMirror({
 
 });
 
+var messages = keyMirror({
+	LOGIN_ERROR: null
+});
+
 exports.actions = actions;
 exports.events = events;
 exports.links = links;
-
+exports.messages = messages;

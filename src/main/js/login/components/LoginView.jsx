@@ -5,10 +5,12 @@
 var LoginStore = require('../LoginStore');
 var LoginStoreProperties = require('../LoginStoreProperties');
 var LoginActions = require('../LoginActions');
+// var Alert = require('../../common/components/Alert');
 var Button = require('../../common/components/forms/Button');
 var OAuthButtons = require('./OAuthButtons');
-
+var t = require('../../common/locale');
 var React = require('react/addons');
+var Messages = require('../LoginConstants').messages;
 
 var LoginView = React.createClass({
 
@@ -17,7 +19,8 @@ var LoginView = React.createClass({
 			username:'',
 			password:'',
 			submitEnabled: false,
-			links:{}
+			links:{},
+			errors:[]
 		};
 	},
 
@@ -34,9 +37,22 @@ var LoginView = React.createClass({
 
 	render: function() {
 		var submitEnabled = this.state.submitEnabled;
+		// var errpanel;
+		// if(this.state.errors.length > 0) {
+		// 	errpanel = (
+		// 		<Alert>
+		// 			{this.state.errors.map(function(e,idx,arr) {
+		// 				var msg = t([Messages.LOGIN_ERROR,e.statusCode.toString()]);
+		// 				return (<span key={'e'+idx}>{msg}</span>);
+		// 			})}
+		// 		</Alert>
+		// 	);
+		// }
+		
 		return (
 			<div className="row">
 				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
+					
 					<fieldset>
 						<input type="text"
 							ref="username"
@@ -79,10 +95,11 @@ var LoginView = React.createClass({
 
 	_handleSubmit: function() {
 		console.log('LoginView::_handleSubmit');
+		LoginActions.clearErrors();
 		LoginActions.logIn({
 			username:this._username(),
 			password:this._password()
-		})
+		});
 	},
 
 	_username: function() {
@@ -109,9 +126,8 @@ var LoginView = React.createClass({
 		}
 		if(evt && evt.property === LoginStoreProperties.links) {
 			this.setState({links: evt.value});
-		}	
+		}
 	}
-
 });
 
 module.exports = LoginView;

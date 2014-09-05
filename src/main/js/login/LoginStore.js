@@ -1,15 +1,20 @@
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
+var invariant = require('react/lib/invariant');
 var EventEmitter = require('events').EventEmitter;
 var LoginConstants = require('./LoginConstants');
 var Actions = LoginConstants.actions;
 var Links = LoginConstants.links;
+var Messages = LoginConstants.messages;
+var LoginActions = require('./LoginActions');
 var LoginStoreProperties = require('./LoginStoreProperties');
 var ResponseHandlers = require('./LoginResponseHandlers');
 var merge = require('react/lib/merge');
 var Dataserver = require('dataserverinterface');
 var CHANGE_EVENT = 'change';
+var ERROR_EVENT = 'error';
 
 var _links = {};
+var _errors = [];
 var _isLoggedIn = false;
 
 var _dataserver;
@@ -74,7 +79,11 @@ function _logIn(credentials) {
 		_setLoggedIn(true);
 	});
 	p.catch(function(r) {
-		console.log('login attempt rejected.');
+		console.log('login attempt rejected. %O', r);
+		_addError({
+			statusCode: r.status || r.statusCode,
+			raw:r
+		});
 	});
 }
 
@@ -86,13 +95,44 @@ function _logOut(action) {
 	});
 }
 
-LoginStoreChangeEvent = function(prop,val,oldval) {
+function LoginStoreChangeEvent(prop,val,oldval) {
 	if(!prop in LoginStoreProperties) {
 		throw new IllegalArgumentException( '"' + prop + '" is not a property defined in LoginStoreProperties.');
 	}
 	this.property = prop;
 	this.value = val;
 	this.oldValue = oldval;
+}
+
+/**
+* Add an error
+* @param {Object} error object should include properties for statusCode (http status code) and raw (the raw response)
+*/
+function _addError(err) {
+	invariant(
+		(err && 'statusCode' in err && 'raw' in err),
+		"err should contain values for statusCode and raw; { statusCode:xxx, raw:{...} }"
+	);
+	var oldErrs = _errors.slice(0);
+	_errors.push(err);
+	LoginStore.emitChange(new LoginStoreChangeEvent(
+		LoginStoreProperties.errors,
+		_errors,
+		oldErrs
+	));
+}
+
+function _clearErrors() {
+	if(_errors.length === 0) {
+		return;
+	}
+	var oldErrs = _errors.slice(0);
+	_errors = [];
+	LoginStore.emitChange(new LoginStoreChangeEvent(
+		LoginStoreProperties.errors,
+		_errors,
+		oldErrs
+	));
 }
 
 var LoginStore = merge(EventEmitter.prototype, {
@@ -145,6 +185,10 @@ AppDispatcher.register(function(payload) {
 
 		case Actions.LOGOUT:
 			_logOut(action);
+		break;
+
+		case Actions.LOGIN_CLEAR_ERRORS:
+			_clearErrors(action);
 		break;
 
 		default:
