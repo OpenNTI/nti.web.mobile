@@ -16,7 +16,7 @@ module.exports = React.createClass({
 		var list = this.props.list || [];
 
 		return (
-		<div>
+		<div className="grid-container">
 			<h2>{this.props.title}</h2>
 			<ul className="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
 			{list.map(function(o) {
