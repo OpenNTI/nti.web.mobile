@@ -39,6 +39,7 @@ var Link = React.createClass({
         if (this.props.onClick) {
             this.props.onClick(e);
         }
+
         if (!e.defaultPrevented) {
             e.preventDefault();
             this._navigate(this.props.href, function(err) {
@@ -84,7 +85,7 @@ var Link = React.createClass({
             className += ' ' + this.props.activeClassName;
         }
         var props = {
-            onClick: this.onClick,
+            onTouchTap: this.onClick,//fired for both click
             href: this._createHref(),
             role: this.props.role,
             className: className
