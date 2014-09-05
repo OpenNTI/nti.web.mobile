@@ -59,14 +59,13 @@ module.exports = React.createClass({
 
     	return (
 	      <div>
-			<div className="button-bar">
-				<ul className="button-group">
-					<li><Link baseClassName="small button" activeClassName="secondary" href={$AppConfig.basepath + 'library/'}>Books</Link></li>
-					<li><Link baseClassName="small button" activeClassName="secondary" href={$AppConfig.basepath + 'library/courses'}>Courses</Link></li>
-					<li><Link baseClassName="small button" activeClassName="secondary" href={$AppConfig.basepath + 'library/admin'}>Admin</Link></li>
-				</ul>
+			<div className="panel">
+				<dl className="sub-nav" role="menu" title="">
+					<Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/'}><a>Books</a></Link>
+					<Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/courses'}><a>Courses</a></Link>
+					<Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/admin'}><a>Admin</a></Link>
+				</dl>
 			</div>
-
 			<Locations contextual>
 				<Location path='/' handler={ContentView} title='Books' library={library}/>
 				<Location path='/courses' handler={Collection} title='Courses' type={Course} list={library.courses}/>
