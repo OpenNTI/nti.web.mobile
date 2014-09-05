@@ -62,12 +62,14 @@ module.exports = React.createClass({
 
     	return (
 	      <div>
-			<div className="panel">
+			<div className="panel sticky">
+				<nav class="top-bar" data-topbar role="navigation">
 				<dl className="sub-nav" role="menu" title="">
-					{books.length ? <Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/'}><a>Books</a></Link> : null}
-					{courses.length ? <Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/courses'}><a>Courses</a></Link> : null}
-					{instructing.length ? <Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/admin'}><a>Admin</a></Link> : null}
+					{books.length ? <Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/'}><a href="#">Books</a></Link> : null}
+					{courses.length ? <Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/courses'}><a href="#">Courses</a></Link> : null}
+					{instructing.length ? <Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/admin'}><a href="#">Admin</a></Link> : null}
 				</dl>
+				</nav>
 			</div>
 			<Locations contextual>
 				<Location path='/' handler={ContentView} title='Books' list={books}/>
