@@ -5,11 +5,7 @@ var React = require('react/addons');
 module.exports = React.createClass({
 	render: function() {
 		return (
-			<footer>
-				<ul>
-					<li></li>
-				</ul>
-			</footer>
+			<footer></footer>
 		);
 	}
 });

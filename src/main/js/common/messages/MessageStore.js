@@ -1,9 +1,9 @@
-var AppDispatcher = require('../common/dispatcher/AppDispatcher');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
 var invariant = require('react/lib/invariant');
 var EventEmitter = require('events').EventEmitter;
-var AlertConstants = require('./AlertConstants');
-var Actions = AlertConstants.actions;
-var Events = AlertConstants.events;
+var MessageConstants = require('./MessageConstants');
+var Actions = MessageConstants.actions;
+var Events = MessageConstants.events;
 var merge = require('react/lib/merge');
 
 var _messages = [];

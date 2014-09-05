@@ -1,7 +1,5 @@
-/** @module login/LoginActions */
-
-var AppDispatcher = require('../common/dispatcher/AppDispatcher');
-var Actions = require('./AlertConstants').actions;
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var Actions = require('./MessageConstants').actions;
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge')
 
@@ -19,7 +17,7 @@ module.exports = merge(EventEmitter.prototype, {
 
 	clearMessages: function() {
 		AppDispatcher.handleViewAction({
-			actionType: Actions.MESSAGES_CLEAR,
+			actionType: Actions.MESSAGES_CLEAR
 		});
 	}
 

@@ -12,6 +12,7 @@ var merge = require('react/lib/merge');
 var Dataserver = require('dataserverinterface');
 var CHANGE_EVENT = 'change';
 var ERROR_EVENT = 'error';
+var Messages = require('../common/messages/');
 
 var _links = {};
 var _errors = [];
@@ -113,26 +114,32 @@ function _addError(err) {
 		(err && 'statusCode' in err && 'raw' in err),
 		"err should contain values for statusCode and raw; { statusCode:xxx, raw:{...} }"
 	);
-	var oldErrs = _errors.slice(0);
-	_errors.push(err);
-	LoginStore.emitChange(new LoginStoreChangeEvent(
-		LoginStoreProperties.errors,
-		_errors,
-		oldErrs
-	));
+
+	Messages.Actions.addMessage('hi');
+
+	// var oldErrs = _errors.slice(0);
+	// _errors.push(err);
+	// LoginStore.emitChange(new LoginStoreChangeEvent(
+	// 	LoginStoreProperties.errors,
+	// 	_errors,
+	// 	oldErrs
+	// ));
 }
 
 function _clearErrors() {
 	if(_errors.length === 0) {
 		return;
 	}
-	var oldErrs = _errors.slice(0);
-	_errors = [];
-	LoginStore.emitChange(new LoginStoreChangeEvent(
-		LoginStoreProperties.errors,
-		_errors,
-		oldErrs
-	));
+
+	Messages.Actions.clearMessages();
+
+	// var oldErrs = _errors.slice(0);
+	// _errors = [];
+	// LoginStore.emitChange(new LoginStoreChangeEvent(
+	// 	LoginStoreProperties.errors,
+	// 	_errors,
+	// 	oldErrs
+	// ));
 }
 
 var LoginStore = merge(EventEmitter.prototype, {
