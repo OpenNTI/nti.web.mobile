@@ -104,10 +104,12 @@ var LoginView = React.createClass({
 
 	_onLoginStoreChange: function(evt) {
 		console.log('LoginView::_onLoginStoreChange invoked %O', evt);
-		this._updateSubmitButton();
+		if (this.isMounted()) {
+			this._updateSubmitButton();
+		}
 		if(evt && evt.property === LoginStoreProperties.links) {
 			this.setState({links: evt.value});
-		}
+		}	
 	}
 
 });
