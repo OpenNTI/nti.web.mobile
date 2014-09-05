@@ -1,7 +1,7 @@
 /** @module login/LoginActions */
 
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
-var LoginConstants = require('./LoginConstants');
+var Actions = require('./LoginConstants').actions;
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge')
 
@@ -14,7 +14,7 @@ module.exports = merge(EventEmitter.prototype, {
 	begin: function() {
 		console.log('LoginActions::begin');
 		AppDispatcher.handleViewAction({
-			actionType: LoginConstants.LOGIN_BEGIN
+			actionType: Actions.LOGIN_BEGIN
 		});
 	},
 
@@ -24,7 +24,21 @@ module.exports = merge(EventEmitter.prototype, {
 	userInputChanged: function(data) {
 		console.log('LoginActions::userInputChanged');
 		AppDispatcher.handleViewAction({
-			actionType: LoginConstants.LOGIN_FORM_CHANGED,
+			actionType: Actions.LOGIN_FORM_CHANGED,
+			credentials: (data && data.credentials)
+		});
+	},
+
+	addError: function(error) {
+		AppDispatcher.handleViewAction({
+			actionType: Actions.LOGIN_ADD_ERROR,
+			credentials: (data && data.credentials)
+		});	
+	},
+
+	clearErrors: function() {
+		AppDispatcher.handleViewAction({
+			actionType: Actions.LOGIN_CLEAR_ERRORS,
 			credentials: (data && data.credentials)
 		});
 	},
@@ -34,7 +48,7 @@ module.exports = merge(EventEmitter.prototype, {
 	*/
 	logIn: function(credentials) {
 		AppDispatcher.handleViewAction({
-			actionType: LoginConstants.LOGIN_PASSWORD,
+			actionType: Actions.LOGIN_PASSWORD,
 			credentials: credentials
 		});
 	},
@@ -44,7 +58,7 @@ module.exports = merge(EventEmitter.prototype, {
 	*/
 	logInOAuth: function(url) {
 		AppDispatcher.handleViewAction({
-			actionType: LoginConstants.LOGIN_OAUTH,
+			actionType: Actions.LOGIN_OAUTH,
 			url: url
 		});	
 	},
@@ -52,7 +66,7 @@ module.exports = merge(EventEmitter.prototype, {
 	/** Log the out of the system. */
 	logOut: function() {
 		AppDispatcher.handleViewAction({
-			actionType: LoginConstants.LOGOUT
+			actionType: Actions.LOGOUT
 		});	
 	}
 });

@@ -1,6 +1,8 @@
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var LoginConstants = require('./LoginConstants');
+var Actions = LoginConstants.actions;
+var Links = LoginConstants.links;
 var LoginStoreProperties = require('./LoginStoreProperties');
 var ResponseHandlers = require('./LoginResponseHandlers');
 var merge = require('react/lib/merge');
@@ -61,7 +63,7 @@ function _setLoggedIn(isLoggedIn) {
 function _logIn(credentials) {
 
 	// prefer the OU4x4 link if available.
-	var url = _links[LoginConstants.LOGIN_OU4x4_LINK] || _links[LoginConstants.LOGIN_PASSWORD_LINK];
+	var url = _links[Links.LOGIN_OU4x4_LINK] || _links[Links.LOGIN_PASSWORD_LINK];
 
 	var p = dataserver().logInPassword(
 			url,
@@ -77,7 +79,7 @@ function _logIn(credentials) {
 }
 
 function _logOut(action) {
-	var p = dataserver()._request(LoginConstants.LOGOUT_LINK);
+	var p = dataserver()._request(Links.LOGOUT_LINK);
 	p.then(function(r) {
 		console.log('Logout fulfilled. %O',r);
 		_setLoggedIn(false);
@@ -116,7 +118,7 @@ var LoginStore = merge(EventEmitter.prototype, {
 	},
 
 	canDoPasswordLogin: function() {
-		return (LoginConstants.LOGIN_PASSWORD_LINK in _links);
+		return (Links.LOGIN_PASSWORD_LINK in _links);
 	}
 
 });
@@ -125,23 +127,23 @@ AppDispatcher.register(function(payload) {
 	var action = payload.action;
 	console.log('LoginStore received %s action.', action.actionType);
 	switch(action.actionType) {
-		case LoginConstants.LOGIN_BEGIN:
+		case Actions.LOGIN_BEGIN:
 			_begin();
 		break;
 
-		case LoginConstants.LOGIN_FORM_CHANGED:
+		case Actions.LOGIN_FORM_CHANGED:
 			_ping(action.credentials);
 		break;
 
-		case LoginConstants.LOGIN_PASSWORD:
+		case Actions.LOGIN_PASSWORD:
 			_logIn(action.credentials);
 		break;
 
-		case LoginConstants.LOGIN_OAUTH:
+		case Actions.LOGIN_OAUTH:
 			_logInOAuth(action.url);
 		break;
 
-		case LoginConstants.LOGOUT:
+		case Actions.LOGOUT:
 			_logOut(action);
 		break;
 

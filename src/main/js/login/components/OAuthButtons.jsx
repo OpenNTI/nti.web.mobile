@@ -5,7 +5,7 @@
 var React = require('react/addons');
 
 var Button = require('../../common/components/forms/Button');
-var LoginConstants = require('../LoginConstants');
+var Links = require('../LoginConstants').links;
 var LoginActions = require('../LoginActions');
 var t = require('../../common/locale');
 var Dataserver = require('dataserverinterface');
@@ -50,7 +50,7 @@ module.exports = React.createClass({
 
 		// filter the list of LoginConstants to include those that
 		// begin with OAUTH_LINK
-		var authlinks = Object.keys(LoginConstants).filter(function(k) {
+		var authlinks = Object.keys(Links).filter(function(k) {
 			return k.indexOf('OAUTH_LINK') == 0;
 		});
 
@@ -59,9 +59,9 @@ module.exports = React.createClass({
 
 		authlinks.forEach(function(link_key) {
 
-			if(LoginConstants[link_key] in props.links) {
+			if(Links[link_key] in props.links) {
 				buttons.push(
-					<OAuthButton link_key={link_key} link={props.links[LoginConstants[link_key]]} />
+					<OAuthButton link_key={link_key} link={props.links[Links[link_key]]} />
 				);
 			}
 		});
