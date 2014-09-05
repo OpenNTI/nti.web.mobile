@@ -99,7 +99,7 @@ module.exports = [
                 { test: /\.html$/, loader: 'html' },
                 { test: /\.css$/,  loader: path.join(__dirname, 'src', 'server', 'style-collector') + '!css' },
                 { test: /\.scss$/,  loader: path.join(__dirname, 'src', 'server', 'style-collector') +
-                    '!sass?includePaths[]=' +
+                    '!css!sass?includePaths[]=' +
                     (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss')) }
             ])
         }
