@@ -59,11 +59,13 @@ module.exports = React.createClass({
 
     	return (
 	      <div>
-			<ul className="button-group">
-			  <li><Link baseClassName="button" activeClassName="secondary" href={$AppConfig.basepath + 'library/'}>Books</Link></li>
-			  <li><Link baseClassName="button" activeClassName="secondary" href={$AppConfig.basepath + 'library/courses'}>Courses</Link></li>
-			<li><Link baseClassName="button" activeClassName="secondary" href={$AppConfig.basepath + 'library/admin'}>Administered</Link></li>
-			</ul>
+			<div className="button-bar">
+				<ul className="button-group">
+					<li><Link baseClassName="small button" activeClassName="secondary" href={$AppConfig.basepath + 'library/'}>Books</Link></li>
+					<li><Link baseClassName="small button" activeClassName="secondary" href={$AppConfig.basepath + 'library/courses'}>Courses</Link></li>
+					<li><Link baseClassName="small button" activeClassName="secondary" href={$AppConfig.basepath + 'library/admin'}>Admin</Link></li>
+				</ul>
+			</div>
 
 			<Locations contextual>
 				<Location path='/' handler={ContentView} title='Books' library={library}/>

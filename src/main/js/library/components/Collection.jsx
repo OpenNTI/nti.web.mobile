@@ -18,11 +18,11 @@ module.exports = React.createClass({
 		return (
 		<div>
 			<h2>{this.props.title}</h2>
-			<div>
+			<ul className="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
 			{list.map(function(o) {
 				return <Item key={o.NTIID} item={o} />;
 			})}
-			</div>
+			</ul>
 		</div>
 		);
 	}

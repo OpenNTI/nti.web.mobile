@@ -3,16 +3,18 @@
 @import "foundation";
 @import "transitions";
 
+@import "library-view";
+
 @mixin input-typography {
 	text-transform: uppercase;
 	letter-spacing:0.1em;
 }
 
 .button, input {
-	@include input-typography;	
+	@include input-typography;
 }
 
-#content {	
+#content {
 }
 
 .main-section {
