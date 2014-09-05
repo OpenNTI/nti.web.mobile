@@ -42,6 +42,7 @@ var App = React.createClass({
 		console.log('App received %s action.', action.actionType);
 		switch(action.actionType) {
 			case NavigationConstants.NAVIGATE:
+				console.log('App received %O.', action);
 				Environment.defaultEnvironment.navigate(action.href, {});
 			break;
 		}
@@ -54,11 +55,11 @@ var App = React.createClass({
 		if(evt && evt.property === LoginStoreProperties.isLoggedIn) {
 			if(evt.value) {
 				console.log('Logged in. Redirect to content?');
-				NavigationActions.navigate(this.props.basePath + '/library/');
+				NavigationActions.navigate(this.props.basePath + 'library/');
 			}
 			else {
 				console.log('Logged out. Redirect to login? %O');
-				NavigationActions.navigate(this.props.basePath + '/login/');
+				NavigationActions.navigate(this.props.basePath + 'login/');
 			}
 		}
 	},
