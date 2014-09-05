@@ -11,7 +11,7 @@ var React = require('react/addons');
 var Button = React.createClass({displayName: 'Button',
 	render: function() {
 		return this.transferPropsTo(
-			React.DOM.a( {href:"#", className:"button tiny radius"}, this.props.children)
+			React.DOM.a( {href:this.props.href||'#', className:"button tiny radius"}, this.props.children)
 		);
 	}
 });
