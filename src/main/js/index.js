@@ -7,6 +7,15 @@
 
 global.React = require('react/addons');
 
+var EventPluginHub = require('react/lib/EventPluginHub');
+
+EventPluginHub.injection.injectEventPluginsByName({
+	ResponderEventPlugin: require('./common/thirdparty/ResponderEventPlugin'),
+	TapEventPlugin: require('./common/thirdparty/TapEventPlugin')
+});
+
+React.initializeTouchEvents(true);
+
 //TODO: dispatcher require goes here?
 var AppView = require('./main');
 
