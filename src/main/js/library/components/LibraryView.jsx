@@ -56,20 +56,23 @@ module.exports = React.createClass({
 
 	render: function() {
 		var library = this.state.library;
+		var books = [].concat(library.bundles || [], library.packages || []);
+		var courses = [].concat(library.courses || []);
+		var instructing = [].concat(library.coursesAdmin || []);
 
     	return (
 	      <div>
 			<div className="panel">
 				<dl className="sub-nav" role="menu" title="">
-					<Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/'}><a>Books</a></Link>
-					<Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/courses'}><a>Courses</a></Link>
-					<Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/admin'}><a>Admin</a></Link>
+					{books.length ? <Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/'}><a>Books</a></Link> : null}
+					{courses.length ? <Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/courses'}><a>Courses</a></Link> : null}
+					{instructing.length ? <Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/admin'}><a>Admin</a></Link> : null}
 				</dl>
 			</div>
 			<Locations contextual>
-				<Location path='/' handler={ContentView} title='Books' library={library}/>
-				<Location path='/courses' handler={Collection} title='Courses' type={Course} list={library.courses}/>
-				<Location path='/admin' handler={Collection} title='Administered Courses' type={Course} list={library.coursesAdmin}/>
+				<Location path='/' handler={ContentView} title='Books' list={books}/>
+				<Location path='/courses' handler={Collection} title='Courses' type={Course} list={courses}/>
+				<Location path='/admin' handler={Collection} title='Administered Courses' type={Course} list={instructing}/>
 			</Locations>
 	      </div>
 	    );
