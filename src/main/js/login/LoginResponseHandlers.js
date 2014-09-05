@@ -38,7 +38,7 @@ var ResponseHandlers = merge(ResponseHandlersBase.prototype, {
 				password: password,
 				remember: true
 			};
-			Utils.call(handshakeLink,auth,ResponseHandlers.handshake);	
+			Utils.call(handshakeLink,auth,ResponseHandlers.handshake);
 		}
 	},
 
@@ -77,14 +77,8 @@ var ResponseHandlers = merge(ResponseHandlersBase.prototype, {
 		LoginController.setLoggedIn(isSuccess(response));
 	},
 
-	/**
-	* Response handler for logout call.
-	* @method logOut
-	*/
-	logOut: function(response) {
-		LoginController.setLoggedIn(false);
-	},
 
+	
 	/**
 	* Handles response from a dataserver handshake call.
 	* @method login

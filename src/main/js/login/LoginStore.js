@@ -74,7 +74,7 @@ function _logIn(credentials) {
 	var p = dataserver().logInPassword(
 			url,
 			credentials);
-	
+
 	p.then(function(r) {
 		console.log('login attempt resolved. %O', r);
 		_setLoggedIn(true);
@@ -89,11 +89,9 @@ function _logIn(credentials) {
 }
 
 function _logOut(action) {
-	var p = dataserver()._request(Links.LOGOUT_LINK);
-	p.then(function(r) {
-		console.log('Logout fulfilled. %O',r);
-		_setLoggedIn(false);
-	});
+	var current = encodeURIComponent(location.href);
+	var p = Links.LOGOUT_LINK + '?success=' + current;
+	location.replace(p);
 }
 
 function LoginStoreChangeEvent(prop,val,oldval) {
