@@ -42,7 +42,7 @@ var App = React.createClass({
 		console.log('App received %s action.', action.actionType);
 		switch(action.actionType) {
 			case NavigationConstants.NAVIGATE:
-				Environment.defaultEnvironment.navigate(action.href);
+				Environment.defaultEnvironment.navigate(action.href, {});
 			break;
 		}
 		return true; // No errors. Needed by promise in Dispatcher.
