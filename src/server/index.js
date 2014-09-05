@@ -72,7 +72,7 @@ app.use(function(err, req, res, next){
 	res.status(500).send('Oops! Something broke!'); });
 
 //Go!
-(mobileapp || app).listen(port, function() {
+(mobileapp || app).listen(port, address, function() {
 	console.log('Listening on port %d', port); });
 
 if (devmode) {
