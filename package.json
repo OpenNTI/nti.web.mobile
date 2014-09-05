@@ -24,6 +24,7 @@
     "jsx-loader": "*",
     "merge": "*",
     "morgan": "*",
+    "optimist": "*",
     "react": "*",
     "react-interpolate-component": "*",
     "react-router-component": "*",

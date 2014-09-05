@@ -1,7 +1,31 @@
 'use strict';
 
-var env = {};
 var merge = require('merge');
+var opt = require('optimist')
+			.usage('WebApp Instance')
+			    .alias('l', 'listen')
+				.default('l', '0.0.0.0')
+			    .describe('l', 'Liston on address')
+				.alias('p', 'port')
+				.describe('p', 'Liston on port')
+			    .argv;
+var env = {};
+
+var overrides = {
+	address: opt.l,
+	port: opt.p
+};
+
+
+function override(dest, override) {
+	for (var key in override) {
+		if(override[key]) {
+			dest[key] = override[key];
+		}
+	}
+	return dest;
+}
+
 
 try {
 	env = require('./config/env.json');
@@ -14,7 +38,9 @@ exports.config = function() {
 	var node_env = process.env.NODE_ENV,
 		base = 'development';
 
-	return merge(true, env[base], env[node_env] || {});
+	return override(
+		merge(true, env[base], env[node_env] || {}),
+		overrides);
 };
 
 exports.clientConfig = function() {

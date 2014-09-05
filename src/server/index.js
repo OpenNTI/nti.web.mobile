@@ -12,6 +12,7 @@ var path = require('path');
 
 var common = require('./common');
 var config = common.config();
+var address = config.address || '0.0.0.0';
 var port = config.port || 9000;
 
 var dataserver = require('dataserverinterface')(config);
