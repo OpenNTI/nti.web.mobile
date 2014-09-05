@@ -32,10 +32,10 @@ var OAuthButton = React.createClass({
 		// 'key' is used by react components as an identifier so we use this
 		// admittedly clumsy alternative 'link_key'.
 		var lkey = this.props.link_key;
-		var basepath = this.props.basePath;
+		var base = encodeURIComponent(this.props.basePath);
 		return (
 			<Button
-				href={this.props.link + '&success=' + basepath + '&failure=' + basepath}
+				href={this.props.link + '&success=' + base + '&failure=' + base}
 				className={lkey.toLowerCase()}
 				key={lkey}
 			>
