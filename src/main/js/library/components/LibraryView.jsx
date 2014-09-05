@@ -60,14 +60,16 @@ module.exports = React.createClass({
 		var courses = [].concat(library.courses || []);
 		var instructing = [].concat(library.coursesAdmin || []);
 
+		var basePath = this.props.basePath;
+
     	return (
 	      <div>
 			<div className="panel sticky">
-				<nav class="top-bar" data-topbar role="navigation">
+				<nav data-topbar role="navigation">
 				<dl className="sub-nav" role="menu" title="">
-					{books.length ? <Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/'}><a href="#">Books</a></Link> : null}
-					{courses.length ? <Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/courses'}><a href="#">Courses</a></Link> : null}
-					{instructing.length ? <Link role="menuitem" tag="dd" href={$AppConfig.basepath + 'library/admin'}><a href="#">Admin</a></Link> : null}
+					{books.length ? <Link role="menuitem" tag="dd" href={basePath + 'library/'}><a href="#">Books</a></Link> : null}
+					{courses.length ? <Link role="menuitem" tag="dd" href={basePath + 'library/courses'}><a href="#">Courses</a></Link> : null}
+					{instructing.length ? <Link role="menuitem" tag="dd" href={basePath + 'library/admin'}><a href="#">Admin</a></Link> : null}
 				</dl>
 				</nav>
 			</div>

@@ -48,11 +48,11 @@ var LoginView = React.createClass({
 		// 		</Alert>
 		// 	);
 		// }
-		
+
 		return (
 			<div className="row">
 				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
-					
+
 					<fieldset>
 						<input type="text"
 							ref="username"
@@ -68,7 +68,7 @@ var LoginView = React.createClass({
 							className={submitEnabled ? '' : 'disabled'}
 							onClick={submitEnabled ? this._handleSubmit : function(){return false}}>Log In</Button>
 
-						<OAuthButtons links={this.state.links} />
+						<OAuthButtons links={this.state.links} basePath={this.props.basePath}/>
 					</fieldset>
 				</form>
 			</div>

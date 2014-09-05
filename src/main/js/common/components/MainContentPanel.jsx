@@ -5,7 +5,7 @@ var React = require('react/addons');
 var MainContentPanel = React.createClass({
 	render: function() {
 		if(this.props.loggedIn) {
-			return (<div class="content">this is content</div>);
+			return (<div className="content">this is content</div>);
 		}
 		return (
 			<div>

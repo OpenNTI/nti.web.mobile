@@ -8,7 +8,7 @@ var ErrorMessage = React.createClass({
 
 	render: function() {
 		return (
-			<div class="message error">{this.props.children}</div>
+			<div className="message error">{this.props.children}</div>
 		);
 	}
 

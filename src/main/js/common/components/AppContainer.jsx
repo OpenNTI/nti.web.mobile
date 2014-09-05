@@ -61,14 +61,14 @@ module.exports = React.createClass({
 						</aside>
 
 						<section className="main-section">
-							{this.props.router}
+							{this.props.children}
 							<MainContentPanel key="mcp" loggedIn={this.state.loggedIn} />
 							<Footer />
 						</section>
 
 						<a className="exit-off-canvas"></a>
 					</div>
-				</div>				
+				</div>
 			</div>
 		);
 	}

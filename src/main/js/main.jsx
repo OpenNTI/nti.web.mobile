@@ -29,24 +29,11 @@ var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
 var NotFound = Router.NotFound;
+var Environment = Router.environment;
 
 
 var Test = React.createClass({render: function() {return (<div>Test</div>);}});
 
-
-function _loginStoreChange(evt) {
-	console.log('App received loginStoreChange %O', evt);
-	if(evt && evt.property === LoginStoreProperties.isLoggedIn) {
-		if(evt.value) {
-			console.log('Logged in. Redirect to content?');
-			NavigationActions.navigate($AppConfig.basepath + '/library/');
-		}
-		else {
-			console.log('Logged out. Redirect to login? %O');
-			NavigationActions.navigate($AppConfig.basepath + '/login/');
-		}
-	}
-}
 
 var App = React.createClass({
 
@@ -55,36 +42,51 @@ var App = React.createClass({
 		console.log('App received %s action.', action.actionType);
 		switch(action.actionType) {
 			case NavigationConstants.NAVIGATE:
-				this.refs.router.navigate(action.href);
+				Environment.defaultEnvironment.navigate(action.href);
 			break;
 		}
 		return true; // No errors. Needed by promise in Dispatcher.
 	},
 
+
+	_loginStoreChange: function(evt) {
+		console.log('App received loginStoreChange %O', evt);
+		if(evt && evt.property === LoginStoreProperties.isLoggedIn) {
+			if(evt.value) {
+				console.log('Logged in. Redirect to content?');
+				NavigationActions.navigate(this.props.basepath + '/library/');
+			}
+			else {
+				console.log('Logged out. Redirect to login? %O');
+				NavigationActions.navigate(this.props.basepath + '/login/');
+			}
+		}
+	},
+
+
 	componentWillMount: function() {
-		LoginStore.addChangeListener(_loginStoreChange);
+		LoginStore.addChangeListener(this._loginStoreChange);
 		AppDispatcher.register(this._actionHandler);
 	},
 
 	componentWillUnmount: function() {
-		LoginStore.removeChangeListener(_loginStoreChange);
+		LoginStore.removeChangeListener(this._loginStoreChange);
 		AppDispatcher.unregister(this._actionHandler);
 	},
 
 	render: function() {
 		require('../resources/scss/app.scss');
-		var router = (
-			<Locations ref="router" path={this.props.path}>
-				<Location path={this.props.basePath + 'login/*'} handler={LoginView} />
-				<Location path={this.props.basePath + 'library/*'} handler={LibraryView} />
-				<Location path={this.props.basePath} handler={HomeView} />
-				<NotFound handler={NotFoundView} />
-			</Locations>
-		);
-
+		var basePath = this.props.basePath;
 		return (
 			<div>
-				<AppContainer router={router} />
+				<AppContainer>
+					<Locations path={this.props.path}>
+						<Location path={basePath + 'login/*'} handler={LoginView} basePath={basePath}/>
+						<Location path={basePath + 'library/*'} handler={LibraryView} basePath={basePath} />
+						<Location path={basePath} handler={HomeView} />
+						<NotFound handler={NotFoundView} />
+					</Locations>
+				</AppContainer>
 				<Login.LogoutButton />
 			</div>
 		);
