@@ -4,7 +4,7 @@ var EventEmitter = require('events').EventEmitter;
 var LoginConstants = require('./LoginConstants');
 var Actions = LoginConstants.actions;
 var Links = LoginConstants.links;
-var Messages = LoginConstants.messages;
+var LoginMessages = LoginConstants.messages;
 var LoginActions = require('./LoginActions');
 var LoginStoreProperties = require('./LoginStoreProperties');
 var ResponseHandlers = require('./LoginResponseHandlers');
@@ -13,6 +13,7 @@ var Dataserver = require('dataserverinterface');
 var CHANGE_EVENT = 'change';
 var ERROR_EVENT = 'error';
 var Messages = require('../common/messages/');
+var t = require('../common/locale');
 
 var _links = {};
 var _errors = [];
@@ -113,7 +114,9 @@ function _addError(err) {
 		"err should contain values for statusCode and raw; { statusCode:xxx, raw:{...} }"
 	);
 
-	Messages.Actions.addMessage('hi');
+	var msg = t(LoginMessages.LOGIN_ERROR,err.statusCode.toString());
+
+	Messages.Actions.addMessage(msg,'LoginStore');
 
 	// var oldErrs = _errors.slice(0);
 	// _errors.push(err);

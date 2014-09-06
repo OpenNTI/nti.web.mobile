@@ -6,9 +6,8 @@ var Footer = require('./Footer');
 var MainContentPanel = require('./MainContentPanel');
 
 
-var Messages = require('../messages');
-var MessageDisplay = Messages.Display;
-var MessageStore = Messages.Store;
+var MessageDisplay = require('../messages').Display;
+
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
@@ -65,7 +64,7 @@ module.exports = React.createClass({
 						</aside>
 
 						<section className="main-section">
-							<MessageDisplay messages={MessageStore._messages} />
+							<MessageDisplay />
 							{this.props.children}
 							<Footer />
 						</section>

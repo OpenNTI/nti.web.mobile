@@ -8,10 +8,12 @@ var merge = require('react/lib/merge')
  **/
 module.exports = merge(EventEmitter.prototype, {
 
-	addMessage: function(msg) {
+	addMessage: function(msg,sender,category) {
 		AppDispatcher.handleViewAction({
 			actionType: Actions.MESSAGES_ADD,
-			msg: msg
+			msg: msg,
+			sender:sender,
+			category:category
 		});
 	},
 
