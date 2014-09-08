@@ -29,6 +29,7 @@ function _clearMessages() {
 
 function _removeMessage(id) {
 	delete _messages[id];
+	MessageStore.emitChange();
 }
 
 function Message(message,sender,category) {
@@ -78,6 +79,10 @@ AppDispatcher.register(function(payload) {
 
 		case Actions.MESSAGES_CLEAR:
 			_clearMessages();
+		break;
+
+		case Actions.MESSAGES_REMOVE:
+			_removeMessage(action.messageId);
 		break;
 
 		default:

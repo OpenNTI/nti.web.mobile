@@ -1,21 +1,31 @@
-.button-enter {
-	opacity: 0.01;
-	transition: opacity .25s ease-in;
+@mixin reactTransition($name) {
+
+	.#{$name}-enter {
+		opacity: 0.01;
+		transition: opacity .25s ease-in;
+	}
+
+	.#{$name}-enter.#{$name}-enter-active {
+		opacity: 1;
+	}
+
+	.#{$name}-leave {
+		opacity: 1;
+		transition: opacity .25s ease-in;
+	}
+
+	.#{$name}-leave.#{$name}-leave-active {
+		opacity: 0.01;
+	}
+
+	.#{$name} {
+		transition: opacity .25s ease-in;
+	}
+
 }
 
-.button-enter.button-enter-active {
-	opacity: 1;
-}
 
-.button-leave {
-	opacity: 1;
-	transition: opacity .25s ease-in;
-}
+@include reactTransition('button');
+@include reactTransition('messages');
 
-.button-leave.button-leave-active {
-	opacity: 0.01;
-}
 
-.button {
-	transition: opacity .25s ease-in;
-}

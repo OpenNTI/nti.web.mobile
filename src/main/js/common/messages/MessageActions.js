@@ -21,6 +21,13 @@ module.exports = merge(EventEmitter.prototype, {
 		AppDispatcher.handleViewAction({
 			actionType: Actions.MESSAGES_CLEAR
 		});
+	},
+
+	removeMessage: function(id) {
+		AppDispatcher.handleViewAction({
+			actionType: Actions.MESSAGES_REMOVE,
+			messageId: id
+		});
 	}
 
 });

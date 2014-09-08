@@ -21,6 +21,14 @@ var actions = keyMirror({
 	*/
 	MESSAGES_CLEAR: null,
 
+	/**
+	* Action for removing a specific message.
+	* @property MESSAGES_REMOVE
+	* @type String
+	* @final
+	*/
+	MESSAGES_REMOVE: null,
+
 });
 
 var events = keyMirror({
