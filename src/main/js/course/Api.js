@@ -7,12 +7,6 @@ var Constants = require('./Constants');
 
 
 
-function load() {
-	getServer().getServiceDocument()
-		.then(function(service){
-
-		});
-}
 
 
 module.exports = {

@@ -9,5 +9,6 @@ var keyMirror = require('react/lib/keyMirror');
 
 module.exports = merge(exports, keyMirror({
 
+    SET_ACTIVE_COURSE: null,
 
 }));
