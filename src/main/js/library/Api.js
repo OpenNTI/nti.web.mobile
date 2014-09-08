@@ -6,11 +6,15 @@ var Library = require('dataserverinterface/stores/Library');
 var getServer = require('../common/Utils').getServer;
 var Constants = require('./Constants');
 
+
 function load() {
-	getServer().getServiceDocument()
+	return getServer().getServiceDocument()
 		.then(function(service){
-			Library.load(service, 'Main')
-				.then(dispatch.bind(this, Constants.LOADED_LIBRARY));
+			return Library.load(service, 'Main')
+				.then(function(library) {
+					dispatch(Constants.LOADED_LIBRARY, library);
+					return library;
+				});
 	});
 }
 
