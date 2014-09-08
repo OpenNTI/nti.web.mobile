@@ -2,17 +2,19 @@
 
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var Constants = require('./LibraryConstants');
 var merge = require('react/lib/merge');
+
+var Constants = require('./Constants');
 
 var CHANGE_EVENT = 'change';
 
 var _data = {};
 
-var LibraryStore = merge(EventEmitter.prototype, {
+var Store = merge(EventEmitter.prototype, {
+	displayName: 'library.Store',
 
 	emitChange: function(evt) {
-		console.log('LibraryStore: emitting change event');
+		console.log(this.displayName + ': emitting change event');
 		this.emit(CHANGE_EVENT, evt);
 	},
 
@@ -20,7 +22,7 @@ var LibraryStore = merge(EventEmitter.prototype, {
 	 * @param {function} callback
 	 */
 	addChangeListener: function(callback) {
-		console.log('LibraryStore: adding change listener');
+		console.log(this.displayName + ': adding change listener');
 		this.on(CHANGE_EVENT, callback);
 	},
 
@@ -38,12 +40,12 @@ var LibraryStore = merge(EventEmitter.prototype, {
 });
 
 
-function persistData(libraryCollection) {
-	_data = libraryCollection;
+function persistData(data) {
+	_data = data;
 }
 
 
-LibraryStore.appDispatch = AppDispatcher.register(function(payload) {
+Store.appDispatch = AppDispatcher.register(function(payload) {
     var action = payload.action;
     switch(action.actionType) {
         case Constants.LOADED_LIBRARY:
@@ -52,9 +54,9 @@ LibraryStore.appDispatch = AppDispatcher.register(function(payload) {
         default:
             return true;
     }
-    LibraryStore.emitChange();
+    Store.emitChange();
     return true;
 });
 
 
-module.exports = LibraryStore;
+module.exports = Store;

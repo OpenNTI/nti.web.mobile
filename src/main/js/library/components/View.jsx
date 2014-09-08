@@ -9,8 +9,8 @@ var NotFound = Router.NotFound;
 
 var Link = require('../../common/components/controls/link/HighlightedLink');
 
-var Store = require('../LibraryStore');
-var Actions = require('../LibraryActions');
+var Store = require('../Store');
+var Actions = require('../Actions');
 
 var ContentView = require('./ContentView');
 

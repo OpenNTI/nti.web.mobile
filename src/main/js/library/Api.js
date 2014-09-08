@@ -1,8 +1,9 @@
 'use strict';
 
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
-var Constants = require('./LibraryConstants');
-var Library = require('dataserverinterface/models/Library');
+var Library = require('dataserverinterface/stores/Library');
+
+var Constants = require('./Constants');
 
 function getServer() {
 	var fn = getServer;

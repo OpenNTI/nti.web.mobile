@@ -2,7 +2,6 @@
 'use strict';
 
 var React = require('react/addons');
-var Actions = require('../LibraryActions');
 var BLANK_IMAGE = require('../../common/constants/DataURIs').BLANK_IMAGE;
 
 module.exports = React.createClass({
