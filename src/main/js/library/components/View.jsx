@@ -39,8 +39,7 @@ module.exports = React.createClass({
 
 
     getDataIfNeeded: function(props) {
-        var meta = Store.getData().metaData;
-		if(/*some cond to check...*/ true) {
+		if(!Store.getData().loaded) {
         	Actions.loadLibrary();
         }
     },
