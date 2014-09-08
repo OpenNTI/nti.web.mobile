@@ -3,26 +3,31 @@
 * @class Utils
 */
 var Utils = {
-	getLink: function(o, rel) {
-		if (o && o.Links) { o = o.Links; }
 
-		var v, i = o.length - 1;
-		for (i; i>=0; i--) {
-			v = o[i];
-			if (v && v.rel === rel) {
-				return v;
-			}
-		}
-	},
 	/**
-	* Make a server request.
-	* @method call
-	* @param url {String} The url to request
-	* @param data {mixed} An object or query string to submit as part of the request
-	* @param callback {function} The function to invoke upon request completion
-	* @param forceMethod {String} Force the request to use this method (e.g. 'GET' or 'POST')
-	*/
+	 * Returns the shared instance of the server interface.
+	 */
+	getServer: function getServer() {
+		var fn = getServer;
+		if (!fn.server) {
+			fn.server = require('dataserverinterface')($AppConfig).interface;
+		}
+		return fn.server;
+	},
+
+
+	/**
+	 * TODO: migrate calls to this to use dataserverinterface.service[get|post|etc...]
+	 *
+	 * Make a server request.
+	 * @method call
+	 * @param url {String} The url to request
+	 * @param data {mixed} An object or query string to submit as part of the request
+	 * @param callback {function} The function to invoke upon request completion
+	 * @param forceMethod {String} Force the request to use this method (e.g. 'GET' or 'POST')
+	 */
 	call: function(url,data,callback,forceMethod) {
+		console.warn('Deprecated: we should make all requests through the dataserver interface');
 		var username = data? data.username : undefined,
 			password = data? data.password : undefined,
 			auth = password? ('Basic '+btoa(username+':'+password)) : undefined,
@@ -59,12 +64,13 @@ var Utils = {
 		});
 	},
 
+
 	/**
-	* Serializes an object to be submitted as part of an web/ajax request.
-	* @method toQueryString
-	* @param {Object} obj The object to serialize.
-	* @return {String} Serialized, URI-encoded, querystring form of the given object.
-	*/
+	 * Serializes an object to be submitted as part of an web/ajax request.
+	 * @method toQueryString
+	 * @param {Object} obj The object to serialize.
+	 * @return {String} Serialized, URI-encoded, querystring form of the given object.
+	 */
 	toQueryString: function(obj) {
 		var k, t,string = [];
 		for(k in o){
@@ -80,18 +86,19 @@ var Utils = {
 		return string.join('&');
 	},
 
+
 	/*
-	* Maps the given object array, indexed by element[key].
-	* Example:
-	* var in = [{name:'banana', color:'yellow'}, {name:'apple', color:'red'}];
-	* Utils.indexArrayByKey(in,'name') returns:
-	* {
-	* 	'banana': {name:'banana', color:'yellow'},
-	* 	'apple': {name:'apple', color:'red'}
-	* }
-	* Note: No attempt is made to prevent items with
-	* the same key from stomping each other.
-	*/
+	 * Maps the given object array, indexed by element[key].
+	 * Example:
+	 * var in = [{name:'banana', color:'yellow'}, {name:'apple', color:'red'}];
+	 * Utils.indexArrayByKey(in,'name') returns:
+	 * {
+	 * 	'banana': {name:'banana', color:'yellow'},
+	 * 	'apple': {name:'apple', color:'red'}
+	 * }
+	 * Note: No attempt is made to prevent items with
+	 * the same key from stomping each other.
+	 */
 	indexArrayByKey: function(arr, key) {
 		var result = {};
 		arr.forEach(function(item) {

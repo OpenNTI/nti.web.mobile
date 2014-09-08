@@ -3,15 +3,8 @@
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
 var Library = require('dataserverinterface/stores/Library');
 
+var getServer = require('../common/Utils').getServer;
 var Constants = require('./Constants');
-
-function getServer() {
-	var fn = getServer;
-	if (!fn.server) {
-		fn.server = require('dataserverinterface')($AppConfig).interface;
-	}
-	return fn.server;
-}
 
 function load() {
 	getServer().getServiceDocument()
