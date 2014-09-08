@@ -6,34 +6,15 @@ var React = require('react/addons');
 //FIX: This seems like we can clean up this and move "logic" up to the app level and out of the view.
 var AppDispatcher = require('./common/dispatcher/AppDispatcher');
 
-//Main Views
-var HomeView = require('./home').View;
-var LibraryView = require('./library').View;
-var NotFoundView = require('./notfound').View;
-
-
-//Lets try to make the "login" package conceal these details. We can make an extended "Locations" router that listens to login events and can know if we're logged in or not.
-var Login = require('./login');
-var LoginView = Login.LoginView; //Can we get this down to just this? the View?
-var LoginStore = Login.LoginStore;
-var LoginStoreProperties = Login.LoginStoreProperties;
 
 var AppContainer = require('./common/components/AppContainer');
 
-//Not sure this is needed...
-var NavigationActions = require('./navigation/NavigationActions');
+var Login = require('./login');
+var LoginStore = Login.LoginStore;
+var LoginStoreProperties = Login.LoginStoreProperties;
 var NavigationConstants = require('./navigation/NavigationConstants');
-
-
-var Router = require('react-router-component');
-var Locations = Router.Locations;
-var Location = Router.Location;
-var NotFound = Router.NotFound;
-var Environment = Router.environment;
-
-
-var Test = React.createClass({render: function() {return (<div>Test</div>);}});
-
+var NavigationActions = require('./navigation/NavigationActions');
+var Router = require('./navigation/components/Router');
 
 var App = React.createClass({
 
@@ -43,7 +24,7 @@ var App = React.createClass({
 		switch(action.actionType) {
 			case NavigationConstants.NAVIGATE:
 				console.log('App received %O.', action);
-				Environment.defaultEnvironment.navigate(action.href, {});
+				Environment.defaultEnvironment.navigate(action.href, {replace:true});
 			break;
 		}
 		return true; // No errors. Needed by promise in Dispatcher.
@@ -64,7 +45,6 @@ var App = React.createClass({
 		}
 	},
 
-
 	componentWillMount: function() {
 		LoginStore.addChangeListener(this._loginStoreChange);
 		AppDispatcher.register(this._actionHandler);
@@ -81,12 +61,7 @@ var App = React.createClass({
 		return (
 			<div>
 				<AppContainer>
-					<Locations path={this.props.path}>
-						<Location path={basePath + 'login/*'} handler={LoginView} basePath={basePath}/>
-						<Location path={basePath + 'library/*'} handler={LibraryView} basePath={basePath} />
-						<Location path={basePath} handler={HomeView} />
-						<NotFound handler={NotFoundView} />
-					</Locations>
+					<Router path={this.props.path} basePath={basePath}/>
 				</AppContainer>
 				<Login.LogoutButton />
 			</div>

@@ -67,7 +67,7 @@ var LoginView = React.createClass({
 						<Button
 							className={submitEnabled ? '' : 'disabled'}
 							onClick={submitEnabled ? this._handleSubmit : function(){return false}}>Log In</Button>
-
+							
 						<OAuthButtons links={this.state.links} basePath={this.props.basePath}/>
 					</fieldset>
 				</form>

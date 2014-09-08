@@ -5,6 +5,9 @@ var NavigationConstants = require('./NavigationConstants');
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge')
 
+var Router = require('react-router-component');
+var Environment = Router.environment;
+
 /**
  * Actions available to views for login-related functionality.
  **/
@@ -13,10 +16,7 @@ module.exports = merge(EventEmitter.prototype, {
 	/** Initializes the login system. */
 	navigate: function(href) {
 		console.log('NavigationActions::navigate');
-		AppDispatcher.handleViewAction({
-			actionType: NavigationConstants.NAVIGATE,
-			href: href
-		});
+		Environment.defaultEnvironment.navigate(href, {replace:true});
 	}
 
 });
