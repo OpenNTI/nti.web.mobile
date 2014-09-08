@@ -1,7 +1,7 @@
 'use strict';
 
 var merge = require('react/lib/merge');
-var view = require('./components/HomeView');
+var view = require('./components/View');
 
 
 module.exports = merge(exports, {
