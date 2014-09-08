@@ -9,7 +9,7 @@ var Api = require('./Api');
 var Constants = require('./Constants');
 
 /**
- * Actions available to views for library-related functionality.
+ * Actions available to views for notification-related functionality.
  */
 module.exports = merge(EventEmitter.prototype, {
 

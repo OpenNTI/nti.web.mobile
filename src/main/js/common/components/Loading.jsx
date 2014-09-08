@@ -6,7 +6,10 @@ var React = require('react/addons');
 module.exports = React.createClass({
 	render: function() {
 		return (
-			<div>Home</div>
+			<figure className="loading">
+				<div className="m spinner"></div>
+				<figcaption>Loading</figcaption>
+			</figure>
 		);
 	}
 });

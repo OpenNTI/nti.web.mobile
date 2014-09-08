@@ -24,22 +24,22 @@ module.exports = React.createClass({
 		this.setState(this.state);//force rerender
 	},
 
-	_onTap: function() {
-		alert('Tap!');
-	},
 
 	render: function() {
 		var p = this.props.item.getPresentationProperties();
+		var courseId = encodeURIComponent(this.props.item.getCourseID());
 		var style = {
 			backgroundImage: 'url(' + p.icon + ')'
 		}
 		return (
-			<li className="library-item" onTouchTap={this._onTap}>
-				<img style={style} src={BLANK_IMAGE}/>
-				<div className="metadata">
-					<h3>{p.title}</h3>
-					<h5>{p.label}</h5>
-				</div>
+			<li className="library-item">
+				<a href={this.props.basePath + 'course/' + courseId}>
+					<img style={style} src={BLANK_IMAGE}/>
+					<div className="metadata">
+						<h3>{p.title}</h3>
+						<h5>{p.label}</h5>
+					</div>
+				</a>
 			</li>
 		);
 	}

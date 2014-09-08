@@ -11,7 +11,7 @@ var CHANGE_EVENT = 'change';
 var _data = {};
 
 var Store = merge(EventEmitter.prototype, {
-	displayName: 'library.Store',
+	displayName: 'course.Store',
 
 	emitChange: function(evt) {
 		console.log(this.displayName + ': emitting change event');
@@ -42,14 +42,13 @@ var Store = merge(EventEmitter.prototype, {
 
 function persistData(data) {
 	_data = data;
-	_data.loaded = true;
 }
 
 
 Store.appDispatch = AppDispatcher.register(function(payload) {
     var action = payload.action;
     switch(action.actionType) {
-        case Constants.LOADED_LIBRARY:
+        case Constants.SET_ACTIVE_COURSE:
             persistData(action.response);
             break;
         default:

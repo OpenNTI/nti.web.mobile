@@ -15,11 +15,11 @@ var ERROR_EVENT = 'error';
 var Messages = require('../common/messages/');
 var t = require('../common/locale');
 
+var dataserver = require('../common/Utils').getServer;
+
 var _links = {};
 var _errors = [];
 var _isLoggedIn = false;
-
-var _dataserver;
 
 function _begin() {
 	console.log('LoginStore::_begin; (no actual implementation)');
@@ -27,12 +27,6 @@ function _begin() {
 	LoginStore.emitChange();
 }
 
-function dataserver() {
-	if(!_dataserver) {
-		_dataserver = Dataserver($AppConfig).interface;
-	}
-	return _dataserver;
-}
 
 function _ping(credentials) {
 	var username = (credentials && credentials.username)
