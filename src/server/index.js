@@ -4,8 +4,18 @@ if (typeof Promise === 'undefined') {
 	global.Promise = require('es6-promise').Promise;
 }
 
-var authedRoutes = /^\/($|content|contacts|library|forums|search)/;
-var appRoutes = /^\/($|login|content|contacts|library|forums|search)(.(?!\.[^.]+$))*$/;
+var knownPages = [
+	'catalog',
+	'contacts',
+	'content',
+	'course',
+	'forums',
+	'library',
+	'search'
+].join('|');
+
+var authedRoutes = new RegExp('^\\/($|' + knownPages + ')');
+var appRoutes = new RegExp('^\\/($|login|' + knownPages + ')');
 
 var express = require('express');
 var path = require('path');

@@ -2,6 +2,7 @@
 'use strict';
 
 var React = require('react/addons');
+var CaptureClicks = require('react-router-component/lib/CaptureClicks');
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
@@ -12,11 +13,7 @@ var Link = require('../../common/components/controls/link/HighlightedLink');
 var Store = require('../Store');
 var Actions = require('../Actions');
 
-var ContentView = require('./ContentView');
-
 var Collection = require('./Collection');
-var Course = require('./Course');
-
 
 module.exports = React.createClass({
 
@@ -63,7 +60,7 @@ module.exports = React.createClass({
 		var basePath = this.props.basePath;
 
     	return (
-	      <div>
+	      <CaptureClicks>
 			<div className="panel sticky">
 				<nav data-topbar role="navigation">
 				<dl className="sub-nav" role="menu" title="">
@@ -74,11 +71,14 @@ module.exports = React.createClass({
 				</nav>
 			</div>
 			<Locations contextual>
-				<Location path='/' handler={ContentView} title='Books' list={books}/>
-				<Location path='/courses' handler={Collection} title='Courses' type={Course} list={courses}/>
-				<Location path='/admin' handler={Collection} title='Administered Courses' type={Course} list={instructing}/>
+				<Location path='/' handler={Collection} basePath={basePath}
+					title='Books' list={books}/>
+				<Location path='/courses' handler={Collection} basePath={basePath}
+					title='Courses' list={courses}/>
+				<Location path='/admin' handler={Collection} basePath={basePath}
+					title='Administered Courses' list={instructing}/>
 			</Locations>
-	      </div>
+	      </CaptureClicks>
 	    );
 	}
 });

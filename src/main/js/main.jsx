@@ -82,10 +82,12 @@ var App = React.createClass({
 			<div>
 				<AppContainer>
 					<Locations path={this.props.path}>
-						<Location path={basePath + 'login/*'} handler={LoginView} basePath={basePath}/>
-						<Location path={basePath + 'library/*'} handler={LibraryView} basePath={basePath} />
-						<Location path={basePath} handler={HomeView} />
-						<NotFound handler={NotFoundView} />
+						<Location path={basePath + 'login(/*)'} handler={LoginView} basePath={basePath}/>
+						<Location path={basePath + 'library(/*)'} handler={LibraryView} basePath={basePath} />
+						<Location path={basePath + 'catalog(/:entry)(/*)'} handler={LibraryView} basePath={basePath} />
+						<Location path={basePath + 'course(/:course)(/*)'} handler={HomeView} basePath={basePath} />
+						<Location path={basePath} handler={HomeView} basePath={basePath} />
+						<NotFound handler={NotFoundView} basePath={basePath} />
 					</Locations>
 				</AppContainer>
 				<Login.LogoutButton />
