@@ -1,7 +1,7 @@
 'use strict';
 
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
-var Notifications = require('dataserverinterface/store/Notifications');
+var Notifications = require('dataserverinterface/stores/Notifications');
 
 var getServer = require('../common/Utils').getServer;
 var Constants = require('./Constants');
