@@ -7,7 +7,6 @@ var Links = LoginConstants.links;
 var LoginMessages = LoginConstants.messages;
 var LoginActions = require('./LoginActions');
 var LoginStoreProperties = require('./LoginStoreProperties');
-var ResponseHandlers = require('./LoginResponseHandlers');
 var merge = require('react/lib/merge');
 var Dataserver = require('dataserverinterface');
 var CHANGE_EVENT = 'change';
