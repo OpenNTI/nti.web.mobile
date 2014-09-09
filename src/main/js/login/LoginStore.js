@@ -106,34 +106,16 @@ function _addError(err) {
 		(err && 'statusCode' in err && 'raw' in err),
 		"err should contain values for statusCode and raw; { statusCode:xxx, raw:{...} }"
 	);
-
 	var msg = t(LoginMessages.LOGIN_ERROR,err.statusCode.toString());
-
 	Messages.Actions.addMessage(msg,'LoginStore');
 
-	// var oldErrs = _errors.slice(0);
-	// _errors.push(err);
-	// LoginStore.emitChange(new LoginStoreChangeEvent(
-	// 	LoginStoreProperties.errors,
-	// 	_errors,
-	// 	oldErrs
-	// ));
 }
 
 function _clearErrors() {
 	if(_errors.length === 0) {
 		return;
 	}
-
 	Messages.Actions.clearMessages();
-
-	// var oldErrs = _errors.slice(0);
-	// _errors = [];
-	// LoginStore.emitChange(new LoginStoreChangeEvent(
-	// 	LoginStoreProperties.errors,
-	// 	_errors,
-	// 	oldErrs
-	// ));
 }
 
 var LoginStore = merge(EventEmitter.prototype, {

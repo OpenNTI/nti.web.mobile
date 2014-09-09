@@ -37,17 +37,6 @@ var LoginView = React.createClass({
 
 	render: function() {
 		var submitEnabled = this.state.submitEnabled;
-		// var errpanel;
-		// if(this.state.errors.length > 0) {
-		// 	errpanel = (
-		// 		<Alert>
-		// 			{this.state.errors.map(function(e,idx,arr) {
-		// 				var msg = t([Messages.LOGIN_ERROR,e.statusCode.toString()]);
-		// 				return (<span key={'e'+idx}>{msg}</span>);
-		// 			})}
-		// 		</Alert>
-		// 	);
-		// }
 
 		return (
 			<div className="row">
