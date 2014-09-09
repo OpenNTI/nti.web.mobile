@@ -16,8 +16,11 @@ EventPluginHub.injection.injectEventPluginsByName({
 
 React.initializeTouchEvents(true);
 
-//TODO: dispatcher require goes here?
+var AppDispatcher = require('./common/dispatcher/AppDispatcher');
 var AppView = require('./main');
+
+//FIXME: We should have a formal init somewhere...
+require('./notifications').Actions.load();
 
 React.renderComponent(
 	AppView({basePath: $AppConfig.basepath || '/'}),
