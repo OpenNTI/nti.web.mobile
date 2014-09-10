@@ -2,6 +2,7 @@
 
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
 var NavigationConstants = require('./NavigationConstants');
+var NavigationStore = require('./NavigationStore');
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge')
 
@@ -17,7 +18,13 @@ module.exports = merge(EventEmitter.prototype, {
 	navigate: function(href) {
 		console.log('NavigationActions::navigate');
 		Environment.defaultEnvironment.navigate(href, {replace:true});
+	},
+
+	publishNav: function(navRecord) {
+		AppDispatcher.handleViewAction({
+			actionType:NavigationConstants.PUBLISH_NAV,
+			nav: navRecord
+		});
 	}
 
 });
-

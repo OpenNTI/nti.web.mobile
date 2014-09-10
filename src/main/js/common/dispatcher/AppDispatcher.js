@@ -30,7 +30,6 @@ var AppDispatcher = copyProperties(new Dispatcher(), {
         });
     },
 
-
     /**
      * A bridge function between the views and the dispatcher, marking the action
      * as a request action.
@@ -47,3 +46,4 @@ var AppDispatcher = copyProperties(new Dispatcher(), {
 });
 
 module.exports = AppDispatcher;
+3

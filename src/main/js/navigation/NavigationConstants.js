@@ -1,6 +1,6 @@
 /**
- * Constants related to (and used by) the login modules.
- * @class LoginConstants
+ * Constants related to (and used by) the navigation modules.
+ * @class NavigationConstants
  */
 var merge = require('react/lib/merge');
 var keyMirror = require('react/lib/keyMirror');
@@ -14,4 +14,9 @@ module.exports = keyMirror({
 	*/	
 	NAVIGATE: null,
 
+	PUBLISH_NAV: null,
+
+	CHANGE_EVENT: null
+
 });
+

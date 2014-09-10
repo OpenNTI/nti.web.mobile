@@ -4,6 +4,7 @@ var merge = require('react/lib/merge')
 
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
+var NavigationActions = require('../navigation/NavigationActions');
 
 var Api = require('./Api');
 var Constants = require('./Constants');
@@ -16,6 +17,9 @@ function dispatch(key, data) {
     AppDispatcher.handleRequestAction(payload);
 }
 
+function navFor(courseEnrollment) {
+    return courseEnrollment;
+}
 
 /**
  * Actions available to views for course-related functionality.
@@ -31,6 +35,7 @@ module.exports = merge(EventEmitter.prototype, {
 
             .then(function(courseEnrollment) {
                 dispatch(Constants.SET_ACTIVE_COURSE, courseEnrollment);
+                NavigationActions.publishNav(navFor(courseEnrollment));
             })
 
             .catch(function(reason) {

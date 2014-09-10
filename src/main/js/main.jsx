@@ -69,7 +69,7 @@ var App = React.createClass({
 		var wrapper = isLoginView ? React.DOM.div : AppContainer;
 
 		return (
-			<wrapper>
+			<wrapper basePath={basePath}>
 				<Router path={this.props.path} basePath={basePath} onNavigation={this._onNavigation}/>
 			</wrapper>
 		);

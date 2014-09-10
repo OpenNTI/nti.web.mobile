@@ -3,16 +3,19 @@
 var React = require('react/addons');
 var LeftNav = require('./LeftNav');
 var Footer = require('./Footer');
-var MainContentPanel = require('./MainContentPanel');
-
 
 var MessageDisplay = require('../messages').Display;
+var NavigationStore = require('../../navigation/NavigationStore');
 
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
 
 module.exports = React.createClass({
+
+	propTypes: {
+		basePath: React.PropTypes.string.isRequired
+	},
 
 	getInitialState: function() {
 		return {loggedIn: false};
@@ -39,7 +42,7 @@ module.exports = React.createClass({
 							</section>
 						</nav>
 						<aside className="left-off-canvas-menu">
-							<LeftNav />
+							<LeftNav basePath={this.props.basePath}/>
 						</aside>
 						<aside className="right-off-canvas-menu">
 							<ul className="off-canvas-list">
@@ -51,7 +54,7 @@ module.exports = React.createClass({
 
 						<section className="main-section">
 							<MessageDisplay />
-							{this.props.children}
+								{this.props.children}
 							<Footer />
 						</section>
 
