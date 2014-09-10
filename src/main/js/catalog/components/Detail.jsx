@@ -9,7 +9,7 @@ var Store = require('../Store');
 
 module.exports = React.createClass({
 	propTypes: {
-		course: React.PropTypes.string.isRequired
+		entry: React.PropTypes.string.isRequired
 	},
 
 	getInitialState: function() {
