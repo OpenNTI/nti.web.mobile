@@ -55,16 +55,23 @@ var App = React.createClass({
 		AppDispatcher.unregister(this._actionHandler);
 	},
 
+	_onNavigation: function() {
+		this.forceUpdate();
+	},
+
 	render: function() {
 		require('../resources/scss/app.scss');
 		var basePath = this.props.basePath;
+
+		var path = this.props.path || location.href;
+		var isLoginView = /\/login/i.test(path);
+		console.log( '%s, %s', path, isLoginView);
+		var wrapper = isLoginView ? React.DOM.div : AppContainer;
+
 		return (
-			<div>
-				<AppContainer>
-					<Router path={this.props.path} basePath={basePath}/>
-				</AppContainer>
-				<Login.LogoutButton />
-			</div>
+			<wrapper>
+				<Router path={this.props.path} basePath={basePath} onNavigation={this._onNavigation}/>
+			</wrapper>
 		);
 	}
 });
