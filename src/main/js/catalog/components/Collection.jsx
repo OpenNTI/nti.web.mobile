@@ -8,7 +8,7 @@ var Item = require('./Entry');
 module.exports = React.createClass({
 	propTypes: {
 		title: React.PropTypes.string.isRequired,
-		list: React.PropTypes.array.isRequired
+		list: React.PropTypes.object.isRequired
 	},
 
 	render: function() {

@@ -26,18 +26,18 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var p = this.props.item.getPresentationProperties();
+		var p = this.props.item;
 		var courseId = encodeURIComponent(this.props.item.getID());
 		var style = {
 			backgroundImage: 'url(' + p.icon + ')'
 		}
 		return (
-			<li className="catalog-item">
+			<li className="library-item">
 				<a href={'./' + courseId}>
 					<img style={style} src={BLANK_IMAGE}/>
 					<div className="metadata">
-						<h3>{p.title}</h3>
-						<h5>{p.label}</h5>
+						<h3>{p.Title}</h3>
+						<h5>{p.ProviderUniqueID}</h5>
 					</div>
 				</a>
 			</li>

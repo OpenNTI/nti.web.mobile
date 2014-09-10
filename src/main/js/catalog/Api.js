@@ -18,7 +18,7 @@ function dispatch(key, collection) {
 function load(reload) {
 	return getServer().getServiceDocument()
 		.then(function(service){
-			return Catalog.load(reload)
+			return Catalog.load(service, reload)
 				.then(function(catalog) {
 					dispatch(Constants.LOADED_CATALOG, catalog);
 					return catalog;

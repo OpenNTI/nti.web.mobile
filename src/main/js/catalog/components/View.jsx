@@ -8,6 +8,7 @@ var Locations = Router.Locations;
 var Location = Router.Location;
 var NotFound = Router.NotFound;
 
+var Loading = require('../../common/components/Loading');
 var Link = require('../../common/components/controls/link/HighlightedLink');
 
 var Store = require('../Store');
@@ -54,11 +55,15 @@ module.exports = React.createClass({
 	render: function() {
 		var catalog = this.state.catalog;
 
+		if (!catalog.loaded) {
+			return (<Loading/>);
+		}
+
     	return (
 	      <CaptureClicks>
 			<Locations contextual>
-				<Location path='/' handler={Collection} title='Catalog' list={catalog}/>
-				<Location path='/:entry' handler={Detail}/>
+				<Location path="/" handler={Collection} title="Catalog" list={catalog}/>
+				<Location path="/:entry" handler={Detail}/>
 			</Locations>
 	      </CaptureClicks>
 	    );
