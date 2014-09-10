@@ -20,13 +20,6 @@ var _links = {};
 var _errors = [];
 var _isLoggedIn = false;
 
-function _begin() {
-	console.log('LoginStore::_begin; (no actual implementation)');
-	_ping();
-	LoginStore.emitChange();
-}
-
-
 function _ping(credentials) {
 	var username = (credentials && credentials.username)
 	var p = dataserver().ping(null,username);
@@ -84,7 +77,7 @@ function _logIn(credentials) {
 
 function _logOut(action) {
 	var current = encodeURIComponent(location.href);
-	var p = Links.LOGOUT_LINK + '?success=' + current;
+	var p = $AppConfig.server + Links.LOGOUT_LINK + '?success=' + current;
 	location.replace(p);
 }
 

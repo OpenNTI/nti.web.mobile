@@ -2,10 +2,10 @@
 
 var React = require('react/addons');
 var Button = require('./forms/Button');
+var LogoutButton = require('../../login/components/LogoutButton');
 
 module.exports = React.createClass({
 	render: function() {
-
 		return (
 			<ul className="off-canvas-list">
 				<li><label>My Courses <span className="label radius secondary">4</span></label></li>
@@ -18,6 +18,7 @@ module.exports = React.createClass({
 			        </select>
 				</li>
 				<li><Button>Browse Courses</Button></li>
+				<li><LogoutButton /></li>
 			</ul>
 		);
 	}
