@@ -21,7 +21,7 @@ module.exports = React.createClass({
 
 
 	_onChange: function() {
-		this.setState(this.state);//force rerender
+		this.forceUpdate();
 	},
 
 
