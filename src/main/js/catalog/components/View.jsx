@@ -18,6 +18,7 @@ var Collection = require('./Collection');
 var Detail = require('./Detail');
 
 module.exports = React.createClass({
+	displayName: 'View',
 
 	getInitialState: function() {
         return { catalog: Store.getData() };

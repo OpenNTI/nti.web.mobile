@@ -8,6 +8,7 @@ var Actions = require('../Actions');
 var Store = require('../Store');
 
 module.exports = React.createClass({
+	displayName: 'Detail',
 	propTypes: {
 		entry: React.PropTypes.string.isRequired
 	},

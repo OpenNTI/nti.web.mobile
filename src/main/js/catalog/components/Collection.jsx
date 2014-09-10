@@ -6,6 +6,7 @@ var React = require('react/addons');
 var Item = require('./Entry');
 
 module.exports = React.createClass({
+	displayName: 'Collection',
 	propTypes: {
 		title: React.PropTypes.string.isRequired,
 		list: React.PropTypes.object.isRequired
