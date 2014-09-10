@@ -18,23 +18,9 @@ module.exports = React.createClass({
 		return {loggedIn: false};
 	},
 
-	// componentWillMount: function() {
-	// 	LoginController.addChangeListener(this.loginStateChangeHandler);
-	// },
-
-	// componentWillUnmount: function() {
-	// 	console.log('AppContainer::componentWillUnmount');
-	// 	LoginController.removeChangeListener(this.loginStateChangeHandler);
-	// },
-
-	// loginStateChangeHandler: function() {
-	// 	console.log('AppContainer.loginStateChangeHandler');
-	// 	console.log('Is logged in? %s',LoginController.isLoggedIn());
-	// 	if(LoginController.isLoggedIn()) {
-
-	// 	}
-	// 	this.setState({loggedIn: LoginController.isLoggedIn()});
-	// },
+	componentDidMount: function() {
+		$(this.getDOMNode()).foundation();
+	},
 
 	render: function() {
 		return (
