@@ -27,4 +27,3 @@ React.renderComponent(
 	document.getElementById('content')
 );
 
-$(document).foundation();//Does this need to be called per-component render (scoped to the component)?
