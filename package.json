@@ -23,6 +23,7 @@
     "json-loader": "*",
     "jsx-loader": "*",
     "merge": "*",
+    "moment": "*",
     "morgan": "*",
     "optimist": "*",
     "react": "*",

@@ -7,6 +7,9 @@ var Loading = require('../../common/components/Loading');
 var Actions = require('../Actions');
 var Store = require('../Store');
 
+var Title = require('./Title');
+var Description = require('./Description');
+
 module.exports = React.createClass({
 	displayName: 'Detail',
 	propTypes: {
@@ -62,7 +65,11 @@ module.exports = React.createClass({
 		var entry = this.state.entry;
 		return (
 			<div>
-			{entry}
+
+				<Title entry={entry} />
+				<Description entry={entry} />
+
+
 			</div>
 		);
 	}

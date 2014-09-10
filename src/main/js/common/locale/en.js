@@ -1,9 +1,27 @@
 module.exports = {
 	oauth: {
-		login: 'Log in with %(service)s' 
+		login: 'Log in with %(service)s'
 	},
 	LOGIN_ERROR: {
 		401: 'Login failed.'
+	},
+
+	COURSE_INFO: {
+		OpenEnrolled: 'You\'re registered for the open course.',
+		OpenEnrolledIsNotForCredit: '(No Credit)',
+		Credit: {
+			available: 'available',
+			x_units: {
+				one:   '%(count)s Credit',
+				other: '%(count)s Credits'
+			}
+		},
+		NoPrerequisites: 'There are no prerequisites for this course.',
+		SchoolLabel: 'School / Department',
+		StartDate: 'Start Date',
+		Duration: 'Duration',
+		DurationUnits: 'Weeks',
+		Days: 'Days',
+		OnlyOnline: 'Fully Online'
 	}
 }
-
