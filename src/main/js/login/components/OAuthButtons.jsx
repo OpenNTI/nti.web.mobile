@@ -12,7 +12,7 @@ var Dataserver = require('dataserverinterface');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-var React = require('react');
+var React = require('react/addons');
 
 // shortcut for getting the service name off the oauth constants
 // (e.g. 'google' from 'OAUTH_LINK_GOOGLE')
