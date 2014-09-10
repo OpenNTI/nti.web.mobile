@@ -36,6 +36,15 @@ var Store = merge(EventEmitter.prototype, {
 
 	getData: function() {
 		return _data;
+	},
+
+
+	getEntry: function(id) {
+		var entry;
+		if (_data.findEntry) {
+			entry = _data.findEntry(id);
+		}
+		return entry;
 	}
 });
 

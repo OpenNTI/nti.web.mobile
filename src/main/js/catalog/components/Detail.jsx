@@ -2,11 +2,67 @@
 'use strict';
 
 var React = require('react/addons');
+var Loading = require('../../common/components/Loading');
+
+var Actions = require('../Actions');
+var Store = require('../Store');
 
 module.exports = React.createClass({
+	propTypes: {
+		course: React.PropTypes.string.isRequired
+	},
+
+	getInitialState: function() {
+		return {
+			loading: true
+		};
+	},
+
+
+	componentDidMount: function() {
+		Store.addChangeListener(this._onChange);
+		this.getDataIfNeeded(this.props);
+	},
+
+
+	componentWillUnmount: function() {
+		Store.removeChangeListener(this._onChange);
+	},
+
+
+	componentWillReceiveProps: function(nextProps) {
+		if (nextProps.entry !== this.props.entry) {
+			this.getDataIfNeeded(nextProps);
+		}
+	},
+
+
+	getDataIfNeeded: function(props) {
+		var entryId = decodeURIComponent(props.entry);
+		var entry = Store.getEntry(entryId);
+
+		this.setState({
+			loading: !entry,
+			entry: entry
+		});
+	},
+
+
+	_onChange: function() {
+		this.getDataIfNeeded(this.props);
+	},
+
+
 	render: function() {
+		if (this.state.loading) {
+			return (<Loading/>);
+		}
+
+		var entry = this.state.entry;
 		return (
-			<div>Details</div>
+			<div>
+			{entry}
+			</div>
 		);
 	}
 });
