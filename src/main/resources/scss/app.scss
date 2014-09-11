@@ -16,7 +16,25 @@
 	@include input-typography;
 }
 
-#content {
+
+.tab-bar-section .title {
+	overflow: hidden;
+	position: relative;
+	width: 32px;
+	display: inline-block;
+	text-indent: -100rem;
+
+	&::after {
+		content: '';
+		width: 32px;
+		height: 32px;
+		background: transparent url('../images/icons/logo.png') center center;
+		background-size: contain;
+		position: absolute;
+		margin-top: -50%;
+		top: 50%;
+		left: 0;
+	}
 }
 
 .main-section {

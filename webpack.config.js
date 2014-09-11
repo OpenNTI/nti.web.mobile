@@ -12,8 +12,10 @@ var commonLoaders = [
     { test: /\.js$/, loader: 'jsx' },
     { test: /\.jsx$/, loader: 'jsx' },
     { test: /\.json$/, loader: 'json' },
-    { test: /\.png$/, loader: 'url' },
-    { test: /\.jpg$/, loader: 'file' }
+    { test: /\.ico$/, loader: 'url?limit=10000&prefix=resources/images/&mimeType=image/ico' },
+    { test: /\.gif$/, loader: 'url?limit=10000&prefix=resources/images/&mimeType=image/gif' },
+    { test: /\.png$/, loader: 'url?limit=10000&prefix=resources/images/&mimeType=image/png' },
+    { test: /\.jpg$/, loader: 'url?limit=10000&prefix=resources/images/&mimeType=image/jpeg' }
 ];
 
 
@@ -96,7 +98,7 @@ module.exports = [
             }],
 
             loaders: commonLoaders.concat([
-                { test: /\.html$/, loader: 'html' },
+                { test: /\.html$/, loader: 'html?attrs=link:href' },
                 { test: /\.css$/,  loader: path.join(__dirname, 'src', 'server', 'style-collector') + '!css' },
                 { test: /\.scss$/,  loader: path.join(__dirname, 'src', 'server', 'style-collector') +
                     '!css!sass?includePaths[]=' +
