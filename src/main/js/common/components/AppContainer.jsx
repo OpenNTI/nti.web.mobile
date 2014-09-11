@@ -4,6 +4,8 @@ var React = require('react/addons');
 var LeftNav = require('./LeftNav');
 var Footer = require('./Footer');
 
+var Notifications = require('../../notifications');
+
 var MessageDisplay = require('../messages').Display;
 
 var Router = require('react-router-component');
@@ -44,11 +46,7 @@ module.exports = React.createClass({
 							<LeftNav basePath={this.props.basePath}/>
 						</aside>
 						<aside className="right-off-canvas-menu">
-							<ul className="off-canvas-list">
-								<li><label>Recent Activity</label></li>
-								<li><a href="#">Event 1</a></li>
-								<li><a href="#">Event 2</a></li>
-							</ul>
+							<Notifications.View/>
 						</aside>
 
 						<section className="main-section">

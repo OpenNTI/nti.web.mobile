@@ -2,9 +2,23 @@
 'use strict';
 
 var React = require('react/addons');
+var Loading = require('../../common/components/Loading');
 
 var Store = require('../Store');
 var Actions = require('../Actions');
+
+
+var Empty = React.createClass({
+
+	render: function() {
+		return (
+			<li className="notification-item empty">
+				All Caught Up!
+			</li>
+		);
+	}
+
+});
 
 
 module.exports = React.createClass({
@@ -31,8 +45,7 @@ module.exports = React.createClass({
 
 
     getDataIfNeeded: function(props) {
-        var meta = Store.getData().metaData;
-		if(/*some cond to check...*/ true) {
+        if(!Store.getData().loaded) {
         	Actions.load();
         }
     },
@@ -44,10 +57,21 @@ module.exports = React.createClass({
 
 
 	render: function() {
+		var list = this.state.notifications || {};
+
+		if (!list.map) {
+			return <Loading />;
+		}
+
 		return (
-	      <div>
-			Item
-	      </div>
+	      <ul className="off-canvas-list">
+				<li><label>Notifications</label></li>
+
+				{list.length ?
+					list.map(function(item) {
+						return <li/>;
+					}) : <Empty />}
+			</ul>
 	    );
 	}
 });
