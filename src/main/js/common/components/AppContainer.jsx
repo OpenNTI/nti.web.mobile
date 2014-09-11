@@ -12,8 +12,8 @@ var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
 
-var LibraryStore = require('../../library/Store');
-var LibraryActions = require('../../library/Actions');
+var Library = require('../../library');
+
 var NavRecord = require('../../navigation/NavRecord');
 
 var t = require('../locale');
@@ -28,7 +28,7 @@ module.exports = React.createClass({
 		var scope = {scope: 'NAV.Library'};
 
 		var navitems = [];
-		var library = LibraryStore.getData();
+		var library = Library.Store.getData();
 		console.log('[AppContainer]: Library: %O', library);
 		var courses = [].concat(library.courses || []);
 		navitems.push(new NavRecord({
@@ -63,13 +63,13 @@ module.exports = React.createClass({
 	},
 
 	componentDidMount: function() {
-		LibraryStore.addChangeListener(this._libraryChanged);
+		Library.Store.addChangeListener(this._libraryChanged);
 		$(this.getDOMNode()).foundation();
-		LibraryStore.getData(true);
+		Library.Store.getData(true);
 	},
 
 	componentWillUnmount: function() {
-		LibraryStore.removeChangeListener(this._libraryChanged);
+		Library.Store.removeChangeListener(this._libraryChanged);
 	},
 
 	render: function() {
