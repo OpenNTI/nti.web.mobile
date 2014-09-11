@@ -5,7 +5,7 @@ var React = require('react/addons');
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
-var NotFound = Router.NotFound;
+var DefaultRoute = Router.NotFound;
 
 var Link = require('../../common/components/controls/link/HighlightedLink');
 
@@ -49,6 +49,12 @@ module.exports = React.createClass({
 	},
 
 
+	_reroute: function() {
+		/*TODO: Pick a view to redirect to...*/
+		return React.DOM.div({});
+	},
+
+
 	render: function() {
 		var library = this.state.library;
 		var books = [].concat(library.bundles || [], library.packages || []);
@@ -71,12 +77,13 @@ module.exports = React.createClass({
 			</div>
 			*/}
 			<Locations contextual>
-				<Location path='/' handler={Collection} basePath={basePath}
+				<Location path='/books*' handler={Collection} basePath={basePath}
 					title='Books' list={books}/>
-				<Location path='/courses' handler={Collection} basePath={basePath}
+				<Location path='/courses*' handler={Collection} basePath={basePath}
 					title='Courses' list={courses}/>
-				<Location path='/admin' handler={Collection} basePath={basePath}
+				<Location path='/admin*' handler={Collection} basePath={basePath}
 					title='Administered Courses' list={instructing}/>
+				<DefaultRoute handler={this._reroute}/>
 			</Locations>
 	      </div>
 	    );
