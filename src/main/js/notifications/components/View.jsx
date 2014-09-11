@@ -64,14 +64,33 @@ module.exports = React.createClass({
 		}
 
 		return (
-	      <ul className="off-canvas-list">
+			<ul className="off-canvas-list">
 				<li><label>Notifications</label></li>
-
-				{list.length ?
-					list.map(function(item) {
-						return <li/>;
-					}) : <Empty />}
+				{list.length ? list.map(this.getHandler) : <Empty />}
 			</ul>
 	    );
+	},
+
+
+	getHandler: function(item, i) {
+		/*
+		Types:
+			Contact
+			Badge
+			Grade
+			Feedback
+
+			Note
+
+			BlogEntry
+			BlogEntryPost
+			BlogComment
+
+			ForumTopic
+			ForumComment
+			
+			Unknown for future items.
+		*/
+		return <li className="notification-item">{i}</li>;
 	}
 });
