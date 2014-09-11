@@ -65,6 +65,7 @@ module.exports = React.createClass({
 		var entry = this.state.entry;
 		return (
 			<div className="course-detail-view">
+				<a href="./" className="back">Back</a>
 				<Title entry={entry} />
 				<Description entry={entry} />
 
