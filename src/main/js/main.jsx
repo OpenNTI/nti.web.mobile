@@ -38,11 +38,11 @@ var App = React.createClass({
 		if(evt && evt.property === LoginStoreProperties.isLoggedIn) {
 			if(evt.value) {
 				console.log('Logged in. Redirect to content?');
-				Navigation.Actions.navigate(this.props.basePath + 'library/');
+				Navigation.Actions.navigate(this.props.basePath + 'library/', true);
 			}
 			else {
 				console.log('Logged out. Redirect to login? %O');
-				Navigation.Actions.navigate(this.props.basePath + 'login/');
+				Navigation.Actions.navigate(this.props.basePath + 'login/', true);
 			}
 		}
 	},
