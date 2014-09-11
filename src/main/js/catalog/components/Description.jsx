@@ -155,7 +155,7 @@ module.exports = React.createClass({
 
 							<div className="cell small-8 columns">
 								<div className="label">{_t('Days')}</div>
-								{isEmpty(entry.Schedule.days)?
+								{isEmpty(entry.Schedule && entry.Schedule.days)?
 									<FullyOnline/> :
 									<Schedule schedule={entry.Schedule} startDate={entry.StartDate} />}
 							</div>
