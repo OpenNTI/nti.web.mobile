@@ -25,6 +25,7 @@
     "merge": "*",
     "moment": "*",
     "morgan": "*",
+    "numeral": "*",
     "optimist": "*",
     "react": "*",
     "react-interpolate-component": "*",
@@ -35,7 +36,8 @@
     "style-loader": "*",
     "url-loader": "*",
     "webpack": "*",
-    "webpack-dev-server": "*"
+    "webpack-dev-server": "*",
+    "zpad": "*"
   },
   "devDependencies": {
     "grunt": "*",

@@ -22,6 +22,7 @@ module.exports = {
 		Duration: 'Duration',
 		DurationUnits: 'Weeks',
 		Days: 'Days',
-		OnlyOnline: 'Fully Online'
+		OnlyOnline: 'Fully Online',
+		Instructor: 'Course Instructor'
 	}
 }

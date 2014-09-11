@@ -9,6 +9,7 @@ var Store = require('../Store');
 
 var Title = require('./Title');
 var Description = require('./Description');
+var Instructors = require('./Instructors');
 
 module.exports = React.createClass({
 	displayName: 'Detail',
@@ -68,8 +69,8 @@ module.exports = React.createClass({
 				<a href="./" className="back">Back</a>
 				<Title entry={entry} />
 				<Description entry={entry} />
-
-
+				<Instructors entry={entry}/>
+				<div className="footer"/>
 			</div>
 		);
 	}

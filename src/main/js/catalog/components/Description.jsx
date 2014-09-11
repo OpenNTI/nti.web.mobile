@@ -24,6 +24,7 @@ var OpenEnrolledMessage = React.createClass({
 
 var CreditHours = React.createClass({
 	render: function() {
+		var keyPrefix = this.props.entry + '-credit-';
 		var credits = this.props.credit || [];
 		var hours = (credits[0] || {}).Hours;
 
@@ -32,10 +33,10 @@ var CreditHours = React.createClass({
 			{/*
 				{_t('Credit.x_units', { count: hours  })} {_t('Credit.available')}<br />
 			*/}
-				{credits.map(function(credit) {
+				{credits.map(function(credit, i) {
 					var e = credit.Enrollment || {};
 					return (
-						<div className="credit">
+						<div className="credit" key={keyPrefix + i}>
 							{_t('Credit.x_units', { count: credit.Hours  })} {_t('Credit.available')}<br />
 							<a href={e.url} target="_blank">{e.label}</a>
 						</div>
@@ -107,7 +108,7 @@ module.exports = React.createClass({
 						<div className="label">Prerequisites</div>
 						<div className="value">
 						{(prerequisites || []).map(function(_) {
-							return (<div>{_}</div>);
+							return (<div key={_}>{_}</div>);
 						})}
 						</div>
 					</div>
@@ -115,9 +116,8 @@ module.exports = React.createClass({
 					<div className="cell small-6 columns">
 						<div className="label">Hours</div>
 						<div className={'value ' + enrollmentStatus}>
-
-							{!isEmpty(entry.Credit)? <CreditHours credit={entry.Credit} /> : null}
-
+							{!isEmpty(entry.Credit)?
+								<CreditHours credit={entry.Credit} entry={entry.getID()} /> : null}
 							<EnrollmentMessage/>
 						</div>
 					</div>
