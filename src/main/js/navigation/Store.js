@@ -29,16 +29,16 @@ var Store = merge(EventEmitter.prototype, {
 	},
 
 	/**
-	* @param {function} callback
-	*/
+	 * @param {function} callback
+	 */
 	addChangeListener: function(callback) {
 		console.log(this.displayName + ': adding change listener');
 		this.on(Constants.CHANGE_EVENT, callback);
 	},
 
 	/**
-	* @param {function} callback
-	*/
+	 * @param {function} callback
+	 */
 	removeChangeListener: function(callback) {
 		this.removeListener(Constants.CHANGE_EVENT, callback);
 	}
