@@ -34,7 +34,7 @@ module.exports = React.createClass({
 								<a href="#" className="left-off-canvas-toggle menu-icon"><span></span></a>
 							</section>
 							<section className="middle tab-bar-section">
-								<h1 className="title">NextThought</h1>
+								<h1 className="title">next thought</h1>
 							</section>
 							<section className="right-small">
 								<a className="right-off-canvas-toggle menu-icon" href="#"><span></span></a>

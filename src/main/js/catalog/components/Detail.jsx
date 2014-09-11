@@ -64,8 +64,7 @@ module.exports = React.createClass({
 
 		var entry = this.state.entry;
 		return (
-			<div>
-
+			<div className="course-detail-view">
 				<Title entry={entry} />
 				<Description entry={entry} />
 

@@ -98,7 +98,9 @@ module.exports = React.createClass({
 
 		return (
 			<div>
-				<div>{entry.Description}</div>
+				<div className="row">
+					<div className="cell small-12 columns">{entry.Description}</div>
+				</div>
 				<div className="row">
 
 					<div className="cell small-6 columns">
