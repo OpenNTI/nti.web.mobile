@@ -19,6 +19,7 @@ var NavRecord = require('../../navigation/NavRecord');
 var t = require('../locale');
 
 module.exports = React.createClass({
+	displayName: 'AppContainer',
 
 	propTypes: {
 		basePath: React.PropTypes.string.isRequired

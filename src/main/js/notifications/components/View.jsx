@@ -7,6 +7,7 @@ var Loading = require('../../common/components/Loading');
 var Store = require('../Store');
 var Actions = require('../Actions');
 
+var getNotificationItem = require('./kinds').select;
 
 var Empty = React.createClass({
 
@@ -66,31 +67,8 @@ module.exports = React.createClass({
 		return (
 			<ul className="off-canvas-list">
 				<li><label>Notifications</label></li>
-				{list.length ? list.map(this.getHandler) : <Empty />}
+				{list.length ? list.map(getNotificationItem) : <Empty />}
 			</ul>
 	    );
-	},
-
-
-	getHandler: function(item, i) {
-		/*
-		Types:
-			Contact
-			Badge
-			Grade
-			Feedback
-
-			Note
-
-			BlogEntry
-			BlogEntryPost
-			BlogComment
-
-			ForumTopic
-			ForumComment
-			
-			Unknown for future items.
-		*/
-		return <li className="notification-item">{i}</li>;
 	}
 });

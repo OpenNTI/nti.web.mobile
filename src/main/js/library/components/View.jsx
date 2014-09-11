@@ -15,6 +15,7 @@ var Actions = require('../Actions');
 var Collection = require('./Collection');
 
 module.exports = React.createClass({
+	displayName: 'NotificationView',
 
 	getInitialState: function() {
         return { library: Store.getData() };
