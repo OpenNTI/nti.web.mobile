@@ -12,18 +12,64 @@ var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
 
+var LibraryStore = require('../../library/Store');
+var LibraryActions = require('../../library/Actions');
+var NavRecord = require('../../navigation/NavRecord');
+
+var t = require('../locale');
+
 module.exports = React.createClass({
 
 	propTypes: {
 		basePath: React.PropTypes.string.isRequired
 	},
 
+	_libraryChanged: function() {
+		var scope = {scope: 'NAV.Library'};
+
+		var navitems = [];
+		var library = LibraryStore.getData();
+		console.log('[AppContainer]: Library: %O', library);
+		var courses = [].concat(library.courses || []);
+		navitems.push(new NavRecord({
+			label:t('courses', scope),
+			href: this.props.basePath + 'library/courses',
+			disabled: (courses.length == 0)
+		}));
+
+		var books = [].concat(library.bundles || [], library.packages || []);
+		navitems.push(new NavRecord({
+			label:t('books', scope),
+			href:this.props.basePath + 'library/books',
+			disabled: (books.length == 0)
+		}));
+
+		var instructing = [].concat(library.coursesAdmin || []);
+		navitems.push(new NavRecord({
+			label:t('instructing', scope),
+			href:this.props.basePath + 'library/admin',
+			disabled: (instructing.length == 0)
+		}));
+
+		this.setState({leftNav: navitems});
+
+	},
+
 	getInitialState: function() {
-		return {loggedIn: false};
+		return {
+			loggedIn: false,
+			leftNav: []
+		};
 	},
 
 	componentDidMount: function() {
+		LibraryStore.addChangeListener(this._libraryChanged);
 		$(this.getDOMNode()).foundation();
+		LibraryStore.getData(true);
+	},
+
+	componentWillUnmount: function() {
+		LibraryStore.removeChangeListener(this._libraryChanged);
 	},
 
 	render: function() {
@@ -43,7 +89,7 @@ module.exports = React.createClass({
 							</section>
 						</nav>
 						<aside className="left-off-canvas-menu">
-							<LeftNav basePath={this.props.basePath}/>
+							<LeftNav basePath={this.props.basePath} items={this.state.leftNav}/>
 						</aside>
 						<aside className="right-off-canvas-menu">
 							<Notifications.View/>

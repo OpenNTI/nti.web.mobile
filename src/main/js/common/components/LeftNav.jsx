@@ -4,6 +4,7 @@ var React = require('react/addons');
 var Button = require('./forms/Button');
 var LogoutButton = require('../../login/components/LogoutButton');
 var Navigation = require('../../navigation');
+var NavDrawerItem = require('../../navigation/components/NavDrawerItem');
 
 
 function navigateAndClose(path) {
@@ -24,12 +25,6 @@ module.exports = React.createClass({
 		});
 	},
 
-	getInitialState: function() {
-		return {
-			nav: []
-		};
-	},
-
 	componentWillMount: function() {
 		Navigation.Store.addChangeListener(this._navChangeHandler);
 	},
@@ -39,18 +34,17 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
+
+		var navitems = this.props.items.map(function(v,i,a) {
+			console.log(v);
+			return (<li><NavDrawerItem record={v} /></li>)
+		});
+
 		return (
 			<ul className="off-canvas-list">
-				<li>{this.state.nav.length}</li>
+				<li>{navitems.length}</li>
+				{navitems}
 				<li><label>My Courses <span className="label radius secondary">4</span></label></li>
-				<li>
-			 		<select>
-						<option value="husker">Chemistry of Beer</option>
-						<option value="starbuck">Introduction to Water</option>
-						<option value="hotdog">Intro to Human Physiology</option>
-						<option value="hotdog">Law and Justice</option>
-			        </select>
-				</li>
 				<li><Button onClick={navigateAndClose.bind(this,this.props.basePath + 'library/courses')}>Browse Courses</Button></li>
 				<li><Button onClick={navigateAndClose.bind(this,this.props.basePath + 'home')}>Home</Button></li>
 				<li><LogoutButton /></li>

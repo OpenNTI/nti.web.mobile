@@ -1,5 +1,4 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var invariant = require('react/lib/invariant');
 var EventEmitter = require('events').EventEmitter;
 var MessageConstants = require('./MessageConstants');
 var Actions = MessageConstants.actions;

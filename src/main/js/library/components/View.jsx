@@ -59,6 +59,7 @@ module.exports = React.createClass({
 
     	return (
 	      <div>
+	      	{/*
 			<div className="panel sticky">
 				<nav data-topbar role="navigation">
 				<dl className="sub-nav" role="menu" title="">
@@ -68,6 +69,7 @@ module.exports = React.createClass({
 				</dl>
 				</nav>
 			</div>
+			*/}
 			<Locations contextual>
 				<Location path='/' handler={Collection} basePath={basePath}
 					title='Books' list={books}/>

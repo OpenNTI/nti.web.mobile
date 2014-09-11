@@ -3,7 +3,7 @@
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
-
+var Actions = require('./Actions');
 var Constants = require('./Constants');
 
 var CHANGE_EVENT = 'change';
@@ -34,11 +34,13 @@ var Store = merge(EventEmitter.prototype, {
 	},
 
 
-	getData: function() {
+	getData: function(loadIfNeeded) {
+		if(!_data.loaded && loadIfNeeded) {
+        	Actions.loadLibrary();
+        }
 		return _data;
 	}
 });
-
 
 function persistData(data) {
 	_data = data;

@@ -5,7 +5,13 @@ module.exports = {
 	LOGIN_ERROR: {
 		401: 'Login failed.'
 	},
-
+	NAV: {
+		Library: {
+			books: "Books",
+			courses: "Courses",
+			instructing: "Instructing"
+		}
+	},
 	COURSE_INFO: {
 		OpenEnrolled: 'You\'re registered for the open course.',
 		OpenEnrolledIsNotForCredit: '(No Credit)',
