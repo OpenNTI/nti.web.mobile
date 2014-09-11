@@ -2,7 +2,6 @@
 'use strict';
 
 var React = require('react/addons');
-var CaptureClicks = require('react-router-component/lib/CaptureClicks');
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
@@ -61,12 +60,10 @@ module.exports = React.createClass({
 		}
 
     	return (
-	      <CaptureClicks>
 			<Locations contextual>
 				<Location path="/" handler={Collection} title="Catalog" list={catalog}/>
 				<Location path="/:entry" handler={Detail}/>
 			</Locations>
-	      </CaptureClicks>
 	    );
 	}
 });

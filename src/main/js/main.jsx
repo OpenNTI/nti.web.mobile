@@ -2,6 +2,7 @@
 'use strict';
 
 var React = require('react/addons');
+var CaptureClicks = require('react-router-component/lib/CaptureClicks');
 
 //FIX: This seems like we can clean up this and move "logic" up to the app level and out of the view.
 var AppDispatcher = require('./common/dispatcher/AppDispatcher');
@@ -41,7 +42,7 @@ var App = React.createClass({
 			}
 			else {
 				console.log('Logged out. Redirect to login? %O');
-				Navigation.	Actions.navigate(this.props.basePath + 'login/');
+				Navigation.Actions.navigate(this.props.basePath + 'login/');
 			}
 		}
 	},
@@ -70,9 +71,11 @@ var App = React.createClass({
 		var wrapper = isLoginView ? React.DOM.div : AppContainer;
 
 		return (
-			<wrapper basePath={basePath}>
-				<Router path={this.props.path} basePath={basePath} onNavigation={this._onNavigation}/>
-			</wrapper>
+			<CaptureClicks>
+				<wrapper basePath={basePath}>
+					<Router path={this.props.path} basePath={basePath} onNavigation={this._onNavigation}/>
+				</wrapper>
+			</CaptureClicks>
 		);
 	}
 });

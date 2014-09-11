@@ -2,7 +2,6 @@
 'use strict';
 
 var React = require('react/addons');
-var CaptureClicks = require('react-router-component/lib/CaptureClicks');
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
@@ -59,7 +58,7 @@ module.exports = React.createClass({
 		var basePath = this.props.basePath;
 
     	return (
-	      <CaptureClicks>
+	      <div>
 			<div className="panel sticky">
 				<nav data-topbar role="navigation">
 				<dl className="sub-nav" role="menu" title="">
@@ -77,7 +76,7 @@ module.exports = React.createClass({
 				<Location path='/admin' handler={Collection} basePath={basePath}
 					title='Administered Courses' list={instructing}/>
 			</Locations>
-	      </CaptureClicks>
+	      </div>
 	    );
 	}
 });
