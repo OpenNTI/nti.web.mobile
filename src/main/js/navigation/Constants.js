@@ -1,6 +1,6 @@
 /**
  * Constants related to (and used by) the navigation modules.
- * @class NavigationConstants
+ * @class Constants
  */
 var merge = require('react/lib/merge');
 var keyMirror = require('react/lib/keyMirror');
@@ -8,10 +8,10 @@ var keyMirror = require('react/lib/keyMirror');
 module.exports = keyMirror({
 
 	/**
-	* Navigate action name
-	* @type String
-	* @final
-	*/	
+	 * Navigate action name
+	 * @type String
+	 * @final
+	 */
 	NAVIGATE: null,
 
 	PUBLISH_NAV: null,
@@ -19,4 +19,3 @@ module.exports = keyMirror({
 	CHANGE_EVENT: null
 
 });
-

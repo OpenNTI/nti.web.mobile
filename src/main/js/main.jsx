@@ -7,13 +7,14 @@ var React = require('react/addons');
 var AppDispatcher = require('./common/dispatcher/AppDispatcher');
 
 
-var AppContainer = require('./common/components/AppContainer');
 
 var Login = require('./login');
 var LoginStore = Login.LoginStore;
 var LoginStoreProperties = Login.LoginStoreProperties;
-var NavigationConstants = require('./navigation/NavigationConstants');
-var NavigationActions = require('./navigation/NavigationActions');
+
+var Navigation = require('./navigation');
+
+var AppContainer = require('./common/components/AppContainer');
 var Router = require('./navigation/components/Router');
 
 var App = React.createClass({
@@ -22,9 +23,9 @@ var App = React.createClass({
 		var action = payload.action;
 		console.log('App received %s action.', action.actionType);
 		switch(action.actionType) {
-			case NavigationConstants.NAVIGATE:
+			case Navigation.Constants.NAVIGATE:
 				console.log('App received %O.', action);
-				Environment.defaultEnvironment.navigate(action.href, {replace:true});
+				Navigation.Actions.navigate(action.href, true);
 			break;
 		}
 		return true; // No errors. Needed by promise in Dispatcher.
@@ -36,11 +37,11 @@ var App = React.createClass({
 		if(evt && evt.property === LoginStoreProperties.isLoggedIn) {
 			if(evt.value) {
 				console.log('Logged in. Redirect to content?');
-				NavigationActions.navigate(this.props.basePath + 'library/');
+				Navigation.Actions.navigate(this.props.basePath + 'library/');
 			}
 			else {
 				console.log('Logged out. Redirect to login? %O');
-				NavigationActions.navigate(this.props.basePath + 'login/');
+				Navigation.	Actions.navigate(this.props.basePath + 'login/');
 			}
 		}
 	},
@@ -65,7 +66,7 @@ var App = React.createClass({
 
 		var path = this.props.path || location.href;
 		var isLoginView = /\/login/i.test(path);
-		console.log( '%s, %s', path, isLoginView);
+
 		var wrapper = isLoginView ? React.DOM.div : AppContainer;
 
 		return (

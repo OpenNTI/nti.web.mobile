@@ -1,13 +1,14 @@
+'use strict';
 /** @module login/LoginActions */
 
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
-var NavigationConstants = require('./NavigationConstants');
-var NavigationStore = require('./NavigationStore');
+var Environment = require('react-router-component').environment;
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge')
 
-var Router = require('react-router-component');
-var Environment = Router.environment;
+var Constants = require('./Constants');
+//var Store = require('./Store');
+
 
 /**
  * Actions available to views for login-related functionality.
@@ -15,14 +16,16 @@ var Environment = Router.environment;
 module.exports = merge(EventEmitter.prototype, {
 
 	/** Initializes the login system. */
-	navigate: function(href) {
-		console.log('NavigationActions::navigate');
-		Environment.defaultEnvironment.navigate(href, {replace:true});
+	navigate: function(href, replace) {
+		console.log('navigation.Actions::navigate', href, !!replace);
+		Environment.defaultEnvironment.navigate(href, {replace:replace});
 	},
 
+
 	publishNav: function(navRecord) {
+		console.log('navigation.Actions::publishNav', navRecord);
 		AppDispatcher.handleViewAction({
-			actionType:NavigationConstants.PUBLISH_NAV,
+			actionType:Constants.PUBLISH_NAV,
 			nav: navRecord
 		});
 	}

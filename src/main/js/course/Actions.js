@@ -4,7 +4,7 @@ var merge = require('react/lib/merge')
 
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var NavigationActions = require('../navigation/NavigationActions');
+var Navigation = require('../navigation');
 
 var Api = require('./Api');
 var Constants = require('./Constants');
@@ -35,7 +35,7 @@ module.exports = merge(EventEmitter.prototype, {
 
             .then(function(courseEnrollment) {
                 dispatch(Constants.SET_ACTIVE_COURSE, courseEnrollment);
-                NavigationActions.publishNav(navFor(courseEnrollment));
+                Navigation.Actions.publishNav(navFor(courseEnrollment));
             })
 
             .catch(function(reason) {

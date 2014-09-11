@@ -3,11 +3,11 @@
 var React = require('react/addons');
 var Button = require('./forms/Button');
 var LogoutButton = require('../../login/components/LogoutButton');
-var NavigationStore = require('../../navigation/NavigationStore');
-var NavigationActions = require('../../navigation/NavigationActions');
+var Navigation = require('../../navigation');
+
 
 function navigateAndClose(path) {
-	NavigationActions.navigate(path);
+	Navigation.Actions.navigate(path);
 	// $('.off-canvas-wrap').foundation('offcanvas', 'hide', 'move-right');
 }
 
@@ -20,7 +20,7 @@ module.exports = React.createClass({
 	_navChangeHandler: function(evt) {
 		console.log('LeftNav::_navChangeHandler %O', evt);
 		this.setState({
-			nav:NavigationStore.getNav()
+			nav:Navigation.Store.getNav()
 		});
 	},
 
@@ -31,11 +31,11 @@ module.exports = React.createClass({
 	},
 
 	componentWillMount: function() {
-		NavigationStore.addChangeListener(this._navChangeHandler);
+		Navigation.Store.addChangeListener(this._navChangeHandler);
 	},
 
 	componentWillUnmount: function() {
-		NavigationStore.removeChangeListener(this._navChangeHandler);
+		Navigation.Store.removeChangeListener(this._navChangeHandler);
 	},
 
 	render: function() {

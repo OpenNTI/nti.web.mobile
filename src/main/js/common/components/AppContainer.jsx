@@ -5,7 +5,6 @@ var LeftNav = require('./LeftNav');
 var Footer = require('./Footer');
 
 var MessageDisplay = require('../messages').Display;
-var NavigationStore = require('../../navigation/NavigationStore');
 
 var Router = require('react-router-component');
 var Locations = Router.Locations;
