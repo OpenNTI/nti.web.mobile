@@ -14,8 +14,8 @@ var knownPages = [
 	'search'
 ].join('|');
 
-var authedRoutes = new RegExp('^\\/($|' + knownPages + ')');
-var appRoutes = new RegExp('^\\/($|login|' + knownPages + ')');
+var authedRoutes = new RegExp('^\\/($|' + knownPages + ')((?!resources).)*$');
+var appRoutes = new RegExp('^\\/($|login|' + knownPages + ')((?!resources).)*$');
 
 var express = require('express');
 var path = require('path');
