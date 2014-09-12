@@ -9,6 +9,7 @@ function navigateAndClose() {
 	if(this.props.record.disabled) {
 		return;
 	}
+	$('.off-canvas-wrap').foundation('offcanvas', 'hide', 'move-right');
 	Actions.navigate(this.props.record.href);
 }
 
@@ -22,7 +23,7 @@ var NavDrawerItem = React.createClass({
 	render: function() {
 		var record = this.props.record;
 		return (
-			<Button onClick={navigateAndClose.bind(this)}>{record.label}</Button>
+			<a onClick={navigateAndClose.bind(this)} className={record.disabled ? 'disabled' : ''}>{record.label}</a>
 		);
 	}
 

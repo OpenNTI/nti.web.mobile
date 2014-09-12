@@ -17,6 +17,9 @@
 	@include input-typography;
 }
 
+a.disabled {
+	opacity:0.4;
+}
 
 a.back {
 	padding: 0 0.2rem;

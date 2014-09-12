@@ -18,6 +18,18 @@ var NavRecord = require('../../navigation/NavRecord');
 
 var t = require('../locale');
 
+/**
+ * Convenience function for constructing NavRecords
+ */
+function _navRec(basePath,opts) {
+	return new NavRecord({
+		label:t(opts.label,{scope: 'NAV.Library'}),
+		href: basePath + opts.href,
+		disabled: opts.items ? (opts.items.length == 0) : false,
+		badge: opts.items ? opts.items.length : null
+	});
+}
+
 module.exports = React.createClass({
 	displayName: 'AppContainer',
 
@@ -26,32 +38,38 @@ module.exports = React.createClass({
 	},
 
 	_libraryChanged: function() {
-		var scope = {scope: 'NAV.Library'};
-
+		
 		var navitems = [];
 		var library = Library.Store.getData();
 		console.log('[AppContainer]: Library: %O', library);
 		var courses = [].concat(library.courses || []);
-		navitems.push(new NavRecord({
-			label:t('courses', scope),
-			href: this.props.basePath + 'library/courses',
-			disabled: (courses.length == 0)
+		var basePath = this.props.basePath;
+		navitems.push(_navRec(basePath,{
+			label:'courses',
+			href:'library/courses',
+			items:courses
 		}));
 
 		var books = [].concat(library.bundles || [], library.packages || []);
-		navitems.push(new NavRecord({
-			label:t('books', scope),
-			href:this.props.basePath + 'library/books',
-			disabled: (books.length == 0)
+		navitems.push(_navRec(basePath,{
+			label:'books',
+			href:'library/books',
+			items:books
+		}));
+		
+		navitems.push(_navRec(basePath,{
+			label:'catalog',
+			href:'catalog/'
 		}));
 
 		var instructing = [].concat(library.coursesAdmin || []);
-		navitems.push(new NavRecord({
-			label:t('instructing', scope),
-			href:this.props.basePath + 'library/admin',
-			disabled: (instructing.length == 0)
-		}));
-
+		if(instructing.length > 0) {
+			navitems.push(_navRec(basePath,{
+				label:'instructing',
+				href:'library/admin',
+				items:instructing
+			}));	
+		}
 		this.setState({leftNav: navitems});
 
 	},

@@ -42,11 +42,7 @@ module.exports = React.createClass({
 
 		return (
 			<ul className="off-canvas-list">
-				<li>{navitems.length}</li>
 				{navitems}
-				<li><label>My Courses <span className="label radius secondary">4</span></label></li>
-				<li><Button onClick={navigateAndClose.bind(this,this.props.basePath + 'library/courses')}>Browse Courses</Button></li>
-				<li><Button onClick={navigateAndClose.bind(this,this.props.basePath + 'home')}>Home</Button></li>
 				<li><LogoutButton /></li>
 			</ul>
 		);
