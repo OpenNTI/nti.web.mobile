@@ -83,7 +83,11 @@ module.exports = React.createClass({
 
 	componentDidMount: function() {
 		Library.Store.addChangeListener(this._libraryChanged);
-		$(this.getDOMNode()).foundation();
+		$(this.getDOMNode()).foundation({
+			offcanvas: {
+				close_on_click: true
+			}
+		});
 		Library.Store.getData(true);
 	},
 
