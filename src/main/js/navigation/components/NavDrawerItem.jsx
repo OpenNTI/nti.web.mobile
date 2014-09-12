@@ -1,6 +1,4 @@
-/**
- * @jsx React.DOM
- */
+/** @jsx React.DOM */
 
 var React = require('react');
 var NavRecord = require('../NavRecord');
@@ -15,6 +13,7 @@ function navigateAndClose() {
 }
 
 var NavDrawerItem = React.createClass({
+	displayName: 'NavDrawerItem',
 
 	propTypes: {
  		record: React.PropTypes.instanceOf(NavRecord).isRequired

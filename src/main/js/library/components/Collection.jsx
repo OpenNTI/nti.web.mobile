@@ -8,6 +8,8 @@ var Bundle = require('./Bundle');
 var Course = require('./Course');
 
 module.exports = React.createClass({
+	displayName: 'Collection',
+
 	propTypes: {
 		title: React.PropTypes.string.isRequired,
 		list: React.PropTypes.array.isRequired

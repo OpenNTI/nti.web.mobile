@@ -4,7 +4,8 @@
 var React = require('react/addons');
 
 module.exports = React.createClass({
-
+	displayName: 'HomeView',
+	
 	render: function() {
 		return (
 			<div>

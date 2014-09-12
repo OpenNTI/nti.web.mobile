@@ -5,6 +5,8 @@ var React = require('react/addons');
 var BLANK_IMAGE = require('../../common/constants/DataURIs').BLANK_IMAGE;
 
 module.exports = React.createClass({
+	displayName: 'Bundle',
+
 	propTypes: {
 		item: React.PropTypes.object.isRequired
 	},

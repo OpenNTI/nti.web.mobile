@@ -8,6 +8,8 @@ var Actions = require('../Actions');
 var Store = require('../Store');
 
 module.exports = React.createClass({
+	displayName: 'CourseView',
+
 	propTypes: {
 		course: React.PropTypes.string.isRequired
 	},

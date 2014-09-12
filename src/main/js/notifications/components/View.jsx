@@ -23,6 +23,8 @@ var Empty = React.createClass({
 
 
 module.exports = React.createClass({
+	displayName: 'NotificationsView',
+
 
 	getInitialState: function() {
         return { notifications: Store.getData() };

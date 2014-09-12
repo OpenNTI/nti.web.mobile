@@ -13,6 +13,7 @@ var Library = require('../../library');
 var NotFound = require('../../notfound');
 
 module.exports = React.createClass({
+	displayName: 'Router',
 
 	render: function() {
 		var basePath = this.props.basePath;
