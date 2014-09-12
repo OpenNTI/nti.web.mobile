@@ -31,5 +31,8 @@ module.exports = {
 		Days: 'Days',
 		OnlyOnline: 'Fully Online',
 		Instructor: 'Course Instructor'
+	},
+	VIDEO: {
+		KalturaIFrameUrl:'http://www.kaltura.com/p/%(partnerId)s/sp/%(partnerId)s00/embedIframeJs/uiconf_id/%(uiConfId)s/partner_id/%(partnerId)s?iframeembed=true&playerId={UNIQUE_OBJ_ID}&entry_id=%(entryId)s'
 	}
 }
