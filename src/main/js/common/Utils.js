@@ -17,6 +17,15 @@ var Utils = {
 
 
 	/**
+	 * Returns a promise that fulfills with the service descriptor.
+	 */
+	getService: function() {
+		return Utils.getServer().getServiceDocument();
+	},
+
+
+
+	/**
 	 * TODO: migrate calls to this to use dataserverinterface.service[get|post|etc...]
 	 *
 	 * Make a server request.
