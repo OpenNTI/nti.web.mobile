@@ -2,6 +2,12 @@
 'use strict';
 
 var React = require('react/addons');
+var Router = require('react-router-component');
+var Locations = Router.Locations;
+var Location = Router.Location;
+var DefaultRoute = Router.NotFound;
+
+var Detail = require('../../catalog/components/Detail');
 var Loading = require('../../common/components/Loading');
 
 var Actions = require('../Actions');
@@ -52,17 +58,17 @@ module.exports = React.createClass({
 
 	render: function() {
 		var course = (this.state.course || {}).CourseInstance;
+		var entry = course && course.CatalogEntry;
 
-		if (this.state.loading) {
+		if (this.state.loading || !course || !entry) {
 			return (<Loading/>);
 		}
 
-		course = (course && course.getPresentationProperties() || {}).title;
-
 		return (
-			<div>
-			{course}
-			</div>
+			<Locations contextual>
+				<DefaultRoute handler={Detail} entry={entry} noBack/>
+				<Location path="/node/:entry" handler={React.DOM.div}/>
+			</Locations>
 		);
 	}
 });

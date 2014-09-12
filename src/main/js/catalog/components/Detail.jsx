@@ -14,7 +14,8 @@ var Instructors = require('./Instructors');
 module.exports = React.createClass({
 	displayName: 'Detail',
 	propTypes: {
-		entry: React.PropTypes.string.isRequired
+		entryId: React.PropTypes.string,
+		entry: React.PropTypes.object,
 	},
 
 	getInitialState: function() {
@@ -36,15 +37,15 @@ module.exports = React.createClass({
 
 
 	componentWillReceiveProps: function(nextProps) {
-		if (nextProps.entry !== this.props.entry) {
+		if (nextProps.entryId !== this.props.entryId || nextProps.entry !== this.props.entry) {
 			this.getDataIfNeeded(nextProps);
 		}
 	},
 
 
 	getDataIfNeeded: function(props) {
-		var entryId = decodeURIComponent(props.entry);
-		var entry = Store.getEntry(entryId);
+		var entryId = decodeURIComponent(props.entryId);
+		var entry = props.entry || Store.getEntry(entryId);
 
 		this.setState({
 			loading: !entry,
@@ -58,6 +59,23 @@ module.exports = React.createClass({
 	},
 
 
+	getBackPath: function() {
+		if (this.props.backPath) {
+			return this.props.backPath;
+		}
+
+		var backPath = location.pathname.split('/');
+		var leaf = backPath.pop();
+		if (leaf === '') {
+			backPath.pop();
+		}
+
+		backPath.push('');
+
+		return backPath.join('/');
+	},
+
+
 	render: function() {
 		if (this.state.loading) {
 			return (<Loading/>);
@@ -66,7 +84,9 @@ module.exports = React.createClass({
 		var entry = this.state.entry;
 		return (
 			<div className="course-detail-view">
-				<a href="./" className="back">Back</a>
+
+				{this.props.noBack? null : <a href={this.getBackPath()} className="back">Back</a>}
+
 				<Title entry={entry} />
 				<Description entry={entry} />
 				<Instructors entry={entry}/>

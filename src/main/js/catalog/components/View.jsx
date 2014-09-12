@@ -5,7 +5,7 @@ var React = require('react/addons');
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
-var NotFound = Router.NotFound;
+var DefaultRoute = Router.NotFound;
 
 var Loading = require('../../common/components/Loading');
 var Link = require('../../common/components/controls/link/HighlightedLink');
@@ -61,8 +61,8 @@ module.exports = React.createClass({
 
     	return (
 			<Locations contextual>
-				<Location path="/" handler={Collection} title="Catalog" list={catalog}/>
-				<Location path="/:entry" handler={Detail}/>
+				<DefaultRoute handler={Collection} title="Catalog" list={catalog}/>
+				<Location path="/:entryId" handler={Detail}/>
 			</Locations>
 	    );
 	}
