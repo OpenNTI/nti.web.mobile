@@ -25,6 +25,7 @@ var config = common.config();
 var address = config.address || '0.0.0.0';
 var port = config.port || 9000;
 
+var waitFor = require('dataserverinterface/utils/waitfor');
 var dataserver = require('dataserverinterface')(config);
 var session = dataserver.session;
 var datacache = dataserver.datacache;
@@ -70,9 +71,19 @@ app.all('/*', function(req, res, next) {
 //HTML Renderer...
 app.get(appRoutes, function(req, res) {
 	console.log('Rendering Inital View: %s %s', req.url, req.username);
-	res.end(page(req, entryPoint,
-		common.clientConfig() + datacache.getForContext(req).serialize()
-		));
+
+	//Pre-flight (if any widget makes a request, we will cache its result and
+	// send its result to the client)
+	page(req);
+
+	waitFor(req.__pendingServerRequests, 60000)
+		.then(function() {
+			//Final render
+			console.log('Flushing Render to client: %s %s', req.url, req.username);
+			res.end(page(req, entryPoint,
+				common.clientConfig() + datacache.getForContext(req).serialize()
+			));
+		});
 });
 
 
