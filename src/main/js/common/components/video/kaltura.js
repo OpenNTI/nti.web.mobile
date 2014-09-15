@@ -9,6 +9,9 @@
 *
 * grabbed from http://cdnapi.kaltura.com/html5/html5lib/v2.18/mwEmbedLoader.php and tweaked for use with node
 */
+
+var sourceGrabberInit = require('./kalturaSourceGrabber');
+
 var init = function() {
 window['MWEMBED_VERSION'] = '2.18';
 window['SCRIPT_LOADER_URL'] = 'http://cdnapi.kaltura.com/html5/html5lib/v2.18/load.php';
@@ -101,6 +104,8 @@ kWidget.setup();
 };
 
 init();
+sourceGrabberInit();
 exports.kWidget = kWidget;
+exports.getSources = kWidget.getSources;
 exports.mw = mw;
 

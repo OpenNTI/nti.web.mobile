@@ -3,17 +3,10 @@
  */
 var React = require('react');
 var kaltura = require('./kaltura');
-require('./kalturaSourceGrabber');
-var config = require('./config');
+var url = require('url');
 
-var partnerId = '1500101';
-
-function _sources(entryId,callback) {
-	return kWidget.getSources({
-		partnerId: partnerId,
-		entryId: entryId,
-		callback: callback
-	});
+function _sources(options) {
+	return kaltura.getSources(options);
 }
 
 var Video = React.createClass({
@@ -23,16 +16,25 @@ var Video = React.createClass({
 	},
 
 	componentDidMount: function() {
-		var callback = function(data) {
-			this.setState({sources: data.sources || []});
-		}.bind(this);
-		_sources(
-			this.props.entryId,
-			callback
-		);
+
+		// kaltura://1500101/0_4ol5o04l/
+		var e = this.props.src;
+		var parsed = url.parse(e);
+		var partnerId = parsed.host;
+		var entryId = /\/(.*)\/$/.exec(parsed.path)[1];
+
+		_sources({
+			entryId: entryId,
+			partnerId: partnerId,
+			callback: function(data) {
+				this.setState({sources: data.sources || []});
+			}.bind(this)
+		});
+
 	},
 
 	render: function() {
+
 		var srcs = this.state.sources.map(function(val,idx,arr) {
 			var s = React.DOM.source(val);
 			return s;
