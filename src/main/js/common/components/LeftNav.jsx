@@ -13,6 +13,7 @@ function navigateAndClose(path) {
 }
 
 module.exports = React.createClass({
+	displayName: 'LeftNav',
 
 	propTypes: {
  		basePath: React.PropTypes.string.isRequired
@@ -37,6 +38,8 @@ module.exports = React.createClass({
 
 		var navitems = this.props.items.map(function(v,i,a) {
 			console.log(v);
+			//These li's need a key={} prop...
+			//see: http://facebook.github.io/react/docs/multiple-components.html#dynamic-children
 			return (<li><NavDrawerItem record={v} /></li>)
 		});
 
