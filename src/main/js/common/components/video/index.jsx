@@ -4,6 +4,7 @@
 var React = require('react');
 var kaltura = require('./kaltura');
 var url = require('url');
+var Loading = require('../Loading');
 
 function _sources(options) {
 	return kaltura.getSources(options);
@@ -12,7 +13,7 @@ function _sources(options) {
 var Video = React.createClass({
 
 	getInitialState: function() {
-		return { sources: [] };
+		return { sources: [], sourcesLoaded: false };
 	},
 
 	componentDidMount: function() {
@@ -27,13 +28,21 @@ var Video = React.createClass({
 			entryId: entryId,
 			partnerId: partnerId,
 			callback: function(data) {
-				this.setState({sources: data.sources || []});
+				this.setState({sources: data.sources || [], sourcesLoaded: true });
 			}.bind(this)
 		});
 
 	},
 
 	render: function() {
+
+		if(!this.state.sourcesLoaded) {
+			return (
+				<div className="flex-video">
+					<Loading />
+				</div>
+			);
+		}
 
 		var srcs = this.state.sources.map(function(val,idx,arr) {
 			var s = React.DOM.source(val);
