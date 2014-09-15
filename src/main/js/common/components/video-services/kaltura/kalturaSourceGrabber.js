@@ -37,6 +37,9 @@ module.exports = function(kWidget) {
 				serviceUrl = 'http://cdnbakmi.kaltura.com';
 			}
 
+			var objectType = result[1].objectType;
+			var code = result[1].code;
+			
 			var baseUrl = serviceUrl + '/p/' + settings.partnerId +
 					'/sp/' + settings.partnerId + '00/playManifest';
 			for( var i in result[1]['flavorAssets'] ){
@@ -153,6 +156,8 @@ module.exports = function(kWidget) {
 			// callback with device sources, poster
 			if( settings.callback ){
 				settings.callback({
+					'objectType': objectType,
+					'code': code,
 					'poster': result[2]['thumbnailUrl'],
 					'duration': result[2]['duration'],
 					'name': result[2]['name'],

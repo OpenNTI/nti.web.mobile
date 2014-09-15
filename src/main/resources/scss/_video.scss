@@ -1,5 +1,14 @@
 .flex-video {
 	background: black;
+
+	.error {
+		color: lightgray;
+		text-align:center;
+		padding:1rem;
+		position:absolute;
+		width:100%;
+		top:50%;
+	}
 	
 	figure.loading {
 		position: absolute;

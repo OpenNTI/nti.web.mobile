@@ -15,7 +15,7 @@ function _sources(options) {
 var Video = React.createClass({
 
 	getInitialState: function() {
-		return { sources: [], sourcesLoaded: false };
+		return { sources: [], sourcesLoaded: false, isError: false };
 	},
 
 	componentDidMount: function() {
@@ -34,7 +34,8 @@ var Video = React.createClass({
 					duration: data.duration,
 					poster: data.poster,
 					sources: data.sources || [],
-					sourcesLoaded: true
+					sourcesLoaded: true,
+					isError: (data.objectType == 'KalturaAPIException')
 				});
 			}.bind(this)
 		});
@@ -45,6 +46,10 @@ var Video = React.createClass({
 
 		if(!this.state.sourcesLoaded) {
 			return (<Loading />);
+		}
+
+		if(this.state.isError) {
+			return (<div className="error">Unable to load video.</div>);
 		}
 
 		var srcs = this.state.sources.map(function(val,idx,arr) {
