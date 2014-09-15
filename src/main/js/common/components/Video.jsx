@@ -16,7 +16,7 @@ module.exports = React.createClass({
 	displayName: 'Video',
 
 	componentDidMount: function() {
-		
+
 	},
 
 	render: function() {
@@ -26,8 +26,8 @@ module.exports = React.createClass({
 		var entryId = /\/(.*)\/$/.exec(parsed.path)[1];
 		var frameSrc = t('VIDEO.KalturaIFrameUrl', {partnerId: partnerId, entryId: entryId, uiConfId:UICONF_ID});
 		return (
-			<div className="flex-video">
-				<iframe src={frameSrc} width="400" height="330" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>
+			<div className="flex-video widescreen ">
+				<iframe src={frameSrc} frameBorder="0" width="400" height="330" allowfullscreen webkitallowfullscreen mozAllowFullScreen></iframe>
 			</div>
 		);
 	}
