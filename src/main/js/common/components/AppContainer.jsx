@@ -120,7 +120,7 @@ module.exports = React.createClass({
 
 						<section className="main-section">
 							<MessageDisplay />
-								{this.props.children}
+							{this.props.children}
 							<Footer />
 						</section>
 
