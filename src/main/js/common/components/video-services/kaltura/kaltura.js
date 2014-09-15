@@ -1,10 +1,10 @@
 /**
-* Kaltura HTML5 Library v2.18  
+* Kaltura HTML5 Library v2.18
 * http://html5video.org/kaltura-player/docs/
-* 
-* This is free software released under the GPL2 see README more info 
+*
+* This is free software released under the GPL2 see README more info
 * http://html5video.org/kaltura-player/docs/readme
-* 
+*
 * Copyright 2014 Kaltura Inc.
 *
 * grabbed from http://cdnapi.kaltura.com/html5/html5lib/v2.18/mwEmbedLoader.php and tweaked for use with node
@@ -103,9 +103,12 @@ kWidget.inLoaderUiConfJsCallback();
 kWidget.setup();
 };
 
-init();
-sourceGrabberInit();
-exports.kWidget = kWidget;
-exports.getSources = kWidget.getSources;
-exports.mw = mw;
 
+if (typeof window !== 'undefined') {
+	init();
+	sourceGrabberInit(kWidget);
+
+	exports.kWidget = kWidget;
+	exports.getSources = kWidget.getSources;
+	exports.mw = mw;
+}

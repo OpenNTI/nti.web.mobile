@@ -3,8 +3,10 @@
  */
 var React = require('react');
 var kaltura = require('./kaltura');
+
 var url = require('url');
-var Loading = require('../Loading');
+
+var Loading = require('../../Loading');
 
 function _sources(options) {
 	return kaltura.getSources(options);
@@ -28,7 +30,12 @@ var Video = React.createClass({
 			entryId: entryId,
 			partnerId: partnerId,
 			callback: function(data) {
-				this.setState({sources: data.sources || [], sourcesLoaded: true });
+				this.setState({
+					duration: data.duration,
+					poster: data.poster,
+					sources: data.sources || [],
+					sourcesLoaded: true
+				});
 			}.bind(this)
 		});
 
@@ -37,22 +44,15 @@ var Video = React.createClass({
 	render: function() {
 
 		if(!this.state.sourcesLoaded) {
-			return (
-				<div className="flex-video">
-					<Loading />
-				</div>
-			);
+			return (<Loading />);
 		}
 
 		var srcs = this.state.sources.map(function(val,idx,arr) {
 			var s = React.DOM.source(val);
 			return s;
 		});
-		return (
-			<div className="flex-video">
-				<video controls>{srcs}</video>
-			</div>
-		);
+
+		return this.transferPropsTo(<video poster={this.state.poster} src={null} controls>{srcs}</video>);
 	}
 
 });
