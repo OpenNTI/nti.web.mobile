@@ -6,15 +6,10 @@ var EventEmitter = require('events').EventEmitter;
 
 var AppDispatcher = require('../common/dispatcher/AppDispatcher');
 var Constants = require('./Constants');
+var NavRecord = require('./NavRecord');
+var invariant = require('react/lib/invariant');
 
 var _nav = [];
-
-function _publishNav(action) {
-	_nav.push(action.nav);
-	Store.emitChange({
-		nav:_nav.slice()
-	});
-}
 
 var Store = merge(EventEmitter.prototype, {
 	displayName: 'navigation.Store',
@@ -41,23 +36,20 @@ var Store = merge(EventEmitter.prototype, {
 	 */
 	removeChangeListener: function(callback) {
 		this.removeListener(Constants.CHANGE_EVENT, callback);
+	},
+
+	publishNav: function(navRecord) {
+		debugger;
+		invariant(
+			navRecord instanceof NavRecord,
+			'The publish nav action must include a root NavRecord instance under the nav property'
+		);
+		_nav.push(navRecord);
+		Store.emitChange({
+			nav:_nav.slice()
+		});
 	}
 
-});
-
-AppDispatcher.register(function(payload) {
-	var action = payload.action;
-	console.log('navigation.Store received %s action.', action.actionType);
-	switch(action.actionType) {
-		case Constants.PUBLISH_NAV:
-			_publishNav(action);
-		break;
-
-		default:
-			return true;
-	}
-
-	return true; // No errors. Needed by promise in Dispatcher.
 });
 
 module.exports = Store;

@@ -13,12 +13,24 @@ var LibraryApi = require('../library/Api');
 
 
 function dispatch(key, data) {
-    var payload = {actionType: key, response: data};
-    AppDispatcher.handleRequestAction(payload);
+	var payload = {actionType: key, response: data};
+	AppDispatcher.handleRequestAction(payload);
 }
 
-function navFor(courseEnrollment) {
-    return courseEnrollment;
+function _publishNavFor(courseEnrollment) {
+	courseEnrollment.getOutline().then(function(d) {
+		var root = Array.isArray(d) ? d[0] : d;
+		var records = root.contents.map(function(v,i,a) {
+			return new Navigation.NavRecord({
+				label: v.DCTitle,
+				href:v.src
+			});
+		});
+		Navigation.Actions.publishNav(new Navigation.NavRecord({
+			label: root.DCTitle || 'Course Outline',
+			children: records
+		}));
+	});
 }
 
 /**
@@ -26,23 +38,23 @@ function navFor(courseEnrollment) {
  */
 module.exports = merge(EventEmitter.prototype, {
 
-    setCourse: function(courseId) {
-        LibraryApi.getLibrary()
+	setCourse: function(courseId) {
+		LibraryApi.getLibrary()
 
-            .then(function(library) {
-                return library.findCourse(courseId);
-            })
+			.then(function(library) {
+				return library.findCourse(courseId);
+			})
 
-            .then(function(courseEnrollment) {
-                dispatch(Constants.SET_ACTIVE_COURSE, courseEnrollment);
-                Navigation.Actions.publishNav(navFor(courseEnrollment));
-            })
+			.then(function(courseEnrollment) {
+				dispatch(Constants.SET_ACTIVE_COURSE, courseEnrollment);
+				_publishNavFor(courseEnrollment);
+			})
 
-            .catch(function(reason) {
-                dispatch(Constants.SET_ACTIVE_COURSE, null);
-                //Failure
-                //TODO: Display error
-            });
-    }
+			.catch(function(reason) {
+				dispatch(Constants.SET_ACTIVE_COURSE, null);
+				//Failure
+				//TODO: Display error
+			});
+	}
 
 });

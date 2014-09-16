@@ -22,8 +22,15 @@ var NavDrawerItem = React.createClass({
 
 	render: function() {
 		var record = this.props.record;
+		var ch = Array.isArray(record.children) ? record.children.map(function(v) {
+			return <NavDrawerItem record={v} />
+		}) : null;
 		return (
-			<a onClick={this._navigate} className={record.disabled ? 'disabled' : ''}>{record.label}</a>
+			<div>
+				<a onClick={this._navigate} className={record.disabled ? 'disabled' : ''}>{record.label}</a>
+				{ch}
+			</div>
+
 		);
 	}
 

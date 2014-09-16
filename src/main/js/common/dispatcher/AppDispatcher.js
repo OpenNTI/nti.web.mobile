@@ -46,4 +46,3 @@ var AppDispatcher = copyProperties(new Dispatcher(), {
 });
 
 module.exports = AppDispatcher;
-3

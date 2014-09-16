@@ -14,7 +14,7 @@ var Location = Router.Location;
 
 var Library = require('../../library');
 
-var NavRecord = require('../../navigation/NavRecord');
+var Navigation = require('../../navigation'); 
 
 var t = require('../locale');
 
@@ -22,10 +22,11 @@ var t = require('../locale');
  * Convenience function for constructing NavRecords
  */
 function _navRec(basePath,opts) {
-	return new NavRecord({
+	return new Navigation.NavRecord({
 		label:t(opts.label,{scope: 'NAV.Library'}),
 		href: basePath + opts.href,
 		disabled: opts.items ? (opts.items.length == 0) : false,
+		children: opts.children,
 		badge: opts.items ? opts.items.length : null
 	});
 }
@@ -70,8 +71,18 @@ module.exports = React.createClass({
 				items:instructing
 			}));
 		}
-		this.setState({leftNav: navitems});
+		var n = _navRec( basePath, {
+			label: 'Library',
+			children: navitems
+		});
+		Navigation.Actions.publishNav(n);
+		// this.setState({leftNav: navitems});
 
+	},
+
+	_navChanged: function(evt) {
+		debugger;
+		this.setState({leftNav: Navigation.Store.getNav()});
 	},
 
 	getInitialState: function() {
@@ -89,10 +100,12 @@ module.exports = React.createClass({
 			}
 		});
 		Library.Store.getData(true);
+		Navigation.Store.addChangeListener(this._navChanged);
 	},
 
 	componentWillUnmount: function() {
 		Library.Store.removeChangeListener(this._libraryChanged);
+		Navigation.Store.removeChangeListener(this._navChanged);
 	},
 
 	render: function() {

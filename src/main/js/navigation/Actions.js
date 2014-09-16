@@ -5,6 +5,7 @@ var AppDispatcher = require('../common/dispatcher/AppDispatcher');
 var Environment = require('react-router-component').environment;
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge')
+var Store = require('./Store');
 
 var Constants = require('./Constants');
 
@@ -21,10 +22,11 @@ module.exports = merge(EventEmitter.prototype, {
 
 	publishNav: function(navRecord) {
 		console.log('navigation.Actions::publishNav', navRecord);
-		AppDispatcher.handleViewAction({
-			actionType:Constants.PUBLISH_NAV,
-			nav: navRecord
-		});
+		Store.publishNav(navRecord);
+		// AppDispatcher.handleViewAction({
+		// 	actionType:Constants.PUBLISH_NAV,
+		// 	nav: navRecord
+		// });
 	},
 
 	openDrawer: function() {

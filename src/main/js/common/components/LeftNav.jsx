@@ -19,20 +19,20 @@ module.exports = React.createClass({
  		basePath: React.PropTypes.string.isRequired
 	},
 
-	_navChangeHandler: function(evt) {
-		console.log('LeftNav::_navChangeHandler %O', evt);
-		this.setState({
-			nav:Navigation.Store.getNav()
-		});
-	},
+	// _navChangeHandler: function(evt) {
+	// 	console.log('LeftNav::_navChangeHandler %O', evt);
+	// 	this.setState({
+	// 		nav:Navigation.Store.getNav()
+	// 	});
+	// },
 
-	componentWillMount: function() {
-		Navigation.Store.addChangeListener(this._navChangeHandler);
-	},
+	// componentWillMount: function() {
+	// 	Navigation.Store.addChangeListener(this._navChangeHandler);
+	// },
 
-	componentWillUnmount: function() {
-		Navigation.Store.removeChangeListener(this._navChangeHandler);
-	},
+	// componentWillUnmount: function() {
+	// 	Navigation.Store.removeChangeListener(this._navChangeHandler);
+	// },
 
 	render: function() {
 
