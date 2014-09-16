@@ -28,6 +28,12 @@ module.exports = merge(EventEmitter.prototype, {
 			actionType:Constants.PUBLISH_NAV,
 			nav: navRecord
 		});
+	},
+
+
+	openDrawer: function() {
+		//I don't think this is the best way to accomplish this... ick.
+		$('#left-menu').click();
 	}
 
 });

@@ -38,7 +38,7 @@ module.exports = React.createClass({
 	},
 
 	_libraryChanged: function() {
-		
+
 		var navitems = [];
 		var library = Library.Store.getData();
 		console.log('[AppContainer]: Library: %O', library);
@@ -56,7 +56,7 @@ module.exports = React.createClass({
 			href:'library/books',
 			items:books
 		}));
-		
+
 		navitems.push(_navRec(basePath,{
 			label:'catalog',
 			href:'catalog/'
@@ -68,7 +68,7 @@ module.exports = React.createClass({
 				label:'instructing',
 				href:'library/admin',
 				items:instructing
-			}));	
+			}));
 		}
 		this.setState({leftNav: navitems});
 
@@ -102,7 +102,7 @@ module.exports = React.createClass({
 					<div className="inner-wrap">
 						<nav className="tab-bar">
 							<section className="left-small">
-								<a href="#" className="left-off-canvas-toggle menu-icon"><span></span></a>
+								<a href="#" id="left-menu" className="left-off-canvas-toggle menu-icon"><span></span></a>
 							</section>
 							<section className="middle tab-bar-section">
 								<h1 className="title">next thought</h1>

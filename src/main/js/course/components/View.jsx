@@ -9,8 +9,10 @@ var DefaultRoute = Router.NotFound;
 
 var Detail = require('../../catalog/components/Detail');
 var Loading = require('../../common/components/Loading');
+var Media = require('./Media');
+var Outline = require('./OutlineView');
 var Overview = require('./Overview');
-var Media = require('../Media');
+
 var Actions = require('../Actions');
 var Store = require('../Store');
 
@@ -69,6 +71,7 @@ module.exports = React.createClass({
 			<Locations contextual>
 				<DefaultRoute handler={Detail} entry={entry} noBack/>
 				<Location path="/v(/:videoId)" handler={Media} course={course}/>
+				<Location path="/o" handler={Outline}/>
 				<Location path="/o/:outlineId" handler={Overview} course={course}/>
 				<Location path="/o/:outlineId/c/:id" handler={React.DOM.div} course={course}/>
 			</Locations>
