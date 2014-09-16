@@ -13,7 +13,7 @@ module.exports = React.createClass({
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
-		entry: React.PropTypes.string.isRequired
+		outlineId: React.PropTypes.string.isRequired
 	},
 
 	getInitialState: function() {
@@ -33,7 +33,7 @@ module.exports = React.createClass({
 
 
 	componentWillReceiveProps: function(nextProps) {
-		if (nextProps.entry !== this.props.entry) {
+		if (nextProps.outlineId !== this.props.outlineId) {
 			this.getDataIfNeeded(nextProps);
 		}
 	},
@@ -51,8 +51,7 @@ module.exports = React.createClass({
 	render: function() {
 
 		if (this.state.loading) {
-			return (<div>{this.props.entry}
-				<Loading/></div>);
+			return (<Loading/>);
 		}
 
 		return (
