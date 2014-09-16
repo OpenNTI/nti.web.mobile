@@ -6,6 +6,14 @@ var Promise = global.Promise || require('es6-promise').Promise;
 var React = require('react/addons');
 var getService = require('../Utils').getService;
 
+/**
+ * This DisplayName component can use the full User instance if you have it.
+ * Otherwise, it will take a username prop. If you do not have the full user
+ * object, and you want to show the display name, do not resolve the full user
+ * object yourself just to pass to this componenent. Only resolve the user IF
+ * and ONLY IF you need it for something else. Most likely. If its a link, or
+ * something, use the corresponding Component, do not roll your own.
+ */
 module.exports = React.createClass({
 	displayName: 'DisplayName',
 
