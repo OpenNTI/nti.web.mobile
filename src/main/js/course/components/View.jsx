@@ -71,7 +71,7 @@ module.exports = React.createClass({
 			<Locations contextual>
 				<DefaultRoute handler={Detail} entry={entry} noBack/>
 				<Location path="/v(/:videoId)" handler={Media} course={course}/>
-				<Location path="/o" handler={Outline}/>
+				<Location path="/o(/)" handler={Outline} course={course}/>
 				<Location path="/o/:outlineId" handler={Overview} course={course}/>
 				<Location path="/o/:outlineId/c/:id" handler={React.DOM.div} course={course}/>
 			</Locations>
