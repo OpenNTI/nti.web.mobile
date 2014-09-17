@@ -7,6 +7,7 @@ module.exports = {
 	},
 	NAV: {
 		Library: {
+			library:'Library',
 			books: 'Books',
 			courses: 'Courses',
 			instructing: 'Instructing',

@@ -72,7 +72,7 @@ module.exports = React.createClass({
 			}));
 		}
 		var n = _navRec( basePath, {
-			label: 'Library',
+			label: 'library',
 			children: navitems
 		});
 		Navigation.Actions.publishNav('root',n);
