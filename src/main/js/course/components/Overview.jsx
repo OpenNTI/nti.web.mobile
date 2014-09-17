@@ -4,6 +4,7 @@
 var React = require('react/addons');
 
 var Loading = require('../../common/components/Loading');
+var Error = require('../../common/components/Error');
 
 var Actions = require('../Actions');
 var Store = require('../Store');
@@ -17,7 +18,11 @@ module.exports = React.createClass({
 	},
 
 	getInitialState: function() {
-		return {};
+		return {
+			loading: true,
+			error: false,
+			data: null
+		};
 	},
 
 
@@ -39,14 +44,44 @@ module.exports = React.createClass({
 	},
 
 
-	getDataIfNeeded: function(props) {
-		this.setState({loading: true});
+	__getOutlineNodeContents: function(node) {
+		try {
+			node.getContent()
+				.then(function(overviewData) {
+					this.setState({
+						data: overviewData,
+						loading: false,
+						error: false
+					});
+				}.bind(this))
+				.catch(this.__onError);
+		} catch (e) {
+			this.__onError(e);
+		}
 	},
 
 
-	// _onChange: function() {
-	// 	this.setState({loading: false});
-	// },
+	__onError: function(error) {
+		this.setState({
+			loading: false,
+			error: error,
+			data: null
+		});
+	},
+
+
+	getDataIfNeeded: function(props) {
+		this.setState(this.getInitialState());
+		try {
+			props.course.getOutlineNode(decodeURIComponent(props.outlineId))
+				.then(this.__getOutlineNodeContents)
+				.catch(this.__onError);
+
+		} catch (e) {
+			this.__onError(e);
+		}
+	},
+
 
 	render: function() {
 
@@ -54,8 +89,12 @@ module.exports = React.createClass({
 			return (<Loading/>);
 		}
 
+		if (this.state.error) {
+			return <Error error={this.state.error}/>
+		}
+
 		return (
-			<div/>
+			<div>{this.state.data}</div>
 		);
 	}
 });
