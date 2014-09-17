@@ -3,9 +3,11 @@
 
 var React = require('react/addons');
 
+var DateTime = require('../../common/components/DateTime');
 var Loading = require('../../common/components/Loading');
 var Error = require('../../common/components/Error');
 
+var Widgets = require('./widgets');
 var Actions = require('../Actions');
 var Store = require('../Store');
 
@@ -49,6 +51,7 @@ module.exports = React.createClass({
 			node.getContent()
 				.then(function(overviewData) {
 					this.setState({
+						node: node,
 						data: overviewData,
 						loading: false,
 						error: false
@@ -84,17 +87,25 @@ module.exports = React.createClass({
 
 
 	render: function() {
+		var data = this.state.data;
+		var node = this.state.node;
 
-		if (this.state.loading) {
-			return (<Loading/>);
-		}
-
-		if (this.state.error) {
-			return <Error error={this.state.error}/>
-		}
+		if (this.state.loading) { return (<Loading/>); }
+		if (this.state.error) {	return <Error error={this.state.error}/> }
 
 		return (
-			<div>{this.state.data}</div>
+			<div>
+				<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
+				<h1>{data.title}</h1>
+				{this._renderItems(data.Items)}
+			</div>
 		);
+	},
+
+
+	_renderItems: function(items) {
+		return items && items.map(function(item, i, list) {
+			return Widgets.select(item, i, list, this._renderItems(item.Items));
+		}.bind(this));
 	}
 });
