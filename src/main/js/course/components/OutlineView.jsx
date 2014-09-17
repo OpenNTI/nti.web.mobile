@@ -51,7 +51,7 @@ module.exports = React.createClass({
 			React.DOM.div
 		];
 
-		var prefix = location.pathname.substr(-1,1) === '/' ? '' : (location.pathname + '/');
+		var prefix = props.basePath;
 
 		waitFor(work)
 			.then(function() {
@@ -96,8 +96,12 @@ module.exports = React.createClass({
 			<ul>
 				{list.map(function(item) {
 					var children = _renderTree(item.contents);
-					var href = item.ContentNTIID && (prefix + item.ContentNTIID);
+					var href = item.href;
 					var Tag = depthMap[item.getDepth() - 1] || React.DOM.div;
+
+					if (href) {
+						href = prefix + href;
+					}
 
 					return (
 						<li>
