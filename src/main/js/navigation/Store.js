@@ -9,13 +9,15 @@ var Constants = require('./Constants');
 var NavRecord = require('./NavRecord');
 var invariant = require('react/lib/invariant');
 
-var _nav = [];
+var _nav = {};
 
 var Store = merge(EventEmitter.prototype, {
 	displayName: 'navigation.Store',
 
 	getNav: function() {
-		return _nav.slice();
+		return Object.keys(_nav).map(function(k,i,a) {
+			return _nav[k];
+		});
 	},
 
 	emitChange: function(evt) {
@@ -38,14 +40,16 @@ var Store = merge(EventEmitter.prototype, {
 		this.removeListener(Constants.CHANGE_EVENT, callback);
 	},
 
-	publishNav: function(navRecord) {
-		invariant(
-			navRecord instanceof NavRecord,
-			'The publish nav action must include a root NavRecord instance under the nav property'
-		);
-		_nav.push(navRecord);
+	publishNav: function(key,navRecord) {
+		var valid = key && key.trim().length > 0 && navRecord instanceof NavRecord;
+		var warning = 'The publish nav action must include a non-empty key string and a NavRecord instance';
+		if(!valid) {
+			console.warn(warning,key,navRecord);
+		}
+		invariant(valid,warning);
+		_nav[key] = navRecord;
 		Store.emitChange({
-			nav:_nav.slice()
+			nav:this.getNav()
 		});
 	}
 

@@ -20,9 +20,9 @@ module.exports = merge(EventEmitter.prototype, {
 	},
 
 
-	publishNav: function(navRecord) {
-		console.log('navigation.Actions::publishNav', navRecord);
-		Store.publishNav(navRecord);
+	publishNav: function(key,navRecord) {
+		console.log('navigation.Actions::publishNav. key: %s, record: %O', key, navRecord);
+		Store.publishNav(key,navRecord);
 	},
 
 	openDrawer: function() {

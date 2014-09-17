@@ -75,7 +75,7 @@ module.exports = React.createClass({
 			label: 'Library',
 			children: navitems
 		});
-		Navigation.Actions.publishNav(n);
+		Navigation.Actions.publishNav('root',n);
 		// this.setState({leftNav: navitems});
 
 	},
