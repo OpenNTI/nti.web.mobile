@@ -40,15 +40,23 @@ module.exports = React.createClass({
 			console.log(v);
 			//These li's need a key={} prop...
 			//see: http://facebook.github.io/react/docs/multiple-components.html#dynamic-children
-			return (<li><NavDrawerItem record={v} /></li>)
+			return (<NavDrawerItem record={v} />);
 		});
 
 		return (
-			<ul className="off-canvas-list">
-				<li><label>Library</label></li>
+			<ul className="off-canvas-list side-nav">
 				{navitems}
 				<li><LogoutButton /></li>
 			</ul>
 		);
 	}
 });
+
+
+/*
+
+	<ul>
+		<li><a href="">hi hi hi</a></li>
+	</ul>
+
+*/
