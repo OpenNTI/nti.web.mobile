@@ -8,6 +8,11 @@ var urlJoin = require('dataserverinterface/utils/urljoin');
 module.exports = React.createClass({
 	displayName: 'Avatar',
 
+	propTypes: {
+		username: React.PropTypes.string.isRequired
+	},
+
+
 	getDefaultProps: function() {
 		return {
 		};
