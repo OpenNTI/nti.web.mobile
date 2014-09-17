@@ -1,33 +1,40 @@
-figure.loading .m {
-    margin:0px auto;
-    position:relative;
-}
 figure.loading {
+    $size: 80px;
     overflow: visible;
-    position: fixed;
-    margin-top: -30px;
-    top: 50%; left: 0; right: 0;
-}
-figure.loading figcaption {
     position: absolute;
+    margin-top: -($size/2);
     top: 50%; left: 0; right: 0;
-    margin-top: -0.5rem;
-    line-height: 1rem;
-    font-size: 1rem;
-    zoom: 0.7;
-    text-align: center;
-    color: #757575;
+
+    figcaption {
+        position: absolute;
+        top: 50%; left: 0; right: 0;
+        margin-top: -0.5rem;
+        line-height: 1rem;
+        font-size: 1rem;
+        zoom: 0.7;
+        text-align: center;
+        color: #757575;
+    }
+
+    .m {
+        margin: 0px auto;
+        position:relative;
+    }
+
+    .spinner {
+        height:$size; width:$size;
+
+        -webkit-animation: rotation .9s infinite linear;
+        -moz-animation: rotation .9s infinite linear;
+        -o-animation: rotation .9s infinite linear;
+        animation: rotation .9s infinite linear;
+
+        border: 1px solid rgba(142,183,55,.15);
+        border-top-color: rgba(142,183,55,.8);
+        border-radius:100%;
+    }
 }
-figure.loading .spinner {
-    height:80px; width:80px;
-    -webkit-animation: rotation .9s infinite linear;
-    -moz-animation: rotation .9s infinite linear;
-    -o-animation: rotation .9s infinite linear;
-    animation: rotation .9s infinite linear;
-    border: 1px solid rgba(142,183,55,.15);
-    border-top-color: rgba(142,183,55,.8);
-    border-radius:100%;
-}
+
 
 @-webkit-keyframes rotation {
     from {-webkit-transform: rotate(0deg);}
