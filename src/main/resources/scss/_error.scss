@@ -1,0 +1,40 @@
+figure.error {
+	overflow: visible;
+	position: fixed;
+	margin-top: -3rem;
+	top: 50%; left: 0; right: 0;
+
+	.m {
+		margin:0px auto;
+		position:relative;
+	}
+
+	figcaption {
+		top: 50%; left: 0; right: 0;
+		line-height: 1rem;
+		zoom: 0.7;
+
+		color: #757575;
+		font-size: 1rem;
+		text-align: center;
+
+		span {
+			color: #B22222;
+			font-size: 1.5rem;
+			font-weight: bold;
+		}
+
+
+		div {
+			text-align: left;
+		}
+
+	}
+
+	.glyph {
+		color: #B33333;
+		font-size: 5rem;
+		width: 5rem;
+		text-align: center;
+	}
+}
