@@ -23,10 +23,6 @@ module.exports = merge(EventEmitter.prototype, {
 	publishNav: function(navRecord) {
 		console.log('navigation.Actions::publishNav', navRecord);
 		Store.publishNav(navRecord);
-		// AppDispatcher.handleViewAction({
-		// 	actionType:Constants.PUBLISH_NAV,
-		// 	nav: navRecord
-		// });
 	},
 
 	openDrawer: function() {

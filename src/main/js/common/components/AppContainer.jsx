@@ -81,7 +81,6 @@ module.exports = React.createClass({
 	},
 
 	_navChanged: function(evt) {
-		debugger;
 		this.setState({leftNav: Navigation.Store.getNav()});
 	},
 

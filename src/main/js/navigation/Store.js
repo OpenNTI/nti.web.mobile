@@ -39,7 +39,6 @@ var Store = merge(EventEmitter.prototype, {
 	},
 
 	publishNav: function(navRecord) {
-		debugger;
 		invariant(
 			navRecord instanceof NavRecord,
 			'The publish nav action must include a root NavRecord instance under the nav property'
