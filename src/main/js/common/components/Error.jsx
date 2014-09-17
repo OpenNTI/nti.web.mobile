@@ -7,11 +7,12 @@ module.exports = React.createClass({
 	displayName: 'Error',
 
 	propTypes: {
-		message: React.PropTypes.string
+		error: React.PropTypes.object
 	},
 
 	render: function() {
-		var message = this.props.message;
+		var error = this.props.error;
+		var message = error.stack || error.message || error.responseText || error;
 		return (
 			<figure className="error">
 				<div className="m glyph fi-alert"></div>

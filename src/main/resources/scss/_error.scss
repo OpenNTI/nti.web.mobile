@@ -1,8 +1,9 @@
 figure.error {
 	overflow: visible;
-	position: fixed;
-	margin-top: -3rem;
-	top: 50%; left: 0; right: 0;
+	position: absolute;
+	/* margin-top: -3rem; */
+	top: 0;//50%;
+	left: 0; right: 0;
 
 	.m {
 		margin:0px auto;
@@ -18,7 +19,7 @@ figure.error {
 		font-size: 1rem;
 		text-align: center;
 
-		span {
+		& > span:first-child {
 			color: #B22222;
 			font-size: 1.5rem;
 			font-weight: bold;
@@ -27,6 +28,9 @@ figure.error {
 
 		div {
 			text-align: left;
+			white-space: pre;
+			word-wrap: break-word;
+			word-break: break-word;
 		}
 
 	}
