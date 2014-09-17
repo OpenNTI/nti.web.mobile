@@ -44,7 +44,7 @@ module.exports = React.createClass({
 		});
 
 		return (
-			<ul className="off-canvas-list side-nav">
+			<ul className="off-canvas-list">
 				{navitems}
 				<li><LogoutButton /></li>
 			</ul>
