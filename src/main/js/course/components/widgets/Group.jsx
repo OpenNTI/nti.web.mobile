@@ -20,7 +20,7 @@ module.exports = React.createClass({
 		};
 
 		return (
-			<fieldset>
+			<fieldset className="course-overview-group">
 				<legend style={style}>{item.title}</legend>
 				{this.props.children}
 			</fieldset>

@@ -20,7 +20,7 @@ module.exports = React.createClass({
 		};
 
 		return (
-			<div>{item}</div>
+			<div>{item.label}</div>
 		);
 	}
 });

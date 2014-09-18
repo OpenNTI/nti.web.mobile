@@ -76,6 +76,7 @@ module.exports = React.createClass({
 	getDataIfNeeded: function(props) {
 		this.setState(this.getInitialState());
 		try {
+
 			props.course.getOutlineNode(decodeURIComponent(props.outlineId))
 				.then(this.__getOutlineNodeContents)
 				.catch(this.__onError);
@@ -94,7 +95,7 @@ module.exports = React.createClass({
 		if (this.state.error) {	return <Error error={this.state.error}/> }
 
 		return (
-			<div>
+			<div className="course-overview">
 				<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
 				<h1>{data.title}</h1>
 				{this._renderItems(data.Items)}
@@ -105,7 +106,7 @@ module.exports = React.createClass({
 
 	_renderItems: function(items) {
 		return items && items.map(function(item, i, list) {
-			return Widgets.select(item, i, list, this._renderItems(item.Items));
+			return this.transferPropsTo(Widgets.select(item, i, list, this._renderItems(item.Items)));
 		}.bind(this));
 	}
 });
