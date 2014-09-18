@@ -10,11 +10,13 @@ global.React = require('react/addons');
 function forceHost(s) {
 	//Force our config to always point to our server...(client side)
 	var url = require('url').parse(s);
+	url.host = null;
 	url.hostname = location.hostname;
-	return url.resolve('');
+	return url.format();
 }
 
 $AppConfig.server = forceHost($AppConfig.server);
+console.debug('Client is using host: %s', $AppConfig.server);
 
 var EventPluginHub = require('react/lib/EventPluginHub');
 
