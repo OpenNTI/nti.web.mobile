@@ -6,6 +6,6 @@ module.exports = function(opts) {
 	if(opts.href) {
 		this.href = opts.href;	
 	}
-	this.disabled = this.href && !!opts.disabled;
+	this.clickable = opts.hasOwnProperty('clickable') ? opts.clickable : !!this.href;
 	this.children = opts.children;
 }

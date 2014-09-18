@@ -25,7 +25,7 @@ function _navRec(basePath,opts) {
 	return new Navigation.NavRecord({
 		label:t(opts.label,{scope: 'NAV.Library'}),
 		href: basePath + opts.href,
-		disabled: opts.items ? (opts.items.length == 0) : false,
+		clickable: opts.hasOwnProperty('clickable') ? opts.clickable : (opts.items && opts.items.length > 0),
 		children: opts.children,
 		badge: opts.items ? opts.items.length : null
 	});
@@ -60,7 +60,8 @@ module.exports = React.createClass({
 
 		navitems.push(_navRec(basePath,{
 			label:'catalog',
-			href:'catalog/'
+			href:'catalog/',
+			clickable: true
 		}));
 
 		var instructing = [].concat(library.coursesAdmin || []);
