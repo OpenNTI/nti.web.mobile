@@ -7,6 +7,15 @@
 
 global.React = require('react/addons');
 
+function forceHost(s) {
+	//Force our config to always point to our server...(client side)
+	var url = require('url').parse(s);
+	url.hostname = location.hostname;
+	return url.resolve('');
+}
+
+$AppConfig.server = forceHost($AppConfig.server);
+
 var EventPluginHub = require('react/lib/EventPluginHub');
 
 EventPluginHub.injection.injectEventPluginsByName({
@@ -26,4 +35,3 @@ React.renderComponent(
 	AppView({basePath: $AppConfig.basepath || '/'}),
 	document.getElementById('content')
 );
-
