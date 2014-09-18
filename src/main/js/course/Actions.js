@@ -16,7 +16,7 @@ function dispatch(key, data) {
 	AppDispatcher.handleRequestAction(payload);
 }
 
-function _navRecordFor(outlineNode) {
+function _navRecordFor(outlineNode,label) {
 	var children = null;
 	if(Array.isArray(outlineNode.contents)) {
 		children = outlineNode.contents.map(function(v,i,a) {
@@ -24,16 +24,18 @@ function _navRecordFor(outlineNode) {
 		});
 	}
 	return new Navigation.NavRecord({
-		label: outlineNode.DCTitle,
+		label: label || outlineNode.DCTitle,
 		href: outlineNode.href ? ($AppConfig.basepath + outlineNode.href) : null,
 		children: children
 	});
 }
 
 function _publishNavFor(courseEnrollment) {
+	var props = courseEnrollment.getPresentationProperties();
+	var courseTitle = props.title;
 	courseEnrollment.getOutline().then(function(d) {
 		var root = Array.isArray(d) ? d[0] : d;
-		Navigation.Actions.publishNav(Constants.COURSE_NAV_KEY,_navRecordFor(root));
+		Navigation.Actions.publishNav(Constants.COURSE_NAV_KEY,_navRecordFor(root,courseTitle));
 	});
 }
 

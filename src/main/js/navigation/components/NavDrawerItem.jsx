@@ -14,7 +14,7 @@ var NavDrawerItem = React.createClass({
 	},
 
 	_navigate: function() {
-		if(this.props.record.disabled) {
+		if(!this.props.record.href || this.props.record.disabled) {
 			return;
 		}
 		Actions.navigate(this.props.record.href);
@@ -30,9 +30,10 @@ var NavDrawerItem = React.createClass({
 		if(ch) {
 			sub = <ul>{ch}</ul>
 		}
+		var label = record.label ? <a onClick={this._navigate} className={record.disabled ? 'disabled' : ''}>{record.label}</a> : null;
 		return (
 			<li>
-				<a onClick={this._navigate} className={record.disabled ? 'disabled' : ''}>{record.label}</a>
+				{label}
 				{sub}
 			</li>
 
