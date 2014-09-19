@@ -191,8 +191,8 @@ module.exports = React.createClass({
 					tabIndex="0">
 					{this.props.children}
 				</ul>
-				<button className="prev fi-arrow-left" onClick={this.onPrev}/>
-				<button className="next fi-arrow-right" onClick={this.onNext}/>
+				<button className="prev fi-arrow-left" onClick={this.onPrev} title="Prevous Video"/>
+				<button className="next fi-arrow-right" onClick={this.onNext} title="Next Video"/>
 				<ul className="videos-carousel-dots">
 					{this._renderDots()}
 				</ul>
