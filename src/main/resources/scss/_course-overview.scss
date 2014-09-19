@@ -202,3 +202,32 @@
 
 	}
 }
+
+.course-overview.related-work-ref {
+	position: relative;
+	overflow: hidden;
+	display: block;
+	background: #fafdff;
+	border: 1px solid #e3f2fc;
+	margin: 10px 0;
+
+	img {
+		margin: -4px 4px 0 -8px;
+		float: left;
+	}
+
+	h5 {
+		font-size: 1.6rem;
+		margin: 0;
+	}
+
+	.label {
+		margin: 0;
+		color: $primary-color;
+	}
+
+	.description {
+		font-size: 0.8rem;
+		color: #000;
+	}
+}

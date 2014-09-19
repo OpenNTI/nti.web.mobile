@@ -6,10 +6,11 @@ var Unknown = require('./Unknown');
 var Group = require('./Group');
 var Video = require('./Video');
 var Videos = require('./Videos');
+var Card = require('./RelatedWorkRef');
 
 exports = module.exports = {
 	Unknown: Unknown, //Unknown for future items.
-
+	Card: Card,
 	Group: Group,
 	Video: Video,
 	Videos: Videos,
