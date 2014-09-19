@@ -18,12 +18,23 @@ module.exports = React.createClass({
 	render: function() {
 		var item = this.props.item;
 		var style = {
-			backgroundImage: 'url(' + item.poster + ')',
-			backgroundSize: 'cover'
+			backgroundImage: 'url(' + item.poster + ')'
 		};
 		console.log(item);
 		return (
-			<li style={style} className="flex-video widescreen">{item.label}</li>
+			<li tabIndex="0" onFocus={this.props.onFocus} style={style} className="video flex-video widescreen">
+
+				<div className="ctr">
+					<div className="wrapper">
+						<a className="label" title={item.label}>{item.label}</a>
+						<div className="buttons">
+							<a className="play" data-qtip="Play"/>
+							<a className="player" data-qtip="Play"/>
+						</div>
+					</div>
+				</div>
+
+			</li>
 		);
 	}
 });

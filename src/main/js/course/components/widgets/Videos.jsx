@@ -1,7 +1,11 @@
 /** @jsx React.DOM */
 'use strict';
-
 var React = require('react/addons');
+
+var merge = require('react/lib/merge');
+
+var toArray = require('dataserverinterface/utils/toarray');
+
 
 var Error = require('common/components/Error');
 var Loading = require('common/components/Loading');
@@ -45,10 +49,18 @@ module.exports = React.createClass({
 
 	componentDidUpdate: function() {
 		var active = this.state.active || 0;
+		var touch = this.state.touch;
 		var videos = this.refs.v;
 		if (videos) {
+
+			if (touch) {
+				touch = touch.delta;
+			} else {
+				touch = 0;
+			}
+
 			videos = videos.getDOMNode();
-			videos.scrollLeft = videos.offsetWidth * active;
+			videos.scrollLeft = (videos.offsetWidth * active) + touch;
 		}
 	},
 
@@ -81,8 +93,10 @@ module.exports = React.createClass({
 
 
 	onNext: function(e) {
-		e.preventDefault();
-		e.stopPropagation();
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
 		var active = this.state.active || 0;
 		this.setState({
 			active: Math.min(active + 1, this.props.children.length - 1)
@@ -91,8 +105,10 @@ module.exports = React.createClass({
 
 
 	onPrev: function(e) {
-		e.preventDefault();
-		e.stopPropagation();
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
 		var active = this.state.active || 0;
 		this.setState({
 			active: Math.max(active - 1, 0)
@@ -110,18 +126,73 @@ module.exports = React.createClass({
 	},
 
 
+	onTouchStart: function(e) {
+		var touch = event.targetTouches[0];
+
+		// If there's exactly one finger inside this element
+		if (event.targetTouches.length == 1) {
+			this.setState({
+				touch: {
+					id: touch.identifier,
+					x: touch.pageX,
+					delta: 0
+				}
+			});
+		}
+	},
+
+
+	onTouchMove: function(e) {
+		e.preventDefault();
+		function find(t, i) {
+			return t || (i.identifier === this.state.touch.id && i); }
+
+		var touch = toArray(e.targetTouches)
+						.reduce(find.bind(this), null);
+
+		if (touch) {
+			this.setState({
+				touch: merge(this.state.touch, {
+					delta: this.state.touch.x - touch.pageX
+				})
+			});
+		}
+	},
+
+
+	onTouchEnd: function(e) {
+		var videos = this.refs.v;
+		var active = this.state.active || 0;
+		var touch = this.state.touch || {};
+		var threshold = 0;
+		if (videos) {
+			videos = videos.getDOMNode();
+			threshold = videos.offsetWidth / 2;
+
+			if (Math.abs(touch.delta) > threshold) {
+				this[touch.delta > 0 ? 'onNext' : 'onPrev']();
+			}
+		}
+
+		this.setState({ touch: null	});
+	},
+
+
 	render: function() {
-		console.debug('Rendered...')
 		if (this.state.loading) { return (<Loading/>); }
 		if (this.state.error) {	return <Error error={this.state.error}/> }
 
 		return (
 			<div className="videos-carousel-container">
-				<ul ref="v" className="videos-carousel" tabIndex="0">
+				<ul ref="v" className="videos-carousel"
+				 	onTouchStart={this.onTouchStart}
+					onTouchMove={this.onTouchMove}
+					onTouchEnd={this.onTouchEnd}
+					tabIndex="0">
 					{this.props.children}
 				</ul>
-				<button className="prev" onClick={this.onPrev}/>
-				<button className="next" onClick={this.onNext}/>
+				<button className="prev fi-arrow-left" onClick={this.onPrev}/>
+				<button className="next fi-arrow-right" onClick={this.onNext}/>
 				<ul className="videos-carousel-dots">
 					{this._renderDots()}
 				</ul>

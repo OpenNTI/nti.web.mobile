@@ -4,8 +4,15 @@
  */
 
 require('script!../resources/vendor/modernizr/modernizr.js');
+require('script!../resources/vendor/fastclick/lib/fastclick.js');
 require('script!../resources/vendor/jquery/dist/jquery.min.js');
 require('script!../resources/vendor/foundation/js/foundation.min.js');
+
+if (global.addEventListener) {
+	global.addEventListener('load', function() {
+	    FastClick.attach(document.body);
+	}, false);
+}
 
 global.React = require('react/addons');
 
@@ -34,6 +41,8 @@ var AppView = require('./main');
 
 //FIXME: We should have a formal init somewhere...
 require('./notifications').Actions.load();
+
+
 
 React.renderComponent(
 	AppView({basePath: $AppConfig.basepath || '/'}),

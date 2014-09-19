@@ -1,6 +1,6 @@
 'use strict';
 
-var merge = require('merge');
+var merge = require('react/lib/merge');
 
 var Unknown = require('./Unknown');
 var Group = require('./Group');
@@ -59,7 +59,7 @@ function collator(items, item, index, list) {
 	var last = items[items.length - 1];
 	if (item instanceof Video) {
 		if (!(last instanceof Videos)) {
-			last = Videos(merge({}, item.props, {key: item.props.key.replace(/-\d+$/,'s-'+index)}), []);
+			last = Videos(merge(item.props, {key: item.props.key.replace(/-\d+$/,'s-'+index)}), []);
 			items.push(last);
 		}
 		//magic... don't do this.
