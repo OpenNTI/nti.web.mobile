@@ -3,11 +3,11 @@
 
 var React = require('react/addons');
 
-var getService = require('../../common/Utils').getService;
+var getService = require('common/Utils').getService;
 
-var Loading = require('../../common/components/Loading');
-var DisplayName = require('../../common/components/DisplayName');
-var Avatar = require('../../common/components/Avatar');
+var Loading = require('common/components/Loading');
+var DisplayName = require('common/components/DisplayName');
+var Avatar = require('common/components/Avatar');
 
 module.exports = React.createClass({
 	displayName: 'HomeView',

@@ -5,12 +5,12 @@ var React = require('react/addons');
 var Router = require('react-router-component');
 
 //Main Views
-var Login = require('../../login');
-var Home = require('../../home');
-var Catalog = require('../../catalog');
-var Course = require('../../course');
-var Library = require('../../library');
-var NotFound = require('../../notfound');
+var Login = require('login');
+var Home = require('home');
+var Catalog = require('catalog');
+var Course = require('course');
+var Library = require('library');
+var NotFound = require('notfound');
 
 module.exports = React.createClass({
 	displayName: 'Router',

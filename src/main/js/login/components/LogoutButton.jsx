@@ -5,7 +5,7 @@
 var React = require('react/addons');
 
 var LoginActions = require('../LoginActions');
-var Button = require('../../common/components/forms/Button');
+var Button = require('common/components/forms/Button');
 
 var LogoutButton = React.createClass({
 	render: function() {

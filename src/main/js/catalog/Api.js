@@ -1,9 +1,9 @@
 'use strict';
 
-var AppDispatcher = require('../common/dispatcher/AppDispatcher');
+var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var Catalog = require('dataserverinterface/stores/Catalog');
 
-var getServer = require('../common/Utils').getServer;
+var getServer = require('common/Utils').getServer;
 var Constants = require('./Constants');
 
 var _catalog;

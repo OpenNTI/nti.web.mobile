@@ -4,9 +4,9 @@
 var React = require('react/addons');
 var pad = require('zpad');
 
-var BLANK_IMAGE = require('../../common/constants/DataURIs').BLANK_IMAGE;
+var BLANK_IMAGE = require('common/constants/DataURIs').BLANK_IMAGE;
 
-var locale = require('../../common/locale');
+var locale = require('common/locale');
 function _t(key, options) { return locale('COURSE_INFO.' + key, options); }
 
 var Instructor = React.createClass({

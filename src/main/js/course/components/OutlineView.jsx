@@ -6,9 +6,9 @@ var React = require('react/addons');
 var isEmpty = require('dataserverinterface/utils/isempty');
 var waitFor = require('dataserverinterface/utils/waitfor');
 
-var Loading = require('../../common/components/Loading');
+var Loading = require('common/components/Loading');
 
-var Navigation = require('../../navigation');
+var Navigation = require('navigation');
 var Actions = require('../Actions');
 var Store = require('../Store');
 

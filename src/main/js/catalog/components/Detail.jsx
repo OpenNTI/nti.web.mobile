@@ -2,7 +2,7 @@
 'use strict';
 
 var React = require('react/addons');
-var Loading = require('../../common/components/Loading');
+var Loading = require('common/components/Loading');
 
 var Actions = require('../Actions');
 var Store = require('../Store');

@@ -2,9 +2,9 @@
 
 var React = require('react/addons');
 var Button = require('./forms/Button');
-var LogoutButton = require('../../login/components/LogoutButton');
-var Navigation = require('../../navigation');
-var NavDrawerItem = require('../../navigation/components/NavDrawerItem');
+var LogoutButton = require('login/components/LogoutButton');
+var Navigation = require('navigation');
+var NavDrawerItem = require('navigation/components/NavDrawerItem');
 
 
 function navigateAndClose(path) {

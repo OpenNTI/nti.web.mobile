@@ -1,6 +1,6 @@
 /** @module login/LoginActions */
 
-var AppDispatcher = require('../common/dispatcher/AppDispatcher');
+var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var Actions = require('./LoginConstants').actions;
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge')

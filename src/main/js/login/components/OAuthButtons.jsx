@@ -4,10 +4,10 @@
 
 var React = require('react/addons');
 
-var Button = require('../../common/components/forms/Button');
+var Button = require('common/components/forms/Button');
 var Links = require('../LoginConstants').links;
 var LoginActions = require('../LoginActions');
-var t = require('../../common/locale');
+var t = require('common/locale');
 var Dataserver = require('dataserverinterface');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;

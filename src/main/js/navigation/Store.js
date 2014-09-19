@@ -4,7 +4,7 @@ var merge = require('react/lib/merge');
 
 var EventEmitter = require('events').EventEmitter;
 
-var AppDispatcher = require('../common/dispatcher/AppDispatcher');
+var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var Constants = require('./Constants');
 var NavRecord = require('./NavRecord');
 var invariant = require('react/lib/invariant');

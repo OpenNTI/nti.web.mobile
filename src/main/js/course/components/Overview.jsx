@@ -3,9 +3,9 @@
 
 var React = require('react/addons');
 
-var DateTime = require('../../common/components/DateTime');
-var Loading = require('../../common/components/Loading');
-var Error = require('../../common/components/Error');
+var DateTime = require('common/components/DateTime');
+var Loading = require('common/components/Loading');
+var Error = require('common/components/Error');
 
 var Widgets = require('./widgets');
 var Actions = require('../Actions');

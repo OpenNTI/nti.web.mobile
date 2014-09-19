@@ -1,7 +1,7 @@
 'use strict';
 /** @module navigation/Actions */
 
-var AppDispatcher = require('../common/dispatcher/AppDispatcher');
+var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var Environment = require('react-router-component').environment;
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge')

@@ -1,4 +1,4 @@
-var AppDispatcher = require('../common/dispatcher/AppDispatcher');
+var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var invariant = require('react/lib/invariant');
 var EventEmitter = require('events').EventEmitter;
 var LoginConstants = require('./LoginConstants');
@@ -11,10 +11,10 @@ var merge = require('react/lib/merge');
 var Dataserver = require('dataserverinterface');
 var CHANGE_EVENT = 'change';
 var ERROR_EVENT = 'error';
-var Messages = require('../common/messages/');
-var t = require('../common/locale');
+var Messages = require('common/messages/');
+var t = require('common/locale');
 
-var dataserver = require('../common/Utils').getServer;
+var dataserver = require('common/Utils').getServer;
 
 var _links = {};
 var _errors = [];

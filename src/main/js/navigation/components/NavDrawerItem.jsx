@@ -2,7 +2,7 @@
 
 var React = require('react');
 var NavRecord = require('../NavRecord');
-var Button = require('../../common/components/forms/Button');
+var Button = require('common/components/forms/Button');
 var Actions = require('../Actions');
 
 

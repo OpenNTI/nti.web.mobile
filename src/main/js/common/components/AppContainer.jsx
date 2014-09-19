@@ -4,7 +4,7 @@ var React = require('react/addons');
 var LeftNav = require('./LeftNav');
 var Footer = require('./Footer');
 
-var Notifications = require('../../notifications');
+var Notifications = require('notifications');
 
 var MessageDisplay = require('../messages').Display;
 
@@ -12,9 +12,9 @@ var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
 
-var Library = require('../../library');
+var Library = require('library');
 
-var Navigation = require('../../navigation'); 
+var Navigation = require('navigation'); 
 
 var t = require('../locale');
 

@@ -5,10 +5,10 @@
 var LoginStore = require('../LoginStore');
 var LoginStoreProperties = require('../LoginStoreProperties');
 var LoginActions = require('../LoginActions');
-// var Alert = require('../../common/components/Alert');
-var Button = require('../../common/components/forms/Button');
+// var Alert = require('common/components/Alert');
+var Button = require('common/components/forms/Button');
 var OAuthButtons = require('./OAuthButtons');
-var t = require('../../common/locale');
+var t = require('common/locale');
 var React = require('react/addons');
 var Messages = require('../LoginConstants').messages;
 

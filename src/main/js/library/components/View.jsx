@@ -7,7 +7,7 @@ var Locations = Router.Locations;
 var Location = Router.Location;
 var DefaultRoute = Router.NotFound;
 
-var Link = require('../../common/components/controls/link/HighlightedLink');
+var Link = require('common/components/controls/link/HighlightedLink');
 
 var Store = require('../Store');
 var Actions = require('../Actions');

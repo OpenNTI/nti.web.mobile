@@ -2,14 +2,14 @@
 /** @module course/Actions */
 var merge = require('react/lib/merge')
 
-var AppDispatcher = require('../common/dispatcher/AppDispatcher');
+var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var Navigation = require('../navigation');
+var Navigation = require('navigation');
 
 var Api = require('./Api');
 var Constants = require('./Constants');
 
-var LibraryApi = require('../library/Api');
+var LibraryApi = require('library/Api');
 
 function dispatch(key, data) {
 	var payload = {actionType: key, response: data};
