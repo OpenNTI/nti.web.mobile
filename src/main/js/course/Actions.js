@@ -16,7 +16,7 @@ function dispatch(key, data) {
 	AppDispatcher.handleRequestAction(payload);
 }
 
-function _navRecordFor(outlineNode) {
+function _navRecordFor(outlineNode,navbarTitle) {
 	var children = null;
 	if(Array.isArray(outlineNode.contents)) {
 		children = outlineNode.contents.map(function(v,i,a) {
@@ -25,6 +25,7 @@ function _navRecordFor(outlineNode) {
 	}
 	return new Navigation.NavRecord({
 		label: outlineNode.DCTitle,
+		navbarTitle: navbarTitle,
 		href: outlineNode.href ? ($AppConfig.basepath + outlineNode.href) : null,
 		children: children
 	});
@@ -34,7 +35,7 @@ function _publishNavFor(courseEnrollment) {
 	var props = courseEnrollment.getPresentationProperties();
 	courseEnrollment.getOutline().then(function(d) {
 		var root = Array.isArray(d) ? d[0] : d;
-		Navigation.Actions.publishNav(Navigation.Constants.CONTENT_KEY,_navRecordFor(root));
+		Navigation.Actions.publishNav(Navigation.Constants.CONTENT_KEY,_navRecordFor(root,props.title));
 	});
 }
 

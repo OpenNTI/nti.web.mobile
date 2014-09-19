@@ -2,8 +2,13 @@ ul.off-canvas-list {
 	font-family: $sidenav-font-family;
 	li a {
 		letter-spacing:0.05rem;
+		white-space: nowrap;
 	}
 	ul {
 		list-style-type: none;
+	}
+
+	.moveDown {
+		text-align:right;
 	}
 }

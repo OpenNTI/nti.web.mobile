@@ -32,7 +32,7 @@ var NavDrawerItem = React.createClass({
 		}
 		var label = record.label ? <a onClick={this._navigate} className={record.clickable ? '' : 'disabled'}>{record.label}</a> : null;
 		return (
-			<li>
+			<li key={record.label ? record.label : 'xx'}>
 				{label}
 				{sub}
 			</li>

@@ -5,25 +5,40 @@ var Button = require('./forms/Button');
 var LogoutButton = require('login/components/LogoutButton');
 var Navigation = require('navigation');
 var NavDrawerItem = require('navigation/components/NavDrawerItem');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
+var UP = -1;
+var DOWN = 1;
 
 module.exports = React.createClass({
 
 	_upClick: function() {
-		if(this._canMove(-1)) {
+		if(this._canMove(UP)) {
 			this.setState({index: this.state.index - 1});
 		}
 	},
 
 	_downClick: function() {
-		if(this._canMove(1)) {
+		if(this._canMove(DOWN)) {
 			this.setState({index: this.state.index + 1});
 		}
 	},
 
-	_canMove: function (distance) {
+	_canMove: function(distance) {
 		var newIndex = this.state.index + distance;
 		return newIndex > -1 && newIndex < this.props.items.length;
+	},
+
+	_peek: function(direction) {
+		if(this._canMove(direction)) {
+			return this.props.items[this.state.index + direction];
+		}
+		return null;
+	},
+
+	_downTitle: function() {
+		var next = this._peek(DOWN);
+		return next && next.navbarTitle ? next.navbarTitle : 'Content';
 	},
 
 	displayName: 'LeftNav',
@@ -46,17 +61,20 @@ module.exports = React.createClass({
 	render: function() {
 
 		var item;
+		var akey = 'navnav';
 		if(this.props.items.length > 0) {
 			var record = this.props.items[this.state.index];
-			item = <NavDrawerItem record={record} />;	
+			item = <NavDrawerItem record={record} key={record.label}/>;
 		}
 
 		return (
 			<ul className="off-canvas-list">
-				<li onClick={this._upClick}><a>Back</a></li>
-				<li onClick={this._downClick}><a>Content</a></li>
-				{item}
-				<li><LogoutButton /></li>
+				{this._canMove(UP) ? <li key="moveUp" className="moveUp" onClick={this._upClick}><a><i className="fi-arrow-left" /> Back</a></li> : null}
+				{this._canMove(DOWN) ? <li key="moveDown" className="moveDown" onClick={this._downClick}><a>{this._downTitle()} <i className="fi-arrow-right" /></a></li> : null}
+				<ReactCSSTransitionGroup transitionName="navdrawer">
+					{item}
+				</ReactCSSTransitionGroup>
+				<li key="logoutButton"><LogoutButton /></li>
 			</ul>
 		);
 	}
