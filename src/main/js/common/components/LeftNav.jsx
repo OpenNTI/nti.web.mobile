@@ -5,7 +5,6 @@ var Button = require('./forms/Button');
 var LogoutButton = require('login/components/LogoutButton');
 var Navigation = require('navigation');
 var NavDrawerItem = require('navigation/components/NavDrawerItem');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var UP = -1;
 var DOWN = 1;
@@ -71,9 +70,7 @@ module.exports = React.createClass({
 			<ul className="off-canvas-list">
 				{this._canMove(UP) ? <li key="moveUp" className="moveUp" onClick={this._upClick}><a><i className="fi-arrow-left" /> Back</a></li> : null}
 				{this._canMove(DOWN) ? <li key="moveDown" className="moveDown" onClick={this._downClick}><a>{this._downTitle()} <i className="fi-arrow-right" /></a></li> : null}
-				<ReactCSSTransitionGroup transitionName="navdrawer">
-					{item}
-				</ReactCSSTransitionGroup>
+				{item}
 				<li key="logoutButton"><LogoutButton /></li>
 			</ul>
 		);
