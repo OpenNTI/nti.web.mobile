@@ -3,6 +3,8 @@
 
 var React = require('react/addons');
 
+var Video = require('common/components/Video');
+
 module.exports = React.createClass({
 	displayName: 'CourseOverviewVideo',
 
@@ -16,11 +18,12 @@ module.exports = React.createClass({
 	render: function() {
 		var item = this.props.item;
 		var style = {
-			backgroundColor: '#' + item.accentColor
+			backgroundImage: 'url(' + item.poster + ')',
+			backgroundSize: 'cover'
 		};
-
+		console.log(item);
 		return (
-			<div>{item.label}</div>
+			<li style={style} className="flex-video widescreen">{item.label}</li>
 		);
 	}
 });
