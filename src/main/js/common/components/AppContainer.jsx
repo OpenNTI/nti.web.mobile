@@ -99,8 +99,8 @@ module.exports = React.createClass({
 				// close_on_click: true
 			}
 		});
-		Library.Store.getData(true);
 		Navigation.Store.addChangeListener(this._navChanged);
+		Library.Store.getData(true);
 	},
 
 	componentWillUnmount: function() {
@@ -125,7 +125,7 @@ module.exports = React.createClass({
 							</section>
 						</nav>
 						<aside className="left-off-canvas-menu">
-							<LeftNav basePath={this.props.basePath} items={this.state.leftNav}/>
+							<LeftNav basePath={this.props.basePath} items={this.state.leftNav} backClick={function() {alert('hi')}}/>
 						</aside>
 						<aside className="right-off-canvas-menu">
 							<Notifications.View/>

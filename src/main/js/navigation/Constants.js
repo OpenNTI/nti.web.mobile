@@ -16,6 +16,8 @@ module.exports = keyMirror({
 
 	PUBLISH_NAV: null,
 
-	CHANGE_EVENT: null
+	CHANGE_EVENT: null,
+
+	CONTENT_KEY: null
 
 });

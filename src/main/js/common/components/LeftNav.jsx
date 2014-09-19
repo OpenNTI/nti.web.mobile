@@ -7,56 +7,57 @@ var Navigation = require('navigation');
 var NavDrawerItem = require('navigation/components/NavDrawerItem');
 
 
-function navigateAndClose(path) {
-	Navigation.Actions.navigate(path);
-	// $('.off-canvas-wrap').foundation('offcanvas', 'hide', 'move-right');
-}
-
 module.exports = React.createClass({
-	displayName: 'LeftNav',
 
-	propTypes: {
- 		basePath: React.PropTypes.string.isRequired
+	_upClick: function() {
+		if(this._canMove(-1)) {
+			this.setState({index: this.state.index - 1});
+		}
 	},
 
-	// _navChangeHandler: function(evt) {
-	// 	console.log('LeftNav::_navChangeHandler %O', evt);
-	// 	this.setState({
-	// 		nav:Navigation.Store.getNav()
-	// 	});
-	// },
+	_downClick: function() {
+		if(this._canMove(1)) {
+			this.setState({index: this.state.index + 1});
+		}
+	},
 
-	// componentWillMount: function() {
-	// 	Navigation.Store.addChangeListener(this._navChangeHandler);
-	// },
+	_canMove: function (distance) {
+		var newIndex = this.state.index + distance;
+		return newIndex > -1 && newIndex < this.props.items.length;
+	},
 
-	// componentWillUnmount: function() {
-	// 	Navigation.Store.removeChangeListener(this._navChangeHandler);
-	// },
+	displayName: 'LeftNav',
+
+	componentWillMount: function() {
+		this.setState({index: this.props.items.length - 1});
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		if(nextProps.items !== this.props.items) {
+			this.setState({index: nextProps.items.length - 1});	
+		}
+	},
+
+	propTypes: {
+ 		basePath: React.PropTypes.string.isRequired,
+ 		items: React.PropTypes.array.isRequired
+	},
 
 	render: function() {
 
-		var navitems = this.props.items.map(function(v,i,a) {
-			console.log(v);
-			//These li's need a key={} prop...
-			//see: http://facebook.github.io/react/docs/multiple-components.html#dynamic-children
-			return (<NavDrawerItem record={v} />);
-		});
+		var item;
+		if(this.props.items.length > 0) {
+			var record = this.props.items[this.state.index];
+			item = <NavDrawerItem record={record} />;	
+		}
 
 		return (
 			<ul className="off-canvas-list">
-				{navitems}
+				<li onClick={this._upClick}><a>Back</a></li>
+				<li onClick={this._downClick}><a>Content</a></li>
+				{item}
 				<li><LogoutButton /></li>
 			</ul>
 		);
 	}
 });
-
-
-/*
-
-	<ul>
-		<li><a href="">hi hi hi</a></li>
-	</ul>
-
-*/

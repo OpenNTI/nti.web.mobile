@@ -34,7 +34,7 @@ function _publishNavFor(courseEnrollment) {
 	var props = courseEnrollment.getPresentationProperties();
 	courseEnrollment.getOutline().then(function(d) {
 		var root = Array.isArray(d) ? d[0] : d;
-		Navigation.Actions.publishNav(Constants.COURSE_NAV_KEY,_navRecordFor(root));
+		Navigation.Actions.publishNav(Navigation.Constants.CONTENT_KEY,_navRecordFor(root));
 	});
 }
 
