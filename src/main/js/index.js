@@ -3,7 +3,9 @@
  * @module nt-mobile
  */
 
-//TODO: move jQuery, foundation, typekit to requires()/provides() calls here and out of the html.
+require('script!../resources/vendor/modernizr/modernizr.js');
+require('script!../resources/vendor/jquery/dist/jquery.min.js');
+require('script!../resources/vendor/foundation/js/foundation.min.js');
 
 global.React = require('react/addons');
 

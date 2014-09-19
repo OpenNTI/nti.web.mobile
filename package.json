@@ -32,6 +32,7 @@
     "react-router-component": "*",
     "react-translate-component": "*",
     "response-time": "*",
+    "script-loader": "*",
     "sass-loader": "*",
     "style-loader": "*",
     "url-loader": "*",
