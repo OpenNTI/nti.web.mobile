@@ -20,7 +20,7 @@ module.exports = React.createClass({
 		var style = {
 			backgroundImage: 'url(' + item.poster + ')'
 		};
-		console.log(item);
+
 		return (
 			<li tabIndex="0" onFocus={this.props.onFocus} style={style} className="video flex-video widescreen">
 				<div className="wrapper">
