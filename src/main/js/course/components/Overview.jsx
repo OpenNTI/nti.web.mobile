@@ -95,7 +95,7 @@ module.exports = React.createClass({
 		if (this.state.error) {	return <Error error={this.state.error}/> }
 
 		return (
-			<div className="course-overview">
+			<div className="course-overview row">
 				<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
 				<h1>{data.title}</h1>
 				{this._renderItems(data.Items)}
