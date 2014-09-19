@@ -53,16 +53,22 @@ module.exports = [
              tls: 'empty'
         },
 
-        resolve: {extensions: ['', '.jsx', '.js', '.css', '.scss'] },
+        resolve: {
+            root: path.join(__dirname,'src/main/js'),
+            extensions: ['', '.jsx', '.js', '.css', '.scss']
+        },
 
         plugins: [
             //new webpack.HotModuleReplacementPlugin(),
             new webpack.optimize.CommonsChunkPlugin('js/common.js'),
             function(compiler) {
                 this.plugin('done', function(stats) {
-                    require('fs').writeFileSync(
-                        path.join(__dirname, 'dist', 'server', 'stats.generated.json'),
-                        JSON.stringify(stats.toJson()));
+                    var file = path.join(__dirname, 'dist', 'server', 'stats.generated.json');
+                    try {
+                        require('fs').writeFileSync(file, JSON.stringify(stats.toJson()));
+                    } catch (e) {
+                        console.warn('Could not write %s', file);
+                    }
                 });
             }
         ],
