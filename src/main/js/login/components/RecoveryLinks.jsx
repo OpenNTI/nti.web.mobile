@@ -6,20 +6,14 @@ var React = require('react/addons');
 
 var Button = require('common/components/forms/Button');
 var LinkConstants = require('../Constants').links;
-var t = require('common/locale').translate;
+var t = require('common/locale').scoped('LOGIN.forgot');
 var Dataserver = require('dataserverinterface');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var React = require('react/addons');
 
-// shortcut for getting the service name off the oauth constants
-// (e.g. 'google' from 'OAUTH_LINK_GOOGLE')
-function _serviceName(k) {
-	return k.split('_').pop().toLowerCase();
-}
-
-var OAuthButton = React.createClass({
+var RecoveryLink = React.createClass({
 
 	render: function() {
 		// link_key is the property name of the link (as in 'logon.google').
@@ -33,7 +27,7 @@ var OAuthButton = React.createClass({
 				className={lkey.toLowerCase()}
 				key={lkey}
 			>
-				{t('LOGIN.oauth.login', {service: _serviceName(lkey)})}
+				{t(lkey)} - {this.props.link}
 			</Button>
 		);
 	}
@@ -44,19 +38,19 @@ module.exports = React.createClass({
 	render: function() {
 
 		// filter the list of LoginConstants to include those that
-		// begin with OAUTH_LINK
-		var authlinks = Object.keys(LinkConstants).filter(function(k) {
-			return k.indexOf('OAUTH_LINK') == 0;
+		// contain 'forgot' or 'recover'
+		var recoverylinks = Object.keys(LinkConstants).filter(function(k) {
+			return /forgot|recover/.test(LinkConstants[k]);
 		});
 
 		var buttons = [];
 		var props = this.props;
 
-		authlinks.forEach(function(link_key) {
-
-			if (LinkConstants[link_key] in props.links) {
+		recoverylinks.forEach(function(link_key) {
+			var link = LinkConstants[link_key];
+			if (link in props.links) {
 				buttons.push(
-					<OAuthButton link_key={link_key} link={props.links[LinkConstants[link_key]]} />
+					<RecoveryLink link_key={link_key} link={props.links[link]} />
 				);
 			}
 		});

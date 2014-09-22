@@ -192,9 +192,9 @@ var events = keyMirror({
 
 });
 
-var messages = keyMirror({
-	LOGIN_ERROR: null
-});
+var messages = {
+	LOGIN_ERROR: 'LOGIN.LOGIN_ERROR'
+};
 
 exports.actions = actions;
 exports.events = events;

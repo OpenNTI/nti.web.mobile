@@ -7,8 +7,11 @@ var LoginStoreProperties = require('../StoreProperties');
 var Actions = require('../Actions');
 var Button = require('common/components/forms/Button');
 var OAuthButtons = require('./OAuthButtons');
-var t = require('common/locale');
+var RecoveryLinks = require('./RecoveryLinks');
+var t = require('common/locale').translate;
 var React = require('react/addons');
+var MessageDisplay = require('common/messages/').Display;
+
 
 var View = React.createClass({
 
@@ -38,6 +41,7 @@ var View = React.createClass({
 
 		return (
 			<div className="row">
+				<MessageDisplay />
 				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
 
 					<fieldset>
@@ -56,7 +60,8 @@ var View = React.createClass({
 							className={'tiny radius ' + (submitEnabled ? '' : 'disabled')}
 							disabled={!submitEnabled}
 						>{t('LOGIN.login')}</button>
-						<OAuthButtons links={this.state.links} basePath={this.props.basePath}/>
+						<OAuthButtons links={this.state.links} basePath={this.props.basePath} />
+						<RecoveryLinks links={this.state.links} basePath={this.props.basePath} />
 					</fieldset>
 				</form>
 			</div>

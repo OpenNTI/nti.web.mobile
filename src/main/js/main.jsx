@@ -20,10 +20,10 @@ var Router = require('./navigation/components/Router');
 
 var App = React.createClass({
 
-	_actionHandler:function(payload) {
+	_actionHandler: function(payload) {
 		var action = payload.action;
 		console.log('App received %s action.', action.actionType);
-		switch(action.actionType) {
+		switch (action.actionType) {
 			case Navigation.Constants.NAVIGATE:
 				console.log('App received %O.', action);
 				Navigation.Actions.navigate(action.href, true);
@@ -35,8 +35,8 @@ var App = React.createClass({
 
 	_loginStoreChange: function(evt) {
 		console.log('App received loginStoreChange %O', evt);
-		if(evt && evt.property === LoginStoreProperties.isLoggedIn) {
-			if(evt.value) {
+		if (evt && evt.property === LoginStoreProperties.isLoggedIn) {
+			if (evt.value) {
 				console.log('Logged in. Redirect to content?');
 				Navigation.Actions.navigate(this.props.basePath + 'library/', true);
 			}

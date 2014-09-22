@@ -16,9 +16,6 @@ var Button = React.createClass({
 	},
 
 	render: function() {
-		if(this.props.onClick) {
-
-		}
 		return this.transferPropsTo(
 			<a href={this.props.href||'#'} onClick={this.onClick} className='button tiny radius'>{this.props.children}</a>
 		);

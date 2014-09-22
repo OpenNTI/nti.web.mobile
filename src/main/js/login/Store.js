@@ -14,7 +14,7 @@ var Dataserver = require('dataserverinterface');
 var CHANGE_EVENT = 'change';
 var ERROR_EVENT = 'error';
 var Messages = require('common/messages/');
-var t = require('common/locale');
+var t = require('common/locale').translate;
 var IllegalArgumentException = require('common/exceptions/').IllegalArgumentException;
 
 var dataserver = require('common/Utils').getServer;
@@ -145,10 +145,9 @@ function _clearErrors() {
 }
 
 
-
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
-	console.log('LoginStore received %s action.', action.actionType);
+
 	switch (action.actionType) {
 		case ActionConstants.LOGIN_FORM_CHANGED:
 			_ping(action.credentials);

@@ -1,8 +1,19 @@
-var counterpart = require('counterpart');
-counterpart.registerTranslations('en',require('./en.js'));
+'use strict';
 
-function translate(key,options) {
-	return counterpart.apply(this, arguments);
+var counterpart = require('counterpart');
+counterpart.registerTranslations('en', require('./en.js'));
+
+function translate(key, options) {
+	return counterpart.apply(null, arguments);
 }
 
-module.exports = translate;
+function scoped(scope) {
+	return function(key, options) {
+		var opts = (options || {});
+		opts.scope = scope;
+		return counterpart.apply(this, [key, opts]);
+	};
+}
+
+exports.translate = translate;
+exports.scoped = scoped;

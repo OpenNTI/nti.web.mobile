@@ -5,7 +5,7 @@ var React = require('react/addons');
 var moment = require('moment');
 var isEmpty = require('dataserverinterface/utils/isempty');
 
-var locale = require('common/locale');
+var locale = require('common/locale').translate;
 function _t(key, options) { return locale('COURSE_INFO.' + key, options); }
 
 var isOpenEnrolled = RegExp.prototype.test.bind(/open/i);

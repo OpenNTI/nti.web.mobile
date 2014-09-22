@@ -1,3 +1,5 @@
+'use strict';
+
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var MessageConstants = require('./MessageConstants');
@@ -8,41 +10,11 @@ var merge = require('react/lib/merge');
 var _messages = {};
 
 
-/**
-* Add a message
-* @param {Object} message object should include properties for message and raw (the raw response)
-*/
-function _addMessage(message,sender,category) {
-	var m = new Message(message,sender,category);
-	_messages[m.id] = m;
-	MessageStore.emitChange();
-}
-
-function _clearMessages() {
-	if(Object.keys(_messages).length === 0) {
-		return;
-	}
-	_messages = {};
-	MessageStore.emitChange();
-}
-
-function _removeMessage(id) {
-	delete _messages[id];
-	MessageStore.emitChange();
-}
-
-function Message(message,sender,category) {
-	this.message = message;
-	this.sender = sender;
-	this.category = category;
-	this.id = Date.now();
-}
-
 var MessageStore = merge(EventEmitter.prototype, {
 
 	emitChange: function() {
 		console.log('MessageStore: emitting change');
-		this.emit(Events.MESSAGES_CHANGE,this.messages());
+		this.emit(Events.MESSAGES_CHANGE, this.messages());
 	},
 
 	/**
@@ -61,19 +33,50 @@ var MessageStore = merge(EventEmitter.prototype, {
 	},
 
 	messages: function() {
-		return Object.keys(_messages).map(function(key,idx,keys) {
+		return Object.keys(_messages).map(function(key, idx, keys) {
 			return _messages[key];
 		});
 	}
 
 });
 
+function Message(message, sender, category) {
+	this.message = message;
+	this.sender = sender;
+	this.category = category;
+	this.id = Date.now();
+}
+
+/**
+* Add a message
+* @param {Object} message object should include properties for message and raw (the raw response)
+*/
+function _addMessage(message, sender, category) {
+	var m = new Message(message, sender, category);
+	_messages[m.id] = m;
+	MessageStore.emitChange();
+}
+
+function _clearMessages() {
+	if (Object.keys(_messages).length === 0) {
+		return;
+	}
+	_messages = {};
+	MessageStore.emitChange();
+}
+
+function _removeMessage(id) {
+	delete _messages[id];
+	MessageStore.emitChange();
+}
+
+
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
 	console.log('MessageStore received %s action.', action.actionType);
-	switch(action.actionType) {
+	switch (action.actionType) {
 		case Actions.MESSAGES_ADD:
-			_addMessage(action.msg,action.sender,action.category);
+			_addMessage(action.msg, action.sender, action.category);
 		break;
 
 		case Actions.MESSAGES_CLEAR:

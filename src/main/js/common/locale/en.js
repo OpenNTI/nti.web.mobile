@@ -5,6 +5,10 @@ module.exports = {
 		oauth: {
 			login: 'Log in with %(service)s'
 		},
+		forgot: {
+			FORGOT_USERNAME: 'Forgot Username',
+			FORGOT_PASSCODE: 'Forgot Password'
+		},
 		LOGIN_ERROR: {
 			401: 'Login failed.'
 		}

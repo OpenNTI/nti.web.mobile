@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+'use strict';
+
 var React = require('react/addons');
 var LeftNav = require('./LeftNav');
 var Footer = require('./Footer');
@@ -14,16 +16,18 @@ var Location = Router.Location;
 
 var Library = require('library');
 
-var Navigation = require('navigation'); 
+var Navigation = require('navigation');
 
-var t = require('../locale');
+var t = require('../locale').translate;
+
 
 /**
  * Convenience function for constructing NavRecords
+ * @return {Navigation.NavRecord}
  */
-function _navRec(basePath,opts) {
+function _navRec(basePath, opts) {
 	return new Navigation.NavRecord({
-		label:t(opts.label,{scope: 'NAV.Library'}),
+		label: t(opts.label, {scope: 'NAV.Library'}),
 		href: basePath + opts.href,
 		clickable: opts.hasOwnProperty('clickable') ? opts.clickable : (opts.items && opts.items.length > 0),
 		children: opts.children,
@@ -46,37 +50,37 @@ module.exports = React.createClass({
 		var courses = [].concat(library.courses || []);
 		var basePath = this.props.basePath;
 		navitems.push(_navRec(basePath,{
-			label:'courses',
-			href:'library/courses',
-			items:courses
+			label: 'courses',
+			href: 'library/courses',
+			items: courses
 		}));
 
 		var books = [].concat(library.bundles || [], library.packages || []);
 		navitems.push(_navRec(basePath,{
-			label:'books',
-			href:'library/books',
-			items:books
+			label: 'books',
+			href: 'library/books',
+			items: books
 		}));
 
 		navitems.push(_navRec(basePath,{
-			label:'catalog',
-			href:'catalog/',
+			label: 'catalog',
+			href: 'catalog/',
 			clickable: true
 		}));
 
 		var instructing = [].concat(library.coursesAdmin || []);
-		if(instructing.length > 0) {
-			navitems.push(_navRec(basePath,{
-				label:'instructing',
-				href:'library/admin',
-				items:instructing
+		if (instructing.length > 0) {
+			navitems.push(_navRec(basePath, {
+				label: 'instructing',
+				href: 'library/admin',
+				items: instructing
 			}));
 		}
-		var n = _navRec( basePath, {
+		var n = _navRec(basePath, {
 			label: 'library',
 			children: navitems
 		});
-		Navigation.Actions.publishNav('root',n);
+		Navigation.Actions.publishNav('root', n);
 		// this.setState({leftNav: navitems});
 
 	},

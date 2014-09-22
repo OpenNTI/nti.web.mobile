@@ -1,22 +1,15 @@
+'use strict';
 /** @module login/LoginActions */
 
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var ActionConstants = require('./Constants').actions;
 var EventEmitter = require('events').EventEmitter;
-var merge = require('react/lib/merge')
+var merge = require('react/lib/merge');
 
 /**
  * Actions available to views for login-related functionality.
  **/
 module.exports = merge(EventEmitter.prototype, {
-
-	/** Initializes the login system. */
-	begin: function() {
-		console.log('LoginActions::begin');
-		AppDispatcher.handleViewAction({
-			actionType: ActionConstants.LOGIN_BEGIN
-		});
-	},
 
 	/**
 	* Fired in response to user changes on the login form.
@@ -52,14 +45,13 @@ module.exports = merge(EventEmitter.prototype, {
 		AppDispatcher.handleViewAction({
 			actionType: ActionConstants.LOGIN_OAUTH,
 			url: url
-		});	
+		});
 	},
 
 	/** Log the out of the system. */
 	logOut: function() {
 		AppDispatcher.handleViewAction({
 			actionType: ActionConstants.LOGOUT
-		});	
+		});
 	}
 });
-
