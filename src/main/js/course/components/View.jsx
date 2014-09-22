@@ -70,10 +70,10 @@ module.exports = React.createClass({
 		return (
 			<Locations contextual>
 				<DefaultRoute handler={Detail} entry={entry} noBack/>
-				<Location path="/v(/:videoId)" handler={Media} course={course}/>
+				<Location path="/v(/:videoId)" handler={Media} course={course} basePath={this.props.basePath}/>
 				<Location path="/o(/)" handler={Outline} course={course} basePath={this.props.basePath}/>
-				<Location path="/o/:outlineId(/)" handler={Overview} course={course}/>
-				<Location path="/o/:outlineId/c/:id" handler={React.DOM.div} course={course}/>
+				<Location path="/o/:outlineId(/)" handler={Overview} course={course} basePath={this.props.basePath}/>
+				<Location path="/o/:outlineId/c/:id" handler={React.DOM.div} course={course} basePath={this.props.basePath}/>
 			</Locations>
 		);
 	}
