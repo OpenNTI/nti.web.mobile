@@ -33,7 +33,7 @@ var OAuthButton = React.createClass({
 				className={lkey.toLowerCase()}
 				key={lkey}
 			>
-				{t('oauth.login',{service:_serviceName(lkey)})}
+				{t('LOGIN.oauth.login',{service:_serviceName(lkey)})}
 			</Button>
 		);
 	}

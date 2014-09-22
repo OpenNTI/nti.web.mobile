@@ -51,10 +51,11 @@ var View = React.createClass({
 							placeholder="Password"
 							defaulValue={this.state.password}
 							onChange={this._passwordChanged} />
-						<Button
-							className={submitEnabled ? '' : 'disabled'}
-							onClick={submitEnabled ? this._handleSubmit : function(){return false}}>Log In</Button>
-							
+						<button
+							type="submit"
+							className={'tiny radius ' + (submitEnabled ? '' : 'disabled')}
+							disabled={!submitEnabled}
+						>{t('LOGIN.login')}</button>
 						<OAuthButtons links={this.state.links} basePath={this.props.basePath}/>
 					</fieldset>
 				</form>
@@ -80,7 +81,8 @@ var View = React.createClass({
 		this._updateSubmitButton();
 	},
 
-	_handleSubmit: function() {
+	_handleSubmit: function(evt) {
+		evt.preventDefault();
 		console.log('LoginView::_handleSubmit');
 		Actions.clearErrors();
 		Actions.logIn({

@@ -1,10 +1,15 @@
 module.exports = {
-	oauth: {
-		login: 'Log in with %(service)s'
+
+	LOGIN: {
+		login: 'Log In',
+		oauth: {
+			login: 'Log in with %(service)s'
+		},
+		LOGIN_ERROR: {
+			401: 'Login failed.'
+		},	
 	},
-	LOGIN_ERROR: {
-		401: 'Login failed.'
-	},
+
 	NAV: {
 		Library: {
 			library:'Library',
@@ -14,6 +19,7 @@ module.exports = {
 			catalog:'Catalog'
 		}
 	},
+
 	COURSE_INFO: {
 		OpenEnrolled: 'You\'re registered for the open course.',
 		OpenEnrolledIsNotForCredit: '(No Credit)',
@@ -33,6 +39,7 @@ module.exports = {
 		OnlyOnline: 'Fully Online',
 		Instructor: 'Course Instructor'
 	},
+
 	VIDEO: {
 		KalturaIFrameUrl:'http://www.kaltura.com/p/%(partnerId)s/sp/%(partnerId)s00/embedIframeJs/uiconf_id/%(uiConfId)s/partner_id/%(partnerId)s?iframeembed=true&playerId={UNIQUE_OBJ_ID}&entry_id=%(entryId)s'
 	}
