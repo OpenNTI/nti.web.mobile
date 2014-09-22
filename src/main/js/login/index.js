@@ -6,11 +6,11 @@
 /**
 * @see {@link module:login/LoginActions}
 */
-exports.LoginActions = require('./LoginActions');
+exports.Actions = require('./Actions');
 
 /** Constants related to logins */
-exports.LoginConstants = require('./LoginConstants');
-exports.LoginView = require('./components/LoginView');
+exports.Constants = require('./Constants');
+exports.View = require('./components/View');
 exports.LogoutButton = require('./components/LogoutButton');
-exports.LoginStore = require('./LoginStore');
-exports.LoginStoreProperties = require('./LoginStoreProperties');
+exports.Store = require('./Store');
+exports.StoreProperties = require('./StoreProperties');

@@ -10,8 +10,8 @@ var AppDispatcher = require('./common/dispatcher/AppDispatcher');
 
 
 var Login = require('./login');
-var LoginStore = Login.LoginStore;
-var LoginStoreProperties = Login.LoginStoreProperties;
+var LoginStore = Login.Store;
+var LoginStoreProperties = Login.StoreProperties;
 
 var Navigation = require('./navigation');
 

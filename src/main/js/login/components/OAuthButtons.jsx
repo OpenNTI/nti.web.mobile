@@ -5,8 +5,7 @@
 var React = require('react/addons');
 
 var Button = require('common/components/forms/Button');
-var Links = require('../LoginConstants').links;
-var LoginActions = require('../LoginActions');
+var LinkConstants = require('../Constants').links;
 var t = require('common/locale');
 var Dataserver = require('dataserverinterface');
 
@@ -21,11 +20,6 @@ function _serviceName(k) {
 }
 
 var OAuthButton = React.createClass({
-
-	// _click: function() {
-	// 	console.log(this.props.link);
-	// 	LoginActions.logInOAuth(this.props.link);
-	// },
 
 	render: function() {
 		// link_key is the property name of the link (as in 'logon.google').
@@ -51,7 +45,7 @@ module.exports = React.createClass({
 
 		// filter the list of LoginConstants to include those that
 		// begin with OAUTH_LINK
-		var authlinks = Object.keys(Links).filter(function(k) {
+		var authlinks = Object.keys(LinkConstants).filter(function(k) {
 			return k.indexOf('OAUTH_LINK') == 0;
 		});
 
@@ -60,9 +54,9 @@ module.exports = React.createClass({
 
 		authlinks.forEach(function(link_key) {
 
-			if(Links[link_key] in props.links) {
+			if(LinkConstants[link_key] in props.links) {
 				buttons.push(
-					<OAuthButton link_key={link_key} link={props.links[Links[link_key]]} />
+					<OAuthButton link_key={link_key} link={props.links[LinkConstants[link_key]]} />
 				);
 			}
 		});

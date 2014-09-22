@@ -2,17 +2,15 @@
 
 'use strict';
 
-var LoginStore = require('../LoginStore');
-var LoginStoreProperties = require('../LoginStoreProperties');
-var LoginActions = require('../LoginActions');
-// var Alert = require('common/components/Alert');
+var Store = require('../Store');
+var LoginStoreProperties = require('../StoreProperties');
+var Actions = require('../Actions');
 var Button = require('common/components/forms/Button');
 var OAuthButtons = require('./OAuthButtons');
 var t = require('common/locale');
 var React = require('react/addons');
-var Messages = require('../LoginConstants').messages;
 
-var LoginView = React.createClass({
+var View = React.createClass({
 
 	getInitialState: function() {
 		return {
@@ -26,12 +24,12 @@ var LoginView = React.createClass({
 
 	componentDidMount: function() {
 		console.log('LoginView::componentDidMount');
-		LoginStore.addChangeListener(this._onLoginStoreChange);
+		Store.addChangeListener(this._onLoginStoreChange);
 	},
 
 	componentWillUnmount: function() {
 		console.log('LoginView::componentWillUnmount');
-		LoginStore.removeChangeListener(this._onLoginStoreChange);
+		Store.removeChangeListener(this._onLoginStoreChange);
 		delete this.state.password;
 	},
 
@@ -65,11 +63,11 @@ var LoginView = React.createClass({
 	},
 
 	/**
-	* onChange handler for the username field. Triggers LoginActions.userInputChanged
+	* onChange handler for the username field. Triggers Actions.userInputChanged
 	* @method usernameChanged
 	*/
 	_usernameChanged: function(event) {
-		LoginActions.userInputChanged({
+		Actions.userInputChanged({
 			credentials: {
 				username:this._username(),
 				password:this._password()
@@ -84,8 +82,8 @@ var LoginView = React.createClass({
 
 	_handleSubmit: function() {
 		console.log('LoginView::_handleSubmit');
-		LoginActions.clearErrors();
-		LoginActions.logIn({
+		Actions.clearErrors();
+		Actions.logIn({
 			username:this._username(),
 			password:this._password()
 		});
@@ -104,7 +102,7 @@ var LoginView = React.createClass({
 			submitEnabled:
 				this._username().length > 0
 				&& this._password().length > 0
-				&& LoginStore.canDoPasswordLogin()
+				&& Store.canDoPasswordLogin()
 		});
 	},
 
@@ -119,4 +117,4 @@ var LoginView = React.createClass({
 	}
 });
 
-module.exports = LoginView;
+module.exports = View;

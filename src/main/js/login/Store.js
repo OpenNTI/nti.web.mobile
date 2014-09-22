@@ -1,12 +1,12 @@
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var invariant = require('react/lib/invariant');
 var EventEmitter = require('events').EventEmitter;
-var LoginConstants = require('./LoginConstants');
-var Actions = LoginConstants.actions;
-var Links = LoginConstants.links;
-var LoginMessages = LoginConstants.messages;
-var LoginActions = require('./LoginActions');
-var LoginStoreProperties = require('./LoginStoreProperties');
+var Constants = require('./Constants');
+var ActionConstants = Constants.actions;
+var Links = Constants.links;
+var LoginMessages = Constants.messages;
+var Actions = require('./Actions');
+var StoreProperties = require('./StoreProperties');
 var merge = require('react/lib/merge');
 var Dataserver = require('dataserverinterface');
 var CHANGE_EVENT = 'change';
@@ -35,7 +35,7 @@ function _setLinks(links) {
 	var oldVal = _links;
 	_links = links || {};
 	LoginStore.emitChange(
-		new LoginStoreChangeEvent(LoginStoreProperties.links,_links,oldVal)
+		new LoginStoreChangeEvent(StoreProperties.links,_links,oldVal)
 	);
 }
 
@@ -44,7 +44,7 @@ function _setLoggedIn(isLoggedIn) {
 	// emit a change event if the new value is different.
 	if(_isLoggedIn !== (_isLoggedIn = isLoggedIn)) {
 		LoginStore.emitChange(
-			new LoginStoreChangeEvent(LoginStoreProperties.isLoggedIn,
+			new LoginStoreChangeEvent(StoreProperties.isLoggedIn,
 				_isLoggedIn,
 				!_isLoggedIn
 			)
@@ -82,8 +82,8 @@ function _logOut(action) {
 }
 
 function LoginStoreChangeEvent(prop,val,oldval) {
-	if(!prop in LoginStoreProperties) {
-		throw new IllegalArgumentException( '"' + prop + '" is not a property defined in LoginStoreProperties.');
+	if(!prop in StoreProperties) {
+		throw new IllegalArgumentException( '"' + prop + '" is not a property defined in StoreProperties.');
 	}
 	this.property = prop;
 	this.value = val;
@@ -143,27 +143,27 @@ AppDispatcher.register(function(payload) {
 	var action = payload.action;
 	console.log('LoginStore received %s action.', action.actionType);
 	switch(action.actionType) {
-		case Actions.LOGIN_BEGIN:
+		case ActionConstants.LOGIN_BEGIN:
 			_begin();
 		break;
 
-		case Actions.LOGIN_FORM_CHANGED:
+		case ActionConstants.LOGIN_FORM_CHANGED:
 			_ping(action.credentials);
 		break;
 
-		case Actions.LOGIN_PASSWORD:
+		case ActionConstants.LOGIN_PASSWORD:
 			_logIn(action.credentials);
 		break;
 
-		case Actions.LOGIN_OAUTH:
+		case ActionConstants.LOGIN_OAUTH:
 			_logInOAuth(action.url);
 		break;
 
-		case Actions.LOGOUT:
+		case ActionConstants.LOGOUT:
 			_logOut(action);
 		break;
 
-		case Actions.LOGIN_CLEAR_ERRORS:
+		case ActionConstants.LOGIN_CLEAR_ERRORS:
 			_clearErrors(action);
 		break;
 

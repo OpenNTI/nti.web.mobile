@@ -4,13 +4,13 @@
 
 var React = require('react/addons');
 
-var LoginActions = require('../LoginActions');
+var Actions = require('../Actions');
 var Button = require('common/components/forms/Button');
 
 var LogoutButton = React.createClass({
 	render: function() {
 		return(
-			<Button onClick={LoginActions.logOut}>Log Out</Button>
+			<Button onClick={Actions.logOut}>Log Out</Button>
 		);
 	}
 });
