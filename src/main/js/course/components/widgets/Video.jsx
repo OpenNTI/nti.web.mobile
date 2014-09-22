@@ -50,5 +50,5 @@ module.exports = React.createClass({
 				</div>
 			</li>
 		);
-	}
+	}//controls autobuffer autoplay loop
 });

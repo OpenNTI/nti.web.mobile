@@ -32,10 +32,11 @@
     "react-router-component": "*",
     "react-translate-component": "*",
     "response-time": "*",
-    "script-loader": "*",
     "sass-loader": "*",
+    "script-loader": "*",
     "style-loader": "*",
     "url-loader": "*",
+    "vtt.js": "*",
     "webpack": "*",
     "webpack-dev-server": "*",
     "zpad": "*"

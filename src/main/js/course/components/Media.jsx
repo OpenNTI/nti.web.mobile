@@ -6,8 +6,9 @@ var React = require('react/addons');
 var Loading = require('common/components/Loading');
 var Error = require('common/components/Error');
 
-var Actions = require('../Actions');
-var Store = require('../Store');
+var TranscriptedVideo = require('./TranscriptedVideo');
+var VideoGrid = require('./VideoGrid');
+
 
 module.exports = React.createClass({
 	displayName: 'MediaView',
@@ -72,8 +73,13 @@ module.exports = React.createClass({
 		var videoIndex = this.state.videoIndex;
 		var video = videoIndex[this.props.videoId];
 
-		return (
-			<div>{this.props.videoId}</div>
-		);
+		var props = {
+			VideoIndex: videoIndex,
+			video: video
+		};
+
+		var Tag = video ? TranscriptedVideo : VideoGrid;
+
+		return this.transferPropsTo(Tag(props));
 	}
 });
