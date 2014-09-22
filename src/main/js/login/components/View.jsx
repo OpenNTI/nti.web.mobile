@@ -14,11 +14,11 @@ var View = React.createClass({
 
 	getInitialState: function() {
 		return {
-			username:'',
-			password:'',
+			username: '',
+			password: '',
 			submitEnabled: false,
-			links:{},
-			errors:[]
+			links: {},
+			errors: []
 		};
 	},
 
@@ -65,15 +65,14 @@ var View = React.createClass({
 
 	/**
 	* onChange handler for the username field. Triggers Actions.userInputChanged
-	* @method usernameChanged
 	*/
 	_usernameChanged: function(event) {
 		Actions.userInputChanged({
 			credentials: {
-				username:this._username(),
-				password:this._password()
+				username: this._username(),
+				password: this._password()
 			},
-			event:event
+			event: event
 		});
 	},
 
@@ -86,8 +85,8 @@ var View = React.createClass({
 		console.log('LoginView::_handleSubmit');
 		Actions.clearErrors();
 		Actions.logIn({
-			username:this._username(),
-			password:this._password()
+			username: this._username(),
+			password: this._password()
 		});
 	},
 
@@ -102,9 +101,9 @@ var View = React.createClass({
 	_updateSubmitButton: function() {
 		this.setState({
 			submitEnabled:
-				this._username().length > 0
-				&& this._password().length > 0
-				&& Store.canDoPasswordLogin()
+				this._username().length > 0 &&
+				this._password().length > 0 &&
+				Store.canDoPasswordLogin()
 		});
 	},
 
@@ -113,7 +112,7 @@ var View = React.createClass({
 		if (this.isMounted()) {
 			this._updateSubmitButton();
 		}
-		if(evt && evt.property === LoginStoreProperties.links) {
+		if (evt && evt.property === LoginStoreProperties.links) {
 			this.setState({links: evt.value});
 		}
 	}

@@ -1,5 +1,7 @@
+'use strict';
+
 function IllegalArgumentException(message) {
-	this.name = "IllegalArgumentException";
+	this.name = 'IllegalArgumentException';
 	this.message = message || 'Illegal argument. No message provided.';
 	this.stack = (new Error()).stack;
 }

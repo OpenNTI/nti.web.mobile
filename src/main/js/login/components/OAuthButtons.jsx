@@ -54,7 +54,7 @@ module.exports = React.createClass({
 
 		authlinks.forEach(function(link_key) {
 
-			if(LinkConstants[link_key] in props.links) {
+			if (LinkConstants[link_key] in props.links) {
 				buttons.push(
 					<OAuthButton link_key={link_key} link={props.links[LinkConstants[link_key]]} />
 				);

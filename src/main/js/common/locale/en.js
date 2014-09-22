@@ -7,16 +7,16 @@ module.exports = {
 		},
 		LOGIN_ERROR: {
 			401: 'Login failed.'
-		},	
+		}
 	},
 
 	NAV: {
 		Library: {
-			library:'Library',
+			library: 'Library',
 			books: 'Books',
 			courses: 'Courses',
 			instructing: 'Instructing',
-			catalog:'Catalog'
+			catalog: 'Catalog'
 		}
 	},
 
@@ -26,7 +26,7 @@ module.exports = {
 		Credit: {
 			available: 'available',
 			x_units: {
-				one:   '%(count)s Credit',
+				one: '%(count)s Credit',
 				other: '%(count)s Credits'
 			}
 		},
@@ -38,9 +38,6 @@ module.exports = {
 		Days: 'Days',
 		OnlyOnline: 'Fully Online',
 		Instructor: 'Course Instructor'
-	},
-
-	VIDEO: {
-		KalturaIFrameUrl:'http://www.kaltura.com/p/%(partnerId)s/sp/%(partnerId)s00/embedIframeJs/uiconf_id/%(uiConfId)s/partner_id/%(partnerId)s?iframeembed=true&playerId={UNIQUE_OBJ_ID}&entry_id=%(entryId)s'
 	}
-}
+
+};
