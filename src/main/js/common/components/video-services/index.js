@@ -21,14 +21,16 @@ exports = module.exports = {
 		var url = (typeof src === 'string') ? Url.parse(src) : getUrl(src);
 		var handler = iframe;
 
-		if (kalturaRe.test(url.protocol)) {
-			handler = kaltura;
-		}
-		else if (vimeoRe.test(url.host)) {
-			handler = vimeo;
-		}
-		else if (youtubeRe.test(url.host)) {
-			handler = youtube;
+		if (url) {
+			if (kalturaRe.test(url.protocol)) {
+				handler = kaltura;
+			}
+			else if (vimeoRe.test(url.host)) {
+				handler = vimeo;
+			}
+			else if (youtubeRe.test(url.host)) {
+				handler = youtube;
+			}
 		}
 
 		return handler;
@@ -41,10 +43,10 @@ exports = module.exports = {
 
 
 function getUrl(data) {
-	var src = data.sources[0];
-	var url = Url.parse(src.source[0]);
+	var src = data && data.sources[0];
+	var url = src && Url.parse(src.source[0]);
 
-	if (!/^kaltura/i.test(src.service)) {
+	if (!data || !/^kaltura/i.test(src.service)) {
 		return url;
 	}
 
