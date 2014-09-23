@@ -70,7 +70,8 @@ module.exports = React.createClass({
 		if (this.state.loading) {return (<Loading/>);}
 		if (this.state.error) {	return <Error error={this.state.error}/> }
 
-		var videoId = decodeURIComponent(this.props.videoId);
+		var p = this.props;
+		var videoId = p.videoId && decodeURIComponent(p.videoId);
 		var videoIndex = this.state.videoIndex;
 		var video = videoIndex.get(videoId);
 
