@@ -6,6 +6,8 @@ var vtt = require("vtt.js"),//https://github.com/mozilla/vtt.js
 	VTTCue = vtt.VTTCue,
 	VTTRegion = vtt.VTTRegion;
 
+var NO_TRANSCRIPT = 'No Transcript';
+
 var React = require('react/addons');
 
 var Loading = require('common/components/Loading');
@@ -21,10 +23,63 @@ module.exports = React.createClass({
 	displayName: 'TranscriptedVideo',
 
 
-	/*
-		<Video>
-		<Transcript onSelect=SetVideoPositionAndPlay>
-	 */
+	getInitialState: function() {
+		return {
+			loading: true, error: false, transcript: null
+		};
+	},
+
+
+	componentDidMount: function() {
+		//Store.addChangeListener(this._onChange);
+		this.getDataIfNeeded(this.props);
+	},
+
+
+	componentWillUnmount: function() {
+		//Store.removeChangeListener(this._onChange);
+	},
+
+
+	componentWillReceiveProps: function(nextProps) {
+		if (nextProps.video !== this.props.video) {
+			this.getDataIfNeeded(nextProps);
+		}
+	},
+
+
+	__onError: function(error) {
+		this.setState({
+			loading: false,
+			error: error,
+			data: null
+		});
+	},
+
+
+	getDataIfNeeded: function(props) {
+		this.setState(this.getInitialState());
+		try {
+			var props = this.props;
+			var course = props.course;
+			var video = props.video;
+			var transcriptSrc = ((video && (video.transcripts || []))[0] || {}).src;
+
+			transcriptSrc = transcriptSrc ?
+				course.resolveContentURL(transcriptSrc) :
+				Promise.reject(NO_TRANSCRIPT);
+
+			transcriptSrc.then(function(url) {
+
+				debugger;
+			});
+
+		} catch (e) {
+			this.__onError(e);
+		}
+	},
+
+
 
 
 	render: function() {
