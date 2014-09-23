@@ -10,6 +10,7 @@ var React = require('react/addons');
 
 var Loading = require('common/components/Loading');
 var Error = require('common/components/Error');
+var Video = require('common/components/Video');
 
 /*
 	See: https://github.com/mozilla/vtt.js#usage
@@ -27,6 +28,11 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		return (<Loading/>);
+
+		return (
+			<div>
+				<Video data={this.props.video}/>
+			</div>
+		);
 	}
 });

@@ -8,11 +8,12 @@ module.exports = React.createClass({
 	displayName: 'Video',
 
 	render: function() {
-		var Provider = Providers.getHandler(this.props.src);
+		var Provider = Providers.getHandler(this.props.src || this.props.data);
+		var videoSource = ((this.props.data || {}).sources || {})[0];
 
 		return (
 			<div className="flex-video widescreen {Provider.name}">
-				<Provider src={this.props.src} />
+				<Provider src={this.props.src} data={videoSource}/>
 			</div>
 		);
 	}

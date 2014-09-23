@@ -43,7 +43,7 @@ module.exports = React.createClass({
 
 			return (
 				<li className="grid-item" key={v.ntiid + '-' + i}>
-					<div className="flex-video widescreen video" style={style}>
+					<div className="flex-video widescreen video-wrap" style={style}>
 						<a className="play-centered" title="Play" href={link}/>
 					</div>
 					<div className="metadata">

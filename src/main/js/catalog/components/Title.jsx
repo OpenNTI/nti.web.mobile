@@ -15,7 +15,7 @@ module.exports = React.createClass({
 			<div className={'header ' + (videoURL? 'with-video' : '')}>
 				{videoURL ?
 					<div className="row">
-						<div className="columns video">
+						<div className="columns video-wrap">
 							<Video src={videoURL}/>
 						</div>
 					</div> : null}

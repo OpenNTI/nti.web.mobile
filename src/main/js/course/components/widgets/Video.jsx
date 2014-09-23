@@ -40,7 +40,7 @@ module.exports = React.createClass({
 		var link = path.join(props.basePath, 'course', props.course.getID(), 'v', item.NTIID);
 
 		return (
-			<li tabIndex="0" onFocus={this.props.onFocus} style={style} className="video flex-video widescreen">
+			<li tabIndex="0" onFocus={this.props.onFocus} style={style} className="video-wrap flex-video widescreen">
 				<div className="wrapper">
 					<a className="label" title={item.label} href={link}>{item.label}</a>
 					<div className="buttons">

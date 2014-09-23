@@ -70,15 +70,17 @@ module.exports = React.createClass({
 		if (this.state.loading) {return (<Loading/>);}
 		if (this.state.error) {	return <Error error={this.state.error}/> }
 
+		var videoId = decodeURIComponent(this.props.videoId);
 		var videoIndex = this.state.videoIndex;
-		var video = videoIndex[this.props.videoId];
+		var video = videoIndex.get(videoId);
 
 		var props = {
 			VideoIndex: videoIndex,
+			videoId: videoId,
 			video: video
 		};
 
-		var Tag = video ? TranscriptedVideo : VideoGrid;
+		var Tag = videoId ? TranscriptedVideo : VideoGrid;
 
 		return this.transferPropsTo(Tag(props));
 	}

@@ -18,7 +18,7 @@ exports = module.exports = {
 
 
 	getHandler: function(src) {
-		var url = Url.parse(src);
+		var url = (typeof src === 'string') ? Url.parse(src) : getUrl(src);
 		var handler = iframe;
 
 		if (kalturaRe.test(url.protocol)) {
@@ -32,5 +32,26 @@ exports = module.exports = {
 		}
 
 		return handler;
+	},
+
+
+	getUrl: getUrl
+
+};
+
+
+function getUrl(data) {
+	var src = data.sources[0];
+	var url = Url.parse(src.source[0]);
+
+	if (!/^kaltura/i.test(src.service)) {
+		return url;
 	}
+
+	url = Url.parse('');
+	url.protocol = src.service;
+	url.host = '//';
+	url.pathname = src.source[0];
+
+	return url;
 }
