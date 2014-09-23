@@ -12,11 +12,14 @@ function _sources(options) {
 	return kaltura.getSources(options);
 }
 
-var Video = React.createClass({
+module.exports = React.createClass({
+	displayName: 'KalturaVideo',
+
 
 	getInitialState: function() {
 		return { sources: [], sourcesLoaded: false, isError: false };
 	},
+
 
 	componentDidMount: function() {
 
@@ -53,6 +56,7 @@ var Video = React.createClass({
 
 	},
 
+
 	render: function() {
 
 		if(!this.state.sourcesLoaded) {
@@ -63,14 +67,17 @@ var Video = React.createClass({
 			return (<div className="error">Unable to load video.</div>);
 		}
 
-		var srcs = this.state.sources.map(function(val,idx,arr) {
-			var s = React.DOM.source(val);
-			return s;
-		});
-
-		return this.transferPropsTo(<video poster={this.state.poster} src={null} controls>{srcs}</video>);
+		return this.transferPropsTo(
+			<video
+				poster={this.state.poster}
+				src={null}
+				data={null}
+				controls>{
+					this.state.sources.map(function(val, i) {
+						val.key = i + val['data-flavorid'];
+						return React.DOM.source(val); })
+				}</video>
+			);
 	}
 
 });
-
-module.exports = Video;

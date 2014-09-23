@@ -12,8 +12,8 @@ module.exports = React.createClass({
 		var videoSource = ((this.props.data || {}).sources || {})[0];
 
 		return (
-			<div className="flex-video widescreen {Provider.name}">
-				<Provider src={this.props.src} data={videoSource}/>
+			<div className={'flex-video widescreen ' + Provider.name}>
+				{this.transferPropsTo(<Provider src={this.props.src} data={videoSource}/>)}
 			</div>
 		);
 	}
