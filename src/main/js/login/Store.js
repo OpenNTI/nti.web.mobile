@@ -149,6 +149,10 @@ AppDispatcher.register(function(payload) {
 	var action = payload.action;
 
 	switch (action.actionType) {
+		case ActionConstants.LOGIN_BEGIN:
+			_ping();
+		break;
+
 		case ActionConstants.LOGIN_FORM_CHANGED:
 			_ping(action.credentials);
 		break;

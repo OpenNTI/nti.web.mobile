@@ -11,6 +11,12 @@ var merge = require('react/lib/merge');
  **/
 module.exports = merge(EventEmitter.prototype, {
 
+	begin: function() {
+		AppDispatcher.handleViewAction({
+			actionType: ActionConstants.LOGIN_BEGIN
+		});
+	},
+
 	/**
 	* Fired in response to user changes on the login form.
 	*/

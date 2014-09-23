@@ -1,125 +1,57 @@
 /** @jsx React.DOM */
-
 'use strict';
 
-var Store = require('../Store');
-var LoginStoreProperties = require('../StoreProperties');
-var Actions = require('../Actions');
-var Button = require('common/components/forms/Button');
-var OAuthButtons = require('./OAuthButtons');
-var RecoveryLinks = require('./RecoveryLinks');
-var t = require('common/locale').translate;
 var React = require('react/addons');
-var MessageDisplay = require('common/messages/').Display;
+var Router = require('react-router-component');
+var Locations = Router.Locations;
+var Location = Router.Location;
+var DefaultRoute = Router.NotFound;
+var LoginForm = require('./LoginForm');
+var ForgotForm = require('./ForgotForm');
+var Store = require('../Store');
+var StoreProperties = require('../StoreProperties');
+var Actions = require('../Actions');
+var Loading = require('common/components/Loading');
 
+function _storeChanged(event) {
+	if (event.property === StoreProperties.links) {
+		this.setState({
+			links: event.value,
+			initialized: true
+		});
+	}
+}
 
 var View = React.createClass({
 
 	getInitialState: function() {
 		return {
-			username: '',
-			password: '',
-			submitEnabled: false,
 			links: {},
-			errors: []
+			initialized: false
 		};
 	},
 
 	componentDidMount: function() {
-		console.log('LoginView::componentDidMount');
-		Store.addChangeListener(this._onLoginStoreChange);
+		Store.addChangeListener(_storeChanged.bind(this));
+		Actions.begin();
 	},
 
 	componentWillUnmount: function() {
-		console.log('LoginView::componentWillUnmount');
-		Store.removeChangeListener(this._onLoginStoreChange);
-		delete this.state.password;
+		Store.removeChangeListener();
 	},
 
 	render: function() {
-		var submitEnabled = this.state.submitEnabled;
+
+		if (!this.state.initialized) {
+			return <Loading />
+		}
 
 		return (
-			<div className="row">
-				<MessageDisplay />
-				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
-
-					<fieldset>
-						<input type="text"
-							ref="username"
-							placeholder="Username"
-							defaultValue={this.state.username}
-							onChange={this._usernameChanged} />
-						<input type="password"
-							ref="password"
-							placeholder="Password"
-							defaulValue={this.state.password}
-							onChange={this._passwordChanged} />
-						<button
-							type="submit"
-							className={'tiny radius ' + (submitEnabled ? '' : 'disabled')}
-							disabled={!submitEnabled}
-						>{t('LOGIN.login')}</button>
-						<OAuthButtons links={this.state.links} basePath={this.props.basePath} />
-						<RecoveryLinks links={this.state.links} basePath={this.props.basePath} />
-					</fieldset>
-				</form>
-			</div>
-		);
-	},
-
-	/**
-	* onChange handler for the username field. Triggers Actions.userInputChanged
-	*/
-	_usernameChanged: function(event) {
-		Actions.userInputChanged({
-			credentials: {
-				username: this._username(),
-				password: this._password()
-			},
-			event: event
-		});
-	},
-
-	_passwordChanged: function(event) {
-		this._updateSubmitButton();
-	},
-
-	_handleSubmit: function(evt) {
-		evt.preventDefault();
-		console.log('LoginView::_handleSubmit');
-		Actions.clearErrors();
-		Actions.logIn({
-			username: this._username(),
-			password: this._password()
-		});
-	},
-
-	_username: function() {
-		return this.refs.username.getDOMNode().value.trim();
-	},
-
-	_password: function() {
-		return this.refs.password.getDOMNode().value.trim();
-	},
-
-	_updateSubmitButton: function() {
-		this.setState({
-			submitEnabled:
-				this._username().length > 0 &&
-				this._password().length > 0 &&
-				Store.canDoPasswordLogin()
-		});
-	},
-
-	_onLoginStoreChange: function(evt) {
-		console.log('LoginView::_onLoginStoreChange invoked %O', evt);
-		if (this.isMounted()) {
-			this._updateSubmitButton();
-		}
-		if (evt && evt.property === LoginStoreProperties.links) {
-			this.setState({links: evt.value});
-		}
+			<Locations contextual>
+				<DefaultRoute handler={LoginForm} />
+				<Location path="/forgot/:param" handler={ForgotForm} links={this.state.links} />
+			</Locations>
+		);		
 	}
 });
 
