@@ -31,7 +31,7 @@ module.exports = React.createClass({
 
 		return (
 			<div>
-				<Video data={this.props.video}/>
+				<Video data={this.props.video} autoBuffer autoPlay />
 			</div>
 		);
 	}
