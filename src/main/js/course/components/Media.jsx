@@ -78,7 +78,8 @@ module.exports = React.createClass({
 		var props = {
 			VideoIndex: videoIndex,
 			videoId: videoId,
-			video: video
+			video: video,
+			parentPath: videoId ? location.href.replace(p.videoId, '') : null
 		};
 
 		var Tag = videoId ? TranscriptedVideo : VideoGrid;

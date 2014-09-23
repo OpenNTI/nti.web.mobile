@@ -28,9 +28,11 @@ module.exports = React.createClass({
 
 
 	render: function() {
+		var collection=this.props.parentPath;
 
 		return (
 			<div>
+				<a href={collection} className="toolbar-button-left fi-thumbnails"/>
 				<Video data={this.props.video} autoBuffer autoPlay />
 			</div>
 		);
