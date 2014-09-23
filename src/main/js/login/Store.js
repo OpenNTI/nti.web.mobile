@@ -10,7 +10,6 @@ var LoginMessages = Constants.messages;
 var Actions = require('./Actions');
 var StoreProperties = require('./StoreProperties');
 var merge = require('react/lib/merge');
-var Dataserver = require('dataserverinterface');
 var CHANGE_EVENT = 'change';
 var ERROR_EVENT = 'error';
 var Messages = require('common/messages/');
