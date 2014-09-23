@@ -46,10 +46,12 @@ var View = React.createClass({
 			return <Loading />
 		}
 
+		var basePath = this.props.basePath;
+		
 		return (
 			<Locations contextual>
 				<DefaultRoute handler={LoginForm} />
-				<Location path="/forgot/:param" handler={ForgotForm} links={this.state.links} />
+				<Location path="/forgot/:param" handler={ForgotForm} basePath={basePath} links={this.state.links} />
 			</Locations>
 		);		
 	}

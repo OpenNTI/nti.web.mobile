@@ -8,7 +8,7 @@ var Button = require('common/components/forms/Button');
 var LinkConstants = require('../Constants').links;
 var t = require('common/locale').scoped('LOGIN.forgot');
 var Dataserver = require('dataserverinterface');
-
+var Link = require('react-router-component').Link;
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var React = require('react/addons');
@@ -36,28 +36,10 @@ var RecoveryLink = React.createClass({
 module.exports = React.createClass({
 
 	render: function() {
-
-		// filter the list of LoginConstants to include those that
-		// contain 'forgot' or 'recover'
-		var recoverylinks = Object.keys(LinkConstants).filter(function(k) {
-			return /forgot|recover/.test(LinkConstants[k]);
-		});
-
-		var buttons = [];
-		var props = this.props;
-
-		recoverylinks.forEach(function(link_key) {
-			var link = LinkConstants[link_key];
-			if (link in props.links) {
-				buttons.push(
-					<RecoveryLink link_key={link_key} link={props.links[link]} />
-				);
-			}
-		});
-
 		return (
 			<div>
-				<div><ReactCSSTransitionGroup transitionName="button">{buttons}</ReactCSSTransitionGroup></div>
+				<Link href="/forgot/username">{t('username')}</Link>
+				<Link href="/forgot/password">{t('password')}</Link>
 			</div>
 		);
 

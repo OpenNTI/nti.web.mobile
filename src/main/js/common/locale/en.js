@@ -6,8 +6,8 @@ module.exports = {
 			login: 'Log in with %(service)s'
 		},
 		forgot: {
-			FORGOT_USERNAME: 'Forgot Username',
-			FORGOT_PASSCODE: 'Forgot Password'
+			username: 'Forgot Username',
+			password: 'Forgot Password'
 		},
 		LOGIN_ERROR: {
 			401: 'Login failed.'
