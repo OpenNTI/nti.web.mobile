@@ -8,7 +8,7 @@ var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var Constants = require('./Constants');
 var NavRecord = require('./NavRecord');
 var invariant = require('react/lib/invariant');
-var OrderedMap = require('../common/collections').OrderedMap;
+var OrderedMap = require('common/collections').OrderedMap;
 
 var _nav = new OrderedMap();
 
