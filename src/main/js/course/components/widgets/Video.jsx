@@ -44,8 +44,8 @@ module.exports = React.createClass({
 				<div className="wrapper">
 					<a className="label" title={item.label} href={link}>{item.label}</a>
 					<div className="buttons">
-						<a className="play" data-qtip="Play" href="#play" onClick={this.onPlayClicked}/>
-						<a className="player" data-qtip="Play" href={link}/>
+						<a className="play" title="Play" href="#play" onClick={this.onPlayClicked}/>
+						<a className="player" title="Play" href={link}/>
 					</div>
 				</div>
 			</li>

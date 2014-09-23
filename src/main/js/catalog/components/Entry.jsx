@@ -33,7 +33,7 @@ module.exports = React.createClass({
 			backgroundImage: 'url(' + p.icon + ')'
 		}
 		return (
-			<li className="library-item">
+			<li className="grid-item">
 				<a href={'./' + courseId}>
 					<img style={style} src={BLANK_IMAGE}/>
 					<div className="metadata">

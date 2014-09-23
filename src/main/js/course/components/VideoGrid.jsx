@@ -3,54 +3,60 @@
 
 var React = require('react/addons');
 
-var Loading = require('common/components/Loading');
-var Error = require('common/components/Error');
+var path = require('path');
 
 module.exports = React.createClass({
 	displayName: 'VideoGrid',
+	propTypes: {
+		VideoIndex: React.PropTypes.object.isRequired
+	},
+
 
 	getInitialState: function() {
-		return {
-			loading: true,
-			error: false
-		};
+		return {};
 	},
 
 
-	componentDidMount: function() {
-		this.getDataIfNeeded(this.props);
-	},
+	componentDidMount: function() {},
 
 
 	componentWillUnmount: function() {},
 
 
-	componentWillReceiveProps: function(nextProps) {
-		// if (nextProps.course !== this.props.course) {
-		// 	this.getDataIfNeeded(nextProps);
-		// }
-	},
-
-
-	__onError: function(error) {
-		this.setState({
-			loading: false,
-			error: error
-		});
-	},
-
-
-	getDataIfNeeded: function(props) {
-		this.setState(this.getInitialState());
-		try {
-
-		} catch (e) {
-			this.__onError(e);
-		}
-	},
+	componentWillReceiveProps: function(nextProps) {},
 
 
 	render: function() {
-		return (<Loading/>);
+		var props = this.props;
+		var Videos = props.VideoIndex;
+
+		function itr(v, i) {
+			var poster = v && ((v.sources || [])[0] || {}).poster;
+			var style = {
+				backgroundImage: 'url(' + poster + ')'
+			};
+
+			var link = path.join(
+				props.basePath,
+				'course', encodeURIComponent(props.course.getID()),
+				'v', encodeURIComponent(v.ntiid));
+
+			return (
+				<li className="grid-item" key={v.ntiid + '-' + i}>
+					<div className="flex-video widescreen video" style={style}>
+						<a className="play-centered" title="Play" href={link}/>
+					</div>
+					<div className="metadata">
+						<h3>{v.title}</h3>
+					</div>
+				</li>
+			);
+		}
+
+		return (
+			<ul className="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
+				{Videos.map(itr.bind(this))}
+			</ul>
+		);
 	}
 });

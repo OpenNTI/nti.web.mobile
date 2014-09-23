@@ -6,3 +6,26 @@ $input-font-family: $button-font-family;
 $sidenav-font-family: 'Open Sans Condensed';
 
 $button-disabled-opacity: 0.3;
+
+@mixin blur-effect() {
+	//filter: blur(add = 0, direction = 0, strength = 10);//IE
+	//filter: url(#blur-effect);//moz
+	-webkit-filter: blur(8px);
+	filter: blur(8px);
+}
+
+
+@mixin ellipse{
+	white-space: nowrap;
+	-ms-text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
