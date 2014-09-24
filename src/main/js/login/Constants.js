@@ -148,6 +148,22 @@ var actions = keyMirror({
 	LOGOUT: null,
 
 	/**
+	* Action name for password recovery.
+	* @property RECOVER_PASSWORD
+	* @type String
+	* @final
+	*/
+	RECOVER_PASSWORD: null,
+
+	/**
+	* Action name for username recovery.
+	* @property RECOVER_USERNAME
+	* @type String
+	* @final
+	*/
+	RECOVER_USERNAME: null,
+
+	/**
 	* Action for requesting a ping/pong/handshake with the
 	* dataserver to get links for a given username.
 	* @property UPDATE_LINKS

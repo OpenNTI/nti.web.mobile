@@ -94,6 +94,19 @@ function _ping(credentials) {
 	});
 }
 
+function _recoverPassword(email,username) {
+	debugger;
+	email = 'ray.hatfield@gmail.com';
+	username = 'ray.hatfield@gmail.com';
+	dataserver().recoverPassword(email, username, 'http://google.com')
+	.then(function(result) {
+		debugger;
+	})
+	.catch(function(result) {
+		debugger;
+	});
+}
+
 function _setLoggedIn(isLoggedIn) {
 	console.log('LoginStore::_setLoggedIn: %s', isLoggedIn);
 	// emit a change event if the new value is different.
@@ -158,6 +171,10 @@ AppDispatcher.register(function(payload) {
 
 		case ActionConstants.LOGIN_PASSWORD:
 			_logIn(action.credentials);
+		break;
+
+		case ActionConstants.RECOVER_PASSWORD:
+			_recoverPassword(action.credentials);
 		break;
 
 		case ActionConstants.LOGOUT:

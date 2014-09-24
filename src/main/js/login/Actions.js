@@ -59,5 +59,20 @@ module.exports = merge(EventEmitter.prototype, {
 		AppDispatcher.handleViewAction({
 			actionType: ActionConstants.LOGOUT
 		});
+	},
+
+	recoverPassword: function(username, email) {
+		AppDispatcher.handleViewAction({
+			actionType: ActionConstants.RECOVER_PASSWORD,
+			username: username
+		});
+	},
+
+	recoverUsername: function(email) {
+		AppDispatcher.handleViewAction({
+			actionType: ActionConstants.RECOVER_USERNAME,
+			email: email
+		});
 	}
+
 });

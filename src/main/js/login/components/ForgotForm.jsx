@@ -6,27 +6,23 @@ var t = require('common/locale').scoped('LOGIN');
 var Button = require('common/components/forms/Button');
 var MessageDisplay = require('common/messages/').Display;
 var Constants = require('../Constants');
-var URL = require('url');
+var Actions = require('../Actions');
 
 module.exports = React.createClass({
+
+	_handleSubmit: function(event) {
+		event.preventDefault();
+		alert(this.refs.username.getDOMNode().value.trim());
+		Actions.recoverPassword(this.refs.username);
+	},
+
 	render: function() {
 
 		var submitEnabled = true;
 
-		var test = Object.keys(this.props.links).map(function(v) {
-			return <div>{v}</div>
-		});
-
-		var basePath = this.props.basePath;
-
-		var url = URL.resolve(basePath,this.props.links[Constants.links.FORGOT_PASSCODE]);
-
 		return (
-
 			<div className="row">
 				<MessageDisplay />
-				<div>{basePath}</div>
-				xx{url}xx
 				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
 						<input type="text"
