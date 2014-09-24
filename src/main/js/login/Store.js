@@ -84,14 +84,11 @@ function _setLinks(links) {
 }
 
 function _ping(credentials) {
+	function resp(res) { _setLinks(res.links || {}); }
+
 	var username = (credentials && credentials.username);
-	var p = dataserver().ping(null, username);
-	p.then(function(res) {
-		_setLinks(res.links || {});
-	});
-	p.catch(function(result) {
-		_setLinks(result.links || {});
-	});
+	dataserver().ping(null, username)
+		.then(resp, resp);
 }
 
 function _recoverPassword(email,username) {
