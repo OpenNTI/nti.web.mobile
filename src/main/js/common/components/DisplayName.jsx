@@ -66,7 +66,7 @@ module.exports = React.createClass({
 		var username = this.props.username;
 		var displayName = this.state.displayName;
 		return (
-			<span data-for={username}>{displayName}</span>
+			<span data-for={username} className='username'>{displayName}</span>
 		);
 	}
 });

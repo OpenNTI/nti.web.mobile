@@ -1,23 +1,33 @@
 'use strict';
 
 var Unknown = require('./Unknown');
+var Contact = require('./Contact');
+var Badge = require('./Badge');
+var Grade = require('./Grade');
+var Feedback = require('./Feedback');
+var Note = require('./Note');
+var BlogEntry = require('./BlogEntry');
+var BlogEntryPost = require('./BlogEntryPost');
+var BlogComment = require('./BlogComment');
+var ForumComment = require('./ForumComment');
+var ForumTopic = require('./ForumTopic');
 
 exports = module.exports = {
 	Unknown: Unknown, //Unknown for future items.
 
-	Contact: '',
-	Badge: '',
-	Grade: '',
-	Feedback: '',
+	Contact: Contact,
+	Badge: Badge,
+	Grade: Grade,
+	Feedback: Feedback,
 
-	Note: '',
+	Note: Note,
 
-	BlogEntry: '',
-	BlogEntryPost: '',
-	BlogComment: '',
+	BlogEntry: BlogEntry,
+	BlogEntryPost: BlogEntryPost,
+	BlogComment: BlogComment,
 
-	ForumTopic: '',
-	ForumComment: '',
+	ForumTopic: ForumTopic,
+	ForumComment: ForumComment,
 
 	select: function getNotificationItemHandler(item, index, list) {
 		var Item = exports.Unknown;
@@ -30,9 +40,9 @@ exports = module.exports = {
 					Item = Type;
 					break;
 				}
+
 			}
 		}
-
 		return Item({key: 'notifications-' + item.OID, item: item, index: index});
 	}
 

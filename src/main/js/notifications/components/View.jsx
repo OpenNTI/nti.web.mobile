@@ -61,7 +61,6 @@ module.exports = React.createClass({
 
 	render: function() {
 		var list = this.state.notifications || {};
-
 		if (!list.map) {
 			return <Loading />;
 		}

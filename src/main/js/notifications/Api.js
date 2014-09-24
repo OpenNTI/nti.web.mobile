@@ -9,7 +9,8 @@ var Constants = require('./Constants');
 
 function load() {
 	getServer().getServiceDocument()
-		.then(function(service){
+		.then(function(service) {
+			console.log(service);
 			Notifications.load(service)
 				.then(dispatch.bind(this, Constants.LOADED_NOTIFICATIONS));
 	});
@@ -17,7 +18,7 @@ function load() {
 
 
 function dispatch(key, collection) {
-    var payload = {actionType: key, response: collection};
+	var payload = {actionType: key, response: collection};
 	AppDispatcher.handleRequestAction(payload);
 }
 

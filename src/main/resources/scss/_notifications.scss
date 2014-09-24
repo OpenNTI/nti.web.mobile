@@ -2,10 +2,43 @@
 
 .notification-item {
 	color: #fff;
+	border: 1px solid black;
 
 	&.empty {
 		padding: 2.5rem;
 		display: block;
 		text-align: center;
+	}
+
+	.time {
+		display: block;
+		font-size: 0.75em;
+	}
+
+	img {
+		display: inline-block;
+		position: relative;
+		float: left;
+	}
+
+	.creator{
+		display: block;
+		font-weight: 500;
+	}
+
+	img.grade {
+		background: url('/app/resources/images/icons-sf7a2d6ced2.png') no-repeat;
+		background-position: -219px -598px;
+		height: 28px;
+		width: 28px;
+	}
+
+	.wrap {
+		margin-left: 34px;
+		padding-left: 5px;
+	}
+
+	.username {
+		font-weight: 500;
 	}
 }

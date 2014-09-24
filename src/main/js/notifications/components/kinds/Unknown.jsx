@@ -9,11 +9,9 @@ module.exports = React.createClass({
 	mixins: [NoteableMixin],
 
 	render: function() {
-		var change = this.props.item;
-		var item = change.Item || change;
-		var type = item.MimeType.replace('application/vnd.nextthought.', '');
-		console.debug('Unhandled Notification Kind: %o', change);
-
+		console.debug('Unhandled Notification Kind: %o', this.state.change);
+		console.debug(this.state.item);
+		var type = this.state.item.MimeType.replace('application/vnd.nextthought.', '')
 		return (
 			<li className="notification-item">Unknown {type}</li>
 		);
