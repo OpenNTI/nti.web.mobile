@@ -13,16 +13,17 @@ var StoreProperties = require('../StoreProperties');
 var Actions = require('../Actions');
 var Loading = require('common/components/Loading');
 
-function _storeChanged(event) {
-	if (event.property === StoreProperties.links) {
-		this.setState({
-			links: event.value,
-			initialized: true
-		});
-	}
-}
 
 var View = React.createClass({
+	_storeChanged: function (event) {
+		if (event.property === StoreProperties.links) {
+			this.setState({
+				links: event.value,
+				initialized: true
+			});
+		}
+	},
+
 
 	getInitialState: function() {
 		return {
@@ -32,12 +33,12 @@ var View = React.createClass({
 	},
 
 	componentDidMount: function() {
-		Store.addChangeListener(_storeChanged.bind(this));
+		Store.addChangeListener(this._storeChanged);//All React Class methods are "auto bound"
 		Actions.begin();
 	},
 
 	componentWillUnmount: function() {
-		Store.removeChangeListener();
+		Store.removeChangeListener(this._storeChanged);//this was blowing up.
 	},
 
 	render: function() {
@@ -47,13 +48,13 @@ var View = React.createClass({
 		}
 
 		var basePath = this.props.basePath;
-		
+
 		return (
 			<Locations contextual>
 				<DefaultRoute handler={LoginForm} />
 				<Location path="/forgot/:param" handler={ForgotForm} basePath={basePath} links={this.state.links} />
 			</Locations>
-		);		
+		);
 	}
 });
 
