@@ -103,3 +103,39 @@
 .grid-item > .flex-video {
 	margin-bottom: 0;
 }
+
+
+.transcripted-video {
+	background: #333;
+	min-height: 100vh;
+	min-height: -webkit-calc(100vh - 2.8125rem);
+	min-height: calc(100vh - 2.8125rem);
+
+	.flex-video {margin-bottom: 0;}
+
+
+	.transcript {
+		margin: 0.625rem 0.625rem 0;
+
+		color: #b8b8b8;
+		position: relative;
+
+		hr.break {
+			border: 0;
+		}
+
+		.cues {
+			position: relative;
+			overflow: hidden;
+
+			a {
+				color: inherit;
+				display: block;
+				font-size: 0.9em;
+				margin-bottom: 0.5rem;
+
+				&.active {color: #fff;}
+			}
+		}
+	}
+}

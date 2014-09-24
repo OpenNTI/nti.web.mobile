@@ -5,6 +5,7 @@ var React = require('react');
 var kaltura = require('./kaltura');
 
 var url = require('url');
+var call = require('dataserverinterface/utils/function-call');
 
 var Loading = require('../../Loading');
 
@@ -22,7 +23,6 @@ module.exports = React.createClass({
 
 
 	componentDidMount: function() {
-
 		var data = this.props.data;
 		// kaltura://1500101/0_4ol5o04l/
 		var e = this.props.src;
@@ -57,6 +57,36 @@ module.exports = React.createClass({
 	},
 
 
+	componentDidUpdate: function() {
+		var video = this.getDOMNode();
+		if (video && !this.state.listening) {
+			video.addEventListener('timeupdate', this.onTimeUpdate, false);
+			this.setState({listening: true});
+		}
+	},
+
+
+	componentWillUnmount: function() {
+		var video = this.getDOMNode();
+		if (video && this.state.listening) {
+			video.removeEventListener('timeupdate', this.onTimeUpdate, false);
+			this.setState({listening: false});
+		}
+	},
+
+
+	onTimeUpdate: function(e) {
+		call(this.props.onTimeUpdate, e.target.currentTime);
+	},
+
+
+	setCurrentTime: function(time) {
+		if (this.isMounted()) {
+			this.getDOMNode().currentTime = time;
+		}
+	},
+
+
 	render: function() {
 
 		if(!this.state.sourcesLoaded) {
@@ -68,16 +98,17 @@ module.exports = React.createClass({
 		}
 
 		return this.transferPropsTo(
-			<video
+			<video controls
 				poster={this.state.poster}
 				src={null}
 				data={null}
-				controls>{
+				>{
 					this.state.sources.map(function(val, i) {
 						val.key = i + val['data-flavorid'];
 						return React.DOM.source(val); })
-				}</video>
-			);
+				}
+			</video>
+		);
 	}
 
 });
