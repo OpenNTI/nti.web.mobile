@@ -9,8 +9,6 @@ var Loading = require('common/components/Loading');
 var DisplayName = require('common/components/DisplayName');
 var Avatar = require('common/components/Avatar');
 
-var Notifications = require('../../notifications');
-
 module.exports = React.createClass({
 	displayName: 'HomeView',
 
@@ -32,26 +30,12 @@ module.exports = React.createClass({
 
 
 	_resolve: function() {
-		console.log("---resolve");
 		if (!this.state.appUser) {
 			getService()
-				.then(function(service){
-					var toreturn = service.getAppUser();
-					console.log("---getService.then");
-					console.log(service);
-					console.log(toreturn);
-					return service.getAppUser();
-				})
+				.then(function(service){return service.getAppUser();})
 				.then(function(user) {
-					console.log("---getService.then.then");
-					console.log(user);
 					this.setState({appUser: user});
-				}.bind(this))
-				.catch(function(error) {
-					console.log("ERROR");
-					console.log(error);
-					console.log(error.stack);
-				});
+				}.bind(this));
 		}
 	},
 
@@ -70,10 +54,9 @@ module.exports = React.createClass({
 		//something else. Most likely. If its a link, or something, use the
 		//corresponding Component, do not roll your own.
 
-		//<Avatar username={username} width="64" height="64"/> <DisplayName username={username}/>
 		return (
 			<div>
-				<Avatar username={username} width="64" height="64"/> <DisplayName username={username}/>
+				<Avatar username={username} width="32" height="32"/> <DisplayName user={this.state.appUser}/>
 			</div>
 		);
 	}
