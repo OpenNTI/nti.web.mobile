@@ -3,10 +3,10 @@
 
 var React = require('react/addons');
 var NoteableMixin = require('../mixins/Noteable');
-var Avatar = require('../../../common/components/Avatar');
-var DisplayName = require('../../../common/components/DisplayName');
-var DisplayDate = require('../../../common/components/DisplayDate');
-var dataserver = require('../../../common/Utils').getServer;
+var Avatar = require('common/components/Avatar');
+var DisplayName = require('common/components/DisplayName');
+var DisplayDate = require('common/components/DisplayDate');
+var dataserver = require('common/Utils').getServer;
 
 module.exports = React.createClass({
 	displayName: 'ForumCommentType',

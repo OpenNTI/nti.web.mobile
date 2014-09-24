@@ -4,9 +4,9 @@
 
 var React = require('react/addons');
 var NoteableMixin = require('../mixins/Noteable');
-var Avatar = require('../../../common/components/Avatar');
-var DisplayName = require('../../../common/components/DisplayName');
-var DisplayDate = require('../../../common/components/DisplayDate');
+var Avatar = require('common/components/Avatar');
+var DisplayName = require('common/components/DisplayName');
+var DisplayDate = require('common/components/DisplayDate');
 
 module.exports = React.createClass({
 	displayName: 'ForumCommentType',
