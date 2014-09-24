@@ -6,8 +6,6 @@ var vtt = require("vtt.js"),//https://github.com/mozilla/vtt.js
 	VTTCue = vtt.VTTCue,
 	VTTRegion = vtt.VTTRegion;
 
-var NO_TRANSCRIPT = 'No Transcript';
-
 var React = require('react/addons');
 
 var Loading = require('common/components/Loading');
@@ -60,16 +58,7 @@ module.exports = React.createClass({
 	getDataIfNeeded: function(props) {
 		this.setState(this.getInitialState());
 		try {
-			var props = this.props;
-			var course = props.course;
-			var video = props.video;
-			var transcriptSrc = ((video && (video.transcripts || []))[0] || {}).src;
-
-			transcriptSrc = transcriptSrc ?
-				course.resolveContentURL(transcriptSrc) :
-				Promise.reject(NO_TRANSCRIPT);
-
-			transcriptSrc.then(function(url) {
+			this.props.video.getTranscript('en').then(function(url) {
 
 				debugger;
 			});
