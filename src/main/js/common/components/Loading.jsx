@@ -6,6 +6,19 @@ var isEmpty = require('dataserverinterface/utils/isempty');
 
 module.exports = React.createClass({
 	displayName: 'Loading',
+
+	propType: {
+		message: React.PropTypes.string
+	},
+
+
+	getDefaultProps: function() {
+		return {
+			message: 'Loading'
+		};
+	},
+
+
 	render: function() {
 
 		if (!isEmpty(this.props.children) && !this.props.loading) {
@@ -15,7 +28,7 @@ module.exports = React.createClass({
 		return (
 			<figure className="loading">
 				<div className="m spinner"></div>
-				<figcaption>Loading</figcaption>
+				<figcaption>{this.props.message}</figcaption>
 			</figure>
 		);
 	}
