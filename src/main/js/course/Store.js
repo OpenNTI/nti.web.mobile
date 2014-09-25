@@ -41,6 +41,10 @@ var Store = merge(EventEmitter.prototype, {
 
 
 function persistData(data) {
+	if (data && data instanceof Error) {
+		_data = {error: data};
+		return;
+	}
 	_data = data;
 }
 

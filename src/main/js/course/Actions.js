@@ -59,10 +59,9 @@ module.exports = merge(EventEmitter.prototype, {
 			})
 
 			.catch(function(reason) {
-				dispatch(Constants.SET_ACTIVE_COURSE, null);
+				dispatch(Constants.SET_ACTIVE_COURSE, new Error(reason));
 				//Failure
 				//TODO: Display error
-				console.error(reason);
 			});
 	}
 

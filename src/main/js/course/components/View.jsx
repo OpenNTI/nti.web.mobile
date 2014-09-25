@@ -9,6 +9,7 @@ var DefaultRoute = Router.NotFound;
 
 var Detail = require('catalog/components/Detail');
 var Loading = require('common/components/Loading');
+var Error = require('common/components/Error');
 var Media = require('./Media');
 var Outline = require('./OutlineView');
 var Overview = require('./Overview');
@@ -26,7 +27,9 @@ module.exports = React.createClass({
 	},
 
 	getInitialState: function() {
-		return {};
+		return {
+			loading: true
+		};
 	},
 
 
@@ -62,11 +65,16 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var course = (this.state.course || {}).CourseInstance;
+		var record = this.state.course;
+		var course = (record || {}).CourseInstance;
 		var entry = course && course.CatalogEntry;
 
-		if (this.state.loading || !course || !entry) {
+		if (this.state.loading) {
 			return (<Loading/>);
+		}
+
+		if ((record && record.error) || !course || !entry) {
+			return (<Error error={record.error}/>);
 		}
 
 		return (
