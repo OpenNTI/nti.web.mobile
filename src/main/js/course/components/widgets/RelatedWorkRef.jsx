@@ -100,7 +100,7 @@ module.exports = React.createClass({
 			e.stopPropagation();
 		}
 
-		alert('Go to: '+ this.state.href);
+		console.log('Go to: %s', this.state.href);
 	},
 
 
