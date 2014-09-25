@@ -13,6 +13,8 @@ var Media = require('./Media');
 var Outline = require('./OutlineView');
 var Overview = require('./Overview');
 
+var Content = require('content');
+
 var Actions = require('../Actions');
 var Store = require('../Store');
 
@@ -73,7 +75,7 @@ module.exports = React.createClass({
 				<Location path="/v(/)(:videoId)" handler={Media} course={course} basePath={this.props.basePath}/>
 				<Location path="/o(/)" handler={Outline} course={course} basePath={this.props.basePath}/>
 				<Location path="/o/:outlineId(/)" handler={Overview} course={course} basePath={this.props.basePath}/>
-				<Location path="/o/:outlineId/c/:id" handler={React.DOM.div} course={course} basePath={this.props.basePath}/>
+				<Location path="/o/:outlineId/c/:pageId" handler={Content.View} course={course} basePath={this.props.basePath}/>
 			</Locations>
 		);
 	}

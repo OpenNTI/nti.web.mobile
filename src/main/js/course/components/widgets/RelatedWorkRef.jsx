@@ -23,6 +23,7 @@ External Links:
 	targetMimeType: "application/vnd.nextthought.externallink"
 		visibility: "everyone"
 */
+var path = require('path');
 var React = require('react/addons');
 var merge = require('react/lib/merge');
 
@@ -62,14 +63,23 @@ module.exports = React.createClass({
 
 
 	resolveHref: function(props) {
-		if (!this.isExternal(props)) {
-			this.setState({href: props.item.href})
+		var href = props.item.href;
+
+		if (isNTIID(href)) {
+			var link = path.join(
+				props.basePath,
+				'course', encodeURIComponent(props.course.getID()),
+				'o', props.outlineId,
+				'c', encodeURIComponent(href));
+
+			this.setState({href: link})
 			return;
 		}
 
-		this.setState({	href: null	});
 
-		props.course.resolveContentURL(props.item.href)
+		this.setState({	href: null });
+
+		props.course.resolveContentURL(href)
 			.then(function(url) {
 				this.setState({ href: url });
 			}.bind(this));
@@ -91,16 +101,6 @@ module.exports = React.createClass({
 	isExternal: function(props) {
 		var p = props || this.props;
 		return !isNTIID(p.item.href);
-	},
-
-
-	onClick: function(e) {
-		if (!this.isExternal()) {
-			e.preventDefault();
-			e.stopPropagation();
-		}
-
-		console.log('Go to: %s', this.state.href);
 	},
 
 
