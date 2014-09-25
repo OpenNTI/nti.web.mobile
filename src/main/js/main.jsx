@@ -9,14 +9,15 @@ var AppDispatcher = require('./common/dispatcher/AppDispatcher');
 
 
 
-var Login = require('./login');
+var Login = require('login');
 var LoginStore = Login.Store;
 var LoginStoreProperties = Login.StoreProperties;
 
-var Navigation = require('./navigation');
+var Navigation = require('navigation');
 
-var AppContainer = require('./common/components/AppContainer');
-var Router = require('./navigation/components/Router');
+var Router = require('navigation/components/Router');
+var AppContainer = require('common/components/AppContainer');
+var Loading = require('common/components/Loading');
 
 var App = React.createClass({
 
@@ -47,6 +48,12 @@ var App = React.createClass({
 		}
 	},
 
+
+	getInitialState: function() {
+		return {};
+	},
+
+
 	componentWillMount: function() {
 		LoginStore.addChangeListener(this._loginStoreChange);
 		AppDispatcher.register(this._actionHandler);
@@ -69,6 +76,10 @@ var App = React.createClass({
 		var isLoginView = /\/login/i.test(path);
 
 		var wrapper = isLoginView ? React.DOM.div : AppContainer;
+
+		if (this.state.mask) {
+			return Loading(this.state.mask);
+		}
 
 		return (
 			<CaptureClicks>

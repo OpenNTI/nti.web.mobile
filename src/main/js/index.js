@@ -2,6 +2,7 @@
 /**
  * @module nt-mobile
  */
+global.React = require('react/addons');
 
 require('script!../resources/vendor/modernizr/modernizr.js');
 require('script!../resources/vendor/fastclick/lib/fastclick.js');
@@ -13,8 +14,6 @@ if (global.addEventListener) {
 	    FastClick.attach(document.body);
 	}, false);
 }
-
-global.React = require('react/addons');
 
 function forceHost(s) {
 	//Force our config to always point to our server...(client side)
@@ -44,7 +43,11 @@ require('./notifications').Actions.load();
 
 
 
-React.renderComponent(
+var app = React.renderComponent(
 	AppView({basePath: $AppConfig.basepath || '/'}),
 	document.getElementById('content')
 );
+
+global.onbeforeunload = function() {
+	app.setState({mask: 'Exiting...'});
+};
