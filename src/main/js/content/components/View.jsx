@@ -23,7 +23,7 @@ module.exports = React.createClass({
 
 
 	componentWillUnmount: function() {
-		Store.removeChangeListener(this._onChange);
+		//Store.removeChangeListener(this._onChange);
 	},
 
 
