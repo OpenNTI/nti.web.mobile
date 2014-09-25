@@ -6,7 +6,7 @@ var React = require('react/addons');
 var NoteableMixin = require('../mixins/Noteable');
 var Avatar = require('common/components/Avatar');
 var DisplayName = require('common/components/DisplayName');
-var DisplayDate = require('common/components/DisplayDate');
+var DateTime = require('common/components/DateTime');
 
 module.exports = React.createClass({
 	displayName: 'ForumTopic',
@@ -24,7 +24,7 @@ module.exports = React.createClass({
 				<div className="wrap">
 					<DisplayName username={this.state.username}/>
 						{" created a discussion: " + discussionTitle}
-					<DisplayDate format="default" created={this.getCreatedTime()}/>
+					<DateTime date={this.getCreatedTime()} />
 				</div>
 			</li>
 		);

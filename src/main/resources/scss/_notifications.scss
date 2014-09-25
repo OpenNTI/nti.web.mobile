@@ -10,7 +10,7 @@
 		text-align: center;
 	}
 
-	.time {
+	time {
 		display: block;
 		font-size: 0.75em;
 	}
@@ -27,8 +27,7 @@
 	}
 
 	img.grade {
-		background: url('/app/resources/images/icons-sf7a2d6ced2.png') no-repeat;
-		background-position: -219px -598px;
+		background: url('../images/icons/assignment_ontime_small.png');
 		height: 28px;
 		width: 28px;
 	}

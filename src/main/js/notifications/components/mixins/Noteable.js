@@ -25,6 +25,6 @@ module.exports = {
 	},
 
 	getCreatedTime: function() {
-		return this.state.item.CreatedTime;
+		return this.state.item.CreatedTime * 1000;
 	}
 };
