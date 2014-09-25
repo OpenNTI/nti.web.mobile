@@ -8,6 +8,7 @@ module.exports = React.createClass({
 	displayName: 'Loading',
 
 	propType: {
+		loading: React.PropTypes.bool,
 		message: React.PropTypes.string
 	},
 
@@ -22,7 +23,7 @@ module.exports = React.createClass({
 	render: function() {
 
 		if (!isEmpty(this.props.children) && !this.props.loading) {
-			return React.DOM.div(null, this.props.children);
+			return this.transferPropsTo(React.DOM.div(null, this.props.children));
 		}
 
 		return (
