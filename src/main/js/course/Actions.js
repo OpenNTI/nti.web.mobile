@@ -1,5 +1,7 @@
 'use strict';
 /** @module course/Actions */
+var Promise = global.Promise || require('es6-promise').Promise;
+
 var merge = require('react/lib/merge')
 
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
@@ -48,7 +50,7 @@ module.exports = merge(EventEmitter.prototype, {
 		LibraryApi.getLibrary()
 
 			.then(function(library) {
-				return library.findCourse(courseId);
+				return library.findCourse(courseId) || Promise.reject('Not Found');
 			})
 
 			.then(function(courseEnrollment) {
@@ -60,6 +62,7 @@ module.exports = merge(EventEmitter.prototype, {
 				dispatch(Constants.SET_ACTIVE_COURSE, null);
 				//Failure
 				//TODO: Display error
+				console.error(reason);
 			});
 	}
 
