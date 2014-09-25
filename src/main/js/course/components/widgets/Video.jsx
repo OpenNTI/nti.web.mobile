@@ -4,6 +4,7 @@
 var path = require('path');
 var React = require('react/addons');
 var Video = require('common/components/Video');
+var LoadingMask = require('common/components/Loading');
 
 module.exports = React.createClass({
 	displayName: 'CourseOverviewVideo',
@@ -21,12 +22,45 @@ module.exports = React.createClass({
 		}
 	},
 
+	getInitialState: function() {
+		return {
+			loading: false,
+			error: false,
+			video: false
+		};
+	},
+
+
+
+	__onError: function(error) {
+		this.setState({
+			loading: false,
+			error: error,
+			video: null
+		});
+	},
+
 
 	onPlayClicked: function(e) {
 		e.preventDefault();
 		e.stopPropagation();
+		try {
+			var props = this.props,
+				course = props.course,
+				item = props.item;
 
-		alert('Play');
+			this.setState({loading: true});
+			course.getVideoIndex()
+				.then(function(videoIndex) {
+					this.setState({
+						loading: false,
+						video: videoIndex.get(item.NTIID)
+					})
+				}.bind(this))
+				.catch(this.__onError);
+		} catch (e) {
+			this.__onError(e);
+		}
 	},
 
 
@@ -39,15 +73,20 @@ module.exports = React.createClass({
 
 		var link = path.join(props.basePath, 'course', props.course.getID(), 'v', item.NTIID);
 
+
 		return (
-			<li tabIndex="0" onFocus={this.props.onFocus} style={style} className="video-wrap flex-video widescreen">
-				<div className="wrapper">
+			<li tabIndex="0" onFocus={props.onFocus} style={style} className="video-wrap flex-video widescreen">
+				{this.state.video ?
+				<Video ref="video" src={this.state.video} autoPlay />
+					:
+				<LoadingMask loading={this.state.loading} className="wrapper">
 					<a className="label" title={item.label} href={link}>{item.label}</a>
 					<div className="buttons">
 						<a className="play" title="Play" href="#play" onClick={this.onPlayClicked}/>
 						<a className="player" title="Play" href={link}/>
 					</div>
-				</div>
+				</LoadingMask>
+				}
 			</li>
 		);
 	}//controls autobuffer autoplay loop
