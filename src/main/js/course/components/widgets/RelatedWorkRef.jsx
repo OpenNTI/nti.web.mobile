@@ -26,6 +26,8 @@ External Links:
 var React = require('react/addons');
 var merge = require('react/lib/merge');
 
+var isNTIID = require('dataserverinterface/utils/ntiids').isNTIID;
+
 module.exports = React.createClass({
 	displayName: 'CourseOverviewRelatedWorkRef',
 
@@ -47,13 +49,30 @@ module.exports = React.createClass({
 
 	componentDidMount: function() {
 		this.resolveIcon(this.props);
+		this.resolveHref(this.props);
 	},
 
 
 	componentWillReceiveProps: function(props) {
 		if (this.props.icon !== props.icon) {
 			this.resolveIcon(props);
+			this.resolveHref(props);
 		}
+	},
+
+
+	resolveHref: function(props) {
+		if (!this.isExternal(props)) {
+			this.setState({href: props.item.href})
+			return;
+		}
+
+		this.setState({	href: null	});
+
+		props.course.resolveContentURL(props.item.href)
+			.then(function(url) {
+				this.setState({ href: url });
+			}.bind(this));
 	},
 
 
@@ -69,18 +88,40 @@ module.exports = React.createClass({
 	},
 
 
+	isExternal: function(props) {
+		var p = props || this.props;
+		return !isNTIID(p.item.href);
+	},
+
+
+	onClick: function(e) {
+		if (!this.isExternal()) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		alert('Go to: '+ this.state.href);
+	},
+
+
 	render: function() {
 		var state = this.state;
 		var item = this.props.item;
-		var extern = '';
+		var external = this.isExternal();
+		var extern = external ? 'external' : '';
 
 		return (
-			<a className={'course-overview related-work-ref ' + extern}>
-				{state.iconResolved && <img src={state.icon}/>}
+			<a className={'course-overview related-work-ref ' + extern}
+				href={state.href} target={external ? '_blank' : null}
+				onClick={this.onClick}
+			>
+				<div className="icon">
+					{state.iconResolved && <img src={state.icon}/>}
+				</div>
 
-					<h5>{item.label}</h5>
-					<div className="label">{item.creator}</div>
-					<div className="description">{item.desc}</div>
+				<h5 dangerouslySetInnerHTML={{__html: item.label}}/>
+				<div className="label" dangerouslySetInnerHTML={{__html: item.creator}}/>
+				<div className="description" dangerouslySetInnerHTML={{__html: item.desc}}/>
 
 			</a>
 		);
