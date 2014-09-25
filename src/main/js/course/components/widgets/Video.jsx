@@ -71,7 +71,9 @@ module.exports = React.createClass({
 			backgroundImage: 'url(' + item.poster + ')'
 		};
 
-		var link = path.join(props.basePath, 'course', props.course.getID(), 'v', item.NTIID);
+		var link = path.join(props.basePath,
+			'course', encodeURIComponent(props.course.getID()),
+			'v', encodeURIComponent(item.NTIID));
 
 
 		return (
