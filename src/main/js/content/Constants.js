@@ -9,5 +9,5 @@ var keyMirror = require('react/lib/keyMirror');
 
 module.exports = merge(exports, keyMirror({
 
-    PAGE_INFO_LOADED: null
+    PAGE_LOADED: null
 }));

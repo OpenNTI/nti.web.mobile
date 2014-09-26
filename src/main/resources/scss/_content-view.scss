@@ -1,0 +1,518 @@
+$border-grey: #ccc;
+$primary-grey: #494949;
+
+.x-gecko li {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.x-gecko li > p.par {
+	display: inline;
+}
+
+.x-ie10, .x-ie{
+	li > p.par {
+		display: inline;
+	}
+}
+
+.x-gecko .mathjax.math.tex2jax_process {
+		font-size: 101%;
+}
+
+.x-ie .mathjax.math.tex2jax_process {
+		font-size: 101%;
+}
+
+.x-webkit .mathjax.math.tex2jax_process {
+		font-size: 101%;
+}
+
+.x-webkit.x-mac .mathjax.math.tex2jax_process {
+		font-size: 101%;
+}
+
+#NTIContent .itemize, .enumerate{
+	z-index: 4;
+}
+
+
+#NTIContent {
+	-webkit-font-smoothing: antialiased;
+
+	padding-bottom: 10em;
+
+	&, * {
+		position: relative;
+
+		word-wrap: break-word;
+
+		//Add the html-entity "&shy;" for break points you want to allow to hypnen-wrap.
+		-webkit-hyphens: manual;
+		-moz-hyphens: manual;
+		-ms-hyphens: manual;
+		hyphens: manual;
+
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
+
+	.math {
+		line-height: normal;
+	}
+
+	.overlayed *{
+		display: none;
+	}
+
+	pre {
+		width: 100%;
+		font-size: 90%;
+		background-color: #f0f0f0;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		font-family: Monaco, "Courier New", Courier, fixed;
+		padding-left: 4ex;
+	}
+
+	sup {
+		vertical-align: super;
+	}
+
+	sub {
+		vertical-align: sub;
+	}
+
+	a:link {
+		img {
+			border: 0;
+		}
+	}
+
+	.nobreak {
+		white-space: nowrap;
+	}
+
+	.vfrac {
+		white-space: nowrap;
+
+		.divider {
+			font-size: 140%;
+			vertical-align: -4%;
+		}
+	}
+
+	.underline {
+		text-decoration: underline;
+	}
+
+	.lineout {
+		text-decoration: line-through;
+	}
+
+	.overline {
+		text-decoration: overline;
+	}
+
+	.modified {
+		text-decoration: underline;
+		color: #1fd26f;
+	}
+
+	a.footnote {
+		padding-left: 0.25em;
+	}
+
+	.algorithm-function {
+		text-decoration: overline;
+		background-color: #F0F0F0;
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
+		padding-left: 4ex;
+		font-family: times;
+		line-height: normal;
+	}
+
+	.algorithm-indent-block {
+		padding-left: 2em;
+	}
+
+	.minipage {
+		display: inline-block;
+		margin-top: .5em;
+		margin-right: .25em;
+		margin-bottom: .5em;
+		margin-left: .25em;
+		vertical-align:	middle;
+	}
+
+	[itemprop~=nti-data-markupenabled],
+	[itemprop~="nti-slide-video"] {
+		box-shadow: none !important;
+		display: inline-block;
+		position: relative;
+	}
+
+	.blocked {
+		text-align: center;
+		line-height: normal;
+		padding-top: 40%;
+		height: 200px;
+
+		&.video {
+			/* background: {
+				image: url(../images/backdrops/whiteboard_error_loading_image.png);
+				repeat: no-repeat;
+				position: center 10px;
+			} */
+			height: 360px;
+		}
+	}
+
+	.injected-related-items {
+		//font-family: $font;
+		margin: 15px 0 0 0;
+
+		font-size: 14px;
+		.related {
+			color: #84b93d;
+			a::after{
+				content: ', ';
+			}
+			a.c10::after,
+			a:last-of-type::after {
+				content: '  ';
+			}
+
+			a{display: none;}
+			a.c1,
+			a.c2,
+			a.c3,
+			a.c4,
+			a.c5,
+			a.c6,
+			a.c7,
+			a.c8,
+			a.c9,
+			a.c10 {
+				display: inline;
+			}
+		}
+
+		cursor: pointer;
+		&.showall {
+			white-space: normal;
+			cursor: auto;
+			.related a{display: inline;}
+			.more {display: none;}
+		}
+	}
+
+	.externalvideo {
+		display: inline-block;
+		margin: 0.75em auto 2em;
+	}
+
+	div.section-problems,
+	div.challenge-problems,
+	div.review-problems,
+	div.exercises{
+		&::before{
+			background: none;
+		}
+
+		& > span.headingtext {
+			position: static;
+			top: initial;
+			left: initial;
+		}
+	}
+
+	ol.section-problems,
+	ol.challenge-problems,
+	ol.review-problems {
+		margin: 0;
+		padding: 0;
+	}
+
+	div.picdefns,
+	.xtra,
+	div.defn,
+	div.defns,
+	.bogus,
+	.importantdef,
+	.important,
+	.concept,
+	.warning,
+	.game,
+	.sidebar{
+		padding: 1em;
+		background-image: none;
+		background-color: rgba(235, 235, 235, 0.3);
+
+		&.flat {
+			padding: 0;
+		}
+
+		&.border-top {
+			border-top: 1px solid $border-grey;
+		}
+	}
+
+
+	object[type$=ntisequence] {
+		display: block;
+		padding: 12px 15px;
+
+		& > button.audio-clip:first-child {margin-top: 5px;float: left;}
+	}
+
+	object[type$=ntisequenceitem] {
+		display: none;
+		position: static;
+		padding-right: 25px;
+		&.active {
+			display: inline-block;
+		}
+	}
+
+	button.audio-clip ~ object[type$=ntisequenceitem].active {
+		display: block;
+		margin-left: 30px;
+	}
+
+
+	div {
+		&.mathjax{
+			&.answer,
+			&.response {
+				clear: both;
+				display: block;
+				margin: 1.2em;
+			}
+		}
+	}
+
+	.result {
+		padding:  1.2em;
+
+		&.correct {
+			background-color: #77BB4E;
+		}
+
+		&.incorrect {
+			background-color: #DD8888;
+		}
+	}
+
+	.page-contents,
+	#footnotes {
+		margin-left: 35px;
+		margin-right: 60px;
+	}
+
+	.page-contents {
+		color: $primary-grey;
+		margin-top: 50px;
+		font-size: 14px;
+		font-weight: normal;
+		position: relative;
+		line-height: 2.2em;
+
+		&.no-padding {
+			margin-top:0;
+		}
+
+		.chapter.title,
+		.title {
+			position: relative;
+			display: block;
+			font-size: 31px;
+			font-weight: 200;
+			border: none;
+			margin-top: 2em;
+			margin-bottom: 0.5em;
+
+			span.ref{
+				display: block;
+				width: 65px;
+				text-align: right;
+				float: left;
+				padding: 0;
+			}
+
+			span.label {
+				font-size: inherit;
+				margin-left: 80px;
+				border: none;
+				padding: 0;
+				display: block;
+			}
+		}
+
+		.titlepage .title {
+			position: static;
+			left: 0;
+			margin-bottom: 0.5em;
+		}
+
+		.subsection,
+		.subsubsection,
+		.paragraph,
+		.subparagraph,
+		.subsubparagraph {
+			&.title {
+				display: block;
+				margin-top: 2em;
+				margin-bottom: 0.5em;
+			}
+		}
+
+		.paragraph,
+		.subparagraph,
+		.subsubparagraph {
+			&.title {
+				font-weight: bold;
+			}
+		}
+
+		.subsubsection.title {
+			font-size: 1.8em;
+		}
+
+		.paragraph.title,
+		.subparagraph.title,
+		.subsubparagraph.title {
+			font-size: 14px;
+		}
+
+		.bibitem > p.par {
+			display: inline;
+		}
+
+		.placeholder {display: none;}
+	}
+
+	.mdseries     {font-weight: 600;}
+	.bfseries     {font-weight: bold;}
+	.tiny         {font-size: x-small;}
+	.scriptsize   {font-size: smaller;}
+	.footnotesize {font-size: small;}
+	.small        {font-size: small;}
+	.normalsize   {font-size: 100%;}
+	.large        {font-size: 120%; line-height: 1.3em;}
+	.xlarge       {font-size: 130%; line-height: 1.4em;}
+	.xxlarge      {font-size: 140%; line-height: 1.5em;}
+	.huge         {font-size: 150%; line-height: 1.6em;}
+	.xhuge        {font-size: 160%; line-height: 1.7em;}
+	.raise15 {margin-bottom: 10px;}
+	.raise14 {margin-bottom: 10px;}
+	.raise13 {margin-bottom: 10px;}
+	.raise12 {margin-bottom: 10px;}
+	.raise11 {margin-bottom: 10px;}
+	.raise10 {margin-bottom: 10px;}
+	.raise9  {margin-bottom: 9px;}
+	.raise8  {margin-bottom: 8px;}
+	.raise7  {margin-bottom: 7px;}
+	.raise6  {margin-bottom: 6px;}
+	.raise5  {margin-bottom: 5px;}
+	.raise4  {margin-bottom: 4px;}
+	.raise3  {margin-bottom: 3px;}
+	.raise2  {margin-bottom: 2px;}
+	.raise1  {margin-bottom: 1px;}
+	.raise0  {margin-bottom: 0px;}
+	.lower0  {margin-bottom: -0px;}
+	.lower1  {margin-bottom: -1px;}
+	.lower2  {margin-bottom: -2px;}
+	.lower3  {margin-bottom: -3px;}
+	.lower4  {margin-bottom: -4px;}
+	.lower5  {margin-bottom: -5px;}
+	.lower6  {margin-bottom: -6px;}
+	.lower7  {margin-bottom: -7px;}
+	.lower8  {margin-bottom: -8px;}
+	.lower10 {margin-bottom: -10px;}
+	.lower11 {margin-bottom: -11px;}
+	.lower12 {margin-bottom: -12px;}
+	.lower13 {margin-bottom: -13px;}
+	.lower14 {margin-bottom: -14px;}
+	.lower15 {margin-bottom: -15px;}
+	.lower16 {margin-bottom: -16px;}
+	.lower17 {margin-bottom: -17px;}
+	.lower18 {margin-bottom: -18px;}
+	.lower19 {margin-bottom: -19px;}
+	.lower20 {margin-bottom: -20px;}
+	.lower21 {margin-bottom: -21px;}
+	.lower22 {margin-bottom: -22px;}
+	.lower23 {margin-bottom: -23px;}
+	.lower24 {margin-bottom: -24px;}
+	.lower25 {margin-bottom: -25px;}
+	.lower26 {margin-bottom: -26px;}
+	.lower27 {margin-bottom: -27px;}
+	.lower28 {margin-bottom: -28px;}
+	.lower29 {margin-bottom: -29px;}
+	.lower30 {margin-bottom: -20px;}
+	.lower20 {margin-bottom: -20px;}
+
+	.subfloat {
+		display: inline-table;
+		padding: 1em 3em 1em 3em;
+		text-align: center
+	}
+
+	.rightpic, .leftpic {margin: 1.5em;}
+
+	.putright {
+		position: absolute;
+		right: 0;
+		padding: 0;
+		margin: 0 1em;
+		* {
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	.align-center {text-align: center;}
+	.align-left {text-align: left;}
+	.align-right{text-align: right;}
+	.align-bottom {vertical-align:top;}
+
+	.bigskip {
+		margin: 0;
+		padding: 0;
+		margin-bottom: 24pt;
+	}
+	.medskip {
+		margin: 0;
+		padding: 0;
+		margin-bottom: 12pt;
+	}
+	.smallskip {
+		margin: 0;
+		padding: 0;
+		margin-bottom: 6pt;
+	}
+
+	#footnotes {
+		color: $primary-grey;
+		margin-top: 2em;
+		font-size: small;
+		font-weight: normal;
+		position: relative;
+
+		ol {
+			padding-left: 20px;
+		}
+
+		li {
+			padding-bottom: 1em;
+		}
+
+		.label {
+			font-size: 1rem;
+		}
+	}
+
+}

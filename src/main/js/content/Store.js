@@ -4,6 +4,8 @@ var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
 
+var deepFreeze = require('dataserverinterface/utils/object-deepfreeze');
+
 var Constants = require('./Constants');
 
 var CHANGE_EVENT = 'change';
@@ -31,25 +33,31 @@ var Store = merge(EventEmitter.prototype, {
 	 */
 	removeChangeListener: function(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
+	},
+
+
+	getPageData: function (id) {
+		return _data[id];
 	}
-	
 });
 
 
-function persistData(data) {
+function persistData(packet) {
+	packet.__added = new Date();
+	_data[packet.ntiid] = packet;
 }
 
 
 Store.appDispatch = AppDispatcher.register(function(payload) {
     var action = payload.action;
     switch(action.actionType) {
-        case Constants.PAGE_INFO_LOADED:
+        case Constants.PAGE_LOADED:
             persistData(action.response);
             break;
         default:
             return true;
     }
-    Store.emitChange();
+    Store.emitChange(payload.ntiid);
     return true;
 });
 

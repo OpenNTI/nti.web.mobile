@@ -42,12 +42,32 @@ module.exports = React.createClass({
 	},
 
 
-	_onChange: function(change) {
+	_onChange: function() {
+		var id = decodeURIComponent(this.props.pageId);
+		var data = Store.getPageData(id);
 
+		this.setState({
+			data: data,
+			content: data.content,
+			styles: data.styles
+		});
 	},
 
 
 	render: function() {
-		return (<div>{this.props.pageId}</div>);
+		var content = this.state.content;
+		return (
+			<div className="content-view">
+				{this._applyStyle()}
+				<div id="NTIContent" dangerouslySetInnerHTML={{__html: content}}/>
+			</div>
+		);
+	},
+
+
+	_applyStyle: function() {
+		return (this.state.styles || []).map(function(css) {
+			return (<style scoped type="text/css" dangerouslySetInnerHTML={{__html: css}}/>);
+		});
 	}
 });
