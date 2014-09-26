@@ -321,6 +321,8 @@ $primary-grey: #494949;
 		position: relative;
 		line-height: 2.2em;
 
+		object {display:none;}
+
 		&.no-padding {
 			margin-top:0;
 		}
