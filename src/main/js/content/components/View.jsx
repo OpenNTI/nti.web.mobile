@@ -5,6 +5,8 @@ var React = require('react/addons');
 
 var Loading = require('common/components/Loading');
 
+var Widgets = require('./widgets');
+
 var Store = require('../Store');
 var Actions = require('../Actions');
 
