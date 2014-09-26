@@ -29,7 +29,7 @@ module.exports = React.createClass({
 	},
 
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps: function(props) {
 		if (this.props.pageId !== props.pageId) {
 			this.getDataIfNeeded(nextProps);
 		}
