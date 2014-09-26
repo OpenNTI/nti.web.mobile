@@ -23,46 +23,31 @@ module.exports = merge(EventEmitter.prototype, {
 	 *	@param {String} Content Page NTIID
 	 */
 	loadPage: function(ntiid) {
-		var pageInfo
+
 		Api.getPageInfo(ntiid)
 			.then(function(pi) {
 				if (pi.getID() !== ntiid) {
 					console.warn('PageInfo ID missmatch! %s != %s', ntiid, pi.getID());
 				}
 
-				pageInfo = pi;
-				return pi.getContent();
+				return pi.getContent().then(function(html){
+					return {
+						pageInfo: pi,
+						content: html
+					};
+				});
 			})
 
 			//get the html and split out some resource references to fetch.
 			.then(processContent)
 
-
-			.then(function(packet) {
-
-				return Promise.all(packet.styles.map(function(s) {
-					return pageInfo.getResource(s);
-				}))
-
-				.then(function(styles) {
-
-					packet.styles = styles;
-
-					return packet;
-				});
-			})
+			//load css
+			.then(fetchResources)
 
 
 			.then(function(packet) {
 				dispatch(Constants.PAGE_LOADED,
-					merge(
-						{
-							ntiid: ntiid,
-							pageInfo: pageInfo
-						},
-						packet
-					)
-				);
+					merge({ ntiid: ntiid }, packet));
 			});
 	}
 
@@ -80,15 +65,16 @@ function dispatch(key, data) {
 var BODY_REGEX = /<body[^>]+>(.*)<\/body/i;
 var STYLE_REGEX = /<link[^>]+href="([^"]+css)"[^>]*>/ig;
 
-function processContent(html) {
+function processContent(packet) {
+	var html = packet.content;
 	if (typeof DOMParser === 'undefined') {
-		return {
+		return merge(packet, {
 			content: BODY_REGEX.exec(html)[1],
 			styles: html.match(STYLE_REGEX).map(function(i){
 				STYLE_REGEX.lastIndex = 0;//reset
 				return (STYLE_REGEX.exec(i) || [])[1];
 			})
-		};
+		});
 
 	}
 
@@ -97,8 +83,20 @@ function processContent(html) {
 	var styles = toArray(doc.querySelectorAll('link[rel=stylesheet]'))
 					.map(function(i){return i.getAttribute('href');});
 
-	return {
+	return merge(packet, {
 		content: body.innerHTML,
 		styles: styles
-	};
+	});
+}
+
+
+function fetchResources(packet) {
+	var page = packet.pageInfo;
+	var get = page.getResource.bind(page);
+	var requests = packet.styles.map(get);
+
+	return Promise.all(requests).then(function(styles) {
+		packet.styles = styles;
+		return packet;
+	});
 }
