@@ -15,9 +15,20 @@ module.exports = merge(EventEmitter.prototype, {
 
 	loadCatalog: function() {
 		console.log('Catalog Action: Load called');
-        Api.getCatalog().catch(function(e){
-        	console.log('loadCatalog failed. %O', e);
-        	debugger;
-        });
+        Api.getCatalog()
+			.then(function(catalog) {
+				dispatch(Constants.LOADED_CATALOG, catalog);
+			})
+			.catch(function(e){
+	        	console.log('loadCatalog failed. %O', e);
+	        });
     },
 });
+
+
+function dispatch(key, collection) {
+	AppDispatcher.handleRequestAction({
+		actionType: key,
+		response: collection
+	});
+}

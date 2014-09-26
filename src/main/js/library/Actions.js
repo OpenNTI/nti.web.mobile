@@ -15,6 +15,16 @@ module.exports = merge(EventEmitter.prototype, {
 
 	loadLibrary: function() {
 		console.log('Library Action: Load called');
-        Api.getLibrary();
+        Api.getLibrary().then(function(library) {
+			dispatch(Constants.LOADED_LIBRARY, library);
+		});
     },
 });
+
+
+function dispatch(key, collection) {
+	AppDispatcher.handleRequestAction({
+		actionType: key,
+		response: collection
+	});
+}

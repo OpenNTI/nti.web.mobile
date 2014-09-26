@@ -1,9 +1,10 @@
 'use strict';
 /** @module notifications/Actions */
-
 var merge = require('react/lib/merge');
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
+
+var AppDispatcher = require('common/dispatcher/AppDispatcher');
+
 var Api = require('./Api');
 var Constants = require('./Constants');
 
@@ -14,6 +15,16 @@ var Constants = require('./Constants');
 module.exports = merge(EventEmitter.prototype, {
 
 	load: function() {
-		Api.load();
+		Api.load()
+			.then(dispatch.bind(this, Constants.LOADED_NOTIFICATIONS));
 	}
 });
+
+
+
+function dispatch(key, collection) {
+	AppDispatcher.handleRequestAction({
+		actionType: key,
+		response: collection
+	});
+}
