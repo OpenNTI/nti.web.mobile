@@ -33,7 +33,7 @@ module.exports = React.createClass({
 		console.debug('Content View: Unmounting...');
 		Store.removeChangeListener(this._onChange);
 		//Cleanup our components...
-		var guid, el, w,
+		var guid, el,
 			widgets = this.getPageWidgets();
 
 		for(guid in widgets) {
