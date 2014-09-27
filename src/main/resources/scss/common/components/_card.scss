@@ -4,6 +4,7 @@
 	display: block;
 	background: #fafdff;
 	border: 1px solid #e3f2fc;
+	margin: 0.625rem 0;
 
 	.icon {
 		position: relative;
@@ -20,6 +21,10 @@
 
 	.label {
 		margin: 0;
+		padding: 0;
+		font-weight: bold;
+		background: none;
+		text-transform: uppercase;
 		color: $primary-color;
 	}
 

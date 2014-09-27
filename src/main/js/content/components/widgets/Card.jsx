@@ -9,16 +9,45 @@ module.exports = React.createClass({
 	displayName: 'NTICard',
 
 	statics: {
-		mimeTest: /^application\/vnd\.nextthought\.relatedworkref/i,
+		mimeType: /ntirelatedworkref$|nticard$/i,
 		handles: function(item) {
-			debugger;
-			return this.mimeTest.test(item.MimeType);
+			var type = item['attribute-type'] || '';
+			var cls = item['attribute-class'] || '';
+			var re = this.mimeType;
+			return re.test(type) || re.test(cls);
 		}
 	},
 
 
-	render: function() {
+	getInitialState: function () {
+		var item = this.props.item;
+		var el;
+		if (item) {
 
+			if (!item.desc && item.dom) {
+				//Because the item was interpreted from a DOM element, the
+				//content of the element is the description.
+				//
+				//We aren't doing this correctly :P... we attempted to use
+				//a HTML style "fallback" to allow us flexibility and all,
+				//but we still split "data points" into it... hmm...
+				el = item.dom.querySelector('span.description');
+				item.desc = el && el.innerHTML;
+			}
+
+			if (!item.icon && item.dom) {
+				//See comment above... sigh...
+				el = item.dom.querySelector('img');
+				item.icon = el && el.getAttribute('src');
+			}
+
+		}
+
+		return {};
+	},
+
+
+	render: function() {
 		var props = this.props;
 		var basePath = path.join(
 			props.basePath,
@@ -26,8 +55,9 @@ module.exports = React.createClass({
 			'o', props.outlineId
 		)
 
+
 		return this.transferPropsTo(<Card
 			basePath={basePath} pathname="c"
-			package={this.props.course}/>);
+			contentPackage={this.props.course}/>);
 	}
 });

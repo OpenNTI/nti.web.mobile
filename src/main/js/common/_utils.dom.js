@@ -5,6 +5,9 @@ var isEmpty = require('dataserverinterface/utils/isempty');
 var isFunction = require('dataserverinterface/utils/isfunction');
 var toArray = require('dataserverinterface/utils/toarray');
 
+var withValue = require('dataserverinterface/utils/object-attribute-withvalue');
+
+
 var DomUtils = {
 
 
@@ -41,6 +44,8 @@ var DomUtils = {
 		// __directChildNodes(el, 'object').forEach(parse.bind(this));
 
 		obj.asDomSpec = __template_asDomSpec.bind(obj);
+
+		Object.defineProperty(obj, 'dom', withValue(el.cloneNode(true)));
 
 		return obj;
 	},

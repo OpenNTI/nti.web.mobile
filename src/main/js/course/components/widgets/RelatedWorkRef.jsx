@@ -39,14 +39,18 @@ module.exports = React.createClass({
 
 	render: function() {
 		var props = this.props;
+		var item = props.item;
 		var basePath = path.join(
 			props.basePath,
 			'course', encodeURIComponent(props.course.getID()),
 			'o', props.outlineId
 		)
 
+		//map fields for the card
+		item.title = item.label;
+
 		return this.transferPropsTo(<Card
 			basePath={basePath} pathname="c"
-			package={this.props.course}/>);
+			contentPackage={this.props.course}/>);
 	}
 });

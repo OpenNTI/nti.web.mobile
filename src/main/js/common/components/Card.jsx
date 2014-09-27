@@ -60,6 +60,7 @@ module.exports = React.createClass({
 		 * 	- NTIID
 		 * 	- desc
 		 * 	- icon
+		 * 	- title
 		 * 	- label
 		 *
 		 * @type {Object}
@@ -71,7 +72,7 @@ module.exports = React.createClass({
 	getInitialState: function(){
 		var i = this.props.item;
 		return {
-			icon: i & i.icon
+			icon: (i && i.icon) || null
 		};
 	},
 
@@ -113,7 +114,10 @@ module.exports = React.createClass({
 
 
 	resolveIcon: function(props) {
-		this.setState({	iconResolved: false, icon: null	});
+		this.setState({	icon: null	});
+		if (!props.item.icon) {
+			return;
+		}
 		props.contentPackage.resolveContentURL(props.item.icon)
 			.then(function(u) {
 				this.setState({
@@ -141,11 +145,13 @@ module.exports = React.createClass({
 				href={state.href} target={external ? '_blank' : null}
 				onClick={this.onClick}
 			>
-				<div className="icon">
-					<img src={state.icon}/>
-				</div>
+				{state.icon?
+					<div className="icon">
+						<img src={state.icon}/>
+					</div>
+				:null}
 
-				<h5 dangerouslySetInnerHTML={{__html: item.label}}/>
+				<h5 dangerouslySetInnerHTML={{__html: item.title}}/>
 				<div className="label" dangerouslySetInnerHTML={{__html: item.creator}}/>
 				<div className="description" dangerouslySetInnerHTML={{__html: item.desc}}/>
 
