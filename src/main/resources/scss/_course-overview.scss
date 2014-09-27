@@ -15,6 +15,10 @@
 		font-size: 1.55rem;
 		margin-top: -0.5rem;
 	}
+
+	.related-work-ref {
+		margin: 10px 0;
+	}
 }
 
 .course-overview-group {
@@ -120,46 +124,6 @@
 
 		li {
 			margin: 0 .5rem;
-		}
-	}
-}
-
-.course-overview.related-work-ref {
-	position: relative;
-	overflow: hidden;
-	display: block;
-	background: #fafdff;
-	border: 1px solid #e3f2fc;
-	margin: 10px 0;
-
-	.icon {
-		position: relative;
-		width: 100px;
-		height: 125px;
-		margin: -4px 4px 0 -8px;
-		float: left;
-	}
-
-	h5 {
-		font-size: 1.6rem;
-		margin: 0;
-	}
-
-	.label {
-		margin: 0;
-		color: $primary-color;
-	}
-
-	.description {
-		font-size: 0.8rem;
-		color: #000;
-	}
-
-	&.external {
-		.icon::after {
-			top: 0; right: 0;
-			position: absolute;
-			content: url('../images/icons/extern-link_hover.png');
 		}
 	}
 }

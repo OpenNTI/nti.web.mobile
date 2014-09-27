@@ -23,11 +23,7 @@ External Links:
 	targetMimeType: "application/vnd.nextthought.externallink"
 		visibility: "everyone"
 */
-var path = require('path');
-var React = require('react/addons');
-var merge = require('react/lib/merge');
-
-var isNTIID = require('dataserverinterface/utils/ntiids').isNTIID;
+var Card = require('common/components/Card');
 
 module.exports = React.createClass({
 	displayName: 'CourseOverviewRelatedWorkRef',
@@ -40,90 +36,16 @@ module.exports = React.createClass({
 	},
 
 
-	getInitialState: function(){
-		var i = this.props.item;
-		return {
-			icon: i & i.icon
-		};
-	},
-
-
-	componentDidMount: function() {
-		this.resolveIcon(this.props);
-		this.resolveHref(this.props);
-	},
-
-
-	componentWillReceiveProps: function(props) {
-		if (this.props.icon !== props.icon) {
-			this.resolveIcon(props);
-			this.resolveHref(props);
-		}
-	},
-
-
-	resolveHref: function(props) {
-		var href = props.item.href;
-
-		if (isNTIID(href)) {
-			var link = path.join(
-				props.basePath,
-				'course', encodeURIComponent(props.course.getID()),
-				'o', props.outlineId,
-				'c', encodeURIComponent(href));
-
-			this.setState({href: link})
-			return;
-		}
-
-
-		this.setState({	href: null });
-
-		props.course.resolveContentURL(href)
-			.then(function(url) {
-				this.setState({ href: url });
-			}.bind(this));
-	},
-
-
-	resolveIcon: function(props) {
-		this.setState({	iconResolved: false, icon: null	});
-		props.course.resolveContentURL(props.item.icon)
-			.then(function(u) {
-				this.setState({
-					iconResolved: true,
-					icon: u
-				});
-			}.bind(this));
-	},
-
-
-	isExternal: function(props) {
-		var p = props || this.props;
-		return !isNTIID(p.item.href);
-	},
-
-
 	render: function() {
-		var state = this.state;
-		var item = this.props.item;
-		var external = this.isExternal();
-		var extern = external ? 'external' : '';
+		var props = this.props;
+		var basePath = path.join(
+			props.basePath,
+			'course', encodeURIComponent(props.course.getID()),
+			'o', props.outlineId
+		)
 
-		return (
-			<a className={'course-overview related-work-ref ' + extern}
-				href={state.href} target={external ? '_blank' : null}
-				onClick={this.onClick}
-			>
-				<div className="icon">
-					{state.iconResolved && <img src={state.icon}/>}
-				</div>
-
-				<h5 dangerouslySetInnerHTML={{__html: item.label}}/>
-				<div className="label" dangerouslySetInnerHTML={{__html: item.creator}}/>
-				<div className="description" dangerouslySetInnerHTML={{__html: item.desc}}/>
-
-			</a>
-		);
+		return this.transferPropsTo(<Card
+			basePath={basePath} pathname="c"
+			package={this.props.course}/>);
 	}
 });
