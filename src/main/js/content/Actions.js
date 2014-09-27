@@ -4,7 +4,8 @@ var Promise = global.Promise || require('es6-promise').Promise;
 
 var merge = require('react/lib/merge')
 
-var DomUtils = require('common/Utils').Dom;
+var Utils = require('common/Utils');
+var DomUtils = Utils.Dom;
 
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
@@ -17,6 +18,11 @@ var Constants = require('./Constants');
 
 var LibraryApi = require('library/Api');
 
+
+var MARKER_REGEX = /nti:widget-marker\[([^\]\>]+)\]/i;
+var WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(?:[^\]>]*)-->/ig;
+var BODY_REGEX = /<body[^>]+>(.*)<\/body/i;
+var STYLE_REGEX = /<link[^>]+href="([^"]+css)"[^>]*>/ig;
 
 var WIDGET_SELECTORS_AND_STRATEGIES = {
 	'object[type$=nticard]': DomUtils.parseDomObject,
@@ -82,9 +88,6 @@ function dispatch(key, data) {
 }
 
 
-var BODY_REGEX = /<body[^>]+>(.*)<\/body/i;
-var STYLE_REGEX = /<link[^>]+href="([^"]+css)"[^>]*>/ig;
-
 function processContent(packet) {
 	var html = packet.content;
 	if (typeof DOMParser === 'undefined') {
@@ -105,13 +108,22 @@ function processContent(packet) {
 	var styles = toArray(doc.querySelectorAll('link[rel=stylesheet]'))
 					.map(function(i){return i.getAttribute('href');});
 
-	var widgets = parseWidgets(doc);
+	var widgets = Utils.indexArrayByKey(parseWidgets(doc), 'guid');
 
+	var bodyParts = body.innerHTML.split(WIDGET_MARKER_REGEX).map(function (part) {
+		var m = part.match(MARKER_REGEX);
+		if (m && m[1]) {
+			return widgets[m[1]];
+		}
+		return part;
+	});
 
 	return merge(packet, {
 		content: body.innerHTML,
+		body: bodyParts,
 		styles: styles,
 		widgets: widgets
+
 	});
 }
 
@@ -130,6 +142,10 @@ function fetchResources(packet) {
 
 function parseWidgets(doc) {
 	var strategies = WIDGET_SELECTORS_AND_STRATEGIES;
+
+	function makeMarker(id) {
+		return doc.createComment('nti:widget-marker[' + id + ']');
+	}
 
 	function flatten(list, array) {
 		if (!Array.isArray(array)) {
@@ -150,7 +166,9 @@ function parseWidgets(doc) {
 				el.setAttribute('id', (id = guid()));
 			}
 
-			result['attribute-id'] = id;
+			DomUtils.replaceNode(el, makeMarker(id));
+
+			result.guid = id;
 			return result;
 		});
 
