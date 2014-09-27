@@ -24,6 +24,7 @@ External Links:
 		visibility: "everyone"
 */
 var Card = require('common/components/Card');
+var path = require('path');
 
 module.exports = React.createClass({
 	displayName: 'CourseOverviewRelatedWorkRef',
