@@ -55,8 +55,12 @@ module.exports = React.createClass({
 			w = widgets[guid];
 			if (el && !el.hasAttribute('mounted')) {
 				console.debug('Content View: Mounting Widget...');
-				w = React.renderComponent(w, el);
-				el.setAttribute('mounted', 'true');
+				try {
+					w = React.renderComponent(w, el);
+					el.setAttribute('mounted', 'true');
+				} catch (e) {
+					console.error('A content widget blew up while rendering: %s', e.stack || e.message || e);
+				}
 			}
 		}
 	},
@@ -136,7 +140,7 @@ module.exports = React.createClass({
 
 		this.maybeCreateWidget(part);
 
-		return '<div id="'+ part.guid +'">Component Placeholder</div>';
+		return '<div id="'+ part.guid +'">If this is still visible, something went wrong.</div>';
 	},
 
 

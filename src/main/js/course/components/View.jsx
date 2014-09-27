@@ -83,7 +83,7 @@ module.exports = React.createClass({
 				<Location path="/v(/)(:videoId)" handler={Media} course={course} basePath={this.props.basePath}/>
 				<Location path="/o(/)" handler={Outline} course={course} basePath={this.props.basePath}/>
 				<Location path="/o/:outlineId(/)" handler={Overview} course={course} basePath={this.props.basePath}/>
-				<Location path="/o/:outlineId/c/:pageId" handler={Content.View} course={course} basePath={this.props.basePath}/>
+				<Location path="/o/:outlineId/c/:pageId" handler={Content.View} course={course} basePath={this.props.basePath} pathname="c"/>
 			</Locations>
 		);
 	}
