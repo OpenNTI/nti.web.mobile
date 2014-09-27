@@ -2,10 +2,12 @@
 
 var merge = require('react/lib/merge');
 
+var Card = require('./Card');
 var Unknown = require('./Unknown');
 
 exports = module.exports = {
 	Unknown: Unknown, //Unknown for future items.
+	Card: Card,
 
 	select: function getItemHandler(part) {
 		var Item = exports.Unknown;
@@ -24,7 +26,7 @@ exports = module.exports = {
 		return Item(
 			{
 				key: 'widget-' + part.guid,
-				data: part
+				item: part
 			});
 	}
 

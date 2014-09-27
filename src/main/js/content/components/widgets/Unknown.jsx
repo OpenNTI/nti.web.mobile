@@ -16,7 +16,7 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var type = this.props.data['attribute-type'];
+		var type = this.props.item['attribute-type'];
 		return (
 			<div onClick={this._onClick}>Unknown Type: {type}</div>
 		);
