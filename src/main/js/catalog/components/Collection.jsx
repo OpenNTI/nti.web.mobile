@@ -15,10 +15,11 @@ module.exports = React.createClass({
 	render: function() {
 		var list = this.props.list || [];
 		var basePath = this.props.basePath;
+		var size = this.getStateFromParent('orientation') === 'landscape' ? 2 : 1;
 		return (
 		<div className="grid-container">
 			<h2>{this.props.title}</h2>
-			<ul className="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
+			<ul className={'small-block-grid-' + size + ' medium-block-grid-3 large-block-grid-4'}>
 			{list.map(function(o) {
 				return <Item key={o.NTIID} item={o} basePath={basePath}/>;
 			})}
