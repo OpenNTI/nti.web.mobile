@@ -7,16 +7,18 @@
 @import "foundation";
 @import "transitions";
 
+@import "common/grid-view";
 @import "common/components/card";
 @import "common/components/error";
 @import "common/components/loading";
 @import "common/components/video";
 
-@import "content-grid-view";
+@import "course/components/detail-view";
+@import "course/components/overview";
+
+@import "content/components/view";
+
 @import "notifications";
-@import "course-detail-view";
-@import "course-overview";
-@import "content-view";
 @import "sidenav";
 
 
