@@ -32,9 +32,11 @@
 	@include input-typography;
 }
 
+
 a.disabled {
 	opacity:0.4;
 }
+
 
 a.back {
 	padding: 0 0.2rem;
@@ -96,10 +98,11 @@ a.toolbar-button-left {
 	position: relative;
 }
 
-.grid-container {
-	margin: 0 0.625rem;
-}
 
-.cell {
-	display: inline-block;
+.animate {
+	-webkit-transition: all .3s ease-out;
+	-moz-transition: all .3s ease-out;
+	-ms-transition: all .3s ease-out;
+	-o-transition: all .3s ease-out;
+	transition: all .3s ease-out;
 }

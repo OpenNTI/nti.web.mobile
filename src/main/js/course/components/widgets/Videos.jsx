@@ -47,22 +47,7 @@ module.exports = React.createClass({
 	},
 
 
-	componentDidUpdate: function() {
-		var active = this.state.active || 0;
-		var touch = this.state.touch;
-		var videos = this.refs.v;
-		if (videos) {
-
-			if (touch) {
-				touch = touch.delta;
-			} else {
-				touch = 0;
-			}
-
-			videos = videos.getDOMNode();
-			videos.scrollLeft = (videos.offsetWidth * active) + touch;
-		}
-	},
+	componentDidUpdate: function() {},
 
 
 	__onError: function(error) {
@@ -129,12 +114,25 @@ module.exports = React.createClass({
 	onTouchStart: function(e) {
 		var touch = event.targetTouches[0];
 
-		// If there's exactly one finger inside this element
-		if (event.targetTouches.length == 1) {
+		var active = this.state.active || 0;
+		var videos = this.refs.v;
+		var pixelOffset = 0;
+		if (videos) {
+			videos = videos.getDOMNode();
+			pixelOffset = active * -videos.offsetWidth;
+		}
+
+		if (!this.state.touch) {
+			// console.debug('Touch Start...')
 			this.setState({
 				touch: {
+					dom: videos,
+					pixelOffset: pixelOffset,
+					startPixelOffset: 0,
+					x: touch.clientX,
+					y: touch.clientY,
 					id: touch.identifier,
-					x: touch.pageX,
+					sliding: 1,
 					delta: 0
 				}
 			});
@@ -143,38 +141,90 @@ module.exports = React.createClass({
 
 
 	onTouchMove: function(e) {
-		e.preventDefault();
+
 		function find(t, i) {
 			return t || (i.identifier === this.state.touch.id && i); }
 
-		var touch = toArray(e.targetTouches)
-						.reduce(find.bind(this), null);
+		var data = this.state.touch;
+		if (!data) {
+			console.debug('No touch data...ignoring.');
+			return;
+		}
+
+		var active = this.state.active || 0;
+		var touch = toArray(e.targetTouches).reduce(find.bind(this), null);
+		var sliding = data.sliding;
+		var pixelOffset = data.pixelOffset;
+		var startPixelOffset = data.startPixelOffset;
+		var delta = 0;
+		var touchPixelRatio = 1;
 
 		if (touch) {
-			this.setState({
-				touch: merge(this.state.touch, {
-					delta: this.state.touch.x - touch.pageX
-				})
-			});
+			//Allow vertical scrolling
+			if (Math.abs(touch.clientY - data.y) > Math.abs(touch.clientX - data.x)) {
+				return;
+			}
+
+			e.preventDefault();
+
+			delta = touch.clientX - data.x;
+			if (sliding === 1 && delta) {
+				sliding = 2;
+				startPixelOffset = pixelOffset;
+				// console.debug('Touch move tripped...');
+			}
+
+			if (sliding == 2) {
+				if ((active === 0 && event.clientX > data.x) ||
+					(active === (this.props.children.length - 1) && event.clientX < data.x)) {
+					touchPixelRatio = 3;
+				}
+
+				pixelOffset = startPixelOffset + (delta / touchPixelRatio);
+
+				// console.debug('Touch move... %d %d %d', startPixelOffset, pixelOffset, delta);
+				this.setState({
+					touch: merge(this.state.touch, {
+						delta: delta,
+						pixelOffset: pixelOffset,
+						startPixelOffset: startPixelOffset,
+						sliding: sliding
+					})
+				});
+			}
 		}
 	},
 
 
 	onTouchEnd: function(e) {
-		var videos = this.refs.v;
-		var active = this.state.active || 0;
 		var touch = this.state.touch || {};
-		var threshold = 0;
-		if (videos) {
-			videos = videos.getDOMNode();
-			threshold = videos.offsetWidth / 2;
 
-			if (Math.abs(touch.delta) > threshold) {
-				this[touch.delta > 0 ? 'onNext' : 'onPrev']();
+		var pixelOffset = touch.pixelOffset;
+		var startPixelOffset = touch.startPixelOffset;
+		var fn;
+
+		if (touch.sliding == 2) {
+			fn = //(Math.abs(pixelOffset - startPixelOffset)/touch.dom.offsetWidth) > 0.2 ? null ://elastic
+				pixelOffset < startPixelOffset ? 'onNext' : 'onPrev';
+
+			// console.debug('Touch End, result: %s', fn);
+
+			if(fn) {
+				this[fn]();
 			}
+			this.setState({ touch: null	});
 		}
+	},
 
-		this.setState({ touch: null	});
+
+	getTranslation: function() {
+		var active = this.state.active || 0;
+		var touch = this.state.touch;
+		var node = this.refs.v && this.refs.v.getDOMNode();
+		var offset = touch ? touch.pixelOffset :
+				node ? (active * -node.offsetWidth) : 0;
+
+		return 'translate3d(' + offset + 'px,0,0)';
 	},
 
 
@@ -182,9 +232,19 @@ module.exports = React.createClass({
 		if (this.state.loading) { return (<Loading/>); }
 		if (this.state.error) {	return <Error error={this.state.error}/> }
 
+		var animate = this.state.touch ? '' : 'animate';
+		var translation = this.getTranslation();
+		var style = {
+			webkitTransform: translation,
+			MozTransform: translation,
+			msTransform: translation,
+			OTransform: translation,
+			transform: translation
+		};
+
 		return (
 			<div className="videos-carousel-container">
-				<ul ref="v" className="videos-carousel"
+				<ul ref="v" className={'videos-carousel ' + animate} style={style}
 				 	onTouchStart={this.onTouchStart}
 					onTouchMove={this.onTouchMove}
 					onTouchEnd={this.onTouchEnd}

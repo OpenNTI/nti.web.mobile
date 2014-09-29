@@ -63,6 +63,7 @@
 			background: none;
 			position: absolute;
 			overflow: visible;
+			line-height: 0;
 			bottom: 0;
 			//top: 0;
 			margin: 0;
@@ -97,7 +98,13 @@
 	}
 
 	.videos-carousel {
-		overflow: hidden;
+		//@include experimental(transform,translate3d(0,0,0));
+		-webkit-transform: translate3d(0,0,0);
+  		-moz-transform: translate3d(0,0,0);
+  		-ms-transform: translate3d(0,0,0);
+  		-o-transform: translate3d(0,0,0);
+  		transform: translate3d(0,0,0);
+		//overflow: hidden;
 		position: relative;
 		white-space: nowrap;
 		width: 100%;
