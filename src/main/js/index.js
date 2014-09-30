@@ -4,7 +4,7 @@
  */
 $AppConfig.server = require('dataserverinterface/utils/forcehost')($AppConfig.server);
 
-global.React = require('react/addons');
+var React = require('react/addons');
 
 require('script!../resources/vendor/modernizr/modernizr.js');
 require('script!../resources/vendor/fastclick/lib/fastclick.js');
