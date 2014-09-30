@@ -23,6 +23,7 @@ External Links:
 	targetMimeType: "application/vnd.nextthought.externallink"
 		visibility: "everyone"
 */
+var React = require('react/addons');
 var Card = require('common/components/Card');
 var path = require('path');
 
