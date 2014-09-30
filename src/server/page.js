@@ -21,9 +21,18 @@ function basePathFix(original,attr,val) {
 
 try {
 	Application = require('../main/js/main');
+} catch (e) {
+	console.warn('No Server-side Rendering (Because: %s) \n\n %s',
+		e.stack || e.message || e,
+		__dirname);
+}
+
+try {
+	//For WebPack... (production)
 	template = require('../main/page.html');
 } catch (e) {
-	console.warn('No Server-side Rendering');
+	//For Node... (dev)
+	template = fs.readFileSync(__dirname + '/../main/page.html', "utf8");
 }
 
 module.exports = function(req, scriptFilename, additional) {
@@ -49,10 +58,6 @@ module.exports = function(req, scriptFilename, additional) {
 
 	css = '<style type="text/css" id="server-side-style">' + css + '</style>';
 
-
-	if (!template) {
-		template = fs.readFileSync(__dirname + '/../main/page.html', "utf8");
-	}
 
 	return template
 			.replace(basepathreplace, basePathFix)

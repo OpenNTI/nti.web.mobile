@@ -7,7 +7,7 @@ module.exports.page = function() {return 'Imagine the UI.';};
 
 
 try {
-	module.exports.page = require('./page.generated');
+	module.exports.page = require('page.generated');
 	stats = require('./stats.generated.json');
 } catch(e) {
 	//no big

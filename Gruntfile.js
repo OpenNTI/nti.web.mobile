@@ -66,26 +66,26 @@ module.exports = function(grunt) {
 						flatten: true,
 						expand: true,
 						src: ['<%= pkg.src %>/*'],
-						dest: '<%= pkg.dist %>/',
+						dest: '<%= pkg.dist %>/client/',
 						filter: 'isFile'
 					},
-					{
-						cwd: '<%= pkg.src %>/resources/',
-						expand: true,
-						src: [
-							'**/*.js',
-							'**/*.css',
-							'**/*.map'
-						],
-						dest: '<%= pkg.dist %>/resources/',
-						filter: 'isFile'
-					},
-					{
-						flatten: true,
-						expand: true,
-						src: ['<%= pkg.src %>/images/*'],
-						dest: '<%= pkg.dist %>/images/'
-					},
+					// {
+					// 	cwd: '<%= pkg.src %>/resources/',
+					// 	expand: true,
+					// 	src: [
+					// 		'**/*.js',
+					// 		'**/*.css',
+					// 		'**/*.map'
+					// 	],
+					// 	dest: '<%= pkg.dist %>/client/resources/',
+					// 	filter: 'isFile'
+					// },
+					// {
+					// 	flatten: true,
+					// 	expand: true,
+					// 	src: ['<%= pkg.src %>/images/*'],
+					// 	dest: '<%= pkg.dist %>/client/images/'
+					// },
 					{
 	                    // flatten: true,
 	                    cwd: '<%= pkg.src %>/../server/',
@@ -204,7 +204,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('test', ['karma']);
 
-	grunt.registerTask('build', ['clean', 'sass', 'copy', 'yuidoc', 'webpack:dist']);
+	grunt.registerTask('build', ['clean', 'sass', 'copy', 'webpack:dist']);
 
 	grunt.registerTask('default', []);
 

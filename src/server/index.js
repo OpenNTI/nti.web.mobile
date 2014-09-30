@@ -1,5 +1,7 @@
 'use strict';
 
+global.SERVER = true;
+
 if (typeof Promise === 'undefined') {
 	global.Promise = require('es6-promise').Promise;
 }
@@ -35,7 +37,7 @@ var entryPoint = generated.entryPoint;
 var page = generated.page;
 
 var devmode;
-var assetPath = path.join(__dirname, '..');
+var assetPath = path.join(__dirname, '..', 'client');
 
 //WWW Server
 var app = express();
