@@ -20,7 +20,7 @@ cfg.forEach(function(o) { e.push(merge(true, o)); });
 
 
 e[0].debug = false;
-e[0].devtool = false;
+//e[0].devtool = false;
 
 e[0].plugins.push(
     new webpack.optimize.DedupePlugin(),
