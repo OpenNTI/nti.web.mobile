@@ -11,6 +11,7 @@
   "jsDocSrc": "doc",
   "jsDocDest": "doc",
   "dependencies": {
+    "compression-webpack-plugin": "*",
     "cookie-parser": "*",
     "css-loader": "*",
     "dataserverinterface": "git+ssh://repos.nextthought.com/nti.node.dataserverinterface",

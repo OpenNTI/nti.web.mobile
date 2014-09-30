@@ -8,6 +8,8 @@
 
 var merge = require('merge');
 var webpack = require('webpack');
+var CompressionPlugin = require("compression-webpack-plugin");
+
 var e = [];
 var cfg = require("./webpack.config.js");
 if (!Array.isArray(cfg)) {
@@ -24,7 +26,12 @@ e[0].plugins.push(
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.AggressiveMergingPlugin()
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new CompressionPlugin({
+            asset: "{file}.gz",
+            algorithm: "gzip",
+            regExp: /\.js$|\.html$/
+        })
 );
 
 
