@@ -57,7 +57,11 @@ module.exports = function(req, scriptFilename, additional) {
 	}
 
 
-	css = '<style type="text/css" id="server-side-style">' + css + '</style>';
+	//css = '<style type="text/css" id="server-side-style">' + css + '</style>';
+
+	//In practice, the bundle contains the CSS and injects it no matter what. So
+	//injecting it here, doubles the clients' download for no reason.
+	css = '';
 
 
 	return template
