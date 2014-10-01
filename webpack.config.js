@@ -48,12 +48,9 @@ module.exports = [
 
         cache: true,
         debug: true,
-        devtool: '#source-map',
-        entry: [
-            // 'webpack-dev-server/client?http://localhost:9001',
-            // 'webpack/hot/dev-server',
-            '<%= pkg.src %>/js/index.js'
-        ],
+        devtool: '#inline-source-map',
+
+        entry: '<%= pkg.src %>/js/index.js',
 
         target: 'web',
         stats: {
