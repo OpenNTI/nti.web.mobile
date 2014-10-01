@@ -26,7 +26,9 @@ var commonLoaders = [
 
 var root = path.join(__dirname,'src','main','js');
 
-var appPackages = {};
+var appPackages = {
+    dataserverinterface: true
+};
 
 fs.readdirSync(root).forEach(function(f) {
     if(fs.statSync(path.join(root, f)).isDirectory()) {
