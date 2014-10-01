@@ -5,7 +5,7 @@ module.exports = function(port) {
 	var webpackConfig = require('../../webpack.config')[0];
 
 	webpackConfig.output.path = '/';
-	webpackConfig.output.publicPath = '/';
+	webpackConfig.output.publicPath = '/mobile/';
 	webpackConfig.output.filename = 'js/main.js';
 	webpackConfig.entry = './src/main/js/index.js';
 
