@@ -2,11 +2,14 @@
 'use strict';
 
 var React = require('react/addons');
+var OwnerQuery = require('common/mixins/OwnerQuery');
 
 var Item = require('./Entry');
 
 module.exports = React.createClass({
 	displayName: 'Collection',
+	mixins: [OwnerQuery],
+
 	propTypes: {
 		title: React.PropTypes.string.isRequired,
 		list: React.PropTypes.object.isRequired
