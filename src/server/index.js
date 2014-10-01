@@ -21,11 +21,14 @@ var appRoutes = new RegExp('^\\/($|login|' + knownPages + ')((?!resources).)*$')
 
 var express = require('express');
 var path = require('path');
+var fs = require('fs');
 
 var common = require('./common');
 var config = common.config();
 var address = config.address || '0.0.0.0';
 var port = config.port || 9000;
+
+var WantsCompressed = /gzip/i;
 
 var waitFor = require('dataserverinterface/utils/waitfor');
 var dataserver = require('dataserverinterface')(config);
@@ -57,18 +60,28 @@ if (!entryPoint) {
 	assetPath = path.join(assetPath, 'main');
 }
 
+
+//CORS...
+app.all('*', function(req, res, next) {
+	var gz = req.url + '.gz';
+	var compress = WantsCompressed.test(req.header('accept-encoding') || '');
+	if (compress && fs.existsSync(path.join(assetPath, gz))) {
+		req.url = gz;
+		res.set('Content-Encoding', 'gzip');
+	}
+
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+	next();
+});
+
+
 //Static files...
 app.use(express.static(assetPath));//static files
 
 //Session manager...
 app.use(authedRoutes, session.middleware.bind(session));
 
-//CORS...
-app.all('/*', function(req, res, next) {
-	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Headers', 'X-Requested-With');
-	next();
-});
 
 //HTML Renderer...
 app.get(appRoutes, function(req, res) {
