@@ -20,17 +20,17 @@ cfg.forEach(function(o) { e.push(merge(true, o)); });
 
 
 e[0].debug = false;
-//e[0].devtool = false;
+e[0].devtool = '#source-map';
 
 e[0].plugins.push(
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
     new CompressionPlugin({
             asset: "{file}.gz",
             algorithm: "gzip",
-            regExp: /\.js$|\.html$/
+            regExp: /$/
         })
 );
 
