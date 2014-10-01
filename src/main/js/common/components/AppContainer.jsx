@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 'use strict';
+var Hammer = require('hammerjs');
 
 var React = require('react/addons');
 var LeftNav = require('./LeftNav');
@@ -97,14 +98,48 @@ module.exports = React.createClass({
 	},
 
 	componentDidMount: function() {
-		Library.Store.addChangeListener(this._libraryChanged);
-		$(this.getDOMNode()).foundation({
+		var dom = this.getDOMNode();
+		var gestures = new Hammer(document.body, {
+			swipeVelocityX: 0.1,
+			swipeVelocityY: 0.1
+		});
+
+		$(dom).foundation({
 			offcanvas: {
 				// open_method: 'overlap_single'
 				// close_on_click: true
 			}
 		});
+
+
+		gestures.on('swipe', function(ev) {
+		    var swippedLeft = ev.direction === Hammer.DIRECTION_LEFT;
+		    var swippedRight = ev.direction === Hammer.DIRECTION_RIGHT;
+			var leftOpen = !!dom.querySelector('.off-canvas-wrap.move-right');
+			var rightOpen = !!dom.querySelector('.off-canvas-wrap.move-left');
+			var action = null;
+			var target = null;
+
+			if (swippedRight) {
+				console.log('Swipped Right');
+				action = rightOpen ? 'hide' : leftOpen ? null : 'show';
+				target = action && (action === 'hide' ? 'move-left' : 'move-right');
+			}
+			else if (swippedLeft) {
+				console.log('Swipped Left');
+				action = leftOpen ? 'hide' : rightOpen ? null : 'show';
+				target = action && (action === 'hide' ? 'move-right' : 'move-left');
+			}
+
+
+			if (action && target) {
+				$(dom).foundation('offcanvas', action, target);
+			}
+		});
+
+
 		Navigation.Store.addChangeListener(this._navChanged);
+		Library.Store.addChangeListener(this._libraryChanged);
 		Library.Store.getData(true);
 	},
 
