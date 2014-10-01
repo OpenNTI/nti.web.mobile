@@ -30,3 +30,44 @@
 @include reactTransition('navdrawer');
 
 
+.loginforms-enter {
+	opacity: 0.01;
+	transition: all .25s ease-out;
+	width:100%;
+	position: absolute;
+	top:-1rem;
+	left:0;
+}
+
+.loginforms-enter.loginforms-enter-active {
+	opacity: 1;
+	width:100%;
+	position: absolute;
+	top:0;
+	left:0;
+}
+
+.loginforms-leave {
+	opacity: 1;
+	transition: all .25s ease-out;
+	width:100%;
+	position: absolute;
+	top:0;
+	left:0;
+}
+
+.loginforms-leave.loginforms-leave-active {
+	opacity: 0.01;
+	width:100%;
+	position: absolute;
+	top:1rem;
+	left:0;
+}
+
+.loginforms {
+	transition: all .25s ease-out;
+}
+
+.loginformswrapper {
+	position: relative;
+}

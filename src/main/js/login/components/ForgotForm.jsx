@@ -48,9 +48,9 @@ module.exports = React.createClass({
 						<button
 							type="submit"
 							className='tiny radius'
-						>{buttonLabel}</button>
-						<Link href="/">Log In</Link>
+						>{buttonLabel}</button>						
 					</fieldset>
+					<Link href="/">Log In</Link>
 				</form>
 			</div>
 		);

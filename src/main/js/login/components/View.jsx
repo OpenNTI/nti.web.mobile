@@ -12,9 +12,12 @@ var Store = require('../Store');
 var StoreProperties = require('../StoreProperties');
 var Actions = require('../Actions');
 var Loading = require('common/components/Loading');
-
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var View = React.createClass({
+
+	mixins: [Router.NavigatableMixin],
+
 	_storeChanged: function (event) {
 		if (event.property === StoreProperties.links) {
 			this.setState({
@@ -23,7 +26,6 @@ var View = React.createClass({
 			});
 		}
 	},
-
 
 	getInitialState: function() {
 		return {
@@ -50,10 +52,14 @@ var View = React.createClass({
 		var basePath = this.props.basePath;
 
 		return (
-			<Locations contextual>
-				<DefaultRoute handler={LoginForm} />
-				<Location path="/forgot/:param" handler={ForgotForm} basePath={basePath} links={this.state.links} />
-			</Locations>
+			<div className="loginformswrapper">
+				<ReactCSSTransitionGroup transitionName="loginforms">
+					<Locations contextual key={this.getPath()}>
+						<DefaultRoute handler={LoginForm} />
+						<Location path="/forgot/:param" handler={ForgotForm} basePath={basePath} links={this.state.links} />
+					</Locations>
+				</ReactCSSTransitionGroup>
+			</div>
 		);
 	}
 });

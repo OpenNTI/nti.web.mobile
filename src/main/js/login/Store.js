@@ -88,7 +88,10 @@ function _ping(credentials) {
 
 	var username = (credentials && credentials.username);
 	dataserver().ping(null, username)
-		.then(resp, resp);
+		.then(resp, resp)
+		.catch (function(r) {
+			debugger;
+		});
 }
 
 function _setLoggedIn(isLoggedIn) {

@@ -60,8 +60,9 @@ var View = React.createClass({
 							disabled={!submitEnabled}
 						>{t('LOGIN.login')}</button>
 						<OAuthButtons links={this.state.links} basePath={this.props.basePath} />
-						<RecoveryLinks links={this.state.links} basePath={this.props.basePath} />
+						
 					</fieldset>
+					<RecoveryLinks links={this.state.links} basePath={this.props.basePath} />
 				</form>
 			</div>
 		);
