@@ -100,6 +100,7 @@ module.exports = React.createClass({
 		Library.Store.addChangeListener(this._libraryChanged);
 		$(this.getDOMNode()).foundation({
 			offcanvas: {
+				// open_method: 'overlap_single'
 				// close_on_click: true
 			}
 		});
@@ -125,7 +126,7 @@ module.exports = React.createClass({
 								<h1 className="title">next thought</h1>
 							</section>
 							<section className="right-small">
-								<a className="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
+								<a className="right-off-canvas-toggle fi-megaphone" href="#"><span></span></a>
 							</section>
 						</nav>
 						<aside className="left-off-canvas-menu">
