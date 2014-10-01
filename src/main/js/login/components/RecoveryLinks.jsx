@@ -37,12 +37,11 @@ module.exports = React.createClass({
 
 	render: function() {
 		return (
-			<div>
+			<div className="recovery">
 				<Link href="/forgot/username">{t('username')}</Link>
 				<Link href="/forgot/password">{t('password')}</Link>
 			</div>
 		);
-
 	}
 
 });

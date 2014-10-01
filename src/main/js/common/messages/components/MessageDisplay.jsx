@@ -2,6 +2,8 @@
  * @jsx React.DOM
  */
 
+'use strict';
+
 var React = require('react/addons');
 var messages = require('../');
 var MessageStore = messages.Store;
@@ -12,7 +14,12 @@ var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var MessageDisplay = React.createClass({
 
 	_updateMessages: function() {
-		this.setState({messages: MessageStore.messages()});
+		if (this.isMounted()) {
+			this.setState({messages: MessageStore.messages()});
+		}
+		else {
+			// how can this be?
+		}
 	},
 
 	componentWillMount: function() {
@@ -25,7 +32,7 @@ var MessageDisplay = React.createClass({
 
 	getInitialState: function() {
 		return {
-			messages:[]
+			messages: []
 		};
 	},
 
@@ -34,11 +41,11 @@ var MessageDisplay = React.createClass({
 	},
 
 	render: function() {
-		if(this.state.messages.length == 0) {
+		if (this.state.messages.length === 0) {
 			return (<div />);
 		}
 		var dismiss = this._dismiss;
-		var msgs = this.state.messages.map(function(e,idx,arr) {
+		var msgs = this.state.messages.map(function(e, idx, arr) {
 			return (
 				<Alert key={'m' + e.id} message={e} dismiss={dismiss} />
 			);
