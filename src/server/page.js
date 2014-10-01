@@ -22,14 +22,15 @@ function basePathFix(original,attr,val) {
 try {
 	Application = require('../main/js/main');
 } catch (e) {
-	console.warn('No Server-side Rendering (Because: %s) \n\n %s',
-		e.stack || e.message || e,
-		__dirname);
+	console.warn('No Server-side Rendering (Because: %s)',
+		/Cannot find module '\.\.\/main\/js\/main'/.test(e.message || e) ?
+			'Dev Mode':
+			e.message || e);
 }
 
 try {
 	//For WebPack... (production)
-	template = require('../main/page.html');
+	template = require('../main/page');
 } catch (e) {
 	//For Node... (dev)
 	template = fs.readFileSync(__dirname + '/../main/page.html', "utf8");

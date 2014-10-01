@@ -68,7 +68,7 @@ module.exports = [
 
         resolve: {
             root: root,
-            extensions: ['', '.jsx', '.js', '.css', '.scss']
+            extensions: ['', '.jsx', '.js', '.css', '.scss', '.html']
         },
 
         plugins: [
@@ -118,7 +118,7 @@ module.exports = [
         },
         resolve: {
             root: root,
-            extensions: ['', '.jsx', '.js', '.css', '.scss']
+            extensions: ['', '.jsx', '.js', '.css', '.scss', '.html']
         },
         plugins: [
             new webpack.DefinePlugin({
