@@ -2,7 +2,9 @@
 
 .notification-item {
 	color: #fff;
-	border: 1px solid black;
+	font-family: 'Open Sans';
+	font-size: 0.8rem;
+	padding: 0.5rem 0.1rem 0.5rem 0.3rem;
 
 	&.empty {
 		padding: 2.5rem;
@@ -15,21 +17,21 @@
 		font-size: 0.75em;
 	}
 
-	img {
+	img, .grade {
 		display: inline-block;
 		position: relative;
 		float: left;
 	}
 
-	.creator{
-		display: block;
-		font-weight: 500;
-	}
-
-	img.grade {
+	.grade {
 		background: url('../images/icons/assignment_ontime_small.png');
 		height: 28px;
 		width: 28px;
+	}
+
+	.creator{
+		display: block;
+		font-weight: 500;
 	}
 
 	.wrap {

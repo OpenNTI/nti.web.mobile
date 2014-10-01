@@ -20,7 +20,7 @@ module.exports = React.createClass({
 		var assignmentName = "<AssignmentName>";
 		return (
 			<li className="notification-item">
-				<img className='grade'></img>
+				<div className='grade'/>
 				<div className="wrap">
 					<span className="creator">{courseName}</span>
 					{' Grade recieved for '}
