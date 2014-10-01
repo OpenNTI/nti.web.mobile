@@ -5,6 +5,7 @@ var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var ActionConstants = require('./Constants').actions;
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
+var dataserver = require('common/Utils').getServer;
 
 /**
  * Actions available to views for login-related functionality.
@@ -61,18 +62,14 @@ module.exports = merge(EventEmitter.prototype, {
 		});
 	},
 
-	recoverPassword: function(username, email) {
-		AppDispatcher.handleViewAction({
-			actionType: ActionConstants.RECOVER_PASSWORD,
-			username: username
-		});
+	/** dispatch a dataserver request to recover a user's password
+	*/
+	recoverPassword: function(email) {
+		return dataserver().recoverPassword(email);
 	},
 
 	recoverUsername: function(email) {
-		AppDispatcher.handleViewAction({
-			actionType: ActionConstants.RECOVER_USERNAME,
-			email: email
-		});
+		return dataserver().recoverUsername(email);
 	}
 
 });

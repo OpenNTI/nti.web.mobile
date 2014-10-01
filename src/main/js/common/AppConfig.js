@@ -11,5 +11,7 @@ module.exports = {
 	* @static
 	* @final
 	*/
-	login_success_url: '/loginsuccess'
-}
+	login_success_url: '/loginsuccess',
+	basePath: $AppConfig.basepath
+};
+

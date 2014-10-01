@@ -57,11 +57,20 @@ function _addMessage(message, sender, category) {
 	MessageStore.emitChange();
 }
 
-function _clearMessages() {
+function _clearMessages(sender) {
 	if (Object.keys(_messages).length === 0) {
 		return;
 	}
-	_messages = {};
+	if(sender) {
+		Object.keys(_messages).forEach(function(key) {
+			if(_messages[key].sender === sender) {
+				delete _messages[key];
+			}
+		});
+	}
+	else {
+		_messages = {};	
+	}
 	MessageStore.emitChange();
 }
 

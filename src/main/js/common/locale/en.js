@@ -7,7 +7,10 @@ module.exports = {
 		},
 		forgot: {
 			username: 'Forgot Username',
-			password: 'Forgot Password'
+			password: 'Forgot Password',
+			recoverpassword: 'Reset Password',
+			recoverusername: 'Recover Username',
+			EmailAddressInvalid: 'The email address you have entered is not valid.'
 		},
 		LOGIN_ERROR: {
 			401: 'Login failed.'

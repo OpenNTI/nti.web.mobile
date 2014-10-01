@@ -17,9 +17,10 @@ module.exports = merge(EventEmitter.prototype, {
 		});
 	},
 
-	clearMessages: function() {
+	clearMessages: function(sender) {
 		AppDispatcher.handleViewAction({
-			actionType: Actions.MESSAGES_CLEAR
+			actionType: Actions.MESSAGES_CLEAR,
+			sender: sender
 		});
 	},
 
