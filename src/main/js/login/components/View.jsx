@@ -16,7 +16,7 @@ var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var View = React.createClass({
 
-	mixins: [Router.NavigatableMixin],
+	mixins: [Router.NavigatableMixin], // needed for getPath() call we're using for the router's key.
 
 	clearMessages: function() {
 		Actions.clearErrors();
@@ -58,7 +58,9 @@ var View = React.createClass({
 		return (
 			<div className="loginformswrapper">
 				<ReactCSSTransitionGroup transitionName="loginforms">
-					<Locations contextual key={this.getPath()} onBeforeNavigation={this.clearMessages}>
+					<Locations
+						contextual
+						key={this.getPath()}>
 						<DefaultRoute handler={LoginForm} />
 						<Location path="/forgot/:param" handler={ForgotForm} basePath={basePath} links={this.state.links} />
 					</Locations>

@@ -21,18 +21,19 @@ module.exports = React.createClass({
 
 	_handleSubmit: function(event) {
 		event.preventDefault();
-		MessageActions.clearMessages(this);
+		var messageOptions = {category: Constants.messages.category};
+		MessageActions.clearMessages(messageOptions);
 		var action = this.props.param === 'password' ? Actions.recoverPassword : Actions.recoverUsername;
 		action(this.refs.email.getDOMNode().value.trim())
 		.then(function() {
 			var message = 'Check your email for recovery instructions.';
 			console.log(config);
-			MessageActions.addMessage(message, this);
+			MessageActions.addMessage(message, messageOptions);
 		}.bind(this))
 		.catch (function(res) {
 			var r = JSON.parse(res.response);
 			var message = t(r.code);
-			MessageActions.addMessage(message, this);
+			MessageActions.addMessage(message, messageOptions);
 		}.bind(this));
 	},
 

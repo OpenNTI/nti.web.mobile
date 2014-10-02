@@ -62,7 +62,7 @@ function _addError(error) {
 		'error should contain values for statusCode and raw; { statusCode:xxx, raw:{...} }'
 	);
 	var msg = t(LoginMessages.LOGIN_ERROR, error.statusCode.toString());
-	Messages.Actions.addMessage(msg, 'LoginStore', Constants.messages.category);
+	Messages.Actions.addMessage(msg, {category:Constants.messages.category});
 
 }
 

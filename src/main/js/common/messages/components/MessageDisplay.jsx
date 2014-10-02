@@ -32,8 +32,9 @@ var MessageDisplay = React.createClass({
 	},
 
 	getInitialState: function() {
+		var options = this.props.category ? {category: this.props.category} : null;
 		return {
-			messages: []
+			messages: MessageStore.messages(options)
 		};
 	},
 
