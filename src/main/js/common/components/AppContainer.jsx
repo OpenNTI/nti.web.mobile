@@ -100,7 +100,7 @@ module.exports = React.createClass({
 	componentDidMount: function() {
 		var dom = this.getDOMNode();
 		var gestures = new Hammer(document.body, {
-			swipeVelocityX: 0.1,
+			swipeVelocityX: 0.05,
 			swipeVelocityY: 0.1
 		});
 

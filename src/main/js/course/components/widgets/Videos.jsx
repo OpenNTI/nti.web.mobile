@@ -123,6 +123,7 @@ module.exports = React.createClass({
 		}
 
 		if (!this.state.touch) {
+			e.stopPropagation();
 			// console.debug('Touch Start...')
 			this.setState({
 				touch: {
@@ -160,6 +161,8 @@ module.exports = React.createClass({
 		var touchPixelRatio = 1;
 
 		if (touch) {
+			e.stopPropagation();
+
 			//Allow vertical scrolling
 			if (Math.abs(touch.clientY - data.y) > Math.abs(touch.clientX - data.x)) {
 				return;
@@ -197,6 +200,8 @@ module.exports = React.createClass({
 
 
 	onTouchEnd: function(e) {
+		//e.stopPropagation();
+
 		var touch = this.state.touch || {};
 
 		var pixelOffset = touch.pixelOffset;
