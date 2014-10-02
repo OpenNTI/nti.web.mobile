@@ -30,7 +30,6 @@ module.exports = React.createClass({
 
 	render: function() {
 		var basePath = this.props.basePath;
-		console.log('basePath: %s', basePath);
 		return (
 			<Router.Locations path={this.props.path} onNavigation={this.onNavigation}>
 				<Router.Location path={basePath + 'login(/*)'} handler={Login.View} basePath={basePath}/>
