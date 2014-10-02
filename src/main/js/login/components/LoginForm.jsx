@@ -13,6 +13,9 @@ var React = require('react/addons');
 var MessageDisplay = require('common/messages/').Display;
 var Constants = require('../Constants');
 
+
+var _pingDelayMs = 1000; // how long to buffer user input before sending another dataserver ping request.
+
 var View = React.createClass({
 
 	getInitialState: function() {
@@ -20,6 +23,7 @@ var View = React.createClass({
 			username: '',
 			password: '',
 			submitEnabled: false,
+			timeoutId: null,
 			links: {}
 		};
 	},
@@ -73,13 +77,18 @@ var View = React.createClass({
 	* onChange handler for the username field. Triggers Actions.userInputChanged
 	*/
 	_usernameChanged: function(event) {
-		Actions.userInputChanged({
-			credentials: {
-				username: this._username(),
-				password: this._password()
-			},
-			event: event
-		});
+		clearTimeout(this.state.timeoutId);
+		var timeoutId = window.setTimeout(function() {
+			console.log('timeout, firing userInputChanged: username: %s', this._username());
+			Actions.userInputChanged({
+				credentials: {
+					username: this._username(),
+					password: this._password()
+				},
+				event: event
+			});	
+		}.bind(this),_pingDelayMs);
+		this.setState({timeoutId: timeoutId});
 	},
 
 	_passwordChanged: function(event) {
