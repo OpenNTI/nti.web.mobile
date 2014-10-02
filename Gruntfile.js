@@ -206,6 +206,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build', ['clean', 'sass', 'copy', 'webpack:dist']);
 
-	grunt.registerTask('default', []);
+	grunt.registerTask('default', ['serve']);
 
 };
