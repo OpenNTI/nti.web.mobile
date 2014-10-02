@@ -7,7 +7,7 @@ module.exports = React.createClass({
 	displayName: 'Error',
 
 	propTypes: {
-		error: React.PropTypes.object
+		error: React.PropTypes.any
 	},
 
 	render: function() {
