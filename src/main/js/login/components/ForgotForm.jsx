@@ -43,11 +43,19 @@ module.exports = React.createClass({
 		}.bind(this));
 	},
 
+	_inputChanged: function() {
+		this.setState({
+			submitEnabled: (this.refs.email.getDOMNode().value.trim().length > 0)
+		});
+	},
+
 	render: function() {
 
 		var buttonLabel = t(this.props.param === 'password' ? 'recoverpassword' : 'recoverusername');
 		var cssClasses = ['tiny','radius'];
-		if (!this.state.submitEnabled) {
+
+		var submitEnabled = this.state.submitEnabled;
+		if (!submitEnabled) {
 			cssClasses.push('disabled');
 		}
 
@@ -58,10 +66,12 @@ module.exports = React.createClass({
 						<input type="text"
 							ref="email"
 							placeholder="email"
+							onChange={this._inputChanged}
 							defaultValue='' />
 						<button
 							type="submit"
 							className={cssClasses.join(' ')}
+							disabled={!submitEnabled}
 						>{buttonLabel}</button>
 					</fieldset>
 					<Link href="/">Log In</Link>
