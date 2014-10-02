@@ -5,6 +5,7 @@ var React = require('react/addons');
 var t = require('common/locale').scoped('LOGIN.forgot');
 var Button = require('common/components/forms/Button');
 var Messages = require('common/messages/');
+var Message = Messages.Message;
 var MessageDisplay = Messages.Display;
 var MessageActions = Messages.Actions;
 var NavigationActions = require('navigation').Actions;
@@ -19,6 +20,12 @@ module.exports = React.createClass({
 		MessageActions.clearMessages(this);
 	},
 
+	getInitialState: function() {
+		return {
+			submitEnabled: false
+		};
+	},
+
 	_handleSubmit: function(event) {
 		event.preventDefault();
 		var messageOptions = {category: Constants.messages.category};
@@ -26,20 +33,23 @@ module.exports = React.createClass({
 		var action = this.props.param === 'password' ? Actions.recoverPassword : Actions.recoverUsername;
 		action(this.refs.email.getDOMNode().value.trim())
 		.then(function() {
-			var message = 'Check your email for recovery instructions.';
-			console.log(config);
+			var message = new Message('Check your email for recovery instructions.', messageOptions);
 			MessageActions.addMessage(message, messageOptions);
 		}.bind(this))
 		.catch (function(res) {
 			var r = JSON.parse(res.response);
-			var message = t(r.code);
-			MessageActions.addMessage(message, messageOptions);
+			var message = new Message(t(r.code), messageOptions);
+			MessageActions.addMessage(message);
 		}.bind(this));
 	},
 
 	render: function() {
 
 		var buttonLabel = t(this.props.param === 'password' ? 'recoverpassword' : 'recoverusername');
+		var cssClasses = ['tiny','radius'];
+		if (!this.state.submitEnabled) {
+			cssClasses.push('disabled');
+		}
 
 		return (
 			<div className="row">
@@ -52,8 +62,8 @@ module.exports = React.createClass({
 							defaultValue='' />
 						<button
 							type="submit"
-							className='tiny radius'
-						>{buttonLabel}</button>						
+							className={cssClasses.join(' ')}
+						>{buttonLabel}</button>
 					</fieldset>
 					<Link href="/">Log In</Link>
 				</form>

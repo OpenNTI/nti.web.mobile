@@ -3,9 +3,11 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var MessageConstants = require('./MessageConstants');
+var Message = require('./Message');
 var Actions = MessageConstants.actions;
 var Events = MessageConstants.events;
 var merge = require('react/lib/merge');
+var IllegalArgumentException = require('common/exceptions').IllegalArgumentException;
 
 var _messages = {};
 
@@ -39,19 +41,19 @@ var MessageStore = merge(EventEmitter.prototype, {
 		if(options && options.category) {
 			result = result.filter(function(v) {
 				return v.category === options.category;
-			})
+			});
 		}
 		return result;
 	},
 
-	clearMessages: function(sender,category) {
+	clearMessages: function(category) {
 		if (Object.keys(_messages).length === 0) {
 			return;
 		}
-		if(sender||category) {
+		if(category) {
 			Object.keys(_messages).forEach(function(key) {
 				var m = _messages[key];
-				if(m.sender === sender || m.category === category) {
+				if(m.category === category) {
 					delete _messages[key];
 				}
 			});
@@ -64,20 +66,15 @@ var MessageStore = merge(EventEmitter.prototype, {
 
 });
 
-function Message(message, sender, category) {
-	this.message = message;
-	this.sender = sender;
-	this.category = category;
-	this.id = Date.now();
-}
-
 /**
 * Add a message
-* @param {Object} message object should include properties for message and raw (the raw response)
+* @param {Object} message object
 */
-function _addMessage(message, sender, category) {
-	var m = new Message(message, sender, category);
-	_messages[m.id] = m;
+function _addMessage(message) {
+	if (!(message instanceof Message)) {
+		throw new Error('message must be an instance of Message.');
+	}
+	_messages[message.id] = message;
 	MessageStore.emitChange();
 }
 
@@ -92,11 +89,11 @@ AppDispatcher.register(function(payload) {
 	console.log('MessageStore received %s action.', action.actionType);
 	switch (action.actionType) {
 		case Actions.MESSAGES_ADD:
-			_addMessage(action.msg, action.sender, action.category);
+			_addMessage(action.message);
 		break;
 
 		case Actions.MESSAGES_CLEAR:
-			_clearMessages(action.sender);
+			MessageStore.clearMessages(action.category);
 		break;
 
 		case Actions.MESSAGES_REMOVE:

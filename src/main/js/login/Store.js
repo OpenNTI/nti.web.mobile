@@ -62,7 +62,8 @@ function _addError(error) {
 		'error should contain values for statusCode and raw; { statusCode:xxx, raw:{...} }'
 	);
 	var msg = t(LoginMessages.LOGIN_ERROR, error.statusCode.toString());
-	Messages.Actions.addMessage(msg, {category:Constants.messages.category});
+	var message = new Messages.Message(msg, {category: LoginMessages.category, error: error});
+	Messages.Actions.addMessage(message);
 
 }
 
@@ -90,7 +91,7 @@ function _ping(credentials) {
 	dataserver().ping(null, username)
 		.then(resp, resp)
 		.catch (function(r) {
-			debugger;
+			console.error(r);
 		});
 }
 
