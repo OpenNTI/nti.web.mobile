@@ -29,7 +29,6 @@ module.exports = React.createClass({
 
 	componentDidMount: function() {
 		this.getDataIfNeeded(this.props);
-		Navigation.Actions.openDrawer();
 	},
 
 

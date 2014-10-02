@@ -23,11 +23,6 @@ module.exports = merge(EventEmitter.prototype, {
 	publishNav: function(key,navRecord) {
 		console.log('navigation.Actions::publishNav. key: %s, record: %O', key, navRecord);
 		Store.publishNav(key,navRecord);
-	},
-
-	openDrawer: function() {
-		//I don't think this is the best way to accomplish this... ick.
-		$('#left-menu').click();
 	}
 
 });
