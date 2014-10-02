@@ -32,7 +32,8 @@
 
 .loginforms-enter {
 	opacity: 0.01;
-	transition: all .25s ease-out;
+	transition: top .25s, opacity .25s;
+	transition-timing-function: ease-out;
 	width:100%;
 	position: absolute;
 	top:-1rem;
@@ -49,7 +50,8 @@
 
 .loginforms-leave {
 	opacity: 1;
-	transition: all .25s ease-out;
+	transition: top .25s, opacity .25s;
+	transition-timing-function: ease-out;
 	width:100%;
 	position: absolute;
 	top:0;
@@ -65,7 +67,8 @@
 }
 
 .loginforms {
-	transition: all .25s ease-out;
+	transition: top .25s, opacity .25s;
+	transition-timing-function: ease-out;
 }
 
 .loginformswrapper {

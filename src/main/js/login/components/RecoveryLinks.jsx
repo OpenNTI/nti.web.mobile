@@ -36,10 +36,13 @@ var RecoveryLink = React.createClass({
 module.exports = React.createClass({
 
 	render: function() {
+
+		var cssClasses = "tiny button radius";
+
 		return (
 			<div className="recovery">
-				<Link href="/forgot/username">{t('username')}</Link>
-				<Link href="/forgot/password">{t('password')}</Link>
+				<Link className={cssClasses} href="/forgot/username">{t('username')}</Link>
+				<Link className={cssClasses} href="/forgot/password">{t('password')}</Link>
 			</div>
 		);
 	}

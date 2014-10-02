@@ -13,8 +13,11 @@ var Constants = require('../Constants');
 var Actions = require('../Actions');
 var Link = require('react-router-component').Link;
 var config = require('common/AppConfig');
+var Router = require('react-router-component');
 
 module.exports = React.createClass({
+
+	mixins: [Router.NavigatableMixin],
 
 	componentDidMount: function() {
 		Actions.clearErrors({category: Constants.messages.category});
@@ -74,7 +77,7 @@ module.exports = React.createClass({
 							disabled={!submitEnabled}
 						>{buttonLabel}</button>
 					</fieldset>
-					<Link href="/">Log In</Link>
+					<Link className="tiny button radius fi-arrow-left" href="/"> Return to Login</Link>
 				</form>
 			</div>
 		);

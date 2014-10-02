@@ -6,8 +6,8 @@ module.exports = {
 			login: 'Log in with %(service)s'
 		},
 		forgot: {
-			username: 'Forgot Username',
-			password: 'Forgot Password',
+			username: 'Forgot Username?',
+			password: 'Forgot Password?',
 			recoverpassword: 'Reset Password',
 			recoverusername: 'Recover Username',
 			EmailAddressInvalid: 'The email address you have entered is not valid.'
