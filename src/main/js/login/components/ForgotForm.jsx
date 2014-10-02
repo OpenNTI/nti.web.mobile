@@ -66,7 +66,7 @@ module.exports = React.createClass({
 			<div className="row">
 				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
-						<input type="text"
+						<input type="email"
 							ref="email"
 							placeholder="email"
 							onChange={this._inputChanged}
