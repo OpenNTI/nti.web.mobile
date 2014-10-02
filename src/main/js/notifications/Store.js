@@ -42,6 +42,7 @@ var Store = merge(EventEmitter.prototype, {
 
 function persistData(data) {
 	_data = data;
+	data.loaded = true;//stop notifications from reloading...
 }
 
 
