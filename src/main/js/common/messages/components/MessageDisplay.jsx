@@ -15,7 +15,8 @@ var MessageDisplay = React.createClass({
 
 	_updateMessages: function() {
 		if (this.isMounted()) {
-			this.setState({messages: MessageStore.messages()});
+			var options = this.props.category ? {category: this.props.category} : null;
+			this.setState({messages: MessageStore.messages(options)});
 		}
 		else {
 			// how can this be?

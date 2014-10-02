@@ -1,5 +1,6 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var Actions = require('./MessageConstants').actions;
+var Store = require('./MessageStore');
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge')
 
@@ -17,11 +18,8 @@ module.exports = merge(EventEmitter.prototype, {
 		});
 	},
 
-	clearMessages: function(sender) {
-		AppDispatcher.handleViewAction({
-			actionType: Actions.MESSAGES_CLEAR,
-			sender: sender
-		});
+	clearMessages: function(sender,category) {
+		Store.clearMessages(sender,category);
 	},
 
 	removeMessage: function(id) {

@@ -18,6 +18,10 @@ var View = React.createClass({
 
 	mixins: [Router.NavigatableMixin],
 
+	clearMessages: function() {
+		Actions.clearErrors();
+	},
+
 	_storeChanged: function (event) {
 		if (event.property === StoreProperties.links) {
 			this.setState({
@@ -54,7 +58,7 @@ var View = React.createClass({
 		return (
 			<div className="loginformswrapper">
 				<ReactCSSTransitionGroup transitionName="loginforms">
-					<Locations contextual key={this.getPath()}>
+					<Locations contextual key={this.getPath()} onBeforeNavigation={this.clearMessages}>
 						<DefaultRoute handler={LoginForm} />
 						<Location path="/forgot/:param" handler={ForgotForm} basePath={basePath} links={this.state.links} />
 					</Locations>

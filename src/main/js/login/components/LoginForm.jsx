@@ -11,7 +11,7 @@ var RecoveryLinks = require('./RecoveryLinks');
 var t = require('common/locale').translate;
 var React = require('react/addons');
 var MessageDisplay = require('common/messages/').Display;
-
+var Constants = require('../Constants');
 
 var View = React.createClass({
 
@@ -27,6 +27,7 @@ var View = React.createClass({
 	componentDidMount: function() {
 		console.log('LoginView::componentDidMount');
 		Store.addChangeListener(this._onLoginStoreChange);
+		Actions.clearErrors();
 	},
 
 	componentWillUnmount: function() {
@@ -40,7 +41,7 @@ var View = React.createClass({
 
 		return (
 			<div className="row">
-				<MessageDisplay />
+				<MessageDisplay category={Constants.messages.category} />
 				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
 
 					<fieldset>

@@ -62,7 +62,7 @@ function _addError(error) {
 		'error should contain values for statusCode and raw; { statusCode:xxx, raw:{...} }'
 	);
 	var msg = t(LoginMessages.LOGIN_ERROR, error.statusCode.toString());
-	Messages.Actions.addMessage(msg, 'LoginStore');
+	Messages.Actions.addMessage(msg, 'LoginStore', Constants.messages.category);
 
 }
 
@@ -137,10 +137,7 @@ function _logOut(action) {
 }
 
 function _clearErrors() {
-	if (_errors.length === 0) {
-		return;
-	}
-	Messages.Actions.clearMessages();
+	Messages.Actions.clearMessages(null,Constants.messages.category);
 }
 
 

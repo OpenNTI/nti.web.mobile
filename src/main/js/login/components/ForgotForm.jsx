@@ -4,8 +4,9 @@
 var React = require('react/addons');
 var t = require('common/locale').scoped('LOGIN.forgot');
 var Button = require('common/components/forms/Button');
-var MessageDisplay = require('common/messages/').Display;
-var MessageActions = require('common/messages/').Actions;
+var Messages = require('common/messages/');
+var MessageDisplay = Messages.Display;
+var MessageActions = Messages.Actions;
 var NavigationActions = require('navigation').Actions;
 var Constants = require('../Constants');
 var Actions = require('../Actions');
@@ -13,6 +14,10 @@ var Link = require('react-router-component').Link;
 var config = require('common/AppConfig');
 
 module.exports = React.createClass({
+
+	componentWillUnmount: function() {
+		MessageActions.clearMessages(this);
+	},
 
 	_handleSubmit: function(event) {
 		event.preventDefault();
@@ -23,13 +28,12 @@ module.exports = React.createClass({
 			var message = 'Check your email for recovery instructions.';
 			console.log(config);
 			MessageActions.addMessage(message, this);
-			// NavigationActions.navigate(config.basePath + 'login/', true);
-		})
+		}.bind(this))
 		.catch (function(res) {
 			var r = JSON.parse(res.response);
 			var message = t(r.code);
 			MessageActions.addMessage(message, this);
-		});
+		}.bind(this));
 	},
 
 	render: function() {

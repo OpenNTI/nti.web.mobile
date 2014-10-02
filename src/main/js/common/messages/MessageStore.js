@@ -32,10 +32,34 @@ var MessageStore = merge(EventEmitter.prototype, {
 		this.removeListener(Events.MESSAGES_CHANGE, callback);
 	},
 
-	messages: function() {
-		return Object.keys(_messages).map(function(key, idx, keys) {
+	messages: function(options) {
+		var result = Object.keys(_messages).map(function(key, idx, keys) {
 			return _messages[key];
 		});
+		if(options && options.category) {
+			result = result.filter(function(v) {
+				return v.category === options.category;
+			})
+		}
+		return result;
+	},
+
+	clearMessages: function(sender,category) {
+		if (Object.keys(_messages).length === 0) {
+			return;
+		}
+		if(sender||category) {
+			Object.keys(_messages).forEach(function(key) {
+				var m = _messages[key];
+				if(m.sender === sender || m.category === category) {
+					delete _messages[key];
+				}
+			});
+		}
+		else {
+			_messages = {};	
+		}
+		this.emitChange();
 	}
 
 });
@@ -57,23 +81,6 @@ function _addMessage(message, sender, category) {
 	MessageStore.emitChange();
 }
 
-function _clearMessages(sender) {
-	if (Object.keys(_messages).length === 0) {
-		return;
-	}
-	if(sender) {
-		Object.keys(_messages).forEach(function(key) {
-			if(_messages[key].sender === sender) {
-				delete _messages[key];
-			}
-		});
-	}
-	else {
-		_messages = {};	
-	}
-	MessageStore.emitChange();
-}
-
 function _removeMessage(id) {
 	delete _messages[id];
 	MessageStore.emitChange();
@@ -89,7 +96,7 @@ AppDispatcher.register(function(payload) {
 		break;
 
 		case Actions.MESSAGES_CLEAR:
-			_clearMessages();
+			_clearMessages(action.sender);
 		break;
 
 		case Actions.MESSAGES_REMOVE:
