@@ -27,7 +27,7 @@ var View = React.createClass({
 	componentDidMount: function() {
 		console.log('LoginView::componentDidMount');
 		Store.addChangeListener(this._onLoginStoreChange);
-		Actions.clearErrors();
+		Actions.clearErrors({category: Constants.messages.category});
 	},
 
 	componentWillUnmount: function() {
@@ -42,7 +42,6 @@ var View = React.createClass({
 
 		return (
 			<div className="row">
-				<MessageDisplay category={Constants.messages.category} />
 				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
 
 					<fieldset>

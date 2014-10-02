@@ -16,8 +16,8 @@ var config = require('common/AppConfig');
 
 module.exports = React.createClass({
 
-	componentWillUnmount: function() {
-		MessageActions.clearMessages(this);
+	componentDidMount: function() {
+		Actions.clearErrors({category: Constants.messages.category});
 	},
 
 	getInitialState: function() {
@@ -53,7 +53,6 @@ module.exports = React.createClass({
 
 		return (
 			<div className="row">
-				<MessageDisplay />
 				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
 						<input type="text"

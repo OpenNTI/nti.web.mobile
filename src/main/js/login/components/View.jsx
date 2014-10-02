@@ -13,6 +13,8 @@ var StoreProperties = require('../StoreProperties');
 var Actions = require('../Actions');
 var Loading = require('common/components/Loading');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var Constants = require('../Constants');
+var MessageDisplay = require('common/messages/').Display;
 
 var View = React.createClass({
 
@@ -57,6 +59,7 @@ var View = React.createClass({
 
 		return (
 			<div className="loginformswrapper">
+				<MessageDisplay category={Constants.messages.category} />
 				<ReactCSSTransitionGroup transitionName="loginforms">
 					<Locations
 						contextual
