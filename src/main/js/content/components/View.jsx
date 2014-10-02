@@ -71,7 +71,7 @@ module.exports = React.createClass({
 
 	componentWillReceiveProps: function(props) {
 		if (this.props.pageId !== props.pageId) {
-			this.getDataIfNeeded(nextProps);
+			this.getDataIfNeeded(props);
 		}
 	},
 
