@@ -21,6 +21,14 @@ var Navigation = require('navigation');
 
 var t = require('../locale').translate;
 
+var LEFT_MENU_OPEN = 'move-right';
+var RIGHT_MENU_OPEN = 'move-left';
+var CLOSE_MENU = '';
+
+
+// TODO: move "navigation" specific code into a Navigation
+// View (like Notifications.View). This component should just
+// be a dumb wrapper that holds everything.
 
 /**
  * Convenience function for constructing NavRecords
@@ -35,6 +43,8 @@ function _navRec(basePath, opts) {
 		badge: opts.items ? opts.items.length : null
 	});
 }
+
+
 
 module.exports = React.createClass({
 	displayName: 'AppContainer',
@@ -86,87 +96,78 @@ module.exports = React.createClass({
 
 	},
 
+
 	_navChanged: function(evt) {
 		this.setState({leftNav: Navigation.Store.getNav()});
 	},
 
+
 	getInitialState: function() {
 		return {
+			menu: null,
 			loggedIn: false,
 			leftNav: []
 		};
 	},
 
-	componentDidMount: function() {
+
+	__setupGestures: function() {
 		var dom = this.getDOMNode();
 		var gestures = new Hammer(document.body, {
 			swipeVelocityX: 0.05,
 			swipeVelocityY: 0.1
 		});
 
-		$(dom).foundation({
-			offcanvas: {
-				// open_method: 'overlap_single'
-				// close_on_click: true
-			}
-		});
+		gestures.on('swipe', this._onSwipe);
+	},
 
 
-		gestures.on('swipe', function(ev) {
-		    var swippedLeft = ev.direction === Hammer.DIRECTION_LEFT;
-		    var swippedRight = ev.direction === Hammer.DIRECTION_RIGHT;
-			var leftOpen = !!dom.querySelector('.off-canvas-wrap.move-right');
-			var rightOpen = !!dom.querySelector('.off-canvas-wrap.move-left');
-			var action = null;
-			var target = null;
-
-			if (swippedRight) {
-				console.log('Swipped Right');
-				action = rightOpen ? 'hide' : leftOpen ? null : 'show';
-				target = action && (action === 'hide' ? 'move-left' : 'move-right');
-			}
-			else if (swippedLeft) {
-				console.log('Swipped Left');
-				action = leftOpen ? 'hide' : rightOpen ? null : 'show';
-				target = action && (action === 'hide' ? 'move-right' : 'move-left');
-			}
-
-
-			if (action && target) {
-				$(dom).foundation('offcanvas', action, target);
-			}
-		});
-
-
+	componentDidMount: function() {
 		Navigation.Store.addChangeListener(this._navChanged);
 		Library.Store.addChangeListener(this._libraryChanged);
 		Library.Store.getData(true);
+		this.__setupGestures();
 	},
+
 
 	componentWillUnmount: function() {
 		Library.Store.removeChangeListener(this._libraryChanged);
 		Navigation.Store.removeChangeListener(this._navChanged);
 	},
 
+
 	render: function() {
+
+		var state = this.state.menu || '';
+
 		return (
 			<div className="app-container">
-				<div className="off-canvas-wrap" data-offcanvas>
+				<div className={'off-canvas-wrap ' + state} data-offcanvas>
 					<div className="inner-wrap">
 						<nav className="tab-bar">
 							<section className="left-small">
-								<a href="#" id="left-menu" className="left-off-canvas-toggle menu-icon"><span></span></a>
+								<a	className="left-off-canvas-toggle menu-icon"
+									onClick={this._onLeftMenuClick}
+									href="#"><span/></a>
 							</section>
+
 							<section className="middle tab-bar-section">
-								<h1 className="title">next thought</h1>
+								<h1	className="title">next thought</h1>
 							</section>
+
 							<section className="right-small">
-								<a className="right-off-canvas-toggle fi-megaphone" href="#"><span></span></a>
+								<a	className="right-off-canvas-toggle fi-megaphone"
+									onClick={this._onRightMenuClick}
+									href="#"><span/></a>
 							</section>
 						</nav>
+
 						<aside className="left-off-canvas-menu">
-							<LeftNav basePath={this.props.basePath} items={this.state.leftNav} backClick={function() {alert('hi')}}/>
+							<LeftNav basePath={this.props.basePath}
+								items={this.state.leftNav}
+								backClick={function() {alert('hi')}}/>
 						</aside>
+
 						<aside className="right-off-canvas-menu">
 							<Notifications.View/>
 						</aside>
@@ -177,10 +178,52 @@ module.exports = React.createClass({
 							<Footer />
 						</section>
 
-						<a className="exit-off-canvas"></a>
+						<a className="exit-off-canvas" onClick={this._onCloseMenus}></a>
 					</div>
 				</div>
 			</div>
 		);
+	},
+
+
+	_onCloseMenus: function(e) {
+		e.preventDefault();
+		this.setState({menu: null});
+	},
+
+
+	_onLeftMenuClick: function(e) {
+		e.preventDefault();
+		this.setState({menu: LEFT_MENU_OPEN});
+	},
+
+
+	_onRightMenuClick: function(e) {
+		e.preventDefault();
+		this.setState({menu: RIGHT_MENU_OPEN});
+	},
+
+
+	_onSwipe: function(ev) {
+		var swippedLeft = ev.direction === Hammer.DIRECTION_LEFT;
+		var swippedRight = ev.direction === Hammer.DIRECTION_RIGHT;
+		var state = this.state.menu;
+
+		var leftOpen = state === LEFT_MENU_OPEN;
+		var rightOpen = state === RIGHT_MENU_OPEN;
+
+
+		if (swippedRight) {
+			state = rightOpen ?
+						CLOSE_MENU :
+						LEFT_MENU_OPEN;
+		}
+		else if (swippedLeft) {
+			state = leftOpen ?
+						CLOSE_MENU :
+						RIGHT_MENU_OPEN;
+		}
+
+		this.setState({menu: state});
 	}
 });
