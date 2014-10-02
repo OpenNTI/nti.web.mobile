@@ -24,6 +24,10 @@ var t = require('../locale').translate;
 var LEFT_MENU_OPEN = 'move-right';
 var RIGHT_MENU_OPEN = 'move-left';
 var CLOSE_MENU = '';
+var DRAWER_STATE = {
+	'#nav': LEFT_MENU_OPEN,
+	'#notifications': RIGHT_MENU_OPEN
+};
 
 
 // TODO: move "navigation" specific code into a Navigation
@@ -104,10 +108,15 @@ module.exports = React.createClass({
 
 	getInitialState: function() {
 		return {
-			menu: null,
 			loggedIn: false,
 			leftNav: []
 		};
+	},
+
+
+	getDrawerState: function() {
+		var key = location.hash || '';
+		return DRAWER_STATE[key.toLowerCase()] || '';
 	},
 
 
@@ -138,7 +147,7 @@ module.exports = React.createClass({
 
 	render: function() {
 
-		var state = this.state.menu || '';
+		var state = this.getDrawerState();
 
 		return (
 			<div className="app-container">
@@ -187,43 +196,44 @@ module.exports = React.createClass({
 
 
 	_onCloseMenus: function(e) {
-		e.preventDefault();
-		this.setState({menu: null});
+		if (e) {e.preventDefault();}
+		Navigation.Actions.gotoFragment(null);
 	},
 
 
 	_onLeftMenuClick: function(e) {
-		e.preventDefault();
-		this.setState({menu: LEFT_MENU_OPEN});
+		if (e) {e.preventDefault();}
+		Navigation.Actions.gotoFragment('nav');
 	},
 
 
 	_onRightMenuClick: function(e) {
-		e.preventDefault();
-		this.setState({menu: RIGHT_MENU_OPEN});
+		if (e) {e.preventDefault();}
+		Navigation.Actions.gotoFragment('notifications');
 	},
 
 
-	_onSwipe: function(ev) {
-		var swippedLeft = ev.direction === Hammer.DIRECTION_LEFT;
-		var swippedRight = ev.direction === Hammer.DIRECTION_RIGHT;
-		var state = this.state.menu;
+	_onSwipe: function(e) {
+		var swippedLeft = e.direction === Hammer.DIRECTION_LEFT;
+		var swippedRight = e.direction === Hammer.DIRECTION_RIGHT;
+
+		var state = this.getDrawerState();
+		var action = function(){};
 
 		var leftOpen = state === LEFT_MENU_OPEN;
 		var rightOpen = state === RIGHT_MENU_OPEN;
 
-
 		if (swippedRight) {
-			state = rightOpen ?
-						CLOSE_MENU :
-						LEFT_MENU_OPEN;
+			action = rightOpen ?
+						this._onCloseMenus :
+						this._onLeftMenuClick;
 		}
 		else if (swippedLeft) {
-			state = leftOpen ?
-						CLOSE_MENU :
-						RIGHT_MENU_OPEN;
+			action = leftOpen ?
+						this._onCloseMenus :
+						this._onRightMenuClick;
 		}
 
-		this.setState({menu: state});
+		action();
 	}
 });
