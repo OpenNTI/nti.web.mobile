@@ -16,6 +16,14 @@ function _sources(options) {
 	return kaltura.getSources(options);
 }
 
+var videoEvents = ['playing','pause','ended','seeked','timeupdate'];
+
+
+function eventHandlerName(eventname) {
+	// construct prop name from event name (e.g. 'onPlayed' from 'played')
+	return 'on' + eventname.charAt(0).toUpperCase() + eventname.slice(1);
+}
+
 /**
  * @class KalturaVideo
  *
@@ -36,6 +44,16 @@ var KalturaVideo = React.createClass({
 			]).isRequired
 	},
 
+	getDefaultProps: function() {
+		var p = {};
+		videoEvents.forEach(function(eventname) {
+			var propName = eventHandlerName(eventname);
+			p[propName] = function() {
+				console.warn('No handler provided for %s', propName);
+			};
+		});
+		return p;
+	},
 
 	getInitialState: function() {
 		return {
@@ -77,7 +95,7 @@ var KalturaVideo = React.createClass({
 					poster: data.poster,
 					sources: data.sources || [],
 					sourcesLoaded: true,
-					isError: (data.objectType == 'KalturaAPIException')
+					isError: (data.objectType === 'KalturaAPIException')
 				});
 			}.bind(this)
 		});
@@ -89,24 +107,23 @@ var KalturaVideo = React.createClass({
 		var video = this.getDOMNode();
 
 		if ('video' === video.tagName.toLowerCase() && !this.state.listening) {
-			video.addEventListener('timeupdate', this.onTimeUpdate, false);
+			videoEvents.forEach(function(eventname) {
+				var handler = eventHandlerName(eventname);
+				video.addEventListener(eventname, this.props[handler], false);
+			}.bind(this));
 			this.setState({listening: true});
 		}
 	},
 
-
 	componentWillUnmount: function() {
 		var video = this.getDOMNode();
 		if (video) {
-			video.removeEventListener('timeupdate', this.onTimeUpdate, false);
+			videoEvents.forEach(function(eventname) {
+				var handler = eventHandlerName(eventname);
+				video.removeEventListener(eventname, this.props[handler], false);
+			}.bind(this));
 		}
 	},
-
-
-	onTimeUpdate: function(e) {
-		call(this.props.onTimeUpdate, e.target.currentTime);
-	},
-
 
 	setCurrentTime: function(time) {
 		if (this.isMounted()) {

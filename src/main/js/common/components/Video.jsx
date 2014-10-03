@@ -4,6 +4,7 @@
 var React = require('react/addons');
 var Providers = require('./video-services');
 var Model = require('dataserverinterface/models/Video');
+var call = require('dataserverinterface/utils/function-call');
 
 module.exports = React.createClass({
 	displayName: 'Video',
@@ -28,14 +29,45 @@ module.exports = React.createClass({
 		 *
 		 * @type {onTimeUpdate}
 		 */
-		onTimeUpdate: React.PropTypes.func
+		onTimeUpdate: React.PropTypes.func,
+		onSeeked: React.PropTypes.func,
+		onPlaying: React.PropTypes.func,
+		onPause: React.PropTypes.func,
+		onEnded: React.PropTypes.func
 	},
 
+	onTimeUpdate: function(event) {
+		console.log('onTimeUpdate');
+		call(this.props.onTimeUpdate,event);
+	},
+
+	onSeeked: function(event) {
+		console.log('onSeeked');
+		call(this.props.onSeeked,event);
+	},
+
+	onPlaying: function(event) {
+		console.log('onPlaying');
+		call(this.props.onPlaying,event);
+	},
+
+	onPause: function(event) {
+		console.log('onPause');
+		call(this.props.onPause,event);
+	},
+
+	onEnded: function(event) {
+		console.log('onEnded');
+		call(this.props.onEnded,event);
+	},
 
 	setCurrentTime: function(time) {
 		this.refs.activeVideo.setCurrentTime(time);
 	},
 
+	handleVideoEvent: function(event) {
+		console.log('Video::handleVideoEvent: %O', event);
+	},
 
 	render: function() {
 		var video = this.props.src;
@@ -45,7 +77,13 @@ module.exports = React.createClass({
 		var props = {
 			ref: 'activeVideo',
 			src: typeof video === 'string' && video,
-			source: videoSource
+			source: videoSource,
+			eventListener: this.handleVideoEvent,
+			onTimeUpdate: this.onTimeUpdate,
+			onSeeked: this.onSeeked,
+			onPlaying: this.onPlaying,
+			onPause: this.onPause,
+			onEnded: this.onEnded
 		};
 
 		return (
