@@ -8,8 +8,26 @@ var youtube = require('./youtube');
 var iframe = require('./iframe');
 
 var kalturaRe = /^kaltura/i;
-var vimeoRe = /vimeo/i
+var vimeoRe = /vimeo/i;
 var youtubeRe = /youtu(\.?)be/i;
+
+
+function getUrl(data) {
+	var src = data && data.sources[0];
+	var url = src && Url.parse(src.source[0]);
+
+	if (!data || !/^kaltura/i.test(src.service)) {
+		return url;
+	}
+
+	url = Url.parse('');
+	url.protocol = src.service;
+	url.host = '//';
+	url.pathname = src.source[0];
+
+	return url;
+}
+
 
 exports = module.exports = {
 	Kaltura: kaltura,
@@ -40,20 +58,3 @@ exports = module.exports = {
 	getUrl: getUrl
 
 };
-
-
-function getUrl(data) {
-	var src = data && data.sources[0];
-	var url = src && Url.parse(src.source[0]);
-
-	if (!data || !/^kaltura/i.test(src.service)) {
-		return url;
-	}
-
-	url = Url.parse('');
-	url.protocol = src.service;
-	url.host = '//';
-	url.pathname = src.source[0];
-
-	return url;
-}
