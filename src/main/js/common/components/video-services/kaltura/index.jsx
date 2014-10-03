@@ -16,12 +16,11 @@ function _sources(options) {
 	return kaltura.getSources(options);
 }
 
-var videoEvents = ['playing','pause','ended','seeked','timeupdate'];
+var eventHandlers = ['onPlaying','onPause','onEnded','onSeeked','onTimeUpdate'];
 
-
-function eventHandlerName(eventname) {
-	// construct prop name from event name (e.g. 'onPlayed' from 'played')
-	return 'on' + eventname.charAt(0).toUpperCase() + eventname.slice(1);
+function eventName(handlerName) {
+	// extract event name from handler name (e.g. 'timeupdate' from 'onTimeUpdate')
+	return handlerName.toLowerCase().slice(2);
 }
 
 /**
@@ -46,10 +45,9 @@ var KalturaVideo = React.createClass({
 
 	getDefaultProps: function() {
 		var p = {};
-		videoEvents.forEach(function(eventname) {
-			var propName = eventHandlerName(eventname);
-			p[propName] = function() {
-				console.warn('No handler provided for %s', propName);
+		eventHandlers.forEach(function(handlerName) {
+			p[handlerName] = function() {
+				console.warn('No handler provided for %s', handlerName);
 			};
 		});
 		return p;
@@ -107,9 +105,9 @@ var KalturaVideo = React.createClass({
 		var video = this.getDOMNode();
 
 		if ('video' === video.tagName.toLowerCase() && !this.state.listening) {
-			videoEvents.forEach(function(eventname) {
-				var handler = eventHandlerName(eventname);
-				video.addEventListener(eventname, this.props[handler], false);
+			eventHandlers.forEach(function(handlerName) {
+				var eventname = eventName(handlerName);
+				video.addEventListener(eventname, this.props[handlerName], false);
 			}.bind(this));
 			this.setState({listening: true});
 		}
@@ -118,8 +116,8 @@ var KalturaVideo = React.createClass({
 	componentWillUnmount: function() {
 		var video = this.getDOMNode();
 		if (video) {
-			videoEvents.forEach(function(eventname) {
-				var handler = eventHandlerName(eventname);
+			eventHandlers.forEach(function(handlerName) {
+				var eventname = eventName(handlerName);
 				video.removeEventListener(eventname, this.props[handler], false);
 			}.bind(this));
 		}
