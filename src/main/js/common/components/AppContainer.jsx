@@ -122,6 +122,7 @@ module.exports = React.createClass({
 
 	__setupGestures: function() {
 		var dom = this.getDOMNode();
+		delete Hammer.defaults.cssProps.userSelect;
 		var gestures = new Hammer(document.body, {
 			swipeVelocityX: 0.05,
 			swipeVelocityY: 0.1
