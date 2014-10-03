@@ -2,6 +2,8 @@
 'use strict';
 var React = require('react/addons');
 
+var NTIID = require('dataserverinterface/utils/ntiids');
+
 var Card = require('common/components/Card');
 
 var path = require('path');
@@ -52,7 +54,7 @@ module.exports = React.createClass({
 		var props = this.props;
 		var basePath = path.join(
 			props.basePath,
-			'course', //encodeURIComponent(props.course.getID()),
+			'course', //NTIID.encodeForURI(props.course.getID()),
 			'o', props.outlineId
 		)
 

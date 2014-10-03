@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 'use strict';
-
+var NTIID = require('dataserverinterface/utils/ntiids');
 var React = require('react/addons');
 var Router = require('react-router-component');
 
@@ -49,7 +49,7 @@ module.exports = React.createClass({
 
 
 	getDataIfNeeded: function(props) {
-		var courseId = decodeURIComponent(props.course);
+		var courseId = NTIID.decodeFromURI(props.course);
 		this.setState({loading: true});
 
 		Actions.setCourse(courseId);

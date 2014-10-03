@@ -3,6 +3,7 @@
 
 var path = require('path');
 var React = require('react/addons');
+var NTIID = require('dataserverinterface/utils/ntiids');
 var Video = require('common/components/Video');
 var LoadingMask = require('common/components/Loading');
 
@@ -72,8 +73,8 @@ module.exports = React.createClass({
 		};
 
 		var link = path.join(props.basePath,
-			'course', encodeURIComponent(props.course.getID()),
-			'v', encodeURIComponent(item.NTIID));
+			'course', NTIID.encodeForURI(props.course.getID()),
+			'v', NTIID.encodeForURI(item.NTIID));
 
 
 		return (

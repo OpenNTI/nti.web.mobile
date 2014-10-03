@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 'use strict';
 
+var NTIID = require('dataserverinterface/utils/ntiids');
+
 var React = require('react/addons');
 
 var path = require('path');
@@ -38,8 +40,8 @@ module.exports = React.createClass({
 
 			var link = path.join(
 				props.basePath,
-				'course', encodeURIComponent(props.course.getID()),
-				'v', encodeURIComponent(v.ntiid));
+				'course', NTIID.encodeForURI(props.course.getID()),
+				'v', NTIID.encodeForURI(v.ntiid));
 
 			return (
 				<li className="grid-item" key={v.ntiid + '-' + i}>

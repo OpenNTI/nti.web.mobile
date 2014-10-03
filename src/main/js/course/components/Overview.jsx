@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 'use strict';
-
+var NTIID = require('dataserverinterface/utils/ntiids');
 var React = require('react/addons');
 
 var DateTime = require('common/components/DateTime');
@@ -77,7 +77,7 @@ module.exports = React.createClass({
 		this.setState(this.getInitialState());
 		try {
 
-			props.course.getOutlineNode(decodeURIComponent(props.outlineId))
+			props.course.getOutlineNode(NTIID.decodeFromURI(props.outlineId))
 				.then(this.__getOutlineNodeContents)
 				.catch(this.__onError);
 

@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 'use strict';
 
+var NTIID = require('dataserverinterface/utils/ntiids');
+
 var React = require('react/addons');
 
 var Loading = require('common/components/Loading');
@@ -83,7 +85,7 @@ module.exports = React.createClass({
 
 
 	getPageID: function () {
-		return decodeURIComponent(this.props.pageId);
+		return NTIID.decodeFromURI(this.props.pageId);
 	},
 
 

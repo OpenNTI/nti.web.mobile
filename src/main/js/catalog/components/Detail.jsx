@@ -4,6 +4,8 @@
 var React = require('react/addons');
 var Loading = require('common/components/Loading');
 
+var NTIID = require('dataserverinterface/utils/ntiids');
+
 var Actions = require('../Actions');
 var Store = require('../Store');
 
@@ -44,7 +46,7 @@ module.exports = React.createClass({
 
 
 	getDataIfNeeded: function(props) {
-		var entryId = decodeURIComponent(props.entryId);
+		var entryId = NTIID.decodeFromURI(props.entryId);
 		var entry = props.entry || Store.getEntry(entryId);
 
 		this.setState({

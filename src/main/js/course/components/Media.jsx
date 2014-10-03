@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 'use strict';
 
+var NTIID = require('dataserverinterface/utils/ntiids');
+
 var React = require('react/addons');
 
 var Loading = require('common/components/Loading');
@@ -71,7 +73,7 @@ module.exports = React.createClass({
 		if (this.state.error) {	return <Error error={this.state.error}/> }
 
 		var p = this.props;
-		var videoId = p.videoId && decodeURIComponent(p.videoId);
+		var videoId = p.videoId && NTIID.decodeFromURI(p.videoId);
 		var videoIndex = this.state.videoIndex;
 		var video = videoIndex.get(videoId);
 

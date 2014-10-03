@@ -27,7 +27,8 @@ var path = require('path');
 var React = require('react/addons');
 var merge = require('react/lib/merge');
 
-var isNTIID = require('dataserverinterface/utils/ntiids').isNTIID;
+var NTIID = require('dataserverinterface/utils/ntiids');
+var isNTIID = NTIID.isNTIID;
 
 module.exports = React.createClass({
 	displayName: 'RelatedWorkRef',
@@ -97,7 +98,7 @@ module.exports = React.createClass({
 		if (isNTIID(href)) {
 			var link = path.join(
 				props.basePath,
-				props.pathname, encodeURIComponent(href));
+				props.pathname, NTIID.encodeForURI(href));
 
 			this.setState({href: link})
 			return;

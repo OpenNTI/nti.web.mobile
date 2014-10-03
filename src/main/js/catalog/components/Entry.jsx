@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 'use strict';
-
 var React = require('react/addons');
+var NTIID = require('dataserverinterface/utils/ntiids');
 var BLANK_IMAGE = require('common/constants/DataURIs').BLANK_IMAGE;
 
 module.exports = React.createClass({
@@ -28,7 +28,7 @@ module.exports = React.createClass({
 
 	render: function() {
 		var p = this.props.item;
-		var courseId = encodeURIComponent(this.props.item.getID());
+		var courseId = NTIID.encodeForURI(this.props.item.getID());
 		var style = {
 			backgroundImage: 'url(' + p.icon + ')'
 		}
