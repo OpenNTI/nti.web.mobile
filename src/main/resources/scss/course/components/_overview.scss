@@ -59,13 +59,11 @@
 		margin: 0.3rem -0.5rem;
 
 		.prev, .next {
-			font-size: 8vw;
-			background: none;
+			background: rgba(0,0,0,0);
 			position: absolute;
 			overflow: visible;
-			line-height: 0;
+			line-height: 2;
 			bottom: 0;
-			//top: 0;
 			margin: 0;
 			padding: 0;
 			&:focus {
@@ -76,15 +74,12 @@
 			}
 
 			&::before {
-				background: rgba(0, 0, 0, 0.1);
-				border-radius: 100%;
-				width: 2rem;
-				height: 2rem;
-				line-height: 2rem;
+				content: ' ';//override the icon
+				width: 50vw;
 			}
 		}
-		.prev { left: 0; padding-left: 0.3rem; }
-		.next {	right: 0; padding-right: 0.3rem; }
+		.prev { left: 0; }
+		.next {	right: 0; }
 
 
 	}
