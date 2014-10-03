@@ -3,9 +3,6 @@
 
 var React = require('react/addons');
 var Router = require('react-router-component');
-var Locations = Router.Locations;
-var Location = Router.Location;
-var DefaultRoute = Router.NotFound;
 
 var Detail = require('catalog/components/Detail');
 var Loading = require('common/components/Loading');
@@ -78,13 +75,13 @@ module.exports = React.createClass({
 		}
 
 		return (
-			<Locations contextual>
-				<DefaultRoute handler={Detail} entry={entry} noBack/>
-				<Location path="/v(/)(:videoId)" handler={Media} course={course} basePath={this.props.basePath}/>
-				<Location path="/o(/)" handler={Outline} course={course} basePath={this.props.basePath}/>
-				<Location path="/o/:outlineId(/)" handler={Overview} course={course} basePath={this.props.basePath}/>
-				<Location path="/o/:outlineId/c/:pageId" handler={Content.View} course={course} basePath={this.props.basePath} pathname="c"/>
-			</Locations>
+			<Router.Locations contextual>
+				<Router.Location path="/v/(:videoId/)(#:nav)" handler={Media} course={course} basePath={this.props.basePath}/>
+				<Router.Location path="/o/(#:nav)" handler={Outline} course={course} basePath={this.props.basePath}/>
+				<Router.Location path="/o/:outlineId/(#:nav)" handler={Overview} course={course} basePath={this.props.basePath}/>
+				<Router.Location path="/o/:outlineId/c/:pageId/(#:nav)" handler={Content.View} course={course} basePath={this.props.basePath} pathname="c"/>
+				<Router.NotFound handler={Detail} entry={entry} noBack/>
+			</Router.Locations>
 		);
 	}
 });

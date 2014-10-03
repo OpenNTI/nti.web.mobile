@@ -34,7 +34,7 @@ module.exports = React.createClass({
 		}
 		return (
 			<li className="grid-item">
-				<a href={'./' + courseId}>
+				<a href={'./' + courseId + '/'}>
 					<img style={style} src={BLANK_IMAGE}/>
 					<div className="metadata">
 						<h3>{p.Title}</h3>
