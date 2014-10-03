@@ -96,7 +96,7 @@ app.get(appRoutes, function(req, res) {
 			//Final render
 			console.log('Flushing Render to client: %s %s', req.url, req.username);
 			res.end(page(req, entryPoint,
-				common.clientConfig() + datacache.getForContext(req).serialize()
+				common.clientConfig(req.username) + datacache.getForContext(req).serialize()
 			));
 		});
 });

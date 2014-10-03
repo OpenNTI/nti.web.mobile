@@ -53,8 +53,9 @@ exports.config = function() {
 		overrides);
 };
 
-exports.clientConfig = function() {
+exports.clientConfig = function(username) {
 	var config = this.config();
+	config.username = username;
 	return '\n<script type="text/javascript">\n' +
 			'window.$AppConfig = ' + JSON.stringify(config) +
 			'\n</script>\n';
