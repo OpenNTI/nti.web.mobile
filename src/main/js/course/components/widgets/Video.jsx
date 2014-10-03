@@ -65,6 +65,11 @@ module.exports = React.createClass({
 	},
 
 
+	onStop: function() {
+		this.setState({video: null});
+	},
+
+
 	render: function() {
 		var props = this.props;
 		var item = props.item;
@@ -80,13 +85,12 @@ module.exports = React.createClass({
 		return (
 			<li tabIndex="0" onFocus={props.onFocus} style={style} className="video-wrap flex-video widescreen">
 				{this.state.video ?
-				<Video ref="video" src={this.state.video} autoPlay />
+				<Video ref="video" src={this.state.video} autoPlay onPause={this.onStop} onEnded={this.onStop} />
 					:
 				<LoadingMask loading={this.state.loading} className="wrapper">
-					<a className="label" title={item.label} href={link}>{item.label}</a>
 					<div className="buttons">
 						<a className="play" title="Play" href="#play" onClick={this.onPlayClicked}/>
-						<a className="player" title="Play" href={link}/>
+						<a className="label" title={item.label} href={link}>{item.label}</a>
 					</div>
 				</LoadingMask>
 				}
