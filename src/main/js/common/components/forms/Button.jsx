@@ -10,14 +10,22 @@ var React = require('react/addons');
 */
 var Button = React.createClass({
 
+	getDefaultProps: function() {
+		return {
+			href: '#'
+		};
+	},
+
 	onClick: function(e) {
 		(this.props.onClick||function(){}).apply(this,arguments);
-		e.preventDefault();
+		if(this.props.href==='#') {
+			e.preventDefault();
+		}
 	},
 
 	render: function() {
 		return this.transferPropsTo(
-			<a href={this.props.href||'#'} onClick={this.onClick} className='button tiny radius'>{this.props.children}</a>
+			<a href={this.props.href} onClick={this.onClick} className='button tiny radius'>{this.props.children}</a>
 		);
 	}
 });
