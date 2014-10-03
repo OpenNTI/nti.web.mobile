@@ -28,7 +28,7 @@
 	letter-spacing:0.1em;
 }
 
-.button, input[type=button], input[type=submit], input[type=reset] {
+.button, input[type=button], input[type=submit], input[type=reset], button {
 	@include input-typography;
 }
 

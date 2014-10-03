@@ -40,10 +40,10 @@ module.exports = React.createClass({
 		var cssClasses = "tiny button radius";
 
 		return (
-			<div className="recovery">
-				<Link className={cssClasses} href="/forgot/username">{t('username')}</Link>
-				<Link className={cssClasses} href="/forgot/password">{t('password')}</Link>
-			</div>
+			<div className="row">
+				<div className="small-5 columns text-center"><Link className={cssClasses} href="/forgot/username">{t('username')}</Link></div>
+				<div className="small-5 columns text-center"><Link className={cssClasses} href="/forgot/password">{t('password')}</Link></div>
+			</div>		
 		);
 	}
 
