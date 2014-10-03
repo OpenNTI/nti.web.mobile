@@ -10,6 +10,62 @@ var withValue = require('dataserverinterface/utils/object-attribute-withvalue');
 
 var DomUtils = {
 
+	matches: function matches(el, selector) {
+		var fn = matches.nativeFn;
+		if(fn === undefined) {
+			//Figure out what the native function is called... (if any)
+			// If non, it should set it to 'null' and prevent the above
+			// strict equality from passing in the future.
+			fn = matches.nativeFn = [
+				'matches',
+				'webkitMatchesSelector',
+				'mozMatchesSelector',
+				'msMatchesSelector'
+				].reduce(function(fn, name) {
+					return fn || (el[name] && name) || null; },null);
+		}
+
+		if (fn) {
+			return el[fn](selector);
+		}
+
+		//In the fallback case, and there happens to be no `parentNode`... we're screwed. :|
+		//Maybe create a DocumentFragment and append el to that and use that as the parent?
+		return !!toArray(el.parentNode.querySelectorAll(selector))
+			.reduce(function(match, potential) {
+				return match || (el === potential && potential);
+			});
+	},
+
+
+	/**
+	 * Much like the Sencha ExtJS EventObject.getTarget() method. This will
+	 * resolve an event target based on the selector.  If the selector does
+	 * not match it will not return anything. If no selector is given, it will
+	 * simply return the target.(normalized)
+	 *
+	 * @param {Event} event    The browser/synthetic event. (Must have a
+	 *                         `target` property to used duck-typed)
+	 * @param {String} selector A CSS selector.
+	 */
+	getEventTarget: function(event, selector) {
+		var t = event.target || event.srcElement;
+		if (t && t.nodeType === 3) {//3 === Node.TEXT_NODE
+			t = t.parentNode;
+		}
+
+		if (t && !isEmpty(selector)) {
+			while(t.parentNode && !this.matches(t, selector)) {
+				t = t.parentNode;
+			}
+		}
+
+		//Node.ELEMENT_NODE = 1... but the constant is not always defined,
+		//this will return null for any node/falsy value of t where t's NodeType
+		// is not an Element.
+		return (t && t.nodeType === 1 && t) || null;
+	},
+
 
 	filterNodeList: function(nodeList, filter) {
 		var d = toArray(nodeList);
