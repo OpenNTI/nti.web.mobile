@@ -37,10 +37,6 @@ if (global.addEventListener) {
 }
 
 
-//FIXME: We should have a formal init somewhere...
-require('./notifications').Actions.load();
-
-
 var app = React.renderComponent(
 	AppView({basePath: $AppConfig.basepath || '/'}),
 	document.getElementById('content')
