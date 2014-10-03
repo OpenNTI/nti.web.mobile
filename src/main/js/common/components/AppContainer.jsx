@@ -144,7 +144,7 @@ module.exports = React.createClass({
 	render: function() {
 
 		var state = this.getDrawerState();
-		var username = 'local';
+		var username = $AppConfig.username;
 
 		return (
 			<div className="app-container">
