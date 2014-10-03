@@ -69,6 +69,9 @@ var KalturaVideo = React.createClass({
 			entryId: entryId,
 			partnerId: partnerId,
 			callback: function(data) {
+				if (!this.isMounted()) {
+					return;
+				}
 				this.setState({
 					duration: data.duration,
 					poster: data.poster,
