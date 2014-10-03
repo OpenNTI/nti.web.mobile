@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+'use strict';
+
 var React = require('react');
 var NavRecord = require('../NavRecord');
 var Button = require('common/components/forms/Button');
@@ -20,6 +22,18 @@ var NavDrawerItem = React.createClass({
 		Actions.navigate(this.props.record.href);
 	},
 
+	_labelClasses: function() {
+		var classes = [];
+		var rec = this.props.record;
+		if (!rec.clickable ) {
+			classes.push('disabled');
+		}
+		if (rec.href && rec.href === document.location.pathname) {
+			classes.push('active');
+		}
+		return classes.join(' ');
+	},
+
 	render: function() {
 		var record = this.props.record;
 		var depth = this.props.depth || 1;
@@ -30,7 +44,8 @@ var NavDrawerItem = React.createClass({
 		if(ch) {
 			sub = <ul>{ch}</ul>
 		}
-		var label = record.label ? <a onClick={this._navigate} className={record.clickable ? '' : 'disabled'}>{record.label}</a> : null;
+		var classes = this._labelClasses();
+		var label = record.label ? <a onClick={this._navigate} className={classes}>{record.label}</a> : null;
 		return (
 			<li key={record.label ? record.label : 'xx'}>
 				{label}
