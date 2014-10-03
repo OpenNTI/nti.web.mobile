@@ -33,10 +33,22 @@ var WIDGET_SELECTORS_AND_STRATEGIES = {
 	'object[type$=image-collection]': DomUtils.parseDomObject,
 	'object[class=ntirelatedworkref]': DomUtils.parseDomObject,
 
-	'object[type$=ntisequenceitem]': function() {},
-	'object[type$=ntiaudio]': function() {},
+	'object[type$=ntisequenceitem]': function() {return {};},
+	'object[type$=ntiaudio]': function() {return {};},
 
-	'[itemprop~=nti-data-markupenabled],[itemprop~=nti-slide-video]': function() {}
+	//This should always be a <span><img/></span> construct:
+	// <span itemprop="nti-data-markupenabled" id="e1d9a79d-2828-4d86-8eb7-1eeaa125d8d2">
+	// 	<img crossorigin="anonymous"
+	// 		data-nti-image-full="resources/CHEM..."
+	// 		data-nti-image-half="resources/CHEM..."
+	// 		data-nti-image-quarter="resources/CHEM..."
+	// 		data-nti-image-size="actual"
+	// 		id="bbba3b97a2251587d4a483af98cb398c"
+	// 		src="/content/sites/platform.ou.edu/CHEM..."
+	// 		style="width:320px; height:389px">
+	// </span>
+	//
+	'[itemprop~=nti-data-markupenabled],[itemprop~=nti-slide-video]': function() {return {};}
 };
 
 
