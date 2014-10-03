@@ -81,7 +81,9 @@ module.exports = React.createClass({
 			VideoIndex: videoIndex,
 			videoId: videoId,
 			video: video,
-			parentPath: videoId ? location.href.replace(p.videoId, '') : null
+			parentPath: videoId ?
+				location.href.replace(p.videoId, '').replace(/\/\/$/, '/') : 
+				null
 		};
 
 		var Tag = videoId ? TranscriptedVideo : VideoGrid;

@@ -74,7 +74,7 @@ module.exports = React.createClass({
 
 		var link = path.join(props.basePath,
 			'course', NTIID.encodeForURI(props.course.getID()),
-			'v', NTIID.encodeForURI(item.NTIID));
+			'v', NTIID.encodeForURI(item.NTIID))  + '/';
 
 
 		return (

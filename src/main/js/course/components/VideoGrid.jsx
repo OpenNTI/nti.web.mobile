@@ -41,7 +41,7 @@ module.exports = React.createClass({
 			var link = path.join(
 				props.basePath,
 				'course', NTIID.encodeForURI(props.course.getID()),
-				'v', NTIID.encodeForURI(v.ntiid));
+				'v', NTIID.encodeForURI(v.ntiid)) + '/';
 
 			return (
 				<li className="grid-item" key={v.ntiid + '-' + i}>
