@@ -6,7 +6,7 @@ var Url = require('url');
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var Environment = require('react-router-component').environment.defaultEnvironment;
 var EventEmitter = require('events').EventEmitter;
-var merge = require('react/lib/merge')
+var merge = require('react/lib/merge');
 var Store = require('./Store');
 
 var Constants = require('./Constants');
