@@ -4,22 +4,17 @@
 var Hammer = require('hammerjs');
 
 var React = require('react/addons');
+var Library = require('library');
+var Navigation = require('navigation');
+var Notifications = require('notifications');
+
+var Avatar = require('./Avatar');
 var LeftNav = require('./LeftNav');
 var Footer = require('./Footer');
 
-var Notifications = require('notifications');
-
 var MessageDisplay = require('../messages').Display;
-
-var Router = require('react-router-component');
-var Locations = Router.Locations;
-var Location = Router.Location;
-
-var Library = require('library');
-
-var Navigation = require('navigation');
-
 var t = require('../locale').translate;
+
 
 var LEFT_MENU_OPEN = 'move-right';
 var RIGHT_MENU_OPEN = 'move-left';
@@ -149,6 +144,7 @@ module.exports = React.createClass({
 	render: function() {
 
 		var state = this.getDrawerState();
+		var username = 'local';
 
 		return (
 			<div className="app-container">
@@ -166,9 +162,9 @@ module.exports = React.createClass({
 							</section>
 
 							<section className="right-small">
-								<a	className="right-off-canvas-toggle fi-megaphone"
+								<a	className="right-off-canvas-toggle"
 									onClick={this._onRightMenuClick}
-									href="#"><span/></a>
+									href="#"><Avatar username={username} /></a>
 							</section>
 						</nav>
 

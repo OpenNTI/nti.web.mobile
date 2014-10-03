@@ -72,16 +72,24 @@ a.toolbar-button-left {
 	left: 2.8125rem;
 }
 
-a.right-off-canvas-toggle[class*='fi-'] {
+a.right-off-canvas-toggle {
 	width: 2.8125rem;
 	height: 2.8125rem;
 	color: #fff;
 	font-size: 1.5rem;
 	text-align: center;
 	display: block;
-	-webkit-transform: rotate(45deg);
-	transform: rotate(45deg);
+
+	img {
+		width: 2rem;
+		border-radius: 100%;
+		vertical-align: text-top;
+	}
 }
+
+
+
+
 
 .tab-bar-section .title {
 	overflow: hidden;
