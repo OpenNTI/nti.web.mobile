@@ -65,10 +65,6 @@ module.exports = React.createClass({
 		this.refs.activeVideo.setCurrentTime(time);
 	},
 
-	handleVideoEvent: function(event) {
-		console.log('Video::handleVideoEvent: %O', event);
-	},
-
 	render: function() {
 		var video = this.props.src;
 		var Provider = Providers.getHandler(video);
@@ -78,7 +74,6 @@ module.exports = React.createClass({
 			ref: 'activeVideo',
 			src: typeof video === 'string' && video,
 			source: videoSource,
-			eventListener: this.handleVideoEvent,
 			onTimeUpdate: this.onTimeUpdate,
 			onSeeked: this.onSeeked,
 			onPlaying: this.onPlaying,

@@ -11,16 +11,10 @@ var call = require('dataserverinterface/utils/function-call');
 var MediaSource = require('dataserverinterface/models/MediaSource');
 
 var Loading = require('../../Loading');
+var eventHandlers = require('common/constants/VideoEventHandlers');
 
 function _sources(options) {
 	return kaltura.getSources(options);
-}
-
-var eventHandlers = ['onPlaying','onPause','onEnded','onSeeked','onTimeUpdate'];
-
-function eventName(handlerName) {
-	// extract event name from handler name (e.g. 'timeupdate' from 'onTimeUpdate')
-	return handlerName.toLowerCase().slice(2);
 }
 
 /**
@@ -45,8 +39,9 @@ var KalturaVideo = React.createClass({
 
 	getDefaultProps: function() {
 		var p = {};
-		eventHandlers.forEach(function(handlerName) {
-			p[handlerName] = function() {
+		// default no-op video event handlers
+		Object.keys(eventHandlers).forEach(function(eventname) {
+			p[eventHandlers[eventname]] = function() {
 				console.warn('No handler provided for %s', handlerName);
 			};
 		});
@@ -105,9 +100,8 @@ var KalturaVideo = React.createClass({
 		var video = this.getDOMNode();
 
 		if ('video' === video.tagName.toLowerCase() && !this.state.listening) {
-			eventHandlers.forEach(function(handlerName) {
-				var eventname = eventName(handlerName);
-				video.addEventListener(eventname, this.props[handlerName], false);
+			Object.keys(eventHandlers).forEach(function(eventname) {
+				video.addEventListener(eventname, this.props[eventHandlers[eventname]], false);
 			}.bind(this));
 			this.setState({listening: true});
 		}
@@ -116,9 +110,8 @@ var KalturaVideo = React.createClass({
 	componentWillUnmount: function() {
 		var video = this.getDOMNode();
 		if (video) {
-			eventHandlers.forEach(function(handlerName) {
-				var eventname = eventName(handlerName);
-				video.removeEventListener(eventname, this.props[handler], false);
+			Object.keys(eventHandlers).forEach(function(eventname) {
+				video.removeEventListener(eventname, this.props[eventHandlers[eventname]], false);
 			}.bind(this));
 		}
 	},
@@ -128,7 +121,6 @@ var KalturaVideo = React.createClass({
 			this.getDOMNode().currentTime = time;
 		}
 	},
-
 
 	render: function() {
 
