@@ -17,6 +17,10 @@ function _sources(options) {
 	return kaltura.getSources(options);
 }
 
+function _videoEventHandler(event) {
+	console.warn('No handler specified for video event \'%s\'', event.type);
+}
+
 /**
  * @class KalturaVideo
  *
@@ -41,9 +45,7 @@ var KalturaVideo = React.createClass({
 		var p = {};
 		// default no-op video event handlers
 		Object.keys(eventHandlers).forEach(function(eventname) {
-			p[eventHandlers[eventname]] = function() {
-				console.warn('No handler provided for %s', handlerName);
-			};
+			p[eventHandlers[eventname]] = _videoEventHandler;
 		});
 		return p;
 	},
