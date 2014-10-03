@@ -102,6 +102,9 @@ var KalturaVideo = React.createClass({
 		var video = this.getDOMNode();
 
 		if ('video' === video.tagName.toLowerCase() && !this.state.listening) {
+			//attempt to tell the WebView to play inline...
+			video.setAttribute('webkit-playsinline', true);
+
 			Object.keys(eventHandlers).forEach(function(eventname) {
 				video.addEventListener(eventname, this.props[eventHandlers[eventname]], false);
 			}.bind(this));
