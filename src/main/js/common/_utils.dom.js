@@ -7,6 +7,10 @@ var toArray = require('dataserverinterface/utils/toarray');
 
 var withValue = require('dataserverinterface/utils/object-attribute-withvalue');
 
+var hyphenatedToCamel = function(s) {
+	var re = hyphenatedToCamel.re = (hyphenatedToCamel.re || /-([a-z])/g);
+	return s.replace(re, function (g) { return g[1].toUpperCase(); });
+}
 
 var DomUtils = {
 
@@ -85,11 +89,15 @@ var DomUtils = {
 	},
 
 
-	parseDomObject: function parse(el) {
+	parseDomObject: function parse(el, attributePrefix) {
 		var obj = {};
+		var prefix = isEmpty(attributePrefix, true) ?
+					'' : attributePrefix;
 
 		toArray(el.attributes).forEach(function(p) {
-			__addValue(obj, 'attribute-' + p.name, p.value);
+			__addValue(obj,
+				hyphenatedToCamel(prefix + p.name),
+				p.value);
 		});
 
 		__directChildNodes(el, 'param').forEach(function(p) {
@@ -99,7 +107,6 @@ var DomUtils = {
 		// SAJ: Does not work as intent and just wastes CPU cycles.
 		// __directChildNodes(el, 'object').forEach(parse.bind(this));
 
-		obj.asDomSpec = __template_asDomSpec.bind(obj);
 
 		Object.defineProperty(obj, 'dom', withValue(el.cloneNode(true)));
 
@@ -116,9 +123,7 @@ var DomUtils = {
 		if (contentElement) {
 			toArray(contentElement.querySelectorAll(videoQS)).forEach(function(v) {
 				var o = me.parseDomObject(v),
-					s =	[];
-
-				o.sources = s;
+					s = o.sources = [];
 
 				toArray(v.querySelectorAll(sourceQS)).forEach(function(source) {
 					s.push(me.parseDomObject(source));
@@ -133,36 +138,11 @@ var DomUtils = {
 
 
 	getImagesFromDom: function(contentElement) {
-		var imageObjects = [];
+		var imageObjects = [],
+			me = this;
+
 		toArray(contentElement.querySelectorAll('span > img')).forEach(function(i) {
-			var imageObj = {},
-				sizes = ['full', 'half', 'quarter'],
-				base,
-				src = i.getAttribute('src'),
-				resourceIndex,
-				current = i.getAttribute('data-nti-image-size'),
-				currentSrc = i.getAttribute('data-nti-image-' + current),
-				full = i.getAttribute('data-nti-image-full');
-				//half = i.getAttribute('data-nti-image-half'),
-				//quarter = i.getAttribute('data-nti-image-quarter');
-
-			//if for some reason there is no current src search all the sizes to get the base substring
-			if (currentSrc) {
-				resourceIndex = src.indexOf(currentSrc);
-			} else {
-				sizes.every(function(s) {
-					resourceIndex = src.indexOf(i.getAttribute('data-nti-image-' + s));
-
-					return resourceIndex < 0;
-				});
-			}
-
-			base = src.substr(0, resourceIndex);
-
-			this.removeNode(i.parentNode);
-
-			imageObj.url = base + full;
-			imageObjects.push(imageObj);
+			imageObjects.push(me.parseDomObject(i));
 		});
 		return imageObjects;
 	},
@@ -311,34 +291,16 @@ var DomUtils = {
 };
 
 
-
-function __template_asDomSpec() {
-	var r = /^attribute\-(.*)$/,
-		o = {
-				tag: 'object',
-				cn: []
-			};
-
-
-	Object.keys(this).forEach(function(k) {
-		var v = this[k];
-		if (isFunction(v) || isEmpty(v)) {return;}
-
-		var n = (r.exec(k) || [])[1];
-		if (!Ext.isEmpty(n)) {
-			o[n] = v;
-		}
-		else {
-			o.cn.push({tag: 'param', name: k, value: v});
-		}
-	}.bind(this));
-
-	return o;
-}
-
-
-
 function __addValue(o, n, v) {
+	var re = __addValue.re = (__addValue.re || /^data([A-Z])/);
+	var fn = __addValue.fn = (__addValue.fn || new Function('m, a', 'return a.toLowerCase();'));
+	if (re.test(n)) {
+		n = n.replace(re, fn);
+		o.dataset = (o.dataset || {});
+		o = o.dataset;
+	}
+
+
 	var c = o[n]; o[n] = c ? (Array.isArray(c) ? c : [c]).concat(v) : v;
 }
 

@@ -25,6 +25,8 @@ var BODY_REGEX = /<body[^>]+>(.*)<\/body/i;
 var STYLE_REGEX = /<link[^>]+href="([^"]+css)"[^>]*>/ig;
 
 var WIDGET_SELECTORS_AND_STRATEGIES = {
+	'[itemprop~=nti-data-markupenabled],[itemprop~=nti-slide-video]': parseFramedElement,
+
 	'object[type$=nticard]': DomUtils.parseDomObject,
 	'object[type$=ntislidedeck]': DomUtils.parseDomObject,
 	'object[type$=ntislidevideo][itemprop=presentation-card]': DomUtils.parseDomObject,
@@ -33,24 +35,9 @@ var WIDGET_SELECTORS_AND_STRATEGIES = {
 	'object[type$=image-collection]': DomUtils.parseDomObject,
 	'object[class=ntirelatedworkref]': DomUtils.parseDomObject,
 
-	'object[type$=ntisequenceitem]': function() {return {};},
-	'object[type$=ntiaudio]': function() {return {};},
-
-	//This should always be a <span><img/></span> construct:
-	// <span itemprop="nti-data-markupenabled" id="e1d9a79d-2828-4d86-8eb7-1eeaa125d8d2">
-	// 	<img crossorigin="anonymous"
-	// 		data-nti-image-full="resources/CHEM..."
-	// 		data-nti-image-half="resources/CHEM..."
-	// 		data-nti-image-quarter="resources/CHEM..."
-	// 		data-nti-image-size="actual"
-	// 		id="bbba3b97a2251587d4a483af98cb398c"
-	// 		src="/content/sites/platform.ou.edu/CHEM..."
-	// 		style="width:320px; height:389px">
-	// </span>
-	//
-	'[itemprop~=nti-data-markupenabled],[itemprop~=nti-slide-video]': function() {return {};}
+	'object[type$=ntisequenceitem]': DomUtils.parseDomObject,
+	'object[type$=ntiaudio]': DomUtils.parseDomObject
 };
-
 
 /**
  * Actions available to views for content-related functionality.
@@ -185,4 +172,36 @@ function parseWidgets(doc) {
 		});
 
 	}).reduce(flatten, []);
+}
+
+
+function parseFramedElement(el) {
+	//This should always be a <span><img/></span> construct:
+	// <span itemprop="nti-data-markupenabled">
+	// 	<img crossorigin="anonymous"
+	// 		data-nti-image-full="resources/CHEM..."
+	// 		data-nti-image-half="resources/CHEM..."
+	// 		data-nti-image-quarter="resources/CHEM..."
+	// 		data-nti-image-size="actual"
+	// 		id="bbba3b97a2251587d4a483af98cb398c"
+	// 		src="/content/sites/platform.ou.edu/CHEM..."
+	// 		style="width:320px; height:389px">
+	// </span>
+
+	function flat(o, i) {
+		return o || (Array.isArray(i) ? i.reduce(flat) : i);
+	}
+
+	var data = DomUtils.parseDomObject(el);
+
+	data.item = [
+		DomUtils.getImagesFromDom(el),
+		DomUtils.getVideosFromDom(el)
+	].reduce(flat, null) || {};
+
+	if (!data.type) {
+		data.type = data.itemprop;
+	}
+
+	return data;
 }

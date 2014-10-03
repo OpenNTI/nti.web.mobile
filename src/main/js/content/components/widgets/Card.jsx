@@ -14,8 +14,8 @@ module.exports = React.createClass({
 	statics: {
 		mimeType: /ntirelatedworkref$|nticard$/i,
 		handles: function(item) {
-			var type = item['attribute-type'] || '';
-			var cls = item['attribute-class'] || '';
+			var type = item['type'] || '';
+			var cls = item['class'] || '';
 			var re = this.mimeType;
 			return re.test(type) || re.test(cls);
 		}
