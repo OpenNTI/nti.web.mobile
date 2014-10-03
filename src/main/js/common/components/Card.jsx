@@ -98,7 +98,7 @@ module.exports = React.createClass({
 		if (isNTIID(href)) {
 			var link = path.join(
 				props.basePath,
-				props.pathname, NTIID.encodeForURI(href));
+				props.pathname, NTIID.encodeForURI(href)) + '/';
 
 			this.setState({href: link})
 			return;
