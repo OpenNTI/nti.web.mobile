@@ -18,7 +18,7 @@ module.exports = React.createClass({
 			<ul className="breadcrumbs" role="menubar" ariaLabel="breadcrumbs">
 				<li role="menuitem"><a href="#">Home</a></li>
 			    <li role="menuitem"><a href="#">Features</a></li>
-				<li role="menuitem" className="unavailable" ariaDisabled="true">
+				<li role="menuitem" className="unavailable" aria-disabled="true">
 					<a href="#">Gene Splicing</a>
 				</li>
 				<li role="menuitem" className="current">
