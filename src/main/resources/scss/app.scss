@@ -44,8 +44,8 @@ a.back {
 	line-height: 2.8125rem;
 	position: absolute;
 	overflow: hidden;
-	background: #333333;
-	color: white;
+	background: #fff;
+	color: #333;
 	top: -2.8125rem;
 	left: 0;
 
@@ -67,7 +67,7 @@ a.toolbar-button-left {
 	font-size: 2em;
 	position: absolute;
 	overflow: hidden;
-	color: white;
+	color: #333;
 	top: -2.8125rem;
 	left: 2.8125rem;
 }
@@ -88,6 +88,22 @@ a.right-off-canvas-toggle {
 }
 
 
+.dark {
+	.tab-bar {
+		background: #333;
+		color: #fff;
+
+		.menu-icon span::after {
+			box-shadow: 0 0px 0 1px #fff,
+						0 7px 0 1px #fff,
+						0 14px 0 1px #fff;
+		}
+	}
+
+	a.toolbar-button-left {
+		color: #fff;
+	}
+}
 
 
 

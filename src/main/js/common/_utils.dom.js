@@ -14,6 +14,34 @@ var hyphenatedToCamel = function(s) {
 
 var DomUtils = {
 
+
+	addClass: function (el, className) {
+		if (el.classList) {
+			return el.classList.add(className);
+		}
+
+		var classes = (el.className || '').split(' ');
+		if (classes.indexOf(className) < 0) {
+			classes.push(className);
+			el.className = classes.join(' ');
+		}
+	},
+
+
+	removeClass: function (el, className) {
+		if (el.classList) {
+			return el.classList.remove(className);
+		}
+
+		var classes = (el.className || '').split(' ');
+		var index = classes.indexOf(className);
+		if (index >= 0) {
+			classes.splice(index, 1);
+			el.className = classes.join(' ');
+		}
+	},
+
+
 	matches: function matches(el, selector) {
 		var fn = matches.nativeFn;
 		if(fn === undefined) {

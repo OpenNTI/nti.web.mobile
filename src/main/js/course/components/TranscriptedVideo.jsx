@@ -12,6 +12,10 @@ var React = require('react/addons');
 var Model = require('dataserverinterface/models/Video');
 var call = require('dataserverinterface/utils/function-call');
 
+var DomUtils = require('common/Utils').Dom;
+var addClass = DomUtils.addClass;
+var removeClass = DomUtils.removeClass;
+
 var LoadingMask = require('common/components/Loading');
 var Error = require('common/components/Error');
 var Video = require('common/components/Video');
@@ -39,11 +43,13 @@ module.exports = React.createClass({
 	componentDidMount: function() {
 		//Store.addChangeListener(this._onChange);
 		this.getDataIfNeeded(this.props);
+		addClass(document.body, 'dark');
 	},
 
 
 	componentWillUnmount: function() {
 		//Store.removeChangeListener(this._onChange);
+		removeClass(document.body, 'dark');
 	},
 
 
