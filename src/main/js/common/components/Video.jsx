@@ -72,8 +72,8 @@ module.exports = React.createClass({
 
 		var props = {
 			ref: 'activeVideo',
-			src: typeof video === 'string' && video,
-			source: videoSource,
+			// src: typeof video === 'string' && video,
+			source: videoSource || video,
 			onTimeUpdate: this.onTimeUpdate,
 			onSeeked: this.onSeeked,
 			onPlaying: this.onPlaying,
