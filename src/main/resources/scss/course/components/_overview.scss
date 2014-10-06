@@ -133,4 +133,142 @@
 			margin: 0 .5rem;
 		}
 	}
+
+	.overview-discussion {
+
+		background: #f5f5f5;
+		width: 230px;
+		min-height: 230px;
+		margin: 0.5rem 0;
+
+		.wrap {
+			padding: 0.5rem 0.5rem;
+
+			.title {
+				font: normal 300 1.6em/1.2em "Open Sans Condensed","Open Sans",sans-serif;
+				min-height: 64px;
+				margin-bottom: 6px;
+			}
+
+			.comments {
+				font: normal 600 0.6em/1.6em "Open Sans",sans-serif;
+				color: #b8b8b8;
+			}
+		}
+
+	}
+
+	.overview-naquestionset {
+
+		margin-top: 0.5rem;
+		background: #fcfcfc;
+		border: 1px solid #e2e2e2;
+		border-radius: 5px;
+		box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.08);
+
+		.body {
+			padding: 0.5rem;
+			overflow: none;
+
+			&:after {
+			
+			}
+
+			.icon {
+				float: left;
+				margin: 0.25rem;
+				margin-right: 2.0rem;
+				padding: 0;
+			}
+
+			.tally-box {
+				font-family: "Open Sans", sans-serif;
+				font-style: italic;
+				padding: 0 0.5rem;
+			}
+
+			.tally {
+				.stat {
+					display: inline-block;
+					font-weight: 600;
+					font-size: 0.75rem;
+					margin-right: 1rem;
+					
+					&.questions {
+						color: #b8b8b8;
+					}
+
+					&.due-date:not(.late) {
+						color: #b8b8b8;
+					}
+
+					&.correct {
+						color: #94b61a;
+					}
+
+					&.incorrect {
+						color: #e95a57;
+					}
+
+					&.late {
+						color: #e95a57;
+					}
+				}
+
+			}
+		}
+
+
+		.body:after {
+			content: " ";
+			display: block; 
+			height: 0; 
+			clear: both;
+		}
+
+		&.assessment {
+			&.completed {
+				.stat.questions {
+					display: none;
+				}
+			}
+
+			&:not(.completed) {
+				.stat:not(.questions) {
+					display: none;
+				}
+			}
+		}
+
+		&.assignment {
+
+			&.late {
+				.icon {
+					background-image: url('../images/icons/assignment_late.png');
+					background-repeat: no-repeat;
+					width: 40px;
+					height: 40px;
+				}
+
+				.stat:not(.late) {
+					display: none;
+				}
+			}
+
+			&:not(.late) {
+				.icon {
+					background-image: url('../images/icons/assignment_due.png');
+					background-repeat: no-repeat;
+					width: 40px;
+					height: 40px;
+				}
+				.stat.late {
+					display: none;
+				}
+			}
+
+		}		
+
+	}
+
 }

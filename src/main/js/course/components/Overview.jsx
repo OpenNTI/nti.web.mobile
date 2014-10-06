@@ -98,15 +98,16 @@ module.exports = React.createClass({
 			<div className="course-overview row">
 				<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
 				<h1>{data.title}</h1>
-				{this._renderItems(data.Items)}
+				{this._renderItems(data.Items, '')}
 			</div>
 		);
 	},
 
 
-	_renderItems: function(items) {
-		return items && items.map(function(item, i, list) {
-			return this.transferPropsTo(Widgets.select(item, i, list, this._renderItems(item.Items)));
+	_renderItems: function(items, overviewType) {
+		var toReturn = items && items.map(function(item, i, list) {
+			return this.transferPropsTo(Widgets.select(item, i, list, this._renderItems(item.Items, item.title), overviewType));
 		}.bind(this));
+		return toReturn;
 	}
 });

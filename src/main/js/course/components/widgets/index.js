@@ -7,6 +7,8 @@ var Group = require('./Group');
 var Video = require('./Video');
 var Videos = require('./Videos');
 var Card = require('./RelatedWorkRef');
+var Discussion = require('./Discussion');
+var QuestionSet = require('./QuestionSet');
 
 exports = module.exports = {
 	Unknown: Unknown, //Unknown for future items.
@@ -14,8 +16,10 @@ exports = module.exports = {
 	Group: Group,
 	Video: Video,
 	Videos: Videos,
+	Discussion: Discussion,
+	QuestionSet: QuestionSet,
 
-	select: function getItemHandler(item, index, list, children) {
+	select: function getItemHandler(item, index, list, children, overviewType) {
 		var Item = exports.Unknown;
 		var key, Type;
 
@@ -33,7 +37,8 @@ exports = module.exports = {
 			{
 				key: 'overview-' + item.MimeType + '-' + index,
 				item: item,
-				index: index
+				index: index,
+				type: overviewType
 			},
 			//See note below...
 			children && children.reduce(collator, []));
