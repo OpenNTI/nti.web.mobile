@@ -31,6 +31,9 @@ var NavDrawerItem = React.createClass({
 		if (rec.href && rec.href === document.location.pathname) {
 			classes.push('active');
 		}
+		if (!rec.clickable && rec.children) {
+			classes.push('sectiontitle');
+		}
 		return classes.join(' ');
 	},
 

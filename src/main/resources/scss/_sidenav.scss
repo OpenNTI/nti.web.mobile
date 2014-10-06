@@ -4,19 +4,39 @@ ul.off-canvas-list {
 		letter-spacing:0.05rem;
 		white-space: nowrap;
 		border-bottom:none;
+		text-shadow: 0px 1px 0px white;
+		&.sectiontitle {
+			$section-title-bg: #e7e7e7;
+			color:black;
+			opacity:1;
+			margin-top:1rem;
+			border-top:1px solid #ddd;
+			background:$section-title-bg;
+			position: relative;
+			&::after {
+				$arrow-size:1em;
+				content:' ';
+				position:absolute;
+				width:0;
+				height:0;
+				left:50%;
+				margin-left:-$arrow-size;
+				bottom:-($arrow-size * 2);
+				border:$arrow-size solid transparent;
+				border-top-color:$section-title-bg;
+			}
+		}
 		&.active {
 			position:relative;
-			background: $primary-color;
-			color: #fff;
 			&::after {
 				content:'';
 				width:0;
 				height:0;
 				position:absolute;
-				top:0;
-				right:-1.5em;
-				border:1.5em solid $off-canvas-bg;
-				border-left-color:transparent;
+				top:1rem;
+				left:-.5rem;
+				border:.5em solid transparent;
+				border-left-color:$primary-color;
 			}
 		}
 	}
