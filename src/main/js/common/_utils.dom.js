@@ -14,14 +14,20 @@ var hyphenatedToCamel = function(s) {
 
 var DomUtils = {
 
+	hasClass: function(el, className) {
+		var classes = (el.className || '').split(' ');
+		return classes.indexOf(className) !== -1;
+	},
+
 
 	addClass: function (el, className) {
 		if (el.classList) {
 			return el.classList.add(className);
 		}
 
-		var classes = (el.className || '').split(' ');
-		if (classes.indexOf(className) < 0) {
+		var classes;
+		if (!this.hasClass(el, className)) {
+			classes = (el.className || '').split(' ');
 			classes.push(className);
 			el.className = classes.join(' ');
 		}
@@ -33,10 +39,10 @@ var DomUtils = {
 			return el.classList.remove(className);
 		}
 
-		var classes = (el.className || '').split(' ');
-		var index = classes.indexOf(className);
-		if (index >= 0) {
-			classes.splice(index, 1);
+		var classes;
+		if (this.hasClass(el, className)) {
+			classes = (el.className || '').split(' ');
+			classes.splice(classes.indexOf(className), 1);
 			el.className = classes.join(' ');
 		}
 	},
