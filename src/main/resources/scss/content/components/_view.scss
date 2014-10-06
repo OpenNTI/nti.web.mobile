@@ -1,3 +1,11 @@
+.content-view .breadcrumbs {
+	border-width: 1px 0;
+	border-radius: 0;
+
+	&>*:before {
+		margin: 0 0.35rem;
+	}
+}
 
 
 #NTIContent {

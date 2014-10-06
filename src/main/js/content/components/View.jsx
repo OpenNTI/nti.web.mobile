@@ -10,6 +10,7 @@ var Loading = require('common/components/Loading');
 var getTarget = require('common/Utils').Dom.getEventTarget;
 
 var Widgets = require('./widgets');
+var Breadcrumb = require('./Breadcrumb');
 
 var Store = require('../Store');
 var Actions = require('../Actions');
@@ -129,6 +130,7 @@ module.exports = React.createClass({
 		var body = this.state.body || [];
 		return (
 			<div className="content-view" onClick={this._onContentClick}>
+				<Breadcrumb/>
 				{this._applyStyle()}
 				<div id="NTIContent" dangerouslySetInnerHTML={{
 					__html: body.map(this._buildBody).join('')
