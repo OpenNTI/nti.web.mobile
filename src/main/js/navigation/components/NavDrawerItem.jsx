@@ -47,7 +47,7 @@ var NavDrawerItem = React.createClass({
 		var classes = this._labelClasses();
 		var label = record.label ? <a onClick={this._navigate} className={classes}>{record.label}</a> : null;
 		return (
-			<li key={record.label ? record.label : 'xx'}>
+			<li key={record.label||''}>
 				{label}
 				{sub}
 			</li>

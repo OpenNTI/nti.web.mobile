@@ -3,6 +3,7 @@ ul.off-canvas-list {
 	li a {
 		letter-spacing:0.05rem;
 		white-space: nowrap;
+		border-bottom:none;
 		&.active {
 			position:relative;
 			background: $primary-color;
