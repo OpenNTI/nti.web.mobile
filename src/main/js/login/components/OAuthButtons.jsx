@@ -27,7 +27,7 @@ var OAuthButton = React.createClass({
 		// admittedly clumsy alternative 'link_key'.
 		var lkey = this.props.link_key;
 		var base = encodeURIComponent(this.props.basePath);
-		return (
+		return this.transferPropsTo(
 			<Button
 				href={this.props.link + '&success=' + base + '&failure=' + base}
 				className={lkey.toLowerCase()}
@@ -56,10 +56,10 @@ module.exports = React.createClass({
 
 			if (LinkConstants[link_key] in props.links) {
 				buttons.push(
-					<OAuthButton link_key={link_key} link={props.links[LinkConstants[link_key]]} />
+					<OAuthButton link_key={link_key} link={props.links[LinkConstants[link_key]]} className={this.props.buttonClass} />
 				);
 			}
-		});
+		}.bind(this));
 
 		return (
 			<div>

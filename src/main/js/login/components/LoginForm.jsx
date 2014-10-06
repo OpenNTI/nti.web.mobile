@@ -46,10 +46,10 @@ var View = React.createClass({
 
 		return (
 			<div className="row">
-				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
+				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit} novalidate>
 
 					<fieldset>
-						<input type="text"
+						<input type="email"
 							ref="username"
 							placeholder="Username"
 							defaultValue={this.state.username}
@@ -59,12 +59,14 @@ var View = React.createClass({
 							placeholder="Password"
 							defaulValue={this.state.password}
 							onChange={this._passwordChanged} />
-						<button
-							type="submit"
-							className={'tiny radius ' + (submitEnabled ? '' : 'disabled')}
-							disabled={!submitEnabled}
-						>{t('LOGIN.login')}</button>
-						<OAuthButtons links={this.state.links} basePath={this.props.basePath} />
+						<div>
+							<button
+								type="submit"
+								className={'small-12 columns tiny radius ' + (submitEnabled ? '' : 'disabled')}
+								disabled={!submitEnabled}
+							>{t('LOGIN.login')}</button>
+						</div>
+						<OAuthButtons links={this.state.links} basePath={this.props.basePath} buttonClass="small-12 columns" />
 						
 					</fieldset>
 					<RecoveryLinks links={this.state.links} basePath={this.props.basePath} />
