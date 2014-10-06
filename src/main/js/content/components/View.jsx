@@ -21,7 +21,8 @@ module.exports = React.createClass({
 	getInitialState: function() {
 		return {
 			loading: true,
-			pageWidgets: {}
+			pageWidgets: {},
+			contextPromise: Promise.resolve([])
 		};
 	},
 
@@ -77,7 +78,7 @@ module.exports = React.createClass({
 
 
 	componentWillReceiveProps: function(props) {
-		if (this.props.pageId !== props.pageId) {
+		if (this.getPageID(props) !== this.getPageID()) {
 			this.getDataIfNeeded(props);
 		}
 	},
@@ -89,8 +90,9 @@ module.exports = React.createClass({
 	},
 
 
-	getPageID: function () {
-		return NTIID.decodeFromURI(this.props.pageId);
+	getPageID: function (props) {
+		var p = props || this.props;
+		return NTIID.decodeFromURI(p.pageId || p.rootId);
 	},
 
 
@@ -121,7 +123,8 @@ module.exports = React.createClass({
 		this.setState({
 			data: data,
 			body: data.body,
-			styles: data.styles
+			styles: data.styles,
+			contextPromise: this.props.contextProvider(this.props)
 		});
 	},
 
@@ -129,10 +132,10 @@ module.exports = React.createClass({
 	render: function() {
 		var body = this.state.body || [];
 		return (
-			<div className="content-view" onClick={this._onContentClick}>
-				<Breadcrumb/>
+			<div className="content-view">
+				<Breadcrumb contextProvider={this.__getContext}/>
 				{this._applyStyle()}
-				<div id="NTIContent" dangerouslySetInnerHTML={{
+				<div id="NTIContent" onClick={this._onContentClick} dangerouslySetInnerHTML={{
 					__html: body.map(this._buildBody).join('')
 				}}/>
 			</div>
@@ -199,5 +202,18 @@ module.exports = React.createClass({
 				debugger;
 			}
 		}
+	},
+
+
+	__getContext: function() {
+		// var data = this.state.data;
+		return this.state.contextPromise.then(function(context) {
+			//TODO: have the Content Api resolve page title...
+			// context.push({
+			// 	label: '??Current Page??',
+			// 	href: null
+			// });
+			return context;
+		});
 	}
 });

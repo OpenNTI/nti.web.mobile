@@ -16,6 +16,8 @@ var Content = require('content');
 var Actions = require('../Actions');
 var Store = require('../Store');
 
+var path = require('path');
+
 module.exports = React.createClass({
 	displayName: 'CourseView',
 
@@ -76,12 +78,58 @@ module.exports = React.createClass({
 
 		return (
 			<Router.Locations contextual>
-				<Router.Location path="/v/(:videoId/)(#:nav)" handler={Media} course={course} basePath={this.props.basePath}/>
-				<Router.Location path="/o/(#:nav)" handler={Outline} course={course} basePath={this.props.basePath}/>
-				<Router.Location path="/o/:outlineId/(#:nav)" handler={Overview} course={course} basePath={this.props.basePath}/>
-				<Router.Location path="/o/:outlineId/c/:pageId/(#:nav)" handler={Content.View} course={course} basePath={this.props.basePath} pathname="c"/>
+				<Router.Location path="/v/(:videoId/)(#:nav)"
+									handler={Media}
+									course={course}
+									basePath={this.props.basePath}/>
+
+				<Router.Location path="/o/(#:nav)"
+									handler={Outline}
+									course={course}
+									basePath={this.props.basePath}/>
+
+				<Router.Location path="/o/:outlineId/(#:nav)"
+									handler={Overview}
+									course={course}
+									basePath={this.props.basePath}/>
+
+				<Router.Location path="/o/:outlineId/c/:rootId(/:pageId)/(#:nav)"
+									handler={Content.View}
+									course={course}
+									basePath={this.props.basePath}
+									pathname="c"
+									contextProvider={this.__getContext}/>
+
 				<Router.NotFound handler={Detail} entry={entry} noBack/>
 			</Router.Locations>
 		);
+	},
+
+
+	/**
+	 * Resolves the current context given the props from the direct decendent
+	 * that asks.
+	 *
+	 * @param {Object} props The props set from the handler of the route.
+	 */
+	__getContext: function(props) {
+		var record = this.state.course;
+		var course = (record || {}).CourseInstance;
+		var presentation = course.getPresentationProperties();
+
+		return course.getOutlineNode(NTIID.decodeFromURI(props.outlineId))
+			.then(function(o) {
+				return [
+					{
+						label: presentation.label,
+						href: path.join(this.props.basePath, 'course', this.props.course, '/')
+					},
+					{
+						label: o.title,
+						href: path.join(this.props.basePath, o.href)
+					}
+				];
+
+			}.bind(this));
 	}
 });
