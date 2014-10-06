@@ -3,11 +3,13 @@
 var merge = require('react/lib/merge');
 
 var Card = require('./Card');
+var MarkupFrame = require('./MarkupFrame');
 var Unknown = require('./Unknown');
 
 exports = module.exports = {
 	Unknown: Unknown, //Unknown for future items.
 	Card: Card,
+	MarkupFrame: MarkupFrame,
 
 	select: function getItemHandler(part) {
 		var Item = exports.Unknown;

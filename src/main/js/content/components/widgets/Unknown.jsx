@@ -24,5 +24,5 @@ module.exports = React.createClass({
 
 	_onClick: function () {
 		this._owner.setState({foobar: true})
-	},
+	}
 });

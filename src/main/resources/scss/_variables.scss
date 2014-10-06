@@ -7,6 +7,9 @@ $sidenav-font-family: 'Open Sans Condensed';
 
 $button-disabled-opacity: 0.3;
 
+$border-grey: #ccc;
+$primary-grey: #494949;
+
 @mixin blur-effect() {
 	//filter: blur(add = 0, direction = 0, strength = 10);//IE
 	//filter: url(#blur-effect);//moz
