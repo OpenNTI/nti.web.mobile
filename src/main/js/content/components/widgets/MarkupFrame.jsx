@@ -34,6 +34,8 @@ module.exports = React.createClass({
 
 		var noDetails = isEmpty(title) && isEmpty(caption);
 
+		//The Item may not be an image... what can it be?
+
 		return (
 			<span itemProp={data.type}>
 				<img src={item.src} dataset={item.dataset} crossOrigin={item.crossorigin}/>
