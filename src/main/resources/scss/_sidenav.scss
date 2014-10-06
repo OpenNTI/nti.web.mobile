@@ -6,6 +6,7 @@ ul.off-canvas-list {
 		&.active {
 			position:relative;
 			background: $primary-color;
+			color: #fff;
 			&::after {
 				content:'';
 				width:0;
