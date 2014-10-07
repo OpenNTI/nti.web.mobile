@@ -8,7 +8,7 @@ module.exports = React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
 
 	statics: {
-		mimeTest: /^application\/vnd\.nextthought\.naquestionset/i,
+		mimeTest: /^application\/vnd\.nextthought\.(naquestionset|naquestionbank)/i,
 		handles: function(item) {
 			return this.mimeTest.test(item.MimeType);
 		}
@@ -23,9 +23,10 @@ module.exports = React.createClass( {
 		var addClass = completed ? " completed" : "";
 		addClass += isLate ? " late" : "";
 
-		/* TODO Get due date to display.
+		/* TODO Get Assignment due date to display.
 			Replace placeholder assessement chart icon
-			Get result of assessment to display like Web app */
+			Get result of assessment (x correct, y incorrect)
+			*/
 
 		var chart, tally, addClass;
 		if (this.props.type == "Self-Assessments") {
