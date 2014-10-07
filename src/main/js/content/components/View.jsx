@@ -7,6 +7,8 @@ var React = require('react/addons');
 
 var Loading = require('common/components/Loading');
 
+var Pager = require('common/components/Pager');
+
 var getTarget = require('common/Utils').Dom.getEventTarget;
 
 var Widgets = require('./widgets');
@@ -133,7 +135,9 @@ module.exports = React.createClass({
 		var body = this.state.body || [];
 		return (
 			<div className="content-view">
-				<Breadcrumb contextProvider={this.__getContext}/>
+				<Breadcrumb contextProvider={this.__getContext}>
+					<Pager/>
+				</Breadcrumb>
 				{this._applyStyle()}
 				<div id="NTIContent" onClick={this._onContentClick} dangerouslySetInnerHTML={{
 					__html: body.map(this._buildBody).join('')
