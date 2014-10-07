@@ -48,6 +48,7 @@ module.exports = React.createClass({
 		var context = this.state.context.splice(-2);
 		return (
 			<ul className="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+				{this.props.children}
 				{context.map(function(o, i, a) {
 					return this._renderItem(o, !o.href, i);
 				}.bind(this))}
