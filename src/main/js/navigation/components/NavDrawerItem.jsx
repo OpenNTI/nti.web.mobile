@@ -23,7 +23,7 @@ var NavDrawerItem = React.createClass({
 	},
 
 	_labelClasses: function() {
-		var classes = [];
+		var classes = ['navitem'];
 		var rec = this.props.record;
 		if (!rec.clickable ) {
 			classes.push('disabled');

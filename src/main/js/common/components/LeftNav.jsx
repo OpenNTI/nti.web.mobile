@@ -67,12 +67,14 @@ module.exports = React.createClass({
 		}
 
 		return (
-			<ul className="off-canvas-list">
-				{this._canMove(UP) ? <li key="moveUp" className="moveUp"><a onClick={this._upClick}><i className="fi-arrow-left" /> Back</a></li> : null}
-				{this._canMove(DOWN) ? <li key="moveDown" className="moveDown"><a onClick={this._downClick}>{this._downTitle()} <i className="fi-arrow-right" /></a></li> : null}
-				{item}
-				<li key="logoutButton"><LogoutButton /></li>
-			</ul>
+			<div>
+				<ul className="off-canvas-list">
+					{this._canMove(UP) ? <li key="moveUp" className="moveUp"><a onClick={this._upClick}><i className="fi-arrow-left" /> Back</a></li> : null}
+					{this._canMove(DOWN) ? <li key="moveDown" className="moveDown"><a onClick={this._downClick}>{this._downTitle()} <i className="fi-arrow-right" /></a></li> : null}
+					{item}
+				</ul>
+				<div className="text-center"><LogoutButton /></div>
+			</div>
 		);
 	}
 });
