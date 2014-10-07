@@ -5,7 +5,6 @@ var React = require('react/addons');
 var Router = require('react-router-component');
 
 var Loading = require('common/components/Loading');
-var Link = require('common/components/controls/link/HighlightedLink');
 
 var Store = require('../Store');
 var Actions = require('../Actions');

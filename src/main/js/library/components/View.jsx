@@ -7,8 +7,6 @@ var Locations = Router.Locations;
 var Location = Router.Location;
 var DefaultRoute = Router.NotFound;
 
-var Link = require('common/components/controls/link/HighlightedLink');
-
 var Store = require('../Store');
 var Actions = require('../Actions');
 
@@ -66,17 +64,6 @@ module.exports = React.createClass({
 
     	return (
 	      <div>
-	      	{/*
-			<div className="panel sticky">
-				<nav data-topbar role="navigation">
-				<dl className="sub-nav" role="menu" title="">
-					{books.length ? <Link role="menuitem" tag="dd" href={basePath + 'library/'}><a href="#">Books</a></Link> : null}
-					{courses.length ? <Link role="menuitem" tag="dd" href={basePath + 'library/courses'}><a href="#">Courses</a></Link> : null}
-					{instructing.length ? <Link role="menuitem" tag="dd" href={basePath + 'library/admin'}><a href="#">Admin</a></Link> : null}
-				</dl>
-				</nav>
-			</div>
-			*/}
 			<Locations contextual>
 				<Location path='/books*' handler={Collection} basePath={basePath}
 					title='Books' list={books}/>
