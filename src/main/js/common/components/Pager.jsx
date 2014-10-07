@@ -44,8 +44,8 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var prev = this.prop.prev || this.state.prev || {};
-		var next = this.prop.next || this.state.next || {};
+		var prev = this.props.prev || this.state.prev || {};
+		var next = this.props.next || this.state.next || {};
 
 		return (
 			<div className="pager">
