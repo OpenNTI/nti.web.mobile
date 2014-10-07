@@ -2,6 +2,7 @@
 'use strict';
 
 var React = require('react/addons');
+var ActiveState = require('common/components/ActiveState');
 
 module.exports = React.createClass({
 	displayName: 'Breadcrumb',
@@ -46,23 +47,42 @@ module.exports = React.createClass({
 	render: function() {
 		var context = this.state.context.splice(-2);
 		return (
-			<ul className="breadcrumbs" role="menubar" ariaLabel="breadcrumbs">
+			<ul className="breadcrumbs" role="menubar" aria-label="breadcrumbs">
 				{context.map(function(o, i, a) {
-					var current = (i === (a.length - 1));
-					return this._renderItem(o.label, o.href, current, !o.href, i);
+					return this._renderItem(o, !o.href, i);
 				}.bind(this))}
 			</ul>
 		);
 	},
 
-	_renderItem: function(label, href, current, disabled) {
-		var className = disabled ? 'unavailable' : current ? 'current' : null;
+
+	_renderMenu: function(items, className) {
+		if (!items || !items.length) {
+			return null;
+		}
+		return (
+			<ul className={className} role="menu" aria-label="menu">
+				{items.map(function(o, i, a) {
+					return this._renderItem(o, !o.href, i);
+				}.bind(this))}
+			</ul>
+		);
+	},
+
+
+	_renderItem: function(item, disabled) {
+		var className = disabled ? 'unavailable' : null;
 
 		disabled = disabled ? 'true' : null;//don't include the attribute
 		return (
-			<li role="menuitem" className={className} aria-disabled={disabled}>
-				<a href={href}>{label}</a>
-			</li>
+			<ActiveState tag="li" href={item.href}
+				role="menuitem"
+				className={className}
+				activeClassName="current"
+				aria-disabled={disabled}>
+				<a href={item.href}>{item.label}</a>
+				{this._renderMenu(item.children, 'menu')}
+			</ActiveState>
 		);
 	}
 });
