@@ -3,7 +3,7 @@
 
 var React = require('react/addons');
 var OwnerQuery = require('common/mixins/OwnerQuery');
-var Filter = require('../../library/components/CollectionFilter');
+var Filter = require('common/components/CollectionFilter');
 
 var filters = {
 	'Current': function(item,index,array) {

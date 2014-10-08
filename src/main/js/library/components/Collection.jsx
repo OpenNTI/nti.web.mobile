@@ -8,7 +8,7 @@ var Package = require('./Package');
 var Bundle = require('./Bundle');
 var Course = require('./Course');
 
-var Filter = require('./CollectionFilter');
+var Filter = require('common/components/CollectionFilter');
 var filters = require('../CourseFilters');
 
 var ListView = React.createClass({
