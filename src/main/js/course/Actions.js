@@ -28,7 +28,7 @@ function _navRecordFor(outlineNode,navbarTitle) {
 	return new Navigation.NavRecord({
 		label: outlineNode.DCTitle,
 		navbarTitle: navbarTitle,
-		href: outlineNode.href ? ($AppConfig.basepath + outlineNode.href) : null,
+		href: outlineNode.href,
 		children: children
 	});
 }

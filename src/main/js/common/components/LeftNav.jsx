@@ -1,4 +1,5 @@
 /** @jsx React.DOM */
+'use strict';
 
 var React = require('react/addons');
 var Button = require('./forms/Button');
@@ -10,6 +11,33 @@ var UP = -1;
 var DOWN = 1;
 
 module.exports = React.createClass({
+	displayName: 'LeftNav',
+	propTypes: {
+		basePath: React.PropTypes.string.isRequired,
+		items: React.PropTypes.array.isRequired
+	},
+
+
+	getDefaultProps: function() {
+		return {
+			items: []
+		};
+	},
+
+
+	getInitialState: function() {
+		return {
+			index: this.props.items.length - 1
+		};
+	},
+
+
+	componentWillReceiveProps: function(nextProps) {
+		if(nextProps.items !== this.props.items) {
+			this.setState({index: nextProps.items.length - 1});
+		}
+	},
+
 
 	_upClick: function() {
 		if(this._canMove(UP)) {
@@ -17,16 +45,19 @@ module.exports = React.createClass({
 		}
 	},
 
+
 	_downClick: function() {
 		if(this._canMove(DOWN)) {
 			this.setState({index: this.state.index + 1});
 		}
 	},
 
+
 	_canMove: function(distance) {
 		var newIndex = this.state.index + distance;
 		return newIndex > -1 && newIndex < this.props.items.length;
 	},
+
 
 	_peek: function(direction) {
 		if(this._canMove(direction)) {
@@ -35,43 +66,43 @@ module.exports = React.createClass({
 		return null;
 	},
 
+
 	_downTitle: function() {
 		var next = this._peek(DOWN);
 		return next && next.navbarTitle ? next.navbarTitle : 'Content';
 	},
 
-	displayName: 'LeftNav',
-
-	componentWillMount: function() {
-		this.setState({index: this.props.items.length - 1});
-	},
-
-	componentWillReceiveProps: function(nextProps) {
-		if(nextProps.items !== this.props.items) {
-			this.setState({index: nextProps.items.length - 1});	
-		}
-	},
-
-	propTypes: {
- 		basePath: React.PropTypes.string.isRequired,
- 		items: React.PropTypes.array.isRequired
-	},
 
 	render: function() {
 
-		var item;
 		var akey = 'navnav';
-		if(this.props.items.length > 0) {
-			var record = this.props.items[this.state.index];
-			item = <NavDrawerItem record={record} key={record.label}/>;
+		var basePath = this.props.basePath;
+		var record = this.props.items[this.state.index];
+
+		var headerClass = 'moveUp';
+		var headerClickHandler = this._upClick;
+		var headerIcon = 'fi-arrow-left';
+		var headerLabel = ' Back';
+		var headerTitle = '';
+
+		if (this._canMove(DOWN)) {
+			headerClass = 'moveDown';
+			headerClickHandler = this._downClick;
+			headerIcon = 'fi-arrow-right';
+			headerLabel = '';
+			headerTitle = this._downTitle() + ' ';
+		} else if (!this._canMove(UP)) {
+			headerClass = null;
 		}
 
 		return (
 			<div>
 				<ul className="off-canvas-list">
-					{this._canMove(UP) ? <li key="moveUp" className="moveUp"><a onClick={this._upClick}><i className="fi-arrow-left" /> Back</a></li> : null}
-					{this._canMove(DOWN) ? <li key="moveDown" className="moveDown"><a onClick={this._downClick}>{this._downTitle()} <i className="fi-arrow-right" /></a></li> : null}
-					{item}
+
+				{headerClass &&
+					<li className={headerClass}><a onClick={headerClickHandler}>{headerTitle}<i className={headerIcon} />{headerLabel}</a></li>}
+
+					<NavDrawerItem record={record} basePath={basePath}/>
 				</ul>
 				<div className="text-center"><LogoutButton /></div>
 			</div>
