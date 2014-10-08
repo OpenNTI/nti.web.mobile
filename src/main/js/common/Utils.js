@@ -1,8 +1,14 @@
-"use strict";
+/* global $AppConfig */
+'use strict';
 /**
-* @class Utils
-*/
+ * @class Utils
+ */
 var Utils = {
+
+	getAppUsername: function() {
+		return $AppConfig.username;
+	},
+
 
 	/**
 	 * Returns the shared instance of the server interface.
@@ -27,10 +33,10 @@ var Utils = {
 	/**
 	 * Serializes an object to be submitted as part of an web/ajax request.
 	 * @method toQueryString
-	 * @param {Object} obj The object to serialize.
+	 * @param {Object} o The object to serialize.
 	 * @return {String} Serialized, URI-encoded, querystring form of the given object.
 	 */
-	toQueryString: function(obj) {
+	toQueryString: function(o) {
 		var k, t,string = [];
 		for(k in o){
 			if(o.hasOwnProperty(k)){
@@ -71,6 +77,6 @@ var Utils = {
 
 
 	Orientation: require('./_utils.orientation')
-}
+};
 
 module.exports = Utils;
