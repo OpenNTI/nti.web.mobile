@@ -2,7 +2,7 @@
 /** @module content/Actions */
 var Promise = global.Promise || require('es6-promise').Promise;
 
-var merge = require('react/lib/merge')
+var merge = require('react/lib/merge');
 
 var Utils = require('common/Utils');
 var DomUtils = Utils.Dom;
@@ -48,12 +48,21 @@ module.exports = merge(EventEmitter.prototype, {
 	 *	@param {String} Content Page NTIID
 	 */
 	loadPage: function(ntiid) {
+		Promise.all([
+			LibraryApi.getLibrary(),
+			Api.getPageInfo(ntiid)
+		])
 
-		Api.getPageInfo(ntiid)
-			.then(function(pi) {
+			.then(function(data) {
+				var lib= data[0];
+				var pi = data[1];
+
 				if (pi.getID() !== ntiid) {
 					console.warn('PageInfo ID missmatch! %s != %s', ntiid, pi.getID());
 				}
+
+				var p = lib.findPackage(pi.getPackageID(), true);
+
 
 				return pi.getContent().then(function(html){
 					return {
