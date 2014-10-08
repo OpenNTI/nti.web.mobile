@@ -92,6 +92,11 @@ module.exports = React.createClass({
 	},
 
 
+	getRootID: function() {
+		return NTIID.decodeFromURI(this.props.rootId);
+	},
+
+
 	getPageID: function (props) {
 		var p = props || this.props;
 		return NTIID.decodeFromURI(p.pageId || p.rootId);
@@ -124,6 +129,7 @@ module.exports = React.createClass({
 
 		this.setState({
 			data: data,
+			pageSource: data.tableOfContents.getPageSource(this.getRootID()),
 			body: data.body,
 			styles: data.styles,
 			contextPromise: this.props.contextProvider(this.props)
@@ -133,10 +139,12 @@ module.exports = React.createClass({
 
 	render: function() {
 		var body = this.state.body || [];
+		var pageSource = this.state.pageSource;
+
 		return (
 			<div className="content-view">
 				<Breadcrumb contextProvider={this.__getContext}>
-					<Pager/>
+					<Pager pageSource={pageSource} current={this.getPageID()}/>
 				</Breadcrumb>
 				{this._applyStyle()}
 				<div id="NTIContent" onClick={this._onContentClick} dangerouslySetInnerHTML={{
@@ -203,7 +211,6 @@ module.exports = React.createClass({
 
 			if (NTIID.isNTIID(id)) {
 				e.preventDefault();
-				debugger;
 			}
 		}
 	},

@@ -2,6 +2,7 @@
 'use strict';
 
 var React = require('react/addons');
+var invariant = require('react/lib/invariant');
 var isEmpty = require('dataserverinterface/utils/isempty');
 
 module.exports = React.createClass({
@@ -27,7 +28,19 @@ module.exports = React.createClass({
 		 * 	This prop represents the backward link.
 		 * @type {PageSourceItem}
 		 */
-		prev: React.PropTypes.object
+		prev: React.PropTypes.object,
+
+		/**
+		 * The "current" page ID (ntiid)
+		 * @type {String}
+		 */
+		current: React.PropTypes.string,
+
+		/**
+		 * The imposed content root.
+		 * @type {String}
+		 */
+		root: React.PropTypes.string
 	},
 
 
@@ -39,7 +52,27 @@ module.exports = React.createClass({
 
 
 	componentDidMount: function () {
+		this.__setupLinks(this.props);
+	},
 
+
+	componentWillReceiveProps: function(props) {
+		this.__setupLinks(props);
+	},
+
+
+	__setupLinks: function (props) {
+		var pages, source = props.pageSource;
+		if (source) {
+			invariant(
+				!this.props.next && !this.props.prev,
+				'[Pager] A value was passed for `next` and/or `prev` as well as a `pageSource`. ' +
+				'The prop value will be honored over the state value derived from the pageSource.'
+			);
+
+			pages = source.getPagesAround(props.current, props.root);
+			
+		}
 	},
 
 

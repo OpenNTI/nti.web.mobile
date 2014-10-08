@@ -45,7 +45,7 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var context = this.state.context.splice(-2);
+		var context = this.state.context.slice(-2);
 		return (
 			<ul className="breadcrumbs" role="menubar" aria-label="breadcrumbs">
 				{this.props.children}
@@ -71,12 +71,13 @@ module.exports = React.createClass({
 	},
 
 
-	_renderItem: function(item, disabled) {
+	_renderItem: function(item, disabled, index) {
 		var className = disabled ? 'unavailable' : null;
 
 		disabled = disabled ? 'true' : null;//don't include the attribute
 		return (
 			<ActiveState tag="li" href={item.href}
+				key={index}
 				role="menuitem"
 				className={className}
 				activeClassName="current"

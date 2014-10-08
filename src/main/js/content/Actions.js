@@ -63,11 +63,17 @@ module.exports = merge(EventEmitter.prototype, {
 
 				var p = lib.getPackage(pi.getPackageID());
 
+				return Promise.all([
+					(p && p.getTableOfContents()) || Promise.reject('No Package for Page!'),
+					pi.getContent()
 
-				return pi.getContent().then(function(html){
+				]).then(function(data){
+					var toc = data[0];
+					var htmlStr = data[1];
 					return {
+						tableOfContents: toc,
 						pageInfo: pi,
-						content: html
+						content: htmlStr
 					};
 				});
 			})
