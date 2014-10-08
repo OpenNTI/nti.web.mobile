@@ -3,6 +3,7 @@
 
 var React = require('react/addons');
 var OwnerQuery = require('common/mixins/OwnerQuery');
+var CourseFilters = require('../mixins/CourseFilters');
 
 var Package = require('./Package');
 var Bundle = require('./Bundle');
@@ -11,7 +12,7 @@ var Course = require('./Course');
 
 module.exports = React.createClass({
 	displayName: 'Collection',
-	mixins: [OwnerQuery],
+	mixins: [OwnerQuery,CourseFilters],
 
 	propTypes: {
 		title: React.PropTypes.string.isRequired,
@@ -25,33 +26,6 @@ module.exports = React.createClass({
 		};
 	},
 
-	_onFilterClick: function(filterName) {
-		this.setState({
-			activeFilter: filterName
-		});
-	},
-
-	componentWillMount: function() {
-		if (this.props.filters && Object.keys(this.props.filters).length > 0) {
-			this.setState({activeFilter: Object.keys(this.props.filters)[0]});
-		}
-	},
-
-	filterBar: function() {
-		var filterItems = Object.keys(this.props.filters).map(function(key,index,array) {
-			var isActive = this.state.activeFilter === key;
-			return <dd className={isActive ? 'active' : null}><a href="#" onClick={this._onFilterClick.bind(this,key)}>{key}</a></dd>
-		}.bind(this));
-
-		var filterBar = filterItems.length === 0 ? null : (
-			<dl className="sub-nav">
-				{filterItems}
-			</dl>
-		);
-
-		return filterBar;
-	},
-
 	render: function() {
 		var list = this.props.list || [];
 		var basePath = this.props.basePath;
@@ -60,7 +34,7 @@ module.exports = React.createClass({
 		var fbar = this.filterBar();
 
 		if (this.state.activeFilter) {
-			list = list.filter(this.props.filters[this.state.activeFilter]);
+			list = this.filter(list);
 		}
 
 		return (

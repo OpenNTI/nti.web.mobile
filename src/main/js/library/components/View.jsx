@@ -12,8 +12,6 @@ var Actions = require('../Actions');
 
 var Collection = require('./Collection');
 
-var courseFilters = require('../CourseFilters');
-
 module.exports = React.createClass({
 	displayName: 'LibraryView',
 
@@ -70,7 +68,7 @@ module.exports = React.createClass({
 				<Location path='/books*' handler={Collection} basePath={basePath}
 					title='Books' list={books}/>
 				<Location path='/courses*' handler={Collection} basePath={basePath}
-					title='Courses' list={courses} filters={courseFilters}/>
+					title='Courses' list={courses} />
 				<Location path='/admin*' handler={Collection} basePath={basePath}
 					title='Administered Courses' list={instructing}/>
 				<DefaultRoute handler={this._reroute}/>
