@@ -27,7 +27,6 @@ var filters = {
 var Item = require('./Entry');
 
 var ListView = React.createClass({
-
 	mixins: [OwnerQuery],
 
 	render: function() {
@@ -48,7 +47,7 @@ var ListView = React.createClass({
 });
 
 module.exports = React.createClass({
-	displayName: 'Collection',
+	displayName: 'Catalog:Collection',
 
 	propTypes: {
 		title: React.PropTypes.string.isRequired,

@@ -46,7 +46,8 @@ var Filter = React.createClass({
 
 	getDefaultProps: function() {
 		return {
-			list: []
+			list: [],
+			filters: {}
 		};
 	},
 
@@ -56,7 +57,15 @@ var Filter = React.createClass({
 		});
 	},
 
+	hasFilters: function() {
+		return Object.keys(this.props.filters).length > 0;
+	},
+
 	filterBar: function() {
+		if (! this.hasFilters()) {
+			return null;
+		}
+
 		var filterItems = Object.keys(this.props.filters).map(function(key,index,array) {
 			var isActive = this.state.activeFilter === key;
 			return <dd className={isActive ? 'active' : null}><a href="#" onClick={this._onFilterClick.bind(this,key)}>{key}</a></dd>
@@ -90,7 +99,8 @@ var Filter = React.createClass({
 		var listView = React.addons.cloneWithProps(this.props.children, {
 			list: this.filter(this.props.list)
 		});
-		var filterBar = this.filterBar();
+
+		var filterBar = this.filterBar();	
 
 		return (
 			<div>

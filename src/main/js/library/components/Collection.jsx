@@ -9,7 +9,6 @@ var Bundle = require('./Bundle');
 var Course = require('./Course');
 
 var Filter = require('common/components/CollectionFilter');
-var filters = require('../CourseFilters');
 
 var ListView = React.createClass({
 	mixins: [OwnerQuery],
@@ -18,8 +17,8 @@ var ListView = React.createClass({
 		var size = this.getStateFromParent('orientation') === 'landscape' ? 2 : 1;
 		return (
 			<div>
-				<h2>{this.props.title}</h2>
 				<div className="grid-container">
+					<h2>{this.props.title}</h2>
 					<ul className={'small-block-grid-' + size + ' medium-block-grid-3 large-block-grid-4'}>
 					{this.props.list.map(function(item,index,arr) {
 						var basePath = this.props.basePath;
@@ -51,7 +50,7 @@ module.exports = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<Filter filters={filters} list={this.props.list}>
+				<Filter filters={this.props.filters} list={this.props.list}>
 					<ListView title={this.props.title} basePath={this.props.basePath} />
 				</Filter>
 			</div>
