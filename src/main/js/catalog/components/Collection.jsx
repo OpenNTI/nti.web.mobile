@@ -3,40 +3,65 @@
 
 var React = require('react/addons');
 var OwnerQuery = require('common/mixins/OwnerQuery');
-// var CourseFilters = require('../../library/mixins/CourseFilters');
+var Filter = require('../../library/components/CollectionFilter');
+
+var filters = {
+	'Current': function(item,index,array) {
+		var startDate = new Date(item.StartDate);
+		var endDate = new Date(item.EndDate);
+		var now = new Date();
+		return startDate < now && endDate > now;
+	},
+	'Upcoming': function(item,index,array) {
+		var startDate = new Date(item.StartDate);
+		var now = new Date();
+		return startDate > now;
+	},
+	'Archived': function(item,index,array) {
+		var endDate = new Date(item.EndDate);
+		var now = new Date();
+		return endDate < now;
+	}
+};
 
 var Item = require('./Entry');
 
+var ListView = React.createClass({
+
+	mixins: [OwnerQuery],
+
+	render: function() {
+		var size = this.getStateFromParent('orientation') === 'landscape' ? 2 : 1;
+		var basePath = this.props.basePath;
+		return (
+			<div className="grid-container">
+				<h2>{this.props.title}</h2>
+				<ul className={'small-block-grid-' + size + ' medium-block-grid-3 large-block-grid-4'}>
+				{this.props.list.map(function(o) {
+					return <Item key={o.NTIID} item={o} basePath={basePath}/>;
+				})}
+				</ul>
+			</div>
+		);
+	}
+
+});
+
 module.exports = React.createClass({
 	displayName: 'Collection',
-	mixins: [OwnerQuery],
 
 	propTypes: {
 		title: React.PropTypes.string.isRequired,
-		list: React.PropTypes.object.isRequired
+		list: React.PropTypes.object.isRequired,
+		filters: React.PropTypes.object
 	},
 
 	render: function() {
-		var list = this.props.list || [];
-		var basePath = this.props.basePath;
-		var size = this.getStateFromParent('orientation') === 'landscape' ? 2 : 1;
-
-		// var fbar = this.filterBar();
-
-		// if (this.state.activeFilter) {
-		// 	list = this.filter(list);
-		// }
-
 		return (
 			<div>
-				<div className="grid-container">
-					<h2>{this.props.title}</h2>
-					<ul className={'small-block-grid-' + size + ' medium-block-grid-3 large-block-grid-4'}>
-					{list.map(function(o) {
-						return <Item key={o.NTIID} item={o} basePath={basePath}/>;
-					})}
-					</ul>
-				</div>
+				<Filter filters={filters} list={this.props.list}>
+					<ListView title={this.props.title} basePath={this.props.basePath} />
+				</Filter>
 			</div>
 		);
 	}
