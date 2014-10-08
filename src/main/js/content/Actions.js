@@ -61,7 +61,7 @@ module.exports = merge(EventEmitter.prototype, {
 					console.warn('PageInfo ID missmatch! %s != %s', ntiid, pi.getID());
 				}
 
-				var p = lib.findPackage(pi.getPackageID(), true);
+				var p = lib.getPackage(pi.getPackageID(), true);
 
 
 				return pi.getContent().then(function(html){
