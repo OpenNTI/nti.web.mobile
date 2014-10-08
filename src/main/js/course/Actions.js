@@ -2,7 +2,7 @@
 /** @module course/Actions */
 var Promise = global.Promise || require('es6-promise').Promise;
 
-var merge = require('react/lib/merge')
+var merge = require('react/lib/merge');
 
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
@@ -50,7 +50,7 @@ module.exports = merge(EventEmitter.prototype, {
 		LibraryApi.getLibrary()
 
 			.then(function(library) {
-				return library.findCourse(courseId) || Promise.reject('Not Found');
+				return library.getCourse(courseId) || Promise.reject('Not Found');
 			})
 
 			.then(function(courseEnrollment) {
