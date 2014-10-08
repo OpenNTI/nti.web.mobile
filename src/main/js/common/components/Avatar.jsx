@@ -41,6 +41,8 @@ module.exports = React.createClass({
 
 
 	_buildAvatarURL: function(username) {
+		//This is very special case... please do not use this as a pattern.
+		/* global $AppConfig */
 		return urlJoin($AppConfig.server, 'users', username, '@@avatar');
 	},
 
