@@ -143,6 +143,16 @@ module.exports = React.createClass({
 	},
 
 
+	componentDidUpdate: function() {
+		var utils = Utils.Dom;
+		var viewport = document.getElementsByTagName('html')[0];
+		var cls = 'scroll-lock';
+		var action = (this.getDrawerState() === CLOSE_MENU) ? 'remove' : 'add';
+
+		utils[action + 'Class'](viewport, cls);
+	},
+
+
 	render: function() {
 
 		var state = this.getDrawerState();

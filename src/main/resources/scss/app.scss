@@ -127,6 +127,16 @@ a.right-off-canvas-toggle {
 	}
 }
 
+.scroll-lock {
+	overflow: hidden !important;
+}
+
+aside[class*=off-canvas-menu] {
+	bottom: auto;
+	position: absolute;
+	height: 100vh;
+}
+
 
 .main-section {
 	min-height:30em;
