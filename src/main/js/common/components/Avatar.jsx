@@ -29,7 +29,7 @@ module.exports = React.createClass({
 	componentWillReceiveProps: function(nextProps) {
 		this.setState({
 			avatar: this._buildAvatarURL(nextProps.username || this.props.username)
-		})
+		});
 	},
 
 
@@ -52,12 +52,12 @@ module.exports = React.createClass({
 			'data-for': user,
 			src: constants.BLANK_IMAGE,
 			alt: 'Avatar for ' + user,
-			onerror: this.setUnknown,
+			onError: this.setUnknown,
 			style: {
 				backgroundSize: 'cover',
 				backgroundImage: 'url(' + this.state.avatar + ')'
 			}
-		}
+		};
 
 		return this.transferPropsTo(React.DOM.img(props));
 	}
