@@ -5,7 +5,7 @@ var React = require('react/addons');
 
 var DateTime = require('common/components/DateTime');
 var Loading = require('common/components/Loading');
-var Error = require('common/components/Error');
+var ErrorWidget = require('common/components/Error');
 
 var Widgets = require('./widgets');
 var Actions = require('../Actions');
@@ -92,7 +92,7 @@ module.exports = React.createClass({
 		var node = this.state.node;
 
 		if (this.state.loading) { return (<Loading/>); }
-		if (this.state.error) {	return <Error error={this.state.error}/> }
+		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>); }
 
 		return (
 			<div className="course-overview row">

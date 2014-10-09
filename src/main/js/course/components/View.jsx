@@ -93,7 +93,7 @@ module.exports = React.createClass({
 									course={course}
 									basePath={this.props.basePath}/>
 
-				<Router.Location path="/o/:outlineId/c/:rootId(/:pageId)/(#:nav)"
+				<Router.Location path="/o/:outlineId/c/:rootId/(:pageId/)(#:nav)"
 									handler={Content.View}
 									course={course}
 									basePath={this.props.basePath}
