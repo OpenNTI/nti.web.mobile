@@ -97,7 +97,7 @@ module.exports = React.createClass({
 									handler={Content.View}
 									course={course}
 									basePath={this.props.basePath}
-									pathname="c"
+									slug="c"
 									contextProvider={this.__getContext}/>
 
 				<Router.NotFound handler={Detail} entry={entry} noBack/>

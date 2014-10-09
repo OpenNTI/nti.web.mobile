@@ -14,8 +14,8 @@ module.exports = React.createClass({
 	statics: {
 		mimeType: /ntirelatedworkref$|nticard$/i,
 		handles: function(item) {
-			var type = item['type'] || '';
-			var cls = item['class'] || '';
+			var type = item.type || '';
+			var cls = item.class || '';
 			var re = this.mimeType;
 			return re.test(type) || re.test(cls);
 		}
@@ -51,16 +51,8 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var props = this.props;
-		var basePath = path.join(
-			props.basePath,
-			'course', //NTIID.encodeForURI(props.course.getID()),
-			'o', props.outlineId
-		)
-
-
-		return this.transferPropsTo(<Card
-			basePath={basePath} pathname="c"
-			contentPackage={this.props.course}/>);
+		return this.transferPropsTo(
+			<Card slug="c" contentPackage={this.props.course}/>
+		);
 	}
 });

@@ -42,17 +42,12 @@ module.exports = React.createClass({
 	render: function() {
 		var props = this.props;
 		var item = props.item;
-		var basePath = path.join(
-			props.basePath,
-			'course', NTIID.encodeForURI(props.course.getID()),
-			'o', props.outlineId
-		)
 
 		//map fields for the card
 		item.title = item.label;
 
-		return this.transferPropsTo(<Card
-			basePath={basePath} pathname="c"
-			contentPackage={this.props.course}/>);
+		return this.transferPropsTo(
+			<Card slug="c" contentPackage={props.course}/>
+		);
 	}
 });

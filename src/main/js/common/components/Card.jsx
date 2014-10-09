@@ -25,29 +25,24 @@ External Links:
 */
 var path = require('path');
 var React = require('react/addons');
+var Router = require('react-router-component');
 var merge = require('react/lib/merge');
 
 var NTIID = require('dataserverinterface/utils/ntiids');
 var isNTIID = NTIID.isNTIID;
 
 module.exports = React.createClass({
+	mixins: [Router.NavigatableMixin],
 	displayName: 'RelatedWorkRef',
 
 	propTypes: {
 		/**
-		 * The base URI to use when forming links.
-		 *
-		 * @type {String}
-		 */
-		basePath: React.PropTypes.string.isRequired,
-
-		/**
-		 * The pathname to put between the basePath and the resource
+		 * The slug to put between the basePath and the resource
 		 * target/href/ntiid at the end of the uri.
 		 *
 		 * @type {String}
 		 */
-		pathname: React.PropTypes.string.isRequired,
+		slug: React.PropTypes.string.isRequired,
 
 		/**
 		 * The owning contentPackage to provide a method "resolveContentURL"
@@ -97,10 +92,10 @@ module.exports = React.createClass({
 
 		if (isNTIID(href)) {
 			var link = path.join(
-				props.basePath,
-				props.pathname, NTIID.encodeForURI(href)) + '/';
+				props.slug || '',
+				NTIID.encodeForURI(href)) + '/';
 
-			this.setState({href: link})
+			this.setState({href: this.makeHref(link)});
 			return;
 		}
 
