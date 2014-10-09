@@ -25,14 +25,15 @@ External Links:
 */
 var path = require('path');
 var React = require('react/addons');
-var Router = require('react-router-component');
 var merge = require('react/lib/merge');
+
+var NavigatableMixin = require('../mixins/NavigatableMixin');
 
 var NTIID = require('dataserverinterface/utils/ntiids');
 var isNTIID = NTIID.isNTIID;
 
 module.exports = React.createClass({
-	mixins: [Router.NavigatableMixin],
+	mixins: [NavigatableMixin],
 	displayName: 'RelatedWorkRef',
 
 	propTypes: {
@@ -95,7 +96,7 @@ module.exports = React.createClass({
 				props.slug || '',
 				NTIID.encodeForURI(href)) + '/';
 
-			this.setState({href: this.makeHref(link)});
+			this.setState({href: this.makeHref(link, true)});
 			return;
 		}
 
