@@ -6,7 +6,7 @@ var Router = require('react-router-component');
 
 var Detail = require('catalog/components/Detail');
 var Loading = require('common/components/Loading');
-var Error = require('common/components/Error');
+var ErrorWidget = require('common/components/Error');
 var Media = require('./Media');
 var Outline = require('./OutlineView');
 var Overview = require('./Overview');
@@ -73,7 +73,7 @@ module.exports = React.createClass({
 		}
 
 		if ((record && record.error) || !course || !entry) {
-			return (<Error error={record.error}/>);
+			return (<ErrorWidget error={record.error}/>);
 		}
 
 		return (
