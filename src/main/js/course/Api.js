@@ -2,7 +2,7 @@
 
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 
-var getServer = require('common/Utils').getServer;
+var getService = require('common/Utils').getService;
 var Constants = require('./Constants');
 
 

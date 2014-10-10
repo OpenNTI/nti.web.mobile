@@ -2,13 +2,13 @@
 
 var Catalog = require('dataserverinterface/stores/Catalog');
 
-var getServer = require('common/Utils').getServer;
+var getService = require('common/Utils').getService;
 
 var _catalog;
 
 
 function load(reload) {
-	return getServer().getServiceDocument()
+	return getService()
 		.then(function(service){
 			return Catalog.load(service, reload);
 	});

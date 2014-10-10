@@ -2,13 +2,13 @@
 
 var Library = require('dataserverinterface/stores/Library');
 
-var getServer = require('common/Utils').getServer;
+var getService = require('common/Utils').getService;
 
 var _library;
 
 function load(reload) {
 	console.log('Library Api: Load called');
-	return getServer().getServiceDocument()
+	return getService()
 		.then(function(service){
 			return Library.load(service, 'Main', reload);
 	});

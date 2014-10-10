@@ -2,12 +2,12 @@
 
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 
-var getServer = require('common/Utils').getServer;
+var getService = require('common/Utils').getService;
 
 module.exports = {
 
 	getPageInfo: function(ntiid) {
-		return getServer().getServiceDocument()
+		return getService()
 			.then(function(service) {
 				return service.getPageInfo(ntiid);
 			});

@@ -2,12 +2,12 @@
 
 var Notifications = require('dataserverinterface/stores/Notifications');
 
-var getServer = require('common/Utils').getServer;
+var getService = require('common/Utils').getService;
 
 module.exports = {
 
 	load: function () {
-		return getServer().getServiceDocument()
+		return getService()
 			.then(function(service) {
 				return Notifications.load(service);
 		});
