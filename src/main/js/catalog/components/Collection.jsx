@@ -34,7 +34,6 @@ var ListView = React.createClass({
 		var basePath = this.props.basePath;
 		return (
 			<div className="grid-container">
-				<h2>{this.props.title}</h2>
 				<ul className={'small-block-grid-' + size + ' medium-block-grid-3 large-block-grid-4'}>
 				{this.props.list.map(function(o) {
 					return <Item key={o.NTIID} item={o} basePath={basePath}/>;

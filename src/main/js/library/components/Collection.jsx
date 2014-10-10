@@ -19,7 +19,7 @@ var ListView = React.createClass({
 		return (
 			<div>
 				<div className="grid-container">
-					<h2>{this.props.title}</h2>
+					{this.props.omittitle ? null : <h2>{this.props.title}</h2>}
 					<ul className={'small-block-grid-' + size + ' medium-block-grid-3 large-block-grid-4'}>
 					{this.props.list.map(function(item,index,arr) {
 						var basePath = this.props.basePath;
@@ -49,10 +49,20 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		return this.transferPropsTo(
+		var filteredView = this.transferPropsTo(
 			<Filter>
 				<ListView title={this.props.title} basePath={this.props.basePath} />
 			</Filter>
+		);
+		return (
+			<div>
+				<div className="icon-bar three-up">
+					<Link className="item" href="/courses/"><label>Courses</label></Link>
+					<Link className="item" href="/books/"><label>Books</label></Link>
+					<Link className="item" href="/catalog/"><label>Catalog</label></Link>
+				</div>
+				{filteredView}
+			</div>
 		);
 	}
 });

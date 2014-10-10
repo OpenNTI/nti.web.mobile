@@ -185,8 +185,7 @@ module.exports = React.createClass({
 
 						<aside className="left-off-canvas-menu">
 							<LeftNav basePath={this.props.basePath}
-								items={this.state.leftNav}
-								backClick={function() {alert('hi');}}/>
+								items={this.state.leftNav} />
 						</aside>
 
 						<aside className="right-off-canvas-menu">

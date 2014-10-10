@@ -6,6 +6,7 @@ var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
 var DefaultRoute = Router.NotFound;
+var Loading = require('common/components/Loading');
 
 var Store = require('../Store');
 var Actions = require('../Actions');
@@ -20,7 +21,6 @@ module.exports = React.createClass({
 	getInitialState: function() {
         return { library: Store.getData() };
     },
-
 
     componentDidMount: function() {
         Store.addChangeListener(this._onChange);
@@ -44,25 +44,40 @@ module.exports = React.createClass({
         }
     },
 
-
     _onChange: function() {
 		this.setState({library: Store.getData()});
 	},
 
 
 	_reroute: function() {
+		console.log('default library route/view');
 		/*TODO: Pick a view to redirect to...*/
 		return React.DOM.div({});
 	},
 
 
 	render: function() {
+
+		if(!this.state.library.loaded) {
+			return <Loading />
+		}
+
 		var library = this.state.library;
 		var books = [].concat(library.bundles || [], library.packages || []);
 		var courses = [].concat(library.courses || []);
 		var instructing = [].concat(library.coursesAdmin || []);
 
 		var basePath = this.props.basePath;
+
+		if (this.props.composite) {
+			return (
+				<div>
+					{courses.length > 0 ? <Collection basePath={basePath} title='Courses' list={courses} /> : null}
+					{books.length > 0 ? <Collection basePath={basePath} title='Books' list={books} /> : null}
+					{instructing.length > 0 ? <Collection basePath={basePath} title='Administered Courses' list={instructing} /> : null}
+				</div>
+			);
+		}
 
     	return (
 	      <div>

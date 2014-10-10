@@ -20,16 +20,21 @@ var FilterBar = React.createClass({
 	render: function() {
 		var filterLinks = Object.keys(this.props.filters||{}).map(function(value,index,array) {
 			var isActive = this.props.filtername === value.toLowerCase();
-			return <dd className={isActive ? 'active' : null}><Link href={'/' + value.toLowerCase()}>{value}</Link></dd>
+			return <li key={value} className={isActive ? 'active' : null}><Link className="tiny button" href={'/' + value.toLowerCase()}>{value}</Link></li>
 		}.bind(this));
 
 		var filterBar = filterLinks.length === 0 ? null : (
-			<dl className="sub-nav">
+			<ul className="button-group">
 				{filterLinks}
-			</dl>
+			</ul>
 		);
 
-		return filterBar;
+		return (
+			<div className="grid-container">
+				<h2>{this.props.title}</h2>
+				{filterBar}
+			</div>
+		);
 	}
 
 });
@@ -61,7 +66,8 @@ var FilterableView = React.createClass({
 	render: function() {
 
 		var listComponent = React.addons.cloneWithProps(this.props.listcomp, {
-			list: this.filter(this.props.list)
+			list: this.filter(this.props.list),
+			omittitle: true
 		});
 
 		return (
@@ -77,11 +83,23 @@ var FilterableView = React.createClass({
 var DefaultPath = React.createClass({
 	mixins: [Router.NavigatableMixin],
 
-	componentDidMount: function() {
+	_navigateToFirstFilter: function() {
 		var filterNames = Object.keys(this.props.filters||{});
 		if (filterNames.length > 0) {
 			var first = filterNames[0].toLowerCase();
 			this.navigate('/' + first, {replace: true});
+		}
+	},
+
+	componentDidUpdate: function() {
+		if(this.getPath() === '/') {
+			this._navigateToFirstFilter();	
+		}
+	},
+
+	componentDidMount: function() {
+		if(this.getPath() === '/') {
+			this._navigateToFirstFilter();	
 		}
 	},
 
@@ -130,11 +148,12 @@ var Filter = React.createClass({
 
 		var list = this.props.list;
 		var filters = this.props.filters;
+		var title = this.props.title;
 
 		return (
 			<Locations contextual>
-				<Location path='/:filtername' handler={FilterableView} list={list} listcomp={listView} filters={filters} />
-				<DefaultRoute handler={DefaultPath} filters={filters} listcomp={listView} />
+				<Location path='/:filtername' handler={FilterableView} list={list} listcomp={listView} filters={filters} title={title} />
+				<DefaultRoute handler={DefaultPath} filters={filters} listcomp={listView} title={title} />
 			</Locations>
 		);
 	}
