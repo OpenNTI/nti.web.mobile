@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
-
+/* global Hammer */
 'use strict';
-var Hammer = require('hammerjs');
 
 var React = require('react/addons');
 var Library = require('library');
@@ -114,14 +113,14 @@ module.exports = React.createClass({
 
 
 	getDrawerState: function() {
-		var key = location.hash || '';
+		var key = (global.location || {}).hash || '';
 		return DRAWER_STATE[key.toLowerCase()] || '';
 	},
 
 
 	__setupGestures: function() {
 		var dom = this.getDOMNode();
-		delete Hammer.defaults.cssProps.userSelect;
+
 		var gestures = new Hammer(document.body, {
 			swipeVelocityX: 0.05,
 			swipeVelocityY: 0.1
