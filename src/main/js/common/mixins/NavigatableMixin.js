@@ -27,7 +27,7 @@ var NavigatableMixin = {
 
 	makeHref: function(path, includeCurrentRoute) {
 		var n = this._getNavigable(),
-			route = (n.state.match || {}).matchedPath || '';
+			route = (n.getMatch() || {}).matchedPath || '';
 
 		if (includeCurrentRoute) {
 			path = join(route, path);
