@@ -63,14 +63,14 @@ module.exports = React.createClass({
 		var courses = [].concat(library.courses || []);
 		navitems.push(_navRec({
 			label: 'courses',
-			href: 'library/courses',
+			href: 'library/courses/',
 			items: courses
 		}));
 
 		var books = [].concat(library.bundles || [], library.packages || []);
 		navitems.push(_navRec({
 			label: 'books',
-			href: 'library/books',
+			href: 'library/books/',
 			items: books
 		}));
 

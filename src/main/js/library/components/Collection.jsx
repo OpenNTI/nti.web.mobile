@@ -7,6 +7,7 @@ var OwnerQuery = require('common/mixins/OwnerQuery');
 var Package = require('./Package');
 var Bundle = require('./Bundle');
 var Course = require('./Course');
+var Link = require('react-router-component').Link;
 
 var Filter = require('common/components/CollectionFilter');
 
@@ -48,12 +49,10 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		return (
-			<div>
-				<Filter filters={this.props.filters} list={this.props.list}>
-					<ListView title={this.props.title} basePath={this.props.basePath} />
-				</Filter>
-			</div>
+		return this.transferPropsTo(
+			<Filter>
+				<ListView title={this.props.title} basePath={this.props.basePath} />
+			</Filter>
 		);
 	}
 });

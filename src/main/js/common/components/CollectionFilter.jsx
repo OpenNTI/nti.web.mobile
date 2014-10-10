@@ -5,6 +5,11 @@
 'use strict';
 
 var React = require('react');
+var Router = require('react-router-component');
+var Locations = Router.Locations;
+var Location = Router.Location;
+var Link = require('react-router-component').Link;
+var DefaultRoute = Router.NotFound;
 
 var FilterBar = React.createClass({
 
@@ -18,6 +23,57 @@ var FilterBar = React.createClass({
 		);
 	}
 
+});
+
+var Test = React.createClass({
+
+	/**
+	* filter the list according using the currently selected filter.
+	*/
+	filter: function(list) {
+
+		// default to the first filter
+		var fkeys = Object.keys(this.props.filters);
+		var fname = fkeys.length > 0 ? fkeys[0] : undefined;
+
+		if (this.props.filtername) { // filter specified in the url, e.g. library/courses/archived
+			for(var i = 0; i < fkeys.length; i++) {
+				if (this.props.filtername === fkeys[i].toLowerCase()) {
+					fname = fkeys[i];
+					break;
+				}
+			}
+		}
+
+		var selectedFilter = this.props.filters[fname];
+		return selectedFilter ? list.filter(selectedFilter) : list;
+	},
+
+	render: function() {
+
+		var filterLinks = Object.keys(this.props.filters||{}).map(function(value,index,array) {
+			var isActive = this.props.filtername === value.toLowerCase();
+			return <dd className={isActive ? 'active' : null}><Link href={'/' + value.toLowerCase()}>{value}</Link></dd>
+		}.bind(this));
+
+		var filterBar = filterLinks.length === 0 ? null : (
+			<dl className="sub-nav">
+				{filterLinks}
+			</dl>
+		);
+
+		var listComponent = React.addons.cloneWithProps(this.props.listcomp, {
+			list: this.filter(this.props.list)
+		});
+
+		return (
+			<div>
+				{filterBar}
+				(filtername: {this.props.filtername} xxxxx)
+				<div>{listComponent}</div>
+			</div>
+		);
+	}
 });
 
 var Filter = React.createClass({
@@ -51,11 +107,11 @@ var Filter = React.createClass({
 		};
 	},
 
-	_onFilterClick: function(filterName) {
-		this.setState({
-			activeFilter: filterName
-		});
-	},
+	// _onFilterClick: function(filterName) {
+	// 	this.setState({
+	// 		activeFilter: filterName
+	// 	});
+	// },
 
 	hasFilters: function() {
 		return Object.keys(this.props.filters).length > 0;
@@ -67,8 +123,8 @@ var Filter = React.createClass({
 		}
 
 		var filterItems = Object.keys(this.props.filters).map(function(key,index,array) {
-			var isActive = this.state.activeFilter === key;
-			return <dd className={isActive ? 'active' : null}><a href="#" onClick={this._onFilterClick.bind(this,key)}>{key}</a></dd>
+			var isActive = this.props.filtername === key.toLowerCase();
+			return <dd className={isActive ? 'active' : null}><Link href={key.toLowerCase()}>{key}</Link></dd>
 		}.bind(this));
 
 		var filterBar = filterItems.length === 0 ? null : (
@@ -80,33 +136,41 @@ var Filter = React.createClass({
 		return filterBar;
 	},
 
-	componentWillMount: function() {
-		var fkeys = Object.keys(this.props.filters);
-		var fname = fkeys.length > 0 ? fkeys[0] : undefined;
-		this.setState({activeFilter: fname});
-	},
+	// componentWillMount: function() {
+	// 	var fkeys = Object.keys(this.props.filters);
+	// 	var fname = fkeys.length > 0 ? fkeys[0] : undefined;
 
-	/**
-	* filter the list according using the currently selected filter.
-	*/
-	filter: function(list) {
-		var selectedFilter = this.props.filters[this.state.activeFilter];
-		return selectedFilter ? list.filter(selectedFilter) : list;
+	// 	if (this.props.filtername) { // filter specified in the url, e.g. library/courses/archived
+	// 		for(var i = 0; i < fkeys.length; i++) {
+	// 			if (this.props.filtername === fkeys[i].toLowerCase()) {
+	// 				fname = fkeys[i];
+	// 				break;
+	// 			}
+	// 		}
+	// 	}
+	// 	this.setState({activeFilter: fname});
+	// },
+
+	
+	_reroute: function() {
+		return (React.DOM.div({}));
 	},
 
 	render: function() {
 
 		var listView = React.addons.cloneWithProps(this.props.children, {
-			list: this.filter(this.props.list)
+			list: this.props.list
 		});
 
-		var filterBar = this.filterBar();	
+		var list = this.props.list;
+		var filters = this.props.filters;
+
 
 		return (
-			<div>
-				{filterBar}
-				{listView}
-			</div>
+			<Locations contextual>
+				<Location path='/:filtername' handler={Test} list={list} listcomp={listView} filters={filters} />
+				<DefaultRoute handler={Test} list={list} listcomp={listView} filters={filters} />
+			</Locations>
 		);
 	}
 
