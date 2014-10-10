@@ -56,12 +56,13 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		return (
-			<div>
-				<Filter filters={filters} list={this.props.list}>
-					<ListView title={this.props.title} basePath={this.props.basePath} />
-				</Filter>
-			</div>
+
+		var basePath = this.props.basePath;
+
+		return this.transferPropsTo(
+			<Filter filters={filters}>
+				<ListView title={this.props.title} basePath={basePath} />
+			</Filter>
 		);
 	}
 });

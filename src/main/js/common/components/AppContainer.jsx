@@ -76,7 +76,7 @@ module.exports = React.createClass({
 
 		navitems.push(_navRec({
 			label: 'catalog',
-			href: 'catalog/',
+			href: 'catalog/list',
 			clickable: true
 		}));
 

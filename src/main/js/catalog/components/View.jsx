@@ -42,7 +42,6 @@ module.exports = React.createClass({
         }
     },
 
-
     _onChange: function() {
 		this.setState({catalog: Store.getData()});
 	},
@@ -57,8 +56,9 @@ module.exports = React.createClass({
 
     	return (
 			<Router.Locations contextual>
-				<Router.Location path="/:entryId/(#:nav)" handler={Detail}/>
-				<Router.NotFound handler={Collection} title="Catalog" list={catalog}/>
+                <Router.Location path="/list*" handler={Collection} title="Catalog" list={catalog} basePath={this.props.basePath} />
+				<Router.Location path="/item/:entryId/(#:nav)" handler={Detail} basePath={this.props.basePath} />
+				<Router.NotFound handler={Collection} title="Catalog" list={catalog} basePath={this.props.basePath} />
 			</Router.Locations>
 	    );
 	}

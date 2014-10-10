@@ -40,8 +40,8 @@ var ListView = React.createClass({
 });
 
 module.exports = React.createClass({
-	displayName: 'Collection',
-	
+	displayName: 'Library:Collection',
+
 	propTypes: {
 		title: React.PropTypes.string.isRequired,
 		list: React.PropTypes.array.isRequired,

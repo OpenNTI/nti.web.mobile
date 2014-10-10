@@ -3,6 +3,7 @@
 var React = require('react/addons');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var BLANK_IMAGE = require('common/constants/DataURIs').BLANK_IMAGE;
+var Link = require('react-router-component').Link;
 
 module.exports = React.createClass({
 	displayName: 'Entry',
@@ -32,9 +33,12 @@ module.exports = React.createClass({
 		var style = {
 			backgroundImage: 'url(' + p.icon + ')'
 		}
+
+		var basePath = this.props.basePath;
+		var href = basePath + 'catalog/item/' + courseId + '/';
 		return (
 			<li className="grid-item">
-				<a href={'./' + courseId + '/'}>
+				<a href={href}>
 					<img style={style} src={BLANK_IMAGE}/>
 					<div className="metadata">
 						<h3>{p.Title}</h3>
