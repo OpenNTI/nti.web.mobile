@@ -29,8 +29,14 @@
 	letter-spacing:0.1em;
 }
 
-* {
+*:not(input) {
 	-webkit-touch-callout: none;
+	//We only want specifc parts to be selectible.
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 }
 
 .button, input[type=button], input[type=submit], input[type=reset], button {
