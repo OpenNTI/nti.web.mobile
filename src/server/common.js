@@ -34,7 +34,7 @@ var overrides = {
 };
 
 
-function override(dest, override) {
+function _override(dest, override) {
 	for (var key in override) {
 		if(override[key]) {
 			dest[key] = override[key];
@@ -48,7 +48,7 @@ exports.config = function() {
 	var node_env = process.env.NODE_ENV,
 		base = 'development';
 
-	return override(
+	return _override(
 		merge(true, env[base], env[node_env] || {}),
 		overrides);
 };
