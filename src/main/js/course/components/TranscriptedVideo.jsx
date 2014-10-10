@@ -17,7 +17,7 @@ var addClass = DomUtils.addClass;
 var removeClass = DomUtils.removeClass;
 
 var LoadingMask = require('common/components/Loading');
-var Error = require('common/components/Error');
+var ErrorWidget = require('common/components/Errors');
 var Video = require('common/components/Video');
 
 /*
@@ -78,7 +78,7 @@ module.exports = React.createClass({
 	        			cues = [], regions = [];
 
 				    parser.oncue = function(cue) { cues.push(cue); };
-					parser.onregion = function(region) { regions.push(region); }
+					parser.onregion = function(region) { regions.push(region); };
 					parser.onparsingerror = function(e) { throw e; };
 
 				    parser.parse(vtt);
@@ -140,7 +140,7 @@ module.exports = React.createClass({
 					<div className="transcript">
 						{
 							this.state.error ?
-								Error({error: this.state.error}) :
+								ErrorWidget({error: this.state.error}) :
 								Transcript(props)
 						}
 					</div>
