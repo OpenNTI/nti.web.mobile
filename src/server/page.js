@@ -1,6 +1,6 @@
 'use strict';
 
-var styleCollector = require('./style-collector');
+//var styleCollector = require('./style-collector');
 var common = require('./common');
 
 var url = require('url');
@@ -41,15 +41,12 @@ module.exports = function(req, scriptFilename, additional) {
 	var path = url.parse(req.url).pathname;
 
 	var html = '';
-	var css = '';
 
 	if (Application) {
-		css = styleCollector.collect(function() {
 			html = React.renderComponentToString(Application({
 				path:path,
 				basePath: common.config().basepath
 			}));
-		});
 	}
 
 	if (additional) {
@@ -57,16 +54,11 @@ module.exports = function(req, scriptFilename, additional) {
 	}
 
 
-	//css = '<style type="text/css" id="server-side-style">' + css + '</style>';
-
 	//In practice, the bundle contains the CSS and injects it no matter what. So
 	//injecting it here, doubles the clients' download for no reason.
-	css = '';
-
 
 	return template
 			.replace(basepathreplace, basePathFix)
-			.replace(/<!--css:server-values-->/i, css)
 			.replace(/<!--html:server-values-->/i, html)
 			.replace(/js\/main\.js/, scriptFilename);
 };
