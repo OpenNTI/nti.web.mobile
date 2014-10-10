@@ -18,9 +18,18 @@ var FilterBar = React.createClass({
 	},
 
 	render: function() {
-		return (
-			<div>(FilterBar)</div>
+		var filterLinks = Object.keys(this.props.filters||{}).map(function(value,index,array) {
+			var isActive = this.props.filtername === value.toLowerCase();
+			return <dd className={isActive ? 'active' : null}><Link href={'/' + value.toLowerCase()}>{value}</Link></dd>
+		}.bind(this));
+
+		var filterBar = filterLinks.length === 0 ? null : (
+			<dl className="sub-nav">
+				{filterLinks}
+			</dl>
 		);
+
+		return filterBar;
 	}
 
 });
@@ -51,24 +60,13 @@ var FilterableView = React.createClass({
 
 	render: function() {
 
-		var filterLinks = Object.keys(this.props.filters||{}).map(function(value,index,array) {
-			var isActive = this.props.filtername === value.toLowerCase();
-			return <dd className={isActive ? 'active' : null}><Link href={'/' + value.toLowerCase()}>{value}</Link></dd>
-		}.bind(this));
-
-		var filterBar = filterLinks.length === 0 ? null : (
-			<dl className="sub-nav">
-				{filterLinks}
-			</dl>
-		);
-
 		var listComponent = React.addons.cloneWithProps(this.props.listcomp, {
 			list: this.filter(this.props.list)
 		});
 
 		return (
 			<div>
-				{filterBar}
+				{this.transferPropsTo(<FilterBar />)}
 				<div>{listComponent}</div>
 			</div>
 		);
