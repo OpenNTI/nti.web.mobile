@@ -17,7 +17,7 @@ var addClass = DomUtils.addClass;
 var removeClass = DomUtils.removeClass;
 
 var LoadingMask = require('common/components/Loading');
-var ErrorWidget = require('common/components/Errors');
+var ErrorWidget = require('common/components/Error');
 var Video = require('common/components/Video');
 
 /*
