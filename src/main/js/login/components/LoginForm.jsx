@@ -67,7 +67,7 @@ var View = React.createClass({
 							>{t('LOGIN.login')}</button>
 						</div>
 						<OAuthButtons links={this.state.links} basePath={this.props.basePath} buttonClass="small-12 columns" />
-						
+
 					</fieldset>
 					<RecoveryLinks links={this.state.links} basePath={this.props.basePath} />
 				</form>
@@ -80,7 +80,7 @@ var View = React.createClass({
 	*/
 	_usernameChanged: function(event) {
 		clearTimeout(this.state.timeoutId);
-		var timeoutId = window.setTimeout(function() {
+		var timeoutId = global.setTimeout(function() {
 			console.log('timeout, firing userInputChanged: username: %s', this._username());
 			Actions.userInputChanged({
 				credentials: {
@@ -88,7 +88,7 @@ var View = React.createClass({
 					password: this._password()
 				},
 				event: event
-			});	
+			});
 		}.bind(this),_pingDelayMs);
 		this.setState({timeoutId: timeoutId});
 	},
