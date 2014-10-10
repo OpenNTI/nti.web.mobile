@@ -7,6 +7,7 @@ var React = require('react/addons');
 var RouterMixin = require('react-router-component').RouterMixin;
 
 var Loading = require('common/components/Loading');
+var ErrorWidget = require('common/components/Error');
 
 var Pager = require('common/components/Pager');
 
@@ -95,15 +96,18 @@ module.exports = React.createClass({
 
 
 	componentWillReceiveProps: function(props) {
-		if (this.getPageID(props) !== this.getPageID()) {
-			this.getDataIfNeeded(props);
-		}
+		this.getDataIfNeeded(props);
 	},
 
 
 	getDataIfNeeded: function(props) {
-		this.setState(this.getResetState());
-		Actions.loadPage(this.getPageID());
+		var newPage = this.getPageID(props) !== this.state.currentPage;
+		var newRoot = this.getRootID(props) !== this.getRootID();
+
+		if (newPage || newRoot) {
+			this.setState(this.getResetState());
+			Actions.loadPage(this.getPageID());
+		}
 	},
 
 
@@ -120,8 +124,8 @@ module.exports = React.createClass({
 	},
 
 
-	getRootID: function() {
-		return NTIID.decodeFromURI(this.props.rootId);
+	getRootID: function(props) {
+		return NTIID.decodeFromURI((props ||this.props).rootId);
 	},
 
 
@@ -131,7 +135,7 @@ module.exports = React.createClass({
 		var m = this.getMatch();
 
 		if (m) {
-			h = m.getHandler();
+			h = m.getHandler() || p;
 		}
 
 		return NTIID.decodeFromURI(h.pageId || p.rootId);
@@ -163,6 +167,8 @@ module.exports = React.createClass({
 		var data = Store.getPageData(this.getPageID());
 
 		this.setState({
+			currentPage: id,
+			loading: false,
 			data: data,
 			pageSource: data.tableOfContents.getPageSource(this.getRootID()),
 			body: data.body,
@@ -175,6 +181,10 @@ module.exports = React.createClass({
 	render: function() {
 		var body = this.state.body || [];
 		var pageSource = this.state.pageSource;
+
+		if (this.state.loading) {
+			return (<Loading/>);
+		}
 
 		return (
 			<div className="content-view">
