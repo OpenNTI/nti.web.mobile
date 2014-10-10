@@ -1,10 +1,9 @@
 'use strict';
-/**
- * @module nt-mobile
- */
+/* global $AppConfig, FastClick */
 $AppConfig.server = require('dataserverinterface/utils/forcehost')($AppConfig.server);
 
 var React = require('react/addons');
+var preventOverscroll = require('common/thirdparty/prevent-overscroll');
 
 require('script!../resources/vendor/modernizr/modernizr.js');
 require('script!../resources/vendor/fastclick/lib/fastclick.js');
@@ -26,15 +25,13 @@ EventPluginHub.injection.injectEventPluginsByName({
 	TapEventPlugin: TapEventPlugin
 });
 
+global.addEventListener('load', function() {
+	FastClick.attach(document.body); }, false);
 
 React.initializeTouchEvents(true);
 
 
-if (global.addEventListener) {
-	global.addEventListener('load', function() {
-		FastClick.attach(document.body);
-	}, false);
-}
+preventOverscroll(document.body);
 
 
 var app = React.renderComponent(

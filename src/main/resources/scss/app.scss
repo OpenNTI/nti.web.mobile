@@ -29,6 +29,10 @@
 	letter-spacing:0.1em;
 }
 
+* {
+	-webkit-touch-callout: none;
+}
+
 .button, input[type=button], input[type=submit], input[type=reset], button {
 	@include input-typography;
 }
@@ -129,7 +133,9 @@ a.right-off-canvas-toggle {
 }
 
 .scroll-lock {
-	overflow: hidden !important;
+	&, & > body {
+		overflow: hidden !important;
+	}
 }
 
 aside[class*=off-canvas-menu] {

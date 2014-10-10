@@ -16,6 +16,8 @@ var MessageDisplay = require('../messages').Display;
 var t = require('../locale').translate;
 var Utils = require('../Utils');
 
+var preventOverscroll = require('common/thirdparty/prevent-overscroll');
+
 
 var LEFT_MENU_OPEN = 'move-right';
 var RIGHT_MENU_OPEN = 'move-left';
@@ -134,6 +136,8 @@ module.exports = React.createClass({
 		Library.Store.addChangeListener(this._libraryChanged);
 		Library.Store.getData(true);
 		this.__setupGestures();
+		preventOverscroll(this.getDOMNode().querySelector('.left-off-canvas-menu'));
+		preventOverscroll(this.getDOMNode().querySelector('.right-off-canvas-menu'));
 	},
 
 
