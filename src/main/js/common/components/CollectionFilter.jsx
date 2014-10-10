@@ -25,7 +25,7 @@ var FilterBar = React.createClass({
 
 });
 
-var Test = React.createClass({
+var FilterableView = React.createClass({
 
 	/**
 	* filter the list according using the currently selected filter.
@@ -124,33 +124,6 @@ var Filter = React.createClass({
 		};
 	},
 
-	hasFilters: function() {
-		return Object.keys(this.props.filters).length > 0;
-	},
-
-	filterBar: function() {
-		if (! this.hasFilters()) {
-			return null;
-		}
-
-		var filterItems = Object.keys(this.props.filters).map(function(key,index,array) {
-			var isActive = this.props.filtername === key.toLowerCase();
-			return <dd className={isActive ? 'active' : null}><Link href={key.toLowerCase()}>{key}</Link></dd>
-		}.bind(this));
-
-		var filterBar = filterItems.length === 0 ? null : (
-			<dl className="sub-nav">
-				{filterItems}
-			</dl>
-		);
-
-		return filterBar;
-	},
-	
-	_reroute: function() {
-		return (React.DOM.div({}));
-	},
-
 	render: function() {
 
 		var listView = React.addons.cloneWithProps(this.props.children, {
@@ -162,7 +135,7 @@ var Filter = React.createClass({
 
 		return (
 			<Locations contextual>
-				<Location path='/:filtername' handler={Test} list={list} listcomp={listView} filters={filters} />
+				<Location path='/:filtername' handler={FilterableView} list={list} listcomp={listView} filters={filters} />
 				<DefaultRoute handler={DefaultPath} filters={filters} listcomp={listView} />
 			</Locations>
 		);
