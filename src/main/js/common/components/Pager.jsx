@@ -4,8 +4,12 @@
 var React = require('react/addons');
 var invariant = require('react/lib/invariant');
 var isEmpty = require('dataserverinterface/utils/isempty');
+var NTIIDs = require('dataserverinterface/utils/ntiids');
+
+var NavigatableMixin = require('../mixins/NavigatableMixin');
 
 module.exports = React.createClass({
+	mixins: [NavigatableMixin],
 	displayName: 'Pager',
 
 	propType: {
@@ -71,8 +75,16 @@ module.exports = React.createClass({
 			);
 
 			pages = source.getPagesAround(props.current, props.root);
-			
+			this.setState({
+				next: this.__buildHref(pages.next),
+				prev: this.__buildHref(pages.prev)
+			});
 		}
+	},
+
+
+	__buildHref: function(page) {
+		return page && {href :this.makeHref(page.ref, false) + '/', title: page.title};
 	},
 
 

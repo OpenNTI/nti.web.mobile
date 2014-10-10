@@ -4,6 +4,7 @@
 var NTIID = require('dataserverinterface/utils/ntiids');
 
 var React = require('react/addons');
+var RouterMixin = require('react-router-component').RouterMixin;
 
 var Loading = require('common/components/Loading');
 
@@ -18,14 +19,28 @@ var Store = require('../Store');
 var Actions = require('../Actions');
 
 module.exports = React.createClass({
+	mixins: [RouterMixin],
 	displayName: 'View',
 
-	getInitialState: function() {
+
+	getDefaultProps: function() {
+		return {
+			contextual: true//Leave this here... used by the RouterMixin
+		};
+	},
+
+
+	getResetState: function () {
 		return {
 			loading: true,
 			pageWidgets: {},
 			contextPromise: Promise.resolve([])
 		};
+	},
+
+
+	getInitialState: function() {
+		return this.getResetState();
 	},
 
 
@@ -58,7 +73,7 @@ module.exports = React.createClass({
 			widgets = this.getPageWidgets();
 		console.debug('Content View: Did Update... %o', widgets);
 
-		for(guid in widgets) {
+		if (widgets) for(guid in widgets) {
 			el = document.getElementById(guid);
 			w = widgets[guid];
 			if (el && !el.hasAttribute('mounted')) {
@@ -87,8 +102,21 @@ module.exports = React.createClass({
 
 
 	getDataIfNeeded: function(props) {
-		this.setState(this.getInitialState());
+		this.setState(this.getResetState());
 		Actions.loadPage(this.getPageID());
+	},
+
+
+	/**
+	 * For the RouterMixin
+	 * @private
+	 * @param {Object} props
+	 */
+	getRoutes: function(props) {
+		return {
+			handler: function(p) {return p;},
+			path: '/:pageId/'
+		};
 	},
 
 
@@ -99,18 +127,25 @@ module.exports = React.createClass({
 
 	getPageID: function (props) {
 		var p = props || this.props;
-		return NTIID.decodeFromURI(p.pageId || p.rootId);
+		var h = p;
+		var m = this.getMatch();
+
+		if (m) {
+			h = m.getHandler();
+		}
+
+		return NTIID.decodeFromURI(h.pageId || p.rootId);
 	},
 
 
 	getPageWidgets: function() {
 		var o = this.state.pageWidgets;
 		var id = this.getPageID();
-		if (!o[id]) {
+		if (o && !o[id]) {
 			console.debug('Content View: Creating bin for PageWidgets for %s', id);
 			o[id] = {};
 		}
-		return o[id];
+		return o && o[id];
 	},
 
 
@@ -218,7 +253,8 @@ module.exports = React.createClass({
 
 	__getContext: function() {
 		// var data = this.state.data;
-		return this.state.contextPromise.then(function(context) {
+		var getContext = this.state.contextPromise || Promise.resolve([]);
+		return getContext.then(function(context) {
 			//TODO: have the Content Api resolve page title...
 			// context.push({
 			// 	label: '??Current Page??',

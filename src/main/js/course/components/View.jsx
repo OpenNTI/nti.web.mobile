@@ -25,6 +25,7 @@ module.exports = React.createClass({
 		course: React.PropTypes.string.isRequired
 	},
 
+
 	getInitialState: function() {
 		return {
 			loading: true
@@ -93,7 +94,7 @@ module.exports = React.createClass({
 									course={course}
 									basePath={this.props.basePath}/>
 
-				<Router.Location path="/o/:outlineId/c/:rootId/(:pageId/)(#:nav)"
+				<Router.Location path="/o/:outlineId/c/:rootId/*"
 									handler={Content.View}
 									course={course}
 									basePath={this.props.basePath}
