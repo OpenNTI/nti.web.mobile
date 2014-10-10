@@ -9,7 +9,7 @@
 *
 * grabbed from http://cdnapi.kaltura.com/html5/html5lib/v2.18/mwEmbedLoader.php and tweaked for use with node
 */
-
+/* jslint ignore:start */
 var sourceGrabberInit = require('./kalturaSourceGrabber');
 
 var init = function() {
@@ -103,7 +103,7 @@ kWidget.inLoaderUiConfJsCallback();
 kWidget.setup();
 };
 
-
+/* jslint ignore:end*/
 if (typeof window !== 'undefined') {
 	init();
 	sourceGrabberInit(kWidget);
