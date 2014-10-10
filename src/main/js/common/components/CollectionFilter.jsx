@@ -69,11 +69,28 @@ var Test = React.createClass({
 		return (
 			<div>
 				{filterBar}
-				(filtername: {this.props.filtername} xxxxx)
 				<div>{listComponent}</div>
 			</div>
 		);
 	}
+});
+
+
+var DefaultPath = React.createClass({
+	mixins: [Router.NavigatableMixin],
+
+	componentDidMount: function() {
+		var filterNames = Object.keys(this.props.filters||{});
+		if (filterNames.length > 0) {
+			var first = filterNames[0].toLowerCase();
+			this.navigate('/' + first, {replace: true});
+		}
+	},
+
+	render: function() {
+		return this.props.listcomp;
+	}
+
 });
 
 var Filter = React.createClass({
@@ -107,12 +124,6 @@ var Filter = React.createClass({
 		};
 	},
 
-	// _onFilterClick: function(filterName) {
-	// 	this.setState({
-	// 		activeFilter: filterName
-	// 	});
-	// },
-
 	hasFilters: function() {
 		return Object.keys(this.props.filters).length > 0;
 	},
@@ -135,22 +146,6 @@ var Filter = React.createClass({
 
 		return filterBar;
 	},
-
-	// componentWillMount: function() {
-	// 	var fkeys = Object.keys(this.props.filters);
-	// 	var fname = fkeys.length > 0 ? fkeys[0] : undefined;
-
-	// 	if (this.props.filtername) { // filter specified in the url, e.g. library/courses/archived
-	// 		for(var i = 0; i < fkeys.length; i++) {
-	// 			if (this.props.filtername === fkeys[i].toLowerCase()) {
-	// 				fname = fkeys[i];
-	// 				break;
-	// 			}
-	// 		}
-	// 	}
-	// 	this.setState({activeFilter: fname});
-	// },
-
 	
 	_reroute: function() {
 		return (React.DOM.div({}));
@@ -165,11 +160,10 @@ var Filter = React.createClass({
 		var list = this.props.list;
 		var filters = this.props.filters;
 
-
 		return (
 			<Locations contextual>
 				<Location path='/:filtername' handler={Test} list={list} listcomp={listView} filters={filters} />
-				<DefaultRoute handler={Test} list={list} listcomp={listView} filters={filters} />
+				<DefaultRoute handler={DefaultPath} filters={filters} listcomp={listView} />
 			</Locations>
 		);
 	}
