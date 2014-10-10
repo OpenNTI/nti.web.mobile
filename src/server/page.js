@@ -36,23 +36,25 @@ try {
 	template = fs.readFileSync(__dirname + '/../main/page.html', "utf8");
 }
 
-module.exports = function(req, scriptFilename, additional) {
+module.exports = function(req, scriptFilename, clientConfig) {
 
 	var path = url.parse(req.url).pathname;
 
 	var html = '';
 
 	if (Application) {
+		try {
+			global.$AppConfig = clientConfig.config;
 			html = React.renderComponentToString(Application({
 				path:path,
 				basePath: common.config().basepath
 			}));
+		} finally {
+			delete global.$AppConfig;
+		}
 	}
 
-	if (additional) {
-		html += additional;
-	}
-
+	html += clientConfig.html;
 
 	//In practice, the bundle contains the CSS and injects it no matter what. So
 	//injecting it here, doubles the clients' download for no reason.

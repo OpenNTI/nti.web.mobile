@@ -72,15 +72,15 @@ app.get(appRoutes, function(req, res) {
 
 	//Pre-flight (if any widget makes a request, we will cache its result and
 	// send its result to the client)
-	page(req);
+	page(req, entryPoint, common.nodeConfigAsClientConfig(config, req));
 
 	waitFor(req.__pendingServerRequests, 60000)
 		.then(function() {
+			var clientConfig = common.clientConfig(req.username);
+			clientConfig.html += datacache.getForContext(req).serialize();
 			//Final render
 			console.log('Flushing Render to client: %s %s', req.url, req.username);
-			res.end(page(req, entryPoint,
-				common.clientConfig(req.username) + datacache.getForContext(req).serialize()
-			));
+			res.end(page(req, entryPoint, clientConfig));
 		});
 });
 

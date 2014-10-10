@@ -16,7 +16,8 @@ var Utils = {
 	getServer: function getServer() {
 		var fn = getServer;
 		if (!fn.server) {
-			fn.server = require('dataserverinterface')($AppConfig).interface;
+			fn.server = $AppConfig.nodeInterface ||
+			 	require('dataserverinterface')($AppConfig).interface;
 		}
 		return fn.server;
 	},
@@ -26,7 +27,7 @@ var Utils = {
 	 * Returns a promise that fulfills with the service descriptor.
 	 */
 	getService: function() {
-		return Utils.getServer().getServiceDocument();
+		return $AppConfig.nodeService || Utils.getServer().getServiceDocument();
 	},
 
 

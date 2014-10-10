@@ -56,7 +56,36 @@ exports.config = function() {
 exports.clientConfig = function(username) {
 	var config = this.config();
 	config.username = username;
-	return '\n<script type="text/javascript">\n' +
+	return {
+		config: config,
+		html:
+			'\n<script type="text/javascript">\n' +
 			'window.$AppConfig = ' + JSON.stringify(config) +
-			'\n</script>\n';
+			'\n</script>\n'
+		};
+};
+
+
+function dontUseMe() {
+	throw new Error(
+		'Use the Service to make your requests. ' +
+		'The interface is not meant to be used directly ' +
+		'anymore. (So we can centrally manage request contexts.)');
+}
+
+function noServiceAndThereShouldBe() {
+	throw new Error('No Service.');
+}
+
+exports.nodeConfigAsClientConfig = function(config, context) {
+
+	return {
+		html: '',
+		config: merge(true, config, {
+			username: context.username,
+			nodeInterface: dontUseMe,
+			nodeService: context.__nti_service || noServiceAndThereShouldBe
+		})
+	};
+
 };
