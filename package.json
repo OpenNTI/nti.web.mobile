@@ -12,6 +12,8 @@
   "jsDocDest": "doc",
   "main": "./dist/server/index.js",
   "dependencies": {
+    "compressible": "^2.0.1",
+    "compression": "^1.1.0",
     "compression-webpack-plugin": "^0.1.1",
     "cookie-parser": "^1.3.3",
     "counterpart": "^0.16.0",
@@ -40,6 +42,8 @@
     "jsx-loader": "^0.11.2",
     "load-grunt-tasks": "^0.6.0",
     "merge": "^1.2.0",
+    "mime-db": "^1.1.0",
+    "mime-types": "^2.0.2",
     "moment": "^2.8.3",
     "morgan": "^1.3.2",
     "node-sass": "^0.9.5-rc1",

@@ -28,8 +28,6 @@ var config = common.config();
 var address = config.address || '0.0.0.0';
 var port = config.port || 9000;
 
-var WantsCompressed = /gzip/i;
-
 var waitFor = require('dataserverinterface/utils/waitfor');
 var dataserver = require('dataserverinterface')(config);
 var session = dataserver.session;
@@ -40,40 +38,25 @@ var entryPoint = generated.entryPoint;
 var page = generated.page;
 
 var devmode;
-var assetPath = path.join(__dirname, '..', 'client');
+var assetPath = path.join(__dirname, '..', entryPoint ? 'client' : 'main');
 
 //WWW Server
 var app = express();
 require('./logger').attachToExpress(app);
+require('./cors').attachToExpress(app);
+require('./compress').attachToExpress(app, assetPath);
 
 var mobileapp = express();
 mobileapp.use(config.basepath, app);//re-root the app to /mobile/
 mobileapp.all('/', function(_, res) { res.redirect('/mobile/'); });
 
 if (!entryPoint) {
-	devmode = require('./devmode')(port);
-
 	page = require('./page');
+	devmode = require('./devmode')(port);
 
 	entryPoint = devmode.entry;
 	app.use(devmode.middleware);//serve in-memory compiled sources/assets
-	assetPath = path.join(assetPath, 'main');
 }
-
-
-//CORS...
-app.all('*', function(req, res, next) {
-	var gz = req.url + '.gz';
-	var compress = WantsCompressed.test(req.header('accept-encoding') || '');
-	if (compress && fs.existsSync(path.join(assetPath, gz))) {
-		req.url = gz;
-		res.set('Content-Encoding', 'gzip');
-	}
-
-	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Headers', 'X-Requested-With');
-	next();
-});
 
 
 //Static files...
