@@ -28,10 +28,12 @@
 
 		&.prev::before {
 			transform: rotate(90deg);
+			-webkit-transform: rotate(90deg);
 		}
 
 		&.next::before {
 			transform: rotate(-90deg);
+			-webkit-transform: rotate(-90deg);
 		}
 	}
 }
