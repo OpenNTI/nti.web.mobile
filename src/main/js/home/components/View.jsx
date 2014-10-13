@@ -8,7 +8,7 @@ var getService = require('common/Utils').getService;
 var Loading = require('common/components/Loading');
 var DisplayName = require('common/components/DisplayName');
 var Avatar = require('common/components/Avatar');
-var Courseware = require('../../library/').View;
+var Redirect = require('common/components/Redirect');
 
 
 module.exports = React.createClass({
@@ -46,10 +46,6 @@ module.exports = React.createClass({
 		if (!this.state.appUser) {
 			return (<Loading/>);
 		}
-		return (
-			<div>
-				<Courseware />
-			</div>
-		);
+		return (<Redirect location='courseware/' />);
 	}
 });
