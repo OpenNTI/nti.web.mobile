@@ -30,7 +30,7 @@ var CoursewareSection = React.createClass({
 
 	render: function() {
 
-		var contentView = this._contentView(this.props.section);
+		var contentView = this.transferPropsTo(this._contentView(this.props.section));
 
 		return (
 			<div>

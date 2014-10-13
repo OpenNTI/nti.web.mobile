@@ -47,7 +47,7 @@ var CatalogView = React.createClass({
 
 	render: function() {
 		var catalog = this.state.catalog;
-		return (
+		return this.transferPropsTo(
 			<Collection list={catalog} />
 		);
 	}
