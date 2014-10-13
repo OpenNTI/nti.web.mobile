@@ -2,11 +2,26 @@
 	.button {
 		background-color: white;
 		color: $primary-color;
+		.count {
+			background: black;
+			border-radius:2px;
+			color:white;
+			padding:.2em .5em;
+			margin-left:.25em;
+			display: inline-block;
+			font-weight: bold;
+			opacity:.2;
+			margin-right:-.25em;
+		}
 	}
 	.active {
 		.button {
 			background-color: $primary-color;
 			color: white;
+			.count {
+				color:black;
+				background:white;
+			}
 		}
 	}
 }

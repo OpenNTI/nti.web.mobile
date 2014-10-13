@@ -17,10 +17,21 @@ var FilterBar = React.createClass({
 		filters: React.PropTypes.object
 	},
 
+	_itemcount: function(filtername) {
+		var filter = this.props.filters[filtername];
+		return this.props.list.filter(filter).length;
+	},
+
+	count: function(filtername) {
+		return (<span className="count">{this._itemcount(filtername)}</span>);
+	},
+
 	render: function() {
-		var filterLinks = Object.keys(this.props.filters||{}).map(function(value,index,array) {
-			var isActive = this.props.filtername === value.toLowerCase();
-			return <li key={value} className={isActive ? 'active' : null}><Link className="tiny button" href={'/' + value.toLowerCase()}>{value}</Link></li>
+		var filterLinks = Object.keys(this.props.filters||{}).map(function(filtername,index,array) {
+			var isActive = this.props.filtername === filtername.toLowerCase();
+			return (<li key={filtername} className={isActive ? 'active' : null}>
+						<Link className="tiny button" href={'/' + filtername.toLowerCase()}><span>{filtername} {this.count(filtername)}</span></Link>
+						</li>)
 		}.bind(this));
 
 		var filterBar = filterLinks.length === 0 ? null : (
