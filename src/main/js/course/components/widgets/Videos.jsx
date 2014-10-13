@@ -7,7 +7,7 @@ var merge = require('react/lib/merge');
 var toArray = require('dataserverinterface/utils/toarray');
 
 
-var Error = require('common/components/Error');
+var ErrorWidget = require('common/components/Error');
 var Loading = require('common/components/Loading');
 
 module.exports = React.createClass({
@@ -67,7 +67,7 @@ module.exports = React.createClass({
 					this.setState({
 						loading: false,
 						data: data
-					})
+					});
 				}.bind(this))
 				.catch(this.__onError);
 		}
@@ -144,16 +144,18 @@ module.exports = React.createClass({
 	onTouchMove: function(e) {
 
 		function find(t, i) {
-			return t || (i.identifier === this.state.touch.id && i); }
+			return t || (i.identifier === state.touch.id && i); }
 
-		var data = this.state.touch;
+		var me = this;
+		var state = me.state;
+		var data = state.touch;
 		if (!data) {
 			console.debug('No touch data...ignoring.');
 			return;
 		}
 
-		var active = this.state.active || 0;
-		var touch = toArray(e.targetTouches).reduce(find.bind(this), null);
+		var active = state.active || 0;
+		var touch = toArray(e.targetTouches).reduce(find, null);
 		var sliding = data.sliding;
 		var pixelOffset = data.pixelOffset;
 		var startPixelOffset = data.startPixelOffset;
@@ -179,15 +181,15 @@ module.exports = React.createClass({
 
 			if (sliding == 2) {
 				if ((active === 0 && event.clientX > data.x) ||
-					(active === (this.props.children.length - 1) && event.clientX < data.x)) {
+					(active === (me.props.children.length - 1) && event.clientX < data.x)) {
 					touchPixelRatio = 3;
 				}
 
 				pixelOffset = startPixelOffset + (delta / touchPixelRatio);
 
 				// console.debug('Touch move... %d %d %d', startPixelOffset, pixelOffset, delta);
-				this.setState({
-					touch: merge(this.state.touch, {
+				me.setState({
+					touch: merge(state.touch, {
 						delta: delta,
 						pixelOffset: pixelOffset,
 						startPixelOffset: startPixelOffset,
@@ -235,7 +237,7 @@ module.exports = React.createClass({
 
 	render: function() {
 		if (this.state.loading) { return (<Loading/>); }
-		if (this.state.error) {	return <Error error={this.state.error}/> }
+		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>);}
 
 		var animate = this.state.touch ? '' : 'animate';
 		var translation = this.getTranslation();
@@ -269,7 +271,7 @@ module.exports = React.createClass({
 	_renderDots: function() {
 		return this.props.children.map(function(_, i) {
 			var active = (i === (this.state.active || 0)) ? 'active' : null;
-			return (<li><a className={active} href={"#"+i}
+			return (<li><a className={active} href={"#"+i} key={'video-'+i}
 				onClick={this.onActivateSlide} data-index={i}/></li>);
 		}.bind(this));
 	}

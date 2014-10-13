@@ -52,6 +52,10 @@
 			@include ellipse();
 			color: #fff;
 			font: normal 400 1.1em/2.75em 'Open Sans Condensed';
+			width: 85%;//fallback (safari etc)
+			width: -webkit-calc(100% - 50px);
+			width: -moz-calc(100% - 50px);
+			width: calc(100% - 50px);
 		}
 
 		.buttons {
@@ -61,6 +65,8 @@
 			white-space: nowrap;
 			line-height: 0;
 			//padding: 0.2em;
+			width: 100%;
+			text-align: left;
 			border-radius: 5em;
 			background-color: rgba(0,0,0,0.8);
 			box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15),//stroke
