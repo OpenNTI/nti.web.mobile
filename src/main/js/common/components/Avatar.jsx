@@ -52,13 +52,9 @@ module.exports = React.createClass({
 
 		var props = {
 			'data-for': user,
-			src: constants.BLANK_IMAGE,
+			src: this.state.avatar,
 			alt: 'Avatar for ' + user,
-			onError: this.setUnknown,
-			style: {
-				backgroundSize: 'cover',
-				backgroundImage: 'url(' + this.state.avatar + ')'
-			}
+			onError: this.setUnknown
 		};
 
 		return this.transferPropsTo(React.DOM.img(props));
