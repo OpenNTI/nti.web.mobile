@@ -97,7 +97,7 @@ module.exports = React.createClass({
 		return (
 			<div className="course-overview row">
 				<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
-				<h1>{data.title}</h1>
+				<h1 dangerouslySetInnerHTML={{__html: data.title}}/>
 				{this._renderItems(data.Items, '')}
 			</div>
 		);
