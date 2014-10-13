@@ -31,6 +31,7 @@
 }
 
 *:not(input) {
+	-webkit-font-smoothing: antialiased;
 	-webkit-touch-callout: none;
 	//We only want specifc parts to be selectible.
 	-webkit-user-select: none;
