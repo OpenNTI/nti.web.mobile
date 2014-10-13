@@ -30,7 +30,7 @@ var FilterBar = React.createClass({
 		var filterLinks = Object.keys(this.props.filters||{}).map(function(filtername,index,array) {
 			var isActive = this.props.filtername === filtername.toLowerCase();
 			return (<li key={filtername} className={isActive ? 'active' : null}>
-						<Link className="tiny button" href={'/' + filtername.toLowerCase()}><span>{filtername} {this.count(filtername)}</span></Link>
+						<Link className="tiny button" href={'/' + filtername.toLowerCase()}><span className="filtername">{filtername}</span> {this.count(filtername)}</Link>
 						</li>)
 		}.bind(this));
 

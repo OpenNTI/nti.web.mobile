@@ -16,11 +16,26 @@
 	}
 	.active {
 		.button {
-			background-color: $primary-color;
-			color: white;
-			.count {
-				color:black;
-				background:white;
+			position:relative;
+			&:before { //underline
+				content: '';
+				border-bottom: 1px solid $primary-color;
+				position: absolute;
+				width: 70%;
+				margin-left:15%;
+				bottom: .5em;
+				opacity: .1;
+				left: 0;
+			}
+			&:after { //arrow
+				$arrowsize:1em;
+				content:'';
+				border:($arrowsize/2) solid transparent;
+				position:absolute;
+				bottom:-($arrowsize/5);
+				left:50%;
+				margin-left:-($arrowsize/2);
+				border-bottom-color:$primary-color;
 			}
 		}
 	}
