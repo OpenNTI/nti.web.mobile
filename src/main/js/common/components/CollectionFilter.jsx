@@ -46,6 +46,11 @@ var FilterableView = React.createClass({
 	*/
 	filter: function(list) {
 
+		if (!(list && list.filter)) {
+			console.error('List should be an array (or at least have a \'filter\' method. Returning an empty array. Received: %O', list);
+			return [];
+		}
+
 		// default to the first filter
 		var fkeys = Object.keys(this.props.filters);
 		var fname = fkeys.length > 0 ? fkeys[0] : undefined;

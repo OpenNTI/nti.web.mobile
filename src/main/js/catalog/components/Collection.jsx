@@ -32,6 +32,10 @@ var ListView = React.createClass({
 	render: function() {
 		var size = this.getStateFromParent('orientation') === 'landscape' ? 2 : 1;
 		var basePath = this.props.basePath;
+		if (!this.props.list.map) {
+			console.warn('this.props.list doesn\'t have a map function? %O', this.props.list);
+			return null;
+		}
 		return (
 			<div className="grid-container">
 				<ul className={'small-block-grid-' + size + ' medium-block-grid-3 large-block-grid-4'}>
