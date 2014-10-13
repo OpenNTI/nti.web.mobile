@@ -54,15 +54,6 @@ module.exports = React.createClass({
 				<ListView title={this.props.title} basePath={this.props.basePath} />
 			</Filter>
 		);
-		return (
-			<div>
-				<div className="icon-bar three-up">
-					<Link className="item" href="/courses/"><label>Courses</label></Link>
-					<Link className="item" href="/books/"><label>Books</label></Link>
-					<Link className="item" href="/catalog/"><label>Catalog</label></Link>
-				</div>
-				{filteredView}
-			</div>
-		);
+		return filteredView;
 	}
 });

@@ -116,7 +116,14 @@ a.right-off-canvas-toggle {
 	}
 }
 
-
+.icon-bar>* {
+	&:hover {
+		background:inherit;
+	}
+	&.active {
+		background: $primary-color;
+	}
+}
 
 .tab-bar-section .title {
 	overflow: hidden;

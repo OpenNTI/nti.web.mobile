@@ -8,7 +8,7 @@ var getService = require('common/Utils').getService;
 var Loading = require('common/components/Loading');
 var DisplayName = require('common/components/DisplayName');
 var Avatar = require('common/components/Avatar');
-var LibraryView = require('../../library/').View;
+var Courseware = require('../../library/').View;
 
 
 module.exports = React.createClass({
@@ -48,7 +48,7 @@ module.exports = React.createClass({
 		}
 		return (
 			<div>
-				<LibraryView composite='true' />
+				<Courseware />
 			</div>
 		);
 	}
