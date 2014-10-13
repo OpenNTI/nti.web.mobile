@@ -1,0 +1,12 @@
+.button-group.filters {
+	.button {
+		background-color: white;
+		color: $primary-color;
+	}
+	.active {
+		.button {
+			background-color: $primary-color;
+			color: white;
+		}
+	}
+}

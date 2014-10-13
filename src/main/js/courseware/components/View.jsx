@@ -12,6 +12,8 @@ var DefaultRoute = Router.NotFound;
 var IconBar = require('./IconBar');
 var CoursewareSection = require('./CoursewareSection');
 
+var Redirect = require('common/components/Redirect');
+
 var View = React.createClass({
 
 	_reroute: function() {
@@ -23,7 +25,7 @@ var View = React.createClass({
 		return (
 			<Locations contextual>
 				<Location path='/:section/*' handler={CoursewareSection} basePath={basePath} />
-				<DefaultRoute handler={this._reroute}/>
+				<DefaultRoute handler={Redirect} location='/courses/' />
 			</Locations>
 		);
 	}

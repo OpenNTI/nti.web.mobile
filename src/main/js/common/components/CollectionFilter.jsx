@@ -24,7 +24,7 @@ var FilterBar = React.createClass({
 		}.bind(this));
 
 		var filterBar = filterLinks.length === 0 ? null : (
-			<ul className="button-group">
+			<ul className="button-group filters">
 				{filterLinks}
 			</ul>
 		);
