@@ -19,12 +19,16 @@ var knownPages = [
 var authedRoutes = new RegExp('^\\/($|' + knownPages + ')((?!resources).)*$');
 var appRoutes = new RegExp('^\\/($|login|' + knownPages + ')((?!resources).)*$');
 
+var http = require('http');
+var proxiedHttp = require('proxywrap').proxy(http);
+
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
 
 var common = require('./common');
 var config = common.config();
+var protocol = config.protocol === 'proxy' ? proxiedHttp : http;
 var address = config.address || '0.0.0.0';
 var port = config.port || 9000;
 
@@ -91,7 +95,7 @@ app.use(function(err, req, res, next){
 	res.status(500).send('Oops! Something broke!'); });
 
 //Go!
-(mobileapp || app).listen(port, address, function() {
+protocol.createServer(mobileapp || app).listen(port, address, function() {
 	console.log('Listening on port %d', port); });
 
 if (devmode) {

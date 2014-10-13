@@ -25,10 +25,16 @@ var opt = require('optimist')
 				default: env.port || undefined,
 				desc: 'Liston on port'
 			})
+			.options('protocol', {
+				demand: true,
+				default: 'proxy',
+				desc: 'Protocol to use (proxy or http)'
+			})
 			.check(function(v) {if (v.hasOwnProperty('h')) throw false;})
 		    .argv;
 
 var overrides = {
+	protocol: opt.protocol,
 	address: opt.l,
 	port: opt.p
 };
