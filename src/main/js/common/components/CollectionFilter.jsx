@@ -19,7 +19,10 @@ var FilterBar = React.createClass({
 
 	_itemcount: function(filtername) {
 		var filter = this.props.filters[filtername];
-		return this.props.list.filter(filter).length;
+		if(filter && this.props.list.filter) {
+			return this.props.list.filter(filter).length;	
+		}
+		return 0;
 	},
 
 	count: function(filtername) {

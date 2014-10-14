@@ -17,14 +17,16 @@
 	.active {
 		.button {
 			position:relative;
+			$opacity: .1;
+			$color: black;
 			&:before { //underline
 				content: '';
-				border-bottom: 1px solid $primary-color;
+				border-bottom: 1px solid $color;
 				position: absolute;
 				width: 70%;
 				margin-left:15%;
-				bottom: .5em;
-				opacity: .1;
+				bottom: 3px;
+				opacity: $opacity;
 				left: 0;
 			}
 			&:after { //arrow
@@ -32,10 +34,11 @@
 				content:'';
 				border:($arrowsize/2) solid transparent;
 				position:absolute;
-				bottom:-($arrowsize/5);
+				bottom:4px;
 				left:50%;
 				margin-left:-($arrowsize/2);
-				border-bottom-color:$primary-color;
+				border-bottom-color:$color;
+				opacity: $opacity;
 			}
 		}
 	}
