@@ -98,7 +98,7 @@ module.exports = React.createClass({
 		return (
 			<div>
 				<ul className="off-canvas-list">
-					<li><a href={basePath + 'courseware/'}>Home</a></li>
+					<li><a href={basePath}>Home</a></li>
 					<NavDrawerItem record={record} basePath={basePath}/>
 				</ul>
 				<div className="text-center"><LogoutButton /></div>
