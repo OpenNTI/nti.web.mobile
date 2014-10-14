@@ -44,5 +44,5 @@ var app = React.renderComponent(
 OrientationHandler.init(app);
 
 global.onbeforeunload = function() {
-	app.setState({mask: 'Exiting...'});
+	app.setState({mask: 'Reloading...'});
 };
