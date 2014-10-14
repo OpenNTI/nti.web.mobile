@@ -17,6 +17,12 @@ var NavDrawerItem = React.createClass({
  		record: React.PropTypes.instanceOf(NavRecord).isRequired
 	},
 
+	_isActiveItem: function(rec) {
+		if (!rec.href) {
+			return false;
+		}
+		return (rec.href === document.location.pathname) || (this.props.basePath + rec.href === document.location.pathname);
+	},
 
 	_labelClasses: function() {
 		var classes = ['navitem'];
@@ -25,7 +31,7 @@ var NavDrawerItem = React.createClass({
 			if (!rec.clickable ) {
 				classes.push('disabled');
 			}
-			if (rec.href && rec.href === document.location.pathname) {
+			if (this._isActiveItem(rec)) {
 				classes.push('active');
 			}
 			if (!rec.clickable && rec.children) {
