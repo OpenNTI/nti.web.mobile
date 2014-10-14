@@ -119,6 +119,7 @@ function _logIn(credentials) {
 			credentials);
 
 	p.then(function(r) {
+		$AppConfig.username = credentials.username;
 		console.log('login attempt resolved. %O', r);
 		_setLoggedIn(true);
 	});
@@ -133,6 +134,9 @@ function _logIn(credentials) {
 
 function _logOut(action) {
 	var current = encodeURIComponent(location.href);
+	//TODO: this link doesn't need to be built, (we just need to append the
+	//success to the rel="logout" link in the ping...which we should store on
+	// a successfull handshake.)
 	var p = $AppConfig.server + Links.LOGOUT_LINK + '?success=' + current;
 	location.replace(p);
 }
