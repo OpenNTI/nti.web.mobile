@@ -4,6 +4,7 @@
 var React = require('react/addons');
 var OwnerQuery = require('common/mixins/OwnerQuery');
 var Filter = require('common/components/CollectionFilter');
+var Item = require('./Entry');
 
 var filters = {
 	'Current': function(item,index,array) {
@@ -23,8 +24,6 @@ var filters = {
 		return endDate < now;
 	}
 };
-
-var Item = require('./Entry');
 
 var ListView = React.createClass({
 	mixins: [OwnerQuery],
