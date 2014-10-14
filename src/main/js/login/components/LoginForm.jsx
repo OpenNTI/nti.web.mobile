@@ -46,7 +46,7 @@ var View = React.createClass({
 
 		return (
 			<div className="row">
-				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit} novalidate>
+				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit} noValidate>
 
 					<fieldset>
 						<input type="email"
