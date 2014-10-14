@@ -37,7 +37,7 @@ var DRAWER_STATE = {
  */
 function _navRec(opts) {
 	return new Navigation.NavRecord({
-		label: t(opts.label, {scope: 'NAV.Library'}),
+		label: t(opts.label, {scope: 'NAV'}),
 		href: opts.href,
 		clickable: opts.hasOwnProperty('clickable') ? opts.clickable : (opts.items && opts.items.length > 0),
 		children: opts.children,
@@ -54,55 +54,9 @@ module.exports = React.createClass({
 		basePath: React.PropTypes.string.isRequired
 	},
 
-	//Move this into LeftNav... this component should not know of nav.
-	_libraryChanged: function() {
-
-		var navitems = [];
-		var library = Library.Store.getData();
-		console.log('[AppContainer]: Library: %O', library);
-
-		var courses = [].concat(library.courses || []);
-		navitems.push(_navRec({
-			label: 'courses',
-			href: 'library/courses/',
-			items: courses
-		}));
-
-		var books = [].concat(library.bundles || [], library.packages || []);
-		navitems.push(_navRec({
-			label: 'books',
-			href: 'library/books/',
-			items: books
-		}));
-
-		navitems.push(_navRec({
-			label: 'catalog',
-			href: 'catalog/list',
-			clickable: true
-		}));
-
-		var instructing = [].concat(library.coursesAdmin || []);
-		if (instructing.length > 0) {
-			navitems.push(_navRec({
-				label: 'instructing',
-				href: 'library/admin',
-				items: instructing
-			}));
-		}
-
-		var n = _navRec({
-			label: 'library',
-			children: navitems
-		});
-
-		Navigation.Actions.publishNav('root', n);
-	},
-
-
 	_navChanged: function(evt) {
 		this.setState({leftNav: Navigation.Store.getNav()});
 	},
-
 
 	getInitialState: function() {
 		return {

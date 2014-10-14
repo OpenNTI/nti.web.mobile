@@ -98,10 +98,7 @@ module.exports = React.createClass({
 		return (
 			<div>
 				<ul className="off-canvas-list">
-
-				{headerClass &&
-					<li className={headerClass}><a onClick={headerClickHandler}>{headerTitle}<i className={headerIcon} />{headerLabel}</a></li>}
-
+					<li><a href={basePath + 'courseware/'}>Home</a></li>
 					<NavDrawerItem record={record} basePath={basePath}/>
 				</ul>
 				<div className="text-center"><LogoutButton /></div>

@@ -18,6 +18,7 @@ module.exports = {
 	},
 
 	NAV: {
+		Home: 'Home',
 		Library: {
 			library: 'Library',
 			books: 'Books',
