@@ -3,6 +3,8 @@
 	.button {
 		background-color: white;
 		color: $primary-color;
+		padding-right:.8rem;
+		padding-left:.8rem;
 		.count {
 			background: black;
 			border-radius:2px;
@@ -24,8 +26,8 @@
 				content: '';
 				border-bottom: 1px solid $color;
 				position: absolute;
-				width: 70%;
-				margin-left:15%;
+				width: 80%;
+				margin-left:10%;
 				bottom: 3px;
 				opacity: $opacity;
 				left: 0;
@@ -40,6 +42,16 @@
 				margin-left:-($arrowsize/2);
 				border-bottom-color:$color;
 				opacity: $opacity;
+			}
+		}
+	}
+}
+
+@media (max-width: 365px) {
+	.button-group.filters {	
+		.button {
+			.count {
+				display: none; // hide the count to prevent wrapping.
 			}
 		}
 	}
