@@ -60,10 +60,15 @@ exports.config = function() {
 };
 
 exports.clientConfig = function(username) {
-	var config = this.config();
-	config.username = username;
+	var unsafe = this.config();//unsafe to send to client raw... lets reduce it to essentials 
+	var config = {
+		username: username,
+		server: unsafe.server,
+		basepath: unsafe.basepath
+	};
+
 	return {
-		config: config,
+		config: unsafe,//used only on server
 		html:
 			'\n<script type="text/javascript">\n' +
 			'window.$AppConfig = ' + JSON.stringify(config) +
