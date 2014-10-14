@@ -8,9 +8,13 @@ var React = require('react/addons');
 var IconBar = require('./IconBar');
 var CourseList = require('./CourseList');
 var Collection = require('../../catalog/components/Collection');
+var Detail = require('../../catalog/components/Detail');
 var Store = require('../../catalog/Store');
 var Actions = require('../../catalog/Actions');
-
+var Router = require('react-router-component');
+var Locations = Router.Locations;
+var Location = Router.Location;
+var DefaultRoute = Router.NotFound;
 
 var CatalogView = React.createClass({
 
@@ -46,10 +50,26 @@ var CatalogView = React.createClass({
 	},
 
 	render: function() {
-		var catalog = this.state.catalog;
-		return this.transferPropsTo(
-			<Collection list={catalog} />
-		);
+
+        var catalog = this.state.catalog;
+        var basePath = this.props.basePath;
+
+        console.log('CatalogView.props: %O',this.props);
+
+        return Locations({contextual: true},
+            Location({
+                path: '/item/:entryId/(#:nav)',
+                handler: Detail,
+                basePath: basePath
+            }),
+            Location({
+                path: '*',
+                handler: Collection,
+                list: catalog,
+                basePath: this.props.basePath,
+                section: 'catalog'
+            })
+        );
 	}
 
 });

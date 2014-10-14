@@ -38,10 +38,6 @@ function sectionRoutes(basePath) {
 
 var View = React.createClass({
 
-	_reroute: function() {
-		return <div>courseware::view::not found</div>
-	},
-
 	render: function() {
 		var basePath = this.props.basePath;
 		return Locations({contextual: true}, sectionRoutes(basePath));

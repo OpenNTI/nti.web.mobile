@@ -10,6 +10,7 @@ var Locations = Router.Locations;
 var Location = Router.Location;
 var Link = require('react-router-component').Link;
 var DefaultRoute = Router.NotFound;
+var NotFoundView = require('../../notfound/components/NotFoundView');
 
 var FilterBar = React.createClass({
 
@@ -123,7 +124,8 @@ var DefaultPath = React.createClass({
 	},
 
 	render: function() {
-		return this.props.listcomp;
+		return (<div>Redirecting to first filter.</div>);
+		// return this.props.listcomp;
 	}
 
 });
@@ -169,10 +171,28 @@ var Filter = React.createClass({
 		var filters = this.props.filters;
 		var title = this.props.title;
 
+		if(!filters || Object.keys(filters).length === 0) {
+			console.log('No filters. Returning list view.');
+			return listView;
+		}
+		var routes = Object.keys(filters).map(function(filtername,index,arr) {
+			var filterpath = filtername.toLowerCase();
+			return Location({
+				path: '/' + filterpath,
+				filtername: filterpath,
+				handler: FilterableView,
+				list: list,
+				listcomp: listView,
+				filters: filters,
+				title: title
+			});
+		});
+
+		routes.push(<DefaultRoute handler={DefaultPath} filters={this.props.filters} />);
+
 		return (
 			<Locations contextual>
-				<Location path='/:filtername' handler={FilterableView} list={list} listcomp={listView} filters={filters} title={title} />
-				<DefaultRoute handler={DefaultPath} filters={filters} listcomp={listView} title={title} />
+				{routes}
 			</Locations>
 		);
 	}

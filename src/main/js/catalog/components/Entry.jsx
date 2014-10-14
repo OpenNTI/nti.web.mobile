@@ -35,16 +35,16 @@ module.exports = React.createClass({
 		}
 
 		var basePath = this.props.basePath;
-		var href = basePath + 'catalog/item/' + courseId + '/';
+		var href = '/item/' + courseId + '/';
 		return (
 			<li className="grid-item">
-				<a href={href}>
+				<Link href={href}>
 					<img style={style} src={BLANK_IMAGE}/>
 					<div className="metadata">
 						<h3>{p.Title}</h3>
 						<h5>{p.ProviderUniqueID}</h5>
 					</div>
-				</a>
+				</Link>
 			</li>
 		);
 	}
