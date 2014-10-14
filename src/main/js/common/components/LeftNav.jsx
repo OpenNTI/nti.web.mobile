@@ -79,22 +79,6 @@ module.exports = React.createClass({
 		var basePath = this.props.basePath;
 		var record = this.props.items[this.state.index];
 
-		var headerClass = 'moveUp';
-		var headerClickHandler = this._upClick;
-		var headerIcon = 'fi-arrow-left';
-		var headerLabel = ' Back';
-		var headerTitle = '';
-
-		if (this._canMove(DOWN)) {
-			headerClass = 'moveDown';
-			headerClickHandler = this._downClick;
-			headerIcon = 'fi-arrow-right';
-			headerLabel = '';
-			headerTitle = this._downTitle() + ' ';
-		} else if (!this._canMove(UP)) {
-			headerClass = null;
-		}
-
 		return (
 			<div>
 				<ul className="off-canvas-list">
