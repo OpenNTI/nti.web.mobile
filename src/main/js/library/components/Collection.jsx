@@ -43,7 +43,7 @@ module.exports = React.createClass({
 	displayName: 'Library:Collection',
 
 	propTypes: {
-		title: React.PropTypes.string.isRequired,
+		title: React.PropTypes.string,
 		list: React.PropTypes.array.isRequired,
 		filters: React.PropTypes.object
 	},
