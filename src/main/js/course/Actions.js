@@ -47,6 +47,7 @@ function _publishNavFor(courseEnrollment) {
 module.exports = merge(EventEmitter.prototype, {
 
 	setCourse: function(courseId) {
+		Navigation.Actions.setLoading(true);
 		LibraryApi.getLibrary()
 
 			.then(function(library) {
@@ -59,6 +60,7 @@ module.exports = merge(EventEmitter.prototype, {
 			})
 
 			.catch(function(reason) {
+				Navigation.Actions.setLoading(false);
 				dispatch(Constants.SET_ACTIVE_COURSE, new Error(reason));
 				//Failure
 				//TODO: Display error

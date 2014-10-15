@@ -11,6 +11,7 @@ var invariant = require('react/lib/invariant');
 var OrderedMap = require('common/collections').OrderedMap;
 
 var _nav = new OrderedMap();
+var _isLoading = false;
 
 var Store = merge(EventEmitter.prototype, {
 	displayName: 'navigation.Store',
@@ -19,8 +20,12 @@ var Store = merge(EventEmitter.prototype, {
 		return _nav.values();
 	},
 
+	isLoading: function() {
+		return _isLoading;
+	},
+
 	emitChange: function(evt) {
-		console.log(this.displayName + ': emitting change');
+		console.log(this.displayName + ': emitting change. %O', evt);
 		this.emit(Constants.CHANGE_EVENT,evt);
 	},
 
@@ -51,9 +56,20 @@ var Store = merge(EventEmitter.prototype, {
 		}
 		invariant(valid,warning);
 		_nav.set(key,navRecord);
+		this.setLoading(false);
 		Store.emitChange({
-			nav:this.getNav()
+			nav:this.getNav(),
+			isLoading: this.isLoading()
 		});
+	},
+
+	setLoading: function(val) {
+		if(val !== _isLoading) {
+			_isLoading = val;
+			this.emitChange({
+				isLoading: this.isLoading()
+			});
+		}
 	}
 
 });

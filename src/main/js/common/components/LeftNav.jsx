@@ -6,6 +6,7 @@ var Button = require('./forms/Button');
 var LogoutButton = require('login/components/LogoutButton');
 var Navigation = require('navigation');
 var NavDrawerItem = require('navigation/components/NavDrawerItem');
+var Loading = require('common/components/Loading');
 
 var UP = -1;
 var DOWN = 1;
@@ -20,7 +21,8 @@ module.exports = React.createClass({
 
 	getDefaultProps: function() {
 		return {
-			items: []
+			items: [],
+			isLoading: true
 		};
 	},
 
@@ -33,59 +35,27 @@ module.exports = React.createClass({
 
 
 	componentWillReceiveProps: function(nextProps) {
+		console.debug('LeftNav: nextProps: %O', nextProps);
 		if(nextProps.items !== this.props.items) {
 			this.setState({index: nextProps.items.length - 1});
 		}
 	},
 
 
-	_upClick: function() {
-		if(this._canMove(UP)) {
-			this.setState({index: this.state.index - 1});
-		}
-	},
-
-
-	_downClick: function() {
-		if(this._canMove(DOWN)) {
-			this.setState({index: this.state.index + 1});
-		}
-	},
-
-
-	_canMove: function(distance) {
-		var newIndex = this.state.index + distance;
-		return newIndex > -1 && newIndex < this.props.items.length;
-	},
-
-
-	_peek: function(direction) {
-		if(this._canMove(direction)) {
-			return this.props.items[this.state.index + direction];
-		}
-		return null;
-	},
-
-
-	_downTitle: function() {
-		var next = this._peek(DOWN);
-		return next && next.navbarTitle ? next.navbarTitle : 'Content';
-	},
-
-
 	render: function() {
 
-		var akey = 'navnav';
 		var basePath = this.props.basePath;
 		var record = this.props.items[this.state.index];
+
+		var child = this.props.isLoading ? <Loading /> : <NavDrawerItem record={record} basePath={basePath}/>;
 
 		return (
 			<div>
 				<ul className="off-canvas-list">
 					<li><a href={basePath}>Home</a></li>
-					<NavDrawerItem record={record} basePath={basePath}/>
+					{child}
 				</ul>
-				<div className="text-center"><LogoutButton /></div>
+				<div className="text-center logout"><LogoutButton /></div>
 			</div>
 		);
 	}

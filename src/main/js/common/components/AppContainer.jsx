@@ -55,7 +55,10 @@ module.exports = React.createClass({
 	},
 
 	_navChanged: function(evt) {
-		this.setState({leftNav: Navigation.Store.getNav()});
+		this.setState({
+			leftNav: Navigation.Store.getNav(),
+			navLoading: Navigation.Store.isLoading()
+		});
 	},
 
 	getInitialState: function() {
@@ -137,6 +140,7 @@ module.exports = React.createClass({
 
 						<aside className="left-off-canvas-menu">
 							<LeftNav basePath={this.props.basePath}
+								isLoading={this.state.navLoading}
 								items={this.state.leftNav} />
 						</aside>
 

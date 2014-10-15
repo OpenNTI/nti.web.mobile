@@ -36,6 +36,10 @@ module.exports = merge(EventEmitter.prototype, {
 	publishNav: function(key,navRecord) {
 		console.log('navigation.Actions::publishNav. key: %s, record: %O', key, navRecord);
 		Store.publishNav(key,navRecord);
+	},
+
+	setLoading: function(isLoading) {
+		Store.setLoading(isLoading);
 	}
 
 });
