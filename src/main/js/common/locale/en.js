@@ -17,6 +17,10 @@ module.exports = {
 		}
 	},
 
+	FILTER: {
+		no_matches: 'No items match the selected filter.'
+	},
+
 	NAV: {
 		Home: 'Home',
 		Library: {

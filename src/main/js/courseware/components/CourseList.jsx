@@ -12,6 +12,7 @@ var Actions = Library.Actions;
 var LibraryCollection = require('../../library/components/Collection');
 var CourseFilters = require('../../library/CourseFilters');
 var Loading = require('common/components/Loading');
+var NoMatches = require('common/components/NoMatches');
 
 // TODO: this duplicates much of the functionality in library/components/View.jsx.
 // do we still need the other?
@@ -81,6 +82,10 @@ var CourseList = React.createClass({
 
 		var list = this._itemListForSection(this.props.section);
 		var filters = this._filtersForSection(this.props.section);
+
+		if( !filters || list.length === 0 ) {
+			return <NoMatches />
+		}
 
 		return this.transferPropsTo(
 			<LibraryCollection list={list} filters={filters}  />

@@ -11,6 +11,7 @@ var Location = Router.Location;
 var Link = require('react-router-component').Link;
 var DefaultRoute = Router.NotFound;
 var NotFoundView = require('../../notfound/components/NotFoundView');
+var NoMatches = require('./NoMatches');
 
 var FilterBar = React.createClass({
 
@@ -54,6 +55,10 @@ var FilterBar = React.createClass({
 
 });
 
+
+
+module.exports = NoMatches;
+
 var FilterableView = React.createClass({
 
 	/**
@@ -85,14 +90,17 @@ var FilterableView = React.createClass({
 
 	render: function() {
 
+		var filtered = this.filter(this.props.list);
+
 		var listComponent = React.addons.cloneWithProps(this.props.listcomp, {
-			list: this.filter(this.props.list),
+			list: filtered,
 			omittitle: true
 		});
 
 		return (
 			<div>
 				{this.transferPropsTo(<FilterBar />)}
+				{filtered.length === 0 ? <NoMatches /> : null}
 				<div>{listComponent}</div>
 			</div>
 		);
