@@ -22,7 +22,7 @@ module.exports = React.createClass({
 	getDefaultProps: function() {
 		return {
 			items: [],
-			isLoading: true
+			isLoading: false
 		};
 	},
 
