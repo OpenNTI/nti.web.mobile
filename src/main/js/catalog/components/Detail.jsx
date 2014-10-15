@@ -87,7 +87,7 @@ module.exports = React.createClass({
 		return (
 			<div className="course-detail-view">
 
-				{this.props.noBack? null : <a href={this.getBackPath()} className="back">Back</a>}
+
 
 				<Title entry={entry} />
 				<Description entry={entry} />
