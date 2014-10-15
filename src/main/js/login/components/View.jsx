@@ -15,6 +15,7 @@ var Loading = require('common/components/Loading');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Constants = require('../Constants');
 var MessageDisplay = require('common/messages/').Display;
+var Redirect = require('common/components/Redirect');
 
 var View = React.createClass({
 
@@ -56,6 +57,10 @@ var View = React.createClass({
 		}
 
 		var basePath = this.props.basePath;
+
+		if (this.state.links.hasOwnProperty(Constants.links.LOGIN_CONTINUE_LINK)) {
+			return <Redirect location={basePath} />
+		}
 
 		return (
 			<div className="loginformswrapper">
