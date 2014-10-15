@@ -86,8 +86,7 @@ module.exports = React.createClass({
 
 	componentDidMount: function() {
 		Navigation.Store.addChangeListener(this._navChanged);
-		Library.Store.addChangeListener(this._libraryChanged);
-		Library.Store.getData(true);
+		Library.Store.getData(true); // Do we still want to do this here?
 		this.__setupGestures();
 		preventOverscroll(this.getDOMNode().querySelector('.left-off-canvas-menu'));
 		preventOverscroll(this.getDOMNode().querySelector('.right-off-canvas-menu'));
@@ -95,7 +94,6 @@ module.exports = React.createClass({
 
 
 	componentWillUnmount: function() {
-		Library.Store.removeChangeListener(this._libraryChanged);
 		Navigation.Store.removeChangeListener(this._navChanged);
 	},
 
