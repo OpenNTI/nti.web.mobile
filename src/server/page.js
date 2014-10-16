@@ -4,6 +4,7 @@
 var common = require('./common');
 
 var url = require('url');
+var Path = require('path');
 var fs = require('fs');
 var React = require('react/addons');
 var Application;
@@ -39,14 +40,14 @@ try {
 module.exports = function(req, scriptFilename, clientConfig) {
 
 	var path = url.parse(req.url).pathname;
-
+	var cfg;
 	var html = '';
 
 	if (Application) {
 		try {
-			global.$AppConfig = clientConfig.config;
+			cfg = global.$AppConfig = clientConfig.config || {};
 			html = React.renderComponentToString(Application({
-				path:path,
+				path: Path.join(cfg.basepath || '', path),
 				basePath: common.config().basepath
 			}));
 		} finally {
