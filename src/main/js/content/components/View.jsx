@@ -62,8 +62,10 @@ module.exports = React.createClass({
 
 		for(guid in widgets) {
 			el = document.getElementById(guid);
-			React.unmountComponentAtNode(el);
-			el.removeAttribute('mounted');
+			if (el) {
+				React.unmountComponentAtNode(el);
+				el.removeAttribute('mounted');	
+			}
 		}
 	},
 
