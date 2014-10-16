@@ -9,21 +9,23 @@ module.exports = React.createClass({
 
 	propType: {
 		loading: React.PropTypes.bool,
-		message: React.PropTypes.string
+		message: React.PropTypes.string,
+		tag: React.PropTypes.string
 	},
 
 
 	getDefaultProps: function() {
 		return {
+			tag: 'div',
 			message: 'Loading'
 		};
 	},
 
 
 	render: function() {
-
+		var Tag = React.DOM[this.props.tag];
 		if (!isEmpty(this.props.children) && !this.props.loading) {
-			return this.transferPropsTo(React.DOM.div(null, this.props.children));
+			return this.transferPropsTo(Tag({}, this.props.children));
 		}
 
 		return (
