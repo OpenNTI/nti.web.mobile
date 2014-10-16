@@ -9,6 +9,7 @@
 var merge = require('merge');
 var webpack = require('webpack');
 var CompressionPlugin = require("compression-webpack-plugin");
+var AppCachePlugin = require('./src/webpack-plugins/appcache.js');
 
 var e = [];
 var cfg = require("./webpack.config.js");
@@ -27,11 +28,16 @@ e[0].plugins.push(
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
+    new AppCachePlugin({
+        cache: ['page.html'],
+        //network: null,
+        fallback: ['/ page.html']
+    }),
     new CompressionPlugin({
-            asset: "{file}.gz",
-            algorithm: "gzip",
-            regExp: /$/
-        })
+        asset: "{file}.gz",
+        algorithm: "gzip",
+        regExp: /$/
+    })
 );
 
 

@@ -8,7 +8,7 @@ var Path = require('path');
 var fs = require('fs');
 var React = require('react/addons');
 var Application;
-var basepathreplace = /(src|href)="(.*?)"/igm;
+var basepathreplace = /(manifest|src|href)="(.*?)"/igm;
 var template;
 
 
