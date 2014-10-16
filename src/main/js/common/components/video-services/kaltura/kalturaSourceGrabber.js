@@ -30,12 +30,11 @@ module.exports = function(kWidget) {
 			var deviceSources = [];
 			var protocol = location.protocol.substr(0, location.protocol.length-1);
 			// Set the service url based on protocol type
-			var serviceUrl;
-			if( protocol == 'https' ){
-				serviceUrl = 'https://www.kaltura.com';
-			} else {
-				serviceUrl = 'http://cdnbakmi.kaltura.com';
-			}
+			var serviceUrl = '//cdnbakmi.kaltura.com';
+
+			// if( protocol == 'https' ){
+			// 	serviceUrl = '//www.kaltura.com';
+			// }
 
 			var objectType = result[1].objectType;
 			var code = result[1].code;
