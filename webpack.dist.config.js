@@ -29,9 +29,12 @@ e[0].plugins.push(
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
     new AppCachePlugin({
-        cache: ['page.html'],
-        //network: null,
-        fallback: ['/ page.html']
+        cache: ['page.html','offline.json'],
+        network: [
+            '/dataserver2/',
+            '/content/'
+        ],
+        fallback: ['/dataserver2/ offline.json','/ page.html']
     }),
     new CompressionPlugin({
         asset: "{file}.gz",
