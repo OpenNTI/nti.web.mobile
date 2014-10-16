@@ -147,7 +147,7 @@ var KalturaVideo = React.createClass({
 			},
 			//<source> children
 				this.state.sources.map(function(val, i) {
-					val.key = i + val['data-flavorid'];
+					val.key = i + val.flavorid;
 					return React.DOM.source(val); })
 		));
 	}
