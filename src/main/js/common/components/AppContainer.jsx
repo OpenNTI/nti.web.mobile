@@ -31,21 +31,6 @@ var DRAWER_STATE = {
 // View (like Notifications.View). This component should just
 // be a dumb wrapper that holds everything.
 
-/**
- * Convenience function for constructing NavRecords
- * @return {Navigation.NavRecord}
- */
-function _navRec(opts) {
-	return new Navigation.NavRecord({
-		label: t(opts.label, {scope: 'NAV'}),
-		href: opts.href,
-		clickable: opts.hasOwnProperty('clickable') ? opts.clickable : (opts.items && opts.items.length > 0),
-		children: opts.children,
-		badge: opts.items ? opts.items.length : null
-	});
-}
-
-
 
 module.exports = React.createClass({
 	displayName: 'AppContainer',
