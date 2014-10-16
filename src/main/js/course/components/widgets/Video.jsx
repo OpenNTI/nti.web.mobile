@@ -56,7 +56,7 @@ module.exports = React.createClass({
 					this.setState({
 						loading: false,
 						video: videoIndex.get(item.NTIID)
-					})
+					});
 				}.bind(this))
 				.catch(this.__onError);
 		} catch (e) {
@@ -83,14 +83,15 @@ module.exports = React.createClass({
 
 
 		return (
-			<li tabIndex="0" onFocus={props.onFocus} style={style} className="video-wrap flex-video widescreen">
+			<li style={style} className="video-wrap flex-video widescreen">
 				{this.state.video ?
-				<Video ref="video" src={this.state.video} autoPlay onPause={this.onStop} onEnded={this.onStop} />
-					:
-				<LoadingMask loading={this.state.loading} className="wrapper">
-					<div className="buttons">
-						<a className="play" title="Play" href="#play" onClick={this.onPlayClicked}/>
-						<a className="label" title={item.label} href={link}>{item.label}</a>
+				<Video ref="video" src={this.state.video} autoPlay onPause={this.onStop} onEnded={this.onStop} /> :
+				<LoadingMask loading={this.state.loading} tag="a" onFocus={props.onFocus} className="tap-area" href={link}>
+					<div className="wrapper">
+						<div className="buttons">
+							<span className="play" title="Play" onClick={this.onPlayClicked}/>
+							<span className="label" title={item.label}>{item.label}</span>
+						</div>
 					</div>
 				</LoadingMask>
 				}
