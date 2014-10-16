@@ -10,6 +10,7 @@ var Navigation = require('navigation');
 
 var Api = require('./Api');
 var Constants = require('./Constants');
+var Messages = require('common/messages');
 
 var LibraryApi = require('library/Api');
 
@@ -35,9 +36,23 @@ function _navRecordFor(outlineNode,navbarTitle) {
 
 function _publishNavFor(courseEnrollment) {
 	var props = courseEnrollment.getPresentationProperties();
-	courseEnrollment.getOutline().then(function(d) {
+	
+	courseEnrollment.getOutline()
+	.then(function(d) {
 		var root = Array.isArray(d) ? d[0] : d;
 		Navigation.Actions.publishNav(Navigation.Constants.CONTENT_KEY,_navRecordFor(root,props.title));
+	})
+	.catch(function(e) {
+		console.error('error attempting to get course outline. %O',e);
+		var messageCat = 'course:nav';
+		Messages.Actions.clearMessages({
+			category: messageCat
+		})
+		Messages.Actions.addMessage(
+			new Messages.Message('An error occurred. Unable to load course outline.', {
+				category: messageCat
+			})
+		);
 	});
 }
 
