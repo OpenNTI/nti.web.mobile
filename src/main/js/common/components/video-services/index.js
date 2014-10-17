@@ -28,18 +28,25 @@ function getUrl(data) {
 	return url;
 }
 
+var serviceMap = {
+	youtube: youtube,
+	vimeo: vimeo,
+	kaltura: kaltura
+};
 
 exports = module.exports = {
 	Kaltura: kaltura,
 	Vimeo: vimeo,
 	YouTube: youtube,
 
-
 	getHandler: function(src) {
 		var url = (typeof src === 'string') ? Url.parse(src) : getUrl(src);
-		var handler = iframe;
+		var service = ((src.sources || [])[0] || {}).service;
 
-		if (url) {
+		var handler = serviceMap[service];
+
+		if (url && !handler) {
+			handler = iframe;
 			if (kalturaRe.test(url.protocol)) {
 				handler = kaltura;
 			}
