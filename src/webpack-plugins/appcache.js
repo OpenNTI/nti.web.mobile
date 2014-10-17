@@ -64,7 +64,7 @@ AppCachePlugin.prototype.apply = function(compiler) {
 				work.hash);
 
 			Object.keys(work.assets).forEach(function(key) {
-				if (/\.(eot|gz|map)$/.test(key)) {
+				if (/\.(gz)$/.test(key)) {
 					return;
 				}
 				appCache.addAsset(key);
