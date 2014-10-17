@@ -8,11 +8,11 @@ var Actions = require('../Actions');
 var Button = require('common/components/forms/Button');
 var OAuthButtons = require('./OAuthButtons');
 var RecoveryLinks = require('./RecoveryLinks');
-var t = require('common/locale').translate;
+var t = require('common/locale').scoped('LOGIN');
 var React = require('react/addons');
 var MessageDisplay = require('common/messages/').Display;
 var Constants = require('../Constants');
-
+var Link = require('react-router-component').Link;
 
 var _pingDelayMs = 1000; // how long to buffer user input before sending another dataserver ping request.
 
@@ -64,12 +64,15 @@ var View = React.createClass({
 								type="submit"
 								className={'small-12 columns tiny radius ' + (submitEnabled ? '' : 'disabled')}
 								disabled={!submitEnabled}
-							>{t('LOGIN.login')}</button>
+							>{t('login')}</button>
 						</div>
 						<OAuthButtons links={this.state.links} basePath={this.props.basePath} buttonClass="small-12 columns" />
 
 					</fieldset>
 					<RecoveryLinks links={this.state.links} basePath={this.props.basePath} />
+					<div className="text-center">
+						<Link href="/signup/">{t('signup.link')}</Link>
+					</div>
 				</form>
 			</div>
 		);

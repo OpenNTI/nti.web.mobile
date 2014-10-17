@@ -2,6 +2,10 @@ module.exports = {
 
 	LOGIN: {
 		login: 'Log In',
+		signup: {
+			submit:'Create Account',
+			link:'No account? Sign up.'
+		},
 		oauth: {
 			login: 'Log in with %(service)s'
 		},
@@ -12,8 +16,19 @@ module.exports = {
 			recoverusername: 'Recover Username',
 			EmailAddressInvalid: 'The email address you have entered is not valid.'
 		},
+
 		LOGIN_ERROR: {
 			401: 'Login failed.'
+		},
+		forms: {
+			createaccount: {
+				fname: 'First Name',
+				lname: 'Last Name',
+				email: 'email',
+				username: 'Username',
+				password: 'Password',
+				password2: 'Verify Password'
+			}
 		}
 	},
 

@@ -6,7 +6,7 @@ var React = require('react/addons');
 
 var Button = require('common/components/forms/Button');
 var LinkConstants = require('../Constants').links;
-var t = require('common/locale').scoped('LOGIN.forgot');
+var t = require('common/locale').scoped('LOGIN');
 var Dataserver = require('dataserverinterface');
 var Link = require('react-router-component').Link;
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
@@ -41,8 +41,8 @@ module.exports = React.createClass({
 
 		return (
 			<div className="row">
-				<div className="small-5 columns text-center"><Link className={cssClasses} href="/forgot/username">{t('username')}</Link></div>
-				<div className="small-5 columns text-center"><Link className={cssClasses} href="/forgot/password">{t('password')}</Link></div>
+				<div className="small-5 columns text-center"><Link className={cssClasses} href="/forgot/username">{t('forgot.username')}</Link></div>
+				<div className="small-5 columns text-center"><Link className={cssClasses} href="/forgot/password">{t('forgot.password')}</Link></div>
 			</div>		
 		);
 	}
