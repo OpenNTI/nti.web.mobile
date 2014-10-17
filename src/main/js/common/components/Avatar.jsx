@@ -34,6 +34,10 @@ module.exports = React.createClass({
 
 
 	setUnknown: function() {
+		if (!this.isMounted()) {
+			return;
+		}
+		console.log('Failed to load avatar: %s', this.getDOMNode().src);
 		this.setState({
 			avatar: constants.BLANK_AVATAR
 		});
@@ -43,7 +47,9 @@ module.exports = React.createClass({
 	_buildAvatarURL: function(username) {
 		//This is very special case... please do not use this as a pattern.
 		/* global $AppConfig */
-		return urlJoin($AppConfig.server, 'users', username, '@@avatar');
+		return username ?
+			urlJoin($AppConfig.server, 'users', username, '@@avatar') :
+			constants.BLANK_AVATAR;
 	},
 
 
