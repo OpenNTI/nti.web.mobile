@@ -1,6 +1,11 @@
 <!doctype html>
-<html manifest="/manifest.appcache" class="no-js" lang="en">
+<html class="no-js" lang="en">
   <head>
+    <script>
+    //Running from home screen...
+    var html = document.getElementsByTagName('html')[0];
+    if(navigator.standalone && !html.getAttribute('manifest')){location.replace('./?cache');}
+    </script>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="Type=text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE"/>

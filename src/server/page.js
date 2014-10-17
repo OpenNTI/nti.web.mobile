@@ -39,7 +39,9 @@ try {
 
 module.exports = function(req, scriptFilename, clientConfig) {
 
-	var path = url.parse(req.url).pathname;
+	var u = url.parse(req.url);
+	var manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache" ' : '<html';
+	var path = u.pathname;
 	var cfg;
 	var html = '';
 	var css = '';
@@ -62,6 +64,7 @@ module.exports = function(req, scriptFilename, clientConfig) {
 	css = '<style type="text/css" id="server-side-style">' + css + '</style>';
 
 	return template
+			.replace(/<html/, manifest)
 			.replace(basepathreplace, basePathFix)
 			.replace(/<!--css:server-values-->/i, css)
 			.replace(/<!--html:server-values-->/i, html)
