@@ -64,7 +64,7 @@ if (!entryPoint) {
 
 
 //Static files...
-app.use(express.static(assetPath, {maxage: 3600000}));//static files
+app.use(express.static(assetPath));//, {maxage: 3600000}));//static files
 
 //Session manager...
 app.use(authedRoutes, session.middleware.bind(session));
