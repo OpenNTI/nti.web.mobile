@@ -63,10 +63,7 @@ module.exports = React.createClass({
 	__setupGestures: function() {
 		var dom = this.getDOMNode();
 
-		var gestures = new Hammer(document.body, {
-			swipeVelocityX: 0.05,
-			swipeVelocityY: 0.1
-		});
+		var gestures = new Hammer(document.body);
 
 		gestures.on('swipe', this._onSwipe);
 	},
