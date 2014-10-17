@@ -79,6 +79,8 @@ var Utils = {
 	Orientation: require('./_utils.orientation'),
 
 	VisibilityMonitor: require('./_utils.pagevis'),
+
+	AppCache: require('./_utils.appcache')
 };
 
 module.exports = Utils;
