@@ -32,7 +32,8 @@ e[0].plugins.push(
         cache: ['page.html','offline.json'],
         network: [
             '/dataserver2/',
-            '/content/'
+            '/content/',
+            '*'
         ],
         fallback: ['/dataserver2/ offline.json','/ page.html']
     }),
