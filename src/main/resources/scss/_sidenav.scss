@@ -3,14 +3,12 @@ ul.off-canvas-list {
 	li a.navitem {
 		letter-spacing:0.05rem;
 		white-space: nowrap;
-		border-bottom:none;
-		text-shadow: 0px 1px 0px white;
+		// border-bottom:none;
+		// text-shadow: 0px 1px 0px white;
 		&.sectiontitle {
 			$section-title-bg: #e7e7e7;
 			color:black;
 			opacity:1;
-			margin-top:1rem;
-			margin-bottom:1rem;
 			border-top:1px solid #ddd;
 			background:$section-title-bg;
 			position: relative;
@@ -49,7 +47,4 @@ ul.off-canvas-list {
 		margin-left: 0;
 	}
 
-	.moveDown {
-		text-align:right;
-	}
 }
