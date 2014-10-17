@@ -50,6 +50,8 @@ require('./logger').attachToExpress(app);
 require('./cors').attachToExpress(app);
 require('./compress').attachToExpress(app, assetPath);
 
+var manifest = /\.appcache$/i;
+
 var mobileapp = express();
 mobileapp.use(config.basepath, app);//re-root the app to /mobile/
 mobileapp.all('/', function(_, res) { res.redirect('/mobile/'); });
@@ -64,7 +66,14 @@ if (!entryPoint) {
 
 
 //Static files...
-app.use(express.static(assetPath));//, {maxage: 3600000}));//static files
+app.use(express.static(assetPath, {
+	maxage: 3600000, //1hour
+	setHeaders: function(res, path) {
+		if (manifest.test(path)) {//manifests never cache
+			res.setHeader('Cache-Control', 'public, max-age=0');
+		}
+	}
+}));//static files
 
 //Session manager...
 app.use(authedRoutes, session.middleware.bind(session));
