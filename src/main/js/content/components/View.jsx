@@ -224,11 +224,11 @@ module.exports = React.createClass({
 				<Breadcrumb contextProvider={this.__getContext}>
 					<Pager pageSource={pageSource} current={this.getPageID()}/>
 				</Breadcrumb>
-				{glossaryEntry}
 				{this._applyStyle()}
 				<div id="NTIContent" onClick={this._onContentClick} dangerouslySetInnerHTML={{
 					__html: body.map(this._buildBody).join('')
 				}}/>
+				{glossaryEntry}
 			</div>
 		);
 	},
