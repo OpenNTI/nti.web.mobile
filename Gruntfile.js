@@ -80,12 +80,13 @@ module.exports = function(grunt) {
 					// 	dest: '<%= pkg.dist %>/client/resources/',
 					// 	filter: 'isFile'
 					// },
-					// {
-					// 	flatten: true,
-					// 	expand: true,
-					// 	src: ['<%= pkg.src %>/images/*'],
-					// 	dest: '<%= pkg.dist %>/client/images/'
-					// },
+					{
+						cwd: '<%= pkg.src %>/resources/images/',
+						expand: true,
+						filter: 'isFile',
+						src: ['**'],
+						dest: '<%= pkg.dist %>/client/resources/images/'
+					},
 					{
 	                    // flatten: true,
 	                    cwd: '<%= pkg.src %>/../server/',
