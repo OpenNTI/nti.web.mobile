@@ -134,7 +134,10 @@ module.exports = [
 
             loaders: commonLoaders.concat([
                 { test: /\.html$/, loader: 'html?attrs=link:href' },
-                { test: /\.scss$/,  loader: 'null' }
+                { test: /\.css$/,  loader: path.join(__dirname, 'src', 'server', 'style-collector') + '!css' },
+                { test: /\.scss$/,  loader: path.join(__dirname, 'src', 'server', 'style-collector') +
+                    '!css!sass?includePaths[]=' +
+                    (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss')) }
             ])
         }
     }

@@ -1,6 +1,6 @@
 'use strict';
 
-//var styleCollector = require('./style-collector');
+var styleCollector = require('./style-collector');
 var common = require('./common');
 
 var url = require('url');
@@ -42,26 +42,28 @@ module.exports = function(req, scriptFilename, clientConfig) {
 	var path = url.parse(req.url).pathname;
 	var cfg;
 	var html = '';
+	var css = '';
 
 	if (Application) {
 		try {
 			cfg = global.$AppConfig = clientConfig.config || {};
-			html = React.renderComponentToString(Application({
-				path: Path.join(cfg.basepath || '', path),
-				basePath: common.config().basepath
-			}));
+			css = styleCollector.collect(function() {
+				html = React.renderComponentToString(Application({
+					path: Path.join(cfg.basepath || '', path),
+					basePath: common.config().basepath
+				}));
+			});
 		} finally {
 			delete global.$AppConfig;
 		}
 	}
 
 	html += clientConfig.html;
-
-	//In practice, the bundle contains the CSS and injects it no matter what. So
-	//injecting it here, doubles the clients' download for no reason.
+	css = '<style type="text/css" id="server-side-style">' + css + '</style>';
 
 	return template
 			.replace(basepathreplace, basePathFix)
+			.replace(/<!--css:server-values-->/i, css)
 			.replace(/<!--html:server-values-->/i, html)
 			.replace(/js\/main\.js/, scriptFilename);
 };
