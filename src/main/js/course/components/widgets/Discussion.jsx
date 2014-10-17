@@ -46,7 +46,7 @@ module.exports = React.createClass({
 	render: function() {
 		var props = this.props;
 		var item = props.item;
-		var title = "[DiscussionTitle]"
+		var title = item.title||'Discussion';
 		var numCommments = "[Number of]";
 		return (
 			<div className={'overview-discussion'}>
