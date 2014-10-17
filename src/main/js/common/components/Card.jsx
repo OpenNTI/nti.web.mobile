@@ -69,7 +69,7 @@ module.exports = React.createClass({
 	getInitialState: function(){
 		var i = this.props.item;
 		return {
-			icon: (i && i.icon) || null
+			icon: null
 		};
 	},
 
