@@ -17,9 +17,13 @@ var getTarget = require('common/Utils').Dom.getEventTarget;
 
 var Widgets = require('./widgets');
 var Breadcrumb = require('./Breadcrumb');
+var GlossaryEntry = require('./GlossaryEntry');
 
 var Store = require('../Store');
 var Actions = require('../Actions');
+
+var merge = require('react/lib/merge');
+
 
 module.exports = React.createClass({
 	mixins: [RouterMixin],
@@ -46,6 +50,17 @@ module.exports = React.createClass({
 		return this.getResetState();
 	},
 
+	componentWillMount: function() {
+		this._setRouteProps();
+	},
+
+	_setRouteProps: function() {
+		// because we're mimicking a router, props captured from the route's path are not present in this.props.
+		// (e.g. no this.props.glossaryid from path '/glossary/:glossaryid')
+		// copy them in. (is it a bad idea to alter this.props directly like this?)
+		var m = this.getMatch();
+		this.props = merge(this.props,m.match||{});
+	},
 
 	componentDidMount: function() {
 		//The getDOMNode() will always be the loading dom at his point...
@@ -77,6 +92,8 @@ module.exports = React.createClass({
 		var guid, el, w,
 			widgets = this.getPageWidgets();
 		console.debug('Content View: Did Update... %o', widgets);
+
+		this._setRouteProps();
 
 		if (widgets) for(guid in widgets) {
 			el = document.getElementById(guid);
@@ -121,10 +138,14 @@ module.exports = React.createClass({
 	 * @param {Object} props
 	 */
 	getRoutes: function(props) {
-		return {
+		return [{
 			handler: function(p) {return p;},
 			path: '/:pageId/'
-		};
+		},
+		{
+			handler: function(p) {return p;},
+			path: '/:pageId/glossary/:glossaryid'
+		}];
 	},
 
 
@@ -182,6 +203,12 @@ module.exports = React.createClass({
 	},
 
 
+	_dismissGlossary: function() {
+		var m = this.getMatch();
+		var pid = m.match.pageId;
+		this.navigate('/'+pid+'/');
+	},
+
 	render: function() {
 		var body = this.state.body || [];
 		var pageSource = this.state.pageSource;
@@ -190,11 +217,14 @@ module.exports = React.createClass({
 			return (<Loading/>);
 		}
 
+		var glossaryEntry = this.props.glossaryid ? <GlossaryEntry entryid={this.props.glossaryid} onClick={this._dismissGlossary} /> : null;
+
 		return (
 			<div className="content-view">
 				<Breadcrumb contextProvider={this.__getContext}>
 					<Pager pageSource={pageSource} current={this.getPageID()}/>
 				</Breadcrumb>
+				{glossaryEntry}
 				{this._applyStyle()}
 				<div id="NTIContent" onClick={this._onContentClick} dangerouslySetInnerHTML={{
 					__html: body.map(this._buildBody).join('')
@@ -222,6 +252,16 @@ module.exports = React.createClass({
 		});
 	},
 
+	_reroute: function(anchor) {
+		var isGlossaryLink = anchor.classList.contains('ntiglossaryentry');
+		if (isGlossaryLink) {
+			var href = anchor.getAttribute('href');
+			anchor.setAttribute('href', location.href + 'glossary/' + href.substr(1));
+			return true;
+		}
+		return false;
+	},
+
 
 	_onContentClick: function (e) {
 		var anchor = getTarget(e, 'a[href]');
@@ -237,7 +277,11 @@ module.exports = React.createClass({
 				//tab/window for IE/Firefox/Safari we can add this attribute after
 				//the component updates.
 				anchor.setAttribute('target', '_blank');
-			} else {
+			}
+			else {
+				if( this._reroute(anchor)) {
+					return;
+				}
 				e.preventDefault();
 				id = href.substr(1);
 				scrollToEl = document.getElementById(id) || document.getElementsByName(id)[0];
