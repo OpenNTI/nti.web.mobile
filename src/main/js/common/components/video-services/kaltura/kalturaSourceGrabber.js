@@ -34,9 +34,9 @@ module.exports = function(kWidget) {
 			// Set the service url based on protocol type
 			var serviceUrl = '//cdnbakmi.kaltura.com';
 
-			// if( protocol == 'https' ){
-			// 	serviceUrl = '//www.kaltura.com';
-			// }
+			if( protocol == 'https' ){
+				serviceUrl = '//www.kaltura.com';
+			}
 
 			var objectType = result[1].objectType;
 			var code = result[1].code;
