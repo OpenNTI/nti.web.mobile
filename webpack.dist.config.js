@@ -28,15 +28,15 @@ e[0].plugins.push(
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
-    new AppCachePlugin({
-        cache: ['page.html','offline.json'],
-        network: [
-            '/dataserver2/',
-            '/content/',
-            '*'
-        ],
-        fallback: ['/dataserver2/ offline.json','/ page.html']
-    }),
+    // new AppCachePlugin({
+    //     cache: ['page.html','offline.json'],
+    //     network: [
+    //         '/dataserver2/',
+    //         '/content/',
+    //         '*'
+    //     ],
+    //     fallback: ['/dataserver2/ offline.json','/ page.html']
+    // }),
     new CompressionPlugin({
         asset: "{file}.gz",
         algorithm: "gzip",
