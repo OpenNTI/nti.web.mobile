@@ -76,8 +76,9 @@ var Utils = {
 
 	Dom: require('./_utils.dom'),
 
+	Orientation: require('./_utils.orientation'),
 
-	Orientation: require('./_utils.orientation')
+	VisibilityMonitor: require('./_utils.pagevis'),
 };
 
 module.exports = Utils;
