@@ -11,6 +11,7 @@ module.exports = React.createClass({
 		if (!this.props.src) {
 			return (<ErrorWidget error="No source"/>);
 		}
-		return this.transferPropsTo(<iframe frameBorder="0" seemless allowfullscreen webkitallowfullscreen mozAllowFullScreen />);
+		return this.transferPropsTo(<iframe frameBorder="0" src="about:blank"
+			seemless allowFullScreen allowTransparency />);
 	}
 });

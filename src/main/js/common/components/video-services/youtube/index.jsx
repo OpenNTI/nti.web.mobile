@@ -2,12 +2,17 @@
 'use strict';
 
 var React = require('react/addons');
+var ErrorWidget = require('common/components/Error');
 var asQueryString = require('common/Utils').toQueryString;
 
 module.exports = React.createClass({
 	displayName: 'YouTube-Video',
 
 	render: function() {
+		if (!this.props.src) {
+			return (<ErrorWidget error="No source"/>);
+		}
+
 		var mediaSource = this.props.source;
 		var videoId = mediaSource.source[0];
 
@@ -32,6 +37,6 @@ module.exports = React.createClass({
 		// }
 
 		return this.transferPropsTo(<iframe src={src} frameBorder="0"
-			seamless allowfullscreen webkitallowfullscreen mozAllowFullScreen />);
+			seamless allowFullScreen allowTransparency />);
 	}
 });
