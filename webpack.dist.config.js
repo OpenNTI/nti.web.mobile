@@ -29,7 +29,13 @@ e[0].plugins.push(
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
     new AppCachePlugin({
-        cache: ['page.html','offline.json'],
+        cache: [
+            'page.html',
+            'offline.json',
+            'resources/images/favicon.ico',
+            'resources/images/app-icon.png',
+            'resources/images/app-splash.png'
+        ],
         network: [
             '/dataserver2/',
             '/content/',

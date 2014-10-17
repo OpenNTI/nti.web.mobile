@@ -40,7 +40,7 @@ try {
 module.exports = function(req, scriptFilename, clientConfig) {
 
 	var u = url.parse(req.url);
-	var manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache" ' : '<html';
+	var manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache"' : '<html';
 	var path = u.pathname;
 	var cfg;
 	var html = '';
