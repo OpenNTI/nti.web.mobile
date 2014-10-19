@@ -52,17 +52,27 @@ module.exports = React.createClass({
 		var item = this.props.item;
 		var id = item && item.NTIID;
 
-		getService().then(function(service){
-			return service.getObject(id)
-				.then(function(o) {
-					if (this.isMounted()) {
-						this.setState({
-							title: o.title,
-							count: o.PostCount || 0
-						});
-					}
-				}.bind(this));
-		}.bind(this));
+		getService()
+			.then(function(service){ return service.getObject(id); })
+			.then(this.fillInDataFrom)
+			.catch(this.markDisabled);
+	},
+
+
+	fillInDataFrom: function(o) {
+		if (this.isMounted()) {
+			this.setState({
+				title: o.title,
+				count: o.PostCount || 0
+			});
+		}
+	},
+
+
+	markDisabled: function() {
+		if (this.isMounted()) {
+			this.setState({disabled: true});
+		}
 	},
 
 
@@ -71,9 +81,10 @@ module.exports = React.createClass({
 		var item = props.item;
 		var title = item.title || this.state.title || 'Discussion';
 
+		var disabled = this.state.disabled ? 'disabled' : '';
 
 		return (
-			<div className={'overview-discussion'}>
+			<div className={'overview-discussion ' + disabled}>
 				<img src={this.state.icon}></img>
 				<div className="wrap">
 					<div className="title">{title}</div>
