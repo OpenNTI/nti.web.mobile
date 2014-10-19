@@ -4,6 +4,10 @@
 var React = require('react/addons');
 var DateTime = require('common/components/DateTime');
 
+var getService = require('common/Utils').getService;
+
+var SUBMITTED_QUIZ = 'application/vnd.nextthought.assessment.assessedquestionset';
+
 module.exports = React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
 
@@ -14,31 +18,54 @@ module.exports = React.createClass( {
 		}
 	},
 
+
+	componentDidMount: function() {
+		getService().then(this.fillInData);
+	},
+
+
+	fillInData: function(service) {
+
+		function getLastQuizSubmission(pageInfo) {
+			return pageInfo.getUserDataLastOfType(SUBMITTED_QUIZ)
+				.then(function(q) {
+					debugger;
+				});
+		}
+
+
+		service.getPageInfo(this.props.item['Target-NTIID'])
+			.then(getLastQuizSubmission.bind(this))
+			.catch(function() {
+				//mark as not started
+			});
+	},
+
 	render: function() {
 		var item = this.props.item;
 		var questionCount = item["question-count"];
 		var label = item.label;
 		var completed = false;
 		var isLate = false;
-		var addClass = completed ? " completed" : "";
-		addClass += isLate ? " late" : "";
+		var chart, tally;
+		var addClass = (completed ? " completed" : "") + (isLate ? " late" : "");
 
 		/* TODO Get Assignment due date to display.
 			Replace placeholder assessement chart icon
 			Get result of assessment (x correct, y incorrect)
 			*/
 
-		var chart, tally, addClass;
+
 		if (this.props.type == "Self-Assessments") {
 			addClass += " assessment";
-			chart = (<div className={'icon assessmentScore'}><Chart /></div>);
+			chart = (<div className="icon assessmentScore"><Chart /></div>);
 			tally = (
-				<div className={'tally'}>
-					<div className='stat correct'>
-						<span className='count'>x</span> {' correct'} </div>
-					<div className='stat incorrect'>
-						<span className='count'>y</span> {' incorrect'} </div>
-					<div className='stat questions'>{item["question-count"] + " questions"} </div>
+				<div className="tally">
+					<div className="stat correct">
+						<span className="count">x</span> correct </div>
+					<div className="stat incorrect">
+						<span className="count">y</span> incorrect </div>
+					<div className="stat questions">{item["question-count"] + " questions"} </div>
 				</div>
 			);
 		}
@@ -46,9 +73,9 @@ module.exports = React.createClass( {
 			addClass += " assignment";
 			chart = (<div className={'assignment icon'}></div>);
 			tally = (
-				<div className={'tally'}>
-					<div className='stat due-date late'>{'Due '} <DateTime/></div>
-					<div className='stat due-date'>{'Due '} <DateTime/></div>
+				<div className="tally">
+					<div className='stat due-date late'>Due <DateTime/></div>
+					<div className='stat due-date'>Due <DateTime/></div>
 				</div>
 			);
 		}
