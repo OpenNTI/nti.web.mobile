@@ -11,9 +11,7 @@ var Links = require('../Constants').links
 var CHANGE_EVENT = 'change';
 var ERROR_EVENT = 'error';
 
-var _fieldConfig = {
-	links: {},
-	fields: [
+var _fieldConfig = Object.freeze([
 	{
 		ref: 'fname',
 		type: 'text'
@@ -37,8 +35,8 @@ var _fieldConfig = {
 	{
 		ref: 'password2',
 		type: 'password'
-	}]
-};
+	}
+]);
 
 var SignupStore = merge(EventEmitter.prototype, {
 
@@ -62,24 +60,31 @@ var SignupStore = merge(EventEmitter.prototype, {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
+	getUserAgreementUrl: function() {
+		return Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
+	},
+
 	// where to post the form for preflight and account creation.
 	_getCreationLinks: function() {
 		return dataserver().ping(null, null)
-		.then(function(result) {
-			debugger;
-			return result;
-		}, undefined)
-		.catch (function(r) {
-			console.error(r);
-		});
+			.then(function(result) {
+				var r = {};
+				r[Links.ACCOUNT_PREFLIGHT_CREATE] = result.links[Links.ACCOUNT_PREFLIGHT_CREATE];
+				r[Links.ACCOUNT_CREATE] = result.links[Links.ACCOUNT_CREATE];
+				return r;
+			}, undefined)
+			.catch (function(result) {
+				console.error(result);
+			}
+		);
 	},
 
 	getFormConfig: function() {
-		return this._getCreationLinks().then(function(result) {
-			[Links.ACCOUNT_PREFLIGHT_CREATE, Links.ACCOUNT_CREATE].forEach(function(v) {
-				_fieldConfig.links[v] = result.links[v];
-			})
-			return _fieldConfig;
+		return this._getCreationLinks().then(function(links) {
+			return {
+				links: links,
+				fields: _fieldConfig
+			};
 		});
 	}
 });

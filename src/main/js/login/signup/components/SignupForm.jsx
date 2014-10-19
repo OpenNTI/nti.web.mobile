@@ -46,6 +46,7 @@ var SignupForm = React.createClass({
 
 		var fields = this.state.formConfig.fields.map(function(field,index,arr) {
 			return (<input type={field.type}
+						key={field.ref}
 						ref={field.ref}
 						placeholder={t(field.ref)}
 						defaultValue={this.state[field.ref]} />);
@@ -67,7 +68,7 @@ var SignupForm = React.createClass({
 						<div>
 							<UserAgreement />
 						</div>
-						<input type="submit" value="Create Account" />
+						<input type="submit" className="tiny button radius" value="Create Account" />
 					</fieldset>
 					<a href="">Privacy Policy</a>
 				</form>
