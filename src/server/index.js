@@ -37,6 +37,8 @@ var dataserver = require('dataserverinterface')(config);
 var session = dataserver.session;
 var datacache = dataserver.datacache;
 
+var api = require('./api');
+
 var generated = require('./generated');
 var entryPoint = generated.entryPoint;
 var page = generated.page;
@@ -97,6 +99,7 @@ app.get(appRoutes, function(req, res) {
 		});
 });
 
+api.register(app, config);
 
 //Errors
 app.use(function(err, req, res, next){
