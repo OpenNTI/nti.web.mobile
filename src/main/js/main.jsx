@@ -55,21 +55,28 @@ var App = React.createClass({
 
 
 	componentWillMount: function() {
+		require('../resources/scss/app.scss');
+	},
+
+
+	componentDidMount: function() {
 		LoginStore.addChangeListener(this._loginStoreChange);
 		AppDispatcher.register(this._actionHandler);
 	},
+
 
 	componentWillUnmount: function() {
 		LoginStore.removeChangeListener(this._loginStoreChange);
 		AppDispatcher.unregister(this._actionHandler);
 	},
 
+
 	_onNavigation: function() {
 		this.forceUpdate();
 	},
 
+
 	render: function() {
-		require('../resources/scss/app.scss');
 		var basePath = this.props.basePath;
 
 		var path = this.props.path || location.href;
