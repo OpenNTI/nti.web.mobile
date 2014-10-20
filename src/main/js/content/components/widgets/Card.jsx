@@ -52,7 +52,7 @@ module.exports = React.createClass({
 
 	render: function() {
 		return this.transferPropsTo(
-			<Card slug="c" contentPackage={this.props.course}/>
+			<Card contentPackage={this.props.course}/>
 		);
 	}
 });

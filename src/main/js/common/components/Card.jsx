@@ -140,7 +140,7 @@ module.exports = React.createClass({
 		return (
 			<a className={'content-link related-work-ref ' + extern}
 				href={state.href} target={external ? '_blank' : null}
-				onClick={this.onClick}
+				onClick={this.props.onClick}
 			>
 				{state.icon?
 					<div className="icon">
