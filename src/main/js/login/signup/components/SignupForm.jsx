@@ -32,9 +32,17 @@ var SignupForm = React.createClass({
 		};
 	},
 
-	_handleSubmit: function() {
+	_fullname: function() {
+		return [this.state.fieldValues['fname'], this.state.fieldValues['lname']].join(' ');
+	},
+
+	_handleSubmit: function(evt) {
+		evt.preventDefault();
 		console.log('create account.');
-		Actions.createAccount({fields: this.state.fieldValues});
+		var fields = merge(this.state.fieldValues, {realname: this._fullname()});
+		Actions.createAccount({
+			fields: fields
+		});
 		return false;
 	},
 

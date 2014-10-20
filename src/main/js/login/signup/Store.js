@@ -135,7 +135,13 @@ function _preflight(fields) {
 }
 
 function _createAccount(fields) {
-	console.warn('create acocunt not implemented. %O', fields);
+
+	function handleResult(result) {
+
+	}
+
+	dataserver().createAccount(fields)
+	.then(handleResult, handleResult);
 
 }
 
