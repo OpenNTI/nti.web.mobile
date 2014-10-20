@@ -39,6 +39,10 @@
 		padding-bottom: 0.3125rem;
 		font-family: Monaco, "Courier New", Courier, fixed;
 		padding-left: 4ex;
+
+		overflow: scroll;
+		word-wrap: normal;
+		-webkit-overflow-scrolling: touch;
 	}
 
 	sup {
