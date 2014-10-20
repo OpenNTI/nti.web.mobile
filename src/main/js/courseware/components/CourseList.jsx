@@ -83,8 +83,8 @@ var CourseList = React.createClass({
 		var list = this._itemListForSection(this.props.section);
 		var filters = this._filtersForSection(this.props.section);
 
-		if( !filters || list.length === 0 ) {
-			return <NoMatches />
+		if( list.length === 0 ) {
+			return (<NoMatches />);
 		}
 
 		return this.transferPropsTo(
