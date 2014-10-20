@@ -16,15 +16,13 @@ var CoursewareSection = React.createClass({
 		switch (section) {
 			case 'courses':
 			case 'books':
-				return <CourseList section={section} />
-			break;
+				return CourseList({section: section});
 
 			case 'catalog':
-				return <CatalogView />
-			break
+				return CatalogView();
 
 			default:
-				return <div>Unknown section</div>
+				return (<div>Unknown section</div>);
 		}
 	},
 

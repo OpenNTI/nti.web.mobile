@@ -7,10 +7,12 @@
 var React = require('react/addons');
 var IconBar = require('./IconBar');
 var CourseList = require('./CourseList');
-var Collection = require('../../catalog/components/Collection');
-var Detail = require('../../catalog/components/Detail');
-var Store = require('../../catalog/Store');
-var Actions = require('../../catalog/Actions');
+
+var Catalog = require('catalog');
+var Collection = Catalog.Collection;
+var Detail = Catalog.Detail;
+var Store = Catalog.Store;
+var Actions = Catalog.Actions;
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;

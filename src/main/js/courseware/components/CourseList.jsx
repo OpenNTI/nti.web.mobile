@@ -9,8 +9,10 @@ var Library = require('../../library');
 var Store = Library.Store;
 var Actions = Library.Actions;
 
-var LibraryCollection = require('../../library/components/Collection');
-var CourseFilters = require('../../library/CourseFilters');
+var Library = require('library');
+var LibraryCollection = Library.Collection;
+var CourseFilters = Library.CourseFilters;
+
 var Loading = require('common/components/Loading');
 var NoMatches = require('common/components/NoMatches');
 
