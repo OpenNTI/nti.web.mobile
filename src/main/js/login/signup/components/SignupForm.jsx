@@ -109,7 +109,7 @@ var SignupForm = React.createClass({
 						If you are a current student at the University of Oklahoma, you don't need to create an account. <Link href="/">Log in with your OUNet ID (4+4)</Link>
 					</div>
 				</div>
-				<form className="create-account-form medium-6 medium-centered columns" onSubmit={this._handleSubmit} noValidate>
+				<form className="create-account-form medium-6 medium-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
 						{fields}
 						<div>

@@ -25,7 +25,7 @@ module.exports = {
 				fname: 'First Name',
 				lname: 'Last Name',
 				email: 'email',
-				username: 'Username',
+				Username: 'Username',
 				password: 'Password',
 				password2: 'Verify Password'
 			}
