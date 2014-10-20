@@ -95,7 +95,7 @@ module.exports = React.createClass({
 									basePath={this.props.basePath}/>
 
 				<Router.Location path="/o/:outlineId/c/:rootId/*"
-									handler={Content.View}
+									handler={Content.Viewer}
 									course={course}
 									basePath={this.props.basePath}
 									slug="c"
