@@ -12,7 +12,7 @@ module.exports = React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
 
 	statics: {
-		mimeTest: /^application\/vnd\.nextthought\.(naquestionset|naquestionbank)/i,
+		mimeTest: /(naquestionset|naquestionbank|assignment)$/i,
 		handles: function(item) {
 			return this.mimeTest.test(item.MimeType);
 		}
