@@ -52,15 +52,12 @@ var CourseList = React.createClass({
 		switch (section) {
 			case 'courses':
 				return [].concat(library.courses || []);
-			break;
 
 			case 'books':
 				return [].concat(library.bundles || [], library.packages || []);
-			break;
 
 			case 'instructing':
 				return [].concat(library.coursesAdmin || []);
-			break;
 
 			default:
 				console.error('Unknown section; returning empty array.');

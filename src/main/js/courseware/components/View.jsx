@@ -1,6 +1,7 @@
 /**
  * @jsx React.DOM
  */
+'use strict';
 
 var React = require('react/addons');
 
@@ -17,7 +18,7 @@ var Redirect = require('common/components/Redirect');
 
 function sectionRoutes(basePath) {
 	var sections = Store.getSectionNames();
-	
+
 	var routes = sections.map(function(section) {
 		return Location({
 			path: '/' + section + '/*',
