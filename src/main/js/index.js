@@ -45,6 +45,10 @@ var app = React.renderComponent(
 	document.getElementById('content')
 );
 
+//After bundle CSS is injected, lets move this back down so it overrides the bundle.
+var site = document.getElementById('site-override-styles');
+if (site) {site.parentNode.appendChild(site);}
+
 var sscss = document.getElementById('server-side-style');
 
 //Lets free some memory... the server sends styles to the initial page view looks

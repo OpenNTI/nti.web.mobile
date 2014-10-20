@@ -1,0 +1,13 @@
+.tab-bar-section .title::after {
+	content: '';
+	width: 148px;
+	height: 38px;
+	background: transparent url(../../../images/sites/platform.ou.edu/ou_janux.png) center center;
+	background-size: contain;
+	position: absolute;
+	margin-top: -20px;
+	margin-left: -74px;
+	top: 50%;
+	left: 50%;
+	zoom: 0.5;
+}

@@ -37,6 +37,11 @@ try {
 	template = fs.readFileSync(__dirname + '/../main/page.html', "utf8");
 }
 
+template = template.replace(
+	/<!--css:site-styles-->/,
+	//This path has to be the same depth as the mapped
+	'<link href="/resources/css/sites/current/site.css" rel="stylesheet" type="text/css" id="site-override-styles"/>');
+
 module.exports = function(req, scriptFilename, clientConfig) {
 
 	var u = url.parse(req.url);

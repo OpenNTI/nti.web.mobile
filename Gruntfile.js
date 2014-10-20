@@ -59,6 +59,13 @@ module.exports = function(grunt) {
 						filter: 'isFile'
 					},
 					{
+						cwd: '<%= pkg.src %>/resources/css/sites/',
+						expand: true,
+						filter: 'isFile',
+						src: ['**'],
+						dest: '<%= pkg.dist %>/client/resources/css/sites/'
+					},
+					{
 						cwd: '<%= pkg.src %>/resources/images/',
 						expand: true,
 						filter: 'isFile',
@@ -97,7 +104,8 @@ module.exports = function(grunt) {
 					outputStyle: 'compressed'
 				},
 				files: {
-					'src/main/resources/css/app.css': 'src/main/resources/scss/app.scss'
+					//'src/main/resources/css/app.css': 'src/main/resources/scss/app.scss',
+					'src/main/resources/css/sites/platform.ou.edu/site.css': 'src/main/resources/scss/sites/platform.ou.edu/site.scss'
 				}
 			}
 		},
