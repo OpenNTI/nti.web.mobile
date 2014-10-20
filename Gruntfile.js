@@ -40,17 +40,6 @@ module.exports = function(grunt) {
             }
         },
 
-		// open: {
-		// 	options: {
-		// 		delay: 500
-		// 	},
-		// 	dev: {
-		// 		path: 'http://localhost:<%= express.options.port %>/mobile/'
-		// 	},
-		// 	dist: {
-		// 		path: 'http://localhost:<%= express.options.port %>/mobile/'
-		// 	}
-		// },
 
 		karma: {
             unit: {
@@ -69,17 +58,6 @@ module.exports = function(grunt) {
 						dest: '<%= pkg.dist %>/client/',
 						filter: 'isFile'
 					},
-					// {
-					// 	cwd: '<%= pkg.src %>/resources/',
-					// 	expand: true,
-					// 	src: [
-					// 		'**/*.js',
-					// 		'**/*.css',
-					// 		'**/*.map'
-					// 	],
-					// 	dest: '<%= pkg.dist %>/client/resources/',
-					// 	filter: 'isFile'
-					// },
 					{
 						cwd: '<%= pkg.src %>/resources/images/',
 						expand: true,
