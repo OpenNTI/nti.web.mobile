@@ -281,7 +281,7 @@ module.exports = React.createClass({
 					onTouchMove={this.onTouchMove}
 					onTouchEnd={this.onTouchEnd}
 					tabIndex="0">
-					{this._renderItems(this.getVideoList())}
+					{this._renderItems(this.getVideoList(), {tag: 'li'})}
 				</ul>
 				<button className="prev fi-arrow-left" onClick={this.onPrev} title="Prevous Video"/>
 				<button className="next fi-arrow-right" onClick={this.onNext} title="Next Video"/>

@@ -11,7 +11,7 @@ var Discussion = require('./Discussion');
 var QuestionSet = require('./QuestionSet');
 
 
-function getItemHandler(item, index, list, children) {
+function getItemHandler(item, index, list, props) {
 	var Item = exports.Unknown;
 	var key, Type;
 
@@ -26,13 +26,12 @@ function getItemHandler(item, index, list, children) {
 	}
 
 	return Item(
-		{
+		merge({
 			key: 'overview-' + item.MimeType + '-' + index,
 			item: item,
 			index: index,
 			ref: Item.displayName + '-' + index
-		},
-		children);
+		}, props || {}));
 }
 
 

@@ -73,6 +73,7 @@ module.exports = React.createClass({
 	render: function() {
 		var props = this.props;
 		var item = props.item;
+		var Tag = React.DOM[props.tag || 'div'];
 		var style = {
 			backgroundImage: 'url(' + item.poster + ')'
 		};
@@ -83,7 +84,7 @@ module.exports = React.createClass({
 
 
 		return (
-			<li style={style} className="video-wrap flex-video widescreen">
+			<Tag style={style} className="video-wrap flex-video widescreen">
 				{this.state.video ?
 				<Video ref="video" src={this.state.video} autoPlay onPause={this.onStop} onEnded={this.onStop} /> :
 				<LoadingMask loading={this.state.loading} tag="a" onFocus={props.onFocus} className="tap-area" href={link}>
@@ -95,7 +96,7 @@ module.exports = React.createClass({
 					</div>
 				</LoadingMask>
 				}
-			</li>
+			</Tag>
 		);
 	}//controls autobuffer autoplay loop
 });
