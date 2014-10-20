@@ -110,7 +110,8 @@ module.exports = React.createClass({
 							</section>
 
 							<section className="middle tab-bar-section">
-								<h1	className="title">next thought</h1>
+								<a href={this.props.basePath}>
+									<h1 className="title">next thought</h1></a>
 							</section>
 
 							<section className="right-small">
