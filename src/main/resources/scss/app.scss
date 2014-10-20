@@ -159,7 +159,12 @@ aside[class*=off-canvas-menu] {
 	bottom: auto;
 	position: absolute;
 	height: 100vh;
+
+	.logout {
+		margin: 3rem 0;
+	}
 }
+
 
 
 .main-section {
