@@ -27,7 +27,7 @@ var _fieldConfig = Object.freeze([
 		type: 'email'
 	}, 
 	{
-		ref: 'username',
+		ref: 'Username',
 		type: 'text'
 	}, 
 	{
@@ -40,10 +40,12 @@ var _fieldConfig = Object.freeze([
 	}
 ]);
 
-var SignupStore = merge(EventEmitter.prototype, {
+var _errors = [];
+
+var Store = merge(EventEmitter.prototype, {
 
 	emitChange: function(evt) {
-		console.log('SignupStore: emitting change');
+		console.log('Store: emitting change');
 		this.emit(CHANGE_EVENT, evt);
 	},
 
@@ -51,7 +53,7 @@ var SignupStore = merge(EventEmitter.prototype, {
 	* @param {function} callback
 	*/
 	addChangeListener: function(callback) {
-		console.log('SignupStore: adding change listener');
+		console.log('Store: adding change listener');
 		this.on(CHANGE_EVENT, callback);
 	},
 
@@ -62,10 +64,32 @@ var SignupStore = merge(EventEmitter.prototype, {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
+	getErrors: function() {
+		return _errors;
+	},
+
+	_addError: function(error) {
+		_errors.push(error);
+		this.emitChange({
+			type: ERROR_EVENT,
+			errors: _errors
+		});
+	},
+
+	_clearErrors: function() {
+		if (_errors.length > 0) {
+			_errors.length = 0;
+			this.emitChange({
+				type: ERROR_EVENT
+			})
+		}
+	},
+
 	getUserAgreementUrl: function() {
 		return Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
 	},
 
+	// FIXME: don't need this. the preflight url is handled by the dataserver interface;
 	// where to post the form for preflight and account creation.
 	_getCreationLinks: function() {
 		return dataserver().ping(null, null)
@@ -81,6 +105,7 @@ var SignupStore = merge(EventEmitter.prototype, {
 		);
 	},
 
+	// FIXME: don't need _getCreationLinks. let the the dataserver interface worry about the urls;
 	getFormConfig: function() {
 		return this._getCreationLinks().then(function(links) {
 			return {
@@ -92,11 +117,26 @@ var SignupStore = merge(EventEmitter.prototype, {
 });
 
 function _preflight(fields) {
-	console.warn('preflight not implemented. %O', fields);
+
+	function preflightResult(result) {
+		console.debug('Store received preflight result: %O',result);
+		Store._clearErrors();
+		if (result.statusCode === 422) {
+			var res = JSON.parse(result.response)
+			Store._addError({
+				field: res.field,
+				message: res.message
+			});
+		}
+	}
+
+	dataserver().preflightAccountCreate(fields)
+	.then(preflightResult,preflightResult);
 }
 
 function _createAccount(fields) {
-	console.warn('create acocunt not implemented. %O', fields);	
+	console.warn('create acocunt not implemented. %O', fields);
+
 }
 
 AppDispatcher.register(function(payload) {
@@ -119,4 +159,4 @@ AppDispatcher.register(function(payload) {
 	return true; // No errors. Needed by promise in Dispatcher.
 });
 
-module.exports = SignupStore;
+module.exports = Store;

@@ -16,6 +16,7 @@ var Router = require('react-router-component');
 var Link = Router.Link;
 var Loading = require('common/components/Loading');
 var merge = require('react/lib/merge');
+var Utils = require('common/Utils');
 
 var _preflightDelayMs = 1000; // how long to buffer user input before sending another dataserver preflight request.
 
@@ -26,7 +27,8 @@ var SignupForm = React.createClass({
 			loading: true,
 			preflightTimeoutId: null,
 			formConfig: {},
-			fieldValues: {}
+			fieldValues: {},
+			errors: {}
 		};
 	},
 
@@ -36,13 +38,29 @@ var SignupForm = React.createClass({
 		return false;
 	},
 
+	storeChanged: function(event) {
+		console.debug('SignupForm received Store change event: %O', event);
+		if (event.type === 'error') {
+			var errs = Utils.indexArrayByKey(Store.getErrors(),'field');
+			console.debug(errs);
+			this.setState({
+				errors: errs
+			});
+		}
+	},
+
 	componentDidMount: function() {
+		Store.addChangeListener(this.storeChanged);
 		Store.getFormConfig().then(function(value) {
 			this.setState({
 				loading: false,
 				formConfig: value
 			})
 		}.bind(this));
+	},
+
+	componentWillUnmount: function() {
+		Store.removeChangeListener(this.storeChanged);
 	},
 
 	_inputChanged: function(event) {
@@ -69,14 +87,18 @@ var SignupForm = React.createClass({
 		}
 
 		var fields = this.state.formConfig.fields.map(function(field,index,arr) {
-			return (<input type={field.type}
+			var err = this.state.errors[field.ref];
+			var cssClass = err ? 'error' : null;
+			var error = err ? <small className='error'>{err.message}</small> : null;
+			return (<div><input type={field.type}
 						key={field.ref}
 						ref={field.ref}
 						value={this.state[field.ref]}
 						name={field.ref}
 						onChange={this._inputChanged}
 						placeholder={t(field.ref)}
-						defaultValue={this.state.fieldValues[field.ref]} />);
+						className={cssClass}
+						defaultValue={this.state.fieldValues[field.ref]} />{error}</div>);
 		}.bind(this));
 
 		return (
