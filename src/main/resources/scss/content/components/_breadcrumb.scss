@@ -1,6 +1,7 @@
 .content-view .breadcrumbs {
 	min-height: 2rem;
-	overflow: hidden;
+	overflow: visible;
+	//overflow: hidden;
 	position: relative;
 	white-space: nowrap;
 

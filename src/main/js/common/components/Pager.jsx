@@ -76,6 +76,8 @@ module.exports = React.createClass({
 
 			pages = source.getPagesAround(props.current, props.root);
 			this.setState({
+				page: pages.index + 1,
+				total: pages.total,
 				next: this.__buildHref(pages.next),
 				prev: this.__buildHref(pages.prev)
 			});
@@ -94,8 +96,21 @@ module.exports = React.createClass({
 
 		return (
 			<div className="pager">
+				{this.state.total > 1 && this._makeCounts() }
 				<a className="prev" href={prev.href} title={prev.title}/>
 				<a className="next" href={next.href} title={next.title}/>
+			</div>
+		);
+	},
+
+
+	_makeCounts: function() {
+		var s = this.state,
+			page = s.page,
+			total = s.total;
+		return (
+			<div className="counts">
+				<strong>{page}</strong> of <strong>{total}</strong>
 			</div>
 		);
 	}
