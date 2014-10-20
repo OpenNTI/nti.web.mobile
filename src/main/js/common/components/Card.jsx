@@ -137,15 +137,17 @@ module.exports = React.createClass({
 		var external = this.isExternal();
 		var extern = external ? 'external' : '';
 
+		var icon = {
+			backgroundImage: 'url('+state.icon+')'
+		};
+
 		return (
 			<a className={'content-link related-work-ref ' + extern}
 				href={state.href} target={external ? '_blank' : null}
 				onClick={this.props.onClick}
 			>
 				{state.icon?
-					<div className="icon">
-						<img src={state.icon}/>
-					</div>
+					<div className="icon" style={icon}/>
 				:null}
 
 				<h5 dangerouslySetInnerHTML={{__html: item.title}}/>
