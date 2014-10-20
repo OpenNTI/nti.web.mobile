@@ -4,6 +4,8 @@ var React = require('react/addons');
 
 var merge = require('react/lib/merge');
 
+var WidgetsMixin = require('./Mixin');
+
 var toArray = require('dataserverinterface/utils/toarray');
 
 
@@ -12,6 +14,7 @@ var Loading = require('common/components/Loading');
 
 module.exports = React.createClass({
 	displayName: 'CourseOverviewVideos',
+	mixins: [WidgetsMixin],
 
 	statics: {
 		mimeTest: /^application\/vnd\.nextthought\.ntivideoset/i,
@@ -77,14 +80,27 @@ module.exports = React.createClass({
 	},
 
 
+	stopVideo: function() {
+		var refs = this.refs;
+		var key;
+		for(key in refs) {
+			if (key.indexOf('CourseOverviewVideo-') === 0) {
+				refs[key].onStop();
+			}
+		}
+	},
+
+
 	onNext: function(e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
 		var active = this.state.active || 0;
+		this.stopVideo();
 		this.setState({
-			active: Math.min(active + 1, this.props.children.length - 1)
+			touch: null,
+			active: Math.min(active + 1, this.getVideoList().length - 1)
 		});
 	},
 
@@ -95,7 +111,9 @@ module.exports = React.createClass({
 			e.stopPropagation();
 		}
 		var active = this.state.active || 0;
+		this.stopVideo();
 		this.setState({
+			touch: null,
 			active: Math.max(active - 1, 0)
 		});
 	},
@@ -105,7 +123,9 @@ module.exports = React.createClass({
 		e.preventDefault();
 		e.stopPropagation();
 		var newActive = parseInt(e.target.getAttribute('data-index'), 10);
+		this.stopVideo();
 		this.setState({
+			touch: null,
 			active: newActive
 		});
 	},
@@ -181,7 +201,7 @@ module.exports = React.createClass({
 
 			if (sliding == 2) {
 				if ((active === 0 && event.clientX > data.x) ||
-					(active === (me.props.children.length - 1) && event.clientX < data.x)) {
+					(active === (me.getVideoList().length - 1) && event.clientX < data.x)) {
 					touchPixelRatio = 3;
 				}
 
@@ -235,6 +255,11 @@ module.exports = React.createClass({
 	},
 
 
+	getVideoList: function() {
+		return this.props.item.Items;
+	},
+
+
 	render: function() {
 		if (this.state.loading) { return (<Loading/>); }
 		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>);}
@@ -256,7 +281,7 @@ module.exports = React.createClass({
 					onTouchMove={this.onTouchMove}
 					onTouchEnd={this.onTouchEnd}
 					tabIndex="0">
-					{this.props.children}
+					{this._renderItems(this.getVideoList())}
 				</ul>
 				<button className="prev fi-arrow-left" onClick={this.onPrev} title="Prevous Video"/>
 				<button className="next fi-arrow-right" onClick={this.onNext} title="Next Video"/>
@@ -269,7 +294,7 @@ module.exports = React.createClass({
 
 
 	_renderDots: function() {
-		return this.props.children.map(function(_, i) {
+		return this.getVideoList().map(function(_, i) {
 			var active = (i === (this.state.active || 0)) ? 'active' : null;
 			return (<li><a className={active} href={"#"+i} key={'video-'+i}
 				onClick={this.onActivateSlide} data-index={i}/></li>);

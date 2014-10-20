@@ -17,7 +17,7 @@ module.exports = React.createClass({
 	},
 
 	statics: {
-		mimeTest: /^application\/vnd\.nextthought\.ntivideo/i,
+		mimeTest: /^application\/vnd\.nextthought\.ntivideo$/i,
 		handles: function(item) {
 			return this.mimeTest.test(item.MimeType);
 		}

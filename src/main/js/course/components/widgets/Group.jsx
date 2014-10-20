@@ -2,9 +2,11 @@
 'use strict';
 
 var React = require('react/addons');
+var WidgetsMixin = require('./Mixin');
 
 module.exports = React.createClass({
 	displayName: 'CourseOverviewGroup',
+	mixins: [WidgetsMixin],
 
 	statics: {
 		mimeTest: /^application\/vnd\.nextthought\.nticourseoverviewgroup/i,
@@ -22,7 +24,7 @@ module.exports = React.createClass({
 		return (
 			<fieldset className="course-overview-group">
 				<legend style={style}>{item.title}</legend>
-				{this.props.children}
+				{this._renderItems(item.Items)}
 			</fieldset>
 		);
 	}

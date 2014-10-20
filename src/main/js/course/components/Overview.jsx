@@ -13,6 +13,7 @@ var Store = require('../Store');
 
 module.exports = React.createClass({
 	displayName: 'CourseOverview',
+	mixins: [Widgets.Mixin],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
@@ -98,16 +99,8 @@ module.exports = React.createClass({
 			<div className="course-overview row">
 				<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
 				<h1 dangerouslySetInnerHTML={{__html: data.title}}/>
-				{this._renderItems(data.Items, '')}
+				{this._renderItems(data.Items)}
 			</div>
 		);
-	},
-
-
-	_renderItems: function(items, overviewType) {
-		var toReturn = items && items.map(function(item, i, list) {
-			return this.transferPropsTo(Widgets.select(item, i, list, this._renderItems(item.Items, item.title), overviewType));
-		}.bind(this));
-		return toReturn;
 	}
 });
