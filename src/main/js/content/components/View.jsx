@@ -19,7 +19,7 @@ module.exports = React.createClass({
 
 		return (
 			<Router.Locations contextual>
-				<Router.Location path="/:pageId/*"
+				<Router.Location path="/(:pageId/)*"
 									rootId={this.props.pkgId}
 									handler={Viewer}
 									basePath={this.props.basePath}

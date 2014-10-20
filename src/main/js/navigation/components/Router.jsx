@@ -38,7 +38,7 @@ module.exports = React.createClass({
 				<Router.Location path={basePath + 'login/*'} handler={Login.View} basePath={basePath}/>
 				<Router.Location path={basePath + 'library/*'} handler={Library.View} basePath={basePath} />
 				<Router.Location path={basePath + 'catalog/*'} handler={Catalog.View} basePath={basePath} />
-				<Router.Location path={basePath + 'content/:packageId/*'} handler={Content.View} basePath={basePath} />
+				<Router.Location path={basePath + 'content/:pkgId/*'} handler={Content.View} basePath={basePath} />
 				<Router.Location path={basePath + 'course/:course/*'} handler={Course.View} basePath={basePath} />
 				<Router.Location path={basePath + 'courseware/*'} handler={Courseware.View} basePath={basePath} />
 				<Router.Location path={basePath} handler={Home.View} />
