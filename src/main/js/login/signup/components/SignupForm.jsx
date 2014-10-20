@@ -17,10 +17,13 @@ var Link = Router.Link;
 var Loading = require('common/components/Loading');
 var merge = require('react/lib/merge');
 var Utils = require('common/Utils');
+var NavigatableMixin = require('common/mixins/NavigatableMixin');
 
 var _preflightDelayMs = 1000; // how long to buffer user input before sending another dataserver preflight request.
 
 var SignupForm = React.createClass({
+
+	mixins: [NavigatableMixin],
 
 	getInitialState: function() {
 		return {
@@ -48,12 +51,18 @@ var SignupForm = React.createClass({
 
 	storeChanged: function(event) {
 		console.debug('SignupForm received Store change event: %O', event);
-		if (event.type === 'error') {
-			var errs = Utils.indexArrayByKey(Store.getErrors(),'field');
-			console.debug(errs);
-			this.setState({
-				errors: errs
-			});
+		switch (event.type) {
+			case 'error':
+				var errs = Utils.indexArrayByKey(Store.getErrors(),'field');
+				console.debug(errs);
+				this.setState({
+					errors: errs
+				});
+			break;
+
+			case 'created':
+				this.navigate('/');
+			break;
 		}
 	},
 

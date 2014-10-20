@@ -85,6 +85,14 @@ var Store = merge(EventEmitter.prototype, {
 		}
 	},
 
+	_accountCreated: function(result) {
+		this._clearErrors();
+		this.emitChange({
+			type: 'created',
+			details: result
+		});
+	},
+
 	getUserAgreementUrl: function() {
 		return Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
 	},
@@ -136,12 +144,16 @@ function _preflight(fields) {
 
 function _createAccount(fields) {
 
-	function handleResult(result) {
+	function success(result) {
+		Store._accountCreated(result);
+	}
 
+	function fail(result) {
+		console.log('Account creation fail: %O',result);
 	}
 
 	dataserver().createAccount(fields)
-	.then(handleResult, handleResult);
+	.then(success, fail);
 
 }
 
