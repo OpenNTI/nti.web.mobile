@@ -3,6 +3,10 @@ ul.off-canvas-list {
 	li a.navitem {
 		letter-spacing:0.05rem;
 		white-space: nowrap;
+
+		overflow: hidden;
+		@include ellipse;
+
 		// border-bottom:none;
 		// text-shadow: 0px 1px 0px white;
 		&.sectiontitle {
