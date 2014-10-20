@@ -6,7 +6,9 @@ var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
 var dataserver = require('common/Utils').getServer;
-var Links = require('../Constants').links
+var Constants = require('./Constants');
+var Actions = Constants.actions;
+var Links = require('../Constants').links; // note: using login constants here, not signup.
 
 var CHANGE_EVENT = 'change';
 var ERROR_EVENT = 'error';
@@ -89,10 +91,27 @@ var SignupStore = merge(EventEmitter.prototype, {
 	}
 });
 
+function _preflight(fields) {
+	console.warn('preflight not implemented. %O', fields);
+}
+
+function _createAccount(fields) {
+	console.warn('create acocunt not implemented. %O', fields);	
+}
+
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
 
 	switch (action.actionType) {
+
+		case Actions.PREFLIGHT:
+			_preflight(action.fields);
+		break;
+
+		case Actions.CREATE_ACCOUNT:
+			_createAccount(action.fields);
+		break;
+
 		default:
 			return true;
 	}
