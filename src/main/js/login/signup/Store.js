@@ -94,7 +94,15 @@ var Store = merge(EventEmitter.prototype, {
 	},
 
 	getUserAgreementUrl: function() {
-		return Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
+		// return Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
+		return Promise.resolve( $AppConfig.basepath + 'api/user-agreement/');
+	},
+
+	getUserAgreement: function() {
+		return this.getUserAgreementUrl().then(function(url) {
+			return $.get(url);
+		});
+		// Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
 	},
 
 	// FIXME: don't need this. the preflight url is handled by the dataserver interface;

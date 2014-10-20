@@ -1,6 +1,25 @@
-iframe.agreement {
-	border: 1px solid $input-border-color;
-	padding: 0;
-	width: 100%;
+.agreement-wrapper {
+	$height: 10rem;
+	position: relative;
+	height: $height;
 	margin-bottom: 1rem;
+	.agreement {
+		position: absolute;
+		border: 1px solid $input-border-color;
+		padding:.5rem;
+		background:#f0f0f0;
+		margin:0;
+		left:0;
+		overflow-y: scroll;
+		width:100%;
+		max-width: 100%;
+		height: $height;
+		-webkit-overflow-scrolling: touch;
+		word-wrap: break-word;
+		> * {
+			font-size: .6rem;
+		}
+	}
+
 }
+

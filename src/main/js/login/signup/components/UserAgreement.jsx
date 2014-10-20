@@ -18,10 +18,10 @@ var UserAgreement = React.createClass({
 	},
 
 	componentDidMount: function() {
-		Store.getUserAgreementUrl().then(function(result) {
+		Store.getUserAgreement().then(function(result) {
 			this.setState({
-				loading: false,
-				url: result
+				content: result.body,
+				loading: false
 			});
 		}.bind(this));
 	},
@@ -29,15 +29,16 @@ var UserAgreement = React.createClass({
 	render: function() {
 
 		if (this.state.loading) {
-			return <Loading />
+			return <div className="agreement-wrapper"><Loading /></div>
 		}
 
 		return (
-				<iframe
-					className="agreement"
-					seamless="seamless"
-					src={this.state.url}
-				></iframe>
+				<div className="agreement-wrapper"><div className="agreement" dangerouslySetInnerHTML={{__html: this.state.content}} /></div>
+				// <iframe
+				// 	className="agreement"
+					
+				// 	src={this.state.url}
+				// ></iframe>
 		);
 	}
 

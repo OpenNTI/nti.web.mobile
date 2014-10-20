@@ -17,7 +17,7 @@ var Link = Router.Link;
 var Loading = require('common/components/Loading');
 var merge = require('react/lib/merge');
 var Utils = require('common/Utils');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
+var NavigatableMixin = Router.NavigatableMixin;
 
 var _preflightDelayMs = 1000; // how long to buffer user input before sending another dataserver preflight request.
 
@@ -61,7 +61,7 @@ var SignupForm = React.createClass({
 			break;
 
 			case 'created':
-				this.navigate('/');
+				window.location.replace(this.props.basePath);
 			break;
 		}
 	},
@@ -107,8 +107,7 @@ var SignupForm = React.createClass({
 			var err = this.state.errors[field.ref];
 			var cssClass = err ? 'error' : null;
 			var error = err ? <small className='error'>{err.message}</small> : null;
-			return (<div><input type={field.type}
-						key={field.ref}
+			return (<div key={field.ref}><input type={field.type}
 						ref={field.ref}
 						value={this.state[field.ref]}
 						name={field.ref}
