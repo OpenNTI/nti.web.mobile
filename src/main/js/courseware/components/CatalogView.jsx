@@ -13,6 +13,9 @@ var Collection = Catalog.Collection;
 var Detail = Catalog.Detail;
 var Store = Catalog.Store;
 var Actions = Catalog.Actions;
+
+var Loading = require('common/components/Loading');
+
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
@@ -57,6 +60,10 @@ var CatalogView = React.createClass({
         var basePath = this.props.basePath;
 
         console.log('CatalogView.props: %O',this.props);
+
+		if (!catalog.loaded) {
+			return (<Loading/>);
+		}
 
         return Locations({contextual: true},
             Location({
