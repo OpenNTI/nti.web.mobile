@@ -37,13 +37,13 @@ module.exports = React.createClass({
 
 	render: function() {
 
-		var cssClasses = "tiny button radius";
+		var cssClasses = "tiny button radius small-12 columns";
 
 		return (
-			<div className="row">
-				<div className="small-5 columns text-center"><Link className={cssClasses} href="/forgot/username">{t('forgot.username')}</Link></div>
-				<div className="small-5 columns text-center"><Link className={cssClasses} href="/forgot/password">{t('forgot.password')}</Link></div>
-			</div>		
+			<fieldset>
+				<Link className={cssClasses} href="/forgot/username">{t('forgot.username')}</Link>
+				<Link className={cssClasses} href="/forgot/password">{t('forgot.password')}</Link>
+			</fieldset>
 		);
 	}
 
