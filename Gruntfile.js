@@ -3,11 +3,15 @@
 var webpackDistConfig = require('./webpack.dist.config.js');
 var webpackDevConfig = require('./webpack.config.js');
 
+var path = require('path');
+
 module.exports = function(grunt) {
 	// Let *load-grunt-tasks* require everything
 	require('load-grunt-tasks')(grunt);
 
 	var pkgConfig = grunt.file.readJSON('package.json');
+
+	pkgConfig.distSiteCSS = path.join(pkgConfig.dist, '/client/resources/css/sites/');
 
 	grunt.initConfig({
 
@@ -63,7 +67,7 @@ module.exports = function(grunt) {
 						expand: true,
 						filter: 'isFile',
 						src: ['**'],
-						dest: '<%= pkg.dist %>/client/resources/css/sites/'
+						dest: '<%= pkg.distSiteCSS %>'
 					},
 					{
 						cwd: '<%= pkg.src %>/resources/images/',
@@ -164,11 +168,22 @@ module.exports = function(grunt) {
 				files: ['<%= pkg.jsDocSrc %>/src/main/js/**/*.js'],
 				tasks: ['jsdoc:dist']
 			}
+		},
+
+
+		symlink: {
+			explicit: {
+				files: [
+			        {src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-alpha.nextthought.com'},
+			        {src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-test.nextthought.com'}
+				]
+			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-sass');
+	grunt.loadNpmTasks('grunt-contrib-symlink');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
 	grunt.loadNpmTasks('grunt-reactjsx');
@@ -191,7 +206,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('test', ['karma']);
 
-	grunt.registerTask('build', ['clean', 'sass', 'copy', 'webpack:dist']);
+	grunt.registerTask('build', ['clean', 'sass', 'copy', 'symlink', 'webpack:dist']);
 
 	grunt.registerTask('default', ['serve']);
 
