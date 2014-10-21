@@ -1,5 +1,7 @@
 module.exports = {
-
+	GLOBAL: {
+		SITE_NAME: 'NextThought'
+	},
 	LOGIN: {
 		login: 'Log In',
 		signup: {
