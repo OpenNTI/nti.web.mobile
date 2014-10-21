@@ -64,12 +64,12 @@ module.exports = merge(EventEmitter.prototype, {
 
 	/** dispatch a dataserver request to recover a user's password
 	*/
-	recoverPassword: function(email) {
-		return dataserver().recoverPassword(email);
+	recoverPassword: function(fields) {
+		return dataserver().recoverPassword(fields.email, fields.username);
 	},
 
-	recoverUsername: function(email) {
-		return dataserver().recoverUsername(email);
+	recoverUsername: function(fields) {
+		return dataserver().recoverUsername(fields.email);
 	}
 
 });

@@ -14,6 +14,26 @@ var Actions = require('../Actions');
 var Link = require('react-router-component').Link;
 var config = require('common/AppConfig');
 var Router = require('react-router-component');
+var merge = require('react/lib/merge');
+
+var _fields = {
+	password: [
+		{
+			type: 'text',
+			ref: 'username'
+		},
+		{
+			type: 'email',
+			ref: 'email'
+		}
+	],
+	username: [
+		{
+			type: 'email',
+			ref: 'email'
+		}
+	]
+};
 
 module.exports = React.createClass({
 
@@ -25,7 +45,8 @@ module.exports = React.createClass({
 
 	getInitialState: function() {
 		return {
-			submitEnabled: false
+			submitEnabled: false,
+			fieldValues: {}
 		};
 	},
 
@@ -34,7 +55,7 @@ module.exports = React.createClass({
 		var messageOptions = {category: Constants.messages.category};
 		MessageActions.clearMessages(messageOptions);
 		var action = this.props.param === 'password' ? Actions.recoverPassword : Actions.recoverUsername;
-		action(this.refs.email.getDOMNode().value.trim())
+		action(this.state.fieldValues)
 		.then(function() {
 			var message = new Message('Check your email for recovery instructions.', messageOptions);
 			MessageActions.addMessage(message, messageOptions);
@@ -46,10 +67,27 @@ module.exports = React.createClass({
 		}.bind(this));
 	},
 
-	_inputChanged: function() {
+	_inputChanged: function(event) {
+		var newState = {};
+		newState[event.target.name] = event.target.value;
+		var tmp = merge(this.state.fieldValues, newState);
+		this.setState({
+			fieldValues: tmp
+		});
 		this.setState({
 			submitEnabled: (this.refs.email.getDOMNode().value.trim().length > 0)
 		});
+	},
+
+	_inputs: function() {
+		return _fields[this.props.param].map(function(fieldConfig) {
+			return <input type={fieldConfig.type}
+							ref={fieldConfig.ref}
+							name={fieldConfig.ref}
+							placeholder={fieldConfig.ref}
+							onChange={this._inputChanged}
+							defaultValue='' />
+		}.bind(this));
 	},
 
 	render: function() {
@@ -62,15 +100,13 @@ module.exports = React.createClass({
 			cssClasses.push('disabled');
 		}
 
+		var inputs = this._inputs();
+
 		return (
 			<div className="row">
 				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
-						<input type="email"
-							ref="email"
-							placeholder="email"
-							onChange={this._inputChanged}
-							defaultValue='' />
+						{inputs}
 						<button
 							type="submit"
 							className={cssClasses.join(' ')}
