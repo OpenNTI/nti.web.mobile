@@ -87,6 +87,7 @@ var SignupForm = React.createClass({
 	_inputChanged: function(event) {
 		var newState = {};
 		newState[event.target.name] = event.target.value;
+		newState['realname'] = this._fullname();
 		var tmp = merge(this.state.fieldValues, newState);
 		this.setState({
 			fieldValues: tmp
@@ -99,6 +100,13 @@ var SignupForm = React.createClass({
 			});
 		}.bind(this),_preflightDelayMs);
 		this.setState({preflightTimeoutId: timeoutId});
+	},
+
+	_submitEnabled: function() {
+		return Object.keys(this.state.errors).length === 0 &&
+		this.state.formConfig.fields.every(function(fieldConfig) {
+			return !fieldConfig.required || (this.state.fieldValues[fieldConfig.ref]||'').length > 0;
+		}.bind(this));
 	},
 
 	render: function() {
@@ -121,9 +129,10 @@ var SignupForm = React.createClass({
 						defaultValue={this.state.fieldValues[field.ref]} />{error}</div>);
 		}.bind(this));
 
+		var enabled = this._submitEnabled();
+
 		return (
 			<div className="row">
-
 				<div className="medium-6 medium-centered columns">
 					<div className="notice">
 						If you are a current student at the University of Oklahoma, you don't need to create an account. <Link href="/">Log in with your OUNet ID (4+4)</Link>
@@ -135,7 +144,7 @@ var SignupForm = React.createClass({
 						<div>
 							<UserAgreement />
 						</div>
-						<input type="submit" className="tiny button radius" value="Create Account" />
+						<input type="submit" className="tiny button radius" disabled={!enabled} value="Create Account" />
 					</fieldset>
 					<a href="">Privacy Policy</a>
 				</form>

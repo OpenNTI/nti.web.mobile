@@ -16,27 +16,33 @@ var ERROR_EVENT = 'error';
 var _fieldConfig = Object.freeze([
 	{
 		ref: 'fname',
-		type: 'text'
+		type: 'text',
+		required: true
 	}, 
 	{
 		ref: 'lname',
-		type: 'text'
+		type: 'text',
+		required: true
 	}, 
 	{
 		ref: 'email',
-		type: 'email'
+		type: 'email',
+		required: true
 	}, 
 	{
 		ref: 'Username',
-		type: 'text'
+		type: 'text',
+		required: true
 	}, 
 	{
 		ref: 'password',
-		type: 'password'
+		type: 'password',
+		required: true
 	}, 
 	{
 		ref: 'password2',
-		type: 'password'
+		type: 'password',
+		required: true
 	}
 ]);
 
@@ -112,6 +118,13 @@ var Store = merge(EventEmitter.prototype, {
 	}
 });
 
+function fieldsMatch(value1, value2) {
+	if( !value1 && !value2) {
+		return true;
+	}
+	return value1 === value2;
+}
+
 function _preflight(fields) {
 
 	function preflightResult(result) {
@@ -122,6 +135,12 @@ function _preflight(fields) {
 			Store._addError({
 				field: res.field,
 				message: res.message
+			});
+		}
+		if (!fieldsMatch(fields['password'], fields['password2'])) {
+			Store._addError({
+				field: 'password2',
+				message: 'Passwords do not match'
 			});
 		}
 	}
