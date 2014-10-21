@@ -158,6 +158,14 @@ function _createAccount(fields) {
 
 	function fail(result) {
 		console.log('Account creation fail: %O',result);
+		if (result.statusCode === 422) {
+			console.debug(result);
+			var res = JSON.parse(result.response)
+			Store._addError({
+				field: res.field,
+				message: res.message
+			});
+		}
 	}
 
 	dataserver().createAccount(fields)

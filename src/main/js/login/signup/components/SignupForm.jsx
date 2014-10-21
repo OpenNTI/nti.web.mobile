@@ -54,7 +54,11 @@ var SignupForm = React.createClass({
 		switch (event.type) {
 			case 'error':
 				var errs = Utils.indexArrayByKey(Store.getErrors(),'field');
-				console.debug(errs);
+
+				// realname is a synthetic field; map its error messages to the last name field.
+				if (errs['realname'] && !errs['lname']) {
+					errs['lname'] = errs['realname'];
+				}
 				this.setState({
 					errors: errs
 				});
