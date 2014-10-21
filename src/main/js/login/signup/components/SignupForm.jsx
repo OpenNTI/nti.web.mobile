@@ -25,6 +25,12 @@ var SignupForm = React.createClass({
 
 	mixins: [NavigatableMixin],
 
+	getDefaultProps: function() {
+		return {
+			privacyUrl: Store.getPrivacyUrl()
+		};
+	},
+
 	getInitialState: function() {
 		return {
 			loading: true,
@@ -146,7 +152,7 @@ var SignupForm = React.createClass({
 						</div>
 						<input type="submit" className="tiny button radius" disabled={!enabled} value="Create Account" />
 					</fieldset>
-					<a href="">Privacy Policy</a>
+					<a href={this.props.privacyUrl} target="_blank">Privacy Policy</a>
 				</form>
 			</div>
 		);

@@ -111,6 +111,10 @@ var Store = merge(EventEmitter.prototype, {
 		// Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
 	},
 
+	getPrivacyUrl: function() {
+		return 'https://docs.google.com/document/pub?id=1W9R8s1jIHWTp38gvacXOStsfmUz5TjyDYYy3CVJ2SmM';
+	},
+
 	getFormConfig: function() {
 		return Promise.resolve({
 			fields: _fieldConfig
