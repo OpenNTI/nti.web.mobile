@@ -82,12 +82,9 @@ app.use(authedRoutes, session.middleware.bind(session));
 
 
 //HTML Renderer...
+app.use(appRoutes, require('./no-cache'));
 app.get(appRoutes, function(req, res) {
 	console.log('Rendering Inital View: %s %s', req.url, req.username);
-
-	res.setHeader('Cache-Control', 'private, no-cache, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-	res.setHeader('Expires', '-1'); //old, but still arounad :(
-	res.setHeader('Pragma', 'no-cache'); //old, but still arounad :(
 
 	//Pre-flight (if any widget makes a request, we will cache its result and
 	// send its result to the client)
