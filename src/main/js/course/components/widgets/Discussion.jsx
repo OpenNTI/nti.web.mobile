@@ -18,14 +18,31 @@ module.exports = React.createClass({
 		item: React.PropTypes.object.isRequired
 	},
 
+
+	getNTIIDs: function() {
+		var i = this.props.item,
+			id = i && i.NTIID;
+		return id ? id.split(' ') : [];
+	},
+
+
+	getNTIID: function () {
+		var ids = this.getNTIIDs();
+		return ids[this.state.ntiidIndex];
+	},
+
+
 	getInitialState: function(){
-		var i = this.props.item;
+		var ids = this.getNTIIDs();
 		return {
 			count: 0,
+			commentType: ' Comments',
 			icon: null,
-			title: ''
+			title: '',
+			ntiidIndex: 0
 		};
 	},
+
 
 	componentDidMount: function() {
 		this.resolveIcon(this.props);
@@ -49,13 +66,25 @@ module.exports = React.createClass({
 
 
 	resolveCommentCount: function() {
-		var item = this.props.item;
-		var id = item && item.NTIID;
+		var id = this.getNTIID();
 
-		getService()
+		return getService()
 			.then(function(service){ return service.getObject(id); })
 			.then(this.fillInDataFrom)
+			.catch(this.tryNextId)
 			.catch(this.markDisabled);
+	},
+
+
+	tryNextId: function() {
+		var ids = this.getNTIIDs();
+		var i = this.state.ntiidIndex + 1;
+		if (i >= ids.length) {
+			return Promise.reject('No more');
+		}
+
+		this.setState({ntiidIndex: i});
+		return this.resolveCommentCount();
 	},
 
 
@@ -63,7 +92,8 @@ module.exports = React.createClass({
 		if (this.isMounted()) {
 			this.setState({
 				title: o.title,
-				count: o.PostCount || 0
+				count: o.PostCount || o.TopicCount || 0,
+				commentType: o.hasOwnProperty('TopicCount') ? ' Discussions' : ' Comments'
 			});
 		}
 	},
@@ -71,7 +101,11 @@ module.exports = React.createClass({
 
 	markDisabled: function() {
 		if (this.isMounted()) {
-			this.setState({disabled: true});
+			this.setState({
+				disabled: true,
+				count: '',
+				commentType: ''
+			});
 		}
 	},
 
@@ -88,7 +122,7 @@ module.exports = React.createClass({
 				<img src={this.state.icon}></img>
 				<div className="wrap">
 					<div className="title">{title}</div>
-					<div className="comments">{this.state.count + " Comments"}</div>
+					<div className="comments">{this.state.count + this.state.commentType}</div>
 				</div>
 			</div>
 		);
