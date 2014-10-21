@@ -56,7 +56,9 @@
 	text-align: center;
 	margin: 1rem;
 	padding: 2rem 1rem;
-	@include metadata();
+	background: rgba(0,0,0,.2);
+	color: white;
+	border-radius: 2px;
 }
 
 @media (max-width: 365px) {

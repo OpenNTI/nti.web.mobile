@@ -105,29 +105,9 @@ var Store = merge(EventEmitter.prototype, {
 		// Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
 	},
 
-	// FIXME: don't need this. the preflight url is handled by the dataserver interface;
-	// where to post the form for preflight and account creation.
-	_getCreationLinks: function() {
-		return dataserver().ping(null, null)
-			.then(function(result) {
-				var r = {};
-				r[Links.ACCOUNT_PREFLIGHT_CREATE] = result.links[Links.ACCOUNT_PREFLIGHT_CREATE];
-				r[Links.ACCOUNT_CREATE] = result.links[Links.ACCOUNT_CREATE];
-				return r;
-			}, undefined)
-			.catch (function(result) {
-				console.error(result);
-			}
-		);
-	},
-
-	// FIXME: don't need _getCreationLinks. let the the dataserver interface worry about the urls;
 	getFormConfig: function() {
-		return this._getCreationLinks().then(function(links) {
-			return {
-				links: links,
-				fields: _fieldConfig
-			};
+		return Promise.resolve({
+			fields: _fieldConfig
 		});
 	}
 });
