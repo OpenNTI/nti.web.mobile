@@ -149,11 +149,10 @@ module.exports = React.createClass({
 				{state.icon?
 					<div className="icon" style={icon}/>
 				:null}
-
 				<h5 dangerouslySetInnerHTML={{__html: item.title}}/>
+				<hr className="break hide-for-medium-up"/>
 				<div className="label" dangerouslySetInnerHTML={{__html: item.creator}}/>
 				<div className="description" dangerouslySetInnerHTML={{__html: item.desc}}/>
-
 			</a>
 		);
 	}
