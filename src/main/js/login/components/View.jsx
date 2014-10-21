@@ -66,22 +66,24 @@ var View = React.createClass({
 		}
 
 		return (
-			<div className="loginformswrapper">
+			<div>
 				<nav className="top-bar">
 					<ul className="title-area">
 						<li className="name"><h1><a href="#">{tg(Globals.SITE_NAME)}</a></h1></li>
 					</ul>
 				</nav>
-				<MessageDisplay category={Constants.messages.category} />
-				<ReactCSSTransitionGroup transitionName="loginforms">
-					<Locations
-						contextual
-						key={this.getPath()}>
-						<DefaultRoute handler={LoginForm} />
-						<Location path="/forgot/:param" handler={ForgotForm} basePath={basePath} links={this.state.links} />
-						<Location path="/signup/*" handler={SignupForm} basePath={basePath} links={this.state.links} />
-					</Locations>
-				</ReactCSSTransitionGroup>
+				<div className="loginformswrapper">
+					<MessageDisplay category={Constants.messages.category} />
+					<ReactCSSTransitionGroup transitionName="loginforms">
+						<Locations
+							contextual
+							key={this.getPath()}>
+							<DefaultRoute handler={LoginForm} />
+							<Location path="/forgot/:param" handler={ForgotForm} basePath={basePath} links={this.state.links} />
+							<Location path="/signup/*" handler={SignupForm} basePath={basePath} links={this.state.links} />
+						</Locations>
+					</ReactCSSTransitionGroup>
+				</div>
 			</div>
 		);
 	}

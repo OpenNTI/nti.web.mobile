@@ -150,9 +150,10 @@ var SignupForm = React.createClass({
 						<div>
 							<UserAgreement />
 						</div>
-						<input type="submit" className="tiny button radius" disabled={!enabled} value="Create Account" />
+						<input type="submit" className="small-12 columns tiny button radius" disabled={!enabled} value="Create Account" />
+						<a href={this.props.privacyUrl} target="_blank" className="small-12 columns text-center">Privacy Policy</a>
 					</fieldset>
-					<a href={this.props.privacyUrl} target="_blank">Privacy Policy</a>
+					
 				</form>
 			</div>
 		);

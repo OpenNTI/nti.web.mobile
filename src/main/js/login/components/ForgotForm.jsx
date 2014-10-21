@@ -93,7 +93,7 @@ module.exports = React.createClass({
 	render: function() {
 
 		var buttonLabel = t(this.props.param === 'password' ? 'recoverpassword' : 'recoverusername');
-		var cssClasses = ['tiny','radius'];
+		var cssClasses = ['tiny','radius', 'small-12 columns'];
 
 		var submitEnabled = this.state.submitEnabled;
 		if (!submitEnabled) {
@@ -113,7 +113,7 @@ module.exports = React.createClass({
 							disabled={!submitEnabled}
 						>{buttonLabel}</button>
 					</fieldset>
-					<Link className="tiny button radius fi-arrow-left" href="/"> Return to Login</Link>
+					<Link className="tiny button radius fi-arrow-left small-12 columns" href="/"> Return to Login</Link>
 				</form>
 			</div>
 		);
