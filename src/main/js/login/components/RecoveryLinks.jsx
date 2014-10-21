@@ -40,10 +40,10 @@ module.exports = React.createClass({
 		var cssClasses = "tiny button radius small-12 columns";
 
 		return (
-			<fieldset>
+			<div>
 				<Link className={cssClasses} href="/forgot/username">{t('forgot.username')}</Link>
 				<Link className={cssClasses} href="/forgot/password">{t('forgot.password')}</Link>
-			</fieldset>
+			</div>
 		);
 	}
 

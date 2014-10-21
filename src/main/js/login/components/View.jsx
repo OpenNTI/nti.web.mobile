@@ -15,8 +15,10 @@ var Actions = require('../Actions');
 var Loading = require('common/components/Loading');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Constants = require('../Constants');
+var Globals = require('common/Constants').Globals;
 var MessageDisplay = require('common/messages/').Display;
 var Redirect = require('common/components/Redirect');
+var tg = require('common/locale').scoped('GLOBAL');
 
 var View = React.createClass({
 
@@ -65,6 +67,11 @@ var View = React.createClass({
 
 		return (
 			<div className="loginformswrapper">
+				<nav className="top-bar">
+					<ul className="title-area">
+						<li className="name"><h1><a href="#">{tg(Globals.SITE_NAME)}</a></h1></li>
+					</ul>
+				</nav>
 				<MessageDisplay category={Constants.messages.category} />
 				<ReactCSSTransitionGroup transitionName="loginforms">
 					<Locations

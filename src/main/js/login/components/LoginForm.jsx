@@ -9,11 +9,9 @@ var Button = require('common/components/forms/Button');
 var OAuthButtons = require('./OAuthButtons');
 var RecoveryLinks = require('./RecoveryLinks');
 var t = require('common/locale').scoped('LOGIN');
-var tg = require('common/locale').scoped('GLOBAL');
 var React = require('react/addons');
 var MessageDisplay = require('common/messages/').Display;
 var Constants = require('../Constants');
-var Globals = require('common/Constants').Globals;
 var Link = require('react-router-component').Link;
 
 var _pingDelayMs = 1000; // how long to buffer user input before sending another dataserver ping request.
@@ -47,47 +45,41 @@ var View = React.createClass({
 		var submitEnabled = this.state.submitEnabled;
 
 		return (
-			
-			<div>
-				<nav className="top-bar">
-					<ul className="title-area">
-						<li className="name"><h1><a href="#">{tg(Globals.SITE_NAME)}</a></h1></li>
-					</ul>
-				</nav>
-				<div className="row">
-					<form className="login-form medium-6 medium-centered columns" onSubmit={this._handleSubmit} noValidate>
-	
-						<fieldset>
-							<input type="email"
-								ref="username"
-								placeholder="Username"
-								defaultValue={this.state.username}
-								onChange={this._usernameChanged} />
-							<input type="password"
-								ref="password"
-								placeholder="Password"
-								defaulValue={this.state.password}
-								onChange={this._passwordChanged} />
-							<div>
-								<button
-									type="submit"
-									className={'small-12 columns tiny radius ' + (submitEnabled ? '' : 'disabled')}
-									disabled={!submitEnabled}
-								>{t('login')}</button>
-							</div>
-							<OAuthButtons links={this.state.links} basePath={this.props.basePath} buttonClass="small-12 columns" />
-							<div className="text-center">
-								<Link href="/signup/">{t('signup.link')}</Link>
-							</div>
-	
-						</fieldset>
-						
-						<RecoveryLinks links={this.state.links} basePath={this.props.basePath} />
-						
-						
-					</form>
-				</div>
+		
+			<div className="row">
+				<form className="login-form medium-6 medium-centered columns" onSubmit={this._handleSubmit} noValidate>
+
+					<fieldset>
+						<input type="email"
+							ref="username"
+							placeholder="Username"
+							defaultValue={this.state.username}
+							onChange={this._usernameChanged} />
+						<input type="password"
+							ref="password"
+							placeholder="Password"
+							defaulValue={this.state.password}
+							onChange={this._passwordChanged} />
+						<div>
+							<button
+								type="submit"
+								className={'small-12 columns tiny radius ' + (submitEnabled ? '' : 'disabled')}
+								disabled={!submitEnabled}
+							>{t('login')}</button>
+						</div>
+						<OAuthButtons links={this.state.links} basePath={this.props.basePath} buttonClass="small-12 columns" />
+						<div className="text-center">
+							<Link href="/signup/">{t('signup.link')}</Link>
+						</div>
+
+					</fieldset>
+					
+					<RecoveryLinks links={this.state.links} basePath={this.props.basePath} />
+					
+					
+				</form>
 			</div>
+	
 		);
 	},
 
