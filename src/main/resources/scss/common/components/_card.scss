@@ -5,12 +5,14 @@
 	background: #fafdff;
 	border: 1px solid #e3f2fc;
 	margin: 0.625rem 0;
+	padding: 0.3125rem;
 
 	.icon {
 		position: relative;
 		width: 100px;
 		height: 125px;
 		//margin: -4px 4px 0 -8px;
+		margin: -0.3125rem 0.3125rem 0.3125rem -0.3125rem;
 		float: left;
 		background-size: cover;
 		background-position: center center;
@@ -19,6 +21,10 @@
 	h5 {
 		font-size: 1.6rem;
 		margin: 0;
+	}
+
+	hr {
+		margin: 0; border: 0;
 	}
 
 	.label {
