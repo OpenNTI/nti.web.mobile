@@ -13,7 +13,7 @@ var SignupConfirm = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<div className="notice">
+				<div className="notice simple">
 					If you are a current student at the University of Oklahoma, you don't need to create an account. <Link href="/">Log in with your OUNet ID (4+4)</Link>
 				</div>
 				<div className="medium-6 medium-centered columns">
