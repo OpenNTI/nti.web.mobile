@@ -50,6 +50,7 @@ var View = React.createClass({
 				<form className="login-form medium-6 medium-centered columns" onSubmit={this._handleSubmit} noValidate>
 
 					<fieldset>
+						<legend>Sign In</legend>
 						<input type="email"
 							ref="username"
 							placeholder="Username"

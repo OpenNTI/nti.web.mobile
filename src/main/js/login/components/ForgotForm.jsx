@@ -4,6 +4,7 @@
 var React = require('react/addons');
 var t = require('common/locale').scoped('LOGIN.forgot');
 var Button = require('common/components/forms/Button');
+var BackButton = require('./BackButton');
 var Messages = require('common/messages/');
 var Message = Messages.Message;
 var MessageDisplay = Messages.Display;
@@ -11,7 +12,6 @@ var MessageActions = Messages.Actions;
 var NavigationActions = require('navigation').Actions;
 var Constants = require('../Constants');
 var Actions = require('../Actions');
-var Link = require('react-router-component').Link;
 var config = require('common/AppConfig');
 var Router = require('react-router-component');
 var merge = require('react/lib/merge');
@@ -106,6 +106,7 @@ module.exports = React.createClass({
 			<div className="row">
 				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
+						<legend>Recover {this.props.param}</legend>
 						{inputs}
 						<button
 							type="submit"
@@ -113,7 +114,7 @@ module.exports = React.createClass({
 							disabled={!submitEnabled}
 						>{buttonLabel}</button>
 					</fieldset>
-					<Link className="tiny button radius fi-arrow-left small-12 columns" href="/"> Return to Login</Link>
+					<BackButton>Return to Login</BackButton>
 				</form>
 			</div>
 		);

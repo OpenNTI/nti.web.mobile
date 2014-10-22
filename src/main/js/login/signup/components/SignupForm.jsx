@@ -11,6 +11,7 @@ var Store = require('../Store');
 var Actions = require('../Actions');
 
 var Button = require('common/components/forms/Button');
+var BackButton = require('../../components/BackButton');
 var UserAgreement = require('./UserAgreement');
 var Router = require('react-router-component');
 var Link = Router.Link;
@@ -145,7 +146,9 @@ var SignupForm = React.createClass({
 					</div>
 				</div>
 				<form className="create-account-form medium-6 medium-centered columns" onSubmit={this._handleSubmit}>
+					<BackButton>Return to Login</BackButton>
 					<fieldset>
+						<legend>Create Account</legend>
 						{fields}
 						<div>
 							<UserAgreement />
