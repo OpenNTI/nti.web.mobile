@@ -8,7 +8,6 @@ var React = require('react/addons');
 var IconBar = require('./IconBar');
 var CourseList = require('./CourseList');
 var CatalogView = require('./CatalogView');
-var LibraryCollection = require('../../library/components/Collection');
 
 var CoursewareSection = React.createClass({
 

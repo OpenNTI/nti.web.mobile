@@ -6,7 +6,6 @@
 
 var React = require('react/addons');
 var IconBar = require('./IconBar');
-var CourseList = require('./CourseList');
 
 var Catalog = require('catalog');
 var Collection = Catalog.Collection;
