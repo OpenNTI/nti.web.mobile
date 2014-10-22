@@ -6,7 +6,6 @@ var Loading = require('common/components/Loading');
 
 var NTIID = require('dataserverinterface/utils/ntiids');
 
-var Actions = require('../Actions');
 var Store = require('../Store');
 
 var Title = require('./Title');

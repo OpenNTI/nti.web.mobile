@@ -8,7 +8,6 @@ var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var Navigation = require('navigation');
 
-var Api = require('./Api');
 var Constants = require('./Constants');
 var Messages = require('common/messages');
 
@@ -22,7 +21,7 @@ function dispatch(key, data) {
 function _navRecordFor(outlineNode,navbarTitle) {
 	var children = null;
 	if(Array.isArray(outlineNode.contents)) {
-		children = outlineNode.contents.map(function(v,i,a) {
+		children = outlineNode.contents.map(function(v) {
 			return _navRecordFor(v);
 		});
 	}

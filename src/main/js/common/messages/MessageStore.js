@@ -7,7 +7,6 @@ var Message = require('./Message');
 var Actions = MessageConstants.actions;
 var Events = MessageConstants.events;
 var merge = require('react/lib/merge');
-var IllegalArgumentException = require('common/exceptions').IllegalArgumentException;
 
 var _messages = {};
 
@@ -35,7 +34,7 @@ var MessageStore = merge(EventEmitter.prototype, {
 	},
 
 	messages: function(options) {
-		var result = Object.keys(_messages).map(function(key, idx, keys) {
+		var result = Object.keys(_messages).map(function(key) {
 			return _messages[key];
 		});
 		if(options && options.category) {

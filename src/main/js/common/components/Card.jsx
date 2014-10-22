@@ -25,7 +25,6 @@ External Links:
 */
 var path = require('path');
 var React = require('react/addons');
-var merge = require('react/lib/merge');
 
 var NavigatableMixin = require('../mixins/NavigatableMixin');
 
@@ -67,7 +66,6 @@ module.exports = React.createClass({
 
 
 	getInitialState: function(){
-		var i = this.props.item;
 		return {
 			icon: null
 		};

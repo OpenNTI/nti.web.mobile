@@ -2,7 +2,6 @@
  * Constants related to (and used by) the navigation modules.
  * @class Constants
  */
-var merge = require('react/lib/merge');
 var keyMirror = require('react/lib/keyMirror');
 
 module.exports = keyMirror({

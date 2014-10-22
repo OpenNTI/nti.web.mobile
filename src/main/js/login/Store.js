@@ -7,11 +7,9 @@ var Constants = require('./Constants');
 var ActionConstants = Constants.actions;
 var Links = Constants.links;
 var LoginMessages = Constants.messages;
-var Actions = require('./Actions');
 var StoreProperties = require('./StoreProperties');
 var merge = require('react/lib/merge');
 var CHANGE_EVENT = 'change';
-var ERROR_EVENT = 'error';
 var Messages = require('common/messages/');
 var t = require('common/locale').translate;
 var IllegalArgumentException = require('common/exceptions/').IllegalArgumentException;
@@ -19,7 +17,6 @@ var IllegalArgumentException = require('common/exceptions/').IllegalArgumentExce
 var dataserver = require('common/Utils').getServer;
 
 var _links = {};
-var _errors = [];
 var _isLoggedIn = false;
 
 
@@ -132,7 +129,7 @@ function _logIn(credentials) {
 	});
 }
 
-function _logOut(action) {
+function _logOut() {
 	var current = encodeURIComponent(location.href);
 	//TODO: this link doesn't need to be built, (we just need to append the
 	//success to the rel="logout" link in the ping...which we should store on

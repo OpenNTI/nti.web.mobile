@@ -7,7 +7,6 @@ var OwnerQuery = require('common/mixins/OwnerQuery');
 var Package = require('./Package');
 var Bundle = require('./Bundle');
 var Course = require('./Course');
-var Link = require('react-router-component').Link;
 
 var Filter = require('common/components/CollectionFilter');
 
@@ -21,7 +20,7 @@ var ListView = React.createClass({
 				<div className="grid-container">
 					{this.props.omittitle ? null : <h2>{this.props.title}</h2>}
 					<ul className={'small-block-grid-' + size + ' medium-block-grid-3 large-block-grid-4'}>
-					{this.props.list.map(function(item,index,arr) {
+					{this.props.list.map(function(item) {
 						var basePath = this.props.basePath;
 						var Item = item.isBundle ?
 								Bundle :

@@ -4,8 +4,6 @@ var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
 
-var deepFreeze = require('dataserverinterface/utils/object-deepfreeze');
-
 var Constants = require('./Constants');
 
 var CHANGE_EVENT = 'change';

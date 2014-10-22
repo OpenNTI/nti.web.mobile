@@ -10,7 +10,6 @@ var Locations = Router.Locations;
 var Location = Router.Location;
 var Link = require('react-router-component').Link;
 var DefaultRoute = Router.NotFound;
-var NotFoundView = require('../../notfound/components/NotFoundView');
 var NoMatches = require('./NoMatches');
 
 var FilterBar = React.createClass({
@@ -32,7 +31,7 @@ var FilterBar = React.createClass({
 	},
 
 	render: function() {
-		var filterLinks = Object.keys(this.props.filters||{}).map(function(filtername,index,array) {
+		var filterLinks = Object.keys(this.props.filters||{}).map(function(filtername) {
 			var isActive = this.props.filtername === filtername.toLowerCase();
 			return (<li key={filtername} className={isActive ? 'active' : null}>
 						<Link className="tiny button" href={'/' + filtername.toLowerCase()}><span className="filtername">{filtername}</span> {this.count(filtername)}</Link>
@@ -183,7 +182,7 @@ var Filter = React.createClass({
 			console.log('No filters. Returning list view.');
 			return listView;
 		}
-		var routes = Object.keys(filters).map(function(filtername,index,arr) {
+		var routes = Object.keys(filters).map(function(filtername) {
 			var filterpath = filtername.toLowerCase();
 			return Location({
 				path: '/' + filterpath,
