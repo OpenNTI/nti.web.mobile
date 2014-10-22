@@ -70,7 +70,7 @@ var View = React.createClass({
 						</div>
 						<OAuthButtons links={this.state.links} basePath={this.props.basePath} buttonClass="small-12 columns" />
 						<div className="text-center">
-							<Link href="/signup/">{t('signup.link')}</Link>
+							<Link href="/signup/confirm">{t('signup.link')}</Link>
 						</div>
 
 					</fieldset>

@@ -3,8 +3,7 @@
 
 var React = require('react/addons');
 var t = require('common/locale').scoped('LOGIN.forgot');
-var Button = require('common/components/forms/Button');
-var BackButton = require('./BackButton');
+var Button = require('./Button');
 var Messages = require('common/messages/');
 var Message = Messages.Message;
 var MessageDisplay = Messages.Display;
@@ -114,7 +113,7 @@ module.exports = React.createClass({
 							disabled={!submitEnabled}
 						>{buttonLabel}</button>
 					</fieldset>
-					<BackButton>Return to Login</BackButton>
+					<Button href="/" className="fi-arrow-left"> Return to Login</Button>
 				</form>
 			</div>
 		);

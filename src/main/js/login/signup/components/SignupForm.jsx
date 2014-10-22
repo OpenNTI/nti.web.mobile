@@ -11,7 +11,6 @@ var Store = require('../Store');
 var Actions = require('../Actions');
 
 var Button = require('common/components/forms/Button');
-var BackButton = require('../../components/BackButton');
 var UserAgreement = require('./UserAgreement');
 var Router = require('react-router-component');
 var Link = Router.Link;
@@ -140,13 +139,7 @@ var SignupForm = React.createClass({
 
 		return (
 			<div className="row">
-				<div className="medium-6 medium-centered columns">
-					<div className="notice">
-						If you are a current student at the University of Oklahoma, you don't need to create an account. <Link href="/">Log in with your OUNet ID (4+4)</Link>
-					</div>
-				</div>
 				<form className="create-account-form medium-6 medium-centered columns" onSubmit={this._handleSubmit}>
-					<BackButton>Return to Login</BackButton>
 					<fieldset>
 						<legend>Create Account</legend>
 						{fields}

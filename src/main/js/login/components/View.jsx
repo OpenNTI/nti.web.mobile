@@ -9,6 +9,7 @@ var DefaultRoute = Router.NotFound;
 var LoginForm = require('./LoginForm');
 var ForgotForm = require('./ForgotForm');
 var SignupForm = require('../signup/components/SignupForm');
+var SignupConfirm = require('./SignupConfirm');
 var Store = require('../Store');
 var StoreProperties = require('../StoreProperties');
 var Actions = require('../Actions');
@@ -80,6 +81,7 @@ var View = React.createClass({
 							key={this.getPath()}>
 							<DefaultRoute handler={LoginForm} />
 							<Location path="/forgot/:param" handler={ForgotForm} basePath={basePath} links={this.state.links} />
+							<Location path="/signup/confirm" handler={SignupConfirm} basePath={basePath} links={this.state.links} />
 							<Location path="/signup/*" handler={SignupForm} basePath={basePath} links={this.state.links} />
 						</Locations>
 					</ReactCSSTransitionGroup>
