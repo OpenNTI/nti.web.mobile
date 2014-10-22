@@ -3,6 +3,7 @@
 
 var React = require('react/addons');
 var DateTime = require('common/components/DateTime');
+var Score = require('common/components/charts/Score');
 
 var getService = require('common/Utils').getService;
 
@@ -19,6 +20,11 @@ module.exports = React.createClass( {
 	},
 
 
+	getInitialState: function() {
+		return {};
+	},
+
+
 	componentDidMount: function() {
 		getService().then(this.fillInData);
 	},
@@ -27,84 +33,95 @@ module.exports = React.createClass( {
 	fillInData: function(service) {
 
 		function getLastQuizSubmission(pageInfo) {
-			return pageInfo.getUserDataLastOfType(SUBMITTED_QUIZ)
-				.then(function(q) {
-					debugger;
-				});
+			return pageInfo
+				.getUserDataLastOfType(SUBMITTED_QUIZ)
+				.then(setLatestAttempt);
 		}
 
+		var setLatestAttempt = this.setLatestAttempt;
+		var ntiid = this.props.item['Target-NTIID'];
+		var assignment = this.props.node.getAssignment(ntiid);
 
-		service.getPageInfo(this.props.item['Target-NTIID'])
-			.then(getLastQuizSubmission.bind(this))
-			.catch(function() {
-				//mark as not started
-			});
+		this.setState({ assignment: assignment });
+
+		if (!assignment) {
+			service.getPageInfo(ntiid)
+				.then(getLastQuizSubmission)
+				.catch(this.setNotTaken);
+		}
 	},
+
+	setLatestAttempt: function (assessedQuestionSet) {
+		console.debug(assessedQuestionSet);
+		this.setState({
+			score: assessedQuestionSet.getScore(),
+			correct: assessedQuestionSet.getCorrect(),
+			incorrect: assessedQuestionSet.getIncorrect(),
+			latestAttempt: assessedQuestionSet,
+			completed: true
+		});
+	},
+
+	setNotTaken: function() {
+		//mark as not started
+		this.setState({
+			latestAttempt: null,
+			completed: false
+		});
+	},
+
 
 	render: function() {
 		var item = this.props.item;
 		var questionCount = item["question-count"];
 		var label = item.label;
-		var completed = false;
-		var isLate = false;
-		var chart, tally;
-		var addClass = (completed ? " completed" : "") + (isLate ? " late" : "");
 
-		/* TODO Get Assignment due date to display.
-			Replace placeholder assessement chart icon
-			Get result of assessment (x correct, y incorrect)
-			*/
+		var latestAttempt = this.state.latestAttempt;
+		var assignment = this.state.assignment;
 
+		var due = assignment && assignment.getDueDate();
 
-		if (this.props.type == "Self-Assessments") {
-			addClass += " assessment";
-			chart = (<div className="icon assessmentScore"><Chart /></div>);
-			tally = (
-				<div className="tally">
-					<div className="stat correct">
-						<span className="count">x</span> correct </div>
-					<div className="stat incorrect">
-						<span className="count">y</span> incorrect </div>
-					<div className="stat questions">{item["question-count"] + " questions"} </div>
-				</div>
-			);
-		}
-		else if (this.props.type == "Assignments") {
-			addClass += " assignment";
-			chart = (<div className={'assignment icon'}></div>);
-			tally = (
-				<div className="tally">
-					<div className='stat due-date late'>Due <DateTime/></div>
-					<div className='stat due-date'>Due <DateTime/></div>
-				</div>
-			);
-		}
+		var score = this.state.score || 0;
+
+		var isLate = assignment && assignment.isLate(new Date());
+
+		var addClass =
+			(this.state.completed ? " completed" : "") +
+			(isLate ? " late" : "") +
+			(assignment ? " assignment" : " assessment");
 
 		return (
 			<div className={'overview-naquestionset' + addClass}>
 				<div className={'body'}>
-					{chart}
+					{assignment ?
+						<div className="icon assignment"/>
+					: //Assessment:
+						<div className="icon assessmentScore">
+							<Score width="40" height="40" score={score}/>
+						</div>
+					}
 					<div className={'tally-box'}>
 						<div className={'message'}>{label}</div>
-						{tally}
+						{assignment ?
+
+							<div className="tally">
+								<div className='stat due-date late'>Due <DateTime date={due}/></div>
+								<div className='stat due-date'>Due <DateTime date={due}/></div>
+							</div>
+
+						: //Assessment:
+							<div className="tally">
+								<div className="stat correct">
+									<span className="count">{this.state.correct}</span> correct </div>
+								<div className="stat incorrect">
+									<span className="count">{this.state.incorrect}</span> incorrect </div>
+								<div className="stat questions">{questionCount} questions</div>
+							</div>
+						}
 					</div>
 				</div>
 			</div>
 		);
 
-	}
-});
-
-
-// Placeholder chart.
-var Chart = React.createClass({
-	render: function() {
-		return(
-			<svg xmlns='http://www.w3.org/2000/svg' version="1.1" width="50" height="50">
-				<path stroke-width="2" fill="#d9d9d9" stroke-opacity="1" stroke="#fff" d="M0,25 A25,25 0 0,1 50,25 A25,25 0 0,1 0,25"></path>
-				<path stroke-width="2" fill="#fff" stroke-opacity="1" stroke="#fff" d="M7,25 A18,18 0 0,1 43,25 A18,18 0 0,1 7,25"></path>
-				<text fill="#d9d9d9" x="11" y="30">xx%</text>
-			</svg>
-		);
 	}
 });
