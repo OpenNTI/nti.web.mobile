@@ -24,6 +24,14 @@
 
 }
 
+@mixin transform($prop) {
+	-webkit-transform: $prop;
+	-moz-transform: $prop;
+	-ms-transform: $prop;
+	-o-transform: $prop;
+	transform: $prop;
+}
+
 
 @include reactTransition('button');
 @include reactTransition('messages');
@@ -32,42 +40,38 @@
 
 .loginforms-enter {
 	opacity: 0.01;
-	transition: top .25s, opacity .25s;
+	transition: all .25s;
 	transition-timing-function: ease-out;
 	width:100%;
 	position: absolute;
-	top:-1rem;
-	left:0;
+	@include transform(translate3d(0,-1rem,0));
 }
 
 .loginforms-enter.loginforms-enter-active {
 	opacity: 1;
 	width:100%;
 	position: absolute;
-	top:0;
-	left:0;
+	@include transform(translate3d(0,0,0));
 }
 
 .loginforms-leave {
 	opacity: 1;
-	transition: top .25s, opacity .25s;
+	transition: all .25s;
 	transition-timing-function: ease-out;
 	width:100%;
 	position: absolute;
-	top:0;
-	left:0;
+	@include transform(translate3d(0,0,0));
 }
 
 .loginforms-leave.loginforms-leave-active {
 	opacity: 0.01;
 	width:100%;
 	position: absolute;
-	top:1rem;
-	left:0;
+	@include transform(translate3d(0,1rem,0));
 }
 
 .loginforms {
-	transition: top .25s, opacity .25s;
+	transition: all .25s;
 	transition-timing-function: ease-out;
 }
 
