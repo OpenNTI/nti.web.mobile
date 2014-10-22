@@ -18,7 +18,6 @@ global.Hammer = require('hammerjs');
 console.debug('Client is using host: %s', $AppConfig.server);
 
 var OrientationHandler = require('common/Utils').Orientation;
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var AppView = require('./main');
 
 var EventPluginHub = require('react/lib/EventPluginHub');
