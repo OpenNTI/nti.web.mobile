@@ -210,6 +210,7 @@ var events = keyMirror({
 
 var messages = {
 	LOGIN_ERROR: 'LOGIN.LOGIN_ERROR',
+	SIGNUP_CONFIRMATION: 'SIGNUP_CONFIRMATION',
 	category: 'login'
 };
 

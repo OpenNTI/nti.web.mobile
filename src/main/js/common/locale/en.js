@@ -18,6 +18,7 @@ module.exports = {
 			recoverusername: 'Recover Username',
 			EmailAddressInvalid: 'The email address you have entered is not valid.'
 		},
+		SIGNUP_CONFIRMATION: 'If you are a current student at the University of Oklahoma, you don\'t need to create an account. Log in with your OUNet ID (4+4).',
 
 		LOGIN_ERROR: {
 			401: 'Login failed.'

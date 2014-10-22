@@ -7,6 +7,8 @@
 var React = require('react/addons');
 var Link = require('react-router-component').Link;
 var Button = require('./Button');
+var t = require('common/locale').scoped('LOGIN');
+var MESSAGE = require('../Constants').messages.SIGNUP_CONFIRMATION;
 
 var SignupConfirm = React.createClass({
 
@@ -14,7 +16,7 @@ var SignupConfirm = React.createClass({
 		return (
 			<div>
 				<div className="notice simple">
-					If you are a current student at the University of Oklahoma, you don't need to create an account. <Link href="/">Log in with your OUNet ID (4+4)</Link>
+					{t(MESSAGE)}
 				</div>
 				<div className="medium-6 medium-centered columns">
 					<Button href="/signup/">Create Account <i className="fi-arrow-right" /></Button>

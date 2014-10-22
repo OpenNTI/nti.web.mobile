@@ -41,8 +41,14 @@ var View = React.createClass({
 		delete this.state.password;
 	},
 
+	_signupLink: function() {
+		// if we have a confirmation message show the confirmation view, otherwise go directly to signup 
+		return t(Constants.messages.SIGNUP_CONFIRMATION,{fallback: 'missing'}) === 'missing' ? '/signup/' : '/signup/confirm';
+	},
+
 	render: function() {
 		var submitEnabled = this.state.submitEnabled;
+		var signupLink = this._signupLink();
 
 		return (
 		
@@ -70,13 +76,12 @@ var View = React.createClass({
 						</div>
 						<OAuthButtons links={this.state.links} basePath={this.props.basePath} buttonClass="small-12 columns" />
 						<div className="text-center">
-							<Link href="/signup/confirm">{t('signup.link')}</Link>
+							<Link href={signupLink}>{t('signup.link')}</Link>
 						</div>
 
 					</fieldset>
 					
 					<RecoveryLinks links={this.state.links} basePath={this.props.basePath} />
-					
 					
 				</form>
 			</div>
