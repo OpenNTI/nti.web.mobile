@@ -53,8 +53,10 @@ if (cache) {
 		}
 
 		try {
-			console.debug('Updating AppCache... current status: %s', cacheStatusValues[cache.status]);
-			cache.update();
+			if(cache){
+				console.debug('Updating AppCache... current status: %s', cacheStatusValues[cache.status]);
+				cache.update();
+			}
 		} catch (e) {
 			console.warn(e.stack || e.message || e);
 		}
