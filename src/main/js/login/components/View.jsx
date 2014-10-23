@@ -57,13 +57,13 @@ var View = React.createClass({
 	render: function() {
 
 		if (!this.state.initialized) {
-			return <Loading />
+			return (<Loading />);
 		}
 
 		var basePath = this.props.basePath;
 
 		if (this.state.links.hasOwnProperty(Constants.links.LOGIN_CONTINUE_LINK)) {
-			return <Redirect location={basePath} />
+			return (<Redirect location={basePath} force={true} />);
 		}
 
 		return (
