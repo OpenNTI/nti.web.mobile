@@ -106,7 +106,13 @@ var Store = merge(EventEmitter.prototype, {
 
 	getUserAgreement: function() {
 		return this.getUserAgreementUrl().then(function(url) {
-			return $.get(url);
+			return getServer()._get(url)
+				.catch(function(reason) {
+					if (reason.responseJSON) {
+						reason = reason.responseJSON.message;
+					}
+					return Promise.reject(reason);
+				});
 		});
 		// Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
 	},
