@@ -1,11 +1,10 @@
-
-
 'use strict';
 
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
-var dataserver = require('common/Utils').getServer;
+var getServer = require('common/Utils').getServer;
+
 var Constants = require('./Constants');
 var Actions = Constants.actions;
 var Links = require('../Constants').links; // note: using login constants here, not signup.
@@ -18,27 +17,27 @@ var _fieldConfig = Object.freeze([
 		ref: 'fname',
 		type: 'text',
 		required: true
-	}, 
+	},
 	{
 		ref: 'lname',
 		type: 'text',
 		required: true
-	}, 
+	},
 	{
 		ref: 'email',
 		type: 'email',
 		required: true
-	}, 
+	},
 	{
 		ref: 'Username',
 		type: 'text',
 		required: true
-	}, 
+	},
 	{
 		ref: 'password',
 		type: 'password',
 		required: true
-	}, 
+	},
 	{
 		ref: 'password2',
 		type: 'password',
@@ -87,7 +86,7 @@ var Store = merge(EventEmitter.prototype, {
 			_errors.length = 0;
 			this.emitChange({
 				type: ERROR_EVENT
-			})
+			});
 		}
 	},
 
@@ -101,6 +100,7 @@ var Store = merge(EventEmitter.prototype, {
 
 	getUserAgreementUrl: function() {
 		// return Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
+		/* global $AppConfig */
 		return Promise.resolve( $AppConfig.basepath + 'api/user-agreement/');
 	},
 
@@ -135,13 +135,13 @@ function _preflight(fields) {
 		console.debug('Store received preflight result: %O',result);
 		Store._clearErrors();
 		if (result.statusCode === 422 || result.statusCode === 409) {
-			var res = JSON.parse(result.response)
+			var res = JSON.parse(result.response);
 			Store._addError({
 				field: res.field,
 				message: res.message
 			});
 		}
-		if (!fieldsMatch(fields['password'], fields['password2'])) {
+		if (!fieldsMatch(fields.password, fields.password2)) {
 			Store._addError({
 				field: 'password2',
 				message: 'Passwords do not match'
@@ -149,8 +149,8 @@ function _preflight(fields) {
 		}
 	}
 
-	dataserver().preflightAccountCreate(fields)
-	.then(preflightResult,preflightResult);
+	getServer().preflightAccountCreate(fields)
+		.then(preflightResult,preflightResult);
 }
 
 function _createAccount(fields) {
@@ -163,7 +163,7 @@ function _createAccount(fields) {
 		console.log('Account creation fail: %O',result);
 		if (result.statusCode === 422) {
 			console.debug(result);
-			var res = JSON.parse(result.response)
+			var res = JSON.parse(result.response);
 			Store._addError({
 				field: res.field,
 				message: res.message
@@ -171,7 +171,7 @@ function _createAccount(fields) {
 		}
 	}
 
-	dataserver().createAccount(fields)
+	getServer().createAccount(fields)
 	.then(success, fail);
 
 }
