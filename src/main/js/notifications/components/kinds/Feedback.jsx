@@ -16,9 +16,8 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-
-		//TODO get this from the item
-		var assignmentName = "<assignmentName>";
+		var item = this.props.item;
+		var assignmentName = item.AssignmentName || 'an assignment';
 		return (
 			<li className="notification-item">
 				<Avatar username={this.state.username} width="32" height="32"/>

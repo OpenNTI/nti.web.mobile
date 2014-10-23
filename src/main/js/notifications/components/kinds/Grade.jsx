@@ -16,15 +16,15 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		var courseName = "<CourseName>";
-		var assignmentName = "<AssignmentName>";
+		var item = this.props.item.Item;
+		var courseName = item.CourseName;
+		var assignmentName = item.AssignmentName || 'an assignment';
 		return (
 			<li className="notification-item">
 				<div className='grade'/>
 				<div className="wrap">
-					<span className="creator">{courseName}</span>
-					{' Grade recieved for '}
-					<span>{assignmentName}</span>
+					<h6 className="creator">{courseName}</h6>
+					Grade recieved for {assignmentName}
 					<DateTime date={this.getCreatedTime()} />
 				</div>
 			</li>
