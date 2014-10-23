@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-/* global Hammer */
+/* global Hammer, $*/
 'use strict';
 
 var React = require('react/addons');
@@ -88,6 +88,10 @@ module.exports = React.createClass({
 		var viewport = document.getElementsByTagName('html')[0];
 		var cls = 'scroll-lock';
 		var action = (this.getDrawerState() === CLOSE_MENU) ? 'remove' : 'add';
+
+		//Pretend you didn't see the jQuery usage... still very taboo
+		//This forces the side drawers to be the hight of the window...
+		$('[class*=off-canvas-menu]').height($(window).height());
 
 		utils[action + 'Class'](viewport, cls);
 	},

@@ -163,6 +163,7 @@ a.right-off-canvas-toggle {
 aside[class*=off-canvas-menu] {
 	bottom: auto;
 	position: absolute;
+	height: 100%;
 	height: 100vh;
 
 	.logout {
