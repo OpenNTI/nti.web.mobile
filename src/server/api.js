@@ -14,8 +14,19 @@ function throwError(msg) {
 var api = module.exports = autoBind({
 
 	register: function(express, config) {
+		var prefix = /^\/api/i;
 		merge(this, config);
 		express.get(/^\/api\/user-agreement/, api.serveUserAgreement);
+
+		express.use(function(err, req, res, next){
+			if (prefix.test(req.url)) {
+				console.error('API Error:\n\n%s', err.stack);
+				res.status(500).json({stack: err.stack, message: err.message});
+				res.end();
+				return;
+			}
+			next();
+		});
 	},
 
 
