@@ -40,7 +40,7 @@ module.exports = React.createClass({
 
     getDataIfNeeded: function(props) {
 		if(!Store.getData().loaded) {
-        	Actions.loadLibrary();
+        	Actions.load();
         }
     },
 
