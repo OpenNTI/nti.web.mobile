@@ -53,7 +53,7 @@ if (cache) {
 		}
 
 		try {
-			if(cache){
+			if(cache && cache.status){
 				console.debug('Updating AppCache... current status: %s', cacheStatusValues[cache.status]);
 				cache.update();
 			}
