@@ -14,6 +14,7 @@ var Messages = require('common/messages/');
 var t = require('common/locale').translate;
 var IllegalArgumentException = require('common/exceptions/').IllegalArgumentException;
 var Url = require('url');
+var Promise = global.Promise || require('es6-promise').Promise;
 
 var dataserver = require('common/Utils').getServer;
 
