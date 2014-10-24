@@ -32,16 +32,18 @@ module.exports = function(kWidget) {
 			var deviceSources = [];
 			var protocol = location.protocol.substr(0, location.protocol.length-1);
 			// Set the service url based on protocol type
-			var serviceUrl = '//cdnbakmi.kaltura.com';
+			var serviceUrl = '://cdnbakmi.kaltura.com';
+
+
 
 			if( protocol == 'https' ){
-				serviceUrl = '//www.kaltura.com';
+				serviceUrl = '://www.kaltura.com';
 			}
 
 			var objectType = result[1].objectType;
 			var code = result[1].code;
 
-			var baseUrl = serviceUrl + '/p/' + settings.partnerId +
+			var baseUrl = protocol + serviceUrl + '/p/' + settings.partnerId +
 					'/sp/' + settings.partnerId + '00/playManifest';
 			for( var i in result[1].flavorAssets ){
 				asset = result[1].flavorAssets[i];
