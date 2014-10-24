@@ -6,10 +6,13 @@ module.exports = {
 		handles: function(item) {
 			var change = item;
 			item = change.Item || change;
-			if (item.MimeType.replace('application/vnd.nextthought.', '') === this.noteable_type) {
-				return true;
+			item = item.MimeType.replace('application/vnd.nextthought.', '');
+
+			if (!Array.isArray(this.noteable_type)) {
+				this.noteable_type = [this.noteable_type];
 			}
-			return false;
+
+			return (this.noteable_type.indexOf(item) !== -1);
 		}
 	},
 

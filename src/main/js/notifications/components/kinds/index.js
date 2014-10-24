@@ -1,6 +1,7 @@
 'use strict';
 
 var Unknown = require('./Unknown');
+var Chat = require('./Chat');
 var Contact = require('./Contact');
 var Badge = require('./Badge');
 var Grade = require('./Grade');
@@ -15,6 +16,7 @@ var ForumTopic = require('./ForumTopic');
 exports = module.exports = {
 	Unknown: Unknown, //Unknown for future items.
 
+	Chat: Chat,
 	Contact: Contact,
 	Badge: Badge,
 	Grade: Grade,
