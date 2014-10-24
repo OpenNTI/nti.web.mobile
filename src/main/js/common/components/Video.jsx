@@ -43,7 +43,8 @@ module.exports = React.createClass({
 	},
 
 	_emit: function(event) {
-		actions.emitVideoEvent(event,this.props.context);
+		var props = this.props.transcript ? { transcript: this.props.transcript } : null;
+		actions.emitVideoEvent(event,this.props.context, props);
 	},
 
 	onTimeUpdate: function(event) {

@@ -1,6 +1,6 @@
 'use strict';
 
- function VideoEvent(sourceEvent, context) {
+ function VideoEvent(sourceEvent, context, opts) {
  	this.type = sourceEvent.type;
 	this.timestamp = sourceEvent.timeStamp;
 	this.courseid = null;
@@ -11,7 +11,7 @@
 		start: sourceEvent.target.currentTime,
 		end: sourceEvent.target.currentTime
 	};
-	this.with_transcript = false;
+	this.with_transcript = !!(opts||{}).transcript;
 	this.sourceEvent = sourceEvent;
 }
 

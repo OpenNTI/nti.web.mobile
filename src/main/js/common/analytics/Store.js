@@ -43,7 +43,12 @@ AppDispatcher.register(function(payload) {
 		case VideoConstants.VIDEO_PLAYER_EVENT:
 			if(action.event.type !== 'timeupdate') {
 				console.log('Analytics Store received VIDEO_PLAYER_EVENT: %s, %O', action.event.type, action);
-				Store.enqueueEvent(new VideoEvent(action.event, action.context));
+				Store.enqueueEvent(
+					new VideoEvent(action.event,
+						action.context,
+						(action.props||{})
+					)
+				);
 			}
 		break;
 

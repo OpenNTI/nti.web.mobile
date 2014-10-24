@@ -144,7 +144,7 @@ module.exports = React.createClass({
 			<div className="transcripted-video">
 				<a href={collection} className="toolbar-button-left fi-thumbnails"/>
 				<LoadingMask loading={this.state.loading}>
-					<Video autoPlay ref="video" src={this.props.video} onTimeUpdate={this.onVideoTimeTick} context={this.state.context}/>
+					<Video autoPlay ref="video" src={this.props.video} onTimeUpdate={this.onVideoTimeTick} context={this.state.context} transcript={true} />
 					<div className="transcript">
 						{
 							this.state.error ?
