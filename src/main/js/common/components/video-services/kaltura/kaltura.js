@@ -7,14 +7,14 @@
 *
 * Copyright 2014 Kaltura Inc.
 *
-* grabbed from http://cdnapi.kaltura.com/html5/html5lib/v2.18/mwEmbedLoader.php and tweaked for use with node
+* grabbed from https://cdnapi.kaltura.com/html5/html5lib/v2.18/mwEmbedLoader.php and tweaked for use with node
 */
 /* jslint ignore:start */
 var sourceGrabberInit = require('./kalturaSourceGrabber');
 
-var init = function() {
+function init() {
 window['MWEMBED_VERSION'] = '2.18';
-window['SCRIPT_LOADER_URL'] = 'http://cdnapi.kaltura.com/html5/html5lib/v2.18/load.php';
+window['SCRIPT_LOADER_URL'] = 'https://cdnapisec.kaltura.com/html5/html5lib/v2.18/load.php';
 (function(){"use strict";if(window.kWidget){return;}var kWidget={startTime:{},loadTime:{},readyWidgets:{},readyCallbacks:[],destroyedWidgets:{},perWidgetCallback:{},readyCallbackPerWidget:{},listenerList:{},userAgentPlayerRules:{},alreadyAddedThumbRules:false,iframeAutoEmbedCache:{},setup:function(){var _this=this;mw.setConfig('version',MWEMBED_VERSION);this.checkEnvironment();this.overrideFlashEmbedMethods();this.proxyJsCallbackready();this.domReady(function(){_this.domIsReady=true;_this.proxyJsCallbackready();});this.domReady(function(){_this.rewriteObjectTags();});},checkEnvironment:function(){if(document.URL.indexOf('forceMobileHTML5')!==-1&&!mw.getConfig('disableForceMobileHTML5')){mw.setConfig('forceMobileHTML5',true);}if(document.URL.indexOf('debugKalturaPlayer')!==-1){mw.setConfig('debug',true);}if(document.URL.indexOf('forceKPlayer')!==-1){mw.setConfig('EmbedPlayer.ForceKPlayer',true);}var ua=navigator.userAgent;var ieMatch=ua.match(/MSIE\s([0-9]+)/);if((ieMatch&&parseInt(
 ieMatch[1])<9)||document.URL.indexOf('forceFlash')!==-1){mw.setConfig('Kaltura.ForceFlashOnDesktop',true);}if(ua.indexOf('BlackBerry')!=-1){mw.setConfig('EmbedPlayer.DisableVideoTagSupport',true);mw.setConfig('EmbedPlayer.NotPlayableDownloadLink',true);}if(ua.indexOf('kalturaNativeCordovaPlayer')!=-1){mw.setConfig('EmbedPlayer.ForceNativeComponent',true);if(!mw.getConfig('EmbedPlayer.IsIframeServer')){var cordovaPath;var cordovaKWidgetPath;if(this.isAndroid()){cordovaPath="/modules/EmbedPlayer/binPlayers/cordova/android/cordova.js";}else{cordovaPath="/modules/EmbedPlayer/binPlayers/cordova/ios/cordova.js";}cordovaKWidgetPath="/kWidget/cordova.kWidget.js";document.write('<script src="'+this.getPath()+cordovaPath+'"></scr'+'ipt>');document.write('<script src="'+this.getPath()+cordovaKWidgetPath+'"></scr'+'ipt>');}}if(/(iPhone|iPod|iPad)/i.test(ua)){if(/OS [2-4]_\d(_\d)? like Mac OS X/i.test(ua)||(/CPU like Mac OS X/i.test(ua))){mw.setConfig('Kaltura.UseAppleAdaptive',false);}}if(!mw.
 getConfig('EmbedPlayer.IsIframeServer')){mw.setConfig('EmbedPlayer.IframeParentUrl',document.URL);mw.setConfig('EmbedPlayer.IframeParentTitle',document.title);mw.setConfig('EmbedPlayer.IframeParentReferrer',document.referrer);if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)){if(/OS [1-5](.*) like Mac OS X/i.test(navigator.userAgent)){window.onpageshow=function(evt){if(evt.persisted){document.body.style.display="none";location.reload();}};}}}},proxiedJsCallback:null,waitForLibraryChecks:true,jsReadyCalledForIds:[],proxyJsCallbackready:function(){var _this=this;var jsCallbackProxy=function(widgetId){if(_this.waitForLibraryChecks){_this.jsReadyCalledForIds.push(widgetId);return;}_this.jsCallbackReady(widgetId);};if(!this.proxiedJsCallback){this.proxiedJsCallback=window['jsCallbackReady']||true;window['jsCallbackReady']=jsCallbackProxy}if(window['jsCallbackReady'].toString()!=jsCallbackProxy.toString()){this.proxiedJsCallback=window['jsCallbackReady'];window['jsCallbackReady']=
@@ -82,13 +82,13 @@ requestURL+='&callback='+globalCBName;kWidget.appendScriptUrl(requestURL);}},xhr
 xmlhttp.open("GET",url+'&'+kWidget.param(param),true);xmlhttp.send();},xhrPost:function(url,param,callback){var xmlhttp=new XMLHttpRequest();xmlhttp.onreadystatechange=function(){if(xmlhttp.readyState==4&&xmlhttp.status==200){callback(JSON.parse(xmlhttp.responseText));}}
 xmlhttp.open("POST",url,true);xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");xmlhttp.send(kWidget.param(param));},handleKsServiceRequest:function(requestObject){var param={};if(requestObject['ks']){this.ks=requestObject['ks'];}if(!requestObject.length&&!this.getKs()){requestObject=[requestObject];}if(requestObject.length){param['service']='multirequest';param['action']='null';var mulitRequestIndex=1;if(!this.getKs()){param[mulitRequestIndex+':service']='session';param[mulitRequestIndex+':action']='startWidgetSession';param[mulitRequestIndex+':widgetId']=this.wid;mulitRequestIndex=2;}for(var i=0;i<requestObject.length;i++){var requestInx=mulitRequestIndex+i;param[requestInx+':ks']=(this.getKs())?this.getKs():'{1:result:ks}';for(var paramKey in requestObject[i]){if(typeof requestObject[i][paramKey]=='object'){for(var subParamKey in requestObject[i][paramKey]){param[requestInx+':'+paramKey+':'+subParamKey]=requestObject[i][paramKey][subParamKey];}}else{param[
 requestInx+':'+paramKey]=requestObject[i][paramKey];}}}}else{param=requestObject;param['ks']=this.getKs();}return param;},getApiUrl:function(serviceType){var serviceUrl=this.serviceUrl;if(serviceType&&serviceType=='stats'&&this.statsServiceUrl){serviceUrl=this.statsServiceUrl}return serviceUrl+this.serviceBase+serviceType;},hashCode:function(str){var hash=0;if(str.length==0)return hash;for(var i=0;i<str.length;i++){var currentChar=str.charCodeAt(i);hash=((hash<<5)-hash)+currentChar;hash=hash&hash;}return hash;}}})(window.kWidget);mw.setConfig('debug', false );
-mw.setConfig('Mw.XmlProxyUrl', 'http://cdnapi.kaltura.com/html5/html5lib/v2.18/simplePhpXMLProxy.php' );
+mw.setConfig('Mw.XmlProxyUrl', 'https://cdnapi.kaltura.com/html5/html5lib/v2.18/simplePhpXMLProxy.php' );
 mw.setConfig('Kaltura.UseManifestUrls', true );
-mw.setConfig('Kaltura.Protocol', 'http' );
-mw.setConfig('Kaltura.ServiceUrl', 'http://cdnapi.kaltura.com' );
+mw.setConfig('Kaltura.Protocol', 'https' );
+mw.setConfig('Kaltura.ServiceUrl', 'https://cdnapisec.kaltura.com' );
 mw.setConfig('Kaltura.ServiceBase', '/api_v3/index.php?service=' );
-mw.setConfig('Kaltura.CdnUrl', 'http://cdnbakmi.kaltura.com' );
-mw.setConfig('Kaltura.StatsServiceUrl', 'http://stats.kaltura.com' );
+mw.setConfig('Kaltura.CdnUrl', 'https://cdnsecakmi.kaltura.com' );
+mw.setConfig('Kaltura.StatsServiceUrl', 'https://www-stats.kaltura.com' );
 mw.setConfig('Kaltura.LiveStatsServiceUrl', '' );
 mw.setConfig('Kaltura.IframeRewrite', true );
 mw.setConfig('EmbedPlayer.EnableIpadHTMLControls', true );
@@ -101,7 +101,8 @@ mw.setConfig('Kaltura.PageGoogleAalytics', false );
 mw.setConfig('Kaltura.UserLanguage', {"en-US":1,"en":"0.8"} );
 kWidget.inLoaderUiConfJsCallback();
 kWidget.setup();
-};
+
+}
 
 /* jslint ignore:end*/
 if (typeof window !== 'undefined') {
