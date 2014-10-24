@@ -34,10 +34,7 @@ var Store = merge(EventEmitter.prototype, {
 	},
 
 
-	getData: function(loadIfNeeded) {
-		if(!_data.loaded && loadIfNeeded) {
-        	Actions.loadLibrary();
-        }
+	getData: function() {
 		return _data;
 	}
 });
