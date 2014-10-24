@@ -23,8 +23,7 @@ module.exports = React.createClass({
 			<li className="notification-item">
 				<div className='grade'/>
 				<div className="wrap">
-					<h6 className="creator">{courseName}</h6>
-					Grade recieved for {assignmentName}
+					Grade recieved for {assignmentName} in {courseName}
 					<DateTime date={this.getCreatedTime()} />
 				</div>
 			</li>
