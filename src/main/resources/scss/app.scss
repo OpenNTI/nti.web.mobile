@@ -166,7 +166,9 @@ aside[class*=off-canvas-menu] {
 	height: 100%;
 	height: 100vh;
 
+	.button-box,
 	.logout {
+		position: relative;
 		margin: 3rem 0;
 	}
 }
