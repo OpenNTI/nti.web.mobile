@@ -78,6 +78,7 @@ module.exports = React.createClass({
 
 	_onLoadMore: function() {
 		Actions.loadMore(this.state.notifications);
+		this.forceUpdate();
 	},
 
 
