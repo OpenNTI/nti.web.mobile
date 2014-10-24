@@ -78,36 +78,80 @@ var KalturaVideo = React.createClass({
 			entryId = parsed[1];
 		}
 
+		this.setState({
+			partnerId: partnerId
+		});
+
 		_sources({
 			entryId: entryId,
 			partnerId: partnerId,
-			callback: function(data) {
-				if (!this.isMounted()) {
-					return;
-				}
-				this.setState({
-					duration: data.duration,
-					poster: data.poster,
-					sources: data.sources || [],
-					sourcesLoaded: true,
-					isError: (data.objectType === 'KalturaAPIException')
-				});
-			}.bind(this)
+			callback: this.setSources
 		});
 
 	},
 
 
-	componentDidUpdate: function() {
-		var video = this.getDOMNode();
+	setSources: function(data) {
+		if (!this.isMounted()) {
+			return;
+		}
+		var w = 1280;
+		var poster = '//www.kaltura.com/p/'+this.state.partnerId+'/thumbnail/entry_id/'+data.entryId+'/width/'+w+'/';
 
-		if ('video' === video.tagName.toLowerCase() && !this.state.listening) {
+		this.setState({
+			duration: data.duration,
+			poster: poster,
+			sources: data.sources || [],
+			sourcesLoaded: true,
+			isError: (data.objectType === 'KalturaAPIException')
+		});
+
+		if (this.state.interacted) {
+			this.doPlay();
+		}
+	},
+
+
+	doPlay: function () {
+		var s = this.state.sources;
+		var v = this.refs.video.getDOMNode();
+
+		if (v.childNodes.length > 0) {
+			return;
+		}
+
+		s.map(function(source) {
+			var s = document.createElement('source');
+			s.setAttribute('src', source.src);
+			s.setAttribute('type', source.type);
+			s.setAttribute('flavor', source.flavorid);
+
+			v.appendChild(s);
+		});
+
+		v.load();
+		v.play();
+		this.setState({interacted: true});
+	},
+
+
+	componentDidUpdate: function() {
+		var video = this.refs.video;
+		var props = this.props;
+
+		if (video && !this.state.listening) {
+			if (this.props.autoPlay) {
+				this.doPlay();
+			}
+			
+			video = video.getDOMNode();
 			//attempt to tell the WebView to play inline...
 			video.setAttribute('webkit-playsinline', true);
 
 			Object.keys(eventHandlers).forEach(function(eventname) {
-				video.addEventListener(eventname, this.props[eventHandlers[eventname]], false);
-			}.bind(this));
+				video.addEventListener(eventname, props[eventHandlers[eventname]], false);
+			});
+
 			this.setState({listening: true});
 		}
 	},
@@ -137,19 +181,24 @@ var KalturaVideo = React.createClass({
 			return (<div className="error">Unable to load video.</div>);
 		}
 
-		return this.transferPropsTo(
-			React.DOM.video({
-				controls: true,
-				poster: this.state.poster,
-				//Make sure these do not get passed to the DOM.
-				src: null,
-				source: null
-			},
-			//<source> children
-				this.state.sources.map(function(val, i) {
-					val.key = i + val.flavorid;
-					return React.DOM.source(val); })
-		));
+		return (
+			<div className="video-wrapper">
+				{this.transferPropsTo(
+					React.DOM.video({
+						ref: 'video',
+						controls: true,
+						poster: this.state.poster,
+						//Make sure these do not get passed to the DOM.
+						src: null,
+						source: null,
+						className: 'video-js vjs-default-skin',
+						onClick: this.doPlay,
+						onTap: this.doPlay
+					}
+				))}
+				{!this.state.interacted && <a className="tap-area" onClick={this.doPlay}/>}
+			</div>
+		);
 	}
 
 });
