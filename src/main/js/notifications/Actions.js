@@ -17,6 +17,14 @@ module.exports = merge(EventEmitter.prototype, {
 	load: function() {
 		Api.load()
 			.then(dispatch.bind(this, Constants.LOADED_NOTIFICATIONS));
+	},
+
+
+	loadMore: function(notifications) {
+		if (notifications) {
+			notifications.nextBatch()
+				.then(dispatch.bind(this, Constants.LOADED_NOTIFICATIONS));
+		}
 	}
 });
 

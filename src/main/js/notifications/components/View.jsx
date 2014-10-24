@@ -3,6 +3,8 @@
 
 var React = require('react/addons');
 var Loading = require('common/components/Loading');
+var InlineLoader = require('common/components/LoadingInline');
+var Button = require('common/components/forms/Button');
 
 var Store = require('../Store');
 var Actions = require('../Actions');
@@ -16,6 +18,26 @@ var Empty = React.createClass({
 			<li className="notification-item empty">
 				All Caught Up!
 			</li>
+		);
+	}
+
+});
+
+
+
+
+var LoadMore = React.createClass({
+
+	render: function () {
+		var store = this.props.store;
+		return (
+			<div className="text-center button-box">
+				{store.isBusy ?
+					<InlineLoader/>
+				:
+					<Button onClick={this.props.onClick}>Load More</Button>
+				}
+			</div>
 		);
 	}
 
@@ -54,8 +76,17 @@ module.exports = React.createClass({
     },
 
 
+	_onLoadMore: function() {
+		Actions.loadMore(this.state.notifications);
+	},
+
+
     _onChange: function() {
-		this.setState({notifications: Store.getData()});
+		var list = Store.getData();
+		this.setState({
+			length: list.length,
+			notifications: list
+		});
 	},
 
 
@@ -68,7 +99,10 @@ module.exports = React.createClass({
 		return (
 			<ul className="off-canvas-list">
 				<li><label>Notifications</label></li>
-				{list.length ? list.map(getNotificationItem) : <Empty />}
+				{list.length ? list.map(getNotificationItem) : Empty()}
+				{list.hasMore ?
+					<LoadMore onClick={this._onLoadMore} store={list}/> : null
+				}
 			</ul>
 	    );
 	}
