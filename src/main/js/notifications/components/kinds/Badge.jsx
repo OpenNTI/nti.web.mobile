@@ -17,10 +17,17 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		var thestring = " commented on a discussion.";
+		var item = this.props.item;
+		var badge = {
+			backgroundImage: 'url(' + item.image + ')'
+		};
 		return (
 			<li className="notification-item">
-				Badge
+				<div className='badge' style={badge}/>
+				<div className="wrap">
+					{item.name}
+					<DateTime date={this.getCreatedTime()} />
+				</div>
 			</li>
 		);
 	}

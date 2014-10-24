@@ -24,6 +24,15 @@
 		float: left;
 	}
 
+	.badge {
+		width: 28px;
+		height: 28px;
+		background: {
+			size: cover;
+			position: center center;
+		}
+	}
+
 	.grade {
 		background: url('../images/icons/assignment_ontime_small.png');
 		height: 28px;
