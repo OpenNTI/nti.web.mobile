@@ -59,7 +59,7 @@ module.exports = React.createClass({
 	render: function() {
 
 		if(!this.state.library.loaded) {
-			return <Loading />
+			return (<Loading />);
 		}
 
 		var library = this.state.library;
