@@ -45,7 +45,7 @@ exports = module.exports = {
 
 			}
 		}
-		return Item({key: 'notifications-' + item.OID, item: item, index: index});
+		return Item({key: 'notifications-' + index + '-' + item.OID, item: item, index: index});
 	}
 
 };
