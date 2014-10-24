@@ -6,21 +6,27 @@ var merge = require('merge');
 var CHANGE_EVENT = 'visibilitychange';
 var views = 0;
 var prefix = (function () {
-	var prefixes = ['webkit','moz','ms','o'];
-    var p = null, i = 0;
-    if (document.hidden !== undefined)
-		p = '';
-	else {
-		// Test all vendor prefixes
-		for(; i < prefixes.length; i++) {
-			if (document[prefixes[i] + 'Hidden'] !== undefined) {
-				p = prefixes[i];
-				break;
+
+	try {
+		var prefixes = ['webkit','moz','ms','o'];
+	    var p = null, i = 0;
+	    if (document.hidden !== undefined)
+			p = '';
+		else {
+			// Test all vendor prefixes
+			for(; i < prefixes.length; i++) {
+				if (document[prefixes[i] + 'Hidden'] !== undefined) {
+					p = prefixes[i];
+					break;
+				}
 			}
 		}
+
+		return p;
+	} catch(e) {
+		return null;
 	}
 
-	return p;
 })();
 var eventName = prefix + 'visibilitychange';
 var propertyName = prefix === '' ? 'hidden' : (prefix + 'Hidden');
