@@ -121,6 +121,13 @@ module.exports = React.createClass({
 		var course = (record || {}).CourseInstance;
 		var presentation = course.getPresentationProperties();
 
+		if (props.videoId && !props.outlineId) {
+			return Promise.resolve([
+				course.getID(),
+				props.videoId
+			]);
+		}
+
 		return course.getOutlineNode(NTIID.decodeFromURI(props.outlineId))
 			.then(function(o) {
 				return [

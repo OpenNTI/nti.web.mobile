@@ -39,11 +39,19 @@ module.exports = React.createClass({
 		};
 	},
 
+	__getContext: function() {
+		this.props.contextProvider(this.props).then(function(result) {
+			this.setState({
+				context: result
+			});
+		}.bind(this));
+	},
 
 	componentDidMount: function() {
 		//Store.addChangeListener(this._onChange);
 		this.getDataIfNeeded(this.props);
 		addClass(document.body, 'dark');
+		this.__getContext();
 	},
 
 
@@ -57,8 +65,8 @@ module.exports = React.createClass({
 		if (nextProps.video !== this.props.video) {
 			this.getDataIfNeeded(nextProps);
 		}
+		this.__getContext();
 	},
-
 
 	__onError: function(error) {
 		this.setState({
@@ -136,7 +144,7 @@ module.exports = React.createClass({
 			<div className="transcripted-video">
 				<a href={collection} className="toolbar-button-left fi-thumbnails"/>
 				<LoadingMask loading={this.state.loading}>
-					<Video autoPlay ref="video" src={this.props.video} onTimeUpdate={this.onVideoTimeTick} />
+					<Video autoPlay ref="video" src={this.props.video} onTimeUpdate={this.onVideoTimeTick} context={this.state.context}/>
 					<div className="transcript">
 						{
 							this.state.error ?
