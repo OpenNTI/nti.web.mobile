@@ -82,7 +82,8 @@ module.exports = React.createClass({
 				<Router.Location path="/v/(:videoId/)(#:nav)"
 									handler={Media}
 									course={course}
-									basePath={this.props.basePath}/>
+									basePath={this.props.basePath}
+									contextProvider={this.__getContext}/>
 
 				<Router.Location path="/o/(#:nav)"
 									handler={Outline}
@@ -92,7 +93,9 @@ module.exports = React.createClass({
 				<Router.Location path="/o/:outlineId/(#:nav)"
 									handler={Overview}
 									course={course}
-									basePath={this.props.basePath}/>
+									basePath={this.props.basePath}
+									contextProvider={this.__getContext}/>
+									
 
 				<Router.Location path="/o/:outlineId/c/:rootId/*"
 									handler={Content.Viewer}

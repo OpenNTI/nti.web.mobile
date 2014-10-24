@@ -5,18 +5,20 @@ var React = require('react/addons');
 
 var Video = require('common/components/Video')
 
+
 module.exports = React.createClass({
 	displayName: 'Title',
 
 	render: function() {
 		var e = this.props.entry || {};
 		var videoURL = e.Video;
+		var context = [e.getID()];
 		return (
 			<div className={'header ' + (videoURL? 'with-video' : '')}>
 				{videoURL ?
 					<div className="row">
 						<div className="columns video-wrap">
-							<Video src={videoURL}/>
+							<Video src={videoURL} context={context}/>
 						</div>
 					</div> : null}
 

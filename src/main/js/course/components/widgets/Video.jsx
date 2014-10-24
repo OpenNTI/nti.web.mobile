@@ -31,7 +31,13 @@ module.exports = React.createClass({
 		};
 	},
 
-
+	__getContext: function() {
+		this.props.contextProvider(this.props).then(function(result) {
+			this.setState({
+				context: result
+			});
+		}.bind(this));
+	},
 
 	__onError: function(error) {
 		this.setState({
@@ -41,6 +47,14 @@ module.exports = React.createClass({
 		});
 	},
 
+
+	componentDidMount: function() {
+		this.__getContext();
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		this.__getContext();	
+	},
 
 	onPlayClicked: function(e) {
 		e.preventDefault();
@@ -82,11 +96,10 @@ module.exports = React.createClass({
 			'course', NTIID.encodeForURI(props.course.getID()),
 			'v', NTIID.encodeForURI(item.NTIID))  + '/';
 
-
 		return (
 			<Tag style={style} className="video-wrap flex-video widescreen">
 				{this.state.video ?
-				<Video ref="video" src={this.state.video} autoPlay onPause={this.onStop} onEnded={this.onStop} /> :
+				<Video ref="video" src={this.state.video} autoPlay onPause={this.onStop} onEnded={this.onStop} context={this.state.context} /> :
 				<LoadingMask loading={this.state.loading} tag="a" onFocus={props.onFocus} className="tap-area" href={link}>
 					<div className="wrapper">
 						<div className="buttons">

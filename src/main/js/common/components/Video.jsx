@@ -21,6 +21,11 @@ module.exports = React.createClass({
 			]).isRequired,
 
 		/**
+		* An array of ntiids reflecting the current course/node/etc.
+		*/
+		context: React.PropTypes.array.isRequired,
+
+		/**
 		 * @callback onTimeUpdate
 		 * @param {float} time - the position in the video in seconds. (float)
 		 */
@@ -37,33 +42,32 @@ module.exports = React.createClass({
 		onEnded: React.PropTypes.func
 	},
 
+	_emit: function(event) {
+		actions.emitVideoEvent(event,this.props.context);
+	},
+
 	onTimeUpdate: function(event) {
-		console.log('onTimeUpdate');
-		actions.emitVideoEvent(event);
+		this._emit(event);
 		call(this.props.onTimeUpdate,event);
 	},
 
 	onSeeked: function(event) {
-		console.log('onSeeked');
-		actions.emitVideoEvent(event);
+		this._emit(event);
 		call(this.props.onSeeked,event);
 	},
 
 	onPlaying: function(event) {
-		console.log('onPlaying');
-		actions.emitVideoEvent(event);
+		this._emit(event);
 		call(this.props.onPlaying,event);
 	},
 
 	onPause: function(event) {
-		console.log('onPause');
-		actions.emitVideoEvent(event);
+		this._emit(event);
 		call(this.props.onPause,event);
 	},
 
 	onEnded: function(event) {
-		console.log('onEnded');
-		actions.emitVideoEvent(event);
+		this._emit(event);
 		call(this.props.onEnded,event);
 	},
 
