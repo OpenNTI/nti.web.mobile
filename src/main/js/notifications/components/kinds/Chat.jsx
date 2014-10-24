@@ -20,10 +20,6 @@ module.exports = React.createClass({
 	render: function() {
 		return (
 			<li className="notification-item">
-
-				<div className="wrap">
-					Chat
-				</div>
 			</li>
 		);
 	}
