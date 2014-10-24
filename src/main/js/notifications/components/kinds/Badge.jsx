@@ -13,24 +13,14 @@ module.exports = React.createClass({
 	mixins: [NoteableMixin],
 
 	statics: {
-		handles: function(item) {
-			if(item.MimeType.replace('application/vnd.nextthought.', '') == 'forums.generalforumcomment'){
-				return true;
-			}
-			return false;
-		}
+		noteable_type: 'openbadges.badge'
 	},
 
 	render: function() {
 		var thestring = " commented on a discussion.";
 		return (
 			<li className="notification-item">
-				<Avatar username={this.state.username} width="32" height="32"/>
-				<div className="wrap">
-					<DisplayName username={this.state.username}/>
-						{thestring}
-					<DateTime date={this.getCreatedTime()} />
-				</div>
+				Badge
 			</li>
 		);
 	}
