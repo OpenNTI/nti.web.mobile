@@ -23,7 +23,6 @@ var App = React.createClass({
 
 	_actionHandler: function(payload) {
 		var action = payload.action;
-		console.log('App received %s action.', action.actionType);
 		switch (action.actionType) {
 			case Navigation.Constants.NAVIGATE:
 				console.log('App received %O.', action);
@@ -35,7 +34,6 @@ var App = React.createClass({
 
 
 	_loginStoreChange: function(evt) {
-		console.log('App received loginStoreChange %O', evt);
 		if (evt && evt.property === LoginStoreProperties.isLoggedIn) {
 			if (evt.value) {
 				console.log('Logged in. Redirect to content?');

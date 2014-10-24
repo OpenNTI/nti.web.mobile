@@ -85,7 +85,6 @@ function _removeMessage(id) {
 
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
-	console.log('MessageStore received %s action.', action.actionType);
 	switch (action.actionType) {
 		case Actions.MESSAGES_ADD:
 			_addMessage(action.message);

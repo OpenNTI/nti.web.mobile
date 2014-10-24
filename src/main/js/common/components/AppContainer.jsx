@@ -16,7 +16,7 @@ var t = require('../locale').translate;
 var Utils = require('../Utils');
 
 var preventOverscroll = require('common/thirdparty/prevent-overscroll');
-
+var AnalyticsStore = require('common/analytics').Store;
 
 var LEFT_MENU_OPEN = 'move-right';
 var RIGHT_MENU_OPEN = 'move-left';

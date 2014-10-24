@@ -5,6 +5,7 @@ var React = require('react/addons');
 var Providers = require('./video-services');
 var Model = require('dataserverinterface/models/Video');
 var call = require('dataserverinterface/utils/function-call');
+var actions = require('./VideoActions');
 
 module.exports = React.createClass({
 	displayName: 'Video',
@@ -38,26 +39,31 @@ module.exports = React.createClass({
 
 	onTimeUpdate: function(event) {
 		console.log('onTimeUpdate');
+		actions.emitVideoEvent(event);
 		call(this.props.onTimeUpdate,event);
 	},
 
 	onSeeked: function(event) {
 		console.log('onSeeked');
+		actions.emitVideoEvent(event);
 		call(this.props.onSeeked,event);
 	},
 
 	onPlaying: function(event) {
 		console.log('onPlaying');
+		actions.emitVideoEvent(event);
 		call(this.props.onPlaying,event);
 	},
 
 	onPause: function(event) {
 		console.log('onPause');
+		actions.emitVideoEvent(event);
 		call(this.props.onPause,event);
 	},
 
 	onEnded: function(event) {
 		console.log('onEnded');
+		actions.emitVideoEvent(event);
 		call(this.props.onEnded,event);
 	},
 
