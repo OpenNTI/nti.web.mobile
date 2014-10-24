@@ -9,6 +9,7 @@ var DefaultRoute = Router.NotFound;
 var LoginForm = require('./LoginForm');
 var ForgotForm = require('./ForgotForm');
 var SignupForm = require('../signup/components/SignupForm');
+var PasswordResetForm = require('./PasswordResetForm');
 var SignupConfirm = require('./SignupConfirm');
 var Store = require('../Store');
 var StoreProperties = require('../StoreProperties');
@@ -80,6 +81,7 @@ var View = React.createClass({
 							contextual
 							key={this.getPath()}>
 							<DefaultRoute handler={LoginForm} />
+							<Location path="/pwreset/:username/:token" handler={PasswordResetForm} basePath={basePath} links={this.state.links} />
 							<Location path="/forgot/:param" handler={ForgotForm} basePath={basePath} links={this.state.links} />
 							<Location path="/signup/confirm" handler={SignupConfirm} basePath={basePath} links={this.state.links} />
 							<Location path="/signup/*" handler={SignupForm} basePath={basePath} links={this.state.links} />

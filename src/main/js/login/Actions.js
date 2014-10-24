@@ -2,11 +2,14 @@
 /** @module login/LoginActions */
 
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
-var ActionConstants = require('./Constants').actions;
+var Constants = require('./Constants');
+var ActionConstants = Constants.actions;
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
 var dataserver = require('common/Utils').getServer;
-
+var Store = require('./Store');
+var MessageActions = require('common/messages').Actions;
+var Message = require('common/messages').Message;
 /**
  * Actions available to views for login-related functionality.
  **/
@@ -65,7 +68,26 @@ module.exports = merge(EventEmitter.prototype, {
 	/** dispatch a dataserver request to recover a user's password
 	*/
 	recoverPassword: function(fields) {
-		return dataserver().recoverPassword(fields.email, fields.username);
+		return Store.getPasswordRecoveryReturnUrl().then(function(returnUrl) {
+			return dataserver().recoverPassword(fields.email, fields.username, returnUrl);
+		})
+	},
+
+	resetPassword: function(fields) {
+
+		var fn = function(result) {
+			var tmp = JSON.parse(result.response);
+			MessageActions.clearMessages({category: Constants.messages.category});
+			MessageActions.addMessage( new Message(tmp.message, {category: Constants.messages.category}) );
+			return tmp;
+		}
+
+		return dataserver().resetPassword(
+			fields.username,
+			fields.password,
+			fields.token
+		)
+		.then(fn,fn);
 	},
 
 	recoverUsername: function(fields) {

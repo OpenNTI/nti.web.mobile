@@ -13,6 +13,7 @@ var CHANGE_EVENT = 'change';
 var Messages = require('common/messages/');
 var t = require('common/locale').translate;
 var IllegalArgumentException = require('common/exceptions/').IllegalArgumentException;
+var Url = require('url');
 
 var dataserver = require('common/Utils').getServer;
 
@@ -44,6 +45,11 @@ var LoginStore = merge(EventEmitter.prototype, {
 
 	canDoPasswordLogin: function() {
 		return (Links.LOGIN_PASSWORD_LINK in _links);
+	},
+
+	getPasswordRecoveryReturnUrl: function() {
+		//'https://ou-alpha.nextthought.com/login/passwordrecover.html?return=https://ou-alpha.nextthought.com/app/&username=ray.hatfield&id=2f36ca6e7a5f4c5b9f54cea84b3c8ca1';
+		return Promise.resolve(Url.resolve(document.URL, '/login/passwordrecover.html'));
 	}
 
 });

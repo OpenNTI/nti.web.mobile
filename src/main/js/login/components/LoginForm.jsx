@@ -10,7 +10,6 @@ var OAuthButtons = require('./OAuthButtons');
 var RecoveryLinks = require('./RecoveryLinks');
 var t = require('common/locale').scoped('LOGIN');
 var React = require('react/addons');
-var MessageDisplay = require('common/messages/').Display;
 var Constants = require('../Constants');
 var Link = require('react-router-component').Link;
 
