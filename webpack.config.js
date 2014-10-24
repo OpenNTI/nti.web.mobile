@@ -19,10 +19,14 @@ var commonLoaders = [
     { test: /\.jpg$/, loader: 'url?limit=1000&name=resources/images/[hash].jpg&mimeType=image/jpeg' },
 
     { test: /\.eot$/, loader: 'url?limit=1000&name=resources/fonts/[hash].eot' },
-    // { test: /\.svg$/, loader: 'url?limit=1000&name=resources/fonts/[hash].svg' },
+    { test: /\.svg$/, loader: 'url?limit=1000&name=resources/fonts/[hash].svg' },
     { test: /\.ttf$/, loader: 'url?limit=1000&name=resources/fonts/[hash].ttf' },
     { test: /\.woff$/, loader: 'url?limit=200000&name=resources/fonts/[hash].woff' }
 ];
+
+var scssIncludes =
+    'includePaths[]=' + (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss'));/* + '&' +
+    'includePaths[]=' + (path.resolve(__dirname, './src/main/resources/vendor/videojs/dist/video-js'));*/
 
 var root = path.join(__dirname,'src','main','js');
 
@@ -95,8 +99,8 @@ module.exports = [
 
             loaders: commonLoaders.concat([
                 { test: /\.css$/, loader: 'style!css' },
-                { test: /\.scss$/, loader: 'style!css!sass?includePaths[]=' +
-                    (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss')) }
+                { test: /\.scss$/, loader: 'style!css!sass?' + scssIncludes
+                }
             ])
         }
     },
@@ -135,9 +139,9 @@ module.exports = [
             loaders: commonLoaders.concat([
                 { test: /\.html$/, loader: 'html?attrs=link:href' },
                 { test: /\.css$/,  loader: path.join(__dirname, 'src', 'server', 'style-collector') + '!css' },
-                { test: /\.scss$/,  loader: path.join(__dirname, 'src', 'server', 'style-collector') +
-                    '!css!sass?includePaths[]=' +
-                    (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss')) }
+                { test: /\.scss$/, loader: path.join(__dirname, 'src', 'server', 'style-collector') +
+                    '!css!sass?' + scssIncludes
+                }
             ])
         }
     }
