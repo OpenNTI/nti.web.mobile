@@ -44,34 +44,13 @@ var Store = autobind(merge(EventEmitter.prototype, {
 		var _items = _queue.slice();
 		_queue = [];
 
-		return this._submitEvents(_items).catch( function(r) {
+		return Utils.getServer().postAnalytics(_items).catch(function(r) {
 			console.warn(r);
 			// put _items back in the queue
 			_queue.push.apply(_queue,_items);
 		});
 
 	},
-
-	_submitEvents: function(events) {
-
-		return Utils.getServer().postAnalytics(events);
-
-		return Utils.getService().then(function(serviceDoc) {
-			var workspace = serviceDoc.getWorkspace("Analytics");
-			var links = Utils.indexArrayByKey(workspace.Links,'rel');
-			var server = Utils.getServer();
-			console.warn('AnalyticsStore submit events not fully implemented');
-			server.getAnalyticsSession()
-			server._get(links['analytics_session']).then(function(result) {
-				var links = Utils.indexArrayByKey(workspace.Links,'rel');
-				return server._post(links['batch_events'].href, events);
-			},
-			function(result) {
-				return result;	
-			});
-		});
-		// return Promise.reject('analytics event posting not implemented');
-	}
 
 }));
 
