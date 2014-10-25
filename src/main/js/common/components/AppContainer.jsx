@@ -16,7 +16,8 @@ var t = require('../locale').translate;
 var Utils = require('../Utils');
 
 var preventOverscroll = require('common/thirdparty/prevent-overscroll');
-var AnalyticsStore = require('common/analytics').Store;
+
+var Analytics = require('common/analytics').Component;
 
 var LEFT_MENU_OPEN = 'move-right';
 var RIGHT_MENU_OPEN = 'move-left';
@@ -103,6 +104,7 @@ module.exports = React.createClass({
 
 		return (
 			<div className="app-container">
+				<Analytics />
 				<div className={'off-canvas-wrap ' + state} data-offcanvas>
 					<div className="inner-wrap">
 						<nav className="tab-bar">

@@ -57,7 +57,7 @@ module.exports = React.createClass({
 
 	_playbackStarted: function(event) {
 		if (_playStartEvent) {
-			console.warn('We already have a playStartEvent. How did we get another one without a pause/stop/seek/end in between?');
+			console.warn('We already have a playStartEvent. How did we get another one without a pause/stop/seek/end in between? Dropping previous start event on the floor.');
 		}
 		_playStartEvent = this._getEventData(event);
 
@@ -83,7 +83,8 @@ module.exports = React.createClass({
 			transcript: !!this.props.transcript,
 			MimeType: 'application/vnd.nextthought.analytics.watchvideoevent',
 			context_path: this.props.context,
-			resource_id: this.props.src.ntiid
+			resource_id: this.props.src.ntiid,
+			timestamp: Date.now()
 		};
 		actions.emitVideoEvent(video_event);
 	},
