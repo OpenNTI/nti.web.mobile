@@ -10,7 +10,7 @@ var Store = require('../Store');
 var Analytics = React.createClass({
 
 	componentDidMount: function() {
-		Store.startTimer();
+		Store.init();
 	},
 
 	render: function() {

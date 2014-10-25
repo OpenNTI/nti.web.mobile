@@ -5,24 +5,28 @@ var merge = require('react/lib/merge');
 var Actions = require('./Constants').actions;
 var VideoConstants = require('common/components/VideoConstants');
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
-
-
+var Utils = require('common/Utils');
+var autobind = require('dataserverinterface/utils/autobind');
 var _queue = [];
 var _post_frequency = 10000;
 var _timeoutId;
 
-var Store = merge(EventEmitter.prototype, {
+function startTimer() {
+	clearTimeout(_timeoutId);
+	_timeoutId = setTimeout(
+		function() {
+			// process the queue and start the timer again.
+			Store._processQueue().then(startTimer);
+		},
+		_post_frequency
+	);
+}
+
+var Store = autobind(merge(EventEmitter.prototype, {
 
 
-	startTimer: function() {
-		clearTimeout(_timeoutId);
-		_timeoutId = setTimeout(
-			function() {
-				// process the queue and start the timer again.
-				this._processQueue().then(this.startTimer.bind(this),this.startTimer.bind(this));
-			}.bind(this),
-			_post_frequency
-		);
+	init: function() {
+		startTimer();
 	},
 
 	enqueueEvent: function(analyticsEvent) {
@@ -49,10 +53,23 @@ var Store = merge(EventEmitter.prototype, {
 	},
 
 	_submitEvents: function(events) {
-		return Promise.reject('analytics event posting not implemented');
+
+		return Utils.getService().then(function(serviceDoc) {
+			var workspace = serviceDoc.getWorkspace("Analytics");
+			var links = Utils.indexArrayByKey(workspace.Links,'rel');
+			Utils.getServer()._get(links['analytics_session']).then(function(result) {
+				console.warn('AnalyticsStore submit events not fully implemented');
+				return result;	
+			},
+			function(result) {
+				console.warn('AnalyticsStore submit events not fully implemented');
+				return result;	
+			});
+		});
+		// return Promise.reject('analytics event posting not implemented');
 	}
 
-});
+}));
 
 
 AppDispatcher.register(function(payload) {
