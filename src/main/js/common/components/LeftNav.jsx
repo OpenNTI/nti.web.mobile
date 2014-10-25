@@ -35,7 +35,6 @@ module.exports = React.createClass({
 
 
 	componentWillReceiveProps: function(nextProps) {
-		console.debug('LeftNav: nextProps: %O', nextProps);
 		if(nextProps.items !== this.props.items) {
 			this.setState({index: nextProps.items.length - 1});
 		}
