@@ -7,6 +7,10 @@ var Model = require('dataserverinterface/models/Video');
 var call = require('dataserverinterface/utils/function-call');
 var actions = require('./VideoActions');
 
+// keep track of the play start event so we can push analytics including duration
+// when the video is paused, stopped, seeked, or ends.
+var _playStartEvent = null;
+
 module.exports = React.createClass({
 	displayName: 'Video',
 
@@ -42,33 +46,70 @@ module.exports = React.createClass({
 		onEnded: React.PropTypes.func
 	},
 
-	_emit: function(event) {
-		var props = this.props.transcript ? { transcript: this.props.transcript } : null;
-		actions.emitVideoEvent(event,this.props.context, props);
+	_getEventData: function(event) {
+		return {
+			timestamp: event.timeStamp,
+			target: event.target,
+			currentTime: event.target.currentTime,
+			type: event.type
+		}
+	},
+
+	_playbackStarted: function(event) {
+		if (_playStartEvent) {
+			console.warn('We already have a playStartEvent. How did we get another one without a pause/stop/seek/end in between?');
+		}
+		_playStartEvent = this._getEventData(event);
+
+	},
+
+	_playbackStopped: function(event) {
+		if (!_playStartEvent) {
+			console.warn('We don\'t have a playStartEvent? How did we get a stop event without a prior start event? Dropping the event on the floor.');
+			return;
+		}
+		var _playEndEvent = this._getEventData(event);
+
+		this._emit(_playStartEvent,_playEndEvent);
+		_playStartEvent = null;
+	},
+
+	_emit: function(startEvent,endEvent) {
+		var video_event = {
+			time_length: (endEvent.currentTime - startEvent.currentTime),
+			video_start_time: startEvent.currentTime,
+			video_end_time: endEvent.currentTime,
+			type: 'video-watch',
+			transcript: !!this.props.transcript,
+			MimeType: 'application/vnd.nextthought.analytics.watchvideoevent',
+			context_path: this.props.context,
+			resource_id: this.props.src.ntiid
+		};
+		actions.emitVideoEvent(video_event);
 	},
 
 	onTimeUpdate: function(event) {
-		this._emit(event);
+		// this._emit(event);
 		call(this.props.onTimeUpdate,event);
 	},
 
 	onSeeked: function(event) {
-		this._emit(event);
+		// this._emit(event);
 		call(this.props.onSeeked,event);
 	},
 
 	onPlaying: function(event) {
-		this._emit(event);
+		this._playbackStarted(event);
 		call(this.props.onPlaying,event);
 	},
 
 	onPause: function(event) {
-		this._emit(event);
+		this._playbackStopped(event);
 		call(this.props.onPause,event);
 	},
 
 	onEnded: function(event) {
-		this._emit(event);
+		this._playbackStopped(event);
 		call(this.props.onEnded,event);
 	},
 

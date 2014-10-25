@@ -23,7 +23,7 @@ var AppDispatcher = copyProperties(new Dispatcher(), {
      * @param  {object} action The data coming from the view.
      */
     handleViewAction: function(action) {
-        console.log('AppDispatcher::handleViewAction: %s', action.actionType);
+        // console.log('AppDispatcher::handleViewAction: %s', action.actionType);
         this.dispatch({
             source: 'VIEW_ACTION',
             action: action
@@ -36,7 +36,7 @@ var AppDispatcher = copyProperties(new Dispatcher(), {
      * @param  {object} action The data coming from the view.
      */
     handleRequestAction: function(action) {
-        console.log('AppDispatcher::handleRequestAction: %s', action.actionType);
+        // console.log('AppDispatcher::handleRequestAction: %s', action.actionType);
         this.dispatch({
             source: 'REQUEST_ACTION',
             action: action
