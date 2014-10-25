@@ -54,15 +54,19 @@ var Store = autobind(merge(EventEmitter.prototype, {
 
 	_submitEvents: function(events) {
 
+		return Utils.getServer().postAnalytics(events);
+
 		return Utils.getService().then(function(serviceDoc) {
 			var workspace = serviceDoc.getWorkspace("Analytics");
 			var links = Utils.indexArrayByKey(workspace.Links,'rel');
-			Utils.getServer()._get(links['analytics_session']).then(function(result) {
-				console.warn('AnalyticsStore submit events not fully implemented');
-				return result;	
+			var server = Utils.getServer();
+			console.warn('AnalyticsStore submit events not fully implemented');
+			server.getAnalyticsSession()
+			server._get(links['analytics_session']).then(function(result) {
+				var links = Utils.indexArrayByKey(workspace.Links,'rel');
+				return server._post(links['batch_events'].href, events);
 			},
 			function(result) {
-				console.warn('AnalyticsStore submit events not fully implemented');
 				return result;	
 			});
 		});
