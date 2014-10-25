@@ -5,8 +5,21 @@ var React = require('react/addons');
 var ErrorWidget = require('common/components/Error');
 var asQueryString = require('common/Utils').toQueryString;
 
-module.exports = React.createClass({
+
+var Source = module.exports = React.createClass({
 	displayName: 'YouTube-Video',
+
+	statics: {
+		getId: function(url) {
+			var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&\?]*).*/,
+				match = url.match(regExp);
+			if (match && match[2].length === 11) {
+				return match[2];
+			}
+			return null;
+		}
+	},
+
 
 	render: function() {
 		if (!this.props.src) {

@@ -12,6 +12,9 @@ var vimeoRe = /vimeo/i;
 var youtubeRe = /youtu(\.?)be/i;
 
 
+
+
+
 function getUrl(data) {
 	var src = data && data.sources[0];
 	var url = src && Url.parse(src.source[0]);
@@ -34,6 +37,9 @@ var serviceMap = {
 	kaltura: kaltura
 };
 
+var getVimeoId = vimeo.getId;
+var getYouTubeId = youtube.getId;
+
 exports = module.exports = {
 	Kaltura: kaltura,
 	Vimeo: vimeo,
@@ -50,9 +56,11 @@ exports = module.exports = {
 			if (kalturaRe.test(url.protocol)) {
 				handler = kaltura;
 			}
-			else if (vimeoRe.test(url.host)) {
+
+			else if (vimeoRe.test(url.host) || vimeoRe.test(url.protocol)) {
 				handler = vimeo;
 			}
+
 			else if (youtubeRe.test(url.host)) {
 				handler = youtube;
 			}

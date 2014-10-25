@@ -5,13 +5,21 @@ var React = require('react/addons');
 var ErrorWidget = require('common/components/Error');
 var asQueryString = require('common/Utils').toQueryString;
 
-module.exports = React.createClass({
+var guid = require('dataserverinterface/utils/guid');
+
+var Source = module.exports = React.createClass({
 	displayName: 'Vimeo-Video',
 
-	render: function() {
-		if (!this.props.src) {
-			return (<ErrorWidget error="No source"/>);
+	statics: {
+		getId: function(url) {
+			var regExp = /^.*vimeo(\:\/\/|\.com\/)(.+)/i,
+				match = url.match(regExp);
+			if (match && match[2]) {
+				return match[2];
+			}
+			return null;
 		}
+	},
 
 		var mediaSource = this.props.source;
 		var videoId = mediaSource.source[0];
