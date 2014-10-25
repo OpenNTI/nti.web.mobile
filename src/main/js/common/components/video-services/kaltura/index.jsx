@@ -140,11 +140,13 @@ var KalturaVideo = React.createClass({
 		var props = this.props;
 
 		if (video && !this.state.listening) {
+			video = video.getDOMNode();
+			video.addEventListener('error', this.onError, false);
+
 			if (this.props.autoPlay) {
 				this.doPlay();
 			}
-			
-			video = video.getDOMNode();
+
 			//attempt to tell the WebView to play inline...
 			video.setAttribute('webkit-playsinline', true);
 
@@ -199,6 +201,12 @@ var KalturaVideo = React.createClass({
 				{!this.state.interacted && <a className="tap-area" onClick={this.doPlay}/>}
 			</div>
 		);
+	},
+
+	onError: function () {
+		this.setState({
+			error: 'Could not play video. Network or Browser error.'
+		});
 	}
 
 });
