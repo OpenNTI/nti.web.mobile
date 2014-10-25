@@ -46,6 +46,12 @@ module.exports = React.createClass({
 		onEnded: React.PropTypes.func
 	},
 
+	getDefaultProps: function() {
+		return {
+			context:[]
+		}
+	},
+
 	_getEventData: function(event) {
 		return {
 			timestamp: event.timeStamp,
@@ -75,12 +81,14 @@ module.exports = React.createClass({
 	},
 
 	_emit: function(startEvent,endEvent) {
+		var rootContextId = this.props.context.length > 0 ? this.props.context[0] : null;
 		var video_event = {
 			time_length: (endEvent.currentTime - startEvent.currentTime),
 			video_start_time: startEvent.currentTime,
 			video_end_time: endEvent.currentTime,
 			type: 'video-watch',
-			transcript: !!this.props.transcript,
+			with_transcript: !!this.props.transcript,
+			RootContextID: rootContextId,
 			MimeType: 'application/vnd.nextthought.analytics.watchvideoevent',
 			context_path: this.props.context,
 			resource_id: this.props.src.ntiid,
