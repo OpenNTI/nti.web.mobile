@@ -43,14 +43,20 @@ var Store = autobind(merge(EventEmitter.prototype, {
 		var _items = _queue.slice();
 		_queue = [];
 
-		return Utils.getServer().postAnalytics(_items).then(function(response) {
-			console.log('%i of %i analytics events accepted.', response, _items.length);
-			return response;
-		}).catch(function(r) {
-			console.warn(r);
-			// put _items back in the queue
-			_queue.push.apply(_queue,_items);
-		});
+
+		return Utils.getService()
+			.then(function(service) {
+				return service.postAnalytics(_items);
+			})
+			.then(function(response) {
+				console.log('%i of %i analytics events accepted.', response, _items.length);
+				return response;
+			})
+			.catch(function(r) {
+				console.warn(r);
+				// put _items back in the queue
+				_queue.push.apply(_queue,_items);
+			});
 
 	},
 
