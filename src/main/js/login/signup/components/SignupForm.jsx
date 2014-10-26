@@ -9,6 +9,7 @@ var t = require('common/locale').scoped('LOGIN.forms.createaccount');
 
 var Store = require('../Store');
 var Actions = require('../Actions');
+var LoginActions = require('../../Actions');
 
 var Button = require('common/components/forms/Button');
 var UserAgreement = require('./UserAgreement');
@@ -71,6 +72,7 @@ var SignupForm = React.createClass({
 			break;
 
 			case 'created':
+				LoginActions.deleteTOS();
 				window.location.replace(this.props.basePath);
 			break;
 		}

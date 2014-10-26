@@ -38,6 +38,10 @@ module.exports = merge(EventEmitter.prototype, {
 		});
 	},
 
+	deleteTOS: function() {
+		return dataserver().deleteTOS();
+	},
+
 	/** Attempt a login using the provided credentials.
 	* @param {Object} credentials The credentials to submit for authentication. Currently expects 'username' and 'password'.
 	*/

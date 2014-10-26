@@ -12,12 +12,14 @@ var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var Login = require('login');
 var LoginStore = Login.Store;
 var LoginStoreProperties = Login.StoreProperties;
+var LoginActions = Login.Actions;
 
 var Navigation = require('navigation');
 
 var Router = require('navigation/components/Router');
 var AppContainer = require('common/components/AppContainer');
 var Loading = require('common/components/Loading');
+
 
 var App = React.createClass({
 
@@ -36,11 +38,10 @@ var App = React.createClass({
 	_loginStoreChange: function(evt) {
 		if (evt && evt.property === LoginStoreProperties.isLoggedIn) {
 			if (evt.value) {
-				console.log('Logged in. Redirect to content?');
+				LoginActions.deleteTOS();
 				Navigation.Actions.navigate(this.props.basePath, true);
 			}
 			else {
-				console.log('Logged out. Redirect to login? %O');
 				Navigation.Actions.navigate(this.props.basePath + 'login/', true);
 			}
 		}
