@@ -15,6 +15,7 @@ var toArray = require('dataserverinterface/utils/toarray');
 
 var Api = require('./Api');
 var Constants = require('./Constants');
+var Analytics = require('common/analytics/Constants');
 
 var LibraryApi = require('library/Api');
 
@@ -89,6 +90,13 @@ module.exports = merge(EventEmitter.prototype, {
 				dispatch(Constants.PAGE_LOADED,
 					merge({ ntiid: ntiid }, packet));
 			});
+	},
+
+	emitEvent: function(event_data) {
+		AppDispatcher.handleViewAction({
+			actionType: Analytics.VIEWER_EVENT,
+			event: event_data
+		});
 	}
 
 });

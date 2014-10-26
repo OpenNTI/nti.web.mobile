@@ -8,6 +8,6 @@ var keyMirror = require('react/lib/keyMirror');
 
 
 module.exports = merge(exports, keyMirror({
-
+	VIEWER_EVENT: null,
     PAGE_LOADED: null
 }));

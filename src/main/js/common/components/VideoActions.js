@@ -1,12 +1,12 @@
 'use strict';
 
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
-var Constants = require('./VideoConstants');
+var Analytics = require('common/analytics/Constants');
 
 module.exports = {
 	emitVideoEvent: function(event_data) {
 		AppDispatcher.handleViewAction({
-			actionType: Constants.VIDEO_PLAYER_EVENT,
+			actionType: Analytics.VIDEO_PLAYER_EVENT,
 			event: event_data
 		});
 	}

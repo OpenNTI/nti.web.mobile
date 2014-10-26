@@ -2,8 +2,7 @@
 
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
-var Actions = require('./Constants').actions;
-var VideoConstants = require('common/components/VideoConstants');
+var Constants = require('./Constants');
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var Utils = require('common/Utils');
 var autobind = require('dataserverinterface/utils/autobind');
@@ -30,7 +29,6 @@ var Store = autobind(merge(EventEmitter.prototype, {
 	},
 
 	enqueueEvent: function(analyticsEvent) {
-		console.debug('enqueueEvent: %O', analyticsEvent);
 		_queue.push(analyticsEvent);
 	},
 
@@ -64,11 +62,10 @@ AppDispatcher.register(function(payload) {
 
 	switch (action.actionType) {
 
-		case VideoConstants.VIDEO_PLAYER_EVENT:
-			if(action.event.type !== 'timeupdate') {
-				console.log('Analytics Store received VIDEO_PLAYER_EVENT: %s, %O', action.event.type, action);
-				Store.enqueueEvent(action.event);
-			}
+		case Constants.VIDEO_PLAYER_EVENT:
+		case Constants.VIEWER_EVENT:
+			console.log('Analytics Store received event: %s, %O', action.event.type, action);
+			Store.enqueueEvent(action.event);
 		break;
 
 		default:

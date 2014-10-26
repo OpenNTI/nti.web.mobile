@@ -2,9 +2,7 @@
 
 var keyMirror = require('react/lib/keyMirror');
 
-var actions = keyMirror({
-	EVENT_BEGIN: null,
-	EVENT_END: null
+module.exports = keyMirror({
+	VIDEO_PLAYER_EVENT: null,
+	VIEWER_EVENT: null
 });
-
-exports.actions = actions;

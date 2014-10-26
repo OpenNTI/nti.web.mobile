@@ -23,7 +23,24 @@ var Store = require('../Store');
 var Actions = require('../Actions');
 
 var merge = require('react/lib/merge');
+var keyMirror = require('react/lib/keyMirror');
+var Utils = require('common/Utils');
 
+// keep track of the view start event so we can push analytics including duration
+var _priorEvent = null;
+
+var VIEW_EVENT = keyMirror({
+	UNMOUNT: null,
+	UPDATE: null
+});
+
+function diff(obj1,obj2) {
+	var keySet = Utils.arrayUnion(Object.keys(obj1),Object.keys(obj2));
+	var diffs = keySet.filter(function(k) {
+		return obj1[k] !== obj2[k];
+	});
+	return diffs;
+}
 
 module.exports = React.createClass({
 	mixins: [RouterMixin],
@@ -71,6 +88,7 @@ module.exports = React.createClass({
 
 
 	componentWillUnmount: function() {
+		this._viewerEvent(VIEW_EVENT.UNMOUNT);
 		console.debug('Content View: Unmounting...');
 		Store.removeChangeListener(this._onChange);
 		//Cleanup our components...
@@ -86,20 +104,90 @@ module.exports = React.createClass({
 		}
 	},
 
+	_getEventData: function() {
+		return {
+			timestamp: Date.now(),
+			pageId: this.props.pageId,
+			outlineId: this.props.outlineId,
+			rootId: this.props.rootId
+		}
+	},
+
+
+	_viewerEvent: function(eventType) {
+		var evt = this._getEventData();
+		if( !_priorEvent ) {
+			_priorEvent = evt;
+			return;
+		}
+
+		var diffs = diff(_priorEvent,evt);
+		var weCare = eventType === VIEW_EVENT.UNMOUNT || ['pageId','outlineId','rootId'].some(function(v) {
+			return diffs.indexOf(v) !== -1;
+		});
+
+		if(evt.pageId && !_priorEvent.pageId) {
+			// just loaded?
+		}
+
+		if(!weCare) {
+			console.debug('don\'t care');
+			return;
+		}
+
+		console.debug('we care. %s %O %O', eventType, evt, _priorEvent);
+	
+		var time_length = (evt.timestamp - _priorEvent.timestamp)/1000;
+		var resource_id = _priorEvent.pageId||_priorEvent.rootId;
+
+		this.__getContext().then(function(context) {
+			Actions.emitEvent({
+				type:'resource-viewed',
+				resource_id: resource_id,
+				course: this.props.course.getID(),
+				context_path: context,
+				time_length: time_length,
+				MimeType: "application/vnd.nextthought.analytics.resourceevent",
+				timestamp: Date.now()
+			});	
+		}.bind(this));
+
+		_priorEvent = evt;
+
+		/* reference event from yoinked from a webapp request
+		    {
+		      "type": "resource-viewed",
+		      "resource_id": "tag:nextthought.com,2011-10:OU-HTML-CHEM1315_F_2014_GeneralChemistry.02.01_OBJECTIVE",
+		      "course": "tag:nextthought.com,2011-10:system-OID-0x010c4383:5573657273:ZYY7VU9DzBb",
+		      "context_path": [
+		        "tag:nextthought.com,2011-10:system-OID-0x010c4383:5573657273:ZYY7VU9DzBb",
+		        "overview",
+		        "tag:nextthought.com,2011-10:OU-HTML-CHEM1315_F_2014_GeneralChemistry.lec:about_janux",
+		        "tag:nextthought.com,2011-10:OU-HTML-CHEM1315_F_2014_GeneralChemistry.lec:unit2"
+		      ],
+		      "time_length": 6.976,
+		      "MimeType": "application/vnd.nextthought.analytics.resourceevent",
+		      "user": "ray.hatfield",
+		      "timestamp": 1414276487.701
+		    }
+		*/
+		
+	},
 
 	componentDidUpdate: function () {
 		//See if we need to re-mount/render our components...
 		var guid, el, w,
 			widgets = this.getPageWidgets();
-		console.debug('Content View: Did Update... %o', widgets);
+		// console.debug('Content View: Did Update... %o', widgets);
 
 		this._setRouteProps();
+		this._viewerEvent(VIEW_EVENT.UPDATE);
 
 		if (widgets) for(guid in widgets) {
 			el = document.getElementById(guid);
 			w = widgets[guid];
 			if (el && !el.hasAttribute('mounted')) {
-				console.debug('Content View: Mounting Widget...');
+				// console.debug('Content View: Mounting Widget...');
 				try {
 					w = React.renderComponent(w, el);
 					el.setAttribute('mounted', 'true');
@@ -181,7 +269,7 @@ module.exports = React.createClass({
 	maybeCreateWidget: function(widgetData) {
 		var widgets = this.getPageWidgets();
 		if (!widgets[widgetData.guid]) {
-			console.debug('Content View: Creating widget for %s', widgetData.guid);
+			// console.debug('Content View: Creating widget for %s', widgetData.guid);
 			widgets[widgetData.guid] = this.transferPropsTo(Widgets.select(widgetData));
 		}
 	},
