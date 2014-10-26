@@ -10,13 +10,14 @@ var Locations = Router.Locations;
 var Location = Router.Location;
 var DefaultRoute = Router.NotFound;
 var Store = require('../Store');
+var Loading = require('common/components/Loading');
 
 var IconBar = require('./IconBar');
 var CoursewareSection = require('./CoursewareSection');
 
 var Redirect = require('common/components/Redirect');
 
-function sectionRoutes(basePath) {
+function getSectionRoutes(basePath) {
 	var sections = Store.getSectionNames();
 
 	var routes = sections.map(function(section) {
@@ -28,20 +29,42 @@ function sectionRoutes(basePath) {
 		});
 	});
 
-	var defaultRoute = DefaultRoute({
-		handler: Redirect,
-		location: '/' + sections[0] + '/'
+	return Store.defaultSection().then(function(defaultSection) {
+		var defaultRoute = DefaultRoute({
+			handler: Redirect,
+			location: '/' + defaultSection + '/'
+		});
+
+		routes.push(defaultRoute);
+		return routes;
 	});
 
-	routes.push(defaultRoute);
-	return routes;
 }
 
 var View = React.createClass({
 
+	componentDidMount: function() {
+		getSectionRoutes().then(function(routes) {
+			this.setState({
+				loading: false,
+				routes: routes
+			});
+		}.bind(this));
+	},
+
+	getInitialState: function() {
+		return {
+			loading: true,
+			routes: []
+		}
+	},
+
 	render: function() {
+		if(this.state.loading) {
+			return <Loading />
+		}
 		var basePath = this.props.basePath;
-		return Locations({contextual: true}, sectionRoutes(basePath));
+		return Locations({contextual: true}, this.state.routes);
 	}
 
 });
