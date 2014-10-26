@@ -21,7 +21,7 @@ var GlossaryEntry = require('./GlossaryEntry');
 
 var Store = require('../Store');
 var Actions = require('../Actions');
-var Analytics = require('common/analytics').Actions;
+var Analytics = require('common/analytics');
 
 var merge = require('react/lib/merge');
 var keyMirror = require('react/lib/keyMirror');
@@ -142,15 +142,18 @@ module.exports = React.createClass({
 		var resource_id = _priorEvent.pageId||_priorEvent.rootId;
 
 		this.__getContext().then(function(context) {
-			Analytics.emitEvent({
-				type:'resource-viewed',
-				resource_id: resource_id,
-				course: this.props.course.getID(),
-				context_path: context,
-				time_length: time_length,
-				MimeType: "application/vnd.nextthought.analytics.resourceevent",
-				timestamp: Date.now()
-			});	
+			Analytics.Actions.emitEvent(
+				Analytics.Constants.VIEWER_EVENT,
+				{
+					type:'resource-viewed',
+					resource_id: resource_id,
+					course: this.props.course.getID(),
+					context_path: context,
+					time_length: time_length,
+					MimeType: "application/vnd.nextthought.analytics.resourceevent",
+					timestamp: Date.now()
+				}
+			);	
 		}.bind(this));
 
 		_priorEvent = evt;

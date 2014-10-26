@@ -90,13 +90,6 @@ module.exports = merge(EventEmitter.prototype, {
 				dispatch(Constants.PAGE_LOADED,
 					merge({ ntiid: ntiid }, packet));
 			});
-	},
-
-	emitEvent: function(event_data) {
-		AppDispatcher.handleViewAction({
-			actionType: Analytics.VIEWER_EVENT,
-			event: event_data
-		});
 	}
 
 });
