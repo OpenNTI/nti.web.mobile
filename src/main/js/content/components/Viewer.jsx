@@ -21,6 +21,7 @@ var GlossaryEntry = require('./GlossaryEntry');
 
 var Store = require('../Store');
 var Actions = require('../Actions');
+var Analytics = require('common/analytics').Actions;
 
 var merge = require('react/lib/merge');
 var keyMirror = require('react/lib/keyMirror');
@@ -141,7 +142,7 @@ module.exports = React.createClass({
 		var resource_id = _priorEvent.pageId||_priorEvent.rootId;
 
 		this.__getContext().then(function(context) {
-			Actions.emitEvent({
+			Analytics.emitEvent({
 				type:'resource-viewed',
 				resource_id: resource_id,
 				course: this.props.course.getID(),
