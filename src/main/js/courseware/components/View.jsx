@@ -18,6 +18,7 @@ var CoursewareSection = require('./CoursewareSection');
 var Redirect = require('common/components/Redirect');
 
 function getSectionRoutes(basePath) {
+
 	var sections = Store.getSectionNames();
 
 	var routes = sections.map(function(section) {
@@ -44,7 +45,7 @@ function getSectionRoutes(basePath) {
 var View = React.createClass({
 
 	componentDidMount: function() {
-		getSectionRoutes().then(function(routes) {
+		getSectionRoutes(this.props.basePath).then(function(routes) {
 			this.setState({
 				loading: false,
 				routes: routes

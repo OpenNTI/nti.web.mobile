@@ -11,6 +11,10 @@ var CatalogView = require('./CatalogView');
 
 var CoursewareSection = React.createClass({
 
+	propTypes: {
+		basePath: React.PropTypes.string.isRequired
+	},
+
 	_contentView: function(section) {
 		switch (section) {
 			case 'courses':

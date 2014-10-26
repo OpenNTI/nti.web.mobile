@@ -20,6 +20,10 @@ var NoMatches = require('common/components/NoMatches');
 // do we still need the other?
 var CourseList = React.createClass({
 
+	propTypes: {
+		basePath: React.PropTypes.string.isRequired
+	},
+
 	getInitialState: function() {
         return { library: Store.getData() };
     },
@@ -85,6 +89,8 @@ var CourseList = React.createClass({
 		if( list.length === 0 ) {
 			return (<NoMatches />);
 		}
+
+		console.debug(this.props.basePath);
 
 		return this.transferPropsTo(
 			<LibraryCollection list={list} filters={filters}  />
