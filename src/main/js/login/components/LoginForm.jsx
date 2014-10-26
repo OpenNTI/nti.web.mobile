@@ -58,7 +58,7 @@ var View = React.createClass({
 						<legend>Sign In</legend>
 						<input type="email"
 							ref="username"
-							placeholder="Username"
+							placeholder="Username or OU 4+4"
 							defaultValue={this.state.username}
 							onChange={this._usernameChanged} />
 						<input type="password"
