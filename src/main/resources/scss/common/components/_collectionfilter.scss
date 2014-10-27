@@ -59,6 +59,10 @@
 	background: rgba(0,0,0,.2);
 	color: white;
 	border-radius: 2px;
+	&.small {
+		font-size:.7rem;
+		padding:.25rem;
+	}
 }
 
 @media (max-width: 365px) {

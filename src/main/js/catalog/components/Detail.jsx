@@ -3,6 +3,7 @@
 
 var React = require('react/addons');
 var Loading = require('common/components/Loading');
+var Notice = require('common/components/Notice');
 
 var NTIID = require('dataserverinterface/utils/ntiids');
 
@@ -11,6 +12,7 @@ var Store = require('../Store');
 var Title = require('./Title');
 var Description = require('./Description');
 var Instructors = require('./Instructors');
+
 
 module.exports = React.createClass({
 	displayName: 'Detail',
@@ -85,12 +87,10 @@ module.exports = React.createClass({
 		var entry = this.state.entry;
 		return (
 			<div className="course-detail-view">
-
-
-
 				<Title entry={entry} />
 				<Description entry={entry} />
 				<Instructors entry={entry}/>
+				<Notice className="small">Course enrollment is not currently supported on mobile devices.</Notice>
 				<div className="footer"/>
 			</div>
 		);
