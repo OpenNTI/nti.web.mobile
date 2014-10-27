@@ -10,6 +10,8 @@ var call = require('dataserverinterface/utils/function-call');
 
 var MediaSource = require('dataserverinterface/models/MediaSource');
 
+var getTarget = require('common/Utils').Dom.getEventTarget;
+
 var Loading = require('../../Loading');
 var eventHandlers = require('common/constants/VideoEventHandlers');
 
@@ -112,11 +114,19 @@ var KalturaVideo = React.createClass({
 	},
 
 
-	doPlay: function () {
+	doPlay: function (e) {
+		console.log('Clicked Play');
+		var isAnchor = e && getTarget(e, 'a');
 		var s = this.state.sources;
 		var v = this.refs.video.getDOMNode();
 
+		if (isAnchor) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
 		if (v.childNodes.length > 0) {
+			console.log('Already has children?');
 			return;
 		}
 
@@ -183,22 +193,30 @@ var KalturaVideo = React.createClass({
 			return (<div className="error">Unable to load video.</div>);
 		}
 
+		console.log(this.props);
+
+		var Tag = React.DOM.video;
+		var videoProps = {
+			ref: 'video',
+			controls: true,
+			poster: this.state.poster,
+			src: null,
+			source: null,
+			onClick: this.doPlay
+		};
+
+		Object.keys(this.props).forEach(function(key) {
+			if (/^on/i.test(key)) {
+				videoProps[key] = null;
+			}
+		});
+
+		var interacted = this.state.interacted ? 'loaded' : '';
+
 		return (
-			<div className="video-wrapper">
-				{this.transferPropsTo(
-					React.DOM.video({
-						ref: 'video',
-						controls: true,
-						poster: this.state.poster,
-						//Make sure these do not get passed to the DOM.
-						src: null,
-						source: null,
-						className: 'video-js vjs-default-skin',
-						onClick: this.doPlay,
-						onTap: this.doPlay
-					}
-				))}
-				{!this.state.interacted && <a className="tap-area" onClick={this.doPlay}/>}
+			<div className={'video-wrapper ' + interacted}>
+				{this.transferPropsTo(Tag(videoProps))}
+				{!this.state.interacted && <a className="tap-area" href="#" onClick={this.doPlay} style={{backgroundImage: 'url('+this.state.poster+')'}}/>}
 			</div>
 		);
 	},

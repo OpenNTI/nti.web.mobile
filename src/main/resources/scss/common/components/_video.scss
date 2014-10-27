@@ -22,6 +22,16 @@
 }
 
 
+.video-wrapper {
+	& > video {
+		visibility: hidden;
+	}
+	&.loaded > video {
+		visibility: visible;
+	}
+}
+
+
 .video-wrap {
 	position: relative;
 	cursor: pointer;
@@ -35,6 +45,8 @@
 	a.tap-area {
 		position: absolute;
 		top: 0; left: 0; bottom: 0; right: 0;
+		background-size: cover;
+		background-position: center center;
 	}
 
 	.wrapper {
