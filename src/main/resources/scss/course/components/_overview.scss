@@ -161,6 +161,20 @@
 			}
 		}
 
+		&.disabled {
+			&:after {
+				content: 'Not yet available on mobile';
+				position: absolute;
+				width: 192px;
+				margin: 0 1rem;
+				font-size: .7rem;
+				color: white;
+				background: rgba(0,0,0,.8);
+				top: 50%;
+				text-align:center;
+				border-radius:2px;
+			}
+		}
 	}
 
 	.overview-naquestionset {
