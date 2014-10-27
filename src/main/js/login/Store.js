@@ -51,6 +51,21 @@ var LoginStore = merge(EventEmitter.prototype, {
 	getPasswordRecoveryReturnUrl: function() {
 		//'https://ou-alpha.nextthought.com/login/passwordrecover.html?return=https://ou-alpha.nextthought.com/app/&username=ray.hatfield&id=2f36ca6e7a5f4c5b9f54cea84b3c8ca1';
 		return Promise.resolve(Url.resolve(document.URL, '/login/passwordrecover.html'));
+	},
+
+	loginFormFields: function() {
+		return [
+			{
+				ref: 'username',
+				type: 'text',
+				placeholder: 'Username or OU 4+4'
+			},
+			{
+				ref: 'password',
+				type: 'password',
+				placeholder: 'Password'
+			}
+		];
 	}
 
 });

@@ -49,6 +49,15 @@ var View = React.createClass({
 		var submitEnabled = this.state.submitEnabled;
 		var signupLink = this._signupLink();
 
+		var fields = Store.loginFormFields().map(function(fieldConfig) {
+			return <input type={fieldConfig.type}
+						ref={fieldConfig.ref}
+						name={fieldConfig.ref}
+						placeholder={fieldConfig.placeholder}
+						defaultValue={this.state[fieldConfig.ref]}
+						onChange={this._inputChanged} />
+		}.bind(this));
+
 		return (
 		
 			<div className="row">
@@ -56,16 +65,7 @@ var View = React.createClass({
 
 					<fieldset>
 						<legend>Sign In</legend>
-						<input type="email"
-							ref="username"
-							placeholder="Username or OU 4+4"
-							defaultValue={this.state.username}
-							onChange={this._usernameChanged} />
-						<input type="password"
-							ref="password"
-							placeholder="Password"
-							defaulValue={this.state.password}
-							onChange={this._passwordChanged} />
+						{fields}
 						<div>
 							<button
 								type="submit"
@@ -86,6 +86,18 @@ var View = React.createClass({
 			</div>
 	
 		);
+	},
+
+	_inputChanged: function(event) {
+		switch(event.target.name) {
+			case 'username':
+				this._usernameChanged(event);
+			break;
+
+			case 'password':
+				this._passwordChanged(event);
+			break;
+		}
 	},
 
 	/**
