@@ -105,22 +105,13 @@ function dispatch(key, data) {
 
 function processContent(packet) {
 	var html = packet.content;
-	if (typeof DOMParser === 'undefined') {
-		//If there is not a dom parser, we will fallback to RegExp parsing...
-		//for now, this fallback will not support widgets.
-		return merge(packet, {
-			content: BODY_REGEX.exec(html)[1],
-			styles: html.match(STYLE_REGEX).map(function(i){
-				STYLE_REGEX.lastIndex = 0;//reset
-				return (STYLE_REGEX.exec(i) || [])[1];
-			})
-		});
-
+	var parser = null;
+	if (typeof DOMParser !== 'undefined') {
+		parser = new DOMParser();
 	}
 
 
-	var parser = new DOMParser();
-	var doc = parser.parseFromString(html, 'text/html');
+	var doc = parser && parser.parseFromString(html, 'text/html');
 	var elementMaker = doc || document;
 	if (!doc) {
 		doc = document.createElement('html');
