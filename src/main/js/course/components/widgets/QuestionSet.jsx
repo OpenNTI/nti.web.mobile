@@ -91,8 +91,8 @@ module.exports = React.createClass( {
 			(assignment ? " assignment" : " assessment");
 
 		return (
-			<div className={'overview-naquestionset' + addClass}>
-				<div className={'body'}>
+			<a className={'overview-naquestionset' + addClass} href="#" onClick={this.onClick}>
+				<div className="body">
 					{assignment ?
 						<div className="icon assignment"/>
 					: //Assessment:
@@ -100,13 +100,13 @@ module.exports = React.createClass( {
 							<Score width="40" height="40" score={score}/>
 						</div>
 					}
-					<div className={'tally-box'}>
-						<div className={'message'}>{label}</div>
+					<div className="tally-box">
+						<div className="message">{label}</div>
 						{assignment ?
 
 							<div className="tally">
-								<div className='stat due-date late'>Due <DateTime date={due}/></div>
-								<div className='stat due-date'>Due <DateTime date={due}/></div>
+								<div className="stat due-date late">Due <DateTime date={due}/></div>
+								<div className="stat due-date">Due <DateTime date={due}/></div>
 							</div>
 
 						: //Assessment:
@@ -120,8 +120,14 @@ module.exports = React.createClass( {
 						}
 					</div>
 				</div>
-			</div>
+			</a>
 		);
+	},
 
+	onClick: function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		alert('Coming soon to mobile.\nUntil then, please use a desktop or iPad app to access');
 	}
 });
