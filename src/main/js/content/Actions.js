@@ -121,6 +121,7 @@ function processContent(packet) {
 
 	var parser = new DOMParser();
 	var doc = parser.parseFromString(html, 'text/html');
+	var elementMaker = doc || document;
 	if (!doc) {
 		doc = document.createElement('html');
 		doc.innerHTML = html;
@@ -131,7 +132,7 @@ function processContent(packet) {
 	var styles = toArray(doc.querySelectorAll('link[rel=stylesheet]'))
 					.map(function(i){return i.getAttribute('href');});
 
-	var widgets = Utils.indexArrayByKey(parseWidgets(doc), 'guid');
+	var widgets = Utils.indexArrayByKey(parseWidgets(elementMaker), 'guid');
 
 	var bodyParts = body.innerHTML.split(WIDGET_MARKER_REGEX).map(function (part) {
 		var m = part.match(MARKER_REGEX);
