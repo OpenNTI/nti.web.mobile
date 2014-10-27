@@ -116,6 +116,7 @@ module.exports = React.createClass({
 	},
 
 	_resourceLoaded: function(resource_id) {
+		// keep track of this for sending analytics
 		_currentResource = {
 			resource_id: resource_id,
 			loaded: Date.now()
