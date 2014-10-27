@@ -7,6 +7,9 @@
 
 .button-group.filters {
 	text-align:center;
+	li {
+		float: none;
+	}
 	.button {
 		background-color: white;
 		color: $primary-color;
