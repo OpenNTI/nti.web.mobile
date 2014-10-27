@@ -28,12 +28,14 @@ var keyMirror = require('react/lib/keyMirror');
 var Utils = require('common/Utils');
 
 // keep track of the view start event so we can push analytics including duration
-var _priorEvent = null;
+var _currentResource = null;
 
 var VIEW_EVENT = keyMirror({
 	UNMOUNT: null,
 	UPDATE: null
 });
+
+var MINIMUM_EVENT_DURATION_SECONDS = 1;
 
 function diff(obj1,obj2) {
 	var keySet = Utils.arrayUnion(Object.keys(obj1),Object.keys(obj2));
@@ -89,8 +91,7 @@ module.exports = React.createClass({
 
 
 	componentWillUnmount: function() {
-		this._viewerEvent(VIEW_EVENT.UNMOUNT);
-		console.debug('Content View: Unmounting...');
+		this._resourceUnloaded();
 		Store.removeChangeListener(this._onChange);
 		//Cleanup our components...
 		var guid, el,
@@ -108,74 +109,49 @@ module.exports = React.createClass({
 	_getEventData: function() {
 		return {
 			timestamp: Date.now(),
-			pageId: this.props.pageId,
+			pageId: this.getPageID(),
 			outlineId: this.props.outlineId,
 			rootId: this.props.rootId
 		}
 	},
 
+	_resourceLoaded: function(resource_id) {
+		console.debug('resource loaded: %s', resource_id);
+		_currentResource = {
+			resource_id: resource_id,
+			loaded: Date.now()
+		};
+	},
 
-	_viewerEvent: function(eventType) {
-		var evt = this._getEventData();
-		if( !_priorEvent ) {
-			_priorEvent = evt;
+	_resourceUnloaded: function() {
+		console.debug('resource unloaded: %O', _currentResource);
+		if (!_currentResource) {
 			return;
 		}
 
-		var diffs = diff(_priorEvent,evt);
-		var weCare = eventType === VIEW_EVENT.UNMOUNT || ['pageId','outlineId','rootId'].some(function(v) {
-			return diffs.indexOf(v) !== -1;
-		});
+		var event = {
+			type:'resource-viewed',
+			resource_id: _currentResource.resource_id,
+			course: this.props.course.getID(),			
+			time_length: (Date.now() - _currentResource.loaded)/1000,
+			MimeType: "application/vnd.nextthought.analytics.resourceevent",
+			timestamp: Date.now()
+		};
 
-		if(evt.pageId && !_priorEvent.pageId) {
-			// just loaded?
+		if (event.time_length > MINIMUM_EVENT_DURATION_SECONDS) {
+			this.props.contextProvider(this.props).then(function(context) {
+				Analytics.Actions.emitEvent(
+					Analytics.Constants.VIEWER_EVENT,
+					merge(event,{
+						context_path: context.map(function(item) {
+							return item.href;
+						}),
+					})
+				);
+			}.bind(this));	
 		}
 
-		if(!weCare) {
-			console.debug('don\'t care');
-			return;
-		}
-
-		console.debug('we care. %s %O %O', eventType, evt, _priorEvent);
-	
-		var time_length = (evt.timestamp - _priorEvent.timestamp)/1000;
-		var resource_id = _priorEvent.pageId||_priorEvent.rootId;
-
-		this.__getContext().then(function(context) {
-			Analytics.Actions.emitEvent(
-				Analytics.Constants.VIEWER_EVENT,
-				{
-					type:'resource-viewed',
-					resource_id: resource_id,
-					course: this.props.course.getID(),
-					context_path: context,
-					time_length: time_length,
-					MimeType: "application/vnd.nextthought.analytics.resourceevent",
-					timestamp: Date.now()
-				}
-			);	
-		}.bind(this));
-
-		_priorEvent = evt;
-
-		/* reference event from yoinked from a webapp request
-		    {
-		      "type": "resource-viewed",
-		      "resource_id": "tag:nextthought.com,2011-10:OU-HTML-CHEM1315_F_2014_GeneralChemistry.02.01_OBJECTIVE",
-		      "course": "tag:nextthought.com,2011-10:system-OID-0x010c4383:5573657273:ZYY7VU9DzBb",
-		      "context_path": [
-		        "tag:nextthought.com,2011-10:system-OID-0x010c4383:5573657273:ZYY7VU9DzBb",
-		        "overview",
-		        "tag:nextthought.com,2011-10:OU-HTML-CHEM1315_F_2014_GeneralChemistry.lec:about_janux",
-		        "tag:nextthought.com,2011-10:OU-HTML-CHEM1315_F_2014_GeneralChemistry.lec:unit2"
-		      ],
-		      "time_length": 6.976,
-		      "MimeType": "application/vnd.nextthought.analytics.resourceevent",
-		      "user": "ray.hatfield",
-		      "timestamp": 1414276487.701
-		    }
-		*/
-		
+		_currentResource = null;
 	},
 
 	componentDidUpdate: function () {
@@ -185,7 +161,6 @@ module.exports = React.createClass({
 		// console.debug('Content View: Did Update... %o', widgets);
 
 		this._setRouteProps();
-		this._viewerEvent(VIEW_EVENT.UPDATE);
 
 		if (widgets) for(guid in widgets) {
 			el = document.getElementById(guid);
@@ -218,8 +193,11 @@ module.exports = React.createClass({
 		var newRoot = this.getRootID(props) !== this.getRootID();
 
 		if (newPage || newRoot) {
+			var incomingPageId = this.getPageID(props);
+			this._resourceUnloaded();
 			this.setState(this.getResetState());
-			Actions.loadPage(this.getPageID());
+			Actions.loadPage(incomingPageId);
+			this._resourceLoaded(incomingPageId);
 		}
 	},
 
