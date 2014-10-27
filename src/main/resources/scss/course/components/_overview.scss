@@ -1,5 +1,26 @@
 
 
+@mixin not-on-mobile() {
+	position: relative;
+	&:after {
+		$width: 192px;
+		content: 'Not yet available on mobile';
+		position: absolute;
+		width: $width;
+		margin: 0 1rem;
+		font-size: .7rem;
+		color: white;
+		background: rgba(0,0,0,.8);
+		top: 50%;
+		left: 50%;
+		margin-left: -($width/2);
+		margin-top: -.75em;
+		text-align: center;
+		border-radius: 2px;
+		height: auto;
+	}
+}
+
 .course-overview {
 	padding: 0.25rem 0.5rem 0.375rem;
 	&::after {
@@ -139,9 +160,10 @@
 
 	.overview-discussion {
 
+		$width: 230px;
 		background: #f5f5f5;
-		width: 230px;
-		min-height: 230px;
+		width: $width;
+		min-height: $width;
 		margin: 0.5rem 0;
 		display: inline-block;
 		color: #494949;
@@ -162,18 +184,7 @@
 		}
 
 		&.disabled {
-			&:after {
-				content: 'Not yet available on mobile';
-				position: absolute;
-				width: 192px;
-				margin: 0 1rem;
-				font-size: .7rem;
-				color: white;
-				background: rgba(0,0,0,.8);
-				top: 50%;
-				text-align:center;
-				border-radius:2px;
-			}
+			@include not-on-mobile();
 		}
 	}
 
@@ -285,6 +296,10 @@
 				.stat.late {
 					display: none;
 				}
+			}
+
+			&.disabled .body {
+				@include not-on-mobile();
 			}
 
 		}
