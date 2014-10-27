@@ -23,11 +23,13 @@ var Instructor = React.createClass({
 
 		return (
 			<div className="row instructor">
-				<img style={background} src={BLANK_IMAGE} alt="Instructor Photo"/>
-				<div className='meta'>
-					<div className="label">{_t('Instructor')}</div>
-					<div className="name">{i.Name}</div>
-					<div className="job-title">{i.JobTitle}</div>
+				<div className="small-12 columns">
+					<img style={background} src={BLANK_IMAGE} alt="Instructor Photo"/>
+					<div className='meta'>
+						<div className="label">{_t('Instructor')}</div>
+						<div className="name">{i.Name}</div>
+						<div className="job-title">{i.JobTitle}</div>
+					</div>
 				</div>
 			</div>
 		);

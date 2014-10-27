@@ -102,66 +102,51 @@ module.exports = React.createClass({
 				<div className="row">
 					<div className="cell small-12 columns">{entry.Description}</div>
 				</div>
-				<div className="row">
-
-					<div className="cell small-6 columns">
-						<div className="label">Prerequisites</div>
-						<div className="value">
-						{(prerequisites || []).map(function(_) {
-							return (<div key={_}>{_}</div>);
-						})}
-						</div>
-					</div>
-
-					<div className="cell small-6 columns">
-						<div className="label">Hours</div>
-						<div className={'value ' + enrollmentStatus}>
-							{!isEmpty(entry.Credit)?
-								<CreditHours credit={entry.Credit} entry={entry.getID()} /> : null}
-							<EnrollmentMessage/>
-						</div>
-					</div>
-
-				</div>
-				<div className="row">
-
-					<div className="cell small-6 columns">
-						<div className="label">{entry.ProviderUniqueID}</div>
-						<div className="value">{entry.Title}</div>
-					</div>
-
-					<div className="cell small-6 columns">
-						<div className="label">{_t('SchoolLabel')}</div>
-						<div className="value">{entry.ProviderDepartmentTitle}</div>
-					</div>
-
-				</div>
-				<div className="row">
-
-					<div className="cell medium-4 columns">
-						<div className="label">{_t('StartDate')}</div>
-						<div className="value">{moment(entry.StateDate).format('LL')}</div>
-					</div>
-
-					<div className="cell medium-8 columns">
-
-						<div className="row">
-							<div className="cell small-4 columns">
-								<div className="label">{_t('Duration')}</div>
-								<div className="value">
+				<div className="row small-12 columns">
+					<table>
+						<tbody>
+							<tr>
+								<td>{entry.ProviderUniqueID}</td>
+								<td>{entry.Title}</td>
+							</tr>
+							<tr>
+								<td>{_t('SchoolLabel')}</td>
+								<td>{entry.ProviderDepartmentTitle}</td>
+							</tr>
+							<tr>
+								<td>Prerequisites</td>
+								<td>
+									{(prerequisites || []).map(function(_) {
+										return (<div key={_}>{_}</div>);
+									})}
+								</td>
+							</tr>
+							<tr>
+								<td>Hours</td>
+								<td>
+									{!isEmpty(entry.Credit)?
+										<CreditHours credit={entry.Credit} entry={entry.getID()} /> : null}
+									<EnrollmentMessage/>
+								</td>
+							</tr>
+							<tr>
+								<td>{_t('StartDate')}</td>
+								<td>{moment(entry.StateDate).format('LL')}</td>
+							</tr>
+							<tr>
+								<td>{_t('Duration')}</td>
+								<td>
 									{moment.duration(entry.Duration).asWeeks()} {_t('DurationUnits')}
-								</div>
-							</div>
-
-							<div className="cell small-8 columns">
-								<div className="label">{_t('Days')}</div>
-								{isEmpty(entry.Schedule && entry.Schedule.days)?
-									<FullyOnline/> :
-									<Schedule schedule={entry.Schedule} startDate={entry.StartDate} />}
-							</div>
-
-						</div>
-					</div>
+								</td>
+							</tr>
+							<tr>
+								<td>{_t('Days')}</td>
+								<td>
+									{isEmpty(entry.Schedule && entry.Schedule.days)? <FullyOnline/> : <Schedule schedule={entry.Schedule} startDate={entry.StartDate} />}
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		);
