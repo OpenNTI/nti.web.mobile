@@ -116,7 +116,6 @@ module.exports = React.createClass({
 	},
 
 	_resourceLoaded: function(resource_id) {
-		console.debug('resource loaded: %s', resource_id);
 		_currentResource = {
 			resource_id: resource_id,
 			loaded: Date.now()
@@ -124,7 +123,6 @@ module.exports = React.createClass({
 	},
 
 	_resourceUnloaded: function() {
-		console.debug('resource unloaded: %O', _currentResource);
 		if (!_currentResource) {
 			return;
 		}
