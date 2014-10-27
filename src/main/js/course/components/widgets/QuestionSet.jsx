@@ -91,7 +91,7 @@ module.exports = React.createClass( {
 			(assignment ? " assignment" : " assessment");
 
 		return (
-			<a className={'overview-naquestionset' + addClass} href="#" onClick={this.onClick}>
+			<a className={'overview-naquestionset disabled' + addClass} href="#" onClick={this.onClick}>
 				<div className="body">
 					{assignment ?
 						<div className="icon assignment"/>

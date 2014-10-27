@@ -118,13 +118,21 @@ module.exports = React.createClass({
 		var disabled = this.state.disabled ? 'disabled' : '';
 
 		return (
-			<div className={'overview-discussion ' + disabled}>
+			<a className={'overview-discussion ' + disabled} href="#" onClick={this.onClick}>
 				<img src={this.state.icon}></img>
 				<div className="wrap">
 					<div className="title">{title}</div>
 					<div className="comments">{this.state.count + this.state.commentType}</div>
 				</div>
-			</div>
+			</a>
 		);
+	},
+
+
+	onClick: function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		alert('Coming soon to mobile.\nUntil then, please use a desktop or iPad app to access');
 	}
 });
