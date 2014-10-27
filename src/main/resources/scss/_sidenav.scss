@@ -32,14 +32,14 @@ ul.off-canvas-list {
 		&.active {
 			position:relative;
 			&::after {
-				content:'';
-				width:0;
-				height:0;
-				position:absolute;
-				top:1rem;
-				left:-.5rem;
-				border:.5em solid transparent;
-				border-left-color:$primary-color;
+				content: '';
+				width: 0;
+				height: 0;
+				position: absolute;
+				top: 1rem;
+				left: 0;
+				border: .5em solid transparent;
+				border-left-color: $primary-color;
 			}
 		}
 	}
