@@ -9,6 +9,7 @@ var autobind = require('dataserverinterface/utils/autobind');
 var _queue = [];
 var _post_frequency = 10000;
 var _timeoutId;
+var Promise = global.Promise || require('es6-promise').Promise;
 
 function startTimer() {
 	clearTimeout(_timeoutId);

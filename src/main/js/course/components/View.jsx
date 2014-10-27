@@ -15,6 +15,7 @@ var Content = require('content');
 
 var Actions = require('../Actions');
 var Store = require('../Store');
+var Promise = global.Promise || require('es6-promise').Promise;
 
 var path = require('path');
 

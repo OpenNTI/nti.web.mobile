@@ -148,7 +148,7 @@ module.exports = React.createClass({
 					<div className="transcript">
 						{
 							this.state.error ?
-								ErrorWidget({error: this.state.error}) :
+								<div>Transcript not available</div> :
 								Transcript(props)
 						}
 					</div>
@@ -158,7 +158,7 @@ module.exports = React.createClass({
 	}
 });
 
-
+// ErrorWidget({error: this.state.error})
 
 
 var Transcript = React.createClass({
