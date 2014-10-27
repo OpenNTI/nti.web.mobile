@@ -131,7 +131,7 @@ module.exports = React.createClass({
 		var event = {
 			type:'resource-viewed',
 			resource_id: _currentResource.resource_id,
-			course: this.props.course.getID(),			
+			course: this.props.course && this.props.course.getID(),			
 			time_length: (Date.now() - _currentResource.loaded)/1000,
 			MimeType: "application/vnd.nextthought.analytics.resourceevent",
 			timestamp: Date.now()
@@ -147,7 +147,7 @@ module.exports = React.createClass({
 						}),
 					})
 				);
-			}.bind(this));	
+			}.bind(this));
 		}
 
 		_currentResource = null;
