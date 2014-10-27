@@ -216,7 +216,7 @@ var KalturaVideo = React.createClass({
 		return (
 			<div className={'video-wrapper ' + interacted}>
 				{this.transferPropsTo(Tag(videoProps))}
-				{!this.state.interacted && <a className="tap-area" href="#" onClick={this.doPlay} style={{backgroundImage: 'url('+this.state.poster+')'}}/>}
+				{!this.state.interacted && <a className="tap-area play" href="#" onClick={this.doPlay} style={{backgroundImage: 'url('+this.state.poster+')'}}/>}
 			</div>
 		);
 	},
