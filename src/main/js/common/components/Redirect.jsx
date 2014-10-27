@@ -6,6 +6,7 @@
 
 var React = require('react/addons');
 var Router = require('react-router-component');
+var Loading = require('./Loading');
 
 var Redirect = React.createClass({
 	mixins: [Router.NavigatableMixin],
@@ -15,30 +16,40 @@ var Redirect = React.createClass({
 		location: React.PropTypes.string
 	},
 
-	_redirect: function(loc) {
-		if (this.props.force) {
+	_redirect: function(props) {
+		var loc = props.location;
+		var location = global.location;
+		var currentFragment = location && location.hash;
+
+		if (props.force) {
 			console.debug('Forceful redirect to: %s', loc);
 			return location.replace(loc);
 		}
+
+		if (loc && loc.indexOf('#') === -1 && currentFragment) {
+			loc = loc +
+					(currentFragment.charAt(0) !== '#' ? '#' : '') +
+					currentFragment;
+		}
+
+		console.debug('Redirecting to %s', loc);
 		this.navigate(loc, {replace: true});
 	},
 
-	componentDidUpdate: function() {
-		try {
-			this._nredirect(this.props.location);
-		} catch (e) {
-			console.error(e.stack);
-		}
-	},
 
 	componentDidMount: function() {
-		this._redirect(this.props.location);
+		this._redirect(this.props);
 	},
 
-	render: function() {
-		return (<div>Redirecting to {this.props.location}</div>);
-	}
 
+	componentWillReceiveProps: function(props) {
+		this._redirect(props);
+	},
+
+
+	render: function() {
+		return (<Loading/>);
+	}
 });
 
 module.exports = Redirect;

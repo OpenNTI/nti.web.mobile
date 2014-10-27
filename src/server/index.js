@@ -58,6 +58,8 @@ var mobileapp = express();
 mobileapp.use(config.basepath, app);//re-root the app to /mobile/
 mobileapp.all('/', function(_, res) { res.redirect('/mobile/'); });
 
+app.use(appRoutes, require('./redirects'));
+
 if (!entryPoint) {
 	page = require('./page');
 	devmode = require('./devmode')(port);
@@ -65,7 +67,6 @@ if (!entryPoint) {
 	entryPoint = devmode.entry;
 	app.use(devmode.middleware);//serve in-memory compiled sources/assets
 }
-
 
 //Static files...
 app.use(express.static(assetPath, {
