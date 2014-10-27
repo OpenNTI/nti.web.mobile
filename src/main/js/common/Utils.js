@@ -53,6 +53,18 @@ var Utils = {
 	},
 
 
+	fromQueryString: function(str) {
+		var o = {};
+		(str || '').split(/[\?&]/).forEach(function(v) {
+			if (v && v.length) {
+				v = v.split(/=/);
+				o[v[0]] = decodeURIComponent(v[1]);
+			}
+		});
+		return o;
+	},
+
+
 	/*
 	 * Maps the given object array, indexed by element[key].
 	 * Example:

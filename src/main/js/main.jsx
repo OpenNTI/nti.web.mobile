@@ -7,7 +7,7 @@ var CaptureClicks = require('react-router-component/lib/CaptureClicks');
 //FIX: This seems like we can clean up this and move "logic" up to the app level and out of the view.
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 
-
+var fromQueryString = require('common/Utils').fromQueryString;
 
 var Login = require('login');
 var LoginStore = Login.Store;
@@ -36,10 +36,13 @@ var App = React.createClass({
 
 
 	_loginStoreChange: function(evt) {
+		var loc = global.location || {};
+		var returnURL = fromQueryString(loc.search).return;
 		if (evt && evt.property === LoginStoreProperties.isLoggedIn) {
 			if (evt.value) {
 				LoginActions.deleteTOS();
-				Navigation.Actions.navigate(this.props.basePath, true);
+				//Navigation.Actions.navigate(returnURL || this.props.basePath, true);
+				loc.replace(returnURL || this.props.basePath);
 			}
 			else {
 				Navigation.Actions.navigate(this.props.basePath + 'login/', true);

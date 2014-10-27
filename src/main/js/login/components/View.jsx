@@ -21,6 +21,7 @@ var Globals = require('common/constants').Globals;
 var MessageDisplay = require('common/messages/').Display;
 var Redirect = require('common/components/Redirect');
 var tg = require('common/locale').scoped('GLOBAL');
+var fromQueryString = require('common/Utils').fromQueryString;
 
 var View = React.createClass({
 
@@ -62,9 +63,17 @@ var View = React.createClass({
 		}
 
 		var basePath = this.props.basePath;
+		var loc = global.location || {};
+		var returnPath;
 
+		//FIXME: If this evaluates to true while the user is typing in their
+		// info, and auto-redirects... that would be weird for the user. (this
+		// happens when you are actually logged in but some how get presented
+		// then login form... if the login form is presented we should commit to
+		// it...)
 		if (this.state.links[Constants.links.LOGIN_CONTINUE_LINK]) {
-			return (<Redirect location={basePath} />);
+			returnPath = fromQueryString(loc.search).return;
+			return (<Redirect location={returnPath||basePath} force="true"/>);
 		}
 
 		return (

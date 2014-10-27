@@ -6,13 +6,13 @@ var Constants = require('./Constants');
 var ActionConstants = Constants.actions;
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
-var dataserver = require('common/Utils').getServer;
+var getServer = require('common/Utils').getServer;
 var Store = require('./Store');
 var MessageActions = require('common/messages').Actions;
 var Message = require('common/messages').Message;
 /**
  * Actions available to views for login-related functionality.
- **/
+ */
 module.exports = merge(EventEmitter.prototype, {
 
 	begin: function() {
@@ -22,8 +22,8 @@ module.exports = merge(EventEmitter.prototype, {
 	},
 
 	/**
-	* Fired in response to user changes on the login form.
-	*/
+	 * Fired in response to user changes on the login form.
+	 */
 	userInputChanged: function(data) {
 		console.log('LoginActions::userInputChanged');
 		AppDispatcher.handleViewAction({
@@ -39,12 +39,12 @@ module.exports = merge(EventEmitter.prototype, {
 	},
 
 	deleteTOS: function() {
-		return dataserver().deleteTOS();
+		return getServer().deleteTOS();
 	},
 
 	/** Attempt a login using the provided credentials.
-	* @param {Object} credentials The credentials to submit for authentication. Currently expects 'username' and 'password'.
-	*/
+	 * @param {Object} credentials The credentials to submit for authentication. Currently expects 'username' and 'password'.
+	 */
 	logIn: function(credentials) {
 		AppDispatcher.handleViewAction({
 			actionType: ActionConstants.LOGIN_PASSWORD,
@@ -53,8 +53,8 @@ module.exports = merge(EventEmitter.prototype, {
 	},
 
 	/** Attempt an oauth login via the specified url
-	* @param {String} the url to hit.
-	*/
+	 * @param {String} the url to hit.
+	 */
 	logInOAuth: function(url) {
 		AppDispatcher.handleViewAction({
 			actionType: ActionConstants.LOGIN_OAUTH,
@@ -69,12 +69,11 @@ module.exports = merge(EventEmitter.prototype, {
 		});
 	},
 
-	/** dispatch a dataserver request to recover a user's password
-	*/
+	/** dispatch a dataserver request to recover a user's password */
 	recoverPassword: function(fields) {
 		return Store.getPasswordRecoveryReturnUrl().then(function(returnUrl) {
-			return dataserver().recoverPassword(fields.email, fields.username, returnUrl);
-		})
+			return getServer().recoverPassword(fields.email, fields.username, returnUrl);
+		});
 	},
 
 	resetPassword: function(fields) {
@@ -84,9 +83,9 @@ module.exports = merge(EventEmitter.prototype, {
 			MessageActions.clearMessages({category: Constants.messages.category});
 			MessageActions.addMessage( new Message(tmp.message, {category: Constants.messages.category}) );
 			return tmp;
-		}
+		};
 
-		return dataserver().resetPassword(
+		return getServer().resetPassword(
 			fields.username,
 			fields.password,
 			fields.token
@@ -95,7 +94,7 @@ module.exports = merge(EventEmitter.prototype, {
 	},
 
 	recoverUsername: function(fields) {
-		return dataserver().recoverUsername(fields.email);
+		return getServer().recoverUsername(fields.email);
 	}
 
 });
