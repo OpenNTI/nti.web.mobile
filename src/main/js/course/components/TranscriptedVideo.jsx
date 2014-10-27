@@ -69,7 +69,6 @@ module.exports = React.createClass({
 	},
 
 	__onError: function(error) {
-		debugger;
 		this.setState({
 			loading: false,
 			error: error,
