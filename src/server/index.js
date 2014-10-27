@@ -2,10 +2,6 @@
 
 global.SERVER = true;
 
-if (typeof Promise === 'undefined') {
-	global.Promise = require('es6-promise').Promise;
-}
-
 var knownPages = [
 	'catalog',
 	'contacts',
