@@ -269,6 +269,10 @@
 					display: none;
 				}
 			}
+
+			&.disabled .body {
+				@include not-on-mobile();
+			}
 		}
 
 		&.assignment {
