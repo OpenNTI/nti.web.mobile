@@ -12,6 +12,8 @@ var Links = require('../Constants').links; // note: using login constants here, 
 var CHANGE_EVENT = 'change';
 var ERROR_EVENT = 'error';
 
+var Promise = global.Promise || require('es6-promise').Promise;
+
 var _fieldConfig = Object.freeze([
 	{
 		ref: 'fname',
