@@ -69,6 +69,7 @@ module.exports = React.createClass({
 	},
 
 	__onError: function(error) {
+		debugger;
 		this.setState({
 			loading: false,
 			error: error,
@@ -89,8 +90,16 @@ module.exports = React.createClass({
 					parser.onregion = function(region) { regions.push(region); };
 					parser.onparsingerror = function(e) { throw e; };
 
+					if (!global.VTTCue) {
+						global.VTTCue = VTTCue;
+					}
+
 				    parser.parse(vtt);
 				    parser.flush();
+
+					if (global.VTTCue === VTTCue) {
+						delete global.VTTCue;
+					}
 
 					this.setState({
 						loading: false,
