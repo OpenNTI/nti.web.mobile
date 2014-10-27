@@ -58,7 +58,7 @@ var mobileapp = express();
 mobileapp.use(config.basepath, app);//re-root the app to /mobile/
 mobileapp.all('/', function(_, res) { res.redirect('/mobile/'); });
 
-app.use(appRoutes, require('./redirects'));
+require('./redirects').register(app, config, appRoutes);
 
 if (!entryPoint) {
 	page = require('./page');
