@@ -47,6 +47,15 @@
 		top: 0; left: 0; bottom: 0; right: 0;
 		background-size: cover;
 		background-position: center center;
+		&:after {
+			content: '';
+			position:absolute;
+			background: url(../images/icons/play.png) center center no-repeat;
+			top:0;
+			left:0;
+			bottom:0;
+			right:0;
+		}
 	}
 
 	.wrapper {
