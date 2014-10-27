@@ -24,7 +24,6 @@ e[0].debug = false;
 e[0].devtool = '#source-map';
 
 e[0].plugins.push(
-    new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),

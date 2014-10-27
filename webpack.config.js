@@ -77,7 +77,6 @@ module.exports = [
             new webpack.DefinePlugin({
                 SERVER: false
             }),
-            new webpack.optimize.CommonsChunkPlugin('js/common.js'),
             function(compiler) {
                 this.plugin('done', function(stats) {
                     var file = path.join(__dirname, 'dist', 'server', 'stats.generated.json');
