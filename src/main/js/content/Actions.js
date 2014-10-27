@@ -118,7 +118,15 @@ function processContent(packet) {
 
 	}
 
-	var doc = new DOMParser().parseFromString(html, 'text/html');
+
+	var parser = new DOMParser();
+	var doc = parser.parseFromString(html, 'text/html');
+	if (!doc) {
+		doc = document.createElement('html');
+		doc.innerHTML = html;
+	}
+
+
 	var body = doc.getElementsByTagName('body')[0];
 	var styles = toArray(doc.querySelectorAll('link[rel=stylesheet]'))
 					.map(function(i){return i.getAttribute('href');});
@@ -148,7 +156,11 @@ function fetchResources(packet) {
 	var get = page.getResource.bind(page);
 	var requests = packet.styles.map(get);
 
-	return Promise.all(requests).then(function(styles) {
+	return Promise.all(requests)
+		// .catch(function(reason) {
+		// 	console.log(reason);
+		// })
+		.then(function(styles) {
 		packet.styles = styles;
 		return packet;
 	});
