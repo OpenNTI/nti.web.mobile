@@ -3,7 +3,7 @@
  */
 'use strict';
 var React = require('react');
-var kaltura = require('./kaltura');
+var getSources = require('./SourceGrabber');
 
 var url = require('url');
 var call = require('dataserverinterface/utils/function-call');
@@ -16,7 +16,7 @@ var Loading = require('../../Loading');
 var eventHandlers = require('common/constants/VideoEventHandlers');
 
 function _sources(options) {
-	return kaltura.getSources(options);
+	return getSources(options);
 }
 
 function _videoEventHandler(event) {
@@ -84,11 +84,10 @@ var KalturaVideo = React.createClass({
 			partnerId: partnerId
 		});
 
-		_sources({
+		getSources({
 			entryId: entryId,
-			partnerId: partnerId,
-			callback: this.setSources
-		});
+			partnerId: partnerId
+		}).then(this.setSources);
 
 	},
 
