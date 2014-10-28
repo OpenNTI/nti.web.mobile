@@ -19,8 +19,10 @@ var Loading = require('common/components/Loading');
 var merge = require('react/lib/merge');
 var Utils = require('common/Utils');
 var NavigatableMixin = Router.NavigatableMixin;
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-var _preflightDelayMs = 1000; // how long to buffer user input before sending another dataserver preflight request.
+
+var _preflightDelayMs = 500; // how long to buffer user input before sending another dataserver preflight request.
 
 var SignupForm = React.createClass({
 
@@ -38,7 +40,8 @@ var SignupForm = React.createClass({
 			preflightTimeoutId: null,
 			formConfig: {},
 			fieldValues: {},
-			errors: {}
+			errors: {},
+			showErrors: false
 		};
 	},
 
@@ -48,6 +51,12 @@ var SignupForm = React.createClass({
 
 	_handleSubmit: function(evt) {
 		evt.preventDefault();
+		if(Object.keys(this.state.errors).length > 0) {
+			this.setState({
+				showErrors: true
+			});
+			return;
+		}
 		console.log('create account.');
 		var fields = merge(this.state.fieldValues, {realname: this._fullname()});
 		Actions.createAccount({
@@ -63,9 +72,9 @@ var SignupForm = React.createClass({
 				var errs = Utils.indexArrayByKey(Store.getErrors(),'field');
 
 				// realname is a synthetic field; map its error messages to the last name field.
-				if (errs['realname'] && !errs['lname']) {
-					errs['lname'] = errs['realname'];
-				}
+				// if (errs['realname'] && !errs['lname']) {
+				// 	errs['lname'] = errs['realname'];
+				// }
 				this.setState({
 					errors: errs
 				});
@@ -90,6 +99,12 @@ var SignupForm = React.createClass({
 
 	componentWillUnmount: function() {
 		Store.removeChangeListener(this.storeChanged);
+	},
+
+	_inputFocused: function(event) {
+		// if (this.state.errors[event.target.name]) {
+		// 	this.setState({showErrors: false});
+		// }
 	},
 
 	_inputChanged: function(event) {
@@ -126,16 +141,28 @@ var SignupForm = React.createClass({
 		var fields = this.state.formConfig.fields.map(function(field,index,arr) {
 			var err = this.state.errors[field.ref];
 			var cssClass = err ? 'error' : null;
-			var error = err ? <small className='error'>{err.message}</small> : null;
+			// var error = err ? <small className='error'>{err.message}</small> : null;
 			return (<div key={field.ref}><input type={field.type}
 						ref={field.ref}
 						value={this.state[field.ref]}
 						name={field.ref}
 						onChange={this._inputChanged}
+						onFocus={this._inputFocused}
 						placeholder={t(field.ref)}
 						className={cssClass}
-						defaultValue={this.state.fieldValues[field.ref]} />{error}</div>);
+						defaultValue={this.state.fieldValues[field.ref]} />
+					</div>
+			);
 		}.bind(this));
+
+		var errors = null;
+		if(true || this.state.showErrors) {
+			errors = Object.keys(this.state.errors).map(function(ref) {
+				var err = this.state.errors[ref];
+				console.debug(err);
+				return <small key={ref} className='error'>{err.message}</small>
+			}.bind(this));	
+		}
 
 		var enabled = this._submitEnabled();
 
@@ -147,6 +174,11 @@ var SignupForm = React.createClass({
 						{fields}
 						<div>
 							<UserAgreement />
+						</div>
+						<div className='errors'>
+							<ReactCSSTransitionGroup transitionName="messages">
+								{errors}
+							</ReactCSSTransitionGroup>
 						</div>
 						<input type="submit" className="small-12 columns tiny button radius" disabled={!enabled} value="Create Account" />
 						<a href={this.props.privacyUrl} target="_blank" className="small-12 columns text-center">Privacy Policy</a>
