@@ -40,11 +40,13 @@ module.exports = React.createClass({
 	},
 
 	__onError: function(error) {
-		this.setState({
-			loading: false,
-			error: error,
-			video: null
-		});
+		if (this.isMounted()) {
+			this.setState({
+				loading: false,
+				error: error,
+				video: null
+			});
+		}
 	},
 
 
@@ -53,7 +55,7 @@ module.exports = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		this.__getContext();	
+		this.__getContext();
 	},
 
 	onPlayClicked: function(e) {
@@ -80,7 +82,9 @@ module.exports = React.createClass({
 
 
 	onStop: function() {
-		this.setState({video: null});
+		if (this.isMounted()) {
+			this.setState({playing: false});
+		}
 	},
 
 

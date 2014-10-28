@@ -54,11 +54,13 @@ module.exports = React.createClass({
 
 
 	__onError: function(error) {
-		this.setState({
-			loading: false,
-			error: error,
-			data: null
-		});
+		if (this.isMounted()) {
+			this.setState({
+				loading: false,
+				error: error,
+				data: null
+			});
+		}
 	},
 
 
