@@ -216,7 +216,32 @@ var KalturaVideo = React.createClass({
 			v = v.getDOMNode();
 			v.play();
 		}
+	},
 
+
+	pause: function () {
+		var v = this.refs.video;
+		if (v && this.isMounted()) {
+			v = v.getDOMNode();
+			v.pause();
+		}
+	},
+
+
+	stop: function () {
+		var v = this.refs.video;
+		if (v && this.isMounted()) {
+			v = v.getDOMNode();
+			v.stop();
+		}
+	},
+
+
+	setCurrentTime: function(time) {
+		var v = this.refs.video;
+		if (v && this.isMounted()) {
+			v.getDOMNode().currentTime = time;
+		}
 	}
 });
 

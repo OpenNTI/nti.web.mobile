@@ -52,18 +52,18 @@ module.exports = React.createClass({
 
 	componentDidMount: function() {
 		this.__getContext();
+		this.fillInVideo(this.props);
 	},
 
 	componentWillReceiveProps: function(nextProps) {
 		this.__getContext();
+		this.fillInVideo(nextProps);
 	},
 
-	onPlayClicked: function(e) {
-		e.preventDefault();
-		e.stopPropagation();
+
+	fillInVideo: function (props) {
 		try {
-			var props = this.props,
-				course = props.course,
+			var course = props.course,
 				item = props.item;
 
 			this.setState({loading: true});
@@ -81,6 +81,15 @@ module.exports = React.createClass({
 	},
 
 
+	onPlayClicked: function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		var v = this.refs.video;
+		v.play();
+	},
+
+
 	onStop: function() {
 		if (this.isMounted()) {
 			this.setState({playing: false});
@@ -88,9 +97,17 @@ module.exports = React.createClass({
 	},
 
 
+	onPlay: function () {
+		if (this.isMounted()) {
+			this.setState({playing: true});
+		}
+	},
+
+
 	render: function() {
 		var props = this.props;
 		var item = props.item;
+		var video = this.state.video;
 		var Tag = React.DOM[props.tag || 'div'];
 		var style = {
 			backgroundImage: 'url(' + item.poster + ')'
@@ -101,10 +118,10 @@ module.exports = React.createClass({
 			'v', NTIID.encodeForURI(item.NTIID))  + '/';
 
 		return (
-			<Tag style={style} className="video-wrap flex-video widescreen">
-				{this.state.video ?
-				<Video ref="video" src={this.state.video} autoPlay onPause={this.onStop} onEnded={this.onStop} context={this.state.context} /> :
-				<LoadingMask loading={this.state.loading} tag="a" onFocus={props.onFocus} className="tap-area" href={link}>
+			<Tag className="video-wrap flex-video widescreen">
+				<Video ref="video" src={this.state.video} onPause={this.onStop} onEnded={this.onStop} onPlaying={this.onPlay} context={this.state.context} />
+				{this.state.playing ? null :
+				<LoadingMask style={style} loading={this.state.loading} tag="a" onFocus={props.onFocus} className="tap-area" href={link}>
 					<div className="wrapper">
 						<div className="buttons">
 							<span className="play" title="Play" onClick={this.onPlayClicked}/>

@@ -131,6 +131,22 @@ module.exports = React.createClass({
 		call(this.props.onEnded,event);
 	},
 
+
+	play: function () {
+		this.refs.activeVideo.play();
+	},
+
+
+	pause: function () {
+		this.refs.activeVideo.pause();
+	},
+
+
+	stop: function () {
+		this.refs.activeVideo.stop();
+	},
+
+
 	setCurrentTime: function(time) {
 		this.refs.activeVideo.setCurrentTime(time);
 	},
@@ -138,7 +154,7 @@ module.exports = React.createClass({
 
 	render: function() {
 		var video = this.props.src;
-		var Provider = Providers.getHandler(video);
+		var Provider = Providers.getHandler(video) || React.DOM.div;
 		var videoSource = video && (video.sources || {})[0];
 
 		var props = {
