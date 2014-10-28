@@ -3,9 +3,17 @@
 
 var React = require('react/addons');
 var ErrorWidget = require('common/components/Error');
+var eventHandlers = require('common/constants/VideoEventHandlers');
 var asQueryString = require('common/Utils').toQueryString;
-
 var guid = require('dataserverinterface/utils/guid');
+
+var vimeoEventsToHTML5 = {
+	play: 'playing',
+	pause: 'pause',
+	finish: 'ended',
+	seek: 'seeked',
+	playProgress: 'timeupdate'
+};
 
 var Source = module.exports = React.createClass({
 	displayName: 'Vimeo-Video',
@@ -98,6 +106,8 @@ var Source = module.exports = React.createClass({
 
 	onMessage: function(event) {
 		var data = JSON.parse(event.data);
+		var mappedEvent = vimeoEventsToHTML5[data.event];
+		var handlerName = eventHandlers[mappedEvent];
 
 		event = data.event;
 
@@ -105,14 +115,23 @@ var Source = module.exports = React.createClass({
 			return;
 		}
 
+		data = data.data;
 		console.debug('Vimeo Event: %s: %o', event, data);
 
 		if (event === 'ready') {
-			this.postMessage('addEventListener', 'playProgress');
-			this.postMessage('addEventListener', 'play');
-			this.postMessage('addEventListener', 'pause');
-			this.postMessage('addEventListener', 'finish');
-			this.postMessage('addEventListener', 'seek');
+			this.postMessage('addEventListener', 'play');	//playing
+			this.postMessage('addEventListener', 'pause');	//pause
+			this.postMessage('addEventListener', 'finish');	//ended
+			this.postMessage('addEventListener', 'seek');	//seeked
+			this.postMessage('addEventListener', 'playProgress'); //timeupdate
+		} else if(mappedEvent && handlerName) {
+
+			this.props[handlerName]({
+				timeStamp: Date.now(),
+				target: {currentTime: data && data.seconds},
+				type: mappedEvent
+			});
+
 		}
 	},
 
@@ -129,8 +148,6 @@ var Source = module.exports = React.createClass({
 			value: params
 		};
 
-		//console.log('%s Posting message to vimeo player %o', this.props.id, data);
-
 		context.postMessage(JSON.stringify(data), this.state.scope);
 	},
 
@@ -146,14 +163,22 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	play: function () {},
+	play: function () {
+		this.postMessage('play');
+	},
 
 
-	pause: function () {},
+	pause: function () {
+		this.postMessage('pause');
+	},
 
 
-	stop: function () {},
+	stop: function () {
+		this.postMessage('stop');
+	},
 
 
-	setCurrentTime: function(time) {}
+	setCurrentTime: function(time) {
+		this.postMessage('seekTo', time);
+	}
 });
