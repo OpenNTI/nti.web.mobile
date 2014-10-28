@@ -51,7 +51,7 @@ exports = module.exports = {
 		var handler = serviceMap[service];
 
 		if (url && !handler) {
-			handler = iframe;
+			handler = null;
 			if (kalturaRe.test(url.protocol)) {
 				handler = kaltura;
 			}
