@@ -51,5 +51,17 @@ var Source = module.exports = React.createClass({
 
 		return this.transferPropsTo(<iframe src={src} frameBorder="0"
 			seamless allowFullScreen allowTransparency />);
-	}
+	},
+
+
+	play: function () {},
+
+
+	pause: function () {},
+
+
+	stop: function () {},
+
+
+	setCurrentTime: function(time) {}
 });

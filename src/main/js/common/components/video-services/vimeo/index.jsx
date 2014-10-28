@@ -143,5 +143,17 @@ var Source = module.exports = React.createClass({
 		return this.transferPropsTo(
 			<iframe src={this.state.playerURL} frameBorder="0" seemless allowFullScreen allowTransparency />
 		);
-	}
+	},
+
+
+	play: function () {},
+
+
+	pause: function () {},
+
+
+	stop: function () {},
+
+
+	setCurrentTime: function(time) {}
 });
