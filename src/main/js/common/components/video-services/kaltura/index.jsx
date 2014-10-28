@@ -52,6 +52,7 @@ var KalturaVideo = React.createClass({
 		return p;
 	},
 
+
 	getInitialState: function() {
 		return {
 			sources: [],
@@ -84,10 +85,8 @@ var KalturaVideo = React.createClass({
 			partnerId: partnerId
 		});
 
-		getSources({
-			entryId: entryId,
-			partnerId: partnerId
-		}).then(this.setSources);
+		getSources({ entryId: entryId, partnerId: partnerId })
+			.then(this.setSources);
 
 	},
 
@@ -96,12 +95,10 @@ var KalturaVideo = React.createClass({
 		if (!this.isMounted()) {
 			return;
 		}
-		var w = 1280;
-		var poster = '//www.kaltura.com/p/'+this.state.partnerId+'/thumbnail/entry_id/'+data.entryId+'/width/'+w+'/';
 
 		this.setState({
 			duration: data.duration,
-			poster: poster,
+			poster: data.poster,
 			sources: data.sources || [],
 			sourcesLoaded: true,
 			isError: (data.objectType === 'KalturaAPIException')
@@ -110,37 +107,6 @@ var KalturaVideo = React.createClass({
 		if (this.state.interacted) {
 			this.doPlay();
 		}
-	},
-
-
-	doPlay: function (e) {
-		console.log('Clicked Play');
-		var isAnchor = e && getTarget(e, 'a');
-		var s = this.state.sources;
-		var v = this.refs.video.getDOMNode();
-
-		if (isAnchor) {
-			e.preventDefault();
-			e.stopPropagation();
-		}
-
-		if (v.childNodes.length > 0) {
-			console.log('Already has children?');
-			return;
-		}
-
-		s.map(function(source) {
-			var s = document.createElement('source');
-			s.setAttribute('src', source.src);
-			s.setAttribute('type', source.type);
-			s.setAttribute('flavor', source.flavorid);
-
-			v.appendChild(s);
-		});
-
-		v.load();
-		v.play();
-		this.setState({interacted: true});
 	},
 
 
@@ -167,6 +133,7 @@ var KalturaVideo = React.createClass({
 		}
 	},
 
+
 	componentWillUnmount: function() {
 		var video = this.getDOMNode();
 		if (video) {
@@ -176,11 +143,6 @@ var KalturaVideo = React.createClass({
 		}
 	},
 
-	setCurrentTime: function(time) {
-		if (this.isMounted()) {
-			this.getDOMNode().currentTime = time;
-		}
-	},
 
 	render: function() {
 
@@ -192,12 +154,10 @@ var KalturaVideo = React.createClass({
 			return (<div className="error">Unable to load video.</div>);
 		}
 
-		console.log(this.props);
-
 		var Tag = React.DOM.video;
 		var videoProps = {
 			ref: 'video',
-			controls: true,
+			controls: !/iP(hone|od)/i.test(navigator.userAgent),
 			poster: this.state.poster,
 			src: null,
 			source: null,
@@ -214,18 +174,50 @@ var KalturaVideo = React.createClass({
 
 		return (
 			<div className={'video-wrapper ' + interacted}>
-				{this.transferPropsTo(Tag(videoProps))}
+				{this.transferPropsTo(Tag(videoProps, this._renderSources()))}
 				{!this.state.interacted && <a className="tap-area play" href="#" onClick={this.doPlay} style={{backgroundImage: 'url('+this.state.poster+')'}}/>}
 			</div>
 		);
 	},
 
+
+	_renderSources: function() {
+		var sources = this.state.sources || [];
+		var Tag = React.DOM.source;
+		return sources.map(function(source) {
+			return Tag(source);
+		});
+	},
+
+
 	onError: function () {
 		this.setState({
 			error: 'Could not play video. Network or Browser error.'
 		});
-	}
+	},
 
+
+	doPlay: function (e) {
+		var isAnchor = e && getTarget(e, 'a');
+
+		if (isAnchor) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		this.play();
+	},
+
+
+	play: function () {
+		var v = this.refs.video;
+		if (v && this.isMounted()) {
+			this.setState({interacted: true});
+			v = v.getDOMNode();
+			v.play();
+		}
+
+	}
 });
 
 module.exports = KalturaVideo;

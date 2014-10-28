@@ -67,9 +67,9 @@ function parseResult( result ) { // API result
 			src += '/format/applehttp/protocol/'+ protocol + '/a.m3u8';
 
 			deviceSources.push({
-				'flavorid' : 'AppleMBR',
-				'type' : 'application/vnd.apple.mpegurl',
-				'src' : src
+				'data-flavorid': 'AppleMBR',
+				type: 'application/vnd.apple.mpegurl',
+				src: src
 			});
 
 			continue;
@@ -80,14 +80,14 @@ function parseResult( result ) { // API result
 		// add the file extension:
 		if( asset.tags.toLowerCase().indexOf('ipad') !== -1 ){
 			source.src = src + '/a.mp4';
-			source.flavorid = 'iPad';
+			source['data-flavorid'] = 'iPad';
 			source.type = 'video/h264';
 		}
 
 		// Check for iPhone src
 		if( asset.tags.toLowerCase().indexOf('iphone') !== -1 ){
 			source.src = src + '/a.mp4';
-			source.flavorid = 'iPhone';
+			source['data-flavorid'] = 'iPhone';
 			source.type = 'video/h264';
 		}
 		// Check for ogg source
@@ -99,7 +99,7 @@ function parseResult( result ) { // API result
 			)
 		){
 			source.src = src + '/a.ogg';
-			source.flavorid = 'ogg';
+			source['data-flavorid'] = 'ogg';
 			source.type = 'video/ogg';
 		}
 
@@ -110,14 +110,14 @@ function parseResult( result ) { // API result
 			( asset.containerFormat && asset.containerFormat.toLowerCase() == 'webm' )
 		){
 			source.src = src + '/a.webm';
-			source.flavorid = 'webm';
+			source['data-flavorid'] = 'webm';
 			source.type = 'video/webm';
 		}
 
 		// Check for 3gp source
 		if( asset.fileExt == '3gp' ){
 			source.src = src + '/a.3gp';
-			source.flavorid = '3gp';
+			source['data-flavorid'] = '3gp';
 			source.type = 'video/3gp';
 		}
 
@@ -139,7 +139,7 @@ function parseResult( result ) { // API result
 	// Create iPad flavor for Akamai HTTP
 	if( ipadAdaptiveFlavors.length !== 0 ) {
 		deviceSources.push({
-			flavorid: 'iPadNew',
+			'data-flavorid': 'iPadNew',
 			type: 'application/vnd.apple.mpegurl',
 			src: baseUrl + '/entryId/' + asset.entryId + '/flavorIds/' + ipadAdaptiveFlavors.join(',')  + '/format/applehttp/protocol/' + protocol + '/a.m3u8'
 		});
@@ -147,22 +147,27 @@ function parseResult( result ) { // API result
 	// Create iPhone flavor for Akamai HTTP
 	if(iphoneAdaptiveFlavors.length !== 0 ) {
 		deviceSources.push({
-			flavorid: 'iPhoneNew',
+			'data-flavorid': 'iPhoneNew',
 			type: 'application/vnd.apple.mpegurl',
 			src: baseUrl + '/entryId/' + asset.entryId + '/flavorIds/' + iphoneAdaptiveFlavors.join(',')  + '/format/applehttp/protocol/' + protocol + '/a.m3u8'
 		});
 	}
 
 
+	var w = 1280;
+	var poster =	'//www.kaltura.com/p/' + entryInfo.partnerId +
+					'/thumbnail/entry_id/' + entryInfo.id +
+					'/width/' + w + '/';
+
 	return {
-			objectType: objectType,
-			code: code,
-			poster: entryInfo.thumbnailUrl,
-			duration: entryInfo.duration,
-			name: entryInfo.name,
-			entryId :  entryInfo.id,
-			description: entryInfo.description,
-			sources: deviceSources
+		objectType: objectType,
+		code: code,
+		poster: poster,
+		duration: entryInfo.duration,
+		name: entryInfo.name,
+		entryId :  entryInfo.id,
+		description: entryInfo.description,
+		sources: deviceSources
 	};
 }
 
