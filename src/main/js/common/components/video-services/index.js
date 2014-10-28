@@ -5,7 +5,6 @@ var Url = require('url');
 var kaltura = require('./kaltura');
 var vimeo = require('./vimeo');
 var youtube = require('./youtube');
-var iframe = require('./iframe');
 
 var kalturaRe = /^kaltura/i;
 var vimeoRe = /vimeo/i;
