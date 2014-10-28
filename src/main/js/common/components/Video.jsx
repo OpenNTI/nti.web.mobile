@@ -52,6 +52,7 @@ module.exports = React.createClass({
 		}
 	},
 
+
 	_getEventData: function(event) {
 		return {
 			timestamp: event.timeStamp,
@@ -61,6 +62,7 @@ module.exports = React.createClass({
 		}
 	},
 
+
 	_playbackStarted: function(event) {
 		if (_playStartEvent) {
 			console.warn('We already have a playStartEvent. How did we get another one without a pause/stop/seek/end in between? Dropping previous start event on the floor.');
@@ -68,6 +70,7 @@ module.exports = React.createClass({
 		_playStartEvent = this._getEventData(event);
 
 	},
+
 
 	_playbackStopped: function(event) {
 		if (!_playStartEvent) {
@@ -79,6 +82,7 @@ module.exports = React.createClass({
 		this._emit(_playStartEvent,_playEndEvent);
 		_playStartEvent = null;
 	},
+
 
 	_emit: function(startEvent,endEvent) {
 		var rootContextId = this.props.context.length > 0 ? this.props.context[0] : null;
@@ -97,25 +101,30 @@ module.exports = React.createClass({
 		actions.emitVideoEvent(video_event);
 	},
 
+
 	onTimeUpdate: function(event) {
 		// this._emit(event);
 		call(this.props.onTimeUpdate,event);
 	},
+
 
 	onSeeked: function(event) {
 		// this._emit(event);
 		call(this.props.onSeeked,event);
 	},
 
+
 	onPlaying: function(event) {
 		this._playbackStarted(event);
 		call(this.props.onPlaying,event);
 	},
 
+
 	onPause: function(event) {
 		this._playbackStopped(event);
 		call(this.props.onPause,event);
 	},
+
 
 	onEnded: function(event) {
 		this._playbackStopped(event);
@@ -125,6 +134,7 @@ module.exports = React.createClass({
 	setCurrentTime: function(time) {
 		this.refs.activeVideo.setCurrentTime(time);
 	},
+
 
 	render: function() {
 		var video = this.props.src;
