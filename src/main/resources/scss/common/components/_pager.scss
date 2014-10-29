@@ -56,13 +56,21 @@
 	list-style-type: none;
 	display: inline-block;
 	li {
-		@include grid-column($columns: 6);
+		@include grid-column($columns: 4);
+		float: none;
 		display: inline-block;
 		a {
 			width: 100%;
 			&:not([href]) {
 				opacity: 0.2;
 			}
+		}
+		&.counts {
+			@include grid-column($columns: 4, $collapse: true);
+			float: none;
+			text-align: center;
+			white-space: nowrap;
+			font-size: .7rem;
 		}
 	}
 }

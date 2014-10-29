@@ -97,7 +97,8 @@ module.exports = React.createClass({
 		if (this.props.bottom) {
 			return (
 				<ul className="bottompager">
-					<li><a href={prev.href} title={prev.title} className="button secondary tiny radius">Previous</a></li>
+					<li><a href={prev.href} title={prev.title} className="button secondary tiny radius">Back</a></li>
+					<li className="counts">{this.state.total > 1 && this._makeCounts() }</li>
 					<li><a href={next.href} title={next.title} className="button secondary tiny radius">Next</a></li>
 				</ul>
 			);
