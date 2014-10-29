@@ -10,7 +10,16 @@ module.exports = React.createClass({
 			__setPageNotFound();
 		}
 		return (
-			<div>This is not the page you seek...</div>
+			<div className="grid-container">
+				<hr/>
+				<div className="row">
+					<div className="small-10 small-centered columns">
+						<div className="sadface">:(</div>
+						<h2>Error (404)</h2>
+						<p>That page was not found.</p>
+					</div>
+				</div>
+			</div>
 		);
 	}
 });

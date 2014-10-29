@@ -214,3 +214,16 @@ aside[class*=off-canvas-menu] {
 	-o-transition: all .3s ease-out;
 	transition: all .3s ease-out;
 }
+
+
+.sadface {
+	font-size: 5rem;
+	transform: rotate(90deg);
+	display: inline-block;
+	background: lightblue;
+	border-radius: 100%;
+	line-height: 1;
+	width: 6rem;
+	height: 6rem;
+	text-indent: 1.6rem;
+}
