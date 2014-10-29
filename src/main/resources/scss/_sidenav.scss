@@ -31,13 +31,14 @@ ul.off-canvas-list {
 		}
 		&.active {
 			position:relative;
+			overflow:visible;
 			&::after {
 				content: '';
 				width: 0;
 				height: 0;
 				position: absolute;
 				top: 1rem;
-				left: 0;
+				left: -1rem;
 				border: .5em solid transparent;
 				border-left-color: $primary-color;
 			}
