@@ -75,12 +75,15 @@ app.use(express.static(assetPath, {
 }));//static files
 
 //Session manager...
-app.use(authedRoutes, session.middleware.bind(session));
+app.use(require('./no-cache'));
 
-api.register(app, config);
+api.registerAnonymousEndPoints(app, config);
+
+app.use(/^(?!\/login).*/,session.middleware.bind(session));
+
+api.registerAuthenticationRequiredEndPoints(app, config);
 
 //HTML Renderer...
-app.use(appRoutes, require('./no-cache'));
 app.get('*', function(req, res) {
 	console.log('Rendering Inital View: %s %s', req.url, req.username);
 	var isErrorPage = false;

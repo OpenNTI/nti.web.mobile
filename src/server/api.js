@@ -13,12 +13,12 @@ function throwError(msg) {
 
 var api = module.exports = autoBind({
 
-	register: function(express, config) {
+	registerAnonymousEndPoints: function(express, config) {
 		var prefix = /^\/api/i;
 		merge(this, config);
 		express.get(/^\/api\/user-agreement/, api.serveUserAgreement);
 
-		express.use(function(err, req, res, next){
+		express.use(/^\/api/, function(err, req, res, next){
 			if (prefix.test(req.url)) {
 				console.error('API Error:\n\n%s', err.stack);
 				res.status(500).json({stack: err.stack, message: err.message});
@@ -28,6 +28,9 @@ var api = module.exports = autoBind({
 			next();
 		});
 	},
+
+
+	registerAuthenticationRequiredEndPoints: function(express, config) {},
 
 
 	serveUserAgreement: function(req, res) {
