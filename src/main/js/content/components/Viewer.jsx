@@ -272,7 +272,8 @@ module.exports = React.createClass({
 	},
 
 
-	_dismissGlossary: function() {
+	_dismissGlossary: function(evt) {
+		evt.preventDefault();
 		var m = this.getMatch();
 		var pid = m.match.pageId;
 		this.navigate('/'+pid+'/');
