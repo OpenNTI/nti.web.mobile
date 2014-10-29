@@ -77,15 +77,24 @@ app.use(express.static(assetPath, {
 //Session manager...
 app.use(authedRoutes, session.middleware.bind(session));
 
+api.register(app, config);
 
 //HTML Renderer...
 app.use(appRoutes, require('./no-cache'));
-app.get(appRoutes, function(req, res) {
+app.get('*', function(req, res) {
 	console.log('Rendering Inital View: %s %s', req.url, req.username);
+	var isErrorPage = false;
+	global.__setPageNotFound = function() {
+		isErrorPage = true;
+	};
 
 	//Pre-flight (if any widget makes a request, we will cache its result and
 	// send its result to the client)
 	page(req, entryPoint, common.nodeConfigAsClientConfig(config, req));
+
+	if (isErrorPage) {
+		res.status(404);
+	}
 
 	waitFor(req.__pendingServerRequests, 60000)
 		.then(function() {
@@ -96,8 +105,6 @@ app.get(appRoutes, function(req, res) {
 			res.end(page(req, entryPoint, clientConfig));
 		});
 });
-
-api.register(app, config);
 
 //Errors
 app.use(function(err, req, res, next){
