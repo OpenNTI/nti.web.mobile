@@ -1,5 +1,4 @@
 /** @jsx React.DOM */
-/* global Hammer, $*/
 'use strict';
 
 var React = require('react/addons');
@@ -58,15 +57,6 @@ module.exports = React.createClass({
 	getDrawerState: function() {
 		var key = (global.location || {}).hash || '';
 		return DRAWER_STATE[key.toLowerCase()] || '';
-	},
-
-
-	__setupGestures: function() {
-		var dom = this.getDOMNode();
-
-		var gestures = new Hammer(document.body);
-
-		gestures.on('swipe', this._onSwipe);
 	},
 
 

@@ -10,7 +10,6 @@ require('script!../resources/vendor/fastclick/lib/fastclick.js');
 require('script!../resources/vendor/jquery/dist/jquery.min.js');
 require('script!../resources/vendor/foundation/js/foundation.min.js');
 
-global.Hammer = require('hammerjs');
 
 //Allow CSS :active states:
 //document.addEventListener("touchstart", function(){}, true);
