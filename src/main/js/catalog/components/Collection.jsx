@@ -7,16 +7,16 @@ var Filter = require('common/components/CollectionFilter');
 var Item = require('./Entry');
 
 var filters = {
+	'Upcoming': function(item) {
+		var startDate = new Date(item.StartDate);
+		var now = new Date();
+		return startDate > now;
+	},
 	'Current': function(item) {
 		var startDate = new Date(item.StartDate);
 		var endDate = new Date(item.EndDate);
 		var now = new Date();
 		return startDate < now && endDate > now;
-	},
-	'Upcoming': function(item) {
-		var startDate = new Date(item.StartDate);
-		var now = new Date();
-		return startDate > now;
 	},
 	'Archived': function(item) {
 		var endDate = new Date(item.EndDate);

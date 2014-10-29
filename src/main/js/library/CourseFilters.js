@@ -1,23 +1,23 @@
 'use strict';
 
 var CourseFilters = {
-	'Current': function(item,index,array) {
+	'Upcoming': function(item,index,array) {
 		try {
 			var startDate = new Date(item.CourseInstance.CatalogEntry.StartDate);
-			var endDate = new Date(item.CourseInstance.CatalogEntry.EndDate);
 			var now = new Date();
-			return startDate < now && endDate > now;
+			return startDate > now;
 		}
 		catch(e) {
 			console.error(e);
 			return false;
 		}
 	},
-	'Upcoming': function(item,index,array) {
+	'Current': function(item,index,array) {
 		try {
 			var startDate = new Date(item.CourseInstance.CatalogEntry.StartDate);
+			var endDate = new Date(item.CourseInstance.CatalogEntry.EndDate);
 			var now = new Date();
-			return startDate > now;
+			return startDate < now && endDate > now;
 		}
 		catch(e) {
 			console.error(e);

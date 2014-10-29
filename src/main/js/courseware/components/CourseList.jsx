@@ -93,7 +93,7 @@ var CourseList = React.createClass({
 		console.debug(this.props.basePath);
 
 		return this.transferPropsTo(
-			<LibraryCollection list={list} filters={filters}  />
+			<LibraryCollection list={list} filters={filters} defaultFilter='Current' />
 		);
 	}
 

@@ -58,7 +58,7 @@ var CatalogView = React.createClass({
         var catalog = this.state.catalog;
         var basePath = this.props.basePath;
 
-        console.log('CatalogView.props: %O',this.props);
+        // console.log('CatalogView.props: %O',this.props);
 
 		if (!catalog.loaded) {
 			return (<Loading/>);

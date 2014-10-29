@@ -110,28 +110,28 @@ var FilterableView = React.createClass({
 var DefaultPath = React.createClass({
 	mixins: [Router.NavigatableMixin],
 
-	_navigateToFirstFilter: function() {
+	_navigateToDefaultFilter: function() {
 		var filterNames = Object.keys(this.props.filters||{});
 		if (filterNames.length > 0) {
-			var first = filterNames[0].toLowerCase();
-			this.navigate('/' + first, {replace: true});
+			var filter = this.props.defaultFilter || filterNames[0];
+			this.navigate('/' + filter.toLowerCase(), {replace: true});
 		}
 	},
 
 	componentDidUpdate: function() {
 		if(this.getPath() === '/') {
-			this._navigateToFirstFilter();	
+			this._navigateToDefaultFilter();	
 		}
 	},
 
 	componentDidMount: function() {
 		if(this.getPath() === '/') {
-			this._navigateToFirstFilter();	
+			this._navigateToDefaultFilter();	
 		}
 	},
 
 	render: function() {
-		return (<div>Redirecting to first filter.</div>);
+		return (<div>Redirecting to default filter.</div>);
 		// return this.props.listcomp;
 	}
 
@@ -195,7 +195,7 @@ var Filter = React.createClass({
 			});
 		});
 
-		routes.push(<DefaultRoute handler={DefaultPath} filters={this.props.filters} />);
+		routes.push(<DefaultRoute handler={DefaultPath} filters={this.props.filters} defaultFilter={this.props.defaultFilter}/>);
 
 		return (
 			<Locations contextual>
