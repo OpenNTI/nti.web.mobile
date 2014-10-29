@@ -123,8 +123,6 @@ module.exports = React.createClass({
 			endingAngle = startingAngle + arcSize,
 			endingRadius = radius * 0.75;
 
-		console.log(radius, endingRadius);
-
 		ctx.save();
 
 		ctx.beginPath();
