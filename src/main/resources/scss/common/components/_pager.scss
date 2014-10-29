@@ -50,3 +50,19 @@
 		}
 	}
 }
+
+.bottompager {
+	@include grid-row();
+	list-style-type: none;
+	display: inline-block;
+	li {
+		@include grid-column($columns: 6);
+		display: inline-block;
+		a {
+			width: 100%;
+			&:not([href]) {
+				opacity: 0.2;
+			}
+		}
+	}
+}

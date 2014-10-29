@@ -94,6 +94,15 @@ module.exports = React.createClass({
 		var prev = this.props.prev || this.state.prev || {};
 		var next = this.props.next || this.state.next || {};
 
+		if (this.props.bottom) {
+			return (
+				<ul className="bottompager">
+					<li><a href={prev.href} title={prev.title} className="button secondary tiny radius">Previous</a></li>
+					<li><a href={next.href} title={next.title} className="button secondary tiny radius">Next</a></li>
+				</ul>
+			);
+		}
+
 		return (
 			<div className="pager">
 				{this.state.total > 1 && this._makeCounts() }

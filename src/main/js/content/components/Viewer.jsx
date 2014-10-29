@@ -298,6 +298,7 @@ module.exports = React.createClass({
 					__html: body.map(this._buildBody).join('')
 				}}/>
 				{glossaryEntry}
+				<Pager bottom={true} pageSource={pageSource} current={this.getPageID()}/>
 			</div>
 		);
 	},
