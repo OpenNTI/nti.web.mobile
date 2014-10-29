@@ -5,11 +5,10 @@
  'use strict';
 
 var React = require('react/addons');
-var Library = require('../../library');
-var Store = Library.Store;
-var Actions = Library.Actions;
 
 var Library = require('library');
+var Store = Library.Store;
+var Actions = Library.Actions;
 var LibraryCollection = Library.Collection;
 var CourseFilters = Library.CourseFilters;
 
