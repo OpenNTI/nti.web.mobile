@@ -9,7 +9,13 @@ var fs = require('fs');
 var React = require('react/addons');
 var Application;
 var basepathreplace = /(manifest|src|href)="(.*?)"/igm;
+var configValues = /<\[cfg\:([^\]]*)\]>/igm;
 var template;
+
+
+function injectConfig(cfg, orginal, prop) {
+	return cfg[prop] || 'MissingConfigValue';
+}
 
 
 function basePathFix(original,attr,val) {
@@ -47,13 +53,13 @@ module.exports = function(req, scriptFilename, clientConfig) {
 	var u = url.parse(req.url);
 	var manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache"' : '<html';
 	var path = u.pathname;
-	var cfg;
+	var cfg = clientConfig.config || {};
 	var html = '';
 	var css = '';
 
 	if (Application) {
 		try {
-			cfg = global.$AppConfig = clientConfig.config || {};
+			global.$AppConfig = cfg;
 			css = styleCollector.collect(function() {
 				html = React.renderComponentToString(Application({
 					path: Path.join(cfg.basepath || '', path),
@@ -70,6 +76,7 @@ module.exports = function(req, scriptFilename, clientConfig) {
 
 	return template
 			.replace(/<html/, manifest)
+			.replace(configValues, injectConfig.bind(this, cfg))
 			.replace(basepathreplace, basePathFix)
 			.replace(/<!--css:server-values-->/i, css)
 			.replace(/<!--html:server-values-->/i, html)
