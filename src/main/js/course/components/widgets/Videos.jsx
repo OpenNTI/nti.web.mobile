@@ -87,7 +87,7 @@ module.exports = React.createClass({
 		var key;
 		for(key in refs) {
 			if (key.indexOf('CourseOverviewVideo-') === 0) {
-				refs[key].onStop();
+				refs[key].stop();
 			}
 		}
 	},

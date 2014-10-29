@@ -86,7 +86,17 @@ module.exports = React.createClass({
 		e.stopPropagation();
 
 		var v = this.refs.video;
-		v.play();
+		if (v) {
+			v.play();
+		}
+	},
+
+
+	stop: function() {
+		var v = this.refs.video;
+		if (v) {
+			v.stop();
+		}
 	},
 
 
