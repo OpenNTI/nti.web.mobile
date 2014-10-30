@@ -30,7 +30,7 @@ module.exports = React.createClass({
 	render: function() {
 		var p = this.props.item;
 		var style = {
-			backgroundImage: 'url(' + p.icon + ')'
+			backgroundImage: p && p.icon && 'url(' + p.icon + ')'
 		}
 		return (
 			<li className="grid-item">

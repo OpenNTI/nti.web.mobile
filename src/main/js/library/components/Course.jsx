@@ -32,7 +32,7 @@ module.exports = React.createClass({
 		var p = this.props.item.getPresentationProperties();
 		var courseId = NTIID.encodeForURI(this.props.item.getCourseID());
 		var style = {
-			backgroundImage: 'url(' + p.icon + ')'
+			backgroundImage: p && p.icon && 'url(' + p.icon + ')'
 		}
 		return (
 			<li className="grid-item">

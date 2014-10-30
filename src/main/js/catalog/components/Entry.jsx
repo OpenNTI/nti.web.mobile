@@ -31,7 +31,7 @@ module.exports = React.createClass({
 		var p = this.props.item;
 		var courseId = NTIID.encodeForURI(this.props.item.getID());
 		var style = {
-			backgroundImage: 'url(' + p.icon + ')'
+			backgroundImage: p && p.icon && 'url(' + p.icon + ')'
 		}
 
 		var basePath = this.props.basePath;
