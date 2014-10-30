@@ -4,13 +4,16 @@
 'use strict';
 var React = require('react');
 var getSources = require('./SourceGrabber');
+var selectSources = require('./SelectSources');
 
 var url = require('url');
 var call = require('dataserverinterface/utils/function-call');
 
 var MediaSource = require('dataserverinterface/models/MediaSource');
 
-var getTarget = require('common/Utils').Dom.getEventTarget;
+var Utils = require('common/Utils');
+var getTarget = Utils.Dom.getEventTarget;
+var Viewport = Utils.Viewport;
 
 var Loading = require('../../Loading');
 var eventHandlers = require('common/constants/VideoEventHandlers');
@@ -96,10 +99,15 @@ var KalturaVideo = React.createClass({
 			return;
 		}
 
+		var qualityPreference = this.state.quality;//TODO: allow selection...
+		var sources = selectSources(data.sources || [], qualityPreference);
+		var availableQualities = sources.qualities;
+
 		this.setState({
 			duration: data.duration,
 			poster: data.poster,
-			sources: data.sources || [],
+			sources: sources,
+			qualities: availableQualities,
 			sourcesLoaded: true,
 			isError: (data.objectType === 'KalturaAPIException')
 		});
@@ -185,7 +193,7 @@ var KalturaVideo = React.createClass({
 		var sources = this.state.sources || [];
 		var Tag = React.DOM.source;
 		return sources.map(function(source) {
-			return Tag(source);
+			return Tag({src:source.src, type: source.type});
 		});
 	},
 

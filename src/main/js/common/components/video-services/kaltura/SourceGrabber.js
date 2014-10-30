@@ -9,6 +9,16 @@ var Utils = require('common/Utils');
 var getService = Utils.getService;
 var toQueryString = Utils.toQueryString;
 
+var is = require('dataserverinterface/utils/identity');
+
+var test = RegExp.prototype.test;
+var isHLS = test.bind(/ip(hone|ad)new/i);
+var isAppleMBR = test.bind(/applembr/i);
+var isOGG = test.bind(/^og[gv]$/i);
+var isWebM = test.bind(/webm|matroska/i);
+var isMP4 = test.bind(/mp4/i);
+var is3gp = test.bind(/3gp/i);
+
 function kalturaSig(str) {
 	var hash = 0;
 	if (str.length == 0) return hash;
@@ -23,133 +33,75 @@ function kalturaSig(str) {
 
 function parseResult( result ) { // API result
 
-	var asset;
-	//var ks = sourceApi.ks;
-	var ipadAdaptiveFlavors = [];
-	var iphoneAdaptiveFlavors = [];
-	var deviceSources = [];
 	var protocol = location.protocol.substr(0, location.protocol.length-1);
 	// Set the service url based on protocol type
-	var serviceUrl = '://cdnbakmi.kaltura.com';
+	var serviceUrl = (protocol === 'https') ?
+		'://www.kaltura.com' :
+		'://cdnbakmi.kaltura.com';
 
-	var contextData = result[1];
+	var data = result[1];
 	var entryInfo = result[2];
-
-
-
-	if( protocol == 'https' ){
-		serviceUrl = '://www.kaltura.com';
-	}
-
-	var objectType = contextData.objectType;
-	var code = contextData.code;
+	var assets = data.flavorAssets;
 
 	var baseUrl = protocol + serviceUrl + '/p/' + entryInfo.partnerId +
 			'/sp/' + entryInfo.partnerId + '00/playManifest';
 
-	for( var i in contextData.flavorAssets ){
-		asset = contextData.flavorAssets[i];
-		// Continue if clip is not ready (2)
-		if( asset.status !== 2  ) {
-			continue;
-		}
-		// Setup a source object:
-		var source = {
-			'data-bitrate' : asset.bitrate * 8,
-			'data-width' : asset.width,
-			'data-height' : asset.height
-		};
+	var adaptiveFlavors = assets.map(function(a) { return isHLS(a.tags) && a.id }).filter(is);
 
+	var deviceSources = assets
+		.filter(function(asset){ return asset.status === 2 && asset.width; })
+		.map(function(asset){
+			var src = baseUrl + '/entryId/' + asset.entryId;
+			var source = {
+				bitrate: asset.bitrate * 8,
+				width: asset.width,
+				height: asset.height,
+				tags: asset.tags
+			};
 
-		var src  = baseUrl + '/entryId/' + asset.entryId;
-		// Check if Apple http streaming is enabled and the tags include applembr ( single stream HLS )
-		if( asset.tags.indexOf('applembr') !== -1 ) {
-			src += '/format/applehttp/protocol/'+ protocol + '/a.m3u8';
+			// Check if Apple http streaming is enabled and the tags include applembr ( single stream HLS )
+			if( isAppleMBR(asset.tags)) {
+				return {
+					type: 'application/vnd.apple.mpegurl',
+					src: src + '/format/applehttp/protocol/'+ protocol + '/a.m3u8'
+				};
+			}
 
-			deviceSources.push({
-				'data-flavorid': 'AppleMBR',
-				type: 'application/vnd.apple.mpegurl',
-				src: src
-			});
-
-			continue;
-		} else {
 			src += '/flavorId/' + asset.id + '/format/url/protocol/' + protocol;
-		}
 
-		// add the file extension:
-		if( asset.tags.toLowerCase().indexOf('ipad') !== -1 ){
-			source.src = src + '/a.mp4';
-			source['data-flavorid'] = 'iPad';
-			source.type = 'video/h264';
-		}
+			if( isMP4(asset.fileExt) || asset.containerFormat === 'isom'){
+				source.src = src + '/a.mp4';
+				source.type = 'video/h264';
+			}
 
-		// Check for iPhone src
-		if( asset.tags.toLowerCase().indexOf('iphone') !== -1 ){
-			source.src = src + '/a.mp4';
-			source['data-flavorid'] = 'iPhone';
-			source.type = 'video/h264';
-		}
-		// Check for ogg source
-		if( asset.fileExt &&
-			(
-				asset.fileExt.toLowerCase() == 'ogg' ||
-				asset.fileExt.toLowerCase() == 'ogv' ||
-				( asset.containerFormat && asset.containerFormat.toLowerCase() == 'ogg' )
-			)
-		){
-			source.src = src + '/a.ogg';
-			source['data-flavorid'] = 'ogg';
-			source.type = 'video/ogg';
-		}
+			if( isOGG(asset.fileExt) || isOGG(asset.containerFormat)) {
+				source.src = src + '/a.ogg';
+				source.type = 'video/ogg';
+			}
 
-		// Check for webm source
-		if( asset.fileExt == 'webm' ||
-			asset.tags.indexOf('webm') !== -1 || // Kaltura transcodes give: 'matroska'
-			( asset.containerFormat && asset.containerFormat.toLowerCase() == 'matroska' ) || // some ingestion systems give "webm"
-			( asset.containerFormat && asset.containerFormat.toLowerCase() == 'webm' )
-		){
-			source.src = src + '/a.webm';
-			source['data-flavorid'] = 'webm';
-			source.type = 'video/webm';
-		}
+			if( isWebM(asset.fileExt) || isWebM(asset.tags) || isWebM(asset.containerFormat)) {
+				source.src = src + '/a.webm';
+				source.type = 'video/webm';
+			}
 
-		// Check for 3gp source
-		if( asset.fileExt == '3gp' ){
-			source.src = src + '/a.3gp';
-			source['data-flavorid'] = '3gp';
-			source.type = 'video/3gp';
-		}
+			if(is3gp(asset.fileExt)){
+				source.src = src + '/a.3gp';
+				source.type = 'video/3gp';
+			}
 
-		// Add the device sources
-		if( source.src ){
-			deviceSources.push( source );
-		}
-
-		// Check for adaptive compatible flavor:
-		if( asset.tags.toLowerCase().indexOf('ipadnew') !== -1 ){
-			ipadAdaptiveFlavors.push( asset.id );
-		}
-		if( asset.tags.toLowerCase().indexOf('iphonenew') !== -1 ){
-			iphoneAdaptiveFlavors.push( asset.id );
-		}
-
-	}
-	// Add the flavor list adaptive style urls ( multiple flavor HLS ):
-	// Create iPad flavor for Akamai HTTP
-	if( ipadAdaptiveFlavors.length !== 0 ) {
-		deviceSources.push({
-			'data-flavorid': 'iPadNew',
-			type: 'application/vnd.apple.mpegurl',
-			src: baseUrl + '/entryId/' + asset.entryId + '/flavorIds/' + ipadAdaptiveFlavors.join(',')  + '/format/applehttp/protocol/' + protocol + '/a.m3u8'
+			return source;
+		})
+		.filter(function(s) {
+			return s.src;
 		});
-	}
-	// Create iPhone flavor for Akamai HTTP
-	if(iphoneAdaptiveFlavors.length !== 0 ) {
+
+
+	// Add the flavor list adaptive style urls ( multiple flavor HLS ):
+	if( adaptiveFlavors.length !== 0 ) {
 		deviceSources.push({
-			'data-flavorid': 'iPhoneNew',
+			'data-flavorid': 'HLS',
 			type: 'application/vnd.apple.mpegurl',
-			src: baseUrl + '/entryId/' + asset.entryId + '/flavorIds/' + iphoneAdaptiveFlavors.join(',')  + '/format/applehttp/protocol/' + protocol + '/a.m3u8'
+			src: baseUrl + '/entryId/' + entryInfo.id + '/flavorIds/' + adaptiveFlavors.join(',')  + '/format/applehttp/protocol/' + protocol + '/a.m3u8'
 		});
 	}
 
@@ -160,8 +112,8 @@ function parseResult( result ) { // API result
 					'/width/' + w + '/';
 
 	return {
-		objectType: objectType,
-		code: code,
+		objectType: data.objectType,
+		code: data.code,
 		poster: poster,
 		duration: entryInfo.duration,
 		name: entryInfo.name,
