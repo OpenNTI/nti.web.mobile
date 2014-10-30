@@ -80,16 +80,12 @@ var CourseList = React.createClass({
 			return <Loading />;
 		}
 
-		var basePath = this.props.basePath;
-
 		var list = this._itemListForSection(this.props.section);
 		var filters = this._filtersForSection(this.props.section);
 
 		if( list.length === 0 ) {
 			return (<NoMatches />);
 		}
-
-		console.debug(this.props.basePath);
 
 		return this.transferPropsTo(
 			<LibraryCollection list={list} filters={filters} defaultFilter='Current' />
