@@ -62,7 +62,6 @@ module.exports = React.createClass({
 
 	componentDidMount: function() {
 		Navigation.Store.addChangeListener(this._navChanged);
-		//this.__setupGestures();
 		preventOverscroll(this.getDOMNode().querySelector('.left-off-canvas-menu'));
 		preventOverscroll(this.getDOMNode().querySelector('.right-off-canvas-menu'));
 	},
@@ -81,7 +80,7 @@ module.exports = React.createClass({
 
 		//Pretend you didn't see the jQuery usage... still very taboo
 		//This forces the side drawers to be the hight of the window...
-		$('[class*=off-canvas-menu]').height($(window).height());
+		$('[class*=off-canvas-menu]').height(Utils.Viewport.getHeight());
 
 		utils[action + 'Class'](viewport, cls);
 	},

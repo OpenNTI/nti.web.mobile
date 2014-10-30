@@ -95,6 +95,20 @@ var Utils = {
 		return keySet;
 	},
 
+
+	Viewport: {
+		getHeight: function() {
+			var el = document.documentElement || {};
+			return window.innerHeight || el.clientHeight
+		},
+
+		getWidth: function () {
+			var el = document.documentElement || {};
+			return window.innerWidth || el.clientWidth;
+		}
+	},
+
+
 	Dom: require('./_utils.dom'),
 
 	Orientation: require('./_utils.orientation'),
