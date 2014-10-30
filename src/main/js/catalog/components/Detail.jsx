@@ -62,23 +62,6 @@ module.exports = React.createClass({
 	},
 
 
-	getBackPath: function() {
-		if (this.props.backPath) {
-			return this.props.backPath;
-		}
-
-		var backPath = location.pathname.split('/');
-		var leaf = backPath.pop();
-		if (leaf === '') {
-			backPath.pop();
-		}
-
-		backPath.push('');
-
-		return backPath.join('/');
-	},
-
-
 	render: function() {
 		if (this.state.loading) {
 			return (<Loading/>);
