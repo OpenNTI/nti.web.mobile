@@ -28,7 +28,6 @@ var EnrollButtons = React.createClass({
 	},
 
 	_enroll: function(enrollmentOption) {
-		console.debug(enrollmentOption);
 		Enrollment.Actions.enrollOpen(this.props.course);
 	},
 
@@ -38,8 +37,8 @@ var EnrollButtons = React.createClass({
 			return null;
 		}
 
-		var buttons = this._enrollmentOptions().map(function(option) {
-			return <div className="column"><a href="#" onClick={this._enroll.bind(null,option)} className="button tiny radius small-12 columns">{option.label}</a></div>
+		var buttons = this._enrollmentOptions().map(function(option,index) {
+			return <div key={'option' + index} className="column"><a href="#" onClick={this._enroll.bind(null,option)} className="button tiny radius small-12 columns">{option.label}</a></div>
 		}.bind(this));
 
 		return (

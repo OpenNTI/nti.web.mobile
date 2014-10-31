@@ -8,7 +8,7 @@ var Constants = require('./Constants');
 
 var CHANGE_EVENT = 'change';
 
-var dataserver = require('common/Utils').getServer;
+var getService = require('common/Utils').getService;
 
 var Store = merge(EventEmitter.prototype, {
 	displayName: 'enrollment.Store',
@@ -39,15 +39,21 @@ var Store = merge(EventEmitter.prototype, {
 
 });
 
-function _enrollOpen(course) {
-	console.debug(course);
+function _enrollOpen(course_id) {
+	getService().then(function(service) {
+		var e = service.getEnrollment();
+		e.enrollOpen(course_id).then(function(response) {
+			console.debug(response);
+			return response;
+		});
+	});
 }
 
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
 	switch(action.actionType) {
 		case Constants.ENROLL_OPEN:
-			_enrollOpen(action.course);
+			_enrollOpen(action.course.getID());
 		break;
 		default:
 			return true;
