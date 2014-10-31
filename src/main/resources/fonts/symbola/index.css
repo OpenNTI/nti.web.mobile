@@ -1,7 +1,9 @@
 @font-face {
   font-family: Symbola;
-  src: url(font/Symbola.eot);
-  src: local("Symbola Regular"), local("Symbola"),
-    url(font/Symbola.ttf) format("truetype"),
-    url(font/Symbola.otf) format("opentype");
+  src: url(Symbola.eot);
+  src: local("Symbola Regular"),
+  	local("Symbola"),
+  	url(Symbola.eot?#iefix) format("embedded-opentype"),
+	url(Symbola.ttf) format("truetype"),
+	url(Symbola.woff) format("woff");
 }
