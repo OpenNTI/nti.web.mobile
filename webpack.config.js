@@ -18,10 +18,9 @@ var commonLoaders = [
     { test: /\.png$/, loader: 'url?limit=1000&name=resources/images/[hash].png&mimeType=image/png' },
     { test: /\.jpg$/, loader: 'url?limit=1000&name=resources/images/[hash].jpg&mimeType=image/jpeg' },
 
-    { test: /\.eot$/, loader: 'url?limit=1000&name=resources/fonts/[hash].eot' },
-    { test: /\.svg$/, loader: 'url?limit=1000&name=resources/fonts/[hash].svg' },
-    { test: /\.ttf$/, loader: 'url?limit=1000&name=resources/fonts/[hash].ttf' },
-    { test: /\.woff$/, loader: 'url?limit=200000&name=resources/fonts/[hash].woff' }
+    { test: /\.eot$/, loader: 'url?limit=1&name=resources/fonts/[hash].eot' },
+    { test: /\.ttf$/, loader: 'url?limit=1&name=resources/fonts/[hash].ttf' },
+    { test: /\.woff$/, loader: 'url?limit=300000&name=resources/fonts/[hash].woff' }
 ];
 
 var scssIncludes =
