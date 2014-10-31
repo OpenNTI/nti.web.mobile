@@ -12,6 +12,7 @@ var Store = require('../Store');
 var Title = require('./Title');
 var Description = require('./Description');
 var Instructors = require('./Instructors');
+var EnrollButtons = require('./EnrollButtons');
 
 
 module.exports = React.createClass({
@@ -74,6 +75,7 @@ module.exports = React.createClass({
 				<Description entry={entry} />
 				<Instructors entry={entry}/>
 				<Notice className="small">Course enrollment is not currently supported on mobile devices.</Notice>
+				<EnrollButtons course={this.state.entry}/>
 				<div className="footer"/>
 			</div>
 		);

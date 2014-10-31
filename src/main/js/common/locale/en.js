@@ -50,6 +50,12 @@ module.exports = {
 		}
 	},
 
+	ENROLLMENT: {
+		BUTTONS: {
+			'OpenEnrollment': 'Enroll in the open course'
+		}
+	},
+
 	COURSE_INFO: {
 		OpenEnrolled: 'You\'re registered for the open course.',
 		OpenEnrolledIsNotForCredit: '(No Credit)',
