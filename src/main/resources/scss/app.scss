@@ -1,6 +1,11 @@
+@import "../fonts/droid-serif/index.css";
 @import "../fonts/foundation-icons/index.css";
+@import "../fonts/latin-modern-mathjax/index.css";
+@import "../fonts/latin-modern-roman/index.css";
 @import "../fonts/open-sans/index.css";
 @import "../fonts/open-sans-condensed/index.css";
+@import "../fonts/stix/index.css";
+@import "../fonts/symbola/index.css";
 
 @import "settings";
 @import "variables"; // we override some foundation settings so this has to come between settings and foundation.
