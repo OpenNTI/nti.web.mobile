@@ -193,7 +193,7 @@ var KalturaVideo = React.createClass({
 		var sources = this.state.sources || [];
 		var Tag = React.DOM.source;
 		return sources.map(function(source,index) {
-			return Tag({src:source.src, type: source.type, key: 'source_' + index});
+			return Tag({key:source.src, src:source.src, type: source.type});
 		});
 	},
 

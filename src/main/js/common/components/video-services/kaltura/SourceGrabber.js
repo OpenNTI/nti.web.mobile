@@ -71,7 +71,7 @@ function parseResult( result ) { // API result
 
 			if( isMP4(asset.fileExt) || asset.containerFormat === 'isom'){
 				source.src = src + '/a.mp4';
-				source.type = 'video/h264';
+				source.type = 'video/mp4';
 			}
 
 			if( isOGG(asset.fileExt) || isOGG(asset.containerFormat)) {
