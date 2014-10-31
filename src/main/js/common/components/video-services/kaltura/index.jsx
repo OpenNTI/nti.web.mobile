@@ -107,6 +107,7 @@ var KalturaVideo = React.createClass({
 			duration: data.duration,
 			poster: data.poster,
 			sources: sources,
+			allSources: data.sources,
 			qualities: availableQualities,
 			sourcesLoaded: true,
 			isError: (data.objectType === 'KalturaAPIException')
