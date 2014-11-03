@@ -11,7 +11,8 @@ try {
 	stats = require('./stats.generated.json');
 } catch(e) {
 	//no big
-	console.warn('Running from SRC directory... Good for testing server calls, but not UI rendering.');
+	console.warn('Running from SRC directory...',
+				'Good for testing server calls, but not UI rendering.');
 }
 
 try {

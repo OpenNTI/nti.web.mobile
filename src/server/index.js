@@ -12,7 +12,7 @@ var knownPages = [
 	'search'
 ].join('|');
 
-var authedRoutes = new RegExp('^\\/($|' + knownPages + ')((?!resources).)*$');
+//var authedRoutes = new RegExp('^\\/($|' + knownPages + ')((?!resources).)*$');
 var appRoutes = new RegExp('^\\/($|login|' + knownPages + ')((?!resources).)*$');
 
 var http = require('http');
@@ -20,7 +20,7 @@ var proxiedHttp = require('proxywrap').proxy(http);
 
 var express = require('express');
 var path = require('path');
-var fs = require('fs');
+//var fs = require('fs');
 
 var common = require('./common');
 var config = common.config();
@@ -110,6 +110,8 @@ app.get('*', function(req, res) {
 });
 
 //Errors
+/* jshint -W098 */	// We need the signature to be 4 args long
+					// for express to treat it as a error handler
 app.use(function(err, req, res, next){
 	console.error(err.stack);
 	res.status(500).send('Oops! Something broke!'); });

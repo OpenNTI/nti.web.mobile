@@ -4,7 +4,7 @@ var NTIIDs = require('dataserverinterface/utils/ntiids');
 var autoBind = require('dataserverinterface/utils/autobind');
 var path = require('path');
 
-var me = module.exports = autoBind({
+module.exports = autoBind({
 	register: function(express, config, route) {
 		this.basepath = config.basepath;
 		express.use(route, this.handleRedirects);

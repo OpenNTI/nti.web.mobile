@@ -1,6 +1,6 @@
 'use strict';
 
-var Promise = global.Promise || require('es6-promise').Promise;
+//var Promise = global.Promise || require('es6-promise').Promise;
 
 var merge = require('merge');
 var request = require('dataserverinterface/utils/request');
@@ -30,7 +30,7 @@ var api = module.exports = autoBind({
 	},
 
 
-	registerAuthenticationRequiredEndPoints: function(express, config) {},
+	registerAuthenticationRequiredEndPoints: function(){},//function(express, config) {},
 
 
 	serveUserAgreement: function(req, res) {

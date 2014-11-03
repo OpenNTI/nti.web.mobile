@@ -9,8 +9,8 @@ module.exports = function(port) {
 	webpackConfig.output.filename = 'js/main.js';
 	webpackConfig.entry = './src/main/js/index.js';
 
-	var WebpackServer = require("webpack-dev-server");
-	var webpack = require("webpack");
+	var WebpackServer = require('webpack-dev-server');
+	var webpack = require('webpack');
 
 	var webpackServer = new WebpackServer(webpack(webpackConfig), {
 		contentBase: port,
@@ -20,7 +20,7 @@ module.exports = function(port) {
 		quiet: false,
 		lazy: false,
 		watchDelay: 300,
-		publicPath: "/",
+		publicPath: '/',
 		stats: {
 			colors: true
 		}
@@ -32,7 +32,7 @@ module.exports = function(port) {
 		middleware: webpackServer.middleware,
 		entry: webpackConfig.output.filename,
 		start: function() {
-			webpackServer.listen(port, 'localhost', function (err, result) {
+			webpackServer.listen(port, 'localhost', function (err) {
 				if (err) {
 					console.log(err);
 				}

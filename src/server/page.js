@@ -40,13 +40,14 @@ try {
 	template = require('../main/page');
 } catch (e) {
 	//For Node... (dev)
-	template = fs.readFileSync(__dirname + '/../main/page.html', "utf8");
+	template = fs.readFileSync(__dirname + '/../main/page.html', 'utf8');
 }
 
 template = template.replace(
 	/<!--css:site-styles-->/,
 	//This path has to be the same depth as the mapped
-	'<link href="/resources/css/sites/current/site.css" rel="stylesheet" type="text/css" id="site-override-styles"/>');
+	'<link href="/resources/css/sites/current/site.css" ' +
+	'rel="stylesheet" type="text/css" id="site-override-styles"/>');
 
 module.exports = function(req, scriptFilename, clientConfig) {
 
@@ -61,6 +62,7 @@ module.exports = function(req, scriptFilename, clientConfig) {
 		try {
 			global.$AppConfig = cfg;
 			css = styleCollector.collect(function() {
+				/* jshint -W064 */ // -- This will be fixed in React 0.12
 				html = React.renderComponentToString(Application({
 					path: Path.join(cfg.basepath || '', path),
 					basePath: common.config().basepath

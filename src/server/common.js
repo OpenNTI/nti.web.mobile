@@ -4,7 +4,8 @@ var env = {};
 try {
 	env = require('./config/env.json');
 } catch(e) {
-	console.error('You do not have an environment config file. See: %s/config/env.json.example', __dirname);
+	console.error('You do not have an environment config file. ' +
+					'See: %s/config/env.json.example', __dirname);
 }
 
 var merge = require('merge');
@@ -30,7 +31,7 @@ var opt = require('optimist')
 				default: 'proxy',
 				desc: 'Protocol to use (proxy or http)'
 			})
-			.check(function(v) {if (v.hasOwnProperty('h')) throw false;})
+			.check(function(v) {if (v.hasOwnProperty('h')){throw false;}})
 		    .argv;
 
 var overrides = {
@@ -51,16 +52,17 @@ function _override(dest, override) {
 
 
 exports.config = function() {
-	var node_env = process.env.NODE_ENV,
+	var env = process.env.NODE_ENV,
 		base = 'development';
 
 	return _override(
-		merge(true, env[base], env[node_env] || {}),
+		merge(true, env[base], env[env] || {}),
 		overrides);
 };
 
 exports.clientConfig = function(username) {
-	var unsafe = this.config();//unsafe to send to client raw... lets reduce it to essentials 
+	//unsafe to send to client raw... lets reduce it to essentials
+	var unsafe = this.config();
 	var config = {
 		username: username,
 		server: unsafe.server,
@@ -95,6 +97,7 @@ exports.nodeConfigAsClientConfig = function(config, context) {
 		config: merge(true, config, {
 			username: context.username,
 			nodeInterface: dontUseMe,
+			/* jshint -W106 */
 			nodeService: context.__nti_service || noServiceAndThereShouldBe
 		})
 	};
