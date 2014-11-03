@@ -6,12 +6,9 @@ var t = require('common/locale').scoped('LOGIN.forgot');
 var Button = require('./Button');
 var Messages = require('common/messages/');
 var Message = Messages.Message;
-var MessageDisplay = Messages.Display;
 var MessageActions = Messages.Actions;
-var NavigationActions = require('navigation').Actions;
 var Constants = require('../Constants');
 var Actions = require('../Actions');
-var config = require('common/AppConfig');
 var Router = require('react-router-component');
 var merge = require('react/lib/merge');
 
@@ -80,12 +77,12 @@ module.exports = React.createClass({
 
 	_inputs: function() {
 		return _fields[this.props.param].map(function(fieldConfig) {
-			return <input type={fieldConfig.type}
+			return (<input type={fieldConfig.type}
 							ref={fieldConfig.ref}
 							name={fieldConfig.ref}
 							placeholder={fieldConfig.ref}
 							onChange={this._inputChanged}
-							defaultValue='' />
+							defaultValue='' />);
 		}.bind(this));
 	},
 

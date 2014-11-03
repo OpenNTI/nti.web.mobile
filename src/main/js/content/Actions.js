@@ -15,15 +15,12 @@ var toArray = require('dataserverinterface/utils/toarray');
 
 var Api = require('./Api');
 var Constants = require('./Constants');
-var Analytics = require('common/analytics/Constants');
 
 var LibraryApi = require('library/Api');
 
 
 var MARKER_REGEX = /nti:widget-marker\[([^\]\>]+)\]/i;
 var WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(?:[^\]>]*)-->/ig;
-var BODY_REGEX = /<body[^>]+>(.*)<\/body/i;
-var STYLE_REGEX = /<link[^>]+href="([^"]+css)"[^>]*>/ig;
 
 var WIDGET_SELECTORS_AND_STRATEGIES = {
 	'[itemprop~=nti-data-markupenabled],[itemprop~=nti-slide-video]': parseFramedElement,

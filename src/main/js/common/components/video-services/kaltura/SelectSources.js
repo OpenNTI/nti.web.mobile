@@ -26,8 +26,8 @@ exports.QUALITY_TARGETS = {
 
 };
 
-function findMin(prop){return function(m,s){return Math.min(m,s[prop]);}}
-function findMin(prop){return function(m,s){return Math.max(m,s[prop]);}}
+function findMin(prop){return function(m,s){return Math.min(m,s[prop]);};}
+function findMin(prop){return function(m,s){return Math.max(m,s[prop]);};}
 
 
 function pickBestFromScreenSize(list) {

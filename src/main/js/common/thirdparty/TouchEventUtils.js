@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Copyright 2013-2014 Facebook, Inc.
  *

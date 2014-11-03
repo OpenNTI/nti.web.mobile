@@ -20,14 +20,13 @@ function logEvent(e) {
 	message = 'online: ' + online;
 	message+= ', event: ' + type;
 	message+= ', status: ' + status;
-	if (type == 'error' && navigator.onLine) {
+	if (type === 'error' && navigator.onLine) {
 		message+= ' (missing or syntax error in manifest?)';
 	}
 	console.debug(message);
 }
 
 var cache = global.applicationCache;
-var interval;
 
 if (cache) {
 	cache.addEventListener('cached', logEvent, false);

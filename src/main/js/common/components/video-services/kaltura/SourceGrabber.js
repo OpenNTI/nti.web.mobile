@@ -4,7 +4,7 @@
  * grabbed from http://player.kaltura.com/kWidget/kWidget.getSources.js
  */
 
-var Promise = global.Promise || require('es6-promise').Promise;
+//var Promise = global.Promise || require('es6-promise').Promise;
 var Utils = require('common/Utils');
 var getService = Utils.getService;
 var toQueryString = Utils.toQueryString;
@@ -21,11 +21,13 @@ var is3gp = test.bind(/3gp/i);
 
 function kalturaSig(str) {
 	var hash = 0;
-	if (str.length == 0) return hash;
+	if (str.length === 0) {return hash;}
 	for (var i = 0; i < str.length; i++) {
 		var currentChar = str.charCodeAt(i);
+		/* jshint -W016 */
 		hash = ((hash << 5) - hash) + currentChar;
 		hash = hash & hash;
+		/* jshint +W016 */
 	}
 	return hash;
 }
@@ -46,7 +48,7 @@ function parseResult( result ) { // API result
 	var baseUrl = protocol + serviceUrl + '/p/' + entryInfo.partnerId +
 			'/sp/' + entryInfo.partnerId + '00/playManifest';
 
-	var adaptiveFlavors = assets.map(function(a) { return isHLS(a.tags) && a.id }).filter(is);
+	var adaptiveFlavors = assets.map(function(a) { return isHLS(a.tags) && a.id; }).filter(is);
 
 	var deviceSources = assets
 		.filter(function(asset){ return asset.status === 2 && asset.width; })
@@ -101,7 +103,8 @@ function parseResult( result ) { // API result
 		deviceSources.push({
 			'data-flavorid': 'HLS',
 			type: 'application/vnd.apple.mpegurl',
-			src: baseUrl + '/entryId/' + entryInfo.id + '/flavorIds/' + adaptiveFlavors.join(',')  + '/format/applehttp/protocol/' + protocol + '/a.m3u8'
+			src: baseUrl + '/entryId/' + entryInfo.id + '/flavorIds/' + adaptiveFlavors.join(',')  +
+							'/format/applehttp/protocol/' + protocol + '/a.m3u8'
 		});
 	}
 

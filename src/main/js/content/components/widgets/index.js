@@ -1,6 +1,5 @@
 'use strict';
 
-var merge = require('react/lib/merge');
 
 var Card = require('./Card');
 var MarkupFrame = require('./MarkupFrame');

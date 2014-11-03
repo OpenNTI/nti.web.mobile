@@ -6,19 +6,19 @@ var Constants = require('./Constants');
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var Utils = require('common/Utils');
 var autobind = require('dataserverinterface/utils/autobind');
-var _queue = [];
-var _post_frequency = 10000;
-var _timeoutId;
+var queue = [];
+var postFrequency = 10000;
+var timeoutId;
 var Promise = global.Promise || require('es6-promise').Promise;
 
 function startTimer() {
-	clearTimeout(_timeoutId);
-	_timeoutId = setTimeout(
+	clearTimeout(timeoutId);
+	timeoutId = setTimeout(
 		function() {
 			// process the queue and start the timer again.
 			Store._processQueue().then(startTimer);
 		},
-		_post_frequency
+		postFrequency
 	);
 }
 
@@ -30,33 +30,33 @@ var Store = autobind(merge(EventEmitter.prototype, {
 	},
 
 	enqueueEvent: function(analyticsEvent) {
-		_queue.push(analyticsEvent);
+		queue.push(analyticsEvent);
 	},
 
 	_processQueue: function() {
-		if (_queue.length === 0) {
+		if (queue.length === 0) {
 			return Promise.resolve('No events in the queue.');
 		}
 
-		console.log('AnalyticsStore processing queue (%s events)', _queue.length);
+		console.log('AnalyticsStore processing queue (%s events)', queue.length);
 
 		// yank everything out of the queue
-		var _items = _queue.slice();
-		_queue = [];
+		var items = queue.slice();
+		queue = [];
 
 
 		return Utils.getService()
 			.then(function(service) {
-				return service.postAnalytics(_items);
+				return service.postAnalytics(items);
 			})
 			.then(function(response) {
-				console.log('%i of %i analytics events accepted.', response, _items.length);
+				console.log('%i of %i analytics events accepted.', response, items.length);
 				return response;
 			})
 			.catch(function(r) {
 				console.warn(r);
-				// put _items back in the queue
-				_queue.push.apply(_queue,_items);
+				// put items back in the queue
+				queue.push.apply(queue, items);
 			});
 
 	},

@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Constants for HTTP response codes.
  * @class HTTP_STATUS_CODES
@@ -25,7 +26,7 @@ module.exports = {
 	* @final
 	*/
 	UNAUTHORIZED: 401,
-	
+
 	/**
 	* @property NOT_FOUND (404)
 	* @static
@@ -39,4 +40,4 @@ module.exports = {
 	* @final
 	*/
 	SERVER_ERROR: 500
-}
+};

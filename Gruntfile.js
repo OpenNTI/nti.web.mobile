@@ -25,7 +25,6 @@ module.exports = function(grunt) {
 		express: {
             options: {
                 // Override defaults here
-                port: 9000,
                 background: false,
                 script: '<%= pkg.dist %>/server/index.js'
             },
@@ -214,7 +213,7 @@ module.exports = function(grunt) {
 		grunt.task.run([
 			//'build',
 			'sass',
-			'jsxhint',
+			//'jshint',
 			//'yuidoc',
 			'express:dev'
 		]);

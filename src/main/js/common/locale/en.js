@@ -1,3 +1,5 @@
+/* jshint -W101 */
+/* jshint -W106 */
 module.exports = {
 	GLOBAL: {
 		SITE_NAME: 'NextThought'

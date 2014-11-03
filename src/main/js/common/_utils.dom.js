@@ -2,7 +2,7 @@
 
 var autoBind = require('dataserverinterface/utils/autobind');
 var isEmpty = require('dataserverinterface/utils/isempty');
-var isFunction = require('dataserverinterface/utils/isfunction');
+//var isFunction = require('dataserverinterface/utils/isfunction');
 var toArray = require('dataserverinterface/utils/toarray');
 
 var withValue = require('dataserverinterface/utils/object-attribute-withvalue');
@@ -10,7 +10,7 @@ var withValue = require('dataserverinterface/utils/object-attribute-withvalue');
 var hyphenatedToCamel = function(s) {
 	var re = hyphenatedToCamel.re = (hyphenatedToCamel.re || /-([a-z])/g);
 	return s.replace(re, function (g) { return g[1].toUpperCase(); });
-}
+};
 
 var DomUtils = {
 
@@ -327,6 +327,7 @@ var DomUtils = {
 
 function __addValue(o, n, v) {
 	var re = __addValue.re = (__addValue.re || /^data([A-Z])/);
+	/* jshint -W054 *///Creating a function without scope chain
 	var fn = __addValue.fn = (__addValue.fn || new Function('m, a', 'return a.toLowerCase();'));
 	if (re.test(n)) {
 		n = n.replace(re, fn);
@@ -374,7 +375,7 @@ function __pickUnsanitaryElements (root, cleanAttributes) {
 			LINK: 1, STYLE: 1, META: 1, TITLE: 1, HEAD: 1,
 			SCRIPT: 1, OBJECT: 1, EMBED: 1, APPLET: 1
 		};
-
+	/* jshint -W016*/
 	tw = document.createTreeWalker(root, NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_ELEMENT, null, false);
 	do {
 		el = tw.nextNode();
@@ -387,8 +388,10 @@ function __pickUnsanitaryElements (root, cleanAttributes) {
 			//remove empty nodes (maybe dangerous, images?, is there a way to know if an element is meant to be unary?)
 			//allow img and br tags
 			(el.childNodes.length === 0 && !/^(IMG|BR)$/i.test(el.tagName)) ||
+			/* jshint -W101 */
 			//remove elements that are effectively empty (whitespace only text node as their only child)
 			(el.childNodes.length === 1 && el.childNodes[0].nodeType === Node.TEXT_NODE && el.childNodes[0].nodeValue.trim() === '') ||
+			/* jshint +W101 */
 			//remove Office (xml namespaced) elements (that are empty)... need an would be nice to just
 			// find all patterns <(/?)FOO:BAR( ...?)> and delete them and leave the content they surround.
 			(namespaced.test(el.tagName) && el.childNodes.length === 0)) {

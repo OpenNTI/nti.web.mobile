@@ -25,9 +25,9 @@ OrderedMap.prototype.remove = function(key) {
 };
 
 OrderedMap.prototype.values = function() {
-	return this.keys.map((function(k, i, a) {
+	return this.keys.map(function(k) {
 		return this.records[k];
-	}).bind(this));
+	}.bind(this));
 };
 
 OrderedMap.prototype.__removeKey = function(key) {

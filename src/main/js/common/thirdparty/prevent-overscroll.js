@@ -23,8 +23,9 @@ module.exports = function(el) {
     el.addEventListener('touchmove', function(evt) {
         //if the content is actually scrollable, i.e. the content is long enough
         //that scrolling can occur
-        if(el.offsetHeight < el.scrollHeight)
+        if(el.offsetHeight < el.scrollHeight){
             evt._isScroller = true;
+        }
     });
 
     if (!attached) {

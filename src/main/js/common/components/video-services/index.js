@@ -36,8 +36,8 @@ var serviceMap = {
 	kaltura: kaltura
 };
 
-var getVimeoId = vimeo.getId;
-var getYouTubeId = youtube.getId;
+// var getVimeoId = vimeo.getId;
+// var getYouTubeId = youtube.getId;
 
 exports = module.exports = {
 	Kaltura: kaltura,

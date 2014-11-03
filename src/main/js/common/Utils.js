@@ -86,12 +86,13 @@ var Utils = {
 	},
 
 	arrayUnion: function(arr1,arr2) {
-		var keySet = arr1.concat(arr2).reduce(function(previousValue,currentValue,index,array) {
-			if(previousValue.indexOf(currentValue) === -1) {
-				previousValue.push(currentValue);
-			}
-			return previousValue;
-		},[]);
+		var keySet = arr1.concat(arr2).reduce(
+			function(previousValue,currentValue) {
+				if(previousValue.indexOf(currentValue) === -1) {
+					previousValue.push(currentValue);
+				}
+				return previousValue;
+			},[]);
 		return keySet;
 	},
 
@@ -99,7 +100,7 @@ var Utils = {
 	Viewport: {
 		getHeight: function() {
 			var el = document.documentElement || {};
-			return window.innerHeight || el.clientHeight
+			return window.innerHeight || el.clientHeight;
 		},
 
 		getWidth: function () {

@@ -1,7 +1,5 @@
 'use strict';
 
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
-
 var getService = require('common/Utils').getService;
 
 module.exports = {

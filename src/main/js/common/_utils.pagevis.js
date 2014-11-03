@@ -10,8 +10,9 @@ var prefix = (function () {
 	try {
 		var prefixes = ['webkit','moz','ms','o'];
 	    var p = null, i = 0;
-	    if (document.hidden !== undefined)
+	    if (document.hidden !== undefined) {
 			p = '';
+		}
 		else {
 			// Test all vendor prefixes
 			for(; i < prefixes.length; i++) {
