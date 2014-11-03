@@ -114,7 +114,7 @@ module.exports = function(grunt) {
 			}
 		},
 
-		reactjsx: {
+		react: {
 			docs: {
 				files: [{
 					expand: true,
@@ -187,10 +187,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-symlink');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
-	grunt.loadNpmTasks('grunt-reactjsx');
+	grunt.loadNpmTasks('grunt-react');
 	grunt.loadNpmTasks('grunt-jsdoc');
 
-	grunt.registerTask('docs',['reactjsx','jsdoc']);
+	grunt.registerTask('docs',['react','jsdoc']);
 
 	grunt.registerTask('serve', function(target) {
 		if (target === 'dist') {
