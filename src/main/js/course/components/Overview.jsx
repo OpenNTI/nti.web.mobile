@@ -8,8 +8,6 @@ var Loading = require('common/components/Loading');
 var ErrorWidget = require('common/components/Error');
 
 var Widgets = require('./widgets');
-var Actions = require('../Actions');
-var Store = require('../Store');
 
 module.exports = React.createClass({
 	displayName: 'CourseOverview',

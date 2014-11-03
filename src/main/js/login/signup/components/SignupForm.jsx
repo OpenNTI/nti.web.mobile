@@ -1,8 +1,5 @@
-/**
- * @jsx React.DOM
- */
-
- 'use strict';
+/** @jsx React.DOM */
+'use strict';
 
 var React = require('react/addons');
 var t = require('common/locale').scoped('LOGIN.forms.createaccount');
@@ -11,10 +8,9 @@ var Store = require('../Store');
 var Actions = require('../Actions');
 var LoginActions = require('../../Actions');
 
-var Button = require('common/components/forms/Button');
 var UserAgreement = require('./UserAgreement');
 var Router = require('react-router-component');
-var Link = Router.Link;
+//var Link = Router.Link;
 var Loading = require('common/components/Loading');
 var merge = require('react/lib/merge');
 var Utils = require('common/Utils');
@@ -28,11 +24,13 @@ var SignupForm = React.createClass({
 
 	mixins: [NavigatableMixin],
 
+
 	getDefaultProps: function() {
 		return {
 			privacyUrl: Store.getPrivacyUrl()
 		};
 	},
+
 
 	getInitialState: function() {
 		return {
@@ -45,9 +43,11 @@ var SignupForm = React.createClass({
 		};
 	},
 
+
 	_fullname: function() {
-		return [this.state.fieldValues['fname'], this.state.fieldValues['lname']].join(' ');
+		return [this.state.fieldValues.fname, this.state.fieldValues.lname].join(' ');
 	},
+
 
 	_handleSubmit: function(evt) {
 		evt.preventDefault();
@@ -64,6 +64,7 @@ var SignupForm = React.createClass({
 		});
 		return false;
 	},
+
 
 	storeChanged: function(event) {
 		console.debug('SignupForm received Store change event: %O', event);
@@ -87,21 +88,24 @@ var SignupForm = React.createClass({
 		}
 	},
 
+
 	componentDidMount: function() {
 		Store.addChangeListener(this.storeChanged);
 		Store.getFormConfig().then(function(value) {
 			this.setState({
 				loading: false,
 				formConfig: value
-			})
+			});
 		}.bind(this));
 	},
+
 
 	componentWillUnmount: function() {
 		Store.removeChangeListener(this.storeChanged);
 	},
 
-	_inputFocused: function(event) {
+
+    _inputFocused: function(/*event*/) {
 		// if (this.state.errors[event.target.name]) {
 		// 	this.setState({showErrors: false});
 		// }
@@ -110,7 +114,7 @@ var SignupForm = React.createClass({
 	_inputChanged: function(event) {
 		var newState = {};
 		newState[event.target.name] = event.target.value;
-		newState['realname'] = this._fullname();
+		newState.realname = this._fullname();
 		var tmp = merge(this.state.fieldValues, newState);
 		this.setState({
 			fieldValues: tmp
@@ -138,7 +142,7 @@ var SignupForm = React.createClass({
 			return <Loading />;
 		}
 
-		var fields = this.state.formConfig.fields.map(function(field,index,arr) {
+		var fields = this.state.formConfig.fields.map(function(field) {
 			var err = this.state.errors[field.ref];
 			var cssClass = err ? 'error' : null;
 			// var error = err ? <small className='error'>{err.message}</small> : null;
@@ -160,8 +164,8 @@ var SignupForm = React.createClass({
 			errors = Object.keys(this.state.errors).map(function(ref) {
 				var err = this.state.errors[ref];
 				console.debug(err);
-				return <small key={ref} className='error'>{err.message}</small>
-			}.bind(this));	
+				return (<small key={ref} className='error'>{err.message}</small>);
+			}.bind(this));
 		}
 
 		var enabled = this._submitEnabled();
@@ -183,7 +187,7 @@ var SignupForm = React.createClass({
 						<input type="submit" className="small-12 columns tiny button radius" disabled={!enabled} value="Create Account" />
 						<a href={this.props.privacyUrl} target="_blank" className="small-12 columns text-center">Privacy Policy</a>
 					</fieldset>
-					
+
 				</form>
 			</div>
 		);

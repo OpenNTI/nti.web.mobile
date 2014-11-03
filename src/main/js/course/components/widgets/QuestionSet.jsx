@@ -76,7 +76,7 @@ module.exports = React.createClass( {
 		var questionCount = item["question-count"];
 		var label = item.label;
 
-		var latestAttempt = this.state.latestAttempt;
+		//var latestAttempt = this.state.latestAttempt;
 		var assignment = this.state.assignment;
 
 		var due = assignment && assignment.getDueDate();
@@ -127,7 +127,7 @@ module.exports = React.createClass( {
 	onClick: function (e) {
 		e.preventDefault();
 		e.stopPropagation();
-
+		/*global alert */
 		alert('Coming soon to mobile.\nUntil then, please use a desktop or iPad app to access');
 	}
 });

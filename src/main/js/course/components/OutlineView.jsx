@@ -10,10 +10,6 @@ var waitFor = require('dataserverinterface/utils/waitfor');
 
 var Loading = require('common/components/Loading');
 
-var Navigation = require('navigation');
-var Actions = require('../Actions');
-var Store = require('../Store');
-
 module.exports = React.createClass({
 	displayName: 'OutlineView',
 

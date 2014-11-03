@@ -1,12 +1,11 @@
-/**
- * @jsx React.DOM
- */
+/** @jsx React.DOM */
+'use strict';
 
 var React = require('react/addons');
 
 var Alert = React.createClass({
 
-	_dismiss: function(evt) {
+	_dismiss: function() {
 		if(typeof this.props.dismiss === "function") {
 			this.props.dismiss(this);
 		}

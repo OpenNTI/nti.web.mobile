@@ -2,14 +2,11 @@
 'use strict';
 
 var React = require('react/addons');
-var Button = require('./forms/Button');
+
 var LogoutButton = require('login/components/LogoutButton');
-var Navigation = require('navigation');
+
 var NavDrawerItem = require('navigation/components/NavDrawerItem');
 var Loading = require('common/components/Loading');
-
-var UP = -1;
-var DOWN = 1;
 
 module.exports = React.createClass({
 	displayName: 'LeftNav',

@@ -1,6 +1,4 @@
-/**
- * @jsx React.DOM
- */
+/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -12,7 +10,6 @@ var DefaultRoute = Router.NotFound;
 var Store = require('../Store');
 var Loading = require('common/components/Loading');
 
-var IconBar = require('./IconBar');
 var CoursewareSection = require('./CoursewareSection');
 
 var Redirect = require('common/components/Redirect');
@@ -57,14 +54,14 @@ var View = React.createClass({
 		return {
 			loading: true,
 			routes: []
-		}
+		};
 	},
 
 	render: function() {
 		if(this.state.loading) {
-			return <Loading />
+			return (<Loading />);
 		}
-		var basePath = this.props.basePath;
+		//var basePath = this.props.basePath;
 		return Locations({contextual: true}, this.state.routes);
 	}
 

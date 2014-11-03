@@ -30,7 +30,7 @@ var Store = autobind(merge(EventEmitter.prototype, {
 	},
 
 	enqueueEvent: function(analyticsEvent) {
-		queue.push(analyticsEvent);
+		queue.push(analyticsEvent.getData());
 	},
 
 	_processQueue: function() {
@@ -41,7 +41,7 @@ var Store = autobind(merge(EventEmitter.prototype, {
 		console.log('AnalyticsStore processing queue (%s events)', queue.length);
 
 		// yank everything out of the queue
-		var items = queue.slice();
+		var items = queue;
 		queue = [];
 
 
@@ -69,7 +69,7 @@ AppDispatcher.register(function(payload) {
 
 	switch (action.actionType) {
 
-		case Constants.VIDEO_PLAYER_EVENT:
+		case Constants.VIDEO_PLAYER_EVENT://Shouldn't the constant just be "EVENT" and the "type" be defined by the instance? (WatchVideoEvent, ResourceEvent, etc)
 		case Constants.VIEWER_EVENT:
 			console.log('Analytics Store received event: %s, %O', action.event.type, action);
 			Store.enqueueEvent(action.event);

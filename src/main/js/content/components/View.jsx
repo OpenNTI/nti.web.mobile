@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 'use strict';
+var Promise = global.Promise || require('es6-promise').Promise;
 
-var NTIID = require('dataserverinterface/utils/ntiids');
 var React = require('react/addons');
 var Router = require('react-router-component');
 
@@ -36,7 +36,7 @@ module.exports = React.createClass({
 	*
 	* @param {Object} props The props set from the handler of the route.
 	*/
-	__getContext: function(props) {
+	__getContext: function(/*props*/) {
 
 		return Promise.resolve([]);
 	}

@@ -5,7 +5,6 @@
 var Store = require('../Store');
 var LoginStoreProperties = require('../StoreProperties');
 var Actions = require('../Actions');
-var Button = require('common/components/forms/Button');
 var OAuthButtons = require('./OAuthButtons');
 var RecoveryLinks = require('./RecoveryLinks');
 var t = require('common/locale').scoped('LOGIN');
@@ -27,11 +26,13 @@ var View = React.createClass({
 		};
 	},
 
+
 	componentDidMount: function() {
 		console.log('LoginView::componentDidMount');
 		Store.addChangeListener(this._onLoginStoreChange);
 		Actions.clearErrors({category: Constants.messages.category});
 	},
+
 
 	componentWillUnmount: function() {
 		console.log('LoginView::componentWillUnmount');
@@ -40,26 +41,30 @@ var View = React.createClass({
 		delete this.state.password;
 	},
 
+
 	_signupLink: function() {
-		// if we have a confirmation message show the confirmation view, otherwise go directly to signup 
+		// if we have a confirmation message show the confirmation view, otherwise go directly to signup
 		return t(Constants.messages.SIGNUP_CONFIRMATION,{fallback: 'missing'}) === 'missing' ? '/signup/' : '/signup/confirm';
 	},
+
 
 	render: function() {
 		var submitEnabled = this.state.submitEnabled;
 		var signupLink = this._signupLink();
 
 		var fields = Store.loginFormFields().map(function(fieldConfig) {
-			return <input type={fieldConfig.type}
+			return (
+				<input type={fieldConfig.type}
 						ref={fieldConfig.ref}
 						name={fieldConfig.ref}
 						placeholder={fieldConfig.placeholder}
 						defaultValue={this.state[fieldConfig.ref]}
 						onChange={this._inputChanged} />
+			);
 		}.bind(this));
 
 		return (
-		
+
 			<div className="row">
 				<form className="login-form medium-6 medium-centered columns" onSubmit={this._handleSubmit} noValidate>
 
@@ -79,14 +84,15 @@ var View = React.createClass({
 						</div>
 
 					</fieldset>
-					
+
 					<RecoveryLinks links={this.state.links} basePath={this.props.basePath} />
-					
+
 				</form>
 			</div>
-	
+
 		);
 	},
+
 
 	_inputChanged: function(event) {
 		switch(event.target.name) {
@@ -100,9 +106,10 @@ var View = React.createClass({
 		}
 	},
 
+
 	/**
-	* onChange handler for the username field. Triggers Actions.userInputChanged
-	*/
+	 * onChange handler for the username field. Triggers Actions.userInputChanged
+	 */
 	_usernameChanged: function(event) {
 		clearTimeout(this.state.timeoutId);
 		var timeoutId = global.setTimeout(function() {
@@ -118,9 +125,11 @@ var View = React.createClass({
 		this.setState({timeoutId: timeoutId});
 	},
 
-	_passwordChanged: function(event) {
+
+	_passwordChanged: function(/*event*/) {
 		this._updateSubmitButton();
 	},
+
 
 	_handleSubmit: function(evt) {
 		evt.preventDefault();
@@ -132,13 +141,16 @@ var View = React.createClass({
 		});
 	},
 
+
 	_username: function() {
 		return this.refs.username.getDOMNode().value.trim();
 	},
 
+
 	_password: function() {
 		return this.refs.password.getDOMNode().value.trim();
 	},
+
 
 	_updateSubmitButton: function() {
 		this.setState({
@@ -148,6 +160,7 @@ var View = React.createClass({
 				Store.canDoPasswordLogin()
 		});
 	},
+
 
 	_onLoginStoreChange: function(evt) {
 		console.log('LoginView::_onLoginStoreChange invoked %O', evt);

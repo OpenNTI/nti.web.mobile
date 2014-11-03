@@ -11,6 +11,7 @@ var Actions = require('../Actions');
 
 var Collection = require('./Collection');
 var Detail = require('./Detail');
+var Enroll = React.DOM.div;
 
 module.exports = React.createClass({
 	displayName: 'View',
@@ -36,7 +37,7 @@ module.exports = React.createClass({
     },
 
 
-    getDataIfNeeded: function(props) {
+	getDataIfNeeded: function(/*props*/) {
 		if(!Store.getData().loaded) {
         	Actions.loadCatalog();
         }

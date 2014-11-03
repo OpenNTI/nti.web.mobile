@@ -1,8 +1,5 @@
-/**
- * @jsx React.DOM
- */
-
- 'use strict';
+/** @jsx React.DOM */
+'use strict';
 
 var React = require('react/addons');
 
@@ -42,7 +39,7 @@ var CourseList = React.createClass({
         this.getDataIfNeeded(nextProps);
     },
 
-    getDataIfNeeded: function(props) {
+    getDataIfNeeded: function(/*props*/) {
 		if(!Store.getData().loaded) {
         	Actions.load();
         }

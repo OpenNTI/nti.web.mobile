@@ -7,7 +7,6 @@ var getServer = require('common/Utils').getServer;
 
 var Constants = require('./Constants');
 var Actions = Constants.actions;
-var Links = require('../Constants').links; // note: using login constants here, not signup.
 
 var CHANGE_EVENT = 'change';
 var ERROR_EVENT = 'error';

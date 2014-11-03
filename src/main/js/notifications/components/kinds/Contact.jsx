@@ -12,7 +12,7 @@ module.exports = React.createClass({
 	mixins: [NoteableMixin],
 
 	statics: {
-		noteable_type: 'user'
+		noteableType: 'user'
 	},
 
 

@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 'use strict';
 
+var Promise = global.Promise || require('es6-promise').Promise;
+
 var React = require('react/addons');
 var getService = require('common/Utils').getService;
 
@@ -33,7 +35,7 @@ module.exports = React.createClass({
 
 
 	getInitialState: function(){
-		var ids = this.getNTIIDs();
+		//var ids = this.getNTIIDs();
 		return {
 			count: 0,
 			commentType: ' Comments',
@@ -132,7 +134,7 @@ module.exports = React.createClass({
 	onClick: function (e) {
 		e.preventDefault();
 		e.stopPropagation();
-
+		/* global alert */
 		alert('Coming soon to mobile.\nUntil then, please use a desktop or iPad app to access');
 	}
 });

@@ -23,7 +23,7 @@ module.exports = React.createClass({
 	},
 
 
-	getInitialState: function (argument) {
+	getInitialState: function () {
 		var score = parseInt(this.props.score, 10);
 		return {
 			series: [
@@ -57,7 +57,6 @@ module.exports = React.createClass({
 
 	render: function() {
 		var p = this.props;
-		var colors = p.colors;
 		var width = p.width * p.pixelDensity;
 		var height = p.height * p.pixelDensity;
 		var style = {
@@ -151,7 +150,7 @@ module.exports = React.createClass({
 		try {
 			var centerX = ctx.canvas.width / 2,
 				centerY = ctx.canvas.height / 2,
-				radius = Math.floor(ctx.canvas.width / 2) *.75,
+				radius = Math.floor(ctx.canvas.width / 2) *0.75,
 				textbox,
 				score = parseInt(this.props.score, 10),
 				font = {

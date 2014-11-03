@@ -3,8 +3,6 @@
 
 var React = require('react/addons');
 var invariant = require('react/lib/invariant');
-var isEmpty = require('dataserverinterface/utils/isempty');
-var NTIIDs = require('dataserverinterface/utils/ntiids');
 
 var NavigatableMixin = require('../mixins/NavigatableMixin');
 

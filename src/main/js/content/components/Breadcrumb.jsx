@@ -49,7 +49,7 @@ module.exports = React.createClass({
 		return (
 			<ul className="breadcrumbs" role="menubar" aria-label="breadcrumbs">
 				{this.props.children}
-				{context.map(function(o, i, a) {
+				{context.map(function(o, i) {
 					return this._renderItem(o, !o.href, i);
 				}.bind(this))}
 			</ul>
@@ -63,7 +63,7 @@ module.exports = React.createClass({
 		}
 		return (
 			<ul className={className} role="menu" aria-label="menu">
-				{items.map(function(o, i, a) {
+				{items.map(function(o, i) {
 					return this._renderItem(o, !o.href, i);
 				}.bind(this))}
 			</ul>

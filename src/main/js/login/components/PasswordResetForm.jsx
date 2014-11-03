@@ -1,15 +1,11 @@
-/**
- * @jsx React.DOM
- */
-
-'use strict'
+/** @jsx React.DOM */
+'use strict';
 
 var React = require('react/addons');
 var t = require('common/locale').scoped('LOGIN.forgot');
 var Button = require('./Button');
 var merge = require('react/lib/merge');
 var Actions = require('../Actions');
-var MessageDisplay = require('common/messages/').Display;
 
 var _fields = [
 	{
@@ -22,7 +18,7 @@ var _fields = [
 		type: 'password',
 		placeholder: 'Verify Password',
 		getError: function(value,fieldValues) {
-			return (value !== fieldValues['password']) ? {message:'Passwords do not match.'} : null;
+			return (value !== fieldValues.password) ? {message: 'Passwords do not match.'} : null;
 		}
 	},
 ];
@@ -45,13 +41,15 @@ var PasswordResetForm = React.createClass({
 			var cssClass = err ? 'error' : null;
 			var error = err ? <small className='error'>{err.message}</small> : null;
 
-			return <div key={fieldConfig.ref}><input type={fieldConfig.type}
-							ref={fieldConfig.ref}
-							name={fieldConfig.ref}
-							placeholder={fieldConfig.placeholder || fieldConfig.ref}
-							onChange={this._inputChanged}
-							className={cssClass}
-							defaultValue='' />{error}</div>
+			return (
+				<div key={fieldConfig.ref}><input type={fieldConfig.type}
+					ref={fieldConfig.ref}
+					name={fieldConfig.ref}
+					placeholder={fieldConfig.placeholder || fieldConfig.ref}
+					onChange={this._inputChanged}
+					className={cssClass}
+					defaultValue='' />{error}</div>
+			);
 		}.bind(this));
 	},
 

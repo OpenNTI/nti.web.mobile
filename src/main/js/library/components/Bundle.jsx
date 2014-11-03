@@ -31,7 +31,7 @@ module.exports = React.createClass({
 		var p = this.props.item;
 		var style = {
 			backgroundImage: p && p.icon && 'url(' + p.icon + ')'
-		}
+		};
 		return (
 			<li className="grid-item">
 				<img style={style} src={BLANK_IMAGE}/>

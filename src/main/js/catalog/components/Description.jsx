@@ -26,7 +26,7 @@ var CreditHours = React.createClass({
 	render: function() {
 		var keyPrefix = this.props.entry + '-credit-';
 		var credits = this.props.credit || [];
-		var hours = (credits[0] || {}).Hours;
+		//var hours = (credits[0] || {}).Hours;
 
 		return (
 			<div className="enroll-for-credit">

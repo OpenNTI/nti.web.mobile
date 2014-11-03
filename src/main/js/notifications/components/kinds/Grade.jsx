@@ -3,8 +3,6 @@
 
 var React = require('react/addons');
 var NoteableMixin = require('../mixins/Noteable');
-var Avatar = require('common/components/Avatar');
-var DisplayName = require('common/components/DisplayName');
 var DateTime = require('common/components/DateTime');
 
 module.exports = React.createClass({
@@ -12,7 +10,7 @@ module.exports = React.createClass({
 	mixins: [NoteableMixin],
 
 	statics: {
-		noteable_type: 'grade'
+		noteableType: 'grade'
 	},
 
 	render: function() {

@@ -1,11 +1,7 @@
-/**
- * @jsx React.DOM
- */
-
+/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
-var IconBar = require('./IconBar');
 
 var Catalog = require('catalog');
 var Collection = Catalog.Collection;
@@ -18,7 +14,6 @@ var Loading = require('common/components/Loading');
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
-var DefaultRoute = Router.NotFound;
 
 var CatalogView = React.createClass({
 
@@ -43,7 +38,7 @@ var CatalogView = React.createClass({
     },
 
 
-    getDataIfNeeded: function(props) {
+	getDataIfNeeded: function(/*props*/) {
 		if(!Store.getData().loaded) {
         	Actions.loadCatalog();
         }

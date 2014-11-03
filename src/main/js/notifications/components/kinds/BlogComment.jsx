@@ -11,7 +11,7 @@ module.exports = React.createClass({
 	displayName: 'ForumCommentType',
 	mixins: [NoteableMixin],
 	statics: {
-		noteable_type: 'forums.personalblogcomment'
+		noteableType: 'forums.personalblogcomment'
 	},
 
 	render: function() {

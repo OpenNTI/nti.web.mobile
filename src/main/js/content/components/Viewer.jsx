@@ -4,12 +4,13 @@
 var Promise = global.Promise || require('es6-promise').Promise;
 
 var NTIID = require('dataserverinterface/utils/ntiids');
+var ResourceEvent = require('dataserverinterface/models/analytics/ResourceEvent');
 
 var React = require('react/addons');
 var RouterMixin = require('react-router-component').RouterMixin;
 
 var Loading = require('common/components/Loading');
-var ErrorWidget = require('common/components/Error');
+//var ErrorWidget = require('common/components/Error');
 
 var Pager = require('common/components/Pager');
 
@@ -24,26 +25,12 @@ var Actions = require('../Actions');
 var Analytics = require('common/analytics');
 
 var merge = require('react/lib/merge');
-var keyMirror = require('react/lib/keyMirror');
-var Utils = require('common/Utils');
 
 // keep track of the view start event so we can push analytics including duration
 var _currentResource = null;
 
-var VIEW_EVENT = keyMirror({
-	UNMOUNT: null,
-	UPDATE: null
-});
-
 var MINIMUM_EVENT_DURATION_SECONDS = 1;
 
-function diff(obj1,obj2) {
-	var keySet = Utils.arrayUnion(Object.keys(obj1),Object.keys(obj2));
-	var diffs = keySet.filter(function(k) {
-		return obj1[k] !== obj2[k];
-	});
-	return diffs;
-}
 
 module.exports = React.createClass({
 	mixins: [RouterMixin],
@@ -98,6 +85,7 @@ module.exports = React.createClass({
 			widgets = this.getPageWidgets();
 
 		for(guid in widgets) {
+			if (!widgets.hasOwnProperty(guid)) {continue;}
 			el = document.getElementById(guid);
 			if (el) {
 				React.unmountComponentAtNode(el);
@@ -112,13 +100,13 @@ module.exports = React.createClass({
 			pageId: this.getPageID(),
 			outlineId: this.props.outlineId,
 			rootId: this.props.rootId
-		}
+		};
 	},
 
-	_resourceLoaded: function(resource_id) {
+	_resourceLoaded: function(resourceId) {
 		// keep track of this for sending analytics
 		_currentResource = {
-			resource_id: resource_id,
+			resourceId: resourceId,
 			loaded: Date.now()
 		};
 	},
@@ -128,25 +116,15 @@ module.exports = React.createClass({
 			return;
 		}
 
-		var event = {
-			type:'resource-viewed',
-			resource_id: _currentResource.resource_id,
-			course: this.props.course && this.props.course.getID(),			
-			time_length: (Date.now() - _currentResource.loaded)/1000,
-			MimeType: "application/vnd.nextthought.analytics.resourceevent",
-			timestamp: Date.now()
-		};
+		var event = new ResourceEvent(
+				_currentResource.resourceId,
+				this.props.course && this.props.course.getID(),
+				(Date.now() - _currentResource.loaded)/1000);
 
-		if (event.time_length > MINIMUM_EVENT_DURATION_SECONDS) {
+		if (event.timeLength > MINIMUM_EVENT_DURATION_SECONDS) {
 			this.props.contextProvider(this.props).then(function(context) {
-				Analytics.Actions.emitEvent(
-					Analytics.Constants.VIEWER_EVENT,
-					merge(event,{
-						context_path: context.map(function(item) {
-							return item.href;
-						}),
-					})
-				);
+				event.setContextPath(context.map(function(item){return item.href;}));
+				Analytics.Actions.emitEvent(Analytics.Constants.VIEWER_EVENT, event);
 			}.bind(this));
 		}
 
@@ -161,16 +139,19 @@ module.exports = React.createClass({
 
 		this._setRouteProps();
 
-		if (widgets) for(guid in widgets) {
-			el = document.getElementById(guid);
-			w = widgets[guid];
-			if (el && !el.hasAttribute('mounted')) {
-				// console.debug('Content View: Mounting Widget...');
-				try {
-					w = React.renderComponent(w, el);
-					el.setAttribute('mounted', 'true');
-				} catch (e) {
-					console.error('A content widget blew up while rendering: %s', e.stack || e.message || e);
+		if (widgets) {
+			for(guid in widgets) {
+				if (!widgets.hasOwnProperty(guid)) {continue;}
+				el = document.getElementById(guid);
+				w = widgets[guid];
+				if (el && !el.hasAttribute('mounted')) {
+					// console.debug('Content View: Mounting Widget...');
+					try {
+						w = React.renderComponent(w, el);
+						el.setAttribute('mounted', 'true');
+					} catch (e) {
+						console.error('A content widget blew up while rendering: %s', e.stack || e.message || e);
+					}
 				}
 			}
 		}
@@ -206,7 +187,7 @@ module.exports = React.createClass({
 	 * @private
 	 * @param {Object} props
 	 */
-	getRoutes: function(props) {
+	getRoutes: function(/*props*/) {
 		return [{
 			handler: function(p) {return p;},
 			path: '/:pageId/'

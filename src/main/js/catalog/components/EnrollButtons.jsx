@@ -1,8 +1,5 @@
-/**
- * @jsx React.DOM
- */
-
-'use strict'
+/** @jsx React.DOM */
+'use strict';
 
 var React = require('react/addons');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
@@ -27,7 +24,7 @@ var EnrollButtons = React.createClass({
 		return result;
 	},
 
-	_enroll: function(enrollmentOption) {
+	_enroll: function(/*enrollmentOption*/) {
 		Enrollment.Actions.enrollOpen(this.props.course);
 	},
 
@@ -38,7 +35,13 @@ var EnrollButtons = React.createClass({
 		}
 
 		var buttons = this._enrollmentOptions().map(function(option,index) {
-			return <div key={'option' + index} className="column"><a href="#" onClick={this._enroll.bind(null,option)} className="button tiny radius small-12 columns">{option.label}</a></div>
+			return (
+				<div key={'option' + index} className="column">
+					<a href="#" onClick={this._enroll.bind(null,option)} className="button tiny radius small-12 columns">
+						{option.label}
+					</a>
+				</div>
+			);
 		}.bind(this));
 
 		return (

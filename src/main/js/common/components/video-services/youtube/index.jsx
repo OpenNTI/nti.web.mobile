@@ -14,7 +14,7 @@ var Task = require('dataserverinterface/utils/task');
 
 var YOU_TUBE = 'https://www.youtube.com';
 
-var YOU_TUBE_STATES = {
+/*var YOU_TUBE_STATES = {
 	'-1': 'UNSTARTED',
 	0: 'ENDED',
 	1: 'PLAYING',
@@ -22,8 +22,8 @@ var YOU_TUBE_STATES = {
 	3: 'BUFFERING',
 	5: 'CUED'
 };
-
-var YT_StateToEvents = {
+*/
+var YT_STATE_TO_EVENTS = {
 	0: 'ended',
 	1: 'playing',
 	2: 'pause'
@@ -173,7 +173,7 @@ var Source = module.exports = React.createClass({
 		}
 
 		if (!this.state.initialized) {
-			this.finishInitialization()
+			this.finishInitialization();
 		}
 
 		console[implemented?'debug':'warn']('[YouTube] Event: %s', data.event);
@@ -199,7 +199,7 @@ var Source = module.exports = React.createClass({
 			} : {
 				event: 'listening',
 				id: this.props.id
-			}
+			};
 		//console.debug('[YouTube] Sending: %o', data);
 		context.postMessage(JSON.stringify(data), this.state.scope);
 	},
@@ -226,7 +226,7 @@ var Source = module.exports = React.createClass({
 		if (this.state.playerState !== state) {
 			this.setState({playerState: state});
 		}
-		var event = YT_StateToEvents[state];
+		var event = YT_STATE_TO_EVENTS[state];
 		if (event) {
 			this.fireEvent(event);
 		}

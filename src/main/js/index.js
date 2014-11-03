@@ -37,9 +37,9 @@ React.initializeTouchEvents(true);
 preventOverscroll(document.body);
 
 
-if (("standalone" in navigator) && !navigator.standalone){
-	//Suggest Bookmarking to the home screen...
-}
+// if (("standalone" in navigator) && !navigator.standalone){
+// 	//Suggest Bookmarking to the home screen...
+// }
 
 var app = React.renderComponent(
 	AppView({basePath: $AppConfig.basepath || '/'}),

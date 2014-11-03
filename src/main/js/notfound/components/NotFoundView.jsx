@@ -6,6 +6,7 @@ var React = require('react/addons');
 module.exports = React.createClass({
 	displayName: 'NotFound',
 	render: function() {
+		/* global __setPageNotFound */
 		if (global.__setPageNotFound) {
 			__setPageNotFound();
 		}

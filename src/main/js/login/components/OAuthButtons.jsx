@@ -1,5 +1,4 @@
 /** @jsx React.DOM */
-
 'use strict';
 
 var React = require('react/addons');
@@ -7,7 +6,6 @@ var React = require('react/addons');
 var Button = require('common/components/forms/Button');
 var LinkConstants = require('../Constants').links;
 var t = require('common/locale').translate;
-var Dataserver = require('dataserverinterface');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -22,10 +20,10 @@ function _serviceName(k) {
 var OAuthButton = React.createClass({
 
 	render: function() {
-		// link_key is the property name of the link (as in 'logon.google').
+		// linkKey is the property name of the link (as in 'logon.google').
 		// 'key' is used by react components as an identifier so we use this
-		// admittedly clumsy alternative 'link_key'.
-		var lkey = this.props.link_key;
+		// admittedly clumsy alternative 'linkKey'.
+		var lkey = this.props.linkKey;
 		var base = encodeURIComponent(this.props.basePath);
 		return this.transferPropsTo(
 			<Button
@@ -46,17 +44,17 @@ module.exports = React.createClass({
 		// filter the list of LoginConstants to include those that
 		// begin with OAUTH_LINK
 		var authlinks = Object.keys(LinkConstants).filter(function(k) {
-			return k.indexOf('OAUTH_LINK') == 0;
+			return k.indexOf('OAUTH_LINK') === 0;
 		});
 
 		var buttons = [];
 		var props = this.props;
 
-		authlinks.forEach(function(link_key) {
+		authlinks.forEach(function(linkKey) {
 
-			if (LinkConstants[link_key] in props.links) {
+			if (LinkConstants[linkKey] in props.links) {
 				buttons.push(
-					<OAuthButton link_key={link_key} link={props.links[LinkConstants[link_key]]} className={this.props.buttonClass} />
+					<OAuthButton linkKey={linkKey} link={props.links[LinkConstants[linkKey]]} className={this.props.buttonClass} />
 				);
 			}
 		}.bind(this));

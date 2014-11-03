@@ -13,7 +13,7 @@ module.exports = React.createClass({
 	mixins: [NoteableMixin],
 
 	statics: {
-		noteable_type: ['forums.communityheadlinetopic']
+		noteableType: ['forums.communityheadlinetopic']
 	},
 
 	render: function() {

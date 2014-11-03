@@ -8,11 +8,11 @@ module.exports = {
 			item = change.Item || change;
 			item = item.MimeType.replace('application/vnd.nextthought.', '');
 
-			if (!Array.isArray(this.noteable_type)) {
-				this.noteable_type = [this.noteable_type];
+			if (!Array.isArray(this.noteableType)) {
+				this.noteableType = [this.noteableType];
 			}
 
-			return (this.noteable_type.indexOf(item) !== -1);
+			return (this.noteableType.indexOf(item) !== -1);
 		}
 	},
 

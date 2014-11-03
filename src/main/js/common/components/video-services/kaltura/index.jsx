@@ -1,26 +1,20 @@
-/**
- * @jsx React.DOM
- */
+/** @jsx React.DOM */
 'use strict';
+
 var React = require('react');
 var getSources = require('./SourceGrabber');
 var selectSources = require('./SelectSources');
 
 var url = require('url');
-var call = require('dataserverinterface/utils/function-call');
 
 var MediaSource = require('dataserverinterface/models/MediaSource');
 
 var Utils = require('common/Utils');
 var getTarget = Utils.Dom.getEventTarget;
-var Viewport = Utils.Viewport;
+//var Viewport = Utils.Viewport;
 
 var Loading = require('../../Loading');
 var eventHandlers = require('common/constants/VideoEventHandlers');
-
-function _sources(options) {
-	return getSources(options);
-}
 
 function _videoEventHandler(event) {
 	console.warn('No handler specified for video event \'%s\'', event.type);
@@ -184,7 +178,8 @@ var KalturaVideo = React.createClass({
 		return (
 			<div className={'video-wrapper ' + interacted}>
 				{this.transferPropsTo(Tag(videoProps, this._renderSources()))}
-				{!this.state.interacted && <a className="tap-area play" href="#" onClick={this.doPlay} style={{backgroundImage: 'url('+this.state.poster+')'}}/>}
+				{!this.state.interacted && <a className="tap-area play" href="#" onClick={this.doPlay}
+						style={{backgroundImage: 'url('+this.state.poster+')'}}/>}
 			</div>
 		);
 	},
@@ -193,7 +188,7 @@ var KalturaVideo = React.createClass({
 	_renderSources: function() {
 		var sources = this.state.sources || [];
 		var Tag = React.DOM.source;
-		return sources.map(function(source,index) {
+		return sources.map(function(source) {
 			return Tag({key:source.src, src:source.src, type: source.type});
 		});
 	},

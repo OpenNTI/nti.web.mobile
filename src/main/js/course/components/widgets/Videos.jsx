@@ -201,7 +201,7 @@ module.exports = React.createClass({
 				// console.debug('Touch move tripped...');
 			}
 
-			if (sliding == 2) {
+			if (sliding === 2) {
 				if ((active === 0 && event.clientX > data.x) ||
 					(active === (me.getVideoList().length - 1) && event.clientX < data.x)) {
 					touchPixelRatio = 3;
@@ -223,7 +223,7 @@ module.exports = React.createClass({
 	},
 
 
-	onTouchEnd: function(e) {
+	onTouchEnd: function(/*e*/) {
 		//e.stopPropagation();
 
 		var touch = this.state.touch || {};
@@ -232,7 +232,7 @@ module.exports = React.createClass({
 		var startPixelOffset = touch.startPixelOffset;
 		var fn;
 
-		if (touch.sliding == 2) {
+		if (touch.sliding === 2) {
 			fn = //(Math.abs(pixelOffset - startPixelOffset)/touch.dom.offsetWidth) > 0.2 ? null ://elastic
 				pixelOffset < startPixelOffset ? 'onNext' : 'onPrev';
 

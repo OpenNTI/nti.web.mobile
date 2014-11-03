@@ -33,16 +33,16 @@ var Store = merge(EventEmitter.prototype, {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	isEnrolled: function(courseid) {
+	isEnrolled: function(/*courseId*/) {
 		return false;
 	}
 
 });
 
-function _enrollOpen(course_id) {
+function _enrollOpen(courseId) {
 	getService().then(function(service) {
 		var e = service.getEnrollment();
-		e.enrollOpen(course_id).then(function(response) {
+		e.enrollOpen(courseId).then(function(response) {
 			console.debug(response);
 			return response;
 		});

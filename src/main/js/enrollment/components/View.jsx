@@ -4,10 +4,10 @@
 var React = require('react/addons');
 var Router = require('react-router-component');
 
-var Loading = require('common/components/Loading');
+//var Loading = require('common/components/Loading');
 
-var Store = require('../Store');
-var Actions = require('../Actions');
+//var Store = require('../Store');
+//var Actions = require('../Actions');
 
 var Enroll = require('./Enroll');
 

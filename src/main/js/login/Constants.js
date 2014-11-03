@@ -18,21 +18,21 @@ var links = {
 	* @final
 	*/
 	ACCOUNT_PREFLIGHT_CREATE: "account.preflight.create",
-	
+
 	/**
 	* @property FORGOT_PASSCODE
 	* @type String
 	* @final
 	*/
 	FORGOT_PASSCODE: "logon.forgot.passcode",
-	
+
 	/**
 	* @property FORGOT_USERNAME
 	* @type String
 	* @final
 	*/
 	FORGOT_USERNAME: "logon.forgot.username",
-	
+
 	/**
 	* The rel/key for the handshake link
 	* @property HANDSHAKE_LINK
@@ -83,11 +83,11 @@ var links = {
 
 	/**
 	* The rel for the OU4+4/ldap login link from the dataserver.
-	* @property LOGIN_OU4x4_LINK
+	* @property LOGIN_OU4X4_LINK
 	* @type String
 	* @final
 	*/
-	LOGIN_OU4x4_LINK: "logon.ldap.ou",
+	LOGIN_OU4X4_LINK: "logon.ldap.ou",
 
 	/**
 	* @property MIMETYPE_PONG
@@ -102,7 +102,7 @@ var links = {
 	* @final
 	*/
 	RESET_PASSCODE: "logon.reset.passcode"
-}
+};
 
 var actions = keyMirror({
 
@@ -180,7 +180,7 @@ var events = keyMirror({
 	* @event LOGIN_FORM_CHANGED
 	* @type String
 	* @final
-	*/	
+	*/
 	LOGIN_FORM_CHANGED: null,
 
 	/**
