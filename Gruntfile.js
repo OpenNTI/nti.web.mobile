@@ -170,6 +170,19 @@ module.exports = function(grunt) {
 			}
 		},
 
+		jshint: {
+	        options: {
+				force: true,
+				jshintrc: true,
+	            reporter: require('jshint-log-reporter')
+	            //reporterOutput: 'lint.log'
+			},
+	        files: [
+				'<%= pkg.src %>/js/**/*.js',
+				'<%= pkg.src %>/js/**/*.jsx',
+				'<%= pkg.src %>/../server/**/*.js'
+			]
+	    },
 
 		symlink: {
 			explicit: {
@@ -182,6 +195,7 @@ module.exports = function(grunt) {
 		}
 	});
 
+	grunt.loadNpmTasks('grunt-jsxhint');
 	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-contrib-symlink');
@@ -200,6 +214,7 @@ module.exports = function(grunt) {
 		grunt.task.run([
 			//'build',
 			'sass',
+			'jsxhint',
 			//'yuidoc',
 			'express:dev'
 		]);
