@@ -52,11 +52,10 @@ function _override(dest, override) {
 
 
 exports.config = function() {
-	var env = process.env.NODE_ENV,
-		base = 'development';
+	var base = 'development';
 
 	return _override(
-		merge(true, env[base], env[env] || {}),
+		merge(true, env[base], env[process.env.NODE_ENV] || {}),
 		overrides);
 };
 
