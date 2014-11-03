@@ -41,11 +41,23 @@ var Store = merge(EventEmitter.prototype, {
 
 });
 
+function _getEnrollment() {
+	return getService().then(function(service) {
+		return service.getEnrollment();
+	});
+}
+
 function _enrollOpen(course_id) {
-	getService().then(function(service) {
-		var e = service.getEnrollment();
-		e.enrollOpen(course_id).then(function(response) {
-			console.debug(response);
+	return _getEnrollment().then(function(enrollment) {
+		return enrollment.enrollOpen(course_id).then(function(response) {
+			return response;
+		});
+	});
+}
+
+function _dropCourse(course_id) {
+	return _getEnrollment().then(function(enrollment) {
+		return enrollment.dropCourse(course_id).then(function(response) {
 			return response;
 		});
 	});
@@ -55,7 +67,20 @@ AppDispatcher.register(function(payload) {
 	var action = payload.action;
 	switch(action.actionType) {
 		case Constants.ENROLL_OPEN:
-			_enrollOpen(action.course.getID());
+			_enrollOpen(action.course.getID()).then(function(result) {
+				Store.emitChange({
+					action: action,
+					result: result
+				})
+			});
+		break;
+		case Constants.DROP_COURSE:
+			_dropCourse(action.course.getID()).then(function(result) {
+				Store.emitChange({
+					action: action,
+					result: result
+				})
+			});
 		break;
 		default:
 			return true;

@@ -12,7 +12,12 @@ var Constants = require('./Constants');
 module.exports = merge(EventEmitter.prototype, {
 	enrollOpen: function(course) {
 		dispatch(Constants.ENROLL_OPEN, course);
+	},
+
+	dropCourse: function(course) {
+		dispatch(Constants.DROP_COURSE, course);
 	}
+
 });
 
 function dispatch(key, course) {

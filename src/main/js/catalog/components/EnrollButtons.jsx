@@ -44,8 +44,9 @@ var EnrollButtons = React.createClass({
 		return result;
 	},
 
-	_dropCourse: function() {
-
+	_dropCourse: function(event) {
+		event.preventDefault();
+		Enrollment.Actions.enrollOpen(this.props.course);
 	},
 
 	_enroll: function(event,enrollmentOption) {
