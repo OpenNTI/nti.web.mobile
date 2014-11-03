@@ -14,6 +14,20 @@ var EnrollButtons = React.createClass({
 		'course': React.PropTypes.object.isRequired
 	},
 
+	getInitialState: function() {
+		return {
+			enrolled: false
+		};
+	},
+
+	componentDidMount: function() {
+		Enrollment.Store.isEnrolled(this.props.course.getID()).then(function(result) {
+			this.setState({
+				enrolled: result
+			});
+		}.bind(this));
+	},
+
 	_enrollmentOptions: function() {
 		var result = [];
 		var options = this.props.course.EnrollmentOptions||{};
@@ -36,6 +50,8 @@ var EnrollButtons = React.createClass({
 		if(!this.props.course) {
 			return null;
 		}
+
+		console.log('enrolled? %O', this.state.enrolled);
 
 		var buttons = this._enrollmentOptions().map(function(option,index) {
 			return <div key={'option' + index} className="column"><a href="#" onClick={this._enroll.bind(null,option)} className="button tiny radius small-12 columns">{option.label}</a></div>
