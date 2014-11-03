@@ -7,6 +7,7 @@
 var React = require('react/addons');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 var Enrollment = require('../../enrollment');
+var Loading = require('common/components/Loading');
 
 var EnrollButtons = React.createClass({
 
@@ -16,14 +17,16 @@ var EnrollButtons = React.createClass({
 
 	getInitialState: function() {
 		return {
+			loading: true,
 			enrolled: false
 		};
 	},
 
 	componentDidMount: function() {
-		Enrollment.Store.isEnrolled(this.props.course.getID()).then(function(result) {
+		Enrollment.Store.isEnrolled(this.props.course.CourseNTIID).then(function(result) {
 			this.setState({
-				enrolled: result
+				enrolled: result,
+				loading: false
 			});
 		}.bind(this));
 	},
@@ -41,7 +44,12 @@ var EnrollButtons = React.createClass({
 		return result;
 	},
 
-	_enroll: function(enrollmentOption) {
+	_dropCourse: function() {
+
+	},
+
+	_enroll: function(event,enrollmentOption) {
+		event.preventDefault();
 		Enrollment.Actions.enrollOpen(this.props.course);
 	},
 
@@ -51,17 +59,23 @@ var EnrollButtons = React.createClass({
 			return null;
 		}
 
-		console.log('enrolled? %O', this.state.enrolled);
+		if (this.state.loading) {
+			return <div className="hide"><Loading /></div>
+		}
 
-		var buttons = this._enrollmentOptions().map(function(option,index) {
-			return <div key={'option' + index} className="column"><a href="#" onClick={this._enroll.bind(null,option)} className="button tiny radius small-12 columns">{option.label}</a></div>
-		}.bind(this));
-
-		return (
-			<div>
-				{buttons}
-			</div>
-		);
+		if(!this.state.enrolled) {
+			var buttons = this._enrollmentOptions().map(function(option,index) {
+				return <div key={'option' + index} className="column"><a href="#" onClick={this._enroll.bind(null,option)} className="button tiny radius small-12 columns">{option.label}</a></div>
+			}.bind(this));
+			return (
+				<div>
+					{buttons}
+				</div>
+			);
+		}
+		
+		return <div key='drop' className="column"><a href="#" onClick={this._dropCourse} className="button tiny radius small-12 columns">{t('drop')}</a></div>
+		
 	}
 
 });
