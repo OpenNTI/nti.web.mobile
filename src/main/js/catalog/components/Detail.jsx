@@ -75,7 +75,7 @@ module.exports = React.createClass({
 				<Description entry={entry} />
 				<Instructors entry={entry}/>
 				<Notice className="small">Course enrollment is not currently supported on mobile devices.</Notice>
-				<EnrollButtons course={this.state.entry}/>
+				<EnrollButtons catalogEntry={this.state.entry}/>
 				<div className="footer"/>
 			</div>
 		);

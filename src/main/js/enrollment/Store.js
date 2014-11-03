@@ -33,9 +33,9 @@ var Store = merge(EventEmitter.prototype, {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	isEnrolled: function(course_id) {
+	isEnrolled: function(courseId) {
 		return getService().then(function(service) {
-			return service.getEnrollment().isEnrolled(course_id);
+			return service.getEnrollment().isEnrolled(courseId);
 		});
 	}
 
@@ -47,19 +47,17 @@ function _getEnrollment() {
 	});
 }
 
-function _enrollOpen(course_id) {
+function _enrollOpen(catalogId) {
 	return _getEnrollment().then(function(enrollment) {
-		return enrollment.enrollOpen(course_id).then(function(response) {
+		return enrollment.enrollOpen(catalogId).then(function(response) {
 			return response;
 		});
 	});
 }
 
-function _dropCourse(course_id) {
+function _dropCourse(courseId) {
 	return _getEnrollment().then(function(enrollment) {
-		return enrollment.dropCourse(course_id).then(function(response) {
-			return response;
-		});
+		return enrollment.dropCourse(courseId);
 	});
 }
 
@@ -67,7 +65,7 @@ AppDispatcher.register(function(payload) {
 	var action = payload.action;
 	switch(action.actionType) {
 		case Constants.ENROLL_OPEN:
-			_enrollOpen(action.course.getID()).then(function(result) {
+			_enrollOpen(action.catalogId).then(function(result) {
 				Store.emitChange({
 					action: action,
 					result: result
@@ -75,7 +73,7 @@ AppDispatcher.register(function(payload) {
 			});
 		break;
 		case Constants.DROP_COURSE:
-			_dropCourse(action.course.getID()).then(function(result) {
+			_dropCourse(action.courseId).then(function(result) {
 				Store.emitChange({
 					action: action,
 					result: result

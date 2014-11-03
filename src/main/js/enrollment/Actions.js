@@ -6,23 +6,27 @@ var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var Constants = require('./Constants');
 
+var merge = require('react/lib/merge');
+
 /**
  * Actions available to views for catalog-related functionality.
  */
 module.exports = merge(EventEmitter.prototype, {
-	enrollOpen: function(course) {
-		dispatch(Constants.ENROLL_OPEN, course);
+	enrollOpen: function(catalogId) {
+		dispatch(Constants.ENROLL_OPEN, {
+			catalogId: catalogId
+		});
 	},
 
-	dropCourse: function(course) {
-		dispatch(Constants.DROP_COURSE, course);
+	dropCourse: function(courseId) {
+		dispatch(Constants.DROP_COURSE, {
+			courseId: courseId
+		});
 	}
-
 });
 
-function dispatch(key, course) {
-	AppDispatcher.handleRequestAction({
-		actionType: key,
-		course: course
-	});
+function dispatch(key, data) {
+	AppDispatcher.handleRequestAction(merge( data, {
+		actionType: key
+	}));
 }

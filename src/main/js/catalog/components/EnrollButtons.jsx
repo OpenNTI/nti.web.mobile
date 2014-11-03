@@ -23,7 +23,7 @@ var EnrollButtons = React.createClass({
 	},
 
 	componentDidMount: function() {
-		Enrollment.Store.isEnrolled(this.props.course.CourseNTIID).then(function(result) {
+		Enrollment.Store.isEnrolled(this.props.catalogEntry.CourseNTIID).then(function(result) {
 			this.setState({
 				enrolled: result,
 				loading: false
@@ -33,7 +33,7 @@ var EnrollButtons = React.createClass({
 
 	_enrollmentOptions: function() {
 		var result = [];
-		var options = this.props.course.EnrollmentOptions||{};
+		var options = this.props.catalogEntry.EnrollmentOptions||{};
 		Object.keys(options).forEach(function(key) {
 			if(options[key].Enabled) {
 				result.push({
@@ -46,17 +46,17 @@ var EnrollButtons = React.createClass({
 
 	_dropCourse: function(event) {
 		event.preventDefault();
-		Enrollment.Actions.enrollOpen(this.props.course);
+		Enrollment.Actions.dropCourse(this.props.catalogEntry.CourseNTIID);
 	},
 
-	_enroll: function(event,enrollmentOption) {
+	_enroll: function(enrollmentOption,event) {
 		event.preventDefault();
-		Enrollment.Actions.enrollOpen(this.props.course);
+		Enrollment.Actions.enrollOpen(this.props.catalogEntry.getID());
 	},
 
 	render: function() {
 
-		if(!this.props.course) {
+		if(!this.props.catalogEntry) {
 			return null;
 		}
 
