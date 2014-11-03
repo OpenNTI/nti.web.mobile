@@ -1,4 +1,5 @@
 'use strict';
+/* jshint -W101 */
 
 var webpackDistConfig = require('./webpack.dist.config.js');
 var webpackDevConfig = require('./webpack.config.js');
@@ -22,24 +23,19 @@ module.exports = function(grunt) {
             dev: webpackDevConfig
 		},
 
-		express: {
-            options: {
-                // Override defaults here
-                background: false,
-                script: '<%= pkg.dist %>/server/index.js'
-            },
+		env: {
+			dist: {
+				NODE_ENV: 'production'
+			}
+		},
+
+		execute: {
             dev: {
-                options: {
-                    debug: true,
-					script: '<%= pkg.src %>/../server/index.js',
-                    node_env: 'development'
-                }
+				src: '<%= pkg.src %>/../server/index.js',
             },
             dist: {
-                options: {
-                    debug: false,
-                    node_env: 'production'
-                }
+
+                src: '<%= pkg.dist %>/server/index.js'
             }
         },
 
@@ -194,28 +190,31 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-jsxhint');
-	grunt.loadNpmTasks('grunt-express-server');
-	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-contrib-symlink');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
-	grunt.loadNpmTasks('grunt-react');
+	grunt.loadNpmTasks('grunt-env');
+	grunt.loadNpmTasks('grunt-execute');
 	grunt.loadNpmTasks('grunt-jsdoc');
+	grunt.loadNpmTasks('grunt-jsxhint');
+	grunt.loadNpmTasks('grunt-react');
+	grunt.loadNpmTasks('grunt-sass');
 
 	grunt.registerTask('docs',['react','jsdoc']);
 
 	grunt.registerTask('serve', function(target) {
 		if (target === 'dist') {
-			return grunt.task.run(['build', 'express:dist']);
+			return grunt.task.run([
+				'build',
+				'env:dist',
+				'execute:dist'
+			]);
 		}
 
 		grunt.task.run([
-			//'build',
 			'sass',
-			//'jshint',
-			//'yuidoc',
-			'express:dev'
+			'jshint',
+			'execute:dev'
 		]);
 	});
 
