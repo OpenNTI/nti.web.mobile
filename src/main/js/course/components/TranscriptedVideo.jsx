@@ -127,7 +127,8 @@ module.exports = React.createClass({
 	},
 
 
-	onVideoTimeTick: function(time) {
+	onVideoTimeTick: function(event) {
+		var time = (event.target || {}).currentTime;
 		if (this.isMounted()) {
 			this.setState({currentTime: time});
 		}
