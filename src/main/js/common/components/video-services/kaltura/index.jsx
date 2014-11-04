@@ -218,7 +218,7 @@ var KalturaVideo = React.createClass({
 		if (v && this.isMounted()) {
 			this.setState({interacted: true});
 			v = v.getDOMNode();
-			v.play();
+			if(v.play){v.play();}
 		}
 	},
 
@@ -227,7 +227,7 @@ var KalturaVideo = React.createClass({
 		var v = this.refs.video;
 		if (v && this.isMounted()) {
 			v = v.getDOMNode();
-			v.pause();
+			if(v.pause){v.pause();}
 		}
 	},
 
@@ -236,7 +236,7 @@ var KalturaVideo = React.createClass({
 		var v = this.refs.video;
 		if (v && this.isMounted()) {
 			v = v.getDOMNode();
-			v.stop();
+			if(v.stop){v.stop();}
 		}
 	},
 
