@@ -42,7 +42,14 @@ module.exports = React.createClass({
 		 * The imposed content root.
 		 * @type {String}
 		 */
-		root: React.PropTypes.string
+		root: React.PropTypes.string,
+
+
+		/**
+		 * Describes which style this pager will take on. "bottom" vs Default.
+		 * @type {String}
+		 */
+		position: React.PropTypes.string
 	},
 
 
@@ -92,7 +99,7 @@ module.exports = React.createClass({
 		var prev = this.props.prev || this.state.prev || {};
 		var next = this.props.next || this.state.next || {};
 
-		if (this.props.bottom) {
+		if (this.props.position === 'bottom') {
 			return (
 				<ul className="bottompager">
 					<li><a href={prev.href} title={prev.title} className="button secondary tiny radius">Back</a></li>

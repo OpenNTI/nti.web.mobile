@@ -4,6 +4,7 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var React = require('react/addons');
 
 var DateTime = require('common/components/DateTime');
+var Pager = require('common/components/Pager');
 var Loading = require('common/components/Loading');
 var ErrorWidget = require('common/components/Error');
 
@@ -76,7 +77,7 @@ module.exports = React.createClass({
 		this.setState(this.getInitialState());
 		try {
 
-			props.course.getOutlineNode(NTIID.decodeFromURI(props.outlineId))
+			props.course.getOutlineNode(this.getOutlineID(props))
 				.then(this.__getOutlineNodeContents)
 				.catch(this.__onError);
 
@@ -86,15 +87,24 @@ module.exports = React.createClass({
 	},
 
 
+
+	getOutlineID: function (props) {
+		return NTIID.decodeFromURI((props||this.props).outlineId);
+	},
+
+
 	render: function() {
 		var data = this.state.data;
 		var node = this.state.node;
+		var pages = node && node.getPageSource();
+		var currentPage = this.getOutlineID();
 
 		if (this.state.loading) { return (<Loading/>); }
 		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>); }
 
 		return (
 			<div className="course-overview row">
+				<Pager pageSource={pages} current={currentPage}/>
 				<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
 				<h1 dangerouslySetInnerHTML={{__html: data.title}}/>
 				{this._renderItems(data.Items, {node: node})}
