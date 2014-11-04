@@ -45,6 +45,10 @@ var Store = merge(EventEmitter.prototype, {
 
 	unpublishNav: function(key) {
 		_nav.remove(key);
+		Store.emitChange({
+			nav:this.getNav(),
+			isLoading: this.isLoading()
+		});
 	},
 
 	publishNav: function(key,navRecord) {

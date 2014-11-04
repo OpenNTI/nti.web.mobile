@@ -6,7 +6,8 @@ var React = require('react/addons');
 var LogoutButton = require('login/components/LogoutButton');
 
 var NavDrawerItem = require('navigation/components/NavDrawerItem');
-var Loading = require('common/components/Loading');
+var Loading = require('./Loading');
+var HomeLink = require('./HomeLink');
 
 module.exports = React.createClass({
 	displayName: 'LeftNav',
@@ -48,7 +49,7 @@ module.exports = React.createClass({
 		return (
 			<div>
 				<ul className="off-canvas-list">
-					<li><a href={basePath}>Home</a></li>
+					<li><HomeLink basePath={basePath} /></li>
 					{child}
 				</ul>
 				<div className="text-center logout"><LogoutButton /></div>

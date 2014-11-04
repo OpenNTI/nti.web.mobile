@@ -61,6 +61,10 @@ function _publishNavFor(courseEnrollment) {
 module.exports = merge(EventEmitter.prototype, {
 
 	setCourse: function(courseId) {
+		if(!courseId) {
+			Navigation.Actions.unpublishNav(Navigation.Constants.CONTENT_KEY);
+			return;
+		}
 		Navigation.Actions.setLoading(true);
 		LibraryApi.getLibrary()
 
