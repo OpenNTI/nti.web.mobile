@@ -23,6 +23,15 @@ var EnrollButtons = React.createClass({
 	},
 
 	componentDidMount: function() {
+		this._updateEnrollmentStatus();
+		Enrollment.Store.addChangeListener(this._updateEnrollmentStatus);
+	},
+
+	componentWillUnmount: function() {
+		Enrollment.Store.removeChangeListener(this._updateEnrollmentStatus);	
+	},
+
+	_updateEnrollmentStatus: function() {
 		Enrollment.Store.isEnrolled(this.props.catalogEntry.CourseNTIID).then(function(result) {
 			this.setState({
 				enrolled: result,
