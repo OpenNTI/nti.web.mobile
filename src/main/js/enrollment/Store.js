@@ -6,31 +6,27 @@ var merge = require('react/lib/merge');
 
 var Constants = require('./Constants');
 
-var CHANGE_EVENT = 'change';
-
 var getService = require('common/Utils').getService;
 
 var Store = merge(EventEmitter.prototype, {
 	displayName: 'enrollment.Store',
 
 	emitChange: function(evt) {
-		console.log(this.displayName + ': emitting change event');
-		this.emit(CHANGE_EVENT, evt);
+		this.emit(Constants.CHANGE_EVENT, evt);
 	},
 
 	/**
 	 * @param {function} callback
 	 */
 	addChangeListener: function(callback) {
-		console.log(this.displayName + ': adding change listener');
-		this.on(CHANGE_EVENT, callback);
+		this.on(Constants.CHANGE_EVENT, callback);
 	},
 
 	/**
 	 * @param {function} callback
 	 */
 	removeChangeListener: function(callback) {
-		this.removeListener(CHANGE_EVENT, callback);
+		this.removeListener(Constants.CHANGE_EVENT, callback);
 	},
 
 	isEnrolled: function(courseId) {
@@ -41,23 +37,26 @@ var Store = merge(EventEmitter.prototype, {
 
 });
 
-function _getEnrollment() {
+function _getEnrollmentService() {
 	return getService().then(function(service) {
 		return service.getEnrollment();
 	});
 }
 
 function _enrollOpen(catalogId) {
-	return _getEnrollment().then(function(enrollment) {
-		return enrollment.enrollOpen(catalogId).then(function(response) {
-			return response;
+	return _getEnrollmentService().then(function(enrollmentService) {
+		return enrollmentService.enrollOpen(catalogId).then(function(result) {
+			return {
+				serviceResponse: result,
+				success: true
+			};
 		});
 	});
 }
 
 function _dropCourse(courseId) {
-	return _getEnrollment().then(function(enrollment) {
-		return enrollment.dropCourse(courseId);
+	return _getEnrollmentService().then(function(enrollmentService) {
+		return enrollmentService.dropCourse(courseId);
 	});
 }
 

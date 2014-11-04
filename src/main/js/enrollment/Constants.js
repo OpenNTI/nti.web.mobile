@@ -4,6 +4,7 @@ module.exports = keyMirror({
 	ENROLL_OPEN: null,
 	ENROLL_5M: null,
 	ENROLL_STORE: null,
-	DROP_COURSE: null
+	DROP_COURSE: null,
+	CHANGE_EVENT: null
 });
 

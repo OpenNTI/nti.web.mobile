@@ -73,7 +73,7 @@ module.exports = React.createClass({
 				<Title entry={entry} />
 				<Description entry={entry} />
 				<Instructors entry={entry}/>
-				<EnrollButtons catalogEntry={this.state.entry}/>
+				<EnrollButtons catalogEntry={this.state.entry} />
 				<div className="footer"/>
 			</div>
 		);

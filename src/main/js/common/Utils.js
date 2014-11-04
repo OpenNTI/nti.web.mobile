@@ -9,6 +9,9 @@ var Utils = {
 		return $AppConfig.username;
 	},
 
+	getBasePath: function() {
+		return $AppConfig.basepath;
+	},
 
 	/**
 	 * Returns the shared instance of the server interface.

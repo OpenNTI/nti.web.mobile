@@ -4,6 +4,7 @@
 var React = require('react/addons');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var BLANK_IMAGE = require('common/constants/DataURIs').BLANK_IMAGE;
+var CourseContentLink = require('../../courseware/components/CourseContentLink');
 
 module.exports = React.createClass({
 	displayName: 'Course',
@@ -36,13 +37,13 @@ module.exports = React.createClass({
 		};
 		return (
 			<li className="grid-item">
-				<a href={this.props.basePath + 'course/' + courseId + '/#nav'}>
+				<CourseContentLink basePath={this.props.basePath} courseId={courseId}>
 					<img style={style} src={BLANK_IMAGE}/>
 					<div className="metadata">
 						<h3>{p.title}</h3>
 						<h5>{p.label}</h5>
 					</div>
-				</a>
+				</CourseContentLink>
 			</li>
 		);
 	}

@@ -11,7 +11,6 @@ var Actions = require('../Actions');
 
 var Collection = require('./Collection');
 var Detail = require('./Detail');
-var Enroll = React.DOM.div;
 
 module.exports = React.createClass({
 	displayName: 'View',
@@ -19,7 +18,6 @@ module.exports = React.createClass({
 	getInitialState: function() {
         return { catalog: Store.getData() };
     },
-
 
     componentDidMount: function() {
         Store.addChangeListener(this._onChange);
@@ -58,7 +56,6 @@ module.exports = React.createClass({
     	return (
 			<Router.Locations contextual>
                 <Router.Location path="/list*" handler={Collection} title="Catalog" list={catalog} basePath={this.props.basePath} />
-                <Router.Location path="/item/:entryId/enroll/" handler={Enroll} basePath={this.props.basePath} />
 				<Router.Location path="/item/:entryId/(#:nav)" handler={Detail} basePath={this.props.basePath} />
 				<Router.NotFound handler={Collection} title="Catalog" list={catalog} basePath={this.props.basePath} />
 			</Router.Locations>
