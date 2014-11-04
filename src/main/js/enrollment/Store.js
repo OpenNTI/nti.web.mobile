@@ -69,7 +69,7 @@ AppDispatcher.register(function(payload) {
 				Store.emitChange({
 					action: action,
 					result: result
-				})
+				});
 			});
 		break;
 		case Constants.DROP_COURSE:
@@ -77,7 +77,7 @@ AppDispatcher.register(function(payload) {
 				Store.emitChange({
 					action: action,
 					result: result
-				})
+				});
 			});
 		break;
 		default:
