@@ -12,11 +12,11 @@ module.exports = React.createClass({
 	mixins: [NoteableMixin],
 
 	statics: {
-		noteable_type: 'forums.personalblogentry'
+		noteableType: 'forums.personalblogentry'
 	},
 
 	render: function() {
-		var blogName = this.state.item.title
+		var blogName = this.state.item.title;
 		return (
 			<li className="notification-item">
 				<Avatar username={this.state.username} width="32" height="32"/>

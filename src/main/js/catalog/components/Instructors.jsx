@@ -51,7 +51,7 @@ module.exports = React.createClass({
 		return (
 			<div className="instructors">
 			{instructors.map(function(i, index) {
-				return <Instructor key={i.Name} index={index} assetRoot={root} instructor={i}/>
+				return (<Instructor key={i.Name} index={index} assetRoot={root} instructor={i}/>);
 			})}
 			</div>
 		);

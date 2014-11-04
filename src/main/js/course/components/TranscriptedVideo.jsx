@@ -3,8 +3,8 @@
 
 var vtt = require("vtt.js"),//https://github.com/mozilla/vtt.js
 	WebVTT = vtt.WebVTT,
-	VTTCue = vtt.VTTCue,
-	VTTRegion = vtt.VTTRegion;
+	VTTCue = vtt.VTTCue/*,
+	VTTRegion = vtt.VTTRegion*/;
 
 var Promise = global.Promise || require('es6-promise').Promise;
 var React = require('react/addons');
@@ -17,7 +17,7 @@ var addClass = DomUtils.addClass;
 var removeClass = DomUtils.removeClass;
 
 var LoadingMask = require('common/components/Loading');
-var ErrorWidget = require('common/components/Error');
+//var ErrorWidget = require('common/components/Error');
 var Video = require('common/components/Video');
 
 /*
@@ -77,7 +77,7 @@ module.exports = React.createClass({
 	},
 
 
-	getDataIfNeeded: function(props) {
+	getDataIfNeeded: function(/*props*/) {
 		this.setState(this.getInitialState());
 		try {
 			this.props.video.getTranscript('en').then(
@@ -181,8 +181,7 @@ var Transcript = React.createClass({
 	},
 
 
-	renderCues: function(cue, index, list) {
-		var lastCue = list[index-1];
+	renderCues: function(cue) {
 		var divider = null;
 		var time = this.props.currentTime;
 

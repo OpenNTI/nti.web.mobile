@@ -31,7 +31,7 @@ exports = module.exports = {
 	ForumTopic: ForumTopic,
 	ForumComment: ForumComment,
 
-	select: function getNotificationItemHandler(item, index, list) {
+	select: function getNotificationItemHandler(item, index) {
 		var Item = exports.Unknown;
 		var key, Type;
 

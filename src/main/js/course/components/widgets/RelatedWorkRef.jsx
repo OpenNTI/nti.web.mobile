@@ -24,9 +24,9 @@ External Links:
 		visibility: "everyone"
 */
 var React = require('react/addons');
-var NTIID = require('dataserverinterface/utils/ntiids');
+
 var Card = require('common/components/Card');
-var path = require('path');
+
 
 module.exports = React.createClass({
 	displayName: 'CourseOverviewRelatedWorkRef',

@@ -22,7 +22,7 @@ module.exports = React.createClass({
 	},
 
 
-	_onChange: function(pkg) {
+	_onChange: function() {
 		this.forceUpdate();
 	},
 
@@ -32,9 +32,8 @@ module.exports = React.createClass({
 		var courseId = NTIID.encodeForURI(this.props.item.getID());
 		var style = {
 			backgroundImage: p && p.icon && 'url(' + p.icon + ')'
-		}
+		};
 
-		var basePath = this.props.basePath;
 		var href = '/item/' + courseId + '/';
 		return (
 			<li className="grid-item">

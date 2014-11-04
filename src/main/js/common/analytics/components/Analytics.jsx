@@ -1,8 +1,5 @@
-/**
- * @jsx React.DOM
- */
-
-'use strict'
+/** @jsx React.DOM */
+'use strict';
 
 var React = require('react/addons');
 var Store = require('../Store');

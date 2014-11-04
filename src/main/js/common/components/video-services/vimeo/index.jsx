@@ -74,6 +74,7 @@ var Source = module.exports = React.createClass({
 
 		var args = {
 			api: 1,
+			/* jshint -W106 */
 			player_id: this.props.id,
 			//autopause: 0, //we handle this for other videos, but its nice we only have to do this for cross-provider videos.
 			autoplay: 0,
@@ -110,7 +111,8 @@ var Source = module.exports = React.createClass({
 		var handlerName = eventHandlers[mappedEvent];
 
 		event = data.event;
-
+		
+		/* jshint -W106 */
 		if (data.player_id !== this.props.id) {
 			return;
 		}

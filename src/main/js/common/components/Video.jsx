@@ -4,6 +4,7 @@
 var React = require('react/addons');
 var Providers = require('./video-services');
 var Model = require('dataserverinterface/models/Video');
+var WatchVideoEvent = require('dataserverinterface/models/analytics/WatchVideoEvent');
 var call = require('dataserverinterface/utils/function-call');
 var actions = require('./VideoActions');
 
@@ -49,7 +50,7 @@ module.exports = React.createClass({
 	getDefaultProps: function() {
 		return {
 			context:[]
-		}
+		};
 	},
 
 
@@ -59,13 +60,14 @@ module.exports = React.createClass({
 			target: event.target,
 			currentTime: event.target.currentTime,
 			type: event.type
-		}
+		};
 	},
 
 
 	_playbackStarted: function(event) {
 		if (_playStartEvent) {
-			console.warn('We already have a playStartEvent. How did we get another one without a pause/stop/seek/end in between? Dropping previous start event on the floor.');
+			console.warn('We already have a playStartEvent. How did we get another one without a ' +
+						'pause/stop/seek/end in between? Dropping previous start event on the floor.');
 		}
 		_playStartEvent = this._getEventData(event);
 
@@ -86,19 +88,17 @@ module.exports = React.createClass({
 
 	_emit: function(startEvent,endEvent) {
 		var rootContextId = this.props.context.length > 0 ? this.props.context[0] : null;
-		var video_event = {
-			time_length: (endEvent.currentTime - startEvent.currentTime),
-			video_start_time: startEvent.currentTime,
-			video_end_time: endEvent.currentTime,
-			type: 'video-watch',
-			with_transcript: !!this.props.transcript,
-			RootContextID: rootContextId,
-			MimeType: 'application/vnd.nextthought.analytics.watchvideoevent',
-			context_path: this.props.context,
-			resource_id: this.props.src.ntiid,
-			timestamp: Date.now()
-		};
-		actions.emitVideoEvent(video_event);
+		var even = new WatchVideoEvent(
+				this.props.src.ntiid,
+				rootContextId,
+				this.props.context,
+				(endEvent.currentTime - startEvent.currentTime),
+				startEvent.currentTime,
+				endEvent.currentTime,
+			 	!!this.props.transcript
+			);
+
+		actions.emitVideoEvent(even);
 	},
 
 

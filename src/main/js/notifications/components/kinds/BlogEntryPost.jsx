@@ -14,7 +14,7 @@ module.exports = React.createClass({
 
 	statics: {
 		handles: function(item) {
-			if(item.MimeType.replace('application/vnd.nextthought.', '') == 'forums.generalforumcomment'){
+			if(item.MimeType.replace('application/vnd.nextthought.', '') === 'forums.generalforumcomment'){
 				return true;
 			}
 			return false;

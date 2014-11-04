@@ -1,12 +1,9 @@
 /** @jsx React.DOM */
-
 'use strict';
 
 var React = require('react/addons');
 
-var Button = require('common/components/forms/Button');
 var t = require('common/locale').scoped('LOGIN');
-var Dataserver = require('dataserverinterface');
 var Link = require('react-router-component').Link;
 
 var React = require('react/addons');

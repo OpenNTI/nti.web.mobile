@@ -1,7 +1,7 @@
 'use strict';
 
 var CourseFilters = {
-	'Upcoming': function(item,index,array) {
+	Upcoming: function(item) {
 		try {
 			var startDate = new Date(item.CourseInstance.CatalogEntry.StartDate);
 			var now = new Date();
@@ -12,7 +12,7 @@ var CourseFilters = {
 			return false;
 		}
 	},
-	'Current': function(item,index,array) {
+	Current: function(item) {
 		try {
 			var startDate = new Date(item.CourseInstance.CatalogEntry.StartDate);
 			var endDate = new Date(item.CourseInstance.CatalogEntry.EndDate);
@@ -24,11 +24,11 @@ var CourseFilters = {
 			return false;
 		}
 	},
-	'Archived': function(item,index,array) {
+	Archived: function(item) {
 		try {
 			var endDate = new Date(item.CourseInstance.CatalogEntry.EndDate);
 			var now = new Date();
-			return endDate < now;	
+			return endDate < now;
 		}
 		catch(e) {
 			console.error(e);

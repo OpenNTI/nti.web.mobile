@@ -25,7 +25,7 @@ module.exports = React.createClass({
 	componentWillUnmount: function() {},
 
 
-	componentWillReceiveProps: function(nextProps) {},
+	componentWillReceiveProps: function(/*nextProps*/) {},
 
 
 	render: function() {

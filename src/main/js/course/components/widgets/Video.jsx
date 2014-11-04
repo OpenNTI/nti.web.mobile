@@ -117,7 +117,7 @@ module.exports = React.createClass({
 	render: function() {
 		var props = this.props;
 		var item = props.item;
-		var video = this.state.video;
+
 		var Tag = React.DOM[props.tag || 'div'];
 		var style = {
 			backgroundImage: 'url(' + item.poster + ')'

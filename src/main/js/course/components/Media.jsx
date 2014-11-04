@@ -6,7 +6,7 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var React = require('react/addons');
 
 var Loading = require('common/components/Loading');
-var Error = require('common/components/Error');
+var ErrorWidget = require('common/components/Error');
 
 var TranscriptedVideo = require('./TranscriptedVideo');
 var VideoGrid = require('./VideoGrid');
@@ -59,7 +59,7 @@ module.exports = React.createClass({
 					this.setState({
 						loading: false,
 						videoIndex: data
-					})
+					});
 				}.bind(this))
 				.catch(this.__onError);
 		} catch (e) {
@@ -70,7 +70,7 @@ module.exports = React.createClass({
 
 	render: function() {
 		if (this.state.loading) {return (<Loading/>);}
-		if (this.state.error) {	return <Error error={this.state.error}/> }
+		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>); }
 
 		var p = this.props;
 		var videoId = p.videoId && NTIID.decodeFromURI(p.videoId);
@@ -82,7 +82,7 @@ module.exports = React.createClass({
 			videoId: videoId,
 			video: video,
 			parentPath: videoId ?
-				location.href.replace(p.videoId, '').replace(/\/\/$/, '/') : 
+				location.href.replace(p.videoId, '').replace(/\/\/$/, '/') :
 				null
 		};
 

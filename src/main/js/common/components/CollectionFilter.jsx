@@ -1,7 +1,4 @@
-/**
- * @jsx React.DOM
- */
-
+/** @jsx React.DOM */
 'use strict';
 
 var React = require('react');
@@ -21,7 +18,7 @@ var FilterBar = React.createClass({
 	_itemcount: function(filtername) {
 		var filter = this.props.filters[filtername];
 		if(filter && this.props.list.filter) {
-			return this.props.list.filter(filter).length;	
+			return this.props.list.filter(filter).length;
 		}
 		return 0;
 	},
@@ -33,9 +30,12 @@ var FilterBar = React.createClass({
 	render: function() {
 		var filterLinks = Object.keys(this.props.filters||{}).map(function(filtername) {
 			var isActive = this.props.filtername === filtername.toLowerCase();
-			return (<li key={filtername} className={isActive ? 'active' : null}>
-						<Link className="tiny button" href={'/' + filtername.toLowerCase()}><span className="filtername">{filtername}</span> {this.count(filtername)}</Link>
-						</li>)
+			return (
+				<li key={filtername} className={isActive ? 'active' : null}>
+					<Link className="tiny button" href={'/' + filtername.toLowerCase()}>
+						<span className="filtername">{filtername}</span> {this.count(filtername)}</Link>
+				</li>
+			);
 		}.bind(this));
 
 		var filterBar = filterLinks.length === 0 ? null : (
@@ -120,13 +120,13 @@ var DefaultPath = React.createClass({
 
 	componentDidUpdate: function() {
 		if(this.getPath() === '/') {
-			this._navigateToDefaultFilter();	
+			this._navigateToDefaultFilter();
 		}
 	},
 
 	componentDidMount: function() {
 		if(this.getPath() === '/') {
-			this._navigateToDefaultFilter();	
+			this._navigateToDefaultFilter();
 		}
 	},
 
@@ -141,7 +141,7 @@ var Filter = React.createClass({
 
 	propTypes: {
 		list: React.PropTypes.array.isRequired,
-		
+
 		/**
 			A (single) component for rendering the (filtered) list.
 		*/

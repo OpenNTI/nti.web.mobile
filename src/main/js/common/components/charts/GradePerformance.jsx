@@ -70,7 +70,7 @@ module.exports = React.createClass( {
 
 
 		if (!context.setLineDash) {
-			context.setLineDash = function(a) {};
+			context.setLineDash = function() {};
 		}
 
 		this.paint(context);

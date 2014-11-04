@@ -1,7 +1,4 @@
-/**
- * @jsx React.DOM
- */
-
+/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -18,9 +15,9 @@ var MessageDisplay = React.createClass({
 			var options = this.props.category ? {category: this.props.category} : null;
 			this.setState({messages: MessageStore.messages(options)});
 		}
-		else {
+		//else {
 			// how can this be?
-		}
+		//}
 	},
 
 	componentWillMount: function() {
@@ -47,11 +44,11 @@ var MessageDisplay = React.createClass({
 			return (<div />);
 		}
 		var dismiss = this._dismiss;
-		var msgs = this.state.messages.map(function(e, idx, arr) {
+		var msgs = this.state.messages.map(function(e) {
 			return (
 				<Alert key={'m' + e.id} message={e} dismiss={dismiss} />
 			);
-		})
+		});
 		return (
 			<ReactCSSTransitionGroup transitionName="messages">{msgs}</ReactCSSTransitionGroup>
 		);

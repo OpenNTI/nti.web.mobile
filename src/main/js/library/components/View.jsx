@@ -38,7 +38,7 @@ module.exports = React.createClass({
     },
 
 
-    getDataIfNeeded: function(props) {
+	getDataIfNeeded: function(/*props*/) {
 		if(!Store.getData().loaded) {
         	Actions.load();
         }

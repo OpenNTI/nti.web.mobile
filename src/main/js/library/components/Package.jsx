@@ -23,7 +23,7 @@ module.exports = React.createClass({
 	},
 
 
-	_onChange: function(pkg) {
+	_onChange: function() {
 		this.forceUpdate();
 	},
 

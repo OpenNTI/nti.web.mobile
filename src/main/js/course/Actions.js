@@ -35,7 +35,7 @@ function _navRecordFor(outlineNode,navbarTitle) {
 
 function _publishNavFor(courseEnrollment) {
 	var props = courseEnrollment.getPresentationProperties();
-	
+
 	courseEnrollment.getOutline()
 	.then(function(d) {
 		var root = Array.isArray(d) ? d[0] : d;
@@ -46,7 +46,7 @@ function _publishNavFor(courseEnrollment) {
 		var messageCat = 'course:nav';
 		Messages.Actions.clearMessages({
 			category: messageCat
-		})
+		});
 		Messages.Actions.addMessage(
 			new Messages.Message('An error occurred. Unable to load course outline.', {
 				category: messageCat

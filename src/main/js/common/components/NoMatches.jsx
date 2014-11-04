@@ -1,7 +1,5 @@
-/**
- * @jsx React.DOM
- */
-
+/** @jsx React.DOM */
+'use strict';
 var React = require('react/addons');
 var t = require('common/locale').scoped('FILTER');
 

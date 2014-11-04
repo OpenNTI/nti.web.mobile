@@ -1,11 +1,7 @@
-/**
- * @jsx React.DOM
- */
-
-'use strict'
+/** @jsx React.DOM */
+'use strict';
 
 var React = require('react/addons');
-var Link = require('react-router-component').Link;
 var Button = require('./Button');
 var t = require('common/locale').scoped('LOGIN');
 var MESSAGE = require('../Constants').messages.SIGNUP_CONFIRMATION;

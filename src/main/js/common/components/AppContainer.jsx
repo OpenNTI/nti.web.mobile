@@ -2,7 +2,6 @@
 'use strict';
 
 var React = require('react/addons');
-var Library = require('library');
 var Navigation = require('navigation');
 var Notifications = require('notifications');
 
@@ -11,7 +10,6 @@ var LeftNav = require('./LeftNav');
 var Footer = require('./Footer');
 
 var MessageDisplay = require('../messages').Display;
-var t = require('../locale').translate;
 var Utils = require('../Utils');
 
 var preventOverscroll = require('common/thirdparty/prevent-overscroll');
@@ -39,7 +37,7 @@ module.exports = React.createClass({
 		basePath: React.PropTypes.string.isRequired
 	},
 
-	_navChanged: function(evt) {
+	_navChanged: function() {
 		this.setState({
 			leftNav: Navigation.Store.getNav(),
 			navLoading: Navigation.Store.isLoading()
@@ -80,6 +78,7 @@ module.exports = React.createClass({
 
 		//Pretend you didn't see the jQuery usage... still very taboo
 		//This forces the side drawers to be the hight of the window...
+		/* global $ */
 		$('[class*=off-canvas-menu]').height(Utils.Viewport.getHeight());
 
 		utils[action + 'Class'](viewport, cls);
@@ -154,30 +153,5 @@ module.exports = React.createClass({
 	_onRightMenuClick: function(e) {
 		if (e) {e.preventDefault();}
 		Navigation.Actions.gotoFragment('notifications');
-	},
-
-
-	_onSwipe: function(e) {
-		var swippedLeft = e.direction === Hammer.DIRECTION_LEFT;
-		var swippedRight = e.direction === Hammer.DIRECTION_RIGHT;
-
-		var state = this.getDrawerState();
-		var action = function(){};
-
-		var leftOpen = state === LEFT_MENU_OPEN;
-		var rightOpen = state === RIGHT_MENU_OPEN;
-
-		if (swippedRight) {
-			action = rightOpen ?
-						this._onCloseMenus :
-						this._onLeftMenuClick;
-		}
-		else if (swippedLeft) {
-			action = leftOpen ?
-						this._onCloseMenus :
-						this._onRightMenuClick;
-		}
-
-		action();
 	}
 });

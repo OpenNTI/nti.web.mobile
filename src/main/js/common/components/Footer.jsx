@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-
+'use strict';
 var React = require('react/addons');
 
 module.exports = React.createClass({
@@ -7,7 +7,7 @@ module.exports = React.createClass({
 
 	render: function() {
 		return (
-			<footer></footer>
+			<footer/>
 		);
 	}
 });

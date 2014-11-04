@@ -5,7 +5,6 @@ var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var ActionConstants = require('./Constants').actions;
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
-var dataserver = require('common/Utils').getServer;
 
 /**
  * Actions available to views for login-related functionality.

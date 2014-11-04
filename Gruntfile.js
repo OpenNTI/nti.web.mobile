@@ -167,7 +167,6 @@ module.exports = function(grunt) {
 
 		jshint: {
 	        options: {
-				force: true,
 				jshintrc: true,
 	            reporter: require('jshint-log-reporter')
 	            //reporterOutput: 'lint.log'
@@ -189,16 +188,6 @@ module.exports = function(grunt) {
 			}
 		}
 	});
-
-	grunt.loadNpmTasks('grunt-contrib-symlink');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-yuidoc');
-	grunt.loadNpmTasks('grunt-env');
-	grunt.loadNpmTasks('grunt-execute');
-	grunt.loadNpmTasks('grunt-jsdoc');
-	grunt.loadNpmTasks('grunt-jsxhint');
-	grunt.loadNpmTasks('grunt-react');
-	grunt.loadNpmTasks('grunt-sass');
 
 	grunt.registerTask('docs',['react','jsdoc']);
 
