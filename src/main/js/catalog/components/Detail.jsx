@@ -3,7 +3,6 @@
 
 var React = require('react/addons');
 var Loading = require('common/components/Loading');
-var Notice = require('common/components/Notice');
 
 var NTIID = require('dataserverinterface/utils/ntiids');
 
