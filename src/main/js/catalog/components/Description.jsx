@@ -102,51 +102,53 @@ module.exports = React.createClass({
 				<div className="row">
 					<div className="cell small-12 columns">{entry.Description}</div>
 				</div>
-				<div className="row small-12 columns">
-					<table>
-						<tbody>
-							<tr>
-								<td>{entry.ProviderUniqueID}</td>
-								<td>{entry.Title}</td>
-							</tr>
-							<tr>
-								<td>{_t('SchoolLabel')}</td>
-								<td>{entry.ProviderDepartmentTitle}</td>
-							</tr>
-							<tr>
-								<td>Prerequisites</td>
-								<td>
-									{(prerequisites || []).map(function(_) {
-										return (<div key={_}>{_}</div>);
-									})}
-								</td>
-							</tr>
-							<tr>
-								<td>Hours</td>
-								<td>
-									{!isEmpty(entry.Credit)?
-										<CreditHours credit={entry.Credit} entry={entry.getID()} /> : null}
-									<EnrollmentMessage/>
-								</td>
-							</tr>
-							<tr>
-								<td>{_t('StartDate')}</td>
-								<td>{moment(entry.StateDate).format('LL')}</td>
-							</tr>
-							<tr>
-								<td>{_t('Duration')}</td>
-								<td>
-									{moment.duration(entry.Duration).asWeeks()} {_t('DurationUnits')}
-								</td>
-							</tr>
-							<tr>
-								<td>{_t('Days')}</td>
-								<td>
-									{isEmpty(entry.Schedule && entry.Schedule.days)? <FullyOnline/> : <Schedule schedule={entry.Schedule} startDate={entry.StartDate} />}
-								</td>
-							</tr>
-						</tbody>
-					</table>
+				<div className="row">
+					<div className="cell small-12 columns">
+						<table>
+							<tbody>
+								<tr>
+									<td>{entry.ProviderUniqueID}</td>
+									<td>{entry.Title}</td>
+								</tr>
+								<tr>
+									<td>{_t('SchoolLabel')}</td>
+									<td>{entry.ProviderDepartmentTitle}</td>
+								</tr>
+								<tr>
+									<td>Prerequisites</td>
+									<td>
+										{(prerequisites || []).map(function(_) {
+											return (<div key={_}>{_}</div>);
+										})}
+									</td>
+								</tr>
+								<tr>
+									<td>Hours</td>
+									<td>
+										{!isEmpty(entry.Credit)?
+											<CreditHours credit={entry.Credit} entry={entry.getID()} /> : null}
+										<EnrollmentMessage/>
+									</td>
+								</tr>
+								<tr>
+									<td>{_t('StartDate')}</td>
+									<td>{moment(entry.StateDate).format('LL')}</td>
+								</tr>
+								<tr>
+									<td>{_t('Duration')}</td>
+									<td>
+										{moment.duration(entry.Duration).asWeeks()} {_t('DurationUnits')}
+									</td>
+								</tr>
+								<tr>
+									<td>{_t('Days')}</td>
+									<td>
+										{isEmpty(entry.Schedule && entry.Schedule.days)? <FullyOnline/> : <Schedule schedule={entry.Schedule} startDate={entry.StartDate} />}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		);
