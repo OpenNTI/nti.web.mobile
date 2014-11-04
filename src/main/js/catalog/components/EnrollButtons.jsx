@@ -6,11 +6,8 @@
 
 var React = require('react/addons');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
-
-var Enrollment = require('enrollment');
-var Library = require('library');
-
-var CourseContentLink = require('courseware/components/CourseContentLink');
+var CourseContentLink = require('../../courseware/components/CourseContentLink');
+var Enrollment = require('../../enrollment');
 var Loading = require('common/components/Loading');
 
 var EnrollButtons = React.createClass({
@@ -32,21 +29,14 @@ var EnrollButtons = React.createClass({
 	},
 
 	componentWillUnmount: function() {
-		Enrollment.Store.removeChangeListener(this._updateEnrollmentStatus);
+		Enrollment.Store.removeChangeListener(this._updateEnrollmentStatus);	
 	},
 
 	_updateEnrollmentStatus: function() {
-
-		var updateStateFn = function(result) {
+		Enrollment.Store.isEnrolled(this.props.catalogEntry.CourseNTIID).then(function(result) {
 			this.setState({
 				enrolled: result,
 				loading: false
-			});
-		}.bind(this);
-
-		Enrollment.Store.isEnrolled(this.props.catalogEntry.CourseNTIID).then(function(result) {
-			Library.Actions.reload().then(function() {
-				updateStateFn(result);
 			});
 		}.bind(this));
 	},
@@ -100,7 +90,7 @@ var EnrollButtons = React.createClass({
 				</div>
 			);
 		}
-
+		
 		return (
 			<div key='drop' className="column">
 				<CourseContentLink courseId={this.props.catalogEntry.CourseNTIID} className="button tiny radius small-12 columns">
@@ -109,7 +99,7 @@ var EnrollButtons = React.createClass({
 				<a href="#" onClick={this._dropCourse} className="button tiny radius small-12 columns">{t('drop')}</a>
 			</div>
 		);
-
+		
 	}
 
 });
