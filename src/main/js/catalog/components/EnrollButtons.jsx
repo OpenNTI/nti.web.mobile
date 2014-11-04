@@ -12,7 +12,7 @@ var Loading = require('common/components/Loading');
 var EnrollButtons = React.createClass({
 
 	propTypes: {
-		'course': React.PropTypes.object.isRequired
+		'catalogEntry': React.PropTypes.object.isRequired
 	},
 
 	getInitialState: function() {
@@ -92,6 +92,7 @@ var EnrollButtons = React.createClass({
 		
 		return (
 			<div key='drop' className="column">
+				<a href="#" className="button tiny radius small-12 columns">{t('view_course')}</a>
 				<a href="#" onClick={this._dropCourse} className="button tiny radius small-12 columns">{t('drop')}</a>
 			</div>
 		);
