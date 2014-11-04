@@ -1,6 +1,6 @@
 'use strict';
 
-var Library = require('../library');
+var Library = require('library');
 
 var sectionNames = {
 	courses: 'courses',

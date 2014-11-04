@@ -2,11 +2,13 @@
 'use strict';
 
 var React = require('react/addons');
+
 var IconBar = require('./IconBar');
-var CourseList = require('./CourseList');
+var List = require('./List');
 var CatalogView = require('./CatalogView');
 
-var CoursewareSection = React.createClass({
+module.exports = React.createClass({
+	displayName: 'Section',
 
 	propTypes: {
 		basePath: React.PropTypes.string.isRequired
@@ -16,7 +18,7 @@ var CoursewareSection = React.createClass({
 		switch (section) {
 			case 'courses':
 			case 'books':
-				return CourseList({section: section});
+				return List({section: section});
 
 			case 'catalog':
 				return CatalogView();
@@ -39,5 +41,3 @@ var CoursewareSection = React.createClass({
 	}
 
 });
-
-module.exports = CoursewareSection;

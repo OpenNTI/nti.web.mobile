@@ -7,14 +7,12 @@ var Library = require('library');
 var Store = Library.Store;
 var Actions = Library.Actions;
 var LibraryCollection = Library.Collection;
-var CourseFilters = Library.CourseFilters;
+var Filters = Library.Filters;
 
 var Loading = require('common/components/Loading');
 var NoMatches = require('common/components/NoMatches');
 
-// TODO: this duplicates much of the functionality in library/components/View.jsx.
-// do we still need the other?
-var CourseList = React.createClass({
+var List = React.createClass({
 
 	propTypes: {
 		basePath: React.PropTypes.string.isRequired
@@ -68,7 +66,7 @@ var CourseList = React.createClass({
 	},
 
 	_filtersForSection: function(section) {
-		return section === 'courses' ? CourseFilters : null;
+		return section === 'courses' ? Filters : null;
 	},
 
 	render: function() {
@@ -91,4 +89,4 @@ var CourseList = React.createClass({
 
 });
 
-module.exports = CourseList;
+module.exports = List;

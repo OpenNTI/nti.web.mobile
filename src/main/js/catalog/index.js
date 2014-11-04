@@ -2,7 +2,6 @@
 
 var merge = require('react/lib/merge');
 
-var view = require('./components/View');
 var collection = require('./components/Collection');
 var detail = require('./components/Detail');
 
@@ -16,7 +15,6 @@ module.exports = merge(exports, {
 	Constants: constants,
 	Store: store,
 
-	View: view,
 	Collection: collection,
 	Detail: detail
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-var CourseFilters = {
+var Filters = {
 	Upcoming: function(item) {
 		try {
 			var startDate = new Date(item.CourseInstance.CatalogEntry.StartDate);
@@ -37,4 +37,4 @@ var CourseFilters = {
 	}
 };
 
-module.exports = CourseFilters;
+module.exports = Filters;

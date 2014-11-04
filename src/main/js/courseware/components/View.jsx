@@ -10,7 +10,7 @@ var DefaultRoute = Router.NotFound;
 var Store = require('../Store');
 var Loading = require('common/components/Loading');
 
-var CoursewareSection = require('./CoursewareSection');
+var Section = require('./Section');
 
 var Redirect = require('common/components/Redirect');
 
@@ -21,7 +21,7 @@ function getSectionRoutes(basePath) {
 	var routes = sections.map(function(section) {
 		return Location({
 			path: '/' + section + '/*',
-			handler: CoursewareSection,
+			handler: Section,
 			section: section,
 			basePath: basePath
 		});
