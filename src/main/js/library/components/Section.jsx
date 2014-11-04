@@ -5,7 +5,7 @@ var React = require('react/addons');
 
 var IconBar = require('./IconBar');
 var List = require('./List');
-var CatalogView = require('./CatalogView');
+var Catalog = require('../catalog').View;
 
 module.exports = React.createClass({
 	displayName: 'Section',
@@ -21,7 +21,7 @@ module.exports = React.createClass({
 				return List({section: section});
 
 			case 'catalog':
-				return CatalogView();
+				return Catalog();
 
 			default:
 				return (<div>Unknown section</div>);

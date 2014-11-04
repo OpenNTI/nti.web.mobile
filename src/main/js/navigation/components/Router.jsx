@@ -10,10 +10,12 @@ var Home = require('home');
 
 var Content = require('content');
 var Course = require('course');
-var Library = require('courseware');//TODO: rename package and route
+var Library = require('library');
 var Enrollment = require('enrollment');
 
 var NotFound = require('notfound');
+
+var Redirect = require('common/components/Redirect');
 
 module.exports = React.createClass({
 	displayName: 'Router',
@@ -37,11 +39,14 @@ module.exports = React.createClass({
 			<Router.Locations path={this.props.path} onNavigation={this.onNavigation}>
 				<Router.Location path={basePath + 'login/*'} handler={Login.View} basePath={basePath}/>
 
+				<Router.Location path={basePath + 'library/*'} handler={Library.View} basePath={basePath} />
+				<Router.Location path={basePath + 'courseware*'} handler={Redirect} location={basePath + 'library/'} />
+
 				<Router.Location path={basePath + 'content/:pkgId/*'} handler={Content.View} basePath={basePath} />
 				<Router.Location path={basePath + 'course/:course/*'} handler={Course.View} basePath={basePath} />
-				<Router.Location path={basePath + 'courseware/*'} handler={Library.View} basePath={basePath} />
 				<Router.Location path={basePath + 'enroll/:course/*'} handler={Enrollment.View} basePath={basePath} />
-				<Router.Location path={basePath} handler={Home.View} />
+
+				<Router.Location path={basePath} handler={Home.View} basePath={basePath} />
 				<Router.NotFound handler={NotFound.View} />
 			</Router.Locations>
 		);

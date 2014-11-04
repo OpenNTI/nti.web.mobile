@@ -1,6 +1,7 @@
 'use strict';
 
-var Library = require('library');
+var Actions = require('./Actions');
+var Store = require('./Store');
 
 var sectionNames = {
 	courses: 'courses',
@@ -8,18 +9,17 @@ var sectionNames = {
 	catalog: 'catalog'
 };
 
-var Store = {
+module.exports = {
+
 	getSectionNames: function() {
 		return Object.keys(sectionNames);
 	},
 
 	defaultSection: function() {
-		return Library.Actions.load().then(function() {
-			var data = Library.Store.getData();
+		return Actions.load().then(function() {
+			var data = Store.getData();
 			// if user doesn't have any courses default to the catalog.
 			return data.courses.length > 0 ? sectionNames.courses : sectionNames.catalog;
 		}.bind(this));
 	}
 };
-
-module.exports = Store;

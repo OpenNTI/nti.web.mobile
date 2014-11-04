@@ -7,16 +7,18 @@ var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
 var DefaultRoute = Router.NotFound;
-var Store = require('../Store');
+
 var Loading = require('common/components/Loading');
+var Redirect = require('common/components/Redirect');
 
 var Section = require('./Section');
 
-var Redirect = require('common/components/Redirect');
+var Sections = require('../Sections');
+
 
 function getSectionRoutes(basePath) {
 
-	var sections = Store.getSectionNames();
+	var sections = Sections.getSectionNames();
 
 	var routes = sections.map(function(section) {
 		return Location({
@@ -27,7 +29,7 @@ function getSectionRoutes(basePath) {
 		});
 	});
 
-	return Store.defaultSection().then(function(defaultSection) {
+	return Sections.defaultSection().then(function(defaultSection) {
 		var defaultRoute = DefaultRoute({
 			handler: Redirect,
 			location: '/' + defaultSection + '/'

@@ -4,7 +4,7 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var React = require('react/addons');
 var Router = require('react-router-component');
 
-var Detail = require('catalog/components/Detail');
+var Detail = require('library/catalog/components/Detail');
 var Loading = require('common/components/Loading');
 var ErrorWidget = require('common/components/Error');
 var Media = require('./Media');
@@ -96,7 +96,7 @@ module.exports = React.createClass({
 									course={course}
 									basePath={this.props.basePath}
 									contextProvider={this.__getContext}/>
-									
+
 
 				<Router.Location path="/o/:outlineId/c/:rootId/*"
 									handler={Content.Viewer}

@@ -1,14 +1,14 @@
-/**
- * @jsx React.DOM
- */
-
+/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
+
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
-var CourseContentLink = require('../../courseware/components/CourseContentLink');
-var Enrollment = require('../../enrollment');
+
 var Loading = require('common/components/Loading');
+
+var CourseContentLink = require('../../components/CourseContentLink');
+var Enrollment = require('enrollment');
 
 var EnrollButtons = React.createClass({
 
@@ -29,7 +29,7 @@ var EnrollButtons = React.createClass({
 	},
 
 	componentWillUnmount: function() {
-		Enrollment.Store.removeChangeListener(this._updateEnrollmentStatus);	
+		Enrollment.Store.removeChangeListener(this._updateEnrollmentStatus);
 	},
 
 	_updateEnrollmentStatus: function() {
@@ -90,7 +90,7 @@ var EnrollButtons = React.createClass({
 				</div>
 			);
 		}
-		
+
 		return (
 			<div key='drop' className="column">
 				<CourseContentLink courseId={this.props.catalogEntry.CourseNTIID} className="button tiny radius small-12 columns">
@@ -99,7 +99,7 @@ var EnrollButtons = React.createClass({
 				<a href="#" onClick={this._dropCourse} className="button tiny radius small-12 columns">{t('drop')}</a>
 			</div>
 		);
-		
+
 	}
 
 });

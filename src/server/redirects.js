@@ -28,7 +28,7 @@ module.exports = autoBind({
 				catalog = catalog.replace(/^!@/,'');//strip off the WebApps 'salt'
 				catalog = NTIIDs.encodeForURI(catalog);
 
-				redUrl = path.join(this.basepath, 'courseware', 'catalog', 'item', catalog) + '/';
+				redUrl = path.join(this.basepath, 'library', 'catalog', 'item', catalog) + '/';
 			}
 
 

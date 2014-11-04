@@ -3,7 +3,6 @@
 global.SERVER = true;
 
 var knownPages = [
-	'catalog',
 	'contacts',
 	'content',
 	'course',
@@ -12,7 +11,6 @@ var knownPages = [
 	'search'
 ].join('|');
 
-//var authedRoutes = new RegExp('^\\/($|' + knownPages + ')((?!resources).)*$');
 var appRoutes = new RegExp('^\\/($|login|' + knownPages + ')((?!resources).)*$');
 
 var http = require('http');

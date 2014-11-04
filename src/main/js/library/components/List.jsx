@@ -3,11 +3,11 @@
 
 var React = require('react/addons');
 
-var Library = require('library');
-var Store = Library.Store;
-var Actions = Library.Actions;
-var LibraryCollection = Library.Collection;
-var Filters = Library.Filters;
+var Store = require('../Store');
+var Actions = require('../Actions');
+
+var Collection = require('./Collection');
+var Filters = require('../Filters');
 
 var Loading = require('common/components/Loading');
 var NoMatches = require('common/components/NoMatches');
@@ -83,7 +83,7 @@ var List = React.createClass({
 		}
 
 		return this.transferPropsTo(
-			<LibraryCollection list={list} filters={filters} defaultFilter='Current' />
+			<Collection list={list} filters={filters} defaultFilter='Current' />
 		);
 	}
 

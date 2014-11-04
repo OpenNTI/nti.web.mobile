@@ -3,11 +3,10 @@
 
 var React = require('react/addons');
 
-var Catalog = require('catalog');
-var Collection = Catalog.Collection;
-var Detail = Catalog.Detail;
-var Store = Catalog.Store;
-var Actions = Catalog.Actions;
+var Collection = require('./Collection');
+var Detail = require('./Detail');
+var Store = require('../Store');
+var Actions = require('../Actions');
 
 var Loading = require('common/components/Loading');
 
