@@ -17,7 +17,7 @@ var addClass = DomUtils.addClass;
 var removeClass = DomUtils.removeClass;
 
 var LoadingMask = require('common/components/Loading');
-//var ErrorWidget = require('common/components/Error');
+var Pager = require('common/components/Pager');
 var Video = require('common/components/Video');
 
 /*
@@ -142,25 +142,20 @@ module.exports = React.createClass({
 
 	render: function() {
 		var collection=this.props.parentPath;
-
-		var props = {
-			ref: 'transcript',
-			cues: this.state.cues,
-			regions: this.state.regions,
-			onJumpTo: this.onJumpTo,
-			currentTime: this.state.currentTime
-		};
+		var state = this.state;
+		var pages = this.props.video.getPageSource();
 
 		return (
 			<div className="transcripted-video">
 				<a href={collection} className="toolbar-button-left fi-thumbnails"/>
+				<Pager pageSource={pages} current={this.props.video.getID()}/>
 				<LoadingMask loading={this.state.loading}>
-					<Video autoPlay ref="video" src={this.props.video} onTimeUpdate={this.onVideoTimeTick} context={this.state.context} transcript={true} />
+					<Video ref="video" src={this.props.video} onTimeUpdate={this.onVideoTimeTick} context={this.state.context} transcript={true} autoPlay/>
 					<div className="transcript">
 						{
 							this.state.error ?
 								<div>Transcript not available</div> :
-								Transcript(props)
+								<Transcript ref="transcript" cues={state.cues} regions={state.regions} onJumpTo={this.onJumpTo}	currentTime={state.currentTime}/>
 						}
 					</div>
 				</LoadingMask>
@@ -168,8 +163,6 @@ module.exports = React.createClass({
 		);
 	}
 });
-
-// ErrorWidget({error: this.state.error})
 
 
 var Transcript = React.createClass({
