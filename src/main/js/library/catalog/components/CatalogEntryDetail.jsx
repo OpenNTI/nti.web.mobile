@@ -65,11 +65,11 @@ var CatalogEntryDetail = React.createClass({
 			return <Loading />;
 		}
 
-		var detail = this.transferPropsTo(<Detail entry={this.state.entry}/>);
-
 		return (
 			<div>
-				{detail}
+				{this.transferPropsTo(
+					<Detail entry={this.state.entry}/>
+				)}
 				<EnrollButtons catalogEntry={this.state.entry} />
 			</div>
 		);
