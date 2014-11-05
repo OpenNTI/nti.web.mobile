@@ -27,7 +27,7 @@ function getItemHandler(item, index, list, props) {
 
 	return Item(
 		merge({
-			key: 'overview-' + item.MimeType + '-' + index,
+			key: item.NTIID || ('overview-' + item.MimeType + '-' + index),
 			item: item,
 			index: index,
 			ref: Item.displayName + '-' + index

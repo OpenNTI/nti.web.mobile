@@ -129,7 +129,9 @@ module.exports = React.createClass({
 
 		return (
 			<Tag className="video-wrap flex-video widescreen">
-				<Video ref="video" src={this.state.video} onEnded={this.onStop} onPlaying={this.onPlay} context={this.state.context} />
+				{!this.state.video ? null :
+					<Video ref="video" src={this.state.video} onEnded={this.onStop} onPlaying={this.onPlay} context={this.state.context} />
+				}
 				{this.state.playing ? null :
 				<LoadingMask style={style} loading={this.state.loading} tag="a" onFocus={props.onFocus} className="tap-area" href={link}>
 					<div className="wrapper">

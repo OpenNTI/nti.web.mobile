@@ -298,7 +298,7 @@ module.exports = React.createClass({
 	_renderDots: function() {
 		return this.getVideoList().map(function(_, i) {
 			var active = (i === (this.state.active || 0)) ? 'active' : null;
-			return (<li><a className={active} href={"#"+i} key={'video-'+i}
+			return (<li key={'video-'+i}><a className={active} href={"#"+i}
 				onClick={this.onActivateSlide} data-index={i}/></li>);
 		}.bind(this));
 	}
