@@ -1,14 +1,12 @@
 'use strict';
 
-
-var Card = require('./Card');
-var MarkupFrame = require('./MarkupFrame');
 var Unknown = require('./Unknown');
 
 exports = module.exports = {
 	Unknown: Unknown, //Unknown for future items.
-	Card: Card,
-	MarkupFrame: MarkupFrame,
+	Card: require('./Card'),
+	MarkupFrame: require('./MarkupFrame'),
+	Question: require('./Question'),
 
 	select: function getItemHandler(part) {
 		var Item = exports.Unknown;

@@ -34,7 +34,8 @@ var WIDGET_SELECTORS_AND_STRATEGIES = {
 	'object[class=ntirelatedworkref]': DomUtils.parseDomObject,
 
 	'object[type$=ntisequenceitem]': DomUtils.parseDomObject,
-	'object[type$=ntiaudio]': DomUtils.parseDomObject
+	'object[type$=ntiaudio]': DomUtils.parseDomObject,
+	'object[type$=naquestion]': DomUtils.parseDomObject
 };
 
 /**
