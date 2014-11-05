@@ -2,12 +2,15 @@
 'use strict';
 
 var React = require('react');
+
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
-var Link = require('react-router-component').Link;
+var Link = Router.Link;
 var DefaultRoute = Router.NotFound;
+
 var NoMatches = require('./NoMatches');
+
 
 var FilterBar = React.createClass({
 
@@ -55,14 +58,11 @@ var FilterBar = React.createClass({
 });
 
 
-
-module.exports = NoMatches;
-
 var FilterableView = React.createClass({
 
 	/**
-	* filter the list according using the currently selected filter.
-	*/
+	 * filter the list according using the currently selected filter.
+	 */
 	filter: function(list) {
 
 		if (!(list && list.filter)) {
@@ -137,35 +137,36 @@ var DefaultPath = React.createClass({
 
 });
 
+
 var Filter = React.createClass({
 
 	propTypes: {
 		/**
-		*	An array or object with a filter() method.
-		*/
+		 *	An array or object with a filter() method.
+		 */
 		list: React.PropTypes.oneOfType([
 			React.PropTypes.array,
 			React.PropTypes.shape({
 				filter: React.PropTypes.func
 			})
-		]).isRequired,
+		]),
 
 		/**
-			A (single) component for rendering the (filtered) list.
-		*/
+		 *	A (single) component for rendering the (filtered) list.
+		 */
 		children: React.PropTypes.component.isRequired,
 
 		/** filters should be a collection of named filter functions.
-		* for example:
-		*	{
-		* 		Odds: function(item,index,array) {
-		* 			return index % 2 === 1;
-		* 		},
-		* 		Evens: function(item,index,array) {
-		* 			return index % 2 === 0;
-		* 		}
-		*	}
-		*/
+		 * for example:
+		 *	{
+		 * 		Odds: function(item,index,array) {
+		 * 			return index % 2 === 1;
+		 * 		},
+		 * 		Evens: function(item,index,array) {
+		 * 			return index % 2 === 0;
+		 * 		}
+		 *	}
+		 */
 		filters: React.PropTypes.object.isRequired
 	},
 
@@ -187,7 +188,7 @@ var Filter = React.createClass({
 		var title = this.props.title;
 
 		if(!filters || Object.keys(filters).length === 0) {
-			console.log('No filters. Returning list view.');
+			//console.debug('No filters. Returning list view.');
 			return listView;
 		}
 		var routes = Object.keys(filters).map(function(filtername) {
@@ -213,5 +214,6 @@ var Filter = React.createClass({
 	}
 
 });
+
 
 module.exports = Filter;
