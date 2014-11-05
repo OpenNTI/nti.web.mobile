@@ -5,6 +5,7 @@ var Promise = global.Promise || require('es6-promise').Promise;
 
 var NTIID = require('dataserverinterface/utils/ntiids');
 var ResourceEvent = require('dataserverinterface/models/analytics/ResourceEvent');
+var guid = require('dataserverinterface/utils/guid');
 
 var React = require('react/addons');
 var RouterMixin = require('react-router-component').RouterMixin;
@@ -221,7 +222,7 @@ module.exports = React.createClass({
 		var o = this.state.pageWidgets;
 		var id = this.getPageID();
 		if (o && !o[id]) {
-			console.debug('Content View: Creating bin for PageWidgets for %s', id);
+			//console.debug('Content View: Creating bin for PageWidgets for %s', id);
 			o[id] = {};
 		}
 		return o && o[id];
@@ -268,8 +269,6 @@ module.exports = React.createClass({
 			return (<Loading/>);
 		}
 
-		var glossaryEntry = this.props.glossaryid ? <GlossaryEntry entryid={this.props.glossaryid} onClick={this._dismissGlossary} /> : null;
-
 		return (
 			<div className="content-view">
 				<Breadcrumb contextProvider={this.__getContext}>
@@ -279,7 +278,9 @@ module.exports = React.createClass({
 				<div id="NTIContent" onClick={this._onContentClick} dangerouslySetInnerHTML={{
 					__html: body.map(this._buildBody).join('')
 				}}/>
-				{glossaryEntry}
+				{!this.props.glossaryid ? null :
+					<GlossaryEntry entryid={this.props.glossaryid} onClick={this._dismissGlossary} />
+				}
 				<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
 			</div>
 		);
@@ -300,9 +301,10 @@ module.exports = React.createClass({
 
 	_applyStyle: function() {
 		return (this.state.styles || []).map(function(css) {
-			return (<style scoped type="text/css" dangerouslySetInnerHTML={{__html: css}}/>);
+			return (<style scoped type="text/css" key={guid()} dangerouslySetInnerHTML={{__html: css}}/>);
 		});
 	},
+
 
 	_reroute: function(anchor) {
 		var isGlossaryLink = anchor.classList.contains('ntiglossaryentry');

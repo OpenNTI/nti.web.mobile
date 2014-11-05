@@ -11,7 +11,7 @@ module.exports = React.createClass({
 	displayName: 'ContentView',
 
 	propTypes: {
-		packageId: React.PropTypes.string.isRequired
+		packageId: React.PropTypes.string
 	},
 
 
