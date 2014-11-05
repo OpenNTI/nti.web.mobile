@@ -58,17 +58,6 @@ module.exports = React.createClass({
 		return this.getResetState();
 	},
 
-	componentWillMount: function() {
-		this._setRouteProps();
-	},
-
-	_setRouteProps: function() {
-		// because we're mimicking a router, props captured from the route's path are not present in this.props.
-		// (e.g. no this.props.glossaryid from path '/glossary/:glossaryid')
-		// copy them in. (is it a bad idea to alter this.props directly like this?)
-		var m = this.getMatch();
-		this.props = merge(this.props,m.match||{});
-	},
 
 	componentDidMount: function() {
 		//The getDOMNode() will always be the loading dom at his point...
@@ -95,6 +84,7 @@ module.exports = React.createClass({
 		}
 	},
 
+
 	_getEventData: function() {
 		return {
 			timestamp: Date.now(),
@@ -104,6 +94,7 @@ module.exports = React.createClass({
 		};
 	},
 
+
 	_resourceLoaded: function(resourceId) {
 		// keep track of this for sending analytics
 		_currentResource = {
@@ -111,6 +102,7 @@ module.exports = React.createClass({
 			loaded: Date.now()
 		};
 	},
+
 
 	_resourceUnloaded: function() {
 		if (!_currentResource) {
@@ -132,13 +124,12 @@ module.exports = React.createClass({
 		_currentResource = null;
 	},
 
+
 	componentDidUpdate: function () {
 		//See if we need to re-mount/render our components...
 		var guid, el, w,
 			widgets = this.getPageWidgets();
 		// console.debug('Content View: Did Update... %o', widgets);
-
-		this._setRouteProps();
 
 		if (widgets) {
 			for(guid in widgets) {
@@ -195,7 +186,7 @@ module.exports = React.createClass({
 		},
 		{
 			handler: function(p) {return p;},
-			path: '/:pageId/glossary/:glossaryid'
+			path: '/:pageId/glossary/:glossaryId'
 		}];
 	},
 
@@ -261,9 +252,11 @@ module.exports = React.createClass({
 		this.navigate('/'+pid+'/');
 	},
 
+
 	render: function() {
 		var body = this.state.body || [];
 		var pageSource = this.state.pageSource;
+		var glossaryId = (this.getMatch().match || {}).glossaryId;
 
 		if (this.state.loading) {
 			return (<Loading/>);
@@ -278,8 +271,8 @@ module.exports = React.createClass({
 				<div id="NTIContent" onClick={this._onContentClick} dangerouslySetInnerHTML={{
 					__html: body.map(this._buildBody).join('')
 				}}/>
-				{!this.props.glossaryid ? null :
-					<GlossaryEntry entryid={this.props.glossaryid} onClick={this._dismissGlossary} />
+				{!glossaryId ? null :
+					<GlossaryEntry entryid={glossaryId} onClick={this._dismissGlossary} />
 				}
 				<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
 			</div>
