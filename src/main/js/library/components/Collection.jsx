@@ -43,7 +43,7 @@ module.exports = React.createClass({
 
 	propTypes: {
 		title: React.PropTypes.string,
-		
+
 		/**
 		*	An array or object with a filter() method.
 		*/
@@ -52,7 +52,7 @@ module.exports = React.createClass({
 			React.PropTypes.shape({
 				filter: React.PropTypes.func
 			})
-		]).isRequired,
+		]),
 
 		filters: React.PropTypes.object
 	},
