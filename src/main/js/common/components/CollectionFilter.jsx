@@ -140,7 +140,15 @@ var DefaultPath = React.createClass({
 var Filter = React.createClass({
 
 	propTypes: {
-		list: React.PropTypes.array.isRequired,
+		/**
+		*	An array or object with a filter() method.
+		*/
+		list: React.PropTypes.oneOfType([
+			React.PropTypes.array,
+			React.PropTypes.shape({
+				filter: React.PropTypes.func
+			})
+		]).isRequired,
 
 		/**
 			A (single) component for rendering the (filtered) list.

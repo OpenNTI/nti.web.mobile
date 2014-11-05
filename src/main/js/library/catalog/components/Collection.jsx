@@ -53,7 +53,17 @@ module.exports = React.createClass({
 
 	propTypes: {
 		title: React.PropTypes.string.isRequired,
-		list: React.PropTypes.object.isRequired,
+		
+		/**
+		*	An array or object with a filter() method.
+		*/
+		list: React.PropTypes.oneOfType([
+			React.PropTypes.array,
+			React.PropTypes.shape({
+				filter: React.PropTypes.func
+			})
+		]).isRequired,
+
 		filters: React.PropTypes.object
 	},
 
