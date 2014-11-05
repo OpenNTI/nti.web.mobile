@@ -24,7 +24,6 @@ var Store = merge(EventEmitter.prototype, {
 	},
 
 	emitChange: function(evt) {
-		console.log(this.displayName + ': emitting change. %O', evt);
 		this.emit(Constants.CHANGE_EVENT,evt);
 	},
 
@@ -32,7 +31,6 @@ var Store = merge(EventEmitter.prototype, {
 	 * @param {function} callback
 	 */
 	addChangeListener: function(callback) {
-		console.log(this.displayName + ': adding change listener');
 		this.on(Constants.CHANGE_EVENT, callback);
 	},
 

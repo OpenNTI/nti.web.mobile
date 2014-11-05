@@ -52,8 +52,8 @@ module.exports = React.createClass({
 	displayName: 'Catalog:Collection',
 
 	propTypes: {
-		title: React.PropTypes.string.isRequired,
-		
+		title: React.PropTypes.string,
+
 		/**
 		*	An array or object with a filter() method.
 		*/

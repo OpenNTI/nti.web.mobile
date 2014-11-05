@@ -15,7 +15,6 @@ module.exports = {
 
 	load: function() {
 		if (!loadPromise) {
-			console.log('Library Action: Load called');
 		    loadPromise = Api.getLibrary(true).then(function(library) {
 				dispatch(Constants.LOADED_LIBRARY, library);
 			});

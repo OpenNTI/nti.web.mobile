@@ -14,7 +14,6 @@ var _messages = {};
 var MessageStore = merge(EventEmitter.prototype, {
 
 	emitChange: function() {
-		console.log('MessageStore: emitting change');
 		this.emit(Events.MESSAGES_CHANGE, this.messages());
 	},
 
@@ -22,7 +21,6 @@ var MessageStore = merge(EventEmitter.prototype, {
 	* @param {function} callback
 	*/
 	addChangeListener: function(callback) {
-		console.log('MessageStore: adding change listener');
 		this.on(Events.MESSAGES_CHANGE, callback);
 	},
 

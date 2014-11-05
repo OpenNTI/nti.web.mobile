@@ -25,7 +25,6 @@ var _isLoggedIn = false;
 var LoginStore = merge(EventEmitter.prototype, {
 
 	emitChange: function(evt) {
-		console.log('LoginStore: emitting change');
 		this.emit(CHANGE_EVENT, evt);
 	},
 
@@ -33,7 +32,6 @@ var LoginStore = merge(EventEmitter.prototype, {
 	* @param {function} callback
 	*/
 	addChangeListener: function(callback) {
-		console.log('LoginStore: adding change listener');
 		this.on(CHANGE_EVENT, callback);
 	},
 

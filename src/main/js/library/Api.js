@@ -7,7 +7,6 @@ var getService = require('common/Utils').getService;
 var _library;
 
 function load(reload) {
-	console.log('Library Api: Load called');
 	return getService()
 		.then(function(service){
 			return Library.load(service, 'Main', reload);

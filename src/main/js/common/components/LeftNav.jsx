@@ -44,7 +44,7 @@ module.exports = React.createClass({
 		var basePath = this.props.basePath;
 		var record = this.props.items[this.state.index];
 
-		var child = this.props.isLoading ? <Loading /> : <NavDrawerItem record={record} basePath={basePath}/>;
+		var child = this.props.isLoading ? <Loading /> : (record ? <NavDrawerItem record={record} basePath={basePath}/> : null);
 
 		return (
 			<div>
