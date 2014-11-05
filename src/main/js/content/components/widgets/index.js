@@ -8,7 +8,7 @@ exports = module.exports = {
 	MarkupFrame: require('./MarkupFrame'),
 	Question: require('./Question'),
 
-	select: function getItemHandler(part) {
+	select: function getItemHandler(part, pageData) {
 		var Item = exports.Unknown;
 		var key, Type;
 
@@ -25,7 +25,8 @@ exports = module.exports = {
 		return Item(
 			{
 				key: 'widget-' + part.guid,
-				item: part
+				item: part,
+				pageData: pageData
 			});
 	}
 

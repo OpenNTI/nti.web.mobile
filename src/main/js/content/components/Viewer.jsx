@@ -151,7 +151,7 @@ module.exports = React.createClass({
 		var widgets = this.getPageWidgets();
 		if (!widgets[widgetData.guid]) {
 			// console.debug('Content View: Creating widget for %s', widgetData.guid);
-			widgets[widgetData.guid] = this.transferPropsTo(Widgets.select(widgetData));
+			widgets[widgetData.guid] = this.transferPropsTo(Widgets.select(widgetData, this.state.data));
 		}
 	},
 
