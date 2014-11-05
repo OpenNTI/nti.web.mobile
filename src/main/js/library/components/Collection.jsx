@@ -45,8 +45,8 @@ module.exports = React.createClass({
 		title: React.PropTypes.string,
 
 		/**
-		*	An array or object with a filter() method.
-		*/
+		 *	An array or object with a filter() method.
+		 */
 		list: React.PropTypes.oneOfType([
 			React.PropTypes.array,
 			React.PropTypes.shape({

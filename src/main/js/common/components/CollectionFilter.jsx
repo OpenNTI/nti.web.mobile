@@ -167,7 +167,7 @@ var Filter = React.createClass({
 		 * 		}
 		 *	}
 		 */
-		filters: React.PropTypes.object.isRequired
+		filters: React.PropTypes.object
 	},
 
 	getDefaultProps: function() {
