@@ -1,16 +1,24 @@
 /** @jsx React.DOM */
 'use strict';
 
+var path = require('path');
+
 var React = require('react/addons');
+var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var DateTime = require('common/components/DateTime');
 var Score = require('common/components/charts/Score');
 
-var getService = require('common/Utils').getService;
+var Utils = require('common/Utils');
+var getEventTarget = Utils.Dom.getEventTarget;
+var getService = Utils.getService;
+
+var NTIID = require('dataserverinterface/utils/ntiids');
 
 var SUBMITTED_QUIZ = 'application/vnd.nextthought.assessment.assessedquestionset';
 
 module.exports = React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
+	mixins: [NavigatableMixin],
 
 	statics: {
 		mimeTest: /(naquestionset|naquestionbank|assignment)$/i,
@@ -42,14 +50,19 @@ module.exports = React.createClass( {
 		var ntiid = this.props.item['Target-NTIID'];
 		var assignment = this.props.node.getAssignment(ntiid);
 
-		this.setState({ assignment: assignment });
+		this.setState({
+			assignment: assignment,
+			href: '#'
+		});
 
 		if (!assignment) {
 			service.getPageInfo(ntiid)
 				.then(getLastQuizSubmission)
-				.catch(this.setNotTaken);
+				.catch(this.setNotTaken)
+				.then(this.setQuizHref);
 		}
 	},
+
 
 	setLatestAttempt: function (assessedQuestionSet) {
 		console.debug(assessedQuestionSet);
@@ -62,12 +75,20 @@ module.exports = React.createClass( {
 		});
 	},
 
+
 	setNotTaken: function() {
 		//mark as not started
 		this.setState({
 			latestAttempt: null,
 			completed: false
 		});
+	},
+
+
+	setQuizHref: function() {
+		var ntiid = this.props.item['Target-NTIID'];
+		var link = path.join('c', NTIID.encodeForURI(ntiid)) + '/';
+		this.setState({href: this.makeHref(link, true)});
 	},
 
 
@@ -86,12 +107,13 @@ module.exports = React.createClass( {
 		var isLate = assignment && assignment.isLate(new Date());
 
 		var addClass =
+			(/^#?$/.test(this.state.href) ? ' disabled' : '') +
 			(this.state.completed ? " completed" : "") +
 			(isLate ? " late" : "") +
 			(assignment ? " assignment" : " assessment");
 
 		return (
-			<a className={'overview-naquestionset disabled' + addClass} href="#" onClick={this.onClick}>
+			<a className={'overview-naquestionset' + addClass} href={this.state.href} onClick={this.onClick}>
 				<div className="body">
 					{assignment ?
 						<div className="icon assignment"/>
@@ -125,9 +147,18 @@ module.exports = React.createClass( {
 	},
 
 	onClick: function (e) {
+		var a = getEventTarget(e, 'a[href]');
+		a = a && a.getAttribute('href');
+		//If there is a url to go to, let it go.
+		if (a && a !== '#') {
+			return;
+		}
+
 		e.preventDefault();
 		e.stopPropagation();
+
 		/*global alert */
 		alert('Coming soon to mobile.\nUntil then, please use a desktop or iPad app to access');
+
 	}
 });
