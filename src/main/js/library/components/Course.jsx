@@ -3,7 +3,6 @@
 
 var React = require('react/addons');
 
-var NTIID = require('dataserverinterface/utils/ntiids');
 var BLANK_IMAGE = require('common/constants/DataURIs').BLANK_IMAGE;
 
 var CourseContentLink = require('./CourseContentLink');
