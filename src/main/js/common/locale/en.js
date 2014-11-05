@@ -54,8 +54,9 @@ module.exports = {
 
 	ENROLLMENT: {
 		BUTTONS: {
-			'OpenEnrollment': 'Enroll in the open course',
-			'drop': 'Drop this course'
+			OpenEnrollment: 'Enroll in the open course',
+			drop: 'Drop this course',
+			viewCourse: 'View Course'
 		}
 	},
 

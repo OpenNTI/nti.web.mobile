@@ -94,7 +94,7 @@ var EnrollButtons = React.createClass({
 		return (
 			<div key='drop' className="column">
 				<CourseContentLink courseId={this.props.catalogEntry.CourseNTIID} className="button tiny radius small-12 columns">
-					{t('view_course')}
+					{t('viewCourse')}
 				</CourseContentLink>
 				<a href="#" onClick={this._dropCourse} className="button tiny radius small-12 columns">{t('drop')}</a>
 			</div>
