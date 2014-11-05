@@ -77,15 +77,14 @@ var EnrollButtons = React.createClass({
 		if(!this.state.enrolled) {
 			var buttons = this._enrollmentOptions().map(function(option,index) {
 				return (
-					<div key={'option' + index}className="column">
-						<a href="#"
-							onClick={this._enroll.bind(null,option)}
-							className="button tiny radius small-12 columns">{option.label}</a>
-					</div>
+					<a href="#"
+						onClick={this._enroll.bind(null,option)}
+						key={'option' + index}
+						className="button tiny radius column">{option.label}</a>
 				);
 			}.bind(this));
 			return (
-				<div>
+				<div className="small-12 columns">
 					{buttons}
 				</div>
 			);

@@ -4,7 +4,7 @@
 var React = require('react/addons');
 
 var Collection = require('./Collection');
-var Detail = require('./Detail');
+var CatalogEntryDetail = require('./CatalogEntryDetail');
 var Store = require('../Store');
 var Actions = require('../Actions');
 
@@ -61,7 +61,7 @@ var CatalogView = React.createClass({
         return Locations({contextual: true},
             Location({
                 path: '/item/:entryId/(#:nav)',
-                handler: Detail,
+                handler: CatalogEntryDetail,
                 basePath: basePath
             }),
             Location({
