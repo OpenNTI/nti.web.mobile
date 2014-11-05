@@ -51,7 +51,7 @@ function countView() {
 	if (hidden === false) {
 		views++;
 	}
-	console.debug('Emitting: Visibility Change: hidden? ', hidden);
+	//console.debug('Emitting: Visibility Change: hidden? ', hidden);
 	mon.emit(CHANGE_EVENT, !hidden);
 }
 

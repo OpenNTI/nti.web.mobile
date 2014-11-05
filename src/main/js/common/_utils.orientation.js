@@ -16,7 +16,7 @@ module.exports = exports = {
 			state ='landscape';
 		}
 
-		console.debug('Window is now: %s', state);
+		//console.debug('Window is now: %s', state);
 		document.body.className = state;
 		if (component) {
 			component.setState({orientation: state});
