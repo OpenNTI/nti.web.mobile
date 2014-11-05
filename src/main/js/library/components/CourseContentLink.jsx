@@ -6,6 +6,7 @@
 
 var React = require('react/addons');
 var Utils = require('common/Utils');
+var NTIID = require('dataserverinterface/utils/ntiids');
 
 var CourseContentLink = React.createClass({
 
@@ -15,8 +16,10 @@ var CourseContentLink = React.createClass({
 
 	render: function() {
 
-		return (
-			<a href={Utils.getBasePath() + 'course/' + this.props.courseId + '/#nav'}>{this.props.children}</a>
+		var courseUrl = NTIID.encodeForURI(this.props.courseId);
+
+		return this.transferPropsTo(
+			<a href={Utils.getBasePath() + 'course/' + courseUrl + '/#nav'}>{this.props.children}</a>
 		);
 	}
 

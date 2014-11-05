@@ -33,7 +33,7 @@ module.exports = React.createClass({
 
 	render: function() {
 		var p = this.props.item.getPresentationProperties();
-		var courseId = NTIID.encodeForURI(this.props.item.getCourseID());
+		var courseId = this.props.item.getCourseID();
 		var style = {
 			backgroundImage: p && p.icon && 'url(' + p.icon + ')'
 		};
