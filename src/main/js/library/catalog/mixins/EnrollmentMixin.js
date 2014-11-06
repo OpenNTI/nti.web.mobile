@@ -3,6 +3,7 @@
 var React = require('react/addons');
 var EnrollmentStore = require('enrollment/Store');
 var EnrollmentActions = require('enrollment/Actions');
+var DropCourse = require('enrollment/components/DropCourse');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 var CatalogStore = require('library/catalog/Store');
 var CatalogActions = require('library/catalog/Actions');
@@ -66,6 +67,11 @@ module.exports = {
 		return entry;
 	},
 
+	getCourseId: function() {
+		var entry =  this._getEntry();
+		return entry.CourseNTIID;
+	},
+
 	getDataIfNeeded: function() {
 		this.setState({
 			entry: this._getEntry()
@@ -75,7 +81,6 @@ module.exports = {
 	_updateEnrollmentStatus: function() {
 		var entry = this._getEntry();
 		EnrollmentStore.isEnrolled(entry.CourseNTIID).then(function(result) {
-			console.debug('enrolled: %s', result);
 			this.setState({
 				enrolled: result,
 				loading: false
