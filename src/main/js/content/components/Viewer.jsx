@@ -220,7 +220,7 @@ module.exports = React.createClass({
 
 
 	__applyStyle: function() {
-		var styles = this.getPageStyles();
+		var styles = this.getPageStyles() || [];
 		return styles.map(function(css) {
 			return (<style scoped type="text/css" key={guid()} dangerouslySetInnerHTML={{__html: css}}/>);
 		});
