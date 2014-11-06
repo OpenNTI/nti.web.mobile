@@ -6,6 +6,7 @@
 
 var React = require('react/addons');
 var Button = require('common/components/forms/Button');
+var Actions = require('../Actions');
 
 var DropCourseDialog = React.createClass({
 
@@ -14,7 +15,7 @@ var DropCourseDialog = React.createClass({
 	},
 
 	_confirmClicked: function() {
-		console.debug('dialog button clicked.');
+		Actions.dropCourse(this.props.courseId);
 	},
 
 	render: function() {
