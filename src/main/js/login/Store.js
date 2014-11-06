@@ -1,23 +1,28 @@
-/* global $AppConfig */
 'use strict';
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
+
+var Promise = global.Promise || require('es6-promise').Promise;
+var Url = require('url');
+
+var merge = require('react/lib/merge');
 var invariant = require('react/lib/invariant');
 var EventEmitter = require('events').EventEmitter;
+
+var IllegalArgumentException = require('common/exceptions/').IllegalArgumentException;
+var AppDispatcher = require('common/dispatcher/AppDispatcher');
+var Messages = require('common/messages/');
+
+var t = require('common/locale').translate;
+var Utils = require('common/Utils');
+var getServer = Utils.getServer;
+
 var Constants = require('./Constants');
 var ActionConstants = Constants.actions;
 var Links = Constants.links;
 var LoginMessages = Constants.messages;
+
 var StoreProperties = require('./StoreProperties');
-var merge = require('react/lib/merge');
+
 var CHANGE_EVENT = 'change';
-var Messages = require('common/messages/');
-var t = require('common/locale').translate;
-var IllegalArgumentException = require('common/exceptions/').IllegalArgumentException;
-var Url = require('url');
-var Promise = global.Promise || require('es6-promise').Promise;
-
-var getServer = require('common/Utils').getServer;
-
 var _links = {};
 var _isLoggedIn = false;
 
@@ -136,7 +141,7 @@ function _logIn(credentials) {
 			credentials);
 
 	p.then(function(r) {
-		$AppConfig.username = credentials.username;
+		Utils.__setUsername(credentials.username);
 		console.log('login attempt resolved. %O', r);
 		_setLoggedIn(true);
 	});
@@ -154,7 +159,7 @@ function _logOut() {
 	//TODO: this link doesn't need to be built, (we just need to append the
 	//success to the rel="logout" link in the ping...which we should store on
 	// a successfull handshake.)
-	var p = $AppConfig.server + Links.LOGOUT_LINK + '?success=' + current;
+	var p = Utils.getServerURI() + Links.LOGOUT_LINK + '?success=' + current;
 	location.replace(p);
 }
 

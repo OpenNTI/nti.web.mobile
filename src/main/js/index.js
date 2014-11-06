@@ -1,22 +1,23 @@
 'use strict';
-/* global $AppConfig, FastClick */
-$AppConfig.server = require('dataserverinterface/utils/forcehost')($AppConfig.server);
+/* global FastClick */
 
 var React = require('react/addons');
+var Utils = require('common/Utils');
 var preventOverscroll = require('common/thirdparty/prevent-overscroll');
 
+//Client code, injects script blocks into <HEAD> tag
 require('script!../resources/vendor/modernizr/modernizr.js');
 require('script!../resources/vendor/fastclick/lib/fastclick.js');
 require('script!../resources/vendor/jquery/dist/jquery.min.js');
 require('script!../resources/vendor/foundation/js/foundation.min.js');
 
-
 //Allow CSS :active states:
 //document.addEventListener("touchstart", function(){}, true);
 
-console.debug('Client is using host: %s', $AppConfig.server);
+Utils.__forceCurrentHost();
+console.debug('Client is using host: %s', Utils.getServerURI());
 
-var OrientationHandler = require('common/Utils').Orientation;
+var OrientationHandler = Utils.Orientation;
 var AppView = require('./main');
 
 var EventPluginHub = require('react/lib/EventPluginHub');
@@ -42,7 +43,7 @@ preventOverscroll(document.body);
 // }
 
 var app = React.renderComponent(
-	AppView({basePath: $AppConfig.basepath || '/'}),
+	AppView({basePath: Utils.getBasePath() || '/'}),
 	document.getElementById('content')
 );
 

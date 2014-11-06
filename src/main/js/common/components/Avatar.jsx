@@ -3,6 +3,7 @@
 
 var React = require('react/addons');
 var constants = require('../constants/DataURIs');
+var Utils = require('../Utils');
 var urlJoin = require('dataserverinterface/utils/urljoin');
 
 module.exports = React.createClass({
@@ -46,9 +47,8 @@ module.exports = React.createClass({
 
 	_buildAvatarURL: function(username) {
 		//This is very special case... please do not use this as a pattern.
-		/* global $AppConfig */
 		return username ?
-			urlJoin($AppConfig.server, 'users', username, '@@avatar') :
+			urlJoin(Utils.getServerURI(), 'users', username, '@@avatar') :
 			constants.BLANK_AVATAR;
 	},
 

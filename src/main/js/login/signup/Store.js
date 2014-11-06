@@ -3,7 +3,8 @@
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
-var getServer = require('common/Utils').getServer;
+var Utils = require('common/Utils');
+var getServer = Utils.getServer;
 
 var Constants = require('./Constants');
 var Actions = Constants.actions;
@@ -101,8 +102,7 @@ var Store = merge(EventEmitter.prototype, {
 
 	getUserAgreementUrl: function() {
 		// return Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
-		/* global $AppConfig */
-		return Promise.resolve( $AppConfig.basepath + 'api/user-agreement/');
+		return Promise.resolve( Utils.getBasePath() + 'api/user-agreement/');
 	},
 
 	getUserAgreement: function() {

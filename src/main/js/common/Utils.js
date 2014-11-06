@@ -1,5 +1,9 @@
 /* global $AppConfig */
 'use strict';
+
+var defineHidden = require('dataserverinterface/utils/object-define-hidden-props');
+var forceCurrentHost = require('dataserverinterface/utils/forcehost');
+
 /**
  * @class Utils
  */
@@ -15,8 +19,14 @@ var Utils = {
 	},
 
 
+	getServerURI: function () {
+		return $AppConfig.server;
+	},
+
+
 	/**
 	 * Returns the shared instance of the server interface.
+	 * NOTICE: This is for low-level (or anonymous/non-authenticated) work ONLY.
 	 */
 	getServer: function getServer() {
 		var fn = getServer;
@@ -73,3 +83,10 @@ var Utils = {
 };
 
 module.exports = Utils;
+
+
+//This is down at the bottom to hide
+defineHidden(Utils, {
+	__setUsername: function(str) {$AppConfig.username = str;},
+	__forceCurrentHost: function(){$AppConfig.server = forceCurrentHost($AppConfig.server);}
+});
