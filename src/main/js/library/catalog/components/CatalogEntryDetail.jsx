@@ -8,7 +8,7 @@ var React = require('react/addons');
 var Store = require('../Store');
 var Detail = require('./Detail.jsx');
 var Loading = require('common/components/Loading');
-var EnrollButtons = require('./EnrollButtons');
+var EnrollButton = require('./EnrollButton');
 var NTIID = require('dataserverinterface/utils/ntiids');
 
 var CatalogEntryDetail = React.createClass({
@@ -70,7 +70,7 @@ var CatalogEntryDetail = React.createClass({
 				{this.transferPropsTo(
 					<Detail entry={this.state.entry}/>
 				)}
-				<EnrollButtons catalogEntry={this.state.entry} />
+				<EnrollButton catalogEntry={this.state.entry} />
 			</div>
 		);
 	}

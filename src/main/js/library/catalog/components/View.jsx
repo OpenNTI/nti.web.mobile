@@ -13,6 +13,7 @@ var Loading = require('common/components/Loading');
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
+var Enrollment = require('../../../enrollment').View;
 
 var CatalogView = React.createClass({
 
@@ -62,6 +63,11 @@ var CatalogView = React.createClass({
             Location({
                 path: '/item/:entryId/(#:nav)',
                 handler: CatalogEntryDetail,
+                basePath: basePath
+            }),
+            Location({
+                path: '/item/:entryId/enrollment/*',
+                handler: Enrollment,
                 basePath: basePath
             }),
             Location({

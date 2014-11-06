@@ -8,9 +8,12 @@ var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 var Loading = require('common/components/Loading');
 
 var CourseContentLink = require('../../components/CourseContentLink');
+var EnrollmentOptions = require('../mixins/EnrollmentMixin');
 var Enrollment = require('enrollment');
 
 var EnrollButtons = React.createClass({
+
+	mixins: [EnrollmentOptions],
 
 	propTypes: {
 		'catalogEntry': React.PropTypes.object.isRequired
@@ -41,19 +44,6 @@ var EnrollButtons = React.createClass({
 		}.bind(this));
 	},
 
-	_enrollmentOptions: function() {
-		var result = [];
-		var options = this.props.catalogEntry.EnrollmentOptions||{};
-		Object.keys(options).forEach(function(key) {
-			if(options[key].Enabled) {
-				result.push({
-					label: t(key)
-				});
-			}
-		});
-		return result;
-	},
-
 	_dropCourse: function(event) {
 		event.preventDefault();
 		Enrollment.Actions.dropCourse(this.props.catalogEntry.CourseNTIID);
@@ -75,7 +65,7 @@ var EnrollButtons = React.createClass({
 		}
 
 		if(!this.state.enrolled) {
-			var buttons = this._enrollmentOptions().map(function(option,index) {
+			var buttons = this._enrollmentOptions(this.props.catalogEntry).map(function(option,index) {
 				return (
 					<a href="#"
 						onClick={this._enroll.bind(null,option)}
