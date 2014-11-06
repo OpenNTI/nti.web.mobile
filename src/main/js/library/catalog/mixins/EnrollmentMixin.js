@@ -3,10 +3,8 @@
 var React = require('react/addons');
 var EnrollmentStore = require('enrollment/Store');
 var EnrollmentActions = require('enrollment/Actions');
-var DropCourse = require('enrollment/components/DropCourse');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 var CatalogStore = require('library/catalog/Store');
-var CatalogActions = require('library/catalog/Actions');
 var NTIID = require('dataserverinterface/utils/ntiids');
 
 module.exports = {
