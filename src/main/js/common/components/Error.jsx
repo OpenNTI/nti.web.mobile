@@ -10,6 +10,13 @@ module.exports = React.createClass({
 		error: React.PropTypes.any
 	},
 
+
+	componentDidMount: function() {
+		var e = this.error;
+		console.error(e.stack || e.message || e.responseText || e);
+	},
+
+
 	render: function() {
 		var error = this.props.error;
 		var message = error.stack || error.message || error.responseText || error;
