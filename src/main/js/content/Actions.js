@@ -16,6 +16,7 @@ var toArray = require('dataserverinterface/utils/toarray');
 
 var Api = require('./Api');
 var Constants = require('./Constants');
+var PageDescriptor = require('./PageDescriptor');
 
 var LibraryApi = require('library/Api');
 
@@ -87,7 +88,7 @@ module.exports = merge(EventEmitter.prototype, {
 
 			.then(function(packet) {
 				dispatch(Constants.PAGE_LOADED,
-					merge({ ntiid: ntiid }, packet));
+					new PageDescriptor(ntiid, packet));
 			});
 	}
 

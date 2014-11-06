@@ -8,7 +8,7 @@ var Constants = require('./Constants');
 
 var CHANGE_EVENT = 'change';
 
-var _data = {};
+var _pages = {};
 
 var Store = merge(EventEmitter.prototype, {
 	displayName: 'content.Store',
@@ -32,15 +32,14 @@ var Store = merge(EventEmitter.prototype, {
 	},
 
 
-	getPageData: function (id) {
-		return _data[id];
+	getPageDescriptor: function (id) {
+		return _pages[id];
 	}
 });
 
 
-function persistData(packet) {
-	packet.__added = new Date();
-	_data[packet.ntiid] = packet;
+function persistPage(descriptor) {
+	_pages[descriptor.getID()] = descriptor;
 }
 
 
@@ -48,7 +47,7 @@ Store.appDispatch = AppDispatcher.register(function(payload) {
     var action = payload.action;
     switch(action.actionType) {
         case Constants.PAGE_LOADED:
-            persistData(action.response);
+            persistPage(action.response);
             break;
         default:
             return true;

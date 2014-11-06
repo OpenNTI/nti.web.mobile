@@ -3,6 +3,8 @@
 
 var Promise = global.Promise || require('es6-promise').Promise;
 
+var noContextProvider = Promise.resolve.bind(Promise, []);
+
 var NTIID = require('dataserverinterface/utils/ntiids');
 var guid = require('dataserverinterface/utils/guid');
 
@@ -144,29 +146,42 @@ module.exports = React.createClass({
 		var widgets = this.getPageWidgets();
 		if (!widgets[widgetData.guid]) {
 			// console.debug('Content View: Creating widget for %s', widgetData.guid);
-			widgets[widgetData.guid] = this.transferPropsTo(Widgets.select(widgetData, this.state.data));
+			widgets[widgetData.guid] = Widgets.select(widgetData, this.state.pageData, this.props);
 		}
 	},
 
 
 	onChange: function() {
 		var id = this.getPageID();
-		var data = Store.getPageData(this.getPageID());
+		var page = Store.getPageDescriptor(this.getPageID());
 
 		this.setState({
 			currentPage: id,
 			loading: false,
-			data: data,
-			pageSource: data.tableOfContents.getPageSource(this.getRootID()),
-			body: data.body,
-			styles: data.styles,
-			contextPromise: this.props.contextProvider(this.props)
+			pageData: page,
+			pageSource: page.getPageSource(this.getRootID())
 		});
 	},
 
 
+	getBodyParts: function () {
+		var page = this.state.pageData;
+		if (page) {
+			return page.getBodyParts();
+		}
+	},
+
+
+	getPageStyles: function () {
+		var page = this.state.pageData;
+		if (page) {
+			return page.getPageStyles();
+		}
+	},
+
+
 	render: function() {
-		var body = this.state.body || [];
+		var body = this.getBodyParts() || [];
 		var pageSource = this.state.pageSource;
 
 		if (this.state.loading) {
@@ -205,16 +220,17 @@ module.exports = React.createClass({
 
 
 	__applyStyle: function() {
-		return (this.state.styles || []).map(function(css) {
+		var styles = this.getPageStyles();
+		return styles.map(function(css) {
 			return (<style scoped type="text/css" key={guid()} dangerouslySetInnerHTML={{__html: css}}/>);
 		});
 	},
 
 
 	__getContext: function() {
-		// var data = this.state.data;
-		var getContext = this.state.contextPromise || Promise.resolve([]);
-		return getContext.then(function(context) {
+		var getContextFromProvider = this.props.contextProvider || noContextProvider;
+
+		return getContextFromProvider(this.props).then(function(context) {
 			//TODO: have the Content Api resolve page title...
 			// context.push({
 			// 	label: '??Current Page??',
