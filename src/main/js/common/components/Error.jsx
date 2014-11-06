@@ -12,7 +12,7 @@ module.exports = React.createClass({
 
 
 	componentDidMount: function() {
-		var e = this.error;
+		var e = this.props.error;
 		console.error(e.stack || e.message || e.responseText || e);
 	},
 
