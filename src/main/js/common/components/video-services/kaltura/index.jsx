@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
 var getSources = require('./SourceGrabber');
 var selectSources = require('./SelectSources');
 
