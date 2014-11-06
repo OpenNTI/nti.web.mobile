@@ -6,6 +6,13 @@ module.exports = {
 	},
 
 
+	getDefaultProps: function () {
+		return {
+			contextual: true
+		};
+	},
+
+
 	getPropsFromRoute: function (fallback) {
 		var m = this.getMatch();
 		var props = m && (m.getHandler() || m.match);

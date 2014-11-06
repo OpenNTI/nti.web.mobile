@@ -33,13 +33,6 @@ module.exports = React.createClass({
 	displayName: 'Viewer',
 
 
-	getDefaultProps: function() {
-		return {
-			contextual: true//Leave this here... used by the RouterMixin
-		};
-	},
-
-
 	getResetState: function () {
 		return {
 			loading: true,
