@@ -2,26 +2,34 @@
 'use strict';
 
 var React = require('react/addons');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
 var DefaultRoute = Router.NotFound;
+
+var Loading = require('common/components/Loading');
+var Redirect = require('common/components/Redirect');
+
 var LoginForm = require('./LoginForm');
 var ForgotForm = require('./ForgotForm');
 var SignupForm = require('../signup/components/SignupForm');
 var PasswordResetForm = require('./PasswordResetForm');
 var SignupConfirm = require('./SignupConfirm');
+
+var MessageDisplay = require('common/messages/').Display;
+var Globals = require('common/constants').Globals;
+var Constants = require('../Constants');
+
+var Actions = require('../Actions');
 var Store = require('../Store');
 var StoreProperties = require('../StoreProperties');
-var Actions = require('../Actions');
-var Loading = require('common/components/Loading');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-var Constants = require('../Constants');
-var Globals = require('common/constants').Globals;
-var MessageDisplay = require('common/messages/').Display;
-var Redirect = require('common/components/Redirect');
+
 var tg = require('common/locale').scoped('GLOBAL');
-var fromQueryString = require('common/Utils').fromQueryString;
+var fromQueryString = require('dataserverinterface/utils/object-from-querystring');
+
+
 
 var View = React.createClass({
 

@@ -16,7 +16,7 @@ var IllegalArgumentException = require('common/exceptions/').IllegalArgumentExce
 var Url = require('url');
 var Promise = global.Promise || require('es6-promise').Promise;
 
-var dataserver = require('common/Utils').getServer;
+var getServer = require('common/Utils').getServer;
 
 var _links = {};
 var _isLoggedIn = false;
@@ -105,7 +105,7 @@ function _ping(credentials) {
 	function resp(res) { _setLinks(res.links || {}); }
 
 	var username = (credentials && credentials.username);
-	dataserver().ping(null, username)
+	getServer().ping(null, username)
 		.then(resp, resp)
 		.catch (function(r) {
 			console.error(r);
@@ -131,7 +131,7 @@ function _logIn(credentials) {
 	// prefer the OU4x4 link if available.
 	var url = _links[Links.LOGIN_OU4X4_LINK] || _links[Links.LOGIN_PASSWORD_LINK];
 
-	var p = dataserver().logInPassword(
+	var p = getServer().logInPassword(
 			url,
 			credentials);
 

@@ -11,6 +11,7 @@ var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 
 var guid = require('dataserverinterface/utils/guid');
+var indexArrayByKey = require('dataserverinterface/utils/array-index-by-key');
 var toArray = require('dataserverinterface/utils/toarray');
 
 var Api = require('./Api');
@@ -121,7 +122,7 @@ function processContent(packet) {
 	var styles = toArray(doc.querySelectorAll('link[rel=stylesheet]'))
 					.map(function(i){return i.getAttribute('href');});
 
-	var widgets = Utils.indexArrayByKey(parseWidgets(elementMaker), 'guid');
+	var widgets = indexArrayByKey(parseWidgets(elementMaker), 'guid');
 
 	var bodyParts = body.innerHTML.split(WIDGET_MARKER_REGEX).map(function (part) {
 		var m = part.match(MARKER_REGEX);

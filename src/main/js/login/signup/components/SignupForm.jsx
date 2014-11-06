@@ -4,18 +4,19 @@
 var React = require('react/addons');
 var t = require('common/locale').scoped('LOGIN.forms.createaccount');
 
+var Loading = require('common/components/Loading');
+var UserAgreement = require('./UserAgreement');
+
+var Router = require('react-router-component');
+var NavigatableMixin = Router.NavigatableMixin;
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
+var merge = require('react/lib/merge');
+var indexArrayByKey = require('dataserverinterface/utils/array-index-by-key');
+
 var Store = require('../Store');
 var Actions = require('../Actions');
 var LoginActions = require('../../Actions');
-
-var UserAgreement = require('./UserAgreement');
-var Router = require('react-router-component');
-//var Link = Router.Link;
-var Loading = require('common/components/Loading');
-var merge = require('react/lib/merge');
-var Utils = require('common/Utils');
-var NavigatableMixin = Router.NavigatableMixin;
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 
 var _preflightDelayMs = 500; // how long to buffer user input before sending another dataserver preflight request.
@@ -70,7 +71,7 @@ var SignupForm = React.createClass({
 		console.debug('SignupForm received Store change event: %O', event);
 		switch (event.type) {
 			case 'error':
-				var errs = Utils.indexArrayByKey(Store.getErrors(),'field');
+				var errs = indexArrayByKey(Store.getErrors(),'field');
 
 				// realname is a synthetic field; map its error messages to the last name field.
 				// if (errs['realname'] && !errs['lname']) {

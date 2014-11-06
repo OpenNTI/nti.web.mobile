@@ -7,7 +7,7 @@ var CaptureClicks = require('react-router-component/lib/CaptureClicks');
 //FIX: This seems like we can clean up this and move "logic" up to the app level and out of the view.
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 
-var fromQueryString = require('common/Utils').fromQueryString;
+var fromQueryString = require('dataserverinterface/utils/object-from-querystring');
 
 var Login = require('login');
 var LoginStore = Login.Store;
