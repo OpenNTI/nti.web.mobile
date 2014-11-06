@@ -1,11 +1,21 @@
 'use strict';
 
 var React = require('react/addons');
-var EnrollmentStore = require('../../../enrollment/Store');
-var EnrollmentActions = require('../../../enrollment/Actions');
+var EnrollmentStore = require('enrollment/Store');
+var EnrollmentActions = require('enrollment/Actions');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
+var CatalogStore = require('library/catalog/Store');
+var CatalogActions = require('library/catalog/Actions');
+var NTIID = require('dataserverinterface/utils/ntiids');
 
 module.exports = {
+
+	getInitialState: function() {
+		return {
+			loading: true,
+			entry: null
+		};
+	},
 
 	enrollmentOptions: function(catalogEntry) {
 		var result = [];
@@ -25,10 +35,7 @@ module.exports = {
 	},
 
 	enrollmentWidgets: function(catalogEntry) {
-		if(!catalogEntry) {
-			return null;
-		}
-		if(!this.state.enrolled) {
+		if(this.state.enrolled === false) {
 			var buttons = this.enrollmentOptions(catalogEntry).map(function(option,index) {
 				return React.DOM.a({
 						href: "#",
@@ -50,18 +57,25 @@ module.exports = {
 		return null;
 	},
 
-	componentDidMount: function() {
-		this._updateEnrollmentStatus();
-		EnrollmentStore.addChangeListener(this._updateEnrollmentStatus);
+	_getEntry: function() {
+		if (this.state.entry) {
+			return this.state.entry;
+		}
+		var entryId = NTIID.decodeFromURI(this.props.entryId);
+		var entry = CatalogStore.getEntry(entryId);
+		return entry;
 	},
 
-	componentWillUnmount: function() {
-		EnrollmentStore.removeChangeListener(this._updateEnrollmentStatus);
+	getDataIfNeeded: function() {
+		this.setState({
+			entry: this._getEntry()
+		});
 	},
 
-	_updateEnrollmentStatus: function(evt) {
-		return;
-		EnrollmentStore.isEnrolled(catalogEntry.CourseNTIID).then(function(result) {
+	_updateEnrollmentStatus: function() {
+		var entry = this._getEntry();
+		EnrollmentStore.isEnrolled(entry.CourseNTIID).then(function(result) {
+			console.debug('enrolled: %s', result);
 			this.setState({
 				enrolled: result,
 				loading: false

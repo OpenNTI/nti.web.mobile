@@ -2,51 +2,43 @@
 'use strict';
 
 var React = require('react/addons');
-var CatalogStore = require('../../library/catalog/Store');
-var CatalogActions = require('../../library/catalog/Actions');
-var NTIID = require('dataserverinterface/utils/ntiids');
 var EnrollmentOptions = require('library/catalog/mixins/EnrollmentMixin');
+var EnrollmentStore = require('enrollment/Store');
+var Loading = require('common/components/Loading');
 
 var Enroll = React.createClass({
 
 	mixins: [EnrollmentOptions],
 
-	getInitialState: function() {
-		return {
-			entry: null
-		};
-	},
-
 	componentDidMount: function() {
-		CatalogStore.addChangeListener(this.getDataIfNeeded);
-		CatalogActions.loadCatalog();
+		EnrollmentStore.addChangeListener(this._updateEnrollmentStatus);
 		this.getDataIfNeeded();
+		this._updateEnrollmentStatus();
 	},
 
 	componentWillUnmount: function() {
-		CatalogStore.removeChangeListener(this.getDataIfNeeded);
-	},
-
-	getDataIfNeeded: function() {
-		var entryId = NTIID.decodeFromURI(this.props.entryId);
-		var entry = CatalogStore.getEntry(entryId);
-		this.setState({
-			entry: entry
-		});
+		EnrollmentStore.removeChangeListener(this._updateEnrollmentStatus);
 	},
 
 	render: function() {
 
-		var options = this.enrollmentOptions(this.state.entry).map(function(item) {
-			return <li>enrollment option: {item.label}</li>;
+		if (this.state.loading) {
+			return <Loading />;
+		}
+
+		console.log('render');
+		var options = this.enrollmentOptions(this.state.entry).map(function(item,index) {
+			return <li key={'en_' + index}>enrollment option: {item.label}</li>;
 		});
+
+		var widgets = this.enrollmentWidgets(this.state.entry);
 
 		return (
 			<div>
 				enroll {this.props.entryId}
 				<ul>{options}</ul>
-				{this.enrollmentWidgets(this.state.entry)}
-			</div>			
+				{widgets}
+			</div>
 		);
 	}
 
