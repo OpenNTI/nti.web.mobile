@@ -13,14 +13,14 @@ var commonLoaders = [
     { test: /\.js$/, loader: 'jsx' },
     { test: /\.jsx$/, loader: 'jsx' },
     { test: /\.json$/, loader: 'json' },
-    { test: /\.ico$/, loader: 'url?limit=1000&name=resources/images/[hash].ico&mimeType=image/ico' },
-    { test: /\.gif$/, loader: 'url?limit=1000&name=resources/images/[hash].gif&mimeType=image/gif' },
-    { test: /\.png$/, loader: 'url?limit=1000&name=resources/images/[hash].png&mimeType=image/png' },
-    { test: /\.jpg$/, loader: 'url?limit=1000&name=resources/images/[hash].jpg&mimeType=image/jpeg' },
+    { test: /\.ico$/, loader: 'url?limit=100000&name=resources/images/[hash].ico&mimeType=image/ico' },
+    { test: /\.gif$/, loader: 'url?limit=100000&name=resources/images/[hash].gif&mimeType=image/gif' },
+    { test: /\.png$/, loader: 'url?limit=100000&name=resources/images/[hash].png&mimeType=image/png' },
+    { test: /\.jpg$/, loader: 'url?limit=100000&name=resources/images/[hash].jpg&mimeType=image/jpeg' },
 
-    { test: /\.eot$/, loader: 'url?limit=1&name=resources/fonts/[hash].eot' },
-    { test: /\.ttf$/, loader: 'url?limit=1&name=resources/fonts/[hash].ttf' },
-    { test: /\.woff$/, loader: 'url?limit=300000&name=resources/fonts/[hash].woff' }
+    { test: /\.eot$/, loader: 'url?limit=1&name=resources/fonts/[name][hash].eot' },
+    { test: /\.ttf$/, loader: 'url?limit=1&name=resources/fonts/[name][hash].ttf' },
+    { test: /\.woff$/, loader: 'url?limit=1&name=resources/fonts/[name][hash].woff' }
 ];
 
 var scssIncludes =
