@@ -4,8 +4,9 @@
 var React = require('react/addons');
 var ErrorWidget = require('common/components/Error');
 var eventHandlers = require('common/constants/VideoEventHandlers');
-var asQueryString = require('common/Utils').toQueryString;
+
 var guid = require('dataserverinterface/utils/guid');
+var toQueryString = require('dataserverinterface/utils/object-to-querystring');
 
 var vimeoEventsToHTML5 = {
 	play: 'playing',
@@ -85,7 +86,7 @@ var Source = module.exports = React.createClass({
 			title: 0
 		};
 
-		return location.protocol + '//player.vimeo.com/video/' + videoId + '?' + asQueryString(args);
+		return location.protocol + '//player.vimeo.com/video/' + videoId + '?' + toQueryString(args);
 	},
 
 
@@ -111,7 +112,7 @@ var Source = module.exports = React.createClass({
 		var handlerName = eventHandlers[mappedEvent];
 
 		event = data.event;
-		
+
 		/* jshint -W106 */
 		if (data.player_id !== this.props.id) {
 			return;

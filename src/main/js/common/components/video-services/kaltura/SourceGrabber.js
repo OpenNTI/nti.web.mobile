@@ -7,7 +7,7 @@
 //var Promise = global.Promise || require('es6-promise').Promise;
 var Utils = require('common/Utils');
 var getService = Utils.getService;
-var toQueryString = Utils.toQueryString;
+var toQueryString = require('dataserverinterface/utils/object-to-querystring');
 
 var is = require('dataserverinterface/utils/identity');
 

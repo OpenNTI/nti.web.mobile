@@ -7,9 +7,9 @@ var invariant = require('react/lib/invariant');
 var eventHandlers = require('common/constants/VideoEventHandlers');
 
 var ErrorWidget = require('common/components/Error');
-var asQueryString = require('common/Utils').toQueryString;
 
 var guid = require('dataserverinterface/utils/guid');
+var toQueryString = require('dataserverinterface/utils/object-to-querystring');
 var Task = require('dataserverinterface/utils/task');
 
 var YOU_TUBE = 'https://www.youtube.com';
@@ -119,7 +119,7 @@ var Source = module.exports = React.createClass({
 			origin: location.protocol + '//' + location.host
 		};
 
-		return YOU_TUBE + '/embed/' + videoId + '?' + asQueryString(args);
+		return YOU_TUBE + '/embed/' + videoId + '?' + toQueryString(args);
 	},
 
 
