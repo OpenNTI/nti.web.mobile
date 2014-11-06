@@ -50,18 +50,23 @@ module.exports = React.createClass({
 		var buttons = [];
 		var props = this.props;
 
-		authlinks.forEach(function(linkKey) {
-
-			if (LinkConstants[linkKey] in props.links) {
-				buttons.push(
-					<OAuthButton linkKey={linkKey} link={props.links[LinkConstants[linkKey]]} className={this.props.buttonClass} />
-				);
-			}
-		}.bind(this));
-
 		return (
 			<div>
-				<div><ReactCSSTransitionGroup transitionName="button">{buttons}</ReactCSSTransitionGroup></div>
+				<div>
+					<ReactCSSTransitionGroup transitionName="button">
+						{authlinks.forEach(function(linkKey) {
+							if (LinkConstants[linkKey] in props.links) {
+								buttons.push(
+									<OAuthButton
+										id={'login:rel:' + LinkConstants[linkKey]}
+										linkKey={linkKey}
+										link={props.links[LinkConstants[linkKey]]}
+										className={props.buttonClass} />
+								);
+							}
+						})}
+					</ReactCSSTransitionGroup>
+				</div>
 			</div>
 		);
 

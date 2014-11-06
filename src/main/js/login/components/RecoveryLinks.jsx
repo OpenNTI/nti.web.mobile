@@ -16,8 +16,8 @@ module.exports = React.createClass({
 
 		return (
 			<div>
-				<Link className={cssClasses} href="/forgot/username">{t('forgot.username')}</Link>
-				<Link className={cssClasses} href="/forgot/password">{t('forgot.password')}</Link>
+				<Link id="login:forgot:username" className={cssClasses} href="/forgot/username">{t('forgot.username')}</Link>
+				<Link id="login:forgot:password" className={cssClasses} href="/forgot/password">{t('forgot.password')}</Link>
 			</div>
 		);
 	}

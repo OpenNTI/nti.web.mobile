@@ -73,6 +73,7 @@ var View = React.createClass({
 						{fields}
 						<div>
 							<button
+								id="login:rel:password"
 								type="submit"
 								className={'small-12 columns tiny radius ' + (submitEnabled ? '' : 'disabled')}
 								disabled={!submitEnabled}
@@ -80,7 +81,7 @@ var View = React.createClass({
 						</div>
 						<OAuthButtons links={this.state.links} basePath={this.props.basePath} buttonClass="small-12 columns" />
 						<div className="text-center">
-							<Link href={signupLink}>{t('signup.link')}</Link>
+							<Link id="login:signup" href={signupLink}>{t('signup.link')}</Link>
 						</div>
 
 					</fieldset>

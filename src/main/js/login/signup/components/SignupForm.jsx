@@ -185,8 +185,15 @@ var SignupForm = React.createClass({
 								{errors}
 							</ReactCSSTransitionGroup>
 						</div>
-						<input type="submit" className="small-12 columns tiny button radius" disabled={!enabled} value="Create Account" />
-						<a href={this.props.privacyUrl} target="_blank" className="small-12 columns text-center">Privacy Policy</a>
+						<input type="submit"
+							id="signup:submit"
+							className="small-12 columns tiny button radius"
+							disabled={!enabled}
+							value="Create Account" />
+						<a id="signup:privacy:policy"
+							href={this.props.privacyUrl}
+							target="_blank"
+							className="small-12 columns text-center">Privacy Policy</a>
 					</fieldset>
 
 				</form>

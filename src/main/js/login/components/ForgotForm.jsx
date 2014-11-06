@@ -96,21 +96,20 @@ module.exports = React.createClass({
 			cssClasses.push('disabled');
 		}
 
-		var inputs = this._inputs();
-
 		return (
 			<div className="row">
 				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
 						<legend>Recover {this.props.param}</legend>
-						{inputs}
+						{this._inputs()}
 						<button
+							id="login:forgot:submit"
 							type="submit"
 							className={cssClasses.join(' ')}
 							disabled={!submitEnabled}
 						>{buttonLabel}</button>
 					</fieldset>
-					<Button href="/" className="fi-arrow-left"> Return to Login</Button>
+					<Button id="login:forgot:return" href="/" className="fi-arrow-left"> Return to Login</Button>
 				</form>
 			</div>
 		);
