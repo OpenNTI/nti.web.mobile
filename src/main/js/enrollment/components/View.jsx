@@ -13,7 +13,7 @@ module.exports = React.createClass({
 	render: function() {
     	return (
 			<Router.Locations contextual>
-			<Router.Location path="/drop/" handler={DropCourse} basePath={this.props.basePath} entryId={this.props.entryId} />
+				<Router.Location path="/drop/" handler={DropCourse} basePath={this.props.basePath} entryId={this.props.entryId} />
                 <Router.Location path="*" handler={Enroll} basePath={this.props.basePath} entryId={this.props.entryId} />
 			</Router.Locations>
 	    );

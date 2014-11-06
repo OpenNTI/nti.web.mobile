@@ -9,7 +9,6 @@ var Loading = require('common/components/Loading');
 
 var CourseContentLink = require('../../components/CourseContentLink');
 var EnrollmentOptions = require('../mixins/EnrollmentMixin');
-var Enrollment = require('enrollment');
 
 var EnrollButtons = React.createClass({
 
@@ -26,34 +25,6 @@ var EnrollButtons = React.createClass({
 		};
 	},
 
-	componentDidMount: function() {
-		this._updateEnrollmentStatus();
-		Enrollment.Store.addChangeListener(this._updateEnrollmentStatus);
-	},
-
-	componentWillUnmount: function() {
-		Enrollment.Store.removeChangeListener(this._updateEnrollmentStatus);
-	},
-
-	_updateEnrollmentStatus: function() {
-		Enrollment.Store.isEnrolled(this.props.catalogEntry.CourseNTIID).then(function(result) {
-			this.setState({
-				enrolled: result,
-				loading: false
-			});
-		}.bind(this));
-	},
-
-	_dropCourse: function(event) {
-		event.preventDefault();
-		Enrollment.Actions.dropCourse(this.props.catalogEntry.CourseNTIID);
-	},
-
-	_enroll: function(enrollmentOption,event) {
-		event.preventDefault();
-		Enrollment.Actions.enrollOpen(this.props.catalogEntry.getID());
-	},
-
 	render: function() {
 
 		if(!this.props.catalogEntry) {
@@ -65,7 +36,7 @@ var EnrollButtons = React.createClass({
 		}
 
 		if(!this.state.enrolled) {
-			var buttons = this._enrollmentOptions(this.props.catalogEntry).map(function(option,index) {
+			var buttons = this.enrollmentOptions(this.props.catalogEntry).map(function(option,index) {
 				return (
 					<a href="#"
 						onClick={this._enroll.bind(null,option)}

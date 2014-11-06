@@ -5,7 +5,7 @@ var React = require('react/addons');
 var CatalogStore = require('../../library/catalog/Store');
 var CatalogActions = require('../../library/catalog/Actions');
 var NTIID = require('dataserverinterface/utils/ntiids');
-var EnrollmentOptions = require('../../library/catalog/mixins/EnrollmentMixin');
+var EnrollmentOptions = require('library/catalog/mixins/EnrollmentMixin');
 
 var Enroll = React.createClass({
 
@@ -35,17 +35,17 @@ var Enroll = React.createClass({
 		});
 	},
 
-
 	render: function() {
 
-		var options = this._enrollmentOptions(this.state.entry).map(function(item) {
-			return <li>enrollment option: {item}</li>;
+		var options = this.enrollmentOptions(this.state.entry).map(function(item) {
+			return <li>enrollment option: {item.label}</li>;
 		});
 
 		return (
 			<div>
 				enroll {this.props.entryId}
 				<ul>{options}</ul>
+				{this.enrollmentWidgets(this.state.entry)}
 			</div>			
 		);
 	}

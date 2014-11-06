@@ -8,6 +8,10 @@ var React = require('react/addons');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var EnrollmentOptions = require('../mixins/EnrollmentMixin');
 
+/**
+* Displays a link/button to enroll if enrollment options are
+* available for the given catalog entry.
+*/
 var EnrollButton = React.createClass({
 
 	mixins: [NavigatableMixin,EnrollmentOptions],
@@ -18,7 +22,7 @@ var EnrollButton = React.createClass({
 
 	render: function() {
 
-		if (this._enrollmentOptions(this.props.catalogEntry).length > 0) {
+		if (this.enrollmentOptions(this.props.catalogEntry).length > 0) {
 			var href = this.makeHref('/enrollment/', true);
 			return <a href={href} className="tiny button radius">Enroll</a>;
 		}
