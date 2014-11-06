@@ -26,17 +26,14 @@ var Enroll = React.createClass({
 			return <Loading />;
 		}
 
-		console.log('render');
-		var options = this.enrollmentOptions(this.state.entry).map(function(item,index) {
-			return <li key={'en_' + index}>enrollment option: {item.label}</li>;
-		});
+		// var options = this.enrollmentOptions(this.state.entry).map(function(item,index) {
+		// 	return <li key={'en_' + index}>enrollment option: {item.label}</li>;
+		// });
 
 		var widgets = this.enrollmentWidgets(this.state.entry);
 
 		return (
 			<div>
-				enroll {this.props.entryId}
-				<ul>{options}</ul>
 				{widgets}
 			</div>
 		);
