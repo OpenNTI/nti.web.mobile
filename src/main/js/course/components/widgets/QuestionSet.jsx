@@ -86,6 +86,7 @@ module.exports = React.createClass( {
 
 
 	setQuizHref: function() {
+		if (!Utils.isFlag('dev')) {return;}
 		var ntiid = this.props.item['Target-NTIID'];
 		var link = path.join('c', NTIID.encodeForURI(ntiid)) + '/';
 		this.setState({href: this.makeHref(link, true)});

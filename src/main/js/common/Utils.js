@@ -24,6 +24,12 @@ var Utils = {
 	},
 
 
+	isFlag: function(flagName) {
+		var flags = $AppConfig.flags || {};
+		return !!flags[flagName];
+	},
+
+
 	/**
 	 * Returns the shared instance of the server interface.
 	 * NOTICE: This is for low-level (or anonymous/non-authenticated) work ONLY.

@@ -65,7 +65,8 @@ exports.clientConfig = function(username) {
 	var config = {
 		username: username,
 		server: unsafe.server,
-		basepath: unsafe.basepath
+		basepath: unsafe.basepath,
+		flags: unsafe.flags
 	};
 
 	return {
