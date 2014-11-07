@@ -4,7 +4,7 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var React = require('react/addons');
 var Router = require('react-router-component');
 
-var Detail = require('library/catalog/components/Detail');
+var CourseDescription = require('./CourseDescription');
 var Loading = require('common/components/Loading');
 var ErrorWidget = require('common/components/Error');
 var Media = require('./Media');
@@ -105,7 +105,7 @@ module.exports = React.createClass({
 									slug="c"
 									contextProvider={this.__getContext}/>
 
-				<Router.NotFound handler={Detail} entry={entry} noBack/>
+				<Router.NotFound handler={CourseDescription} entry={entry} noBack/>
 			</Router.Locations>
 		);
 	},

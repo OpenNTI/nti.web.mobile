@@ -7,8 +7,8 @@
 var React = require('react/addons');
 var EnrollmentOptions = require('../mixins/EnrollmentMixin');
 var Loading = require('common/components/Loading');
-
-
+var NTIID = require('dataserverinterface/utils/ntiids');
+var Utils = require('common/Utils');
 var buttonCss = "tiny button radius column";
 
 /**
@@ -26,7 +26,8 @@ var EnrollButton = React.createClass({
 	_button: function() {
 
 		if (this.state.enrolled) {
-			var href = this.makeHref('/enrollment/drop/', true);
+			// drop button
+			var href = Utils.getBasePath() + 'library/catalog/item/' + NTIID.encodeForURI(this.props.catalogEntry.getID()) + '/enrollment/drop/';
 			return <a href={href} className={buttonCss}>Drop This Course</a>;
 		}
 
