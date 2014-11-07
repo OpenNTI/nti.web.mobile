@@ -34,7 +34,9 @@ merge(PageDescriptor.prototype, {
 	getPageStyles: function () { return this.styles; },
 
 	hasSubmittableAssessment: function() {
-		return false;
+		var items = this.pageInfo.AssessmentItems || [];
+		return items.reduce(function(v, item) {
+			return v || (item.isSubmittable); }, null);
 	}
 });
 
