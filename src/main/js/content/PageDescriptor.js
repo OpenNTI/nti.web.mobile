@@ -31,7 +31,11 @@ merge(PageDescriptor.prototype, {
 
 	getBodyParts: function () { return this._content.parsed; },
 
-	getPageStyles: function () { return this.styles; }
+	getPageStyles: function () { return this.styles; },
+
+	hasSubmittableAssessment: function() {
+		return false;
+	}
 });
 
 

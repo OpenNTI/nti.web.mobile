@@ -30,6 +30,7 @@ module.exports = React.createClass({
 		require('./viewer-parts/analytics'),
 		require('./viewer-parts/glossary'),
 		require('./viewer-parts/interaction'),
+		require('./viewer-parts/assessment'),
 		RouterMixin
 	],
 	displayName: 'Viewer',
@@ -202,6 +203,8 @@ module.exports = React.createClass({
 				{this.renderGlossaryEntry()}
 
 				<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
+
+				{this.renderAssessmentSubmission()}
 			</div>
 		);
 	},
