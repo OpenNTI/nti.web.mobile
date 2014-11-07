@@ -19,7 +19,7 @@ var Actions = require('../Actions');
 var LoginActions = require('../../Actions');
 
 
-var _preflightDelayMs = 500; // how long to buffer user input before sending another dataserver preflight request.
+//var _preflightDelayMs = 500; // how long to buffer user input before sending another dataserver preflight request.
 
 var SignupForm = React.createClass({
 
@@ -39,31 +39,26 @@ var SignupForm = React.createClass({
 			preflightTimeoutId: null,
 			formConfig: {},
 			fieldValues: {},
-			errors: {},
-			showErrors: false
+			errors: {}
 		};
 	},
 
 
-	_fullname: function() {
-		return [this.state.fieldValues.fname, this.state.fieldValues.lname].join(' ');
+	_fullname: function(tmpValues) {
+		var values = tmpValues || this.state.fieldValues;
+		return [values.fname, values.lname].join(' ');
 	},
 
 
 	_handleSubmit: function(evt) {
 		evt.preventDefault();
 		if(Object.keys(this.state.errors).length > 0) {
-			this.setState({
-				showErrors: true
-			});
 			return;
 		}
 		console.log('create account.');
 		var fields = merge(this.state.fieldValues, {realname: this._fullname()});
 
-		this.setState({
-			busy: true
-		});
+		this.setState({ busy: true });
 
 		Actions.createAccount({
 			fields: fields
@@ -109,28 +104,38 @@ var SignupForm = React.createClass({
 	},
 
 
-    _inputFocused: function(/*event*/) {
-		// if (this.state.errors[event.target.name]) {
-		// 	this.setState({showErrors: false});
-		// }
+    _inputFocused: function(event) {
+		var target = event.target.name;
+		var errors = this.state.errors;
+		if (errors[target]) {
+			delete errors[target];
+			this.forceUpdate();
+		}
 	},
 
-	_inputChanged: function(event) {
-		var newState = {};
-		newState[event.target.name] = event.target.value;
-		newState.realname = this._fullname();
-		var tmp = merge(this.state.fieldValues, newState);
-		this.setState({
-			fieldValues: tmp
-		});
+	_inputBlurred: function(event) {
+		var target = event.target;
+		var field = target.name;
+		var value = target.value;
+		var tmp = merge({}, this.state.fieldValues);
 
-		clearTimeout(this.state.preflightTimeoutId);
-		var timeoutId = global.setTimeout(function() {
-			Actions.preflight({
-				fields: tmp
-			});
-		}.bind(this),_preflightDelayMs);
-		this.setState({preflightTimeoutId: timeoutId});
+		if (!value && !tmp.hasOwnProperty(field)) {
+			return;
+		}
+
+		tmp[field] = value;
+
+
+		if (tmp.hasOwnProperty('fname') && tmp.hasOwnProperty('lname')) {
+			tmp.realname = this._fullname(tmp);
+		}
+
+
+		this.setState({ fieldValues: tmp });
+
+		Actions.preflight({
+			fields: tmp
+		});
 	},
 
 	isSubmitEnabled: function() {
@@ -162,7 +167,7 @@ var SignupForm = React.createClass({
 						</div>
 						<div className='errors'>
 							<ReactCSSTransitionGroup transitionName="messages">
-								{state.showErrors && Object.keys(state.errors).map(
+								{Object.keys(state.errors).map(
 									function(ref) {
 										var err = state.errors[ref];
 										console.debug(err);
@@ -198,7 +203,7 @@ var SignupForm = React.createClass({
 					ref={field.ref}
 					value={state[field.ref]}
 					name={field.ref}
-					onChange={this._inputChanged}
+					onBlur={this._inputBlurred}
 					onFocus={this._inputFocused}
 					placeholder={t(field.ref)}
 					className={cssClass}
