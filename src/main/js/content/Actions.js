@@ -112,7 +112,7 @@ function processContent(packet) {
 
 
 	var doc = parser && parser.parseFromString(html, 'text/html');
-	var elementMaker = doc || document;
+	var elementFactory = doc || document;
 	if (!doc) {
 		doc = document.createElement('html');
 		doc.innerHTML = html;
@@ -123,7 +123,7 @@ function processContent(packet) {
 	var styles = toArray(doc.querySelectorAll('link[rel=stylesheet]'))
 					.map(function(i){return i.getAttribute('href');});
 
-	var widgets = indexArrayByKey(parseWidgets(elementMaker), 'guid');
+	var widgets = indexArrayByKey(parseWidgets(doc, elementFactory), 'guid');
 
 	var bodyParts = body.innerHTML.split(WIDGET_MARKER_REGEX).map(function (part) {
 		var m = part.match(MARKER_REGEX);
@@ -159,11 +159,11 @@ function fetchResources(packet) {
 }
 
 
-function parseWidgets(doc) {
+function parseWidgets(doc, elementFactory) {
 	var strategies = WIDGET_SELECTORS_AND_STRATEGIES;
 
 	function makeMarker(id) {
-		return doc.createComment('nti:widget-marker[' + id + ']');
+		return elementFactory.createComment('nti:widget-marker[' + id + ']');
 	}
 
 	function flatten(list, array) {
