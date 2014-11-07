@@ -7,8 +7,9 @@ module.exports = React.createClass({
 	displayName: 'Question',
 
 	render: function() {
+		var q = this.props.question || {};
 		return (
-			<div>Here</div>
+			<div dangerouslySetInnerHTML={{__html: q.content}}/>
 		);
 	}
 });
