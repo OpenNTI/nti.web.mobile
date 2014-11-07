@@ -47,7 +47,10 @@ module.exports = {
 				break;
 				case Constants.ENROLL_OPEN:
 					if(action.catalogId === entry.getID()) {
-						this.navigate('../');
+						this.setState({
+							enrolled: event.result.success,
+							enrollmentStatusLoaded: true
+						});
 					}
 				break;
 				default:

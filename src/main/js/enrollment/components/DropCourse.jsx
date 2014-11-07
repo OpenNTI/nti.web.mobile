@@ -13,6 +13,8 @@ var Store = require('../Store');
 var CatalogStore = require('library/catalog/Store');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
+var Notice = require('common/components/Notice');
+var Utils = require('common/Utils');
 
 var DropCourseDialog = React.createClass({
 
@@ -20,7 +22,8 @@ var DropCourseDialog = React.createClass({
 
 	getInitialState: function() {
 		return {
-			loading: false
+			loading: false,
+			dropped: false
 		};
 	},
 
@@ -45,9 +48,11 @@ var DropCourseDialog = React.createClass({
 	_enrollmentChanged: function(event) {
 		var action = event.action||{};
 		if (action.actionType === Constants.DROP_COURSE && action.courseId === this.props.courseId) {
-			// navigate to catalog entry?
-			console.debug('dropped.');
-			this.navigate('../', {replace: true});
+			this.setState({
+				loading: false,
+				dropped: true
+			});
+			// this.navigate('../', {replace: true});
 		}
 	},
 
@@ -67,14 +72,27 @@ var DropCourseDialog = React.createClass({
 
 		var title = this._getCourseTitle();
 
+		if (this.state.dropped) {
+			return (
+				<div>
+					<Notice>{title} dropped</Notice>
+					<div className="column">
+						<Button href='../../../../' className="tiny button radius small-12 columns">View Catalog</Button>
+					</div>
+				</div>
+			);
+		}
+
 		return (
-			<div className='confirmation dialog row'>
-				<p className="small-12 columns">Drop {title}?</p>
+
+			<div>
+				<Notice>Drop {title}?</Notice>
 				<div className="small-12 columns">
 					<Button onClick={this._cancelClicked} className="small-5 columns">Cancel</Button>
 					<Button onClick={this._confirmClicked} className="small-5 columns">Drop course</Button>
 				</div>
 			</div>
+			
 		);
 	}
 
