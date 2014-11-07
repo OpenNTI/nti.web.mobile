@@ -9,7 +9,6 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var Constants = require('enrollment/Constants');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 
-var _enrolled;
 
 module.exports = {
 

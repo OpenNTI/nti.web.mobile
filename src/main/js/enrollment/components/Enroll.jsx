@@ -3,7 +3,6 @@
 
 var React = require('react/addons');
 var EnrollmentOptions = require('library/catalog/mixins/EnrollmentMixin');
-var EnrollmentStore = require('enrollment/Store');
 var Loading = require('common/components/Loading');
 
 

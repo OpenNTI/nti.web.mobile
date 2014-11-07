@@ -7,7 +7,6 @@
 var React = require('react/addons');
 var Button = require('common/components/forms/Button');
 var Loading = require('common/components/Loading');
-var Redirect = require('common/components/Redirect');
 var Actions = require('../Actions');
 var Constants = require('../Constants');
 var Store = require('../Store');
@@ -61,10 +60,6 @@ var DropCourseDialog = React.createClass({
 	},
 
 	render: function() {
-
-		if (this.state.redirect) {
-			return <Redirect location={'/catalog/item/' + this.props.entryId} />
-		}
 
 		if (this.state.loading) {
 			return <Loading />;
