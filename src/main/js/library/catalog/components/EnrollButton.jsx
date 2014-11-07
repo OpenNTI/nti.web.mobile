@@ -19,16 +19,6 @@ var EnrollButton = React.createClass({
 
 	mixins: [EnrollmentOptions],
 
-	// componentDidMount: function() {
-	// 	var courseId = this.props.catalogEntry.CourseNTIID;
-	// 	EnrollmentStore.isEnrolled(courseId).then(function(result) {
-	// 		this.setState({
-	// 			loading: false,
-	// 			enrolled: result
-	// 		});
-	// 	}.bind(this));
-	// },
-
 	propTypes: {
 		'catalogEntry': React.PropTypes.object.isRequired
 	},
