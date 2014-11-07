@@ -60,6 +60,11 @@ var SignupForm = React.createClass({
 		}
 		console.log('create account.');
 		var fields = merge(this.state.fieldValues, {realname: this._fullname()});
+
+		this.setState({
+			busy: true
+		});
+
 		Actions.createAccount({
 			fields: fields
 		});
@@ -68,25 +73,23 @@ var SignupForm = React.createClass({
 
 
 	storeChanged: function(event) {
+		var errs;
 		console.debug('SignupForm received Store change event: %O', event);
-		switch (event.type) {
-			case 'error':
-				var errs = indexArrayByKey(Store.getErrors(),'field');
-
-				// realname is a synthetic field; map its error messages to the last name field.
-				// if (errs['realname'] && !errs['lname']) {
-				// 	errs['lname'] = errs['realname'];
-				// }
-				this.setState({
-					errors: errs
-				});
-			break;
-
-			case 'created':
-				LoginActions.deleteTOS();
-				window.location.replace(this.props.basePath);
-			break;
+		if (event.type === 'created') {
+			LoginActions.deleteTOS();
+			window.location.replace(this.props.basePath);
+			return;
 		}
+
+		if (event.type === 'error') {
+			errs = indexArrayByKey(Store.getErrors(),'field');
+			// realname is a synthetic field; map its error messages to the last name field.
+			// if (errs['realname'] && !errs['lname']) {
+			// 	errs['lname'] = errs['realname'];
+			// }
+		}
+
+		this.setState({busy: false, errors: errs});
 	},
 
 
@@ -130,59 +133,41 @@ var SignupForm = React.createClass({
 		this.setState({preflightTimeoutId: timeoutId});
 	},
 
-	_submitEnabled: function() {
-		return Object.keys(this.state.errors).length === 0 &&
-		this.state.formConfig.fields.every(function(fieldConfig) {
-			return !fieldConfig.required || (this.state.fieldValues[fieldConfig.ref]||'').length > 0;
-		}.bind(this));
+	isSubmitEnabled: function() {
+		var state = this.state;
+		return !state.busy && Object.keys(state.errors).length === 0 &&
+				state.formConfig && state.formConfig.fields &&
+				state.formConfig.fields.every(function(fieldConfig) {
+					return !fieldConfig.required || (state.fieldValues[fieldConfig.ref]||'').length > 0;});
 	},
 
 	render: function() {
+		var state = this.state;
+		var enabled = this.isSubmitEnabled();
 
-		if (this.state.loading) {
+		if (state.loading) {
 			return <Loading />;
 		}
 
-		var fields = this.state.formConfig.fields.map(function(field) {
-			var err = this.state.errors[field.ref];
-			var cssClass = err ? 'error' : null;
-			// var error = err ? <small className='error'>{err.message}</small> : null;
-			return (<div key={field.ref}><input type={field.type}
-						ref={field.ref}
-						value={this.state[field.ref]}
-						name={field.ref}
-						onChange={this._inputChanged}
-						onFocus={this._inputFocused}
-						placeholder={t(field.ref)}
-						className={cssClass}
-						defaultValue={this.state.fieldValues[field.ref]} />
-					</div>
-			);
-		}.bind(this));
-
-		var errors = null;
-		if(true || this.state.showErrors) {
-			errors = Object.keys(this.state.errors).map(function(ref) {
-				var err = this.state.errors[ref];
-				console.debug(err);
-				return (<small key={ref} className='error'>{err.message}</small>);
-			}.bind(this));
-		}
-
-		var enabled = this._submitEnabled();
+		var fields = (state.formConfig || {}).fields || [];
 
 		return (
 			<div className="row">
 				<form className="create-account-form medium-6 medium-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
 						<legend>Create Account</legend>
-						{fields}
+						{fields.map(this.renderField)}
 						<div>
 							<UserAgreement />
 						</div>
 						<div className='errors'>
 							<ReactCSSTransitionGroup transitionName="messages">
-								{errors}
+								{state.showErrors && Object.keys(state.errors).map(
+									function(ref) {
+										var err = state.errors[ref];
+										console.debug(err);
+										return (<small key={ref} className='error'>{err.message}</small>);
+								})}
 							</ReactCSSTransitionGroup>
 						</div>
 						<input type="submit"
@@ -199,7 +184,28 @@ var SignupForm = React.createClass({
 				</form>
 			</div>
 		);
-	}
+	},
+
+
+	renderField: function(field) {
+		var state = this.state;
+		var err = state.errors[field.ref];
+		var cssClass = err ? 'error' : null;
+
+		return (
+			<div key={field.ref}>
+				<input type={field.type}
+					ref={field.ref}
+					value={state[field.ref]}
+					name={field.ref}
+					onChange={this._inputChanged}
+					onFocus={this._inputFocused}
+					placeholder={t(field.ref)}
+					className={cssClass}
+					defaultValue={state.fieldValues[field.ref]} />
+			</div>
+		);
+	},
 
 });
 
