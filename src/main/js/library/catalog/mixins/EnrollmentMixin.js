@@ -9,15 +9,52 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var Constants = require('enrollment/Constants');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 
+var _enrolled;
+
 module.exports = {
 
 	mixins: [NavigatableMixin],
 
 	getInitialState: function() {
 		return {
+			enrollmentStatusLoaded: false,
 			loading: true,
 			entry: null
 		};
+	},
+
+	componentDidMount: function() {
+		EnrollmentStore.addChangeListener(this.storeChange);
+		var entry = this._getEntry();
+		EnrollmentStore.loadEnrollmentStatus(entry.CourseNTIID);
+	},
+
+	componentWillUnmount: function() {
+		EnrollmentStore.removeChangeListener(this.storeChange);
+	},
+
+	storeChange: function(event) {
+		var action = (event||{}).action;
+		var entry = this._getEntry();
+		if(action) {
+			switch(action.actionType) {
+				case Constants.LOAD_ENROLLMENT_STATUS:
+					if (action.courseId === entry.CourseNTIID) {
+						this.setState({
+							enrolled: action.result,
+							enrollmentStatusLoaded: true
+						});
+					}
+				break;
+				case Constants.ENROLL_OPEN:
+					if(action.catalogId === entry.getID()) {
+						this.navigate('../');
+					}
+				break;
+				default:
+					console.debug('Saw unrecognized EnrollmentStore change event: %O', event);
+			}
+		}
 	},
 
 	enrollmentOptions: function(catalogEntry) {
@@ -37,8 +74,12 @@ module.exports = {
 		return result;
 	},
 
-	enrollmentWidgets: function(catalogEntry) {
-		if(this.state.enrolled === false) {
+	enrollmentWidgets: function() {
+		var catalogEntry = this._getEntry();
+		if (!this.state.enrollmentStatusLoaded) {
+			return "Loading";
+		}
+		if (this.state.enrollmentStatusLoaded && !this.state.enrolled) {
 			var buttons = this.enrollmentOptions(catalogEntry).map(function(option,index) {
 				return React.DOM.a({
 						href: "#",
@@ -64,6 +105,9 @@ module.exports = {
 		if (this.state.entry) {
 			return this.state.entry;
 		}
+		if (this.props.catalogEntry) {
+			return this.props.catalogEntry;
+		}
 		var entryId = NTIID.decodeFromURI(this.props.entryId);
 		var entry = CatalogStore.getEntry(entryId);
 		return entry;
@@ -87,8 +131,8 @@ module.exports = {
 			this.navigate('../');
 		}
 		EnrollmentStore.isEnrolled(entry.CourseNTIID).then(function(result) {
+			_enrolled = result;
 			this.setState({
-				enrolled: result,
 				loading: false
 			});
 		}.bind(this));

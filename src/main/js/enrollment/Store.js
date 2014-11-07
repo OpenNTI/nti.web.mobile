@@ -8,6 +8,8 @@ var Constants = require('./Constants');
 
 var getService = require('common/Utils').getService;
 
+var _enrollmentStatus = {};
+
 var Store = merge(EventEmitter.prototype, {
 	displayName: 'enrollment.Store',
 
@@ -29,10 +31,26 @@ var Store = merge(EventEmitter.prototype, {
 		this.removeListener(Constants.CHANGE_EVENT, callback);
 	},
 
-	isEnrolled: function(courseId) {
+	loadEnrollmentStatus: function(courseId) {
 		return getService().then(function(service) {
-			return service.getEnrollment().isEnrolled(courseId);
-		});
+			service.getEnrollment().isEnrolled(courseId).then(function(result) {
+				_enrollmentStatus[courseId] = result;
+				this.emitChange({
+					action: {
+						actionType: Constants.LOAD_ENROLLMENT_STATUS,
+						courseId: courseId,
+						result: result
+					}
+				});
+			}.bind(this));
+		}.bind(this));
+	},
+
+	isEnrolled: function(courseId) {
+		if (_enrollmentStatus.hasOwnProperty(courseId)) {
+			return _enrollmentStatus[courseId];
+		}
+		throw new Error('Enrollment status unknonwn. Maybe call loadEnrollmentStatus first.');
 	}
 
 });

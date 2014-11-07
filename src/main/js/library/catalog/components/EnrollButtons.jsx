@@ -9,6 +9,7 @@ var Loading = require('common/components/Loading');
 
 var CourseContentLink = require('../../components/CourseContentLink');
 var EnrollmentOptions = require('../mixins/EnrollmentMixin');
+var Store = require('enrollment/Store');
 
 var EnrollButtons = React.createClass({
 
@@ -18,20 +19,13 @@ var EnrollButtons = React.createClass({
 		'catalogEntry': React.PropTypes.object.isRequired
 	},
 
-	getInitialState: function() {
-		return {
-			loading: true,
-			enrolled: false
-		};
-	},
-
 	render: function() {
 
 		if(!this.props.catalogEntry) {
 			return null;
 		}
 
-		if (this.state.loading) {
+		if (!this.state.enrollmentStatusLoaded) {
 			return (<div className="hide"><Loading /></div>);
 		}
 
