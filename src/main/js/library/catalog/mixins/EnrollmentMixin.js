@@ -6,8 +6,12 @@ var EnrollmentActions = require('enrollment/Actions');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 var CatalogStore = require('library/catalog/Store');
 var NTIID = require('dataserverinterface/utils/ntiids');
+var Constants = require('enrollment/Constants');
+var NavigatableMixin = require('common/mixins/NavigatableMixin');
 
 module.exports = {
+
+	mixins: [NavigatableMixin],
 
 	getInitialState: function() {
 		return {
@@ -76,8 +80,12 @@ module.exports = {
 		});
 	},
 
-	_updateEnrollmentStatus: function() {
+	_updateEnrollmentStatus: function(event) {
 		var entry = this._getEntry();
+		var action = (event||{}).action;
+		if (action && action.actionType === Constants.ENROLL_OPEN && action.catalogId === entry.getID()) {
+			this.navigate('../');
+		}
 		EnrollmentStore.isEnrolled(entry.CourseNTIID).then(function(result) {
 			this.setState({
 				enrolled: result,

@@ -34,7 +34,11 @@ var NavigatableMixin = {
 		}
 
 		return n.makeHref(path);
- 	}
+ 	},
+
+	navigate: function(path, cb) {
+		return this._getNavigable().navigate(path, cb);
+	}
 };
 
 module.exports = NavigatableMixin;

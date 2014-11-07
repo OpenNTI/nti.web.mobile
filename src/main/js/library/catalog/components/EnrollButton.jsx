@@ -5,7 +5,6 @@
 'use strict';
 
 var React = require('react/addons');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var EnrollmentOptions = require('../mixins/EnrollmentMixin');
 var EnrollmentStore = require('enrollment/Store');
 var Loading = require('common/components/Loading');
@@ -19,7 +18,7 @@ var buttonCss = "tiny button radius column";
 */
 var EnrollButton = React.createClass({
 
-	mixins: [NavigatableMixin,EnrollmentOptions],
+	mixins: [EnrollmentOptions],
 
 	componentDidMount: function() {
 		var courseId = this.props.catalogEntry.CourseNTIID;

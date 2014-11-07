@@ -6,6 +6,7 @@ var EnrollmentOptions = require('library/catalog/mixins/EnrollmentMixin');
 var EnrollmentStore = require('enrollment/Store');
 var Loading = require('common/components/Loading');
 
+
 var Enroll = React.createClass({
 
 	mixins: [EnrollmentOptions],
