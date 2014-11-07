@@ -111,11 +111,33 @@ var DefaultPath = React.createClass({
 	mixins: [Router.NavigatableMixin],
 
 	_navigateToDefaultFilter: function() {
-		var filterNames = Object.keys(this.props.filters||{});
-		if (filterNames.length > 0) {
-			var filter = this.props.defaultFilter || filterNames[0];
-			this.navigate('/' + filter.toLowerCase(), {replace: true});
+		var filterName = this._defaultFilterName();
+		if (filterName) {
+			this.navigate('/' + filterName.toLowerCase(), {replace: true});
 		}
+	},
+
+	/**
+	*	Returns the name first filter that doesn't result in an emtpy list,
+	*	or the first filter if all result in empty lists,
+	*	or null if this.props.filters.length === 0
+	*/
+	_defaultFilterName: function() {
+		if (this.props.defaultFilter) {
+			return this.props.defaultFilter;
+		}
+		var filterNames = Object.keys(this.props.filters||{});
+		var result = filterNames.length > 0 ? filterNames[0] : null;
+		filterNames.some(function(name,index,arr) {
+			var filter = this.props.filters[name];
+			if (this.props.list.filter(filter).length > 0) {
+				result = name;
+				return true;
+			}
+			return false;
+		},this);
+
+		return result;
 	},
 
 	componentDidUpdate: function() {
@@ -204,7 +226,7 @@ var Filter = React.createClass({
 			});
 		});
 
-		routes.push(<DefaultRoute handler={DefaultPath} filters={this.props.filters} defaultFilter={this.props.defaultFilter}/>);
+		routes.push(<DefaultRoute handler={DefaultPath} filters={this.props.filters} list={list} defaultFilter={this.props.defaultFilter}/>);
 
 		return (
 			<Locations contextual>
