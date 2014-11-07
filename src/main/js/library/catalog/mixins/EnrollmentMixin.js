@@ -124,20 +124,6 @@ module.exports = {
 		});
 	},
 
-	_updateEnrollmentStatus: function(event) {
-		var entry = this._getEntry();
-		var action = (event||{}).action;
-		if (action && action.actionType === Constants.ENROLL_OPEN && action.catalogId === entry.getID()) {
-			this.navigate('../');
-		}
-		EnrollmentStore.isEnrolled(entry.CourseNTIID).then(function(result) {
-			_enrolled = result;
-			this.setState({
-				loading: false
-			});
-		}.bind(this));
-	},
-
 	_dropCourse: function(catalogEntry,event) {
 		event.preventDefault();
 		EnrollmentActions.dropCourse(catalogEntry.CourseNTIID);
