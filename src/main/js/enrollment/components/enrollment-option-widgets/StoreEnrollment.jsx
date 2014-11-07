@@ -1,0 +1,29 @@
+/**
+ * @jsx React.DOM
+ */
+
+'use strict';
+
+var React = require('react/addons');
+var requiredProps = require('./RequiredProps');
+var PanelButton = require('common/components/PanelButton');
+
+var StoreEnrollment = React.createClass({
+
+	propTypes: requiredProps,
+
+	render: function() {
+		return (
+			<PanelButton href="store/" linkText='Enroll as a Lifelong Learner'>
+				<h2>Lifelong Learner</h2>
+				<p>Gain complete access to interact with all course content,
+				including lectures, course materials, quizzes,
+				and discussions once the class is in session.</p>
+				<small>Enrollment is not refundable</small>
+			</PanelButton>
+		);
+	}
+
+});
+
+module.exports = StoreEnrollment;

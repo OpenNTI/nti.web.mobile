@@ -65,14 +65,18 @@ module.exports = {
 		}
 		var options = catalogEntry.EnrollmentOptions||{};
 		Object.keys(options).forEach(function(key) {
-			if(options[key].Enabled) {
+			if(this._showOption(options[key])) {
 				result.push({
 					key: key,
 					option: options[key]
 				});
 			}
-		});
+		}.bind(this));
 		return result;
+	},
+
+	_showOption: function(enrollmentOption) {
+		return enrollmentOption && enrollmentOption.IsAvailable; 
 	},
 
 	enrollmentWidgets: function() {
