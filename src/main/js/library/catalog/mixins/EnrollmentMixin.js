@@ -3,7 +3,6 @@
 var React = require('react/addons');
 var EnrollmentStore = require('enrollment/Store');
 var EnrollmentActions = require('enrollment/Actions');
-var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 var CatalogStore = require('library/catalog/Store');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var Constants = require('enrollment/Constants');

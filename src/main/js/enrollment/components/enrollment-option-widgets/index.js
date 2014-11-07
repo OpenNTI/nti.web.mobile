@@ -1,3 +1,5 @@
+'use strict';
+
 var OpenEnrollment = require('./OpenEnrollment');
 
 module.exports = {
@@ -5,8 +7,7 @@ module.exports = {
 	getWidget: function(enrollmentOption) {
 		switch(enrollmentOption.key) {
 			case 'OpenEnrollment':
-				return OpenEnrollment
-			break;
+				return OpenEnrollment;
 
 			default:
 				console.warn('No enrollment widget found for option: %O', enrollmentOption);
@@ -14,4 +15,4 @@ module.exports = {
 		}
 	}
 
-}
+};

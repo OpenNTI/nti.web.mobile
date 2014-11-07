@@ -14,7 +14,6 @@ var CatalogStore = require('library/catalog/Store');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var Notice = require('common/components/Notice');
-var Utils = require('common/Utils');
 
 var DropCourseDialog = React.createClass({
 
