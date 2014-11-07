@@ -25,13 +25,23 @@ function PageDescriptor(ntiid, data) {
 merge(PageDescriptor.prototype, {
 	getID: function() {return this.ntiid;},
 
+
 	getPageSource: function(id){ return this.tableOfContents.getPageSource(id);},
+
 
 	getTableOfContents: function () { return this.tableOfContents; },
 
+
 	getBodyParts: function () { return this._content.parsed; },
 
+
 	getPageStyles: function () { return this.styles; },
+
+
+	getAssessmentQuestion: function (questionId) {
+		return this.pageInfo.getAssessmentQuestion(questionId);
+	},
+
 
 	hasSubmittableAssessment: function() {
 		var items = this.pageInfo.AssessmentItems || [];
