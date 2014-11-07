@@ -128,7 +128,7 @@ var DefaultPath = React.createClass({
 		}
 		var filterNames = Object.keys(this.props.filters||{});
 		var result = filterNames.length > 0 ? filterNames[0] : null;
-		filterNames.some(function(name,index,arr) {
+		filterNames.some(function(name) {
 			var filter = this.props.filters[name];
 			if (this.props.list.filter(filter).length > 0) {
 				result = name;
