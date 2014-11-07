@@ -86,12 +86,14 @@ module.exports = {
 				var widget = EnrollmentWidgets.getWidget(option);
 				return widget({
 					catalogEntry: catalogEntry,
-					enrollmentOption: option
+					enrollmentOption: option,
+					className: 'enrollment-panel',
+					key: 'eno_' + index
 				});
 			}.bind(this));
 			if (buttons.length > 0) {
 				return React.DOM.div({
-						className: "small-12 columns"		
+						className: "small-12 columns enrollment-panels"		
 					},
 					buttons
 				);
