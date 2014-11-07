@@ -8,7 +8,7 @@ var CatalogStore = require('library/catalog/Store');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var Constants = require('enrollment/Constants');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
-
+var EnrollmentWidgets = require('enrollment/components/enrollment-option-widgets');
 
 module.exports = {
 
@@ -83,14 +83,11 @@ module.exports = {
 		}
 		if (this.state.enrollmentStatusLoaded && !this.state.enrolled) {
 			var buttons = this.enrollmentOptions(catalogEntry).map(function(option,index) {
-				return React.DOM.a({
-						href: "#",
-						onClick: this._enroll.bind(null,catalogEntry,option),
-						key: 'option' + index,
-						className: "button tiny radius column"	
-					},
-					t(option.key)
-				);
+				var widget = EnrollmentWidgets.getWidget(option);
+				return widget({
+					catalogEntry: catalogEntry,
+					enrollmentOption: option
+				});
 			}.bind(this));
 			if (buttons.length > 0) {
 				return React.DOM.div({
@@ -129,10 +126,5 @@ module.exports = {
 	_dropCourse: function(catalogEntry,event) {
 		event.preventDefault();
 		EnrollmentActions.dropCourse(catalogEntry.CourseNTIID);
-	},
-
-	_enroll: function(catalogEntry,enrollmentOption,event) {
-		event.preventDefault();
-		EnrollmentActions.enrollOpen(catalogEntry.getID());
 	}
 };
