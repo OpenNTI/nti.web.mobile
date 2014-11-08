@@ -32,6 +32,7 @@
     "react": "^0.11.2",
     "react-router-component": "^0.22.0",
     "response-time": "^2.2.0",
+    "stripe": "^2.8.0",
     "vtt.js": "^0.11.11",
     "zpad": "*"
   },
