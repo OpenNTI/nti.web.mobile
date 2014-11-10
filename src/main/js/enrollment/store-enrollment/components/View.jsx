@@ -6,7 +6,9 @@
 
 var React = require('react/addons');
 var Loading = require('common/components/Loading');
-var Actions = require('../Actions');
+var Constants = require('../Constants');
+var Store = require('../Store');
+var Form = require('./Form');
 
 var View = React.createClass({
 
@@ -21,11 +23,22 @@ var View = React.createClass({
 	},
 
 	componentDidMount: function() {
-		Actions.getPricing().then(function(/*result*/) {
+		Store.addChangeListener(this._onChange);
+		var purchasable = this.props.enrollment.Purchasable;
+		Store.priceItem(purchasable);
+	},
+
+	componentWillUnmount: function() {
+		Store.removeChangeListener(this._onChange);
+	},
+
+	_onChange: function(event) {
+		if(event.eventType === Constants.PRICED_ITEM_RECEIVED) {
 			this.setState({
-				loading: false
-			});
-		}.bind(this));
+				loading: false,
+				pricedItem: event.pricedItem
+			});	
+		}
 	},
 
 	render: function() {
@@ -36,7 +49,7 @@ var View = React.createClass({
 
 		return (
 			<div>
-				Do Store Enrollment
+				<Form />
 			</div>
 		);
 	}

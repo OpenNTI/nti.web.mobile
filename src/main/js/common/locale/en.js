@@ -33,7 +33,7 @@ module.exports = {
 				Username: 'Username',
 				password: 'Password',
 				password2: 'Verify Password'
-			}
+			},
 		}
 	},
 
@@ -57,6 +57,18 @@ module.exports = {
 			OpenEnrollment: 'Enroll in the open course',
 			drop: 'Drop this course',
 			viewCourse: 'View Course'
+		},
+		forms: {
+			storeenrollment: {
+				name: 'Name',
+				cardnumber: 'Card number',
+				address: 'Address',
+				address2: 'Address',
+				city: 'City',
+				state: 'State/Province/Territory/Region',
+				zip: 'Zip/Postal Code',
+				country: 'Country'
+			}
 		}
 	},
 

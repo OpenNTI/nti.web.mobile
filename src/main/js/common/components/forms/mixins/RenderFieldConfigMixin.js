@@ -1,7 +1,5 @@
 'use strict';
 
-var assign = Object.assign || require('object-assign');
-
 var React = require('react/addons');
 var t = require('common/locale').translate;
 
@@ -21,7 +19,7 @@ module.exports = {
 	*/
 	renderField: function(translator, values, field) {
 		var state = this.state;
-		var err = state.errors[field.ref];
+		var err = (state.errors||{})[field.ref];
 		var cssClass = err ? 'error' : null;
 		var tr = translator||t;
 
@@ -39,7 +37,7 @@ module.exports = {
 					placeholder: tr(field.ref),
 					className: cssClass,
 					defaultValue: (values||{}).ref,
-					type: field.type
+					type: (field.type||'text')
 				})
 			)
 		);
