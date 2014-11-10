@@ -21,7 +21,7 @@ var View = React.createClass({
 	},
 
 	componentDidMount: function() {
-		Actions.getPricing().then(function(result) {
+		Actions.getPricing().then(function(/*result*/) {
 			this.setState({
 				loading: false
 			});
