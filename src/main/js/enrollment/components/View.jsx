@@ -20,8 +20,6 @@ module.exports = React.createClass({
 	},
 
 	_getCourseId: function() {
-		var id = NTIID.decodeFromURI(this.props.entryId);
-		var entry = CatalogStore.getEntry(id);
 		return (this._getEntry(this.props.entryId)||{}).CourseNTIID;
 	},
 

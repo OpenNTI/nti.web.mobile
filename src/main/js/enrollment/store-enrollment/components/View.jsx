@@ -17,7 +17,7 @@ var View = React.createClass({
 	getInitialState: function() {
 		return {
 			loading: true
-		}
+		};
 	},
 
 	componentDidMount: function() {
@@ -31,7 +31,7 @@ var View = React.createClass({
 	render: function() {
 
 		if(this.state.loading) {
-			return <Loading />
+			return <Loading />;
 		}
 
 		return (
