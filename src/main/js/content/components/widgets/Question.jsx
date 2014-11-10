@@ -37,9 +37,13 @@ module.exports = React.createClass({
 
 
 	render: function() {
+		var question = this.state.question;
+		if (!question) {return null;}
+			
 		return (
 			<Assessment.QuestionWidget
-				question={this.state.question}/>
+				contentHints={this.props.item}
+				question={question}/>
 		);
 	}
 });
