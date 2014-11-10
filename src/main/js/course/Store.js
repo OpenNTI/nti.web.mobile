@@ -6,7 +6,7 @@ var merge = require('react/lib/merge');
 
 var Constants = require('./Constants');
 
-var CHANGE_EVENT = 'change';
+var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
 
 var _data = {};
 

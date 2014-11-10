@@ -3,6 +3,7 @@
 var keyMirror = require('react/lib/keyMirror');
 
 module.exports = keyMirror({
-	LIBRARY_INVALIDATED: null
+	LIBRARY_INVALIDATED: null,
+	CHANGE_EVENT: null
 });
 

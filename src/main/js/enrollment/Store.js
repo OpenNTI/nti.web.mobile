@@ -5,6 +5,7 @@ var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
 
 var Constants = require('./Constants');
+var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
 
 var getService = require('common/Utils').getService;
 
@@ -14,21 +15,21 @@ var Store = merge(EventEmitter.prototype, {
 	displayName: 'enrollment.Store',
 
 	emitChange: function(evt) {
-		this.emit(Constants.CHANGE_EVENT, evt);
+		this.emit(CHANGE_EVENT, evt);
 	},
 
 	/**
 	 * @param {function} callback
 	 */
 	addChangeListener: function(callback) {
-		this.on(Constants.CHANGE_EVENT, callback);
+		this.on(CHANGE_EVENT, callback);
 	},
 
 	/**
 	 * @param {function} callback
 	 */
 	removeChangeListener: function(callback) {
-		this.removeListener(Constants.CHANGE_EVENT, callback);
+		this.removeListener(CHANGE_EVENT, callback);
 	},
 
 	loadEnrollmentStatus: function(courseId) {
