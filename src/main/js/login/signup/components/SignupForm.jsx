@@ -18,12 +18,13 @@ var Store = require('../Store');
 var Actions = require('../Actions');
 var LoginActions = require('../../Actions');
 
+var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderFieldConfigMixin');
 
 //var _preflightDelayMs = 500; // how long to buffer user input before sending another dataserver preflight request.
 
 var SignupForm = React.createClass({
 
-	mixins: [NavigatableMixin],
+	mixins: [NavigatableMixin,RenderFieldConfigMixin],
 
 
 	getDefaultProps: function() {
@@ -155,13 +156,14 @@ var SignupForm = React.createClass({
 		}
 
 		var fields = (state.formConfig || {}).fields || [];
+		var fieldRenderFn = this.renderField.bind(null,t,this.state.fieldValues);
 
 		return (
 			<div className="row">
 				<form className="create-account-form medium-6 medium-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
 						<legend>Create Account</legend>
-						{fields.map(this.renderField)}
+						{fields.map(fieldRenderFn)}
 						<div>
 							<UserAgreement />
 						</div>
@@ -189,28 +191,7 @@ var SignupForm = React.createClass({
 				</form>
 			</div>
 		);
-	},
-
-
-	renderField: function(field) {
-		var state = this.state;
-		var err = state.errors[field.ref];
-		var cssClass = err ? 'error' : null;
-
-		return (
-			<div key={field.ref}>
-				<input type={field.type}
-					ref={field.ref}
-					value={state[field.ref]}
-					name={field.ref}
-					onBlur={this._inputBlurred}
-					onFocus={this._inputFocused}
-					placeholder={t(field.ref)}
-					className={cssClass}
-					defaultValue={state.fieldValues[field.ref]} />
-			</div>
-		);
-	},
+	}
 
 });
 
