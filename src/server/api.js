@@ -2,7 +2,8 @@
 
 //var Promise = global.Promise || require('es6-promise').Promise;
 
-var merge = require('merge');
+var assign = Object.assign || require('object-assign');
+
 var request = require('dataserverinterface/utils/request');
 var autoBind = require('dataserverinterface/utils/autobind');
 
@@ -15,7 +16,7 @@ var api = module.exports = autoBind({
 
 	registerAnonymousEndPoints: function(express, config) {
 		var prefix = /^\/api/i;
-		merge(this, config);
+		assign(this, config);
 		express.get(/^\/api\/user-agreement/, api.serveUserAgreement);
 
 		express.use(/^\/api/, function(err, req, res, next){

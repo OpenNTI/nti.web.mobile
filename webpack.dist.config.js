@@ -6,7 +6,8 @@
 
 'use strict';
 
-var merge = require('merge');
+var assign = Object.assign || require('object-assign');
+
 var webpack = require('webpack');
 var CompressionPlugin = require("compression-webpack-plugin");
 var AppCachePlugin = require('./src/webpack-plugins/appcache.js');
@@ -17,7 +18,7 @@ if (!Array.isArray(cfg)) {
     cfg = [cfg];
 }
 
-cfg.forEach(function(o) { e.push(merge(true, o)); });
+cfg.forEach(function(o) { e.push(assign({}, o)); });
 
 
 e[0].debug = false;
