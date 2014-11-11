@@ -1,7 +1,10 @@
 'use strict';
 
 var React = require('react/addons');
+
 var t = require('common/locale').translate;
+var merge = require('react/lib/merge');
+var isFunction = require('dataserverinterface/utils/isfunction');
 
 module.exports = {
 
@@ -32,8 +35,8 @@ module.exports = {
 					ref: field.ref,
 					value: (values||{}).ref,
 					name: field.ref,
-					onBlur: this._inputBlurred,
-					onFocus: this._inputFocused,
+					onBlur: this._onBlur,
+					onFocus: this._onFocus,
 					placeholder: tr(field.ref),
 					className: cssClass,
 					defaultValue: (values||{}).ref,
@@ -41,6 +44,37 @@ module.exports = {
 				})
 			)
 		);
+	},
+
+
+    _onFocus: function(event) {
+		var target = event.target.name;
+		var errors = this.state.errors||{};
+		if (errors[target]) {
+			delete errors[target];
+			this.forceUpdate();
+		}
+		if (isFunction(this._inputFocused)) {
+			this._inputFocused(event);
+		}
+	},
+
+	_onBlur: function(event) {
+		var target = event.target;
+		var field = target.name;
+		var value = target.value;
+		var tmp = merge({}, this.state.fieldValues);
+
+		if (value || tmp.hasOwnProperty(field)) {
+			// don't set an empty value if there's not already
+			// an entry for this field in this.state.fieldValues
+			tmp[field] = value;
+			this.setState({ fieldValues: tmp });
+		}
+
+		if (isFunction(this._inputBlurred)) {
+			this._inputBlurred(event);
+		}
 	}
 
 };
