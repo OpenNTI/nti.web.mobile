@@ -8,7 +8,7 @@ var React = require('react/addons');
 var Loading = require('common/components/Loading');
 var Constants = require('../Constants');
 var Store = require('../Store');
-var Form = require('./Form');
+var Form = require('./PaymentForm');
 
 var View = React.createClass({
 
@@ -47,9 +47,11 @@ var View = React.createClass({
 			return <Loading />;
 		}
 
+		var purchasable = this.props.enrollment.Purchasable;
+
 		return (
 			<div>
-				<Form />
+				<Form purchasable={purchasable} />
 			</div>
 		);
 	}

@@ -7,6 +7,8 @@
 var React = require('react/addons');
 var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderFieldConfigMixin');
 var t = require('common/locale').scoped('ENROLLMENT.forms.storeenrollment');
+var ScriptInjector = require('common/mixins/ScriptInjectorMixin');
+var Loading = require('common/components/Loading');
 
 var _fieldConfig = Object.freeze([
 	{
@@ -60,7 +62,7 @@ var _fieldConfig = Object.freeze([
 
 var Form = React.createClass({
 
-	mixins: [RenderFieldConfigMixin],
+	mixins: [RenderFieldConfigMixin,ScriptInjector],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired
@@ -68,20 +70,39 @@ var Form = React.createClass({
 
 	getInitialState: function() {
 		return {
+			loading: true,
 			fieldValues: {}
 		};
 	},
 
+	componentDidMount: function() {
+		this.injectScript('https://js.stripe.com/v2/').then(function() {
+			this.setState({
+				loading: false
+			});
+		}.bind(this));
+	},
+
 	render: function() {
 
+		if(this.state.loading) {
+			return <Loading />;
+		}
+
 		var fieldRenderFn = this.renderField.bind(null,t,this.state.fieldValues);
+		var title = this.props.purchasable.Name||null;
 
 		return (
 			<div className="row">
+				<div className="column"><h2>{title}</h2></div>
 				<form className="store-enrollment-form medium-6 medium-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
 						<legend>Payment Information</legend>
 						{_fieldConfig.map(fieldRenderFn)}
+						<input type="submit"
+							id="storeenroll:submit"
+							className="small-12 columns tiny button radius"
+							value="Continue to Enrollment" />
 					</fieldset>
 				</form>
 			</div>
