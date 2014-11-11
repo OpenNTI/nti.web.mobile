@@ -104,16 +104,6 @@ var SignupForm = React.createClass({
 		Store.removeChangeListener(this.storeChanged);
 	},
 
-
-    _inputFocused: function(event) {
-		var target = event.target.name;
-		var errors = this.state.errors;
-		if (errors[target]) {
-			delete errors[target];
-			this.forceUpdate();
-		}
-	},
-
 	_inputBlurred: function(event) {
 		var target = event.target;
 		var field = target.name;
@@ -130,7 +120,6 @@ var SignupForm = React.createClass({
 		if (tmp.hasOwnProperty('fname') && tmp.hasOwnProperty('lname')) {
 			tmp.realname = this._fullname(tmp);
 		}
-
 
 		this.setState({ fieldValues: tmp });
 

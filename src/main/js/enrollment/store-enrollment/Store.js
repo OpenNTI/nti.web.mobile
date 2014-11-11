@@ -31,9 +31,8 @@ var Store = merge(EventEmitter.prototype, {
 	},
 
 	priceItem: function(purchasable) {
-		return getService()
-			.then(function(service) {
-				var stripe = service.getStripeEnrollment();
+		return _getStripeEnrollment()
+			.then(function(stripe) {
 				return stripe.getPricing(purchasable);
 			})
 			.then(function(pricedItem) {
@@ -49,10 +48,38 @@ var Store = merge(EventEmitter.prototype, {
 
 });
 
+function _getStripeEnrollment() {
+	return getService()
+		.then(function(service) {
+			return service.getStripeEnrollment();
+		});
+}
+
+function _verifyBillingInfo(data) {
+	return _getStripeEnrollment()
+		.then(function(stripe) {
+			return stripe.getToken(data.stripePublicKey,data.formData);
+		})
+		.then(function(result) {
+			Store.emitChange({
+				type: Constants.VERIFY_BILLING_INFO,
+				status: result.status,
+				response: result.response
+			});
+		})
+		.catch(function(reason) {
+			console.error('verifyBillingInfo failed. %O', reason);
+			debugger;
+		});
+}
 
 Store.appDispatch = AppDispatcher.register(function(payload) {
     var action = payload.action;
     switch(action.actionType) {
+
+    	case Constants.VERIFY_BILLING_INFO:
+    		_verifyBillingInfo(action.payload);
+    	break;
 
         default:
             return true;
