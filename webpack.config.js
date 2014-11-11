@@ -76,11 +76,14 @@ module.exports = [
             new webpack.DefinePlugin({
                 SERVER: false
             }),
-            function(compiler) {
+        function(/*compiler*/) {
                 this.plugin('done', function(stats) {
-                    var file = path.join(__dirname, 'dist', 'server', 'stats.generated.json');
+                    var p = path.join(__dirname, 'dist', 'server');
+                    var file = path.join(p, 'stats.generated.json');
                     try {
-                        require('fs').writeFileSync(file, JSON.stringify(stats.toJson()));
+                        if (fs.existsSync(p)) {
+                            fs.writeFileSync(file, JSON.stringify(stats.toJson()));
+                        }
                     } catch (e) {
                         console.warn('Could not write %s', file);
                     }
