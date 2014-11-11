@@ -37,7 +37,7 @@ var Store = merge(EventEmitter.prototype, {
 			})
 			.then(function(pricedItem) {
 				Store.emitChange({
-					eventType: Constants.PRICED_ITEM_RECEIVED,
+					type: Constants.PRICED_ITEM_RECEIVED,
 					pricedItem: pricedItem
 				});
 			})
@@ -61,8 +61,9 @@ function _verifyBillingInfo(data) {
 			return stripe.getToken(data.stripePublicKey,data.formData);
 		})
 		.then(function(result) {
+			var eventType = result.status === 200 ? Constants.BILLING_INFO_VERIFIED : Constants.BILLING_INFO_REJECTED;
 			Store.emitChange({
-				type: Constants.VERIFY_BILLING_INFO,
+				type: eventType,
 				status: result.status,
 				response: result.response
 			});

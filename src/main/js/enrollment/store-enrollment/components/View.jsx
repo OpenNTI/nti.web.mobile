@@ -9,6 +9,7 @@ var Loading = require('common/components/Loading');
 var Constants = require('../Constants');
 var Store = require('../Store');
 var Form = require('./PaymentForm');
+var Redirect = require('common/components/Redirect');
 
 var View = React.createClass({
 
@@ -33,15 +34,26 @@ var View = React.createClass({
 	},
 
 	_onChange: function(event) {
-		if(event.eventType === Constants.PRICED_ITEM_RECEIVED) {
-			this.setState({
-				loading: false,
-				pricedItem: event.pricedItem
-			});	
+		switch(event.type) {
+			case Constants.PRICED_ITEM_RECEIVED:
+				this.setState({
+					loading: false,
+					pricedItem: event.pricedItem
+				});
+			break;
+			case Constants.BILLING_INFO_VERIFIED:
+				this.setState({
+					redirect: 'boom'
+				});
+			break;
 		}
 	},
 
 	render: function() {
+
+		if(this.state.redirect) {
+			return <Redirect location={this.state.redirect} />;
+		}
 
 		if(this.state.loading) {
 			return <Loading />;

@@ -47,25 +47,65 @@ var Form = React.createClass({
 
 	_onStoreChange: function(event) {
 		switch(event.type) {
-			case Constants.VERIFY_BILLING_INFO:
-				if (event.status === 402 || event.response.error) {
-					var errors = this.state.errors||{};
-					errors[event.response.param] = event.response.error;
-					this.setState({
-						errors: errors,
-						busy: false
-					});
-				}
+			case Constants.BILLING_INFO_REJECTED:
+				var errors = this.state.errors||{};
+				errors[event.response.param] = event.response.error;
+				this.setState({
+					errors: errors,
+					busy: false
+				});
 				console.log(event);
 			break;
 		}
 	},
 
+	_validate: function() {
+		var errors = {};
+		var fieldValues = this.state.fieldValues||{};
+		_fieldConfig.forEach(function(field) {
+			if (field.required) {
+				var value = (fieldValues[field.ref]||'');
+				if (value.trim().length === 0) {
+					errors[field.ref] = { 
+						// no message property because we don't want the 'required' message
+						// repeated for every required field...
+
+						// ...but we still want an entry for this ref so the field gets flagged
+						// as invalid.
+						error: 'Field is required'
+					}
+					errors['required'] = {
+						message: 'Please complete all required fields.'
+					}
+				}
+			}
+		});
+		this.setState({
+			errors: errors
+		});
+		return Object.keys(errors).length === 0;
+	},
+
+	_inputBlurred: function(event) {
+		var errs = this.state.errors;
+		if(Object.keys(errs).length === 1 && errs.hasOwnProperty('required')) {
+			this.setState({
+				errors: {}
+			});
+		}
+	},
+
 	_handleSubmit: function(event) {
 		event.preventDefault();
+		
+		if(!this._validate()) {
+			return;
+		}
+
 		this.setState({
 			busy: true
 		});
+
 		var stripeKey = this.props.purchasable.StripeConnectKey.PublicKey;
 		Actions.verifyBillingInfo(stripeKey, this.state.fieldValues);
 	},
@@ -96,8 +136,7 @@ var Form = React.createClass({
 								{Object.keys(state.errors).map(
 									function(ref) {
 										var err = state.errors[ref];
-										console.debug(err);
-										return (<small key={ref} className='error'>{err.message}</small>);
+										return (err.message ? <small key={ref} className='error'>{err.message}</small> : null);
 								})}
 							</ReactCSSTransitionGroup>
 						</div>

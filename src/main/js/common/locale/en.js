@@ -62,9 +62,11 @@ module.exports = {
 		forms: {
 			storeenrollment: {
 				name: 'Name',
-				cardnumber: 'Card number',
+				number: 'Card number',
+				exp_month: 'MM',
+				exp_year: 'YY',
 				address: 'Address',
-				address2: 'Address',
+				address2: 'Address Continued',
 				city: 'City',
 				state: 'State/Province/Territory/Region',
 				zip: 'Zip/Postal Code',
