@@ -1,0 +1,9 @@
+
+@import "input-multiple-choice";
+
+.question-part {
+
+	.part-content:not(:empty) {
+		padding: 1rem 0;
+	}
+}

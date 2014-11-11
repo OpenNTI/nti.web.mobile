@@ -19,8 +19,8 @@ module.exports = React.createClass({
 		var part = props.part || {};
 		var index = props.index;
 		return (
-			<div>
-				<div dangerouslySetInnerHTML={{__html: part.content}}/>
+			<div className="question-part">
+				<div className="part-content" dangerouslySetInnerHTML={{__html: part.content}}/>
 				{InputTypes.select(part, index)}
 			</div>
 		);

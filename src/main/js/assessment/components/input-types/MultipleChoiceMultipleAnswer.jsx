@@ -19,7 +19,7 @@ module.exports = React.createClass({
 		var choices = this.props.item.choices || [];
 
 		return (
-			<form>
+			<form className="multiple-choice multiple-answer">
 				{choices.map(this.renderChoice)}
 			</form>
 		);
@@ -30,9 +30,12 @@ module.exports = React.createClass({
 		var numeral = String.fromCharCode(65+index);
 
 		return (
-			<label key={'choice-'+index}>
+			<label className="choice" key={'choice-'+index}>
 				<input type="checkbox" data-index={index}/>
-				{numeral}<span dangerouslySetInnerHTML={{__html: choice}}/>
+				<div>
+					<span className="numeral">{numeral}.</span>
+					<span className="choice-content" dangerouslySetInnerHTML={{__html: choice}}/>
+				</div>
 			</label>
 		);
 	}

@@ -22,7 +22,7 @@ module.exports = React.createClass({
 		var choices = this.props.item.choices || [];
 
 		return (
-			<form>
+			<form className="multiple-choice">
 				{choices.map(this.renderChoice)}
 			</form>
 		);
@@ -34,9 +34,12 @@ module.exports = React.createClass({
 		var group = this.props.item.getID();
 
 		return (
-			<label key={'choice-'+index}>
+			<label className="choice" key={'choice-'+index}>
 				<input type="radio" name={group} data-index={index}/>
-				{numeral}<span dangerouslySetInnerHTML={{__html: choice}}/>
+				<div>
+					<span className="numeral">{numeral}.</span>
+					<span className="choice-content" dangerouslySetInnerHTML={{__html: choice}}/>
+				</div>
 			</label>
 		);
 	}

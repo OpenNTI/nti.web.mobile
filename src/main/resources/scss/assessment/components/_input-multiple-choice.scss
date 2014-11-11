@@ -1,0 +1,78 @@
+@import "../input-vars";
+
+@mixin choice-icon($type, $iconPrefix) {
+	input[type=#{$type}] + div::before { background-image: url(#{$iconPrefix}.png); }
+	input[type=#{$type}]:checked + div::before { background-image: url(#{$iconPrefix}_active.png); }
+
+	&:hover input[type=#{$type}],
+	input[type=#{$type}]:focus,
+	input[type=#{$type}]:active {
+		&:not(:checked):not(.disabled) + div::before { background-image: url(#{$iconPrefix}_hover.png); }
+	}
+}
+
+.question-part .multiple-choice {
+	border: 1px solid $tertiary-grey;
+	margin: 0 0 1rem 0;
+
+	.choice {
+		display: block;
+		position: relative;
+		border: 0px solid $tertiary-grey;
+		line-height: 2;
+
+		&:not(:last-of-type) {
+			border-bottom-width: 1px;
+		}
+
+		input {
+			position: absolute !important;
+			opacity: 0;//Cannot "display:none" nor "visibilitiy:hidden" or you cannot access it with tab/keyboard.
+
+			& + div {
+				$pad: 1rem;
+				padding: $pad 0 $pad 50px;
+
+				&::before {
+					content: '';
+					background-repeat: no-repeat;
+					background-position: center;
+					position: absolute;
+					top: $pad + 0.3rem;
+					left: 1rem;
+					width: 18px;
+					height: 18px;
+				}
+			}
+		}
+
+
+		input:checked + div { box-shadow: inset 4px 0 0 0 $neutral; }
+		&.correct input:checked + div {	box-shadow: inset 4px 0 0 0 $correct; }
+		&.incorrect input:checked + div { box-shadow: inset 4px 0 0 0 $incorrect; }
+
+
+		@include choice-icon(checkbox, '../images/icons/checkbox-14');
+		@include choice-icon(radio, '../images/icons/radio-button-16');
+
+
+		&.correct input[type]:checked + div::before { background-image: url(../images/icons/circle-check-green-18.png); }
+		&.incorrect input[type]:checked + div::before { background-image: url(../images/icons/circle-x-red-18.png); }
+
+		.numeral {
+			position: relative;
+			float: left;
+			display: block;
+			min-width: 1rem;
+			margin-right: 0.2rem;
+			font-weight: bold;
+		}
+
+		.choice-content {
+			position: relative;
+			overflow: hidden;
+			display: block;
+		}
+	}
+
+}

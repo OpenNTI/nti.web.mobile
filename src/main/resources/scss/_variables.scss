@@ -7,8 +7,31 @@ $sidenav-font-family: 'Open Sans Condensed';
 
 $button-disabled-opacity: 0.3;
 
-$border-grey: #ccc;
+//colors
 $primary-grey: #494949;
+$secondary-grey: #757474;
+$secondary-grey-alt: #787878;
+$tertiary-grey: #b8b8b8;
+$tertiary-grey-alt: #d1d1d1;
+$quad-grey: #f8f8f8;
+
+$primary-red: #F35252;
+$secondary-red: #750000;
+
+$primary-blue: #3fb3f6;
+
+$primary-green: #8eb737;
+$secondary-green: #3fb34f;
+
+$border-blue: #39a1dd;
+$border-grey: #ccc;
+//$border-grey: #dbdbdb;
+$border-red: #f35252;
+$text-red: #f2713e;
+
+$panel-background: #fbfbfb;
+
+
 
 @mixin blur-effect() {
 	//filter: blur(add = 0, direction = 0, strength = 10);//IE
