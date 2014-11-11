@@ -1,7 +1,6 @@
 'use strict';
 
 var Promise = global.Promise || require('es6-promise').Promise;
-var React = require('react/addons');
 
 module.exports = {
 	injectScript: function(scripturl) {
@@ -15,7 +14,7 @@ module.exports = {
 			};
 			script.onerror = function(e) {
 				reject(e);
-			}
+			};
 		});
 	}
 };
