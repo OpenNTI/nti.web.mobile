@@ -4,7 +4,7 @@ var Unknown = require('./Unknown');
 
 exports = module.exports = {
 	Unknown: Unknown, //Unknown for future items.
-	
+
 	MultipleChoice: require('./MultipleChoice'),
 	MultipleChoiceMultipleAnswer: require('./MultipleChoiceMultipleAnswer'),
 
@@ -24,6 +24,7 @@ exports = module.exports = {
 		return Item(
 			{
 				key: 'question-input-' + index,
+				index: index,
 				item: part
 			});
 	}
