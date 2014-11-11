@@ -1,7 +1,7 @@
 'use strict';
 
 var EventEmitter = require('events').EventEmitter;
-var assign = Object.assign || require('object-assign');
+var assign = require('object-assign');
 
 var CHANGE_EVENT = 'visibilitychange';
 var views = 0;

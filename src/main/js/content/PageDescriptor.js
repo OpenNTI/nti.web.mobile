@@ -1,7 +1,7 @@
 'use strict';
 
 var define = require('dataserverinterface/utils/object-define-hidden-props');
-var assign = Object.assign || require('object-assign');
+var assign = require('object-assign');
 
 var Utils = require('common/Utils');
 

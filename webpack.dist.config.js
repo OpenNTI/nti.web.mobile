@@ -6,7 +6,7 @@
 
 'use strict';
 
-var assign = Object.assign || require('object-assign');
+var assign = require('object-assign');
 
 var webpack = require('webpack');
 var CompressionPlugin = require("compression-webpack-plugin");

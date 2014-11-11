@@ -2,7 +2,7 @@
 
 //var Promise = global.Promise || require('es6-promise').Promise;
 
-var assign = Object.assign || require('object-assign');
+var assign = require('object-assign');
 
 var request = require('dataserverinterface/utils/request');
 var autoBind = require('dataserverinterface/utils/autobind');

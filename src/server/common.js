@@ -8,7 +8,7 @@ try {
 					'See: %s/config/env.json.example', __dirname);
 }
 
-var assign = Object.assign || require('object-assign');
+var assign = require('object-assign');
 
 var opt = require('optimist')
 			.usage('WebApp Instance')
