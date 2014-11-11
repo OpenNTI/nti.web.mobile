@@ -26,7 +26,7 @@ module.exports = React.createClass({
 	_getEnrollmentOption: function(key) {
 		var entry = this._getEntry(this.props.entryId);
 		if (entry && entry.EnrollmentOptions) {
-			return entry.EnrollmentOptions[key];	
+			return entry.EnrollmentOptions.Items[key];
 		}
 		return null;
 	},

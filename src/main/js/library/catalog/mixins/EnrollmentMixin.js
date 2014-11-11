@@ -63,7 +63,7 @@ module.exports = {
 		if (!catalogEntry) {
 			return result;
 		}
-		var options = catalogEntry.EnrollmentOptions||{};
+		var options = catalogEntry.EnrollmentOptions.Items||{};
 		Object.keys(options).forEach(function(key) {
 			if(this._showOption(options[key])) {
 				result.push({
