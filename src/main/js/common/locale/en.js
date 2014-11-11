@@ -1,5 +1,6 @@
 /* jshint -W101 */
 /* jshint -W106 */
+/* FIXME inconsistent character casing all over this thing */
 module.exports = {
 	GLOBAL: {
 		SITE_NAME: 'NextThought'
