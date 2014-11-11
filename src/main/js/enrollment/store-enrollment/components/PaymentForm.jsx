@@ -76,11 +76,12 @@ var Form = React.createClass({
 	},
 
 	componentDidMount: function() {
-		this.injectScript('https://js.stripe.com/v2/').then(function() {
-			this.setState({
-				loading: false
-			});
-		}.bind(this));
+		this.injectScript('https://js.stripe.com/v2/', 'Stripe')
+			.then(function() {
+				this.setState({
+					loading: false
+				});
+			}.bind(this));
 	},
 
 	render: function() {

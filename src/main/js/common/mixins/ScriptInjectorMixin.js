@@ -3,18 +3,35 @@
 var Promise = global.Promise || require('es6-promise').Promise;
 
 module.exports = {
-	injectScript: function(scripturl) {
+
+	injectScript: function(scriptUrl, shouldDefineSymbole) {
+
 		return new Promise(function(fullfill,reject) {
-			
+
 			var script = document.createElement('script');
-			script.src = scripturl;
+
+            script.async = true;//Do not block the UI thread while loading.
+            script.defer = true;//legacy version of async
+            script.charset = 'utf-8'; //Be explicit
+			script.type = 'text/javascript'; //Be explicit
+			script.src = scriptUrl;
+
+			//Some browsers may not fire an error... so we mush check in the 'load' event
+			//for an expected symbol to be defined.
+			script.onerror = reject;
+
+			script.onload = function() {
+
+				if (shouldDefineSymbole && !global[shouldDefineSymbole]) {
+					return reject('Loaded, but expected interface was not found: "%s"', shouldDefineSymbole);
+				}
+
+				fullfill(script);
+			};
+
+			//don't inject the element until all handlers are registered. If the src is cached,
+			//the handlers may fire before they're registered.
 			document.body.appendChild(script);
-			script.onload = function(e) {
-				fullfill(e);
-			};
-			script.onerror = function(e) {
-				reject(e);
-			};
 		});
 	}
 };
