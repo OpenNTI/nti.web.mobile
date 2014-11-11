@@ -17,7 +17,7 @@ module.exports = {
 
 function dispatch(key, data) {
 	var action = {
-		actionType: key,
+		type: key,
 		payload: data
 	};
 	AppDispatcher.handleRequestAction(action);

@@ -32,7 +32,7 @@ module.exports = merge(EventEmitter.prototype, {
 
 function dispatch(key, collection) {
 	AppDispatcher.handleRequestAction({
-		actionType: key,
+		type: key,
 		response: collection
 	});
 }

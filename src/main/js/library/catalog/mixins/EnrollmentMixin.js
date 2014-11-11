@@ -35,7 +35,7 @@ module.exports = {
 		var action = (event||{}).action;
 		var entry = this._getEntry();
 		if(action) {
-			switch(action.actionType) {
+			switch(action.type) {
 				case Constants.LOAD_ENROLLMENT_STATUS:
 					if (action.courseId === entry.CourseNTIID) {
 						this.setState({

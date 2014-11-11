@@ -55,7 +55,7 @@ function persistData(data) {
 
 Store.appDispatch = AppDispatcher.register(function(payload) {
     var action = payload.action;
-    switch(action.actionType) {
+    switch(action.type) {
         case Constants.LOADED_CATALOG:
             persistData(action.response);
             break;

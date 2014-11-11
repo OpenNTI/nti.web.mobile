@@ -49,7 +49,7 @@ function persistData(data) {
 
 Store.appDispatch = AppDispatcher.register(function(payload) {
     var action = payload.action;
-    switch(action.actionType) {
+    switch(action.type) {
         case Constants.SET_ACTIVE_COURSE:
             persistData(action.response);
             break;

@@ -45,7 +45,7 @@ function persistPage(descriptor) {
 
 Store.appDispatch = AppDispatcher.register(function(payload) {
     var action = payload.action;
-    switch(action.actionType) {
+    switch(action.type) {
         case Constants.PAGE_LOADED:
             persistPage(action.response);
             break;

@@ -186,7 +186,7 @@ function _createAccount(fields) {
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
 
-	switch (action.actionType) {
+	switch (action.type) {
 
 		case Actions.PREFLIGHT:
 			_preflight(action.fields);

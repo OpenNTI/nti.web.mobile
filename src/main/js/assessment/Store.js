@@ -32,7 +32,7 @@ var Store = assign(EventEmitter.prototype, {
 
 Store.appDispatch = AppDispatcher.register(function(payload) {
 	var action = payload.action;
-	switch(action.actionType) {
+	switch(action.type) {
 		// case Constants.INTERACTED:
 		// 	//persistData(action.response);
 		// 	break;

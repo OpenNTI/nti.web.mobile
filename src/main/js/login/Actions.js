@@ -17,7 +17,7 @@ module.exports = merge(EventEmitter.prototype, {
 
 	begin: function() {
 		AppDispatcher.handleViewAction({
-			actionType: ActionConstants.LOGIN_BEGIN
+			type: ActionConstants.LOGIN_BEGIN
 		});
 	},
 
@@ -27,14 +27,14 @@ module.exports = merge(EventEmitter.prototype, {
 	userInputChanged: function(data) {
 		console.log('LoginActions::userInputChanged');
 		AppDispatcher.handleViewAction({
-			actionType: ActionConstants.LOGIN_FORM_CHANGED,
+			type: ActionConstants.LOGIN_FORM_CHANGED,
 			credentials: (data && data.credentials)
 		});
 	},
 
 	clearErrors: function() {
 		AppDispatcher.handleViewAction({
-			actionType: ActionConstants.LOGIN_CLEAR_ERRORS
+			type: ActionConstants.LOGIN_CLEAR_ERRORS
 		});
 	},
 
@@ -47,7 +47,7 @@ module.exports = merge(EventEmitter.prototype, {
 	 */
 	logIn: function(credentials) {
 		AppDispatcher.handleViewAction({
-			actionType: ActionConstants.LOGIN_PASSWORD,
+			type: ActionConstants.LOGIN_PASSWORD,
 			credentials: credentials
 		});
 	},
@@ -57,7 +57,7 @@ module.exports = merge(EventEmitter.prototype, {
 	 */
 	logInOAuth: function(url) {
 		AppDispatcher.handleViewAction({
-			actionType: ActionConstants.LOGIN_OAUTH,
+			type: ActionConstants.LOGIN_OAUTH,
 			url: url
 		});
 	},
@@ -65,7 +65,7 @@ module.exports = merge(EventEmitter.prototype, {
 	/** Log the out of the system. */
 	logOut: function() {
 		AppDispatcher.handleViewAction({
-			actionType: ActionConstants.LOGOUT
+			type: ActionConstants.LOGOUT
 		});
 	},
 

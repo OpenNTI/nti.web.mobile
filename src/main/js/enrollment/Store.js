@@ -38,7 +38,7 @@ var Store = merge(EventEmitter.prototype, {
 				_enrollmentStatus[courseId] = result;
 				this.emitChange({
 					action: {
-						actionType: Constants.LOAD_ENROLLMENT_STATUS,
+						type: Constants.LOAD_ENROLLMENT_STATUS,
 						courseId: courseId,
 						result: result
 					}
@@ -81,7 +81,7 @@ function _dropCourse(courseId) {
 
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
-	switch(action.actionType) {
+	switch(action.type) {
 		case Constants.ENROLL_OPEN:
 			_enrollOpen(action.catalogId).then(function(result) {
 				Store.emitChange({

@@ -171,7 +171,7 @@ function _clearErrors() {
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
 
-	switch (action.actionType) {
+	switch (action.type) {
 		case ActionConstants.LOGIN_BEGIN:
 			_ping();
 		break;

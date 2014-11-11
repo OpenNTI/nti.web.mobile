@@ -14,7 +14,7 @@ var Messages = require('common/messages');
 var LibraryApi = require('library/Api');
 
 function dispatch(key, data) {
-	var payload = {actionType: key, response: data};
+	var payload = {type: key, response: data};
 	AppDispatcher.handleRequestAction(payload);
 }
 

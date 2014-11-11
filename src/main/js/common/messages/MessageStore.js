@@ -83,7 +83,7 @@ function _removeMessage(id) {
 
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
-	switch (action.actionType) {
+	switch (action.type) {
 		case Actions.MESSAGES_ADD:
 			_addMessage(action.message);
 		break;

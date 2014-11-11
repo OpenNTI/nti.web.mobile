@@ -25,7 +25,7 @@ var App = React.createClass({
 
 	_actionHandler: function(payload) {
 		var action = payload.action;
-		switch (action.actionType) {
+		switch (action.type) {
 			case Navigation.Constants.NAVIGATE:
 				console.log('App received %O.', action);
 				Navigation.Actions.navigate(action.href, true);

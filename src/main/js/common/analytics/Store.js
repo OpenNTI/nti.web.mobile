@@ -67,7 +67,7 @@ var Store = autobind(merge(EventEmitter.prototype, {
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
 
-	switch (action.actionType) {
+	switch (action.type) {
 
 		case Constants.VIDEO_PLAYER_EVENT://Shouldn't the constant just be "EVENT" and the "type" be defined by the instance? (WatchVideoEvent, ResourceEvent, etc)
 		case Constants.VIEWER_EVENT:

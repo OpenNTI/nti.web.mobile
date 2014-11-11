@@ -9,7 +9,7 @@ module.exports = {
 			throw new Error('emitEvent action called with an unknown eventType. Stop it. %s', eventType);
 		}
 		AppDispatcher.handleViewAction({
-			actionType: eventType,
+			type: eventType,
 			event: eventData
 		});
 	}

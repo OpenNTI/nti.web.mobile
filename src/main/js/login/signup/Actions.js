@@ -20,7 +20,7 @@ module.exports = merge(EventEmitter.prototype, {
 		clearTimeout(preflight.buffer);
 		preflight.buffer = setTimeout(function(){
 			AppDispatcher.handleViewAction({
-				actionType: ActionConstants.PREFLIGHT,
+				type: ActionConstants.PREFLIGHT,
 				fields: (data && data.fields)
 			});
 		}, bufferTime);
@@ -28,14 +28,14 @@ module.exports = merge(EventEmitter.prototype, {
 
 	createAccount: function(data) {
 		AppDispatcher.handleViewAction({
-			actionType: ActionConstants.CREATE_ACCOUNT,
+			type: ActionConstants.CREATE_ACCOUNT,
 			fields: (data && data.fields)
 		});
 	},
 
 	clearErrors: function() {
 		AppDispatcher.handleViewAction({
-			actionType: ActionConstants.CLEAR_ERRORS
+			type: ActionConstants.CLEAR_ERRORS
 		});
 	}
 

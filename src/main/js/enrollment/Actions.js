@@ -27,6 +27,6 @@ module.exports = merge(EventEmitter.prototype, {
 
 function dispatch(key, data) {
 	AppDispatcher.handleRequestAction(merge( data, {
-		actionType: key
+		type: key
 	}));
 }

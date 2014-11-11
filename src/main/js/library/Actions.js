@@ -33,7 +33,7 @@ module.exports = {
 
 function dispatch(key, collection) {
 	AppDispatcher.handleRequestAction({
-		actionType: key,
+		type: key,
 		response: collection
 	});
 }

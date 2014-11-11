@@ -46,7 +46,7 @@ var DropCourseDialog = React.createClass({
 
 	_enrollmentChanged: function(event) {
 		var action = event.action||{};
-		if (action.actionType === Constants.DROP_COURSE && action.courseId === this.props.courseId) {
+		if (action.type === Constants.DROP_COURSE && action.courseId === this.props.courseId) {
 			this.setState({
 				loading: false,
 				dropped: true

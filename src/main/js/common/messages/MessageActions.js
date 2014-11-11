@@ -20,7 +20,7 @@ module.exports = merge(EventEmitter.prototype, {
 			throw e;
 		}
 		AppDispatcher.handleViewAction({
-			actionType: Actions.MESSAGES_ADD,
+			type: Actions.MESSAGES_ADD,
 			message: message
 		});
 	},
@@ -31,7 +31,7 @@ module.exports = merge(EventEmitter.prototype, {
 
 	removeMessage: function(id) {
 		AppDispatcher.handleViewAction({
-			actionType: Actions.MESSAGES_REMOVE,
+			type: Actions.MESSAGES_REMOVE,
 			messageId: id
 		});
 	}
