@@ -1,5 +1,8 @@
 'use strict';
 
+var Store = require('../../Store');
+var Actions = require('../../Actions');
+
 module.exports = {
 
 	statics: {
@@ -29,6 +32,17 @@ module.exports = {
 				.toLowerCase();
 			return (this.inputType.indexOf(type) !== -1);
 		}
-	}
+	},
 
+
+
+	componentDidMount: function() {
+
+	},
+
+	setPartInteracted: function() {
+		this.setState({
+			interacted: true
+		});
+	}
 };
