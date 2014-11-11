@@ -5,24 +5,43 @@ var React = require('react/addons');
 
 var isFlag = require('common/Utils').isFlag;
 
+var Store = require('../Store');
+var Actions = require('../Actions');
+
 var Part = require('./Part');
 
 module.exports = React.createClass({
 	displayName: 'Question',
 
 	propTypes: {
-		question: React.PropTypes.object
+		question: React.PropTypes.object.isRequired
+	},
+
+
+	__onChange: function () {
+		//trigger a reload/redraw
+		//
+	},
+
+
+	componentDidMount: function() {
+		Store.addChangeListener(this.__onChange);
+		Actions.initQuestionStatus(this.props.question);
+	},
+
+
+	componentWillUnmount: function() {
+		Store.removeChangeListener(this.__onChange);
 	},
 
 
 	render: function() {
-		var q = this.props.question || {};
-		var parts = q.parts || [];
+		var q = this.props.question;
+		var parts = q.parts;
 		var title = '';
-		var status = '';
+		var status = '';//correct, incorrect, blank
 
-		console.log(this.props);
-
+		//Ripped from the WebApp:
 		if (isFlag('mathcounts-question-number-hack')) {
 			//HACK: there should be a more correct way to get the problem name/number...
 			title = q.getID().split('.').pop() + '. ';

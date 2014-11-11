@@ -1,6 +1,5 @@
 'use strict';
 
-var Store = require('../../Store');
 var Actions = require('../../Actions');
 
 module.exports = {
@@ -35,12 +34,11 @@ module.exports = {
 	},
 
 
-
-	componentDidMount: function() {
-
-	},
-
 	setPartInteracted: function() {
+		var p = this.props;
+
+		Actions.setPartInteracted(p.item, p.index);
+
 		this.setState({
 			interacted: true
 		});

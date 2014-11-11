@@ -31,7 +31,7 @@ module.exports = React.createClass({
 
 		return (
 			<label className="choice" key={'choice-'+index}>
-				<input type="checkbox" data-index={index}/>
+				<input type="checkbox" data-index={index} onChange={this.setPartInteracted}/>
 				<div>
 					<span className="numeral">{numeral}.</span>
 					<span className="choice-content" dangerouslySetInnerHTML={{__html: choice}}/>

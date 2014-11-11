@@ -35,7 +35,7 @@ module.exports = React.createClass({
 
 		return (
 			<label className="choice" key={'choice-'+index}>
-				<input type="radio" name={group} data-index={index}/>
+				<input type="radio" name={group} data-index={index} onChange={this.setPartInteracted}/>
 				<div>
 					<span className="numeral">{numeral}.</span>
 					<span className="choice-content" dangerouslySetInnerHTML={{__html: choice}}/>

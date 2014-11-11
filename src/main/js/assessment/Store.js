@@ -7,11 +7,13 @@ var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 
 var assign = require('object-assign');
 
-//var Constants = require('./Constants');
+var Constants = require('./Constants');
 
 
 var Store = assign(EventEmitter.prototype, {
 	displayName: 'assessment.Store',
+	_maxListeners: 0,//unlimited
+
 
 	emitChange: function(evt) {
 		this.emit(CHANGE_EVENT, evt);
@@ -33,9 +35,13 @@ var Store = assign(EventEmitter.prototype, {
 Store.appDispatch = AppDispatcher.register(function(payload) {
 	var action = payload.action;
 	switch(action.type) {
-		// case Constants.INTERACTED:
-		// 	//persistData(action.response);
-		// 	break;
+		case Constants.INITIALIZE_QUESTION_STATUS:
+			console.debug('Question Init: %o',action);
+			break;
+
+		case Constants.INTERACTED:
+			console.debug('Question Part Interacted: %o',action);
+			break;
 
 		default: return true;
 	}

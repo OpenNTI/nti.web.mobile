@@ -10,6 +10,8 @@ var keyMirror = require('react/lib/keyMirror');
 
 module.exports = assign(exports, keyMirror({
 
+	INITIALIZE_QUESTION_STATUS: null,
+	
 	INTERACTED: null
 
 }));
