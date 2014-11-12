@@ -1,6 +1,7 @@
 'use strict';
 
-var merge = require('react/lib/merge');
+var assign = require('object-assign');
+
 
 var Unknown = require('./Unknown');
 var Group = require('./Group');
@@ -25,8 +26,8 @@ function getItemHandler(item, index, list, props) {
 		}
 	}
 
-	return Item(
-		merge({
+	return (!Item.canRender || Item.canRender(item, (props || {}).node)) &&
+	 	Item(assign({
 			key: item.NTIID || ('overview-' + item.MimeType + '-' + index),
 			item: item,
 			index: index,

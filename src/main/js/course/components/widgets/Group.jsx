@@ -2,6 +2,10 @@
 'use strict';
 
 var React = require('react/addons');
+
+var IllegalStateException = require('common/exceptions').IllegalStateException;
+
+var ErrorWidget = require('common/components/Error');
 var WidgetsMixin = require('./Mixin');
 
 module.exports = React.createClass({
@@ -20,12 +24,21 @@ module.exports = React.createClass({
 		var style = {
 			backgroundColor: '#' + item.accentColor
 		};
+		try {
+			return (
+				<fieldset className="course-overview-group">
+					<legend style={style}>{item.title}</legend>
+					{this._renderItems(item.Items)}
+				</fieldset>
+			);
 
-		return (
-			<fieldset className="course-overview-group">
-				<legend style={style}>{item.title}</legend>
-				{this._renderItems(item.Items)}
-			</fieldset>
-		);
+		} catch (e) {
+
+			if (!(e instanceof IllegalStateException)) {
+				return (<ErrorWidget error={e}/>);
+			}
+		}
+
+		return null;
 	}
 });

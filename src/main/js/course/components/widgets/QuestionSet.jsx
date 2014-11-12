@@ -16,6 +16,8 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 
 var SUBMITTED_QUIZ = 'application/vnd.nextthought.assessment.assessedquestionset';
 
+var assignmentType = /assignment/i;
+
 module.exports = React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
 	mixins: [NavigatableMixin],
@@ -24,6 +26,16 @@ module.exports = React.createClass( {
 		mimeTest: /(naquestionset|naquestionbank|assignment)$/i,
 		handles: function(item) {
 			return this.mimeTest.test(item.MimeType);
+		},
+
+		canRender: function (item, node) {
+			var render = true;
+
+			if (assignmentType.test(item.MimeType)) {
+				render = Boolean(node && node.getAssignment(item['Target-NTIID']));
+			}
+
+			return render;
 		}
 	},
 
@@ -47,15 +59,17 @@ module.exports = React.createClass( {
 		}
 
 		var setLatestAttempt = this.setLatestAttempt;
-		var ntiid = this.props.item['Target-NTIID'];
+		var item = this.props.item;
+		var ntiid = item['Target-NTIID'];
 		var assignment = this.props.node.getAssignment(ntiid);
+		var isAssignment = assignment || assignmentType.test(item.MimeType);
 
 		this.setState({
 			assignment: assignment,
 			href: '#'
 		});
 
-		if (!assignment) {
+		if (!isAssignment) {
 			service.getPageInfo(ntiid)
 				.then(getLastQuizSubmission)
 				.catch(this.setNotTaken)
@@ -146,6 +160,7 @@ module.exports = React.createClass( {
 			</a>
 		);
 	},
+
 
 	onClick: function (e) {
 		var a = getEventTarget(e, 'a[href]');

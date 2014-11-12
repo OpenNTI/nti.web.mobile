@@ -1,5 +1,8 @@
 'use strict';
 
+var IllegalStateException = require('common/exceptions').IllegalStateException;
+var truthy = require('dataserverinterface/utils/identity');
+
 exports = module.exports = {
 	_renderItems: function(items, props) {
 		var s = this.state || {};
@@ -14,9 +17,15 @@ exports = module.exports = {
 				use = null;
 			}
 
-			return use && this.transferPropsTo(
-				exports.select(item, i, list, props));
-		}.bind(this));
+			use = use && exports.select(item, i, list, props);
+
+			return use && this.transferPropsTo(use);
+		}.bind(this)).filter(truthy);
+
+		if (toReturn.length === 0) {
+			throw new IllegalStateException('No Items to render');
+		}
+
 		return toReturn;
 	}
 };
