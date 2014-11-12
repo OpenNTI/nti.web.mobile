@@ -66,17 +66,17 @@ var Form = React.createClass({
 			if (field.required) {
 				var value = (fieldValues[field.ref]||'');
 				if (value.trim().length === 0) {
-					errors[field.ref] = { 
+					errors[field.ref] = {
 						// no message property because we don't want the 'required' message
 						// repeated for every required field...
 
 						// ...but we still want an entry for this ref so the field gets flagged
 						// as invalid.
 						error: 'Field is required'
-					}
-					errors['required'] = {
+					};
+					errors.required = {
 						message: 'Please complete all required fields.'
-					}
+					};
 				}
 			}
 		});
@@ -86,7 +86,7 @@ var Form = React.createClass({
 		return Object.keys(errors).length === 0;
 	},
 
-	_inputBlurred: function(event) {
+_inputBlurred: function(/*event*/) {
 		var errs = this.state.errors;
 		if(Object.keys(errs).length === 1 && errs.hasOwnProperty('required')) {
 			this.setState({
@@ -97,7 +97,7 @@ var Form = React.createClass({
 
 	_handleSubmit: function(event) {
 		event.preventDefault();
-		
+
 		if(!this._validate()) {
 			return;
 		}
