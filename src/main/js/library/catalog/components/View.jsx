@@ -66,7 +66,7 @@ var CatalogView = React.createClass({
                 basePath: basePath
             }),
             Location({
-                path: '/item/:entryId/enrollment/*',
+                path: '/item/:entryId/enrollment(/*)',
                 handler: Enrollment,
                 basePath: basePath
             }),

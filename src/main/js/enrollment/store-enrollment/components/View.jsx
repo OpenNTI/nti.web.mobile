@@ -5,13 +5,21 @@
 'use strict';
 
 var React = require('react/addons');
+var Router = require('react-router-component');
+var Locations = Router.Locations;
+var Location = Router.Location;
+var DefaultRoute = Router.NotFound;
+// var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Loading = require('common/components/Loading');
 var Constants = require('../Constants');
 var Store = require('../Store');
 var Form = require('./PaymentForm');
-var Redirect = require('common/components/Redirect');
+var PaymentConfirm = require('./PaymentConfirm');
+var NavigatableMixin = require('common/mixins/NavigatableMixin');
 
 var View = React.createClass({
+
+	mixins: [NavigatableMixin], // needed for getPath() call we're using for the router's key.
 
 	propTypes: {
 		enrollment: React.PropTypes.object.isRequired
@@ -41,19 +49,16 @@ var View = React.createClass({
 					pricedItem: event.pricedItem
 				});
 			break;
+			
 			case Constants.BILLING_INFO_VERIFIED:
-				this.setState({
-					redirect: 'boom'
-				});
+				// FIXME: why isn't this path being evaluated within the 'store'
+				// router context? why do we have to include 'store'?
+				this.navigate('store/confirm/');
 			break;
 		}
 	},
 
 	render: function() {
-
-		if(this.state.redirect) {
-			return <Redirect location={this.state.redirect} />;
-		}
 
 		if(this.state.loading) {
 			return <Loading />;
@@ -62,9 +67,13 @@ var View = React.createClass({
 		var purchasable = this.props.enrollment.Purchasable;
 
 		return (
-			<div>
-				<Form purchasable={purchasable} />
-			</div>
+			
+					<Locations contextual
+						key={this.getPath()}>
+						<Location path="/confirm/" handler={PaymentConfirm} purchasable={purchasable}/>
+						<DefaultRoute handler={Form} purchasable={purchasable}/>
+					</Locations>
+			
 		);
 	}
 

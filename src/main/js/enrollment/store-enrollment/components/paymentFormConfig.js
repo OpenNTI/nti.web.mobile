@@ -8,57 +8,57 @@ module.exports = Object.freeze([
 		placeholder: 'Name on card'
 	},
 	{
-		ref: 'number', // this is the name expected by the stripe api.
+		ref: 'number', // this is the name expected by the stripe api and returned by Stripe.getToken().
 		placeholder: '1234 1234 1234 1234',
 		required: true
 	},
 	{
-		ref: 'exp_month', // this is the name expected by the stripe api.
+		ref: 'exp_month', // this is the name expected by the stripe api and returned by Stripe.getToken().
 		placeholder: 'MM',
 		required: true
 	},
 	{
-		ref: 'exp_year', // this is the name expected by the stripe api.
+		ref: 'exp_year', // this is the name expected by the stripe api and returned by Stripe.getToken().
 		placeholder: 'YY',
 		required: true
 	},
 	{
-		ref: 'cvc', // this is the name expected by the stripe api.
+		ref: 'cvc', // this is the name expected by the stripe api and returned by Stripe.getToken().
 		placeholder: 'CVC',
 		required: true
 	},
 	{
-		ref: 'address',
+		ref: 'address_line1', // this is the name expected by the stripe api and returned by Stripe.getToken().
 		type: 'text',
 		required: true,
 		placeholder: 'Address'
 	},
 	{
-		ref: 'address2',
+		ref: 'address_line2', // this is the name expected by the stripe api and returned by Stripe.getToken().
 		type: 'text',
 		required: false,
 		placeholder: 'Address (optional)'
 	 },
 	 {
-		ref: 'city',
+		ref: 'address_city', // this is the name expected by the stripe api and returned by Stripe.getToken().
 		type: 'text',
 		required: true,
 		placeholder: 'City'
 	 },
 	 {
-		ref: 'state',
+		ref: 'address_state', // this is the name expected by the stripe api and returned by Stripe.getToken().
 		type: 'text',
 		required: true,
 		placeholder: 'State/Province/Territory/Region'
 	 },
 	 {
-		ref: 'country',
+		ref: 'address_country', // this is the name expected by the stripe api and returned by Stripe.getToken().
 		type: 'text',
 		required: true,
 		placeholder: 'Country'
 	 },
 	 {
-	 	ref: 'zip',
+	 	ref: 'address_zip', // this is the name expected by the stripe api and returned by Stripe.getToken().
 	 	type: 'text',
 	 	required: true,
 	 	placeholder: 'Zip/Postal Code'

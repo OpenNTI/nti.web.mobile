@@ -41,15 +41,14 @@ module.exports = React.createClass({
 					courseId={this._getCourseId()}/>
 
 				<Router.Location
-					path="/store/"
+					path="/store(/*)"
 					handler={StoreEnrollment}
 					basePath={this.props.basePath}
 					entryId={this.props.entryId}
 					enrollment={this._getEnrollmentOption(Constants.StoreEnrollment)}
 					courseId={this._getCourseId()} />
 
-                <Router.Location
-                	path="*"
+                <Router.NotFound
                 	handler={Enroll}
                 	basePath={this.props.basePath}
                 	entryId={this.props.entryId} />

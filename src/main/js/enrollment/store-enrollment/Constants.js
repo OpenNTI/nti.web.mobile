@@ -8,5 +8,6 @@ module.exports = keyMirror({
 	PRICED_ITEM_ERROR: null,
 	VERIFY_BILLING_INFO: null,
 	BILLING_INFO_VERIFIED: null,
-	BILLING_INFO_REJECTED: null
+	BILLING_INFO_REJECTED: null,
+	SUBMIT_STRIPE_PAYMENT: null
 });

@@ -9,6 +9,9 @@ var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
 
 var getService = require('common/Utils').getService;
 
+var _stripeToken; // store the result of a Stripe.getToken() call
+var _billingInfo;
+
 var Store = merge(EventEmitter.prototype, {
 	displayName: 'store-enrollment.Store',
 
@@ -44,6 +47,20 @@ var Store = merge(EventEmitter.prototype, {
 			.catch(function(reason) {
 				console.error(reason);
 			});
+	},
+
+	getStripeToken: function() {
+		if(!_stripeToken) {
+			throw new Error("Store doesn't currently have a stripe token. (Did you get a BILLING_INFO_VERIFIED event after a call to Actions.verifyBillingInfo?)");
+		}
+		return _stripeToken;
+	},
+
+	getBillingInfo: function() {
+		if(!_billingInfo) {
+			throw new Error("Store doesn't have billing info. (Have you called Actions.verifyBillingInfo?)");
+		}
+		return _billingInfo;
 	}
 
 });
@@ -56,12 +73,15 @@ function _getStripeEnrollment() {
 }
 
 function _verifyBillingInfo(data) {
+	_stripeToken = null; // reset
+	_billingInfo = data.formData;
 	return _getStripeEnrollment()
 		.then(function(stripe) {
 			return stripe.getToken(data.stripePublicKey,data.formData);
 		})
 		.then(function(result) {
 			var eventType = result.status === 200 ? Constants.BILLING_INFO_VERIFIED : Constants.BILLING_INFO_REJECTED;
+			_stripeToken = result.response;
 			Store.emitChange({
 				type: eventType,
 				status: result.status,
@@ -74,12 +94,27 @@ function _verifyBillingInfo(data) {
 		});
 }
 
-Store.appDispatch = AppDispatcher.register(function(payload) {
-    var action = payload.action;
+function _submitPayment(formData) {
+	return _getStripeEnrollment()
+		.then(function(stripe){
+			return stripe.submitPayment(formData);
+		})
+		.then(function(result) {
+			console.debug(result);
+			debugger;
+		});
+}
+
+Store.appDispatch = AppDispatcher.register(function(data) {
+    var action = data.action;
     switch(action.type) {
 
     	case Constants.VERIFY_BILLING_INFO:
     		_verifyBillingInfo(action.payload);
+    	break;
+
+    	case Constants.SUBMIT_STRIPE_PAYMENT:
+    		_submitPayment(action.payload.formData);
     	break;
 
         default:

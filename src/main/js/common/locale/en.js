@@ -66,12 +66,13 @@ module.exports = {
 				exp_month: 'MM',
 				exp_year: 'YY',
 				cvc: 'CVC',
-				address: 'Address',
-				address2: 'Address Continued',
-				city: 'City',
-				state: 'State/Province/Territory/Region',
-				zip: 'Zip/Postal Code',
-				country: 'Country'
+				address_line1: 'Address',
+				address_line2: 'Address Continued',
+				address_city: 'City',
+				address_state: 'State/Province/Territory/Region',
+				address_zip: 'Zip/Postal Code',
+				address_country: 'Country',
+				last4: 'Card ending in'
 			}
 		}
 	},

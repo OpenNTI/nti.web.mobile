@@ -47,6 +47,13 @@ var Form = React.createClass({
 
 	_onStoreChange: function(event) {
 		switch(event.type) {
+			// case Constants.BILLING_INFO_VERIFIED:
+			// 	this.setState({
+			// 		busy: false,
+			// 		stripeToken: event.response
+			// 	});
+			// break;
+
 			case Constants.BILLING_INFO_REJECTED:
 				var errors = this.state.errors||{};
 				errors[event.response.param] = event.response.error;
@@ -86,7 +93,7 @@ var Form = React.createClass({
 		return Object.keys(errors).length === 0;
 	},
 
-_inputBlurred: function(/*event*/) {
+	_inputBlurred: function(/*event*/) {
 		var errs = this.state.errors;
 		if(Object.keys(errs).length === 1 && errs.hasOwnProperty('required')) {
 			this.setState({

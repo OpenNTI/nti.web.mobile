@@ -12,6 +12,13 @@ module.exports = {
 				formData: formData
 			}
 		);
+	},
+
+	submitPayment: function(payload) {
+		dispatch(
+			Constants.SUBMIT_STRIPE_PAYMENT,
+			{formData: payload}
+		);
 	}
 };
 
