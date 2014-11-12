@@ -65,6 +65,7 @@ module.exports = {
 				number: 'Card number',
 				exp_month: 'MM',
 				exp_year: 'YY',
+				cvc: 'CVC',
 				address: 'Address',
 				address2: 'Address Continued',
 				city: 'City',

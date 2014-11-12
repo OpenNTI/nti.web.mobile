@@ -23,6 +23,11 @@ module.exports = Object.freeze([
 		required: true
 	},
 	{
+		ref: 'cvc', // this is the name expected by the stripe api.
+		placeholder: 'CVC',
+		required: true
+	},
+	{
 		ref: 'address',
 		type: 'text',
 		required: true,
