@@ -11,6 +11,7 @@ var getService = require('common/Utils').getService;
 
 var _stripeToken; // store the result of a Stripe.getToken() call
 var _billingInfo;
+var _paymentResult;
 
 var Store = merge(EventEmitter.prototype, {
 	displayName: 'store-enrollment.Store',
@@ -56,11 +57,19 @@ var Store = merge(EventEmitter.prototype, {
 		return _stripeToken;
 	},
 
+	// FIXME: we don't actually need to store this for stripe payments. all we care about is the stripe token.
 	getBillingInfo: function() {
 		if(!_billingInfo) {
 			throw new Error("Store doesn't have billing info. (Have you called Actions.verifyBillingInfo?)");
 		}
 		return _billingInfo;
+	},
+
+	getPaymentResult: function() {
+		if(!_paymentResult) {
+			throw new Error("Store doesn't have a payment result.");
+		}
+		return _paymentResult;
 	}
 
 });
@@ -90,7 +99,6 @@ function _verifyBillingInfo(data) {
 		})
 		.catch(function(reason) {
 			console.error('verifyBillingInfo failed. %O', reason);
-			debugger;
 		});
 }
 
@@ -100,8 +108,11 @@ function _submitPayment(formData) {
 			return stripe.submitPayment(formData);
 		})
 		.then(function(result) {
-			console.debug(result);
-			debugger;
+			var type = (result||{}).State === 'Success' ? Constants.STRIPE_PAYMENT_SUCCESS : Constants.STRIPE_PAYMENT_FAILURE;
+			Store.emitChange({
+				type: type,
+				purchaseAttempt: result
+			});
 		});
 }
 

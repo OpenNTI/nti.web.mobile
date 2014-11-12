@@ -9,11 +9,13 @@ var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
 var DefaultRoute = Router.NotFound;
-// var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Loading = require('common/components/Loading');
 var Constants = require('../Constants');
 var Store = require('../Store');
 var Form = require('./PaymentForm');
+var PaymentSuccess = require('./PaymentSuccess');
+var PaymentError = require('./PaymentError');
 var PaymentConfirm = require('./PaymentConfirm');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 
@@ -55,6 +57,14 @@ var View = React.createClass({
 				// router context? why do we have to include 'store'?
 				this.navigate('store/confirm/');
 			break;
+
+			case Constants.STRIPE_PAYMENT_SUCCESS:
+				this.navigate('store/success/');
+			break;
+
+			case Constants.STRIPE_PAYMENT_FAILURE:
+				this.navigate('store/error/');
+			break;
 		}
 	},
 
@@ -67,12 +77,17 @@ var View = React.createClass({
 		var purchasable = this.props.enrollment.Purchasable;
 
 		return (
-			
+			<div>
+				<ReactCSSTransitionGroup transitionName="loginforms">
 					<Locations contextual
 						key={this.getPath()}>
 						<Location path="/confirm/" handler={PaymentConfirm} purchasable={purchasable}/>
+						<Location path="/success/" handler={PaymentSuccess} purchasable={purchasable}/>
+						<Location path="/error/" handler={PaymentError} purchasable={purchasable}/>
 						<DefaultRoute handler={Form} purchasable={purchasable}/>
 					</Locations>
+				</ReactCSSTransitionGroup>
+			</div>
 			
 		);
 	}
