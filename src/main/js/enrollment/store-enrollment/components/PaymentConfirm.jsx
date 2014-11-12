@@ -26,15 +26,9 @@ var _billingFields = [
 
 var PaymentConfirm = React.createClass({
 
-	componentWillMount: function() {
-		var stripeToken = Store.getStripeToken();
-		this.setState({
-			stripeToken: stripeToken
-		});
-	},
-
 	_renderBillingInfo: function() {
-		var card = this.state.stripeToken.card;
+		var stripeToken = Store.getStripeToken();
+		var card = stripeToken.card;
 		return _billingFields.map(function(fieldname) {
 			return (<div>{card[fieldname]}</div>);
 		});
@@ -49,9 +43,6 @@ var PaymentConfirm = React.createClass({
 	},
 
 	render: function() {
-
-		console.log(this.state.stripeToken);
-
 		return (
 			<div className="row">
 				<div className="small-12 columns">
