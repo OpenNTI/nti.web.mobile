@@ -10,7 +10,6 @@ var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
 var getService = require('common/Utils').getService;
 
 var _stripeToken; // store the result of a Stripe.getToken() call
-var _billingInfo;
 var _paymentResult;
 
 var Store = merge(EventEmitter.prototype, {
@@ -57,14 +56,6 @@ var Store = merge(EventEmitter.prototype, {
 		return _stripeToken;
 	},
 
-	// FIXME: we don't actually need to store this for stripe payments. all we care about is the stripe token.
-	getBillingInfo: function() {
-		if(!_billingInfo) {
-			throw new Error("Store doesn't have billing info. (Have you called Actions.verifyBillingInfo?)");
-		}
-		return _billingInfo;
-	},
-
 	getPaymentResult: function() {
 		if(!_paymentResult) {
 			throw new Error("Store doesn't have a payment result.");
@@ -83,7 +74,6 @@ function _getStripeEnrollment() {
 
 function _verifyBillingInfo(data) {
 	_stripeToken = null; // reset
-	_billingInfo = data.formData;
 	return _getStripeEnrollment()
 		.then(function(stripe) {
 			return stripe.getToken(data.stripePublicKey,data.formData);

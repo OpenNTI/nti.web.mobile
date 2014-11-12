@@ -35,10 +35,10 @@ var PaymentConfirm = React.createClass({
 	},
 
 	_submitPayment: function() {
-		var payload = Store.getBillingInfo();
-		payload.stripeToken = Store.getStripeToken();
-		payload.purchasable = this.props.purchasable;
-
+		var payload = {
+			stripeToken: Store.getStripeToken(),
+			purchasable: this.props.purchasable
+		};
 		Actions.submitPayment(payload);
 	},
 
