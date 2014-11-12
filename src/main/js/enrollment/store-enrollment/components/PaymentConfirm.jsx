@@ -24,38 +24,10 @@ var _billingFields = [
 	'exp_year'
 ];
 
-
-// so we don't have to fill out the form every time we want to reload/test this view.
-var FAKE_TOKEN = {
-	card: {
-		'address_city': "Norman",
-		'address_country': "United States",
-		'address_line1': "NextThought",
-		'address_line2': "301 David L Boren Blvd STE 3050",
-		'address_state': "OK",
-		'address_zip': "73072-7340",
-		'brand': "MasterCard",
-		'country': "US",
-		'customer': null,
-		'dynamic_last4': null,
-		'exp_month': 9,
-		'exp_year': 2019,
-		'fingerprint': "RzN5PKif5jjDPa0l",
-		'funding': "unknown",
-		'id': "card_58LcH8vEjSq3aZ",
-		'last4': "5454",
-		'name': "Ray Hatfield",
-		'object': "card",
-		'type': "MasterCard"
-	}
-};
-
 var PaymentConfirm = React.createClass({
 
 	componentWillMount: function() {
-		console.warn('Using a fake stripe token.');
-		// var stripeToken = Store.getStripeToken();
-		var stripeToken = FAKE_TOKEN;
+		var stripeToken = Store.getStripeToken();
 		this.setState({
 			stripeToken: stripeToken
 		});
