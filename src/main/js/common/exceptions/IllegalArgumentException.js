@@ -1,11 +1,10 @@
 'use strict';
 
 function IllegalArgumentException(message) {
-	this.name = 'IllegalArgumentException';
-	this.message = message || 'Illegal argument. No message provided.';
-	this.stack = (new Error()).stack;
+	Error.call(this, message || 'Illegal argument. No message provided.');
 }
-IllegalArgumentException.prototype = new Error();
+
+IllegalArgumentException.prototype = Object.create(Error);
 IllegalArgumentException.prototype.constructor = IllegalArgumentException;
 
 module.exports = IllegalArgumentException;
