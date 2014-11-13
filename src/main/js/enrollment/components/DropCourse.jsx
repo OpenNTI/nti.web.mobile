@@ -14,6 +14,9 @@ var CatalogStore = require('library/catalog/Store');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var Notice = require('common/components/Notice');
+var DropOpen = require('./drop-widgets/DropOpen');
+var DropStore = require('./drop-widgets/DropStore');
+var DropFive = require('./drop-widgets/DropFive');
 
 var DropCourseDialog = React.createClass({
 
@@ -27,7 +30,6 @@ var DropCourseDialog = React.createClass({
 	},
 
 	_cancelClicked: function() {
-		console.debug('dialog button clicked.');
 		history.back();
 	},
 
@@ -53,6 +55,43 @@ var DropCourseDialog = React.createClass({
 			});
 			// this.navigate('../', {replace: true});
 		}
+	},
+
+	/**
+	* return the appropriate widget for each enrollment option.
+	* this will (almost?) always return a single widget, as
+	* it's unlikely that the user is enrolled in more than
+	* one option for a given course.
+	*/
+	_getDropWidgets: function() {
+		var entryId = NTIID.decodeFromURI(this.props.entryId);
+		var entry = CatalogStore.getEntry(entryId);
+		var items = entry.EnrollmentOptions.Items;
+		var enrollmentTypes = Object.keys(items);
+		return enrollmentTypes.map(function(type) {
+			var widget = null;
+			var option = items[type];
+			if (option.IsEnrolled) {
+				switch (type) {
+					case 'OpenEnrollment':
+						widget = DropOpen;
+					break;
+					
+					case 'StoreEnrollment':
+						widget = DropStore;
+					break;
+
+					case 'FiveminuteEnrollment':
+						widget = DropFive;
+					break;
+
+					default:
+						console.warn('Enrolled in an unrecognized/supported enrollment option? %O', option);
+
+				}
+			}
+			return widget ? this.transferPropsTo(<widget courseTitle={this._getCourseTitle()} />) : widget;
+		}.bind(this));
 	},
 
 	componentDidMount: function() {
@@ -83,15 +122,9 @@ var DropCourseDialog = React.createClass({
 		}
 
 		return (
-
 			<div>
-				<Notice>Drop {title}?</Notice>
-				<div className="small-12 columns">
-					<Button onClick={this._cancelClicked} className="small-5 columns">Cancel</Button>
-					<Button onClick={this._confirmClicked} className="small-5 columns">Drop course</Button>
-				</div>
+				{this._getDropWidgets()}
 			</div>
-			
 		);
 	}
 
