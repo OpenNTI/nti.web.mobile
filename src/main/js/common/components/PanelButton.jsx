@@ -19,7 +19,7 @@ var PanelButton = React.createClass({
 	},
 
 	_button: function() {
-		return this.transferPropsTo(
+		return this.props.button || this.transferPropsTo(
 			<a href={this.props.href} className="button tiny radius column">{this.props.linkText}</a>
 		);
 	},

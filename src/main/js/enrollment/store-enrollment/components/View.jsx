@@ -75,6 +75,8 @@ var View = React.createClass({
 		}
 
 		var purchasable = this.props.enrollment.Purchasable;
+		var courseTitle = purchasable.Title||null;
+		var courseId = this.props.courseId;
 
 		return (
 			<div>
@@ -82,7 +84,7 @@ var View = React.createClass({
 					<Locations contextual
 						key={this.getPath()}>
 						<Location path="/confirm/" handler={PaymentConfirm} purchasable={purchasable}/>
-						<Location path="/success/" handler={PaymentSuccess} purchasable={purchasable}/>
+						<Location path="/success/" handler={PaymentSuccess} purchasable={purchasable} courseId={courseId} courseTitle={courseTitle}/>
 						<Location path="/error/" handler={PaymentError} purchasable={purchasable}/>
 						<DefaultRoute handler={Form} purchasable={purchasable}/>
 					</Locations>
