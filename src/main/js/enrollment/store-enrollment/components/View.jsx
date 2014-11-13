@@ -85,7 +85,7 @@ var View = React.createClass({
 						key={this.getPath()}>
 						<Location path="/confirm/" handler={PaymentConfirm} purchasable={purchasable}/>
 						<Location path="/success/" handler={PaymentSuccess} purchasable={purchasable} courseId={courseId} courseTitle={courseTitle}/>
-						<Location path="/error/" handler={PaymentError} purchasable={purchasable}/>
+						<Location path="/error/" handler={PaymentError} purchasable={purchasable} courseTitle={courseTitle}/>
 						<DefaultRoute handler={Form} purchasable={purchasable}/>
 					</Locations>
 				</ReactCSSTransitionGroup>
