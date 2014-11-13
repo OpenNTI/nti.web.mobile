@@ -6,5 +6,6 @@ module.exports = {
 	Constants: require('./Constants'),
 	Store: require('./Store'),
 
-	QuestionWidget: require('./components/Question')
+	QuestionWidget: require('./components/Question'),
+	SetSubmissionWidget: require('./components/SetSubmission')
 };

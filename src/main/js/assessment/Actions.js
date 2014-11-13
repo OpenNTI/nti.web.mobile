@@ -10,8 +10,6 @@ var Constants = require('./Constants');
  */
 module.exports = {
 
-    initQuestionStatus: function () {},
-
 
     setPartInteracted: function (part, index) {
         AppDispatcher.handleViewAction({

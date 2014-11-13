@@ -1,6 +1,7 @@
 'use strict';
 
 var Actions = require('../../Actions');
+//var Store = require('../../Store');
 
 module.exports = {
 
@@ -31,6 +32,12 @@ module.exports = {
 				.toLowerCase();
 			return (this.inputType.indexOf(type) !== -1);
 		}
+	},
+
+
+	componentDidMount: function() {
+		//var p = this.props;
+		//Store.registerAssessmentComponent()
 	},
 
 

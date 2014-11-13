@@ -6,7 +6,7 @@ var React = require('react/addons');
 var isFlag = require('common/Utils').isFlag;
 
 var Store = require('../Store');
-var Actions = require('../Actions');
+//var Actions = require('../Actions');
 
 var Part = require('./Part');
 
@@ -20,13 +20,11 @@ module.exports = React.createClass({
 
 	__onChange: function () {
 		//trigger a reload/redraw
-		//
 	},
 
 
 	componentDidMount: function() {
 		Store.addChangeListener(this.__onChange);
-		Actions.initQuestionStatus(this.props.question);
 	},
 
 

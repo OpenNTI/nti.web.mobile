@@ -95,6 +95,16 @@ module.exports = {
 		Days: 'Days',
 		OnlyOnline: 'Fully Online',
 		Instructor: 'Course Instructor'
+	},
+
+	ASSESSMENT: {
+		submit: 'I\'m Finished!',
+		reset: 'Cancel',
+		x_unanswered: {
+			zero: 'All questions answered',
+			one: '%(count)s question unanswered',
+			other: '%(count)s questions unanswered'
+		}
 	}
 
 };

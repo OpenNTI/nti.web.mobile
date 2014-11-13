@@ -155,7 +155,7 @@ module.exports = React.createClass({
 	onChange: function() {
 		var id = this.getPageID();
 		var page = Store.getPageDescriptor(this.getPageID());
-
+		
 		this.setState({
 			currentPage: id,
 			loading: false,

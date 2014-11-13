@@ -15,6 +15,10 @@ $tertiary-grey: #b8b8b8;
 $tertiary-grey-alt: #d1d1d1;
 $quad-grey: #f8f8f8;
 
+$disabled-button-border: #d0d0d0;
+$disabled-button-background: rgba(184,184,184,0.5);
+$disabled-button-color: rgba(255,255,255,0.7);
+
 $primary-red: #F35252;
 $secondary-red: #750000;
 
@@ -79,4 +83,18 @@ $panel-background: #fbfbfb;
   -ms-flex-order: $val;
   -webkit-order: $val;
   order: $val;
+}
+
+@mixin alignitems($val) {
+	-webkit-box-align: $val;
+    -moz-box-align: $val;
+    -webkit-align-items: $val;
+    -ms-flex-align: $val;
+    align-items: $val;
+}
+
+@mixin alignself($val) {
+	-webkit-align-self: $val;
+	-ms-flex-item-align: $val;
+	align-self: $val;
 }

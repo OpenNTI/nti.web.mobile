@@ -1,0 +1,51 @@
+//@import "../input-vars";
+
+.set-submission {
+	font-size: 0.7rem;
+	font-style: italic;
+	@include flexbox();
+
+	&.complete {
+		.status-line{color: $primary-green;}
+	}
+
+	.status-line {
+		padding-left: 0.75rem;
+		color: $primary-red;
+		font-weight: 300;
+		@include alignself(center);
+		@include order(1);
+		@include flex(1 1 auto);
+	}
+
+	.button.reset {
+		background: none;
+		border-width: 0;
+		color: $primary-grey;
+		font-weight: 300;
+		text-decoration: underline;
+		text-transform: none;
+		@include order(2);
+	}
+
+	.button {
+		@include flex(0 0 auto);
+		@include alignself(center);
+		@include order(3);
+		letter-spacing: normal;
+		padding: 0.8rem 1rem 0.8625rem;
+		margin: 0;
+		font-size: 0.8rem;
+		font-weight: 600;
+		background: $primary-blue;
+		border-color: $border-blue;
+		color: #fff;
+
+		&.disabled {
+			opacity: 1;
+			background: $disabled-button-background;
+			border-color: $disabled-button-border;
+			color: $disabled-button-color;
+		}
+	}
+}

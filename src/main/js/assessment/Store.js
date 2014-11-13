@@ -27,8 +27,17 @@ var Store = assign(EventEmitter.prototype, {
 
 	removeChangeListener: function(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
-	}
+	},
 
+
+	setupAssessment: function (assessment) {
+		console.debug('New Assessment: %o', assessment);
+	},
+
+
+	countUnansweredQuestions: function(assessment){
+		return assessment.getQuestionCount();
+	}
 });
 
 

@@ -48,10 +48,10 @@ assign(PageDescriptor.prototype, {
 	},
 
 
-	hasSubmittableAssessment: function() {
+	getSubmittableAssessment: function() {
 		var items = this.pageInfo.AssessmentItems || [];
 		return items.reduce(function(v, item) {
-			return v || (item.isSubmittable); }, null);
+			return v || (item.isSubmittable && item); }, null);
 	}
 });
 
