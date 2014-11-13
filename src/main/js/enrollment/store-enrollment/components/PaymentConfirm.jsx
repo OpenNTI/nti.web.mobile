@@ -24,9 +24,34 @@ var _billingFields = [
 	'exp_year'
 ];
 
+// var DUMMY_STRIPE_TOKEN = {
+// 	card: {
+// 		"address_city": "Norman",
+// 		"address_country": "United States",
+// 		"address_line1": "NextThought",
+// 		"address_line2": "301 David L Boren Blvd STE 3050",
+// 		"address_state": "OK",
+// 		"address_zip": "73072-7340",
+// 		"brand": "MasterCard",
+// 		"country": "US",
+// 		"customer": null,
+// 		"dynamic_last4": null,
+// 		"exp_month": 9,
+// 		"exp_year": 2019,
+// 		"fingerprint": "RzN5PKif5jjDPa0l",
+// 		"funding": "unknown",
+// 		"id": "card_58n7EUOk6HKEwm",
+// 		"last4": "5454",
+// 		"name": "Ray Hatfield",
+// 		"object": "card",
+// 		"type": "MasterCard"
+// 	}
+// };
+
 var PaymentConfirm = React.createClass({
 
 	_renderBillingInfo: function() {
+		// console.warn('USING DUMMY STRIPE TOKEN FOR DEV CONVENIENCE.');
 		var stripeToken = Store.getStripeToken();
 		var card = stripeToken.card;
 		return _billingFields.map(function(fieldname) {
@@ -45,13 +70,13 @@ var PaymentConfirm = React.createClass({
 	render: function() {
 		return (
 			<div className="row">
-				<div className="small-12 columns">
-					<h2>confirm payment</h2>
+				<fieldset className="medium-6 medium-centered columns">
+					<legend>confirm payment</legend>
 					<div>
 						{this._renderBillingInfo()}
-						<Button onClick={this._submitPayment} />
+						<Button onClick={this._submitPayment}>Submit Payment</Button>
 					</div>
-				</div>
+				</fieldset>
 			</div>
 		);
 	}

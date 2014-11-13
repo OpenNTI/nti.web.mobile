@@ -136,7 +136,7 @@ var Form = React.createClass({
 				<div className="column"><h2>{title}</h2></div>
 				<form className="store-enrollment-form medium-6 medium-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
-						<legend>Payment Information</legend>
+						<legend>Billing Information</legend>
 						{_fieldConfig.map(fieldRenderFn)}
 						<div className='errors'>
 							<ReactCSSTransitionGroup transitionName="messages">
@@ -150,7 +150,7 @@ var Form = React.createClass({
 						<input type="submit"
 							id="storeenroll:submit"
 							className="small-12 columns tiny button radius"
-							value="Continue to Enrollment" />
+							value="Continue" />
 					</fieldset>
 				</form>
 			</div>
