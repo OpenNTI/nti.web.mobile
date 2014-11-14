@@ -65,6 +65,13 @@ var Store = assign(EventEmitter.prototype, {
 	},
 
 
+	canSubmit: function(assessment){
+		var main = getMainSubmittable(assessment);
+		var s = data[main.getID()];
+		return s && s.canSubmit();
+	},
+
+
 	getPartValue: function (part) {
 		var main = getMainSubmittable(part);
 		var s = data[main.getID()];

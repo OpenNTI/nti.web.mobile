@@ -59,7 +59,7 @@ module.exports = React.createClass({
 	render: function() {
 		var assessment = this.props.assessment;
 		var unanswered = Store.countUnansweredQuestions(assessment);
-		var disabled = !!unanswered;
+		var disabled = !Store.canSubmit(assessment);
 		var status = unanswered ? 'incomplete' : 'complete';
 
 		return (
