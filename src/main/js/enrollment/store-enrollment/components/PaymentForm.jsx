@@ -88,6 +88,10 @@ var Form = React.createClass({
 				}
 			}
 		});
+		var number = (this.state.fieldValues['number']||'');
+		if(number.trim().length > 0 && !Stripe.card.validateCardNumber(number)) {
+			errors['number'] =  {message: 'Card number is invalid'};
+		}
 		this.setState({
 			errors: errors
 		});
