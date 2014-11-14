@@ -5,6 +5,7 @@ var Unknown = require('./Unknown');
 exports = module.exports = {
 	Unknown: Unknown, //Unknown for future items.
 
+	FreeResponse: require('./FreeResponse'),
 	MultipleChoice: require('./MultipleChoice'),
 	MultipleChoiceMultipleAnswer: require('./MultipleChoiceMultipleAnswer'),
 
