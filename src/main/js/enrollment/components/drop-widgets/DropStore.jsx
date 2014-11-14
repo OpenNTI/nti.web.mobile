@@ -5,8 +5,7 @@
 'use strict';
 
 var React = require('react/addons');
-var Notice = require('common/components/Notice');
-var Button = require('common/components/forms/Button');
+var PanelButton = require('common/components/PanelButton');
 
 var DropStore = React.createClass({
 
@@ -16,11 +15,10 @@ var DropStore = React.createClass({
 
 	render: function() {
 		return (
-			<div>
-				<Notice>To drop {this.props.courseTitle} please contact support.</Notice>
-				<div className="small-12 columns">
-					<Button onClick={this._cancelClicked} className="small-5 columns">Okay</Button>
-				</div>
+			<div className="column">
+				<PanelButton linkText="Okay" buttonClick={this._cancelClicked}>
+					Please contact support to drop this course.
+				</PanelButton>
 			</div>
 		);
 	}
