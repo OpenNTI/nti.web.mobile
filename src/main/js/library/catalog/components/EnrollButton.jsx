@@ -6,7 +6,7 @@
 
 var React = require('react/addons');
 var EnrollmentOptions = require('../mixins/EnrollmentMixin');
-var Loading = require('common/components/Loading');
+var LoadingInline = require('common/components/LoadingInline');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var Utils = require('common/Utils');
 var buttonCss = "tiny button radius column";
@@ -40,7 +40,11 @@ var EnrollButton = React.createClass({
 	render: function() {
 
 		if(!this.state.enrollmentStatusLoaded) {
-			return <Loading />;
+			return (
+				<div className="column text-center">
+					<p>Checking enrollment status</p>
+					<LoadingInline />
+				</div>);
 		}
 
 		var button = this._button();
