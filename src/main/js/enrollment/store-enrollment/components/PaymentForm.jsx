@@ -57,7 +57,7 @@ var Form = React.createClass({
 
 			case Constants.BILLING_INFO_REJECTED:
 				var errors = this.state.errors||{};
-				errors[event.response.param] = event.response.error;
+				errors[event.response.error.param] = event.response.error;
 				this.setState({
 					errors: errors,
 					busy: false
