@@ -4,6 +4,14 @@
 
 'use strict';
 
+// tell jshint that Stripe is declared elsewhere
+/* global Stripe: false */
+
+// we're naming fields to line up with the stripe api which uses lowercase
+// with underscores (e.g. exp_month vs. expMonth) so don't enforce camel case
+// in this file.
+/* jshint camelcase:false */
+
 var React = require('react/addons');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderFieldConfigMixin');
@@ -89,22 +97,22 @@ var Form = React.createClass({
 			}
 		});
 		
-		var number = (this.state.fieldValues['number']||'');
+		var number = (this.state.fieldValues.number||'');
 		if(number.trim().length > 0 && !Stripe.card.validateCardNumber(number)) {
-			errors['number'] =  {message: 'Card number is invalid'};
+			errors.number =  {message: 'Card number is invalid'};
 		}
 
-		var cvc = (this.state.fieldValues['cvc']||'');
+		var cvc = (this.state.fieldValues.cvc||'');
 		if(cvc.trim().length > 0 && !Stripe.card.validateCVC(cvc)) {
-			errors['cvc'] =  {message: 'CVC is invalid'};
+			errors.cvc =  {message: 'CVC is invalid'};
 		}
 
-		var mon = (this.state.fieldValues['exp_month']||'');
-		var year = (this.state.fieldValues['exp_year']||'');
+		var mon = (this.state.fieldValues.exp_month||'');
+		var year = (this.state.fieldValues.exp_year||'');
 		if([mon,year].join().trim().length > 0 && !Stripe.card.validateExpiry(mon,year)) {
-			errors['exp_month'] =  {message: 'Expiration is invalid'};
+			errors.exp_month =  {message: 'Expiration is invalid'};
 			// no message property because we don't want the error message repeated
-			errors['exp_year'] =  {error: 'Expiration is invalid'};
+			errors.exp_year =  {error: 'Expiration is invalid'};
 		}
 
 		this.setState({
