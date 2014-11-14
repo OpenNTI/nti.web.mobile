@@ -132,7 +132,7 @@ module.exports = React.createClass({
 								</tr>
 								<tr>
 									<td>{_t('StartDate')}</td>
-									<td>{moment(entry.StateDate).format('LL')}</td>
+									<td>{moment(entry.StartDate).format('LL')}</td>
 								</tr>
 								<tr>
 									<td>{_t('Duration')}</td>
