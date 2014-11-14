@@ -11,11 +11,19 @@ var Constants = require('./Constants');
 module.exports = {
 
 
-    setPartInteracted: function (part, index) {
+    partInteracted: function (part, value) {
         AppDispatcher.handleViewAction({
             type: Constants.INTERACTED,
             part: part,
-            index: index
+            value: value
+        });
+    },
+
+
+    restAssessment: function (assessment) {
+        AppDispatcher.handleViewAction({
+            type: Constants.RESET,
+            assessment: assessment
         });
     }
 

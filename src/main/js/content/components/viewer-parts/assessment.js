@@ -25,9 +25,11 @@ module.exports = {
 	//componentDidUpdate: function(/*prevProps, prevState*/) {},
 
 	componentWillUpdate: function(_, nextState) {
-		var page = nextState && nextState.pageData;
-		if (this.state.pageData !== page) {
-			Store.setupAssessment(page && page.getSubmittableAssessment());
+		var prevPage = this.state.pageData;
+		var nextPage = nextState && nextState.pageData;
+		if (this.state.pageData !== nextPage) {
+			Store.teardownAssessment(prevPage && prevPage.getSubmittableAssessment());
+			Store.setupAssessment(nextPage && nextPage.getSubmittableAssessment());
 		}
 	}
 

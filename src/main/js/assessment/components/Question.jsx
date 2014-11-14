@@ -18,18 +18,19 @@ module.exports = React.createClass({
 	},
 
 
-	__onChange: function () {
+	onStoreChange: function () {
 		//trigger a reload/redraw
+		//this.forceUpdate();
 	},
 
 
 	componentDidMount: function() {
-		Store.addChangeListener(this.__onChange);
+		Store.addChangeListener(this.onStoreChange);
 	},
 
 
 	componentWillUnmount: function() {
-		Store.removeChangeListener(this.__onChange);
+		Store.removeChangeListener(this.onStoreChange);
 	},
 
 

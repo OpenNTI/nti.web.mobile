@@ -7,6 +7,7 @@ var _t = require('common/locale').scoped('ASSESSMENT');
 
 
 var Store = require('../Store');
+var Actions = require('../Actions');
 
 
 module.exports = React.createClass({
@@ -33,7 +34,7 @@ module.exports = React.createClass({
 
 
 	onChange: function () {
-		this.forceUpate();
+		this.forceUpdate();
 	},
 
 
@@ -42,6 +43,8 @@ module.exports = React.createClass({
 			e.preventDefault();
 			e.stopPropagation();
 		}
+
+		Actions.restAssessment(this.props.assessment);
 	},
 
 

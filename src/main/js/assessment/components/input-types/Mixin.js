@@ -1,7 +1,8 @@
 'use strict';
 
 var Actions = require('../../Actions');
-//var Store = require('../../Store');
+var Constants = require('../../Constants');
+var Store = require('../../Store');
 
 module.exports = {
 
@@ -35,19 +36,48 @@ module.exports = {
 	},
 
 
-	componentDidMount: function() {
-		//var p = this.props;
-		//Store.registerAssessmentComponent()
+	getInitialState: function() {
+		return {
+			interacted: false
+		};
 	},
 
 
-	setPartInteracted: function() {
+
+	componentDidMount: function() {
+		Store.addChangeListener(this.__onStoreChange);
+	},
+
+
+
+	componentWillUnmount: function() {
+		Store.removeChangeListener(this.__onStoreChange);
+	},
+
+
+	__onStoreChange: function (eventData) {
+		var props = this.props;
+		if (eventData === Constants.SYNC) {
+			this.setValue(Store.getPartValue(props.item));
+		}
+	},
+
+
+	setValue: function (value) {
+		this.setState({value: value});
+	},
+
+
+	hasInteracted: function () {
+		return this.state.interacted;
+	},
+
+
+	handleInteraction: function() {
 		var p = this.props;
+		var v = this.getValue();
 
-		Actions.setPartInteracted(p.item, p.index);
-
-		this.setState({
-			interacted: true
-		});
+		this.setState({ interacted: true, value: v });
+		Actions.partInteracted(p.item, v);
 	}
 };
