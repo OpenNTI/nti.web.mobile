@@ -1,0 +1,16 @@
+input.required {
+	border-left:2px solid gray;
+}
+
+input.error,
+textarea.error,
+select.error {
+  margin-bottom: 1rem;
+  border-left: 2px solid $alert-color;
+}
+
+.errors {
+	small.error {
+		border-radius: 2px;
+	}
+}
