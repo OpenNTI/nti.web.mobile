@@ -31,7 +31,7 @@ function _navRecordFor(outlineNode,navbarTitle) {
 		label: outlineNode.DCTitle,
 		navbarTitle: navbarTitle,
 		href: outlineNode.href,
-		children: children
+		children: children || []
 	});
 }
 
@@ -40,11 +40,10 @@ function _publishNavFor(courseEnrollment) {
 
 	courseEnrollment.getOutline()
 		.catch(function (e) {
-			return e === 'Preview' ? [] : Promise.reject(e);
+			return e === 'Preview' ? [{}] : Promise.reject(e);
 		})
 		.then(function(d) {
 			var root = Array.isArray(d) ? d[0] : d;
-			debugger;
 			Navigation.Actions.publishNav(Navigation.Constants.CONTENT_KEY,_navRecordFor(root,props.title));
 		})
 		.catch(function(e) {

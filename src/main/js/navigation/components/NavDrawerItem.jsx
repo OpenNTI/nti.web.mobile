@@ -4,6 +4,7 @@
 
 var React = require('react/addons');
 var NavRecord = require('../NavRecord');
+var EmptyNavRoot = require('./EmptyNavRoot');
 
 var path = require('path');
 
@@ -45,6 +46,10 @@ var NavDrawerItem = React.createClass({
 		var basePath = this.props.basePath;
 		var depth = this.props.depth || 1; // ??
 		var classes = this._labelClasses();
+
+		if(record.isEmpty) {
+			return <EmptyNavRoot />;
+		}
 
 		//Nav Items BETTER NOT EVER be external...
 		var href = record && record.href && path.join(basePath, record.href);

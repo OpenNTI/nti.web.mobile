@@ -11,4 +11,5 @@ module.exports = function(opts) {
 	}
 	this.clickable = opts.hasOwnProperty('clickable') ? opts.clickable : !!this.href;
 	this.children = opts.children;
+	this.isEmpty = (this.label||'').trim().length === 0 && this.children.length === 0;
 };
