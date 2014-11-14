@@ -174,7 +174,7 @@ module.exports = React.createClass( {
 		e.stopPropagation();
 
 		/*global alert */
-		alert('Coming soon to mobile.\nUntil then, please use a desktop or iPad app to access');
+		alert('Coming soon to mobile.\nUntil then, please use a desktop or iPad app to access.');
 
 	}
 });
