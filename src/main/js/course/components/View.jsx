@@ -4,6 +4,8 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var React = require('react/addons');
 var Router = require('react-router-component');
 
+var NotFound = require('notfound').View;
+
 var CourseDescription = require('./CourseDescription');
 var Loading = require('common/components/Loading');
 var ErrorWidget = require('common/components/Error');
@@ -75,7 +77,9 @@ module.exports = React.createClass({
 		}
 
 		if ((record && record.error) || !course || !entry) {
-			return (<ErrorWidget error={record.error}/>);
+			return record.notFound ?
+				(<NotFound/>) :
+				(<ErrorWidget error={record.error}/>);
 		}
 
 		return (

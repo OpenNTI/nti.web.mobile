@@ -38,7 +38,7 @@ var Store = merge(EventEmitter.prototype, {
 
 
 	getEntry: function(id) {
-		var entry;
+		var entry = {loading: true};
 		if (_data.findEntry) {
 			entry = _data.findEntry(id);
 		}

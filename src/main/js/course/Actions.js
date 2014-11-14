@@ -13,6 +13,8 @@ var Messages = require('common/messages');
 
 var LibraryApi = require('library/Api');
 
+var NOT_FOUND = Constants.NOT_FOUND;
+
 function dispatch(key, data) {
 	var payload = {type: key, response: data};
 	AppDispatcher.handleRequestAction(payload);
@@ -69,7 +71,7 @@ module.exports = merge(EventEmitter.prototype, {
 		LibraryApi.getLibrary()
 
 			.then(function(library) {
-				return library.getCourse(courseId) || Promise.reject('Not Found');
+				return library.getCourse(courseId) || Promise.reject(NOT_FOUND);
 			})
 
 			.then(function(courseEnrollment) {

@@ -40,9 +40,10 @@ var Store = merge(EventEmitter.prototype, {
 
 function persistData(data) {
 	if (data && data instanceof Error) {
-		_data = {error: data};
+		_data = {error: data, notFound: data.message === Constants.NOT_FOUND};
 		return;
 	}
+
 	_data = data;
 }
 

@@ -5,6 +5,9 @@
 'use strict';
 
 var React = require('react/addons');
+
+var NotFound = require('notfound').View;
+
 var Store = require('../Store');
 var Detail = require('./Detail.jsx');
 var Loading = require('common/components/Loading');
@@ -46,9 +49,12 @@ var CatalogEntryDetail = React.createClass({
 	getDataIfNeeded: function(props) {
 		var entryId = NTIID.decodeFromURI(props.entryId);
 		var entry = props.entry || Store.getEntry(entryId);
+		var loading = entry && entry.loading;
+
+		entry = loading ? null : entry;
 
 		this.setState({
-			loading: !entry,
+			loading: loading,
 			entry: entry
 		});
 	},
@@ -62,7 +68,11 @@ var CatalogEntryDetail = React.createClass({
 	render: function() {
 
 		if (this.state.loading) {
-			return <Loading />;
+			return (<Loading />);
+		}
+
+		if (!this.state.entry) {
+			return (<NotFound/>);
 		}
 
 		return (
