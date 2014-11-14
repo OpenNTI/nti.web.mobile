@@ -16,7 +16,7 @@ var Store = require('../Store');
 var Form = require('./PaymentForm');
 var PaymentSuccess = require('./PaymentSuccess');
 var PaymentError = require('./PaymentError');
-var Error = require('common/components/Error');
+var ErrorComponent = require('common/components/Error');
 var PaymentConfirm = require('./PaymentConfirm');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 
@@ -48,7 +48,7 @@ var View = React.createClass({
 			this.setState({
 				loading: false,
 				error: reason
-			})
+			});
 		}.bind(this));
 	},
 
@@ -84,7 +84,7 @@ var View = React.createClass({
 	render: function() {
 
 		if(this.state.error) {
-			return <div className="column"><Error error={this.state.error} /></div>
+			return <div className="column"><ErrorComponent error={this.state.error} /></div>;
 		}
 
 		if(this.state.loading) {
