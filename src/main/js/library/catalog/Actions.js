@@ -13,8 +13,12 @@ var Constants = require('./Constants');
  */
 module.exports = merge(EventEmitter.prototype, {
 
-	loadCatalog: function() {
-        Api.getCatalog()
+	reload: function() {
+		this.loadCatalog(true);
+	},
+
+	loadCatalog: function(reload) {
+        Api.getCatalog(!!reload)
 			.then(function(catalog) {
 				dispatch(Constants.LOADED_CATALOG, catalog);
 			})

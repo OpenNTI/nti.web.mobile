@@ -8,10 +8,12 @@ var React = require('react/addons');
 var EnrollmentStore = require('enrollment').Store;
 var StoreEnrollmentStore = require('enrollment/store-enrollment').Store;
 var Actions = require('../Actions');
+var CatalogActions = require('../catalog/Actions');
 
 function _flush(event) {
 	console.log('InvalidationListener: reloading library in response to event: %O', event);
 	Actions.reload();
+	CatalogActions.reload();
 }
 
 var InvalidationListener = React.createClass({

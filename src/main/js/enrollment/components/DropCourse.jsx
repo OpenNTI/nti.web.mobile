@@ -90,7 +90,7 @@ var DropCourseDialog = React.createClass({
 
 				}
 			}
-			return widget ? this.transferPropsTo(<widget courseTitle={this._getCourseTitle()} />) : widget;
+			return widget ? this.transferPropsTo(<widget courseTitle={this._getCourseTitle()} key={type} />) : widget;
 		}.bind(this));
 	},
 
@@ -103,6 +103,8 @@ var DropCourseDialog = React.createClass({
 	},
 
 	render: function() {
+
+		console.debug('drop course render. %O', this.state);
 
 		if (this.state.loading) {
 			return <Loading />;
@@ -121,9 +123,11 @@ var DropCourseDialog = React.createClass({
 			);
 		}
 
+		var dropWidgets = this._getDropWidgets();
+		console.debug('dropWidgets %O', dropWidgets);
 		return (
 			<div>
-				{this._getDropWidgets()}
+				{dropWidgets}
 			</div>
 		);
 	}
