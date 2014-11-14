@@ -4,6 +4,7 @@ var assign = require('object-assign');
 
 
 var Unknown = require('./Unknown');
+var Topic = require('./Topic');
 var Group = require('./Group');
 var Video = require('./Video');
 var Videos = require('./Videos');
@@ -38,6 +39,7 @@ function getItemHandler(item, index, list, props) {
 
 exports = module.exports = {
 	Unknown: Unknown, //Unknown for future items.
+	Topic: Topic,
 	Card: Card,
 	Group: Group,
 	Video: Video,
