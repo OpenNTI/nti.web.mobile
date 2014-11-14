@@ -2,7 +2,7 @@
 
 var OpenEnrollment = require('./OpenEnrollment');
 var StoreEnrollment = require('./StoreEnrollment');
-var UnrecognizedEnrollmentType = require('./UnrecognizedEnrollmentType');
+// var UnrecognizedEnrollmentType = require('./UnrecognizedEnrollmentType');
 var Utils = require('common/Utils');
 
 module.exports = {
