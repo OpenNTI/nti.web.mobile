@@ -88,10 +88,25 @@ var Form = React.createClass({
 				}
 			}
 		});
+		
 		var number = (this.state.fieldValues['number']||'');
 		if(number.trim().length > 0 && !Stripe.card.validateCardNumber(number)) {
 			errors['number'] =  {message: 'Card number is invalid'};
 		}
+
+		var cvc = (this.state.fieldValues['cvc']||'');
+		if(cvc.trim().length > 0 && !Stripe.card.validateCVC(cvc)) {
+			errors['cvc'] =  {message: 'CVC is invalid'};
+		}
+
+		var mon = (this.state.fieldValues['exp_month']||'');
+		var year = (this.state.fieldValues['exp_year']||'');
+		if([mon,year].join().trim().length > 0 && !Stripe.card.validateExpiry(mon,year)) {
+			errors['exp_month'] =  {message: 'Expiration is invalid'};
+			// no message property because we don't want the error message repeated
+			errors['exp_year'] =  {error: 'Expiration is invalid'};
+		}
+
 		this.setState({
 			errors: errors
 		});
