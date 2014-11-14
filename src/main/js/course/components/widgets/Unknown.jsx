@@ -8,7 +8,7 @@ module.exports = React.createClass({
 
 	render: function() {
 		var item = this.props.item;
-		var type = item.MimeType.replace('application/vnd.nextthought.', '');
+		var type = (item.MimeType || 'Unknown').replace('application/vnd.nextthought.', '');
 		console.debug('Unhandled Overview Item: %o', item);
 
 		return (
