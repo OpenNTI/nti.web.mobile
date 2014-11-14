@@ -29,8 +29,8 @@ EventPluginHub.injection.injectEventPluginsByName({
 	TapEventPlugin: TapEventPlugin
 });
 
-global.addEventListener('load', function() {
-	FastClick.attach(document.body); }, false);
+
+FastClick.attach(document.body);
 
 React.initializeTouchEvents(true);
 
