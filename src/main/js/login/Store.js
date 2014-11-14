@@ -61,7 +61,7 @@ var LoginStore = merge(EventEmitter.prototype, {
 			{
 				ref: 'username',
 				type: 'text',
-				placeholder: 'Username or OU 4+4'
+				placeholder: 'Username'
 			},
 			{
 				ref: 'password',
