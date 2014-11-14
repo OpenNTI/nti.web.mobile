@@ -16,6 +16,7 @@ var Store = require('../Store');
 var Form = require('./PaymentForm');
 var PaymentSuccess = require('./PaymentSuccess');
 var PaymentError = require('./PaymentError');
+var Error = require('common/components/Error');
 var PaymentConfirm = require('./PaymentConfirm');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 
@@ -36,7 +37,19 @@ var View = React.createClass({
 	componentDidMount: function() {
 		Store.addChangeListener(this._onChange);
 		var purchasable = this.props.enrollment.Purchasable;
-		Store.priceItem(purchasable);
+		Store.priceItem(purchasable)
+		.then(function(pricedItem) {
+			this.setState({
+				loading: false,
+				pricedItem: pricedItem
+			});
+		}.bind(this))
+		.catch(function(reason) {
+			this.setState({
+				loading: false,
+				error: reason
+			})
+		}.bind(this));
 	},
 
 	componentWillUnmount: function() {
@@ -69,6 +82,10 @@ var View = React.createClass({
 	},
 
 	render: function() {
+
+		if(this.state.error) {
+			return <div className="column"><Error error={this.state.error} /></div>
+		}
 
 		if(this.state.loading) {
 			return <Loading />;

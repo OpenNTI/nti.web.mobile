@@ -43,9 +43,7 @@ var Store = merge(EventEmitter.prototype, {
 					type: Constants.PRICED_ITEM_RECEIVED,
 					pricedItem: pricedItem
 				});
-			})
-			.catch(function(reason) {
-				console.error(reason);
+				return pricedItem;
 			});
 	},
 
