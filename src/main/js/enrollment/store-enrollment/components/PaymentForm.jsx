@@ -14,10 +14,11 @@ var Actions = require('../Actions');
 var Store = require('../Store');
 var Constants = require('../Constants');
 var _fieldConfig = require('./paymentFormConfig');
+var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
 
 var Form = React.createClass({
 
-	mixins: [RenderFieldConfigMixin,ScriptInjector],
+	mixins: [RenderFieldConfigMixin,ScriptInjector,FormattedPriceMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired
@@ -123,18 +124,25 @@ var Form = React.createClass({
 			return <Loading />;
 		}
 
+		var purch = this.props.purchasable;
+		var price = this.getFormattedPrice(purch.Currency, purch.Amount);
 		var fieldRenderFn = this.renderField.bind(null,t,this.state.fieldValues);
-		var title = this.props.purchasable.Name||null;
+		var title = purch.Name||null;
 		var state = this.state;
 		var cssClasses = ['row'];
+
 		if(this.state.busy) {
 			cssClasses.push('busy');
 		}
 
 		return (
 			<div className={cssClasses.join(' ')}>
-				<div className="column"><h2>{title}</h2></div>
 				<form className="store-enrollment-form medium-6 medium-centered columns" onSubmit={this._handleSubmit}>
+					<div className="column">
+						<h2>{title}</h2>
+						<p>Enroll as a Lifetime Learner: {price}</p>
+					</div>
+					
 					<fieldset>
 						<legend>Billing Information</legend>
 						{_fieldConfig.map(fieldRenderFn)}

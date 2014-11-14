@@ -5,7 +5,8 @@
 'use strict';
 
 var React = require('react/addons');
-var EnrollmentStore = require('../../enrollment').Store;
+var EnrollmentStore = require('enrollment').Store;
+var StoreEnrollmentStore = require('enrollment/store-enrollment').Store;
 var Actions = require('../Actions');
 
 function _flush(event) {
@@ -17,10 +18,12 @@ var InvalidationListener = React.createClass({
 
 	componentDidMount: function() {
 		EnrollmentStore.addChangeListener(_flush);
+		StoreEnrollmentStore.addChangeListener(_flush);
 	},
 
 	componentWillUnmount: function() {
-		EnrollmentStore.removeChangeListener(_flush);	
+		EnrollmentStore.removeChangeListener(_flush);
+		StoreEnrollmentStore.removeChangeListener(_flush);
 	},
 
 	render: function() {

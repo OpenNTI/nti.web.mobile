@@ -7,8 +7,9 @@
 var React = require('react/addons');
 var Store = require('../Store');
 var Actions = require('../Actions');
-// var t = require('common/locale').scoped('ENROLLMENT.forms.storeenrollment');
-var Button =  require('common/components/forms/Button');
+var PanelButton = require('common/components/PanelButton');
+var Loading = require('common/components/Loading');
+var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
 
 // the fields we want to display from the stripe token.
 var _billingFields = [
@@ -24,59 +25,58 @@ var _billingFields = [
 	'exp_year'
 ];
 
-// var DUMMY_STRIPE_TOKEN = {
-// 	card: {
-// 		"address_city": "Norman",
-// 		"address_country": "United States",
-// 		"address_line1": "NextThought",
-// 		"address_line2": "301 David L Boren Blvd STE 3050",
-// 		"address_state": "OK",
-// 		"address_zip": "73072-7340",
-// 		"brand": "MasterCard",
-// 		"country": "US",
-// 		"customer": null,
-// 		"dynamic_last4": null,
-// 		"exp_month": 9,
-// 		"exp_year": 2019,
-// 		"fingerprint": "RzN5PKif5jjDPa0l",
-// 		"funding": "unknown",
-// 		"id": "card_58n7EUOk6HKEwm",
-// 		"last4": "5454",
-// 		"name": "Ray Hatfield",
-// 		"object": "card",
-// 		"type": "MasterCard"
-// 	}
-// };
+
 
 var PaymentConfirm = React.createClass({
 
+	mixins: [FormattedPriceMixin],
+
+	getInitialState: function() {
+		return {
+			busy: false
+		};
+	},
+
+	_getStripeToken: function() {
+		return Store.getStripeToken();
+	},
+
 	_renderBillingInfo: function() {
-		// console.warn('USING DUMMY STRIPE TOKEN FOR DEV CONVENIENCE.');
-		var stripeToken = Store.getStripeToken();
+		var stripeToken = this._getStripeToken();	
 		var card = stripeToken.card;
 		return _billingFields.map(function(fieldname) {
 			return (<div>{card[fieldname]}</div>);
 		});
 	},
 
-	_submitPayment: function() {
+	_submitPayment: function(event) {
+		event.preventDefault();
+		this.setState({
+			busy: true
+		});
 		var payload = {
-			stripeToken: Store.getStripeToken(),
+			stripeToken: this._getStripeToken(),
 			purchasable: this.props.purchasable
 		};
 		Actions.submitPayment(payload);
 	},
 
 	render: function() {
+
+		if (this.state.busy) {
+			return <Loading />;
+		}
+
+		var purchasable = this.props.purchasable;
+		var price = this.getFormattedPrice(purchasable.Currency, purchasable.Amount);
+
 		return (
 			<div className="row">
-				<fieldset className="medium-6 medium-centered columns">
-					<legend>confirm payment</legend>
-					<div>
-						{this._renderBillingInfo()}
-						<Button onClick={this._submitPayment}>Submit Payment</Button>
-					</div>
-				</fieldset>
+				<PanelButton className="column" buttonClick={this._submitPayment} linkText="Submit Payment">
+					<h2>Confirm payment</h2>
+					<p>Clicking submit will charge your card {price} and enroll you in the course.</p>
+					
+				</PanelButton>
 			</div>
 		);
 	}
@@ -84,4 +84,3 @@ var PaymentConfirm = React.createClass({
 });
 
 module.exports = PaymentConfirm;
-
