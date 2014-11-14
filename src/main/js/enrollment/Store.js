@@ -51,7 +51,7 @@ var Store = merge(EventEmitter.prototype, {
 		if (_enrollmentStatus.hasOwnProperty(courseId)) {
 			return _enrollmentStatus[courseId];
 		}
-		throw new Error('Enrollment status unknonwn. Maybe call loadEnrollmentStatus first.');
+		throw new Error('Enrollment status unknown. Maybe call loadEnrollmentStatus first.');
 	}
 
 });
