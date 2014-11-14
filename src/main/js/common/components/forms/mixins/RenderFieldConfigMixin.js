@@ -23,8 +23,12 @@ module.exports = {
 	renderField: function(translator, values, field) {
 		var state = this.state;
 		var err = (state.errors||{})[field.ref];
-		var cssClass = err ? 'error' : null;
+		var cssClass = err ? ['error'] : [];
 		var tr = translator||t;
+
+		if(field.required) {
+			cssClass.push('required');
+		}
 
 		return (
 			React.DOM.div(
@@ -38,7 +42,7 @@ module.exports = {
 					onBlur: this._onBlur,
 					onFocus: this._onFocus,
 					placeholder: tr(field.ref),
-					className: cssClass,
+					className: cssClass.join(' '),
 					defaultValue: (values||{}).ref,
 					type: (field.type||'text')
 				})
