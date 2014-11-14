@@ -42,13 +42,11 @@ module.exports = Object.freeze([
 	 {
 		ref: 'address_city', // this is the name expected by the stripe api and returned by Stripe.getToken().
 		type: 'text',
-		required: true,
 		placeholder: 'City'
 	 },
 	 {
 		ref: 'address_state', // this is the name expected by the stripe api and returned by Stripe.getToken().
 		type: 'text',
-		required: true,
 		placeholder: 'State/Province/Territory/Region'
 	 },
 	 {
@@ -60,7 +58,6 @@ module.exports = Object.freeze([
 	 {
 	 	ref: 'address_zip', // this is the name expected by the stripe api and returned by Stripe.getToken().
 	 	type: 'text',
-	 	required: true,
 	 	placeholder: 'Zip/Postal Code'
 	 }
 ]);
