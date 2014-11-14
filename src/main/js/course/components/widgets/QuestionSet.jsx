@@ -69,7 +69,7 @@ module.exports = React.createClass( {
 			href: '#'
 		});
 
-		if (!isAssignment) {
+		if (!isAssignment || Utils.isFlag('dev')) {
 			service.getPageInfo(ntiid)
 				.then(getLastQuizSubmission)
 				.catch(this.setNotTaken)
