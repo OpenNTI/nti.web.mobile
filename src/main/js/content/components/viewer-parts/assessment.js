@@ -10,7 +10,7 @@ module.exports = {
 	renderAssessmentSubmission: function () {
 		var div = React.DOM.div;
 		var page = this.state.pageData;
-		var quiz = page.getSubmittableAssessment();
+		var quiz = page && page.getSubmittableAssessment();
 		if (!page || !quiz) {
 			return null;
 		}
