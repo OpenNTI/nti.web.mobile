@@ -11,17 +11,24 @@ var React = require('react/addons');
 */
 var PanelButton = React.createClass({
 
+	propTypes: {
+		linkText: React.PropTypes.string, // the text of the button
+		href: React.PropTypes.string, // the href of the button, if applicable
+		buttonClick: React.PropTypes.func // click handler for the button
+	},
+
 	getDefaultProps: function() {
 		return {
 			linkText: 'OK',
-			href: '#'
+			href: '#',
+			buttonClick: null
 		};
 	},
 
 	_button: function() {
-		return this.props.button || this.transferPropsTo(
-			<a href={this.props.href} className="button tiny radius column">{this.props.linkText}</a>
-		);
+		return this.props.button || <a href={this.props.href}
+			className="button tiny radius column"
+			onClick={this.props.buttonClick}>{this.props.linkText}</a>;
 	},
 
 	render: function() {
