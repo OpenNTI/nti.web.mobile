@@ -17,7 +17,7 @@ var PaymentSuccess = React.createClass({
 
 	_courseLink: function() {
 		return <CourseContentLink
-					className="button tiny radius column" 
+					className="button tiny radius column"
 					courseId={this.props.courseId}>Go to course</CourseContentLink>;
 	},
 
@@ -25,7 +25,7 @@ var PaymentSuccess = React.createClass({
 		return (
 			<div className="small-12 columns">
 				<PanelButton button={this._courseLink()}>
-					You are now enrolled in: {this.props.courseTitle}.
+					You are now enrolled in {this.props.courseTitle}.
 				</PanelButton>
 			</div>
 		);
