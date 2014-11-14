@@ -104,7 +104,7 @@ module.exports = React.createClass({
 				</div>
 				<div className="row">
 					<div className="cell small-12 columns">
-						<table>
+						<table className="small-12">
 							<tbody>
 								<tr>
 									<td>{entry.ProviderUniqueID}</td>
