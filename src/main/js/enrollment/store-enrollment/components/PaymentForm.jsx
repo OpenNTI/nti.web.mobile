@@ -56,13 +56,6 @@ var Form = React.createClass({
 
 	_onStoreChange: function(event) {
 		switch(event.type) {
-			// case Constants.BILLING_INFO_VERIFIED:
-			// 	this.setState({
-			// 		busy: false,
-			// 		stripeToken: event.response
-			// 	});
-			// break;
-
 			case Constants.BILLING_INFO_REJECTED:
 				var errors = this.state.errors||{};
 				errors[event.response.error.param] = event.response.error;
