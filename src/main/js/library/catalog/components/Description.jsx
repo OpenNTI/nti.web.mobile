@@ -137,7 +137,7 @@ module.exports = React.createClass({
 								<tr>
 									<td>{_t('Duration')}</td>
 									<td>
-										{moment.duration(entry.Duration).asWeeks()} {_t('DurationUnits')}
+										{Math.floor(moment.duration(entry.Duration).asWeeks())} {_t('DurationUnits')}
 									</td>
 								</tr>
 								<tr>
