@@ -8,6 +8,7 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var Constants = require('enrollment/Constants');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var EnrollmentWidgets = require('enrollment/components/enrollment-option-widgets');
+var NoOptions = require('enrollment/components/enrollment-option-widgets/NoOptions');
 
 module.exports = {
 
@@ -87,13 +88,14 @@ module.exports = {
 		if (this.state.enrollmentStatusLoaded && !this.state.enrolled) {
 			var buttons = this.enrollmentOptions(catalogEntry).map(function(option,index) {
 				var widget = EnrollmentWidgets.getWidget(option);
-				return widget({
+				return widget ? widget({
 					catalogEntry: catalogEntry,
 					enrollmentOption: option,
 					className: 'enrollment-panel',
 					key: 'eno_' + index
-				});
+				}) : null;
 			}.bind(this));
+			buttons = buttons.filter(function(item) {return item !== null});
 			if (buttons.length > 0) {
 				return React.DOM.div({
 						className: "small-12 columns enrollment-panels"		
@@ -102,7 +104,7 @@ module.exports = {
 				);
 			}
 		}
-		return null;
+		return [NoOptions(null, [])];
 	},
 
 	_getEntry: function() {
