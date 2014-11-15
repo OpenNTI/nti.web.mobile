@@ -22,6 +22,8 @@ var LoginMessages = Constants.messages;
 
 var StoreProperties = require('./StoreProperties');
 
+var _t = require('common/locale').scoped('LOGIN');
+
 var CHANGE_EVENT = 'change';
 var _links = {};
 var _isLoggedIn = false;
@@ -61,12 +63,12 @@ var LoginStore = merge(EventEmitter.prototype, {
 			{
 				ref: 'username',
 				type: 'text',
-				placeholder: 'Username or OU 4+4'
+				placeholder: _t('UsernamePlaceholder')
 			},
 			{
 				ref: 'password',
 				type: 'password',
-				placeholder: 'Password'
+				placeholder: _t('PasswordPlaceholder')
 			}
 		];
 	}
