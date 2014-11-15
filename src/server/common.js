@@ -60,7 +60,7 @@ exports.config = function() {
 		overrides);
 };
 
-exports.clientConfig = function(username) {
+exports.clientConfig = function(username/*, context*/) {
 	//unsafe to send to client raw... lets reduce it to essentials
 	var unsafe = this.config();
 	var config = {

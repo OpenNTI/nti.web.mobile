@@ -24,6 +24,11 @@ var Utils = {
 	},
 
 
+	getSiteName: function () {
+		return $AppConfig.siteName || location.hostname;
+	},
+
+
 	isFlag: function(flagName) {
 		var flags = $AppConfig.flags || {};
 		return !!flags[flagName];

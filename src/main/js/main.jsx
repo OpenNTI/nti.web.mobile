@@ -7,6 +7,8 @@ var CaptureClicks = require('react-router-component/lib/CaptureClicks');
 //FIX: This seems like we can clean up this and move "logic" up to the app level and out of the view.
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
 
+var locale = require('common/locale');
+
 var fromQueryString = require('dataserverinterface/utils/object-from-querystring');
 
 var Login = require('login');
@@ -62,18 +64,25 @@ var App = React.createClass({
 
 
 	componentDidMount: function() {
+		locale.addChangeListener(this._onStringsChange);
 		LoginStore.addChangeListener(this._loginStoreChange);
 		AppDispatcher.register(this._actionHandler);
 	},
 
 
 	componentWillUnmount: function() {
+		locale.removeChangeListener(this._onStringsChange);
 		LoginStore.removeChangeListener(this._loginStoreChange);
 		AppDispatcher.unregister(this._actionHandler);
 	},
 
 
 	_onNavigation: function() {
+		this.forceUpdate();
+	},
+
+
+	_onStringsChange: function () {
 		this.forceUpdate();
 	},
 

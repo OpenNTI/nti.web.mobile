@@ -99,7 +99,7 @@ app.get('*', function(req, res) {
 
 	waitFor(req.__pendingServerRequests, 60000)
 		.then(function() {
-			var clientConfig = common.clientConfig(req.username);
+			var clientConfig = common.clientConfig(req.username, req);
 			clientConfig.html += datacache.getForContext(req).serialize();
 			//Final render
 			console.log('Flushing Render to client: %s %s', req.url, req.username);
