@@ -18,7 +18,7 @@
 		font-size: 0.75em;
 	}
 
-	img, .grade {
+	img, .grade, .badge {
 		display: inline-block;
 		position: relative;
 		float: left;
@@ -27,6 +27,7 @@
 	.badge {
 		width: 28px;
 		height: 28px;
+
 		background: {
 			size: cover;
 			position: center center;
