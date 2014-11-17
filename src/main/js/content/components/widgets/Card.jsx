@@ -45,10 +45,13 @@ module.exports = React.createClass({
 		return {};
 	},
 
+	_course: function() {
+		return (this.props.course || this.props.ownerProps.course);
+	},
 
 	render: function() {
 		return this.transferPropsTo(
-			<Card contentPackage={this.props.course}/>
+			<Card contentPackage={this._course()}/>
 		);
 	}
 });
