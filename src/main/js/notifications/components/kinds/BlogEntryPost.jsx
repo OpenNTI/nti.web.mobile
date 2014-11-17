@@ -13,12 +13,7 @@ module.exports = React.createClass({
 	mixins: [NoteableMixin],
 
 	statics: {
-		handles: function(item) {
-			if(item.MimeType.replace('application/vnd.nextthought.', '') === 'forums.generalforumcomment'){
-				return true;
-			}
-			return false;
-		}
+		noteableType: 'forums.personalblogentrypost'
 	},
 
 	render: function() {
