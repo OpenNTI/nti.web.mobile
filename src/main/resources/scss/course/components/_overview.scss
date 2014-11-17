@@ -4,7 +4,7 @@
 	position: relative;
 	&:after {
 		$width: 192px;
-		content: 'Not yet available on mobile';
+		content: 'Not yet available on mobile.';
 		position: absolute;
 		width: $width;
 		margin: 0 1rem;
