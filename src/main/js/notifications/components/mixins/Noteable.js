@@ -29,6 +29,13 @@ module.exports = {
 
 	getEventTime: function() {
 		var item = this.state.item;
-		return (item.CreatedTime || item['Last Modified']) * 1000;
+		var change = this.state.change;
+
+		return (getTime(item) || getTime(change)) * 1000;
 	}
 };
+
+
+function getTime(o) {
+	return o.CreatedTime || o['Last Modified'];
+}
