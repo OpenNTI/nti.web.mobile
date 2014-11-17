@@ -15,7 +15,7 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		var item = this.props.item;
+		var item = (this.props.item || {}).Item;
 		var badge = {
 			backgroundImage: 'url(' + item.image + ')'
 		};
