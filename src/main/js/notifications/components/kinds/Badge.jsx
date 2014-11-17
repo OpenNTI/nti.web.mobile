@@ -24,7 +24,7 @@ module.exports = React.createClass({
 				<div className='badge' style={badge}/>
 				<div className="wrap">
 					{item.name}
-					<DateTime date={this.getCreatedTime()} />
+					<DateTime date={this.getEventTime()} />
 				</div>
 			</li>
 		);

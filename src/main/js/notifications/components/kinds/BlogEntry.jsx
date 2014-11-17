@@ -23,7 +23,7 @@ module.exports = React.createClass({
 				<div className="wrap">
 					<DisplayName username={this.state.username}/>
 						{" created a thought: " + blogName}
-					<DateTime date={this.getCreatedTime()} />
+					<DateTime date={this.getEventTime()} />
 				</div>
 			</li>
 		);

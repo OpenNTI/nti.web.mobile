@@ -27,7 +27,7 @@ module.exports = {
 		};
 	},
 
-	getCreatedTime: function() {
+	getEventTime: function() {
 		var item = this.state.item;
 		return (item.CreatedTime || item['Last Modified']) * 1000;
 	}

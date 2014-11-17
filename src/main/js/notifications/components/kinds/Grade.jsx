@@ -22,7 +22,7 @@ module.exports = React.createClass({
 				<div className='grade'/>
 				<div className="wrap">
 					Grade recieved for {assignmentName} in {courseName}
-					<DateTime date={this.getCreatedTime()} />
+					<DateTime date={this.getEventTime()} />
 				</div>
 			</li>
 		);

@@ -23,7 +23,7 @@ module.exports = React.createClass({
 				<div className="wrap">
 					<DisplayName username={this.state.username}/>
 						{" added you as a contact."}
-					<DateTime date={this.getCreatedTime()} />
+					<DateTime date={this.getEventTime()} />
 				</div>
 			</li>
 		);

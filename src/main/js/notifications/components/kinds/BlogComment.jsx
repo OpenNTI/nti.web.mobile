@@ -22,7 +22,7 @@ module.exports = React.createClass({
 				<div className="wrap">
 					<DisplayName username={this.state.username}/>
 						{thestring}
-					<DateTime date={this.getCreatedTime()} />
+					<DateTime date={this.getEventTime()} />
 				</div>
 			</li>
 		);
