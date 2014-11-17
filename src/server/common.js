@@ -8,6 +8,8 @@ try {
 					'See: %s/config/env.json.example', __dirname);
 }
 
+var getSite = require('./site-mapping.js');
+
 var assign = require('object-assign');
 
 var opt = require('optimist')
@@ -69,7 +71,7 @@ exports.clientConfig = function(username, context) {
 		basepath: unsafe.basepath,
 		flags: unsafe.flags,
 		/* jshint -W106 */
-		siteName: context.__nti_site
+		siteName: getSite(context.__nti_site)
 		/* jshint +W106 */
 	};
 
@@ -102,7 +104,7 @@ exports.nodeConfigAsClientConfig = function(config, context) {
 			username: context.username,
 			nodeInterface: dontUseMe,
 			/* jshint -W106 */
-			siteName: context.__nti_site,
+			siteName: getSite(context.__nti_site),
 			nodeService: context.__nti_service || noServiceAndThereShouldBe
 			/* jshint +W106 */
 		})
