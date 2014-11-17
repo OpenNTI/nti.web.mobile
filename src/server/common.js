@@ -60,14 +60,17 @@ exports.config = function() {
 		overrides);
 };
 
-exports.clientConfig = function(username/*, context*/) {
+exports.clientConfig = function(username, context) {
 	//unsafe to send to client raw... lets reduce it to essentials
 	var unsafe = this.config();
 	var config = {
 		username: username,
 		server: unsafe.server,
 		basepath: unsafe.basepath,
-		flags: unsafe.flags
+		flags: unsafe.flags,
+		/* jshint -W106 */
+		siteName: context.__nti_site
+		/* jshint +W106 */
 	};
 
 	return {
@@ -99,7 +102,9 @@ exports.nodeConfigAsClientConfig = function(config, context) {
 			username: context.username,
 			nodeInterface: dontUseMe,
 			/* jshint -W106 */
+			siteName: context.__nti_site,
 			nodeService: context.__nti_service || noServiceAndThereShouldBe
+			/* jshint +W106 */
 		})
 	};
 
