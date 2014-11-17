@@ -53,6 +53,7 @@ module.exports = React.createClass({
 				{parts.map(function(part, i) {
 					return Part({key: 'part-'+i, part: part, index: i, partCount: parts.length});
 				})}
+				{/* Question Submission will go here, if the question is not part of a set... */}
 			</div>
 		);
 	}

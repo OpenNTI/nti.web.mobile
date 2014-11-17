@@ -22,6 +22,7 @@ module.exports = React.createClass({
 			<div className="question-part">
 				<div className="part-content" dangerouslySetInnerHTML={{__html: part.content}}/>
 				{InputTypes.select(part, index)}
+				{/*Show Hint | Solution*/}
 			</div>
 		);
 	}
