@@ -132,7 +132,7 @@ exports = module.exports = [
             new webpack.DefinePlugin({
                 SERVER: false
             }),
-        function(/*compiler*/) {
+            function(/*compiler*/) {
                 this.plugin('done', function(stats) {
                     var p = path.join(__dirname, 'dist', 'server');
                     var file = path.join(p, 'stats.generated.json');
@@ -181,12 +181,6 @@ exports = module.exports = [
             appPackages//, /^[a-z\-0-9]+$/
         ],
         module: {
-            preLoaders: [{
-                test: '\\.js$',
-                exclude: 'node_modules',
-                loader: 'jshint'
-            }],
-
             loaders: commonLoaders.concat([
                 { test: /\.html$/, loader: 'html?attrs=link:href' },
                 { test: /\.css$/,  loader: path.join(__dirname, 'src', 'server', 'style-collector') + '!css' },
