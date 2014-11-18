@@ -5,6 +5,8 @@
 'use strict';
 
 var webpack = require('webpack');
+var assign = require('object-assign');
+var CompressionPlugin = require("compression-webpack-plugin");
 var path = require('path');
 var fs = require('fs');
 
@@ -40,7 +42,61 @@ fs.readdirSync(root).forEach(function(f) {
 });
 
 
-module.exports = [
+function getWidgets() {
+    var widgetPath = path.join(__dirname, 'src', 'main', 'widgets');
+
+    var o = {};
+
+    fs.readdirSync(widgetPath).forEach(function(file) {
+        var dir = path.join(widgetPath, file);
+        var entry = path.join(dir, 'main.js');
+        var isDir = fs.statSync(dir).isDirectory();
+        var entryExists = isDir && fs.existsSync(entry);
+        if (entryExists) {
+            o[file] = entry;
+        }
+    });
+
+    return o;
+}
+
+
+function includeWidgets(o) {
+    var w = getWidgets();
+    var v;
+
+    for (var k in w) {
+        if (!w.hasOwnProperty(k)) {continue;}
+
+        v = assign({}, o[0], {
+            name: 'Widget: '+ k,
+
+            output: {
+                path: '<%= pkg.dist %>/widgets/' + k + '/',
+                filename: 'main.js',
+                chunkFilename: '[id].chunk.js'
+            },
+
+            entry: w[k],
+
+            plugins: [
+                new webpack.optimize.DedupePlugin(),
+                new webpack.optimize.OccurenceOrderPlugin(),
+                new webpack.optimize.UglifyJsPlugin(),
+                new CompressionPlugin({
+                    asset: "{file}.gz",
+                    algorithm: "gzip",
+                    regExp: /$/
+                })
+            ],
+        });
+
+        o.push(v);
+    }
+}
+
+
+exports = module.exports = [
     {
         name: 'browser',
         output: {
@@ -92,12 +148,6 @@ module.exports = [
         ],
 
         module: {
-            preLoaders: [{
-                test: '\\.js$',
-                exclude: 'node_modules',
-                loader: 'jshint'
-            }],
-
             loaders: commonLoaders.concat([
                 { test: /\.css$/, loader: 'style!css' },
                 { test: /\.scss$/, loader: 'style!css!sass?' + scssIncludes
@@ -147,3 +197,6 @@ module.exports = [
         }
     }
 ];
+
+
+includeWidgets(exports);
