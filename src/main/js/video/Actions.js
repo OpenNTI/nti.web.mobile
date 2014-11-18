@@ -1,6 +1,6 @@
 'use strict';
 
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
+var AppDispatcher = require('dispatcher/AppDispatcher');
 var Analytics = require('analytics/Constants');
 
 module.exports = {

@@ -4,7 +4,7 @@ var Promise = global.Promise || require('es6-promise').Promise;
 
 var merge = require('react/lib/merge');
 
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
+var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var Navigation = require('navigation');
 

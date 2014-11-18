@@ -1,7 +1,7 @@
 'use strict';
 /** @module library/Actions */
 
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
+var AppDispatcher = require('dispatcher/AppDispatcher');
 
 var Api = require('./Api');
 var Constants = require('./Constants');

@@ -1,7 +1,7 @@
 'use strict';
 /** @module login/LoginActions */
 
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
+var AppDispatcher = require('dispatcher/AppDispatcher');
 var Constants = require('./Constants');
 var ActionConstants = Constants.actions;
 var EventEmitter = require('events').EventEmitter;

@@ -7,7 +7,7 @@ var merge = require('react/lib/merge');
 var Utils = require('common/Utils');
 var DomUtils = Utils.Dom;
 
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
+var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 
 var guid = require('dataserverinterface/utils/guid');

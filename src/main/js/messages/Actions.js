@@ -3,7 +3,7 @@
 var merge = require('react/lib/merge');
 var EventEmitter = require('events').EventEmitter;
 
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
+var AppDispatcher = require('dispatcher/AppDispatcher');
 var IllegalArgumentException = require('common/exceptions').IllegalArgumentException;
 
 var Actions = require('./Constants').actions;

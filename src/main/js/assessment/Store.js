@@ -3,7 +3,7 @@
 
 var EventEmitter = require('events').EventEmitter;
 
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
+var AppDispatcher = require('dispatcher/AppDispatcher');
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 
 var assign = require('object-assign');

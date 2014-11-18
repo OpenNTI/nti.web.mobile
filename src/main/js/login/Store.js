@@ -8,7 +8,7 @@ var invariant = require('react/lib/invariant');
 var EventEmitter = require('events').EventEmitter;
 
 var IllegalArgumentException = require('common/exceptions/').IllegalArgumentException;
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
+var AppDispatcher = require('dispatcher/AppDispatcher');
 var Messages = require('messages');
 
 var t = require('common/locale').translate;

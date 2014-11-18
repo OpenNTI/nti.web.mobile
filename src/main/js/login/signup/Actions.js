@@ -1,7 +1,7 @@
 'use strict';
 /** @module login/LoginActions */
 
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
+var AppDispatcher = require('dispatcher/AppDispatcher');
 var ActionConstants = require('./Constants').actions;
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');

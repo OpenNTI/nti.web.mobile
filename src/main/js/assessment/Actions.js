@@ -1,7 +1,7 @@
 'use strict';
 /** @module assessment/Actions */
 
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
+var AppDispatcher = require('dispatcher/AppDispatcher');
 
 var Constants = require('./Constants');
 
