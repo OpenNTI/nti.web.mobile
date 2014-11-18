@@ -5,17 +5,17 @@ var React = require('react/addons');
 var Navigation = require('navigation');
 var Notifications = require('notifications');
 
-var Avatar = require('./Avatar');
-var LeftNav = require('./LeftNav');
-var Footer = require('./Footer');
+var Avatar = require('common/components/Avatar');
+var LeftNav = require('common/components/LeftNav');
+var Footer = require('common/components/Footer');
 
-var MessageDisplay = require('../messages').Display;
-var Utils = require('../Utils');
+var MessageDisplay = require('messages').Display;
+var Utils = require('common/Utils');
 
-var preventOverscroll = require('../thirdparty/prevent-overscroll');
+var preventOverscroll = require('common/thirdparty/prevent-overscroll');
 
-var Analytics = require('../analytics').Component;
-var LibraryInvalidationListener = require('../../library/components/InvalidationListener');
+var Analytics = require('common/analytics').Component;
+var LibraryInvalidationListener = require('library/components/InvalidationListener');
 
 var LEFT_MENU_OPEN = 'move-right';
 var RIGHT_MENU_OPEN = 'move-left';

@@ -19,9 +19,9 @@ var LoginActions = Login.Actions;
 var Navigation = require('navigation');
 
 var Router = require('navigation/components/Router');
-var AppContainer = require('common/components/AppContainer');
 var Loading = require('common/components/Loading');
 
+var AppContainer = require('./AppFrame');
 
 var App = React.createClass({
 

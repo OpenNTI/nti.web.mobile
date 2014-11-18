@@ -18,7 +18,6 @@ Utils.__forceCurrentHost();
 console.debug('Client is using host: %s', Utils.getServerURI());
 
 var OrientationHandler = Utils.Orientation;
-var AppView = require('./main');
 
 var EventPluginHub = require('react/lib/EventPluginHub');
 var ResponderEventPlugin = require('common/thirdparty/ResponderEventPlugin');
@@ -42,6 +41,7 @@ preventOverscroll(document.body);
 // 	//Suggest Bookmarking to the home screen...
 // }
 
+var AppView = require('./AppView');
 var app = React.renderComponent(
 	AppView({basePath: Utils.getBasePath() || '/'}),
 	document.getElementById('content')
