@@ -75,7 +75,8 @@ module.exports = {
 				address_country: 'Country',
 				last4: 'Card ending in'
 			}
-		}
+		},
+		NO_STRIPE_TOKEN: 'Utoh. Couldn\'t find payment info. (This can occur if you navigate to the confirmation view directly or if you reload.)'
 	},
 
 	COURSE_INFO: {

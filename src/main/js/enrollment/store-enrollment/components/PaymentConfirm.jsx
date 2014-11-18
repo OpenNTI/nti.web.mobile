@@ -10,26 +10,24 @@ var Actions = require('../Actions');
 var PanelButton = require('common/components/PanelButton');
 var Loading = require('common/components/Loading');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
+var t = require('common/locale').translate;
 
-// the fields we want to display from the stripe token.
-var _billingFields = [
-	'name',
-	'address_line1',
-	'address_line2',
-	'address_city',
-	'address_state',
-	'address_zip',
-	'address_country',
-	'last4',
-	'exp_month',
-	'exp_year'
-];
-
-
+var _stripeToken;
 
 var PaymentConfirm = React.createClass({
 
 	mixins: [FormattedPriceMixin],
+
+	componentWillMount: function() {
+		try {
+			_stripeToken = Store.getStripeToken();
+		}
+		catch(e) {
+			this.setState({
+				error: true
+			});	
+		}
+	},
 
 	getInitialState: function() {
 		return {
@@ -38,15 +36,26 @@ var PaymentConfirm = React.createClass({
 	},
 
 	_getStripeToken: function() {
-		return Store.getStripeToken();
+		return _stripeToken;
 	},
 
 	_renderBillingInfo: function() {
-		var stripeToken = this._getStripeToken();	
-		var card = stripeToken.card;
-		return _billingFields.map(function(fieldname) {
-			return (<div>{card[fieldname]}</div>);
-		});
+		var card = _stripeToken.card;
+
+		return (
+			<fieldset>
+				<div>{card.name}</div>
+				<div>{card.address_line1}</div>
+				{card.address_line2 ? <div>{card.address_line2}</div> : null}
+				<div>{card.address_city}, {card.address_state} {card.address_zip}</div>
+				<div>**** **** **** {card.last4} ({card.exp_month}/{card.exp_year})</div>
+				<a href='../'>edit</a>
+			</fieldset>
+		);
+
+		// return _billingFields.map(function(fieldname) {
+		// 	return (<div>{card[fieldname]}</div>);
+		// });
 	},
 
 	_submitPayment: function(event) {
@@ -63,6 +72,12 @@ var PaymentConfirm = React.createClass({
 
 	render: function() {
 
+		if (this.state.error || !_stripeToken) {
+			return (<PanelButton className="column" href="../">
+				<p>{t('ENROLLMENT.NO_STRIPE_TOKEN')}</p>
+			</PanelButton>);
+		}
+
 		if (this.state.busy) {
 			return <Loading />;
 		}
@@ -74,6 +89,7 @@ var PaymentConfirm = React.createClass({
 			<div className="row">
 				<PanelButton className="column" buttonClick={this._submitPayment} linkText="Submit Payment">
 					<h2>Confirm payment</h2>
+					{this._renderBillingInfo()}
 					<p>Clicking submit will charge your card {price} and enroll you in the course.</p>
 					
 				</PanelButton>

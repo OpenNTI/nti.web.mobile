@@ -30,20 +30,22 @@ module.exports = {
 			cssClass.push('required');
 		}
 
+		var ref = field.ref;
+
 		return (
 			React.DOM.div(
 				{
-					key: field.ref
+					key: ref
 				},
 				React.DOM.input({
-					ref: field.ref,
+					ref: ref,
 					value: (values||{}).ref,
-					name: field.ref,
+					name: ref,
 					onBlur: this._onBlur,
 					onFocus: this._onFocus,
-					placeholder: tr(field.ref),
+					placeholder: tr(ref),
 					className: cssClass.join(' '),
-					defaultValue: (values||{}).ref,
+					defaultValue: (values||{})[ref],
 					type: (field.type||'text')
 				})
 			)
