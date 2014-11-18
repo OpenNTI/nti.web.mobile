@@ -25,7 +25,7 @@ module.exports = merge(EventEmitter.prototype, {
 			.catch(function(e){
 	        	console.log('loadCatalog failed. %O', e);
 	        });
-    },
+    }
 });
 
 
