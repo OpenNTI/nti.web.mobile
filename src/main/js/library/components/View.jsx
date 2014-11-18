@@ -9,7 +9,7 @@ var Location = Router.Location;
 var DefaultRoute = Router.NotFound;
 
 var Loading = require('common/components/Loading');
-var Redirect = require('common/components/Redirect');
+var Redirect = require('navigation/components/Redirect');
 
 var Section = require('./Section');
 

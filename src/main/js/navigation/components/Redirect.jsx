@@ -3,7 +3,7 @@
 
 var React = require('react/addons');
 var Router = require('react-router-component');
-var Loading = require('./Loading');
+var Loading = require('common/components/Loading');
 
 var Redirect = React.createClass({
 	mixins: [Router.NavigatableMixin],

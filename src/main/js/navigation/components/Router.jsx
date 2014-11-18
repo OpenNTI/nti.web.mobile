@@ -15,7 +15,7 @@ var Enrollment = require('enrollment');
 
 var NotFound = require('notfound');
 
-var Redirect = require('common/components/Redirect');
+var Redirect = require('navigation/components/Redirect');
 
 module.exports = React.createClass({
 	displayName: 'Router',
