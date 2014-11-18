@@ -5,7 +5,6 @@
 'use strict';
 
 var React = require('react/addons');
-var Button = require('common/components/forms/Button');
 var Loading = require('common/components/Loading');
 var Actions = require('../Actions');
 var Constants = require('../Constants');
@@ -13,10 +12,11 @@ var Store = require('../Store');
 var CatalogStore = require('library/catalog/Store');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var Notice = require('common/components/Notice');
+var PanelButton = require('common/components/PanelButton');
 var DropOpen = require('./drop-widgets/DropOpen');
 var DropStore = require('./drop-widgets/DropStore');
 var DropFive = require('./drop-widgets/DropFive');
+var t = require('common/locale').translate;
 
 var DropCourseDialog = React.createClass({
 
@@ -68,30 +68,24 @@ var DropCourseDialog = React.createClass({
 		var entry = CatalogStore.getEntry(entryId);
 		var items = entry.EnrollmentOptions.Items;
 		var enrollmentTypes = Object.keys(items);
-		return enrollmentTypes.map(function(type) {
-			var widget = null;
+		var result = [];
+		var widgetMap = {
+			OpenEnrollment: DropOpen,
+			StoreEnrollment: DropStore,
+			FiveminuteEnrollment: DropFive
+		};
+		enrollmentTypes.forEach(function(type) {
 			var option = items[type];
 			if (option.IsEnrolled) {
-				switch (type) {
-					case 'OpenEnrollment':
-						widget = DropOpen;
-					break;
-					
-					case 'StoreEnrollment':
-						widget = DropStore;
-					break;
-
-					case 'FiveminuteEnrollment':
-						widget = DropFive;
-					break;
-
-					default:
-						console.warn('Enrolled in an unrecognized/supported enrollment option? %O', option);
-
+				var widget = widgetMap[type];
+				if(!widget) {
+					console.warn('Enrolled in an unrecognized/supported enrollment option? %O', option);
 				}
+				result.push(this.transferPropsTo(<widget courseTitle={this._getCourseTitle()} key={type} />));
 			}
-			return widget ? this.transferPropsTo(<widget courseTitle={this._getCourseTitle()} key={type} />) : widget;
 		}.bind(this));
+
+		return result;
 	},
 
 	componentDidMount: function() {
@@ -100,6 +94,15 @@ var DropCourseDialog = React.createClass({
 
 	componentWillUnmount: function() {
 		Store.removeChangeListener(this._enrollmentChanged);
+	},
+
+	_panel: function(body) {
+		var catalogHref = "../../../../";
+		return (
+			<PanelButton href={catalogHref} buttonText={t('viewCatalog')}>
+				<p>{body}</p>
+			</PanelButton>
+		);
 	},
 
 	render: function() {
@@ -111,20 +114,16 @@ var DropCourseDialog = React.createClass({
 		}
 
 		var title = this._getCourseTitle();
-
+		
 		if (this.state.dropped) {
-			return (
-				<div>
-					<Notice>{title} dropped</Notice>
-					<div className="column">
-						<Button href='../../../../' className="tiny button radius small-12 columns">View Catalog</Button>
-					</div>
-				</div>
-			);
+			return this._panel(title + ' dropped.');
 		}
 
 		var dropWidgets = this._getDropWidgets();
 		console.debug('dropWidgets %O', dropWidgets);
+		if(dropWidgets.length === 0) {
+			return this._panel('Unable to drop this course. (Perhaps you\'ve already dropped it?)');
+		}
 		return (
 			<div>
 				{dropWidgets}
