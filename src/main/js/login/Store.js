@@ -9,7 +9,7 @@ var EventEmitter = require('events').EventEmitter;
 
 var IllegalArgumentException = require('common/exceptions/').IllegalArgumentException;
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
-var Messages = require('common/messages/');
+var Messages = require('messages');
 
 var t = require('common/locale').translate;
 var Utils = require('common/Utils');

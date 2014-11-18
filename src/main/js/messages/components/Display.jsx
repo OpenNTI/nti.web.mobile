@@ -2,36 +2,40 @@
 'use strict';
 
 var React = require('react/addons');
-var messages = require('../');
-var MessageStore = messages.Store;
-var MessageActions = messages.Actions;
-var Alert = require('./Alert');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
+var Store = require('../Store');
+var MessageActions = require('../Actions');
+
+var Alert = require('./Alert');
+
 
 var MessageDisplay = React.createClass({
 
 	_updateMessages: function() {
 		if (this.isMounted()) {
 			var options = this.props.category ? {category: this.props.category} : null;
-			this.setState({messages: MessageStore.messages(options)});
+			this.setState({messages: Store.messages(options)});
 		}
 		//else {
 			// how can this be?
+			// JSG: This can be if the bound reference was given to an asyncronous function
+			// 		as a callback, and it calls back after we've already dismissed.
 		//}
 	},
 
 	componentWillMount: function() {
-		MessageStore.addChangeListener(this._updateMessages);
+		Store.addChangeListener(this._updateMessages);
 	},
 
 	componentDidUnmount: function() {
-		MessageStore.removeChangeListener(this._updateMessages);
+		Store.removeChangeListener(this._updateMessages);
 	},
 
 	getInitialState: function() {
 		var options = this.props.category ? {category: this.props.category} : null;
 		return {
-			messages: MessageStore.messages(options)
+			messages: Store.messages(options)
 		};
 	},
 

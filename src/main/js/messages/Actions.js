@@ -1,12 +1,15 @@
 'use strict';
 
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var Actions = require('./MessageConstants').actions;
-var Store = require('./MessageStore');
-var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
+var EventEmitter = require('events').EventEmitter;
+
+var AppDispatcher = require('common/dispatcher/AppDispatcher');
+var IllegalArgumentException = require('common/exceptions').IllegalArgumentException;
+
+var Actions = require('./Constants').actions;
+var Store = require('./Store');
 var Message = require('./Message');
-var IllegalArgumentException = require('../exceptions').IllegalArgumentException;
+
 
 /**
  * Actions available to views for alerts/messages related functionality.

@@ -1,17 +1,20 @@
 'use strict';
 
-var AppDispatcher = require('../dispatcher/AppDispatcher');
+var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var MessageConstants = require('./MessageConstants');
+
 var Message = require('./Message');
-var Actions = MessageConstants.actions;
-var Events = MessageConstants.events;
+var Constants = require('./Constants');
+
+var Actions = Constants.actions;
+var Events = Constants.events;
+
 var merge = require('react/lib/merge');
 
 var _messages = {};
 
 
-var MessageStore = merge(EventEmitter.prototype, {
+var Store = merge(EventEmitter.prototype, {
 
 	emitChange: function() {
 		this.emit(Events.MESSAGES_CHANGE, this.messages());
@@ -56,7 +59,7 @@ var MessageStore = merge(EventEmitter.prototype, {
 			});
 		}
 		else {
-			_messages = {};	
+			_messages = {};
 		}
 		this.emitChange();
 	}
@@ -72,12 +75,12 @@ function _addMessage(message) {
 		throw new Error('message must be an instance of Message.');
 	}
 	_messages[message.id] = message;
-	MessageStore.emitChange();
+	Store.emitChange();
 }
 
 function _removeMessage(id) {
 	delete _messages[id];
-	MessageStore.emitChange();
+	Store.emitChange();
 }
 
 
@@ -89,7 +92,7 @@ AppDispatcher.register(function(payload) {
 		break;
 
 		case Actions.MESSAGES_CLEAR:
-			MessageStore.clearMessages(action.category);
+			Store.clearMessages(action.category);
 		break;
 
 		case Actions.MESSAGES_REMOVE:
@@ -103,4 +106,4 @@ AppDispatcher.register(function(payload) {
 	return true; // No errors. Needed by promise in Dispatcher.
 });
 
-module.exports = MessageStore;
+module.exports = Store;

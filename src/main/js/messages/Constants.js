@@ -1,6 +1,6 @@
 /**
  * Constants related to (and used by) the message modules.
- * @class MessageConstants
+ * @class message.Constants
  */
 var keyMirror = require('react/lib/keyMirror');
 
@@ -38,7 +38,7 @@ var events = keyMirror({
 	* @event MESSAGES_CHANGE
 	* @type String
 	* @final
-	*/	
+	*/
 	MESSAGES_CHANGE: null,
 
 });

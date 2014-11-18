@@ -18,7 +18,7 @@ var SignupForm = require('../signup/components/SignupForm');
 var PasswordResetForm = require('./PasswordResetForm');
 var SignupConfirm = require('./SignupConfirm');
 
-var MessageDisplay = require('common/messages/').Display;
+var MessageDisplay = require('messages').Display;
 var Globals = require('common/constants').Globals;
 var Constants = require('../Constants');
 

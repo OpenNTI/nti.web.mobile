@@ -8,8 +8,8 @@ var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
 var getServer = require('common/Utils').getServer;
 var Store = require('./Store');
-var MessageActions = require('common/messages').Actions;
-var Message = require('common/messages').Message;
+var MessageActions = require('messages').Actions;
+var Message = require('messages').Message;
 /**
  * Actions available to views for login-related functionality.
  */

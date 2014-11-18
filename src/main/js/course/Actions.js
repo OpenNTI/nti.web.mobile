@@ -9,7 +9,7 @@ var EventEmitter = require('events').EventEmitter;
 var Navigation = require('navigation');
 
 var Constants = require('./Constants');
-var Messages = require('common/messages');
+var Messages = require('messages');
 
 var LibraryApi = require('library/Api');
 
