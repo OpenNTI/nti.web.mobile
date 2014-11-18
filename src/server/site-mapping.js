@@ -9,5 +9,6 @@ var map = {
 
 
 module.exports = function getSite(site) {
+	
 	return map[site] || site;
 };
