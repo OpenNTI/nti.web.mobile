@@ -9,12 +9,12 @@ var url = require('url');
 
 var MediaSource = require('dataserverinterface/models/MediaSource');
 
-var Utils = require('common/Utils');
+var Utils = require('../../../Utils');
 var getTarget = Utils.Dom.getEventTarget;
 //var Viewport = Utils.Viewport;
 
 var Loading = require('../../Loading');
-var eventHandlers = require('common/constants/VideoEventHandlers');
+var eventHandlers = require('../../../constants/VideoEventHandlers');
 
 function _videoEventHandler(event) {
 	console.warn('No handler specified for video event \'%s\'', event.type);

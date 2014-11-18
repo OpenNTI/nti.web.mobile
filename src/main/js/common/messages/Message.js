@@ -1,6 +1,6 @@
 'use strict';
 
-var IllegalArgumentException = require('common/exceptions').IllegalArgumentException;
+var IllegalArgumentException = require('../exceptions').IllegalArgumentException;
 
 module.exports = function Message(message, options) {
 	if(!(options && options.category)) {

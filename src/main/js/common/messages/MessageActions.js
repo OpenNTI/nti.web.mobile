@@ -6,7 +6,7 @@ var Store = require('./MessageStore');
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
 var Message = require('./Message');
-var IllegalArgumentException = require('common/exceptions').IllegalArgumentException;
+var IllegalArgumentException = require('../exceptions').IllegalArgumentException;
 
 /**
  * Actions available to views for alerts/messages related functionality.

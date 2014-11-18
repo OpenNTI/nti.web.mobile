@@ -12,9 +12,9 @@ var Footer = require('./Footer');
 var MessageDisplay = require('../messages').Display;
 var Utils = require('../Utils');
 
-var preventOverscroll = require('common/thirdparty/prevent-overscroll');
+var preventOverscroll = require('../thirdparty/prevent-overscroll');
 
-var Analytics = require('common/analytics').Component;
+var Analytics = require('../analytics').Component;
 var LibraryInvalidationListener = require('../../library/components/InvalidationListener');
 
 var LEFT_MENU_OPEN = 'move-right';

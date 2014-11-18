@@ -1,7 +1,7 @@
 'use strict';
 
-var AppDispatcher = require('common/dispatcher/AppDispatcher');
-var Constants = require('common/analytics/Constants');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var Constants = require('./Constants');
 
 module.exports = {
 	emitEvent: function(eventType, eventData) {

@@ -2,8 +2,8 @@
 'use strict';
 
 var React = require('react/addons');
-var ErrorWidget = require('common/components/Error');
-var eventHandlers = require('common/constants/VideoEventHandlers');
+var ErrorWidget = require('../../Error');
+var eventHandlers = require('../../../constants/VideoEventHandlers');
 
 var guid = require('dataserverinterface/utils/guid');
 var toQueryString = require('dataserverinterface/utils/object-to-querystring');

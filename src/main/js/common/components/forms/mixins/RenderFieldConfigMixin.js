@@ -2,7 +2,7 @@
 
 var React = require('react/addons');
 
-var t = require('common/locale').translate;
+var t = require('../../../locale').translate;
 var merge = require('react/lib/merge');
 var isFunction = require('dataserverinterface/utils/isfunction');
 
