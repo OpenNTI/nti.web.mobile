@@ -8,8 +8,10 @@ var Constants = require('./Constants');
 var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
 
 var getService = require('common/Utils').getService;
+var assign = require('object-assign');
 
 var _stripeToken; // store the result of a Stripe.getToken() call
+var _paymentFormData = {}; // store cc info so we can repopulate the form if the user navigates back from the confirmation view.
 var _paymentResult;
 
 var Store = merge(EventEmitter.prototype, {
@@ -51,7 +53,11 @@ var Store = merge(EventEmitter.prototype, {
 		if(!_stripeToken) {
 			throw new Error("Store doesn't currently have a stripe token. (Did you get a BILLING_INFO_VERIFIED event after a call to Actions.verifyBillingInfo?)");
 		}
-		return _stripeToken;
+		return assign({},_stripeToken);
+	},
+
+	getPaymentFormData: function() {
+		return assign({},_paymentFormData);
 	},
 
 	getPaymentResult: function() {
@@ -71,7 +77,10 @@ function _getStripeEnrollment() {
 }
 
 function _verifyBillingInfo(data) {
+	
 	_stripeToken = null; // reset
+	_paymentFormData = data.formData;
+
 	return _getStripeEnrollment()
 		.then(function(stripe) {
 			return stripe.getToken(data.stripePublicKey,data.formData);
@@ -97,6 +106,9 @@ function _submitPayment(formData) {
 		})
 		.then(function(result) {
 			var type = (result||{}).State === 'Success' ? Constants.STRIPE_PAYMENT_SUCCESS : Constants.STRIPE_PAYMENT_FAILURE;
+			if (type === Constants.STRIPE_PAYMENT_SUCCESS) {
+				_paymentFormData = {}; // 
+			}
 			Store.emitChange({
 				type: type,
 				purchaseAttempt: result

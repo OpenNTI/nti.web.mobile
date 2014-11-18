@@ -33,17 +33,12 @@ var Form = React.createClass({
 	},
 
 	getInitialState: function() {
-		var card = {};
-		try {
-			var card = Store.getStripeToken().card;
-		}
-		catch(e) {
-			console.debug('couldn\'t get stripe token');
-		}
+
+		var formData = Store.getPaymentFormData();
 
 		return {
 			loading: true,
-			fieldValues: card,
+			fieldValues: formData,
 			errors: {}
 		};
 	},
