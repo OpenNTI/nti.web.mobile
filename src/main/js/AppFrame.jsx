@@ -14,7 +14,7 @@ var Utils = require('common/Utils');
 
 var preventOverscroll = require('common/thirdparty/prevent-overscroll');
 
-var Analytics = require('common/analytics').Component;
+var Analytics = require('analytics').Component;
 var LibraryInvalidationListener = require('library/components/InvalidationListener');
 
 var LEFT_MENU_OPEN = 'move-right';

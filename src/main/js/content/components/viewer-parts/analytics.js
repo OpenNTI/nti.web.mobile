@@ -1,6 +1,6 @@
 'use strict';
 
-var Analytics = require('common/analytics');
+var Analytics = require('analytics');
 var ResourceEvent = require('dataserverinterface/models/analytics/ResourceEvent');
 
 // keep track of the view start event so we can push analytics including duration

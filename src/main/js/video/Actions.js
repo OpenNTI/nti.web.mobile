@@ -1,7 +1,7 @@
 'use strict';
 
 var AppDispatcher = require('common/dispatcher/AppDispatcher');
-var Analytics = require('common/analytics/Constants');
+var Analytics = require('analytics/Constants');
 
 module.exports = {
 	emitVideoEvent: function(eventData) {

@@ -1,6 +1,6 @@
 'use strict';
 
-var AppDispatcher = require('../dispatcher/AppDispatcher');
+var AppDispatcher = require('common/dispatcher/AppDispatcher');
 var Constants = require('./Constants');
 
 module.exports = {
