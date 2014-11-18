@@ -18,7 +18,7 @@ var LoginActions = Login.Actions;
 
 var Navigation = require('navigation');
 
-var Router = require('navigation/components/Router');
+var Router = require('./Router');
 var Loading = require('common/components/Loading');
 
 var AppContainer = require('./AppFrame');
