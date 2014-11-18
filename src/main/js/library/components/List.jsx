@@ -10,7 +10,7 @@ var Collection = require('./Collection');
 var Filters = require('../Filters');
 
 var Loading = require('common/components/Loading');
-var NoMatches = require('common/components/NoMatches');
+var EmptyList = require('common/components/EmptyList');
 
 var List = React.createClass({
 
@@ -78,8 +78,8 @@ var List = React.createClass({
 		var list = this._itemListForSection(this.props.section);
 		var filters = this._filtersForSection(this.props.section);
 
-		if( list.length === 0 ) {
-			return (<NoMatches />);
+		if (list.length === 0) {
+			return (<EmptyList />);
 		}
 
 		return this.transferPropsTo(

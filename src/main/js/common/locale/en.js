@@ -40,7 +40,8 @@ module.exports = {
 	},
 
 	FILTER: {
-		no_matches: 'No items match the selected filter.'
+		no_matches: 'No items match the selected filter.',
+		empty_list: 'This list is empty.'
 	},
 
 	NAV: {
