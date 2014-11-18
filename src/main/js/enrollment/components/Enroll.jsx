@@ -4,7 +4,7 @@
 var React = require('react/addons');
 var EnrollmentOptions = require('library/catalog/mixins/EnrollmentMixin');
 var Loading = require('common/components/Loading');
-var Notice = require('common/components/Notice');
+var PanelButton = require('common/components/PanelButton');
 var CourseContentLink = require('library/components/CourseContentLink');
 
 var Enroll = React.createClass({
@@ -28,16 +28,12 @@ var Enroll = React.createClass({
 		if(this.state.enrolled) {
 
 			var title = this._getCourseTitle();
+			var href = CourseContentLink.courseHref(this._getCourseId());
 
 			return (
-				<div>
-					<Notice>You are enrolled in {title}.</Notice>
-					<div className="column">
-						<CourseContentLink
-							className="tiny button radius small-12 columns"
-							courseId={this._getCourseId()}>Go to the course</CourseContentLink>
-					</div>
-				</div>
+				<PanelButton href={href} linkText='Go to the course'>
+					You are enrolled in {title}.
+				</PanelButton>
 			);
 		}
 
