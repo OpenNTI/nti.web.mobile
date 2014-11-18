@@ -68,7 +68,7 @@ module.exports = function(grunt) {
 						cwd: '<%= pkg.src %>/resources/images/',
 						expand: true,
 						filter: 'isFile',
-						src: ['**'],
+						src: ['**', '!**/icons/**'],
 						dest: '<%= pkg.dist %>/client/resources/images/'
 					},
 					{

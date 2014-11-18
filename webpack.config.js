@@ -10,30 +10,47 @@ var CompressionPlugin = require("compression-webpack-plugin");
 var path = require('path');
 var fs = require('fs');
 
-
-var commonLoaders = [
-    { test: /\.js$/, loader: 'jsx' },
-    { test: /\.jsx$/, loader: 'jsx' },
-    { test: /\.json$/, loader: 'json' },
-    { test: /\.ico$/, loader: 'url?limit=100000&name=resources/images/[hash].ico&mimeType=image/ico' },
-    { test: /\.gif$/, loader: 'url?limit=100000&name=resources/images/[hash].gif&mimeType=image/gif' },
-    { test: /\.png$/, loader: 'url?limit=100000&name=resources/images/[hash].png&mimeType=image/png' },
-    { test: /\.jpg$/, loader: 'url?limit=100000&name=resources/images/[hash].jpg&mimeType=image/jpeg' },
-
-    { test: /\.eot$/, loader: 'url?limit=1&name=resources/fonts/[name][hash].eot' },
-    { test: /\.ttf$/, loader: 'url?limit=1&name=resources/fonts/[name][hash].ttf' },
-    { test: /\.woff$/, loader: 'url?limit=1&name=resources/fonts/[name][hash].woff' }
-];
-
 var scssIncludes =
-    'includePaths[]=' + (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss'));/* + '&' +
-    'includePaths[]=' + (path.resolve(__dirname, './src/main/resources/vendor/videojs/dist/video-js'));*/
+    'includePaths[]=' + (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss'));
 
 var root = path.join(__dirname,'src','main','js');
 
 var appPackages = {
     dataserverinterface: true
 };
+
+var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
+
+var commonLoaders = [
+    { test: /\.js$/, loader: 'jsx' },
+    { test: /\.jsx$/, loader: 'jsx' },
+    { test: /\.json$/, loader: 'json' },
+
+    { test: /\.ico$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/ico' },
+    { test: /\.gif$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/gif' },
+    { test: /\.png$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/png' },
+    { test: /\.jpg$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/jpeg' },
+
+    { test: appFontName, loader: 'url' },
+
+    { test: /\.eot$/, loader: 'file?name=resources/fonts/[name].[ext]' },
+    { test: /\.ttf$/, loader: 'file?name=resources/fonts/[name].[ext]' },
+    {
+        test: {
+            test: function(s) {
+                if (/woff$/.test(s)) {
+                    return ! appFontName.test(s);
+                }
+            }
+        },
+        loader: 'file',
+        query: {
+            name: 'resources/fonts/[name].[ext]'
+        }
+    }
+
+];
+
 
 fs.readdirSync(root).forEach(function(f) {
     if(fs.statSync(path.join(root, f)).isDirectory()) {
@@ -102,6 +119,7 @@ exports = module.exports = [
         output: {
             path: '<%= pkg.dist %>/client/',
             filename: 'js/[hash].js',
+            chunkFilename: 'js/[hash]-[id].js',
             publicPath: '<%= pkg.public_root %>'
         },
 
@@ -150,8 +168,7 @@ exports = module.exports = [
         module: {
             loaders: commonLoaders.concat([
                 { test: /\.css$/, loader: 'style!css' },
-                { test: /\.scss$/, loader: 'style!css!sass?' + scssIncludes
-                }
+                { test: /\.scss$/, loader: 'style!css!sass?' + scssIncludes }
             ])
         }
     },
@@ -164,6 +181,7 @@ exports = module.exports = [
         output: {
             path: '<%= pkg.dist %>/server/node_modules/page.generated/',
             filename: 'index.js',
+            chunkFilename: 'chunk-[id].js',
             publicPath: '<%= pkg.public_root %>',
             library: 'page.generated',
             libraryTarget: 'commonjs2'
@@ -182,7 +200,9 @@ exports = module.exports = [
         ],
         module: {
             loaders: commonLoaders.concat([
+
                 { test: /\.html$/, loader: 'html?attrs=link:href' },
+
                 { test: /\.css$/,  loader: path.join(__dirname, 'src', 'server', 'style-collector') + '!css' },
                 { test: /\.scss$/, loader: path.join(__dirname, 'src', 'server', 'style-collector') +
                     '!css!sass?' + scssIncludes
