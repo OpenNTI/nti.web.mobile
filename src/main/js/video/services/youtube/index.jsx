@@ -4,9 +4,9 @@
 var React = require('react/addons');
 var invariant = require('react/lib/invariant');
 
-var eventHandlers = require('../../../constants/VideoEventHandlers');
+var eventHandlers = require('../../Constants').EventHandlers;
 
-var ErrorWidget = require('../../Error');
+var ErrorWidget = require('common/components/Error');
 
 var guid = require('dataserverinterface/utils/guid');
 var toQueryString = require('dataserverinterface/utils/object-to-querystring');

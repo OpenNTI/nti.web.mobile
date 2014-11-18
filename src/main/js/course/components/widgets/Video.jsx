@@ -4,7 +4,7 @@
 var path = require('path');
 var React = require('react/addons');
 var NTIID = require('dataserverinterface/utils/ntiids');
-var Video = require('common/components/Video');
+var Video = require('video').Component;
 var LoadingMask = require('common/components/Loading');
 
 module.exports = React.createClass({

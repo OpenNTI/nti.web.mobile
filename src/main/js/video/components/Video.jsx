@@ -2,11 +2,13 @@
 'use strict';
 
 var React = require('react/addons');
-var Providers = require('./video-services');
+var Providers = require('../services');
+
 var Model = require('dataserverinterface/models/Video');
 var WatchVideoEvent = require('dataserverinterface/models/analytics/WatchVideoEvent');
 var call = require('dataserverinterface/utils/function-call');
-var actions = require('../VideoActions');
+
+var actions = require('../Actions');
 
 // keep track of the play start event so we can push analytics including duration
 // when the video is paused, stopped, seeked, or ends.

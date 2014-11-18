@@ -18,7 +18,7 @@ var removeClass = DomUtils.removeClass;
 
 var LoadingMask = require('common/components/Loading');
 var Pager = require('common/components/Pager');
-var Video = require('common/components/Video');
+var Video = require('video').Component;
 
 /*
 	See: https://github.com/mozilla/vtt.js#usage

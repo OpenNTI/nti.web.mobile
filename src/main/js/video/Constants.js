@@ -19,4 +19,7 @@ handlers.forEach(function(handler) {
 	events[eventname] = handler;
 });
 
-module.exports = events;
+module.exports = {
+
+	EventHandlers: events
+};

@@ -1,6 +1,6 @@
 'use strict';
 
-var Viewport = require('../../../Utils').Viewport;
+var Viewport = require('common/Utils').Viewport;
 var isSource = RegExp.prototype.test.bind(/source/i);
 
 exports = module.exports = function(list, targetQuality) {

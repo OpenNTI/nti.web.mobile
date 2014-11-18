@@ -3,7 +3,7 @@
 
 var React = require('react/addons');
 
-var Video = require('common/components/Video');
+var Video = require('video').Component;
 
 
 module.exports = React.createClass({

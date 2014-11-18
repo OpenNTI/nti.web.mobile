@@ -5,7 +5,7 @@
  */
 
 //var Promise = global.Promise || require('es6-promise').Promise;
-var Utils = require('../../../Utils');
+var Utils = require('common/Utils');
 var getService = Utils.getService;
 var toQueryString = require('dataserverinterface/utils/object-to-querystring');
 
