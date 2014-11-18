@@ -96,6 +96,11 @@ function includeWidgets(o) {
 
             entry: w[k],
 
+            node: {
+                net: 'empty',
+                tls: 'empty'
+            },
+
             plugins: [
                 new webpack.optimize.DedupePlugin(),
                 new webpack.optimize.OccurenceOrderPlugin(),
@@ -213,4 +218,4 @@ exports = module.exports = [
 ];
 
 
-includeWidgets(exports);
+//includeWidgets(exports);
