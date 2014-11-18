@@ -8,8 +8,15 @@ var React = require('react/addons');
 var Actions = require('../../Actions');
 var Notice = require('common/components/Notice');
 var Button = require('common/components/forms/Button');
+var Loading = require('common/components/Loading');
 
 var DropOpen = React.createClass({
+
+	getInitialState: function() {
+		return {
+			loading: false
+		};
+	},
 
 	_cancelClicked: function() {
 		history.back();
@@ -23,6 +30,11 @@ var DropOpen = React.createClass({
 	},
 
 	render: function() {
+
+		if(this.state.loading) {
+			return <Loading />;
+		}
+
 		return (
 			<div>
 				<Notice>Drop {this.props.courseTitle}?</Notice>
