@@ -4,6 +4,11 @@
 
 'use strict';
 
+// we're naming fields to line up with the stripe api which uses lowercase
+// with underscores (e.g. exp_month vs. expMonth) so don't enforce camel case
+// in this file.
+/* jshint camelcase:false */
+
 var React = require('react/addons');
 var Store = require('../Store');
 var Actions = require('../Actions');
