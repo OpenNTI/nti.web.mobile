@@ -98,7 +98,7 @@ module.exports = {
 			buttons = buttons.filter(function(item) {return item !== null;});
 			if (buttons.length > 0) {
 				return React.DOM.div({
-						className: "small-12 columns enrollment-panels"		
+						className: "enrollment-panels"		
 					},
 					buttons
 				);
