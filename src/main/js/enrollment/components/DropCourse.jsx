@@ -16,7 +16,7 @@ var PanelButton = require('common/components/PanelButton');
 var DropOpen = require('./drop-widgets/DropOpen');
 var DropStore = require('./drop-widgets/DropStore');
 var DropFive = require('./drop-widgets/DropFive');
-var t = require('common/locale').translate;
+var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 
 var DropCourseDialog = React.createClass({
 
@@ -99,7 +99,7 @@ var DropCourseDialog = React.createClass({
 	_panel: function(body) {
 		var catalogHref = "../../../../";
 		return (
-			<PanelButton href={catalogHref} buttonText={t('viewCatalog')}>
+			<PanelButton href={catalogHref} linkText={t('viewCatalog')}>
 				<p>{body}</p>
 			</PanelButton>
 		);

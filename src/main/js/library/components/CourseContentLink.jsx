@@ -10,16 +10,23 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 
 var CourseContentLink = React.createClass({
 
+	statics: {
+		courseHref: function(courseId) {
+			var courseUrl = NTIID.encodeForURI(courseId);
+			return Utils.getBasePath() + 'course/' + courseUrl + '/#nav';
+		}
+	},
+
 	propTypes: {
 		courseId: React.PropTypes.string.isRequired
 	},
 
 	render: function() {
 
-		var courseUrl = NTIID.encodeForURI(this.props.courseId);
+		var href = CourseContentLink.courseHref(this.props.courseId);
 
 		return this.transferPropsTo(
-			<a href={Utils.getBasePath() + 'course/' + courseUrl + '/#nav'}>{this.props.children}</a>
+			<a href={href}>{this.props.children}</a>
 		);
 	}
 
