@@ -13,10 +13,6 @@ module.exports = {
 				return OpenEnrollment;
 
 			case 'StoreEnrollment':
-				if(!Utils.isFlag('dev')) {
-					console.info('Omitting StoreEnrollment becase we\'re not in dev');
-					return null;
-				}
 				return StoreEnrollment;
 
 			default:
