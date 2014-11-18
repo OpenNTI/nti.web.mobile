@@ -4,6 +4,10 @@
 module.exports = {
 	GLOBAL: {
 		SITE_NAME: 'NextThought'
+
+	},
+	BUTTONS: {
+		OK: 'Okay'
 	},
 	LOGIN: {
 		login: 'Log In',
@@ -59,7 +63,8 @@ module.exports = {
 		BUTTONS: {
 			OpenEnrollment: 'Enroll in the open course',
 			drop: 'Drop this course',
-			viewCourse: 'View Course'
+			viewCourse: 'View Course',
+			viewCatalog: 'View Catalog'
 		},
 		forms: {
 			storeenrollment: {
