@@ -86,31 +86,31 @@ var Form = React.createClass({
 
 						// ...but we still want an entry for this ref so the field gets flagged
 						// as invalid.
-						error: 'Field is required'
+						error: t2('requiredField')
 					};
 					errors.required = {
-						message: 'Please complete all required fields.'
+						message: t2('incompleteForm')
 					};
 				}
 			}
 		});
-		
+
 		var number = (this.state.fieldValues.number||'');
 		if(number.trim().length > 0 && !Stripe.card.validateCardNumber(number)) {
-			errors.number =  {message: 'Card number is invalid'};
+			errors.number =  {message: t2('invalidCardNumber')};
 		}
 
 		var cvc = (this.state.fieldValues.cvc||'');
 		if(cvc.trim().length > 0 && !Stripe.card.validateCVC(cvc)) {
-			errors.cvc =  {message: 'CVC is invalid'};
+			errors.cvc =  {message: t2('invalidCVC')};
 		}
 
 		var mon = (this.state.fieldValues.exp_month||'');
 		var year = (this.state.fieldValues.exp_year||'');
 		if([mon,year].join('').trim().length > 0 && !Stripe.card.validateExpiry(mon,year)) {
-			errors.exp_month =  {message: 'Expiration is invalid'};
+			errors.exp_month =  {message: t2('invalidExpiration')};
 			// no message property because we don't want the error message repeated
-			errors.exp_year =  {error: 'Expiration is invalid'};
+			errors.exp_year =  {error: t2('invalidExpiration')};
 		}
 
 		this.setState({
@@ -167,7 +167,7 @@ var Form = React.createClass({
 						<h2>{title}</h2>
 						<p>{t2('enrollAsLifelongLearner')}: {price}</p>
 					</div>
-					
+
 					<fieldset>
 						<legend>Billing Information</legend>
 						{_fieldConfig.map(fieldRenderFn)}

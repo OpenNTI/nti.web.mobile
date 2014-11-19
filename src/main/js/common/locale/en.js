@@ -82,8 +82,15 @@ module.exports = {
 				last4: 'Card ending in'
 			}
 		},
+		incompleteForm: 'Please complete all required fields.',
+		requiredField: 'Field is required.',
+
+		invalidExpiration: 'Expiration is invalid.',
+		invalidCardNumber: 'Card number is invalid.',
+		invalidCVC: 'CVC is invalid.',
+
 		enrollmentNotRefundable: 'Enrollment is not refundable.',
-		enrollAsLifelongLearner: 'Enroll as a Lifelong Learner',
+		enrollAsLifelongLearner: 'Enroll as a Lifelong Learner.',
 		NO_STRIPE_TOKEN: 'Utoh. Couldn\'t find payment info. (This can occur if you navigate to the confirmation view directly or if you reload.)'
 	},
 
