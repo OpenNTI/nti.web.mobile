@@ -5,6 +5,7 @@
 'use strict';
 
 var React = require('react/addons');
+var t = require('common/locale').translate;
 
 /**
 *	Renders an info panel with a link/button.
@@ -19,7 +20,7 @@ var PanelButton = React.createClass({
 
 	getDefaultProps: function() {
 		return {
-			linkText: 'OK',
+			linkText: t('BUTTONS.OK'),
 			href: '#',
 			buttonClick: null
 		};
