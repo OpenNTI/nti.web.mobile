@@ -16,6 +16,8 @@ var React = require('react/addons');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderFieldConfigMixin');
 var t = require('common/locale').scoped('ENROLLMENT.forms.storeenrollment');
+var t2 = require('common/locale').scoped('ENROLLMENT');
+
 var ScriptInjector = require('common/mixins/ScriptInjectorMixin');
 var Loading = require('common/components/Loading');
 var Actions = require('../Actions');
@@ -163,7 +165,7 @@ var Form = React.createClass({
 				<form className="store-enrollment-form medium-6 medium-centered columns" onSubmit={this._handleSubmit}>
 					<div className="column">
 						<h2>{title}</h2>
-						<p>Enroll as a Lifetime Learner: {price}</p>
+						<p>{t2('enrollAsLifelongLearner')}: {price}</p>
 					</div>
 					
 					<fieldset>

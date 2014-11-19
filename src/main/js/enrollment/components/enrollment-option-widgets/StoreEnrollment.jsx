@@ -22,7 +22,7 @@ var StoreEnrollment = React.createClass({
 		var formattedPrice = this.getFormattedPrice(option.Currency, option.Price);
 
 		return (
-			<PanelButton href="store/" linkText='Enroll as a Lifelong Learner'>
+			<PanelButton href="store/" linkText={t('enrollAsLifelongLearner')}>
 				<h2>Lifelong Learner</h2>
 				<p>Gain complete access to interact with all course content,
 				including lectures, course materials, quizzes,
