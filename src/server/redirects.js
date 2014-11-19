@@ -14,7 +14,7 @@ module.exports = autoBind({
 		var url = _.originalUrl || _.url;
 		var index = (url && url.indexOf('?q=')) || 0;
 		var catalog = /library\/availablecourses\/(.*)/;
-		var redUrl;
+		var redUrl, encoded;
 
 		//library/availablecourses/IUB0YWc6bmV4dHRob3VnaHQuY29tLDIwMTEtMTA6TlRJLUNvdXJzZUluZm8tU3ByaW5nMjAxNV9MU1REXzExNTM
 
@@ -24,7 +24,11 @@ module.exports = autoBind({
 			catalog = url.match(catalog);
 
 			if (catalog) {
-				catalog = new Buffer(catalog[1], 'base64').toString();
+				encoded = catalog[1]
+							.replace(/-/g, '+')
+							.replace(/_/g, '/');
+
+				catalog = new Buffer(encoded, 'base64').toString();
 				catalog = catalog.replace(/^!@/,'');//strip off the WebApps 'salt'
 				catalog = NTIIDs.encodeForURI(catalog);
 
