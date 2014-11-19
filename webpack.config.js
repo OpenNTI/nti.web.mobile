@@ -97,6 +97,9 @@ function includeWidgets(o) {
             entry: w[k],
 
             plugins: [
+                new webpack.DefinePlugin({
+                    SERVER: false
+                }),
                 new webpack.optimize.DedupePlugin(),
                 new webpack.optimize.OccurenceOrderPlugin(),
                 new webpack.optimize.UglifyJsPlugin(),
