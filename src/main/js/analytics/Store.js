@@ -21,8 +21,8 @@ function startTimer() {
 	);
 }
 
-var Store = autobind(Object.assign(EventEmitter.prototype, {
 
+var Store = autobind(Object.assign({}, EventEmitter.prototype, {
 
 	init: function() {
 		startTimer();

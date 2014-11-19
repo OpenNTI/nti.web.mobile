@@ -21,7 +21,7 @@ function getMainSubmittable(o){
 }
 
 
-var Store = Object.assign(EventEmitter.prototype, {
+var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'assessment.Store',
 	_maxListeners: 0, //unlimited
 

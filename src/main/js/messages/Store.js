@@ -14,7 +14,7 @@ var Events = Constants.events;
 var _messages = {};
 
 
-var Store = Object.assign(EventEmitter.prototype, {
+var Store = Object.assign({}, EventEmitter.prototype, {
 
 	emitChange: function() {
 		this.emit(Events.MESSAGES_CHANGE, this.messages());

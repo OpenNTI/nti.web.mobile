@@ -12,7 +12,7 @@ var Store = require('./Store');
 /**
  * Actions available to views for navigation-related functionality.
  **/
-module.exports = Object.assign(EventEmitter.prototype, {
+module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	navigate: function(href, replace) {
 		console.log('navigation.Actions::navigate', href, !!replace);

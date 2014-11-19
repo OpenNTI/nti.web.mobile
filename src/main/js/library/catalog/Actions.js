@@ -11,7 +11,7 @@ var Constants = require('./Constants');
 /**
  * Actions available to views for catalog-related functionality.
  */
-module.exports = Object.assign(EventEmitter.prototype, {
+module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	reload: function() {
 		this.loadCatalog(true);

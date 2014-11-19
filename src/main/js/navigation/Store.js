@@ -12,7 +12,7 @@ var OrderedMap = require('common/collections').OrderedMap;
 var _nav = new OrderedMap();
 var _isLoading = false;
 
-var Store = Object.assign(EventEmitter.prototype, {
+var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'navigation.Store',
 
 	getNav: function() {

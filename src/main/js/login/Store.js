@@ -29,7 +29,7 @@ var _links = {};
 var _isLoggedIn = false;
 
 
-var LoginStore = Object.assign(EventEmitter.prototype, {
+var LoginStore = Object.assign({}, EventEmitter.prototype, {
 
 	emitChange: function(evt) {
 		this.emit(CHANGE_EVENT, evt);

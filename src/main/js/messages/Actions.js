@@ -14,7 +14,7 @@ var Message = require('./Message');
 /**
  * Actions available to views for alerts/messages related functionality.
  **/
-module.exports = Object.assign(EventEmitter.prototype, {
+module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	addMessage: function(message) {
 		if (!(message instanceof Message)) {

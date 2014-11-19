@@ -41,7 +41,7 @@ var WIDGET_SELECTORS_AND_STRATEGIES = {
 /**
  * Actions available to views for content-related functionality.
  */
-module.exports = Object.assign(EventEmitter.prototype, {
+module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	/**
 	 *	@param {String} Content Page NTIID

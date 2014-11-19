@@ -11,7 +11,7 @@ var getService = require('common/Utils').getService;
 
 var _enrollmentStatus = {};
 
-var Store = Object.assign(EventEmitter.prototype, {
+var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'enrollment.Store',
 
 	emitChange: function(evt) {

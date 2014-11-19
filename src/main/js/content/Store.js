@@ -10,7 +10,7 @@ var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
 
 var _pages = {};
 
-var Store = Object.assign(EventEmitter.prototype, {
+var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'content.Store',
 
 	emitChange: function(evt) {

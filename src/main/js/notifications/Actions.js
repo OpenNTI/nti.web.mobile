@@ -12,7 +12,7 @@ var Constants = require('./Constants');
 /**
  * Actions available to views for notification-related functionality.
  */
-module.exports = Object.assign(EventEmitter.prototype, {
+module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	load: function() {
 		Api.load()

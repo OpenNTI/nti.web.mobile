@@ -11,7 +11,7 @@ var bufferTime = 500;
 /**
  * Actions available to views for login-related functionality.
  **/
-module.exports = Object.assign(EventEmitter.prototype, {
+module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	/**
 	* Fired in response to user changes on the form.

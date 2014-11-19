@@ -9,7 +9,7 @@ var CHANGE_EVENT = 'change';
 
 var _data = {};
 
-var Store = Object.assign(EventEmitter.prototype, {
+var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'notifications.Store',
 
 	emitChange: function(evt) {

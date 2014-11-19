@@ -13,7 +13,7 @@ var Message = require('messages').Message;
 /**
  * Actions available to views for login-related functionality.
  */
-module.exports = Object.assign(EventEmitter.prototype, {
+module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	begin: function() {
 		AppDispatcher.handleViewAction({

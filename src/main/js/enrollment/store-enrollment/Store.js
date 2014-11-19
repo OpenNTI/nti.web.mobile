@@ -13,7 +13,7 @@ var _stripeToken; // store the result of a Stripe.getToken() call
 var _paymentFormData = {}; // store cc info so we can repopulate the form if the user navigates back from the confirmation view.
 var _paymentResult;
 
-var Store = Object.assign(EventEmitter.prototype, {
+var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'store-enrollment.Store',
 
 	emitChange: function(evt) {

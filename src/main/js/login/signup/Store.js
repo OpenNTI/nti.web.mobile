@@ -47,7 +47,7 @@ var _fieldConfig = Object.freeze([
 
 var _errors = [];
 
-var Store = Object.assign(EventEmitter.prototype, {
+var Store = Object.assign({}, EventEmitter.prototype, {
 
 	emitChange: function(evt) {
 		console.log('Store: emitting change');

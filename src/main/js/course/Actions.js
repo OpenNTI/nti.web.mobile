@@ -63,7 +63,7 @@ function _publishNavFor(courseEnrollment) {
 /**
  * Actions available to views for course-related functionality.
  */
-module.exports = Object.assign(EventEmitter.prototype, {
+module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	setCourse: function(courseId) {
 		if(!courseId) {
