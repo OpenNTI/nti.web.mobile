@@ -18,8 +18,9 @@ module.exports = {
 	defaultSection: function() {
 		return Actions.load().then(function() {
 			var data = Store.getData();
+			var courses = data.courses || [];
 			// if user doesn't have any courses default to the catalog.
-			return data.courses.length > 0 ? sectionNames.courses : sectionNames.catalog;
+			return courses.length > 0 ? sectionNames.courses : sectionNames.catalog;
 		}.bind(this));
 	}
 };
