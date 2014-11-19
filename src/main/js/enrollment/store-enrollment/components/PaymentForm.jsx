@@ -25,6 +25,7 @@ var Store = require('../Store');
 var Constants = require('../Constants');
 var _fieldConfig = require('./paymentFormConfig');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
+var FormPanel = require('common/components/forms/FormPanel');
 
 var Form = React.createClass({
 
@@ -151,7 +152,7 @@ var Form = React.createClass({
 
 		var purch = this.props.purchasable;
 		var price = this.getFormattedPrice(purch.Currency, purch.Amount);
-		var fieldRenderFn = this.renderField.bind(null,t,this.state.fieldValues);
+		var fieldsetRenderFn = this.renderFieldset.bind(null,t,this.state.fieldValues);
 		var title = purch.Name||null;
 		var state = this.state;
 		var cssClasses = ['row'];
@@ -160,33 +161,26 @@ var Form = React.createClass({
 			cssClasses.push('busy');
 		}
 
-		return (
-			<div className={cssClasses.join(' ')}>
-				<form className="store-enrollment-form medium-6 medium-centered columns" onSubmit={this._handleSubmit}>
-					<div className="column">
-						<h2>{title}</h2>
-						<p>{t2('enrollAsLifelongLearner')}: {price}</p>
-					</div>
+		var subhead = t2('enrollAsLifelongLearner').concat(': ', price);
 
-					<fieldset>
-						<legend>Billing Information</legend>
-						{_fieldConfig.map(fieldRenderFn)}
-						<div className='errors'>
-							<ReactCSSTransitionGroup transitionName="messages">
-								{Object.keys(state.errors).map(
-									function(ref) {
-										var err = state.errors[ref];
-										return (err.message ? <small key={ref} className='error'>{err.message}</small> : null);
-								})}
-							</ReactCSSTransitionGroup>
-						</div>
-						<input type="submit"
-							id="storeenroll:submit"
-							className="small-12 columns tiny button radius"
-							value="Continue" />
-					</fieldset>
-				</form>
-			</div>
+		return (
+			<FormPanel onSubmit={this._handleSubmit} title={title} subhead={subhead}>
+				{_fieldConfig.map(fieldsetRenderFn)}
+				<div className='errors' key="errors">
+					<ReactCSSTransitionGroup transitionName="messages">
+						{Object.keys(state.errors).map(
+							function(ref) {
+								var err = state.errors[ref];
+								return (err.message ? <small key={ref} className='error'>{err.message}</small> : null);
+						})}
+					</ReactCSSTransitionGroup>
+				</div>
+				<input type="submit"
+					key="submit"
+					id="storeenroll:submit"
+					className="small-12 columns tiny button radius"
+					value="Continue" />
+			</FormPanel>
 		);
 	}
 

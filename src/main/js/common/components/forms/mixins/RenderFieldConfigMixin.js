@@ -5,6 +5,7 @@ var React = require('react/addons');
 var t = require('../../../locale').translate;
 
 var isFunction = require('dataserverinterface/utils/isfunction');
+var guid = require('dataserverinterface/utils/guid');
 
 module.exports = {
 
@@ -32,6 +33,11 @@ module.exports = {
 
 		var ref = field.ref;
 
+		// default placeholder for inputs
+		var translateOptions = {
+			fallback: ''
+		};
+
 		return (
 			React.DOM.div(
 				{
@@ -43,7 +49,7 @@ module.exports = {
 					name: ref,
 					onBlur: this._onBlur,
 					onFocus: this._onFocus,
-					placeholder: tr(ref),
+					placeholder: tr(ref,translateOptions),
 					className: cssClass.join(' '),
 					defaultValue: (values||{})[ref],
 					type: (field.type||'text')
@@ -52,6 +58,15 @@ module.exports = {
 		);
 	},
 
+	renderFieldset: function(translator, values, fieldset) {
+
+		var fieldRenderFn = this.renderField.bind(null, translator, values);
+		var fields = fieldset.fields.map(fieldRenderFn);
+		var legend = React.DOM.legend({key: 'legend'}, fieldset.title);
+
+		var key = 'fieldset-'.concat(guid());
+		return React.DOM.fieldset({key: key}, [legend, fields]);
+	},
 
     _onFocus: function(event) {
 		var target = event.target.name;
