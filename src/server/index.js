@@ -1,5 +1,7 @@
 'use strict';
 
+require('dataserverinterface/polyfills');
+
 global.SERVER = true;
 
 var knownPages = [

@@ -10,8 +10,6 @@ try {
 
 var getSite = require('./site-mapping.js');
 
-var assign = require('object-assign');
-
 var opt = require('optimist')
 			.usage('WebApp Instance')
 
@@ -58,7 +56,7 @@ exports.config = function() {
 	var base = 'development';
 
 	return _override(
-		assign({}, env[base], env[process.env.NODE_ENV] || {}),
+		Object.assign({}, env[base], env[process.env.NODE_ENV] || {}),
 		overrides);
 };
 
@@ -100,7 +98,7 @@ exports.nodeConfigAsClientConfig = function(config, context) {
 
 	return {
 		html: '',
-		config: assign({}, config, {
+		config: Object.assign({}, config, {
 			username: context.username,
 			nodeInterface: dontUseMe,
 			/* jshint -W106 */

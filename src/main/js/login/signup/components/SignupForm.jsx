@@ -11,7 +11,7 @@ var Router = require('react-router-component');
 var NavigatableMixin = Router.NavigatableMixin;
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-var merge = require('react/lib/merge');
+
 var indexArrayByKey = require('dataserverinterface/utils/array-index-by-key');
 
 var Store = require('../Store');
@@ -57,7 +57,7 @@ var SignupForm = React.createClass({
 			return;
 		}
 		console.log('create account.');
-		var fields = merge(this.state.fieldValues, {realname: this._fullname()});
+		var fields = Object.assign(this.state.fieldValues, {realname: this._fullname()});
 
 		this.setState({ busy: true });
 
@@ -108,7 +108,7 @@ var SignupForm = React.createClass({
 		var target = event.target;
 		var field = target.name;
 		var value = target.value;
-		var tmp = merge({}, this.state.fieldValues);
+		var tmp = Object.assign({}, this.state.fieldValues);
 
 		if (!value && !tmp.hasOwnProperty(field)) {
 			return;

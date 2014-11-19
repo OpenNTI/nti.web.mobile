@@ -3,7 +3,7 @@
 var React = require('react/addons');
 
 var t = require('../../../locale').translate;
-var merge = require('react/lib/merge');
+
 var isFunction = require('dataserverinterface/utils/isfunction');
 
 module.exports = {
@@ -69,7 +69,7 @@ module.exports = {
 		var target = event.target;
 		var field = target.name;
 		var value = target.value;
-		var tmp = merge({}, this.state.fieldValues);
+		var tmp = Object.assign({}, this.state.fieldValues);
 
 		if (value || tmp.hasOwnProperty(field)) {
 			// don't set an empty value if there's not already

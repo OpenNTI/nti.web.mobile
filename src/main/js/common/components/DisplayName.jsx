@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 'use strict';
 
-var Promise = global.Promise || require('es6-promise').Promise;
 
 var React = require('react/addons');
 var getService = require('../Utils').getService;

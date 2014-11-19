@@ -6,7 +6,7 @@ var vtt = require("vtt.js"),//https://github.com/mozilla/vtt.js
 	VTTCue = vtt.VTTCue/*,
 	VTTRegion = vtt.VTTRegion*/;
 
-var Promise = global.Promise || require('es6-promise').Promise;
+
 var React = require('react/addons');
 
 var Model = require('dataserverinterface/models/Video');

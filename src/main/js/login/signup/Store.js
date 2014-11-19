@@ -2,7 +2,7 @@
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var merge = require('react/lib/merge');
+
 var Utils = require('common/Utils');
 var getServer = Utils.getServer;
 
@@ -11,8 +11,6 @@ var Actions = Constants.actions;
 
 var CHANGE_EVENT = 'change';
 var ERROR_EVENT = 'error';
-
-var Promise = global.Promise || require('es6-promise').Promise;
 
 var _fieldConfig = Object.freeze([
 	{
@@ -49,7 +47,7 @@ var _fieldConfig = Object.freeze([
 
 var _errors = [];
 
-var Store = merge(EventEmitter.prototype, {
+var Store = Object.assign(EventEmitter.prototype, {
 
 	emitChange: function(evt) {
 		console.log('Store: emitting change');

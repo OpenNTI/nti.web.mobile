@@ -1,7 +1,6 @@
 'use strict';
 
 var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
 
 var CHANGE_EVENT = 'visibilitychange';
 var views = 0;
@@ -34,7 +33,7 @@ var propertyName = prefix === '' ? 'hidden' : (prefix + 'Hidden');
 
 function VisibilityMonitor(){}
 
-assign(VisibilityMonitor.prototype, EventEmitter.prototype, {
+Object.assign(VisibilityMonitor.prototype, EventEmitter.prototype, {
 	getViews: function() {return views;},
 
 	addChangeListener: function(callback) {

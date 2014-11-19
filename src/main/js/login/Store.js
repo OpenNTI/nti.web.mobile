@@ -1,9 +1,9 @@
 'use strict';
 
-var Promise = global.Promise || require('es6-promise').Promise;
+
 var Url = require('url');
 
-var merge = require('react/lib/merge');
+
 var invariant = require('react/lib/invariant');
 var EventEmitter = require('events').EventEmitter;
 
@@ -29,7 +29,7 @@ var _links = {};
 var _isLoggedIn = false;
 
 
-var LoginStore = merge(EventEmitter.prototype, {
+var LoginStore = Object.assign(EventEmitter.prototype, {
 
 	emitChange: function(evt) {
 		this.emit(CHANGE_EVENT, evt);

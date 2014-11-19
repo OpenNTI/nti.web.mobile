@@ -11,7 +11,7 @@ var Constants = require('../Constants');
 
 var Actions = require('../Actions');
 var Router = require('react-router-component');
-var merge = require('react/lib/merge');
+
 
 var _fields = {
 	password: [
@@ -67,7 +67,7 @@ module.exports = React.createClass({
 	_inputChanged: function(event) {
 		var newState = {};
 		newState[event.target.name] = event.target.value;
-		var tmp = merge(this.state.fieldValues, newState);
+		var tmp = Object.assign(this.state.fieldValues, newState);
 		this.setState({
 			fieldValues: tmp
 		});

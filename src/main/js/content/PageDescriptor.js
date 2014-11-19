@@ -1,7 +1,6 @@
 'use strict';
 
 var define = require('dataserverinterface/utils/object-define-hidden-props');
-var assign = require('object-assign');
 
 var Utils = require('common/Utils');
 
@@ -20,11 +19,11 @@ function PageDescriptor(ntiid, data) {
 	delete data.content;
 	delete data.body;
 
-	assign(this, data);
+	Object.assign(this, data);
 }
 
 
-assign(PageDescriptor.prototype, {
+Object.assign(PageDescriptor.prototype, {
 	getID: function() {return this.ntiid;},
 
 

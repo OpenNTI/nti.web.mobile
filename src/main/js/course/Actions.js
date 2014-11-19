@@ -1,8 +1,8 @@
 'use strict';
 /** @module course/Actions */
-var Promise = global.Promise || require('es6-promise').Promise;
 
-var merge = require('react/lib/merge');
+
+
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
@@ -63,7 +63,7 @@ function _publishNavFor(courseEnrollment) {
 /**
  * Actions available to views for course-related functionality.
  */
-module.exports = merge(EventEmitter.prototype, {
+module.exports = Object.assign(EventEmitter.prototype, {
 
 	setCourse: function(courseId) {
 		if(!courseId) {

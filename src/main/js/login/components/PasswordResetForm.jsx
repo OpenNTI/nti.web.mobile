@@ -4,7 +4,7 @@
 var React = require('react/addons');
 var t = require('common/locale').scoped('LOGIN.forgot');
 var Button = require('./Button');
-var merge = require('react/lib/merge');
+
 var Actions = require('../Actions');
 
 var _fields = [
@@ -76,7 +76,7 @@ var PasswordResetForm = React.createClass({
 	_inputChanged: function(event) {
 		var newState = {};
 		newState[event.target.name] = event.target.value;
-		var tmp = merge(this.state.fieldValues, newState);
+		var tmp = Object.assign(this.state.fieldValues, newState);
 		this.setState({
 			fieldValues: tmp
 		});

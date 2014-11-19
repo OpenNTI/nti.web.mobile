@@ -1,6 +1,6 @@
 'use strict';
 
-var merge = require('react/lib/merge');
+
 
 var EventEmitter = require('events').EventEmitter;
 
@@ -12,7 +12,7 @@ var OrderedMap = require('common/collections').OrderedMap;
 var _nav = new OrderedMap();
 var _isLoading = false;
 
-var Store = merge(EventEmitter.prototype, {
+var Store = Object.assign(EventEmitter.prototype, {
 	displayName: 'navigation.Store',
 
 	getNav: function() {

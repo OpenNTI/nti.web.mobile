@@ -1,6 +1,6 @@
 'use strict';
 /** @module notifications/Actions */
-var merge = require('react/lib/merge');
+
 var EventEmitter = require('events').EventEmitter;
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
@@ -12,7 +12,7 @@ var Constants = require('./Constants');
 /**
  * Actions available to views for notification-related functionality.
  */
-module.exports = merge(EventEmitter.prototype, {
+module.exports = Object.assign(EventEmitter.prototype, {
 
 	load: function() {
 		Api.load()

@@ -5,14 +5,14 @@ var Url = require('url');
 
 var Environment = require('react-router-component').environment.defaultEnvironment;
 var EventEmitter = require('events').EventEmitter;
-var merge = require('react/lib/merge');
+
 var Store = require('./Store');
 
 
 /**
  * Actions available to views for navigation-related functionality.
  **/
-module.exports = merge(EventEmitter.prototype, {
+module.exports = Object.assign(EventEmitter.prototype, {
 
 	navigate: function(href, replace) {
 		console.log('navigation.Actions::navigate', href, !!replace);

@@ -6,8 +6,6 @@ var EventEmitter = require('events').EventEmitter;
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 
-var assign = require('object-assign');
-
 var Constants = require('./Constants');
 
 var data = {};
@@ -23,7 +21,7 @@ function getMainSubmittable(o){
 }
 
 
-var Store = assign(EventEmitter.prototype, {
+var Store = Object.assign(EventEmitter.prototype, {
 	displayName: 'assessment.Store',
 	_maxListeners: 0, //unlimited
 

@@ -1,6 +1,6 @@
 'use strict';
 /** @module catalog/Actions */
-var merge = require('react/lib/merge');
+
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
@@ -11,7 +11,7 @@ var Constants = require('./Constants');
 /**
  * Actions available to views for catalog-related functionality.
  */
-module.exports = merge(EventEmitter.prototype, {
+module.exports = Object.assign(EventEmitter.prototype, {
 
 	reload: function() {
 		this.loadCatalog(true);

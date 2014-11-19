@@ -2,7 +2,7 @@
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var merge = require('react/lib/merge');
+
 //var Actions = require('./Actions');
 var Constants = require('./Constants');
 
@@ -10,7 +10,7 @@ var CHANGE_EVENT = 'change';
 
 var _data = {};
 
-var Store = merge(EventEmitter.prototype, {
+var Store = Object.assign(EventEmitter.prototype, {
 	displayName: 'library.Store',
 
 	emitChange: function(evt) {

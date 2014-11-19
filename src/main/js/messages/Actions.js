@@ -1,6 +1,6 @@
 'use strict';
 
-var merge = require('react/lib/merge');
+
 var EventEmitter = require('events').EventEmitter;
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
@@ -14,7 +14,7 @@ var Message = require('./Message');
 /**
  * Actions available to views for alerts/messages related functionality.
  **/
-module.exports = merge(EventEmitter.prototype, {
+module.exports = Object.assign(EventEmitter.prototype, {
 
 	addMessage: function(message) {
 		if (!(message instanceof Message)) {

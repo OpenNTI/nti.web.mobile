@@ -9,12 +9,12 @@ var Constants = require('./Constants');
 var Actions = Constants.actions;
 var Events = Constants.events;
 
-var merge = require('react/lib/merge');
+
 
 var _messages = {};
 
 
-var Store = merge(EventEmitter.prototype, {
+var Store = Object.assign(EventEmitter.prototype, {
 
 	emitChange: function() {
 		this.emit(Events.MESSAGES_CHANGE, this.messages());

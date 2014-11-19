@@ -1,7 +1,7 @@
 'use strict';
 
 var EventEmitter = require('events').EventEmitter;
-var merge = require('react/lib/merge');
+
 var Constants = require('./Constants');
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var Utils = require('common/Utils');
@@ -9,7 +9,6 @@ var autobind = require('dataserverinterface/utils/autobind');
 var queue = [];
 var postFrequency = 10000;
 var timeoutId;
-var Promise = global.Promise || require('es6-promise').Promise;
 
 function startTimer() {
 	clearTimeout(timeoutId);
@@ -22,7 +21,7 @@ function startTimer() {
 	);
 }
 
-var Store = autobind(merge(EventEmitter.prototype, {
+var Store = autobind(Object.assign(EventEmitter.prototype, {
 
 
 	init: function() {

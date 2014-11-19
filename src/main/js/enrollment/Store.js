@@ -2,7 +2,7 @@
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var merge = require('react/lib/merge');
+
 
 var Constants = require('./Constants');
 var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
@@ -11,7 +11,7 @@ var getService = require('common/Utils').getService;
 
 var _enrollmentStatus = {};
 
-var Store = merge(EventEmitter.prototype, {
+var Store = Object.assign(EventEmitter.prototype, {
 	displayName: 'enrollment.Store',
 
 	emitChange: function(evt) {

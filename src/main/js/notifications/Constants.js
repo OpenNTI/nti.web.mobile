@@ -3,11 +3,11 @@
  * Constants related to (and used by) the notification modules.
  * @class Constants
  */
-var merge = require('react/lib/merge');
+
 var keyMirror = require('react/lib/keyMirror');
 
 
-module.exports = merge(exports, keyMirror({
+module.exports = Object.assign(exports, keyMirror({
 
 	/**
 	 *

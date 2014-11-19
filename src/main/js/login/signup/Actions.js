@@ -4,14 +4,14 @@
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var ActionConstants = require('./Constants').actions;
 var EventEmitter = require('events').EventEmitter;
-var merge = require('react/lib/merge');
+
 
 var bufferTime = 500;
 
 /**
  * Actions available to views for login-related functionality.
  **/
-module.exports = merge(EventEmitter.prototype, {
+module.exports = Object.assign(EventEmitter.prototype, {
 
 	/**
 	* Fired in response to user changes on the form.

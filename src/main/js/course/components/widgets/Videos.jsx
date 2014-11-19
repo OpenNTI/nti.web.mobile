@@ -2,7 +2,7 @@
 'use strict';
 var React = require('react/addons');
 
-var merge = require('react/lib/merge');
+
 
 var WidgetsMixin = require('./Mixin');
 
@@ -211,7 +211,7 @@ module.exports = React.createClass({
 
 				// console.debug('Touch move... %d %d %d', startPixelOffset, pixelOffset, delta);
 				me.setState({
-					touch: merge(state.touch, {
+					touch: Object.assign(state.touch, {
 						delta: delta,
 						pixelOffset: pixelOffset,
 						startPixelOffset: startPixelOffset,

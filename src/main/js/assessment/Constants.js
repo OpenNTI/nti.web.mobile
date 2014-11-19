@@ -4,11 +4,9 @@
  * @class assessment.Constants
  */
 
-var assign = require('object-assign');
-
 var keyMirror = require('react/lib/keyMirror');
 
-module.exports = assign(exports, keyMirror({
+module.exports = Object.assign(exports, keyMirror({
 
 	INTERACTED: null,
 

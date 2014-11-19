@@ -1,5 +1,6 @@
 'use strict';
 /* global FastClick */
+require('dataserverinterface/polyfills');
 
 var React = require('react/addons');
 var Utils = require('common/Utils');

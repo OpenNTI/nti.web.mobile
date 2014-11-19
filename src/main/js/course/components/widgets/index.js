@@ -1,7 +1,5 @@
 'use strict';
 
-var assign = require('object-assign');
-
 
 var Unknown = require('./Unknown');
 var Topic = require('./Topic');
@@ -28,7 +26,7 @@ function getItemHandler(item, index, list, props) {
 	}
 
 	return (!Item.canRender || Item.canRender(item, (props || {}).node)) &&
-	 	Item(assign({
+	 	Item(Object.assign({
 			key: item.NTIID || ('overview-' + item.MimeType + '-' + index),
 			item: item,
 			index: index,

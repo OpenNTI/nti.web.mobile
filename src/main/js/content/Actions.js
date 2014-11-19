@@ -1,8 +1,6 @@
 'use strict';
 /** @module content/Actions */
-var Promise = global.Promise || require('es6-promise').Promise;
 
-var merge = require('react/lib/merge');
 
 var Utils = require('common/Utils');
 var DomUtils = Utils.Dom;
@@ -43,7 +41,7 @@ var WIDGET_SELECTORS_AND_STRATEGIES = {
 /**
  * Actions available to views for content-related functionality.
  */
-module.exports = merge(EventEmitter.prototype, {
+module.exports = Object.assign(EventEmitter.prototype, {
 
 	/**
 	 *	@param {String} Content Page NTIID
@@ -133,7 +131,7 @@ function processContent(packet) {
 		return part;
 	});
 
-	return merge(packet, {
+	return Object.assign(packet, {
 		content: body.innerHTML,
 		body: bodyParts,
 		styles: styles,
