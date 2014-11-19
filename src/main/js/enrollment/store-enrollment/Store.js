@@ -107,6 +107,7 @@ function _submitPayment(formData) {
 			var type = (result||{}).State === 'Success' ? Constants.STRIPE_PAYMENT_SUCCESS : Constants.STRIPE_PAYMENT_FAILURE;
 			if (type === Constants.STRIPE_PAYMENT_SUCCESS) {
 				_paymentFormData = {}; //
+				_stripeToken = null;
 			}
 			Store.emitChange({
 				type: type,
