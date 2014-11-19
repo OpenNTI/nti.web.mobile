@@ -112,7 +112,7 @@ app.get('*', function(req, res) {
 /* jshint -W098 */	// We need the signature to be 4 args long
 					// for express to treat it as a error handler
 app.use(function(err, req, res, next){
-	console.error(err.stack);
+	console.error(err.stack || err);
 	res.status(500).send('Oops! Something broke!'); });
 
 //Go!
