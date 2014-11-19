@@ -77,6 +77,7 @@ app.use(require('./no-cache'));
 
 api.registerAnonymousEndPoints(app, config);
 
+app.use(/^\/login.*/,session.anonymousMiddleware.bind(session));
 app.use(/^(?!\/login).*/,session.middleware.bind(session));
 
 api.registerAuthenticationRequiredEndPoints(app, config);
