@@ -22,8 +22,8 @@ var appPackages = {
 var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
 
 var commonLoaders = [
-    { test: /\.js$/, loader: 'jsx' },
-    { test: /\.jsx$/, loader: 'jsx' },
+    { test: /\.js$/, loader: 'jsx?stripTypes&harmony' },
+    { test: /\.jsx$/, loader: 'jsx?stripTypes&harmony' },
     { test: /\.json$/, loader: 'json' },
 
     { test: /\.ico$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/ico' },
