@@ -149,7 +149,7 @@ function _preflight(fields) {
 		if (!fieldsMatch(fields.password, fields.password2)) {
 			Store._addError({
 				field: 'password2',
-				message: 'Passwords do not match'
+				message: 'Passwords do not match.'
 			});
 		}
 	}
