@@ -149,7 +149,7 @@ var SignupForm = React.createClass({
 
 		return (
 			<div className="row">
-				<form className="create-account-form medium-6 medium-centered columns" onSubmit={this._handleSubmit}>
+				<form autoComplete="off" className="create-account-form medium-6 medium-centered columns" onSubmit={this._handleSubmit}>
 					<fieldset>
 						<legend>Create Account</legend>
 						{fields.map(fieldRenderFn)}
