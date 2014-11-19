@@ -107,8 +107,6 @@ var DropCourseDialog = React.createClass({
 
 	render: function() {
 
-		console.debug('drop course render. %O', this.state);
-
 		if (this.state.loading) {
 			return <Loading />;
 		}
