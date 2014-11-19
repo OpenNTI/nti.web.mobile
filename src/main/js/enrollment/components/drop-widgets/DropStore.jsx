@@ -9,14 +9,10 @@ var PanelButton = require('common/components/PanelButton');
 
 var DropStore = React.createClass({
 
-	_cancelClicked: function() {
-		history.back();
-	},
-
 	render: function() {
 		return (
 			<div className="column">
-				<PanelButton linkText="Okay" buttonClick={this._cancelClicked}>
+				<PanelButton linkText="Okay" href="../../">
 					Please contact support to drop this course.
 				</PanelButton>
 			</div>
