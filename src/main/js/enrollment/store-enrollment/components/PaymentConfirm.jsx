@@ -4,16 +4,12 @@
 
 'use strict';
 
-// we're naming fields to line up with the stripe api which uses lowercase
-// with underscores (e.g. exp_month vs. expMonth) so don't enforce camel case
-// in this file.
-/* jshint camelcase:false */
-
 var React = require('react/addons');
 var Store = require('../Store');
 var Actions = require('../Actions');
 var PanelButton = require('common/components/PanelButton');
 var Loading = require('common/components/Loading');
+var BillingInfo = require('./BillingInfo');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
 var t = require('common/locale').translate;
 
@@ -42,25 +38,6 @@ var PaymentConfirm = React.createClass({
 
 	_getStripeToken: function() {
 		return _stripeToken;
-	},
-
-	_renderBillingInfo: function() {
-		var card = _stripeToken.card;
-
-		return (
-			<fieldset>
-				<div>{card.name}</div>
-				<div>{card.address_line1}</div>
-				{card.address_line2 ? <div>{card.address_line2}</div> : null}
-				<div>{card.address_city}, {card.address_state} {card.address_zip}</div>
-				<div>**** **** **** {card.last4} ({card.exp_month}/{card.exp_year})</div>
-				<a href='../'>edit</a>
-			</fieldset>
-		);
-
-		// return _billingFields.map(function(fieldname) {
-		// 	return (<div>{card[fieldname]}</div>);
-		// });
 	},
 
 	_submitPayment: function(event) {
@@ -94,7 +71,7 @@ var PaymentConfirm = React.createClass({
 			<div className="row">
 				<PanelButton className="column" buttonClick={this._submitPayment} linkText="Submit Payment">
 					<h2>Confirm payment</h2>
-					{this._renderBillingInfo()}
+					<BillingInfo card={_stripeToken.card} />
 					<p>Clicking submit will charge your card {price} and enroll you in the course.</p>
 					
 				</PanelButton>
