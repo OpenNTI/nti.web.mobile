@@ -2,6 +2,17 @@
 
 var injected = {};
 
+function exists(parent, key) {
+	var parts = key.split('.'),
+		part = parts.splice(0, 1)[0];
+
+	if (!part) { return true; }
+
+	parent = parent[part];
+
+	return parent && exists(parent, parts.join('.'));
+}
+
 module.exports = {
 
 	injectScript: function(scriptUrl, shouldDefineSymbole) {
@@ -23,7 +34,7 @@ module.exports = {
 
 				script.onload = function() {
 
-					if (shouldDefineSymbole && !global[shouldDefineSymbole]) {
+					if (shouldDefineSymbole && !exists(global, shouldDefineSymbole)) {
 						return reject('Loaded, but expected interface was not found: "%s"', shouldDefineSymbole);
 					}
 
