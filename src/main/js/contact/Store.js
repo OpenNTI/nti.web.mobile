@@ -21,7 +21,6 @@ function sendMessage() {
 }
 
 AppDispatcher.register(function(payload) {
-    debugger;
     var action = payload.action;
     switch(action.type) {
         case Constants.SEND_MESSAGE:
