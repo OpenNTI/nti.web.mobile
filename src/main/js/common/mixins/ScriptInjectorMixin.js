@@ -6,7 +6,7 @@ module.exports = {
 
 	injectScript: function(scriptUrl, shouldDefineSymbole) {
 
-		if (injected[shouldDefineSymbole]) {
+		if (!injected[shouldDefineSymbole]) {
 			injected[shouldDefineSymbole] = new Promise(function(fullfill,reject) {
 
 				var script = document.createElement('script');
