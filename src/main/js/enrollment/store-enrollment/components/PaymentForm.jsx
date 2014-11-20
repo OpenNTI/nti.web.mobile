@@ -77,23 +77,25 @@ var Form = React.createClass({
 	_validate: function() {
 		var errors = {};
 		var fieldValues = this.state.fieldValues||{};
-		_fieldConfig.forEach(function(field) {
-			if (field.required) {
-				var value = (fieldValues[field.ref]||'');
-				if (value.trim().length === 0) {
-					errors[field.ref] = {
-						// no message property because we don't want the 'required' message
-						// repeated for every required field...
+		_fieldConfig.forEach(function(fieldset) {
+			fieldset.fields.forEach(function(field) {
+				if (field.required) {
+					var value = (fieldValues[field.ref]||'');
+					if (value.trim().length === 0) {
+						errors[field.ref] = {
+							// no message property because we don't want the 'required' message
+							// repeated for every required field...
 
-						// ...but we still want an entry for this ref so the field gets flagged
-						// as invalid.
-						error: t2('requiredField')
-					};
-					errors.required = {
-						message: t2('incompleteForm')
-					};
-				}
-			}
+							// ...but we still want an entry for this ref so the field gets flagged
+							// as invalid.
+							error: t2('requiredField')
+						};
+						errors.required = {
+							message: t2('incompleteForm')
+						};
+					}
+				}	
+			});
 		});
 
 		var number = (this.state.fieldValues.number||'');
