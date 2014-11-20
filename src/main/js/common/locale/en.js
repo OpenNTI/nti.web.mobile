@@ -90,7 +90,10 @@ module.exports = {
 		invalidCVC: 'CVC is invalid.',
 
 		enrollmentNotRefundable: 'Enrollment is not refundable.',
+
 		enrollAsLifelongLearner: 'Enroll as a Lifelong Learner.',
+		enrollAsLifelongLearnerWithPrice: 'Enroll as a Lifelong Learner: %(price)s',
+
 		NO_STRIPE_TOKEN: 'Utoh. Couldn\'t find payment info. (This can occur if you navigate to the confirmation view directly or if you reload.)'
 	},
 

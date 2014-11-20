@@ -161,7 +161,7 @@ var Form = React.createClass({
 			cssClasses.push('busy');
 		}
 
-		var subhead = t2('enrollAsLifelongLearner').concat(': ', price);
+		var subhead = t2('enrollAsLifelongLearnerWithPrice', {price: price});
 
 		return (
 			<FormPanel onSubmit={this._handleSubmit} title={title} subhead={subhead}>
