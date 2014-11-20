@@ -25,9 +25,14 @@ module.exports = {
 		var err = (state.errors||{})[field.ref];
 		var cssClass = err ? ['error'] : [];
 		var tr = translator||t;
+		var type = field.type;
 
 		if(field.required) {
 			cssClass.push('required');
+		}
+
+		if (!type || type === 'number') {
+			type = 'text';
 		}
 
 		var ref = field.ref;
@@ -60,7 +65,7 @@ module.exports = {
 					placeholder: tr(ref,translateOptions),
 					className: cssClass.join(' '),
 					defaultValue: (values||{})[ref],
-					type: (field.type||'text'),
+					type: type,
 					pattern: field.type === 'number' && '[0-9]*'
 				})
 			)
