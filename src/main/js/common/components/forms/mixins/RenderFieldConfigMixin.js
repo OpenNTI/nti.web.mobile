@@ -60,7 +60,8 @@ module.exports = {
 					placeholder: tr(ref,translateOptions),
 					className: cssClass.join(' '),
 					defaultValue: (values||{})[ref],
-					type: (field.type||'text')
+					type: (field.type||'text'),
+					pattern: field.type === 'number' && '[0-9]*'
 				})
 			)
 		);

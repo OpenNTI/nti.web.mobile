@@ -12,21 +12,25 @@ module.exports = Object.freeze([
 			},
 			{
 				ref: 'number', // this is the name expected by the stripe api and returned by Stripe.getToken().
+				type: 'number',
 				placeholder: '1234 1234 1234 1234',
 				required: true
 			},
 			{
 				ref: 'exp_month', // this is the name expected by the stripe api and returned by Stripe.getToken().
+				type: 'number',
 				placeholder: 'MM',
 				required: true
 			},
 			{
 				ref: 'exp_year', // this is the name expected by the stripe api and returned by Stripe.getToken().
+				type: 'number',
 				placeholder: 'YY',
 				required: true
 			},
 			{
 				ref: 'cvc', // this is the name expected by the stripe api and returned by Stripe.getToken().
+				type: 'number',
 				placeholder: 'CVC',
 				required: true
 			},
