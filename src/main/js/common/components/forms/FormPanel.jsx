@@ -11,6 +11,12 @@ var FormPanel = React.createClass({
 
 	mixins: [RenderField],
 
+	getDefaultProps: function() {
+		return {
+			noValidate: true
+		};
+	},
+
 	render: function() {
 
 		var cssClasses = ['row'];
@@ -21,7 +27,7 @@ var FormPanel = React.createClass({
 
 		return (
 			<div className={cssClasses.join(' ')}>
-				<form className="store-enrollment-form medium-6 medium-centered columns" onSubmit={this.props.onSubmit}>
+				<form className="store-enrollment-form medium-6 medium-centered columns" onSubmit={this.props.onSubmit} noValidate={this.props.noValidate}>
 					<div className="column" key="heading">
 						<h2>{this.props.title}</h2>
 						<p>{this.props.subhead}</p>
