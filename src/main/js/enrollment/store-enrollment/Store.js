@@ -56,7 +56,10 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	getPaymentFormData: function() {
-		return Object.assign({},_paymentFormData);
+		var data = Object.assign({},_paymentFormData);
+		// don't repopulate credit card number
+		delete data.number;
+		return data;
 	},
 
 	getPaymentResult: function() {
