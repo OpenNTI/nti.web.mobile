@@ -38,12 +38,21 @@ module.exports = {
 			fallback: ''
 		};
 
+		var input;
+		switch(field.type) {
+			case 'textarea':
+				input = React.DOM.textarea;
+			break;
+			default:
+				input = React.DOM.input;
+		}
+
 		return (
 			React.DOM.div(
 				{
 					key: ref
 				},
-				React.DOM.input({
+				input({
 					ref: ref,
 					value: (values||{}).ref,
 					name: ref,
