@@ -13,18 +13,24 @@ var INVALIDATION_EVENTS = {
 	DROP_COURSE: true,
 	ENROLL_5M: true,
 	ENROLL_OPEN: true,
-	ENROLL_STORE: true
+	ENROLL_STORE: true,
+	STRIPE_PAYMENT_SUCCESS: true
 };
 
-
+function _getType(event) {
+	return event && (event.type || (event.action||{}).type);
+}
 
 function _flush(event) {
-	if (!event || !event.action) {
+
+	var type = _getType(event);
+
+	if (!type) {
 		console.debug('InvalidationListener: ignoring unknown event: %o', event);
 		return;
 	}
 
-	var act = INVALIDATION_EVENTS[event.action.type];
+	var act = INVALIDATION_EVENTS[type];
 
 	if (!act) {
 		console.debug('InvalidationListener: ignoring non-invalidation event: %o', event);
