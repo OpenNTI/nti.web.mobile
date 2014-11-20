@@ -5,7 +5,6 @@ var React = require('react/addons');
 var t = require('../../../locale').translate;
 
 var isFunction = require('dataserverinterface/utils/isfunction');
-var guid = require('dataserverinterface/utils/guid');
 
 module.exports = {
 
@@ -67,14 +66,20 @@ module.exports = {
 		);
 	},
 
-	renderFieldset: function(translator, values, fieldset) {
+	renderFieldset: function(translator, values, fieldset, index) {
 
 		var fieldRenderFn = this.renderField.bind(null, translator, values);
 		var fields = fieldset.fields.map(fieldRenderFn);
 		var legend = React.DOM.legend({key: 'legend'}, fieldset.title);
 
-		var key = 'fieldset-'.concat(guid());
+		var key = 'fieldset-'.concat(index);
 		return React.DOM.fieldset({key: key}, [legend, fields]);
+	},
+
+	renderFormConfig: function(config, values, translator) {
+		return config.map(function(fieldset, index) {
+			return this.renderFieldset(translator, values, fieldset, index);
+		}.bind(this));
 	},
 
     _onFocus: function(event) {

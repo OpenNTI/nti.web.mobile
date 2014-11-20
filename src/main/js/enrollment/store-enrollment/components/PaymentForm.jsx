@@ -152,7 +152,6 @@ var Form = React.createClass({
 
 		var purch = this.props.purchasable;
 		var price = this.getFormattedPrice(purch.Currency, purch.Amount);
-		var fieldsetRenderFn = this.renderFieldset.bind(null,t,this.state.fieldValues);
 		var title = purch.Name||null;
 		var state = this.state;
 		var cssClasses = ['row'];
@@ -163,9 +162,11 @@ var Form = React.createClass({
 
 		var subhead = t2('enrollAsLifelongLearnerWithPrice', {price: price});
 
+		var fields = this.renderFormConfig(_fieldConfig, state.fieldValues, t);
+
 		return (
 			<FormPanel onSubmit={this._handleSubmit} title={title} subhead={subhead}>
-				{_fieldConfig.map(fieldsetRenderFn)}
+				{fields}
 				<div className='errors' key="errors">
 					<ReactCSSTransitionGroup transitionName="messages">
 						{Object.keys(state.errors).map(

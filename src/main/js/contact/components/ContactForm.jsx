@@ -32,8 +32,7 @@ var ContactForm = React.createClass({
 
 	render: function() {
 
-		var fieldsetRenderFn = this.renderFieldset.bind(null,t,this.state.fieldValues);
-		var fields = this.props.fieldConfig.map(fieldsetRenderFn);
+		var fields = this.renderFormConfig(this.props.fieldConfig, this.state.fieldValues, t);
 
 		return (
 			<FormPanel onSubmit={this._handleSubmit}>
