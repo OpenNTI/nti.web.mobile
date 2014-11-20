@@ -59,6 +59,12 @@ module.exports = {
 		}
 	},
 
+	canDrop: function(catalogEntry) {
+		// we currently only support dropping open enrollment within the app.
+		var options = catalogEntry.EnrollmentOptions.Items||{};
+		return options.OpenEnrollment && options.OpenEnrollment.IsEnrolled;
+	},
+
 	enrollmentOptions: function(catalogEntry) {
 		var result = [];
 		if (!catalogEntry) {

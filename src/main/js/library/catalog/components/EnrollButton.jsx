@@ -25,7 +25,7 @@ var EnrollButton = React.createClass({
 
 	_button: function() {
 
-		if (this.state.enrolled) {
+		if (this.canDrop(this.props.catalogEntry)) {
 			// drop button
 			var href = Utils.getBasePath() + 'library/catalog/item/' + NTIID.encodeForURI(this.props.catalogEntry.getID()) + '/enrollment/drop/';
 			return <a href={href} className={buttonCss}>Drop This Course</a>;
@@ -35,6 +35,8 @@ var EnrollButton = React.createClass({
 			var href = this.makeHref('/enrollment/', true);
 			return <a href={href} className={buttonCss}>Enroll</a>;
 		}
+
+		return null;
 	},
 
 	render: function() {
