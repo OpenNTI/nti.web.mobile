@@ -66,7 +66,7 @@ module.exports = {
 					className: cssClass.join(' '),
 					defaultValue: (values||{})[ref],
 					type: type,
-					pattern: field.type === 'number' && '[0-9]*'
+					pattern: (field.type === 'number' && '[0-9]*') || null
 				})
 			)
 		);
