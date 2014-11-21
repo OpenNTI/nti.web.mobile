@@ -51,6 +51,7 @@ module.exports = React.createClass({
 		var formData = Store.getPaymentFormData();
 
 		return {
+			agreed: false,
 			loading: true,
 			fieldValues: formData,
 			submitEnabled: true,
@@ -170,10 +171,9 @@ module.exports = React.createClass({
 	},
 
 
-	_onClick: function() {
+	getFormData: function () {
 		var i, refs = this.refs,
-			v, result = Object.assign({}, this.state.fieldValues),
-			stripeKey = this.props.purchasable.StripeConnectKey.PublicKey;
+			v, result = Object.assign({}, this.state.fieldValues);
 
 		for (i in refs) {
 			if (!refs.hasOwnProperty(i)) { continue; }
@@ -188,6 +188,23 @@ module.exports = React.createClass({
 			}
 
 		}
+
+		return result;
+	},
+
+
+	_onAgreementCheckedChange: function () {
+		var result = this.getFormData();
+
+		this.setState({
+			agreed: this._validate(result)
+		});
+	},
+
+
+	_onClick: function() {
+		var stripeKey = this.props.purchasable.StripeConnectKey.PublicKey;
+		var result = this.getFormData();
 
 		if (this._validate(result)) {
 			Actions.verifyBillingInfo(stripeKey, result);
@@ -288,6 +305,13 @@ module.exports = React.createClass({
 						return (err.message ? <small key={ref} className='error'>{err.message}</small> : null);
 					})}
 					</ReactCSSTransitionGroup>
+				</div>
+
+				<div className="agreement">
+					<label>
+						<input type="checkbox" name="agree" checked={this.state.agreed} onChange={this._onAgreementCheckedChange}/>
+						{_t("agreeToTerms")}
+					</label>
 				</div>
 
 				<div className="button-row">
