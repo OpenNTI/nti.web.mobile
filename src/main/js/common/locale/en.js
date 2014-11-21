@@ -110,7 +110,11 @@ module.exports = {
 				invalidCoupon: 'Invalid Coupon',
 				validCoupon: 'Coupon Accepted: %(discount)s off',
 				noCoupon: 'No Coupon',
-				lockedCoupon: 'Coupon'
+				lockedCoupon: 'Coupon',
+				x_creditHours: {
+					one: '%(count)s Credit Hour',
+					other: '%(count)s Credit Hours'
+				}
 			},
 			SUCCESS: {
 				title: 'Gift Purchase Successful',

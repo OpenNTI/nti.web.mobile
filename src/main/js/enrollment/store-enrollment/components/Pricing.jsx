@@ -10,11 +10,12 @@ var Store = require('../Store');
 var Actions = require('../Actions');
 var Constants = require('../Constants');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
+var DateMixin = require('enrollment/mixins/Dates');
 
 module.exports = React.createClass({
 	displayName: 'Pricing',
 
-	mixins: [FormattedPriceMixin],
+	mixins: [FormattedPriceMixin, DateMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired
@@ -142,11 +143,11 @@ module.exports = React.createClass({
 
 
 	render: function() {
-
 		var type = 'Lifelong Learner - Gift';
-		var startDate = 'Start Date';
-		var endDate = 'End Date';
-		var creditHours= 'No College Credit';
+		var vendorInfo = this.props.purchasable.VendorInfo;
+		var startDate = this.getDate(vendorInfo && vendorInfo.StartDate);
+		var endDate = this.getDate(vendorInfo && vendorInfo.EndDate);
+		var creditHours= _t('x_creditHours', {count: (vendorInfo && vendorInfo.Hours) || 0});
 		var refund = _t('noRefunds');
 		var oldTotal = this.state.oldPrice && this.getFormattedPrice(this.state.currency, this.state.oldPrice);
 		var total = this.getFormattedPrice(this.state.currency, this.state.currentPrice || 0);
