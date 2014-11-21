@@ -85,7 +85,8 @@ module.exports = React.createClass({
 
 	getData: function() {
 		return {
-			coupon: this.state.coupon
+			coupon: this.state.coupon,
+			expectedPrice: this.state.currentPrice
 		};
 	},
 

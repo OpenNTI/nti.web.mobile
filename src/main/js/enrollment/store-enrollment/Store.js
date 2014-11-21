@@ -10,7 +10,7 @@ var Utils = require('common/Utils');
 
 
 var _stripeToken; // store the result of a Stripe.getToken() call
-var _coupon;
+var _pricing;
 var _giftInfo;
 var _paymentFormData = {}; // store cc info so we can repopulate the form if the user navigates back from the confirmation view.
 var _paymentResult;
@@ -58,8 +58,8 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		return Object.assign({},_stripeToken);
 	},
 
-	getCoupon: function() {
-		return _coupon;
+	getPricing: function() {
+		return _pricing;
 	},
 
 	getGiftInfo: function() {
@@ -99,7 +99,10 @@ function _pullData(data) {
 
 	var add = x => { if (data[x]) {result[x] = data[x]; } };
 
-	_coupon = data.coupon;
+	_pricing = {
+		coupon: data.coupon,
+		expected_price: data.expected_price
+	};
 
 	add('from');
 	add('to');
@@ -113,7 +116,7 @@ function _pullData(data) {
 function _verifyBillingInfo(data) {
 
 	_stripeToken = null; // reset
-	_coupon = null;
+	_pricing = null;
 	_giftInfo = null;
 	_paymentFormData = data.formData;
 

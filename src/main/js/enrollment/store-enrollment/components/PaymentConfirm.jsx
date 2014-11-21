@@ -15,7 +15,7 @@ var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
 var t = require('common/locale').translate;
 
 var _stripeToken;
-var _coupon;
+var _pricing;
 var _giftInfo;
 
 var PaymentConfirm = React.createClass({
@@ -25,7 +25,7 @@ var PaymentConfirm = React.createClass({
 	componentWillMount: function() {
 		try {
 			_stripeToken = Store.getStripeToken();
-			_coupon = Store.getCoupon();
+			_pricing = Store.getPricing();
 			_giftInfo = Store.getGiftInfo();
 		}
 		catch(e) {
@@ -45,8 +45,8 @@ var PaymentConfirm = React.createClass({
 		return _stripeToken;
 	},
 
-	_getCoupon: function() {
-		return _coupon;
+	_getPricing: function() {
+		return _pricing;
 	},
 
 	_getGiftInfo: function() {
@@ -61,7 +61,7 @@ var PaymentConfirm = React.createClass({
 		var payload = {
 			stripeToken: this._getStripeToken(),
 			purchasable: this.props.purchasable,
-			coupon: this._getCoupon(),
+			pricing: this._getPricing(),
 			giftInfo: this._getGiftInfo()
 		};
 		Actions.submitPayment(payload);
