@@ -80,15 +80,37 @@ module.exports = React.createClass({
 	},
 
 
-	_onChange: function(e) {
-		if (e.type === Constants.LOCK_SUBMIT) {
+	_onChange: function(event) {
+		var errors = this.state.error || {};
+		var key;
+
+		switch(event.type) {
+			case Constants.BILLING_INFO_REJECTED:
+				key = event.response.error.param;
+
+				if (/^exp_/i.test(key)) {
+					key = 'exp_';
+				}
+
+				errors[key] = event.response.error;
+				this.setState({
+					errors: errors,
+					busy: false
+				});
+				console.log(event);
+				break;
+
+		case Constants.LOCK_SUBMIT:
 			this.setState({
 				submitEnabled: false
 			});
-		} else if (e.type === Constants.UNLOCK_SUBMIT) {
+			break;
+
+		case Constants.UNLOCK_SUBMIT:
 			this.setState({
 				submitEnabled: true
 			});
+			break;
 		}
 	},
 
