@@ -5,6 +5,9 @@
 'use strict';
 
 var React = require('react/addons');
+
+var CourseContentLink = require('library/components/CourseContentLink');
+
 var GiftSuccess = require('./GiftSuccess');
 var EnrollmentSuccess = require('./EnrollmentSuccess');
 var Store = require('../Store');

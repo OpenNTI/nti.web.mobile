@@ -3,7 +3,6 @@
 'use strict';
 
 var React = require('react/addons');
-var moment = require('moment');
 
 var LocalizedHTML = require('common/components/LocalizedHTML');
 
@@ -23,7 +22,7 @@ module.exports = React.createClass({
 			infoKey = 'toName';
 		} else {
 			infoKey = 'toEmail';
-			email = email || purchaseAttempt.Creator
+			email = email || purchaseAttempt.Creator;
 		}
 
 		return (

@@ -42,6 +42,7 @@ module.exports = React.createClass({
 			return agg;
 		}, {});
 
+		/* jshint -W106 */
 		if (result.to_first_name) {
 			if (result.to_last_name) {
 				result.to = result.to_first_name + ' ' + result.to_last_name;
@@ -54,7 +55,7 @@ module.exports = React.createClass({
 
 		delete result.to_first_name;
 		delete result.to_last_name;
-
+		/* jshint +W106 */
 		return result;
 	},
 

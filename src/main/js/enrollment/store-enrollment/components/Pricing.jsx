@@ -157,7 +157,11 @@ module.exports = React.createClass({
 						</div>
 						<div className="coupon">
 							<span className={"label " + couponLabelCls}>{couponLabel}</span>
-							<input type="text" ref="coupon" name="coupon" placeholder={_t("couponPlaceholder")} onChange={this.onCouponChanged} value={this.state.coupon}/>
+							<input type="text"
+								ref="coupon" name="coupon" 
+								placeholder={_t("couponPlaceholder")}
+								onChange={this.onCouponChanged}
+								value={this.state.coupon}/>
 						</div>
 					</div>
 				</div>

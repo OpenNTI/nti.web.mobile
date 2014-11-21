@@ -13,7 +13,7 @@ module.exports = React.createClass({
 		var info = this.props.info;
 
 		if (!info || !info.from) {
-			return (<div/>)
+			return (<div/>);
 		}
 
 		return (

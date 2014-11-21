@@ -31,7 +31,7 @@ var PaymentConfirm = React.createClass({
 		catch(e) {
 			this.setState({
 				error: true
-			});	
+			});
 		}
 	},
 
@@ -80,7 +80,7 @@ var PaymentConfirm = React.createClass({
 		}
 
 		var purchasable = this.props.purchasable;
-		var price = this.getFormattedPrice(purchasable.Currency, purchasable.Amount)
+		var price = this.getFormattedPrice(purchasable.Currency, purchasable.Amount);
 		var edit = _giftInfo ? '../gift/' : '../';
 
 		return (
@@ -89,7 +89,7 @@ var PaymentConfirm = React.createClass({
 					<GiftInfo info={_giftInfo} edit={edit} />
 					<BillingInfo card={_stripeToken.card} edit={edit} />
 					<p>Clicking submit will charge your card {price} and enroll you in the course.</p>
-					
+
 				</PanelButton>
 			</div>
 		);

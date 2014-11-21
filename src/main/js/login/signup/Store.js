@@ -108,7 +108,7 @@ function _clientSidePreflight(fields) {
 				field: 'password2',
 				message: 'Passwords do not match.'
 			};
-			Store._addError(error)
+			Store._addError(error);
 			reject(error);
 			return;
 		}
@@ -128,7 +128,7 @@ function _serverSidePreflight(fields) {
 				var error = {
 					field: res.field,
 					message: res.message
-				}
+				};
 				Store._addError(error);
 			}
 			reject(result);

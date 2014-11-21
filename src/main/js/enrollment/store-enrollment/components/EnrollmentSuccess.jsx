@@ -7,7 +7,7 @@ var React = require('react/addons');
 var PanelButton = require('common/components/PanelButton');
 var CourseContentLink = require('library/components/CourseContentLink');
 
-var _t = require('common/locale');
+//var _t = require('common/locale');
 
 module.exports = React.createClass({
 	displayName: 'EnrollmentSuccess',
