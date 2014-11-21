@@ -1,16 +1,82 @@
-input.required {
-	border-left:2px solid gray;
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+input[type="color"],
+textarea {
+	border-color: $border-grey;
+	box-shadow: inset 0 0 0 0 $border-grey;
+
+	&.required {
+		box-shadow: inset 4px 0 0 0 $border-grey;
+	}
+
+	&.error {
+		border-color: $border-red;
+		border-left: inset 4px 0 0 0 $primary-red;
+	}
+
+	&:focus {
+		border-color: $border-blue !important;
+		box-shadow: inset 4px 0 0 0 $border-blue !important;
+	}
 }
+
 
 input.error,
 textarea.error,
 select.error {
-  margin-bottom: 1rem;
-  border-left: 2px solid $alert-color;
+	margin-bottom: 1rem;
 }
 
 .errors {
 	small.error {
 		border-radius: 2px;
+	}
+}
+
+label {
+	$iconPrefix: '../images/icons/checkbox-14';
+	$checkbox: 'input[type="checkbox"]';
+
+	& > #{$checkbox} {
+		position: absolute !important;
+		opacity: 0;//Cannot "display:none" nor "visibilitiy:hidden" or you cannot access it with tab/keyboard.
+
+		& + span {
+			line-height: 3;
+			padding-left: 1.5rem;
+			position: relative;
+
+			&::before {
+				content: '';
+				background-repeat: no-repeat;
+				background-position: center;
+				position: absolute;
+				top: 0.1rem;
+				left: 0;
+				width: 18px;
+				height: 18px;
+			}
+		}
+
+
+		& + span::before { background-image: url(#{$iconPrefix}.png); }
+		&:checked + span::before { background-image: url(#{$iconPrefix}_active.png); }
+	}
+
+	&:hover > #{$checkbox},
+	& > #{$checkbox}:focus,
+	& > #{$checkbox}:active {
+		&:not(:checked):not(.disabled) + span::before { background-image: url(#{$iconPrefix}_hover.png); }
 	}
 }
