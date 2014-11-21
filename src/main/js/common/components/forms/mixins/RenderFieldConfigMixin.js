@@ -51,6 +51,8 @@ module.exports = {
 				input = React.DOM.input;
 		}
 
+		var onChange = isFunction(this._inputChanged) ? this._inputChanged : null;
+
 		return (
 			React.DOM.div(
 				{
@@ -62,6 +64,7 @@ module.exports = {
 					name: ref,
 					onBlur: this._onBlur,
 					onFocus: this._onFocus,
+					onChange: onChange,
 					placeholder: tr(ref,translateOptions),
 					className: cssClass.join(' '),
 					defaultValue: (values||{})[ref],
