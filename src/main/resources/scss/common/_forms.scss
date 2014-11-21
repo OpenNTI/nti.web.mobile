@@ -18,16 +18,18 @@ textarea {
 
 	&.required {
 		box-shadow: inset 4px 0 0 0 $border-grey;
+		&:focus {
+			box-shadow: inset 4px 0 0 0 $border-blue !important;
+		}
 	}
 
 	&.error {
 		border-color: $border-red;
-		border-left: inset 4px 0 0 0 $primary-red;
+		border-left: inset 4px 0 0 0 $primary-red !important;
 	}
 
 	&:focus {
 		border-color: $border-blue !important;
-		box-shadow: inset 4px 0 0 0 $border-blue !important;
 	}
 }
 
