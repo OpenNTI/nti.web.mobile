@@ -34,11 +34,13 @@ var PanelButton = React.createClass({
 
 	render: function() {
 		return this.transferPropsTo(
-			<div className='panel-button column'>
-				<div className="panel radius">
-					{this.props.children}
+			<div className="row">
+				<div className='panel-button column'>
+					<div className="panel radius">
+						{this.props.children}
+					</div>
+					{this._button()}
 				</div>
-				{this._button()}
 			</div>
 		);
 	}
