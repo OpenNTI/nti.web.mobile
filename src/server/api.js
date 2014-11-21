@@ -34,6 +34,12 @@ var api = module.exports = autoBind({
 		var BODY_REGEX = /<body[^>]*>(.*)<\/body/i;
 		var url = this['user-agreement'] || throwError('No user-agreement url set');
 
+		if (/\/view/.test(req.url)) {
+			res.redirect(url);
+			return;
+		}
+
+
 		request(url, function(error, r, response) {
 			var body = BODY_REGEX.exec(response);
 
