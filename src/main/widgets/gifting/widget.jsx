@@ -8,6 +8,7 @@ var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
 var DefaultRoute = Router.NotFound;
+var CaptureClicks = require('react-router-component/lib/CaptureClicks');
 
 var getServer = require('common/Utils').getServer;
 
@@ -109,7 +110,7 @@ module.exports = React.createClass({
 		var purchasable = this.state.purchasable;
 
 		return (
-			<div>
+			<CaptureClicks environment={Router.environment.hashEnvironment}>
 				<ReactCSSTransitionGroup transitionName="loginforms">
 					<Locations hash ref="router">
 						<Location path="/confirm/" handler={Confirm} purchasable={purchasable}/>
@@ -120,7 +121,7 @@ module.exports = React.createClass({
 						<DefaultRoute handler={Form} purchasable={purchasable}/>
 					</Locations>
 				</ReactCSSTransitionGroup>
-			</div>
+			</CaptureClicks>
 		);
 	}
 });
