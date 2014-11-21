@@ -124,8 +124,8 @@ module.exports = {
 			storeenrollment: {
 				from: 'Email Address',
 				fromLabel: 'This is where we will send your purchase confirmation.',
-				name: 'Name',
-				number: 'Card number',
+				name: 'Name on Card',
+				number: '1234 1234 1234 1234',
 				exp_: 'MM / YY',
 				exp_month: 'MM',
 				exp_year: 'YY',
