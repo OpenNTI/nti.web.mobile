@@ -58,6 +58,7 @@ var View = React.createClass({
 	},
 
 	_onChange: function(event) {
+		var router = this.refs.router;
 		switch(event.type) {
 			case Constants.PRICED_ITEM_RECEIVED:
 				this.setState({
@@ -67,17 +68,15 @@ var View = React.createClass({
 			break;
 			
 			case Constants.BILLING_INFO_VERIFIED:
-				// FIXME: why isn't this path being evaluated within the 'store'
-				// router context? why do we have to include 'store'?
-				this.navigate('store/confirm/');
+				router.navigate('confirm/');
 			break;
 
 			case Constants.STRIPE_PAYMENT_SUCCESS:
-				this.navigate('store/success/');
+				router.navigate('success/');
 			break;
 
 			case Constants.STRIPE_PAYMENT_FAILURE:
-				this.navigate('store/error/');
+				router.navigate('error/');
 			break;
 		}
 	},
@@ -100,7 +99,7 @@ var View = React.createClass({
 			<div>
 				<ReactCSSTransitionGroup transitionName="loginforms">
 					<Locations contextual
-						key={this.getPath()}>
+						ref='router'>
 						<Location path="/confirm/" handler={PaymentConfirm} purchasable={purchasable}/>
 						<Location path="/success/" handler={PaymentSuccess} purchasable={purchasable} courseId={courseId} courseTitle={courseTitle}/>
 						<Location path="/error/" handler={PaymentError} purchasable={purchasable} courseTitle={courseTitle}/>
