@@ -128,47 +128,51 @@ module.exports = React.createClass({
 					<span className="sub">{_t("subType")}</span>
 					<span className="main">{type}</span>
 				</div>
-				<div className="info row">
+				<div className="info">
+					<div className="row">
+
+						<div className="small-6 medium-4 columns">
+							<div className="cell">
+								<span className="label">{_t("begins")}</span>
+								<span className="value">{startDate}</span>
+							</div>
+							<div className="cell">
+								<span className="label">{_t("ends")}</span>
+								<span className="value">{endDate}</span>
+							</div>
+						</div>
 
 
-					<div className="medium-4 columns">
-						<div>
-							<span className="label">{_t("begins")}</span>
-							<span className="value">{startDate}</span>
+						<div className="small-6 medium-4 columns">
+							<div className="cell">
+								<span className="label">{_t("hours")}</span>
+								<span className="value">{creditHours}</span>
+							</div>
+							<div className="cell">
+								<span className="label">{_t("refunds")}</span>
+								<span className="value red">{refund}</span>
+							</div>
 						</div>
-						<div>
-							<span className="label">{_t("ends")}</span>
-							<span className="value">{endDate}</span>
-						</div>
-					</div>
 
 
-					<div className="medium-4 columns">
-						<div>
-							<span className="label">{_t("hours")}</span>
-							<span className="value">{creditHours}</span>
+						<div className="small-12 medium-4 columns">
+							<div className="cell total">
+								<span className="label">{_t("total")}</span>
+								<span className="value">
+									{oldTotal? <span className="old-amount">{oldTotal}</span> : null}
+									<span className="amount">{total}</span>
+								</span>
+							</div>
+							<div className="cell coupon">
+								<span className={"label " + couponLabelCls}>{couponLabel}</span>
+								<input type="text"
+									ref="coupon" name="coupon"
+									placeholder={_t("couponPlaceholder")}
+									onChange={this.onCouponChanged}
+									value={this.state.coupon}/>
+							</div>
 						</div>
-						<div>
-							<span className="label">{_t("refunds")}</span>
-							<span className="value">{refund}</span>
-						</div>
-					</div>
 
-
-					<div className="medium-4 columns">
-						<div className="total">
-							<span className="label">{_t("total")}</span>
-							<span className="old-amount">{oldTotal}</span>
-							<span className="amount">{total}</span>
-						</div>
-						<div className="coupon">
-							<span className={"label " + couponLabelCls}>{couponLabel}</span>
-							<input type="text"
-								ref="coupon" name="coupon"
-								placeholder={_t("couponPlaceholder")}
-								onChange={this.onCouponChanged}
-								value={this.state.coupon}/>
-						</div>
 					</div>
 				</div>
 			</div>

@@ -6,19 +6,94 @@
 		.sub {
 			text-transform: uppercase;
 			color: $tertiary-grey;
-			font-size: 0.65rem;
+			font-size: 0.6rem;
 			font-weight: 700;
 			display: block;
 		}
 		.main {
+			display: block;
 			font-size: 1.5rem;
 			font-weight: 100;
+			margin-bottom: 1rem;
 		}
 	}
 
+	.cell {
+		display: block;
+		min-height: 5rem;
+	}
+
 	.info {
+		padding: 1rem 0.2rem;
 		background: $quad-grey;
-		box-shadow: inset 0 -1px 0 0 #eee;
+		box-shadow: inset 0 1px 0 0 #eee;
+
+		.label {
+			background: none;
+			color: $primary-grey;
+			display: block;
+			font-size: 0.6rem;
+			font-weight: 700;
+			line-height: 2.5;
+			padding: 0;
+			text-align: left;
+			text-transform: uppercase;
+
+			&.invalid {
+				color: $primary-red;
+			}
+			&.valid {
+				color: $secondary-green;
+			}
+		}
+
+		.value {
+			color: $primary-grey;
+			display: block;
+			font-size: 1.1rem;
+			font-weight: 400;
+
+			&.red {
+				color: $primary-red;
+			}
+
+			.old-amount {
+				color: $tertiary-grey;
+				text-decoration: line-through;
+				margin-right: 0.4em;
+			}
+
+			.amount {
+				color: $secondary-green;
+			}
+		}
+
+		input[type=text] {
+			max-width: 50vw;
+			position: relative;
+			height: auto;
+			padding: 0.4rem 0.5rem;
+			top: -0.2rem;
+		}
+	}
+}
+
+/* min-width 641px, medium screens */
+@media only screen and (min-width: 40.063em) {
+	.pricing-info {
+		.cell.total {
+			position: absolute;
+			top: -5.5rem;
+
+			.label {
+				color: $tertiary-grey;
+			}
+
+			.value {
+				font-size: 1.4rem;
+				font-weight: 600;
+			}
+		}
 	}
 }
 
