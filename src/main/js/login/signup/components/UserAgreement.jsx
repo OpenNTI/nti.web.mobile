@@ -5,6 +5,7 @@ var React = require('react/addons');
 var Store = require('../Store');
 var ErrorWidget = require('common/components/Error');
 var Loading = require('common/components/Loading');
+// var preventOverscroll = require('common/thirdparty/prevent-overscroll');
 
 var UserAgreement = React.createClass({
 
@@ -34,6 +35,7 @@ var UserAgreement = React.createClass({
 			content: result.body,
 			loading: false
 		});
+		// preventOverscroll(this.getDOMNode().querySelector('.agreement'));
 	},
 
 

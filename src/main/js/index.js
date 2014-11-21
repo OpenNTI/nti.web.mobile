@@ -4,7 +4,7 @@ require('dataserverinterface/polyfills');
 
 var React = require('react/addons');
 var Utils = require('common/Utils');
-var preventOverscroll = require('common/thirdparty/prevent-overscroll');
+// var preventOverscroll = require('common/thirdparty/prevent-overscroll');
 
 //Client code, injects script blocks into <HEAD> tag
 require('script!../resources/vendor/modernizr/modernizr.js');
@@ -35,7 +35,7 @@ FastClick.attach(document.body);
 React.initializeTouchEvents(true);
 
 
-preventOverscroll(document.body);
+// preventOverscroll(document.body);
 
 
 // if (("standalone" in navigator) && !navigator.standalone){

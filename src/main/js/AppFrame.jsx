@@ -12,7 +12,7 @@ var Footer = require('common/components/Footer');
 var MessageDisplay = require('messages').Display;
 var Utils = require('common/Utils');
 
-var preventOverscroll = require('common/thirdparty/prevent-overscroll');
+// var preventOverscroll = require('common/thirdparty/prevent-overscroll');
 
 var Analytics = require('analytics').Component;
 var LibraryInvalidationListener = require('library/components/InvalidationListener');
@@ -61,8 +61,8 @@ module.exports = React.createClass({
 
 	componentDidMount: function() {
 		Navigation.Store.addChangeListener(this._navChanged);
-		preventOverscroll(this.getDOMNode().querySelector('.left-off-canvas-menu'));
-		preventOverscroll(this.getDOMNode().querySelector('.right-off-canvas-menu'));
+		// preventOverscroll(this.getDOMNode().querySelector('.left-off-canvas-menu'));
+		// preventOverscroll(this.getDOMNode().querySelector('.right-off-canvas-menu'));
 	},
 
 

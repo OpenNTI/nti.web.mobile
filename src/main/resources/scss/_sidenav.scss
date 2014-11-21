@@ -1,3 +1,8 @@
+.left-off-canvas-menu,
+.right-off-canvas-menu {
+	-webkit-overflow-scrolling: touch;
+}
+
 ul.off-canvas-list {
 	font-family: $sidenav-font-family;
 	li a.navitem {
