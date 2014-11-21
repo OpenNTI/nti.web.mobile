@@ -14,8 +14,8 @@ module.exports = {
 		PasswordPlaceholder: 'Password',
 		UsernamePlaceholder: 'Username',
 		signup: {
-			submit:'Create Account',
-			link:'No account? Sign up.'
+			submit: 'Create Account',
+			link: 'No account? Sign up.'
 		},
 		oauth: {
 			login: 'Log in with %(service)s'
@@ -39,7 +39,7 @@ module.exports = {
 				Username: 'Username',
 				password: 'Password',
 				password2: 'Verify Password'
-			},
+			}
 		}
 	},
 
@@ -65,6 +65,40 @@ module.exports = {
 			drop: 'Drop this course',
 			viewCourse: 'View Course',
 			viewCatalog: 'View Catalog'
+		},
+		GIFT: {
+			HEADER: {
+				title: 'Gift Information',
+				description: 'If you would like for us to send a gift notification to the person for whom you are purchasing this course, ' +
+								'please enter their name and email below. Pricing information is not included in this notification.'
+			},
+			RECIPIENT: {
+				enable: 'Send a gift notification to:',
+				firstName: 'First Name',
+				lastName: 'Last Name',
+				email: 'Email Address',
+				message: 'Enter your message here...',
+				fromLabel: 'From:',
+				from: 'Your Name',
+				sendDate: 'This notification will be sent upon completion of purchase.'
+			},
+			PAYMENT: {
+				title: 'Payment Information',
+				sub: ''
+			},
+			PRICING: {
+				subType: 'Enrollment Type',
+				total: 'total',
+				begins: 'Course Begins',
+				ends: 'Course Ends',
+				hours: 'Credit Hours',
+				refunds: 'Refunds',
+				noRefunds: 'Not Refundable',
+				couponPlaceholder: 'Coupon Code',
+				coupon: 'I have a coupon',
+				invalidCoupon: 'Invalid Coupon',
+				validCoupon: 'Coupon Accepted: %(discount)s off'
+			}
 		},
 		forms: {
 			storeenrollment: {

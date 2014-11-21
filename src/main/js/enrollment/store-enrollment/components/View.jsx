@@ -14,6 +14,7 @@ var Loading = require('common/components/Loading');
 var Constants = require('../Constants');
 var Store = require('../Store');
 var Form = require('./PaymentForm');
+var GiftView = require('./GiftView');
 var PaymentSuccess = require('./PaymentSuccess');
 var PaymentError = require('./PaymentError');
 var ErrorComponent = require('common/components/Error');
@@ -103,6 +104,7 @@ var View = React.createClass({
 						<Location path="/confirm/" handler={PaymentConfirm} purchasable={purchasable}/>
 						<Location path="/success/" handler={PaymentSuccess} purchasable={purchasable} courseId={courseId} courseTitle={courseTitle}/>
 						<Location path="/error/" handler={PaymentError} purchasable={purchasable} courseTitle={courseTitle}/>
+						<Location path="/gift/" handler={GiftView} purchasable={purchasable} courseTitle={courseTitle}/>
 						<DefaultRoute handler={Form} purchasable={purchasable}/>
 					</Locations>
 				</ReactCSSTransitionGroup>

@@ -7,7 +7,7 @@ module.exports = {
 	verifyBillingInfo: function(stripePublicKey, formData) {
 		dispatch(
 			Constants.VERIFY_BILLING_INFO,
-			{	
+			{
 				stripePublicKey: stripePublicKey,
 				formData: formData
 			}
@@ -18,6 +18,14 @@ module.exports = {
 		dispatch(
 			Constants.SUBMIT_STRIPE_PAYMENT,
 			{formData: payload}
+		);
+	},
+
+
+	updateCoupon: function(purchasable, coupon) {
+		dispatch(
+			Constants.UPDATE_COUPON,
+			{purchasable: purchasable, coupon: coupon}
 		);
 	}
 };

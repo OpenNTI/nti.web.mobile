@@ -116,6 +116,29 @@ module.exports = {
 		if (isFunction(this._inputBlurred)) {
 			this._inputBlurred(event);
 		}
+	},
+
+	addFormatters: function() {
+		var i;
+		var ref;
+		var format;
+		var formatters = this.inputFormatters;
+
+		if (formatters) {
+			for (i in formatters) {
+				if (formatters.hasOwnProperty(i)) {
+					ref = this.refs[i];
+
+					if (!ref || !ref.isMounted()) { continue; }
+
+					format = formatters[i];
+
+					if (isFunction(format)) {
+						format(ref.getDOMNode());
+					}
+				}
+			}
+		}
 	}
 
 };

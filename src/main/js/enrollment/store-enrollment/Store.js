@@ -10,8 +10,11 @@ var Utils = require('common/Utils');
 
 
 var _stripeToken; // store the result of a Stripe.getToken() call
+var _coupon;
+var _giftInfo;
 var _paymentFormData = {}; // store cc info so we can repopulate the form if the user navigates back from the confirmation view.
 var _paymentResult;
+var _couponTimeout;
 
 var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'store-enrollment.Store',
@@ -55,6 +58,14 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		return Object.assign({},_stripeToken);
 	},
 
+	getCoupon: function() {
+		return _coupon;
+	},
+
+	getGiftInfo: function() {
+		return _giftInfo;
+	},
+
 	getPaymentFormData: function() {
 		var data = Object.assign({},_paymentFormData);
 
@@ -86,9 +97,28 @@ function getStripeInterface() {
 	return me.promise;
 }
 
+function _pullData(data) {
+	var result = {};
+
+	var add = x => { if (data[x]) {result[x] = data[x]; } };
+
+	_coupon = data.coupon;
+
+	add('from');
+	add('to_first_name');
+	add('to_last_name');
+	add('receiver');
+	add('message');
+	add('sender');
+
+	_giftInfo = result;
+}
+
 function _verifyBillingInfo(data) {
 
 	_stripeToken = null; // reset
+	_coupon = null;
+	_giftInfo = null;
 	_paymentFormData = data.formData;
 
 	return getStripeInterface()
@@ -98,6 +128,7 @@ function _verifyBillingInfo(data) {
 		.then(function(result) {
 			var eventType = result.status === 200 ? Constants.BILLING_INFO_VERIFIED : Constants.BILLING_INFO_REJECTED;
 			_stripeToken = result.response;
+			_pullData(_paymentFormData);
 			Store.emitChange({
 				type: eventType,
 				status: result.status,
@@ -127,17 +158,59 @@ function _submitPayment(formData) {
 		});
 }
 
+function _priceWithCoupon(data) {
+		if (!_couponTimeout) {
+			Store.emitChange({
+				type: Constants.LOCK_SUBMIT
+			});
+		}
+
+		clearTimeout(_couponTimeout);
+
+		_couponTimeout = setTimeout(function() {
+			return getStripeInterface()
+				.then(function(stripe) {
+					return stripe.getCouponPricing(data.purchasable, data.coupon);
+				})
+				.then(function(result) {
+					Store.emitChange({
+						type: Constants.VALID_COUPON,
+						pricing: result,
+						coupon: data.coupon
+					});
+
+					Store.emitChange({
+						type: Constants.UNLOCK_SUBMIT
+					});
+				})
+				.catch(function(reason) {
+					Store.emitChange({
+						type: Constants.INVALID_COUPON,
+						coupon: data.coupon
+					});
+
+					Store.emitChange({
+						type: Constants.UNLOCK_SUBMIT
+					});
+				});
+		}, 2000);
+}
+
 Store.appDispatch = AppDispatcher.register(function(data) {
     var action = data.action;
+
     switch(action.type) {
+    	case Constants.UPDATE_COUPON:
+    		_priceWithCoupon(action.payload);
+    		break;
 
     	case Constants.VERIFY_BILLING_INFO:
     		_verifyBillingInfo(action.payload);
-    	break;
+			break;
 
     	case Constants.SUBMIT_STRIPE_PAYMENT:
     		_submitPayment(action.payload.formData);
-    	break;
+	    	break;
 
         default:
             return true;

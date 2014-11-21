@@ -14,6 +14,8 @@ var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
 var t = require('common/locale').translate;
 
 var _stripeToken;
+var _coupon;
+var _giftInfo;
 
 var PaymentConfirm = React.createClass({
 
@@ -22,6 +24,8 @@ var PaymentConfirm = React.createClass({
 	componentWillMount: function() {
 		try {
 			_stripeToken = Store.getStripeToken();
+			_coupon = Store.getCoupon();
+			_giftInfo = Store.getGiftInfo();
 		}
 		catch(e) {
 			this.setState({
@@ -70,6 +74,9 @@ var PaymentConfirm = React.createClass({
 		return (
 			<div className="row">
 				<PanelButton className="column" buttonClick={this._submitPayment} linkText="Submit Payment">
+					{!_giftInfo ? null : 
+						<div/>
+					}
 					<h2>Confirm payment</h2>
 					<BillingInfo card={_stripeToken.card} />
 					<p>Clicking submit will charge your card {price} and enroll you in the course.</p>
