@@ -13,22 +13,29 @@ var FormPanel = React.createClass({
 
 	getDefaultProps: function() {
 		return {
-			noValidate: true
+			noValidate: true,
+			styled: true
 		};
 	},
 
 	render: function() {
+		var cssClasses = [];
+		var formClasses = '';
 
-		var cssClasses = ['row'];
+		if (this.props.styled) {
+			formClasses = 'medium-6 medium-centered columns';
+			cssClasses = ['row'];
+		}
 
 		if(this.props.busy) {
 			cssClasses.push('busy');
 		}
 
+
 		return (
 			<div className={cssClasses.join(' ')}>
-				<form className="store-enrollment-form medium-6 medium-centered columns" onSubmit={this.props.onSubmit} noValidate={this.props.noValidate}>
-					<div className="column" key="heading">
+				<form className={formClasses} onSubmit={this.props.onSubmit} noValidate={this.props.noValidate}>
+					<div className="column">
 						<h2>{this.props.title}</h2>
 						<p>{this.props.subhead}</p>
 					</div>

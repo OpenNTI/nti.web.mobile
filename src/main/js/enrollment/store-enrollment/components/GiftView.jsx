@@ -271,17 +271,17 @@ module.exports = React.createClass({
 
 
 		return (
-			<div>
+			<div className="row">
 				<Pricing ref="Pricing" purchasable={this.props.purchasable} />
 
-				<FormPanel title= {_t('PAYMENT.title')} subhead={_t('PAYMENT.sub')}>
+				<FormPanel title={_t('PAYMENT.title')} subhead={_t('PAYMENT.sub')} styled={false}>
 					{this.renderFormConfig(fieldConfig, this.state.fieldValues, t)}
 				</FormPanel>
 
 				<Header />
 				<Recipient ref="Recipient" />
 
-				<div className='errors' key="errors">
+				<div className="errors">
 					<ReactCSSTransitionGroup transitionName="messages">
 					{Object.keys(this.state.errors).map(ref => {
 						var err = this.state.errors[ref];
@@ -290,8 +290,10 @@ module.exports = React.createClass({
 					</ReactCSSTransitionGroup>
 				</div>
 
-				<a ref="cancelButton">Cancel</a>
-				<button className={submitCls} onClick={this._onClick}>Click</button>
+				<div className="button-row">
+					<a ref="cancelButton">Cancel</a>
+					<button className={submitCls} onClick={this._onClick}>Click</button>
+				</div>
 			</div>
 		);
 	}

@@ -128,8 +128,10 @@ module.exports = React.createClass({
 					<span className="sub">{_t("subType")}</span>
 					<span className="main">{type}</span>
 				</div>
-				<div className="info">
-					<div className="row">
+				<div className="info row">
+
+
+					<div className="medium-4 columns">
 						<div>
 							<span className="label">{_t("begins")}</span>
 							<span className="value">{startDate}</span>
@@ -139,7 +141,9 @@ module.exports = React.createClass({
 							<span className="value">{endDate}</span>
 						</div>
 					</div>
-					<div className="row">
+
+
+					<div className="medium-4 columns">
 						<div>
 							<span className="label">{_t("hours")}</span>
 							<span className="value">{creditHours}</span>
@@ -149,7 +153,9 @@ module.exports = React.createClass({
 							<span className="value">{refund}</span>
 						</div>
 					</div>
-					<div>
+
+
+					<div className="medium-4 columns">
 						<div className="total">
 							<span className="label">{_t("total")}</span>
 							<span className="old-amount">{oldTotal}</span>
@@ -158,7 +164,7 @@ module.exports = React.createClass({
 						<div className="coupon">
 							<span className={"label " + couponLabelCls}>{couponLabel}</span>
 							<input type="text"
-								ref="coupon" name="coupon" 
+								ref="coupon" name="coupon"
 								placeholder={_t("couponPlaceholder")}
 								onChange={this.onCouponChanged}
 								value={this.state.coupon}/>

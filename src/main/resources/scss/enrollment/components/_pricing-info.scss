@@ -1,0 +1,23 @@
+
+.pricing-info {
+	color: $primary-grey;
+
+	.title {
+		.sub {
+			text-transform: uppercase;
+			color: $tertiary-grey;
+			font-size: 0.65rem;
+			font-weight: 700;
+			display: block;
+		}
+		.main {
+			font-size: 1.5rem;
+			font-weight: 100;
+		}
+	}
+
+	.info {
+		background: $quad-grey;
+		box-shadow: inset 0 -1px 0 0 #eee;
+	}
+}
