@@ -121,7 +121,8 @@ module.exports = {
 			},
 
 			cancelPurchaseButton: 'Cancel',
-			purchaseButton: 'Purchase Gift'
+			purchaseButton: 'Purchase Gift',
+			agreeToTerms: 'I have read and agree to the <a href="%(url)s" target="_blank">licensing terms</a>.'
 		},
 		forms: {
 			storeenrollment: {

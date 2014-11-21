@@ -11,14 +11,25 @@ module.exports = React.createClass({
 
 	propTypes: {
 		key: React.PropTypes.string.isRequired,
-		scoped: React.PropTypes.string
+		scoped: React.PropTypes.string,
+		tag: React.PropTypes.string
 	},
 
+
+	getDefaultProps: function() {
+		return {
+			tag: 'div',
+			scoped: ''
+		};
+	},
+
+
 	render: function() {
-		var _t2 = _t.scoped(this.props.scoped || '');
+		var _t2 = _t.scoped(this.props.scoped);
+		var Tag = React.DOM[this.props.tag];
 
 		return (
-			<div className={this.props.className} dangerouslySetInnerHTML={{__html: _t2(this.props.key, this.props)}} />
+			<Tag className={this.props.className} dangerouslySetInnerHTML={{__html: _t2(this.props.key, this.props)}} />
 		);
 	}
 });

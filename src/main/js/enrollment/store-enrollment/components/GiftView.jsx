@@ -18,13 +18,14 @@ var Loading = require('common/components/Loading');
 var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderFieldConfigMixin');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
 var FormPanel = require('common/components/forms/FormPanel');
+var Localized = require('common/components/LocalizedHTML');
 var ScriptInjector = require('common/mixins/ScriptInjectorMixin');
 
 var Actions = require('../Actions');
 var Store = require('../Store');
 var Constants = require('../Constants');
 
-
+var agreementURL = '/mobile/api/user-agreement/view';
 
 var Header = React.createClass({
 	render: function() {
@@ -193,12 +194,16 @@ module.exports = React.createClass({
 	},
 
 
-	_onAgreementCheckedChange: function () {
+	_onAgreementCheckedChange: function (e) {
 		var result = this.getFormData();
 
 		this.setState({
-			agreed: this._validate(result)
+			agreed: e.target.checked
 		});
+
+		if (!this._validate(result)){
+			this.setState({agreed: false});
+		}
 	},
 
 
@@ -311,7 +316,7 @@ module.exports = React.createClass({
 				<div className="agreement">
 					<label>
 						<input type="checkbox" name="agree" checked={this.state.agreed} onChange={this._onAgreementCheckedChange}/>
-						{_t("agreeToTerms")}
+						<Localized tag="span" key="ENROLLMENT.GIFT.agreeToTerms" url={agreementURL} />
 					</label>
 				</div>
 
