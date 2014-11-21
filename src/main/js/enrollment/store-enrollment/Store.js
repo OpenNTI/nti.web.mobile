@@ -183,7 +183,7 @@ function _priceWithCoupon(data) {
 						type: Constants.UNLOCK_SUBMIT
 					});
 				})
-				.catch(function(reason) {
+				.catch(function(/*reason*/) {
 					Store.emitChange({
 						type: Constants.INVALID_COUPON,
 						coupon: data.coupon

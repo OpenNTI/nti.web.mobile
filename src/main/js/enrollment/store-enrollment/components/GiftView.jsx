@@ -1,18 +1,25 @@
 /** @jsx React.DOM */
-
+/* global jQuery, Stripe */
 'use strict';
 
 var React = require('react/addons');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT');
 var t = require('common/locale').scoped('ENROLLMENT.forms.storeenrollment');
+var t2 = require('common/locale').scoped('ENROLLMENT');
+
 var Recipient = require('./GiftRecipient');
 var Pricing = require('./Pricing');
-var _paymentFormCfg = require('./giftPaymentFormConfig.js');
+
+var fieldConfig = require('./giftPaymentFormConfig.js');
+
+var Loading = require('common/components/Loading');
 var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderFieldConfigMixin');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
 var FormPanel = require('common/components/forms/FormPanel');
 var ScriptInjector = require('common/mixins/ScriptInjectorMixin');
+
 var Actions = require('../Actions');
 var Store = require('../Store');
 var Constants = require('../Constants');
@@ -40,9 +47,14 @@ module.exports = React.createClass({
 	},
 
 	getInitialState: function() {
+
+		var formData = Store.getPaymentFormData();
+
 		return {
-			formValues: {},
+			loading: true,
+			fieldValues: formData,
 			submitEnabled: true,
+			errors: {}
 		};
 	},
 
@@ -121,10 +133,13 @@ module.exports = React.createClass({
 
 			if (jDom && jDom.payment) {
 				result = jDom.payment('cardExpiryVal');
-				
+
 				return {
+					//External API... ignore names
+					/* jshint -W106 */
 					exp_month: result.month,
 					exp_year: result.year
+					/* jshint +W106 */
 				};
 			}
 
@@ -135,7 +150,7 @@ module.exports = React.createClass({
 
 	_onClick: function() {
 		var i, refs = this.refs,
-			v, result = {},
+			v, result = Object.assign({}, this.state.fieldValues),
 			stripeKey = this.props.purchasable.StripeConnectKey.PublicKey;
 
 		for (i in refs) {
@@ -145,35 +160,113 @@ module.exports = React.createClass({
 
 			if (v.getData) {
 				Object.assign(result, v.getData());
-			} else if (v.isMounted()) {
-				v = v.getDOMNode();
 
-				if (this.outputFormatters[i]) {
-					Object.assign(result, this.outputFormatters[i](v));
-				} else if (v.value) {
-					result[i] = v.value;
-				}
-				
-			} 
+			} else if (this.outputFormatters[i]) {
+				Object.assign(result, this.outputFormatters[i](v.getDOMNode()));
+			}
+
 		}
 
-		Actions.verifyBillingInfo(stripeKey, result);
+		if (this._validate(result)) {
+			Actions.verifyBillingInfo(stripeKey, result);
+		}
 	},
+
+
+	_validate: function(fieldValues) {
+		var errors = {};
+
+		fieldConfig.forEach(function(fieldset) {
+			fieldset.fields.forEach(function(field) {
+				if (field.required) {
+
+					var value = (fieldValues[field.ref]||'');
+					if (value.trim().length === 0) {
+						errors[field.ref] = {
+							// no message property because we don't want the 'required' message
+							// repeated for every required field...
+
+							// ...but we still want an entry for this ref so the field gets flagged
+							// as invalid.
+							error: t2('requiredField')
+						};
+						errors.required = {
+							message: t2('incompleteForm')
+						};
+					}
+				}
+			});
+		});
+
+		if (!this.refs.Recipient.isValid()) {
+			errors.Recipient =  {message: t2('invalidRecipient')};
+		}
+
+		var number = (fieldValues.number||'');
+		if(number.trim().length > 0 && !Stripe.card.validateCardNumber(number)) {
+			errors.number =  {message: t2('invalidCardNumber')};
+		}
+
+		var cvc = (fieldValues.cvc||'');
+		if(cvc.trim().length > 0 && !Stripe.card.validateCVC(cvc)) {
+			errors.cvc =  {message: t2('invalidCVC')};
+		}
+		/* jshint -W106 */
+		var mon = (fieldValues.exp_month||'');
+		var year = (fieldValues.exp_year||'');
+
+		if([mon,year].join('').trim().length > 0 && !Stripe.card.validateExpiry(mon,year)) {
+			errors.exp_month =  {message: t2('invalidExpiration')};
+			// no message property because we don't want the error message repeated
+			errors.exp_year =  {error: t2('invalidExpiration')};
+		}
+
+		this.setState({
+			errors: errors
+		});
+
+		return Object.keys(errors).length === 0;
+	},
+
+
+	_inputBlurred: function(/*event*/) {
+		var errs = this.state.errors;
+		if(Object.keys(errs).length === 1 && errs.hasOwnProperty('required')) {
+			this.setState({
+				errors: {}
+			});
+		}
+	},
+
 
 
 	render: function() {
 		var submitCls = this.state.submitEnabled ? '' : 'disabled';
+
+		if(this.state.loading) {
+			return <Loading />;
+		}
+
 
 		return (
 			<div>
 				<Pricing ref="Pricing" purchasable={this.props.purchasable} />
 
 				<FormPanel title= {_t('PAYMENT.title')} subhead={_t('PAYMENT.sub')}>
-					{this.renderFormConfig(_paymentFormCfg, this.state.fieldValues, t)}
+					{this.renderFormConfig(fieldConfig, this.state.fieldValues, t)}
 				</FormPanel>
 
 				<Header />
 				<Recipient ref="Recipient" />
+
+				<div className='errors' key="errors">
+					<ReactCSSTransitionGroup transitionName="messages">
+					{Object.keys(this.state.errors).map(ref => {
+						var err = this.state.errors[ref];
+						return (err.message ? <small key={ref} className='error'>{err.message}</small> : null);
+					})}
+					</ReactCSSTransitionGroup>
+				</div>
 
 				<a ref="cancelButton">Cancel</a>
 				<button className={submitCls} onClick={this._onClick}>Click</button>

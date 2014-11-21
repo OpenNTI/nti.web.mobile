@@ -20,6 +20,7 @@ var t2 = require('common/locale').scoped('ENROLLMENT');
 
 var ScriptInjector = require('common/mixins/ScriptInjectorMixin');
 var Loading = require('common/components/Loading');
+
 var Actions = require('../Actions');
 var Store = require('../Store');
 var Constants = require('../Constants');
@@ -94,7 +95,7 @@ var Form = React.createClass({
 							message: t2('incompleteForm')
 						};
 					}
-				}	
+				}
 			});
 		});
 

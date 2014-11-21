@@ -44,6 +44,17 @@ module.exports = React.createClass({
 	},
 
 
+	isValid: function() {
+		var email = this.refs.email;
+
+		email = email && email.isMounted() && email.getDOMNode();
+		email = email && email.value;
+		email = email || '';
+
+		return !this.state.enabled || email !== '';
+	},
+
+
 	_onFocused: function() {
 		this.setState({
 			enabled: true
@@ -59,8 +70,9 @@ module.exports = React.createClass({
 
 
 	render: function() {
-
-		var enabledCls = this.state.enabled ? '' : 'disabled';
+		var enabled = this.state.enabled;
+		var enabledCls = enabled ? '' : 'disabled';
+		var requiredIfEnabled = enabled ? 'required' : null;
 
 		return (
 			<div className={"gift-info " + enabledCls}>
@@ -72,7 +84,8 @@ module.exports = React.createClass({
 						</label>
 						<input type="text" name="to_first_name" placeholder={_t("firstName")} onFocus={this._onFocused} />
 						<input type="text" name="to_last_name" placeholder={_t("lastName")} onFocus={this._onFocused} />
-						<input type="email" name="receiver" placeholder={_t("email")} onFocus={this._onFocused}/>
+						<input type="email" ref="email" className={requiredIfEnabled} name="receiver"
+								placeholder={_t("email")} onFocus={this._onFocused}/>
 						<textarea name="message" placeholder={_t("message")} onFocus={this._onFocused}/>
 					</fieldset>
 					<fieldset>
