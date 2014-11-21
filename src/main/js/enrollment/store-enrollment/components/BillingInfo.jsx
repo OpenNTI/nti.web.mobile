@@ -10,6 +10,7 @@
 /* jshint camelcase:false */
 
 var React = require('react/addons');
+var _t = require('common/locale').scoped('ENROLLMENT.CONFIRMATION');
 
 function notEmpty(value) {
 	return (value||'').trim().length > 0;
@@ -41,17 +42,41 @@ var BillingInfo = React.createClass({
 	},
 
 	render: function() {
-		var card = this.props.card;
+		var card = this.props.card,
+			city = card.address_city ? card.address_city + ',' : '';
 
 		return (
-			<fieldset>
-				<div>{card.name}</div>
-				<div>{card.address_line1}</div>
-				{this._rowIfNotEmpty(card.address_line2)}
-				{this._cityStateZipRow(card)}
-				<div>**** **** **** {card.last4} ({card.exp_month}/{card.exp_year})</div>
-				<a href='../'>edit</a>
-			</fieldset>
+			<div>
+				<fieldset>
+					<div className="title">
+						<span>{_t("paymentInfo")}</span>
+						<a href="{this.props.edit}">edit</a>
+					</div>
+					<div>{card.name}</div>
+					<div>
+						<span className="label">{card.brand}</span>
+						<span className="value">**** **** **** {card.last4}</span>
+					</div>
+					<div>
+						<span className="label">{_t("expires")}</span>
+						<span className="value">{card.exp_month}/{card.exp_year}</span>
+					</div>
+				</fieldset>
+				<fieldset>
+					<div className="title">
+						<span>{_t("billingInfo")}</span>
+						<a href="{this.props.edit}">edit</a>
+					</div>
+					<div>{card.address_line1}</div>
+					<div>{card.address_line2}</div>
+					<div>
+						<span>{city}</span>
+						<span>{card.address_state}</span>
+						<span>{card.address_zip}</span>
+					</div>
+					<div>{card.address_country}</div>
+				</fieldset>
+			</div>
 		);
 	}
 

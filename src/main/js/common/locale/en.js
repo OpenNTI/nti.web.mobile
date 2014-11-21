@@ -66,6 +66,15 @@ module.exports = {
 			viewCourse: 'View Course',
 			viewCatalog: 'View Catalog'
 		},
+		CONFIRMATION: {
+			giftInfo: 'Gift Information',
+			paymentInfo: 'Payment Information',
+			billingInfo: 'Billing Address',
+			expires: 'Expires',
+			from: 'From',
+			to: 'To',
+			message: 'Message'
+		},
 		GIFT: {
 			HEADER: {
 				title: 'Gift Information',

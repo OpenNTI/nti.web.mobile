@@ -10,6 +10,7 @@ var Actions = require('../Actions');
 var PanelButton = require('common/components/PanelButton');
 var Loading = require('common/components/Loading');
 var BillingInfo = require('./BillingInfo');
+var GiftInfo = require('./GiftInfo');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
 var t = require('common/locale').translate;
 
@@ -69,16 +70,14 @@ var PaymentConfirm = React.createClass({
 		}
 
 		var purchasable = this.props.purchasable;
-		var price = this.getFormattedPrice(purchasable.Currency, purchasable.Amount);
+		var price = this.getFormattedPrice(purchasable.Currency, purchasable.Amount)
+		var edit = _giftInfo ? '../gift/' : '../';
 
 		return (
 			<div className="row">
 				<PanelButton className="column" buttonClick={this._submitPayment} linkText="Submit Payment">
-					{!_giftInfo ? null : 
-						<div/>
-					}
-					<h2>Confirm payment</h2>
-					<BillingInfo card={_stripeToken.card} />
+					<GiftInfo info={_giftInfo} edit={edit} />
+					<BillingInfo card={_stripeToken.card} edit={edit} />
 					<p>Clicking submit will charge your card {price} and enroll you in the course.</p>
 					
 				</PanelButton>
