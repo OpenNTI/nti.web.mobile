@@ -39,6 +39,12 @@
 
 	}
 
+	&.disabled {
+		input, textarea {
+			opacity: 0.6;
+		}
+	}
+
 }
 
 /* min-width 641px, medium screens */

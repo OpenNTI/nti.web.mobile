@@ -52,7 +52,7 @@ label {
 
 	& > #{$checkbox} {
 		position: absolute !important;
-		opacity: 0;//Cannot "display:none" nor "visibilitiy:hidden" or you cannot access it with tab/keyboard.
+		opacity: 0 !important;//Cannot "display:none" nor "visibilitiy:hidden" or you cannot access it with tab/keyboard.
 
 		& + span {
 			line-height: 3;
