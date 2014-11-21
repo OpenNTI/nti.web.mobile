@@ -1,6 +1,7 @@
 
 .pricing-info {
 	color: $primary-grey;
+	margin-bottom: 2rem;
 
 	.title {
 		.sub {
@@ -21,6 +22,9 @@
 	.cell {
 		display: block;
 		min-height: 5rem;
+		&.total {
+			min-height: 4rem;
+		}
 	}
 
 	.info {
