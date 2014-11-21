@@ -106,6 +106,7 @@ module.exports = {
 				noRefunds: 'Not Refundable',
 				couponPlaceholder: 'Coupon Code',
 				coupon: 'I have a coupon',
+				checkingCoupon: 'Checking Coupon',
 				invalidCoupon: 'Invalid Coupon',
 				validCoupon: 'Coupon Accepted: %(discount)s off'
 			},

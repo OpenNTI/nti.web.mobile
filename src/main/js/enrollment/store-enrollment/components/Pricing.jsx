@@ -26,7 +26,8 @@ module.exports = React.createClass({
 			currentPrice: this.props.purchasable.Amount,
 			oldPrice: null,
 			triedCoupon: false,
-			couponDiscount: ''
+			couponDiscount: '',
+			checkingCoupon: false
 		};
 	},
 
@@ -56,7 +57,8 @@ module.exports = React.createClass({
 				currentPrice: pricing.PurchasePrice,
 				oldPrice: pricing.Amount,
 				triedCoupon: true,
-				couponDiscount: discount
+				couponDiscount: discount,
+				checkingCoupon: false
 			});
 
 		} else if (e.type === Constants.INVALID_COUPON) {
@@ -65,14 +67,16 @@ module.exports = React.createClass({
 					triedCoupon: false,
 					couponDiscount: '',
 					oldPrice: null,
-					currentPrice: this.props.purchasable.Amount
+					currentPrice: this.props.purchasable.Amount,
+					checkingCoupon: false
 				});
 			} else {
 				this.setState({
 					triedCoupon: true,
 					couponDiscount: '',
 					oldPrice: null,
-					currentPrice: this.props.purchasable.Amount
+					currentPrice: this.props.purchasable.Amount,
+					checkingCoupon: false
 				});
 			}
 		}
@@ -92,7 +96,8 @@ module.exports = React.createClass({
 			coupon = couponEl && couponEl.value;
 
 		this.setState({
-			coupon: coupon
+			coupon: coupon,
+			checkingCoupon: true
 		});
 
 		Actions.updateCoupon(this.props.purchasable, coupon);
@@ -112,7 +117,10 @@ module.exports = React.createClass({
 		var couponLabel = _t('coupon');
 		var couponLabelCls = '';
 
-		if (this.state.triedCoupon) {
+		if (this.state.checkingCoupon) {
+			couponLabelCls = 'working';
+			couponLabel = _t('checkingCoupon');
+		} else if (this.state.triedCoupon) {
 			if (this.state.couponDiscount) {
 				couponLabelCls = 'valid';
 				couponLabel = _t('validCoupon', {discount:discount});
