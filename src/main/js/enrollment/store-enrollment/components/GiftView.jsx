@@ -30,7 +30,7 @@ var Header = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<h1>{_t('HEADER.title')}</h1>
+				<h2>{_t('HEADER.title')}</h2>
 				<p>{_t('HEADER.description')}</p>
 			</div>
 		);
