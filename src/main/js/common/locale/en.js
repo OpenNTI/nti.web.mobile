@@ -75,6 +75,7 @@ module.exports = {
 			to: 'To',
 			message: 'Message'
 		},
+
 		GIFT: {
 			HEADER: {
 				title: 'Gift Information',
@@ -117,8 +118,11 @@ module.exports = {
 		},
 		forms: {
 			storeenrollment: {
+				from: 'Email Address',
+				fromLabel: 'This is where we will send your purchase confirmation.',
 				name: 'Name',
 				number: 'Card number',
+				exp_: 'MM / YY',
 				exp_month: 'MM',
 				exp_year: 'YY',
 				cvc: 'CVC',
