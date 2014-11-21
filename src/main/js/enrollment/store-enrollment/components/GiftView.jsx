@@ -321,7 +321,7 @@ module.exports = React.createClass({
 				</div>
 
 				<div className="button-row">
-					<a ref="cancelButton">{_t('cancelPurchaseButton')}</a>
+					{/*<a ref="cancelButton">{_t('cancelPurchaseButton')}</a>*/}
 					<button disabled={!enabled} className={submitCls} onClick={this._onClick}>{_t('purchaseButton')}</button>
 				</div>
 			</div>
