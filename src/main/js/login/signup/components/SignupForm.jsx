@@ -20,8 +20,6 @@ var LoginActions = require('../../Actions');
 
 var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderFieldConfigMixin');
 
-//var _preflightDelayMs = 500; // how long to buffer user input before sending another dataserver preflight request.
-
 var SignupForm = React.createClass({
 
 	mixins: [NavigatableMixin, RenderFieldConfigMixin],
