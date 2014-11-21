@@ -19,7 +19,11 @@ module.exports = exports = {
 		//console.debug('Window is now: %s', state);
 		document.body.className = state;
 		if (component) {
-			component.setState({orientation: state});
+			// if we don't delay the update chrome on android doesn't
+			// resize the nav drawer.
+			setTimeout(function() { 
+				component.setState({orientation: state});
+			}, 500);
 		}
 	}
 };
