@@ -5,15 +5,24 @@
 'use strict';
 
 var React = require('react/addons');
-var PanelButton = require('common/components/PanelButton');
-var CourseContentLink = require('library/components/CourseContentLink');
+var GiftSuccess = require('./GiftSuccess');
+var EnrollmentSuccess = require('./EnrollmentSuccess');
+var Store = require('../Store');
+
+var _purchaseAttempt;
 
 var PaymentSuccess = React.createClass({
 
 	propTypes: {
-		courseId: React.PropTypes.string.isRequired,
-		courseTitle: React.PropTypes.string.isRequired
+		courseId: React.PropTypes.string,
+		purchasable: React.PropTypes.object.isRequired
 	},
+
+
+	componentWillMount: function() {
+		_purchaseAttempt = Store.getPaymentResult();
+	},
+
 
 	_courseLink: function() {
 		return <CourseContentLink
@@ -22,11 +31,15 @@ var PaymentSuccess = React.createClass({
 	},
 
 	render: function() {
+		var isGift = _purchaseAttempt && _purchaseAttempt.RedemptionCode;
+		var courseId = this.props.purchasable.Items[0];
+
 		return (
-			<div className="small-12 columns">
-				<PanelButton button={this._courseLink()}>
-					You are now enrolled in {this.props.courseTitle}.
-				</PanelButton>
+			<div>
+				{isGift ?
+					<GiftSuccess purchasable={this.props.purchasable} purchaseattempt={_purchaseAttempt}/> :
+					<EnrollmentSuccess purchasable={this.props.purchasable} courseId={courseId} purchaseattempt={_purchaseAttempt} />
+				}
 			</div>
 		);
 	}

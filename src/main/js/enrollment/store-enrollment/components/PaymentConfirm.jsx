@@ -45,6 +45,14 @@ var PaymentConfirm = React.createClass({
 		return _stripeToken;
 	},
 
+	_getCoupon: function() {
+		return _coupon;
+	},
+
+	_getGiftInfo: function() {
+		return _giftInfo;
+	},
+
 	_submitPayment: function(event) {
 		event.preventDefault();
 		this.setState({
@@ -52,7 +60,9 @@ var PaymentConfirm = React.createClass({
 		});
 		var payload = {
 			stripeToken: this._getStripeToken(),
-			purchasable: this.props.purchasable
+			purchasable: this.props.purchasable,
+			coupon: this._getCoupon(),
+			giftInfo: this._getGiftInfo()
 		};
 		Actions.submitPayment(payload);
 	},

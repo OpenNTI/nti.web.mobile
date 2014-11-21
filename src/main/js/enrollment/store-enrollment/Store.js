@@ -78,9 +78,6 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	getPaymentResult: function() {
-		if(!_paymentResult) {
-			throw new Error("Store doesn't have a payment result.");
-		}
 		return _paymentResult;
 	}
 
@@ -105,8 +102,7 @@ function _pullData(data) {
 	_coupon = data.coupon;
 
 	add('from');
-	add('to_first_name');
-	add('to_last_name');
+	add('to');
 	add('receiver');
 	add('message');
 	add('sender');
@@ -141,6 +137,8 @@ function _verifyBillingInfo(data) {
 }
 
 function _submitPayment(formData) {
+	_paymentResult = null;
+
 	return getStripeInterface()
 		.then(function(stripe){
 			return stripe.submitPayment(formData);
@@ -151,6 +149,9 @@ function _submitPayment(formData) {
 				_paymentFormData = {}; //
 				_stripeToken = null;
 			}
+
+			_paymentResult = result;
+
 			Store.emitChange({
 				type: type,
 				purchaseAttempt: result

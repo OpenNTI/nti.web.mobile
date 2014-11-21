@@ -101,7 +101,7 @@ var View = React.createClass({
 					<Locations contextual
 						ref='router'>
 						<Location path="/confirm/" handler={PaymentConfirm} purchasable={purchasable}/>
-						<Location path="/success/" handler={PaymentSuccess} purchasable={purchasable} courseId={courseId} courseTitle={courseTitle}/>
+						<Location path="/success/" handler={PaymentSuccess} purchasable={purchasable} courseId={courseId}/>
 						<Location path="/error/" handler={PaymentError} purchasable={purchasable} courseTitle={courseTitle}/>
 						<Location path="/gift/" handler={GiftView} purchasable={purchasable} courseTitle={courseTitle}/>
 						<DefaultRoute handler={Form} purchasable={purchasable}/>

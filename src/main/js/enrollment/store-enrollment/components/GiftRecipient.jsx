@@ -30,7 +30,7 @@ module.exports = React.createClass({
 			return result;
 		}
 
-		return elements.reduce(function(agg, element) {
+		result = elements.reduce(function(agg, element) {
 			if (element.name) {
 				if (element.type === 'checkbox') {
 					agg[element.name] = element.checked;
@@ -41,6 +41,21 @@ module.exports = React.createClass({
 
 			return agg;
 		}, {});
+
+		if (result.to_first_name) {
+			if (result.to_last_name) {
+				result.to = result.to_first_name + ' ' + result.to_last_name;
+			} else {
+				result.to = result.to_first_name;
+			}
+		} else if (result.to_last_name) {
+			result.to = result.to_last_name;
+		}
+
+		delete result.to_first_name;
+		delete result.to_last_name;
+
+		return result;
 	},
 
 
