@@ -128,7 +128,7 @@ module.exports = function(grunt) {
 					dest: '<%= pkg.jsDocSrc %>',
 					ext: '.js'
 				}]
-			},
+			}
 		},
 
 		jsdoc: {

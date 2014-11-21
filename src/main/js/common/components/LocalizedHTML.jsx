@@ -18,7 +18,7 @@ module.exports = React.createClass({
 		var _t2 = _t.scoped(this.props.scoped || '');
 
 		return (
-			<div dangerouslySetInnerHTML={{__html: _t2(this.props.key, this.props)}} />
+			<div className={this.props.className} dangerouslySetInnerHTML={{__html: _t2(this.props.key, this.props)}} />
 		);
 	}
 });

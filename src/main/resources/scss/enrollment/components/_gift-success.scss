@@ -1,0 +1,82 @@
+.gift-success {
+	h3{
+		color: $secondary-green;
+		font-size: 1.5em;
+		font-family: $body-font-family;
+		margin-bottom: 10px;
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 3px;
+			left: -35px;
+			width: 28px;
+			height: 28px;
+			background: transparent url('../images/icons/assignment_ontime_small.png') center center;
+			background-size: contain;
+		}
+	}
+
+	.prompt,.gift {
+		line-height: 1.3em;
+		font-weight: 300;
+
+		strong {
+			font-weight: 600;
+			color: $primary-grey;
+		}
+	}
+
+	.gift {
+		margin-top: 1em;
+	}
+
+	.token {
+		overflow: hidden;
+		margin: 1em 0 0.5em;
+
+		.label {
+			float: left;
+			font-weight: 600;
+			line-height: 30px;
+			margin-right: 0.5em;
+			background: none;
+			color: $primary-grey;
+			font-size: 1em;
+			padding: 0;
+		}
+
+		.value {
+			float: left;
+			width: 140px;
+			height: 30px;
+			margin-bottom: 0;
+
+			&:focus {
+				background: none;
+				box-shadow: none;
+			}
+		}
+	}
+
+	.support {
+		font-size: 0.9em;
+
+		span, a {
+			display: block;
+		}
+
+		.prompt {
+			font-weight: 500;
+		}
+
+		.phone {
+			font-weight: 300;
+		}
+
+		a {
+			color: $primary-blue;
+		}
+	}
+}

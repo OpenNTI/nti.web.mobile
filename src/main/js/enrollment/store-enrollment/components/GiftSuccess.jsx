@@ -7,6 +7,7 @@ var React = require('react/addons');
 var LocalizedHTML = require('common/components/LocalizedHTML');
 
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT.SUCCESS');
+var _siteT = require('common/locale').scoped('CONTACTINFO');
 
 module.exports = React.createClass({
 	displayName: 'GiftSuccess',
@@ -26,17 +27,25 @@ module.exports = React.createClass({
 		}
 
 		return (
-			<div>
-				<div className="header">{_t("title")}</div>
-				<LocalizedHTML key="info" scoped="ENROLLMENT.GIFT.SUCCESS" courseTitle={courseTitle} />
-				<LocalizedHTML key={infoKey} scoped="ENROLLMENT.GIFT.SUCCESS" name={name} email={email} />
-				<div>
-					<span className="label">Access Key</span>
-					<span className="value">{purchaseAttempt.RedemptionCode}</span>
-				</div>
-				<div>
-					<span className="label">Transaction ID</span>
-					<span classname="value">{purchaseAttempt.TransactionID}</span>
+			<div className="gift-success row">
+				<div className="medium-8 medium-centered columns">
+					<h3 className="header">{_t("title")}</h3>
+					<LocalizedHTML className="prompt" key="info" scoped="ENROLLMENT.GIFT.SUCCESS" courseTitle={courseTitle} />
+					<LocalizedHTML className="gift" key={infoKey} scoped="ENROLLMENT.GIFT.SUCCESS" name={name} email={email} />
+					<div className="token">
+						<span className="label">{_t("accessKey")}</span>
+						<input type="text" readonly className="value" value={purchaseAttempt.RedemptionCode} />
+					</div>
+					<div className="token">
+						<span className="label">{_t("transactionID")}</span>
+						<input type="text" readonly className="value" value={purchaseAttempt.TransactionID} />
+					</div>
+					<div className="support">
+						<span className="prompt">{_t("supportPrompt")}</span>
+						<span className="phone">{_siteT("phone")}</span>
+						<a className="link" href={_siteT("LINK1").link}>{_siteT("LINK1").label}</a>
+						<a className="link" href={_siteT("LINK2").link}>{_siteT("LINK2").label}</a>
+					</div>
 				</div>
 			</div>
 		);
