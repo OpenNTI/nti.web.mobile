@@ -37,8 +37,6 @@ module.exports = {
 
 		var ref = field.ref;
 
-		cssClass.push(ref);
-
 		// default placeholder for inputs
 		var translateOptions = {
 			fallback: ''
@@ -58,7 +56,8 @@ module.exports = {
 		return (
 			React.DOM.div(
 				{
-					key: ref
+					key: ref,
+					className: ref
 				},
 
 				type === 'label' ?
@@ -83,11 +82,12 @@ module.exports = {
 	renderFieldset: function(translator, values, fieldset, index) {
 
 		var fieldRenderFn = this.renderField.bind(null, translator, values);
-		var fields = fieldset.fields.map(fieldRenderFn);
-		var legend = React.DOM.legend({key: 'legend'}, fieldset.title);
 
 		var key = 'fieldset-'.concat(index);
-		return React.DOM.fieldset({key: key}, [legend, fields]);
+		return React.DOM.fieldset({key: key, className: fieldset.className || null}, [
+			fieldset.title ? React.DOM.legend(null, fieldset.title) : null,
+			fieldset.fields.map(fieldRenderFn)
+			]);
 	},
 
 	renderFormConfig: function(config, values, translator) {

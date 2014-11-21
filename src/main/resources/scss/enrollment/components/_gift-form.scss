@@ -1,0 +1,78 @@
+.gift.enrollment {
+	margin: 0.5rem 1rem;
+	h1, h2, h3, h4, h5 {
+		color: $tertiary-grey;
+		font-family: $body-font-family;
+	}
+
+	h2 {
+		font-size: 1.7rem;
+		letter-spacing: -0.03rem;
+	}
+
+	legend {
+		color: $primary-grey;
+		font-weight: 600;
+	}
+
+	fieldset {
+		position: relative;
+		border: 0;
+		padding: 1rem 0 0 0;
+		margin: 0 0 2rem;
+
+		input {
+			margin-bottom: 0.3rem !important;
+		}
+
+		legend {
+			font-size: 1rem;
+			color: $primary-grey;
+		}
+
+
+		div.from {width: 42.32%;}
+		div.fromLabel {
+			margin: -1rem 0 0.5rem;
+
+			label {
+				color: $tertiary-grey;
+				font-style: italic;
+			}
+		}
+
+		div.number { float: left; width: 58%; }
+		div.exp_,
+		div.cvc {
+			float: left;
+			margin-left: 2%;
+			width: 23%;
+		}
+
+		div.cvc {
+			width: 15%;
+		}
+
+	}
+}
+
+/* min-width 641px, medium screens */
+@media only screen and (min-width: 40.063em) {
+	.gift.enrollment {
+		margin: 3rem 4rem;
+
+		fieldset {
+			&.payment-fields {
+				max-width: 60%;
+			}
+
+			div.fromLabel {
+				left: 42.32%;
+				right: 0;
+				position: absolute;
+				padding: 0.6rem 0.8rem;
+				margin: 0;
+			}
+		}
+	}
+}

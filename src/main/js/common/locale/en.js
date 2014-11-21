@@ -129,7 +129,7 @@ module.exports = {
 				exp_: 'MM / YY',
 				exp_month: 'MM',
 				exp_year: 'YY',
-				cvc: 'CVC',
+				cvc: 'Code',
 				address_line1: 'Address',
 				address_line2: 'Address Continued',
 				address_city: 'City',
