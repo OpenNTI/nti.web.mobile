@@ -6,6 +6,8 @@ var React = require('react/addons');
 
 var LocalizedHTML = require('common/components/LocalizedHTML');
 
+var Pricing = require('./Pricing');
+
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT.SUCCESS');
 var _siteT = require('common/locale').scoped('CONTACTINFO');
 
@@ -28,6 +30,7 @@ module.exports = React.createClass({
 
 		return (
 			<div className="gift-success row">
+				<Pricing purchasable={this.props.purchasable} locked={true} />
 				<div className="medium-8 medium-centered columns">
 					<h3 className="header">{_t("title")}</h3>
 					<LocalizedHTML className="prompt" key="info" scoped="ENROLLMENT.GIFT.SUCCESS" courseTitle={courseTitle} />
