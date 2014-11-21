@@ -10,7 +10,7 @@ var UserAgreement = require('./UserAgreement');
 var Router = require('react-router-component');
 var NavigatableMixin = Router.NavigatableMixin;
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-var ERROR_EVENT = require('common/constants/events').ERROR_EVENT;
+var ERROR_EVENT = require('common/constants/Events').ERROR_EVENT;
 
 var indexArrayByKey = require('dataserverinterface/utils/array-index-by-key');
 

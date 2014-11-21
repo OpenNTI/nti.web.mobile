@@ -9,8 +9,8 @@ var getServer = Utils.getServer;
 var Constants = require('./Constants');
 var Actions = Constants.actions;
 
-var CHANGE_EVENT = require('common/constants/events').CHANGE_EVENT;
-var ERROR_EVENT = require('common/constants/events').ERROR_EVENT;
+var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
+var ERROR_EVENT = require('common/constants/Events').ERROR_EVENT;
 
 var _fieldConfig = require('./configs/signup');
 
