@@ -3,6 +3,8 @@ require('dataserverinterface/polyfills');
 
 var React = require('react/addons');
 
+var QueryString = require('query-string');
+
 require('common/Utils').__forceCurrentHost();//ensures we talk back to our current host instead of anything else.
 
 require('../../resources/scss/app.scss');
@@ -22,11 +24,13 @@ require('script!../../resources/vendor/foundation/js/foundation.min.js');
 React.initializeTouchEvents(true);
 
 
-
+var props = QueryString.parse(global.location.search);
 
 
 var WidgetView = require('./widget');
 React.renderComponent(
-	WidgetView(),
+	WidgetView({
+		purchasableId: props.purchasableId
+	}),
 	document.getElementById('content')
 );
