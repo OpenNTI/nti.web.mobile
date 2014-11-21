@@ -98,16 +98,19 @@ module.exports = React.createClass({
 							<input type="checkbox" name="enable_recipient" checked={this.state.enabled} onChange={this._onCheckedChange}/>
 							{_t("enable")}
 						</label>
-						<input type="text" name="to_first_name" placeholder={_t("firstName")} onFocus={this._onFocused} />
-						<input type="text" name="to_last_name" placeholder={_t("lastName")} onFocus={this._onFocused} />
-						<input type="email" ref="email" className={requiredIfEnabled} name="receiver"
-								placeholder={_t("email")} onFocus={this._onFocused}/>
+						<div className="line">
+							<input type="text" name="to_first_name" placeholder={_t("firstName")} onFocus={this._onFocused} />
+							<input type="text" name="to_last_name" placeholder={_t("lastName")} onFocus={this._onFocused} />
+							<input type="email" name="receiver" placeholder={_t("email")} onFocus={this._onFocused} ref="email" className={requiredIfEnabled} />
+						</div>
 						<textarea name="message" placeholder={_t("message")} onFocus={this._onFocused}/>
 					</fieldset>
 					<fieldset>
 						<label htmlFor="sender">{_t("fromLabel")}</label>
-						<input type="text" id="sender" name="sender" placeholder={_t("from")} onFocus={this._onFocused}/>
-						<span>{_t("sendDate")}</span>
+						<div className="line">
+							<input type="text" id="sender" name="sender" placeholder={_t("from")} onFocus={this._onFocused}/>
+							<div className="box">{_t("sendDate")}</div>
+						</div>
 					</fieldset>
 				</form>
 			</div>
