@@ -6,7 +6,7 @@ var EventEmitter = require('events').EventEmitter;
 var Constants = require('./Constants');
 var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
 
-var getService = require('common/Utils').getService;
+var Utils = require('common/Utils');
 
 
 var _stripeToken; // store the result of a Stripe.getToken() call
@@ -35,7 +35,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	priceItem: function(purchasable) {
-		return _getStripeEnrollment()
+		return getStripeInterface()
 			.then(function(stripe) {
 				return stripe.getPricing(purchasable);
 			})
@@ -57,7 +57,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 	getPaymentFormData: function() {
 		var data = Object.assign({},_paymentFormData);
-		
+
 		// don't repopulate credit card number
 		delete data.number;
 		// don't repopulate cvc
@@ -75,11 +75,15 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 });
 
-function _getStripeEnrollment() {
-	return getService()
-		.then(function(service) {
-			return service.getStripeEnrollment();
-		});
+function getStripeInterface() {
+	var me = getStripeInterface;
+
+	if (!me.promise) {
+		me.promise = Promise.resolve(
+			Utils.getServer().getStripeInterface());
+	}
+
+	return me.promise;
 }
 
 function _verifyBillingInfo(data) {
@@ -87,7 +91,7 @@ function _verifyBillingInfo(data) {
 	_stripeToken = null; // reset
 	_paymentFormData = data.formData;
 
-	return _getStripeEnrollment()
+	return getStripeInterface()
 		.then(function(stripe) {
 			return stripe.getToken(data.stripePublicKey,data.formData);
 		})
@@ -106,7 +110,7 @@ function _verifyBillingInfo(data) {
 }
 
 function _submitPayment(formData) {
-	return _getStripeEnrollment()
+	return getStripeInterface()
 		.then(function(stripe){
 			return stripe.submitPayment(formData);
 		})
