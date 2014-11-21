@@ -32,13 +32,12 @@ var PaymentSuccess = React.createClass({
 
 	render: function() {
 		var isGift = _purchaseAttempt && _purchaseAttempt.RedemptionCode;
-		var courseId = this.props.purchasable.Items[0];
 
 		return (
 			<div>
 				{isGift ?
 					<GiftSuccess purchasable={this.props.purchasable} purchaseattempt={_purchaseAttempt}/> :
-					<EnrollmentSuccess purchasable={this.props.purchasable} courseId={courseId} purchaseattempt={_purchaseAttempt} />
+					<EnrollmentSuccess purchasable={this.props.purchasable} courseId={this.props.courseId} purchaseattempt={_purchaseAttempt} />
 				}
 			</div>
 		);

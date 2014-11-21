@@ -107,7 +107,7 @@ function _pullData(data) {
 	add('message');
 	add('sender');
 
-	_giftInfo = result;
+	_giftInfo = Object.keys(result).length ? result : null;
 }
 
 function _verifyBillingInfo(data) {
