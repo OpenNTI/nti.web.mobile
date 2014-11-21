@@ -77,7 +77,7 @@ module.exports = React.createClass({
 	},
 
 
-	componnentWillUnmount: function() {
+	componentWillUnmount: function() {
 		Store.removeChangeListener(this._onChange);
 	},
 

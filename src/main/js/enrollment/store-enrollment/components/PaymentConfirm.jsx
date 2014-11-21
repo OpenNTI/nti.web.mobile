@@ -11,6 +11,7 @@ var PanelButton = require('common/components/PanelButton');
 var Loading = require('common/components/Loading');
 var BillingInfo = require('./BillingInfo');
 var GiftInfo = require('./GiftInfo');
+var Pricing = require('./Pricing');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
 var t = require('common/locale').translate;
 
@@ -85,6 +86,7 @@ var PaymentConfirm = React.createClass({
 
 		return (
 			<div className="row">
+				<Pricing purchasable={purchasable} locked={true} />
 				<PanelButton className="column" buttonClick={this._submitPayment} linkText="Submit Payment">
 					<GiftInfo info={_giftInfo} edit={edit} />
 					<BillingInfo card={_stripeToken.card} edit={edit} />

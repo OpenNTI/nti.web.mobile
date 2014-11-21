@@ -15,6 +15,7 @@ var _giftInfo;
 var _paymentFormData = {}; // store cc info so we can repopulate the form if the user navigates back from the confirmation view.
 var _paymentResult;
 var _couponTimeout;
+var _couponPricing;
 
 var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'store-enrollment.Store',
@@ -64,6 +65,10 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 	getGiftInfo: function() {
 		return _giftInfo;
+	},
+
+	getCouponPricing: function() {
+		return _couponPricing;
 	},
 
 	getPaymentFormData: function() {
@@ -174,11 +179,15 @@ function _priceWithCoupon(data) {
 		clearTimeout(_couponTimeout);
 
 		_couponTimeout = setTimeout(function() {
+			_couponPricing = null;
+
 			return getStripeInterface()
 				.then(function(stripe) {
 					return stripe.getCouponPricing(data.purchasable, data.coupon);
 				})
 				.then(function(result) {
+					_couponPricing = result;
+
 					Store.emitChange({
 						type: Constants.VALID_COUPON,
 						pricing: result,

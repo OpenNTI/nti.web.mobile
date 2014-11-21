@@ -108,7 +108,9 @@ module.exports = {
 				coupon: 'I have a coupon',
 				checkingCoupon: 'Checking Coupon',
 				invalidCoupon: 'Invalid Coupon',
-				validCoupon: 'Coupon Accepted: %(discount)s off'
+				validCoupon: 'Coupon Accepted: %(discount)s off',
+				noCoupon: 'No Coupon',
+				lockedCoupon: 'Coupon'
 			},
 			SUCCESS: {
 				title: 'Gift Purchase Successful',

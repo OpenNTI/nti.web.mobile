@@ -21,24 +21,61 @@ module.exports = React.createClass({
 	},
 
 	getInitialState: function() {
-		return {
-			currency: this.props.purchasable.Currency,
-			currentPrice: this.props.purchasable.Amount,
-			oldPrice: null,
-			triedCoupon: false,
-			couponDiscount: '',
-			checkingCoupon: false
-		};
+		var pricing = this.getCouponPricing();
+		var state = {
+				currency: this.props.purchasable.Currency,
+				currentPrice: this.props.purchasable.Amount,
+				triedCoupon: false,
+				couponDiscount: false,
+				checkingCoupon: false
+			};
+
+		if (this.props.locked) {
+			state.coupon = _t("noCoupon");
+		}
+
+
+		if (pricing) {
+			state.coupon = pricing.Coupon.ID;
+			state.couponDiscount = this._getDiscountString(pricing.Coupon);
+			state.oldPrice = pricing.Amount;
+			state.currentPrice = pricing.PurchasePrice;
+			state.triedCoupon = true;
+		}
+
+		return state;
 	},
 
 
 	componentDidMount: function() {
-		Store.addChangeListener(this._onChange);
+		//if (!this.props.locked) {
+			Store.addChangeListener(this._onChange);
+		//}
 	},
 
 
 	componentWillUnmount: function() {
-		Store.removeChangeListener(this._onChange);
+		//if (!this.props.locked) {
+			Store.removeChangeListener(this._onChange);
+		//}
+	},
+
+
+	getCouponPricing: function() {
+		return Store.getCouponPricing();
+	},
+
+
+	_getDiscountString: function(coupon) {
+		var discount = '';
+
+		if (coupon.PercentOff) {
+			discount = coupon.PercentOff + '%';
+		} else if (coupon.AmountOff) {
+			discount = this.getFormattedPrice(coupon.Currency, coupon.AmountOff);
+		}
+	
+		return discount;
 	},
 
 
@@ -46,12 +83,11 @@ module.exports = React.createClass({
 		var pricing = e.pricing,
 			discount;
 
+		if (!this.isMounted() || this.props.locked) { return; }
+
 		if (e.type === Constants.VALID_COUPON) {
-			if (pricing.Coupon.PercentOff) {
-				discount = pricing.Coupon.PercentOff + '%';
-			} else if (pricing.Coupon.AmountOff) {
-				discount = this.getFormattedPrice(pricing.Coupon.Currency, pricing.Coupon.AmountOff);
-			}
+			debugger;
+			discount = this._getDiscountString(pricing.Coupon);
 
 			this.setState({
 				currentPrice: pricing.PurchasePrice,
@@ -60,7 +96,6 @@ module.exports = React.createClass({
 				couponDiscount: discount,
 				checkingCoupon: false
 			});
-
 		} else if (e.type === Constants.INVALID_COUPON) {
 			if (e.coupon === '') {
 				this.setState({
@@ -92,6 +127,7 @@ module.exports = React.createClass({
 
 
 	onCouponChanged: function () {
+		if (this.props.locked) { return; }
 		var couponRef = this.refs.coupon,
 			couponEl = couponRef && couponRef.isMounted() && couponRef.getDOMNode(),
 			coupon = couponEl && couponEl.value;
@@ -118,7 +154,10 @@ module.exports = React.createClass({
 		var couponLabel = _t('coupon');
 		var couponLabelCls = '';
 
-		if (this.state.checkingCoupon) {
+		if (this.props.locked) {
+			couponLabelCls = '';
+			couponLabel = _t('lockedCoupon');
+		} else if (this.state.checkingCoupon) {
 			couponLabelCls = 'working';
 			couponLabel = _t('checkingCoupon');
 		} else if (this.state.triedCoupon) {
@@ -177,6 +216,7 @@ module.exports = React.createClass({
 								<input type="text"
 									ref="coupon" name="coupon"
 									placeholder={_t("couponPlaceholder")}
+									readOnly={this.props.locked ? 'readonly' : null}
 									onChange={this.onCouponChanged}
 									value={this.state.coupon}/>
 							</div>
