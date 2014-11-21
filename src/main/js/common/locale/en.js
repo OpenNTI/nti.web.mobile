@@ -118,7 +118,10 @@ module.exports = {
 				transactionID: 'Transaction ID:',
 				accessKey: 'Access Key:',
 				supportPrompt: 'Please contact tech support if you have any issues.'
-			}
+			},
+
+			cancelPurchaseButton: 'Cancel',
+			purchaseButton: 'Purchase Gift'
 		},
 		forms: {
 			storeenrollment: {

@@ -1,4 +1,5 @@
 .gift.enrollment {
+	$pad: 0.9375rem;
 	margin: 0.5rem 1rem;
 	h1, h2, h3, h4, h5 {
 		color: $tertiary-grey;
@@ -56,13 +57,36 @@
 	}
 
 	.agreement {
-		$pad: 0.9375rem;
 		background: $quad-grey;
 		padding: 0.5rem $pad;
 		margin: 0 (-$pad) 2rem;
 
 		a {
 			color: $primary-blue;
+		}
+	}
+
+	.button-row {
+		margin: 0 (-$pad);
+		text-align: right;
+		a {
+			padding: 0.7rem 2rem 0.7625rem;
+			color: $secondary-grey;
+			font-size: 0.8rem;
+		}
+
+		button {
+			background: $secondary-green;
+			text-transform: none;
+			font-style: italic;
+			font-weight: 700;
+			letter-spacing: 0em;
+			padding-top: 0.7rem;
+			padding-bottom: 0.7625rem;
+
+			&.disabled {
+				background: $secondary-grey;
+			}
 		}
 	}
 }

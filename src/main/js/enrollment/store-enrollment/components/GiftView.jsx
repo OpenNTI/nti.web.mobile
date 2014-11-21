@@ -206,7 +206,7 @@ module.exports = React.createClass({
 		var stripeKey = this.props.purchasable.StripeConnectKey.PublicKey;
 		var result = this.getFormData();
 
-		if (this._validate(result)) {
+		if (this._validate(result) && this.state.agreed) {
 			Actions.verifyBillingInfo(stripeKey, result);
 		}
 	},
@@ -280,7 +280,8 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var submitCls = this.state.submitEnabled ? '' : 'disabled';
+		var enabled = (this.state.agreed && this.state.submitEnabled);
+		var submitCls = enabled ? '' : 'disabled';
 
 		if(this.state.loading) {
 			return <Loading />;
@@ -315,8 +316,8 @@ module.exports = React.createClass({
 				</div>
 
 				<div className="button-row">
-					<a ref="cancelButton">Cancel</a>
-					<button className={submitCls} onClick={this._onClick}>Click</button>
+					<a ref="cancelButton">{_t('cancelPurchaseButton')}</a>
+					<button disabled={!enabled} className={submitCls} onClick={this._onClick}>{_t('purchaseButton')}</button>
 				</div>
 			</div>
 		);
