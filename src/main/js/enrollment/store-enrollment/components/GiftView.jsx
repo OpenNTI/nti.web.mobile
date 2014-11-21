@@ -271,7 +271,7 @@ module.exports = React.createClass({
 
 
 		return (
-			<div className="">
+			<div className="gift enrollment">
 				<Pricing ref="Pricing" purchasable={this.props.purchasable} />
 
 				<FormPanel title={_t('PAYMENT.title')} subhead={_t('PAYMENT.sub')} styled={false}>
