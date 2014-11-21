@@ -43,6 +43,7 @@ module.exports = React.createClass({
 
 
 	componentWillUnmount: function() {
+		Actions.setCourse(null); // clear left nav
 		Store.removeChangeListener(this._onChange);
 	},
 
