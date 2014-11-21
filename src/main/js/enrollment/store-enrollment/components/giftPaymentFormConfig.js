@@ -6,8 +6,8 @@ module.exports = Object.freeze([
 			{
 				ref: 'fromLabel',
 				type: 'label'
-			}
-			,{
+			},
+			{
 				ref: 'from',
 				type: 'email',
 				required: true,

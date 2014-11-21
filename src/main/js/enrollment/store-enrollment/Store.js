@@ -101,7 +101,9 @@ function _pullData(data) {
 
 	_pricing = {
 		coupon: data.coupon,
+		/* jshint -W106*/
 		expected_price: data.expected_price
+		/* jshint +W106*/
 	};
 
 	add('from');
