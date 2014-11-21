@@ -26,6 +26,13 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 		}, bufferTime);
 	},
 
+	preflightAndCreateAccount: function(data) {
+		AppDispatcher.handleViewAction({
+			type: ActionConstants.PREFLIGHT_AND_CREATE_ACCOUNT,
+			fields: (data && data.fields)
+		});
+	},
+
 	createAccount: function(data) {
 		AppDispatcher.handleViewAction({
 			type: ActionConstants.CREATE_ACCOUNT,

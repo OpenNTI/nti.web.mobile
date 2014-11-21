@@ -9,41 +9,10 @@ var getServer = Utils.getServer;
 var Constants = require('./Constants');
 var Actions = Constants.actions;
 
-var CHANGE_EVENT = 'change';
-var ERROR_EVENT = 'error';
+var CHANGE_EVENT = require('common/constants/events').CHANGE_EVENT;
+var ERROR_EVENT = require('common/constants/events').ERROR_EVENT;
 
-var _fieldConfig = Object.freeze([
-	{
-		ref: 'fname',
-		type: 'text',
-		required: true
-	},
-	{
-		ref: 'lname',
-		type: 'text',
-		required: true
-	},
-	{
-		ref: 'email',
-		type: 'email',
-		required: true
-	},
-	{
-		ref: 'Username',
-		type: 'text',
-		required: true
-	},
-	{
-		ref: 'password',
-		type: 'password',
-		required: true
-	},
-	{
-		ref: 'password2',
-		type: 'password',
-		required: true
-	}
-]);
+var _fieldConfig = require('./configs/signup');
 
 var _errors = [];
 
@@ -121,9 +90,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	getFormConfig: function() {
-		return Promise.resolve({
-			fields: _fieldConfig
-		});
+		return Promise.resolve(_fieldConfig);
 	}
 });
 
@@ -134,28 +101,43 @@ function fieldsMatch(value1, value2) {
 	return value1 === value2;
 }
 
-function _preflight(fields) {
-
-	function preflightResult(result) {
-		console.debug('Store received preflight result: %O',result);
-		Store._clearErrors();
-		if (result.statusCode === 422 || result.statusCode === 409) {
-			var res = JSON.parse(result.response);
-			Store._addError({
-				field: res.field,
-				message: res.message
-			});
-		}
+function _clientSidePreflight(fields) {
+	return new Promise(function(fulfill, reject) {
 		if (!fieldsMatch(fields.password, fields.password2)) {
-			Store._addError({
+			var error = {
 				field: 'password2',
 				message: 'Passwords do not match.'
-			});
+			};
+			Store._addError(error)
+			reject(error);
+			return;
 		}
-	}
+		fulfill(fields);
+	});
+}
 
-	getServer().preflightAccountCreate(fields)
-		.then(preflightResult,preflightResult);
+function _serverSidePreflight(fields) {
+	return new Promise(function(fulfill, reject) {
+		getServer().preflightAccountCreate(fields).then(function(result) {
+			fulfill(result);
+		}, function(result) {
+			console.debug('Store received preflight result: %O',result);
+			Store._clearErrors();
+			if (result.statusCode === 422 || result.statusCode === 409) {
+				var res = JSON.parse(result.response);
+				var error = {
+					field: res.field,
+					message: res.message
+				}
+				Store._addError(error);
+			}
+			reject(result);
+		});
+	});
+}
+
+function _preflight(fields) {
+	return _clientSidePreflight(fields).then(_serverSidePreflight);
 }
 
 function _createAccount(fields) {
@@ -166,7 +148,7 @@ function _createAccount(fields) {
 
 	function fail(result) {
 		console.log('Account creation fail: %O',result);
-		if (result.statusCode === 422) {
+		if (Math.floor(result.statusCode/100) === 4) {
 			console.debug(result);
 			var res = JSON.parse(result.response);
 			Store._addError({
@@ -176,9 +158,17 @@ function _createAccount(fields) {
 		}
 	}
 
-	getServer().createAccount(fields)
+	return getServer().createAccount(fields)
 	.then(success, fail);
 
+}
+
+function _preflightCreateAccount(fields) {
+	_preflight(fields)
+		.then(_createAccount.bind(null,fields))
+		.catch(function(reason) {
+			console.debug(reason);
+		});
 }
 
 AppDispatcher.register(function(payload) {
@@ -192,6 +182,14 @@ AppDispatcher.register(function(payload) {
 
 		case Actions.CREATE_ACCOUNT:
 			_createAccount(action.fields);
+		break;
+
+		case Actions.PREFLIGHT_AND_CREATE_ACCOUNT:
+			_preflightCreateAccount(action.fields);
+		break;
+
+		case Actions.CLEAR_ERRORS:
+			Store._clearErrors();
 		break;
 
 		default:

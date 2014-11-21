@@ -10,7 +10,7 @@ var UserAgreement = require('./UserAgreement');
 var Router = require('react-router-component');
 var NavigatableMixin = Router.NavigatableMixin;
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
+var ERROR_EVENT = require('common/constants/events').ERROR_EVENT;
 
 var indexArrayByKey = require('dataserverinterface/utils/array-index-by-key');
 
@@ -24,7 +24,7 @@ var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderField
 
 var SignupForm = React.createClass({
 
-	mixins: [NavigatableMixin,RenderFieldConfigMixin],
+	mixins: [NavigatableMixin, RenderFieldConfigMixin],
 
 
 	getDefaultProps: function() {
@@ -38,12 +38,11 @@ var SignupForm = React.createClass({
 		return {
 			loading: true,
 			preflightTimeoutId: null,
-			formConfig: {},
+			formConfig: [],
 			fieldValues: {},
 			errors: {}
 		};
 	},
-
 
 	_fullname: function(tmpValues) {
 		var values = tmpValues || this.state.fieldValues;
@@ -61,12 +60,12 @@ var SignupForm = React.createClass({
 
 		this.setState({ busy: true });
 
-		Actions.createAccount({
+		Actions.clearErrors();
+		Actions.preflightAndCreateAccount({
 			fields: fields
 		});
 		return false;
 	},
-
 
 	storeChanged: function(event) {
 		var errs;
@@ -77,7 +76,7 @@ var SignupForm = React.createClass({
 			return;
 		}
 
-		if (event.type === 'error') {
+		if (event.type === ERROR_EVENT) {
 			errs = indexArrayByKey(Store.getErrors(),'field');
 			// realname is a synthetic field; map its error messages to the last name field.
 			// if (errs['realname'] && !errs['lname']) {
@@ -123,17 +122,28 @@ var SignupForm = React.createClass({
 
 		this.setState({ fieldValues: tmp });
 
-		Actions.preflight({
-			fields: tmp
-		});
+		// Actions.preflight({
+		// 	fields: tmp
+		// });
+	},
+
+	_inputChanged: function(event) {
+		this._inputBlurred(event); // we're not preflighting on blur anymore so update the submit button state on every change.
 	},
 
 	isSubmitEnabled: function() {
 		var state = this.state;
 		return !state.busy && Object.keys(state.errors).length === 0 &&
-				state.formConfig && state.formConfig.fields &&
-				state.formConfig.fields.every(function(fieldConfig) {
-					return !fieldConfig.required || (state.fieldValues[fieldConfig.ref]||'').length > 0;});
+				this._requiredFieldsFilled();
+	},
+
+	_requiredFieldsFilled: function() {
+		var values = this.state.fieldValues;
+		return this.state.formConfig.every(function(fieldset) {
+			return fieldset.fields.every(function(field) {
+				return !field.required || (values[field.ref]||'').length > 0;
+			});
+		});
 	},
 
 	render: function() {
@@ -144,19 +154,14 @@ var SignupForm = React.createClass({
 			return <Loading />;
 		}
 
-		var fields = (state.formConfig || {}).fields || [];
-		var fieldRenderFn = this.renderField.bind(null,t,this.state.fieldValues);
+		var fields = this.renderFormConfig(state.formConfig, state.fieldValues, t);
 
 		return (
 			<div className="row">
 				<form autoComplete="off" className="create-account-form medium-6 medium-centered columns" onSubmit={this._handleSubmit}>
-					<fieldset>
-						<legend>Create Account</legend>
-						{fields.map(fieldRenderFn)}
-						<div>
-							<UserAgreement />
-						</div>
-						<div className='errors'>
+					{fields}
+					<UserAgreement />
+					<div className='errors'>
 							<ReactCSSTransitionGroup transitionName="messages">
 								{Object.keys(state.errors).map(
 									function(ref) {
@@ -166,7 +171,7 @@ var SignupForm = React.createClass({
 								})}
 							</ReactCSSTransitionGroup>
 						</div>
-						<input type="submit"
+					<input type="submit"
 							id="signup:submit"
 							className="small-12 columns tiny button radius"
 							disabled={!enabled}
@@ -175,8 +180,6 @@ var SignupForm = React.createClass({
 							href={this.props.privacyUrl}
 							target="_blank"
 							className="small-12 columns text-center">Privacy Policy</a>
-					</fieldset>
-
 				</form>
 			</div>
 		);
