@@ -37,6 +37,8 @@ module.exports = {
 
 		var ref = field.ref;
 
+		cssClass.push(ref);
+
 		// default placeholder for inputs
 		var translateOptions = {
 			fallback: ''
@@ -58,19 +60,22 @@ module.exports = {
 				{
 					key: ref
 				},
-				input({
-					ref: ref,
-					value: (values||{}).ref,
-					name: ref,
-					onBlur: this._onBlur,
-					onFocus: this._onFocus,
-					onChange: onChange,
-					placeholder: tr(ref,translateOptions),
-					className: cssClass.join(' '),
-					defaultValue: (values||{})[ref],
-					type: type,
-					pattern: (field.type === 'number' && '[0-9]*') || null
-				})
+
+				type === 'label' ?
+					React.DOM.label({ ref: ref, className: cssClass.join(' ') }, tr(ref, translateOptions)) :
+					input({
+						ref: ref,
+						value: (values||{}).ref,
+						name: ref,
+						onBlur: this._onBlur,
+						onFocus: this._onFocus,
+						onChange: onChange,
+						placeholder: tr(ref,translateOptions),
+						className: cssClass.join(' '),
+						defaultValue: (values||{})[ref],
+						type: type,
+						pattern: (field.type === 'number' && '[0-9]*') || null
+					})
 			)
 		);
 	},

@@ -8,11 +8,15 @@ module.exports = Object.freeze([
 				type: 'email',
 				required: true,
 				placeholder: 'Email Address'
+			},
+			{
+				ref: 'fromLabel',
+				type: 'label'
 			}
 		]
 	},
 	{
-		title: 'Credit Card Information',
+		title: 'Credit Card',
 		fields: [
 			{
 				ref: 'name',
@@ -41,7 +45,7 @@ module.exports = Object.freeze([
 		]
 	},
 	{
-		title: 'Billing Info',
+		title: 'Billing Address',
 		fields: [
 			{
 				ref: 'address_line1', // this is the name expected by the stripe api and returned by Stripe.getToken().
