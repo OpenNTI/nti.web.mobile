@@ -13,10 +13,10 @@ module.exports = autoBind({
 	handleRedirects: function(_, res, next) {
 		var url = _.originalUrl || _.url;
 		var index = (url && url.indexOf('?q=')) || 0;
-		var catalog = /library\/availablecourses\/(.*)/;
+		var catalog = /library\/availablecourses\/([^\/]*)(.*)/;
 		var redUrl, encoded;
 
-		//library/availablecourses/IUB0YWc6bmV4dHRob3VnaHQuY29tLDIwMTEtMTA6TlRJLUNvdXJzZUluZm8tU3ByaW5nMjAxNV9MU1REXzExNTM
+		//library/availablecourses/IUB0YWc6bmV4dHRob3VnaHQuY29tLDIwMTEtMTA6TlRJLUNvdXJzZUluZm8tU3ByaW5nMjAxNV9MU1REXzExNTM/
 
 		if (index > 0) {
 			redUrl = url.substr(0, index) + '#notifications';
