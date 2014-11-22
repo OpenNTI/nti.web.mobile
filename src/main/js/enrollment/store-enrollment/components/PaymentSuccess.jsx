@@ -47,7 +47,7 @@ var PaymentSuccess = React.createClass({
 	render: function() {
 		var isGift = _purchaseAttempt && _purchaseAttempt.RedemptionCode;
 
-		if (_purchaseAttempt) {
+		if (!_purchaseAttempt) {
 			return <ErrorWidget error="No data"/>;
 		}
 
