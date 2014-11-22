@@ -65,19 +65,27 @@ var View = React.createClass({
 					loading: false,
 					pricedItem: event.pricedItem
 				});
-			break;
-			
+				break;
+
+			case Constants.EDIT:
+				router.navigate('/' + event.mode);
+				break;
+
+			case Constants.RESET:
+				router.navigate('/', {replace: true});
+				break;
+
 			case Constants.BILLING_INFO_VERIFIED:
 				router.navigate('confirm/');
-			break;
+				break;
 
 			case Constants.STRIPE_PAYMENT_SUCCESS:
 				router.navigate('success/');
-			break;
+				break;
 
 			case Constants.STRIPE_PAYMENT_FAILURE:
 				router.navigate('error/');
-			break;
+				break;
 		}
 	},
 
@@ -108,7 +116,7 @@ var View = React.createClass({
 					</Locations>
 				</ReactCSSTransitionGroup>
 			</div>
-			
+
 		);
 	}
 

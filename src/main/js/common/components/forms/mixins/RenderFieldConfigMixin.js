@@ -85,7 +85,7 @@ module.exports = {
 
 		var key = 'fieldset-'.concat(index);
 		return React.DOM.fieldset({key: key, className: fieldset.className || null}, [
-			fieldset.title ? React.DOM.legend(null, fieldset.title) : null,
+			fieldset.title ? React.DOM.legend({key: key+'-legend'}, fieldset.title) : null,
 			fieldset.fields.map(fieldRenderFn)
 			]);
 	},

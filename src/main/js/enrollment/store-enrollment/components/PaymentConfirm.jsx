@@ -8,13 +8,15 @@ var React = require('react/addons');
 var Store = require('../Store');
 var Actions = require('../Actions');
 var PanelButton = require('common/components/PanelButton');
+var ErrorWidget = require('common/components/Error');
 var Loading = require('common/components/Loading');
 var BillingInfo = require('./BillingInfo');
 var GiftInfo = require('./GiftInfo');
 var Pricing = require('./Pricing');
+
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
+
 var _t = require('common/locale').scoped('ENROLLMENT.CONFIRMATION');
-var t = require('common/locale').translate;
 
 var _stripeToken;
 var _pricing;
@@ -36,6 +38,14 @@ var PaymentConfirm = React.createClass({
 			});
 		}
 	},
+
+
+	componentDidMount: function() {
+		if (!_stripeToken) {
+			Actions.resetProcess();
+		}
+	},
+
 
 	getInitialState: function() {
 		return {
@@ -83,9 +93,7 @@ var PaymentConfirm = React.createClass({
 	render: function() {
 
 		if (this.state.error || !_stripeToken) {
-			return (<PanelButton className="column" href="../">
-				<p>{t('ENROLLMENT.NO_STRIPE_TOKEN')}</p>
-			</PanelButton>);
+			return <ErrorWidget error="No data"/>;
 		}
 
 		if (this.state.busy) {
@@ -93,8 +101,10 @@ var PaymentConfirm = React.createClass({
 		}
 
 		var purchasable = this.props.purchasable;
+
 		var price = this._getPrice();
-		var edit = _giftInfo ? '../gift/' : '../';
+		var edit = _giftInfo && 'gift/';
+
 
 		return (
 			<div className="row payment-confirm">

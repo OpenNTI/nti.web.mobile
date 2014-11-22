@@ -27,6 +27,20 @@ module.exports = {
 			Constants.UPDATE_COUPON,
 			{purchasable: purchasable, coupon: coupon}
 		);
+	},
+
+
+	resetProcess: function () {
+		dispatch(
+			Constants.RESET, {}
+		);
+	},
+
+
+	edit: function (mode) {
+		dispatch(
+			Constants.EDIT, {mode: mode}
+		);
 	}
 };
 

@@ -217,6 +217,24 @@ Store.appDispatch = AppDispatcher.register(function(data) {
     var action = data.action;
 
     switch(action.type) {
+		case Constants.EDIT:
+			Store.emitChange({
+				type: action.type,
+				mode: action.payload.mode
+			});
+			break;
+
+		case Constants.RESET:
+			_pricing =
+			_giftInfo =
+			_couponPricing =
+			_paymentFormData =
+			_paymentResult = null;
+			Store.emitChange({
+				type: action.type
+			});
+			break;
+
     	case Constants.UPDATE_COUPON:
     		_priceWithCoupon(action.payload);
     		break;

@@ -12,6 +12,8 @@
 var React = require('react/addons');
 var _t = require('common/locale').scoped('ENROLLMENT.CONFIRMATION');
 
+var Actions = require('../Store');
+
 function notEmpty(value) {
 	return (value||'').trim().length > 0;
 }
@@ -31,7 +33,7 @@ var BillingInfo = React.createClass({
 		var zip = card.address_zip;
 
 		if (notEmpty(city) && (notEmpty(state) || notEmpty(zip))) {
-			city = city.concat(',');
+			city = city.concat(', ');
 		}
 		[city,state,zip].forEach(function(value) {
 			if (notEmpty(value)) {
@@ -39,6 +41,10 @@ var BillingInfo = React.createClass({
 			}
 		});
 		return this._rowIfNotEmpty(parts.join(' '));
+	},
+
+	onEdit: function () {
+		Actions.edit(this.props.edit);
 	},
 
 	render: function() {
@@ -49,13 +55,12 @@ var BillingInfo = React.createClass({
 			<div>
 				<fieldset>
 					<div className="title">
-						<span>{_t("paymentInfo")}</span>
-						<a href="{this.props.edit}">edit</a>
+						<span>{_t("paymentInfo")}</span> <a href="#" onClick={this.onEdit}>edit</a>
 					</div>
+
 					<div className="field">{card.name}</div>
 					<div className="field">
-						<span className="label">{card.brand}:</span>
-						<span className="value">**** **** **** {card.last4}</span>
+						<span className="label">{card.brand}:</span> <span className="value">**** **** **** {card.last4}</span>
 					</div>
 					<div className="field">
 						<span className="label">{_t("expires")}</span>
@@ -64,15 +69,13 @@ var BillingInfo = React.createClass({
 				</fieldset>
 				<fieldset>
 					<div className="title">
-						<span>{_t("billingInfo")}</span>
-						<a href="{this.props.edit}">edit</a>
+						<span>{_t("billingInfo")}</span> <a href="#" onClick={this.onEdit}>edit</a>
 					</div>
+
 					<div className="field">{card.address_line1}</div>
 					<div className="field">{card.address_line2}</div>
 					<div className="city field">
-						<span>{city}</span>
-						<span>{card.address_state}</span>
-						<span>{card.address_zip}</span>
+						<span>{city}</span> <span>{card.address_state}</span> <span>{card.address_zip}</span>
 					</div>
 					<div className="field">{card.address_country}</div>
 				</fieldset>

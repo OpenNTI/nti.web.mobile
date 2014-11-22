@@ -4,10 +4,18 @@
 
 var React = require('react/addons');
 
+var Actions = require('../Actions');
+
 var _t = require('common/locale').scoped("ENROLLMENT.CONFIRMATION");
 
 module.exports = React.createClass({
 	displayName: 'GiftInfo',
+
+
+	onEdit: function () {
+		Actions.edit(this.props.edit);
+	},
+
 
 	render: function() {
 		var info = this.props.info;
@@ -19,17 +27,16 @@ module.exports = React.createClass({
 		return (
 			<fieldset>
 				<div className="title">
-					<span>{_t("giftInfo")}</span>
-					<a href={this.props.edit}>edit</a>
+					<span>{_t("giftInfo")}</span> <a href="#" onClick={this.onEdit}>edit</a>
 				</div>
 				<div className="field">
-					<span className="label">{_t("from")}</span>
-					<span className="value">{info.sender ? info.sender + '(' + info.from + ')' : info.from}</span>
+					<span className="label">{_t("from")}</span>	<span className="value">
+						{info.sender ? info.sender + '(' + info.from + ')' : info.from}</span>
 				</div>
 				{!info.receiver ? '' :
 					<div className="field">
-						<span className="label">{_t("to")}</span>
-						<span className="value">{info.to ? info.to + '(' + info.receiver + ')' : info.receiver}</span>
+						<span className="label">{_t("to")}</span> <span className="value">
+							{info.to ? info.to + '(' + info.receiver + ')' : info.receiver}</span>
 					</div>
 				}
 				{!info.message ? '' :

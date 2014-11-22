@@ -107,21 +107,24 @@ module.exports = React.createClass({
 							{_t("enable")}
 						</label>
 						<div className="line">
-							<input type="text" name="toFirstName" placeholder={_t("firstName")} onFocus={this._onFocused} value={this.state.toFirstName} />
-							<input type="text" name="toLastName" placeholder={_t("lastName")} onFocus={this._onFocused} value={this.state.toLastName} />
+							<input type="text" name="toFirstName" placeholder={_t("firstName")}
+								onFocus={this._onFocused} defaultValue={this.state.toFirstName} />
+							<input type="text" name="toLastName" placeholder={_t("lastName")}
+								onFocus={this._onFocused} defaultValue={this.state.toLastName} />
 							<input type="email" name="receiver" placeholder={_t("email")}
 							 	onFocus={this._onFocused}
-								value={this.state.receiver}
+								defaultValue={this.state.receiver}
 							 	ref="email" className={requiredIfEnabled} />
 						</div>
 						<textarea name="message" placeholder={_t("message")}
 							onFocus={this._onFocused}
-							value={this.state.message}/>
+							defaultValue={this.state.message}/>
 					</fieldset>
 					<fieldset>
 						<label htmlFor="sender">{_t("fromLabel")}</label>
 						<div className="line">
-							<input type="text" id="sender" name="sender" value={this.state.sender} placeholder={_t("from")} onFocus={this._onFocused}/>
+							<input type="text" id="sender" name="sender" defaultValue={this.state.sender}
+								placeholder={_t("from")} onFocus={this._onFocused}/>
 							<div className="box">{_t("sendDate")}</div>
 						</div>
 					</fieldset>

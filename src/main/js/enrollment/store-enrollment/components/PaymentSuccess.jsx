@@ -6,10 +6,14 @@
 
 var React = require('react/addons');
 
+var ErrorWidget = require('common/components/Error');
+
 var CourseContentLink = require('library/components/CourseContentLink');
 
 var GiftSuccess = require('./GiftSuccess');
 var EnrollmentSuccess = require('./EnrollmentSuccess');
+
+var Actions = require('../Actions');
 var Store = require('../Store');
 
 var _purchaseAttempt;
@@ -27,6 +31,13 @@ var PaymentSuccess = React.createClass({
 	},
 
 
+	componentDidMount: function() {
+		if (!_purchaseAttempt) {
+			Actions.resetProcess();
+		}
+	},
+
+
 	_courseLink: function() {
 		return <CourseContentLink
 					className="button tiny radius column"
@@ -35,6 +46,10 @@ var PaymentSuccess = React.createClass({
 
 	render: function() {
 		var isGift = _purchaseAttempt && _purchaseAttempt.RedemptionCode;
+
+		if (_purchaseAttempt) {
+			return <ErrorWidget error="No data"/>;
+		}
 
 		return (
 			<div>

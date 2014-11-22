@@ -3,6 +3,9 @@
 var keyMirror = require('react/lib/keyMirror');
 
 module.exports = keyMirror({
+	EDIT: null,
+	RESET: null,
+
 	LOCK_SUBMIT: null,
 	UNLOCK_SUBMIT: null,
 	UPDATE_COUPON: null,

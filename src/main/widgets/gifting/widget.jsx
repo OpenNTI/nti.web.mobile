@@ -83,6 +83,14 @@ module.exports = React.createClass({
 				});
 				break;
 
+			case Constants.EDIT:
+				router.navigate('/');
+				break;
+
+			case Constants.RESET:
+				router.navigate('/', {replace: true});
+				break;
+
 			case Constants.BILLING_INFO_VERIFIED:
 				router.navigate('/confirm/');
 				break;
@@ -113,11 +121,9 @@ module.exports = React.createClass({
 			<CaptureClicks environment={Router.environment.hashEnvironment}>
 				<ReactCSSTransitionGroup transitionName="loginforms">
 					<Locations hash ref="router">
-						<Location path="/confirm/" handler={Confirm} purchasable={purchasable}/>
-
-						<Location path="/success/" handler={Success} purchasable={purchasable} />
-
-						<Location path="/error/" handler={PaymentError} purchasable={purchasable} />
+						<Location path="/confirm/*" handler={Confirm} purchasable={purchasable}/>
+						<Location path="/success/*" handler={Success} purchasable={purchasable} />
+						<Location path="/error/*" handler={PaymentError} purchasable={purchasable} />
 						<DefaultRoute handler={Form} purchasable={purchasable}/>
 					</Locations>
 				</ReactCSSTransitionGroup>
