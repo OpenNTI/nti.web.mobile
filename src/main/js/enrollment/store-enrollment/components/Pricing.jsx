@@ -73,7 +73,7 @@ module.exports = React.createClass({
 		if (coupon.PercentOff) {
 			discount = coupon.PercentOff + '%';
 		} else if (coupon.AmountOff) {
-			discount = this.getFormattedPrice(coupon.Currency, coupon.AmountOff);
+			discount = this.getFormattedPrice(coupon.Currency, coupon.AmountOff / 100);
 		}
 	
 		return discount;
@@ -87,7 +87,6 @@ module.exports = React.createClass({
 		if (!this.isMounted() || this.props.locked) { return; }
 
 		if (e.type === Constants.VALID_COUPON) {
-			debugger;
 			discount = this._getDiscountString(pricing.Coupon);
 
 			this.setState({
