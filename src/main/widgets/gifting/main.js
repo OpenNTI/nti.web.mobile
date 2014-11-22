@@ -30,7 +30,8 @@ var props = QueryString.parse(global.location.search);
 var WidgetView = require('./widget');
 React.renderComponent(
 	WidgetView({
-		purchasableId: props.purchasableId
+		purchasableId: props.purchasableId,
+		headerImage: props.header
 	}),
 	document.getElementById('content')
 );

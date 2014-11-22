@@ -18,6 +18,7 @@ var ErrorComponent = require('common/components/Error');
 var Constants = require('enrollment/store-enrollment/Constants');
 var Store = require('enrollment/store-enrollment/Store');
 
+var Header = require('./header');
 
 var Form = require('enrollment/store-enrollment/components/GiftView');
 
@@ -119,6 +120,7 @@ module.exports = React.createClass({
 
 		return (
 			<CaptureClicks environment={Router.environment.hashEnvironment}>
+				<Header purchasable={purchasable} header={this.props.header} />
 				<ReactCSSTransitionGroup transitionName="loginforms">
 					<Locations hash ref="router">
 						<Location path="/confirm/*" handler={Confirm} purchasable={purchasable}/>
