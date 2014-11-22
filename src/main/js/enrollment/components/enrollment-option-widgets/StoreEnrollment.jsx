@@ -23,7 +23,7 @@ var StoreEnrollment = React.createClass({
 
 		return (
 			<PanelButton href="store/" linkText={t('enrollAsLifelongLearner')}>
-				<h2>Lifelong Learner</h2>
+				<h2>{t('storeEnrollmentTitle')}</h2>
 				<p>Gain complete access to interact with all course content,
 				including lectures, course materials, quizzes,
 				and discussions once the class is in session.</p>

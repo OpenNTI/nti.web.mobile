@@ -2,6 +2,7 @@
 
 var OpenEnrollment = require('./OpenEnrollment');
 var StoreEnrollment = require('./StoreEnrollment');
+var FiveMinuteEnrollment = require('./FiveMinuteEnrollment');
 // var UnrecognizedEnrollmentType = require('./UnrecognizedEnrollmentType');
 
 
@@ -14,6 +15,9 @@ module.exports = {
 
 			case 'StoreEnrollment':
 				return StoreEnrollment;
+
+			case 'FiveminuteEnrollment': // augh. wonky camel case.
+				return FiveMinuteEnrollment;
 
 			default:
 				console.warn('No enrollment widget found for option: %O', enrollmentOption);

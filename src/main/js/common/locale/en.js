@@ -161,6 +161,11 @@ module.exports = {
 		enrollAsLifelongLearner: 'Enroll as a Lifelong Learner',
 		enrollAsLifelongLearnerWithPrice: 'Enroll as a Lifelong Learner: %(price)s',
 
+		storeEnrollmentTitle: 'Enroll as a Lifelong Learner',
+
+		fiveMinuteEnrollmentTitle: 'Enroll for Credit',
+		fiveMinuteNotAvailableOnMobile: 'Please visit from a desktop or our iPad app to enroll for credit. Coming soon to mobile.',
+
 		NO_STRIPE_TOKEN: 'Utoh. Couldn\'t find payment info. (This can occur if you navigate to the confirmation view directly or if you reload.)'
 	},
 
