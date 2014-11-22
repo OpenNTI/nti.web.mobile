@@ -21,17 +21,19 @@ module.exports = React.createClass({
 	render: function() {
 		var courseTitle = this.props.purchasable.Title;
 		var purchaseAttempt = this.props.purchaseattempt;
-		var email = purchaseAttempt && purchaseAttempt.Receiver;
-		var name = purchaseAttempt && purchaseAttempt.ReceiverName;
+		var receiver = purchaseAttempt && purchaseAttempt.Receiver;
+		var sender = purchaseAttempt && purchaseAttempt.Creator;
 		var vendorInfo = this.props.purchasable && this.props.purchasable.VendorInfo;
 		var date = this.getDate(vendorInfo && vendorInfo.StartDate);
+		var alert;
 		var infoKey;
+		var support = _siteT("GIFTSUPPORT");
 
-		if (name) {
-			infoKey = 'toName';
+		if (receiver) {
+			infoKey = 'toRecipient';
 		} else {
-			infoKey = 'toEmail';
-			email = email || purchaseAttempt.Creator;
+			infoKey = 'toSender';
+			alert = _t("alert");
 		}
 
 		return (
@@ -39,8 +41,11 @@ module.exports = React.createClass({
 				<Pricing purchasable={this.props.purchasable} locked={true} />
 				<div className="medium-8 medium-centered columns">
 					<h3 className="header">{_t("title")}</h3>
+					<LocalizedHTML className="gift" key={infoKey} scoped="ENROLLMENT.GIFT.SUCCESS" sender={sender} receiver={receiver} />
+					<p className="alert">{alert}</p>
 					<LocalizedHTML className="prompt" key="info" scoped="ENROLLMENT.GIFT.SUCCESS" courseTitle={courseTitle} startDate={date}/>
-					<LocalizedHTML className="gift" key={infoKey} scoped="ENROLLMENT.GIFT.SUCCESS" name={name} email={email} />
+					<LocalizedHTML className="support" key="support" scoped="ENROLLMENT.GIFT.SUCCESS" email={support} />
+
 					<div className="token">
 						<span className="label">{_t("accessKey")}</span>
 						<input type="text" readonly className="value" value={purchaseAttempt.RedemptionCode} />
@@ -48,12 +53,6 @@ module.exports = React.createClass({
 					<div className="token">
 						<span className="label">{_t("transactionID")}</span>
 						<input type="text" readonly className="value" value={purchaseAttempt.TransactionID} />
-					</div>
-					<div className="support">
-						<span className="prompt">{_t("supportPrompt")}</span>
-						<span className="phone">{_siteT("phone")}</span>
-						<a className="link" href={_siteT("LINK1").link}>{_siteT("LINK1").label}</a>
-						<a className="link" href={_siteT("LINK2").link}>{_siteT("LINK2").label}</a>
 					</div>
 				</div>
 			</div>

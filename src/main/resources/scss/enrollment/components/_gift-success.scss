@@ -1,4 +1,6 @@
 .gift-success {
+	margin-bottom: 2rem;
+
 	h3{
 		color: $secondary-green;
 		font-size: 1.5em;
@@ -26,10 +28,22 @@
 			font-weight: 600;
 			color: $primary-grey;
 		}
+
+		a {
+			font-weight: 400;
+		}
 	}
 
 	.gift {
 		margin-top: 1em;
+	}
+
+	.alert {
+		font-weight: 500;
+
+		&:empty {
+			display: none;
+		}
 	}
 
 	.token {
@@ -61,22 +75,11 @@
 	}
 
 	.support {
-		font-size: 0.9em;
-
-		span, a {
-			display: block;
-		}
-
-		.prompt {
-			font-weight: 500;
-		}
-
-		.phone {
-			font-weight: 300;
-		}
+		margin-top: 1em;
+		font-weight: 300;
 
 		a {
-			color: $primary-blue;
+			font-weight: 400;
 		}
 	}
 }

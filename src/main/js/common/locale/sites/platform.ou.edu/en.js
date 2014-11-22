@@ -12,6 +12,7 @@ module.exports = {
 		LINK2: {
 			label: 'Service Centers',
 			link: 'http://www.ou.edu/content/ouit/help/personal.html'
-		}
+		},
+		GIFTSUPPORT: '<a href="mailto:historychannel@ou.edu">HistoryChannel@ou.edu</a>'
 	}
 };
