@@ -27,7 +27,7 @@ module.exports = React.createClass({
 		return (
 			<div className="small-12 columns">
 				<PanelButton button={this._courseLink()}>
-					You are now enrolled in {this.props.courseTitle}.
+					You are now enrolled in {this.props.purchasable.Title}.
 				</PanelButton>
 			</div>
 		);
