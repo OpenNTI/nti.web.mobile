@@ -5,17 +5,17 @@
 var React = require('react/addons');
 
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT.PRICING');
+var DateTime = require('common/components/DateTime');
 
 var Store = require('../Store');
 var Actions = require('../Actions');
 var Constants = require('../Constants');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
-var DateMixin = require('enrollment/mixins/Dates');
 
 module.exports = React.createClass({
 	displayName: 'Pricing',
 
-	mixins: [FormattedPriceMixin, DateMixin],
+	mixins: [FormattedPriceMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired
@@ -144,8 +144,8 @@ module.exports = React.createClass({
 	render: function() {
 		var type = 'Lifelong Learner - Gift';
 		var vendorInfo = this.props.purchasable.VendorInfo;
-		var startDate = this.getDate(vendorInfo && vendorInfo.StartDate);
-		var endDate = this.getDate(vendorInfo && vendorInfo.EndDate);
+		var startDate = vendorInfo && vendorInfo.StartDate;
+		var endDate = vendorInfo && vendorInfo.EndDate;
 		var creditHours= _t('x_creditHours', {count: (vendorInfo && vendorInfo.Hours) || 0});
 		var refund = _t('noRefunds');
 		var oldTotal = this.state.oldPrice && this.getFormattedPrice(this.state.currency, this.state.oldPrice);
@@ -182,11 +182,11 @@ module.exports = React.createClass({
 						<div className="small-6 medium-4 columns">
 							<div className="cell">
 								<span className="label">{_t("begins")}</span>
-								<span className="value">{startDate}</span>
+								<DateTime className="value" date={startDate} />
 							</div>
 							<div className="cell">
 								<span className="label">{_t("ends")}</span>
-								<span className="value">{endDate}</span>
+								<DateTime className="value" date={endDate} />
 							</div>
 						</div>
 
