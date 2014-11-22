@@ -5,6 +5,8 @@
 var React = require('react/addons');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
+var isEmail = require('dataserverinterface/utils/isemail');
+
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT');
 var t = require('common/locale').scoped('ENROLLMENT.forms.storeenrollment');
 var t2 = require('common/locale').scoped('ENROLLMENT');
@@ -222,10 +224,9 @@ module.exports = React.createClass({
 
 		fieldConfig.forEach(function(fieldset) {
 			fieldset.fields.forEach(function(field) {
-				if (field.required) {
-
-					var value = (fieldValues[field.ref]||'');
-					if (value.trim().length === 0) {
+				var value = (fieldValues[field.ref]||'').trim();
+				if (value.length === 0) {
+					if (field.required) {
 						errors[field.ref] = {
 							// no message property because we don't want the 'required' message
 							// repeated for every required field...
@@ -239,6 +240,18 @@ module.exports = React.createClass({
 						};
 					}
 				}
+				else {
+
+					if (field.type === 'email' && !isEmail(value)) {
+						errors[field.ref] = {
+							message: t2('invalidEmail'),
+							error: 'not an email address'
+						};
+					}
+
+				}
+
+
 			});
 		});
 

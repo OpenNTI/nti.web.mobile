@@ -158,6 +158,9 @@ module.exports = {
 		invalidCardNumber: 'Card number is invalid.',
 		invalidCVC: 'CVC is invalid.',
 
+		invalidEmail: 'Invalid Email.',
+		invalidRecipient: 'Invalid Recipient Email.',
+
 		enrollmentNotRefundable: 'Enrollment is not refundable.',
 
 		enrollAsLifelongLearner: 'Enroll as a Lifelong Learner',

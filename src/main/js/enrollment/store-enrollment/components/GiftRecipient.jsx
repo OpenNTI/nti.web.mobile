@@ -5,6 +5,7 @@
 var React = require('react/addons');
 
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT.RECIPIENT');
+var isEmail = require('dataserverinterface/utils/isemail');
 var toArray = require('dataserverinterface/utils/toarray');
 
 var Store = require('../Store');
@@ -14,6 +15,7 @@ module.exports = React.createClass({
 
 	getInitialState: function() {
 		return {
+			valid: true,
 			enabled: false,
 			from: null,
 			message: null,
@@ -75,7 +77,9 @@ module.exports = React.createClass({
 		email = email && email.value;
 		email = email || '';
 
-		return !this.state.enabled || email !== '';
+		var v = !this.state.enabled || isEmail(email);
+		this.setState({valid: v});
+		return v;
 	},
 
 
@@ -96,7 +100,11 @@ module.exports = React.createClass({
 	render: function() {
 		var enabled = this.state.enabled;
 		var enabledCls = enabled ? '' : 'disabled';
-		var requiredIfEnabled = enabled ? 'required' : null;
+		var requiredIfEnabled = enabled ? 'required' : '';
+
+		if (!this.state.valid) {
+			requiredIfEnabled += ' invalid';
+		}
 
 		return (
 			<div className={"gift-info " + enabledCls}>
