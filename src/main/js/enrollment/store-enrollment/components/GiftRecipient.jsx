@@ -7,19 +7,31 @@ var React = require('react/addons');
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT.RECIPIENT');
 var toArray = require('dataserverinterface/utils/toarray');
 
+var Store = require('../Store');
+
 module.exports = React.createClass({
 	displayName: 'Recipient',
 
 	getInitialState: function() {
 		return {
-			enabled: false
+			enabled: false,
+			from: null,
+			message: null,
+			receiver: null,
+			sender: null,
+			toFirstName: null,
+			toLastName: null
 		};
 	},
 
-	validate: function() {
-		//do stuff
-		//form.elements
+
+	componentDidMount: function() {
+		var prevState = Store.getGiftInfo();
+		if (prevState) {
+			this.setState(Object.assign({enabled: true},prevState));
+		}
 	},
+
 
 
 	getData: function() {
@@ -42,20 +54,16 @@ module.exports = React.createClass({
 			return agg;
 		}, {});
 
-		/* jshint -W106 */
-		if (result.to_first_name) {
-			if (result.to_last_name) {
-				result.to = result.to_first_name + ' ' + result.to_last_name;
+		if (result.toFirstName) {
+			if (result.toLastName) {
+				result.to = result.toFirstName + ' ' + result.toLastName;
 			} else {
-				result.to = result.to_first_name;
+				result.to = result.toFirstName;
 			}
-		} else if (result.to_last_name) {
-			result.to = result.to_last_name;
+		} else if (result.toLastName) {
+			result.to = result.toLastName;
 		}
 
-		delete result.to_first_name;
-		delete result.to_last_name;
-		/* jshint +W106 */
 		return result;
 	},
 
@@ -99,16 +107,17 @@ module.exports = React.createClass({
 							{_t("enable")}
 						</label>
 						<div className="line">
-							<input type="text" name="to_first_name" placeholder={_t("firstName")} onFocus={this._onFocused} />
-							<input type="text" name="to_last_name" placeholder={_t("lastName")} onFocus={this._onFocused} />
-							<input type="email" name="receiver" placeholder={_t("email")} onFocus={this._onFocused} ref="email" className={requiredIfEnabled} />
+							<input type="text" name="toFirstName" placeholder={_t("firstName")} onFocus={this._onFocused} value={this.state.toFirstName} />
+							<input type="text" name="toLastName" placeholder={_t("lastName")} onFocus={this._onFocused} value={this.state.toLastName} />
+							<input type="email" name="receiver" placeholder={_t("email")} onFocus={this._onFocused} value={this.state.receiver}
+							 	ref="email" className={requiredIfEnabled} />
 						</div>
-						<textarea name="message" placeholder={_t("message")} onFocus={this._onFocused}/>
+						<textarea name="message" placeholder={_t("message")} onFocus={this._onFocused} value={this.state.message}/>
 					</fieldset>
 					<fieldset>
 						<label htmlFor="sender">{_t("fromLabel")}</label>
 						<div className="line">
-							<input type="text" id="sender" name="sender" placeholder={_t("from")} onFocus={this._onFocused}/>
+							<input type="text" id="sender" name="sender" value={this.state.sender} placeholder={_t("from")} onFocus={this._onFocused}/>
 							<div className="box">{_t("sendDate")}</div>
 						</div>
 					</fieldset>

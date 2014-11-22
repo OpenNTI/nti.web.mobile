@@ -113,6 +113,8 @@ function _pullData(data) {
 
 	add('from');
 	add('to');
+	add('toFirstName');
+	add('toLastName');
 	add('receiver');
 	add('message');
 	add('sender');
