@@ -12,7 +12,7 @@
 var React = require('react/addons');
 var _t = require('common/locale').scoped('ENROLLMENT.CONFIRMATION');
 
-var Actions = require('../Store');
+var Actions = require('../Actions');
 
 function notEmpty(value) {
 	return (value||'').trim().length > 0;
