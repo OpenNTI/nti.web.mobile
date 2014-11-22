@@ -17,7 +17,7 @@ var CourseDescription = React.createClass({
 		return (
 			<div>
 				{detail}
-				<EnrollButton catalogEntry={this.props.entry} />
+				<EnrollButton catalogEntry={this.props.entry} dropOnly={true}/>
 			</div>
 		);
 	}

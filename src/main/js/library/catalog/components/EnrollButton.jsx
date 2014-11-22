@@ -20,7 +20,8 @@ var EnrollButton = React.createClass({
 	mixins: [EnrollmentOptions],
 
 	propTypes: {
-		'catalogEntry': React.PropTypes.object.isRequired
+		catalogEntry: React.PropTypes.object.isRequired,
+		dropOnly: React.PropTypes.bool
 	},
 
 	_button: function() {
@@ -31,7 +32,7 @@ var EnrollButton = React.createClass({
 			return <a href={href} className={buttonCss}>Drop This Course</a>;
 		}
 
-		if (this.enrollmentOptions(this.props.catalogEntry).length > 0) {
+		if (!this.props.dropOnly && this.enrollmentOptions(this.props.catalogEntry).length > 0) {
 			var href = this.makeHref('/enrollment/', true);
 			return <a href={href} className={buttonCss}>Enroll</a>;
 		}
