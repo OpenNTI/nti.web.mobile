@@ -4,6 +4,8 @@
 
 var React = require('react/addons');
 
+var DateMixin = require('enrollment/mixins/Dates');
+
 var LocalizedHTML = require('common/components/LocalizedHTML');
 
 var Pricing = require('./Pricing');
@@ -14,11 +16,15 @@ var _siteT = require('common/locale').scoped('CONTACTINFO');
 module.exports = React.createClass({
 	displayName: 'GiftSuccess',
 
+	mixins: [DateMixin],
+
 	render: function() {
 		var courseTitle = this.props.purchasable.Title;
 		var purchaseAttempt = this.props.purchaseattempt;
 		var email = purchaseAttempt && purchaseAttempt.Receiver;
 		var name = purchaseAttempt && purchaseAttempt.ReceiverName;
+		var vendorInfo = this.props.purchasable && this.props.purchasable.VendorInfo;
+		var date = this.getDate(vendorInfo && vendorInfo.StartDate);
 		var infoKey;
 
 		if (name) {
@@ -33,7 +39,7 @@ module.exports = React.createClass({
 				<Pricing purchasable={this.props.purchasable} locked={true} />
 				<div className="medium-8 medium-centered columns">
 					<h3 className="header">{_t("title")}</h3>
-					<LocalizedHTML className="prompt" key="info" scoped="ENROLLMENT.GIFT.SUCCESS" courseTitle={courseTitle} />
+					<LocalizedHTML className="prompt" key="info" scoped="ENROLLMENT.GIFT.SUCCESS" courseTitle={courseTitle} startDate={date}/>
 					<LocalizedHTML className="gift" key={infoKey} scoped="ENROLLMENT.GIFT.SUCCESS" name={name} email={email} />
 					<div className="token">
 						<span className="label">{_t("accessKey")}</span>

@@ -118,7 +118,7 @@ module.exports = {
 			},
 			SUCCESS: {
 				title: 'Gift Purchase Successful',
-				info: '<strong>%(courseTitle)s</strong> starts on <strong>Date</strong> and will be conducted fully online.',
+				info: '<strong>%(courseTitle)s</strong> starts on <strong>%(startDate)s</strong> and will be conducted fully online.',
 				toName: 'An email has been sent to <strong>%(name)s</strong> at <strong>%(email)s</strong> with instructions on how to redeem this gift.',
 				toEmail: 'An email has been sent to <strong>%(email)s</strong> at with instructions on how to redeem this gift.',
 				transactionID: 'Transaction ID:',
