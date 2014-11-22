@@ -43,7 +43,9 @@ var BillingInfo = React.createClass({
 		return this._rowIfNotEmpty(parts.join(' '));
 	},
 
-	onEdit: function () {
+	onEdit: function (e) {
+		e.preventDefault();
+		e.stopPropagation();
 		Actions.edit(this.props.edit);
 	},
 

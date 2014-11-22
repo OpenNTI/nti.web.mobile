@@ -12,7 +12,9 @@ module.exports = React.createClass({
 	displayName: 'GiftInfo',
 
 
-	onEdit: function () {
+	onEdit: function (e) {
+		e.preventDefault();
+		e.stopPropagation();
 		Actions.edit(this.props.edit);
 	},
 
