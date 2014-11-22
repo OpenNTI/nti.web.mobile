@@ -109,10 +109,14 @@ module.exports = React.createClass({
 						<div className="line">
 							<input type="text" name="toFirstName" placeholder={_t("firstName")} onFocus={this._onFocused} value={this.state.toFirstName} />
 							<input type="text" name="toLastName" placeholder={_t("lastName")} onFocus={this._onFocused} value={this.state.toLastName} />
-							<input type="email" name="receiver" placeholder={_t("email")} onFocus={this._onFocused} value={this.state.receiver}
+							<input type="email" name="receiver" placeholder={_t("email")}
+							 	onFocus={this._onFocused}
+								value={this.state.receiver}
 							 	ref="email" className={requiredIfEnabled} />
 						</div>
-						<textarea name="message" placeholder={_t("message")} onFocus={this._onFocused} value={this.state.message}/>
+						<textarea name="message" placeholder={_t("message")}
+							onFocus={this._onFocused}
+							value={this.state.message}/>
 					</fieldset>
 					<fieldset>
 						<label htmlFor="sender">{_t("fromLabel")}</label>
