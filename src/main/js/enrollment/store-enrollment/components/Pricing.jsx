@@ -36,7 +36,7 @@ module.exports = React.createClass({
 		}
 
 
-		if (pricing) {
+		if (pricing && pricing.Coupon) {
 			state.coupon = pricing.Coupon.ID;
 			state.couponDiscount = this._getDiscountString(pricing.Coupon);
 			state.oldPrice = pricing.Amount;

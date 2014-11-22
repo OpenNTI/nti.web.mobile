@@ -2,6 +2,7 @@
 @import "components/gift-info";
 @import "components/gift-success";
 @import "components/gift-form";
+@import "components/payment-confirm";
 
 .enrollment-panels {
 	@include grid-row();

@@ -52,12 +52,12 @@ var BillingInfo = React.createClass({
 						<span>{_t("paymentInfo")}</span>
 						<a href="{this.props.edit}">edit</a>
 					</div>
-					<div>{card.name}</div>
-					<div>
-						<span className="label">{card.brand}</span>
+					<div className="field">{card.name}</div>
+					<div className="field">
+						<span className="label">{card.brand}:</span>
 						<span className="value">**** **** **** {card.last4}</span>
 					</div>
-					<div>
+					<div className="field">
 						<span className="label">{_t("expires")}</span>
 						<span className="value">{card.exp_month}/{card.exp_year}</span>
 					</div>
@@ -67,14 +67,14 @@ var BillingInfo = React.createClass({
 						<span>{_t("billingInfo")}</span>
 						<a href="{this.props.edit}">edit</a>
 					</div>
-					<div>{card.address_line1}</div>
-					<div>{card.address_line2}</div>
-					<div>
+					<div className="field">{card.address_line1}</div>
+					<div className="field">{card.address_line2}</div>
+					<div className="city field">
 						<span>{city}</span>
 						<span>{card.address_state}</span>
 						<span>{card.address_zip}</span>
 					</div>
-					<div>{card.address_country}</div>
+					<div className="field">{card.address_country}</div>
 				</fieldset>
 			</div>
 		);

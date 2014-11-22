@@ -67,15 +67,17 @@ module.exports = {
 			viewCatalog: 'View Catalog'
 		},
 		CONFIRMATION: {
+			header: 'Review and Pay',
+			review: 'Please take a moment to review your order and submit your payment.',
+			salesFinal: 'All sales are final.',
 			giftInfo: 'Gift Information',
 			paymentInfo: 'Payment Information',
 			billingInfo: 'Billing Address',
-			expires: 'Expires',
-			from: 'From',
-			to: 'To',
-			message: 'Message'
+			expires: 'Expires:',
+			from: 'From:',
+			to: 'To:',
+			message: 'Message:'
 		},
-
 		GIFT: {
 			HEADER: {
 				title: 'Gift Information',
