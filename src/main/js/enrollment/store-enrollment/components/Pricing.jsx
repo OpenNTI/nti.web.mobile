@@ -75,7 +75,7 @@ module.exports = React.createClass({
 		} else if (coupon.AmountOff) {
 			discount = this.getFormattedPrice(coupon.Currency, coupon.AmountOff / 100);
 		}
-	
+
 		return discount;
 	},
 
@@ -142,7 +142,7 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var type = 'Lifelong Learner - Gift';
+		var type = 'Lifelong Learner';
 		var vendorInfo = this.props.purchasable.VendorInfo;
 		var startDate = vendorInfo && vendorInfo.StartDate;
 		var endDate = vendorInfo && vendorInfo.EndDate;
