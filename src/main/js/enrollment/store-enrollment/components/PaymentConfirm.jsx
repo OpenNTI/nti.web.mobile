@@ -107,7 +107,7 @@ var PaymentConfirm = React.createClass({
 
 
 		return (
-			<div className="row payment-confirm">
+			<div className="payment-confirm">
 				<Pricing purchasable={purchasable} locked={true} />
 				<PanelButton className="medium-8 medium-centered columns" buttonClick={this._submitPayment} linkText="Submit Payment">
 					<h3>{_t("header")}</h3>

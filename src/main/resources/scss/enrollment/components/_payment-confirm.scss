@@ -1,4 +1,10 @@
 .payment-confirm  {
+	$pad: 0.9375rem;
+	margin: $pad;
+	.row {
+		margin: 0 (-$pad);
+	}
+
 	.panel {
 		background-color: white;
 	}
@@ -21,7 +27,7 @@
 	fieldset {
 		border: none;
 		padding: 0;
-	
+
 		.title {
 			overflow: hidden;
 			font-size: 1.3em;
