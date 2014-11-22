@@ -18,8 +18,6 @@ var ErrorComponent = require('common/components/Error');
 var Constants = require('enrollment/store-enrollment/Constants');
 var Store = require('enrollment/store-enrollment/Store');
 
-var Header = require('./header');
-
 var Form = require('enrollment/store-enrollment/components/GiftView');
 
 var Confirm = require('enrollment/store-enrollment/components/PaymentConfirm');
@@ -107,7 +105,6 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-
 		if(this.state.error) {
 			return <div className="column"><ErrorComponent error={this.state.error} /></div>;
 		}
@@ -120,7 +117,6 @@ module.exports = React.createClass({
 
 		return (
 			<CaptureClicks environment={Router.environment.hashEnvironment}>
-				<Header purchasable={purchasable} header={this.props.header} />
 				<ReactCSSTransitionGroup transitionName="loginforms">
 					<Locations hash ref="router">
 						<Location path="/confirm/*" handler={Confirm} purchasable={purchasable}/>

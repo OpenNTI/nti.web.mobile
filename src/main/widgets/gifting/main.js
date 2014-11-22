@@ -21,7 +21,7 @@ require('script!../../resources/vendor/foundation/js/foundation.min.js');
 
 
 
-React.initializeTouchEvents(true);
+//React.initializeTouchEvents(true);
 
 
 var props = QueryString.parse(global.location.search);

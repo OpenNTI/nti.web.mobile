@@ -11,11 +11,8 @@
 	<title>NextThought Widget Embed</title>
 
 	<style>
-		.widget-header {
-			line-height: 40px;
-			padding: 5px 2rem;
-			font-size: 1.5em;
-			color: #494949;
+		html body {
+		    height: 97%;
 		}
 	</style>
 </head>
@@ -26,6 +23,42 @@
 			server: location.protocol + '//' + location.host + '/dataserver2/',
 			siteName: 'platform.ou.edu'
 		};
+
+		(function() {
+			var currentHeight;
+
+			function postHeight() {
+				var content = document.getElementById('content');
+					height = Math.max(content.scrollHeight + 50);
+
+				if (currentHeight !== height) {
+					currentHeight = height;
+					parent.postMessage(JSON.stringify({
+						event: 'syncHeight',
+						height: height
+					}), '*');
+				}
+			}
+
+			if (!window.postMessage) {
+				console.warn('No support for post message');
+				return;
+			}
+
+			window.addEventListener('message', function(e) {
+				var data = JSON.parse(e.data);
+
+				if (data.event === 'postHeight') {
+					postHeight();
+				}
+			}, false);
+
+			setInterval(function() {
+	      		postHeight();
+	      	}, 1000);
+
+	      	window.postHeight = postHeight;
+		})();
 	</script>
 	<div id="content"></div>
 	<script type="text/javascript" src="main.js"></script>
