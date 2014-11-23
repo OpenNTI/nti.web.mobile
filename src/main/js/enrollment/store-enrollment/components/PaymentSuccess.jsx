@@ -16,8 +16,6 @@ var EnrollmentSuccess = require('./EnrollmentSuccess');
 var Actions = require('../Actions');
 var Store = require('../Store');
 
-var _purchaseAttempt;
-
 var PaymentSuccess = React.createClass({
 
 	propTypes: {
@@ -26,13 +24,23 @@ var PaymentSuccess = React.createClass({
 	},
 
 
+	getInitialState: function() {
+		return {
+			purchaseAttempt: null
+		};
+	},
+
+
+
 	componentWillMount: function() {
-		_purchaseAttempt = Store.getPaymentResult();
+		this.setState({
+			purchaseAttempt: Store.getPaymentResult()
+		});
 	},
 
 
 	componentDidMount: function() {
-		if (!_purchaseAttempt) {
+		if (!this.state.purchaseAttempt) {
 			Actions.resetProcess();
 		}
 	},
@@ -45,17 +53,18 @@ var PaymentSuccess = React.createClass({
 	},
 
 	render: function() {
-		var isGift = _purchaseAttempt && _purchaseAttempt.RedemptionCode;
+		var attempt = this.state.purchaseAttempt;
+		var isGift = (attempt || {}).RedemptionCode;
 
-		if (!_purchaseAttempt) {
+		if (!attempt) {
 			return <ErrorWidget error="No data"/>;
 		}
 
 		return (
 			<div>
 				{isGift ?
-					<GiftSuccess purchasable={this.props.purchasable} purchaseattempt={_purchaseAttempt}/> :
-					<EnrollmentSuccess purchasable={this.props.purchasable} courseId={this.props.courseId} purchaseattempt={_purchaseAttempt} />
+					<GiftSuccess purchasable={this.props.purchasable} purchaseattempt={attempt}/> :
+					<EnrollmentSuccess purchasable={this.props.purchasable} courseId={this.props.courseId} purchaseattempt={attempt} />
 				}
 			</div>
 		);

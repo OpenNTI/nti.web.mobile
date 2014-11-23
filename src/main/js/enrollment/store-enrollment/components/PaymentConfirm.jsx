@@ -18,9 +18,6 @@ var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
 
 var _t = require('common/locale').scoped('ENROLLMENT.CONFIRMATION');
 
-var _stripeToken;
-var _pricing;
-var _giftInfo;
 
 var PaymentConfirm = React.createClass({
 
@@ -28,9 +25,11 @@ var PaymentConfirm = React.createClass({
 
 	componentWillMount: function() {
 		try {
-			_stripeToken = Store.getStripeToken();
-			_pricing = Store.getPricing();
-			_giftInfo = Store.getGiftInfo();
+			this.setState({
+				stripeToken: Store.getStripeToken(),
+				pricing: Store.getPricing(),
+				giftInfo: Store.getGiftInfo()
+			});
 		}
 		catch(e) {
 			this.setState({
@@ -41,7 +40,7 @@ var PaymentConfirm = React.createClass({
 
 
 	componentDidMount: function() {
-		if (!_stripeToken) {
+		if (!this.state.stripeToken) {
 			Actions.resetProcess();
 		}
 	},
@@ -49,12 +48,15 @@ var PaymentConfirm = React.createClass({
 
 	getInitialState: function() {
 		return {
+			stripeToken: null,
+			pricing: null,
+			giftInfo: null,
 			busy: false
 		};
 	},
 
 	_getStripeToken: function() {
-		return _stripeToken;
+		return this.state.stripeToken;
 	},
 
 	_getCouponPricing: function() {
@@ -62,11 +64,11 @@ var PaymentConfirm = React.createClass({
 	},
 
 	_getPricing: function() {
-		return _pricing;
+		return this.state.pricing;
 	},
 
 	_getGiftInfo: function() {
-		return _giftInfo;
+		return this.state.giftInfo;
 	},
 
 	_getPrice: function() {
@@ -92,7 +94,7 @@ var PaymentConfirm = React.createClass({
 
 	render: function() {
 
-		if (this.state.error || !_stripeToken) {
+		if (this.state.error || !this.state.stripeToken) {
 			return <ErrorWidget error="No data"/>;
 		}
 
@@ -103,7 +105,7 @@ var PaymentConfirm = React.createClass({
 		var purchasable = this.props.purchasable;
 
 		var price = this._getPrice();
-		var edit = _giftInfo && 'gift/';
+		var edit = this.state.giftInfo && 'gift/';
 
 
 		return (
@@ -113,8 +115,8 @@ var PaymentConfirm = React.createClass({
 					<h3>{_t("header")}</h3>
 					<p>{_t("review")}</p>
 					<p>{_t("salesFinal")}</p>
-					<GiftInfo info={_giftInfo} edit={edit} />
-					<BillingInfo card={_stripeToken.card} edit={edit} />
+					<GiftInfo info={this.state.giftInfo} edit={edit} />
+					<BillingInfo card={this.state.stripeToken.card} edit={edit} />
 					<p>Clicking submit will charge your card {price} and enroll you in the course.</p>
 
 				</PanelButton>
