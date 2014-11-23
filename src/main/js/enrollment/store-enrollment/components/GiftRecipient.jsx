@@ -35,7 +35,12 @@ module.exports = React.createClass({
 			name = (prevState.to || '').split(' ');
 			prevState.toFirstName = name[0] || '';
 			prevState.toLastName = name[1] || '';
-			this.setState(Object.assign({enabled: true},prevState));
+
+
+			var enabled = ["toFirstName", "toLastName", "receiver", "message", "sender"].some(function(key) {
+				return (prevState[key]||'').trim().length > 0;
+			});
+			this.setState(Object.assign({enabled: enabled},prevState));
 		}
 	},
 
