@@ -5,7 +5,6 @@
 'use strict';
 
 var React = require('react/addons');
-var t = require('common/locale').translate;
 var PanelButton = require('./PanelButton');
 
 /**
