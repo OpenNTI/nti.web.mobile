@@ -1,10 +1,14 @@
 .gift-success {
 	$pad: 0.9375rem;
-	margin: 0.5rem 1rem;
+	margin: 0.5rem 0rem;
 
 	.panel {
 		background-color: white;
 		border-radius: 3px;
+	}
+
+	.pricing-info .info{
+		padding: 1rem;
 	}
 
 	h3{
@@ -13,12 +17,13 @@
 		font-family: $body-font-family;
 		margin-bottom: 10px;
 		position: relative;
+		padding-left: 35px;
 
 		&::before {
 			content: '';
 			position: absolute;
-			top: 3px;
-			left: -35px;
+			top: 0;
+			left: 0;
 			width: 28px;
 			height: 28px;
 			background: transparent url('../images/icons/assignment_ontime_small.png') center center;
@@ -94,5 +99,19 @@
 @media only screen and (min-width: 40.063em) {
 	.gift-success{
 		margin: 1rem 0rem;
+
+		h3 {
+			padding-left: 0;
+
+			&::before {
+				left: -35px;
+			}
+		}
+
+		.panel {
+			background-color: white;
+			border-radius: 3px;
+			padding-left: 3rem;
+		}
 	}
 }
