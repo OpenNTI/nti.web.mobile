@@ -33,12 +33,12 @@ module.exports = React.createClass({
 				</div>
 				<div className="field">
 					<span className="label">{_t("from")}</span>	<span className="value">
-						{info.sender ? info.sender + '(' + info.from + ')' : info.from}</span>
+						{info.sender ? info.sender + ' (' + info.from + ')' : info.from}</span>
 				</div>
 				{!info.receiver ? '' :
 					<div className="field">
 						<span className="label">{_t("to")}</span> <span className="value">
-							{info.to ? info.to + '(' + info.receiver + ')' : info.receiver}</span>
+							{info.to ? info.to + ' (' + info.receiver + ')' : info.receiver}</span>
 					</div>
 				}
 				{!info.message ? '' :
