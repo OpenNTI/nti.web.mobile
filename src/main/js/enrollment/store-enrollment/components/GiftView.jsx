@@ -276,6 +276,9 @@ module.exports = React.createClass({
 			errors.exp_month =  {message: t2('invalidExpiration')};
 			// no message property because we don't want the error message repeated
 			errors.exp_year =  {error: t2('invalidExpiration')};
+			// since these two are combined in one input set an error on that field name
+			// so the input can show the error
+			errors.exp_ = {error: t2('invalidExpiration')};
 		}
 
 		this.setState({
