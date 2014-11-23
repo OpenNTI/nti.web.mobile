@@ -9,6 +9,7 @@ var DateMixin = require('enrollment/mixins/Dates');
 var LocalizedHTML = require('common/components/LocalizedHTML');
 
 var Pricing = require('./Pricing');
+var Actions = require('../Actions');
 
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT.SUCCESS');
 var _siteT = require('common/locale').scoped('CONTACTINFO');
@@ -17,6 +18,11 @@ module.exports = React.createClass({
 	displayName: 'GiftSuccess',
 
 	mixins: [DateMixin],
+
+
+	onNewGift: function() {
+		Actions.resetProcess();
+	},
 
 	render: function() {
 		var courseTitle = this.props.purchasable.Title;
@@ -53,6 +59,14 @@ module.exports = React.createClass({
 					<div className="token">
 						<span className="label">{_t("transactionID")}</span>
 						<input type="text" readOnly className="value" value={purchaseAttempt.TransactionID} />
+					</div>
+				</div>
+				<div className="medium-8 medium-centered columns row actions">
+					<div className="small-12 medium-6 columns">
+						<a className="button" href="#" onClick={this.onNewGift}>Purchase another Gift</a>
+					</div>
+					<div className="small-12 medium-6 columns">
+						<a className="button" onClick={this.props.onDone}>I'm done</a>
 					</div>
 				</div>
 			</div>

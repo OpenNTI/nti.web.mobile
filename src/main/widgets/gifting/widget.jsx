@@ -104,6 +104,11 @@ module.exports = React.createClass({
 		}
 	},
 
+
+	_onDone: function() {
+		window.top.location.href = '/';
+	},
+
 	render: function() {
 		if(this.state.error) {
 			return <div className="column"><ErrorComponent error={this.state.error} /></div>;
@@ -120,7 +125,7 @@ module.exports = React.createClass({
 				<ReactCSSTransitionGroup transitionName="loginforms">
 					<Locations hash ref="router">
 						<Location path="/confirm/*" handler={Confirm} purchasable={purchasable}/>
-						<Location path="/success/*" handler={Success} purchasable={purchasable} />
+						<Location path="/success/*" handler={Success} purchasable={purchasable} onDone={this._onDone} />
 						<Location path="/error/*" handler={PaymentError} purchasable={purchasable} />
 						<DefaultRoute handler={Form} purchasable={purchasable}/>
 					</Locations>
