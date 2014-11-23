@@ -106,7 +106,7 @@ module.exports = React.createClass({
 
 
 	_onDone: function() {
-		window.top.location.href = '/';
+		window.top.location.href = 'https://historychannel.ou.edu';
 	},
 
 	render: function() {
