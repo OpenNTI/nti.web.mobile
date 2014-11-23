@@ -32,7 +32,11 @@
 		}
 
 
-		div.from {width: 42.32%;}
+		div.from {
+			width: 42.32%;
+			min-width: 230px;
+		}
+
 		div.fromLabel {
 			margin: -1rem 0 0.5rem;
 
@@ -99,7 +103,7 @@
 /* min-width 641px, medium screens */
 @media only screen and (min-width: 40.063em) {
 	.gift.enrollment {
-		margin: 3rem 4rem;
+		margin: 1rem 4rem;
 
 		fieldset {
 			&.payment-fields {

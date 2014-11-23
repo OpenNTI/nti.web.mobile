@@ -39,7 +39,7 @@ module.exports = React.createClass({
 		return (
 			<div className="gift-success row">
 				<Pricing purchasable={this.props.purchasable} locked={true} />
-				<div className="medium-8 medium-centered columns">
+				<div className="medium-8 medium-centered columns panel">
 					<h3 className="header">{_t("title")}</h3>
 					<LocalizedHTML className="gift" key={infoKey} scoped="ENROLLMENT.GIFT.SUCCESS" sender={sender} receiver={receiver} />
 					<p className="alert">{alert}</p>

@@ -1,5 +1,11 @@
 .gift-success {
-	margin-bottom: 2rem;
+	$pad: 0.9375rem;
+	margin: 0.5rem 1rem;
+
+	.panel {
+		background-color: white;
+		border-radius: 3px;
+	}
 
 	h3{
 		color: $secondary-green;
@@ -81,5 +87,12 @@
 		a {
 			font-weight: 400;
 		}
+	}
+}
+
+/* min-width 641px, medium screens */
+@media only screen and (min-width: 40.063em) {
+	.gift-success{
+		margin: 1rem 0rem;
 	}
 }
