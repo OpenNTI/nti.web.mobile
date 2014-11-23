@@ -103,7 +103,7 @@ module.exports = React.createClass({
 		var requiredIfEnabled = enabled ? 'required' : '';
 
 		if (!this.state.valid) {
-			requiredIfEnabled += ' invalid';
+			requiredIfEnabled += ' error';
 		}
 
 		return (
