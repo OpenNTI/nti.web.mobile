@@ -48,11 +48,11 @@ module.exports = React.createClass({
 
 					<div className="token">
 						<span className="label">{_t("accessKey")}</span>
-						<input type="text" readonly className="value" value={purchaseAttempt.RedemptionCode} />
+						<input type="text" readOnly className="value" value={purchaseAttempt.RedemptionCode} />
 					</div>
 					<div className="token">
 						<span className="label">{_t("transactionID")}</span>
-						<input type="text" readonly className="value" value={purchaseAttempt.TransactionID} />
+						<input type="text" readOnly className="value" value={purchaseAttempt.TransactionID} />
 					</div>
 				</div>
 			</div>
