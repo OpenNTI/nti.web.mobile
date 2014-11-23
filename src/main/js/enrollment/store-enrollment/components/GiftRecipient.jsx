@@ -101,12 +101,20 @@ module.exports = React.createClass({
 	},
 
 
-	_onFocused: function() {
+	_fieldClicked: function() {
+		this._enable();
+	},
+
+	_fieldChanged: function(event) {
+		this._enable();
+		this._updateState(event);
+	},
+
+	_enable: function() {
 		this.setState({
 			enabled: true
 		});
 	},
-
 
 	_onCheckedChange: function(e) {
 		this.setState({
@@ -144,23 +152,25 @@ module.exports = React.createClass({
 						</label>
 						<div className="line">
 							<input type="text" name="toFirstName" placeholder={_t("firstName")}
-								onFocus={this._onFocused} onChange={this._updateState} value={this.state.toFirstName} />
+								onClick={this._fieldClicked}
+								onChange={this._fieldChanged} value={this.state.toFirstName} />
 							<input type="text" name="toLastName" placeholder={_t("lastName")}
-								onFocus={this._onFocused} onChange={this._updateState} value={this.state.toLastName} />
+								onClick={this._fieldClicked}
+								onChange={this._fieldChanged} value={this.state.toLastName} />
 							<input type="email" name="receiver" placeholder={_t("email")}
-							 	onFocus={this._onFocused}
-								onChange={this._updateState} value={this.state.receiver}
+							 	onClick={this._fieldClicked}
+								onChange={this._fieldChanged} value={this.state.receiver}
 							 	ref="email" className={requiredIfEnabled} />
 						</div>
 						<textarea name="message" placeholder={_t("message")}
-							onFocus={this._onFocused}
-							onChange={this._updateState} value={this.state.message}/>
+							onClick={this._fieldClicked}
+							onChange={this._fieldChanged} value={this.state.message}/>
 					</fieldset>
 					<fieldset>
 						<label htmlFor="sender">{_t("fromLabel")}</label>
 						<div className="line">
-							<input type="text" id="sender" name="sender" onChange={this._updateState} value={this.state.sender}
-								placeholder={_t("from")} onFocus={this._onFocused}/>
+							<input type="text" id="sender" name="sender" onChange={this._fieldChanged} value={this.state.sender}
+								placeholder={_t("from")} />
 							<div className="box">{_t("sendDate")}</div>
 						</div>
 					</fieldset>
