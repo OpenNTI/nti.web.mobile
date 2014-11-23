@@ -29,7 +29,12 @@ module.exports = React.createClass({
 
 	componentDidMount: function() {
 		var prevState = Store.getGiftInfo();
+		var name;
+
 		if (prevState) {
+			name = (prevState.to || '').split(' ');
+			prevState.toFirstName = name[0] || '';
+			prevState.toLastName = name[1] || '';
 			this.setState(Object.assign({enabled: true},prevState));
 		}
 	},
@@ -64,9 +69,22 @@ module.exports = React.createClass({
 			}
 		} else if (result.toLastName) {
 			result.to = result.toLastName;
+		} else {
+			result.to = '';
 		}
 
 		return result;
+	},
+
+
+	isEmpty: function() {
+		var email = this.refs.email;
+
+		email = email && email.isMounted() && email.getDOMNode();
+		email = email && email.value;
+		email = email || '';
+
+		return email.trim().length === 0;
 	},
 
 
@@ -97,6 +115,16 @@ module.exports = React.createClass({
 	},
 
 
+	_updateState: function(e) {
+		var input = e.target;
+		var state = {};
+
+		state[input.name] = input.value;
+
+		this.setState(state);
+	},
+
+
 	render: function() {
 		var enabled = this.state.enabled;
 		var enabledCls = enabled ? '' : 'disabled';
@@ -116,22 +144,22 @@ module.exports = React.createClass({
 						</label>
 						<div className="line">
 							<input type="text" name="toFirstName" placeholder={_t("firstName")}
-								onFocus={this._onFocused} defaultValue={this.state.toFirstName} />
+								onFocus={this._onFocused} onChange={this._updateState} value={this.state.toFirstName} />
 							<input type="text" name="toLastName" placeholder={_t("lastName")}
-								onFocus={this._onFocused} defaultValue={this.state.toLastName} />
+								onFocus={this._onFocused} onChange={this._updateState} value={this.state.toLastName} />
 							<input type="email" name="receiver" placeholder={_t("email")}
 							 	onFocus={this._onFocused}
-								defaultValue={this.state.receiver}
+								onChange={this._updateState} value={this.state.receiver}
 							 	ref="email" className={requiredIfEnabled} />
 						</div>
 						<textarea name="message" placeholder={_t("message")}
 							onFocus={this._onFocused}
-							defaultValue={this.state.message}/>
+							onChange={this._updateState} value={this.state.message}/>
 					</fieldset>
 					<fieldset>
 						<label htmlFor="sender">{_t("fromLabel")}</label>
 						<div className="line">
-							<input type="text" id="sender" name="sender" defaultValue={this.state.sender}
+							<input type="text" id="sender" name="sender" onChange={this._updateState} value={this.state.sender}
 								placeholder={_t("from")} onFocus={this._onFocused}/>
 							<div className="box">{_t("sendDate")}</div>
 						</div>

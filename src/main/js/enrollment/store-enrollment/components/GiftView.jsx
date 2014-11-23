@@ -222,22 +222,26 @@ module.exports = React.createClass({
 	_validate: function(fieldValues) {
 		var errors = {};
 
+		function markRequired(ref) {
+			errors[ref] = {
+				// no message property because we don't want the 'required' message
+				// repeated for every required field...
+
+				// ...but we still want an entry for this ref so the field gets flagged
+				// as invalid.
+				error: t2('requiredField')
+			};
+			errors.required = {
+				message: t2('incompleteForm')
+			};
+		}
+
 		fieldConfig.forEach(function(fieldset) {
 			fieldset.fields.forEach(function(field) {
 				var value = (fieldValues[field.ref]||'').trim();
 				if (value.length === 0) {
 					if (field.required) {
-						errors[field.ref] = {
-							// no message property because we don't want the 'required' message
-							// repeated for every required field...
-
-							// ...but we still want an entry for this ref so the field gets flagged
-							// as invalid.
-							error: t2('requiredField')
-						};
-						errors.required = {
-							message: t2('incompleteForm')
-						};
+						markRequired(field.ref);
 					}
 				}
 				else {
@@ -256,7 +260,11 @@ module.exports = React.createClass({
 		});
 
 		if (!this.refs.Recipient.isValid()) {
-			errors.Recipient =  {message: t2('invalidRecipient')};
+			if (this.refs.Recipient.isEmpty()) {
+				markRequired('Recipient');
+			} else {
+				errors.Recipient =  {message: t2('invalidRecipient')};
+			}
 		}
 
 		var number = (fieldValues.number||'');
