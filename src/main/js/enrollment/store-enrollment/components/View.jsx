@@ -100,7 +100,7 @@ var View = React.createClass({
 		}
 
 		var purchasable = this.props.enrollment.Purchasable;
-		var courseTitle = purchasable.Title||null;
+		var courseTitle = purchasable.Title;
 		var courseId = this.props.courseId;
 
 		return (

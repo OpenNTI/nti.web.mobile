@@ -33,10 +33,12 @@ var PaymentError = React.createClass({
 
 	render: function() {
 
+		var courseTitle = this.props.courseTitle;
+
 		return (
 			<div className="small-12 columns">
 				<PanelButton className="error" href='../../../'>
-					<p>We were unable to process your enrollment for '{this.props.courseTitle}'.</p>
+					<p>We were unable to process your enrollment for '{courseTitle}'.</p>
 					{this.errorMessage()}
 					<p>Please try again. If this issue persists contact support.</p>
 				</PanelButton>

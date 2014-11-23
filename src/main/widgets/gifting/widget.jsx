@@ -119,6 +119,7 @@ module.exports = React.createClass({
 		}
 
 		var purchasable = this.state.purchasable;
+		var courseTitle = purchasable.Title;
 
 		return (
 			<CaptureClicks environment={Router.environment.hashEnvironment}>
@@ -126,7 +127,7 @@ module.exports = React.createClass({
 					<Locations hash ref="router">
 						<Location path="/confirm/*" handler={Confirm} purchasable={purchasable}/>
 						<Location path="/success/*" handler={Success} purchasable={purchasable} onDone={this._onDone} />
-						<Location path="/error/*" handler={PaymentError} purchasable={purchasable} />
+						<Location path="/error/*" handler={PaymentError} courseTitle={courseTitle} />
 						<DefaultRoute handler={Form} purchasable={purchasable}/>
 					</Locations>
 				</ReactCSSTransitionGroup>
