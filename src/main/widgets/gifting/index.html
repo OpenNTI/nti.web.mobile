@@ -115,14 +115,6 @@
 				return;
 			}
 
-			window.addEventListener('message', function(e) {
-				var data = JSON.parse(e.data);
-
-				if (data.event === 'postHeight') {
-					postHeight();
-				}
-			}, false);
-
 			setInterval(function() {
 	      		postHeight();
 	      	}, 500);

@@ -109,6 +109,12 @@ module.exports = React.createClass({
 		window.top.location.href = 'https://historychannel.ou.edu';
 	},
 
+
+	onNavigation: function() {
+		parent.postMessage('{"event": "navigation"}', '*');
+	},
+
+
 	render: function() {
 		if(this.state.error) {
 			return <div className="column"><ErrorComponent error={this.state.error} /></div>;
@@ -124,7 +130,7 @@ module.exports = React.createClass({
 		return (
 			<CaptureClicks environment={Router.environment.hashEnvironment}>
 				<ReactCSSTransitionGroup transitionName="loginforms">
-					<Locations hash ref="router">
+					<Locations hash ref="router" onNavigation={this.onNavigation}>
 						<Location path="/confirm/*" handler={Confirm} purchasable={purchasable}/>
 						<Location path="/success/*" handler={Success} purchasable={purchasable} onDone={this._onDone} />
 						<Location path="/error/*" handler={PaymentError} courseTitle={courseTitle} />
