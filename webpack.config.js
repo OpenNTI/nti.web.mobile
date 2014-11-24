@@ -7,8 +7,11 @@
 var webpack = require('webpack');
 var assign = require('object-assign');
 var CompressionPlugin = require("compression-webpack-plugin");
+
 var path = require('path');
 var fs = require('fs');
+
+var es3Rescast = path.join(__dirname, 'src', 'webpack-plugins', 'es3recast');
 
 var scssIncludes =
     'includePaths[]=' + (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss'));
@@ -22,8 +25,8 @@ var appPackages = {
 var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
 
 var commonLoaders = [
-    { test: /\.js$/, loader: 'jsx?stripTypes&harmony' },
-    { test: /\.jsx$/, loader: 'jsx?stripTypes&harmony' },
+    { test: /\.js$/, loader: es3Rescast + '!jsx?stripTypes&harmony' },
+    { test: /\.jsx$/, loader: es3Rescast + '!jsx?stripTypes&harmony' },
     { test: /\.json$/, loader: 'json' },
 
     { test: /\.ico$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/ico' },
