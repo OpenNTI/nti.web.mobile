@@ -30,7 +30,7 @@ try {
 	Application = require('../main/js/AppView');
 } catch (e) {
 	console.warn('No Server-side Rendering (Because: %s)',
-		/Cannot find module '\.\.\/main\/js\/main'/.test(e.message || e) ?
+		/Cannot find module '\.\.\/main\/js\/AppView'/.test(e.message || e) ?
 			'Dev Mode':
 			e.message || e);
 }
