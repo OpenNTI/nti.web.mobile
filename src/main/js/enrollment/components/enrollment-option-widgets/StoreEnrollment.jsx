@@ -9,6 +9,7 @@ var requiredProps = require('./RequiredProps');
 var PanelButton = require('common/components/PanelButton');
 var FormattedPriceMixin = require('../../mixins/FormattedPriceMixin');
 var t = require('common/locale').scoped('ENROLLMENT');
+var Giftable = require('./Giftable');
 
 var StoreEnrollment = React.createClass({
 
@@ -28,6 +29,7 @@ var StoreEnrollment = React.createClass({
 				including lectures, course materials, quizzes,
 				and discussions once the class is in session.</p>
 				<p className="price">{formattedPrice}</p>
+				{this.props.isGiftable ? <Giftable /> : null }
 				<small>{t('enrollmentNotRefundable')}</small>
 			</PanelButton>
 		);

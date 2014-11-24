@@ -65,6 +65,11 @@ module.exports = {
 		return options.OpenEnrollment && options.OpenEnrollment.IsEnrolled;
 	},
 
+	isGiftable: function(enrollmentOption) {
+		var opt = (enrollmentOption && enrollmentOption.option)||{};
+		return opt.Purchasable && opt.Purchasable.Giftable;
+	},
+
 	enrollmentOptions: function(catalogEntry) {
 		var result = [];
 		if (!catalogEntry) {
@@ -92,21 +97,22 @@ module.exports = {
 			return "Loading";
 		}
 		if (this.state.enrollmentStatusLoaded && !this.state.enrolled) {
-			var buttons = this.enrollmentOptions(catalogEntry).map(function(option,index) {
+			var widgets = this.enrollmentOptions(catalogEntry).map(function(option,index) {
 				var widget = EnrollmentWidgets.getWidget(option);
 				return widget ? widget({
 					catalogEntry: catalogEntry,
 					enrollmentOption: option,
+					isGiftable: this.isGiftable(option),
 					className: 'enrollment-panel',
 					key: 'eno_' + index
 				}) : null;
 			}.bind(this));
-			buttons = buttons.filter(function(item) {return item !== null;});
-			if (buttons.length > 0) {
+			widgets = widgets.filter(function(item) {return item !== null;});
+			if (widgets.length > 0) {
 				return React.DOM.div({
 						className: "enrollment-panels"		
 					},
-					buttons
+					widgets
 				);
 			}
 		}
