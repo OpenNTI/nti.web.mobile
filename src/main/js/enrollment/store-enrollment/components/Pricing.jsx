@@ -127,7 +127,10 @@ module.exports = React.createClass({
 
 
 	onCouponChanged: function () {
-		if (this.props.locked) { return; }
+		if (this.props.locked) {
+			return this.setState({ coupon: this.state.coupon });
+		}
+
 		var couponRef = this.refs.coupon,
 			couponEl = couponRef && couponRef.isMounted() && couponRef.getDOMNode(),
 			coupon = couponEl && couponEl.value;
@@ -216,7 +219,6 @@ module.exports = React.createClass({
 								<input type="text"
 									ref="coupon" name="coupon"
 									placeholder={_t("couponPlaceholder")}
-									readOnly={this.props.locked ? 'readonly' : null}
 									onChange={this.onCouponChanged}
 									value={this.state.coupon}/>
 							</div>
