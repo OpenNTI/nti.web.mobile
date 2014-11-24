@@ -119,8 +119,10 @@ module.exports = React.createClass({
 
 
 	getData: function() {
+		var use = this.state.triedCoupon && this.state.couponDiscount || null;
+
 		return {
-			coupon: this.state.coupon,
+			coupon: use && this.state.coupon,
 			expectedPrice: this.state.currentPrice
 		};
 	},
