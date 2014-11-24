@@ -10,7 +10,7 @@ var assign = require('object-assign');
 
 var webpack = require('webpack');
 var CompressionPlugin = require("compression-webpack-plugin");
-var AppCachePlugin = require('./src/webpack-plugins/appcache.js');
+var AppCachePlugin = require('./src/webpack-plugins/appcache');
 
 var e = [];
 var cfg = require("./webpack.config.js");
