@@ -1,5 +1,8 @@
 'use strict';
 
-module.exports = {
+var keyMirror = require('react/lib/keyMirror');
 
-};
+module.exports = keyMirror({
+	SEND_MESSAGE: null
+});
+

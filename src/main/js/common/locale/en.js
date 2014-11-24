@@ -133,6 +133,12 @@ module.exports = {
 				supportPrompt: 'Please contact tech support if you have any issues.'
 			},
 
+			REDEEM: {
+				'formTitle': 'Redeem this course with an Access Key',
+				'accessKey': 'Access Key',
+				'redeemButton': 'Redeem'
+			},
+
 			cancelPurchaseButton: 'Cancel',
 			purchaseButton: 'Purchase Gift',
 			agreeToTerms: 'I have read and agree to the <a href="%(url)s" target="_blank">licensing terms</a>.'

@@ -36,6 +36,15 @@ module.exports = {
 		);
 	},
 
+	redeemGift: function(purchasable, accessKey) {
+		dispatch(
+			Constants.REDEEM_GIFT,
+			{
+				purchasable: purchasable,
+				accessKey: accessKey
+			}
+		);
+	},
 
 	edit: function (mode) {
 		dispatch(

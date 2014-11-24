@@ -98,6 +98,7 @@ AppDispatcher.register(function(payload) {
 				});
 			});
 		break;
+
 		default:
 			return true;
 	}

@@ -11,6 +11,7 @@ module.exports = keyMirror({
 	UPDATE_COUPON: null,
 	VALID_COUPON: null,
 	INVALID_COUPON: null,
+	INVALID_GIFT_CODE: null,
 	PRICE_ITEM_ACTION: null,
 	PRICED_ITEM_RECEIVED: null,
 	PRICED_ITEM_ERROR: null,

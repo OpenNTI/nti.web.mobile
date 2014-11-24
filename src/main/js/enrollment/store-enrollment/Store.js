@@ -5,9 +5,10 @@ var EventEmitter = require('events').EventEmitter;
 
 var Constants = require('./Constants');
 var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
+var ERROR_EVENT = require('common/constants').ERROR_EVENT;
 
 var Utils = require('common/Utils');
-
+var getService = Utils.getService;
 
 var _stripeToken; // store the result of a Stripe.getToken() call
 var _pricing;
@@ -22,6 +23,10 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 	emitChange: function(evt) {
 		this.emit(CHANGE_EVENT, evt);
+	},
+
+	emitError: function(event) {
+		this.emitChange(Object.assign({ isError: true}, event));
 	},
 
 	/**
@@ -213,6 +218,18 @@ function _priceWithCoupon(data) {
 		}, 2000);
 }
 
+function _getEnrollmentService() {
+	return getService().then(function(service) {
+		return service.getEnrollment();
+	});
+}
+
+function _redeemGift(purchasable, accessKey) {
+	return _getEnrollmentService().then(function(service) {
+		return service.redeemGift(purchasable, accessKey);
+	});
+}
+
 Store.appDispatch = AppDispatcher.register(function(data) {
     var action = data.action;
 
@@ -245,6 +262,25 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 
     	case Constants.SUBMIT_STRIPE_PAYMENT:
     		_submitPayment(action.payload.formData);
+	    	break;
+
+		case Constants.REDEEM_GIFT:
+	    	_redeemGift(action.payload.purchasable, action.payload.accessKey)
+	    	.then(function(result) {
+	    		Store.emitChange({
+					action: action,
+					result: result
+				});
+	    	},function(reason) {
+
+	    		var message = reason.responseJSON.Message;
+
+	    		Store.emitError({
+	    			type: Constants.INVALID_GIFT_CODE,
+					action: action,
+					reason: message
+				});
+	    	});
 	    	break;
 
         default:
