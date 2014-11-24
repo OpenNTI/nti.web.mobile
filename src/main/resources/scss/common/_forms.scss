@@ -46,7 +46,10 @@ select.error {
 	}
 }
 
-label {
+// css3unsupported is not a class we use, but the :not() isn't supported in IE8 ..we're using it as a feature test.
+// so this block of style will not apply at all in IE8. (or android 2.x)
+// so the system default checkbox will be left as is.
+label:not(.css3unsupported) {
 	$iconPrefix: '../images/icons/checkbox-14';
 	$checkbox: 'input[type="checkbox"]';
 
