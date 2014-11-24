@@ -99,7 +99,9 @@ module.exports = function(grunt) {
 					'<%= pkg.dist %>'
 					]
 				}]
-			}
+			},
+
+			maps: ["<%= pkg.dist %>/**/*.map","<%= pkg.dist %>/**/*.map.gz"]
 		},
 
 		sass: {
