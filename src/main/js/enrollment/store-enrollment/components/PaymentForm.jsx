@@ -24,7 +24,7 @@ var Loading = require('common/components/Loading');
 var Actions = require('../Actions');
 var Store = require('../Store');
 var Constants = require('../Constants');
-var _fieldConfig = require('./paymentFormConfig');
+var _fieldConfig = require('../configs/PaymentForm');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
 var FormPanel = require('common/components/forms/FormPanel');
 

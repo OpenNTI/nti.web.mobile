@@ -14,7 +14,7 @@ var t2 = require('common/locale').scoped('ENROLLMENT');
 var Recipient = require('./GiftRecipient');
 var Pricing = require('./Pricing');
 
-var fieldConfig = require('./giftPaymentFormConfig.js');
+var fieldConfig = require('../configs/GiftPaymentForm.js');
 
 var Loading = require('common/components/Loading');
 var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderFieldConfigMixin');
