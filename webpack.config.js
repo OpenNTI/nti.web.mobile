@@ -11,6 +11,7 @@ var CompressionPlugin = require("compression-webpack-plugin");
 var path = require('path');
 var fs = require('fs');
 
+var styleCollector = path.join(__dirname, 'src', 'server', 'style-collector');
 var es3Rescast = path.join(__dirname, 'src', 'webpack-plugins', 'es3recast');
 
 var scssIncludes =
@@ -209,8 +210,8 @@ exports = module.exports = [
 
                 { test: /\.html$/, loader: 'html?attrs=link:href' },
 
-                { test: /\.css$/,  loader: path.join(__dirname, 'src', 'server', 'style-collector') + '!css' },
-                { test: /\.scss$/, loader: path.join(__dirname, 'src', 'server', 'style-collector') +
+                { test: /\.css$/,  loader: styleCollector + '!css' },
+                { test: /\.scss$/, loader: styleCollector +
                     '!css!sass?' + scssIncludes
                 }
             ])
