@@ -109,6 +109,13 @@ module.exports = {
 	},
 
 	_onBlur: function(event) {
+		this.updateFieldValue(event);
+		if (isFunction(this._inputBlurred)) {
+			this._inputBlurred(event);
+		}
+	},
+
+	updateFieldValueState: function(event) {
 		var target = event.target;
 		var field = target.name;
 		var value = target.value;
@@ -119,10 +126,6 @@ module.exports = {
 			// an entry for this field in this.state.fieldValues
 			tmp[field] = value;
 			this.setState({ fieldValues: tmp });
-		}
-
-		if (isFunction(this._inputBlurred)) {
-			this._inputBlurred(event);
 		}
 	},
 

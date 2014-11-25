@@ -61,6 +61,10 @@ var GiftRedeem = React.createClass({
 		Actions.redeemGift(this.props.purchasable, this.state.fieldValues.accessKey);
 	},
 
+	_inputChanged: function(event) {
+		this.updateFieldValueState(event);
+	},
+
 	render: function() {
 
 		if (this.state.busy) {
@@ -79,12 +83,15 @@ var GiftRedeem = React.createClass({
 			return <div className="error" key={'err'.concat(index)}>{err}</div>;
 		});
 
+		var disabled = (this.state.fieldValues.accessKey||'').trim().length === 0;
+
 		return (
 			<FormPanel title={title} onSubmit={this._handleSubmit}>
 				{fields}
 				{errors}
 				<input type="submit"
 					key="submit"
+					disabled={disabled}
 					id="redeem:submit"
 					className="small-12 columns tiny button radius"
 					value={buttonLabel} />
