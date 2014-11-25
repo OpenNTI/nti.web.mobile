@@ -11,6 +11,8 @@ var LocalizedHTML = require('common/components/LocalizedHTML');
 var Pricing = require('./Pricing');
 var Actions = require('../Actions');
 
+var Button = require('common/components/forms/Button');
+
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT.SUCCESS');
 var _siteT = require('common/locale').scoped('CONTACTINFO');
 
@@ -63,10 +65,10 @@ module.exports = React.createClass({
 				</div>
 				<div className="medium-8 medium-centered columns row actions">
 					<div className="small-12 medium-6 columns">
-						<a className="button" href="#" onClick={this.onNewGift}>Purchase another Gift</a>
+						<Button onClick={this.onNewGift}>Purchase another Gift</Button>
 					</div>
 					<div className="small-12 medium-6 columns">
-						<a className="button" onClick={this.props.onDone}>I'm done</a>
+						<Button onClick={this.props.onDone}>I'm done</Button>
 					</div>
 				</div>
 			</div>
