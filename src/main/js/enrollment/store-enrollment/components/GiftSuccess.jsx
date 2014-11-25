@@ -28,6 +28,12 @@ module.exports = React.createClass({
 		});
 	},
 
+	ignoreChange: function () {
+		//replaces changes user made with current state (effectively making
+		//the field readonly, while still letting it be focusable)
+		this.forceUpdate();
+	},
+
 	render: function() {
 		var courseTitle = this.props.purchasable.Title;
 		var purchaseAttempt = this.props.purchaseattempt;
@@ -58,11 +64,11 @@ module.exports = React.createClass({
 
 					<div className="token">
 						<span className="label">{_t("accessKey")}</span>
-						<input type="text" readOnly className="value" value={purchaseAttempt.RedemptionCode} />
+						<input type="text" className="value" value={purchaseAttempt.RedemptionCode} onChange={this.ignoreChange}/>
 					</div>
 					<div className="token">
 						<span className="label">{_t("transactionID")}</span>
-						<input type="text" readOnly className="value" value={purchaseAttempt.TransactionID} />
+						<input type="text" className="value" value={purchaseAttempt.TransactionID} onChange={this.ignoreChange} />
 					</div>
 				</div>
 				<div className="medium-8 medium-centered columns row actions">
