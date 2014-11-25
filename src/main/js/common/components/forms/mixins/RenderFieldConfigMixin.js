@@ -109,7 +109,7 @@ module.exports = {
 	},
 
 	_onBlur: function(event) {
-		this.updateFieldValue(event);
+		this.updateFieldValueState(event);
 		if (isFunction(this._inputBlurred)) {
 			this._inputBlurred(event);
 		}

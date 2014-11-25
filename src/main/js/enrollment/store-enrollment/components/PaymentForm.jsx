@@ -13,7 +13,6 @@
 /* jshint camelcase:false */
 
 var React = require('react/addons');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderFieldConfigMixin');
 var t = require('common/locale').scoped('ENROLLMENT.forms.storeenrollment');
 var t2 = require('common/locale').scoped('ENROLLMENT');
@@ -170,15 +169,7 @@ var Form = React.createClass({
 		return (
 			<FormPanel onSubmit={this._handleSubmit} title={title} subhead={subhead}>
 				{fields}
-				<div className='errors' key="errors">
-					<ReactCSSTransitionGroup transitionName="messages">
-						{Object.keys(state.errors).map(
-							function(ref) {
-								var err = state.errors[ref];
-								return (err.message ? <small key={ref} className='error'>{err.message}</small> : null);
-						})}
-					</ReactCSSTransitionGroup>
-				</div>
+				<FormErrors errors={state.errors} />
 				<input type="submit"
 					key="submit"
 					id="storeenroll:submit"

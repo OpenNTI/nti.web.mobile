@@ -6,6 +6,7 @@ var React = require('react/addons');
 var _formConfig = require('../configs/GiftRedeem');
 var FieldRender = require('common/components/forms/mixins/RenderFieldConfigMixin');
 var FormPanel = require('common/components/forms/FormPanel');
+var FormErrors = require('./FormErrors');
 var Loading = require('common/components/Loading');
 var EnrollmentSuccess = require('./EnrollmentSuccess');
 var t = require('common/locale').scoped('ENROLLMENT.GIFT.REDEEM');
@@ -21,7 +22,7 @@ var GiftRedeem = React.createClass({
 	getInitialState: function() {
 		return {
 			fieldValues: {},
-			errors: [],
+			errors: {},
 			busy: false,
 			success: false
 		};
@@ -40,14 +41,18 @@ var GiftRedeem = React.createClass({
 			case Constants.INVALID_GIFT_CODE:
 				this.setState({
 					busy: false,
-					errors: [event.reason]
+					errors: {
+						accessKey: {
+							message: event.reason
+						}
+					}
 				});
 			break;
 			case Constants.GIFT_CODE_REDEEMED:
 				this.setState({
 					busy: false,
 					success: true,
-					errors: []
+					errors: {}
 				});
 			break;
 		}
@@ -79,16 +84,14 @@ var GiftRedeem = React.createClass({
 		var fields = this.renderFormConfig(_formConfig, this.state.fieldValues, t);
 		var buttonLabel = t('redeemButton');
 
-		var errors = this.state.errors.map(function(err,index) {
-			return <div className="error" key={'err'.concat(index)}>{err}</div>;
-		});
+		var errors = this.state.errors;
 
 		var disabled = (this.state.fieldValues.accessKey||'').trim().length === 0;
 
 		return (
 			<FormPanel title={title} onSubmit={this._handleSubmit}>
 				{fields}
-				{errors}
+				<FormErrors errors={errors} />
 				<input type="submit"
 					key="submit"
 					disabled={disabled}
