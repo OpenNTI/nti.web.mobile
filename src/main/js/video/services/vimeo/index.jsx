@@ -132,7 +132,10 @@ var Source = module.exports = React.createClass({
 
 			this.props[handlerName]({
 				timeStamp: Date.now(),
-				target: {currentTime: data && data.seconds},
+				target: {
+					currentTime: data && data.seconds,
+					duration: data && data.duration
+				},
 				type: mappedEvent
 			});
 

@@ -61,6 +61,7 @@ module.exports = React.createClass({
 			timestamp: event.timeStamp,
 			target: event.target,
 			currentTime: event.target.currentTime,
+			duration: event.target.duration,
 			type: event.type
 		};
 	},
@@ -97,6 +98,7 @@ module.exports = React.createClass({
 				(endEvent.currentTime - startEvent.currentTime),
 				startEvent.currentTime,
 				endEvent.currentTime,
+				startEvent.duration,
 			 	!!this.props.transcript
 			);
 

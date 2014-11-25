@@ -235,9 +235,13 @@ var Source = module.exports = React.createClass({
 
 	fireEvent: function (event) {
 		if (this.props[eventHandlers[event]]) {
+
 			this.props[eventHandlers[event]]({
 				timeStamp: Date.now(),
-				target: {currentTime: this.state.currentTime},
+				target: {
+					currentTime: this.state.currentTime,
+					duration: this.state.duration
+				},
 				type: event
 			});
 		}
