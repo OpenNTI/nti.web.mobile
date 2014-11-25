@@ -5,21 +5,25 @@
 'use strict';
 
 var React = require('react/addons');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 var Router = require('react-router-component');
 var Locations = Router.Locations;
 var Location = Router.Location;
 var DefaultRoute = Router.NotFound;
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-var Loading = require('common/components/Loading');
+
 var Constants = require('../Constants');
 var Store = require('../Store');
+
 var Form = require('./PaymentForm');
 var GiftView = require('./GiftView');
 var GiftRedeem = require('./GiftRedeem');
 var PaymentSuccess = require('./PaymentSuccess');
 var PaymentError = require('./PaymentError');
-var ErrorComponent = require('common/components/Error');
 var PaymentConfirm = require('./PaymentConfirm');
+
+var Loading = require('common/components/Loading');
+var ErrorComponent = require('common/components/Error');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var getBasePath = require('common/Utils').getBasePath;
 
