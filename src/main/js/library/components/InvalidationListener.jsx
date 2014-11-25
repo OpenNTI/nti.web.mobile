@@ -14,7 +14,8 @@ var INVALIDATION_EVENTS = {
 	ENROLL_5M: true,
 	ENROLL_OPEN: true,
 	ENROLL_STORE: true,
-	STRIPE_PAYMENT_SUCCESS: true
+	STRIPE_PAYMENT_SUCCESS: true,
+	GIFT_CODE_REDEEMED: true
 };
 
 function _getType(event) {

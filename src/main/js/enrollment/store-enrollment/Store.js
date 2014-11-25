@@ -268,6 +268,7 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 	    	_redeemGift(action.payload.purchasable, action.payload.accessKey)
 	    	.then(function(result) {
 	    		Store.emitChange({
+	    			type: Constants.GIFT_CODE_REDEEMED,
 					action: action,
 					result: result
 				});

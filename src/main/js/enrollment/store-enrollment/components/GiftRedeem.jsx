@@ -8,6 +8,8 @@ var React = require('react/addons');
 var _formConfig = require('../configs/GiftRedeem');
 var FieldRender = require('common/components/forms/mixins/RenderFieldConfigMixin');
 var FormPanel = require('common/components/forms/FormPanel');
+var Loading = require('common/components/Loading');
+var EnrollmentSuccess = require('./EnrollmentSuccess');
 var t = require('common/locale').scoped('ENROLLMENT.GIFT.REDEEM');
 var Actions = require('../Actions');
 var Store = require('../Store');
@@ -21,7 +23,9 @@ var GiftRedeem = React.createClass({
 	getInitialState: function() {
 		return {
 			fieldValues: {},
-			errors: []
+			errors: [],
+			busy: false,
+			success: false
 		};
 	},
 
@@ -37,7 +41,15 @@ var GiftRedeem = React.createClass({
 		switch( (event||{}).type ) {
 			case Constants.INVALID_GIFT_CODE:
 				this.setState({
+					busy: false,
 					errors: [event.reason]
+				});
+			break;
+			case Constants.GIFT_CODE_REDEEMED:
+				this.setState({
+					busy: false,
+					success: true,
+					errors: []
 				});
 			break;
 		}
@@ -45,17 +57,28 @@ var GiftRedeem = React.createClass({
 
 	_handleSubmit: function(event) {
 		event.preventDefault();
+		this.setState({
+			busy: true
+		});
 		Actions.redeemGift(this.props.purchasable, this.state.fieldValues.accessKey);
 	},
 
 	render: function() {
 
+		if (this.state.busy) {
+			return <Loading />;
+		}
+
+		if (this.state.success) {
+			return <EnrollmentSuccess purchasable={this.props.purchasable} courseId={this.props.courseId}/>
+		}
+
 		var title = t('formTitle');
 		var fields = this.renderFormConfig(_formConfig, this.state.fieldValues, t);
 		var buttonLabel = t('redeemButton');
 
-		var errors = this.state.errors.map(function(err) {
-			return <div className="error">{err}</div>;
+		var errors = this.state.errors.map(function(err,index) {
+			return <div className="error" key={'err'.concat(index)}>{err}</div>;
 		});
 
 		return (
