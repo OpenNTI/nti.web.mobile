@@ -21,7 +21,9 @@ var GiftRedeem = React.createClass({
 
 	getInitialState: function() {
 		return {
-			fieldValues: {},
+			fieldValues: {
+				accessKey: this.props.code || ''
+			},
 			errors: {},
 			busy: false,
 			success: false
@@ -81,7 +83,7 @@ var GiftRedeem = React.createClass({
 		}
 
 		var title = t('formTitle');
-		var fields = this.renderFormConfig(_formConfig, this.state.fieldValues, t);
+
 		var buttonLabel = t('redeemButton');
 
 		var errors = this.state.errors;
@@ -90,7 +92,7 @@ var GiftRedeem = React.createClass({
 
 		return (
 			<FormPanel title={title} onSubmit={this._handleSubmit}>
-				{fields}
+				{this.renderFormConfig(_formConfig, this.state.fieldValues, t)}
 				<FormErrors errors={errors} />
 				<input type="submit"
 					key="submit"
