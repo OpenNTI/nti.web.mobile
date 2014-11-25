@@ -1,12 +1,9 @@
-/**
- * @jsx React.DOM
- */
+/** @jsx React.DOM */
 
 'use strict';
 
 var React = require('react/addons');
 var Button = require('common/components/forms/Button');
-var getBasePath = require('common/Utils').getBasePath;
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 
 var Giftable = React.createClass({
