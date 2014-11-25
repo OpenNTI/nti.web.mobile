@@ -90,11 +90,12 @@ module.exports = React.createClass({
 
 
 	_emit: function(startEvent,endEvent) {
-		var rootContextId = this.props.context.length > 0 ? this.props.context[0] : null;
+		var ctx = (this.props.context || []).map(x => x.ntiid||x);
+		var rootContextId = ctx[0] || null;
 		var even = new WatchVideoEvent(
 				this.props.src.ntiid,
 				rootContextId,
-				this.props.context,
+				ctx,
 				(endEvent.currentTime - startEvent.currentTime),
 				startEvent.currentTime,
 				endEvent.currentTime,

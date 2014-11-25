@@ -127,21 +127,27 @@ module.exports = React.createClass({
 		var course = (record || {}).CourseInstance;
 		var presentation = course.getPresentationProperties();
 
+		var base = {
+			ntiid: course.getID(),
+			label: presentation.label,
+			href: path.join(this.props.basePath, 'course', this.props.course, '/')
+		};
+
 		if (props.videoId && !props.outlineId) {
 			return Promise.resolve([
-				course.getID(),
-				props.videoId
+				base,
+				{
+					ntiid: props.videoId
+				}
 			]);
 		}
 
 		return course.getOutlineNode(NTIID.decodeFromURI(props.outlineId))
 			.then(function(o) {
 				return [
+					base,
 					{
-						label: presentation.label,
-						href: path.join(this.props.basePath, 'course', this.props.course, '/')
-					},
-					{
+						ntiid: o.getID(),
 						label: o.title,
 						href: path.join(this.props.basePath, o.href)
 					}
