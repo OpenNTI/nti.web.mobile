@@ -1,6 +1,4 @@
-/**
- * @jsx React.DOM
- */
+/** @jsx React.DOM */
 
 'use strict';
 
@@ -34,7 +32,7 @@ var GiftRedeem = React.createClass({
 	},
 
 	componentWillUnmount: function() {
-		Store.removeChangeListener(this.onStoreChange);	
+		Store.removeChangeListener(this.onStoreChange);
 	},
 
 	onStoreChange: function(event) {
@@ -70,7 +68,7 @@ var GiftRedeem = React.createClass({
 		}
 
 		if (this.state.success) {
-			return <EnrollmentSuccess purchasable={this.props.purchasable} courseId={this.props.courseId}/>
+			return (<EnrollmentSuccess purchasable={this.props.purchasable} courseId={this.props.courseId}/>);
 		}
 
 		var title = t('formTitle');

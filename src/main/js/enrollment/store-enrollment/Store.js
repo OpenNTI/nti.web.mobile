@@ -5,7 +5,7 @@ var EventEmitter = require('events').EventEmitter;
 
 var Constants = require('./Constants');
 var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
-var ERROR_EVENT = require('common/constants').ERROR_EVENT;
+//var ERROR_EVENT = require('common/constants').ERROR_EVENT;
 
 var Utils = require('common/Utils');
 var getService = Utils.getService;
