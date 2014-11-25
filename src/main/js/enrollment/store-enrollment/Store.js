@@ -265,6 +265,12 @@ Store.appDispatch = AppDispatcher.register(function(data) {
     		_submitPayment(action.payload.formData);
 	    	break;
 
+	    case Constants.GIFT_PURCHASE_DONE:
+	    	Store.emitChange({
+	    		type: action.type
+	    	});
+	    	break;
+
 		case Constants.REDEEM_GIFT:
 	    	_redeemGift(action.payload.purchasable, action.payload.accessKey)
 	    	.then(function(result) {

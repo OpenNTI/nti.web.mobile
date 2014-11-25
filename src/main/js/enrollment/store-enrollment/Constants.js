@@ -13,6 +13,7 @@ module.exports = keyMirror({
 	INVALID_COUPON: null,
 	INVALID_GIFT_CODE: null,
 	GIFT_CODE_REDEEMED: null,
+	GIFT_PURCHASE_DONE: null,
 	PRICE_ITEM_ACTION: null,
 	PRICED_ITEM_RECEIVED: null,
 	PRICED_ITEM_ERROR: null,

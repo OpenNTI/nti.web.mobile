@@ -22,6 +22,12 @@ module.exports = {
 	},
 
 
+	giftPurchaseDone: function() {
+		dispatch(
+			Constants.GIFT_PURCHASE_DONE
+		);
+	},
+
 	updateCoupon: function(purchasable, coupon) {
 		dispatch(
 			Constants.UPDATE_COUPON,

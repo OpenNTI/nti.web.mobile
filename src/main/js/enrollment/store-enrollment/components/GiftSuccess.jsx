@@ -76,7 +76,7 @@ module.exports = React.createClass({
 						<Button onClick={this.onNewGift}>Purchase another Gift</Button>
 					</div>
 					<div className="small-12 medium-6 columns">
-						<Button onClick={this.props.onDone}>I'm done</Button>
+						<Button href={this.props.doneLink} onClick={this.props.onDone}>I'm done</Button>
 					</div>
 				</div>
 			</div>
