@@ -1,5 +1,6 @@
 doc
 dist
+stage
 node_modules
 src/main/resources/css
 src/main/resources/vendor

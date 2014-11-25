@@ -39,7 +39,6 @@ module.exports = function(grunt) {
             }
         },
 
-
 		karma: {
             unit: {
                 configFile: 'karma.conf.js'
@@ -47,14 +46,14 @@ module.exports = function(grunt) {
         },
 
 		copy: {
-			dist: {
+			stage: {
 				files: [
 				// includes files within path
 					{
 						flatten: true,
 						expand: true,
 						src: ['<%= pkg.src %>/*'],
-						dest: '<%= pkg.dist %>/client/',
+						dest: '<%= pkg.stage %>/client/',
 						filter: 'isFile'
 					},
 					{
@@ -62,14 +61,14 @@ module.exports = function(grunt) {
 						expand: true,
 						filter: 'isFile',
 						src: ['**'],
-						dest: '<%= pkg.distSiteCSS %>'
+						dest: '<%= pkg.stage %>/client/resources/css/sites/'
 					},
 					{
 						cwd: '<%= pkg.src %>/resources/images/',
 						expand: true,
 						filter: 'isFile',
 						src: ['**', '!**/icons/**'],
-						dest: '<%= pkg.dist %>/client/resources/images/'
+						dest: '<%= pkg.stage %>/client/resources/images/'
 					},
 					{
 						// flatten: true,
@@ -77,7 +76,7 @@ module.exports = function(grunt) {
 						expand: true,
 						filter: 'isFile',
 						src: ['**/*.html'],
-						dest: '<%= pkg.dist %>/widgets/'
+						dest: '<%= pkg.stage %>/widgets/'
 					},
 					{
 	                    // flatten: true,
@@ -85,9 +84,16 @@ module.exports = function(grunt) {
 	                    expand: true,
 	                    filter: 'isFile',
 	                    src: ['**'],
-	                    dest: '<%= pkg.dist %>/server/'
+	                    dest: '<%= pkg.stage %>/server/'
 	                }
 				]
+			}
+		},
+
+		rename: {
+			StageToDist: {
+				src: '<%= pkg.stage %>',
+				dest: '<%= pkg.dist %>'
 			}
 		},
 
@@ -97,6 +103,15 @@ module.exports = function(grunt) {
 					dot: true,
 					src: [
 					'<%= pkg.dist %>'
+					]
+				}]
+			},
+
+			stage: {
+				files: [{
+					dot: true,
+					src: [
+					'<%= pkg.stage %>'
 					]
 				}]
 			},
@@ -189,7 +204,7 @@ module.exports = function(grunt) {
 	    },
 
 		symlink: {
-			explicit: {
+			SiteCSSDirectories: {
 				files: [
 			        {src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-alpha.nextthought.com'},
 			        {src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-test.nextthought.com'},
@@ -219,7 +234,16 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('test', ['karma']);
 
-	grunt.registerTask('build', ['clean', 'sass', 'copy', 'symlink', 'webpack:dist']);
+	grunt.registerTask('build', [
+		'jshint',
+		'clean:stage',
+		'sass',
+		'copy:stage',
+		'webpack:dist',
+		'clean:dist',
+		'rename:moveStateToDist',
+		'symlink'
+	]);
 
 	grunt.registerTask('default', ['serve']);
 

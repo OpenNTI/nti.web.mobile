@@ -93,7 +93,7 @@ function includeWidgets(o) {
             name: 'Widget: '+ k,
 
             output: {
-                path: '<%= pkg.dist %>/widgets/' + k + '/',
+                path: '<%= pkg.stage %>/widgets/' + k + '/',
                 filename: 'main.js',
                 chunkFilename: '[id].chunk.js'
             },
@@ -124,7 +124,7 @@ exports = module.exports = [
     {
         name: 'browser',
         output: {
-            path: '<%= pkg.dist %>/client/',
+            path: '<%= pkg.stage %>/client/',
             filename: 'js/[hash].js',
             chunkFilename: 'js/[hash]-[id].js',
             publicPath: '<%= pkg.public_root %>'
@@ -159,7 +159,7 @@ exports = module.exports = [
             }),
             function(/*compiler*/) {
                 this.plugin('done', function(stats) {
-                    var p = path.join(__dirname, 'dist', 'server');
+                    var p = path.join(__dirname, 'stage', 'server');
                     var file = path.join(p, 'stats.generated.json');
                     try {
                         if (fs.existsSync(p)) {
@@ -186,7 +186,7 @@ exports = module.exports = [
         target: 'node',
         bail: true,
         output: {
-            path: '<%= pkg.dist %>/server/node_modules/page.generated/',
+            path: '<%= pkg.stage %>/server/node_modules/page.generated/',
             filename: 'index.js',
             chunkFilename: 'chunk-[id].js',
             publicPath: '<%= pkg.public_root %>',
