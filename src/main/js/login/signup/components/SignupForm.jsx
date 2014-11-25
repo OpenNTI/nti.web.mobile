@@ -17,6 +17,7 @@ var indexArrayByKey = require('dataserverinterface/utils/array-index-by-key');
 var Store = require('../Store');
 var Actions = require('../Actions');
 var LoginActions = require('../../Actions');
+var LoginStore = require('../../Store');
 
 var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderFieldConfigMixin');
 
@@ -70,7 +71,9 @@ var SignupForm = React.createClass({
 		console.debug('SignupForm received Store change event: %O', event);
 		if (event.type === 'created') {
 			LoginActions.deleteTOS();
-			window.location.replace(this.props.basePath);
+			var returnPath = LoginStore.getReturnPath();
+			var path = this.props.basePath.concat(returnPath ? '?return='.concat(returnPath) : '');
+			window.location.replace(path);
 			return;
 		}
 

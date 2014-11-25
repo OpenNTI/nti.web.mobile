@@ -12,7 +12,6 @@ var DefaultRoute = Router.NotFound;
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Loading = require('common/components/Loading');
 var Constants = require('../Constants');
-var Actions = require('../Actions');
 var Store = require('../Store');
 var Form = require('./PaymentForm');
 var GiftView = require('./GiftView');

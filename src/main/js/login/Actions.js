@@ -95,6 +95,10 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	recoverUsername: function(fields) {
 		return getServer().recoverUsername(fields.email);
+	},
+
+	setReturnPath: function(path) {
+		Store.setReturnPath(path);
 	}
 
 });

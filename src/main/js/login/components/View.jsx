@@ -56,6 +56,11 @@ var View = React.createClass({
 	},
 
 	componentDidMount: function() {
+		var loc = global.location || {};
+		var returnPath = fromQueryString(loc.search).return;
+		if (returnPath) {
+			Actions.setReturnPath(returnPath);
+		}
 		Store.addChangeListener(this._storeChanged);//All React Class methods are "auto bound"
 		Actions.begin();
 	},

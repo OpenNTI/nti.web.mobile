@@ -27,7 +27,7 @@ var _t = require('common/locale').scoped('LOGIN');
 var CHANGE_EVENT = 'change';
 var _links = {};
 var _isLoggedIn = false;
-
+var _returnPath;
 
 var LoginStore = Object.assign({}, EventEmitter.prototype, {
 
@@ -71,6 +71,14 @@ var LoginStore = Object.assign({}, EventEmitter.prototype, {
 				placeholder: _t('PasswordPlaceholder')
 			}
 		];
+	},
+
+	setReturnPath: function(path) {
+		_returnPath = path;
+	},
+
+	getReturnPath: function() {
+		return _returnPath;
 	}
 
 });
