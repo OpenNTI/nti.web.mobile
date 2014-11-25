@@ -45,6 +45,9 @@
 	letter-spacing:0.1em;
 }
 
+//http://stackoverflow.com/a/2711132
+html { -webkit-text-size-adjust: 100%; }
+
 * {
 	-webkit-tap-highlight-color: rgba(0,0,0,0) !important;
 }
