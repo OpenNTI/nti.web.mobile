@@ -64,7 +64,8 @@ module.exports = {
 			OpenEnrollment: 'Enroll in the open course',
 			drop: 'Drop this course',
 			viewCourse: 'View Course',
-			viewCatalog: 'View Catalog'
+			viewCatalog: 'View Catalog',
+			giveThisAsGift: 'Give this as a gift'
 		},
 		CONFIRMATION: {
 			header: 'Review and Pay',
