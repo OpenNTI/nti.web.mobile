@@ -73,7 +73,8 @@ var View = React.createClass({
 				break;
 
 			case Constants.RESET:
-				router.navigate('/', {replace: true});
+				var path = event.options && event.options.gift ? '/gift/' : '/';
+				router.navigate(path, {replace: true});
 				break;
 
 			case Constants.BILLING_INFO_VERIFIED:

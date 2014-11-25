@@ -248,7 +248,8 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 			_paymentFormData =
 			_paymentResult = null;
 			Store.emitChange({
-				type: action.type
+				type: action.type,
+				options: (action.payload||{}).options
 			});
 			break;
 

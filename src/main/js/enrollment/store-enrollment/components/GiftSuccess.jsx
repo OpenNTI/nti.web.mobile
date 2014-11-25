@@ -23,7 +23,9 @@ module.exports = React.createClass({
 
 
 	onNewGift: function() {
-		Actions.resetProcess();
+		Actions.resetProcess({
+			gift: true
+		});
 	},
 
 	render: function() {

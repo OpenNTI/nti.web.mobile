@@ -30,9 +30,9 @@ module.exports = {
 	},
 
 
-	resetProcess: function () {
+	resetProcess: function (options) {
 		dispatch(
-			Constants.RESET, {}
+			Constants.RESET, { options: options }
 		);
 	},
 
