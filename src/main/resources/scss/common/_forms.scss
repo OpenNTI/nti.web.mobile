@@ -79,7 +79,7 @@ label:not(.css3unsupported) {
 		&:checked + span::before { background-image: url(#{$iconPrefix}_active.png); }
 	}
 
-	&:hover > #{$checkbox},
+	//&:hover > #{$checkbox},
 	& > #{$checkbox}:focus,
 	& > #{$checkbox}:active {
 		&:not(:checked):not(.disabled) + span::before { background-image: url(#{$iconPrefix}_hover.png); }

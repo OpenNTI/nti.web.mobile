@@ -141,9 +141,9 @@ a.right-off-canvas-toggle {
 }
 
 .icon-bar>* {
-	&:hover {
-		background:inherit;
-	}
+	// &:hover {
+	// 	background:inherit;
+	// }
 	&.active {
 		background: $primary-color;
 	}
