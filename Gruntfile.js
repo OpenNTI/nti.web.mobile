@@ -241,7 +241,7 @@ module.exports = function(grunt) {
 		'copy:stage',
 		'webpack:dist',
 		'clean:dist',
-		'rename:moveStateToDist',
+		'rename:StageToDist',
 		'symlink'
 	]);
 
