@@ -21,9 +21,6 @@ if (!Array.isArray(cfg)) {
 cfg.forEach(function(o) { e.push(assign({}, o)); });
 
 
-e[0].debug = false;
-e[0].devtool = '#source-map';
-
 e[0].plugins.push(
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -49,6 +46,12 @@ e[0].plugins.push(
         regExp: /$/
     })
 );
+
+
+e.forEach(function(x) {
+    x.debug = false;
+    x.devtool = '#source-map';
+});
 
 
 module.exports = e;
