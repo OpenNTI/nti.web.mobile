@@ -45,7 +45,7 @@ var PaymentError = React.createClass({
 				<PanelButton className="error" buttonClick={this._buttonClick}>
 					<p>We were unable to process your enrollment for '{courseTitle}'.</p>
 					{this.errorMessage()}
-					<p>Please try again. If this issue persists contact support.</p>
+					<p>If this issue persists contact support.</p>
 				</PanelButton>
 			</div>
 		);

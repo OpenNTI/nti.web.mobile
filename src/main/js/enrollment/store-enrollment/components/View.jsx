@@ -96,8 +96,10 @@ var View = React.createClass({
 				break;
 
 			case Constants.STRIPE_PAYMENT_FAILURE:
+			case Constants.POLLING_ERROR:
 				router.navigate('error/');
 				break;
+
 		}
 	},
 

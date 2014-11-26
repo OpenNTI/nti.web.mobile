@@ -179,6 +179,11 @@ function _submitPayment(formData) {
 				type: type,
 				purchaseAttempt: result
 			});
+		}, function(reason) {
+			Store.emitError({
+    			type: Constants.POLLING_ERROR,
+				reason: reason
+			});
 		});
 }
 
