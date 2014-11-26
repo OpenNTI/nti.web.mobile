@@ -33,7 +33,9 @@ var PaymentError = React.createClass({
 	},
 
 	_buttonClick: function() {
-		Actions.resetProcess();
+		Actions.resetProcess({
+			gift: !!this.props.isGift
+		});
 	},
 
 	render: function() {

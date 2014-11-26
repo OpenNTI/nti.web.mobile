@@ -117,6 +117,7 @@ var View = React.createClass({
 		var courseTitle = purchasable.Title;
 		var courseId = this.props.courseId;
 		var giftDoneLink = getBasePath() + 'library/catalog/';
+		var isGift = !!Store.getGiftInfo();
 
 		return (
 			<div>
@@ -130,7 +131,7 @@ var View = React.createClass({
 							courseId={courseId}
 							giftDoneLink={giftDoneLink}
 						/>
-						<Location path="/error/" handler={PaymentError} purchasable={purchasable} courseTitle={courseTitle}/>
+						<Location path="/error/" handler={PaymentError} isGift={isGift} purchasable={purchasable} courseTitle={courseTitle}/>
 						<Location path="/gift/" handler={GiftView} purchasable={purchasable} courseTitle={courseTitle}/>
 						<Location path="/gift/redeem/(:code)" handler={GiftRedeem} purchasable={purchasable} courseTitle={courseTitle} courseId={courseId}/>
 						<DefaultRoute handler={Form} purchasable={purchasable}/>
