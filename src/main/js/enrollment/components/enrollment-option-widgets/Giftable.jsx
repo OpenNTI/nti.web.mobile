@@ -6,6 +6,8 @@ var React = require('react/addons');
 var Button = require('common/components/forms/Button');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 
+var isFlag = require('common/Utils').isFlag;
+
 var Giftable = React.createClass({
 
 	propTypes: {
@@ -18,9 +20,13 @@ var Giftable = React.createClass({
 	},
 
 	render: function() {
+		if (!isFlag('dev')) {
+			return null;
+		}
+
 		var href = this.props.href || this._urlForEntry();
 		return (
-			<div class="row">
+			<div>
 				<Button className="giftable" href={href}>{t('giveThisAsGift')}</Button>
 			</div>
 		);
