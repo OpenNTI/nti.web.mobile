@@ -132,7 +132,7 @@ exports = module.exports = [
 
         cache: true,
         debug: true,
-        devtool: '#source-map',
+        devtool: 'inline-source-map',
 
         entry: '<%= pkg.src %>/js/index.js',
 
