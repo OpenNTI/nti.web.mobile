@@ -1,18 +1,39 @@
 'use strict';
 
+var React = require('react/addons');
+
 describe('FooBar', function () {
-  var Component, component;
+    var Component, component;
 
-  beforeEach(function () {
-    var container = document.createElement('div');
-    container.id = 'content';
-    document.body.appendChild(container);
+    beforeEach(function () {
+        var container = document.createElement('div');
+        container.id = 'content';
+        document.body.appendChild(container);
 
-    Component = require('../../../main/js/components/FooBar.jsx');
-    component = Component();
-  });
+        var Component = require('common/components/forms/Button');
+        component = React.renderComponent(
+            Component({href: '#'}, 'Test'),
+            container
+        );
 
-  it('should create a new instance of FooBar', function () {
-    expect(component).toBeDefined();
-  });
+    });
+
+    it('should create a new instance of Button', function () {
+        expect(component).toBeDefined();
+        expect(component.getDOMNode().textContent).toBe('Test');
+    });
+
+
+    it('should call preventDefault onClick', function() {
+        var event = {
+            preventDefault: function () {}
+        };
+
+        spyOn(event, 'preventDefault');
+
+        component.onClick(event);
+
+        expect(event.preventDefault).toHaveBeenCalled();
+
+    });
 });

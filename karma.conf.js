@@ -1,5 +1,13 @@
 'use strict';
 
+var path = require('path');
+var webpack = require('webpack');
+
+var scssIncludes = 'includePaths[]=' + (path.resolve(__dirname, 'src/main/resources/vendor/foundation/scss'));
+
+var root = path.join(__dirname,'src','main','js');
+
+
 module.exports = function (config) {
   config.set({
     basePath: '',
@@ -9,37 +17,50 @@ module.exports = function (config) {
       'src/test/spec/**/*.js'
     ],
     preprocessors: {
-      'src/test/spec/**/*.js': ['webpack']
+      'src/test/spec/**/*.js': ['webpack', 'sourcemaps']
     },
     webpack: {
 	    cache: true,
 	    debug: true,
-	    devtool: true,
+        devtool: 'inline-source-map',
 
 	    stats: {
 	        colors: true,
 	        reasons: true
 	    },
 
-	    resolve: {extensions: ["", ".jsx", ".js", ".css"] },
+        node: {
+            net: 'empty',
+            tls: 'empty'
+        },
+
+        resolve: {
+            root: root,
+            extensions: ['', '.jsx', '.js', '.css', '.scss', '.html']
+        },
+
+        plugins: [
+            new webpack.DefinePlugin({
+                SERVER: false
+            }),
+        ],
 
 	    module: {
-	        loaders: [{
-	            test: /\.css$/,
-          loader: 'style/url!url?limit=10000&postfix=.css'
-        }, {
-          test: /\.gif/,
-          loader: 'url-loader?limit=10000&minetype=image/gif'
-        }, {
-          test: /\.jpg/,
-          loader: 'url-loader?limit=10000&minetype=image/jpg'
-        }, {
-          test: /\.png/,
-          loader: 'url-loader?limit=10000&minetype=image/png'
-	        }, {
-	            test: /\.jsx$/,
-	            loader: 'jsx-loader'
-	        }]
+	        loaders: [
+                { test: /\.js$/, loader: 'jsx?stripTypes&harmony' },
+                { test: /\.jsx$/, loader: 'jsx?stripTypes&harmony' },
+                { test: /\.json$/, loader: 'json' },
+                { test: /\.ico$/, loader: 'url?limit=1000000' },
+                { test: /\.gif$/, loader: 'url?limit=1000000' },
+                { test: /\.png$/, loader: 'url?limit=1000000' },
+                { test: /\.jpg$/, loader: 'url?limit=1000000' },
+                { test: /\.eot$/, loader: 'url?limit=1000000' },
+                { test: /\.ttf$/, loader: 'url?limit=1000000' },
+                { test: /\.woff$/, loader: 'url?limit=1000000' },
+                { test: /\.html$/, loader: 'html?attrs=link:href' },
+                { test: /\.css$/, loader: 'style!css' },
+                { test: /\.scss$/, loader: 'style!css!sass?' + scssIncludes }
+            ]
 	    }
     },
     webpackServer: {
@@ -47,6 +68,7 @@ module.exports = function (config) {
         colors: true
       }
     },
+
     exclude: [],
     port: 8080,
     logLevel: config.LOG_INFO,
