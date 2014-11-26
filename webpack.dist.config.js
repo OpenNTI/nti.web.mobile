@@ -22,8 +22,8 @@ cfg.forEach(function(o) { e.push(assign({}, o)); });
 
 
 e[0].plugins.push(
-    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin(),
     new AppCachePlugin({
         cache: [

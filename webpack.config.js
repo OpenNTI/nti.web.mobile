@@ -104,8 +104,8 @@ function includeWidgets(o) {
                 new webpack.DefinePlugin({
                     SERVER: false
                 }),
-                new webpack.optimize.DedupePlugin(),
                 new webpack.optimize.OccurenceOrderPlugin(),
+                new webpack.optimize.DedupePlugin(),
                 new webpack.optimize.UglifyJsPlugin(),
                 new CompressionPlugin({
                     asset: "{file}.gz",
