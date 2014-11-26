@@ -9,7 +9,8 @@ var EnrollmentOptions = require('../mixins/EnrollmentMixin');
 var LoadingInline = require('common/components/LoadingInline');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var Utils = require('common/Utils');
-var buttonCss = "tiny button radius column";
+var ButtonFullWidth = require('common/components/forms/ButtonFullWidth');
+var Giftable = require('enrollment/components/enrollment-option-widgets/Giftable');
 
 /**
 * Displays a link/button to enroll if enrollment options are
@@ -21,23 +22,39 @@ var EnrollButton = React.createClass({
 
 	propTypes: {
 		catalogEntry: React.PropTypes.object.isRequired,
-		dropOnly: React.PropTypes.bool
+
+		// this component is used on the course description view
+		// within the course; we never want to show the enroll button there.
+		dropOnly: React.PropTypes.bool 
 	},
 
-	_button: function() {
+	_dropOrEnrollButton: function() {
 
 		if (this.canDrop(this.props.catalogEntry)) {
 			// drop button
 			var href = Utils.getBasePath() + 'library/catalog/item/' + NTIID.encodeForURI(this.props.catalogEntry.getID()) + '/enrollment/drop/';
-			return <a href={href} className={buttonCss}>Drop This Course</a>;
+			return <ButtonFullWidth href={href}>Drop This Course</ButtonFullWidth>;
 		}
 
 		if (!this.props.dropOnly && this.enrollmentOptions(this.props.catalogEntry).length > 0) {
 			var href = this.makeHref('/enrollment/', true);
-			return <a href={href} className={buttonCss}>Enroll</a>;
+			return <ButtonFullWidth href={href}>Enroll</ButtonFullWidth>;
 		}
 
 		return null;
+	},
+
+	_giftButton: function() {
+		if (this.hasGiftableEnrollmentOption(this.props.catalogEntry)) {
+			return <Giftable catalogId={this.props.catalogEntry.getID()} />;
+		}
+		return null;
+	},
+
+	_buttons: function() {
+		return [this._dropOrEnrollButton(), this._giftButton()].filter(function(item) {
+			return item !== null;
+		});
 	},
 
 	render: function() {
@@ -50,12 +67,20 @@ var EnrollButton = React.createClass({
 				</div>);
 		}
 
-		var button = this._button();
-		if (button) {
-			return <div className="row"><div className="cell small-12 columns">{button}</div></div>;
+		var buttons = this._buttons();
+		if (buttons.length > 0) {
+			return <div>
+				{
+					buttons.map(function(button) {
+						return <div className="row"><div className="cell small-12 columns">{button}</div></div>;
+					}.bind(this))
+				}
+			</div>
 		}
-
 		return null;
+
+		
+
 	}
 
 });
