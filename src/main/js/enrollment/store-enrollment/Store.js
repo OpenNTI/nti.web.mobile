@@ -107,7 +107,13 @@ function getStripeInterface() {
 function _pullData(data) {
 	var result = {};
 
-	var add = x => { if (data[x]) {result[x] = data[x]; } };
+	var copy = x => {
+		if (data.hasOwnProperty(x)) {
+			result[x] = data[x]; } };
+	var pull = x => {
+		copy(x);
+		delete data[x];
+	};
 
 	_pricing = {
 		coupon: data.coupon,
@@ -116,15 +122,15 @@ function _pullData(data) {
 		/* jshint +W106*/
 	};
 
-	add('from');
-	add('to');
-	add('toFirstName');
-	add('toLastName');
-	add('receiver');
-	add('message');
-	add('sender');
+	copy('from');
+	pull('to');
+	pull('toFirstName');
+	pull('toLastName');
+	pull('receiver');
+	pull('message');
+	pull('sender');
 
-	_giftInfo = Object.keys(result).length ? result : null;
+	_giftInfo = data.from && Object.keys(result).length ? result : null;
 }
 
 function _verifyBillingInfo(data) {
