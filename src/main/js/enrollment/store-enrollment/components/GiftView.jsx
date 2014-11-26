@@ -203,9 +203,7 @@ module.exports = React.createClass({
 			agreed: e.target.checked
 		});
 
-		if (!this._validate(result)){
-			this.setState({agreed: false});
-		}
+		this._validate(result);
 	},
 
 
