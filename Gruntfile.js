@@ -6,13 +6,36 @@ var webpackDevConfig = require('./webpack.config.js');
 
 var path = require('path');
 
+var PROD = 'production';
+var DEV = 'development';
+
 module.exports = function(grunt) {
 	// Let *load-grunt-tasks* require everything
 	require('load-grunt-tasks')(grunt);
 
 	var pkgConfig = grunt.file.readJSON('package.json');
 
+	var env = /prod/i.test(grunt.option('environment')) ? PROD : DEV;
+
+	var buildSteps = [
+		'env',
+		'jshint',
+		'clean:stage',
+		'sass',
+		'copy:stage',
+		'webpack:dist',
+		'clean:dist',
+		'rename:StageToDist',
+		'symlink'
+	];
+
+	if (env === PROD) {
+		buildSteps.push('clean:maps');
+	}
+
 	pkgConfig.distSiteCSS = path.join(pkgConfig.dist, '/client/resources/css/sites/');
+
+
 
 	grunt.initConfig({
 
@@ -24,8 +47,8 @@ module.exports = function(grunt) {
 		},
 
 		env: {
-			dist: {
-				NODE_ENV: 'production'
+			options: {
+				NODE_ENV: env
 			}
 		},
 
@@ -214,18 +237,21 @@ module.exports = function(grunt) {
 		}
 	});
 
+
+
 	grunt.registerTask('docs',['react','jsdoc']);
 
 	grunt.registerTask('serve', function(target) {
 		if (target === 'dist') {
 			return grunt.task.run([
+				'env',
 				'build',
-				'env:dist',
 				'execute:dist'
 			]);
 		}
 
 		grunt.task.run([
+			'env',
 			'sass',
 			'jshint',
 			'execute:dev'
@@ -234,16 +260,9 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('test', ['karma']);
 
-	grunt.registerTask('build', [
-		'jshint',
-		'clean:stage',
-		'sass',
-		'copy:stage',
-		'webpack:dist',
-		'clean:dist',
-		'rename:StageToDist',
-		'symlink'
-	]);
+
+
+	grunt.registerTask('build', buildSteps);
 
 	grunt.registerTask('default', ['serve']);
 
