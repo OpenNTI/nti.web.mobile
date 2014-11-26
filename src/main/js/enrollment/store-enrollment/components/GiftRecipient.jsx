@@ -17,7 +17,6 @@ module.exports = React.createClass({
 		return {
 			valid: true,
 			enabled: false,
-			from: null,
 			message: null,
 			receiver: null,
 			sender: null,
