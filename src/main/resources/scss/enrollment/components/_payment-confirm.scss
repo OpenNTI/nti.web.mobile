@@ -29,6 +29,27 @@
 		padding: 0;
 	}
 
+	.subscribe {
+		background: $quad-grey;
+		padding: 0 $pad 0.5rem;
+		margin: 1rem (-$pad) 2rem;
+
+		label {
+			font-weight: 600;
+			font-size: 0.9rem;
+		}
+
+		a {
+			color: $primary-blue;
+		}
+
+		p {
+			padding-left: 24px;
+			line-height: 1.3em;
+			font-size: 0.9em;
+		}
+	}
+
 
 	fieldset {
 		border: none;

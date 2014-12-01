@@ -10,6 +10,7 @@ var Actions = require('../Actions');
 var PanelButton = require('common/components/PanelButton');
 var ErrorWidget = require('common/components/Error');
 var Loading = require('common/components/Loading');
+var Localized = require('common/components/LocalizedHTML');
 var BillingInfo = require('./BillingInfo');
 var GiftInfo = require('./GiftInfo');
 var Pricing = require('./Pricing');
@@ -78,6 +79,13 @@ var PaymentConfirm = React.createClass({
 		return this.getFormattedPrice(this.props.purchasable.Currency, price);
 	},
 
+	_shouldAllowUpdates: function() {
+		var ref = this.refs.subscribeToUpdates;
+		var el = ref && ref.isMounted() && ref.getDOMNode();
+
+		return el && el.checked;
+	},
+
 	_submitPayment: function(event) {
 		event.preventDefault();
 		this.setState({
@@ -87,7 +95,8 @@ var PaymentConfirm = React.createClass({
 			stripeToken: this._getStripeToken(),
 			purchasable: this.props.purchasable,
 			pricing: this._getPricing(),
-			giftInfo: this._getGiftInfo()
+			giftInfo: this._getGiftInfo(),
+			allowVendorUpdates: this._shouldAllowUpdates()
 		};
 		Actions.submitPayment(payload);
 	},
@@ -106,6 +115,7 @@ var PaymentConfirm = React.createClass({
 
 		var price = this._getPrice();
 		var edit = this.state.giftInfo && 'gift/';
+		var allowVendorUpdates = purchasable.VendorInfo.AllowVendorUpdates;
 
 
 		return (
@@ -118,6 +128,16 @@ var PaymentConfirm = React.createClass({
 					<GiftInfo info={this.state.giftInfo} edit={edit} />
 					<BillingInfo card={this.state.stripeToken.card} edit={edit} />
 					<p>Clicking submit will charge your card {price} and enroll you in the course.</p>
+
+					{!allowVendorUpdates ? '' : 
+						<div className="subscribe">
+							<label>
+								<input type="checkbox" ref="subscribeToUpdates" name="subscribe" />
+								<Localized tag="span" key="ENROLLMENT.SUBSCRIBE.label" />
+								<Localized tag="p" key="ENROLLMENT.SUBSCRIBE.legal" />
+							</label>
+						</div>
+					}
 
 				</PanelButton>
 			</div>

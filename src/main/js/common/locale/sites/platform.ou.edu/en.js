@@ -14,5 +14,14 @@ module.exports = {
 			link: 'http://www.ou.edu/content/ouit/help/personal.html'
 		},
 		GIFTSUPPORT: '<a href="mailto:historychannel@ou.edu">HistoryChannel@ou.edu</a>'
+	},
+	ENROLLMENT: {
+		SUBSCRIBE: {
+			label: 'Yes, I\'d like to sign up for HISTORY email updates.',
+			legal: 'By opting in for email updates you agree to receive emails from HISTORY Channel and A+E Networks. ' +
+						'You can withdraw your consent at any time. More Details: <a href="http://www.aenetworks.com/privacy" target="_blank">Privacy Policy</a> | ' +
+						'<a href="http://www.aenetworks.com/terms" target="_blank">Terms of Use</a> | ' +
+						'<a href="http://www.aenetworks.com/contact" target="_blank">Contact Us</a>'
+		}
 	}
 };
