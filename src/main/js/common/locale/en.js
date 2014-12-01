@@ -161,6 +161,11 @@ module.exports = {
 				address_zip: 'Zip/Postal Code',
 				address_country: 'Country',
 				last4: 'Card ending in'
+			},
+			fiveminute: {
+				admissionTitle: 'Preliminary Questions',
+				currentlyAttending: 'Are you currently attending the University of Oklahoma?',
+				oklahomaResident: 'Are you an Oklahoma resident currently attending high school?'
 			}
 		},
 		incompleteForm: 'Please complete all required fields.',

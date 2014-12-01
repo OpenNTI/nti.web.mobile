@@ -7,6 +7,7 @@ var Router = require('react-router-component');
 var Enroll = require('./Enroll');
 var DropCourse = require('./DropCourse');
 var StoreEnrollment = require('../store-enrollment/components/View');
+var CreditEnrollment = require('../five-minute/components/View');
 var CatalogStore = require('library/catalog/Store');
 var Constants = require('../Constants');
 var NTIID = require('dataserverinterface/utils/ntiids');
@@ -47,6 +48,14 @@ module.exports = React.createClass({
 					entryId={this.props.entryId}
 					enrollment={this._getEnrollmentOption(Constants.StoreEnrollment)}
 					courseId={this._getCourseId()} />
+
+				<Router.Location
+					path="/credit(/*)"
+					handler={CreditEnrollment}
+					basePath={this.props.basePath}
+					entryId={this.props.entryId}
+					enrollment={this._getEnrollmentOption(Constants.CreditEnrollment)}
+					courseId={this._getCourseId()} />					
 
                 <Router.NotFound
                 	handler={Enroll}

@@ -5,6 +5,7 @@ var React = require('react/addons');
 var t = require('../../../locale').translate;
 
 var isFunction = require('dataserverinterface/utils/isfunction');
+var radiogroup = require('common/components/forms/mixins/RadioGroup');
 
 module.exports = {
 
@@ -47,6 +48,9 @@ module.exports = {
 			case 'textarea':
 				input = React.DOM.textarea;
 			break;
+			case 'radiogroup':
+				input = radiogroup;
+			break;
 			default:
 				input = React.DOM.input;
 		}
@@ -73,6 +77,8 @@ module.exports = {
 						className: cssClass.join(' '),
 						defaultValue: (values||{})[ref],
 						type: type,
+						field: field,
+						options: field.options||null,
 						pattern: (field.type === 'number' && '[0-9]*') || null
 					})
 			)
