@@ -69,18 +69,15 @@ var EnrollButton = React.createClass({
 
 		var buttons = this._buttons();
 		if (buttons.length > 0) {
-			return <div>
+			return (<div>
 				{
 					buttons.map(function(button) {
 						return <div className="row"><div className="cell small-12 columns">{button}</div></div>;
 					}.bind(this))
 				}
-			</div>
+			</div>);
 		}
 		return null;
-
-		
-
 	}
 
 });

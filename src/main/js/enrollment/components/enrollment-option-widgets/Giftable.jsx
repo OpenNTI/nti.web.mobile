@@ -8,7 +8,7 @@ var Utils = require('common/Utils');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 
-var isFlag = Utils.isFlag;
+// var isFlag = Utils.isFlag;
 
 var Giftable = React.createClass({
 
@@ -23,9 +23,9 @@ var Giftable = React.createClass({
 	},
 
 	render: function() {
-		if (!isFlag('dev')) {
-			return null;
-		}
+		// if (!isFlag('dev')) {
+		// 	return null;
+		// }
 
 		var href = this.props.href || this._urlForEntry();
 		return (
