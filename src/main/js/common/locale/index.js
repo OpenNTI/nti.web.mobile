@@ -8,12 +8,14 @@ var siteName = require('../Utils').getSiteName();
 
 var locale = counterpart.getLocale();
 
-console.debug('Site Locale: %s.%s',siteName, locale);
+if (siteName) {
+	console.debug('Site Locale: %s.%s',siteName, locale);
 
-require(['./sites/' + siteName + '/' + locale + '.js'], function(translation) {
-	counterpart.registerTranslations(locale, translation);
-	counterpart.emit('localechange', locale, locale);
-});
+	require(['./sites/' + siteName + '/' + locale + '.js'], function(translation) {
+		counterpart.registerTranslations(locale, translation);
+		counterpart.emit('localechange', locale, locale);
+	});
+}
 
 
 function translate(/*key, options*/) {
