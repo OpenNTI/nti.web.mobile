@@ -28,6 +28,7 @@ var PreliminaryForm = React.createClass({
 
 		var form = this.renderFormConfig(_formConfig, this.state.fieldValues, t);
 		var title = t('admissionTitle');
+		console.log(this.state.fieldValues);
 
 		return (
 			<FormPanel title={title} onSubmit={this._handleSubmit}>

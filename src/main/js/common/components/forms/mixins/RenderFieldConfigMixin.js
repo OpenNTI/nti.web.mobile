@@ -43,6 +43,8 @@ module.exports = {
 			fallback: ''
 		};
 
+		var onChange = isFunction(this._inputChanged) ? this._inputChanged : null;
+
 		var input;
 		switch(field.type) {
 			case 'textarea':
@@ -50,12 +52,11 @@ module.exports = {
 			break;
 			case 'radiogroup':
 				input = radiogroup;
+				onChange = this._radioChanged.bind(null, field);
 			break;
 			default:
 				input = React.DOM.input;
 		}
-
-		var onChange = isFunction(this._inputChanged) ? this._inputChanged : null;
 
 		return (
 			React.DOM.div(
@@ -118,6 +119,23 @@ module.exports = {
 		this.updateFieldValueState(event);
 		if (isFunction(this._inputBlurred)) {
 			this._inputBlurred(event);
+		}
+	},
+
+	_radioChanged: function(fieldConfig, event) {
+		this.updateFieldValueState(event);
+		var selectedOption = (fieldConfig.options||[]).find(function(item) {
+			return item.value === event.target.value;
+		})
+		if (selectedOption && Array.isArray(selectedOption.related)) {
+			console.debug('selected option has related options. %O', selectedOption);
+			// can we do something with state to keep track of the related fields/forms/messages?
+			// if we manage this manually we'll have to manage the removal of the option that's
+			// being de-selected too.
+			// this.state.related = { field.ref: selectedOption.related }
+		}
+		if(isFunction(this._inputChanged)) {
+			this._inputChanged(event);
 		}
 	},
 
