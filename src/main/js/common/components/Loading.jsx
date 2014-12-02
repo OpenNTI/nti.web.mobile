@@ -8,9 +8,10 @@ module.exports = React.createClass({
 	displayName: 'Loading',
 
 	propType: {
+		maskScreen: React.PropTypes.bool,
 		loading: React.PropTypes.bool,
 		message: React.PropTypes.string,
-		tag: React.PropTypes.string
+		tag: React.PropTypes.string,
 	},
 
 
@@ -28,6 +29,19 @@ module.exports = React.createClass({
 			return this.transferPropsTo(Tag({}, this.props.children));
 		}
 
+		if (this.props.maskScreen) {
+			return (
+				<div className="mask-loader">
+					{this._renderSpiner()}
+				</div>
+			);
+		}
+
+		return this._renderSpiner();
+	},
+
+
+	_renderSpiner: function () {
 		return (
 			<figure className="loading">
 				<div className="m spinner"></div>
