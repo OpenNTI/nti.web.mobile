@@ -5,9 +5,11 @@ var React = require('react/addons');
 
 var _t = require('common/locale').scoped('ASSESSMENT');
 
+var Loading = require('common/components/Loading');
 
 var Store = require('../Store');
 var Actions = require('../Actions');
+var Constants = require('../Constants');
 
 
 module.exports = React.createClass({
@@ -49,9 +51,13 @@ module.exports = React.createClass({
 
 
 	onSubmit: function (e) {
+		var assessment = this.props.assessment;
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
+		}
+		if (Store.canSubmit(assessment)) {
+			Actions.submit(assessment);
 		}
 	},
 
@@ -61,12 +67,19 @@ module.exports = React.createClass({
 		var unanswered = Store.countUnansweredQuestions(assessment);
 		var disabled = !Store.canSubmit(assessment);
 		var status = unanswered ? 'incomplete' : 'complete';
+		var busy = Store.getBusyState(assessment);
+
+		busy = (busy === Constants.BUSY.SUBMITTING || busy === Constants.BUSY.LOADING);
 
 		return (
-			<div className={'set-submission ' + status}>
-				<a href={disabled?'#':null} className={'button ' + (disabled?'disabled':'')} onClick={this.onSubmit}>{_t('submit')}</a>
-				<a href="#" className="reset button link" onClick={this.onReset}>{_t('reset')}</a>
-				<span className="status-line">{_t('x_unanswered', { count: unanswered  })}</span>
+			<div>
+				<div className={'set-submission ' + status}>
+					<a href={disabled?'#':null} className={'button ' + (disabled?'disabled':'')} onClick={this.onSubmit}>{_t('submit')}</a>
+					<a href="#" className="reset button link" onClick={this.onReset}>{_t('reset')}</a>
+					<span className="status-line">{_t('x_unanswered', { count: unanswered  })}</span>
+				</div>
+
+				{!busy ? null : Loading({ message: 'Please Wait', maskScreen: true, key: '1' })}
 			</div>
 		);
 	}

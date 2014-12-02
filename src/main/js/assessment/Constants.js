@@ -11,6 +11,17 @@ module.exports = Object.assign(exports, keyMirror({
 	INTERACTED: null,
 
 	RESET: null,
+	SYNC: null,
 
-	SYNC: null
-}));
+	SUBMIT_BEGIN: null,
+	SUBMIT_END: null,
+
+}), {
+
+	BUSY: keyMirror({
+		LOADING: null,
+		SUBMITTING: null,
+		SAVEPOINT: null
+	})
+
+});

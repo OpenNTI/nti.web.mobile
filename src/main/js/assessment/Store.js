@@ -7,19 +7,12 @@ var AppDispatcher = require('dispatcher/AppDispatcher');
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 
 var Constants = require('./Constants');
+var Api = require('./Api');
 
 var data = {};
+var busy = {};
 
-
-function getMainSubmittable(o){
-	var p;
-	do {
-		p = o && o.up('getSubmission');
-		if (p) { o = p; }
-	} while (p);
-	return o;
-}
-
+var getMainSubmittable = require('./Utils').getMainSubmittable;
 
 var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'assessment.Store',
@@ -29,21 +22,71 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
+
 	addChangeListener: function(callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
+
 
 	removeChangeListener: function(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
 
-	setupAssessment: function (assessment) {
+	getSubmissionData: function (assessment) {
+		var main = getMainSubmittable(assessment);
+		return main && data[main.getID()];
+	},
+
+
+	setupAssessment: function (assessment, loadSavePoint) {
 		var main = getMainSubmittable(assessment);
 		if (!main) {return;}
 		console.debug('New Assessment: %o', main);
 
-		data[assessment.getID()] = main.getSubmission();
+		data[main.getID()] = main.getSubmission();
+
+		if (!loadSavePoint) {return;}
+
+		markBusy(assessment, Constants.BUSY.LOADING);
+		this.emitChange();
+
+		Api.loadSavePoint(assessment)
+
+			.catch(function(reason) {
+				if (reason) {
+					console.error('Could not load save point %o', reason);
+				}
+				return;
+			})
+
+			.then(this.applySavePoint.bind(this, assessment));
+	},
+
+
+	applySavePoint: function(assessment, savePoint) {
+		var main = getMainSubmittable(assessment);
+		var s = main && data[main.getID()];
+
+		savePoint.getQuestions().forEach(q => {
+
+			var question = s.getQuestion(q.getID());
+
+			var parts = q.parts;
+			var partCount = parts.length;
+			var x;
+
+			for (x = 0; x < partCount; x++) {
+				question.setPartValue(x, parts[x]);
+			}
+		});
+
+
+		if (this.getBusyState(assessment) === Constants.BUSY.LOADING) {
+			markBusy(assessment, false);
+		}
+
+		this.emitChange(Constants.SYNC);
 	},
 
 
@@ -66,7 +109,13 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	canSubmit: function(assessment){
 		var main = getMainSubmittable(assessment);
 		var s = data[main.getID()];
-		return s && s.canSubmit();
+		return s && s.canSubmit() && !this.getBusyState(assessment);
+	},
+
+
+	getBusyState: function(part) {
+		var main = getMainSubmittable(part);
+		return main && busy[main.getID()];
 	},
 
 
@@ -85,13 +134,41 @@ function onInteraction(part, value) {
 	var question = s && part && s.getQuestion(part.getQuestionId());
 
 	question.setPartValue(part.getPartIndex(), value);
+
+	markBusy(part, Constants.BUSY.SAVEPOINT);
+	Api.saveProgress(part)
+		.catch(function() {})//handel errors
+		.then(function() {
+			markBusy(part, false);
+			Store.emitChange();
+		});
+}
+
+
+function markBusy(part, state) {
+	var main = getMainSubmittable(part);
+	var id = main && main.getID();
+
+	busy[id] = state;
+	if (!state) {
+		delete busy[id];
+	}
 }
 
 
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
 	var eventData;
+
 	switch(action.type) {
+		case Constants.SUBMIT_BEGIN:
+			markBusy(action.assessment, Constants.BUSY.SUBMITTING);
+			break;
+
+		case Constants.SUBMIT_END:
+			markBusy(action.assessment, false);
+			break;
+
 		case Constants.RESET:
 			Store.setupAssessment(action.assessment);
 			eventData = Constants.SYNC;

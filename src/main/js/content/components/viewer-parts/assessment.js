@@ -22,14 +22,16 @@ module.exports = {
 	},
 
 
-	//componentDidUpdate: function(/*prevProps, prevState*/) {},
-
 	componentWillUpdate: function(_, nextState) {
 		var prevPage = this.state.pageData;
 		var nextPage = nextState && nextState.pageData;
-		if (this.state.pageData !== nextPage) {
-			Store.teardownAssessment(prevPage && prevPage.getSubmittableAssessment());
-			Store.setupAssessment(nextPage && nextPage.getSubmittableAssessment());
+
+		var prev = prevPage && prevPage.getSubmittableAssessment();
+		var next = nextPage && nextPage.getSubmittableAssessment();
+
+		if ((next && next.getID()) !== (prev && prev.getID())) {
+			Store.teardownAssessment(prev);
+			Store.setupAssessment(next, true);
 		}
 	}
 
