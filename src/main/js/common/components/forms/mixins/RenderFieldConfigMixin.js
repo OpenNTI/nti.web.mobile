@@ -126,7 +126,7 @@ module.exports = {
 		this.updateFieldValueState(event);
 		var selectedOption = (fieldConfig.options||[]).find(function(item) {
 			return item.value === event.target.value;
-		})
+		});
 		if (selectedOption && Array.isArray(selectedOption.related)) {
 			console.debug('selected option has related options. %O', selectedOption);
 			// can we do something with state to keep track of the related fields/forms/messages?

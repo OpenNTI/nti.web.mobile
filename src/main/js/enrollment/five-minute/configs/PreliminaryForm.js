@@ -17,7 +17,8 @@ module.exports = Object.freeze([
 						value: 'Y',
 						related: [{
 							type: 'message',
-							content: 'LSTD 1153.500 fulfills US History Gen Ed requirement. To enroll, visit <a href="htttp://ozone.ou.edu" target="_blank">ozone.ou.edu</a> and enroll in LSTD 1153, Section 500.'
+							content: 'LSTD 1153.500 fulfills US History Gen Ed requirement. To enroll, visit ' +
+							'<a href="htttp://ozone.ou.edu" target="_blank">ozone.ou.edu</a> and enroll in LSTD 1153, Section 500.'
 						}]
 					},
 					{

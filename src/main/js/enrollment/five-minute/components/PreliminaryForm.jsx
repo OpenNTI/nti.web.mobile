@@ -1,6 +1,4 @@
-/**
- * @jsx React.DOM
- */
+/** @jsx React.DOM */
 
 'use strict';
 
@@ -17,7 +15,7 @@ var PreliminaryForm = React.createClass({
 	getInitialState: function() {
 		return {
 			fieldValues: {}
-		}
+		};
 	},
 
 	_handleSubmit: function() {
