@@ -4,7 +4,7 @@
 
 var React = require('react/addons');
 var FieldRender = require('common/components/forms/mixins/RenderFieldConfigMixin');
-var FormPanel = require('common/components/forms/FormPanel');
+var RelatedFormPanel = require('common/components/forms/RelatedFormPanel');
 var _formConfig = require('../configs/PreliminaryForm');
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 
@@ -26,12 +26,11 @@ var PreliminaryForm = React.createClass({
 
 		var form = this.renderFormConfig(_formConfig, this.state.fieldValues, t);
 		var title = t('admissionTitle');
-		console.log(this.state.fieldValues);
 
 		return (
-			<FormPanel title={title} onSubmit={this._handleSubmit}>
+			<RelatedFormPanel title={title} onSubmit={this._handleSubmit} formConfig={_formConfig} translator={t}>
 				{form}
-			</FormPanel>
+			</RelatedFormPanel>
 		);
 	}
 

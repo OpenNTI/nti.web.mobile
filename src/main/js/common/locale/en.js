@@ -165,7 +165,7 @@ module.exports = {
 			fiveminute: {
 				admissionTitle: 'Preliminary Questions',
 				currentlyAttending: 'Are you currently attending the University of Oklahoma?',
-				oklahomaResident: 'Are you an Oklahoma resident currently attending high school?'
+				oklahomaResidentHighSchool: 'Are you an Oklahoma resident currently attending high school?'
 			}
 		},
 		incompleteForm: 'Please complete all required fields.',

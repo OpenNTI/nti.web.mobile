@@ -2,12 +2,17 @@
 
 var React = require('react/addons');
 
-var t = require('../../../locale').translate;
+var t = require('common/locale').translate;
 
 var isFunction = require('dataserverinterface/utils/isfunction');
 var radiogroup = require('common/components/forms/mixins/RadioGroup');
+var Constants = require('./Constants');
 
 module.exports = {
+
+	// when we're given a translator in renderFormConfig we'll hang onto it
+	// so we can use it for rendering related fields and sub-forms.
+	_translator: null,
 
 	/**
 	* Renders an html form field from a config object.
@@ -98,9 +103,13 @@ module.exports = {
 	},
 
 	renderFormConfig: function(config, values, translator) {
-		return config.map(function(fieldset, index) {
+		this._translator = translator; // stash for rendering related sub-forms later
+		var fieldsets = config.map(function(fieldset, index) {
 			return this.renderFieldset(translator, values, fieldset, index);
 		}.bind(this));
+		return (
+			React.DOM.div({className: 'formRender'}, fieldsets)
+		);
 	},
 
     _onFocus: function(event) {
@@ -124,6 +133,13 @@ module.exports = {
 
 	_radioChanged: function(fieldConfig, event) {
 		this.updateFieldValueState(event);
+		this._showRelated(fieldConfig, event);
+		if(isFunction(this._inputChanged)) {
+			this._inputChanged(event);
+		}
+	},
+
+	_showRelated: function(fieldConfig, event) {
 		var selectedOption = (fieldConfig.options||[]).find(function(item) {
 			return item.value === event.target.value;
 		});
@@ -133,9 +149,28 @@ module.exports = {
 			// if we manage this manually we'll have to manage the removal of the option that's
 			// being de-selected too.
 			// this.state.related = { field.ref: selectedOption.related }
+			var related = selectedOption.related;
+			related.forEach(function(item) {
+				switch (item.type) {
+					case Constants.FORM_CONFIG:
+						this.setState({
+							relatedForm: item.content
+						});					
+					break;
+
+					case Constants.MESSAGE:
+						console.debug('TODO: implement related MESSAGE case for radio option');
+						this.setState({
+							relatedForm: null
+						});
+					break;
+				}
+			}.bind(this));
 		}
-		if(isFunction(this._inputChanged)) {
-			this._inputChanged(event);
+		else {
+			this.setState({
+				relatedForm: null
+			});
 		}
 	},
 
