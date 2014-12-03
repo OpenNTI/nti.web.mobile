@@ -53,8 +53,9 @@ var EnrollButton = React.createClass({
 	},
 
 	_redeemButton: function() {
-		if (this.hasGiftableEnrollmentOption(this.props.catalogEntry)) {
-			return <RedeemButton catalogId={this.props.catalogEntry.getID()} fullWidth={true} />;
+		var catalogId = this.props.catalogEntry.getID();
+		if (this.hasGiftableEnrollmentOption(this.props.catalogEntry) && !this.isEnrolled(this.getCourseId())) {
+			return <RedeemButton catalogId={catalogId} fullWidth={true} />;
 		}
 		return null;
 	},

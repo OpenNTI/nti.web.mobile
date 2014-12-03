@@ -59,6 +59,10 @@ module.exports = {
 		}
 	},
 
+	isEnrolled: function(courseId) {
+		return EnrollmentStore.isEnrolled(courseId);
+	},
+
 	canDrop: function(catalogEntry) {
 		// we currently only support dropping open enrollment within the app.
 		var options = catalogEntry.EnrollmentOptions.Items||{};
