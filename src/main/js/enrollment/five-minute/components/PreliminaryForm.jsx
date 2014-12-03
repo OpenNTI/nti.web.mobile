@@ -4,7 +4,7 @@
 
 var React = require('react/addons');
 var FieldRender = require('common/forms/mixins/RenderFormConfigMixin');
-var RelatedFormPanel = require('common/forms/RelatedFormPanel');
+var RelatedFormPanel = require('common/forms/components/RelatedFormPanel');
 var _formConfig = require('../configs/PreliminaryForm');
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 

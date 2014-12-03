@@ -3,7 +3,7 @@
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var concurrentForm = require('./ConcurrentEnrollmentForm');
 var generalForm = require('./GeneralEnrollmentForm');
-var Constants = require('common/forms/mixins/Constants');
+var Constants = require('common/forms/Constants');
 
 var attendingOU = [{
 	title: 'Admission Status',

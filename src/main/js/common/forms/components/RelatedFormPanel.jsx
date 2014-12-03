@@ -6,7 +6,7 @@
 
 var React = require('react/addons');
 var FormPanel = require('./FormPanel');
-var FormRenderMixin = require('./mixins/RenderFormConfigMixin');
+var FormRenderMixin = require('../mixins/RenderFormConfigMixin');
 
 var RelatedFormPanel = React.createClass({
 

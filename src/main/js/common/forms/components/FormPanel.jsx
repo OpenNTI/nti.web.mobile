@@ -5,7 +5,7 @@
 'use strict';
 
 var React = require('react/addons');
-var RenderField = require('./mixins/RenderFormConfigMixin');
+var RenderField = require('../mixins/RenderFormConfigMixin');
 
 var FormPanel = React.createClass({
 
