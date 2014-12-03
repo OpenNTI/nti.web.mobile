@@ -90,7 +90,7 @@ module.exports = {
 						field: field,
 						// passing renderField function to custom input components to
 						// avoid the circular references that would occur if the
-						// component imported this mixin.
+						// component imported this mixin. ToggleFieldset needs this.
 						renderField: this.renderField,
 						options: field.options||null,
 						translator: translator,

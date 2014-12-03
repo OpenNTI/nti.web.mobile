@@ -1,35 +1,36 @@
 'use strict';
 
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
+var Constants = require('common/forms/Constants');
 
 var mailingAddressFieldset = {
 	title: 'Permanent Address',
 	fields: [
 		{
-			ref: 'mail:address1',
+			ref: 'mailAddress1',
 			required: true,
 			placeholder: t('address1')
 		},
 		{
-			ref: 'mail:address2',
+			ref: 'mailAddress2',
 			placeholder: t('address2')
 		},
 		{
-			ref: 'mail:city',
+			ref: 'mailCity',
 			required: true,
 			placeholder: t('city')
 		},
 		{
-			ref: 'mail:state',
+			ref: 'mailState',
 			placeholder: t('state')
 		},
 		{
-			ref: 'mail:country',
+			ref: 'mailCountry',
 			required: true,
 			placeholder: t('country')
 		},
 		{
-			ref: 'mail:zip',
+			ref: 'mailZip',
 			required: true,
 			placeholder: t('zip')
 		}
@@ -112,6 +113,53 @@ module.exports = Object.freeze([
 				type: 'toggleFieldset',
 				label: t('mailingAddressDifferent'),
 				fieldsetOn: mailingAddressFieldset
+			}
+		]
+	},
+	{
+		fields: [
+			{
+				ref: 'phone',
+				type: 'tel',
+				required: true,
+				placeholder: t('primaryPhone')
+			},
+			{
+				ref: 'email',
+				type: 'email',
+				required: true,
+				placeholder: t('primaryEmail')
+			},
+			{
+				ref: 'ssn',
+				placeholder: t('ssn')
+			},
+			{
+				ref: 'citizen',
+				type: 'radiogroup',
+				label: t('citizen'),
+				options: [
+					{
+						label: 'Yes',
+						value: 'Y'
+					},
+					{
+						label: 'No',
+						value: 'N',
+						related: [{
+							type: Constants.FORM_CONFIG,
+							content: [{
+								fields: [
+									{
+										ref: 'residentOf',
+										label: t('residentOf'),
+										required: true
+									}
+								]
+							}]
+						}]
+					}
+				]
 			}
 		]
 	}
