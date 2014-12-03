@@ -48,4 +48,46 @@
 			color: $disabled-button-color;
 		}
 	}
+
+
+	.error {
+		position: absolute;
+		bottom: 3rem;
+		left: 1rem;
+		right: 1rem;
+		box-shadow: inset 1px 1px 0 rgba(255,255,255,0.3);
+		border: 1px solid $secondary-red;
+		background: $primary-red;
+		color: $secondary-red;
+		padding: 1rem 4rem 1rem 1rem;
+		border-radius: 0.3rem;
+		z-index: 99999;
+		font-size: 1rem;
+
+
+		a {
+			display: block;
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			width: 3rem;
+
+			text-indent: 4rem;
+			overflow: hidden;
+
+
+			&::after {
+				content: '';
+				position: absolute;
+				display: block;
+				top: 50%; left: 50%;
+				width: 18px; height: 18px;
+				border-radius: 18px;
+				margin: -9px 0 0 -9px;
+				background: url(../images/icons/circle-x-red-18.png) 0 0 no-repeat;
+				box-shadow: 0 0 15px -3px #750000;
+			}
+		}
+	}
 }

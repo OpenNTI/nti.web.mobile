@@ -124,8 +124,43 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		var s = data[main.getID()];
 		var question = s && part && s.getQuestion(part.getQuestionId());
 		return question.getPartValue(part.getPartIndex());
+	},
+
+
+	getError: function (part) {
+		var main = getMainSubmittable(part);
+		var s = data[main.getID()];
+		return s.error;
+	},
+
+
+	setError: function (part, error) {
+		var main = getMainSubmittable(part);
+		var s = data[main.getID()];
+		s.error = error;
+		this.emitChange();
+	},
+
+
+	clearError: function (part) {
+		var main = getMainSubmittable(part);
+		var s = data[main.getID()];
+		delete s.error;
+		this.emitChange();
 	}
+
 });
+
+
+function handleSubmitEnd (part, response) {
+	var isError = !!response.statusCode;
+	if (isError) {
+		Store.setError(part, response.message || 'An Error occured.');
+		return;
+	}
+
+	debugger;
+}
 
 
 function onInteraction(part, value) {
@@ -134,6 +169,8 @@ function onInteraction(part, value) {
 	var question = s && part && s.getQuestion(part.getQuestionId());
 
 	question.setPartValue(part.getPartIndex(), value);
+
+	Store.clearError(part);
 
 	markBusy(part, Constants.BUSY.SAVEPOINT);
 	Api.saveProgress(part)
@@ -166,6 +203,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case Constants.SUBMIT_END:
+			handleSubmitEnd(action.assessment, action.response);
 			markBusy(action.assessment, false);
 			break;
 

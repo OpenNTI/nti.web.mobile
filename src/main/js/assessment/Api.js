@@ -26,7 +26,12 @@ Object.assign(exports, {
 	submit: function (assessment) {
 		var data = ReadOnlyStore.getSubmissionData(assessment);
 
-		return data.submit();
+		return data.submit()
+			.catch(function(reason){
+				//force this to always fulfill.
+				console.error('There was an error submitting the assessment: %o', reason.message || reason);
+				return reason;
+			});
 	}
 
 });

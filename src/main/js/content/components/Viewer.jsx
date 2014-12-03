@@ -155,7 +155,7 @@ module.exports = React.createClass({
 	onChange: function() {
 		var id = this.getPageID();
 		var page = Store.getPageDescriptor(this.getPageID());
-		
+
 		this.setState({
 			currentPage: id,
 			loading: false,
@@ -196,6 +196,8 @@ module.exports = React.createClass({
 				</Breadcrumb>
 
 				{this.__applyStyle()}
+
+				{this.renderAssessmentHeader()}
 
 				<div id="NTIContent" onClick={this.onContentClick}
 					dangerouslySetInnerHTML={{__html: body.map(this.__buildBody).join('')}}/>

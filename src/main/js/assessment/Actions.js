@@ -36,10 +36,6 @@ module.exports = {
         });
 
         Api.submit(assessment)
-            .catch(function(reason){
-                console.error('There was an error submitting the assessment: %o', reason);
-                return;
-            })
             .then(function(data) {
                 AppDispatcher.handleRequestAction({
                     type: Constants.SUBMIT_END,

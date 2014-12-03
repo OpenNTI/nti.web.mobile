@@ -1,11 +1,24 @@
 'use strict';
 var React = require('react/addons');
 
+
 var assessment = require('assessment');
+
 var Store = assessment.Store;
-var SetSubmission = assessment.SetSubmissionWidget;
+
 
 module.exports = {
+
+	renderAssessmentHeader: function () {
+		var page = this.state.pageData;
+		var quiz = page && page.getSubmittableAssessment();
+		if (!page || !quiz) {
+			return null;
+		}
+
+		return assessment.SetHeaderWidget({assessment: quiz});
+	},
+
 
 	renderAssessmentSubmission: function () {
 		var div = React.DOM.div;
@@ -17,7 +30,7 @@ module.exports = {
 
 		return (
 			div({className: 'fixed-footer'},
-				div({className: 'the-fixed'}, SetSubmission({assessment: quiz})))
+				div({className: 'the-fixed'}, assessment.SetSubmissionWidget({assessment: quiz})))
 		);
 	},
 
