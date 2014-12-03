@@ -55,9 +55,7 @@ $panel-background: #fbfbfb;
 @mixin vertical-align {
   position: relative;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  @include transform(translateY(-50%));
 }
 
 
@@ -97,4 +95,26 @@ $panel-background: #fbfbfb;
 	-webkit-align-self: $val;
 	-ms-flex-item-align: $val;
 	align-self: $val;
+}
+
+
+@mixin animation($str) {
+	-webkit-animation: #{$str};
+	   -moz-animation: #{$str};
+		-ms-animation: #{$str};
+		 -o-animation: #{$str};
+			animation: #{$str};
+}
+
+
+@mixin keyframes($animation-name) {
+	@-webkit-keyframes #{$animation-name} {
+		@content;
+	}
+	@-moz-keyframes #{$animation-name} {
+		@content;
+	}
+	@keyframes #{$animation-name} {
+		@content;
+	}
 }
