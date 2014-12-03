@@ -36,5 +36,38 @@ module.exports = Object.freeze([
 				]
 			}
 		]
+	},
+	{
+		title: 'Permanent Address',
+		fields: [
+			{
+				ref: 'address1',
+				required: true,
+				placeholder: t('address1')
+			},
+			{
+				ref: 'address2',
+				placeholder: t('address1')
+			},
+			{
+				ref: 'city',
+				required: true,
+				placeholder: t('city')
+			},
+			{
+				ref: 'state',
+				placeholder: t('state')
+			},
+			{
+				ref: 'country',
+				required: true,
+				placeholder: t('country')
+			},
+			{
+				ref: 'zip',
+				required: true,
+				placeholder: t('zip')
+			}
+		]
 	}
 ]);
