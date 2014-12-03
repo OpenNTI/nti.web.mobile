@@ -6,7 +6,7 @@ var t = require('common/locale').translate;
 
 var isFunction = require('dataserverinterface/utils/isfunction');
 var radiogroup = require('common/forms/mixins/RadioGroup');
-var Constants = require('./Constants');
+var Constants = require('../Constants');
 
 module.exports = {
 

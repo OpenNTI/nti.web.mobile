@@ -4,7 +4,7 @@
 var React = require('react/addons');
 var Loading = require('common/components/Loading');
 var InlineLoader = require('common/components/LoadingInline');
-var Button = require('common/forms/Button');
+var Button = require('common/forms/components/Button');
 
 var Store = require('../Store');
 var Actions = require('../Actions');

@@ -25,7 +25,7 @@ var Store = require('../Store');
 var Constants = require('../Constants');
 var _fieldConfig = require('../configs/PaymentForm');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
-var FormPanel = require('common/forms/FormPanel');
+var FormPanel = require('common/forms/components/FormPanel');
 var FormErrors = require('./FormErrors');
 
 var Form = React.createClass({

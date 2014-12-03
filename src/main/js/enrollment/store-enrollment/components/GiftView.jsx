@@ -19,7 +19,7 @@ var fieldConfig = require('../configs/GiftPaymentForm.js');
 var Loading = require('common/components/Loading');
 var RenderFormConfigMixin = require('common/forms/mixins/RenderFormConfigMixin');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
-var FormPanel = require('common/forms/FormPanel');
+var FormPanel = require('common/forms/components/FormPanel');
 var Localized = require('common/components/LocalizedHTML');
 var ScriptInjector = require('common/mixins/ScriptInjectorMixin');
 

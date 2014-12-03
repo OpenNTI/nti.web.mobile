@@ -3,7 +3,7 @@
 
 var React = require('react/addons');
 
-var Button = require('common/forms/Button');
+var Button = require('common/forms/components/Button');
 var LinkConstants = require('../Constants').links;
 var t = require('common/locale').translate;
 

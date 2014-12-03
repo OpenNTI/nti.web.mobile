@@ -6,7 +6,7 @@
 
 var React = require('react/addons');
 var Notice = require('common/components/Notice');
-var Button = require('common/forms/Button');
+var Button = require('common/forms/components/Button');
 
 var DropFive = React.createClass({
 
