@@ -42,10 +42,11 @@ var PaymentConfirm = React.createClass({
 
 	componentDidMount: function() {
 		if (!this.state.stripeToken) {
-			Actions.resetProcess();
+			Actions.resetProcess({
+				gift: (Store.getGiftInfo() !== null)
+			});
 		}
 	},
-
 
 	getInitialState: function() {
 		return {
