@@ -3,7 +3,7 @@
 'use strict';
 
 var React = require('react/addons');
-var FieldRender = require('common/components/forms/mixins/RenderFieldConfigMixin');
+var FieldRender = require('common/components/forms/mixins/RenderFormConfigMixin');
 var RelatedFormPanel = require('common/components/forms/RelatedFormPanel');
 var _formConfig = require('../configs/PreliminaryForm');
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');

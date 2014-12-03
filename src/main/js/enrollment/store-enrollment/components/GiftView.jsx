@@ -17,7 +17,7 @@ var Pricing = require('./Pricing');
 var fieldConfig = require('../configs/GiftPaymentForm.js');
 
 var Loading = require('common/components/Loading');
-var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderFieldConfigMixin');
+var RenderFormConfigMixin = require('common/components/forms/mixins/RenderFormConfigMixin');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
 var FormPanel = require('common/components/forms/FormPanel');
 var Localized = require('common/components/LocalizedHTML');
@@ -43,7 +43,7 @@ var Header = React.createClass({
 module.exports = React.createClass({
 	displayName: 'GiftView',
 
-	mixins: [RenderFieldConfigMixin,ScriptInjector,FormattedPriceMixin],
+	mixins: [RenderFormConfigMixin,ScriptInjector,FormattedPriceMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired

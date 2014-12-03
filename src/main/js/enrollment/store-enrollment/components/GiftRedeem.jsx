@@ -4,7 +4,7 @@
 
 var React = require('react/addons');
 var _formConfig = require('../configs/GiftRedeem');
-var FieldRender = require('common/components/forms/mixins/RenderFieldConfigMixin');
+var FieldRender = require('common/components/forms/mixins/RenderFormConfigMixin');
 var FormPanel = require('common/components/forms/FormPanel');
 var FormErrors = require('./FormErrors');
 var Loading = require('common/components/Loading');

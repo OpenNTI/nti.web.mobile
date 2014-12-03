@@ -13,7 +13,7 @@
 /* jshint camelcase:false */
 
 var React = require('react/addons');
-var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderFieldConfigMixin');
+var RenderFormConfigMixin = require('common/components/forms/mixins/RenderFormConfigMixin');
 var t = require('common/locale').scoped('ENROLLMENT.forms.storeenrollment');
 var t2 = require('common/locale').scoped('ENROLLMENT');
 
@@ -30,7 +30,7 @@ var FormErrors = require('./FormErrors');
 
 var Form = React.createClass({
 
-	mixins: [RenderFieldConfigMixin,ScriptInjector,FormattedPriceMixin],
+	mixins: [RenderFormConfigMixin,ScriptInjector,FormattedPriceMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired

@@ -19,11 +19,11 @@ var Actions = require('../Actions');
 var LoginActions = require('../../Actions');
 var LoginStore = require('../../Store');
 
-var RenderFieldConfigMixin = require('common/components/forms/mixins/RenderFieldConfigMixin');
+var RenderFormConfigMixin = require('common/components/forms/mixins/RenderFormConfigMixin');
 
 var SignupForm = React.createClass({
 
-	mixins: [NavigatableMixin, RenderFieldConfigMixin],
+	mixins: [NavigatableMixin, RenderFormConfigMixin],
 
 
 	getDefaultProps: function() {
