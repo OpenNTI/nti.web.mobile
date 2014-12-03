@@ -9,7 +9,7 @@ var EnrollmentOptions = require('../mixins/EnrollmentMixin');
 var LoadingInline = require('common/components/LoadingInline');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var Utils = require('common/Utils');
-var ButtonFullWidth = require('common/components/forms/ButtonFullWidth');
+var ButtonFullWidth = require('common/forms/ButtonFullWidth');
 var Giftable = require('enrollment/components/enrollment-option-widgets/Giftable');
 
 /**

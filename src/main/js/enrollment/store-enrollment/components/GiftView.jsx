@@ -17,9 +17,9 @@ var Pricing = require('./Pricing');
 var fieldConfig = require('../configs/GiftPaymentForm.js');
 
 var Loading = require('common/components/Loading');
-var RenderFormConfigMixin = require('common/components/forms/mixins/RenderFormConfigMixin');
+var RenderFormConfigMixin = require('common/forms/mixins/RenderFormConfigMixin');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
-var FormPanel = require('common/components/forms/FormPanel');
+var FormPanel = require('common/forms/FormPanel');
 var Localized = require('common/components/LocalizedHTML');
 var ScriptInjector = require('common/mixins/ScriptInjectorMixin');
 

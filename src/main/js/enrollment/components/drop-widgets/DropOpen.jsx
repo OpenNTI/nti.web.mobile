@@ -7,7 +7,7 @@
 var React = require('react/addons');
 var Actions = require('../../Actions');
 var Notice = require('common/components/Notice');
-var Button = require('common/components/forms/Button');
+var Button = require('common/forms/Button');
 var Loading = require('common/components/Loading');
 
 var DropOpen = React.createClass({

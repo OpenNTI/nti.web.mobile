@@ -5,8 +5,8 @@
 'use strict';
 
 var React = require('react/addons');
-var FormPanel = require('common/components/forms/FormPanel');
-var RenderField = require('common/components/forms/mixins/RenderFormConfigMixin');
+var FormPanel = require('common/forms/FormPanel');
+var RenderField = require('common/forms/mixins/RenderFormConfigMixin');
 var Actions = require('../Actions');
 var t = require('common/locale').translate;
 

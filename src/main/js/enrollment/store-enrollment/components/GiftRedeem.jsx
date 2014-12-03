@@ -4,8 +4,8 @@
 
 var React = require('react/addons');
 var _formConfig = require('../configs/GiftRedeem');
-var FieldRender = require('common/components/forms/mixins/RenderFormConfigMixin');
-var FormPanel = require('common/components/forms/FormPanel');
+var FieldRender = require('common/forms/mixins/RenderFormConfigMixin');
+var FormPanel = require('common/forms/FormPanel');
 var FormErrors = require('./FormErrors');
 var Loading = require('common/components/Loading');
 var EnrollmentSuccess = require('./EnrollmentSuccess');

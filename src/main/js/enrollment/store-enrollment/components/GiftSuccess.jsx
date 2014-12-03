@@ -11,7 +11,7 @@ var LocalizedHTML = require('common/components/LocalizedHTML');
 var Pricing = require('./Pricing');
 var Actions = require('../Actions');
 
-var Button = require('common/components/forms/Button');
+var Button = require('common/forms/Button');
 
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT.SUCCESS');
 var _siteT = require('common/locale').scoped('CONTACTINFO');

@@ -13,7 +13,7 @@
 /* jshint camelcase:false */
 
 var React = require('react/addons');
-var RenderFormConfigMixin = require('common/components/forms/mixins/RenderFormConfigMixin');
+var RenderFormConfigMixin = require('common/forms/mixins/RenderFormConfigMixin');
 var t = require('common/locale').scoped('ENROLLMENT.forms.storeenrollment');
 var t2 = require('common/locale').scoped('ENROLLMENT');
 
@@ -25,7 +25,7 @@ var Store = require('../Store');
 var Constants = require('../Constants');
 var _fieldConfig = require('../configs/PaymentForm');
 var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
-var FormPanel = require('common/components/forms/FormPanel');
+var FormPanel = require('common/forms/FormPanel');
 var FormErrors = require('./FormErrors');
 
 var Form = React.createClass({

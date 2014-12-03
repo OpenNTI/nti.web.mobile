@@ -19,7 +19,7 @@ var Actions = require('../Actions');
 var LoginActions = require('../../Actions');
 var LoginStore = require('../../Store');
 
-var RenderFormConfigMixin = require('common/components/forms/mixins/RenderFormConfigMixin');
+var RenderFormConfigMixin = require('common/forms/mixins/RenderFormConfigMixin');
 
 var SignupForm = React.createClass({
 

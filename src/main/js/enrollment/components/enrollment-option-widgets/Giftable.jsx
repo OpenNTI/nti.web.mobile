@@ -3,7 +3,7 @@
 'use strict';
 
 var React = require('react/addons');
-var Button = require('common/components/forms/Button');
+var Button = require('common/forms/Button');
 var Utils = require('common/Utils');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
