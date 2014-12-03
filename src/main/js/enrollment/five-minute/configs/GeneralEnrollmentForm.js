@@ -2,6 +2,40 @@
 
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 
+var mailingAddressFieldset = {
+	title: 'Permanent Address',
+	fields: [
+		{
+			ref: 'mail:address1',
+			required: true,
+			placeholder: t('address1')
+		},
+		{
+			ref: 'mail:address2',
+			placeholder: t('address2')
+		},
+		{
+			ref: 'mail:city',
+			required: true,
+			placeholder: t('city')
+		},
+		{
+			ref: 'mail:state',
+			placeholder: t('state')
+		},
+		{
+			ref: 'mail:country',
+			required: true,
+			placeholder: t('country')
+		},
+		{
+			ref: 'mail:zip',
+			required: true,
+			placeholder: t('zip')
+		}
+	]
+}
+
 module.exports = Object.freeze([
 	{
 		title: 'Enrollment Application',
@@ -47,7 +81,7 @@ module.exports = Object.freeze([
 			},
 			{
 				ref: 'address2',
-				placeholder: t('address1')
+				placeholder: t('address2')
 			},
 			{
 				ref: 'city',
@@ -67,6 +101,17 @@ module.exports = Object.freeze([
 				ref: 'zip',
 				required: true,
 				placeholder: t('zip')
+			}
+		]
+	},
+	{
+		title: 'Mailing Address',
+		fields: [
+			{
+				ref: 'addressDifferent',
+				type: 'toggleFieldset',
+				label: t('mailingAddressDifferent'),
+				fieldsetOn: mailingAddressFieldset
 			}
 		]
 	}

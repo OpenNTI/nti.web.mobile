@@ -5,7 +5,8 @@ var React = require('react/addons');
 var t = require('common/locale').translate;
 
 var isFunction = require('dataserverinterface/utils/isfunction');
-var radiogroup = require('common/forms/mixins/RadioGroup');
+var radiogroup = require('common/forms/components/RadioGroup');
+var ToggleFieldset = require('../components/ToggleFieldset');
 var Constants = require('../Constants');
 
 module.exports = {
@@ -59,6 +60,9 @@ module.exports = {
 				input = radiogroup;
 				onChange = this._radioChanged.bind(null, field);
 			break;
+			case 'toggleFieldset':
+				input = ToggleFieldset;
+			break;
 			default:
 				input = React.DOM.input;
 		}
@@ -84,7 +88,12 @@ module.exports = {
 						defaultValue: (values||{})[ref],
 						type: type,
 						field: field,
+						// passing renderField function to custom input components to
+						// avoid the circular references that would occur if the
+						// component imported this mixin.
+						renderField: this.renderField,
 						options: field.options||null,
+						translator: translator,
 						pattern: (field.type === 'number' && '[0-9]*') || null
 					})
 			)
