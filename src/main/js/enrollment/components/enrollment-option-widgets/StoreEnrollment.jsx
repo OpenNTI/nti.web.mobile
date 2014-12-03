@@ -29,7 +29,7 @@ var StoreEnrollment = React.createClass({
 				including lectures, course materials, quizzes,
 				and discussions once the class is in session.</p>
 				<p className="price">{formattedPrice}</p>
-				{this.props.isGiftable ? <Giftable /> : null }
+				{this.props.isGiftable ? <Giftable href='store/gift/' /> : null }
 				<small>{t('enrollmentNotRefundable')}</small>
 			</PanelButton>
 		);
