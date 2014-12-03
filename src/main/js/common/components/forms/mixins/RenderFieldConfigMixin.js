@@ -137,6 +137,7 @@ module.exports = {
 		if(isFunction(this._inputChanged)) {
 			this._inputChanged(event);
 		}
+		this.forceUpdate();
 	},
 
 	_showRelated: function(fieldConfig, event) {
@@ -144,11 +145,6 @@ module.exports = {
 			return item.value === event.target.value;
 		});
 		if (selectedOption && Array.isArray(selectedOption.related)) {
-			console.debug('selected option has related options. %O', selectedOption);
-			// can we do something with state to keep track of the related fields/forms/messages?
-			// if we manage this manually we'll have to manage the removal of the option that's
-			// being de-selected too.
-			// this.state.related = { field.ref: selectedOption.related }
 			var related = selectedOption.related;
 			related.forEach(function(item) {
 				switch (item.type) {
@@ -169,7 +165,7 @@ module.exports = {
 		}
 		else {
 			this.setState({
-				relatedForm: null
+				relatedForm: []
 			});
 		}
 	},

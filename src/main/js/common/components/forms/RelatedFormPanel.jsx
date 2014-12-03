@@ -30,16 +30,26 @@ var RelatedFormPanel = React.createClass({
 		};
 	},
 
+	componentWillReceiveProps: function() {
+		this.setState(this.getInitialState());
+	},
+
+	_inputChanged: function() {
+		// merge values with state.fieldvalues
+		// if we're not the root form, push it up to the parent.
+	},
+
 	render: function() {
 
 		var form = this.renderFormConfig(this.props.formConfig, this.state.fieldValues, this.props.translator);
 		var relatedForm = null;
 		if (this.state.relatedForm) {
-			relatedForm = this.transferPropsTo(<RelatedFormPanel depth={this.props.depth + 1} formConfig={this.state.relatedForm} />);
+			var newDepth = this.props.depth + 1;
+			relatedForm = <RelatedFormPanel depth={newDepth} formConfig={this.state.relatedForm} translator={this.props.translator} />;
 		}
 
-		return this.transferPropsTo(
-			<div>
+		return (
+			<div className="recursiveForm">
 				<FormPanel>
 					{form}
 				</FormPanel>
