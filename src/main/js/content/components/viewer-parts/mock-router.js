@@ -20,6 +20,11 @@ module.exports = {
 	},
 
 
+	setRoutingState: function (state, cb) {
+		this.setState(state, cb);
+	},
+
+
 	/**
 	 * For the RouterMixin
 	 * @private
