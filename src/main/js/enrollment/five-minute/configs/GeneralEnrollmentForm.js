@@ -34,7 +34,7 @@ var mailingAddressFieldset = {
 			placeholder: t('zip')
 		}
 	]
-}
+};
 
 module.exports = Object.freeze([
 	{
