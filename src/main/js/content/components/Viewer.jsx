@@ -39,8 +39,7 @@ module.exports = React.createClass({
 	getResetState: function () {
 		return {
 			loading: true,
-			pageWidgets: {},
-			contextPromise: Promise.resolve([])
+			pageWidgets: {}
 		};
 	},
 
@@ -107,15 +106,16 @@ module.exports = React.createClass({
 
 
 	getDataIfNeeded: function(props) {
-		var newPage = this.getPageID(props) !== this.state.currentPage;
+		var newPageId = this.getPageID(props);
+		var newPage = newPageId !== this.state.currentPage;
 		var newRoot = this.getRootID(props) !== this.getRootID();
+		var initial = this.props === props;
 
-		if (newPage || newRoot) {
-			var incomingPageId = this.getPageID(props);
+		if (initial || newPage || newRoot) {
 			this.setState(this.getResetState());
 
-			Actions.loadPage(incomingPageId);
-			this._resourceLoaded(incomingPageId);
+			Actions.loadPage(newPageId);
+			this._resourceLoaded(newPageId);
 		}
 	},
 
