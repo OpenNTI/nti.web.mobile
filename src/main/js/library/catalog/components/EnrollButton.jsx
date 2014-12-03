@@ -11,6 +11,7 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var Utils = require('common/Utils');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
 var Giftable = require('enrollment/components/enrollment-option-widgets/Giftable');
+var RedeemButton = require('enrollment/components/enrollment-option-widgets/RedeemButton');
 
 /**
 * Displays a link/button to enroll if enrollment options are
@@ -46,13 +47,24 @@ var EnrollButton = React.createClass({
 
 	_giftButton: function() {
 		if (this.hasGiftableEnrollmentOption(this.props.catalogEntry)) {
-			return <Giftable catalogId={this.props.catalogEntry.getID()} />;
+			return <Giftable catalogId={this.props.catalogEntry.getID()} fullWidth={true} />;
+		}
+		return null;
+	},
+
+	_redeemButton: function() {
+		if (this.hasGiftableEnrollmentOption(this.props.catalogEntry)) {
+			return <RedeemButton catalogId={this.props.catalogEntry.getID()} fullWidth={true} />;
 		}
 		return null;
 	},
 
 	_buttons: function() {
-		return [this._dropOrEnrollButton(), this._giftButton()].filter(function(item) {
+		return [
+			this._dropOrEnrollButton(),
+			this._giftButton(),
+			this._redeemButton()
+		].filter(function(item) {
 			return item !== null;
 		});
 	},

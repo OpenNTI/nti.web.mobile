@@ -11,7 +11,7 @@ var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 
 // var isFlag = Utils.isFlag;
 
-var Giftable = React.createClass({
+var RedeemButton = React.createClass({
 
 	propTypes: {
 		catalogId: React.PropTypes.string,
@@ -19,7 +19,7 @@ var Giftable = React.createClass({
 	},
 
 	_urlForEntry: function() {
-		var href = Utils.getBasePath() + 'library/catalog/item/' + NTIID.encodeForURI(this.props.catalogId) + '/enrollment/store/gift/';
+		var href = Utils.getBasePath() + 'library/catalog/item/' + NTIID.encodeForURI(this.props.catalogId) + '/enrollment/store/gift/redeem/';
 		return href;
 	},
 
@@ -27,14 +27,13 @@ var Giftable = React.createClass({
 
 		var href = this.props.href || this._urlForEntry();
 		var btn = this.props.fullWidth ? ButtonFullWidth : Button;
-
 		return (
 			<div>
-				<btn className="giftable" href={href}>{t('giveThisAsGift')}</btn>
+				<btn className="redeemButton" href={href}>{t('redeemGift')}</btn>
 			</div>
 		);
 	}
 
 });
 
-module.exports = Giftable;
+module.exports = RedeemButton;

@@ -65,7 +65,8 @@ module.exports = {
 			drop: 'Drop this course',
 			viewCourse: 'View Course',
 			viewCatalog: 'View Catalog',
-			giveThisAsGift: 'Give this as a gift'
+			giveThisAsGift: 'Give this as a gift',
+			redeemGift: 'Redeem a gift'
 		},
 		CONFIRMATION: {
 			header: 'Review and Pay',
