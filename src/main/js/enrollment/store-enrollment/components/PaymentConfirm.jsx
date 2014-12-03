@@ -116,7 +116,7 @@ var PaymentConfirm = React.createClass({
 		var price = this._getPrice();
 		var edit = this.state.giftInfo && 'gift/';
 		var allowVendorUpdates = purchasable.VendorInfo.AllowVendorUpdates;
-
+		var isGift = this.state.giftInfo !== null;
 
 		return (
 			<div className="payment-confirm">
@@ -127,7 +127,7 @@ var PaymentConfirm = React.createClass({
 					<p>{_t("salesFinal")}</p>
 					<GiftInfo info={this.state.giftInfo} edit={edit} />
 					<BillingInfo card={this.state.stripeToken.card} edit={edit} />
-					<p>Clicking submit will charge your card {price} and enroll you in the course.</p>
+					<p>Clicking submit will charge your card {price}{isGift ? '' : ' and enroll you in the course'}.</p>
 
 					{!allowVendorUpdates ? '' : 
 						<div className="subscribe">
