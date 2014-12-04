@@ -93,3 +93,7 @@ label:not(.css3unsupported) {
 		&:not(:checked):not(.disabled) + span::before { background-image: url(#{$iconPrefix}_hover.png); }
 	}
 }
+
+.form-render {
+	clear: both;
+}

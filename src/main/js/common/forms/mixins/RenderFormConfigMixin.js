@@ -139,7 +139,7 @@ module.exports = {
 			return this.renderFieldset(translator, values, fieldset, index);
 		}.bind(this));
 		return (
-			React.DOM.div({className: 'formRender'}, fieldsets)
+			React.DOM.div({className: 'form-render'}, fieldsets)
 		);
 	},
 
@@ -208,7 +208,7 @@ module.exports = {
 				}
 			}.bind(this));
 		}
-		
+
 		this.setState(relatedState);
 	},
 
