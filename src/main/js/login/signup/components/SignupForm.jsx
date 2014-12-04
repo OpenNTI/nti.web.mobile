@@ -72,7 +72,7 @@ var SignupForm = React.createClass({
 		if (event.type === 'created') {
 			LoginActions.deleteTOS();
 			var returnPath = LoginStore.getReturnPath();
-			var path = this.props.basePath.concat(returnPath ? '?return='.concat(returnPath) : '');
+			var path = returnPath || this.props.basePath;
 			window.location.replace(path);
 			return;
 		}
