@@ -95,7 +95,7 @@ module.exports = {
 				pattern: (field.type === 'number' && '[0-9]*') || null
 			});
 
-		var subfields = ((state.subfields||{})[field.ref]||[]).map(function(item, index) {
+		var subfields = ((state.subfields||{})[field.ref]||[]).map(function(item) {
 			return this.renderField(translator, values, item);
 		}.bind(this));
 
@@ -106,7 +106,7 @@ module.exports = {
 					key: ref.concat('-subfields')
 				},
 				subfields
-			)
+			);
 			// <div className="subfields" key={ref.concat('-subfields')}>{subfields}</div>;
 		}
 
@@ -183,7 +183,7 @@ module.exports = {
 			relatedForm: [],
 			subfields: subfields,
 			message: null
-		}
+		};
 
 		if (selectedOption && Array.isArray(selectedOption.related)) {
 			var related = selectedOption.related;
