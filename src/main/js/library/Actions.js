@@ -6,26 +6,31 @@ var AppDispatcher = require('dispatcher/AppDispatcher');
 var Api = require('./Api');
 var Constants = require('./Constants');
 
-var loadPromise;
+var willLoad;
 
 /**
  * Actions available to views for library-related functionality.
  */
 module.exports = {
 
-	load: function() {
-		if (!loadPromise) {
-		    loadPromise = Api.getLibrary(true).then(function(library) {
-				dispatch(Constants.LOADED_LIBRARY, library);
-			});
+	load: function(reload) {
+
+		var result = Api.getLibrary(reload);
+
+		if (!willLoad || reload) {
+			//This should only fire for actual loads and not cached (previously-resolved) promises.
+			result = willLoad = result
+				.then(function(library) {
+					dispatch(Constants.LOADED_LIBRARY, library);
+				});
 		}
-		return loadPromise;
+
+		return result;
     },
 
 
 	reload: function() {
-		loadPromise = null;
-		return this.load();
+		return this.load(true);
 	}
 
 };
