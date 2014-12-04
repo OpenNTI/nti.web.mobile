@@ -5,6 +5,11 @@ var Utils = require('./Utils');
 
 Object.assign(exports, {
 
+	loadPreviousState: function (assessment) {
+		return this.loadSavePoint(assessment);
+	},
+
+
 	loadSavePoint: function(assessment) {
 		var main = Utils.getMainSubmittable(assessment);
 		if (!main) {return Promise.reject();}

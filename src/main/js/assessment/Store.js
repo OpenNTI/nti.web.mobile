@@ -39,19 +39,21 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
-	setupAssessment: function (assessment, loadSavePoint) {
+	setupAssessment: function (assessment, loadProgress) {
 		var main = getMainSubmittable(assessment);
 		if (!main) {return;}
 		console.debug('New Assessment: %o', main);
 
 		data[main.getID()] = main.getSubmission();
 
-		if (!loadSavePoint) {return;}
+		if (!loadProgress) {return;}
 
 		markBusy(assessment, Constants.BUSY.LOADING);
 		this.emitChange();
 
-		Api.loadSavePoint(assessment)
+
+
+		Api.loadPreviousState(assessment)
 
 			.catch(function(reason) {
 				if (reason) {
@@ -60,15 +62,15 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 				return;
 			})
 
-			.then(this.applySavePoint.bind(this, assessment));
+			.then(this.applyPreviousState.bind(this, assessment));
 	},
 
 
-	applySavePoint: function(assessment, savePoint) {
+	applyPreviousState: function(assessment, previousState) {
 		var main = getMainSubmittable(assessment);
 		var s = main && data[main.getID()];
 
-		savePoint.getQuestions().forEach(q => {
+		previousState.getQuestions().forEach(q => {
 
 			var question = s.getQuestion(q.getID());
 
