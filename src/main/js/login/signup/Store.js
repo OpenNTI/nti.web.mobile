@@ -124,12 +124,7 @@ function _serverSidePreflight(fields) {
 			console.debug('Store received preflight result: %O',result);
 			Store._clearErrors();
 			if (result.statusCode === 422 || result.statusCode === 409) {
-				var res = JSON.parse(result.response);
-				var error = {
-					field: res.field,
-					message: res.message
-				};
-				Store._addError(error);
+				Store._addError(result);
 			}
 			reject(result);
 		});
