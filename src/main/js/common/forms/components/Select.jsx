@@ -25,7 +25,7 @@ var Select = React.createClass({
 
 		var options = this.props.options.map(function(item) {
 			var option = this._makeOption(item);
-			return <option value={option.value}>{option.name}</option>
+			return <option value={option.value}>{option.name}</option>;
 		}.bind(this));
 
 		// include empty option
