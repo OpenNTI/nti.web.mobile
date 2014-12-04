@@ -187,7 +187,18 @@ module.exports = {
 				email: 'email Address',
 				ssn: 'Social Security Number',
 				citizen: 'Are you a U.S. citizen?',
-				residentOf: 'I am a resident of'
+				residentOf: 'I am a resident of',
+				okResident: 'Are you a resident of Oklahoma?',
+				okResidentFor: 'How many years have you been an Oklahoma resident?',
+				hsGraduate: 'Are you a high school graduate?',
+				attendedOU: 'Have you ever attended the University of Oklahoma?',
+				soonerId: 'What was your Sooner ID?',
+				leaveSoonerIdBlankIfUnknown: 'Leave this field blank if you do not remember your Sooner ID.',
+				attendedAnotherUniversity: 'Have you ever attended another college or university?',
+				stillAttending: 'I am still attending.',
+				obtainedDegree: 'I have obtained a Bachelor\s degree or higher.',
+				goodAcademicStanding: 'I am in good academic standing.',
+				signatureAgreement: 'I affirm that I am not prohibited from enrolling in any University of Oklahoma program. I understand that submitting any false information to the University, including but not limited to, any information contained on this form, or withholding information about my previous academic history will make my application for admission to the University, as well as any future applications, subject to denial, or will result in expulsion from the University. I pledge to conduct myself with academic integrity and abide by the tenets of The University of Oklahoma\'s <a href="http://integrity.ou.edu/" target="_blank">Integrity Pledge.</a>'
 			}
 		},
 		incompleteForm: 'Please complete all required fields.',

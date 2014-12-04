@@ -34,6 +34,7 @@ module.exports = {
 		var cssClass = err ? ['error'] : [];
 		var tr = translator||t;
 		var type = field.type;
+		var related = null;
 
 		if(field.required) {
 			cssClass.push('required');
@@ -71,35 +72,52 @@ module.exports = {
 				input = React.DOM.input;
 		}
 
+		var component = type === 'label' ?
+			React.DOM.label({ ref: ref, className: cssClass.join(' ') }, tr(ref, translateOptions)) :
+			input({
+				ref: ref,
+				value: (values||{}).ref,
+				name: ref,
+				onBlur: this._onBlur,
+				onFocus: this._onFocus,
+				onChange: onChange,
+				placeholder: tr(ref,translateOptions),
+				className: cssClass.join(' '),
+				defaultValue: (values||{})[ref],
+				type: type,
+				field: field,
+				// passing renderField function to custom input components to
+				// avoid the circular references that would occur if the
+				// component imported this mixin. ToggleFieldset needs this.
+				renderField: this.renderField,
+				options: field.options||null,
+				translator: translator,
+				pattern: (field.type === 'number' && '[0-9]*') || null
+			});
+
+		var subfields = ((state.subfields||{})[field.ref]||[]).map(function(item, index) {
+			return this.renderField(translator, values, item);
+		}.bind(this));
+
+		if (subfields.length > 0) {
+			related = React.DOM.div(
+				{
+					className: 'subfields',
+					key: ref.concat('-subfields')
+				},
+				subfields
+			)
+			// <div className="subfields" key={ref.concat('-subfields')}>{subfields}</div>;
+		}
+
 		return (
 			React.DOM.div(
 				{
 					key: ref,
 					className: ref
 				},
-
-				type === 'label' ?
-					React.DOM.label({ ref: ref, className: cssClass.join(' ') }, tr(ref, translateOptions)) :
-					input({
-						ref: ref,
-						value: (values||{}).ref,
-						name: ref,
-						onBlur: this._onBlur,
-						onFocus: this._onFocus,
-						onChange: onChange,
-						placeholder: tr(ref,translateOptions),
-						className: cssClass.join(' '),
-						defaultValue: (values||{})[ref],
-						type: type,
-						field: field,
-						// passing renderField function to custom input components to
-						// avoid the circular references that would occur if the
-						// component imported this mixin. ToggleFieldset needs this.
-						renderField: this.renderField,
-						options: field.options||null,
-						translator: translator,
-						pattern: (field.type === 'number' && '[0-9]*') || null
-					})
+				component,
+				related
 			)
 		);
 	},
@@ -154,33 +172,44 @@ module.exports = {
 	},
 
 	_showRelated: function(fieldConfig, event) {
+		// find the selected option
 		var selectedOption = (fieldConfig.options||[]).find(function(item) {
 			return item.value === event.target.value;
 		});
+
+		var subfields = this.state.subfields||{};
+		delete subfields[fieldConfig.ref];
+		var relatedState = {
+			relatedForm: [],
+			subfields: subfields,
+			message: null
+		}
+
 		if (selectedOption && Array.isArray(selectedOption.related)) {
 			var related = selectedOption.related;
+			// related is an array but we currently only support one related item.
 			related.forEach(function(item) {
 				switch (item.type) {
 					case Constants.FORM_CONFIG:
-						this.setState({
-							relatedForm: item.content
-						});					
+						relatedState.relatedForm = item.content;
+					break;
+
+					case Constants.SUBFIELDS:
+						// stash subfields in state indexed by field.ref
+						// to be rendered as part of this.renderField on
+						// the next update.
+						relatedState.subfields[fieldConfig.ref] = item.content;
 					break;
 
 					case Constants.MESSAGE:
 						console.debug('TODO: implement related MESSAGE case for radio option');
-						this.setState({
-							relatedForm: null
-						});
+						relatedState.message = item.content;
 					break;
 				}
 			}.bind(this));
 		}
-		else {
-			this.setState({
-				relatedForm: []
-			});
-		}
+		
+		this.setState(relatedState);
 	},
 
 	updateFieldValueState: function(event) {

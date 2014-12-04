@@ -148,22 +148,48 @@ module.exports = Object.freeze([
 						label: 'No',
 						value: 'N',
 						related: [{
-							type: Constants.FORM_CONFIG,
-							content: [{
-								fields: [
-									{
-										ref: 'residentOf',
-										type: 'select',
-										label: t('residentOf'),
-										required: true,
-										options: CountryList
-									}
-								]
-							}]
+							type: Constants.SUBFIELDS,
+							content: [
+								{
+									ref: 'residentOf',
+									type: 'select',
+									label: t('residentOf'),
+									required: true,
+									options: CountryList
+								}
+							]
 						}]
 					}
 				]
 			}
 		]
+	},
+	{
+		fields: [{
+			ref: 'okResident',
+			type: 'radiogroup',
+			label: t('okResident'),
+			options: [
+				{
+					label: 'Yes',
+					value: 'Y',
+					related: [{
+						type: Constants.FORM_CONFIG,
+						content: [{
+							fields: [
+								{
+									ref: 'okResidentFor',
+									label: t('okResidentFor'),
+								}
+							]
+						}]
+					}]
+				},
+				{
+					label: 'No',
+					value: 'N'
+				}
+			]
+		}]
 	}
 ]);

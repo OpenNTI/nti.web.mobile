@@ -26,7 +26,8 @@ var RelatedFormPanel = React.createClass({
 	getInitialState: function() {
 		return {
 			relatedForm: null,
-			fieldValues: {}
+			fieldValues: {},
+			subfields: {}
 		};
 	},
 
