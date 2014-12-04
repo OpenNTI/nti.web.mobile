@@ -6,6 +6,7 @@ var t = require('common/locale').translate;
 
 var isFunction = require('dataserverinterface/utils/isfunction');
 var radiogroup = require('common/forms/components/RadioGroup');
+var Select = require('common/forms/components/Select');
 var ToggleFieldset = require('../components/ToggleFieldset');
 var Constants = require('../Constants');
 
@@ -55,6 +56,9 @@ module.exports = {
 		switch(field.type) {
 			case 'textarea':
 				input = React.DOM.textarea;
+			break;
+			case 'select':
+				input = Select;
 			break;
 			case 'radiogroup':
 				input = radiogroup;

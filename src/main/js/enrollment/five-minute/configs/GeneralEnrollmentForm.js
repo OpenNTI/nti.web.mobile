@@ -2,6 +2,7 @@
 
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var Constants = require('common/forms/Constants');
+var CountryList = require('common/forms/CountryList');
 
 var mailingAddressFieldset = {
 	title: 'Permanent Address',
@@ -152,8 +153,10 @@ module.exports = Object.freeze([
 								fields: [
 									{
 										ref: 'residentOf',
+										type: 'select',
 										label: t('residentOf'),
-										required: true
+										required: true,
+										options: CountryList
 									}
 								]
 							}]
