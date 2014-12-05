@@ -10,6 +10,7 @@ var Select = require('common/forms/components/Select');
 var Checkbox = require('common/forms/components/Checkbox');
 var ToggleFieldset = require('../components/ToggleFieldset');
 var Constants = require('../Constants');
+var RelatedFormStore = require('common/forms/RelatedFormStore');
 
 module.exports = {
 
@@ -174,7 +175,7 @@ module.exports = {
 		if(isFunction(this._inputChanged)) {
 			this._inputChanged(event);
 		}
-		this.forceUpdate();
+		// this.forceUpdate();
 	},
 
 	_showRelated: function(fieldConfig, event) {
@@ -183,7 +184,15 @@ module.exports = {
 			return item.value === event.target.value;
 		});
 
+
 		var subfields = this.state.subfields||{};
+
+		if (this.props.storeContextId && subfields[fieldConfig.ref]) {
+			//remove these from values store.
+			var fieldNames = subfields[fieldConfig.ref].map(function(item){ return item.ref });
+			RelatedFormStore.clearValues(this.props.storeContextId, fieldNames);
+		}
+
 		delete subfields[fieldConfig.ref];
 		var relatedState = {
 			relatedForm: [],

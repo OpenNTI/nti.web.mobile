@@ -34,7 +34,7 @@ var RelatedFormPanel = React.createClass({
 	},
 
 	componentWillReceiveProps: function() {
-		RelatedFormStore.clearValues(this.props.storeContextId, Object.keys(this.state.fieldValues||{}));
+		this._clearStoreValues();
 		this.setState(this.getInitialState());
 	},
 
@@ -44,7 +44,12 @@ var RelatedFormPanel = React.createClass({
 		}
 	},
 
+	_clearStoreValues: function() {
+		RelatedFormStore.clearValues(this.props.storeContextId, Object.keys(this.state.fieldValues||{}));
+	},
+
 	componentWillUnmount: function() {
+		this._clearStoreValues();
 		if(this.props.depth === 0) {
 			RelatedFormStore.removeChangeListener(this._storeChange);
 		}
