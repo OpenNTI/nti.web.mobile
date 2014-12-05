@@ -87,6 +87,8 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 			markBusy(assessment, false);
 		}
 
+		s.markSubmitted(previousState.isSubmitted());
+
 		this.emitChange(Constants.SYNC);
 	},
 
