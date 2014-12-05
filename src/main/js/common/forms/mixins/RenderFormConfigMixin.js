@@ -66,7 +66,7 @@ module.exports = {
 				input = radiogroup;
 				var radioChange = this._radioChanged.bind(null, field);
 				var tmp = onChange;
-				onChange = tmp ? function(event) { tmp(event); radioChange(event) } : radioChange;
+				onChange = tmp ? function(event) { tmp(event); radioChange(event); } : radioChange;
 			break;
 			case 'checkbox':
 				input = Checkbox;
