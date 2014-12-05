@@ -63,6 +63,11 @@ module.exports = {
 	},
 
 
+	isSubmitted: function () {
+		return Store.isSubmitted(this.props.item);
+	},
+
+
 	setValue: function (value) {
 		this.setState({value: value});
 	},
@@ -74,10 +79,13 @@ module.exports = {
 
 
 	handleInteraction: function() {
+		var locked = this.isSubmitted();
 		var p = this.props;
-		var v = this.getValue();
+		var v = locked ? this.state.value : this.getValue();
 
 		this.setState({ interacted: true, value: v });
-		Actions.partInteracted(p.item, v);
+		if (!locked) {
+			Actions.partInteracted(p.item, v);
+		}
 	}
 };

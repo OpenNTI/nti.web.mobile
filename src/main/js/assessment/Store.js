@@ -116,6 +116,13 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
+	isSubmitted: function(assessment){
+		var main = getMainSubmittable(assessment);
+		var s = data[main.getID()];
+		return s && s.isSubmitted();
+	},
+
+
 	getBusyState: function(part) {
 		var main = getMainSubmittable(part);
 		return main && busy[main.getID()];
