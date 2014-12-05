@@ -54,15 +54,14 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 
 		Api.loadPreviousState(assessment)
+			.then(this.applyPreviousState.bind(this, assessment))
 
 			.catch(function(reason) {
 				if (reason) {
-					console.error('Could not load save point %o', reason);
+					console.error('Could not load previous state: %o', reason);
 				}
-				return;
-			})
+			});
 
-			.then(this.applyPreviousState.bind(this, assessment));
 	},
 
 
