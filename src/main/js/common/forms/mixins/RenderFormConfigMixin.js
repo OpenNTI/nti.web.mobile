@@ -7,6 +7,7 @@ var t = require('common/locale').translate;
 var isFunction = require('dataserverinterface/utils/isfunction');
 var radiogroup = require('common/forms/components/RadioGroup');
 var Select = require('common/forms/components/Select');
+var Checkbox = require('common/forms/components/Checkbox');
 var ToggleFieldset = require('../components/ToggleFieldset');
 var Constants = require('../Constants');
 
@@ -57,17 +58,22 @@ module.exports = {
 		switch(field.type) {
 			case 'textarea':
 				input = React.DOM.textarea;
-				break;
+			break;
 			case 'select':
 				input = Select;
-				break;
+			break;
 			case 'radiogroup':
 				input = radiogroup;
-				onChange = this._radioChanged.bind(null, field);
-				break;
+				var radioChange = this._radioChanged.bind(null, field);
+				var tmp = onChange;
+				onChange = tmp ? function(event) { tmp(event); radioChange(event) } : radioChange;
+			break;
+			case 'checkbox':
+				input = Checkbox;
+			break;
 			case 'toggleFieldset':
 				input = ToggleFieldset;
-				break;
+			break;
 			default:
 				input = React.DOM.input;
 		}
@@ -95,8 +101,9 @@ module.exports = {
 				pattern: (field.type === 'number' && '[0-9]*') || null
 			});
 
-		var subfields = ((state.subfields||{})[field.ref]||[])
-			.map(item => this.renderField(translator, values, item));
+		var subfields = ((state.subfields||{})[field.ref]||[]).map(function(item) {
+			return this.renderField(translator, values, item);
+		}.bind(this));
 
 		if (subfields.length > 0) {
 			related = React.DOM.div(
@@ -134,11 +141,12 @@ module.exports = {
 
 	renderFormConfig: function(config, values, translator) {
 		this._translator = translator; // stash for rendering related sub-forms later
-
-		var fieldsets = config.map((fieldset, index) =>
-			this.renderFieldset(translator, values, fieldset, index));
-
-		return React.DOM.div({className: 'form-render'}, fieldsets);
+		var fieldsets = config.map(function(fieldset, index) {
+			return this.renderFieldset(translator, values, fieldset, index);
+		}.bind(this));
+		return (
+			React.DOM.div({className: 'form-render'}, fieldsets)
+		);
 	},
 
     _onFocus: function(event) {
@@ -171,7 +179,9 @@ module.exports = {
 
 	_showRelated: function(fieldConfig, event) {
 		// find the selected option
-		var selectedOption = (fieldConfig.options||[]).find(item => item.value === event.target.value);
+		var selectedOption = (fieldConfig.options||[]).find(function(item) {
+			return item.value === event.target.value;
+		});
 
 		var subfields = this.state.subfields||{};
 		delete subfields[fieldConfig.ref];
@@ -188,19 +198,19 @@ module.exports = {
 				switch (item.type) {
 					case Constants.FORM_CONFIG:
 						relatedState.relatedForm = item.content;
-						break;
+					break;
 
 					case Constants.SUBFIELDS:
 						// stash subfields in state indexed by field.ref
 						// to be rendered as part of this.renderField on
 						// the next update.
 						relatedState.subfields[fieldConfig.ref] = item.content;
-						break;
+					break;
 
 					case Constants.MESSAGE:
 						console.debug('TODO: implement related MESSAGE case for radio option');
 						relatedState.message = item.content;
-						break;
+					break;
 				}
 			}.bind(this));
 		}

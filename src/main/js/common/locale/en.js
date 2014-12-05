@@ -177,6 +177,7 @@ module.exports = {
 				zip: 'Zip',
 				country: 'Country',
 				mailingAddressDifferent: 'My mailing address is different.',
+				mailAddressLabel: 'Mailing Address',
 				mailAddress1: 'Address',
 				mailAddress2: 'Address Continued',
 				mailCity: 'City',
@@ -198,6 +199,7 @@ module.exports = {
 				stillAttending: 'I am still attending.',
 				obtainedDegree: 'I have obtained a Bachelor\'s degree or higher.',
 				goodAcademicStanding: 'I am in good academic standing.',
+				signature: 'Signature',
 				signatureAgreement: 'I affirm that I am not prohibited from enrolling in any University of Oklahoma program. I understand that submitting any false information to the University, including but not limited to, any information contained on this form, or withholding information about my previous academic history will make my application for admission to the University, as well as any future applications, subject to denial, or will result in expulsion from the University. I pledge to conduct myself with academic integrity and abide by the tenets of The University of Oklahoma\'s <a href="http://integrity.ou.edu/" target="_blank">Integrity Pledge.</a>'
 			}
 		},

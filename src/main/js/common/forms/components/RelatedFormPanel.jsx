@@ -7,6 +7,8 @@
 var React = require('react/addons');
 var FormPanel = require('./FormPanel');
 var FormRenderMixin = require('../mixins/RenderFormConfigMixin');
+var isFunction = require('dataserverinterface/utils/isfunction');
+var RelatedFormStore = require('../RelatedFormStore');
 
 var RelatedFormPanel = React.createClass({
 
@@ -14,7 +16,8 @@ var RelatedFormPanel = React.createClass({
 
 	propTypes: {
 		formConfig: React.PropTypes.array.isRequired,
-		translator: React.PropTypes.func
+		translator: React.PropTypes.func,
+		storeContextId: React.PropTypes.string.isRequired
 	},
 
 	getDefaultProps: function() {
@@ -32,12 +35,34 @@ var RelatedFormPanel = React.createClass({
 	},
 
 	componentWillReceiveProps: function() {
+		RelatedFormStore.clearValues(this.props.storeContextId, Object.keys(this.state.fieldValues||{}));
 		this.setState(this.getInitialState());
 	},
 
-	_inputChanged: function() {
-		// merge values with state.fieldvalues
-		// if we're not the root form, push it up to the parent.
+	componentDidMount: function() {
+		if(this.props.depth === 0) {
+			RelatedFormStore.addChangeListener(this._storeChange);
+		}
+	},
+
+	componentWillUnmount: function() {
+		if(this.props.depth === 0) {
+			RelatedFormStore.removeChangeListener(this._storeChange);
+		}
+	},
+
+	_storeChange: function() {
+		console.debug(RelatedFormStore.getValues(this.props.storeContextId));
+	},
+
+	_inputChanged: function(event) {
+		// stashing values in the store under a contextid for this
+		// form and all its subforms provides an easy way to keep
+		// track of the merged set of field values.
+		var target = event.target;
+		var name = target.name;
+		var value = target.value;
+		RelatedFormStore.setValue(this.props.storeContextId, name, value);
 	},
 
 	render: function() {
@@ -46,7 +71,11 @@ var RelatedFormPanel = React.createClass({
 		var relatedForm = null;
 		if (this.state.relatedForm) {
 			var newDepth = this.props.depth + 1;
-			relatedForm = <RelatedFormPanel depth={newDepth} formConfig={this.state.relatedForm} translator={this.props.translator} />;
+			relatedForm = <RelatedFormPanel depth={newDepth}
+							formConfig={this.state.relatedForm}
+							translator={this.props.translator}
+							storeContextId={this.props.storeContextId}
+							ref='subform' />;
 		}
 
 		return (
