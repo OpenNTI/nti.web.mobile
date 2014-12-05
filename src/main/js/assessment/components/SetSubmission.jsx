@@ -46,7 +46,7 @@ module.exports = React.createClass({
 			e.stopPropagation();
 		}
 
-		Actions.restAssessment(this.props.assessment);
+		Actions.resetAssessment(this.props.assessment);
 	},
 
 

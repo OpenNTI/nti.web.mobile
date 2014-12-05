@@ -21,7 +21,7 @@ module.exports = {
     },
 
 
-    restAssessment: function (assessment) {
+    resetAssessment: function (assessment) {
         AppDispatcher.handleViewAction({
             type: Constants.RESET,
             assessment: assessment
