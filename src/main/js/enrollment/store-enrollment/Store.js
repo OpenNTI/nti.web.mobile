@@ -292,7 +292,7 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 				});
 	    	},function(reason) {
 
-	    		var message = reason.responseJSON.Message;
+	    		var message = reason.Message;
 
 	    		Store.emitError({
 	    			type: Constants.INVALID_GIFT_CODE,
