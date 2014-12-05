@@ -67,7 +67,7 @@ module.exports = {
 				input = radiogroup;
 				var radioChange = this._radioChanged.bind(null, field);
 				var tmp = onChange;
-				onChange = tmp ? function(event) { tmp(event); radioChange(event); } : radioChange;
+				onChange = tmp ? function(event) { tmp(event); radioChange(event); }.bind(this) : radioChange;
 			break;
 			case 'checkbox':
 				input = Checkbox;
@@ -114,7 +114,6 @@ module.exports = {
 				},
 				subfields
 			);
-			// <div className="subfields" key={ref.concat('-subfields')}>{subfields}</div>;
 		}
 
 		return (
@@ -175,7 +174,6 @@ module.exports = {
 		if(isFunction(this._inputChanged)) {
 			this._inputChanged(event);
 		}
-		// this.forceUpdate();
 	},
 
 	_showRelated: function(fieldConfig, event) {
@@ -183,7 +181,6 @@ module.exports = {
 		var selectedOption = (fieldConfig.options||[]).find(function(item) {
 			return item.value === event.target.value;
 		});
-
 
 		var subfields = this.state.subfields||{};
 

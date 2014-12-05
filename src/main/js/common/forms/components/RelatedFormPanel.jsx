@@ -66,7 +66,12 @@ var RelatedFormPanel = React.createClass({
 		var target = event.target;
 		var name = target.name;
 		var value = target.value;
-		RelatedFormStore.setValue(this.props.storeContextId, name, value);
+		if (target.type === 'checkbox' && !target.checked) {
+			RelatedFormStore.clearValues(this.props.storeContextId, [name]);
+		}
+		else {
+			RelatedFormStore.setValue(this.props.storeContextId, name, value);	
+		}
 	},
 
 	render: function() {

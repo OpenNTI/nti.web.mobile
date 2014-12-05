@@ -5,6 +5,7 @@
 'use strict';
 
 var React = require('react/addons');
+var isFunction = require('dataserverinterface/utils/isfunction');
 
 var ToggleFieldset = React.createClass({
 
@@ -27,6 +28,9 @@ var ToggleFieldset = React.createClass({
 		this.setState({
 			fieldset: fs
 		});
+		if(isFunction(this.props.onChange)) {
+			this.props.onChange(event);
+		}
 	},
 
 	render: function() {
