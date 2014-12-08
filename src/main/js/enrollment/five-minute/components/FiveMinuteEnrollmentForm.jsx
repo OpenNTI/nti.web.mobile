@@ -9,6 +9,7 @@ var RelatedFormStore = require('common/forms/RelatedFormStore');
 var _formConfig = require('../configs/FiveMinuteEnrollmentForm');
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
+var Actions = require('../Actions');
 
 var _rootFormRef = 'rootForm';
 
@@ -23,9 +24,8 @@ var FiveMinuteEnrollmentForm = React.createClass({
 	},
 
 	_handleSubmit: function() {
-		console.log('five minute submit');
-		var contextId = this.refs[_rootFormRef].props.storeContextId;
-		console.debug(RelatedFormStore.getValues(contextId));
+		Actions.preflight();
+		console.debug(RelatedFormStore.getValues(this.props.storeContextId));
 	},
 
 	render: function() {
@@ -37,7 +37,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 			<div className="fiveminuteform">
 				<RelatedFormPanel
 					ref={_rootFormRef}
-					storeContextId={RelatedFormStore.newContext()}
+					storeContextId={this.props.storeContextId}
 					title={title}
 					formConfig={_formConfig}
 					translator={t}
