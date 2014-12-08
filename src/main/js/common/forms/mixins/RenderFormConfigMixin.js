@@ -186,7 +186,7 @@ module.exports = {
 
 		if (this.props.storeContextId && subfields[fieldConfig.ref]) {
 			//remove these from values store.
-			var fieldNames = subfields[fieldConfig.ref].map(function(item){ return item.ref; });
+			var fieldNames = subfields[fieldConfig.ref].map(item=>item.ref);
 			RelatedFormStore.clearValues(this.props.storeContextId, fieldNames);
 		}
 

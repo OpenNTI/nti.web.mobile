@@ -5,13 +5,13 @@
 'use strict';
 
 var React = require('react/addons');
-var PreliminaryForm = require('./PreliminaryForm');
+var FiveMinuteEnrollmentForm = require('./FiveMinuteEnrollmentForm');
 
 var View = React.createClass({
 
 	render: function() {
 		return (
-			<PreliminaryForm />
+			<FiveMinuteEnrollmentForm />
 		);
 	}
 
