@@ -56,7 +56,7 @@ var RelatedFormPanel = React.createClass({
 	},
 
 	_storeChange: function() {
-		console.debug(RelatedFormStore.getValues(this.props.storeContextId));
+		// console.debug(RelatedFormStore.getValues(this.props.storeContextId));
 	},
 
 	_inputChanged: function(event) {

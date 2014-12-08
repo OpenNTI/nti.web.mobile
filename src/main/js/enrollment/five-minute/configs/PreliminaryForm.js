@@ -9,7 +9,7 @@ var attendingOU = [{
 	title: 'Admission Status',
 	fields: [
 		{
-			ref: 'currentlyAttending',
+			ref: 'is_currently_attending_ou',
 			type: 'radiogroup',
 			required: true,
 			label: t('currentlyAttending'),
@@ -39,7 +39,7 @@ var attendingOU = [{
 var highSchoolQuestion = [{
 	fields: [
 		{
-			ref: 'oklahomaResidentHighSchool',
+			ref: 'is_currently_attending_highschool',
 			type: 'radiogroup',
 			label: t('oklahomaResidentHighSchool'),
 			options: [

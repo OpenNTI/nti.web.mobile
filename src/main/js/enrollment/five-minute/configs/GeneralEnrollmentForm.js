@@ -23,30 +23,30 @@ var mailingAddressFieldset = {
 			type: 'label'
 		},
 		{
-			ref: 'mailAddress1',
+			ref: 'mailing_street_line1',
 			required: true,
 			placeholder: t('address1')
 		},
 		{
-			ref: 'mailAddress2',
+			ref: 'mailing_street_line2',
 			placeholder: t('address2')
 		},
 		{
-			ref: 'mailCity',
+			ref: 'mailing_city',
 			required: true,
 			placeholder: t('city')
 		},
 		{
-			ref: 'mailState',
+			ref: 'mailing_state',
 			placeholder: t('state')
 		},
 		{
-			ref: 'mailCountry',
+			ref: 'mailing_nation_code',
 			required: true,
 			placeholder: t('country')
 		},
 		{
-			ref: 'mailZip',
+			ref: 'mailing_postal_code',
 			required: true,
 			placeholder: t('zip')
 		}
@@ -58,14 +58,29 @@ module.exports = Object.freeze([
 		
 		fields: [
 			{
-				ref: 'fullName',
+				ref: 'first_name',
 				required: true,
-				label: t('fullName')
+				label: t('firstName')
 			},
 			{
-				ref: 'formerLastName',
+				ref: 'middle_name',
+				label: t('middleName')
+			},
+			{
+				ref: 'last_name',
+				required: true,
+				label: t('lastName')
+			},
+			{
+				ref: 'former_name',
 				label: t('formerLastNamePrompt'),
 				placeholder: t('formerLastName')
+			},
+			{
+				ref: 'date_of_birth',
+				label: t('birthdate'),
+				type: 'date',
+				placeholder: t('birthdate')
 			},
 			{
 				ref: 'gender',
@@ -92,12 +107,12 @@ module.exports = Object.freeze([
 		title: 'Permanent Address',
 		fields: [
 			{
-				ref: 'address1',
+				ref: 'street_line1',
 				required: true,
 				placeholder: t('address1')
 			},
 			{
-				ref: 'address2',
+				ref: 'street_line2',
 				placeholder: t('address2')
 			},
 			{
@@ -110,17 +125,17 @@ module.exports = Object.freeze([
 				placeholder: t('state')
 			},
 			{
-				ref: 'country',
+				ref: 'nation_code',
 				required: true,
 				placeholder: t('country')
 			},
 			{
-				ref: 'zip',
+				ref: 'postal_code',
 				required: true,
 				placeholder: t('zip')
 			},
 			{
-				ref: 'addressDifferent',
+				ref: 'has_mailing_address',
 				type: 'toggleFieldset',
 				label: t('mailingAddressDifferent'),
 				fieldsetOn: mailingAddressFieldset
@@ -130,7 +145,7 @@ module.exports = Object.freeze([
 	{
 		fields: [
 			{
-				ref: 'phone',
+				ref: 'telephone_number',
 				type: 'tel',
 				required: true,
 				placeholder: t('primaryPhone')
@@ -142,7 +157,7 @@ module.exports = Object.freeze([
 				placeholder: t('primaryEmail')
 			},
 			{
-				ref: 'ssn',
+				ref: 'social_security_number',
 				placeholder: t('ssn')
 			},
 			{
@@ -188,7 +203,7 @@ module.exports = Object.freeze([
 							type: Constants.SUBFIELDS,
 							content: [
 								{
-									ref: 'okResidentFor',
+									ref: 'years_of_oklahoma_residency',
 									label: t('okResidentFor'),
 								}
 							]
@@ -201,7 +216,7 @@ module.exports = Object.freeze([
 				]
 			},
 			{
-				ref: 'hsGraduate',
+				ref: 'high_school_graduate',
 				type: 'radiogroup',
 				label: t('hsGraduate'),
 				options: yesNoOptions
@@ -218,7 +233,7 @@ module.exports = Object.freeze([
 							type: Constants.SUBFIELDS,
 							content: [
 								{
-									ref: 'soonerId',
+									ref: 'sooner_id',
 									label: t('soonerId'),
 									help: t('leaveSoonerIdBlankIfUnknown')
 								}
@@ -232,7 +247,7 @@ module.exports = Object.freeze([
 				]
 			},
 			{
-				ref: 'attendedAnotherUniversity',
+				ref: 'attended_other_institution',
 				label: t('attendedAnotherUniversity'),
 				type: 'radiogroup',
 				options: [
@@ -243,19 +258,19 @@ module.exports = Object.freeze([
 							type: Constants.SUBFIELDS,
 							content: [
 								{
-									ref: 'stillAttending',
+									ref: 'still_attending',
 									label: t('stillAttending'),
 									type: 'checkbox',
 									value: 'Y'
 								},
 								{
-									ref: 'obtainedDegree',
+									ref: 'bachelors_or_higher',
 									label: t('obtainedDegree'),
 									type: 'checkbox',
 									value: 'Y'
 								},
 								{
-									ref: 'goodAcademicStanding',
+									ref: 'good_academic_standing',
 									type: 'radiogroup',
 									label: t('goodAcademicStanding'),
 									options: yesNoOptions
@@ -272,7 +287,7 @@ module.exports = Object.freeze([
 		]
 	},
 	{
-		title: t('Signature'),
+		title: t('signature'),
 		fields: [
 			{
 				ref: 'signature',
