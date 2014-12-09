@@ -112,7 +112,12 @@ module.exports = React.createClass({
 		var initial = this.props === props;
 
 		if (initial || newPage || newRoot) {
-			this.setState(this.getResetState());
+			this.setState(Object.assign({
+					currentPage: newPageId
+				},
+				this.getResetState()
+				)
+			);
 
 			Actions.loadPage(newPageId);
 			this._resourceLoaded(newPageId);
