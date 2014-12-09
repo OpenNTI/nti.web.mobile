@@ -10,6 +10,8 @@ var _formConfig = require('../configs/FiveMinuteEnrollmentForm');
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
 var Actions = require('../Actions');
+var Store = require('../Store');
+
 
 var _rootFormRef = 'rootForm';
 
@@ -22,10 +24,24 @@ var FiveMinuteEnrollmentForm = React.createClass({
 			fieldValues: {}
 		};
 	},
+	componentDidMount: function() {
+		Store.addChangeListener(this._storeChange);
+	},
+
+	componentWillUnmount: function() {
+		Store.removeChangeListener(this._storeChange);
+	},
+
+	_storeChange: function(event) {
+		console.group();
+		console.debug('store change event');
+		console.debug(event);
+		console.groupEnd();
+	},
 
 	_handleSubmit: function() {
-		Actions.preflight();
-		console.debug(RelatedFormStore.getValues(this.props.storeContextId));
+		var fields = RelatedFormStore.getValues(this.props.storeContextId);
+		Actions.preflight(fields);
 	},
 
 	render: function() {
@@ -35,6 +51,12 @@ var FiveMinuteEnrollmentForm = React.createClass({
 
 		return (
 			<div className="fiveminuteform">
+				<div className="row">
+					<div className="medium-6 medium-centered columns">
+						<h2>{title}</h2>
+						<p>{t('admissionDescription')}</p>
+					</div>
+				</div>
 				<RelatedFormPanel
 					ref={_rootFormRef}
 					storeContextId={this.props.storeContextId}

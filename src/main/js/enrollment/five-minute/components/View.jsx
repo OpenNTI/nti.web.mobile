@@ -51,7 +51,7 @@ var View = React.createClass({
 
 		switch(this.state.admissionStatus) {
 			case StatusConstants.ACCEPTED:
-				view = <PanelButton href="http://google.com" linkText="Proceed to payment">You will be taken to an external site for payment.</PanelButton>;
+				view = <PanelButton href="http://google.com" linkText={t("Proceed to payment")}>You will be taken to an external site for payment.</PanelButton>;
 				break;
 
 			case StatusConstants.REJECTED:
@@ -60,7 +60,7 @@ var View = React.createClass({
 				break;
 
 			case StatusConstants.PENDING:
-				view = <PanelButton href="http://google.com" linkText={t("proceedToPayment")}>Your admission application is pending. Please check back later.</PanelButton>;
+				view = <PanelButton href="http://google.com">{t('admissionPendingMessage')}</PanelButton>;
 				break;
 
 			default:

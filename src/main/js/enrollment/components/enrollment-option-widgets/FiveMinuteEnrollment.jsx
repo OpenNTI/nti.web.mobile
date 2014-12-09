@@ -5,17 +5,17 @@
 'use strict';
 
 var React = require('react/addons');
-var PanelNoButton = require('common/components/PanelNoButton');
+var PanelButton = require('common/components/PanelButton');
 var t = require('common/locale').scoped('ENROLLMENT');
 
 var FiveMinuteEnrollment = React.createClass({
 
 	render: function() {
 		return (
-			<PanelNoButton>
+			<PanelButton href="credit/" linkText={t('fiveMinuteEnrollmentButton')}>
 				<h2>{t('fiveMinuteEnrollmentTitle')}</h2>
-				<p>{t('fiveMinuteNotAvailableOnMobile')}</p>
-			</PanelNoButton>
+				<p>{t('fiveMinuteEnrollmentDescription')}</p>
+			</PanelButton>
 		);
 	}
 

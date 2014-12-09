@@ -3,7 +3,7 @@
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var RelatedFormStore = require('common/forms/RelatedFormStore');
-var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
+var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var Constants = require('./Constants');
 var Utils = require('common/Utils');
@@ -15,6 +15,10 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 	emitChange: function(evt) {
 		this.emit(CHANGE_EVENT, evt);
+	},
+
+	emitError: function(event) {
+		this.emitChange(Object.assign({isError: true}, event));
 	},
 
 	/**
@@ -59,7 +63,7 @@ function _getFiveMinuteService() {
 }
 
 function _preflight(data) {
-	_getFiveMinuteService().then(function(service) {
+	return _getFiveMinuteService().then(function(service) {
 		return service.preflight(data);
 	});
 }
@@ -69,7 +73,20 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 
     switch(action.type) {
 		case Constants.actions.PREFLIGHT:
-			_preflight(data);
+			var p = _preflight(action.payload.data);
+			p.then(
+				function(result) {
+					console.debug(result);
+				},
+				function(reason) {
+					console.debug(reason);
+					Store.emitError({
+		    			type: Constants.errors.PREFLIGHT_ERROR,
+						action: action,
+						reason: reason
+					});
+				}
+			);
 			break;
 
         default:
