@@ -24,6 +24,21 @@ module.exports = React.createClass({
 		};
 	},
 
+	__onStoreChange: function () {
+		this.forceUpdate();
+	},
+
+
+	componentDidMount: function() {
+		Store.addChangeListener(this.__onStoreChange);
+	},
+
+
+
+	componentWillUnmount: function() {
+		Store.removeChangeListener(this.__onStoreChange);
+	},
+
 
 	onShowSolution: function (e) {
 		if (e) {
