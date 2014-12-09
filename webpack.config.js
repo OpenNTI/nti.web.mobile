@@ -69,6 +69,8 @@ function getWidgets() {
     var o = {};
 
     fs.readdirSync(widgetPath).forEach(function(file) {
+        if (file === 'example') return; //skip the example
+
         var dir = path.join(widgetPath, file);
         var entry = path.join(dir, 'main.js');
         var isDir = fs.statSync(dir).isDirectory();

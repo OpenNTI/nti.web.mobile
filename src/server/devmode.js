@@ -22,7 +22,21 @@ module.exports = function(port) {
 		watchDelay: 300,
 		publicPath: '/',
 		stats: {
-			colors: true
+			version: false,
+			hash: false,
+			timings: false,
+			assets: false,
+			chunks: false,
+			chunkModules: false,
+			chunkOrigins: false,
+			modules: false,
+			cached: false,
+			cachedAssets: false,
+			showChildren: false,
+			source: false,
+			colors: true,
+			reasons: true,
+			errorDetails: true
 		}
 	});
 

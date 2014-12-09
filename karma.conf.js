@@ -7,6 +7,25 @@ var scssIncludes = 'includePaths[]=' + (path.resolve(__dirname, 'src/main/resour
 
 var root = path.join(__dirname,'src','main','js');
 
+var stat = {
+    version: false,
+    hash: false,
+    timings: false,
+    assets: false,
+    chunks: false,
+    chunkModules: false,
+    chunkOrigins: false,
+    modules: false,
+    cached: false,
+    cachedAssets: false,
+    showChildren: false,
+    source: false,
+
+    colors: true,
+    reasons: true,
+    errorDetails: true
+};
+
 
 module.exports = function (config) {
   config.set({
@@ -17,17 +36,15 @@ module.exports = function (config) {
       'src/test/spec/**/*.js'
     ],
     preprocessors: {
-      'src/test/spec/**/*.js': ['webpack', 'sourcemaps']
+      'src/test/spec/**/*.js': ['webpack', 'sourcemap']
     },
     webpack: {
+        quiet: true,
 	    cache: true,
 	    debug: true,
         devtool: 'inline-source-map',
 
-	    stats: {
-	        colors: true,
-	        reasons: true
-	    },
+	    stats: stat,
 
         node: {
             net: 'empty',
@@ -64,13 +81,12 @@ module.exports = function (config) {
 	    }
     },
     webpackServer: {
-      stats: {
-        colors: true
-      }
+        quiet: true,
+        stats: stat
     },
 
     exclude: [],
-    port: 8080,
+    port: 8090,
     logLevel: config.LOG_INFO,
     colors: true,
     autoWatch: false,
