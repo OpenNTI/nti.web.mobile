@@ -74,6 +74,7 @@ module.exports = React.createClass({
 	render: function() {
 		var assessment = this.props.assessment;
 		var unanswered = Store.countUnansweredQuestions(assessment);
+		var cannotReset = Store.isSubmitted(assessment);
 		var disabled = !Store.canSubmit(assessment);
 		var status = unanswered ? 'incomplete' : 'complete';
 		var busy = Store.getBusyState(assessment);
@@ -90,7 +91,7 @@ module.exports = React.createClass({
 						</div>
 					)}
 					<a href={disabled?'#':null} className={'button ' + (disabled?'disabled':'')} onClick={this.onSubmit}>{_t('submit')}</a>
-					<a href="#" className="reset button link" onClick={this.onReset}>{_t('reset')}</a>
+					{cannotReset? null: (<a href="#" className="reset button link" onClick={this.onReset}>{_t('reset')}</a>)}
 					<span className="status-line">{_t('x_unanswered', { count: unanswered  })}</span>
 				</div>
 

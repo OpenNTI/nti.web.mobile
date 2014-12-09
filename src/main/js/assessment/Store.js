@@ -6,13 +6,15 @@ var EventEmitter = require('events').EventEmitter;
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 
+var AssessedPart = require('dataserverinterface/models/assessment/AssessedPart');
+
 var Constants = require('./Constants');
 var Api = require('./Api');
+var Utils = require('./Utils');
 
 var data = {};
 var busy = {};
 
-var getMainSubmittable = require('./Utils').getMainSubmittable;
 
 var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'assessment.Store',
@@ -34,13 +36,13 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 
 	getSubmissionData: function (assessment) {
-		var main = getMainSubmittable(assessment);
+		var main = Utils.getMainSubmittable(assessment);
 		return main && data[main.getID()];
 	},
 
 
 	setupAssessment: function (assessment, loadProgress) {
-		var main = getMainSubmittable(assessment);
+		var main = Utils.getMainSubmittable(assessment);
 		if (!main) {return;}
 		console.debug('New Assessment: %o', main);
 
@@ -54,47 +56,65 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 
 		Api.loadPreviousState(assessment)
-			.then(this.applyPreviousState.bind(this, assessment))
+			.then(this.__applySubmission.bind(this, assessment))
 
-			.catch(function(reason) {
+			.catch(reason => {
 				if (reason) {
 					console.error('Could not load previous state: %o', reason);
 				}
+
+				return void undefined;
+			})
+
+			.then(act=>{
+				this.clearBusy(assessment);
+				this.emitChange(act);
 			});
 
 	},
 
 
-	applyPreviousState: function(assessment, previousState) {
-		var main = getMainSubmittable(assessment);
-		var s = main && data[main.getID()];
+	__applySubmission: function(assessment, submission) {
+		var s = this.getSubmissionData(assessment);
+		var questions = submission.getQuestions ? submission.getQuestions() : [submission];
 
-		previousState.getQuestions().forEach(q => {
+		questions.forEach(q => {
 
 			var question = s.getQuestion(q.getID());
 
 			var parts = q.parts;
 			var partCount = parts.length;
-			var x;
+			var x, p;
 
 			for (x = 0; x < partCount; x++) {
-				question.setPartValue(x, parts[x]);
+				p = parts[x];
+				if (p && p instanceof AssessedPart) {
+					p = p.submittedResponse;
+				}
+				question.setPartValue(x, p);
 			}
 		});
 
+		//This modifies `assessment`. The solutions, explanations, and any value that could help a student
+		// cheat are omitted until submitting.
+		Utils.updatePartsWithAssessedParts(assessment, submission);
 
+		s.markSubmitted(submission.isSubmitted());
+		//s.specifySubmissionResetPolicy(submission.canReset());
+
+		return Constants.SYNC;
+	},
+
+
+	clearBusy: function (assessment) {
 		if (this.getBusyState(assessment) === Constants.BUSY.LOADING) {
 			markBusy(assessment, false);
 		}
-
-		s.markSubmitted(previousState.isSubmitted());
-
-		this.emitChange(Constants.SYNC);
 	},
 
 
 	teardownAssessment: function (assessment) {
-		var m = getMainSubmittable(assessment);
+		var m = Utils.getMainSubmittable(assessment);
 		if (m) {
 			m = m && m.getID();
 			delete data[m];
@@ -103,60 +123,63 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 
 	countUnansweredQuestions: function(assessment){
-		var main = getMainSubmittable(assessment);
-		var s = data[main.getID()];
+		var s = this.getSubmissionData(assessment);
 		return s && s.countUnansweredQuestions();
 	},
 
 
 	canSubmit: function(assessment){
-		var main = getMainSubmittable(assessment);
-		var s = data[main.getID()];
+		var s = this.getSubmissionData(assessment);
 		return s && s.canSubmit() && !this.getBusyState(assessment);
 	},
 
 
 	isSubmitted: function(assessment){
-		var main = getMainSubmittable(assessment);
-		var s = data[main.getID()];
+		var s = this.getSubmissionData(assessment);
 		return s && s.isSubmitted();
 	},
 
 
 	getBusyState: function(part) {
-		var main = getMainSubmittable(part);
+		var main = Utils.getMainSubmittable(part);
 		return main && busy[main.getID()];
 	},
 
 
 	getPartValue: function (part) {
-		var main = getMainSubmittable(part);
-		var s = data[main.getID()];
+		var s = this.getSubmissionData(part);
 		var question = s && part && s.getQuestion(part.getQuestionId());
 		return question.getPartValue(part.getPartIndex());
 	},
 
 
 	getError: function (part) {
-		var main = getMainSubmittable(part);
-		var s = data[main.getID()];
+		var s = this.getSubmissionData(part) || {};
 		return s.error;
 	},
 
 
 	setError: function (part, error) {
-		var main = getMainSubmittable(part);
-		var s = data[main.getID()];
+		var s = this.getSubmissionData(part);
 		s.error = error;
 		this.emitChange();
 	},
 
 
 	clearError: function (part) {
-		var main = getMainSubmittable(part);
-		var s = data[main.getID()];
+		var s = this.getSubmissionData(part);
 		delete s.error;
 		this.emitChange();
+	},
+
+
+	getSolution: function (part) {
+		return (part.solutions || [])[0];
+	},
+
+
+	getHints: function (part) {
+		return part.hints;
 	}
 
 });
@@ -169,12 +192,14 @@ function handleSubmitEnd (part, response) {
 		return;
 	}
 
-	debugger;
+	Store.__applySubmission(part, response);
+	Store.getSubmissionData(part).markSubmitted(true);
+	markBusy(part, false);
 }
 
 
 function onInteraction(part, value) {
-	var main = getMainSubmittable(part);
+	var main = Utils.getMainSubmittable(part);
 	var s = main && data[main.getID()];
 	var question = s && part && s.getQuestion(part.getQuestionId());
 
@@ -193,7 +218,7 @@ function onInteraction(part, value) {
 
 
 function markBusy(part, state) {
-	var main = getMainSubmittable(part);
+	var main = Utils.getMainSubmittable(part);
 	var id = main && main.getID();
 
 	busy[id] = state;
@@ -214,7 +239,7 @@ AppDispatcher.register(function(payload) {
 
 		case Constants.SUBMIT_END:
 			handleSubmitEnd(action.assessment, action.response);
-			markBusy(action.assessment, false);
+			eventData = Constants.SYNC;
 			break;
 
 		case Constants.RESET:

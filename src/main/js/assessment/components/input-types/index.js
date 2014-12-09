@@ -38,6 +38,7 @@ exports = module.exports = {
 
 		return Item(
 			{
+				ref: 'input',
 				key: 'question-input-' + index,
 				index: index,
 				item: part

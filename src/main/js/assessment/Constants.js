@@ -16,6 +16,9 @@ module.exports = Object.assign(exports, keyMirror({
 	SUBMIT_BEGIN: null,
 	SUBMIT_END: null,
 
+	HELP_VIEW_HINT: null,
+	HELP_VIEW_SOLUTION: null
+
 }), {
 
 	BUSY: keyMirror({

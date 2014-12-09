@@ -21,7 +21,9 @@ Object.assign(exports, {
 		var main = Utils.getMainSubmittable(assessment);
 		var progress = ReadOnlyStore.getSubmissionData(assessment);
 
-		if (!main) {return Promise.reject();}
+		if (!main || !main.postSavePoint) {
+			return Promise.reject('Nothing to do.');
+		}
 
 		return main.postSavePoint(progress);
 	},
