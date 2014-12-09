@@ -6,8 +6,7 @@ var RelatedFormStore = require('common/forms/RelatedFormStore');
 var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var Constants = require('./Constants');
-
-var getService = require('common/Utils').getService;
+var Utils = require('common/Utils');
 
 var _storeContextId;
 
@@ -37,20 +36,39 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 			_storeContextId = RelatedFormStore.newContext();
 		}
 		return _storeContextId;
+	},
+
+	getAdmissionStatus: function() {
+		var me = this.getAdmissionStatus;
+		if(!me.promise) {
+			me.promise = _getFiveMinuteService().then(function(service) {
+				return service.getAdmissionStatus();
+			});
+		}
+		return me.promise;
 	}
+
 });
 
+function _getFiveMinuteService() {
+	var me = _getFiveMinuteService;
+	if (!me.promise) {
+		me.promise = Promise.resolve(Utils.getServer().getFiveMinuteInterface());
+	}
+	return me.promise;
+}
 
 function _preflight(data) {
-	var service = getService();
-	console.debug('store::preflight', data, service);
+	_getFiveMinuteService().then(function(service) {
+		return service.preflight(data);
+	});
 }
 
 Store.appDispatch = AppDispatcher.register(function(data) {
     var action = data.action;
 
     switch(action.type) {
-		case Constants.PREFLIGHT:
+		case Constants.actions.PREFLIGHT:
 			_preflight(data);
 			break;
 

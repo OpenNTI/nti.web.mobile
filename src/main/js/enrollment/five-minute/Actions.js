@@ -6,7 +6,7 @@ var AppDispatcher = require('dispatcher/AppDispatcher');
 module.exports = {
 	preflight: function(data) {
 		dispatch(
-			Constants.PREFLIGHT,
+			Constants.actions.PREFLIGHT,
 			{ data: data }
 		);
 	}
