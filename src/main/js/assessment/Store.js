@@ -12,6 +12,7 @@ var Constants = require('./Constants');
 var Api = require('./Api');
 var Utils = require('./Utils');
 
+var assessed = {};
 var data = {};
 var busy = {};
 
@@ -35,9 +36,25 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
+	__getAssessmentKey: function (assessment) {
+		var main = Utils.getMainSubmittable(assessment) || false;
+		return main && main.getID();
+	},
+
+
 	getSubmissionData: function (assessment) {
-		var main = Utils.getMainSubmittable(assessment);
-		return main && data[main.getID()];
+		return data[this.__getAssessmentKey(assessment)];
+	},
+
+
+	getAssessedSubmission: function (assessment) {
+		return assessed[this.__getAssessmentKey(assessment)];
+	},
+
+
+	isAssignment: function (assessment) {
+		var main = Utils.getMainSubmittable(assessment) || false;
+		return main && /assignment/i.test(main.MimeType || main.Class);
 	},
 
 
@@ -46,6 +63,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		if (!main) {return;}
 		console.debug('New Assessment: %o', main);
 
+		assessed[main.getID()] = null;
 		data[main.getID()] = main.getSubmission();
 
 		if (!loadProgress) {return;}
@@ -75,8 +93,10 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 
 	__applySubmission: function(assessment, submission) {
+		var key = this.__getAssessmentKey(assessment);
 		var s = this.getSubmissionData(assessment);
 		var questions = submission.getQuestions ? submission.getQuestions() : [submission];
+		var assessedUnit = null;
 
 		questions.forEach(q => {
 
@@ -89,11 +109,16 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 			for (x = 0; x < partCount; x++) {
 				p = parts[x];
 				if (p && p instanceof AssessedPart) {
+					if (!assessedUnit) {
+						assessedUnit = p.getAssessedRoot();
+					}
 					p = p.submittedResponse;
 				}
 				question.setPartValue(x, p);
 			}
 		});
+
+		assessed[key] = assessedUnit;
 
 		//This modifies `assessment`. The solutions, explanations, and any value that could help a student
 		// cheat are omitted until submitting.
@@ -114,9 +139,8 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 
 	teardownAssessment: function (assessment) {
-		var m = Utils.getMainSubmittable(assessment);
+		var m = this.__getAssessmentKey(assessment);
 		if (m) {
-			m = m && m.getID();
 			delete data[m];
 		}
 	},
@@ -141,8 +165,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 
 	getBusyState: function(part) {
-		var main = Utils.getMainSubmittable(part);
-		return main && busy[main.getID()];
+		return busy[this.__getAssessmentKey(part)];
 	},
 
 
@@ -191,6 +214,8 @@ function handleSubmitEnd (part, response) {
 		Store.setError(part, response.message || 'An Error occured.');
 		return;
 	}
+
+	scrollTo(0, 0);
 
 	Store.__applySubmission(part, response);
 	Store.getSubmissionData(part).markSubmitted(true);

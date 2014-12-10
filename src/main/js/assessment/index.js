@@ -7,6 +7,6 @@ module.exports = {
 	Store: require('./Store'),
 
 	QuestionWidget: require('./components/Question'),
-	SetHeaderWidget: require('./components/SetHeader'),
-	SetSubmissionWidget: require('./components/SetSubmission')
+	SetHeaderWidget: require('./components/Header'),
+	SetSubmissionWidget: require('./components/Submission')
 };
