@@ -4,9 +4,14 @@
 var React = require('react/addons');
 
 var Score = require('common/components/charts/Score');
+var DateTime = require('common/components/DateTime');
+
+var Utils = require('common/Utils');
+var getTarget = Utils.Dom.getEventTarget;
 
 
 var Store = require('../Store');
+var Actions = require('../Actions');
 
 module.exports = React.createClass({
 	displayName: 'HeaderScoreboard',
@@ -16,7 +21,8 @@ module.exports = React.createClass({
 			total: 0,
 			correct: 0,
 			incorrect: 0,
-			score: 0
+			score: 0,
+			previousAttemps: ''
 		};
 	},
 
@@ -52,8 +58,18 @@ module.exports = React.createClass({
 			total: questionCount,
 			score: assessed.getScore(),
 			correct: assessed.getCorrect(),
-			incorrect: assessed.getIncorrect()
+			incorrect: assessed.getIncorrect(),
+			dateSubmitted: assessed.getCreatedTime()
 		});
+	},
+
+
+	reset: function (e) {
+		if (getTarget(e, 'span[data-dropdown]')) {
+			return;
+		}
+
+		Actions.resetAssessment(this.props.assessment);
 	},
 
 
@@ -67,20 +83,32 @@ module.exports = React.createClass({
 
 		return (
 			<div className="header assessment">
-				<div className="scoreboard body">
-					<div className="score">
-						<Score width="60" height="60" score={state.score}/>
+				<div className="scoreboard">
+					<div className="header">
+						Scoreboard
+						<DateTime date={state.dateSubmitted} format="LLL"/>
 					</div>
-					<div className="reset-button">
-						<button>Try Again</button>
-					</div>
+					<div className="body">
+						<div className="score">
+							<Score width="60" height="60" score={state.score}/>
+						</div>
 
-					<div className="tally">
-						<h3>Results:</h3>
-						<div className="stat correct">
-							<span className="count">{state.correct}</span> correct </div>
-						<div className="stat incorrect">
-							<span className="count">{state.incorrect}</span> incorrect </div>
+						<div className="tally">
+							<div className="tally-box">
+								<h4>Results:</h4>
+								<div className="stat correct">
+									<span className="count">{state.correct}</span> correct </div>
+								<div className="stat incorrect">
+									<span className="count">{state.incorrect}</span> incorrect </div>
+							</div>
+						</div>
+
+
+						<div className="reset-button">
+							<button onClick={this.reset} className="tiny secondary radius button">
+								Try Again
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
