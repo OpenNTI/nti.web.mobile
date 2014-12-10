@@ -6,6 +6,7 @@ var React = require('react/addons');
 var FieldRender = require('common/forms/mixins/RenderFormConfigMixin');
 var RelatedFormPanel = require('common/forms/components/RelatedFormPanel');
 var RelatedFormStore = require('common/forms/RelatedFormStore');
+var FormErrors = require('common/forms/components/FormErrors');
 var _formConfig = require('../configs/FiveMinuteEnrollmentForm');
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
@@ -41,13 +42,14 @@ var FiveMinuteEnrollmentForm = React.createClass({
 
 	_handleSubmit: function() {
 		var fields = RelatedFormStore.getValues(this.props.storeContextId);
-		Actions.preflight(fields);
+		Actions.preflight(fields, this.props.storeContextId);
 	},
 
 	render: function() {
 
 		var form = this.renderFormConfig(_formConfig, this.state.fieldValues, t);
 		var title = t('admissionTitle');
+		var errors = RelatedFormStore.getErrors(this.props.storeContextId);
 
 		return (
 			<div className="fiveminuteform">
@@ -68,6 +70,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 				</RelatedFormPanel>
 				<div className="row">
 					<div className="medium-6 medium-centered columns">
+						<FormErrors errors={errors} />
 						<ButtonFullWidth onClick={this._handleSubmit}>{t('submit')}</ButtonFullWidth>
 					</div>
 				</div>

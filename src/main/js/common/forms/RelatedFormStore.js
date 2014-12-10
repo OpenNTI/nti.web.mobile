@@ -4,6 +4,7 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 
 var _values = {};
+var _errors = {};
 
 // stashing values here under a contextid for a RelatedFormPanel
 // and all its subforms provides an easy way to keep
@@ -61,6 +62,14 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	getValues: function(contextId) {
 		return _values[contextId]||{};
+	},
+
+	setError: function(contextId, fieldName, error) {
+		_errors[contextId][fieldName] = error;
+	},
+
+	getErrors: function(contextId) {
+		return _errors[contextId]||{};
 	}
 
 });
