@@ -79,6 +79,7 @@ var App = React.createClass({
 
 	_onNavigation: function() {
 		this.forceUpdate();
+		scrollTo(0,0);
 	},
 
 
