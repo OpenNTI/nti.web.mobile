@@ -42,6 +42,12 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		}
 	},
 
+	fieldChanged: function(fieldValues) {
+		this.setState({
+			fieldValues: fieldValues
+		});
+	},
+
 	_handleSubmit: function() {
 		var fields = RelatedFormStore.getValues(this.props.storeContextId);
 		Actions.preflight(fields, this.props.storeContextId);
@@ -61,6 +67,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 					</div>
 				</div>
 				<RelatedFormPanel
+					fieldChange={this.fieldChanged}
 					ref={_rootFormRef}
 					title={title}
 					formConfig={_formConfig}

@@ -35,12 +35,10 @@ var ToggleFieldset = React.createClass({
 
 	render: function() {
 
-
-	//renderFieldset: function(translator, values, fieldset, index) {
 		var fieldset = this.state.fieldset;
 		var fields = (fieldset||{}).fields||[];
 		var displayFields = fields.map(function(field) {
-			return this.props.renderField(this.props.translator, this.state.fieldValues, field);
+			return this.props.renderField(field, this.state.fieldValues);
 		}.bind(this));
 
 		// this.state.fieldset ? this.props.renderFieldset(this.props.translator, this.state.fieldValues, this.state.fieldset) : null;

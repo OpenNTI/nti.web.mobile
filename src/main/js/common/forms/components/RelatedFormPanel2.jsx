@@ -13,10 +13,22 @@ var ToggleFieldset = require('./ToggleFieldset');
 var Select = require('common/forms/components/Select');
 var Checkbox = require('common/forms/components/Checkbox');
 
-var RelatedFormPanel = React.createClass({
+// just a dumb wrapper around an array to isolate the
+// accumulation of related configs during render.
+var RelatedConfigsStash = {
+	_stash: [],
+	get: function() {
+		return this._stash;
+	},
+	clear: function() {
+		this._stash.length = 0;
+	},
+	concat: function(elements) {
+		this._stash = this._stash.concat(elements);
+	}
+}
 
-	// for accumulating related configs during render
-	_relatedConfigs:[],
+var RelatedFormPanel = React.createClass({
 
 	statics: {
 		// static because it's easier to test
@@ -32,8 +44,7 @@ var RelatedFormPanel = React.createClass({
 
 	propTypes: {
 		formConfig: React.PropTypes.array.isRequired,
-		translator: React.PropTypes.func,
-		storeContextId: React.PropTypes.string.isRequired
+		translator: React.PropTypes.func
 	},
 
 	getInitialState: function() {
@@ -80,6 +91,9 @@ var RelatedFormPanel = React.createClass({
 			tmp[field] = value;
 			this.setState({ fieldValues: tmp });
 		}
+		if (isFunction(this.props.fieldChange)) {
+			this.props.fieldChange(tmp);
+		}
 	},
 
 	renderField: function(field, values) {
@@ -120,7 +134,7 @@ var RelatedFormPanel = React.createClass({
 				var radioChange = this._radioChanged.bind(null, field);
 				var tmp = onChange;
 				onChange = tmp ? function(event) { tmp(event); radioChange(event); }.bind(this) : radioChange;
-				this._relatedConfigs = this._relatedConfigs.concat(this._getRelatedConfigs(field));
+				RelatedConfigsStash.concat(this._getRelatedConfigs(field));
 			break;
 			case 'checkbox':
 				input = Checkbox;
@@ -180,11 +194,13 @@ var RelatedFormPanel = React.createClass({
 	_renderActiveSubfields: function(fieldConfig) {
 		var relatedConfigs = this._getRelatedConfigs(fieldConfig);
 		var activeInlineSubfields = relatedConfigs.filter(function(item) {
-			return item.type === Constants.SUBFIELDS && item.isActive;
+			return item.config[0].type === Constants.SUBFIELDS && item.isActive;
 		});
 
 		return activeInlineSubfields.map(function(item) {
-			return this.renderField(translator, values, item);
+			return item.config[0].content.map(function(field) {
+				return this.renderField(field, this.state.fieldValues);
+			}.bind(this))
 		}.bind(this));
 	},
 
@@ -206,7 +222,7 @@ var RelatedFormPanel = React.createClass({
 			]
 		);
 
-		var related = this._relatedConfigs.map(function(config) {
+		var related = RelatedConfigsStash.get().map(function(config) {
 			return config.isActive && config.config[0].type === Constants.FORM_CONFIG ?
 				this._renderFormConfig(config.config[0].content,values) :
 				null;
@@ -222,7 +238,7 @@ var RelatedFormPanel = React.createClass({
 	},
 
 	_renderFormConfig: function(config, values) {
-		this._relatedConfigs = [];
+		RelatedConfigsStash.clear();
 		var fieldsets = config.map(function(fieldset, index) {
 			return this.renderFieldset(fieldset, values, index);
 		}.bind(this));
@@ -245,13 +261,14 @@ var RelatedFormPanel = React.createClass({
 		return result;
 	},
 
-	componentWillUpdate: function(nextProps, nextState) {
-		console.debug('resetting _relatedConfigs to empty array');
-		this._relatedConfigs = [];
-	},
-
 	render: function() {
-		return this._renderFormConfig(this.props.formConfig, this.state.fieldValues);
+		var renderedForm = this._renderFormConfig(this.props.formConfig, this.state.fieldValues);
+		return (
+			<div>
+				{renderedForm}
+				{this.props.children}
+			</div>
+		);
 	}
 
 });
