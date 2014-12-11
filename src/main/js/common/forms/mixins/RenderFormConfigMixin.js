@@ -83,7 +83,7 @@ module.exports = {
 			React.DOM.label({ ref: ref, className: cssClass.join(' ') }, tr(ref, translateOptions)) :
 			input({
 				ref: ref,
-				value: (values||{}).ref,
+				value: (values||{})[ref],
 				name: ref,
 				onBlur: this._onBlur,
 				onFocus: this._onFocus,
@@ -170,16 +170,42 @@ module.exports = {
 
 	_radioChanged: function(fieldConfig, event) {
 		this.updateFieldValueState(event);
-		this._showRelated(fieldConfig, event);
+		this.setState(this._getRelatedState(fieldConfig, event));
 		if(isFunction(this._inputChanged)) {
 			this._inputChanged(event);
 		}
 	},
 
-	_showRelated: function(fieldConfig, event) {
+	_fieldHasRelated: function(fieldConfig) {
+		var config = fieldConfig||{};
+		if(config.type !== 'radiogroup') {
+			return false;
+		}
+		return (config.options||[]).some(function(option) {
+			return option.related;
+		});
+	},
+
+	/**
+	* 
+	*/
+	_getRelatedFormState: function(formConfig, values) {
+		(formConfig||[]).forEach(function(fieldset) {
+			(fieldset.fields||[]).forEach(function(fieldConfig) {
+				if (this._fieldHasRelated(fieldConfig)) {
+					var selectedValue = (values||{})[fieldConfig.ref];
+					return this._getRelatedStateForField(fieldConfig, selectedValue);
+				}
+			}.bind(this));
+		}.bind(this));
+	},
+
+	_getRelatedStateForField: function(fieldConfig, event) {
 		// find the selected option
+		// event can be either a simple value or an onChange event.
+		var value = event && event.target ? event.target.value : event;
 		var selectedOption = (fieldConfig.options||[]).find(function(item) {
-			return item.value === event.target.value;
+			return item.value === value;
 		});
 
 		var subfields = this.state.subfields||{};
@@ -192,7 +218,7 @@ module.exports = {
 
 		delete subfields[fieldConfig.ref];
 		var relatedState = {
-			relatedForm: [],
+			relatedForm: null,
 			subfields: subfields,
 			message: null
 		};
@@ -220,8 +246,7 @@ module.exports = {
 				}
 			}.bind(this));
 		}
-
-		this.setState(relatedState);
+		return relatedState;
 	},
 
 	updateFieldValueState: function(event) {

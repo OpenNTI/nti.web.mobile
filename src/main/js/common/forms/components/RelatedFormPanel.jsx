@@ -33,9 +33,11 @@ var RelatedFormPanel = React.createClass({
 		};
 	},
 
-	componentWillReceiveProps: function() {
+	componentWillReceiveProps: function(newProps) {
+		var relatedState = this._getRelatedState();
 		this._clearStoreValues();
-		this.setState(this.getInitialState());
+		// this.setState(this.getInitialState());
+		this._syncRelatedFormState(this.props.formConfig, RelatedFormStore.getValues(this.props.storeContextId));
 	},
 
 	componentDidMount: function() {
@@ -75,8 +77,8 @@ var RelatedFormPanel = React.createClass({
 	},
 
 	render: function() {
-
-		var form = this.renderFormConfig(this.props.formConfig, this.state.fieldValues, this.props.translator);
+		var values = RelatedFormStore.getValues(this.props.storeContextId); // this.state.fieldValues
+		var form = this.renderFormConfig(this.props.formConfig, values, this.props.translator);
 		var relatedForm = null;
 		if (this.state.relatedForm) {
 			var newDepth = this.props.depth + 1;
@@ -88,7 +90,7 @@ var RelatedFormPanel = React.createClass({
 		}
 
 		return (
-			<div className="recursiveForm">
+			<div className="recursiveForm" data-depth={this.props.depth}>
 				<FormPanel>
 					{form}
 				</FormPanel>

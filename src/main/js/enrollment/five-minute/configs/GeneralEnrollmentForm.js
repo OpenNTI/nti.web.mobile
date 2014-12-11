@@ -97,7 +97,7 @@ module.exports = Object.freeze([
 					},
 					{
 						label: 'Prefer not to disclose',
-						value: null
+						value: ''
 					}
 				]
 			}

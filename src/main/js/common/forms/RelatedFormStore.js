@@ -2,6 +2,7 @@
 
 var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
+var Constants = require('./Constants');
 
 var _values = {};
 var _errors = {};
@@ -26,6 +27,7 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 	newContext: function() {
 		var id = 'ctx'.concat(Date.now());
 		_values[id] = {};
+		_errors[id] = {};
 		this._emitChange({
 			type: 'RelatedFormStoreContextCreated',
 			payload: {
@@ -66,6 +68,13 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	setError: function(contextId, fieldName, error) {
 		_errors[contextId][fieldName] = error;
+		this._emitChange({
+			isError: true,
+			type: Constants.ERROR_ADDED,
+			contextId: contextId,
+			field: fieldName,
+			error: error
+		});
 	},
 
 	getErrors: function(contextId) {

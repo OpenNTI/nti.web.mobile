@@ -1,9 +1,10 @@
 'use strict';
 
-var keyMirror = require('react/lib/keyMirror');
+var nsKeyMirror = require('dataserverinterface/utils/namespaced-key-mirror');
 
-module.exports = keyMirror({
+module.exports = nsKeyMirror('commonforms', {
 	FORM_CONFIG: null,
 	SUBFIELDS: null,
-	MESSAGE: null
+	MESSAGE: null,
+	ERROR_ADDED: null
 });

@@ -4,13 +4,14 @@
 
 var React = require('react/addons');
 var FieldRender = require('common/forms/mixins/RenderFormConfigMixin');
-var RelatedFormPanel = require('common/forms/components/RelatedFormPanel');
+var RelatedFormPanel = require('common/forms/components/RelatedFormPanel2');
 var RelatedFormStore = require('common/forms/RelatedFormStore');
 var FormErrors = require('common/forms/components/FormErrors');
 var _formConfig = require('../configs/FiveMinuteEnrollmentForm');
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
 var Actions = require('../Actions');
+var Constants = require('../Constants');
 var Store = require('../Store');
 
 
@@ -26,18 +27,19 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		};
 	},
 	componentDidMount: function() {
-		Store.addChangeListener(this._storeChange);
+		RelatedFormStore.addChangeListener(this._storeChange);
 	},
 
 	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChange);
+		RelatedFormStore.removeChangeListener(this._storeChange);
 	},
 
 	_storeChange: function(event) {
-		console.group();
-		console.debug('store change event');
-		console.debug(event);
-		console.groupEnd();
+		if(event.isError) {
+			this.setState({
+				errors: RelatedFormStore.getErrors(this.props.storeContextId)
+			});
+		}
 	},
 
 	_handleSubmit: function() {
@@ -47,7 +49,6 @@ var FiveMinuteEnrollmentForm = React.createClass({
 
 	render: function() {
 
-		var form = this.renderFormConfig(_formConfig, this.state.fieldValues, t);
 		var title = t('admissionTitle');
 		var errors = RelatedFormStore.getErrors(this.props.storeContextId);
 
@@ -61,13 +62,9 @@ var FiveMinuteEnrollmentForm = React.createClass({
 				</div>
 				<RelatedFormPanel
 					ref={_rootFormRef}
-					storeContextId={this.props.storeContextId}
 					title={title}
 					formConfig={_formConfig}
-					translator={t}
-				>
-					{form}
-				</RelatedFormPanel>
+					translator={t} />
 				<div className="row">
 					<div className="medium-6 medium-centered columns">
 						<FormErrors errors={errors} />

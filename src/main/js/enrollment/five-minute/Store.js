@@ -79,7 +79,9 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 					console.debug(result);
 				},
 				function(reason) {
-					console.debug(reason);
+					if(action.payload.storeContextId) {
+						RelatedFormStore.setError(action.payload.storeContextId, reason.field, reason);
+					}
 					Store.emitError({
 		    			type: Constants.errors.PREFLIGHT_ERROR,
 						action: action,
