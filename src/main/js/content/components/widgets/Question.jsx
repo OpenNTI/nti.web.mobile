@@ -30,7 +30,7 @@ module.exports = React.createClass({
 		var questionId = p.item.ntiid;
 
 		this.setState({
-			question: p.pageData.getAssessmentQuestion(questionId)
+			question: p.page.getAssessmentQuestion(questionId)
 		});
 	},
 
@@ -39,7 +39,7 @@ module.exports = React.createClass({
 	render: function() {
 		var question = this.state.question;
 		if (!question) {return null;}
-			
+
 		return (
 			<Assessment.QuestionWidget
 				contentHints={this.props.item}

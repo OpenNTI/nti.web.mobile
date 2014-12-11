@@ -152,7 +152,7 @@ module.exports = React.createClass({
 		var widgets = this.getPageWidgets();
 		if (!widgets[widgetData.guid]) {
 			// console.debug('Content View: Creating widget for %s', widgetData.guid);
-			widgets[widgetData.guid] = Widgets.select(widgetData, this.state.pageData, this.props);
+			widgets[widgetData.guid] = Widgets.select(widgetData, this.state.page, this.props);
 		}
 	},
 
@@ -164,14 +164,14 @@ module.exports = React.createClass({
 		this.setState({
 			currentPage: id,
 			loading: false,
-			pageData: page,
+			page: page,
 			pageSource: page.getPageSource(this.getRootID())
 		});
 	},
 
 
 	getBodyParts: function () {
-		var page = this.state.pageData;
+		var page = this.state.page;
 		if (page) {
 			return page.getBodyParts();
 		}
@@ -179,7 +179,7 @@ module.exports = React.createClass({
 
 
 	getPageStyles: function () {
-		var page = this.state.pageData;
+		var page = this.state.page;
 		if (page) {
 			return page.getPageStyles();
 		}

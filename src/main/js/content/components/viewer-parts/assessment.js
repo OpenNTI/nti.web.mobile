@@ -10,19 +10,22 @@ var Store = assessment.Store;
 module.exports = {
 
 	renderAssessmentHeader: function () {
-		var page = this.state.pageData;
+		var page = this.state.page;
 		var quiz = page && page.getSubmittableAssessment();
 		if (!page || !quiz) {
 			return null;
 		}
 
-		return assessment.SetHeaderWidget({assessment: quiz});
+		return assessment.SetHeaderWidget({
+			assessment: quiz,
+			page: page
+		});
 	},
 
 
 	renderAssessmentSubmission: function () {
 		var div = React.DOM.div;
-		var page = this.state.pageData;
+		var page = this.state.page;
 		var quiz = page && page.getSubmittableAssessment();
 		if (!page || !quiz) {
 			return null;
@@ -30,14 +33,20 @@ module.exports = {
 
 		return (
 			div({className: 'fixed-footer'},
-				div({className: 'the-fixed'}, assessment.SetSubmissionWidget({assessment: quiz})))
+				div({className: 'the-fixed'},
+					assessment.SetSubmissionWidget({
+						assessment: quiz,
+						page: page
+					})
+				)
+			)
 		);
 	},
 
 
 	componentWillUpdate: function(_, nextState) {
-		var prevPage = this.state.pageData;
-		var nextPage = nextState && nextState.pageData;
+		var prevPage = this.state.page;
+		var nextPage = nextState && nextState.page;
 
 		var prev = prevPage && prevPage.getSubmittableAssessment();
 		var next = nextPage && nextPage.getSubmittableAssessment();
