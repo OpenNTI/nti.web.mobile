@@ -33,12 +33,11 @@ var RelatedFormPanel = React.createClass({
 		};
 	},
 
-	componentWillReceiveProps: function(newProps) {
-		var relatedState = this._getRelatedState();
-		this._clearStoreValues();
-		// this.setState(this.getInitialState());
-		this._syncRelatedFormState(this.props.formConfig, RelatedFormStore.getValues(this.props.storeContextId));
-	},
+	// componentWillReceiveProps: function(newProps) {
+	// 	this._clearStoreValues();
+	// 	// this.setState(this.getInitialState());
+	// 	this._syncRelatedFormState(this.props.formConfig, RelatedFormStore.getValues(this.props.storeContextId));
+	// },
 
 	componentDidMount: function() {
 		if(this.props.depth === 0) {

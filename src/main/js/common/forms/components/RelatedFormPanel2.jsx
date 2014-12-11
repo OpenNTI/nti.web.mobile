@@ -26,7 +26,7 @@ var RelatedConfigsStash = {
 	concat: function(elements) {
 		this._stash = this._stash.concat(elements);
 	}
-}
+};
 
 var RelatedFormPanel = React.createClass({
 
@@ -50,7 +50,7 @@ var RelatedFormPanel = React.createClass({
 	getInitialState: function() {
 		return {
 			fieldValues: {}
-		}
+		};
 	},
 
 	_onFocus: function(event) {
@@ -200,7 +200,7 @@ var RelatedFormPanel = React.createClass({
 		return activeInlineSubfields.map(function(item) {
 			return item.config[0].content.map(function(field) {
 				return this.renderField(field, this.state.fieldValues);
-			}.bind(this))
+			}.bind(this));
 		}.bind(this));
 	},
 

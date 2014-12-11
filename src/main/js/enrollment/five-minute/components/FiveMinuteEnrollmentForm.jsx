@@ -11,9 +11,6 @@ var _formConfig = require('../configs/FiveMinuteEnrollmentForm');
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
 var Actions = require('../Actions');
-var Constants = require('../Constants');
-var Store = require('../Store');
-
 
 var _rootFormRef = 'rootForm';
 
@@ -26,6 +23,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 			fieldValues: {}
 		};
 	},
+	
 	componentDidMount: function() {
 		RelatedFormStore.addChangeListener(this._storeChange);
 	},
