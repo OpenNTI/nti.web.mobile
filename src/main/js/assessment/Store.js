@@ -171,7 +171,9 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 		//This modifies `assessment`. The solutions, explanations, and any value that could help a student
 		// cheat are omitted until submitting.
-		Utils.updatePartsWithAssessedParts(assessment, submission);
+		if (assessedUnit) {
+			Utils.updatePartsWithAssessedParts(assessment, submission);
+		}
 
 		s.markSubmitted(submission.isSubmitted());
 		//s.specifySubmissionResetPolicy(submission.canReset());
