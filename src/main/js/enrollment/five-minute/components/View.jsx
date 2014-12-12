@@ -9,9 +9,11 @@ var Loading = require('common/components/Loading');
 var Err = require('common/components/Error');
 var PanelButton = require('common/components/PanelButton');
 var FiveMinuteEnrollmentForm = require('./FiveMinuteEnrollmentForm');
+var Constants = require('../Constants');
 var Store = require('../Store');
-var StatusConstants = require('../Constants').admissionStatus;
+var StatusConstants = Constants.admissionStatus;
 var t = require('common/locale').scoped('ENROLLMENT');
+var getLink = require('dataserverinterface/utils/getlink');
 
 var View = React.createClass({
 
@@ -35,6 +37,26 @@ var View = React.createClass({
 				error: reason
 			});
 		});
+		Store.addChangeListener(this._storeChange);
+	},
+
+	componentWillUnmount: function() {
+		Store.removeChangeListener(this._storeChange);
+	},
+
+	_storeChange: function(event) {
+		switch(event.type) {
+			case Constants.events.ADMISSION_SUCCESS:
+				// FIXME: paymentLink is the dataserver url. what's the flow to get from
+				// here to the payment site? a click on the button pings the dataserver
+				// to get the external payment site url?
+				var link = getLink(event.response.Links, 'fmaep.pay.and.enroll');
+				this.setState({
+					admissionStatus: event.response.State,
+					paymentLink: link 
+				});
+				break;
+		}
 	},
 
 	render: function() {
@@ -50,8 +72,9 @@ var View = React.createClass({
 		var view;
 
 		switch(this.state.admissionStatus) {
-			case StatusConstants.ACCEPTED:
-				view = <PanelButton href="http://google.com" linkText={t("Proceed to payment")}>You will be taken to an external site for payment.</PanelButton>;
+			case StatusConstants.ADMITTED:
+				// FIXME: paymentLink as it's set up right now is the dataserver url.
+				view = <PanelButton href={this.state.paymentLink} linkText={t("Proceed to payment")}>You will be taken to an external site for payment.</PanelButton>;
 				break;
 
 			case StatusConstants.REJECTED:

@@ -177,7 +177,7 @@ module.exports = Object.freeze([
 							type: Constants.SUBFIELDS,
 							content: [
 								{
-									ref: 'residentOf',
+									ref: 'country_of_citizenship',
 									type: 'select',
 									label: t('residentOf'),
 									required: true,

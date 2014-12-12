@@ -10,6 +10,8 @@ var _formConfig = require('../configs/FiveMinuteEnrollmentForm');
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
 var Actions = require('../Actions');
+var Store = require('../Store');
+var Constants = require('../Constants');
 
 var _rootFormRef = 'rootForm';
 
@@ -24,14 +26,31 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		};
 	},
 
+	componentDidMount: function() {
+		Store.addChangeListener(this._storeChange);
+	},
+
+	componentWillUnmount: function() {
+		Store.removeChangeListener(this._storeChange);
+	},
+
 	_storeChange: function(event) {
 		if(event.isError) {
 			this.state.errors.push({
-				field: event.field,
-				message: event.error.message
+				field: event.reason.field,
+				message: event.reason.message
 			});
 			this.forceUpdate();
+			return;
 		}
+		switch(event.type) {
+			case Constants.events.ADMISSION_SUCCESS:
+
+				break;
+		}
+		console.group('fiveminute store event');
+		console.debug(event);
+		console.groupEnd();
 	},
 
 	fieldValuesChanged: function(fieldValues) {
@@ -47,6 +66,20 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		// });
 		// console.groupEnd();
 		this._pruneErrors(visibleFieldRefs);
+	},
+
+	inputFocused: function(event) {
+		var ref = event.target.ref;
+		this._removeError(ref);
+	},
+
+	_removeError: function(ref) {
+		var errors = this.state.errors;
+		var error = errors.find(function(entry) {
+			return entry.field === ref;
+		});
+		console.debug(errors.indexOf(error));
+		return !!error;
 	},
 
 	_pruneErrors: function(visibleFieldRefs) {
@@ -75,7 +108,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		// });
 		// console.groupEnd();
 		if (this._isValid()) {
-			Actions.preflight(fields);
+			Actions.preflightAndSubmit(fields);
 		}
 	},
 
@@ -119,6 +152,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 						<RelatedFormPanel
 							onFieldsChange={this.fieldsChanged}
 							onFieldValuesChange={this.fieldValuesChanged}
+							inputFocus={this.inputFocused}
 							ref={_rootFormRef}
 							title={title}
 							formConfig={_formConfig}

@@ -65,15 +65,6 @@ var RelatedFormPanel = React.createClass({
 		};
 	},
 
-	_onFocus: function(event) {
-		var target = event.target.name;
-		var errors = this.state.errors||{};
-		if (errors[target]) {
-			delete errors[target];
-			this.forceUpdate();
-		}
-	},
-
 	_onBlur: function(event) {
 		this.updateFieldValueState(event);
 	},
@@ -139,7 +130,7 @@ var RelatedFormPanel = React.createClass({
 			ref: ref,
 			name: ref,
 			onBlur: this._onBlur,
-			onFocus: this._onFocus,
+			onFocus: this.props.inputFocus,
 			placeholder: tr(ref,translateOptions),
 			className: cssClass.join(' '),
 			defaultValue: (values||{})[ref],

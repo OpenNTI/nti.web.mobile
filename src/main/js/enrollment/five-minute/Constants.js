@@ -5,15 +5,19 @@ var namespace = 'fiveminute';
 
 module.exports = {
 	actions: nsKeyMirror(namespace, {
-		PREFLIGHT: null
+		PREFLIGHT_AND_SUBMIT: null
 	}),
 	errors: nsKeyMirror(namespace, {
-		PREFLIGHT_ERROR: null
+		PREFLIGHT_ERROR: null,
+		REQUEST_ADMISSION_ERROR: null
 	}),
 	admissionStatus: nsKeyMirror(null,{
 		PENDING: null,
 		REJECTED: null,
-		ACCEPTED: null
+		ADMITTED: null
+	}),
+	events: nsKeyMirror(namespace, {
+		ADMISSION_SUCCESS: null
 	})
 };
 

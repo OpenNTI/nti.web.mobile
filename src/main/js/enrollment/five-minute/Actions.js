@@ -4,9 +4,9 @@ var Constants = require('./Constants');
 var AppDispatcher = require('dispatcher/AppDispatcher');
 
 module.exports = {
-	preflight: function(data) {
+	preflightAndSubmit: function(data) {
 		dispatch(
-			Constants.actions.PREFLIGHT,
+			Constants.actions.PREFLIGHT_AND_SUBMIT,
 			{
 				data: data
 			}

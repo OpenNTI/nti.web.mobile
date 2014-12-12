@@ -58,19 +58,40 @@ function _preflight(data) {
 	});
 }
 
+function _requestAdmission(data) {
+	return _getFiveMinuteService().then(function(service) {
+		return service.requestAdmission(data);
+	});
+}
+
 Store.appDispatch = AppDispatcher.register(function(data) {
     var action = data.action;
 
     switch(action.type) {
-		case Constants.actions.PREFLIGHT:
-			var p = _preflight(action.payload.data);
-			p.then(
-				function(result) {
-					console.debug(result);
-				},
+		case Constants.actions.PREFLIGHT_AND_SUBMIT:
+			var input = action.payload.data;
+			var preflight = _preflight(input);
+			var requestAdmission = preflight.then(
+				_requestAdmission.bind(null,input),
 				function(reason) {
 					Store.emitError({
 		    			type: Constants.errors.PREFLIGHT_ERROR,
+						action: action,
+						reason: reason
+					});
+				}
+			);
+			requestAdmission.then(
+				function(response) {
+					Store.emitChange({
+		    			type: Constants.events.ADMISSION_SUCCESS,
+						action: action,
+						response: response
+					});
+				},
+				function(reason) {
+					Store.emitError({
+		    			type: Constants.errors.REQUEST_ADMISSION_ERROR,
 						action: action,
 						reason: reason
 					});
