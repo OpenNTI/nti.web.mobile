@@ -83,7 +83,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		var title = t('admissionTitle');
 		var errors = this.state.errors; // RelatedFormStore.getErrors(this.props.storeContextId);
 		var errorRefs = new Set(errors.map(function(err) {
-			return err.field
+			return err.field;
 		}));
 
 		return (
