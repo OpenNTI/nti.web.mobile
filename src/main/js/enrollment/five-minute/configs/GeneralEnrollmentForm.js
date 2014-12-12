@@ -79,6 +79,7 @@ module.exports = Object.freeze([
 			{
 				ref: 'date_of_birth',
 				label: t('birthdate'),
+				required: true,
 				type: 'date',
 				placeholder: t('birthdate')
 			},
@@ -204,6 +205,7 @@ module.exports = Object.freeze([
 							content: [
 								{
 									ref: 'years_of_oklahoma_residency',
+									required: true,
 									label: t('okResidentFor'),
 								}
 							]
