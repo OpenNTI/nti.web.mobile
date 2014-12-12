@@ -283,8 +283,16 @@ var RelatedFormPanel = React.createClass({
 	componentDidUpdate: function() {
 		this._pruneFieldValues();
 		if (isFunction(this.props.onFieldsChange)) {
-			this.props.onFieldsChange(this._visibleFields);
+			this.props.onFieldsChange(this._getVisibleFieldRefs());
 		}
+	},
+
+	_getVisibleFieldRefs: function() {
+		return new Set(
+			this._visibleFields.map(function(item) {
+				return item.ref;
+			})
+		);
 	},
 
 	// after an update clear fieldValue entries
@@ -292,11 +300,7 @@ var RelatedFormPanel = React.createClass({
 	_pruneFieldValues: function() {
 		var changed = false;
 		var fieldValues = this.state.fieldValues;
-		var _visibleFieldRefs = new Set(
-			this._visibleFields.map(function(item) {
-				return item.ref;
-			})
-		);
+		var _visibleFieldRefs = this._getVisibleFieldRefs();
 		Object.keys(fieldValues).forEach(function(key) {
 			if (!_visibleFieldRefs.has(key)) {
 				delete fieldValues[key];

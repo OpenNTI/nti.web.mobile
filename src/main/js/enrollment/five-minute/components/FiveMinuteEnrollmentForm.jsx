@@ -52,13 +52,40 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		});
 	},
 
+	fieldsChanged: function(visibleFieldRefs) {
+		// console.group('now visible:');
+		// visibleFieldRefs.forEach(function(ref) {
+		// 	console.debug(ref);
+		// });
+		// console.groupEnd();
+		this._pruneErrors(visibleFieldRefs);
+	},
+
+	_pruneErrors: function(visibleFieldRefs) {
+		var errs = this.state.errors;
+		var newErrs = [];
+		var anyRemoved = false;
+		errs.forEach(function(err) {
+			if (visibleFieldRefs.has(err.field)) {
+				newErrs.push(err);
+			} else {
+				anyRemoved = true;
+			};
+		});
+		if (anyRemoved) {
+			this.setState({
+				errors: newErrs
+			});
+		}
+	},
+
 	_handleSubmit: function() {
 		var fields = this.state.fieldValues; //RelatedFormStore.getValues(this.props.storeContextId);
-		console.group('getVisibleFields');
-		this.refs[_rootFormRef].getVisibleFields().forEach(function(item) {
-			console.debug(item.ref, item.required ? '- (required)' : '');
-		});
-		console.groupEnd();
+		// console.group('getVisibleFields');
+		// this.refs[_rootFormRef].getVisibleFields().forEach(function(item) {
+		// 	console.debug(item.ref, item.required ? '- (required)' : '');
+		// });
+		// console.groupEnd();
 		if (this._isValid()) {
 			Actions.preflight(fields, this.props.storeContextId);	
 		}
@@ -102,6 +129,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 						<h2>{title}</h2>
 						<p>{t('admissionDescription')}</p>
 						<RelatedFormPanel
+							onFieldsChange={this.fieldsChanged}
 							onFieldValuesChange={this.fieldValuesChanged}
 							ref={_rootFormRef}
 							title={title}
