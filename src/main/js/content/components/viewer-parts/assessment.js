@@ -23,6 +23,20 @@ module.exports = {
 	},
 
 
+	renderAssessmentFeedback: function () {
+		var page = this.state.page;
+		var quiz = page && page.getSubmittableAssessment();
+		if (!page || !quiz) {
+			return null;
+		}
+
+		return assessment.FeedbackWidget({
+			assessment: quiz,
+			page: page
+		});
+	},
+
+
 	renderAssessmentSubmission: function () {
 		var div = React.DOM.div;
 		var page = this.state.page;

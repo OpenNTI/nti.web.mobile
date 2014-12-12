@@ -207,6 +207,8 @@ module.exports = React.createClass({
 				<div id="NTIContent" onClick={this.onContentClick}
 					dangerouslySetInnerHTML={{__html: body.map(this.__buildBody).join('')}}/>
 
+				{this.renderAssessmentFeedback()}
+
 				{this.renderGlossaryEntry()}
 
 				<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>

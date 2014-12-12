@@ -6,6 +6,7 @@ module.exports = {
 	Constants: require('./Constants'),
 	Store: require('./Store'),
 
+	FeedbackWidget: require('./components/Feedback'),
 	QuestionWidget: require('./components/Question'),
 	SetHeaderWidget: require('./components/Header'),
 	SetSubmissionWidget: require('./components/Submission')
