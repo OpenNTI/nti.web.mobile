@@ -12,6 +12,9 @@ var RadioGroup = require('./RadioGroup');
 var ToggleFieldset = require('./ToggleFieldset');
 var Select = require('common/forms/components/Select');
 var Checkbox = require('common/forms/components/Checkbox');
+var PanelNoButton = require('common/components/PanelNoButton');
+var LocalizedHTML = require('common/components/LocalizedHTML');
+
 var hash = require('object-hash');
 
 // just a dumb wrapper around an array to isolate the
@@ -233,9 +236,22 @@ var RelatedFormPanel = React.createClass({
 		var related = [];
 
 		RelatedConfigsStash.get().forEach(function(config) {
-			if(config.isActive && config.config[0].type === Constants.FORM_CONFIG) {
-				related.push(this._renderFormConfig(config.config[0].content, values));
+			if(config.isActive) {
+				var conf = config.config[0];
+				switch(conf.type) {
+					case Constants.FORM_CONFIG:
+						related.push(this._renderFormConfig(conf.content, values));
+						break;
+					case Constants.MESSAGE:
+						related.push(<PanelNoButton><LocalizedHTML key={conf.content} /></PanelNoButton>);
+						break;
+					default:
+						console.warn('Unrecognized related config type: %O', config);
+				}
 			}
+			// if(config.isActive && config.config[0].type === Constants.FORM_CONFIG) {
+			// 	related.push(this._renderFormConfig(config.config[0].content, values));
+			// }
 		}.bind(this));
 
 		return React.DOM.div(

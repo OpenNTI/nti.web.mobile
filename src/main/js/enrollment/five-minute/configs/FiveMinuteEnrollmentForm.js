@@ -19,8 +19,7 @@ var attendingOU = [{
 					value: 'Y',
 					related: [{
 						type: Constants.MESSAGE,
-						content: 'LSTD 1153.500 fulfills US History Gen Ed requirement. To enroll, visit ' +
-						'<a href="htttp://ozone.ou.edu" target="_blank">ozone.ou.edu</a> and enroll in LSTD 1153, Section 500.'
+						content: 'ENROLLMENT.forms.fiveminute.historyEnrollViaOzone'
 					}]
 				},
 				{
