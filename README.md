@@ -20,3 +20,18 @@ npm install && bower install
 While you're working on this project, run:
 
 `grunt`
+
+#### Git Pre-Commit Hook:
+Put this bash script in the `.git/hooks/pre-commit`:
+   
+	#!/bin/sh
+	FILES=`git diff --cached --name-only | grep -i ".jsx\?$"`
+
+	for f in $FILES
+	do
+		if [ ! -f $f ]; then  #file was deleted
+			continue
+		fi
+	
+		jsxhint $(pwd)/$f || exit 1;
+	done
