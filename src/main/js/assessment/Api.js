@@ -19,7 +19,7 @@ Object.assign(exports, {
 
 	saveProgress: function (assessment) {
 		var main = Utils.getMainSubmittable(assessment);
-		var progress = ReadOnlyStore.getSubmissionData(assessment);
+		var progress = ReadOnlyStore.getSubmissionPreparedForPost(assessment);
 
 		if (!main || !main.postSavePoint) {
 			return Promise.reject('Nothing to do.');
@@ -30,7 +30,7 @@ Object.assign(exports, {
 
 
 	submit: function (assessment) {
-		var data = ReadOnlyStore.getSubmissionData(assessment);
+		var data = ReadOnlyStore.getSubmissionPreparedForPost(assessment);
 
 		return data.submit()
 			.catch(function(reason){

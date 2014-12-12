@@ -15,6 +15,10 @@ var Utils = require('./Utils');
 var assessed = {};
 var data = {};
 var busy = {};
+var timers = {
+	start: new Date(),
+	lastQuestionInteraction: null
+};
 
 
 var Store = Object.assign({}, EventEmitter.prototype, {
@@ -47,6 +51,21 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
+	getSubmissionPreparedForPost: function (assessment) {
+		var d = this.getSubmissionData(assessment);
+		var times, v, now = new Date();
+
+		//Assignments and QuestionSets, record aggregate effort time. (questions record themselves. See: onInteraction)
+		if (d && d.getQuestions) {
+			times = timers[this.__getAssessmentKey(assessment)] || {start: now};
+			v = d.CreatorRecordedEffortDuration || 0;
+			d.CreatorRecordedEffortDuration = v + (now - times.start);
+		}
+
+		return d;
+	},
+
+
 	getAssessedSubmission: function (assessment) {
 		return assessed[this.__getAssessmentKey(assessment)];
 	},
@@ -70,6 +89,16 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
+	teardownAssessment: function (assessment) {
+		var m = this.__getAssessmentKey(assessment);
+		if (m) {
+			delete assessed[m];
+			delete timers[m];
+			delete data[m];
+		}
+	},
+
+
 	setupAssessment: function (assessment, loadProgress) {
 		var main = Utils.getMainSubmittable(assessment);
 		if (!main) {return;}
@@ -77,6 +106,10 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 		assessed[main.getID()] = null;
 		data[main.getID()] = main.getSubmission();
+		timers[main.getID()] = {
+			start: new Date(),
+			lastQuestionInteraction: null
+		};
 
 		if (!loadProgress) {return;}
 
@@ -110,9 +143,13 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		var questions = submission.getQuestions ? submission.getQuestions() : [submission];
 		var assessedUnit = null;
 
+		s.CreatorRecordedEffortDuration = submission.CreatorRecordedEffortDuration;
+
 		questions.forEach(q => {
 
 			var question = s.getQuestion(q.getID());
+
+			question.CreatorRecordedEffortDuration = q.CreatorRecordedEffortDuration;
 
 			var parts = q.parts;
 			var partCount = parts.length;
@@ -146,14 +183,6 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	clearBusy: function (assessment) {
 		if (this.getBusyState(assessment) === Constants.BUSY.LOADING) {
 			markBusy(assessment, false);
-		}
-	},
-
-
-	teardownAssessment: function (assessment) {
-		var m = this.__getAssessmentKey(assessment);
-		if (m) {
-			delete data[m];
 		}
 	},
 
@@ -242,12 +271,23 @@ function handleSubmitEnd (part, response) {
 
 function onInteraction(part, value) {
 	var main = Utils.getMainSubmittable(part);
-	var s = main && data[main.getID()];
+	var key = main && main.getID();
+	var s = data[key];
 	var question = s && part && s.getQuestion(part.getQuestionId());
+
+	var interactionTime = new Date();
+	var time = timers[key] || {};
+	var duration = interactionTime - (time.lastQuestionInteraction || time.start || new Date());
+
+	time.lastQuestionInteraction = interactionTime;
+
+	question.addRecordedEffortTime(duration);
 
 	question.setPartValue(part.getPartIndex(), value);
 
 	Store.clearError(part);
+
+
 
 	markBusy(part, Constants.BUSY.SAVEPOINT);
 	Api.saveProgress(part)
