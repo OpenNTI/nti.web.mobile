@@ -68,6 +68,23 @@ module.exports = {
 	},
 
 
+	getSolution: function () {
+		return Store.getSolution(this.props.item);
+	},
+
+
+	getAssessedPart: function () {
+		var item = this.props.item;
+		var question = Store.getAssessedQuestion(item, item.getQuestionId());
+
+		//If we have an AssessedQuestion, it has a property "parts" that is an array
+		var parts = (question && question.parts) || [];
+
+		//Get the question part or return undefined.
+		return parts[item.getPartIndex()];
+	},
+
+
 	setValue: function (value) {
 		this.setState({value: value});
 	},

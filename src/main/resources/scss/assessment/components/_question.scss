@@ -1,4 +1,4 @@
-
+@import "../input-vars";
 
 .question {
 	margin: 2rem 0 2rem;
@@ -15,7 +15,21 @@
 	border: 1px solid #f1f1f1;
 	border-width: 1px 0;
 
-	.question-title {}
+	.question-title {
+		font-weight: 600;
+		font-family: 'Open Sans';
+		font-size: 1rem;
+		padding: 1rem 0 0.5rem;
+		margin: 0 0 -1em;
+
+		.status {
+			color: $neutral;
+			font-style: italic;
+		}
+	}
+
+	&.correct .question-title .status{ color: $correct; }
+	&.incorrect .question-title .status{ color: $incorrect; }
 
 	.question-content:not(:empty) {
 		padding: 1rem 0;

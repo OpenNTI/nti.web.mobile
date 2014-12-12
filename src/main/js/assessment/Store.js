@@ -52,6 +52,18 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
+	getAssessedQuestion: function (assessment, questionId) {
+		var submission = this.getAssessedSubmission(assessment);
+		//If its an AssessedQuestionSet, it has a getQuestion method.
+		var getter = submission && submission.getQuestion;
+
+		//resolve down to the AssessedQuestion
+		var question = getter ? getter.call(submission, questionId) : submission;
+
+		return question && question.getID() === questionId ? question : undefined;
+	},
+
+
 	isAssignment: function (assessment) {
 		var main = Utils.getMainSubmittable(assessment) || false;
 		return main && /assignment/i.test(main.MimeType || main.Class);

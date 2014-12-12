@@ -20,22 +20,35 @@ module.exports = React.createClass({
 
 	render: function() {
 		var choices = this.props.item.choices || [];
+		var submitted = this.isSubmitted();
+		var solution = submitted && this.getSolution();
 
 		return (
 			<form className="multiple-choice multiple-answer" ref="form">
-				{choices.map(this.renderChoice)}
+				{choices.map((x,i)=>{
+					return this.renderChoice(x, i, solution);
+				})}
 			</form>
 		);
 	},
 
 
-	renderChoice: function (choice, index) {
+	renderChoice: function (choice, index, solution) {
 		var numeral = String.fromCharCode(65+index);
 		var ref = 'choice-' + index;
 		var checked = (this.state.value || []).indexOf(index) !== -1;
+		var correct = '';
+
+		if (solution) {
+			solution = (solution.value || []).indexOf(index) > -1;
+
+			if (checked) {
+				correct = solution ? 'correct' : 'incorrect';
+			}
+		}
 
 		return (
-			<label className="choice" key={ref}>
+			<label className={'choice ' + correct} key={ref}>
 				<input type="checkbox" ref={ref} checked={checked} value={index} onChange={this.handleInteraction}/>
 				<div>
 					<span className="numeral">{numeral}.</span>

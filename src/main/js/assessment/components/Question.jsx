@@ -10,6 +10,12 @@ var Store = require('../Store');
 
 var Part = require('./Part');
 
+var STATUS_MAP = {
+	'true':'Correct',
+	'false': 'Incorrect',
+	'null':''
+};
+
 module.exports = React.createClass({
 	displayName: 'Question',
 
@@ -20,7 +26,7 @@ module.exports = React.createClass({
 
 	onStoreChange: function () {
 		//trigger a reload/redraw
-		//this.forceUpdate();
+		this.forceUpdate();
 	},
 
 
@@ -36,9 +42,15 @@ module.exports = React.createClass({
 
 	render: function() {
 		var q = this.props.question;
+		var a = Store.getAssessedQuestion(q, q.getID());
 		var parts = q.parts;
 		var title = '';
 		var status = '';//correct, incorrect, blank
+
+		if (Store.isSubmitted(q) && a) {
+			status = a.isCorrect();
+			status = STATUS_MAP[status];
+		}
 
 		//Ripped from the WebApp:
 		if (isFlag('mathcounts-question-number-hack')) {
@@ -48,7 +60,10 @@ module.exports = React.createClass({
 
 		return (
 			<div className={'question ' + status.toLowerCase()}>
-				<h3 className="question-title">{title}{status}</h3>
+				<h3 className="question-title">
+					{title}
+					<span className="status">{status}</span>
+				</h3>
 				<div className="question-content" dangerouslySetInnerHTML={{__html: q.content}}/>
 				{parts.map(function(part, i) {
 					return Part({key: 'part-'+i, part: part, index: i, partCount: parts.length});

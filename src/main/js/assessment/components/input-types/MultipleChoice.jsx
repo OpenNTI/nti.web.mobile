@@ -22,23 +22,37 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		var choices = this.props.item.choices || [];
+		var item = this.props.item;
+		var choices = item.choices || [];
+		var submitted = this.isSubmitted();
+		var solution = submitted && this.getSolution();
 
 		return (
 			<form className="multiple-choice" ref="form">
-				{choices.map(this.renderChoice)}
+				{choices.map((x,i)=>{
+					return this.renderChoice(x, i, solution);
+				})}
 			</form>
 		);
 	},
 
 
-	renderChoice: function (choice, index) {
+	renderChoice: function (choice, index, solution) {
 		var numeral = String.fromCharCode(65+index);
 		var group = this.props.item.getID();
 		var checked = this.state.value === index;
+		var correct = '';
+
+		if (solution) {
+			solution = solution.value === index;
+
+			if (checked) {
+				correct = solution ? 'correct' : 'incorrect';
+			}
+		}
 
 		return (
-			<label className="choice" key={'choice-'+index}>
+			<label className={'choice ' + correct} key={'choice-'+index}>
 				<input type="radio" name={group} checked={checked} value={index} onChange={this.handleInteraction}/>
 				<div>
 					<span className="numeral">{numeral}.</span>
