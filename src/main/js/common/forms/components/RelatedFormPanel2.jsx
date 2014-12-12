@@ -147,7 +147,7 @@ var RelatedFormPanel = React.createClass({
 			options: field.options||null,
 			translator: tr,
 			pattern: (field.type === 'number' && '[0-9]*') || null
-		}
+		};
 
 		var input;
 		switch(field.type) {

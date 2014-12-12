@@ -84,7 +84,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 	},
 
 	_submitEnabled: function() {
-		return !!this.state.fieldValues['signature'];
+		return !!this.state.fieldValues.signature;
 	},
 
 	render: function() {
