@@ -196,6 +196,11 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
+	getExplanation: function (part) {
+		return part.explanation;
+	},
+
+
 	getSolution: function (part) {
 		return (part.solutions || [])[0];
 	},

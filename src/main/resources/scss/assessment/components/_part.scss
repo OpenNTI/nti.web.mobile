@@ -6,4 +6,39 @@
 	.part-content:not(:empty) {
 		padding: 1rem 0;
 	}
+
+	.part-help a.close {
+		position: absolute !important;
+		z-index: 1;
+		top: 0;
+		right: -0.4rem;
+		display: block;
+		width: 1.5rem;
+		height: 1.5rem;
+		overflow: hidden;
+		text-indent: -100px;
+
+		&::after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 0; left: 0; right: 0; bottom: 0;
+			background: url(../images/icons/close.png) center center no-repeat;
+		}
+	}
+
+
+	.help-button-box {
+		margin: 0 1rem 0.5rem;
+	}
+
+
+	.form-input + .help-button-box {
+		margin-top: -1rem;
+	}
+
+	a.help-link {
+		font-size: 0.875rem;
+		color: $secondary-grey;
+	}
 }

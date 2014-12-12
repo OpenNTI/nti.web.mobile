@@ -76,3 +76,23 @@
 	}
 
 }
+
+.multiple-choice-solutions {
+
+	border: 1px solid $border-grey;
+	padding: 0.4rem;
+	margin: 0 -0.4rem;
+	background: $panel-background;
+
+	.solution {
+		display: block;
+		position: relative;
+		line-height: 2;
+		color: $correct;
+	}
+
+	.numeral {
+		margin-right: 0.5rem;
+		font-weight: bold;
+	}
+}
