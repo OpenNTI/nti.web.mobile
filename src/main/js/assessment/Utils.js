@@ -1,5 +1,6 @@
 'use strict';
 
+var isEmpty = require('dataserverinterface/utils/isempty');
 
 Object.assign(exports, {
 
@@ -31,7 +32,9 @@ Object.assign(exports, {
 			}
 
 			for (x; x >= 0; x--) {
-				question.parts[x].updateFromAssessed(q.parts[x]);
+				if (!isEmpty(q.parts[x])) {
+					question.parts[x].updateFromAssessed(q.parts[x]);
+				}
 			}
 		});
 
