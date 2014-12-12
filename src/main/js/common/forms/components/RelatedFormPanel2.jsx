@@ -69,23 +69,18 @@ var RelatedFormPanel = React.createClass({
 			delete errors[target];
 			this.forceUpdate();
 		}
-		if (isFunction(this._inputFocused)) {
-			this._inputFocused(event);
-		}
 	},
 
 	_onBlur: function(event) {
 		this.updateFieldValueState(event);
-		if (isFunction(this._inputBlurred)) {
-			this._inputBlurred(event);
-		}
 	},
 
-	_radioChanged: function(fieldConfig, event) {
+	_radioChanged: function(event) {
 		this.updateFieldValueState(event);
-		if(isFunction(this._inputChanged)) {
-			this._inputChanged(event);
-		}
+	},
+
+	_checkboxChanged: function(event) {
+		this.updateFieldValueState(event);	
 	},
 
 	updateFieldValueState: function(event) {
@@ -94,9 +89,12 @@ var RelatedFormPanel = React.createClass({
 		var value = target.value;
 		var tmp = Object.assign({}, this.state.fieldValues);
 
-		// don't set an empty value if there's not already
-		// an entry for this field in this.state.fieldValues
-		if (value || tmp.hasOwnProperty(field)) {
+		if(target.type === 'checkbox' && !target.checked) {
+			delete tmp[field];
+		}
+		else if (value || tmp.hasOwnProperty(field)) {
+			// ^ don't set an empty value if there's not already
+			// an entry for this field in this.state.fieldValues
 			tmp[field] = value;
 			this.setState({ fieldValues: tmp });
 		}
@@ -134,7 +132,22 @@ var RelatedFormPanel = React.createClass({
 			fallback: ''
 		};
 
-		var onChange = null; // isFunction(this._inputChanged) ? this._inputChanged : null;
+		var props = {
+			ref: ref,
+			name: ref,
+			onBlur: this._onBlur,
+			onFocus: this._onFocus,
+			placeholder: tr(ref,translateOptions),
+			className: cssClass.join(' '),
+			defaultValue: (values||{})[ref],
+			type: type,
+			field: field,
+			// ToggleFieldset needs to call renderField.
+			renderField: this.renderField,
+			options: field.options||null,
+			translator: tr,
+			pattern: (field.type === 'number' && '[0-9]*') || null
+		}
 
 		var input;
 		switch(field.type) {
@@ -146,13 +159,13 @@ var RelatedFormPanel = React.createClass({
 			break;
 			case 'radiogroup':
 				input = RadioGroup;
-				var radioChange = this._radioChanged.bind(null, field);
-				var tmp = onChange;
-				onChange = tmp ? function(event) { tmp(event); radioChange(event); }.bind(this) : radioChange;
+				props.onChange = this._radioChanged;
 				RelatedConfigsStash.concat(this._getRelatedConfigs(field));
 			break;
 			case 'checkbox':
 				input = Checkbox;
+				props.onChange = this._checkboxChanged;
+				props.value = field.value;
 			break;
 			case 'toggleFieldset':
 				input = ToggleFieldset;
@@ -163,26 +176,7 @@ var RelatedFormPanel = React.createClass({
 
 		var component = type === 'label' ?
 			React.DOM.label({ ref: ref, className: cssClass.join(' ') }, tr(ref, translateOptions)) :
-			input({
-				ref: ref,
-				
-				name: ref,
-				onBlur: this._onBlur,
-				onFocus: this._onFocus,
-				onChange: onChange,
-				placeholder: tr(ref,translateOptions),
-				className: cssClass.join(' '),
-				defaultValue: (values||{})[ref],
-				type: type,
-				field: field,
-				// passing renderField function to custom input components to
-				// avoid the circular references that would occur if the
-				// component imported this mixin. ToggleFieldset needs this.
-				renderField: this.renderField,
-				options: field.options||null,
-				translator: tr,
-				pattern: (field.type === 'number' && '[0-9]*') || null
-			});
+			input(props);
 
 		var subfields = this._renderActiveSubfields(field);
 
