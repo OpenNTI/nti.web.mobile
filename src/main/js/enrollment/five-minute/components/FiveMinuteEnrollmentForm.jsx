@@ -24,7 +24,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 			visibleFields: []
 		};
 	},
-	
+
 	componentDidMount: function() {
 		RelatedFormStore.addChangeListener(this._storeChange);
 	},
@@ -52,7 +52,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		console.group('getVisibleFields');
 		this.refs[_rootFormRef].getVisibleFields().forEach(function(item) {
 			console.log(item.ref);
-		})
+		});
 		console.groupEnd();
 		Actions.preflight(fields, this.props.storeContextId);
 	},
