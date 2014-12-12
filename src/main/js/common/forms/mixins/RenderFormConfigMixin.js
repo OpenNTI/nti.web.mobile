@@ -9,8 +9,6 @@ var radiogroup = require('common/forms/components/RadioGroup');
 var Select = require('common/forms/components/Select');
 var Checkbox = require('common/forms/components/Checkbox');
 var ToggleFieldset = require('../components/ToggleFieldset');
-var Constants = require('../Constants');
-var RelatedFormStore = require('common/forms/RelatedFormStore');
 
 module.exports = {
 
@@ -133,10 +131,16 @@ module.exports = {
 		var fieldRenderFn = this.renderField.bind(null, translator, values);
 
 		var key = 'fieldset-'.concat(index);
-		return React.DOM.fieldset({key: key, className: fieldset.className || null}, [
-			fieldset.title ? React.DOM.legend({key: key+'-legend'}, fieldset.title) : null,
-			fieldset.fields.map(fieldRenderFn)
-			]);
+		return React.DOM.fieldset(
+			{
+				key: key,
+				className: fieldset.className || null
+			},
+			[
+				fieldset.title ? React.DOM.legend({key: key+'-legend'}, fieldset.title) : null,
+				fieldset.fields.map(fieldRenderFn)
+			]
+		);
 	},
 
 	renderFormConfig: function(config, values, translator) {
@@ -170,83 +174,9 @@ module.exports = {
 
 	_radioChanged: function(fieldConfig, event) {
 		this.updateFieldValueState(event);
-		this.setState(this._getRelatedState(fieldConfig, event));
 		if(isFunction(this._inputChanged)) {
 			this._inputChanged(event);
 		}
-	},
-
-	_fieldHasRelated: function(fieldConfig) {
-		var config = fieldConfig||{};
-		if(config.type !== 'radiogroup') {
-			return false;
-		}
-		return (config.options||[]).some(function(option) {
-			return option.related;
-		});
-	},
-
-	/**
-	* 
-	*/
-	_getRelatedFormState: function(formConfig, values) {
-		(formConfig||[]).forEach(function(fieldset) {
-			(fieldset.fields||[]).forEach(function(fieldConfig) {
-				if (this._fieldHasRelated(fieldConfig)) {
-					var selectedValue = (values||{})[fieldConfig.ref];
-					return this._getRelatedStateForField(fieldConfig, selectedValue);
-				}
-			}.bind(this));
-		}.bind(this));
-	},
-
-	_getRelatedStateForField: function(fieldConfig, event) {
-		// find the selected option
-		// event can be either a simple value or an onChange event.
-		var value = event && event.target ? event.target.value : event;
-		var selectedOption = (fieldConfig.options||[]).find(function(item) {
-			return item.value === value;
-		});
-
-		var subfields = this.state.subfields||{};
-
-		if (this.props.storeContextId && subfields[fieldConfig.ref]) {
-			//remove these from values store.
-			var fieldNames = subfields[fieldConfig.ref].map(item=>item.ref);
-			RelatedFormStore.clearValues(this.props.storeContextId, fieldNames);
-		}
-
-		delete subfields[fieldConfig.ref];
-		var relatedState = {
-			relatedForm: null,
-			subfields: subfields,
-			message: null
-		};
-
-		if (selectedOption && Array.isArray(selectedOption.related)) {
-			var related = selectedOption.related;
-			// related is an array but we currently only support one related item.
-			related.forEach(function(item) {
-				switch (item.type) {
-					case Constants.FORM_CONFIG:
-						relatedState.relatedForm = item.content;
-					break;
-
-					case Constants.SUBFIELDS:
-						// stash subfields in state indexed by field.ref
-						// to be rendered as part of this.renderField on
-						// the next update.
-						relatedState.subfields[fieldConfig.ref] = item.content;
-					break;
-
-					case Constants.MESSAGE:
-						console.debug('TODO: implement related MESSAGE case for radio option');
-						relatedState.message = item.content;
-					break;
-				}
-			}.bind(this));
-		}
-		return relatedState;
 	},
 
 	updateFieldValueState: function(event) {

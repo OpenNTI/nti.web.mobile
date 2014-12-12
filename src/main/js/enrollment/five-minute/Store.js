@@ -2,13 +2,10 @@
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var RelatedFormStore = require('common/forms/RelatedFormStore');
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var Constants = require('./Constants');
 var Utils = require('common/Utils');
-
-var _storeContextId;
 
 var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'enrollment.Store',
@@ -33,13 +30,6 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	 */
 	removeChangeListener: function(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
-	},
-
-	getFormStoreContextId: function(shouldCreate) {
-		if(!_storeContextId && shouldCreate) {
-			_storeContextId = RelatedFormStore.newContext();
-		}
-		return _storeContextId;
 	},
 
 	getAdmissionStatus: function() {
@@ -79,9 +69,6 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 					console.debug(result);
 				},
 				function(reason) {
-					if(action.payload.storeContextId) {
-						RelatedFormStore.setError(action.payload.storeContextId, reason.field, reason);
-					}
 					Store.emitError({
 		    			type: Constants.errors.PREFLIGHT_ERROR,
 						action: action,

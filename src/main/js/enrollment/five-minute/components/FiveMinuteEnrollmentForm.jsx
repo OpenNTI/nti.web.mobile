@@ -5,7 +5,6 @@
 var React = require('react/addons');
 var FieldRender = require('common/forms/mixins/RenderFormConfigMixin');
 var RelatedFormPanel = require('common/forms/components/RelatedFormPanel2');
-var RelatedFormStore = require('common/forms/RelatedFormStore');
 var FormErrors = require('common/forms/components/FormErrors');
 var _formConfig = require('../configs/FiveMinuteEnrollmentForm');
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
@@ -24,14 +23,6 @@ var FiveMinuteEnrollmentForm = React.createClass({
 			errors: []
 		};
 	},
-	
-	componentDidMount: function() {
-		RelatedFormStore.addChangeListener(this._storeChange);
-	},
-
-	componentWillUnmount: function() {
-		RelatedFormStore.removeChangeListener(this._storeChange);
-	},
 
 	_storeChange: function(event) {
 		if(event.isError) {
@@ -40,9 +31,6 @@ var FiveMinuteEnrollmentForm = React.createClass({
 				message: event.error.message
 			});
 			this.forceUpdate();
-			// this.setState({
-			// 	errors: RelatedFormStore.getErrors(this.props.storeContextId)
-			// });
 		}
 	},
 
@@ -70,7 +58,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 				newErrs.push(err);
 			} else {
 				anyRemoved = true;
-			};
+			}
 		});
 		if (anyRemoved) {
 			this.setState({
@@ -80,14 +68,14 @@ var FiveMinuteEnrollmentForm = React.createClass({
 	},
 
 	_handleSubmit: function() {
-		var fields = this.state.fieldValues; //RelatedFormStore.getValues(this.props.storeContextId);
+		var fields = this.state.fieldValues;
 		// console.group('getVisibleFields');
 		// this.refs[_rootFormRef].getVisibleFields().forEach(function(item) {
 		// 	console.debug(item.ref, item.required ? '- (required)' : '');
 		// });
 		// console.groupEnd();
 		if (this._isValid()) {
-			Actions.preflight(fields, this.props.storeContextId);	
+			Actions.preflight(fields);
 		}
 	},
 
@@ -117,7 +105,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 	render: function() {
 
 		var title = t('admissionTitle');
-		var errors = this.state.errors; // RelatedFormStore.getErrors(this.props.storeContextId);
+		var errors = this.state.errors;
 		var errorRefs = new Set(errors.map(function(err) {
 			return err.field;
 		}));

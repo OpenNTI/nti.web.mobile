@@ -56,7 +56,7 @@ var View = React.createClass({
 
 			case StatusConstants.REJECTED:
 			case null:
-				view = <FiveMinuteEnrollmentForm storeContextId={Store.getFormStoreContextId(true)}/>;
+				view = <FiveMinuteEnrollmentForm />;
 				break;
 
 			case StatusConstants.PENDING:

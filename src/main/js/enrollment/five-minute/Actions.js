@@ -4,12 +4,11 @@ var Constants = require('./Constants');
 var AppDispatcher = require('dispatcher/AppDispatcher');
 
 module.exports = {
-	preflight: function(data, storeContextId) {
+	preflight: function(data) {
 		dispatch(
 			Constants.actions.PREFLIGHT,
 			{
-				data: data,
-				storeContextId: storeContextId
+				data: data
 			}
 		);
 	}
