@@ -35,9 +35,14 @@ var FiveMinuteEnrollmentForm = React.createClass({
 
 	_storeChange: function(event) {
 		if(event.isError) {
-			this.setState({
-				errors: RelatedFormStore.getErrors(this.props.storeContextId)
+			this.state.errors.push({
+				field: event.field,
+				message: event.error.message
 			});
+			this.forceUpdate();
+			// this.setState({
+			// 	errors: RelatedFormStore.getErrors(this.props.storeContextId)
+			// });
 		}
 	},
 
@@ -78,6 +83,10 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		return errors.length === 0;
 	},
 
+	_submitEnabled: function() {
+		return !!this.state.fieldValues['signature'];
+	},
+
 	render: function() {
 
 		var title = t('admissionTitle');
@@ -100,7 +109,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 							errorFieldRefs={errorRefs}
 							translator={t} />
 						<FormErrors errors={errors} />
-						<ButtonFullWidth onClick={this._handleSubmit}>{t('submit')}</ButtonFullWidth>
+						<ButtonFullWidth enabled={this._submitEnabled()} onClick={this._handleSubmit}>{t('submit')}</ButtonFullWidth>
 					</div>
 				</div>
 			</div>
