@@ -19,7 +19,7 @@ var mailingAddressFieldset = {
 	title: 'Mailing Address',
 	fields: [
 		{
-			ref: 'mailAddressLabel',
+			ref: 'mailingAddressLabel',
 			type: 'label'
 		},
 		{
@@ -97,7 +97,7 @@ module.exports = Object.freeze([
 					},
 					{
 						label: 'Prefer not to disclose',
-						value: ''
+						value: ' '
 					}
 				]
 			}

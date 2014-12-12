@@ -12,6 +12,7 @@ var RadioGroup = require('./RadioGroup');
 var ToggleFieldset = require('./ToggleFieldset');
 var Select = require('common/forms/components/Select');
 var Checkbox = require('common/forms/components/Checkbox');
+var hash = require('object-hash');
 
 // just a dumb wrapper around an array to isolate the
 // accumulation of related configs during render.
@@ -29,6 +30,8 @@ var RelatedConfigsStash = {
 };
 
 var RelatedFormPanel = React.createClass({
+
+	_visibleFields: [],
 
 	statics: {
 		// static because it's easier to test
@@ -91,8 +94,8 @@ var RelatedFormPanel = React.createClass({
 			tmp[field] = value;
 			this.setState({ fieldValues: tmp });
 		}
-		if (isFunction(this.props.fieldChange)) {
-			this.props.fieldChange(tmp);
+		if (isFunction(this.props.onFieldValuesChange)) {
+			this.props.onFieldValuesChange(tmp);
 		}
 	},
 
@@ -103,6 +106,8 @@ var RelatedFormPanel = React.createClass({
 		var tr = this.props.translator||t;
 		var type = field.type;
 		var inlineSubfields = null;
+
+		this._visibleFields.push(field);
 
 		if(field.required) {
 			cssClass.push('required');
@@ -183,7 +188,7 @@ var RelatedFormPanel = React.createClass({
 
 		return React.DOM.div(
 			{
-				key: ref,
+				key: hash(field),
 				className: ref
 			},
 			component,
@@ -205,16 +210,15 @@ var RelatedFormPanel = React.createClass({
 	},
 
 	renderFieldset: function(fieldset, values, index) {
-		var key = 'fieldset-'.concat(index);
-		var legend = fieldset.title ? React.DOM.legend({key: key+'-legend'}, fieldset.title) : null;
+		var legend = fieldset.title ? React.DOM.legend({key: fieldset.title.concat('-legend')}, fieldset.title) : null;
 		var fields = fieldset.fields.map(function(field) {
 			return this.renderField(field, values);
 		}.bind(this));
 
 		var fieldsetComponent = React.DOM.fieldset(
 			{
-				key: key,
-				className: fieldset.className || null
+				className: fieldset.className || null,
+				key: hash(fieldset)
 			},
 			[
 				legend,
@@ -222,15 +226,18 @@ var RelatedFormPanel = React.createClass({
 			]
 		);
 
-		var related = RelatedConfigsStash.get().map(function(config) {
-			return config.isActive && config.config[0].type === Constants.FORM_CONFIG ?
-				this._renderFormConfig(config.config[0].content,values) :
-				null;
+		var related = [];
+
+		RelatedConfigsStash.get().forEach(function(config) {
+			if(config.isActive && config.config[0].type === Constants.FORM_CONFIG) {
+				related.push(this._renderFormConfig(config.config[0].content, values));
+			}
 		}.bind(this));
 
 		return React.DOM.div(
 			{
-				className: 'fieldset-'.concat(index)
+				className: 'fieldset-'.concat(index),
+				key: hash(fieldset)
 			},
 			fieldsetComponent,
 			related
@@ -243,7 +250,7 @@ var RelatedFormPanel = React.createClass({
 			return this.renderFieldset(fieldset, values, index);
 		}.bind(this));
 		return (
-			React.DOM.div({className: 'form-render'}, fieldsets)
+			React.DOM.div({className: 'form-render', key: hash(config)}, fieldsets)
 		);
 	},
 
@@ -261,8 +268,31 @@ var RelatedFormPanel = React.createClass({
 		return result;
 	},
 
+	getVisibleFields: function() {
+		return this._visibleFields.slice(0);
+	},
+
+	componentWillUpdate: function() {
+		this._visibleFields.length = 0;
+	},
+
+	componentDidUpdate: function() {
+		if (isFunction(this.props.onFieldsChange)) {
+			this.props.onFieldsChange(this._visibleFields);
+		}
+	},
+
 	render: function() {
 		var renderedForm = this._renderFormConfig(this.props.formConfig, this.state.fieldValues);
+
+		// setTimeout(function() {
+		// 	this._visibleFields.forEach(
+		// 		function(field) {
+		// 			console.log(field.ref, field.required ? '(required)' : '');
+		// 		}.bind(this)
+		// 	);
+		// }.bind(this), 1000);
+
 		return (
 			<div>
 				{renderedForm}

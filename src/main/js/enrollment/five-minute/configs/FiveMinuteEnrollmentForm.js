@@ -41,6 +41,7 @@ var highSchoolQuestion = [{
 		{
 			ref: 'is_currently_attending_highschool',
 			type: 'radiogroup',
+			required: true,
 			label: t('oklahomaResidentHighSchool'),
 			options: [
 				{

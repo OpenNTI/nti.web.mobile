@@ -20,7 +20,8 @@ var FiveMinuteEnrollmentForm = React.createClass({
 
 	getInitialState: function() {
 		return {
-			fieldValues: {}
+			fieldValues: {},
+			visibleFields: []
 		};
 	},
 	
@@ -40,7 +41,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		}
 	},
 
-	fieldChanged: function(fieldValues) {
+	fieldValuesChanged: function(fieldValues) {
 		this.setState({
 			fieldValues: fieldValues
 		});
@@ -48,6 +49,11 @@ var FiveMinuteEnrollmentForm = React.createClass({
 
 	_handleSubmit: function() {
 		var fields = RelatedFormStore.getValues(this.props.storeContextId);
+		console.group('getVisibleFields');
+		this.refs[_rootFormRef].getVisibleFields().forEach(function(item) {
+			console.log(item.ref);
+		})
+		console.groupEnd();
 		Actions.preflight(fields, this.props.storeContextId);
 	},
 
@@ -62,16 +68,12 @@ var FiveMinuteEnrollmentForm = React.createClass({
 					<div className="medium-6 medium-centered columns">
 						<h2>{title}</h2>
 						<p>{t('admissionDescription')}</p>
-					</div>
-				</div>
-				<RelatedFormPanel
-					fieldChange={this.fieldChanged}
-					ref={_rootFormRef}
-					title={title}
-					formConfig={_formConfig}
-					translator={t} />
-				<div className="row">
-					<div className="medium-6 medium-centered columns">
+						<RelatedFormPanel
+							onFieldValuesChange={this.fieldValuesChanged}
+							ref={_rootFormRef}
+							title={title}
+							formConfig={_formConfig}
+							translator={t} />
 						<FormErrors errors={errors} />
 						<ButtonFullWidth onClick={this._handleSubmit}>{t('submit')}</ButtonFullWidth>
 					</div>

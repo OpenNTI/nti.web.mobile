@@ -25,11 +25,11 @@ var Select = React.createClass({
 
 		var options = this.props.options.map(function(item) {
 			var option = this._makeOption(item);
-			return <option value={option.value}>{option.name}</option>;
+			return <option value={option.value} key={option.value}>{option.name}</option>;
 		}.bind(this));
 
 		// include empty option
-		options.unshift(<option value=""></option>);
+		options.unshift(<option value="" key="blank"></option>);
 
 		var select = this.transferPropsTo(
 			<select>
