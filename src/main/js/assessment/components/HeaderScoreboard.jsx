@@ -13,6 +13,8 @@ var getTarget = Utils.Dom.getEventTarget;
 var Store = require('../Store');
 var Actions = require('../Actions');
 
+//Still need to get the list of previous attempts. Not just the last one.
+
 module.exports = React.createClass({
 	displayName: 'HeaderScoreboard',
 
