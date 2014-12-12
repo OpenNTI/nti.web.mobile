@@ -19,19 +19,21 @@ npm install && bower install
 
 While you're working on this project, run:
 
-`grunt`
+```bash
+grunt
+```
 
 #### Git Pre-Commit Hook:
-Put this bash script in the `.git/hooks/pre-commit`:
-   
-	#!/bin/sh
-	FILES=`git diff --cached --name-only | grep -i ".jsx\?$"`
 
-	for f in $FILES
-	do
-		if [ ! -f $f ]; then  #file was deleted
-			continue
-		fi
-	
-		jsxhint $(pwd)/$f || exit 1;
-	done
+Make sure you have `jshint` and `jsxhint` installed "globally."
+```bash
+npm install jshint -g
+npm install jsxhint -g
+```
+
+Activate the hook:
+
+```bash
+cp ./pre-commit.sample .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+```
