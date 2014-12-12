@@ -13,13 +13,16 @@ var Button = React.createClass({
 
 	getDefaultProps: function() {
 		return {
-			href: '#'
+			href: '#',
+			enabled: true
 		};
 	},
 
 	onClick: function(e) {
-		(this.props.onClick||function(){}).apply(this,arguments);
-		if(this.props.href==='#') {
+		if(this.props.enabled) {
+			(this.props.onClick||function(){}).apply(this,arguments);	
+		}
+		if(this.props.href==='#' || !this.props.enabled) {
 			e.preventDefault();
 		}
 	},
@@ -28,7 +31,9 @@ var Button = React.createClass({
 
 		var css = ['button', 'tiny', 'radius'];
 		css.push(this.props.className);
-
+		if(!this.props.enabled) {
+			css.push('disabled');
+		}
 		return this.transferPropsTo(
 			<a href={this.props.href} onClick={this.onClick} className={css.join(' ')}>{this.props.children}</a>
 		);
