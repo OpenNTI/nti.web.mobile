@@ -50,6 +50,12 @@ var RelatedFormPanel = React.createClass({
 		translator: React.PropTypes.func
 	},
 
+	getDefaultProps: function() {
+		return {
+			errorFieldRefs: new Set()
+		};
+	},
+
 	getInitialState: function() {
 		return {
 			fieldValues: {}
@@ -113,6 +119,10 @@ var RelatedFormPanel = React.createClass({
 			cssClass.push('required');
 		}
 
+		if(this.props.errorFieldRefs.has(field.ref)) {
+			cssClass.push('error');
+		}
+
 		if (!type || type === 'number') {
 			type = 'text';
 		}
@@ -124,7 +134,7 @@ var RelatedFormPanel = React.createClass({
 			fallback: ''
 		};
 
-		var onChange = isFunction(this._inputChanged) ? this._inputChanged : null;
+		var onChange = null; // isFunction(this._inputChanged) ? this._inputChanged : null;
 
 		var input;
 		switch(field.type) {
@@ -155,7 +165,7 @@ var RelatedFormPanel = React.createClass({
 			React.DOM.label({ ref: ref, className: cssClass.join(' ') }, tr(ref, translateOptions)) :
 			input({
 				ref: ref,
-				value: (values||{})[ref],
+				
 				name: ref,
 				onBlur: this._onBlur,
 				onFocus: this._onFocus,
@@ -277,21 +287,30 @@ var RelatedFormPanel = React.createClass({
 	},
 
 	componentDidUpdate: function() {
+		this._pruneFieldValues();
 		if (isFunction(this.props.onFieldsChange)) {
 			this.props.onFieldsChange(this._visibleFields);
 		}
 	},
 
+	// after an update clear fieldValue entries
+	// for fields no longer in the form.
+	_pruneFieldValues: function() {
+		var fieldValues = this.state.fieldValues;
+		var _visibleFieldRefs = new Set(
+			this._visibleFields.map(function(item) {
+				return item.ref;
+			})
+		);
+		Object.keys(fieldValues).forEach(function(key) {
+			if (!_visibleFieldRefs.has(key)) {
+				delete fieldValues[key];
+			}
+		});
+	},
+
 	render: function() {
 		var renderedForm = this._renderFormConfig(this.props.formConfig, this.state.fieldValues);
-
-		// setTimeout(function() {
-		// 	this._visibleFields.forEach(
-		// 		function(field) {
-		// 			console.log(field.ref, field.required ? '(required)' : '');
-		// 		}.bind(this)
-		// 	);
-		// }.bind(this), 1000);
 
 		return (
 			<div>

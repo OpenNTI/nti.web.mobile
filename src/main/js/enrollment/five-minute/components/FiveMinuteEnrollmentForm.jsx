@@ -21,10 +21,10 @@ var FiveMinuteEnrollmentForm = React.createClass({
 	getInitialState: function() {
 		return {
 			fieldValues: {},
-			visibleFields: []
+			errors: []
 		};
 	},
-
+	
 	componentDidMount: function() {
 		RelatedFormStore.addChangeListener(this._storeChange);
 	},
@@ -48,19 +48,43 @@ var FiveMinuteEnrollmentForm = React.createClass({
 	},
 
 	_handleSubmit: function() {
-		var fields = RelatedFormStore.getValues(this.props.storeContextId);
+		var fields = this.state.fieldValues; //RelatedFormStore.getValues(this.props.storeContextId);
 		console.group('getVisibleFields');
 		this.refs[_rootFormRef].getVisibleFields().forEach(function(item) {
-			console.log(item.ref);
+			console.debug(item.ref, item.required ? '- (required)' : '');
 		});
 		console.groupEnd();
-		Actions.preflight(fields, this.props.storeContextId);
+		if (this._isValid()) {
+			Actions.preflight(fields, this.props.storeContextId);	
+		}
+	},
+
+	_isValid: function() {
+		var errors = [];
+		var fields = this.refs[_rootFormRef].getVisibleFields();
+		var values = this.state.fieldValues;
+		fields.forEach(function(field){
+			var value = values[field.ref];
+			if(field.required && !value) {
+				errors.push({
+					field: field.ref,
+					message: 'Please complete all required fields'
+				});
+			}
+		}.bind(this));
+		this.setState({
+			errors: errors
+		});
+		return errors.length === 0;
 	},
 
 	render: function() {
 
 		var title = t('admissionTitle');
-		var errors = RelatedFormStore.getErrors(this.props.storeContextId);
+		var errors = this.state.errors; // RelatedFormStore.getErrors(this.props.storeContextId);
+		var errorRefs = new Set(errors.map(function(err) {
+			return err.field
+		}));
 
 		return (
 			<div className="fiveminuteform">
@@ -73,6 +97,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 							ref={_rootFormRef}
 							title={title}
 							formConfig={_formConfig}
+							errorFieldRefs={errorRefs}
 							translator={t} />
 						<FormErrors errors={errors} />
 						<ButtonFullWidth onClick={this._handleSubmit}>{t('submit')}</ButtonFullWidth>
