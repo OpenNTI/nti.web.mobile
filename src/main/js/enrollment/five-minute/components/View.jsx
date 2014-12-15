@@ -6,6 +6,7 @@
 
 var React = require('react/addons');
 var Loading = require('common/components/Loading');
+var Redirect = require('navigation/components/Redirect');
 var Err = require('common/components/Error');
 var PanelButton = require('common/components/PanelButton');
 var FiveMinuteEnrollmentForm = require('./FiveMinuteEnrollmentForm');
@@ -48,18 +49,14 @@ var View = React.createClass({
 	_storeChange: function(event) {
 		switch(event.type) {
 			case Constants.events.ADMISSION_SUCCESS:
-				var link = getLink(event.response.Links, 'fmaep.pay.and.enroll');
-				if (!link) {
-					this.setState(
-						{
-							error: {
-								message: 'Unable to direct you to payment. Please try again later.'
-							}
-						});
-				}
 				this.setState({
-					admissionStatus: event.response.State,
-					paymentLink: link 
+					admissionStatus: event.response.State
+				});
+				break;
+
+			case Constants.events.RECEIVED_PAY_AND_ENROLL_LINK:
+				this.setState({
+					redirect: event.response.href
 				});
 				break;
 		}
@@ -67,23 +64,29 @@ var View = React.createClass({
 
 	render: function() {
 
+		if (this.state.error) {
+			return <Err error={this.state.error} />;
+		}
+
 		if (this.state.loading) {
 			return <Loading />;
 		}
 
-		if (this.state.error) {
-			return <Err error={this.state.error} />;
+		if (this.state.redirect) {
+			return <Redirect location={this.state.redirect} force={true} />;
 		}
 
 		var view;
 
 		switch(this.state.admissionStatus) {
 			case StatusConstants.ADMITTED:
-				var crn = this.props.enrollment.NTI_CRN;
+				var enrollment = this.props.enrollment;
+				var link = getLink(enrollment, 'fmaep.pay.and.enroll');
+				var crn = enrollment.NTI_CRN;
 				// ignore jshint on the following line because we know NTI_Term
 				// is not not camel cased; that's what we get from dataserver.
 				var term = this.props.enrollment.NTI_Term; // jshint ignore:line 
-				view = <Payment paymentLink={this.state.paymentLink} ntiCrn={crn} ntiTerm={term}/>;
+				view = <Payment paymentLink={link} ntiCrn={crn} ntiTerm={term}/>;
 				break;
 
 			case StatusConstants.REJECTED:

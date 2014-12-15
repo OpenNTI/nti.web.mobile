@@ -10,7 +10,8 @@ module.exports = {
 	}),
 	errors: nsKeyMirror(namespace, {
 		PREFLIGHT_ERROR: null,
-		REQUEST_ADMISSION_ERROR: null
+		REQUEST_ADMISSION_ERROR: null,
+		PAY_AND_ENROLL_ERROR: null
 	}),
 	admissionStatus: nsKeyMirror(null,{
 		PENDING: null,
@@ -18,7 +19,8 @@ module.exports = {
 		ADMITTED: null
 	}),
 	events: nsKeyMirror(namespace, {
-		ADMISSION_SUCCESS: null
+		ADMISSION_SUCCESS: null,
+		RECEIVED_PAY_AND_ENROLL_LINK: null
 	})
 };
 

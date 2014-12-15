@@ -64,9 +64,9 @@ function _requestAdmission(data) {
 	});
 }
 
-function _doExternalPayment(ntiCrn, ntiTerm) {
+function _getExternalPaymentUrl(link, ntiCrn, ntiTerm) {
  	return _getFiveMinuteService().then(function(service) {
- 		service.getPayAndEnroll(ntiCrn, ntiTerm);
+ 		return service.getPayAndEnroll(link, ntiCrn, ntiTerm);
  	});
 }
 
@@ -110,7 +110,25 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 			if (!data.ntiCrn || !data.ntiTerm) {
 				throw new Error('action payload requires ntiCrn and ntiTerm parameters. Received %O', data);
 			}
-			_doExternalPayment(data.ntiCrn, data.ntiTerm);
+			var getUrl = _getExternalPaymentUrl(data.link, data.ntiCrn, data.ntiTerm);
+			getUrl.then(
+				function(response) {
+					if(response.rel === 'redirect') {
+						Store.emitChange({
+							type: Constants.events.RECEIVED_PAY_AND_ENROLL_LINK,
+							action: action,
+							response: response
+						});
+					}
+				},
+				function(reason) {
+					Store.emitError({
+						type: Constants.errors.PAY_AND_ENROLL_ERROR,
+						action: action,
+						reason: reason
+					});
+				}
+			);
 			break;
 
         default:

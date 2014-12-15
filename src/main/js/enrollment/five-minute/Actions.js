@@ -12,11 +12,13 @@ module.exports = {
 			}
 		);
 	},
-	doExternalPayment: function(ntiCrnAndTerm) {
+	
+	// @param {object} data should inlude props for link, ntiCrn, and ntiTerm
+	doExternalPayment: function(data) {
 		dispatch(
 			Constants.actions.DO_EXTERNAL_PAYMENT,
 			{
-				data: ntiCrnAndTerm
+				data: data
 			}
 		);
 	}

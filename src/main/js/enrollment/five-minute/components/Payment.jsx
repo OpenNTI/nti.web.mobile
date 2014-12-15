@@ -12,7 +12,7 @@ var Actions = require('../Actions');
 var Payment = React.createClass({
 
 	propTypes: {
-		paymentLink: React.PropTypes.string, // url for dataserver pay and enroll (rel: fmaep.pay.and.enroll)
+		paymentLink: React.PropTypes.string.isRequired, // dataserver pay and enroll link ('fmaep.pay.and.enroll')
 		ntiCrn: React.PropTypes.string.isRequired, // passed to dataserver to get payment site url
 		ntiTerm: React.PropTypes.string.isRequired // passed to dataserver to get payment site url
 	},
@@ -20,6 +20,7 @@ var Payment = React.createClass({
 	buttonClick: function(event) {
 		event.preventDefault();
 		Actions.doExternalPayment({
+			link: this.props.paymentLink,
 			ntiCrn: this.props.ntiCrn,
 			ntiTerm: this.props.ntiTerm
 		});
