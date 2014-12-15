@@ -54,7 +54,7 @@ module.exports = React.createClass({
 					handler={CreditEnrollment}
 					basePath={this.props.basePath}
 					entryId={this.props.entryId}
-					enrollment={this._getEnrollmentOption(Constants.CreditEnrollment)}
+					enrollment={this._getEnrollmentOption(Constants.FiveminuteEnrollment)}
 					courseId={this._getCourseId()} />					
 
                 <Router.NotFound

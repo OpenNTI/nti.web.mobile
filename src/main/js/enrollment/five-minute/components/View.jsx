@@ -9,6 +9,7 @@ var Loading = require('common/components/Loading');
 var Err = require('common/components/Error');
 var PanelButton = require('common/components/PanelButton');
 var FiveMinuteEnrollmentForm = require('./FiveMinuteEnrollmentForm');
+var Payment = require('./Payment');
 var Constants = require('../Constants');
 var Store = require('../Store');
 var StatusConstants = Constants.admissionStatus;
@@ -47,10 +48,15 @@ var View = React.createClass({
 	_storeChange: function(event) {
 		switch(event.type) {
 			case Constants.events.ADMISSION_SUCCESS:
-				// FIXME: paymentLink is the dataserver url. what's the flow to get from
-				// here to the payment site? a click on the button pings the dataserver
-				// to get the external payment site url?
 				var link = getLink(event.response.Links, 'fmaep.pay.and.enroll');
+				if (!link) {
+					this.setState(
+						{
+							error: {
+								message: 'Unable to direct you to payment. Please try again later.'
+							}
+						});
+				}
 				this.setState({
 					admissionStatus: event.response.State,
 					paymentLink: link 
@@ -73,8 +79,11 @@ var View = React.createClass({
 
 		switch(this.state.admissionStatus) {
 			case StatusConstants.ADMITTED:
-				// FIXME: paymentLink as it's set up right now is the dataserver url.
-				view = <PanelButton href={this.state.paymentLink} linkText={t("Proceed to payment")}>You will be taken to an external site for payment.</PanelButton>;
+				var crn = this.props.enrollment.NTI_CRN;
+				// ignore jshint on the following line because we know NTI_Term
+				// is not not camel cased; that's what we get from dataserver.
+				var term = this.props.enrollment.NTI_Term; // jshint ignore:line 
+				view = <Payment paymentLink={this.state.paymentLink} ntiCrn={crn} ntiTerm={term}/>;
 				break;
 
 			case StatusConstants.REJECTED:

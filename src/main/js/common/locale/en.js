@@ -236,7 +236,8 @@ module.exports = {
 		fiveMinuteEnrollmentTitle: 'Enroll for Credit',
 		fiveMinuteNotAvailableOnMobile: 'Please visit from a desktop or our iPad app to enroll for credit. Coming soon to mobile.',
 		fiveMinuteEnrollmentButton: 'Enroll for Credit',
-		fiveMinuteEnrollmentDescription: 'Earn transcripted college credit from the University of Oklahoma.'
+		fiveMinuteEnrollmentDescription: 'Earn transcripted college credit from the University of Oklahoma.',
+		proceedToPayment: "Proceed to payment"
 	},
 
 	COURSE_INFO: {

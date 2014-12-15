@@ -15,7 +15,8 @@ var PanelButton = React.createClass({
 	propTypes: {
 		linkText: React.PropTypes.string, // the text of the button
 		href: React.PropTypes.string, // the href of the button, if applicable
-		buttonClick: React.PropTypes.func // click handler for the button
+		buttonClick: React.PropTypes.func, // click handler for the button
+		button: React.PropTypes.component // pass in your own button if you need special behavior or treatment
 	},
 
 	getDefaultProps: function() {

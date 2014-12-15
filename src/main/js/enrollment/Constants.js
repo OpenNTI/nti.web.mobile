@@ -7,5 +7,6 @@ module.exports = keyMirror({
 	DROP_COURSE: null,
 	LOAD_ENROLLMENT_STATUS: null,
 	StoreEnrollment: null,
+	FiveminuteEnrollment: null,
 	REDEEM_GIFT: null
 });

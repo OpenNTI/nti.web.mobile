@@ -5,7 +5,8 @@ var namespace = 'fiveminute';
 
 module.exports = {
 	actions: nsKeyMirror(namespace, {
-		PREFLIGHT_AND_SUBMIT: null
+		PREFLIGHT_AND_SUBMIT: null,
+		DO_EXTERNAL_PAYMENT: null
 	}),
 	errors: nsKeyMirror(namespace, {
 		PREFLIGHT_ERROR: null,

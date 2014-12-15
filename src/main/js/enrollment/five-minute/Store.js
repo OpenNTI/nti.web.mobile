@@ -64,6 +64,12 @@ function _requestAdmission(data) {
 	});
 }
 
+function _doExternalPayment(ntiCrn, ntiTerm) {
+ 	return _getFiveMinuteService().then(function(service) {
+ 		service.getPayAndEnroll(ntiCrn, ntiTerm);
+ 	});
+}
+
 Store.appDispatch = AppDispatcher.register(function(data) {
     var action = data.action;
 
@@ -97,6 +103,14 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 					});
 				}
 			);
+			break;
+
+		case Constants.actions.DO_EXTERNAL_PAYMENT:
+			var data = action.payload.data;
+			if (!data.ntiCrn || !data.ntiTerm) {
+				throw new Error('action payload requires ntiCrn and ntiTerm parameters. Received %O', data);
+			}
+			_doExternalPayment(data.ntiCrn, data.ntiTerm);
 			break;
 
         default:

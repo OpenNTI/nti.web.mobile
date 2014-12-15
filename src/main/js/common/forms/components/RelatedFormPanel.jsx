@@ -236,6 +236,9 @@ var RelatedFormPanel = React.createClass({
 					case Constants.MESSAGE:
 						related.push(<PanelNoButton><LocalizedHTML key={conf.content} /></PanelNoButton>);
 						break;
+					case Constants.SUBFIELDS:
+						// inline subfields will be rendered with the field itself;
+						break;
 					default:
 						console.warn('Unrecognized related config type: %O', config);
 				}

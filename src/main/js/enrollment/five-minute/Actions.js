@@ -11,6 +11,14 @@ module.exports = {
 				data: data
 			}
 		);
+	},
+	doExternalPayment: function(ntiCrnAndTerm) {
+		dispatch(
+			Constants.actions.DO_EXTERNAL_PAYMENT,
+			{
+				data: ntiCrnAndTerm
+			}
+		);
 	}
 };
 
