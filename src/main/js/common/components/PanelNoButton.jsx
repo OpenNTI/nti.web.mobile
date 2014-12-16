@@ -14,7 +14,7 @@ var PanelNoButton = React.createClass({
 
 	render: function() {
 		return this.transferPropsTo(
-			<PanelButton button={true}>
+			<PanelButton>
 				{this.props.children}
 			</PanelButton>
 		);

@@ -28,6 +28,9 @@ var PanelButton = React.createClass({
 	},
 
 	_button: function() {
+		if (!this.props.button && !this.props.href || this.props.href === '#') {
+			return null;
+		}
 		return this.props.button || <a href={this.props.href}
 			className="button tiny radius column"
 			onClick={this.props.buttonClick}>{this.props.linkText}</a>;
