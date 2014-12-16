@@ -151,7 +151,7 @@ module.exports = function(grunt) {
 					outputStyle: 'compressed'
 				},
 				files: {
-					//'src/main/resources/css/app.css': 'src/main/resources/scss/app.scss',
+					'src/main/resources/css/app.css': 'src/main/resources/scss/app.scss',
 					'src/main/resources/css/sites/platform.ou.edu/site.css': 'src/main/resources/scss/sites/platform.ou.edu/site.scss'
 				}
 			}
