@@ -169,7 +169,17 @@ module.exports = Object.freeze([
 				options: [
 					{
 						label: 'Yes',
-						value: 'Y'
+						value: 'Y',
+						related: [{
+							type: Constants.SUBFIELDS,
+							content: [
+								{
+									type: 'hidden',
+									ref: 'country_of_citizenship',
+									defaultValue: 'United States'
+								}
+							]
+						}]
 					},
 					{
 						label: 'No',
