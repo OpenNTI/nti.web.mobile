@@ -68,6 +68,11 @@ Store.appDispatch = AppDispatcher.register(function(data) {
     var action = data.action;
 
     switch(action.type) {
+    	/**
+    	* FETCH_LINK action is used to populate select options
+    	* from remote sources, e.g. state and country lists in
+    	* RelatedFormPanel.
+    	*/
 		case Constants.FETCH_LINK:
 			var data = action.payload;
 			_fetchLink(data.link).then(
