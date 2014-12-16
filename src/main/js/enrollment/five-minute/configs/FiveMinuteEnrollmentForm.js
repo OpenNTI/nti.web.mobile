@@ -2,7 +2,7 @@
 
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var concurrentForm = require('./ConcurrentEnrollmentForm');
-var generalForm = require('./GeneralEnrollmentForm');
+var admissionForm = require('./AdmissionForm');
 var Constants = require('common/forms/Constants');
 
 var attendingOU = [{
@@ -27,7 +27,7 @@ var attendingOU = [{
 					value: 'N',
 					related: [{
 						type: Constants.FORM_CONFIG,
-						content: generalForm
+						content: admissionForm
 					}]
 				}
 			]
