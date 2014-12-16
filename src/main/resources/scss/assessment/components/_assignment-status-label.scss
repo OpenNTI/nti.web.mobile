@@ -1,3 +1,7 @@
+.assignment.status-label-wrapper {
+	position: relative;
+}
+
 .assignment.status-label {
 	font-size: 0.625rem;
 	font-weight: 700;
@@ -18,7 +22,7 @@
 				}
 			}
 		}
-		
+
 
 		&.completed:not(.overdue):not(.overtime):not(.due-today) .state {
 			cursor: pointer;
@@ -64,6 +68,50 @@
 
 		time {
 			white-space: nowrap;
+		}
+	}
+}
+
+.assignment.status-label-tip {
+	position: absolute;
+	background-color: rgba(43,43,43,0.9);
+	padding: 3px 5px;
+	color: $tertiary-grey;
+	font-size: 0.625rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	bottom: -1.5rem;
+	width: auto;
+	left: 0;
+
+
+	.part {
+		white-space: nowrap;
+		display: inline-block;
+		margin-left: -1.3em;
+		margin-right: 1.3em;
+
+		&:first-of-type {
+			margin-left: auto;
+		}
+		&:last-of-type {
+			margin-right: auto;
+		}
+	}
+
+	.message {
+		overflow: hidden;
+	}
+
+	.message > span::before {
+		content: '\00B7';
+		margin: 0.5em;
+	}
+
+	.message > span:first-of-type {
+		color: #fff;
+		&::before {
+			content: none;
 		}
 	}
 }

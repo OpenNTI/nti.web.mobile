@@ -9,11 +9,19 @@ var DateTime = require('common/components/DateTime');
 
 var toUnitString = require('common/locale').scoped('UNITS');
 var toUnitSingularString = require('common/locale').scoped('UNITS.SINGULARS');
+var getTarget = require('common/Utils').Dom.getEventTarget;
 
 var moment = require('moment');
 
 module.exports = React.createClass({
 	displayName: 'AssignmentStatusLabel',
+
+
+	getInitialState: function() {
+		return {
+			showDetail: null
+		};
+	},
 
 
 	isOverDue: function () {
@@ -35,6 +43,12 @@ module.exports = React.createClass({
 	},
 
 
+	isSubmitted: function () {
+		var assignment = this.props.assignment;
+		return Store.isSubmitted(assignment);
+	},
+
+
 	getCompletedDateTime: function () {
 		var i = this.props.historyItem;
 		return i && i.getCreatedTime();
@@ -53,7 +67,33 @@ module.exports = React.createClass({
 	},
 
 
-	getNaturalDuration: function (duration, singular, accuracy) {
+	getStartTime: function () {
+		var a = this.props.assignment;
+		return a.getStartTime && a.getStartTime();
+	},
+
+
+	getTimeRemaining: function () {
+		var max = this.getMaximumTimeAllowed();
+		return max - (new Date() - this.getStartTime());
+	},
+
+
+	getDifferenceBetweenSubmittedAndDue: function () {
+		var submitted = this.getCompletedDateTime();
+		var due = this.props.assignment.getDueDate();
+		return Math.abs(due - submitted);
+	},
+
+
+	getDifferenceBetweenTimeSpentAndMaxTime: function () {
+		var max = this.getMaximumTimeAllowed();
+		var dur = this.getDuration();
+		return Math.abs(max - dur);
+	},
+
+
+	getNaturalDuration: function (duration, accuracy, singular) {
 		var d = new moment.duration(duration);
 
 		var out = [];
@@ -78,9 +118,70 @@ module.exports = React.createClass({
 	},
 
 
+	onCloseDetail: function (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		this.setState({showDetail: null});
+	},
+
+
+	onShowOverdueDetail: function (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		var c = (this.state.showDetail || {}).over;
+
+		//Change the state to show detail (or toggle it off if its already on)
+		this.setState({
+			showDetail: c==='overdue'? void 0 : {over: 'overdue'}
+		});
+	},
+
+
+	onShowOvertimeDetail: function (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		var c = (this.state.showDetail || {}).over;
+
+		//Change the state to show detail (or toggle it off if its already on)
+		this.setState({
+			showDetail: c==='overtime'? void 0 : {over: 'overtime'}
+		});
+	},
+
+
+	onShowStatusDetail: function (e) {
+		var s = this.state;
+
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+
+		if (this.isSubmitted() && getTarget(e, 'time, .overdue, .overtime')) {
+			console.log('Nope');
+			return;
+		}
+
+		//Change the state to show detail (or toggle it off if its already on)
+		this.setState({
+			showDetail: s.showDetail==='detail'? void 0 : 'detail'
+		});
+	},
+
+
 	render: function() {
 		var assignment = this.props.assignment;
-		var complete = Store.isSubmitted(assignment);
+		var complete = this.isSubmitted();
 
 		var date = this.getCompletedDateTime() || new Date();
 
@@ -91,29 +192,70 @@ module.exports = React.createClass({
 		var text = complete ? 'Completed' : 'Due';
 
 		return (
-			<div>
+			<div className="assignment status-label-wrapper">
 				<h6 className="assignment status-label">
 					{assignment.isTimed && this.renderTimeInfo()}
 					<span className={'info-part ' + dueToday + overdue + overtime + text.toLowerCase()}>
-						<span className="state">{text}</span>
+						<span className="state" onClick={this.onShowStatusDetail}>{text}</span>
 						<span className="over">
 							(
-							<span className="overtime">Overtime</span>
-							<span className="overdue">Overdue</span>
+							<span className="overtime" onClick={this.onShowOvertimeDetail}>Overtime</span>
+							<span className="overdue" onClick={this.onShowOverdueDetail}>Overdue</span>
 							)
 						</span>
-						<DateTime date={date} showToday={true} format="dddd, MMMM D" todayText="Today!"/>
+						<DateTime
+							onClick={this.onShowStatusDetail}
+							date={date}
+							showToday={true}
+							format="dddd, MMMM D"
+							todayText="Today!"/>
 					</span>
 				</h6>
+				{this.renderDetail()}
 			</div>
 		);
-		/*
-		<div className="label-tip">
-			<span>
-				<DateTime date={date} format="[Submitted at] h:mm A MM/DD/YYYY"/>
-			</span>
-		</div>
-		*/
+	},
+
+
+	renderDetail: function () {
+		var isDueToday = this.isDueToday();
+		var isSubmitted = this.isSubmitted();
+		var date = this.getCompletedDateTime();
+		var detail = this.state.showDetail;
+		var over = detail && detail.over;
+		var dur;
+
+
+		if (!detail || (!isSubmitted && !isDueToday)) {
+			return;
+		}
+
+		switch(over) {
+		case 'overdue':
+			dur = this.getDifferenceBetweenSubmittedAndDue();
+			break;
+		case 'overtime':
+			dur = this.getDifferenceBetweenTimeSpentAndMaxTime();
+			break;
+			default: break;
+		}
+
+		return (
+			<div className="assignment status-label-tip" onClick={this.onCloseDetail}>
+			<div className="message">
+				{!isSubmitted ? (
+					<span className="part">{this.getNaturalDuration(this.getTimeRemaining(), 2)} Remaining</span>
+
+				):
+
+				[over && (
+					<span className="part">{this.getNaturalDuration(dur, 1)} {over}</span>
+				),(
+					<span className="part"><DateTime date={date} format="[Submitted at] h:mm A MM/DD/YYYY"/></span>
+				)]}
+			</div>
+			</div>
+		);
 	},
 
 
@@ -122,7 +264,7 @@ module.exports = React.createClass({
 		var duration = this.getDuration();
 		var maxtime = this.getMaximumTimeAllowed();
 
-		var time = this.getNaturalDuration(duration || maxtime, !duration, duration ? 2 : 1);
+		var time = this.getNaturalDuration(duration || maxtime, duration ? 2 : 1, !duration);
 
 		if (duration) {
 			return (
