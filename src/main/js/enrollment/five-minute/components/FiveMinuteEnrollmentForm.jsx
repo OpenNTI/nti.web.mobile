@@ -69,7 +69,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 	},
 
 	inputFocused: function(event) {
-		var ref = event.target.ref;
+		var ref = event.target.name;
 		this._removeError(ref);
 	},
 
@@ -78,7 +78,11 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		var error = errors.find(function(entry) {
 			return entry.field === ref;
 		});
-		console.debug(errors.indexOf(error));
+		var index = errors.indexOf(error);
+		if (index > -1) {
+			var removed = errors.splice(index, 1);
+			console.debug('remove error %s', removed[0].field);
+		}
 		return !!error;
 	},
 
