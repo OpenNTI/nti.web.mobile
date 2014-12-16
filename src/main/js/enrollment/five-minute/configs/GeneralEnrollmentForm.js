@@ -2,38 +2,9 @@
 
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var Constants = require('common/forms/Constants');
+var StateSelect = require('common/forms/fields').StateSelect;
+var CountrySelect = require('common/forms/fields').CountrySelect;
 
-var StateSelect  = {
-	baseConfig: {
-		ref: 'state',
-		required: true,
-		type: 'select',
-		optionsLink: {
-			type: 'rel',
-			rel: 'fmaep.state.names'
-		},
-		placeholder: t('state')
-	},
-	withProps: function(props) {
-		return Object.assign({},this.baseConfig,props);
-	}
-};
-
-var CountrySelect  = {
-	baseConfig: {
-		ref: 'nation_code',
-		required: true,
-		type: 'select',
-		optionsLink: {
-			type: 'rel',
-			rel: 'fmaep.country.names'
-		},
-		placeholder: t('country')
-	},
-	withProps: function(props) {
-		return Object.assign({}, this.baseConfig, props);
-	}
-};
 
 var yesNoOptions = [
 	{
@@ -86,7 +57,6 @@ var mailingAddressFieldset = {
 
 module.exports = Object.freeze([
 	{
-		
 		fields: [
 			{
 				ref: 'first_name',
