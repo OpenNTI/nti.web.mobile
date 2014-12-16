@@ -19,7 +19,6 @@ var PasswordResetForm = require('./PasswordResetForm');
 var SignupConfirm = require('./SignupConfirm');
 
 var MessageDisplay = require('messages').Display;
-var Globals = require('common/constants').Globals;
 var Constants = require('../Constants');
 
 var Actions = require('../Actions');
@@ -93,7 +92,7 @@ var View = React.createClass({
 			<div>
 				<nav className="top-bar">
 					<ul className="title-area">
-						<li className="name"><h1><a href="#">{tg(Globals.SITE_NAME)}</a></h1></li>
+						<li className="name"><h1><a href="#">{tg('siteName')}</a></h1></li>
 					</ul>
 				</nav>
 				<div className="loginformswrapper">

@@ -31,13 +31,13 @@ var CreditHours = React.createClass({
 		return (
 			<div className="enroll-for-credit">
 			{/*
-				{_t('Credit.x_units', { count: hours  })} {_t('Credit.available')}<br />
+			{locale('UNITS.credits', { count: hours  })} {_t('CREDIT.available')}<br />
 			*/}
 				{credits.map(function(credit, i) {
 					var e = credit.Enrollment || {};
 					return (
 						<div className="credit" key={keyPrefix + i}>
-							{_t('Credit.x_units', { count: credit.Hours  })} {_t('Credit.available')}<br />
+					{locale('UNITS.credits', { count: credit.Hours  })} {_t('CREDIT.available')}<br />
 							<a href={e.url} target="_blank">{e.label}</a>
 						</div>
 					);
@@ -143,7 +143,10 @@ module.exports = React.createClass({
 								<tr>
 									<td>{_t('Days')}</td>
 									<td>
-										{isEmpty(entry.Schedule && entry.Schedule.days)? <FullyOnline/> : <Schedule schedule={entry.Schedule} startDate={entry.StartDate} />}
+										{isEmpty(entry.Schedule && entry.Schedule.days)?
+											<FullyOnline/> :
+											<Schedule schedule={entry.Schedule} startDate={entry.StartDate} />
+										}
 									</td>
 								</tr>
 							</tbody>

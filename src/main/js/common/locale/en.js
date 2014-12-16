@@ -1,14 +1,30 @@
 /* jshint -W101 */
 /* jshint -W106 */
-/* FIXME inconsistent character casing all over this thing */
+/* FIXME inconsistent character casing all over this thing
+
+	The convention GOING forward: Containers ALL_CAPS, leaf properties/pluralized-
+	forms(and their states one, other, zero etc) are camelCased. {@see UNITS block}.
+*/
 module.exports = {
+	UNITS: {
+		credits: {
+			one: '%(count)s Credit',
+			other: '%(count)s Credits'
+		}
+	},
+
+
 	GLOBAL: {
-		SITE_NAME: 'NextThought'
+		siteName: 'NextThought'
 
 	},
+
+
 	BUTTONS: {
 		OK: 'Okay'
 	},
+
+
 	LOGIN: {
 		login: 'Log In',
 		PasswordPlaceholder: 'Password',
@@ -60,6 +76,7 @@ module.exports = {
 	},
 
 	ENROLLMENT: {
+
 		BUTTONS: {
 			OpenEnrollment: 'Enroll in the open course',
 			drop: 'Drop this course',
@@ -68,6 +85,8 @@ module.exports = {
 			giveThisAsGift: 'Give this as a gift',
 			redeemGift: 'Redeem a gift'
 		},
+
+
 		CONFIRMATION: {
 			header: 'Review and Pay',
 			review: 'Please take a moment to review your order and submit your payment.',
@@ -80,6 +99,8 @@ module.exports = {
 			to: 'To:',
 			message: 'Message:'
 		},
+
+
 		GIFT: {
 			HEADER: {
 				title: 'Gift Information',
@@ -145,6 +166,8 @@ module.exports = {
 			purchaseButton: 'Purchase Gift',
 			agreeToTerms: 'I have read and agree to the <a href="%(url)s" target="_blank">licensing terms</a>.'
 		},
+
+
 		forms: {
 			storeenrollment: {
 				from: 'Email Address',
@@ -243,12 +266,8 @@ module.exports = {
 	COURSE_INFO: {
 		OpenEnrolled: 'You\'re registered for the open course.',
 		OpenEnrolledIsNotForCredit: '(No Credit)',
-		Credit: {
-			available: 'available',
-			x_units: {
-				one: '%(count)s Credit',
-				other: '%(count)s Credits'
-			}
+		CREDIT: {
+			available: 'available'
 		},
 		NoPrerequisites: 'There are no prerequisites for this course.',
 		SchoolLabel: 'School / Department',

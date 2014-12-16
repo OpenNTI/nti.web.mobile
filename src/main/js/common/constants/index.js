@@ -4,5 +4,4 @@ module.exports.DataURIs = require('./DataURIs');
 module.exports.HttpStatusCodes = require('./HttpStatusCodes');
 
 module.exports.Globals = keyMirror({
-	SITE_NAME: null
 });
