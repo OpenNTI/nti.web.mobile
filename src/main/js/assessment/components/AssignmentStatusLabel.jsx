@@ -43,7 +43,7 @@ module.exports = React.createClass({
 
 	getDuration: function () {
 		var a = this.props.assignment;
-		return a.getDuration && a.getDuration() || 1800000;
+		return a.getDuration && a.getDuration();
 	},
 
 
