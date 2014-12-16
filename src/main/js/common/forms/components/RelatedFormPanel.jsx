@@ -32,6 +32,24 @@ var RelatedConfigsStash = {
 	}
 };
 
+// store field values outside of component state
+// so we can update without triggering a re-render.
+var FieldValuesStore = {
+	_fieldValues: {},
+	getValues: function() {
+		return Object.assign({}, this._fieldValues);
+	},
+	setValue: function(name, value) {
+		this._fieldValues[name] = value;
+	},
+	getValue: function(name) {
+		return this._fieldValues[name];
+	},
+	clearValue: function(name) {
+		delete this._fieldValues[name];
+	}
+};
+
 var RelatedFormPanel = React.createClass({
 
 	_visibleFields: [],
@@ -126,6 +144,8 @@ var RelatedFormPanel = React.createClass({
 			fallback: ''
 		};
 
+		var configuredValue = (field.value||field.defaultValue);
+
 		var props = {
 			ref: ref,
 			name: ref,
@@ -133,7 +153,7 @@ var RelatedFormPanel = React.createClass({
 			onFocus: this.props.inputFocus,
 			placeholder: tr(ref,translateOptions),
 			className: cssClass.join(' '),
-			defaultValue: (values||{})[ref],
+			defaultValue: (values||{})[ref]||configuredValue,
 			type: type,
 			field: field,
 			// ToggleFieldset needs to call renderField.
@@ -147,26 +167,31 @@ var RelatedFormPanel = React.createClass({
 		switch(field.type) {
 			case 'textarea':
 				input = React.DOM.textarea;
-			break;
+				break;
+
 			case 'select':
 				input = Select;
 				if (field.optionsLink) {
 					props.optionsLink = field.optionsLink;
 				}
-			break;
+				break;
+
 			case 'radiogroup':
 				input = RadioGroup;
 				props.onChange = this._radioChanged;
 				RelatedConfigsStash.concat(this._getRelatedConfigs(field));
-			break;
+				break;
+
 			case 'checkbox':
 				input = Checkbox;
 				props.onChange = this._checkboxChanged;
 				props.value = field.value;
-			break;
+				break;
+
 			case 'toggleFieldset':
 				input = ToggleFieldset;
-			break;
+				break;
+
 			default:
 				input = React.DOM.input;
 		}
