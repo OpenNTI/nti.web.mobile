@@ -3,34 +3,64 @@
 
 var React = require('react/addons');
 
-var moment = require('moment');
+var isEmpty = require('dataserverinterface/utils/isempty');
 
-var isRelative = /relative/i;
+var moment = require('moment');
 
 module.exports = React.createClass({
 	displayName: 'DateTime',
 
 	propTypes: {
-		date: React.PropTypes.any.isRequired,
-		format: React.PropTypes.string
+		date: React.PropTypes.any.isRequired,//Date
+		relativeTo: React.PropTypes.any,//Date
+		format: React.PropTypes.string,
+		relative: React.PropTypes.bool,
+		customSuffix: React.PropTypes.string,
+		showToday: React.PropTypes.bool,
+		todayText: React.PropTypes.string
 	},
+
 
 	getDefaultProps: function() {
 		return {
 			date: new Date(),
-			format: 'LL'
+			relativeTo: undefined,
+			format: 'LL',
+			relative: false,
+			customSuffix: undefined,
+			showToday: false,
+			todayText: 'Today'
 		};
 	},
 
 
 	render: function() {
-		var m = moment(this.props.date);
-		var format = this.props.format;
-		var text = isRelative.test(format) ? m.fromNow() : m.format(format);
-		var props = {
-			dateTime: m.format()
-		};
+		var props = this.props;
+		var _m = moment(props.date),
+			m = _m;
 
-		return this.transferPropsTo(React.DOM.time(props, text));
+		if (props.relativeTo) {
+			m = moment.duration(m.diff(props.relativeTo));
+			m.fromNow = function(s){
+				return this.humanize(!s);
+			};
+			m.isSame = function() {};//will return falsy
+		}
+
+		var text = props.relative ?
+					m.fromNow(!isEmpty(props.customSuffix)) :
+					m.format(props.format);
+
+		if (props.showToday && m.isSame(new Date(), 'day')) {
+			text = this.props.todayText;
+		}
+
+		text += (props.customSuffix || '');
+
+		props = Object.assign({}, props, {
+			dateTime: moment(props.date).format()
+		});
+
+		return React.DOM.time(props, text);
 	}
 });
