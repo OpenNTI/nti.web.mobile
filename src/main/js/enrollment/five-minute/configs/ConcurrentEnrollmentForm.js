@@ -4,7 +4,7 @@ var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 
 module.exports = Object.freeze([
 	{
-		title: 'Contact Information',
+		title: 'Concurrent Enrollment',
 		fields: [
 			{
 				ref: 'fullName',
