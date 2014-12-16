@@ -2,7 +2,38 @@
 
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var Constants = require('common/forms/Constants');
-var CountryList = require('common/forms/CountryList');
+
+var StateSelect  = {
+	baseConfig: {
+		ref: 'state',
+		required: true,
+		type: 'select',
+		optionsLink: {
+			type: 'rel',
+			rel: 'fmaep.state.names'
+		},
+		placeholder: t('state')
+	},
+	withProps: function(props) {
+		return Object.assign({},this.baseConfig,props);
+	}
+};
+
+var CountrySelect  = {
+	baseConfig: {
+		ref: 'nation_code',
+		required: true,
+		type: 'select',
+		optionsLink: {
+			type: 'rel',
+			rel: 'fmaep.country.names'
+		},
+		placeholder: t('country')
+	},
+	withProps: function(props) {
+		return Object.assign({}, this.baseConfig, props);
+	}
+};
 
 var yesNoOptions = [
 	{
@@ -36,15 +67,15 @@ var mailingAddressFieldset = {
 			required: true,
 			placeholder: t('city')
 		},
-		{
+		StateSelect.withProps({
 			ref: 'mailing_state',
-			placeholder: t('state')
-		},
-		{
+			required: true
+		}),
+		CountrySelect.withProps({
 			ref: 'mailing_nation_code',
 			required: true,
 			placeholder: t('country')
-		},
+		}),
 		{
 			ref: 'mailing_postal_code',
 			required: true,
@@ -121,15 +152,15 @@ module.exports = Object.freeze([
 				required: true,
 				placeholder: t('city')
 			},
-			{
+			StateSelect.withProps({
 				ref: 'state',
-				placeholder: t('state')
-			},
-			{
+				required: true
+			}),
+			CountrySelect.withProps({
 				ref: 'nation_code',
 				required: true,
 				placeholder: t('country')
-			},
+			}),
 			{
 				ref: 'postal_code',
 				required: true,
@@ -176,13 +207,11 @@ module.exports = Object.freeze([
 						related: [{
 							type: Constants.SUBFIELDS,
 							content: [
-								{
+								CountrySelect.withProps({
 									ref: 'country_of_citizenship',
-									type: 'select',
 									label: t('residentOf'),
-									required: true,
-									options: CountryList
-								}
+									required: true
+								})
 							]
 						}]
 					}
