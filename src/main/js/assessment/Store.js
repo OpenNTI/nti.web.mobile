@@ -7,11 +7,13 @@ var AppDispatcher = require('dispatcher/AppDispatcher');
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 
 var AssessedPart = require('dataserverinterface/models/assessment/AssessedPart');
+var AssignmentHistoryItem = require('dataserverinterface/models/assessment/AssignmentHistoryItem');
 
 var Constants = require('./Constants');
 var Api = require('./Api');
 var Utils = require('./Utils');
 
+var assignmentHistoryItems = {};
 var assessed = {};
 var data = {};
 var busy = {};
@@ -66,6 +68,11 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
+	getAssignmentHistoryItem: function (assessment) {
+		return assignmentHistoryItems[this.__getAssessmentKey(assessment)];
+	},
+
+
 	getAssessedSubmission: function (assessment) {
 		return assessed[this.__getAssessmentKey(assessment)];
 	},
@@ -92,6 +99,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	teardownAssessment: function (assessment) {
 		var m = this.__getAssessmentKey(assessment);
 		if (m) {
+			delete assignmentHistoryItems[m];
 			delete assessed[m];
 			delete timers[m];
 			delete data[m];
@@ -173,6 +181,10 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		// cheat are omitted until submitting.
 		if (assessedUnit) {
 			Utils.updatePartsWithAssessedParts(assessment, submission);
+		}
+
+		if (submission instanceof AssignmentHistoryItem) {
+			assignmentHistoryItems[key] = submission;
 		}
 
 		s.markSubmitted(submission.isSubmitted());

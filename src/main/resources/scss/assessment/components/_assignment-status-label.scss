@@ -1,0 +1,69 @@
+.assignment.status-label {
+	font-size: 0.625rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	overflow: hidden;
+
+	span.info-part {
+		&.time-limit {
+			display: block;
+		}
+
+		@media screen and (min-width: 365px) {
+			&.time-limit {
+				display: inline;
+				&::after {
+					content: '\00B7';
+					margin: 0.5em;
+				}
+			}
+		}
+		
+
+		&.completed:not(.overdue):not(.overtime):not(.due-today) .state {
+			cursor: pointer;
+			color: $secondary-green;
+		}
+
+
+		.link { color: $primary-blue; cursor: pointer; }
+
+		.over {
+			cursor: pointer;
+			color: $primary-red;
+		}
+
+		.over::after,
+		.state::after {
+			content: ' ';
+		}
+
+		.over,
+		.overdue,
+		.overtime {
+			display: none;
+		}
+
+		&.overtime, &.overdue {
+			.over { display: inline; }
+		}
+
+		&.overtime .overtime,
+		&.overdue .overdue{ display: inline;}
+
+		&.overtime.overdue {
+			.overtime::after {
+				content: ', '
+			}
+		}
+
+		&.due-today {
+			cursor: pointer;
+			color: $primary-orange;
+		}
+
+		time {
+			white-space: nowrap;
+		}
+	}
+}
