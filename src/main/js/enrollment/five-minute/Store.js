@@ -85,6 +85,7 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 						action: action,
 						reason: reason
 					});
+					return Promise.reject(reason);
 				}
 			);
 			requestAdmission.then(
@@ -96,11 +97,19 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 					});
 				},
 				function(reason) {
+					var rsn = reason || {};
+					// normalize property names for message and field to lowercase.
+					['Field', 'Message'].forEach(function(propName) {
+						if (rsn[propName] && !rsn[propName.toLowerCase()]) {
+							rsn[propName.toLowerCase()] = rsn[propName];
+						}
+					});
 					Store.emitError({
 		    			type: Constants.errors.REQUEST_ADMISSION_ERROR,
 						action: action,
 						reason: reason
 					});
+					return Promise.reject(reason);
 				}
 			);
 			break;
@@ -122,11 +131,13 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 					}
 				},
 				function(reason) {
+					var rsn = reason || {};
 					Store.emitError({
 						type: Constants.errors.PAY_AND_ENROLL_ERROR,
 						action: action,
-						reason: reason
+						reason: rsn
 					});
+					return Promise.reject(rsn);
 				}
 			);
 			break;
