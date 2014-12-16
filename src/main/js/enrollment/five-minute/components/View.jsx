@@ -29,7 +29,7 @@ var View = React.createClass({
 	componentDidMount: function() {
 		Store.getAdmissionStatus().then(function(status) {
 			this.setState({
-				admissionStatus: status ? status.toUpperCase() : status,
+				admissionStatus: status ? status.toUpperCase() : StatusConstants.NONE,
 				loading: false
 			});
 		}.bind(this), function(reason) {
@@ -78,7 +78,7 @@ var View = React.createClass({
 
 		var view;
 
-		switch(this.state.admissionStatus) {
+		switch((this.state.admissionStatus||'').toUpperCase()) {
 			case StatusConstants.ADMITTED:
 				var enrollment = this.props.enrollment;
 				var link = getLink(enrollment, 'fmaep.pay.and.enroll');
@@ -90,7 +90,7 @@ var View = React.createClass({
 				break;
 
 			case StatusConstants.REJECTED:
-			case null:
+			case StatusConstants.NONE:
 				view = <FiveMinuteEnrollmentForm />;
 				break;
 
