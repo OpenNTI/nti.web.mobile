@@ -16,7 +16,8 @@ module.exports = {
 	admissionStatus: nsKeyMirror(null,{
 		PENDING: null,
 		REJECTED: null,
-		ADMITTED: null
+		ADMITTED: null,
+		NONE: null
 	}),
 	events: nsKeyMirror(namespace, {
 		ADMISSION_SUCCESS: null,
