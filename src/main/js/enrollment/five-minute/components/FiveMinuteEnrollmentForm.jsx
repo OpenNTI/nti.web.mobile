@@ -11,6 +11,8 @@ var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
 var Actions = require('../Actions');
 var Store = require('../Store');
+var FieldValuesStore = require('common/forms/FieldValuesStore');
+var FormConstants = require('common/forms/Constants');
 var Constants = require('../Constants');
 
 var _rootFormRef = 'rootForm';
@@ -28,10 +30,12 @@ var FiveMinuteEnrollmentForm = React.createClass({
 
 	componentDidMount: function() {
 		Store.addChangeListener(this._storeChange);
+		FieldValuesStore.addChangeListener(this.fieldValuesStoreChange);
 	},
 
 	componentWillUnmount: function() {
 		Store.removeChangeListener(this._storeChange);
+		FieldValuesStore.removeChangeListener(this.fieldValuesStoreChange);
 	},
 
 	_storeChange: function(event) {
@@ -53,19 +57,26 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		console.groupEnd();
 	},
 
-	fieldValuesChanged: function(fieldValues) {
-		this.setState({
-			fieldValues: fieldValues
-		});
-	},
+	fieldValuesStoreChange: function(event) {
+		switch(event.type) {
+			// case FormConstants.FIELD_VALUES_REMOVED:
+			// 	var removed = (event.removed||[]);
+			// 	removed.forEach(function(fieldName) {
+			// 		this._removeError(fieldName);
+			// 	});
+			// 	break;
 
-	fieldsChanged: function(visibleFieldRefs) {
-		// console.group('now visible:');
-		// visibleFieldRefs.forEach(function(ref) {
-		// 	console.debug(ref);
-		// });
-		// console.groupEnd();
-		this._pruneErrors(visibleFieldRefs);
+			case FormConstants.FIELD_VALUE_CHANGE:
+				console.debug(event);
+				if (event.fieldName === 'signature') {
+					this.forceUpdate();
+				}
+				break;
+
+			case FormConstants.AVAILABLE_FIELDS_CHANGED:
+				this._pruneErrors(event.fields);
+				break;
+		}
 	},
 
 	inputFocused: function(event) {
@@ -105,7 +116,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 	},
 
 	_handleSubmit: function() {
-		var fields = this.state.fieldValues;
+		var fields = FieldValuesStore.getValues();
 		// console.group('getVisibleFields');
 		// this.refs[_rootFormRef].getVisibleFields().forEach(function(item) {
 		// 	console.debug(item.ref, item.required ? '- (required)' : '');
@@ -119,7 +130,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 	_isValid: function() {
 		var errors = [];
 		var fields = this.refs[_rootFormRef].getVisibleFields();
-		var values = this.state.fieldValues;
+		var values = FieldValuesStore.getValues();
 		fields.forEach(function(field){
 			var value = values[field.ref];
 			if(field.required && !value) {
@@ -136,7 +147,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 	},
 
 	_submitEnabled: function() {
-		return !!this.state.fieldValues.signature;
+		return !!FieldValuesStore.getValues().signature;
 	},
 
 	render: function() {
@@ -154,8 +165,6 @@ var FiveMinuteEnrollmentForm = React.createClass({
 						<h2>{title}</h2>
 						<p>{t('admissionDescription')}</p>
 						<RelatedFormPanel
-							onFieldsChange={this.fieldsChanged}
-							onFieldValuesChange={this.fieldValuesChanged}
 							inputFocus={this.inputFocused}
 							ref={_rootFormRef}
 							title={title}

@@ -56,7 +56,6 @@ function _fetchLink(linkRel) {
 
 	return getHref.then(
 		function(href) {
-			console.debug(href);
 			return getService.then(function(service) {
 				return service.get(href);
 			}

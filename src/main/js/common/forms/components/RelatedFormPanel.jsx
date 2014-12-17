@@ -6,8 +6,8 @@
 
 var React = require('react/addons');
 var Constants = require('../Constants');
+var FieldValuesStore = require('../FieldValuesStore');
 var t = require('common/locale').translate;
-var isFunction = require('dataserverinterface/utils/isfunction');
 var RadioGroup = require('./RadioGroup');
 var ToggleFieldset = require('./ToggleFieldset');
 var Select = require('common/forms/components/Select');
@@ -29,24 +29,6 @@ var RelatedConfigsStash = {
 	},
 	concat: function(elements) {
 		this._stash = this._stash.concat(elements);
-	}
-};
-
-// store field values outside of component state
-// so we can update without triggering a re-render.
-var FieldValuesStore = {
-	_fieldValues: {},
-	getValues: function() {
-		return Object.assign({}, this._fieldValues);
-	},
-	setValue: function(name, value) {
-		this._fieldValues[name] = value;
-	},
-	getValue: function(name) {
-		return this._fieldValues[name];
-	},
-	clearValue: function(name) {
-		delete this._fieldValues[name];
 	}
 };
 
@@ -77,48 +59,42 @@ var RelatedFormPanel = React.createClass({
 		};
 	},
 
-	getInitialState: function() {
-		return {
-			fieldValues: {}
-		};
+	componentDidMount: function() {
+		FieldValuesStore.addChangeListener(this._fieldValueChange);
+	},
+
+	componentWillUnmount: function() {
+		FieldValuesStore.removeChangeListener(this._fieldValueChange);
+	},
+
+	_fieldValueChange: function(/* event */) {
+		this.forceUpdate();
+	},
+
+	componentWillUpdate: function() {
+		this._visibleFields.length = 0;
+	},
+
+	componentDidUpdate: function() {
+		var visible = this._getVisibleFieldRefs();
+		FieldValuesStore.setAvailableFields(visible);
 	},
 
 	_onBlur: function(event) {
-		this.updateFieldValueState(event);
+		FieldValuesStore.updateFieldValue(event);
 	},
 
 	_radioChanged: function(event) {
-		this.updateFieldValueState(event);
+		FieldValuesStore.updateFieldValue(event);
 	},
 
 	_checkboxChanged: function(event) {
-		this.updateFieldValueState(event);	
-	},
-
-	updateFieldValueState: function(event) {
-		var target = event.target;
-		var field = target.name;
-		var value = target.value;
-		var tmp = Object.assign({}, this.state.fieldValues);
-
-		if(target.type === 'checkbox' && !target.checked) {
-			delete tmp[field];
-		}
-		else if (value || tmp.hasOwnProperty(field)) {
-			// ^ don't set an empty value if there's not already
-			// an entry for this field in this.state.fieldValues
-			tmp[field] = value;
-			this.setState({ fieldValues: tmp });
-		}
-		if (isFunction(this.props.onFieldValuesChange)) {
-			this.props.onFieldValuesChange(tmp);
-		}
+		FieldValuesStore.updateFieldValue(event);	
 	},
 
 	renderField: function(field, values) {
-		var state = this.state;
-		var err = (state.errors||{})[field.ref];
-		var cssClass = err ? ['error'] : [];
+
+		var cssClass = [];
 		var tr = this.props.translator||t;
 		var type = field.type;
 		var inlineSubfields = null;
@@ -145,6 +121,9 @@ var RelatedFormPanel = React.createClass({
 		};
 
 		var configuredValue = (field.value||field.defaultValue);
+		if (configuredValue && (type === 'hidden' || !FieldValuesStore.getValue(ref))) {
+			FieldValuesStore.setValue(ref, configuredValue);
+		}
 
 		var props = {
 			ref: ref,
@@ -228,9 +207,10 @@ var RelatedFormPanel = React.createClass({
 			return item.config[0].type === Constants.SUBFIELDS && item.isActive;
 		});
 
+		var values = FieldValuesStore.getValues();
 		return activeInlineSubfields.map(function(item) {
 			return item.config[0].content.map(function(field) {
-				return this.renderField(field, this.state.fieldValues);
+				return this.renderField(field, values);
 			}.bind(this));
 		}.bind(this));
 	},
@@ -298,7 +278,7 @@ var RelatedFormPanel = React.createClass({
 
 	_getRelatedConfigs: function(fieldConfig) {
 		var result = [];
-		var currentValue = this.state.fieldValues[fieldConfig.ref];
+		var currentValue = FieldValuesStore.getValue(fieldConfig.ref);
 		(fieldConfig.options||[]).forEach(function(option) {
 			if(option.related) {
 				result.push({
@@ -314,17 +294,6 @@ var RelatedFormPanel = React.createClass({
 		return this._visibleFields.slice(0);
 	},
 
-	componentWillUpdate: function() {
-		this._visibleFields.length = 0;
-	},
-
-	componentDidUpdate: function() {
-		this._pruneFieldValues();
-		if (isFunction(this.props.onFieldsChange)) {
-			this.props.onFieldsChange(this._getVisibleFieldRefs());
-		}
-	},
-
 	_getVisibleFieldRefs: function() {
 		return new Set(
 			this._visibleFields.map(function(item) {
@@ -333,25 +302,8 @@ var RelatedFormPanel = React.createClass({
 		);
 	},
 
-	// after an update clear fieldValue entries
-	// for fields no longer in the form.
-	_pruneFieldValues: function() {
-		var changed = false;
-		var fieldValues = this.state.fieldValues;
-		var _visibleFieldRefs = this._getVisibleFieldRefs();
-		Object.keys(fieldValues).forEach(function(key) {
-			if (!_visibleFieldRefs.has(key)) {
-				delete fieldValues[key];
-				changed = true;
-			}
-		});
-		if(changed && isFunction(this.props.onFieldValuesChange)) {
-			this.props.onFieldValuesChange(this.state.fieldValues);
-		}
-	},
-
 	render: function() {
-		var renderedForm = this._renderFormConfig(this.props.formConfig, this.state.fieldValues);
+		var renderedForm = this._renderFormConfig(this.props.formConfig, FieldValuesStore.getValues());
 
 		return (
 			<div>

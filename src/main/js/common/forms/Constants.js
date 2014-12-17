@@ -8,5 +8,8 @@ module.exports = nsKeyMirror('commonforms', {
 	MESSAGE: null,
 	ERROR_ADDED: null,
 	FETCH_LINK: null,
-	URL_RETRIEVED: null
+	URL_RETRIEVED: null,
+	FIELD_VALUE_CHANGE: null,
+	FIELD_VALUES_REMOVED: null,
+	AVAILABLE_FIELDS_CHANGED: null
 });
