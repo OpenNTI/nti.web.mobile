@@ -22,6 +22,8 @@ module.exports = {
 	events: nsKeyMirror(namespace, {
 		ADMISSION_SUCCESS: null,
 		RECEIVED_PAY_AND_ENROLL_LINK: null
-	})
+	}),
+	links: {
+		PAY_AND_ENROLL: 'fmaep.pay.and.enroll'
+	}
 };
-

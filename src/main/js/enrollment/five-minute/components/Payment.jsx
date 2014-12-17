@@ -8,6 +8,7 @@ var React = require('react/addons');
 var PanelButton = require('common/components/PanelButton');
 var t = require('common/locale').scoped('ENROLLMENT');
 var Actions = require('../Actions');
+var Err = require('common/components/Error');
 
 var Payment = React.createClass({
 
@@ -27,6 +28,12 @@ var Payment = React.createClass({
 	},
 
 	render: function() {
+
+		if (!this.props.paymentLink) {
+			var error = new Error('paymentLink property is required.');
+			return <Err error={error} />;
+		}
+
 		return (
 			<PanelButton
 				buttonClick={this.buttonClick}

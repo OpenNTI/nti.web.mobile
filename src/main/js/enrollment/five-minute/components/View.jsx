@@ -49,8 +49,10 @@ var View = React.createClass({
 	_storeChange: function(event) {
 		switch(event.type) {
 			case Constants.events.ADMISSION_SUCCESS:
+				var payAndEnrollLink = getLink(event.response, Constants.links.PAY_AND_ENROLL);
 				this.setState({
-					admissionStatus: event.response.State
+					admissionStatus: event.response.State,
+					payAndEnrollLink: payAndEnrollLink
 				});
 				break;
 
@@ -81,7 +83,7 @@ var View = React.createClass({
 		switch((this.state.admissionStatus||'').toUpperCase()) {
 			case StatusConstants.ADMITTED:
 				var enrollment = this.props.enrollment;
-				var link = getLink(enrollment, 'fmaep.pay.and.enroll');
+				var link = this.state.payAndEnrollLink || getLink(enrollment, Constants.links.PAY_AND_ENROLL);
 				var crn = enrollment.NTI_CRN;
 				// ignore jshint on the following line because we know NTI_Term
 				// is not not camel cased; that's what we get from dataserver.
