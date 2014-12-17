@@ -28,7 +28,7 @@ var PanelButton = React.createClass({
 	},
 
 	_button: function() {
-		if (!this.props.button && !this.props.href || this.props.href === '#') {
+		if (!this.props.button && (!this.props.href || this.props.href === '#') && !this.props.buttonClick && !this.props.onClick) {
 			return null;
 		}
 		return this.props.button || <a href={this.props.href}
