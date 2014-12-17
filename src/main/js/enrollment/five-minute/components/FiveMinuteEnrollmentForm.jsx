@@ -9,6 +9,7 @@ var FormErrors = require('common/forms/components/FormErrors');
 var _formConfig = require('../configs/FiveMinuteEnrollmentForm');
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
+var Loading = require('common/components/Loading');
 var Actions = require('../Actions');
 var Store = require('../Store');
 var FieldValuesStore = require('common/forms/FieldValuesStore');
@@ -23,7 +24,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 
 	getInitialState: function() {
 		return {
-			fieldValues: {},
+			busy: false,
 			errors: []
 		};
 	},
@@ -116,12 +117,11 @@ var FiveMinuteEnrollmentForm = React.createClass({
 
 	_handleSubmit: function() {
 		var fields = FieldValuesStore.getValues();
-		// console.group('getVisibleFields');
-		// this.refs[_rootFormRef].getVisibleFields().forEach(function(item) {
-		// 	console.debug(item.ref, item.required ? '- (required)' : '');
-		// });
-		// console.groupEnd();
+
 		if (this._isValid()) {
+			this.setState({
+				busy: true
+			});
 			Actions.preflightAndSubmit(fields);
 		}
 	},
@@ -150,6 +150,10 @@ var FiveMinuteEnrollmentForm = React.createClass({
 	},
 
 	render: function() {
+
+		if (this.state.busy) {
+			return <Loading />;
+		}
 
 		var title = t('admissionTitle');
 		var errors = this.state.errors;
