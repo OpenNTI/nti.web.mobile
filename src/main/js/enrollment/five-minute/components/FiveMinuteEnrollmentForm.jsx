@@ -67,7 +67,6 @@ var FiveMinuteEnrollmentForm = React.createClass({
 			// 	break;
 
 			case FormConstants.FIELD_VALUE_CHANGE:
-				console.debug(event);
 				if (event.fieldName === 'signature') {
 					this.forceUpdate();
 				}
