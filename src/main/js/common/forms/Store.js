@@ -73,10 +73,11 @@ function _fetchLink(linkRel) {
 		);
 	});
 
-	promise.then(function(result) {
-		console.debug('caching resolved fetchLink promise for %s', linkRel);
-		me.promises[linkRel] = promise;
-		return result;
+	console.debug('caching resolved fetchLink promise for %s', linkRel);
+	me.promises[linkRel] = promise;
+
+	promise.catch(function(/*reason*/) {
+		delete me.promises[linkRel];
 	});
 
 	return promise;
