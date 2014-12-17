@@ -215,14 +215,24 @@ module.exports = Object.freeze([
 								{
 									ref: 'years_of_oklahoma_residency',
 									required: true,
-									label: t('okResidentFor'),
+									label: t('okResidentFor')
 								}
 							]
 						}]
 					},
 					{
 						label: 'No',
-						value: 'N'
+						value: 'N',
+						related: [{
+							type: Constants.SUBFIELDS,
+							content: [
+								{
+									type: 'hidden',
+									ref: 'years_of_oklahoma_residency',
+									defaultValue: 0
+								}
+							]
+						}]
 					}
 				]
 			},

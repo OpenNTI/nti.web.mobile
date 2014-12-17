@@ -121,7 +121,8 @@ var RelatedFormPanel = React.createClass({
 		};
 
 		var configuredValue = (field.value||field.defaultValue);
-		if (configuredValue && (type === 'hidden' || !FieldValuesStore.getValue(ref))) {
+		// explicit test against undefined because the value could be zero which is falsy.
+		if (configuredValue !== undefined && (type === 'hidden' || !FieldValuesStore.getValue(ref))) {
 			FieldValuesStore.setValue(ref, configuredValue);
 		}
 
