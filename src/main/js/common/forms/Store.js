@@ -40,6 +40,17 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 */
 function _fetchLink(linkRel) {
 
+	var me = _fetchLink;
+
+	if (!me.promises) {
+		me.promises = {};
+	}
+
+	if (me.promises[linkRel]) {
+		console.debug('returning cached fetchLink promise for %s', linkRel);
+		return me.promises[linkRel];
+	}
+
 	var getService = Utils.getService();
 
 	var getUser = getService.then(
@@ -54,13 +65,21 @@ function _fetchLink(linkRel) {
 		}
 	);
 
-	return getHref.then(
+	var promise = getHref.then(
 		function(href) {
 			return getService.then(function(service) {
 				return service.get(href);
 			}
 		);
 	});
+
+	promise.then(function(result) {
+		console.debug('caching resolved fetchLink promise for %s', linkRel);
+		me.promises[linkRel] = promise;
+		return result;
+	});
+
+	return promise;
 }
 
 Store.appDispatch = AppDispatcher.register(function(data) {
