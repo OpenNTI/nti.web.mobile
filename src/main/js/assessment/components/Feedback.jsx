@@ -5,6 +5,11 @@ var React = require('react/addons');
 
 var Store = require('../Store');
 
+var _t = require('common/locale').scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
+
+var FeedbackList = React.DOM.div;
+var FeedbackEntry = React.DOM.div;
+
 module.exports = React.createClass({
 	displayName: 'Feedback',
 
@@ -36,8 +41,13 @@ module.exports = React.createClass({
 		}
 
 		return (
-			<div>
-				Feedback goes HERE!
+			<div className="feedback container">
+				<div className="feedback header">
+					<h3>{_t('title')}</h3>
+					<div className="message">{_t('description')}</div>
+				</div>
+				<FeedbackList/>
+				<FeedbackEntry/>
 			</div>
 		);
 	}

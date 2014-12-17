@@ -1,0 +1,35 @@
+
+.feedback.container {
+	padding-bottom: 2rem;
+	margin-top: -2rem;
+}
+
+.feedback.header {
+	position: relative;
+	border-bottom: 1px solid #f0f0f0;
+
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: -1px;
+		height: 300px;
+		left: 0;
+		right: 0;
+		background-color: #f0f0f0;
+		box-shadow: 0 0 5px 0 rgba(0,0,0,0.35);
+		clip: rect(300px, auto, 310px, auto);
+		border-radius: 350em / 5em;
+	}
+
+	h3{
+		font: normal 400 1.375rem/1 $body-font-family;
+		color: $secondary-grey;
+		margin: 0;
+	}
+
+	.message{
+		font: normal 500 0.875rem/1.5 $body-font-family;
+		color: $secondary-grey;
+		margin: 0.3125rem 0 1rem 0
+	}
+}
