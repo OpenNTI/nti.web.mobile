@@ -229,7 +229,7 @@ module.exports = Object.freeze([
 								{
 									type: 'hidden',
 									ref: 'years_of_oklahoma_residency',
-									defaultValue: 0
+									defaultValue: "0"
 								}
 							]
 						}]
