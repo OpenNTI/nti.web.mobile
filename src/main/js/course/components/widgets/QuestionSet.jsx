@@ -82,8 +82,8 @@ module.exports = React.createClass( {
 		console.debug(assessedQuestionSet);
 		this.setState({
 			score: assessedQuestionSet.getScore(),
-			correct: assessedQuestionSet.getCorrect(),
-			incorrect: assessedQuestionSet.getIncorrect(),
+			correct: assessedQuestionSet.getCorrect() || null,
+			incorrect: assessedQuestionSet.getIncorrect() || null,
 			latestAttempt: assessedQuestionSet,
 			completed: true
 		});
@@ -108,27 +108,28 @@ module.exports = React.createClass( {
 
 
 	render: function() {
+		var state = this.state;
 		var item = this.props.item;
 		var questionCount = item["question-count"];
 		var label = item.label;
 
-		//var latestAttempt = this.state.latestAttempt;
-		var assignment = this.state.assignment;
+		//var latestAttempt = state.latestAttempt;
+		var assignment = state.assignment;
 
 		var due = assignment && assignment.getDueDate();
 
-		var score = this.state.score || 0;
+		var score = state.score || 0;
 
 		var isLate = assignment && assignment.isLate(new Date());
 
 		var addClass =
-			(/^#?$/.test(this.state.href) ? ' disabled' : '') +
-			(this.state.completed ? " completed" : "") +
+			(/^#?$/.test(state.href) ? ' disabled' : '') +
+			(state.completed ? " completed" : "") +
 			(isLate ? " late" : "") +
 			(assignment ? " assignment" : " assessment");
 
 		return (
-			<a className={'overview-naquestionset' + addClass} href={this.state.href} onClick={this.onClick}>
+			<a className={'overview-naquestionset' + addClass} href={state.href} onClick={this.onClick}>
 				<div className="body">
 					{assignment ?
 						<div className="icon assignment"/>
@@ -148,10 +149,14 @@ module.exports = React.createClass( {
 
 						: //Assessment:
 							<div className="tally">
+							{state.correct && (
 								<div className="stat correct">
-									<span className="count">{this.state.correct}</span> correct </div>
+									<span className="count">{state.correct}</span> correct </div>
+							)}
+							{state.incorrect && (
 								<div className="stat incorrect">
-									<span className="count">{this.state.incorrect}</span> incorrect </div>
+									<span className="count">{state.incorrect}</span> incorrect </div>
+							)}
 								<div className="stat questions">{questionCount} questions</div>
 							</div>
 						}

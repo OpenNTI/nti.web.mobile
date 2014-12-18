@@ -59,8 +59,8 @@ module.exports = React.createClass({
 		this.setState({
 			total: questionCount,
 			score: assessed.getScore(),
-			correct: assessed.getCorrect(),
-			incorrect: assessed.getIncorrect(),
+			correct: assessed.getCorrect() || null,
+			incorrect: assessed.getIncorrect() || null,
 			dateSubmitted: assessed.getCreatedTime()
 		});
 	},
@@ -98,10 +98,14 @@ module.exports = React.createClass({
 						<div className="tally">
 							<div className="tally-box">
 								<h4>Results:</h4>
+							{state.correct &&
 								<div className="stat correct">
 									<span className="count">{state.correct}</span> correct </div>
+								}
+							{state.incorrect &&
 								<div className="stat incorrect">
 									<span className="count">{state.incorrect}</span> incorrect </div>
+								}
 							</div>
 						</div>
 
