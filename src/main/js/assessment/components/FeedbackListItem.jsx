@@ -18,7 +18,7 @@ module.exports = React.createClass({
 		var message = item.body;
 
 		var edited = (Math.abs(modifiedOn - createdOn) > 0);
-		var canEdit = item.hasLink('edit');
+		var canEdit = item.hasLink('edit') && false;
 
 
 		return (
