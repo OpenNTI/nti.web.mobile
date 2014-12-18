@@ -335,7 +335,7 @@ module.exports = {
 			FEEDBACK: {
 				title: 'Feedback',
 				description: 'The comments below will only be visible to you and your instructor.',
-				addComment: 'Add a comment'
+				entryPlaceholder: 'Add a comment'
 			}
 		}
 	}

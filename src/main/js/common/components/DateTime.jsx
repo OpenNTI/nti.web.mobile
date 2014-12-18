@@ -15,7 +15,8 @@ module.exports = React.createClass({
 		relativeTo: React.PropTypes.any,//Date
 		format: React.PropTypes.string,
 		relative: React.PropTypes.bool,
-		customSuffix: React.PropTypes.string,
+		prefix: React.PropTypes.string,
+		suffix: React.PropTypes.string,
 		showToday: React.PropTypes.bool,
 		todayText: React.PropTypes.string
 	},
@@ -27,7 +28,8 @@ module.exports = React.createClass({
 			relativeTo: undefined,
 			format: 'LL',
 			relative: false,
-			customSuffix: undefined,
+			prefix: undefined,
+			suffix: undefined,
 			showToday: false,
 			todayText: 'Today'
 		};
@@ -48,14 +50,14 @@ module.exports = React.createClass({
 		}
 
 		var text = props.relative ?
-					m.fromNow(!isEmpty(props.customSuffix)) :
+					m.fromNow(!isEmpty(props.suffix)) :
 					m.format(props.format);
 
 		if (props.showToday && m.isSame(new Date(), 'day')) {
 			text = this.props.todayText;
 		}
 
-		text += (props.customSuffix || '');
+		text = (props.prefix || '') + text + (props.suffix || '');
 
 		props = Object.assign({}, props, {
 			dateTime: moment(props.date).format()

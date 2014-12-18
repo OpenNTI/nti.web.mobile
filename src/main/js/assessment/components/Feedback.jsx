@@ -7,8 +7,8 @@ var Store = require('../Store');
 
 var _t = require('common/locale').scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
 
-var FeedbackList = React.DOM.div;
-var FeedbackEntry = React.DOM.div;
+var FeedbackList = require('./FeedbackList');
+var FeedbackEntry = require('./FeedbackEntry');
 
 module.exports = React.createClass({
 	displayName: 'Feedback',
@@ -36,7 +36,10 @@ module.exports = React.createClass({
 
 	render: function() {
 		var quiz = this.props.assessment;
-		if (!Store.isAssignment(quiz) || !Store.isSubmitted(quiz)) {
+		var item = Store.getAssignmentHistoryItem(quiz);
+		var feedback = item && item.Feedback;
+
+		if (!Store.isAssignment(quiz) || !Store.isSubmitted(quiz) || !feedback) {
 			return null;
 		}
 
@@ -46,8 +49,8 @@ module.exports = React.createClass({
 					<h3>{_t('title')}</h3>
 					<div className="message">{_t('description')}</div>
 				</div>
-				<FeedbackList/>
-				<FeedbackEntry/>
+				<FeedbackList feedback={feedback}/>
+				<FeedbackEntry feedback={feedback}/>
 			</div>
 		);
 	}

@@ -62,10 +62,14 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var username = this.props.username;
+		var tag = this.props.tag || 'span';
 		var displayName = this.state.displayName;
-		return (
-			<span data-for={username} className='username'>{displayName}</span>
-		);
+
+		var props = Object.assign({
+			'data-for': this.props.username,
+			className: 'username'
+		}, this.props);
+
+		return React.DOM[tag](props, displayName);
 	}
 });
