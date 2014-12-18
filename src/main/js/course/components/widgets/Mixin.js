@@ -10,17 +10,19 @@ exports = module.exports = {
 		var node = s.node || p.node || (props && props.node);
 		var status = node && node.up('isEnrollment').getStatus();
 
-		var toReturn = items && items.map(function(item, i, list) {
+		var toReturn = items && items.map((item, i, list)=>{
 			var use = true;
+			var itemProps = Object.assign({}, props, p, {node: node});
 
 			if (node && !node.hasVisibility(item, status)) {
 				use = null;
 			}
 
-			use = use && exports.select(item, i, list, props);
+			use = use && exports.select(item, i, list, itemProps, node);
 
-			return use && this.transferPropsTo(use);
-		}.bind(this)).filter(truthy);
+			return use;
+
+		}).filter(truthy);
 
 		if (toReturn.length === 0) {
 			throw new IllegalStateException('No Items to render');

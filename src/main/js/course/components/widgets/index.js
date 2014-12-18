@@ -11,7 +11,7 @@ var Discussion = require('./Discussion');
 var QuestionSet = require('./QuestionSet');
 
 
-function getItemHandler(item, index, list, props) {
+function getItemHandler(item, index, list, props, node) {
 	var Item = exports.Unknown;
 	var key, Type;
 
@@ -25,13 +25,13 @@ function getItemHandler(item, index, list, props) {
 		}
 	}
 
-	return (!Item.canRender || Item.canRender(item, (props || {}).node)) &&
-	 	Item(Object.assign({
+	return (!Item.canRender || Item.canRender(item, node)) &&
+	 	Item(Object.assign({}, props || {}, {
 			key: item.NTIID || ('overview-' + item.MimeType + '-' + index),
 			item: item,
 			index: index,
 			ref: Item.displayName + '-' + index
-		}, props || {}));
+		}));
 }
 
 
