@@ -219,7 +219,7 @@ module.exports = {
 		storeEnrollmentTitle: 'Enroll as a Lifelong Learner',
 
 		fiveMinuteEnrollmentTitle: 'Enroll for Credit',
-		fiveMinuteNotAvailableOnMobile: 'Please visit from a desktop or our iPad app to enroll for credit. Coming soon to mobile.'
+		fiveMinuteNotAvailableOnMobile: 'Please visit from a desktop to enroll for credit. Coming soon to mobile.',
 	},
 
 	COURSE_INFO: {
