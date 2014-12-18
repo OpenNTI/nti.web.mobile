@@ -9,8 +9,15 @@ var PanelButton = require('common/components/PanelButton');
 var t = require('common/locale').scoped('ENROLLMENT');
 var Actions = require('../Actions');
 var Err = require('common/components/Error');
+var Loading = require('common/components/Loading');
+var NavigatableMixin = require('common/mixins/NavigatableMixin');
+var Store = require('../Store');
+var Constants = require('../Constants');
+
 
 var Payment = React.createClass({
+
+	mixins: [NavigatableMixin],
 
 	propTypes: {
 		paymentLink: React.PropTypes.string.isRequired, // dataserver pay and enroll link ('fmaep.pay.and.enroll')
@@ -18,20 +25,52 @@ var Payment = React.createClass({
 		ntiTerm: React.PropTypes.string.isRequired // passed to dataserver to get payment site url
 	},
 
+	getInitialState: function() {
+		return {
+			loading: false
+		};
+	},
+
+	componentDidMount: function() {
+		Store.addChangeListener(this._storeChange);
+	},
+
+	componentWillUnmount: function() {
+		Store.removeChangeListener(this._storeChange);
+	},
+
+	_storeChange: function(event) {
+		switch(event.type) {
+			case Constants.errors.PAY_AND_ENROLL_ERROR:
+				this.setState({
+					loading: false,
+					error: event
+				});
+				break;
+		}
+	},
+
 	buttonClick: function(event) {
 		event.preventDefault();
+		this.setState({
+			loading: true
+		});
 		Actions.doExternalPayment({
 			link: this.props.paymentLink,
 			ntiCrn: this.props.ntiCrn,
-			ntiTerm: this.props.ntiTerm
+			ntiTerm: this.props.ntiTerm,
+			returnUrl: this.makeHref('/paymentcomplete/')
 		});
 	},
 
 	render: function() {
 
-		if (!this.props.paymentLink) {
-			var error = new Error('paymentLink property is required.');
-			return <Err error={error} />;
+		if (this.state.loading) {
+			return <Loading />;
+		}
+
+		if (this.state.error) {
+			return <Err error={this.state.error} />;
 		}
 
 		return (

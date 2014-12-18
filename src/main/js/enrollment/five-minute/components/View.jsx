@@ -8,10 +8,15 @@ var React = require('react/addons');
 var Router = require('react-router-component');
 var PaymentComplete = require('./PaymentComplete');
 var Admission = require('./Admission');
+var CourseContentLink = require('library/components/CourseContentLink');
 
 var View = React.createClass({
 
 	render: function() {
+
+		if ((this.props.enrollment||{}).IsEnrolled) {
+			return <CourseContentLink courseId={this.props.courseId}>Go to the course.</CourseContentLink>;
+		}
 
 		return (
 			<Router.Locations contextual>

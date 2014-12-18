@@ -64,9 +64,9 @@ function _requestAdmission(data) {
 	});
 }
 
-function _getExternalPaymentUrl(link, ntiCrn, ntiTerm) {
+function _getExternalPaymentUrl(link, ntiCrn, ntiTerm, returnUrl) {
  	return _getFiveMinuteService().then(function(service) {
- 		return service.getPayAndEnroll(link, ntiCrn, ntiTerm);
+ 		return service.getPayAndEnroll(link, ntiCrn, ntiTerm, returnUrl);
  	});
 }
 
@@ -116,10 +116,10 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 
 		case Constants.actions.DO_EXTERNAL_PAYMENT:
 			var data = action.payload.data;
-			if (!data.ntiCrn || !data.ntiTerm) {
+			if (!data.ntiCrn || !data.ntiTerm || !data.returnUrl) {
 				throw new Error('action payload requires ntiCrn and ntiTerm parameters. Received %O', data);
 			}
-			var getUrl = _getExternalPaymentUrl(data.link, data.ntiCrn, data.ntiTerm);
+			var getUrl = _getExternalPaymentUrl(data.link, data.ntiCrn, data.ntiTerm, data.returnUrl);
 			getUrl.then(
 				function(response) {
 					if(response.rel === 'redirect') {
