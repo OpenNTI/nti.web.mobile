@@ -43,11 +43,17 @@ module.exports = React.createClass({
 		var assignment = this.props.assessment;
 		var item = Store.getAssignmentHistoryItem(assignment);
 
+		var nonSubmit = assignment.isNonSubmit();
+
+		if (!item && !nonSubmit) {
+			return null;
+		}
+
 		var grade = item && item.getGradeValue();
 		var date = (item && item.getCreatedTime()) || new Date();
 
 		var late = this.isLate(date);
-		var state = late ? 'late' : assignment.isNonSubmit() ? '' : 'ontime';
+		var state = late ? 'late' : nonSubmit ? '' : 'ontime';
 
 		return (
 			<div className={'header assessment assignment ' + state}>
