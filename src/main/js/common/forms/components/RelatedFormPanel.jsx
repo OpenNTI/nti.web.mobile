@@ -17,6 +17,14 @@ var LocalizedHTML = require('common/components/LocalizedHTML');
 
 var hash = require('object-hash');
 
+// components that render their own label
+var _labelIsRenderedByComponent = new Set([
+	'radiogroup',
+	'select',
+	'checkbox',
+	'toggleFieldset'
+]);
+
 // just a dumb wrapper around an array to isolate the
 // accumulation of related configs during render.
 var RelatedConfigsStash = {
@@ -96,7 +104,7 @@ var RelatedFormPanel = React.createClass({
 
 		var cssClass = [];
 		var tr = this.props.translator||t;
-		var type = field.type;
+		var type = field.type || 'text';
 		var inlineSubfields = null;
 
 		this._visibleFields.push(field);
@@ -109,9 +117,9 @@ var RelatedFormPanel = React.createClass({
 			cssClass.push('error');
 		}
 
-		if (!type || type === 'number') {
-			type = 'text';
-		}
+		// if (!type || type === 'number') {
+		// 	type = 'text';
+		// }
 
 		var ref = field.ref;
 
@@ -139,8 +147,8 @@ var RelatedFormPanel = React.createClass({
 			// ToggleFieldset needs to call renderField.
 			renderField: this.renderField,
 			options: field.options||null,
-			translator: tr,
-			pattern: (field.type === 'number' && '[0-9]*') || null
+			// pattern: (field.type === 'number' && '[0-9]*') || null,
+			translator: tr
 		};
 
 		var input;
@@ -179,6 +187,11 @@ var RelatedFormPanel = React.createClass({
 		var component = type === 'label' ?
 			React.DOM.label({ ref: ref, className: cssClass.join(' ') }, tr(ref, translateOptions)) :
 			input(props);
+
+		if (field.label && !_labelIsRenderedByComponent.has(type)) {
+			var span = React.DOM.span({}, field.label);
+			component = React.DOM.label({}, span, component);
+		}
 
 		var subfields = this._renderActiveSubfields(field);
 

@@ -39,10 +39,12 @@ var mailingAddressFieldset = {
 			placeholder: t('city')
 		},
 		StateSelect.withProps({
+			label: t('state'),
 			ref: 'mailing_state',
 			required: true
 		}),
 		CountrySelect.withProps({
+			label: t('country'),
 			ref: 'mailing_nation_code',
 			required: true,
 			placeholder: t('country')
@@ -61,28 +63,28 @@ module.exports = Object.freeze([
 			{
 				ref: 'first_name',
 				required: true,
-				label: t('firstName')
+				label: t('first_name')
 			},
 			{
 				ref: 'middle_name',
-				label: t('middleName')
+				label: t('middle_name')
 			},
 			{
 				ref: 'last_name',
 				required: true,
-				label: t('lastName')
+				label: t('last_name')
 			},
 			{
 				ref: 'former_name',
-				label: t('formerLastNamePrompt'),
-				placeholder: t('formerLastName')
+				label: t('former_name'),
+				placeholder: t('former_name')
 			},
 			{
 				ref: 'date_of_birth',
-				label: t('birthdate'),
+				label: t('date_of_birth'),
 				required: true,
 				type: 'date',
-				placeholder: t('birthdate')
+				placeholder: t('date_of_birth')
 			},
 			{
 				ref: 'gender',
@@ -110,23 +112,28 @@ module.exports = Object.freeze([
 		fields: [
 			{
 				ref: 'street_line1',
+				label: t('street_line1'),
 				required: true,
 				placeholder: t('address1')
 			},
 			{
 				ref: 'street_line2',
+				label: t('street_line2'),
 				placeholder: t('address2')
 			},
 			{
 				ref: 'city',
+				label: t('city'),
 				required: true,
 				placeholder: t('city')
 			},
 			StateSelect.withProps({
+				label: t('state'),
 				ref: 'state',
 				required: true
 			}),
 			CountrySelect.withProps({
+				label: t('country'),
 				ref: 'nation_code',
 				required: true,
 				placeholder: t('country')
@@ -134,7 +141,8 @@ module.exports = Object.freeze([
 			{
 				ref: 'postal_code',
 				required: true,
-				placeholder: t('zip')
+				label: t('postal_code'),
+				placeholder: t('postal_code')
 			},
 			{
 				ref: 'has_mailing_address',
@@ -215,7 +223,8 @@ module.exports = Object.freeze([
 								{
 									ref: 'years_of_oklahoma_residency',
 									required: true,
-									label: t('okResidentFor')
+									type: 'number',
+									label: t('years_of_oklahoma_residency')
 								}
 							]
 						}]
@@ -255,8 +264,7 @@ module.exports = Object.freeze([
 							content: [
 								{
 									ref: 'sooner_id',
-									label: t('soonerId'),
-									help: t('leaveSoonerIdBlankIfUnknown')
+									label: t('sooner_id')
 								}
 							]
 						}]

@@ -41,11 +41,23 @@ var FiveMinuteEnrollmentForm = React.createClass({
 
 	_storeChange: function(event) {
 		if(event.isError) {
-			this.state.errors.push({
-				field: event.reason.field,
-				message: event.reason.message
+			var errs = React.addons.update(
+				this.state.errors,
+				{$push: [{
+					field: event.reason.field,
+					message: event.reason.message
+				}]}
+			);
+			this.setState({
+				errors: errs,
+				busy: false
 			});
-			this.forceUpdate();
+			// this.state.errors.push({
+			// 	field: event.reason.field,
+			// 	message: event.reason.message,
+			// 	busy: false
+			// });
+			// this.forceUpdate();
 			return;
 		}
 		switch(event.type) {

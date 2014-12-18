@@ -47,6 +47,13 @@ module.exports = React.createClass({
 	},
 
 	_storeChange: function(event) {
+
+		if (event.isError) {
+			this.setState({
+				loading: false
+			});
+		}
+
 		switch(event.type) {
 			case Constants.events.ADMISSION_SUCCESS:
 				var payAndEnrollLink = getLink(event.response, Constants.links.PAY_AND_ENROLL);
