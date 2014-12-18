@@ -67,6 +67,13 @@
 
 }
 
+.feedback.list {
+	background-color: $panel-background;
+	border: 1px solid #f0f0f0;
+	border-top: none;
+	border-bottom: none;
+}
+
 
 .feedback.item {
 	$s: 35px;
