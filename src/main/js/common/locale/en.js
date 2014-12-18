@@ -238,6 +238,7 @@ module.exports = {
 				oklahomaResidentHighSchool: 'Are you an Oklahoma resident currently attending high school?',
 				historyEnrollViaOzone: 'LSTD 1153.500 fulfills US History Gen Ed requirement. To enroll, visit ' +
 						'<a href="http://ozone.ou.edu" target="_blank">ozone.ou.edu</a> and enroll in LSTD 1153, Section 500.',
+				fullName: 'Full Name',
 				first_name: 'First Name',
 				middle_name: 'Middle Name',
 				last_name: 'Last Name',
@@ -249,6 +250,7 @@ module.exports = {
 				state: 'State',
 				postal_code: 'Zip',
 				nation_code: 'Country',
+				country: 'Country',
 				mailingAddressDifferent: 'My mailing address is different.',
 				mailingAddressLabel: 'Mailing Address',
 				mailing_street_line1: 'Address',
@@ -300,7 +302,7 @@ module.exports = {
 		storeEnrollmentTitle: 'Enroll as a Lifelong Learner',
 
 		fiveMinuteEnrollmentTitle: 'Enroll for Credit',
-		fiveMinuteNotAvailableOnMobile: 'Please visit from a desktop or our iPad app to enroll for credit. Coming soon to mobile.',
+		fiveMinuteNotAvailableOnMobile: 'Please visit from a desktop to enroll for credit. Coming soon to mobile.',
 		fiveMinuteEnrollmentButton: 'Enroll for Credit',
 		fiveMinuteEnrollmentDescription: 'Earn transcripted college credit from the University of Oklahoma.',
 		proceedToPayment: "Proceed to payment"
