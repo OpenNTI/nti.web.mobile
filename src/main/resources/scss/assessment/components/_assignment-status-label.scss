@@ -66,6 +66,10 @@
 			color: $primary-orange;
 		}
 
+		&.late {
+			color: $primary-red;
+		}
+
 		time {
 			white-space: nowrap;
 		}

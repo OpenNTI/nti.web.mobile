@@ -183,11 +183,13 @@ module.exports = React.createClass({
 		var assignment = this.props.assignment;
 		var complete = this.isSubmitted();
 
-		var date = this.getCompletedDateTime() || new Date();
+		var submittable = assignment.canBeSubmitted();
+
+		var date = this.getCompletedDateTime() || assignment.getDueDate();
 
 		var dueToday = (!complete && this.isDueToday()) ? 'due-today ' : '';
-		var overdue = this.isOverDue() ? 'overdue ' : '';
-		var overtime = this.isOverTime() ? 'overtime ' : '';
+		var overdue = this.isOverDue() ? (submittable ? 'overdue ' : 'late ') : '';
+		var overtime = submittable && this.isOverTime() ? 'overtime ' : '';
 
 		var text = complete ? 'Completed' : 'Due';
 
