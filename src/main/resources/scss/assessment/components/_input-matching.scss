@@ -1,0 +1,42 @@
+
+.question-part .matching {
+
+	.terms {
+		min-height: 2rem;
+		margin: -1rem 0 0 0;
+
+		.drag.source {
+			margin-left: 0.5rem;
+		}
+	}
+
+
+	.box {
+		border: 1px solid $tertiary-grey;
+		margin: 0 0 1rem 0;
+	}
+
+	&.solutions .box {
+		margin: -0.4rem;
+		border: none;
+	}
+
+	.target {
+		display: block;
+		position: relative;
+		border: 0px solid $tertiary-grey;
+		line-height: 2;
+		padding: 1rem;
+
+		&:not(:last-of-type) {
+			border-bottom-width: 1px;
+		}
+
+
+		.content {
+			position: relative;
+			overflow: hidden;
+			display: block;
+		}
+	}
+}

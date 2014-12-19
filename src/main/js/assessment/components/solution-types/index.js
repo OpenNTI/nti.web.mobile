@@ -13,7 +13,7 @@ exports = module.exports = {
 	// NumericMath: require('./NumericMath'),
 	// SymbolicMath: require('./SymbolicMath'),
 
-	// Matching: require('./Matching'),
+	Matching: require('./Matching'),
 	// Ordering: require('./Ordering'),
 
 	// FillInTheBlankShortAnswer: require('./FillInTheBlankShortAnswer'),
