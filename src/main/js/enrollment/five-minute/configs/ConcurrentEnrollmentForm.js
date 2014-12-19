@@ -3,13 +3,19 @@
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var StateSelect = require('common/forms/fields').StateSelect;
 var CountrySelect = require('common/forms/fields').CountrySelect;
+var Constants = require('../Constants');
 
 module.exports = Object.freeze([
 	{
 		title: 'Concurrent Enrollment',
 		fields: [
 			{
-				ref: 'fullName',
+				ref: Constants.fields.IS_CONCURRENT_FORM,
+				type: 'hidden',
+				value: true
+			},
+			{
+				ref: 'name',
 				required: true,
 				placeholder: t('fullName')
 			},
@@ -26,7 +32,7 @@ module.exports = Object.freeze([
 			},
 			{
 				label: 'What is your date of birth?',
-				ref: 'birthdate',
+				ref: 'date_of_birth',
 				type: 'date',
 				required: true
 			}
@@ -45,10 +51,11 @@ module.exports = Object.freeze([
 				ref: 'city'
 			},
 			StateSelect.withProps({
-
+				required: false
 			}),
 			CountrySelect.withProps({
-				placeholder: t('country')
+				placeholder: t('country'),
+				required: false
 			}),
 			{
 				ref: 'zip',

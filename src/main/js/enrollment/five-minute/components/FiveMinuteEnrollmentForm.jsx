@@ -73,15 +73,9 @@ var FiveMinuteEnrollmentForm = React.createClass({
 
 	fieldValuesStoreChange: function(event) {
 		switch(event.type) {
-			// case FormConstants.FIELD_VALUES_REMOVED:
-			// 	var removed = (event.removed||[]);
-			// 	removed.forEach(function(fieldName) {
-			// 		this._removeError(fieldName);
-			// 	});
-			// 	break;
 
 			case FormConstants.FIELD_VALUE_CHANGE:
-				if (event.fieldName === 'signature') {
+				if (event.fieldName === 'signature' || event.fieldName === 'contactme') {
 					this.forceUpdate();
 				}
 				break;
@@ -138,7 +132,12 @@ var FiveMinuteEnrollmentForm = React.createClass({
 			this.setState({
 				busy: true
 			});
-			Actions.preflightAndSubmit(fields);
+			if (fields[Constants.fields.IS_CONCURRENT_FORM]) {
+				Actions.requestConcurrentEnrollment(fields);
+			}
+			else {
+				Actions.preflightAndSubmit(fields);	
+			}
 		}
 	},
 
@@ -162,7 +161,8 @@ var FiveMinuteEnrollmentForm = React.createClass({
 	},
 
 	_submitEnabled: function() {
-		return !!FieldValuesStore.getValues().signature;
+		var values = FieldValuesStore.getValues();
+		return !!(values.signature||values.contactme);
 	},
 
 	render: function() {

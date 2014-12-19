@@ -52,6 +52,47 @@ function _getFiveMinuteService() {
 	return me.promise;
 }
 
+function _preflightAndSubmit(action) {
+
+	var input = action.payload.data;
+	var preflight = _preflight(input);
+	var requestAdmission = preflight.then(
+		_requestAdmission.bind(null,input),
+		function(reason) {
+			Store.emitError({
+    			type: Constants.errors.PREFLIGHT_ERROR,
+				action: action,
+				reason: reason
+			});
+			return Promise.reject(reason);
+		}
+	);
+	requestAdmission.then(
+		function(response) {
+			Store.emitChange({
+    			type: Constants.events.ADMISSION_SUCCESS,
+				action: action,
+				response: response
+			});
+		},
+		function(reason) {
+			var rsn = reason || {};
+			// normalize property names for message and field to lowercase.
+			['Field', 'Message'].forEach(function(propName) {
+				if (rsn[propName] && !rsn[propName.toLowerCase()]) {
+					rsn[propName.toLowerCase()] = rsn[propName];
+				}
+			});
+			Store.emitError({
+    			type: Constants.errors.REQUEST_ADMISSION_ERROR,
+				action: action,
+				reason: reason
+			});
+			return Promise.reject(reason);
+		}
+	);
+}
+
 function _preflight(data) {
 	return _getFiveMinuteService().then(function(service) {
 		return service.preflight(data);
@@ -64,6 +105,58 @@ function _requestAdmission(data) {
 	});
 }
 
+function _requestConcurrentEnrollment(data) {
+	var requestEnrollment = _getFiveMinuteService().then(function(service) {
+		return service.requestConcurrentEnrollment(data);
+	});
+
+	requestEnrollment
+	.then(
+		function(response) {
+			Store.emitChange({
+				type: Constants.events.CONCURRENT_ENROLLMENT_SUCCESS,
+				action: data,
+				response: response
+			});
+		},
+		function(reason) {
+			Store.emitError({
+				type: Constants.events.CONCURRENT_ENROLLMENT_ERROR,
+				action: data,
+				reason: reason
+			});
+		}
+	);
+}
+
+function _doExternalPayment(action) {
+	var data = action.payload.data;
+	if (!data.ntiCrn || !data.ntiTerm || !data.returnUrl) {
+		throw new Error('action payload requires ntiCrn and ntiTerm parameters. Received %O', data);
+	}
+	var getUrl = _getExternalPaymentUrl(data.link, data.ntiCrn, data.ntiTerm, data.returnUrl);
+	getUrl.then(
+		function(response) {
+			if(response.rel === 'redirect') {
+				Store.emitChange({
+					type: Constants.events.RECEIVED_PAY_AND_ENROLL_LINK,
+					action: action,
+					response: response
+				});
+			}
+		},
+		function(reason) {
+			var rsn = reason || {};
+			Store.emitError({
+				type: Constants.errors.PAY_AND_ENROLL_ERROR,
+				action: action,
+				reason: rsn
+			});
+			return Promise.reject(rsn);
+		}
+	);
+}
+
 function _getExternalPaymentUrl(link, ntiCrn, ntiTerm, returnUrl) {
  	return _getFiveMinuteService().then(function(service) {
  		return service.getPayAndEnroll(link, ntiCrn, ntiTerm, returnUrl);
@@ -74,82 +167,17 @@ Store.appDispatch = AppDispatcher.register(function(data) {
     var action = data.action;
 
     switch(action.type) {
+    	case Constants.actions.REQUEST_CONCURRENT_ENROLLMENT:
+    		var fields = action.payload.data;
+			_requestConcurrentEnrollment(fields);
+    		break;
+
 		case Constants.actions.PREFLIGHT_AND_SUBMIT:
-			// TODO: This should be a function
-			//
-			// Switch statements should be short, simple and only consist of
-			// calls, no vars. If a control statement is needed (for/if/while/switch/etc)
-			// you need a new function.
-			//
-			// Case blocks can call on more complex code but should not host that complex code.
-			//
-			// http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html
-			// Lets only declare vars at the real scope, never inside blocks.
-			var input = action.payload.data;
-			var preflight = _preflight(input);
-			var requestAdmission = preflight.then(
-				_requestAdmission.bind(null,input),
-				function(reason) {
-					Store.emitError({
-		    			type: Constants.errors.PREFLIGHT_ERROR,
-						action: action,
-						reason: reason
-					});
-					return Promise.reject(reason);
-				}
-			);
-			requestAdmission.then(
-				function(response) {
-					Store.emitChange({
-		    			type: Constants.events.ADMISSION_SUCCESS,
-						action: action,
-						response: response
-					});
-				},
-				function(reason) {
-					var rsn = reason || {};
-					// normalize property names for message and field to lowercase.
-					['Field', 'Message'].forEach(function(propName) {
-						if (rsn[propName] && !rsn[propName.toLowerCase()]) {
-							rsn[propName.toLowerCase()] = rsn[propName];
-						}
-					});
-					Store.emitError({
-		    			type: Constants.errors.REQUEST_ADMISSION_ERROR,
-						action: action,
-						reason: reason
-					});
-					return Promise.reject(reason);
-				}
-			);
+			_preflightAndSubmit(action);
 			break;
 
 		case Constants.actions.DO_EXTERNAL_PAYMENT:
-			var data = action.payload.data;
-			if (!data.ntiCrn || !data.ntiTerm || !data.returnUrl) {
-				throw new Error('action payload requires ntiCrn and ntiTerm parameters. Received %O', data);
-			}
-			var getUrl = _getExternalPaymentUrl(data.link, data.ntiCrn, data.ntiTerm, data.returnUrl);
-			getUrl.then(
-				function(response) {
-					if(response.rel === 'redirect') {
-						Store.emitChange({
-							type: Constants.events.RECEIVED_PAY_AND_ENROLL_LINK,
-							action: action,
-							response: response
-						});
-					}
-				},
-				function(reason) {
-					var rsn = reason || {};
-					Store.emitError({
-						type: Constants.errors.PAY_AND_ENROLL_ERROR,
-						action: action,
-						reason: rsn
-					});
-					return Promise.reject(rsn);
-				}
-			);
+			_doExternalPayment(action);
 			break;
 
         default:

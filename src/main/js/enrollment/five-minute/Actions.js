@@ -12,6 +12,15 @@ module.exports = {
 			}
 		);
 	},
+
+	requestConcurrentEnrollment: function(data) {
+		dispatch(
+			Constants.actions.REQUEST_CONCURRENT_ENROLLMENT,
+			{
+				data: data
+			}
+		);
+	},
 	
 	// @param {object} data should inlude props for link, ntiCrn, and ntiTerm
 	doExternalPayment: function(data) {
