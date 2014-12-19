@@ -10,7 +10,8 @@ var RadioGroup = React.createClass({
 
 	_renderOptions: function() {
 		return (this.props.options||[]).map(function(option, index) {
-			var checked = this.props.value && this.props.value === option.value;
+			var value = this.props.value||this.props.defaultValue;
+			var checked = value && value === option.value;
 			var input = this.transferPropsTo(<input type="radio"
 						name={this.props.ref}
 						checked={checked}
