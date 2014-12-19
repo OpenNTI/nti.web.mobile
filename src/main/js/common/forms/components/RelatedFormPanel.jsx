@@ -17,13 +17,14 @@ var LocalizedHTML = require('common/components/LocalizedHTML');
 
 var hash = require('object-hash');
 
-// components that render their own label
-var _labelIsRenderedByComponent = new Set([
-	'radiogroup',
-	'select',
-	'checkbox',
-	'toggleFieldset'
-]);
+// components that render their own label:
+var _labelIsRenderedByComponent = new Set();
+
+// safari doesn't support construction of a set from an array (!?)
+// so we'll create the Set empty and add each item.
+['radiogroup', 'select', 'checkbox','toggleFieldset'].forEach(function(comp) {
+	_labelIsRenderedByComponent.add(comp);
+});
 
 // just a dumb wrapper around an array to isolate the
 // accumulation of related configs during render.
@@ -190,7 +191,7 @@ var RelatedFormPanel = React.createClass({
 			input(props);
 
 		if (field.label && !_labelIsRenderedByComponent.has(type)) {
-			var span = React.DOM.span({}, field.label);
+			var span = React.DOM.span({ className: 'fieldLabel' }, field.label);
 			component = React.DOM.label({}, span, component);
 		}
 
