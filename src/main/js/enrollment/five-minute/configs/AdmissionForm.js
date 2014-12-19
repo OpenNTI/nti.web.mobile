@@ -322,6 +322,7 @@ module.exports = Object.freeze([
 				ref: 'signature',
 				type: 'checkbox',
 				label: t('signatureAgreement'),
+				htmlLabel: true,
 				value: 'Y'
 			}
 		]
