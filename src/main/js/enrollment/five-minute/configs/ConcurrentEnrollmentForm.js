@@ -7,7 +7,6 @@ var Constants = require('../Constants');
 
 module.exports = Object.freeze([
 	{
-		title: 'Concurrent Enrollment',
 		fields: [
 			{
 				ref: Constants.fields.IS_CONCURRENT_FORM,
@@ -69,6 +68,7 @@ module.exports = Object.freeze([
 				ref: 'contactme',
 				type: 'checkbox',
 				label: t('contactMe'),
+				htmlLabel: true,
 				value: 'Y'
 			}
 		]

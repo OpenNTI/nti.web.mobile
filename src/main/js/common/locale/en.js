@@ -282,6 +282,10 @@ module.exports = {
 					'or will result in expulsion from the University. I pledge to conduct myself with academic integrity and ' +
 					'abide by the tenets of The University of Oklahoma\'s <a href="http://integrity.ou.edu/" target="_blank">Integrity Pledge.</a>',
 				submit: 'Submit Application',
+				concurrentFormIntro: '<h2>You may qualify for concurrent enrollment.<h2><p>Through Concurrent Enrollment (CE), high school juniors ' +
+					'and seniors can enroll in college classes and earn college credit while will in high school. Submit your contact info ' +
+					'and date of birth below and a Concurrent Enrollment Counselor will be in touch to guide you through the ' +
+					'<a href="http://www.ou.edu/content/go2/admissions/concurrent.html">Concurrent Enrollment Process.</a></p>',
 				contactMe: 'I want someone from the University of Oklahoma to contact me.'
 			}
 		},

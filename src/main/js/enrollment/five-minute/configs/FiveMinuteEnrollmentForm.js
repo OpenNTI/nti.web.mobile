@@ -49,7 +49,7 @@ var highSchoolQuestion = [{
 					related: [
 						{
 							type: Constants.MESSAGE,
-							content: 'test test test'
+							content: 'ENROLLMENT.forms.fiveminute.concurrentFormIntro'
 						},
 						{
 							type: Constants.FORM_CONFIG,
