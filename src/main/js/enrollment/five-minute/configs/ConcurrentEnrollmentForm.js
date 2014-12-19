@@ -16,18 +16,21 @@ module.exports = Object.freeze([
 			{
 				ref: 'name',
 				required: true,
-				placeholder: t('fullName')
+				placeholder: t('fullName'),
+				label: t('name')
 			},
 			{
 				ref: 'email',
 				required: true,
 				type: 'email',
-				placeholder: t('email')
+				placeholder: t('email'),
+				label: t('email')
 			},
 			{
 				ref: 'telephone_number',
 				type: 'tel',
-				placeholder: t('telephone_number')
+				placeholder: t('telephone_number'),
+				label: t('telephone_number')
 			},
 			{
 				label: 'What is your date of birth?',
@@ -41,24 +44,29 @@ module.exports = Object.freeze([
 		title: 'Address (optional)',
 		fields: [
 			{
-				ref: 'mailing_street_line1'
+				ref: 'mailing_street_line1',
+				label: t('mailing_street_line1')
 			},
 			{
-				ref: 'mailing_street_line2'
+				ref: 'mailing_street_line2',
+				label: t('mailing_street_line2')
 			},
 			{
-				ref: 'city'
+				ref: 'city',
+				label: t('city')
 			},
 			StateSelect.withProps({
 				required: false
 			}),
 			CountrySelect.withProps({
 				placeholder: t('country'),
-				required: false
+				required: false,
+				label: t('state')
 			}),
 			{
 				ref: 'postal_code',
-				placeholder: t('postal_code')
+				placeholder: t('postal_code'),
+				label: t('postal_code')
 			}
 		]
 	},
