@@ -15,6 +15,7 @@ var Store = require('../Store');
 var FieldValuesStore = require('common/forms/FieldValuesStore');
 var FormConstants = require('common/forms/Constants');
 var Constants = require('../Constants');
+var update = React.addons.update;
 
 var _rootFormRef = 'rootForm';
 
@@ -41,7 +42,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 
 	_storeChange: function(event) {
 		if(event.isError) {
-			var errs = React.addons.update(
+			var errs = update(
 				this.state.errors,
 				{$push: [{
 					field: event.reason.field,
@@ -103,8 +104,11 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		});
 		var index = errors.indexOf(error);
 		if (index > -1) {
-			var removed = errors.splice(index, 1);
-			console.debug('remove error %s', removed[0].field);
+			var newErrs = update(errors, {$splice: [[index, 1]]}); // errors.splice(index, 1);
+			console.debug('remove error %s', error.field);
+			this.setState({
+				errors: newErrs
+			});
 		}
 		return !!error;
 	},
