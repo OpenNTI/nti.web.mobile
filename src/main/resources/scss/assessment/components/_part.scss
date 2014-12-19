@@ -27,6 +27,13 @@
 		}
 	}
 
+	.part-help > .solutions {
+		border: 1px solid $border-grey;
+		padding: 0.4rem;
+		margin: 0 -0.4rem;
+		background: $panel-background;
+	}
+
 
 	.help-button-box {
 		margin: 0 1rem 0.5rem;

@@ -24,7 +24,7 @@ module.exports = React.createClass({
 	render: function() {
 		var ex = this.state.explanation || '';
 		return (
-			<div className="multiple-choice-solutions">
+			<div className="multiple-choice solutions">
 				{this.renderSolution()}
 				<div className="explanation" dangerouslySetInnerHTML={{__html: ex}}/>
 			</div>
