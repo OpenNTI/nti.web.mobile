@@ -26,7 +26,7 @@ module.exports = Object.freeze([
 				placeholder: t('email')
 			},
 			{
-				ref: 'phone',
+				ref: 'telephone_number',
 				type: 'tel',
 				placeholder: t('telephone_number')
 			},
@@ -58,8 +58,8 @@ module.exports = Object.freeze([
 				required: false
 			}),
 			{
-				ref: 'zip',
-				placeholder: t('zip')
+				ref: 'postal_code',
+				placeholder: t('postal_code')
 			}
 		]
 	},

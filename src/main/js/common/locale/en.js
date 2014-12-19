@@ -238,7 +238,7 @@ module.exports = {
 				oklahomaResidentHighSchool: 'Are you an Oklahoma resident currently attending high school?',
 				historyEnrollViaOzone: 'LSTD 1153.500 fulfills US History Gen Ed requirement. To enroll, visit ' +
 						'<a href="http://ozone.ou.edu" target="_blank">ozone.ou.edu</a> and enroll in LSTD 1153, Section 500.',
-				fullName: 'Full Name',
+				name: 'Full Name',
 				first_name: 'First Name',
 				middle_name: 'Middle Name',
 				last_name: 'Last Name',
@@ -281,7 +281,8 @@ module.exports = {
 					'make my application for admission to the University, as well as any future applications, subject to denial, ' +
 					'or will result in expulsion from the University. I pledge to conduct myself with academic integrity and ' +
 					'abide by the tenets of The University of Oklahoma\'s <a href="http://integrity.ou.edu/" target="_blank">Integrity Pledge.</a>',
-				submit: 'Submit Application'
+				submit: 'Submit Application',
+				contactMe: 'I want someone from the University of Oklahoma to contact me.'
 			}
 		},
 		incompleteForm: 'Please complete all required fields.',
