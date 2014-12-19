@@ -158,17 +158,17 @@ module.exports = Object.freeze([
 				ref: 'telephone_number',
 				type: 'tel',
 				required: true,
-				placeholder: t('primaryPhone')
+				label: t('telephone_number')
 			},
 			{
 				ref: 'email',
 				type: 'email',
 				required: true,
-				placeholder: t('primaryEmail')
+				label: t('email')
 			},
 			{
 				ref: 'social_security_number',
-				placeholder: t('ssn')
+				label: t('social_security_number')
 			},
 			{
 				ref: 'citizen',
