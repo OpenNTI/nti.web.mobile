@@ -6,7 +6,7 @@ var admissionForm = require('./AdmissionForm');
 var Constants = require('common/forms/Constants');
 
 var attendingOU = [{
-	title: 'Admission Status',
+	// title: 'Admission Status',
 	fields: [
 		{
 			ref: 'is_currently_attending_ou',
