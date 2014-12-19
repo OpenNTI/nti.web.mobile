@@ -17,10 +17,12 @@ var Checkbox = React.createClass({
 		var input = this.transferPropsTo(<input />);
 		var config = this.props.field||{};
 
-		var labelSpan = config.htmlLabel ? <span dangerouslySetInnerHTML={{__html: config.label}} /> : <span>{config.label}</span>;
+		var labelSpan = config.htmlLabel ?
+			<span className='htmlLabel' dangerouslySetInnerHTML={{__html: config.label}} /> :
+			<span>{config.label}</span>;
 
 		return (
-			<label>{input} {labelSpan}</label>
+			<label>{input}{labelSpan}</label>
 		);
 	}
 

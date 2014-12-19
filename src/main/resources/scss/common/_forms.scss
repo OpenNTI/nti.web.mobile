@@ -81,6 +81,10 @@ label:not(.css3unsupported) {
 				width: 18px;
 				height: 18px;
 			}
+
+			&.htmlLabel { // the signature in the five-minute enrollment form wraps and we want consistent leading.
+				line-height: inherit;
+			}
 		}
 
 
