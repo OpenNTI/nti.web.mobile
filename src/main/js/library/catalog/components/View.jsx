@@ -18,6 +18,10 @@ var Enrollment = require('../../../enrollment').View;
 var CatalogView = React.createClass({
 
 	getInitialState: function() {
+		//FIXME: Re-write this:
+		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
+		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
+		
         return { catalog: Store.getData() };
     },
 

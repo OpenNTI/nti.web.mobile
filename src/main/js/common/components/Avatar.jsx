@@ -22,6 +22,8 @@ module.exports = React.createClass({
 
 	getInitialState: function() {
 		return {
+			//FIXME: Re-write this:
+			// http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
 			avatar: this._buildAvatarURL(this.props.username)
 		};
 	},
