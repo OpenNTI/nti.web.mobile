@@ -1,0 +1,99 @@
+
+.drag.source {
+	color: $primary-blue;
+	border: 1px solid $primary-blue;
+	border-radius: 3px;
+	background: #fff;
+	box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2);
+	display: inline-block;
+	padding: 0 15px;
+	margin: 15px 5px 15px 0;
+	font: {
+		weight: normal;
+		style: normal;
+		size: 1em
+	};
+	line-height: 2;
+
+	cursor: --webkit-grab;
+	cursor: --moz-grab;
+	cursor: grab;
+
+	&:active,
+	html:not(.touch) &:hover {
+		color: #fff;
+		background: $primary-blue;
+	}
+
+	&:active {
+		cursor: --webkit-grabbing;
+		cursor: --moz-grabbing;
+		cursor: grabbing;
+	}
+
+	&.dropped {
+		visibility: hidden;
+	}
+
+
+	.reset {
+		display: none;
+		//@include experimental(transition, all 0.5s ease);
+		display: inline-block;
+		float: right;
+		width: 0;
+		opacity: 0;
+		height: 2em;
+		//margin-right: -1em;
+		top: 0;
+		left: 0;
+
+		cursor: pointer;
+
+		//@include icon('light-x',10px,6px);
+		html:not(.touch) &:hover::after{
+			//@include sprite($icons,'light-x_hover');
+		}
+	}
+}
+
+.drop.target {
+	// color: #e0e0e0;
+	// font-weight: 500;
+
+	.dropzone {
+
+	}
+
+	.blank[data-term],
+	.blank[data-input] {
+		display: inline-block;
+		margin-right: 0.5em;
+		border-radius: 3px;
+
+		position: relative;
+
+		&:empty {
+			&::before {
+				content: '(blank)';
+				visibility: hidden;
+			}
+		}
+
+		&::after {
+			$o: 0;
+			content: '';
+			position: absolute;
+			height: 24px;
+			left: $o; right: $o; bottom: 6px;
+
+			border: 2px solid $border-grey;
+			border-radius: 3px;
+			clip: rect(20px auto auto auto);
+		}
+	}
+
+	.blank[data-term]:not(:empty)::after {
+		display: none;
+	}
+}
