@@ -128,7 +128,7 @@ var RelatedFormPanel = React.createClass({
 			fallback: ''
 		};
 
-		var configuredValue = (field.value||field.defaultValue);
+		var configuredValue = field.type !== 'checkbox' && (field.value||field.defaultValue);
 		// explicit test against undefined because the value could be zero which is falsy.
 		if (configuredValue !== undefined && (type === 'hidden' || !FieldValuesStore.getValue(ref))) {
 			FieldValuesStore.setValue(ref, configuredValue);
@@ -174,6 +174,7 @@ var RelatedFormPanel = React.createClass({
 				input = Checkbox;
 				props.onChange = this._checkboxChanged;
 				props.value = field.value;
+				props.checked = (FieldValuesStore.getValue(ref) === field.value);
 				break;
 
 			case 'toggleFieldset':
