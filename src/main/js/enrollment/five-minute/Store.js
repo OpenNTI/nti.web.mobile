@@ -75,6 +75,16 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 
     switch(action.type) {
 		case Constants.actions.PREFLIGHT_AND_SUBMIT:
+			// TODO: This should be a function
+			//
+			// Switch statements should be short, simple and only consist of
+			// calls, no vars. If a control statement is needed (for/if/while/switch/etc)
+			// you need a new function.
+			//
+			// Case blocks can call on more complex code but should not host that complex code.
+			//
+			// http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html
+			// Lets only declare vars at the real scope, never inside blocks.
 			var input = action.payload.data;
 			var preflight = _preflight(input);
 			var requestAdmission = preflight.then(
