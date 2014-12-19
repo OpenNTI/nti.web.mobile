@@ -183,6 +183,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 					<div className="medium-6 medium-centered columns">
 						<h2>{title}</h2>
 						<p>{t('admissionDescription')}</p>
+						<FormErrors errors={errors} />
 						<RelatedFormPanel
 							inputFocus={this.inputFocused}
 							ref={_rootFormRef}
