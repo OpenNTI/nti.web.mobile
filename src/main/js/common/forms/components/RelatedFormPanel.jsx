@@ -252,20 +252,22 @@ var RelatedFormPanel = React.createClass({
 
 		RelatedConfigsStash.get().forEach(function(config) {
 			if(config.isActive) {
-				var conf = config.config[0];
-				switch(conf.type) {
-					case Constants.FORM_CONFIG:
-						related.push(this._renderFormConfig(conf.content, values));
-						break;
-					case Constants.MESSAGE:
-						related.push(<PanelNoButton key={hash(conf)}><LocalizedHTML key={conf.content} /></PanelNoButton>);
-						break;
-					case Constants.SUBFIELDS:
-						// inline subfields will be rendered with the field itself;
-						break;
-					default:
-						console.warn('Unrecognized related config type: %O', config);
-				}
+				// var conf = config.config[0];
+				config.config.forEach(function(conf) {
+					switch(conf.type) {
+						case Constants.FORM_CONFIG:
+							related.push(this._renderFormConfig(conf.content, values));
+							break;
+						case Constants.MESSAGE:
+							related.push(<PanelNoButton key={hash(conf)}><LocalizedHTML key={conf.content} /></PanelNoButton>);
+							break;
+						case Constants.SUBFIELDS:
+							// inline subfields will be rendered with the field itself;
+							break;
+						default:
+							console.warn('Unrecognized related config type: %O', config);
+					}
+				}.bind(this));
 			}
 			// if(config.isActive && config.config[0].type === Constants.FORM_CONFIG) {
 			// 	related.push(this._renderFormConfig(config.config[0].content, values));

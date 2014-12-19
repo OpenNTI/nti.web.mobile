@@ -48,6 +48,10 @@ var highSchoolQuestion = [{
 					value: 'Y',
 					related: [
 						{
+							type: Constants.MESSAGE,
+							content: 'test test test'
+						},
+						{
 							type: Constants.FORM_CONFIG,
 							content: concurrentForm
 						}
