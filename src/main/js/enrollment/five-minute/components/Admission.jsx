@@ -95,7 +95,17 @@ module.exports = React.createClass({
 				// ignore jshint on the following line because we know NTI_Term
 				// is not not camel cased; that's what we get from dataserver.
 				var term = this.props.enrollment.NTI_Term; // jshint ignore:line 
-				view = <Payment paymentLink={link} ntiCrn={crn} ntiTerm={term}/>;
+				if (link) {
+					view = <Payment paymentLink={link} ntiCrn={crn} ntiTerm={term}/>;	
+				}
+				else {
+					return (
+						<PanelButton href="../" linkText="Go Back" className="error">
+							<p>Unable to direct to payment site. Please try again later.</p>
+						</PanelButton>
+					);
+				}
+				
 				break;
 
 			case StatusConstants.REJECTED:

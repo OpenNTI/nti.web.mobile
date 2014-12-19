@@ -77,7 +77,7 @@ var Payment = React.createClass({
 			<PanelButton
 				buttonClick={this.buttonClick}
 				linkText={t("proceedToPayment")}>
-					<span>You will be taken to an external site for payment.</span>
+					<span>You will be taken to a secure external site for payment.</span>
 			</PanelButton>
 		);
 	}
