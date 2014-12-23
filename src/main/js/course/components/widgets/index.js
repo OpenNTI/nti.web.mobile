@@ -14,22 +14,23 @@ var QuestionSet = require('./QuestionSet');
 
 function getItemHandler(item, index, list, props, node) {
 	var Item = exports.Unknown;
-	var key, Type;
+	var key, Type, render = true;
 
 	for (key in exports) {
 		if (exports.hasOwnProperty(key)) {
 			Type = exports[key];
 			if (Type !== Unknown && Type.handles && Type.handles(item)) {
 				if (!Type.Factory) {
-					Type.Facory = React.createFactory(Type);
+					Type.Factory = React.createFactory(Type);
 				}
 				Item = Type.Factory;
+				render = (!Type.canRender || Type.canRender(item, node));
 				break;
 			}
 		}
 	}
 
-	return (!Item.canRender || Item.canRender(item, node)) &&
+	return render &&
 	 	Item(Object.assign({}, props || {}, {
 			key: item.NTIID || ('overview-' + item.MimeType + '-' + index),
 			item: item,
