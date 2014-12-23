@@ -23,7 +23,7 @@ var EventPluginUtils = require('react/lib/EventPluginUtils');
 var EventPropagators = require('react/lib/EventPropagators');
 var SyntheticEvent = require('react/lib/SyntheticEvent');
 
-var accumulate = require('react/lib/accumulate');
+var accumulate = require('react/lib/accumulateInto');
 var keyOf = require('react/lib/keyOf');
 
 var isStartish = EventPluginUtils.isStartish;
