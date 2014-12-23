@@ -149,7 +149,7 @@ var KalturaVideo = React.createClass({
 	render: function() {
 
 		if(!this.state.sourcesLoaded) {
-			return Loading();
+			return <Loading/>;
 		}
 
 		if(this.state.isError) {
