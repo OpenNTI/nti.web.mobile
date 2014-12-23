@@ -1,4 +1,5 @@
 'use strict';
+var React = require('react/addons');
 
 var Unknown = require('./Unknown');
 var Chat = require('./Chat');
@@ -39,7 +40,10 @@ exports = module.exports = {
 			if (exports.hasOwnProperty(key)) {
 				Type = exports[key];
 				if (Type !== Unknown && Type.handles && Type.handles(item)) {
-					Item = Type;
+					if (!Type.Factory) {
+						Type.Factory = React.createFactory(Type);
+					}
+					Item = Type.Factory;
 					break;
 				}
 

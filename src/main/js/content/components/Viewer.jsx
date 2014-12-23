@@ -89,7 +89,7 @@ module.exports = React.createClass({
 				if (el && !el.hasAttribute('mounted')) {
 					// console.debug('Content View: Mounting Widget...');
 					try {
-						w = React.renderComponent(w, el);
+						w = React.render(w, el);
 						el.setAttribute('mounted', 'true');
 					} catch (e) {
 						console.error('A content widget blew up while rendering: %s', e.stack || e.message || e);

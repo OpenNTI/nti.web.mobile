@@ -25,8 +25,8 @@ React.initializeTouchEvents(true);
 
 
 
-var WidgetView = require('./widget');
-React.renderComponent(
+var WidgetView = React.createFactory(require('./widget'));
+React.render(
 	WidgetView(),
 	document.getElementById('content')
 );

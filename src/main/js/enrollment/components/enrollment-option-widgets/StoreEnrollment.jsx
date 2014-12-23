@@ -17,6 +17,13 @@ var StoreEnrollment = React.createClass({
 
 	propTypes: requiredProps,
 
+	statics: {
+		re: /StoreEnrollment/i,
+		handles: function (options) {
+			return this.re.test(options && options.key);
+		}
+	},
+
 	render: function() {
 
 		var option = this.props.enrollmentOption.option;
@@ -38,4 +45,3 @@ var StoreEnrollment = React.createClass({
 });
 
 module.exports = StoreEnrollment;
-

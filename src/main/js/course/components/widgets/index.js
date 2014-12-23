@@ -1,4 +1,5 @@
 'use strict';
+var React = require('react/addons');
 
 
 var Unknown = require('./Unknown');
@@ -19,7 +20,10 @@ function getItemHandler(item, index, list, props, node) {
 		if (exports.hasOwnProperty(key)) {
 			Type = exports[key];
 			if (Type !== Unknown && Type.handles && Type.handles(item)) {
-				Item = Type;
+				if (!Type.Factory) {
+					Type.Facory = React.createFactory(Type);
+				}
+				Item = Type.Factory;
 				break;
 			}
 		}

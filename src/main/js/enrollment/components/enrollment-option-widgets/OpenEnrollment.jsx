@@ -14,11 +14,18 @@ var OpenEnrollmentWidget = React.createClass({
 
 	propTypes: requiredProps,
 
+	statics: {
+		re: /OpenEnrollment/i,
+		handles: function (options) {
+			return this.re.test(options && options.key);
+		}
+	},
+
 	_enroll: function(event) {
 		event.preventDefault();
 		Actions.enrollOpen(this.props.catalogEntry.getID());
 	},
-	
+
 	render: function() {
 		return (
 			<PanelButton onClick={this._enroll} linkText={t(this.props.enrollmentOption.key)}>
