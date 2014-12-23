@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 'use strict';
 
 // we're naming fields to line up with the stripe api which uses lowercase

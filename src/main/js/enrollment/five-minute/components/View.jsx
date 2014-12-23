@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 'use strict';
 
 var React = require('react/addons');
@@ -61,7 +57,7 @@ var View = React.createClass({
 					handler={PaymentComplete}
 					basePath={this.props.basePath}
 					entryId={this.props.entryId}
-					courseId={this.props.courseId} 
+					courseId={this.props.courseId}
 					enrollment={this.props.enrollment}
 				/>
 

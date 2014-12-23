@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 'use strict';
 
 var React = require('react/addons');
@@ -12,7 +8,7 @@ var ConcurrentSent = React.createClass({
 
 	render: function() {
 		return (
-			
+
 			<PanelButton href='../../../' linkText="Back">
 				<h2>{t('concurrentThanksHead')}</h2>
 				<p dangerouslySetInnerHTML={{__html: t('concurrentThanksBody')}} />

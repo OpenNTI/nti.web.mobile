@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var NTIID = require('dataserverinterface/utils/ntiids');

@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 'use strict';
 
 var React = require('react/addons');
@@ -94,9 +90,9 @@ module.exports = React.createClass({
 				var crn = enrollment.NTI_CRN;
 				// ignore jshint on the following line because we know NTI_Term
 				// is not not camel cased; that's what we get from dataserver.
-				var term = this.props.enrollment.NTI_Term; // jshint ignore:line 
+				var term = this.props.enrollment.NTI_Term; // jshint ignore:line
 				if (link) {
-					view = <Payment paymentLink={link} ntiCrn={crn} ntiTerm={term}/>;	
+					view = <Payment paymentLink={link} ntiCrn={crn} ntiTerm={term}/>;
 				}
 				else {
 					return (
@@ -105,7 +101,7 @@ module.exports = React.createClass({
 						</PanelButton>
 					);
 				}
-				
+
 				break;
 
 			case StatusConstants.REJECTED:
@@ -125,4 +121,3 @@ module.exports = React.createClass({
 	}
 
 });
-

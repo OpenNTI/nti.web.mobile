@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var vtt = require("vtt.js"),//https://github.com/mozilla/vtt.js
