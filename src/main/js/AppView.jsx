@@ -96,7 +96,7 @@ var App = React.createClass({
 		var wrapper = isLoginView ? React.DOM.div : AppContainer;
 
 		if (this.state.mask) {
-			return Loading({message: this.state.mask});
+			return <Loading message={this.state.mask}/>;
 		}
 
 		return (

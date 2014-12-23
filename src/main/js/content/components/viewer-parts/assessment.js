@@ -38,7 +38,6 @@ module.exports = {
 
 
 	renderAssessmentSubmission: function () {
-		var div = React.DOM.div;
 		var page = this.state.page;
 		var quiz = page && page.getSubmittableAssessment();
 		if (!page || !quiz) {
@@ -46,8 +45,8 @@ module.exports = {
 		}
 
 		return (
-			div({className: 'fixed-footer'},
-				div({className: 'the-fixed'},
+			React.createFactory('div', {className: 'fixed-footer'},
+				React.createFactory('div', {className: 'the-fixed'},
 					assessment.SetSubmissionWidget({
 						assessment: quiz,
 						page: page

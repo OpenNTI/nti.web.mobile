@@ -43,8 +43,8 @@ module.exports = React.createClass({
 				.then(function(data) { outline = data; });
 
 		var map = this._DEPTH_MAP = [
-			React.DOM.h3,
-			React.DOM.div
+			'h3',
+			'div'
 		];
 
 		var prefix = props.basePath;
@@ -52,7 +52,7 @@ module.exports = React.createClass({
 		waitFor(work)
 			.then(function() {
 				if (outline.getMaxDepth() > 2) {
-					map.unshift(React.DOM.h1);
+					map.unshift('h1');
 				}
 
 				this.setState({
@@ -93,7 +93,7 @@ module.exports = React.createClass({
 				{list.map(function(item) {
 					var children = _renderTree(item.contents);
 					var href = item.href;
-					var Tag = depthMap[item.getDepth() - 1] || React.DOM.div;
+					var Tag = depthMap[item.getDepth() - 1] || 'div';
 
 					if (href) {
 						href = prefix + href;

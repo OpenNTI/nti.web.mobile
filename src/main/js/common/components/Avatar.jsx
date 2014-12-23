@@ -64,6 +64,6 @@ module.exports = React.createClass({
 			onError: this.setUnknown
 		});
 
-		return React.DOM.img(props);
+		return <img {...props}/>;
 	}
 });

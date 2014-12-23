@@ -23,7 +23,7 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var Tag = React.DOM[this.props.tag];
+		var Tag = this.props.tag;
 		if (!isEmpty(this.props.children) && !this.props.loading) {
 			return Tag(Object.assign({}, this.props), this.props.children);
 		}

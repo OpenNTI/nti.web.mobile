@@ -56,7 +56,7 @@ module.exports = {
 		var input;
 		switch(field.type) {
 			case 'textarea':
-				input = React.DOM.textarea;
+				input = 'textarea';
 			break;
 			case 'select':
 				input = Select;
@@ -74,12 +74,12 @@ module.exports = {
 				input = ToggleFieldset;
 			break;
 			default:
-				input = React.DOM.input;
+				input = 'input';
 		}
 
 		var component = type === 'label' ?
-			React.DOM.label({ ref: ref, className: cssClass.join(' ') }, tr(ref, translateOptions)) :
-			input({
+			React.createElement('label', {ref: ref, className: cssClass.join(' ') }, tr(ref, translateOptions)) :
+			React.createElement('input', {
 				ref: ref,
 				value: (values||{})[ref],
 				name: ref,
@@ -100,12 +100,12 @@ module.exports = {
 				pattern: (field.type === 'number' && '[0-9]*') || null
 			});
 
-		var subfields = ((state.subfields||{})[field.ref]||[]).map(function(item) {
-			return this.renderField(translator, values, item);
-		}.bind(this));
+		var subfields = ((state.subfields||{})[field.ref]||[]).map(
+			item=>this.renderField(translator, values, item)
+		);
 
 		if (subfields.length > 0) {
-			related = React.DOM.div(
+			related = React.createElement('div',
 				{
 					className: 'subfields',
 					key: ref.concat('-subfields')
@@ -115,7 +115,7 @@ module.exports = {
 		}
 
 		return (
-			React.DOM.div(
+			React.createElement('div',
 				{
 					key: ref,
 					className: ref
@@ -131,26 +131,24 @@ module.exports = {
 		var fieldRenderFn = this.renderField.bind(null, translator, values);
 
 		var key = 'fieldset-'.concat(index);
-		return React.DOM.fieldset(
+		return React.createElement('fieldset',
 			{
 				key: key,
 				className: fieldset.className || null
 			},
-			[
-				fieldset.title ? React.DOM.legend({key: key+'-legend'}, fieldset.title) : null,
-				fieldset.fields.map(fieldRenderFn)
-			]
+			fieldset.title ? React.createElement('legend', {}, fieldset.title) : null,
+			fieldset.fields.map(fieldRenderFn)
 		);
 	},
 
 	renderFormConfig: function(config, values, translator) {
 		this._translator = translator; // stash for rendering related sub-forms later
-		var fieldsets = config.map(function(fieldset, index) {
-			return this.renderFieldset(translator, values, fieldset, index);
-		}.bind(this));
-		return (
-			React.DOM.div({className: 'form-render'}, fieldsets)
+		var args = ['div', {className: 'form-render'}].concat(
+			config.map(
+				(fieldset, index)=>this.renderFieldset(translator, values, fieldset, index)
+			)
 		);
+		return React.createElement.apply(null, args);
 	},
 
     _onFocus: function(event) {

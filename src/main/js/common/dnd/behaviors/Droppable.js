@@ -7,8 +7,6 @@ var Base = require('./Base');
 
 var {TYPE_SHAPE} = Base;
 
-var {div} = React.DOM;
-
 Object.assign(exports, {
 	mixins: [Base],
 
@@ -57,7 +55,7 @@ Object.assign(exports, {
 
 
 	renderDropTargetWrapper: function (children) {
-		return div(Object.assign({}, this.props, {
+		return React.createElement('div', Object.assign({}, this.props, {
 			children: children,
 			className: this.__getWrapperElementClassName(),
 			onMouseEnter: this._onMouseEnteredDropTarget,

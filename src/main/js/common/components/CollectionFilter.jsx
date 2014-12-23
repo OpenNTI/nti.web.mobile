@@ -233,23 +233,29 @@ var Filter = React.createClass({
 
 		var routes = Object.keys(filters).map(function(filtername) {
 			var filterpath = filtername.toLowerCase();
-			return Location({
-				path: '/' + filterpath,
-				filtername: filterpath,
-				handler: FilterableView,
-				list: list,
-				listcomp: cloneWithProps(listComp, {list: list}),
-				filters: filters,
-				title: title
-			});
+			return (
+				<Location
+					key={filterpath}
+					path={'/' + filterpath}
+					filtername={filterpath}
+					handler={FilterableView}
+					list={list}
+					listcomp={cloneWithProps(listComp, {list: list})}
+					filters={filters}
+					title={title}
+				/>
+			);
 		});
 
-		routes.push(DefaultRoute({
-			handler: DefaultPath,
-			filters: this.props.filters,
-			list: list,
-			defaultFilter: this.props.defaultFilter
-		}));
+		routes.push(
+			<DefaultRoute
+				key="default"
+				handler={DefaultPath}
+				filters={this.props.filters}
+				list={list}
+				defaultFilter={this.props.defaultFilter}
+				/>
+			);
 
 		return routes;
 	},

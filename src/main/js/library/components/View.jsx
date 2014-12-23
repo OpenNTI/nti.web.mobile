@@ -15,6 +15,7 @@ var Section = require('./Section');
 var Sections = require('../Sections');
 
 var View = React.createClass({
+	displayName: 'Library:View',
 
 	getInitialState: function() {
 		return {
@@ -41,7 +42,11 @@ var View = React.createClass({
 			return (<Loading />);
 		}
 
-		return Locations({contextual: true}, this.getRoutes(this.props.basePath));
+		return (
+			<Locations contextual={true}>
+				{this.getRoutes(this.props.basePath)}
+			</Locations>
+		);
 	},
 
 
@@ -49,19 +54,21 @@ var View = React.createClass({
 		var sections = Sections.getSectionNames();
 
 		var routes = sections.map(function(section) {
-			return Location({
-				path: '/' + section + '/*',
-				handler: Section,
-				section: section,
-				basePath: basePath
-			});
+			return <Location
+				key={section}
+				path={'/' + section + '/*'}
+				handler={Section}
+				section={section}
+				basePath={basePath}
+			/>;
 		});
 
 		if (this.state.defaultSection) {
-			routes.push(DefaultRoute({
-				handler: Redirect,
-				location: '/' + this.state.defaultSection + '/'
-			}));
+			routes.push(<DefaultRoute
+				key="default"
+				handler={Redirect}
+				location={'/' + this.state.defaultSection + '/'}
+			/>);
 		}
 
 		return routes;

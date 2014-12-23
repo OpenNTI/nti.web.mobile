@@ -87,8 +87,7 @@ module.exports = React.createClass({
 	render: function() {
 		var enrollmentStatus = this.props.enrollmentStatus || 'None';
 		var EnrollmentMessage = isOpenEnrolled(enrollmentStatus) ?
-				OpenEnrolledMessage :
-				React.DOM.div;
+				OpenEnrolledMessage : 'div';
 
 		var entry = this.props.entry;
 		var prerequisites = entry.Prerequisites;

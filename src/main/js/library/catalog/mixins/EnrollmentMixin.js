@@ -96,7 +96,7 @@ module.exports = {
 	},
 
 	_showOption: function(enrollmentOption) {
-		return enrollmentOption && enrollmentOption.IsAvailable; 
+		return enrollmentOption && enrollmentOption.IsAvailable;
 	},
 
 	enrollmentWidgets: function() {
@@ -117,8 +117,8 @@ module.exports = {
 			}.bind(this));
 			widgets = widgets.filter(function(item) {return item !== null;});
 			if (widgets.length > 0) {
-				return React.DOM.div({
-						className: "enrollment-panels"		
+				return React.createFactory('div', {
+						className: "enrollment-panels"
 					},
 					widgets
 				);

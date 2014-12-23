@@ -158,7 +158,7 @@ module.exports = React.createClass({
 
 	render: function() {
 		var video = this.props.src;
-		var Provider = Providers.getHandler(video) || React.DOM.div;
+		var Provider = Providers.getHandler(video) || 'div';
 		var videoSource = video && (video.sources || {})[0];
 
 		return (

@@ -33,7 +33,7 @@ var ActiveState = React.createClass({
 
 
     render: function() {
-        var Tag = React.DOM[this.props.tag];
+        var Tag = this.props.tag;
         var className = this.props.className || '';
 
         if (this.props.activeClassName && this.isActive()) {

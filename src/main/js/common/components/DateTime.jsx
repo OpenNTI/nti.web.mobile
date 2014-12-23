@@ -62,6 +62,6 @@ module.exports = React.createClass({
 			dateTime: moment(props.date).format()
 		});
 
-		return React.DOM.time(props, text);
+		return (<time {...props}>{text}</time>);
 	}
 });
