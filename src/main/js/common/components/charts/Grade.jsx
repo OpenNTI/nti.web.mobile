@@ -95,8 +95,8 @@ module.exports = React.createClass( {
 			height: p.height
 		};
 
-		return this.transferPropsTo(
-			<canvas className="grade" style={style} width={width} height={height} />
+		return (
+			<canvas {...this.props} className="grade" style={style} width={width} height={height} />
 		);
 	},
 

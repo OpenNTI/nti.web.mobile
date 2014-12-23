@@ -40,11 +40,12 @@ var ActiveState = React.createClass({
         if (this.props.activeClassName && this.isActive()) {
             className += ' ' + this.props.activeClassName;
         }
-        var props = {
+        
+        var props = Object.assign({}, this.props, {
             className: className
-        };
+        });
 
-        return this.transferPropsTo(Tag(props, this.props.children));
+        return Tag(props, this.props.children);
     }
 });
 

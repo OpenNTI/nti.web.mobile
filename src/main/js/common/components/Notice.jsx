@@ -5,8 +5,8 @@ var React = require('react/addons');
 
 var Notice = React.createClass({
 	render: function() {
-		return this.transferPropsTo(
-			<div className="notice">
+		return (
+			<div {...this.props} className="notice">
 				{this.props.children}
 			</div>
 		);

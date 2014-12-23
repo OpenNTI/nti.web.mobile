@@ -25,12 +25,11 @@ var CourseContentLink = React.createClass({
 
 		var href = CourseContentLink.courseHref(this.props.courseId);
 
-		return this.transferPropsTo(
-			<a href={href}>{this.props.children}</a>
+		return (
+			<a {...this.props} href={href}>{this.props.children}</a>
 		);
 	}
 
 });
 
 module.exports = CourseContentLink;
-

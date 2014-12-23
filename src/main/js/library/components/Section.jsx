@@ -18,24 +18,21 @@ module.exports = React.createClass({
 		switch (section) {
 			case 'courses':
 			case 'books':
-				return List({section: section});
+				return (<List {...this.props} section={section}/>);
 
 			case 'catalog':
-				return Catalog();
+				return (<Catalog {...this.props}/>);
 
 			default:
-				return (<div>Unknown section</div>);
+				return (<div {...this.props}>Unknown section</div>);
 		}
 	},
 
 	render: function() {
-
-		var contentView = this.transferPropsTo(this._contentView(this.props.section));
-
 		return (
 			<div>
-				{this.transferPropsTo(<IconBar />)}
-				{contentView}
+				<IconBar {...this.props}/>
+				{this._contentView(this.props.section)}
 			</div>
 		);
 	}

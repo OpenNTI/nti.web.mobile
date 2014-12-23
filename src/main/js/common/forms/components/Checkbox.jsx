@@ -13,16 +13,16 @@ var Checkbox = React.createClass({
 	},
 
 	render: function() {
-
-		var input = this.transferPropsTo(<input />);
 		var config = this.props.field||{};
-
-		var labelSpan = config.htmlLabel ?
-			<span className='htmlLabel' dangerouslySetInnerHTML={{__html: config.label}} /> :
-			<span>{config.label}</span>;
-
 		return (
-			<label>{input}{labelSpan}</label>
+			<label>
+				<input {...this.props}/>
+				{config.htmlLabel ?
+					<span className='htmlLabel' dangerouslySetInnerHTML={{__html: config.label}} />
+					:
+					<span>{config.label}</span>
+				}
+			</label>
 		);
 	}
 

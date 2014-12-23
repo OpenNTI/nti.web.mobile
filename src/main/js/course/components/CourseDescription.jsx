@@ -11,12 +11,9 @@ var EnrollButton = require('library/catalog/components/EnrollButton'); // drop c
 var CourseDescription = React.createClass({
 
 	render: function() {
-
-		var detail = this.transferPropsTo(<Detail />);
-
 		return (
 			<div>
-				{detail}
+				<Detail {...this.props}/>
 				<EnrollButton catalogEntry={this.props.entry} dropOnly={true}/>
 			</div>
 		);
@@ -25,4 +22,3 @@ var CourseDescription = React.createClass({
 });
 
 module.exports = CourseDescription;
-

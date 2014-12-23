@@ -77,17 +77,17 @@ module.exports = React.createClass({
 		var videoIndex = this.state.videoIndex;
 		var video = videoIndex.get(videoId);
 
-		var props = {
+		var props = Object.assign({}, this.props, {
 			VideoIndex: videoIndex,
 			videoId: videoId,
 			video: video,
 			parentPath: videoId ?
 				location.href.replace(p.videoId, '').replace(/\/\/$/, '/') :
 				null
-		};
+		});
 
 		var Tag = videoId ? TranscriptedVideo : VideoGrid;
 
-		return this.transferPropsTo(Tag(props));
+		return Tag(props);
 	}
 });

@@ -24,9 +24,9 @@ var Select = React.createClass({
 		/**
 		* optionsLink property if provided should be an object
 		* in the shape of:
-		*   { 
+		*   {
 		* 	  type: 'rel',
-		* 	  rel: 'fmaep.state.names' 
+		* 	  rel: 'fmaep.state.names'
 		*   }
 		* where rel is a reference to a Link available on User
 		* This allows room for other types in the future (e.g. raw urls)
@@ -61,7 +61,7 @@ var Select = React.createClass({
 		}
 		else {
 			throw new Error(
-				'_loadOptions requires that this.props.optionsLink be an object with type:\'rel\' and ' + 
+				'_loadOptions requires that this.props.optionsLink be an object with type:\'rel\' and ' +
 				'a rel property for looking getting a link from user.'
 			);
 		}
@@ -90,7 +90,7 @@ var Select = React.createClass({
 			var option = this._makeOption(item);
 			return <option value={option.value} key={option.value}>{option.name}</option>;
 		}.bind(this));
-		
+
 		// include empty option
 		options.unshift(<option value="" key="blank"></option>);
 
@@ -104,16 +104,12 @@ var Select = React.createClass({
 			return <Loading />;
 		}
 
-		var select = this.transferPropsTo(
-			<select>
-				{this._options()}
-			</select>
-		);
-
 		return (
 			<label>
 				<span>{this.props.field.label}</span>
-				{select}
+				<select {...this.props}>
+					{this._options()}
+				</select>
 			</label>
 		);
 	}

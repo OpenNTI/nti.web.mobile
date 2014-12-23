@@ -101,7 +101,7 @@ var FilterableView = React.createClass({
 
 		return (
 			<div>
-				{this.transferPropsTo(<FilterBar />)}
+				<FilterBar {...this.props}/>
 				{filtered.length === 0 ? <NoMatches /> : null}
 				<div>
 					{cloneWithProps(this.props.listcomp, { list: filtered,	omittitle: true	})}

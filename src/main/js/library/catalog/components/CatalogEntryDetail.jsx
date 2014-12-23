@@ -77,9 +77,7 @@ var CatalogEntryDetail = React.createClass({
 
 		return (
 			<div>
-				{this.transferPropsTo(
-					<Detail entry={this.state.entry}/>
-				)}
+				<Detail {...this.props} entry={this.state.entry}/>
 				<EnrollButton catalogEntry={this.state.entry} />
 			</div>
 		);

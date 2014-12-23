@@ -157,15 +157,14 @@ var KalturaVideo = React.createClass({
 			return (<div className="error">Unable to load video.</div>);
 		}
 
-		var Tag = React.DOM.video;
-		var videoProps = {
+		var videoProps = Object.assign({}, this.props, {
 			ref: 'video',
 			controls: !/iP(hone|od)/i.test(navigator.userAgent),
 			poster: this.state.poster,
 			src: null,
 			source: null,
 			onClick: this.doPlay
-		};
+		});
 
 		Object.keys(this.props).forEach(function(key) {
 			if (/^on/i.test(key)) {
@@ -177,7 +176,9 @@ var KalturaVideo = React.createClass({
 
 		return (
 			<div className={'video-wrapper ' + interacted}>
-				{this.transferPropsTo(Tag(videoProps, this._renderSources()))}
+				<video {...videoProps}>
+					{this._renderSources()}
+				</video>
 				{!this.state.interacted && <a className="tap-area play" href="#" onClick={this.doPlay}
 						style={{backgroundImage: 'url('+this.state.poster+')'}}/>}
 			</div>

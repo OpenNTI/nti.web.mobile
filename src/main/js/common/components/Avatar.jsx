@@ -58,13 +58,13 @@ module.exports = React.createClass({
 	render: function() {
 		var user = this.props.username;
 
-		var props = {
+		var props = Object.assign({}, this.props, {
 			'data-for': user,
 			src: this.state.avatar,
 			alt: 'Avatar for ' + user,
 			onError: this.setUnknown
-		};
+		});
 
-		return this.transferPropsTo(React.DOM.img(props));
+		return React.DOM.img(props);
 	}
 });

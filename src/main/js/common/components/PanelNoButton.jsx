@@ -13,8 +13,8 @@ var PanelButton = require('./PanelButton');
 var PanelNoButton = React.createClass({
 
 	render: function() {
-		return this.transferPropsTo(
-			<PanelButton>
+		return (
+			<PanelButton {...this.props}>
 				{this.props.children}
 			</PanelButton>
 		);

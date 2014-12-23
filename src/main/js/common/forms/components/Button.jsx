@@ -20,7 +20,7 @@ var Button = React.createClass({
 
 	onClick: function(e) {
 		if(this.props.enabled) {
-			(this.props.onClick||function(){}).apply(this,arguments);	
+			(this.props.onClick||function(){}).apply(this,arguments);
 		}
 		if(this.props.href==='#' || !this.props.enabled) {
 			e.preventDefault();
@@ -34,8 +34,10 @@ var Button = React.createClass({
 		if(!this.props.enabled) {
 			css.push('disabled');
 		}
-		return this.transferPropsTo(
-			<a href={this.props.href} onClick={this.onClick} className={css.join(' ')}>{this.props.children}</a>
+		return (
+			<a {...this.props} href={this.props.href} onClick={this.onClick} className={css.join(' ')}>
+				{this.props.children}
+			</a>
 		);
 	}
 });
