@@ -183,7 +183,7 @@ var Filter = React.createClass({
 		/**
 		 *	A (single) component for rendering the (filtered) list.
 		 */
-		children: React.PropTypes.component.isRequired,
+		children: React.PropTypes.element.isRequired,
 
 		/** filters should be a collection of named filter functions.
 		 * for example:
