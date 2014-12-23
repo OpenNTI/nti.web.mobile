@@ -126,12 +126,12 @@ var PaymentConfirm = React.createClass({
 					<BillingInfo card={this.state.stripeToken.card} edit={edit} />
 					<p>Clicking submit will charge your card {price}{isGift ? '' : ' and enroll you in the course'}.</p>
 
-					{!allowVendorUpdates ? '' : 
+					{!allowVendorUpdates ? '' :
 						<div className="subscribe">
 							<label>
 								<input type="checkbox" ref="subscribeToUpdates" name="subscribe" />
-								<Localized tag="span" key="ENROLLMENT.SUBSCRIBE.label" />
-								<Localized tag="p" key="ENROLLMENT.SUBSCRIBE.legal" />
+								<Localized tag="span" stringId="ENROLLMENT.SUBSCRIBE.label" />
+								<Localized tag="p" stringId="ENROLLMENT.SUBSCRIBE.legal" />
 							</label>
 						</div>
 					}

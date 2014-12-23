@@ -255,7 +255,7 @@ var RelatedFormPanel = React.createClass({
 							related.push(this._renderFormConfig(conf.content, values));
 							break;
 						case Constants.MESSAGE:
-							related.push(<PanelNoButton key={hash(conf)}><LocalizedHTML key={conf.content} /></PanelNoButton>);
+							related.push(<PanelNoButton key={hash(conf)}><LocalizedHTML stringId={conf.content} /></PanelNoButton>);
 							break;
 						case Constants.SUBFIELDS:
 							// inline subfields will be rendered with the field itself;

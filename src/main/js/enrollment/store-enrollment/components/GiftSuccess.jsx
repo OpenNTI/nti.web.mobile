@@ -56,10 +56,17 @@ module.exports = React.createClass({
 				<Pricing purchasable={this.props.purchasable} locked={true} />
 				<div className="medium-8 medium-centered columns panel">
 					<h3 className="header">{_t("title")}</h3>
-					<LocalizedHTML className="gift" key={infoKey} scoped="ENROLLMENT.GIFT.SUCCESS" sender={sender} receiver={receiver} />
+					<LocalizedHTML className="gift" stringId={infoKey} scoped="ENROLLMENT.GIFT.SUCCESS" sender={sender} receiver={receiver} />
 					<p className="alert">{alert}</p>
-					<LocalizedHTML className="prompt" key="info" scoped="ENROLLMENT.GIFT.SUCCESS" courseTitle={courseTitle} startDate={date}/>
-					<LocalizedHTML className="support" key="support" scoped="ENROLLMENT.GIFT.SUCCESS" email={support} />
+					<LocalizedHTML className="prompt"
+							stringId="info"
+							scoped="ENROLLMENT.GIFT.SUCCESS"
+							courseTitle={courseTitle}
+							startDate={date}/>
+					<LocalizedHTML className="support"
+							stringId="support"
+							scoped="ENROLLMENT.GIFT.SUCCESS"
+							email={support} />
 
 					<div className="token">
 						<span className="label">{_t("accessKey")}</span>
