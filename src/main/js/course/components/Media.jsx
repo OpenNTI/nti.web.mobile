@@ -87,6 +87,6 @@ module.exports = React.createClass({
 
 		var Tag = videoId ? TranscriptedVideo : VideoGrid;
 
-		return Tag(props);
+		return <Tag {...props}/>;
 	}
 });
