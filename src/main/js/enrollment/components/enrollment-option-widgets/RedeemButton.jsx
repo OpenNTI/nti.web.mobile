@@ -2,7 +2,7 @@
 'use strict';
 
 var React = require('react/addons');
-var Button = require('common/forms/components/Button');
+var ButtonPlain = require('common/forms/components/Button');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
 var Utils = require('common/Utils');
 var NTIID = require('dataserverinterface/utils/ntiids');
@@ -25,10 +25,10 @@ var RedeemButton = React.createClass({
 	render: function() {
 
 		var href = this.props.href || this._urlForEntry();
-		var btn = this.props.fullWidth ? ButtonFullWidth : Button;
+		var Button = this.props.fullWidth ? ButtonFullWidth : ButtonPlain;
 		return (
 			<div>
-				<btn className="redeemButton" href={href}>{t('redeemGift')}</btn>
+				<Button className="redeemButton" href={href}>{t('redeemGift')}</Button>
 			</div>
 		);
 	}
