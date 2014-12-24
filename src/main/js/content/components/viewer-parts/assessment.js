@@ -1,7 +1,6 @@
 'use strict';
 var React = require('react/addons');
 
-
 var assessment = require('assessment');
 
 var Store = assessment.Store;
@@ -16,7 +15,7 @@ module.exports = {
 			return null;
 		}
 
-		return assessment.SetHeaderWidget({
+		return React.createElement(assessment.SetHeaderWidget, {
 			assessment: quiz,
 			page: page
 		});
@@ -30,7 +29,7 @@ module.exports = {
 			return null;
 		}
 
-		return assessment.FeedbackWidget({
+		return React.createElement(assessment.FeedbackWidget, {
 			assessment: quiz,
 			page: page
 		});
@@ -45,9 +44,9 @@ module.exports = {
 		}
 
 		return (
-			React.createFactory('div', {className: 'fixed-footer'},
-				React.createFactory('div', {className: 'the-fixed'},
-					assessment.SetSubmissionWidget({
+			React.createElement('div', {className: 'fixed-footer'},
+				React.createElement('div', {className: 'the-fixed'},
+					React.createElement(assessment.SetSubmissionWidget, {
 						assessment: quiz,
 						page: page
 					})

@@ -39,12 +39,12 @@ var ActiveState = React.createClass({
         if (this.props.activeClassName && this.isActive()) {
             className += ' ' + this.props.activeClassName;
         }
-        
+
         var props = Object.assign({}, this.props, {
             className: className
         });
 
-        return Tag(props, this.props.children);
+        return <Tag {...props}/>;
     }
 });
 

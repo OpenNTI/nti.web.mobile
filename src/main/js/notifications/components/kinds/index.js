@@ -40,16 +40,17 @@ exports = module.exports = {
 			if (exports.hasOwnProperty(key)) {
 				Type = exports[key];
 				if (Type !== Unknown && Type.handles && Type.handles(item)) {
-					if (!Type.Factory) {
-						Type.Factory = React.createFactory(Type);
-					}
-					Item = Type.Factory;
+					Item = Type;
 					break;
 				}
 
 			}
 		}
-		return Item({key: 'notifications-' + index + '-' + item.OID, item: item, index: index});
+
+		return React.createElement(Item, {
+			key: 'notifications-' + index + '-' + item.OID,
+			item: item, index: index
+		});
 	}
 
 };

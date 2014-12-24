@@ -64,9 +64,9 @@ module.exports = React.createClass({
 					<span className="status">{status}</span>
 				</h3>
 				<div className="question-content" dangerouslySetInnerHTML={{__html: q.content}}/>
-				{parts.map(function(part, i) {
-					return Part({key: 'part-'+i, part: part, index: i, partCount: parts.length});
-				})}
+				{parts.map((part, i) =>
+					<Part key={'part-'+i} part={part} index={i} partCount={parts.length}/>
+				)}
 				{/* Question Submission will go here, if the question is not part of a set... */}
 			</div>
 		);

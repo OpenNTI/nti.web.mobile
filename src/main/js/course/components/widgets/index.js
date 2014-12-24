@@ -20,10 +20,7 @@ function getItemHandler(item, index, list, props, node) {
 		if (exports.hasOwnProperty(key)) {
 			Type = exports[key];
 			if (Type !== Unknown && Type.handles && Type.handles(item)) {
-				if (!Type.Factory) {
-					Type.Factory = React.createFactory(Type);
-				}
-				Item = Type.Factory;
+				Item = Type;
 				render = (!Type.canRender || Type.canRender(item, node));
 				break;
 			}
@@ -31,7 +28,7 @@ function getItemHandler(item, index, list, props, node) {
 	}
 
 	return render &&
-	 	Item(Object.assign({}, props || {}, {
+		React.createElement(Item, Object.assign({}, props || {}, {
 			key: item.NTIID || ('overview-' + item.MimeType + '-' + index),
 			item: item,
 			index: index,
