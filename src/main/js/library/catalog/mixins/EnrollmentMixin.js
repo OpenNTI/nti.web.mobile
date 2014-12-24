@@ -107,7 +107,7 @@ module.exports = {
 		if (this.state.enrollmentStatusLoaded && !this.state.enrolled) {
 			var widgets = this.enrollmentOptions(catalogEntry).map(function(option,index) {
 				var widget = EnrollmentWidgets.getWidget(option);
-				return widget ? widget({
+				return widget ? React.createElement(widget, {
 					catalogEntry: catalogEntry,
 					enrollmentOption: option,
 					isGiftable: this.isGiftable(option),
