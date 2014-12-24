@@ -45,7 +45,7 @@ module.exports = React.createClass({
 		return solution.map(x=>{
 					var numeral = String.fromCharCode(65+x);
 					return (
-						<div className="solution">
+						<div className="solution" key={x}>
 							<span className="numeral">{numeral}</span>
 							<span dangerouslySetInnerHTML={{__html: choices[x]}}/>
 						</div>
