@@ -125,11 +125,21 @@ var View = React.createClass({
 							handler={PaymentSuccess}
 							purchasable={purchasable}
 							courseId={courseId}
-							giftDoneLink={giftDoneLink}
-						/>
-						<Location path="/error/" handler={PaymentError} isGift={isGift} purchasable={purchasable} courseTitle={courseTitle}/>
-						<Location path="/gift/" handler={GiftView} purchasable={purchasable} courseTitle={courseTitle}/>
-						<Location path="/gift/redeem/(:code)" handler={GiftRedeem} purchasable={purchasable} courseTitle={courseTitle} courseId={courseId}/>
+							giftDoneLink={giftDoneLink} />
+						<Location path="/error/"
+							handler={PaymentError}
+							isGift={isGift}
+							purchasable={purchasable}
+							courseTitle={courseTitle} />
+						<Location path="/gift/"
+							handler={GiftView}
+							purchasable={purchasable}
+							courseTitle={courseTitle} />
+						<Location path="/gift/redeem/(:code)"
+							handler={GiftRedeem}
+							purchasable={purchasable}
+							courseTitle={courseTitle}
+							courseId={courseId} />
 						<DefaultRoute handler={Form} purchasable={purchasable}/>
 					</Locations>
 				</ReactCSSTransitionGroup>

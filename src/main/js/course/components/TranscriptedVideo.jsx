@@ -149,12 +149,21 @@ module.exports = React.createClass({
 				<a href={collection} className="toolbar-button-left fi-thumbnails"/>
 				<Pager pageSource={pages} current={this.props.video.getID()}/>
 				<LoadingMask loading={this.state.loading}>
-					<Video ref="video" src={this.props.video} onTimeUpdate={this.onVideoTimeTick} context={this.state.context} transcript={true} autoPlay/>
+					<Video ref="video"
+							src={this.props.video}
+							onTimeUpdate={this.onVideoTimeTick}
+							context={this.state.context}
+							transcript={true}
+							autoPlay/>
 					<div className="transcript">
 						{
 							this.state.error ?
 								<div>Transcript not available</div> :
-								<Transcript ref="transcript" cues={state.cues} regions={state.regions} onJumpTo={this.onJumpTo}	currentTime={state.currentTime}/>
+								<Transcript ref="transcript"
+									cues={state.cues}
+									regions={state.regions}
+									onJumpTo={this.onJumpTo}
+									currentTime={state.currentTime}/>
 						}
 					</div>
 				</LoadingMask>

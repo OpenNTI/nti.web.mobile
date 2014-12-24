@@ -47,7 +47,10 @@ var ToggleFieldset = React.createClass({
 
 		return (
 			<div>
-				<label><input type="checkbox" name={ref} ref={ref} onChange={this._onToggle} /><span>{config.label}</span></label>
+				<label>
+					<input type="checkbox" name={ref} ref={ref} onChange={this._onToggle} />
+					<span>{config.label}</span>
+				</label>
 				{displayFields}
 			</div>
 		);

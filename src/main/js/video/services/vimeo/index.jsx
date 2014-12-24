@@ -168,7 +168,8 @@ var Source = module.exports = React.createClass({
 		}
 
 		return (
-			<iframe {...this.props} src={this.state.playerURL} frameBorder="0" seemless allowFullScreen allowTransparency />
+			<iframe {...this.props} src={this.state.playerURL}
+				frameBorder="0" seemless allowFullScreen allowTransparency />
 		);
 	},
 

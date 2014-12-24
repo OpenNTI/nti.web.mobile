@@ -12,9 +12,22 @@ var Alert = React.createClass({
 
 	render: function() {
 		return (
-			<div id="mainAlert1" data-alert className="alert-box radius" tabIndex="0" aria-live="assertive" role="dialogalert">
+			<div
+				id="mainAlert1"
+				data-alert
+				className="alert-box radius"
+				tabIndex="0"
+				aria-live="assertive"
+				role="dialogalert">
+
 				<span>{this.props.message.message}</span>
-				<button href="#" tabIndex="0" className="close" aria-label="Close Alert" onClick={this._dismiss}>&times;</button>
+
+				<button
+					href="#"
+					tabIndex="0"
+					className="close"
+					aria-label="Close Alert"
+					onClick={this._dismiss}>&times;</button>
 			</div>
 		);
 	}
