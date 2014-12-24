@@ -41,8 +41,10 @@ module.exports = {
 	__registerRoute: function(route) {
 		if (typeof route === 'string') {
 			route = {
-				handler: function(p) {return p;},
-				path: route
+				props: {
+					handler: function(p) {return p;},
+					path: route
+				}
 			};
 		}
 
