@@ -307,7 +307,7 @@ function onInteraction(part, value) {
 
 	markBusy(part, Constants.BUSY.SAVEPOINT);
 	Api.saveProgress(part)
-		.catch(emptyFunction)//handel errors
+		.catch(emptyFunction)//handle errors
 		.then(function() {
 			markBusy(part, false);
 			Store.emitChange();
