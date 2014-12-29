@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -55,7 +54,7 @@ var Source = module.exports = React.createClass({
 		//FIXME: Re-write this:
 		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
 		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-		
+
 		return {
 			scope: YOU_TUBE,
 			playerURL: this.buildURL(),
@@ -146,7 +145,7 @@ var Source = module.exports = React.createClass({
 			return (<ErrorWidget error="No source"/>);
 		}
 
-		return this.transferPropsTo(<iframe src={this.state.playerURL}
+		return (<iframe {...this.props} src={this.state.playerURL}
 			frameBorder="0" allowFullScreen allowTransparency />);
 	},
 

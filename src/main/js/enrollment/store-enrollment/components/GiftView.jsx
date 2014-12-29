@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 /* global jQuery, Stripe */
 'use strict';
 
@@ -341,7 +340,7 @@ module.exports = React.createClass({
 				<div className="agreement">
 					<label>
 						<input type="checkbox" name="agree" checked={this.state.agreed} onChange={this._onAgreementCheckedChange}/>
-						<Localized tag="span" key="ENROLLMENT.GIFT.agreeToTerms" url={agreementURL} />
+						<Localized tag="span" stringId="ENROLLMENT.GIFT.agreeToTerms" url={agreementURL} />
 					</label>
 				</div>
 

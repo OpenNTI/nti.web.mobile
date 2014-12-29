@@ -1,28 +1,27 @@
 'use strict';
 
-var OpenEnrollment = require('./OpenEnrollment');
-var StoreEnrollment = require('./StoreEnrollment');
-var FiveMinuteEnrollment = require('./FiveMinuteEnrollment');
-// var UnrecognizedEnrollmentType = require('./UnrecognizedEnrollmentType');
+var Widgets = [
+	require('./OpenEnrollment'),
+	require('./StoreEnrollment'),
+	require('./FiveMinuteEnrollment')
+	//, require('./UnrecognizedEnrollmentType')
+];
 
 
 module.exports = {
 
 	getWidget: function(enrollmentOption) {
-		switch(enrollmentOption.key) {
-			case 'OpenEnrollment':
-				return OpenEnrollment;
+		var widget = Widgets.reduce((found, Type)=>{
 
-			case 'StoreEnrollment':
-				return StoreEnrollment;
+			return found || (Type.handles && Type.handles(enrollmentOption) && Type);
 
-			case 'FiveminuteEnrollment': // augh. wonky camel case.
-				return FiveMinuteEnrollment;
+		}, null);
 
-			default:
-				console.warn('No enrollment widget found for option: %O', enrollmentOption);
-				return null; // UnrecognizedEnrollmentType;
+		if (!widget) {
+			console.warn('No enrollment widget found for option: %O', enrollmentOption);
 		}
+
+		return widget || null;
 	}
 
 };

@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -58,11 +57,10 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		var filteredView = this.transferPropsTo(
-			<Filter>
+		return (
+			<Filter {...this.props}>
 				<ListView title={this.props.title} basePath={this.props.basePath} />
 			</Filter>
 		);
-		return filteredView;
 	}
 });

@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -15,7 +14,9 @@ var SignupConfirm = React.createClass({
 					{t(MESSAGE)}
 				</div>
 				<div className="medium-6 medium-centered columns">
-					<Button id="signup:confirm:yes" href="/signup/">Create Account <i className="fi-arrow-right" /></Button>
+					<Button id="signup:confirm:yes" href="/signup/">
+						<span>Create Account</span> <i className="fi-arrow-right" />
+					</Button>
 					<Button id="signup:confirm:no" href="/" className="fi-arrow-left"> Return to Login</Button>
 				</div>
 			</div>

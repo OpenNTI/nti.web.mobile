@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 'use strict';
 
 // we're naming fields to line up with the stripe api which uses lowercase
@@ -57,15 +53,20 @@ var BillingInfo = React.createClass({
 			<div>
 				<fieldset>
 					<div className="title">
-						<span>{_t("paymentInfo")}</span> <a href="#" onClick={this.onEdit}>edit</a>
+						<span>{_t("paymentInfo")}</span>
+						<span> </span>
+						<a href="#" onClick={this.onEdit}>edit</a>
 					</div>
 
 					<div className="field">{card.name}</div>
 					<div className="field">
-						<span className="label">{card.brand}:</span> <span className="value">**** **** **** {card.last4}</span>
+						<span className="label">{card.brand}:</span>
+						<span> </span>
+						<span className="value">**** **** **** {card.last4}</span>
 					</div>
 					<div className="field">
 						<span className="label">{_t("expires")}</span>
+						<span> </span>
 						<span className="value">{card.exp_month}/{card.exp_year}</span>
 					</div>
 				</fieldset>
@@ -77,7 +78,11 @@ var BillingInfo = React.createClass({
 					<div className="field">{card.address_line1}</div>
 					<div className="field">{card.address_line2}</div>
 					<div className="city field">
-						<span>{city}</span> <span>{card.address_state}</span> <span>{card.address_zip}</span>
+						<span>{city}</span>
+						<span> </span>
+						<span>{card.address_state}</span>
+						<span> </span>
+						<span>{card.address_zip}</span>
 					</div>
 					<div className="field">{card.address_country}</div>
 				</fieldset>

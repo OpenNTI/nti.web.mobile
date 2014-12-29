@@ -1,4 +1,5 @@
 'use strict';
+var React = require('react/addons');
 
 var Unknown = require('./Unknown');
 
@@ -33,7 +34,7 @@ exports = module.exports = {
 			}
 		}
 
-		return Item(
+		return React.createElement(Item,
 			{
 				ref: 'solution',
 				key: 'question-solution-' + index,

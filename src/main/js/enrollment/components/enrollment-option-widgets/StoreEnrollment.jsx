@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 'use strict';
 
 var React = require('react/addons');
@@ -16,6 +12,13 @@ var StoreEnrollment = React.createClass({
 	mixins: [FormattedPriceMixin],
 
 	propTypes: requiredProps,
+
+	statics: {
+		re: /StoreEnrollment/i,
+		handles: function (options) {
+			return this.re.test(options && options.key);
+		}
+	},
 
 	render: function() {
 
@@ -38,4 +41,3 @@ var StoreEnrollment = React.createClass({
 });
 
 module.exports = StoreEnrollment;
-

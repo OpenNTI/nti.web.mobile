@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 
 "use strict";
 
@@ -34,17 +33,18 @@ var ActiveState = React.createClass({
 
 
     render: function() {
-        var Tag = React.DOM[this.props.tag];
+        var Tag = this.props.tag;
         var className = this.props.className || '';
 
         if (this.props.activeClassName && this.isActive()) {
             className += ' ' + this.props.activeClassName;
         }
-        var props = {
-            className: className
-        };
 
-        return this.transferPropsTo(Tag(props, this.props.children));
+        var props = Object.assign({}, this.props, {
+            className: className
+        });
+
+        return <Tag {...props}/>;
     }
 });
 

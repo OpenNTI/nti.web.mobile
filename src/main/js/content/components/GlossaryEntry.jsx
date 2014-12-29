@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -15,8 +14,10 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		return this.transferPropsTo(
-			<div className="glossary-entry"><div ref="content" className="def small-9 columns small-centered"></div></div>
+		return (
+			<div {...this.props} className="glossary-entry">
+				<div ref="content" className="def small-9 columns small-centered"/>
+			</div>
 		);
 	}
 

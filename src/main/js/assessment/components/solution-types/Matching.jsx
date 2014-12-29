@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -42,7 +41,7 @@ module.exports = React.createClass({
 
 	renderDragSource: function (term, index) {
 		return (
-			<div className="drag source" data-match={index}>
+			<div className="drag source" data-match={index} key={term + index}>
 				<div className="match" data-source={term}>
 					<div dangerouslySetInnerHTML={{__html: term}}/>
 				</div>

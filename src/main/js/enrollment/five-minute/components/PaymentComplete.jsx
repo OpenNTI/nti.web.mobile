@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 'use strict';
 
 var React = require('react/addons');
@@ -19,7 +15,7 @@ var PaymentComplete = React.createClass({
 	},
 
 	// if enrollment was successful we won't get here. there's an enrollment check
-	// in a parent view that will render 
+	// in a parent view that will render
 	render: function() {
 
 		var message = this.state.paymentState ? '' : 'Payment was not processed.';

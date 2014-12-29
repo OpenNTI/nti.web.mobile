@@ -27,8 +27,8 @@ require('script!../../resources/vendor/foundation/js/foundation.min.js');
 var props = QueryString.parse(global.location.search);
 
 
-var WidgetView = require('./widget');
-React.renderComponent(
+var WidgetView = React.createFactory(require('./widget'));
+React.render(
 	WidgetView({
 		purchasableId: props.purchasableId,
 		headerImage: props.header

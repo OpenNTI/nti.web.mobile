@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 /*
 Internal Links:
@@ -46,8 +45,8 @@ module.exports = React.createClass({
 		//map fields for the card
 		item.title = item.label;
 
-		return this.transferPropsTo(
-			<Card slug="c" contentPackage={props.course}/>
+		return (
+			<Card {...this.props} slug="c" contentPackage={props.course}/>
 		);
 	}
 });

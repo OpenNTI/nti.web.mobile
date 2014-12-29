@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 
@@ -62,7 +61,7 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var tag = this.props.tag || 'span';
+		var Tag = this.props.tag || 'span';
 		var displayName = this.state.displayName;
 
 		var props = Object.assign({
@@ -70,6 +69,6 @@ module.exports = React.createClass({
 			className: 'username'
 		}, this.props);
 
-		return React.DOM[tag](props, displayName);
+		return <Tag {...props}>{displayName}</Tag>;
 	}
 });

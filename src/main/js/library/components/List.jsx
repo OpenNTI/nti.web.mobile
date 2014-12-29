@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -85,8 +84,8 @@ var List = React.createClass({
 			return (<EmptyList />);
 		}
 
-		return this.transferPropsTo(
-			<Collection list={list} filters={filters} defaultFilter='Current' />
+		return (
+			<Collection {...this.props} list={list} filters={filters} defaultFilter='Current' />
 		);
 	}
 

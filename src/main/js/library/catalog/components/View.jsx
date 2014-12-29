@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -63,24 +62,26 @@ var CatalogView = React.createClass({
 			return (<Loading/>);
 		}
 
-        return Locations({contextual: true},
-            Location({
-                path: '/item/:entryId/(#:nav)',
-                handler: CatalogEntryDetail,
-                basePath: basePath
-            }),
-            Location({
-                path: '/item/:entryId/enrollment(/*)',
-                handler: Enrollment,
-                basePath: basePath
-            }),
-            Location({
-                path: '*',
-                handler: Collection,
-                list: catalog,
-                basePath: this.props.basePath,
-                section: 'catalog'
-            })
+        return (
+			<Locations contextual={true}>
+	            <Location
+	                path="/item/:entryId/(#:nav)"
+	                handler={CatalogEntryDetail}
+	                basePath={basePath}
+	            />
+	            <Location
+	                path="/item/:entryId/enrollment(/*)"
+	                handler={Enrollment}
+	                basePath={basePath}
+	            />
+	            <Location
+	                path="*"
+	                handler={Collection}
+	                list={catalog}
+	                basePath={this.props.basePath}
+	                section="catalog"
+	            />
+			</Locations>
         );
 	}
 

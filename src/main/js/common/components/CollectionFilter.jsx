@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -101,7 +100,7 @@ var FilterableView = React.createClass({
 
 		return (
 			<div>
-				{this.transferPropsTo(<FilterBar />)}
+				<FilterBar {...this.props}/>
 				{filtered.length === 0 ? <NoMatches /> : null}
 				<div>
 					{cloneWithProps(this.props.listcomp, { list: filtered,	omittitle: true	})}
@@ -184,7 +183,7 @@ var Filter = React.createClass({
 		/**
 		 *	A (single) component for rendering the (filtered) list.
 		 */
-		children: React.PropTypes.component.isRequired,
+		children: React.PropTypes.element.isRequired,
 
 		/** filters should be a collection of named filter functions.
 		 * for example:
@@ -234,23 +233,29 @@ var Filter = React.createClass({
 
 		var routes = Object.keys(filters).map(function(filtername) {
 			var filterpath = filtername.toLowerCase();
-			return Location({
-				path: '/' + filterpath,
-				filtername: filterpath,
-				handler: FilterableView,
-				list: list,
-				listcomp: cloneWithProps(listComp, {list: list}),
-				filters: filters,
-				title: title
-			});
+			return (
+				<Location
+					key={filterpath}
+					path={'/' + filterpath}
+					filtername={filterpath}
+					handler={FilterableView}
+					list={list}
+					listcomp={cloneWithProps(listComp, {list: list})}
+					filters={filters}
+					title={title}
+				/>
+			);
 		});
 
-		routes.push(DefaultRoute({
-			handler: DefaultPath,
-			filters: this.props.filters,
-			list: list,
-			defaultFilter: this.props.defaultFilter
-		}));
+		routes.push(
+			<DefaultRoute
+				key="default"
+				handler={DefaultPath}
+				filters={this.props.filters}
+				list={list}
+				defaultFilter={this.props.defaultFilter}
+				/>
+			);
 
 		return routes;
 	},

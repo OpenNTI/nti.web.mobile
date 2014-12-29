@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -104,7 +103,7 @@ module.exports = React.createClass({
 		return (
 			<ul className="off-canvas-list">
 				<li><label>Notifications</label></li>
-				{list.length ? list.map(getNotificationItem) : Empty()}
+				{list.length ? list.map(getNotificationItem) : <Empty/>}
 				{list.hasMore ?
 					<LoadMore onClick={this._onLoadMore} store={list}/> : null
 				}

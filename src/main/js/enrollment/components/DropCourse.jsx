@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 'use strict';
 
 var React = require('react/addons');
@@ -77,11 +73,11 @@ var DropCourseDialog = React.createClass({
 		enrollmentTypes.forEach(function(type) {
 			var option = items[type];
 			if (option.IsEnrolled) {
-				var widget = widgetMap[type];
-				if(!widget) {
+				var Widget = widgetMap[type];
+				if(!Widget) {
 					console.warn('Enrolled in an unrecognized/supported enrollment option? %O', option);
 				}
-				result.push(this.transferPropsTo(<widget courseTitle={this._getCourseTitle()} key={type} />));
+				result.push(<Widget {...this.props} courseTitle={this._getCourseTitle()} key={type} />);
 			}
 		}.bind(this));
 
@@ -112,7 +108,7 @@ var DropCourseDialog = React.createClass({
 		}
 
 		var title = this._getCourseTitle();
-		
+
 		if (this.state.dropped) {
 			return this._panel(title + ' dropped.');
 		}

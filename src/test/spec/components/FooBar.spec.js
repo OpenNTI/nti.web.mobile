@@ -10,8 +10,8 @@ describe('FooBar', function () {
         container.id = 'content';
         document.body.appendChild(container);
 
-        var Component = require('common/forms/components/Button');
-        component = React.renderComponent(
+        var Component = React.createFactory(require('common/forms/components/Button'));
+        component = React.render(
             Component({href: '#'}, 'Test'),
             container
         );

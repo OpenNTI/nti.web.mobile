@@ -1,9 +1,6 @@
-/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
-
-var {div} = React.DOM;
 
 var DragBehavior = require('../behaviors/Draggable');
 
@@ -12,6 +9,6 @@ module.exports = React.createClass({
 	mixins: [DragBehavior],
 
 	render: function() {
-		return div(this.props);
+		return React.createElement('div', this.props);
 	}
 });

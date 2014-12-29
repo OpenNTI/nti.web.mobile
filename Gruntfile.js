@@ -216,7 +216,7 @@ module.exports = function(grunt) {
 		jshint: {
 	        options: {
 				jshintrc: true,
-	            reporter: require('jshint-log-reporter')
+	            //reporter: require('jshint-log-reporter')
 	            //reporterOutput: 'lint.log'
 			},
 	        files: [

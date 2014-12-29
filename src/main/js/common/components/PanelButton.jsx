@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 'use strict';
 
 var React = require('react/addons');
@@ -16,7 +12,7 @@ var PanelButton = React.createClass({
 		linkText: React.PropTypes.string, // the text of the button
 		href: React.PropTypes.string, // the href of the button, if applicable
 		buttonClick: React.PropTypes.func, // click handler for the button
-		button: React.PropTypes.component // pass in your own button if you need special behavior or treatment
+		button: React.PropTypes.element // pass in your own button if you need special behavior or treatment
 	},
 
 	getDefaultProps: function() {
@@ -37,8 +33,8 @@ var PanelButton = React.createClass({
 	},
 
 	render: function() {
-		return this.transferPropsTo(
-			<div className="row">
+		return (
+			<div {...this.props} className="row">
 				<div className='panel-button column'>
 					<div className="panel radius">
 						{this.props.children}
@@ -52,4 +48,3 @@ var PanelButton = React.createClass({
 });
 
 module.exports = PanelButton;
-

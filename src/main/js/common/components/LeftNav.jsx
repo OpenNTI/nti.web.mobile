@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -46,7 +45,9 @@ module.exports = React.createClass({
 		var basePath = this.props.basePath;
 		var record = this.props.items[this.state.index];
 
-		var child = this.props.isLoading ? <Loading /> : (record ? <NavDrawerItem record={record} basePath={basePath}/> : null);
+		var child = this.props.isLoading ?
+			<Loading /> :
+			(record ? <NavDrawerItem record={record} basePath={basePath}/> : null);
 
 		return (
 			<div>

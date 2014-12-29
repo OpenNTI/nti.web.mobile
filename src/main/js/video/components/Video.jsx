@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -159,23 +158,20 @@ module.exports = React.createClass({
 
 	render: function() {
 		var video = this.props.src;
-		var Provider = Providers.getHandler(video) || React.DOM.div;
+		var Provider = Providers.getHandler(video) || 'div';
 		var videoSource = video && (video.sources || {})[0];
-
-		var props = {
-			ref: 'activeVideo',
-			// src: typeof video === 'string' && video,
-			source: videoSource || video,
-			onTimeUpdate: this.onTimeUpdate,
-			onSeeked: this.onSeeked,
-			onPlaying: this.onPlaying,
-			onPause: this.onPause,
-			onEnded: this.onEnded
-		};
 
 		return (
 			<div className={'flex-video widescreen ' + Provider.name}>
-				{this.transferPropsTo(Provider(props))}
+				<Provider {...this.props}
+					ref="activeVideo"
+					source={videoSource || video}
+					onTimeUpdate={this.onTimeUpdate}
+					onSeeked={this.onSeeked}
+					onPlaying={this.onPlaying}
+					onPause={this.onPause}
+					onEnded={this.onEnded}
+					/>
 			</div>
 		);
 	}

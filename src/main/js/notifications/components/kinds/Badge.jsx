@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 //TODO
 'use strict';
 

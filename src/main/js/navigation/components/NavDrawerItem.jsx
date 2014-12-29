@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 
 'use strict';
 
@@ -58,12 +57,12 @@ var NavDrawerItem = React.createClass({
 		var label = record && record.label;
 
 		children = children && children.map(function(v, i) {
-			return NavDrawerItem({
-				record: v,
-				depth: depth,
-				basePath: basePath,
-				key: record.label + i
-			});
+			return <NavDrawerItem
+				record={v}
+				depth={depth}
+				basePath={basePath}
+				key={record.label + i}
+			/>;
 		});
 
 		return (

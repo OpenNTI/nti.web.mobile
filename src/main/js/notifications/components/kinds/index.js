@@ -1,4 +1,5 @@
 'use strict';
+var React = require('react/addons');
 
 var Unknown = require('./Unknown');
 var Chat = require('./Chat');
@@ -45,7 +46,11 @@ exports = module.exports = {
 
 			}
 		}
-		return Item({key: 'notifications-' + index + '-' + item.OID, item: item, index: index});
+
+		return React.createElement(Item, {
+			key: 'notifications-' + index + '-' + item.OID,
+			item: item, index: index
+		});
 	}
 
 };

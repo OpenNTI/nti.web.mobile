@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 'use strict';
 
 var React = require('react/addons');
@@ -26,7 +22,7 @@ var EnrollButton = React.createClass({
 
 		// this component is used on the course description view
 		// within the course; we never want to show the enroll button there.
-		dropOnly: React.PropTypes.bool 
+		dropOnly: React.PropTypes.bool
 	},
 
 	_dropOrEnrollButton: function() {
@@ -82,13 +78,9 @@ var EnrollButton = React.createClass({
 
 		var buttons = this._buttons();
 		if (buttons.length > 0) {
-			return (<div>
-				{
-					buttons.map(function(button) {
-						return <div className="row"><div className="cell small-12 columns">{button}</div></div>;
-					}.bind(this))
-				}
-			</div>);
+			return React.createElement.apply(null, ['div', {}].concat(
+					buttons.map(button=>
+						<div className="row"><div className="cell small-12 columns">{button}</div></div>)));
 		}
 		return null;
 	}

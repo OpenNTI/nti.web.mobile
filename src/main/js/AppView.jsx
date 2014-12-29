@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 'use strict';
 
 var React = require('react/addons');
@@ -94,17 +93,17 @@ var App = React.createClass({
 		var path = this.props.path || location.href;
 		var isLoginView = /\/login/i.test(path);
 
-		var wrapper = isLoginView ? React.DOM.div : AppContainer;
+		var Wrapper = isLoginView ? 'div' : AppContainer;
 
 		if (this.state.mask) {
-			return Loading({message: this.state.mask});
+			return <Loading message={this.state.mask}/>;
 		}
 
 		return (
 			<CaptureClicks>
-				<wrapper basePath={basePath}>
+				<Wrapper basePath={basePath}>
 					<Router path={this.props.path} basePath={basePath} onNavigation={this._onNavigation}/>
-				</wrapper>
+				</Wrapper>
 			</CaptureClicks>
 		);
 	}

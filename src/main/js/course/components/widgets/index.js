@@ -1,4 +1,5 @@
 'use strict';
+var React = require('react/addons');
 
 
 var Unknown = require('./Unknown');
@@ -13,20 +14,21 @@ var QuestionSet = require('./QuestionSet');
 
 function getItemHandler(item, index, list, props, node) {
 	var Item = exports.Unknown;
-	var key, Type;
+	var key, Type, render = true;
 
 	for (key in exports) {
 		if (exports.hasOwnProperty(key)) {
 			Type = exports[key];
 			if (Type !== Unknown && Type.handles && Type.handles(item)) {
 				Item = Type;
+				render = (!Type.canRender || Type.canRender(item, node));
 				break;
 			}
 		}
 	}
 
-	return (!Item.canRender || Item.canRender(item, node)) &&
-	 	Item(Object.assign({}, props || {}, {
+	return render &&
+		React.createElement(Item, Object.assign({}, props || {}, {
 			key: item.NTIID || ('overview-' + item.MimeType + '-' + index),
 			item: item,
 			index: index,
