@@ -1,6 +1,8 @@
 'use strict';
 /** @module assessment/Store */
 
+var emptyFunction = require('react/lib/emptyFunction');
+
 var EventEmitter = require('events').EventEmitter;
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
@@ -305,7 +307,7 @@ function onInteraction(part, value) {
 
 	markBusy(part, Constants.BUSY.SAVEPOINT);
 	Api.saveProgress(part)
-		.catch(function() {})//handel errors
+		.catch(emptyFunction)//handel errors
 		.then(function() {
 			markBusy(part, false);
 			Store.emitChange();

@@ -3,6 +3,7 @@
 
 var React = require('react/addons');
 
+var emptyFunction = require('react/lib/emptyFunction');
 
 /**
 * React Button component
@@ -19,7 +20,7 @@ var Button = React.createClass({
 
 	onClick: function(e) {
 		if(this.props.enabled) {
-			(this.props.onClick||function(){}).apply(this,arguments);
+			(this.props.onClick||emptyFunction).apply(this,arguments);
 		}
 		if(this.props.href==='#' || !this.props.enabled) {
 			e.preventDefault();

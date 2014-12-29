@@ -4,6 +4,7 @@ require('dataserverinterface/polyfills');
 
 var React = require('react/addons');
 var Utils = require('common/Utils');
+//var emptyFunction = require('react/lib/emptyFunction');
 // var preventOverscroll = require('common/thirdparty/prevent-overscroll');
 
 //Client code, injects script blocks into <HEAD> tag
@@ -13,7 +14,7 @@ require('script!../resources/vendor/jquery/dist/jquery.min.js');
 require('script!../resources/vendor/foundation/js/foundation.min.js');
 
 //Allow CSS :active states:
-//document.addEventListener("touchstart", function(){}, true);
+//document.addEventListener("touchstart", emptyFunction, true);
 
 Utils.__forceCurrentHost();
 console.debug('Client is using host: %s', Utils.getServerURI());

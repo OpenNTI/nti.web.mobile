@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
+var emptyFunction = require('react/lib/emptyFunction');
 
 //See http://jsfiddle.net/jsg2021/6yfw8/ for a demo
 module.exports = React.createClass( {
@@ -69,7 +70,7 @@ module.exports = React.createClass( {
 
 
 		if (!context.setLineDash) {
-			context.setLineDash = function() {};
+			context.setLineDash = emptyFunction;
 		}
 
 		this.paint(context);

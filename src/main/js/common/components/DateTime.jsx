@@ -2,6 +2,8 @@
 
 var React = require('react/addons');
 
+var emptyFunction = require('react/lib/emptyFunction');
+
 var isEmpty = require('dataserverinterface/utils/isempty');
 
 var moment = require('moment');
@@ -45,7 +47,7 @@ module.exports = React.createClass({
 			m.fromNow = function(s){
 				return this.humanize(!s);
 			};
-			m.isSame = function() {};//will return falsy
+			m.isSame = emptyFunction;//will return falsy
 		}
 
 		var text = props.relative ?
