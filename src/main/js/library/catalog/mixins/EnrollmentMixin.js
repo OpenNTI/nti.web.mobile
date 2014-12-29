@@ -117,7 +117,7 @@ module.exports = {
 			}.bind(this));
 			widgets = widgets.filter(function(item) {return item !== null;});
 			if (widgets.length > 0) {
-				return React.createFactory('div', {
+				return React.createElement('div', {
 						className: "enrollment-panels"
 					},
 					widgets
