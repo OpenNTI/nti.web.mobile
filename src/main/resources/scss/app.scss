@@ -11,6 +11,7 @@
 @import "variables"; // we override some foundation settings so this has to come between settings and foundation.
 @import "foundation";
 @import "transitions";
+@import "common-animations";
 
 @import "common/grid-view";
 @import "common/components/card";

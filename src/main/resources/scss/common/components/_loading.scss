@@ -39,10 +39,7 @@ figure.loading {
     }
 }
 
-@include keyframes(rotation) {
-    from { @include transform(rotate(0deg));}
-    to { @include transform(rotate(359deg));}
-}
+
 
 
 .inline-loader-wrap {
