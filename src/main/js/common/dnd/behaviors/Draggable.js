@@ -37,7 +37,7 @@ function canDrag(x) {
 
 
 function getDragPoint(e) {
-	e = (!isTouchDevice ? e : e.touches[0]);
+	e = (!e.touches ? e : e.touches[0]);
 	var {clientX, clientY} = e;
 	return {clientX: clientX, clientY: clientY}; }
 
