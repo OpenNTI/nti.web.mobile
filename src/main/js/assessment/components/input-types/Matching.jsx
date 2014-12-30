@@ -80,7 +80,7 @@ module.exports = React.createClass({
 			<div className="matching">
 				<div className="terms">
 					{dragSources.map((x,i)=>
-						this.renderDragSource(x, i, isUsed(i))
+						this.renderDragSource(x, i, isUsed(i)?'used':'', isUsed(i))
 					)}
 				</div>
 
@@ -95,10 +95,10 @@ module.exports = React.createClass({
 	},
 
 
-	renderDragSource: function (term, index, used) {
+	renderDragSource: function (term, index, extraClass, lock) {
 		return (
-			<Draggable type={this.state.dndType} key={term} data-source={index} locked={Boolean(used)}>
-				<div className={'drag match source '+(used ? 'used': '')}
+			<Draggable type={this.state.dndType} key={term} data-source={index} locked={Boolean(lock)}>
+				<div className={'drag match source '+(extraClass || '')}
 					key={term} data-source={term} data-match={index}>
 					<a href="#" className="reset" title="Reset"/>
 					<div dangerouslySetInnerHTML={{__html: term}}/>
@@ -131,7 +131,7 @@ module.exports = React.createClass({
 			return null;
 		}
 
-		return this.renderDragSource(terms[dragSourceIndex], dragSourceIndex);
+		return this.renderDragSource(terms[dragSourceIndex], dragSourceIndex, 'dropped');
 	},
 
 
