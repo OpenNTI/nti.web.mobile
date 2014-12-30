@@ -11,6 +11,8 @@ var {PropTypes} = React;
 
 var {Dom} = require('../../Utils');
 
+var {isMultiTouch} = Dom;
+
 var Base = require('./Base');
 
 var {TYPE_SHAPE} = Base;
@@ -156,10 +158,10 @@ Object.assign(exports, {
 
 		e.preventDefault();//stop scrolls
 
-		// if (isMultiTouch(e)) {
-		//     this.handleDragEnd(e);
-		//     return
-		// }
+		if (isMultiTouch(e)) {
+		    this.handleDragEnd(e);
+		    return;
+		}
 
 		var node = this.getDOMNode();
 		var dragPoint = getDragPoint(e);

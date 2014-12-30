@@ -14,6 +14,11 @@ var hyphenatedToCamel = function(s) {
 
 var DomUtils = {
 
+	isMultiTouch: function (e) {
+		return e.touches && e.touches.length > 1;
+	},
+
+
 	addEventListener: function (el, event, handler) {
 		if (el.addEventListener) {
 			el.addEventListener(event, handler, true);
