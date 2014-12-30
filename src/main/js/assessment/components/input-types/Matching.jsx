@@ -110,13 +110,13 @@ module.exports = React.createClass({
 
 	renderDropTarget: function (target, index/*, solution*/) {
 		return (
-			<div className="drop target" key={target} data-target={index}>
+			<DropTarget accepts={this.state.dndType} className="drop target" key={target} data-target={index}>
 				<input type="hidden"/>
-				<DropTarget accepts={this.state.dndType} className="match blank dropzone" data-target={index} data-term>
+				<div className="match blank dropzone" data-target={index} data-term>
 					{this.renderDroppedDragSource(index)}
-				</DropTarget>
+				</div>
 				<div className="content" dangerouslySetInnerHTML={{__html: target}}/>
-			</div>
+			</DropTarget>
 		);
 	},
 
