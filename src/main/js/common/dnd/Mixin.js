@@ -14,6 +14,7 @@ Object.assign(exports, {
 		currentDragItem: React.PropTypes.object,
 		onDragStart: React.PropTypes.func,
 		onDragStop: React.PropTypes.func,
+		onDrag: React.PropTypes.func,
 		onDrop: React.PropTypes.func
 	},
 
@@ -23,12 +24,14 @@ Object.assign(exports, {
 			currentDragItem: this.state.currentDragItem || null,
 			onDragStart: this.onDragStart,
 			onDragStop: this.onDragStop,
+			onDrag: this.onDrag,
 			onDrop: this.onDrop
 		};
 	},
 
 
 	onDragStart: function(details) {
+		console.log('Drag Started');
 		return this.setState({
 			currentDragItem: details
 		});
@@ -36,9 +39,14 @@ Object.assign(exports, {
 
 
 	onDragStop: function() {
+		console.log('Drag Stopped');
 		return this.setState({
 			currentDragItem: null
 		});
+	},
+
+
+	onDrag: function() {
 	},
 
 

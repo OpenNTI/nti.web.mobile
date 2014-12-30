@@ -21,7 +21,7 @@ Object.assign(exports, {
 
 
 	contextTypes: {
-		currentDragItem: React.PropTypes.object.isRequired,
+		currentDragItem: React.PropTypes.object,
 		onDrop: React.PropTypes.func.isRequired
 	},
 

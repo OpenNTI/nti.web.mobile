@@ -14,6 +14,36 @@ var hyphenatedToCamel = function(s) {
 
 var DomUtils = {
 
+	addEventListener: function (el, event, handler) {
+		if (el.addEventListener) {
+			el.addEventListener(event, handler, true);
+		}
+
+		else if (el.attachEvent) {
+			el.attachEvent('on' + event, handler);
+		}
+
+		else {
+			throw new Error('Unsupported Operation');
+		}
+	},
+
+
+	removeEventListener: function (el, event, handler) {
+		if (el.removeEventListener) {
+			el.removeEventListener(event, handler, true);
+		}
+
+		else if (el.detachEvent) {
+			el.detachEvent('on' + event, handler);
+		}
+
+		else {
+			throw new Error('Unsupported Operation');
+		}
+	},
+
+
 	hasClass: function(el, className) {
 		var classes = (el.className || '').split(' ');
 		return classes.indexOf(className) !== -1;

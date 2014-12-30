@@ -75,8 +75,8 @@ module.exports = React.createClass({
 
 	renderDragSource: function (term, index) {
 		return (
-			<Draggable type={this.state.dndType} className="drag source" key={term} data-match={index}>
-				<div className="match" data-source={term}>
+			<Draggable type={this.state.dndType} key={term}>
+				<div className="drag match source" data-source={term} data-match={index}>
 					<a href="#" className="reset" title="Reset"/>
 					<div dangerouslySetInnerHTML={{__html: term}}/>
 				</div>
