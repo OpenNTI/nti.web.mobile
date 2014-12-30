@@ -79,10 +79,9 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 	resetPassword: function(fields) {
 
 		var fn = function(result) {
-			var tmp = JSON.parse(result.response);
 			MessageActions.clearMessages({category: Constants.messages.category});
-			MessageActions.addMessage( new Message(tmp.message, {category: Constants.messages.category}) );
-			return tmp;
+			MessageActions.addMessage( new Message(result.message, {category: Constants.messages.category}) );
+			return result;
 		};
 
 		return getServer().resetPassword(
