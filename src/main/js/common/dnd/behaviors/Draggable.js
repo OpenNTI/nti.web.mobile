@@ -127,7 +127,8 @@ Object.assign(exports, {
 			restoring: false,
 			startX: 0, startY: 0,
 			offsetX: 0, offsetY: 0,
-			clientX: 0, clientY: 0
+			clientX: 0, clientY: 0,
+			scrollParent: null
 		};
 	},
 
@@ -138,6 +139,13 @@ Object.assign(exports, {
 			top: clientY,
 			left: clientX
 		}};
+	},
+
+
+	componentDidMount: function() {
+		this.setState({
+			scrollParent: Dom.scrollParent(this.getDOMNode())
+		});
 	},
 
 
