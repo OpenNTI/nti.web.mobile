@@ -146,6 +146,62 @@ var DomUtils = {
 	},
 
 
+	parentElements: function (el) {
+		var parents = [], p;
+
+		while(el) {
+			el = p = el.parentNode;
+			if(p && p.nodeType === Node.ELEMENT_NODE) {
+				parents.push(p);
+			}
+		}
+
+		return parents;
+	},
+
+
+	getStyle: function (el, property) {
+		var getStyles = x => {
+			// IE throws on elements created in popups
+			// FF meanwhile throws on frame elements (see jQuery source)
+			if ( x.ownerDocument.defaultView.opener ) {
+				return x.ownerDocument.defaultView.getComputedStyle( x, null );
+			}
+			return global.getComputedStyle( x, null );
+		};
+
+		var styles = getStyles(el);
+
+		return styles && styles[property];
+	},
+
+
+	scrollParent: function(el) {
+		//Inspired by jQuery#scrollParent
+		var position = this.getStyle(el, 'position' );
+		var excludeStaticParent = position === 'absolute';
+		var css = this.getStyle.bind(this);
+		var allowsOverflow = /(auto|scroll)/;
+		var viewport = el.ownerDocument || document;
+
+		function overflowed(parent) {
+			if (excludeStaticParent && css(parent, 'position' ) === 'static') {
+				return false;
+			}
+
+			return allowsOverflow.test(
+				css(parent, 'overflow' ) +
+				css(parent, 'overflow-y' ) +
+				css(parent, 'overflow-x' )
+			);
+		}
+
+		var scrollParent = position !== 'fixed' && this.parentElements(el).filter(overflowed);
+
+		return (!scrollParent || !scrollParent.length) ? viewport : scrollParent[0];
+	},
+
+
 	isRootObject: function rootObjects(e) {
 		var p = e.parentNode;
 		if (p && p.nodeName === 'OBJECT') { return false; }
