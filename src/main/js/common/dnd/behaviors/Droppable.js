@@ -22,20 +22,21 @@ Object.assign(exports, {
 
 	contextTypes: {
 		currentDragItem: React.PropTypes.object,
+		onDragOver: React.PropTypes.func.isRequired,
 		onDrop: React.PropTypes.func.isRequired
 	},
 
 
 	isActive: function () {
 		var drag = this.context.currentDragItem;
-		var type = drag && drag.type;
+		var type = drag && drag.props.type;
 		return drag && this.accepts(type);
 	},
 
 
 	isDisabled: function () {
 		var drag = this.context.currentDragItem;
-		var type = drag && drag.type;
+		var type = drag && drag.props.type;
 		return drag && !this.accepts(type);
 	},
 
@@ -81,32 +82,40 @@ Object.assign(exports, {
 	_onMouseEnteredDropTarget: function () {
 		if (this.context.currentDragItem) {
 			this.setState({over: true});
+			this.context.onDragOver(this);
 		}
 	},
 
 
 	_onMouseLeftDropTarget: function () {
 		this.setState({over: false});
+		this.context.onDragOver(null);
 	},
 
 
 	_onMouseUpInDropTarget: function () {
+		this.handleDrop();
+	},
+
+
+	handleDrop: function () {
 		if (!this.isActive()) {
 			return;
 		}
 
-		var data = {};
-
 		var dropped = true;
 
 		if (this.onDrop) {
-			dropped = this.onDrop(data);
+			dropped = this.onDrop();
 			//Prevent undefined/null values (no return statement) from interrupting the context callback
 			dropped = dropped || (typeof dropped !== 'boolean' || dropped);
 		}
 
 		if (dropped && this.context.onDrop) {
-			this.context.onDrop(data);
+			this.context.onDrop(this);
 		}
+
+		return dropped;
 	}
+
 });

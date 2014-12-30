@@ -48,17 +48,39 @@ module.exports = React.createClass({
 	},
 
 
+	onDrop: function (drop) {
+		var value = Object.assign({}, this.state.value || {});
+		var data = drop || {};
+		var {source, target} = data;
+
+		if (source) {
+			source = source.props['data-source'];
+		}
+
+		if (target) {
+			target = target.props['data-target'];
+		}
+
+		value[source] = target;
+		this.setState({value: value});
+
+//		this.handleInteraction();
+	},
+
+
 	render: function() {
 		var dragSources = this.props.item.labels || [];
 		var dropTargets = this.props.item.values || [];
 		var submitted = this.isSubmitted();
 		var solution = submitted && this.getSolution();
 
+		var isUsed = i => (this.state.value || {}).hasOwnProperty(i);
+
 		return (
 			<div className="matching">
 				<div className="terms">
 					{dragSources.map((x,i)=>
-						this.renderDragSource(x, i)
+						this.renderDragSource(x, i, isUsed(i))
 					)}
 				</div>
 
@@ -73,10 +95,11 @@ module.exports = React.createClass({
 	},
 
 
-	renderDragSource: function (term, index) {
+	renderDragSource: function (term, index, used) {
 		return (
-			<Draggable type={this.state.dndType} key={term}>
-				<div className="drag match source" data-source={term} data-match={index}>
+			<Draggable type={this.state.dndType} key={term} data-source={index} locked={Boolean(used)}>
+				<div className={'drag match source '+(used ? 'used': '')}
+					key={term} data-source={term} data-match={index}>
 					<a href="#" className="reset" title="Reset"/>
 					<div dangerouslySetInnerHTML={{__html: term}}/>
 				</div>
@@ -86,18 +109,33 @@ module.exports = React.createClass({
 
 
 	renderDropTarget: function (target, index/*, solution*/) {
-
 		return (
 			<div className="drop target" key={target} data-target={index}>
 				<input type="hidden"/>
-				<DropTarget accepts={this.state.dndType} className="match blank dropzone" data-term/>
+				<DropTarget accepts={this.state.dndType} className="match blank dropzone" data-target={index} data-term>
+					{this.renderDroppedDragSource(index)}
+				</DropTarget>
 				<div className="content" dangerouslySetInnerHTML={{__html: target}}/>
 			</div>
 		);
 	},
 
 
+	renderDroppedDragSource: function (dropTargetIndex) {
+		var terms = this.props.item.labels || [];
+		var value = this.state.value;
+		var dragSourceIndex = Object.keys(value || {})
+			.reduce((x, v)=>x || (value[v]===dropTargetIndex ? parseInt(v, 10) : x), NaN);
+
+		if (isNaN(dragSourceIndex)) {
+			return null;
+		}
+
+		return this.renderDragSource(terms[dragSourceIndex], dragSourceIndex);
+	},
+
+
 	getValue: function () {
-		return null;
+		return this.state.value || {};
 	}
 });

@@ -10,52 +10,89 @@ Object.assign(exports, {
 		};
 	},
 
+
 	childContextTypes: {
+		//Common:
 		currentDragItem: React.PropTypes.object,
+
+		//For Draggable
 		onDragStart: React.PropTypes.func,
 		onDragStop: React.PropTypes.func,
 		onDrag: React.PropTypes.func,
+
+		//For Droppable
+		lastDragOver: React.PropTypes.object,
+		onDragOver: React.PropTypes.func,
 		onDrop: React.PropTypes.func
 	},
 
 
 	getChildContext: function() {
+		var s = this.state;
 		return {
-			currentDragItem: this.state.currentDragItem || null,
-			onDragStart: this.onDragStart,
-			onDragStop: this.onDragStop,
-			onDrag: this.onDrag,
-			onDrop: this.onDrop
+			currentDragItem: s.currentDragItem || null,
+			lastDragOver: s.lastDragOver || null,
+
+			onDragStart: this.__onDragStart,
+			onDragStop: this.__onDragStop,
+			onDrag: this.__onDrag,
+
+			onDragOver: this.__onDragOver,
+			onDrop: this.__onDrop
 		};
 	},
 
 
-	onDragStart: function(details) {
-		console.log('Drag Started');
-		return this.setState({
-			currentDragItem: details
+	__onDragStart: function(details) {
+		this.setState({
+			currentDragItem: details,
+			lastDragOver: null
 		});
 	},
 
 
-	onDragStop: function() {
-		console.log('Drag Stopped');
-		return this.setState({
+	__onDragStop: function() {
+		var lastOver = this.state.lastDragOver || {};
+		var {target} = lastOver;
+		var dropped = false;
+
+		if (target) {
+			dropped = target.handleDrop();
+		}
+
+		this.setState({
 			currentDragItem: null
 		});
+
+		return dropped;
 	},
 
 
-	onDrag: function() {
-	},
+	__onDrag: function() {},
 
 
-	onDrop: function(target) {
-		return this.setState({
-			lastDrop: {
+	__onDragOver: function (target) {
+		this.setState({
+			lastDragOver: {
 				source: this.state.currentDragItem,
 				target: target
 			}
 		});
+	},
+
+
+	__onDrop: function(target) {
+		var drop = {
+			source: this.state.currentDragItem,
+			target: target
+		};
+
+		this.setState({
+			lastDragOver: null
+		});
+
+		if (this.onDrop) {
+			this.onDrop(drop);
+		}
 	}
 });

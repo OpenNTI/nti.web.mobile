@@ -57,6 +57,9 @@ Object.assign(exports, {
 		restoreOnStop: PropTypes.bool,
 
 
+		locked: PropTypes.bool,
+
+
 		/**
 		 * `axis` - which axis to update.
 		 */
@@ -149,6 +152,8 @@ Object.assign(exports, {
 
 
 	handleDragStart: function (e) {
+		if (!this.isMounted() || this.props.locked) { return; }
+
 		e.preventDefault();//stop scrolls
 
 		// if (isMultiTouch(e)) {
@@ -186,7 +191,7 @@ Object.assign(exports, {
 	handleDragEnd: function (e) {
 		var onDragStop = this.context.onDragStop || emptyFunction;
 
-		if (!this.state.dragging) {
+		if (!this.state.dragging || !this.isMounted() || this.props.locked) {
 			return;
 		}
 
@@ -200,7 +205,8 @@ Object.assign(exports, {
 				restoring: dragStopResultedInDrop,
 				clientX: this.state.startX,
 				clientY: this.state.startY
-			}: {}
+			} : {
+			}
 		));
 
 		Dom.removeEventListener(global, eventFor.move, this.handleDrag);
@@ -209,6 +215,8 @@ Object.assign(exports, {
 
 
 	handleDrag: function (e) {
+		if (!this.isMounted() || this.props.locked) { return; }
+
 		var onDrag = this.context.onDrag || emptyFunction;
 		var dragPoint = getDragPoint(e);
 
