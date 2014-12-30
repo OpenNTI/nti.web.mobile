@@ -4,6 +4,9 @@
 var React = require('react/addons');
 var t = require('common/locale').scoped('LOGIN.forgot');
 var Button = require('./Button');
+var Store = require('../Store');
+var Constants = require('../Constants');
+var PanelButton = require('common/components/PanelButton');
 
 var Actions = require('../Actions');
 
@@ -30,8 +33,21 @@ var PasswordResetForm = React.createClass({
 	getInitialState: function() {
 		return {
 			submitEnabled: false,
+			resetSuccessful: false,
 			fieldValues: {}
 		};
+	},
+
+	componentDidMount: function() {
+		Store.addChangeListener(this._storeChanged);
+	},
+
+	_storeChanged: function(event) {
+		if(event.type === Constants.events.PASSWORD_RESET_SUCCESSFUL) {
+			this.setState({
+				resetSuccessful: true
+			});
+		}
 	},
 
 	_inputs: function() {
@@ -84,14 +100,24 @@ var PasswordResetForm = React.createClass({
 
 	_handleSubmit: function(event) {
 		event.preventDefault();
-		Actions.resetPassword({
+		var promise = Actions.resetPassword({
 			username: this.props.username,
 			password: this.state.fieldValues[_fields[0].ref],
 			token: this.props.token
 		});
+
+		promise.catch(function(reason) {
+			console.debug(reason);
+		});
 	},
 
 	render: function() {
+
+		var button = <Button href="/" className="fi-arrow-left"> Return to Login</Button>;
+
+		if (this.state.resetSuccessful) {
+			return <PanelButton href="/" button={button}>{t('resetSuccessful')}</PanelButton>;
+		}
 
 		var buttonLabel = t('RESET_PW', {fallback: 'Reset Password'});
 		var cssClasses = ['tiny','radius', 'small-12 columns'];
@@ -115,7 +141,7 @@ var PasswordResetForm = React.createClass({
 							disabled={!submitEnabled}
 						>{buttonLabel}</button>
 					</fieldset>
-					<Button href="/" className="fi-arrow-left"> Return to Login</Button>
+					{button}
 				</form>
 			</div>
 		);
