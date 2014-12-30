@@ -13,14 +13,16 @@
 	background: #fff;
 	box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2);
 	display: inline-block;
-	padding: 0 15px;
+	padding: 0 1rem;
+
+	@include transition('padding 0.5s ease, opacity 0.5s ease');
 
 	font: {
 		weight: normal;
 		style: normal;
 		size: 1em
 	};
-	line-height: 2;
+	line-height: 2rem;
 
 	cursor: -webkit-grab;
 	cursor: -moz-grab;
@@ -31,6 +33,7 @@
 	}
 
 	&.dragging,
+	&.dropped,
 	&:active,
 	html:not(.touch) &:hover {
 		color: #fff;
@@ -49,10 +52,6 @@
 		pointer-events: none;
 	}
 
-	&.dropped {
-		visibility: hidden;
-	}
-
 	&.restoring {
 		@include transition('all 0.5s ease');
 		top: 0 !important;
@@ -60,22 +59,42 @@
 	}
 
 	.reset {
-		display: none;
+		display: block;
 		@include transition('all 0.5s ease');
-		display: inline-block;
-		float: right;
-		width: 0;
+
 		opacity: 0;
-		height: 2em;
-		//margin-right: -1em;
+		width: 0;
+		height: 2rem;
 		top: 0;
-		left: 0;
+		right: 0;
 
 		cursor: pointer;
+		position: absolute !important;
 
-		//@include icon('light-x',10px,6px);
-		html:not(.touch) &:hover::after{
-			//@include sprite($icons,'light-x_hover');
+		&::after {
+			content: '';
+			background: url(../images/icons/light-x.png);
+			width: 7px; height: 7px;
+			display: block;
+			opacity: 0.571428571;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -3.5px 0 0 -3.5px;
+		}
+
+		html.touch &::after,
+		html:not(.touch) &:hover::after {
+			opacity: 1;
+		}
+	}
+
+	html.touch &.dropped,
+	html:not(.touch) &.dropped:hover {
+		padding-right: 1.5rem;
+		.reset {
+			opacity: 1;
+			width: 1.5rem;
 		}
 	}
 }
