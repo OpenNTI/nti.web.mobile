@@ -238,11 +238,7 @@ aside[class*=off-canvas-menu] {
 
 
 .animate {
-	-webkit-transition: all .3s ease-out;
-	-moz-transition: all .3s ease-out;
-	-ms-transition: all .3s ease-out;
-	-o-transition: all .3s ease-out;
-	transition: all .3s ease-out;
+	@include transition('all .3s ease-out');
 }
 
 
