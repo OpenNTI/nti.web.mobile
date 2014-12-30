@@ -4,13 +4,33 @@ var NTIIDs = require('dataserverinterface/utils/ntiids');
 var autoBind = require('dataserverinterface/utils/autobind');
 var path = require('path');
 
+
+var SEGMENT_HANDLERS = {
+
+	redeem: function (segments) {
+		return path.join('enrollment','store','gift', segments.slice(0,2).join('/'));
+	},
+
+
+	forcredit: function () {
+		return path.join('enrollment','credit','/');
+	}
+
+};
+
+
+function noSegmentHandler(s) {
+	console.warn('There is no handler registered for ', s);
+}
+
+
 module.exports = autoBind({
 	register: function(express, config, route) {
 		this.basepath = config.basepath;
 		express.use(route, this.handleRedirects);
 	},
 
-	translateCatalogId: function(input) {
+	__translateCatalogId: function(input) {
 		var catalogId = input
 					.replace(/-/g, '+')
 					.replace(/_/g, '/');
@@ -22,22 +42,13 @@ module.exports = autoBind({
 		return catalogId;
 	},
 
-	translateTrailingPath: function(trailingPath) {
+	__translateTrailingPath: function(trailingPath) {
 
 		var segments = (trailingPath || '').split('/');
-		var translated = '';
 
-		switch(segments[0]) {
-			case 'redeem':
-				translated = path.join('enrollment','store','gift', segments.slice(0,2).join('/'));
-				break;
+		var handler = SEGMENT_HANDLERS[segments[0]] || noSegmentHandler;
 
-			case 'forcredit':
-				translated = path.join('enrollment','credit','/');
-				break;
-		}
-
-		return translated;
+		return handler.call(null, segments);
 	},
 
 	handleRedirects: function(_, res, next) {
@@ -62,8 +73,8 @@ module.exports = autoBind({
 			parts = url.match(catalog);
 
 			if (parts) {
-				var catalogId = this.translateCatalogId(parts[1]);
-				trailingPath = this.translateTrailingPath(parts[2]);
+				var catalogId = this.__translateCatalogId(parts[1]);
+				trailingPath = this.__translateTrailingPath(parts[2]);
 				redUrl = path.join(this.basepath, 'library', 'catalog', 'item', catalogId, trailingPath);
 			}
 			console.log('\n\nredUrl: ', redUrl, '\n\n');
