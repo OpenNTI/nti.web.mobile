@@ -78,10 +78,17 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	resetPassword: function(fields) {
 
-		var fn = function(result) {
+		var success = function(result) {
+			Store.emitChange({
+				type: Constants.events.PASSWORD_RESET_SUCCESSFUL,
+				data: result
+			});
+		};
+
+		var failure = function(reason) {
 			MessageActions.clearMessages({category: Constants.messages.category});
-			MessageActions.addMessage( new Message(result.message, {category: Constants.messages.category}) );
-			return result;
+			MessageActions.addMessage( new Message(reason.message, {category: Constants.messages.category}) );
+			return reason;	
 		};
 
 		return getServer().resetPassword(
@@ -89,7 +96,7 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 			fields.password,
 			fields.token
 		)
-		.then(fn,fn);
+		.then(success,failure);
 	},
 
 	recoverUsername: function(fields) {

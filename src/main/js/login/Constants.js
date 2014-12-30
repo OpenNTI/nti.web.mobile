@@ -203,7 +203,15 @@ var events = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_LINKS_CHANGED: null
+	LOGIN_LINKS_CHANGED: null,
+
+	/**
+	* The event emitted upon successful password reset.
+	* @property PASSWORD_RESET_SUCCESSFUL
+	* @type String
+	* @final
+	*/
+	PASSWORD_RESET_SUCCESSFUL: null
 
 });
 

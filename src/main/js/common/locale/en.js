@@ -84,7 +84,8 @@ module.exports = {
 			password: 'Forgot Password?',
 			recoverpassword: 'Reset Password',
 			recoverusername: 'Recover Username',
-			EmailAddressInvalid: 'The email address you have entered is not valid.'
+			EmailAddressInvalid: 'The email address you have entered is not valid.',
+			resetSuccessful: 'Your password has been reset.'
 		},
 
 		LOGIN_ERROR: {
