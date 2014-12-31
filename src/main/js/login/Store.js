@@ -143,8 +143,8 @@ function _setLoggedIn(isLoggedIn) {
 
 function _logIn(credentials) {
 
-	// prefer the OU4x4 link if available.
-	var url = _links[Links.LOGIN_OU4X4_LINK] || _links[Links.LOGIN_PASSWORD_LINK];
+	// prefer the LDAP link if available.
+	var url = _links[Links.LOGIN_LDAP_LINK] || _links[Links.LOGIN_PASSWORD_LINK];
 
 	var p = getServer().logInPassword(
 			url,
