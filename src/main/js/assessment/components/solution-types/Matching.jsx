@@ -60,7 +60,7 @@ module.exports = React.createClass({
 		}
 
 		return (
-			<div className="drop target" key={idx} data-target={idx}>
+			<div className="drop target" key={idx}>
 				<div className="match blank dropzone" data-term>
 					{this.renderDragSource(label, i)}
 				</div>
