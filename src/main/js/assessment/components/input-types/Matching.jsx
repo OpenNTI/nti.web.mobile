@@ -127,17 +127,20 @@ module.exports = React.createClass({
 
 
 	renderDragSource: function (term, index, extraClass, lock) {
+		var locked = this.isSubmitted() || Boolean(lock);
 		return (
 			<Draggable
 				cancel=".reset"
 				data-source={index}
 				key={term}
-				locked={Boolean(lock)}
+				locked={locked}
 				type={this.state.dndType}
 				>
 				<div className={'drag match source '+(extraClass || '')}
 					key={term} data-source={term} data-match={index}>
-					<a href="#" className="reset" title="Reset" onClick={this.onDragReset}/>
+					{!locked && (
+						<a href="#" className="reset" title="Reset" onClick={this.onDragReset}/>
+					)}
 					<div dangerouslySetInnerHTML={{__html: term}}/>
 				</div>
 			</Draggable>
