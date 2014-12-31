@@ -3,6 +3,8 @@
 var React = require('react/addons');
 var ensureArray = require('dataserverinterface/utils/ensure-array');
 
+var {Dom} = require('../../Utils');
+
 var Base = require('./Base');
 
 var {TYPE_SHAPE} = Base;
@@ -21,6 +23,7 @@ Object.assign(exports, {
 
 
 	contextTypes: {
+		dndEvents: React.PropTypes.object,
 		currentDragItem: React.PropTypes.object,
 		onDragOver: React.PropTypes.func.isRequired,
 		onDrop: React.PropTypes.func.isRequired
@@ -55,13 +58,22 @@ Object.assign(exports, {
 	},
 
 
+	componentDidMount: function() {
+		this.context.dndEvents.on('drag', this._onDraggableNotification);
+		this.context.dndEvents.on('dragEnd', this._onDragLeftDropTarget);
+	},
+
+
+	componentWillUnmount: function() {
+		this.context.dndEvents.removeListener('drag', this._onDraggableNotification);
+		this.context.dndEvents.removeListener('dragEnd', this._onDragLeftDropTarget);
+	},
+
+
 	renderDropTargetWrapper: function (children) {
 		return React.createElement('div', Object.assign({}, this.props, {
 			children: children,
-			className: this.__getWrapperElementClassName(),
-			onMouseEnter: this._onMouseEnteredDropTarget,
-			onMouseLeave: this._onMouseLeftDropTarget,
-			onMouseUp: this._onMouseUpInDropTarget
+			className: this.__getWrapperElementClassName()
 		}));
 	},
 
@@ -79,7 +91,23 @@ Object.assign(exports, {
 	},
 
 
-	_onMouseEnteredDropTarget: function () {
+	_onDraggableNotification: function (dragData) {
+		var {x, y} = dragData;
+		if (!this.isMounted() || !this.context.currentDragItem) {return;}
+
+		if (Dom.isPointWithIn(this.getDOMNode(), x, y)) {
+			if (!this.state.over) {
+				this._onDragEnteredDropTarget();
+			}
+		} else {
+			if (this.state.over) {
+				this._onDragLeftDropTarget();
+			}
+		}
+	},
+
+
+	_onDragEnteredDropTarget: function () {
 		if (this.context.currentDragItem) {
 			this.setState({over: true});
 			this.context.onDragOver(this);
@@ -87,14 +115,9 @@ Object.assign(exports, {
 	},
 
 
-	_onMouseLeftDropTarget: function () {
+	_onDragLeftDropTarget: function () {
 		this.setState({over: false});
 		this.context.onDragOver(null);
-	},
-
-
-	_onMouseUpInDropTarget: function () {
-		this.handleDrop();
 	},
 
 

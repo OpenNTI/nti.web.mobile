@@ -1,12 +1,20 @@
 'use strict';
 
 var React = require('react/addons');
+var {EventEmitter} = require('events');
+
+function emit(o, event, ...data) {
+	var e = o.state.dndEventEmitter;
+	e.emit.apply(e, [event].concat(data));
+}
+
 
 Object.assign(exports, {
 
 	getInitialState: function() {
 		return {
-			currentDragItem: null
+			currentDragItem: null,
+			dndEventEmitter: new EventEmitter()
 		};
 	},
 
@@ -14,10 +22,11 @@ Object.assign(exports, {
 	childContextTypes: {
 		//Common:
 		currentDragItem: React.PropTypes.object,
+		dndEvents: React.PropTypes.object,
 
 		//For Draggable
 		onDragStart: React.PropTypes.func,
-		onDragStop: React.PropTypes.func,
+		onDragEnd: React.PropTypes.func,
 		onDrag: React.PropTypes.func,
 
 		//For Droppable
@@ -30,11 +39,12 @@ Object.assign(exports, {
 	getChildContext: function() {
 		var s = this.state;
 		return {
+			dndEvents: s.dndEventEmitter,
 			currentDragItem: s.currentDragItem || null,
 			lastDragOver: s.lastDragOver || null,
 
 			onDragStart: this.__onDragStart,
-			onDragStop: this.__onDragStop,
+			onDragEnd: this.__onDragEnd,
 			onDrag: this.__onDrag,
 
 			onDragOver: this.__onDragOver,
@@ -43,15 +53,16 @@ Object.assign(exports, {
 	},
 
 
-	__onDragStart: function(details) {
+	__onDragStart: function(item) {
 		this.setState({
-			currentDragItem: details,
+			currentDragItem: item,
 			lastDragOver: null
 		});
+		emit(this, 'dragStart');
 	},
 
 
-	__onDragStop: function() {
+	__onDragEnd: function() {
 		var lastOver = this.state.lastDragOver || {};
 		var {target} = lastOver;
 		var dropped = false;
@@ -64,11 +75,14 @@ Object.assign(exports, {
 			currentDragItem: null
 		});
 
+		emit(this, 'dragEnd');
 		return dropped;
 	},
 
 
-	__onDrag: function() {},
+	__onDrag: function(draggable, event, data) {
+		emit(this, 'drag', data);
+	},
 
 
 	__onDragOver: function (target) {

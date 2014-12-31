@@ -39,7 +39,11 @@ function canDrag(x) {
 function getDragPoint(e) {
 	e = (!e.touches ? e : e.touches[0]);
 	var {clientX, clientY} = e;
-	return {clientX: clientX, clientY: clientY}; }
+	return {
+		x: clientX,
+		y: clientY
+	};
+}
 
 
 Object.assign(exports, {
@@ -100,7 +104,7 @@ Object.assign(exports, {
 	contextTypes: {
 		currentDragItem: PropTypes.object,
 		onDragStart: PropTypes.func.isRequired,
-		onDragStop: PropTypes.func.isRequired,
+		onDragEnd: PropTypes.func.isRequired,
 		onDrag: PropTypes.func
 	},
 
@@ -127,18 +131,18 @@ Object.assign(exports, {
 			restoring: false,
 			startX: 0, startY: 0,
 			offsetX: 0, offsetY: 0,
-			clientX: 0, clientY: 0,
+			x: 0, y: 0,
 			scrollParent: null
 		};
 	},
 
 
 	getPosition: function() {
-		var {clientX, clientY} = this.state;
-		return { position: {
-			top: clientY,
-			left: clientX
-		}};
+		var {x, y} = this.state;
+		return {
+			top: y,
+			left: x
+		};
 	},
 
 
@@ -151,7 +155,7 @@ Object.assign(exports, {
 
 	componentWillMount: function() {
 		var {x, y} = this.props.start;
-		this.setState({clientX: x, clientY: y});
+		this.setState({x: x, y: y});
 	},
 
 
@@ -181,14 +185,11 @@ Object.assign(exports, {
 		    return;
 		}
 
-
-
-
 		this.setState({
 			dragging: true,
 			restoring: false,
-			offsetX: parseInt(dragPoint.clientX, 10),
-			offsetY: parseInt(dragPoint.clientY, 10),
+			offsetX: parseInt(dragPoint.x, 10),
+			offsetY: parseInt(dragPoint.y, 10),
 			startX: parseInt(node.style.left, 10) || 0,
 			startY: parseInt(node.style.top, 10) || 0
 		});
@@ -202,13 +203,13 @@ Object.assign(exports, {
 
 
 	handleDragEnd: function (e) {
-		var onDragStop = this.context.onDragStop || emptyFunction;
+		var onDragEnd = this.context.onDragEnd || emptyFunction;
 
 		if (!this.state.dragging || !this.isMounted() || this.props.locked) {
 			return;
 		}
 
-		var dragStopResultedInDrop = !onDragStop(this, e, this.getPosition());
+		var dragStopResultedInDrop = !onDragEnd(this, e, this.getPosition());
 
 		// The drop handler may result in us no longer being mounted, so check
 		// that first (if we were unmounted, thats fine another instance of
@@ -220,8 +221,8 @@ Object.assign(exports, {
 				this.props.restoreOnStop ?
 				{
 					restoring: dragStopResultedInDrop,
-					clientX: this.state.startX,
-					clientY: this.state.startY
+					x: this.state.startX,
+					y: this.state.startY
 				} : {
 				}
 			));
@@ -238,21 +239,21 @@ Object.assign(exports, {
 		var onDrag = this.context.onDrag || emptyFunction;
 		var dragPoint = getDragPoint(e);
 
-		var clientX = (this.state.startX + (dragPoint.clientX - this.state.offsetX));
-		var clientY = (this.state.startY + (dragPoint.clientY - this.state.offsetY));
+		var x = (this.state.startX + (dragPoint.x - this.state.offsetX));
+		var y = (this.state.startY + (dragPoint.y - this.state.offsetY));
 
 		// Snap to grid?
 		if (Array.isArray(this.props.grid)) {
-			clientX = this._snapTo(clientX, 'clientX');
-			clientY = this._snapTo(clientY, 'clientY');
+			x = this._snapTo(x, 'x');
+			y = this._snapTo(y, 'y');
 		}
 
 		this.setState({
-			clientX: clientX,
-			clientY: clientY
+			x: x,
+			y: y
 		});
 
-		onDrag(this, e, this.getPosition());
+		onDrag(this, e, Object.assign(this.getPosition(), dragPoint));
 	},
 
 
@@ -261,7 +262,7 @@ Object.assign(exports, {
 		var {grid} = props;
 
 		var axisInt = parseInt(state[axis], 10);
-		var axId = axis === 'clientX' ? 0 : 1;
+		var axId = axis === 'x' ? 0 : 1;
 		var direction = initial < axisInt ? -1 : 1;
 
 		return Math.abs(initial - axisInt) >= grid[axId] ?
@@ -273,8 +274,8 @@ Object.assign(exports, {
 		var s = this.state;
 		var z = this.props.zIndex;
 		var style = {
-			top: this.canDragY(this) ? s.clientY : s.startY,
-			left: this.canDragX(this) ? s.clientX : s.startX
+			top: this.canDragY(this) ? s.y : s.startY,
+			left: this.canDragX(this) ? s.x : s.startX
 		};
 
 		if (s.dragging && !isNaN(z)) {

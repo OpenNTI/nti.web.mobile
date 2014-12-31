@@ -5,17 +5,37 @@ var isEmpty = require('dataserverinterface/utils/isempty');
 //var isFunction = require('dataserverinterface/utils/isfunction');
 var toArray = require('dataserverinterface/utils/toarray');
 
+var between = require('dataserverinterface/utils/between');
+
 var withValue = require('dataserverinterface/utils/object-attribute-withvalue');
 
 var hyphenatedToCamel = function(s) {
 	var re = hyphenatedToCamel.re = (hyphenatedToCamel.re || /-([a-z])/g);
-	return s.replace(re, function (g) { return g[1].toUpperCase(); });
+	return s.replace(re, g=>g[1].toUpperCase());
 };
 
 var DomUtils = {
 
 	isMultiTouch: function (e) {
 		return e.touches && e.touches.length > 1;
+	},
+
+
+	isPointWithIn: function (el,...point) {
+		var rect,
+			{x, y} = point[0];
+
+		if (point.length > 1) {
+			x = point[0];
+			y = point[1];
+		}
+
+		rect = el.getBoundingClientRect();
+
+		return (
+			between(x, rect.left, rect.right) &&
+			between(y, rect.top, rect.bottom)
+		);
 	},
 
 
@@ -273,40 +293,39 @@ var DomUtils = {
 	},
 
 
-	/*
-	 * A terribly named function that adjust links displayed to the user.  Note this
-	 * is different then any content reference cleanup that happens when content loads.
-	 * Right now the purpose it so detect links that are external (absolute and aren't the same
-	 * base path) and set there target to _blank.  The base url check allows us to just do fragment
-	 * navigatio in the same tab so if people get clever and insert links to things like profile we
-	 * do the right thing.
+	/* CU: A function that adjust links displayed to the user.
+	 * Note this is different then any content reference cleanup that happens
+	 * when content loads. Right now the purpose is to detect links that are
+	 * external (absolute and aren't the same base path) and set their target
+	 * to _blank.  The base url check allows us to just do fragment navigation
+	 * in the same tab so if people get clever and insert links to things like
+	 * profile we do the right thing.
 	 */
-	adjustLinks: function(dom, baseUrl) {
-		var string, tempDom;
+	retargetAnchorsWithExternalRefs: function(markup, baseUrl) {
+		var string = (typeof markup === 'string'),
+			tempDom;
 
-		if (!dom) {
+		if (!markup) {
 			return;
 		}
 
-		if (typeof dom === 'string') {
-			string = true;
+		if (string) {
 			tempDom = document.createElement('div');
-			tempDom.innerHTML = dom;
-			dom = tempDom;
+			tempDom.innerHTML = markup;
+			markup = tempDom;
 		}
 
-		toArray(dom.querySelectorAll('a[href]')).forEach(function(link) {
-			var href = link.getAttribute('href') || '',
+		toArray(markup.querySelectorAll('a[href]')).forEach(link => {
+			var href = link.href || '',
 				base = baseUrl.split('#')[0],
 				changeTarget = href.indexOf(base) !== 0;
-
 
 			if (changeTarget) {
 				link.setAttribute('target', '_blank');
 			}
 		});
 
-		return string ? dom.innerHTML : dom;
+		return string ? markup.innerHTML : markup;
 	},
 
 
