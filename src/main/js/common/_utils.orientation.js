@@ -10,20 +10,25 @@ module.exports = exports = {
 
 
 	changeHandler: function OnOrientationChange(component) {
+		// delay this handler because on android the innerWidth and innerHeight
+		// properties may not be updated yet, and because on android the height
+		// of the nav drawer doesn't update if we fire immediately.
+		setTimeout(function() {
+			this._handler(component);
+		}.bind(this), 500);
+	},
+
+	_handler: function(component) {
 		var state = 'portrait';
-		var w = global;//window
+		var w = global; //window
 		if(Math.abs(w.orientation) === 90 || w.innerWidth > w.innerHeight) {
 			state ='landscape';
 		}
-
-		//console.debug('Window is now: %s', state);
 		document.body.className = state;
+		//console.debug('Window is now: %s', state);
 		if (component) {
-			// if we don't delay the update chrome on android doesn't
-			// resize the nav drawer.
-			setTimeout(function() { 
-				component.setState({orientation: state});
-			}, 500);
+			component.setState({orientation: state});
 		}
 	}
+
 };
