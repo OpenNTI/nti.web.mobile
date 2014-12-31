@@ -1,8 +1,7 @@
 @mixin metadata() {
-	background: black;
+	background: rgba(0,0,0,0.2);
 	border-radius:2px;
 	color:white;
-	opacity:.2;
 }
 
 .button-group.filters {
