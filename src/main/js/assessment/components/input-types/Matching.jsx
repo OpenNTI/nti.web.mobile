@@ -2,7 +2,7 @@
 
 var React = require('react/addons');
 var InputType = require('./Mixin');
-
+var {getEventTarget} = require('common/Utils').Dom;
 var {Mixin, Draggable, DropTarget} = require('common/dnd');
 
 //var isEmpty = require('dataserverinterface/utils/isempty');
@@ -61,10 +61,41 @@ module.exports = React.createClass({
 			target = target.props['data-target'];
 		}
 
+		// The ONLY time that the '==' (double equals) operator is acceptable... testing for null
+		// (which will evaluate to true for `null` and `undefined` but false for everything else)
+		if (target == null || source == null) {
+			throw new Error('Illegal State, there must be BOTH a source and a target');
+		}
+
 		value[source] = target;
 		this.setState({value: value});
 
 //		this.handleInteraction();
+	},
+
+
+	onDragReset: function (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		function get(sel, attr) {
+			var o = getEventTarget(e, sel+'['+attr+']');
+			o = o && o.getAttribute(attr);
+			//the double equals is intentional here.
+			return o == null ? null : parseInt(o, 10);
+		}
+
+		var source = get('.source', 'data-match');
+		//var target = get('.target', 'data-target');
+
+		var val = Object.assign({}, this.state.value);
+
+		delete val[source];
+		this.setState({
+			value: val
+		});
 	},
 
 
@@ -97,10 +128,16 @@ module.exports = React.createClass({
 
 	renderDragSource: function (term, index, extraClass, lock) {
 		return (
-			<Draggable type={this.state.dndType} key={term} data-source={index} locked={Boolean(lock)}>
+			<Draggable
+				cancel=".reset"
+				data-source={index}
+				key={term}
+				locked={Boolean(lock)}
+				type={this.state.dndType}
+				>
 				<div className={'drag match source '+(extraClass || '')}
 					key={term} data-source={term} data-match={index}>
-					<a href="#" className="reset" title="Reset"/>
+					<a href="#" className="reset" title="Reset" onClick={this.onDragReset}/>
 					<div dangerouslySetInnerHTML={{__html: term}}/>
 				</div>
 			</Draggable>
@@ -112,7 +149,7 @@ module.exports = React.createClass({
 		return (
 			<DropTarget accepts={this.state.dndType} className="drop target" key={target} data-target={index}>
 				<input type="hidden"/>
-				<div className="match blank dropzone" data-target={index} data-term>
+				<div className="match blank dropzone" data-term>
 					{this.renderDroppedDragSource(index)}
 				</div>
 				<div className="content" dangerouslySetInnerHTML={{__html: target}}/>

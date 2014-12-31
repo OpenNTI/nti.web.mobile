@@ -162,7 +162,17 @@ Object.assign(exports, {
 
 
 	handleDragStart: function (e) {
-		if (!this.isMounted() || this.props.locked) { return; }
+		var node = this.getDOMNode();
+		var dragPoint = getDragPoint(e);
+		var onDragStart = this.context.onDragStart || emptyFunction;
+		var {handle, cancel} = this.props;
+
+		if (!this.isMounted() ||
+			this.props.locked ||
+			(handle && !Dom.matches(e.target, handle)) ||
+			(cancel && Dom.matches(e.target, cancel))) {
+			return;
+		}
 
 		e.preventDefault();//stop scrolls
 
@@ -171,14 +181,7 @@ Object.assign(exports, {
 		    return;
 		}
 
-		var node = this.getDOMNode();
-		var dragPoint = getDragPoint(e);
-		var onDragStart = this.context.onDragStart || emptyFunction;
-		var {handle, cancel} = this.props;
 
-		if ((handle && !Dom.matches(e.target, handle)) || (cancel && Dom.matches(e.target, cancel))) {
-			return;
-		}
 
 
 		this.setState({
@@ -207,17 +210,22 @@ Object.assign(exports, {
 
 		var dragStopResultedInDrop = !onDragStop(this, e, this.getPosition());
 
-		this.setState(
-			Object.assign(
-			{ dragging: false },
-			this.props.restoreOnStop ?
-			{
-				restoring: dragStopResultedInDrop,
-				clientX: this.state.startX,
-				clientY: this.state.startY
-			} : {
-			}
-		));
+		// The drop handler may result in us no longer being mounted, so check
+		// that first (if we were unmounted, thats fine another instance of
+		// ourself is probably in our place)
+		if (this.isMounted()) {
+			this.setState(
+				Object.assign(
+				{ dragging: false },
+				this.props.restoreOnStop ?
+				{
+					restoring: dragStopResultedInDrop,
+					clientX: this.state.startX,
+					clientY: this.state.startY
+				} : {
+				}
+			));
+		}
 
 		Dom.removeEventListener(global, eventFor.move, this.handleDrag);
 		Dom.removeEventListener(global, eventFor.end, this.handleDragEnd);

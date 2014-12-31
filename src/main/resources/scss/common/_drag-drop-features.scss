@@ -140,6 +140,7 @@
 	}
 
 	.blank[data-term]:not(:empty)::after {
-		display: none;
+		//display: none;
+		z-index: -1;
 	}
 }
