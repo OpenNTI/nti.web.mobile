@@ -102,9 +102,13 @@
 .drop.target {
 	// color: #e0e0e0;
 	// font-weight: 500;
+	&.over {
+		.blank[data-term],
+		.blank[data-input] {
+			background: $border-grey;
+		}
 
-	.dropzone {
-
+		box-shadow: inset 0 0 0 3px $primary-blue;
 	}
 
 	.blank[data-term],
@@ -137,10 +141,10 @@
 		&.over {
 			background: $border-grey;
 		}
-	}
 
-	.blank[data-term]:not(:empty)::after {
-		//display: none;
-		z-index: -1;
+		&:not(:empty)::after {
+			//display: none;
+			z-index: -1;
+		}
 	}
 }
