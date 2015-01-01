@@ -254,6 +254,33 @@ Object.assign(exports, {
 		});
 
 		onDrag(this, e, Object.assign(this.getPosition(), dragPoint));
+
+		this._maybeScrollParent(dragPoint);
+	},
+
+
+	_maybeScrollParent: function (point) {
+		var y, x;
+		var region = 50;
+		var scrollParent = this.state.scrollParent;
+		var boundingRect = Dom.getElementRect(scrollParent);
+
+		var top = (boundingRect.top - point.y) < region;
+		var bottom = (point.y - boundingRect.bottom) < region;
+
+		// scroll: Vertical
+		if (top || bottom) {
+			y = top ? -region : region;
+		}
+
+		// scroll: Horizontal
+		// if (left || right) {
+		// 	x = left ? -region : region;
+		// }
+
+		if (y) {
+			Dom.scrollElementBy(scrollParent, x, y);
+		}
 	},
 
 

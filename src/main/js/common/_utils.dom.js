@@ -1,5 +1,7 @@
 'use strict';
 
+var Viewport = require('./_utils.viewport');
+
 var autoBind = require('dataserverinterface/utils/autobind');
 var isEmpty = require('dataserverinterface/utils/isempty');
 //var isFunction = require('dataserverinterface/utils/isfunction');
@@ -30,12 +32,50 @@ var DomUtils = {
 			y = point[1];
 		}
 
-		rect = el.getBoundingClientRect();
+		rect = this.getElementRect(el);
 
 		return (
 			between(x, rect.left, rect.right) &&
 			between(y, rect.top, rect.bottom)
 		);
+	},
+
+
+	getElementRect: function (el) {
+		var rect, w, h;
+		if (el && el.getBoundingClientRect) {
+			rect = el.getBoundingClientRect();
+		}
+
+		if (!rect && el) {
+			if (el.nodeType !== Node.ELEMENT_NODE) {
+				//
+				h = Viewport.getHeight();
+				w = Viewport.getWidth();
+				rect = {
+					top: 0, left: 0,
+					right: w, bottom: h,
+					width: w, height: h
+				};
+			}
+			// else {
+			// 	rect = {
+			// 		top: el.offsetTop,
+			// 		left: el.offsetLeft,
+			// 		bottom: el.offsetTop + el.offsetHeight,
+			// 		right: el.offsetLeft + el.offsetWidth,
+			// 		width: el.offsetWidth,
+			// 		height: el.offsetHeight
+			// 	};
+			// }
+		}
+
+		return rect;
+	},
+
+
+	scrollElementBy: function (/*el, x, y*/) {
+		//el.scrollBy(x||0, y||0);
 	},
 
 
@@ -143,7 +183,7 @@ var DomUtils = {
 	 */
 	getEventTarget: function(event, selector) {
 		var t = event.target || event.srcElement;
-		if (t && t.nodeType === 3) {//3 === Node.TEXT_NODE
+		if (t && t.nodeType === Node.TEXT_NODE) {
 			t = t.parentNode;
 		}
 
@@ -153,10 +193,9 @@ var DomUtils = {
 			}
 		}
 
-		//Node.ELEMENT_NODE = 1... but the constant is not always defined,
 		//this will return null for any node/falsy value of t where t's NodeType
 		// is not an Element.
-		return (t && t.nodeType === 1 && t) || null;
+		return (t && t.nodeType === Node.ELEMENT_NODE && t) || null;
 	},
 
 
