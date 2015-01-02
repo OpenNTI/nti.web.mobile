@@ -20,13 +20,19 @@ var GiftRedeem = React.createClass({
 
 	getInitialState: function() {
 		return {
-			fieldValues: {
-				accessKey: ''
-			},
+			fieldValues: {},
 			errors: {},
 			busy: false,
 			success: false
 		};
+	},
+
+	componentWillMount: function() {
+		this.setState({
+			fieldValues: {
+				accessKey: this.props.code || ''
+			}
+		});
 	},
 
 	componentDidMount: function() {
