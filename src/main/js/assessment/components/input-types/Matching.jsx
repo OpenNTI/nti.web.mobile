@@ -68,9 +68,7 @@ module.exports = React.createClass({
 		}
 
 		value[source] = target;
-		this.setState({value: value});
-
-		this.handleInteraction();
+		this.setState({value: value}, this.handleInteraction);
 	},
 
 
@@ -93,11 +91,7 @@ module.exports = React.createClass({
 		var val = Object.assign({}, this.state.value);
 
 		delete val[source];
-		this.setState({
-			value: val
-		});
-
-		this.handleInteraction();
+		this.setState({ value: val }, this.handleInteraction);
 	},
 
 
