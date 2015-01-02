@@ -7,7 +7,7 @@ module.exports = React.createClass({
 	displayName: 'NAQuestion',
 
 	statics: {
-		mimeType: /naquestion$/i,
+		mimeType: /naquestion/i,
 		handles: function(item) {
 			var type = item.type || '';
 			var cls = item.class || '';
