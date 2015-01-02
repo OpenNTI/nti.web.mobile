@@ -70,7 +70,7 @@ module.exports = React.createClass({
 		value[source] = target;
 		this.setState({value: value});
 
-//		this.handleInteraction();
+		this.handleInteraction();
 	},
 
 
@@ -96,6 +96,8 @@ module.exports = React.createClass({
 		this.setState({
 			value: val
 		});
+
+		this.handleInteraction();
 	},
 
 
