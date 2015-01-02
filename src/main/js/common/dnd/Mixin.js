@@ -1,53 +1,112 @@
 'use strict';
 
 var React = require('react/addons');
+var {EventEmitter} = require('events');
+
+function emit(o, event, ...data) {
+	var e = o.state.dndEventEmitter;
+	e.emit.apply(e, [event].concat(data));
+}
+
 
 Object.assign(exports, {
 
 	getInitialState: function() {
 		return {
-			currentDragItem: null
+			currentDragItem: null,
+			dndEventEmitter: new EventEmitter()
 		};
 	},
 
+
 	childContextTypes: {
+		//Common:
 		currentDragItem: React.PropTypes.object,
+		dndEvents: React.PropTypes.object,
+
+		//For Draggable
 		onDragStart: React.PropTypes.func,
-		onDragStop: React.PropTypes.func,
+		onDragEnd: React.PropTypes.func,
+		onDrag: React.PropTypes.func,
+
+		//For Droppable
+		lastDragOver: React.PropTypes.object,
+		onDragOver: React.PropTypes.func,
 		onDrop: React.PropTypes.func
 	},
 
 
 	getChildContext: function() {
+		var s = this.state;
 		return {
-			currentDragItem: this.state.currentDragItem || null,
-			onDragStart: this.onDragStart,
-			onDragStop: this.onDragStop,
-			onDrop: this.onDrop
+			dndEvents: s.dndEventEmitter,
+			currentDragItem: s.currentDragItem || null,
+			lastDragOver: s.lastDragOver || null,
+
+			onDragStart: this.__onDragStart,
+			onDragEnd: this.__onDragEnd,
+			onDrag: this.__onDrag,
+
+			onDragOver: this.__onDragOver,
+			onDrop: this.__onDrop
 		};
 	},
 
 
-	onDragStart: function(details) {
-		return this.setState({
-			currentDragItem: details
+	__onDragStart: function(item) {
+		this.setState({
+			currentDragItem: item,
+			lastDragOver: null
 		});
+		emit(this, 'dragStart');
 	},
 
 
-	onDragStop: function() {
-		return this.setState({
+	__onDragEnd: function() {
+		var lastOver = this.state.lastDragOver || {};
+		var {target} = lastOver;
+		var dropped = false;
+
+		if (target) {
+			dropped = target.handleDrop();
+		}
+
+		this.setState({
 			currentDragItem: null
 		});
+
+		emit(this, 'dragEnd');
+		return dropped;
 	},
 
 
-	onDrop: function(target) {
-		return this.setState({
-			lastDrop: {
+	__onDrag: function(draggable, event, data) {
+		emit(this, 'drag', data);
+	},
+
+
+	__onDragOver: function (target) {
+		this.setState({
+			lastDragOver: {
 				source: this.state.currentDragItem,
 				target: target
 			}
 		});
+	},
+
+
+	__onDrop: function(target) {
+		var drop = {
+			source: this.state.currentDragItem,
+			target: target
+		};
+
+		this.setState({
+			lastDragOver: null
+		});
+
+		if (this.onDrop) {
+			this.onDrop(drop);
+		}
 	}
 });

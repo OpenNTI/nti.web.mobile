@@ -92,25 +92,7 @@
 	}
 }
 
-@-webkit-keyframes loadingellipse {
-   	25% {width: 0; }
-	50% { width: 0.466667em; }
-	75% { width: 0.933333em; }
-	100% { width: 1.4em; }
-}
-@-moz-keyframes loadingellipse {
-    25% {width: 0; }
-	50% { width: 0.466667em; }
-	75% { width: 0.933333em; }
-	100% { width: 1.4em; }
-}
-@-o-keyframes loadingellipse {
-    25% {width: 0; }
-	50% { width: 0.466667em; }
-	75% { width: 0.933333em; }
-	100% { width: 1.4em; }
-}
-@keyframes loadingellipse {
+@include keyframes(loadingellipse) {
     25% {width: 0; }
 	50% { width: 0.466667em; }
 	75% { width: 0.933333em; }

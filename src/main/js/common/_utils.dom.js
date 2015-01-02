@@ -1,18 +1,132 @@
 'use strict';
 
+var Viewport = require('./_utils.viewport');
+
 var autoBind = require('dataserverinterface/utils/autobind');
 var isEmpty = require('dataserverinterface/utils/isempty');
 //var isFunction = require('dataserverinterface/utils/isfunction');
 var toArray = require('dataserverinterface/utils/toarray');
 
+var between = require('dataserverinterface/utils/between');
+
 var withValue = require('dataserverinterface/utils/object-attribute-withvalue');
 
 var hyphenatedToCamel = function(s) {
 	var re = hyphenatedToCamel.re = (hyphenatedToCamel.re || /-([a-z])/g);
-	return s.replace(re, function (g) { return g[1].toUpperCase(); });
+	return s.replace(re, g=>g[1].toUpperCase());
 };
 
 var DomUtils = {
+
+	isMultiTouch: function (e) {
+		return e.touches && e.touches.length > 1;
+	},
+
+
+	isPointWithIn: function (el,...point) {
+		var rect,
+			{x, y} = point[0];
+
+		if (point.length > 1) {
+			x = point[0];
+			y = point[1];
+		}
+
+		rect = this.getElementRect(el);
+
+		return (
+			between(x, rect.left, rect.right) &&
+			between(y, rect.top, rect.bottom)
+		);
+	},
+
+
+	getElementRect: function (el) {
+		var rect, w, h;
+		if (el && el.getBoundingClientRect) {
+			rect = el.getBoundingClientRect();
+		}
+
+		if (!rect && el) {
+			if (el.nodeType !== Node.ELEMENT_NODE) {
+				//
+				h = Viewport.getHeight();
+				w = Viewport.getWidth();
+				rect = {
+					top: 0, left: 0,
+					right: w, bottom: h,
+					width: w, height: h
+				};
+			}
+			// else {
+			// 	rect = {
+			// 		top: el.offsetTop,
+			// 		left: el.offsetLeft,
+			// 		bottom: el.offsetTop + el.offsetHeight,
+			// 		right: el.offsetLeft + el.offsetWidth,
+			// 		width: el.offsetWidth,
+			// 		height: el.offsetHeight
+			// 	};
+			// }
+		}
+
+		return rect;
+	},
+
+
+	scrollElementBy: function (el, x, y) {
+		x = x||0;
+		y = y||0;
+
+
+		if (el.scrollBy) {
+			return el.scrollBy(x, y);
+		}
+
+		return window.scrollBy(x, y);
+	},
+
+
+	getScrollPosition: function (el) {
+		if (el.scrollTop == null) {
+			el = document.body;
+		}
+		return {
+			top: el.scrollTop,
+			left: el.scrollLeft
+		};
+	},
+
+
+	addEventListener: function (el, event, handler) {
+		if (el.addEventListener) {
+			el.addEventListener(event, handler, true);
+		}
+
+		else if (el.attachEvent) {
+			el.attachEvent('on' + event, handler);
+		}
+
+		else {
+			throw new Error('Unsupported Operation');
+		}
+	},
+
+
+	removeEventListener: function (el, event, handler) {
+		if (el.removeEventListener) {
+			el.removeEventListener(event, handler, true);
+		}
+
+		else if (el.detachEvent) {
+			el.detachEvent('on' + event, handler);
+		}
+
+		else {
+			throw new Error('Unsupported Operation');
+		}
+	},
+
 
 	hasClass: function(el, className) {
 		var classes = (el.className || '').split(' ');
@@ -88,7 +202,7 @@ var DomUtils = {
 	 */
 	getEventTarget: function(event, selector) {
 		var t = event.target || event.srcElement;
-		if (t && t.nodeType === 3) {//3 === Node.TEXT_NODE
+		if (t && t.nodeType === Node.TEXT_NODE) {
 			t = t.parentNode;
 		}
 
@@ -98,10 +212,9 @@ var DomUtils = {
 			}
 		}
 
-		//Node.ELEMENT_NODE = 1... but the constant is not always defined,
 		//this will return null for any node/falsy value of t where t's NodeType
 		// is not an Element.
-		return (t && t.nodeType === 1 && t) || null;
+		return (t && t.nodeType === Node.ELEMENT_NODE && t) || null;
 	},
 
 
@@ -113,6 +226,62 @@ var DomUtils = {
 		}
 
 		return d.filter(filter);
+	},
+
+
+	parentElements: function (el) {
+		var parents = [], p;
+
+		while(el) {
+			el = p = el.parentNode;
+			if(p && p.nodeType === Node.ELEMENT_NODE) {
+				parents.push(p);
+			}
+		}
+
+		return parents;
+	},
+
+
+	getStyle: function (el, property) {
+		var getStyles = x => {
+			// IE throws on elements created in popups
+			// FF meanwhile throws on frame elements (see jQuery source)
+			if ( x.ownerDocument.defaultView.opener ) {
+				return x.ownerDocument.defaultView.getComputedStyle( x, null );
+			}
+			return global.getComputedStyle( x, null );
+		};
+
+		var styles = getStyles(el);
+
+		return styles && styles[property];
+	},
+
+
+	scrollParent: function(el) {
+		//Inspired by jQuery#scrollParent
+		var position = this.getStyle(el, 'position' );
+		var excludeStaticParent = position === 'absolute';
+		var css = this.getStyle.bind(this);
+		var allowsOverflow = /(auto|scroll)/;
+		var viewport = el.ownerDocument || document;
+
+		function overflowed(parent) {
+			if (excludeStaticParent && css(parent, 'position' ) === 'static') {
+				return false;
+			}
+
+			return allowsOverflow.test(
+				css(parent, 'overflow' ) +
+				css(parent, 'overflow-y' ) +
+				css(parent, 'overflow-x' )
+			);
+		}
+
+		var scrollParent = position !== 'fixed' && this.parentElements(el).filter(overflowed);
+
+		return (!scrollParent || !scrollParent.length) ? viewport : scrollParent[0];
 	},
 
 
@@ -182,40 +351,39 @@ var DomUtils = {
 	},
 
 
-	/*
-	 * A terribly named function that adjust links displayed to the user.  Note this
-	 * is different then any content reference cleanup that happens when content loads.
-	 * Right now the purpose it so detect links that are external (absolute and aren't the same
-	 * base path) and set there target to _blank.  The base url check allows us to just do fragment
-	 * navigatio in the same tab so if people get clever and insert links to things like profile we
-	 * do the right thing.
+	/* CU: A function that adjust links displayed to the user.
+	 * Note this is different then any content reference cleanup that happens
+	 * when content loads. Right now the purpose is to detect links that are
+	 * external (absolute and aren't the same base path) and set their target
+	 * to _blank.  The base url check allows us to just do fragment navigation
+	 * in the same tab so if people get clever and insert links to things like
+	 * profile we do the right thing.
 	 */
-	adjustLinks: function(dom, baseUrl) {
-		var string, tempDom;
+	retargetAnchorsWithExternalRefs: function(markup, baseUrl) {
+		var string = (typeof markup === 'string'),
+			tempDom;
 
-		if (!dom) {
+		if (!markup) {
 			return;
 		}
 
-		if (typeof dom === 'string') {
-			string = true;
+		if (string) {
 			tempDom = document.createElement('div');
-			tempDom.innerHTML = dom;
-			dom = tempDom;
+			tempDom.innerHTML = markup;
+			markup = tempDom;
 		}
 
-		toArray(dom.querySelectorAll('a[href]')).forEach(function(link) {
-			var href = link.getAttribute('href') || '',
+		toArray(markup.querySelectorAll('a[href]')).forEach(link => {
+			var href = link.href || '',
 				base = baseUrl.split('#')[0],
 				changeTarget = href.indexOf(base) !== 0;
-
 
 			if (changeTarget) {
 				link.setAttribute('target', '_blank');
 			}
 		});
 
-		return string ? dom.innerHTML : dom;
+		return string ? markup.innerHTML : markup;
 	},
 
 

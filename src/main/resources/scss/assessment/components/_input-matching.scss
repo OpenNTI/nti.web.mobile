@@ -2,11 +2,25 @@
 .question-part .matching {
 
 	.terms {
+		background: $panel-background;
+		border: 1px solid $border-grey;
+		border-radius: 5px;
+		padding-bottom: 1rem;
+		margin: -1rem 0 1rem 0;
 		min-height: 2rem;
-		margin: -1rem 0 0 0;
 
 		.drag.source {
-			margin-left: 0.5rem;
+			margin: 1rem 0.5rem 0;
+
+			&.used {
+				background: #fff !important;//block the hover background
+				visibility: visible;
+				box-shadow: none;
+				border: 1px dashed $border-grey;
+				color: $border-grey;
+				cursor: default;
+				@include animation('fadeIn .6s linear');
+			}
 		}
 	}
 

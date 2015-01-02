@@ -11,8 +11,10 @@
 @import "variables"; // we override some foundation settings so this has to come between settings and foundation.
 @import "foundation";
 @import "transitions";
+@import "common-animations";
 
 @import "common/grid-view";
+@import "common/drag-drop-features";
 @import "common/components/card";
 @import "common/components/error";
 @import "common/components/loading";
@@ -237,11 +239,7 @@ aside[class*=off-canvas-menu] {
 
 
 .animate {
-	-webkit-transition: all .3s ease-out;
-	-moz-transition: all .3s ease-out;
-	-ms-transition: all .3s ease-out;
-	-o-transition: all .3s ease-out;
-	transition: all .3s ease-out;
+	@include transition('all .3s ease-out');
 }
 
 
