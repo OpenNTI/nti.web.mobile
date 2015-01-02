@@ -2,7 +2,8 @@
 
 var React = require('react/addons');
 
-var isFlag = require('common/Utils').isFlag;
+var {isFlag} = require('common/Utils');
+var DragDropOrchestrator = require('common/dnd').Mixin;
 
 var Store = require('../Store');
 //var Actions = require('../Actions');
@@ -17,6 +18,7 @@ var STATUS_MAP = {
 
 module.exports = React.createClass({
 	displayName: 'Question',
+	mixins: [DragDropOrchestrator],
 
 	propTypes: {
 		question: React.PropTypes.object.isRequired
