@@ -5,6 +5,7 @@ var React = require('react/addons');
 var {isFlag} = require('common/Utils');
 var DragDropOrchestrator = require('common/dnd').Mixin;
 
+var Content = require('./Content');
 var WordBank = require('./WordBank');
 
 var Store = require('../Store');
@@ -67,7 +68,7 @@ module.exports = React.createClass({
 					{title}
 					<span className="status">{status}</span>
 				</h3>
-				<div className="question-content" dangerouslySetInnerHTML={{__html: q.content}}/>
+				<Content className="question-content" content={q.content}/>
 				{q.wordbank && (
 					<WordBank data={q.wordbank}/>
 				)}

@@ -2,6 +2,7 @@
 
 var React = require('react/addons');
 
+var Content = require('./Content');
 var WordBank = require('./WordBank');
 
 var Store = require('../Store');
@@ -100,7 +101,7 @@ module.exports = React.createClass({
 
 		return (
 			<div className="question-part">
-				<div className="part-content" dangerouslySetInnerHTML={{__html: part.content}}/>
+				<Content className="part-content" content={part.content}/>
 				{part.wordbank && (
 					<WordBank data={part.wordbank}/>
 				)}
