@@ -22,7 +22,7 @@ var GiftRedeem = React.createClass({
 	getInitialState: function() {
 		return {
 			fieldValues: {
-				accessKey: this.props.code || ''
+				accessKey: ''
 			},
 			errors: {},
 			busy: false,
@@ -79,7 +79,7 @@ var GiftRedeem = React.createClass({
 		}
 
 		if (this.state.success) {
-			return (<EnrollmentSuccess purchasable={this.props.purchasable} courseId={this.props.courseId}/>);
+			return (<EnrollmentSuccess courseTitle={this.props.purchasable.Title} />);
 		}
 
 		var title = t('formTitle');

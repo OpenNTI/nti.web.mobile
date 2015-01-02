@@ -63,8 +63,13 @@ var PaymentSuccess = React.createClass({
 		return (
 			<div>
 				{isGift ?
-					<GiftSuccess purchasable={this.props.purchasable} purchaseattempt={attempt} onDone={this.props.onDone} doneLink={this.props.giftDoneLink} /> :
-					<EnrollmentSuccess purchasable={this.props.purchasable} courseId={this.props.courseId} purchaseattempt={attempt} />
+					<GiftSuccess
+						purchasable={this.props.purchasable}
+						purchaseattempt={attempt}
+						onDone={this.props.onDone}
+						doneLink={this.props.giftDoneLink} /> :
+					<EnrollmentSuccess
+						courseTitle={this.props.purchasable.Title} />
 				}
 			</div>
 		);
