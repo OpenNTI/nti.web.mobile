@@ -27,6 +27,14 @@ var eventFor = isTouchDevice ? {
 	end: 'mouseup'
 };
 
+var DIRECTIONS = {
+	'1': 1,
+	'-1': -1,
+	'Infinity': 1,
+	'-Infinity': -1,
+	'NaN': 0
+};
+
 
 function canDrag(x) {
 	return function() {
@@ -43,6 +51,19 @@ function getDragPoint(e) {
 		x: clientX,
 		y: clientY
 	};
+}
+
+
+function isDirection(dir, key, a, b) {
+	if (!a || !b) {
+		return null;
+	}
+
+	var dx = a[key] - b[key];
+
+	dx = (dx/Math.abs(dx));
+
+	return DIRECTIONS[dx] === dir;
 }
 
 
@@ -132,7 +153,9 @@ Object.assign(exports, {
 			startX: 0, startY: 0,
 			offsetX: 0, offsetY: 0,
 			x: 0, y: 0,
-			scrollParent: null
+			scrollParent: null,
+			startingScrollPosition: null,
+			lastDragPoint: null
 		};
 	},
 
@@ -159,7 +182,18 @@ Object.assign(exports, {
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount: function() {this._removeListeners(); },
+
+
+	_addListeners: function () {
+		Dom.addEventListener(this.state.scrollParent, 'scroll', this.handleScroll);
+		Dom.addEventListener(global, eventFor.move, this.handleDrag);
+		Dom.addEventListener(global, eventFor.end, this.handleDragEnd);
+	},
+
+
+	_removeListeners: function () {
+		Dom.removeEventListener(this.state.scrollParent, 'scroll', this.handleScroll);
 		Dom.removeEventListener(global, eventFor.move, this.handleDrag);
 		Dom.removeEventListener(global, eventFor.end, this.handleDragEnd);
 	},
@@ -170,6 +204,7 @@ Object.assign(exports, {
 		var dragPoint = getDragPoint(e);
 		var onDragStart = this.context.onDragStart || emptyFunction;
 		var {handle, cancel} = this.props;
+		var {scrollParent} = this.state;
 
 		if (!this.isMounted() ||
 			this.props.locked ||
@@ -188,6 +223,8 @@ Object.assign(exports, {
 		this.setState({
 			dragging: true,
 			restoring: false,
+			startingScrollPosition: Dom.getScrollPosition(scrollParent),
+			lastDragPoint: dragPoint,
 			offsetX: parseInt(dragPoint.x, 10),
 			offsetY: parseInt(dragPoint.y, 10),
 			startX: parseInt(node.style.left, 10) || 0,
@@ -197,8 +234,7 @@ Object.assign(exports, {
 
 		onDragStart(this, e, this.getPosition());
 
-		Dom.addEventListener(global, eventFor.move, this.handleDrag);
-		Dom.addEventListener(global, eventFor.end, this.handleDragEnd);
+		this._addListeners();
 	},
 
 
@@ -217,30 +253,35 @@ Object.assign(exports, {
 		if (this.isMounted()) {
 			this.setState(
 				Object.assign(
-				{ dragging: false },
+				{
+					dragging: false,
+					startX: 0,
+					startY: 0
+				},
 				this.props.restoreOnStop ?
 				{
 					restoring: dragStopResultedInDrop,
-					x: this.state.startX,
-					y: this.state.startY
+					x: 0,
+					y: 0
 				} : {
 				}
 			));
 		}
 
-		Dom.removeEventListener(global, eventFor.move, this.handleDrag);
-		Dom.removeEventListener(global, eventFor.end, this.handleDragEnd);
+		this._removeListeners();
 	},
 
 
 	handleDrag: function (e) {
 		if (!this.isMounted() || this.props.locked) { return; }
 
+		var s = this.state;
 		var onDrag = this.context.onDrag || emptyFunction;
 		var dragPoint = getDragPoint(e);
+		var {lastDragPoint} = s;
 
-		var x = (this.state.startX + (dragPoint.x - this.state.offsetX));
-		var y = (this.state.startY + (dragPoint.y - this.state.offsetY));
+		var x = (s.startX + (dragPoint.x - s.offsetX));
+		var y = (s.startY + (dragPoint.y - s.offsetY));
 
 		// Snap to grid?
 		if (Array.isArray(this.props.grid)) {
@@ -249,24 +290,46 @@ Object.assign(exports, {
 		}
 
 		this.setState({
+			lastDragPoint: dragPoint,
 			x: x,
 			y: y
 		});
 
 		onDrag(this, e, Object.assign(this.getPosition(), dragPoint));
 
-		this._maybeScrollParent(dragPoint);
+		this._maybeScrollParent(dragPoint, lastDragPoint);
 	},
 
 
-	_maybeScrollParent: function (point) {
+	handleScroll: function () {
+		var {
+			scrollParent,
+			startingScrollPosition,
+			startX,
+			startY
+		} = this.state;
+		var currentScrollPosition = Dom.getScrollPosition(scrollParent);
+
+		var dX = (startingScrollPosition.left - currentScrollPosition.left) * -1;
+		var dY = (startingScrollPosition.top - currentScrollPosition.top) * -1;
+
+		this.setState({
+			startX: startX + dX,
+			startY: startY + dY,
+			startingScrollPosition: currentScrollPosition
+		});
+	},
+
+
+	_maybeScrollParent: function (point, lastPoint) {
 		var y, x;
 		var region = 50;
 		var scrollParent = this.state.scrollParent;
 		var boundingRect = Dom.getElementRect(scrollParent);
 
-		var top = (boundingRect.top - point.y) < region;
-		var bottom = (point.y - boundingRect.bottom) < region;
+		var top = (point.y - boundingRect.top) < region && isDirection(-1, 'y', point, lastPoint);
+		var bottom = (boundingRect.bottom - point.y) < region && isDirection(1, 'y', point, lastPoint);
+
 
 		// scroll: Vertical
 		if (top || bottom) {
@@ -278,7 +341,7 @@ Object.assign(exports, {
 		// 	x = left ? -region : region;
 		// }
 
-		if (y) {
+		if (x || y) {
 			Dom.scrollElementBy(scrollParent, x, y);
 		}
 	},

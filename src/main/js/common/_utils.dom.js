@@ -74,8 +74,27 @@ var DomUtils = {
 	},
 
 
-	scrollElementBy: function (/*el, x, y*/) {
-		//el.scrollBy(x||0, y||0);
+	scrollElementBy: function (el, x, y) {
+		x = x||0;
+		y = y||0;
+
+
+		if (el.scrollBy) {
+			return el.scrollBy(x, y);
+		}
+
+		return window.scrollBy(x, y);
+	},
+
+
+	getScrollPosition: function (el) {
+		if (el.scrollTop == null) {
+			el = document.body;
+		}
+		return {
+			top: el.scrollTop,
+			left: el.scrollLeft
+		};
 	},
 
 
