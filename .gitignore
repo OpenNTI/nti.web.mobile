@@ -1,4 +1,6 @@
-doc
+doc/src
+doc/jsdoc
+doc/yuidoc
 dist
 stage
 node_modules
