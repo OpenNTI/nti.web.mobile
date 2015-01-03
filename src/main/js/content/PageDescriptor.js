@@ -2,8 +2,6 @@
 
 var define = require('dataserverinterface/utils/object-define-hidden-props');
 
-var Utils = require('common/Utils');
-
 function PageDescriptor(ntiid, data) {
 	this.ntiid = ntiid;
 	define(this, {
@@ -40,9 +38,6 @@ Object.assign(PageDescriptor.prototype, {
 
 
 	getAssessmentQuestion: function (questionId) {
-		if (!Utils.isFlag('dev')) {
-			return null;
-		}
 		return this.pageInfo.getAssessmentQuestion(questionId);
 	},
 

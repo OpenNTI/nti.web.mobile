@@ -68,11 +68,13 @@ module.exports = React.createClass( {
 			href: '#'
 		});
 
-		if (!isAssignment || Utils.isFlag('dev')) {
+		if (!isAssignment) {
 			service.getPageInfo(ntiid)
 				.then(getLastQuizSubmission)
 				.catch(this.setNotTaken)
 				.then(this.setQuizHref);
+		} else {
+			this.setQuizHref(); //TODO: build the assignment href
 		}
 	},
 
@@ -99,7 +101,6 @@ module.exports = React.createClass( {
 
 
 	setQuizHref: function() {
-		if (!Utils.isFlag('dev')) {return;}
 		var ntiid = this.props.item['Target-NTIID'];
 		var link = path.join('c', NTIID.encodeForURI(ntiid)) + '/';
 		this.setState({href: this.makeHref(link, true)});
