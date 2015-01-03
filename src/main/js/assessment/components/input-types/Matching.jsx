@@ -23,27 +23,14 @@ module.exports = React.createClass({
 
 	getInitialState: function() {
 		return {
-			dndType: 'default'
+			PartLocalDNDToken: 'default'
 		};
 	},
 
 
 	componentDidMount: function() {
-		// This looks confusing, I know. This `type` object is passed as
-		// a value to the DragTarget accepts prop. Its also set to the
-		// type prop of the Draggable. When a Draggable is over a
-		// DropTarget, the DropTarget compares the Draggable's type with
-		// its accepts list, if it accepts it, the DropTarget will let the
-		// Draggable drop onto it.
-		//
-		// The accepts function on this anonymouse object will test if the
-		// argument passed to it is the exact same object as `type`.  Meaning,
-		// our parts will only work with this instance.
-		var type = { accepts: (t)=> t === type };
-
-
 		this.setState({
-			dndType: type
+			PartLocalDNDToken: this.getNewUniqueToken()
 		});
 	},
 
@@ -136,7 +123,7 @@ module.exports = React.createClass({
 				data-source={index}
 				key={term}
 				locked={locked}
-				type={this.state.dndType}
+				type={this.state.PartLocalDNDToken}
 				>
 				<div className={'drag match source '+(extraClass || '')}
 					key={term} data-source={term} data-match={index}>
@@ -152,7 +139,7 @@ module.exports = React.createClass({
 
 	renderDropTarget: function (target, index/*, solution*/) {
 		return (
-			<DropTarget accepts={this.state.dndType} className="drop target" key={target} data-target={index}>
+			<DropTarget accepts={this.state.PartLocalDNDToken} className="drop target" key={target} data-target={index}>
 				<input type="hidden"/>
 				<div className="match blank dropzone" data-term>
 					{this.renderDroppedDragSource(index)}

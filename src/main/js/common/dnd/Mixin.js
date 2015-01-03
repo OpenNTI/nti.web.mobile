@@ -53,6 +53,26 @@ Object.assign(exports, {
 	},
 
 
+	getNewUniqueToken: function () {
+		// This looks confusing, I know. This `token`
+		// object is passed as a value to the DragTarget
+		// accepts prop. Its also set to the type prop
+		// of the Draggable. When a Draggable is over a
+		// DropTarget, the DropTarget compares the
+		// Draggable's type with its accepts list, if
+		// it accepts it, the DropTarget will let the
+		// Draggable drop onto it.
+		//
+		// The accepts function on this new instance of
+		// an anonymouse object will test if the argument
+		// passed to it is the exact same object as `token`.
+
+		var token = { accepts: (t)=> t === token };
+
+		return token;
+	},
+
+
 	__onDragStart: function(item) {
 		this.setState({
 			currentDragItem: item,
@@ -104,6 +124,8 @@ Object.assign(exports, {
 		this.setState({
 			lastDragOver: null
 		});
+
+		emit(this, 'drog', drop);
 
 		if (this.onDrop) {
 			this.onDrop(drop);
