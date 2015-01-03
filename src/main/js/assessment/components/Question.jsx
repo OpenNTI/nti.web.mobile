@@ -28,6 +28,18 @@ module.exports = React.createClass({
 	},
 
 
+	childContextTypes: {
+		QuestionUniqueDNDToken: React.PropTypes.object
+	},
+
+
+	getChildContext: function() {
+		return {
+			QuestionUniqueDNDToken: this.state.QuestionUniqueDNDToken
+		};
+	},
+
+
 	onStoreChange: function () {
 		//trigger a reload/redraw
 		this.forceUpdate();
@@ -36,6 +48,13 @@ module.exports = React.createClass({
 
 	componentDidMount: function() {
 		Store.addChangeListener(this.onStoreChange);
+	},
+
+
+	componentWillMount: function() {
+		this.setState({
+			QuestionUniqueDNDToken: this.getNewUniqueToken()
+		});
 	},
 
 
