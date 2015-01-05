@@ -33,7 +33,9 @@ module.exports = {
 				id = href.substr(1);
 				scrollToEl = document.getElementById(id) || document.getElementsByName(id)[0];
 				if (!scrollToEl) {
-					console.warn('Link (%s) refers to an element not found by normal means on the page.', href);
+					if (id) {
+						console.warn('Link (%s) refers to an element not found by normal means on the page.', href);
+					}
 				} else {
 					fn = scrollToEl.scrollIntoViewIfNeeded || scrollToEl.scrollIntoView;
 					if (fn) {
