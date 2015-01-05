@@ -52,10 +52,11 @@ module.exports = React.createClass({
 
 	onDrop(drop) {
 		var value = Object.assign({}, this.state.value || {});
-		var data = drop || {};
+		var data = drop || {}, movedFrom;
 		var {source, target} = data;
 
 		if (source) {
+			movedFrom = source.props['data-dropped-on'];
 			source = source.props['data-source'];
 		}
 
@@ -70,6 +71,9 @@ module.exports = React.createClass({
 		}
 
 		value[target] = source;
+		if (movedFrom) {
+			delete value[movedFrom];
+		}
 		this.setState({value: value});
 
 		//this.handleInteraction();
@@ -131,7 +135,7 @@ module.exports = React.createClass({
 		}
 
 		return (
-			<WordBankEntry entry={entry} className="dropped"
+			<WordBankEntry entry={entry} className="dropped" data-dropped-on={input}
 				onReset={(entry, cmp)=>this.onReset(input, entry, cmp)}/>
 		);
 	},
