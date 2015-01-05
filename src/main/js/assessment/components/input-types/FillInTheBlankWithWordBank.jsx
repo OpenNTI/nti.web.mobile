@@ -33,14 +33,14 @@ module.exports = React.createClass({
 	},
 
 
-	getDefaultProps: function() {
+	getDefaultProps() {
 		return {
 			onDrop: emptyFunction
 		};
 	},
 
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			value: {},
 			strategies: {
@@ -50,7 +50,7 @@ module.exports = React.createClass({
 	},
 
 
-	onDrop: function (drop) {
+	onDrop(drop) {
 		var value = Object.assign({}, this.state.value || {});
 		var data = drop || {};
 		var {source, target} = data;
@@ -76,7 +76,16 @@ module.exports = React.createClass({
 	},
 
 
-	componentWillMount: function() {
+	onReset(dropId/*, wordBankEntry*/) {
+		var v = Object.assign({}, this.state.value);
+		delete v[dropId];
+
+		this.setState({value: v});
+		//this.handleInteraction();
+	},
+
+
+	componentWillMount() {
 		this.setState({
 			PartLocalDNDToken: Mixin.getNewCombinationToken(
 				Mixin.getNewUniqueToken(),
@@ -86,7 +95,7 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
+	render() {
 		return (
 			<form className="fill-in-the-blank">
 				<Content
@@ -99,7 +108,7 @@ module.exports = React.createClass({
 	},
 
 
-	renderInput: function (tag, props) {
+	renderInput(tag, props) {
 		var {name} = props;
 		return (
 			<DropTarget accepts={this.state.PartLocalDNDToken}
@@ -113,7 +122,7 @@ module.exports = React.createClass({
 	},
 
 
-	renderWordBankEntry: function (input) {
+	renderWordBankEntry(input) {
 		var wid = this.state.value[input];
 		var entry = this.props.item.getWordBankEntry(wid);
 
@@ -122,12 +131,13 @@ module.exports = React.createClass({
 		}
 
 		return (
-			<WordBankEntry entry={entry}/>
+			<WordBankEntry entry={entry} className="dropped"
+				onReset={(entry, cmp)=>this.onReset(input, entry, cmp)}/>
 		);
 	},
 
 
-	getValue: function () {
+	getValue() {
 		return null;
 	}
 });
