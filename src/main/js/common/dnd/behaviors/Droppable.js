@@ -63,6 +63,10 @@ Object.assign(exports, {
 		if (mon) {
 			mon.on('drag', this._onDraggableNotification);
 			mon.on('dragEnd', this._onDragLeftDropTarget);
+
+			if (this.props.onDrop) {
+				mon.on('drop', this.props.onDrop);
+			}
 		} else {
 			console.error('DND: Missing cordination context');
 		}
@@ -74,6 +78,21 @@ Object.assign(exports, {
 		if (mon) {
 			mon.removeListener('drag', this._onDraggableNotification);
 			mon.removeListener('dragEnd', this._onDragLeftDropTarget);
+			if (this.props.onDrop) {
+				mon.removeListener('drop', this.props.onDrop);
+			}
+		}
+	},
+
+
+	componentWillReceiveProps: function(nextProps) {
+		var mon = this.context.dndEvents;
+		if (mon && this.props.onDrop) {
+			mon.removeListener('drop', this.props.onDrop);
+		}
+
+		if(mon && nextProps.onDrop) {
+			mon.on('drop', this.props.onDrop);
 		}
 	},
 
