@@ -10,19 +10,12 @@ var {parseNTIID} = require('dataserverinterface/utils/ntiids');
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 
-var guid = require('dataserverinterface/utils/guid');
-var indexArrayByKey = require('dataserverinterface/utils/array-index-by-key');
-var toArray = require('dataserverinterface/utils/toarray');
-
 var Api = require('./Api');
 var Constants = require('./Constants');
 var PageDescriptor = require('./PageDescriptor');
+var {processContent} = require('./Utils');
 
 var LibraryApi = require('library/Api');
-
-
-var MARKER_REGEX = /nti:widget-marker\[([^\]\>]+)\]/i;
-var WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(?:[^\]>]*)-->/ig;
 
 var WIDGET_SELECTORS_AND_STRATEGIES = {
 	'[itemprop~=nti-data-markupenabled],[itemprop~=nti-slide-video]': parseFramedElement,
@@ -86,7 +79,7 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 			})
 
 			//get the html and split out some resource references to fetch.
-			.then(processContent)
+			.then(processContent.bind(this, WIDGET_SELECTORS_AND_STRATEGIES))
 
 			//load css
 			.then(fetchResources)
@@ -109,95 +102,19 @@ function dispatch(key, data) {
 }
 
 
-function processContent(packet) {
-	var html = packet.content;
-	var parser = null;
-	if (typeof DOMParser !== 'undefined') {
-		parser = new DOMParser();
-	}
-
-
-	var doc = parser && parser.parseFromString(html, 'text/html');
-	var elementFactory = doc || document;
-	if (!doc) {
-		doc = document.createElement('html');
-		doc.innerHTML = html;
-	}
-
-
-	var body = doc.getElementsByTagName('body')[0];
-	var styles = toArray(doc.querySelectorAll('link[rel=stylesheet]'))
-					.map(function(i){return i.getAttribute('href');});
-
-	var widgets = indexArrayByKey(parseWidgets(doc, elementFactory), 'guid');
-
-	var bodyParts = body.innerHTML.split(WIDGET_MARKER_REGEX).map(function (part) {
-		var m = part.match(MARKER_REGEX);
-		if (m && m[1]) {
-			return widgets[m[1]];
-		}
-		return part;
-	});
-
-	return Object.assign(packet, {
-		content: body.innerHTML,
-		body: bodyParts,
-		styles: styles,
-		widgets: widgets
-
-	});
-}
-
-
 function fetchResources(packet) {
 	var page = packet.pageInfo;
 	var get = page.getResource.bind(page);
 	var requests = packet.styles.map(get);
 
 	return Promise.all(requests)
-		// .catch(function(reason) {
+		// .catch(reason=>{
 		// 	console.log(reason);
 		// })
-		.then(function(styles) {
-		packet.styles = styles;
-		return packet;
-	});
-}
-
-
-function parseWidgets(doc, elementFactory) {
-	var strategies = WIDGET_SELECTORS_AND_STRATEGIES;
-
-	function makeMarker(id) {
-		return elementFactory.createComment('nti:widget-marker[' + id + ']');
-	}
-
-	function flatten(list, array) {
-		if (!Array.isArray(array)) {
-			list.push(array);
-		} else {
-			list.push.apply(list, array);
-		}
-		return list;
-	}
-
-	return Object.keys(strategies).map(function(selector) {
-
-		return toArray(doc.querySelectorAll(selector)).map(function(el) {
-			var id = el.getAttribute('id');
-			var result = strategies[selector](el);
-
-			if (!id) {
-				el.setAttribute('id', (id = guid()));
-			}
-
-			DomUtils.replaceNode(el, makeMarker(id));
-
-			result.guid = id;
-			return result;
+		.then(styles=>{
+			packet.styles = styles;
+			return packet;
 		});
-
-	}).reduce(flatten, []);
 }
 
 
