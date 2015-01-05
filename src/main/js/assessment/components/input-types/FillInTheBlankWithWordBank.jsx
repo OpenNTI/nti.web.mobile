@@ -20,6 +20,40 @@ module.exports = React.createClass({
 		]
 	},
 
+	contextTypes: {
+		QuestionUniqueDNDToken: React.PropTypes.object
+	},
+
+
+	getInitialState: function() {
+		return {
+			strategies: {
+				'input[type=blankfield]': (x)=>({name: x.getAttribute('name')})
+			}
+		};
+	},
+
+	renderInput: function (tag, props) {
+		var {id} = props;
+		var name = id;
+		return (
+			<DropTarget accepts={this.state.PartLocalDNDToken} tag="span"
+				className="drop target" key={name} data-target={name}>
+				<span className="match blank dropzone" data-dnd></span>
+			</DropTarget>
+		);
+	},
+
+
+	componentWillMount: function() {
+		this.setState({
+			PartLocalDNDToken: Mixin.getNewCombinationToken(
+				Mixin.getNewUniqueToken(),
+				this.context.QuestionUniqueDNDToken
+			)
+		});
+	},
+
 	render: function() {
 
 		return (
@@ -27,6 +61,7 @@ module.exports = React.createClass({
 				<Content
 					content={this.props.item.input}
 					strategies={this.state.strategies}
+					renderCustomWidget={this.renderInput}
 				/>
 			</form>
 		);

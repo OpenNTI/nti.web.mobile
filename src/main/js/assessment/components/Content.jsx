@@ -1,6 +1,15 @@
 'use strict';
 
 var React = require('react/addons');
+var emptyFunction = require('react/lib/emptyFunction');
+
+var {processContent} = require('content/Utils');
+
+var isFunction = require('dataserverinterface/utils/isfunction');
+var htmlToReact = require('dataserverinterface/utils/html-to-react');
+
+var hash = require('object-hash');
+
 
 /**
  * Common component to render question and part content alike.
@@ -12,9 +21,77 @@ var React = require('react/addons');
 module.exports = React.createClass({
 	displayName: 'Content',
 
+	propTypes: {
+		renderCustomWidget: React.PropTypes.func
+	},
+
+
+	getInitialState: function() {
+		return {
+			propHash: null
+		};
+	},
+
+
+	componentDidMount: function() { this.buildContent(this.props); },
+
+
+	componentWillReceiveProps: function(props) { this.buildContent(props); },
+
+
+	buildContent: function (props) {
+		var {content, strategies} = props;
+		var packet = hash(props);
+		var widgets;
+		var h = hash(props);
+
+		if (this.state.propHash === h) {
+			return;
+		}
+
+
+		if (strategies) {
+			packet = processContent(strategies, {content: content});
+			widgets = packet.widgets;
+
+			content = packet.body.map(part=>
+				(typeof part === 'string') ?
+					part : ('<widget id="'+ part.guid +'">--x--</widget>')
+			).join('');
+
+			content = htmlToReact(content, (n,a)=>this._isWidget(n,a,widgets));
+		}
+
+		this.setState({
+			propHash: h,
+			content: content,
+			widgets: widgets
+		});
+	},
+
+
+	_isWidget: function (tagName, props, widgets) {
+		var widget = widgets && widgets[props && props.id];
+		return (tagName === 'widget' && widget) ? tagName : null;
+	},
+
+
 	render: function() {
-		return (
-			<div {...this.props} dangerouslySetInnerHTML={{__html: this.props.content}}/>
-		);
+		var props = Object.assign({}, this.props, {content: undefined});
+		var dynamicRender = emptyFunction;
+		if (isFunction(this.state.content)) {
+			dynamicRender = this.state.content;
+		} else {
+			props.dangerouslySetInnerHTML = {__html: this.state.content};
+		}
+
+		return React.createElement("div", props, dynamicRender(React, this.renderWidget));
+	},
+
+
+	renderWidget: function (tagName, props, children) {
+		//TODO: Is it known internally? Renderit directly.
+		var f = this.props.renderCustomWidget || React.createElement;
+		return f(tagName, props, children);
 	}
 });
