@@ -124,7 +124,7 @@ module.exports = React.createClass({
 			this.setState(
 				Object.assign(
 					{ currentPage: newPageId },
-				this.getResetState()
+					this.getResetState()
 				)
 			);
 
