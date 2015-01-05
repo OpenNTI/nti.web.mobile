@@ -61,7 +61,7 @@ module.exports = React.createClass({
 
 		return (
 			<div className="drop target" key={idx}>
-				<div className="match blank dropzone" data-term>
+				<div className="match blank dropzone" data-dnd>
 					{this.renderDragSource(label, i)}
 				</div>
 				<div className="content" dangerouslySetInnerHTML={{__html: value}}/>

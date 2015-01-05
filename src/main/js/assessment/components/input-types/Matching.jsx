@@ -141,7 +141,7 @@ module.exports = React.createClass({
 		return (
 			<DropTarget accepts={this.state.PartLocalDNDToken} className="drop target" key={target} data-target={index}>
 				<input type="hidden"/>
-				<div className="match blank dropzone" data-term>
+				<div className="match blank dropzone" data-dnd>
 					{this.renderDroppedDragSource(index)}
 				</div>
 				<div className="content" dangerouslySetInnerHTML={{__html: target}}/>
