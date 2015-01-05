@@ -59,14 +59,22 @@ Object.assign(exports, {
 
 
 	componentDidMount: function() {
-		this.context.dndEvents.on('drag', this._onDraggableNotification);
-		this.context.dndEvents.on('dragEnd', this._onDragLeftDropTarget);
+		var mon = this.context.dndEvents;
+		if (mon) {
+			mon.on('drag', this._onDraggableNotification);
+			mon.on('dragEnd', this._onDragLeftDropTarget);
+		} else {
+			console.error('DND: Missing cordination context');
+		}
 	},
 
 
 	componentWillUnmount: function() {
-		this.context.dndEvents.removeListener('drag', this._onDraggableNotification);
-		this.context.dndEvents.removeListener('dragEnd', this._onDragLeftDropTarget);
+		var mon = this.context.dndEvents;
+		if (mon) {
+			mon.removeListener('drag', this._onDraggableNotification);
+			mon.removeListener('dragEnd', this._onDragLeftDropTarget);
+		}
 	},
 
 
