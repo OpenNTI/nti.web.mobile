@@ -11,7 +11,7 @@ function emit(o, event, ...data) {
 
 Object.assign(exports, {
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			currentDragItem: null,
 			dndEventEmitter: new EventEmitter()
@@ -36,7 +36,7 @@ Object.assign(exports, {
 	},
 
 
-	getChildContext: function() {
+	getChildContext () {
 		var s = this.state;
 		return {
 			dndEvents: s.dndEventEmitter,
@@ -53,7 +53,7 @@ Object.assign(exports, {
 	},
 
 
-	getNewUniqueToken: function () {
+	getNewUniqueToken () {
 		// This looks confusing, I know. This `token`
 		// object is passed as a value to the DragTarget
 		// accepts prop. Its also set to the type prop
@@ -73,14 +73,14 @@ Object.assign(exports, {
 	},
 
 
-	getNewCombinationToken: function (...tokens) {
+	getNewCombinationToken (...tokens) {
 		return {
 			accepts: (t)=> tokens.filter(x=> x===t || x.accepts(t)).length > 0
 		};
 	},
 
 
-	__onDragStart: function(item) {
+	__onDragStart (item) {
 		this.setState({
 			currentDragItem: item,
 			lastDragOver: null
@@ -89,7 +89,7 @@ Object.assign(exports, {
 	},
 
 
-	__onDragEnd: function() {
+	__onDragEnd () {
 		var lastOver = this.state.lastDragOver || {};
 		var {target} = lastOver;
 		var dropped = false;
@@ -107,12 +107,12 @@ Object.assign(exports, {
 	},
 
 
-	__onDrag: function(draggable, event, data) {
+	__onDrag (draggable, event, data) {
 		emit(this, 'drag', data);
 	},
 
 
-	__onDragOver: function (target) {
+	__onDragOver (target) {
 		this.setState({
 			lastDragOver: {
 				source: this.state.currentDragItem,
@@ -122,7 +122,7 @@ Object.assign(exports, {
 	},
 
 
-	__onDrop: function(target) {
+	__onDrop (target) {
 		var drop = {
 			source: this.state.currentDragItem,
 			target: target

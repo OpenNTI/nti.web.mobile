@@ -30,21 +30,21 @@ Object.assign(exports, {
 	},
 
 
-	isActive: function () {
+	isActive() {
 		var drag = this.context.currentDragItem;
 		var type = drag && drag.props.type;
 		return drag && this.accepts(type);
 	},
 
 
-	isDisabled: function () {
+	isDisabled() {
 		var drag = this.context.currentDragItem;
 		var type = drag && drag.props.type;
 		return drag && !this.accepts(type);
 	},
 
 
-	accepts: function (type) {
+	accepts(type) {
 		var criteria = ensureArray(this.props.accepts);
 
 		return criteria.reduce((yes, x)=>{
@@ -53,12 +53,12 @@ Object.assign(exports, {
 	},
 
 
-	getInitialState: function () {
+	getInitialState() {
 		return {hover: false};
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount() {
 		var mon = this.context.dndEvents;
 		if (mon) {
 			mon.on('drag', this._onDraggableNotification);
@@ -73,7 +73,7 @@ Object.assign(exports, {
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount() {
 		var mon = this.context.dndEvents;
 		if (mon) {
 			mon.removeListener('drag', this._onDraggableNotification);
@@ -97,7 +97,7 @@ Object.assign(exports, {
 	},
 
 
-	renderDropTargetWrapper: function (children) {
+	renderDropTargetWrapper(children) {
 		return React.createElement(this.props.tag||'div', Object.assign({}, this.props, {
 			children: children,
 			className: this.__getWrapperElementClassName()
@@ -105,7 +105,7 @@ Object.assign(exports, {
 	},
 
 
-	__getWrapperElementClassName: function() {
+	__getWrapperElementClassName() {
 		var classes = ['dnd-drop-target'];
 		var push = classes.push.bind(classes);
 
@@ -118,7 +118,7 @@ Object.assign(exports, {
 	},
 
 
-	_onDraggableNotification: function (dragData) {
+	_onDraggableNotification(dragData) {
 		var {x, y} = dragData;
 		if (!this.isMounted() || !this.context.currentDragItem) {return;}
 
@@ -134,7 +134,7 @@ Object.assign(exports, {
 	},
 
 
-	_onDragEnteredDropTarget: function () {
+	_onDragEnteredDropTarget() {
 		if (this.context.currentDragItem) {
 			this.setState({over: true});
 			this.context.onDragOver(this);
@@ -142,13 +142,13 @@ Object.assign(exports, {
 	},
 
 
-	_onDragLeftDropTarget: function () {
+	_onDragLeftDropTarget() {
 		this.setState({over: false});
 		this.context.onDragOver(null);
 	},
 
 
-	handleDrop: function () {
+	handleDrop() {
 		if (!this.isActive()) {
 			return;
 		}
