@@ -17,9 +17,9 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		var {content} = this.props.entry;
+		var {content,wid} = this.props.entry;
 		return (
-			<Draggable type={this.context.QuestionUniqueDNDToken} cancel=".reset">
+			<Draggable type={this.context.QuestionUniqueDNDToken} cancel=".reset" data-source={wid}>
 				<div className={'drag source'}>
 					<a href="#" className="reset" title="Reset"/>
 					<Content content={content}/>
