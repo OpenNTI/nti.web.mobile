@@ -73,6 +73,13 @@ Object.assign(exports, {
 	},
 
 
+	getNewCombinationToken: function (...tokens) {
+		return {
+			accepts: (t)=> tokens.filter(x=> x===t || x.accept(t)).length > 0
+		};
+	},
+
+
 	__onDragStart: function(item) {
 		this.setState({
 			currentDragItem: item,
