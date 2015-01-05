@@ -34,12 +34,13 @@ module.exports = React.createClass({
 	},
 
 	renderInput: function (tag, props) {
-		var {id} = props;
-		var name = id;
+		var {name} = props;
 		return (
 			<DropTarget accepts={this.state.PartLocalDNDToken} tag="span"
 				className="drop target" key={name} data-target={name}>
-				<span className="match blank dropzone" data-dnd></span>
+				<span className="match blank dropzone" data-dnd>
+
+				</span>
 			</DropTarget>
 		);
 	},

@@ -59,7 +59,7 @@ module.exports = React.createClass({
 					part : ('<widget id="'+ part.guid +'">--x--</widget>')
 			).join('');
 
-			content = htmlToReact(content, (n,a)=>this._isWidget(n,a,widgets));
+			content = htmlToReact(content, (n,a)=>_isWidget(n,a,widgets));
 		}
 
 		this.setState({
@@ -67,12 +67,6 @@ module.exports = React.createClass({
 			content: content,
 			widgets: widgets
 		});
-	},
-
-
-	_isWidget: function (tagName, props, widgets) {
-		var widget = widgets && widgets[props && props.id];
-		return (tagName === 'widget' && widget) ? tagName : null;
 	},
 
 
@@ -90,8 +84,24 @@ module.exports = React.createClass({
 
 
 	renderWidget: function (tagName, props, children) {
+		props = props || {};//ensure we have an object.
+
 		//TODO: Is it known internally? Renderit directly.
-		var f = this.props.renderCustomWidget || React.createElement;
+		var {id} = props;
+		var {widgets} = this.state;
+		var {renderCustomWidget} = this.props;
+
+		var widget = (widgets || {})[id] || {};
+
+		var f = renderCustomWidget || React.createElement;
+
+		props = Object.assign({}, props, widget);
 		return f(tagName, props, children);
 	}
 });
+
+
+function _isWidget (tagName, props, widgets) {
+	var widget = widgets && widgets[props && props.id];
+	return (tagName === 'widget' && widget) ? tagName : null;
+}
