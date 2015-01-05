@@ -125,7 +125,7 @@ Object.assign(exports, {
 			lastDragOver: null
 		});
 
-		emit(this, 'drog', drop);
+		emit(this, 'drop', drop);
 
 		if (this.onDrop) {
 			this.onDrop(drop);
