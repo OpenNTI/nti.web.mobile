@@ -5,6 +5,8 @@
 var Utils = require('common/Utils');
 var DomUtils = Utils.Dom;
 
+var {parseNTIID} = require('dataserverinterface/utils/ntiids');
+
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 
@@ -47,6 +49,8 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 	 *	@param {String} Content Page NTIID
 	 */
 	loadPage: function(ntiid) {
+		var isAssessmentID = parseNTIID(ntiid).specific.type === 'NAQ';
+
 		Promise.all([
 			LibraryApi.getLibrary(),
 			Api.getPageInfo(ntiid)
@@ -56,8 +60,12 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 				var lib= data[0];
 				var pi = data[1];
 
-				if (pi.getID() !== ntiid) {
-					console.warn('PageInfo ID missmatch! %s != %s', ntiid, pi.getID());
+				if (pi.getID() !== ntiid && !isAssessmentID) {
+					// We will always missmatch for assessments, since we
+					// get the pageInfo for an assessment id and the server
+					// returns the pageInfo that the assessment is on...
+					// so lets silence this error for that case.
+					console.warn('PageInfo ID missmatch! %s != %s %o', ntiid, pi.getID());
 				}
 
 				var p = lib.getPackage(pi.getPackageID());
