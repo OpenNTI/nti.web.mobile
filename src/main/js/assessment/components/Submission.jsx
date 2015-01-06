@@ -94,7 +94,7 @@ module.exports = React.createClass({
 					<span className="status-line">{_t('x_unanswered', { count: unanswered  })}</span>
 				</div>
 
-				{!busy ? null : <Loading message="Please Wait" maskScreen={true} key="1"/>}
+				{!busy ? null : <Loading message="Please Wait" maskScreen={true}/>}
 			</div>
 		);
 	}

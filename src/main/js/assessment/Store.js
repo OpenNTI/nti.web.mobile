@@ -290,6 +290,7 @@ function handleSubmitEnd (part, response) {
 	var isError = !!response.statusCode;
 	if (isError) {
 		Store.setError(part, response.message || 'An Error occured.');
+		markBusy(part, false);
 		return;
 	}
 
