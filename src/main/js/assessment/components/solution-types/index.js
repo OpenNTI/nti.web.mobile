@@ -17,7 +17,7 @@ exports = module.exports = {
 	Matching: require('./Matching'),
 	// Ordering: require('./Ordering'),
 
-	// FillInTheBlankShortAnswer: require('./FillInTheBlankShortAnswer'),
+	FillInTheBlankShortAnswer: require('./FillInTheBlankShortAnswer'),
 	FillInTheBlankWithWordBank: require('./FillInTheBlankWithWordBank'),
 
 
