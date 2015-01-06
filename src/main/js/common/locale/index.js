@@ -2,7 +2,7 @@
 
 var counterpart = require('counterpart');
 
-counterpart.registerTranslations('en', require('./en.js'));
+counterpart.registerTranslations('en', require('./en'));
 
 var siteName = require('../Utils').getSiteName();
 

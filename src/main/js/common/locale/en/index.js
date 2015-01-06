@@ -5,6 +5,7 @@
 	The convention GOING forward: Containers ALL_CAPS, leaf properties/pluralized-
 	forms(and their states one, other, zero etc) are camelCased. {@see UNITS block}.
 */
+
 module.exports = {
 	UNITS: {
 		SINGULARS: {
@@ -56,6 +57,7 @@ module.exports = {
 		}
 	},
 
+	FORUMS: require('./partials/forums'),
 
 	GLOBAL: {
 		siteName: 'NextThought'
@@ -68,40 +70,7 @@ module.exports = {
 	},
 
 
-	LOGIN: {
-		login: 'Log In',
-		PasswordPlaceholder: 'Password',
-		UsernamePlaceholder: 'Username',
-		signup: {
-			submit: 'Create Account',
-			link: 'No account? Sign up.'
-		},
-		oauth: {
-			login: 'Log in with %(service)s'
-		},
-		forgot: {
-			username: 'Forgot Username?',
-			password: 'Forgot Password?',
-			recoverpassword: 'Reset Password',
-			recoverusername: 'Recover Username',
-			EmailAddressInvalid: 'The email address you have entered is not valid.',
-			resetSuccessful: 'Your password has been reset.'
-		},
-
-		LOGIN_ERROR: {
-			401: 'Login failed.'
-		},
-		forms: {
-			createaccount: {
-				fname: 'First Name',
-				lname: 'Last Name',
-				email: 'email',
-				Username: 'Username',
-				password: 'Password',
-				password2: 'Verify Password'
-			}
-		}
-	},
+	LOGIN: require('./partials/login'),
 
 	FILTER: {
 		no_matches: 'No items match the selected filter.',
