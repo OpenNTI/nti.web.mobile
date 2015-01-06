@@ -88,7 +88,7 @@ module.exports = React.createClass({
 				</h3>
 				<Content className="question-content" content={q.content}/>
 				{q.wordbank && (
-					<WordBank data={q.wordbank}/>
+					<WordBank record={q.wordbank}/>
 				)}
 				{parts.map((part, i) =>
 					<Part key={'part-'+i} part={part} index={i} partCount={parts.length}/>

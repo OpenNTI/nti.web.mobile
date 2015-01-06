@@ -103,7 +103,7 @@ module.exports = React.createClass({
 			<div className="question-part">
 				<Content className="part-content" content={part.content}/>
 				{part.wordbank && (
-					<WordBank data={part.wordbank}/>
+					<WordBank record={part.wordbank}/>
 				)}
 				<div ref="container">
 					<div className={'form-input ' + inputContainerClass}>

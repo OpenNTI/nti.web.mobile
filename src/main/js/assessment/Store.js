@@ -8,6 +8,8 @@ var EventEmitter = require('events').EventEmitter;
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 
+var hasValue = require('dataserverinterface/utils/object-has-value');
+var Question = require('dataserverinterface/models/assessment/Question');
 var AssessedPart = require('dataserverinterface/models/assessment/AssessedPart');
 var AssignmentHistoryItem = require('dataserverinterface/models/assessment/AssignmentHistoryItem');
 
@@ -265,8 +267,22 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 	getHints: function (part) {
 		return part.hints;
-	}
+	},
 
+	isWordBankEntryUsed(wordBankEntry) {
+		var {wid} = wordBankEntry;
+		var submission = this.getSubmissionData(wordBankEntry);
+		var question = wordBankEntry.up('constructor', {test: x=>x === Question});
+		var maybe, parts;
+		if (question && submission) {
+			question = submission.getQuestion(question.getID()) || {};
+			parts = question.parts || [];
+
+			maybe = parts.reduce((yes, part)=>yes || hasValue(part, wid), false);
+		}
+
+		return maybe;
+	}
 });
 
 
