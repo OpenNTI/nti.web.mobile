@@ -117,6 +117,15 @@ module.exports = React.createClass({
 
 	renderDragSource: function (term, index, extraClass, lock) {
 		var locked = this.isSubmitted() || Boolean(lock);
+		var classes = ['drag','match','source'];
+		if (locked) {
+			classes.push('locked');
+		}
+
+		if (extraClass) {
+			classes.push(extraClass);
+		}
+
 		return (
 			<Draggable
 				cancel=".reset"
@@ -125,7 +134,7 @@ module.exports = React.createClass({
 				locked={locked}
 				type={this.state.PartLocalDNDToken}
 				>
-				<div className={'drag match source '+(extraClass || '')}
+				<div className={classes.join(' ')}
 					key={term} data-source={term} data-match={index}>
 					{!locked && (
 						<a href="#" className="reset" title="Reset" onClick={this.onDragReset}/>

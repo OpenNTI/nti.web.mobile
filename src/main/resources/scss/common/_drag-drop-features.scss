@@ -89,8 +89,8 @@
 		}
 	}
 
-	html.touch &.dropped,
-	html:not(.touch) &.dropped:hover {
+	html.touch &:not(.locked).dropped,
+	html:not(.touch) &:not(.locked).dropped:hover {
 		padding-right: 1.5rem;
 		.reset {
 			opacity: 1;

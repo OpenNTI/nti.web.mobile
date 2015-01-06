@@ -6,6 +6,7 @@ var emptyFunction = require('react/lib/emptyFunction');
 var InputType = require('./Mixin');
 
 var Content = require('../Content');
+var Store = require('../../Store');
 
 var WordBankEntry = require('../WordBankEntry');
 
@@ -74,9 +75,8 @@ module.exports = React.createClass({
 		if (movedFrom) {
 			delete value[movedFrom];
 		}
-		this.setState({value: value});
 
-		//this.handleInteraction();
+		this.setState({value: value}, this.handleInteraction);
 	},
 
 
@@ -84,8 +84,7 @@ module.exports = React.createClass({
 		var v = Object.assign({}, this.state.value);
 		delete v[dropId];
 
-		this.setState({value: v});
-		//this.handleInteraction();
+		this.setState({value: v}, this.handleInteraction);
 	},
 
 
@@ -127,21 +126,24 @@ module.exports = React.createClass({
 
 
 	renderWordBankEntry(input) {
-		var wid = this.state.value[input];
-		var entry = this.props.item.getWordBankEntry(wid);
+		var wid = (this.state.value || {})[input];
+		var {item} = this.props;
+		var entry = item.getWordBankEntry(wid);
 
 		if (!entry) {
 			return null;
 		}
 
+		var locked = Store.isSubmitted(item);
+
 		return (
-			<WordBankEntry entry={entry} className="dropped" data-dropped-on={input}
+			<WordBankEntry entry={entry} className="dropped" data-dropped-on={input} locked={locked}
 				onReset={(entry, cmp)=>this.onReset(input, entry, cmp)}/>
 		);
 	},
 
 
 	getValue() {
-		return null;
+		return this.state.value;
 	}
 });
