@@ -48,8 +48,13 @@
 	}
 
 	&.used,
+	&.locked,
 	&.dragging {
 		pointer-events: none;
+	}
+
+	&.locked {
+		cursor: default;
 	}
 
 	&.restoring {
