@@ -3,6 +3,7 @@
 var React = require('react/addons');
 var Mixin = require('./Mixin');
 
+var toArray = require('dataserverinterface/utils/toarray');
 var isTruthy = require('dataserverinterface/utils/identity');
 var valueIfChecked = function(i){return i.checked && i.value; };
 
@@ -61,7 +62,7 @@ module.exports = React.createClass({
 	getValue: function () {
 		var ref = this.refs.form;
 		var form = ref && ref.getDOMNode();
-		var inputs = form && Array.prototype.slice.call(form.elements);
+		var inputs = form && toArray(form.elements);
 		var values = form && inputs
 							.map(valueIfChecked)
 							.filter(isTruthy)
