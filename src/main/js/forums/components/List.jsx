@@ -7,20 +7,22 @@ module.exports = React.createClass({
 	displayName: 'ForumItemList',
 
 	propTypes: {
-		container: React.PropTypes.shapeOf({
-			Items: React.PropTypes.array
+		container: React.PropTypes.shape({
+			items: React.PropTypes.array
 		}).isRequired
 	},
 
 	render: function() {
-		var {Items} = this.props.container;
+		var {items} = this.props.container;
+
+		console.debug(items);
 
 		return (
-			<div>
-				{Items.map((item, index)=>
-					ListItems.select(item, index)
+			<ul>
+				{items.map((item, index)=>
+					<li>{ListItems.select(item, index)}</li>
 				)}
-			</div>
+			</ul>
 		);
 	}
 });

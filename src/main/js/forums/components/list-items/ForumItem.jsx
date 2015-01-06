@@ -11,13 +11,19 @@ module.exports = React.createClass({
 
 	statics: {
 		inputType: [
-			'Forum'//Need to lookup type, this isn't it...i don't think
+			'forums.communityforum'
 		]
 	},
 
 	render: function() {
+		var {item} = this.props;
+
+		console.debug(item.title);
+
 		return (
-			<div />
+			<div className="forum-item">
+				<h3><a href={item.ID + '/'}>{item.title}</a></h3>
+			</div>
 		);
 	}
 });

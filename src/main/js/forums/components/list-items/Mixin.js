@@ -8,11 +8,11 @@ module.exports = {
 		handles: function(item) {
 			if (!this.__typeCleaned) {
 				//ensure data type:
-				if (!Array.isArray(this.type)) {
-					this.type = [this.type];
+				if (!Array.isArray(this.inputType)) {
+					this.inputType = [this.inputType];
 				}
 				//ensure shape:
-				this.type.forEach(function(s,i,a){a[i]=s.toLowerCase();});
+				this.inputType.forEach(function(s,i,a){a[i]=s.toLowerCase();});
 
 				//prevent re-entry:
 				this.__typeCleaned = true;
@@ -28,7 +28,7 @@ module.exports = {
 			var type = item.MimeType
 							.replace('application/vnd.nextthought.', '')
 							.toLowerCase();
-			return (this.type.indexOf(type) !== -1);
+			return (this.inputType.indexOf(type) !== -1);
 		}
 	}
 };

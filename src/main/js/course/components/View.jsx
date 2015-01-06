@@ -13,6 +13,7 @@ var Outline = require('./OutlineView');
 var Overview = require('./Overview');
 
 var Content = require('content');
+var Forums = require('forums');
 
 var Actions = require('../Actions');
 var Store = require('../Store');
@@ -101,6 +102,12 @@ module.exports = React.createClass({
 									basePath={this.props.basePath}
 									contextProvider={this.__getContext}/>
 
+
+				<Router.Location path="/d/*"
+									handler={Forums.View}
+									course={course}
+									basePath={this.props.basePath}
+									contextProvider={this.__getContext}/>
 
 				<Router.Location path="/o/:outlineId/c/:rootId/*"
 									handler={Content.Viewer}
