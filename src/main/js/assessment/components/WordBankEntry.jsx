@@ -18,14 +18,14 @@ module.exports = React.createClass({
 		className: PropTypes.string
 	},
 
-	getDefaultProps() {
+	getDefaultProps () {
 		return {
 			onReset: emptyFunction,
 			className: ''
 		};
 	},
 
-	onResetClicked(e) {
+	onResetClicked (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -34,7 +34,7 @@ module.exports = React.createClass({
 		this.props.onReset(this.props.entry, this);
 	},
 
-	render() {
+	render () {
 		var {content,wid} = this.props.entry;
 		var props = Object.assign({}, this.props, {entry: undefined});
 

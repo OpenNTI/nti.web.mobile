@@ -71,8 +71,7 @@ module.exports = React.createClass({
 		var status = '';//correct, incorrect, blank
 
 		if (Store.isSubmitted(q) && a) {
-			status = a.isCorrect();
-			status = STATUS_MAP[status];
+			status = STATUS_MAP[a.isCorrect()];
 		}
 
 		//Ripped from the WebApp:

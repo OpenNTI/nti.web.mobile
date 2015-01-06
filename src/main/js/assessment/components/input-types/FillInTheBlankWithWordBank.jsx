@@ -80,7 +80,7 @@ module.exports = React.createClass({
 	},
 
 
-	onReset(dropId/*, wordBankEntry*/) {
+	onReset(dropId) {
 		var v = Object.assign({}, this.state.value);
 		delete v[dropId];
 
