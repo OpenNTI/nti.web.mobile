@@ -18,7 +18,7 @@ exports = module.exports = {
 	// Ordering: require('./Ordering'),
 
 	// FillInTheBlankShortAnswer: require('./FillInTheBlankShortAnswer'),
-	// FillInTheBlankWithWordBank: require('./FillInTheBlankWithWordBank'),
+	FillInTheBlankWithWordBank: require('./FillInTheBlankWithWordBank'),
 
 
 	select: function(part, index) {

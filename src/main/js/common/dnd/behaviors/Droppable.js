@@ -30,21 +30,21 @@ Object.assign(exports, {
 	},
 
 
-	isActive: function () {
+	isActive() {
 		var drag = this.context.currentDragItem;
 		var type = drag && drag.props.type;
 		return drag && this.accepts(type);
 	},
 
 
-	isDisabled: function () {
+	isDisabled() {
 		var drag = this.context.currentDragItem;
 		var type = drag && drag.props.type;
 		return drag && !this.accepts(type);
 	},
 
 
-	accepts: function (type) {
+	accepts(type) {
 		var criteria = ensureArray(this.props.accepts);
 
 		return criteria.reduce((yes, x)=>{
@@ -53,32 +53,43 @@ Object.assign(exports, {
 	},
 
 
-	getInitialState: function () {
+	getInitialState() {
 		return {hover: false};
 	},
 
 
-	componentDidMount: function() {
-		this.context.dndEvents.on('drag', this._onDraggableNotification);
-		this.context.dndEvents.on('dragEnd', this._onDragLeftDropTarget);
+	componentDidMount() {
+		var mon = this.context.dndEvents;
+		if (mon) {
+			mon.on('drag', this._onDraggableNotification);
+			mon.on('dragEnd', this._onDragLeftDropTarget);
+			mon.on('drop', this._onDragDrop);
+
+		} else {
+			console.error('DND: Missing cordination context');
+		}
 	},
 
 
-	componentWillUnmount: function() {
-		this.context.dndEvents.removeListener('drag', this._onDraggableNotification);
-		this.context.dndEvents.removeListener('dragEnd', this._onDragLeftDropTarget);
+	componentWillUnmount() {
+		var mon = this.context.dndEvents;
+		if (mon) {
+			mon.removeListener('drag', this._onDraggableNotification);
+			mon.removeListener('dragEnd', this._onDragLeftDropTarget);
+			mon.removeListener('drop', this._onDragDrop);
+		}
 	},
 
 
-	renderDropTargetWrapper: function (children) {
-		return React.createElement('div', Object.assign({}, this.props, {
+	renderDropTargetWrapper(children) {
+		return React.createElement(this.props.tag||'div', Object.assign({}, this.props, {
 			children: children,
 			className: this.__getWrapperElementClassName()
 		}));
 	},
 
 
-	__getWrapperElementClassName: function() {
+	__getWrapperElementClassName() {
 		var classes = ['dnd-drop-target'];
 		var push = classes.push.bind(classes);
 
@@ -91,7 +102,7 @@ Object.assign(exports, {
 	},
 
 
-	_onDraggableNotification: function (dragData) {
+	_onDraggableNotification(dragData) {
 		var {x, y} = dragData;
 		if (!this.isMounted() || !this.context.currentDragItem) {return;}
 
@@ -107,7 +118,7 @@ Object.assign(exports, {
 	},
 
 
-	_onDragEnteredDropTarget: function () {
+	_onDragEnteredDropTarget() {
 		if (this.context.currentDragItem) {
 			this.setState({over: true});
 			this.context.onDragOver(this);
@@ -115,13 +126,21 @@ Object.assign(exports, {
 	},
 
 
-	_onDragLeftDropTarget: function () {
+	_onDragLeftDropTarget() {
 		this.setState({over: false});
 		this.context.onDragOver(null);
 	},
 
 
-	handleDrop: function () {
+	_onDragDrop(drop) {
+		var {target} = drop;
+		if(target === this && this.props.onDrop) {
+			this.props.onDrop(drop);
+		}
+	},
+
+
+	handleDrop() {
 		if (!this.isActive()) {
 			return;
 		}

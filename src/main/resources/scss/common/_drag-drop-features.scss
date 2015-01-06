@@ -48,8 +48,13 @@
 	}
 
 	&.used,
+	&.locked,
 	&.dragging {
 		pointer-events: none;
+	}
+
+	&.locked {
+		cursor: default;
 	}
 
 	&.restoring {
@@ -89,8 +94,8 @@
 		}
 	}
 
-	html.touch &.dropped,
-	html:not(.touch) &.dropped:hover {
+	html.touch &:not(.locked).dropped,
+	html:not(.touch) &:not(.locked).dropped:hover {
 		padding-right: 1.5rem;
 		.reset {
 			opacity: 1;
@@ -99,20 +104,28 @@
 	}
 }
 
+div.drop.target .over{
+	box-shadow: inset 0 0 0 3px $primary-blue;
+}
+
+span.drop.target {
+	margin: 0 0.3rem;
+	.blank[data-dnd] {
+		margin: 0;
+	}
+}
+
 .drop.target {
 	// color: #e0e0e0;
 	// font-weight: 500;
 	&.over {
-		.blank[data-term],
+		.blank[data-dnd],
 		.blank[data-input] {
 			background: $border-grey;
 		}
-
-		box-shadow: inset 0 0 0 3px $primary-blue;
 	}
 
-	.blank[data-term],
-	.blank[data-input] {
+	.blank[data-dnd] {
 		display: inline-block;
 		margin-right: 0.5em;
 		border-radius: 3px;

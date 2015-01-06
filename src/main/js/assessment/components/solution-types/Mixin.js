@@ -44,7 +44,7 @@ module.exports = {
 	},
 
 
-	componentDidMount: function() {
+	componentWillMount: function() {
 		Store.addChangeListener(this.__onStoreChange);
 		this.__onStoreChange();
 	},

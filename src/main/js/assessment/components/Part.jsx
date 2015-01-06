@@ -2,6 +2,9 @@
 
 var React = require('react/addons');
 
+var Content = require('./Content');
+var WordBank = require('./WordBank');
+
 var Store = require('../Store');
 var Constants = require('../Constants');
 
@@ -98,7 +101,10 @@ module.exports = React.createClass({
 
 		return (
 			<div className="question-part">
-				<div className="part-content" dangerouslySetInnerHTML={{__html: part.content}}/>
+				<Content className="part-content" content={part.content}/>
+				{part.wordbank && (
+					<WordBank record={part.wordbank}/>
+				)}
 				<div ref="container">
 					<div className={'form-input ' + inputContainerClass}>
 						{InputTypes.select(part, index)}

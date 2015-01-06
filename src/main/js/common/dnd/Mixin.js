@@ -11,7 +11,7 @@ function emit(o, event, ...data) {
 
 Object.assign(exports, {
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			currentDragItem: null,
 			dndEventEmitter: new EventEmitter()
@@ -36,7 +36,7 @@ Object.assign(exports, {
 	},
 
 
-	getChildContext: function() {
+	getChildContext () {
 		var s = this.state;
 		return {
 			dndEvents: s.dndEventEmitter,
@@ -53,7 +53,34 @@ Object.assign(exports, {
 	},
 
 
-	__onDragStart: function(item) {
+	getNewUniqueToken () {
+		// This looks confusing, I know. This `token`
+		// object is passed as a value to the DragTarget
+		// accepts prop. Its also set to the type prop
+		// of the Draggable. When a Draggable is over a
+		// DropTarget, the DropTarget compares the
+		// Draggable's type with its accepts list, if
+		// it accepts it, the DropTarget will let the
+		// Draggable drop onto it.
+		//
+		// The accepts function on this new instance of
+		// an anonymouse object will test if the argument
+		// passed to it is the exact same object as `token`.
+
+		var token = { accepts: (t)=> t === token };
+
+		return token;
+	},
+
+
+	getNewCombinationToken (...tokens) {
+		return {
+			accepts: (t)=> tokens.filter(x=> x===t || x.accepts(t)).length > 0
+		};
+	},
+
+
+	__onDragStart (item) {
 		this.setState({
 			currentDragItem: item,
 			lastDragOver: null
@@ -62,7 +89,7 @@ Object.assign(exports, {
 	},
 
 
-	__onDragEnd: function() {
+	__onDragEnd () {
 		var lastOver = this.state.lastDragOver || {};
 		var {target} = lastOver;
 		var dropped = false;
@@ -80,12 +107,12 @@ Object.assign(exports, {
 	},
 
 
-	__onDrag: function(draggable, event, data) {
+	__onDrag (draggable, event, data) {
 		emit(this, 'drag', data);
 	},
 
 
-	__onDragOver: function (target) {
+	__onDragOver (target) {
 		this.setState({
 			lastDragOver: {
 				source: this.state.currentDragItem,
@@ -95,7 +122,7 @@ Object.assign(exports, {
 	},
 
 
-	__onDrop: function(target) {
+	__onDrop (target) {
 		var drop = {
 			source: this.state.currentDragItem,
 			target: target
@@ -104,6 +131,8 @@ Object.assign(exports, {
 		this.setState({
 			lastDragOver: null
 		});
+
+		emit(this, 'drop', drop);
 
 		if (this.onDrop) {
 			this.onDrop(drop);

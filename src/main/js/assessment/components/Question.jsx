@@ -2,7 +2,11 @@
 
 var React = require('react/addons');
 
-var isFlag = require('common/Utils').isFlag;
+var {isFlag} = require('common/Utils');
+var DragDropOrchestrator = require('common/dnd').Mixin;
+
+var Content = require('./Content');
+var WordBank = require('./WordBank');
 
 var Store = require('../Store');
 //var Actions = require('../Actions');
@@ -17,9 +21,22 @@ var STATUS_MAP = {
 
 module.exports = React.createClass({
 	displayName: 'Question',
+	mixins: [DragDropOrchestrator],
 
 	propTypes: {
 		question: React.PropTypes.object.isRequired
+	},
+
+
+	childContextTypes: {
+		QuestionUniqueDNDToken: React.PropTypes.object
+	},
+
+
+	getChildContext: function() {
+		return {
+			QuestionUniqueDNDToken: this.state.QuestionUniqueDNDToken
+		};
 	},
 
 
@@ -31,6 +48,13 @@ module.exports = React.createClass({
 
 	componentDidMount: function() {
 		Store.addChangeListener(this.onStoreChange);
+	},
+
+
+	componentWillMount: function() {
+		this.setState({
+			QuestionUniqueDNDToken: this.getNewUniqueToken()
+		});
 	},
 
 
@@ -47,8 +71,7 @@ module.exports = React.createClass({
 		var status = '';//correct, incorrect, blank
 
 		if (Store.isSubmitted(q) && a) {
-			status = a.isCorrect();
-			status = STATUS_MAP[status];
+			status = STATUS_MAP[a.isCorrect()];
 		}
 
 		//Ripped from the WebApp:
@@ -63,7 +86,10 @@ module.exports = React.createClass({
 					{title}
 					<span className="status">{status}</span>
 				</h3>
-				<div className="question-content" dangerouslySetInnerHTML={{__html: q.content}}/>
+				<Content className="question-content" content={q.content}/>
+				{q.wordbank && (
+					<WordBank record={q.wordbank}/>
+				)}
 				{parts.map((part, i) =>
 					<Part key={'part-'+i} part={part} index={i} partCount={parts.length}/>
 				)}

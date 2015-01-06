@@ -38,7 +38,9 @@ module.exports = React.createClass({
 	getResetState: function () {
 		return {
 			loading: true,
-			pageWidgets: {}
+			pageWidgets: {},
+			page: null,
+			pageSource: null
 		};
 	},
 
@@ -59,18 +61,8 @@ module.exports = React.createClass({
 	componentWillUnmount: function() {
 		this._resourceUnloaded();
 		Store.removeChangeListener(this.onChange);
-		//Cleanup our components...
-		var guid, el,
-			widgets = this.getPageWidgets();
 
-		for(guid in widgets) {
-			if (!widgets.hasOwnProperty(guid)) {continue;}
-			el = document.getElementById(guid);
-			if (el) {
-				React.unmountComponentAtNode(el);
-				el.removeAttribute('mounted');
-			}
-		}
+		this.cleanupWidgets();
 	},
 
 
@@ -104,6 +96,23 @@ module.exports = React.createClass({
 	},
 
 
+	cleanupWidgets: function () {
+		//Cleanup our components...
+		var guid, el,
+			widgets = this.getPageWidgets();
+
+		for(guid in widgets) {
+			if (!widgets.hasOwnProperty(guid)) {continue;}
+
+			el = document.getElementById(guid);
+			if (el) {
+				React.unmountComponentAtNode(el);
+				el.removeAttribute('mounted');
+			}
+		}
+	},
+
+
 	getDataIfNeeded: function(props) {
 		var newPageId = this.getPageID(props);
 		var newPage = newPageId !== this.state.currentPage;
@@ -111,10 +120,11 @@ module.exports = React.createClass({
 		var initial = this.props === props;
 
 		if (initial || newPage || newRoot) {
-			this.setState(Object.assign({
-					currentPage: newPageId
-				},
-				this.getResetState()
+			this.cleanupWidgets();
+			this.setState(
+				Object.assign(
+					{ currentPage: newPageId },
+					this.getResetState()
 				)
 			);
 
@@ -147,7 +157,7 @@ module.exports = React.createClass({
 	},
 
 
-	maybeCreateWidget: function(widgetData) {
+	createWidget: function(widgetData) {
 		var widgets = this.getPageWidgets();
 		if (!widgets[widgetData.guid]) {
 			// console.debug('Content View: Creating widget for %s', widgetData.guid);
@@ -204,7 +214,7 @@ module.exports = React.createClass({
 				{this.renderAssessmentHeader()}
 
 				<div id="NTIContent" onClick={this.onContentClick}
-					dangerouslySetInnerHTML={{__html: body.map(this.__buildBody).join('')}}/>
+					dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>
 
 				{this.renderAssessmentFeedback()}
 
@@ -218,13 +228,13 @@ module.exports = React.createClass({
 	},
 
 
-	__buildBody: function(part) {
+	buildBody: function(part) {
 
 		if (typeof part === 'string') {
 			return part;
 		}
 
-		this.maybeCreateWidget(part);
+		this.createWidget(part);
 
 		return '<div id="'+ part.guid +'">If this is still visible, something went wrong.</div>';
 	},

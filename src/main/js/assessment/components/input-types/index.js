@@ -20,8 +20,8 @@ exports = module.exports = {
 	Matching: require('./Matching'),
 	// Ordering: require('./Ordering'),
 
-	// FillInTheBlankShortAnswer: require('./FillInTheBlankShortAnswer'),
-	// FillInTheBlankWithWordBank: require('./FillInTheBlankWithWordBank'),
+	FillInTheBlankShortAnswer: require('./FillInTheBlankShortAnswer'),
+	FillInTheBlankWithWordBank: require('./FillInTheBlankWithWordBank'),
 
 
 	select: function(part, index) {
