@@ -1,6 +1,34 @@
 @import "../input-vars";
 
 .question-part .fill-in-the-blank {
-	
 
+	.blank {
+		position: relative;
+		margin: 0 0.5em;
+		border-radius: 3px;
+
+		input {
+			border: 0;
+			text-align: center;
+		}
+
+		&:empty {
+			&::before {
+				content: '(blank)';
+				visibility: hidden;
+			}
+		}
+
+		&::after {
+			$o: 0;
+			content: '';
+			position: absolute;
+			height: 24px;
+			left: $o; right: $o; bottom: 0;
+
+			border: 2px solid $border-grey;
+			border-radius: 3px;
+			clip: rect(20px auto auto auto);
+		}
+	}
 }
