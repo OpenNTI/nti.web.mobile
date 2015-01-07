@@ -18,7 +18,7 @@ var RootView = React.createClass({
 				{Object.keys(discussions).map(key => {
 					var group = {
 						key: key,
-						items: discussions[key]
+						boards: discussions[key]
 					};
 					return <li key={key}><BoardGroup group={group} /></li>;
 				})}
