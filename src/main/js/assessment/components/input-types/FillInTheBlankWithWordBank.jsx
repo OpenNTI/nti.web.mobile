@@ -12,6 +12,12 @@ var WordBankEntry = require('../WordBankEntry');
 
 var {Mixin, DropTarget} = require('common/dnd');
 
+var strategies = {
+	'input[type=blankfield]': x => ({
+		name: x.getAttribute('name')
+	})
+};
+
 /**
  * This input type represents Fill In The Blank: With Word Bank
  */
@@ -43,10 +49,7 @@ module.exports = React.createClass({
 
 	getInitialState() {
 		return {
-			value: {},
-			strategies: {
-				'input[type=blankfield]': (x)=>({name: x.getAttribute('name')})
-			}
+			value: {}
 		};
 	},
 
@@ -103,7 +106,7 @@ module.exports = React.createClass({
 			<form className="fill-in-the-blank">
 				<Content
 					content={this.props.item.input}
-					strategies={this.state.strategies}
+					strategies={strategies}
 					renderCustomWidget={this.renderInput}
 				/>
 			</form>
