@@ -40,15 +40,17 @@ module.exports = React.createClass({
 
 
 	renderInput(tag, props) {
-		var {name, maxLength} = props;
+		var {name} = props;
 		var solution = (this.state.solution || {}).value;
 		var v = (solution || {})[name];
 
+		if (typeof v === 'object') {
+			v = v.solution;
+		}
+
 		return (
 			<span className="target">
-				<span className="blank">
-					<input name={name} value={v} size={maxLength} readOnly/>
-				</span>
+				<span className="blank">{v}</span>
 			</span>
 		);
 	}
