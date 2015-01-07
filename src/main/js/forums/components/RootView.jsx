@@ -14,13 +14,13 @@ var RootView = React.createClass({
 		var discussions = this.props.discussions || {};
 
 		return (
-			<ul>
+			<ul className="forum-board-groups">
 				{Object.keys(discussions).map(key => {
 					var group = {
 						key: key,
 						items: discussions[key]
 					};
-					return <li><BoardGroup group={group} /></li>;
+					return <li key={key}><BoardGroup group={group} /></li>;
 				})}
 			</ul>
 		);

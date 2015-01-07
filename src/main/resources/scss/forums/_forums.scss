@@ -1,0 +1,25 @@
+.forum-board-groups {
+	list-style-type: none;
+	margin: 0 1em;
+	background: antiquewhite;
+
+	ul {
+		list-style-type: none;
+		margin: 0;
+	}
+}
+
+.board-title {
+	text-transform: uppercase;
+}
+
+.forum-boards {
+	ul li {
+		background: white;
+	}
+}
+
+.forum-board-group {
+	@include grid-row();
+	margin-top: $panel-margin-bottom;
+}

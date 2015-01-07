@@ -59,7 +59,7 @@ module.exports = React.createClass({
 		var container = Store.getForumContents(this.props.forumId);
 
 		return (
-			<div>
+			<div className="forum">
 				<List container={container} />
 			</div>
 		);

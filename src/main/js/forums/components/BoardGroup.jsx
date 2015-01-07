@@ -20,14 +20,14 @@ module.exports = React.createClass({
 	render: function() {
 		var {key, items} = this.props.group;
 		return (
-			<div>
+			<div className='forum-board-group'>
 				<h2>{tt(key.toLowerCase())}</h2>
 				<ul className="forum-boards">
 				{Object.keys(items).map(itemKey => {
 					var item = items[itemKey];
 					return item.length === 0 ? null : (
-						<li>
-							<p>{tt(itemKey.toLowerCase())}</p>
+						<li key={itemKey}>
+							<p className="board-title">{tt(itemKey.toLowerCase())}</p>
 							<List container={{
 								Items: items[itemKey]
 							}}/>

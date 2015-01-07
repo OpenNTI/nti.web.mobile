@@ -2,6 +2,7 @@
 
 var React = require('react/addons');
 var ListItems = require('./list-items');
+var hash = require('object-hash');
 
 module.exports = React.createClass({
 	displayName: 'ForumItemList',
@@ -12,15 +13,17 @@ module.exports = React.createClass({
 		}).isRequired
 	},
 
+	keyFor(item) {
+		return hash(item);
+	},
+
 	render: function() {
 		var {Items} = this.props.container;
-
-		console.debug(Items);
-
+		var keyFor = this.props.keyFn || this.keyFor;
 		return (
 			<ul>
 				{Items.map((item, index)=>
-					<li>{ListItems.select(item, index)}</li>
+					<li key={keyFor(item)}>{ListItems.select(item, index)}</li>
 				)}
 			</ul>
 		);
