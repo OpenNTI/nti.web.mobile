@@ -3,17 +3,17 @@
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 
-var filterBins = require('./utils/filter-forum-bins');
 var Constants = require('./Constants');
-
 var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
 
-var _data = {};
-var _filtered = {};
-var _loaded = false;
+var indexForums = require('./utils/index-forums');
+
+var _discussions;
+var _forums = {}; // forum objects by id.
+var _forumContents = {};
 
 var Store = Object.assign({}, EventEmitter.prototype, {
-	displayName: 'course.Store',
+	displayName: 'forums.Store',
 
 	emitChange: function(evt) {
 		this.emit(CHANGE_EVENT, evt);
@@ -33,31 +33,46 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	setData(data) {
-		persistData(data);
+	setDiscussions(data) {
+		_discussions = dataOrError(data);
+		_forums = indexForums(_discussions);
 		this.emitChange({
-			type: Constants.DATA_CHANGE
+			type: Constants.DISCUSSIONS_CHANGED
 		});
 	},
 
-	hasData() {
-		return _loaded;
+	getDiscussions() {
+		return _discussions;
 	},
 
-	getData() {
-		return _filtered;
+	getForum(forumId) {
+		return _forums[forumId];
+	},
+
+	setForumContents(forumId, data) {
+		_forumContents[forumId] = dataOrError(data);
+		this.emitChange({
+			type: Constants.FORUM_CONTENTS_CHANGED,
+			forumId: forumId
+		});
+	},
+
+	getForumContents(forumId) {
+		return _forumContents[forumId];
 	}
+
 });
 
-function persistData(data) {
+// convenience method for creating an error object
+// for failed fetch attempts
+function dataOrError(data) {
 	if (data && data instanceof Error) {
-		_data = {error: data, notFound: data.message === Constants.NOT_FOUND};
-		_loaded = false;
-		return;
+		return {
+			error: data,
+			isError: true
+		};
 	}
-	_filtered = filterBins(data);
-	_data = data;
-	_loaded = true;
+	return data;
 }
 
 Store.appDispatch = AppDispatcher.register(function(payload) {

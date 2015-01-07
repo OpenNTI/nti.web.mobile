@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
+var Constants = require('../../Constants');
 
 /**
  * For lists of Forums, this is the row item.
@@ -11,7 +12,7 @@ module.exports = React.createClass({
 
 	statics: {
 		inputType: [
-			'forums.communityforum'
+			Constants.types.FORUM
 		]
 	},
 

@@ -13,13 +13,13 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		var {items} = this.props.container;
+		var {Items} = this.props.container;
 
-		console.debug(items);
+		console.debug(Items);
 
 		return (
 			<ul>
-				{items.map((item, index)=>
+				{Items.map((item, index)=>
 					<li>{ListItems.select(item, index)}</li>
 				)}
 			</ul>

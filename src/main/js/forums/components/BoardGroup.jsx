@@ -29,7 +29,7 @@ module.exports = React.createClass({
 						<li>
 							<p>{tt(itemKey.toLowerCase())}</p>
 							<List container={{
-								items: items[itemKey]
+								Items: items[itemKey]
 							}}/>
 						</li>);
 				})}

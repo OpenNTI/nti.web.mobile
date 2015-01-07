@@ -30,7 +30,7 @@ var View = React.createClass({
 	},
 
 	componentDidMount: function() {
-		if(!Store.hasData()) {
+		if(!Store.getDiscussions()) {
 			this.setState({
 				loading: true
 			});
@@ -49,7 +49,7 @@ var View = React.createClass({
 
 	_storeChanged(event) {
 		switch(event.type) {
-			case Constants.DATA_CHANGE:
+			case Constants.DISCUSSIONS_CHANGED:
 				this.setState({
 					loading: false
 				});
@@ -69,11 +69,12 @@ var View = React.createClass({
 			<Router.Locations contextual>
 				<Router.Location path="/"
 									handler={RootView}
-									discussions={Store.getData()}
+									discussions={Store.getDiscussions()}
 									basePath={this.props.basePath} />
 
 				<Router.Location path="/:forumId/"
 									handler={Forum}
+									course={course}
 									basePath={this.props.basePath} />
 
 				<Router.Location path="/:forumId/:topicId/"

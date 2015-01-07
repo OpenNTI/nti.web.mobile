@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
-
+var Constants = require('../../Constants');
 
 /**
  * For lists of Topics, this is the row item.
@@ -12,13 +12,14 @@ module.exports = React.createClass({
 
 	statics: {
 		inputType: [
-			'Topic'//Need to lookup type, this isn't it...i don't think
+			Constants.types.TOPIC
 		]
 	},
 
 	render: function() {
+		var {item} = this.props;
 		return (
-			<div />
+			<div>{item.title}</div>
 		);
 	}
 });
