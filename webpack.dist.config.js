@@ -21,7 +21,15 @@ if (!Array.isArray(cfg)) {
 cfg.forEach(function(o) { e.push(assign({}, o)); });
 
 
-e[0].plugins.push(
+e[0].plugins = [
+    e[0].plugins[0],//StyleCollector
+    new webpack.DefinePlugin({
+        SERVER: false,
+        "process.env": {
+            // This has effect on the react lib size
+            "NODE_ENV": JSON.stringify("production")
+        }
+    }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin(),
@@ -45,7 +53,7 @@ e[0].plugins.push(
         algorithm: "gzip",
         regExp: /$/
     })
-);
+];
 
 
 e.forEach(function(x) {

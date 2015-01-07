@@ -64,13 +64,28 @@ fs.readdirSync(root).forEach(function(f) {
 });
 
 
+function StyleCollector(/*compiler*/) {
+    this.plugin('done', function(stats) {
+        var p = path.join(__dirname, 'stage', 'server');
+        var file = path.join(p, 'stats.generated.json');
+        try {
+            if (fs.existsSync(p)) {
+                fs.writeFileSync(file, JSON.stringify(stats.toJson()));
+            }
+        } catch (e) {
+            console.warn('Could not write %s', file);
+        }
+    });
+}
+
+
 function getWidgets() {
     var widgetPath = path.join(__dirname, 'src', 'main', 'widgets');
 
     var o = {};
 
     fs.readdirSync(widgetPath).forEach(function(file) {
-        if (file === 'example') return; //skip the example
+        if (file === 'example') {return;} //skip the example
 
         var dir = path.join(widgetPath, file);
         var entry = path.join(dir, 'main.js');
@@ -155,24 +170,17 @@ exports = module.exports = [
             extensions: ['', '.jsx', '.js', '.css', '.scss', '.html']
         },
 
+
         plugins: [
+            StyleCollector,//must be first in plugins
             //new webpack.HotModuleReplacementPlugin(),
             new webpack.DefinePlugin({
-                SERVER: false
-            }),
-            function(/*compiler*/) {
-                this.plugin('done', function(stats) {
-                    var p = path.join(__dirname, 'stage', 'server');
-                    var file = path.join(p, 'stats.generated.json');
-                    try {
-                        if (fs.existsSync(p)) {
-                            fs.writeFileSync(file, JSON.stringify(stats.toJson()));
-                        }
-                    } catch (e) {
-                        console.warn('Could not write %s', file);
-                    }
-                });
-            }
+                SERVER: false,
+                "process.env": {
+                    // This has effect on the react lib size
+                    "NODE_ENV": JSON.stringify("development")
+                }
+            })
         ],
 
         module: {
@@ -202,8 +210,12 @@ exports = module.exports = [
         },
         plugins: [
             new webpack.DefinePlugin({
-                SERVER: true
-            }),
+                SERVER: true,
+                "process.env": {
+                    // This has effect on the react lib size
+                    "NODE_ENV": JSON.stringify("production")
+                }
+            })
         ],
         externals: [
             appPackages//, /^[a-z\-0-9]+$/
