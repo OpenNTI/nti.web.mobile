@@ -6,7 +6,11 @@
 .question-part {
 
 	.part-content:not(:empty) {
-		padding: 1rem 0;
+		margin: 1rem 0;
+	}
+
+	.part-content:empty + div {
+		margin-top: 1rem;
 	}
 
 	.part-help a.close {
