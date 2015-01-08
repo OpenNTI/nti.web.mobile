@@ -21,7 +21,7 @@ module.exports = React.createClass({
 		var {Items} = this.props.container;
 		var keyFor = this.props.keyFn || this.keyFor;
 		return (
-			<ul>
+			<ul {...this.props}>
 				{Items.map((item, index)=>
 					<li key={keyFor(item)}>{ListItems.select(item, index)}</li>
 				)}

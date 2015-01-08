@@ -30,8 +30,8 @@ module.exports = React.createClass({
 		Store.removeChangeListener(this._storeChanged);
 	},
 
-	componentWillReceiveProps: function(nextProps) {
-		this.loadData();	
+	componentWillReceiveProps: function(/*nextProps*/) {
+		this.loadData();
 	},
 
 	_storeChanged(event) {
@@ -59,9 +59,9 @@ module.exports = React.createClass({
 		var container = Store.getForumContents(this.props.forumId);
 
 		return (
-			<div className="forum">
-				<List container={container} />
-			</div>
+			<nav className="forum">
+				<List container={container} className="forum-topics" />
+			</nav>
 		);
 	}
 

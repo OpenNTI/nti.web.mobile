@@ -1,0 +1,50 @@
+
+@mixin arrow($direction:right) {
+		$size: .5em;
+		content: '';
+		position: absolute;
+		right: .75em;
+		top: 50%;
+		margin-top: -$size/2;
+		@include _direction($direction);
+		border: 2px solid transparent;
+		border-top-color: black;
+		border-right-color: black;
+		width: $size;
+		height: $size;
+		border-radius: 2px;
+}
+
+//$_directions: (right: 45, left: -45);
+
+@mixin _direction($direction) {
+	@if $direction == right {
+		transform: rotate(45deg);
+	}
+	@else if $direction == left {
+		transform: rotate(-135deg);	
+	}
+	@else if $direction == up {
+		transform: rotate(-45deg);	
+	}
+	@else if $direction == down {
+		transform: rotate(135deg);	
+	}
+//	transform: rotate(map-get($_directions, $direction)deg);
+}
+
+.arrow-right {
+	@include arrow(right);
+}
+
+.arrow-left {
+	@include arrow(left);
+}
+
+.arrow-up {
+	@include arrow(up);
+}
+
+.arrow-down {
+	@include arrow(down);
+}

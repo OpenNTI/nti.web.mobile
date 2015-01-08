@@ -66,27 +66,29 @@ var View = React.createClass({
 		var course = this.props.course;
 
 		return (
-			<Router.Locations contextual>
-				<Router.Location path="/"
-									handler={RootView}
-									discussions={Store.getDiscussions()}
-									basePath={this.props.basePath} />
+			<div className="forums-wrapper">
+				<Router.Locations contextual>
+					<Router.Location path="/"
+										handler={RootView}
+										discussions={Store.getDiscussions()}
+										basePath={this.props.basePath} />
 
-				<Router.Location path="/:forumId/"
-									handler={Forum}
-									course={course}
-									basePath={this.props.basePath} />
+					<Router.Location path="/:forumId/"
+										handler={Forum}
+										course={course}
+										basePath={this.props.basePath} />
 
-				<Router.Location path="/:forumId/:topicId/"
-									handler={Topic}
-									basePath={this.props.basePath} />
+					<Router.Location path="/:forumId/:topicId/"
+										handler={Topic}
+										basePath={this.props.basePath} />
 
-				<Router.Location path="/:forumId/:topicId/:postId/"
-									handler={Post}
-									basePath={this.props.basePath} />									
+					<Router.Location path="/:forumId/:topicId/:postId/"
+										handler={Post}
+										basePath={this.props.basePath} />									
 
-				<Router.NotFound handler={RootView} course={course} />
-			</Router.Locations>
+					<Router.NotFound handler={RootView} course={course} />
+				</Router.Locations>
+			</div>
 		);
 
 	}

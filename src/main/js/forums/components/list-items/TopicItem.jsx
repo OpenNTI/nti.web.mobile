@@ -19,7 +19,10 @@ module.exports = React.createClass({
 	render: function() {
 		var {item} = this.props;
 		return (
-			<div>{item.title}</div>
+			<a href="#">
+				<span className="title">{item.title}</span>
+				<span className="arrow-right" />
+			</a>
 		);
 	}
 });

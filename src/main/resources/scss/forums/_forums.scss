@@ -1,12 +1,32 @@
-.forum-board-groups {
-	list-style-type: none;
-	margin: 0 1em;
-	background: antiquewhite;
-
+.forums-wrapper {
+	@include grid-column();
 	ul {
 		list-style-type: none;
 		margin: 0;
 	}
+	nav.forum {
+		ul.forum-topics {
+			li {
+				@include panel;
+				padding:0;
+				a {
+					display: block;
+					padding: $panel-padding;
+					position: relative;
+					.title {
+						display: inline-block;
+						max-width: 99%; // leave room for the arrow
+					}
+				}
+			}
+		}
+	}
+}
+
+.forum-board-groups {
+	list-style-type: none;
+	margin: 0 1em;
+	background: antiquewhite;
 }
 
 .board-title {
@@ -23,3 +43,4 @@
 	@include grid-row();
 	margin-top: $panel-margin-bottom;
 }
+
