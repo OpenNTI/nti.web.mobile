@@ -45,9 +45,11 @@ module.exports = React.createClass({
 	},
 
 	_href: function() {
-		var b = NTIID.encodeForURI(this.state.board.NTIID);
-		var f = NTIID.encodeForURI(this.props.item.getID());
-		return [b, f, ''].join('/');
+		var path = [NTIID.encodeForURI(this.props.item.getID()), ''];
+		if (this.props.parentPath) {
+			path.unshift(this.props.parentPath);
+		}
+		return path.join('/');
 	},
 
 	render: function() {

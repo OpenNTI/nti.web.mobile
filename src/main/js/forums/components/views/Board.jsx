@@ -60,7 +60,7 @@ module.exports = React.createClass({
 	render: function() {
 
 		if (this.state.loading) {
-			return <div>(Board.jsx)<Loading /></div>;
+			return <Loading />;
 		}
 
 		var container = this.state.contents;
@@ -68,7 +68,7 @@ module.exports = React.createClass({
 		return (
 			<nav className="forum">
 				<UpLink />
-				<List container={container} className="forum-topics" />
+				<List container={container} className="forum-topics" {...this.props} />
 			</nav>
 		);
 	}

@@ -10,7 +10,8 @@ exports = module.exports = {
 	TopicItem: require('./TopicItem'),
 	PostItem: require('./PostItem'),
 
-	select: function(part, index) {
+	select: function(part, index, props) {
+
 		var Item = Unknown, Type, key;
 
 		for (key in exports) {
@@ -23,12 +24,14 @@ exports = module.exports = {
 			}
 		}
 
-		return React.createElement(Item,
-		{
-			key: 'list-item-' + index,
-			index: index,
-			item: part
-		});
+		return React.createElement(
+			Item, 
+			Object.assign({
+				key: 'list-item-' + index,
+				index: index,
+				item: part
+			}, props)
+		);
 	}
 
 };

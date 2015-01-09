@@ -7,6 +7,7 @@
 var React = require('react/addons');
 var List = require('./List');
 var tt = require('common/locale').scoped('FORUMS.groupTitles');
+var NTIID = require('dataserverinterface/utils/ntiids');
 
 module.exports = React.createClass({
 
@@ -26,10 +27,11 @@ module.exports = React.createClass({
 				{Object.keys(boards).map(boardName => {
 					var board = boards[boardName];
 					var forums = (board.forums||[]);
+					var parentPath = NTIID.encodeForURI(board.id) || '';
 					return forums.length === 0 ? null : (
 						<li key={boardName}>
 							<p className="board-title">{tt(boardName.toLowerCase())}</p>
-							<List container={{
+							<List itemProps={{parentPath: parentPath}} container={{
 								Items: forums
 							}}/>
 						</li>);

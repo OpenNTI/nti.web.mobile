@@ -13,6 +13,7 @@ var Constants = require('../../Constants');
 var List = require('../List');
 var Loading = require('common/components/Loading');
 var NTIID = require('dataserverinterface/utils/ntiids');
+var NavUp = require('../NavUp');
 
 module.exports = React.createClass({
 
@@ -66,6 +67,7 @@ module.exports = React.createClass({
 
 		return (
 			<nav className="forum">
+				<NavUp />
 				<List container={container} className="forum-topics" />
 			</nav>
 		);

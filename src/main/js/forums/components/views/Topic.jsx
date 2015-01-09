@@ -60,7 +60,7 @@ module.exports = React.createClass({
 	render: function() {
 
 		if (this.state.loading) {
-			return <div>(Topic.jsx)<Loading /></div>;
+			return <Loading />;
 		}
 
 		var {topic, contents} = this.state;
