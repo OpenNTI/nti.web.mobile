@@ -8,6 +8,7 @@ exports = module.exports = {
 
 	ForumItem: require('./ForumItem'),
 	TopicItem: require('./TopicItem'),
+	PostItem: require('./PostItem'),
 
 	select: function(part, index) {
 		var Item = Unknown, Type, key;

@@ -3,7 +3,6 @@
 		$size: .5em;
 		content: '';
 		position: absolute;
-		right: .75em;
 		top: 50%;
 		margin-top: -$size/2;
 		@include _direction($direction);
@@ -20,15 +19,19 @@
 @mixin _direction($direction) {
 	@if $direction == right {
 		transform: rotate(45deg);
+		right: .75em;
 	}
 	@else if $direction == left {
-		transform: rotate(-135deg);	
+		transform: rotate(-135deg);
+		left: .75em;
 	}
 	@else if $direction == up {
-		transform: rotate(-45deg);	
+		transform: rotate(-45deg);
+		right: .75em;
 	}
 	@else if $direction == down {
-		transform: rotate(135deg);	
+		transform: rotate(135deg);
+		right: .75em;	
 	}
 //	transform: rotate(map-get($_directions, $direction)deg);
 }

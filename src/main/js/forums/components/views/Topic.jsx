@@ -11,7 +11,8 @@ var Api = require('../../Api');
 var Constants = require('../../Constants');
 var NTIID = require('dataserverinterface/utils/ntiids');
 
-// var List = require('../List');
+var List = require('../List');
+var UpLink = require('../NavUp');
 var Loading = require('common/components/Loading');
 
 module.exports = React.createClass({
@@ -62,11 +63,14 @@ module.exports = React.createClass({
 			return <div>(Topic.jsx)<Loading /></div>;
 		}
 
-		debugger;
+		var {topic, contents} = this.state;
 
 		return (
 			<div>
-				(topic)
+				<UpLink />
+				<h1>{topic.headline.title}</h1>
+				<div>{topic.headline.body}</div>
+				<List className="forum-replies" container={contents} />
 			</div>
 		);
 	}

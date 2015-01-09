@@ -21,6 +21,22 @@
 			}
 		}
 	}
+
+	.forum-replies {
+		li {
+			@include panel;
+		}
+	}
+
+	.nav-up {
+		@include grid-row();
+		a {
+			display:block;
+			padding: $panel-padding;
+			position: relative;
+			background: gray;
+		}
+	}
 }
 
 .forum-board-groups {

@@ -4,7 +4,8 @@ var namespacedKeyMirror = require('dataserverinterface/utils/namespaced-key-mirr
 
 var types = {
 	FORUM: 'forums.communityforum',
-	TOPIC: 'forums.communityheadlinetopic'
+	TOPIC: 'forums.communityheadlinetopic',
+	POST: 'forums.generalforumcomment'
 };
 
 module.exports = Object.assign(exports,
