@@ -29,9 +29,10 @@ module.exports = React.createClass( {
 
 		canRender: function (item, node) {
 			var render = true;
+			var id = item['Target-NTIID'];
 
-			if (assignmentType.test(item.MimeType)) {
-				render = Boolean(node && node.getAssignment(item['Target-NTIID']));
+			if (assignmentType.test(item.MimeType) || node.isAssignment(id)) {
+				render = Boolean(node && node.getAssignment(id));
 			}
 
 			return render;
