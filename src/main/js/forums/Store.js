@@ -17,7 +17,6 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'forums.Store',
 
 	emitChange: function(evt) {
-		console.debug("forums/Store emitting change event.", evt);
 		this.emit(CHANGE_EVENT, evt);
 	},
 
