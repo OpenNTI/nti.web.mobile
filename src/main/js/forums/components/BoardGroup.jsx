@@ -22,10 +22,12 @@ module.exports = React.createClass({
 		var {key, boards} = this.props.group;
 		return (
 			<div className='forum-board-group'>
-				<h2>{tt(key.toLowerCase())}</h2>
 				<ul className="forum-boards">
 				{Object.keys(boards).map(boardName => {
 					var board = boards[boardName];
+					if (!board) {
+						console.warn('Skipping. No board for name: ', boardName);
+					}
 					var forums = (board.forums||[]);
 					var parentPath = NTIID.encodeForURI(board.id) || '';
 					return forums.length === 0 ? null : (

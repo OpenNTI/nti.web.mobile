@@ -11,11 +11,16 @@ var Store = require('../Store');
 var Api = require('../Api');
 var Constants = require('../Constants');
 
-var RootView = require('./views/RootView');
+// var RootView = require('./views/RootView');
+var Group = require('./views/Group');
 var Board = require('./views/Board');
 var Forum = require('./views/Forum');
 var Topic = require('./views/Topic');
 var Post = require('./views/Post');
+
+var Redirect = require('navigation/components/Redirect');
+
+var TabBar = require('./GroupsTabBar');
 
 var Loading = require('common/components/Loading');
 
@@ -68,36 +73,50 @@ var View = React.createClass({
 		var course = this.props.course;
 		var courseId = course.getID();
 
+		var discussions = Store.getDiscussions();
+
 		return (
-			<div className="forums-wrapper">
-				<Router.Locations contextual>
-					<Router.Location path="/"
-										handler={RootView}
-										discussions={Store.getDiscussions()}
+			<div>
+				<div>(course name) discussions</div>
+				<TabBar groups={discussions} />
+				<div className="forums-wrapper">
+					<Router.Locations contextual>
+						<Router.Location path="/"
+											handler={Redirect}
+											location='/Open/'
+											basePath={this.props.basePath} />
+
+						<Router.Location path="/:groupId/"
+											handler={Group}
+											groups={discussions}
+											courseId={courseId}
+											basePath={this.props.basePath} />
+
+						<Router.Location path="/:groupId/:boardId/"
+											handler={Board}
+											courseId={courseId}
+											basePath={this.props.basePath} />
+
+						<Router.Location path="/:groupId/:boardId/:forumId/"
+											handler={Forum}
+											course={course}
+											basePath={this.props.basePath} />
+
+						<Router.Location path="/:groupId/:boardId/:forumId/:topicId/"
+											handler={Topic}
+											course={course}
+											basePath={this.props.basePath} />
+
+						<Router.Location path="/:groupId/:boardId/:forumId/:topicId/:postId/"
+											handler={Post}
+											course={course}
+											basePath={this.props.basePath} />									
+
+						<Router.NotFound handler={Redirect}
+										location='/Open/'
 										basePath={this.props.basePath} />
-
-					<Router.Location path="/:boardId/"
-										handler={Board}
-										courseId={courseId}
-										basePath={this.props.basePath} />
-
-					<Router.Location path="/:boardId/:forumId/"
-										handler={Forum}
-										course={course}
-										basePath={this.props.basePath} />
-
-					<Router.Location path="/:boardId/:forumId/:topicId/"
-										handler={Topic}
-										course={course}
-										basePath={this.props.basePath} />
-
-					<Router.Location path="/:boardId/:forumId/:topicId/:postId/"
-										handler={Post}
-										course={course}
-										basePath={this.props.basePath} />									
-
-					<Router.NotFound handler={RootView} course={course} />
-				</Router.Locations>
+					</Router.Locations>
+				</div>
 			</div>
 		);
 
