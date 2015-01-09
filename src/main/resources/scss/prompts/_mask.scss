@@ -1,0 +1,17 @@
+#modals > *  {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.modal.mask {
+	background-color: rgba(0,0,0,0);
+	@include transition('background-color .35s ease-in');
+
+	&.showing {
+		background-color: rgb(100,100,100);
+		background-color: rgba(0,0,0,0.6);
+	}
+}
