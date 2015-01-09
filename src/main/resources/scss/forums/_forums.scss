@@ -1,5 +1,5 @@
 .forums-wrapper {
-	@include grid-column();
+	@include grid-column(12);
 	ul {
 		list-style-type: none;
 		margin: 0;

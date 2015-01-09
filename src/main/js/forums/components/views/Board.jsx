@@ -6,11 +6,11 @@
 
 var React = require('react/addons');
 
-var Store = require('../Store');
-var Api = require('../Api');
-var Constants = require('../Constants');
+var Store = require('../../Store');
+var Api = require('../../Api');
+var Constants = require('../../Constants');
 
-var List = require('./List');
+var List = require('../List');
 var Loading = require('common/components/Loading');
 
 module.exports = React.createClass({
@@ -36,8 +36,8 @@ module.exports = React.createClass({
 
 	_storeChanged(event) {
 		switch(event.type) {
-			case Constants.FORUM_CONTENTS_CHANGED:
-				if (event.forumId === this.props.forumId) {
+			case Constants.BOARD_CONTENTS_CHANGED:
+				if (event.boardId === this.props.boardId) {
 					this.setState({
 						loading: false
 					});	
@@ -47,16 +47,16 @@ module.exports = React.createClass({
 	},
 
 	loadData() {
-		Api.loadForumContents(this.props.course, this.props.forumId);
+		Api.loadBoardContents(this.props.courseId, this.props.boardId);
 	},
 
 	render: function() {
 
 		if (this.state.loading) {
-			return <Loading />;
+			return <div>(Board.jsx)<Loading /></div>;
 		}
 
-		var container = Store.getForumContents(this.props.forumId);
+		var container = Store.getBoardContents(this.props.courseId, this.props.boardId);
 
 		return (
 			<nav className="forum">

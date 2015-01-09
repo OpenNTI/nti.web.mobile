@@ -11,13 +11,13 @@ var Store = require('../Store');
 var Api = require('../Api');
 var Constants = require('../Constants');
 
-var Forum = require('./Forum');
-var Topic = require('./Topic');
-var Post = require('./Post');
+var RootView = require('./views/RootView');
+var Board = require('./views/Board');
+var Forum = require('./views/Forum');
+var Topic = require('./views/Topic');
+var Post = require('./views/Post');
 
 var Loading = require('common/components/Loading');
-
-var RootView = require('./RootView');
 
 var View = React.createClass({
 
@@ -39,17 +39,19 @@ var View = React.createClass({
 		}
 	},
 
-	componentWillUnmount() {
+	componentWillUnmount: function() {
 		Store.removeChangeListener(this._storeChanged);
 	},
 
-	_load() {
+	_load: function() {
+		console.debug('loadDiscussions');
 		Api.loadDiscussions(this.props.course);
 	},
 
-	_storeChanged(event) {
+	_storeChanged: function(event) {
 		switch(event.type) {
 			case Constants.DISCUSSIONS_CHANGED:
+				console.debug('discussions changed. setting state loading: false');
 				this.setState({
 					loading: false
 				});
@@ -64,6 +66,7 @@ var View = React.createClass({
 		}
 
 		var course = this.props.course;
+		var courseId = course.getID();
 
 		return (
 			<div className="forums-wrapper">
@@ -73,17 +76,24 @@ var View = React.createClass({
 										discussions={Store.getDiscussions()}
 										basePath={this.props.basePath} />
 
-					<Router.Location path="/:forumId/"
+					<Router.Location path="/:boardId/"
+										handler={Board}
+										courseId={courseId}
+										basePath={this.props.basePath} />
+
+					<Router.Location path="/:boardId/:forumId/"
 										handler={Forum}
 										course={course}
 										basePath={this.props.basePath} />
 
-					<Router.Location path="/:forumId/:topicId/"
+					<Router.Location path="/:boardId/:forumId/:topicId/"
 										handler={Topic}
+										course={course}
 										basePath={this.props.basePath} />
 
-					<Router.Location path="/:forumId/:topicId/:postId/"
+					<Router.Location path="/:boardId/:forumId/:topicId/:postId/"
 										handler={Post}
+										course={course}
 										basePath={this.props.basePath} />									
 
 					<Router.NotFound handler={RootView} course={course} />

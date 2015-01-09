@@ -5,7 +5,7 @@
 'use strict';
 
 var React = require('react/addons');
-var BoardGroup = require('./BoardGroup');
+var BoardGroup = require('../BoardGroup');
 
 var RootView = React.createClass({
 
