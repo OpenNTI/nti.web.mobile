@@ -10,6 +10,8 @@ var Store = require('../Store');
 var Actions = require('../Actions');
 var Constants = require('../Constants');
 
+var Prompt = require('prompts');
+
 
 module.exports = React.createClass({
 	displayName: 'SetSubmission',
@@ -45,7 +47,11 @@ module.exports = React.createClass({
 			e.stopPropagation();
 		}
 
-		Actions.resetAssessment(this.props.assessment);
+		Prompt.areYouSure('The will reset this assignment.')
+			.then(
+				()=>Actions.resetAssessment(this.props.assessment),
+				()=>{}
+			);
 	},
 
 
