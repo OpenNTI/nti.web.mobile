@@ -4,10 +4,8 @@ var React = require('react/addons');
 var Unknown = require('./Unknown');
 
 exports = module.exports = {
+	Solution: require('./String'),
 	Unknown: Unknown, //Unknown for future items.
-
-	// FreeResponse: require('./FreeResponse'),
-	// ModeledContent: require('./ModeledContent'),
 
 	MultipleChoice: require('./MultipleChoice'),
 
