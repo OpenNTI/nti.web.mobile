@@ -72,44 +72,6 @@ module.exports = {
 						return object;
 					});
 			});
-	},
-
-	loadBoardContents(courseId, boardId) {
-		return getService().then(service => {
-			return service.forums.getBoardContents(courseId, boardId)
-				.then(contents => {
-					console.group("board contents");
-					console.debug(contents);
-					console.groupEnd();
-					Store.setBoardContents(courseId, boardId, contents);
-				});
-		});
-	},
-
-	_getTopic(courseId, forumId, topicId) {
-		return getService().then(service => {
-			return service.forums.getTopic(courseId, forumId, topicId);
-			// var objId = courseId.concat(['/Discussions',forumId, topicId].join('/'));
-			// service.getObject(objId)
-			// 	.then(result => {
-			// 		console.debug(result);
-					
-			// 	},
-			// 	reason => {
-			// 		console.debug(reason);
-			// 	});
-		});
-	},
-
-	loadTopicContents(courseId, forumId, topicId) {
-		return getService().then(service => {
-			return service.forums.getTopicContents(courseId, forumId, topicId)
-				.then(contents => {
-					console.group("topic contents");
-					console.debug(contents);
-					console.groupEnd();
-					Store.setTopicContents(courseId, forumId, topicId, contents);
-				});
-		});
 	}
+
 };
