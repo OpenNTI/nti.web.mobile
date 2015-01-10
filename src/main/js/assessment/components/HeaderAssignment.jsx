@@ -5,6 +5,7 @@ var React = require('react/addons');
 var Store = require('../Store');
 
 var AssignmentStatusLabel = require('./AssignmentStatusLabel');
+var Grade = require('./Grade');
 
 var isEmpty = require('dataserverinterface/utils/isempty');
 
@@ -64,7 +65,7 @@ module.exports = React.createClass({
 				{isEmpty(grade) ? null : (
 					<div className="grade-container">
 						<h6>Assignment Grade</h6>
-						<div className="grade">{grade}</div>
+						<Grade value={grade}/>
 					</div>
 				)}
 			</div>
