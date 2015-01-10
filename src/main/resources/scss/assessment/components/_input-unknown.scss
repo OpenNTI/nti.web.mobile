@@ -1,0 +1,27 @@
+
+.question-part {
+	.unknown.part,
+	.unknown.solution {
+		text-align: left;
+		border: 1px solid #ccc;
+		border-radius: 0.5em;
+		margin: 1rem;
+		padding: 1rem 1rem 1rem 80px;
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			width: 60px;
+			height: 60px;
+			top: 1rem;
+			left: 0.7rem;
+
+			background: {
+				position: center center;
+				repeat: no-repeat;
+				image: url(../images/icons/modal-red-sign.png);
+			}
+		}
+	}
+}
