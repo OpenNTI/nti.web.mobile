@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
+var emptyFunction = require('react/lib/emptyFunction');
 
 var Store = require('../Store');
 
@@ -178,6 +179,14 @@ module.exports = React.createClass({
 	},
 
 
+	componentWillMount: function() {
+		this.getDifferenceBetween = {
+			overdue: this.getDifferenceBetweenSubmittedAndDue,
+			overtime: this.getDifferenceBetweenTimeSpentAndMaxTime
+		};
+	},
+
+
 	render: function() {
 		var assignment = this.props.assignment;
 		var complete = this.isSubmitted();
@@ -207,7 +216,7 @@ module.exports = React.createClass({
 						<DateTime
 							onClick={this.onShowStatusDetail}
 							date={date}
-							showToday={true}
+							showToday={!complete/*only show today if we aren't submitted*/}
 							format="dddd, MMMM D"
 							todayText="Today!"/>
 					</span>
@@ -231,15 +240,8 @@ module.exports = React.createClass({
 			return;
 		}
 
-		switch(over) {
-		case 'overdue':
-			dur = this.getDifferenceBetweenSubmittedAndDue();
-			break;
-		case 'overtime':
-			dur = this.getDifferenceBetweenTimeSpentAndMaxTime();
-			break;
-			default: break;
-		}
+
+		dur = (this.getDifferenceBetween[over] || emptyFunction)();
 
 		return (
 			<div className="assignment status-label-tip" onClick={this.onCloseDetail}>
