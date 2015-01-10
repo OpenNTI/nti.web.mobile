@@ -49,7 +49,7 @@ module.exports = React.createClass({
 
 	getInitialState() {
 		return {
-			value: {}
+			value: null
 		};
 	},
 
@@ -84,8 +84,12 @@ module.exports = React.createClass({
 
 
 	onReset(dropId) {
-		var v = Object.assign({}, this.state.value);
+		var v = Object.assign({}, this.state.value || {});
 		delete v[dropId];
+
+		if (Object.keys(v).length === 0) {
+			v = null;
+		}
 
 		this.setState({value: v}, this.handleInteraction);
 	},
