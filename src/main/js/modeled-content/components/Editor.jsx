@@ -5,9 +5,13 @@ var React = require('react/addons');
 module.exports = React.createClass({
 	displayName: 'ModeledBodyContentEditor',
 
-	render: function() {
+	getValue () {
+		return this.refs.editor.getDOMNode().value;
+	},
+
+	render () {
 		return (
-			<textarea/>
+			<textarea {...this.props} ref="editor"/>
 		);
 	}
 });

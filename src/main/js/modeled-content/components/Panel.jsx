@@ -4,6 +4,7 @@ var React = require('react/addons');
 
 var {processContent} = require('content/Utils');
 
+var guid = require('dataserverinterface/utils/guid');
 var htmlToReactRenderer = require('dataserverinterface/utils/html-to-react');
 
 var hash = require('object-hash');
@@ -56,10 +57,11 @@ module.exports = React.createClass({
 				packet = processContent(strategies, {content: content});
 			}
 			else {
-				let guid = '';
-				let w = { guid: guid, data: content };
+				let key = guid();
+				let w = { guid: key, data: content };
+				let o = {}; o[key] = w;
 				packet = {
-					widgets: {[guid]: w},
+					widgets: o,
 					body: [w]
 				};
 			}
@@ -97,9 +99,14 @@ module.exports = React.createClass({
 			props.dangerouslySetInnerHTML = {__html: body};
 		}
 
+		/*
 		return React.createElement("div", props,
 			...dynamicRenderers.map(renderer => renderer(React, this.renderWidget))
-			);
+		);*/
+		return React.createElement.apply(
+			React,
+			['div', props].concat(dynamicRenderers.map(renderer => renderer(React, this.renderWidget))
+		));
 	},
 
 

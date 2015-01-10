@@ -16,7 +16,7 @@ module.exports = React.createClass({
 
 	statics: {
 		inputType: [
-			'ModeledBodyContent'
+			'ModeledContent'
 		]
 	},
 

@@ -9,7 +9,7 @@ exports = module.exports = {
 	// File: require('./File'),
 
 	FreeResponse: require('./FreeResponse'),
-	// ModeledContent: require('./ModeledContent'),
+	ModeledContent: require('./ModeledContent'),
 
 	MultipleChoice: require('./MultipleChoice'),
 	MultipleChoiceMultipleAnswer: require('./MultipleChoiceMultipleAnswer'),
