@@ -26,7 +26,7 @@ module.exports = React.createClass({
 		//FIXME: Re-write this:
 		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
 		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-		
+
 		var score = parseInt(this.props.score, 10);
 		return {
 			series: [
@@ -172,10 +172,12 @@ module.exports = React.createClass({
 			ctx.globalAlpha = 0.8;
 			ctx.fillText(score, -textbox.width / 2, font.size / 3);
 
-			font.size /= 3;
-			font.weight = '700';
-			setFont(ctx, font);
-			ctx.fillText('%', textbox.width / 2, -font.size / 4);
+			if (score < 100) {
+				font.size /= 3;
+				font.weight = '700';
+				setFont(ctx, font);
+				ctx.fillText('%', textbox.width / 2, -font.size / 4);
+			}
 		}
 		finally {
 			ctx.restore();
