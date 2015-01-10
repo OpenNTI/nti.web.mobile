@@ -98,6 +98,10 @@ module.exports = React.createClass({
 		var prev = this.props.prev || this.state.prev || {};
 		var next = this.props.next || this.state.next || {};
 
+		if (!prev.href && !next.href) {
+			return null;
+		}
+
 		if (this.props.position === 'bottom') {
 			return (
 				<ul className="bottompager">
