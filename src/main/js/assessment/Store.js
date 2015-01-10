@@ -31,6 +31,8 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'assessment.Store',
 	_maxListeners: 0, //unlimited
 
+	isAssignment: Utils.isAssignment.bind(Utils),
+
 	emitChange: function(evt) {
 		this.emit(CHANGE_EVENT, evt);
 	},
@@ -91,12 +93,6 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		var question = getter ? getter.call(submission, questionId) : submission;
 
 		return question && question.getID() === questionId ? question : undefined;
-	},
-
-
-	isAssignment: function (assessment) {
-		var main = Utils.getMainSubmittable(assessment) || false;
-		return main && /assignment/i.test(main.MimeType || main.Class);
 	},
 
 

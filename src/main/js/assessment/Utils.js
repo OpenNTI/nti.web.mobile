@@ -17,6 +17,12 @@ Object.assign(exports, {
 	},
 
 
+	isAssignment: function (assessment) {
+		var main = this.getMainSubmittable(assessment) || false;
+		return main && /assignment/i.test(main.MimeType || main.Class);
+	},
+
+
 	updatePartsWithAssessedParts: function (part, assessed) {
 		var main = this.getMainSubmittable(part);
 		var questions = assessed.getQuestions ? assessed.getQuestions() : [assessed];
