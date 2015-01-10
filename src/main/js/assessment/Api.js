@@ -3,6 +3,8 @@
 var ReadOnlyStore = require('./Store');
 var Utils = require('./Utils');
 
+var isHistoryItem = RegExp.prototype.test.bind(/AssignmentHistoryItem/i);
+
 Object.assign(exports, {
 
 	loadPreviousState: function (assessment) {
@@ -31,8 +33,15 @@ Object.assign(exports, {
 
 	submit: function (assessment) {
 		var data = ReadOnlyStore.getSubmissionPreparedForPost(assessment);
+		var main = Utils.getMainSubmittable(assessment);
 
 		return data.submit()
+			.then(function (response) {
+				if (Utils.isAssignment(assessment) && !isHistoryItem(response.Class)) {
+					return main.loadPreviousSubmission();
+				}
+				return response;
+			})
 			.catch(function(reason){
 				//force this to always fulfill.
 				console.error('There was an error submitting the assessment: %o', reason.message || reason);
