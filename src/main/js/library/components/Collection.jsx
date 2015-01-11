@@ -53,7 +53,7 @@ module.exports = React.createClass({
 			})
 		]),
 
-		filters: React.PropTypes.object
+		filters: React.PropTypes.array
 	},
 
 	render: function() {

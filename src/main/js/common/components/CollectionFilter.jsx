@@ -15,7 +15,7 @@ var NoMatches = require('./NoMatches');
 var FilterBar = React.createClass({
 
 	propTypes: {
-		filters: React.PropTypes.object
+		filters: React.PropTypes.array
 	},
 
 
@@ -202,7 +202,7 @@ var Filter = React.createClass({
 		 * 		}
 		 *	}
 		 */
-		filters: React.PropTypes.object
+		filters: React.PropTypes.array
 	},
 
 
@@ -237,12 +237,10 @@ var Filter = React.createClass({
 		var filters = this.props.filters;
 		var title = this.props.title;
 
-
-		console.group('Collection Filter Routes:');
+		
 		var routes = Object.keys(filters).map(function(filtername) {
 			var filter = filters[filtername];
 			var filterpath = filter.path || filtername.toLowerCase();
-			console.debug(filterpath, filter);
 			return (
 				<Location
 					key={filterpath}
@@ -258,7 +256,7 @@ var Filter = React.createClass({
 				/>
 			);
 		});
-		console.groupEnd();
+
 		routes.push(
 			<DefaultRoute
 				key="default"
