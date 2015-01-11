@@ -10,6 +10,7 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var TabBar = require('../GroupsTabBar');
 var Board = require('./Board');
 var Forum = require('./Forum');
+var tt = require('common/locale').scoped('FORUMS.groupTitles');
 
 var Bin = React.createClass({
 
@@ -19,7 +20,7 @@ var Bin = React.createClass({
 			var board = bin[boardName];
 			var path = '/'.concat(NTIID.encodeForURI(board.id), '/');
 			filters.push({
-				name: boardName,
+				name: tt(boardName, {fallback: boardName}),
 				path: path,
 				filter: function(item) {
 					return (item||{}).ContainerId === board.id;

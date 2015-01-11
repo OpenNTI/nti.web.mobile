@@ -2,8 +2,8 @@
 
 module.exports = {
 	groupTitles: {
-		section: "My Section",
-		parent: "All Sections",
+		Section: "My Section",
+		Parent: "All Sections",
 		forcredit: "Enrolled For-Credit",
 		open: "Open",
 		other: "Other"
