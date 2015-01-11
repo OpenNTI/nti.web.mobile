@@ -1,8 +1,6 @@
 'use strict';
 
-function StyleCollector() {
-	console.log('New StyleCollector');
-}
+function StyleCollector() {}
 
 var me = StyleCollector.prototype;
 
