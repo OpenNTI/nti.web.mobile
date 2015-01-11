@@ -5,8 +5,8 @@
 	input[type=#{$type}]:checked + div::before { background-image: url(#{$iconPrefix}_active.png); }
 
 	html:not(.touch) &:hover input[type=#{$type}],
-	html:not(.touch) input[type=#{$type}]:focus,
-	html:not(.touch) input[type=#{$type}]:active {
+	input[type=#{$type}]:focus,
+	input[type=#{$type}]:active {
 		&:not(:checked):not(.disabled) + div::before { background-image: url(#{$iconPrefix}_hover.png); }
 	}
 }

@@ -3,6 +3,8 @@
 var React = require('react/addons');
 var Mixin = require('./Mixin');
 
+var {getEventTarget} = require('common/Utils').Dom;
+
 var toArray = require('dataserverinterface/utils/toarray');
 var isTruthy = require('dataserverinterface/utils/identity');
 var valueIfChecked = function(i){return i.checked && i.value; };
@@ -18,7 +20,7 @@ module.exports = React.createClass({
 		inputType: 'MultipleChoiceMultipleAnswer'
 	},
 
-	render: function() {
+	render () {
 		var choices = this.props.item.choices || [];
 		var submitted = this.isSubmitted();
 		var solution = submitted && this.getSolution();
@@ -33,7 +35,23 @@ module.exports = React.createClass({
 	},
 
 
-	renderChoice: function (choice, index, solution) {
+	onClick (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+		var label = getEventTarget(e, 'label');
+		var input = label && label.querySelector('input');
+		if (input) {
+			input.checked = !input.checked;
+		}
+
+		console.log('Clicked');
+		this.handleInteraction();
+	},
+
+
+	renderChoice (choice, index, solution) {
 		var numeral = String.fromCharCode(65+index);
 		var ref = 'choice-' + index;
 		var checked = (this.state.value || []).indexOf(index) !== -1;
@@ -48,7 +66,7 @@ module.exports = React.createClass({
 		}
 
 		return (
-			<label className={'choice ' + correct} key={ref}>
+			<label className={'choice ' + correct} key={ref} onClick={this.onClick}>
 				<input type="checkbox" ref={ref} checked={checked} value={index} onChange={this.handleInteraction}/>
 				<div>
 					<span className="numeral">{numeral}.</span>
@@ -59,7 +77,7 @@ module.exports = React.createClass({
 	},
 
 
-	getValue: function () {
+	getValue () {
 		var ref = this.refs.form;
 		var form = ref && ref.getDOMNode();
 		var inputs = form && toArray(form.elements);

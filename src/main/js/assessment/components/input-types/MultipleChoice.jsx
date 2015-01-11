@@ -3,9 +3,12 @@
 var React = require('react/addons');
 var Mixin = require('./Mixin');
 
+var {getEventTarget} = require('common/Utils').Dom;
+
 var toArray = require('dataserverinterface/utils/toarray');
 var isTruthy = require('dataserverinterface/utils/identity');
-var valueIfChecked = function(i){return i.checked && i.value; };
+
+var valueIfChecked = (i)=> i.checked && i.value;
 
 /**
  * This input type represents Muliple Choice (with one answer--aka Radio Buttons)
@@ -21,7 +24,7 @@ module.exports = React.createClass({
 		]
 	},
 
-	render: function() {
+	render () {
 		var item = this.props.item;
 		var choices = item.choices || [];
 		var submitted = this.isSubmitted();
@@ -37,7 +40,23 @@ module.exports = React.createClass({
 	},
 
 
-	renderChoice: function (choice, index, solution) {
+	onClick (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+		var label = getEventTarget(e, 'label');
+		var input = label && label.querySelector('input');
+		if (input) {
+			input.checked = !input.checked;
+		}
+
+		console.log('Clicked');
+		this.handleInteraction();
+	},
+
+
+	renderChoice (choice, index, solution) {
 		var numeral = String.fromCharCode(65+index);
 		var group = this.props.item.getID();
 		var checked = this.state.value === index;
@@ -52,7 +71,7 @@ module.exports = React.createClass({
 		}
 
 		return (
-			<label className={'choice ' + correct} key={'choice-'+index}>
+			<label className={'choice ' + correct} key={'choice-'+index} onClick={this.onClick}>
 				<input type="radio" name={group} checked={checked} value={index} onChange={this.handleInteraction}/>
 				<div>
 					<span className="numeral">{numeral}.</span>
@@ -63,7 +82,7 @@ module.exports = React.createClass({
 	},
 
 
-	getValue: function () {
+	getValue () {
 		var ref = this.refs.form;
 		var form = ref && ref.getDOMNode();
 		var inputs = form && toArray(form.elements);
