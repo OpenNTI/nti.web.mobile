@@ -27,8 +27,9 @@ module.exports = React.createClass({
 
 
 	parseGrade (grade) {
+		var n;
 		if (typeof grade === 'number') {
-			let n = grade.toFixed(1);
+			n = grade.toFixed(1);
 			if (n.split('.')[1] === '0') {
 				n = grade.toFixed(0);
 			}

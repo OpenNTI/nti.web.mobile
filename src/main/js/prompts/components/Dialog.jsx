@@ -116,8 +116,9 @@ module.exports = exports = React.createClass({
 
 
 	componentDidUpdate () {
+		var focusNode;
 		if (this.isMounted()) {
-			let focusNode = this.refs.confirm || this.refs.cancel || this;
+			focusNode = this.refs.confirm || this.refs.cancel || this;
 
 			focusNode.getDOMNode().focus();
 		}
