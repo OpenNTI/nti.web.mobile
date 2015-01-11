@@ -11,9 +11,9 @@ var CompressionPlugin = require("compression-webpack-plugin");
 var path = require('path');
 var fs = require('fs');
 
-var StyleCollectorClientSide = require('./src/webpack-plugins/style-collector');
+var StatsCollector = require('./src/webpack-plugins/stats-collector');
 
-var StyleCollectorServerSide = path.join(__dirname, 'src', 'server', 'style-collector');
+var StyleCollector = path.join(__dirname, 'src', 'server', 'style-collector');
 var ES3Recast = '';//path.join(__dirname, 'src', 'webpack-plugins', 'es3recast') + '!';
 
 var scssIncludes =
@@ -181,7 +181,7 @@ exports = module.exports = [
 
         plugins: [
             //new webpack.HotModuleReplacementPlugin(),
-            StyleCollectorClientSide,
+            StatsCollector(__dirname),
             new webpack.DefinePlugin({
                 SERVER: false,
                 "process.env": {
@@ -235,8 +235,8 @@ exports = module.exports = [
         module: {
             loaders: commonLoaders.concat([
                 { test: /\.html$/, loader: 'html?attrs=link:href' },
-                { test: /\.css$/,  loader: StyleCollectorServerSide + '!css' },
-                { test: /\.scss$/, loader: StyleCollectorServerSide + '!css!sass?' + scssIncludes }
+                { test: /\.css$/,  loader: StyleCollector + '!css' },
+                { test: /\.scss$/, loader: StyleCollector + '!css!sass?' + scssIncludes }
             ])
         }
     }

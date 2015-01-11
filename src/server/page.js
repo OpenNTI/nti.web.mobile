@@ -40,7 +40,12 @@ try {
 	template = require('../main/page');
 } catch (e) {
 	//For Node... (dev)
-	template = fs.readFileSync(__dirname + '/../main/page.html', 'utf8');
+	try {
+		template = fs.readFileSync(__dirname + '/../main/page.html', 'utf8');
+	} catch (er) {
+		console.error(er.message || er);
+		template = 'Could not load page template.';
+	}
 }
 
 template = template.replace(

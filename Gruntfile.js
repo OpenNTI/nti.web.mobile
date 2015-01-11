@@ -181,14 +181,12 @@ module.exports = function(grunt) {
 	grunt.registerTask('serve', function(target) {
 		if (target === 'dist') {
 			return grunt.task.run([
-				'env',
 				'build',
 				'execute:dist'
 			]);
 		}
 
 		grunt.task.run([
-			'env',
 			'sass',
 			'jshint',
 			'execute:dev'
