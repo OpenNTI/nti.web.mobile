@@ -128,7 +128,7 @@ var View = React.createClass({
 		}
 
 		var purchasable = this.getPurchasable();
-		var courseTitle = purchasable.Title;
+		var courseTitle = (purchasable || {}).Title || '';
 		var courseId = this.props.courseId;
 		var giftDoneLink = getBasePath() + 'library/catalog/';
 		var isGift = !!Store.getGiftInfo();
