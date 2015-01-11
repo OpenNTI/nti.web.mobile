@@ -47,7 +47,7 @@ module.exports = React.createClass({
 			e.stopPropagation();
 		}
 
-		Prompt.areYouSure('The will reset this assignment.')
+		Prompt.areYouSure('This will reset this assignment.')
 			.then(
 				()=>Actions.resetAssessment(this.props.assessment),
 				()=>{}
