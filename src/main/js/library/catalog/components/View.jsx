@@ -20,7 +20,7 @@ var CatalogView = React.createClass({
 		//FIXME: Re-write this:
 		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
 		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-		
+
         return { catalog: Store.getData() };
     },
 
@@ -51,6 +51,22 @@ var CatalogView = React.createClass({
 		this.setState({catalog: Store.getData()});
 	},
 
+
+	shouldComponentUpdate: function(_, newState) {
+		var newCatalog = this.state.catalog !== newState.catalog;
+
+		var {router} = this.refs;
+		var r = router || {refs: {}};
+		var {enrollment} = r.refs;
+
+		if (newCatalog && enrollment && enrollment.isMounted()) {
+			return false;
+		}
+
+		return true;
+	},
+
+
 	render: function() {
 
         var catalog = this.state.catalog;
@@ -63,13 +79,14 @@ var CatalogView = React.createClass({
 		}
 
         return (
-			<Locations contextual={true}>
+			<Locations contextual={true} ref="router">
 	            <Location
 	                path="/item/:entryId/(#:nav)"
 	                handler={CatalogEntryDetail}
 	                basePath={basePath}
 	            />
 	            <Location
+					ref="enrollment"
 	                path="/item/:entryId/enrollment(/*)"
 	                handler={Enrollment}
 	                basePath={basePath}
