@@ -81,7 +81,7 @@ module.exports = {
 			React.createElement('label', {ref: ref, className: cssClass.join(' ') }, tr(ref, translateOptions)) :
 			React.createElement('input', {
 				ref: ref,
-				value: (values||{})[ref],
+				//value: (values||{})[ref],
 				name: ref,
 				onBlur: this._onBlur,
 				onFocus: this._onFocus,
