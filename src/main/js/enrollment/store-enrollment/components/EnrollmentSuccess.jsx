@@ -5,7 +5,6 @@ var React = require('react/addons');
 
 var PanelButton = require('common/components/PanelButton');
 var Utils = require('common/Utils');
-var basePath = Utils.getBasePath();
 
 //var _t = require('common/locale');
 
@@ -17,6 +16,7 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
+		var basePath = Utils.getBasePath();
 		return (
 			<div className="small-12 columns">
 				<PanelButton href={basePath + 'library/courses/'} linkText="Go to my courses">
