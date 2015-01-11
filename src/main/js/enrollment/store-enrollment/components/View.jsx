@@ -4,9 +4,7 @@ var React = require('react/addons');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var Router = require('react-router-component');
-var Locations = Router.Locations;
-var Location = Router.Location;
-var DefaultRoute = Router.NotFound;
+var {Locations, Location, NotFound} = Router;
 
 var Constants = require('../Constants');
 var Store = require('../Store');
@@ -29,38 +27,58 @@ var View = React.createClass({
 	mixins: [NavigatableMixin], // needed for getPath() call we're using for the router's key.
 
 	propTypes: {
-		enrollment: React.PropTypes.object.isRequired
+		enrollment: React.PropTypes.shape({
+			Purchasable: React.PropTypes.object
+		}).isRequired
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: true
 		};
 	},
 
-	componentDidMount: function() {
-		Store.addChangeListener(this._onChange);
-		var purchasable = this.props.enrollment.Purchasable;
-		Store.priceItem(purchasable)
-		.then(function(pricedItem) {
-			this.setState({
-				loading: false,
-				pricedItem: pricedItem
-			});
-		}.bind(this))
-		.catch(function(reason) {
-			this.setState({
-				loading: false,
-				error: reason
-			});
-		}.bind(this));
+
+	getPurchasable () {
+		var {enrollment} = this.props;
+
+		if (!enrollment) {
+			console.warn('Missing prop value for `enrollment`!!');
+			return;
+		}
+
+		var {Purchasable} = enrollment;
+
+		return Purchasable || (()=>{
+			console.warn('Enrollment.Purchasable is not defined!');
+		})();
 	},
 
-	componentWillUnmount: function() {
+
+	componentDidMount () {
+		Store.addChangeListener(this._onChange);
+		var purchasable = this.getPurchasable();
+		Store.priceItem(purchasable).then(
+			pricedItem => {
+				this.setState({
+					loading: false,
+					pricedItem: pricedItem
+				});
+			},
+			reason => {
+				this.setState({
+					loading: false,
+					error: reason
+				});
+			}
+		);
+	},
+
+	componentWillUnmount () {
 		Store.removeChangeListener(this._onChange);
 	},
 
-	_onChange: function(event) {
+	_onChange (event) {
 		var router = this.refs.router;
 		switch(event.type) {
 			case Constants.PRICED_ITEM_RECEIVED:
@@ -99,7 +117,7 @@ var View = React.createClass({
 		}
 	},
 
-	render: function() {
+	render () {
 
 		if(this.state.error) {
 			return <div className="column"><ErrorComponent error={this.state.error} /></div>;
@@ -109,7 +127,7 @@ var View = React.createClass({
 			return <Loading />;
 		}
 
-		var purchasable = this.props.enrollment.Purchasable;
+		var purchasable = this.getPurchasable();
 		var courseTitle = purchasable.Title;
 		var courseId = this.props.courseId;
 		var giftDoneLink = getBasePath() + 'library/catalog/';
@@ -140,7 +158,7 @@ var View = React.createClass({
 							purchasable={purchasable}
 							courseTitle={courseTitle}
 							courseId={courseId} />
-						<DefaultRoute handler={Form} purchasable={purchasable}/>
+						<NotFound handler={Form} purchasable={purchasable}/>
 					</Locations>
 				</ReactCSSTransitionGroup>
 			</div>
