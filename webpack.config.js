@@ -14,7 +14,7 @@ var fs = require('fs');
 var StyleCollectorClientSide = require('./src/webpack-plugins/style-collector');
 
 var StyleCollectorServerSide = path.join(__dirname, 'src', 'server', 'style-collector');
-var ES3Rescast = '';//path.join(__dirname, 'src', 'webpack-plugins', 'es3recast') + '!';
+var ES3Recast = '';//path.join(__dirname, 'src', 'webpack-plugins', 'es3recast') + '!';
 
 var scssIncludes =
     'includePaths[]=' + (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss'));
@@ -30,7 +30,7 @@ var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
 //TODO: move JS to load through 6to5-loader instead of jsx-loader
 var commonLoaders = [
     { test: /\.json$/, loader: 'json' },
-    { test: /\.js(x?)$/, loader: ES3Rescast + 'jsx?stripTypes&harmony' },
+    { test: /\.js(x?)$/, loader: ES3Recast + 'jsx?stripTypes&harmony' },
 
     { test: /\.(ico|gif|png|jpg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
 
