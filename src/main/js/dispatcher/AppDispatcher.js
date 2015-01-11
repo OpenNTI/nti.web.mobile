@@ -1,5 +1,7 @@
 'use strict';
 var Dispatcher = require('flux').Dispatcher;
+var invariant = require('react/lib/invariant');
+
 
 var AppDispatcher = Object.assign(new Dispatcher(), {
 
@@ -10,6 +12,11 @@ var AppDispatcher = Object.assign(new Dispatcher(), {
      */
     handleViewAction: function(action) {
         // console.log('AppDispatcher::handleViewAction: %s', action.type);
+
+        if ("production" !== process.env.NODE_ENV) {
+            invariant(action.type, 'Expected there to be an action.type');
+        }
+
         this.dispatch({
             source: 'VIEW_ACTION',
             action: action
@@ -23,6 +30,11 @@ var AppDispatcher = Object.assign(new Dispatcher(), {
      */
     handleRequestAction: function(action) {
         // console.log('AppDispatcher::handleRequestAction: %s', action.type);
+
+        if ("production" !== process.env.NODE_ENV) {
+            invariant(action.type, 'Expected there to be an action.type');
+        }
+
         this.dispatch({
             source: 'REQUEST_ACTION',
             action: action
