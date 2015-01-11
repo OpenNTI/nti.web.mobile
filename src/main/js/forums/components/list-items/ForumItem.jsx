@@ -20,29 +20,10 @@ module.exports = React.createClass({
 
 	getInitialState() {
 		return {
-			loading: true
+			loading: false
 		};
 	},
 
-	componentDidMount: function() {
-		this._loadBoard(this.props.item);
-	},
-
-	componentWillReceiveProps: function(nextProps) {
-		if (nextProps.item !== this.props.item) {
-			this._loadBoard(nextProps.item);
-		}
-	},
-
-	_loadBoard: function(forum) {
-		forum.getBoard()
-		.then(board => {
-			this.setState({
-				loading: false,
-				board: board
-			});
-		});
-	},
 
 	_href: function() {
 		var path = [NTIID.encodeForURI(this.props.item.getID()), ''];
@@ -61,6 +42,7 @@ module.exports = React.createClass({
 		return (
 			<div className="forum-item">
 				<h3><a href={this._href()}>{item.title}</a></h3>
+
 			</div>
 		);
 	}
