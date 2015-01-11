@@ -1,17 +1,30 @@
 'use strict';
 
-exports.collect = function(fn) {
+function StyleCollector() {
+	console.log('New StyleCollector');
+}
+
+var me = StyleCollector.prototype;
+
+me.add = function() {
+	console.warn('!!!! CSS not collected, expect to see a flash of unstyled UI');
+};
+
+me.collect = function(fn) {
 	var stuff = [];
-	function add(css) {
-		stuff.push(css);
+
+	this.add = stuff.push.bind(stuff);
+
+	try {
+		fn();
 	}
-	var old = exports.add;
-	exports.add = add;
-	fn();
-	exports.add = old;
+	catch (e) {
+		console.warn(e.message || e);
+	}
+
+	delete this.add;
 	return stuff.join('\n');
 };
 
-exports.add = function(a) {
-	console.warn('CSS not collected: %s', a);
-};
+
+module.exports = exports = new StyleCollector();

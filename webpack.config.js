@@ -69,7 +69,7 @@ function isNodeModule(module, context) {
         return true;
     }
 
-    if (!parent || parent === '' || /^(\.|!)/.test(module)) {
+    if (!parent || parent === '' || /^(\.|!|\/)/.test(module)) {
         return false;
     }
 
