@@ -1,9 +1,6 @@
 'use strict';
 /* jshint -W101 */
 
-var webpackDistConfig = require('./webpack.dist.config.js');
-var webpackDevConfig = require('./webpack.config.js');
-
 var path = require('path');
 
 var PROD = 'production';
@@ -15,11 +12,10 @@ module.exports = function(grunt) {
 
 	var pkgConfig = grunt.file.readJSON('package.json');
 
-	var env = /prod/i.test(grunt.option('environment')) ? PROD : DEV;
+	var env = /prod|uat/i.test(grunt.option('environment')) ? PROD : DEV;
+	process.env.NODE_ENV = env;
 
 	var buildSteps = [
-		'env',
-		'jshint',
 		'clean:stage',
 		'sass',
 		'copy:stage',
@@ -42,14 +38,8 @@ module.exports = function(grunt) {
 		pkg: pkgConfig,
 
 		webpack: {
-			dist: webpackDistConfig,
-            dev: webpackDevConfig
-		},
-
-		env: {
-			options: {
-				NODE_ENV: env
-			}
+			dist: require('./webpack.dist.config.js'),
+            dev: require('./webpack.config.js')
 		},
 
 		execute: {
@@ -157,62 +147,6 @@ module.exports = function(grunt) {
 			}
 		},
 
-		react: {
-			docs: {
-				files: [{
-					expand: true,
-					src: [
-						'<%= pkg.src %>/js/**/*.jsx',
-						'<%= pkg.src %>/js/**/*.js'
-					],
-					dest: '<%= pkg.jsDocSrc %>',
-					ext: '.js'
-				}]
-			}
-		},
-
-		jsdoc: {
-			dist: {
-				src: ['<%= pkg.jsDocSrc %>/src/main/js/**/*.js'],
-				dest: '<%= pkg.jsDocDest %>/jsdoc'
-			}
-		},
-
-		yuidoc: {
-			compile: {
-				name: '<%= pkg.name %>',
-				description: '<%= pkg.description %>',
-				version: '<%= pkg.version %>',
-				// url: '<%= pkg.homepage %>',
-				options: {
-					paths: '<%= pkg.jsDocSrc %>/src/main/js/',
-					themedir: 'node_modules/yuidoc-bootstrap-theme/',
-					helpers: ['node_modules/yuidoc-bootstrap-theme/helpers/helpers.js'],
-					outdir: '<%= pkg.jsDocDest %>/yuidoc/',
-					extension: '.js,.jsx'
-				}
-			}
-		},
-
-		watch: {
-			grunt: { files: ['Gruntfile.js'] },
-
-			sass: {
-				files: 'src/main/resources/**/*.scss',
-				tasks: ['sass']
-			},
-
-			reactjsx: {
-				files: ['<%= pkg.src %>/js/**/*.js','<%= pkg.src %>/js/**/*.jsx'],
-				tasks: ['reactjsx:docs']
-			},
-
-			docs: {
-				files: ['<%= pkg.jsDocSrc %>/src/main/js/**/*.js'],
-				tasks: ['jsdoc:dist']
-			}
-		},
-
 		jshint: {
 	        options: {
 				jshintrc: true,
@@ -240,6 +174,9 @@ module.exports = function(grunt) {
 
 
 	grunt.registerTask('docs',['react','jsdoc']);
+	grunt.registerTask('test', ['karma']);
+	grunt.registerTask('build', buildSteps);
+	grunt.registerTask('default', ['serve']);
 
 	grunt.registerTask('serve', function(target) {
 		if (target === 'dist') {
@@ -257,13 +194,4 @@ module.exports = function(grunt) {
 			'execute:dev'
 		]);
 	});
-
-	grunt.registerTask('test', ['karma']);
-
-
-
-	grunt.registerTask('build', buildSteps);
-
-	grunt.registerTask('default', ['serve']);
-
 };

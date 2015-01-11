@@ -11,8 +11,10 @@ var CompressionPlugin = require("compression-webpack-plugin");
 var path = require('path');
 var fs = require('fs');
 
-var styleCollector = path.join(__dirname, 'src', 'server', 'style-collector');
-var es3Rescast = path.join(__dirname, 'src', 'webpack-plugins', 'es3recast') + '!';
+var StyleCollectorClientSide = require('./src/webpack-plugins/style-collector');
+
+var StyleCollectorServerSide = path.join(__dirname, 'src', 'server', 'style-collector');
+var ES3Rescast = '';//path.join(__dirname, 'src', 'webpack-plugins', 'es3recast') + '!';
 
 var scssIncludes =
     'includePaths[]=' + (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss'));
@@ -25,27 +27,23 @@ var appPackages = {
 
 var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
 
-var commonLoaders = [
 //TODO: move JS to load through 6to5-loader instead of jsx-loader
-    { test: /\.js$/, loader: es3Rescast + 'jsx?stripTypes&harmony' },
-    { test: /\.jsx$/, loader: es3Rescast + 'jsx?stripTypes&harmony' },
+var commonLoaders = [
     { test: /\.json$/, loader: 'json' },
+    { test: /\.js(x?)$/, loader: ES3Rescast + 'jsx?stripTypes&harmony' },
 
-    { test: /\.ico$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/ico' },
-    { test: /\.gif$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/gif' },
-    { test: /\.png$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/png' },
-    { test: /\.jpg$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/jpeg' },
+    { test: /\.(ico|gif|png|jpg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
 
     { test: appFontName, loader: 'url' },
 
-    { test: /\.eot$/, loader: 'file?name=resources/fonts/[name].[ext]' },
-    { test: /\.ttf$/, loader: 'file?name=resources/fonts/[name].[ext]' },
     {
         test: {
             test: function(s) {
                 if (/woff$/.test(s)) {
                     return ! appFontName.test(s);
                 }
+
+                return /\.(eot|ttf)$/.test(s);
             }
         },
         loader: 'file',
@@ -57,26 +55,32 @@ var commonLoaders = [
 ];
 
 
+function isNodeModule(module, context) {
+    var file = path.join(context, 'node_modules', module.split('/')[0]);
+    var parent = context && context.split('/').slice(0, -1).join('/');
+    var nodeBuiltins = {
+        path: true,
+        fs: true,
+        net: true,
+        url: true
+    };
+
+    if (nodeBuiltins[module]) {
+        return true;
+    }
+
+    if (!parent || parent === '' || /^(\.|!)/.test(module)) {
+        return false;
+    }
+
+    return fs.existsSync(file) || isNodeModule(module, parent);
+}
+
 fs.readdirSync(root).forEach(function(f) {
     if(fs.statSync(path.join(root, f)).isDirectory()) {
         appPackages[f] = false;//mark it as NOT external
     }
 });
-
-
-function StyleCollector(/*compiler*/) {
-    this.plugin('done', function(stats) {
-        var p = path.join(__dirname, 'stage', 'server');
-        var file = path.join(p, 'stats.generated.json');
-        try {
-            if (fs.existsSync(p)) {
-                fs.writeFileSync(file, JSON.stringify(stats.toJson()));
-            }
-        } catch (e) {
-            console.warn('Could not write %s', file);
-        }
-    });
-}
 
 
 function getWidgets() {
@@ -120,7 +124,11 @@ function includeWidgets(o) {
 
             plugins: [
                 new webpack.DefinePlugin({
-                    SERVER: false
+                    SERVER: false,
+                    "process.env": {
+                        // This has effect on the react lib size
+                        "NODE_ENV": JSON.stringify(process.env.NODE_ENV||"development")
+                    }
                 }),
                 new webpack.optimize.OccurenceOrderPlugin(),
                 new webpack.optimize.DedupePlugin(),
@@ -172,13 +180,13 @@ exports = module.exports = [
 
 
         plugins: [
-            StyleCollector,//must be first in plugins
             //new webpack.HotModuleReplacementPlugin(),
+            StyleCollectorClientSide,
             new webpack.DefinePlugin({
                 SERVER: false,
                 "process.env": {
                     // This has effect on the react lib size
-                    "NODE_ENV": JSON.stringify("development")
+                    "NODE_ENV": JSON.stringify(process.env.NODE_ENV||"development")
                 }
             })
         ],
@@ -210,25 +218,25 @@ exports = module.exports = [
         },
         plugins: [
             new webpack.DefinePlugin({
-                SERVER: true,
-                "process.env": {
-                    // This has effect on the react lib size
-                    "NODE_ENV": JSON.stringify("production")
-                }
+                SERVER: true
             })
         ],
         externals: [
-            appPackages//, /^[a-z\-0-9]+$/
+            appPackages,
+            function(context, request, callback) {
+
+                if (/node_modules/i.test(context) || isNodeModule(request, context)){
+                    return callback(null, request);
+                }
+
+                callback();
+            },
         ],
         module: {
             loaders: commonLoaders.concat([
-
                 { test: /\.html$/, loader: 'html?attrs=link:href' },
-
-                { test: /\.css$/,  loader: styleCollector + '!css' },
-                { test: /\.scss$/, loader: styleCollector +
-                    '!css!sass?' + scssIncludes
-                }
+                { test: /\.css$/,  loader: StyleCollectorServerSide + '!css' },
+                { test: /\.scss$/, loader: StyleCollectorServerSide + '!css!sass?' + scssIncludes }
             ])
         }
     }

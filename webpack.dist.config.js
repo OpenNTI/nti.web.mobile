@@ -11,6 +11,7 @@ var assign = require('object-assign');
 var webpack = require('webpack');
 var CompressionPlugin = require("compression-webpack-plugin");
 var AppCachePlugin = require('./src/webpack-plugins/appcache');
+var StyleCollectorClientSide = require('./src/webpack-plugins/style-collector');
 
 var e = [];
 var cfg = require("./webpack.config.js");
@@ -22,7 +23,7 @@ cfg.forEach(function(o) { e.push(assign({}, o)); });
 
 
 e[0].plugins = [
-    e[0].plugins[0],//StyleCollector
+    StyleCollectorClientSide,
     new webpack.DefinePlugin({
         SERVER: false,
         "process.env": {
@@ -57,9 +58,9 @@ e[0].plugins = [
 
 
 e.forEach(function(x) {
-    x.debug = false;
-    x.devtool = '#source-map';
-    x.stats = false;
+    x.stats = true;
+    x.debug = true;
+    x.devtool = undefined;
 });
 
 
