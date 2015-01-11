@@ -43,7 +43,7 @@ var View = React.createClass({
 		}
 
 		return (
-			<Locations contextual={true}>
+			<Locations contextual>
 				{this.getRoutes(this.props.basePath)}
 			</Locations>
 		);

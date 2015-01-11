@@ -3,6 +3,7 @@
 var Filters = [
 	{
 		name: 'Upcoming',
+		path: '/upcoming/',
 		filter: function(item) {
 			try {
 				var startDate = new Date(item.CourseInstance.CatalogEntry.StartDate);
@@ -17,6 +18,7 @@ var Filters = [
 	},
 	{
 		name: 'Current',
+		path: '/current/',
 		filter: function(item) {
 			try {
 				var startDate = new Date(item.CourseInstance.CatalogEntry.StartDate);
@@ -32,6 +34,7 @@ var Filters = [
 	},
 	{
 		name: 'Archived',
+		path: '/archived/',
 		filter: function(item) {
 			try {
 				var endDate = new Date(item.CourseInstance.CatalogEntry.EndDate);

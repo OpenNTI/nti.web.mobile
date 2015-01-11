@@ -123,6 +123,10 @@ var DefaultPath = React.createClass({
 		}
 	},
 
+	_findFilter: function(name) {
+		return this.props.filters.find(f => (f.name === name));
+	},
+
 	/**
 	 *	Returns the path of the first filter that doesn't result in an emtpy list,
 	 *	or the first filter if all result in empty lists,
@@ -130,7 +134,9 @@ var DefaultPath = React.createClass({
 	 */
 	_defaultFilterPath: function() {
 		if (this.props.defaultFilter) {
-			return this.props.defaultFilter;
+			var dfp = this.props.defaultFilter;
+			var df = (typeof dfp === 'string') ? this._findFilter(dfp) : dfp;
+			return (df||{}).path;
 		}
 		var filters = this.props.filters||[];
 		var result = filters.length > 0 ? filters[0].path : null;

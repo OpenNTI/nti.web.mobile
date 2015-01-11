@@ -5,24 +5,35 @@ var OwnerQuery = require('common/mixins/OwnerQuery');
 var Filter = require('common/components/CollectionFilter');
 var Item = require('./Entry');
 
-var filters = {
-	'Upcoming': function(item) {
-		var startDate = new Date(item.StartDate);
-		var now = new Date();
-		return startDate > now;
+var filters = [
+	{
+		name: 'Upcoming',
+		path: '/upcoming/',
+		filter: function(item) {
+			var startDate = new Date(item.StartDate);
+			var now = new Date();
+			return startDate > now;
+		}
 	},
-	'Current': function(item) {
-		var startDate = new Date(item.StartDate);
-		var endDate = new Date(item.EndDate);
-		var now = new Date();
-		return startDate < now && endDate > now;
+	{
+		name: 'Current',
+		path: '/current/',
+		filter: function(item) {
+			var startDate = new Date(item.StartDate);
+			var endDate = new Date(item.EndDate);
+			var now = new Date();
+			return startDate < now && endDate > now;}
 	},
-	'Archived': function(item) {
-		var endDate = new Date(item.EndDate);
-		var now = new Date();
-		return endDate < now;
+	{
+		name: 'Archived',
+		path: '/archived/',
+		filter: function(item) {
+			var endDate = new Date(item.EndDate);
+			var now = new Date();
+			return endDate < now;
+		}
 	}
-};
+];
 
 var ListView = React.createClass({
 	mixins: [OwnerQuery],
