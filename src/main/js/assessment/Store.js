@@ -325,9 +325,9 @@ function onInteraction(part, value) {
 function saveProgress(part) {
 	clearTimeout(savepointDelay);
 	savepointDelay = setTimeout(()=>{
-	markBusy(part, Constants.BUSY.SAVEPOINT);
+		markBusy(part, Constants.BUSY.SAVEPOINT);
 		Store.emitChange();
-	Api.saveProgress(part)
+		Api.saveProgress(part)
 		.catch(emptyFunction)//handle errors
 		.then(() => {
 			markBusy(part, false);
@@ -364,6 +364,7 @@ AppDispatcher.register(function(payload) {
 
 		case Constants.RESET:
 			Store.setupAssessment(action.assessment);
+			saveProgress(action.assessment);
 			eventData = Constants.SYNC;
 			break;
 
