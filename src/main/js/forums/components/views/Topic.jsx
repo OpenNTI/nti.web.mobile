@@ -67,7 +67,6 @@ module.exports = React.createClass({
 
 		return (
 			<div>
-				<UpLink />
 				<h1>{topic.headline.title}</h1>
 				<div>{topic.headline.body}</div>
 				<List className="forum-replies" container={contents} />

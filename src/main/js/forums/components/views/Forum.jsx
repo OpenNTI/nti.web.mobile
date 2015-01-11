@@ -11,10 +11,14 @@ var Store = require('../../Store');
 var Constants = require('../../Constants');
 
 var List = require('../List');
+var Topic = require('./Topic');
+var Post = require('./Post');
 var Loading = require('common/components/Loading');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var NavUp = require('../NavUp');
 var TabBar = require('../GroupsTabBar');
+var Router = require('react-router-component');
+var Location = Router.Location;
 
 module.exports = React.createClass({
 
@@ -70,7 +74,19 @@ module.exports = React.createClass({
 			<nav className="forum">
 				<TabBar groups={this.props.discussions}/>
 				<NavUp />
-				<List container={container} className="forum-topics" />
+				<Router.Locations contextual>
+					<Location path="/(#nav)"
+						handler={List}
+						container={container}
+						className="forum-topics"
+					/>
+					<Location path="/:topicId/(#nav)"
+						handler={Topic}
+					/>
+					<Location path="/:topicId/:postId/(#nav)"
+						handler={Post}
+					/>
+				</Router.Locations>
 			</nav>
 		);
 	}
