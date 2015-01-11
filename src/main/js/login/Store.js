@@ -186,7 +186,7 @@ AppDispatcher.register(function(payload) {
 			_ping();
 		break;
 
-		case ActionConstants.LOGIN_FORM_CHANGED:
+		case Constants.events.LOGIN_FORM_CHANGED:
 			_ping(action.credentials);
 		break;
 

@@ -3,7 +3,7 @@
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var Constants = require('./Constants');
-var ActionConstants = Constants.actions;
+
 var EventEmitter = require('events').EventEmitter;
 
 var getServer = require('common/Utils').getServer;
@@ -17,7 +17,7 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	begin: function() {
 		AppDispatcher.handleViewAction({
-			type: ActionConstants.LOGIN_BEGIN
+			type: Constants.actions.LOGIN_BEGIN
 		});
 	},
 
@@ -27,14 +27,14 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 	userInputChanged: function(data) {
 		console.log('LoginActions::userInputChanged');
 		AppDispatcher.handleViewAction({
-			type: ActionConstants.LOGIN_FORM_CHANGED,
+			type: Constants.events.LOGIN_FORM_CHANGED,
 			credentials: (data && data.credentials)
 		});
 	},
 
 	clearErrors: function() {
 		AppDispatcher.handleViewAction({
-			type: ActionConstants.LOGIN_CLEAR_ERRORS
+			type: Constants.actions.LOGIN_CLEAR_ERRORS
 		});
 	},
 
@@ -47,7 +47,7 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 	 */
 	logIn: function(credentials) {
 		AppDispatcher.handleViewAction({
-			type: ActionConstants.LOGIN_PASSWORD,
+			type: Constants.actions.LOGIN_PASSWORD,
 			credentials: credentials
 		});
 	},
@@ -57,7 +57,7 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 	 */
 	logInOAuth: function(url) {
 		AppDispatcher.handleViewAction({
-			type: ActionConstants.LOGIN_OAUTH,
+			type: Constants.actions.LOGIN_OAUTH,
 			url: url
 		});
 	},
@@ -65,7 +65,7 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 	/** Log the out of the system. */
 	logOut: function() {
 		AppDispatcher.handleViewAction({
-			type: ActionConstants.LOGOUT
+			type: Constants.actions.LOGOUT
 		});
 	},
 
@@ -88,7 +88,7 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 		var failure = function(reason) {
 			MessageActions.clearMessages({category: Constants.messages.category});
 			MessageActions.addMessage( new Message(reason.message, {category: Constants.messages.category}) );
-			return reason;	
+			return reason;
 		};
 
 		return getServer().resetPassword(
