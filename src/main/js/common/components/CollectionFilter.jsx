@@ -19,14 +19,12 @@ var FilterBar = React.createClass({
 	},
 
 
-	getItemCount: function(filtername) {
-		var filter = this.props.filters[filtername];
+	getItemCount: function(filter) {
 		if(filter && this.props.list.filter) {
-			return this.props.list.filter(filter).length;
+			return this.props.list.filter(filter.filter).length;
 		}
 		return 0;
 	},
-
 
 	render: function() {
 		return (
@@ -39,24 +37,28 @@ var FilterBar = React.createClass({
 
 
 	renderFilterBar: function () {
-		var filters = this.props.filters || {};
-		return Object.keys(filters).length === 0 ? null : (
+		var filters = this.props.filters || [];
+		return filters.length === 0 ? null : (
 			<ul className="button-group filters">
-				{Object.keys(filters).map(this.renderFilterLink)}
+				{filters.map(this.renderFilterLink)}
 			</ul>
 		);
 	},
 
 
-	renderFilterLink: function(filtername) {
-		var isActive = this.props.filtername === filtername.toLowerCase();
+	renderFilterLink: function(filter) {
+		var {name, path} = filter;
+
+		var propsFilter = this.props.filter;
+
+		var isActive = propsFilter.path === filter.path || propsFilter.name === filter.name; // this.props.filtername.toLowerCase() === name.toLowerCase();
 
 		return (
-			<li key={filtername} className={isActive ? 'active' : null}>
-				<Link className="tiny button" href={'/' + filtername.toLowerCase()}>
-					<span className="filtername">{filtername}</span>
+			<li key={name} className={isActive ? 'active' : null}>
+				<Link className="tiny button" href={'/' + path}>
+					<span className="filtername">{name}</span>
 					{' '/*preserves the space between spans*/}
-					<span className="count">{this.getItemCount(filtername)}</span>
+					<span className="count">{this.getItemCount(filter)}</span>
 				</Link>
 			</li>
 		);
@@ -91,7 +93,7 @@ var FilterableView = React.createClass({
 		}
 
 		var selectedFilter = this.props.filters[fname];
-		return selectedFilter ? list.filter(selectedFilter) : list;
+		return selectedFilter ? list.filter(selectedFilter.filter) : list;
 	},
 
 	render: function() {
@@ -115,27 +117,26 @@ var DefaultPath = React.createClass({
 	mixins: [Router.NavigatableMixin],
 
 	_navigateToDefaultFilter: function() {
-		var filterName = this._defaultFilterName();
-		if (filterName) {
-			this.navigate('/' + filterName.toLowerCase(), {replace: true});
+		var path = this._defaultFilterPath();
+		if (path) {
+			this.navigate('/' + path, {replace: true});
 		}
 	},
 
 	/**
-	 *	Returns the name first filter that doesn't result in an emtpy list,
+	 *	Returns the path of the first filter that doesn't result in an emtpy list,
 	 *	or the first filter if all result in empty lists,
 	 *	or null if this.props.filters.length === 0
 	 */
-	_defaultFilterName: function() {
+	_defaultFilterPath: function() {
 		if (this.props.defaultFilter) {
 			return this.props.defaultFilter;
 		}
-		var filterNames = Object.keys(this.props.filters||{});
-		var result = filterNames.length > 0 ? filterNames[0] : null;
-		filterNames.some(function(name) {
-			var filter = this.props.filters[name];
-			if (this.props.list.filter(filter).length > 0) {
-				result = name;
+		var filters = this.props.filters||[];
+		var result = filters.length > 0 ? filters[0].path : null;
+		filters.some(function(filter) {
+			if (this.props.list.filter(filter.filter).length > 0) {
+				result = filter.path || filter.name.toLowerCase();
 				return true;
 			}
 			return false;
@@ -143,7 +144,6 @@ var DefaultPath = React.createClass({
 
 		return result;
 	},
-
 
 	componentDidUpdate: function() {
 		if(this.getPath() === '/') {
@@ -212,7 +212,7 @@ var Filter = React.createClass({
 		var filters = this.props.filters;
 		var list = this.props.list;
 
-		if(!filters || Object.keys(filters).length === 0) {
+		if(!filters || filters.length === 0) {
 			//console.debug('No filters. Returning list view.');
 			return cloneWithProps(this.props.children, {list: list});
 		}
@@ -231,13 +231,19 @@ var Filter = React.createClass({
 		var filters = this.props.filters;
 		var title = this.props.title;
 
+
+		console.group('Collection Filter Routes:');
 		var routes = Object.keys(filters).map(function(filtername) {
-			var filterpath = filtername.toLowerCase();
+			var filter = filters[filtername];
+			var filterpath = filter.path || filtername.toLowerCase();
+			console.debug(filterpath, filter);
 			return (
 				<Location
 					key={filterpath}
-					path={'/' + filterpath}
-					filtername={filterpath}
+					path={filterpath}
+					filter={filter}
+					filtername={filtername}
+					filterpath={filterpath}
 					handler={FilterableView}
 					list={list}
 					listcomp={cloneWithProps(listComp, {list: list})}
@@ -246,7 +252,7 @@ var Filter = React.createClass({
 				/>
 			);
 		});
-
+		console.groupEnd();
 		routes.push(
 			<DefaultRoute
 				key="default"
@@ -256,6 +262,21 @@ var Filter = React.createClass({
 				defaultFilter={this.props.defaultFilter}
 				/>
 			);
+
+		// optional route handler mounted after the filter segment in the url: collection/filter/child/
+		if (this.props.childHandler) {
+			var path = '/:filterpath/:'.concat(this.props.childPropName||'child', '/*');
+			routes.push(
+				<Location
+					path={path}
+					key="default"
+					handler={this.props.childHandler}
+					filters={this.props.filters}
+					list={list}
+					defaultFilter={this.props.defaultFilter}
+					/>
+				);	
+		}
 
 		return routes;
 	},

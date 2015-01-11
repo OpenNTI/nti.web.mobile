@@ -23,8 +23,8 @@ module.exports = React.createClass({
 	render: function() {
 
 		var tabs = Object.keys(this.props.groups||{}).map(groupName => {
-			var href = ['/d', groupName, ''].join('/');
-			return <ActiveLink href={href} key={groupName} className="item"><label>{groupName}</label></ActiveLink>;
+			var href = ['', groupName, ''].join('/');
+			return <ActiveLink href={href} key={href} className="item"><label>{groupName}</label></ActiveLink>;
 		});
 
 		var cssClass = ['icon-bar', (_numbers[tabs.length]||'unknown').concat('-up')].join(' ');

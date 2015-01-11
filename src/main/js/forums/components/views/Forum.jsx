@@ -14,6 +14,7 @@ var List = require('../List');
 var Loading = require('common/components/Loading');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var NavUp = require('../NavUp');
+var TabBar = require('../GroupsTabBar');
 
 module.exports = React.createClass({
 
@@ -67,6 +68,7 @@ module.exports = React.createClass({
 
 		return (
 			<nav className="forum">
+				<TabBar groups={this.props.discussions}/>
 				<NavUp />
 				<List container={container} className="forum-topics" />
 			</nav>
