@@ -49,10 +49,13 @@ var PaymentSuccess = React.createClass({
 	},
 
 	render: function() {
-		var attempt = this.state.purchaseAttempt;
-		var isGift = (attempt || {}).RedemptionCode;
+		var {purchaseAttempt} = this.state;
+		var {purchasable} = this.props;
+		var title = (purchasable || {}).Title || '[Course Title]';
 
-		if (!attempt) {
+		var isGift = (purchaseAttempt || {}).RedemptionCode;
+
+		if (!purchaseAttempt) {
 			return <ErrorWidget error="No data"/>;
 		}
 
@@ -60,11 +63,11 @@ var PaymentSuccess = React.createClass({
 			<div>
 				{isGift ?
 					<GiftSuccess
-						purchasable={this.props.purchasable}
-						purchaseattempt={attempt}
+						purchasable={purchasable}
+						purchaseattempt={purchaseAttempt}
 						onDone={this.props.onDone}
 						doneLink={this.props.giftDoneLink} /> :
-					<EnrollmentSuccess courseTitle={this.props.purchasable.Title} />
+					<EnrollmentSuccess courseTitle={title} />
 				}
 			</div>
 		);
