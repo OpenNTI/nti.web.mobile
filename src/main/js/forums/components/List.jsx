@@ -9,7 +9,7 @@ module.exports = React.createClass({
 
 	propTypes: {
 		container: React.PropTypes.shape({
-			items: React.PropTypes.array
+			Items: React.PropTypes.array
 		}).isRequired
 	},
 
@@ -21,6 +21,7 @@ module.exports = React.createClass({
 		var {Items} = this.props.container;
 		var keyFor = this.props.keyFn || this.keyFor;
 		var {itemProps} = this.props;
+
 		return (
 			<ul {...this.props}>
 				{Items.map((item, index)=>{
