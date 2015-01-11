@@ -68,7 +68,7 @@ module.exports = function(req, scriptFilename, clientConfig) {
 			global.$AppConfig = cfg;
 			css = styleCollector.collect(function() {
 				/* jshint -W064 */ // -- This will be fixed in React 0.12
-				html = React.renderComponentToString(Application({
+				html = React.renderToString(React.createElement(Application, {
 					path: Path.join(cfg.basepath || '', path),
 					basePath: common.config().basepath
 				}));
