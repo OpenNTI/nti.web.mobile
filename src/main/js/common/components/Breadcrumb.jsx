@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
-var ActiveState = require('common/components/ActiveState');
+var ActiveState = require('./ActiveState');
 
 module.exports = React.createClass({
 	displayName: 'Breadcrumb',

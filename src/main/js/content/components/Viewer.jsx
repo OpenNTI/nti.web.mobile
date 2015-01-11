@@ -16,7 +16,7 @@ var Loading = require('common/components/Loading');
 var Pager = require('common/components/Pager');
 
 var Widgets = require('./widgets');
-var Breadcrumb = require('./Breadcrumb');
+var Breadcrumb = require('common/components/Breadcrumb');
 
 
 var Store = require('../Store');
