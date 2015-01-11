@@ -10,7 +10,7 @@ var Api = require('../../Api');
 var Store = require('../../Store');
 var Constants = require('../../Constants');
 
-var List = require('../List');
+var TopicList = require('../TopicList');
 var Topic = require('./Topic');
 var Post = require('./Post');
 var Loading = require('common/components/Loading');
@@ -69,16 +69,17 @@ module.exports = React.createClass({
 		}
 
 		var container = this.state.contents;
+		var forum = this.state.forum;
 
 		return (
 			<nav className="forum">
 				<TabBar groups={this.props.discussions}/>
 				<NavUp />
+				<div>{forum.title}</div>
 				<Router.Locations contextual>
 					<Location path="/(#nav)"
-						handler={List}
+						handler={TopicList}
 						container={container}
-						className="forum-topics"
 					/>
 					<Location path="/:topicId/(#nav)"
 						handler={Topic}

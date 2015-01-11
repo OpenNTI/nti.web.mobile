@@ -5,6 +5,7 @@ var Constants = require('../../Constants');
 var LoadingInline = require('common/components/LoadingInline');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
+var t = require('common/locale').scoped('FORUMS');
 
 /**
  * For lists of Forums, this is the row item.
@@ -58,21 +59,33 @@ module.exports = React.createClass({
 		return this.getPath().concat(this._href());
 	},
 
+	_renderTopTopics: function() {
+		// List component is passed in as a prop to dodge a circular import (of List).
+		var TopicsComponent = this.props.topicsComponent;
+		return TopicsComponent ?
+			<TopicsComponent
+				container={{Items:this.state.topTopics}}
+				itemProps={{parentPath: this._getForumPath()}}/> :
+			null;
+	},
+
 	render: function() {
 
 		if (this.state.loading) {
 			return <LoadingInline />;
 		}
 		var {item} = this.props;
-		// List component is passed in as a prop to dodge a circular import (of List).
-		var TopicsComponent = this.props.topicsComponent;
-		var topicList = TopicsComponent && this.state.topTopics.length > 0 ?
-			<TopicsComponent container={{Items:this.state.topTopics}} itemProps={{parentPath: this._getForumPath()}}/> :
-			null;
+		var topicCount = t('topicCount', { count: item.TopicCount });
+		
 		return (
 			<div className="forum-item">
-				<h3><a href={this._href()}>{item.title}</a></h3>
-				{topicList}
+				<h3>
+					<a className="title" href={this._href()}>
+						{item.title} <span className="topic-count">({topicCount})</span>
+					</a>
+					<a className="see-all" href={this._href()}>See All</a>
+				</h3>
+				{this._renderTopTopics()}
 			</div>
 		);
 	}

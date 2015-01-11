@@ -6,6 +6,7 @@
 
 var React = require('react/addons');
 var List = require('../List');
+var TopicList = require('../TopicList');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 
 module.exports = React.createClass({
@@ -19,11 +20,11 @@ module.exports = React.createClass({
 		}
 
 		var itemProps = {
-			topicsComponent: List // passing in the component to avoid a circular import of List
+			topicsComponent: TopicList // passing in the component to avoid a circular import of List
 		};
 
 		return (
-			<List container={{Items: list}} itemProps={itemProps} />
+			<List container={{Items: list}} className="forum-list" itemProps={itemProps} />
 		);
 	},
 

@@ -5,17 +5,32 @@
 		margin: 0;
 	}
 	nav.forum {
+		.forum-item {
+			h3 {
+				// text-transform: uppercase;
+				// font-size: 1rem;
+				// font-weight: bold;	
+			}
+		}
 		ul.forum-topics {
+			border-top:1px solid $panel-border-color;
 			li {
-				@include panel;
 				padding:0;
+				border:1px solid transparent;
+				border-bottom-color: $panel-border-color;
 				a {
 					display: block;
 					padding: $panel-padding;
+					padding-left: .75rem;
+					color: $body-font-color;
 					position: relative;
 					.title {
 						display: inline-block;
 						max-width: 99%; // leave room for the arrow
+					}
+					.activity {
+						font-size: .75rem;
+						margin-top:.5rem;
 					}
 				}
 			}
