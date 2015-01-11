@@ -84,11 +84,13 @@ module.exports = React.createClass({
 		var status = unanswered ? 'incomplete' : 'complete';
 		var busy = Store.getBusyState(assessment);
 		var error = Store.getError(assessment);
+		var savePoint = busy === Constants.BUSY.SAVEPOINT;
 
 		busy = (busy === Constants.BUSY.SUBMITTING || busy === Constants.BUSY.LOADING);
 
 		return (
 			<div>
+				{savePoint && this.renderSavePointNotice()}
 				<div className={'set-submission ' + status}>
 					{!error ? null : (
 						<div className="error">
@@ -102,6 +104,13 @@ module.exports = React.createClass({
 
 				{!busy ? null : <Loading message="Please Wait" maskScreen={true}/>}
 			</div>
+		);
+	},
+
+
+	renderSavePointNotice () {
+		return (
+			<div className="saving-progress">Saving Progress</div>
 		);
 	}
 });

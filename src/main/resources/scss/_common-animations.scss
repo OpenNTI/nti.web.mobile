@@ -25,3 +25,13 @@
 	from { @include transform(rotate(0deg));}
 	to { @include transform(rotate(359deg));}
 }
+
+@include keyframes(slideDown) {
+	0% {
+		@include transform(translate3d(0, -2000px, 0));
+	}
+
+	100% {
+		@include transform(transform);
+	}
+}

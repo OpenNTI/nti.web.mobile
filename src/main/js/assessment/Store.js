@@ -17,6 +17,8 @@ var Constants = require('./Constants');
 var Api = require('./Api');
 var Utils = require('./Utils');
 
+var savepointDelay;
+
 var assignmentHistoryItems = {};
 var assessed = {};
 var data = {};
@@ -317,14 +319,21 @@ function onInteraction(part, value) {
 	Store.clearError(part);
 
 
+	saveProgress(part);
+}
 
+function saveProgress(part) {
+	clearTimeout(savepointDelay);
+	savepointDelay = setTimeout(()=>{
 	markBusy(part, Constants.BUSY.SAVEPOINT);
+		Store.emitChange();
 	Api.saveProgress(part)
 		.catch(emptyFunction)//handle errors
-		.then(function() {
+		.then(() => {
 			markBusy(part, false);
 			Store.emitChange();
 		});
+	}, 1000);
 }
 
 
