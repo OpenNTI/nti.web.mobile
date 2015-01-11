@@ -11,16 +11,6 @@ var Store = require('../Store');
 var Api = require('../Api');
 var Constants = require('../Constants');
 
-// var RootView = require('./views/RootView');
-// var Bins = require('./views/Bins');
-// var TabBar = require('./GroupsTabBar');
-
-// var Group = require('./views/Group');
-// var Board = require('./views/Board');
-// var Forum = require('./views/Forum');
-// var Topic = require('./views/Topic');
-// var Post = require('./views/Post');
-
 var Bin = require('./views/Bin');
 var Redirect = require('navigation/components/Redirect');
 
