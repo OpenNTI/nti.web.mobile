@@ -45,7 +45,7 @@ React.initializeTouchEvents(true);
 
 var AppView = React.createFactory(require('./AppView'));
 var app = React.render(
-	AppView({basePath: Utils.getBasePath() || '/'}),
+	AppView({basePath: (global.$AppConfig || {}).basepath || '/'}),
 	document.getElementById('content')
 );
 

@@ -24,6 +24,21 @@ var AppContainer = require('./AppFrame');
 
 var App = React.createClass({
 
+	propTypes: {
+		basePath: React.PropTypes.string.isRequired
+	},
+
+	childContextTypes: {
+		basePath: React.PropTypes.string
+	},
+
+	getChildContext () {
+		return {
+			basePath: this.props.basePath
+		};
+	},
+
+
 	_actionHandler: function(payload) {
 		var action = payload.action;
 		switch (action.type) {
