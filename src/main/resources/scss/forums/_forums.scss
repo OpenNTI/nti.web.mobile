@@ -31,6 +31,10 @@
 					.activity {
 						font-size: .75rem;
 						margin-top:.5rem;
+						.replies, .likes {
+							display: inline;
+							margin-right:.5rem;
+						}
 					}
 				}
 			}

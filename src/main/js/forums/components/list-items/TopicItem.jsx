@@ -2,6 +2,7 @@
 
 var React = require('react/addons');
 var Constants = require('../../Constants');
+var DisplayName = require('common/components/DisplayName');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var Link = require('react-router-component').Link;
 var t = require('common/locale').scoped('FORUMS');
@@ -29,7 +30,9 @@ module.exports = React.createClass({
 			<Link className="topic-link" href={this._href(item)}>
 				<div><span className="title">{item.title}</span></div>
 				<div className="activity">
-					<div className="newest">{item.NewestDescendant.Creator} replied 6 days ago </div>
+					<div className="newest">
+						<DisplayName username={item.NewestDescendant.Creator} /> <span>replied 6 days ago</span>
+					</div>
 					<div className="replies">{t('replies', {count: item.PostCount})}</div>
 					<div className="likes">{t('likes', {count: item.LikeCount})}</div>
 				</div>
