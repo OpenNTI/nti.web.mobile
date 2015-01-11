@@ -10,8 +10,7 @@ module.exports = React.createClass({
 		return (
 			<div className="unknown solution">
 
-				<h4>This solution type is currently not available on mobile.<br/>
-				Please use the iPad app or your desktop browser.</h4>
+				<h4>This solution type is currently not available on mobile.  Please use the iPad app or your desktop browser.</h4>
 
 			</div>
 		);
