@@ -158,15 +158,26 @@ var DefaultPath = React.createClass({
 		return result;
 	},
 
+
+	_safeToNav () {
+		var p = this.getPath() || '';
+		// if the current path is at the contextual root or
+		// does not match a filter. "Does not match" means:
+		//	path is deeper than just '/'
+		//	But to prevent a runaway redirect, we bail if the path is deeper than 2 segments.
+		return p === '/' || p.split('/').length < 3;
+	},
+
+
 	componentDidUpdate: function() {
-		if(this.getPath() === '/') {
+		if(this._safeToNav()) {
 			this._navigateToDefaultFilter();
 		}
 	},
 
 
 	componentDidMount: function() {
-		if(this.getPath() === '/') {
+		if(this._safeToNav()) {
 			this._navigateToDefaultFilter();
 		}
 	},
