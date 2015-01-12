@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
+var Transition = React.addons.CSSTransitionGroup;
 
 var _t = require('common/locale').scoped('ASSESSMENT');
 
@@ -90,7 +91,9 @@ module.exports = React.createClass({
 
 		return (
 			<div>
-				{savePoint && this.renderSavePointNotice()}
+				<Transition transitionName="savepoint">
+					{savePoint && this.renderSavePointNotice()}
+				</Transition>
 				<div className={'set-submission ' + status}>
 					{!error ? null : (
 						<div className="error">
@@ -110,7 +113,7 @@ module.exports = React.createClass({
 
 	renderSavePointNotice () {
 		return (
-			<div className="saving-progress">Saving Progress</div>
+			<div className="saving-progress" key="savepoint">Saving Progress</div>
 		);
 	}
 });

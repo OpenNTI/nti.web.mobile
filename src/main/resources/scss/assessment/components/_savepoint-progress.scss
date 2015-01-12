@@ -14,8 +14,6 @@
 	font-size: 0.8rem;
 	box-shadow: 0 0 2rem 0 rgba(0,0,0,0.4);
 
-	@include animation('slideDown .7s cubic-bezier(0, 1, 0.5, 1) 0s');
-
 	&::after {
 		left: 100%;
 		@include transform(translateX(-1.8em));
@@ -27,6 +25,16 @@
 		@include animation('loadingellipse 1s infinite linear');
 	}
 }
+
+
+.savepoint-enter {
+	@include animation('slideDown .7s cubic-bezier(0, 1, 0.5, 1) 0s');
+}
+
+.savepoint-leave {
+	@include animation('fadeOutUp 1s cubic-bezier(0, 1, 0.5, 1) .5s');
+}
+
 
 @include keyframes(loadingellipse) {
 	25% {width: 0; }
