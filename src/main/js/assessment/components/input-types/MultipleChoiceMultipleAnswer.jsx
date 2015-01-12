@@ -17,7 +17,10 @@ module.exports = React.createClass({
 	mixins: [Mixin],
 
 	statics: {
-		inputType: 'MultipleChoiceMultipleAnswer'
+		inputType: [
+			'MultipleChoiceMultipleAnswer',
+			'RandomizedMultipleChoiceMultipleAnswer'
+		]
 	},
 
 	render () {
