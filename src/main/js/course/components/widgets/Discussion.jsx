@@ -113,8 +113,17 @@ module.exports = React.createClass({
 		return path.join(forumHref, topicId) + '/'; 
 	},
 
+	_getBoardFor (o) {
+		var course = this.props.course || {};
+		var {Discussions, ParentDiscussions} = course;
+
+		return [Discussions, ParentDiscussions].map(x=>x && x.href)
+			.reduce((found, url)=>
+				found || (url && o.href.indexOf(url) !== -1 && url), null);
+	},
+
 	getForumHref: function(o) {
-		var discussions = (this.props.course||{}).Discussions;
+		var discussions = this._getBoardFor(o);
 		if(!discussions) {
 			return null;
 		}
