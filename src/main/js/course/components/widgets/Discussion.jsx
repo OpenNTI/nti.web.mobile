@@ -94,21 +94,34 @@ module.exports = React.createClass({
 
 	fillInDataFrom: function(o) {
 		if (this.isMounted()) {
+			var commentType = o.hasOwnProperty('TopicCount') ? ' Discussions' : ' Comments';
 			this.setState({
 				title: o.title,
 				count: o.PostCount || o.TopicCount || 0,
-				commentType: o.hasOwnProperty('TopicCount') ? ' Discussions' : ' Comments',
-				href: this.getHref(o)
+				commentType: commentType,
+				href: commentType === ' Comments' ? this.getTopicHref(o) : this.getForumHref(o)
 			});
 		}
 	},
 
-	getHref: function(o) {
-		var bin = 'jump';
-		var boardId = NTIID.encodeForURI(this.props.course.Discussions.getID());
-		var forumId = NTIID.encodeForURI(o.ContainerId);
+	getTopicHref: function(o) {
+		var forumHref = this.getForumHref(o);
+		if(!forumHref) {
+			return null;
+		}
 		var topicId = NTIID.encodeForURI(o.NTIID);
-		var h = path.join('d', bin, boardId, forumId, topicId) + '/'; 
+		return path.join(forumHref, topicId) + '/'; 
+	},
+
+	getForumHref: function(o) {
+		var discussions = (this.props.course||{}).Discussions;
+		if(!discussions) {
+			return null;
+		}
+		var bin = 'jump';
+		var boardId = NTIID.encodeForURI(discussions.getID());
+		var forumId = NTIID.encodeForURI(o.ContainerId||o.NTIID);
+		var h = path.join('d', bin, boardId, forumId) + '/'; 
 		return this.makeHref(h);
 	},
 
