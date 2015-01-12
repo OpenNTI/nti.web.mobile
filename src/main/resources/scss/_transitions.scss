@@ -1,5 +1,8 @@
 
 @mixin transition($prop) {
+	@if str-index($prop, transform) {
+		@error "This mixin cannot handle the specialcase of transform";
+	}
 	-webkit-transition: #{$prop};
 	-o-transition: #{$prop};
 	transition: #{$prop};
@@ -48,7 +51,8 @@
 
 .loginforms-enter {
 	opacity: 0.01;
-	@include transition('-webkit-transform .25s ease-out, transform .25s ease-out, opacity .25s ease-out');
+	-webkit-transition: -webkit-transform .25s ease-out, opacity .25s ease-out;
+	transition: transform .25s ease-out, opacity .25s ease-out;
 	width:100%;
 	top: 0;
 	position: absolute;
@@ -57,15 +61,13 @@
 
 .loginforms-enter.loginforms-enter-active {
 	opacity: 1;
-	width:100%;
-	position: absolute;
-	top:0;
 	@include transform(translate3d(0,0,0));
 }
 
 .loginforms-leave {
 	opacity: 1;
-	@include transition('-webkit-transform .25s ease-out, transform .25s ease-out, opacity .25s ease-out');
+	-webkit-transition: -webkit-transform .25s ease-out, opacity .25s ease-out;
+	transition: transform .25s ease-out, opacity .25s ease-out;
 	width:100%;
 	top: 0;
 	position: absolute;
@@ -74,14 +76,12 @@
 
 .loginforms-leave.loginforms-leave-active {
 	opacity: 0.01;
-	width:100%;
-	position: absolute;
-	top:0;
 	@include transform(translate3d(0,1rem,0));
 }
 
 .loginforms {
-	@include transition('-webkit-transform .25s ease-out, transform .25s ease-out, opacity .25s ease-out');
+	-webkit-transition: -webkit-transform .25s ease-out, opacity .25s ease-out;
+	transition: transform .25s ease-out, opacity .25s ease-out;
 }
 
 .loginformswrapper {
