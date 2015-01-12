@@ -18,6 +18,8 @@ module.exports = Object.assign(exports,
 		FORUM_CONTENTS_CHANGED: null,
 		TOPIC_CONTENTS_CHANGED: null,
 		OBJECT_LOADED: null,
-		OBJECT_CONTENTS_LOADED: null
+		OBJECT_CONTENTS_LOADED: null,
+		GET_COMMENT_REPLIES: null,
+		GOT_COMMENT_REPLIES: null
 	})
 );

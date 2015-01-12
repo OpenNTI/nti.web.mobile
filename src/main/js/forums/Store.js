@@ -90,9 +90,26 @@ function dataOrError(data) {
 	return data;
 }
 
+function getCommentReplies(comment) {
+	if(!comment || !comment.getReplies) {
+		console.warn('Can\'t get replies from %O', comment);
+		return;
+	}
+	comment.getReplies().then(replies => {
+		Store.emitChange({
+			type: Constants.GOT_COMMENT_REPLIES,
+			comment: comment,
+			replies: replies
+		});
+	});
+}
+
 Store.appDispatch = AppDispatcher.register(function(payload) {
 	var action = payload.action;
 	switch(action.type) {
+		case Constants.GET_COMMENT_REPLIES:
+			getCommentReplies(action.comment);
+			break;
 		default:
 			return true;
 	}
