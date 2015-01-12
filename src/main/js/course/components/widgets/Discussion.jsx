@@ -93,24 +93,25 @@ module.exports = React.createClass({
 
 
 	fillInDataFrom: function(o) {
+		var isForum = o.hasOwnProperty('TopicCount');
 		if (this.isMounted()) {
-			var commentType = o.hasOwnProperty('TopicCount') ? ' Discussions' : ' Comments';
+
 			this.setState({
 				title: o.title,
 				count: o.PostCount || o.TopicCount || 0,
-				commentType: commentType,
-				href: commentType === ' Comments' ? this.getTopicHref(o) : this.getForumHref(o)
+				commentType: isForum ? ' Discussions' : ' Comments',
+				href: isForum ? this.getTopicHref(o) : this.getForumHref(o)
 			});
 		}
 	},
 
-	getTopicHref: function(o) {
+	getTopicHref (o) {
 		var forumHref = this.getForumHref(o);
 		if(!forumHref) {
 			return null;
 		}
 		var topicId = NTIID.encodeForURI(o.NTIID);
-		return path.join(forumHref, topicId) + '/'; 
+		return path.join(forumHref, topicId) + '/';
 	},
 
 	_getBoardFor (o) {
@@ -121,15 +122,19 @@ module.exports = React.createClass({
 				found || (board && o.href.indexOf(board.href) !== -1 && board.getID()), null);
 	},
 
-	getForumHref: function(o) {
+	getForumHref (o) {
 		var discussions = this._getBoardFor(o);
 		if(!discussions) {
 			return null;
 		}
+
 		var bin = 'jump';
+		var isForum = o.hasOwnProperty('TopicCount');
+
 		var boardId = NTIID.encodeForURI(discussions);
-		var forumId = NTIID.encodeForURI(o.ContainerId||o.NTIID);
-		var h = path.join('d', bin, boardId, forumId) + '/'; 
+		var forumId = NTIID.encodeForURI(isForum ? o.NTIID : o.ContainerId);
+
+		var h = path.join('d', bin, boardId, forumId) + '/';
 		return this.makeHref(h);
 	},
 
