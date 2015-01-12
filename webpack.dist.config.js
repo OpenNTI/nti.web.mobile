@@ -33,7 +33,7 @@ e[0].plugins = [
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-    //new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
     new AppCachePlugin({
         cache: [
             'page.html',
