@@ -24,7 +24,10 @@ var Topics = React.createClass({
 		return (
 			<div>
 				<Breadcrumb contextProvider={this.__getContext} />
-				<TopicList {...this.props} />
+				<section>
+					<h1>Topics</h1>
+					<TopicList {...this.props} />
+				</section>
 			</div>
 		);
 	}

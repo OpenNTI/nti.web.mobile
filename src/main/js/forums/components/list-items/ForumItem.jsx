@@ -75,15 +75,16 @@ module.exports = React.createClass({
 			return <LoadingInline />;
 		}
 		var {item} = this.props;
-		var topicCount = t('topicCount', { count: item.TopicCount });
+		// var topicCount = t('topicCount', { count: item.TopicCount });
 		
 		return (
 			<div className="forum-item">
 				<h3>
 					<a className="title" href={this._href()}>
-						{item.title} <span className="topic-count">({topicCount})</span>
+						{item.title}
+						<span className="see-all count" href={this._href()}>{t('topicCount', {count: item.TopicCount})}</span>
+						<span className="arrow-right"/>
 					</a>
-					<a className="see-all" href={this._href()}>See All</a>
 				</h3>
 				{this._renderTopTopics()}
 			</div>

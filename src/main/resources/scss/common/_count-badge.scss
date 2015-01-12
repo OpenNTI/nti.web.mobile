@@ -1,0 +1,16 @@
+@mixin metadata() {
+	background: rgba(0,0,0,0.2);
+	border-radius:2px;
+	color:white;
+}
+
+
+@mixin count-badge() {
+	@include metadata();		
+	padding:.2em .5em;
+	margin-left:.25em;
+	display: inline-block;
+	font-family: $count-badge-font-family;
+	font-weight: bold;
+	margin-right:-.25em;
+}

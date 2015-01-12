@@ -49,7 +49,10 @@ module.exports = React.createClass({
 		return (
 			<nav className="forum">
 				<Breadcrumb contextProvider={this.__getContext} />
-				{this._renderList()}
+				<section>
+					<h1>Forums</h1>
+					{this._renderList()}
+				</section>
 			</nav>
 		);
 	}

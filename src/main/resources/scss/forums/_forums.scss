@@ -4,12 +4,43 @@
 		list-style-type: none;
 		margin: 0;
 	}
+
+	section {
+		margin-top:1rem;
+		h1 {
+			font-size: 1rem;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+	}
+
+	.forum-list {
+		& > li {
+			border: 1px solid $panel-border-color;
+			padding: 1rem;
+			margin-bottom: 1rem;
+		}
+	}
+
 	nav.forum {
 		.forum-item {
 			h3 {
 				// text-transform: uppercase;
 				// font-size: 1rem;
-				// font-weight: bold;	
+				// font-weight: bold;
+				position: relative;
+				.title {
+					display: block;
+				}
+			}
+			.see-all.count {
+				@include count-badge();
+				font-size:.6875rem;
+				position: absolute;
+				right: 3em;
+				top: 50%;
+				margin-top: -1em;
+				text-transform: uppercase;
 			}
 		}
 		ul.forum-topics {
@@ -31,6 +62,9 @@
 					.activity {
 						font-size: .75rem;
 						margin-top:.5rem;
+						.username {
+							margin-right:.25em;
+						}
 						.replies, .likes {
 							display: inline;
 							margin-right:.5rem;
