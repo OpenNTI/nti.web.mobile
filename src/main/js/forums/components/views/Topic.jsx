@@ -90,7 +90,7 @@ module.exports = React.createClass({
 			<div>
 				<Breadcrumb contextProvider={this.__getContext}/>
 				<h1>{topic.headline.title}</h1>
-				<div>{topic.headline.body}</div>
+				<div className="body" dangerouslySetInnerHTML={{__html: topic.headline.body}}/>
 				<TopicComments container={contents} />
 			</div>
 		);

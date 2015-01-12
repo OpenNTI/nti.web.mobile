@@ -6,7 +6,7 @@
 
 var React = require('react/addons');
 var Constants = require('../../Constants');
-// var Avatar = require('common/components/Avatar');
+var Avatar = require('common/components/Avatar');
 var DateTime = require('common/components/DateTime');
 var DisplayName = require('common/components/DisplayName');
 var Actions = require('../../Actions');
@@ -73,7 +73,7 @@ var PostItem = React.createClass({
 		if (!this.state.displayReplies) {
 			return;
 		}
-		var items = (this.state.replies||{}).Items || [];
+		var items = (this.state.replies||[]);
 		return items.map(reply => {
 			return <PostItem {...this.props} key={reply.ID} item={reply} />;
 		});
@@ -81,19 +81,40 @@ var PostItem = React.createClass({
 
 	render: function() {
 		var {item} = this.props;
+		var createdBy = item.Creator;
+		var createdOn = item.getCreatedTime();
+		var modifiedOn = item.getLastModified();
+		var message = item.body;
+
+		var edited = (Math.abs(modifiedOn - createdOn) > 0);
+		var canEdit = item.hasLink('edit') && false;
 
 		return (
-			<div className="reply">
-				{/*<Avatar username={item.Creator} width="32" height="32"/>*/}
-				<div className="body" dangerouslySetInnerHTML={{__html: item.body}}/>
-				<div className="activity">
-					<DisplayName username={item.Creator}/>
-					<DateTime date={item.created} relative={true} />
+			<div className="feedback item">
+				<Avatar username={createdBy} className="avatar"/>
+				<div className="wrap">
+					<div className="meta">
+						<DisplayName username={createdBy} className="name"/>
+						<DateTime date={createdOn} relative={true}/>
+					</div>
+					<div className="message">
+						<div dangerouslySetInnerHTML={{__html: message}}/>
+						{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
+					</div>
 					<div onClick={this._toggleReplies}>{item.ReferencedByCount} replies</div>
+				{canEdit &&
+					<div className="footer">
+						<a href="#" className="link edit">Edit</a>
+						<a href="#" className="link delete">Delete</a>
+					</div>
+				}
 				</div>
-				{this._renderReplies()}
+				<div className="replies">
+					{this._renderReplies()}
+				</div>
 			</div>
 		);
+
 	}
 
 });
