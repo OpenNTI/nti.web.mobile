@@ -4,6 +4,13 @@ var React = require('react/addons');
 var ActiveState = require('./ActiveState');
 
 module.exports = React.createClass({
+
+	statics: {
+		noContextProvider: function() {
+			return Promise.resolve([]);
+		}
+	},
+
 	displayName: 'Breadcrumb',
 
 	getInitialState: function() {
@@ -11,7 +18,6 @@ module.exports = React.createClass({
 			context: []
 		};
 	},
-
 
 	componentDidMount: function() {
 		this.maybeUpdateContext(this.props);
