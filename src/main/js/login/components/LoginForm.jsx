@@ -33,6 +33,14 @@ var View = React.createClass({
 	},
 
 
+	componentDidUpdate: function() {
+		var name = this._username();
+		if (name && !this.state.timeoutId) {
+			this._usernameChanged();
+		}
+	},
+
+
 	componentWillUnmount: function() {
 		console.log('LoginView::componentWillUnmount');
 		Store.removeChangeListener(this._onLoginStoreChange);
@@ -110,18 +118,19 @@ var View = React.createClass({
 	/**
 	 * onChange handler for the username field. Triggers Actions.userInputChanged
 	 */
-	_usernameChanged: function(event) {
+	_usernameChanged: function() {
 		clearTimeout(this.state.timeoutId);
-		var timeoutId = global.setTimeout(function() {
-			console.log('timeout, firing userInputChanged: username: %s', this._username());
-			Actions.userInputChanged({
-				credentials: {
-					username: this._username(),
-					password: this._password()
-				},
-				event: event
-			});
-		}.bind(this),_pingDelayMs);
+		var timeoutId = global.setTimeout(()=>{
+				console.log('timeout, firing userInputChanged: username: %s', this._username());
+				Actions.userInputChanged({
+					credentials: {
+						username: this._username(),
+						password: this._password()
+					}
+				});
+			},
+			_pingDelayMs);
+
 		this.setState({timeoutId: timeoutId});
 	},
 
