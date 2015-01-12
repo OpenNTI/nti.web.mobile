@@ -32,7 +32,7 @@ var View = React.createClass({
 	},
 
 	componentDidMount: function() {
-		if(!Store.getDiscussions()) {
+		if(!Store.getDiscussions(this._courseId())) {
 			this.setState({
 				loading: true
 			});
@@ -53,12 +53,18 @@ var View = React.createClass({
 	_storeChanged: function(event) {
 		switch(event.type) {
 			case Constants.DISCUSSIONS_CHANGED:
-				console.debug('discussions changed. setting state loading: false');
-				this.setState({
-					loading: false
-				});
+				if(event.courseId === this._courseId()) {
+					console.debug('discussions changed. setting state loading: false');
+					this.setState({
+						loading: false
+					});	
+				}
 				break;
 		}
+	},
+
+	_courseId: function() {
+		return this.props.course && this.props.course.getID();
 	},
 
 	_defaultBinUri: function(discussions) {
@@ -83,16 +89,17 @@ var View = React.createClass({
 
 	render: function() {
 
-		var discussions = Store.getDiscussions();
+		var course = this.props.course;
+		if (!course) {
+			console.log('No props.course?');
+			return;
+		}
+		var courseId = this._courseId();
+		var discussions = Store.getDiscussions(courseId);
 
 		if (this.state.loading || !discussions) {
 			return <Loading />;
 		}
-
-		var course = this.props.course;
-		var courseId = course.getID();
-
-
 
 		return (
 			<div className="forums-wrapper">

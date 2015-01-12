@@ -7,8 +7,8 @@ var Constants = require('./Constants');
 var _promises = {};
 
 // called when the load promise is resolved or rejected.
-function _discussionsLoaded(result) {
-	Store.setDiscussions(result);
+function _discussionsLoaded(courseId, result) {
+	Store.setDiscussions(courseId, result);
 	return result;
 }
 
@@ -20,13 +20,15 @@ module.exports = {
 		
 		// if not, create one.
 		if (!promise) {
+			var courseId = course.getID();
 			promise = course.getDiscussions()
-				.then(
-					_discussionsLoaded,
+				.then( result => {
+						_discussionsLoaded(courseId, result);
+					},
 					reason => {
 						// don't hang on to a rejected promise; we want to try again next time.
 						delete _promises[course]; 
-						_discussionsLoaded(reason);
+						_discussionsLoaded(courseId, reason);
 					}
 				);
 			// keep this promise around so we're not making redundant calls.

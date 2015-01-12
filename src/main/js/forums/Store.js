@@ -8,7 +8,7 @@ var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
 
 var indexForums = require('./utils/index-forums');
 
-var _discussions;
+var _discussions = {};
 var _forums = {}; // forum objects by id.
 var _forumContents = {};
 var _data = {};
@@ -34,16 +34,17 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	setDiscussions(data) {
-		_discussions = dataOrError(data);
-		_forums = indexForums(_discussions);
+	setDiscussions(courseId, data) {
+		_discussions[courseId] = dataOrError(data);
+		_forums[courseId] = indexForums(_discussions);
 		this.emitChange({
-			type: Constants.DISCUSSIONS_CHANGED
+			type: Constants.DISCUSSIONS_CHANGED,
+			courseId: courseId
 		});
 	},
 
-	getDiscussions() {
-		return _discussions;
+	getDiscussions(courseId) {
+		return _discussions[courseId];
 	},
 
 	getForum(forumId) {
