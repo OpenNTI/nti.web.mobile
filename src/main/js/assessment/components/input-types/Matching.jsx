@@ -59,7 +59,7 @@ module.exports = React.createClass({
 				delete value[x];
 			}
 		});
-		
+
 		value[source] = target;
 		this.setState({value: value}, this.handleInteraction);
 	},
@@ -146,12 +146,13 @@ module.exports = React.createClass({
 	},
 
 
-	renderDropTarget: function (target, index/*, solution*/) {
+	renderDropTarget: function (target, index, solution) {
+
 		return (
 			<DropTarget accepts={this.state.PartLocalDNDToken} className="drop target" key={target} data-target={index}>
 				<input type="hidden"/>
 				<div className="match blank dropzone" data-dnd>
-					{this.renderDroppedDragSource(index)}
+					{this.renderDroppedDragSource(index, solution)}
 				</div>
 				<div className="content" dangerouslySetInnerHTML={{__html: target}}/>
 			</DropTarget>
@@ -159,9 +160,10 @@ module.exports = React.createClass({
 	},
 
 
-	renderDroppedDragSource: function (dropTargetIndex) {
+	renderDroppedDragSource: function (dropTargetIndex, solution) {
 		var terms = this.props.item.labels || [];
 		var value = this.state.value;
+		var correct = '';
 		var dragSourceIndex = Object.keys(value || {})
 			.reduce((x, v)=>x || (value[v]===dropTargetIndex ? parseInt(v, 10) : x), NaN);
 
@@ -169,7 +171,13 @@ module.exports = React.createClass({
 			return null;
 		}
 
-		return this.renderDragSource(terms[dragSourceIndex], dragSourceIndex, 'dropped');
+		if (solution && solution.value) {
+			solution = solution.value;
+
+			correct = solution[dragSourceIndex] === dropTargetIndex ? 'correct' : 'incorrect';
+		}
+
+		return this.renderDragSource(terms[dragSourceIndex], dragSourceIndex, 'dropped '+correct);
 	},
 
 

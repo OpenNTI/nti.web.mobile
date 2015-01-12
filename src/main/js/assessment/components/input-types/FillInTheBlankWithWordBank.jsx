@@ -136,15 +136,22 @@ module.exports = React.createClass({
 		var wid = (this.state.value || {})[input];
 		var {item} = this.props;
 		var entry = item.getWordBankEntry(wid);
+		var correct = '';
 
 		if (!entry) {
 			return null;
 		}
 
 		var locked = Store.isSubmitted(item);
+		var solution = this.getSolution();
+		if (locked && solution && solution.value) {
+			solution = solution.value;
+			correct = solution[input] === wid ? 'correct' : 'incorrect';
+			//console.log(solution[input], input, wid);
+		}
 
 		return (
-			<WordBankEntry entry={entry} className="dropped" data-dropped-on={input} locked={locked}
+			<WordBankEntry entry={entry} className={`dropped ${correct}`} data-dropped-on={input} locked={locked}
 				onReset={(entry, cmp)=>this.onReset(input, entry, cmp)}/>
 		);
 	},
