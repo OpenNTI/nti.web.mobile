@@ -59,7 +59,11 @@ module.exports = React.createClass({
 	},
 
 	_loadData: function(topicId) {
-		Api.getObjectContents(topicId);
+		Api.getObjectContents(topicId, {
+			sortOn: 'CreatedTime',
+			sortOrder: 'ascending',
+			filter: 'TopLevel'
+		});
 	},
 
 	__getContext: function() {

@@ -44,9 +44,9 @@ module.exports = {
 		return me.promise;
 	},
 
-	getObjectContents: function(ntiid) {
+	getObjectContents: function(ntiid, params) {
 		return this.getObject(ntiid).then(object => {
-			return object.getContents().then(contents => {
+			return object.getContents(params).then(contents => {
 				Store.emitChange({
 					type: Constants.OBJECT_CONTENTS_LOADED,
 					object: object,
