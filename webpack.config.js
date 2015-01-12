@@ -132,7 +132,7 @@ function includeWidgets(o) {
                 }),
                 new webpack.optimize.OccurenceOrderPlugin(),
                 new webpack.optimize.DedupePlugin(),
-                new webpack.optimize.UglifyJsPlugin(),
+                // new webpack.optimize.UglifyJsPlugin(),
                 new CompressionPlugin({
                     asset: "{file}.gz",
                     algorithm: "gzip",
