@@ -12,7 +12,6 @@ var Constants = require('../../Constants');
 
 var Breadcrumb = require('common/components/Breadcrumb');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var TopicList = require('../TopicList');
 var Topics = require('./Topics');
 var Topic = require('./Topic');
 var Post = require('./Post');

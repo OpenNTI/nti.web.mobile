@@ -11,7 +11,7 @@ var Api = require('../../Api');
 var Constants = require('../../Constants');
 var NTIID = require('dataserverinterface/utils/ntiids');
 
-var List = require('../List');
+var TopicComments = require('../TopicComments');
 
 var Breadcrumb = require('common/components/Breadcrumb');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
@@ -67,7 +67,7 @@ module.exports = React.createClass({
 		var href = this.makeHref(this.getPath());
 		return getContextProvider().then(context => {
 			context.push({
-				label: this.state.topic.headline.title,
+				label: 'Topic', //this.state.topic.headline.title,
 				href: href
 			});
 			return context;
@@ -87,7 +87,7 @@ module.exports = React.createClass({
 				<Breadcrumb contextProvider={this.__getContext}/>
 				<h1>{topic.headline.title}</h1>
 				<div>{topic.headline.body}</div>
-				<List className="forum-replies" container={contents} />
+				<TopicComments container={contents} />
 			</div>
 		);
 	}
