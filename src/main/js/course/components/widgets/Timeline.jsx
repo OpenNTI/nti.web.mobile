@@ -39,7 +39,7 @@ module.exports = React.createClass({
 		var props = Object.assign({}, this.props, {
 			slug: 'timeline',
 			contentPackage: course,
-			internalOverride: true,
+			internalOverride: false,
 			resolveUrlHook: this.prefixJSONWithEmbedURL
 		});
 
