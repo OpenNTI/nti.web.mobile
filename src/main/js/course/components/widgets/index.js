@@ -10,6 +10,7 @@ var Videos = require('./Videos');
 var Card = require('./RelatedWorkRef');
 var Discussion = require('./Discussion');
 var QuestionSet = require('./QuestionSet');
+var Timeline = require('./Timeline');
 
 
 function getItemHandler(item, index, list, props, node) {
@@ -46,6 +47,7 @@ exports = module.exports = {
 	Videos: Videos,
 	Discussion: Discussion,
 	QuestionSet: QuestionSet,
+	Timeline: Timeline,
 
 	Mixin: require('./Mixin')
 

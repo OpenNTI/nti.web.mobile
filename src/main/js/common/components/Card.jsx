@@ -24,6 +24,7 @@ External Links:
 */
 var path = require('path');
 var React = require('react/addons');
+var emptyFunction = require('react/lib/emptyFunction');
 
 var NavigatableMixin = require('../mixins/NavigatableMixin');
 
@@ -60,13 +61,34 @@ module.exports = React.createClass({
 		 *
 		 * @type {Object}
 		 */
-		item: React.PropTypes.object.isRequired
+		item: React.PropTypes.object.isRequired,
+
+		/**
+		 * Allow the parent to force this card to be an "internal" link.
+		 * @type {Boolean}
+		 */
+		internalOverride: React.PropTypes.bool,
+
+		/**
+		 * Allow the parent to have final word on the resolved url.
+		 * The functoin must take one argument, and return a string.
+		 * @type {Function}
+		 */
+		resolveUrlHook: React.PropTypes.func
 	},
 
 
 	getInitialState: function(){
 		return {
 			icon: null
+		};
+	},
+
+
+	getDefaultProps: function() {
+		return {
+			internalOverride: false,
+			resolveUrlHook: emptyFunction.thatReturnsArgument
 		};
 	},
 
@@ -101,9 +123,10 @@ module.exports = React.createClass({
 		this.setState({	href: null });
 
 		props.contentPackage.resolveContentURL(href)
-			.then(function(url) {
+			.then(url=>props.resolveUrlHook(url))
+			.then(url=>{
 				this.setState({ href: url });
-			}.bind(this));
+			});
 	},
 
 
@@ -124,7 +147,9 @@ module.exports = React.createClass({
 
 	isExternal: function(props) {
 		var p = props || this.props;
-		return !isNTIID(p.item.href);
+		var {item, internalOverride} = p;
+
+		return !isNTIID(item.href) && !internalOverride;
 	},
 
 
