@@ -354,6 +354,7 @@ AppDispatcher.register(function(payload) {
 
 	switch(action.type) {
 		case Constants.SUBMIT_BEGIN:
+			clearTimeout(savepointDelay);
 			markBusy(action.assessment, Constants.BUSY.SUBMITTING);
 			break;
 
