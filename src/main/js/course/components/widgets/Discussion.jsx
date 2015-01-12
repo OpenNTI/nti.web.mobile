@@ -100,7 +100,7 @@ module.exports = React.createClass({
 				title: o.title,
 				count: o.PostCount || o.TopicCount || 0,
 				commentType: isForum ? ' Discussions' : ' Comments',
-				href: isForum ? this.getTopicHref(o) : this.getForumHref(o)
+				href: isForum ? this.getForumHref(o) : this.getTopicHref(o)
 			});
 		}
 	},
