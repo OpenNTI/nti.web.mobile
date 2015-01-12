@@ -43,11 +43,12 @@ module.exports = {
 				this.props.course && this.props.course.getID(),
 				(Date.now() - currentResource.loaded)/1000);
 
-		if (event.timeLength > MINIMUM_EVENT_DURATION_SECONDS) {
-			this.props.contextProvider(this.props).then(function(context) {
-				event.setContextPath(context.map(function(item){return item.href;}));
-				Analytics.Actions.emitEvent(Analytics.Constants.VIEWER_EVENT, event);
-			}.bind(this));
+		if (event.getDuration() > MINIMUM_EVENT_DURATION_SECONDS) {
+			this.props.contextProvider(this.props)
+				.then(context => {
+					event.setContextPath(context.map(x=>x.ntiid));
+					Analytics.Actions.emitEvent(Analytics.Constants.VIEWER_EVENT, event);
+				});
 		}
 
 		currentResource = null;
