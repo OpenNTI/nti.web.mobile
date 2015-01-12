@@ -8,9 +8,6 @@ var _promises = {};
 
 // called when the load promise is resolved or rejected.
 function _discussionsLoaded(result) {
-	console.group('discussionsLoaded');
-	console.debug(result);
-	console.groupEnd();
 	Store.setDiscussions(result);
 	return result;
 }
