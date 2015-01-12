@@ -13,12 +13,16 @@ var Constants = require('../Constants');
 
 var Bin = require('./views/Bin');
 var Redirect = require('navigation/components/Redirect');
+var Breadcrumb = require('common/components/Breadcrumb');
+var NavigatableMixin = require('common/mixins/NavigatableMixin');
 
 var Loading = require('common/components/Loading');
 
 var View = React.createClass({
 
 	displayName: 'discussions/View',
+
+	mixins: [NavigatableMixin],
 
 	getInitialState: function() {
 		return {
@@ -64,6 +68,18 @@ var View = React.createClass({
 		return '/loading';
 	},
 
+	__getContext: function() {
+		var getContextFromProvider = Breadcrumb.noContextProvider;
+		var href = this.makeHref('/', true);
+		return getContextFromProvider(this.props).then(function(context) {
+			context.push({
+				label: 'Discussions',
+				href: href
+			});
+			return context;
+		});
+	},
+
 	render: function() {
 
 		var discussions = Store.getDiscussions();
@@ -89,6 +105,7 @@ var View = React.createClass({
 										handler={Bin}
 										discussions={discussions}
 										courseId={courseId}
+										contextProvider={this.__getContext}
 										basePath={this.props.basePath} />
 
 				</Router.Locations>

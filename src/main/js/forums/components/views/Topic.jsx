@@ -12,10 +12,15 @@ var Constants = require('../../Constants');
 var NTIID = require('dataserverinterface/utils/ntiids');
 
 var List = require('../List');
-var UpLink = require('../NavUp');
+
+var Breadcrumb = require('common/components/Breadcrumb');
+var NavigatableMixin = require('common/mixins/NavigatableMixin');
+
 var Loading = require('common/components/Loading');
 
 module.exports = React.createClass({
+
+	mixins: [NavigatableMixin],
 
 	getInitialState: function() {
 		return {
@@ -57,6 +62,18 @@ module.exports = React.createClass({
 		Api.getObjectContents(topicId);
 	},
 
+	__getContext: function() {
+		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
+		var href = this.makeHref(this.getPath());
+		return getContextProvider().then(context => {
+			context.push({
+				label: this.state.topic.headline.title,
+				href: href
+			});
+			return context;
+		});
+	},
+
 	render: function() {
 
 		if (this.state.loading) {
@@ -67,6 +84,7 @@ module.exports = React.createClass({
 
 		return (
 			<div>
+				<Breadcrumb contextProvider={this.__getContext}/>
 				<h1>{topic.headline.title}</h1>
 				<div>{topic.headline.body}</div>
 				<List className="forum-replies" container={contents} />

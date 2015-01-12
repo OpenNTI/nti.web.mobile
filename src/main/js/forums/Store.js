@@ -50,13 +50,6 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		return _forums[forumId];
 	},
 
-	// getTopic(forumId, topicId) {
-	// 	var forum = this.getForum(forumId);
-	// 	console.debug('getTopic has not been implemented. returning the forum temporarily.');
-	// 	return forum;
-	// 	// return forum.getTopic(topicId);
-	// },
-
 	setBoardContents(courseId, boardId, data) {
 		_forumContents[boardId] = dataOrError(data);
 		this.emitChange({

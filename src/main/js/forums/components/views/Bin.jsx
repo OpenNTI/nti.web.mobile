@@ -7,12 +7,20 @@
 var React = require('react/addons');
 var CollectionFilter = require('common/components/CollectionFilter');
 var NTIID = require('dataserverinterface/utils/ntiids');
+var Breadcrumb = require('common/components/Breadcrumb');
+var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var TabBar = require('../GroupsTabBar');
 var Board = require('./Board');
 var Forum = require('./Forum');
 var tt = require('common/locale').scoped('FORUMS.groupTitles');
 
 var Bin = React.createClass({
+
+	mixins: [NavigatableMixin],
+
+	componentDidMount: function() {
+		this.__getContext();
+	},
 
 	_filters: function(bin) {
 		var filters = [];
@@ -39,6 +47,19 @@ var Bin = React.createClass({
 		return forums;
 	},
 
+	__getContext: function() {
+		var {binName} = this.props;
+		var href = this.makeHref('/' + binName + '/', false);
+		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider();
+		return getContextProvider().then(context => {
+			context.push({
+				label: binName,
+				href: href
+			});
+			return context;
+		});
+	},
+
 	render: function() {
 
 		var {discussions, binName} = this.props;
@@ -46,11 +67,17 @@ var Bin = React.createClass({
 		var forums = this._forumList(bin);
 		var filters = this._filters(bin);
 
-		var content = "hi";
+		var content;
+		
 		if (!this.props.forumId) {
 			content = (
-			<CollectionFilter list={forums} filters={filters} childHandler={Forum} childPropName='forumId'>
-				<Board />
+			<CollectionFilter
+				list={forums}
+				filters={filters}
+				childHandler={Forum}
+				childPropName='forumId'
+				contextProvider={this.__getContext}>
+				<Board contextProvider={this.__getContext} />
 			</CollectionFilter>	);
 		}
 

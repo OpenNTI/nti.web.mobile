@@ -93,19 +93,26 @@ var FilterableView = React.createClass({
 		}
 
 		var selectedFilter = this.props.filters[fname];
-		return selectedFilter ? list.filter(selectedFilter.filter) : list;
+		return selectedFilter ? {
+			filter: selectedFilter,
+			list: list.filter(selectedFilter.filter)
+		} :
+		{
+			filter: null,
+			list: list
+		};
 	},
 
 	render: function() {
 
-		var filtered = this.filter(this.props.list);
+		var {filter, list} = this.filter(this.props.list);
 
 		return (
 			<div>
 				<FilterBar {...this.props}/>
-				{filtered.length === 0 ? <NoMatches /> : null}
+				{list.length === 0 ? <NoMatches /> : null}
 				<div>
-					{cloneWithProps(this.props.listcomp, { list: filtered,	omittitle: true	})}
+					{cloneWithProps(this.props.listcomp, { list: list, filter:filter, omittitle: true	})}
 				</div>
 			</div>
 		);
@@ -249,13 +256,14 @@ var Filter = React.createClass({
 					filtername={filtername}
 					filterpath={filterpath}
 					handler={FilterableView}
+					contextProvider={this.props.contextProvider}
 					list={list}
 					listcomp={cloneWithProps(listComp, {list: list})}
 					filters={filters}
 					title={title}
 				/>
 			);
-		});
+		}.bind(this));
 
 		routes.push(
 			<DefaultRoute
@@ -275,6 +283,7 @@ var Filter = React.createClass({
 					path={path}
 					key="default"
 					handler={this.props.childHandler}
+					contextProvider={this.props.childContextProvider||this.props.contextProvider}
 					filters={this.props.filters}
 					list={list}
 					defaultFilter={this.props.defaultFilter}

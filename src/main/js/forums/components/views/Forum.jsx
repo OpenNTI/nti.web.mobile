@@ -10,17 +10,21 @@ var Api = require('../../Api');
 var Store = require('../../Store');
 var Constants = require('../../Constants');
 
+var Breadcrumb = require('common/components/Breadcrumb');
+var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var TopicList = require('../TopicList');
+var Topics = require('./Topics');
 var Topic = require('./Topic');
 var Post = require('./Post');
 var Loading = require('common/components/Loading');
 var NTIID = require('dataserverinterface/utils/ntiids');
-var NavUp = require('../NavUp');
 var TabBar = require('../GroupsTabBar');
 var Router = require('react-router-component');
 var Location = Router.Location;
 
 module.exports = React.createClass({
+
+	mixins: [NavigatableMixin],
 
 	getInitialState: function() {
 		return {
@@ -62,6 +66,23 @@ module.exports = React.createClass({
 		Api.getObjectContents(forumId);
 	},
 
+	__getContext: function() {
+		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
+		var href = this.makeHref([this.props.filterpath, this.props.forumId, ''].join('/'));
+		var section = this.makeHref('../', true);
+		return getContextProvider().then(context => {
+			context.push({
+				label: 'My Section',
+				href: section
+			});
+			context.push({
+				label: this.state.forum.title,
+				href: href
+			});
+			return context;
+		});
+	},
+
 	render: function() {
 
 		if (this.state.loading) {
@@ -69,23 +90,23 @@ module.exports = React.createClass({
 		}
 
 		var container = this.state.contents;
-		var forum = this.state.forum;
 
 		return (
 			<nav className="forum">
 				<TabBar groups={this.props.discussions}/>
-				<NavUp />
-				<div>{forum.title}</div>
 				<Router.Locations contextual>
 					<Location path="/(#nav)"
-						handler={TopicList}
+						handler={Topics}
 						container={container}
+						contextProvider={this.__getContext}
 					/>
 					<Location path="/:topicId/(#nav)"
 						handler={Topic}
+						contextProvider={this.__getContext}
 					/>
 					<Location path="/:topicId/:postId/(#nav)"
 						handler={Post}
+						contextProvider={this.__getContext}
 					/>
 				</Router.Locations>
 			</nav>
