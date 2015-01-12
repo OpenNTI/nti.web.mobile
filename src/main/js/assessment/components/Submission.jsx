@@ -79,8 +79,8 @@ module.exports = React.createClass({
 	render: function() {
 		var assessment = this.props.assessment;
 		var unanswered = Store.countUnansweredQuestions(assessment);
-		var cannotReset = Store.isSubmitted(assessment);
 		var disabled = !Store.canSubmit(assessment);
+		var cannotReset = Store.isSubmitted(assessment) || disabled;
 		var status = unanswered ? 'incomplete' : 'complete';
 		var busy = Store.getBusyState(assessment);
 		var error = Store.getError(assessment);

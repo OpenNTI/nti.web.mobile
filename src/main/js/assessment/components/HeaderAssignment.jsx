@@ -7,6 +7,8 @@ var Store = require('../Store');
 var AssignmentStatusLabel = require('./AssignmentStatusLabel');
 var Grade = require('./Grade');
 
+var TimedPlaceholder = require('./TimedPlaceholder');
+
 var isEmpty = require('dataserverinterface/utils/isempty');
 
 module.exports = React.createClass({
@@ -42,6 +44,12 @@ module.exports = React.createClass({
 	render: function() {
 		var assignment = this.props.assessment;
 		var item = Store.getAssignmentHistoryItem(assignment);
+
+		if (assignment.IsTimedAssignment /*&& !assignment.isStarted()*/) {
+			return (
+				<TimedPlaceholder assignment={assignment}/>
+			);
+		}
 
 		var nonSubmit = assignment.isNonSubmit();
 

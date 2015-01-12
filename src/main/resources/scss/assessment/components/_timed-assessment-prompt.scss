@@ -1,0 +1,140 @@
+.timed-placeholder {
+	font-size: 1rem;
+	margin-left: 0.75rem;
+	margin-right: 0.75rem;
+	overflow: visible;
+	max-height: 800px;
+	min-height: 18rem;
+	height: 90vh;
+
+	.header {
+		position: relative;
+		display: block;
+		font-size: 1.5em;
+		font-weight: 200;
+		border: none;
+		margin-top: 1.1875rem;
+		margin-bottom: 0.5em;
+	}
+
+	& + #NTIContent {
+		display: none;
+	}
+
+	.dialog.window {
+		z-index: 10;
+		top: 40%;
+		left: 50%;
+		box-shadow: 0 0 5em 0 rgba(0, 0, 0, 0.5);
+		@include transform(translate3D(-50%, -50%, 0));
+
+
+		.icon {
+			background-image: url(../images/icons/assignment-timed.png);
+		}
+
+		h1 {
+			color: $secondary-green;
+		}
+
+		.bold {
+			font-weight: 600;
+		}
+
+		.red {
+			font-weight: 500;
+			color: $primary-red;
+		}
+	}
+
+	.fake-questions {
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0; right: 0;
+			height: 40%;
+
+			background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 100%);
+			background: -webkit-linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 100%);
+			background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 100%);
+		}
+
+		.question {
+			background: #fbfbfb;
+			border: 1px solid #e2e2e2;
+			border-radius: 3px;
+			box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.08);
+			margin-bottom: 30px;
+
+			.prompt {
+				background: #ffffff;
+				color: #494949;
+				overflow: hidden;
+				position: relative;
+				padding: 17px 0.75rem 15px;
+
+				.line {
+					height: 2em;
+					margin-bottom: 1em;
+					background-color: #f6f6f6;
+
+					&:last-of-type {
+						margin-bottom: 0;
+					}
+
+					&.long {
+						height: 5em;
+					}
+				}
+			}
+
+			.answer-container {
+				margin: 0;
+				border-radius: 0 0 3px 3px;
+				border: 0px solid #e2e2e2;
+				border-top-width: 1px !important;
+				padding: 20px;
+
+				.answers {
+					position: relative;
+					min-height: 38px;
+					background: #ffffff;
+					border: 1px solid #b8b8b8;
+
+					.answer {
+						position: relative;
+						color: #494949;
+						vertical-align: middle;
+						min-height: 38px;
+						background: #ffffff;
+						border: 0px solid #b8b8b8;
+						border-bottom-width: 1px;
+						padding-left: 54px;
+
+						&:last-of-type {
+							border-bottom-width: 0;
+						}
+
+						&::before {
+							position: absolute;
+							content: url(../images/icons/radio-button-16.png);
+							top: 10px;
+							left: 10px;
+						}
+
+						&::after {
+							content: '';
+							position: absolute;
+							top: 50%;
+							@include transform(translateY(-50%));
+							right: 5px; left: 35px;
+							height: 1.5em;
+							background-color: #f6f6f6;
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,13 +1,17 @@
-.modal .dialog.window {
+.dialog.window {
 	padding-top: 30px;
 	width: 400px; //prefered width
-	max-width: 70vw; //never be wider than 70% of the screen
+	max-width: 95vw;
+	@media screen and (min-width: 400px) {
+		max-width: 70vw;
+	}
 	overflow: hidden;
 	position: absolute;
 	top: 30%;
 	left: 50%;
 	@include transform(translateX(-50%));
 	background: white;
+
 
 	.close {
 		position: absolute !important;
@@ -69,8 +73,12 @@
 
 		h1 {
 			font-family: $body-font-family;
-			font-size: 1.5em;
+			font-size: 1.4em;
 			margin-bottom: 5px;
+
+			@media screen and (min-width: 400px) {
+				font-size: 1.5em;
+			}
 		}
 
 		p {
@@ -161,7 +169,7 @@
 }
 
 
-
+.modal .dialog.window {
 /*
 	&:not(.showing) {
 		.alert-container {
@@ -179,3 +187,4 @@
 		}
 	}
 */
+}
