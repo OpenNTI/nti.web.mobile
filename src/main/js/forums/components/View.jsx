@@ -12,6 +12,7 @@ var Api = require('../Api');
 var Constants = require('../Constants');
 
 var Bin = require('./views/Bin');
+var FindBin = require('./FindBin');
 var Redirect = require('navigation/components/Redirect');
 var Breadcrumb = require('common/components/Breadcrumb');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
@@ -100,6 +101,10 @@ var View = React.createClass({
 										handler={Redirect}
 										location={this._defaultBinUri(discussions)}
 										basePath={this.props.basePath} />
+
+					<Router.Location path="/jump/:boardId/*"
+										discussions={discussions}
+										handler={FindBin} />
 
 					<Router.Location path="/:binName/*(#:nav)"
 										handler={Bin}

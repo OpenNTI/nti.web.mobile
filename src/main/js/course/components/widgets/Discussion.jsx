@@ -2,9 +2,14 @@
 
 var React = require('react/addons');
 var getService = require('common/Utils').getService;
+var path = require('path');
+var NTIID = require('dataserverinterface/utils/ntiids');
+var NavigatableMixin = require('common/mixins/NavigatableMixin');
 
 module.exports = React.createClass({
 	displayName: 'CourseOverviewDiscussion',
+
+	mixins: [NavigatableMixin],
 
 	statics: {
 		mimeTest: /^application\/vnd\.nextthought\.discussion/i,
@@ -92,11 +97,20 @@ module.exports = React.createClass({
 			this.setState({
 				title: o.title,
 				count: o.PostCount || o.TopicCount || 0,
-				commentType: o.hasOwnProperty('TopicCount') ? ' Discussions' : ' Comments'
+				commentType: o.hasOwnProperty('TopicCount') ? ' Discussions' : ' Comments',
+				href: this.getHref(o)
 			});
 		}
 	},
 
+	getHref: function(o) {
+		var bin = 'jump';
+		var boardId = NTIID.encodeForURI(this.props.course.Discussions.getID());
+		var forumId = NTIID.encodeForURI(o.ContainerId);
+		var topicId = NTIID.encodeForURI(o.NTIID);
+		var h = path.join('d', bin, boardId, forumId, topicId) + '/'; 
+		return this.makeHref(h);
+	},
 
 	markDisabled: function() {
 		if (this.isMounted()) {
@@ -117,7 +131,7 @@ module.exports = React.createClass({
 		var disabled = this.state.disabled ? 'disabled' : '';
 
 		return (
-			<a className={'overview-discussion ' + disabled} href="#" onClick={this.onClick}>
+			<a className={'overview-discussion ' + disabled} href={this.state.href||'#'}>
 				<img src={this.state.icon}></img>
 				<div className="wrap">
 					<div className="title">{title}</div>
@@ -125,13 +139,6 @@ module.exports = React.createClass({
 				</div>
 			</a>
 		);
-	},
-
-
-	onClick: function (e) {
-		e.preventDefault();
-		e.stopPropagation();
-		/* global alert */
-		alert('Coming soon to mobile.\nUntil then, please use a desktop or iPad app to access discussions.');
 	}
+
 });
