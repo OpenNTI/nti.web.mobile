@@ -61,7 +61,7 @@ module.exports = React.createClass({
 		});
 
 		value[source] = target;
-		this.setState({value: value}, this.handleInteraction);
+		this.__setValue(value);
 	},
 
 
@@ -81,10 +81,19 @@ module.exports = React.createClass({
 		var source = get('.source', 'data-match');
 		//var target = get('.target', 'data-target');
 
-		var val = Object.assign({}, this.state.value);
+		var val = Object.assign({}, this.state.value || {});
 
 		delete val[source];
-		this.setState({ value: val }, this.handleInteraction);
+		this.__setValue(val);
+	},
+
+
+	__setValue (value) {
+		if (value && Object.keys(value).length === 0) {
+			value = null;
+		}
+
+		this.setState({value: value}, this.handleInteraction);
 	},
 
 
@@ -162,9 +171,9 @@ module.exports = React.createClass({
 
 	renderDroppedDragSource: function (dropTargetIndex, solution) {
 		var terms = this.props.item.labels || [];
-		var value = this.state.value;
+		var value = this.state.value || {};
 		var correct = '';
-		var dragSourceIndex = Object.keys(value || {})
+		var dragSourceIndex = Object.keys(value)
 			.reduce((x, v)=>x || (value[v]===dropTargetIndex ? parseInt(v, 10) : x), NaN);
 
 		if (isNaN(dragSourceIndex)) {
@@ -182,6 +191,6 @@ module.exports = React.createClass({
 
 
 	getValue: function () {
-		return this.state.value || {};
+		return this.state.value;
 	}
 });
