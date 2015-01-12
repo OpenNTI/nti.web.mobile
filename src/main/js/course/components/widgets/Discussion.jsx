@@ -117,9 +117,8 @@ module.exports = React.createClass({
 		var course = this.props.course || {};
 		var {Discussions, ParentDiscussions} = course;
 
-		return [Discussions, ParentDiscussions].map(x=>x && x.href)
-			.reduce((found, url)=>
-				found || (url && o.href.indexOf(url) !== -1 && url), null);
+		return [Discussions, ParentDiscussions].reduce((found, board)=>
+				found || (board && o.href.indexOf(board.href) !== -1 && board.getID()), null);
 	},
 
 	getForumHref: function(o) {
@@ -128,7 +127,7 @@ module.exports = React.createClass({
 			return null;
 		}
 		var bin = 'jump';
-		var boardId = NTIID.encodeForURI(discussions.getID());
+		var boardId = NTIID.encodeForURI(discussions);
 		var forumId = NTIID.encodeForURI(o.ContainerId||o.NTIID);
 		var h = path.join('d', bin, boardId, forumId) + '/'; 
 		return this.makeHref(h);
