@@ -251,7 +251,7 @@ var Filter = React.createClass({
 			return (
 				<Location
 					key={filterpath}
-					path={`/${filterpath}/*`}
+					path={`/${filterpath}/`}
 					filter={filter}
 					filtername={filtername}
 					filterpath={filterpath}
