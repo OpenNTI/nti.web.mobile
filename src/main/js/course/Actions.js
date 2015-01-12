@@ -31,7 +31,9 @@ function _navRecordFor(outlineNode,navbarTitle) {
 		label: outlineNode.DCTitle,
 		navbarTitle: navbarTitle,
 		href: outlineNode.href,
-		children: children || []
+		children: children,
+		maxDepth: outlineNode.getMaxDepth(),
+		depth: outlineNode.getDepth()
 	});
 }
 

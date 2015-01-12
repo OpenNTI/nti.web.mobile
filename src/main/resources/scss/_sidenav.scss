@@ -5,6 +5,10 @@
 
 ul.off-canvas-list {
 	font-family: $sidenav-font-family;
+	li:last-child > a.navitem {
+		border-bottom: none;
+	}
+
 	li a.navitem {
 		letter-spacing:0.05rem;
 		white-space: nowrap;

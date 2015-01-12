@@ -25,6 +25,9 @@ var NavDrawerItem = React.createClass({
 	_labelClasses: function() {
 		var classes = ['navitem'];
 		var rec = this.props.record;
+
+		var hasChildren = rec.children && rec.children.length > 0;
+
 		if (rec) {
 			if (!rec.clickable ) {
 				classes.push('disabled');
@@ -32,7 +35,7 @@ var NavDrawerItem = React.createClass({
 			if (this._isActiveItem(rec)) {
 				classes.push('active');
 			}
-			if (!rec.clickable && rec.children) {
+			if (!rec.clickable && (hasChildren || rec.depth !== rec.maxDepth)) {
 				classes.push('sectiontitle');
 			}
 		}
