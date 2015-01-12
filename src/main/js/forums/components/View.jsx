@@ -16,6 +16,7 @@ var FindBin = require('./FindBin');
 var Redirect = require('navigation/components/Redirect');
 var Breadcrumb = require('common/components/Breadcrumb');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
+var Err = require('common/components/Error');
 
 var Loading = require('common/components/Loading');
 
@@ -99,6 +100,10 @@ var View = React.createClass({
 
 		if (this.state.loading || !discussions) {
 			return <Loading />;
+		}
+
+		if (discussions.isError) {
+			return <Err error={discussions.error} />;
 		}
 
 		return (
