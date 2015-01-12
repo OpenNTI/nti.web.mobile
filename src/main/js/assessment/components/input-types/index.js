@@ -18,7 +18,7 @@ exports = module.exports = {
 	SymbolicMath: require('./SymbolicMath'),
 
 	Matching: require('./Matching'),
-	// Ordering: require('./Ordering'),
+	Ordering: require('./Ordering'),
 
 	FillInTheBlankShortAnswer: require('./FillInTheBlankShortAnswer'),
 	FillInTheBlankWithWordBank: require('./FillInTheBlankWithWordBank'),
