@@ -26,7 +26,7 @@ var Bin = React.createClass({
 		var filters = [];
 		Object.keys(bin).forEach(boardName => {
 			var board = bin[boardName];
-			var path = '/'.concat(NTIID.encodeForURI(board.id), '/');
+			var path = NTIID.encodeForURI(board.id);
 			filters.push({
 				name: tt(boardName, {fallback: boardName}),
 				path: path,
@@ -68,7 +68,7 @@ var Bin = React.createClass({
 		var filters = this._filters(bin);
 
 		var content;
-		
+
 		if (!this.props.forumId) {
 			content = (
 			<CollectionFilter

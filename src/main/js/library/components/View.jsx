@@ -53,21 +53,21 @@ var View = React.createClass({
 	getRoutes: function (basePath) {
 		var sections = Sections.getSectionNames();
 
-		var routes = sections.map(function(section) {
-			return <Location
+		var routes = sections.map(section =>
+			<Location
 				key={section}
-				path={'/' + section + '/*'}
+				path={`/${section}/*`}
 				handler={Section}
 				section={section}
 				basePath={basePath}
-			/>;
-		});
+			/>
+		);
 
 		if (this.state.defaultSection) {
 			routes.push(<DefaultRoute
 				key="default"
 				handler={Redirect}
-				location={'/' + this.state.defaultSection + '/'}
+				location={this.state.defaultSection + '/'}
 			/>);
 		}
 

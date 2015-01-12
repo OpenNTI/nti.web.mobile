@@ -8,7 +8,7 @@ var Item = require('./Entry');
 var filters = [
 	{
 		name: 'Upcoming',
-		path: '/upcoming/',
+		path: 'upcoming',
 		filter: function(item) {
 			var startDate = new Date(item.StartDate);
 			var now = new Date();
@@ -17,7 +17,7 @@ var filters = [
 	},
 	{
 		name: 'Current',
-		path: '/current/',
+		path: 'current',
 		filter: function(item) {
 			var startDate = new Date(item.StartDate);
 			var endDate = new Date(item.EndDate);
@@ -26,7 +26,7 @@ var filters = [
 	},
 	{
 		name: 'Archived',
-		path: '/archived/',
+		path: 'archived',
 		filter: function(item) {
 			var endDate = new Date(item.EndDate);
 			var now = new Date();

@@ -55,7 +55,7 @@ var FilterBar = React.createClass({
 
 		return (
 			<li key={name} className={isActive ? 'active' : null}>
-				<Link className="tiny button" href={'/' + path}>
+				<Link className="tiny button" href={`/${path}/`}>
 					<span className="filtername">{name}</span>
 					{' '/*preserves the space between spans*/}
 					<span className="count">{this.getItemCount(filter)}</span>
@@ -126,7 +126,7 @@ var DefaultPath = React.createClass({
 	_navigateToDefaultFilter: function() {
 		var path = this._defaultFilterPath();
 		if (path) {
-			this.navigate('/' + path, {replace: true});
+			this.navigate(`/${path}/`, {replace: true});
 		}
 	},
 
@@ -244,14 +244,14 @@ var Filter = React.createClass({
 		var filters = this.props.filters;
 		var title = this.props.title;
 
-		
+
 		var routes = Object.keys(filters).map(function(filtername) {
 			var filter = filters[filtername];
 			var filterpath = filter.path || filtername.toLowerCase();
 			return (
 				<Location
 					key={filterpath}
-					path={filterpath}
+					path={`/${filterpath}/*`}
 					filter={filter}
 					filtername={filtername}
 					filterpath={filterpath}
@@ -288,7 +288,7 @@ var Filter = React.createClass({
 					list={list}
 					defaultFilter={this.props.defaultFilter}
 					/>
-				);	
+				);
 		}
 
 		return routes;

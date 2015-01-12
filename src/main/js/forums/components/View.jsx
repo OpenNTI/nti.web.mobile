@@ -37,7 +37,7 @@ var View = React.createClass({
 				loading: true
 			});
 			Store.addChangeListener(this._storeChanged);
-			this._load();	
+			this._load();
 		}
 	},
 
@@ -64,7 +64,7 @@ var View = React.createClass({
 	_defaultBinUri: function(discussions) {
 		if (discussions) {
 			var key = Object.keys(discussions)[0];
-			return '/' + key + '/';	
+			return `/${key}/`;
 		}
 		return '/loading';
 	},
@@ -92,7 +92,7 @@ var View = React.createClass({
 		var course = this.props.course;
 		var courseId = course.getID();
 
-		
+
 
 		return (
 			<div className="forums-wrapper">
