@@ -65,3 +65,25 @@ And `CHEM4970.csv` is a file with the forum content:
     Be concise, be thoughtful, and be civil."
 
  [^notresuablebysameuser]: as of this writing (2015.01.03) these tokens can't be reused by the same user even after dropping the course.
+
+## sync/update library
+
+If you haven't already:
+step one: clone this git repo
+https://repos.nextthought.com/git/nti-git-test
+
+    git clone https://repos.nextthought.com/git/nti-git-test
+
+step two: checkout this svn repo
+https://repos.nextthought.com/svn/nti-svn/nti.content.environments
+
+    svn checkout https://repos.nextthought.com/svn/nti-svn/nti.content.environments
+
+Mount pandora/Content at /Volumes/Content/
+
+    workon nti.dataserver-buildout 
+
+(./buildout/bin/python setup.py dev) ?
+
+    nti_update_library -l ../DataserverGlobalLibrary/ -s /Volumes/Content/ -f ../nti.content.environments/alpha/alpha-global-catalog.json 
+
