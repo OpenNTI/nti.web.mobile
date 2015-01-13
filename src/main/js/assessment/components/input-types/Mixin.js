@@ -59,6 +59,9 @@ module.exports = {
 		var props = this.props;
 		if (eventData === Constants.SYNC) {
 			this.setValue(Store.getPartValue(props.item));
+			this.setState({
+				busy: Store.getBusyState(props.item)
+			});
 		}
 	},
 
