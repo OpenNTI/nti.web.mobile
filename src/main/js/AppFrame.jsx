@@ -89,6 +89,7 @@ module.exports = React.createClass({
 
 		var state = this.getDrawerState();
 		var username = Utils.getAppUsername();
+		var hamburger = state === LEFT_MENU_OPEN ? 'active' : '';
 
 		return (
 			<div className="app-container">
@@ -98,7 +99,7 @@ module.exports = React.createClass({
 					<div className="inner-wrap">
 						<nav className="tab-bar">
 							<section className="left-small">
-								<a	className="left-off-canvas-toggle menu-icon"
+								<a	className={`left-off-canvas-toggle hamburger ${hamburger}`}
 									onClick={this._onLeftMenuClick}
 									href="#"><span/></a>
 							</section>
