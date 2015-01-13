@@ -1,5 +1,4 @@
 'use strict';
-/** @module assessment/Store */
 
 var emptyFunction = require('react/lib/emptyFunction');
 
@@ -267,6 +266,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		return part.hints;
 	},
 
+
 	isWordBankEntryUsed(wordBankEntry) {
 		var {wid} = wordBankEntry;
 		var submission = this.getSubmissionData(wordBankEntry);
@@ -323,6 +323,11 @@ function onInteraction(part, value) {
 }
 
 function saveProgress(part) {
+	var main = Utils.getMainSubmittable(part);
+	if (!main.postSavePoint) {
+		return;
+	}
+
 	clearTimeout(savepointDelay);
 	savepointDelay = setTimeout(()=>{
 		markBusy(part, Constants.BUSY.SAVEPOINT);
