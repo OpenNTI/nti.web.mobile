@@ -1,5 +1,8 @@
 # commands for enrolling, dropping courses, resetting user state, etc. 
 
+## create user with nextthought.com email
+    nti_create_user -email ray.hatfield@nextthought.com ray.hatfield@nextthought.com test1234
+
 ## drop history course
 
     http -a ray.hatfield@nextthought.com:ray.hatfield POST http://localhost:8082/dataserver2/@@AdminUserCourseDrop  ntiid=tag:nextthought.com,2011-10:NTI-CourseInfo-Spring2015_LSTD_1153 username=ray.hatfield@gmail.com
