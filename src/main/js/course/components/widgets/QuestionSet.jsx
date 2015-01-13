@@ -9,7 +9,7 @@ var Score = require('common/components/charts/Score');
 
 var Utils = require('common/Utils');
 var getEventTarget = Utils.Dom.getEventTarget;
-// var getService = Utils.getService;
+var getService = Utils.getService;
 
 var NTIID = require('dataserverinterface/utils/ntiids');
 
@@ -45,13 +45,13 @@ module.exports = React.createClass( {
 	},
 
 
-	// componentDidMount: function() {
-	// 	getService().then(this.fillInData);
-	// },
+	componentDidMount: function() {
+		getService().then(this.fillInData);
+	},
 
-	// componentWillReceiveProps: function(nextProps) {
-	// 	getService().then(this.fillInData);
-	// },
+	componentWillReceiveProps: function() {
+		getService().then(this.fillInData);
+	},
 
 	fillInData: function(service) {
 
