@@ -42,6 +42,16 @@ module.exports = React.createClass({
 	},
 
 
+	getLabel (index) {
+		return this.props.item.labels[index];
+	},
+
+
+	_getValue (index) {
+		return this.props.item.values[index];
+	},
+
+
 	onDrop (drop) {
 		var value = Object.assign({}, this.getValue());
 		var valueArray = this.getValueAsArray();
@@ -58,17 +68,35 @@ module.exports = React.createClass({
 		}
 
 		if (target == null || source == null) {
+			console.error('Missing target and/or source');
 			throw new Error('Illegal State, there must be BOTH a source and a target');
 		}
 
 		swapFrom = valueArray.indexOf(source);
 		if (swapFrom < 0) {
+			console.error('Nothing to swap');
 			throw new Error('Illegal State!');
 		}
+
+		console.debug(`Drop: %s (%s)
+		onto %s (%s),
+		swappingWith: %s (%s)`,
+
+			this._getValue(source),
+			source,
+			target,
+			this.getLabel(target),
+			swapFrom,
+			this.getLabel(swapFrom),
+			value[swapFrom],
+			this._getValue(value[swapFrom])
+			);
 
 		value[swapFrom] = value[target];
 
 		value[target] = source;
+
+
 
 
 		this.__setValue(value);
@@ -111,10 +139,10 @@ module.exports = React.createClass({
 	renderDraggable (targetIndex, solution) {
 		var correct = '';
 		var sources = this.props.item.values || [];
-		var value = this.getValueAsArray();
+		var value = this.getValue();
+		var sourceIndex = value[targetIndex];
 
-		var sourceIndex = value.indexOf(targetIndex);
-		if (!value || sourceIndex < 0) {
+		if (!value || sourceIndex < 0 || sourceIndex == null) {
 			console.warn('THIS SHOULD NOT HAPPEN', value);
 			return null;
 		}
@@ -178,7 +206,7 @@ module.exports = React.createClass({
 			console.warn('Something went wrong. Preventing bad value from persisting. Here is the bad value:', value);
 			return;
 		}
-
+		console.debug('Setting state: %o', value);
 		this.setState({value: value}, this.handleInteraction);
 	},
 
