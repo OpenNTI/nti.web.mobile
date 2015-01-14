@@ -1,0 +1,127 @@
+
+.question-part .solutions .ordering {
+	margin: -0.4rem;
+	border: 0;
+	width: auto;
+}
+
+.question-part .ordering {
+	display: table;
+	table-layout: fixed;
+	border-collapse: collapse;
+	width: 100%;
+	border: 1px solid $tertiary-grey;
+	margin-bottom: 1rem;
+
+	.match-row {
+		display: table-row;
+		line-height: 2;
+
+		&:not(:last-of-type) .cell {
+			border-bottom-width: 1px;
+		}
+
+		&.over {
+			background: rgba($primary-blue, 0.6);
+		}
+	}
+
+	.cell {
+		display: table-cell;
+		padding: 1rem;
+		border: 0px solid $tertiary-grey;
+		vertical-align: middle;
+
+		&:not(:last-of-type) {
+			border-right-width: 1px;
+		}
+
+		p:last-of-type {margin-bottom: 0;}
+
+		.draggable {
+			cursor: -webkit-grab;
+			cursor: -moz-grab;
+			cursor: grab;
+
+			&.dragging {
+				&, .hamburger {
+					cursor: -webkit-grabbing;
+					cursor: -moz-grabbing;
+					cursor: grabbing;
+				}
+
+				box-shadow: 0 0 0 1px $tertiary-grey;
+				background: rgba(white, 0.8);
+				z-index: 10000;
+
+				div {
+					background: rgba(white, 0.5);
+					border-radius: 0.5em;
+					box-shadow: 0 0 1rem 0 rgba(white, 0.5);
+				}
+			}
+
+
+
+			margin: -1rem;
+			padding: 1rem;
+			padding-right: 3rem;
+
+			&.correct, &.incorrect {
+				padding-left: 2rem;
+				&::before {
+					content: '';
+
+					position: absolute;
+					top: 1.25rem;
+					left: 0.5rem;
+
+					display: inline-block;
+					width: 18px;
+					height: 18px;
+					border-radius: 18px;
+
+					background: {
+						position: center center;
+						repeat: no-repeat;
+					}
+				}
+			}
+
+			&.correct {
+				// background: $correct;
+				// border-color: $correct;
+				&::before {
+					@extend .circle-green-check;
+				}
+			}
+
+			&.incorrect {
+				// background: $incorrect;
+				// border-color: $incorrect;
+				&::before {
+					@extend .circle-red-x;
+				}
+			}
+		}
+
+		.hamburger {
+			position: absolute !important;
+			cursor: inherit;
+			opacity: 0.7;
+			right: 0.5rem;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	}
+
+	.over .ordinal {background: rgba($panel-background,0.6);}
+	.ordinal{
+		background: $panel-background;
+	}
+
+	.value{
+	}
+
+
+}

@@ -3,6 +3,8 @@
 var React = require('react/addons');
 var InputType = require('./Mixin');
 
+var Content = require('../Content');
+
 var {Mixin, Draggable, DropTarget} = require('common/dnd');
 
 /**
@@ -27,12 +29,12 @@ module.exports = React.createClass({
 
 
 	getDefaultValue () {
-		var values = (this.props.item || {}).values || [];
-		return values.map((_,i)=>i).map((_,i)=>i);
+		var values = (this.props.item || {}).labels || [];
+		return Object.assign({}, values.map((_,i)=>i));
 	},
 
 
-	componentDidMount () {
+	componentWillMount () {
 		this.setState({
 			PartLocalDNDToken: this.getNewUniqueToken(),
 			value: this.props.value || this.getDefaultValue()
@@ -40,63 +42,90 @@ module.exports = React.createClass({
 	},
 
 
+	onDrop (drop) {
+		var value = Object.assign({}, this.getValue());
+		var data = drop || {};
+		var {source, target} = data;
+		var swapFrom;
+
+		if (source) {
+			swapFrom = source.props['data-target'];
+			source = source.props['data-source'];
+		}
+
+		if (target) {
+			target = target.props['data-target'];
+		}
+
+		if (target == null || source == null || swapFrom == null) {
+			throw new Error('Illegal State, there must be BOTH a source and a target');
+		}
+
+		value[swapFrom] = value[target];
+		value[target] = source;
+
+		this.__setValue(value);
+	},
+
+
 	render () {
-		var dropTargets = this.props.item.values || [];
+		var dropTargets = this.props.item.labels || [];
 		var submitted = this.isSubmitted();
 		var solution = submitted && this.getSolution();
 
 		return (
-			<div className="ordering">
-
-				<form className="box">
-					{dropTargets.map((x,i)=>
-						this.renderDropTarget(x, i, solution)
-					)}
-				</form>
-
-			</div>
+			<form className="ordering">
+				{dropTargets.map((x,i)=>
+					this.renderDropTarget(x, i, solution)
+				)}
+			</form>
 		);
 	},
 
 
-	renderDropTarget (target, index, solution) {
+	renderDropTarget (target, targetIndex, solution) {
 
 		return (
-			<DropTarget accepts={this.state.PartLocalDNDToken} className="drop target" key={target} data-target={index}>
-				<div className="content" dangerouslySetInnerHTML={{__html: target}}/>
-				<div className="match dropzone" data-dnd>
-					{this.renderDraggable(index, solution)}
+			<DropTarget accepts={this.state.PartLocalDNDToken}
+				className="match-row"
+				key={targetIndex}
+				data-target={targetIndex}>
+
+				<Content className="cell ordinal" content={target}/>
+				<div className="cell value">
+					{this.renderDraggable(targetIndex, solution)}
 				</div>
+
 			</DropTarget>
 		);
 	},
 
 
-	renderDraggable (dropTargetIndex, solution) {
-		var sources = this.props.item.labels || [];
-		var value = this.state.value;
+	renderDraggable (targetIndex, solution) {
+		var sources = this.props.item.values || [];
+		var value = this.getValue();
 		var correct = '';
-		var sourceIndex = Object.keys(value || {})
-							.reduce((x, v)=>x || (value[v]===dropTargetIndex ?
-								parseInt(v, 10) : x), NaN);
+		var sourceIndex = Object.keys(value || {}).reduce(
+							(x, v)=>x || (value[v]===targetIndex ? parseInt(v, 10) : x),
+							NaN);
 
-		if (isNaN(sourceIndex)) {
-			console.warn('THIS SHOULD NEVER HAPPEN!');
+		if (!value || isNaN(sourceIndex)) {
+			console.warn('THIS SHOULD NOT HAPPEN');
 			return null;
 		}
 
 		if (solution && solution.value) {
 			solution = solution.value;
-			correct = solution[sourceIndex] === dropTargetIndex ? 'correct' : 'incorrect';
+			correct = solution[sourceIndex] === targetIndex ? 'correct' : 'incorrect';
 		}
 
-		return this.renderDragSource(sources[sourceIndex], sourceIndex, `dropped ${correct}`);
+		return this.renderDragSource(sources[sourceIndex], sourceIndex, targetIndex, `dropped ${correct}`);
 	},
 
 
-	renderDragSource (term, index, extraClass, lock) {
-		var locked = this.isSubmitted() || Boolean(lock);
-		var classes = ['drag','order','source'];
+	renderDragSource (source, sourceIndex, targetIndex, extraClass, lock) {
+		var locked = this.isSubmitted() || Boolean(lock) || this.state.busy;
+		var classes = ['order','source'];
 
 		if (locked) {
 			classes.push('locked');
@@ -109,24 +138,34 @@ module.exports = React.createClass({
 		return (
 			<Draggable
 				axis="y"
-				data-source={index}
-				key={term}
+				data-source={sourceIndex}
+				data-target={targetIndex}
+				constrain=""
+				key={sourceIndex}
 				locked={locked}
 				type={this.state.PartLocalDNDToken}
 				>
-				<div className={classes.join(' ')} key={term} data-source={term} data-match={index}>
-					<div dangerouslySetInnerHTML={{__html: term}}/>
+				<div className={classes.join(' ')} key={sourceIndex}>
+					<Content content={source}/>
+					<span className="hamburger small"><span/></span>
 				</div>
 			</Draggable>
 		);
 	},
 
+	//The mixin implements @setValue(), but it just for external usage...when
+	// we interact with this widget, and update the value state internally,
+	// this will apply the state, and notify the store of the change.
+	__setValue (value) {
+		if (value && Object.keys(value).length === 0) {
+			value = null;
+		}
 
-	getValue: function () {
-		// var ref = this.refs.input;
-		// var input = ref && ref.getDOMNode();
-		// var value = input && input.value;
-		//
-		// return isEmpty(value) ? null : value;
+		this.setState({value: value}, this.handleInteraction);
+	},
+
+
+	getValue () {
+		return this.state.value || this.getDefaultValue();
 	}
 });

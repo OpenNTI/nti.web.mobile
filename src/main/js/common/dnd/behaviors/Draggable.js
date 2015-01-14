@@ -102,6 +102,12 @@ Object.assign(exports, {
 		 */
 		cancel: PropTypes.string,
 
+
+		/**
+		 * `constrain` - Limit the dragging to the confines of a parent element.
+		 */
+		constrain: PropTypes.string,
+
 		/**
 		 * `grid` defines drag snap stops.
 		 */
