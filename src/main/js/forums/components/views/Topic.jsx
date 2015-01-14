@@ -15,7 +15,6 @@ var TopicHeadline = require('../TopicHeadline');
 var TopicComments = require('../TopicComments');
 var Breadcrumb = require('common/components/Breadcrumb');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var _t = require('common/locale').scoped('FORUMS');
 
 var Loading = require('common/components/Loading');
 
