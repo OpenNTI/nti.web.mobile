@@ -92,6 +92,8 @@ module.exports = React.createClass({
 		var {body} = this.state;
 		var dynamicRenderers = [];
 
+		props.className = (props.className || '') + ' modeled-content';
+
 		if (Array.isArray(body)) {
 			dynamicRenderers = body;
 		}
