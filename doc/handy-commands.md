@@ -87,3 +87,7 @@ Mount pandora/Content at /Volumes/Content/
 
     nti_update_library -l ../DataserverGlobalLibrary/ -s /Volumes/Content/ -f ../nti.content.environments/alpha/alpha-global-catalog.json 
 
+## synclibraries
+
+    http --timeout 1000000 -a ray.hatfield@nextthought.com:ray.hatfield POST http://localhost:8082/dataserver2/@@SyncAllLibraries
+
