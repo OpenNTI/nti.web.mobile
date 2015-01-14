@@ -220,6 +220,8 @@ Object.assign(exports, {
 		}
 
 		e.preventDefault();//stop scrolls
+		e.stopPropagation();
+		e.returnValue = false;
 
 		if (isMultiTouch(e)) {
 		    this.handleDragEnd(e);
