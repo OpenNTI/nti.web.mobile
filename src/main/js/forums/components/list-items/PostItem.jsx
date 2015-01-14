@@ -9,6 +9,7 @@ var Constants = require('../../Constants');
 var Avatar = require('common/components/Avatar');
 var DateTime = require('common/components/DateTime');
 var DisplayName = require('common/components/DisplayName');
+var ModeledContentPanel = require('modeled-content').Panel;
 var Actions = require('../../Actions');
 var Store = require('../../Store');
 
@@ -98,7 +99,7 @@ var PostItem = React.createClass({
 						<DateTime date={createdOn} relative={true}/>
 					</div>
 					<div className="message">
-						<div dangerouslySetInnerHTML={{__html: message}}/>
+						<ModeledContentPanel body={message} />
 						{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 					</div>
 					<div onClick={this._toggleReplies}>{item.ReferencedByCount} replies</div>
