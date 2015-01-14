@@ -12,6 +12,7 @@ var DisplayName = require('common/components/DisplayName');
 var ModeledContentPanel = require('modeled-content').Panel;
 var Actions = require('../../Actions');
 var Store = require('../../Store');
+var t = require('common/locale').scoped('FORUMS');
 
 var PostItem = React.createClass({
 
@@ -102,7 +103,7 @@ var PostItem = React.createClass({
 						<ModeledContentPanel body={message} />
 						{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 					</div>
-					<div onClick={this._toggleReplies}>{item.ReferencedByCount} replies</div>
+					<div onClick={this._toggleReplies}>{t('replies', {count: item.ReferencedByCount})}</div>
 				{canEdit &&
 					<div className="footer">
 						<a href="#" className="link edit">Edit</a>
