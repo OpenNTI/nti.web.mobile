@@ -19,21 +19,27 @@ module.exports = function(port) {
 		noInfo: false,
 		quiet: false,
 		lazy: false,
-		watchDelay: 300,
+		watchDelay: 1000,
 		publicPath: '/',
+
 		stats: {
-			version: false,
-			hash: false,
-			timings: false,
+			version: true,
+			hash: true,
+			timings: true,
+
 			assets: false,
-			chunks: false,
+
+			chunks: true,
 			chunkModules: false,
 			chunkOrigins: false,
+
 			modules: false,
-			cached: false,
-			cachedAssets: false,
-			showChildren: false,
-			source: false,
+
+			// cached: false,
+			// cachedAssets: false,
+			// showChildren: false,
+			// source: false,
+
 			colors: true,
 			reasons: true,
 			errorDetails: true
