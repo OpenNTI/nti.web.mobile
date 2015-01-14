@@ -265,3 +265,32 @@ aside[class*=off-canvas-menu] {
 	height: 6rem;
 	text-indent: 1.6rem;
 }
+
+
+
+
+
+
+
+section.main-section {
+	-webkit-transition: -webkit-transform 500ms ease;
+	-moz-transition: -moz-transform 500ms ease;
+	-ms-transition: -ms-transform 500ms ease;
+	-o-transition: -o-transform 500ms ease;
+	transition: transform 500ms ease;
+}
+
+
+.move-right section.main-section {
+	-webkit-transform-origin: 0;
+	transform-origin: 0;
+	-webkit-transform: rotateY(45deg) skewY(9deg);
+	transform: rotateY(45deg) skewY(9deg);
+}
+
+.move-left section.main-section {
+	-webkit-transform-origin: 100vw;
+	transform-origin: 100vw;
+	-webkit-transform: rotateY(-45deg) skewY(-9deg);
+	transform: rotateY(-45deg) skewY(-9deg);
+}

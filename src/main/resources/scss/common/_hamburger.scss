@@ -34,7 +34,7 @@
 		&:after {
 			border-radius: 1px;
 			height: 5px;
-			background: $primary-grey;
+			background: $secondary-grey;
 			position: absolute;
 			display: block;
 			content: '';
@@ -58,10 +58,12 @@
 			}
 
 			&:before {
+				-webkit-transform: rotate(45deg);
 				transform: rotate(45deg);
 			}
 
 			&:after {
+				-webkit-transform: rotate(-45deg);
 				transform: rotate(-45deg);
 			}
 		}
