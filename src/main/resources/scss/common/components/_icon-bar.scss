@@ -1,0 +1,14 @@
+// fixes a problem in ios 7 when the last tab
+// is active and its background doesn't extend
+// all the way to the edge, so you end up seeing
+// a sliver of the inactive tab background (black/gray)
+// at the right edge of the bar.
+.icon-bar {
+	@include flexbox();
+	& > * {
+		@include flex(auto);
+		&.active {
+			@include flex(2 auto); // without this there's still a small sliver when horizontal.
+		}
+	}
+}
