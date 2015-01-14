@@ -71,8 +71,8 @@ module.exports = React.createClass({
 		var href = this.makeHref(this.getPath());
 		return getContextProvider().then(context => {
 			context.push({
-				label: 'Topic',
-				// label: this.state.topic.headline.title,
+				// label: 'Topic',
+				label: this.state.topic.headline.title,
 				href: href
 			});
 			return context;

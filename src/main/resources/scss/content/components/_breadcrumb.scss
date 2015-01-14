@@ -34,3 +34,14 @@
 	}
 
 }
+
+.forum .breadcrumbs {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: .25em .75em;
+	& > * {
+		float: none;
+		display: inline;
+	}
+}
