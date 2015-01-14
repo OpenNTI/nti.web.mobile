@@ -56,7 +56,6 @@ module.exports = React.createClass( {
 	},
 
 	fillInData: function(service) {
-		debugger;
 		function getLastQuizSubmission(pageInfo) {
 			return pageInfo
 				.getUserDataLastOfType(SUBMITTED_QUIZ)
