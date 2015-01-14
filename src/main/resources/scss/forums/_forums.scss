@@ -81,6 +81,9 @@
 		li {
 			// @include panel;
 		}
+		.replies-link {
+			@include detail-link();
+		}
 	}
 
 	.nav-up {

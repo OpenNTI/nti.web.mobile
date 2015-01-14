@@ -103,7 +103,7 @@ var PostItem = React.createClass({
 						<ModeledContentPanel body={message} />
 						{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 					</div>
-					<div onClick={this._toggleReplies}>{t('replies', {count: item.ReferencedByCount})}</div>
+					<a className="replies-link" onClick={this._toggleReplies}>{t('replies', {count: item.ReferencedByCount})}</a>
 				{canEdit &&
 					<div className="footer">
 						<a href="#" className="link edit">Edit</a>
