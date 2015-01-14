@@ -161,8 +161,22 @@ module.exports = React.createClass({
 	// we interact with this widget, and update the value state internally,
 	// this will apply the state, and notify the store of the change.
 	__setValue (value) {
-		if (value && Object.keys(value).length === 0) {
+		var {length} = this.props.item.values;
+		var array = Array.from(Object.assign({length: length}, value));
+
+		if (value && Object.keys(value).length !== length) {
 			value = null;
+		}
+
+		var seen = {};
+		function notSeen(x) {
+			var s = seen[x]; seen[x] = 1;
+			return !s;
+		}
+
+		if (array.filter(x=>x && notSeen(x)).length !== length) {
+			console.warn('Something went wrong. Preventing bad value from persisting. Here is the bad value:', value);
+			return;
 		}
 
 		this.setState({value: value}, this.handleInteraction);
