@@ -4,8 +4,10 @@ var path = require('path');
 
 var React = require('react/addons');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var DateTime = require('common/components/DateTime');
+// var DateTime = require('common/components/DateTime');
 var Score = require('common/components/charts/Score');
+var AssessmentAPI = require('assessment').Api;
+var AssignmentStatusLabel = require('assessment/components/AssignmentStatusLabel');
 
 var Utils = require('common/Utils');
 var getEventTarget = Utils.Dom.getEventTarget;
@@ -75,11 +77,22 @@ module.exports = React.createClass( {
 		if (!isAssignment) {
 			service.getPageInfo(ntiid)
 				.then(getLastQuizSubmission)
-				.catch(this.setNotTaken)
-				.then(this.setQuizHref);
+				.catch(this.setNotTaken);
+
+			this.setQuizHref();
 		} else {
 			this.setQuizHref(); //TODO: build the assignment href
+
+			AssessmentAPI.loadPreviousState(assignment)
+				.then(this.setAssignmentHistory);
 		}
+	},
+
+
+	setAssignmentHistory: function(history) {
+		this.setState({
+			assignmentHistory: history
+		});
 	},
 
 
@@ -119,8 +132,9 @@ module.exports = React.createClass( {
 
 		//var latestAttempt = state.latestAttempt;
 		var assignment = state.assignment;
+		var assignmentHistory = state.assignmentHistory;
 
-		var due = assignment && assignment.getDueDate();
+		// var due = assignment && assignment.getDueDate();
 
 		var score = state.score || 0;
 
@@ -130,7 +144,8 @@ module.exports = React.createClass( {
 			(/^#?$/.test(state.href) ? ' disabled' : '') +
 			(state.completed ? " completed" : "") +
 			(isLate ? " late" : "") +
-			(assignment ? " assignment" : " assessment");
+			(assignment ? " assignment" : " assessment") +
+			(assignmentHistory ? " submitted" : "");
 
 		return (
 			<a className={'overview-naquestionset' + addClass} href={state.href} onClick={this.onClick}>
@@ -145,12 +160,7 @@ module.exports = React.createClass( {
 					<div className="tally-box">
 						<div className="message">{label}</div>
 						{assignment ?
-
-							<div className="tally">
-								<div className="stat due-date late">Due <DateTime date={due}/></div>
-								<div className="stat due-date">Due <DateTime date={due}/></div>
-							</div>
-
+							<AssignmentStatusLabel assignment={assignment} historyItem={assignmentHistory}/>
 						: //Assessment:
 							<div className="tally">
 							{state.correct && (

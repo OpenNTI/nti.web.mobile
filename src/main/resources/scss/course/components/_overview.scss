@@ -281,6 +281,15 @@
 
 		&.assignment {
 
+			&.submitted {
+				.icon {
+					@extend .icon-assignment-ontime;
+					background-repeat: no-repeat;
+					width: 40px;
+					height: 40px;
+				}
+			}
+
 			&.late {
 				.icon {
 					@extend .icon-assignment-late;
@@ -308,6 +317,14 @@
 
 			&.disabled .body {
 				@include not-on-mobile();
+			}
+
+			.assignment.status-label {
+				font-weight: 600;
+				font-size: 0.75rem;
+				margin-right: 1rem;
+				text-transform: none;
+				margin-right: 1rem;
 			}
 
 		}

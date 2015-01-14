@@ -3,8 +3,6 @@
 var React = require('react/addons');
 var emptyFunction = require('react/lib/emptyFunction');
 
-var Store = require('../Store');
-
 var DateTime = require('common/components/DateTime');
 
 var toUnitString = require('common/locale').scoped('UNITS');
@@ -44,8 +42,7 @@ module.exports = React.createClass({
 
 
 	isSubmitted: function () {
-		var assignment = this.props.assignment;
-		return Store.isSubmitted(assignment);
+		return this.props.historyItem && this.props.historyItem.isSubmitted();
 	},
 
 
