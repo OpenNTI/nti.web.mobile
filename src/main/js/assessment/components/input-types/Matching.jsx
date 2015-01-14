@@ -81,7 +81,7 @@ module.exports = React.createClass({
 			return o == null ? null : parseInt(o, 10);
 		}
 
-		var source = get('.source', 'data-match');
+		var source = get('.source', 'data-source');
 		//var target = get('.target', 'data-target');
 
 		var val = Object.assign({}, this.state.value || {});
@@ -180,7 +180,7 @@ module.exports = React.createClass({
 				locked={locked}
 				type={this.state.PartLocalDNDToken}
 				>
-				<div className={classes.join(' ')} key={sourceIndex}>
+				<div className={classes.join(' ')} key={sourceIndex} data-source={sourceIndex}>
 					{!locked && (
 						<a href="#" className="reset" title="Reset" onClick={this.onDragReset}/>
 					)}
