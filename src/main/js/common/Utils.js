@@ -98,7 +98,10 @@ var Utils = {
 	VisibilityMonitor: require('./_utils.pagevis'),
 
 
-	AppCache: require('./_utils.appcache')
+	AppCache: require('./_utils.appcache'),
+
+	isMimeType: require('./_utils.is-mime-type')
+
 };
 
 module.exports = Utils;

@@ -2,11 +2,11 @@
 
 module.exports = {
 	groupTitles: {
-		Section: "My Section",
-		Parent: "All Sections",
-		forcredit: "Enrolled For-Credit",
-		open: "Open",
-		other: "Other"
+		Section: 'My Section',
+		Parent: 'All Sections',
+		forcredit: 'Enrolled For-Credit',
+		open: 'Open',
+		other: 'Other'
 	},
 	topicCount: {
 		zero:  'No Topics',
@@ -18,7 +18,8 @@ module.exports = {
 		one:   '1 Comment',
 		other: '%(count)s Comments'
 	},
-	posted: "posted",
+	posted: 'posted',
+	replied: 'replied',
 	likes: {
 		zero:  '0 Likes',
 		one:   '1 Like',

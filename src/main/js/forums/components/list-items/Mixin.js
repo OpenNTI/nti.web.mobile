@@ -1,6 +1,6 @@
 'use strict';
 
-//var Actions = require('../../Actions');
+var isType = require('common/Utils').isMimeType;
 
 module.exports = {
 
@@ -23,12 +23,9 @@ module.exports = {
 
 		},
 
-
 		__test: function (item) {
-			var type = item.MimeType
-							.replace('application/vnd.nextthought.', '')
-							.toLowerCase();
-			return (this.inputType.indexOf(type) !== -1);
+			return isType(item, this.inputType);
 		}
+
 	}
 };

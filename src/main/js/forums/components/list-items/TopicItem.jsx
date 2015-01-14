@@ -6,6 +6,7 @@ var DisplayName = require('common/components/DisplayName');
 var DateTime = require('common/components/DateTime');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var Link = require('react-router-component').Link;
+var Utils = require('common/Utils');
 var t = require('common/locale').scoped('FORUMS');
 
 /**
@@ -32,6 +33,12 @@ module.exports = React.createClass({
 	_likes: function(item) {
 		return item.LikeCount > 0 ? <div className="likes">{t('likes', {count: item.LikeCount})}</div>	: null;
 	},
+
+	// topics say "posted", comments say "replied"
+	_verbForPost: function(item) {
+		// confusing that comment is referenced as a post and a post is referred to as a topic.
+		return Utils.isMimeType(item, Constants.types.POST) ? t('replied') : t('posted');
+	},
 	
 	render: function() {
 		var {item} = this.props;
@@ -42,7 +49,7 @@ module.exports = React.createClass({
 				<div className="activity">
 					<div className="newest">
 						<DisplayName username={item.NewestDescendant.Creator} />
-						<span>{t('posted')} <DateTime relative={true} date={replyTime}/></span>
+						<span>{this._verbForPost(item.NewestDescendant)} <DateTime relative={true} date={replyTime}/></span>
 					</div>
 					{this._replies(item)}
 					{this._likes(item)}
