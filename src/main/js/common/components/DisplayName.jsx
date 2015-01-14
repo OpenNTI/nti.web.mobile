@@ -51,11 +51,15 @@ module.exports = React.createClass({
 		}
 
 		promise.then(
-				function resolved(user) {
-					me.setState({ displayName: user.DisplayName });
+				user => {
+					if (this.isMounted()) {
+						this.setState({ displayName: user.DisplayName });
+					}
 				},
-				function failed() {
-					me.setState({ displayName: 'Unknown' });
+				()=> {
+					if (this.isMounted()) {
+						me.setState({ displayName: 'Unknown' });
+					}
 				});
 	},
 
