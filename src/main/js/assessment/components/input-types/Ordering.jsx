@@ -44,12 +44,12 @@ module.exports = React.createClass({
 
 	onDrop (drop) {
 		var value = Object.assign({}, this.getValue());
+		var valueArray = this.getValueAsArray();
 		var data = drop || {};
 		var {source, target} = data;
 		var swapFrom;
 
 		if (source) {
-			swapFrom = source.props['data-target'];
 			source = source.props['data-source'];
 		}
 
@@ -57,12 +57,19 @@ module.exports = React.createClass({
 			target = target.props['data-target'];
 		}
 
-		if (target == null || source == null || swapFrom == null) {
+		if (target == null || source == null) {
 			throw new Error('Illegal State, there must be BOTH a source and a target');
 		}
 
+		swapFrom = valueArray.indexOf(source);
+		if (swapFrom < 0) {
+			throw new Error('Illegal State!');
+		}
+
 		value[swapFrom] = value[target];
+
 		value[target] = source;
+
 
 		this.__setValue(value);
 	},
@@ -102,15 +109,13 @@ module.exports = React.createClass({
 
 
 	renderDraggable (targetIndex, solution) {
-		var sources = this.props.item.values || [];
-		var value = this.getValue();
 		var correct = '';
-		var sourceIndex = Object.keys(value || {}).reduce(
-							(x, v)=>x || (value[v]===targetIndex ? parseInt(v, 10) : x),
-							NaN);
+		var sources = this.props.item.values || [];
+		var value = this.getValueAsArray();
 
-		if (!value || isNaN(sourceIndex)) {
-			console.warn('THIS SHOULD NOT HAPPEN');
+		var sourceIndex = value.indexOf(targetIndex);
+		if (!value || sourceIndex < 0) {
+			console.warn('THIS SHOULD NOT HAPPEN', value);
 			return null;
 		}
 
@@ -139,7 +144,6 @@ module.exports = React.createClass({
 			<Draggable
 				axis="y"
 				data-source={sourceIndex}
-				data-target={targetIndex}
 				constrain=""
 				key={sourceIndex}
 				locked={locked}
@@ -167,5 +171,11 @@ module.exports = React.createClass({
 
 	getValue () {
 		return this.state.value || this.getDefaultValue();
+	},
+
+
+	getValueAsArray () {
+		var {length} = this.props.item.values;
+		return Array.from(Object.assign({length: length}, this.getValue()));
 	}
 });
