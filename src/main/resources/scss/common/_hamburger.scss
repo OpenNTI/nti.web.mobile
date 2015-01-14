@@ -4,8 +4,9 @@
 	width: 45px;
 	height: 45px;
 	overflow: hidden;
-	padding: 20px 0 0 5px;
+	padding: 19px 0 0 8px;
 	cursor: pointer;
+
 
 	&.small {
 		width: 20px;
@@ -26,8 +27,25 @@
 		}
 	}
 
+	&.large {
+		padding: 20px 0 0 5px;
+		span {
+			width: 35px;
+
+
+			&,
+			&:before,
+			&:after {
+				height: 5px;
+			}
+
+			&:before { top: -10px; }
+			&:after { bottom: -10px; }
+		}
+	}
+
 	span {
-		width: 35px;
+		width: 28px;
 		will-change: background-color;
 		transition: background-color .5s ease-in-out;
 
@@ -35,15 +53,15 @@
 		&:before,
 		&:after {
 			border-radius: 1px;
-			height: 5px;
+			height: 4px;
 			background: $secondary-grey;
 			position: absolute;
 			display: block;
 			content: '';
 		}
 
-		&:before { top: -10px; }
-		&:after { bottom: -10px; }
+		&:before { top: -8px; }
+		&:after { bottom: -8px; }
 
 		&:before,
 		&:after {
