@@ -59,8 +59,8 @@ select.error {
 // so this block of style will not apply at all in IE8. (or android 2.x)
 // so the system default checkbox will be left as is.
 label:not(.css3unsupported) {
-	$iconPrefix: '../images/icons/checkbox-14';
 	$checkbox: 'input[type="checkbox"]';
+	$radiobox: 'input[type="radio"]';
 
 	& > #{$checkbox} {
 		position: absolute !important;
@@ -88,14 +88,14 @@ label:not(.css3unsupported) {
 		}
 
 
-		& + span::before { background-image: url(#{$iconPrefix}.png); }
-		&:checked + span::before { background-image: url(#{$iconPrefix}_active.png); }
+		& + span::before { @extend .checkbox-image; }
+		&:checked + span::before { @extend .checkbox-image-active; }
 	}
 
 	//&:hover > #{$checkbox},
 	& > #{$checkbox}:focus,
 	& > #{$checkbox}:active {
-		&:not(:checked):not(.disabled) + span::before { background-image: url(#{$iconPrefix}_hover.png); }
+		&:not(:checked):not(.disabled) + span::before { @extend .checkbox-image-hover; }
 	}
 }
 

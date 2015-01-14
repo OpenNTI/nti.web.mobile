@@ -45,9 +45,12 @@
 
 	&.external {
 		.icon::after {
+			@extend .icon-external-link-hover;
 			top: 0; right: 0;
 			position: absolute;
-			content: url('../images/icons/extern-link_hover.png');
+			content: '';
+			width: 30px; height: 30px;
+			display: inline-block;
 		}
 	}
 }

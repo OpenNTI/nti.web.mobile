@@ -26,13 +26,14 @@
 		padding-left: 35px;
 
 		&::before {
+			@extend .icon-assignment-ontime-small;
 			content: '';
 			position: absolute;
 			top: 0;
 			left: 0;
 			width: 28px;
 			height: 28px;
-			background: transparent url('../images/icons/assignment_ontime_small.png') center center;
+			background: {color: transparent; position: center center;}
 			background-size: contain;
 		}
 	}

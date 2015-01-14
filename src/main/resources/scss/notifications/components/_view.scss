@@ -35,7 +35,7 @@
 	}
 
 	.grade {
-		background: url('../images/icons/assignment_ontime_small.png');
+		@extend .icon-assignment-ontime-small;
 		height: 28px;
 		width: 28px;
 	}

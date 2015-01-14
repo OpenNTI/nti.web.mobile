@@ -10,6 +10,7 @@
 		position: relative;
 
 		&::before {
+			@extend .icon-modal-red-sign;
 			content: '';
 			position: absolute;
 			width: 60px;
@@ -20,7 +21,6 @@
 			background: {
 				position: center center;
 				repeat: no-repeat;
-				image: url(../images/icons/modal-red-sign.png);
 			}
 		}
 	}

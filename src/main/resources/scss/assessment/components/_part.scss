@@ -27,11 +27,12 @@
 		text-indent: -100px;
 
 		&::after {
+			@extend .x-close;
 			content: '';
 			display: block;
 			position: absolute;
 			top: 0; left: 0; right: 0; bottom: 0;
-			background: url(../images/icons/close.png) center center no-repeat;
+			background: { position: center center; repeat: no-repeat; }
 		}
 	}
 

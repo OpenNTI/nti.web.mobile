@@ -48,9 +48,10 @@
 		background-size: cover;
 		background-position: center center;
 		&.play:after {
+			@extend .icon-play;
 			content: '';
 			position:absolute;
-			background: url(../images/icons/play.png) center center no-repeat;
+			background: {position: center center; repeat: no-repeat;}
 			top:0;
 			left:0;
 			bottom:0;
@@ -106,11 +107,19 @@
 		}
 
 		.play::before {
-			content: url(../images/icons/play.png);
+			@extend .icon-play;
+			content: '';
+			display: inline-block;
+			width: 43px;
+			height: 43px;
 		}
 
 		.player::before {
-			content: url(../images/icons/play-transcript.png);
+			@extend .icon-transcript;
+			content: '';
+			display: inline-block;
+			width: 42px;
+			height: 42px;
 		}
 	}
 }
@@ -123,9 +132,14 @@
 	width: 100%;
 
 	&::before {
+		@extend .icon-play;
+		content: '';
+		width: 43px;
+		height: 43px;
+		display: inline-block;
+
 		display: inline-block;
 		line-height: 0; padding: 2px;
-		content: url(../images/icons/play.png);
 		border-radius: 5em;
 		background-color: rgba(0,0,0,0.8);
 		box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15),//stroke

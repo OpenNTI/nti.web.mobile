@@ -27,7 +27,8 @@
 	}
 
 	&::before {
-		content: url('../images/icons/assignment_due.png');
+		@extend .icon-assignment-due;
+		content: '';
 		width: 40px;
 		height: 40px;
 		position: absolute;
@@ -36,10 +37,10 @@
 	}
 
 	&.ontime::before {
-		content: url('../images/icons/assignment_ontime.png');
+		@extend .icon-assignment-ontime;
 	}
 	&.late::before {
-		content: url('../images/icons/assignment_late.png');
+		@extend .icon-assignment-late;
 	}
 
 	h4,h5,h6 {

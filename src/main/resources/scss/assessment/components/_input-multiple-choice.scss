@@ -1,13 +1,13 @@
 @import "../input-vars";
 
-@mixin choice-icon($type, $iconPrefix) {
-	input[type=#{$type}] + div::before { background-image: url(#{$iconPrefix}.png); }
-	input[type=#{$type}]:checked + div::before { background-image: url(#{$iconPrefix}_active.png); }
+@mixin choice-icon($type, $selector) {
+	input[type=#{$type}] + div::before { @extend #{$selector}; }
+	input[type=#{$type}]:checked + div::before { @extend #{$selector}-active; }
 
 	html:not(.touch) &:hover input[type=#{$type}],
 	input[type=#{$type}]:focus,
 	input[type=#{$type}]:active {
-		&:not(:checked):not(.disabled) + div::before { background-image: url(#{$iconPrefix}_hover.png); }
+		&:not(:checked):not(.disabled) + div::before { @extend #{$selector}-hover; }
 	}
 }
 
@@ -52,12 +52,12 @@
 		&.incorrect input:checked + div { box-shadow: inset 4px 0 0 0 $incorrect; }
 
 
-		@include choice-icon(checkbox, '../images/icons/checkbox-14');
-		@include choice-icon(radio, '../images/icons/radio-button-16');
+		@include choice-icon(radio, '.radiobox-image');
+		@include choice-icon(checkbox, '.checkbox-image');
 
 
-		&.correct input[type]:checked + div::before { background-image: url(../images/icons/circle-check-green-18.png); }
-		&.incorrect input[type]:checked + div::before { background-image: url(../images/icons/circle-x-red-18.png); }
+		&.correct input[type]:checked + div::before { @extend .circle-green-check; }
+		&.incorrect input[type]:checked + div::before { @extend .circle-red-x; }
 
 		.numeral {
 			position: relative;

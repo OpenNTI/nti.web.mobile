@@ -30,7 +30,7 @@
 
 
 		.icon {
-			background-image: url(../images/icons/assignment-timed.png);
+			@extend .icon-assignment-timed;
 		}
 
 		h1 {
@@ -117,10 +117,13 @@
 						}
 
 						&::before {
+							@extend .radiobox-image;
 							position: absolute;
-							content: url(../images/icons/radio-button-16.png);
+							content: '';
 							top: 10px;
 							left: 10px;
+							width: 16px;
+							height: 16px;
 						}
 
 						&::after {

@@ -30,17 +30,18 @@
 		}
 
 		&::after {
+			@extend .x-close;
 			content: '';
 			display: block;
 			position: absolute;
 			top: 0; left: 0; right: 0; bottom: 0;
-			background: url(../images/icons/close.png) center center no-repeat;
+			background: { position: center center; repeat: no-repeat;}
 		}
 	}
 
 
 	.icon {
-
+		@extend .icon-model-red-sign;
 		position: absolute;
 		width: 60px;
 		height: 60px;
@@ -50,7 +51,6 @@
 		background: {
 			position: center center;
 			repeat: no-repeat;
-			image: url(../images/icons/modal-red-sign.png);
 		}
 
 	}

@@ -31,10 +31,14 @@
 		}
 
 		&::before {
+			@extend .icon-gift;
 			position: absolute;
 			top: 0.2rem;
 			right: $pad;
-			content: url(../images/icons/gift.png);
+			
+			content: '';
+			width: 34px;
+			height: 33px;
 		}
 
 	}

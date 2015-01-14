@@ -77,8 +77,8 @@
 		position: absolute !important;
 
 		&::after {
+			@extend .x-light;
 			content: '';
-			background: url(../images/icons/light-x.png);
 			width: 7px; height: 7px;
 			display: block;
 			opacity: 0.571428571;

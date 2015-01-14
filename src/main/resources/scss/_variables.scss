@@ -49,7 +49,30 @@ $table-head-font-color: $primary-grey;
 $table-row-font-color: $primary-grey;
 $tabs-navigation-font-color: $primary-grey;
 
+.checkbox-image {background-image: url(../images/icons/checkbox-14.png);}
+.checkbox-image-active {background-image: url(../images/icons/checkbox-14_active.png);}
+.checkbox-image-hover {background-image: url(../images/icons/checkbox-14_hover.png);}
 
+.radiobox-image {background-image: url(../images/icons/radio-button-16.png);}
+.radiobox-image-active {background-image: url(../images/icons/radio-button-16_active.png);}
+.radiobox-image-hover {background-image: url(../images/icons/radio-button-16_hover.png);}
+
+.circle-green-check {background-image: url(../images/icons/circle-check-green-18.png);}
+.circle-red-x {background-image: url(../images/icons/circle-x-red-18.png);}
+.x-close {background-image: url(../images/icons/close.png);}
+.x-light {background-image: url(../images/icons/light-x.png);}
+
+.icon-assignment-due {background-image: url(../images/icons/assignment_due.png);}
+.icon-assignment-late {background-image: url(../images/icons/assignment_late.png);}
+.icon-assignment-ontime {background-image: url(../images/icons/assignment_ontime.png);}
+.icon-assignment-ontime-small {background-image: url(../images/icons/assignment_ontime_small.png);}
+.icon-assignment-timed {background-image: url(../images/icons/assignment-timed.png);}
+.icon-external-link {background-image: url(../images/icons/extern-link.png);}
+.icon-external-link-hover {background-image: url(../images/icons/extern-link_hover.png);}
+.icon-gift {background-image: url(../images/icons/gift.png);}
+.icon-modal-red-sign {background-image: url(../images/icons/modal-red-sign.png);}
+.icon-play {background-image: url(../images/icons/play.png);}
+.icon-transcript {background-image: url(../images/icons/play-transcript.png);}
 
 @mixin blur-effect() {
 	//filter: blur(add = 0, direction = 0, strength = 10);//IE
