@@ -91,6 +91,9 @@ var PostItem = React.createClass({
 		var edited = (Math.abs(modifiedOn - createdOn) > 0);
 		var canEdit = item.hasLink('edit') && false;
 
+		var RepliesTag = item.ReferencedByCount > 0 ? React.DOM.a : React.DOM.span;
+		var repliesClick = item.ReferencedByCount > 0 ? this._toggleReplies : null;
+
 		return (
 			<div className="feedback item">
 				<Avatar username={createdBy} className="avatar"/>
@@ -103,7 +106,8 @@ var PostItem = React.createClass({
 						<ModeledContentPanel body={message} />
 						{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 					</div>
-					<a className="replies-link" onClick={this._toggleReplies}>{t('replies', {count: item.ReferencedByCount})}</a>
+
+					<RepliesTag className="replies-link" onClick={repliesClick}>{t('replies', {count: item.ReferencedByCount})}</RepliesTag>
 				{canEdit &&
 					<div className="footer">
 						<a href="#" className="link edit">Edit</a>
