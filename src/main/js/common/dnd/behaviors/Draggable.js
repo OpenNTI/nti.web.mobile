@@ -219,8 +219,11 @@ Object.assign(exports, {
 			return;
 		}
 
-		e.preventDefault();//stop scrolls
-		e.stopPropagation();
+		//stop scrolls
+		if (e.preventDefault) {
+			e.preventDefault(); }
+		if (e.stopPropagation) {
+			e.stopPropagation(); }
 		e.returnValue = false;
 
 		if (isMultiTouch(e)) {
