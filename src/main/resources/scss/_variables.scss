@@ -92,7 +92,7 @@ $tabs-navigation-font-color: $primary-grey;
 @mixin vertical-align {
   position: relative;
   top: 50%;
-  @include transform(translateY(-50%));
+  @include transform(translate3d(0,-50%, 0));
 }
 
 

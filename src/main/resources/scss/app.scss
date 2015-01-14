@@ -262,7 +262,7 @@ aside[class*=off-canvas-menu] {
 
 .sadface {
 	font-size: 5rem;
-	transform: rotate(90deg);
+	@include transform(rotate3d(0,0,1,90deg));
 	display: inline-block;
 	background: lightblue;
 	border-radius: 100%;

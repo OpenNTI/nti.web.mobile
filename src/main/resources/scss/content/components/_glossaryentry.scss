@@ -18,7 +18,7 @@
 	.def {
 		top: 50%;
 		position: relative;
-		transform: translateY(-50%);
+		@include transform(translate3d(0,-50%,0));
 		background: white;
 		padding: 2rem;
 		box-shadow: 0 2px 4px rgba(128,128,128,.3);

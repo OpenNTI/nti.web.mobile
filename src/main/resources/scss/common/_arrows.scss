@@ -18,26 +18,26 @@
 
 @mixin _direction($direction) {
 	@if $direction == right {
-		-webkit-transform: rotate(45deg);
-		transform: rotate(45deg);
+		-webkit-transform: rotate3d(0,0,1,45deg);
+		transform: rotate3d(0,0,1,45deg);
 		right: .75em;
 	}
 	@else if $direction == left {
-		-webkit-transform: rotate(-135deg);
-		transform: rotate(-135deg);
+		-webkit-transform: rotate3d(0,0,1,-135deg);
+		transform: rotate3d(0,0,1,-135deg);
 		left: .75em;
 	}
 	@else if $direction == up {
-		-webkit-transform: rotate(-45deg);
-		transform: rotate(-45deg);
+		-webkit-transform: rotate3d(0,0,1,-45deg);
+		transform: rotate3d(0,0,1,-45deg);
 		right: .75em;
 	}
 	@else if $direction == down {
-		-webkit-transform: rotate(135deg);
-		transform: rotate(135deg);
-		right: .75em;	
+		-webkit-transform: rotate3d(0,0,1,135deg);
+		transform: rotate3d(0,0,1,135deg);
+		right: .75em;
 	}
-//	transform: rotate(map-get($_directions, $direction)deg);
+//	transform: rotate3d(0,0,1, map-get($_directions, $direction)deg);
 }
 
 .arrow-right {

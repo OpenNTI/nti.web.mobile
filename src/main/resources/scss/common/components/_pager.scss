@@ -42,13 +42,13 @@
 		}
 
 		&.prev::before {
-			transform: rotate(90deg);
-			-webkit-transform: rotate(90deg);
+			-webkit-transform: rotate3d(0,0,1,90deg);
+			transform: rotate3d(0,0,1,90deg);
 		}
 
 		&.next::before {
-			transform: rotate(-90deg);
-			-webkit-transform: rotate(-90deg);
+			-webkit-transform: rotate3d(0,0,1,-90deg);
+			transform: rotate3d(0,0,1,-90deg);
 		}
 	}
 }
