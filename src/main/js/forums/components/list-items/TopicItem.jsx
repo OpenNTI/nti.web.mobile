@@ -42,7 +42,7 @@ module.exports = React.createClass({
 				<div className="activity">
 					<div className="newest">
 						<DisplayName username={item.NewestDescendant.Creator} />
-						<span>replied <DateTime relative={true} date={replyTime}/></span>
+						<span>{t('posted')} <DateTime relative={true} date={replyTime}/></span>
 					</div>
 					{this._replies(item)}
 					{this._likes(item)}

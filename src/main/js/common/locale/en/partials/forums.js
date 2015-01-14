@@ -18,6 +18,7 @@ module.exports = {
 		one:   '1 Comment',
 		other: '%(count)s Comments'
 	},
+	posted: "posted",
 	likes: {
 		zero:  '0 Likes',
 		one:   '1 Like',
