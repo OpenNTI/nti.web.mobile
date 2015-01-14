@@ -12,7 +12,7 @@ var RadioGroup = React.createClass({
 			return (
 				<label key={'option' + index}>
 					<input {...this.props} type="radio"
-								name={this.props.ref}
+								name={this.props.name}
 								checked={checked}
 								value={option.value} />
 					<span>{option.label}</span>
