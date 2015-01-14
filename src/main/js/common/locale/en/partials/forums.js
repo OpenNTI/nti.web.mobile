@@ -9,9 +9,9 @@ module.exports = {
 		other: 'Other'
 	},
 	topicCount: {
-		zero:  'No Topics',
-		one:   'One Topic',
-		other: '%(count)s Topics'
+		zero:  'No Discussions',
+		one:   'One Discussion',
+		other: '%(count)s Discussion'
 	},
 	replies: {
 		zero:  '0 Comments',
@@ -24,5 +24,8 @@ module.exports = {
 		zero:  '0 Likes',
 		one:   '1 Like',
 		other: '%(count)s Likes'
-	}
+	},
+	emptyList: 'There is nothing here.',
+	emptyTopicList: 'There are no active discussions.',
+	topicLabel: 'Discussions'
 };

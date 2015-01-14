@@ -3,6 +3,8 @@
 var React = require('react/addons');
 var ListItems = require('./list-items');
 var hash = require('object-hash');
+var Notice = require('common/components/Notice');
+var _t = require('common/locale').scoped('FORUMS');
 
 module.exports = React.createClass({
 	displayName: 'ForumItemList',
@@ -21,14 +23,18 @@ module.exports = React.createClass({
 		var {Items} = this.props.container;
 		var keyFor = this.props.keyFn || this.keyFor;
 		var {itemProps} = this.props;
+		var empty = Items.length === 0;
+		var emptyText = this.props.emptyText || _t('emptyList');
 
 		return (
-			<ul {...this.props}>
-				{Items.map((item, index)=>{
-					return <li key={keyFor(item)}>{ListItems.select(item, index, itemProps)}</li>;
-				}
-				)}
-			</ul>
+			empty ?
+				<Notice>{emptyText}</Notice>
+				:
+				<ul {...this.props}>
+					{Items.map((item, index)=>
+						<li key={keyFor(item)}>{ListItems.select(item, index, itemProps)}</li>
+					)}
+				</ul>
 		);
 	}
 });
