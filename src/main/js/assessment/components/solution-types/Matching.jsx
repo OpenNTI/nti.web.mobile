@@ -3,6 +3,8 @@
 var React = require('react/addons');
 var Mixin = require('./Mixin');
 
+var Content = require('../Content');
+
 var toArray = require('dataserverinterface/utils/toarray');
 
 /**
@@ -41,9 +43,9 @@ module.exports = React.createClass({
 
 	renderDragSource: function (term, index) {
 		return (
-			<div className="drag source" data-match={index} key={term + index}>
+			<div className="drag source" key={term + index}>
 				<div className="match" data-source={term}>
-					<div dangerouslySetInnerHTML={{__html: term}}/>
+					<Content content={term}/>
 				</div>
 			</div>
 		);
@@ -64,7 +66,7 @@ module.exports = React.createClass({
 				<div className="match blank dropzone" data-dnd>
 					{this.renderDragSource(label, i)}
 				</div>
-				<div className="content" dangerouslySetInnerHTML={{__html: value}}/>
+				<Content className="content" content={value}/>
 			</div>
 		);
 	}

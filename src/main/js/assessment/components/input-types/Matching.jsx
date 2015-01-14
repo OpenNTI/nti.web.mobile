@@ -2,6 +2,9 @@
 
 var React = require('react/addons');
 var InputType = require('./Mixin');
+
+var Content = require('../Content');
+
 var {getEventTarget} = require('common/Utils').Dom;
 var {Mixin, Draggable, DropTarget} = require('common/dnd');
 
@@ -124,7 +127,43 @@ module.exports = React.createClass({
 	},
 
 
-	renderDragSource: function (term, index, extraClass, lock) {
+	renderDropTarget: function (target, targetIndex, solution) {
+
+		return (
+			<DropTarget accepts={this.state.PartLocalDNDToken} className="drop target" key={targetIndex} data-target={targetIndex}>
+				<input type="hidden"/>
+				<div className="match blank dropzone" data-dnd>
+					{this.renderDroppedDragSource(targetIndex, solution)}
+				</div>
+				<Content className="content" content={target}/>
+			</DropTarget>
+		);
+	},
+
+
+	renderDroppedDragSource: function (targetIndex, solution) {
+		var terms = this.props.item.labels || [];
+		var value = this.state.value || {};
+		var correct = '';
+		var dragSourceIndex = Object.keys(value).reduce(
+				(x, v)=>x || (value[v]===targetIndex ? parseInt(v, 10) : x),
+				NaN);
+
+		if (isNaN(dragSourceIndex)) {
+			return null;
+		}
+
+		if (solution && solution.value) {
+			solution = solution.value;
+
+			correct = solution[dragSourceIndex] === targetIndex ? 'correct' : 'incorrect';
+		}
+
+		return this.renderDragSource(terms[dragSourceIndex], dragSourceIndex, 'dropped '+correct);
+	},
+
+
+	renderDragSource: function (term, sourceIndex, extraClass, lock) {
 		var locked = this.isSubmitted() || Boolean(lock);
 		var classes = ['drag','match','source'];
 		if (locked) {
@@ -138,55 +177,19 @@ module.exports = React.createClass({
 		return (
 			<Draggable
 				cancel=".reset"
-				data-source={index}
-				key={term}
+				data-source={sourceIndex}
+				key={sourceIndex}
 				locked={locked}
 				type={this.state.PartLocalDNDToken}
 				>
-				<div className={classes.join(' ')}
-					key={term} data-source={term} data-match={index}>
+				<div className={classes.join(' ')} key={sourceIndex}>
 					{!locked && (
 						<a href="#" className="reset" title="Reset" onClick={this.onDragReset}/>
 					)}
-					<div dangerouslySetInnerHTML={{__html: term}}/>
+					<Content content={term}/>
 				</div>
 			</Draggable>
 		);
-	},
-
-
-	renderDropTarget: function (target, index, solution) {
-
-		return (
-			<DropTarget accepts={this.state.PartLocalDNDToken} className="drop target" key={target} data-target={index}>
-				<input type="hidden"/>
-				<div className="match blank dropzone" data-dnd>
-					{this.renderDroppedDragSource(index, solution)}
-				</div>
-				<div className="content" dangerouslySetInnerHTML={{__html: target}}/>
-			</DropTarget>
-		);
-	},
-
-
-	renderDroppedDragSource: function (dropTargetIndex, solution) {
-		var terms = this.props.item.labels || [];
-		var value = this.state.value || {};
-		var correct = '';
-		var dragSourceIndex = Object.keys(value)
-			.reduce((x, v)=>x || (value[v]===dropTargetIndex ? parseInt(v, 10) : x), NaN);
-
-		if (isNaN(dragSourceIndex)) {
-			return null;
-		}
-
-		if (solution && solution.value) {
-			solution = solution.value;
-
-			correct = solution[dragSourceIndex] === dropTargetIndex ? 'correct' : 'incorrect';
-		}
-
-		return this.renderDragSource(terms[dragSourceIndex], dragSourceIndex, 'dropped '+correct);
 	},
 
 
