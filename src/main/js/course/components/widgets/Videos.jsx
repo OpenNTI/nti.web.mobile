@@ -25,6 +25,7 @@ module.exports = React.createClass({
 
 	getInitialState: function() {
 		return {
+			active: 0,
 			loading: true,
 			error: false
 		};
@@ -97,7 +98,7 @@ module.exports = React.createClass({
 			e.preventDefault();
 			e.stopPropagation();
 		}
-		var active = this.state.active || 0;
+		var active = this.state.active;
 		this.stopVideo();
 		this.setState({
 			touch: null,
@@ -111,7 +112,7 @@ module.exports = React.createClass({
 			e.preventDefault();
 			e.stopPropagation();
 		}
-		var active = this.state.active || 0;
+		var active = this.state.active;
 		this.stopVideo();
 		this.setState({
 			touch: null,
@@ -135,7 +136,7 @@ module.exports = React.createClass({
 	onTouchStart: function(e) {
 		var touch = event.targetTouches[0];
 
-		var active = this.state.active || 0;
+		var active = this.state.active;
 		var videos = this.refs.v;
 		var pixelOffset = 0;
 		if (videos) {
@@ -175,7 +176,7 @@ module.exports = React.createClass({
 			return;
 		}
 
-		var active = state.active || 0;
+		var active = state.active;
 		var touch = toArray(e.targetTouches).reduce(find, null);
 		var sliding = data.sliding;
 		var pixelOffset = data.pixelOffset;
@@ -246,7 +247,7 @@ module.exports = React.createClass({
 
 
 	getTranslation: function() {
-		var active = this.state.active || 0;
+		var active = this.state.active;
 		var touch = this.state.touch;
 		var node = this.refs.v && this.refs.v.getDOMNode();
 		var offset = touch ? touch.pixelOffset :
@@ -282,7 +283,7 @@ module.exports = React.createClass({
 					onTouchMove={this.onTouchMove}
 					onTouchEnd={this.onTouchEnd}
 					tabIndex="0">
-					{this._renderItems(this.getVideoList(), {tag: 'li'})}
+					{this._renderItems(this.getVideoList(), {tag: 'li', activeIndex: this.state.active})}
 				</ul>
 				<button className="prev fi-arrow-left" onClick={this.onPrev} title="Prevous Video"/>
 				<button className="next fi-arrow-right" onClick={this.onNext} title="Next Video"/>

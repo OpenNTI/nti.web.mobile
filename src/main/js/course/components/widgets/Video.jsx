@@ -42,6 +42,7 @@ module.exports = React.createClass({
 		if (this.isMounted()) {
 			this.setState({
 				loading: false,
+				playing: false,
 				error: error,
 				video: null
 			});
@@ -57,13 +58,22 @@ module.exports = React.createClass({
 	componentWillReceiveProps: function(nextProps) {
 		this.__getContext();
 		this.fillInVideo(nextProps);
+
+		if (this.props.activeIndex !== nextProps.activeIndex) {
+			this.setState({playing: false});
+		}
 	},
 
 
 	fillInVideo: function (props) {
 		try {
+			var video = this.state.video;
 			var course = props.course,
 				item = props.item;
+
+			if (video && item.NTIID === video.getID()) {
+				return;
+			}
 
 			this.setState({loading: true});
 			course.getVideoIndex()
@@ -115,12 +125,17 @@ module.exports = React.createClass({
 
 	render: function() {
 		var props = this.props;
-		var item = props.item;
+		var {activeIndex, index, item} = props;
+		var renderVideoFully = true;
 
 		var Tag = props.tag || 'div';
 		var style = {
 			backgroundImage: 'url(' + item.poster + ')'
 		};
+
+		if (activeIndex != null) {
+			renderVideoFully = (activeIndex === index);
+		}
 
 		var link = path.join(props.basePath,
 			'course', NTIID.encodeForURI(props.course.getID()),
@@ -128,8 +143,11 @@ module.exports = React.createClass({
 
 		return (
 			<Tag className="video-wrap flex-video widescreen">
-				{!this.state.video ? null :
-					<Video ref="video" src={this.state.video} onEnded={this.onStop} onPlaying={this.onPlay} context={this.state.context} />
+				{!this.state.video || !renderVideoFully ? null :
+					<Video ref="video" src={this.state.video}
+						onEnded={this.onStop}
+						onPlaying={this.onPlay}
+						context={this.state.context} />
 				}
 				{this.state.playing ? null :
 				<LoadingMask style={style} loading={this.state.loading} tag="a" onFocus={props.onFocus} className="tap-area" href={link}>
