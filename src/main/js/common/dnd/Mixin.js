@@ -112,7 +112,14 @@ Object.assign(exports, {
 	},
 
 
-	__onDragOver (target) {
+	__onDragOver (target, sender) {
+		var last = this.state.lastDragOver || {};
+		var lastTarget = last.target;
+
+		if (!target && lastTarget && lastTarget !== sender) {
+			return;
+		}
+
 		this.setState({
 			lastDragOver: {
 				source: this.state.currentDragItem,

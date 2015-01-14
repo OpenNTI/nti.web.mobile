@@ -128,7 +128,7 @@ Object.assign(exports, {
 
 	_onDragLeftDropTarget() {
 		this.setState({over: false});
-		this.context.onDragOver(null);
+		this.context.onDragOver(null, this);
 	},
 
 
