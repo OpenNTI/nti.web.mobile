@@ -15,11 +15,14 @@ function _discussionsLoaded(courseId, result) {
 module.exports = {
 	loadDiscussions(course) {
 
+		var courseId = course.getID();
+
 		// do we already have a promise for loading this course's discussions?
-		var promise = _promises[course];
+		var promise = _promises[courseId];
 		
 		// if not, create one.
 		if (!promise) {
+			console.debug('new promise for getting course discussions: %s (%s)', (course.getPresentationProperties()||{ title: 'unknown title'}).title, courseId);
 			var courseId = course.getID();
 			promise = course.getDiscussions()
 				.then( result => {
@@ -32,7 +35,7 @@ module.exports = {
 					}
 				);
 			// keep this promise around so we're not making redundant calls.
-			_promises[course] = promise;
+			_promises[courseId] = promise;
 		}
 
 		return promise;
