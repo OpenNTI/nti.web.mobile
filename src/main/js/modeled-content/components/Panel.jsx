@@ -70,7 +70,7 @@ module.exports = React.createClass({
 
 			var processed = packet.body.map(
 				part => (typeof part !== 'string') ?
-					('<widget id="'+ part.guid +'">--x--</widget>') :
+					('<widget id="'+ part.guid +'"></widget>') :
 					part);
 
 			return htmlToReactRenderer(
