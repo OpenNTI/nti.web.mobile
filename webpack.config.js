@@ -11,8 +11,6 @@ var CompressionPlugin = require("compression-webpack-plugin");
 var path = require('path');
 var fs = require('fs');
 
-var StatsCollector = require('./src/webpack-plugins/stats-collector');
-
 var StyleCollector = path.join(__dirname, 'src', 'server', 'style-collector');
 var ES3Recast = '';//path.join(__dirname, 'src', 'webpack-plugins', 'es3recast') + '!';
 
@@ -181,7 +179,6 @@ exports = module.exports = [
 
         plugins: [
             //new webpack.HotModuleReplacementPlugin(),
-            StatsCollector(__dirname),
             new webpack.DefinePlugin({
                 SERVER: false,
                 "process.env": {
