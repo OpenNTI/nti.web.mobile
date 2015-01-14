@@ -56,7 +56,7 @@ module.exports = React.createClass( {
 	},
 
 	fillInData: function(service) {
-
+		debugger;
 		function getLastQuizSubmission(pageInfo) {
 			return pageInfo
 				.getUserDataLastOfType(SUBMITTED_QUIZ)
@@ -145,7 +145,7 @@ module.exports = React.createClass( {
 			(state.completed ? " completed" : "") +
 			(isLate ? " late" : "") +
 			(assignment ? " assignment" : " assessment") +
-			(assignmentHistory ? " submitted" : "");
+			(assignmentHistory && assignmentHistory.isSubmitted() ? " submitted" : "");
 
 		return (
 			<a className={'overview-naquestionset' + addClass} href={state.href} onClick={this.onClick}>
