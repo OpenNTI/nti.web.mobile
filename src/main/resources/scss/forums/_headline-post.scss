@@ -1,0 +1,22 @@
+.headline.post {
+	margin-top: 1rem;
+	position: relative;
+
+	.avatar {
+		width: 60px;
+		height: 60px;
+		border-radius: 3px;
+		position: absolute;
+		top: 0.625rem;
+		left: 0.625rem;
+	}
+
+	.wrap {
+		margin: 0 0 1rem 5rem;
+		font-size: 0.8rem;
+
+		time {
+			color: $tertiary-grey;
+		}
+	}
+}

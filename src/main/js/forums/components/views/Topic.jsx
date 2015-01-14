@@ -13,7 +13,6 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 
 var TopicHeadline = require('../TopicHeadline');
 var TopicComments = require('../TopicComments');
-var ModeledContentPanel = require('modeled-content').Panel;
 var Breadcrumb = require('common/components/Breadcrumb');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 
@@ -72,7 +71,7 @@ module.exports = React.createClass({
 		var href = this.makeHref(this.getPath());
 		return getContextProvider().then(context => {
 			context.push({
-				label: 'Topic', 
+				label: 'Topic',
 				// label: this.state.topic.headline.title,
 				href: href
 			});
@@ -91,8 +90,7 @@ module.exports = React.createClass({
 		return (
 			<div>
 				<Breadcrumb contextProvider={this.__getContext}/>
-				<TopicHeadline topic={topic} />
-				<ModeledContentPanel body={topic.headline.body} />
+				<TopicHeadline post={topic.headline} />
 				<TopicComments container={contents} />
 			</div>
 		);
