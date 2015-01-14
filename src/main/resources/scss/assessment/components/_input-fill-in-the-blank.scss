@@ -2,6 +2,10 @@
 
 .question-part .fill-in-the-blank {
 
+	.active .blank:empty::before {
+		font-size: 3.5rem;
+	}
+
 	.blank {
 		position: relative;
 		margin: 0 0.5em;
@@ -18,6 +22,7 @@
 
 		&:empty {
 			&::before {
+				@include transition('font-size 0.5s ease-in');
 				content: '(blank)';
 				visibility: hidden;
 			}
