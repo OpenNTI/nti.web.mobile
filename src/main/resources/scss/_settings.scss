@@ -1289,10 +1289,11 @@ $sub-nav-active-cursor: default;
 
 // We use these to style the icon-bar and items
 // $include-html-icon-bar-classes: $include-html-classes;
-// $icon-bar-bg: #333;
+$icon-bar-bg: #333;
 // $icon-bar-font-color: #fff;
 // $icon-bar-font-size: 1rem;
 // $icon-bar-hover-color: $primary-color;
+$icon-bar-hover-color: $icon-bar-bg;
 // $icon-bar-icon-color: #fff;
 // $icon-bar-icon-size: 1.875rem;
 // $icon-bar-image-width: 1.875rem;
