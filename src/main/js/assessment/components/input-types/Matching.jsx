@@ -142,14 +142,12 @@ module.exports = React.createClass({
 
 
 	renderDroppedDragSource: function (targetIndex, solution) {
-		var terms = this.props.item.labels || [];
-		var value = this.state.value || {};
+		var sources = this.props.item.labels || [];
+		var value = Array.from(Object.assign({length: sources.length}, this.state.value || {}));
 		var correct = '';
-		var dragSourceIndex = Object.keys(value).reduce(
-				(x, v)=>x || (value[v]===targetIndex ? parseInt(v, 10) : x),
-				NaN);
+		var dragSourceIndex = value.indexOf(targetIndex);
 
-		if (isNaN(dragSourceIndex)) {
+		if (dragSourceIndex < 0) {
 			return null;
 		}
 
@@ -159,7 +157,7 @@ module.exports = React.createClass({
 			correct = solution[dragSourceIndex] === targetIndex ? 'correct' : 'incorrect';
 		}
 
-		return this.renderDragSource(terms[dragSourceIndex], dragSourceIndex, 'dropped '+correct);
+		return this.renderDragSource(sources[dragSourceIndex], dragSourceIndex, 'dropped '+correct);
 	},
 
 
