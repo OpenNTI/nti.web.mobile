@@ -6,7 +6,6 @@
 
 var React = require('react/addons');
 var Router = require('react-router-component');
-// var ActiveLink = Router.Link;
 var ActiveLink = require('./ActiveLink');
 
 // for computing css class names like 'two-up'
@@ -22,7 +21,7 @@ module.exports = React.createClass({
 
 	render: function() {
 
-		var tabs = Object.keys(this.props.groups||{}).map(groupName => {
+		var tabs = Object.keys(this.props.groups||{}).sort().map(groupName => {
 			var href = ['', groupName, ''].join('/');
 			return <ActiveLink href={href} key={href} className="item"><label>{groupName}</label></ActiveLink>;
 		});
