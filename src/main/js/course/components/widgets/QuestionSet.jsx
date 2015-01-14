@@ -18,6 +18,7 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var SUBMITTED_QUIZ = 'application/vnd.nextthought.assessment.assessedquestionset';
 
 var assignmentType = /assignment/i;
+var t = require('common/locale');
 
 module.exports = React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
@@ -192,7 +193,7 @@ module.exports = React.createClass( {
 		e.stopPropagation();
 
 		/*global alert */
-		alert('Coming soon to mobile.\nUntil then, please use a desktop or iPad app to access it.');
+		alert(t('COMING_SOON.general'));
 
 	}
 });

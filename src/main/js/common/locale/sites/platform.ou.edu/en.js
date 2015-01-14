@@ -23,5 +23,6 @@ module.exports = {
 						'<a href="http://www.aenetworks.com/terms" target="_blank">Terms of Use</a> | ' +
 						'<a href="http://www.aenetworks.com/contact" target="_blank">Contact Us</a>'
 		}
-	}
+	},
+	COMING_SOON: require('./partials/coming-soon')
 };

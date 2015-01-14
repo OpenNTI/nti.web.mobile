@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react/addons');
+var t = require('common/locale').translate;
+
 
 module.exports = React.createClass({
 	displayName: 'Unknown',
@@ -10,7 +12,7 @@ module.exports = React.createClass({
 		return (
 			<div className="unknown solution">
 
-				<h4>This solution type is currently not available on mobile.  Please use the iPad app or your desktop browser.</h4>
+				<h4>{t('COMING_SOON.singular', {subject: 'This solution type'})}</h4>
 
 			</div>
 		);

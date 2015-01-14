@@ -59,6 +59,8 @@ module.exports = {
 
 	FORUMS: require('./partials/forums'),
 
+	COMING_SOON: require('./partials/coming-soon'),
+
 	GLOBAL: {
 		siteName: 'NextThought'
 
