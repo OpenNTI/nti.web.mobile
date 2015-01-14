@@ -52,14 +52,14 @@ module.exports = React.createClass({
 
 		body = (body || []).map(content=> {
 			var packet;
-
+			var key, w, o;
 			if (typeof content === 'string') {
 				packet = processContent(strategies, {content: content});
 			}
 			else {
-				let key = guid();
-				let w = { guid: key, data: content };
-				let o = {}; o[key] = w;
+				key = guid();
+				w = { guid: key, data: content };
+				o = {}; o[key] = w;
 				packet = {
 					widgets: o,
 					body: [w]
