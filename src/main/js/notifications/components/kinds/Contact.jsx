@@ -16,13 +16,15 @@ module.exports = React.createClass({
 
 
 	render: function() {
+		var time = this.state.change && this.state.change.getLastModified();
+
 		return (
 			<li className="notification-item">
 				<Avatar username={this.state.username} width="32" height="32"/>
 				<div className="wrap">
 					<DisplayName username={this.state.username}/>
 						{" added you as a contact."}
-					<DateTime date={this.getEventTime()} />
+					<DateTime date={time} />
 				</div>
 			</li>
 		);
