@@ -9,10 +9,9 @@ var htmlToReactRenderer = require('dataserverinterface/utils/html-to-react');
 
 var hash = require('object-hash');
 
-var SYSTEM_WIDGET_STRATEGIES = {
-//Whiteboards,
-//Videos
-};
+var SYSTEM_WIDGETS = require('../SystemWidgetRegistry');
+
+var SYSTEM_WIDGET_STRATEGIES = {};
 
 /**
  * Component to render Modeled Body Content
@@ -58,11 +57,11 @@ module.exports = React.createClass({
 			}
 			else {
 				key = guid();
-				w = { guid: key, data: content };
+				w = Object.assign({}, content, { id: key });
 				o = {}; o[key] = w;
 				packet = {
 					widgets: o,
-					body: [w]
+					body: [{guid:key}]
 				};
 			}
 
@@ -113,18 +112,21 @@ module.exports = React.createClass({
 
 
 	renderWidget: function (tagName, props, children) {
+		var {renderCustomWidget} = this.props;
+		var f = renderCustomWidget || React.createElement;
 		props = props || {};//ensure we have an object.
 
 		//TODO: Is it known internally? Render it directly.
 		var {id} = props;
-		var {widgets} = this.state;
-		var {renderCustomWidget} = this.props;
-
-		var widget = (widgets || {})[id] || {};
-
-		var f = renderCustomWidget || React.createElement;
+		var widget = (this.state.widgets || {})[id] || {};
 
 		props = Object.assign({}, props, widget);
+
+		if (widget && SYSTEM_WIDGETS[widget.MimeType]) {
+			f = SYSTEM_WIDGETS[widget.MimeType];
+		}
+
+
 		return f(tagName, props, children);
 	}
 });
