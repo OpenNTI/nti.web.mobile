@@ -15,6 +15,8 @@ var Actions = require('../../Actions');
 var Store = require('../../Store');
 var t = require('common/locale').scoped('FORUMS');
 
+var isFlag = require('common/Utils').isFlag;
+
 var PostItem = React.createClass({
 
 	displayName: 'PostListItem',
@@ -118,7 +120,9 @@ var PostItem = React.createClass({
 								{t('replies', {count: item.ReferencedByCount})}
 							</RepliesTag>
 						</li>
-						<AddComment linkText={t('replyLink')} parent={item} topic={this.props.topic} />
+						{isFlag('forumCommentsEnabled') &&
+							<AddComment linkText={t('replyLink')} parent={item} topic={this.props.topic} />
+						}
 					</ul>
 				{canEdit &&
 					<div className="footer">
