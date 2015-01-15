@@ -86,7 +86,7 @@ api.registerAuthenticationRequiredEndPoints(app, config);
 
 //HTML Renderer...
 app.get('*', function(req, res) {
-	console.log('Rendering Inital View: %s %s', req.url, req.username);
+	console.log('%s\tRendering Inital View: %s %s', new Date().toUTCString(), req.url, req.username);
 	var isErrorPage = false;
 	global.__setPageNotFound = function() {
 		isErrorPage = true;
@@ -105,7 +105,7 @@ app.get('*', function(req, res) {
 			var clientConfig = common.clientConfig(req.username, req);
 			clientConfig.html += datacache.getForContext(req).serialize();
 			//Final render
-			console.log('Flushing Render to client: %s %s', req.url, req.username);
+			console.log('%s\tFlushing Render to client: %s %s', new Date().toUTCString(), req.url, req.username);
 			res.end(page(req, entryPoint, clientConfig));
 		});
 });
@@ -114,12 +114,12 @@ app.get('*', function(req, res) {
 /* jshint -W098 */	// We need the signature to be 4 args long
 					// for express to treat it as a error handler
 app.use(function(err, req, res, next){
-	console.error(err.stack || err);
+	console.error('%s\t%s', new Date().toUTCString(), err.stack || err);
 	res.status(500).send('Oops! Something broke!'); });
 
 //Go!
 protocol.createServer(mobileapp || app).listen(port, address, function() {
-	console.log('Listening on port %d', port); });
+	console.log('%s\tListening on port %d', new Date().toUTCString(), port); });
 
 if (devmode) {
 	devmode.start();
