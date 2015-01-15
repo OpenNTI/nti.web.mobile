@@ -11,8 +11,6 @@ var Utils = require('common/Utils');
 //Client code, injects script blocks into <HEAD> tag
 require('script!../resources/vendor/modernizr/modernizr.js');
 require('script!../resources/vendor/fastclick/lib/fastclick.js');
-require('script!../resources/vendor/jquery/dist/jquery.min.js');
-require('script!../resources/vendor/foundation/js/foundation.min.js');
 
 //Allow CSS :active states:
 //document.addEventListener("touchstart", emptyFunction, true);

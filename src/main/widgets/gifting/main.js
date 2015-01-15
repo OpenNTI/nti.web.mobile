@@ -11,12 +11,10 @@ require('../../resources/scss/app.scss');
 
 //Client code, injects script blocks into <HEAD> tag
 require('script!../../resources/vendor/modernizr/modernizr.js');
-require('script!../../resources/vendor/jquery/dist/jquery.min.js');
-require('script!../../resources/vendor/foundation/js/foundation.min.js');
 
-/** global FastClick */
-//require('script!../../resources/vendor/fastclick/lib/fastclick.js');
-//FastClick.attach(document.body);
+/*global FastClick */
+require('script!../../resources/vendor/fastclick/lib/fastclick.js');
+FastClick.attach(document.body);
 
 
 

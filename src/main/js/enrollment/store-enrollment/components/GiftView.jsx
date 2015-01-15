@@ -52,7 +52,7 @@ module.exports = React.createClass({
 		//FIXME: Re-write this:
 		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
 		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-		
+
 		var formData = Store.getPaymentFormData();
 
 		return {
@@ -66,6 +66,7 @@ module.exports = React.createClass({
 
 	componentDidMount: function() {
 		Promise.all([
+			this.injectScript('https://code.jquery.com/jquery-2.1.3.min.js', 'jQuery'),
 			this.injectScript('https://js.stripe.com/v2/', 'Stripe'),
 			this.injectScript('//cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.0.2/jquery.payment.min.js', 'jQuery.payment')
 		])
