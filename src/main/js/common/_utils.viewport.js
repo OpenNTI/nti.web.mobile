@@ -1,14 +1,18 @@
 'use strict';
 
+
+function getDocument() {
+	return typeof document === 'undefined' ? {} :
+		document.documentElement || {};
+}
+
 module.exports = {
 	getHeight: function() {
-		var el = document.documentElement || {};
-		return window.innerHeight || el.clientHeight;
+		return global.innerHeight || getDocument().clientHeight;
 	},
 
 	getWidth: function () {
-		var el = document.documentElement || {};
-		return window.innerWidth || el.clientWidth;
+		return global.innerWidth || getDocument().clientWidth;
 	},
 
 	getScreenWidth: function() {
