@@ -42,9 +42,9 @@ React.initializeTouchEvents(true);
 // 	//Suggest Bookmarking to the home screen...
 // }
 
-var AppView = React.createFactory(require('./AppView'));
+var AppView = require('./AppView');
 var app = React.render(
-	AppView({basePath: (global.$AppConfig || {}).basepath || '/'}),
+	React.createElement(AppView, {basePath: (global.$AppConfig || {}).basepath || '/'}),
 	document.getElementById('content')
 );
 
