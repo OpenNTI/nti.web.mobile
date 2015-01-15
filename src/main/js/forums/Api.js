@@ -49,6 +49,20 @@ module.exports = {
 		return me.promise;
 	},
 
+	addComment(topic, comment) {
+		return topic.addComment(comment).then(result=>{
+			console.debug(result);
+			Store.emitChange({
+				type: Constants.COMMENT_ADDED,
+				topic: topic,
+				result: result
+			});
+		},
+		reason => {
+			console.debug(reason);
+		});
+	},
+
 	getObjectContents: function(ntiid, params) {
 		return this.getObject(ntiid).then(object => {
 			return object.getContents(params).then(contents => {

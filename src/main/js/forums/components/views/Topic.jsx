@@ -55,6 +55,9 @@ module.exports = React.createClass({
 					});
 				}
 				break;
+			case Constants.COMMENT_ADDED:
+				this._loadData(this.props.topicId);
+				break;
 		}
 	},
 
@@ -91,7 +94,7 @@ module.exports = React.createClass({
 			<div>
 				<Breadcrumb contextProvider={this.__getContext}/>
 				<TopicHeadline post={topic.headline} />
-				<TopicComments container={contents} />
+				<TopicComments container={contents} topic={topic} />
 			</div>
 		);
 	}

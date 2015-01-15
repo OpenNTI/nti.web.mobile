@@ -7,7 +7,6 @@ var Constants = require('./Constants');
 var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
 
 var indexForums = require('./utils/index-forums');
-
 var _discussions = {};
 var _forums = {}; // forum objects by id.
 var _forumContents = {};
@@ -74,6 +73,13 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		this.emitChange({
 			type: Constants.TOPIC_CONTENTS_CHANGED,
 			key: key
+		});
+	},
+
+	commentAdded: function(result) {
+		this.emitChange({
+			type: Constants.COMMENT_ADDED,
+			result: result
 		});
 	}
 

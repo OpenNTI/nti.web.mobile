@@ -3,11 +3,21 @@
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var Constants = require('./Constants');
+var Api = require('./Api');
+var Store = require('./Store');
+
 
 module.exports = {
 	getCommentReplies: function(comment) {
 		dispatch(Constants.GET_COMMENT_REPLIES, {
 			comment: comment
+		});
+	},
+
+	addComment: function(topic, comment) {
+		var add = Api.addComment(topic, comment);
+		add.then(result => {
+			Store.commentAdded(result);
 		});
 	}
 };

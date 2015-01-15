@@ -10,6 +10,7 @@ var Avatar = require('common/components/Avatar');
 var DateTime = require('common/components/DateTime');
 var DisplayName = require('common/components/DisplayName');
 var ModeledContentPanel = require('modeled-content').Panel;
+var CommentForm = require('../CommentForm');
 var Actions = require('../../Actions');
 var Store = require('../../Store');
 var t = require('common/locale').scoped('FORUMS');
@@ -28,7 +29,8 @@ var PostItem = React.createClass({
 	getInitialState: function() {
 		return {
 			replies: null,
-			displayReplies: true
+			displayReplies: true,
+			showForm: false
 		};
 	},
 
@@ -81,6 +83,18 @@ var PostItem = React.createClass({
 		});
 	},
 
+	_showForm: function() {
+		this.setState({
+			showForm: true
+		});
+	},
+
+	_postComment: function(event, value) {
+		event.preventDefault();
+		event.stopPropagation();
+		console.debug(value);
+	},
+
 	render: function() {
 		var {item} = this.props;
 		var createdBy = item.Creator;
@@ -91,7 +105,7 @@ var PostItem = React.createClass({
 		var edited = (Math.abs(modifiedOn - createdOn) > 0);
 		var canEdit = item.hasLink('edit') && false;
 
-		var RepliesTag = item.ReferencedByCount > 0 ? React.DOM.a : React.DOM.span;
+		var RepliesTag = item.ReferencedByCount > 0 ? "a" : "span";
 		var repliesClick = item.ReferencedByCount > 0 ? this._toggleReplies : null;
 
 		return (
@@ -106,8 +120,18 @@ var PostItem = React.createClass({
 						<ModeledContentPanel body={message} />
 						{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 					</div>
-
-					<RepliesTag className="replies-link" onClick={repliesClick}>{t('replies', {count: item.ReferencedByCount})}</RepliesTag>
+					<ul className="links">
+						<li><RepliesTag
+							className="replies-link"
+							onClick={repliesClick}>
+								{t('replies', {count: item.ReferencedByCount})}
+							</RepliesTag>
+						</li>
+						<li><a onClick={this._showForm}>{t('replyLink')}</a></li>
+					</ul>
+					{this.state.showForm &&
+						<CommentForm onSubmit={this._postComment}/>
+					}
 				{canEdit &&
 					<div className="footer">
 						<a href="#" className="link edit">Edit</a>

@@ -20,6 +20,8 @@ module.exports = Object.assign(exports,
 		OBJECT_LOADED: null,
 		OBJECT_CONTENTS_LOADED: null,
 		GET_COMMENT_REPLIES: null,
-		GOT_COMMENT_REPLIES: null
+		GOT_COMMENT_REPLIES: null,
+		ADD_COMMENT: null,
+		COMMENT_ADDED: null
 	})
 );

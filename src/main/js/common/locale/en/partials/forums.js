@@ -18,6 +18,8 @@ module.exports = {
 		one:   '1 Comment',
 		other: '%(count)s Comments'
 	},
+	replyLink: 'Reply',
+	addComment: 'Add a Comment',
 	posted: 'posted',
 	replied: 'replied',
 	likes: {
