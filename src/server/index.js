@@ -56,12 +56,16 @@ mobileapp.all('/', function(_, res) { res.redirect('/mobile/'); });
 
 require('./redirects').register(app, config, appRoutes);
 
-if (!entryPoint) {
+if (entryPoint==null) {//only start the dev server if entryPoint is null or undefined. if its false, skip.
 	page = require('./page');
 	devmode = require('./devmode')(port);
 
 	entryPoint = devmode.entry;
 	app.use(devmode.middleware);//serve in-memory compiled sources/assets
+}
+else if (entryPoint === false) {
+	console.error('Not in dev mode, preventing dev server from starting. Shutting down.');
+	return;
 }
 
 //Static files...

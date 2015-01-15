@@ -31,8 +31,7 @@ try {
 } catch (e) {
 	console.warn('%s\tNo Server-side Rendering (Because: %s)', new Date().toUTCString(),
 		/Cannot find module '\.\.\/main\/js\/AppView'/.test(e.message || e) ?
-			'Dev Mode':
-			e.stack || e.message || e);
+			e.message: e.stack || e.message || e);
 }
 
 try {

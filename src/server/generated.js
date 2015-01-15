@@ -3,26 +3,40 @@
 var ServerRender = true;
 var src;
 var stats = {assetsByChunkName: {}};
+var reason;
 
 module.exports.page = function() {return 'Imagine the UI.';};
 
 try {
 	module.exports.page = require('page.generated');
 } catch(e) {
+	reason = e.stack || e.message;
 	ServerRender = false;
 	//no big
-	console.warn('%s\tRunning from SRC directory...', new Date().toUTCString());
+	if (/Cannot find module 'page\.generated'/.test(e.message)) {
+			reason = 'Missing compiled page';
+	}
+	console.warn('%s\tCould not load compiled page. %s', new Date().toUTCString(), reason);
 }
 
-if (ServerRender) {
-	try {
-		stats = require('./stats.generated.json');
-	} catch (e) {
+
+try {
+	stats = require('./stats.generated.json');
+	if (!ServerRender) {
+		throw new Error('Stats Extist, but could not load the compiled page!');
+	}
+
+} catch (e) {
+	if (ServerRender) {
+		module.exports.entryPoint = false;
+
 		console.error('%s\tServer UI rendering: cannot load webpack`s compile info: %s',
 			new Date().toUTCString(),
 			e.stack || e.message || e);
+		return;
 	}
 }
+
 
 try {
 	src = stats.assetsByChunkName.main;
