@@ -4,6 +4,11 @@
 
 'use strict';
 
+var NodeModulesThatNeedCompiling = [
+    'dataserverinterface',
+    'react-editor-component'
+    ];
+
 var webpack = require('webpack');
 var assign = require('object-assign');
 var CompressionPlugin = require("compression-webpack-plugin");
@@ -19,39 +24,20 @@ var scssIncludes =
 
 var root = path.join(__dirname,'src','main','js');
 
-var appPackages = {
-    dataserverinterface: true
-};
-
 var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
 
 var commonLoaders = [
     { test: /\.json$/, loader: 'json' },
-    // { test: /\.js(x?)$/, loader: ES3Recast + 'jsx?harmony' },
-    { _test: /\.js(x?)$/,
+    { test: /\.js(x?)$/,
         loader: ES3Recast + '6to5',
         exclude: {
-            test: function (s) {
-                var ourprojects = ['dataserverinterface','react-editor-component'].join('|');
-                if (/(node_modules|resources\/vendor)/.test(s)) {
-
-                    if(new RegExp(ourprojects).test(s)) {
-
-                        return new RegExp('('+ourprojects+')/node_modules').test(s);
-
-                    }
-                    return true;
-                }
-                return false;
-            }
+            test: excludeNodeModulesExceptOurs
         }
     },
 
+    {   test: /\.(ico|gif|png|jpg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
 
-    { test: /\.(ico|gif|png|jpg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
-
-    { test: appFontName, loader: 'url' },
-
+    {   test: appFontName, loader: 'url' },
     {
         test: {
             test: function(s) {
@@ -71,32 +57,21 @@ var commonLoaders = [
 ];
 
 
-function isNodeModule(module, context) {
-    var file = path.join(context, 'node_modules', module.split('/')[0]);
-    var parent = context && context.split('/').slice(0, -1).join('/');
-    var nodeBuiltins = {
-        path: true,
-        fs: true,
-        net: true,
-        url: true
-    };
-
-    if (nodeBuiltins[module]) {
-        return true;
+function isOurModule (s) {
+    var ourprojects = NodeModulesThatNeedCompiling.join('|');
+    if (new RegExp(ourprojects).test(s)) {
+        return !(new RegExp('('+ourprojects+')/node_modules').test(s));
     }
-
-    if (!parent || parent === '' || /^(\.|!|\/)/.test(module)) {
-        return false;
-    }
-
-    return fs.existsSync(file) || isNodeModule(module, parent);
+    return false;
 }
 
-fs.readdirSync(root).forEach(function(f) {
-    if(fs.statSync(path.join(root, f)).isDirectory()) {
-        appPackages[f] = false;//mark it as NOT external
+
+function excludeNodeModulesExceptOurs(s) {
+    if (/(node_modules|resources\/vendor)/.test(s)) {
+        return !isOurModule(s);
     }
-});
+    return false;
+}
 
 
 function getWidgets() {
@@ -236,17 +211,7 @@ exports = module.exports = [
                 SERVER: true
             })
         ],
-        externals: [
-            appPackages,
-            function(context, request, callback) {
 
-                if (/node_modules/i.test(context) || isNodeModule(request, context)){
-                    return callback(null, request);
-                }
-
-                callback();
-            },
-        ],
         module: {
             loaders: commonLoaders.concat([
                 { test: /\.html$/, loader: 'html?attrs=link:href' },

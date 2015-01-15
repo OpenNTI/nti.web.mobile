@@ -59,8 +59,8 @@ e[0].plugins = [
 
 e.forEach(function(x) {
     x.stats = true;
-    x.debug = true;
-    x.devtool = undefined;
+    x.debug = false;
+    x.devtool = 'source-map';
 });
 
 
