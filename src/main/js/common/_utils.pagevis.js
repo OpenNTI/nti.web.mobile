@@ -12,7 +12,7 @@ var prefix = (function () {
 		if (typeof document === 'undefined') {
 			return;
 		}
-		
+
 	    if (document.hidden !== undefined) {
 			p = '';
 		}
@@ -59,7 +59,7 @@ function countView() {
 }
 
 function setupPageVisibility() {
-	if (prefix !== null) {
+	if (prefix !== null && typeof document !== 'undefined') {
 		document.addEventListener(eventName, countView);
 		countView();
     }
