@@ -111,6 +111,8 @@ function getCommentReplies(comment) {
 	});
 }
 
+Store.setMaxListeners(0);
+
 Store.appDispatch = AppDispatcher.register(function(payload) {
 	var action = payload.action;
 	switch(action.type) {
