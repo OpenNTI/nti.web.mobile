@@ -31,15 +31,36 @@ module.exports = function(grunt) {
 
 	pkgConfig.distSiteCSS = path.join(pkgConfig.dist, '/client/resources/css/sites/');
 
-
-
 	grunt.initConfig({
 
 		pkg: pkgConfig,
 
 		webpack: {
-			dist: require('./webpack.dist.config.js'),
-            dev: require('./webpack.config.js')
+			dist: require('./webpack.dist.config.js')
+		},
+
+		'webpack-dev-server': {//not setup yet, ignore for now.
+			options: {
+				webpack: require('./webpack.config.js')[0],
+				publicPath: '/mobile/'
+			},
+			start: {
+				watch: true,
+				keepAlive: true,
+				port: 8084,
+				inline: true,
+				contentBase: '',//__dirname + '/src/main/',
+				webpack: {
+					debug: true,
+					entry: './src/main/js/index.js',
+					output: {
+						path: '/',
+						publicPath: 'http://localhost:8084/mobile/',
+						//publicPath: '/mobile/',
+						filename: 'js/main.js'
+					}
+				}
+			}
 		},
 
 		execute: {
