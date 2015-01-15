@@ -1,18 +1,27 @@
 'use strict';
 
+var ServerRender = true;
 var src;
 var stats = {assetsByChunkName: {}};
 
 module.exports.page = function() {return 'Imagine the UI.';};
 
-
 try {
 	module.exports.page = require('page.generated');
-	stats = require('./stats.generated.json');
 } catch(e) {
+	ServerRender = false;
 	//no big
-	console.warn('Running from SRC directory...',
-				'Good for testing server calls, but not UI rendering.');
+	console.warn('%s\tRunning from SRC directory...', new Date().toUTCString());
+}
+
+if (ServerRender) {
+	try {
+		stats = require('./stats.generated.json');
+	} catch (e) {
+		console.error('%s\tServer UI rendering: cannot load webpack`s compile info: %s',
+			new Date().toUTCString(),
+			e.stack || e.message || e);
+	}
 }
 
 try {
@@ -23,5 +32,7 @@ try {
 
 	module.exports.entryPoint = src;
 } catch (e) {
-	console.warn('Could not resolve the entryPoint script name.');
+	console.warn('%s\tCould not resolve the entryPoint script name: %s',
+		new Date().toUTCString(),
+		e.stack || e.message || e);
 }
