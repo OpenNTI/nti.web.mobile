@@ -1,5 +1,8 @@
 #!/bin/bash
-rm -rf ./node_modules/*
-ln -s ../../nti.node.dataserverinterface/ ./node_modules/dataserverinterface
-ln -s ../../editor/ ./node_modules/react-editor-component
+INTERFACE=./node_modules/dataserverinterface
+EDITOR=./node_modules/react-editor-component
 
+rm -rf $INTERFACE
+ln -s ../../nti.node.dataserverinterface/ $INTERFACE
+rm -rf $EDITOR
+ln -s ../../editor/ $EDITOR
