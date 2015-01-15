@@ -9,6 +9,10 @@ var prefix = (function () {
 	try {
 		var prefixes = ['webkit','moz','ms','o'];
 	    var p = null, i = 0;
+		if (typeof document === 'undefined') {
+			return;
+		}
+		
 	    if (document.hidden !== undefined) {
 			p = '';
 		}
