@@ -76,11 +76,6 @@ module.exports = React.createClass({
 		var cls = 'scroll-lock';
 		var action = (this.getDrawerState() === CLOSE_MENU) ? 'remove' : 'add';
 
-		//Pretend you didn't see the jQuery usage... still very taboo
-		//This forces the side drawers to be the hight of the window...
-		/* global $ */
-		$('[class*=off-canvas-menu]').height(Utils.Viewport.getHeight());
-
 		utils[action + 'Class'](viewport, cls);
 	},
 
@@ -90,6 +85,7 @@ module.exports = React.createClass({
 		var state = this.getDrawerState();
 		var username = Utils.getAppUsername();
 		var hamburger = state === LEFT_MENU_OPEN ? 'active' : '';
+		var height = {height: Utils.Viewport.getHeight()};
 
 		return (
 			<div className="app-container">
@@ -116,13 +112,13 @@ module.exports = React.createClass({
 							</section>
 						</nav>
 
-						<aside className="left-off-canvas-menu">
+						<aside className="left-off-canvas-menu" style={height}>
 							<LeftNav basePath={this.props.basePath}
 								isLoading={this.state.navLoading}
 								items={this.state.leftNav} />
 						</aside>
 
-						<aside className="right-off-canvas-menu">
+						<aside className="right-off-canvas-menu" style={height}>
 							<Notifications.View/>
 						</aside>
 
