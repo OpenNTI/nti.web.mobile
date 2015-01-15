@@ -1,17 +1,57 @@
-'use strict';
+import Editor from 'react-editor-component';
+import * as React from 'react/addons';
 
-var React = require('react/addons');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'ModeledBodyContentEditor',
 
+	propTypes: {
+		/**
+		 * The raw or parsed modeled content body.
+		 *
+		 * @type {String|Array[String|Object]}
+		 */
+		value: React.PropTypes.oneOfType([
+			React.PropTypes.string,
+			React.PropTypes.arrayOf(React.PropTypes.oneOfType([
+				React.PropTypes.string,
+				React.PropTypes.object
+				]))
+			]),
+		onChange: React.PropTypes.func
+	},
+
+
+	/**
+	 * @returns the modeled body array, where each item in the array is either
+	 *  a modeled content object (Whiteboard, embedded Video, etc) or an html
+	 *  fragment. (The server 'tidies' the fragment into a complete document
+	 *  complete with <html><body> tags... be aware that those come back..)
+	 *
+	 * @note: We can typically ignore the superfluous tags wrapper tags, but
+	 * this will do its best to handle them.
+	 */
 	getValue () {
-		return this.refs.editor.getDOMNode().value;
+		return [this.refs.editor.getValue()];
 	},
 
 	render () {
+		//TODO: parse/build value sent to the RTE from the modeled body.
+		var {value} = this.props;
+
+		if (Array.isArray(value)) {
+			value = value.join('\n');
+		}
+
 		return (
-			<textarea {...this.props} ref="editor"/>
+			<Editor className="modeled content editor" value={value}
+				onChange={this.handleOnChange} ref="editor"/>
 		);
+	},
+
+	handleOnChange () {
+		var {onChange} = this.props;
+		if (onChange) {
+			onChange();
+		}
 	}
 });

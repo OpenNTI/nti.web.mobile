@@ -89,6 +89,9 @@ module.exports = {
 
 
 	setValue: function (value) {
+		if (this._processValue) {
+			value = this._processValue(value);
+		}
 		this.setState({value: value});
 	},
 

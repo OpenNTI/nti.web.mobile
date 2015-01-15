@@ -33,9 +33,18 @@ module.exports = React.createClass({
 	},
 
 
+	_processValue (value) {
+		if(value && value.hasOwnProperty('value')) {
+			value = value.value;
+		}
+		return value;
+	},
+
+
 	getValue () {
 		var ref = this.refs.input;
 		var value = ref && ref.getValue();
+		console.log(value);
 		return isEmpty(value) ? null : value;
 	}
 });

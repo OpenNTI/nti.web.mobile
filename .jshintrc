@@ -2,7 +2,7 @@
     "node": true,
     "browser": true,
     "esnext": true,
-    "strict": true,
+    "strict": false,//ES6 forces strict mode.
     "bitwise": true,
     "camelcase": true,
     "curly": true,

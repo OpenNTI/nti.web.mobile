@@ -1,0 +1,21 @@
+
+.modeled.editor {
+	border: 1px solid black;
+	[contenteditable] {
+		min-height: 3rem;
+		padding: 0.6rem;
+		&:focus {
+			outline: none;
+		}
+	}
+
+	.toolbar {
+		border: 0 solid $border-grey;
+		border-top-width: 1px;
+		background: $panel-background;
+		button {
+			margin: 0;
+			padding: 0.5rem 0.8rem;
+		}
+	}
+}
