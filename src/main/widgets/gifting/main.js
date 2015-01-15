@@ -1,5 +1,5 @@
 'use strict';
-require('dataserverinterface/polyfills');
+require('core-js/shim');
 
 var React = require('react/addons');
 

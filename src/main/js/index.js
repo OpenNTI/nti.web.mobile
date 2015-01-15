@@ -1,6 +1,7 @@
 'use strict';
 /* global FastClick */
-require('dataserverinterface/polyfills');
+require('core-js/shim');
+
 
 var React = require('react/addons');
 var Utils = require('common/Utils');

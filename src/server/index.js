@@ -1,6 +1,6 @@
 'use strict';
 
-require('dataserverinterface/polyfills');
+require('core-js/shim');
 
 global.SERVER = true;
 
