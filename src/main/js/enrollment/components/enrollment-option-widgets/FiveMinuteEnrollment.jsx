@@ -4,12 +4,14 @@ var React = require('react/addons');
 var PanelButton = require('common/components/PanelButton');
 var t = require('common/locale').scoped('ENROLLMENT');
 
+var {isFlag} = require('common/Utils');
+
 var FiveMinuteEnrollment = React.createClass({
 
 	statics: {
 		re: /FiveMinuteEnrollment/i,//The server sends lower case M, but we're comparing case-insensitively.
 		handles: function (options) {
-			return this.re.test(options && options.key);
+			return isFlag('fiveMinuteEnabled') && this.re.test(options && options.key);
 		}
 	},
 

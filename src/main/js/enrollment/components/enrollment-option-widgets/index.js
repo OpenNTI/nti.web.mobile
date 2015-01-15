@@ -1,16 +1,11 @@
 'use strict';
 
-var isFlag = require('common/Utils').isFlag;
-
 var Widgets = [
 	require('./OpenEnrollment'),
-	require('./StoreEnrollment')
+	require('./StoreEnrollment'),
+	require('./FiveMinuteEnrollment')
 	//, require('./UnrecognizedEnrollmentType')
 ];
-
-if (isFlag('fiveMinuteEnabled')) {
-	Widgets.push(require('./FiveMinuteEnrollment'));
-}
 
 module.exports = {
 
