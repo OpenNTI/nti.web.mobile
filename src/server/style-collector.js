@@ -13,13 +13,8 @@ me.collect = function(fn) {
 
 	this.add = stuff.push.bind(stuff);
 
-	try {
-		fn();
-	}
-	catch (e) {
-		console.warn(e.message || e);
-	}
-
+	fn();
+	
 	delete this.add;
 	return stuff.join('\n');
 };
