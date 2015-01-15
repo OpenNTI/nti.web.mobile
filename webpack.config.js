@@ -25,10 +25,28 @@ var appPackages = {
 
 var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
 
-//TODO: move JS to load through 6to5-loader instead of jsx-loader
 var commonLoaders = [
     { test: /\.json$/, loader: 'json' },
-    { test: /\.js(x?)$/, loader: ES3Recast + 'jsx?stripTypes&harmony' },
+    { test: /\.js(x?)$/, loader: ES3Recast + 'jsx?harmony' },
+    // { _test: /\.js(x?)$/,
+    //     loader: ES3Recast + '6to5',
+    //     exclude: {
+    //         test: function (s) {
+    //             var ourprojects = ['dataserverinterface','react-editor-component'].join('|');
+    //             if (/(node_modules|resources\/vendor)/.test(s)) {
+    //
+    //                 if(new RegExp(ourprojects).test(s)) {
+    //
+    //                     return new RegExp('('+ourprojects+')/node_modules').test(s);
+    //
+    //                 }
+    //                 return true;
+    //             }
+    //             return false;
+    //         }
+    //     }
+    // },
+
 
     { test: /\.(ico|gif|png|jpg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
 
