@@ -13,7 +13,7 @@ module.exports = exports = function (dirname) {
 					fs.writeFileSync(file, JSON.stringify(stats.toJson()));
 				}
 			} catch (e) {
-				console.warn('Could not write %s', file);
+				console.warn('Could not write %s, because %s', file, e.stack||e.message||e);
 			}
 		});
 	};
