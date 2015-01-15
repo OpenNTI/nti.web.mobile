@@ -23,7 +23,7 @@ module.exports = React.createClass({
 	getInitialState() {
 		return {
 			loading: true,
-			topTopics: []
+			recentActivity: []
 		};
 	},
 
@@ -38,11 +38,11 @@ module.exports = React.createClass({
 	},
 
 	_load: function(forum) {
-		forum.getTopTopics()
+		forum.getRecentActivity()
 		.then(topics => {
 			this.setState({
 				loading: false,
-				topTopics: topics
+				recentActivity: topics
 			});
 		});
 	},
@@ -59,12 +59,12 @@ module.exports = React.createClass({
 		return this.getPath().concat(this._href());
 	},
 
-	_renderTopTopics: function() {
-		// List component is passed in as a prop to dodge a circular import (of List).
+	_renderRecentActivity: function() {
+		// List component is passed in as a prop to dodge a circular import of List.
 		var TopicsComponent = this.props.topicsComponent;
 		return TopicsComponent ?
 			<TopicsComponent
-				container={{Items:this.state.topTopics}}
+				container={{Items:this.state.recentActivity}}
 				itemProps={{parentPath: this._getForumPath()}}/> :
 			null;
 	},
@@ -86,7 +86,7 @@ module.exports = React.createClass({
 						<span className="arrow-right"/>
 					</a>
 				</h3>
-				{this._renderTopTopics()}
+				{this._renderRecentActivity()}
 			</div>
 		);
 	}
