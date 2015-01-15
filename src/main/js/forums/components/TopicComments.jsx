@@ -19,8 +19,8 @@ var TopicComments = React.createClass({
 		return (
 			<section className="comments">
 				<h1>{t('replies', {count: itemCount})}</h1>
-				<AddComment parent={this.props.topic} />
-				<List className="forum-replies" {...this.props} />
+				<AddComment topic={this.props.topic} />
+				<List className="forum-replies" {...this.props} itemProps={{topic: this.props.topic}} />
 			</section>
 		);
 	}

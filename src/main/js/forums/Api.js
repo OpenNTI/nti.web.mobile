@@ -49,12 +49,13 @@ module.exports = {
 		return me.promise;
 	},
 
-	addComment(topic, comment) {
-		return topic.addComment(comment).then(result=>{
+	addComment(topic, parent, comment) {
+		return topic.addComment(comment, parent).then(result=>{
 			console.debug(result);
 			Store.emitChange({
 				type: Constants.COMMENT_ADDED,
 				topic: topic,
+				parent: parent,
 				result: result
 			});
 		},

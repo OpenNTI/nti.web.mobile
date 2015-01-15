@@ -14,8 +14,8 @@ module.exports = {
 		});
 	},
 
-	addComment: function(topic, comment) {
-		var add = Api.addComment(topic, comment);
+	addComment: function(topic, parent, comment) {
+		var add = Api.addComment(topic, parent, comment);
 		add.then(result => {
 			Store.commentAdded(result);
 		});

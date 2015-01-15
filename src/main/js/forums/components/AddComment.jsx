@@ -50,7 +50,7 @@ var CommentLinks = React.createClass({
 		this.setState({
 			busy: true
 		});
-		Actions.addComment(this.props.parent, value);
+		Actions.addComment(this.props.topic, this.props.parent, value);
 	},
 
 	_showCommentForm: function() {
@@ -67,7 +67,7 @@ var CommentLinks = React.createClass({
 		return (
 			<div>
 				<ul>
-					<li><a onClick={this._showCommentForm}>{t('addComment')}</a></li>
+					<li><a onClick={this._showCommentForm}>{this.props.linkText||t('addComment')}</a></li>
 				</ul>
 				{this.state.showForm && Form}
 			</div>

@@ -10,7 +10,7 @@ var Avatar = require('common/components/Avatar');
 var DateTime = require('common/components/DateTime');
 var DisplayName = require('common/components/DisplayName');
 var ModeledContentPanel = require('modeled-content').Panel;
-var CommentForm = require('../CommentForm');
+var AddComment = require('../AddComment');
 var Actions = require('../../Actions');
 var Store = require('../../Store');
 var t = require('common/locale').scoped('FORUMS');
@@ -79,20 +79,11 @@ var PostItem = React.createClass({
 		}
 		var items = (this.state.replies||[]);
 		return items.map(reply => {
-			return <PostItem {...this.props} key={reply.ID} item={reply} />;
+			return (<PostItem
+						{...this.props}
+						key={reply.ID}
+						item={reply} />);
 		});
-	},
-
-	_showForm: function() {
-		this.setState({
-			showForm: true
-		});
-	},
-
-	_postComment: function(event, value) {
-		event.preventDefault();
-		event.stopPropagation();
-		console.debug(value);
 	},
 
 	render: function() {
@@ -127,11 +118,8 @@ var PostItem = React.createClass({
 								{t('replies', {count: item.ReferencedByCount})}
 							</RepliesTag>
 						</li>
-						<li><a onClick={this._showForm}>{t('replyLink')}</a></li>
+						<AddComment linkText={t('replyLink')} parent={item} topic={this.props.topic} />
 					</ul>
-					{this.state.showForm &&
-						<CommentForm onSubmit={this._postComment}/>
-					}
 				{canEdit &&
 					<div className="footer">
 						<a href="#" className="link edit">Edit</a>
