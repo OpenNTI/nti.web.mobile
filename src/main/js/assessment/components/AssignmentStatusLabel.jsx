@@ -48,7 +48,8 @@ module.exports = React.createClass({
 
 	getCompletedDateTime: function () {
 		var i = this.props.historyItem;
-		return i && i.getCreatedTime();
+
+		return i && i.isSubmitted() && i.getCreatedTime();
 	},
 
 
