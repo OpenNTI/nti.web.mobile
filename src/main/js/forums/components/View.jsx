@@ -114,7 +114,7 @@ var View = React.createClass({
 										location={this._defaultBinUri(discussions)}
 										basePath={this.props.basePath} />
 
-					<Router.Location path="/jump/:boardId/*"
+					<Router.Location path="/jump/:boardId/:forumId/*"
 										discussions={discussions}
 										handler={FindBin} />
 
