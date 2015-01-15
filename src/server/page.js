@@ -29,10 +29,10 @@ function basePathFix(original,attr,val) {
 try {
 	Application = require('../main/js/AppView');
 } catch (e) {
-	console.warn('No Server-side Rendering (Because: %s)',
+	console.warn('%s\tNo Server-side Rendering (Because: %s)', new Date().toUTCString(),
 		/Cannot find module '\.\.\/main\/js\/AppView'/.test(e.message || e) ?
 			'Dev Mode':
-			e.message || e);
+			e.stack || e.message || e);
 }
 
 try {
@@ -43,7 +43,7 @@ try {
 	try {
 		template = fs.readFileSync(__dirname + '/../main/page.html', 'utf8');
 	} catch (er) {
-		console.error(er.message || er);
+		console.error('%s\t%s', new Date().toUTCString(), er.stack || er.message || er);
 		template = 'Could not load page template.';
 	}
 }
