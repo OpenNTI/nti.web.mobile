@@ -81,7 +81,7 @@ html { -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
 	-webkit-tap-highlight-color: rgba(0,0,0,0) !important;
 }
 
-*:not(input):not(textarea):not([contenteditable]) {
+*:not(input):not(textarea) {
 	-webkit-touch-callout: none;
 	//We only want specifc parts to be selectible.
 	-webkit-user-select: none;
@@ -91,13 +91,13 @@ html { -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
 	user-select: none;
 }
 
-[contenteditable] * {
+[contenteditable] { &, * {
 	-webkit-user-select: text !important;
 	-moz-user-select: text !important;
 	-ms-user-select: text !important;
 	-o-user-select: text !important;
 	user-select: text !important;
-}
+} }
 
 
 .button, input[type=button], input[type=submit], input[type=reset], button {
