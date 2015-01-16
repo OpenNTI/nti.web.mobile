@@ -104,12 +104,20 @@ module.exports = exports = React.createClass({
 	},
 
 
-	confirmClicked () {
+	confirmClicked (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
 		dismiss(this);
 		this.props.onConfirm.call();
 	},
 
-	dismiss () {
+	dismiss (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
 		dismiss(this);
 		this.props.onCancel.call();
 	},
