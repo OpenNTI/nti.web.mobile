@@ -11,6 +11,7 @@ var Loading = require('common/components/LoadingInline');
 var Store = require('../Store');
 var Constants = require('../Constants');
 var Actions = require('../Actions');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var CommentLinks = React.createClass({
 
@@ -62,14 +63,16 @@ var CommentLinks = React.createClass({
 	render: function() {
 
 
-		var Form = this.state.busy ? <Loading /> : <CommentForm ref='commentForm' onSubmit={this._addComment}/>;
+		var Form = this.state.busy ? <Loading /> : <CommentForm key="commentForm" ref='commentForm' onSubmit={this._addComment}/>;
 
 		return (
 			<div>
 				<ul>
 					<li><a onClick={this._showCommentForm}>{this.props.linkText||t('addComment')}</a></li>
 				</ul>
-				{this.state.showForm && Form}
+				<ReactCSSTransitionGroup transitionName="forum-comments">
+					{this.state.showForm && Form}
+				</ReactCSSTransitionGroup>
 			</div>
 		);
 	}
