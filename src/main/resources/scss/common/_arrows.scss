@@ -55,3 +55,26 @@
 .arrow-down {
 	@include arrow(down);
 }
+
+
+.disclosure-triangle {
+	$size: 1em;
+	position: relative;
+	&::before {
+		content: '';
+		width: 0;
+		height: 0;
+		border: $size/2 solid transparent;
+		position: absolute;
+		border-left-color: black;
+		left: -$size;
+		top: 50%;
+		margin-top: -$size/2;
+		-webkit-transform-origin-x: -$size/8;
+		transition-property: all;
+		-webkit-transition-duration: 0.3s;
+	}
+	&.open {
+		-webkit-transform: rotate3d(0, 0, 1, 90deg); 
+	}
+}
