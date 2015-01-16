@@ -27,7 +27,10 @@ module.exports = React.createClass({
 		};
 	},
 
-	__onStoreChange: function () {
+	__onStoreChange: function (eventData) {
+		if (eventData === Constants.SYNC && this.isMounted()) {
+			this.onCloseHelp();
+		}
 		this.forceUpdate();
 	},
 
