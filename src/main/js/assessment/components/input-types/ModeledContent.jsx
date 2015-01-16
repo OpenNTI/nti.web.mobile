@@ -44,7 +44,6 @@ module.exports = React.createClass({
 	getValue () {
 		var ref = this.refs.input;
 		var value = ref && ref.getValue();
-		console.log(value);
 		return isEmpty(value) ? null : value;
 	}
 });
