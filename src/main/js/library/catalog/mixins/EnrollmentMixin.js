@@ -71,8 +71,7 @@ module.exports = {
 
 	isGiftable: function(enrollmentOption) {
 		var opt = (enrollmentOption && enrollmentOption.option)||{};
-		// opt.Enabled vs. opt.IsAvailable?
-		return opt.Purchasable && opt.Enabled && opt.Purchasable.Giftable;
+		return opt.Purchasable && opt.Purchasable.Giftable;
 	},
 
 	hasGiftableEnrollmentOption: function(catalogEntry) {
