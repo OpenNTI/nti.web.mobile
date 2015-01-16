@@ -57,7 +57,7 @@ module.exports = {
 
 	__onStoreChange: function (eventData) {
 		var props = this.props;
-		if (eventData === Constants.SYNC) {
+		if (eventData === Constants.SYNC && this.isMounted()) {
 			this.setValue(Store.getPartValue(props.item));
 			this.setState({
 				busy: Store.getBusyState(props.item)
