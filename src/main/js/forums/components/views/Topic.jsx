@@ -55,8 +55,8 @@ module.exports = React.createClass({
 
 			case Constants.COMMENT_ADDED:
 				var {topicId} = this.props;
-				var {result} = event.data;
-				if ((result||{}).ContainerId === NTIID.decodeFromURI(topicId)) {
+				var {result} = event.data||{};
+				if (result.ContainerId === NTIID.decodeFromURI(topicId) && !result.inReplyTo) {
 					this._loadData(topicId);
 				}
 				break;
