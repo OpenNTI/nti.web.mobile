@@ -162,6 +162,25 @@
 		}
 	}
 
+	.overview-video {
+		.overview-tap-area {
+			position: absolute;
+			top: 0; left: 0; bottom: 0; right: 0;
+			background-size: cover;
+			background-position: center center;
+			&.play:after {
+				@extend .icon-play;
+				content: '';
+				position:absolute;
+				background: {position: center center; repeat: no-repeat;}
+				top:0;
+				left:0;
+				bottom:0;
+				right:0;
+			}
+		}
+	}
+
 	.overview-discussion {
 
 		$width: 230px;

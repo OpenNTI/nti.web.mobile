@@ -142,7 +142,7 @@ module.exports = React.createClass({
 			'v', NTIID.encodeForURI(item.NTIID))  + '/';
 
 		return (
-			<Tag className="video-wrap flex-video widescreen">
+			<Tag className="overview-video video-wrap flex-video widescreen">
 				{!this.state.video || !renderVideoFully ? null :
 					<Video ref="video" src={this.state.video}
 						onEnded={this.onStop}
@@ -150,7 +150,10 @@ module.exports = React.createClass({
 						context={this.state.context} />
 				}
 				{this.state.playing ? null :
-				<LoadingMask style={style} loading={this.state.loading} tag="a" onFocus={props.onFocus} className="tap-area" href={link}>
+				<LoadingMask style={style} loading={this.state.loading}
+					tag="a" onFocus={props.onFocus}
+					className="overview-tap-area" href={link}>
+					
 					<div className="wrapper">
 						<div className="buttons">
 							<span className="play" title="Play" onClick={this.onPlayClicked}/>
