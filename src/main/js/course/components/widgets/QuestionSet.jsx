@@ -10,7 +10,6 @@ var AssessmentAPI = require('assessment').Api;
 var AssignmentStatusLabel = require('assessment/components/AssignmentStatusLabel');
 
 var Utils = require('common/Utils');
-var getEventTarget = Utils.Dom.getEventTarget;
 var getService = Utils.getService;
 
 var NTIID = require('dataserverinterface/utils/ntiids');
@@ -18,7 +17,6 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var SUBMITTED_QUIZ = 'application/vnd.nextthought.assessment.assessedquestionset';
 
 var assignmentType = /assignment/i;
-var t = require('common/locale');
 
 module.exports = React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
@@ -26,11 +24,11 @@ module.exports = React.createClass( {
 
 	statics: {
 		mimeTest: /(naquestionset|naquestionbank|assignment)$/i,
-		handles: function(item) {
+		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		},
 
-		canRender: function (item, node) {
+		canRender  (item, node) {
 			var render = true;
 			var id = item['Target-NTIID'];
 
@@ -43,61 +41,63 @@ module.exports = React.createClass( {
 	},
 
 
-	getInitialState: function() {
-		return {href:'#'};
+	getInitialState () {
+		return {};
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		getService().then(this.fillInData);
 	},
 
-	componentWillReceiveProps: function() {
+
+	componentWillReceiveProps () {
 		getService().then(this.fillInData);
 	},
 
-	fillInData: function(service) {
-		function getLastQuizSubmission(pageInfo) {
-			return pageInfo
-				.getUserDataLastOfType(SUBMITTED_QUIZ)
-				.then(setLatestAttempt);
-		}
 
-		var setLatestAttempt = this.setLatestAttempt;
-		var item = this.props.item;
+	fillInData (service) {
+		var {item} = this.props;
 		var ntiid = item['Target-NTIID'];
 		var assignment = this.props.node.getAssignment(ntiid);
 		var isAssignment = assignment || assignmentType.test(item.MimeType);
 
-		this.setState({
-			assignment: assignment,
-			href: '#'
-		});
+		this.setState({assignment: assignment, loading: true});
+
+		var work;
 
 		if (!isAssignment) {
-			service.getPageInfo(ntiid)
-				.then(getLastQuizSubmission)
+			work = service.getPageInfo(ntiid)
+				.then(pageInfo => pageInfo
+					.getUserDataLastOfType(SUBMITTED_QUIZ)
+					.then(this.setLatestAttempt)
+				)
+				.catch(this.maybeNetworkError)
 				.catch(this.setNotTaken);
 
 			this.setQuizHref();
 		} else {
 			this.setQuizHref(); //TODO: build the assignment href
 
-			AssessmentAPI.loadPreviousState(assignment)
-				.then(this.setAssignmentHistory);
+			work = AssessmentAPI.loadPreviousState(assignment)
+				.then(this.setAssignmentHistory)
+				.catch(this.maybeNetworkError);
 		}
+
+		work.then(()=>
+			this.setState({loading: false})
+		);
 	},
 
 
-	setAssignmentHistory: function(history) {
+	setAssignmentHistory (history) {
 		this.setState({
 			assignmentHistory: history
 		});
 	},
 
 
-	setLatestAttempt: function (assessedQuestionSet) {
-		console.debug(assessedQuestionSet);
+	setLatestAttempt  (assessedQuestionSet) {
 		this.setState({
 			score: assessedQuestionSet.getScore(),
 			correct: assessedQuestionSet.getCorrect() || null,
@@ -108,7 +108,20 @@ module.exports = React.createClass( {
 	},
 
 
-	setNotTaken: function() {
+	maybeNetworkError (reason) {
+
+		if (!reason || reason.statusCode === 0 || reason.statusCode >= 500) {
+			if (this.isMounted()) {
+				this.setState({networkError: true});
+			}
+			return;
+		}
+
+		return Promise.reject(reason);
+	},
+
+
+	setNotTaken () {
 		//mark as not started
 		this.setState({
 			latestAttempt: null,
@@ -117,14 +130,14 @@ module.exports = React.createClass( {
 	},
 
 
-	setQuizHref: function() {
+	setQuizHref () {
 		var ntiid = this.props.item['Target-NTIID'];
 		var link = path.join('c', NTIID.encodeForURI(ntiid)) + '/';
 		this.setState({href: this.makeHref(link, true)});
 	},
 
 
-	render: function() {
+	render () {
 		var state = this.state;
 		var item = this.props.item;
 		var questionCount = item["question-count"];
@@ -141,14 +154,15 @@ module.exports = React.createClass( {
 		var isLate = assignment && assignment.isLate(new Date());
 
 		var addClass =
-			(/^#?$/.test(state.href) ? ' disabled' : '') +
-			(state.completed ? " completed" : "") +
-			(isLate ? " late" : "") +
-			(assignment ? " assignment" : " assessment") +
-			(assignmentHistory && assignmentHistory.isSubmitted() ? " submitted" : "");
+			(state.networkError ? ' networkerror' : '') +
+			(state.loading ? ' loading' : '') +
+			(state.completed ? ' completed' : '') +
+			(isLate ? ' late' : '') +
+			(assignment ? ' assignment' : ' assessment') +
+			(assignmentHistory && assignmentHistory.isSubmitted() ? ' submitted' : '');
 
 		return (
-			<a className={'overview-naquestionset' + addClass} href={state.href} onClick={this.onClick}>
+			<a className={'overview-naquestionset' + addClass} href={state.href}>
 				<div className="body">
 					{assignment ?
 						<div className="icon assignment"/>
@@ -178,22 +192,5 @@ module.exports = React.createClass( {
 				</div>
 			</a>
 		);
-	},
-
-
-	onClick: function (e) {
-		var a = getEventTarget(e, 'a[href]');
-		a = a && a.getAttribute('href');
-		//If there is a url to go to, let it go.
-		if (a && a !== '#') {
-			return;
-		}
-
-		e.preventDefault();
-		e.stopPropagation();
-
-		/*global alert */
-		alert(t('COMING_SOON.general'));
-
 	}
 });

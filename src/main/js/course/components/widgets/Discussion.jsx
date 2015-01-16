@@ -5,6 +5,7 @@ var getService = require('common/Utils').getService;
 var path = require('path');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
+var LoadingMask = require('common/components/Loading');
 
 module.exports = React.createClass({
 	displayName: 'CourseOverviewDiscussion',
@@ -13,7 +14,7 @@ module.exports = React.createClass({
 
 	statics: {
 		mimeTest: /^application\/vnd\.nextthought\.discussion/i,
-		handles: function(item) {
+		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		}
 	},
@@ -23,37 +24,39 @@ module.exports = React.createClass({
 	},
 
 
-	getNTIIDs: function() {
+	getNTIIDs () {
 		var i = this.props.item,
 			id = i && i.NTIID;
 		return id ? id.split(' ') : [];
 	},
 
 
-	getNTIID: function () {
+	getNTIID  () {
 		var ids = this.getNTIIDs();
 		return ids[this.state.ntiidIndex];
 	},
 
 
-	getInitialState: function(){
+	getInitialState (){
 		//var ids = this.getNTIIDs();
 		return {
 			count: 0,
 			commentType: ' Comments',
 			icon: null,
 			title: '',
-			ntiidIndex: 0
+			ntiidIndex: 0,
+			loading: true
 		};
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		this.resolveIcon(this.props);
-		this.resolveCommentCount();
+		this.resolveItem();
 	},
 
-	resolveIcon: function(props) {
+
+	resolveIcon (props) {
 		this.setState({	icon: null	});
 		if (!props.item.icon) {
 			return;
@@ -69,18 +72,18 @@ module.exports = React.createClass({
 	},
 
 
-	resolveCommentCount: function() {
+	resolveItem () {
 		var id = this.getNTIID();
 
 		return getService()
-			.then(function(service){ return service.getObject(id); })
+			.then(service => service.getObject(id))
 			.then(this.fillInDataFrom)
 			.catch(this.tryNextId)
 			.catch(this.markDisabled);
 	},
 
 
-	tryNextId: function() {
+	tryNextId () {
 		var ids = this.getNTIIDs();
 		var i = this.state.ntiidIndex + 1;
 		if (i >= ids.length) {
@@ -88,15 +91,16 @@ module.exports = React.createClass({
 		}
 
 		this.setState({ntiidIndex: i});
-		return this.resolveCommentCount();
+		return this.resolveItem();
 	},
 
 
-	fillInDataFrom: function(o) {
+	fillInDataFrom (o) {
 		var isForum = o.hasOwnProperty('TopicCount');
 		if (this.isMounted()) {
 
 			this.setState({
+				loading: false,
 				title: o.title,
 				count: o.PostCount || o.TopicCount || 0,
 				commentType: isForum ? ' Discussions' : ' Comments',
@@ -104,6 +108,7 @@ module.exports = React.createClass({
 			});
 		}
 	},
+
 
 	getTopicHref (o) {
 		var forumHref = this.getForumHref(o);
@@ -114,6 +119,7 @@ module.exports = React.createClass({
 		return path.join(forumHref, topicId) + '/';
 	},
 
+
 	_getBoardFor (o) {
 		var course = this.props.course || {};
 		var {Discussions, ParentDiscussions} = course;
@@ -121,6 +127,7 @@ module.exports = React.createClass({
 		return [Discussions, ParentDiscussions].reduce((found, board)=>
 				found || (board && o.href.indexOf(board.href) !== -1 && board.getID()), null);
 	},
+
 
 	getForumHref (o) {
 		var discussions = this._getBoardFor(o);
@@ -138,10 +145,13 @@ module.exports = React.createClass({
 		return this.makeHref(h);
 	},
 
-	markDisabled: function() {
+
+	markDisabled () {
 		if (this.isMounted()) {
 			this.setState({
+				loading: false,
 				disabled: true,
+				href: null,
 				count: '',
 				commentType: ''
 			});
@@ -149,21 +159,23 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
+	render () {
 		var props = this.props;
 		var item = props.item;
 		var title = item.title || this.state.title || 'Discussion';
 
-		var disabled = this.state.disabled ? 'disabled' : '';
+		var disabled = this.state.disabled ? 'unavailable' : '';
 
 		return (
-			<a className={'overview-discussion ' + disabled} href={this.state.href||'#'}>
+			<LoadingMask loading={this.state.loading}
+				tag="a" href={this.state.href}
+				className={'overview-discussion ' + disabled}>
 				<img src={this.state.icon}></img>
 				<div className="wrap">
 					<div className="title">{title}</div>
 					<div className="comments">{this.state.count + this.state.commentType}</div>
 				</div>
-			</a>
+			</LoadingMask>
 		);
 	}
 

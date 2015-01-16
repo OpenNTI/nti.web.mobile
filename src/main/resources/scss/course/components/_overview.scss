@@ -1,10 +1,10 @@
 
 
-@mixin not-on-mobile() {
+.not-available {
 	position: relative;
 	&:after {
 		$width: 192px;
-		content: 'Not yet available on mobile.';
+		content: 'Not available.';
 		position: absolute;
 		width: $width;
 		margin: 0 1rem;
@@ -206,8 +206,9 @@
 			}
 		}
 
-		&.disabled {
-			@include not-on-mobile();
+		&.unavailable {
+			@extend a.disabled;
+			@extend .not-available;
 		}
 	}
 
@@ -219,6 +220,7 @@
 		border-radius: 5px;
 		box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.08);
 		color: #494949;
+		@include transition('opacity 0.5s ease-in');
 
 		.body {
 			padding: 0.5rem;
@@ -280,6 +282,33 @@
 			clear: both;
 		}
 
+		&.disabled .body {
+			@extend a.disabled;
+			@extend .not-available;
+		}
+
+		&.loading {
+			@extend a.disabled;
+			.body {
+				@extend .not-available;
+				&:after {
+					content: 'Loading...';
+				}
+			}
+		}
+
+
+		&.networkerror {
+			opacity: 0.5;
+			.body {
+				@extend .not-available;
+				&:after {
+					content: 'Network error.';
+				}
+			}
+		}
+
+
 		&.assessment {
 			&.completed {
 				.stat.questions {
@@ -291,10 +320,6 @@
 				.stat:not(.questions) {
 					display: none;
 				}
-			}
-
-			&.disabled .body {
-				@include not-on-mobile();
 			}
 		}
 
@@ -332,10 +357,6 @@
 				.stat.late {
 					display: none;
 				}
-			}
-
-			&.disabled .body {
-				@include not-on-mobile();
 			}
 
 			.assignment.status-label {
