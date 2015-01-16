@@ -45,6 +45,10 @@ module.exports = React.createClass({
 		var ref = this.refs.input;
 		var value = ref && ref.getValue();
 
+		if (Array.isArray(value) && isEmpty(value.join(''))) {
+			return null;
+		}
+
 		return isEmpty(value) ? null : {
 			MimeType: 'application/vnd.nextthought.assessment.modeledcontentresponse',
 			value: value

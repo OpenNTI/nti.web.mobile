@@ -31,7 +31,7 @@ export default React.createClass({
 	 * this will do its best to handle them.
 	 */
 	getValue () {
-		return [this.refs.editor.getValue()];
+		return this.refs.editor.getValue();
 	},
 
 	render () {
