@@ -7,6 +7,8 @@
 
 
 figure.loading {
+    & + & {display: none;}
+
     $size: 80px;
     overflow: visible;
     position: absolute;
