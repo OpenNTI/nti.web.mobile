@@ -70,11 +70,11 @@
 		left: -$size;
 		top: 50%;
 		margin-top: -$size/2;
-		-webkit-transform-origin-x: -$size/8;
+		-webkit-transform-origin-x: $size/8;
 		transition-property: all;
 		-webkit-transition-duration: 0.3s;
 	}
-	&.open {
+	&.open::before {
 		-webkit-transform: rotate3d(0, 0, 1, 90deg); 
 	}
 }
