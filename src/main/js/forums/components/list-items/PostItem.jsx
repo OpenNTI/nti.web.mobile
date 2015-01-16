@@ -15,6 +15,8 @@ var Actions = require('../../Actions');
 var Store = require('../../Store');
 var t = require('common/locale').scoped('FORUMS');
 
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 var isFlag = require('common/Utils').isFlag;
 
 var PostItem = React.createClass({
@@ -145,7 +147,9 @@ var PostItem = React.createClass({
 				}
 				</div>
 				<div className="replies">
-					{this._renderReplies()}
+					<ReactCSSTransitionGroup transitionName="forum-comments">
+						{this._renderReplies()}
+					</ReactCSSTransitionGroup>
 				</div>
 			</div>
 		);

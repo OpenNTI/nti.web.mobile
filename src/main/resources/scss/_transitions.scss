@@ -47,6 +47,7 @@
 @include reactTransition('button');
 @include reactTransition('messages');
 @include reactTransition('navdrawer');
+@include reactTransition('forum-comments');
 
 
 .loginforms-enter {
