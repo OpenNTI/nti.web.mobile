@@ -17,7 +17,7 @@
     "compression": "^1.1.0",
     "cookie-parser": "^1.3.3",
     "counterpart": "^0.16.0",
-    "dataserverinterface": "git+https://repos.nextthought.com/git/nti.node.dataserverinterface#bd150f9",
+    "dataserverinterface": "git+https://repos.nextthought.com/git/nti.node.dataserverinterface#62a4af1",
     "es6-promise": "^1.0.0",
     "express": "^4.9.5",
     "flux": "^2.0.1",
