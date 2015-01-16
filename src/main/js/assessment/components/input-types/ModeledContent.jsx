@@ -21,8 +21,11 @@ module.exports = React.createClass({
 	},
 
 	render () {
-		var value = this.state.value;
+		var {value} = this.state;
 		var submitted = this.isSubmitted();
+
+		//Because we return a model in getValue()
+		value = this.unwrapValue(value);
 
 		return (
 			<form className="modeled content">
@@ -33,10 +36,11 @@ module.exports = React.createClass({
 	},
 
 
-	_processValue (value) {
+	unwrapValue (value) {
 		if(value && typeof value === 'object') {
 			value = value.value;
 		}
+
 		return value;
 	},
 
