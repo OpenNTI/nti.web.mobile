@@ -54,6 +54,12 @@ var CommentLinks = React.createClass({
 		Actions.addComment(this.props.topic, this.props.parent, value);
 	},
 
+	_dismiss: function() {
+		this.setState({
+					showForm: false
+				});
+	},
+
 	_toggleCommentForm: function() {
 		this.setState({
 			showForm: !this.state.showForm
@@ -65,7 +71,7 @@ var CommentLinks = React.createClass({
 
 		var Form = (this.state.busy ? 
 					<Loading /> :
-					<CommentForm key="commentForm" ref='commentForm' onSubmit={this._addComment}/>);
+					<CommentForm key="commentForm" ref='commentForm' onSubmit={this._addComment} onCancel={this._dismiss}/>);
 
 		return (
 			<div>

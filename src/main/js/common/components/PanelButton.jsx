@@ -34,8 +34,8 @@ var PanelButton = React.createClass({
 
 	render: function() {
 		return (
-			<div {...this.props} className="row">
-				<div className='panel-button column'>
+			<div {...this.props}>
+				<div className='panel-button'>
 					<div className="panel radius">
 						{this.props.children}
 					</div>

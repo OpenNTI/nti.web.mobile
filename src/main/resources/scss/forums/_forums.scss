@@ -87,14 +87,25 @@
 		li {
 			// @include panel;
 		}
-		.replies-link {
+		.replies .links > li {
+			display: inline-block; 
+			margin-right: 1rem;
 			@include detail-link();
 		}
 		.replies {
-			padding-left:1.5rem;
+			// padding-left:1.5rem;
 			border-left:4px solid $panel-border-color;
 		}
 	}
+
+	// .comment-form {
+	//     margin-left: -9rem;
+	//     width: 95vw;
+	//     background: white;
+	//     margin-right: -5rem;
+	//     box-shadow: 0px 1px 5px lightgray;
+	//     padding: 0;
+	// }
 
 	.nav-up {
 		@include grid-row();

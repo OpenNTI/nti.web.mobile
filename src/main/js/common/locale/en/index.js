@@ -68,7 +68,8 @@ module.exports = {
 
 
 	BUTTONS: {
-		OK: 'Okay'
+		OK: 'Okay',
+		cancel: 'Cancel'
 	},
 
 
