@@ -146,10 +146,10 @@ module.exports = React.createClass({
 			console.warn('THIS SHOULD NOT HAPPEN', value);
 			return null;
 		}
-
+		debugger;
 		if (solution && solution.value) {
 			solution = solution.value;
-			correct = solution[sourceIndex] === targetIndex ? 'correct' : 'incorrect';
+			correct = solution[targetIndex] === sourceIndex ? 'correct' : 'incorrect';
 		}
 
 		return this.renderDragSource(sources[sourceIndex], sourceIndex, targetIndex, `dropped ${correct}`);
