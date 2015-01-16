@@ -146,7 +146,7 @@ module.exports = React.createClass({
 			console.warn('THIS SHOULD NOT HAPPEN', value);
 			return null;
 		}
-		debugger;
+
 		if (solution && solution.value) {
 			solution = solution.value;
 			correct = solution[targetIndex] === sourceIndex ? 'correct' : 'incorrect';
