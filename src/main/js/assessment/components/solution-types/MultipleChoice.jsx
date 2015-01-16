@@ -15,8 +15,9 @@ module.exports = React.createClass({
 	statics: {
 		inputType: [
 			'MultipleChoice',
+			'MultipleChoiceMultipleAnswer',
 			'RandomizedMultipleChoice',
-			'MultipleChoiceMultipleAnswer'
+			'RandomizedMultipleChoiceMultipleAnswer'
 		]
 	},
 
