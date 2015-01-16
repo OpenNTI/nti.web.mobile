@@ -34,6 +34,7 @@ export default React.createClass({
 		return this.refs.editor.getValue();
 	},
 
+
 	render () {
 		//TODO: parse/build value sent to the RTE from the modeled body.
 		var {value} = this.props;
@@ -47,6 +48,7 @@ export default React.createClass({
 				onChange={this.handleOnChange} ref="editor"/>
 		);
 	},
+
 
 	handleOnChange () {
 		var {onChange} = this.props;
