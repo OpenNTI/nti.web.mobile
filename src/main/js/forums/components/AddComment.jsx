@@ -54,21 +54,23 @@ var CommentLinks = React.createClass({
 		Actions.addComment(this.props.topic, this.props.parent, value);
 	},
 
-	_showCommentForm: function() {
+	_toggleCommentForm: function() {
 		this.setState({
-			showForm: true
+			showForm: !this.state.showForm
 		});
 	},
 
 	render: function() {
 
 
-		var Form = this.state.busy ? <Loading /> : <CommentForm key="commentForm" ref='commentForm' onSubmit={this._addComment}/>;
+		var Form = (this.state.busy ? 
+					<Loading /> :
+					<CommentForm key="commentForm" ref='commentForm' onSubmit={this._addComment}/>);
 
 		return (
 			<div>
 				<ul>
-					<li><a onClick={this._showCommentForm}>{this.props.linkText||t('addComment')}</a></li>
+					<li><a onClick={this._toggleCommentForm}>{this.props.linkText||t('addComment')}</a></li>
 				</ul>
 				<ReactCSSTransitionGroup transitionName="forum-comments">
 					{this.state.showForm && Form}
