@@ -16,7 +16,6 @@ var Topics = require('./Topics');
 var Topic = require('./Topic');
 var Post = require('./Post');
 var Loading = require('common/components/Loading');
-var NTIID = require('dataserverinterface/utils/ntiids');
 var TabBar = require('../GroupsTabBar');
 var Router = require('react-router-component');
 var Location = Router.Location;
@@ -48,13 +47,11 @@ module.exports = React.createClass({
 
 	_storeChanged: function(event) {
 		switch(event.type) {
-			case Constants.OBJECT_CONTENTS_LOADED:
-				var oid = NTIID.encodeForURI(event.object.getID());
-				if (oid === this.props.forumId) {
+			// case Constants.OBJECT_LOADED:
+			case Constants.OBJECT_CONTENTS_CHANGED:
+				if (event.objectId === this.props.forumId) {
 					this.setState({
-						loading: false,
-						forum: event.object,
-						contents: event.contents
+						loading: false
 					});
 				}
 				break;
@@ -69,13 +66,14 @@ module.exports = React.createClass({
 		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
 		var href = this.makeHref([this.props.filterpath, this.props.forumId, ''].join('/'));
 		var section = this.makeHref('../', true);
+		var forum = Store.getForum(this.props.forumId);
 		return getContextProvider().then(context => {
 			context.push({
 				label: 'My Section',
 				href: section
 			});
 			context.push({
-				label: this.state.forum.title,
+				label: forum.title,
 				href: href
 			});
 			return context;
@@ -88,7 +86,7 @@ module.exports = React.createClass({
 			return <Loading />;
 		}
 
-		var container = this.state.contents;
+		var forumContents = Store.getObjectContents(this.props.forumId);
 
 		return (
 			<nav className="forum">
@@ -96,7 +94,7 @@ module.exports = React.createClass({
 				<Router.Locations contextual>
 					<Location path="/(#nav)"
 						handler={Topics}
-						container={container}
+						container={forumContents}
 						contextProvider={this.__getContext}
 					/>
 					<Location path="/:topicId/(#nav)"

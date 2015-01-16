@@ -52,8 +52,7 @@ module.exports = {
 	addComment(topic, parent, comment) {
 		return topic.addComment(comment, parent).then(result=>{
 			console.debug(result);
-			Store.emitChange({
-				type: Constants.COMMENT_ADDED,
+			Store.commentAdded({
 				topic: topic,
 				parent: parent,
 				result: result
@@ -66,12 +65,9 @@ module.exports = {
 
 	getObjectContents: function(ntiid, params) {
 		return this.getObject(ntiid).then(object => {
+			Store.setObject(ntiid, object);
 			return object.getContents(params).then(contents => {
-				Store.emitChange({
-					type: Constants.OBJECT_CONTENTS_LOADED,
-					object: object,
-					contents: contents
-				});
+				Store.setObjectContents(ntiid, contents);
 			});
 		});
 	},

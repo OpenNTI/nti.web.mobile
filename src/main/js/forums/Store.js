@@ -1,23 +1,20 @@
 'use strict';
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
+var TypedEventEmitter = require('common/TypedEventEmitter');
 
 var Constants = require('./Constants');
-var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
-
+var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
+var NTIID = require('dataserverinterface/utils/ntiids');
 var indexForums = require('./utils/index-forums');
 var _discussions = {};
 var _forums = {}; // forum objects by id.
 var _forumContents = {};
-var _data = {};
+var _objectContents = {};
+var _objects = {};
 
-var Store = Object.assign({}, EventEmitter.prototype, {
+var Store = Object.assign({}, TypedEventEmitter, {
 	displayName: 'forums.Store',
-
-	emitChange: function(evt) {
-		this.emit(CHANGE_EVENT, evt);
-	},
 
 	/**
 	 * @param {function} callback
@@ -35,7 +32,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 	setDiscussions(courseId, data) {
 		_discussions[courseId] = dataOrError(data);
-		_forums[courseId] = indexForums(_discussions);
+		_forums = Object.assign(_forums||{}, indexForums(_discussions));
 		this.emitChange({
 			type: Constants.DISCUSSIONS_CHANGED,
 			courseId: courseId
@@ -47,7 +44,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	getForum(forumId) {
-		return _forums[forumId];
+		return _forums[NTIID.decodeFromURI(forumId)];
 	},
 
 	setBoardContents(courseId, boardId, data) {
@@ -62,25 +59,37 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		return _forumContents[forumId];
 	},
 
-	getTopicContents(courseId, forumId, topicId) {
-		var key = [courseId, forumId, topicId, 'contents'].join(':');
-		return _data[key];
+	getObjectContents(objectId) {
+		var key = this.__keyForContents(objectId);
+		return _objectContents[key];
 	},
 
-	setTopicContents(courseId, forumId, topicId, contents) {
-		var key = [courseId, forumId, topicId, 'contents'].join(':');
-		_data[key] = contents;
+	getObject(objectId) {
+		return _objects[objectId];
+	},
+
+	setObject(objectId, object) {
+		_objects[objectId] = object;
+	},
+
+	setObjectContents(objectId, contents) {
+		var key = this.__keyForContents(objectId);
+		_objectContents[key] = contents;
 		this.emitChange({
-			type: Constants.TOPIC_CONTENTS_CHANGED,
-			key: key
+			type: Constants.OBJECT_CONTENTS_CHANGED,
+			objectId: objectId,
 		});
 	},
 
-	commentAdded: function(result) {
+	commentAdded: function(data) {
 		this.emitChange({
 			type: Constants.COMMENT_ADDED,
-			result: result
+			data: data
 		});
+	},
+
+	__keyForContents(objectId) {
+		return [objectId, 'contents'].join(':');
 	}
 
 });

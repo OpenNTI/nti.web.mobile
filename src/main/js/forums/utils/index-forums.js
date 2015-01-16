@@ -10,7 +10,7 @@ function indexForums(input, result) {
 		input.forEach(item => {
 			// is forum? add entry to result;
 			if (item && item.hasOwnProperty('MimeType') && (item.MimeType||'').indexOf(types.FORUM) > -1) {
-				result[item.ID] = item;
+				result[item.getID()] = item;
 			}
 		});
 	}

@@ -4,7 +4,6 @@
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var Constants = require('./Constants');
 var Api = require('./Api');
-var Store = require('./Store');
 
 
 module.exports = {
@@ -15,10 +14,7 @@ module.exports = {
 	},
 
 	addComment: function(topic, parent, comment) {
-		var add = Api.addComment(topic, parent, comment);
-		add.then(result => {
-			Store.commentAdded(result);
-		});
+		return Api.addComment(topic, parent, comment);
 	}
 };
 

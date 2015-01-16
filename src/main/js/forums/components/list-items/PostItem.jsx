@@ -45,11 +45,23 @@ var PostItem = React.createClass({
 	},
 
 	_storeChange: function(event) {
-		if (event.type === Constants.GOT_COMMENT_REPLIES && event.comment === this.props.item) {
-			this.setState({
-				replies: event.replies,
-				displayReplies: true
-			});
+		switch(event.type) {
+			case Constants.GOT_COMMENT_REPLIES:
+				if(event.comment === this.props.item) {
+					this.setState({
+						replies: event.replies,
+						displayReplies: true
+					});
+				}
+				break;
+
+			case Constants.COMMENT_ADDED:
+				var {item} = this.props;
+				var {parent, result} = event.data;
+				if (parent === item || result.inReplyTo === item.getID()) {
+					this._getReplies(true);
+				}
+				break;
 		}
 	},
 
@@ -67,9 +79,9 @@ var PostItem = React.createClass({
 		}
 	},
 
-	_getReplies: function() {
+	_getReplies: function(reload) {
 		var {item} = this.props;
-		if (item.ReferencedByCount === 0) {
+		if (item.ReferencedByCount === 0 && !reload) {
 			return;
 		}
 		Actions.getCommentReplies(item);
@@ -98,6 +110,7 @@ var PostItem = React.createClass({
 		var edited = (Math.abs(modifiedOn - createdOn) > 0);
 		var canEdit = item.hasLink('edit') && false;
 
+		var numComments = item.ReferencedByCount;
 		var RepliesTag = item.ReferencedByCount > 0 ? "a" : "span";
 		var repliesClick = item.ReferencedByCount > 0 ? this._toggleReplies : null;
 
@@ -117,7 +130,7 @@ var PostItem = React.createClass({
 						<li><RepliesTag
 							className="replies-link"
 							onClick={repliesClick}>
-								{t('replies', {count: item.ReferencedByCount})}
+								{t('replies', {count: numComments})}
 							</RepliesTag>
 						</li>
 						{isFlag('forumCommentsEnabled') &&

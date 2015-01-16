@@ -9,7 +9,6 @@ var React = require('react/addons');
 var Store = require('../../Store');
 var Api = require('../../Api');
 var Constants = require('../../Constants');
-var NTIID = require('dataserverinterface/utils/ntiids');
 
 var TopicHeadline = require('../TopicHeadline');
 var TopicComments = require('../TopicComments');
@@ -45,19 +44,19 @@ module.exports = React.createClass({
 
 	_storeChanged: function(event) {
 		switch(event.type) {
-			case Constants.OBJECT_CONTENTS_LOADED:
-				var oid = NTIID.encodeForURI(event.object.getID());
-				if (oid === this.props.topicId) {
+			case Constants.OBJECT_CONTENTS_CHANGED:
+				if (event.objectId === this.props.topicId) {
 					this.setState({
-						loading: false,
-						topic: event.object,
-						contents: event.contents
+						loading: false
 					});
 				}
 				break;
-			case Constants.COMMENT_ADDED:
-				this._loadData(this.props.topicId);
-				break;
+			// case Constants.COMMENT_ADDED:
+			// 	var o = event.result;
+			// 	if(o && o.containerId === this.props.topic.getID()) {
+			// 		this._loadData(this.props.topicId);	
+			// 	}
+			// 	break;
 		}
 	},
 
@@ -72,10 +71,12 @@ module.exports = React.createClass({
 	__getContext: function() {
 		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
 		var href = this.makeHref(this.getPath());
+		var topic = Store.getObject(this.props.topicId);
+		var title = topic && topic.headline ? topic.headline.title : 'Topic';
 		return getContextProvider().then(context => {
 			context.push({
 				// label: 'Topic',
-				label: this.state.topic.headline.title,
+				label: title,
 				href: href
 			});
 			return context;
@@ -88,13 +89,14 @@ module.exports = React.createClass({
 			return <Loading />;
 		}
 
-		var {topic, contents} = this.state;
+		var topic = Store.getObject(this.props.topicId);
+		var topicContents = Store.getObjectContents(this.props.topicId);
 
 		return (
 			<div>
 				<Breadcrumb contextProvider={this.__getContext}/>
 				<TopicHeadline post={topic.headline} />
-				<TopicComments container={contents} topic={topic} />
+				<TopicComments container={topicContents} topic={topic} />
 			</div>
 		);
 	}
