@@ -1,0 +1,9 @@
+@import "../input-vars";
+
+.modeled.content {
+	.modeled-content {
+		padding: 0.6rem;
+		border: 1px solid $border-grey;
+		background-color: $panel-background;
+	}
+}
