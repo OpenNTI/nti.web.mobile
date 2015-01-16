@@ -9,6 +9,7 @@ var React = require('react/addons');
 var Store = require('../../Store');
 var Api = require('../../Api');
 var Constants = require('../../Constants');
+var NTIID = require('dataserverinterface/utils/ntiids');
 
 var TopicHeadline = require('../TopicHeadline');
 var TopicComments = require('../TopicComments');
@@ -51,12 +52,14 @@ module.exports = React.createClass({
 					});
 				}
 				break;
-			// case Constants.COMMENT_ADDED:
-			// 	var o = event.result;
-			// 	if(o && o.containerId === this.props.topic.getID()) {
-			// 		this._loadData(this.props.topicId);	
-			// 	}
-			// 	break;
+
+			case Constants.COMMENT_ADDED:
+				var {topicId} = this.props;
+				var {result} = event.data;
+				if ((result||{}).ContainerId === NTIID.decodeFromURI(topicId)) {
+					this._loadData(topicId);
+				}
+				break;
 		}
 	},
 

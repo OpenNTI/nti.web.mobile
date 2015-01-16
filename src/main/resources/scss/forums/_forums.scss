@@ -90,6 +90,10 @@
 		.replies-link {
 			@include detail-link();
 		}
+		.replies {
+			padding-left:1.5rem;
+			border-left:4px solid $panel-border-color;
+		}
 	}
 
 	.nav-up {
