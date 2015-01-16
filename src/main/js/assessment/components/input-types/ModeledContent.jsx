@@ -34,7 +34,7 @@ module.exports = React.createClass({
 
 
 	_processValue (value) {
-		if(value && value.hasOwnProperty('value')) {
+		if(value && typeof value === 'object') {
 			value = value.value;
 		}
 		return value;
