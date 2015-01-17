@@ -112,12 +112,15 @@ var Replies = React.createClass({
 		var numComments = item.ReferencedByCount;
 		var RepliesTag = item.ReferencedByCount > 0 ? "a" : "span";
 		var repliesClick = item.ReferencedByCount > 0 ? this._toggleReplies : null;
-
+		var toggleClasses = ['disclosure-triangle'];
+		if (this.state.display) {
+			toggleClasses.push('open');
+		}
 		return (
 			<div className="replies">
 				<ul className="links">
 					<li>
-						<RepliesTag className="replies-link" onClick={repliesClick}>{t('replies', {count: numComments})}</RepliesTag>
+						<RepliesTag className={toggleClasses.join(' ')} onClick={repliesClick}>{t('replies', {count: numComments})}</RepliesTag>
 					</li>
 					{isFlag('forumCommentsEnabled') &&
 						<li><a onClick={this._toggleCommentForm}>{this.props.linkText||t('addComment')}</a></li>
