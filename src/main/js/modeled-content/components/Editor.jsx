@@ -40,7 +40,7 @@ export default React.createClass({
 		var {value} = this.props;
 
 		if (Array.isArray(value)) {
-			value = value.join('\n');
+			value = value.join('\n').replace(/<(\/?)(body|html)>/ig,'');
 		}
 
 		return (
