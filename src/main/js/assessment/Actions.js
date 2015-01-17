@@ -12,11 +12,18 @@ var Constants = require('./Constants');
  */
 module.exports = {
 
-    partInteracted: function (part, value) {
+    /**
+     *
+     * @param {Part} part      Question Part model.
+     * @param {any} value      The value
+     * @param {Number} [saveBuffer] The optional delay to buffer the save point call by.
+     */
+    partInteracted: function (part, value, saveBuffer) {
         AppDispatcher.handleViewAction({
             type: Constants.INTERACTED,
             part: part,
-            value: value
+            value: value,
+            savepointBuffer: saveBuffer
         });
     },
 

@@ -108,7 +108,7 @@ module.exports = {
 
 		this.setState({ interacted: true, value: v });
 		if (!locked) {
-			Actions.partInteracted(p.item, v);
+			Actions.partInteracted(p.item, v, this.saveBuffer);
 		}
 	}
 };

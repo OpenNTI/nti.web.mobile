@@ -13,6 +13,7 @@ var ModeledContent = require('modeled-content');
 module.exports = React.createClass({
 	displayName: 'ModeledBodyContent',
 	mixins: [Mixin],
+	saveBuffer: 30000,
 
 	statics: {
 		inputType: [

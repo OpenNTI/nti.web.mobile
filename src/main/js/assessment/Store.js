@@ -300,7 +300,7 @@ function handleSubmitEnd (part, response) {
 }
 
 
-function onInteraction(part, value) {
+function onInteraction(part, value, buffer) {
 	var main = Utils.getMainSubmittable(part);
 	var key = main && main.getID();
 	var s = data[key];
@@ -319,10 +319,10 @@ function onInteraction(part, value) {
 	Store.clearError(part);
 
 
-	saveProgress(part);
+	saveProgress(part, buffer);
 }
 
-function saveProgress(part) {
+function saveProgress(part, buffer = 1000) {
 	var main = Utils.getMainSubmittable(part);
 	if (!main.postSavePoint) {
 		return;
@@ -338,7 +338,7 @@ function saveProgress(part) {
 			markBusy(part, false);
 			Store.emitChange();
 		});
-	}, 1000);
+	}, buffer);
 }
 
 
@@ -370,14 +370,14 @@ AppDispatcher.register(function(payload) {
 
 		case Constants.RESET:
 			Store.setupAssessment(action.assessment);
-			saveProgress(action.assessment);
+			saveProgress(action.assessment, 1);
 			eventData = Constants.SYNC;
 			break;
 
 
 		case Constants.INTERACTED:
 			console.debug('Question Part Interacted: %o',action);
-			onInteraction(action.part, action.value);
+			onInteraction(action.part, action.value, action.savepointBuffer);
 			break;
 
 		default: return true;

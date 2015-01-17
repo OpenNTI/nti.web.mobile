@@ -11,6 +11,7 @@ var isEmpty = require('dataserverinterface/utils/isempty');
 module.exports = React.createClass({
 	displayName: 'FreeResponse',
 	mixins: [Mixin],
+	saveBuffer: 10000,//10seconds
 
 	statics: {
 		inputType: [
