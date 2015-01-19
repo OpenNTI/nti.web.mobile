@@ -1,6 +1,13 @@
 'use strict';
 
-require('core-js/shim');
+require("6to5/register")({
+	ignore: false,//parse node_modules too
+
+	//but...
+
+	// only if filenames match this regex...
+	only: /(?!.*node_modules)(dataserverinterface|react-editor-component)/
+});
 
 global.SERVER = true;
 

@@ -17,6 +17,8 @@ try {
 			reason = 'Missing compiled page';
 	}
 	console.warn('%s\tCould not load compiled page. %s', new Date().toUTCString(), reason);
+
+	global.DISABLE_SERVER_RENDERING = true;
 }
 
 

@@ -26,12 +26,14 @@ function basePathFix(original,attr,val) {
 	return attr + '="' + val + '"';
 }
 
-try {
-	Application = require('../main/js/AppView');
-} catch (e) {
-	console.warn('%s\tNo Server-side Rendering (Because: %s)', new Date().toUTCString(),
-		/Cannot find module '\.\.\/main\/js\/AppView'/.test(e.message || e) ?
-			e.message: e.stack || e.message || e);
+if (!global.DISABLE_SERVER_RENDERING) {
+	try {
+		Application = require('../main/js/AppView');
+	} catch (e) {
+		console.warn('%s\tNo Server-side Rendering (Because: %s)', new Date().toUTCString(),
+			/Cannot find module '\.\.\/main\/js\/AppView'/.test(e.message || e) ?
+				e.message: e.stack || e.message || e);
+	}
 }
 
 try {

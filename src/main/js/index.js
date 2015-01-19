@@ -1,16 +1,20 @@
 'use strict';
-/* global FastClick */
-require('core-js/shim');
 
+require('script!6to5/browser-polyfill');
+require('6to5/polyfill');
 
+//TODO: find a way to get rid of this dirty import. All deps should come
+// from node_modules, so switch to this in the future:
+// 		https://www.npmjs.com/package/modernizr
+// Its not a simple swap...otherwise I would have done that.
+require('script!../resources/vendor/modernizr/modernizr.js');
+
+var FastClick = require('fastclick');
 var React = require('react/addons');
 var Utils = require('common/Utils');
 //var emptyFunction = require('react/lib/emptyFunction');
 // var preventOverscroll = require('common/thirdparty/prevent-overscroll');
 
-//Client code, injects script blocks into <HEAD> tag
-require('script!../resources/vendor/modernizr/modernizr.js');
-require('script!../resources/vendor/fastclick/lib/fastclick.js');
 
 //Allow CSS :active states:
 //document.addEventListener("touchstart", emptyFunction, true);

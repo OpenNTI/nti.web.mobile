@@ -1,5 +1,6 @@
 'use strict';
-require('core-js/shim');
+require('script!6to5/browser-polyfill');
+require('6to5/polyfill');
 
 var React = require('react/addons');
 
@@ -10,9 +11,7 @@ require('../../resources/scss/app.scss');
 //Client code, injects script blocks into <HEAD> tag
 require('script!../../resources/vendor/modernizr/modernizr.js');
 
-/* global FastClick */
-require('script!../../resources/vendor/fastclick/lib/fastclick.js');
-FastClick.attach(document.body);
+require('fastclick').attach(document.body);
 
 
 
