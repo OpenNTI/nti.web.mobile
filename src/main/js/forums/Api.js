@@ -73,7 +73,7 @@ module.exports = {
 			return service.delete(link);
 		});
 
-		del.then(() => {
+		return del.then(() => {
 			Store.deleteObject(comment);
 		});
 	},
