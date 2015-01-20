@@ -85,7 +85,7 @@ var PostItem = React.createClass({
 	},
 
 	_hideForm(event){
-		if (event) {
+		if (event.preventDefault) {
 			event.preventDefault();
 			event.stopPropagation();
 		}
