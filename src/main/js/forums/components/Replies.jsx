@@ -38,8 +38,9 @@ var Replies = React.createClass({
 		switch(event.type) {
 			case Constants.GOT_COMMENT_REPLIES:
 				if(event.comment === this.props.item) {
+					var itemId = this.props.item.getID();
 					this.setState({
-						replies: event.replies
+						replies: (event.replies||[]).filter(item => (item.inReplyTo === itemId))
 					});
 				}
 				break;
