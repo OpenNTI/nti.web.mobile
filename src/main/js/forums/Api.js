@@ -74,7 +74,7 @@ module.exports = {
 		});
 
 		del.then(() => {
-			Store.deleteObject(comment.getID());
+			Store.deleteObject(comment);
 		});
 	},
 

@@ -7,40 +7,14 @@
 var React = require('react/addons');
 var t = require('common/locale').scoped('FORUMS');
 var CommentForm = require('./CommentForm');
-var Loading = require('common/components/LoadingInline');
-var Store = require('../Store');
-var Constants = require('../Constants');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var AddComment = React.createClass({
 
 
 	getInitialState: function() {
 		return {
-			showForm: false,
-			busy: false
+			showForm: false
 		};
-	},
-
-	componentDidMount: function() {
-		Store.addChangeListener(this._storeChange);
-	},
-
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChange);
-	},
-
-	_storeChange: function(event) {
-		switch (event.type) {
-			case Constants.COMMENT_ADDED:
-				// TODO: make sure it's the right comment?
-				// the one posted by this instance of the form?
-				this.setState({
-					busy: false,
-					showForm: false
-				});
-				break;
-		}
 	},
 
 	_toggleCommentForm: function(event) {
@@ -51,26 +25,30 @@ var AddComment = React.createClass({
 		});
 	},
 
+	_hideForm() {
+		console.log('hide form');
+		this.setState({
+			showForm: false
+		});
+	},
+
 	render: function() {
 
 
-		var Form = (this.state.busy ? 
-					<Loading /> :
-					<CommentForm
+		var Form = <CommentForm
 						key="commentForm"
 						ref='commentForm'
 						topic={this.props.topic}
 						parent={this.props.parent}
-						onCancel={this._toggleCommentForm}/>);
+						onCompletion={this._hideForm}
+						onCancel={this._hideForm}/>;
 
 		return (
 			<div>
 				<ul>
 					<li><a onClick={this._toggleCommentForm}>{this.props.linkText||t('addComment')}</a></li>
 				</ul>
-				<ReactCSSTransitionGroup transitionName="forum-comments">
-					{this.state.showForm && Form}
-				</ReactCSSTransitionGroup>
+				{this.state.showForm && Form}
 			</div>
 		);
 	}

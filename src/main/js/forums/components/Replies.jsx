@@ -51,6 +51,13 @@ var Replies = React.createClass({
 					this._getReplies(true);
 				}
 				break;
+
+			case Constants.OBJECT_DELETED:
+				var {item} = this.props;
+				if (event.object && event.object._parent && event.object._parent.getID() === item.getID()) {
+					this._getReplies(true);
+				}
+				break;
 		}
 	},
 

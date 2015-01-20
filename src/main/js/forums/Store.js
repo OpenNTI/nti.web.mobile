@@ -72,13 +72,13 @@ var Store = Object.assign({}, TypedEventEmitter, {
 		_objects[objectId] = object;
 	},
 
-	deleteObject(objectId) {
-		var obj = _objects[objectId];
+	deleteObject(object) {
+		var objectId = object && object.getID ? object.getID() : object;
 		delete _objects[objectId];
 		Store.emitChange({
 			type: Constants.OBJECT_DELETED,
 			objectId: objectId,
-			previously: obj
+			object: object
 		});
 	},
 
@@ -122,6 +122,12 @@ function getCommentReplies(comment) {
 		return;
 	}
 	comment.getReplies().then(replies => {
+		// (replies||[]).forEach(item => {
+		// 	if (item.getID) {
+		// 		Store.setObject(item.getID(), item);
+		// 	}
+		// });
+
 		Store.emitChange({
 			type: Constants.GOT_COMMENT_REPLIES,
 			comment: comment,
