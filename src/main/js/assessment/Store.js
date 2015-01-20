@@ -266,6 +266,21 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		return part.hints;
 	},
 
+	/**
+	 * Checks if the user agent matches the native android browser
+	 * http://stackoverflow.com/questions/14701951/javascript-detect-android-native-browser
+	 * @return {Bool} true if it doesn't match
+	 */
+	areAssessmentsSupported() {
+		var nua = navigator.userAgent;
+		var isAndroidNative = ((nua.indexOf('Mozilla/5.0') > -1 &&//is there
+								nua.indexOf('Android ') > -1 &&//is there
+								nua.indexOf('AppleWebKit') > -1) &&//is there
+								nua.indexOf('Chrome') < 0);//isn't there
+
+		return !isAndroidNative;
+	},
+
 
 	isWordBankEntryUsed(wordBankEntry) {
 		var {wid} = wordBankEntry;

@@ -4,7 +4,7 @@ var React = require('react/addons');
 var Placeholder = require('./Placeholder');
 
 module.exports = React.createClass({
-	displayName: 'TimedPlaceholder',
+	displayName: 'UnSupprtedPlaceholder',
 
 
 	propTypes: {
@@ -30,10 +30,9 @@ module.exports = React.createClass({
 
 		var props = {
 			assignment: assignment, 
-			message: 'Timed assignments are currently not supported on the mobile app.',
+			message: 'Assignments are not supported on this platform.',
 			buttonLabel: 'Back',
-			pageTitle: 'Timed Assignment',
-			onConfirm: this.onStart
+			pageTitle: 'Not Supported'
 		};
 
 		return (

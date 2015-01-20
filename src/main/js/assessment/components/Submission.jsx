@@ -87,7 +87,7 @@ module.exports = React.createClass({
 		var error = Store.getError(assessment);
 		var savePoint = busy === Constants.BUSY.SAVEPOINT;
 
-		if (Store.isSubmitted(assessment)) {
+		if (Store.isSubmitted(assessment) || !Store.areAssessmentsSupported()) {
 			return null;
 		}
 

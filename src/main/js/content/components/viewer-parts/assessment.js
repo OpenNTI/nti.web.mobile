@@ -39,7 +39,7 @@ module.exports = {
 	renderAssessmentSubmission: function () {
 		var page = this.state.page;
 		var quiz = page && page.getSubmittableAssessment();
-		if (!page || !quiz || quiz.IsTimedAssignment) {
+		if (!page || !quiz || quiz.IsTimedAssignment || !Store.areAssessmentsSupported()) {
 			return null;
 		}
 
