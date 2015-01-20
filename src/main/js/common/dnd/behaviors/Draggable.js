@@ -374,9 +374,15 @@ Object.assign(exports, {
 	computeStyle: function () {
 		var s = this.state;
 		var z = this.props.zIndex;
+		var y = this.canDragY(this) ? s.y : s.startY;
+		var x = this.canDragX(this) ? s.x : s.startX;
+		var translation = `translate3d(${x}px,${y}px,0)`;
 		var style = {
-			top: this.canDragY(this) ? s.y : s.startY,
-			left: this.canDragX(this) ? s.x : s.startX
+			webkitTransform: translation,
+			MozTransform: translation,
+			msTransform: translation,
+			OTransform: translation,
+			transform: translation
 		};
 
 		if (s.dragging && !isNaN(z)) {
