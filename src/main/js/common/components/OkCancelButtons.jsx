@@ -16,16 +16,16 @@ var OkCancelButtons = React.createClass({
 
 	render: function() {
 		return (
-			<ul className="button-group even-2">
+			<ul className="button-group even-2 radius">
 			  <li>
 			  	<a href="#"
 					onClick={this.props.onCancel}
-			  		className="button tiny radius secondary">{this.props.cancelText||t('cancel')}</a>
+			  		className="button tiny secondary">{this.props.cancelText||t('cancel')}</a>
 			  </li>
 			  <li>
 			  	<a href="#"
 					onClick={this.props.onOk}
-					className="button tiny radius">{this.props.okText||t('OK')}</a></li>
+					className="button tiny">{this.props.okText||t('OK')}</a></li>
 			</ul>
 		);
 	}
