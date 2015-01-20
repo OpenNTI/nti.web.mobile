@@ -60,6 +60,14 @@ module.exports = React.createClass({
 					this._loadData(topicId);
 				}
 				break;
+
+			case Constants.OBJECT_DELETED:
+				var {topicId} = this.props;
+				var o = event.object;
+				if (!o.inReplyTo && event.object.ContainerId === NTIID.decodeFromURI(topicId)) {
+					this._loadData(this.props.topicId);	
+				}
+				break;
 		}
 	},
 

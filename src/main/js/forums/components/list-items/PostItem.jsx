@@ -12,7 +12,7 @@ var Store = require('../../Store');
 var Avatar = require('common/components/Avatar');
 var DateTime = require('common/components/DateTime');
 var DisplayName = require('common/components/DisplayName');
-var Replies = require('../Replies');
+var Replies = require('../Replies'); 
 var ModeledContentPanel = require('modeled-content').Panel;
 var t = require('common/locale').scoped('FORUMS');
 var isFlag = require('common/Utils').isFlag;
@@ -20,6 +20,7 @@ var Loading = require('common/components/LoadingInline');
 var CommentForm = require('../CommentForm');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 // var Api = require('../../Api');
+var Prompt = require('prompts');
 
 var _SHOW_FORM = 'showForm';
 var _SHOW_REPLIES = 'showReplies';
@@ -67,11 +68,16 @@ var PostItem = React.createClass({
 		}
 	},
 
-	_deleteComment() {
-		this.setState({
-			busy: true
-		});
-		Actions.deleteComment(this.props.item);
+	_deleteComment: function() {
+		Prompt.areYouSure('Delete this comment?').then(
+			()=> {
+				this.setState({
+					busy: true
+				});
+				Actions.deleteComment(this.props.item);	
+			},
+			()=>{}
+		);
 	},
 
 	_toggleState: function(propname, event) {
@@ -165,18 +171,20 @@ var PostItem = React.createClass({
 
 		return (
 			<div className="postitem">
-				<Avatar username={createdBy} className="avatar"/>
-				<div className="wrap">
-					<div className="meta">
-						<DisplayName username={createdBy} className="name"/>
-						<DateTime date={createdOn} relative={true}/>
+				<div className="post">
+					<Avatar username={createdBy} className="avatar"/>
+					<div className="wrap">
+						<div className="meta">
+							<DisplayName username={createdBy} className="name"/>
+							<DateTime date={createdOn} relative={true}/>
+						</div>
+						<div className="message">
+							<ModeledContentPanel body={message} />
+							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
+						</div>
 					</div>
-					<div className="message">
-						<ModeledContentPanel body={message} />
-						{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
-					</div>
+					{links}
 				</div>
-				{links}
 				{form}
 				{replies}
 			</div>
