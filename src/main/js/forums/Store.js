@@ -122,12 +122,6 @@ function getCommentReplies(comment) {
 		return;
 	}
 	comment.getReplies().then(replies => {
-		// (replies||[]).forEach(item => {
-		// 	if (item.getID) {
-		// 		Store.setObject(item.getID(), item);
-		// 	}
-		// });
-
 		Store.emitChange({
 			type: Constants.GOT_COMMENT_REPLIES,
 			comment: comment,
