@@ -106,6 +106,14 @@ html { -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
 	@include input-typography;
 }
 
+html.touch {
+	button, .button {
+		&:hover/*, &:focus */ {
+			background-color: inherit;
+		}
+	}
+}
+
 
 a.disabled {
 	opacity:0.4;
