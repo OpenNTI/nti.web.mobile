@@ -1,5 +1,4 @@
-
-@mixin coming-soon {
+%coming-soon {
 	display: inline-block;
 	padding: 3rem;
 	border: 1px solid $panel-border-color;
@@ -14,5 +13,21 @@
 }
 
 widget:empty {
-	@include coming-soon();
+	@extend %coming-soon;
 }
+
+
+widget[data-type$="vnd.nextthought.canvas"] {
+	background-color: white;
+	border: none;
+
+	&::after {
+		content: '';
+		display: block;
+		width: 239px;
+		height: 239px;
+		background-repeat: no-repeat;
+		@extend .icon-broken-whiteboard;
+	}
+}
+

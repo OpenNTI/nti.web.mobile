@@ -61,7 +61,10 @@ module.exports = React.createClass({
 				o = {}; o[key] = w;
 				packet = {
 					widgets: o,
-					body: [{guid:key}]
+					body: [{
+						guid:key,
+						type: w.MimeType
+					}]
 				};
 			}
 
@@ -69,7 +72,7 @@ module.exports = React.createClass({
 
 			var processed = packet.body.map(
 				part => (typeof part !== 'string') ?
-					('<widget id="'+ part.guid +'"></widget>') :
+					('<widget id="'+ part.guid +'" data-type="' + part.type + '"></widget>') :
 					part);
 
 			return htmlToReactRenderer(

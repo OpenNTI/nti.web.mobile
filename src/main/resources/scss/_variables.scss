@@ -74,6 +74,8 @@ $tabs-navigation-font-color: $primary-grey;
 .icon-play {background-image: url(../images/icons/play.png);}
 .icon-transcript {background-image: url(../images/icons/play-transcript.png);}
 
+.icon-broken-whiteboard {background-image: url(../images/icons/whiteboard_error_loading_image.png);}
+
 @mixin blur-effect() {
 	//filter: blur(add = 0, direction = 0, strength = 10);//IE
 	//filter: url(#blur-effect);//moz
