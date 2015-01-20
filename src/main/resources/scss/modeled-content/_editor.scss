@@ -1,4 +1,5 @@
 
+
 .modeled.editor {
 	border: 1px solid black;
 	[contenteditable] {
@@ -9,13 +10,32 @@
 		}
 	}
 
+	$formats: bold,italic,underline;
+	@each $format in $formats {
+		button[data-format=#{$format}] {
+			@extend .icon-editor-#{$format};
+		}
+		&.#{$format} button[data-format=#{$format}] {
+			@extend .icon-editor-#{$format}-active;
+		}
+	}
+
 	.toolbar {
 		border: 0 solid $border-grey;
 		border-top-width: 1px;
 		background: $panel-background;
 		button {
+			color: $secondary-grey;
+			font-weight: bold;
 			margin: 0;
 			padding: 0.5rem 0.8rem;
+			background: {
+				color: $panel-background;
+				repeat: no-repeat;
+				position: center center;
+			}
+			text-indent: -100px;
+			overflow: hidden;
 		}
 	}
 }

@@ -73,8 +73,13 @@ $tabs-navigation-font-color: $primary-grey;
 .icon-modal-red-sign {background-image: url(../images/icons/modal-red-sign.png);}
 .icon-play {background-image: url(../images/icons/play.png);}
 .icon-transcript {background-image: url(../images/icons/play-transcript.png);}
-
 .icon-broken-whiteboard {background-image: url(../images/icons/whiteboard_error_loading_image.png);}
+.icon-editor-bold {background-image: url(../images/icons/editor/bold.png);}
+.icon-editor-bold-active {background-image: url(../images/icons/editor/bold_active.png);}
+.icon-editor-italic {background-image: url(../images/icons/editor/italic.png);}
+.icon-editor-italic-active {background-image: url(../images/icons/editor/italic_active.png);}
+.icon-editor-underline {background-image: url(../images/icons/editor/underline.png);}
+.icon-editor-underline-active {background-image: url(../images/icons/editor/underline_active.png);}
 
 @mixin blur-effect() {
 	//filter: blur(add = 0, direction = 0, strength = 10);//IE
