@@ -13,6 +13,7 @@ var Actions = require('../../Actions');
 var Store = require('../../Store');
 var Constants = require('../../Constants');
 var Loading = require('common/components/Loading');
+var NTIID = require('dataserverinterface/utils/ntiids');
 
 function isValid(topicValue) {
 	return topicValue.title.trim().length > 0;
@@ -59,8 +60,9 @@ var CreateTopic = React.createClass({
 				this.setState({
 					busy: false
 				});
-				console.debug('TODO: Navigate to the new topic.');
-				this.navigate('/', {replace: true});
+				var topicId = event.topic.getID();
+				var path = NTIID.encodeForURI(topicId);
+				this.navigate('/' + path + '/', {replace: true});
 				break;
 		}
 	},
