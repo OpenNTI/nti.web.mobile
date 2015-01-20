@@ -4,6 +4,7 @@ var AppDispatcher = require('dispatcher/AppDispatcher');
 var TypedEventEmitter = require('common/TypedEventEmitter');
 
 var Constants = require('./Constants');
+// var Api = require('./Api');
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 var NTIID = require('dataserverinterface/utils/ntiids');
 var indexForums = require('./utils/index-forums');
@@ -130,6 +131,18 @@ function getCommentReplies(comment) {
 	});
 }
 
+function createTopic(forum, topic) {
+	return forum.createTopic(topic).then(
+		result => {
+			Store.emitChange({
+				type: Constants.TOPIC_CREATED,
+				topic: result,
+				forum: forum
+			});
+		}
+	);
+}
+
 Store.setMaxListeners(0);
 
 Store.appDispatch = AppDispatcher.register(function(payload) {
@@ -137,6 +150,9 @@ Store.appDispatch = AppDispatcher.register(function(payload) {
 	switch(action.type) {
 		case Constants.GET_COMMENT_REPLIES:
 			getCommentReplies(action.comment);
+			break;
+		case Constants.CREATE_TOPIC:
+			createTopic(action.forum, action.topic);
 			break;
 		default:
 			return true;

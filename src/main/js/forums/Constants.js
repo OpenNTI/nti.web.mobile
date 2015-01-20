@@ -23,6 +23,8 @@ module.exports = Object.assign(exports,
 		GET_COMMENT_REPLIES: null,
 		GOT_COMMENT_REPLIES: null,
 		ADD_COMMENT: null,
-		COMMENT_ADDED: null
+		COMMENT_ADDED: null,
+		CREATE_TOPIC: null,
+		TOPIC_CREATED: null
 	})
 );

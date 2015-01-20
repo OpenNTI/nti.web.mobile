@@ -17,6 +17,13 @@ module.exports = {
 		return Api.addComment(topic, parent, comment);
 	},
 
+	createTopic: function(forum, topic) {
+		dispatch(Constants.CREATE_TOPIC, {
+			forum: forum,
+			topic: topic
+		});
+	},
+
 	deleteComment: function(comment) {
 		return Api.deleteComment(comment);
 	}

@@ -1,0 +1,109 @@
+/**
+ * @jsx React.DOM
+ */
+
+'use strict';
+
+var React = require('react/addons');
+var Notice = require('common/components/Notice');
+var Breadcrumb = require('common/components/Breadcrumb');
+var NavigatableMixin = require('common/mixins/NavigatableMixin');
+var TopicEditor = require('../TopicEditor');
+var Actions = require('../../Actions');
+var Store = require('../../Store');
+var Constants = require('../../Constants');
+var Loading = require('common/components/Loading');
+
+function isValid(topicValue) {
+	return topicValue.title.trim().length > 0;
+}
+
+var CreateTopic = React.createClass({
+
+	mixins: [NavigatableMixin],
+
+	propTypes: {
+		forum: React.PropTypes.object.isRequired
+	},
+
+	getInitialState: function() {
+		return {
+			busy: false
+		};
+	},
+
+	__getContext: function() {
+		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
+		var href = this.makeHref(this.getPath());
+		var label = 'New Discussion';
+		return getContextProvider().then(context => {
+			context.push({
+				label: label,
+				href: href
+			});
+			return context;
+		});
+	},
+
+	componentDidMount: function() {
+		Store.addChangeListener(this._storeChanged);
+	},
+
+	componentWillUnmount: function() {
+		Store.removeChangeListener(this._storeChanged);
+	},
+
+	_storeChanged: function(event) {
+		switch (event.type) {
+			case Constants.TOPIC_CREATED:
+				this.setState({
+					busy: false
+				});
+				console.debug('TODO: Navigate to the new topic.');
+				this.navigate('/', {replace: true});
+				break;
+		}
+	},
+
+	_canCreateTopic() {
+		var {forum} = this.props;
+		return !!(forum && forum.hasLink('add'));
+	},
+
+	_createTopic() {
+		var value = this.refs.editor.getValue();
+		if (isValid(value)) {
+			this.setState({
+				busy: true
+			});
+			var {forum} = this.props;
+			Actions.createTopic(forum, value);
+		}
+	},
+
+	_cancel() {
+		this.navigate('/', {replace: true});
+	},
+
+	render: function() {
+
+		if (this.state.busy) {
+			return <Loading />;
+		}
+
+		if (!this._canCreateTopic()) {
+			return <Notice>Can't create a new topic here.</Notice>;
+		}
+
+		return (
+			<div>
+				<Breadcrumb contextProvider={this.__getContext} />
+				<div>Create a topic</div>
+				<TopicEditor ref="editor" onSubmit={this._createTopic} onCancel={this._cancel}/>
+			</div>
+		);
+	}
+
+});
+
+module.exports = CreateTopic;

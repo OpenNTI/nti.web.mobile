@@ -15,6 +15,7 @@ var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var Topics = require('./Topics');
 var Topic = require('./Topic');
 var Post = require('./Post');
+var CreateTopic = require('./CreateTopic');
 var Loading = require('common/components/Loading');
 var TabBar = require('../GroupsTabBar');
 var Router = require('react-router-component');
@@ -86,7 +87,9 @@ module.exports = React.createClass({
 			return <Loading />;
 		}
 
-		var forumContents = Store.getObjectContents(this.props.forumId);
+		var {forumId} = this.props;
+		var forum = Store.getForum(forumId);
+		var forumContents = Store.getObjectContents(forumId);
 
 		return (
 			<nav className="forum">
@@ -94,7 +97,13 @@ module.exports = React.createClass({
 				<Router.Locations contextual>
 					<Location path="/(#nav)"
 						handler={Topics}
+						{...this.props}
 						container={forumContents}
+						contextProvider={this.__getContext}
+					/>
+					<Location path="/newtopic/(#nav)"
+						forum={forum}
+						handler={CreateTopic}
 						contextProvider={this.__getContext}
 					/>
 					<Location path="/:topicId/(#nav)"
