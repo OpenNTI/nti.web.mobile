@@ -49,10 +49,6 @@ module.exports = {
 		return me.promise;
 	},
 
-	// createTopic(forum, topic) {
-	// 	return forum.createTopic(topic);
-	// },
-
 	addComment(topic, parent, comment) {
 		return topic.addComment(comment, parent).then(result=>{
 			console.debug(result);
