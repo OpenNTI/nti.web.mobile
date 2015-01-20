@@ -81,7 +81,8 @@ module.exports = React.createClass( {
 
 			work = AssessmentAPI.loadPreviousState(assignment)
 				.then(this.setAssignmentHistory)
-				.catch(this.maybeNetworkError);
+				.catch(this.maybeNetworkError)
+				.catch(this.setNotTaken);
 		}
 
 		work.then(()=>
@@ -124,6 +125,7 @@ module.exports = React.createClass( {
 	setNotTaken () {
 		//mark as not started
 		this.setState({
+			assignmentHistory: null,
 			latestAttempt: null,
 			completed: false
 		});
