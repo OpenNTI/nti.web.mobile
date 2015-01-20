@@ -7,70 +7,55 @@
 var React = require('react/addons');
 var Editor = require('modeled-content').Editor;
 var PanelButton = require('common/components/PanelButton');
+var Notice = require('common/components/Notice');
 var OkCancelButtons = require('common/components/OkCancelButtons');
+var Loading = require('common/components/LoadingInline');
 var Actions = require('../Actions');
 var Store = require('../Store');
 var Constants = require('../Constants');
-var Loading = require('common/components/LoadingInline');
 
 var CommentForm = React.createClass({
 
-	propTypes: {
-		onCancel: React.PropTypes.func.isRequired,
-		topic: React.PropTypes.object.isRequired,
-		parent: React.PropTypes.object.isRequired
-	},
-
 	getInitialState: function() {
 		return {
-			busy: false 
+			busy: false,
+			complete: false
 		};
-	},
-
-	componentDidMount: function() {
-		Store.addChangeListener(this._storeChange);
-	},
-
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChange);
-	},
-
-	_storeChange: function(event) {
-		switch (event.type) {
-			case Constants.COMMENT_ADDED:
-				// TODO: make sure it's the right comment?
-				// the one posted by this instance of the form?
-				this.setState({
-					busy: false,
-					showForm: false
-				});
-				break;
-		}
 	},
 
 	getValue() {
 		return this.refs.editor.getValue();
 	},
 
-	_addComment: function(event, value) {
+	componentDidMount: function() {
+		Store.addChangeListener(this._storeChanged);
+	},
+
+	componentWillUnmount: function() {
+		Store.removeChangeListener(this._storeChanged);
+	},
+
+	_storeChanged: function(event) {
+		switch (event.type) {
+			case Constants.COMMENT_ADDED:
+				this.setState({
+					busy: false,
+					complete: true
+				});
+				if (this.props.onCompletion) {
+					this.props.onCompletion(event);
+				}
+				break;
+		}
+	},
+
+	_addComment: function(event) {
+		event.preventDefault();
+		event.stopPropagation();
 		this.setState({
 			busy: true
 		});
-		var {topic, parent} = this.props;
-		Actions.addComment(topic, parent, value);
-	},
-
-	_onSubmit(event) {
-		event.preventDefault();
-		event.stopPropagation();
-		var val = this.getValue();
-		this._addComment(event, val);
-	},
-
-	_onCancel(event) {
-		event.preventDefault();
-		event.stopPropagation();
-		this.props.onCancel(event);
+		Actions.addComment(this.props.topic, this.props.parent, this.getValue());
 	},
 
 	render: function() {
@@ -79,7 +64,11 @@ var CommentForm = React.createClass({
 			return <Loading />;
 		}
 
-		var buttons = <OkCancelButtons onOk={this._onSubmit} onCancel={this._onCancel} />;
+		if (this.state.complete) {
+			return <Notice>Comment added</Notice>;
+		}
+
+		var buttons = <OkCancelButtons onOk={this._addComment} onCancel={this.props.onCancel} />;
 
 		return (
 			<PanelButton className="comment-form" linkText='Submit' button={buttons}>

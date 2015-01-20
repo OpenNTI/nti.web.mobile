@@ -15,6 +15,10 @@ module.exports = {
 
 	addComment: function(topic, parent, comment) {
 		return Api.addComment(topic, parent, comment);
+	},
+
+	deleteComment: function(comment) {
+		return Api.deleteComment(comment);
 	}
 };
 

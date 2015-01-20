@@ -72,6 +72,16 @@ var Store = Object.assign({}, TypedEventEmitter, {
 		_objects[objectId] = object;
 	},
 
+	deleteObject(objectId) {
+		var obj = _objects[objectId];
+		delete _objects[objectId];
+		Store.emitChange({
+			type: Constants.OBJECT_DELETED,
+			objectId: objectId,
+			previously: obj
+		});
+	},
+
 	setObjectContents(objectId, contents) {
 		var key = this.__keyForContents(objectId);
 		_objectContents[key] = contents;

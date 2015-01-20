@@ -60,6 +60,7 @@
 .disclosure-triangle {
 	$size: 1em;
 	position: relative;
+	padding-left: $size;
 	&::before {
 		content: '';
 		width: 0;
@@ -67,7 +68,7 @@
 		border: $size/2 solid transparent;
 		position: absolute;
 		border-left-color: black;
-		left: -$size;
+		left: 0;
 		top: 50%;
 		margin-top: -$size/2;
 		-webkit-transform-origin-x: $size/8;

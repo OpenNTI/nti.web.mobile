@@ -10,10 +10,9 @@ var CommentForm = require('./CommentForm');
 var Loading = require('common/components/LoadingInline');
 var Store = require('../Store');
 var Constants = require('../Constants');
-var Actions = require('../Actions');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-var CommentLinks = React.createClass({
+var AddComment = React.createClass({
 
 
 	getInitialState: function() {
@@ -44,23 +43,9 @@ var CommentLinks = React.createClass({
 		}
 	},
 
-	_addComment: function(event, value) {
+	_toggleCommentForm: function(event) {
 		event.preventDefault();
 		event.stopPropagation();
-		console.debug(value);
-		this.setState({
-			busy: true
-		});
-		Actions.addComment(this.props.topic, this.props.parent, value);
-	},
-
-	_dismiss: function() {
-		this.setState({
-					showForm: false
-				});
-	},
-
-	_toggleCommentForm: function() {
 		this.setState({
 			showForm: !this.state.showForm
 		});
@@ -71,7 +56,12 @@ var CommentLinks = React.createClass({
 
 		var Form = (this.state.busy ? 
 					<Loading /> :
-					<CommentForm key="commentForm" ref='commentForm' onSubmit={this._addComment} onCancel={this._dismiss}/>);
+					<CommentForm
+						key="commentForm"
+						ref='commentForm'
+						topic={this.props.topic}
+						parent={this.props.parent}
+						onCancel={this._toggleCommentForm}/>);
 
 		return (
 			<div>
@@ -87,4 +77,4 @@ var CommentLinks = React.createClass({
 
 });
 
-module.exports = CommentLinks;
+module.exports = AddComment;

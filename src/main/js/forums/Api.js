@@ -63,6 +63,21 @@ module.exports = {
 		});
 	},
 
+	deleteComment(comment) {
+		var link = comment && comment.getLink && comment.getLink('edit');
+		if (!link) {
+			console.error('No edit link for comment. Ignoring delete request.', comment);
+			return;
+		}
+		var del = getService().then(service => {
+			return service.delete(link);
+		});
+
+		del.then(() => {
+			Store.deleteObject(comment.getID());
+		});
+	},
+
 	getObjectContents: function(ntiid, params) {
 		return this.getObject(ntiid).then(object => {
 			Store.setObject(ntiid, object);

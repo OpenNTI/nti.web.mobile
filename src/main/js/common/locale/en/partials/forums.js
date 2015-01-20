@@ -20,6 +20,9 @@ module.exports = {
 	},
 	replyLink: 'Reply',
 	addComment: 'Add a Comment',
+	reply: 'Reply',
+	editComment: 'Edit',
+	deleteComment: 'Delete',
 	posted: 'posted',
 	replied: 'replied',
 	likes: {
