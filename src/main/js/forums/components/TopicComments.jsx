@@ -13,14 +13,14 @@ var TopicComments = React.createClass({
 
 	render: function() {
 
-		var {container} = this.props;
-		var itemCount = container.Items.length;
+		var {topic} = this.props;
+		var itemCount = topic.PostCount;
 
 		return (
 			<section className="comments">
 				<h1>{t('replies', {count: itemCount})}</h1>
-				<AddComment topic={this.props.topic} />
-				<List className="forum-replies" {...this.props} itemProps={{topic: this.props.topic}} />
+				<AddComment topic={topic} />
+				<List className="forum-replies" {...this.props} itemProps={{topic: topic}} />
 			</section>
 		);
 	}
