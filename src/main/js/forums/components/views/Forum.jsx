@@ -96,7 +96,6 @@ module.exports = React.createClass({
 
 		var {forumId} = this.props;
 		var forum = Store.getForum(forumId);
-		var forumContents = Store.getObjectContents(forumId);
 
 		return (
 			<nav className="forum">
@@ -105,7 +104,6 @@ module.exports = React.createClass({
 					<Location path="/(#nav)"
 						handler={Topics}
 						{...this.props}
-						container={forumContents}
 						contextProvider={this.__getContext}
 					/>
 					<Location path="/newtopic/(#nav)"

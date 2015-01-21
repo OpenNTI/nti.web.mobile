@@ -41,6 +41,8 @@ var Topics = React.createClass({
 
 	render: function() {
 		var label = _t('topicLabel');
+		var {forumId} = this.props;
+		var forumContents = Store.getObjectContents(forumId);
 
 		return (
 			<div>
@@ -48,7 +50,7 @@ var Topics = React.createClass({
 				<section>
 					<h1>{label}</h1>
 					{this._createTopicLink()}
-					<TopicList {...this.props} />
+					<TopicList container={forumContents}/>
 				</section>
 			</div>
 		);
