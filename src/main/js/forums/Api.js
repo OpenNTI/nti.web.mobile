@@ -1,16 +1,8 @@
 'use strict';
 
-// var Store = require('./Store');
 var getService = require('common/Utils').getService;
-// var Constants = require('./Constants');
 
 var _promises = {};
-
-// called when the load promise is resolved or rejected.
-// function _discussionsLoaded(courseId, result) {
-// 	Store.setDiscussions(courseId, result);
-// 	return result;
-// }
 
 module.exports = {
 	loadDiscussions(course) {
@@ -64,26 +56,14 @@ module.exports = {
 
 	getObjectContents: function(ntiid, params) {
 		return this.getObject(ntiid).then(object => {
-			// Store.setObject(ntiid, object);
 			return object.getContents(params).then(contents => {
-				// Store.setObjectContents(ntiid, contents);
 				return { object: object, contents: contents};
 			});
 		});
 	},
 
 	getObject: function(ntiid) {
-		return this._getInterface()
-			.then(f => f.getObject(ntiid));
-					// .then(object => {
-					// 	Store.emitChange({
-					// 		type: Constants.OBJECT_LOADED,
-					// 		ntiid: ntiid,
-					// 		object: object
-					// 	});
-					// 	return object;
-					// });
-			
+		return this._getInterface().then(f => f.getObject(ntiid));
 	}
 
 };

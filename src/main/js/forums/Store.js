@@ -104,15 +104,6 @@ var Store = Object.assign({}, TypedEventEmitter, {
 		});
 	},
 
-	// reset: function() {
-	// 	console.warn('Resetting forums store.');
-	// 	_discussions = {};
-	// 	_forums = {};
-	// 	_forumContents = {};
-	// 	_objectContents = {};
-	// 	_objects = {};
-	// },
-
 	__keyForContents(objectId) {
 		return [objectId, 'contents'].join(':');
 	}
