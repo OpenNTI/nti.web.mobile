@@ -42,7 +42,8 @@ module.exports = React.createClass({
 		.then(topics => {
 			this.setState({
 				loading: false,
-				recentActivity: topics
+				recentActivity: topics.Items,
+				totalItemCount: topics.TotalItemCount
 			});
 		});
 	},
@@ -82,7 +83,7 @@ module.exports = React.createClass({
 				<h3>
 					<a className="title" href={this._href()}>
 						{item.title}
-						<span className="see-all count" href={this._href()}>{t('topicCount', {count: item.TopicCount})}</span>
+						<span className="see-all count" href={this._href()}>{t('topicCount', {count: this.state.totalItemCount})}</span>
 						<span className="arrow-right"/>
 					</a>
 				</h3>
