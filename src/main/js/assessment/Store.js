@@ -203,8 +203,9 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 
 	countUnansweredQuestions: function(assessment){
+		var main = Utils.getMainSubmittable(assessment);
 		var s = this.getSubmissionData(assessment);
-		return s && s.countUnansweredQuestions();
+		return s && s.countUnansweredQuestions(main);
 	},
 
 
