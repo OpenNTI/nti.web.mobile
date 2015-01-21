@@ -14,8 +14,10 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var TopicHeadline = require('../TopicHeadline');
 var TopicComments = require('../TopicComments');
 var Breadcrumb = require('common/components/Breadcrumb');
+var Button = require('common/forms/components/Button');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
-
+var Prompt = require('prompts');
+var Notice = require('common/components/Notice');
 var Loading = require('common/components/Loading');
 
 module.exports = React.createClass({
@@ -24,7 +26,8 @@ module.exports = React.createClass({
 
 	getInitialState: function() {
 		return {
-			loading: true
+			loading: true,
+			deleted: false
 		};
 	},
 
@@ -63,9 +66,15 @@ module.exports = React.createClass({
 
 			case Constants.OBJECT_DELETED:
 				var {topicId} = this.props;
+				var fullTopicId = NTIID.decodeFromURI(topicId);
 				var o = event.object;
-				if (!o.inReplyTo && event.object.ContainerId === NTIID.decodeFromURI(topicId)) {
+				if (!o.inReplyTo && event.object.ContainerId === fullTopicId) {
 					this._loadData(this.props.topicId);	
+				}
+				if (o.getID && o.getID() === fullTopicId) {
+					this.setState({
+						deleted: true
+					});
 				}
 				break;
 		}
@@ -94,19 +103,36 @@ module.exports = React.createClass({
 		});
 	},
 
+	_deleteTopic: function() {
+		Prompt.areYouSure('Delete this topic?').then(() => {
+			var topic = Store.getObject(this.props.topicId);
+			Api.deleteTopic(topic);
+		},
+		()=>{});
+	},
+
 	render: function() {
 
 		if (this.state.loading) {
 			return <Loading />;
 		}
 
+		if (this.state.deleted) {
+			return <div>
+				<Breadcrumb contextProvider={this.__getContext}/>
+				<Notice>This topic has been deleted.</Notice>
+			</div>;
+		}
+
 		var topic = Store.getObject(this.props.topicId);
 		var topicContents = Store.getObjectContents(this.props.topicId);
+		var canEdit = topic.hasLink('edit');
 
 		return (
 			<div>
 				<Breadcrumb contextProvider={this.__getContext}/>
 				<TopicHeadline post={topic.headline} />
+				{canEdit && <Button onClick={this._deleteTopic}>Delete</Button>}
 				<TopicComments container={topicContents} topic={topic} />
 			</div>
 		);

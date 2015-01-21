@@ -63,10 +63,27 @@ module.exports = {
 		});
 	},
 
-	deleteComment(comment) {
-		var link = comment && comment.getLink && comment.getLink('edit');
+	createTopic(forum, topic) {
+		return forum.createTopic(topic).then(
+			result => {
+				Store.emitChange({
+					type: Constants.TOPIC_CREATED,
+					topic: result,
+					forum: forum
+				});
+				this.getObjectContents(forum.getID());
+			}.bind(this)
+		);
+	},
+
+	deleteTopic(topic) {
+		return this._deleteObject(topic);
+	},
+
+	_deleteObject(o) {
+		var link = o && o.getLink && o.getLink('edit');
 		if (!link) {
-			console.error('No edit link for comment. Ignoring delete request.', comment);
+			console.error('No edit link. Ignoring delete request.');
 			return;
 		}
 		var del = getService().then(service => {
@@ -74,8 +91,12 @@ module.exports = {
 		});
 
 		return del.then(() => {
-			Store.deleteObject(comment);
+			Store.deleteObject(o);
 		});
+	},
+
+	deleteComment(comment) {
+		return this._deleteObject(comment);
 	},
 
 	getObjectContents: function(ntiid, params) {

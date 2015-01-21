@@ -131,17 +131,6 @@ function getCommentReplies(comment) {
 	});
 }
 
-function createTopic(forum, topic) {
-	return forum.createTopic(topic).then(
-		result => {
-			Store.emitChange({
-				type: Constants.TOPIC_CREATED,
-				topic: result,
-				forum: forum
-			});
-		}
-	);
-}
 
 Store.setMaxListeners(0);
 
@@ -150,9 +139,6 @@ Store.appDispatch = AppDispatcher.register(function(payload) {
 	switch(action.type) {
 		case Constants.GET_COMMENT_REPLIES:
 			getCommentReplies(action.comment);
-			break;
-		case Constants.CREATE_TOPIC:
-			createTopic(action.forum, action.topic);
 			break;
 		default:
 			return true;
