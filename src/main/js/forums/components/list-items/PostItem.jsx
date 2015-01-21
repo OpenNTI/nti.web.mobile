@@ -123,7 +123,7 @@ var PostItem = React.createClass({
 						<a onClick={this._toggleState.bind(this, _SHOW_FORM)}>{this.props.linkText||t('reply')}</a>
 					</li>
 				}
-				{canEdit &&
+				{false && canEdit &&
 					<li key="edit-link"><a onClick={this._editComment}>{this.props.linkText||t('editComment')}</a></li>}
 				{canEdit &&
 					<li key="delete-link"><a onClick={this._deleteComment}>{this.props.linkText||t('deleteComment')}</a></li>}
