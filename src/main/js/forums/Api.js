@@ -54,6 +54,15 @@ module.exports = {
 		});
 	},
 
+	// convenience method that just adds params to the getObjectContents call.
+	getTopicContents: function(topicId) {
+		return this.getObjectContents(topicId, {
+			sortOn: 'CreatedTime',
+			sortOrder: 'ascending',
+			filter: 'TopLevel'
+		});
+	},
+
 	getObjectContents: function(ntiid, params) {
 		return this.getObject(ntiid).then(object => {
 			return object.getContents(params).then(contents => {
