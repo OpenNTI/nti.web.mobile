@@ -7,6 +7,7 @@
 var React = require('react/addons');
 
 var Store = require('../../Store');
+var Actions = require('../../Actions');
 var Api = require('../../Api');
 var Constants = require('../../Constants');
 var NTIID = require('dataserverinterface/utils/ntiids');
@@ -19,6 +20,7 @@ var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var Prompt = require('prompts');
 var Notice = require('common/components/Notice');
 var Loading = require('common/components/Loading');
+var Err = require('common/components/Error');
 
 module.exports = React.createClass({
 
@@ -80,18 +82,30 @@ module.exports = React.createClass({
 		}
 	},
 
-	_loadData: function(topicId) {
+	_loadData: function(topicId=this.props.topicId) {
 		Api.getObjectContents(topicId, {
 			sortOn: 'CreatedTime',
 			sortOrder: 'ascending',
 			filter: 'TopLevel'
-		});
+		}).
+		then(
+			result => {
+				Store.setObject(topicId, result.object);
+				Store.setObjectContents(topicId, result.contents);
+			},
+			reason => {
+				// console.error('Failed to load topic contents.', reason);
+				this.setState({
+					error: reason
+				});
+			}
+		);
 	},
 
 	__getContext: function() {
 		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
 		var href = this.makeHref(this.getPath());
-		var topic = Store.getObject(this.props.topicId);
+		var topic = this._topic();
 		var title = topic && topic.headline ? topic.headline.title : 'Topic';
 		return getContextProvider().then(context => {
 			context.push({
@@ -103,15 +117,25 @@ module.exports = React.createClass({
 		});
 	},
 
+	_topic() {
+		return Store.getObject(this.props.topicId);
+	},
+
 	_deleteTopic: function() {
 		Prompt.areYouSure('Delete this topic?').then(() => {
-			var topic = Store.getObject(this.props.topicId);
-			Api.deleteTopic(topic);
+			Actions.deleteTopic(this._topic());
 		},
 		()=>{});
 	},
 
 	render: function() {
+
+		var breadcrumb = <Breadcrumb contextProvider={this.__getContext}/>;
+
+		if (this.state.error) {
+			var {error} = this.state;
+			return (error||{}).statusCode === 404 ? <div>{breadcrumb}<Notice>This topic could not be found.</Notice></div> : <Err error={error} />;
+		}
 
 		if (this.state.loading) {
 			return <Loading />;
@@ -119,18 +143,18 @@ module.exports = React.createClass({
 
 		if (this.state.deleted) {
 			return <div>
-				<Breadcrumb contextProvider={this.__getContext}/>
+				{breadcrumb}
 				<Notice>This topic has been deleted.</Notice>
 			</div>;
 		}
 
-		var topic = Store.getObject(this.props.topicId);
+		var topic = this._topic();
 		var topicContents = Store.getObjectContents(this.props.topicId);
 		var canEdit = topic.hasLink('edit');
 
 		return (
 			<div>
-				<Breadcrumb contextProvider={this.__getContext}/>
+				{breadcrumb}
 				<TopicHeadline post={topic.headline} />
 				{canEdit && <Button onClick={this._deleteTopic}>Delete</Button>}
 				<TopicComments container={topicContents} topic={topic} />

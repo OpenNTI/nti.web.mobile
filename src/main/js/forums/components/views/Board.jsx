@@ -16,7 +16,7 @@ module.exports = React.createClass({
 
 	__getContext: function() {
 		var entry = {
-			label: (this.props.filter||{}).name||'asdfasfds',
+			label: (this.props.filter||{}).name||'',
 			href: this.makeHref(this.getPath())
 		};
 		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;

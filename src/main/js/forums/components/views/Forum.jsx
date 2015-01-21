@@ -19,6 +19,7 @@ var CreateTopic = require('./CreateTopic');
 var Loading = require('common/components/Loading');
 var TabBar = require('../GroupsTabBar');
 var Router = require('react-router-component');
+var NTIID = require('dataserverinterface/utils/ntiids');
 var Location = Router.Location;
 
 module.exports = React.createClass({
@@ -50,7 +51,8 @@ module.exports = React.createClass({
 		switch(event.type) {
 			// case Constants.OBJECT_LOADED:
 			case Constants.OBJECT_CONTENTS_CHANGED:
-				if (event.objectId === this.props.forumId) {
+				var {forumId} = this.props;
+				if (NTIID.decodeFromURI(event.objectId) === NTIID.decodeFromURI(forumId)) {
 					this.setState({
 						loading: false
 					});
@@ -60,8 +62,13 @@ module.exports = React.createClass({
 	},
 
 	_loadData: function(forumId) {
-		Api.getObjectContents(forumId);
+		Api.getObjectContents(forumId)
+		.then(result => {
+			Store.setObject(forumId, result.object);
+			Store.setObjectContents(forumId, result.contents);
+		});
 	},
+
 
 	__getContext: function() {
 		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
@@ -74,7 +81,7 @@ module.exports = React.createClass({
 				href: section
 			});
 			context.push({
-				label: forum.title,
+				label: (forum||{}).title,
 				href: href
 			});
 			return context;

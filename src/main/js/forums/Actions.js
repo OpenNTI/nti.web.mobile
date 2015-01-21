@@ -3,7 +3,6 @@
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var Constants = require('./Constants');
-var Api = require('./Api');
 
 
 module.exports = {
@@ -14,15 +13,30 @@ module.exports = {
 	},
 
 	addComment: function(topic, parent, comment) {
-		return Api.addComment(topic, parent, comment);
+		dispatch(Constants.ADD_COMMENT, {
+			topic: topic,
+			parent: parent,
+			comment: comment
+		});
 	},
 
 	createTopic: function(forum, topic) {
-		return Api.createTopic(forum, topic);
+		dispatch(Constants.CREATE_TOPIC, {
+			forum: forum,
+			topic: topic
+		});
+	},
+
+	deleteTopic: function(topic) {
+		dispatch(Constants.DELETE_TOPIC, {
+			topic: topic
+		});	
 	},
 
 	deleteComment: function(comment) {
-		return Api.deleteComment(comment);
+		dispatch(Constants.DELETE_COMMENT, {
+			comment: comment
+		});
 	}
 };
 

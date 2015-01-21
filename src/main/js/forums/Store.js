@@ -4,7 +4,7 @@ var AppDispatcher = require('dispatcher/AppDispatcher');
 var TypedEventEmitter = require('common/TypedEventEmitter');
 
 var Constants = require('./Constants');
-// var Api = require('./Api');
+var Api = require('./Api');
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 var NTIID = require('dataserverinterface/utils/ntiids');
 var indexForums = require('./utils/index-forums');
@@ -69,8 +69,13 @@ var Store = Object.assign({}, TypedEventEmitter, {
 		return _objects[objectId];
 	},
 
-	setObject(objectId, object) {
-		_objects[objectId] = object;
+	setObject(ntiid, object) {
+		_objects[ntiid] = object;
+		this.emitChange({
+			type: Constants.OBJECT_LOADED,
+			ntiid: ntiid,
+			object: object
+		});
 	},
 
 	deleteObject(object) {
@@ -98,6 +103,15 @@ var Store = Object.assign({}, TypedEventEmitter, {
 			data: data
 		});
 	},
+
+	// reset: function() {
+	// 	console.warn('Resetting forums store.');
+	// 	_discussions = {};
+	// 	_forums = {};
+	// 	_forumContents = {};
+	// 	_objectContents = {};
+	// 	_objects = {};
+	// },
 
 	__keyForContents(objectId) {
 		return [objectId, 'contents'].join(':');
@@ -131,6 +145,66 @@ function getCommentReplies(comment) {
 	});
 }
 
+function addComment(topic, parent, comment) {
+	return topic.addComment(comment, parent)
+	.then(
+		result => {
+			// getObjectContents()
+			Store.commentAdded({
+				topic: topic,
+				parent: parent,
+				result: result
+			});
+		},
+		reason => {
+			console.debug(reason);
+		}
+	);
+}
+
+function createTopic(forum, topic) {
+	return forum.createTopic(topic)
+	.then(
+		result => {
+			Store.emitChange({
+				type: Constants.TOPIC_CREATED,
+				topic: result,
+				forum: forum
+			});
+			getObjectContents(forum.getID());
+		}
+	);
+}
+
+function deleteTopic(topic) {
+	return _deleteObject(topic);
+}
+
+function _deleteObject(o) {
+	Api.deleteObject(o).then(()=>{
+		Store.deleteObject(o);
+	});
+}
+
+function deleteComment(comment) {
+	return _deleteObject(comment);
+}
+
+function getObjectContents(ntiid, params) {
+	return getObject(ntiid).then(object => {
+		return object.getContents(params).then(contents => {
+			Store.setObjectContents(ntiid, contents);
+		});
+	});
+}
+
+function getObject(ntiid) {
+	return Api.getObject(ntiid).then(
+		object => {
+			Store.setObject(ntiid, object);
+			return object;
+		});
+}
 
 Store.setMaxListeners(0);
 
@@ -139,6 +213,22 @@ Store.appDispatch = AppDispatcher.register(function(payload) {
 	switch(action.type) {
 		case Constants.GET_COMMENT_REPLIES:
 			getCommentReplies(action.comment);
+			break;
+		case Constants.ADD_COMMENT:
+			var {topic, parent, comment} = action;
+			addComment(topic, parent, comment);
+			break;
+		case Constants.CREATE_TOPIC:
+			var {forum, topic} = action;
+			createTopic(forum, topic);
+			break;
+		case Constants.DELETE_TOPIC:
+			var {topic} = action;
+			deleteTopic(topic);
+			break;
+		case Constants.DELETE_COMMENT: // TODO: unify delete topic and delete comment under delete object
+			var {comment} = action;
+			deleteComment(comment);
 			break;
 		default:
 			return true;

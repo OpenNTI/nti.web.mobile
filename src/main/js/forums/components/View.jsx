@@ -48,7 +48,16 @@ var View = React.createClass({
 
 	_load: function() {
 		console.debug('loadDiscussions');
-		Api.loadDiscussions(this.props.course);
+		var {course} = this.props;
+		Api.loadDiscussions(this.props.course)
+		.then(
+			result => {
+				Store.setDiscussions(course.getID(), result);
+			},
+			reason => {
+				// TODO: handle load failure
+				console.error('Failed to load discussions', reason);
+			});
 	},
 
 	_storeChanged: function(event) {
@@ -60,6 +69,10 @@ var View = React.createClass({
 						loading: false
 					});	
 				}
+				break;
+			case Constants.TOPIC_CREATED:
+				console.debug('topic created caught in root discussions view');
+				Api.getObjectContents(event.forum.getID());
 				break;
 		}
 	},

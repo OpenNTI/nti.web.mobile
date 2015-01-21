@@ -1,16 +1,16 @@
 'use strict';
 
-var Store = require('./Store');
+// var Store = require('./Store');
 var getService = require('common/Utils').getService;
-var Constants = require('./Constants');
+// var Constants = require('./Constants');
 
 var _promises = {};
 
 // called when the load promise is resolved or rejected.
-function _discussionsLoaded(courseId, result) {
-	Store.setDiscussions(courseId, result);
-	return result;
-}
+// function _discussionsLoaded(courseId, result) {
+// 	Store.setDiscussions(courseId, result);
+// 	return result;
+// }
 
 module.exports = {
 	loadDiscussions(course) {
@@ -26,12 +26,14 @@ module.exports = {
 			var courseId = course.getID();
 			promise = course.getDiscussions()
 				.then( result => {
-						_discussionsLoaded(courseId, result);
+						return result;
+						// _discussionsLoaded(courseId, result);
 					},
 					reason => {
 						// don't hang on to a rejected promise; we want to try again next time.
 						delete _promises[course]; 
-						_discussionsLoaded(courseId, reason);
+						return reason;
+						// _discussionsLoaded(courseId, reason);
 					}
 				);
 			// keep this promise around so we're not making redundant calls.
@@ -49,78 +51,39 @@ module.exports = {
 		return me.promise;
 	},
 
-	addComment(topic, parent, comment) {
-		return topic.addComment(comment, parent).then(result=>{
-			console.debug(result);
-			Store.commentAdded({
-				topic: topic,
-				parent: parent,
-				result: result
-			});
-		},
-		reason => {
-			console.debug(reason);
-		});
-	},
-
-	createTopic(forum, topic) {
-		return forum.createTopic(topic).then(
-			result => {
-				Store.emitChange({
-					type: Constants.TOPIC_CREATED,
-					topic: result,
-					forum: forum
-				});
-				this.getObjectContents(forum.getID());
-			}.bind(this)
-		);
-	},
-
-	deleteTopic(topic) {
-		return this._deleteObject(topic);
-	},
-
-	_deleteObject(o) {
+	deleteObject(o) {
 		var link = o && o.getLink && o.getLink('edit');
 		if (!link) {
 			console.error('No edit link. Ignoring delete request.');
 			return;
 		}
-		var del = getService().then(service => {
+		return getService().then(service => {
 			return service.delete(link);
 		});
-
-		return del.then(() => {
-			Store.deleteObject(o);
-		});
-	},
-
-	deleteComment(comment) {
-		return this._deleteObject(comment);
 	},
 
 	getObjectContents: function(ntiid, params) {
 		return this.getObject(ntiid).then(object => {
-			Store.setObject(ntiid, object);
+			// Store.setObject(ntiid, object);
 			return object.getContents(params).then(contents => {
-				Store.setObjectContents(ntiid, contents);
+				// Store.setObjectContents(ntiid, contents);
+				return { object: object, contents: contents};
 			});
 		});
 	},
 
 	getObject: function(ntiid) {
 		return this._getInterface()
-			.then(f => {
-				return f.getObject(ntiid)
-					.then(object => {
-						Store.emitChange({
-							type: Constants.OBJECT_LOADED,
-							ntiid: ntiid,
-							object: object
-						});
-						return object;
-					});
-			});
+			.then(f => f.getObject(ntiid));
+					// .then(object => {
+					// 	Store.emitChange({
+					// 		type: Constants.OBJECT_LOADED,
+					// 		ntiid: ntiid,
+					// 		object: object
+					// 	});
+					// 	return object;
+					// });
+			
 	}
 
 };
