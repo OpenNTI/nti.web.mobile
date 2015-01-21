@@ -344,16 +344,34 @@ function saveProgress(part, buffer = 1000) {
 	}
 
 	clearTimeout(savepointDelay);
-	savepointDelay = setTimeout(()=>{
+
+	let busyState = Store.getBusyState(part);
+	//Do not attempt to make a save point if:
+	//	A) Submitted
+	// or
+	//	B) Busy Submitting
+	if (Store.isSubmitted(part) || (busyState && busyState === Constants.BUSY.SUBMITTING)) {
+		return;
+	}
+
+	let schedual = (buffer) ?
+		fn=>setTimeout(fn, buffer) :	//schedual a task in the future
+		busyState ?
+			()=>0 :						//drop on the floor
+			fn=>(fn() && 0);			//execute task immediately
+
+	savepointDelay = schedual(()=>{
 		markBusy(part, Constants.BUSY.SAVEPOINT);
 		Store.emitChange();
+
 		Api.saveProgress(part)
-		.catch(emptyFunction)//handle errors
-		.then(() => {
-			markBusy(part, false);
-			Store.emitChange();
-		});
-	}, buffer);
+			.catch(emptyFunction)//handle errors
+			.then(() => {
+
+				markBusy(part, false);
+				Store.emitChange();
+			});
+	});
 }
 
 
