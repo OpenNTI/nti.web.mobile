@@ -27,6 +27,8 @@ module.exports = Object.assign(exports,
 		CREATE_TOPIC: null,
 		TOPIC_CREATED: null,
 		DELETE_TOPIC: null,
-		DELETE_COMMENT: null
+		DELETE_COMMENT: null,
+		REPORT_ITEM: null,
+		ITEM_REPORTED: null
 	})
 );

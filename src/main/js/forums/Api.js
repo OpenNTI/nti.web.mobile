@@ -54,6 +54,10 @@ module.exports = {
 		});
 	},
 
+	reportItem(o) {
+		return this._getInterface().then(f => f.reportItem(o));
+	},
+
 	// convenience method that just adds params to the getObjectContents call.
 	getTopicContents: function(topicId) {
 		return this.getObjectContents(topicId, {

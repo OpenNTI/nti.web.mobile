@@ -205,6 +205,17 @@ function getObject(ntiid) {
 		});
 }
 
+function reportItem(item) {
+	return Api.reportItem(item)
+	.then((result) => {
+		Store.setObject(result.getID(), result);
+		Store.emitChange({
+			type: Constants.ITEM_REPORTED,
+			item: item
+		});
+	});
+}
+
 Store.setMaxListeners(0);
 
 Store.appDispatch = AppDispatcher.register(function(payload) {
@@ -228,6 +239,10 @@ Store.appDispatch = AppDispatcher.register(function(payload) {
 		case Constants.DELETE_COMMENT: // TODO: unify delete topic and delete comment under delete object
 			var {comment} = action;
 			deleteComment(comment);
+			break;
+		case Constants.REPORT_ITEM:
+			var {item} = action;
+			reportItem(item);
 			break;
 		default:
 			return true;

@@ -34,6 +34,11 @@ var Replies = React.createClass({
 		Store.removeChangeListener(this._storeChange);
 	},
 
+	// componentWillReceiveProps: function() {
+	// 	console.debug('will receive props');
+	// 	this._getReplies(true);
+	// },
+
 	_storeChange: function(event) {
 		switch(event.type) {
 			case Constants.GOT_COMMENT_REPLIES:
@@ -54,8 +59,10 @@ var Replies = React.createClass({
 				break;
 
 			case Constants.OBJECT_DELETED:
+			case Constants.ITEM_REPORTED:
 				var {item} = this.props;
-				if (event.object && event.object._parent && event.object._parent.getID() === item.getID()) {
+				var eventItem = event.object || event.item;
+				if (eventItem && eventItem._parent && eventItem._parent.getID() === item.getID()) {
 					this._getReplies(true);
 				}
 				break;

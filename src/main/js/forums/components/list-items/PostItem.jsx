@@ -18,6 +18,7 @@ var t = require('common/locale').scoped('FORUMS');
 var isFlag = require('common/Utils').isFlag;
 var Loading = require('common/components/LoadingInline');
 var CommentForm = require('../CommentForm');
+var ReportLink = require('../ReportLink');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 // var Api = require('../../Api');
 var Prompt = require('prompts');
@@ -80,6 +81,18 @@ var PostItem = React.createClass({
 		);
 	},
 
+	// _reportComment: function() {
+	// 	Prompt.areYouSure('Report this comment as inappropriate?').then(
+	// 		()=> {
+	// 			this.setState({
+	// 				busy: true
+	// 			});
+	// 			Actions.reportComment(this.props.item);	
+	// 		},
+	// 		()=>{}
+	// 	);
+	// },
+
 	_toggleState: function(propname, event) {
 		if (event) {
 			event.preventDefault();
@@ -103,11 +116,13 @@ var PostItem = React.createClass({
 	_links(item) {
 
 		var canEdit = item.hasLink('edit');
+		var canReport = item.hasLink('flag')||item.hasLink('flag.metoo');
 		var numComments = this.state.replyCount||item.ReferencedByCount;
 		var RepliesToggle = numComments > 0 ? "a" : "span";
 		var repliesClick = numComments > 0 ? this._toggleState.bind(this, _SHOW_REPLIES) : null;
 		var toggleClasses = numComments > 0 ? ['disclosure-triangle'] : [];
 		var canReply = !item.Deleted;
+
 
 		if (this.state[_SHOW_REPLIES]) {
 			toggleClasses.push('open');
@@ -127,6 +142,8 @@ var PostItem = React.createClass({
 					<li key="edit-link"><a onClick={this._editComment}>{this.props.linkText||t('editComment')}</a></li>}
 				{canEdit &&
 					<li key="delete-link"><a onClick={this._deleteComment}>{this.props.linkText||t('deleteComment')}</a></li>}
+				{canReport &&
+					<li key="report-link"><ReportLink item={item} /></li>}
 			</ul>
 		);
 	},

@@ -37,6 +37,12 @@ module.exports = {
 		dispatch(Constants.DELETE_COMMENT, {
 			comment: comment
 		});
+	},
+
+	reportItem: function(item) {
+		dispatch(Constants.REPORT_ITEM, {
+			item: item
+		});	
 	}
 };
 

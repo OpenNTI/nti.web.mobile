@@ -23,6 +23,10 @@ module.exports = {
 	reply: 'Reply',
 	editComment: 'Edit',
 	deleteComment: 'Delete',
+	reportComment: {
+		first: 'Report',
+		again: 'Reported'
+	},
 	posted: 'posted',
 	replied: 'replied',
 	likes: {
