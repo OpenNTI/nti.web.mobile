@@ -70,10 +70,6 @@ var View = React.createClass({
 					});	
 				}
 				break;
-			case Constants.TOPIC_CREATED:
-				console.debug('topic created caught in root discussions view');
-				Api.getObjectContents(event.forum.getID());
-				break;
 		}
 	},
 
