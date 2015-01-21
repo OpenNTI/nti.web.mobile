@@ -25,9 +25,14 @@ module.exports = React.createClass({
 
 		return (
 			<form className="free-response">
-				<input ref="input" value={value} onChange={this.handleInteraction}/>
+				<input ref="input" value={value} onChange={this.handleInteraction} onBlur={this.onBlur}/>
 			</form>
 		);
+	},
+
+
+	onBlur () {
+		this.saveProgress();
 	},
 
 

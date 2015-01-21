@@ -31,7 +31,10 @@ module.exports = React.createClass({
 		return (
 			<form className="modeled content">
 				{submitted && (<ModeledContent.Panel body={value}/>)}
-				{!submitted && (<ModeledContent.Editor ref="input" value={value} onChange={this.handleInteraction}/>)}
+				{!submitted && (<ModeledContent.Editor ref="input" value={value}
+					onChange={this.handleInteraction}
+					onBlur={this.onBlur}
+					/>)}
 			</form>
 		);
 	},
@@ -43,6 +46,11 @@ module.exports = React.createClass({
 		}
 
 		return value;
+	},
+
+
+	onBlur () {
+		this.saveProgress();
 	},
 
 
