@@ -1,20 +1,18 @@
-'use strict';
+import Actions from '../../Actions';
+import Constants from '../../Constants';
+import Store from '../../Store';
 
-var Actions = require('../../Actions');
-var Constants = require('../../Constants');
-var Store = require('../../Store');
-
-module.exports = {
+export default {
 
 	statics: {
-		handles: function(item) {
+		handles (item) {
 			if (!this.__inputTypeCleaned) {
 				//ensure data type:
 				if (!Array.isArray(this.inputType)) {
 					this.inputType = [this.inputType];
 				}
 				//ensure shape:
-				this.inputType.forEach(function(s,i,a){a[i]=s.toLowerCase();});
+				this.inputType.forEach((s,i,a)=>a[i]=s.toLowerCase());
 
 				//prevent re-entry:
 				this.__inputTypeCleaned = true;
@@ -26,7 +24,7 @@ module.exports = {
 		},
 
 
-		__test: function (item) {
+		__test (item) {
 			var type = item.MimeType
 				.replace('application/vnd.nextthought.assessment.', '')
 				.replace(/part$/i, '')
@@ -36,7 +34,7 @@ module.exports = {
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			interacted: false
 		};
@@ -44,18 +42,18 @@ module.exports = {
 
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.addChangeListener(this.__onStoreChange);
 	},
 
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this.__onStoreChange);
 	},
 
 
-	__onStoreChange: function (eventData) {
+	__onStoreChange (eventData) {
 		var props = this.props;
 		if (eventData === Constants.SYNC && this.isMounted()) {
 			this.setValue(Store.getPartValue(props.item));
@@ -66,17 +64,17 @@ module.exports = {
 	},
 
 
-	isSubmitted: function () {
+	isSubmitted () {
 		return Store.isSubmitted(this.props.item);
 	},
 
 
-	getSolution: function () {
+	getSolution () {
 		return Store.getSolution(this.props.item);
 	},
 
 
-	getAssessedPart: function () {
+	getAssessedPart () {
 		var item = this.props.item;
 		var question = Store.getAssessedQuestion(item, item.getQuestionId());
 
@@ -88,7 +86,7 @@ module.exports = {
 	},
 
 
-	setValue: function (value) {
+	setValue (value) {
 		if (this._processValue) {
 			value = this._processValue(value);
 		}
@@ -96,19 +94,24 @@ module.exports = {
 	},
 
 
-	hasInteracted: function () {
+	hasInteracted () {
 		return this.state.interacted;
 	},
 
 
-	handleInteraction: function() {
+	handleInteraction () {
+		this.saveProgress(this.saveBuffer || 750);
+	},
+
+
+	saveProgress (delay = 0) {
 		var locked = this.isSubmitted();
 		var p = this.props;
 		var v = locked ? this.state.value : this.getValue();
 
 		this.setState({ interacted: true, value: v });
 		if (!locked) {
-			Actions.partInteracted(p.item, v, this.saveBuffer);
+			Actions.partInteracted(p.item, v, delay);
 		}
 	}
 };
