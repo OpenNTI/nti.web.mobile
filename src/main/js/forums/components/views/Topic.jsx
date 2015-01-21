@@ -83,12 +83,8 @@ module.exports = React.createClass({
 	},
 
 	_loadData: function(topicId=this.props.topicId) {
-		Api.getObjectContents(topicId, {
-			sortOn: 'CreatedTime',
-			sortOrder: 'ascending',
-			filter: 'TopLevel'
-		}).
-		then(
+		Api.getTopicContents(topicId)
+		.then(
 			result => {
 				Store.setObject(topicId, result.object);
 				Store.setObjectContents(topicId, result.contents);
