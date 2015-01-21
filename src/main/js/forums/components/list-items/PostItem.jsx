@@ -199,8 +199,8 @@ var PostItem = React.createClass({
 							<ModeledContentPanel body={message} />
 							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 						</div>
+						{links}
 					</div>
-					{links}
 				</div>
 				{form}
 				{replies}
