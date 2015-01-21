@@ -11,12 +11,19 @@ export default React.createClass({
 		 * @type {String|Array[String|Object]}
 		 */
 		value: React.PropTypes.oneOfType([
+
 			React.PropTypes.string,
+
 			React.PropTypes.arrayOf(React.PropTypes.oneOfType([
 				React.PropTypes.string,
 				React.PropTypes.object
 				]))
 			]),
+
+
+		onBlur: React.PropTypes.func,
+
+		
 		onChange: React.PropTypes.func
 	},
 
@@ -45,15 +52,7 @@ export default React.createClass({
 
 		return (
 			<Editor className="modeled content editor" value={value}
-				onChange={this.handleOnChange} ref="editor"/>
+				onChange={this.props.onChange} onBlur={this.props.onBlur} ref="editor"/>
 		);
-	},
-
-
-	handleOnChange () {
-		var {onChange} = this.props;
-		if (onChange) {
-			onChange();
-		}
 	}
 });
