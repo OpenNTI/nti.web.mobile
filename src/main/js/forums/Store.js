@@ -66,11 +66,12 @@ var Store = Object.assign({}, TypedEventEmitter, {
 	},
 
 	getObject(objectId) {
-		return _objects[objectId];
+		return _objects[this.__keyForObject(objectId)];
 	},
 
 	setObject(ntiid, object) {
-		_objects[ntiid] = object;
+		var key = this.__keyForObject(ntiid);
+		_objects[key] = object;
 		this.emitChange({
 			type: Constants.OBJECT_LOADED,
 			ntiid: ntiid,
@@ -80,7 +81,7 @@ var Store = Object.assign({}, TypedEventEmitter, {
 
 	deleteObject(object) {
 		var objectId = object && object.getID ? object.getID() : object;
-		delete _objects[objectId];
+		delete _objects[this.__keyForObject(objectId)];
 		Store.emitChange({
 			type: Constants.OBJECT_DELETED,
 			objectId: objectId,
@@ -105,7 +106,11 @@ var Store = Object.assign({}, TypedEventEmitter, {
 	},
 
 	__keyForContents(objectId) {
-		return [objectId, 'contents'].join(':');
+		return [NTIID.decodeFromURI(objectId), 'contents'].join(':');
+	},
+
+	__keyForObject(objectId) {
+		return [NTIID.decodeFromURI(objectId), 'object'].join(':');
 	}
 
 });
@@ -168,11 +173,14 @@ function createTopic(forum, topic) {
 }
 
 function deleteTopic(topic) {
-	return _deleteObject(topic);
+	return _deleteObject(topic).then(()=>{
+		console.log('Reloading forum contents in response to topic deletion.');
+		getObjectContents(topic.ContainerId);
+	});
 }
 
 function _deleteObject(o) {
-	Api.deleteObject(o).then(()=>{
+	return Api.deleteObject(o).then(()=>{
 		Store.deleteObject(o);
 	});
 }
