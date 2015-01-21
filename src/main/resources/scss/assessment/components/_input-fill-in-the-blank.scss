@@ -2,8 +2,15 @@
 
 .question-part .fill-in-the-blank {
 
-	.active .blank:empty::before {
-		font-size: 3.5rem;
+	.active .blank:empty {
+		font-size: 1.5em;
+		line-height: 2;
+
+		&::before {}
+	}
+
+	.drop.target {
+		display: inline-block;
 	}
 
 	.blank {
