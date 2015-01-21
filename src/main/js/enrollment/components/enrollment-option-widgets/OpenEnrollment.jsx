@@ -26,10 +26,7 @@ var OpenEnrollmentWidget = React.createClass({
 		return (
 			<PanelButton onClick={this._enroll} linkText={t(this.props.enrollmentOption.key)}>
 				<h2>Enroll for Free</h2>
-				<p>Get complete access to interact with all course content,
-					including lectures, course materials, quizzes,
-					and discussions once class is in session.
-				</p>
+				<p>Get complete access to interact with all course content, including lectures, course materials, quizzes, and discussions once class is in session.</p>
 			</PanelButton>
 		);
 	}
