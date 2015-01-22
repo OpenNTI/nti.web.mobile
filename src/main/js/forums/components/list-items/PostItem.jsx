@@ -21,6 +21,7 @@ var CommentForm = require('../CommentForm');
 var ReportLink = require('../ReportLink');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Prompt = require('prompts');
+var KeepItemInState = require('../../mixins/KeepItemInState');
 
 var _SHOW_FORM = 'showForm';
 var _SHOW_REPLIES = 'showReplies';
@@ -28,7 +29,7 @@ var _SHOW_REPLIES = 'showReplies';
 var PostItem = React.createClass({
 
 	displayName: 'PostListItem',
-	mixins: [require('./Mixin')],
+	mixins: [require('./Mixin'), KeepItemInState],
 
 	statics: {
 		inputType: [
@@ -62,14 +63,6 @@ var PostItem = React.createClass({
 
 	_storeChanged: function (event) {
 		switch(event.type) {
-			case Constants.OBJECT_LOADED:
-				var {object} = event;
-				if (object && object.getID && object.getID() === this._itemId()) {
-					this.setState({
-						item: object
-					});
-				}
-				break;
 			case Constants.GOT_COMMENT_REPLIES:
 				if(event.comment === this.props.item) {
 					this.setState({
@@ -78,14 +71,6 @@ var PostItem = React.createClass({
 				}
 				break;
 		}
-	},
-
-	_item: function() {
-		return (this.state.item||this.props.item);
-	},
-
-	_itemId: function() {
-		return this._item().getID();
 	},
 
 	_deleteComment: function() {

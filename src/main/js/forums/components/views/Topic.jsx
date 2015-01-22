@@ -23,10 +23,11 @@ var Loading = require('common/components/Loading');
 var Err = require('common/components/Error');
 var t = require('common/locale').scoped('FORUMS');
 var ReportLink = require('../ReportLink');
+var KeepItemInState = require('../../mixins/KeepItemInState');
 
 module.exports = React.createClass({
 
-	mixins: [NavigatableMixin],
+	mixins: [NavigatableMixin, KeepItemInState],
 
 	getInitialState: function() {
 		return {
@@ -90,6 +91,9 @@ module.exports = React.createClass({
 			result => {
 				Store.setObject(topicId, result.object);
 				Store.setObjectContents(topicId, result.contents);
+				this.setState({
+					item: result.object
+				});
 			},
 			reason => {
 				// console.error('Failed to load topic contents.', reason);
@@ -115,15 +119,19 @@ module.exports = React.createClass({
 		});
 	},
 
-	_topic() {
-		return Store.getObject(this.props.topicId);
-	},
-
 	_deleteTopic: function() {
 		Prompt.areYouSure(t('deleteTopicPrompt')).then(() => {
 			Actions.deleteTopic(this._topic());
 		},
 		()=>{});
+	},
+
+	_topic: function() {
+		return this._item()||Store.getObject(this.props.topicId);
+	},
+
+	_getPropId: function() {
+		return this.props.topicId;
 	},
 
 	render: function() {
