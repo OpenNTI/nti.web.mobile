@@ -8,7 +8,7 @@ Object.assign(exports, {
 		var p;
 
 		do {
-			p = assessment && assessment.up('getSubmission');
+			p = assessment && assessment.parent('getSubmission');
 			if (p) { assessment = p; }
 
 		} while (p);

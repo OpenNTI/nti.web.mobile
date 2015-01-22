@@ -8,7 +8,7 @@ exports = module.exports = {
 		var s = this.state || {};
 		var p = this.props || {};
 		var node = s.node || p.node || (props && props.node);
-		var status = node && node.up('isEnrollment').getStatus();
+		var status = node && node.parent('isEnrollment').getStatus();
 
 		var toReturn = items && items.map((item, i, list)=>{
 			var use = true;
