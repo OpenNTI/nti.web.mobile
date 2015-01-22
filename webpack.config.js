@@ -172,6 +172,7 @@ exports = module.exports = [
 
         plugins: [
             //new webpack.HotModuleReplacementPlugin(),
+            new webpack.optimize.DedupePlugin(),
             new webpack.DefinePlugin({
                 SERVER: false,
                 "process.env": {

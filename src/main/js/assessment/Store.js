@@ -8,9 +8,6 @@ var AppDispatcher = require('dispatcher/AppDispatcher');
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 
 var hasValue = require('dataserverinterface/utils/object-has-value');
-var Question = require('dataserverinterface/models/assessment/Question');
-var AssessedPart = require('dataserverinterface/models/assessment/AssessedPart');
-var AssignmentHistoryItem = require('dataserverinterface/models/assessment/AssignmentHistoryItem');
 
 var Constants = require('./Constants');
 var Api = require('./Api');
@@ -26,6 +23,11 @@ var timers = {
 	start: new Date(),
 	lastQuestionInteraction: null
 };
+
+
+function isInstance(x, type) {
+	return x && typeof x === 'function' ? x.name : x.constructor.name === type;
+}
 
 
 var Store = Object.assign({}, EventEmitter.prototype, {
@@ -166,7 +168,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 			for (x = 0; x < partCount; x++) {
 				p = parts[x];
-				if (p && p instanceof AssessedPart) {
+				if (p && isInstance(p, 'AssessedPart')) {
 					if (!assessedUnit) {
 						assessedUnit = p.getAssessedRoot();
 					}
@@ -184,7 +186,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 			Utils.updatePartsWithAssessedParts(assessment, submission);
 		}
 
-		if (submission instanceof AssignmentHistoryItem) {
+		if (isInstance(submission, 'AssignmentHistoryItem')) {
 			assignmentHistoryItems[key] = submission;
 		}
 
@@ -286,7 +288,8 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	isWordBankEntryUsed(wordBankEntry) {
 		var {wid} = wordBankEntry;
 		var submission = this.getSubmissionData(wordBankEntry);
-		var question = wordBankEntry.up('constructor', {test: x=>x === Question});
+		var question = wordBankEntry.up('constructor', {test: x=>isInstance(x, 'Question')});
+
 		var maybe, parts;
 		if (question && submission) {
 			question = submission.getQuestion(question.getID()) || {};
