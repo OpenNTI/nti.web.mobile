@@ -2,6 +2,8 @@
 
 .modeled.editor {
 	border: 1px solid black;
+	background: #fff;
+
 	[contenteditable] {
 		min-height: 3rem;
 		padding: 0.6rem;
