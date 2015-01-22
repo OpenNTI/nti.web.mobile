@@ -203,7 +203,7 @@ module.exports = React.createClass({
 		var overdue = this.isOverDue() ? (submittable ? 'overdue ' : 'late ') : '';
 		var overtime = submittable && this.isOverTime() ? 'overtime ' : '';
 
-		var text = complete ? 'Completed' : 'Due';
+		var text = complete ? (assignment.isNonSubmit() ? 'Graded' : 'Completed') : 'Due';
 
 		return (
 			<div className="assignment status-label-wrapper">
