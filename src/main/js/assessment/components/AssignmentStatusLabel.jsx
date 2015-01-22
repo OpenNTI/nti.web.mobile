@@ -46,6 +46,12 @@ module.exports = React.createClass({
 	},
 
 
+	isExcused () {
+		var i = this.props.historyItem;
+		return i && i.isGradeExcused();
+	},
+
+
 	getCompletedDateTime: function () {
 		var i = this.props.historyItem;
 
@@ -217,6 +223,9 @@ module.exports = React.createClass({
 							showToday={!complete/*only show today if we aren't submitted*/}
 							format="dddd, MMMM D"
 							todayText="Today!"/>
+						{this.isExcused() && (
+							<span className="excused">Excused Grade</span>
+						)}
 					</span>
 				</h6>
 				{this.renderDetail()}
