@@ -81,18 +81,6 @@ var PostItem = React.createClass({
 		);
 	},
 
-	// _reportComment: function() {
-	// 	Prompt.areYouSure('Report this comment as inappropriate?').then(
-	// 		()=> {
-	// 			this.setState({
-	// 				busy: true
-	// 			});
-	// 			Actions.reportComment(this.props.item);	
-	// 		},
-	// 		()=>{}
-	// 	);
-	// },
-
 	_toggleState: function(propname, event) {
 		if (event) {
 			event.preventDefault();
