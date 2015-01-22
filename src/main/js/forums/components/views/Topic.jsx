@@ -22,6 +22,7 @@ var Notice = require('common/components/Notice');
 var Loading = require('common/components/Loading');
 var Err = require('common/components/Error');
 var t = require('common/locale').scoped('FORUMS');
+var ReportLink = require('../ReportLink');
 
 module.exports = React.createClass({
 
@@ -148,12 +149,14 @@ module.exports = React.createClass({
 		var topic = this._topic();
 		var topicContents = Store.getObjectContents(this.props.topicId);
 		var canEdit = topic.hasLink('edit');
+		var canReport = topic.hasLink('flag')||topic.hasLink('flag.metoo');
 
 		return (
 			<div>
 				{breadcrumb}
 				<TopicHeadline post={topic.headline} />
 				{canEdit && <Button onClick={this._deleteTopic}>Delete</Button>}
+				{canReport && <ReportLink item={topic} />}
 				<TopicComments container={topicContents} topic={topic} />
 			</div>
 		);
