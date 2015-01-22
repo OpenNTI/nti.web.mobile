@@ -7,17 +7,18 @@
 		margin: 0;
 	}
 
+	ul.action-links {
+		& > li {
+			display: inline-block; 
+			margin-right: 1rem;
+			@include detail-link();
+		}
+	}
+
 	.postitem {
 		@extend %attributed-content-item;
 		padding-left: 0;
 		padding-right: 0;
-		ul.links {
-			& > li {
-				display: inline-block; 
-				margin-right: 1rem;
-				@include detail-link();
-			}
-		}
 
 		.replies {
 			border-left: 4px solid $panel-border-color;

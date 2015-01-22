@@ -7,7 +7,6 @@
 var React = require('react/addons');
 var t = require('common/locale').scoped('FORUMS');
 var CommentForm = require('./CommentForm');
-var isFlag = require('common/Utils').isFlag;
 
 var AddComment = React.createClass({
 
@@ -34,10 +33,6 @@ var AddComment = React.createClass({
 	},
 
 	render: function() {
-
-		if (!isFlag('forumCommentsEnabled')) {
-			return null;
-		}
 
 		var Form = <CommentForm
 						key="commentForm"

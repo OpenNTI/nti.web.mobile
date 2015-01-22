@@ -10,6 +10,7 @@ var Store = require('../../Store');
 var Actions = require('../../Actions');
 var Api = require('../../Api');
 var Constants = require('../../Constants');
+var {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED} = Constants;
 var NTIID = require('dataserverinterface/utils/ntiids');
 
 var TopicHeadline = require('../TopicHeadline');
@@ -20,19 +21,26 @@ var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var Prompt = require('prompts');
 var Notice = require('common/components/Notice');
 var Loading = require('common/components/Loading');
+var CommentForm = require('../CommentForm');
 var Err = require('common/components/Error');
 var t = require('common/locale').scoped('FORUMS');
-var ReportLink = require('../ReportLink');
+var ActionLinks = require('../ActionLinks');
 var KeepItemInState = require('../../mixins/KeepItemInState');
+var ToggleState = require('../../mixins/ToggleState');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
+var _SHOW_FORM = 'showForm';
+var _SHOW_REPLIES = 'showReplies';
 
 module.exports = React.createClass({
 
-	mixins: [NavigatableMixin, KeepItemInState],
+	mixins: [NavigatableMixin, KeepItemInState, ToggleState],
 
 	getInitialState: function() {
 		return {
 			loading: true,
-			deleted: false
+			deleted: false,
+			showComments: true
 		};
 	},
 
@@ -51,38 +59,41 @@ module.exports = React.createClass({
 		}
 	},
 
+	_eventHandlers: {
+
+		[OBJECT_CONTENTS_CHANGED]: function(event) {
+			if (event.objectId === this.props.topicId) {
+				this.setState({
+					loading: false
+				});
+			}
+		},
+		[COMMENT_ADDED]: function(event) {
+			var {topicId} = this.props;
+			var {result} = event.data||{};
+			if (result.ContainerId === NTIID.decodeFromURI(topicId) && !result.inReplyTo) {
+				this._loadData(topicId);
+			}
+		},
+		[OBJECT_DELETED]: function(event) {
+			var {topicId} = this.props;
+			var fullTopicId = NTIID.decodeFromURI(topicId);
+			var o = event.object;
+			if (!o.inReplyTo && event.object.ContainerId === fullTopicId) {
+				this._loadData(this.props.topicId);	
+			}
+			if (o.getID && o.getID() === fullTopicId) {
+				this.setState({
+					deleted: true
+				});
+			}
+		}
+	},
+
 	_storeChanged: function(event) {
-		switch(event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.OBJECT_CONTENTS_CHANGED:
-				if (event.objectId === this.props.topicId) {
-					this.setState({
-						loading: false
-					});
-				}
-				break;
-
-			case Constants.COMMENT_ADDED:
-				var {topicId} = this.props;
-				var {result} = event.data||{};
-				if (result.ContainerId === NTIID.decodeFromURI(topicId) && !result.inReplyTo) {
-					this._loadData(topicId);
-				}
-				break;
-
-			case Constants.OBJECT_DELETED:
-				var {topicId} = this.props;
-				var fullTopicId = NTIID.decodeFromURI(topicId);
-				var o = event.object;
-				if (!o.inReplyTo && event.object.ContainerId === fullTopicId) {
-					this._loadData(this.props.topicId);	
-				}
-				if (o.getID && o.getID() === fullTopicId) {
-					this.setState({
-						deleted: true
-					});
-				}
-				break;
+		var h = this._eventHandlers[event.type];
+		if(h) {
+			return h.call(this, event);
 		}
 	},
 
@@ -135,6 +146,21 @@ module.exports = React.createClass({
 		return this.props.topicId;
 	},
 
+	_actionClickHandlers() {
+		return {
+			[ActionLinks.REPLIES]: this._toggleState.bind(this, _SHOW_REPLIES),
+			[ActionLinks.DELETE]: this._deleteTopic,
+			[ActionLinks.REPLY]: this._toggleState.bind(this, _SHOW_FORM)
+		}
+	},
+
+	_hideForm() {
+		console.log('hide form');
+		this.setState({
+			showForm: false
+		});
+	},
+
 	render: function() {
 
 		var breadcrumb = <Breadcrumb contextProvider={this.__getContext}/>;
@@ -159,14 +185,34 @@ module.exports = React.createClass({
 		var topicContents = Store.getObjectContents(this.props.topicId);
 		var canEdit = topic.hasLink('edit');
 		var canReport = topic.hasLink('flag')||topic.hasLink('flag.metoo');
+		var numComments = topicContents.TotalItemCount;
+		var linksClasses = {replies: []};
+
+		if (this.state[_SHOW_REPLIES]) {
+			linksClasses.replies.push('open');
+		}
+
+		var form = (<ReactCSSTransitionGroup key="formTransition" transitionName="forum-comments">
+						{this.state.showForm && <CommentForm key="commentForm"
+							ref='commentForm'
+							onCancel={this._hideForm}
+							onCompletion={this._hideForm}
+							topic={topic}
+							parent={topic.parent()}
+						/>}
+					</ReactCSSTransitionGroup>);
 
 		return (
 			<div>
 				{breadcrumb}
 				<TopicHeadline post={topic.headline} />
-				{canEdit && <Button onClick={this._deleteTopic}>Delete</Button>}
-				{canReport && <ReportLink item={topic} />}
-				<TopicComments container={topicContents} topic={topic} />
+				<ActionLinks
+					item={topic}
+					numComments={numComments}
+					cssClasses={linksClasses}
+					clickHandlers={this._actionClickHandlers()} />
+				{form}
+				{this.state[_SHOW_REPLIES] && <TopicComments container={topicContents} topic={topic} />}
 			</div>
 		);
 	}
