@@ -159,15 +159,15 @@ module.exports = React.createClass({
 	onShowStatusDetail: function (e) {
 		var s = this.state;
 
-		if (e) {
-			e.preventDefault();
-			e.stopPropagation();
+
+		if (this.isSubmitted() && getTarget(e, 'time, .overdue, .overtime')) {
+			return;
 		}
 
 
-		if (this.isSubmitted() && getTarget(e, 'time, .overdue, .overtime')) {
-			console.log('Nope');
-			return;
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
 		}
 
 		//Change the state to show detail (or toggle it off if its already on)
