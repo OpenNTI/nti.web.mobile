@@ -8,7 +8,6 @@ var vtt = require("vtt.js"),//https://github.com/mozilla/vtt.js
 
 var React = require('react/addons');
 
-var Model = require('dataserverinterface/models/Video');
 var call = require('dataserverinterface/utils/function-call');
 
 var DomUtils = require('common/Utils').Dom;
@@ -79,7 +78,9 @@ module.exports = React.createClass({
 	getDataIfNeeded: function(/*props*/) {
 		this.setState(this.getInitialState());
 		try {
-			this.props.video.getTranscript('en').then(
+			let {video} = this.props;
+
+			video.getTranscript('en').then(
 				function whenLoaded(vtt) {
 					var parser = new WebVTT.Parser(global, WebVTT.StringDecoder()),
 	        			cues = [], regions = [];
@@ -108,8 +109,8 @@ module.exports = React.createClass({
 				}.bind(this),
 
 				function whenRejected(reason) {
-					if (reason === Model.NO_TRANSCRIPT ||
-						reason === Model.NO_TRANSCRIPT_LANG) {
+					if (reason === video.NO_TRANSCRIPT ||
+						reason === video.NO_TRANSCRIPT_LANG) {
 						this.setState({
 							loading: false, cues: null, regions: null });
 						return;
