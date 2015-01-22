@@ -61,6 +61,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 			return;
 		}
 		switch(event.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.events.ADMISSION_SUCCESS:
 
 				break;
@@ -72,6 +73,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 
 	fieldValuesStoreChange: function(event) {
 		switch(event.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 
 			case FormConstants.FIELD_VALUE_CHANGE:
 				if (event.fieldName === 'signature' || event.fieldName === 'contactme') {

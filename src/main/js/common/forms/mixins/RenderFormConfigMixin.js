@@ -55,6 +55,7 @@ module.exports = {
 
 		var input;
 		switch(field.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case 'textarea':
 				input = 'textarea';
 			break;

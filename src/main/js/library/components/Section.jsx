@@ -15,6 +15,7 @@ module.exports = React.createClass({
 
 	_contentView: function(section) {
 		switch (section) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case 'courses':
 			case 'books':
 				return (<List {...this.props} section={section}/>);

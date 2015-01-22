@@ -74,6 +74,7 @@ module.exports = React.createClass({
 		var router = this.refs.router;
 
 		switch(event.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.PRICED_ITEM_RECEIVED:
 				this.setState({
 					loading: false,

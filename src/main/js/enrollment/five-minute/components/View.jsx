@@ -25,6 +25,7 @@ var View = React.createClass({
 
 	_storeChange: function(event) {
 		switch(event.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.events.CONCURRENT_ENROLLMENT_SUCCESS:
 				this.navigate('credit/concurrent/');
 				break;

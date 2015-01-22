@@ -62,6 +62,7 @@ var Form = React.createClass({
 
 	_onStoreChange: function(event) {
 		switch(event.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.BILLING_INFO_REJECTED:
 				var errors = this.state.errors||{};
 				errors[event.response.error.param] = event.response.error;

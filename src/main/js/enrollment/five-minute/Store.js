@@ -167,6 +167,7 @@ Store.appDispatch = AppDispatcher.register(function(data) {
     var action = data.action;
 
     switch(action.type) {
+    //TODO: remove all switch statements, replace with functional object literals. No new switch statements.
     	case Constants.actions.REQUEST_CONCURRENT_ENROLLMENT:
     		var fields = action.payload.data;
 			_requestConcurrentEnrollment(fields);

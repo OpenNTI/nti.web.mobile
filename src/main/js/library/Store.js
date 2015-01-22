@@ -46,6 +46,7 @@ function persistData(data) {
 Store.appDispatch = AppDispatcher.register(function(payload) {
     var action = payload.action;
     switch(action.type) {
+    //TODO: remove all switch statements, replace with functional object literals. No new switch statements.
         case Constants.LOADED_LIBRARY:
             persistData(action.response);
             break;

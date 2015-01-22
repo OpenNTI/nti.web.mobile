@@ -41,6 +41,7 @@ var Replies = React.createClass({
 
 	_storeChange: function(event) {
 		switch(event.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.GOT_COMMENT_REPLIES:
 				if(event.comment === this.props.item) {
 					var itemId = this.props.item.getID();

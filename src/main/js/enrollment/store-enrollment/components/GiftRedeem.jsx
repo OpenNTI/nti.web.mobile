@@ -45,6 +45,7 @@ var GiftRedeem = React.createClass({
 
 	onStoreChange: function(event) {
 		switch( (event||{}).type ) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.INVALID_GIFT_CODE:
 				this.setState({
 					busy: false,

@@ -395,6 +395,7 @@ AppDispatcher.register(function(payload) {
 	var eventData;
 
 	switch(action.type) {
+	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 		case Constants.SUBMIT_BEGIN:
 			clearTimeout(savepointDelay);
 			markBusy(action.assessment, Constants.BUSY.SUBMITTING);

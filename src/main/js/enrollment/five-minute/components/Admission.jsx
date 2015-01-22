@@ -51,6 +51,7 @@ module.exports = React.createClass({
 		}
 
 		switch(event.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.events.ADMISSION_SUCCESS:
 				var payAndEnrollLink = getLink(event.response, Constants.links.PAY_AND_ENROLL);
 				this.setState({
@@ -84,6 +85,7 @@ module.exports = React.createClass({
 		var view;
 
 		switch((this.state.admissionStatus||'').toUpperCase()) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case StatusConstants.ADMITTED:
 				var enrollment = this.props.enrollment;
 				var link = this.state.payAndEnrollLink || getLink(enrollment, Constants.links.PAY_AND_ENROLL);

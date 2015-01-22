@@ -52,6 +52,7 @@ var List = React.createClass({
 	_itemListForSection: function(section) {
 		var library = this.state.library;
 		switch (section) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case 'courses':
 				return [].concat(library.courses || []);
 

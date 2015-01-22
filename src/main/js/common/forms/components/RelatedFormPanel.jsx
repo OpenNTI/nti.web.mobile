@@ -155,6 +155,7 @@ var RelatedFormPanel = React.createClass({
 
 		var input;
 		switch(field.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case 'textarea':
 				input = 'textarea';
 				break;
@@ -252,6 +253,7 @@ var RelatedFormPanel = React.createClass({
 				// var conf = config.config[0];
 				config.config.forEach(function(conf) {
 					switch(conf.type) {
+					//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 						case Constants.FORM_CONFIG:
 							related.push(this._renderFormConfig(conf.content, values));
 							break;

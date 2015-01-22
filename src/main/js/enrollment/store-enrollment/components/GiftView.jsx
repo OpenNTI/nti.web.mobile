@@ -92,6 +92,7 @@ module.exports = React.createClass({
 		var key;
 
 		switch(event.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.BILLING_INFO_REJECTED:
 				key = event.response.error.param;
 

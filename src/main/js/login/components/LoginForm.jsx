@@ -106,6 +106,7 @@ var View = React.createClass({
 
 	_inputChanged: function(event) {
 		switch(event.target.name) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case 'username':
 				this._usernameChanged(event);
 			break;

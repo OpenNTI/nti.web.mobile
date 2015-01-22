@@ -87,6 +87,7 @@ Store.appDispatch = AppDispatcher.register(function(data) {
     var action = data.action;
 
     switch(action.type) {
+    //TODO: remove all switch statements, replace with functional object literals. No new switch statements.
     	/**
     	* FETCH_LINK action is used to populate select options
     	* from remote sources, e.g. state and country lists in

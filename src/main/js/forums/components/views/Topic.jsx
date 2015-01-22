@@ -53,6 +53,7 @@ module.exports = React.createClass({
 
 	_storeChanged: function(event) {
 		switch(event.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.OBJECT_CONTENTS_CHANGED:
 				if (event.objectId === this.props.topicId) {
 					this.setState({

@@ -37,6 +37,7 @@ module.exports = {
 		var entry = this._getEntry();
 		if(action) {
 			switch(action.type) {
+			//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 				case Constants.LOAD_ENROLLMENT_STATUS:
 					if (action.courseId === entry.CourseNTIID) {
 						this.setState({

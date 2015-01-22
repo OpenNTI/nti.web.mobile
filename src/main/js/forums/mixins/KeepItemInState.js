@@ -23,6 +23,7 @@ module.exports = {
 
 	__storeChanged: function (event) {
 		switch(event.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.OBJECT_LOADED:
 				var {object} = event;
 				if (object && object.getID && object.getID() === this._itemId()) {

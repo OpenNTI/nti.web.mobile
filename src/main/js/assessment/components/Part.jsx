@@ -157,6 +157,7 @@ module.exports = React.createClass({
 
 	renderHelpView: function () {
 		switch(this.state.helpVisible) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.HELP_VIEW_HINT:
 				return this.renderHint();
 

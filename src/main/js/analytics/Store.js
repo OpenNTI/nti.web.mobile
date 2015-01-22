@@ -67,6 +67,7 @@ AppDispatcher.register(function(payload) {
 	var action = payload.action;
 
 	switch (action.type) {
+	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 
 		case Constants.VIDEO_PLAYER_EVENT://Shouldn't the constant just be "EVENT" and the "type" be defined by the instance? (WatchVideoEvent, ResourceEvent, etc)
 		case Constants.VIEWER_EVENT:
