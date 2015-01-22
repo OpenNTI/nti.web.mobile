@@ -108,13 +108,14 @@ var PostItem = React.createClass({
 
 	_links(item) {
 
-		var canEdit = item.hasLink('edit');
-		var canReport = item.hasLink('flag')||item.hasLink('flag.metoo');
+		var commentsEnabled = isFlag('forumCommentsEnabled');
+		var canEdit =  false && commentsEnabled && item.hasLink('edit');
+		var canReport = commentsEnabled && item.hasLink('flag')||item.hasLink('flag.metoo');
+		var canReply = commentsEnabled && !item.Deleted;
 		var numComments = this.state.replyCount||item.ReferencedByCount;
 		var RepliesToggle = numComments > 0 ? "a" : "span";
 		var repliesClick = numComments > 0 ? this._toggleState.bind(this, _SHOW_REPLIES) : null;
 		var toggleClasses = numComments > 0 ? ['disclosure-triangle'] : [];
-		var canReply = !item.Deleted;
 
 
 		if (this.state[_SHOW_REPLIES]) {
@@ -126,12 +127,12 @@ var PostItem = React.createClass({
 				<li key="replies-toggle">
 					<RepliesToggle className={toggleClasses.join(' ')} onClick={repliesClick}>{t('replies', {count: numComments})}</RepliesToggle>
 				</li>
-				{isFlag('forumCommentsEnabled') && canReply &&
+				{canReply &&
 					<li key="reply-link">
 						<a onClick={this._toggleState.bind(this, _SHOW_FORM)}>{this.props.linkText||t('reply')}</a>
 					</li>
 				}
-				{false && canEdit &&
+				{canEdit &&
 					<li key="edit-link"><a onClick={this._editComment}>{this.props.linkText||t('editComment')}</a></li>}
 				{canEdit &&
 					<li key="delete-link"><a onClick={this._deleteComment}>{this.props.linkText||t('deleteComment')}</a></li>}

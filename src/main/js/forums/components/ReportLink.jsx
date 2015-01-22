@@ -9,6 +9,7 @@ var Prompt = require('prompts');
 
 var Actions = require('../Actions');
 var t = require('common/locale').scoped('FORUMS');
+var isFlag = require('common/Utils').isFlag;
 
 var ReportLink = React.createClass({
 
@@ -32,6 +33,10 @@ var ReportLink = React.createClass({
 		var {item} = this.props;
 		var isReported = item.hasLink('flag.metoo');
 		var Tag = isReported ? "span" : "a";
+
+		if(!isFlag('forumCommentsEnabled')) {
+			return null;
+		}
 
 		return (
 			<Tag onClick={this._report}>{this.props.linkText||t(['reportComment', isReported ? 'again' : 'first'])}</Tag>
