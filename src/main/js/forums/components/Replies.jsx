@@ -61,7 +61,8 @@ var Replies = React.createClass({
 			case Constants.OBJECT_DELETED:
 				var {item} = this.props;
 				var eventItem = event.object || event.item;
-				if (eventItem && eventItem._parent && eventItem._parent.getID() === item.getID()) {
+				var parent = eventItem && eventItem.parent();
+				if (parent && parent.getID() === item.getID()) {
 					this._getReplies(true);
 				}
 				break;
