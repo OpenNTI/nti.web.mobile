@@ -59,7 +59,6 @@ var Replies = React.createClass({
 				break;
 
 			case Constants.OBJECT_DELETED:
-			case Constants.ITEM_REPORTED:
 				var {item} = this.props;
 				var eventItem = event.object || event.item;
 				if (eventItem && eventItem._parent && eventItem._parent.getID() === item.getID()) {

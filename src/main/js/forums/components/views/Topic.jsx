@@ -21,6 +21,7 @@ var Prompt = require('prompts');
 var Notice = require('common/components/Notice');
 var Loading = require('common/components/Loading');
 var Err = require('common/components/Error');
+var t = require('common/locale').scoped('FORUMS');
 
 module.exports = React.createClass({
 
@@ -118,7 +119,7 @@ module.exports = React.createClass({
 	},
 
 	_deleteTopic: function() {
-		Prompt.areYouSure('Delete this topic?').then(() => {
+		Prompt.areYouSure(t('deleteTopicPrompt')).then(() => {
 			Actions.deleteTopic(this._topic());
 		},
 		()=>{});

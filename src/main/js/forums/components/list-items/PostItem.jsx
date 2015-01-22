@@ -20,7 +20,6 @@ var Loading = require('common/components/LoadingInline');
 var CommentForm = require('../CommentForm');
 var ReportLink = require('../ReportLink');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-// var Api = require('../../Api');
 var Prompt = require('prompts');
 
 var _SHOW_FORM = 'showForm';
@@ -41,7 +40,8 @@ var PostItem = React.createClass({
 		return {
 			[_SHOW_FORM]: false,
 			[_SHOW_REPLIES]: false,
-			busy: false
+			busy: false,
+			item: null
 		};
 	},
 
@@ -53,12 +53,23 @@ var PostItem = React.createClass({
 		Store.removeChangeListener(this._storeChanged);
 	},
 
-	componentWillReceiveProps: function(/*nextProps*/) {
-		this.setState({ busy: false });
+	componentWillReceiveProps: function(nextProps) {
+		this.setState({
+			busy: false,
+			item: nextProps.item||this.props.item
+		});
 	},
 
 	_storeChanged: function (event) {
 		switch(event.type) {
+			case Constants.OBJECT_LOADED:
+				var {object} = event;
+				if (object && object.getID && object.getID() === this._itemId()) {
+					this.setState({
+						item: object
+					});
+				}
+				break;
 			case Constants.GOT_COMMENT_REPLIES:
 				if(event.comment === this.props.item) {
 					this.setState({
@@ -69,8 +80,16 @@ var PostItem = React.createClass({
 		}
 	},
 
+	_item: function() {
+		return (this.state.item||this.props.item);
+	},
+
+	_itemId: function() {
+		return this._item().getID();
+	},
+
 	_deleteComment: function() {
-		Prompt.areYouSure('Delete this comment?').then(
+		Prompt.areYouSure(t('deleteCommentPrompt')).then(
 			()=> {
 				this.setState({
 					busy: true
@@ -137,7 +156,7 @@ var PostItem = React.createClass({
 	},
 
 	render: function() {
-		var {item} = this.props;
+		var item = this._item();
 		var createdBy = item.Creator;
 		var createdOn = item.getCreatedTime();
 		var modifiedOn = item.getLastModified();

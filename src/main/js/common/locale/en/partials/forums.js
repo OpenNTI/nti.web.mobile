@@ -23,6 +23,8 @@ module.exports = {
 	reply: 'Reply',
 	editComment: 'Edit',
 	deleteComment: 'Delete',
+	deleteCommentPrompt: 'Delete this comment?',
+	deleteTopicPrompt: 'Delete this discussion?',
 	reportComment: {
 		first: 'Report',
 		again: 'Reported'
