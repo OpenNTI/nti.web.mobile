@@ -8,7 +8,7 @@ var NoOptions = React.createClass({
 
 	render: function() {
 		return (
-			<PanelButton href="../" linkText={t('BUTTONS.OK')}>
+			<PanelButton href="../" linkText={t('BUTTONS.ok')}>
 				This course is not currently available for enrollment.
 			</PanelButton>
 		);

@@ -39,7 +39,7 @@ var OkCancelButtons = React.createClass({
 			  	<a href="#"
 					onClick={this.props.okEnabled ? this.props.onOk : this._killEvent}
 					disabled={!this.props.okEnabled}
-					className="button tiny">{this.props.okText||t('OK')}</a></li>
+					className="button tiny">{this.props.okText||t('ok')}</a></li>
 			</ul>
 		);
 	}

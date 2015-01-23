@@ -17,7 +17,7 @@ var PanelButton = React.createClass({
 
 	getDefaultProps: function() {
 		return {
-			linkText: t('BUTTONS.OK'),
+			linkText: t('BUTTONS.ok'),
 			href: '#',
 			buttonClick: null
 		};
