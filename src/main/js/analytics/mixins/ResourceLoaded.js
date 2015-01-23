@@ -2,6 +2,7 @@
 
 var Analytics = require('analytics');
 var ResourceEvent = require('dataserverinterface/models/analytics/ResourceEvent');
+var NTIID = require('dataserverinterface/utils/ntiids');
 
 // keep track of the view start event so we can push analytics including duration
 var currentResource = null;
@@ -10,16 +11,6 @@ var MINIMUM_EVENT_DURATION_SECONDS = 1;
 
 module.exports = {
 
-	// _getEventData: function() {
-	// 	return {
-	// 		timestamp: Date.now(),
-	// 		pageId: this.getPageID(),
-	// 		outlineId: this.props.outlineId,
-	// 		rootId: this.props.rootId
-	// 	};
-	// },
-
-
 	_resourceLoaded: function(resourceId, courseId, eventType) {
 		if (currentResource) {
 			this._resourceUnloaded();
@@ -27,7 +18,7 @@ module.exports = {
 
 		// keep track of this for sending analytics
 		currentResource = {
-			resourceId: resourceId,
+			resourceId: NTIID.decodeFromURI(resourceId),
 			loaded: Date.now(),
 			courseId: courseId || (this.props.course && this.props.course.getID()),
 			eventType: eventType||Analytics.Constants.VIEWER_EVENT
