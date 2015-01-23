@@ -1,44 +1,41 @@
-'use strict';
+import Utils from '../Utils';
+import counterpart from 'counterpart';
+import english from './en';
 
-var counterpart = require('counterpart');
+counterpart.registerTranslations('en', english);
 
-counterpart.registerTranslations('en', require('./en'));
-
-var siteName = require('../Utils').getSiteName();
-
-var locale = counterpart.getLocale();
+const siteName = Utils.getSiteName();
+const locale = counterpart.getLocale();
 
 if (siteName) {
 	console.debug('Site Locale: %s.%s',siteName, locale);
 
-	require(['./sites/' + siteName + '/' + locale + '.js'], function(translation) {
+	let onceLoaded = translation => {
 		counterpart.registerTranslations(locale, translation);
 		counterpart.emit('localechange', locale, locale);
-	});
-}
-
-
-function translate(/*key, options*/) {
-	return counterpart.apply(null, arguments);
-}
-
-function scoped(scope) {
-	return function(key, options) {
-		var opts = (options || {});
-		opts.scope = scope;
-		return counterpart.apply(this, [key, opts]);
 	};
+
+	//Handwavy magic from webpack...
+	require(['./sites/' + siteName + '/' + locale + '.js'], onceLoaded);
+	//Someday, it won't be handwavy magic...
+	//System.import('./sites/' + siteName + '/' + locale + '.js')
+	//	.then(onceLoaded)
+	//	.catch(error=>...);
 }
 
-function addListener(fn) {
+
+export function translate(...args) {
+	return counterpart(...args);
+}
+
+export function scoped(scope) {
+	return (key, options) => counterpart(key, Object.assign(options||{}, {scope}));
+}
+
+export function addChangeListener(fn) {
 	counterpart.onLocaleChange(fn);
 }
 
-function removeListener(fn) {
+export function removeChangeListener(fn) {
 	counterpart.offLocaleChange(fn);
 }
-
-exports.addChangeListener = addListener;
-exports.removeChangeListener = removeListener;
-exports.translate = translate;
-exports.scoped = scoped;
