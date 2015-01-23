@@ -21,6 +21,7 @@ var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
 var FormPanel = require('common/forms/components/FormPanel');
 var Localized = require('common/components/LocalizedHTML');
 var ScriptInjector = require('common/mixins/ScriptInjectorMixin');
+var Err = require('common/components/Error');
 
 var Actions = require('../Actions');
 var Store = require('../Store');
@@ -70,11 +71,18 @@ module.exports = React.createClass({
 			this.injectScript('https://js.stripe.com/v2/', 'Stripe'),
 			this.injectScript('//cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.0.2/jquery.payment.min.js', 'jQuery.payment')
 		])
-		.then(function() {
-			this.setState({
-				loading: false
-			});
-		}.bind(this));
+		.then(
+			function() {
+				this.setState({
+					loading: false
+				});
+			}.bind(this),
+			function(reason) {
+				this.setState({
+					loading: false,
+					error: reason
+				});
+			}.bind(this));
 
 		Store.addChangeListener(this._onChange);
 
@@ -316,6 +324,10 @@ module.exports = React.createClass({
 
 		if(this.state.loading) {
 			return <Loading />;
+		}
+
+		if(this.state.error) {
+			return <Err error={this.state.error} />;
 		}
 
 
