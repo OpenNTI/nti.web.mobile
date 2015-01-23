@@ -132,7 +132,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 			.then(this.__applySubmission.bind(this, assessment))
 
 			.catch(reason => {
-				if (reason) {
+				if (reason && reason.statusCode !== 404) {
 					console.error('Could not load previous state: %o', reason);
 				}
 
