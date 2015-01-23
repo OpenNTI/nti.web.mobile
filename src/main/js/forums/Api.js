@@ -14,7 +14,6 @@ module.exports = {
 		
 		// if not, create one.
 		if (!promise) {
-			console.debug('new promise for getting course discussions: %s (%s)', (course.getPresentationProperties()||{ title: 'unknown title'}).title, courseId);
 			var courseId = course.getID();
 			promise = course.getDiscussions()
 				.then( result => {
