@@ -121,14 +121,14 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 			lastQuestionInteraction: null
 		};
 
-		if (!loadProgress) {return;}
+		if (!loadProgress) {return Promise.resolve();}
 
 		markBusy(assessment, Constants.BUSY.LOADING);
 		this.emitChange();
 
 
 
-		Api.loadPreviousState(assessment)
+		return Api.loadPreviousState(assessment)
 			.then(this.__applySubmission.bind(this, assessment))
 
 			.catch(reason => {
@@ -413,13 +413,18 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case Constants.RESET:
-			if (Store.isAssignment()) {
-				Store.setupAssessment(action.assessment);
-				saveProgress(action.assessment, 1);
-				eventData = Constants.SYNC;
+			if (action.retainAnswers) {
+				Store.getSubmissionData(action.assessment).markSubmitted(false);
 			}
 			else {
-				Store.getSubmissionData(action.assessment).markSubmitted(false);
+				let isA = Utils.isAssignment(action.assessment);
+				Store.setupAssessment(action.assessment, !isA)
+					.then(()=>{
+						if (isA){
+							saveProgress(action.assessment, 1);
+						}
+						Store.emitChange(Constants.SYNC);
+					});
 			}
 			break;
 

@@ -70,7 +70,7 @@ module.exports = React.createClass({
 			return;
 		}
 
-		Actions.resetAssessment(this.props.assessment);
+		Actions.resetAssessment(this.props.assessment, true);
 	},
 
 

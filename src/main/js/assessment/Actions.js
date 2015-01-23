@@ -25,10 +25,11 @@ export default {
     },
 
 
-    resetAssessment (assessment) {
+    resetAssessment (assessment, retainAnswers = false) {
         AppDispatcher.handleViewAction({
             type: Constants.RESET,
-            assessment: assessment
+            assessment: assessment,
+            retainAnswers: retainAnswers
         });
     },
 
