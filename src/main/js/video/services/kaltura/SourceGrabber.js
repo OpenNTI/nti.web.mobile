@@ -4,9 +4,9 @@
  * grabbed from http://player.kaltura.com/kWidget/kWidget.getSources.js
  */
 
+var QueryString = require('query-string');
 var Utils = require('common/Utils');
 var getService = Utils.getService;
-var toQueryString = require('dataserverinterface/utils/object-to-querystring');
 
 var is = require('dataserverinterface/utils/identity');
 
@@ -157,11 +157,11 @@ module.exports = function getSources(settings) {
 	};
 
 	//Do not alter these three lines
-	param.kalsig = kalturaSig(toQueryString(param));
+	param.kalsig = kalturaSig(QueryString.stringify(param));
 	param.format = 1;
 	delete param.service;
 
-	var url = 'https://cdnapisec.kaltura.com/api_v3/index.php?service=multirequest&' + toQueryString(param);
+	var url = 'https://cdnapisec.kaltura.com/api_v3/index.php?service=multirequest&' + QueryString.stringify(param);
 
 	return getService()
 		.then(function(srv){return srv.get({url:url, headers: null});})
