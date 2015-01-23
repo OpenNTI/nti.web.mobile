@@ -35,7 +35,7 @@ module.exports = {
 				script.onload = function() {
 
 					if (shouldDefineSymbole && !exists(global, shouldDefineSymbole)) {
-						return reject('Loaded, but expected interface was not found: "%s"', shouldDefineSymbole);
+						return reject('Loaded, but expected interface was not found: '.concat(shouldDefineSymbole));
 					}
 
 					fullfill(script);
