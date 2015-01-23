@@ -7,8 +7,7 @@ var vtt = require("vtt.js"),//https://github.com/mozilla/vtt.js
 
 
 var React = require('react/addons');
-
-var call = require('dataserverinterface/utils/function-call');
+var emptyFunction = require('react/lib/emptyFunction');
 
 var DomUtils = require('common/Utils').Dom;
 var addClass = DomUtils.addClass;
@@ -178,9 +177,21 @@ var Transcript = React.createClass({
 	displayName: 'Transcript',
 
 
+	propTypes: {
+		onJumpTo: React.PropTypes.func
+	},
+
+
+	getDefaultProps: function() {
+		return {
+			onJumpTo: emptyFunction
+		};
+	},
+
+
 	onJumpToCue: function(e) {
 		e.preventDefault();
-		call(this.props.onJumpTo, e.target.getAttribute('data-start-time'));
+		this.props.onJumpTo(e.target.getAttribute('data-start-time'));
 	},
 
 

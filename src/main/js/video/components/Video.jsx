@@ -3,9 +3,11 @@
 var React = require('react/addons');
 var Providers = require('../services');
 
-var Model = require('dataserverinterface/models/Video');
+var emptyFunction = require('react/lib/emptyFunction');
+
 var WatchVideoEvent = require('dataserverinterface/models/analytics/WatchVideoEvent');
-var call = require('dataserverinterface/utils/function-call');
+
+var Models = require('dataserverinterface/utils/parse-object');
 
 var actions = require('../Actions');
 
@@ -23,7 +25,7 @@ module.exports = React.createClass({
 		 */
 		src: React.PropTypes.oneOfType([
 			React.PropTypes.string,
-			React.PropTypes.instanceOf(Model)
+			React.PropTypes.instanceOf(Models.getModel('video'))
 			]).isRequired,
 
 		/**
@@ -50,7 +52,12 @@ module.exports = React.createClass({
 
 	getDefaultProps: function() {
 		return {
-			context:[]
+			context:[],
+			onTimeUpdate: emptyFunction,
+			onSeeked: emptyFunction,
+			onPlaying: emptyFunction,
+			onPause: emptyFunction,
+			onEnded: emptyFunction
 		};
 	},
 
@@ -108,31 +115,31 @@ module.exports = React.createClass({
 
 	onTimeUpdate: function(event) {
 		// this._emit(event);
-		call(this.props.onTimeUpdate,event);
+		this.props.onTimeUpdate(event);
 	},
 
 
 	onSeeked: function(event) {
 		// this._emit(event);
-		call(this.props.onSeeked,event);
+		this.props.onSeeked(event);
 	},
 
 
 	onPlaying: function(event) {
 		this._playbackStarted(event);
-		call(this.props.onPlaying,event);
+		this.props.onPlaying(event);
 	},
 
 
 	onPause: function(event) {
 		this._playbackStopped(event);
-		call(this.props.onPause,event);
+		this.props.onPause(event);
 	},
 
 
 	onEnded: function(event) {
 		this._playbackStopped(event);
-		call(this.props.onEnded,event);
+		this.props.onEnded(event);
 	},
 
 
