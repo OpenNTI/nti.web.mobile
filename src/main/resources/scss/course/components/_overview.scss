@@ -334,6 +334,8 @@
 				}
 			}
 
+			.excused {display:none;}
+
 			&.late {
 				.icon {
 					@extend .icon-assignment-late;
