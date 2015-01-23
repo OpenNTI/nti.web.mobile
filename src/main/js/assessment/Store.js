@@ -217,7 +217,13 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 
 	isSubmitted: function(assessment){
+		var main = Utils.getMainSubmittable(assessment);
 		var s = this.getSubmissionData(assessment);
+
+		if (main.IsTimedAssignment /*&& !main.isStarted()*/) {
+			return false;
+		}
+
 		return s && s.isSubmitted();
 	},
 
