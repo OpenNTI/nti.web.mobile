@@ -6,4 +6,7 @@
 
 .enrollment-panels {
 	@include grid-row();
+	& > * {
+		@include grid-column(12);
+	}
 }
