@@ -26,7 +26,7 @@ var Actions = require('../Actions');
 module.exports = React.createClass({
 	mixins: [
 		require('./viewer-parts/mock-router'),
-		require('./viewer-parts/analytics'),
+		require('analytics/mixins/ResourceLoaded'),
 		require('./viewer-parts/glossary'),
 		require('./viewer-parts/interaction'),
 		require('./viewer-parts/assessment'),

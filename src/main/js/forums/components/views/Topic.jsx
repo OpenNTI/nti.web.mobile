@@ -16,7 +16,6 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var TopicHeadline = require('../TopicHeadline');
 var TopicComments = require('../TopicComments');
 var Breadcrumb = require('common/components/Breadcrumb');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var Prompt = require('prompts');
 var Notice = require('common/components/Notice');
 var Loading = require('common/components/Loading');
@@ -25,16 +24,20 @@ var Err = require('common/components/Error');
 var t = require('common/locale').scoped('FORUMS');
 var ActionLinks = require('../ActionLinks');
 var {REPLY, REPLIES, DELETE} = ActionLinks;
-var KeepItemInState = require('../../mixins/KeepItemInState');
-var ToggleState = require('../../mixins/ToggleState');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var TOPIC_VIEWED_EVENT = require('analytics/Constants').TOPIC_VIEWED_EVENT;
 
 var _SHOW_FORM = 'showForm';
 var _SHOW_REPLIES = 'showReplies';
 
 module.exports = React.createClass({
 
-	mixins: [NavigatableMixin, KeepItemInState, ToggleState],
+	mixins: [
+		require('analytics/mixins/ResourceLoaded'),
+		require('common/mixins/NavigatableMixin'),
+		require('../../mixins/KeepItemInState'),
+		require('../../mixins/ToggleState')
+	],
 
 	getInitialState: function() {
 		return {
@@ -45,12 +48,15 @@ module.exports = React.createClass({
 	},
 
 	componentDidMount: function() {
+		var {topicId} = this.props;
 		Store.addChangeListener(this._storeChanged);
-		this._loadData(this.props.topicId);
+		this._loadData(topicId);
+		this._resourceLoaded(topicId, Store.getCourseId(), TOPIC_VIEWED_EVENT);
 	},
 
 	componentWillUnmount: function() {
 		Store.removeChangeListener(this._storeChanged);
+		this._resourceUnloaded();
 	},
 
 	componentWillReceiveProps: function(nextProps) {

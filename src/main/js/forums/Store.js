@@ -13,6 +13,7 @@ var _forums = {}; // forum objects by id.
 var _forumContents = {};
 var _objectContents = {};
 var _objects = {};
+var _courseId;
 
 var Store = Object.assign({}, TypedEventEmitter, {
 	displayName: 'forums.Store',
@@ -54,6 +55,14 @@ var Store = Object.assign({}, TypedEventEmitter, {
 			type: Constants.BOARD_CONTENTS_CHANGED,
 			forumId: boardId
 		});
+	},
+
+	setCourseId(courseId) {
+		_courseId = courseId;
+	},
+
+	getCourseId() {
+		return _courseId;
 	},
 
 	getForumContents(forumId) {

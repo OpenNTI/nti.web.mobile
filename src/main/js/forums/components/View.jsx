@@ -47,12 +47,12 @@ var View = React.createClass({
 	},
 
 	_load: function() {
-		console.debug('loadDiscussions');
 		var {course} = this.props;
 		Api.loadDiscussions(this.props.course)
 		.then(
 			result => {
 				Store.setDiscussions(course.getID(), result);
+				Store.setCourseId(this._courseId());
 			},
 			reason => {
 				// TODO: handle load failure

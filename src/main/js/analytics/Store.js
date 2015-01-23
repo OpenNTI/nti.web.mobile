@@ -71,6 +71,7 @@ AppDispatcher.register(function(payload) {
 
 		case Constants.VIDEO_PLAYER_EVENT://Shouldn't the constant just be "EVENT" and the "type" be defined by the instance? (WatchVideoEvent, ResourceEvent, etc)
 		case Constants.VIEWER_EVENT:
+		case Constants.TOPIC_VIEWED_EVENT:
 			console.log('Analytics Store received event: %s, %O', action.event.type, action);
 			Store.enqueueEvent(action.event);
 		break;
