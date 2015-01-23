@@ -118,6 +118,10 @@ module.exports = React.createClass({
 		maybeAdd('minutes');
 		maybeAdd('seconds');
 
+		if (out.length===0) {
+			out.push(toString('seconds',{count:0}));
+		}
+
 		return out.join(', ');
 	},
 
