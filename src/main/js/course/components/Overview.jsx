@@ -96,17 +96,18 @@ module.exports = React.createClass({
 		var pages = node && node.getPageSource();
 		var currentPage = this.getOutlineID();
 
-		if (loading) { return (<Loading/>); }
+		if (loading || !data) { return (<Loading/>); }
 		if (error) { return (<ErrorWidget error={error}/>); }
 
 		var title = (data || {}).title;
+		var items = (data || {}).data.Items || [];
 
 		return (
 			<div className="course-overview row">
 				<Pager pageSource={pages} current={currentPage}/>
 				<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
 				<h1 dangerouslySetInnerHTML={{__html: title}}/>
-				{this._renderItems(data.Items, {node: node})}
+				{this._renderItems(items, {node: node})}
 			</div>
 		);
 	}
