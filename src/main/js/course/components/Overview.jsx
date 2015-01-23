@@ -48,14 +48,13 @@ module.exports = React.createClass({
 	__getOutlineNodeContents: function(node) {
 		try {
 			node.getContent()
-				.then(function(overviewData) {
+				.then(overviewData=>
 					this.setState({
 						node: node,
 						data: overviewData,
 						loading: false,
 						error: false
-					});
-				}.bind(this))
+					}))
 				.catch(this.__onError);
 		} catch (e) {
 			this.__onError(e);
@@ -93,19 +92,20 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var data = this.state.data;
-		var node = this.state.node;
+		var {data,node, loading, error} = this.state;
 		var pages = node && node.getPageSource();
 		var currentPage = this.getOutlineID();
 
-		if (this.state.loading) { return (<Loading/>); }
-		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>); }
+		if (loading) { return (<Loading/>); }
+		if (error) { return (<ErrorWidget error={error}/>); }
+
+		var title = (data || {}).title;
 
 		return (
 			<div className="course-overview row">
 				<Pager pageSource={pages} current={currentPage}/>
 				<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
-				<h1 dangerouslySetInnerHTML={{__html: data.title}}/>
+				<h1 dangerouslySetInnerHTML={{__html: title}}/>
 				{this._renderItems(data.Items, {node: node})}
 			</div>
 		);
