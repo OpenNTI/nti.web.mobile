@@ -1,5 +1,7 @@
 'use strict';
 
+var IllegalStateException = require('common/exceptions').IllegalStateException;
+
 exports = module.exports = {
 	_renderItems: function(items, props) {
 		var s = this.state || {};
@@ -20,6 +22,10 @@ exports = module.exports = {
 			return use;
 
 		}).filter(x=>x);
+
+		if (toReturn.length === 0) {
+			throw new IllegalStateException('No Items to render');
+		}
 
 		return toReturn;
 	}
