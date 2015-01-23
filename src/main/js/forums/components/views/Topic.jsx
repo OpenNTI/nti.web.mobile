@@ -71,7 +71,7 @@ module.exports = React.createClass({
 		[COMMENT_ADDED]: function(event) {
 			var {topicId} = this.props;
 			var {result} = event.data||{};
-			if (result.ContainerId === NTIID.decodeFromURI(topicId) && !result.inReplyTo) {
+			if (result.ContainerId === NTIID.decodeFromURI(topicId)) {
 				this._loadData(topicId);
 			}
 		},
@@ -155,7 +155,6 @@ module.exports = React.createClass({
 	},
 
 	_hideForm() {
-		console.log('hide form');
 		this.setState({
 			showForm: false
 		});
