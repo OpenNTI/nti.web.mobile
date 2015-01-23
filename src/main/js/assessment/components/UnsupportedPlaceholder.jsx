@@ -12,7 +12,7 @@ module.exports = React.createClass({
 	},
 
 
-	onStart (e) {
+	onBack (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -29,10 +29,11 @@ module.exports = React.createClass({
 		var {assignment} = this.props;
 
 		var props = {
-			assignment: assignment, 
+			assignment,
 			message: 'Assignments are not supported on this platform.',
 			buttonLabel: 'Back',
-			pageTitle: 'Not Supported'
+			pageTitle: 'Not Supported',
+			onConfirm: this.onBack
 		};
 
 		return (
