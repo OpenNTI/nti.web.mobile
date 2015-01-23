@@ -65,7 +65,6 @@ var View = React.createClass({
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.DISCUSSIONS_CHANGED:
 				if(event.courseId === this._courseId()) {
-					console.debug('discussions changed. setting state loading: false');
 					this.setState({
 						loading: false
 					});	
