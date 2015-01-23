@@ -130,6 +130,7 @@ module.exports = React.createClass({
 		return getContextProvider().then(context => {
 			context.push({
 				// label: 'Topic',
+				ntiid: topic.getID(),
 				label: title,
 				href: href
 			});
