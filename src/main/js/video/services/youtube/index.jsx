@@ -8,7 +8,7 @@ var eventHandlers = require('../../Constants').EventHandlers;
 var ErrorWidget = require('common/components/Error');
 
 var guid = require('dataserverinterface/utils/guid');
-var toQueryString = require('dataserverinterface/utils/object-to-querystring');
+var QueryString = require('query-string');
 var Task = require('dataserverinterface/utils/task');
 
 var YOU_TUBE = 'https://www.youtube.com';
@@ -122,7 +122,7 @@ var Source = module.exports = React.createClass({
 			origin: location.protocol + '//' + location.host
 		};
 
-		return YOU_TUBE + '/embed/' + videoId + '?' + toQueryString(args);
+		return YOU_TUBE + '/embed/' + videoId + '?' + QueryString.stringify(args);
 	},
 
 

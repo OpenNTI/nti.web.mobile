@@ -6,7 +6,7 @@ var ErrorWidget = require('common/components/Error');
 var eventHandlers = require('../../Constants').EventHandlers;
 
 var guid = require('dataserverinterface/utils/guid');
-var toQueryString = require('dataserverinterface/utils/object-to-querystring');
+var QueryString = require('query-string');
 
 var vimeoEventsToHTML5 = {
 	play: 'playing',
@@ -90,7 +90,7 @@ var Source = module.exports = React.createClass({
 			title: 0
 		};
 
-		return location.protocol + '//player.vimeo.com/video/' + videoId + '?' + toQueryString(args);
+		return location.protocol + '//player.vimeo.com/video/' + videoId + '?' + QueryString.stringify(args);
 	},
 
 
