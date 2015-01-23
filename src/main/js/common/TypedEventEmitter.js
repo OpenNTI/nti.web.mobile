@@ -21,8 +21,6 @@ var TypedEmitter = Object.assign({}, EventEmitter.prototype, {
 	}
 });
 
-console.debug(TypedEmitter);
-
 module.exports = TypedEmitter;
 
 // var Store = Object.assign({}, TypedEmitter, {
