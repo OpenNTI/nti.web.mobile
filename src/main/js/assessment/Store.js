@@ -35,33 +35,33 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 	isAssignment: Utils.isAssignment.bind(Utils),
 
-	emitChange: function(evt) {
+	emitChange(evt) {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
 
-	addChangeListener: function(callback) {
+	addChangeListener(callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
 
-	removeChangeListener: function(callback) {
+	removeChangeListener(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
 
-	__getAssessmentKey: function (assessment) {
+	__getAssessmentKey (assessment) {
 		var main = Utils.getMainSubmittable(assessment) || false;
 		return main && main.getID();
 	},
 
 
-	getSubmissionData: function (assessment) {
+	getSubmissionData (assessment) {
 		return data[this.__getAssessmentKey(assessment)];
 	},
 
 
-	getSubmissionPreparedForPost: function (assessment) {
+	getSubmissionPreparedForPost (assessment) {
 		var d = this.getSubmissionData(assessment);
 		var times, v, now = new Date();
 
@@ -76,17 +76,17 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
-	getAssignmentHistoryItem: function (assessment) {
+	getAssignmentHistoryItem (assessment) {
 		return assignmentHistoryItems[this.__getAssessmentKey(assessment)];
 	},
 
 
-	getAssessedSubmission: function (assessment) {
+	getAssessedSubmission (assessment) {
 		return assessed[this.__getAssessmentKey(assessment)];
 	},
 
 
-	getAssessedQuestion: function (assessment, questionId) {
+	getAssessedQuestion (assessment, questionId) {
 		var submission = this.getAssessedSubmission(assessment);
 		//If its an AssessedQuestionSet, it has a getQuestion method.
 		var getter = submission && submission.getQuestion;
@@ -98,7 +98,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
-	teardownAssessment: function (assessment) {
+	teardownAssessment (assessment) {
 		var m = this.__getAssessmentKey(assessment);
 		if (m) {
 			delete assignmentHistoryItems[m];
@@ -109,7 +109,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
-	setupAssessment: function (assessment, loadProgress) {
+	setupAssessment (assessment, loadProgress) {
 		var main = Utils.getMainSubmittable(assessment);
 		if (!main) {return;}
 		console.debug('New Assessment: %o', main);
@@ -147,7 +147,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
-	__applySubmission: function(assessment, submission) {
+	__applySubmission (assessment, submission) {
 		var key = this.__getAssessmentKey(assessment);
 		var s = this.getSubmissionData(assessment);
 		var questions = submission.getQuestions ? submission.getQuestions() : [submission];
@@ -196,27 +196,27 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
-	clearBusy: function (assessment) {
+	clearBusy (assessment) {
 		if (this.getBusyState(assessment) === Constants.BUSY.LOADING) {
 			markBusy(assessment, false);
 		}
 	},
 
 
-	countUnansweredQuestions: function(assessment){
+	countUnansweredQuestions (assessment){
 		var main = Utils.getMainSubmittable(assessment);
 		var s = this.getSubmissionData(assessment);
 		return s && s.countUnansweredQuestions(main);
 	},
 
 
-	canSubmit: function(assessment){
+	canSubmit (assessment){
 		var s = this.getSubmissionData(assessment);
 		return s && s.canSubmit() && !this.getBusyState(assessment);
 	},
 
 
-	isSubmitted: function(assessment){
+	isSubmitted (assessment){
 		var main = Utils.getMainSubmittable(assessment);
 		var s = this.getSubmissionData(assessment);
 
@@ -228,49 +228,49 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
-	getBusyState: function(part) {
+	getBusyState (part) {
 		return busy[this.__getAssessmentKey(part)];
 	},
 
 
-	getPartValue: function (part) {
+	getPartValue (part) {
 		var s = this.getSubmissionData(part);
 		var question = s && part && s.getQuestion(part.getQuestionId());
 		return question.getPartValue(part.getPartIndex());
 	},
 
 
-	getError: function (part) {
+	getError (part) {
 		var s = this.getSubmissionData(part) || {};
 		return s.error;
 	},
 
 
-	setError: function (part, error) {
+	setError (part, error) {
 		var s = this.getSubmissionData(part);
 		s.error = error;
 		this.emitChange();
 	},
 
 
-	clearError: function (part) {
+	clearError (part) {
 		var s = this.getSubmissionData(part);
 		delete s.error;
 		this.emitChange();
 	},
 
 
-	getExplanation: function (part) {
+	getExplanation (part) {
 		return part.explanation;
 	},
 
 
-	getSolution: function (part) {
+	getSolution (part) {
 		return (part.solutions || [])[0];
 	},
 
 
-	getHints: function (part) {
+	getHints (part) {
 		return part.hints;
 	},
 

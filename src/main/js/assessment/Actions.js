@@ -1,16 +1,13 @@
-'use strict';
-/** @module assessment/Actions */
+import AppDispatcher from 'dispatcher/AppDispatcher';
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-
-var Api = require('./Api');
-var Constants = require('./Constants');
+import Api from './Api';
+import Constants from './Constants';
 
 
 /**
  * Actions available to views for assessment-related functionality.
  */
-module.exports = {
+export default {
 
     /**
      *
@@ -18,7 +15,7 @@ module.exports = {
      * @param {any} value      The value
      * @param {Number} [saveBuffer] The optional delay to buffer the save point call by.
      */
-    partInteracted: function (part, value, saveBuffer) {
+    partInteracted (part, value, saveBuffer) {
         AppDispatcher.handleViewAction({
             type: Constants.INTERACTED,
             part: part,
@@ -28,7 +25,7 @@ module.exports = {
     },
 
 
-    resetAssessment: function (assessment) {
+    resetAssessment (assessment) {
         AppDispatcher.handleViewAction({
             type: Constants.RESET,
             assessment: assessment
@@ -36,20 +33,20 @@ module.exports = {
     },
 
 
-    submit: function (assessment) {
+    submit (assessment) {
         AppDispatcher.handleViewAction({
             type: Constants.SUBMIT_BEGIN,
             assessment: assessment
         });
 
         Api.submit(assessment)
-            .then(function(data) {
+            .then(data =>
                 AppDispatcher.handleRequestAction({
                     type: Constants.SUBMIT_END,
                     assessment: assessment,
                     response: data
-                });
-            });
+                })
+            );
     }
 
 };
