@@ -19,7 +19,9 @@ var CommentForm = React.createClass({
 	getInitialState: function() {
 		return {
 			busy: false,
-			complete: false
+			complete: false,
+			canSubmit: false,
+			error: null
 		};
 	},
 
@@ -41,11 +43,18 @@ var CommentForm = React.createClass({
 			case Constants.COMMENT_ADDED:
 				this.setState({
 					busy: false,
-					complete: true
+					complete: true,
+					error: null
 				});
 				if (this.props.onCompletion) {
 					this.props.onCompletion(event);
 				}
+				break;
+			case Constants.COMMENT_ERROR:
+				this.setState({
+					error: event.data.reason,
+					busy: false
+				});
 				break;
 		}
 	},
@@ -53,10 +62,20 @@ var CommentForm = React.createClass({
 	_addComment: function(event) {
 		event.preventDefault();
 		event.stopPropagation();
+		var val = this.getValue();
+		if (!val || val.length === 0) {
+			return;
+		}
 		this.setState({
 			busy: true
 		});
-		Actions.addComment(this.props.topic, this.props.parent, this.getValue());
+		Actions.addComment(this.props.topic, this.props.parent, val);
+	},
+
+	_bodyChange(oldValue, newValue) {
+		this.setState({
+			canSubmit: (newValue && newValue.length > 0)
+		})
 	},
 
 	render: function() {
@@ -69,11 +88,12 @@ var CommentForm = React.createClass({
 			return <Notice>Comment added</Notice>;
 		}
 
-		var buttons = <OkCancelButtons onOk={this._addComment} onCancel={this.props.onCancel} />;
+		var buttons = <OkCancelButtons onOk={this._addComment} okEnabled={this.state.canSubmit} onCancel={this.props.onCancel} />;
 
 		return (
 			<PanelButton className="comment-form" linkText='Submit' button={buttons}>
-				<Editor ref='editor'/>
+				{this.state.error && <Notice class="err">{this.state.error.message||'An error occurred.'}</Notice>}
+				<Editor ref='editor' onChange={this._bodyChange} />
 			</PanelButton>
 		);
 	}

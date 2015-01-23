@@ -105,6 +105,14 @@ var Store = Object.assign({}, TypedEventEmitter, {
 		});
 	},
 
+	commentError: function(data) {
+		this.emitChange({
+			type: Constants.COMMENT_ERROR,
+			isError: true,
+			data: data
+		});
+	},
+
 	__keyForContents(objectId) {
 		return [NTIID.decodeFromURI(objectId), 'contents'].join(':');
 	},
@@ -153,7 +161,12 @@ function addComment(topic, parent, comment) {
 			});
 		},
 		reason => {
-			console.debug(reason);
+			console.error(reason);
+			Store.commentError({
+				topic: topic,
+				parent: parent,
+				reason: reason
+			});
 		}
 	);
 }
