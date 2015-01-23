@@ -412,9 +412,14 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case Constants.RESET:
-			Store.setupAssessment(action.assessment);
-			saveProgress(action.assessment, 1);
-			eventData = Constants.SYNC;
+			if (Store.isAssignment()) {
+				Store.setupAssessment(action.assessment);
+				saveProgress(action.assessment, 1);
+				eventData = Constants.SYNC;
+			}
+			else {
+				Store.getSubmissionData(action.assessment).markSubmitted(false);
+			}
 			break;
 
 
