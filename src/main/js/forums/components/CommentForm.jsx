@@ -75,7 +75,7 @@ var CommentForm = React.createClass({
 	_bodyChange(oldValue, newValue) {
 		this.setState({
 			canSubmit: (newValue && newValue.length > 0)
-		})
+		});
 	},
 
 	render: function() {

@@ -18,6 +18,7 @@ var t = require('common/locale').scoped('FORUMS');
 var Loading = require('common/components/LoadingInline');
 var CommentForm = require('../CommentForm');
 var ActionLinks = require('../ActionLinks');
+var {DELETE, REPLIES, REPLY} = ActionLinks;
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Prompt = require('prompts');
 var KeepItemInState = require('../../mixins/KeepItemInState');
@@ -103,10 +104,10 @@ var PostItem = React.createClass({
 
 	_actionClickHandlers() {
 		return {
-			[ActionLinks.REPLIES]: this._repliesClick,
-			[ActionLinks.DELETE]: this._deleteComment,
-			[ActionLinks.REPLY]: this._toggleState.bind(this, _SHOW_FORM)
-		}
+			[REPLIES]: this._repliesClick,
+			[DELETE]: this._deleteComment,
+			[REPLY]: this._toggleState.bind(this, _SHOW_FORM)
+		};
 	},
 
 	_numComments: function() {

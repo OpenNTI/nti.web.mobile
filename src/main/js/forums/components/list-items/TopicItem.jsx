@@ -2,24 +2,38 @@
 
 var React = require('react/addons');
 var Constants = require('../../Constants');
+var Store = require('../../Store');
 var DisplayName = require('common/components/DisplayName');
 var DateTime = require('common/components/DateTime');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var Link = require('react-router-component').Link;
 var Utils = require('common/Utils');
 var t = require('common/locale').scoped('FORUMS');
-
+var KeepItemInState = require('../../mixins/KeepItemInState');
 /**
  * For lists of Topics, this is the row item.
  */
 module.exports = React.createClass({
 	displayName: 'TopicListItem',
-	mixins: [require('./Mixin')],
+	mixins: [require('./Mixin'), KeepItemInState],
 
 	statics: {
 		inputType: [
 			Constants.types.TOPIC
 		]
+	},
+
+	componentWillMount: function() {
+		var item = Store.getObject(this._itemId());
+		if (item) {
+			this.setState({
+				item: item
+			});
+		}
+	},
+
+	getInitialState: function() {
+		return {};
 	},
 
 	_href: function(item) {
@@ -41,7 +55,7 @@ module.exports = React.createClass({
 	},
 	
 	render: function() {
-		var {item} = this.props;
+		var item = this._item();
 		var replyTime = item.NewestDescendant.getCreatedTime();
 		return (
 			<Link className="topic-link" href={this._href(item)}>

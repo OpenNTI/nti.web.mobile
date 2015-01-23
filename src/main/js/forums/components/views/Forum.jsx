@@ -6,9 +6,8 @@
 
 var React = require('react/addons');
 
-var Api = require('../../Api');
 var Store = require('../../Store');
-var Constants = require('../../Constants');
+var LoadForum = require('../../mixins/LoadForum');
 
 var Breadcrumb = require('common/components/Breadcrumb');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
@@ -19,57 +18,17 @@ var CreateTopic = require('./CreateTopic');
 var Loading = require('common/components/Loading');
 var TabBar = require('../GroupsTabBar');
 var Router = require('react-router-component');
-var NTIID = require('dataserverinterface/utils/ntiids');
 var Location = Router.Location;
 
 module.exports = React.createClass({
 
-	mixins: [NavigatableMixin],
+	mixins: [NavigatableMixin, LoadForum],
 
 	getInitialState: function() {
 		return {
 			loading: true
 		};
 	},
-
-	componentDidMount: function() {
-		Store.addChangeListener(this._storeChanged);
-		this._loadData(this.props.forumId);
-	},
-
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChanged);
-	},
-
-	componentWillReceiveProps: function(nextProps) {
-		if (nextProps.forumId !== this.props.forumId) {
-			this._loadData(nextProps.forumId);
-		}
-	},
-
-	_storeChanged: function(event) {
-		switch(event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			// case Constants.OBJECT_LOADED:
-			case Constants.OBJECT_CONTENTS_CHANGED:
-				var {forumId} = this.props;
-				if (NTIID.decodeFromURI(event.objectId) === NTIID.decodeFromURI(forumId)) {
-					this.setState({
-						loading: false
-					});
-				}
-				break;
-		}
-	},
-
-	_loadData: function(forumId) {
-		Api.getObjectContents(forumId)
-		.then(result => {
-			Store.setObject(forumId, result.object);
-			Store.setObjectContents(forumId, result.contents);
-		});
-	},
-
 
 	__getContext: function() {
 		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;

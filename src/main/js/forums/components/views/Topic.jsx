@@ -16,7 +16,6 @@ var NTIID = require('dataserverinterface/utils/ntiids');
 var TopicHeadline = require('../TopicHeadline');
 var TopicComments = require('../TopicComments');
 var Breadcrumb = require('common/components/Breadcrumb');
-var Button = require('common/forms/components/Button');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var Prompt = require('prompts');
 var Notice = require('common/components/Notice');
@@ -25,6 +24,7 @@ var CommentForm = require('../CommentForm');
 var Err = require('common/components/Error');
 var t = require('common/locale').scoped('FORUMS');
 var ActionLinks = require('../ActionLinks');
+var {REPLY, REPLIES, DELETE} = ActionLinks;
 var KeepItemInState = require('../../mixins/KeepItemInState');
 var ToggleState = require('../../mixins/ToggleState');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
@@ -148,10 +148,10 @@ module.exports = React.createClass({
 
 	_actionClickHandlers() {
 		return {
-			[ActionLinks.REPLIES]: this._toggleState.bind(this, _SHOW_REPLIES),
-			[ActionLinks.DELETE]: this._deleteTopic,
-			[ActionLinks.REPLY]: this._toggleState.bind(this, _SHOW_FORM)
-		}
+			[REPLIES]: this._toggleState.bind(this, _SHOW_REPLIES),
+			[DELETE]: this._deleteTopic,
+			[REPLY]: this._toggleState.bind(this, _SHOW_FORM)
+		};
 	},
 
 	_hideForm() {
@@ -182,8 +182,6 @@ module.exports = React.createClass({
 
 		var topic = this._topic();
 		var topicContents = Store.getObjectContents(this.props.topicId);
-		var canEdit = topic.hasLink('edit');
-		var canReport = topic.hasLink('flag')||topic.hasLink('flag.metoo');
 		var numComments = topicContents.TotalItemCount;
 		var linksClasses = {replies: []};
 
