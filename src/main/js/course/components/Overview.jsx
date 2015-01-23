@@ -63,6 +63,7 @@ module.exports = React.createClass({
 
 
 	__onError: function(error) {
+		console.error(error);
 		this.setState({
 			loading: false,
 			error: error,
@@ -96,11 +97,11 @@ module.exports = React.createClass({
 		var pages = node && node.getPageSource();
 		var currentPage = this.getOutlineID();
 
-		if (loading || !data) { return (<Loading/>); }
+		if (loading) { return (<Loading/>); }
 		if (error) { return (<ErrorWidget error={error}/>); }
 
 		var title = (data || {}).title;
-		var items = (data || {}).data.Items || [];
+		var items = (data || {}).Items || [];
 
 		return (
 			<div className="course-overview row">
