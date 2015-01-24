@@ -1,4 +1,4 @@
-module.exports = {
-	Editor: require('./components/Editor'),
-	Panel: require('./components/Panel')
-};
+import Editor from './components/Editor';
+import Panel from './components/Panel';
+
+export {Editor, Panel};

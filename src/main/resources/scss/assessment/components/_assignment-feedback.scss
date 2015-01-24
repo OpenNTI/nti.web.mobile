@@ -63,6 +63,47 @@
 			font-weight: 600;
 			margin-left: 0.625rem;
 		}
+
+	}
+
+
+	.editor {
+		position: relative;
+
+		button.save {
+			//Hack this into place until the editor supports custom toolbars.
+			position: absolute;
+			bottom: 1px;
+			right: 1px;
+
+
+			margin: 0;
+			padding: 0 1.25rem;
+			text-transform: none;
+			font-weight: 600;
+			font-size: 0.9rem;
+			letter-spacing: normal;
+			line-height: 2.4rem;
+			vertical-align: middle;
+			text-align: center;
+			min-width: 90px;
+
+			background: $primary-blue;
+			border: 1px solid $border-blue;
+			color: white;
+
+			html:not(.touch) &:hover {
+				opacity: 0.9;
+			}
+
+			&.disabled {
+				&, &:hover {
+					opacity: 0.5;
+					background: $tertiary-grey;
+					border-color: $border-grey;
+				}
+			}
+		}
 	}
 
 }
