@@ -20,33 +20,34 @@ module.exports = React.createClass({
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			helpVisible: false,
 			activeHint: -1
 		};
 	},
 
-	__onStoreChange: function (eventData) {
-		if (eventData === Constants.SYNC && this.isMounted()) {
+	__onStoreChange () {
+		var {part} = this.props;
+		if (this.isMounted() && this.state.helpVisible && !Store.isSubmitted(part)) {
 			this.onCloseHelp();
 		}
 		this.forceUpdate();
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.addChangeListener(this.__onStoreChange);
 	},
 
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this.__onStoreChange);
 	},
 
 
-	componentDidUpdate: function(prevProps, prevState) {
+	componentDidUpdate (prevProps, prevState) {
 		var node;
 		if (this.state.helpVisible !== prevState.helpVisible && this.isMounted()) {
 			node = this.refs.container.getDOMNode();
@@ -57,7 +58,7 @@ module.exports = React.createClass({
 	},
 
 
-	onShowSolution: function (e) {
+	onShowSolution (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -69,7 +70,7 @@ module.exports = React.createClass({
 	},
 
 
-	onShowHint: function (e) {
+	onShowHint (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -84,7 +85,7 @@ module.exports = React.createClass({
 	},
 
 
-	onCloseHelp: function (e) {
+	onCloseHelp (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -94,7 +95,7 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
+	render () {
 		var props = this.props;
 		var part = props.part || {};
 		var index = props.index;
@@ -123,13 +124,11 @@ module.exports = React.createClass({
 	},
 
 
-	renderHelpButton: function (label) {
-		var part = this.props.part || {};
-		var isSubmitted = Store.isSubmitted(part);
-
-		var hints = Store.getHints(part);
-		var solution = Store.getSolution(part);
-
+	renderHelpButton (label) {
+		var {part} = this.props;
+		var isSubmitted = part && Store.isSubmitted(part);
+		var hints = part && Store.getHints(part);
+		var solution = part && Store.getSolution(part);
 		var handler = null;
 
 		if (this.state.helpVisible) {
@@ -155,7 +154,7 @@ module.exports = React.createClass({
 	},
 
 
-	renderHelpView: function () {
+	renderHelpView () {
 		switch(this.state.helpVisible) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.HELP_VIEW_HINT:
@@ -169,7 +168,7 @@ module.exports = React.createClass({
 	},
 
 
-	renderHint: function () {
+	renderHint () {
 		var part = this.props.part || {};
 		var hint = (part.hint || []).getAt(this.state.activeHint);
 
@@ -183,7 +182,7 @@ module.exports = React.createClass({
 	},
 
 
-	renderSolution: function () {
+	renderSolution () {
 		var props = this.props;
 		var part = props.part || {};
 		var index = props.index;
