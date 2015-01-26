@@ -34,7 +34,8 @@ Object.assign(exports, {
 							(main.getID() === q.getID() ? main : null);
 
 			if (!question || q.parts.length !== question.parts.length) {
-				throw new Error('Shoot. I just don`t know what this world is coming to. Ending it all. Abort!');
+				console.error('We have an assessed value, but no where to put it. (Question is missing or has the wrong number of parts)');
+				return;
 			}
 
 			for (x; x >= 0; x--) {

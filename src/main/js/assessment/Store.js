@@ -159,6 +159,10 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		questions.forEach(q => {
 
 			var question = s.getQuestion(q.getID());
+			if(!question) {
+				console.warn('Previous attempt question not found in current question set');
+				return;
+			}
 
 			question.CreatorRecordedEffortDuration = q.CreatorRecordedEffortDuration;
 
