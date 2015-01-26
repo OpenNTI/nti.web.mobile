@@ -298,7 +298,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	isWordBankEntryUsed(wordBankEntry) {
 		var {wid} = wordBankEntry;
 		var submission = this.getSubmissionData(wordBankEntry);
-		var question = wordBankEntry.parent('constructor', {test: x=>x instanceof Question});
+		var question = wordBankEntry.parent('constructor', {test: x=>x === Question});
 
 		var maybe, parts;
 		if (question && submission) {
