@@ -2,13 +2,13 @@
 
 var React = require('react/addons');
 var PanelButton = require('common/components/PanelButton');
-var fromQueryString = require('dataserverinterface/utils/object-from-querystring');
+var QueryString = require('query-string');
 
 var PaymentComplete = React.createClass({
 
 	componentWillMount: function() {
 		var loc = global.location || {};
-		var paymentState = (fromQueryString(loc.search).State||'').toLowerCase() === 'true';
+		var paymentState = (QueryString.parse(loc.search).State||'').toLowerCase() === 'true';
 		this.setState({
 			paymentState: paymentState
 		});

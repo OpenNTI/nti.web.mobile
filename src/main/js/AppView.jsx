@@ -8,7 +8,7 @@ var AppDispatcher = require('dispatcher/AppDispatcher');
 
 var locale = require('common/locale');
 
-var fromQueryString = require('dataserverinterface/utils/object-from-querystring');
+var QueryString = require('query-string');
 
 var Login = require('login');
 var LoginStore = Login.Store;
@@ -54,7 +54,7 @@ var App = React.createClass({
 
 	_loginStoreChange: function(evt) {
 		var loc = global.location || {};
-		var returnURL = fromQueryString(loc.search).return;
+		var returnURL = QueryString.parse(loc.search).return;
 		if (evt && evt.property === LoginStoreProperties.isLoggedIn) {
 			if (evt.value) {
 				LoginActions.deleteTOS();

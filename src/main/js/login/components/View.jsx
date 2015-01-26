@@ -25,7 +25,7 @@ var Store = require('../Store');
 var StoreProperties = require('../StoreProperties');
 
 var tg = require('common/locale').scoped('GLOBAL');
-var fromQueryString = require('dataserverinterface/utils/object-from-querystring');
+var QueryString = require('query-string');
 
 
 
@@ -55,7 +55,7 @@ var View = React.createClass({
 
 	componentDidMount: function() {
 		var loc = global.location || {};
-		var returnPath = fromQueryString(loc.search).return;
+		var returnPath = QueryString.parse(loc.search).return;
 		if (returnPath) {
 			Actions.setReturnPath(returnPath);
 		}
@@ -83,7 +83,7 @@ var View = React.createClass({
 		// then login form... if the login form is presented we should commit to
 		// it...)
 		if (this.state.links[Constants.links.LOGIN_CONTINUE_LINK]) {
-			returnPath = fromQueryString(loc.search).return;
+			returnPath = QueryString.parse(loc.search).return;
 			return (<Redirect location={returnPath||basePath} force="true"/>);
 		}
 
