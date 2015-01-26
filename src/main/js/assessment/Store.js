@@ -286,12 +286,16 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	 */
 	areAssessmentsSupported() {
 		var nua = navigator.userAgent;
-		var isAndroidNative = ((nua.indexOf('Mozilla/5.0') > -1 &&//is there
-								nua.indexOf('Android ') > -1 &&//is there
-								nua.indexOf('AppleWebKit') > -1) &&//is there
-								nua.indexOf('Chrome') < 0);//isn't there
+		var isAndroidNative =	/Mozilla\/5\.0/.test(nua) &&
+								/Android /.test(nua) &&
+								/AppleWebKit/.test(nua) &&
+								!/Chrome/.test(nua);
 
-		return !isAndroidNative;
+		var isAndroidFireFox =	/Mozilla\/5\.0/.test(nua) &&
+								/Android/.test(nua) &&
+								/Firefox/i.test(nua);
+
+		return !(isAndroidNative || isAndroidFireFox);
 	},
 
 
