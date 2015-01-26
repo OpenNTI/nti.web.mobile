@@ -35,7 +35,7 @@
     "proxywrap": "^0.2.0",
     "query-string": "^1.0.0",
     "react": "^0.12.2",
-    "react-editor-component": "NextThought/react-editor-component#5532adb",
+    "react-editor-component": "NextThought/react-editor-component#8a9c6fe",
     "react-router-component": "^0.23.0",
     "response-time": "^2.2.0",
     "vtt.js": "^0.11.11",
