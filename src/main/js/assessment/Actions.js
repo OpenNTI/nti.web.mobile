@@ -34,6 +34,14 @@ export default {
     },
 
 
+    clearAssessmentAnswers (assessment) {
+        AppDispatcher.handleViewAction({
+            type: Constants.CLEAR,
+            assessment: assessment
+        });
+    },
+
+
     submit (assessment) {
         AppDispatcher.handleViewAction({
             type: Constants.SUBMIT_BEGIN,

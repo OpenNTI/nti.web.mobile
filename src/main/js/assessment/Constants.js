@@ -10,6 +10,7 @@ module.exports = Object.assign(exports, keyMirror({
 
 	INTERACTED: null,
 
+	CLEAR: null,
 	RESET: null,
 	SYNC: null,
 

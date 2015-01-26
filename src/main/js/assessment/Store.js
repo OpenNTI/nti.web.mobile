@@ -407,22 +407,29 @@ AppDispatcher.register(function(payload) {
 			markBusy(action.assessment, Constants.BUSY.SUBMITTING);
 			break;
 
+
 		case Constants.SUBMIT_END:
 			handleSubmitEnd(action.assessment, action.response);
 			eventData = Constants.SYNC;
 			break;
+
+
+		case Constants.CLEAR:
+			Store.setupAssessment(action.assessment, false)
+				.then(()=>saveProgress(action.assessment, 1));
+			eventData = Constants.SYNC;
+			break;
+
 
 		case Constants.RESET:
 			if (action.retainAnswers) {
 				Store.getSubmissionData(action.assessment).markSubmitted(false);
 			}
 			else {
-				let isA = Utils.isAssignment(action.assessment);
-				Store.setupAssessment(action.assessment, !isA)
+				let reloadAnswers = !Utils.isAssignment(action.assessment);
+				Store.setupAssessment(action.assessment, reloadAnswers)
 					.then(()=>{
-						if (isA){
-							saveProgress(action.assessment, 1);
-						}
+						saveProgress(action.assessment, 1);
 						Store.emitChange(Constants.SYNC);
 					});
 			}
