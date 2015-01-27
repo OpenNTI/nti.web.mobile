@@ -40,7 +40,7 @@ var CommentForm = React.createClass({
 	_storeChanged: function(event) {
 		var h = this._handlers[event.type];
 		if (h) {
-			h.call(this, event)
+			h.call(this, event);
 		}
 	},
 
