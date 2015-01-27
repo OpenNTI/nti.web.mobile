@@ -15,13 +15,13 @@ export function getMainSubmittable (assessment) {
 
 
 export function isAssignment (assessment) {
-	var main = this.getMainSubmittable(assessment) || false;
+	var main = getMainSubmittable(assessment) || false;
 	return main && /assignment/i.test(main.MimeType || main.Class);
 }
 
 
 export function updatePartsWithAssessedParts (part, assessed) {
-	var main = this.getMainSubmittable(part);
+	var main = getMainSubmittable(part);
 	var questions = assessed.getQuestions ? assessed.getQuestions() : [assessed];
 
 	questions.forEach(q => {
