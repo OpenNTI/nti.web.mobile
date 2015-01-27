@@ -6,6 +6,8 @@
 
 var React = require('react/addons');
 var Link = require('react-router-component').Link;
+var AnalyticsStore = require('analytics/Store');
+var NTIID = require('dataserverinterface/utils/ntiids');
 var Breadcrumb = require('common/components/Breadcrumb');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var TopicList = require('../TopicList');
@@ -17,6 +19,16 @@ var _t = require('common/locale').scoped('FORUMS');
 var Topics = React.createClass({
 
 	mixins: [NavigatableMixin, LoadForum],
+
+	getInitialState: function() {
+		return {
+			loading: true 
+		};
+	},
+
+	componentWillUnmount: function() {
+		AnalyticsStore.pushHistory(NTIID.decodeFromURI(this.props.forumId));
+	},
 
 	__getContext: function() {
 		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
@@ -39,12 +51,6 @@ var Topics = React.createClass({
 			return null;
 		}
 		return <Link href="/newtopic/">Create a discussion</Link>;
-	},
-
-	getInitialState: function() {
-		return {
-			loading: true 
-		};
 	},
 
 	render: function() {

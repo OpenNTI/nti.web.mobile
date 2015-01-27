@@ -7,8 +7,11 @@ var AppDispatcher = require('dispatcher/AppDispatcher');
 var Utils = require('common/Utils');
 var autobind = require('dataserverinterface/utils/autobind');
 var queue = [];
+var fixedQueue = require('fixedqueue').FixedQueue;
 var postFrequency = 10000;
 var timeoutId;
+
+var _contextHistory = fixedQueue(11);
 
 function startTimer() {
 	clearTimeout(timeoutId);
@@ -26,6 +29,16 @@ var Store = autobind(Object.assign({}, EventEmitter.prototype, {
 
 	init: function() {
 		startTimer();
+	},
+
+	pushHistory(item) {
+		if (_contextHistory[_contextHistory.length - 1] !== item ) { // omit duplicate entries
+			_contextHistory.enqueue(item);	
+		}
+	},
+
+	getHistory() {
+		return _contextHistory.slice(0);
 	},
 
 	enqueueEvent: function(analyticsEvent) {
@@ -69,9 +82,7 @@ AppDispatcher.register(function(payload) {
 	switch (action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 
-		case Constants.VIDEO_PLAYER_EVENT://Shouldn't the constant just be "EVENT" and the "type" be defined by the instance? (WatchVideoEvent, ResourceEvent, etc)
-		case Constants.VIEWER_EVENT:
-		case Constants.TOPIC_VIEWED_EVENT:
+		case Constants.NEW_EVENT:
 			console.log('Analytics Store received event: %s, %O', action.event.type, action);
 			Store.enqueueEvent(action.event);
 		break;

@@ -2,15 +2,28 @@
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var Constants = require('./Constants');
+var Types = require('dataserverinterface/models/analytics/MimeTypes');
+
+var _types;
 
 module.exports = {
-	emitEvent: function(eventType, eventData) {
-		if (!Constants[eventType]) {
-			throw new Error('emitEvent action called with an unknown eventType. Stop it. %s', eventType);
+	emitEvent: function(event) {
+		var types = this._getTypes();
+		var mType = (event||{}).MimeType;
+		if (!types[mType]) {
+			throw new Error('emitEvent action called with unrecognized MimeType. Stop it.'.concat(mType));
 		}
 		AppDispatcher.handleViewAction({
-			type: eventType,
-			event: eventData
+			type: Constants.NEW_EVENT,
+			event: event
 		});
+	},
+
+	_getTypes: function() {
+		if (!_types) {
+			_types = {};
+			Object.keys(Types).forEach(key => _types[Types[key]] = Types[key]);
+		}
+		return _types;
 	}
 };

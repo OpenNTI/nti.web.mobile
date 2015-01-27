@@ -7,10 +7,12 @@
 var React = require('react/addons');
 
 var Store = require('../../Store');
+var AnalyticsStore = require('analytics/Store');
 var Actions = require('../../Actions');
 var Api = require('../../Api');
 var Constants = require('../../Constants');
 var {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED} = Constants;
+var TOPIC_VIEWED = require('dataserverinterface/models/analytics/MimeTypes').TOPIC_VIEWED;
 var NTIID = require('dataserverinterface/utils/ntiids');
 
 var TopicHeadline = require('../TopicHeadline');
@@ -25,7 +27,6 @@ var t = require('common/locale').scoped('FORUMS');
 var ActionLinks = require('../ActionLinks');
 var {REPLY, REPLIES, DELETE} = ActionLinks;
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-var TOPIC_VIEWED_EVENT = require('analytics/Constants').TOPIC_VIEWED_EVENT;
 
 var _SHOW_FORM = 'showForm';
 var _SHOW_REPLIES = 'showReplies';
@@ -51,11 +52,12 @@ module.exports = React.createClass({
 		var {topicId} = this.props;
 		Store.addChangeListener(this._storeChanged);
 		this._loadData(topicId);
-		this._resourceLoaded(topicId, Store.getCourseId(), TOPIC_VIEWED_EVENT);
+		this._resourceLoaded(topicId, Store.getCourseId(), TOPIC_VIEWED);
 	},
 
 	componentWillUnmount: function() {
 		Store.removeChangeListener(this._storeChanged);
+		AnalyticsStore.pushHistory(this._topicId(this.props));
 		this._resourceUnloaded();
 	},
 
@@ -63,6 +65,10 @@ module.exports = React.createClass({
 		if (nextProps.topicId !== this.props.topicId) {
 			this._loadData(nextProps.topicId);
 		}
+	},
+
+	_topicId(props=this.props) {
+		return NTIID.decodeFromURI(props.topicId);
 	},
 
 	_eventHandlers: {
@@ -120,6 +126,14 @@ module.exports = React.createClass({
 				});
 			}
 		);
+	},
+
+	analyticsContext: function() {
+		var h = AnalyticsStore.getHistory()||[];
+		if (h.length > 0 && h[h.length - 1] === this._topicId()) {
+			h.length--; // don't include ourselves in the context
+		}
+		return Promise.resolve(h);
 	},
 
 	__getContext: function() {

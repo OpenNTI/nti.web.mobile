@@ -6,6 +6,7 @@ var DateTime = require('common/components/DateTime');
 var Pager = require('common/components/Pager');
 var Loading = require('common/components/Loading');
 var ErrorWidget = require('common/components/Error');
+var AnalyticsStore = require('analytics/Store');
 
 var Widgets = require('./widgets');
 
@@ -35,6 +36,7 @@ module.exports = React.createClass({
 
 	componentWillUnmount: function() {
 		//Store.removeChangeListener(this._onChange);
+		AnalyticsStore.pushHistory(this.getOutlineID(this.props));
 	},
 
 
@@ -43,7 +45,6 @@ module.exports = React.createClass({
 			this.getDataIfNeeded(nextProps);
 		}
 	},
-
 
 	__getOutlineNodeContents: function(node) {
 		try {

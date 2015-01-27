@@ -1,9 +1,7 @@
 'use strict';
 
-var keyMirror = require('react/lib/keyMirror');
+var nsKeyMirror = require('dataserverinterface/utils/namespaced-key-mirror');
 
-module.exports = keyMirror({
-	VIDEO_PLAYER_EVENT: null,
-	VIEWER_EVENT: null,
-	TOPIC_VIEWED_EVENT: null
+module.exports = nsKeyMirror('analytics', {
+	NEW_EVENT: null
 });

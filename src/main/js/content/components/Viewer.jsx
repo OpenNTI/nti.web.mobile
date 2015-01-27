@@ -22,6 +22,8 @@ var Breadcrumb = require('common/components/Breadcrumb');
 var Store = require('../Store');
 var Actions = require('../Actions');
 
+var {RESOURCE_VIEWED} = require('dataserverinterface/models/analytics/MimeTypes');
+
 
 module.exports = React.createClass({
 	mixins: [
@@ -129,7 +131,7 @@ module.exports = React.createClass({
 			);
 
 			Actions.loadPage(newPageId);
-			this._resourceLoaded(newPageId);
+			this._resourceLoaded(newPageId, null, RESOURCE_VIEWED);
 		}
 	},
 
