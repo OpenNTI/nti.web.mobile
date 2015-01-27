@@ -94,7 +94,7 @@ var Replies = React.createClass({
 
 	render: function() {
 		return (
-			<div className="replies-wrapper">
+			<div className={this.props.className}>
 				<div className="replies">
 					<ReactCSSTransitionGroup transitionName="forum-comments">
 						{this._renderReplies()}
