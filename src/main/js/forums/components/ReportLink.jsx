@@ -8,7 +8,6 @@ var React = require('react/addons');
 var Prompt = require('prompts');
 
 var Actions = require('../Actions');
-var t = require('common/locale').scoped('FORUMS');
 
 
 var ReportLink = React.createClass({
