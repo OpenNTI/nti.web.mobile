@@ -21,6 +21,16 @@ var OkCancelButtons = React.createClass({
 		};
 	},
 
+	_cancelClick(event) {
+		this._killEvent(event);
+		this.props.onCancel(event);
+	},
+
+	_okClick(event) {
+		this._killEvent(event);
+		this.props.onOk(event);
+	},
+
 	_killEvent: function(event) {
 		event.preventDefault();
 		event.stopPropagation();
@@ -32,12 +42,12 @@ var OkCancelButtons = React.createClass({
 			<ul className="button-group even-2 radius">
 			  <li>
 			  	<a href="#"
-					onClick={this.props.onCancel}
+					onClick={this._cancelClick}
 			  		className="button tiny secondary">{this.props.cancelText||t('cancel')}</a>
 			  </li>
 			  <li>
 			  	<a href="#"
-					onClick={this.props.okEnabled ? this.props.onOk : this._killEvent}
+					onClick={this.props.okEnabled ? this._okClick : this._killEvent}
 					disabled={!this.props.okEnabled}
 					className="button tiny">{this.props.okText||t('ok')}</a></li>
 			</ul>
