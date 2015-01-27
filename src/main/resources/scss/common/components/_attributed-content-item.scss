@@ -53,6 +53,9 @@
 			a.link {
 				color: $primary-blue;
 				cursor: pointer;
+				&.delete {
+					color: $primary-red;
+				}
 			}
 			a {
 				display: inline-block;

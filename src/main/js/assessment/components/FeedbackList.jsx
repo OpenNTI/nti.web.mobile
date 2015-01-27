@@ -1,20 +1,28 @@
-'use strict';
+import * as React from 'react/addons';
+import ListItem from './FeedbackListItem';
 
-var React = require('react/addons');
-
-var ListItem = require('./FeedbackListItem');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'FeedbackList',
 
-	render: function() {
-		var feedback = this.props.feedback;
+	propTypes: {
+		feedback: React.PropTypes.shape({
+			Items: React.PropTypes.array
+		}),
+
+
+		onDeleteItem: React.PropTypes.func,
+		onEditItem: React.PropTypes.func
+	},
+
+	render () {
+		var {feedback} = this.props;
 		var items = (feedback && feedback.Items) || [];
 
 		return (
 			<div className="feedback list">
 			{items.map(
-				i=>(<ListItem key={i.getID()} item={i}/>)
+				i=>(<ListItem key={i.getID()} item={i}
+					onEdit={this.props.onEditItem} onDelete={this.props.onDeleteItem}/>)
 			)}
 			</div>
 		);

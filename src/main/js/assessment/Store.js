@@ -76,6 +76,12 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 
+	getAssignmentFeedback (assessment) {
+		var item = this.getAssignmentHistoryItem(assessment);
+		return item && item.Feedback;
+	},
+
+
 	getAssignmentHistoryItem (assessment) {
 		return assignmentHistoryItems[this.__getAssessmentKey(assessment)];
 	},

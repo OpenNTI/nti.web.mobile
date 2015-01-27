@@ -65,48 +65,77 @@
 		}
 
 	}
+}
 
+.feedback.editor{
+	&.busy {
+		button.save,
+		button.cancel,
+		.editor {
+			visibility: hidden;
+		}
+	}
 
-	.editor {
-		position: relative;
+	.feedback.item > .wrap > & {
+		margin-top: 1rem;
+		margin-left: -45px;
+	}
 
-		button.save {
-			//Hack this into place until the editor supports custom toolbars.
-			position: absolute;
-			bottom: 1px;
-			right: 1px;
+	.toolbar {
+		line-height: 2.45rem;
+	}
 
+	position: relative;
 
+	.buttons {
+		//Hack this into place until the editor supports custom toolbars.
+		position: absolute;
+		bottom: 1px;
+		right: 1px;
+
+		button {
 			margin: 0;
 			padding: 0 1.25rem;
 			text-transform: none;
-			font-weight: 600;
-			font-size: 0.9rem;
+
 			letter-spacing: normal;
 			line-height: 2.4rem;
 			vertical-align: middle;
 			text-align: center;
-			min-width: 90px;
 
-			background: $primary-blue;
-			border: 1px solid $border-blue;
-			color: white;
+			&.save {
+				font-weight: 600;
+				font-size: 0.9rem;
+				min-width: 90px;
+				background: $primary-blue;
+				border: 1px solid $border-blue;
+				color: white;
 
-			html:not(.touch) &:hover {
-				opacity: 0.9;
+				html:not(.touch) &:hover {
+					opacity: 0.9;
+				}
+
+				&.disabled {
+					&, &:hover {
+						opacity: 0.5;
+						background: $tertiary-grey;
+						border-color: $border-grey;
+					}
+				}
 			}
 
-			&.disabled {
-				&, &:hover {
-					opacity: 0.5;
-					background: $tertiary-grey;
-					border-color: $border-grey;
-				}
+			&.cancel {
+				font-weight: 400;
+				font-size: 0.8rem;
+				text-decoration: underline;
+				background: none !important;
+				border: 0;
+				color: $primary-grey;
 			}
 		}
 	}
-
 }
+
 
 .feedback.list {
 	background-color: $panel-background;
@@ -118,4 +147,17 @@
 
 .feedback.item {
 	@extend %attributed-content-item;
+
+	html:not(.touch) & {
+		.footer {
+			visibility: hidden;
+			transition: opacity 0.5s ease-in;
+			opacity: 0;
+		}
+
+		&:hover .footer {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
 }

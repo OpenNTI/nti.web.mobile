@@ -1,44 +1,42 @@
-'use strict';
+import * as React from 'react/addons';
+import {submitFeedback, deleteFeedbackItem, updateFeedbackItem} from '../Api';
+import Store from '../Store';
+import locale from 'common/locale';
 
-var React = require('react/addons');
+import FeedbackList from './FeedbackList';
+import FeedbackEntry from './FeedbackEntry';
 
-var Store = require('../Store');
-
-var _t = require('common/locale').scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
-
-var FeedbackList = require('./FeedbackList');
-var FeedbackEntry = require('./FeedbackEntry');
+var _t = locale.scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
 
 module.exports = React.createClass({
 	displayName: 'Feedback',
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.addChangeListener(this.synchronizeFromStore);
 		this.synchronizeFromStore();
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this.synchronizeFromStore);
 	},
 
 
-	componentWillReceiveProps: function(props) {
+	componentWillReceiveProps (props) {
 		this.synchronizeFromStore(props);
 	},
 
 
-	synchronizeFromStore: function() {
+	synchronizeFromStore () {
 		this.forceUpdate();
 	},
 
 
-	render: function() {
-		var quiz = this.props.assessment;
-		var item = Store.getAssignmentHistoryItem(quiz);
-		var feedback = item && item.Feedback;
+	render () {
+		var {assessment} = this.props;
+		var feedback = Store.getAssignmentFeedback(assessment);
 
-		if (!Store.isAssignment(quiz) || !Store.isSubmitted(quiz) || !feedback) {
+		if (!Store.isSubmitted(assessment) || !feedback) {
 			return null;
 		}
 
@@ -48,9 +46,27 @@ module.exports = React.createClass({
 					<h3>{_t('title')}</h3>
 					<div className="message">{_t('description')}</div>
 				</div>
-				<FeedbackList feedback={feedback}/>
-				<FeedbackEntry feedback={feedback}/>
+				<FeedbackList feedback={feedback} onEditItem={this.onEditItem} onDeleteItem={this.onDeleteItem}/>
+				<FeedbackEntry feedback={feedback} onSubmit={this.onSubmit}/>
 			</div>
 		);
+	},
+
+
+	onSubmit (feedbackBody) {
+		return submitFeedback(this.props.assessment, feedbackBody)
+			.then(()=>this.forceUpdate(), error=>console.warn(error.message || error));
+	},
+
+
+	onEditItem (item, newValue) {
+		return updateFeedbackItem(this.props.assessment, item, newValue)
+			.then(()=>this.forceUpdate(), error=>console.warn(error.message || error));
+	},
+
+
+	onDeleteItem (item) {
+		return deleteFeedbackItem(this.props.assessment, item)
+			.then(()=>this.forceUpdate(), error=>console.warn(error.message || error));
 	}
 });
