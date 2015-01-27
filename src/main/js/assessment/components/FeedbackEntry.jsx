@@ -43,12 +43,27 @@ export default React.createClass({
 			<div className="feedback entry">
 				<div className="input-area">
 				{this.state.active ?
-					<Editor onSubmit={this.props.onSubmit} onCancel={this.toggleEditor}/>
+					<Editor onSubmit={this.onSubmit} onCancel={this.toggleEditor}/>
 					:
 					<a href="#" className="placeholder" onClick={this.toggleEditor}>{_t('entryPlaceholder')}</a>
 				}
 				</div>
 			</div>
 		);
+	},
+
+
+	onSubmit (value) {
+		var thenable = this.props.onSubmit(value);
+		if (!thenable) {
+			return;
+		}
+
+		return thenable.then(
+			()=>{//success, close editor
+				if (this.isMounted()) {
+					this.setState({active: false});
+				}
+			});
 	}
 });

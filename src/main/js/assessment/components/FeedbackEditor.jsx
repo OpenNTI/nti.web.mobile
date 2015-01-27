@@ -89,13 +89,9 @@ export default React.createClass({
 			return;
 		}
 
-		thenable.then(
-			()=>{//success, close editor
-				if (this.isMounted()) {
-					this.setState({busy:false, active: false});
-				}
-			},
-			()=>{//error...leave editor up...
+		thenable
+			.catch(()=>{})
+			.then(()=>{
 				if (this.isMounted()) {
 					this.setState({busy:false});
 				}
