@@ -1,11 +1,12 @@
-'use strict';
+import * as React from 'react/addons';
+import {BLANK_AVATAR} from '../constants/DataURIs';
+import {getServerURI} from '../Utils';
+import {resolve} from './DisplayName';
+import {isNTIID} from 'dataserverinterface/utils/ntiids';
 
-var React = require('react/addons');
-var constants = require('../constants/DataURIs');
-var Utils = require('../Utils');
-var urlJoin = require('dataserverinterface/utils/urljoin');
+import urlJoin from 'dataserverinterface/utils/urljoin';
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Avatar',
 
 	propTypes: {
@@ -13,48 +14,26 @@ module.exports = React.createClass({
 	},
 
 
-	getDefaultProps: function() {
+	getInitialState () {
 		return {
+			avatar: BLANK_AVATAR
 		};
 	},
 
-
-	getInitialState: function() {
-		return {
-			//FIXME: Re-write this:
-			// http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-			avatar: this._buildAvatarURL(this.props.username)
-		};
-	},
+	componentWillMount () { fillIn(this, this.props); },
+	componentWillReceiveProps (nextProps) { fillIn(this, nextProps); },
 
 
-	componentWillReceiveProps: function(nextProps) {
-		this.setState({
-			avatar: this._buildAvatarURL(nextProps.username || this.props.username)
-		});
-	},
-
-
-	setUnknown: function() {
+	setUnknown () {
 		if (!this.isMounted()) {
 			return;
 		}
 		console.log('Failed to load avatar: %s', this.getDOMNode().src);
-		this.setState({
-			avatar: constants.BLANK_AVATAR
-		});
+		this.setState({ avatar: BLANK_AVATAR });
 	},
 
 
-	_buildAvatarURL: function(username) {
-		//This is very special case... please do not use this as a pattern.
-		return username ?
-			urlJoin(Utils.getServerURI(), 'users', username, '@@avatar') :
-			constants.BLANK_AVATAR;
-	},
-
-
-	render: function() {
+	render () {
 		var user = this.props.username;
 
 		var props = Object.assign({}, this.props, {
@@ -67,3 +46,33 @@ module.exports = React.createClass({
 		return <img {...props}/>;
 	}
 });
+
+
+
+function fillIn (cmp, props) {
+	var user = props.user;
+	var username = (user && user.Username) || props.username;
+	var promise;
+
+	if (user) {
+		promise = Promise.resolve(user.AvatarURL);
+	}
+
+
+	if (!isNTIID(username)){
+		promise = Promise.resolve(
+			username ?
+				urlJoin(getServerURI(), 'users', username, '@@avatar') : BLANK_AVATAR
+		);
+	}
+
+	if (!promise) {
+		promise = resolve(cmp, props).then(obj=>obj.avatarURL);
+	}
+
+	promise.then(avatar=>{
+		if (cmp.isMounted()) {
+			cmp.setState({avatar});
+		}
+	});
+}

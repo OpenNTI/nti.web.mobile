@@ -1,8 +1,5 @@
-'use strict';
-
-
-var React = require('react/addons');
-var getService = require('../Utils').getService;
+import * as React from 'react/addons';
+import {getService} from '../Utils';
 
 /**
  * This DisplayName component can use the full User instance if you have it.
@@ -12,59 +9,21 @@ var getService = require('../Utils').getService;
  * and ONLY IF you need it for something else. Most likely. If its a link, or
  * something, use the corresponding Component, do not roll your own.
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'DisplayName',
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			displayName: 'Resolving...'
 		};
 	},
 
 
-	componentDidMount: function() {
-		this._resolve(this.props);
-	},
+	componentDidMount () { fillIn(this, this.props); },
 
+	componentWillReceiveProps (nextProps) { fillIn(this, nextProps); },
 
-	componentWillReceiveProps: function(nextProps) {
-		this._resolve(nextProps);
-	},
-
-
-	_resolve: function(props) {
-		//Please do not repeat this pattern... this is a quicky for now kind of thing.
-		var me = this;
-		var username = props.username;
-		var user = props.user;
-		var promise;
-
-		if (!username && !user) {
-			promise = Promise.reject();
-		}
-
-		promise = promise || (user && Promise.resolve(user));
-
-		if (!promise) {
-			promise = getService()
-				.then(function(service) { return service.resolveUser(username); });
-		}
-
-		promise.then(
-				user => {
-					if (this.isMounted()) {
-						this.setState({ displayName: user.DisplayName });
-					}
-				},
-				()=> {
-					if (this.isMounted()) {
-						me.setState({ displayName: 'Unknown' });
-					}
-				});
-	},
-
-
-	render: function() {
+	render () {
 		var Tag = this.props.tag || 'span';
 		var displayName = this.state.displayName;
 
@@ -76,3 +35,40 @@ module.exports = React.createClass({
 		return <Tag {...props}>{displayName}</Tag>;
 	}
 });
+
+
+export function resolve (cmp, props) {
+	var username = props.username;
+	var user = props.user;
+	var promise;
+
+	if (!username && !user) {
+		promise = Promise.reject();
+	}
+
+	promise = promise || (user && Promise.resolve(user));
+
+	if (!promise) {
+		promise = getService()
+			.then(service=>service.resolveUser(username));
+	}
+
+	return promise;
+}
+
+
+function fillIn(cmp, props) {
+
+	resolve(cmp, props).then(
+		user => {
+			if (cmp.isMounted()) {
+				cmp.setState({ displayName: user.DisplayName });
+			}
+		},
+		()=> {
+			if (cmp.isMounted()) {
+				cmp.setState({ displayName: 'Unknown' });
+			}
+		});
+
+}
