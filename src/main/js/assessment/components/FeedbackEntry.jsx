@@ -43,7 +43,7 @@ export default React.createClass({
 			<div className="feedback entry">
 				<div className="input-area">
 				{this.state.active ?
-					<Editor onSave={this.props.onSubmit} onCancel={this.toggleEditor}/>
+					<Editor onSubmit={this.props.onSubmit} onCancel={this.toggleEditor}/>
 					:
 					<a href="#" className="placeholder" onClick={this.toggleEditor}>{_t('entryPlaceholder')}</a>
 				}
