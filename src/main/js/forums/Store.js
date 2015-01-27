@@ -114,6 +114,14 @@ var Store = Object.assign({}, TypedEventEmitter, {
 		});
 	},
 
+	commentSaved: function(result) {
+		this.setObject(result.getID(), result);
+		this.emitChange({
+			type: Constants.COMMENT_SAVED,
+			data: result
+		});
+	},
+
 	commentError: function(data) {
 		this.emitChange({
 			type: Constants.COMMENT_ERROR,
@@ -178,6 +186,13 @@ function addComment(topic, parent, comment) {
 			});
 		}
 	);
+}
+
+function saveComment(postItem, newValue) {
+	return postItem.setBody(newValue)
+	.then(result => {
+		Store.commentSaved(result);
+	});
 }
 
 function createTopic(forum, topic) {
@@ -250,6 +265,10 @@ Store.appDispatch = AppDispatcher.register(function(payload) {
 		case Constants.ADD_COMMENT:
 			var {topic, parent, comment} = action;
 			addComment(topic, parent, comment);
+			break;
+		case Constants.SAVE_COMMENT:
+			var {postItem, newValue} = action;
+			saveComment(postItem, newValue);
 			break;
 		case Constants.CREATE_TOPIC:
 			var {forum, topic} = action;

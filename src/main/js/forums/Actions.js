@@ -20,6 +20,13 @@ module.exports = {
 		});
 	},
 
+	saveComment: function(postItem, newValue) {
+		dispatch(Constants.SAVE_COMMENT, {
+			postItem: postItem,
+			newValue: newValue
+		});
+	},
+
 	createTopic: function(forum, topic) {
 		dispatch(Constants.CREATE_TOPIC, {
 			forum: forum,
