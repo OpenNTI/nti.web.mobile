@@ -226,6 +226,7 @@ module.exports = React.createClass({
 				<TopicHeadline post={topic.headline} />
 				<ActionLinks
 					item={topic}
+					replyText={t('addComment')}
 					numComments={numComments}
 					cssClasses={linksClasses}
 					clickHandlers={this._actionClickHandlers()} />

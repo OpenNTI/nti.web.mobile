@@ -3,6 +3,12 @@
 .forums-wrapper {
 	@include grid-column(12);
 	padding-bottom:1rem;
+
+	.fi-flag {
+		&.flagged {
+			color: $primary-red;
+		}
+	}
 	
 	ul {
 		list-style-type: none;

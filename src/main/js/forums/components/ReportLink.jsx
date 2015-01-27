@@ -33,9 +33,13 @@ var ReportLink = React.createClass({
 		var {item} = this.props;
 		var isReported = item.hasLink('flag.metoo');
 		var Tag = isReported ? "span" : "a";
+		var classNames = ['fi-flag'];
+		if (isReported) {
+			classNames.push('flagged');
+		}
 
 		return (
-			<Tag onClick={this._report}>{this.props.linkText||t(['reportComment', isReported ? 'again' : 'first'])}</Tag>
+			<Tag className={classNames.join(' ')} onClick={this._report}></Tag>
 		);
 	}
 

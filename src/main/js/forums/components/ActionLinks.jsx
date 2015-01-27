@@ -60,16 +60,16 @@ var ActionLinks = React.createClass({
 				</li>
 				{canReply &&
 					<li key="reply-link">
-						<a onClick={clickHandlers[ActionLinks.REPLY]}>{this.props.linkText||t('reply')}</a>
+						<a onClick={clickHandlers[ActionLinks.REPLY]}>{this.props.replyText||t('reply')}</a>
 					</li>
 				}
 				{canEdit &&
 					<li key="edit-link">
-						<a onClick={clickHandlers[ActionLinks.EDIT]}>{this.props.linkText||t('editComment')}</a>
+						<a onClick={clickHandlers[ActionLinks.EDIT]}>{t('editComment')}</a>
 					</li>}
 				{canDelete &&
 					<li key="delete-link">
-						<a onClick={clickHandlers[ActionLinks.DELETE]}>{this.props.linkText||t('deleteComment')}</a>
+						<a onClick={clickHandlers[ActionLinks.DELETE]}>{t('deleteComment')}</a>
 					</li>}
 				{canReport &&
 					<li key="report-link">
