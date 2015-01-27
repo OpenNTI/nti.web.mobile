@@ -13,8 +13,8 @@ module.exports = React.createClass({
 	displayName: 'Feedback',
 	mixins: [StoreEvents],
 
-	BackingStore: Store,
-	HandleStoreEvents: {
+	backingStore: Store,
+	backingStoreEventHandlers: {
 		default: 'synchronizeFromStore'
 	},
 

@@ -6,8 +6,8 @@ const onStoreChange = Symbol('StoreChangedEventHandlerMapper');
 export default {
 
 	componentWillMount() {
-		this[getStore] = getStoreImpl;
-		this[getHandlers] = getHandlersImpl;
+		this[getStore] = getKey.bind(this, 'backingStore');
+		this[getHandlers] = getKey.bind(this, 'backingStoreEventHandlers');
 		this[onStoreChange] = onStoreChangeImpl.bind(this);
 	},
 
@@ -39,15 +39,9 @@ function getName() {
 }
 
 
-function getStoreImpl() {
+function getKey(key) {
 	let componentName = getName.call(this);
-	return this.BackingStore || console.warn('BackingStore property not set in: %s', componentName);
-}
-
-
-function getHandlersImpl() {
-	let componentName = getName.call(this);
-	return this.HandleStoreEvents || console.warn('HandleStoreEvents property not set in: %s', componentName);
+	return this[key] || console.warn('%s property not set in: %s', key, componentName);
 }
 
 
