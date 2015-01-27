@@ -18,7 +18,7 @@ var t = require('common/locale').scoped('FORUMS');
 var Loading = require('common/components/LoadingInline');
 var CommentForm = require('../CommentForm');
 var ActionLinks = require('../ActionLinks');
-var {DELETE, REPLIES, REPLY} = ActionLinks;
+var {EDIT, DELETE, REPLIES, REPLY} = ActionLinks;
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Prompt = require('prompts');
 var KeepItemInState = require('../../mixins/KeepItemInState');
@@ -43,7 +43,8 @@ var PostItem = React.createClass({
 			[_SHOW_FORM]: false,
 			[_SHOW_REPLIES]: false,
 			busy: false,
-			item: null
+			item: null,
+			editing: false
 		};
 	},
 
@@ -72,6 +73,12 @@ var PostItem = React.createClass({
 				}
 				break;
 		}
+	},
+
+	_editClick: function() {
+		this.setState({
+			editing: true
+		});
 	},
 
 	_deleteComment: function() {
@@ -105,9 +112,16 @@ var PostItem = React.createClass({
 	_actionClickHandlers() {
 		return {
 			[REPLIES]: this._repliesClick,
+			[EDIT]: this._editClick,
 			[DELETE]: this._deleteComment,
 			[REPLY]: this._toggleState.bind(this, _SHOW_FORM)
 		};
+	},
+
+	_cancelEdit() {
+		this.setState({
+			editing: false
+		});
 	},
 
 	_numComments: function() {
@@ -137,6 +151,7 @@ var PostItem = React.createClass({
 		}
 
 		var links = <ActionLinks
+						key='actionlinks'
 						item={item}
 						numComments={numComments}
 						cssClasses={linksClasses}
@@ -154,14 +169,24 @@ var PostItem = React.createClass({
 		var replies = <Replies key="replies" item={item}
 							childComponent={PostItem}
 							topic={this.props.topic}
-							display={this.state[_SHOW_REPLIES]} />;
+							display={this.state[_SHOW_REPLIES]}
+							className={this.state[_SHOW_REPLIES] ? 'visible' : ''} />;
 
 
 		if (item.Deleted) {
 			return (
 				<div className="postitem deleted">
-					<ModeledContentPanel body={message} />
-					{item.ReferencedByCount > 0 ? [links, form, replies] : null}
+					<div className="post">
+						<div className="wrap">
+							<div className="meta">
+								<DateTime date={createdOn} relative={true}/>
+							</div>
+							<div className="message">
+								<ModeledContentPanel body={message} />
+							</div>
+							{item.ReferencedByCount > 0 ? [links, form, replies] : null}
+						</div>
+					</div>
 				</div>
 			);
 		}
@@ -176,14 +201,12 @@ var PostItem = React.createClass({
 							<DateTime date={createdOn} relative={true}/>
 						</div>
 						<div className="message">
-							<ModeledContentPanel body={message} />
+							{this.state.editing ? <CommentForm value={message} onCancel={this._cancelEdit}/> : <ModeledContentPanel body={message} />}
 							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 						</div>
-						{links}
+						{[links, form, replies]}
 					</div>
 				</div>
-				{form}
-				{replies}
 			</div>
 		);
 

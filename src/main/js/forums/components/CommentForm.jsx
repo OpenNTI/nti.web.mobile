@@ -12,7 +12,7 @@ var OkCancelButtons = require('common/components/OkCancelButtons');
 var Loading = require('common/components/LoadingInline');
 var Actions = require('../Actions');
 var Store = require('../Store');
-var Constants = require('../Constants');
+var {COMMENT_ADDED, COMMENT_ERROR} = require('../Constants');
 
 var CommentForm = React.createClass({
 
@@ -38,24 +38,28 @@ var CommentForm = React.createClass({
 	},
 
 	_storeChanged: function(event) {
-		switch (event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.COMMENT_ADDED:
-				this.setState({
-					busy: false,
-					complete: true,
-					error: null
-				});
-				if (this.props.onCompletion) {
-					this.props.onCompletion(event);
-				}
-				break;
-			case Constants.COMMENT_ERROR:
-				this.setState({
-					error: event.data.reason,
-					busy: false
-				});
-				break;
+		var h = this._handlers[event.type];
+		if (h) {
+			h.call(this, event)
+		}
+	},
+
+	_handlers: {
+		[COMMENT_ADDED]: function() {
+			this.setState({
+				busy: false,
+				complete: true,
+				error: null
+			});
+			if (this.props.onCompletion) {
+				this.props.onCompletion(event);
+			}
+		},
+		[COMMENT_ERROR]: function(event) {
+			this.setState({
+				error: event.data.reason,
+				busy: false
+			});
 		}
 	},
 
@@ -93,7 +97,9 @@ var CommentForm = React.createClass({
 		return (
 			<PanelButton className="comment-form" linkText='Submit' button={buttons}>
 				{this.state.error && <Notice class="err">{this.state.error.message||'An error occurred.'}</Notice>}
-				<Editor ref='editor' onChange={this._bodyChange} />
+				<Editor ref='editor'
+					onChange={this._bodyChange}
+					value={this.props.value} />
 			</PanelButton>
 		);
 	}

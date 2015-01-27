@@ -9,6 +9,7 @@ var React = require('react/addons');
 var t = require('common/locale').scoped('FORUMS');
 var ReportLink = require('./ReportLink');
 var nsKeyMirror = require('dataserverinterface/utils/namespaced-key-mirror');
+var {isFlag} = require('common/Utils');
 
 var ActionLinks = React.createClass({
 
@@ -35,7 +36,7 @@ var ActionLinks = React.createClass({
 	render: function() {
 
 		var {item} = this.props; 
-		var canEdit =  false && item.hasLink('edit');
+		var canEdit =  isFlag('canEditForumPost') && item.hasLink('edit');
 		var canDelete =  item.hasLink('edit');
 		var canReport = item.hasLink('flag')||item.hasLink('flag.metoo');
 		var canReply = !item.Deleted;
