@@ -30,13 +30,24 @@ export default {
 };
 
 
+function getName() {
+	try {
+		return this._currentElement.type.displayName;
+	} catch (e) {
+		return this;
+	}
+}
+
+
 function getStoreImpl() {
-	return this.BackingStore || console.warn('BackingStore property not set.', this);
+	let componentName = getName.call(this);
+	return this.BackingStore || console.warn('BackingStore property not set in: %s', componentName);
 }
 
 
 function getHandlersImpl() {
-	return this.HandleStoreEvents || console.warn('HandleStoreEvents property not set.', this);
+	let componentName = getName.call(this);
+	return this.HandleStoreEvents || console.warn('HandleStoreEvents property not set in: %s', componentName);
 }
 
 
@@ -45,7 +56,7 @@ function onStoreChangeImpl(event) {
 		console.error('Bad Event: %o', event);
 		return;
 	}
-	let componentName = this.type.name;
+	let componentName = getName.call(this);
 	let handlers = this[getHandlers]() || {};
 	let handler = handlers[event.type] || handlers.default;
 	if (!handler) {
