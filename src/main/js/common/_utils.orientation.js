@@ -26,7 +26,7 @@ module.exports = exports = {
 		}
 		document.body.className = state;
 		//console.debug('Window is now: %s', state);
-		if (component) {
+		if (component && component.isMounted()) {
 			component.setState({orientation: state});
 		}
 	}
