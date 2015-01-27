@@ -7,6 +7,8 @@ import DisplayName from 'common/components/DisplayName';
 
 import LoadingInline from 'common/components/LoadingInline';
 
+import {getAppUsername} from 'common/Utils';
+
 import Editor from './FeedbackEditor';
 
 export default React.createClass({
@@ -44,7 +46,7 @@ export default React.createClass({
 		var message = item.body.join('');
 
 		var edited = (Math.abs(modifiedOn - createdOn) > 0);
-		var canEdit = item.hasLink('edit');
+		var canEdit = item.hasLink('edit') && item.Creator === getAppUsername();
 
 		if (this.state.deleting) {
 			return <div className="feedback item"><LoadingInline/></div>;
