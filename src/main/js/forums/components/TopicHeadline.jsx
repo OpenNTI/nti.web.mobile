@@ -31,7 +31,7 @@ var TopicHeadline = React.createClass({
 				<div className="wrap">
 					<h1>{post.title}</h1>
 					<div className="meta">
-						<DisplayName username={post.Creator}/> · <DateTime date={post.getCreatedTime()} relative={true}/>
+						<DisplayName username={post.Creator}/>{" · "}<DateTime date={post.getCreatedTime()} relative={true}/>
 					</div>
 				</div>
 				<ModeledContentPanel body={post.body} />
