@@ -8,7 +8,7 @@ export default {
 	componentWillMount() {
 		this[getStore] = getStoreImpl;
 		this[getHandlers] = getHandlersImpl;
-		this[onStoreChange] = onStoreChangeImpl;
+		this[onStoreChange] = onStoreChangeImpl.bind(this);
 	},
 
 
@@ -52,6 +52,11 @@ function getHandlersImpl() {
 
 
 function onStoreChangeImpl(event) {
+	if (typeof event === 'string') {
+		console.error('Wrapping deprecated string event into object: %s', event);
+		event = {type: event};
+	}
+
 	if (!event || !event.type || typeof event.type !== 'string') {
 		console.error('Bad Event: %o', event);
 		return;

@@ -2,6 +2,7 @@ import * as React from 'react/addons';
 import {submitFeedback, deleteFeedbackItem, updateFeedbackItem} from '../Api';
 import Store from '../Store';
 import locale from 'common/locale';
+import StoreEvents from 'common/mixins/StoreEvents';
 
 import FeedbackList from './FeedbackList';
 import FeedbackEntry from './FeedbackEntry';
@@ -10,21 +11,15 @@ var _t = locale.scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
 
 module.exports = React.createClass({
 	displayName: 'Feedback',
+	mixins: [StoreEvents],
 
-	componentDidMount () {
-		Store.addChangeListener(this.synchronizeFromStore);
-		this.synchronizeFromStore();
+	BackingStore: Store,
+	HandleStoreEvents: {
+		default: 'synchronizeFromStore'
 	},
 
-
-	componentWillUnmount () {
-		Store.removeChangeListener(this.synchronizeFromStore);
-	},
-
-
-	componentWillReceiveProps (props) {
-		this.synchronizeFromStore(props);
-	},
+	componentDidMount () { this.synchronizeFromStore(); },
+	componentWillReceiveProps () { this.synchronizeFromStore();	},
 
 
 	synchronizeFromStore () {
