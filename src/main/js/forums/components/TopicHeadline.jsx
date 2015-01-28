@@ -5,13 +5,14 @@ var React = require('react/addons');
 var Avatar = require('common/components/Avatar');
 var DateTime = require('common/components/DateTime');
 var DisplayName = require('common/components/DisplayName');
+var Loading = require('common/components/LoadingInline');
 
 var ModeledContentPanel = require('modeled-content').Panel;
 
 var TopicHeadline = React.createClass({
 
 	propTypes: {
-		post: React.PropTypes.shape({
+		item: React.PropTypes.shape({
 			Creator: React.PropTypes.string,
 			body: React.PropTypes.array,
 			title: React.PropTypes.string,
@@ -20,21 +21,21 @@ var TopicHeadline = React.createClass({
 	},
 
 	render: function() {
-		var {post} = this.props;
-		if (!post) {
-			post = {};
+		var {item} = this.props;
+		if (!item) {
+			return <Loading />;
 		}
 
 		return (
 			<div className="headline post">
-				<Avatar className="avatar" username={post.Creator}/>
+				<Avatar className="avatar" username={item.Creator}/>
 				<div className="wrap">
-					<h1>{post.title}</h1>
+					<h1>{item.title}</h1>
 					<div className="meta">
-						<DisplayName username={post.Creator}/>{" · "}<DateTime date={post.getCreatedTime()} relative={true}/>
+						<DisplayName username={item.Creator}/>{" · "}<DateTime date={item.getCreatedTime()} relative={true}/>
 					</div>
 				</div>
-				<ModeledContentPanel body={post.body} />
+				<ModeledContentPanel body={item.body} />
 			</div>
 		);
 	}

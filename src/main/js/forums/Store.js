@@ -188,8 +188,16 @@ function addComment(topic, parent, comment) {
 	);
 }
 
-function saveComment(postItem, newValue) {
-	return postItem.setBody(newValue)
+/**
+* @param item {Post} the post to be updated.
+* @param newProperties {object} properties to update and save on the item.
+* 	{
+*		title: 'new title',
+* 		body: [...] // as returned by the editor component's getValue()
+*	}
+*/
+function saveComment(item, newProperties) {
+	return item.setProperties(newProperties)
 	.then(result => {
 		Store.commentSaved(result);
 	});
@@ -267,6 +275,7 @@ Store.appDispatch = AppDispatcher.register(function(payload) {
 			addComment(topic, parent, comment);
 			break;
 		case Constants.SAVE_COMMENT:
+		case Constants.SAVE_TOPIC_HEADLINE:
 			var {postItem, newValue} = action;
 			saveComment(postItem, newValue);
 			break;

@@ -12,7 +12,9 @@ var Editor = require('modeled-content').Editor;
 var TopicEditor = React.createClass({
 
 	propTypes: {
-
+		item: React.PropTypes.object,
+		onSubmit: React.PropTypes.func.isRequired,
+		onCancel: React.PropTypes.func.isRequired
 	},
 
 	getValue() {
@@ -27,11 +29,12 @@ var TopicEditor = React.createClass({
 	},
 
 	render: function() {
+		var {title, body} = this.props.item||{};
 		var buttons = <OkCancelButtons onOk={this.props.onSubmit} onCancel={this.props.onCancel} />;
 		return (
 			<PanelButton className="comment-form" button={buttons}>
-				<div><input ref='title' /></div>
-				<div><Editor ref='editor' /></div>
+				<div><input ref='title' defaultValue={title}/></div>
+				<div><Editor ref='editor' value={body} /></div>
 			</PanelButton>
 		);
 	}

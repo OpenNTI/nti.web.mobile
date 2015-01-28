@@ -81,7 +81,9 @@ var CommentForm = React.createClass({
 		this.setState({
 			busy: true
 		});
-		Actions.saveComment(item, this.getValue());
+		Actions.saveComment(item, {
+			body: this.getValue()
+		});
 	},
 
 	_bodyChange(oldValue, newValue) {

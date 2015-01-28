@@ -11,11 +11,12 @@ var AnalyticsStore = require('analytics/Store');
 var Actions = require('../../Actions');
 var Api = require('../../Api');
 var Constants = require('../../Constants');
-var {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED} = Constants;
+var {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED} = Constants;
 var TOPIC_VIEWED = require('dataserverinterface/models/analytics/MimeTypes').TOPIC_VIEWED;
 var NTIID = require('dataserverinterface/utils/ntiids');
 
 var TopicHeadline = require('../TopicHeadline');
+var TopicEditor = require('../TopicEditor');
 var TopicComments = require('../TopicComments');
 var Breadcrumb = require('common/components/Breadcrumb');
 var Prompt = require('prompts');
@@ -25,7 +26,7 @@ var CommentForm = require('../CommentForm');
 var Err = require('common/components/Error');
 var t = require('common/locale').scoped('FORUMS');
 var ActionLinks = require('../ActionLinks');
-var {REPLY, REPLIES, DELETE} = ActionLinks;
+var {REPLY, REPLIES, EDIT, DELETE} = ActionLinks;
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var _SHOW_FORM = 'showForm';
@@ -37,42 +38,12 @@ module.exports = React.createClass({
 		require('analytics/mixins/ResourceLoaded'),
 		require('common/mixins/NavigatableMixin'),
 		require('../../mixins/KeepItemInState'),
-		require('../../mixins/ToggleState')
+		require('../../mixins/ToggleState'),
+		require('common/mixins/StoreEvents')
 	],
 
-	getInitialState: function() {
-		return {
-			loading: true,
-			deleted: false,
-			showComments: true
-		};
-	},
-
-	componentDidMount: function() {
-		var {topicId} = this.props;
-		Store.addChangeListener(this._storeChanged);
-		this._loadData(topicId);
-		this._resourceLoaded(topicId, Store.getCourseId(), TOPIC_VIEWED);
-	},
-
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChanged);
-		AnalyticsStore.pushHistory(this._topicId(this.props));
-		this._resourceUnloaded();
-	},
-
-	componentWillReceiveProps: function(nextProps) {
-		if (nextProps.topicId !== this.props.topicId) {
-			this._loadData(nextProps.topicId);
-		}
-	},
-
-	_topicId(props=this.props) {
-		return NTIID.decodeFromURI(props.topicId);
-	},
-
-	_eventHandlers: {
-
+	backingStore: Store,
+	backingStoreEventHandlers: {
 		[OBJECT_CONTENTS_CHANGED]: function(event) {
 			if (event.objectId === this.props.topicId) {
 				this.setState({
@@ -99,14 +70,44 @@ module.exports = React.createClass({
 					deleted: true
 				});
 			}
+		},
+		[COMMENT_SAVED]: function(event) {
+			console.debug(event.data);
+			if (event.data) {
+				this.setState({
+					editing: false
+				});
+			}
 		}
 	},
 
-	_storeChanged: function(event) {
-		var h = this._eventHandlers[event.type];
-		if(h) {
-			return h.call(this, event);
+	getInitialState: function() {
+		return {
+			loading: true,
+			deleted: false,
+			showComments: true
+		};
+	},
+
+	componentDidMount: function() {
+		var {topicId} = this.props;
+		this._loadData(topicId);
+		this._resourceLoaded(topicId, Store.getCourseId(), TOPIC_VIEWED);
+	},
+
+	componentWillUnmount: function() {
+		AnalyticsStore.pushHistory(this._topicId(this.props));
+		this._resourceUnloaded();
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		if (nextProps.topicId !== this.props.topicId) {
+			this._loadData(nextProps.topicId);
 		}
+	},
+
+	_topicId(props=this.props) {
+		return NTIID.decodeFromURI(props.topicId);
 	},
 
 	_loadData: function(topicId=this.props.topicId) {
@@ -120,7 +121,6 @@ module.exports = React.createClass({
 				});
 			},
 			reason => {
-				// console.error('Failed to load topic contents.', reason);
 				this.setState({
 					error: reason
 				});
@@ -152,6 +152,12 @@ module.exports = React.createClass({
 		});
 	},
 
+	_editTopic: function() {
+		this.setState({
+			editing: true
+		});
+	},
+
 	_deleteTopic: function() {
 		Prompt.areYouSure(t('deleteTopicPrompt')).then(() => {
 			Actions.deleteTopic(this._topic());
@@ -170,14 +176,26 @@ module.exports = React.createClass({
 	_actionClickHandlers() {
 		return {
 			[REPLIES]: this._toggleState.bind(this, _SHOW_REPLIES),
+			[EDIT]: this._editTopic,
 			[DELETE]: this._deleteTopic,
 			[REPLY]: this._toggleState.bind(this, _SHOW_FORM)
 		};
 	},
 
-	_hideForm() {
+	_hideCommentForm() {
 		this.setState({
 			showForm: false
+		});
+	},
+
+	_saveEdit() {
+		var val = this.refs.headline.getValue();
+		Actions.saveComment(this._topic().headline, val);
+	},
+
+	_hideEditForm() {
+		this.setState({
+			editing: false
 		});
 	},
 
@@ -213,17 +231,24 @@ module.exports = React.createClass({
 		var form = (<ReactCSSTransitionGroup key="formTransition" transitionName="forum-comments">
 						{this.state.showForm && <CommentForm key="commentForm"
 							ref='commentForm'
-							onCancel={this._hideForm}
-							onCompletion={this._hideForm}
+							onCancel={this._hideCommentForm}
+							onCompletion={this._hideCommentForm}
 							topic={topic}
 							parent={topic.parent()}
 						/>}
 					</ReactCSSTransitionGroup>);
 
+		var Tag = this.state.editing ? TopicEditor : TopicHeadline;
+
 		return (
 			<div>
 				{breadcrumb}
-				<TopicHeadline post={topic.headline} />
+				<Tag ref='headline'
+					item={topic.headline}
+					onSubmit={this._saveEdit}
+					onCompletion={this._hideEditForm}
+					onCancel={this._hideEditForm}
+				/>
 				<ActionLinks
 					item={topic}
 					replyText={t('addComment')}

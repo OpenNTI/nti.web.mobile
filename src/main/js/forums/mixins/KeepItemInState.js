@@ -36,7 +36,7 @@ module.exports = {
 	},
 
 	_item: function() {
-		return (this.state.item||this.props.item);
+		return ((this.state && this.state.item)||this.props.item);
 	},
 
 	_itemId: function() {
