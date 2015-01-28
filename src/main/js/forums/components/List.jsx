@@ -16,7 +16,7 @@ module.exports = React.createClass({
 	},
 
 	keyFor(item) {
-		return hash(item);
+		return item.getID ? item.getID() : hash(item);
 	},
 
 	render: function() {
