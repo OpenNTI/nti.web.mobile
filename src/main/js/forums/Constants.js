@@ -15,8 +15,6 @@ module.exports = Object.assign(exports,
 	namespacedKeyMirror('forums', {
 		DISCUSSIONS_CHANGED: null,
 		BOARD_CONTENTS_CHANGED: null,
-		FORUM_CONTENTS_CHANGED: null,
-		TOPIC_CONTENTS_CHANGED: null,
 		OBJECT_LOADED: null,
 		OBJECT_DELETED: null,
 		OBJECT_CONTENTS_CHANGED: null,
