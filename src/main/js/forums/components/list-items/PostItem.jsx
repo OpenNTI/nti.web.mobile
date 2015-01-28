@@ -57,10 +57,12 @@ var PostItem = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		this.setState({
-			busy: false,
-			item: nextProps.item||this.props.item
-		});
+		if (this.props.item !== nextProps.item) {
+			this.setState({
+				busy: false,
+				item: nextProps.item||this.props.item
+			});
+		}
 	},
 
 	_storeChanged: function (event) {
