@@ -12,7 +12,12 @@ var t = require('common/locale').scoped('FORUMS');
  */
 module.exports = React.createClass({
 	displayName: 'ForumListItem',
-	mixins: [require('./Mixin'), NavigatableMixin],
+	mixins: [
+		require('./Mixin'),
+		NavigatableMixin,
+		require('../../mixins/ToggleState')
+
+	],
 
 	statics: {
 		inputType: [
@@ -23,6 +28,7 @@ module.exports = React.createClass({
 	getInitialState() {
 		return {
 			loading: true,
+			showRecentActivity: false,
 			recentActivity: []
 		};
 	},
@@ -63,11 +69,25 @@ module.exports = React.createClass({
 	_renderRecentActivity: function() {
 		// List component is passed in as a prop to dodge a circular import of List.
 		var TopicsComponent = this.props.topicsComponent;
-		return TopicsComponent ?
-			<TopicsComponent
-				container={{Items:this.state.recentActivity}}
-				itemProps={{parentPath: this._getForumPath()}}/> :
-			null;
+		var {recentActivity} = this.state;
+		if (!TopicsComponent || (recentActivity||[]).length === 0) {return null;}
+
+		var headingCss = ['disclosure-triangle'];
+		if (this.state.showRecentActivity) {
+			headingCss.push('open');
+		}
+		return (
+			<section className="recent-activity">
+				<h1 onClick={this._toggleState.bind(this, 'showRecentActivity')} className={headingCss.join(' ')}>
+					<a>{t('recentActivity')}</a>
+				</h1>
+				{this.state.showRecentActivity &&
+					<TopicsComponent
+						container={{Items:this.state.recentActivity}}
+						itemProps={{parentPath: this._getForumPath()}}/>
+				}
+			</section>
+		);
 	},
 
 	render: function() {

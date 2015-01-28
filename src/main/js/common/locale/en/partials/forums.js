@@ -25,6 +25,7 @@ module.exports = {
 	deleteComment: 'Delete',
 	deleteCommentPrompt: 'Delete this comment?',
 	deleteTopicPrompt: 'Delete this discussion?',
+	recentActivity: 'Recent Activity',
 	reportComment: {
 		first: 'Report',
 		again: 'Reported'
