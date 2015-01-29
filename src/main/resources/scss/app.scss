@@ -50,7 +50,7 @@
 
 @import "notifications/components/view";
 
-@mixin detail-link {
+%detail-link {
 	text-transform: uppercase;
 	font-size: 0.6875rem;
 }

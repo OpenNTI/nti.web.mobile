@@ -14,7 +14,6 @@ var TopicList = require('../TopicList');
 var Loading = require('common/components/Loading');
 var Store = require('../../Store');
 var LoadForum = require('../../mixins/LoadForum');
-var _t = require('common/locale').scoped('FORUMS');
 
 var Topics = React.createClass({
 
@@ -50,7 +49,7 @@ var Topics = React.createClass({
 		if (!this._canCreateTopic()) {
 			return null;
 		}
-		return <Link href="/newtopic/">Create a discussion</Link>;
+		return <Link className="action-link create-topic" href="/newtopic/">Create a discussion <i className="arrow-right"/></Link>;
 	},
 
 	render: function() {
@@ -59,7 +58,6 @@ var Topics = React.createClass({
 			return <Loading/>;
 		}
 
-		var label = _t('topicLabel');
 		var {forumId} = this.props;
 		var forumContents = Store.getObjectContents(forumId);
 
@@ -67,7 +65,6 @@ var Topics = React.createClass({
 			<div>
 				<Breadcrumb contextProvider={this.__getContext} />
 				<section>
-					<h1>{label}</h1>
 					{this._createTopicLink()}
 					<TopicList container={forumContents}/>
 				</section>

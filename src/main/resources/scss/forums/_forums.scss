@@ -17,9 +17,22 @@
 
 	ul.action-links {
 		& > li {
+			@extend %detail-link;
 			display: inline-block; 
 			margin-right: 1rem;
-			@include detail-link();
+		}
+	}
+
+	.action-link {
+		@extend %detail-link;
+		padding: 0.5rem 0;
+		display: inline-block;
+		&.create-topic {
+			position: relative;
+			display: block;
+			text-align: right;
+			padding: 0.5rem 0;
+			padding-right: 1rem;
 		}
 	}
 
