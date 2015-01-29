@@ -43,6 +43,9 @@ module.exports = autoBind({
 	},
 
 	__translateTrailingPath: function(trailingPath) {
+		if (!trailingPath) {
+			return;
+		}
 
 		var segments = (trailingPath || '').split('/');
 
@@ -74,7 +77,8 @@ module.exports = autoBind({
 
 			if (parts) {
 				var catalogId = this.__translateCatalogId(parts[1]);
-				trailingPath = this.__translateTrailingPath(parts[2]);
+				trailingPath = this.__translateTrailingPath(parts[2]) || '';
+
 				redUrl = path.join(this.basepath, 'library', 'catalog', 'item', catalogId, trailingPath);
 			}
 			console.log('\n\nredUrl: ', redUrl, '\n\n');
