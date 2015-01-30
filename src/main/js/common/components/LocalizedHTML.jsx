@@ -2,7 +2,7 @@
 
 var React = require('react/addons');
 
-var _t = require('common/locale');
+var _t = require('common/locale').translate;
 
 module.exports = React.createClass({
 	displayName: 'LocalizedHTML',

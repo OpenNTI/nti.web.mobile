@@ -1,13 +1,13 @@
-import * as React from 'react/addons';
+import React from 'react/addons';
 import {submitFeedback, deleteFeedbackItem, updateFeedbackItem} from '../Api';
 import Store from '../Store';
-import locale from 'common/locale';
+import {scoped} from 'common/locale';
 import StoreEvents from 'common/mixins/StoreEvents';
 
 import FeedbackList from './FeedbackList';
 import FeedbackEntry from './FeedbackEntry';
 
-var _t = locale.scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
+var _t = scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
 
 module.exports = React.createClass({
 	displayName: 'Feedback',

@@ -1,16 +1,16 @@
-'use strict';
+import webpack from 'webpack';
+import WebpackServer from 'webpack-dev-server';
+import webpackConfigFile from '../../../webpack.config';
 
-module.exports = function(port) {
+export default function setupDeveloperMode(port) {
 
-	var webpackConfig = require('../../webpack.config')[0];
+
+	var webpackConfig = Object.assign({}, webpackConfigFile[0]);
 
 	webpackConfig.output.path = '/';
 	webpackConfig.output.publicPath = '/mobile/';
 	webpackConfig.output.filename = 'js/main.js';
 	webpackConfig.entry = './src/main/js/index.js';
-
-	var WebpackServer = require('webpack-dev-server');
-	var webpack = require('webpack');
 
 	var webpackServer = new WebpackServer(webpack(webpackConfig), {
 		contentBase: port,
@@ -51,8 +51,8 @@ module.exports = function(port) {
 	return {
 		middleware: webpackServer.middleware,
 		entry: webpackConfig.output.filename,
-		start: function() {
-			webpackServer.listen(port, 'localhost', function (err) {
+		start: () => {
+			webpackServer.listen(port, 'localhost', err => {
 				if (err) {
 					console.log(err);
 				}
@@ -61,4 +61,4 @@ module.exports = function(port) {
 			});
 		}
 	};
-};
+}

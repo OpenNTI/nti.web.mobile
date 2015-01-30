@@ -5,9 +5,11 @@ var Providers = require('../services');
 
 var emptyFunction = require('react/lib/emptyFunction');
 
+var {getModel} = require('dataserverinterface');
+
+//TODO: getModel(WatchVideoEvent)
 var WatchVideoEvent = require('dataserverinterface/models/analytics/WatchVideoEvent');
 
-var Models = require('dataserverinterface/utils/parse-object');
 
 var actions = require('../Actions');
 
@@ -25,7 +27,7 @@ module.exports = React.createClass({
 		 */
 		src: React.PropTypes.oneOfType([
 			React.PropTypes.string,
-			React.PropTypes.instanceOf(Models.getModel('video'))
+			React.PropTypes.instanceOf(getModel('video'))
 			]).isRequired,
 
 		/**

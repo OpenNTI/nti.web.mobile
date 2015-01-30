@@ -1,21 +1,19 @@
-'use strict';
-
-var request = require('dataserverinterface/utils/request');
-var autoBind = require('dataserverinterface/utils/autobind');
+import request from 'dataserverinterface/utils/request';
 
 function throwError(msg) {
 	throw new Error(msg);
 }
 
 
-var api = module.exports = autoBind({
+export default {
 
-	registerAnonymousEndPoints: function(express, config) {
+	registerAnonymousEndPoints (express, config) {
 		var prefix = /^\/api/i;
 		Object.assign(this, config);
-		express.get(/^\/api\/user-agreement/, api.serveUserAgreement);
 
-		express.use(/^\/api/, function(err, req, res, next){
+		express.get(/^\/api\/user-agreement/, this.serveUserAgreement.bind(this));
+
+		express.use(/^\/api/, (err, req, res, next) => {
 			if (prefix.test(req.url)) {
 				console.error('API Error:\n\n%s', err.stack);
 				res.status(500).json({stack: err.stack, message: err.message});
@@ -27,10 +25,10 @@ var api = module.exports = autoBind({
 	},
 
 
-	registerAuthenticationRequiredEndPoints: function(){},//function(express, config) {},
+	registerAuthenticationRequiredEndPoints () {},//function(express, config) {},
 
 
-	serveUserAgreement: function(req, res) {
+	serveUserAgreement (req, res) {
 		var BODY_REGEX = /<body[^>]*>(.*)<\/body/i;
 		var url = this['user-agreement'] || throwError('No user-agreement url set');
 
@@ -40,7 +38,7 @@ var api = module.exports = autoBind({
 		}
 
 
-		request(url, function(error, r, response) {
+		request(url, (error, r, response)=> {
 			var body = BODY_REGEX.exec(response);
 
 			var data = {
@@ -54,4 +52,4 @@ var api = module.exports = autoBind({
 			res.end();
 		});
 	}
-});
+};

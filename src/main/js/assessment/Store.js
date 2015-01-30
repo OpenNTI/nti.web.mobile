@@ -9,9 +9,10 @@ var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 
 var hasValue = require('dataserverinterface/utils/object-has-value');
 
-var parser = require('dataserverinterface/utils/parse-object');
-var Question = parser.getModel('question');
-var AssignmentHistoryItem = parser.getModel('assessment.assignmenthistoryitem');
+var {getModel} = require('dataserverinterface');
+
+var Question = getModel('question');
+var AssignmentHistoryItem = getModel('assessment.assignmenthistoryitem');
 
 var Constants = require('./Constants');
 var Api = require('./Api');

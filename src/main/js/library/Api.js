@@ -1,14 +1,8 @@
-'use strict';
+import Library from 'dataserverinterface/stores/Library';
 
-var Library = require('dataserverinterface/stores/Library');
+import {getService} from 'common/Utils';
 
-var getService = require('common/Utils').getService;
-
-module.exports = {
-
-	getLibrary: function(reload) {
-		return getService()
-				.then(service => Library.get(service, 'Main', reload));
-	}
-
-};
+export function getLibrary (reload) {
+	return getService()
+			.then(service => Library.get(service, 'Main', reload));
+}

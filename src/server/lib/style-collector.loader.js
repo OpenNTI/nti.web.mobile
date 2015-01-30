@@ -1,7 +1,6 @@
 'use strict';
-
-module.exports = function() {};
-module.exports.pitch = function(req) {
+exports = module.exports = function StyleLoader() {};
+exports.pitch = function pitch (req) {
 	this.cacheable();
 	return 'require(' + JSON.stringify(require.resolve('./style-collector')) +
 		').add(require(' + JSON.stringify('!!' + req) + '));\n' +

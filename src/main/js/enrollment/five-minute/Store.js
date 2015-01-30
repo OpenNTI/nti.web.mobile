@@ -1,5 +1,7 @@
 'use strict';
 
+var FiveMinuteInterface = require('dataserverinterface/interface/FiveMinuteInterface');
+
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
@@ -47,7 +49,8 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 function _getFiveMinuteService() {
 	var me = _getFiveMinuteService;
 	if (!me.promise) {
-		me.promise = Promise.resolve(Utils.getServer().getFiveMinuteInterface());
+		me.promise = Utils.getService().then(service =>
+			FiveMinuteInterface.fromService(service));
 	}
 	return me.promise;
 }

@@ -1,12 +1,10 @@
-'use strict';
+import React from 'react/addons';
+import NoteableMixin from '../mixins/Noteable';
+import Avatar from 'common/components/Avatar';
+import DisplayName from 'common/components/DisplayName';
+import DateTime from 'common/components/DateTime';
 
-var React = require('react/addons');
-var NoteableMixin = require('../mixins/Noteable');
-var Avatar = require('common/components/Avatar');
-var DisplayName = require('common/components/DisplayName');
-var DateTime = require('common/components/DateTime');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'ForumCommentType',
 	mixins: [NoteableMixin],
 
@@ -15,17 +13,17 @@ module.exports = React.createClass({
 	},
 
 
-	componentDidMount: function () {
+	componentDidMount  () {
 		this.updatePreview(this.props);
 	},
 
 
-	componentWillReceiveProps: function(props) {
+	componentWillReceiveProps (props) {
 		this.updatePreview(props);
 	},
 
 
-	updatePreview: function (props) {
+	updatePreview  (props) {
 		var change = props.item;
 		var note = change.Item || change;
 		var title = note.title;
@@ -39,9 +37,7 @@ module.exports = React.createClass({
 
 		try {
 			node = document.createElement('div');
-			body = body.map(function(p) {
-				return typeof p === 'object' ? '[attachment]' : p;
-			}).join(' ');
+			body = body.map(p => typeof p === 'object' ? '[attachment]' : p).join(' ');
 
 			node.innerHTML = body;
 
@@ -52,7 +48,7 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
+	render () {
 
 		return (
 			<li className="notification-item">

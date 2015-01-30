@@ -1,53 +1,49 @@
-'use strict';
+import {Service} from 'dataserverinterface/CommonSymbols';
 
-var define = require('dataserverinterface/utils/object-define-hidden-props');
+export default class PageDescriptor {
+	constructor (ntiid, data) {
+		this.ntiid = ntiid;
 
-function PageDescriptor(ntiid, data) {
-	this.ntiid = ntiid;
-	define(this, {
-		_created: new Date(),
-		_service: data.pageInfo._service,
+		Object.assign(this,{
+			[Symbol.for('Created')]: new Date(),
+			[Service]: data.pageInfo[Service],
 
-		_content: {
-			raw: data.content,
-			parsed: data.body
-		}
-	});
+			content: {
+				raw: data.content,
+				parsed: data.body
+			}
+		});
 
-	delete data.content;
-	delete data.body;
+		delete data.content;
+		delete data.body;
 
-	Object.assign(this, data);
-}
-
-
-Object.assign(PageDescriptor.prototype, {
-	getID: function() {return this.ntiid;},
-
-
-	getPageSource: function(id){ return this.tableOfContents.getPageSource(id);},
-
-
-	getTableOfContents: function () { return this.tableOfContents; },
-
-
-	getBodyParts: function () { return this._content.parsed; },
-
-
-	getPageStyles: function () { return this.styles; },
-
-
-	getAssessmentQuestion: function (questionId) {
-		return this.pageInfo.getAssessmentQuestion(questionId);
-	},
-
-
-	getSubmittableAssessment: function() {
-		var items = this.pageInfo.AssessmentItems || [];
-		return items.reduce(function(v, item) {
-			return v || (item.isSubmittable && item); }, null);
+		Object.assign(this, data);
 	}
-});
 
 
-module.exports = PageDescriptor;
+	getID () {return this.ntiid;}
+
+
+	getPageSource (id){ return this.tableOfContents.getPageSource(id);}
+
+
+	getTableOfContents () { return this.tableOfContents; }
+
+
+	getBodyParts () { return this.content.parsed; }
+
+
+	getPageStyles () { return this.styles; }
+
+
+	getAssessmentQuestion (questionId) {
+		return this.pageInfo.getAssessmentQuestion(questionId);
+	}
+
+
+	getSubmittableAssessment () {
+		var items = this.pageInfo.AssessmentItems || [];
+		return items.reduce((v, item) =>
+			v || (item.isSubmittable && item), null);
+	}
+}

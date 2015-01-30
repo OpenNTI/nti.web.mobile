@@ -1,4 +1,4 @@
-import * as React from 'react/addons';
+import React from 'react/addons';
 import {BLANK_AVATAR} from '../constants/DataURIs';
 import {getServerURI} from '../Utils';
 import {resolve} from './DisplayName';

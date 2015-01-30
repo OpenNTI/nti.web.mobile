@@ -1,13 +1,11 @@
 //TODO
-'use strict';
+import React from 'react/addons';
+import NoteableMixin from '../mixins/Noteable';
+import Avatar from 'common/components/Avatar';
+import DisplayName from 'common/components/DisplayName';
+import DateTime from 'common/components/DateTime';
 
-var React = require('react/addons');
-var NoteableMixin = require('../mixins/Noteable');
-var Avatar = require('common/components/Avatar');
-var DisplayName = require('common/components/DisplayName');
-var DateTime = require('common/components/DateTime');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'ForumTopic',
 	mixins: [NoteableMixin],
 
@@ -15,7 +13,7 @@ module.exports = React.createClass({
 		noteableType: ['forums.communityheadlinetopic']
 	},
 
-	render: function() {
+	render () {
 		var discussionTitle = this.state.item.title;
 		return (
 			<li className="notification-item">

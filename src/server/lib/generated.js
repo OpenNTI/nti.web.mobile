@@ -23,7 +23,7 @@ try {
 
 
 try {
-	stats = require('./stats.generated.json');
+	stats = require('../stats.generated.json');
 	if (!ServerRender) {
 		throw new Error('Stats Extist, but could not load the compiled page!');
 	}

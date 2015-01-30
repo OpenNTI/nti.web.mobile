@@ -16,8 +16,7 @@ var CompressionPlugin = require("compression-webpack-plugin");
 var path = require('path');
 var fs = require('fs');
 
-var StyleCollector = path.join(__dirname, 'src', 'server', 'style-collector');
-var ES3Recast = '';//path.join(__dirname, 'src', 'webpack-plugins', 'es3recast') + '!';
+var StyleCollector = path.join(__dirname, 'src', 'server', 'lib', 'style-collector');
 
 var scssIncludes =
     'includePaths[]=' + (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss'));
@@ -29,7 +28,7 @@ var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
 var commonLoaders = [
     { test: /\.json$/, loader: 'json' },
     { test: /\.js(x?)$/,
-        loader: ES3Recast + '6to5?runtime=true',
+        loader: '6to5?optional=selfContained',
         exclude: {
             test: excludeNodeModulesExceptOurs
         }
@@ -192,7 +191,7 @@ exports = module.exports = [
     {
         // The configuration for the server-side rendering
         name: 'server-side rendering',
-        entry: '<%= pkg.src %>/../server/page.js',
+        entry: '<%= pkg.src %>/../server/lib/page.js',
         target: 'node',
         bail: true,
         output: {
