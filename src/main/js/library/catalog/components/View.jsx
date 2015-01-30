@@ -81,7 +81,7 @@ var CatalogView = React.createClass({
         return (
 			<Locations contextual={true} ref="router">
 	            <Location
-	                path="/item/:entryId/(#:nav)"
+	                path="/item/:entryId(/#:nav)"
 	                handler={CatalogEntryDetail}
 	                basePath={basePath}
 	            />
