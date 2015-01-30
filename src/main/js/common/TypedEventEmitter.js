@@ -18,6 +18,13 @@ var TypedEmitter = Object.assign({}, EventEmitter.prototype, {
 			throw new Error('Event must have a type.', event);
 		}
 		this.emit(CHANGE_EVENT, event);
+	},
+
+	/*
+	* emitChange with an {isError: true} in the event.
+	*/
+	emitError: function(event) {
+		this.emitChange(Object.assign(event,{isError: true}));
 	}
 });
 

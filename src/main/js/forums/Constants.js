@@ -30,6 +30,7 @@ module.exports = Object.assign(exports,
 		OBJECT_LOADED: null,
 		REPORT_ITEM: null,
 		SAVE_COMMENT: null,
-		TOPIC_CREATED: null
+		TOPIC_CREATED: null,
+		TOPIC_CREATION_ERROR: null
 	})
 );

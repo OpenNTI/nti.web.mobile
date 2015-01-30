@@ -15,10 +15,6 @@ var Constants = require('../../Constants');
 var Loading = require('common/components/Loading');
 var NTIID = require('dataserverinterface/utils/ntiids');
 
-function isValid(topicValue) {
-	return topicValue.title.trim().length > 0;
-}
-
 var CreateTopic = React.createClass({
 
 	mixins: [NavigatableMixin],
@@ -29,7 +25,8 @@ var CreateTopic = React.createClass({
 
 	getInitialState: function() {
 		return {
-			busy: false
+			busy: false,
+			item: null
 		};
 	},
 
@@ -65,6 +62,14 @@ var CreateTopic = React.createClass({
 				var path = NTIID.encodeForURI(topicId);
 				this.navigate('/' + path + '/', {replace: true});
 				break;
+
+			case Constants.TOPIC_CREATION_ERROR:
+				this.setState({
+					busy: false,
+					error: event.data.reason,
+					item: event.data.topic
+				});
+				break;
 		}
 	},
 
@@ -75,13 +80,12 @@ var CreateTopic = React.createClass({
 
 	_createTopic() {
 		var value = this.refs.editor.getValue();
-		if (isValid(value)) {
-			this.setState({
-				busy: true
-			});
-			var {forum} = this.props;
-			Actions.createTopic(forum, value);
-		}
+		this.setState({
+			busy: true,
+			value: value
+		});
+		var {forum} = this.props;
+		Actions.createTopic(forum, value);
 	},
 
 	_cancel() {
@@ -101,7 +105,8 @@ var CreateTopic = React.createClass({
 		return (
 			<div>
 				<Breadcrumb contextProvider={this.__getContext} />
-				<TopicEditor ref="editor" onSubmit={this._createTopic} onCancel={this._cancel}/>
+				{this.state.error && <div className="alert-box radius">{this.state.error.message||'An error occurred.'}</div>}
+				<TopicEditor ref="editor" onSubmit={this._createTopic} onCancel={this._cancel} item={this.state.item} />
 			</div>
 		);
 	}

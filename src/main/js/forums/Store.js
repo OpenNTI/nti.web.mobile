@@ -123,9 +123,15 @@ var Store = Object.assign({}, TypedEventEmitter, {
 	},
 
 	commentError: function(data) {
-		this.emitChange({
+		this.emitError({
 			type: Constants.COMMENT_ERROR,
-			isError: true,
+			data: data
+		});
+	},
+
+	topicCreationError: function(data) {
+		this.emitError({
+			type: Constants.TOPIC_CREATION_ERROR,
 			data: data
 		});
 	},
@@ -213,6 +219,13 @@ function createTopic(forum, topic) {
 				forum: forum
 			});
 			getObjectContents(forum.getID());
+		},
+		reason => {
+			Store.topicCreationError({
+				forum: forum,
+				topic: topic,
+				reason: reason
+			});
 		}
 	);
 }
