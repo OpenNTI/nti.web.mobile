@@ -39,5 +39,6 @@ module.exports = {
 	},
 	emptyList: 'There is nothing here.',
 	emptyTopicList: 'There are no active discussions.',
-	topicLabel: 'Discussions'
+	topicLabel: 'Discussions',
+	createTopic: 'Create a discussion'
 };

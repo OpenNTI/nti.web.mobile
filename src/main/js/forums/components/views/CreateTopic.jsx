@@ -101,7 +101,6 @@ var CreateTopic = React.createClass({
 		return (
 			<div>
 				<Breadcrumb contextProvider={this.__getContext} />
-				<div>Create a topic</div>
 				<TopicEditor ref="editor" onSubmit={this._createTopic} onCancel={this._cancel}/>
 			</div>
 		);

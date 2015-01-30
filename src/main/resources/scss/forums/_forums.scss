@@ -4,6 +4,17 @@
 	@include grid-column(12);
 	padding-bottom:1rem;
 
+	.comment-form {
+		input {
+			font-size: 1rem;
+			color: $body-font-color;
+			border: 1px solid black;
+			padding: .6rem;
+			width: 100%;
+			margin-bottom: 1rem;
+		}
+	}
+
 	.fi-flag {
 		&.flagged {
 			color: $primary-red;

@@ -14,6 +14,7 @@ var TopicList = require('../TopicList');
 var Loading = require('common/components/Loading');
 var Store = require('../../Store');
 var LoadForum = require('../../mixins/LoadForum');
+var t = require('common/locale').scoped('FORUMS');
 
 var Topics = React.createClass({
 
@@ -49,7 +50,7 @@ var Topics = React.createClass({
 		if (!this._canCreateTopic()) {
 			return null;
 		}
-		return <Link className="action-link create-topic" href="/newtopic/">Create a discussion <i className="arrow-right"/></Link>;
+		return <Link className="action-link create-topic" href="/newtopic/">{t('createTopic')} <i className="arrow-right"/></Link>;
 	},
 
 	render: function() {
