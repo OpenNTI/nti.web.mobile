@@ -25,21 +25,22 @@ var MessageDisplay = React.createClass({
 
 	componentWillMount: function() {
 		Store.addChangeListener(this._updateMessages);
+		this._getMessages();
+	},
+
+	componentWillReceiveProps: function() {
+		this._getMessages();
 	},
 
 	componentDidUnmount: function() {
 		Store.removeChangeListener(this._updateMessages);
 	},
 
-	getInitialState: function() {
-		//FIXME: Re-write this:
-		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-		
+	_getMessages: function() {
 		var options = this.props.category ? {category: this.props.category} : null;
-		return {
+		this.setState({
 			messages: Store.messages(options)
-		};
+		});
 	},
 
 	_dismiss: function(component) {
