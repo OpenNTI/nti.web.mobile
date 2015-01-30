@@ -170,7 +170,7 @@ module.exports = React.createClass({
 
 	renderHint () {
 		var part = this.props.part || {};
-		var hint = (part.hint || []).getAt(this.state.activeHint);
+		var hint = (part.hints || [])[this.state.activeHint];
 
 		return (
 			<div className="part-help hint">
