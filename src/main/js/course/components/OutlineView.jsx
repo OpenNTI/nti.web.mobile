@@ -51,7 +51,7 @@ module.exports = React.createClass({
 
 		waitFor(work)
 			.then(function() {
-				if (outline.getMaxDepth() > 2) {
+				if (outline.maxDepth > 2) {
 					map.unshift('h1');
 				}
 
@@ -93,7 +93,7 @@ module.exports = React.createClass({
 				{list.map(function(item) {
 					var children = _renderTree(item.contents);
 					var href = item.href;
-					var Tag = depthMap[item.getDepth() - 1] || 'div';
+					var Tag = depthMap[item.depth - 1] || 'div';
 
 					if (href) {
 						href = prefix + href;

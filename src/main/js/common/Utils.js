@@ -68,7 +68,7 @@ var Utils = {
 		var fn = getServer;
 		if (!fn.server) {
 			fn.server = $AppConfig.nodeInterface ||
-			 	require('dataserverinterface')($AppConfig).interface;
+			 	require('dataserverinterface').default($AppConfig).interface;
 		}
 		return fn.server;
 	},

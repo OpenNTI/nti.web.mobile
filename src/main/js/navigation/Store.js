@@ -5,7 +5,6 @@
 var EventEmitter = require('events').EventEmitter;
 
 var Constants = require('./Constants');
-var NavRecord = require('./NavRecord');
 var invariant = require('react/lib/invariant');
 var OrderedMap = require('common/collections').OrderedMap;
 
@@ -49,15 +48,17 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		});
 	},
 
-	publishNav: function(key,navRecord) {
-		var valid = key && key.trim().length > 0 && navRecord instanceof NavRecord;
-		var warning = 'The publish nav action must include a non-empty key string and a NavRecord instance';
+	publishNav: function(key, nav) {
+		var valid = key && key.trim().length > 0 && !! nav;
+		var warning = 'The publish nav action must include a non-empty key string and a outline';
 		if(!valid) {
-			console.warn(warning,key,navRecord);
+			console.warn(warning,key, nav);
 		}
 		invariant(valid,warning);
-		_nav.set(key,navRecord);
+
+		_nav.set(key, nav);
 		this.setLoading(false);
+
 		Store.emitChange({
 			nav:this.getNav(),
 			isLoading: this.isLoading()

@@ -1,5 +1,6 @@
 'use strict';
 
+var StripeInterface = require('dataserverinterface/interface/Stripe');
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 
@@ -97,8 +98,8 @@ function getStripeInterface() {
 	var me = getStripeInterface;
 
 	if (!me.promise) {
-		me.promise = Promise.resolve(
-			Utils.getServer().getStripeInterface());
+		me.promise = Utils.getService().then(service =>
+				StripeInterface.fromService(service));
 	}
 
 	return me.promise;

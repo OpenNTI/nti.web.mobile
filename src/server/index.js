@@ -6,7 +6,7 @@ require("6to5/register")({
 	//but...
 
 	// only if filenames match this regex...
-	only: /(?!.*node_modules)(dataserverinterface|react-editor-component)/
+	only: /(?!.*node_modules)(dataserverinterface|react-editor-component|server\/lib)/
 });
 
 global.SERVER = true;
@@ -29,20 +29,20 @@ var express = require('express');
 var path = require('path');
 //var fs = require('fs');
 
-var common = require('./common');
+var common = require('./lib/common');
 var config = common.config();
 var protocol = config.protocol === 'proxy' ? proxiedHttp : http;
 var address = config.address || '0.0.0.0';
 var port = config.port || 9000;
 
 var waitFor = require('dataserverinterface/utils/waitfor');
-var dataserver = require('dataserverinterface')(config);
+var dataserver = require('dataserverinterface').default(config);
 var session = dataserver.session;
 var datacache = dataserver.datacache;
 
-var api = require('./api');
+var api = require('./lib/api');
 
-var generated = require('./generated');
+var generated = require('./lib/generated');
 var entryPoint = generated.entryPoint;
 var page = generated.page;
 
@@ -51,9 +51,9 @@ var assetPath = path.join(__dirname, '..', entryPoint ? 'client' : 'main');
 
 //WWW Server
 var app = express();
-require('./logger').attachToExpress(app);
-require('./cors').attachToExpress(app);
-require('./compress').attachToExpress(app, assetPath);
+require('./lib/logger').attachToExpress(app);
+require('./lib/cors').attachToExpress(app);
+require('./lib/compress').attachToExpress(app, assetPath);
 
 var manifest = /\.appcache$/i;
 
@@ -61,11 +61,11 @@ var mobileapp = express();
 mobileapp.use(config.basepath, app);//re-root the app to /mobile/
 mobileapp.all('/', function(_, res) { res.redirect('/mobile/'); });
 
-require('./redirects').register(app, config, appRoutes);
+require('./lib/redirects').register(app, config, appRoutes);
 
 if (entryPoint==null) {//only start the dev server if entryPoint is null or undefined. if its false, skip.
-	page = require('./page');
-	devmode = require('./devmode')(port);
+	page = require('./lib/page');
+	devmode = require('./lib/devmode')(port);
 
 	entryPoint = devmode.entry;
 	app.use(devmode.middleware);//serve in-memory compiled sources/assets
@@ -86,7 +86,7 @@ app.use(express.static(assetPath, {
 }));//static files
 
 //Session manager...
-app.use(require('./no-cache'));
+app.use(require('./lib/no-cache'));
 
 api.registerAnonymousEndPoints(app, config);
 

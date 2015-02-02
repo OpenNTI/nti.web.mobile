@@ -20,35 +20,15 @@ function dispatch(key, data) {
 	AppDispatcher.handleRequestAction(payload);
 }
 
-function _navRecordFor(outlineNode,navbarTitle) {
-	var children = null;
-	if(Array.isArray(outlineNode.contents)) {
-		children = outlineNode.contents.map(function(v) {
-			return _navRecordFor(v);
-		});
-	}
-	return new Navigation.NavRecord({
-		label: outlineNode.DCTitle,
-		navbarTitle: navbarTitle,
-		href: outlineNode.href,
-		children: children,
-		maxDepth: outlineNode.getMaxDepth(),
-		depth: outlineNode.getDepth()
-	});
-}
 
 function _publishNavFor(courseEnrollment) {
-	var props = courseEnrollment.getPresentationProperties();
-
 	courseEnrollment.getOutline()
-		.catch(function (e) {
-			return e === 'Preview' ? [{}] : Promise.reject(e);
-		})
-		.then(function(d) {
+		.catch(e => e === 'Preview' ? [{}] : Promise.reject(e))
+		.then(d => {
 			var root = Array.isArray(d) ? d[0] : d;
-			Navigation.Actions.publishNav(Navigation.Constants.CONTENT_KEY,_navRecordFor(root,props.title));
+			Navigation.Actions.publishNav(Navigation.Constants.CONTENT_KEY, root);
 		})
-		.catch(function(e) {
+		.catch(e => {
 			console.error('error attempting to get course outline. %O',e);
 			var messageCat = 'course:nav';
 			Messages.Actions.clearMessages({

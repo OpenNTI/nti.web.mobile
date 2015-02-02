@@ -35,9 +35,8 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 		Store.unpublishNav(key);
 	},
 
-	publishNav: function(key,navRecord) {
-		console.log('navigation.Actions::publishNav. key: %s, record: %O', key, navRecord);
-		Store.publishNav(key,navRecord);
+	publishNav: function(key,nav) {
+		Store.publishNav(key,nav);
 	},
 
 	setLoading: function(isLoading) {

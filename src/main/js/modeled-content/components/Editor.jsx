@@ -1,5 +1,5 @@
 import Editor from 'react-editor-component';
-import * as React from 'react/addons';
+import React from 'react/addons';
 
 export default React.createClass({
 	displayName: 'ModeledBodyContentEditor',

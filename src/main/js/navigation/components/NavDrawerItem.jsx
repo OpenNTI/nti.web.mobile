@@ -1,81 +1,87 @@
+import React from 'react/addons';
+import EmptyNavRoot from './EmptyNavRoot';
+import BasePath from 'common/mixins/BasePath';
 
-'use strict';
-
-var React = require('react/addons');
-var NavRecord = require('../NavRecord');
-var EmptyNavRoot = require('./EmptyNavRoot');
-
-var path = require('path');
+import path from 'path';
 
 var NavDrawerItem = React.createClass({
 	displayName: 'NavDrawerItem',
+	mixins: [BasePath],
 
 	propTypes: {
- 		basePath: React.PropTypes.string.isRequired,
- 		record: React.PropTypes.instanceOf(NavRecord).isRequired
+ 		record: React.PropTypes.object.isRequired
 	},
 
-	_isActiveItem: function(rec) {
-		if (!rec.href) {
-			return false;
-		}
-		return (rec.href === document.location.pathname) || (this.props.basePath + rec.href === document.location.pathname);
+
+	isActiveItem () {
+		return this.getHREF() === document.location.pathname;
 	},
 
-	_labelClasses: function() {
+
+	hasChildren() {
+		var {record} = this.props;
+		let children = (record && record.contents) || [];
+		return children.length > 0;
+	},
+
+
+	getHREF () {
+		var {record} = this.props;
+		var href = record && record.href;
+		return path.join(this.getBasePath(), href || '');
+	},
+
+
+	getCSSClassNames () {
 		var classes = ['navitem'];
-		var rec = this.props.record;
+		var {record} = this.props;
 
-		var hasChildren = rec.children && rec.children.length > 0;
+		if (record) {
 
-		if (rec) {
-			if (!rec.clickable ) {
+			if (!record.isNavigable ) {
 				classes.push('disabled');
 			}
-			if (this._isActiveItem(rec)) {
+
+			if (this.isActiveItem(record)) {
 				classes.push('active');
 			}
-			if (!rec.clickable && (hasChildren || rec.depth !== rec.maxDepth)) {
+
+			if (!record.isNavigable && (this.hasChildren() || record.depth !== record.maxDepth)) {
 				classes.push('sectiontitle');
 			}
 		}
+
 		return classes.join(' ');
 	},
 
 
-	render: function() {
-		var record = this.props.record;
-		var basePath = this.props.basePath;
-		var depth = this.props.depth || 1; // ??
-		var classes = this._labelClasses();
+	render () {
+		var {record} = this.props;
+		var classes = this.getCSSClassNames();
 
 		if(record.isEmpty) {
 			return <EmptyNavRoot />;
 		}
 
 		//Nav Items BETTER NOT EVER be external...
-		var href = record && record.href && path.join(basePath, record.href);
+		var href = this.getHREF();
 
-		var children = record && record.children;
 		var label = record && record.label;
-
-		children = children && children.map(function(v, i) {
-			return <NavDrawerItem
-				record={v}
-				depth={depth}
-				basePath={basePath}
-				key={record.label + i}
-			/>;
-		});
 
 		return (
 			<li>
 				{label && <a href={href} className={classes}>{label}</a>}
-				{children && <ul>{children}</ul>}
+				{this.hasChildren() &&
+					<ul>
+						{record.contents.map((v, i) =>
+							<NavDrawerItem record={v} key={i} />
+						)}
+					</ul>
+				}
 			</li>
 		);
 	}
 
 });
 
-module.exports = NavDrawerItem;
+export default NavDrawerItem;

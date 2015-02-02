@@ -6,7 +6,8 @@ var selectSources = require('./SelectSources');
 
 var url = require('url');
 
-var MediaSource = require('dataserverinterface/utils/parse-object').getModel('mediasource');
+var {getModel} = require('dataserverinterface');
+var MediaSource = getModel('mediasource');
 
 var Utils = require('common/Utils');
 var getTarget = Utils.Dom.getEventTarget;

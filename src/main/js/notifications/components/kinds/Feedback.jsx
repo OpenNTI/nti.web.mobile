@@ -1,12 +1,10 @@
-'use strict';
+import React from 'react/addons';
+import NoteableMixin from '../mixins/Noteable';
+import Avatar from 'common/components/Avatar';
+import DisplayName from 'common/components/DisplayName';
+import DateTime from 'common/components/DateTime';
 
-var React = require('react/addons');
-var NoteableMixin = require('../mixins/Noteable');
-var Avatar = require('common/components/Avatar');
-var DisplayName = require('common/components/DisplayName');
-var DateTime = require('common/components/DateTime');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'ForumCommentType',
 	mixins: [NoteableMixin],
 
@@ -14,7 +12,7 @@ module.exports = React.createClass({
 		noteableType: 'assessment.userscourseassignmenthistoryitemfeedback'
 	},
 
-	render: function() {
+	render () {
 		var item = this.props.item;
 		var assignmentName = item.AssignmentName || 'an assignment';
 		return (

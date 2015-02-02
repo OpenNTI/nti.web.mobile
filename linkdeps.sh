@@ -4,5 +4,5 @@ EDITOR=./node_modules/react-editor-component
 
 rm -rf $INTERFACE
 ln -s ../../nti.node.dataserverinterface/ $INTERFACE
-rm -rf $EDITOR
-ln -s ../../editor/ $EDITOR
+# rm -rf $EDITOR
+# ln -s ../../editor/ $EDITOR

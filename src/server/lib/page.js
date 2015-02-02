@@ -1,12 +1,13 @@
 'use strict';
 
-var styleCollector = require('./style-collector');
-var common = require('./common');
+import styleCollector from './style-collector';
+import {config} from './common';
 
-var url = require('url');
-var Path = require('path');
-var fs = require('fs');
-var React = require('react/addons');
+import url from 'url';
+import Path from 'path';
+import fs from 'fs';
+import React from 'react/addons';
+
 var Application;
 var basepathreplace = /(manifest|src|href)="(.*?)"/igm;
 var configValues = /<\[cfg\:([^\]]*)\]>/igm;
@@ -20,7 +21,7 @@ function injectConfig(cfg, orginal, prop) {
 
 function basePathFix(original,attr,val) {
 	if (val.charAt(0) === '/' && val.charAt(1) !== '/') {
-		val = (common.config().basepath || '/') + val.substr(1);
+		val = (config().basepath || '/') + val.substr(1);
 	}
 
 	return attr + '="' + val + '"';
@@ -28,7 +29,7 @@ function basePathFix(original,attr,val) {
 
 if (!global.DISABLE_SERVER_RENDERING) {
 	try {
-		Application = require('../main/js/AppView');
+		Application = require('../../main/js/AppView');
 	} catch (e) {
 		console.warn('%s\tNo Server-side Rendering (Because: %s)', new Date().toUTCString(),
 			/Cannot find module '\.\.\/main\/js\/AppView'/.test(e.message || e) ?
@@ -38,11 +39,11 @@ if (!global.DISABLE_SERVER_RENDERING) {
 
 try {
 	//For WebPack... (production)
-	template = require('../main/page');
+	template = require('../../main/page');
 } catch (e) {
 	//For Node... (dev)
 	try {
-		template = fs.readFileSync(__dirname + '/../main/page.html', 'utf8');
+		template = fs.readFileSync(__dirname + '/../../main/page.html', 'utf8');
 	} catch (er) {
 		console.error('%s\t%s', new Date().toUTCString(), er.stack || er.message || er);
 		template = 'Could not load page template.';
@@ -55,7 +56,7 @@ template = template.replace(
 	'<link href="/resources/css/sites/current/site.css" ' +
 	'rel="stylesheet" type="text/css" id="site-override-styles"/>');
 
-module.exports = function(req, scriptFilename, clientConfig) {
+export default function(req, scriptFilename, clientConfig) {
 
 	var u = url.parse(req.url);
 	var manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache"' : '<html';
@@ -67,11 +68,11 @@ module.exports = function(req, scriptFilename, clientConfig) {
 	if (Application) {
 		try {
 			global.$AppConfig = cfg;
-			css = styleCollector.collect(function() {
+			css = styleCollector.collect(() => {
 				/* jshint -W064 */ // -- This will be fixed in React 0.12
 				html = React.renderToString(React.createElement(Application, {
 					path: Path.join(cfg.basepath || '', path),
-					basePath: common.config().basepath
+					basePath: config().basepath
 				}));
 			});
 		} finally {
@@ -80,7 +81,7 @@ module.exports = function(req, scriptFilename, clientConfig) {
 	}
 
 	html += clientConfig.html;
-	css = '<style type="text/css" id="server-side-style">' + css + '</style>';
+	css = `<style type="text/css" id="server-side-style">${css}</style>`;
 
 	return template
 			.replace(/<html/, manifest)
@@ -89,4 +90,4 @@ module.exports = function(req, scriptFilename, clientConfig) {
 			.replace(/<!--css:server-values-->/i, css)
 			.replace(/<!--html:server-values-->/i, html)
 			.replace(/js\/main\.js/, scriptFilename);
-};
+}

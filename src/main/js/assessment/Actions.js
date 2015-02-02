@@ -1,6 +1,6 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
-import Api from './Api';
+import * as Api from './Api';
 import Constants from './Constants';
 
 

@@ -1,14 +1,14 @@
-'use strict';
-var WantsCompressed = /gzip/i;
+const WantsCompressed = /gzip/i;
 
-var mimes = require('mime-types');
-var compressible = require('compressible');
-var compression = require('compression');
-var path = require('path');
-var Url = require('url');
-var fs = require('fs');
+import mimes from 'mime-types';
+import compressible from 'compressible';
+import compression from 'compression';
 
-exports.attachToExpress = function(expressApp, assetPath) {
+import path from 'path';
+import Url from 'url';
+import fs from 'fs';
+
+export function attachToExpress (expressApp, assetPath) {
 
 	expressApp.all('*', function(req, res, next) {
 		var ext = path.extname(Url.parse(req.url).pathname);
@@ -30,7 +30,7 @@ exports.attachToExpress = function(expressApp, assetPath) {
 
 
 	expressApp.use(compression({
-		filter: function filter(req, res) {
+		filter (req, res) {
 			var type = res.getHeader('Content-Type');
 			var isGz = path.extname(Url.parse(req.url).pathname) === '.gz';
 
@@ -42,4 +42,4 @@ exports.attachToExpress = function(expressApp, assetPath) {
 			return true;
 		}
 	}));
-};
+}
