@@ -1,7 +1,7 @@
 {
-  "name": "nt-mobile",
+  "name": "nti-webapp",
   "version": "0.0.0",
-  "description": "Mobile-first implementation of the NextThought web app.",
+  "description": "NextThought web application",
   "src": "./src/main",
   "test": "./src/test",
   "dist": "./dist",
@@ -11,7 +11,17 @@
   "mainOutput": "main.js",
   "jsDocSrc": "doc",
   "jsDocDest": "doc",
+
+  "scripts": {
+      "build": "grunt build",
+      "test": "grunt test",
+  },
+
   "main": "./dist/server/index.js",
+  "bin": {
+      "webapp-instance": "./dist/server/index.js"
+  }
+
   "dependencies": {
     "6to5": "^3.3.0",
     "6to5-runtime": "^3.3.4",
@@ -88,7 +98,6 @@
     "webpack": "^1.4.15",
     "webpack-dev-server": "^1.6.6"
   },
-  "scripts": {},
   "repository": {
     "type": "git",
     "url": "ssh://repos.nextthought.com/nextthought-webapp-mobile"
