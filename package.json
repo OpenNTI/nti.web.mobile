@@ -14,7 +14,7 @@
 
   "scripts": {
       "build": "grunt build",
-      "test": "grunt test",
+      "test": "grunt test"
   },
 
   "main": "./dist/server/index.js",
