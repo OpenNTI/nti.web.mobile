@@ -20,7 +20,7 @@
   "main": "./dist/server/index.js",
   "bin": {
       "webapp-instance": "./dist/server/index.js"
-  }
+  },
 
   "dependencies": {
     "6to5": "^3.3.0",
