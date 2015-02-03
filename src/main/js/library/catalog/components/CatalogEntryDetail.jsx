@@ -2,7 +2,7 @@
 
 var React = require('react/addons');
 
-var NotFound = require('notfound').View;
+var NotFound = require('notfound/components/View');
 
 var Store = require('../Store');
 var Detail = require('./Detail.jsx');

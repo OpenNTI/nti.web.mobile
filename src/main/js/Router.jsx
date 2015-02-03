@@ -13,7 +13,7 @@ var Course = require('course');
 var Library = require('library');
 var Enrollment = require('enrollment');
 
-var NotFound = require('notfound');
+var NotFound = require('notfound/components/View');
 
 var Redirect = require('navigation/components/Redirect');
 
@@ -49,7 +49,7 @@ module.exports = React.createClass({
 				<Router.Location path={basePath + 'contact/:configname/'} handler={Contact.View} basePath={basePath} />
 
 				<Router.Location path={basePath} handler={Home.View} basePath={basePath} />
-				<Router.NotFound handler={NotFound.View} />
+				<Router.NotFound handler={NotFound} />
 			</Router.Locations>
 		);
 	}

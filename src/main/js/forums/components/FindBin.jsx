@@ -7,14 +7,14 @@
 var React = require('react/addons');
 var Redirect = require('navigation/components/Redirect');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var NotFoundView = require('notfound/components/NotFoundView');
+var NotFoundView = require('notfound/components/View');
 var NTIID = require('dataserverinterface/utils/ntiids');
 
 
 function binHasForum(bin, forumId) {
 	// keys in bin: Parent, Section
 	return Object.keys(bin).some(boardName => {
-		
+
 		// Parent or Section with a 'forums' array property
 		var b = bin[boardName];
 
