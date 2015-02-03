@@ -1,30 +1,26 @@
-'use strict';
-
-var React = require('react/addons');
-var Router = require('react-router-component');
+import React from 'react/addons';
+import {Locations, Location, NotFound as Default} from 'react-router-component';
 
 //Main Views
-var Login = require('login');
-var Home = require('home');
+import Contact from 'contact/components/View';
+import Content from 'content/components/View';
+import Course from 'course/components/View';
+import Enrollment from 'enrollment/components/View';
+import Home from 'home/components/View';
+import Library from 'library/components/View';
+import Login from 'login/components/View';
+import NotFound from 'notfound/components/View';
 
-var Contact = require('contact');
-var Content = require('content');
-var Course = require('course');
-var Library = require('library');
-var Enrollment = require('enrollment');
+import Redirect from 'navigation/components/Redirect';
 
-var NotFound = require('notfound/components/View');
+import BasePathAware from 'common/mixins/BasePath';
 
-var Redirect = require('navigation/components/Redirect');
-
-var BasePathAware = require('common/mixins/BasePath');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Router',
 	mixins: [BasePathAware],
 
 
-	onNavigation: function() {
+	onNavigation () {
 		if (global.scrollTo) {
 			global.scrollTo(0,0);
 		}
@@ -36,24 +32,24 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
+	render () {
 		var basePath = this.getBasePath();
 		return (
-			<Router.Locations path={this.props.path} onNavigation={this.onNavigation}>
-				<Router.Location path={basePath + 'login/*'} handler={Login.View} basePath={basePath}/>
+			<Locations path={this.props.path} onNavigation={this.onNavigation}>
+				<Location path={basePath + 'login/*'} handler={Login} basePath={basePath}/>
 
-				<Router.Location path={basePath + 'library/*'} handler={Library.View} basePath={basePath} />
-				<Router.Location path={basePath + 'courseware*'} handler={Redirect} location={basePath + 'library/'} />
+				<Location path={basePath + 'library/*'} handler={Library} basePath={basePath} />
+				<Location path={basePath + 'courseware*'} handler={Redirect} location={basePath + 'library/'} />
 
-				<Router.Location path={basePath + 'content/:pkgId/*'} handler={Content.View} basePath={basePath} />
-				<Router.Location path={basePath + 'course/:course/*'} handler={Course.View} basePath={basePath} />
-				<Router.Location path={basePath + 'enroll/:course/*'} handler={Enrollment.View} basePath={basePath} />
+				<Location path={basePath + 'content/:pkgId/*'} handler={Content} basePath={basePath} />
+				<Location path={basePath + 'course/:course/*'} handler={Course} basePath={basePath} />
+				<Location path={basePath + 'enroll/:course/*'} handler={Enrollment} basePath={basePath} />
 
-				<Router.Location path={basePath + 'contact/:configname/'} handler={Contact.View} basePath={basePath} />
+				<Location path={basePath + 'contact/:configname/'} handler={Contact} basePath={basePath} />
 
-				<Router.Location path={basePath} handler={Home.View} basePath={basePath} />
-				<Router.NotFound handler={NotFound} />
-			</Router.Locations>
+				<Location path={basePath} handler={Home} basePath={basePath} />
+				<Default handler={NotFound} />
+			</Locations>
 		);
 	}
 

@@ -4,7 +4,7 @@ var React = require('react/addons');
 
 var IconBar = require('./IconBar');
 var List = require('./List');
-var Catalog = require('../catalog').View;
+var Catalog = require('../catalog/components/View');
 
 module.exports = React.createClass({
 	displayName: 'Section',

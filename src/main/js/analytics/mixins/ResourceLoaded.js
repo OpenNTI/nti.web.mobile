@@ -1,6 +1,6 @@
 'use strict';
 
-var Analytics = require('analytics');
+var AnalyticsActions = require('analytics/Actions');
 var ResourceEvent = require('dataserverinterface/models/analytics/ResourceEvent');
 var TopicViewedEvent = require('dataserverinterface/models/analytics/TopicViewedEvent');
 var {RESOURCE_VIEWED, TOPIC_VIEWED} = require('dataserverinterface/models/analytics/MimeTypes');
@@ -49,7 +49,7 @@ module.exports = {
 			contextFunction(this.props)
 				.then(context => {
 					event.setContextPath(context.map(x=>x.ntiid || x));
-					Analytics.Actions.emitEvent(event);
+					AnalyticsActions.emitEvent(event);
 				});
 		}
 

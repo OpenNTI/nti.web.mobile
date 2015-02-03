@@ -2,8 +2,8 @@
 'use strict';
 
 var React = require('react/addons');
-var EnrollmentStore = require('enrollment').Store;
-var StoreEnrollmentStore = require('enrollment/store-enrollment').Store;
+var EnrollmentStore = require('enrollment/Store');
+var StoreEnrollmentStore = require('enrollment/store-enrollment/Store');
 var Actions = require('../Actions');
 var CatalogActions = require('../catalog/Actions');
 

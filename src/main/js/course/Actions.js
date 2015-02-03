@@ -4,12 +4,15 @@
 
 
 
+var {EventEmitter} = require('events');
 var AppDispatcher = require('dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var Navigation = require('navigation');
+
+var NavigationConstants = require('navigation/Constants');
+var NavigationActions = require('navigation/Actions');
 
 var Constants = require('./Constants');
-var Messages = require('messages');
+var MessagesActions = require('messages/Actions');
+var Message = require('messages/Message');
 
 var LibraryApi = require('library/Api');
 
@@ -26,16 +29,16 @@ function _publishNavFor(courseEnrollment) {
 		.catch(e => e === 'Preview' ? [{}] : Promise.reject(e))
 		.then(d => {
 			var root = Array.isArray(d) ? d[0] : d;
-			Navigation.Actions.publishNav(Navigation.Constants.CONTENT_KEY, root);
+			NavigationActions.publishNav(NavigationConstants.CONTENT_KEY, root);
 		})
 		.catch(e => {
 			console.error('error attempting to get course outline. %O',e);
 			var messageCat = 'course:nav';
-			Messages.Actions.clearMessages({
+			MessagesActions.clearMessages({
 				category: messageCat
 			});
-			Messages.Actions.addMessage(
-				new Messages.Message('An error occurred. Unable to load course outline.', {
+			MessagesActions.addMessage(
+				new Message('An error occurred. Unable to load course outline.', {
 					category: messageCat
 				})
 			);
@@ -49,10 +52,10 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	setCourse: function(courseId) {
 		if(!courseId) {
-			Navigation.Actions.unpublishNav(Navigation.Constants.CONTENT_KEY);
+			NavigationActions.unpublishNav(NavigationConstants.CONTENT_KEY);
 			return;
 		}
-		Navigation.Actions.setLoading(true);
+		NavigationActions.setLoading(true);
 		LibraryApi.getLibrary()
 
 			.then(function(library) {
@@ -65,7 +68,7 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 			})
 
 			.catch(function(reason) {
-				Navigation.Actions.setLoading(false);
+				NavigationActions.setLoading(false);
 				dispatch(Constants.SET_ACTIVE_COURSE, new Error(reason));
 				//Failure
 				//TODO: Display error

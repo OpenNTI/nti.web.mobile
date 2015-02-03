@@ -10,12 +10,12 @@ var locale = require('common/locale');
 
 var QueryString = require('query-string');
 
-var Login = require('login');
-var LoginStore = Login.Store;
-var LoginStoreProperties = Login.StoreProperties;
-var LoginActions = Login.Actions;
+var LoginStore = require('login/Store');
+var LoginStoreProperties = require('login/StoreProperties');
+var LoginActions = require('login/Actions');
 
-var Navigation = require('navigation');
+var NavigationActions = require('navigation/Actions');
+var NavigationConstants = require('navigation/Constants');
 
 var Router = require('./Router');
 var Loading = require('common/components/Loading');
@@ -43,9 +43,9 @@ var App = React.createClass({
 		var action = payload.action;
 		switch (action.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Navigation.Constants.NAVIGATE:
+			case NavigationConstants.NAVIGATE:
 				console.log('App received %O.', action);
-				Navigation.Actions.navigate(action.href, true);
+				NavigationActions.navigate(action.href, true);
 			break;
 		}
 		return true; // No errors. Needed by promise in Dispatcher.
@@ -62,7 +62,7 @@ var App = React.createClass({
 				loc.replace(returnURL || this.props.basePath);
 			}
 			else {
-				Navigation.Actions.navigate(this.props.basePath + 'login/', true);
+				NavigationActions.navigate(this.props.basePath + 'login/', true);
 			}
 		}
 	},

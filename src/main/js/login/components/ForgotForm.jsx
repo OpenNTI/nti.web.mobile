@@ -3,9 +3,8 @@
 var React = require('react/addons');
 var t = require('common/locale').scoped('LOGIN.forgot');
 var Button = require('./Button');
-var Messages = require('messages');
-var Message = Messages.Message;
-var MessageActions = Messages.Actions;
+var Message = require('messages/Message');
+var MessageActions = require('messages/Actions');
 var Constants = require('../Constants');
 
 var Actions = require('../Actions');

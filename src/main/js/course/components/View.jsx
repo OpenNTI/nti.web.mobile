@@ -12,8 +12,8 @@ var Media = require('./Media');
 var Outline = require('./OutlineView');
 var Overview = require('./Overview');
 
-var Content = require('content');
-var Forums = require('forums');
+var ContentViewer = require('content/components/Viewer');
+var ForumView = require('forums/components/View');
 
 var Actions = require('../Actions');
 var Store = require('../Store');
@@ -104,13 +104,13 @@ module.exports = React.createClass({
 
 
 				<Router.Location path="/d/*"
-									handler={Forums.View}
+									handler={ForumView}
 									course={course}
 									basePath={this.props.basePath}
 									contextProvider={this.__getContext}/>
 
 				<Router.Location path="/o/:outlineId/c/:rootId/*"
-									handler={Content.Viewer}
+									handler={ContentViewer}
 									course={course}
 									basePath={this.props.basePath}
 									slug="c"

@@ -9,7 +9,8 @@ var EventEmitter = require('events').EventEmitter;
 
 var IllegalArgumentException = require('common/exceptions/').IllegalArgumentException;
 var AppDispatcher = require('dispatcher/AppDispatcher');
-var Messages = require('messages');
+var MessagesActions = require('messages/Actions');
+var Message = require('messages/Message');
 
 var t = require('common/locale').translate;
 var Utils = require('common/Utils');
@@ -94,8 +95,8 @@ function _addError(error) {
 		'error should contain values for statusCode and raw; { statusCode:xxx, raw:{...} }'
 	);
 	var msg = t(LoginMessages.LOGIN_ERROR, error.statusCode.toString());
-	var message = new Messages.Message(msg, {category: LoginMessages.category, error: error});
-	Messages.Actions.addMessage(message);
+	var message = new Message(msg, {category: LoginMessages.category, error: error});
+	MessagesActions.addMessage(message);
 
 }
 
@@ -174,7 +175,7 @@ function _logOut() {
 }
 
 function _clearErrors() {
-	Messages.Actions.clearMessages(null,Constants.messages.category);
+	MessagesActions.clearMessages(null,Constants.messages.category);
 }
 
 

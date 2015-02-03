@@ -1,8 +1,9 @@
 'use strict';
 
 var React = require('react/addons');
-var Navigation = require('navigation');
-var Notifications = require('notifications');
+var NavigationActions = require('navigation/Actions');
+var NavigationStore = require('navigation/Store');
+var Notifications = require('notifications/components/View');
 
 var Avatar = require('common/components/Avatar');
 var LeftNav = require('common/components/LeftNav');
@@ -10,12 +11,12 @@ var Footer = require('common/components/Footer');
 
 var BasePathAware = require('common/mixins/BasePath');
 
-var MessageDisplay = require('messages').Display;
+var MessageDisplay = require('messages/components/Display');
 var Utils = require('common/Utils');
 
 // var preventOverscroll = require('common/thirdparty/prevent-overscroll');
 
-var Analytics = require('analytics').Component;
+var Analytics = require('analytics/components/Tag');
 var LibraryInvalidationListener = require('library/components/InvalidationListener');
 
 var LEFT_MENU_OPEN = 'move-right';
@@ -27,11 +28,6 @@ var DRAWER_STATE = {
 };
 
 
-// TODO: move "navigation" specific code into a Navigation
-// View (like Notifications.View). This component should just
-// be a dumb wrapper that holds everything.
-
-
 module.exports = React.createClass({
 	displayName: 'AppContainer',
 	mixins: [BasePathAware],
@@ -39,8 +35,8 @@ module.exports = React.createClass({
 
 	_navChanged: function() {
 		this.setState({
-			leftNav: Navigation.Store.getNav(),
-			navLoading: Navigation.Store.isLoading()
+			leftNav: NavigationStore.getNav(),
+			navLoading: NavigationStore.isLoading()
 		});
 	},
 
@@ -60,14 +56,14 @@ module.exports = React.createClass({
 
 
 	componentDidMount: function() {
-		Navigation.Store.addChangeListener(this._navChanged);
+		NavigationStore.addChangeListener(this._navChanged);
 		// preventOverscroll(this.getDOMNode().querySelector('.left-off-canvas-menu'));
 		// preventOverscroll(this.getDOMNode().querySelector('.right-off-canvas-menu'));
 	},
 
 
 	componentWillUnmount: function() {
-		Navigation.Store.removeChangeListener(this._navChanged);
+		NavigationStore.removeChangeListener(this._navChanged);
 	},
 
 
@@ -120,7 +116,7 @@ module.exports = React.createClass({
 						</aside>
 
 						<aside className="right-off-canvas-menu" style={height}>
-							<Notifications.View/>
+							<Notifications/>
 						</aside>
 
 						<section className="main-section">
@@ -139,18 +135,18 @@ module.exports = React.createClass({
 
 	_onCloseMenus: function(e) {
 		if (e) {e.preventDefault();}
-		Navigation.Actions.gotoFragment(null);
+		NavigationActions.gotoFragment(null);
 	},
 
 
 	_onLeftMenuClick: function(e) {
 		if (e) {e.preventDefault();}
-		Navigation.Actions.gotoFragment('nav');
+		NavigationActions.gotoFragment('nav');
 	},
 
 
 	_onRightMenuClick: function(e) {
 		if (e) {e.preventDefault();}
-		Navigation.Actions.gotoFragment('notifications');
+		NavigationActions.gotoFragment('notifications');
 	}
 });

@@ -8,8 +8,8 @@ var EventEmitter = require('events').EventEmitter;
 
 var getServer = require('common/Utils').getServer;
 var Store = require('./Store');
-var MessageActions = require('messages').Actions;
-var Message = require('messages').Message;
+var MessageActions = require('messages/Actions');
+var Message = require('messages/Message');
 /**
  * Actions available to views for login-related functionality.
  */
