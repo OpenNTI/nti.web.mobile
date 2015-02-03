@@ -74,10 +74,10 @@ module.exports = React.createClass({
 	},
 
 
-	getDataIfNeeded: function(/*props*/) {
+	getDataIfNeeded (props) {
 		this.setState(this.getInitialState());
 		try {
-			let {video} = this.props;
+			let {video} = props;
 
 			video.getTranscript('en').then(
 				function whenLoaded(vtt) {
