@@ -1,17 +1,15 @@
-'use strict';
+import React from 'react/addons';
 
-var NTIID = require('dataserverinterface/utils/ntiids');
+import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 
-var React = require('react/addons');
+import Loading from 'common/components/Loading';
+import ErrorWidget from 'common/components/Error';
 
-var Loading = require('common/components/Loading');
-var ErrorWidget = require('common/components/Error');
-
-var TranscriptedVideo = require('./TranscriptedVideo');
-var VideoGrid = require('./VideoGrid');
+import TranscriptedVideo from './TranscriptedVideo';
+import VideoGrid from './VideoGrid';
 
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'MediaView',
 
 	propTypes: {
@@ -19,29 +17,29 @@ module.exports = React.createClass({
 		videoId: React.PropTypes.string
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: true, error: false, videoIndex: null
 		};
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		this.getDataIfNeeded(this.props);
 	},
 
 
-	componentWillUnmount: function() {},
+	componentWillUnmount () {},
 
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (nextProps.course !== this.props.course) {
 			this.getDataIfNeeded(nextProps);
 		}
 	},
 
 
-	__onError: function(error) {
+	__onError (error) {
 		this.setState({
 			loading: false,
 			error: error,
@@ -50,16 +48,15 @@ module.exports = React.createClass({
 	},
 
 
-	getDataIfNeeded: function(props) {
+	getDataIfNeeded (props) {
 		this.setState(this.getInitialState());
 		try {
 			props.course.getVideoIndex()
-				.then(function(data) {
+				.then(data =>
 					this.setState({
 						loading: false,
 						videoIndex: data
-					});
-				}.bind(this))
+					}))
 				.catch(this.__onError);
 		} catch (e) {
 			this.__onError(e);
@@ -67,12 +64,12 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
+	render () {
 		if (this.state.loading) {return (<Loading/>);}
 		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>); }
 
 		var p = this.props;
-		var videoId = p.videoId && NTIID.decodeFromURI(p.videoId);
+		var videoId = p.videoId && decodeFromURI(p.videoId);
 		var videoIndex = this.state.videoIndex;
 		var video = videoIndex.get(videoId);
 

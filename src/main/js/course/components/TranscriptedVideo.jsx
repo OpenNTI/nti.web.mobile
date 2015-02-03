@@ -1,32 +1,29 @@
-'use strict';
+/* See: https://github.com/mozilla/vtt.js#usage */
+import {
+	WebVTT,
+	VTTCue/*, VTTRegion*/
+} from "vtt.js";
 
-var vtt = require("vtt.js"),//https://github.com/mozilla/vtt.js
-	WebVTT = vtt.WebVTT,
-	VTTCue = vtt.VTTCue/*,
-	VTTRegion = vtt.VTTRegion*/;
+import React from 'react/addons';
 
 
-var React = require('react/addons');
-var emptyFunction = require('react/lib/emptyFunction');
+import {Dom} from 'common/Utils';
+var {addClass} = Dom;
+var {removeClass} = Dom;
 
-var DomUtils = require('common/Utils').Dom;
-var addClass = DomUtils.addClass;
-var removeClass = DomUtils.removeClass;
+import Pager from 'common/components/Pager';
+import LoadingMask from 'common/components/Loading';
 
-var LoadingMask = require('common/components/Loading');
-var Pager = require('common/components/Pager');
-var Video = require('video').Component;
+import {Component as Video} from 'video';
 
-/*
-	See: https://github.com/mozilla/vtt.js#usage
+import Transcript from './Transcript';
 
-*/
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'TranscriptedVideo',
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: true,
 			error: false,
@@ -36,36 +33,31 @@ module.exports = React.createClass({
 		};
 	},
 
-	__getContext: function() {
-		this.props.contextProvider(this.props).then(function(result) {
-			this.setState({
-				context: result
-			});
-		}.bind(this));
+	__getContext () {
+		this.props.contextProvider(this.props).then(context =>
+			this.setState({ context }));
 	},
 
-	componentDidMount: function() {
-		//Store.addChangeListener(this._onChange);
+	componentDidMount () {
 		this.getDataIfNeeded(this.props);
 		addClass(document.body, 'dark');
 		this.__getContext();
 	},
 
 
-	componentWillUnmount: function() {
-		//Store.removeChangeListener(this._onChange);
+	componentWillUnmount () {
 		removeClass(document.body, 'dark');
 	},
 
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (nextProps.video !== this.props.video) {
 			this.getDataIfNeeded(nextProps);
 		}
 		this.__getContext();
 	},
 
-	__onError: function(error) {
+	__onError (error) {
 		this.setState({
 			loading: false,
 			error: error,
@@ -79,14 +71,14 @@ module.exports = React.createClass({
 		try {
 			let {video} = props;
 
-			video.getTranscript('en').then(
-				function whenLoaded(vtt) {
+			video.getTranscript('en')
+				.then(vtt => {
 					var parser = new WebVTT.Parser(global, WebVTT.StringDecoder()),
 	        			cues = [], regions = [];
 
-				    parser.oncue = function(cue) { cues.push(cue); };
-					parser.onregion = function(region) { regions.push(region); };
-					parser.onparsingerror = function(e) { throw e; };
+				    parser.oncue = cue=> cues.push(cue);
+					parser.onregion = region=> regions.push(region);
+					parser.onparsingerror = e=> {throw e;};
 
 					if (!global.VTTCue) {
 						global.VTTCue = VTTCue;
@@ -105,9 +97,8 @@ module.exports = React.createClass({
 						regions: regions
 					});
 
-				}.bind(this),
-
-				function whenRejected(reason) {
+				})
+				.catch(reason=> {
 					if (reason === video.NO_TRANSCRIPT ||
 						reason === video.NO_TRANSCRIPT_LANG) {
 						this.setState({
@@ -116,7 +107,7 @@ module.exports = React.createClass({
 					}
 					return Promise.reject(reason);
 
-				}.bind(this))
+				})
 
 				.catch(this.__onError);
 
@@ -126,7 +117,7 @@ module.exports = React.createClass({
 	},
 
 
-	onVideoTimeTick: function(event) {
+	onVideoTimeTick (event) {
 		var time = (event.target || {}).currentTime;
 		if (this.isMounted()) {
 			this.setState({currentTime: time});
@@ -134,14 +125,14 @@ module.exports = React.createClass({
 	},
 
 
-	onJumpTo: function (time) {
+	onJumpTo  (time) {
 		this.refs.video.setCurrentTime(parseFloat(time));
 	},
 
 
-	render: function() {
+	render () {
 		var collection=this.props.parentPath;
-		var state = this.state;
+		var {cues, regions, currentTime} = this.state;
 		var pages = this.props.video.getPageSource();
 
 		return (
@@ -149,74 +140,27 @@ module.exports = React.createClass({
 				<a href={collection} className="toolbar-button-left fi-thumbnails"/>
 				<Pager pageSource={pages} current={this.props.video.getID()}/>
 				<LoadingMask loading={this.state.loading}>
+
 					<Video ref="video"
 							src={this.props.video}
 							onTimeUpdate={this.onVideoTimeTick}
 							context={this.state.context}
 							transcript={true}
 							autoPlay/>
+
 					<div className="transcript">
 						{
 							this.state.error ?
 								<div>Transcript not available</div> :
 								<Transcript ref="transcript"
-									cues={state.cues}
-									regions={state.regions}
 									onJumpTo={this.onJumpTo}
-									currentTime={state.currentTime}/>
+									currentTime={currentTime}
+									regions={regions}
+									cues={cues}
+								/>
 						}
 					</div>
 				</LoadingMask>
-			</div>
-		);
-	}
-});
-
-
-var Transcript = React.createClass({
-	displayName: 'Transcript',
-
-
-	propTypes: {
-		onJumpTo: React.PropTypes.func
-	},
-
-
-	getDefaultProps: function() {
-		return {
-			onJumpTo: emptyFunction
-		};
-	},
-
-
-	onJumpToCue: function(e) {
-		e.preventDefault();
-		this.props.onJumpTo(e.target.getAttribute('data-start-time'));
-	},
-
-
-	renderCues: function(cue) {
-		var divider = null;
-		var time = this.props.currentTime;
-
-		var active = (cue.startTime < time && time <= cue.endTime) ? 'active' : '';
-
-		//There is HTML escaped text in the cue, so we have to
-		// use: "dangerouslySetInnerHTML={{__html: ''}}"
-		return [
-			divider,
-			(<a href="#" data-start-time={cue.startTime}
-				className={active}
-				onClick={this.onJumpToCue}
-				dangerouslySetInnerHTML={{__html: cue.text}}/>)
-		];
-	},
-
-
-	render: function() {
-		return (
-			<div className="cues">
-				{(this.props.cues || []).map(this.renderCues)}
 			</div>
 		);
 	}
