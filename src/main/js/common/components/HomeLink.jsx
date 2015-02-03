@@ -1,13 +1,10 @@
-'use strict';
+import React from 'react/addons';
+import CourseActions from 'course/Actions';
 
-var React = require('react/addons');
-var CourseActions = require('../../course/Actions');
+import BasePathAware from '../mixins/BasePath';
 
-var HomeLink = React.createClass({
-
-	propTypes: {
-		basePath: React.PropTypes.string.isRequired
-	},
+export default React.createClass({
+	mixins: [BasePathAware],
 
 	_onClick: function() {
 		CourseActions.setCourse(null);
@@ -15,10 +12,8 @@ var HomeLink = React.createClass({
 
 	render: function() {
 		return (
-			<a href={this.props.basePath} onClick={this._onClick}>Home</a>
+			<a href={this.getBasePath()} onClick={this._onClick}>Home</a>
 		);
 	}
 
 });
-
-module.exports = HomeLink;

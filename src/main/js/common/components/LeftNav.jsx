@@ -10,8 +10,8 @@ var HomeLink = require('./HomeLink');
 
 module.exports = React.createClass({
 	displayName: 'LeftNav',
+
 	propTypes: {
-		basePath: React.PropTypes.string.isRequired,
 		items: React.PropTypes.array.isRequired
 	},
 
@@ -42,17 +42,16 @@ module.exports = React.createClass({
 
 	render: function() {
 
-		var basePath = this.props.basePath;
 		var record = this.props.items[this.state.index];
 
 		var child = this.props.isLoading ?
 			<Loading /> :
-			(record ? <NavDrawerItem record={record} basePath={basePath}/> : null);
+			(record ? <NavDrawerItem record={record}/> : null);
 
 		return (
 			<div>
 				<ul className="off-canvas-list">
-					<li><HomeLink basePath={basePath} /></li>
+					<li><HomeLink /></li>
 					{child}
 				</ul>
 				<div className="text-center logout"><LogoutButton /></div>

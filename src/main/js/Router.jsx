@@ -17,8 +17,11 @@ var NotFound = require('notfound/components/View');
 
 var Redirect = require('navigation/components/Redirect');
 
+var BasePathAware = require('common/mixins/BasePath');
+
 module.exports = React.createClass({
 	displayName: 'Router',
+	mixins: [BasePathAware],
 
 
 	onNavigation: function() {
@@ -34,7 +37,7 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var basePath = this.props.basePath;
+		var basePath = this.getBasePath();
 		return (
 			<Router.Locations path={this.props.path} onNavigation={this.onNavigation}>
 				<Router.Location path={basePath + 'login/*'} handler={Login.View} basePath={basePath}/>

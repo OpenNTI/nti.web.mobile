@@ -104,9 +104,7 @@ var App = React.createClass({
 
 
 	render: function() {
-		var basePath = this.props.basePath;
-
-		var path = this.props.path || location.href;
+	var path = this.props.path || location.href;
 		var isLoginView = /\/login/i.test(path);
 
 		var Wrapper = isLoginView ? 'div' : AppContainer;
@@ -117,8 +115,8 @@ var App = React.createClass({
 
 		return (
 			<CaptureClicks>
-				<Wrapper basePath={basePath}>
-					<Router path={this.props.path} basePath={basePath} onNavigation={this._onNavigation}/>
+				<Wrapper>
+					<Router path={this.props.path} onNavigation={this._onNavigation}/>
 				</Wrapper>
 			</CaptureClicks>
 		);

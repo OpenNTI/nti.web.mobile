@@ -8,6 +8,8 @@ var Avatar = require('common/components/Avatar');
 var LeftNav = require('common/components/LeftNav');
 var Footer = require('common/components/Footer');
 
+var BasePathAware = require('common/mixins/BasePath');
+
 var MessageDisplay = require('messages').Display;
 var Utils = require('common/Utils');
 
@@ -32,10 +34,8 @@ var DRAWER_STATE = {
 
 module.exports = React.createClass({
 	displayName: 'AppContainer',
+	mixins: [BasePathAware],
 
-	propTypes: {
-		basePath: React.PropTypes.string.isRequired
-	},
 
 	_navChanged: function() {
 		this.setState({
@@ -43,6 +43,7 @@ module.exports = React.createClass({
 			navLoading: Navigation.Store.isLoading()
 		});
 	},
+
 
 	getInitialState: function() {
 		return {
@@ -101,7 +102,7 @@ module.exports = React.createClass({
 							</section>
 
 							<section className="middle tab-bar-section">
-								<a href={this.props.basePath}>
+								<a href={this.getBasePath()}>
 									<h1 className="title">next thought</h1></a>
 							</section>
 
@@ -113,7 +114,7 @@ module.exports = React.createClass({
 						</nav>
 
 						<aside className="left-off-canvas-menu" style={height}>
-							<LeftNav basePath={this.props.basePath}
+							<LeftNav
 								isLoading={this.state.navLoading}
 								items={this.state.leftNav} />
 						</aside>
