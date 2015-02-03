@@ -1,7 +1,7 @@
 'use strict';
 var React = require('react/addons');
 
-var Assessment = require('assessment');
+var QuestionWidget = require('assessment/components/Question');
 
 module.exports = React.createClass({
 	displayName: 'NAQuestion',
@@ -40,7 +40,7 @@ module.exports = React.createClass({
 		if (!question) {return null;}
 
 		return (
-			<Assessment.QuestionWidget
+			<QuestionWidget
 				contentHints={this.props.item}
 				question={question}/>
 		);

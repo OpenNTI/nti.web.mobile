@@ -6,7 +6,7 @@ var React = require('react/addons');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 // var DateTime = require('common/components/DateTime');
 var Score = require('common/components/charts/Score');
-var AssessmentAPI = require('assessment').Api;
+var AssessmentAPI = require('assessment/Api');
 var AssignmentStatusLabel = require('assessment/components/AssignmentStatusLabel');
 
 var Utils = require('common/Utils');
