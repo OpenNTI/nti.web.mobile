@@ -2,25 +2,58 @@ import React from 'react/addons';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import {Link} from 'react-router-component';
 
-var BarItem = React.createClass({
-	mixins: [NavigatableMixin],
+import SectionAware from '../mixins/GetListForSection';
 
-	isActive () {
-		return this.getPath().indexOf(this.props.href) === 0;
+var BarItem = React.createClass({
+	mixins: [NavigatableMixin, SectionAware],
+
+	propTypes: {
+		section: React.PropTypes.string.isRequired,
+		forced: React.PropTypes.bool
 	},
 
-	render () {
-		var {href} = this.props;
-		var css = ['item'];
+
+	getSectionName () {
+		return this.props.section;
+	},
+
+
+	isActive () {
+		return this.getPath().indexOf(this.getHref()) === 0;
+	},
+
+
+	canRender () {
+		return this.props.forced || this.isActive() || this.getListForSection(this.getSectionName()).length;
+	},
+
+
+	getHref () {
+		var section = this.getSectionName();
+		return `/${section}/`;
+	},
+
+
+	getClassNames () {
+		var list = ['item'];
 
 		if(this.isActive()) {
-			css.push('active');
+			list.push('active');
 		}
 
-		var props = {
-			className: css.join(' '),
-			href
-		};
+		return list.join(' ');
+	},
+
+
+	render () {
+		if (!this.canRender()) {
+			return null;
+		}
+
+		var href = this.getHref();
+		var className = this.getClassNames();
+
+		var props = {className, href};
 
 		return (
 			<Link {...props}><label>{this.props.children}</label></Link>
@@ -36,10 +69,10 @@ export default React.createClass({
 	render () {
 		return (
 			<div className="icon-bar three-up">
-				<BarItem href="/admin/">Admin</BarItem>
-				<BarItem href="/courses/">Courses</BarItem>
-				<BarItem href="/books/">Books</BarItem>
-				<BarItem href="/catalog/">Catalog</BarItem>
+				<BarItem section="admin">Admin</BarItem>
+				<BarItem section="courses">Courses</BarItem>
+				<BarItem section="books">Books</BarItem>
+				<BarItem section="catalog" forced>Catalog</BarItem>
 			</div>
 		);
 	}
