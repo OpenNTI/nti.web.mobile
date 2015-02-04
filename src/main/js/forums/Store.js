@@ -1,13 +1,12 @@
-'use strict';
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import TypedEventEmitter from 'common/TypedEventEmitter';
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var TypedEventEmitter = require('common/TypedEventEmitter');
+import Constants from './Constants';
+import Api from './Api';
 
-var Constants = require('./Constants');
-var Api = require('./Api');
-var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
-var NTIID = require('dataserverinterface/utils/ntiids');
-var indexForums = require('./utils/index-forums');
+import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
+import indexForums from './utils/index-forums';
+
 var _discussions = {};
 var _forums = {}; // forum objects by id.
 var _forumContents = {};
@@ -15,22 +14,12 @@ var _objectContents = {};
 var _objects = {};
 var _courseId;
 
-var Store = Object.assign({}, TypedEventEmitter, {
-	displayName: 'forums.Store',
+class Store extends TypedEventEmitter {
 
-	/**
-	 * @param {function} callback
-	 */
-	addChangeListener: function(callback) {
-		this.on(CHANGE_EVENT, callback);
-	},
-
-	/**
-	 * @param {function} callback
-	 */
-	removeChangeListener: function(callback) {
-		this.removeListener(CHANGE_EVENT, callback);
-	},
+	constructor() {
+		super();
+		this.setMaxListeners(0);
+	}
 
 	setDiscussions(courseId, data) {
 		_discussions[courseId] = dataOrError(data);
@@ -39,15 +28,15 @@ var Store = Object.assign({}, TypedEventEmitter, {
 			type: Constants.DISCUSSIONS_CHANGED,
 			courseId: courseId
 		});
-	},
+	}
 
 	getDiscussions(courseId) {
 		return _discussions[courseId];
-	},
+	}
 
 	getForum(forumId) {
-		return _forums[NTIID.decodeFromURI(forumId)];
-	},
+		return _forums[decodeFromURI(forumId)];
+	}
 
 	setBoardContents(courseId, boardId, data) {
 		_forumContents[boardId] = dataOrError(data);
@@ -55,28 +44,28 @@ var Store = Object.assign({}, TypedEventEmitter, {
 			type: Constants.BOARD_CONTENTS_CHANGED,
 			forumId: boardId
 		});
-	},
+	}
 
 	setCourseId(courseId) {
 		_courseId = courseId;
-	},
+	}
 
 	getCourseId() {
 		return _courseId;
-	},
+	}
 
 	getForumContents(forumId) {
 		return _forumContents[forumId];
-	},
+	}
 
 	getObjectContents(objectId) {
 		var key = this.__keyForContents(objectId);
 		return _objectContents[key];
-	},
+	}
 
 	getObject(objectId) {
 		return _objects[this.__keyForObject(objectId)];
-	},
+	}
 
 	setObject(ntiid, object) {
 		var key = this.__keyForObject(ntiid);
@@ -86,7 +75,7 @@ var Store = Object.assign({}, TypedEventEmitter, {
 			ntiid: ntiid,
 			object: object
 		});
-	},
+	}
 
 	deleteObject(object) {
 		var objectId = object && object.getID ? object.getID() : object;
@@ -96,7 +85,7 @@ var Store = Object.assign({}, TypedEventEmitter, {
 			objectId: objectId,
 			object: object
 		});
-	},
+	}
 
 	setObjectContents(objectId, contents) {
 		var key = this.__keyForContents(objectId);
@@ -105,46 +94,46 @@ var Store = Object.assign({}, TypedEventEmitter, {
 			type: Constants.OBJECT_CONTENTS_CHANGED,
 			objectId: objectId,
 		});
-	},
+	}
 
-	commentAdded: function(data) {
+	commentAdded (data) {
 		this.emitChange({
 			type: Constants.COMMENT_ADDED,
 			data: data
 		});
-	},
+	}
 
-	commentSaved: function(result) {
+	commentSaved (result) {
 		this.setObject(result.getID(), result);
 		this.emitChange({
 			type: Constants.COMMENT_SAVED,
 			data: result
 		});
-	},
+	}
 
-	commentError: function(data) {
+	commentError (data) {
 		this.emitError({
 			type: Constants.COMMENT_ERROR,
 			data: data
 		});
-	},
+	}
 
-	topicCreationError: function(data) {
+	topicCreationError (data) {
 		this.emitError({
 			type: Constants.TOPIC_CREATION_ERROR,
 			data: data
 		});
-	},
-
-	__keyForContents(objectId) {
-		return [NTIID.decodeFromURI(objectId), 'contents'].join(':');
-	},
-
-	__keyForObject(objectId) {
-		return [NTIID.decodeFromURI(objectId), 'object'].join(':');
 	}
 
-});
+	__keyForContents(objectId) {
+		return [decodeFromURI(objectId), 'contents'].join(':');
+	}
+
+	__keyForObject(objectId) {
+		return [decodeFromURI(objectId), 'object'].join(':');
+	}
+
+}
 
 // convenience method for creating an error object
 // for failed fetch attempts
@@ -274,7 +263,6 @@ function reportItem(item) {
 	});
 }
 
-Store.setMaxListeners(0);
 
 Store.appDispatch = AppDispatcher.register(function(payload) {
 	var action = payload.action;
@@ -314,4 +302,4 @@ Store.appDispatch = AppDispatcher.register(function(payload) {
 	return true;
 });
 
-module.exports = Store;
+module.exports = new Store();
