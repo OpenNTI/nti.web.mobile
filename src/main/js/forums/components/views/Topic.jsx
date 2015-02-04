@@ -33,6 +33,7 @@ var _SHOW_FORM = 'showForm';
 var _SHOW_REPLIES = 'showReplies';
 
 module.exports = React.createClass({
+	displayName: 'Topic',
 
 	mixins: [
 		require('analytics/mixins/ResourceLoaded'),

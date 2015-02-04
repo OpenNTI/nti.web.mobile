@@ -4,7 +4,7 @@ var React = require('react/addons');
 
 var Avatar = require('common/components/Avatar');
 var DateTime = require('common/components/DateTime');
-var DisplayName = require('common/components/DisplayName');
+var DisplayName = require('common/components/DisplayName').default;
 var Loading = require('common/components/LoadingInline');
 
 var ModeledContentPanel = require('modeled-content').Panel;
