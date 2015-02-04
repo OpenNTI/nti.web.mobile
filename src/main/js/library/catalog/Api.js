@@ -1,33 +1,15 @@
-'use strict';
+import Catalog from 'dataserverinterface/stores/Catalog';
 
-var Catalog = require('dataserverinterface/stores/Catalog');
-
-var getService = require('common/Utils').getService;
+import {getService} from 'common/Utils';
 
 var _catalog;
 
-
-function load(reload) {
-	return getService()
-		.then(function(service){
-			return Catalog.load(service, reload);
-	});
-}
-
-
-function getCatalog(reload) {
+export function getCatalog(reload) {
 
 	if (!_catalog || reload) {
-		_catalog = load(reload);
+		_catalog = getService()
+			.then(service => Catalog.load(service, reload));
 	}
 
 	return _catalog;
 }
-
-
-
-module.exports = {
-
-	getCatalog: getCatalog
-
-};

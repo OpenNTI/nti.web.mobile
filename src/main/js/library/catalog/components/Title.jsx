@@ -1,29 +1,29 @@
-'use strict';
-
-var React = require('react/addons');
-
-var Video = require('video').Component;
+import React from 'react/addons';
+import {Component as Video} from 'video';
 
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Title',
 
-	render: function() {
-		var e = this.props.entry || {};
-		var videoURL = e.Video;
-		var context = [e.getID()];
+	render () {
+		var {entry} = this.props;
+		if (!entry) {return;}
+
+		var videoSrc = entry.Video;
+		var context = [entry.getID()];
+
 		return (
-			<div className={'header ' + (videoURL? 'with-video' : '')}>
-				{videoURL ?
+			<div className={'header ' + (videoSrc? 'with-video' : '')}>
+				{videoSrc ?
 					<div className="row">
 						<div className="columns video-wrap">
-							<Video src={videoURL} context={context}/>
+							<Video src={videoSrc} context={context}/>
 						</div>
 					</div> : null}
 
 				<div className="title">
 					<div className="row">
-						<div className="columns text">{e.Title}</div>
+						<div className="columns text">{entry.Title}</div>
 					</div>
 				</div>
 			</div>

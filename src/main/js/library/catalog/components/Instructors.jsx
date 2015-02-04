@@ -1,50 +1,44 @@
-'use strict';
+import React from 'react/addons';
+import pad from 'zpad';
 
-var React = require('react/addons');
-var pad = require('zpad');
+import {BLANK_AVATAR, BLANK_IMAGE} from 'common/constants/DataURIs';
 
-var BLANK_AVATAR = require('common/constants/DataURIs').BLANK_AVATAR;
-var BLANK_IMAGE = require('common/constants/DataURIs').BLANK_IMAGE;
+import {scoped} from 'common/locale';
 
-var locale = require('common/locale').translate;
-function _t(key, options) { return locale('COURSE_INFO.' + key, options); }
+const _t = scoped('COURSE_INFO');
 
 var Instructor = React.createClass({
 	displayName: 'Instructor',
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			photo: BLANK_AVATAR
 		};
 	},
 
 
-
-	componentDidMount: function() {
-		var me = this;
-		var props = me.props;
+	componentDidMount () {
+		var {assetRoot, index} = this.props;
 		var img = new Image();
 
-		img.onload = function () {
-			if (!me.isMounted()) {
+		img.onload = () => {
+			if (!this.isMounted()) {
 				return;
 			}
 
-			me.setState({photo: img.src});
+			this.setState({photo: img.src});
 		};
 
-		img.src = props.assetRoot + 'instructor-photos/' + pad(props.index + 1) + '.png';
+		img.src = assetRoot + 'instructor-photos/' + pad(index + 1) + '.png';
 	},
 
 
-	render: function() {
-		var props = this.props;
-		var i = props.instructor || {};
-
-		var background = {
-			backgroundImage: 'url(' + this.state.photo + ')'
-		};
+	render () {
+		var {photo} = this.state;
+		var {instructor} = this.props;
+		var {Name, JobTitle} = instructor;
+		var background = {backgroundImage: `url(${photo})`};
 
 		return (
 			<div className="row instructor">
@@ -52,8 +46,8 @@ var Instructor = React.createClass({
 					<img style={background} src={BLANK_IMAGE} alt="Instructor Photo"/>
 					<div className='meta'>
 						<div className="label">{_t('Instructor')}</div>
-						<div className="name">{i.Name}</div>
-						<div className="job-title">{i.JobTitle}</div>
+						<div className="name">{Name}</div>
+						<div className="job-title">{JobTitle}</div>
 					</div>
 				</div>
 			</div>
@@ -62,22 +56,22 @@ var Instructor = React.createClass({
 });
 
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Instructors',
-	render: function() {
-		var e = this.props.entry;
-		var instructors = (e || {}).Instructors || [];
+	render () {
+		var {entry} = this.props;
+		var instructors = ((entry || {}).Instructors) || [];
 		var root = '/no-root/';
 
-		if (e) {
-			root = e.getAssetRoot() || e;
+		if (entry) {
+			root = entry.getAssetRoot() || root;
 		}
 
 		return (
 			<div className="instructors">
-			{instructors.map(function(i, index) {
-				return (<Instructor key={i.Name} index={index} assetRoot={root} instructor={i}/>);
-			})}
+			{instructors.map((i, index) =>
+				<Instructor key={i.Name} index={index} assetRoot={root} instructor={i}/>
+			)}
 			</div>
 		);
 	}

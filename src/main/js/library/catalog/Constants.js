@@ -1,29 +1,18 @@
-'use strict';
+
+
 /**
- * Constants related to (and used by) the catalog modules.
- * @class CatalogConstants
+ *
+ * @event LOAD_CATALOG
+ * @type String
+ * @final
  */
-
-var keyMirror = require('react/lib/keyMirror');
-
-
-module.exports = Object.assign(exports, keyMirror({
-
-	/**
-	 *
-	 * @event LOAD_CATALOG
-	 * @type String
-	 * @final
-	 */
-	LOAD_CATALOG: null,
+export const LOAD_CATALOG = 'catalog:LOAD';
 
 
-	/**
-	 *
-	 * @event LOADED_CATALOG
-	 * @type String
-	 * @final
-	 */
-	LOADED_CATALOG: null
-
-}));
+/**
+ *
+ * @event LOADED_CATALOG
+ * @type String
+ * @final
+ */
+export const LOADED_CATALOG = 'catalog:LOADED';

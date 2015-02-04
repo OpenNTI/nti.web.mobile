@@ -1,19 +1,17 @@
-'use strict';
+import React from 'react/addons';
 
-var React = require('react/addons');
+import Title from './Title';
+import Description from './Description';
+import Instructors from './Instructors';
 
-var Title = require('./Title');
-var Description = require('./Description');
-var Instructors = require('./Instructors');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Detail',
 	propTypes: {
 		entry: React.PropTypes.object
 	},
 
-	render: function() {
-		var entry = this.props.entry;
+	render () {
+		var {entry} = this.props;
 		return (
 			<div className="course-detail-view">
 				<Title entry={entry} />

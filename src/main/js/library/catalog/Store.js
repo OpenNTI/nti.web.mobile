@@ -1,71 +1,44 @@
-'use strict';
+import {LOADED_CATALOG} from './Constants';
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
+import StorePrototype from 'common/StorePrototype';
 
+const data = Symbol('data');
+const SetData = Symbol('set:data');
 
-var Constants = require('./Constants');
+class Store extends StorePrototype {
 
-var CHANGE_EVENT = 'change';
-
-var _data = {};
-
-var Store = Object.assign({}, EventEmitter.prototype, {
-	displayName: 'catalog.Store',
-
-	emitChange: function(evt) {
-		this.emit(CHANGE_EVENT, evt);
-	},
-
-	/**
-	 * @param {function} callback
-	 */
-	addChangeListener: function(callback) {
-		this.on(CHANGE_EVENT, callback);
-	},
-
-	/**
-	 * @param {function} callback
-	 */
-	removeChangeListener: function(callback) {
-		this.removeListener(CHANGE_EVENT, callback);
-	},
+	constructor () {
+		super();
+		this.registerHandlers({
+			[LOADED_CATALOG]: SetData
+		});
+	}
 
 
-	getData: function() {
-		return _data;
-	},
+	get isLoaded () {
+		return !!this[data];
+	}
 
 
-	getEntry: function(id) {
+	[SetData] (payload) {
+		var d = this[data] = payload.action.response;
+		d.applied = new Date();
+		this.emitChange({type: LOADED_CATALOG});
+	}
+
+
+	getData () { return this[data]; }
+
+
+	getEntry (id) {
+		var d = this[data];
 		var entry = {loading: true};
-		if (_data.findEntry) {
-			entry = _data.findEntry(id);
+		if (d && d.findEntry) {
+			entry = d.findEntry(id);
 		}
+
 		return entry;
 	}
-});
-
-
-function persistData(data) {
-	_data = data;
-	_data.loaded = true;
 }
 
-
-Store.appDispatch = AppDispatcher.register(function(payload) {
-    var action = payload.action;
-    switch(action.type) {
-    //TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-        case Constants.LOADED_CATALOG:
-            persistData(action.response);
-            break;
-        default:
-            return true;
-    }
-    Store.emitChange();
-    return true;
-});
-
-
-module.exports = Store;
+export default new Store();

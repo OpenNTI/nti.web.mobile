@@ -1,46 +1,41 @@
-'use strict';
-var React = require('react/addons');
-var NTIID = require('dataserverinterface/utils/ntiids');
-var BLANK_IMAGE = require('common/constants/DataURIs').BLANK_IMAGE;
-var Link = require('react-router-component').Link;
+import React from 'react/addons';
 
-module.exports = React.createClass({
+import {encodeForURI} from 'dataserverinterface/utils/ntiids';
+import {BLANK_IMAGE} from 'common/constants/DataURIs';
+import {Link} from 'react-router-component';
+
+export default React.createClass({
 	displayName: 'Entry',
+
 	propTypes: {
 		item: React.PropTypes.object.isRequired
 	},
 
+	getItem () {return this.props.item;},
+	itemChanged () {this.forceUpdate(); },
 
-	componentWillMount: function() {
-		this.props.item.addListener('changed', this._onChange);
-	},
+	componentWillMount () { this.getItem().addListener('changed', this.itemChanged); },
+	componentWillUnmount () { this.getItem().removeListener('changed', this.itemChanged); },
 
+	render () {
+		var item = this.getItem();
+		if (!item) {return;}
 
-	componentWillUnmount: function() {
-		this.props.item.removeListener('changed', this._onChange);
-	},
+		var courseId = encodeForURI(item.getID());
 
-
-	_onChange: function() {
-		this.forceUpdate();
-	},
-
-
-	render: function() {
-		var p = this.props.item;
-		var courseId = NTIID.encodeForURI(this.props.item.getID());
 		var style = {
-			backgroundImage: p && p.icon && 'url(' + p.icon + ')'
+			backgroundImage: item && item.icon && 'url(' + item.icon + ')'
 		};
 
 		var href = '/item/' + courseId + '/';
+
 		return (
 			<li className="grid-item">
 				<Link href={href}>
 					<img style={style} src={BLANK_IMAGE}/>
 					<div className="metadata">
-						<h3>{p.Title}</h3>
-						<h5>{p.ProviderUniqueID}</h5>
+						<h3>{item.Title}</h3>
+						<h5>{item.ProviderUniqueID}</h5>
 					</div>
 				</Link>
 			</li>

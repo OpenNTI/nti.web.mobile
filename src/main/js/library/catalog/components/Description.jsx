@@ -1,17 +1,14 @@
-'use strict';
+import React from 'react/addons';
+import moment from 'moment';
+import isEmpty from 'dataserverinterface/utils/isempty';
+import {scoped, translate as locale} from 'common/locale';
 
-var React = require('react/addons');
-var moment = require('moment');
-var isEmpty = require('dataserverinterface/utils/isempty');
+const _t = scoped('COURSE_INFO');
 
-var locale = require('common/locale').translate;
-function _t(key, options) { return locale('COURSE_INFO.' + key, options); }
+const isOpenEnrolled = RegExp.prototype.test.bind(/open/i);
 
-var isOpenEnrolled = RegExp.prototype.test.bind(/open/i);
-
-
-var OpenEnrolledMessage = React.createClass({
-	render: function() {
+const OpenEnrolledMessage = React.createClass({
+	render () {
 		return (
 			<div className="open">
 				{_t('OpenEnrolled')} <span className="red">{_t('OpenEnrolledIsNotForCredit')}</span>
@@ -21,22 +18,20 @@ var OpenEnrolledMessage = React.createClass({
 });
 
 
-var CreditHours = React.createClass({
-	render: function() {
+const CreditHours = React.createClass({
+	render () {
 		var keyPrefix = this.props.entry + '-credit-';
 		var credits = this.props.credit || [];
 		//var hours = (credits[0] || {}).Hours;
 
 		return (
 			<div className="enroll-for-credit">
-			{/*
-			{locale('UNITS.credits', { count: hours  })} {_t('CREDIT.available')}<br />
-			*/}
-				{credits.map(function(credit, i) {
+				{/*{locale('UNITS.credits', { count: hours  })} {_t('CREDIT.available')}<br />*/}
+				{credits.map((credit, i) => {
 					var e = credit.Enrollment || {};
 					return (
 						<div className="credit" key={keyPrefix + i}>
-					{locale('UNITS.credits', { count: credit.Hours  })} {_t('CREDIT.available')}<br />
+							{locale('UNITS.credits', { count: credit.Hours  })} {_t('CREDIT.available')}<br />
 							<a href={e.url} target="_blank">{e.label}</a>
 						</div>
 					);
@@ -47,27 +42,23 @@ var CreditHours = React.createClass({
 });
 
 
-var FullyOnline = React.createClass({
-	render: function() {
-		return (
-			<div className="value">
-				{_t('OnlyOnline')}
-			</div>
-		);
+const FullyOnline = React.createClass({
+	render () {
+		return (<div className="value">{_t('OnlyOnline')}</div>);
 	}
 });
 
 
-var Schedule = React.createClass({
+const Schedule = React.createClass({
 
-	_f: function (d) {
+	_f (d) {
 		var date = this.props.startDate.split('T')[0];//YUCK
 		date = [date, d].join('T'); //ICK!
 
 		return moment(date).format('h:mm a');
 	},
 
-	render: function() {
+	render () {
 		var schedule = this.props.schedule;
 		return (
 			<div className="value">
@@ -81,10 +72,10 @@ var Schedule = React.createClass({
 });
 
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Description',
 
-	render: function() {
+	render () {
 		var enrollmentStatus = this.props.enrollmentStatus || 'None';
 		var EnrollmentMessage = isOpenEnrolled(enrollmentStatus) ?
 				OpenEnrolledMessage : 'div';
@@ -115,9 +106,7 @@ module.exports = React.createClass({
 								<tr>
 									<td>Prerequisites</td>
 									<td>
-										{(prerequisites || []).map(function(_) {
-											return (<div key={_}>{_}</div>);
-										})}
+										{(prerequisites || []).map(_ => (<div key={_}>{_}</div>))}
 									</td>
 								</tr>
 								<tr>

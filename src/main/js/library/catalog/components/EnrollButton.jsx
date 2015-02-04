@@ -1,21 +1,20 @@
-'use strict';
+import React from 'react/addons';
+import EnrollmentOptions from 'enrollment/mixins/EnrollmentMixin';
+import LoadingInline from 'common/components/LoadingInline';
+import {encodeForURI} from 'dataserverinterface/utils/ntiids';
+import ButtonFullWidth from 'common/forms/components/ButtonFullWidth';
+import Giftable from 'enrollment/components/enrollment-option-widgets/Giftable';
+import RedeemButton from 'enrollment/components/enrollment-option-widgets/RedeemButton';
 
-var React = require('react/addons');
-var EnrollmentOptions = require('../mixins/EnrollmentMixin');
-var LoadingInline = require('common/components/LoadingInline');
-var NTIID = require('dataserverinterface/utils/ntiids');
-var Utils = require('common/Utils');
-var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
-var Giftable = require('enrollment/components/enrollment-option-widgets/Giftable');
-var RedeemButton = require('enrollment/components/enrollment-option-widgets/RedeemButton');
+import BasePathAware from 'common/mixins/BasePath';
 
 /**
-* Displays a link/button to enroll if enrollment options are
-* available for the given catalog entry.
-*/
-var EnrollButton = React.createClass({
-
-	mixins: [EnrollmentOptions],
+ * Displays a link/button to enroll if enrollment options are
+ * available for the given catalog entry.
+ */
+export default React.createClass({
+	displayName: 'EnrollButton',
+	mixins: [EnrollmentOptions, BasePathAware],
 
 	propTypes: {
 		catalogEntry: React.PropTypes.object.isRequired,
@@ -25,15 +24,22 @@ var EnrollButton = React.createClass({
 		dropOnly: React.PropTypes.bool
 	},
 
-	_dropOrEnrollButton: function() {
 
-		if (this.canDrop(this.props.catalogEntry)) {
+	getEntryID () { return this.getEntry().getID(); },
+
+
+	dropOrEnrollButton () {
+
+		if (this.canDrop(this.getEntry())) {
 			// drop button
-			var href = Utils.getBasePath() + 'library/catalog/item/' + NTIID.encodeForURI(this.props.catalogEntry.getID()) + '/enrollment/drop/';
+
+			//ick... full path?!
+			var href = this.getBasePath() + 'library/catalog/item/' + encodeForURI(this.getEntryID()) + '/enrollment/drop/';
+
 			return <ButtonFullWidth href={href}>Drop This Course</ButtonFullWidth>;
 		}
 
-		if (!this.props.dropOnly && this.enrollmentOptions(this.props.catalogEntry).length > 0) {
+		if (!this.props.dropOnly && this.enrollmentOptions(this.getEntry()).length > 0) {
 			var href = this.makeHref('/enrollment/', true);
 			return <ButtonFullWidth href={href}>Enroll</ButtonFullWidth>;
 		}
@@ -41,32 +47,34 @@ var EnrollButton = React.createClass({
 		return null;
 	},
 
-	_giftButton: function() {
-		if (this.hasGiftableEnrollmentOption(this.props.catalogEntry)) {
-			return <Giftable catalogId={this.props.catalogEntry.getID()} fullWidth={true} />;
+
+	giftButton () {
+		if (this.hasGiftableEnrollmentOption(this.getEntry())) {
+			return <Giftable catalogId={this.getEntryID()} fullWidth={true} />;
 		}
 		return null;
 	},
 
-	_redeemButton: function() {
-		var catalogId = this.props.catalogEntry.getID();
-		if (this.hasGiftableEnrollmentOption(this.props.catalogEntry) && !this.isEnrolled(this.getCourseId())) {
+
+	redeemButton () {
+		var catalogId = this.getEntryID();
+		if (this.hasGiftableEnrollmentOption(this.getEntry()) && !this.isEnrolled(this.getCourseId())) {
 			return <RedeemButton catalogId={catalogId} fullWidth={true} />;
 		}
 		return null;
 	},
 
-	_buttons: function() {
+
+	getButtons () {
 		return [
-			this._dropOrEnrollButton(),
-			this._giftButton(),
-			this._redeemButton()
-		].filter(function(item) {
-			return item !== null;
-		});
+			this.dropOrEnrollButton(),
+			this.giftButton(),
+			this.redeemButton()
+		].filter(item => item !== null);
 	},
 
-	render: function() {
+
+	render () {
 
 		if(!this.state.enrollmentStatusLoaded) {
 			return (
@@ -76,15 +84,14 @@ var EnrollButton = React.createClass({
 				</div>);
 		}
 
-		var buttons = this._buttons();
+		var buttons = this.getButtons();
 		if (buttons.length > 0) {
 			return React.createElement.apply(null, ['div', {}].concat(
 					buttons.map(button=>
 						<div className="row"><div className="cell small-12 columns">{button}</div></div>)));
 		}
+
 		return null;
 	}
 
 });
-
-module.exports = EnrollButton;

@@ -1,37 +1,24 @@
-'use strict';
-/** @module catalog/Actions */
+import AppDispatcher from 'dispatcher/AppDispatcher';
+
+import {getCatalog} from './Api';
+import {LOADED_CATALOG} from './Constants';
 
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
+export function reload () {
+	return load(true);
+}
 
-var Api = require('./Api');
-var Constants = require('./Constants');
-
-/**
- * Actions available to views for catalog-related functionality.
- */
-module.exports = Object.assign({}, EventEmitter.prototype, {
-
-	reload: function() {
-		this.loadCatalog(true);
-	},
-
-	loadCatalog: function(reload) {
-        Api.getCatalog(!!reload)
-			.then(function(catalog) {
-				dispatch(Constants.LOADED_CATALOG, catalog);
-			})
-			.catch(function(e){
-	        	console.log('loadCatalog failed. %O', e);
-	        });
-    }
-});
+export function load (reload) {
+    return getCatalog(!!reload)
+		.then(catalog =>
+			dispatch(LOADED_CATALOG, catalog))
+		.catch(e=>{
+			console.log('loadCatalog failed. %O', e);
+			return Promise.reject(e);
+		});
+}
 
 
-function dispatch(key, collection) {
-	AppDispatcher.handleRequestAction({
-		type: key,
-		response: collection
-	});
+function dispatch(type, collection) {
+	AppDispatcher.handleRequestAction({ type, response: collection });
 }

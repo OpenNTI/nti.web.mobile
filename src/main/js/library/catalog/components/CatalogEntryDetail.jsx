@@ -1,49 +1,47 @@
-'use strict';
+import React from 'react/addons';
 
-var React = require('react/addons');
+import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 
-var NotFound = require('notfound/components/View');
+import NotFound from 'notfound/components/View';
+import Loading from 'common/components/Loading';
 
-var Store = require('../Store');
-var Detail = require('./Detail.jsx');
-var Loading = require('common/components/Loading');
-var EnrollButton = require('./EnrollButton');
-var NTIID = require('dataserverinterface/utils/ntiids');
+import Store from '../Store';
 
-var CatalogEntryDetail = React.createClass({
+import Detail from './Detail';
+import EnrollButton from './EnrollButton';
+
+
+export default React.createClass({
+	displayName: 'CatalogEntryDetail',
 
 	propTypes: {
 		entryId: React.PropTypes.string,
 		entry: React.PropTypes.object,
 	},
 
-	getInitialState: function() {
-		return {
-			loading: true
-		};
-	},
+	getInitialState () { return { loading: true }; },
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.addChangeListener(this._onChange);
 		this.getDataIfNeeded(this.props);
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this._onChange);
 	},
 
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (nextProps.entryId !== this.props.entryId || nextProps.entry !== this.props.entry) {
 			this.getDataIfNeeded(nextProps);
 		}
 	},
 
 
-	getDataIfNeeded: function(props) {
-		var entryId = NTIID.decodeFromURI(props.entryId);
+	getDataIfNeeded (props) {
+		var entryId = decodeFromURI(props.entryId);
 		var entry = props.entry || Store.getEntry(entryId);
 		var loading = entry && entry.loading;
 
@@ -56,29 +54,28 @@ var CatalogEntryDetail = React.createClass({
 	},
 
 
-	_onChange: function() {
+	_onChange () {
 		this.getDataIfNeeded(this.props);
 	},
 
 
-	render: function() {
+	render () {
+		var {entry, loading} =  this.state;
 
-		if (this.state.loading) {
+		if (loading) {
 			return (<Loading />);
 		}
 
-		if (!this.state.entry) {
+		if (!entry) {
 			return (<NotFound/>);
 		}
 
 		return (
 			<div>
-				<Detail {...this.props} entry={this.state.entry}/>
-				<EnrollButton catalogEntry={this.state.entry} />
+				<Detail {...this.props} entry={entry}/>
+				<EnrollButton catalogEntry={entry} />
 			</div>
 		);
 	}
 
 });
-
-module.exports = CatalogEntryDetail;
