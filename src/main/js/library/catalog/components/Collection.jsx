@@ -40,7 +40,7 @@ var ListView = React.createClass({
 
 	render: function() {
 		var size = this.getStateFromParent('orientation') === 'landscape' ? 2 : 1;
-		var basePath = this.props.basePath;
+
 		if (!this.props.list.map) {
 			console.warn('this.props.list doesn\'t have a map function? %O', this.props.list);
 			return null;
@@ -49,7 +49,7 @@ var ListView = React.createClass({
 			<div className="grid-container">
 				<ul className={'small-block-grid-' + size + ' medium-block-grid-3 large-block-grid-4'}>
 				{this.props.list.map(function(o) {
-					return <Item key={o.NTIID} item={o} basePath={basePath}/>;
+					return <Item key={o.NTIID} item={o} />;
 				})}
 				</ul>
 			</div>
@@ -78,12 +78,9 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-
-		var basePath = this.props.basePath;
-
 		return (
 			<Filter {...this.props} filters={filters}>
-				<ListView title={this.props.title} basePath={basePath} />
+				<ListView title={this.props.title} />
 			</Filter>
 		);
 	}

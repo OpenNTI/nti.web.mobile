@@ -8,6 +8,8 @@ var Locations = Router.Locations;
 var Location = Router.Location;
 var DefaultRoute = Router.NotFound;
 
+var BasePathAware = require('common/mixins/BasePath');
+
 var Loading = require('common/components/Loading');
 var Redirect = require('navigation/components/Redirect');
 
@@ -31,7 +33,7 @@ var QueryString = require('query-string');
 
 var View = React.createClass({
 
-	mixins: [Router.NavigatableMixin], // needed for getPath() call we're using for the router's key.
+	mixins: [BasePathAware, Router.NavigatableMixin], // needed for getPath() call we're using for the router's key.
 
 	clearMessages: function() {
 		Actions.clearErrors();
@@ -73,7 +75,7 @@ var View = React.createClass({
 			return (<Loading />);
 		}
 
-		var basePath = this.props.basePath;
+		var basePath = this.getBasePath();
 		var loc = global.location || {};
 		var returnPath;
 
@@ -101,10 +103,10 @@ var View = React.createClass({
 							contextual
 							key={this.getPath()}>
 							<DefaultRoute handler={LoginForm} />
-							<Location path="/pwreset/:username/:token" handler={PasswordResetForm} basePath={basePath} links={this.state.links} />
-							<Location path="/forgot/:param" handler={ForgotForm} basePath={basePath} links={this.state.links} />
-							<Location path="/signup/confirm" handler={SignupConfirm} basePath={basePath} links={this.state.links} />
-							<Location path="/signup/*" handler={SignupForm} basePath={basePath} links={this.state.links} />
+							<Location path="/pwreset/:username/:token" handler={PasswordResetForm} links={this.state.links} />
+							<Location path="/forgot/:param" handler={ForgotForm} links={this.state.links} />
+							<Location path="/signup/confirm" handler={SignupConfirm} links={this.state.links} />
+							<Location path="/signup/*" handler={SignupForm} links={this.state.links} />
 						</Locations>
 					</ReactCSSTransitionGroup>
 				</div>

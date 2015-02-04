@@ -1,61 +1,63 @@
-'use strict';
-var NTIID = require('dataserverinterface/utils/ntiids');
-var React = require('react/addons');
-var Router = require('react-router-component');
+import NTIID from 'dataserverinterface/utils/ntiids';
+import React from 'react/addons';
+import Router from 'react-router-component';
 
-var NotFound = require('notfound/components/View');
+import NotFound from 'notfound/components/View';
 
-var CourseDescription = require('./CourseDescription');
-var Loading = require('common/components/Loading');
-var ErrorWidget = require('common/components/Error');
-var Media = require('./Media');
-var Outline = require('./OutlineView');
-var Overview = require('./Overview');
+import CourseDescription from './CourseDescription';
+import Loading from 'common/components/Loading';
+import ErrorWidget from 'common/components/Error';
 
-var ContentViewer = require('content/components/Viewer');
-var ForumView = require('forums/components/View');
+import BasePathAware from 'common/mixins/BasePath';
 
-var Actions = require('../Actions');
-var Store = require('../Store');
+import Media from './Media';
+import Outline from './OutlineView';
+import Overview from './Overview';
 
+import ContentViewer from 'content/components/Viewer';
+import ForumView from 'forums/components/View';
 
-var path = require('path');
+import Actions from '../Actions';
+import Store from '../Store';
 
-module.exports = React.createClass({
+import path from 'path';
+
+export default React.createClass({
 	displayName: 'CourseView',
+	mixins: [BasePathAware],
 
 	propTypes: {
 		course: React.PropTypes.string.isRequired
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: true
 		};
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.addChangeListener(this._onChange);
 		this.getDataIfNeeded(this.props);
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		Actions.setCourse(null); // clear left nav
 		Store.removeChangeListener(this._onChange);
 	},
 
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (nextProps.course !== this.props.course) {
 			this.getDataIfNeeded(nextProps);
 		}
 	},
 
 
-	getDataIfNeeded: function(props) {
+	getDataIfNeeded (props) {
 		var courseId = NTIID.decodeFromURI(props.course);
 		this.setState({loading: true});
 
@@ -63,12 +65,12 @@ module.exports = React.createClass({
 	},
 
 
-	_onChange: function() {
+	_onChange () {
 		this.setState({loading: false, course: Store.getData()});
 	},
 
 
-	render: function() {
+	render () {
 		var record = this.state.course;
 		var course = (record || {}).CourseInstance;
 		var entry = course && course.CatalogEntry;
@@ -88,31 +90,26 @@ module.exports = React.createClass({
 				<Router.Location path="/v/(:videoId/)(#:nav)"
 									handler={Media}
 									course={course}
-									basePath={this.props.basePath}
 									contextProvider={this.__getContext}/>
 
 				<Router.Location path="/o/(#:nav)"
 									handler={Outline}
-									course={course}
-									basePath={this.props.basePath}/>
+									course={course}/>
 
 				<Router.Location path="/o/:outlineId/(#:nav)"
 									handler={Overview}
 									course={course}
-									basePath={this.props.basePath}
 									contextProvider={this.__getContext}/>
 
 
 				<Router.Location path="/d/*"
 									handler={ForumView}
 									course={course}
-									basePath={this.props.basePath}
 									contextProvider={this.__getContext}/>
 
 				<Router.Location path="/o/:outlineId/c/:rootId/*"
 									handler={ContentViewer}
 									course={course}
-									basePath={this.props.basePath}
 									slug="c"
 									contextProvider={this.__getContext}/>
 
@@ -128,7 +125,7 @@ module.exports = React.createClass({
 	 *
 	 * @param {Object} props The props set from the handler of the route.
 	 */
-	__getContext: function(props) {
+	__getContext (props) {
 		var record = this.state.course;
 		var course = (record || {}).CourseInstance;
 		var presentation = course.getPresentationProperties();
@@ -136,7 +133,7 @@ module.exports = React.createClass({
 		var base = {
 			ntiid: course.getID(),
 			label: presentation.label,
-			href: path.join(this.props.basePath, 'course', this.props.course, '/')
+			href: path.join(this.getBasePath(), 'course', this.props.course, '/')
 		};
 
 		if (props.videoId && !props.outlineId) {
@@ -149,16 +146,13 @@ module.exports = React.createClass({
 		}
 
 		return course.getOutlineNode(NTIID.decodeFromURI(props.outlineId))
-			.then(function(o) {
-				return [
+			.then(o => [
 					base,
 					{
 						ntiid: o.getID(),
 						label: o.title,
-						href: path.join(this.props.basePath, o.href)
+						href: path.join(this.getBasePath(), o.href)
 					}
-				];
-
-			}.bind(this));
+				]);
 	}
 });

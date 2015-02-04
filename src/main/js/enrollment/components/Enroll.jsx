@@ -4,11 +4,11 @@ var React = require('react/addons');
 var EnrollmentOptions = require('library/catalog/mixins/EnrollmentMixin');
 var Loading = require('common/components/Loading');
 var PanelButton = require('common/components/PanelButton');
-var CourseContentLink = require('library/components/CourseContentLink');
+var CourseContentLink = require('library/components/CourseContentLinkMixin');
 
 var Enroll = React.createClass({
 
-	mixins: [EnrollmentOptions],
+	mixins: [EnrollmentOptions, CourseContentLink],
 
 	_getCourseTitle: function() {
 		return this._getEntry().Title;
@@ -27,7 +27,7 @@ var Enroll = React.createClass({
 		if(this.state.enrolled) {
 
 			var title = this._getCourseTitle();
-			var href = CourseContentLink.courseHref(this._getCourseId());
+			var href = this.courseHref(this._getCourseId());
 
 			return (
 				<PanelButton href={href} linkText='Go to the course'>

@@ -1,13 +1,12 @@
-'use strict';
+import React from  'react/addons';
+import BasePathAware from 'common/mixins/BasePath';
+import Redirect from 'navigation/components/Redirect';
 
-var React = require('react/addons');
-
-var Redirect = require('navigation/components/Redirect');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'HomeView',
+	mixins: [BasePathAware],
 
-	render: function() {
-		return (<Redirect location={this.props.basePath + 'library/'} />);
+	render () {
+		return (<Redirect location={this.getBasePath() + 'library/'} />);
 	}
 });

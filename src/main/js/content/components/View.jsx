@@ -21,7 +21,6 @@ module.exports = React.createClass({
 				<Router.Location path="/*"
 									rootId={this.props.pkgId}
 									handler={Viewer}
-									basePath={this.props.basePath}
 									slug="/content/"
 									contextProvider={this.__getContext}/>
 			</Router.Locations>

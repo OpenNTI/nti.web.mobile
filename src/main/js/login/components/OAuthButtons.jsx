@@ -1,14 +1,11 @@
-'use strict';
+import React from 'react/addons';
+import Button from 'common/forms/components/Button';
+import {translate as t} from 'common/locale';
+import BasePathAware from 'common/mixins/BasePath';
+import {link as LinkConstants} from '../Constants';
 
-var React = require('react/addons');
+const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-var Button = require('common/forms/components/Button');
-var LinkConstants = require('../Constants').links;
-var t = require('common/locale').translate;
-
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
-var React = require('react/addons');
 
 // shortcut for getting the service name off the oauth constants
 // (e.g. 'google' from 'OAUTH_LINK_GOOGLE')
@@ -17,13 +14,14 @@ function _serviceName(k) {
 }
 
 var OAuthButton = React.createClass({
+	mixins: [BasePathAware],
 
-	render: function() {
+	render () {
 		// linkKey is the property name of the link (as in 'logon.google').
 		// 'key' is used by react components as an identifier so we use this
 		// admittedly clumsy alternative 'linkKey'.
 		var lkey = this.props.linkKey;
-		var base = encodeURIComponent(this.props.basePath);
+		var base = encodeURIComponent(this.getBasePath());
 		return (
 			<Button {...this.props}
 				href={this.props.link + '&success=' + base + '&failure=' + base}
@@ -36,15 +34,14 @@ var OAuthButton = React.createClass({
 	}
 });
 
-module.exports = React.createClass({
+export default React.createClass({
 
-	render: function() {
+	render () {
 
 		// filter the list of LoginConstants to include those that
 		// begin with OAUTH_LINK
-		var authlinks = Object.keys(LinkConstants).filter(function(k) {
-			return k.indexOf('OAUTH_LINK') === 0;
-		});
+		var authlinks = Object.keys(LinkConstants)
+			.filter(k =>k.indexOf('OAUTH_LINK') === 0);
 
 		var buttons = [];
 		var props = this.props;
@@ -53,7 +50,7 @@ module.exports = React.createClass({
 			<div>
 				<div>
 					<ReactCSSTransitionGroup transitionName="button">
-						{authlinks.forEach(function(linkKey) {
+						{authlinks.forEach(linkKey => {
 							if (LinkConstants[linkKey] in props.links) {
 								buttons.push(
 									<OAuthButton

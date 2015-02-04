@@ -2,6 +2,7 @@ import {load} from './Actions';
 import Store from './Store';
 
 var sectionNames = {
+	admin: 'admin',
 	courses: 'courses',
 	books: 'books',
 	catalog: 'catalog'

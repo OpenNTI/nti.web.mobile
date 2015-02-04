@@ -1,35 +1,29 @@
-'use strict';
+import React from 'react/addons';
 
-var React = require('react/addons');
+import {Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
 
-var Router = require('react-router-component');
-var Locations = Router.Locations;
-var Location = Router.Location;
-var DefaultRoute = Router.NotFound;
+import Loading from 'common/components/Loading';
+import Redirect from 'navigation/components/Redirect';
 
-var Loading = require('common/components/Loading');
-var Redirect = require('navigation/components/Redirect');
+import Section from './Section';
+import {defaultSection, getSectionNames} from '../Sections';
 
-var Section = require('./Section');
-
-var Sections = require('../Sections');
-
-var View = React.createClass({
+export default React.createClass({
 	displayName: 'Library:View',
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: true
 		};
 	},
 
 
-	componentDidMount: function() {
-		Sections.defaultSection().then(this.setDefaultSection);
+	componentDidMount () {
+		defaultSection().then(this.setDefaultSection);
 	},
 
 
-	setDefaultSection: function (name) {
+	setDefaultSection (name) {
 		this.setState({
 			loading: false,
 			defaultSection: name
@@ -37,29 +31,28 @@ var View = React.createClass({
 	},
 
 
-	render: function() {
+	render () {
 		if(this.state.loading) {
 			return (<Loading />);
 		}
 
 		return (
 			<Locations contextual>
-				{this.getRoutes(this.props.basePath)}
+				{this.getRoutes()}
 			</Locations>
 		);
 	},
 
 
-	getRoutes: function (basePath) {
-		var sections = Sections.getSectionNames();
+	getRoutes () {
+		var sections = getSectionNames();
 
 		var routes = sections.map(section =>
 			<Location
 				key={section}
-				path={`/${section}/*`}
+				path={`/${section}/\*`}
 				handler={Section}
 				section={section}
-				basePath={basePath}
 			/>
 		);
 
@@ -75,5 +68,3 @@ var View = React.createClass({
 	}
 
 });
-
-module.exports = View;

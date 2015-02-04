@@ -13,10 +13,6 @@ var EmptyList = require('common/components/EmptyList');
 
 var List = React.createClass({
 
-	propTypes: {
-		basePath: React.PropTypes.string.isRequired
-	},
-
 	getInitialState: function() {
 		//FIXME: Re-write this:
 		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html

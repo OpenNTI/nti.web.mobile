@@ -1,34 +1,38 @@
-'use strict';
+import React from 'react/addons';
+import FormPanel from 'common/forms/components/FormPanel';
+import RenderField from 'common/forms/mixins/RenderFormConfigMixin';
+import {translate as t} from 'common/locale';
+import BasePathAware from 'common/mixins/BasePath';
+import {sendMessage} from '../Actions';
 
-var React = require('react/addons');
-var FormPanel = require('common/forms/components/FormPanel');
-var RenderField = require('common/forms/mixins/RenderFormConfigMixin');
-var Actions = require('../Actions');
-var t = require('common/locale').translate;
-
-var ContactForm = React.createClass({
-
-	mixins: [RenderField],
+export default React.createClass({
+	displayName: 'ContactForm',
+	mixins: [BasePathAware, RenderField],
 
 	propTypes: {
 		onSubmit: React.PropTypes.func,
 		fieldConfig: React.PropTypes.array.isRequired
 	},
 
-	getInitialState: function() {
+
+	getInitialState () {
 		return {
 			fieldValues: {}
 		};
 	},
 
-	_handleSubmit: function(event) {
+
+	_handleSubmit (event) {
 		event.preventDefault();
-		Actions.sendMessage(this.state.fieldValues);
+		sendMessage(this.state.fieldValues);
 	},
 
-	render: function() {
 
-		var fields = this.renderFormConfig(this.props.fieldConfig, this.state.fieldValues, t);
+	render () {
+		var fields = this.renderFormConfig(
+				this.props.fieldConfig,
+				this.state.fieldValues,
+				t);
 
 		return (
 			<FormPanel onSubmit={this._handleSubmit}>
@@ -43,5 +47,3 @@ var ContactForm = React.createClass({
 	}
 
 });
-
-module.exports = ContactForm;

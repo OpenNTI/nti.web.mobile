@@ -5,14 +5,15 @@ var React = require('react/addons');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var Video = require('video').Component;
 var LoadingMask = require('common/components/Loading');
+var BasePathAware = require('common/mixins/BasePath');
 
 module.exports = React.createClass({
 	displayName: 'CourseOverviewVideo',
+	mixins: [BasePathAware],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired,
-		course: React.PropTypes.object.isRequired,
-		basePath: React.PropTypes.string.isRequired
+		course: React.PropTypes.object.isRequired
 	},
 
 	statics: {
@@ -77,12 +78,12 @@ module.exports = React.createClass({
 
 			this.setState({loading: true});
 			course.getVideoIndex()
-				.then(function(videoIndex) {
+				.then(videoIndex => {
 					this.setState({
 						loading: false,
 						video: videoIndex.get(item.NTIID)
 					});
-				}.bind(this))
+				})
 				.catch(this.__onError);
 		} catch (e) {
 			this.__onError(e);
@@ -137,7 +138,7 @@ module.exports = React.createClass({
 			renderVideoFully = (activeIndex === index);
 		}
 
-		var link = path.join(props.basePath,
+		var link = path.join(this.getBasePath(),
 			'course', NTIID.encodeForURI(props.course.getID()),
 			'v', NTIID.encodeForURI(item.NTIID))  + '/';
 
@@ -153,7 +154,7 @@ module.exports = React.createClass({
 				<LoadingMask style={style} loading={this.state.loading}
 					tag="a" onFocus={props.onFocus}
 					className="overview-tap-area" href={link}>
-					
+
 					<div className="wrapper">
 						<div className="buttons">
 							<span className="play" title="Play" onClick={this.onPlayClicked}/>

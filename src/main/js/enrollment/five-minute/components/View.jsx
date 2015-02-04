@@ -6,14 +6,14 @@ var PaymentComplete = require('./PaymentComplete');
 var ConcurrentSent = require('./ConcurrentSent');
 var PanelButton = require('common/components/PanelButton');
 var Admission = require('./Admission');
-var CourseContentLink = require('library/components/CourseContentLink');
+var CourseContentLink = require('library/components/CourseContentLinkMixin');
 var Store = require('../Store');
 var Constants = require('../Constants');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 
 var View = React.createClass({
 
-	mixins: [NavigatableMixin],
+	mixins: [NavigatableMixin, CourseContentLink],
 
 	componentDidMount: function() {
 		Store.addChangeListener(this._storeChange);
@@ -36,7 +36,7 @@ var View = React.createClass({
 
 		if ((this.props.enrollment||{}).IsEnrolled) {
 
-			var href = CourseContentLink.courseHref(this.props.courseId);
+			var href = this.courseHref(this.props.courseId);
 
 			return (
 				<PanelButton href={href} linkText='Proceed to the course'>
@@ -51,12 +51,10 @@ var View = React.createClass({
 				<Router.Location
 					path="/concurrent/*"
 					handler={ConcurrentSent}
-					basePath={this.props.basePath}
 				/>
 				<Router.Location
 					path="/paymentcomplete/*"
 					handler={PaymentComplete}
-					basePath={this.props.basePath}
 					entryId={this.props.entryId}
 					courseId={this.props.courseId}
 					enrollment={this.props.enrollment}
@@ -65,7 +63,6 @@ var View = React.createClass({
 				<Router.NotFound
 					handler={Admission}
 					enrollment={this.props.enrollment}
-					basePath={this.props.basePath}
 					entryId={this.props.entryId}
 				/>
 			</Router.Locations>

@@ -1,43 +1,43 @@
-'use strict';
+import React from 'react/addons';
+import {BLANK_IMAGE} from 'common/constants/DataURIs';
+import {encodeForURI} from 'dataserverinterface/utils/ntiids';
+import BasePathAware from 'common/mixins/BasePath';
 
-var React = require('react/addons');
-var BLANK_IMAGE = require('common/constants/DataURIs').BLANK_IMAGE;
-var NTIID = require('dataserverinterface/utils/ntiids');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Package',
+	mixins: [BasePathAware],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired
 	},
 
 
-	componentWillMount: function() {
+	componentWillMount () {
 		this.props.item.addListener('changed', this._onChange);
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		this.props.item.removeListener('changed', this._onChange);
 	},
 
 
-	_onChange: function() {
+	_onChange () {
 		this.forceUpdate();
 	},
 
 
-	render: function() {
+	render () {
 		var p = this.props.item;
 		var style = {
 			backgroundImage: p && p.icon && 'url(' + p.icon + ')'
 		};
 
-		var id = NTIID.encodeForURI(p.getID());
+		var id = encodeForURI(p.getID());
 
 		return (
 			<li className="grid-item">
-				<a href={this.props.basePath + 'content/' + id + '/'}>
+				<a href={this.getBasePath() + 'content/' + id + '/'}>
 					<img style={style} src={BLANK_IMAGE}/>
 					<div className="metadata">
 						<h3>{p.title}</h3>

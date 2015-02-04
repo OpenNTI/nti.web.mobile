@@ -88,14 +88,14 @@ var View = React.createClass({
 								disabled={!submitEnabled}
 							>{t('login')}</button>
 						</div>
-						<OAuthButtons links={this.state.links} basePath={this.props.basePath} buttonClass="small-12 columns" />
+						<OAuthButtons links={this.state.links} buttonClass="small-12 columns" />
 						<div className="text-center">
 							<Link id="login:signup" href={signupLink}>{t('signup.link')}</Link>
 						</div>
 
 					</fieldset>
 
-					<RecoveryLinks links={this.state.links} basePath={this.props.basePath} />
+					<RecoveryLinks links={this.state.links} />
 
 				</form>
 			</div>

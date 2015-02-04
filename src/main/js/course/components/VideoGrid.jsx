@@ -1,33 +1,36 @@
-'use strict';
+import React from 'react/addons';
 
-var NTIID = require('dataserverinterface/utils/ntiids');
+import {encodeForURI} from 'dataserverinterface/utils/ntiids';
 
-var React = require('react/addons');
+import path from 'path';
 
-var path = require('path');
+import BasePathAware from 'common/mixins/BasePath';
 
 module.exports = React.createClass({
 	displayName: 'VideoGrid',
+	mixins: [BasePathAware],
+
 	propTypes: {
 		VideoIndex: React.PropTypes.object.isRequired
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {};
 	},
 
 
-	componentDidMount: function() {},
+	componentDidMount () {},
 
 
-	componentWillUnmount: function() {},
+	componentWillUnmount () {},
 
 
-	componentWillReceiveProps: function(/*nextProps*/) {},
+	componentWillReceiveProps (/*nextProps*/) {},
 
 
-	render: function() {
+	render () {
+		var basePath = this.getBasePath();
 		var props = this.props;
 		var Videos = props.VideoIndex;
 
@@ -38,9 +41,9 @@ module.exports = React.createClass({
 			};
 
 			var link = path.join(
-				props.basePath,
-				'course', NTIID.encodeForURI(props.course.getID()),
-				'v', NTIID.encodeForURI(v.ntiid)) + '/';
+				basePath,
+				'course', encodeForURI(props.course.getID()),
+				'v', encodeForURI(v.ntiid)) + '/';
 
 			return (
 				<li className="grid-item" key={v.ntiid + '-' + i}>

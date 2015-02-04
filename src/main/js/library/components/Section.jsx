@@ -1,19 +1,14 @@
-'use strict';
+import React from 'react/addons';
 
-var React = require('react/addons');
+import IconBar from './IconBar';
+import List from './List';
+import Catalog from '../catalog/components/View';
 
-var IconBar = require('./IconBar');
-var List = require('./List');
-var Catalog = require('../catalog/components/View');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Section',
 
-	propTypes: {
-		basePath: React.PropTypes.string.isRequired
-	},
 
-	_contentView: function(section) {
+	_contentView (section) {
 		switch (section) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case 'courses':
@@ -28,7 +23,7 @@ module.exports = React.createClass({
 		}
 	},
 
-	render: function() {
+	render () {
 		return (
 			<div>
 				<IconBar {...this.props}/>

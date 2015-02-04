@@ -67,7 +67,7 @@ var View = React.createClass({
 				if(event.courseId === this._courseId()) {
 					this.setState({
 						loading: false
-					});	
+					});
 				}
 				break;
 		}
@@ -119,20 +119,18 @@ var View = React.createClass({
 			<div className="forums-wrapper">
 				<Router.Locations contextual>
 					<Router.Location path="/(#:nav)"
-										handler={Redirect}
-										location={this._defaultBinUri(discussions)}
-										basePath={this.props.basePath} />
+							handler={Redirect}
+							location={this._defaultBinUri(discussions)} />
 
 					<Router.Location path="/jump/:boardId/:forumId/*"
-										discussions={discussions}
-										handler={FindBin} />
+							discussions={discussions}
+							handler={FindBin} />
 
 					<Router.Location path="/:binName/*(#:nav)"
-										handler={Bin}
-										discussions={discussions}
-										courseId={courseId}
-										contextProvider={this.__getContext}
-										basePath={this.props.basePath} />
+							handler={Bin}
+							discussions={discussions}
+							courseId={courseId}
+							contextProvider={this.__getContext} />
 
 				</Router.Locations>
 			</div>

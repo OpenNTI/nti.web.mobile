@@ -36,14 +36,12 @@ module.exports = React.createClass({
 			<Router.Locations contextual>
 
 				<Router.Location path="/drop/" handler={DropCourse}
-					basePath={this.props.basePath}
 					entryId={this.props.entryId}
 					courseId={this._getCourseId()}/>
 
 				<Router.Location
 					path="/store(/*)"
 					handler={StoreEnrollment}
-					basePath={this.props.basePath}
 					entryId={this.props.entryId}
 					enrollment={this._getEnrollmentOption(Constants.StoreEnrollment)}
 					courseId={this._getCourseId()} />
@@ -51,14 +49,12 @@ module.exports = React.createClass({
 				<Router.Location
 					path="/credit(/*)"
 					handler={CreditEnrollment}
-					basePath={this.props.basePath}
 					entryId={this.props.entryId}
 					enrollment={this._getEnrollmentOption(Constants.FiveminuteEnrollment)}
-					courseId={this._getCourseId()} />					
+					courseId={this._getCourseId()} />
 
                 <Router.NotFound
                 	handler={Enroll}
-                	basePath={this.props.basePath}
                 	entryId={this.props.entryId} />
 
 			</Router.Locations>

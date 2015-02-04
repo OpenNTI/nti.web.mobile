@@ -1,56 +1,55 @@
-'use strict';
+import React from 'react/addons';
 
+import isEmpty from 'dataserverinterface/utils/isempty';
+import waitFor from 'dataserverinterface/utils/waitfor';
 
+import Loading from 'common/components/Loading';
 
-var React = require('react/addons');
+import BasePathAware from 'common/mixins/BasePath';
 
-var isEmpty = require('dataserverinterface/utils/isempty');
-var waitFor = require('dataserverinterface/utils/waitfor');
-
-var Loading = require('common/components/Loading');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'OutlineView',
+	mixins: [BasePathAware],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {loading:true};
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		this.getDataIfNeeded(this.props);
 	},
 
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (nextProps.course !== this.props.course) {
 			this.getDataIfNeeded(nextProps);
 		}
 	},
 
 
-	getDataIfNeeded: function(props) {
+	getDataIfNeeded (props) {
 		this.setState({loading: true});
 		var course = props.course;
 		var outline = [];
 		var work = !course ? Promise.reject() :
 			course.getOutline()
-				.then(function(data) { outline = data; });
+				.then(data => (outline = data));
 
 		var map = this._DEPTH_MAP = [
 			'h3',
 			'div'
 		];
 
-		var prefix = props.basePath;
+		var prefix = this.getBasePath();
 
 		waitFor(work)
-			.then(function() {
+			.then(() => {
 				if (outline.maxDepth > 2) {
 					map.unshift('h1');
 				}
@@ -60,11 +59,11 @@ module.exports = React.createClass({
 					outline: outline,
 					prefix: prefix
 				});
-			}.bind(this));
+			});
 	},
 
 
-	render: function() {
+	render () {
 		var outline = this.state.outline;
 
 		if (this.state.loading) {
@@ -79,7 +78,7 @@ module.exports = React.createClass({
 	},
 
 
-	_renderTree: function(list) {
+	_renderTree (list) {
 		var _renderTree = this._renderTree;
 		var depthMap = this._DEPTH_MAP;
 		var prefix = this.state.prefix || '';
@@ -90,7 +89,7 @@ module.exports = React.createClass({
 
 		return (
 			<ul>
-				{list.map(function(item) {
+				{list.map(item => {
 					var children = _renderTree(item.contents);
 					var href = item.href;
 					var Tag = depthMap[item.depth - 1] || 'div';

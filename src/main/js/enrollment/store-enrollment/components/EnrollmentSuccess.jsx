@@ -1,22 +1,20 @@
+import React from 'react/addons';
 
-'use strict';
+import PanelButton from 'common/components/PanelButton';
+import BasePathAware from 'common/mixins/BasePath';
 
-var React = require('react/addons');
-
-var PanelButton = require('common/components/PanelButton');
-var Utils = require('common/Utils');
-
-//var _t = require('common/locale').translate;
+//import {translate as _t} from 'common/locale';
 
 module.exports = React.createClass({
 	displayName: 'EnrollmentSuccess',
+	mixins: [BasePathAware],
 
 	propTypes: {
 		courseTitle: React.PropTypes.string,
 	},
 
 	render: function() {
-		var basePath = Utils.getBasePath();
+		var basePath = this.getBasePath();
 		return (
 			<div className="small-12 columns">
 				<PanelButton href={basePath + 'library/courses/'} linkText="Go to my courses">

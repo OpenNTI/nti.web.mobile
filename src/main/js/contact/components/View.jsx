@@ -1,21 +1,16 @@
-'use strict';
+import React from 'react/addons';
+import ContactForm from './ContactForm';
+import Configs from '../configs';
+import ContactForm from './ContactForm';
 
-var React = require('react/addons');
-var ContactForm = require('./ContactForm');
-var Configs = require('../configs');
-var ContactForm = require('./ContactForm');
-var Utils = require('common/Utils');
+export default React.createClass({
+	displayName: 'contact:View',
 
-var View = React.createClass({
+	render () {
+		var config = Configs[this.props.configname] ||
+					Configs.defaultConfig;
 
-	render: function() {
-
-		var config = Configs[this.props.configname] || Configs.defaultConfig;
-		var basePath = Utils.getBasePath();
-
-		return (<ContactForm basePath={basePath} fieldConfig={config}/>);
+		return (<ContactForm fieldConfig={config}/>);
 	}
 
 });
-
-module.exports = View;
