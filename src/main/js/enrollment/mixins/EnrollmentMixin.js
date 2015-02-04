@@ -1,20 +1,22 @@
-'use strict';
+import React from 'react/addons';
 
-var React = require('react/addons');
-var EnrollmentStore = require('enrollment/Store');
-var EnrollmentActions = require('enrollment/Actions');
-var CatalogStore = require('library/catalog/Store');
-var NTIID = require('dataserverinterface/utils/ntiids');
-var Constants = require('enrollment/Constants');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var EnrollmentWidgets = require('enrollment/components/enrollment-option-widgets');
-var NoOptions = require('enrollment/components/enrollment-option-widgets/NoOptions');
+import EnrollmentStore from '../Store';
+import CatalogStore from 'library/catalog/Store';
 
-module.exports = {
+import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 
+import {LOAD_ENROLLMENT_STATUS, ENROLL_OPEN} from '../Constants';
+
+import EnrollmentWidgets from '../components/enrollment-option-widgets';
+import NoOptions from '../components/enrollment-option-widgets/NoOptions';
+
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+
+export default {
 	mixins: [NavigatableMixin],
 
-	getInitialState: function() {
+
+	getInitialState () {
 		return {
 			enrollmentStatusLoaded: false,
 			loading: true,
@@ -22,23 +24,25 @@ module.exports = {
 		};
 	},
 
-	componentDidMount: function() {
+
+	componentDidMount () {
+		var entry = this.getEntry();
 		EnrollmentStore.addChangeListener(this.storeChange);
-		var entry = this._getEntry();
 		EnrollmentStore.loadEnrollmentStatus(entry.CourseNTIID);
 	},
 
-	componentWillUnmount: function() {
+
+	componentWillUnmount () {
 		EnrollmentStore.removeChangeListener(this.storeChange);
 	},
 
-	storeChange: function(event) {
+	storeChange (event) {
 		var action = (event||{}).action;
-		var entry = this._getEntry();
+		var entry = this.getEntry();
 		if(action) {
 			switch(action.type) {
 			//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-				case Constants.LOAD_ENROLLMENT_STATUS:
+				case LOAD_ENROLLMENT_STATUS:
 					if (action.courseId === entry.CourseNTIID) {
 						this.setState({
 							enrolled: action.result,
@@ -46,7 +50,7 @@ module.exports = {
 						});
 					}
 				break;
-				case Constants.ENROLL_OPEN:
+				case ENROLL_OPEN:
 					if(action.catalogId === entry.getID()) {
 						this.setState({
 							enrolled: event.result.success,
@@ -60,53 +64,61 @@ module.exports = {
 		}
 	},
 
-	isEnrolled: function(courseId) {
+
+	isEnrolled (courseId) {
 		return EnrollmentStore.isEnrolled(courseId);
 	},
 
-	canDrop: function(catalogEntry) {
+
+	canDrop (catalogEntry) {
 		// we currently only support dropping open enrollment within the app.
 		var options = catalogEntry.EnrollmentOptions.Items||{};
 		return options.OpenEnrollment && options.OpenEnrollment.IsEnrolled;
 	},
 
-	isGiftable: function(enrollmentOption) {
+
+	isGiftable (enrollmentOption) {
 		var opt = (enrollmentOption && enrollmentOption.option)||{};
 		return opt.Purchasable && opt.Purchasable.Giftable;
 	},
 
-	hasGiftableEnrollmentOption: function(catalogEntry) {
+
+	hasGiftableEnrollmentOption (catalogEntry) {
 		return this.enrollmentOptions(catalogEntry, true).some(this.isGiftable);
 	},
 
-	enrollmentOptions: function(catalogEntry, includeUnavailable) {
-		var result = [];
+
+	enrollmentOptions (catalogEntry, includeUnavailable) {
 		if (!catalogEntry) {
 			return result;
 		}
+		var result = [];
 		var options = catalogEntry.EnrollmentOptions.Items||{};
-		Object.keys(options).forEach(function(key) {
-			if(includeUnavailable||this._showOption(options[key])) {
+
+		function showOption (op) {
+			return op && op.IsAvailable;
+		}
+
+		Object.keys(options).forEach(key => {
+			if(includeUnavailable||showOption(options[key])) {
 				result.push({
 					key: key,
 					option: options[key]
 				});
 			}
-		}.bind(this));
+		});
 		return result;
 	},
 
-	_showOption: function(enrollmentOption) {
-		return enrollmentOption && enrollmentOption.IsAvailable;
-	},
 
-	enrollmentWidgets: function() {
-		var catalogEntry = this._getEntry();
+	enrollmentWidgets () {
+		var catalogEntry = this.getEntry();
 		if (!this.state.enrollmentStatusLoaded) {
 			return "Loading";
 		}
 		if (this.state.enrollmentStatusLoaded && !this.state.enrolled) {
-			var widgets = this.enrollmentOptions(catalogEntry).map(function(option,index) {
+
+			let widgets = this.enrollmentOptions(catalogEntry).map((option,index) => {
 				var widget = EnrollmentWidgets.getWidget(option);
 				return widget ? React.createElement(widget, {
 					catalogEntry: catalogEntry,
@@ -115,44 +127,40 @@ module.exports = {
 					className: 'enrollment-panel',
 					key: 'eno_' + index
 				}) : null;
-			}.bind(this));
-			widgets = widgets.filter(function(item) {return item !== null;});
+			});
+
+			widgets = widgets.filter(item => item !== null);
 			if (widgets.length > 0) {
-				return React.createElement('div', {
-						className: "enrollment-panels"
-					},
-					widgets
-				);
+				return React.createElement('div', {className: 'enrollment-panels'}, widgets);
 			}
 		}
+
 		return [NoOptions(null, [])];
 	},
 
-	_getEntry: function() {
+
+	getEntry () {
 		if (this.state.entry) {
 			return this.state.entry;
 		}
+
 		if (this.props.catalogEntry) {
 			return this.props.catalogEntry;
 		}
-		var entryId = NTIID.decodeFromURI(this.props.entryId);
+
+		var entryId = decodeFromURI(this.props.entryId);
 		var entry = CatalogStore.getEntry(entryId);
 		return entry;
 	},
 
-	getCourseId: function() {
-		var entry =  this._getEntry();
+
+	getCourseId () {
+		var entry = this.getEntry() || {};
 		return entry.CourseNTIID;
 	},
 
-	getDataIfNeeded: function() {
-		this.setState({
-			entry: this._getEntry()
-		});
-	},
 
-	_dropCourse: function(catalogEntry,event) {
-		event.preventDefault();
-		EnrollmentActions.dropCourse(catalogEntry.CourseNTIID);
+	getDataIfNeeded () {
+		this.setState({ entry: this.getEntry() });
 	}
 };

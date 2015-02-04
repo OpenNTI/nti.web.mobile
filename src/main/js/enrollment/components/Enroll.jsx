@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
-var EnrollmentOptions = require('library/catalog/mixins/EnrollmentMixin');
+var EnrollmentOptions = require('../mixins/EnrollmentMixin');
 var Loading = require('common/components/Loading');
 var PanelButton = require('common/components/PanelButton');
 var CourseContentLink = require('library/components/CourseContentLinkMixin');
