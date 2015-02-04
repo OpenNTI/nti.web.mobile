@@ -1,14 +1,12 @@
+import React from 'react/addons';
 
-'use strict';
+import EnrollmentStore from 'enrollment/Store';
+import StoreEnrollmentStore from 'enrollment/store-enrollment/Store';
 
-var React = require('react/addons');
-var EnrollmentStore = require('enrollment/Store');
-var StoreEnrollmentStore = require('enrollment/store-enrollment/Store');
-var Actions = require('../Actions');
-var CatalogActions = require('../catalog/Actions');
+import {reload as reloadLibrary} from '../Actions';
+import {reload as reloadCatalog} from '../catalog/Actions';
 
-
-var INVALIDATION_EVENTS = {
+const INVALIDATION_EVENTS = {
 	DROP_COURSE: true,
 	ENROLL_5M: true,
 	ENROLL_OPEN: true,
@@ -17,16 +15,11 @@ var INVALIDATION_EVENTS = {
 	GIFT_CODE_REDEEMED: true
 };
 
-function _getType(event) {
-	return event && (event.type || (event.action||{}).type);
-}
 
-function _flush(event) {
+function flush (event) {
 
-	var type = _getType(event);
-
+	var type = event && (event.type || (event.action||{}).type);
 	if (!type) {
-		console.debug('InvalidationListener: ignoring unknown event: %o', event);
 		return;
 	}
 
@@ -38,26 +31,30 @@ function _flush(event) {
 	}
 
 	console.log('InvalidationListener: reloading library in response to event: %O', event);
-	Actions.reload();
-	CatalogActions.reload();
+	// [Data] go down the hoooOOolle...
+	// https://www.youtube.com/watch?v=pTsem5E6EeY#t=144
+	reloadLibrary();
+	reloadCatalog();
 }
 
-var InvalidationListener = React.createClass({
 
-	componentDidMount: function() {
-		EnrollmentStore.addChangeListener(_flush);
-		StoreEnrollmentStore.addChangeListener(_flush);
+export default React.createClass({
+	displayName: 'InvalidationListener',
+
+	componentDidMount () {
+		EnrollmentStore.addChangeListener(flush);
+		StoreEnrollmentStore.addChangeListener(flush);
 	},
 
-	componentWillUnmount: function() {
-		EnrollmentStore.removeChangeListener(_flush);
-		StoreEnrollmentStore.removeChangeListener(_flush);
+
+	componentWillUnmount () {
+		EnrollmentStore.removeChangeListener(flush);
+		StoreEnrollmentStore.removeChangeListener(flush);
 	},
 
-	render: function() {
+
+	render () {
 		return null;
 	}
 
 });
-
-module.exports = InvalidationListener;

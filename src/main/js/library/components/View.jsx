@@ -6,10 +6,11 @@ import Loading from 'common/components/Loading';
 import Redirect from 'navigation/components/Redirect';
 
 import Section from './Section';
-import {defaultSection, getSectionNames} from '../Sections';
+import SectionMixin from '../mixins/GetListForSection';
 
 export default React.createClass({
 	displayName: 'Library:View',
+	mixins: [SectionMixin],
 
 	getInitialState () {
 		return {
@@ -19,7 +20,7 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		defaultSection().then(this.setDefaultSection);
+		this.defaultSection().then(this.setDefaultSection);
 	},
 
 
@@ -45,7 +46,7 @@ export default React.createClass({
 
 
 	getRoutes () {
-		var sections = getSectionNames();
+		var sections = this.getSectionNames();
 
 		var routes = sections.map(section =>
 			<Location

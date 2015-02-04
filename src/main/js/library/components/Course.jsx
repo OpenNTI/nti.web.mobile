@@ -1,12 +1,8 @@
-'use strict';
+import React from 'react/addons';
+import CourseContentLink from './CourseContentLink';
+import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
-var React = require('react/addons');
-
-var BLANK_IMAGE = require('common/constants/DataURIs').BLANK_IMAGE;
-
-var CourseContentLink = require('./CourseContentLink');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Course',
 
 	propTypes: {
@@ -14,24 +10,21 @@ module.exports = React.createClass({
 	},
 
 
-	componentWillMount: function() {
-		this.props.item.addListener('changed', this._onChange);
-	},
+	getItem() {return this.props.item;},
+
+	itemChanged () { this.forceUpdate(); },
+
+	componentWillMount () {
+		this.getItem().addListener('changed', this.itemChanged); },
+
+	componentWillUnmount () {
+		this.getItem().removeListener('changed', this.itemChanged); },
 
 
-	componentWillUnmount: function() {
-		this.props.item.removeListener('changed', this._onChange);
-	},
-
-
-	_onChange: function() {
-		this.forceUpdate();
-	},
-
-
-	render: function() {
-		var p = this.props.item.getPresentationProperties();
-		var courseId = this.props.item.getCourseID();
+	render () {
+		var item = this.getItem();
+		var p = item.getPresentationProperties();
+		var courseId = item.getCourseID();
 		var style = {
 			backgroundImage: p && p.icon && 'url(' + p.icon + ')'
 		};

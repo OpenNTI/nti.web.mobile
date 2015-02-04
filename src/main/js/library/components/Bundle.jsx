@@ -1,9 +1,7 @@
-'use strict';
+import React from 'react/addons';
+import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
-var React = require('react/addons');
-var BLANK_IMAGE = require('common/constants/DataURIs').BLANK_IMAGE;
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Bundle',
 
 	propTypes: {
@@ -11,26 +9,23 @@ module.exports = React.createClass({
 	},
 
 
-	componentWillMount: function() {
-		this.props.item.addListener('changed', this._onChange);
-	},
+	getItem () {return this.props.item;},
+
+	itemChanged () { this.forceUpdate(); },
+
+	componentWillMount () {
+		this.getItem().addListener('changed', this.itemChanged);},
+
+	componentWillUnmount () {
+		this.getItem().removeListener('changed', this.itemChanged);},
 
 
-	componentWillUnmount: function() {
-		this.props.item.removeListener('changed', this._onChange);
-	},
-
-
-	_onChange: function() {
-		this.forceUpdate();
-	},
-
-
-	render: function() {
-		var p = this.props.item;
+	render () {
+		var p = this.getItem();
 		var style = {
 			backgroundImage: p && p.icon && 'url(' + p.icon + ')'
 		};
+
 		return (
 			<li className="grid-item">
 				<img style={style} src={BLANK_IMAGE}/>

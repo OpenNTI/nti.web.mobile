@@ -1,14 +1,11 @@
-'use strict';
-
-var Filters = [
+export default [
 	{
 		name: 'Upcoming',
 		path: 'upcoming',
 		filter: function(item) {
 			try {
-				var startDate = new Date(item.CourseInstance.CatalogEntry.StartDate);
-				var now = new Date();
-				return startDate > now;
+				var start = item.getStartDate();
+				return start > Date.now();
 			}
 			catch(e) {
 				console.error(e);
@@ -21,10 +18,11 @@ var Filters = [
 		path: 'current',
 		filter: function(item) {
 			try {
-				var startDate = new Date(item.CourseInstance.CatalogEntry.StartDate);
-				var endDate = new Date(item.CourseInstance.CatalogEntry.EndDate);
-				var now = new Date();
-				return startDate < now && endDate > now;
+				var now = Date.now();
+				var start = item.getStartDate();
+				var end = item.getEndDate();
+
+				return start < now && end > now;
 			}
 			catch(e) {
 				console.error(e);
@@ -37,9 +35,8 @@ var Filters = [
 		path: 'archived',
 		filter: function(item) {
 			try {
-				var endDate = new Date(item.CourseInstance.CatalogEntry.EndDate);
-				var now = new Date();
-				return endDate < now;
+				var end = item.getEndDate();
+				return end < Date.now();
 			}
 			catch(e) {
 				console.error(e);
@@ -48,5 +45,3 @@ var Filters = [
 		}
 	}
 ];
-
-module.exports = Filters;

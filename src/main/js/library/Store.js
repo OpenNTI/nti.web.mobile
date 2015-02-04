@@ -15,10 +15,13 @@ class Store extends StorePrototype {
 	}
 
 
+	get isLoaded () {
+		return !!this[data];
+	}
+
+
 	[SetData] (payload) {
-		var d = payload.action.response;
-		d.loaded = true;
-		this[data] = d;
+		this[data] = payload.action.response;
 		this.emitChange({type: LOADED_LIBRARY});
 	}
 

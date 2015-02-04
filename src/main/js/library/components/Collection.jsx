@@ -1,25 +1,23 @@
-'use strict';
+import React from 'react/addons';
+import OwnerQuery from 'common/mixins/OwnerQuery';
 
-var React = require('react/addons');
-var OwnerQuery = require('common/mixins/OwnerQuery');
+import Package from './Package';
+import Bundle from './Bundle';
+import Course from './Course';
 
-var Package = require('./Package');
-var Bundle = require('./Bundle');
-var Course = require('./Course');
-
-var Filter = require('common/components/CollectionFilter');
+import Filter from 'common/components/CollectionFilter';
 
 var ListView = React.createClass({
 	mixins: [OwnerQuery],
 
-	render: function() {
+	render () {
 		var size = this.getStateFromParent('orientation') === 'landscape' ? 2 : 1;
 		return (
 			<div>
 				<div className="grid-container">
 					{this.props.omittitle ? null : <h2>{this.props.title}</h2>}
 					<ul className={'small-block-grid-' + size + ' medium-block-grid-3 large-block-grid-4'}>
-					{this.props.list.map(function(item) {
+					{this.props.list.map(item => {
 						var Item = item.isBundle ?
 								Bundle :
 								item.isCourse ?
@@ -27,7 +25,7 @@ var ListView = React.createClass({
 									Package;
 
 						return <Item key={item.NTIID} item={item}/>;
-					}.bind(this))}
+					})}
 					</ul>
 				</div>
 			</div>
@@ -36,7 +34,8 @@ var ListView = React.createClass({
 
 });
 
-module.exports = React.createClass({
+
+export default React.createClass({
 	displayName: 'Library:Collection',
 
 	propTypes: {
@@ -55,7 +54,7 @@ module.exports = React.createClass({
 		filters: React.PropTypes.array
 	},
 
-	render: function() {
+	render () {
 		return (
 			<Filter {...this.props}>
 				<ListView title={this.props.title} />

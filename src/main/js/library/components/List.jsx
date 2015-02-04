@@ -1,81 +1,25 @@
-'use strict';
+import React from 'react/addons';
 
-var React = require('react/addons');
+import Collection from './Collection';
 
-var Store = require('../Store');
-var Actions = require('../Actions');
+import Loading from 'common/components/Loading';
+import EmptyList from 'common/components/EmptyList';
 
-var Collection = require('./Collection');
-var Filters = require('../Filters');
+import GetListForSection from '../mixins/GetListForSection';
 
-var Loading = require('common/components/Loading');
-var EmptyList = require('common/components/EmptyList');
+export default React.createClass({
+	displayName: 'List',
+	mixins: [GetListForSection],
 
-var List = React.createClass({
+	render () {
+		const {section} = this.props;
 
-	getInitialState: function() {
-		//FIXME: Re-write this:
-		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-        return { library: Store.getData() };
-    },
-
-    componentDidMount: function() {
-        Store.addChangeListener(this._onChange);
-        this.getDataIfNeeded(this.props);
-    },
-
-
-    componentWillUnmount: function() {
-        Store.removeChangeListener(this._onChange);
-    },
-
-
-    componentWillReceiveProps: function(nextProps) {
-        this.getDataIfNeeded(nextProps);
-    },
-
-    getDataIfNeeded: function(/*props*/) {
-		if(!Store.getData().loaded) {
-        	Actions.load();
-        }
-    },
-
-    _onChange: function() {
-		this.setState({library: Store.getData()});
-	},
-
-	_itemListForSection: function(section) {
-		var library = this.state.library;
-		switch (section) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case 'courses':
-				return [].concat(library.courses || []);
-
-			case 'books':
-				return [].concat(library.bundles || [], library.packages || []);
-
-			case 'instructing':
-				return [].concat(library.coursesAdmin || []);
-
-			default:
-				console.error('Unknown section; returning empty array.');
-				return [];
-		}
-	},
-
-	_filtersForSection: function(section) {
-		return section === 'courses' ? Filters : null;
-	},
-
-	render: function() {
-
-		if(!this.state.library.loaded) {
+		if(!this.getLibrary()) {
 			return <Loading />;
 		}
 
-		var list = this._itemListForSection(this.props.section);
-		var filters = this._filtersForSection(this.props.section);
+		var list = this.getListForSection(section);
+		var filters = this.getFiltersForSection(section);
 
 		if (list.length === 0) {
 			return (<EmptyList />);
@@ -87,5 +31,3 @@ var List = React.createClass({
 	}
 
 });
-
-module.exports = List;

@@ -25,9 +25,6 @@ export function reload () {
 }
 
 
-function dispatch(key, collection) {
-	AppDispatcher.handleRequestAction({
-		type: key,
-		response: collection
-	});
+function dispatch(type, collection) {
+	AppDispatcher.handleRequestAction({ type, response: collection });
 }
