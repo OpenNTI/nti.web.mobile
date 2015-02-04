@@ -24,7 +24,7 @@ var ListView = React.createClass({
 									Course :
 									Package;
 
-						return <Item key={item.NTIID} item={item}/>;
+						return <Item key={item.NTIID || item.href} item={item}/>;
 					})}
 					</ul>
 				</div>
