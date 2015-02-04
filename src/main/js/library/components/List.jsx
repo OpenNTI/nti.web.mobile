@@ -5,11 +5,11 @@ import Collection from './Collection';
 import Loading from 'common/components/Loading';
 import EmptyList from 'common/components/EmptyList';
 
-import GetListForSection from '../mixins/GetListForSection';
+import SectionAware from '../mixins/SectionAware';
 
 export default React.createClass({
 	displayName: 'List',
-	mixins: [GetListForSection],
+	mixins: [SectionAware],
 
 	render () {
 		const {section} = this.props;

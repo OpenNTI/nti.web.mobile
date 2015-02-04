@@ -6,7 +6,7 @@ import Loading from 'common/components/Loading';
 import Redirect from 'navigation/components/Redirect';
 
 import Section from './Section';
-import SectionMixin from '../mixins/GetListForSection';
+import SectionMixin from '../mixins/SectionAware';
 
 export default React.createClass({
 	displayName: 'Library:View',

@@ -2,7 +2,7 @@ import React from 'react/addons';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import {Link} from 'react-router-component';
 
-import SectionAware from '../mixins/GetListForSection';
+import SectionAware from '../mixins/SectionAware';
 
 var BarItem = React.createClass({
 	mixins: [NavigatableMixin, SectionAware],
