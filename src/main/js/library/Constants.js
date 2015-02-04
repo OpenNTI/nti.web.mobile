@@ -1,29 +1,16 @@
-'use strict';
 /**
- * Constants related to (and used by) the library modules.
- * @class LibraryConstants
+ *
+ * @event LOAD_LIBRARY
+ * @type String
+ * @final
  */
-
-var keyMirror = require('react/lib/keyMirror');
-
-
-module.exports = Object.assign(exports, keyMirror({
-
-	/**
-	 *
-	 * @event LOAD_LIBRARY
-	 * @type String
-	 * @final
-	 */
-	LOAD_LIBRARY: null,
+export const LOAD_LIBRARY = 'library:LOAD';
 
 
-	/**
-	 *
-	 * @event LOADED_LIBRARY
-	 * @type String
-	 * @final
-	 */
-	LOADED_LIBRARY: null
-
-}));
+/**
+ *
+ * @event LOADED_LIBRARY
+ * @type String
+ * @final
+ */
+export const LOADED_LIBRARY = 'library:LOADED';

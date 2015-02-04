@@ -1,35 +1,45 @@
-'use strict';
-
-var EventEmitter = require('events').EventEmitter;
-var CHANGE_EVENT = require('./constants/Events').CHANGE_EVENT;
+import {EventEmitter} from 'events';
+import {CHANGE_EVENT} from './constants/Events';
 
 /**
-* We frequently emit events with a type field specified via a constant.
-* Occasionally the constant is not defined or misspelled, resulting in
-* an event with an undefined type.
-* 
-* This emitChange implementation checks for a type before emitting, throws
-* an error if it's undefined.
-**/
+ * We frequently emit events with a type field specified via a constant.
+ * Occasionally the constant is not defined or misspelled, resulting in
+ * an event with an undefined type.
+ *
+ * This emitChange implementation checks for a type before emitting, throws
+ * an error if it's undefined.
+ */
 
-var TypedEmitter = Object.assign({}, EventEmitter.prototype, {
-	emitChange: function(event) {
-		if (!event.type) {
-			throw new Error('Event must have a type.', event);
-		}
-		this.emit(CHANGE_EVENT, event);
-	},
+export default class TypedEventEmitter extends EventEmitter {
 
-	/*
-	* emitChange with an {isError: true} in the event.
-	*/
-	emitError: function(event) {
-		this.emitChange(Object.assign(event,{isError: true}));
+	constructor () {
+		super();
 	}
-});
 
-module.exports = TypedEmitter;
 
-// var Store = Object.assign({}, TypedEmitter, {
-// 	... 
-// });
+	emitChange (data) {
+		if (data && !data.type) {
+			throw new Error('Change Events must have data and a type.', data);
+		}
+		this.emit(CHANGE_EVENT, data);
+	}
+
+
+	addChangeListener (callback) {
+		this.on(CHANGE_EVENT, callback);
+	}
+
+
+	removeChangeListener (callback) {
+		this.removeListener(CHANGE_EVENT, callback);
+	}
+
+
+
+	/**
+	 * emitChange with an {isError: true} in the event.
+	 */
+	emitError (error) {
+		this.emitChange(Object.assign(error,{isError: true}));
+	}
+}

@@ -1,16 +1,19 @@
-'use strict';
-var Dispatcher = require('flux').Dispatcher;
-var invariant = require('react/lib/invariant');
+import {Dispatcher} from 'flux';
+import invariant from 'react/lib/invariant';
 
+class AppDispatcher extends Dispatcher {
 
-var AppDispatcher = Object.assign(new Dispatcher(), {
+    constructor () {
+        super();
+    }
+
 
     /**
      * A bridge function between the views and the dispatcher, marking the action
      * as a view action.
      * @param  {object} action The data coming from the view.
      */
-    handleViewAction: function(action) {
+    handleViewAction (action) {
         // console.log('AppDispatcher::handleViewAction: %s', action.type);
 
         if ("production" !== process.env.NODE_ENV) {
@@ -21,14 +24,14 @@ var AppDispatcher = Object.assign(new Dispatcher(), {
             source: 'VIEW_ACTION',
             action: action
         });
-    },
+    }
 
     /**
      * A bridge function between the views and the dispatcher, marking the action
      * as a request action.
      * @param  {object} action The data coming from the request response.
      */
-    handleRequestAction: function(action) {
+    handleRequestAction (action) {
         // console.log('AppDispatcher::handleRequestAction: %s', action.type);
 
         if ("production" !== process.env.NODE_ENV) {
@@ -41,6 +44,6 @@ var AppDispatcher = Object.assign(new Dispatcher(), {
         });
     }
 
-});
+}
 
-module.exports = AppDispatcher;
+export default new AppDispatcher();
