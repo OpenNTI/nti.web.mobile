@@ -143,9 +143,18 @@ function _setLoggedIn(isLoggedIn) {
 }
 
 function _logIn(credentials) {
+//	LOGIN_LDAP_LINK: "logon.ldap.okstate",
+//	LOGIN_LDAP_LINK: "logon.ldap.ou",
 
+	var url = _links[Links.LOGIN_PASSWORD_LINK];
 	// prefer the LDAP link if available.
-	var url = _links[Links.LOGIN_LDAP_LINK] || _links[Links.LOGIN_PASSWORD_LINK];
+	for (let k of Object.keys(_links)) {
+		if((/logon\.ldap\./).test(k)) {
+			url = _links[k];
+			console.debug('Found rel: "%s", using.', k);
+		}
+	}
+
 
 	var p = getServer().logInPassword(
 			url,
