@@ -109,12 +109,7 @@ html { -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
 html.touch {
 	button, .button {
 		&:hover/*, &:focus */ {
-			background-color: $button-bg-color;
-		}
-		&.secondary {
-			&:hover {
-				background-color: $secondary-button-bg-hover;
-			}
+			background-color: inherit;
 		}
 	}
 }
