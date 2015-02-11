@@ -1,7 +1,6 @@
 'use strict';
 require('script!6to5/browser-polyfill');
 
-//require('6to5/polyfill');
 
 //TODO: find a way to get rid of this dirty import. All deps should come
 // from node_modules, so switch to this in the future:
