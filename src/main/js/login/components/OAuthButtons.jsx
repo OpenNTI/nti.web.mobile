@@ -2,7 +2,9 @@ import React from 'react/addons';
 import Button from 'common/forms/components/Button';
 import {translate as t} from 'common/locale';
 import BasePathAware from 'common/mixins/BasePath';
-import {link as LinkConstants} from '../Constants';
+import Constants from '../Constants';
+
+const LinkConstants = Constants.links;//constants isn't es6 module yet
 
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
