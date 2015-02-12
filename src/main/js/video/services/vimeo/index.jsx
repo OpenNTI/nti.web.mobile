@@ -125,13 +125,17 @@ var Source = module.exports = React.createClass({
 		data = data.data;
 		console.debug('Vimeo Event: %s: %o', event, data);
 
-		if (event === 'ready') {
+		if (event === 'error') {
+			alert(`Vimeo Error: ${data.code}: ${data.message}`);
+		}
+		else if (event === 'ready') {
 			this.postMessage('addEventListener', 'play');	//playing
 			this.postMessage('addEventListener', 'pause');	//pause
 			this.postMessage('addEventListener', 'finish');	//ended
 			this.postMessage('addEventListener', 'seek');	//seeked
 			this.postMessage('addEventListener', 'playProgress'); //timeupdate
-		} else if(mappedEvent && handlerName) {
+		}
+		else if(mappedEvent && handlerName) {
 
 			this.props[handlerName]({
 				timeStamp: Date.now(),
