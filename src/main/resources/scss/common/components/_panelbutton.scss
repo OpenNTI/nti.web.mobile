@@ -7,4 +7,10 @@
 			background-color: lighten($alert-color,40%);
 		}
 	}
+	.buttons {
+		@extend %dialog-buttons;
+	}
+	.panel {
+		margin-bottom:0;
+	}
 }

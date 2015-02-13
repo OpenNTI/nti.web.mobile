@@ -13,6 +13,7 @@
 @import "transitions";
 @import "common-animations";
 
+@import "common/buttons";
 @import "prompts/components";
 
 @import "common/components/attributed-content-item";
@@ -105,15 +106,6 @@ html { -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
 .button, input[type=button], input[type=submit], input[type=reset], button {
 	@include input-typography;
 }
-
-html.touch {
-	button, .button {
-		&:hover/*, &:focus */ {
-			background-color: inherit;
-		}
-	}
-}
-
 
 a.disabled {
 	opacity:0.4;

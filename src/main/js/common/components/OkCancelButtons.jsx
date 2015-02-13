@@ -39,18 +39,15 @@ var OkCancelButtons = React.createClass({
 	render: function() {
 
 		return (
-			<ul className="button-group even-2 radius">
-			  <li>
+			<div className="buttons">
 			  	<a href="#"
 					onClick={this._cancelClick}
-			  		className="button tiny secondary">{this.props.cancelText||t('cancel')}</a>
-			  </li>
-			  <li>
+			  		className="cancel button">{this.props.cancelText||t('cancel')}</a>
 			  	<a href="#"
 					onClick={this.props.okEnabled ? this._okClick : this._killEvent}
 					disabled={!this.props.okEnabled}
-					className="button tiny">{this.props.okText||t('ok')}</a></li>
-			</ul>
+					className="confirm button">{this.props.okText||t('ok')}</a>
+			</div>
 		);
 	}
 
