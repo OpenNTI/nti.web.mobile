@@ -7,6 +7,8 @@ import BasePathAware from 'common/mixins/BasePath';
 import {Component as Video} from 'video';
 import {encodeForURI} from 'dataserverinterface/utils/ntiids';
 
+const Progress = Symbol.for('Progress');
+
 export default React.createClass({
 	displayName: 'CourseOverviewVideo',
 	mixins: [BasePathAware],
@@ -139,6 +141,14 @@ export default React.createClass({
 			renderVideoFully = (activeIndex === index);
 		}
 
+
+		var viewed = false;
+		var progress = item[Progress];
+		if (progress && progress.hasProgress()) {
+			viewed = true;
+		}
+
+
 		var link = path.join(this.getBasePath(),
 			'course', encodeForURI(props.course.getID()),
 			'v', encodeForURI(item.NTIID))  + '/';
@@ -155,7 +165,7 @@ export default React.createClass({
 				<LoadingMask style={style} loading={this.state.loading}
 					tag="a" onFocus={props.onFocus}
 					className="overview-tap-area" href={link}>
-
+					{viewed && <div className="viewed">Viewed</div>}
 					<div className="wrapper">
 						<div className="buttons">
 							<span className="play" title="Play" onClick={this.onPlayClicked}/>

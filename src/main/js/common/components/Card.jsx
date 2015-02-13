@@ -157,7 +157,7 @@ export default React.createClass({
 
 	isSeen () {
 		let progress = this.props.item[Progress];
-		return progress && progress.hasSeen();
+		return progress && progress.hasProgress();
 	},
 
 
