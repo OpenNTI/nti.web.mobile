@@ -81,12 +81,11 @@ export default React.createClass({
 
 			this.setState({loading: true});
 			course.getVideoIndex()
-				.then(videoIndex =>
-					this.setState({
-						loading: false,
-						video: videoIndex.get(item.NTIID)
-					})
-				)
+				.then(videoIndex => {
+					let video = videoIndex.get(item.NTIID);
+					this.setState({ loading: false, video });
+					video.getPoster().then(poster=>this.setState({poster}));
+				})
 				.catch(this.onError);
 		} catch (e) {
 			this.onError(e);
@@ -134,7 +133,7 @@ export default React.createClass({
 
 		var Tag = props.tag || 'div';
 		var style = {
-			backgroundImage: 'url(' + item.poster + ')'
+			backgroundImage: 'url(' + this.state.poster + ')'
 		};
 
 		if (activeIndex != null) {
