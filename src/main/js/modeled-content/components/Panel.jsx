@@ -1,22 +1,20 @@
-'use strict';
+import React from 'react/addons';
 
-var React = require('react/addons');
+import {processContent} from 'content/Utils';
 
-var {processContent} = require('content/Utils');
+import guid from 'dataserverinterface/utils/guid';
+import htmlToReactRenderer from 'dataserverinterface/utils/html-to-react';
 
-var guid = require('dataserverinterface/utils/guid');
-var htmlToReactRenderer = require('dataserverinterface/utils/html-to-react');
+import hash from 'object-hash';
 
-var hash = require('object-hash');
-
-var SYSTEM_WIDGETS = require('../SystemWidgetRegistry');
+import SYSTEM_WIDGETS from '../SystemWidgetRegistry';
 
 var SYSTEM_WIDGET_STRATEGIES = {};
 
 /**
  * Component to render Modeled Body Content
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'ModeledBodyContent',
 
 	propTypes: {
@@ -51,19 +49,18 @@ module.exports = React.createClass({
 
 		body = (body || []).map(content=> {
 			var packet;
-			var key, w, o;
 			if (typeof content === 'string') {
 				packet = processContent(strategies, {content: content});
 			}
 			else {
-				key = guid();
-				w = Object.assign({}, content, { id: key });
-				o = {}; o[key] = w;
+				let key = guid();
+				let o = {[key]: Object.assign({}, content, { id: key })};
+
 				packet = {
 					widgets: o,
 					body: [{
-						guid:key,
-						type: w.MimeType
+						guid: key,
+						type: o[key].MimeType
 					}]
 				};
 			}
@@ -89,7 +86,7 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
+	render () {
 		var props = Object.assign({}, this.props, {body: undefined});
 		var {body} = this.state;
 		var dynamicRenderers = [];
@@ -114,7 +111,7 @@ module.exports = React.createClass({
 	},
 
 
-	renderWidget: function (tagName, props, children) {
+	renderWidget (tagName, props, children) {
 		var {renderCustomWidget} = this.props;
 		var f = renderCustomWidget || React.createElement;
 		props = props || {};//ensure we have an object.

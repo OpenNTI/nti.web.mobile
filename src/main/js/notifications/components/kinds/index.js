@@ -1,56 +1,49 @@
-'use strict';
-var React = require('react/addons');
+import React from 'react/addons';
 
-var Unknown = require('./Unknown');
-var Chat = require('./Chat');
-var Contact = require('./Contact');
-var Badge = require('./Badge');
-var Grade = require('./Grade');
-var Feedback = require('./Feedback');
-var Note = require('./Note');
-var BlogEntry = require('./BlogEntry');
-var BlogEntryPost = require('./BlogEntryPost');
-var BlogComment = require('./BlogComment');
-var ForumComment = require('./ForumComment');
-var ForumTopic = require('./ForumTopic');
+import Unknown from './Unknown';
+import Chat from './Chat';
+import Contact from './Contact';
+import Badge from './Badge';
+import Grade from './Grade';
+import Feedback from './Feedback';
+import Note from './Note';
+import BlogEntry from './BlogEntry';
+import BlogEntryPost from './BlogEntryPost';
+import BlogComment from './BlogComment';
+import ForumComment from './ForumComment';
+import ForumTopic from './ForumTopic';
 
-exports = module.exports = {
-	Unknown: Unknown, //Unknown for future items.
+var KINDS = [
+	Unknown,
 
-	Chat: Chat,
-	Contact: Contact,
-	Badge: Badge,
-	Grade: Grade,
-	Feedback: Feedback,
+	Chat,
+	Contact,
+	Badge,
+	Grade,
+	Feedback,
 
-	Note: Note,
+	Note,
 
-	BlogEntry: BlogEntry,
-	BlogEntryPost: BlogEntryPost,
-	BlogComment: BlogComment,
+	BlogEntry,
+	BlogEntryPost,
+	BlogComment,
 
-	ForumTopic: ForumTopic,
-	ForumComment: ForumComment,
+	ForumTopic,
+	ForumComment
+];
 
-	select: function getNotificationItemHandler(item, index) {
-		var Item = exports.Unknown;
-		var key, Type;
+export function getNotificationItem (item, index) {
+	var Item = Unknown;
 
-		for (key in exports) {
-			if (exports.hasOwnProperty(key)) {
-				Type = exports[key];
-				if (Type !== Unknown && Type.handles && Type.handles(item)) {
-					Item = Type;
-					break;
-				}
-
-			}
+	for (let Type of KINDS) {
+		if (Type !== Unknown && Type.handles && Type.handles(item)) {
+			Item = Type;
+			break;
 		}
-
-		return React.createElement(Item, {
-			key: 'notifications-' + index + '-' + item.OID,
-			item: item, index: index
-		});
 	}
 
-};
+	return React.createElement(Item, {
+		key: 'notifications-' + index + '-' + item.OID,
+		item: item, index: index
+	});
+}

@@ -1,18 +1,18 @@
-'use strict';
+import React from 'react/addons';
+import Loading from 'common/components/Loading';
+import InlineLoader from 'common/components/LoadingInline';
+import Button from 'common/forms/components/Button';
 
-var React = require('react/addons');
-var Loading = require('common/components/Loading');
-var InlineLoader = require('common/components/LoadingInline');
-var Button = require('common/forms/components/Button');
+import StoreEvents from 'common/mixins/StoreEvents';
 
-var Store = require('../Store');
-var Actions = require('../Actions');
+import Store from '../Store';
 
-var getNotificationItem = require('./kinds').select;
+import {load, loadMore} from '../Actions';
+import {getNotificationItem} from './kinds';
 
-var Empty = React.createClass({
+const Empty = React.createClass({
 
-	render: function() {
+	render () {
 		return (
 			<li className="notification-item empty">
 				All Caught Up!
@@ -23,11 +23,9 @@ var Empty = React.createClass({
 });
 
 
+const LoadMore = React.createClass({
 
-
-var LoadMore = React.createClass({
-
-	render: function () {
+	render () {
 		var store = this.props.store;
 		return (
 			<div className="text-center button-box">
@@ -43,59 +41,52 @@ var LoadMore = React.createClass({
 });
 
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'NotificationsView',
+	mixins: [StoreEvents],
+
+	getInitialState () { return {}; },
+
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		default: 'synchronizeFromStore'
+	},
 
 
-	getInitialState: function() {
-		//FIXME: Re-write this:
-		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-
-        return { notifications: Store.getData() };
-    },
+	componentDidMount () { this.ensureLoaded(); },
+	componentWillReceiveProps () { this.ensureLoaded(); },
 
 
-    componentDidMount: function() {
-        Store.addChangeListener(this._onChange);
-        this.getDataIfNeeded(this.props);
-    },
+	ensureLoaded () {
+		if(!Store.isLoaded) {
+			load();
+		}
+		this.synchronizeFromStore();
+	},
 
-
-    componentWillUnmount: function() {
-        Store.removeChangeListener(this._onChange);
-    },
-
-
-    componentWillReceiveProps: function(nextProps) {
-        this.getDataIfNeeded(nextProps);
-    },
-
-
-	getDataIfNeeded: function(/*props*/) {
-        if(!Store.isLoaded) {
-        	Actions.load();
-        }
-    },
-
-
-	_onLoadMore: function() {
-		Actions.loadMore(this.state.notifications);
+	onLoadMore () {
+		loadMore(this.state.notifications);
 		this.forceUpdate();
 	},
 
 
-    _onChange: function() {
+	synchronizeFromStore () {
 		var list = Store.getData();
 		this.setState({
-			length: list.length,
+			length: list && list.length,
 			notifications: list
 		});
 	},
 
 
-	render: function() {
-		var list = this.state.notifications || {};
+	getItems () {
+		var {state} = this;
+		return (state || {}).notifications || {};
+	},
+
+
+	render () {
+		var list = this.getItems();
 		if (!list.map) {
 			return <Loading />;
 		}
@@ -105,7 +96,7 @@ module.exports = React.createClass({
 				<li><label>Notifications</label></li>
 				{list.length ? list.map(getNotificationItem) : <Empty/>}
 				{list.hasMore ?
-					<LoadMore onClick={this._onLoadMore} store={list}/> : null
+					<LoadMore onClick={this.onLoadMore} store={list}/> : null
 				}
 			</ul>
 	    );

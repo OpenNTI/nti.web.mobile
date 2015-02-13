@@ -1,38 +1,28 @@
-'use strict';
-/** @module notifications/Actions */
+import AppDispatcher from 'dispatcher/AppDispatcher';
 
-var EventEmitter = require('events').EventEmitter;
-
-var AppDispatcher = require('dispatcher/AppDispatcher');
-
-var Api = require('./Api');
-var Constants = require('./Constants');
+import {load as doLoad} from './Api';
+import {LOADED_NOTIFICATIONS} from './Constants';
 
 
 /**
  * Actions available to views for notification-related functionality.
  */
-module.exports = Object.assign({}, EventEmitter.prototype, {
-
-	load: function() {
-		Api.load()
-			.then(dispatch.bind(this, Constants.LOADED_NOTIFICATIONS));
-	},
 
 
-	loadMore: function(notifications) {
-		if (notifications) {
-			notifications.nextBatch()
-				.then(dispatch.bind(this, Constants.LOADED_NOTIFICATIONS));
-		}
+export function load () {
+	doLoad()
+		.then(dispatch.bind(this, LOADED_NOTIFICATIONS));
+}
+
+
+export function loadMore (notifications) {
+	if (notifications) {
+		notifications.nextBatch()
+			.then(dispatch.bind(this, LOADED_NOTIFICATIONS));
 	}
-});
+}
 
 
-
-function dispatch(key, collection) {
-	AppDispatcher.handleRequestAction({
-		type: key,
-		response: collection
-	});
+function dispatch(type, response) {
+	AppDispatcher.handleRequestAction({type, response});
 }

@@ -1,10 +1,8 @@
-'use strict';
+import React from 'react/addons';
+import NoteableMixin from '../mixins/Noteable';
+import DateTime from 'common/components/DateTime';
 
-var React = require('react/addons');
-var NoteableMixin = require('../mixins/Noteable');
-var DateTime = require('common/components/DateTime');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'ForumCommentType',
 	mixins: [NoteableMixin],
 
@@ -12,7 +10,7 @@ module.exports = React.createClass({
 		noteableType: 'grade'
 	},
 
-	render: function() {
+	render () {
 		var item = this.props.item.Item;
 		var courseName = item.CourseName;
 		var assignmentName = item.AssignmentName || 'an assignment';

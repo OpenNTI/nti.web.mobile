@@ -1,10 +1,9 @@
-'use strict';
+import React from 'react/addons';
 
-var React = require('react/addons');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'NotFound',
-	render: function() {
+
+	render () {
 		/* global __setPageNotFound */
 		if (global.__setPageNotFound) {
 			__setPageNotFound();

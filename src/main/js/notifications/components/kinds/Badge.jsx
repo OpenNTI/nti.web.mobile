@@ -1,11 +1,8 @@
-//TODO
-'use strict';
+import React from 'react/addons';
+import NoteableMixin from '../mixins/Noteable';
+import DateTime from 'common/components/DateTime';
 
-var React = require('react/addons');
-var NoteableMixin = require('../mixins/Noteable');
-var DateTime = require('common/components/DateTime');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'ForumCommentType',
 	mixins: [NoteableMixin],
 
@@ -13,14 +10,11 @@ module.exports = React.createClass({
 		noteableType: 'openbadges.badge'
 	},
 
-	render: function() {
+	render () {
 		var item = (this.props.item || {}).Item;
-		var badge = {
-			backgroundImage: 'url(' + item.image + ')'
-		};
 		return (
 			<li className="notification-item">
-				<div className='badge' style={badge}/>
+				<div className='badge' style={{backgroundImage: `url(${item.image})`}}/>
 				<div className="wrap">
 					{item.name}
 					<DateTime date={this.getEventTime()} />

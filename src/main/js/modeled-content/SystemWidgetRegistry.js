@@ -1,13 +1,11 @@
-'use strict';
+import React from 'react/addons';
+import {Component as Video} from 'video';
 
-var React = require('react/addons');
-var Video = require('video').Component;
-
-Object.assign(exports, {
+export default {
 
 	'application/vnd.nextthought.embeddedvideo': renderVideoWidget
 
-});
+};
 
 
 function renderVideoWidget(_, props) {

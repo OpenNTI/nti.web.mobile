@@ -1,13 +1,11 @@
-'use strict';
+import React from 'react/addons';
+import NoteableMixin from '../mixins/Noteable';
 
-var React = require('react/addons');
-var NoteableMixin = require('../mixins/Noteable');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'UnknownNotificationType',
 	mixins: [NoteableMixin],
 
-	render: function() {
+	render () {
 		//console.debug('Unhandled Notification Kind: %o', this.state.change);
 		//console.debug(this.state.item);
 		var type = this.state.item.MimeType.replace('application/vnd.nextthought.', '');

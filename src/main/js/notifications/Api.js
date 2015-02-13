@@ -1,16 +1,9 @@
-'use strict';
+import Notifications from 'dataserverinterface/stores/Notifications';
 
-var Notifications = require('dataserverinterface/stores/Notifications');
+import {getService} from 'common/Utils';
 
-var getService = require('common/Utils').getService;
-
-module.exports = {
-
-	load: function () {
-		return getService()
-			.then(function(service) {
-				return Notifications.load(service);
-		});
-	}
-
-};
+export function load () {
+	return getService()
+		.then(service =>
+			Notifications.load(service));
+}

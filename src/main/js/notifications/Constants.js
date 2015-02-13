@@ -1,29 +1,16 @@
-'use strict';
 /**
- * Constants related to (and used by) the notification modules.
- * @class Constants
+ *
+ * @event LOAD_NOTIFICATIONS
+ * @type String
+ * @final
  */
-
-var keyMirror = require('react/lib/keyMirror');
-
-
-module.exports = Object.assign(exports, keyMirror({
-
-	/**
-	 *
-	 * @event LOAD_NOTIFICATIONS
-	 * @type String
-	 * @final
-	 */
-	LOAD_NOTIFICATIONS: null,
+export const LOAD_NOTIFICATIONS = 'notifications:Load';
 
 
-	/**
-	 *
-	 * @event LOADED_NOTIFICATIONS
-	 * @type String
-	 * @final
-	 */
-	LOADED_NOTIFICATIONS: null
-
-}));
+/**
+ *
+ * @event LOADED_NOTIFICATIONS
+ * @type String
+ * @final
+ */
+export const LOADED_NOTIFICATIONS = 'notifications:Loaded';
