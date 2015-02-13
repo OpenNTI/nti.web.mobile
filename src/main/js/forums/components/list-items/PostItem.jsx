@@ -11,7 +11,8 @@ var Store = require('../../Store');
 
 var Avatar = require('common/components/Avatar');
 var DateTime = require('common/components/DateTime');
-var DisplayName = require('common/components/DisplayName');
+var DisplayName = require('common/components/DisplayName').default;
+var Replies = require('../Replies'); 
 var Replies = require('../Replies'); 
 var ModeledContentPanel = require('modeled-content').Panel;
 var t = require('common/locale').scoped('FORUMS');
