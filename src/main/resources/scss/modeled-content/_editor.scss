@@ -5,8 +5,15 @@
 	background: #fff;
 
 	[contenteditable] {
+		color: $primary-grey;
 		min-height: 3rem;
 		padding: 0.6rem;
+		line-height: normal;
+		font: {
+			size: 1rem;
+			weight: normal;
+			style: normal;
+		}
 		&:focus {
 			outline: none;
 		}
