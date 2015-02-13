@@ -155,12 +155,11 @@ module.exports = function(grunt) {
 
 		sass: {
 			options: {
+				sourceMap: true,
+				outputStyle: 'compressed',
 				includePaths: ['src/main/resources/vendor/foundation/scss']
 			},
 			dist: {
-				options: {
-					outputStyle: 'compressed'
-				},
 				files: {
 					'src/main/resources/css/app.css': 'src/main/resources/scss/app.scss',
 					'src/main/resources/css/sites/platform.ou.edu/site.css': 'src/main/resources/scss/sites/platform.ou.edu/site.scss',
