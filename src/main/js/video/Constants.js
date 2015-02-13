@@ -1,25 +1,8 @@
-'use strict';
 
-var handlers = [
-	'onPlaying',
-	'onPause',
-	'onEnded',
-	'onSeeked',
-	'onTimeUpdate'
-];
-
-function _eventNameFor(handlerName) {
-	// extract event name from handler name (e.g. 'timeupdate' from 'onTimeUpdate')
-	return handlerName.toLowerCase().slice(2);
-}
-
-var events = {};
-handlers.forEach(function(handler) {
-	var eventname = _eventNameFor(handler);
-	events[eventname] = handler;
-});
-
-module.exports = {
-
-	EventHandlers: events
+export const EventHandlers = {
+	playing: 'onPlaying',
+	pause: 'onPause',
+	ending: 'onEnded',
+	seeked: 'onSeeked',
+	timeupdate: 'onTimeUpdate'
 };

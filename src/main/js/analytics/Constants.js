@@ -1,8 +1,2 @@
-'use strict';
-
-var nsKeyMirror = require('dataserverinterface/utils/namespaced-key-mirror');
-
-module.exports = nsKeyMirror('analytics', {
-	NEW_EVENT: null,
-	VIDEO_PLAYER_EVENT: null
-});
+export const NEW_EVENT = 'analytics:New Event';
+export const VIDEO_PLAYER_EVENT = 'analytics:Video Player Event';

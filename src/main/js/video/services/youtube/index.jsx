@@ -1,19 +1,19 @@
-'use strict';
+import React from 'react/addons';
+import invariant from 'react/lib/invariant';
 
-var React = require('react/addons');
-var invariant = require('react/lib/invariant');
+import {EventHandlers} from '../../Constants';
 
-var eventHandlers = require('../../Constants').EventHandlers;
+import ErrorWidget from 'common/components/Error';
 
-var ErrorWidget = require('common/components/Error');
+import QueryString from 'query-string';
 
-var guid = require('dataserverinterface/utils/guid');
-var QueryString = require('query-string');
-var Task = require('dataserverinterface/utils/task');
+import guid from 'dataserverinterface/utils/guid';
+import Task from 'dataserverinterface/utils/task';
 
 var YOU_TUBE = 'https://www.youtube.com';
 
-/*var YOU_TUBE_STATES = {
+/*
+const YOU_TUBE_STATES = {
 	'-1': 'UNSTARTED',
 	0: 'ENDED',
 	1: 'PLAYING',
@@ -22,18 +22,18 @@ var YOU_TUBE = 'https://www.youtube.com';
 	5: 'CUED'
 };
 */
-var YT_STATE_TO_EVENTS = {
+const YT_STATE_TO_EVENTS = {
 	0: 'ended',
 	1: 'playing',
 	2: 'pause'
 	//There is no seek event for YT
 };
 
-var Source = module.exports = React.createClass({
+var Source = React.createClass({
 	displayName: 'YouTube-Video',
 
 	statics: {
-		getId: function(url) {
+		getId (url) {
 			var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&\?]*).*/,
 				match = url.match(regExp);
 			if (match && match[2].length === 11) {
@@ -50,44 +50,44 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	getInitialState: function() {
-		//FIXME: Re-write this:
-		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-
-		return {
-			scope: YOU_TUBE,
-			playerURL: this.buildURL(),
-			initTask: new Task(this.sendListening, 500)
-		};
+	getInitialState () {
+		return {scope: YOU_TUBE};
 	},
 
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			id: guid()
 		};
 	},
 
 
-	componentDidMount: function() {
+	componentWillMount () {
+		this.updateURL();
+		this.setState({
+			initTask: new Task(this.sendListening, 500)
+		});
+	},
+
+
+	componentDidMount () {
 		this.updateURL();
 		window.addEventListener('message', this.onMessage, false);
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		this.state.initTask.stop();
 		window.removeEventListener('message', this.onMessage, false);
 	},
 
 
-	componentWillReceiveProps: function() {
+	componentWillReceiveProps () {
 		this.updateURL();
 	},
 
 
-	componentDidUpdate: function(prevProps, prevState) {
+	componentDidUpdate (prevProps, prevState) {
 		var state = this.state;
 		var initTask = state.initTask;
 		var prevInitTask = prevState.initTask;
@@ -106,7 +106,7 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	buildURL: function () {
+	buildURL () {
 		var mediaSource = this.props.source;
 		var videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source[0];
 
@@ -126,21 +126,18 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	updateURL: function() {
-		var url = this.buildURL();
-		this.setState({
-			playerURL: url
-		});
+	updateURL () {
+		this.setState({playerURL: this.buildURL()});
 	},
 
 
-	getPlayerContext: function() {
+	getPlayerContext () {
 		var iframe = this.getDOMNode();
 		return iframe && (iframe.contentWindow || window.frames[iframe.name]);
 	},
 
 
-	render: function() {
+	render () {
 		if (!this.props.src) {
 			return (<ErrorWidget error="No source"/>);
 		}
@@ -150,12 +147,12 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	sendListening: function () {
+	sendListening () {
 		this.postMessage();
 	},
 
 
-	finishInitialization: function () {
+	finishInitialization () {
 		this.setState({initialized: true});
 		this.postMessage('addEventListener', ['onReady']);
 		this.postMessage('addEventListener', ['onStateChange']);
@@ -163,7 +160,7 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	onMessage: function(event) {
+	onMessage (event) {
 		var data = JSON.parse(event.data);
 		var eventName = (data && data.event) || '';
 		var handlerName = 'handle' + eventName.charAt(0).toUpperCase() + eventName.substr(1);
@@ -186,7 +183,7 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	postMessage: function(method, params) {
+	postMessage (method, params) {
 		var context = this.getPlayerContext(), data;
 		if (!context) {
 			console.warn(this.props.id, ' No Player Context!');
@@ -208,7 +205,7 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	handleInfoDelivery: function (info) {
+	handleInfoDelivery (info) {
 		this.setState(info);
 		if (info.hasOwnProperty('currentTime')) {
 			this.fireEvent('timeupdate');
@@ -216,16 +213,16 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	handleInitialDelivery: function (info) {
+	handleInitialDelivery (info) {
 		this.setState(info);
 	},
 
 
-	handleApiInfoDelivery: function () {},
-	handleOnReady: function () {},//nothing to do
+	handleApiInfoDelivery () {},
+	handleOnReady () {},//nothing to do
 
 
-	handleOnStateChange: function (state) {
+	handleOnStateChange (state) {
 		if (this.state.playerState !== state) {
 			this.setState({playerState: state});
 		}
@@ -236,10 +233,10 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	fireEvent: function (event) {
-		if (this.props[eventHandlers[event]]) {
+	fireEvent (event) {
+		if (this.props[EventHandlers[event]]) {
 
-			this.props[eventHandlers[event]]({
+			this.props[EventHandlers[event]]({
 				timeStamp: Date.now(),
 				target: {
 					currentTime: this.state.currentTime,
@@ -251,22 +248,24 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	play: function () {
+	play () {
 		this.postMessage('playVideo');
 	},
 
 
-	pause: function () {
+	pause () {
 		this.postMessage('pauseVideo');
 	},
 
 
-	stop: function () {
+	stop () {
 		this.postMessage('stopVideo');
 	},
 
 
-	setCurrentTime: function(time) {
+	setCurrentTime (time) {
 		this.postMessage('seekTo', time);
 	}
 });
+
+export default Source;

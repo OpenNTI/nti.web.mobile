@@ -1,31 +1,27 @@
 'use strict';
 
-var React = require('react/addons');
-var getSources = require('./SourceGrabber');
-var selectSources = require('./SelectSources');
+import React from 'react/addons';
+import getSources from './SourceGrabber';
+import selectSources from './SelectSources';
 
-var url = require('url');
+import url from 'url';
 
-var {getModel} = require('dataserverinterface');
-var MediaSource = getModel('mediasource');
+import {getModel} from 'dataserverinterface';
+let MediaSource = getModel('mediasource');
 
-var Utils = require('common/Utils');
-var getTarget = Utils.Dom.getEventTarget;
-//var Viewport = Utils.Viewport;
+import {Dom} from 'common/Utils';
+let {getEventTarget} = Dom;
+//let {Viewport} = Utils;
 
-var Loading = require('common/components/Loading');
-var eventHandlers = require('../../Constants').EventHandlers;
-
-function _videoEventHandler(event) {
-	console.warn('No handler specified for video event \'%s\'', event.type);
-}
+import Loading from 'common/components/Loading';
+import {EventHandlers} from '../../Constants';
 
 /**
  * @class KalturaVideo
  *
  * The Kaltura Video source implementation
  */
-var KalturaVideo = React.createClass({
+export default React.createClass({
 	displayName: 'KalturaVideo',
 
 	propTypes: {
@@ -40,17 +36,23 @@ var KalturaVideo = React.createClass({
 			]).isRequired
 	},
 
-	getDefaultProps: function() {
+
+	getDefaultProps () {
 		var p = {};
+
 		// default no-op video event handlers
-		Object.keys(eventHandlers).forEach(function(eventname) {
-			p[eventHandlers[eventname]] = _videoEventHandler;
-		});
+		Object.keys(EventHandlers)
+			.forEach(eventname=>(
+				p[EventHandlers[eventname]] =
+					e=>console.warn('No handler specified for video event \'%s\'', e.type)
+				)
+			);
+
 		return p;
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			sources: [],
 			sourcesLoaded: false,
@@ -60,7 +62,7 @@ var KalturaVideo = React.createClass({
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		var data = this.props.source;
 		// kaltura://1500101/0_4ol5o04l/
 		var src = typeof data === 'string' && data;
@@ -88,7 +90,7 @@ var KalturaVideo = React.createClass({
 	},
 
 
-	setSources: function(data) {
+	setSources (data) {
 		if (!this.isMounted()) {
 			return;
 		}
@@ -113,7 +115,7 @@ var KalturaVideo = React.createClass({
 	},
 
 
-	componentDidUpdate: function() {
+	componentDidUpdate () {
 		var video = this.refs.video;
 		var props = this.props;
 
@@ -128,8 +130,9 @@ var KalturaVideo = React.createClass({
 			//attempt to tell the WebView to play inline...
 			video.setAttribute('webkit-playsinline', true);
 
-			Object.keys(eventHandlers).forEach(function(eventname) {
-				video.addEventListener(eventname, props[eventHandlers[eventname]], false);
+			Object.keys(EventHandlers).forEach(eventname => {
+
+				video.addEventListener(eventname, props[EventHandlers[eventname]], false);
 			});
 
 			this.setState({listening: true});
@@ -137,17 +140,17 @@ var KalturaVideo = React.createClass({
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		var video = this.getDOMNode();
 		if (video) {
-			Object.keys(eventHandlers).forEach(function(eventname) {
-				video.removeEventListener(eventname, this.props[eventHandlers[eventname]], false);
-			}.bind(this));
+			Object.keys(EventHandlers).forEach(eventname =>
+				video.removeEventListener(eventname, this.props[EventHandlers[eventname]], false)
+			);
 		}
 	},
 
 
-	render: function() {
+	render () {
 
 		if(!this.state.sourcesLoaded) {
 			return <Loading/>;
@@ -166,7 +169,7 @@ var KalturaVideo = React.createClass({
 			onClick: this.doPlay
 		});
 
-		Object.keys(this.props).forEach(function(key) {
+		Object.keys(this.props).forEach(key => {
 			if (/^on/i.test(key)) {
 				videoProps[key] = null;
 			}
@@ -177,7 +180,7 @@ var KalturaVideo = React.createClass({
 		return (
 			<div className={'video-wrapper ' + interacted}>
 				<video {...videoProps}>
-					{this._renderSources()}
+					{this.renderSources()}
 				</video>
 				{!this.state.interacted && <a className="tap-area play" href="#" onClick={this.doPlay}
 						style={{backgroundImage: 'url('+this.state.poster+')'}}/>}
@@ -186,7 +189,7 @@ var KalturaVideo = React.createClass({
 	},
 
 
-	_renderSources: function() {
+	renderSources () {
 		var sources = this.state.sources || [];
 		var Tag = 'source';
 		return sources.map(source=> (
@@ -195,15 +198,15 @@ var KalturaVideo = React.createClass({
 	},
 
 
-	onError: function () {
+	onError () {
 		this.setState({
 			error: 'Could not play video. Network or Browser error.'
 		});
 	},
 
 
-	doPlay: function (e) {
-		var isAnchor = e && getTarget(e, 'a');
+	doPlay (e) {
+		var isAnchor = e && getEventTarget(e, 'a');
 
 		if (isAnchor) {
 			e.preventDefault();
@@ -214,40 +217,38 @@ var KalturaVideo = React.createClass({
 	},
 
 
-	play: function () {
-		var v = this.refs.video;
-		if (v && this.isMounted()) {
+	play () {
+		var {video} = this.refs;
+		if (video && this.isMounted()) {
 			this.setState({interacted: true});
-			v = v.getDOMNode();
-			if(v.play){v.play();}
+			video = video.getDOMNode();
+			if(video.play){video.play();}
 		}
 	},
 
 
-	pause: function () {
-		var v = this.refs.video;
-		if (v && this.isMounted()) {
-			v = v.getDOMNode();
-			if(v.pause){v.pause();}
+	pause () {
+		var video = this.refs;
+		if (video && this.isMounted()) {
+			video = video.getDOMNode();
+			if(video.pause){video.pause();}
 		}
 	},
 
 
-	stop: function () {
-		var v = this.refs.video;
-		if (v && this.isMounted()) {
-			v = v.getDOMNode();
-			if(v.stop){v.stop();}
+	stop () {
+		var {video} = this.refs;
+		if (video && this.isMounted()) {
+			video = video.getDOMNode();
+			if(video.stop){video.stop();}
 		}
 	},
 
 
-	setCurrentTime: function(time) {
-		var v = this.refs.video;
-		if (v && this.isMounted()) {
-			v.getDOMNode().currentTime = time;
+	setCurrentTime (time) {
+		var {video} = this.refs;
+		if (video && this.isMounted()) {
+			video.getDOMNode().currentTime = time;
 		}
 	}
 });
-
-module.exports = KalturaVideo;

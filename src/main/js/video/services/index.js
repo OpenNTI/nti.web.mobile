@@ -1,20 +1,15 @@
-'use strict';
+import Url from 'url';
 
-var Url = require('url');
+import kaltura from './kaltura';
+import vimeo from './vimeo';
+import youtube from './youtube';
 
-var kaltura = require('./kaltura');
-var vimeo = require('./vimeo');
-var youtube = require('./youtube');
-
-var kalturaRe = /^kaltura/i;
-var vimeoRe = /vimeo/i;
-var youtubeRe = /youtu(\.?)be/i;
+const kalturaRe = /^kaltura/i;
+const vimeoRe = /vimeo/i;
+const youtubeRe = /youtu(\.?)be/i;
 
 
-
-
-
-function getUrl(data) {
+export function getUrl(data) {
 	var src = data && data.sources[0];
 	var url = src && Url.parse(src.source[0]);
 
@@ -30,7 +25,7 @@ function getUrl(data) {
 	return url;
 }
 
-var serviceMap = {
+const serviceMap = {
 	youtube: youtube,
 	vimeo: vimeo,
 	kaltura: kaltura
@@ -39,36 +34,27 @@ var serviceMap = {
 // var getVimeoId = vimeo.getId;
 // var getYouTubeId = youtube.getId;
 
-exports = module.exports = {
-	Kaltura: kaltura,
-	Vimeo: vimeo,
-	YouTube: youtube,
 
-	getHandler: function(src) {
-		var url = (typeof src === 'string') ? Url.parse(src) : getUrl(src);
-		var service = ((src.sources || [])[0] || {}).service;
+export function getHandler(src) {
+	var url = (typeof src === 'string') ? Url.parse(src) : getUrl(src);
+	var service = ((src.sources || [])[0] || {}).service;
 
-		var handler = serviceMap[service];
+	var handler = serviceMap[service];
 
-		if (url && !handler) {
-			handler = null;
-			if (kalturaRe.test(url.protocol)) {
-				handler = kaltura;
-			}
-
-			else if (vimeoRe.test(url.host) || vimeoRe.test(url.protocol)) {
-				handler = vimeo;
-			}
-
-			else if (youtubeRe.test(url.host)) {
-				handler = youtube;
-			}
+	if (url && !handler) {
+		handler = null;
+		if (kalturaRe.test(url.protocol)) {
+			handler = kaltura;
 		}
 
-		return handler;
-	},
+		else if (vimeoRe.test(url.host) || vimeoRe.test(url.protocol)) {
+			handler = vimeo;
+		}
 
+		else if (youtubeRe.test(url.host)) {
+			handler = youtube;
+		}
+	}
 
-	getUrl: getUrl
-
-};
+	return handler;
+}

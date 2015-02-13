@@ -1,22 +1,19 @@
-'use strict';
 /**
  * Stand alone source grabber.
  * grabbed from http://player.kaltura.com/kWidget/kWidget.getSources.js
  */
 
-var QueryString = require('query-string');
-var Utils = require('common/Utils');
-var getService = Utils.getService;
+import QueryString from 'query-string';
+import {getService} from 'common/Utils';
+import {thatReturnsArgument as is} from 'react/lib/emptyFunction';
 
-var is = require('dataserverinterface/utils/identity');
-
-var test = RegExp.prototype.test;
-var isHLS = test.bind(/ip(hone|ad)new/i);
-var isAppleMBR = test.bind(/applembr/i);
-var isOGG = test.bind(/^og[gv]$/i);
-var isWebM = test.bind(/webm|matroska/i);
-var isMP4 = test.bind(/mp4/i);
-var is3gp = test.bind(/3gp/i);
+const test = RegExp.prototype.test;
+const isHLS = test.bind(/ip(hone|ad)new/i);
+const isAppleMBR = test.bind(/applembr/i);
+const isOGG = test.bind(/^og[gv]$/i);
+const isWebM = test.bind(/webm|matroska/i);
+const isMP4 = test.bind(/mp4/i);
+const is3gp = test.bind(/3gp/i);
 
 function kalturaSig(str) {
 	var hash = 0;
@@ -47,11 +44,11 @@ function parseResult( result ) { // API result
 	var baseUrl = protocol + serviceUrl + '/p/' + entryInfo.partnerId +
 			'/sp/' + entryInfo.partnerId + '00/playManifest';
 
-	var adaptiveFlavors = assets.map(function(a) { return isHLS(a.tags) && a.id; }).filter(is);
+	var adaptiveFlavors = assets.map(a => isHLS(a.tags) && a.id).filter(is);
 
 	var deviceSources = assets
-		.filter(function(asset){ return asset.status === 2 && asset.width; })
-		.map(function(asset){
+		.filter(asset=> asset.status === 2 && asset.width)
+		.map(asset => {
 			var src = baseUrl + '/entryId/' + asset.entryId;
 			var source = {
 				bitrate: asset.bitrate * 8,
@@ -92,9 +89,7 @@ function parseResult( result ) { // API result
 
 			return source;
 		})
-		.filter(function(s) {
-			return s.src;
-		});
+		.filter(s => s.src);
 
 
 	// Add the flavor list adaptive style urls ( multiple flavor HLS ):
@@ -126,7 +121,7 @@ function parseResult( result ) { // API result
 }
 
 
-module.exports = function getSources(settings) {
+export default function getSources(settings) {
 
 	var param = {
 		service: 'multirequest',
@@ -164,6 +159,6 @@ module.exports = function getSources(settings) {
 	var url = 'https://cdnapisec.kaltura.com/api_v3/index.php?service=multirequest&' + QueryString.stringify(param);
 
 	return getService()
-		.then(function(srv){return srv.get({url:url, headers: null});})
+		.then(srv=> srv.get({url:url, headers: null}))
 		.then(parseResult);
-};
+}

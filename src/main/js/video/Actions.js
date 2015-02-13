@@ -1,13 +1,6 @@
-'use strict';
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import {VIDEO_PLAYER_EVENT} from 'analytics/Constants';
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var Analytics = require('analytics/Constants');
-
-module.exports = {
-	emitVideoEvent: function(eventData) {
-		AppDispatcher.handleViewAction({
-			type: Analytics.VIDEO_PLAYER_EVENT,
-			event: eventData
-		});
-	}
-};
+export function emitVideoEvent(event) {
+	AppDispatcher.handleViewAction({type: VIDEO_PLAYER_EVENT, event});
+}

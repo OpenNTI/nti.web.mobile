@@ -1,14 +1,12 @@
-'use strict';
+import React from 'react/addons';
+import ErrorWidget from 'common/components/Error';
 
-var React = require('react/addons');
-var ErrorWidget = require('common/components/Error');
+import {EventHandlers} from '../../Constants';
 
-var eventHandlers = require('../../Constants').EventHandlers;
+import guid from 'dataserverinterface/utils/guid';
+import QueryString from 'query-string';
 
-var guid = require('dataserverinterface/utils/guid');
-var QueryString = require('query-string');
-
-var vimeoEventsToHTML5 = {
+const VIMEO_EVENTS_TO_HTML5 = {
 	play: 'playing',
 	pause: 'pause',
 	finish: 'ended',
@@ -16,11 +14,12 @@ var vimeoEventsToHTML5 = {
 	playProgress: 'timeupdate'
 };
 
-var Source = module.exports = React.createClass({
+var Source = React.createClass({
 	displayName: 'Vimeo-Video',
 
+
 	statics: {
-		getId: function(url) {
+		getId (url) {
 			var regExp = /^.*vimeo(\:\/\/|\.com\/)(.+)/i,
 				match = url.match(regExp);
 			if (match && match[2]) {
@@ -30,50 +29,47 @@ var Source = module.exports = React.createClass({
 		}
 	},
 
+
 	propTypes: {
 		id: React.PropTypes.string,
 		source: React.PropTypes.any.isRequired
 	},
 
 
-
-	getInitialState: function() {
-		//FIXME: Re-write this:
-		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-
-		return {
-			playerURL: this.buildURL()
-		};
+	getInitialState () {
+		return { playerURL: null };
 	},
 
 
-
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			id: guid()
 		};
 	},
 
 
-	componentDidMount: function() {
+	componentWillMount () {
+		this.setState({playerURL: this.buildURL()});
+	},
+
+
+	componentDidMount () {
 		this.updateURL();
 		window.addEventListener('message', this.onMessage, false);
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		window.removeEventListener('message', this.onMessage, false);
 	},
 
 
-
-	componentWillReceiveProps: function() {
+	componentWillReceiveProps () {
 		this.updateURL();
 	},
 
 
-	buildURL: function () {
+	buildURL () {
 		var mediaSource = this.props.source;
 		var videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source[0];
 
@@ -94,7 +90,7 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	updateURL: function() {
+	updateURL () {
 		var url = this.buildURL();
 		this.setState({
 			scope: url.split('?')[0],
@@ -103,17 +99,16 @@ var Source = module.exports = React.createClass({
 	},
 
 
-
-	getPlayerContext: function() {
+	getPlayerContext () {
 		var iframe = this.getDOMNode();
 		return iframe && (iframe.contentWindow || window.frames[iframe.name]);
 	},
 
 
-	onMessage: function(event) {
+	onMessage (event) {
 		var data = JSON.parse(event.data);
-		var mappedEvent = vimeoEventsToHTML5[data.event];
-		var handlerName = eventHandlers[mappedEvent];
+		var mappedEvent = VIMEO_EVENTS_TO_HTML5[data.event];
+		var handlerName = EventHandlers[mappedEvent];
 
 		event = data.event;
 
@@ -150,7 +145,7 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	postMessage: function(method, params) {
+	postMessage (method, params) {
 		var context = this.getPlayerContext(), data;
 		if (!context) {
 			console.warn(this.props.id, ' No Player Context!');
@@ -166,7 +161,7 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	render: function() {
+	render () {
 		if (!this.state.playerURL) {
 			return (<ErrorWidget error="No source"/>);
 		}
@@ -178,22 +173,24 @@ var Source = module.exports = React.createClass({
 	},
 
 
-	play: function () {
+	play () {
 		this.postMessage('play');
 	},
 
 
-	pause: function () {
+	pause () {
 		this.postMessage('pause');
 	},
 
 
-	stop: function () {
+	stop () {
 		this.postMessage('stop');
 	},
 
 
-	setCurrentTime: function(time) {
+	setCurrentTime (time) {
 		this.postMessage('seekTo', time);
 	}
 });
+
+export default Source;

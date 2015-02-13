@@ -1,18 +1,16 @@
-'use strict';
+import {Viewport} from 'common/Utils';
+const isSource = RegExp.prototype.test.bind(/source/i);
 
-var Viewport = require('common/Utils').Viewport;
-var isSource = RegExp.prototype.test.bind(/source/i);
-
-exports = module.exports = function(list, targetQuality) {
+export default function(list, targetQuality) {
 	var chosen = [];
 	var types = {};
 
 	//Bin by type
-	list.forEach(function(s) {
+	list.forEach(s => {
 		var b = types[s.type] = (types[s.type] || []); b.push(s); });
 
 
-	Object.keys(types).forEach(function(mimeType) {
+	Object.keys(types).forEach(mimeType => {
 		var pick = pickBestMatchFrom(types[mimeType], targetQuality);
 		if (pick) {
 			chosen.push(pick);
@@ -20,24 +18,22 @@ exports = module.exports = function(list, targetQuality) {
 	});
 
 	return chosen;
-};
+}
 
-exports.QUALITY_TARGETS = {
+//export const QUALITY_TARGETS = {};
 
-};
-
-function findMin(prop){return function(m,s){return Math.min(m,s[prop]);};}
-function findMin(prop){return function(m,s){return Math.max(m,s[prop]);};}
+const findMin = (prop) => (m,s) => Math.min(m,s[prop]);
+//const findMax = (prop) => (m,s) => Math.max(m,s[prop]);
 
 
 function pickBestFromScreenSize(list) {
 	if (list.length === 1) { return list[0]; }
 
-	var screenWidth = Viewport.getScreenWidth();
-	var minSourceWidth = list.reduce(findMin('width'), Infinity);
-	var target = Math.max(screenWidth, minSourceWidth);
+	let screenWidth = Viewport.getScreenWidth();
+	let minSourceWidth = list.reduce(findMin('width'), Infinity);
+	let target = Math.max(screenWidth, minSourceWidth);
 
-	list = list.filter(function(o) {
+	list = list.filter(o => {
 		// Filter out the sources wider then the screen (if they want those they
 		// can MANUALLY select it)
 		return o.width <= target ||
@@ -48,7 +44,7 @@ function pickBestFromScreenSize(list) {
 	});
 
 	//Make sure the list is in smallest -> biggest order
-	list.sort(function(a,b) {
+	list.sort((a,b) => {
 		var x = a.width,
 			y = b.width;
 

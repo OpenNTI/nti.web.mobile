@@ -33,7 +33,7 @@ var Store = autobind(Object.assign({}, EventEmitter.prototype, {
 
 	pushHistory(item) {
 		if (_contextHistory[_contextHistory.length - 1] !== item ) { // omit duplicate entries
-			_contextHistory.enqueue(item);	
+			_contextHistory.enqueue(item);
 		}
 	},
 
@@ -83,6 +83,7 @@ AppDispatcher.register(function(payload) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 
 		case Constants.NEW_EVENT:
+		case Constants.VIDEO_PLAYER_EVENT:
 			console.log('Analytics Store received event: %s, %O', action.event.type, action);
 			Store.enqueueEvent(action.event);
 		break;

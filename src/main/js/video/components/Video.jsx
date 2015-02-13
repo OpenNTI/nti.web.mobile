@@ -1,24 +1,17 @@
-'use strict';
+import React from 'react/addons';
+import {getHandler} from '../services';
 
-var React = require('react/addons');
-var Providers = require('../services');
+import emptyFunction from 'react/lib/emptyFunction';
 
-var emptyFunction = require('react/lib/emptyFunction');
+import {getModel} from 'dataserverinterface';
 
-var {getModel} = require('dataserverinterface');
+import {emitVideoEvent} from '../Actions';
 
-//TODO: getModel(WatchVideoEvent)
-var WatchVideoEvent = require('dataserverinterface/models/analytics/WatchVideoEvent');
+const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
-
-var actions = require('../Actions');
-
-// keep track of the play start event so we can push analytics including duration
-// when the video is paused, stopped, seeked, or ends.
-var _playStartEvent = null;
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Video',
+
 
 	propTypes: {
 		/**
@@ -52,7 +45,17 @@ module.exports = React.createClass({
 		onEnded: React.PropTypes.func
 	},
 
-	getDefaultProps: function() {
+
+	getInitialState () {
+		return {
+			// keep track of the play start event so we can push analytics including duration
+			// when the video is paused, stopped, seeked, or ends.
+			playStartEvent: null
+		};
+	},
+
+
+	getDefaultProps () {
 		return {
 			context:[],
 			onTimeUpdate: emptyFunction,
@@ -64,7 +67,7 @@ module.exports = React.createClass({
 	},
 
 
-	_getEventData: function(event) {
+	getAnalyticsEventData (event) {
 		return {
 			timestamp: event.timeStamp,
 			target: event.target,
@@ -75,31 +78,39 @@ module.exports = React.createClass({
 	},
 
 
-	_playbackStarted: function(event) {
-		if (_playStartEvent) {
+	recordPlaybackStarted (event) {
+		if (this.state.playStartEvent) {
 			console.warn('We already have a playStartEvent. How did we get another one without a ' +
 						'pause/stop/seek/end in between? Dropping previous start event on the floor.');
 		}
-		_playStartEvent = this._getEventData(event);
-
+		this.setState({playStartEvent: this.getAnalyticsEventData(event)});
 	},
 
 
-	_playbackStopped: function(event) {
-		if (!_playStartEvent) {
+	recordPlaybackStopped (event) {
+		if (!this.state.playStartEvent) {
 			console.warn('We don\'t have a playStartEvent? How did we get a stop event without a prior start event? Dropping the event on the floor.');
 			return;
 		}
-		var _playEndEvent = this._getEventData(event);
 
-		this._emit(_playStartEvent,_playEndEvent);
-		_playStartEvent = null;
+		var playEndEvent = this.getAnalyticsEventData(event);
+
+		this.emitAnalyticsEvent(this.state.playStartEvent, playEndEvent);
+
+		this.setState({playStartEvent: null});
 	},
 
 
-	_emit: function(startEvent,endEvent) {
+	emitAnalyticsEvent (startEvent, endEvent) {
+		var fallback = {duration:0, currentTime:0};
+
+		endEvent = endEvent || fallback;
+		startEvent = startEvent || fallback;
+
 		var ctx = (this.props.context || []).map(x => x.ntiid||x);
+
 		var rootContextId = ctx[0] || null;
+
 		var even = new WatchVideoEvent(
 				this.props.src.ntiid,
 				rootContextId,
@@ -111,63 +122,64 @@ module.exports = React.createClass({
 			 	!!this.props.transcript
 			);
 
-		actions.emitVideoEvent(even);
+		emitVideoEvent(even);
 	},
 
 
-	onTimeUpdate: function(event) {
-		// this._emit(event);
+	onTimeUpdate (event) {
+		// this.emitAnalyticsEvent(event);
 		this.props.onTimeUpdate(event);
 	},
 
 
-	onSeeked: function(event) {
-		// this._emit(event);
+	onSeeked (event) {
+		// this.emitAnalyticsEvent(event);
 		this.props.onSeeked(event);
 	},
 
 
-	onPlaying: function(event) {
-		this._playbackStarted(event);
+	onPlaying (event) {
+		this.emitAnalyticsEvent();//as soon as it starts, record an empty event. (matches webapp behavior)
+		this.recordPlaybackStarted(event);
 		this.props.onPlaying(event);
 	},
 
 
-	onPause: function(event) {
-		this._playbackStopped(event);
+	onPause (event) {
+		this.recordPlaybackStopped(event);
 		this.props.onPause(event);
 	},
 
 
-	onEnded: function(event) {
-		this._playbackStopped(event);
+	onEnded (event) {
+		this.recordPlaybackStopped(event);
 		this.props.onEnded(event);
 	},
 
 
-	play: function () {
+	play  () {
 		this.refs.activeVideo.play();
 	},
 
 
-	pause: function () {
+	pause  () {
 		this.refs.activeVideo.pause();
 	},
 
 
-	stop: function () {
+	stop  () {
 		this.refs.activeVideo.stop();
 	},
 
 
-	setCurrentTime: function(time) {
+	setCurrentTime (time) {
 		this.refs.activeVideo.setCurrentTime(time);
 	},
 
 
-	render: function() {
+	render () {
 		var video = this.props.src;
-		var Provider = Providers.getHandler(video) || 'div';
+		var Provider = getHandler(video) || 'div';
 		var videoSource = video && (video.sources || {})[0];
 
 		return (
