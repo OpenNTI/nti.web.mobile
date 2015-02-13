@@ -155,16 +155,25 @@ export default React.createClass({
 	},
 
 
+	isSeen () {
+		let progress = this.props.item[Progress];
+		return progress && progress.hasSeen();
+	},
+
 
 	render () {
 		let {state} = this;
 		let {item} = this.props;
 		let external = this.isExternal();
 		let extern = external ? 'external' : '';
+		let seen = this.isSeen() ? 'seen' : '';
 
 		var {icon} = state;
+		if (seen && !icon) {
+			icon = BLANK_IMAGE;
+		}
 
-		let extra = `${extern}`;
+		let extra = `${extern} ${seen}`;
 
 		return (
 			<a className={`content-link related-work-ref ${extra}`}
