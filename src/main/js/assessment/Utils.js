@@ -41,5 +41,24 @@ export function updatePartsWithAssessedParts (part, assessed) {
 			}
 		}
 	});
+}
 
+
+/**
+ * Checks if the user agent matches the native android browser
+ * http://stackoverflow.com/questions/14701951/javascript-detect-android-native-browser
+ * @return {Bool} true if it doesn't match
+ */
+export function areAssessmentsSupported() {
+	var nua = navigator.userAgent;
+	var isAndroidNative =	/Mozilla\/5\.0/.test(nua) &&
+							/Android /.test(nua) &&
+							/AppleWebKit/.test(nua) &&
+							!/Chrome/.test(nua);
+
+	var isAndroidFireFox =	/Mozilla\/5\.0/.test(nua) &&
+							/Android/.test(nua) &&
+							/Firefox/i.test(nua);
+
+	return !(isAndroidNative || isAndroidFireFox);
 }

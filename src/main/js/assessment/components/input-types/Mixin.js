@@ -1,13 +1,14 @@
-import Actions from '../../Actions';
-import Constants from '../../Constants';
 import Store from '../../Store';
+
+import {partInteracted} from '../../Actions';
+import {SYNC} from '../../Constants';
 
 export default {
 
 	statics: {
 		handles (item) {
 			if (!this.__inputTypeCleaned) {
-				//ensure data type:
+				//ensure event type:
 				if (!Array.isArray(this.inputType)) {
 					this.inputType = [this.inputType];
 				}
@@ -53,12 +54,12 @@ export default {
 	},
 
 
-	__onStoreChange (eventData) {
-		var props = this.props;
-		if (eventData === Constants.SYNC && this.isMounted()) {
-			this.setValue(Store.getPartValue(props.item));
+	__onStoreChange (event) {
+		if (event && event.type === SYNC && this.isMounted()) {
+			let {item} = this.props;
+			this.setValue(Store.getPartValue(item));
 			this.setState({
-				busy: Store.getBusyState(props.item)
+				busy: Store.getBusyState(item)
 			});
 		}
 	},
@@ -111,7 +112,7 @@ export default {
 
 		this.setState({ interacted: true, value: v });
 		if (!locked) {
-			Actions.partInteracted(p.item, v, delay);
+			partInteracted(p.item, v, delay);
 		}
 	}
 };

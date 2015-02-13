@@ -2,6 +2,7 @@
 var React = require('react/addons');
 
 var Store = require('assessment/Store');
+var Utils = require('assessment/Utils');
 var FeedbackWidget = require('assessment/components/Feedback');
 var SetHeaderWidget = require('assessment/components/Header');
 var SetSubmissionWidget = require('assessment/components/Submission');
@@ -40,7 +41,7 @@ module.exports = {
 	renderAssessmentSubmission: function () {
 		var page = this.state.page;
 		var quiz = page && page.getSubmittableAssessment();
-		if (!page || !quiz || quiz.IsTimedAssignment || !Store.areAssessmentsSupported()) {
+		if (!page || !quiz || quiz.IsTimedAssignment || !Utils.areAssessmentsSupported()) {
 			return null;
 		}
 

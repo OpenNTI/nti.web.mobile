@@ -1,65 +1,203 @@
-'use strict';
+import emptyFunction from 'react/lib/emptyFunction';
 
-var emptyFunction = require('react/lib/emptyFunction');
+import hasValue from 'dataserverinterface/utils/object-has-value';
 
-var EventEmitter = require('events').EventEmitter;
+import {getModel} from 'dataserverinterface';
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
+import {
+	BUSY_LOADING,
+	BUSY_SUBMITTING,
+	BUSY_SAVEPOINT,
+	BUSY_SUBMITTING,
+	SYNC,
+	SUBMIT_BEGIN,
+	SUBMIT_END,
+	RESET,
+	INTERACTED,
+	CLEAR,
+	ERROR
+} from './Constants';
+import {
+	isAssignment,
+	getMainSubmittable,
+	updatePartsWithAssessedParts
+} from './Utils';
 
-var hasValue = require('dataserverinterface/utils/object-has-value');
+import StorePrototype from 'common/StorePrototype';
 
-var {getModel} = require('dataserverinterface');
 
-var Question = getModel('question');
 var AssignmentHistoryItem = getModel('assessment.assignmenthistoryitem');
-
-var Constants = require('./Constants');
-var Api = require('./Api');
-var Utils = require('./Utils');
-
-var savepointDelay;
-
-var assignmentHistoryItems = {};
-var assessed = {};
-var data = {};
-var busy = {};
-var timers = {
-	start: new Date(),
-	lastQuestionInteraction: null
-};
+var Question = getModel('question');
 
 
-var Store = Object.assign({}, EventEmitter.prototype, {
-	displayName: 'assessment.Store',
-	_maxListeners: 0, //unlimited
+// const data = Symbol('data');
+const ApplySubmission = Symbol('apply:Submission');
+const GetAssessmentKey = Symbol('get:AssessmentKey');
+const OnClear = Symbol('on:Clear');
+const OnInteracted = Symbol('on:Interacted');
+const OnReset = Symbol('on:Submit:Reset');
+const OnSubmitStart = Symbol('on:Submit:Begin');
+const OnSubmitEnd = Symbol('on:Submit:End');
+const SaveProgress = Symbol('Save Progress');
 
-	isAssignment: Utils.isAssignment.bind(Utils),
+class Store extends StorePrototype {
 
-	emitChange(evt) {
-		this.emit(CHANGE_EVENT, evt);
-	},
+	constructor () {
+		super();
+		this.setMaxListeners(0);
+		this.registerHandlers({
+			[SUBMIT_BEGIN]: OnSubmitStart,
+			[SUBMIT_END]: OnSubmitEnd,
+			[CLEAR]: OnClear,
+			[RESET]: OnReset,
+			[INTERACTED]: OnInteracted
+		});
+
+		this.assignmentHistoryItems = {};
+		this.assessed = {};
+		this.data = {};
+		this.busy = {};
+		this.timers = { start: new Date(), lastQuestionInteraction: null };
+	}
 
 
-	addChangeListener(callback) {
-		this.on(CHANGE_EVENT, callback);
-	},
+	[OnSubmitStart] (payload) {
+		var {assessment} = payload.action;
+		clearTimeout(this.savepointDelay);
+		this.markBusy(assessment, BUSY_SUBMITTING);
+		this.emitChange({type: SUBMIT_BEGIN});
+	}
 
 
-	removeChangeListener(callback) {
-		this.removeListener(CHANGE_EVENT, callback);
-	},
+	[OnSubmitEnd] (payload) {
+		var {response, assessment} = payload.action;
+		var isError = !!response.statusCode;
+		if (isError) {
+			this.setError(assessment, response.message || 'An Error occured.');
+			this.markBusy(assessment, false);
+			return;
+		}
+
+		scrollTo(0, 0);
+
+		Store[ApplySubmission](assessment, response);
+		this.getSubmissionData(assessment).markSubmitted(true);
+		this.markBusy(assessment, false);
+		this.emitChange({type: SYNC});
+	}
 
 
-	__getAssessmentKey (assessment) {
-		var main = Utils.getMainSubmittable(assessment) || false;
+	[OnClear] (payload) {
+		var {assessment} = payload.action;
+		this.setupAssessment(assessment, false)
+			.then(()=>this[SaveProgress](assessment, 1));
+		this.emitChange({type: SYNC});
+	}
+
+
+	[OnReset] (payload) {
+		let {assessment, retainAnswers} = payload.action;
+
+		if (retainAnswers) {
+			this.getSubmissionData(assessment).markSubmitted(false);
+		} else {
+			let reloadAnswers = !isAssignment(assessment);
+			this.setupAssessment(assessment, reloadAnswers)
+				.then(()=>{
+					this[SaveProgress](assessment, 1);
+					this.emitChange({type: SYNC});
+				});
+		}
+		this.emitChange({type: RESET});
+	}
+
+
+	[OnInteracted] (payload) {
+		let {action} = payload;
+		let {part, value, savepointBuffer} = action;
+
+		console.debug('Question Part Interacted: %o', action);
+
+		var main = getMainSubmittable(part);
+		var key = main && main.getID();
+		var s = this.data[key];
+		var question = s && part && s.getQuestion(part.getQuestionId());
+
+		var interactionTime = new Date();
+		var time = this.timers[key] || {};
+		var duration = interactionTime - (time.lastQuestionInteraction || time.start || new Date());
+
+		time.lastQuestionInteraction = interactionTime;
+
+		question.addRecordedEffortTime(duration);
+
+		question.setPartValue(part.getPartIndex(), value);
+
+		this.clearError(part);
+
+		this[SaveProgress](part, savepointBuffer);
+
+		this.emitChange({type: INTERACTED});
+	}
+
+
+	[GetAssessmentKey] (assessment) {
+		var main = getMainSubmittable(assessment) || false;
 		return main && main.getID();
-	},
+	}
+
+
+	[SaveProgress](part, buffer = 1000) {
+		var main = getMainSubmittable(part);
+		if (!main.postSavePoint) {
+			return;
+		}
+
+		clearTimeout(this.savepointDelay);
+
+		let busyState = this.getBusyState(part);
+		//Do not attempt to make a save point if:
+		//	A) Submitted
+		// or
+		//	B) Busy Submitting
+		if (this.isSubmitted(part) || (busyState && busyState === BUSY_SUBMITTING)) {
+			return;
+		}
+
+		let schedual = (buffer) ?
+			fn=>setTimeout(fn, buffer) :	//schedual a task in the future
+			busyState ?
+				()=>0 :						//drop on the floor
+				fn=>(fn() && 0);			//execute task immediately
+
+		this.savepointDelay = schedual(()=>{
+			this.markBusy(part, BUSY_SAVEPOINT);
+			this.emitChange({type: BUSY_SAVEPOINT});
+
+			saveProgress(part)
+				.catch(emptyFunction)//handle errors
+				.then(() => {
+					this.markBusy(part, false);
+					this.emitChange({type: BUSY_SAVEPOINT});
+				});
+		});
+	}
+
+
+	markBusy (part, state) {
+		var main = getMainSubmittable(part);
+		var id = main && main.getID();
+
+		this.busy[id] = state;
+		if (!state) {
+			delete this.busy[id];
+		}
+	}
 
 
 	getSubmissionData (assessment) {
-		return data[this.__getAssessmentKey(assessment)];
-	},
+		return this.data[this[GetAssessmentKey](assessment)];
+	}
 
 
 	getSubmissionPreparedForPost (assessment) {
@@ -68,29 +206,29 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 		//Assignments and QuestionSets, record aggregate effort time. (questions record themselves. See: onInteraction)
 		if (d && d.getQuestions) {
-			times = timers[this.__getAssessmentKey(assessment)] || {start: now};
+			times = this.timers[this[GetAssessmentKey](assessment)] || {start: now};
 			v = d.CreatorRecordedEffortDuration || 0;
 			d.CreatorRecordedEffortDuration = v + (now - times.start);
 		}
 
 		return d;
-	},
+	}
 
 
 	getAssignmentFeedback (assessment) {
 		var item = this.getAssignmentHistoryItem(assessment);
 		return item && item.Feedback;
-	},
+	}
 
 
 	getAssignmentHistoryItem (assessment) {
-		return assignmentHistoryItems[this.__getAssessmentKey(assessment)];
-	},
+		return this.assignmentHistoryItems[this[GetAssessmentKey](assessment)];
+	}
 
 
 	getAssessedSubmission (assessment) {
-		return assessed[this.__getAssessmentKey(assessment)];
-	},
+		return this.assessed[this[GetAssessmentKey](assessment)];
+	}
 
 
 	getAssessedQuestion (assessment, questionId) {
@@ -102,41 +240,41 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		var question = getter ? getter.call(submission, questionId) : submission;
 
 		return question && question.getID() === questionId ? question : undefined;
-	},
+	}
 
 
 	teardownAssessment (assessment) {
-		var m = this.__getAssessmentKey(assessment);
+		var m = this[GetAssessmentKey](assessment);
 		if (m) {
-			delete assignmentHistoryItems[m];
-			delete assessed[m];
-			delete timers[m];
-			delete data[m];
+			delete this.assignmentHistoryItems[m];
+			delete this.assessed[m];
+			delete this.timers[m];//TODO: iterate and clearTimeout/clearInterval each.
+			delete this.data[m];
 		}
-	},
+	}
 
 
 	setupAssessment (assessment, loadProgress) {
-		var main = Utils.getMainSubmittable(assessment);
+		var main = getMainSubmittable(assessment);
 		if (!main) {return;}
 		console.debug('New Assessment: %o', main);
 
-		assessed[main.getID()] = null;
-		data[main.getID()] = main.getSubmission();
-		timers[main.getID()] = {
+		this.assessed[main.getID()] = null;
+		this.data[main.getID()] = main.getSubmission();
+		this.timers[main.getID()] = {
 			start: new Date(),
 			lastQuestionInteraction: null
 		};
 
 		if (!loadProgress) {return Promise.resolve();}
 
-		markBusy(assessment, Constants.BUSY.LOADING);
-		this.emitChange();
+		this.markBusy(assessment, BUSY_LOADING);
+		this.emitChange({type:BUSY_LOADING});
 
 
 
-		return Api.loadPreviousState(assessment)
-			.then(this.__applySubmission.bind(this, assessment))
+		return loadPreviousState(assessment)
+			.then(this[ApplySubmission].bind(this, assessment))
 
 			.catch(reason => {
 				if (reason && reason.statusCode !== 404) {
@@ -147,16 +285,17 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 				return void undefined;
 			})
 
-			.then(act=>{
+			.then(type=>{
+				type = type || BUSY_LOADING;
 				this.clearBusy(assessment);
-				this.emitChange(act);
+				this.emitChange({type});
 			});
 
-	},
+	}
 
 
-	__applySubmission (assessment, submission) {
-		var key = this.__getAssessmentKey(assessment);
+	[ApplySubmission] (assessment, submission) {
+		var key = this[GetAssessmentKey](assessment);
 		var s = this.getSubmissionData(assessment);
 		var questions = submission.getQuestions ? submission.getQuestions() : [submission];
 		var assessedUnit = null;
@@ -189,47 +328,47 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 			}
 		});
 
-		assessed[key] = assessedUnit;
+		this.assessed[key] = assessedUnit;
 
 		//This modifies `assessment`. The solutions, explanations, and any value that could help a student
 		// cheat are omitted until submitting.
 		if (assessedUnit) {
-			Utils.updatePartsWithAssessedParts(assessment, submission);
+			updatePartsWithAssessedParts(assessment, submission);
 		}
 
 		if (submission instanceof AssignmentHistoryItem) {
-			assignmentHistoryItems[key] = submission;
+			this.assignmentHistoryItems[key] = submission;
 		}
 
 		s.markSubmitted(submission.isSubmitted());
 		//s.specifySubmissionResetPolicy(submission.canReset());
 
-		return Constants.SYNC;
-	},
+		return SYNC;
+	}
 
 
 	clearBusy (assessment) {
-		if (this.getBusyState(assessment) === Constants.BUSY.LOADING) {
-			markBusy(assessment, false);
+		if (this.getBusyState(assessment) === BUSY_LOADING) {
+			this.markBusy(assessment, false);
 		}
-	},
+	}
 
 
 	countUnansweredQuestions (assessment){
-		var main = Utils.getMainSubmittable(assessment);
+		var main = getMainSubmittable(assessment);
 		var s = this.getSubmissionData(assessment);
 		return s && s.countUnansweredQuestions(main);
-	},
+	}
 
 
 	canSubmit (assessment){
 		var s = this.getSubmissionData(assessment);
 		return s && s.canSubmit() && !this.getBusyState(assessment);
-	},
+	}
 
 
 	isSubmitted (assessment){
-		var main = Utils.getMainSubmittable(assessment);
+		var main = getMainSubmittable(assessment);
 		var s = this.getSubmissionData(assessment);
 
 		if (main.IsTimedAssignment /*&& !main.isStarted()*/) {
@@ -237,73 +376,54 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		}
 
 		return s && s.isSubmitted();
-	},
+	}
 
 
 	getBusyState (part) {
-		return busy[this.__getAssessmentKey(part)];
-	},
+		return this.busy[this[GetAssessmentKey](part)];
+	}
 
 
 	getPartValue (part) {
 		var s = this.getSubmissionData(part);
 		var question = s && part && s.getQuestion(part.getQuestionId());
 		return question.getPartValue(part.getPartIndex());
-	},
+	}
 
 
 	getError (part) {
 		var s = this.getSubmissionData(part) || {};
 		return s.error;
-	},
+	}
 
 
 	setError (part, error) {
 		var s = this.getSubmissionData(part);
 		s.error = error;
-		this.emitChange();
-	},
+		this.emitChange({type: ERROR});
+	}
 
 
 	clearError (part) {
 		var s = this.getSubmissionData(part);
 		delete s.error;
-		this.emitChange();
-	},
+		this.emitChange({type: ERROR});
+	}
 
 
 	getExplanation (part) {
 		return part.explanation;
-	},
+	}
 
 
 	getSolution (part) {
 		return (part.solutions || [])[0];
-	},
+	}
 
 
 	getHints (part) {
 		return part.hints;
-	},
-
-	/**
-	 * Checks if the user agent matches the native android browser
-	 * http://stackoverflow.com/questions/14701951/javascript-detect-android-native-browser
-	 * @return {Bool} true if it doesn't match
-	 */
-	areAssessmentsSupported() {
-		var nua = navigator.userAgent;
-		var isAndroidNative =	/Mozilla\/5\.0/.test(nua) &&
-								/Android /.test(nua) &&
-								/AppleWebKit/.test(nua) &&
-								!/Chrome/.test(nua);
-
-		var isAndroidFireFox =	/Mozilla\/5\.0/.test(nua) &&
-								/Android/.test(nua) &&
-								/Firefox/i.test(nua);
-
-		return !(isAndroidNative || isAndroidFireFox);
-	},
+	}
 
 
 	isWordBankEntryUsed(wordBankEntry) {
@@ -321,146 +441,11 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 		return maybe;
 	}
-});
-
-
-function handleSubmitEnd (part, response) {
-	var isError = !!response.statusCode;
-	if (isError) {
-		Store.setError(part, response.message || 'An Error occured.');
-		markBusy(part, false);
-		return;
-	}
-
-	scrollTo(0, 0);
-
-	Store.__applySubmission(part, response);
-	Store.getSubmissionData(part).markSubmitted(true);
-	markBusy(part, false);
 }
 
 
-function onInteraction(part, value, buffer) {
-	var main = Utils.getMainSubmittable(part);
-	var key = main && main.getID();
-	var s = data[key];
-	var question = s && part && s.getQuestion(part.getQuestionId());
+export default new Store();
 
-	var interactionTime = new Date();
-	var time = timers[key] || {};
-	var duration = interactionTime - (time.lastQuestionInteraction || time.start || new Date());
-
-	time.lastQuestionInteraction = interactionTime;
-
-	question.addRecordedEffortTime(duration);
-
-	question.setPartValue(part.getPartIndex(), value);
-
-	Store.clearError(part);
-
-
-	saveProgress(part, buffer);
-}
-
-function saveProgress(part, buffer = 1000) {
-	var main = Utils.getMainSubmittable(part);
-	if (!main.postSavePoint) {
-		return;
-	}
-
-	clearTimeout(savepointDelay);
-
-	let busyState = Store.getBusyState(part);
-	//Do not attempt to make a save point if:
-	//	A) Submitted
-	// or
-	//	B) Busy Submitting
-	if (Store.isSubmitted(part) || (busyState && busyState === Constants.BUSY.SUBMITTING)) {
-		return;
-	}
-
-	let schedual = (buffer) ?
-		fn=>setTimeout(fn, buffer) :	//schedual a task in the future
-		busyState ?
-			()=>0 :						//drop on the floor
-			fn=>(fn() && 0);			//execute task immediately
-
-	savepointDelay = schedual(()=>{
-		markBusy(part, Constants.BUSY.SAVEPOINT);
-		Store.emitChange();
-
-		Api.saveProgress(part)
-			.catch(emptyFunction)//handle errors
-			.then(() => {
-
-				markBusy(part, false);
-				Store.emitChange();
-			});
-	});
-}
-
-
-function markBusy(part, state) {
-	var main = Utils.getMainSubmittable(part);
-	var id = main && main.getID();
-
-	busy[id] = state;
-	if (!state) {
-		delete busy[id];
-	}
-}
-
-
-AppDispatcher.register(function(payload) {
-	var action = payload.action;
-	var eventData;
-
-	switch(action.type) {
-	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		case Constants.SUBMIT_BEGIN:
-			clearTimeout(savepointDelay);
-			markBusy(action.assessment, Constants.BUSY.SUBMITTING);
-			break;
-
-
-		case Constants.SUBMIT_END:
-			handleSubmitEnd(action.assessment, action.response);
-			eventData = Constants.SYNC;
-			break;
-
-
-		case Constants.CLEAR:
-			Store.setupAssessment(action.assessment, false)
-				.then(()=>saveProgress(action.assessment, 1));
-			eventData = Constants.SYNC;
-			break;
-
-
-		case Constants.RESET:
-			if (action.retainAnswers) {
-				Store.getSubmissionData(action.assessment).markSubmitted(false);
-			}
-			else {
-				let reloadAnswers = !Utils.isAssignment(action.assessment);
-				Store.setupAssessment(action.assessment, reloadAnswers)
-					.then(()=>{
-						saveProgress(action.assessment, 1);
-						Store.emitChange(Constants.SYNC);
-					});
-			}
-			break;
-
-
-		case Constants.INTERACTED:
-			console.debug('Question Part Interacted: %o',action);
-			onInteraction(action.part, action.value, action.savepointBuffer);
-			break;
-
-		default: return true;
-	}
-	Store.emitChange(eventData);
-	return true;
-});
-
-
-module.exports = Store;
+//we need to export our store instance before we can import Api, which
+//imports the Store. (otherwise, Api's reference to the store will be undefined)
+import {loadPreviousState, saveProgress} from './Api';

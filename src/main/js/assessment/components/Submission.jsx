@@ -8,6 +8,7 @@ var _t = require('common/locale').scoped('ASSESSMENT');
 var Loading = require('common/components/Loading');
 
 var Store = require('../Store');
+var Utils = require('../Utils');
 var Actions = require('../Actions');
 var Constants = require('../Constants');
 
@@ -85,13 +86,13 @@ module.exports = React.createClass({
 		var status = unanswered ? 'incomplete' : 'complete';
 		var busy = Store.getBusyState(assessment);
 		var error = Store.getError(assessment);
-		var savePoint = busy === Constants.BUSY.SAVEPOINT;
+		var savePoint = busy === Constants.BUSY_SAVEPOINT;
 
-		if (Store.isSubmitted(assessment) || !Store.areAssessmentsSupported()) {
+		if (Store.isSubmitted(assessment) || !Utils.areAssessmentsSupported()) {
 			return null;
 		}
 
-		busy = (busy === Constants.BUSY.SUBMITTING || busy === Constants.BUSY.LOADING);
+		busy = (busy === Constants.BUSY_SUBMITTING || busy === Constants.BUSY_LOADING);
 
 		return (
 			<div>

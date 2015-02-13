@@ -1,61 +1,43 @@
-import AppDispatcher from 'dispatcher/AppDispatcher';
-
-import * as Api from './Api';
-import Constants from './Constants';
-
-
 /**
  * Actions available to views for assessment-related functionality.
  */
-export default {
+import AppDispatcher from 'dispatcher/AppDispatcher';
 
-    /**
-     *
-     * @param {Part} part      Question Part model.
-     * @param {any} value      The value
-     * @param {Number} [saveBuffer] The optional delay to buffer the save point call by.
-     */
-    partInteracted (part, value, saveBuffer) {
-        AppDispatcher.handleViewAction({
-            type: Constants.INTERACTED,
-            part: part,
-            value: value,
-            savepointBuffer: saveBuffer
-        });
-    },
+import {submit as performSubmit} from './Api';
+import {
+    INTERACTED,
+    RESET,
+    CLEAR,
+    SUBMIT_BEGIN,
+    SUBMIT_END
+} from './Constants';
 
 
-    resetAssessment (assessment, retainAnswers = false) {
-        AppDispatcher.handleViewAction({
-            type: Constants.RESET,
-            assessment: assessment,
-            retainAnswers: retainAnswers
-        });
-    },
+/**
+ *
+ * @param {Part} part      Question Part model.
+ * @param {any} value      The value
+ * @param {Number} [savepointBuffer] The optional delay to buffer the save point call by.
+ */
+export function partInteracted (part, value, savepointBuffer) {
+    AppDispatcher.handleViewAction({ type: INTERACTED, part, value, savepointBuffer });
+}
 
 
-    clearAssessmentAnswers (assessment) {
-        AppDispatcher.handleViewAction({
-            type: Constants.CLEAR,
-            assessment: assessment
-        });
-    },
+export function resetAssessment (assessment, retainAnswers = false) {
+    AppDispatcher.handleViewAction({ type: RESET, assessment, retainAnswers });
+}
 
 
-    submit (assessment) {
-        AppDispatcher.handleViewAction({
-            type: Constants.SUBMIT_BEGIN,
-            assessment: assessment
-        });
+export function clearAssessmentAnswers (assessment) {
+    AppDispatcher.handleViewAction({ type: CLEAR, assessment});
+}
 
-        Api.submit(assessment)
-            .then(data =>
-                AppDispatcher.handleRequestAction({
-                    type: Constants.SUBMIT_END,
-                    assessment: assessment,
-                    response: data
-                })
-            );
-    }
 
-};
+export function submit (assessment) {
+    AppDispatcher.handleViewAction({type: SUBMIT_BEGIN, assessment});
+
+    performSubmit(assessment)
+        .then(response =>
+            AppDispatcher.handleRequestAction({type: SUBMIT_END, assessment, response}));
+}

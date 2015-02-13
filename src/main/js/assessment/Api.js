@@ -1,9 +1,7 @@
 import ReadOnlyStore from './Store';
 import {getMainSubmittable, isAssignment} from './Utils';
 
-
 var isHistoryItem = RegExp.prototype.test.bind(/AssignmentHistoryItem/i);
-
 
 export function loadPreviousState (assessment) {
 	var main = getMainSubmittable(assessment);

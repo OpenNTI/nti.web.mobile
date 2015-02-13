@@ -1,31 +1,17 @@
-'use strict';
-/**
- * Constants related to (and used by) the assessment modules.
- * @class assessment.Constants
- */
+export const INTERACTED = 'assessment:Interacted';
 
-var keyMirror = require('react/lib/keyMirror');
+export const CLEAR = 'assessment:Clear';
+export const ERROR = 'assessment:Error';
+export const RESET = 'assessment:Reset';
+export const SYNC = 'assessment:Sync';
 
-module.exports = Object.assign(exports, keyMirror({
+export const SUBMIT_BEGIN = 'assessment:Begin';
+export const SUBMIT_END = 'assessment:End';
 
-	INTERACTED: null,
+export const HELP_VIEW_HINT = 'assessment:Help:View Hint';
+export const HELP_VIEW_SOLUTION = 'assessment:Help:View Solution';
 
-	CLEAR: null,
-	RESET: null,
-	SYNC: null,
 
-	SUBMIT_BEGIN: null,
-	SUBMIT_END: null,
-
-	HELP_VIEW_HINT: null,
-	HELP_VIEW_SOLUTION: null
-
-}), {
-
-	BUSY: keyMirror({
-		LOADING: null,
-		SUBMITTING: null,
-		SAVEPOINT: null
-	})
-
-});
+export const BUSY_LOADING = 'assessment:Busy: Loading';
+export const BUSY_SUBMITTING = 'assessment:Busy: Submitting';
+export const BUSY_SAVEPOINT = 'assessment:Busy: Savepoint';
