@@ -1,25 +1,27 @@
-'use strict';
-var NTIID = require('dataserverinterface/utils/ntiids');
-var React = require('react/addons');
+import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
+import React from 'react/addons';
 
-var DateTime = require('common/components/DateTime');
-var Pager = require('common/components/Pager');
-var Loading = require('common/components/Loading');
-var ErrorWidget = require('common/components/Error');
-var AnalyticsStore = require('analytics/Store');
+import DateTime from 'common/components/DateTime';
+import Pager from 'common/components/Pager';
+import Loading from 'common/components/Loading';
+import ErrorWidget from 'common/components/Error';
+import AnalyticsStore from 'analytics/Store';
 
-var Widgets = require('./widgets');
+// This is an example of the correct way to aquire a reference to 
+// this mixin from outside of the `widgets` package. If this comment
+// strikes you odd, see the comment block with the `./widgets/Mixin.js`
+import {Mixin} from './widgets';
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'CourseOverview',
-	mixins: [Widgets.Mixin],
+	mixins: [Mixin],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
 		outlineId: React.PropTypes.string.isRequired
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: true,
 			error: false,
@@ -28,72 +30,73 @@ module.exports = React.createClass({
 	},
 
 
-	componentDidMount: function() {
-		//Store.addChangeListener(this._onChange);
+	componentDidMount () {
 		this.getDataIfNeeded(this.props);
 	},
 
 
-	componentWillUnmount: function() {
-		//Store.removeChangeListener(this._onChange);
+	componentWillUnmount () {
 		AnalyticsStore.pushHistory(this.getOutlineID(this.props));
 	},
 
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (nextProps.outlineId !== this.props.outlineId) {
 			this.getDataIfNeeded(nextProps);
 		}
 	},
 
-	__getOutlineNodeContents: function(node) {
+
+	getOutlineNodeContents (node) {
 		try {
 			node.getContent()
-				.then(overviewData=>
+				.then(data=>
 					this.setState({
-						node: node,
-						data: overviewData,
+						node, data,
 						loading: false,
 						error: false
-					}))
-				.catch(this.__onError);
+					})
+				)
+				.catch(this.onError);
 		} catch (e) {
-			this.__onError(e);
+			this.onError(e);
 		}
 	},
 
 
-	__onError: function(error) {
+	onError (error) {
 		console.error(error);
-		this.setState({
-			loading: false,
-			error: error,
-			data: null
-		});
+		if (this.isMounted()) {
+			this.setState({
+				error,
+				loading: false,
+				data: null
+			});
+		}
 	},
 
 
-	getDataIfNeeded: function(props) {
+	getDataIfNeeded (props) {
 		this.setState(this.getInitialState());
 		try {
 
 			props.course.getOutlineNode(this.getOutlineID(props))
-				.then(this.__getOutlineNodeContents)
-				.catch(this.__onError);
+				.then(this.getOutlineNodeContents)
+				.catch(this.onError);
 
-		} catch (e) {
-			this.__onError(e);
+		}
+		catch (e) {
+			this.onError(e);
 		}
 	},
 
 
-
-	getOutlineID: function (props) {
-		return NTIID.decodeFromURI((props||this.props).outlineId);
+	getOutlineID  (props) {
+		return decodeFromURI((props||this.props).outlineId);
 	},
 
 
-	render: function() {
+	render () {
 		var {data,node, loading, error} = this.state;
 		var pages = node && node.getPageSource();
 		var currentPage = this.getOutlineID();

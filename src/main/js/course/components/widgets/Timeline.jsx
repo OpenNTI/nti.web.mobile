@@ -1,4 +1,3 @@
-'use strict';
 /*
 	MimeType: "application/vnd.nextthought.ntitimeline"
 	NTIID: "tag:nexttho....timeline.heading_west"
@@ -10,12 +9,12 @@
 	visibility: "everyone"
 */
 
-var React = require('react/addons');
+import React from 'react/addons';
 
-var Card = require('common/components/Card');
+import Card from 'common/components/Card';
 
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'CourseOverviewTimeline',
 
 	statics: {

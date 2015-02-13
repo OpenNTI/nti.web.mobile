@@ -1,26 +1,27 @@
-'use strict';
-var path = require('path');
-var React = require('react/addons');
-var NTIID = require('dataserverinterface/utils/ntiids');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
+import path from 'path';
+import React from 'react/addons';
 
-module.exports = React.createClass({
+import {encodeForURI} from 'dataserverinterface/utils/ntiids';
+
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+
+export default React.createClass({
 	displayName: 'CourseOverviewTopic',
 	mixins: [NavigatableMixin],
 
 	statics: {
 		mimeTest: /topic$/i,
-		handles: function(item) {
+		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		}
 	},
 
 
-	render: function() {
-		var props = this.props;
-		var item = props.item;
+	render () {
+		let {props} = this;
+		let {item} = props;
 
-		var link = path.join('c', NTIID.encodeForURI(item.NTIID)) + '/';
+		var link = path.join('c', encodeForURI(item.NTIID)) + '/';
 
 		link = this.makeHref(link, true);
 

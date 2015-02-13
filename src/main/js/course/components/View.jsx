@@ -1,3 +1,5 @@
+import path from 'path';
+
 import NTIID from 'dataserverinterface/utils/ntiids';
 import React from 'react/addons';
 import Router from 'react-router-component';
@@ -17,10 +19,9 @@ import Overview from './Overview';
 import ContentViewer from 'content/components/Viewer';
 import ForumView from 'forums/components/View';
 
-import Actions from '../Actions';
+import {setCourse} from '../Actions';
 import Store from '../Store';
 
-import path from 'path';
 
 export default React.createClass({
 	displayName: 'CourseView',
@@ -45,7 +46,7 @@ export default React.createClass({
 
 
 	componentWillUnmount () {
-		Actions.setCourse(null); // clear left nav
+		setCourse(null); // clear left nav
 		Store.removeChangeListener(this._onChange);
 	},
 
@@ -61,7 +62,7 @@ export default React.createClass({
 		var courseId = NTIID.decodeFromURI(props.course);
 		this.setState({loading: true});
 
-		Actions.setCourse(courseId);
+		setCourse(courseId);
 	},
 
 

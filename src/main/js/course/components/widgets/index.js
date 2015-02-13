@@ -1,30 +1,36 @@
-'use strict';
-var React = require('react/addons');
+import React from 'react/addons';
 
+import Unknown from './Unknown';
+import Topic from './Topic';
+import Group from './Group';
+import Video from './Video';
+import Videos from './Videos';
+import Card from './RelatedWorkRef';
+import Discussion from './Discussion';
+import QuestionSet from './QuestionSet';
+import Timeline from './Timeline';
 
-var Unknown = require('./Unknown');
-var Topic = require('./Topic');
-var Group = require('./Group');
-var Video = require('./Video');
-var Videos = require('./Videos');
-var Card = require('./RelatedWorkRef');
-var Discussion = require('./Discussion');
-var QuestionSet = require('./QuestionSet');
-var Timeline = require('./Timeline');
+const WIDGETS = [
+	Unknown, //Unknown for future items.
+	Topic,
+	Card,
+	Group,
+	Video,
+	Videos,
+	Discussion,
+	QuestionSet,
+	Timeline
+];
 
+export function select (item, index, list, props, node) {
+	var Item = Unknown;
+	var render = true;
 
-function getItemHandler(item, index, list, props, node) {
-	var Item = exports.Unknown;
-	var key, Type, render = true;
-
-	for (key in exports) {
-		if (exports.hasOwnProperty(key)) {
-			Type = exports[key];
-			if (Type !== Unknown && Type.handles && Type.handles(item)) {
-				Item = Type;
-				render = (!Type.canRender || Type.canRender(item, node));
-				break;
-			}
+	for (let Type of WIDGETS) {
+		if (Type !== Unknown && Type.handles && Type.handles(item)) {
+			Item = Type;
+			render = (!Type.canRender || Type.canRender(item, node));
+			break;
 		}
 	}
 
@@ -37,20 +43,5 @@ function getItemHandler(item, index, list, props, node) {
 		}));
 }
 
-
-exports = module.exports = {
-	Unknown: Unknown, //Unknown for future items.
-	Topic: Topic,
-	Card: Card,
-	Group: Group,
-	Video: Video,
-	Videos: Videos,
-	Discussion: Discussion,
-	QuestionSet: QuestionSet,
-	Timeline: Timeline,
-
-	Mixin: require('./Mixin')
-
-};
-
-exports.Mixin.select = exports.select = getItemHandler.bind(exports);
+import Mixin from './Mixin';
+export {Mixin};

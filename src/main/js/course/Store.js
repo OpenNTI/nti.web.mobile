@@ -1,66 +1,40 @@
-'use strict';
+import {SET_ACTIVE_COURSE, NOT_FOUND} from './Constants';
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
+import StorePrototype from 'common/StorePrototype';
 
+const data = Symbol('data');
+const SetData = Symbol('set:data');
 
-var Constants = require('./Constants');
+class Store extends StorePrototype {
 
-var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
-
-var _data = {};
-
-var Store = Object.assign({}, EventEmitter.prototype, {
-	displayName: 'course.Store',
-
-	emitChange: function(evt) {
-		this.emit(CHANGE_EVENT, evt);
-	},
-
-	/**
-	 * @param {function} callback
-	 */
-	addChangeListener: function(callback) {
-		this.on(CHANGE_EVENT, callback);
-	},
-
-	/**
-	 * @param {function} callback
-	 */
-	removeChangeListener: function(callback) {
-		this.removeListener(CHANGE_EVENT, callback);
-	},
-
-
-	getData: function() {
-		return _data;
-	}
-});
-
-
-function persistData(data) {
-	if (data && data instanceof Error) {
-		_data = {error: data, notFound: data.message === Constants.NOT_FOUND};
-		return;
+	constructor () {
+		super();
+		this.registerHandlers({
+			[SET_ACTIVE_COURSE]: SetData
+		});
 	}
 
-	_data = data;
+
+	get isLoaded () {
+		return !!this[data];
+	}
+
+
+	[SetData] (payload) {
+		let _data = payload.action.response;
+		if (_data && _data instanceof Error) {
+			_data = {
+				error: data,
+				notFound: data.message === NOT_FOUND};
+			return;
+		}
+
+		this[data] = _data;
+		this.emitChange({type: SET_ACTIVE_COURSE});
+	}
+
+
+	getData () { return this[data]; }
 }
 
-
-Store.appDispatch = AppDispatcher.register(function(payload) {
-    var action = payload.action;
-    switch(action.type) {
-    //TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-        case Constants.SET_ACTIVE_COURSE:
-            persistData(action.response);
-            break;
-        default:
-            return true;
-    }
-    Store.emitChange();
-    return true;
-});
-
-
-module.exports = Store;
+export default new Store();

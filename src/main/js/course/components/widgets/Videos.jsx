@@ -1,29 +1,23 @@
-'use strict';
-var React = require('react/addons');
+import React from 'react/addons';
 
+import WidgetsMixin from './Mixin';
 
+import ErrorWidget from 'common/components/Error';
+import Loading from 'common/components/Loading';
 
-var WidgetsMixin = require('./Mixin');
-
-var toArray = require('dataserverinterface/utils/toarray');
-
-
-var ErrorWidget = require('common/components/Error');
-var Loading = require('common/components/Loading');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'CourseOverviewVideos',
 	mixins: [WidgetsMixin],
 
 	statics: {
 		mimeTest: /^application\/vnd\.nextthought\.ntivideoset/i,
-		handles: function(item) {
+		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		}
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			active: 0,
 			loading: true,
@@ -32,28 +26,22 @@ module.exports = React.createClass({
 	},
 
 
-	componentDidMount: function() {
-		//Store.addChangeListener(this._onChange);
+	componentDidMount () {
 		this.getDataIfNeeded(this.props);
 	},
 
 
-	componentWillUnmount: function() {
-		//Store.removeChangeListener(this._onChange);
-	},
-
-
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (nextProps.outlineId !== this.props.outlineId) {
 			this.getDataIfNeeded(nextProps);
 		}
 	},
 
 
-	componentDidUpdate: function() {},
+	componentDidUpdate () {},
 
 
-	__onError: function(error) {
+	__onError (error) {
 		if (this.isMounted()) {
 			this.setState({
 				loading: false,
@@ -64,16 +52,13 @@ module.exports = React.createClass({
 	},
 
 
-	getDataIfNeeded: function(props) {
+	getDataIfNeeded (props) {
 		try {
 			this.setState(this.getInitialState());
 			props.course.getVideoIndex()
-				.then(function(data) {
-					this.setState({
-						loading: false,
-						data: data
-					});
-				}.bind(this))
+				.then(data=>
+					this.setState({loading: false, data})
+				)
 				.catch(this.__onError);
 		}
 		catch(e) {
@@ -82,7 +67,7 @@ module.exports = React.createClass({
 	},
 
 
-	stopVideo: function() {
+	stopVideo () {
 		var refs = this.refs;
 		var key;
 		for(key in refs) {
@@ -93,7 +78,7 @@ module.exports = React.createClass({
 	},
 
 
-	onNext: function(e) {
+	onNext (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -107,7 +92,7 @@ module.exports = React.createClass({
 	},
 
 
-	onPrev: function(e) {
+	onPrev (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -121,7 +106,7 @@ module.exports = React.createClass({
 	},
 
 
-	onActivateSlide: function(e) {
+	onActivateSlide (e) {
 		e.preventDefault();
 		e.stopPropagation();
 		var newActive = parseInt(e.target.getAttribute('data-index'), 10);
@@ -133,7 +118,7 @@ module.exports = React.createClass({
 	},
 
 
-	onTouchStart: function(e) {
+	onTouchStart (e) {
 		var touch = event.targetTouches[0];
 
 		var active = this.state.active;
@@ -163,10 +148,9 @@ module.exports = React.createClass({
 	},
 
 
-	onTouchMove: function(e) {
+	onTouchMove (e) {
 
-		function find(t, i) {
-			return t || (i.identifier === state.touch.id && i); }
+		let find = (t, i) =>t || (i.identifier === state.touch.id && i);
 
 		var me = this;
 		var state = me.state;
@@ -177,7 +161,7 @@ module.exports = React.createClass({
 		}
 
 		var active = state.active;
-		var touch = toArray(e.targetTouches).reduce(find, null);
+		var touch = Array.from(e.targetTouches||[]).reduce(find, null);
 		var sliding = data.sliding;
 		var pixelOffset = data.pixelOffset;
 		var startPixelOffset = data.startPixelOffset;
@@ -223,7 +207,7 @@ module.exports = React.createClass({
 	},
 
 
-	onTouchEnd: function(/*e*/) {
+	onTouchEnd (/*e*/) {
 		//e.stopPropagation();
 
 		var touch = this.state.touch || {};
@@ -246,7 +230,7 @@ module.exports = React.createClass({
 	},
 
 
-	getTranslation: function() {
+	getTranslation () {
 		var active = this.state.active;
 		var touch = this.state.touch;
 		var node = this.refs.v && this.refs.v.getDOMNode();
@@ -257,12 +241,12 @@ module.exports = React.createClass({
 	},
 
 
-	getVideoList: function() {
+	getVideoList () {
 		return this.props.item.Items;
 	},
 
 
-	render: function() {
+	render () {
 		if (this.state.loading) { return (<Loading/>); }
 		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>);}
 
@@ -295,11 +279,11 @@ module.exports = React.createClass({
 	},
 
 
-	_renderDots: function() {
-		return this.getVideoList().map(function(_, i) {
+	_renderDots () {
+		return this.getVideoList().map((_, i) => {
 			var active = (i === (this.state.active || 0)) ? 'active' : null;
 			return (<li key={'video-'+i}><a className={active} href={"#"+i}
 				onClick={this.onActivateSlide} data-index={i}/></li>);
-		}.bind(this));
+		});
 	}
 });

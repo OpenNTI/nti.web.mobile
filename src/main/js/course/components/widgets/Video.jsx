@@ -1,13 +1,13 @@
-'use strict';
+import path from 'path';
+import React from 'react/addons';
 
-var path = require('path');
-var React = require('react/addons');
-var NTIID = require('dataserverinterface/utils/ntiids');
-var Video = require('video').Component;
-var LoadingMask = require('common/components/Loading');
-var BasePathAware = require('common/mixins/BasePath');
+import LoadingMask from 'common/components/Loading';
+import BasePathAware from 'common/mixins/BasePath';
 
-module.exports = React.createClass({
+import {Component as Video} from 'video';
+import {encodeForURI} from 'dataserverinterface/utils/ntiids';
+
+export default React.createClass({
 	displayName: 'CourseOverviewVideo',
 	mixins: [BasePathAware],
 
@@ -16,14 +16,16 @@ module.exports = React.createClass({
 		course: React.PropTypes.object.isRequired
 	},
 
+
 	statics: {
 		mimeTest: /^application\/vnd\.nextthought\.ntivideo$/i,
-		handles: function(item) {
+		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		}
 	},
 
-	getInitialState: function() {
+
+	getInitialState () {
 		return {
 			loading: false,
 			error: false,
@@ -31,33 +33,33 @@ module.exports = React.createClass({
 		};
 	},
 
-	__getContext: function() {
-		this.props.contextProvider(this.props).then(function(result) {
-			this.setState({
-				context: result
-			});
-		}.bind(this));
+
+	getContext () {
+		this.props.contextProvider(this.props)
+			.then(context=> this.setState({context}));
 	},
 
-	__onError: function(error) {
+
+	onError (error) {
 		if (this.isMounted()) {
 			this.setState({
 				loading: false,
 				playing: false,
-				error: error,
-				video: null
+				video: null,
+				error
 			});
 		}
 	},
 
 
-	componentDidMount: function() {
-		this.__getContext();
+	componentDidMount () {
+		this.getContext();
 		this.fillInVideo(this.props);
 	},
 
-	componentWillReceiveProps: function(nextProps) {
-		this.__getContext();
+
+	componentWillReceiveProps (nextProps) {
+		this.getContext();
 		this.fillInVideo(nextProps);
 
 		if (this.props.activeIndex !== nextProps.activeIndex) {
@@ -66,11 +68,10 @@ module.exports = React.createClass({
 	},
 
 
-	fillInVideo: function (props) {
+	fillInVideo  (props) {
 		try {
-			var video = this.state.video;
-			var course = props.course,
-				item = props.item;
+			var {video} = this.state;
+			var {course, item} = props;
 
 			if (video && item.NTIID === video.getID()) {
 				return;
@@ -78,54 +79,54 @@ module.exports = React.createClass({
 
 			this.setState({loading: true});
 			course.getVideoIndex()
-				.then(videoIndex => {
+				.then(videoIndex =>
 					this.setState({
 						loading: false,
 						video: videoIndex.get(item.NTIID)
-					});
-				})
-				.catch(this.__onError);
+					})
+				)
+				.catch(this.onError);
 		} catch (e) {
-			this.__onError(e);
+			this.onError(e);
 		}
 	},
 
 
-	onPlayClicked: function(e) {
+	onPlayClicked (e) {
 		e.preventDefault();
 		e.stopPropagation();
 
-		var v = this.refs.video;
-		if (v) {
-			v.play();
+		var {video} = this.refs;
+		if (video) {
+			video.play();
 		}
 	},
 
 
-	stop: function() {
-		var v = this.refs.video;
-		if (v) {
-			v.stop();
+	stop () {
+		var {video} = this.refs;
+		if (video) {
+			video.stop();
 		}
 	},
 
 
-	onStop: function() {
+	onStop () {
 		if (this.isMounted()) {
 			this.setState({playing: false});
 		}
 	},
 
 
-	onPlay: function () {
+	onPlay  () {
 		if (this.isMounted()) {
 			this.setState({playing: true});
 		}
 	},
 
 
-	render: function() {
-		var props = this.props;
+	render () {
+		var {props} = this;
 		var {activeIndex, index, item} = props;
 		var renderVideoFully = true;
 
@@ -139,8 +140,8 @@ module.exports = React.createClass({
 		}
 
 		var link = path.join(this.getBasePath(),
-			'course', NTIID.encodeForURI(props.course.getID()),
-			'v', NTIID.encodeForURI(item.NTIID))  + '/';
+			'course', encodeForURI(props.course.getID()),
+			'v', encodeForURI(item.NTIID))  + '/';
 
 		return (
 			<Tag className="overview-video video-wrap flex-video widescreen">

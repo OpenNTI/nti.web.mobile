@@ -1,4 +1,3 @@
-'use strict';
 /*
 Internal Links:
 			 NTIID: "tag:nextthought.com,2011-10:OU-RelatedWorkRef...:digestion_and_metabolism_textbook1"
@@ -22,31 +21,31 @@ External Links:
 	targetMimeType: "application/vnd.nextthought.externallink"
 		visibility: "everyone"
 */
-var React = require('react/addons');
+import React from 'react/addons';
 
-var Card = require('common/components/Card');
+import Card from 'common/components/Card';
 
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'CourseOverviewRelatedWorkRef',
 
 	statics: {
 		mimeTest: /^application\/vnd\.nextthought\.relatedworkref/i,
-		handles: function(item) {
+		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		}
 	},
 
 
-	render: function() {
-		var props = this.props;
-		var item = props.item;
+	render () {
+		var {props} = this;
+		var {item} = props;
 
 		//map fields for the card
 		item.title = item.label;
 
 		return (
-			<Card {...this.props} slug="c" contentPackage={props.course}/>
+			<Card {...props} slug="c" contentPackage={props.course}/>
 		);
 	}
 });

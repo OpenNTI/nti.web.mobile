@@ -1,4 +1,3 @@
-'use strict';
 /*
 Internal Links:
 			NTIID: "tag:nextthought.com,2011-10:OU-RelatedWorkRef...:digestion_and_metabolism_textbook1"
@@ -22,16 +21,19 @@ External Links:
 	targetMimeType: "application/vnd.nextthought.externallink"
 
 */
-var path = require('path');
-var React = require('react/addons');
-var emptyFunction = require('react/lib/emptyFunction');
+import path from 'path';
+import React from 'react/addons';
+import emptyFunction from 'react/lib/emptyFunction';
 
-var NavigatableMixin = require('../mixins/NavigatableMixin');
+import NavigatableMixin from '../mixins/NavigatableMixin';
 
-var NTIID = require('dataserverinterface/utils/ntiids');
-var isNTIID = NTIID.isNTIID;
+import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
-module.exports = React.createClass({
+import {isNTIID, encodeForURI} from 'dataserverinterface/utils/ntiids';
+
+const Progress = Symbol.for('Progress');
+
+export default React.createClass({
 	mixins: [NavigatableMixin],
 	displayName: 'RelatedWorkRef',
 
@@ -78,14 +80,14 @@ module.exports = React.createClass({
 	},
 
 
-	getInitialState: function(){
+	getInitialState (){
 		return {
 			icon: null
 		};
 	},
 
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			internalOverride: false,
 			resolveUrlHook: emptyFunction.thatReturnsArgument
@@ -93,13 +95,13 @@ module.exports = React.createClass({
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		this.resolveIcon(this.props);
 		this.resolveHref(this.props);
 	},
 
 
-	componentWillReceiveProps: function(props) {
+	componentWillReceiveProps (props) {
 		if (this.props.icon !== props.icon) {
 			this.resolveIcon(props);
 			this.resolveHref(props);
@@ -107,13 +109,13 @@ module.exports = React.createClass({
 	},
 
 
-	resolveHref: function(props) {
+	resolveHref (props) {
 		var href = props.item.href;
 
 		if (isNTIID(href)) {
 			var link = path.join(
 				props.slug || '',
-				NTIID.encodeForURI(href)) + '/';
+				encodeForURI(href)) + '/';
 
 			this.setState({href: this.makeHref(link, true)});
 			return;
@@ -130,7 +132,7 @@ module.exports = React.createClass({
 	},
 
 
-	resolveIcon: function(props) {
+	resolveIcon (props) {
 		this.setState({	icon: null	});
 		if (!props.item.icon) {
 			return;
@@ -145,7 +147,7 @@ module.exports = React.createClass({
 	},
 
 
-	isExternal: function(props) {
+	isExternal (props) {
 		var p = props || this.props;
 		var {item, internalOverride} = p;
 
@@ -153,24 +155,28 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
-		var state = this.state;
-		var item = this.props.item;
-		var external = this.isExternal();
-		var extern = external ? 'external' : '';
 
-		var icon = {
-			backgroundImage: 'url('+state.icon+')'
-		};
+	render () {
+		let {state} = this;
+		let {item} = this.props;
+		let external = this.isExternal();
+		let extern = external ? 'external' : '';
+
+		var {icon} = state;
+
+		let extra = `${extern}`;
 
 		return (
-			<a className={'content-link related-work-ref ' + extern}
+			<a className={`content-link related-work-ref ${extra}`}
 				href={state.href} target={external ? '_blank' : null}
-				onClick={this.props.onClick}
-			>
-				{state.icon?
-					<div className="icon" style={icon}/>
-				:null}
+				onClick={this.props.onClick}>
+
+				{!icon ? null :
+					<div className="icon" style={{backgroundImage: `url(${icon})`}}>
+						{external && <div/>}
+					</div>
+				}
+
 				<h5 dangerouslySetInnerHTML={{__html: item.title}}/>
 				<hr className="break hide-for-medium-up"/>
 				<div className="label" dangerouslySetInnerHTML={{__html: item.creator}}/>

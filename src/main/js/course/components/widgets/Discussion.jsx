@@ -1,13 +1,14 @@
-'use strict';
+import path from 'path';
+import React from 'react/addons';
 
-var React = require('react/addons');
-var getService = require('common/Utils').getService;
-var path = require('path');
-var NTIID = require('dataserverinterface/utils/ntiids');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var LoadingMask = require('common/components/Loading');
+import {encodeForURI} from 'dataserverinterface/utils/ntiids';
 
-module.exports = React.createClass({
+import {getService} from 'common/Utils';
+
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import LoadingMask from 'common/components/Loading';
+
+export default React.createClass({
 	displayName: 'CourseOverviewDiscussion',
 
 	mixins: [NavigatableMixin],
@@ -63,12 +64,7 @@ module.exports = React.createClass({
 		}
 
 		props.course.resolveContentURL(props.item.icon)
-			.then(function(u) {
-				this.setState({
-					iconResolved: true,
-					icon: u
-				});
-			}.bind(this));
+			.then(icon=> this.setState({iconResolved: true, icon}));
 	},
 
 
@@ -115,7 +111,7 @@ module.exports = React.createClass({
 		if(!forumHref) {
 			return null;
 		}
-		var topicId = NTIID.encodeForURI(o.NTIID);
+		var topicId = encodeForURI(o.NTIID);
 		return path.join(forumHref, topicId) + '/';
 	},
 
@@ -138,8 +134,8 @@ module.exports = React.createClass({
 		var bin = 'jump';
 		var isForum = o.hasOwnProperty('TopicCount');
 
-		var boardId = NTIID.encodeForURI(discussions);
-		var forumId = NTIID.encodeForURI(isForum ? o.NTIID : o.ContainerId);
+		var boardId = encodeForURI(discussions);
+		var forumId = encodeForURI(isForum ? o.NTIID : o.ContainerId);
 
 		var h = path.join('d', bin, boardId, forumId) + '/';
 		return this.makeHref(h);
@@ -160,8 +156,8 @@ module.exports = React.createClass({
 
 
 	render () {
-		var props = this.props;
-		var item = props.item;
+		var {props} = this;
+		var {item} = props;
 		var title = item.title || this.state.title || 'Discussion';
 
 		var disabled = this.state.disabled ? 'unavailable' : '';

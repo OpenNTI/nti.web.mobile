@@ -1,6 +1,4 @@
-'use strict';
+import Constants from './Constants';
+import Component from './components/Video';
 
-module.exports = exports = {
-	Constants: require('./Constants'),
-	Component: require('./components/Video')
-};
+export {Constants, Component};

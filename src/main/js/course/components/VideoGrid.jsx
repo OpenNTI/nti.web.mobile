@@ -6,7 +6,7 @@ import path from 'path';
 
 import BasePathAware from 'common/mixins/BasePath';
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'VideoGrid',
 	mixins: [BasePathAware],
 

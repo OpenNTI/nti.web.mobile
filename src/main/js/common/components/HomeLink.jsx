@@ -1,5 +1,5 @@
 import React from 'react/addons';
-import CourseActions from 'course/Actions';
+import {setCourse} from 'course/Actions';
 
 import BasePathAware from '../mixins/BasePath';
 
@@ -7,7 +7,7 @@ export default React.createClass({
 	mixins: [BasePathAware],
 
 	_onClick: function() {
-		CourseActions.setCourse(null);
+		setCourse(null);
 	},
 
 	render: function() {

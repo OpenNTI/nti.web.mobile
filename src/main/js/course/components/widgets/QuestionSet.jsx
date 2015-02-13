@@ -1,24 +1,23 @@
-'use strict';
+import path from 'path';
 
-var path = require('path');
+import React from 'react/addons';
 
-var React = require('react/addons');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
-// var DateTime = require('common/components/DateTime');
-var Score = require('common/components/charts/Score');
-var AssessmentAPI = require('assessment/Api');
-var AssignmentStatusLabel = require('assessment/components/AssignmentStatusLabel');
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+// import DateTime from 'common/components/DateTime';
+import Score from 'common/components/charts/Score';
 
-var Utils = require('common/Utils');
-var getService = Utils.getService;
+import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
+import {loadPreviousState} from 'assessment/Api';
 
-var NTIID = require('dataserverinterface/utils/ntiids');
+import {getService} from 'common/Utils';
 
-var SUBMITTED_QUIZ = 'application/vnd.nextthought.assessment.assessedquestionset';
+import {encodeForURI} from 'dataserverinterface/utils/ntiids';
 
-var assignmentType = /assignment/i;
+const SUBMITTED_QUIZ = 'application/vnd.nextthought.assessment.assessedquestionset';
 
-module.exports = React.createClass( {
+const assignmentType = /assignment/i;
+
+export default React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
 	mixins: [NavigatableMixin],
 
@@ -79,7 +78,7 @@ module.exports = React.createClass( {
 		} else {
 			this.setQuizHref(); //TODO: build the assignment href
 
-			work = AssessmentAPI.loadPreviousState(assignment)
+			work = loadPreviousState(assignment)
 				.then(this.setAssignmentHistory)
 				.catch(this.maybeNetworkError)
 				.catch(this.setNotTaken);
@@ -134,7 +133,7 @@ module.exports = React.createClass( {
 
 	setQuizHref () {
 		var ntiid = this.props.item['Target-NTIID'];
-		var link = path.join('c', NTIID.encodeForURI(ntiid)) + '/';
+		var link = path.join('c', encodeForURI(ntiid)) + '/';
 		this.setState({href: this.makeHref(link, true)});
 	},
 

@@ -1,26 +1,48 @@
-'use strict';
-/** @module course/Actions */
+import AppDispatcher from 'dispatcher/AppDispatcher';
+
+import NavigationConstants from 'navigation/Constants';
+import NavigationActions from 'navigation/Actions';
+
+import MessagesActions from 'messages/Actions';
+import Message from 'messages/Message';
+
+import {getLibrary} from 'library/Api';
+
+import {SET_ACTIVE_COURSE, NOT_FOUND} from './Constants';
+
+/**
+ * Actions available to views for course-related functionality.
+ */
+
+export function setCourse (courseId) {
+	if(!courseId) {
+		NavigationActions.unpublishNav(NavigationConstants.CONTENT_KEY);
+		return;
+	}
+
+	NavigationActions.setLoading(true);
+
+	getLibrary()
+
+		.then(library => library.getCourse(courseId) || Promise.reject(NOT_FOUND))
+
+		.then(courseEnrollment => {
+			dispatch(SET_ACTIVE_COURSE, courseEnrollment);
+			_publishNavFor(courseEnrollment);
+		})
+
+		.catch(reason => {
+			NavigationActions.setLoading(false);
+			dispatch(SET_ACTIVE_COURSE, new Error(reason));
+			//Failure
+			//TODO: Display error
+		});
+}
 
 
-
-
-var {EventEmitter} = require('events');
-var AppDispatcher = require('dispatcher/AppDispatcher');
-
-var NavigationConstants = require('navigation/Constants');
-var NavigationActions = require('navigation/Actions');
-
-var Constants = require('./Constants');
-var MessagesActions = require('messages/Actions');
-var Message = require('messages/Message');
-
-var LibraryApi = require('library/Api');
-
-var NOT_FOUND = Constants.NOT_FOUND;
 
 function dispatch(key, data) {
-	var payload = {type: key, response: data};
-	AppDispatcher.handleRequestAction(payload);
+	AppDispatcher.handleRequestAction({type: key, response: data});
 }
 
 
@@ -44,35 +66,3 @@ function _publishNavFor(courseEnrollment) {
 			);
 		});
 }
-
-/**
- * Actions available to views for course-related functionality.
- */
-module.exports = Object.assign({}, EventEmitter.prototype, {
-
-	setCourse: function(courseId) {
-		if(!courseId) {
-			NavigationActions.unpublishNav(NavigationConstants.CONTENT_KEY);
-			return;
-		}
-		NavigationActions.setLoading(true);
-		LibraryApi.getLibrary()
-
-			.then(function(library) {
-				return library.getCourse(courseId) || Promise.reject(NOT_FOUND);
-			})
-
-			.then(function(courseEnrollment) {
-				dispatch(Constants.SET_ACTIVE_COURSE, courseEnrollment);
-				_publishNavFor(courseEnrollment);
-			})
-
-			.catch(function(reason) {
-				NavigationActions.setLoading(false);
-				dispatch(Constants.SET_ACTIVE_COURSE, new Error(reason));
-				//Failure
-				//TODO: Display error
-			});
-	}
-
-});

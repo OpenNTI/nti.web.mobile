@@ -1,32 +1,31 @@
-'use strict';
+import React from 'react/addons';
 
-var React = require('react/addons');
+import {IllegalStateException} from 'common/exceptions';
 
-var IllegalStateException = require('common/exceptions').IllegalStateException;
+import ErrorWidget from 'common/components/Error';
 
-var ErrorWidget = require('common/components/Error');
-var WidgetsMixin = require('./Mixin');
+// This is an exmaple of a widget needing the mixin because it has children,
+// only components within this package can(and should) import the mixin this way.
+import Mixin from './Mixin';
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'CourseOverviewGroup',
-	mixins: [WidgetsMixin],
+	mixins: [Mixin],
 
 	statics: {
 		mimeTest: /^application\/vnd\.nextthought\.nticourseoverviewgroup/i,
-		handles: function(item) {
+		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		}
 	},
 
-	render: function() {
-		var item = this.props.item;
-		var style = {
-			backgroundColor: '#' + item.accentColor
-		};
+	render () {
+		let {item} = this.props;
+
 		try {
 			return (
 				<fieldset className="course-overview-group">
-					<legend style={style}>{item.title}</legend>
+					<legend style={{backgroundColor: `#${item.accentColor}`}}>{item.title}</legend>
 					{this._renderItems(item.Items)}
 				</fieldset>
 			);

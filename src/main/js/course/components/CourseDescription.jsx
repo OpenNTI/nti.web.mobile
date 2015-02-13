@@ -1,12 +1,11 @@
-'use strict';
+import React from 'react/addons';
+import Detail from 'library/catalog/components/Detail';
+import EnrollButton from 'library/catalog/components/EnrollButton'; // drop course button
 
-var React = require('react/addons');
-var Detail = require('library/catalog/components/Detail');
-var EnrollButton = require('library/catalog/components/EnrollButton'); // drop course button
+export default React.createClass({
+	displayName: 'CourseDescription',
 
-var CourseDescription = React.createClass({
-
-	render: function() {
+	render () {
 		return (
 			<div>
 				<Detail {...this.props}/>
@@ -14,7 +13,4 @@ var CourseDescription = React.createClass({
 			</div>
 		);
 	}
-
 });
-
-module.exports = CourseDescription;
