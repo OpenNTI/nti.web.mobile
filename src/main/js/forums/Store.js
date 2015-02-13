@@ -14,7 +14,7 @@ var _objectContents = {};
 var _objects = {};
 var _courseId;
 
-class Store extends TypedEventEmitter {
+class ForumStore extends TypedEventEmitter {
 
 	constructor() {
 		super();
@@ -80,7 +80,7 @@ class Store extends TypedEventEmitter {
 	deleteObject(object) {
 		var objectId = object && object.getID ? object.getID() : object;
 		delete _objects[this.__keyForObject(objectId)];
-		Store.emitChange({
+		this.emitChange({
 			type: Constants.OBJECT_DELETED,
 			objectId: objectId,
 			object: object
@@ -134,6 +134,8 @@ class Store extends TypedEventEmitter {
 	}
 
 }
+
+let Store = new ForumStore();
 
 // convenience method for creating an error object
 // for failed fetch attempts
@@ -264,6 +266,7 @@ function reportItem(item) {
 }
 
 
+
 Store.appDispatch = AppDispatcher.register(function(payload) {
 	var action = payload.action;
 	switch(action.type) {
@@ -302,4 +305,5 @@ Store.appDispatch = AppDispatcher.register(function(payload) {
 	return true;
 });
 
-module.exports = new Store();
+
+export default Store;
