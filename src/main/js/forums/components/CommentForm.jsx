@@ -108,7 +108,7 @@ var CommentForm = React.createClass({
 
 		return (
 			<PanelButton className="comment-form" linkText='Submit' button={buttons}>
-				{this.state.error && <Notice class="err">{this.state.error.message||'An error occurred.'}</Notice>}
+				{this.state.error && <Notice className="err">{this.state.error.message||'An error occurred.'}</Notice>}
 				<Editor ref='editor'
 					onChange={this._bodyChange}
 					value={value} />
