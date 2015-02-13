@@ -1,7 +1,6 @@
 import React from 'react/addons';
 import ContactForm from './ContactForm';
 import Configs from '../configs';
-import ContactForm from './ContactForm';
 
 export default React.createClass({
 	displayName: 'contact:View',
