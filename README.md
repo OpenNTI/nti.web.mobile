@@ -67,7 +67,7 @@ npm link dataserverinterface
 Clone the library, install its dependent modules, and `npm-link` it.
 
 ```bash
-git clone git@github.com:NextThought/react-editor-component.git
+git clone https://git@github.com/NextThought/react-editor-component.git
 cd react-editor-component
 npm install
 npm link
