@@ -1,35 +1,33 @@
-'use strict';
-var React = require('react/addons');
+import React from 'react/addons';
 
-var Unknown = require('./Unknown');
+import Unknown from './Unknown';
 
-exports = module.exports = {
-	Unknown: Unknown, //Unknown for future items.
-	Card: require('./Card'),
-	MarkupFrame: require('./MarkupFrame'),
-	Question: require('./Question'),
+import Card from './Card';
+import MarkupFrame from './MarkupFrame';
+import Question from './Question';
 
-	select: function getItemHandler(part, page, ownerProps) {
-		var Item = exports.Unknown;
-		var key, Type;
+const WIDGETS = [
+	Unknown,
+	Card,
+	MarkupFrame,
+	Question
+];
 
-		for (key in exports) {
-			if (exports.hasOwnProperty(key)) {
-				Type = exports[key];
-				if (Type !== Unknown && Type.handles && Type.handles(part)) {
-					Item = Type;
-					break;
-				}
-			}
+export function getWidget(part, page, ownerProps) {
+	var Item = Unknown;
+
+	for (let Type of WIDGETS) {
+		if (Type !== Unknown && Type.handles && Type.handles(part)) {
+			Item = Type;
+			break;
 		}
-
-		return React.createElement(Item,
-			{
-				key: 'widget-' + part.guid,
-				item: part,
-				ownerProps: ownerProps,
-				page: page
-			});
 	}
 
-};
+	return React.createElement(Item,
+		{
+			key: 'widget-' + part.guid,
+			item: part,
+			ownerProps: ownerProps,
+			page: page
+		});
+}

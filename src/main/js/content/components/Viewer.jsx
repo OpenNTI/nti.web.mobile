@@ -1,43 +1,54 @@
-'use strict';
+const noContextProvider = Promise.resolve.bind(Promise, []);
+
+import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
+import guid from 'dataserverinterface/utils/guid';
+
+import React from 'react/addons';
+import {RouterMixin} from 'react-router-component';
+
+import Loading from 'common/components/Loading';
+//import ErrorWidget from 'common/components/Error';
+
+import StoreEvents from 'common/mixins/StoreEvents';
+
+import Pager from 'common/components/Pager';
+import Breadcrumb from 'common/components/Breadcrumb';
 
 
-
-var noContextProvider = Promise.resolve.bind(Promise, []);
-
-var NTIID = require('dataserverinterface/utils/ntiids');
-var guid = require('dataserverinterface/utils/guid');
-
-var React = require('react/addons');
-var RouterMixin = require('react-router-component').RouterMixin;
-
-var Loading = require('common/components/Loading');
-//var ErrorWidget = require('common/components/Error');
-
-var Pager = require('common/components/Pager');
-
-var Widgets = require('./widgets');
-var Breadcrumb = require('common/components/Breadcrumb');
+import {getWidget} from './widgets';
 
 
-var Store = require('../Store');
-var Actions = require('../Actions');
+import Store from '../Store';
+import {loadPage} from '../Actions';
 
-var {RESOURCE_VIEWED} = require('dataserverinterface/models/analytics/MimeTypes');
+import {RESOURCE_VIEWED} from 'dataserverinterface/models/analytics/MimeTypes';
+
+import AnalyticsBehavior from 'analytics/mixins/ResourceLoaded';
+import RouterLikeBehavior from './viewer-parts/mock-router';
+import GlossaryFeature from './viewer-parts/glossary';
+import Interactions from './viewer-parts/interaction';
+import AssessmentFeature from './viewer-parts/assessment';
 
 
-module.exports = React.createClass({
+export default React.createClass({
 	mixins: [
-		require('./viewer-parts/mock-router'),
-		require('analytics/mixins/ResourceLoaded'),
-		require('./viewer-parts/glossary'),
-		require('./viewer-parts/interaction'),
-		require('./viewer-parts/assessment'),
+		StoreEvents,
+		RouterLikeBehavior,
+		AnalyticsBehavior,
+		GlossaryFeature,
+		Interactions,
+		AssessmentFeature,
 		RouterMixin
 	],
 	displayName: 'Viewer',
 
 
-	getResetState: function () {
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		default: 'onStoreChange'
+	},
+
+	getResetState () {
 		return {
 			loading: true,
 			pageWidgets: {},
@@ -47,28 +58,25 @@ module.exports = React.createClass({
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return this.getResetState();
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		//The getDOMNode() will always be the loading dom at his point...
 		//we wait for the re-render of the actual data in componentDidUpdate()
-		Store.addChangeListener(this.onChange);
 		this.getDataIfNeeded(this.props);
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		this._resourceUnloaded();
-		Store.removeChangeListener(this.onChange);
-
 		this.cleanupWidgets();
 	},
 
 
-	componentDidUpdate: function () {
+	componentDidUpdate () {
 		//See if we need to re-mount/render our components...
 		var guid, el, w,
 			widgets = this.getPageWidgets();
@@ -93,12 +101,12 @@ module.exports = React.createClass({
 	},
 
 
-	componentWillReceiveProps: function(props) {
+	componentWillReceiveProps (props) {
 		this.getDataIfNeeded(props);
 	},
 
 
-	cleanupWidgets: function () {
+	cleanupWidgets () {
 		//Cleanup our components...
 		var guid, el,
 			widgets = this.getPageWidgets();
@@ -115,7 +123,7 @@ module.exports = React.createClass({
 	},
 
 
-	getDataIfNeeded: function(props) {
+	getDataIfNeeded (props) {
 		var newPageId = this.getPageID(props);
 		var newPage = newPageId !== this.state.currentPage;
 		var newRoot = this.getRootID(props) !== this.getRootID();
@@ -130,25 +138,25 @@ module.exports = React.createClass({
 				)
 			);
 
-			Actions.loadPage(newPageId);
+			loadPage(newPageId);
 			this._resourceLoaded(newPageId, null, RESOURCE_VIEWED);
 		}
 	},
 
 
-	getRootID: function(props) {
-		return NTIID.decodeFromURI((props ||this.props).rootId);
+	getRootID (props) {
+		return decodeFromURI((props ||this.props).rootId);
 	},
 
 
-	getPageID: function (props) {
+	getPageID (props) {
 		var p = props || this.props;
 		var h = this.getPropsFromRoute(p);
-		return NTIID.decodeFromURI(h.pageId || p.rootId);
+		return decodeFromURI(h.pageId || p.rootId);
 	},
 
 
-	getPageWidgets: function() {
+	getPageWidgets () {
 		var o = this.state.pageWidgets;
 		var id = this.getPageID();
 		if (o && !o[id]) {
@@ -159,16 +167,16 @@ module.exports = React.createClass({
 	},
 
 
-	createWidget: function(widgetData) {
+	createWidget (widgetData) {
 		var widgets = this.getPageWidgets();
 		if (!widgets[widgetData.guid]) {
 			// console.debug('Content View: Creating widget for %s', widgetData.guid);
-			widgets[widgetData.guid] = Widgets.select(widgetData, this.state.page, this.props);
+			widgets[widgetData.guid] = getWidget(widgetData, this.state.page, this.props);
 		}
 	},
 
 
-	onChange: function() {
+	onStoreChange () {
 		var id = this.getPageID();
 		var page = Store.getPageDescriptor(this.getPageID());
 
@@ -181,7 +189,7 @@ module.exports = React.createClass({
 	},
 
 
-	getBodyParts: function () {
+	getBodyParts () {
 		var page = this.state.page;
 		if (page) {
 			return page.getBodyParts();
@@ -189,7 +197,7 @@ module.exports = React.createClass({
 	},
 
 
-	getPageStyles: function () {
+	getPageStyles () {
 		var page = this.state.page;
 		if (page) {
 			return page.getPageStyles();
@@ -197,7 +205,7 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
+	render () {
 		var body = this.getBodyParts() || [];
 		var pageSource = this.state.pageSource;
 
@@ -230,7 +238,7 @@ module.exports = React.createClass({
 	},
 
 
-	buildBody: function(part) {
+	buildBody (part) {
 
 		if (typeof part === 'string') {
 			return part;
@@ -242,18 +250,18 @@ module.exports = React.createClass({
 	},
 
 
-	__applyStyle: function() {
+	__applyStyle () {
 		var styles = this.getPageStyles() || [];
-		return styles.map(function(css) {
-			return (<style scoped type="text/css" key={guid()} dangerouslySetInnerHTML={{__html: css}}/>);
-		});
+		return styles.map(css =>
+			<style scoped type="text/css" key={guid()} dangerouslySetInnerHTML={{__html: css}}/>
+		);
 	},
 
 
-	__getContext: function() {
+	__getContext () {
 		var getContextFromProvider = this.props.contextProvider || noContextProvider;
 
-		return getContextFromProvider(this.props).then(function(context) {
+		return getContextFromProvider(this.props).then(context => {
 			//TODO: have the Content Api resolve page title...
 			// context.push({
 			// 	label: '??Current Page??',

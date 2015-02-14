@@ -1,61 +1,31 @@
-'use strict';
+import {PAGE_LOADED} from './Constants';
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
+import StorePrototype from 'common/StorePrototype';
 
+const data = Symbol('data');
+const SetData = Symbol('set:data');
 
-var Constants = require('./Constants');
+class Store extends StorePrototype {
 
-var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
-
-var _pages = {};
-
-var Store = Object.assign({}, EventEmitter.prototype, {
-	displayName: 'content.Store',
-
-	emitChange: function(evt) {
-		this.emit(CHANGE_EVENT, evt);
-	},
-
-	/**
-	 * @param {function} callback
-	 */
-	addChangeListener: function(callback) {
-		this.on(CHANGE_EVENT, callback);
-	},
-
-	/**
-	 * @param {function} callback
-	 */
-	removeChangeListener: function(callback) {
-		this.removeListener(CHANGE_EVENT, callback);
-	},
-
-
-	getPageDescriptor: function (id) {
-		return _pages[id];
+	constructor () {
+		this[data] = {};
+		super();
+		this.registerHandlers({
+			[PAGE_LOADED]: SetData
+		});
 	}
-});
 
 
-function persistPage(descriptor) {
-	_pages[descriptor.getID()] = descriptor;
+	[SetData] (payload) {
+		let descriptor = payload.action.response;
+		this[data][descriptor.getID()] = descriptor;
+		this.emitChange({type: PAGE_LOADED, ntiid: payload.ntiid});
+	}
+
+
+	getPageDescriptor (id) {
+		return this[data][id];
+	}
 }
 
-
-Store.appDispatch = AppDispatcher.register(function(payload) {
-    var action = payload.action;
-    switch(action.type) {
-    //TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-        case Constants.PAGE_LOADED:
-            persistPage(action.response);
-            break;
-        default:
-            return true;
-    }
-    Store.emitChange(payload.ntiid);
-    return true;
-});
-
-
-module.exports = Store;
+export default new Store();

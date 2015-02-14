@@ -1,23 +1,23 @@
-'use strict';
-/** @module content/Actions */
+/**
+ * Actions available to views for content-related functionality.
+ */
 
+import {Dom} from 'common/Utils';
+var DomUtils = Dom;
 
-var Utils = require('common/Utils');
-var DomUtils = Utils.Dom;
+import {parseNTIID} from 'dataserverinterface/utils/ntiids';
 
-var {parseNTIID} = require('dataserverinterface/utils/ntiids');
+import AppDispatcher from 'dispatcher/AppDispatcher';
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
+import PageDescriptor from './PageDescriptor';
 
-var Api = require('./Api');
-var Constants = require('./Constants');
-var PageDescriptor = require('./PageDescriptor');
-var {processContent} = require('./Utils');
+import {getPageInfo} from './Api';
+import {PAGE_LOADED} from './Constants';
+import {processContent} from './Utils';
 
-var LibraryApi = require('library/Api');
+import {getLibrary} from 'library/Api';
 
-var WIDGET_SELECTORS_AND_STRATEGIES = {
+const WIDGET_SELECTORS_AND_STRATEGIES = {
 	'[itemprop~=nti-data-markupenabled],[itemprop~=nti-slide-video]': parseFramedElement,
 
 	'object[type$=nticard]': DomUtils.parseDomObject,
@@ -33,72 +33,62 @@ var WIDGET_SELECTORS_AND_STRATEGIES = {
 	'object[type*=naquestion]': DomUtils.parseDomObject,
 };
 
+
+function dispatch(type, response) {
+	AppDispatcher.handleRequestAction({type, response});
+}
+
+
 /**
- * Actions available to views for content-related functionality.
+ *	@param {String} Content Page NTIID
  */
-module.exports = Object.assign({}, EventEmitter.prototype, {
+export function loadPage (ntiid) {
+	var isAssessmentID = parseNTIID(ntiid).specific.type === 'NAQ';
 
-	/**
-	 *	@param {String} Content Page NTIID
-	 */
-	loadPage: function(ntiid) {
-		var isAssessmentID = parseNTIID(ntiid).specific.type === 'NAQ';
+	Promise.all([
+		getLibrary(),
+		getPageInfo(ntiid)
+	])
 
-		Promise.all([
-			LibraryApi.getLibrary(),
-			Api.getPageInfo(ntiid)
-		])
+		.then(data => {
+			var lib= data[0];
+			var pi = data[1];
 
-			.then(function(data) {
-				var lib= data[0];
-				var pi = data[1];
+			if (pi.getID() !== ntiid && !isAssessmentID) {
+				// We will always missmatch for assessments, since we
+				// get the pageInfo for an assessment id and the server
+				// returns the pageInfo that the assessment is on...
+				// so lets silence this error for that case.
+				console.warn('PageInfo ID missmatch! %s != %s %o', ntiid, pi.getID());
+			}
 
-				if (pi.getID() !== ntiid && !isAssessmentID) {
-					// We will always missmatch for assessments, since we
-					// get the pageInfo for an assessment id and the server
-					// returns the pageInfo that the assessment is on...
-					// so lets silence this error for that case.
-					console.warn('PageInfo ID missmatch! %s != %s %o', ntiid, pi.getID());
-				}
+			var p = lib.getPackage(pi.getPackageID());
 
-				var p = lib.getPackage(pi.getPackageID());
+			return Promise.all([
+				(p && p.getTableOfContents()) || Promise.reject('No Package for Page!'),
+				pi.getContent()
 
-				return Promise.all([
-					(p && p.getTableOfContents()) || Promise.reject('No Package for Page!'),
-					pi.getContent()
-
-				]).then(function(data){
-					var toc = data[0];
-					var htmlStr = data[1];
-					return {
-						tableOfContents: toc,
-						pageInfo: pi,
-						content: htmlStr
-					};
-				});
-			})
-
-			//get the html and split out some resource references to fetch.
-			.then(processContent.bind(this, WIDGET_SELECTORS_AND_STRATEGIES))
-
-			//load css
-			.then(fetchResources)
-
-
-			.then(function(packet) {
-				dispatch(Constants.PAGE_LOADED,
-					new PageDescriptor(ntiid, packet));
+			]).then(data => {
+				var toc = data[0];
+				var htmlStr = data[1];
+				return {
+					tableOfContents: toc,
+					pageInfo: pi,
+					content: htmlStr
+				};
 			});
-	}
+		})
 
-});
+		//get the html and split out some resource references to fetch.
+		.then(processContent.bind(this, WIDGET_SELECTORS_AND_STRATEGIES))
+
+		//load css
+		.then(fetchResources)
 
 
-function dispatch(key, data) {
-	AppDispatcher.handleRequestAction({
-		type: key,
-		response: data
-	});
+		.then(packet =>
+			dispatch(PAGE_LOADED,
+				new PageDescriptor(ntiid, packet)));
 }
 
 

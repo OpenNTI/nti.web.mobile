@@ -1,28 +1,23 @@
-'use strict';
-module.exports = {
+export default {
 
-	getInitialState: function () {
+	getInitialState  () {
 		this.__registerRoute('/:pageId/');
 	},
 
 
-	getDefaultProps: function () {
-		return {
-			contextual: true
-		};
+	getDefaultProps  () {
+		return { contextual: true };
 	},
 
 
-	getPropsFromRoute: function (fallback) {
+	getPropsFromRoute  (fallback) {
 		var m = this.getMatch();
 		var props = m && (m.getHandler() || m.match);
 		return props || fallback;
 	},
 
 
-	setRoutingState: function (state, cb) {
-		this.setState(state, cb);
-	},
+	setRoutingState (...args) { this.setState(...args); },
 
 
 	/**
@@ -30,7 +25,7 @@ module.exports = {
 	 * @private
 	 * @param {Object} props
 	 */
-	getRoutes: function(/*props*/) {
+	getRoutes (/*props*/) {
 		if (!this.__routes) {
 			debugger;
 		}
@@ -38,11 +33,11 @@ module.exports = {
 	},
 
 
-	__registerRoute: function(route) {
+	__registerRoute (route) {
 		if (typeof route === 'string') {
 			route = {
 				props: {
-					handler: function(p) {return p;},
+					handler (p) {return p;},
 					path: route
 				}
 			};

@@ -1,26 +1,25 @@
-'use strict';
+import GlossaryEntry from '../GlossaryEntry';
 
-var GlossaryEntry = require('../GlossaryEntry');
+export default {
 
-module.exports = {
-
-	getInitialState: function() {
+	getInitialState () {
 		this.__registerRoute('/:pageId/glossary/:glossaryId');
 	},
 
 
-	getGlossaryId: function () {
+	getGlossaryId () {
 		return this.getPropsFromRoute({}).glossaryId;
 	},
 
-	onDismissGlossary: function(evt) {
+
+	onDismissGlossary (evt) {
 		evt.preventDefault();
 		var pid = this.getPropsFromRoute({}).pageId;
 		this.navigate('/'+pid+'/');
 	},
 
 
-	renderGlossaryEntry: function () {
+	renderGlossaryEntry () {
 		var id = this.getGlossaryId();
 		if (id) {
 			return GlossaryEntry({

@@ -1,12 +1,9 @@
-'use strict';
+import React from 'react/addons';
+import Router from 'react-router-component';
 
+import Viewer from './Viewer';
 
-var React = require('react/addons');
-var Router = require('react-router-component');
-
-var Viewer = require('./Viewer');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'ContentView',
 
 	propTypes: {
@@ -14,7 +11,7 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
+	render () {
 
 		return (
 			<Router.Locations contextual>
@@ -34,7 +31,7 @@ module.exports = React.createClass({
 	*
 	* @param {Object} props The props set from the handler of the route.
 	*/
-	__getContext: function(/*props*/) {
+	__getContext (/*props*/) {
 
 		return Promise.resolve([]);
 	}

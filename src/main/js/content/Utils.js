@@ -1,19 +1,10 @@
-'use strict';
-
-var {Dom} = require('common/Utils');
-
-var guid = require('dataserverinterface/utils/guid');
-var indexArrayByKey = require('dataserverinterface/utils/array-index-by-key');
-var toArray = require('dataserverinterface/utils/toarray');
+import {Dom} from 'common/Utils';
+import guid from 'dataserverinterface/utils/guid';
+import indexArrayByKey from 'dataserverinterface/utils/array-index-by-key';
+import toArray from 'dataserverinterface/utils/toarray';
 
 var MARKER_REGEX = /nti:widget-marker\[([^\]\>]+)\]/i;
 var WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(?:[^\]>]*)-->/ig;
-
-
-Object.assign(exports, {
-	processContent: processContent,
-	parseWidgets: parseWidgets
-});
 
 
 /**
@@ -24,7 +15,7 @@ Object.assign(exports, {
  *                            an Object used to render the Widget.
  * @param {Object} packet     Should be and object with a property named 'content' that is a string.
  */
-function processContent(strategies, packet) {
+export function processContent(strategies, packet) {
 	var html = packet.content;
 	var parser = null;
 	if (typeof DOMParser !== 'undefined') {
@@ -70,7 +61,7 @@ function processContent(strategies, packet) {
  *
  * @param {Node} elementFactory		A Dom object that has an implementation for 'createComment'.
  */
-function parseWidgets(strategies, doc, elementFactory) {
+export function parseWidgets(strategies, doc, elementFactory) {
 
 	function makeMarker(id) {
 		return elementFactory.createComment('nti:widget-marker[' + id + ']');

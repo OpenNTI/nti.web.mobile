@@ -1,11 +1,9 @@
-'use strict';
+import React from 'react/addons';
 
-var React = require('react/addons');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'GlossaryEntry',
 
-	componentDidMount: function() {
+	componentDidMount () {
 		var entryEl = document.getElementById(this.props.entryid);
 		console.debug('didmount, %O',entryEl);
 		if (entryEl) {
@@ -13,7 +11,7 @@ module.exports = React.createClass({
 		}
 	},
 
-	render: function() {
+	render () {
 		return (
 			<div {...this.props} className="glossary-entry">
 				<div ref="content" className="def small-9 columns small-centered"/>

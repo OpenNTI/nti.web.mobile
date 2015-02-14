@@ -1,14 +1,13 @@
-'use strict';
-var React = require('react/addons');
+import React from 'react/addons';
 
-var Card = require('common/components/Card');
+import Card from 'common/components/Card';
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'NTICard',
 
 	statics: {
 		mimeType: /ntirelatedworkref$|nticard$/i,
-		handles: function(item) {
+		handles (item) {
 			var type = item.type || '';
 			var cls = item.class || '';
 			var re = this.mimeType;
@@ -17,11 +16,7 @@ module.exports = React.createClass({
 	},
 
 
-	getInitialState: function () {
-		//FIXME: Re-write this:
-		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-		
+	componentWillMount () {
 		var item = this.props.item;
 		var el;
 		if (item) {
@@ -44,12 +39,10 @@ module.exports = React.createClass({
 			}
 
 		}
-
-		return {};
 	},
 
 
-	render: function() {
+	render () {
 		var props = this.props;
 		var ownerProps = props.ownerProps;
 		return (

@@ -1,14 +1,13 @@
-'use strict';
-var React = require('react/addons');
+import React from 'react/addons';
 
-var QuestionWidget = require('assessment/components/Question');
+import QuestionWidget from 'assessment/components/Question';
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'NAQuestion',
 
 	statics: {
 		mimeType: /naquestion/i,
-		handles: function(item) {
+		handles (item) {
 			var type = item.type || '';
 			var cls = item.class || '';
 			var re = this.mimeType;
@@ -17,14 +16,14 @@ module.exports = React.createClass({
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			question: null
 		};
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		var p = this.props;
 		var questionId = p.item.ntiid;
 
@@ -35,8 +34,8 @@ module.exports = React.createClass({
 
 
 
-	render: function() {
-		var question = this.state.question;
+	render () {
+		var {question} = this.state;
 		if (!question) {return null;}
 
 		return (

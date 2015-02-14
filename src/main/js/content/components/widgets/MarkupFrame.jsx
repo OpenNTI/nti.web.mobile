@@ -1,28 +1,26 @@
-'use strict';
+import React from 'react/addons';
+import isEmpty from 'dataserverinterface/utils/isempty';
 
-var React = require('react/addons');
-var isEmpty = require('dataserverinterface/utils/isempty');
+const ZOOMABLE = /nti\-data\-resizeable/i;
 
-var ZOOMABLE = /nti\-data\-resizeable/i;
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'ContentMarkupEnabled',
 
 	statics: {
 		type: /nti\-data\-markupenabled/i,
-		handles: function(item) {
+		handles (item) {
 			return this.type.test(item.type);
 		}
 	},
 
 
-	componentDidMount: function() {},
+	componentDidMount () {},
 
 
-	componentWillUnmount: function() {},
+	componentWillUnmount () {},
 
 
-	render: function() {
+	render () {
 		var data = this.props.item;
 		var item = data.item;
 

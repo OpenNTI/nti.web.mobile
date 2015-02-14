@@ -1,13 +1,6 @@
-'use strict';
+import {getService} from 'common/Utils';
 
-var getService = require('common/Utils').getService;
-
-module.exports = {
-
-	getPageInfo: function(ntiid) {
-		return getService()
-			.then(function(service) {
-				return service.getPageInfo(ntiid);
-			});
-	}
-};
+export function getPageInfo (ntiid) {
+	return getService()
+		.then(service => service.getPageInfo(ntiid));
+}

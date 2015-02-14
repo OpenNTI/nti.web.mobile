@@ -1,16 +1,13 @@
-'use strict';
+import {isNTIID} from 'dataserverinterface/utils/ntiids';
 
-var NTIID = require('dataserverinterface/utils/ntiids');
+import {Dom} from 'common/Utils';
 
-var Utils = require('common/Utils');
-var hasClass = Utils.Dom.hasClass;
-var getTarget = Utils.Dom.getEventTarget;
+let {hasClass, getEventTarget} = Dom;
 
+export default {
 
-module.exports = {
-
-	onContentClick: function (e) {
-		var anchor = getTarget(e, 'a[href]');
+	onContentClick (e) {
+		var anchor = getEventTarget(e, 'a[href]');
 		var href, scrollToEl, fn, id, frag;
 		if (anchor) {
 			//anchor.getAttribute('href') is different than anchor.href...
@@ -51,7 +48,7 @@ module.exports = {
 			id = href[0];
 			frag = href[1];
 
-			if (NTIID.isNTIID(id)) {
+			if (isNTIID(id)) {
 				e.preventDefault();
 			}
 		}

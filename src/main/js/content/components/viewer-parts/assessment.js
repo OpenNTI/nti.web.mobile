@@ -1,16 +1,15 @@
-'use strict';
-var React = require('react/addons');
+import React from 'react/addons';
 
-var Store = require('assessment/Store');
-var Utils = require('assessment/Utils');
-var FeedbackWidget = require('assessment/components/Feedback');
-var SetHeaderWidget = require('assessment/components/Header');
-var SetSubmissionWidget = require('assessment/components/Submission');
+import Store from 'assessment/Store';
+import {areAssessmentsSupported} from 'assessment/Utils';
+import FeedbackWidget from 'assessment/components/Feedback';
+import SetHeaderWidget from 'assessment/components/Header';
+import SetSubmissionWidget from 'assessment/components/Submission';
 
 
-module.exports = {
+export default {
 
-	renderAssessmentHeader: function () {
+	renderAssessmentHeader () {
 		var page = this.state.page;
 		var quiz = page && page.getSubmittableAssessment();
 		if (!page || !quiz) {
@@ -24,7 +23,7 @@ module.exports = {
 	},
 
 
-	renderAssessmentFeedback: function () {
+	renderAssessmentFeedback () {
 		var page = this.state.page;
 		var quiz = page && page.getSubmittableAssessment();
 		if (!page || !quiz) {
@@ -38,10 +37,10 @@ module.exports = {
 	},
 
 
-	renderAssessmentSubmission: function () {
+	renderAssessmentSubmission () {
 		var page = this.state.page;
 		var quiz = page && page.getSubmittableAssessment();
-		if (!page || !quiz || quiz.IsTimedAssignment || !Utils.areAssessmentsSupported()) {
+		if (!page || !quiz || quiz.IsTimedAssignment || !areAssessmentsSupported()) {
 			return null;
 		}
 
@@ -58,7 +57,7 @@ module.exports = {
 	},
 
 
-	componentWillUpdate: function(_, nextState) {
+	componentWillUpdate (_, nextState) {
 		var prevPage = this.state.page;
 		var nextPage = nextState && nextState.page;
 
