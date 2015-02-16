@@ -1,5 +1,5 @@
 'use strict';
-require('script!6to5/browser-polyfill');
+require('script!babel/browser-polyfill');
 
 
 //TODO: find a way to get rid of this dirty import. All deps should come

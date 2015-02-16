@@ -1,7 +1,7 @@
 'use strict';
-require('script!6to5/runtime');
-require('script!6to5/browser-polyfill');
-require('6to5/polyfill');
+require('script!babel/runtime');
+require('script!babel/browser-polyfill');
+require('babel/polyfill');
 
 var React = require('react');
 

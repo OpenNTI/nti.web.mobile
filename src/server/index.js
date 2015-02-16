@@ -1,6 +1,6 @@
 'use strict';
 
-require("6to5/register")({
+require("babel/register")({
 	ignore: false,//parse node_modules too
 
 	//but...
