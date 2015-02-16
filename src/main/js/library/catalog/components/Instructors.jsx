@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import pad from 'zpad';
 
 import {BLANK_AVATAR, BLANK_IMAGE} from 'common/constants/DataURIs';

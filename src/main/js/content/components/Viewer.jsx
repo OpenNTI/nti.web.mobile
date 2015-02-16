@@ -3,7 +3,7 @@ const noContextProvider = Promise.resolve.bind(Promise, []);
 import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 import guid from 'dataserverinterface/utils/guid';
 
-import React from 'react/addons';
+import React from 'react';
 import {RouterMixin} from 'react-router-component';
 
 import Loading from 'common/components/Loading';

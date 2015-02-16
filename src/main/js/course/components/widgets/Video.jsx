@@ -1,5 +1,5 @@
 import path from 'path';
-import React from 'react/addons';
+import React from 'react';
 
 import LoadingMask from 'common/components/Loading';
 import BasePathAware from 'common/mixins/BasePath';

@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var Mixin = require('./Mixin');
 
 var {getEventTarget} = require('common/Utils').Dom;

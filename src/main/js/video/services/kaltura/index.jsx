@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import getSources from './SourceGrabber';
 import selectSources from './SelectSources';
 

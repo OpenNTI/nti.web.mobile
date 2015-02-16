@@ -4,7 +4,7 @@ import {
 	VTTCue/*, VTTRegion*/
 } from "vtt.js";
 
-import React from 'react/addons';
+import React from 'react';
 
 
 import {Dom} from 'common/Utils';

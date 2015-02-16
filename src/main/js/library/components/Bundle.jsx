@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
 export default React.createClass({

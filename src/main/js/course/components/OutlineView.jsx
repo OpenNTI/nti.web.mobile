@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 import isEmpty from 'dataserverinterface/utils/isempty';
 import waitFor from 'dataserverinterface/utils/waitfor';

@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 import Collection from './Collection';
 import CatalogEntryDetail from './CatalogEntryDetail';

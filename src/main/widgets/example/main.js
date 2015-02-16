@@ -3,7 +3,7 @@ require('script!6to5/runtime');
 require('script!6to5/browser-polyfill');
 require('6to5/polyfill');
 
-var React = require('react/addons');
+var React = require('react');
 
 require('common/Utils').__forceCurrentHost();//ensures we talk back to our current host instead of anything else.
 

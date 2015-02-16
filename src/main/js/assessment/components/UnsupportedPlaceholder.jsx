@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var Placeholder = require('./Placeholder');
 
 module.exports = React.createClass({

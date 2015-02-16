@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 import EnrollmentStore from 'enrollment/Store';
 import StoreEnrollmentStore from 'enrollment/store-enrollment/Store';

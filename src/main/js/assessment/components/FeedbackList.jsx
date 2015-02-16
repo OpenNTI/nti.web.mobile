@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import ListItem from './FeedbackListItem';
 
 export default React.createClass({

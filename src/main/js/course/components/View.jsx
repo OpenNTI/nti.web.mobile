@@ -1,7 +1,7 @@
 import path from 'path';
 
 import NTIID from 'dataserverinterface/utils/ntiids';
-import React from 'react/addons';
+import React from 'react';
 import Router from 'react-router-component';
 
 import NotFound from 'notfound/components/View';

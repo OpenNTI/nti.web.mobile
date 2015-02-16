@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var Notice = require('common/components/Notice');
 var Breadcrumb = require('common/components/Breadcrumb');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');

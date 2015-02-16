@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var ListItems = require('./list-items');
 var hash = require('object-hash');
 var Notice = require('common/components/Notice');

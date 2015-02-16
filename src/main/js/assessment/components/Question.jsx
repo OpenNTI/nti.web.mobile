@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 
 var {isFlag} = require('common/Utils');
 var DragDropOrchestrator = require('common/dnd').Mixin;

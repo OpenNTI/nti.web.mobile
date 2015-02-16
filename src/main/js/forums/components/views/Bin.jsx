@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var CollectionFilter = require('common/components/CollectionFilter');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var Breadcrumb = require('common/components/Breadcrumb');

@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var Link = require('react-router-component').Link;
 var AnalyticsStore = require('analytics/Store');
 var NTIID = require('dataserverinterface/utils/ntiids');

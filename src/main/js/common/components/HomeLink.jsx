@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import {setCourse} from 'course/Actions';
 
 import BasePathAware from '../mixins/BasePath';

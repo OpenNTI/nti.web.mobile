@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import moment from 'moment';
 import isEmpty from 'dataserverinterface/utils/isempty';
 import {scoped, translate as locale} from 'common/locale';

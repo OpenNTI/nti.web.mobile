@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 import EnrollmentStore from '../Store';
 import CatalogStore from 'library/catalog/Store';

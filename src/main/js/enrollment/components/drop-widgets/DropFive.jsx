@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var Notice = require('common/components/Notice');
 var Button = require('common/forms/components/Button');
 

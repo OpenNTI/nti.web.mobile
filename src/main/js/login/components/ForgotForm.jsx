@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var t = require('common/locale').scoped('LOGIN.forgot');
 var Button = require('./Button');
 var Message = require('messages/Message');

@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 import {encodeForURI} from 'dataserverinterface/utils/ntiids';
 import {BLANK_IMAGE} from 'common/constants/DataURIs';

@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var Button = require('./Button');
 
 var ButtonFullWidth = React.createClass({

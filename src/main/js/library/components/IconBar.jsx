@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import {Link} from 'react-router-component';
 

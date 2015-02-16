@@ -1,7 +1,7 @@
 
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var _formConfig = require('../configs/GiftRedeem');
 var FieldRender = require('common/forms/mixins/RenderFormConfigMixin');
 var FormPanel = require('common/forms/components/FormPanel');

@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var emptyFunction = require('react/lib/emptyFunction');
 var {PropTypes} = React;
 var {Draggable} = require('common/dnd');

@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var Store = require('../Store');
 var ErrorWidget = require('common/components/Error');
 var Loading = require('common/components/Loading');

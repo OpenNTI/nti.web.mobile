@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var Redirect = require('navigation/components/Redirect');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var NotFoundView = require('notfound/components/View');

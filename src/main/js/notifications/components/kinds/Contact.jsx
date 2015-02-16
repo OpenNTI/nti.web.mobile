@@ -1,5 +1,5 @@
 
-import React from 'react/addons';
+import React from 'react';
 import NoteableMixin from '../mixins/Noteable';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';

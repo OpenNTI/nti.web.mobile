@@ -5,7 +5,7 @@
 // in this file.
 /* jshint camelcase:false */
 
-var React = require('react/addons');
+var React = require('react');
 var _t = require('common/locale').scoped('ENROLLMENT.CONFIRMATION');
 
 var Actions = require('../Actions');

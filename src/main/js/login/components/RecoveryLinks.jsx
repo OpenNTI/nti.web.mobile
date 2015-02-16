@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 
 var t = require('common/locale').scoped('LOGIN');
 var Link = require('react-router-component').Link;
 
-var React = require('react/addons');
+var React = require('react');
 
 module.exports = React.createClass({
 

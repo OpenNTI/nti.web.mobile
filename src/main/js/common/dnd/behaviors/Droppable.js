@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var ensureArray = require('dataserverinterface/utils/ensure-array');
 
 var {Dom} = require('../../Utils');

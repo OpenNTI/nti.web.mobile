@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import emptyFunction from 'react/lib/emptyFunction';
 
 export default React.createClass({

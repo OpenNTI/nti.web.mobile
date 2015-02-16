@@ -6,7 +6,7 @@ import {config} from './common';
 import url from 'url';
 import Path from 'path';
 import fs from 'fs';
-import React from 'react/addons';
+import React from 'react';
 
 var Application;
 var basepathreplace = /(manifest|src|href)="(.*?)"/igm;

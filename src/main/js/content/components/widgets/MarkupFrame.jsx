@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import isEmpty from 'dataserverinterface/utils/isempty';
 
 const ZOOMABLE = /nti\-data\-resizeable/i;

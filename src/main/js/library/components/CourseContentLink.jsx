@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import Mixin from './CourseContentLinkMixin';
 
 export default React.createClass({

@@ -22,7 +22,7 @@ External Links:
 
 */
 import path from 'path';
-import React from 'react/addons';
+import React from 'react';
 import emptyFunction from 'react/lib/emptyFunction';
 
 import NavigatableMixin from '../mixins/NavigatableMixin';

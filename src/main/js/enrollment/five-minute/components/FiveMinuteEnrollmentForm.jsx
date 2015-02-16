@@ -1,7 +1,7 @@
 
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var FieldRender = require('common/forms/mixins/RenderFormConfigMixin');
 var RelatedFormPanel = require('common/forms/components/RelatedFormPanel');
 var FormErrors = require('common/forms/components/FormErrors');

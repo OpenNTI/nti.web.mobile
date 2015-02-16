@@ -9,7 +9,7 @@ require('script!6to5/browser-polyfill');
 require('script!../resources/vendor/modernizr/modernizr.js');
 
 var FastClick = require('fastclick');
-var React = require('react/addons');
+var React = require('react');
 var Utils = require('common/Utils');
 //var emptyFunction = require('react/lib/emptyFunction');
 // var preventOverscroll = require('common/thirdparty/prevent-overscroll');

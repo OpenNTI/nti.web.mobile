@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 
 describe('FooBar', function () {
     var Component, component;

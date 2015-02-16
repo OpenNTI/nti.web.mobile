@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var t = require('common/locale').scoped('LOGIN.forms.createaccount');
 
 var Loading = require('common/components/Loading');

@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 
 var Avatar = require('common/components/Avatar');
 var DateTime = require('common/components/DateTime');

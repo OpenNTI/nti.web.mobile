@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import NoteableMixin from '../mixins/Noteable';
 import DateTime from 'common/components/DateTime';
 

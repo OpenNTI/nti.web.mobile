@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 import PanelButton from 'common/components/PanelButton';
 import BasePathAware from 'common/mixins/BasePath';

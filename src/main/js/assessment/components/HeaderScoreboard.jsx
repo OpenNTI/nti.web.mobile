@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 
 var Score = require('common/components/charts/Score');
 var DateTime = require('common/components/DateTime');

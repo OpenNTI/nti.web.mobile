@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 var Actions = require('../../Actions');
 var requiredProps = require('./RequiredProps');

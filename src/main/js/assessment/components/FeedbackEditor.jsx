@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import {Editor} from 'modeled-content';
 
 import Loading from 'common/components/Loading';

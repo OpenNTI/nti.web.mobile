@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import ErrorWidget from 'common/components/Error';
 
 import {EventHandlers} from '../../Constants';

@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import Detail from 'library/catalog/components/Detail';
 import EnrollButton from 'library/catalog/components/EnrollButton'; // drop course button
 

@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import EnrollmentOptions from 'enrollment/mixins/EnrollmentMixin';
 import LoadingInline from 'common/components/LoadingInline';
 import {encodeForURI} from 'dataserverinterface/utils/ntiids';

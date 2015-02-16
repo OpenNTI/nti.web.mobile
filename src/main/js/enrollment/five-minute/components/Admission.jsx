@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var Loading = require('common/components/Loading');
 var Redirect = require('navigation/components/Redirect');
 var Err = require('common/components/Error');

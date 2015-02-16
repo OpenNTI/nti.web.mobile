@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import EmptyNavRoot from './EmptyNavRoot';
 import BasePath from 'common/mixins/BasePath';
 

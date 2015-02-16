@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var List = require('../List');
 var TopicList = require('../TopicList');
 var Breadcrumb = require('common/components/Breadcrumb');

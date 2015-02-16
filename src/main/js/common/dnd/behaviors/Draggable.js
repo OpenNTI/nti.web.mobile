@@ -4,7 +4,7 @@ var isTouchDevice = require('dataserverinterface/utils/is-touch-device');
 
 //heavily inspired by: https://github.com/mzabriskie/react-draggable
 
-var React = require('react/addons');
+var React = require('react');
 var emptyFunction = require('react/lib/emptyFunction');
 var {PropTypes} = React;
 

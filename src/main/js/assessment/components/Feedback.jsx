@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import {submitFeedback, deleteFeedbackItem, updateFeedbackItem} from '../Api';
 import Store from '../Store';
 import {scoped} from 'common/locale';

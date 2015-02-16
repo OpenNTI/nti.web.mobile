@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import {Locations, Location, NotFound as Default} from 'react-router-component';
 
 //Main Views

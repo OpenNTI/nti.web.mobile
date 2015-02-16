@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import {BLANK_IMAGE} from 'common/constants/DataURIs';
 import {encodeForURI} from 'dataserverinterface/utils/ntiids';
 import BasePathAware from 'common/mixins/BasePath';

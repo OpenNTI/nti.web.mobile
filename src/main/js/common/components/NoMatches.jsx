@@ -1,5 +1,5 @@
 'use strict';
-var React = require('react/addons');
+var React = require('react');
 var t = require('../locale').scoped('FILTER');
 
 var NoMatches = React.createClass({

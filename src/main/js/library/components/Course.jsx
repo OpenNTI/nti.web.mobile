@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import CourseContentLink from './CourseContentLink';
 import {BLANK_IMAGE} from 'common/constants/DataURIs';
 

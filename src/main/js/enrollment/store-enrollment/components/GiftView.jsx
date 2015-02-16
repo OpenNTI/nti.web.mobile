@@ -1,7 +1,7 @@
 /* global jQuery, Stripe */
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
 
 var isEmail = require('dataserverinterface/utils/isemail');

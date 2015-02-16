@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var requiredProps = require('./RequiredProps');
 var PanelButton = require('common/components/PanelButton');
 var FormattedPriceMixin = require('../../mixins/FormattedPriceMixin');

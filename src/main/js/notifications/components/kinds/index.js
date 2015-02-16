@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 import Unknown from './Unknown';
 import Chat from './Chat';

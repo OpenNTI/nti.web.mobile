@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import Loading from 'common/components/Loading';
 import InlineLoader from 'common/components/LoadingInline';
 import Button from 'common/forms/components/Button';

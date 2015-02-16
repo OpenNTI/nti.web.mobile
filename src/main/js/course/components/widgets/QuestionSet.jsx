@@ -1,6 +1,6 @@
 import path from 'path';
 
-import React from 'react/addons';
+import React from 'react';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 // import DateTime from 'common/components/DateTime';

@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var NavigationActions = require('navigation/Actions');
 var NavigationStore = require('navigation/Store');
 var Notifications = require('notifications/components/View');

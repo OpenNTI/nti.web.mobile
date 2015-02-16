@@ -1,7 +1,7 @@
 
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT.RECIPIENT');
 var isEmail = require('dataserverinterface/utils/isemail');

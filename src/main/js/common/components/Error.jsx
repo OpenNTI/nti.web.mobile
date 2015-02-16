@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 
 var isHTML = /<html|<([a-z]+)[^>]*>(.+)<\/\1>/i;
 

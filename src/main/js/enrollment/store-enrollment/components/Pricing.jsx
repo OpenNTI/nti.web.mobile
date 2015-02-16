@@ -1,7 +1,7 @@
 
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT.PRICING');
 var DateTime = require('common/components/DateTime');

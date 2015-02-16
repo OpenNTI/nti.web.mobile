@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var PanelButton = require('common/components/PanelButton');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var Store = require('../Store');

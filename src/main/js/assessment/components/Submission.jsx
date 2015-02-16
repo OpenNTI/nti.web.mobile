@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var Transition = require("react/lib/ReactCSSTransitionGroup");
 
 var _t = require('common/locale').scoped('ASSESSMENT');

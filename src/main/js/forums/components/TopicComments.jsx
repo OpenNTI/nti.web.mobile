@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var List = require('./List');
 // var t = require('common/locale').scoped('FORUMS');
 // var AddComment = require('./AddComment');

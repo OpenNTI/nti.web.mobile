@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var Constants = require('../../Constants');
 var Store = require('../../Store');
 var DisplayName = require('common/components/DisplayName').default;

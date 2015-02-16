@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var isFunction = require('dataserverinterface/utils/isfunction');
 
 var ToggleFieldset = React.createClass({

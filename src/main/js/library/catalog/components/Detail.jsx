@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 import Title from './Title';
 import Description from './Description';

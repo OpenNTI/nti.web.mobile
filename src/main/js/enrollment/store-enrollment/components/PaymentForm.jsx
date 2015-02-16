@@ -8,7 +8,7 @@
 // in this file.
 /* jshint camelcase:false */
 
-var React = require('react/addons');
+var React = require('react');
 var RenderFormConfigMixin = require('common/forms/mixins/RenderFormConfigMixin');
 var t = require('common/locale').scoped('ENROLLMENT.forms.storeenrollment');
 var t2 = require('common/locale').scoped('ENROLLMENT');

@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 import Store from 'assessment/Store';
 import {areAssessmentsSupported} from 'assessment/Utils';

@@ -1,6 +1,6 @@
 'use strict';
 
-var {PropTypes} = require('react/addons');
+var {PropTypes} = require('react');
 
 Object.assign(exports, {
 

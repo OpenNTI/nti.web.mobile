@@ -1,7 +1,7 @@
 
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var ButtonPlain = require('common/forms/components/Button');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
 var Utils = require('common/Utils');

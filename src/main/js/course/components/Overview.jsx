@@ -1,5 +1,5 @@
 import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
-import React from 'react/addons';
+import React from 'react';
 
 import DateTime from 'common/components/DateTime';
 import Pager from 'common/components/Pager';

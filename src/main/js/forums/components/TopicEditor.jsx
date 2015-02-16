@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react');
 var PanelButton = require('common/components/PanelButton');
 var OkCancelButtons = require('common/components/OkCancelButtons');
 var Editor = require('modeled-content').Editor;
