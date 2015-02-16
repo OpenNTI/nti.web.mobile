@@ -1,8 +1,6 @@
-'use strict';
-
-var React = require('react');
-var Router = require('react-router-component');
-var join = require('path').join;
+import React from 'react';
+import Router from 'react-router-component';
+import {join} from 'path';
 
 /**
  * NavigatableMixin
@@ -10,22 +8,22 @@ var join = require('path').join;
  * A mixin for a component which operates in context of a router and can
  * navigate to a deeper route, or to a different route
  */
-var NavigatableMixin = {
+export default {
 
 	contextTypes: {
 		router: React.PropTypes.any
 	},
 
 	/** @private */
-	_getNavigable: function() {
+	_getNavigable () {
 		return this.context.router || Router.environment.defaultEnvironment;
 	},
 
 
-	getPath: function() { return this._getNavigable().getPath(); },
+	getPath () { return this._getNavigable().getPath(); },
 
 
-	makeHref: function(path, includeCurrentRoute) {
+	makeHref (path, includeCurrentRoute) {
 		var n = this._getNavigable(),
 			route = (n.getMatch() || {}).matchedPath || '';
 
@@ -36,9 +34,17 @@ var NavigatableMixin = {
 		return n.makeHref(path);
  	},
 
-	navigate: function(path, cb) {
+
+	makeParentRouterHref (path) {
+		var n = this._getNavigable();
+
+		n = n.getParentRouter() || n;
+
+		return n.makeHref(path);
+	},
+
+
+	navigate (path, cb) {
 		return this._getNavigable().navigate(path, cb);
 	}
 };
-
-module.exports = NavigatableMixin;
