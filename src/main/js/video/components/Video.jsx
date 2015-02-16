@@ -83,7 +83,10 @@ export default React.createClass({
 			console.warn('We already have a playStartEvent. How did we get another one without a ' +
 						'pause/stop/seek/end in between? Dropping previous start event on the floor.');
 		}
-		this.setState({playStartEvent: this.getAnalyticsEventData(event)});
+
+		if (this.isMounted()) {
+			this.setState({playStartEvent: this.getAnalyticsEventData(event)});
+		}
 	},
 
 
@@ -97,7 +100,9 @@ export default React.createClass({
 
 		this.emitAnalyticsEvent(this.state.playStartEvent, playEndEvent);
 
-		this.setState({playStartEvent: null});
+		if (this.isMounted()) {
+			this.setState({playStartEvent: null});
+		}
 	},
 
 
