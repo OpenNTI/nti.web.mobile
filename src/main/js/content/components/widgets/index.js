@@ -5,12 +5,14 @@ import Unknown from './Unknown';
 import Card from './Card';
 import MarkupFrame from './MarkupFrame';
 import Question from './Question';
+import Video from './Video';
 
 const WIDGETS = [
 	Unknown,
 	Card,
 	MarkupFrame,
-	Question
+	Question,
+	Video
 ];
 
 export function getWidget(item, page, ownerProps) {

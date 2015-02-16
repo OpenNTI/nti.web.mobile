@@ -23,6 +23,8 @@
 
 
 .video-wrapper {
+	position: static !important;
+
 	& > video {
 		visibility: hidden;
 	}
@@ -90,8 +92,9 @@
 			padding: 0 1em 0 0.5em;
 			@include ellipse();
 			color: #fff;
-			font: normal 400 1.1em/2.75em 'Open Sans Condensed';
+			font: normal 400 1.1rem/2.75em 'Open Sans Condensed';
 			margin-left: 50px;
+			background: none;
 		}
 
 
