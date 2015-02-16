@@ -10,6 +10,11 @@ export default {
 		var anchor = getEventTarget(e, 'a[href]');
 		var href, scrollToEl, fn, id, frag;
 		if (anchor) {
+			if (getEventTarget(e, 'widget')) {
+				//click originated inside a content widget. Let go and trust it does the "right thing".
+				return;
+			}
+
 			//anchor.getAttribute('href') is different than anchor.href...
 			//The property on the anchor is the FULLY RESOLVED `href`, where the
 			//attribute value is the raw source...thats the one we want to compare.

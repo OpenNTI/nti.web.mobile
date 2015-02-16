@@ -110,7 +110,7 @@ export default React.createClass({
 
 				<Router.Location path="/o/:outlineId/c/:rootId/*"
 									handler={ContentViewer}
-									course={course}
+									contentPackage={course}
 									slug="c"
 									contextProvider={this.__getContext}/>
 

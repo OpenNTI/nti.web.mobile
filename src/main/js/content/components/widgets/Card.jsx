@@ -8,16 +8,14 @@ export default React.createClass({
 	statics: {
 		mimeType: /ntirelatedworkref$|nticard$/i,
 		handles (item) {
-			var type = item.type || '';
-			var cls = item.class || '';
 			var re = this.mimeType;
-			return re.test(type) || re.test(cls);
+			return re.test(item.type) || re.test(item.class);
 		}
 	},
 
 
 	componentWillMount () {
-		var item = this.props.item;
+		var {item} = this.props;
 		var el;
 		if (item) {
 
@@ -43,13 +41,12 @@ export default React.createClass({
 
 
 	render () {
-		var props = this.props;
-		var ownerProps = props.ownerProps;
+		let {item, slug, contentPackage} = this.props;
 		return (
 			<Card
-				item={props.item}
-				slug={ownerProps.slug}
-				contentPackage={ownerProps.course}/>
+				item={item}
+				slug={slug}
+				contentPackage={contentPackage}/>
 		);
 	}
 });

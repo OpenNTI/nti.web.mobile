@@ -171,7 +171,12 @@ export default React.createClass({
 		var widgets = this.getPageWidgets();
 		if (!widgets[widgetData.guid]) {
 			// console.debug('Content View: Creating widget for %s', widgetData.guid);
-			widgets[widgetData.guid] = getWidget(widgetData, this.state.page, this.props);
+			widgets[widgetData.guid] = getWidget(
+				widgetData,
+				this.state.page,
+				Object.assign({}, this.props, {
+					contextProvider: this.__getContext
+				}));
 		}
 	},
 
@@ -223,7 +228,7 @@ export default React.createClass({
 
 				{this.renderAssessmentHeader()}
 
-				<div id="NTIContent" onClick={this.onContentClick}
+				<div id="NTIContent" className="nti-content-panel" onClick={this.onContentClick}
 					dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>
 
 				{this.renderAssessmentFeedback()}
@@ -246,7 +251,7 @@ export default React.createClass({
 
 		this.createWidget(part);
 
-		return '<div id="'+ part.guid +'">If this is still visible, something went wrong.</div>';
+		return '<widget id="'+ part.guid +'"><error>If this is still visible, something went wrong.</error></widget>';
 	},
 
 
