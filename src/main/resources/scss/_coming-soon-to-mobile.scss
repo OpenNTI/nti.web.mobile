@@ -20,14 +20,18 @@ widget:empty {
 widget[data-type$="vnd.nextthought.canvas"] {
 	background-color: white;
 	border: none;
+	display: block;
+	padding: 1rem;
 
 	&::after {
 		content: '';
 		display: block;
 		width: 239px;
-		height: 239px;
+		/*height: 239px; */
+		padding-bottom: 100%;
+		max-width: 100%;
+
 		background-repeat: no-repeat;
 		@extend .icon-broken-whiteboard;
 	}
 }
-
