@@ -84,7 +84,10 @@ export default React.createClass({
 				.then(videoIndex => {
 					let video = videoIndex.get(item.NTIID);
 					this.setState({ loading: false, video });
-					video.getPoster().then(poster=>this.setState({poster}));
+					video.getPoster().then(poster=>
+						this.isMounted() ?
+							this.setState({poster}) :
+							null);
 				})
 				.catch(this.onError);
 		} catch (e) {
