@@ -4,7 +4,6 @@ var React = require('react');
 var Actions = require('../Actions');
 var Constants = require('../Constants');
 var Store = require('../Store');
-var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
 
 
 var Replies = React.createClass({
@@ -92,9 +91,9 @@ var Replies = React.createClass({
 		return (
 			<div className={this.props.className}>
 				<div className="replies">
-					<ReactCSSTransitionGroup transitionName="forum-comments">
+					
 						{this._renderReplies()}
-					</ReactCSSTransitionGroup>
+					
 				</div>
 			</div>
 		);

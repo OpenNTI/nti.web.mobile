@@ -117,6 +117,13 @@ var PostItem = React.createClass({
 		};
 	},
 
+	_commentCompletion(event) {
+		this.setState({
+			[_SHOW_REPLIES]: true
+		});
+		this._hideForm(event);
+	},
+
 	_hideEditForm() {
 		this.setState({
 			editing: false
@@ -160,7 +167,7 @@ var PostItem = React.createClass({
 							{this.state.showForm && <CommentForm key="commentForm"
 								ref='commentForm'
 								onCancel={this._hideForm}
-								onCompletion={this._hideForm}
+								onCompletion={this._commentCompletion}
 								topic={this.props.topic}
 								parent={item}
 							/>}

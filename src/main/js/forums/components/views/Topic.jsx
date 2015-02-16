@@ -82,7 +82,7 @@ module.exports = React.createClass({
 		return {
 			loading: true,
 			deleted: false,
-			showComments: true
+			[_SHOW_REPLIES]: true
 		};
 	},
 
