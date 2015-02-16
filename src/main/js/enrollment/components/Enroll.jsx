@@ -11,11 +11,11 @@ var Enroll = React.createClass({
 	mixins: [EnrollmentOptions, CourseContentLink],
 
 	_getCourseTitle: function() {
-		return this._getEntry().Title;
+		return this.getEntry().Title;
 	},
 
 	_getCourseId: function() {
-		return this._getEntry().CourseNTIID;
+		return this.getEntry().CourseNTIID;
 	},
 
 	render: function() {

@@ -9,22 +9,23 @@ var StoreEnrollment = require('../store-enrollment/components/View');
 var CreditEnrollment = require('../five-minute/components/View');
 var CatalogStore = require('library/catalog/Store');
 var Constants = require('../Constants');
-var NTIID = require('dataserverinterface/utils/ntiids');
+var {decodeFromURI} = require('dataserverinterface/utils/ntiids');
+
+
+function getEntry(entryId) {
+	return CatalogStore.getEntry(decodeFromURI(entryId));
+}
+
 
 module.exports = React.createClass({
 	displayName: 'enrollment:View',
 
-	_getEntry: function(entryId) {
-		var id = NTIID.decodeFromURI(entryId);
-		return CatalogStore.getEntry(id);
-	},
-
 	_getCourseId: function() {
-		return (this._getEntry(this.props.entryId)||{}).CourseNTIID;
+		return (getEntry(this.props.entryId)||{}).CourseNTIID;
 	},
 
 	_getEnrollmentOption: function(key) {
-		var entry = this._getEntry(this.props.entryId);
+		var entry = getEntry(this.props.entryId);
 		if (entry && entry.EnrollmentOptions) {
 			return entry.EnrollmentOptions.Items[key];
 		}
