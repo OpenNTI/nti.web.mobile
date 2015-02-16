@@ -4,6 +4,15 @@
 	@include grid-column(12);
 	padding-bottom:1rem;
 
+	.breadcrumbs,
+	.icon-bar {
+		margin-left: -0.9375rem;
+		margin-right: -0.9375rem;
+		width: auto;
+		border-radius: 0;
+	}
+	.breadcrumbs {border-width: 1px 0;}
+
 	.comment-form {
 		input {
 			font-size: 1rem;
@@ -21,7 +30,7 @@
 			color: $primary-red;
 		}
 	}
-	
+
 	ul {
 		list-style-type: none;
 		margin: 0;
@@ -30,7 +39,7 @@
 	ul.action-links {
 		& > li {
 			@extend %detail-link;
-			display: inline-block; 
+			display: inline-block;
 			margin-right: 1rem;
 		}
 	}
@@ -80,7 +89,7 @@
 			}
 			.count {
 				@include count-badge();
-			}	
+			}
 		}
 	}
 
