@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
 
 var Router = require('react-router-component');
 var Locations = Router.Locations;

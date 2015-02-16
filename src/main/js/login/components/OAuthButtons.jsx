@@ -6,7 +6,7 @@ import Constants from '../Constants';
 
 const LinkConstants = Constants.links;//constants isn't es6 module yet
 
-const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+const ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
 
 
 // shortcut for getting the service name off the oauth constants

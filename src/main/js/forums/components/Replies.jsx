@@ -4,7 +4,7 @@ var React = require('react/addons');
 var Actions = require('../Actions');
 var Constants = require('../Constants');
 var Store = require('../Store');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
 
 
 var Replies = React.createClass({

@@ -14,7 +14,7 @@ var Store = require('../Store');
 var FieldValuesStore = require('common/forms/FieldValuesStore');
 var FormConstants = require('common/forms/Constants');
 var Constants = require('../Constants');
-var update = React.addons.update;
+var update = require('react/lib/update');
 
 var _rootFormRef = 'rootForm';
 

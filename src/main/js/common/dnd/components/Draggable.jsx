@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
+var cloneWithProps  = require('react/lib/cloneWithProps');
 
 var DragBehavior = require('../behaviors/Draggable');
 
@@ -26,7 +27,7 @@ module.exports = React.createClass({
 			classes.push('restoring');
 		}
 
-		return React.addons.cloneWithProps(
+		return cloneWithProps(
 			React.Children.only(this.props.children),
 
 			Object.assign(this.getHandlers(), {

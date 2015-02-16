@@ -23,7 +23,7 @@ var Err = require('common/components/Error');
 var t = require('common/locale').scoped('FORUMS');
 var ActionLinks = require('../ActionLinks');
 var {REPLY, REPLIES, EDIT, DELETE} = ActionLinks;
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
 
 var _SHOW_FORM = 'showForm';
 var _SHOW_REPLIES = 'showReplies';
