@@ -116,6 +116,7 @@ export default React.createClass({
 						</aside>
 
 						<aside className="right-off-canvas-menu" style={height}>
+							<LogoutButton/>
 							<Notifications/>
 						</aside>
 

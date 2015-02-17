@@ -4,6 +4,7 @@
 }
 
 ul.off-canvas-list {
+	clear: both;
 	font-family: $sidenav-font-family;
 	li:last-child > a.navitem {
 		border-bottom: none;
@@ -76,6 +77,24 @@ aside[class*=off-canvas-menu] {
 	.logout {
 		position: relative;
 		margin: 3rem 0;
+	}
+
+	&.right-off-canvas-menu .logout {
+		@include transition('all 0.4s linear');
+		margin: 0.3rem;
+		position: relative;
+		$t: 2.8125rem;
+		height: $t;
+		line-height: $t;
+		padding: 0 1rem;
+		opacity: 0;
+		font-weight: 700;
+		float: right;
+
+
+		.move-left & {
+			opacity: 1;
+		}
 	}
 }
 
