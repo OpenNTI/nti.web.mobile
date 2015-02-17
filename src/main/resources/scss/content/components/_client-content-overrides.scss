@@ -116,6 +116,10 @@
 		margin-bottom: .5em;
 		margin-left: .25em;
 		vertical-align:	middle;
+
+		&[style] {
+			width: auto !important;
+		}
 	}
 
 	.blocked {
