@@ -1,14 +1,12 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+import LogoutButton from 'login/components/LogoutButton';
 
-var LogoutButton = require('login/components/LogoutButton');
+import NavDrawerItem from 'navigation/components/NavDrawerItem';
+import Loading from './Loading';
+import HomeLink from './HomeLink';
 
-var NavDrawerItem = require('navigation/components/NavDrawerItem');
-var Loading = require('./Loading');
-var HomeLink = require('./HomeLink');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'LeftNav',
 
 	propTypes: {
@@ -16,7 +14,7 @@ module.exports = React.createClass({
 	},
 
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			items: [],
 			isLoading: false
@@ -24,35 +22,32 @@ module.exports = React.createClass({
 	},
 
 
-	getInitialState: function() {
-		return {
-			//FIXME: Re-write this:
-			// http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-			index: this.props.items.length - 1
-		};
+	componentWillMount () {
+		this.setState({ index: this.props.items.length - 1 });
 	},
 
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if(nextProps.items !== this.props.items) {
 			this.setState({index: nextProps.items.length - 1});
 		}
 	},
 
 
-	render: function() {
+	render () {
 
 		var record = this.props.items[this.state.index];
-
-		var child = this.props.isLoading ?
-			<Loading /> :
-			(record ? <NavDrawerItem record={record}/> : null);
 
 		return (
 			<div>
 				<ul className="off-canvas-list">
 					<li><HomeLink /></li>
-					{child}
+					{this.props.isLoading ?
+						<Loading /> :
+						(record ?
+							<NavDrawerItem record={record}/> :
+								null)
+					}
 				</ul>
 				<div className="text-center logout"><LogoutButton /></div>
 			</div>

@@ -1,17 +1,14 @@
-'use strict';
+import React from 'react';
+import {scoped} from 'common/locale';
+import {Link} from 'react-router-component';
 
-var React = require('react');
+let t = scoped('LOGIN');
 
-var t = require('common/locale').scoped('LOGIN');
-var Link = require('react-router-component').Link;
+export default React.createClass({
 
-var React = require('react');
+	render () {
 
-module.exports = React.createClass({
-
-	render: function() {
-
-		var cssClasses = "tiny button radius small-12 columns";
+		var cssClasses = "tiny button small-12 columns";
 
 		return (
 			<div>

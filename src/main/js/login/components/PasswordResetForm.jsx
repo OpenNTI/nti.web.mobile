@@ -119,7 +119,7 @@ var PasswordResetForm = React.createClass({
 		}
 
 		var buttonLabel = t('RESET_PW', {fallback: 'Reset Password'});
-		var cssClasses = ['tiny','radius', 'small-12 columns'];
+		var cssClasses = ['tiny small-12 columns'];
 
 		var submitEnabled = this._validateInput();
 		if (!submitEnabled) {

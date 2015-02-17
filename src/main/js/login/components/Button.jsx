@@ -1,16 +1,13 @@
-'use strict';
+import React from 'react';
+import {Link} from 'react-router-component';
 
-var React = require('react');
-var Link = require('react-router-component').Link;
+export default React.createClass({
+	displayName: 'login.Button',
 
-var Button = React.createClass({
-
-	render: function() {
+	render () {
 		return (
-			<Link {...this.props} className="tiny button radius small-12 columns">{this.props.children}</Link>
+			<Link {...this.props} className="tiny button small-12 columns">{this.props.children}</Link>
 		);
 	}
 
 });
-
-module.exports = Button;

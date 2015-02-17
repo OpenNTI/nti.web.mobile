@@ -84,7 +84,7 @@ var View = React.createClass({
 							<button
 								id="login:rel:password"
 								type="submit"
-								className={'small-12 columns tiny radius ' + (submitEnabled ? '' : 'disabled')}
+								className={'small-12 columns tiny ' + (submitEnabled ? '' : 'disabled')}
 								disabled={!submitEnabled}
 							>{t('login')}</button>
 						</div>

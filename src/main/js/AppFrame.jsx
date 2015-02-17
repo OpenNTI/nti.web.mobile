@@ -1,39 +1,39 @@
-'use strict';
+import React from 'react';
+import NavigationActions from 'navigation/Actions';
+import NavigationStore from 'navigation/Store';
+import Notifications from 'notifications/components/View';
 
-var React = require('react');
-var NavigationActions = require('navigation/Actions');
-var NavigationStore = require('navigation/Store');
-var Notifications = require('notifications/components/View');
+import Avatar from 'common/components/Avatar';
+import LeftNav from 'common/components/LeftNav';
+import Footer from 'common/components/Footer';
 
-var Avatar = require('common/components/Avatar');
-var LeftNav = require('common/components/LeftNav');
-var Footer = require('common/components/Footer');
+import BasePathAware from 'common/mixins/BasePath';
 
-var BasePathAware = require('common/mixins/BasePath');
+import MessageDisplay from 'messages/components/Display';
+import Utils from 'common/Utils';
 
-var MessageDisplay = require('messages/components/Display');
-var Utils = require('common/Utils');
+// import preventOverscroll from 'common/thirdparty/prevent-overscroll';
 
-// var preventOverscroll = require('common/thirdparty/prevent-overscroll');
+import Analytics from 'analytics/components/Tag';
+import LibraryInvalidationListener from 'library/components/InvalidationListener';
 
-var Analytics = require('analytics/components/Tag');
-var LibraryInvalidationListener = require('library/components/InvalidationListener');
+import LogoutButton from 'login/components/LogoutButton';
 
-var LEFT_MENU_OPEN = 'move-right';
-var RIGHT_MENU_OPEN = 'move-left';
-var CLOSE_MENU = '';
-var DRAWER_STATE = {
+const LEFT_MENU_OPEN = 'move-right';
+const RIGHT_MENU_OPEN = 'move-left';
+const CLOSE_MENU = '';
+const DRAWER_STATE = {
 	'#nav': LEFT_MENU_OPEN,
 	'#notifications': RIGHT_MENU_OPEN
 };
 
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'AppContainer',
 	mixins: [BasePathAware],
 
 
-	_navChanged: function() {
+	_navChanged () {
 		this.setState({
 			leftNav: NavigationStore.getNav(),
 			navLoading: NavigationStore.isLoading()
@@ -41,7 +41,7 @@ module.exports = React.createClass({
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loggedIn: false,
 			leftNav: []
@@ -49,25 +49,25 @@ module.exports = React.createClass({
 	},
 
 
-	getDrawerState: function() {
+	getDrawerState () {
 		var key = (global.location || {}).hash || '';
 		return DRAWER_STATE[key.toLowerCase()] || '';
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		NavigationStore.addChangeListener(this._navChanged);
 		// preventOverscroll(this.getDOMNode().querySelector('.left-off-canvas-menu'));
 		// preventOverscroll(this.getDOMNode().querySelector('.right-off-canvas-menu'));
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		NavigationStore.removeChangeListener(this._navChanged);
 	},
 
 
-	componentDidUpdate: function() {
+	componentDidUpdate () {
 		var utils = Utils.Dom;
 		var viewport = document.getElementsByTagName('html')[0];
 		var cls = 'scroll-lock';
@@ -77,7 +77,7 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
+	render () {
 
 		var state = this.getDrawerState();
 		var username = Utils.getAppUsername();
@@ -93,7 +93,7 @@ module.exports = React.createClass({
 						<nav className="tab-bar">
 							<section className="left-small">
 								<a	className={`left-off-canvas-toggle hamburger ${hamburger}`}
-									onClick={this._onLeftMenuClick}
+									onClick={this.onLeftMenuClick}
 									href="#"><span/></a>
 							</section>
 
@@ -104,7 +104,7 @@ module.exports = React.createClass({
 
 							<section className="right-small">
 								<a	className="right-off-canvas-toggle"
-									onClick={this._onRightMenuClick}
+									onClick={this.onRightMenuClick}
 									href="#"><Avatar username={username} /></a>
 							</section>
 						</nav>
@@ -125,7 +125,7 @@ module.exports = React.createClass({
 							<Footer />
 						</section>
 
-						<a className="exit-off-canvas" onClick={this._onCloseMenus}></a>
+						<a className="exit-off-canvas" onClick={this.onCloseMenus}></a>
 					</div>
 				</div>
 			</div>
@@ -133,19 +133,19 @@ module.exports = React.createClass({
 	},
 
 
-	_onCloseMenus: function(e) {
+	onCloseMenus (e) {
 		if (e) {e.preventDefault();}
 		NavigationActions.gotoFragment(null);
 	},
 
 
-	_onLeftMenuClick: function(e) {
+	onLeftMenuClick (e) {
 		if (e) {e.preventDefault();}
 		NavigationActions.gotoFragment('nav');
 	},
 
 
-	_onRightMenuClick: function(e) {
+	onRightMenuClick (e) {
 		if (e) {e.preventDefault();}
 		NavigationActions.gotoFragment('notifications');
 	}

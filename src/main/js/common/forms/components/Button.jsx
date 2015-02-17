@@ -1,45 +1,41 @@
-
-'use strict';
-
-var React = require('react');
-
-var emptyFunction = require('react/lib/emptyFunction');
+import React from 'react';
 
 /**
-* React Button component
-* @class Button
-*/
-var Button = React.createClass({
+ * React Button component
+ * @class Button
+ */
+export default React.createClass({
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			href: '#',
 			enabled: true
 		};
 	},
 
-	onClick: function(e) {
-		if(this.props.enabled) {
-			(this.props.onClick||emptyFunction).apply(this,arguments);
+
+	onClick (e) {
+		let {onClick, enabled, href} = this.props;
+
+		if(enabled && onClick) {
+			onClick(...arguments);
 		}
-		if(this.props.href==='#' || !this.props.enabled) {
+
+		if(href==='#' || !enabled) {
 			e.preventDefault();
 		}
 	},
 
-	render: function() {
 
-		var css = ['button', 'tiny', 'radius'];
-		css.push(this.props.className);
+	render () {
+
+		var css = `button tiny ${this.props.className}`;
 		if(!this.props.enabled) {
-			css.push('disabled');
+			css = `disabled ${css}`;
 		}
+
 		return (
-			<a {...this.props} href={this.props.href} onClick={this.onClick} className={css.join(' ')}>
-				{this.props.children}
-			</a>
+			<a {...this.props} onClick={this.onClick} className={css}/>
 		);
 	}
 });
-
-module.exports = Button;

@@ -173,7 +173,7 @@ var SignupForm = React.createClass({
 						</div>
 					<input type="submit"
 							id="signup:submit"
-							className="small-12 columns tiny button radius"
+							className="small-12 columns tiny button"
 							disabled={!enabled}
 							value="Create Account" />
 						<a id="signup:privacy:policy"

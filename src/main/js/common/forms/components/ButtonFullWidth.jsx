@@ -1,16 +1,15 @@
-'use strict';
+import React from 'react';
+import Button from './Button';
 
-var React = require('react');
-var Button = require('./Button');
+export default React.createClass({
+	displayName: 'ButtonFullWidth',
 
-var ButtonFullWidth = React.createClass({
+	//Lets use these very sparingly. Full-Width buttons are really ugly in my opinion.
 
-	render: function() {
+	render () {
 		return (
-			<Button {...this.props} className='column'>{this.props.children}</Button>
+			<Button {...this.props} className='column'/>
 		);
 	}
 
 });
-
-module.exports = ButtonFullWidth;

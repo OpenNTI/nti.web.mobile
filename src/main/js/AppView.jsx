@@ -1,28 +1,30 @@
-'use strict';
-
-var React = require('react');
-var CaptureClicks = require('react-router-component/lib/CaptureClicks');
+import React from 'react';
+import CaptureClicks from 'react-router-component/lib/CaptureClicks';
 
 //FIX: This seems like we can clean up this and move "logic" up to the app level and out of the view.
-var AppDispatcher = require('dispatcher/AppDispatcher');
+import AppDispatcher from 'dispatcher/AppDispatcher';
 
-var locale = require('common/locale');
+import {
+	addChangeListener as addLocaleChangeListener,
+	removeChangeListener as removeLocaleChangeListener
+} from 'common/locale';
 
-var QueryString = require('query-string');
+import QueryString from 'query-string';
 
-var LoginStore = require('login/Store');
-var LoginStoreProperties = require('login/StoreProperties');
-var LoginActions = require('login/Actions');
+import LoginStore from 'login/Store';
+import LoginStoreProperties from 'login/StoreProperties';
+import LoginActions from 'login/Actions';
 
-var NavigationActions = require('navigation/Actions');
-var NavigationConstants = require('navigation/Constants');
+import NavigationActions from 'navigation/Actions';
+import NavigationConstants from 'navigation/Constants';
 
-var Router = require('./Router');
-var Loading = require('common/components/Loading');
+import Router from './Router';
+import Loading from 'common/components/Loading';
 
-var AppContainer = require('./AppFrame');
+import AppContainer from './AppFrame';
 
-var App = React.createClass({
+export default React.createClass({
+	displayName: 'App',
 
 	propTypes: {
 		basePath: React.PropTypes.string.isRequired
@@ -39,7 +41,7 @@ var App = React.createClass({
 	},
 
 
-	_actionHandler: function(payload) {
+	_actionHandler (payload) {
 		var action = payload.action;
 		switch (action.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
@@ -52,7 +54,7 @@ var App = React.createClass({
 	},
 
 
-	_loginStoreChange: function(evt) {
+	_loginStoreChange (evt) {
 		var loc = global.location || {};
 		var returnURL = QueryString.parse(loc.search).return;
 		if (evt && evt.property === LoginStoreProperties.isLoggedIn) {
@@ -68,42 +70,42 @@ var App = React.createClass({
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {};
 	},
 
 
-	componentWillMount: function() {
+	componentWillMount () {
 		require('../resources/scss/app.scss');
 	},
 
 
-	componentDidMount: function() {
-		locale.addChangeListener(this._onStringsChange);
+	componentDidMount () {
+		addLocaleChangeListener(this._onStringsChange);
 		LoginStore.addChangeListener(this._loginStoreChange);
 		AppDispatcher.register(this._actionHandler);
 	},
 
 
-	componentWillUnmount: function() {
-		locale.removeChangeListener(this._onStringsChange);
+	componentWillUnmount () {
+		removeLocaleChangeListener(this._onStringsChange);
 		LoginStore.removeChangeListener(this._loginStoreChange);
 		AppDispatcher.unregister(this._actionHandler);
 	},
 
 
-	_onNavigation: function() {
+	_onNavigation () {
 		this.forceUpdate();
 		scrollTo(0,0);
 	},
 
 
-	_onStringsChange: function () {
+	_onStringsChange  () {
 		this.forceUpdate();
 	},
 
 
-	render: function() {
+	render () {
 	var path = this.props.path || location.href;
 		var isLoginView = /\/login/i.test(path);
 
@@ -122,5 +124,3 @@ var App = React.createClass({
 		);
 	}
 });
-
-module.exports = App;

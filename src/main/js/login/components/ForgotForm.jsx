@@ -88,7 +88,7 @@ module.exports = React.createClass({
 	render: function() {
 
 		var buttonLabel = t(this.props.param === 'password' ? 'recoverpassword' : 'recoverusername');
-		var cssClasses = ['tiny','radius', 'small-12 columns'];
+		var cssClasses = ['tiny small-12 columns'];
 
 		var submitEnabled = this.state.submitEnabled;
 		if (!submitEnabled) {

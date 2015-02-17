@@ -1,17 +1,14 @@
+import React from 'react';
 
-'use strict';
+import Actions from '../Actions';
+import Button from 'common/forms/components/Button';
 
-var React = require('react');
+export default React.createClass({
+	displayName: 'LogoutButton',
 
-var Actions = require('../Actions');
-var Button = require('common/forms/components/Button');
-
-var LogoutButton = React.createClass({
-	render: function() {
+	render () {
 		return(
-			<Button onClick={Actions.logOut}>Log Out</Button>
+			<Button className="logout" onClick={Actions.logOut}>Log Out</Button>
 		);
 	}
 });
-
-module.exports = LogoutButton;
