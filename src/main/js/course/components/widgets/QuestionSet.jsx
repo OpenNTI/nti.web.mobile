@@ -10,6 +10,7 @@ import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 import {loadPreviousState} from 'assessment/Api';
 
 import {getService} from 'common/Utils';
+import SetStateSafely from 'common/mixins/SetStateSafely';
 
 import {encodeForURI} from 'dataserverinterface/utils/ntiids';
 
@@ -19,7 +20,7 @@ const assignmentType = /assignment/i;
 
 export default React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
-	mixins: [NavigatableMixin],
+	mixins: [NavigatableMixin, SetStateSafely],
 
 	statics: {
 		mimeTest: /(naquestionset|naquestionbank|assignment)$/i,
@@ -61,7 +62,7 @@ export default React.createClass( {
 		var assignment = this.props.node.getAssignment(ntiid);
 		var isAssignment = assignment || assignmentType.test(item.MimeType);
 
-		this.setState({assignment: assignment, loading: true});
+		this.setStateSafely({assignment: assignment, loading: true});
 
 		var work;
 
@@ -85,20 +86,20 @@ export default React.createClass( {
 		}
 
 		work.then(()=>
-			this.setState({loading: false})
+			this.setStateSafely({loading: false})
 		);
 	},
 
 
 	setAssignmentHistory (history) {
-		this.setState({
+		this.setStateSafely({
 			assignmentHistory: history
 		});
 	},
 
 
 	setLatestAttempt  (assessedQuestionSet) {
-		this.setState({
+		this.setStateSafely({
 			score: assessedQuestionSet.getScore(),
 			correct: assessedQuestionSet.getCorrect() || null,
 			incorrect: assessedQuestionSet.getIncorrect() || null,
@@ -111,9 +112,7 @@ export default React.createClass( {
 	maybeNetworkError (reason) {
 
 		if (!reason || reason.statusCode === 0 || reason.statusCode >= 500) {
-			if (this.isMounted()) {
-				this.setState({networkError: true});
-			}
+			this.setStateSafely({networkError: true});
 			return;
 		}
 
@@ -123,7 +122,7 @@ export default React.createClass( {
 
 	setNotTaken () {
 		//mark as not started
-		this.setState({
+		this.setStateSafely({
 			assignmentHistory: null,
 			latestAttempt: null,
 			completed: false
@@ -134,7 +133,7 @@ export default React.createClass( {
 	setQuizHref () {
 		var ntiid = this.props.item['Target-NTIID'];
 		var link = path.join('c', encodeForURI(ntiid)) + '/';
-		this.setState({href: this.makeHref(link, true)});
+		this.setStateSafely({href: this.makeHref(link, true)});
 	},
 
 
