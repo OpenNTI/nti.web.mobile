@@ -80,7 +80,7 @@ class Store extends StorePrototype {
 
 		scrollTo(0, 0);
 
-		Store[ApplySubmission](assessment, response);
+		this[ApplySubmission](assessment, response);
 		this.getSubmissionData(assessment).markSubmitted(true);
 		this.markBusy(assessment, false);
 		this.emitChange({type: SYNC});
