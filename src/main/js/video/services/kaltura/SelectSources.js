@@ -1,6 +1,16 @@
 import {Viewport} from 'common/Utils';
 const isSource = RegExp.prototype.test.bind(/source/i);
 
+const FORMAT_RANKS = {
+	'application/vnd.apple.mpegurl': 0,
+	'video/webm':5,
+	'video/mp4':10
+};
+
+
+const getRank = o=> FORMAT_RANKS[o.type] || 0;
+
+
 export default function(list, targetQuality) {
 	var chosen = [];
 	var types = {};
@@ -16,6 +26,8 @@ export default function(list, targetQuality) {
 			chosen.push(pick);
 		}
 	});
+
+	chosen.sort((a,b)=> getRank(a) - getRank(b) );
 
 	return chosen;
 }
