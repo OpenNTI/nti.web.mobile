@@ -27,6 +27,7 @@ var CommentForm = React.createClass({
 
 	componentDidMount: function() {
 		Store.addChangeListener(this._storeChanged);
+		this.getDOMNode().scrollIntoView(false);
 	},
 
 	componentWillUnmount: function() {
