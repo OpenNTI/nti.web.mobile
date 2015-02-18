@@ -1,0 +1,48 @@
+
+.user-session {
+	cursor: pointer;
+	display: block;
+	position: relative;
+	overflow: hidden;
+	background: $panel-background;
+	line-height: 1.1;
+
+	.avatar {
+		width: 23%;
+		float: left;
+	}
+
+	.arrow-tab {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		width: 10%;
+		// background: rgba(0,0,0,0.5);
+	}
+
+	.username {
+		color: $primary-grey;
+		max-width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		position: relative;
+		display: inline-block;
+
+		&[data-for]::after {
+			color: $secondary-grey;
+			content: ' (' attr(data-for) ')';
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+	}
+
+	.meta, .actions {
+		margin: 0.625rem;
+		margin-left: 25%;
+	}
+
+	.meta {
+		margin-top: 1rem;
+	}
+}

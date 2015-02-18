@@ -5,6 +5,7 @@ import Notifications from 'notifications/components/View';
 
 import Avatar from 'common/components/Avatar';
 import LeftNav from 'common/components/LeftNav';
+import Session from 'common/components/Session';
 import Footer from 'common/components/Footer';
 
 import BasePathAware from 'common/mixins/BasePath';
@@ -16,8 +17,6 @@ import Utils from 'common/Utils';
 
 import Analytics from 'analytics/components/Tag';
 import LibraryInvalidationListener from 'library/components/InvalidationListener';
-
-import LogoutButton from 'login/components/LogoutButton';
 
 const LEFT_MENU_OPEN = 'move-right';
 const RIGHT_MENU_OPEN = 'move-left';
@@ -116,7 +115,7 @@ export default React.createClass({
 						</aside>
 
 						<aside className="right-off-canvas-menu" style={height}>
-							<LogoutButton/>
+							<Session username={username}/>
 							<Notifications/>
 						</aside>
 

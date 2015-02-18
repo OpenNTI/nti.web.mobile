@@ -35,12 +35,14 @@ export default React.createClass({
 
 	render () {
 		var user = this.props.username;
+		var css = this.props.className || '';
 
 		var props = Object.assign({}, this.props, {
 			'data-for': user,
 			src: this.state.avatar,
 			alt: 'Avatar for ' + user,
-			onError: this.setUnknown
+			onError: this.setUnknown,
+			className: `avatar ${css}`
 		});
 
 		return <img {...props}/>;
