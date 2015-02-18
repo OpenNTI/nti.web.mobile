@@ -1,11 +1,15 @@
 import React from 'react/addons';
 
+import Head from './Head';
+
 export default React.createClass({
 	displayName: 'profile:View',
 
 	render () {
 		return (
-			<div>{this.props.username}</div>
+			<div className="profile">
+				<Head {...this.props}/>
+			</div>
 		);
 	}
 });

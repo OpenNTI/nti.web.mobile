@@ -1,0 +1,45 @@
+
+.profile-head {
+	margin: 1rem 0.625rem;
+
+	.user {
+		position: relative;
+		overflow: hidden;
+		display: inline-block;
+		max-width: 256px;
+		width: 50%;
+
+		&::after {
+			content: '';
+			display: block;
+			padding-top: 100%;//make the height not jump while loading the avatar
+		}
+
+		img {
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		.label {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			color: #fff;
+			background: rgba(0,0,0,0.7);
+			font: normal 600 1.1rem/2 $header-font-family;
+			overflow: hidden;
+			text-align: left;
+			text-transform: uppercase;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+	}
+
+	.actions {
+		margin: 0;
+		list-style: none;
+	}
+}

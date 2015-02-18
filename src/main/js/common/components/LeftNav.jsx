@@ -1,7 +1,5 @@
 import React from 'react';
 
-import LogoutButton from 'login/components/LogoutButton';
-
 import NavDrawerItem from 'navigation/components/NavDrawerItem';
 import Loading from './Loading';
 import HomeLink from './HomeLink';
@@ -49,7 +47,6 @@ export default React.createClass({
 								null)
 					}
 				</ul>
-				<div className="text-center logout"><LogoutButton /></div>
 			</div>
 		);
 	}
