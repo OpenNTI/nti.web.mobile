@@ -31,6 +31,7 @@ var _isLoggedIn = false;
 var _returnPath;
 
 var LoginStore = Object.assign({}, EventEmitter.prototype, {
+	Properties: StoreProperties,
 
 	emitChange: function(evt) {
 		this.emit(CHANGE_EVENT, evt);

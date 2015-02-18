@@ -8,11 +8,13 @@ import {
 
 import Router from './Router';
 import Loading from 'common/components/Loading';
+import Navigatable from 'common/mixins/NavigatableMixin';
 
 import AppContainer from './AppFrame';
 
 export default React.createClass({
 	displayName: 'App',
+	mixins: [Navigatable],
 
 	propTypes: {
 		basePath: React.PropTypes.string.isRequired

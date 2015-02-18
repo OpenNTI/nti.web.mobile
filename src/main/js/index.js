@@ -9,6 +9,7 @@ require('script!babel/browser-polyfill');
 require('script!../resources/vendor/modernizr/modernizr.js');
 
 var FastClick = require('fastclick');
+var QueryString = require('query-string');
 var React = require('react');
 var Utils = require('common/Utils');
 //var emptyFunction = require('react/lib/emptyFunction');
@@ -50,6 +51,25 @@ var app = React.render(
 	React.createElement(AppView, {basePath: (global.$AppConfig || {}).basepath || '/'}),
 	document.getElementById('content')
 );
+
+
+var LoginActions = require('login/Actions');
+var LoginStore = require('login/Store');
+LoginStore.addChangeListener(function(evt) {
+	var loc = global.location || {};
+	var returnURL = QueryString.parse(loc.search).return;
+	if (evt && evt.property === LoginStore.Properties.isLoggedIn) {
+		if (evt.value) {
+			LoginActions.deleteTOS();
+			//app.navigate(returnURL || this.props.basePath, {replace:true});
+			loc.replace(returnURL || this.props.basePath);
+		}
+		else {
+			app.navigate(this.props.basePath + 'login/',  {replace:true});
+		}
+	}
+});
+
 
 //After bundle CSS is injected, lets move this back down so it overrides the bundle.
 var site = document.getElementById('site-override-styles');

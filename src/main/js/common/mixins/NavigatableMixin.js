@@ -16,17 +16,17 @@ export default {
 		router: React.PropTypes.any
 	},
 
-	/** @private */
-	_getNavigable () {
+
+	getNavigable () {
 		return this.context.router || Router.environment.defaultEnvironment;
 	},
 
 
-	getPath () { return this._getNavigable().getPath(); },
+	getPath () { return this.getNavigable().getPath(); },
 
 
 	makeHref (path, includeCurrentRoute) {
-		var n = this._getNavigable(),
+		var n = this.getNavigable(),
 			route = (n.getMatch() || {}).matchedPath || '';
 
 		if (includeCurrentRoute) {
@@ -38,7 +38,7 @@ export default {
 
 
 	makeParentRouterHref (path) {
-		var n = this._getNavigable();
+		var n = this.getNavigable();
 
 		n = n.getParentRouter() || n;
 
@@ -47,12 +47,12 @@ export default {
 
 
 	navigate (path, cb) {
-		return this._getNavigable().navigate(path, cb);
+		return this.getNavigable().navigate(path, cb);
 	},
 
 
 	gotoFragment (fragment) {
-		var e = this._getNavigable();
+		var e = this.getNavigable();
 		var p = e.getPath();
 		var u = Url.parse(p);
 
