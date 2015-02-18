@@ -15,9 +15,9 @@ const SEGMENT_HANDLERS = {
 
 export default {
 
-	register (express, config, route) {
+	register (express, config) {
 		this.basepath = config.basepath;
-		express.use(route, this.handleRedirects);
+		express.use(/\?q\=/i, this.handleRedirects);
 	},
 
 

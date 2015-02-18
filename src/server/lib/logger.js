@@ -1,4 +1,6 @@
-var morgan = require('morgan');//defines a 'default' prop... breaks if "import morgan from 'morgan'" is used.
+import morgan from 'morgan';
+import responseTime from 'response-time';
+import cookieParser from 'cookie-parser';
 
 const loguser = morgan['remote-user'];
 
@@ -13,8 +15,8 @@ export default Object.assign(morgan, {
 	},
 
 	attachToExpress: expressApp => {
-		expressApp.use(require('response-time')());
-		expressApp.use(require('cookie-parser')());
+		expressApp.use(responseTime());
+		expressApp.use(cookieParser());
 		expressApp.use(morgan('combined'));
 	}
 

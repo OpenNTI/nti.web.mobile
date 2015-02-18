@@ -57,7 +57,6 @@ template = template.replace(
 	'rel="stylesheet" type="text/css" id="site-override-styles"/>');
 
 export default function(req, scriptFilename, clientConfig) {
-
 	var u = url.parse(req.url);
 	var manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache"' : '<html';
 	var path = u.pathname;
@@ -69,13 +68,15 @@ export default function(req, scriptFilename, clientConfig) {
 		try {
 			global.$AppConfig = cfg;
 			css = styleCollector.collect(() => {
-				/* jshint -W064 */ // -- This will be fixed in React 0.12
-				html = React.renderToString(React.createElement(Application, {
+				var app = React.createElement(Application, {
 					path: Path.join(cfg.basepath || '', path),
 					basePath: config().basepath
-				}));
+				});
+
+				html = React.renderToString(app);
 			});
-		} finally {
+		}
+		finally {
 			delete global.$AppConfig;
 		}
 	}
@@ -83,11 +84,13 @@ export default function(req, scriptFilename, clientConfig) {
 	html += clientConfig.html;
 	css = `<style type="text/css" id="server-side-style">${css}</style>`;
 
-	return template
+	var out = template
 			.replace(/<html/, manifest)
 			.replace(configValues, injectConfig.bind(this, cfg))
 			.replace(basepathreplace, basePathFix)
 			.replace(/<!--css:server-values-->/i, css)
 			.replace(/<!--html:server-values-->/i, html)
 			.replace(/js\/main\.js/, scriptFilename);
+
+	return out;
 }

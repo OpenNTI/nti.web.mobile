@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import WebpackServer from 'webpack-dev-server';
 import webpackConfigFile from '../../../webpack.config';
 
-export default function setupDeveloperMode(port) {
+export function setupDeveloperMode(port) {
 
 
 	var webpackConfig = Object.assign({}, webpackConfigFile[0]);
