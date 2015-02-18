@@ -2,6 +2,8 @@ import React from 'react';
 import Router from 'react-router-component';
 import {join} from 'path';
 
+import Url from 'url';
+
 /**
  * NavigatableMixin
  *
@@ -46,5 +48,16 @@ export default {
 
 	navigate (path, cb) {
 		return this._getNavigable().navigate(path, cb);
+	},
+
+
+	gotoFragment (fragment) {
+		var e = this._getNavigable();
+		var p = e.getPath();
+		var u = Url.parse(p);
+
+		u.hash = fragment;
+
+		e.navigate(u.format(), {});
 	}
 };

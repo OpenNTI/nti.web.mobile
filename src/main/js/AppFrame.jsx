@@ -1,16 +1,16 @@
 import React from 'react';
-import NavigationActions from 'navigation/Actions';
-import NavigationStore from 'navigation/Store';
-import Notifications from 'notifications/components/View';
 
 import Avatar from 'common/components/Avatar';
-import LeftNav from 'common/components/LeftNav';
 import Session from 'common/components/Session';
 import Footer from 'common/components/Footer';
 
 import BasePathAware from 'common/mixins/BasePath';
+import RouteAware from 'common/mixins/NavigatableMixin';
 
 import MessageDisplay from 'messages/components/Display';
+import Navigation from 'navigation/components/View';
+import Notifications from 'notifications/components/View';
+
 import Utils from 'common/Utils';
 
 // import preventOverscroll from 'common/thirdparty/prevent-overscroll';
@@ -29,40 +29,12 @@ const DRAWER_STATE = {
 
 export default React.createClass({
 	displayName: 'AppContainer',
-	mixins: [BasePathAware],
-
-
-	_navChanged () {
-		this.setState({
-			leftNav: NavigationStore.getNav(),
-			navLoading: NavigationStore.isLoading()
-		});
-	},
-
-
-	getInitialState () {
-		return {
-			loggedIn: false,
-			leftNav: []
-		};
-	},
+	mixins: [BasePathAware, RouteAware],
 
 
 	getDrawerState () {
 		var key = (global.location || {}).hash || '';
 		return DRAWER_STATE[key.toLowerCase()] || '';
-	},
-
-
-	componentDidMount () {
-		NavigationStore.addChangeListener(this._navChanged);
-		// preventOverscroll(this.getDOMNode().querySelector('.left-off-canvas-menu'));
-		// preventOverscroll(this.getDOMNode().querySelector('.right-off-canvas-menu'));
-	},
-
-
-	componentWillUnmount () {
-		NavigationStore.removeChangeListener(this._navChanged);
 	},
 
 
@@ -109,9 +81,7 @@ export default React.createClass({
 						</nav>
 
 						<aside className="left-off-canvas-menu" style={height}>
-							<LeftNav
-								isLoading={this.state.navLoading}
-								items={this.state.leftNav} />
+							<Navigation/>
 						</aside>
 
 						<aside className="right-off-canvas-menu" style={height}>
@@ -124,7 +94,6 @@ export default React.createClass({
 							{this.props.children}
 							<Footer />
 						</section>
-
 						<a className="exit-off-canvas" onClick={this.onCloseMenus}></a>
 					</div>
 				</div>
@@ -135,18 +104,18 @@ export default React.createClass({
 
 	onCloseMenus (e) {
 		if (e) {e.preventDefault();}
-		NavigationActions.gotoFragment(null);
+		this.gotoFragment(null);
 	},
 
 
 	onLeftMenuClick (e) {
 		if (e) {e.preventDefault();}
-		NavigationActions.gotoFragment('nav');
+		this.gotoFragment('nav');
 	},
 
 
 	onRightMenuClick (e) {
 		if (e) {e.preventDefault();}
-		NavigationActions.gotoFragment('notifications');
+		this.gotoFragment('notifications');
 	}
 });
