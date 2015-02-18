@@ -11,7 +11,8 @@ require('script!../resources/vendor/modernizr/modernizr.js');
 var FastClick = require('fastclick');
 var QueryString = require('query-string');
 var React = require('react');
-var Utils = require('common/Utils');
+var {__forceCurrentHost, getServerURI} = require('common/utils');
+var OrientationHandler = require('common/utils/orientation');
 //var emptyFunction = require('react/lib/emptyFunction');
 // var preventOverscroll = require('common/thirdparty/prevent-overscroll');
 
@@ -19,10 +20,8 @@ var Utils = require('common/Utils');
 //Allow CSS :active states:
 //document.addEventListener("touchstart", emptyFunction, true);
 
-Utils.__forceCurrentHost();
-console.debug('Client is using host: %s', Utils.getServerURI());
-
-var OrientationHandler = Utils.Orientation;
+__forceCurrentHost();
+console.debug('Client is using host: %s', getServerURI());
 
 var EventPluginHub = require('react/lib/EventPluginHub');
 var ResponderEventPlugin = require('common/thirdparty/ResponderEventPlugin');

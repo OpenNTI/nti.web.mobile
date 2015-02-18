@@ -6,7 +6,7 @@ var Constants = require('./Constants');
 
 var EventEmitter = require('events').EventEmitter;
 
-var getServer = require('common/Utils').getServer;
+var {getServer} = require('common/utils');
 var Store = require('./Store');
 var MessageActions = require('messages/Actions');
 var Message = require('messages/Message');

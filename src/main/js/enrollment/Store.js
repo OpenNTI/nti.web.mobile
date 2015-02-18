@@ -7,7 +7,7 @@ var EventEmitter = require('events').EventEmitter;
 var Constants = require('./Constants');
 var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
 
-var getService = require('common/Utils').getService;
+var {getService} = require('common/utils');
 
 var _enrollmentStatus = {};
 

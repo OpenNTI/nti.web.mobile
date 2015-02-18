@@ -1,6 +1,6 @@
 import Notifications from 'dataserverinterface/stores/Notifications';
 
-import {getService} from 'common/Utils';
+import {getService} from 'common/utils';
 
 export function load () {
 	return getService()

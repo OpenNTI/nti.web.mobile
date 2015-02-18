@@ -4,7 +4,7 @@
  */
 
 import QueryString from 'query-string';
-import {getService} from 'common/Utils';
+import {getService} from 'common/utils';
 import {thatReturnsArgument as is} from 'react/lib/emptyFunction';
 
 const test = RegExp.prototype.test;

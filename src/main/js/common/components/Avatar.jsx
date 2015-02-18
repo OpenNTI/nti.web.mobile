@@ -1,6 +1,6 @@
 import React from 'react';
 import {BLANK_AVATAR} from '../constants/DataURIs';
-import {getServerURI} from '../Utils';
+import {getServerURI} from '../utils';
 import {resolve} from './DisplayName';
 import {isNTIID} from 'dataserverinterface/utils/ntiids';
 

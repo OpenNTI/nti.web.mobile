@@ -1,6 +1,6 @@
 'use strict';
 
-var getService = require('common/Utils').getService;
+var {getService} = require('common/utils');
 
 var _promises = {};
 
@@ -11,7 +11,7 @@ module.exports = {
 
 		// do we already have a promise for loading this course's discussions?
 		var promise = _promises[courseId];
-		
+
 		// if not, create one.
 		if (!promise) {
 			var courseId = course.getID();
@@ -22,7 +22,7 @@ module.exports = {
 					},
 					reason => {
 						// don't hang on to a rejected promise; we want to try again next time.
-						delete _promises[course]; 
+						delete _promises[course];
 						return reason;
 						// _discussionsLoaded(courseId, reason);
 					}

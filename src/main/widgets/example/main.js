@@ -5,7 +5,7 @@ require('babel/polyfill');
 
 var React = require('react');
 
-require('common/Utils').__forceCurrentHost();//ensures we talk back to our current host instead of anything else.
+require('common/utils').__forceCurrentHost();//ensures we talk back to our current host instead of anything else.
 
 require('../../resources/scss/app.scss');
 

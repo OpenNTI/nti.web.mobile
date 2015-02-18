@@ -1,6 +1,6 @@
 import React from 'react/addons';
 
-import {getAppUsername} from 'common/Utils';
+import {getAppUsername} from 'common/utils';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';

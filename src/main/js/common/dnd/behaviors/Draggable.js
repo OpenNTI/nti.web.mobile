@@ -1,21 +1,23 @@
-'use strict';
-
-var isTouchDevice = require('dataserverinterface/utils/is-touch-device');
-
 //heavily inspired by: https://github.com/mzabriskie/react-draggable
 
-var React = require('react');
-var emptyFunction = require('react/lib/emptyFunction');
-var {PropTypes} = React;
+import {PropTypes} from 'react';
+import {default as Base, TYPE_SHAPE} from './Base';
+
+import isTouchDevice from 'dataserverinterface/utils/is-touch-device';
+import emptyFunction from 'react/lib/emptyFunction';
 
 
-var {Dom} = require('../../Utils');
+import {
+	isMultiTouch,
+	addEventListener as _addEventListener,
+	removeEventListener as _removeEventListener,
+	scrollElementBy,
+	scrollParent,
+	matches,
+	getScrollPosition,
+	getElementRect
+} from '../../utils/dom';
 
-var {isMultiTouch} = Dom;
-
-var Base = require('./Base');
-
-var {TYPE_SHAPE} = Base;
 
 var eventFor = isTouchDevice ? {
 	start: 'touchstart',
@@ -67,7 +69,7 @@ function isDirection(dir, key, a, b) {
 }
 
 
-Object.assign(exports, {
+export default {
 	mixins: [Base],
 
 	canDragY: canDrag('y'),
@@ -136,7 +138,7 @@ Object.assign(exports, {
 	},
 
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			restoreOnStop: true,
 			axis: 'both',
@@ -152,7 +154,7 @@ Object.assign(exports, {
 	},
 
 
-	getInitialState: function () {
+	getInitialState () {
 		return {
 			dragging: false,
 			restoring: false,
@@ -166,7 +168,7 @@ Object.assign(exports, {
 	},
 
 
-	getPosition: function() {
+	getPosition () {
 		var {x, y} = this.state;
 		return {
 			top: y,
@@ -175,37 +177,37 @@ Object.assign(exports, {
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		this.setState({
-			scrollParent: Dom.scrollParent(this.getDOMNode())
+			scrollParent: scrollParent(this.getDOMNode())
 		});
 	},
 
 
-	componentWillMount: function() {
+	componentWillMount () {
 		var {x, y} = this.props.start;
 		this.setState({x: x, y: y});
 	},
 
 
-	componentWillUnmount: function() {this._removeListeners(); },
+	componentWillUnmount () {this._removeListeners(); },
 
 
-	_addListeners: function () {
-		Dom.addEventListener(this.state.scrollParent, 'scroll', this.handleScroll);
-		Dom.addEventListener(global, eventFor.move, this.handleDrag);
-		Dom.addEventListener(global, eventFor.end, this.handleDragEnd);
+	_addListeners () {
+		_addEventListener(this.state.scrollParent, 'scroll', this.handleScroll);
+		_addEventListener(global, eventFor.move, this.handleDrag);
+		_addEventListener(global, eventFor.end, this.handleDragEnd);
 	},
 
 
-	_removeListeners: function () {
-		Dom.removeEventListener(this.state.scrollParent, 'scroll', this.handleScroll);
-		Dom.removeEventListener(global, eventFor.move, this.handleDrag);
-		Dom.removeEventListener(global, eventFor.end, this.handleDragEnd);
+	_removeListeners () {
+		_removeEventListener(this.state.scrollParent, 'scroll', this.handleScroll);
+		_removeEventListener(global, eventFor.move, this.handleDrag);
+		_removeEventListener(global, eventFor.end, this.handleDragEnd);
 	},
 
 
-	handleDragStart: function (e) {
+	handleDragStart (e) {
 		var node = this.getDOMNode();
 		var dragPoint = getDragPoint(e);
 		var onDragStart = this.context.onDragStart || emptyFunction;
@@ -214,8 +216,8 @@ Object.assign(exports, {
 
 		if (!this.isMounted() ||
 			this.props.locked ||
-			(handle && !Dom.matches(e.target, handle)) ||
-			(cancel && Dom.matches(e.target, cancel))) {
+			(handle && !matches(e.target, handle)) ||
+			(cancel && matches(e.target, cancel))) {
 			return;
 		}
 
@@ -234,7 +236,7 @@ Object.assign(exports, {
 		this.setState({
 			dragging: true,
 			restoring: false,
-			startingScrollPosition: Dom.getScrollPosition(scrollParent),
+			startingScrollPosition: getScrollPosition(scrollParent),
 			lastDragPoint: dragPoint,
 			offsetX: parseInt(dragPoint.x, 10),
 			offsetY: parseInt(dragPoint.y, 10),
@@ -249,7 +251,7 @@ Object.assign(exports, {
 	},
 
 
-	handleDragEnd: function (e) {
+	handleDragEnd (e) {
 		var onDragEnd = this.context.onDragEnd || emptyFunction;
 
 		if (!this.state.dragging || !this.isMounted() || this.props.locked) {
@@ -283,7 +285,7 @@ Object.assign(exports, {
 	},
 
 
-	handleDrag: function (e) {
+	handleDrag (e) {
 		if (!this.isMounted() || this.props.locked) { return; }
 
 		var s = this.state;
@@ -312,14 +314,14 @@ Object.assign(exports, {
 	},
 
 
-	handleScroll: function () {
+	handleScroll () {
 		var {
 			scrollParent,
 			startingScrollPosition,
 			startX,
 			startY
 		} = this.state;
-		var currentScrollPosition = Dom.getScrollPosition(scrollParent);
+		var currentScrollPosition = getScrollPosition(scrollParent);
 
 		var dX = (startingScrollPosition.left - currentScrollPosition.left) * -1;
 		var dY = (startingScrollPosition.top - currentScrollPosition.top) * -1;
@@ -332,11 +334,11 @@ Object.assign(exports, {
 	},
 
 
-	_maybeScrollParent: function (point, lastPoint) {
+	_maybeScrollParent (point, lastPoint) {
 		var y, x;
 		var region = 50;
 		var scrollParent = this.state.scrollParent;
-		var boundingRect = Dom.getElementRect(scrollParent);
+		var boundingRect = getElementRect(scrollParent);
 
 		var top = (point.y - boundingRect.top) < region && isDirection(-1, 'y', point, lastPoint);
 		var bottom = (boundingRect.bottom - point.y) < region && isDirection(1, 'y', point, lastPoint);
@@ -353,12 +355,12 @@ Object.assign(exports, {
 		// }
 
 		if (x || y) {
-			Dom.scrollElementBy(scrollParent, x, y);
+			scrollElementBy(scrollParent, x, y);
 		}
 	},
 
 
-	_snapTo: function (initial, axis) {
+	_snapTo (initial, axis) {
 		var {props, state} = this;
 		var {grid} = props;
 
@@ -371,7 +373,7 @@ Object.assign(exports, {
 	},
 
 
-	computeStyle: function () {
+	computeStyle () {
 		var s = this.state;
 		var z = this.props.zIndex;
 		var y = this.canDragY(this) ? s.y : s.startY;
@@ -393,7 +395,7 @@ Object.assign(exports, {
 	},
 
 
-	getHandlers: function () {
+	getHandlers () {
 		return {
 			onMouseDown: this.handleDragStart,
 			onTouchStart: this.handleDragStart,
@@ -402,4 +404,4 @@ Object.assign(exports, {
 			onTouchEnd: this.handleDragEnd
 		};
 	}
-});
+};

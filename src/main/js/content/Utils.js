@@ -1,4 +1,4 @@
-import {Dom} from 'common/Utils';
+import Dom from 'common/utils/dom';
 import guid from 'dataserverinterface/utils/guid';
 import indexArrayByKey from 'dataserverinterface/utils/array-index-by-key';
 import toArray from 'dataserverinterface/utils/toarray';

@@ -7,7 +7,7 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var Constants = require('./Constants');
-var Utils = require('common/Utils');
+var {getService} = require('common/utils');
 
 var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'enrollment.Store',
@@ -49,7 +49,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 function _getFiveMinuteService() {
 	var me = _getFiveMinuteService;
 	if (!me.promise) {
-		me.promise = Utils.getService().then(service =>
+		me.promise = getService().then(service =>
 			FiveMinuteInterface.fromService(service));
 	}
 	return me.promise;

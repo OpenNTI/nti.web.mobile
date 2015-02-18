@@ -1,13 +1,18 @@
-'use strict';
+import Draggable from './components/Draggable';
+import DropTarget from './components/DropTarget';
+import Mixin from './Mixin';
 
-Object.assign(exports, {
-	behaviors: {
-		Draggable: require('./behaviors/Draggable'),
-		Droppable: require('./behaviors/Droppable')
-	},
+// import DraggableTrait from './behaviors/Draggable';
+// import DroppableTrait from './behaviors/Droppable';
+//
+// const behaviors = {
+// 	Draggable: DraggableTrait,
+// 	Droppable: DroppableTrait
+// };
 
-	Draggable: require('./components/Draggable'),
-	DropTarget: require('./components/DropTarget'),
-
-	Mixin: require('./Mixin')
-});
+export {
+	Draggable,
+	DropTarget,
+	Mixin
+	// behaviors
+};

@@ -1,4 +1,4 @@
-import {Viewport} from 'common/Utils';
+import {getScreenWidth} from 'common/utils/viewport';
 const isSource = RegExp.prototype.test.bind(/source/i);
 
 const FORMAT_RANKS = {
@@ -41,7 +41,7 @@ const findMin = (prop) => (m,s) => Math.min(m,s[prop]);
 function pickBestFromScreenSize(list) {
 	if (list.length === 1) { return list[0]; }
 
-	let screenWidth = Viewport.getScreenWidth();
+	let screenWidth = getScreenWidth();
 	let minSourceWidth = list.reduce(findMin('width'), Infinity);
 	let target = Math.max(screenWidth, minSourceWidth);
 

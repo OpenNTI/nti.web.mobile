@@ -9,7 +9,7 @@ var Location = Router.Location;
 var DefaultRoute = Router.NotFound;
 var CaptureClicks = require('react-router-component/lib/CaptureClicks');
 
-var getServer = require('common/Utils').getServer;
+var {getServer} = require('common/utils');
 
 var Loading = require('common/components/Loading');
 var ErrorComponent = require('common/components/Error');

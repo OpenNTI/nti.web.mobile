@@ -1,6 +1,6 @@
 import Catalog from 'dataserverinterface/stores/Catalog';
 
-import {getService} from 'common/Utils';
+import {getService} from 'common/utils';
 
 var _catalog;
 

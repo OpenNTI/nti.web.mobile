@@ -1,11 +1,9 @@
-'use strict';
+import React from 'react';
+import cloneWithProps from 'react/lib/cloneWithProps';
 
-var React = require('react');
-var cloneWithProps  = require('react/lib/cloneWithProps');
+import DragBehavior from '../behaviors/Draggable';
 
-var DragBehavior = require('../behaviors/Draggable');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Draggable',
 	mixins: [DragBehavior],
 
@@ -14,7 +12,7 @@ module.exports = React.createClass({
 	},
 
 
-	render: function () {
+	render () {
 		var {className} = this.props;
 
 		var classes = ['draggable', className || ''];

@@ -1,8 +1,6 @@
 import {isNTIID} from 'dataserverinterface/utils/ntiids';
 
-import {Dom} from 'common/Utils';
-
-let {hasClass, getEventTarget} = Dom;
+import {hasClass, getEventTarget} from 'common/utils/dom';
 
 export default {
 

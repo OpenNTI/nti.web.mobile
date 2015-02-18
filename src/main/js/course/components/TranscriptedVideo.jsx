@@ -7,9 +7,7 @@ import {
 import React from 'react';
 
 
-import {Dom} from 'common/Utils';
-var {addClass} = Dom;
-var {removeClass} = Dom;
+import {addClass, removeClass} from 'common/utils/dom';
 
 import Pager from 'common/components/Pager';
 import LoadingMask from 'common/components/Loading';

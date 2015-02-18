@@ -3,11 +3,9 @@
 var React = require('react');
 var ButtonPlain = require('common/forms/components/Button');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
-var Utils = require('common/Utils');
+var {getBasePath} = require('common/utils');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
-
-// var isFlag = Utils.isFlag;
 
 var Giftable = React.createClass({
 
@@ -17,7 +15,7 @@ var Giftable = React.createClass({
 	},
 
 	_urlForEntry: function() {
-		var href = Utils.getBasePath() + 'library/catalog/item/' + NTIID.encodeForURI(this.props.catalogId) + '/enrollment/store/gift/';
+		var href = getBasePath() + 'library/catalog/item/' + NTIID.encodeForURI(this.props.catalogId) + '/enrollment/store/gift/';
 		return href;
 	},
 

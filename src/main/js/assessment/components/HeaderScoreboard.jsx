@@ -5,9 +5,7 @@ var React = require('react');
 var Score = require('common/components/charts/Score');
 var DateTime = require('common/components/DateTime');
 
-var Utils = require('common/Utils');
-var getTarget = Utils.Dom.getEventTarget;
-
+var {getEventTarget} = require('common/utils/dom');
 
 var Store = require('../Store');
 var Actions = require('../Actions');
@@ -66,7 +64,7 @@ module.exports = React.createClass({
 
 
 	reset: function (e) {
-		if (getTarget(e, 'span[data-dropdown]')) {
+		if (getEventTarget(e, 'span[data-dropdown]')) {
 			return;
 		}
 

@@ -4,7 +4,7 @@ var EventEmitter = require('events').EventEmitter;
 
 var Constants = require('./Constants');
 var AppDispatcher = require('dispatcher/AppDispatcher');
-var Utils = require('common/Utils');
+var {getService} = require('common/utils');
 var autobind = require('dataserverinterface/utils/autobind');
 var queue = [];
 var fixedQueue = require('fixedqueue').FixedQueue;
@@ -57,7 +57,7 @@ var Store = autobind(Object.assign({}, EventEmitter.prototype, {
 		queue = [];
 
 
-		return Utils.getService()
+		return getService()
 			.then(function(service) {
 				return service.postAnalytics(items);
 			})

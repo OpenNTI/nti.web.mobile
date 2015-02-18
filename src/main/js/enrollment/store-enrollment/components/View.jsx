@@ -19,7 +19,7 @@ var PaymentConfirm = require('./PaymentConfirm');
 var Loading = require('common/components/Loading');
 var ErrorComponent = require('common/components/Error');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var getBasePath = require('common/Utils').getBasePath;
+var {getBasePath} = require('common/utils');
 
 
 var View = React.createClass({

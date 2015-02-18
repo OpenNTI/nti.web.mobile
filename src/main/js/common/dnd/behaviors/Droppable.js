@@ -1,15 +1,9 @@
-'use strict';
+import React from 'react';
+import ensureArray from 'dataserverinterface/utils/ensure-array';
+import {isPointWithIn} from '../../utils/dom';
+import {default as Base, TYPE_SHAPE} from './Base';
 
-var React = require('react');
-var ensureArray = require('dataserverinterface/utils/ensure-array');
-
-var {Dom} = require('../../Utils');
-
-var Base = require('./Base');
-
-var {TYPE_SHAPE} = Base;
-
-Object.assign(exports, {
+export default {
 	mixins: [Base],
 
 	propTypes: {
@@ -106,7 +100,7 @@ Object.assign(exports, {
 		var {x, y} = dragData;
 		if (!this.isMounted() || !this.context.currentDragItem) {return;}
 
-		if (Dom.isPointWithIn(this.getDOMNode(), x, y)) {
+		if (isPointWithIn(this.getDOMNode(), x, y)) {
 			if (!this.state.over) {
 				this._onDragEnteredDropTarget();
 			}
@@ -160,4 +154,4 @@ Object.assign(exports, {
 		return dropped;
 	}
 
-});
+};

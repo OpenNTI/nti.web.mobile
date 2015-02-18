@@ -7,7 +7,7 @@ var DateTime = require('common/components/DateTime');
 
 var toUnitString = require('common/locale').scoped('UNITS');
 var toUnitSingularString = require('common/locale').scoped('UNITS.SINGULARS');
-var getTarget = require('common/Utils').Dom.getEventTarget;
+var {getEventTarget} = require('common/utils/dom');
 
 var moment = require('moment');
 
@@ -170,7 +170,7 @@ module.exports = React.createClass({
 		var s = this.state;
 
 
-		if (this.isSubmitted() && getTarget(e, 'time, .overdue, .overtime')) {
+		if (this.isSubmitted() && getEventTarget(e, 'time, .overdue, .overtime')) {
 			return;
 		}
 

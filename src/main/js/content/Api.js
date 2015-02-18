@@ -1,4 +1,4 @@
-import {getService} from 'common/Utils';
+import {getService} from 'common/utils';
 
 export function getPageInfo (ntiid) {
 	return getService()

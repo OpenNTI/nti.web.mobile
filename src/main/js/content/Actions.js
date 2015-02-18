@@ -2,8 +2,11 @@
  * Actions available to views for content-related functionality.
  */
 
-import {Dom} from 'common/Utils';
-var DomUtils = Dom;
+import {
+	parseDomObject,
+	getImagesFromDom,
+	getVideosFromDom
+} from 'common/utils/dom';
 
 import {parseNTIID} from 'dataserverinterface/utils/ntiids';
 
@@ -20,17 +23,17 @@ import {getLibrary} from 'library/Api';
 const WIDGET_SELECTORS_AND_STRATEGIES = {
 	'[itemprop~=nti-data-markupenabled],[itemprop~=nti-slide-video]': parseFramedElement,
 
-	'object[type$=nticard]': DomUtils.parseDomObject,
-	'object[type$=ntislidedeck]': DomUtils.parseDomObject,
-	'object[type$=ntislidevideo][itemprop=presentation-card]': DomUtils.parseDomObject,
-	'object[type$=ntivideo][itemprop=presentation-video]': DomUtils.parseDomObject,
-	'object[type$=videoroll]': DomUtils.parseDomObject,
-	'object[type$=image-collection]': DomUtils.parseDomObject,
-	'object[class=ntirelatedworkref]': DomUtils.parseDomObject,
+	'object[type$=nticard]': parseDomObject,
+	'object[type$=ntislidedeck]': parseDomObject,
+	'object[type$=ntislidevideo][itemprop=presentation-card]': parseDomObject,
+	'object[type$=ntivideo][itemprop=presentation-video]': parseDomObject,
+	'object[type$=videoroll]': parseDomObject,
+	'object[type$=image-collection]': parseDomObject,
+	'object[class=ntirelatedworkref]': parseDomObject,
 
-	'object[type$=ntisequenceitem]': DomUtils.parseDomObject,
-	'object[type$=ntiaudio]': DomUtils.parseDomObject,
-	'object[type*=naquestion]': DomUtils.parseDomObject,
+	'object[type$=ntisequenceitem]': parseDomObject,
+	'object[type$=ntiaudio]': parseDomObject,
+	'object[type*=naquestion]': parseDomObject,
 };
 
 
@@ -125,11 +128,11 @@ function parseFramedElement(el) {
 		return o || (Array.isArray(i) ? i.reduce(flat) : i);
 	}
 
-	var data = DomUtils.parseDomObject(el);
+	var data = parseDomObject(el);
 
 	data.item = [
-		DomUtils.getImagesFromDom(el),
-		DomUtils.getVideosFromDom(el)
+		getImagesFromDom(el),
+		getVideosFromDom(el)
 	].reduce(flat, null) || {};
 
 	if (!data.type) {

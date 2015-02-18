@@ -3,8 +3,7 @@
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 
-var Utils = require('common/Utils');
-var getServer = Utils.getServer;
+var {getServer, getBasePath} = require('common/utils');
 
 var Constants = require('./Constants');
 var Actions = Constants.actions;
@@ -69,7 +68,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 	getUserAgreementUrl: function() {
 		// return Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
-		return Promise.resolve( Utils.getBasePath() + 'api/user-agreement/');
+		return Promise.resolve( getBasePath() + 'api/user-agreement/');
 	},
 
 	getUserAgreement: function() {

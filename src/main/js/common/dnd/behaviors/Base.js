@@ -1,8 +1,5 @@
-'use strict';
+import {PropTypes} from 'react';
 
-var {PropTypes} = require('react');
+export const TYPE_SHAPE = {accepts: PropTypes.func};
 
-Object.assign(exports, {
-
-	TYPE_SHAPE: {accepts: PropTypes.func}
-});
+export default {};

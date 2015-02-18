@@ -1,6 +1,6 @@
 'use strict';
 
-var isType = require('common/Utils').isMimeType;
+var {isMimeType} = require('common/utils/mimetype');
 
 module.exports = {
 
@@ -24,7 +24,7 @@ module.exports = {
 		},
 
 		__test: function (item) {
-			return isType(item, this.inputType);
+			return isMimeType(item, this.inputType);
 		}
 
 	}

@@ -9,7 +9,7 @@ import Score from 'common/components/charts/Score';
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 import {loadPreviousState} from 'assessment/Api';
 
-import {getService} from 'common/Utils';
+import {getService} from 'common/utils';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
 import {encodeForURI} from 'dataserverinterface/utils/ntiids';

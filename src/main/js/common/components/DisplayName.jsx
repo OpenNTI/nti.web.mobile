@@ -1,5 +1,5 @@
 import React from 'react';
-import {getService} from '../Utils';
+import {getService} from '../utils';
 
 /**
  * This DisplayName component can use the full User instance if you have it.

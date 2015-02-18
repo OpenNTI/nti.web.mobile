@@ -7,7 +7,7 @@ import DisplayName from 'common/components/DisplayName';
 
 import LoadingInline from 'common/components/LoadingInline';
 
-import {getAppUsername} from 'common/Utils';
+import {getAppUsername} from 'common/utils';
 
 import Editor from './FeedbackEditor';
 

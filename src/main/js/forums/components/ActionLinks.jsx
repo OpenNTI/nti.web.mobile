@@ -5,7 +5,7 @@ var React = require('react');
 var t = require('common/locale').scoped('FORUMS');
 var ReportLink = require('./ReportLink');
 var nsKeyMirror = require('dataserverinterface/utils/namespaced-key-mirror');
-var {isFlag} = require('common/Utils');
+var {isFlag} = require('common/utils');
 
 var ActionLinks = React.createClass({
 
@@ -31,7 +31,7 @@ var ActionLinks = React.createClass({
 
 	render: function() {
 
-		var {item} = this.props; 
+		var {item} = this.props;
 		var canEdit =  isFlag('canEditForumPost') && item.hasLink('edit');
 		var canDelete =  item.hasLink('edit');
 		var canReport = item.hasLink('flag')||item.hasLink('flag.metoo');
@@ -40,12 +40,12 @@ var ActionLinks = React.createClass({
 		var {numComments} = this.props;
 
 		var RepliesToggleTag = numComments > 0 ? "a" : "span";
-		
+
 		var repliesClasses = numComments > 0 ? ['disclosure-triangle'] : [];
 		repliesClasses.push.apply(repliesClasses, this.props.cssClasses.replies);
 		var {clickHandlers} = this.props;
 
-		return ( 
+		return (
 			<ul key="control-links" className="action-links">
 				<li key="replies-toggle">
 					<RepliesToggleTag

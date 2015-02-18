@@ -8,8 +8,7 @@ var Constants = require('./Constants');
 var CHANGE_EVENT = require('common/constants').CHANGE_EVENT;
 //var ERROR_EVENT = require('common/constants').ERROR_EVENT;
 
-var Utils = require('common/Utils');
-var getService = Utils.getService;
+var {getService} = require('common/utils');
 
 var _stripeToken; // store the result of a Stripe.getToken() call
 var _pricing;
@@ -98,7 +97,7 @@ function getStripeInterface() {
 	var me = getStripeInterface;
 
 	if (!me.promise) {
-		me.promise = Utils.getService().then(service =>
+		me.promise = getService().then(service =>
 				StripeInterface.fromService(service));
 	}
 

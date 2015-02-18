@@ -7,7 +7,7 @@ var React = require('react');
 
 var QueryString = require('query-string');
 
-require('common/Utils').__forceCurrentHost();//ensures we talk back to our current host instead of anything else.
+require('common/utils').__forceCurrentHost();//ensures we talk back to our current host instead of anything else.
 
 require('../../resources/scss/app.scss');
 

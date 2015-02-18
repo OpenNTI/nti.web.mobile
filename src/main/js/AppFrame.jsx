@@ -11,7 +11,9 @@ import MessageDisplay from 'messages/components/Display';
 import Navigation from 'navigation/components/View';
 import Notifications from 'notifications/components/View';
 
-import Utils from 'common/Utils';
+import {getAppUsername} from 'common/utils';
+import {addClass, removeClass} from 'common/utils/dom';
+import {getHeight as getViewportHeight} from 'common/utils/viewport';
 
 // import preventOverscroll from 'common/thirdparty/prevent-overscroll';
 
@@ -39,21 +41,20 @@ export default React.createClass({
 
 
 	componentDidUpdate () {
-		var utils = Utils.Dom;
 		var viewport = document.getElementsByTagName('html')[0];
 		var cls = 'scroll-lock';
-		var action = (this.getDrawerState() === CLOSE_MENU) ? 'remove' : 'add';
+		var action = (this.getDrawerState() === CLOSE_MENU) ? removeClass : addClass;
 
-		utils[action + 'Class'](viewport, cls);
+		action(viewport, cls);
 	},
 
 
 	render () {
 
 		var state = this.getDrawerState();
-		var username = Utils.getAppUsername();
+		var username = getAppUsername();
 		var hamburger = state === LEFT_MENU_OPEN ? 'active' : '';
-		var height = {height: Utils.Viewport.getHeight()};
+		var height = {height: getViewportHeight()};
 
 		return (
 			<div className="app-container">

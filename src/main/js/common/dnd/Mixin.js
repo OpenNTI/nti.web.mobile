@@ -1,15 +1,12 @@
-'use strict';
-
-var React = require('react');
-var {EventEmitter} = require('events');
+import React from 'react';
+import {EventEmitter} from 'events';
 
 function emit(o, event, ...data) {
 	var e = o.state.dndEventEmitter;
 	e.emit.apply(e, [event].concat(data));
 }
 
-
-Object.assign(exports, {
+export default {
 
 	getInitialState () {
 		return {
@@ -145,4 +142,4 @@ Object.assign(exports, {
 			this.onDrop(drop);
 		}
 	}
-});
+};

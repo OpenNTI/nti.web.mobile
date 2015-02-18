@@ -3,7 +3,7 @@ import React from 'react';
 
 import {encodeForURI} from 'dataserverinterface/utils/ntiids';
 
-import {getService} from 'common/Utils';
+import {getService} from 'common/utils';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import LoadingMask from 'common/components/Loading';

@@ -1,8 +1,6 @@
-'use strict';
+import VisibilityMonitor from './pagevis';
 
-var VisibilityMonitor = require('./_utils.pagevis');
-
-var cacheStatusValues = [
+const cacheStatusValues = [
 	'uncached',		//0
 	'idle',			//1
 	'checking',		//2
@@ -39,14 +37,14 @@ if (cache) {
 	cache.addEventListener('updateready', logEvent, false);
 
 	cache.addEventListener('updateready',
-	    function(){
+	    () => {
 	        cache.swapCache();
 	        console.debug('swap cache has been called');
 	    },
 	    false
 	);
 
-	VisibilityMonitor.addChangeListener(function(visible) {
+	VisibilityMonitor.addChangeListener(visible => {
 		if (!visible) {
 			return;
 		}

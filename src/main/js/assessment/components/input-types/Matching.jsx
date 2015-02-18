@@ -5,7 +5,7 @@ var InputType = require('./Mixin');
 
 var Content = require('../Content');
 
-var {getEventTarget} = require('common/Utils').Dom;
+var {getEventTarget} = require('common/utils/dom');
 var {Mixin, Draggable, DropTarget} = require('common/dnd');
 
 //var isEmpty = require('dataserverinterface/utils/isempty');

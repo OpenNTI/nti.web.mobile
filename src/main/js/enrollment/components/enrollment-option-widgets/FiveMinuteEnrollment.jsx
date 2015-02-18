@@ -4,7 +4,7 @@ var React = require('react');
 var PanelButton = require('common/components/PanelButton');
 var t = require('common/locale').scoped('ENROLLMENT');
 
-var {isFlag} = require('common/Utils');
+var {isFlag} = require('common/utils');
 
 var FiveMinuteEnrollment = React.createClass({
 

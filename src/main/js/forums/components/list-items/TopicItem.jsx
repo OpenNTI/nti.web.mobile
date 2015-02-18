@@ -7,7 +7,7 @@ var DisplayName = require('common/components/DisplayName').default;
 var DateTime = require('common/components/DateTime');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var Link = require('react-router-component').Link;
-var Utils = require('common/Utils');
+var {isMimeType} = require('common/utils/mimetype');
 var t = require('common/locale').scoped('FORUMS');
 var KeepItemInState = require('../../mixins/KeepItemInState');
 /**
@@ -51,9 +51,9 @@ module.exports = React.createClass({
 	// topics say "posted", comments say "replied"
 	_verbForPost: function(item) {
 		// confusing that comment is referenced as a post and a post is referred to as a topic.
-		return Utils.isMimeType(item, Constants.types.POST) ? t('replied') : t('posted');
+		return isMimeType(item, Constants.types.POST) ? t('replied') : t('posted');
 	},
-	
+
 	render: function() {
 		var item = this._item();
 		var replyTime = item.NewestDescendant.getCreatedTime();

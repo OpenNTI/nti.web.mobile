@@ -5,7 +5,7 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var Constants = require('./Constants');
-var Utils = require('common/Utils');
+var {getService} = require('common/utils');
 var getLink = require('dataserverinterface/utils/getlink');
 
 var Store = Object.assign({}, EventEmitter.prototype, {
@@ -36,7 +36,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 });
 
 /**
-* Fetch a link with the given rel. 
+* Fetch a link with the given rel.
 */
 function _fetchLink(linkRel) {
 
@@ -51,14 +51,14 @@ function _fetchLink(linkRel) {
 		return me.promises[linkRel];
 	}
 
-	var getService = Utils.getService();
+	var service = getService();
 
-	var getUser = getService.then(
+	var getUser = service.then(
 		function(service) {
 			return service.getAppUser();
 		}
 	);
-	
+
 	var getHref = getUser.then(
 		function(user) {
 			return getLink(user, linkRel);
@@ -67,7 +67,7 @@ function _fetchLink(linkRel) {
 
 	var promise = getHref.then(
 		function(href) {
-			return getService.then(function(service) {
+			return service.then(function(service) {
 				return service.get(href);
 			}
 		);

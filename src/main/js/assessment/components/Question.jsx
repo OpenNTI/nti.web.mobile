@@ -2,7 +2,7 @@
 
 var React = require('react');
 
-var {isFlag} = require('common/Utils');
+var {isFlag} = require('common/utils');
 var DragDropOrchestrator = require('common/dnd').Mixin;
 
 var Content = require('./Content');

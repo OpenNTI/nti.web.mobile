@@ -3,7 +3,7 @@
 var React = require('react');
 var Mixin = require('./Mixin');
 
-var {getEventTarget} = require('common/Utils').Dom;
+var {getEventTarget} = require('common/utils/dom');
 
 var toArray = require('dataserverinterface/utils/toarray');
 var isTruthy = require('dataserverinterface/utils/identity');

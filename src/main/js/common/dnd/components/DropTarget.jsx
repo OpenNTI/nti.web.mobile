@@ -1,14 +1,12 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+import DropBehavior from '../behaviors/Droppable';
 
-var DropBehavior = require('../behaviors/Droppable');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'DropTarget',
 	mixins: [DropBehavior],
 
-	render: function() {
+	render () {
 		return this.renderDropTargetWrapper(this.props.children);
 	}
 });

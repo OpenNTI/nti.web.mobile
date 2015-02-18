@@ -13,8 +13,7 @@ var MessagesActions = require('messages/Actions');
 var Message = require('messages/Message');
 
 var t = require('common/locale').translate;
-var Utils = require('common/Utils');
-var getServer = Utils.getServer;
+var {getServer, getServerURI, __setUsername} = require('common/utils');
 
 var Constants = require('./Constants');
 var ActionConstants = Constants.actions;
@@ -162,7 +161,7 @@ function _logIn(credentials) {
 			credentials);
 
 	p.then(function(r) {
-		Utils.__setUsername(credentials.username);
+		__setUsername(credentials.username);
 		console.log('login attempt resolved. %O', r);
 		_setLoggedIn(true);
 	});
@@ -180,7 +179,7 @@ function _logOut() {
 	//TODO: this link doesn't need to be built, (we just need to append the
 	//success to the rel="logout" link in the ping...which we should store on
 	// a successfull handshake.)
-	var p = Utils.getServerURI() + Links.LOGOUT_LINK + '?success=' + current;
+	var p = getServerURI() + Links.LOGOUT_LINK + '?success=' + current;
 	location.replace(p);
 }
 

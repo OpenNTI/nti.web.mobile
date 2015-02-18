@@ -1,6 +1,6 @@
 import Library from 'dataserverinterface/stores/Library';
 
-import {getService} from 'common/Utils';
+import {getService} from 'common/utils';
 
 export function getLibrary (reload) {
 	return getService()

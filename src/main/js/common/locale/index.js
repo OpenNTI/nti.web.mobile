@@ -1,10 +1,10 @@
-import Utils from '../Utils';
+import {getSiteName} from '../utils';
 import counterpart from 'counterpart';
 import english from './en';
 
 counterpart.registerTranslations('en', english);
 
-const siteName = Utils.getSiteName();
+const siteName = getSiteName();
 const locale = counterpart.getLocale();
 
 if (siteName) {
