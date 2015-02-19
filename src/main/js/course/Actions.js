@@ -17,13 +17,23 @@ export function setCourse (courseId) {
 		return;
 	}
 
-	dispatch(SET_ACTIVE_COURSE_BEGIN, courseId);
+	function buildResponse(o) {
+		return {
+			taskId: courseId,
+			body: o
+		};
+	}
+
+	dispatch(SET_ACTIVE_COURSE_BEGIN, buildResponse());
 
 	getLibrary()
-		.then(library => library.getCourse(courseId) || Promise.reject(NOT_FOUND))
+		.then(library =>
+			library.getCourse(courseId) || Promise.reject(NOT_FOUND))
 		.then(
-			courseEnrollment => dispatch(SET_ACTIVE_COURSE, courseEnrollment),
-			reason => dispatch(SET_ACTIVE_COURSE, new Error(reason))
+			courseEnrollment =>
+				dispatch(SET_ACTIVE_COURSE, buildResponse(courseEnrollment)),
+			reason =>
+				dispatch(SET_ACTIVE_COURSE, buildResponse(new Error(reason)))
 			);
 }
 

@@ -21,7 +21,8 @@ class Store extends StorePrototype {
 
 
 	[SetData] (payload) {
-		let _data = payload.action.response;
+		let {response} = payload.action;
+		let _data = response && response.body;
 		if (_data && _data instanceof Error) {
 			_data = {
 				error: data,
