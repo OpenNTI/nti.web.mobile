@@ -11,6 +11,8 @@ import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
 
 import BasePathAware from 'common/mixins/BasePath';
+import StoreEventAware from 'common/mixins/StoreEvents';
+import SetStateSafely from 'common/mixins/SetStateSafely';
 
 import Media from './Media';
 import Outline from './OutlineView';
@@ -25,31 +27,26 @@ import Store from '../Store';
 
 export default React.createClass({
 	displayName: 'CourseView',
-	mixins: [BasePathAware],
+	mixins: [BasePathAware, StoreEventAware, SetStateSafely],
+
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		default: 'synchronizeFromStore'
+	},
 
 	propTypes: {
 		course: React.PropTypes.string.isRequired
 	},
 
+	getInitialState () { return { loading: true }; },
 
-	getInitialState () {
-		return {
-			loading: true
-		};
+	synchronizeFromStore () {
+		this.setStateSafely({loading: false, course: Store.getData()});
 	},
 
+	componentDidMount () { this.getDataIfNeeded(this.props); },
 
-	componentDidMount () {
-		Store.addChangeListener(this._onChange);
-		this.getDataIfNeeded(this.props);
-	},
-
-
-	componentWillUnmount () {
-		setCourse(null); // clear left nav
-		Store.removeChangeListener(this._onChange);
-	},
-
+	componentWillUnmount () { setCourse(null); /*clear left nav*/ },
 
 	componentWillReceiveProps (nextProps) {
 		if (nextProps.course !== this.props.course) {
@@ -60,14 +57,9 @@ export default React.createClass({
 
 	getDataIfNeeded (props) {
 		var courseId = NTIID.decodeFromURI(props.course);
-		this.setState({loading: true});
+		this.setStateSafely({loading: true});
 
 		setCourse(courseId);
-	},
-
-
-	_onChange () {
-		this.setState({loading: false, course: Store.getData()});
 	},
 
 
