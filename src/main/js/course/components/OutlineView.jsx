@@ -99,7 +99,7 @@ export default React.createClass({
 					}
 
 					return (
-						<li>
+						<li key={href}>
 							<Tag><a href={href}>{item.title}</a></Tag>
 							{children}
 						</li>
