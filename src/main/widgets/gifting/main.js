@@ -1,5 +1,4 @@
 'use strict';
-require('script!babel/runtime');
 require('script!babel/browser-polyfill');
 require('babel/polyfill');
 

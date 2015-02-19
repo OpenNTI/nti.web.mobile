@@ -43,7 +43,7 @@ export function setupApplication(app, config) {
 	if (entryPoint==null) {//only start the dev server if entryPoint is null or undefined. if its false, skip.
 		devmode = setupDeveloperMode(port);
 		entryPoint = devmode.entry;
-		page = pageSource;
+		page = pageSource();
 		app.use(devmode.middleware);//serve in-memory compiled sources/assets
 	}
 	else if (entryPoint === false) {
