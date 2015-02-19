@@ -34,6 +34,19 @@ export default React.createClass({
 	mixins: [BasePathAware, RouteAware],
 
 
+	onHashChange () {this.forceUpdate();},
+
+
+	componentDidMount () {
+		addEventListener('hashchange', this.onHashChange, false);
+	},
+
+
+	componentDidUnmount () {
+		removeEventListener('hashchange', this.onHashChange, false);
+	},
+
+
 	getDrawerState () {
 		var key = (global.location || {}).hash || '';
 		return DRAWER_STATE[key.toLowerCase()] || '';
