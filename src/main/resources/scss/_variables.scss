@@ -97,6 +97,19 @@ $tabs-navigation-font-color: $primary-grey;
 .icon-editor-underline {background-image: url(../images/icons/editor/underline.png);}
 .icon-editor-underline-active {background-image: url(../images/icons/editor/underline_active.png);}
 
+%icon-nav-contacts {background-image: url(../images/icons/nav-contacts.png);}
+%icon-nav-contacts-active {background-image: url(../images/icons/nav-contacts_active.png);}
+%icon-nav-contacts-hover {background-image: url(../images/icons/nav-contacts_hover.png);}
+
+%icon-nav-forums {background-image: url(../images/icons/nav-forum.png);}
+%icon-nav-forums-active {background-image: url(../images/icons/nav-forum_active.png);}
+%icon-nav-forums-hover {background-image: url(../images/icons/nav-forum_hover.png);}
+
+%icon-nav-library {background-image: url(../images/icons/nav-library.png);}
+%icon-nav-library-active {background-image: url(../images/icons/nav-library_active.png);}
+%icon-nav-library-hover {background-image: url(../images/icons/nav-library_hover.png);}
+
+
 @mixin blur-effect() {
 	//filter: blur(add = 0, direction = 0, strength = 10);//IE
 	//filter: url(#blur-effect);//moz
