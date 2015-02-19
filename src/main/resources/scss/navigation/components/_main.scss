@@ -51,7 +51,7 @@
 			&:not(:first-of-type)::before {
 				content: '';
 				position: absolute;
-				right: 0;
+				left: 0;
 				top: 10px;
 				bottom: 10px;
 				width: 1px;
