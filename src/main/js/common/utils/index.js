@@ -20,7 +20,7 @@ export function getBasePath () {
 	if (isNode()) {
 		console.error('utils:getBasePath() was called in global scope.');
 	} else {
-		console.debug('[DEPRECATED] utils:getBasePath() is replaced with the BasePath Mixin');
+		console.error('[DEPRECATED] utils:getBasePath() is replaced with the BasePath Mixin');
 	}
 	return $AppConfig.basepath;
 }

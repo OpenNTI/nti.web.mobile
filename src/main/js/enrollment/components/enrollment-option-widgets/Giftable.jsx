@@ -3,11 +3,13 @@
 var React = require('react');
 var ButtonPlain = require('common/forms/components/Button');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
-var {getBasePath} = require('common/utils');
+var BasePathAware = require('common/mixins/BasePath');
+
 var NTIID = require('dataserverinterface/utils/ntiids');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 
 var Giftable = React.createClass({
+	mixins: [BasePathAware],
 
 	propTypes: {
 		catalogId: React.PropTypes.string,
@@ -15,7 +17,7 @@ var Giftable = React.createClass({
 	},
 
 	_urlForEntry: function() {
-		var href = getBasePath() + 'library/catalog/item/' + NTIID.encodeForURI(this.props.catalogId) + '/enrollment/store/gift/';
+		var href = this.getBasePath() + 'library/catalog/item/' + NTIID.encodeForURI(this.props.catalogId) + '/enrollment/store/gift/';
 		return href;
 	},
 
