@@ -28,7 +28,7 @@ var ActiveState = React.createClass({
     isActive: function() {
         let current = this.makeHref(this.getPath());
         let {href, hasChildren} = this.props;
-        if (hasChildren) {
+        if (hasChildren && current) {
             return current.indexOf(href) === 0;
         }
 
