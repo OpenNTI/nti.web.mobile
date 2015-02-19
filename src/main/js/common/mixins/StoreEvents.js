@@ -51,7 +51,7 @@ function onStoreChangeImpl(event) {
 		event = {type: event};
 	}
 
-	if (!event || !event.type || typeof event.type !== 'string') {
+	if (!event || event.type == null) {
 		console.error('Bad Event: %o', event);
 		return;
 	}
