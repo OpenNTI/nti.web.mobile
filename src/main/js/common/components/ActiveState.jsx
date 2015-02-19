@@ -12,6 +12,7 @@ var ActiveState = React.createClass({
 
     propTypes: {
         activeClassName: React.PropTypes.string,
+        hasChildren: React.PropTypes.bool,
         tag: React.PropTypes.string
     },
 
@@ -25,8 +26,14 @@ var ActiveState = React.createClass({
 
 
     isActive: function() {
+        let current = this.makeHref(this.getPath());
+        let {href, hasChildren} = this.props;
+        if (hasChildren) {
+            return current.indexOf(href) === 0;
+        }
+
         //We will make our href's absolute...
-        return this.makeHref(this.getPath()) === this.props.href;
+        return current === href;
         //this.getPath returns a router-relative ref... our href's are absolute.
         //return this.getPath() === this.props.href;
     },
