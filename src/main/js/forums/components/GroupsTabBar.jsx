@@ -3,6 +3,7 @@
 var React = require('react');
 var Router = require('react-router-component');
 var ActiveLink = require('./ActiveLink');
+var t = require('common/locale').scoped('FORUMS.groupTitles');
 
 // for computing css class names like 'two-up'
 var _numbers = ['zero','one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'];
@@ -19,7 +20,7 @@ module.exports = React.createClass({
 
 		var tabs = Object.keys(this.props.groups||{}).sort().map(groupName => {
 			var href = ['', groupName, ''].join('/');
-			return <ActiveLink href={href} key={href} className="item"><label>{groupName}</label></ActiveLink>;
+			return <ActiveLink href={href} key={href} className="item"><label>{t(groupName.toLowerCase(), {fallback: groupName})}</label></ActiveLink>;
 		});
 
 		var cssClass = ['icon-bar', (_numbers[tabs.length]||'unknown').concat('-up')].join(' ');
