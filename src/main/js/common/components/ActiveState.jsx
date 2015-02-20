@@ -1,11 +1,8 @@
-
-"use strict";
-
-var React = require('react');
-var Router = require('react-router-component');
+import React from 'react';
+import Router from 'react-router-component';
 
 
-var ActiveState = React.createClass({
+export default React.createClass({
     mixins: [Router.NavigatableMixin],
 
     displayName: 'ActiveState',
@@ -17,7 +14,7 @@ var ActiveState = React.createClass({
     },
 
 
-    getDefaultProps: function() {
+    getDefaultProps () {
         return {
             tag: 'span',
             activeClassName: 'active'
@@ -25,7 +22,7 @@ var ActiveState = React.createClass({
     },
 
 
-    isActive: function() {
+    isActive () {
         let current = this.makeHref(this.getPath());
         let {href, hasChildren} = this.props;
         if (hasChildren && current) {
@@ -39,21 +36,16 @@ var ActiveState = React.createClass({
     },
 
 
-    render: function() {
-        var Tag = this.props.tag;
-        var className = this.props.className || '';
+    render () {
+        let {tag, className, activeClassName} = this.props;
 
-        if (this.props.activeClassName && this.isActive()) {
-            className += ' ' + this.props.activeClassName;
+        if (activeClassName && this.isActive()) {
+            className = className? `${className} ${activeClassName}` : activeClassName;
         }
 
-        var props = Object.assign({}, this.props, {
-            className: className
-        });
+        let props = Object.assign({}, this.props, {className});
+        let Element = tag;
 
-        return <Tag {...props}/>;
+        return <Element {...props}/>;
     }
 });
-
-
-module.exports = ActiveState;
