@@ -30,7 +30,7 @@
 
 
 		.icon {
-			@extend .icon-assignment-timed;
+			@extend %icon-assignment-timed;
 		}
 
 		h1 {
@@ -117,7 +117,7 @@
 						}
 
 						&::before {
-							@extend .radiobox-image;
+							@extend %radiobox-image;
 							position: absolute;
 							content: '';
 							top: 10px;

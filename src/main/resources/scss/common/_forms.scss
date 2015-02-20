@@ -88,14 +88,14 @@ label:not(.css3unsupported) {
 		}
 
 
-		& + span::before { @extend .checkbox-image; }
-		&:checked + span::before { @extend .checkbox-image-active; }
+		& + span::before { @extend %checkbox-image; }
+		&:checked + span::before { @extend %checkbox-image-active; }
 	}
 
 	//&:hover > #{$checkbox},
 	& > #{$checkbox}:focus,
 	& > #{$checkbox}:active {
-		&:not(:checked):not(.disabled) + span::before { @extend .checkbox-image-hover; }
+		&:not(:checked):not(.disabled) + span::before { @extend %checkbox-image-hover; }
 	}
 }
 

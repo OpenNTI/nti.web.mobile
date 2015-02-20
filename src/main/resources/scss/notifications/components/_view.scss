@@ -35,7 +35,7 @@
 	}
 
 	.grade {
-		@extend .icon-assignment-ontime-small;
+		@extend %icon-assignment-ontime-small;
 		height: 28px;
 		width: 28px;
 	}

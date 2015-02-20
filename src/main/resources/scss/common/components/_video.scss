@@ -38,7 +38,7 @@
 		background-size: cover;
 		background-position: center center;
 		&.play:after {
-			@extend .icon-play;
+			@extend %icon-play;
 			content: '';
 			position:absolute;
 			background: {position: center center; repeat: no-repeat;}
@@ -110,7 +110,7 @@
 		}
 
 		.play::before {
-			@extend .icon-play;
+			@extend %icon-play;
 			content: '';
 			display: inline-block;
 			width: 43px;
@@ -118,7 +118,7 @@
 		}
 
 		.player::before {
-			@extend .icon-transcript;
+			@extend %icon-transcript;
 			content: '';
 			display: inline-block;
 			width: 42px;
@@ -135,7 +135,7 @@
 	width: 100%;
 
 	&::before {
-		@extend .icon-play;
+		@extend %icon-play;
 		content: '';
 		width: 43px;
 		height: 43px;

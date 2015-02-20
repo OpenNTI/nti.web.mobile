@@ -45,7 +45,7 @@
 
 	&.external {
 		.icon > div {
-			@extend .icon-external-link-hover;
+			@extend %icon-external-link-hover;
 			top: 0; right: 0;
 			position: absolute;
 			content: '';
@@ -74,7 +74,7 @@
 				$p: 50%;
 				$s: 40px;
 				$o: -20px;
-				@extend .circle-white-check-large;
+				@extend %circle-white-check-large;
 				top: $p; left: $p;
 				width: $s;	height: $s;
 				margin: {

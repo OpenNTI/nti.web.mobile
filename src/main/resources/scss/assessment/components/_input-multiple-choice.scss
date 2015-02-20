@@ -52,12 +52,12 @@
 		&.incorrect input:checked + div { box-shadow: inset 4px 0 0 0 $incorrect; }
 
 
-		@include choice-icon(radio, '.radiobox-image');
-		@include choice-icon(checkbox, '.checkbox-image');
+		@include choice-icon(radio, '%radiobox-image');
+		@include choice-icon(checkbox, '%checkbox-image');
 
 
-		&.correct input[type]:checked + div::before { @extend .circle-green-check; }
-		&.incorrect input[type]:checked + div::before { @extend .circle-red-x; }
+		&.correct input[type]:checked + div::before { @extend %circle-green-check; }
+		&.incorrect input[type]:checked + div::before { @extend %circle-red-x; }
 
 		.numeral {
 			position: relative;

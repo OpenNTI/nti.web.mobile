@@ -29,7 +29,7 @@
 		text-indent: -100px;
 
 		&::after {
-			@extend .x-close;
+			@extend %x-close;
 			content: '';
 			display: block;
 			position: absolute;

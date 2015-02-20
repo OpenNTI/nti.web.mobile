@@ -31,7 +31,7 @@
 		}
 
 		&::before {
-			@extend .icon-gift;
+			@extend %icon-gift;
 			position: absolute;
 			top: 0.2rem;
 			right: $pad;

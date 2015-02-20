@@ -27,7 +27,7 @@
 	}
 
 	&::before {
-		@extend .icon-assignment-due;
+		@extend %icon-assignment-due;
 		content: '';
 		width: 40px;
 		height: 40px;
@@ -37,10 +37,10 @@
 	}
 
 	&.ontime::before {
-		@extend .icon-assignment-ontime;
+		@extend %icon-assignment-ontime;
 	}
 	&.late::before {
-		@extend .icon-assignment-late;
+		@extend %icon-assignment-late;
 	}
 
 	h4,h5,h6 {

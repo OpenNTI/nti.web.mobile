@@ -30,7 +30,7 @@
 		}
 
 		&::after {
-			@extend .x-close;
+			@extend %x-close;
 			content: '';
 			display: block;
 			position: absolute;
@@ -41,7 +41,7 @@
 
 
 	.icon {
-		@extend .icon-modal-red-sign;
+		@extend %icon-modal-red-sign;
 		position: absolute;
 		width: 60px;
 		height: 60px;

@@ -10,7 +10,7 @@
 		position: relative;
 
 		&::before {
-			@extend .icon-modal-red-sign;
+			@extend %icon-modal-red-sign;
 			content: '';
 			position: absolute;
 			width: 60px;

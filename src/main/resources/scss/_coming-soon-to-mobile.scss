@@ -32,6 +32,6 @@ widget[data-type$="vnd.nextthought.canvas"] {
 		max-width: 100%;
 
 		background-repeat: no-repeat;
-		@extend .icon-broken-whiteboard;
+		@extend %icon-broken-whiteboard;
 	}
 }

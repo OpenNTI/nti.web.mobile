@@ -22,10 +22,10 @@
 	$formats: bold,italic,underline;
 	@each $format in $formats {
 		button[data-format=#{$format}] {
-			@extend .icon-editor-#{$format};
+			@extend %icon-editor-#{$format};
 		}
 		&.format-#{$format} button[data-format=#{$format}] {
-			@extend .icon-editor-#{$format}-active;
+			@extend %icon-editor-#{$format}-active;
 		}
 	}
 

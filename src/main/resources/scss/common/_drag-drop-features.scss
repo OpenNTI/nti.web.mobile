@@ -77,7 +77,7 @@
 		position: absolute !important;
 
 		&::after {
-			@extend .x-light;
+			@extend %x-light;
 			content: '';
 			width: 7px; height: 7px;
 			display: block;

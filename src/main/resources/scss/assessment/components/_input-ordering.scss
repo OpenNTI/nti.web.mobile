@@ -92,7 +92,7 @@
 				// background: $correct;
 				// border-color: $correct;
 				&::before {
-					@extend .circle-green-check;
+					@extend %circle-green-check;
 				}
 			}
 
@@ -100,7 +100,7 @@
 				// background: $incorrect;
 				// border-color: $incorrect;
 				&::before {
-					@extend .circle-red-x;
+					@extend %circle-red-x;
 				}
 			}
 		}

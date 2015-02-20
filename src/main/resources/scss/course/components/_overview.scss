@@ -308,7 +308,7 @@
 
 			&.submitted {
 				.icon {
-					@extend .icon-assignment-ontime;
+					@extend %icon-assignment-ontime;
 					background-repeat: no-repeat;
 					width: 40px;
 					height: 40px;
@@ -319,7 +319,7 @@
 
 			&.late {
 				.icon {
-					@extend .icon-assignment-late;
+					@extend %icon-assignment-late;
 					background-repeat: no-repeat;
 					width: 40px;
 					height: 40px;
@@ -332,7 +332,7 @@
 
 			&:not(.late) {
 				.icon {
-					@extend .icon-assignment-due;
+					@extend %icon-assignment-due;
 					background-repeat: no-repeat;
 					width: 40px;
 					height: 40px;
@@ -369,7 +369,7 @@
 		background-position: center center;
 
 		&.play:after {
-			@extend .icon-play;
+			@extend %icon-play;
 			content: '';
 			position: absolute;
 			background: {position: center center; repeat: no-repeat;}
@@ -398,7 +398,7 @@
 
 
 			&::before {
-				@extend .circle-white-check;
+				@extend %circle-white-check;
 				content: '';
 				position: absolute;
 				top: 2px;

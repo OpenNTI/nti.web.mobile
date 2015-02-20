@@ -80,7 +80,7 @@
 
 
 			&::after {
-				@extend .circle-red-x;
+				@extend %circle-red-x;
 				content: '';
 				position: absolute;
 				display: block;
