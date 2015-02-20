@@ -97,6 +97,12 @@ export default React.createClass({
 			// href: `${baseUrl}activity`
 		});
 
+		//Lessons
+		items.push({
+			title: 'Lessons',
+			href: `${baseUrl}o/`
+		});
+
 		//Assignments
 		items.push({
 			title: 'Assignments',

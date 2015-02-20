@@ -42,7 +42,7 @@ export default React.createClass({
 				.then(data => (outline = data));
 
 		var map = this._DEPTH_MAP = [
-			'h3',
+			'h1',
 			'div'
 		];
 
@@ -51,7 +51,7 @@ export default React.createClass({
 		waitFor(work)
 			.then(() => {
 				if (outline.maxDepth > 2) {
-					map.unshift('h1');
+					map.splice(1,0, 'h3');
 				}
 
 				this.setState({
@@ -71,8 +71,11 @@ export default React.createClass({
 		}
 
 		return (
-			<div>
-				{this._renderTree(outline.contents)}
+			<div className="course-outline">
+				<ul className="outline">
+					<li><label>Outline</label></li>
+					<li>{this._renderTree(outline.contents)}</li>
+				</ul>
 			</div>
 		);
 	},
