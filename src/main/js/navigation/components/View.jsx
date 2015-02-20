@@ -1,14 +1,31 @@
 import React from 'react/addons';
 
 import ActiveState from 'common/components/ActiveState';
+import Loading from 'common/components/LoadingInline';
 import BasePathAware from 'common/mixins/BasePath';
+import StoreEventAware from 'common/mixins/StoreEvents';
+import SetStateSafely from 'common/mixins/SetStateSafely';
 
 import RouteMap from '../../routes';
 
+import Store from '../Store';
+
+import {navigationComponentFor} from './types';
 
 export default React.createClass({
 	displayName: 'navigation:View',
-	mixins: [BasePathAware],
+	mixins: [BasePathAware, StoreEventAware, SetStateSafely],
+
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		default: 'synchronizeFromStore'
+	},
+
+
+	synchronizeFromStore () {
+		this.forceUpdate();
+	},
+
 
 	render () {
 		let base = this.getBasePath();
@@ -29,7 +46,22 @@ export default React.createClass({
 					)}
 				</ul>
 
+
+				{Store.isLoading ? <Loading/> : this.renderActiveContentNav()}
 			</div>
 		);
+	},
+
+
+	renderActiveContentNav () {
+		let data = Store.getData();
+ 		let Component = navigationComponentFor(data);
+
+		let item = data && data.item;
+
+		return Component && (
+			<Component item={item}/>
+		);
 	}
+
 });

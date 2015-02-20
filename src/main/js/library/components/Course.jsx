@@ -23,15 +23,12 @@ export default React.createClass({
 
 	render () {
 		var item = this.getItem();
-		var p = item.getPresentationProperties();
 		var courseId = item.getCourseID();
-		var style = {
-			backgroundImage: p && p.icon && 'url(' + p.icon + ')'
-		};
+		var p = item.getPresentationProperties();
 		return (
 			<li className="grid-item">
 				<CourseContentLink courseId={courseId}>
-					<img style={style} src={BLANK_IMAGE}/>
+					<img style={{backgroundImage: p && p.icon && `url(${p.icon})`}} src={BLANK_IMAGE}/>
 					<div className="metadata">
 						<h3>{p.title}</h3>
 						<h5>{p.label}</h5>

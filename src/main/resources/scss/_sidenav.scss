@@ -6,56 +6,9 @@
 ul.off-canvas-list {
 	clear: both;
 	font-family: $sidenav-font-family;
-	li:last-child > a.navitem {
-		border-bottom: none;
-	}
 
-	li a.navitem {
-		letter-spacing:0.05rem;
-		white-space: nowrap;
-
-		overflow: hidden;
-		@include ellipse;
-
-		// border-bottom:none;
-		// text-shadow: 0px 1px 0px white;
-		&.sectiontitle {
-			$section-title-bg: #e7e7e7;
-			color:black;
-			opacity:1;
-			border-top:1px solid #ddd;
-			background:$section-title-bg;
-			position: relative;
-			&::after {
-				$arrow-size:1em;
-				content:' ';
-				position:absolute;
-				width:0;
-				height:0;
-				left:50%;
-				margin-left:-$arrow-size;
-				bottom:-($arrow-size * 2);
-				border:$arrow-size solid transparent;
-				border-top-color:$section-title-bg;
-			}
-		}
-		&.active {
-			position:relative;
-			overflow:visible;
-			&::after {
-				content: '';
-				width: 0;
-				height: 0;
-				position: absolute;
-				top: 1rem;
-				left: -1rem;
-				border: .5em solid transparent;
-				border-left-color: $primary-color;
-			}
-		}
-	}
 	ul {
-		list-style-type: none;
+		list-style: none;
 	}
 
 	& > li > ul {
