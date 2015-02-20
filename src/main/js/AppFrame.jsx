@@ -20,64 +20,57 @@ import {getHeight as getViewportHeight} from 'common/utils/viewport';
 import Analytics from 'analytics/components/Tag';
 import LibraryInvalidationListener from 'library/components/InvalidationListener';
 
-const LEFT_MENU_OPEN = 'move-right';
-const RIGHT_MENU_OPEN = 'move-left';
+const LEFT_MENU_OPEN = 'offcanvas-overlap-right';
+const RIGHT_MENU_OPEN = 'offcanvas-overlap-left';
 const CLOSE_MENU = '';
-const DRAWER_STATE = {
-	'#nav': LEFT_MENU_OPEN,
-	'#notifications': RIGHT_MENU_OPEN
-};
-
 
 export default React.createClass({
 	displayName: 'AppContainer',
 	mixins: [BasePathAware, RouteAware],
 
 
-	onHashChange () {this.forceUpdate();},
+	onNavChange () {this.onCloseMenus();},
 
 
 	componentDidMount () {
-		addEventListener('hashchange', this.onHashChange, false);
+		addEventListener('hashchange', this.onNavChange, false);
+		addEventListener('popstate', this.onNavChange, false);
 	},
 
 
 	componentDidUnmount () {
-		removeEventListener('hashchange', this.onHashChange, false);
+		removeEventListener('hashchange', this.onNavChange, false);
+		removeEventListener('popstate', this.onNavChange, false);
 	},
 
 
-	getDrawerState () {
-		var key = (global.location || {}).hash || '';
-		return DRAWER_STATE[key.toLowerCase()] || '';
+	getOverlayState () {
+		return (this.state || {}).overlay;
 	},
 
 
 	componentDidUpdate () {
 		var viewport = document.getElementsByTagName('html')[0];
-		var cls = 'scroll-lock';
-		var action = (this.getDrawerState() === CLOSE_MENU) ? removeClass : addClass;
+		var action = (this.getOverlayState() === CLOSE_MENU) ? removeClass : addClass;
 
-		action(viewport, cls);
+		action(viewport, 'scroll-lock');
 	},
 
 
 	render () {
-
-		var state = this.getDrawerState();
-		var username = getAppUsername();
-		var hamburger = state === LEFT_MENU_OPEN ? 'active' : '';
 		var height = {height: getViewportHeight()};
+		var state = this.getOverlayState();
+		var username = getAppUsername();
 
 		return (
 			<div className="app-container">
 				<Analytics />
 				<LibraryInvalidationListener />
-				<div className={'off-canvas-wrap ' + state} data-offcanvas>
+				<div className={`off-canvas-wrap ${state}`} data-offcanvas>
 					<div className="inner-wrap">
 						<nav className="tab-bar">
 							<section className="left-small">
-								<a	className={`left-off-canvas-toggle hamburger ${hamburger}`}
+								<a className="left-off-canvas-toggle hamburger"
 									onClick={this.onLeftMenuClick}
 									href="#"><span/></a>
 							</section>
@@ -118,18 +111,18 @@ export default React.createClass({
 
 	onCloseMenus (e) {
 		if (e) {e.preventDefault();}
-		this.gotoFragment(null);
+		this.setState({overlay: null});
 	},
 
 
 	onLeftMenuClick (e) {
 		if (e) {e.preventDefault();}
-		this.gotoFragment('nav');
+		this.setState({overlay: LEFT_MENU_OPEN});
 	},
 
 
 	onRightMenuClick (e) {
 		if (e) {e.preventDefault();}
-		this.gotoFragment('notifications');
+		this.setState({overlay: RIGHT_MENU_OPEN});
 	}
 });
