@@ -50,7 +50,7 @@ export default React.createClass({
 
 	componentDidUpdate () {
 		var viewport = document.getElementsByTagName('html')[0];
-		var action = (this.getOverlayState() != null) ? removeClass : addClass;
+		var action = (this.getOverlayState() == null) ? removeClass : addClass;
 
 		action(viewport, 'scroll-lock');
 	},
