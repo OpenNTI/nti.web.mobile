@@ -10,59 +10,39 @@
 @import "settings";
 @import "variables"; // we override some foundation settings so this has to come between settings and foundation.
 @import "foundation";
-@import "transitions";
-@import "common-animations";
 
-@import "common/buttons";
-@import "prompts/components";
+@import "common/transitions";
+@import "common/animations";
+@import "common/components";
 
-@import "common/components/attributed-content-item";
-
-@import "common/grid-view";
-@import "common/drag-drop-features";
-@import "common/components/user-session";
-@import "common/components/card";
-@import "common/components/error";
-@import "common/components/loading";
-@import "common/components/pager";
-@import "common/components/video";
-@import "common/count-badge";
-@import "common/components/collectionfilter";
-@import "common/components/icon-bar";
-@import "common/arrows";
-@import "common/hamburger";
-
-@import "modeled-content/content-styles";
-@import "modeled-content/editor";
+@import "sidenav";
+@import "coming-soon-to-mobile";
 
 @import "assessment/components";
-@import "navigation/components";
-@import "profile/components";
-
+@import "content/components";
 @import "course/components";
-
 @import "enrollment/components";
+@import "forums/components";
+@import "login/components";
+@import "modeled-content/components";
+@import "navigation/components";
+@import "notifications/components";
+@import "profile/components";
+@import "prompts/components";
 
-@import "content/components/view";
-@import "common/components/panelbutton";
 
-@import "common/forms";
 
-@import "login/signup";
-@import "login/login";
-
-@import "notifications/components/view";
 
 %detail-link {
 	text-transform: uppercase;
 	font-size: 0.6875rem;
 }
 
-@import "forums/forums";
 
-@import "sidenav";
 
-@import "coming-soon-to-mobile";
+
+
+
 
 
 @mixin input-typography {
