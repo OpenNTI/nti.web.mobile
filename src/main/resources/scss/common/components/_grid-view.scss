@@ -1,30 +1,36 @@
-
-
-.grid-item {
+%content-card {
 	position: relative;
 	overflow: hidden;
+	display: block;
+
+	&::after {
+		content: '';
+		display: block;
+		//make the height not jump while loading the avatar
+		// padding-top: 73.3%;//for full aspect ratio of library card icons.
+		padding-top: 60%;
+	}
 
 	img {
 		width: 100%;
-		height: 170px;
-		background-size: cover;
+		position: absolute;
+		top: 0;
+		left: 0;
 	}
 
-	.metadata {
-		text-align: left;
+	label {
 		position: absolute;
-		bottom: 1.20rem;
-		left: 0.625rem; right: 0.625rem;
-		padding: 0.3rem 0.625rem;
-
-		background: rgba(0,0,0,0.8);
-
-		* {
-			color: white;
-			text-transform: uppercase;
-		}
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: rgba(0,0,0,0.7);
+		overflow: hidden;
+		text-align: left;
+		padding: 0.2rem 1rem;
 
 		h3, h5 {
+			color: white;
+			text-transform: uppercase;
 			overflow: hidden;
 			@include ellipse();
 			margin: 0;
@@ -38,6 +44,41 @@
 		h5 {
 			font-size: 0.5rem;
 		}
+	}
+}
+
+.grid-item {
+	position: relative;
+	overflow: hidden;
+
+	& > a {
+		@extend %content-card;
+
+		&::after {
+			padding-top: 170px;
+		}
+
+		img {
+			width: 100%;
+			height: 170px;
+			background-size: cover;
+		}
+
+		label {
+
+			// bottom: 1.20rem;
+			// left: 0.625rem; right: 0.625rem;
+			// padding: 0.3rem 0.625rem;
+
+			h3, h5 {
+				white-space: normal;
+			}
+		}
+	}
+
+	ul {
+		margin: 0;
+		@extend %outline;
 	}
 }
 

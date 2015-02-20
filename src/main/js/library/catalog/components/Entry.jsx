@@ -33,10 +33,10 @@ export default React.createClass({
 			<li className="grid-item">
 				<Link href={href}>
 					<img style={style} src={BLANK_IMAGE}/>
-					<div className="metadata">
+					<label>
 						<h3>{item.Title}</h3>
 						<h5>{item.ProviderUniqueID}</h5>
-					</div>
+					</label>
 				</Link>
 			</li>
 		);

@@ -3,9 +3,8 @@ import React from 'react';
 import ActiveState from 'common/components/ActiveState';
 import Loading from 'common/components/LoadingInline';
 
-import isEmpty from 'dataserverinterface/utils/isempty';
+import Outline from 'course/components/OutlineView';
 import CourseLinker from 'library/components/CourseContentLinkMixin';
-//import BasePathAware from 'common/mixins/BasePath';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
 export default React.createClass({
@@ -23,65 +22,26 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		this.fillIn(this.props); },
-
-
-	componentWillUnmount () {
-		let {item} = this.props;
-		if (item) {
-			item.removeListener('changed', this.itemChanged);
-		}
+		this.fillIn(this.props);
 	},
 
 
 	componentWillReceiveProps (nextProps) {
-		let {item} = this.props;
-		if (nextProps.item !== item) {
-			if (item) {
-				item.removeListener('changed', this.itemChanged);
-			}
+		if (nextProps.item !== this.props.item) {
 			this.fillIn(nextProps);
 		}
 	},
 
 
-	itemChanged () {
-		let {item} = this.props;
-		let presentation = item ? item.getPresentationProperties() : {};
-		let {icon, title, label} = presentation;
-		this.setStateSafely({ icon, title, label });
-	},
-
-
 	fillIn (props) {
-		this.itemChanged();
-		this.setStateSafely({loading: true});
+		//this.setStateSafely({loading: true});
 		let {item} = props;
-		let resolvingOutline = item ? item.getOutline() : Promise.reject();
-
-		if (item) {
-			item.addListener('changed', this.itemChanged);
-		}
-
-		let depthMap = ['h1','div'];
-
-		let prefix = this.getBasePath();
 
 		let sections = item ? this.resolveSections(item) : [];
 
-		resolvingOutline.then(outline => {
-
-			if (outline && outline.maxDepth > 2) {
-				depthMap.splice(1, 0, 'h3');
-			}
-
-			this.setStateSafely({
-				depthMap,
-				loading: false,
-				outline,
-				prefix,
-				sections
-			});
+		this.setStateSafely({
+			loading: false,
+			sections
 		});
 	},
 
@@ -100,7 +60,8 @@ export default React.createClass({
 		//Lessons
 		items.push({
 			title: 'Lessons',
-			href: `${baseUrl}o/`
+			href: `${baseUrl}o/`,
+			hasChildren: true
 		});
 
 		//Assignments
@@ -134,29 +95,13 @@ export default React.createClass({
 
 
 	render () {
-		let {outline, loading, icon, label, title} = this.state;
-
-		if (loading) {
-			return (<Loading/>);
-		}
+		let {loading} = this.state;
 
 		return (
 			<div className="course-nav">
-				<div className="head">
-					<img src={icon}/>
-					<label>
-						<h3>{title}</h3>
-						<h5>{label}</h5>
-					</label>
-					<div className="branding"/>
-				</div>
-
-				{this.renderSectionItems()}
-
-				<ul className="outline">
-					<li><label>Outline</label></li>
-					<li>{this.renderTree(outline.contents)}</li>
-				</ul>
+				<Outline item={this.props.item}>
+					{loading? <Loading/> : this.renderSectionItems()}
+				</Outline>
 			</div>
 		);
 	},
@@ -174,41 +119,5 @@ export default React.createClass({
 			)}
 			</ul>
 		);
-	},
-
-
-	renderTree (list) {
-		let renderTree = this.renderTree;
-		let {depthMap, prefix} = this.state;
-
-		if (isEmpty(list)) {
-			return null;
-		}
-
-		return (
-			<ul>
-				{list.map(item => {
-					var {href, depth, title} = item;
-
-					var tag = depthMap[depth - 1] || 'div';
-
-					if (href) {
-						href = prefix + href;
-					}
-
-					var props = {
-						href, title, children:[title]
-					};
-
-					return (
-						<li key={href}>
-							<ActiveState hasChildren href={href} tag={tag}><a {...props}/></ActiveState>
-							{renderTree(item.contents)}
-						</li>
-					);
-				})}
-			</ul>
-		);
-
 	}
 });

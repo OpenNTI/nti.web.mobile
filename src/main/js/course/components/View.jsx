@@ -80,27 +80,26 @@ export default React.createClass({
 
 		return (
 			<Router.Locations contextual>
-				<Router.Location path="/v/(:videoId/)(#:nav)"
+				<Router.Location path="/v/(:videoId)(/*)"
 									handler={Media}
 									course={course}
 									contextProvider={this.__getContext}/>
 
-				<Router.Location path="/o/(#:nav)"
-									handler={Outline}
-									course={course}/>
-
-				<Router.Location path="/o/:outlineId/(#:nav)"
+				<Router.Location path="/o/:outlineId(/*)"
 									handler={Overview}
 									course={course}
 									contextProvider={this.__getContext}/>
 
+				<Router.Location path="/o(/*)"
+									handler={Outline}
+									item={course}/>
 
-				<Router.Location path="/d/*"
+				<Router.Location path="/d(/*)"
 									handler={ForumView}
 									course={course}
 									contextProvider={this.__getContext}/>
 
-				<Router.Location path="/o/:outlineId/c/:rootId/*"
+				<Router.Location path="/o/:outlineId/c/:rootId(/*)"
 									handler={ContentViewer}
 									contentPackage={course}
 									slug="c"

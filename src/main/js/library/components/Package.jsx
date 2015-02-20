@@ -39,10 +39,10 @@ export default React.createClass({
 			<li className="grid-item">
 				<a href={this.getBasePath() + 'content/' + id + '/'}>
 					<img style={style} src={BLANK_IMAGE}/>
-					<div className="metadata">
+					<label>
 						<h3>{p.title}</h3>
 						<h5>{p.author}</h5>
-					</div>
+					</label>
 				</a>
 			</li>
 		);

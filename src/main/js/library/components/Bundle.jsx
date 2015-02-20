@@ -29,10 +29,10 @@ export default React.createClass({
 		return (
 			<li className="grid-item">
 				<img style={style} src={BLANK_IMAGE}/>
-				<div className="metadata">
+				<label>
 					<h3>{p.title}</h3>
 					<h5>{p.author}</h5>
-				</div>
+				</label>
 			</li>
 		);
 	}
