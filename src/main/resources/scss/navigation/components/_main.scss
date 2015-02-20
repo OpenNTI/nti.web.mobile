@@ -21,10 +21,7 @@
 
 .nav {
 	ul.main {
-		@include flexbox();
-		margin: 0;
-		position: relative;
-		list-style: none;
+		@extend %icon-tabs;
 		background: #ebebec;
 
 		&::before {
@@ -43,10 +40,6 @@
 		}
 
 		li {
-			position: relative;
-			display: inline-block;
-			overflow: hidden;
-			@include flex(1 1 auto);
 
 			&:not(:first-of-type)::before {
 				content: '';
