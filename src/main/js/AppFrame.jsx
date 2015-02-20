@@ -22,7 +22,6 @@ import LibraryInvalidationListener from 'library/components/InvalidationListener
 
 const LEFT_MENU_OPEN = 'offcanvas-overlap-right';
 const RIGHT_MENU_OPEN = 'offcanvas-overlap-left';
-const CLOSE_MENU = '';
 
 export default React.createClass({
 	displayName: 'AppContainer',
@@ -51,7 +50,7 @@ export default React.createClass({
 
 	componentDidUpdate () {
 		var viewport = document.getElementsByTagName('html')[0];
-		var action = (this.getOverlayState() === CLOSE_MENU) ? removeClass : addClass;
+		var action = (this.getOverlayState() != null) ? removeClass : addClass;
 
 		action(viewport, 'scroll-lock');
 	},
