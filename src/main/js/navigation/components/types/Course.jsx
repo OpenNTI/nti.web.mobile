@@ -4,13 +4,13 @@ import ActiveState from 'common/components/ActiveState';
 import Loading from 'common/components/LoadingInline';
 
 import isEmpty from 'dataserverinterface/utils/isempty';
-
-import BasePathAware from 'common/mixins/BasePath';
+import CourseLinker from 'library/components/CourseContentLinkMixin';
+//import BasePathAware from 'common/mixins/BasePath';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
 export default React.createClass({
 	displayName: 'navigation:type:Course',
-	mixins: [BasePathAware, SetStateSafely],
+	mixins: [SetStateSafely, CourseLinker],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired
@@ -67,6 +67,7 @@ export default React.createClass({
 
 		let prefix = this.getBasePath();
 
+		let sections = item ? this.resolveSections(item) : [];
 
 		resolvingOutline.then(outline => {
 
@@ -78,9 +79,51 @@ export default React.createClass({
 				depthMap,
 				loading: false,
 				outline,
-				prefix
+				prefix,
+				sections
 			});
 		});
+	},
+
+
+	resolveSections (item) {
+		let items = [];
+		let courseId = item.getCourseID();
+		let baseUrl = this.courseHref(courseId, false);
+
+		//Activity
+		items.push({
+			title: 'Activity',
+			// href: `${baseUrl}activity`
+		});
+
+		//Assignments
+		items.push({
+			title: 'Assignments',
+			// href: `${baseUrl}a/`,
+			hasChildren: true
+		});
+
+		//Discussions
+		items.push({
+			title: 'Discussions',
+			href: `${baseUrl}d/`,
+			hasChildren: true
+		});
+
+		items.push({
+			title: 'Videos',
+			href: `${baseUrl}v/`,
+			hasChildren: true
+		});
+
+		//Course Info
+		items.push({
+			title: 'Course Info',
+			href: baseUrl
+		});
+
+		return items;
 	},
 
 
@@ -101,13 +144,29 @@ export default React.createClass({
 					</label>
 					<div className="branding"/>
 				</div>
-				<ul className="sections">
-				</ul>
+
+				{this.renderSectionItems()}
+
 				<ul className="outline">
 					<li><label>Outline</label></li>
 					<li>{this.renderTree(outline.contents)}</li>
 				</ul>
 			</div>
+		);
+	},
+
+
+	renderSectionItems () {
+		let {sections} = this.state;
+		if (!sections) {return;}
+
+		return (
+			<ul className="sections">{sections.map(x=>
+				<li key={x.title}>
+					<ActiveState {...x} tag="div"><a {...x}>{x.title}</a></ActiveState>
+				</li>
+			)}
+			</ul>
 		);
 	},
 

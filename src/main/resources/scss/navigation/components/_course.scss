@@ -50,18 +50,23 @@
 		}
 	}
 
-
+	ul.sections {
+		background: #f0f0f0;//$panel-packground;
+		border-top: 1px solid $border-grey;
+		margin: 0;
+	}
 
 	ul.outline {
 		background: #ffffff;
 		padding-bottom: 3rem;
 		border-top: 1px solid $border-grey;
+	}
 
+	ul {
 		&, ul {
 			list-style: none;
 			margin-left: 0;
 		}
-
 	}
 
 	li label {
