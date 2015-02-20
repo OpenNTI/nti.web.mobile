@@ -25,12 +25,14 @@ export default React.createClass({
 	componentDidMount () {
 		this.fillIn(this.props); },
 
+
 	componentWillUnmount () {
 		let {item} = this.props;
 		if (item) {
 			item.removeListener('changed', this.itemChanged);
 		}
 	},
+
 
 	componentWillReceiveProps (nextProps) {
 		let {item} = this.props;
@@ -41,6 +43,7 @@ export default React.createClass({
 			this.fillIn(nextProps);
 		}
 	},
+
 
 	itemChanged () {
 		let {item} = this.props;
@@ -54,22 +57,18 @@ export default React.createClass({
 		this.itemChanged();
 		this.setStateSafely({loading: true});
 		let {item} = props;
-		let work = item ? item.getOutline() : Promise.reject();
+		let resolvingOutline = item ? item.getOutline() : Promise.reject();
 
 		if (item) {
 			item.addListener('changed', this.itemChanged);
 		}
 
-		let depthMap = [
-			'h1',
-			'div'
-		];
+		let depthMap = ['h1','div'];
 
 		let prefix = this.getBasePath();
 
 
-
-		work.then(outline => {
+		resolvingOutline.then(outline => {
 
 			if (outline && outline.maxDepth > 2) {
 				depthMap.splice(1, 0, 'h3');
@@ -106,15 +105,15 @@ export default React.createClass({
 				</ul>
 				<ul className="outline">
 					<li><label>Outline</label></li>
-					<li>{this._renderTree(outline.contents)}</li>
+					<li>{this.renderTree(outline.contents)}</li>
 				</ul>
 			</div>
 		);
 	},
 
 
-	_renderTree (list) {
-		var _renderTree = this._renderTree;
+	renderTree (list) {
+		let renderTree = this.renderTree;
 		let {depthMap, prefix} = this.state;
 
 		if (isEmpty(list)) {
@@ -139,7 +138,7 @@ export default React.createClass({
 					return (
 						<li key={href}>
 							<ActiveState hasChildren href={href} tag={tag}><a {...props}/></ActiveState>
-							{_renderTree(item.contents)}
+							{renderTree(item.contents)}
 						</li>
 					);
 				})}
