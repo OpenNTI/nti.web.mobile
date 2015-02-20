@@ -13,6 +13,8 @@ export default React.createClass({
 	render () {
 		let {username} = this.props;
 
+		username = decodeURIComponent(username);
+
 		let me = username === getAppUsername();
 
 		return (

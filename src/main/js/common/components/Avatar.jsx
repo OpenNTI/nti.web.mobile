@@ -34,13 +34,13 @@ export default React.createClass({
 
 
 	render () {
-		var user = this.props.username;
-		var css = this.props.className || '';
+		var {username, className} = this.props;
+		var css = className || '';
 
 		var props = Object.assign({}, this.props, {
-			'data-for': user,
+			'data-for': username,
 			src: this.state.avatar,
-			alt: 'Avatar for ' + user,
+			alt: 'Avatar for ' + username,
 			onError: this.setUnknown,
 			className: `avatar ${css}`
 		});
@@ -64,7 +64,7 @@ function fillIn (cmp, props) {
 	if (!isNTIID(username)){
 		promise = Promise.resolve(
 			username ?
-				urlJoin(getServerURI(), 'users', username, '@@avatar') : BLANK_AVATAR
+				urlJoin(getServerURI(), 'users', encodeURIComponent(username), '@@avatar') : BLANK_AVATAR
 		);
 	}
 
