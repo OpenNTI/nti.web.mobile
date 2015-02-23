@@ -78,3 +78,8 @@ from `nextthought-webapp-mobile`:
 ```bash
 npm link react-editor-component
 ```
+
+### Sublime Text Snippets
+If you're using Sublime Text you can install the [NextThought snippets package](https://github.com/themaxx/nt-sublime-snippets) via package control.
+
+
