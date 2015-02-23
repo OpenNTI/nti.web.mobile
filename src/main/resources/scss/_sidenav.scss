@@ -32,6 +32,10 @@ aside[class*=off-canvas-menu] {
 		position: relative;
 		margin: 3rem 0;
 	}
+
+	div[class*=offcanvas-overlap] & {
+		box-shadow: 0 0 5px 0 black;
+	}
 }
 
 .exit-off-canvas {
