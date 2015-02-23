@@ -39,7 +39,7 @@ function parseResult( result ) { // API result
 
 	var data = result[1];
 	var entryInfo = result[2];
-	var assets = data.flavorAssets;
+	var assets = data.flavorAssets || [];
 
 	var baseUrl = protocol + serviceUrl + '/p/' + entryInfo.partnerId +
 			'/sp/' + entryInfo.partnerId + '00/playManifest';
