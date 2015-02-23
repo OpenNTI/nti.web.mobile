@@ -1,15 +1,15 @@
 # commands for enrolling, dropping courses, resetting user state, etc.
 
 ## create user with nextthought.com email
-    nti_create_user -email admin@nextthought.com admin@nextthought.com temp001
+    nti_create_user --email admin@nextthought.com admin@nextthought.com temp001
 
 ## drop course
 
-    http -a admin@nextthought.com:temp001 POST http://localhost:8082/dataserver2/@@AdminUserCourseDrop ntiid=tag:nextthought.com,2011-10:NTI-CourseInfo-Spring2015_LSTD_1153 username=ray.hatfield@gmail.com
+    http -a admin@nextthought.com:temp001 POST http://localhost:8082/dataserver2/CourseAdmin/UserCourseDrop ntiid=tag:nextthought.com,2011-10:NTI-CourseInfo-Spring2015_LSTD_1153 username=ray.hatfield@gmail.com
 
 ## enroll user for credit
 
-    http -a admin@nextthought.com:temp001 POST http://localhost:8082/dataserver2/@@AdminUserCourseEnroll username=julie.zhu ntiid='tag:nextthought.com,2011-10:OU-HTML-EDAH5023_Admin_of_Adult_and_Higher_Education.course_info' scope=ForCredit
+    http -a admin@nextthought.com:temp001 POST http://localhost:8082/dataserver2/CourseAdmin/UserCourseEnroll username=local ntiid='tag:nextthought.com,2011-10:NTI-CourseInfo-Spring2015_LSTD_1153_SubInstances_500' scope=ForCredit
 
 ## reset admission status
 
