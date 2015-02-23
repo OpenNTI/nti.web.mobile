@@ -17,7 +17,7 @@ var Giftable = React.createClass({
 	},
 
 	_urlForEntry: function() {
-		var href = this.getBasePath() + 'library/catalog/item/' + NTIID.encodeForURI(this.props.catalogId) + '/enrollment/store/gift/';
+		var href = this.getBasePath() + 'catalog/item/' + NTIID.encodeForURI(this.props.catalogId) + '/enrollment/store/gift/';
 		return href;
 	},
 

@@ -7,7 +7,7 @@ var Enroll = require('./Enroll');
 var DropCourse = require('./DropCourse');
 var StoreEnrollment = require('../store-enrollment/components/View');
 var CreditEnrollment = require('../five-minute/components/View');
-var CatalogStore = require('library/catalog/Store');
+var CatalogStore = require('catalog/Store');
 var Constants = require('../Constants');
 var {decodeFromURI} = require('dataserverinterface/utils/ntiids');
 

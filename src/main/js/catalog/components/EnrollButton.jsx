@@ -34,7 +34,7 @@ export default React.createClass({
 			// drop button
 
 			//ick... full path?!
-			var href = this.getBasePath() + 'library/catalog/item/' + encodeForURI(this.getEntryID()) + '/enrollment/drop/';
+			var href = this.getBasePath() + 'catalog/item/' + encodeForURI(this.getEntryID()) + '/enrollment/drop/';
 
 			return <ButtonFullWidth href={href}>Drop This Course</ButtonFullWidth>;
 		}

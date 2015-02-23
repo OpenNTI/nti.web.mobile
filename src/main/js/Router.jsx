@@ -2,6 +2,7 @@ import React from 'react';
 import {Locations, Location, NotFound as Default} from 'react-router-component';
 
 //Main View Handlers
+import Catalog from 'catalog/components/View';
 import Contact from 'contact/components/View';
 import Content from 'content/components/View';
 import Course from 'course/components/View';
@@ -15,6 +16,7 @@ import NotFound from 'notfound/components/View';
 import BasePathAware from 'common/mixins/BasePath';
 
 const HANDLER_BY_NAME = {
+	Catalog,
 	Contact,
 	Content,
 	Course,

@@ -4,8 +4,7 @@ import LibraryAccessor from './LibraryAccessor';
 const sectionNames = {
 	admin: 'admin',
 	courses: 'courses',
-	books: 'books',
-	catalog: 'catalog'
+	books: 'books'
 };
 
 
@@ -35,13 +34,10 @@ export default {
 		return this.ensureLibraryLoaded()
 			.then(() => {
 				var admin = this.getListForSection(sectionNames.admin);
-				var courses = this.getListForSection(sectionNames.courses);
-
 					//if there are admin courses, default there...
 				return admin.length ? sectionNames.admin :
 					// if user doesn't have any courses default to the catalog.
-						courses.length ? sectionNames.courses :
-						sectionNames.catalog;
+						sectionNames.courses;
 			});
 	},
 

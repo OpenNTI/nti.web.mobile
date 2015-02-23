@@ -3,11 +3,8 @@ import React from 'react';
 import IconBar from './IconBar';
 
 import List from './List';
-import Catalog from '../catalog/components/View';
-
 
 const mapping = {
-	'catalog': Catalog
 };
 
 

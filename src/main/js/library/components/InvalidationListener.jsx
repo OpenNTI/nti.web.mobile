@@ -4,7 +4,7 @@ import EnrollmentStore from 'enrollment/Store';
 import StoreEnrollmentStore from 'enrollment/store-enrollment/Store';
 
 import {reload as reloadLibrary} from '../Actions';
-import {reload as reloadCatalog} from '../catalog/Actions';
+import {reload as reloadCatalog} from 'catalog/Actions';
 
 const INVALIDATION_EVENTS = {
 	DROP_COURSE: true,

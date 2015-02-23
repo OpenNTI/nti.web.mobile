@@ -72,7 +72,6 @@ export default React.createClass({
 				<BarItem section="admin">Admin</BarItem>
 				<BarItem section="courses">Courses</BarItem>
 				<BarItem section="books">Books</BarItem>
-				<BarItem section="catalog" forced>Catalog</BarItem>
 			</div>
 		);
 	}

@@ -23,6 +23,7 @@
  */
 export default [
 	{handler: 'Login',		path:'login/*'},
+	{handler: 'Catalog',	path:'catalog/*',				navIndex: 3},
 	{handler: 'Contact',	path:'contact/:configname(/*)'},
 	{handler: 'Contacts',	path:'contacts/*',				navIndex: 2},
 	{handler: 'Content',	path:'content/:pkgId/*'},

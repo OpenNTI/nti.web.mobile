@@ -1,7 +1,7 @@
 import React from 'react';
 
 import EnrollmentStore from '../Store';
-import CatalogStore from 'library/catalog/Store';
+import CatalogStore from 'catalog/Store';
 
 import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 

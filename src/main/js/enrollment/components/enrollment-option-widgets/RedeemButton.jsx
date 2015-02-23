@@ -16,7 +16,7 @@ var RedeemButton = React.createClass({
 	},
 
 	_urlForEntry: function() {
-		var href = getBasePath() + 'library/catalog/item/' + encodeForURI(this.props.catalogId) + '/enrollment/store/gift/redeem/';
+		var href = getBasePath() + 'catalog/item/' + encodeForURI(this.props.catalogId) + '/enrollment/store/gift/redeem/';
 		return href;
 	},
 

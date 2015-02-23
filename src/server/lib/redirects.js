@@ -32,7 +32,7 @@ export default {
 		 * ?q=library/availablecourses/IUB0YWc6bmV4dHRob3VnaHQuY29tLDIwMTEtMTA6TlRJLUNvdXJzZUluZm8tU3ByaW5nMjAxNV9MU1REXzExNTM/redeem/code
 		 *
 		 * To:
-		 * <basepath>/library/catalog/item/NTI-CourseInfo-Spring2015_LSTD_1153/enrollment/store/gift/redeem/code
+		 * <basepath>/catalog/item/NTI-CourseInfo-Spring2015_LSTD_1153/enrollment/store/gift/redeem/code
 		 */
 		if (index > 0) {
 			// default to root view with notification drawer open:
@@ -46,7 +46,7 @@ export default {
 				var catalogId = translateCatalogId(parts[1]);
 				trailingPath = translateTrailingPath(parts[2]) || '';
 
-				redUrl = path.join(this.basepath, 'library', 'catalog', 'item', catalogId, trailingPath);
+				redUrl = path.join(this.basepath, 'catalog', 'item', catalogId, trailingPath);
 			}
 			console.log('\n\nredUrl: ', redUrl, '\n\n');
 			res.redirect(redUrl);
