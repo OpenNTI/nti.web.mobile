@@ -99,6 +99,7 @@
 
 
 
+.catalog-item,
 .thumbnail-grid-item {
 	padding-bottom: 0 !important;
 
@@ -128,5 +129,66 @@
 
 	h3 {
 		margin-right: 35%;
+	}
+}
+
+
+li.catalog-item {
+	border-bottom: 1px solid #eaeaea;
+	padding: 0;
+
+	.thumbnail {
+		max-width: 80px;
+		width: 25%;
+		float: left;
+		&::after {
+			padding-top: 60%;
+		}
+	}
+
+	button {
+		float: right;
+		padding: 0.25rem 0.5rem;
+		text-transform: uppercase;
+		font-weight: 700;
+		font-size: 0.8rem;
+		border-radius: 3px;
+		margin: 0 0.2rem;
+		position: absolute;
+		top: 50%; right: 0;
+		@include transform(translateY(-50%));
+
+		&.add {background: $primary-green;}
+
+		&.drop {background: $primary-red;}
+	}
+
+	a {
+		padding: 0;
+		position: relative;
+		box-shadow: none;
+	}
+
+	label {
+		margin-left: 26%;
+		margin-right: 17.5%;
+	}
+
+	h3, h5 {
+		margin: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	h3 {
+		font-size: 1.2rem;
+	}
+
+	h5 {
+		font-size: 0.8rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		color: $tertiary-grey;
 	}
 }

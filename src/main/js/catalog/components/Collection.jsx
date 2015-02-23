@@ -38,7 +38,6 @@ const ListView = React.createClass({
 	mixins: [OwnerQuery],
 
 	render () {
-		var size = this.getStateFromParent('orientation') === 'landscape' ? 2 : 1;
 
 		if (!this.props.list.map) {
 			console.warn('this.props.list doesn\'t have a map function? %O', this.props.list);
@@ -48,7 +47,7 @@ const ListView = React.createClass({
 
 		return (
 			<div className="grid-container">
-				<ul className={'small-block-grid-' + size + ' medium-block-grid-3 large-block-grid-4'}>
+				<ul className={'small-block-grid-1'}>
 					{this.props.list.map(o=><Item key={o.NTIID} item={o}/>)}
 				</ul>
 			</div>

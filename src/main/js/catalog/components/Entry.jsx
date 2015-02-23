@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {encodeForURI} from 'dataserverinterface/utils/ntiids';
-import {BLANK_IMAGE} from 'common/constants/DataURIs';
+
 import {Link} from 'react-router-component';
 
 export default React.createClass({
@@ -17,22 +17,27 @@ export default React.createClass({
 	componentWillMount () { this.getItem().addListener('changed', this.itemChanged); },
 	componentWillUnmount () { this.getItem().removeListener('changed', this.itemChanged); },
 
-	render () {
+	getDetailHref () {
 		var item = this.getItem();
-		if (!item) {return;}
+		if (!item) {return '';}
 
 		var courseId = encodeForURI(item.getID());
+		return `/item/${courseId}/`;
+	},
 
-		var style = {
-			backgroundImage: item && item.icon && 'url(' + item.icon + ')'
-		};
 
-		var href = '/item/' + courseId + '/';
+	render () {
+		var item = this.getItem();
+
+		if (!item) {return;}
+
+		let icon = item && item.icon;
 
 		return (
-			<li className="grid-item">
-				<Link href={href}>
-					<img style={style} src={BLANK_IMAGE}/>
+			<li className="catalog-item">
+				<Link href={this.getDetailHref()}>
+					<div className="thumbnail" style={{backgroundImage: icon && `url(${icon})`}}/>
+					{this.button()}
 					<label>
 						<h3>{item.Title}</h3>
 						<h5>{item.ProviderUniqueID}</h5>
@@ -40,5 +45,28 @@ export default React.createClass({
 				</Link>
 			</li>
 		);
+	},
+
+
+	isMaybeEnrolled () {
+		var item = this.getItem();
+		if (!item) {return;}
+
+		let {Items} = item.EnrollmentOptions;
+
+		for(let prop of Object.keys(Items)) {
+			let opt = Items[prop];
+			if(opt.IsEnrolled) {
+				return true;
+			}
+		}
+	},
+
+
+	button () {
+		return this.isMaybeEnrolled() ?
+			<button className="drop" href={this.getDetailHref()}>Drop</button> :
+			<button className="add" href={this.getDetailHref()}>Add</button>
+		;
 	}
 });
