@@ -127,7 +127,7 @@ export default React.createClass({
 						<h5>{label}</h5>
 					</label>
 				</CourseContentLink>
-				
+
 				{this.renderSectionItems()}
 			</li>
 		);
@@ -139,7 +139,7 @@ export default React.createClass({
 		if (!sections) {return;}
 
 		return (
-			<ul className="sections">{sections.map(x=>
+				<ul className="sections small-block-grid-2">{sections.map(x=>
 				<li key={x.title}>
 					<ActiveState {...x} tag="div"><a {...x}>{x.title}</a></ActiveState>
 				</li>
