@@ -19,7 +19,7 @@ export default React.createClass({
 				<div className='grade'/>
 				<div className="wrap">
 					Grade recieved for {assignmentName} in {courseName}
-					<DateTime date={this.getEventTime()} />
+					<DateTime date={this.getEventTime()} relative />
 				</div>
 			</li>
 		);
