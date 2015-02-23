@@ -6,6 +6,9 @@ import path from 'path';
 
 import BasePathAware from 'common/mixins/BasePath';
 
+//some notes: http://stackoverflow.com/questions/20870448/reactjs-modeling-bi-directional-infinite-scrolling
+//I want to turn this into a buffered list.
+
 export default React.createClass({
 	displayName: 'VideoGrid',
 	mixins: [BasePathAware],
