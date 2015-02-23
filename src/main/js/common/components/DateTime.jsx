@@ -1,14 +1,9 @@
-'use strict';
+import React from 'react';
+import emptyFunction from 'react/lib/emptyFunction';
+import isEmpty from 'dataserverinterface/utils/isempty';
+import moment from 'moment';
 
-var React = require('react');
-
-var emptyFunction = require('react/lib/emptyFunction');
-
-var isEmpty = require('dataserverinterface/utils/isempty');
-
-var moment = require('moment');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'DateTime',
 
 	propTypes: {
@@ -23,7 +18,7 @@ module.exports = React.createClass({
 	},
 
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			date: new Date(),
 			relativeTo: undefined,
@@ -37,31 +32,38 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
-		var props = this.props;
-		var _m = moment(props.date),
+	render () {
+		let {
+			date,
+			format,
+			prefix,
+			suffix,
+			showToday,
+			relativeTo,
+			relative,
+			todayText } = this.props;
+
+		let _m = moment(date),
 			m = _m;
 
-		if (props.relativeTo) {
-			m = moment.duration(m.diff(props.relativeTo));
-			m.fromNow = function(s){
-				return this.humanize(!s);
-			};
+		if (relativeTo) {
+			m = moment.duration(m.diff(relativeTo));
+			m.fromNow = (s)=>this.humanize(!s);
 			m.isSame = emptyFunction;//will return falsy
 		}
 
-		var text = props.relative ?
-					m.fromNow(!isEmpty(props.suffix)) :
-					m.format(props.format);
+		let text = relative ?
+					m.fromNow(!isEmpty(suffix)) :
+					m.format(format);
 
-		if (props.showToday && m.isSame(new Date(), 'day')) {
-			text = this.props.todayText;
+		if (showToday && m.isSame(new Date(), 'day')) {
+			text = todayText;
 		}
 
-		text = (props.prefix || '') + text + (props.suffix || '');
+		text = (prefix || '') + text + (suffix || '');
 
-		props = Object.assign({}, props, {
-			dateTime: moment(props.date).format()
+		let props = Object.assign({}, this.props, {
+			dateTime: moment(date).format()
 		});
 
 		return (<time {...props}>{text}</time>);
