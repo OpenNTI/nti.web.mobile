@@ -8,10 +8,9 @@ export default React.createClass({
 
 	render () {
 		return (
-			<div>
-				<div>(ForumView)</div>
+			<div className="forums-wrapper">
 				<ForumsHeading course={this.props.course} />
-				<ForumListView />
+				<ForumListView course={this.props.course} />
 			</div>
 		);
 	}
