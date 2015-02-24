@@ -109,19 +109,28 @@ export default React.createClass({
 
 
 	onCloseMenus (e) {
-		if (e) {e.preventDefault();}
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
 		this.setState({overlay: null});
 	},
 
 
 	onLeftMenuClick (e) {
-		if (e) {e.preventDefault();}
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
 		this.setState({overlay: LEFT_MENU_OPEN});
 	},
 
 
 	onRightMenuClick (e) {
-		if (e) {e.preventDefault();}
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
 		this.setState({overlay: RIGHT_MENU_OPEN});
 	}
 });
