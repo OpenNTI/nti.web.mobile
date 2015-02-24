@@ -34,6 +34,14 @@ export default React.createClass({
 	mixins: [BasePathAware],
 
 
+	onBeforeNavigation () {
+		var action = this.props.onBeforeNavigation;
+		if (action) {
+			action();
+		}
+	},
+
+
 	onNavigation () {
 		if (global.scrollTo) {
 			global.scrollTo(0,0);
@@ -54,6 +62,7 @@ export default React.createClass({
 		return React.createElement(Locations, {
 			ref: 'router',
 			path: this.props.path,
+			onBeforeNavigation: this.onBeforeNavigation,
 			onNavigation: this.onNavigation}, ...this.getRoutes());
 	},
 
