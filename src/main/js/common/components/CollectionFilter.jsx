@@ -1,17 +1,10 @@
-'use strict';
+import React from 'react';
+import cloneWithProps from 'react/lib/cloneWithProps';
 
-var React = require('react');
-var cloneWithProps  = require('react/lib/cloneWithProps');
+import Loading from 'common/components/Loading';
+import {Locations, Location, Link, NavigatableMixin, NotFound as DefaultRoute} from 'react-router-component';
 
-var Loading = require('common/components/Loading');
-
-var Router = require('react-router-component');
-var Locations = Router.Locations;
-var Location = Router.Location;
-var Link = Router.Link;
-var DefaultRoute = Router.NotFound;
-
-var NoMatches = require('./NoMatches');
+import NoMatches from './NoMatches';
 
 
 var FilterBar = React.createClass({
@@ -21,14 +14,14 @@ var FilterBar = React.createClass({
 	},
 
 
-	getItemCount: function(filter) {
+	getItemCount (filter) {
 		if(filter && this.props.list.filter) {
 			return this.props.list.filter(filter.filter).length;
 		}
 		return 0;
 	},
 
-	render: function() {
+	render () {
 		return (
 			<div className="grid-container">
 				<h2>{this.props.title}</h2>
@@ -38,7 +31,7 @@ var FilterBar = React.createClass({
 	},
 
 
-	renderFilterBar: function () {
+	renderFilterBar  () {
 		var filters = this.props.filters || [];
 		return filters.length === 0 ? null : (
 			<ul className="button-group filters">
@@ -48,7 +41,7 @@ var FilterBar = React.createClass({
 	},
 
 
-	renderFilterLink: function(filter) {
+	renderFilterLink (filter) {
 		var {name, path} = filter;
 
 		var propsFilter = this.props.filter;
@@ -74,7 +67,7 @@ var FilterableView = React.createClass({
 	/**
 	 * filter the list according using the currently selected filter.
 	 */
-	filter: function(list) {
+	filter (list) {
 
 		if (!(list && list.filter)) {
 			console.error('List should be an array (or at least have a \'filter\' method. Returning an empty array. Received: %O', list);
@@ -105,7 +98,7 @@ var FilterableView = React.createClass({
 		};
 	},
 
-	render: function() {
+	render () {
 
 		var {filter, list} = this.filter(this.props.list);
 
@@ -123,16 +116,16 @@ var FilterableView = React.createClass({
 
 
 var DefaultPath = React.createClass({
-	mixins: [Router.NavigatableMixin],
+	mixins: [NavigatableMixin],
 
-	_navigateToDefaultFilter: function() {
+	_navigateToDefaultFilter () {
 		var path = this._defaultFilterPath();
 		if (path) {
 			this.navigate(`/${path}/`, {replace: true});
 		}
 	},
 
-	_findFilter: function(name) {
+	_findFilter (name) {
 		return this.props.filters.find(f => (f.name === name));
 	},
 
@@ -141,7 +134,7 @@ var DefaultPath = React.createClass({
 	 *	or the first filter if all result in empty lists,
 	 *	or null if this.props.filters.length === 0
 	 */
-	_defaultFilterPath: function() {
+	_defaultFilterPath () {
 		if (this.props.defaultFilter) {
 			var dfp = this.props.defaultFilter;
 			var df = (typeof dfp === 'string') ? this._findFilter(dfp) : dfp;
@@ -149,13 +142,14 @@ var DefaultPath = React.createClass({
 		}
 		var filters = this.props.filters||[];
 		var result = filters.length > 0 ? filters[0].path : null;
-		filters.some(function(filter) {
+
+		filters.some(filter => {
 			if (this.props.list.filter(filter.filter).length > 0) {
 				result = filter.path || filter.name.toLowerCase();
 				return true;
 			}
 			return false;
-		},this);
+		});
 
 		return result;
 	},
@@ -171,21 +165,21 @@ var DefaultPath = React.createClass({
 	},
 
 
-	componentDidUpdate: function() {
+	componentDidUpdate () {
 		if(this._safeToNav()) {
 			this._navigateToDefaultFilter();
 		}
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		if(this._safeToNav()) {
 			this._navigateToDefaultFilter();
 		}
 	},
 
 
-	render: function() {
+	render () {
 		return (<Loading/>);
 		// return this.props.listcomp;
 	}
@@ -214,10 +208,10 @@ var Filter = React.createClass({
 		/** filters should be a collection of named filter functions.
 		 * for example:
 		 *	{
-		 * 		Odds: function(item,index,array) {
+		 * 		Odds (item,index,array) {
 		 * 			return index % 2 === 1;
 		 * 		},
-		 * 		Evens: function(item,index,array) {
+		 * 		Evens (item,index,array) {
 		 * 			return index % 2 === 0;
 		 * 		}
 		 *	}
@@ -226,7 +220,7 @@ var Filter = React.createClass({
 	},
 
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			list: [],
 			filters: {}
@@ -234,7 +228,7 @@ var Filter = React.createClass({
 	},
 
 
-	render: function() {
+	render () {
 		var filters = this.props.filters;
 		var list = this.props.list;
 
@@ -251,14 +245,14 @@ var Filter = React.createClass({
 	},
 
 
-	getRoutes: function () {
+	getRoutes () {
 		var list = this.props.list;
 		var listComp = this.props.children;
 		var filters = this.props.filters;
 		var title = this.props.title;
 
 
-		var routes = Object.keys(filters).map(function(filtername) {
+		var routes = Object.keys(filters).map(filtername => {
 			var filter = filters[filtername];
 			var filterpath = filter.path || filtername.toLowerCase();
 			return (
@@ -276,7 +270,7 @@ var Filter = React.createClass({
 					title={title}
 				/>
 			);
-		}.bind(this));
+		});
 
 		routes.push(
 			<DefaultRoute
@@ -310,4 +304,4 @@ var Filter = React.createClass({
 });
 
 
-module.exports = Filter;
+export default Filter;
