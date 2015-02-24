@@ -37,11 +37,11 @@ export default React.createClass({
 			<li className="catalog-item">
 				<Link href={this.getDetailHref()}>
 					<div className="thumbnail" style={{backgroundImage: icon && `url(${icon})`}}/>
-					{this.button()}
 					<label>
 						<h3>{item.Title}</h3>
 						<h5>{item.ProviderUniqueID}</h5>
 					</label>
+					{this.button()}
 				</Link>
 			</li>
 		);
