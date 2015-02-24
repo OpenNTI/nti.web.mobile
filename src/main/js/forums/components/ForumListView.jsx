@@ -10,6 +10,7 @@ import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import ForumBin from './widgets/ForumBin';
 
+const discussionsChanged = 'ForumListView:discussionsChangedHandler';
 
 export default React.createClass({
 	displayName: 'ForumListView',
@@ -20,11 +21,10 @@ export default React.createClass({
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[DISCUSSIONS_CHANGED]: '_discussionsChangedHandler'
+		[DISCUSSIONS_CHANGED]: discussionsChanged
 	},
 
-
-	_discussionsChangedHandler(event) {
+	[discussionsChanged](event) {
 		if(event.courseId === this._courseId()) {
 			this.setState({
 				loading: false
