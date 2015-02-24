@@ -85,6 +85,12 @@ export default React.createClass({
 									course={course}
 									contextProvider={this.__getContext}/>
 
+				<Router.Location path="/o/:outlineId/c/:rootId(/*)"
+									handler={ContentViewer}
+									contentPackage={course}
+									slug="c"
+									contextProvider={this.__getContext}/>
+
 				<Router.Location path="/o/:outlineId(/*)"
 									handler={Overview}
 									course={course}
@@ -97,12 +103,6 @@ export default React.createClass({
 				<Router.Location path="/d(/*)"
 									handler={ForumView}
 									course={course}
-									contextProvider={this.__getContext}/>
-
-				<Router.Location path="/o/:outlineId/c/:rootId(/*)"
-									handler={ContentViewer}
-									contentPackage={course}
-									slug="c"
 									contextProvider={this.__getContext}/>
 
 				<Router.NotFound handler={CourseDescription} entry={entry} noBack/>
