@@ -20,7 +20,7 @@ export default React.createClass({
 				<div className="wrap">
 					<DisplayName username={this.state.username}/>
 						{" created a thought: " + blogName}
-					<DateTime date={this.getEventTime()} />
+					<DateTime date={this.getEventTime()} relative/>
 				</div>
 			</li>
 		);

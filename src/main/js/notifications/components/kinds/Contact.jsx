@@ -23,7 +23,7 @@ export default React.createClass({
 				<div className="wrap">
 					<DisplayName username={this.state.username}/>
 						{" added you as a contact."}
-					<DateTime date={time} />
+					<DateTime date={time} relative/>
 				</div>
 			</li>
 		);

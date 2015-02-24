@@ -19,7 +19,7 @@ export default React.createClass({
 				<div className="wrap">
 					<DisplayName username={this.state.username}/>
 						{thestring}
-					<DateTime date={this.getEventTime()} />
+					<DateTime date={this.getEventTime()} relative/>
 				</div>
 			</li>
 		);

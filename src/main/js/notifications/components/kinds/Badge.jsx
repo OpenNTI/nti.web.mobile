@@ -17,7 +17,7 @@ export default React.createClass({
 				<div className='badge' style={{backgroundImage: `url(${item.image})`}}/>
 				<div className="wrap">
 					{item.name}
-					<DateTime date={this.getEventTime()} />
+					<DateTime date={this.getEventTime()} relative/>
 				</div>
 			</li>
 		);
