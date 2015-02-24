@@ -55,10 +55,10 @@ export default React.createClass({
 		let baseUrl = this.courseHref(courseId, false);
 
 		//Activity
-		items.push({
-			title: 'Activity',
-			// href: `${baseUrl}activity`
-		});
+		// items.push({
+		// 	title: 'Activity',
+		// 	// href: `${baseUrl}activity`
+		// });
 
 		//Lessons
 		items.push({
@@ -68,11 +68,11 @@ export default React.createClass({
 		});
 
 		//Assignments
-		items.push({
-			title: 'Assignments',
-			// href: `${baseUrl}a/`,
-			hasChildren: true
-		});
+		// items.push({
+		// 	title: 'Assignments',
+		// 	// href: `${baseUrl}a/`,
+		// 	hasChildren: true
+		// });
 
 		//Discussions
 		items.push({
@@ -139,7 +139,7 @@ export default React.createClass({
 		if (!sections) {return;}
 
 		return (
-				<ul className="sections small-block-grid-2">{sections.map(x=>
+				<ul className="sections">{sections.map(x=>
 				<li key={x.title}>
 					<ActiveState {...x} tag="div"><a {...x}>{x.title}</a></ActiveState>
 				</li>
