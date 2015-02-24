@@ -30,7 +30,7 @@ var BarItem = React.createClass({
 
 	getHref () {
 		var section = this.getSectionName();
-		return `/${section}/`;
+		return `/${section}`;
 	},
 
 

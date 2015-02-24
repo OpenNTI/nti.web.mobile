@@ -1,6 +1,7 @@
 import React from 'react';
 
-import {Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
+import { Locations, Location, NotFound as DefaultRoute } from 'react-router-component';
+import {getEnvironment} from 'react-router-component/lib/environment/LocalStorageKeyEnvironment';
 
 import Loading from 'common/components/Loading';
 import Redirect from 'navigation/components/Redirect';
@@ -13,7 +14,12 @@ export default React.createClass({
 	mixins: [SectionMixin],
 
 	getInitialState () {
+		let env = getEnvironment('library');
+		if (env.getPath() == null) {
+			env.setPath('');
+		}
 		return {
+			env,
 			loading: true
 		};
 	},
@@ -37,8 +43,9 @@ export default React.createClass({
 			return (<Loading />);
 		}
 
+		let {env} = this.state;
 		return (
-			<Locations contextual>
+			<Locations environment={env}>
 				{this.getRoutes()}
 			</Locations>
 		);
@@ -51,7 +58,7 @@ export default React.createClass({
 		var routes = sections.map(section =>
 			<Location
 				key={section}
-				path={`/${section}/\*`}
+				path={`/${section}(/*)`}
 				handler={Section}
 				section={section}
 			/>
@@ -61,7 +68,7 @@ export default React.createClass({
 			routes.push(<DefaultRoute
 				key="default"
 				handler={Redirect}
-				location={this.state.defaultSection + '/'}
+				location={`/${this.state.defaultSection}`}
 			/>);
 		}
 
