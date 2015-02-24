@@ -63,7 +63,7 @@ function onStoreChangeImpl(event) {
 		return;
 	}
 
-	if (typeof handler === 'string') {
+	if (typeof handler !== 'function') {
 		if (!this[handler]) {
 			console.debug('Event Handler %s does not exist in component: %s', handler, componentName);
 			return;
