@@ -35,8 +35,10 @@ figure.loading {
 
         @include animation('rotation .9s infinite linear');
 
-        border: 1px solid rgba(142,183,55,.15);
-        border-top-color: rgba(142,183,55,.8);
+        // border: 1px solid rgba(142,183,55,.15);
+        // border-top-color: rgba(142,183,55,.8);
+        border: 1px solid rgba(63,179,79,.15);
+        border-top-color: rgba(63,179,79,.8);
         border-radius:100%;
     }
 }
@@ -48,14 +50,14 @@ figure.loading {
     min-height: 70px;
     position: relative;
     margin: {
-        bottom: 50px;
-        top: 50px;
+        bottom: 75px;
+        top: 25px;
     }
 }
 
 ul.loader{
 	position:absolute;
-	margin:0 auto;
+	margin:0 auto !important;
 	left:0;
 	right:0;
 	top:50%;
@@ -66,7 +68,8 @@ ul.loader{
 
     li {
         background-color: #757575;
-        background-color: rgba(142,183,55,.8);
+        // background-color: rgba(142,183,55,.8);
+        background-color: rgba(63,179,79,.8);
         width:10px;
         height:10px;
         float:left;
