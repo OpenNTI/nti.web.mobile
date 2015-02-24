@@ -98,11 +98,9 @@ export default React.createClass({
 		let {loading} = this.state;
 
 		return (
-			<div className="course-nav">
-				<Outline item={this.props.item}>
-					{loading? <Loading/> : this.renderSectionItems()}
-				</Outline>
-			</div>
+			<Outline item={this.props.item} className="course-nav">
+				{loading? <Loading/> : this.renderSectionItems()}
+			</Outline>
 		);
 	},
 

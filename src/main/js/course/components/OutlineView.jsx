@@ -16,6 +16,12 @@ export default React.createClass({
 		item: React.PropTypes.object.isRequired
 	},
 
+	getDefaultProps () {
+		return {
+			className: 'course-outline'
+		};
+	},
+
 
 	getInitialState () {
 		return {loading:true};
@@ -91,7 +97,7 @@ export default React.createClass({
 		}
 
 		return (
-			<div className="course-outline">
+			<div className={this.props.className}>
 				<div className="head">
 					<img src={icon}/>
 					<label>

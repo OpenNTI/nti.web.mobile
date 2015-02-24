@@ -132,4 +132,38 @@
 	li label::after {
 		@extend %icon-topic;
 	}
+
+
+	& > .head {
+		position: relative;
+		overflow: hidden;
+
+
+		& > img {
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -2;
+		}
+
+		label {
+			position: relative;
+			background: transparentize($panel-background, 0.05);
+			border: 0 solid $border-grey;
+			border-width: 1px 0;
+			padding: 1.5rem  1.39em;
+
+			h3, h5 {font-weight: 700;}
+
+			h3 {
+				color: $primary-grey;
+			}
+
+			h5 {
+				color: $secondary-grey;
+				font-size: 0.8rem;
+			}
+		}
+	}
 }
