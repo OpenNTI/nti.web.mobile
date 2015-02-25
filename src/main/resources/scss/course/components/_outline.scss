@@ -149,15 +149,17 @@
 
 		label {
 			position: relative;
-			background: transparentize($panel-background, 0.05);
-			border: 0 solid $border-grey;
-			border-width: 1px 0;
-			padding: 1.5rem  1.39em;
+			background: transparentize(#000, 0.15);
+			// border: 0 solid $border-grey;
+			// border-width: 1px 0;
+			padding: 0.2rem  1.39em;
+			margin-top: 5rem;
 
 			h3, h5 {font-weight: 700;}
 
 			h3 {
-				color: $primary-grey;
+				color: #fff;
+				font-size: 1rem;
 			}
 
 			h5 {

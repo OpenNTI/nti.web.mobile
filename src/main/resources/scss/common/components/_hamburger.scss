@@ -54,10 +54,14 @@
 		&:after {
 			border-radius: 1px;
 			height: 4px;
-			background: $secondary-grey;
+			background-color: $secondary-grey;
 			position: absolute;
 			display: block;
 			content: '';
+
+			.dark & {
+				background-color: #fff;
+			}
 		}
 
 		&:before { top: -8px; }

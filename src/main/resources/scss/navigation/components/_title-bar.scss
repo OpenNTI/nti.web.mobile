@@ -1,0 +1,61 @@
+a.toolbar-button-left {
+	padding: 0 0.5rem;
+	height: 2.8125rem;
+	line-height: 2.8125rem;
+	font-size: 2em;
+	position: absolute;
+	overflow: hidden;
+	color: #333;
+	top: -2.8125rem;
+	left: 2.8125rem;
+}
+
+a.right-off-canvas-toggle {
+	width: 2.8125rem;
+	height: 2.8125rem;
+	color: #fff;
+	font-size: 1.5rem;
+	text-align: center;
+	display: block;
+
+	img {
+		width: 2rem;
+		border-radius: 100%;
+		vertical-align: text-top;
+	}
+}
+
+.dark {
+	.tab-bar {
+		background: #333;
+		color: #fff;
+	}
+
+	a.toolbar-button-left {
+		color: #fff;
+	}
+}
+
+.tab-bar-section .title {
+	position: relative;
+	overflow: hidden;
+	color: $primary-grey;
+
+	&.branding {
+		display: inline-block;
+		width: 32px;
+		text-indent: -100rem;
+
+		&::after {
+			content: '';
+			width: 32px;
+			height: 32px;
+			background: transparent url('../images/icons/logo.png') center center;
+			background-size: contain;
+			position: absolute;
+			margin-top: -50%;
+			top: 50%;
+			left: 0;
+		}
+	}
+}

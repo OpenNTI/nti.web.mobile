@@ -15,7 +15,7 @@
 @import "common/animations";
 @import "common/components";
 
-@import "sidenav";
+
 @import "coming-soon-to-mobile";
 
 @import "assessment/components";
@@ -80,70 +80,6 @@ html { -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
 
 a.disabled {
 	opacity:0.4;
-}
-
-a.toolbar-button-left {
-	padding: 0 0.5rem;
-	height: 2.8125rem;
-	line-height: 2.8125rem;
-	font-size: 2em;
-	position: absolute;
-	overflow: hidden;
-	color: #333;
-	top: -2.8125rem;
-	left: 2.8125rem;
-}
-
-a.right-off-canvas-toggle {
-	width: 2.8125rem;
-	height: 2.8125rem;
-	color: #fff;
-	font-size: 1.5rem;
-	text-align: center;
-	display: block;
-
-	img {
-		width: 2rem;
-		border-radius: 100%;
-		vertical-align: text-top;
-	}
-}
-
-.dark {
-	.tab-bar {
-		background: #333;
-		color: #fff;
-
-		.menu-icon span::after {
-			box-shadow: 0 0px 0 1px #fff,
-						0 7px 0 1px #fff,
-						0 14px 0 1px #fff;
-		}
-	}
-
-	a.toolbar-button-left {
-		color: #fff;
-	}
-}
-
-.tab-bar-section .title {
-	overflow: hidden;
-	position: relative;
-	width: 32px;
-	display: inline-block;
-	text-indent: -100rem;
-
-	&::after {
-		content: '';
-		width: 32px;
-		height: 32px;
-		background: transparent url('../images/icons/logo.png') center center;
-		background-size: contain;
-		position: absolute;
-		margin-top: -50%;
-		top: 50%;
-		left: 0;
-	}
 }
 
 .scroll-lock {
