@@ -10,6 +10,9 @@ import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import ForumBin from './widgets/ForumBin';
 
+import {scoped} from 'common/locale';
+
+const _t = scoped('FORUMS.groupTitles');
 const discussionsChanged = 'ForumListView:discussionsChangedHandler';
 
 export default React.createClass({
@@ -91,7 +94,7 @@ export default React.createClass({
 	 						Array.sort(Object.keys(discussions)).map(key => {
 	 							let bin = discussions[key];
 	 							let reactkey = keyFor(bin);
-	 							return <li key={reactkey}><ForumBin title={key} bin={bin} /></li>;
+	 							return <li key={reactkey}><ForumBin title={_t(key.toLowerCase())} bin={bin} /></li>;
 	 						})
 	 					}
 					</ul>

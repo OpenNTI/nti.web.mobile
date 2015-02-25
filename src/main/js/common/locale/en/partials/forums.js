@@ -5,8 +5,8 @@ module.exports = {
 		Section: 'My Section',
 		Parent: 'All Sections',
 		forcredit: 'Enrolled For-Credit',
-		open: 'Open',
-		other: 'Other'
+		open: 'Open Discussions',
+		other: 'Other Discussions'
 	},
 	topicCount: {
 		zero:  'No Discussions',
