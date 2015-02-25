@@ -126,30 +126,25 @@ export default React.createClass({
 			return null;
 		}
 
-		return (
-			<ul>
-				{list.map(item => {
-					var {href, depth, title} = item;
+		return React.createElement('ul', {}, ...list.map(item => {
+			var {href, depth, title} = item;
 
-					var tag = depthMap[depth - 1] || 'div';
+			var tag = depthMap[depth - 1] || 'div';
 
-					if (href) {
-						href = prefix + href;
-					}
+			if (href) {
+				href = prefix + href;
+			}
 
-					var props = {
-						href, title, children:[title]
-					};
+			var props = {
+				href, title, children: [title]
+			};
 
-					return (
-						<li key={href}>
-							<ActiveState hasChildren href={href} tag={tag}><a {...props}/></ActiveState>
-							{renderTree(item.contents)}
-						</li>
-					);
-				})}
-			</ul>
-		);
-
+			return (
+				<li>
+					<ActiveState hasChildren href={href} tag={tag}><a {...props}/></ActiveState>
+					{renderTree(item.contents)}
+				</li>
+			);
+		}));
 	}
 });
