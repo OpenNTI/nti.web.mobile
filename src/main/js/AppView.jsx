@@ -21,11 +21,15 @@ export default React.createClass({
 	},
 
 	childContextTypes: {
-		basePath: React.PropTypes.string
+		basePath: React.PropTypes.string,
+		triggerLeftMenu: React.PropTypes.func,
+		triggerRightMenu: React.PropTypes.func
 	},
 
 	getChildContext () {
 		return {
+			triggerLeftMenu: ()=>this.refs.frame.onLeftMenuClick(),
+			triggerRightMenu: ()=>this.refs.frame.onRightMenuClick(),
 			basePath: this.props.basePath
 		};
 	},
@@ -74,8 +78,8 @@ export default React.createClass({
 
 		return (
 			<CaptureClicks>
-				<Wrapper>
-					<Router path={this.props.path} onNavigation={this._onNavigation}/>
+				<Wrapper ref="frame">
+					<Router path={this.props.path}/>
 				</Wrapper>
 			</CaptureClicks>
 		);
