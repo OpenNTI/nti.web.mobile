@@ -37,6 +37,7 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
+		this.setState({pages: this.props.video.getPageSource()});
 		this.getDataIfNeeded(this.props);
 		addClass(document.body, 'dark');
 		this.__getContext();
@@ -130,8 +131,7 @@ export default React.createClass({
 
 	render () {
 		var collection=this.props.parentPath;
-		var {cues, regions, currentTime} = this.state;
-		var pages = this.props.video.getPageSource();
+		var {cues, regions, currentTime, pages} = this.state;
 
 		return (
 			<div className="transcripted-video">
