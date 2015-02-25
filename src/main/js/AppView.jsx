@@ -46,22 +46,21 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		addLocaleChangeListener(this._onStringsChange);
+		addLocaleChangeListener(this.onStringsChange);
 	},
 
 
 	componentWillUnmount () {
-		removeLocaleChangeListener(this._onStringsChange);
+		removeLocaleChangeListener(this.onStringsChange);
 	},
 
 
-	_onNavigation () {
+	onNavigation () {
 		this.forceUpdate();
-		scrollTo(0,0);
 	},
 
 
-	_onStringsChange  () {
+	onStringsChange () {
 		this.forceUpdate();
 	},
 
