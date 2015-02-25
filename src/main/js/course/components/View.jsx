@@ -6,7 +6,7 @@ import Router from 'react-router-component';
 
 import NotFound from 'notfound/components/View';
 
-import CourseDescription from './CourseDescription';
+import CourseInfo from './CourseDescription';
 import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
 
@@ -19,7 +19,7 @@ import Outline from './OutlineView';
 import Overview from './Overview';
 
 import ContentViewer from 'content/components/Viewer';
-import ForumView from 'forums/components/View';
+import Discussions from 'forums/components/View';
 
 import {setCourse} from '../Actions';
 import Store from '../Store';
@@ -83,29 +83,19 @@ export default React.createClass({
 				<Router.Location path="/v/(:videoId)(/*)"
 									handler={Media}
 									course={course}
-									contextProvider={this.__getContext}/>
-
-				<Router.Location path="/o/:outlineId/c/:rootId(/*)"
-									handler={ContentViewer}
-									contentPackage={course}
-									slug="c"
-									contextProvider={this.__getContext}/>
-
-				<Router.Location path="/o/:outlineId(/*)"
-									handler={Overview}
-									course={course}
-									contextProvider={this.__getContext}/>
+									contextProvider={this.getContext}/>
 
 				<Router.Location path="/o(/*)"
-									handler={Outline}
-									item={course}/>
+									handler={Lessons}
+									course={course}
+									contextProvider={this.getContext}/>
 
 				<Router.Location path="/d(/*)"
-									handler={ForumView}
+									handler={Discussions}
 									course={course}
-									contextProvider={this.__getContext}/>
+									contextProvider={this.getContext}/>
 
-				<Router.NotFound handler={CourseDescription} entry={entry} noBack/>
+				<Router.NotFound handler={CourseInfo} entry={entry} />
 			</Router.Locations>
 		);
 	},
@@ -117,7 +107,7 @@ export default React.createClass({
 	 *
 	 * @param {Object} props The props set from the handler of the route.
 	 */
-	__getContext (props) {
+	getContext (props) {
 		var record = this.state.course;
 		var course = (record || {}).CourseInstance;
 		var presentation = course.getPresentationProperties();
@@ -146,5 +136,31 @@ export default React.createClass({
 						href: path.join(this.getBasePath(), o.href)
 					}
 				]);
+	}
+});
+
+
+var Lessons = React.createClass({
+
+	render () {
+		let {course, contextProvider} = this.props;
+		return (
+				<Router.Locations contextual>
+					<Router.Location path="/:outlineId/c/:rootId(/*)"
+							handler={ContentViewer}
+							contentPackage={course}
+							contextProvider={contextProvider}
+							slug="c"
+							/>
+
+					<Router.Location path="/:outlineId(/*)"
+							handler={Overview}
+							course={course}
+							contextProvider={contextProvider}
+							/>
+
+					<Router.NotFound handler={Outline} item={course} />
+				</Router.Locations>
+		);
 	}
 });
