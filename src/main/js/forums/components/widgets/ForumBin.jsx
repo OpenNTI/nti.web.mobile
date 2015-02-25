@@ -1,7 +1,7 @@
 import React from 'react';
 import keyFor from '../../utils/key-for-item';
-
 import ForumBoard from './ForumBoard';
+
 
 export default React.createClass({
 	displayName: 'ForumBin',
@@ -33,7 +33,7 @@ export default React.createClass({
 		let {title, bin} = this.props;
 
 		return (
-			<div>
+			<div className="bin">
 				<h2>{title}</h2>
 				<ul>
 				{Object.keys(bin).map(key => {

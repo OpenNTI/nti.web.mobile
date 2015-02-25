@@ -102,11 +102,33 @@
 	}
 
 	nav.forum {
-		.forum-item {
+		.bin {
+			border-bottom: 4px solid $quad-grey;
+			margin-bottom: 2rem;
+		}
+		.board {
+			& > h3 {
+				// padding: 0 10px 0 20px;
+				line-height: 2.3;
+				font-size: 0.6em;
+				background: #fafafa !important;
+				font-weight: 600;
+				box-shadow: inset 0 1px 0 0 #efefef, inset 0 -1px 0 0 #efefef;
+				color: #757474;
+				text-transform: uppercase;
+				font-family: 'Open Sans';
+			}
+		}
+		.forum-li {
+			border-bottom: 1px dotted $panel-border-color;
+			&:last-child {
+				border-bottom: none;
+			}
 			h3 {
 				// text-transform: uppercase;
 				// font-size: 1rem;
 				// font-weight: bold;
+				margin-bottom: 0;
 				position: relative;
 				.title {
 					display: block;
