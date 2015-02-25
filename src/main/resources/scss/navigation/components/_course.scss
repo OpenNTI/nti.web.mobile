@@ -5,6 +5,10 @@
 	.head {
 		display: block;
 		@extend %content-card;
+
+		&::after {
+			padding-top: 30%;
+		}
 	}
 
 	ul.sections {
