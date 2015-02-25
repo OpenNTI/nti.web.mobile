@@ -4,10 +4,10 @@ import Avatar from 'common/components/Avatar';
 import Session from 'common/components/Session';
 import Footer from 'common/components/Footer';
 
-import BasePathAware from 'common/mixins/BasePath';
 import RouteAware from 'common/mixins/NavigatableMixin';
 
 import MessageDisplay from 'messages/components/Display';
+import NavigationBar from 'navigation/components/Bar';
 import Navigation from 'navigation/components/View';
 import Notifications from 'notifications/components/View';
 
@@ -25,7 +25,7 @@ const RIGHT_MENU_OPEN = 'offcanvas-overlap-left';
 
 export default React.createClass({
 	displayName: 'AppContainer',
-	mixins: [BasePathAware, RouteAware],
+	mixins: [RouteAware],
 
 
 	onNavChange () {this.onCloseMenus();},
@@ -65,26 +65,22 @@ export default React.createClass({
 			<div className="app-container">
 				<Analytics />
 				<LibraryInvalidationListener />
+
 				<div className={`off-canvas-wrap ${state}`} data-offcanvas>
 					<div className="inner-wrap">
-						<nav className="tab-bar">
-							<section className="left-small">
-								<a className="left-off-canvas-toggle hamburger"
+
+						<NavigationBar title="NextThought">
+
+							<a className="left-off-canvas-toggle hamburger"
 									onClick={this.onLeftMenuClick}
 									href="#"><span/></a>
-							</section>
 
-							<section className="middle tab-bar-section">
-								<a href={this.getBasePath()}>
-									<h1 className="title">next thought</h1></a>
-							</section>
-
-							<section className="right-small">
-								<a	className="right-off-canvas-toggle"
+							<a	className="right-off-canvas-toggle"
 									onClick={this.onRightMenuClick}
 									href="#"><Avatar username={username} /></a>
-							</section>
-						</nav>
+
+						</NavigationBar>
+
 
 						<aside className="left-off-canvas-menu" style={height}>
 							<Navigation/>
