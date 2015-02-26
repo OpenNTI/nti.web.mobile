@@ -3,15 +3,34 @@ const getHandlers = Symbol('HandlersGetter');
 const getStore = Symbol('StoreGetter');
 const onStoreChange = Symbol('StoreChangedEventHandlerMapper');
 
+const handlerMapKey = 'backingStoreEventHandlers';
+
 export default {
 
-	componentWillMount() {
-		this[getStore] = getKey.bind(this, 'backingStore');
-		this[getHandlers] = getKey.bind(this, 'backingStoreEventHandlers');
-		this[onStoreChange] = onStoreChangeImpl.bind(this);
+	mixinAdditionalHandler (eventId, handlerId) {
+		console.debug('mixinAdditionalHandler');
+		if (!this.hasOwnProperty(handlerMapKey)) {
+			this[handlerMapKey] = Object.create(this[getHandlers]());
+		}
+
+		let map = this[getHandlers]();
+
+		if (eventId in map) {
+			var handlers = makeSet(map[eventId]);
+			handlers.add(handlerId);
+			map[eventId] = handlers;
+		}
+		else {
+			map[eventId] = handlerId;	
+		}
 	},
 
-
+	componentWillMount() {
+		console.debug('componentWillMount');
+		this[getStore] = getKey.bind(this, 'backingStore');
+		this[getHandlers] = getKey.bind(this, handlerMapKey);
+		this[onStoreChange] = onStoreChangeImpl.bind(this);
+	},
 
 	componentDidMount () {
 		let store = this[getStore]();
@@ -29,6 +48,12 @@ export default {
 	}
 };
 
+/**
+* Returns a new Set containing item if item is not null and not already a Set
+*/
+function makeSet(item) {
+	return (!item || item instanceof Set) ? item : new Set([item]);
+}
 
 function getName() {
 	try {
@@ -57,19 +82,19 @@ function onStoreChangeImpl(event) {
 	}
 	let componentName = getName.call(this);
 	let handlers = this[getHandlers]() || {};
-	let handler = handlers[event.type] || handlers.default;
-	if (!handler) {
+	let handlerSet = makeSet(handlers[event.type] || handlers.default);
+	if (!handlerSet) {
 		console.debug('Event %s does not have a handler in component: %s', event.type, componentName);
 		return;
 	}
-
-	if (typeof handler !== 'function') {
-		if (!this[handler]) {
-			console.debug('Event Handler %s does not exist in component: %s', handler, componentName);
-			return;
+	for (let handler of handlerSet) {
+		if (typeof handler !== 'function') {
+			if (!this[handler]) {
+				console.debug('Event Handler %s does not exist in component: %s', handler, componentName);
+				return;
+			}
+			handler = this[handler];
 		}
-		handler = this[handler];
+		handler.call(this, event);
 	}
-
-	handler.call(this, event);
 }
