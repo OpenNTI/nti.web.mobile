@@ -16,10 +16,6 @@ module.exports = {
 		this._loadData(this.props.forumId);
 	},
 
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChanged);
-	},
-
 	componentWillReceiveProps: function(nextProps) {
 		if (nextProps.forumId !== this.props.forumId) {
 			this._loadData(nextProps.forumId);
