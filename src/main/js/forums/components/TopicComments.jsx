@@ -1,9 +1,7 @@
 'use strict';
 
-var React = require('react');
-var List = require('./List');
-// var t = require('common/locale').scoped('FORUMS');
-// var AddComment = require('./AddComment');
+import React from 'react';
+import List from './List';
 
 var TopicComments = React.createClass({
 
