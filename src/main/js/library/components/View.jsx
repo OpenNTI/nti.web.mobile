@@ -11,6 +11,7 @@ import Redirect from 'navigation/components/Redirect';
 import Collection from './Collection';
 
 import SectionMixin from '../mixins/SectionAware';
+import SetStateSafely from 'common/mixins/SetStateSafely';
 
 
 let Section = React.createClass({
@@ -32,7 +33,7 @@ let Section = React.createClass({
 
 export default React.createClass({
 	displayName: 'Library:View',
-	mixins: [SectionMixin],
+	mixins: [SetStateSafely, SectionMixin],
 
 	getInitialState () {
 		let env = getEnvironment('library');
@@ -57,7 +58,7 @@ export default React.createClass({
 
 
 	setDefaultSection (name) {
-		this.setState({
+		this.setStateSafely({
 			pickingDefault: false,
 			defaultSection: name
 		});
