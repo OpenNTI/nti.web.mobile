@@ -1,36 +1,50 @@
 'use strict';
 
-var React = require('react');
-var Constants = require('../../Constants');
-var Actions = require('../../Actions');
-var Store = require('../../Store');
+import React from 'react';
+import {types, GOT_COMMENT_REPLIES} from '../../Constants';
+import Actions from '../../Actions';
+import Store from '../../Store';
 
-var Avatar = require('common/components/Avatar');
-var DateTime = require('common/components/DateTime');
-var DisplayName = require('common/components/DisplayName').default;
-var Replies = require('../Replies');
-var ModeledContentPanel = require('modeled-content').Panel;
-var t = require('common/locale').scoped('FORUMS');
-var Loading = require('common/components/LoadingInline');
-var CommentForm = require('../CommentForm');
-var ActionLinks = require('../ActionLinks');
+import Avatar from 'common/components/Avatar';
+import DateTime from 'common/components/DateTime';
+import DisplayName from 'common/components/DisplayName';
+import Replies from '../Replies';
+import {Panel as ModeledContentPanel} from 'modeled-content';
+
+import Loading from 'common/components/LoadingInline';
+import CommentForm from '../CommentForm';
+import ActionLinks from '../ActionLinks';
+
+import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
+import Prompt from 'prompts';
+
+import Mixin from './Mixin';
+import StoreEvents from 'common/mixins/StoreEvents';
+import KeepItemInState from '../../mixins/KeepItemInState';
+import ToggleState from '../../mixins/ToggleState';
+
 var {EDIT, DELETE, REPLIES, REPLY} = ActionLinks;
-var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
-var Prompt = require('prompts');
-var KeepItemInState = require('../../mixins/KeepItemInState');
-var ToggleState = require('../../mixins/ToggleState');
-
+var t = require('common/locale').scoped('FORUMS');
 var _SHOW_FORM = 'showForm';
 var _SHOW_REPLIES = 'showReplies';
 
 var PostItem = React.createClass({
 
 	displayName: 'PostListItem',
-	mixins: [require('./Mixin'), KeepItemInState, ToggleState],
+
+	mixins: [
+		Mixin,
+		StoreEvents,
+		KeepItemInState,
+		ToggleState
+	],
+
+	backingStore: Store,
+	backingStoreEventHandlers: {},
 
 	statics: {
 		inputType: [
-			Constants.types.POST
+			types.POST
 		]
 	},
 
@@ -63,7 +77,7 @@ var PostItem = React.createClass({
 
 	_storeChanged: function (event) {
 		switch(event.type) {
-			case Constants.GOT_COMMENT_REPLIES:
+			case GOT_COMMENT_REPLIES:
 				if(event.comment === this.props.item) {
 					this.setState({
 						replyCount: event.replies.length
