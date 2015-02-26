@@ -112,6 +112,16 @@
 		text-transform: capitalize;
 		font-weight: 600;
 		font-size: 0.8rem;
+		font-family: $body-font-family;
+
+		label {
+			display: inline;
+			color: $secondary-grey;
+			margin: 0.5em;
+			font-size: 1em;
+			font-weight: inherit;
+			line-height: inherit;
+		}
 	}
 
 	& > ul {

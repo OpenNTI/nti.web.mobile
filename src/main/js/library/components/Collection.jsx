@@ -8,11 +8,14 @@ import Course from './Course';
 export default React.createClass({
 	displayName: 'Library:Collection',
 	render () {
+		let {omittitle, list, title, subtitle} = this.props;
 		return (
 			<div className="library-collection">
-				{this.props.omittitle ? null : <h5>{this.props.title}</h5>}
+				{omittitle ? null :
+					<h5>{title}<label>{subtitle}</label></h5>}
+
 				<ul>
-				{this.props.list.map(item => {
+				{list.map(item => {
 					var Item = item.isBundle ?
 							Bundle :
 							item.isCourse ?

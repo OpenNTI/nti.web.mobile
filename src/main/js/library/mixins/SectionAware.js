@@ -2,18 +2,21 @@ import Filters from '../Filters';
 import LibraryAccessor from './LibraryAccessor';
 
 const sectionNames = {
+	admin: 'admin',
 	courses: 'courses',
 	books: 'books'
 };
 
 
 const sectionPropertyMap = {
-	[sectionNames.courses]: ['administeredCourses','courses'],
+	[sectionNames.admin]: 'administeredCourses',
+	[sectionNames.courses]: 'courses',
 	[sectionNames.books]: ['bundles','packages']
 };
 
 
 const sectionFiltersMap = {
+	[sectionNames.admin]: Filters,
 	[sectionNames.courses]: Filters,
 	[sectionNames.books]: [{name: 'Books'}]
 };
@@ -24,6 +27,21 @@ export default {
 
 	getSectionNames () {
 		return Object.keys(sectionNames);
+	},
+
+
+	defaultSection () {
+		return this.ensureLibraryLoaded()
+			.then(() => {
+				if (!this.getLibrary()) {
+					console.warn('Early!!!');
+				}
+				var admin = this.getListForSection(sectionNames.admin);
+					//if there are admin courses, default there...
+				return admin.length ? sectionNames.admin :
+					// if user doesn't have any courses default to the catalog.
+						sectionNames.courses;
+			});
 	},
 
 
@@ -54,26 +72,30 @@ export default {
 	},
 
 
-	getBinnedData () {
-
-		let sections = this.getSectionNames();
+	getBinnedData (section) {
 		let bins = [];
+		let filters = this.getFiltersForSection(section);
+		let items = this.getListForSection(section) || [];
 
-		sections.forEach(s=> {
-			let filters = this.getFiltersForSection(s);
-			let items = this.getListForSection(s) || [];
-			if (filters) {
-				filters.forEach(f=> {
-					bins.push({
-						name: f.name,
-						items: f.filter ? items.filter(f.filter) : items
-					});
-				});
-			} else {
-				bins.push({items});
-			}
-			return bins;
+		let getBin = o => ({
+			name: o.name,
+			items: o.filter ? items.filter(o.filter) : items
 		});
+
+		if (filters) {
+			filters.forEach(f=> {
+				let b = getBin(f);
+				if (f.split){
+					f.split(b.items).forEach(b=>bins.push(Object.assign(b,{name: f.name})));
+				} else {
+					bins.push(b);
+				}
+			});
+
+		} else {
+			bins.push({items});
+		}
+
 
 		return bins.filter(b=>b.items && b.items.length > 0);
 	}

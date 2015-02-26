@@ -50,6 +50,11 @@
 	opacity: 0.2;
 }
 
+body.dark {
+	background: #333;
+}
+
+
 //http://stackoverflow.com/a/2711132
 html { -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
 * {

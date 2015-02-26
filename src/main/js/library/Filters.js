@@ -1,6 +1,10 @@
+import {scoped} from 'common/locale';
+
+let getLabel = scoped('LIBRARY.CATEGORY');
+
 export default [
 	{
-		name: 'Upcoming',
+		name: getLabel('upcoming'),
 		path: 'upcoming',
 		filter: item => {
 			try {
@@ -14,7 +18,7 @@ export default [
 		}
 	},
 	{
-		name: 'Current',
+		name: getLabel('current'),
 		path: 'current',
 		filter: item => {
 			try {
@@ -31,7 +35,7 @@ export default [
 		}
 	},
 	{
-		name: 'Archived',
+		name: getLabel('archived'),
 		path: 'archived',
 		filter: item => {
 			try {
@@ -42,6 +46,35 @@ export default [
 				console.error(e);
 				return false;
 			}
+		},
+
+		split: list => {
+			let bins = {};
+
+			let add = (sort, label, i) => {
+				let o = bins[label] || {sort, label, items:[]};
+				bins[label] = o;
+				o.items.push(i);
+			};
+
+			list.forEach(item=> {
+				try {
+					let start = item.getStartDate();
+					let key = 'archivedGroup.' + start.getMonth();
+					let bin = getLabel(key, {year: start.getFullYear()});
+
+					add(start, bin, item);
+
+				} catch (e) {
+					console.error(e);
+				}
+			});
+
+
+			bins = Object.values(bins);
+			bins.sort((a,b)=>b.sort - a.sort);
+
+			return bins;
 		}
 	}
 ];
