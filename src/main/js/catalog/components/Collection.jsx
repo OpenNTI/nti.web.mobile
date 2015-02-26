@@ -1,40 +1,14 @@
 import React from 'react';
 
 import Filter from 'common/components/CollectionFilter';
+import BasePathAware from 'common/mixins/BasePath';
 
 import Item from './Entry';
 
-const filters = [
-	{
-		name: 'Upcoming',
-		path: 'upcoming',
-		filter: item => {
-			var startDate = item.getStartDate();
-			return startDate > Date.now();
-		}
-	},
-	{
-		name: 'Current',
-		path: 'current',
-		filter: item => {
-			var startDate = item.getStartDate();
-			var endDate = item.getEndDate();
-			var now = Date.now();
+import filters from 'library/Filters';
 
-			return startDate < now && endDate > now;}
-	},
-	{
-		name: 'Archived',
-		path: 'archived',
-		filter: item => {
-			var endDate = item.getEndDate();
-			return endDate < Date.now();
-		}
-	}
-];
 
 const ListView = React.createClass({
-
 	render () {
 
 		if (!this.props.list.map) {
@@ -42,12 +16,24 @@ const ListView = React.createClass({
 			return null;
 		}
 
+		let {filter, list} = this.props;
+
+		let sections = [{items:list, label: ''}];
+
+		if (filter && filter.split) {
+			sections = filter.split(list);
+		}
 
 		return (
-			<div className="grid-container">
+			<div>
+			{sections.map(s=>
+			<div className="grid-container" key={s.label}>
+				<h3>{s.label}</h3>
 				<ul className={'small-block-grid-1'}>
-					{this.props.list.map(o=><Item key={o.NTIID} item={o}/>)}
+					{s.items.map(o=><Item key={o.NTIID} item={o}/>)}
 				</ul>
+			</div>
+			)}
 			</div>
 		);
 	}
@@ -57,6 +43,7 @@ const ListView = React.createClass({
 
 export default React.createClass({
 	displayName: 'Catalog:Collection',
+	mixins: [BasePathAware],
 
 	propTypes: {
 		title: React.PropTypes.string,
@@ -76,9 +63,12 @@ export default React.createClass({
 
 	render () {
 		return (
-			<Filter {...this.props} filters={filters}>
-				<ListView title={this.props.title} />
-			</Filter>
+			<div>
+				<a href={this.getBasePath() + 'library/'}>Library</a>
+				<Filter {...this.props} filters={filters}>
+					<ListView title={this.props.title} />
+				</Filter>
+			</div>
 		);
 	}
 });
