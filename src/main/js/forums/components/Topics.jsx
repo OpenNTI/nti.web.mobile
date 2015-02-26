@@ -9,12 +9,15 @@ var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var TopicList = require('./TopicList');
 var Loading = require('common/components/Loading');
 var Store = require('../Store');
+var StoreEvents = require('common/mixins/StoreEvents');
 var LoadForum = require('../mixins/LoadForum');
 var t = require('common/locale').scoped('FORUMS');
 
 var Topics = React.createClass({
 
-	mixins: [NavigatableMixin, LoadForum],
+	mixins: [NavigatableMixin, StoreEvents, LoadForum],
+
+	backingStore: Store,
 
 	getInitialState: function() {
 		return {
