@@ -1,6 +1,5 @@
 import React from 'react';
 
-import OwnerQuery from 'common/mixins/OwnerQuery';
 import Filter from 'common/components/CollectionFilter';
 
 import Item from './Entry';
@@ -35,7 +34,6 @@ const filters = [
 ];
 
 const ListView = React.createClass({
-	mixins: [OwnerQuery],
 
 	render () {
 
