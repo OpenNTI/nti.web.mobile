@@ -1,3 +1,4 @@
+/*jshint -W106*/
 export default {
 
 	BUTTONS: {
