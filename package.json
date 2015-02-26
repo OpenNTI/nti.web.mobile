@@ -53,7 +53,7 @@
     "query-string": "^1.0.0",
     "react": "^0.12.2",
     "react-editor-component": "NextThought/react-editor-component#33d276c",
-    "react-router-component": "jsg2021/react-router-component#tempfix",
+    "react-router-component": "^0.24.1",
     "request": "^2.53.0",
     "response-time": "^2.2.0",
     "url": "^0.10.1",
