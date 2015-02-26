@@ -7,7 +7,7 @@ import NTIID from 'dataserverinterface/utils/ntiids';
 const objectContentsChangedHandler = 'LoadForum:objectContentsChangedHandler';
 
 module.exports = {
-	componentDidMount: function() {
+	componentWillMount: function() {
 		if (!this.mixinAdditionalHandler) {
 			console.warn('this.mixinAdditionalHandler is undefined. (Forgot to include the StoreEvents mixin?)');
 			return;
