@@ -38,7 +38,7 @@ export default React.createClass({
 					<img src={icon}/>
 					<label>
 						<h3>{p.title}</h3>
-						<h5>{p.author}</h5>
+						<address className="author">{p.author}</address>
 					</label>
 				</a>
 			</div>

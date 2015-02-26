@@ -28,6 +28,10 @@
 		text-align: left;
 		padding: 0.2rem 1rem;
 
+		h3, h5, address {
+			&::after {content: ' ';}
+		}
+
 		h3, h5 {
 			color: white;
 			text-transform: uppercase;
@@ -42,7 +46,15 @@
 		}
 
 		h5 {
+			color: $tertiary-grey;
 			font-size: 0.5rem;
+		}
+
+		address {
+			font-size: 0.8rem;
+			font-style: normal;
+			overflow: hidden;
+			color: $primary-blue;
 		}
 	}
 }
@@ -80,7 +92,7 @@
 				white-space: normal;
 			}
 
-			h5 {color: $tertiary-grey;}
+
 			h3 {
 				color: $primary-grey;
 				font-weight: 300;

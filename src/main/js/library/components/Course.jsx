@@ -43,8 +43,8 @@ export default React.createClass({
 	itemChanged () {
 		let {item} = this.props;
 		let presentation = item ? item.getPresentationProperties() : {};
-		let {icon, title, label} = presentation;
-		this.setStateSafely({ icon, title, label });
+		let {icon, title, label, author} = presentation;
+		this.setStateSafely({ icon, title, label, author });
 	},
 
 
@@ -114,7 +114,7 @@ export default React.createClass({
 
 	render () {
 		var {item} = this.props;
-		var {icon, title, label} = this.state;
+		var {icon, title, label, author} = this.state;
 		var courseId = item.getCourseID();
 
 		return (
@@ -124,6 +124,7 @@ export default React.createClass({
 					<label>
 						<h5>{label}</h5>
 						<h3>{title}</h3>
+						<address className="author">By {author}</address>
 					</label>
 				</CourseContentLink>
 
