@@ -4,6 +4,7 @@ import CourseContentLink from './CourseContentLink';
 
 import ActiveState from 'common/components/ActiveState';
 import SetStateSafely from 'common/mixins/SetStateSafely';
+import E from 'common/components/Ellipsed';
 
 export default React.createClass({
 	displayName: 'Course',
@@ -123,8 +124,8 @@ export default React.createClass({
 					<img src={icon}/>
 					<label>
 						<h5>{label}</h5>
-						<h3>{title}</h3>
-						<address className="author">By {author}</address>
+						<E tag="h3">{title}</E>
+						<E tag="address" className="author" measureOverflow="parent">{'By '+author}</E>
 					</label>
 				</CourseContentLink>
 

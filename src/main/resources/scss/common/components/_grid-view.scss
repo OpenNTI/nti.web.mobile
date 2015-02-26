@@ -87,17 +87,17 @@
 			position: static;
 			background: #fff;
 			overflow: hidden;
+			height: 5.4rem;
 
-			h3, h5 {
+			h3, address {
 				white-space: normal;
 			}
-
 
 			h3 {
 				color: $primary-grey;
 				font-weight: 300;
 				font-size: 1rem;
-				height: 3rem;
+				max-height: 3rem;
 			}
 		}
 	}
