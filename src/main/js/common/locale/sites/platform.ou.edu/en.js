@@ -1,4 +1,7 @@
-module.exports = {
+import soon from './partials/coming-soon';
+import library from './partials/library';
+
+export default {
 	LOGIN: {
 		UsernamePlaceholder: 'Username or OU 4+4',
 		SIGNUP_CONFIRMATION: 'If you are a current student at the University of Oklahoma, you don\'t need to create an account. Log in with your OUNet ID (4+4).',
@@ -24,5 +27,6 @@ module.exports = {
 						'<a href="http://www.aenetworks.com/contact" target="_blank">Contact Us</a>'
 		}
 	},
-	COMING_SOON: require('./partials/coming-soon')
+	COMING_SOON: soon,
+	LIBRARY: library
 };

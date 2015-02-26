@@ -7,6 +7,7 @@
 import units from './partials/units';
 import forums from './partials/forums';
 import enrollment from './partials/enrollment';
+import library from './partials/library';
 import login from './partials/login';
 import soon from './partials/coming-soon';
 
@@ -14,7 +15,6 @@ export default {
 	GLOBAL: {
 		siteName: 'next thought'
 	},
-
 
 	UNITS: units,
 
@@ -25,6 +25,8 @@ export default {
 	LOGIN: login,
 
 	ENROLLMENT: enrollment,
+
+	LIBRARY: library,
 
 	BUTTONS: {
 		ok: 'Okay',
