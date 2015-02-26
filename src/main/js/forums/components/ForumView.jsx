@@ -6,6 +6,7 @@ import Store from '../Store';
 import LoadForum from '../mixins/LoadForum';
 
 import Breadcrumb from 'common/components/Breadcrumb';
+import StoreEvents from 'common/mixins/StoreEvents';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import Topics from './Topics';
 import TopicView from './TopicView';
@@ -18,7 +19,13 @@ let Location = Router.Location;
 
 module.exports = React.createClass({
 
-	mixins: [NavigatableMixin, LoadForum],
+	mixins: [
+		NavigatableMixin,
+		StoreEvents,
+		LoadForum
+	],
+
+	backingStore: Store,
 
 	getInitialState: function() {
 		return {
@@ -28,14 +35,9 @@ module.exports = React.createClass({
 
 	__getContext: function() {
 		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
-		var href = this.makeHref([this.props.filterpath, this.props.forumId, ''].join('/'));
-		var section = this.makeHref('../', true);
+		var href = this.makeHref([this.props.forumId, ''].join('/'));
 		var forum = Store.getForum(this.props.forumId);
 		return getContextProvider().then(context => {
-			context.push({
-				label: 'My Section',
-				href: section
-			});
 			context.push({
 				label: (forum||{}).title,
 				href: href
