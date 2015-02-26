@@ -31,6 +31,8 @@ module.exports = React.createClass({
 		]
 	},
 
+	backingStore: Store,
+
 	componentWillMount: function() {
 		var item = Store.getObject(this._itemId());
 		if (item) {
