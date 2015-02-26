@@ -61,7 +61,7 @@ class Store extends StorePrototype {
 	}
 
 	getForum(forumId) {
-		return _forums[decodeFromURI(forumId)];
+		return _forums[decodeFromURI(forumId)] || this.getObject(forumId);
 	}
 
 	getObject(objectId) {
