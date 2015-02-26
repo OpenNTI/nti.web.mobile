@@ -55,8 +55,10 @@ export default React.createClass({
 	},
 
 
-	onNavigation () {
-		this.forceUpdate();
+	onBeforeNavigation () {
+		if (this.refs.frame) {
+			this.refs.frame.onCloseMenus();
+		}
 	},
 
 
@@ -78,7 +80,7 @@ export default React.createClass({
 		return (
 			<CaptureClicks>
 				<Wrapper ref="frame">
-					<Router path={this.props.path}/>
+					<Router path={this.props.path} onBeforeNavigation={this.onBeforeNavigation}/>
 				</Wrapper>
 			</CaptureClicks>
 		);

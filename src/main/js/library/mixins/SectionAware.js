@@ -2,23 +2,20 @@ import Filters from '../Filters';
 import LibraryAccessor from './LibraryAccessor';
 
 const sectionNames = {
-	admin: 'admin',
 	courses: 'courses',
 	books: 'books'
 };
 
 
 const sectionPropertyMap = {
-	[sectionNames.admin]: 'administeredCourses',
-	[sectionNames.courses]: 'courses',
+	[sectionNames.courses]: ['administeredCourses','courses'],
 	[sectionNames.books]: ['bundles','packages']
 };
 
 
 const sectionFiltersMap = {
-	[sectionNames.admin]: Filters,
 	[sectionNames.courses]: Filters,
-	[sectionNames.books]: null
+	[sectionNames.books]: [{name: 'Books'}]
 };
 
 
@@ -27,18 +24,6 @@ export default {
 
 	getSectionNames () {
 		return Object.keys(sectionNames);
-	},
-
-
-	defaultSection () {
-		return this.ensureLibraryLoaded()
-			.then(() => {
-				var admin = this.getListForSection(sectionNames.admin);
-					//if there are admin courses, default there...
-				return admin.length ? sectionNames.admin :
-					// if user doesn't have any courses default to the catalog.
-						sectionNames.courses;
-			});
 	},
 
 
@@ -66,5 +51,30 @@ export default {
 
 	getFiltersForSection (section) {
 		return sectionFiltersMap[section];
+	},
+
+
+	getBinnedData () {
+
+		let sections = this.getSectionNames();
+		let bins = [];
+
+		sections.forEach(s=> {
+			let filters = this.getFiltersForSection(s);
+			let items = this.getListForSection(s) || [];
+			if (filters) {
+				filters.forEach(f=> {
+					bins.push({
+						name: f.name,
+						items: f.filter ? items.filter(f.filter) : items
+					});
+				});
+			} else {
+				bins.push({items});
+			}
+			return bins;
+		});
+
+		return bins.filter(b=>b.items && b.items.length > 0);
 	}
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import CourseLinker from './CourseContentLinkMixin';
 import CourseContentLink from './CourseContentLink';
 
-import {BLANK_IMAGE} from 'common/constants/DataURIs';
 import ActiveState from 'common/components/ActiveState';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
@@ -119,17 +118,17 @@ export default React.createClass({
 		var courseId = item.getCourseID();
 
 		return (
-			<li className="grid-item">
+			<div className="library-item course">
 				<CourseContentLink courseId={courseId}>
-					<img style={{backgroundImage: icon && `url(${icon})`}} src={BLANK_IMAGE}/>
+					<img src={icon}/>
 					<label>
-						<h3>{title}</h3>
 						<h5>{label}</h5>
+						<h3>{title}</h3>
 					</label>
 				</CourseContentLink>
 
 				{this.renderSectionItems()}
-			</li>
+			</div>
 		);
 	},
 
@@ -139,7 +138,8 @@ export default React.createClass({
 		if (!sections) {return;}
 
 		return (
-				<ul className="sections">{sections.map(x=>
+			<ul className="sections">
+			{sections.map(x=>
 				<li key={x.title}>
 					<ActiveState {...x} tag="div"><a {...x}>{x.title}</a></ActiveState>
 				</li>

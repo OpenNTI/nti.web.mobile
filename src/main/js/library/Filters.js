@@ -2,7 +2,7 @@ export default [
 	{
 		name: 'Upcoming',
 		path: 'upcoming',
-		filter: function(item) {
+		filter: item => {
 			try {
 				var start = item.getStartDate();
 				return start > Date.now();
@@ -16,7 +16,7 @@ export default [
 	{
 		name: 'Current',
 		path: 'current',
-		filter: function(item) {
+		filter: item => {
 			try {
 				var now = Date.now();
 				var start = item.getStartDate();
@@ -33,7 +33,7 @@ export default [
 	{
 		name: 'Archived',
 		path: 'archived',
-		filter: function(item) {
+		filter: item => {
 			try {
 				var end = item.getEndDate();
 				return end < Date.now();

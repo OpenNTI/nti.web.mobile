@@ -113,6 +113,12 @@ $tabs-navigation-font-color: $primary-grey;
 %icon-nav-library-active {background-image: url(../images/icons/nav-library_active.png);}
 %icon-nav-library-hover {background-image: url(../images/icons/nav-library_hover.png);}
 
+%touch-scroll {
+	-webkit-backface-visibility: hidden;
+	-webkit-overflow-scrolling: touch;
+	-ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
 
 @mixin blur-effect() {
 	//filter: blur(add = 0, direction = 0, strength = 10);//IE

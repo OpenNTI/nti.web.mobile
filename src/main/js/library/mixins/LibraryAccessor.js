@@ -15,11 +15,23 @@ export default {
 		}
 	},
 
+	getInitialState () {
+		return { loading: true };
+	},
+
 	componentDidMount () { this.ensureLibraryLoaded(); },
 	componentWillReceiveProps () { this.ensureLibraryLoaded(); },
 
 	ensureLibraryLoaded () {
-		return load();//will return the same promise every time until reloaded.
+		let promise = load();//will return the same promise every time until reloaded.
+
+		promise.then(() => {
+			if (this.isMounted()){
+				this.setState({loading: false});
+			}
+		});
+
+		return promise;
 	},
 
 

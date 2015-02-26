@@ -1,5 +1,4 @@
 import React from 'react';
-import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
 export default React.createClass({
 	displayName: 'Bundle',
@@ -22,18 +21,16 @@ export default React.createClass({
 
 	render () {
 		var p = this.getItem();
-		var style = {
-			backgroundImage: p && p.icon && 'url(' + p.icon + ')'
-		};
+		let {icon} = p || {};
 
 		return (
-			<li className="grid-item">
-				<img style={style} src={BLANK_IMAGE}/>
+			<div className="library-item bundle">
+				<img src={icon}/>
 				<label>
 					<h3>{p.title}</h3>
 					<h5>{p.author}</h5>
 				</label>
-			</li>
+			</div>
 		);
 	}
 });

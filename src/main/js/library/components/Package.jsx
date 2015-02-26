@@ -1,5 +1,5 @@
 import React from 'react';
-import {BLANK_IMAGE} from 'common/constants/DataURIs';
+
 import {encodeForURI} from 'dataserverinterface/utils/ntiids';
 import BasePathAware from 'common/mixins/BasePath';
 
@@ -29,22 +29,19 @@ export default React.createClass({
 
 	render () {
 		var p = this.props.item;
-		var style = {
-			backgroundImage: p && p.icon && 'url(' + p.icon + ')'
-		};
-
 		var id = encodeForURI(p.getID());
+		let {icon} = p || {};
 
 		return (
-			<li className="grid-item">
+			<div className="library-item package">
 				<a href={this.getBasePath() + 'content/' + id + '/'}>
-					<img style={style} src={BLANK_IMAGE}/>
+					<img src={icon}/>
 					<label>
 						<h3>{p.title}</h3>
 						<h5>{p.author}</h5>
 					</label>
 				</a>
-			</li>
+			</div>
 		);
 	}
 });
