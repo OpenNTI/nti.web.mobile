@@ -10,7 +10,7 @@ export default {
 	mixinAdditionalHandler (eventId, handlerId) {
 		console.debug('mixinAdditionalHandler');
 		if (!this.hasOwnProperty(handlerMapKey)) {
-			this[handlerMapKey] = Object.create(this[getHandlers]());
+			this[handlerMapKey] = Object.create(this[getHandlers]()||{});
 		}
 
 		let map = this[getHandlers]();
