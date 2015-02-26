@@ -8,7 +8,6 @@ const handlerMapKey = 'backingStoreEventHandlers';
 export default {
 
 	mixinAdditionalHandler (eventId, handlerId) {
-		console.debug('mixinAdditionalHandler');
 		if (!this.hasOwnProperty(handlerMapKey)) {
 			this[handlerMapKey] = Object.create(this[getHandlers]()||{});
 		}
@@ -26,7 +25,6 @@ export default {
 	},
 
 	componentWillMount() {
-		console.debug('componentWillMount');
 		this[getStore] = getKey.bind(this, 'backingStore');
 		this[getHandlers] = getKey.bind(this, handlerMapKey);
 		this[onStoreChange] = onStoreChangeImpl.bind(this);
@@ -38,7 +36,6 @@ export default {
 			store.addChangeListener(this[onStoreChange]);
 		}
 	},
-
 
 	componentWillUnmount () {
 		let store = this[getStore]();
