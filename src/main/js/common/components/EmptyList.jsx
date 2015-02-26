@@ -7,7 +7,7 @@ var EmptyList = React.createClass({
 
 	render: function() {
 		return (
-			<Notice>{t('empty_list')}</Notice>
+			<Notice>{t('emptyList')}</Notice>
 		);
 	}
 

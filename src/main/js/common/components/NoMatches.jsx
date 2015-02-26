@@ -7,7 +7,7 @@ var NoMatches = React.createClass({
 	render: function() {
 		return (
 			<div className="notice nomatches">
-				{t('no_matches')}
+				{t('noMatches')}
 			</div>
 		);
 	}

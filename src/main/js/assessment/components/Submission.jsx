@@ -107,7 +107,7 @@ module.exports = React.createClass({
 					)}
 					<a href={disabled?'#':null} className={'button ' + (disabled?'disabled':'')} onClick={this.onSubmit}>{_t('submit')}</a>
 					{cannotReset? null: (<a href="#" className="reset button link" onClick={this.onReset}>{_t('reset')}</a>)}
-					<span className="status-line">{_t('x_unanswered', { count: unanswered  })}</span>
+					<span className="status-line">{_t('unanswered', { count: unanswered  })}</span>
 				</div>
 
 				{!busy ? null : <Loading message="Please Wait" maskScreen={true}/>}
