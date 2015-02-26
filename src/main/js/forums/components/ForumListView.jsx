@@ -86,7 +86,6 @@ export default React.createClass({
 
 		return (
 			<div>
-				<div>ForumListView</div>
 				<nav className="forum">
 					<ul>
 	 					{

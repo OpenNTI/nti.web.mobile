@@ -1,18 +1,20 @@
 import StorePrototype from 'common/StorePrototype';
 
-import {DISCUSSIONS_CHANGED} from './Constants';
+import {DISCUSSIONS_CHANGED, OBJECT_LOADED, OBJECT_CONTENTS_CHANGED} from './Constants';
 import indexForums from './utils/index-forums';
+import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 
 var _discussions = {};
 var _forums = {}; // forum objects by id.
 // var _forumContents = {};
-// var _objectContents = {};
-// var _objects = {};
+var _objectContents = {};
+var _objects = {};
 var _courseId;
 
 class Store extends StorePrototype {
 	constructor() {
 		super();
+		this.setMaxListeners(0);
 		this.registerHandlers({
 			
 		});
@@ -27,6 +29,25 @@ class Store extends StorePrototype {
 		});
 	}
 
+	setObject(ntiid, object) {
+		var key = this.__keyForObject(ntiid);
+		_objects[key] = object;
+		this.emitChange({
+			type: OBJECT_LOADED,
+			ntiid: ntiid,
+			object: object
+		});
+	}
+
+	setObjectContents(objectId, contents) {
+		var key = this.__keyForContents(objectId);
+		_objectContents[key] = contents;
+		this.emitChange({
+			type: OBJECT_CONTENTS_CHANGED,
+			objectId: objectId,
+		});
+	}
+
 	setCourseId(courseId) {
 		_courseId = courseId;
 	}
@@ -37,6 +58,27 @@ class Store extends StorePrototype {
 
 	getDiscussions(courseId) {
 		return _discussions[courseId];
+	}
+
+	getForum(forumId) {
+		return _forums[decodeFromURI(forumId)];
+	}
+
+	getObject(objectId) {
+		return _objects[this.__keyForObject(objectId)];
+	}
+
+	getObjectContents(objectId) {
+		var key = this.__keyForContents(objectId);
+		return _objectContents[key];
+	}
+
+	__keyForContents(objectId) {
+		return [decodeFromURI(objectId), 'contents'].join(':');
+	}
+
+	__keyForObject(objectId) {
+		return [decodeFromURI(objectId), 'object'].join(':');
 	}
 }
 

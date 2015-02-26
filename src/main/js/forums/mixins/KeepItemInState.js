@@ -1,19 +1,18 @@
-'use strict';
+import {OBJECT_LOADED} from '../Constants';
+import NTIID from 'dataserverinterface/utils/ntiids';
 
-var Store = require('../Store');
-var Constants = require('../Constants');
-var NTIID = require('dataserverinterface/utils/ntiids');
+const objectLoadedHandler = 'KeepItemInState:objectLoadedHandler';
 
 module.exports = {
+
+	componentWillMount() {
+		if (!this.mixinAdditionalHandler) {
+			console.warn('this.mixinAdditionalHandler is undefined. (Forgot to include the StoreEvents mixin?)');
+			return;
+		}
+		this.mixinAdditionalHandler(OBJECT_LOADED, objectLoadedHandler);
+	},
 	
-	componentDidMount: function() {
-		Store.addChangeListener(this.__storeChanged);
-	},
-
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this.__storeChanged);
-	},
-
 	componentWillReceiveProps: function(nextProps) {
 		this.setState({
 			busy: false,
@@ -21,17 +20,12 @@ module.exports = {
 		});
 	},
 
-	__storeChanged: function (event) {
-		switch(event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.OBJECT_LOADED:
-				var {object} = event;
-				if (object && object.getID && object.getID() === this._itemId()) {
-					this.setState({
-						item: object
-					});
-				}
-				break;
+	[objectLoadedHandler]: function (event) {
+		var {object} = event;
+		if (object && object.getID && object.getID() === this._itemId()) {
+			this.setState({
+				item: object
+			});
 		}
 	},
 
