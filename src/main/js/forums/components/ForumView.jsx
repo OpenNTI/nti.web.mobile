@@ -19,6 +19,8 @@ let Location = Router.Location;
 
 module.exports = React.createClass({
 
+	displayName: 'ForumView',
+
 	mixins: [
 		NavigatableMixin,
 		StoreEvents,
@@ -26,6 +28,7 @@ module.exports = React.createClass({
 	],
 
 	backingStore: Store,
+	backingStoreEventHandlers: {},
 
 	getInitialState: function() {
 		return {

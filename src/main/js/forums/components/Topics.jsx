@@ -15,6 +15,8 @@ var t = require('common/locale').scoped('FORUMS');
 
 var Topics = React.createClass({
 
+	displayName: 'Topics',
+
 	mixins: [NavigatableMixin, StoreEvents, LoadForum],
 
 	backingStore: Store,
