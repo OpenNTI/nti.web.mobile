@@ -15,7 +15,11 @@ var KeepItemInState = require('../../mixins/KeepItemInState');
  */
 module.exports = React.createClass({
 	displayName: 'TopicListItem',
-	mixins: [require('./Mixin'), KeepItemInState],
+	mixins: [
+		require('./Mixin'),
+		require('common/mixins/StoreEvents'),
+		KeepItemInState
+	],
 
 	statics: {
 		inputType: [
