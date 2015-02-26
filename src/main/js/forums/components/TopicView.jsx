@@ -1,29 +1,35 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 
-var Store = require('../Store');
-var AnalyticsStore = require('analytics/Store');
-var Actions = require('../Actions');
-var Api = require('../Api');
-var Constants = require('../Constants');
-var {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED} = Constants;
-var TOPIC_VIEWED = require('dataserverinterface/models/analytics/MimeTypes').TOPIC_VIEWED;
-var NTIID = require('dataserverinterface/utils/ntiids');
+import Store from '../Store';
+import AnalyticsStore from 'analytics/Store';
+import Actions from '../Actions';
+import Api from '../Api';
+import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED} from '../Constants';
+import {TOPIC_VIEWED} from 'dataserverinterface/models/analytics/MimeTypes';
+import NTIID from 'dataserverinterface/utils/ntiids';
 
-var TopicHeadline = require('./TopicHeadline');
-var TopicEditor = require('./TopicEditor');
-var TopicComments = require('./TopicComments');
-var Breadcrumb = require('common/components/Breadcrumb');
-var Prompt = require('prompts');
-var Notice = require('common/components/Notice');
-var Loading = require('common/components/Loading');
-var CommentForm = require('./CommentForm');
-var Err = require('common/components/Error');
+import TopicHeadline from './TopicHeadline';
+import TopicEditor from './TopicEditor';
+import TopicComments from './TopicComments';
+import Breadcrumb from 'common/components/Breadcrumb';
+import Prompt from 'prompts';
+import Notice from 'common/components/Notice';
+import Loading from 'common/components/Loading';
+import CommentForm from './CommentForm';
+import Err from 'common/components/Error';
 var t = require('common/locale').scoped('FORUMS');
-var ActionLinks = require('./ActionLinks');
+import ActionLinks from './ActionLinks';
 var {REPLY, REPLIES, EDIT, DELETE} = ActionLinks;
-var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+
+// mixins
+import StoreEvents from 'common/mixins/StoreEvents';
+import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import KeepItemInState from '../mixins/KeepItemInState';
+import ToggleState from '../mixins/ToggleState';
 
 var _SHOW_FORM = 'showForm';
 var _SHOW_REPLIES = 'showReplies';
@@ -32,11 +38,11 @@ module.exports = React.createClass({
 	displayName: 'TopicView',
 
 	mixins: [
-		require('common/mixins/StoreEvents'),
-		require('analytics/mixins/ResourceLoaded'),
-		require('common/mixins/NavigatableMixin'),
-		require('../mixins/KeepItemInState'),
-		require('../mixins/ToggleState')
+		StoreEvents,
+		ResourceLoaded,
+		NavigatableMixin,
+		KeepItemInState,
+		ToggleState
 	],
 
 	backingStore: Store,
@@ -252,8 +258,8 @@ module.exports = React.createClass({
 					numComments={numComments}
 					cssClasses={linksClasses}
 					clickHandlers={this._actionClickHandlers()} />
-				{form}
 				{this.state[_SHOW_REPLIES] && <TopicComments container={topicContents} topic={topic} />}
+				{form}
 			</div>
 		);
 	}
