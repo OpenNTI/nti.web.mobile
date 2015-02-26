@@ -48,6 +48,11 @@ export default React.createClass({
 			});
 			this._load();
 		}
+		else {
+			this.setState({
+				loading: false
+			});
+		}
 	},
 
 	_load() {
