@@ -22,10 +22,10 @@ function truncateText (el, measure) {
 				break;
 			}
 			setTitleOnce();
-			setText(getText().replace(/.(\.\.\.)?$/, '...'));
+			setText(getText().replace(/.(\.+)?$/, '...'));
 		}
 
-	}, 10);
+	}, 100);
 }
 
 export default {
