@@ -1,16 +1,31 @@
 'use strict';
 
-var React = require('react');
-var Editor = require('modeled-content').Editor;
-var PanelButton = require('common/components/PanelButton');
-var Notice = require('common/components/Notice');
-var OkCancelButtons = require('common/components/OkCancelButtons');
-var Loading = require('common/components/LoadingInline');
-var Actions = require('../Actions');
-var Store = require('../Store');
-var {COMMENT_ADDED, COMMENT_SAVED, COMMENT_ERROR} = require('../Constants');
+import React from 'react';
+import {Editor} from 'modeled-content';
+import PanelButton from 'common/components/PanelButton';
+import Notice from 'common/components/Notice';
+import OkCancelButtons from 'common/components/OkCancelButtons';
+import Loading from 'common/components/LoadingInline';
+import Actions from '../Actions';
+import Store from '../Store';
+import {COMMENT_ADDED, COMMENT_SAVED, COMMENT_ERROR} from '../Constants';
+import {StoreEvents} from 'common/mixins/';
 
 var CommentForm = React.createClass({
+
+	mixins: [StoreEvents],
+
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		[COMMENT_ADDED]: '_success',
+		[COMMENT_SAVED]: '_success',
+		[COMMENT_ERROR]: function(event) {
+			this.setState({
+				error: event.data.reason,
+				busy: false
+			});
+		}
+	},
 
 	getInitialState: function() {
 		return {
@@ -26,19 +41,7 @@ var CommentForm = React.createClass({
 	},
 
 	componentDidMount: function() {
-		Store.addChangeListener(this._storeChanged);
 		this.getDOMNode().scrollIntoView(false);
-	},
-
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChanged);
-	},
-
-	_storeChanged: function(event) {
-		var h = this._handlers[event.type];
-		if (h) {
-			return typeof h === 'string' ? this[h](event) : h.call(this, event);
-		}
 	},
 
 	_success: function() {
@@ -49,17 +52,6 @@ var CommentForm = React.createClass({
 		});
 		if (this.props.onCompletion) {
 			this.props.onCompletion(event);
-		}
-	},
-
-	_handlers: {
-		[COMMENT_ADDED]: '_success',
-		[COMMENT_SAVED]: '_success',
-		[COMMENT_ERROR]: function(event) {
-			this.setState({
-				error: event.data.reason,
-				busy: false
-			});
 		}
 	},
 
