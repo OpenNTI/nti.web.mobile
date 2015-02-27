@@ -23,13 +23,13 @@
  */
 export default [
 	{handler: 'Login',		path:'login/*'},
-	{handler: 'Catalog',	path:'catalog/*',				navIndex: 3},
+	{handler: 'Catalog',	path:'catalog/*'},
 	{handler: 'Contact',	path:'contact/:configname(/*)'},
-	{handler: 'Contacts',	path:'contacts/*',				navIndex: 2},
+	{handler: 'Contacts',	path:'contacts/*'},
 	{handler: 'Content',	path:'content/:pkgId/*'},
 	{handler: 'Course',		path:'course/:course/*'},
 	{handler: 'Enrollment',	path:'enroll/:course/*'},
-	{handler: 'Forums',		path:'forums/*',				navIndex: 1},
+	{handler: 'Forums',		path:'forums/*'},
 	{handler: 'Library',	path:'library/*',				navIndex: 0},
 	{handler: 'Profile',	path:'profile/:username(/*)'},
 	{handler: 'Home',		path:''}
