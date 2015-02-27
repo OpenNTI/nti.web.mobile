@@ -55,6 +55,7 @@ export default React.createClass({
 		addClass(document.body, 'dark');
 	},
 
+
 	componentWillUnmount () {
 		removeClass(document.body, 'dark');
 	},
@@ -74,6 +75,7 @@ export default React.createClass({
 		loading = loading || pickingDefault;
 
 		let {env} = this.state;
+
 		return (
 			<div>
 				<NavigationBar title="Library">
