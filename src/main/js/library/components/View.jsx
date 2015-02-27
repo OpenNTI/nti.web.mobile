@@ -8,10 +8,12 @@ import {addClass, removeClass} from 'common/utils/dom';
 import Loading from 'common/components/Loading';
 import Redirect from 'navigation/components/Redirect';
 
+import NavigationBar from 'navigation/components/Bar';
+
 import Collection from './Collection';
-import Page from './Page';
 
 import SectionMixin from '../mixins/SectionAware';
+import BasePath from 'common/mixins/BasePath';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
 
@@ -24,7 +26,7 @@ let Section = React.createClass({
 			className: 'library-view'
 		};
 
-		return React.createElement(Page, props, ...bins.map(b=>
+		return React.createElement('div', props, ...bins.map(b=>
 			<Collection title={b.name} subtitle={b.label} list={b.items}/>));
 	}
 
@@ -34,7 +36,7 @@ let Section = React.createClass({
 
 export default React.createClass({
 	displayName: 'Library:View',
-	mixins: [SetStateSafely, SectionMixin],
+	mixins: [BasePath, SetStateSafely, SectionMixin],
 
 	getInitialState () {
 		let env = getEnvironment('library');
@@ -74,9 +76,14 @@ export default React.createClass({
 
 		let {env} = this.state;
 		return (
-			<Locations environment={env}>
-				{this.getRoutes()}
-			</Locations>
+			<div>
+				<NavigationBar title="Library">
+					<a href={this.getBasePath() + 'catalog/'} position="left" className="add">Add</a>
+				</NavigationBar>
+				<Locations environment={env}>
+					{this.getRoutes()}
+				</Locations>
+			</div>
 		);
 	},
 

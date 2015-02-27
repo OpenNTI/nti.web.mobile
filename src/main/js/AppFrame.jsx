@@ -5,7 +5,6 @@ import Footer from 'common/components/Footer';
 
 import RouteAware from 'common/mixins/NavigatableMixin';
 
-import NavigationBar from 'navigation/components/Bar';
 import Navigation from 'navigation/components/View';
 
 import Notifications from 'notifications/components/View';
@@ -65,8 +64,7 @@ export default React.createClass({
 
 				<div className={`off-canvas-wrap ${state}`} data-offcanvas>
 					<div className="inner-wrap">
-						<NavigationBar title="next thought" branding/>
-
+						
 						<aside className="left-off-canvas-menu" style={height}>
 							<Navigation/>
 						</aside>

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Filter from 'common/components/CollectionFilter';
-import BasePathAware from 'common/mixins/BasePath';
 
 import Item from './Entry';
 
@@ -43,7 +42,6 @@ const ListView = React.createClass({
 
 export default React.createClass({
 	displayName: 'Catalog:Collection',
-	mixins: [BasePathAware],
 
 	propTypes: {
 		title: React.PropTypes.string,
@@ -64,7 +62,6 @@ export default React.createClass({
 	render () {
 		return (
 			<div>
-				<a href={this.getBasePath() + 'library/'}>Library</a>
 				<Filter {...this.props} filters={filters}>
 					<ListView title={this.props.title} />
 				</Filter>

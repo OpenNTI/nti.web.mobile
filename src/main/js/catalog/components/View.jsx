@@ -5,6 +5,10 @@ import CatalogEntryDetail from './CatalogEntryDetail';
 
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
+import NavigationBar from 'navigation/components/Bar';
+
+import BasePathAware from 'common/mixins/BasePath';
+
 import Loading from 'common/components/Loading';
 
 import {Locations, Location} from 'react-router-component';
@@ -13,7 +17,7 @@ import Enrollment from 'enrollment/components/View';
 
 export default React.createClass({
 	displayName: 'CatalogView',
-	mixins: [CatalogAccessor],
+	mixins: [CatalogAccessor, BasePathAware],
 
 
 	shouldComponentUpdate (_, newState) {
@@ -41,24 +45,34 @@ export default React.createClass({
 		}
 
         return (
-			<Locations contextual={true} ref="router">
-				<Location
-					ref="enrollment"
-					path="/item/:entryId/enrollment(/*)"
-					handler={Enrollment}
-				/>
-	            <Location
-	                path="/item/:entryId(/*)"
-	                handler={CatalogEntryDetail}
-	            />
-	            <Location
-	                path="*"
-	                handler={Collection}
-	                list={catalog}
-	                section="catalog"
-	            />
-			</Locations>
+			<div>
+				<NavigationBar title="Catalog" contextProvider={this.getContext}/>
+				<Locations contextual={true} ref="router">
+					<Location
+						ref="enrollment"
+						path="/item/:entryId/enrollment(/*)"
+						handler={Enrollment}
+					/>
+		            <Location
+		                path="/item/:entryId(/*)"
+		                handler={CatalogEntryDetail}
+		            />
+		            <Location
+		                path="*"
+		                handler={Collection}
+		                list={catalog}
+		                section="catalog"
+		            />
+				</Locations>
+			</div>
         );
-	}
+	},
 
+
+	getContext () {
+		return Promise.resolve([{
+			label: 'Library',
+			href: this.getBasePath() + 'library/'
+		}]);
+	}
 });
