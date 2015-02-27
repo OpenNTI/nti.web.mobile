@@ -25,6 +25,15 @@ const sectionFiltersMap = {
 export default {
 	mixins: [LibraryAccessor],
 
+	componentDidMount () {
+		this.ensureLibraryLoaded().then(()=>{
+			if (this.isMounted()) {
+				this.setState({sections: this.getAvailableSections()});
+			}
+		});
+	},
+
+
 	getSectionNames () {
 		return Object.keys(sectionNames);
 	},
@@ -36,7 +45,7 @@ export default {
 				if (!this.getLibrary()) {
 					console.warn('Early!!!');
 				}
-				var admin = this.getListForSection(sectionNames.admin);
+				let admin = this.getListForSection(sectionNames.admin);
 					//if there are admin courses, default there...
 				return admin.length ? sectionNames.admin :
 					// if user doesn't have any courses default to the catalog.
@@ -45,9 +54,17 @@ export default {
 	},
 
 
+	getAvailableSections() {
+		let names = this.getSectionNames();
+		return names
+			.filter(x=>this.getListForSection(x).length)
+			.map(x=>({key: x, label: sectionNames[x]}));
+	},
+
+
 	getListForSection (section) {
-		var library = this.getLibrary();
-		var properties = sectionPropertyMap[section];
+		let library = this.getLibrary();
+		let properties = sectionPropertyMap[section];
 		if (!library) {
 			return [];//not loaded yet
 		}
