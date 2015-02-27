@@ -6,12 +6,13 @@ export default React.createClass({
 	mixins: [Mixin],
 
 	propTypes: {
-		courseId: React.PropTypes.string.isRequired
+		courseId: React.PropTypes.string.isRequired,
+		section: React.PropTypes.string
 	},
 
-	render: function() {
-
-		var href = this.courseHref(this.props.courseId);
+	render () {
+		let {courseId, section} = this.props;
+		let href = this.courseHref(courseId, section);
 
 		return (
 			<a {...this.props} href={href}>{this.props.children}</a>

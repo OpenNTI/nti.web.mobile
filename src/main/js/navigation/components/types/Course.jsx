@@ -4,8 +4,10 @@ import ActiveState from 'common/components/ActiveState';
 import Loading from 'common/components/LoadingInline';
 
 import Outline from 'course/components/OutlineView';
-import CourseLinker from 'library/components/CourseContentLinkMixin';
+import COURSE_SECTIONS from 'course/Sections';
+
 import SetStateSafely from 'common/mixins/SetStateSafely';
+import CourseLinker from 'library/components/CourseContentLinkMixin';
 
 export default React.createClass({
 	displayName: 'navigation:type:Course',
@@ -49,45 +51,44 @@ export default React.createClass({
 	resolveSections (item) {
 		let items = [];
 		let courseId = item.getCourseID();
-		let baseUrl = this.courseHref(courseId, false);
 
 		//Activity
-		items.push({
-			title: 'Activity',
-			// href: `${baseUrl}activity`
-		});
+		// items.push({
+		// 	title: 'Activity',
+			// href: this.courseHref(courseId, COURSE_SECTIONS.ACTIVITY),
+		// });
 
 		//Lessons
 		items.push({
 			title: 'Lessons',
-			href: `${baseUrl}o/`,
+			href: this.courseHref(courseId, COURSE_SECTIONS.LESSONS),
 			hasChildren: true
 		});
 
 		//Assignments
 		items.push({
 			title: 'Assignments',
-			// href: `${baseUrl}a/`,
+			// href: this.courseHref(courseId, COURSE_SECTIONS.ASSIGNMENTS),
 			hasChildren: true
 		});
 
 		//Discussions
 		items.push({
 			title: 'Discussions',
-			href: `${baseUrl}d/`,
+			href: this.courseHref(courseId, COURSE_SECTIONS.DISCUSSIONS),
 			hasChildren: true
 		});
 
 		items.push({
 			title: 'Videos',
-			href: `${baseUrl}v/`,
+			href: this.courseHref(courseId, COURSE_SECTIONS.VIDEOS),
 			hasChildren: true
 		});
 
 		//Course Info
 		items.push({
 			title: 'Course Info',
-			href: baseUrl
+			href: this.courseHref(courseId, COURSE_SECTIONS.INFO),
 		});
 
 		return items;

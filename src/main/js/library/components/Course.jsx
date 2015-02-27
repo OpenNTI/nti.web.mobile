@@ -2,6 +2,8 @@ import React from 'react';
 import CourseLinker from './CourseContentLinkMixin';
 import CourseContentLink from './CourseContentLink';
 
+import COURSE_SECTIONS from 'course/Sections';
+
 import ActiveState from 'common/components/ActiveState';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 import E from 'common/components/Ellipsed';
@@ -52,45 +54,44 @@ export default React.createClass({
 	resolveSections (item) {
 		let items = [];
 		let courseId = item.getCourseID();
-		let baseUrl = this.courseHref(courseId, false);
 
 		//Activity
 		// items.push({
 		// 	title: 'Activity',
-		// 	// href: `${baseUrl}activity`
+		// 	// href: this.courseHref(courseId, COURSE_SECTIONS.ACTIVITY),
 		// });
 
 		//Lessons
 		items.push({
 			title: 'Lessons',
-			href: `${baseUrl}o/`,
+			href: this.courseHref(courseId, COURSE_SECTIONS.LESSONS),
 			hasChildren: true
 		});
 
-		//Assignments
+		// Assignments
 		// items.push({
 		// 	title: 'Assignments',
-		// 	// href: `${baseUrl}a/`,
+		// 	href: this.courseHref(courseId, COURSE_SECTIONS.ASSIGNMENTS),
 		// 	hasChildren: true
 		// });
 
 		//Discussions
 		items.push({
 			title: 'Discussions',
-			href: `${baseUrl}d/`,
+			href: this.courseHref(courseId, COURSE_SECTIONS.DISCUSSIONS),
 			hasChildren: true
 		});
 
-		items.push({
-			title: 'Videos',
-			href: `${baseUrl}v/`,
-			hasChildren: true
-		});
+		// items.push({
+		// 	title: 'Videos',
+		// 	href: this.courseHref(courseId, COURSE_SECTIONS.VIDEOS),
+		// 	hasChildren: true
+		// });
 
 		//Course Info
 		items.push({
 			title: 'Course Info',
-			href: baseUrl
+			href: this.courseHref(courseId, COURSE_SECTIONS.INFO),
 		});
 
 		return items;
@@ -120,7 +121,7 @@ export default React.createClass({
 
 		return (
 			<div className="library-item course">
-				<CourseContentLink courseId={courseId}>
+				<CourseContentLink courseId={courseId} section={COURSE_SECTIONS.LESSONS}>
 					<img src={icon}/>
 					<label>
 						<h5>{label}</h5>
