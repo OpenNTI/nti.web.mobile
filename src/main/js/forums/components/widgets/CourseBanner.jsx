@@ -17,11 +17,11 @@ export default React.createClass({
 		let p = course.getPresentationProperties();
 		return (
 			<div className="course-banner">
-				<img style={{backgroundImage: p && p.icon && `url(${p.icon})`}} src={BLANK_IMAGE}/>
-				<div className="metadata">
+				<img src={p.icon || BLANK_IMAGE} />
+				<label>
 					<h3>{p.title}</h3>
 					<h5>{p.label}</h5>
-				</div>
+				</label>
 			</div>
 		);
 	}
