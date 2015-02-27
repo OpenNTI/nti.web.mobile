@@ -1,54 +1,37 @@
 'use strict';
 
-import React from 'react';
-import {types, GOT_COMMENT_REPLIES} from '../../Constants';
-import Actions from '../../Actions';
-import Store from '../../Store';
+var React = require('react');
+var Constants = require('../../Constants');
+var Actions = require('../../Actions');
+var Store = require('../../Store');
 
-import Avatar from 'common/components/Avatar';
-import DateTime from 'common/components/DateTime';
-import DisplayName from 'common/components/DisplayName';
-import Replies from '../Replies';
-import {Panel as ModeledContentPanel} from 'modeled-content';
-
-import Loading from 'common/components/LoadingInline';
-import CommentForm from '../CommentForm';
-import ActionLinks from '../ActionLinks';
-
-import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
-import Prompt from 'prompts';
-
-import Mixin from './Mixin';
-import StoreEvents from 'common/mixins/StoreEvents';
-import KeepItemInState from '../../mixins/KeepItemInState';
-import ToggleState from '../../mixins/ToggleState';
-
-var {EDIT, DELETE, REPLIES, REPLY} = ActionLinks;
+var Avatar = require('common/components/Avatar');
+var DateTime = require('common/components/DateTime');
+var DisplayName = require('common/components/DisplayName').default;
+var Replies = require('../Replies'); 
+var Replies = require('../Replies'); 
+var ModeledContentPanel = require('modeled-content').Panel;
 var t = require('common/locale').scoped('FORUMS');
+var Loading = require('common/components/LoadingInline');
+var CommentForm = require('../CommentForm');
+var ActionLinks = require('../ActionLinks');
+var {EDIT, DELETE, REPLIES, REPLY} = ActionLinks;
+var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
+var Prompt = require('prompts');
+var KeepItemInState = require('../../mixins/KeepItemInState');
+var ToggleState = require('../../mixins/ToggleState');
+
 var _SHOW_FORM = 'showForm';
 var _SHOW_REPLIES = 'showReplies';
-
-const gotCommentReplies = 'PostItem:gotCommentReplies';
 
 var PostItem = React.createClass({
 
 	displayName: 'PostListItem',
-
-	mixins: [
-		Mixin,
-		StoreEvents,
-		KeepItemInState,
-		ToggleState
-	],
-
-	backingStore: Store,
-	backingStoreEventHandlers: {
-		[GOT_COMMENT_REPLIES]: gotCommentReplies
-	},
+	mixins: [require('./Mixin'), KeepItemInState, ToggleState],
 
 	statics: {
 		inputType: [
-			types.POST
+			Constants.types.POST
 		]
 	},
 
@@ -62,6 +45,14 @@ var PostItem = React.createClass({
 		};
 	},
 
+	componentDidMount: function() {
+		Store.addChangeListener(this._storeChanged);
+	},
+
+	componentWillUnmount: function() {
+		Store.removeChangeListener(this._storeChanged);
+	},
+
 	componentWillReceiveProps: function(nextProps) {
 		if (this.props.item !== nextProps.item) {
 			this.setState({
@@ -71,11 +62,15 @@ var PostItem = React.createClass({
 		}
 	},
 
-	[gotCommentReplies]: function (event) {
-		if(event.comment === this.props.item) {
-			this.setState({
-				replyCount: event.replies.length
-			});
+	_storeChanged: function (event) {
+		switch(event.type) {
+			case Constants.GOT_COMMENT_REPLIES:
+				if(event.comment === this.props.item) {
+					this.setState({
+						replyCount: event.replies.length
+					});
+				}
+				break;
 		}
 	},
 

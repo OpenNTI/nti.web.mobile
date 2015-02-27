@@ -6,9 +6,7 @@ var _promises = {};
 
 module.exports = {
 	loadDiscussions(course) {
-		if (!course) {
-			return Promise.reject('Course not specified.');
-		}
+
 		var courseId = course.getID();
 
 		// do we already have a promise for loading this course's discussions?

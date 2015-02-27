@@ -1,27 +1,19 @@
 'use strict';
 /** @module forums/Actions */
 
-import AppDispatcher from 'dispatcher/AppDispatcher';
+var AppDispatcher = require('dispatcher/AppDispatcher');
+var Constants = require('./Constants');
 
-import {
-	GET_COMMENT_REPLIES,
-	ADD_COMMENT,
-	SAVE_COMMENT,
-	CREATE_TOPIC,
-	DELETE_TOPIC,
-	DELETE_COMMENT,
-	REPORT_ITEM
-} from './Constants';
 
 module.exports = {
 	getCommentReplies: function(comment) {
-		dispatch(GET_COMMENT_REPLIES, {
+		dispatch(Constants.GET_COMMENT_REPLIES, {
 			comment: comment
 		});
 	},
 
 	addComment: function(topic, parent, comment) {
-		dispatch(ADD_COMMENT, {
+		dispatch(Constants.ADD_COMMENT, {
 			topic: topic,
 			parent: parent,
 			comment: comment
@@ -29,33 +21,33 @@ module.exports = {
 	},
 
 	saveComment: function(postItem, newValue) {
-		dispatch(SAVE_COMMENT, {
+		dispatch(Constants.SAVE_COMMENT, {
 			postItem: postItem,
 			newValue: newValue
 		});
 	},
 
 	createTopic: function(forum, topic) {
-		dispatch(CREATE_TOPIC, {
+		dispatch(Constants.CREATE_TOPIC, {
 			forum: forum,
 			topic: topic
 		});
 	},
 
 	deleteTopic: function(topic) {
-		dispatch(DELETE_TOPIC, {
+		dispatch(Constants.DELETE_TOPIC, {
 			topic: topic
 		});	
 	},
 
 	deleteComment: function(comment) {
-		dispatch(DELETE_COMMENT, {
+		dispatch(Constants.DELETE_COMMENT, {
 			comment: comment
 		});
 	},
 
 	reportItem: function(item) {
-		dispatch(REPORT_ITEM, {
+		dispatch(Constants.REPORT_ITEM, {
 			item: item
 		});	
 	}

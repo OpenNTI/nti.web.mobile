@@ -1,36 +1,27 @@
-'use strict';
+// export const LOADING = Symbol('forums:Loading');
 
-var namespacedKeyMirror = require('dataserverinterface/utils/namespaced-key-mirror');
-
-var types = {
+export const types = {
 	FORUM: 'forums.communityforum',
 	TOPIC: 'forums.communityheadlinetopic',
 	POST: 'forums.generalforumcomment'
 };
 
-module.exports = Object.assign(exports,
-	{
-		types: types // e.g. Constants.types.FORUM === 'forums.communityforum'
-	},
-	namespacedKeyMirror('forums', {
-		ADD_COMMENT: null,
-		BOARD_CONTENTS_CHANGED: null,
-		COMMENT_ADDED: null,
-		COMMENT_ERROR: null,
-		COMMENT_SAVED: null,
-		CREATE_TOPIC: null,
-		DELETE_COMMENT: null,
-		DELETE_TOPIC: null,
-		DISCUSSIONS_CHANGED: null,
-		GET_COMMENT_REPLIES: null,
-		GOT_COMMENT_REPLIES: null,
-		ITEM_REPORTED: null,
-		OBJECT_CONTENTS_CHANGED: null,
-		OBJECT_DELETED: null,
-		OBJECT_LOADED: null,
-		REPORT_ITEM: null,
-		SAVE_COMMENT: null,
-		TOPIC_CREATED: null,
-		TOPIC_CREATION_ERROR: null
-	})
-);
+export const ADD_COMMENT = Symbol('forums:ADD_COMMENT');
+export const BOARD_CONTENTS_CHANGED = Symbol('forums:BOARD_CONTENTS_CHANGED');
+export const COMMENT_ADDED = Symbol('forums:COMMENT_ADDED');
+export const COMMENT_ERROR = Symbol('forums:COMMENT_ERROR');
+export const COMMENT_SAVED = Symbol('forums:COMMENT_SAVED');
+export const CREATE_TOPIC = Symbol('forums:CREATE_TOPIC');
+export const DELETE_COMMENT = Symbol('forums:DELETE_COMMENT');
+export const DELETE_TOPIC = Symbol('forums:DELETE_TOPIC');
+export const DISCUSSIONS_CHANGED = Symbol('forums:DISCUSSIONS_CHANGED');
+export const GET_COMMENT_REPLIES = Symbol('forums:GET_COMMENT_REPLIES');
+export const GOT_COMMENT_REPLIES = Symbol('forums:GOT_COMMENT_REPLIES');
+export const ITEM_REPORTED = Symbol('forums:ITEM_REPORTED');
+export const OBJECT_CONTENTS_CHANGED = Symbol('forums:OBJECT_CONTENTS_CHANGED');
+export const OBJECT_DELETED = Symbol('forums:OBJECT_DELETED');
+export const OBJECT_LOADED = Symbol('forums:OBJECT_LOADED');
+export const REPORT_ITEM = Symbol('forums:REPORT_ITEM');
+export const SAVE_COMMENT = Symbol('forums:SAVE_COMMENT');
+export const TOPIC_CREATED = Symbol('forums:TOPIC_CREATED');
+export const TOPIC_CREATION_ERROR = Symbol('forums:TOPIC_CREATION_ERROR');

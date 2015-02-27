@@ -1,19 +1,19 @@
-'use strict';
+import Api from '../Api';
+import Store from '../Store';
+import {OBJECT_CONTENTS_CHANGED} from '../Constants';
 
-var Api = require('../Api');
-var Store = require('../Store');
-var Constants = require('../Constants');
+import NTIID from 'dataserverinterface/utils/ntiids';
 
-var NTIID = require('dataserverinterface/utils/ntiids');
+const objectContentsChangedHandler = 'LoadForum:objectContentsChangedHandler';
 
 module.exports = {
-	componentDidMount: function() {
-		Store.addChangeListener(this._storeChanged);
+	componentWillMount: function() {
+		if (!this.mixinAdditionalHandler) {
+			console.warn('this.mixinAdditionalHandler is undefined. (Forgot to include the StoreEvents mixin?)');
+			return;
+		}
+		this.mixinAdditionalHandler(OBJECT_CONTENTS_CHANGED, objectContentsChangedHandler);
 		this._loadData(this.props.forumId);
-	},
-
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChanged);
 	},
 
 	componentWillReceiveProps: function(nextProps) {
@@ -22,18 +22,12 @@ module.exports = {
 		}
 	},
 
-	_storeChanged: function(event) {
-		switch(event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			// case Constants.OBJECT_LOADED:
-			case Constants.OBJECT_CONTENTS_CHANGED:
-				var {forumId} = this.props;
-				if (NTIID.decodeFromURI(event.objectId) === NTIID.decodeFromURI(forumId)) {
-					this.setState({
-						loading: false
-					});
-				}
-				break;
+	[objectContentsChangedHandler]: function(event) {
+		var {forumId} = this.props;
+		if (NTIID.decodeFromURI(event.objectId) === NTIID.decodeFromURI(forumId)) {
+			this.setState({
+				loading: false
+			});
 		}
 	},
 
