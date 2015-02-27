@@ -310,18 +310,17 @@ export function parseDomObject (el, attributePrefix) {
 
 
 export function getVideosFromDom (contentElement) {
-	var me = this,
-		videoQS = 'object .naqvideo, object .ntivideo',
+	var videoQS = 'object .naqvideo, object .ntivideo',
 		sourceQS = 'object[type$=videosource]',
 		videoObjects = [];
 
 	if (contentElement) {
 		Array.from(contentElement.querySelectorAll(videoQS)).forEach(v => {
-			var o = me.parseDomObject(v),
+			var o = parseDomObject(v),
 				s = o.sources = [];
 
 			Array.from(v.querySelectorAll(sourceQS)).forEach(source =>
-				s.push(me.parseDomObject(source)));
+				s.push(parseDomObject(source)));
 
 			videoObjects.push(o);
 		});
@@ -332,11 +331,10 @@ export function getVideosFromDom (contentElement) {
 
 
 export function getImagesFromDom (contentElement) {
-	var imageObjects = [],
-		me = this;
+	var imageObjects = [];
 
 	Array.from(contentElement.querySelectorAll('span > img')).forEach(i =>
-		imageObjects.push(me.parseDomObject(i)));
+		imageObjects.push(parseDomObject(i)));
 	return imageObjects;
 }
 
