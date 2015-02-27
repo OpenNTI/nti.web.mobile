@@ -28,6 +28,8 @@ var t = require('common/locale').scoped('FORUMS');
 var _SHOW_FORM = 'showForm';
 var _SHOW_REPLIES = 'showReplies';
 
+const gotCommentReplies = 'PostItem:gotCommentReplies';
+
 var PostItem = React.createClass({
 
 	displayName: 'PostListItem',
@@ -40,7 +42,9 @@ var PostItem = React.createClass({
 	],
 
 	backingStore: Store,
-	backingStoreEventHandlers: {},
+	backingStoreEventHandlers: {
+		[GOT_COMMENT_REPLIES]: gotCommentReplies
+	},
 
 	statics: {
 		inputType: [
@@ -58,14 +62,6 @@ var PostItem = React.createClass({
 		};
 	},
 
-	componentDidMount: function() {
-		Store.addChangeListener(this._storeChanged);
-	},
-
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChanged);
-	},
-
 	componentWillReceiveProps: function(nextProps) {
 		if (this.props.item !== nextProps.item) {
 			this.setState({
@@ -75,15 +71,11 @@ var PostItem = React.createClass({
 		}
 	},
 
-	_storeChanged: function (event) {
-		switch(event.type) {
-			case GOT_COMMENT_REPLIES:
-				if(event.comment === this.props.item) {
-					this.setState({
-						replyCount: event.replies.length
-					});
-				}
-				break;
+	[gotCommentReplies]: function (event) {
+		if(event.comment === this.props.item) {
+			this.setState({
+				replyCount: event.replies.length
+			});
 		}
 	},
 
