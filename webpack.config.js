@@ -28,7 +28,7 @@ var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
 var commonLoaders = [
     { test: /\.json$/, loader: 'json' },
     { test: /\.js(x?)$/,
-        loader: 'babel?optional=selfContained',
+        loader: 'babel?optional=runtime',
         exclude: {
             test: excludeNodeModulesExceptOurs
         }
