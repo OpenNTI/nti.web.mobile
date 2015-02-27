@@ -7,12 +7,10 @@ var willLoad;
 
 
 export function load (reload) {
-
-	var result = getLibrary(reload);
-
-	if (!willLoad || reload) {
+	let result = willLoad;
+	if (!result || reload) {
 		//This should only fire for actual loads and not cached (previously-resolved) promises.
-		result = willLoad = result
+		willLoad = result = getLibrary(reload)
 			.then(library => dispatch(LOADED_LIBRARY, library));
 	}
 
@@ -25,6 +23,7 @@ export function reload () {
 }
 
 
-function dispatch(type, collection) {
-	AppDispatcher.handleRequestAction({ type, response: collection });
+function dispatch(type, response) {
+	AppDispatcher.handleRequestAction({ type, response });
+	return response;
 }
