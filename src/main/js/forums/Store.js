@@ -56,8 +56,9 @@ function addComment(topic, parent, comment) {
 * 		body: [...] // as returned by the editor component's getValue()
 *	}
 */
-function saveComment(item, newProperties) {
-	return item.setProperties(newProperties)
+function saveComment(payload) {
+	var {postItem, newValue} = payload.action;
+	return postItem.setProperties(newValue)
 	.then(result => {
 		store.commentSaved(result);
 	});
@@ -142,11 +143,8 @@ class Store extends StorePrototype {
 				addComment(topic, parent, comment);
 			},
 
-			// case Constants.SAVE_COMMENT:
-			[Constants.SAVE_TOPIC_HEADLINE]: function(payload) {
-				var {postItem, newValue} = payload.action;
-				saveComment(postItem, newValue);
-			},
+			[Constants.SAVE_COMMENT]: saveComment,
+			[Constants.SAVE_TOPIC_HEADLINE]: saveComment,
 
 			[Constants.CREATE_TOPIC]: function(payload) {
 				var {forum, topic} = payload.action;
