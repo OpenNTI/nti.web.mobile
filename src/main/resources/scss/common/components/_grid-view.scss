@@ -67,6 +67,8 @@
 	width: 180px;
 	position: relative;
 	overflow: visible;
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
 	box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.8);
 	border-radius: 1px;//iOS won't render the shadow w/o this :/
 

@@ -70,9 +70,8 @@ export default React.createClass({
 
 	render () {
 		let {pickingDefault, loading} = this.state;
-		if(loading || pickingDefault) {
-			return (<Loading />);
-		}
+
+		loading = loading || pickingDefault;
 
 		let {env} = this.state;
 		return (
@@ -80,9 +79,12 @@ export default React.createClass({
 				<NavigationBar title="Library">
 					<a href={this.getBasePath() + 'catalog/'} position="left" className="add">Add</a>
 				</NavigationBar>
-				<Locations environment={env}>
-					{this.getRoutes()}
-				</Locations>
+				{loading ?
+					<Loading /> :
+					<Locations environment={env}>
+						{this.getRoutes()}
+					</Locations>
+				}
 			</div>
 		);
 	},

@@ -40,30 +40,30 @@ export default React.createClass({
 
         // console.log('CatalogView.props: %O',this.props);
 
-		if (!catalog) {
-			return (<Loading/>);
-		}
 
         return (
 			<div>
 				<NavigationBar title="Catalog" contextProvider={this.getContext}/>
-				<Locations contextual={true} ref="router">
-					<Location
-						ref="enrollment"
-						path="/item/:entryId/enrollment(/*)"
-						handler={Enrollment}
-					/>
-		            <Location
-		                path="/item/:entryId(/*)"
-		                handler={CatalogEntryDetail}
-		            />
-		            <Location
-		                path="*"
-		                handler={Collection}
-		                list={catalog}
-		                section="catalog"
-		            />
+				{!catalog ?
+					<Loading/> :
+					<Locations contextual={true} ref="router">
+						<Location
+							ref="enrollment"
+							path="/item/:entryId/enrollment(/*)"
+							handler={Enrollment}
+						/>
+			            <Location
+			                path="/item/:entryId(/*)"
+			                handler={CatalogEntryDetail}
+			            />
+			            <Location
+			                path="*"
+			                handler={Collection}
+			                list={catalog}
+			                section="catalog"
+			            />
 				</Locations>
+			}
 			</div>
         );
 	},
