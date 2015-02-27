@@ -258,8 +258,8 @@ module.exports = React.createClass({
 					numComments={numComments}
 					cssClasses={linksClasses}
 					clickHandlers={this._actionClickHandlers()} />
-				{this.state[_SHOW_REPLIES] && <TopicComments container={topicContents} topic={topic} />}
 				{form}
+				{this.state[_SHOW_REPLIES] && <TopicComments container={topicContents} topic={topic} />}
 			</div>
 		);
 	}
