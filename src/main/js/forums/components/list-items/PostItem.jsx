@@ -18,10 +18,13 @@ import ActionLinks from '../ActionLinks';
 import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
 import Prompt from 'prompts';
 
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import Mixin from './Mixin';
 import StoreEvents from 'common/mixins/StoreEvents';
 import KeepItemInState from '../../mixins/KeepItemInState';
 import ToggleState from '../../mixins/ToggleState';
+
+import NTIID from 'dataserverinterface/utils/ntiids';
 
 var {EDIT, DELETE, REPLIES, REPLY} = ActionLinks;
 var t = require('common/locale').scoped('FORUMS');
@@ -35,6 +38,7 @@ var PostItem = React.createClass({
 	displayName: 'PostListItem',
 
 	mixins: [
+		NavigatableMixin,
 		Mixin,
 		StoreEvents,
 		KeepItemInState,
@@ -146,6 +150,7 @@ var PostItem = React.createClass({
 		var modifiedOn = item.getLastModified();
 		var message = item.body;
 		var numComments = this._numComments();
+		var href = this.makeHref(NTIID.encodeForURI(this._itemId()) + '/', true);
 
 		var edited = (Math.abs(modifiedOn - createdOn) > 0);
 		
@@ -204,6 +209,7 @@ var PostItem = React.createClass({
 
 		return (
 			<div className="postitem">
+				<a href={href} className="threadlink"><span className="arrow-right"/></a>
 				<div className="post">
 					<Avatar username={createdBy} className="avatar"/>
 					<div className="wrap">
@@ -212,10 +218,16 @@ var PostItem = React.createClass({
 							<DateTime date={createdOn} relative={true}/>
 						</div>
 						<div className="message">
-							{this.state.editing ? <CommentForm editItem={item} onCompletion={this._hideEditForm} onCancel={this._hideEditForm}/> : <ModeledContentPanel body={message} />}
+							{this.state.editing ?
+								<CommentForm
+									editItem={item}
+									onCompletion={this._hideEditForm}
+									onCancel={this._hideEditForm}/> :
+								<ModeledContentPanel body={message} />
+							}
 							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 						</div>
-						{[links, form, replies]}
+						{[links, form]}
 					</div>
 				</div>
 			</div>

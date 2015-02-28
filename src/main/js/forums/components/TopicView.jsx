@@ -22,7 +22,7 @@ import Err from 'common/components/Error';
 var t = require('common/locale').scoped('FORUMS');
 import ActionLinks from './ActionLinks';
 var {REPLY, REPLIES, EDIT, DELETE} = ActionLinks;
-import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+// import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 // mixins
 import StoreEvents from 'common/mixins/StoreEvents';
@@ -231,16 +231,6 @@ module.exports = React.createClass({
 			linksClasses.replies.push('open');
 		}
 
-		var form = (<ReactCSSTransitionGroup key="formTransition" transitionName="forum-comments">
-						{this.state.showForm && <CommentForm key="commentForm"
-							ref='commentForm'
-							onCancel={this._hideCommentForm}
-							onCompletion={this._hideCommentForm}
-							topic={topic}
-							parent={topic.parent()}
-						/>}
-					</ReactCSSTransitionGroup>);
-
 		var Tag = this.state.editing ? TopicEditor : TopicHeadline;
 
 		return (
@@ -258,8 +248,16 @@ module.exports = React.createClass({
 					numComments={numComments}
 					cssClasses={linksClasses}
 					clickHandlers={this._actionClickHandlers()} />
-				{form}
+
 				{this.state[_SHOW_REPLIES] && <TopicComments container={topicContents} topic={topic} />}
+				
+				<CommentForm key="commentForm"
+					ref='commentForm'
+					onCancel={this._hideCommentForm}
+					onCompletion={this._hideCommentForm}
+					topic={topic}
+					parent={topic.parent()}
+				/>
 			</div>
 		);
 	}

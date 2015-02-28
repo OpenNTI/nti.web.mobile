@@ -61,6 +61,17 @@
 		padding-left: 0;
 		padding-right: 0;
 
+		.threadlink {
+			position: absolute;
+			display: block;
+			min-height: 1rem;
+			padding: 1.5rem;
+			top: 0;
+			right: 0;
+			left: 0;
+			border-top: 1px dotted lightgray;
+		}
+
 		.replies {
 			border-left: 4px solid $panel-border-color;
 		}

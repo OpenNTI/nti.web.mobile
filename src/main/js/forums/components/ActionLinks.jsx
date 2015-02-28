@@ -35,11 +35,11 @@ var ActionLinks = React.createClass({
 		var canEdit =  isFlag('canEditForumPost') && item.hasLink('edit');
 		var canDelete =  item.hasLink('edit');
 		var canReport = item.hasLink('flag')||item.hasLink('flag.metoo');
-		var canReply = !item.Deleted;
+		// var canReply = !item.Deleted;
 
 		var {numComments} = this.props;
 
-		var RepliesToggleTag = numComments > 0 ? "a" : "span";
+		// var RepliesToggleTag = numComments > 0 ? "a" : "span";
 
 		var repliesClasses = numComments > 0 ? ['disclosure-triangle'] : [];
 		repliesClasses.push.apply(repliesClasses, this.props.cssClasses.replies);
@@ -47,19 +47,6 @@ var ActionLinks = React.createClass({
 
 		return (
 			<ul key="control-links" className="action-links">
-				<li key="replies-toggle">
-					<RepliesToggleTag
-						ref={ActionLinks.REPLIES}
-						className={repliesClasses.join(' ')}
-						onClick={clickHandlers[ActionLinks.REPLIES]}>
-							{t('replies', {count: numComments})}
-					</RepliesToggleTag>
-				</li>
-				{canReply &&
-					<li key="reply-link">
-						<a onClick={clickHandlers[ActionLinks.REPLY]}>{this.props.replyText||t('reply')}</a>
-					</li>
-				}
 				{canEdit &&
 					<li key="edit-link">
 						<a onClick={clickHandlers[ActionLinks.EDIT]}>{t('editComment')}</a>
