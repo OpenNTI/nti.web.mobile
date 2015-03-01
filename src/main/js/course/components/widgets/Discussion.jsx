@@ -137,7 +137,7 @@ export default React.createClass({
 		var boardId = encodeForURI(discussions);
 		var forumId = encodeForURI(isForum ? o.NTIID : o.ContainerId);
 
-		var h = path.join('d', bin, boardId, forumId) + '/';
+		var h = path.join('..', 'd', bin, boardId, forumId) + '/';
 		return this.makeHref(h);
 	},
 
