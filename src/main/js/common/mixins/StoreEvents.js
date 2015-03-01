@@ -20,12 +20,11 @@ export default {
 			map[eventId] = handlers;
 		}
 		else {
-			map[eventId] = handlerId;	
+			map[eventId] = handlerId;
 		}
 	},
 
 	componentWillMount() {
-		console.debug('componentWillMount');
 		this[getStore] = getKey.bind(this, 'backingStore');
 		this[getHandlers] = getKey.bind(this, handlerMapKey);
 		this[onStoreChange] = onStoreChangeImpl.bind(this);
