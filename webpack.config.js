@@ -34,7 +34,7 @@ var commonLoaders = [
         }
     },
 
-    {   test: /\.(ico|gif|png|jpg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
+    {   test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
 
     {   test: appFontName, loader: 'url' },
     {

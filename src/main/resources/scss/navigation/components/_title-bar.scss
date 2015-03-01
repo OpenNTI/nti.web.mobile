@@ -77,10 +77,10 @@ a.right-off-canvas-toggle {
 	section:not(.tab-bar-section){
 		z-index: 10;
 	}
-	
+
 	.add {
 		@extend %back-button;
-		padding-left: 1.5rem;
+		padding-left: 0.625rem;
 
 		&::before {
 			content: "+";
@@ -93,8 +93,21 @@ a.right-off-canvas-toggle {
 
 	.return-to {
 		@extend %back-button;
-		padding-left: 1.1rem;
+		padding-left: 1.875rem;
 
+
+		&::before {
+			@extend %chevron-left;
+			content: '';
+			width: 24px;
+			height: 24px;
+			position: absolute;
+			top: 0.625rem;
+			left: .3125rem;
+			background-size: contain;
+			background-repeat: no-repeat;
+		}
+		/*
 		&::before {
 			content: '\2039';
 			position: absolute;
@@ -103,7 +116,7 @@ a.right-off-canvas-toggle {
 			font-weight: 100;
 			line-height: normal;
 			top: -1rem;
-			left: 0.2rem;
-		}
+			left: 0.625rem;
+		}*/
 	}
 }

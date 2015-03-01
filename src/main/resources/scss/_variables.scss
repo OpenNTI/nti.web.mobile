@@ -63,6 +63,9 @@ $table-head-font-color: $primary-grey;
 $table-row-font-color: $primary-grey;
 $tabs-navigation-font-color: $primary-grey;
 
+%chevron-left {background-image: url(../images/svg/chevron-left.svg);}
+%chevron-left-white {background-image: url(../images/svg/chevron-left-white.svg);}
+
 %checkbox-image {background-image: url(../images/icons/checkbox-14.png);}
 %checkbox-image-active {background-image: url(../images/icons/checkbox-14_active.png);}
 %checkbox-image-hover {background-image: url(../images/icons/checkbox-14_hover.png);}
