@@ -9,7 +9,7 @@ import Loading from 'common/components/LoadingInline';
 import Actions from '../Actions';
 import Store from '../Store';
 import {COMMENT_ADDED, COMMENT_SAVED, COMMENT_ERROR} from '../Constants';
-import {StoreEvents} from 'common/mixins/';
+import StoreEvents from 'common/mixins/StoreEvents';
 
 var CommentForm = React.createClass({
 
