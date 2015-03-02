@@ -13,6 +13,10 @@ export default {
 
 		express.get(/^\/api\/user-agreement/, this.serveUserAgreement.bind(this));
 
+
+		express.get(/^\/api\/_ops\/ping/, this.handleHealthCheck.bind(this));
+
+
 		express.use(/^\/api/, (err, req, res, next) => {
 			if (prefix.test(req.url)) {
 				console.error('API Error:\n\n%s', err.stack);
@@ -49,6 +53,18 @@ export default {
 
 			res.status(data.status);
 			res.json(data);
+			res.end();
+		});
+	},
+
+
+	handleHealthCheck (_, res) {
+		let {server} = this;
+
+		let url = server.replace(/\/?dataserver2.+$/, '');
+
+		request(url+'/_ops/ping', (error)=>{
+			res.status(error? 503 : 200);
 			res.end();
 		});
 	}
