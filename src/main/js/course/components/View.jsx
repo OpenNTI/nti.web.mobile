@@ -17,6 +17,7 @@ import SetStateSafely from 'common/mixins/SetStateSafely';
 import Media from './Media';
 import Outline from './OutlineView';
 import Overview from './Overview';
+import Page from './Page';
 
 import ContentViewer from 'content/components/Viewer';
 import Discussions from 'forums/components/View';
@@ -127,6 +128,14 @@ export default React.createClass({
 			]);
 		}
 
+		//hack
+		if (!props.outlineId) {
+			return Promise.resolve([{
+				label: 'Courses',
+				href: this.getBasePath()
+			}]);
+		}
+
 		return course.getOutlineNode(NTIID.decodeFromURI(props.outlineId))
 			.then(o => [
 					base,
@@ -147,19 +156,24 @@ var Lessons = React.createClass({
 		return (
 				<Router.Locations contextual>
 					<Router.Location path="/:outlineId/c/:rootId(/*)"
-							handler={ContentViewer}
+							handler={Page}
+							pageContent={ContentViewer}
 							contentPackage={course}
 							contextProvider={contextProvider}
 							slug="c"
 							/>
 
 					<Router.Location path="/:outlineId(/*)"
-							handler={Overview}
+							handler={Page}
+							pageContent={Overview}
 							course={course}
 							contextProvider={contextProvider}
 							/>
 
-					<Router.NotFound handler={Outline} item={course} />
+						<Router.NotFound handler={Page}
+							pageContent={Outline}
+							item={course}
+							contextProvider={contextProvider} />
 				</Router.Locations>
 		);
 	}
