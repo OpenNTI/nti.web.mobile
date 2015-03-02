@@ -150,9 +150,7 @@ export default React.createClass({
 		}
 
 
-		var link = path.join(this.getBasePath(),
-			'course', encodeForURI(props.course.getID()),
-			'v', encodeForURI(item.NTIID))  + '/';
+		var link = path.join('v', encodeForURI(item.NTIID))  + '/';
 
 		return (
 			<Tag className="overview-video video-wrap flex-video widescreen">

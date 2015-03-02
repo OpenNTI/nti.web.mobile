@@ -161,6 +161,14 @@ var Lessons = React.createClass({
 							slug="c"
 							/>
 
+					<Router.Location path="/:outlineId/v/:videoId(/*)"
+							handler={Page}
+							pageContent={Media}
+							course={course}
+							contextProvider={contextProvider}
+							slug="v"
+							/>
+
 					<Router.Location path="/:outlineId(/*)"
 							handler={Page}
 							pageContent={Overview}
