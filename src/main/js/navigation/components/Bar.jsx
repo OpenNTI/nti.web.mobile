@@ -9,7 +9,9 @@ import Avatar from 'common/components/Avatar';
 import BasePathAware from 'common/mixins/BasePath';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
-/*var Hamburger = React.createClass({
+import hash from 'object-hash';
+
+/*const Hamburger = React.createClass({
 	mixins: [PureRenderMixin],
 
 	onClick (e) {
@@ -100,7 +102,7 @@ export default React.createClass({
 	},
 
 	componentWillReceiveProps (nextProps) {
-		if (nextProps.contextProvider !== this.props.contextProvider) {
+		if (nextProps.contextProvider ||  hash(nextProps) !== hash(this.props)) {
 			this.fillIn(nextProps);
 		}
 	},
