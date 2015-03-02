@@ -109,42 +109,40 @@ export default React.createClass({
 	 * @param {Object} props The props set from the handler of the route.
 	 */
 	getContext (props) {
-		var record = this.state.course;
-		var course = (record || {}).CourseInstance;
-		var presentation = course.getPresentationProperties();
+		let record = this.state.course;
+		let course = (record || {}).CourseInstance;
+		let presentation = course.getPresentationProperties();
 
-		var base = {
-			ntiid: course.getID(),
-			label: presentation.label,
-			href: path.join(this.getBasePath(), 'course', this.props.course, '/')
-		};
 
-		if (props.videoId && !props.outlineId) {
-			return Promise.resolve([
-				base,
-				{
-					ntiid: props.videoId
-				}
-			]);
-		}
-
-		//hack
-		if (!props.outlineId) {
-			return Promise.resolve([{
+		let base = [
+			{
 				label: 'Courses',
 				href: this.getBasePath()
-			}]);
+			}, {
+				ntiid: course.getID(),
+				label: presentation.title,
+				href: path.join(this.getBasePath(), 'course', this.props.course, '/o/')
+			}
+		];
+
+
+
+		if (!props.outlineId) {
+			if (props.videoId) {
+				base = base.concat([{ntiid: props.videoId}]);
+			}
+
+			return Promise.resolve(base);
 		}
 
 		return course.getOutlineNode(NTIID.decodeFromURI(props.outlineId))
-			.then(o => [
-					base,
+			.then(o => base.concat([
 					{
 						ntiid: o.getID(),
 						label: o.title,
 						href: path.join(this.getBasePath(), o.href)
 					}
-				]);
+				]));
 	}
 });
 
@@ -170,10 +168,10 @@ var Lessons = React.createClass({
 							contextProvider={contextProvider}
 							/>
 
-						<Router.NotFound handler={Page}
-							pageContent={Outline}
-							item={course}
-							contextProvider={contextProvider} />
+					<Router.NotFound handler={Page}
+						pageContent={Outline}
+						item={course}
+						contextProvider={contextProvider} />
 				</Router.Locations>
 		);
 	}
