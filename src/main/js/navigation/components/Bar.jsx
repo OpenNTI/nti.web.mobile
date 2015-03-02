@@ -5,6 +5,7 @@ import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import {getAppUsername} from 'common/utils';
 
 import Avatar from 'common/components/Avatar';
+import Pager from 'common/components/Pager';
 
 import BasePathAware from 'common/mixins/BasePath';
 import SetStateSafely from 'common/mixins/SetStateSafely';
@@ -175,11 +176,16 @@ export default React.createClass({
 
 
 	render () {
+		let {pageSource, currentPage} = this.props;
+		
 		return (
 			<nav className="tab-bar">
 				<section className="left-small">{this.getLeft()}</section>
 				<section className="middle tab-bar-section">{this.getCenter()}</section>
-				<section className="right-small">{this.getRight()}</section>
+				<section className="right-small">
+					{pageSource && <Pager pageSource={pageSource} currentPage={currentPage}/>}
+					{this.getRight()}
+				</section>
 			</nav>
 		);
 	}

@@ -10,9 +10,9 @@ import Loading from 'common/components/Loading';
 //import ErrorWidget from 'common/components/Error';
 
 import StoreEvents from 'common/mixins/StoreEvents';
+import HasPageSource from 'common/mixins/HasPageSource';
 
 import Pager from 'common/components/Pager';
-import Breadcrumb from 'common/components/Breadcrumb';
 
 
 import {getWidget} from './widgets';
@@ -38,7 +38,8 @@ export default React.createClass({
 		GlossaryFeature,
 		Interactions,
 		AssessmentFeature,
-		RouterMixin
+		RouterMixin,
+		HasPageSource
 	],
 	displayName: 'Viewer',
 
@@ -182,14 +183,16 @@ export default React.createClass({
 
 
 	onStoreChange () {
-		var id = this.getPageID();
-		var page = Store.getPageDescriptor(this.getPageID());
+		let id = this.getPageID();
+		let page = Store.getPageDescriptor(id);
+		let pageSource = page.getPageSource(this.getRootID());
 
+		this.setPageSource(pageSource, id);
 		this.setState({
 			currentPage: id,
 			loading: false,
 			page: page,
-			pageSource: page.getPageSource(this.getRootID())
+			pageSource
 		});
 	},
 
@@ -220,9 +223,6 @@ export default React.createClass({
 
 		return (
 			<div className="content-view">
-				<Breadcrumb contextProvider={this.__getContext}>
-					<Pager pageSource={pageSource} current={this.getPageID()}/>
-				</Breadcrumb>
 
 				{this.__applyStyle()}
 
@@ -268,10 +268,10 @@ export default React.createClass({
 
 		return getContextFromProvider(this.props).then(context => {
 			//TODO: have the Content Api resolve page title...
-			// context.push({
-			// 	label: '??Current Page??',
-			// 	href: null
-			// });
+			context.push({
+				label: '??Current Page??',
+				href: location.href//current page doesn't need an href.(its the current one)
+			});
 			return context;
 		});
 	}

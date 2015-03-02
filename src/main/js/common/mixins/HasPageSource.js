@@ -7,13 +7,13 @@ export default {
 	},
 
 
-	setPageSource (pageSource) {
+	setPageSource (pageSource, currentPage) {
 		let {hasPages} = this.context;
 		if (!hasPages) {
 			console.error('Expected a context method "hasPages", but it does not exist.');
 			return;
 		}
 
-		hasPages(pageSource);
+		hasPages(pageSource, currentPage);
 	}
 };

@@ -16,7 +16,8 @@ a.right-off-canvas-toggle {
 	color: #fff;
 	font-size: 1.5rem;
 	text-align: center;
-	display: block;
+	vertical-align: top;
+	display: inline-block;
 
 	img {
 		width: 2rem;
@@ -35,6 +36,10 @@ a.right-off-canvas-toggle {
 	.tab-bar a[href], {
 		color: #fff;
 	}
+}
+
+section.right-small {
+	width: auto;
 }
 
 .tab-bar-section .title {
@@ -98,14 +103,20 @@ a.right-off-canvas-toggle {
 
 		&::before {
 			@extend %chevron-left;
+			.dark & {
+				@extend %chevron-left-white;
+			}
+
 			content: '';
 			width: 24px;
 			height: 24px;
 			position: absolute;
 			top: 0.625rem;
 			left: .3125rem;
-			background-size: contain;
-			background-repeat: no-repeat;
+			background: {
+				size: contain;
+				repeat: no-repeat;
+			}
 		}
 		/*
 		&::before {

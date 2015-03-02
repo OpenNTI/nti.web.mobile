@@ -13,8 +13,6 @@
 
 	@include flexbox();
 
-	.pager ~ li:last-of-type { margin-right: 3.3rem; }
-
 	li {
 		display: inline-block;
 		overflow: hidden;

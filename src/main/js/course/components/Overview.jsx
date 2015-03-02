@@ -2,9 +2,13 @@ import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 import React from 'react';
 
 import DateTime from 'common/components/DateTime';
-import Pager from 'common/components/Pager';
+
 import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
+
+import SetStateSafely from 'common/mixins/SetStateSafely';
+import HasPageSource from 'common/mixins/HasPageSource';
+
 import AnalyticsStore from 'analytics/Store';
 
 // This is an example of the correct way to aquire a reference to
@@ -14,7 +18,7 @@ import {Mixin} from './widgets';
 
 export default React.createClass({
 	displayName: 'CourseOverview',
-	mixins: [Mixin],
+	mixins: [Mixin, SetStateSafely, HasPageSource],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
@@ -49,9 +53,14 @@ export default React.createClass({
 
 	getOutlineNodeContents (node) {
 		try {
+			let currentPage = this.getOutlineID();
+			let pages = node.getPageSource();
+
+			this.setPageSource(pages, currentPage);
+
 			node.getContent()
 				.then(data=>
-					this.setState({
+					this.setStateSafely({
 						node, data,
 						loading: false,
 						error: false
@@ -66,18 +75,16 @@ export default React.createClass({
 
 	onError (error) {
 		console.error(error);
-		if (this.isMounted()) {
-			this.setState({
-				error,
-				loading: false,
-				data: null
-			});
-		}
+		this.setStateSafely({
+			error,
+			loading: false,
+			data: null
+		});
 	},
 
 
 	getDataIfNeeded (props) {
-		this.setState(this.getInitialState());
+		this.setStateSafely(this.getInitialState());
 		try {
 
 			props.course.getOutlineNode(this.getOutlineID(props))
@@ -98,8 +105,6 @@ export default React.createClass({
 
 	render () {
 		let {data, node, loading, error} = this.state;
-		let pages = node && node.getPageSource();
-		let currentPage = this.getOutlineID();
 
 		if (loading) { return (<Loading/>); }
 		if (error) { return (<ErrorWidget error={error}/>); }
@@ -109,7 +114,6 @@ export default React.createClass({
 
 		return (
 			<div className="course-overview row">
-				<Pager pageSource={pages} current={currentPage}/>
 				<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
 				<h1 dangerouslySetInnerHTML={{__html: title}}/>
 				{this._renderItems(items, {node: node})}

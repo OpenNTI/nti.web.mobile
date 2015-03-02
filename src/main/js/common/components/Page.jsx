@@ -14,12 +14,12 @@ export default React.createClass({
 
 
 	render () {
-		let {pageSource} = this.state || {};
+		let {pageSource, currentPage} = this.state || {};
 		let Content = this.props.pageContent;
 
 		return (
 			<div>
-				<NavigationBar title="Lessons" {...this.props} pageSource={pageSource}/>
+				<NavigationBar title="Lessons" {...this.props} pageSource={pageSource} currentPage={currentPage}/>
 				<Content {...this.props}/>
 			</div>
 		);

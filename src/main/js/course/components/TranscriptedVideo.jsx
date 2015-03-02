@@ -9,8 +9,10 @@ import React from 'react';
 
 import {addClass, removeClass} from 'common/utils/dom';
 
-import Pager from 'common/components/Pager';
 import LoadingMask from 'common/components/Loading';
+
+import HasPageSource from 'common/mixins/HasPageSource';
+import SetStateSafely from 'common/mixins/SetStateSafely';
 
 import {Component as Video} from 'video';
 
@@ -19,6 +21,7 @@ import Transcript from './Transcript';
 
 export default React.createClass({
 	displayName: 'TranscriptedVideo',
+	mixins: [HasPageSource, SetStateSafely],
 
 
 	getInitialState () {
@@ -31,16 +34,10 @@ export default React.createClass({
 		};
 	},
 
-	__getContext () {
-		this.props.contextProvider(this.props).then(context =>
-			this.setState({ context }));
-	},
 
 	componentDidMount () {
-		this.setState({pages: this.props.video.getPageSource()});
 		this.getDataIfNeeded(this.props);
 		addClass(document.body, 'dark');
-		this.__getContext();
 	},
 
 
@@ -53,11 +50,10 @@ export default React.createClass({
 		if (nextProps.video !== this.props.video) {
 			this.getDataIfNeeded(nextProps);
 		}
-		this.__getContext();
 	},
 
 	__onError (error) {
-		this.setState({
+		this.setStateSafely({
 			loading: false,
 			error: error,
 			data: null
@@ -66,9 +62,16 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		this.setState(this.getInitialState());
+		this.setStateSafely(this.getInitialState());
+
 		try {
-			let {video} = props;
+
+			let {video, contextProvider} = props;
+
+			contextProvider(this.props)
+				.then(context => this.setStateSafely({ context }));
+
+			this.setPageSource(video.getPageSource(), video.getID());
 
 			video.getTranscript('en')
 				.then(vtt => {
@@ -90,7 +93,7 @@ export default React.createClass({
 						delete global.VTTCue;
 					}
 
-					this.setState({
+					this.setStateSafely({
 						loading: false,
 						cues: cues,
 						regions: regions
@@ -100,7 +103,7 @@ export default React.createClass({
 				.catch(reason=> {
 					if (reason === video.NO_TRANSCRIPT ||
 						reason === video.NO_TRANSCRIPT_LANG) {
-						this.setState({
+						this.setStateSafely({
 							loading: false, cues: null, regions: null });
 						return;
 					}
@@ -130,13 +133,10 @@ export default React.createClass({
 
 
 	render () {
-		var collection=this.props.parentPath;
-		var {cues, regions, currentTime, pages} = this.state;
+		var {cues, regions, currentTime} = this.state;
 
 		return (
 			<div className="transcripted-video">
-				<a href={collection} className="toolbar-button-left fi-thumbnails"/>
-				<Pager pageSource={pages} current={this.props.video.getID()}/>
 				<LoadingMask loading={this.state.loading}>
 
 					<Video ref="video"
