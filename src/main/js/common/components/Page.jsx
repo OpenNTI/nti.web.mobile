@@ -13,6 +13,11 @@ export default React.createClass({
 	},
 
 
+	componentWillReceiveProps () {
+		this.setState({pageSource: null, currentPage: null});
+	},
+
+
 	render () {
 		let {pageSource, currentPage} = this.state || {};
 		let Content = this.props.pageContent;

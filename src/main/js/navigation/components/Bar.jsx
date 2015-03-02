@@ -111,15 +111,16 @@ export default React.createClass({
 
 	fillIn (props) {
 		let getContext = props.contextProvider;
+		let resolve = Promise.resolve();
 
 		if (getContext) {
-			getContext(props).then(x=>
-				this.setStateSafely({
-					returnTo: x && x[x.length-2]
-				}));
+			resolve = getContext(props);
 		}
 
-
+		resolve.then(x=>
+			this.setStateSafely({
+				returnTo: x && x[x.length-2]
+			}));
 	},
 
 	onMenuTap () {
@@ -177,13 +178,13 @@ export default React.createClass({
 
 	render () {
 		let {pageSource, currentPage} = this.props;
-		
+
 		return (
 			<nav className="tab-bar">
 				<section className="left-small">{this.getLeft()}</section>
 				<section className="middle tab-bar-section">{this.getCenter()}</section>
 				<section className="right-small">
-					{pageSource && <Pager pageSource={pageSource} currentPage={currentPage}/>}
+					{pageSource && <Pager pageSource={pageSource} current={currentPage}/>}
 					{this.getRight()}
 				</section>
 			</nav>
