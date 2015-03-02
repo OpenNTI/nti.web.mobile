@@ -1,6 +1,6 @@
 import React from 'react';
 
-import WantsPageSource from 'common/mixins/WantsPageSource';
+import WantsPageSource from '../mixins/WantsPageSource';
 
 import NavigationBar from 'navigation/components/Bar';
 
@@ -11,7 +11,7 @@ export default React.createClass({
 	propTypes: {
 		pageContent: React.PropTypes.func.isRequired
 	},
-	
+
 
 	render () {
 		let {pageSource} = this.state || {};
