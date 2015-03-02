@@ -31,7 +31,7 @@ import hash from 'object-hash';
 	}
 });*/
 
-var UserMenu = React.createClass({
+const UserMenu = React.createClass({
 	mixins: [PureRenderMixin],
 
 	onClick (e) {
@@ -52,7 +52,7 @@ var UserMenu = React.createClass({
 });
 
 
-var ReturnTo = React.createClass({
+const ReturnTo = React.createClass({
 	mixins: [PureRenderMixin],
 
 	propTypes: {
@@ -114,7 +114,7 @@ export default React.createClass({
 		if (getContext) {
 			getContext(props).then(x=>
 				this.setStateSafely({
-					returnTo: x && x[x.length-1]
+					returnTo: x && x[x.length-2]
 				}));
 		}
 
