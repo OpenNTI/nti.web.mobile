@@ -112,7 +112,7 @@ export default React.createClass({
 		let record = this.state.course;
 		let course = (record || {}).CourseInstance;
 		let presentation = course.getPresentationProperties();
-
+		let leafId = props.videoId || props.rootId;
 
 		let base = [
 			{
@@ -128,8 +128,8 @@ export default React.createClass({
 
 
 		if (!props.outlineId) {
-			if (props.videoId) {
-				base = base.concat([{ntiid: props.videoId}]);
+			if (leafId) {
+				base = base.concat([{ntiid: leafId}]);
 			}
 
 			return Promise.resolve(base);
@@ -142,7 +142,8 @@ export default React.createClass({
 						label: o.title,
 						href: path.join(this.getBasePath(), o.href)
 					}
-				]));
+				]))
+			.then(o => leafId ? o.concat([{ntiid: leafId}]) : o);
 	}
 });
 

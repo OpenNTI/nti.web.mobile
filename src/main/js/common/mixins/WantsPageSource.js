@@ -15,7 +15,7 @@ export default {
 	},
 
 
-	setPageSource (pageSource, currentPage) {
-		this.setStateSafely({pageSource, currentPage});
+	setPageSource (pageSource, currentPage, navigatableContext) {
+		this.setStateSafely({pageSource, currentPage, navigatableContext});
 	}
 };

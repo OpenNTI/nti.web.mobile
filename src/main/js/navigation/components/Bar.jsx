@@ -177,14 +177,14 @@ export default React.createClass({
 
 
 	render () {
-		let {pageSource, currentPage} = this.props;
+		let {pageSource, currentPage, navigatableContext} = this.props;
 
 		return (
 			<nav className="tab-bar">
 				<section className="left-small">{this.getLeft()}</section>
 				<section className="middle tab-bar-section">{this.getCenter()}</section>
 				<section className="right-small">
-					{pageSource && <Pager pageSource={pageSource} current={currentPage}/>}
+					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={navigatableContext}/>}
 					{this.getRight()}
 				</section>
 			</nav>

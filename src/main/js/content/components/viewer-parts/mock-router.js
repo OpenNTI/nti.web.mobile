@@ -1,7 +1,7 @@
 export default {
 
 	getInitialState  () {
-		this.__registerRoute('/:pageId/');
+		this.__registerRoute('/:pageId(/)');
 	},
 
 
@@ -10,10 +10,14 @@ export default {
 	},
 
 
-	getPropsFromRoute  (fallback) {
-		var m = this.getMatch();
-		var props = m && (m.getHandler() || m.match);
-		return props || fallback;
+	getPropsFromRoute  (props) {
+		let {match} = this.getRouterState(props || this.props);
+		var p = match && (match.getHandler() || match.match);
+		if (p && p.props) {
+			p = p.props;
+		}
+
+		return p || props;
 	},
 
 
@@ -26,9 +30,6 @@ export default {
 	 * @param {Object} props
 	 */
 	getRoutes (/*props*/) {
-		if (!this.__routes) {
-			debugger;
-		}
 		return this.__routes || [];
 	},
 
@@ -37,7 +38,7 @@ export default {
 		if (typeof route === 'string') {
 			route = {
 				props: {
-					handler (p) {return p;},
+					handler: 'div',
 					path: route
 				}
 			};

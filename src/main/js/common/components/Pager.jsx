@@ -1,11 +1,9 @@
-'use strict';
+import React from 'react';
+import invariant from 'react/lib/invariant';
 
-var React = require('react');
-var invariant = require('react/lib/invariant');
+import NavigatableMixin from '../mixins/NavigatableMixin';
 
-var NavigatableMixin = require('../mixins/NavigatableMixin');
-
-module.exports = React.createClass({
+export default React.createClass({
 	mixins: [NavigatableMixin],
 	displayName: 'Pager',
 
@@ -48,29 +46,39 @@ module.exports = React.createClass({
 		 * Describes which style this pager will take on. "bottom" vs Default.
 		 * @type {String}
 		 */
-		position: React.PropTypes.string
+		position: React.PropTypes.string,
+
+
+		/**
+		 * Sometimes this Pager component will be rendered inside a higher-level component.
+		 * So the NavigatableMixin#makeHref() method will produce the incorrect url. This
+		 * allows for specifying whom should make the href.
+		 *
+		 * @type {ReactElement}
+		 */
+		navigatableContext: React.PropTypes.element
 	},
 
 
-	getInitialState: function () {
+	getInitialState () {
 		return {
 			next: null, prev: null
 		};
 	},
 
 
-	componentDidMount: function () {
+	componentDidMount () {
 		this.__setupLinks(this.props);
 	},
 
 
-	componentWillReceiveProps: function(props) {
+	componentWillReceiveProps (props) {
 		this.__setupLinks(props);
 	},
 
 
-	__setupLinks: function (props) {
-		var pages, source = props.pageSource;
+	__setupLinks (props) {
+		let pages, source = props.pageSource;
 		if (source) {
 			invariant(
 				!this.props.next && !this.props.prev,
@@ -89,14 +97,19 @@ module.exports = React.createClass({
 	},
 
 
-	__buildHref: function(page) {
-		return page && {href :this.makeHref(page.ref, false) + '/', title: page.title};
+	__buildHref (page) {
+		let ctx = this.props.navigatableContext;
+		if (!ctx || !ctx.makeHref) {
+			ctx = this;
+		}
+
+		return page && {href :ctx.makeHref(page.ref, false) + '/', title: page.title};
 	},
 
 
-	render: function() {
-		var prev = this.props.prev || this.state.prev || {};
-		var next = this.props.next || this.state.next || {};
+	render () {
+		let prev = this.props.prev || this.state.prev || {};
+		let next = this.props.next || this.state.next || {};
 
 		if (!prev.href && !next.href) {
 			return null;
@@ -122,8 +135,8 @@ module.exports = React.createClass({
 	},
 
 
-	_makeCounts: function() {
-		var s = this.state,
+	_makeCounts () {
+		let s = this.state,
 			page = s.page,
 			total = s.total;
 		return (

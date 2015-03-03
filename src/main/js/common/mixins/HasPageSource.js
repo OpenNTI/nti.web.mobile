@@ -14,6 +14,6 @@ export default {
 			return;
 		}
 
-		hasPages(pageSource, currentPage);
+		hasPages(pageSource, currentPage, this);
 	}
 };
