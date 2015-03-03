@@ -17,6 +17,11 @@ export default {
 
 
 	getNavigable () {
+		let {environment} = this.props;
+		if (environment) {
+			return environment;
+		}
+
 		return this.context.router || Router.environment.defaultEnvironment;
 	},
 
