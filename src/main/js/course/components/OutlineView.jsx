@@ -136,7 +136,7 @@ export default React.createClass({
 			}
 
 			var props = {
-				href, title, children: [title]
+				href, title, children: title
 			};
 
 			return (

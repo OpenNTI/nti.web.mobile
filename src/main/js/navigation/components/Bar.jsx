@@ -68,7 +68,7 @@ const ReturnTo = React.createClass({
 			className: 'return-to',
 			href,
 			title: label,
-			children: [label]
+			children: label
 		};
 
 		return <a {...props}/>;
