@@ -21,11 +21,11 @@ export default React.createClass({
 
 
 	shouldComponentUpdate (_, newState) {
-		var newCatalog = (this.state || {}).catalog !== (newState || {}).catalog;
+		let newCatalog = (this.state || {}).catalog !== (newState || {}).catalog;
 
-		var {router} = this.refs;
-		var r = router || {refs: {}};
-		var {enrollment} = r.refs;
+		let {router} = this.refs;
+		let r = router || {refs: {}};
+		let {enrollment} = r.refs;
 
 		if (newCatalog && enrollment && enrollment.isMounted()) {
 			return false;
@@ -36,7 +36,7 @@ export default React.createClass({
 
 
 	render () {
-        var catalog = this.getCatalog();
+        let catalog = this.getCatalog();
 
         // console.log('CatalogView.props: %O',this.props);
 
@@ -73,6 +73,9 @@ export default React.createClass({
 		return Promise.resolve([{
 			label: 'Library',
 			href: this.getBasePath() + 'library/'
+		},{
+			label: 'Catalog',
+			href: location.href
 		}]);
 	}
 });
