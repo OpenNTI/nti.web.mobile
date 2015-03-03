@@ -2,16 +2,59 @@
 
 import React from 'react';
 import Actions from '../Actions';
-import Constants from '../Constants';
+import {GOT_COMMENT_REPLIES, COMMENT_ADDED, OBJECT_DELETED} from '../Constants';
 import Store from '../Store';
+import StoreEvents from 'common/mixins/StoreEvents';
 
+const gotCommentRepliesHandler = 'Replies:gotCommentRepliesHandler';
+const commentAddedHandler = 'Replies:commentAddedHandler';
+const objectDeletedHandler = 'Replies:objectDeletedHandler';
 
 let Replies = React.createClass({
+
+	mixins: [StoreEvents],
 
 	propTypes: {
 		topic: React.PropTypes.object.isRequired
 	},
 
+
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		[GOT_COMMENT_REPLIES]: gotCommentRepliesHandler,
+		[COMMENT_ADDED]: commentAddedHandler,
+		[OBJECT_DELETED]: objectDeletedHandler
+	},
+
+	[gotCommentRepliesHandler] (event) {
+		let {item} = this.props;
+		if(event.comment === item) {
+			let itemId = item.getID();
+			this.setState({
+				replies: (event.replies||[]).filter(item => (item.inReplyTo === itemId))
+			});
+		}
+	},
+
+	[commentAddedHandler] (event) {
+		let {item} = this.props;
+		let {parent, result} = event.data;
+		if (parent === item || result.inReplyTo === item.getID()) {
+			this._getReplies(true);
+		}
+	},
+
+	[objectDeletedHandler] (event) {
+		let {item} = this.props;
+		let eventItem = event.object || event.item;
+		let parent = eventItem && eventItem.parent();
+		// if the deleted item is a reply to our item, reload our children.
+		if (parent && parent.getID && parent.getID() === item.getID()) {
+			this._getReplies(true);
+		}
+	},
+
+	
 	getInitialState: function() {
 		return {
 			replies: null,
@@ -22,48 +65,6 @@ let Replies = React.createClass({
 
 	componentDidMount: function() {
 		this._getReplies();
-		Store.addChangeListener(this._storeChange);
-	},
-
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChange);
-	},
-
-	// componentWillReceiveProps: function() {
-	// 	console.debug('will receive props');
-	// 	this._getReplies(true);
-	// },
-
-	_storeChange: function(event) {
-		switch(event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.GOT_COMMENT_REPLIES:
-				if(event.comment === this.props.item) {
-					let itemId = this.props.item.getID();
-					this.setState({
-						replies: (event.replies||[]).filter(item => (item.inReplyTo === itemId))
-					});
-				}
-				break;
-
-			case Constants.COMMENT_ADDED:
-				let {item} = this.props;
-				let {parent, result} = event.data;
-				if (parent === item || result.inReplyTo === item.getID()) {
-					this._getReplies(true);
-				}
-				break;
-
-			case Constants.OBJECT_DELETED:
-				let {item} = this.props;
-				let eventItem = event.object || event.item;
-				let parent = eventItem && eventItem.parent();
-				// if the deleted item is a reply to our item, reload our children.
-				if (parent && parent.getID && parent.getID() === item.getID()) {
-					this._getReplies(true);
-				}
-				break;
-		}
 	},
 
 	_getReplies: function(reload) {
