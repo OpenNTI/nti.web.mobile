@@ -1,9 +1,9 @@
 import React from 'react';
-import Router from 'react-router-component';
 
+import NavigatableMixin from '../mixins/NavigatableMixin';
 
 export default React.createClass({
-    mixins: [Router.NavigatableMixin],
+    mixins: [NavigatableMixin],
 
     displayName: 'ActiveState',
 
@@ -46,6 +46,17 @@ export default React.createClass({
         let props = Object.assign({}, this.props, {className});
         let Element = tag;
 
+        if (tag === 'a' || props.link) {
+            props.onClick = this.onClick;
+        }
+
         return <Element {...props}/>;
+    },
+
+
+    onClick (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.navigate(this.props.href);
     }
 });
