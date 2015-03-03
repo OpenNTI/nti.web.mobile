@@ -134,7 +134,7 @@ export default React.createClass({
 			children = children ? [children] : [];
 		}
 
-		let is = x=> (x.props || {}).position === side ? x : null;
+		let is = x=> ((x && x.props) || {}).position === side ? x : null;
 
 		return children.reduce((x,a)=>x || is(a), null);
 	},
