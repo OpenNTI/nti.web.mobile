@@ -30,7 +30,7 @@ export default {
 
 
 	makeHref (path, includeCurrentRoute) {
-		var n = this.getNavigable(),
+		let n = this.getNavigable(),
 			route = (n.getMatch() || {}).matchedPath || '';
 
 		if (includeCurrentRoute) {
@@ -42,7 +42,7 @@ export default {
 
 
 	makeParentRouterHref (path) {
-		var n = this.getNavigable();
+		let n = this.getNavigable();
 
 		n = n.getParentRouter() || n;
 
