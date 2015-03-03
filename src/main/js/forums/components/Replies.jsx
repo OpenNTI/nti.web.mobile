@@ -1,12 +1,13 @@
 'use strict';
 
-var React = require('react');
-var Actions = require('../Actions');
-var Constants = require('../Constants');
-var Store = require('../Store');
+let React = require('react');
+let Actions = require('../Actions');
+let Constants = require('../Constants');
+let Store = require('../Store');
 
 
-var Replies = React.createClass({
+
+let Replies = React.createClass({
 
 	propTypes: {
 		topic: React.PropTypes.object.isRequired
@@ -39,7 +40,7 @@ var Replies = React.createClass({
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.GOT_COMMENT_REPLIES:
 				if(event.comment === this.props.item) {
-					var itemId = this.props.item.getID();
+					let itemId = this.props.item.getID();
 					this.setState({
 						replies: (event.replies||[]).filter(item => (item.inReplyTo === itemId))
 					});
@@ -47,17 +48,17 @@ var Replies = React.createClass({
 				break;
 
 			case Constants.COMMENT_ADDED:
-				var {item} = this.props;
-				var {parent, result} = event.data;
+				let {item} = this.props;
+				let {parent, result} = event.data;
 				if (parent === item || result.inReplyTo === item.getID()) {
 					this._getReplies(true);
 				}
 				break;
 
 			case Constants.OBJECT_DELETED:
-				var {item} = this.props;
-				var eventItem = event.object || event.item;
-				var parent = eventItem && eventItem.parent();
+				let {item} = this.props;
+				let eventItem = event.object || event.item;
+				let parent = eventItem && eventItem.parent();
 				// if the deleted item is a reply to our item, reload our children.
 				if (parent && parent.getID && parent.getID() === item.getID()) {
 					this._getReplies(true);
@@ -67,7 +68,7 @@ var Replies = React.createClass({
 	},
 
 	_getReplies: function(reload) {
-		var {item} = this.props;
+		let {item} = this.props;
 		if (item.ReferencedByCount === 0 && !reload) {
 			return;
 		}
@@ -78,8 +79,8 @@ var Replies = React.createClass({
 		if (!this.props.display) {
 			return;
 		}
-		var items = (this.state.replies||[]);
-		var Tag = this.props.childComponent;
+		let items = (this.state.replies||[]);
+		let Tag = this.props.childComponent;
 		return items.map(reply => {
 			return (<Tag
 						{...this.props}
