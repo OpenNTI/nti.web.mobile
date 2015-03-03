@@ -31,7 +31,7 @@ var t = require('common/locale').scoped('FORUMS');
 var _SHOW_FORM = 'showForm';
 var _SHOW_REPLIES = 'showReplies';
 
-const gotCommentReplies = 'PostItem:gotCommentReplies';
+const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';
 
 var PostItem = React.createClass({
 
@@ -62,7 +62,8 @@ var PostItem = React.createClass({
 			[_SHOW_REPLIES]: false,
 			busy: false,
 			item: null,
-			editing: false
+			editing: false,
+			deleted: false
 		};
 	},
 
