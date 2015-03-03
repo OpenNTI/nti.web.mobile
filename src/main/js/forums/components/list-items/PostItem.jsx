@@ -145,12 +145,17 @@ var PostItem = React.createClass({
 
 	render: function() {
 		var item = this._item();
+		if (!item) {
+			return <div>No item?</div>;
+		}
 		var createdBy = item.Creator;
 		var createdOn = item.getCreatedTime();
 		var modifiedOn = item.getLastModified();
 		var message = item.body;
 		var numComments = this._numComments();
-		var href = this.makeHref(NTIID.encodeForURI(this._itemId()) + '/', true);
+		var {topic} = this.props;
+		var topicId = topic.getID();
+		var href = this.makeHref('/' + NTIID.encodeForURI(topicId) + '/' + NTIID.encodeForURI(this._itemId()) + '/', false);
 
 		var edited = (Math.abs(modifiedOn - createdOn) > 0);
 		

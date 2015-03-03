@@ -78,6 +78,10 @@ module.exports = {
 
 	getObject: function(ntiid) {
 		return this._getInterface().then(f => f.getObject(ntiid));
+	},
+
+	getObjects: function(ntiids) {
+		return this._getInterface().then(f => f.getObjects(ntiids));
 	}
 
 };

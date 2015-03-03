@@ -8,6 +8,9 @@ import KeepItemInState from '../mixins/KeepItemInState';
 import {OBJECT_LOADED} from '../Constants';
 import Replies from './Replies';
 import CommentForm from './CommentForm';
+import Breadcrumb from 'common/components/Breadcrumb';
+import NTIID from 'dataserverinterface/utils/ntiids';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 const objectLoadedHandler = 'Post:objectLoadedHandler';
 
@@ -15,6 +18,7 @@ export default React.createClass({
 	displayName: '',
 
 	mixins: [
+		NavigatableMixin,
 		StoreEvents,
 		KeepItemInState
 	],
@@ -34,16 +38,18 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
-			loading: true
+			busy: true
 		};
 	},
 
 	componentDidMount: function() {
-		let item = Store.getObject(this.props.postId);
-		if (item) {
+		let item = Store.getObject(this._itemId());
+		let topic = Store.getObject(this.props.topicId);
+		if (item && topic) {
 			this.setState({
 				item: item,
-				loading: false
+				topic: topic,
+				busy: false
 			});
 		}
 		else {
@@ -51,15 +57,29 @@ export default React.createClass({
 		}
 	},
 
-	_load: function() {
-		let id = this._itemId();
-		Api.getObject(id)
+	componentWillReceiveProps: function(nextProps) {
+		console.log(this.props, nextProps);
+		if (this.props.postId !== nextProps.postId) {
+			this.setState({
+				busy: true,
+				item: null
+			});
+			this._load(nextProps.postId);
+		}
+	},
+
+	_load: function(thePostId) {
+		let postId = NTIID.decodeFromURI(thePostId || this._itemId());
+		let topicId = NTIID.decodeFromURI(this.props.topicId);
+		Api.getObjects([postId, topicId])
 		.then(
 			result => {
-				Store.setObject(id, result.object);
+				result.forEach(object => {
+					Store.setObject(object.getID(), object);
+				});
 				this.setState({
-					item: result,
-					loading: false
+					item: result[0],
+					busy: false
 				});
 			},
 			reason => {
@@ -70,32 +90,52 @@ export default React.createClass({
 		);
 	},
 
+	__getContext: function() {
+		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
+		var href = this.makeHref(this.getPath());
+		var itemId = this._itemId();
+		var title = 'Post';
+		return getContextProvider().then(context => {
+			context.push({
+				ntiid: itemId,
+				label: title,
+				href: href
+			});
+			return context;
+		});
+	},
+
 	render () {
 
-		if (this.state.loading) {
+		if (this.state.busy) {
 			return <Loading />;
 		}
 
 		let item = this._item();
+		let topic = Store.getObject(this.props.topicId);
 
+		var breadcrumb = <Breadcrumb contextProvider={this.__getContext}/>;
 		var replies = <Replies key="replies" item={item}
 							childComponent={PostItem}
-							topic={this.props.topic}
+							topic={topic}
 							display={true}
 							className='visible' />;
 
 
 		return (
 			<div>
-				<div>post</div>
+				{breadcrumb}
+				<PostItem item={item} topic={topic} />
 				{replies}
-				<CommentForm key="commentForm"
-					ref='commentForm'
-					onCancel={this._hideForm}
-					onCompletion={this._commentCompletion}
-					topic={this.props.topic}
-					parent={item}
-				/>
+				{topic && 
+					<CommentForm key="commentForm"
+						ref='commentForm'
+						onCancel={this._hideForm}
+						onCompletion={this._commentCompletion}
+						topic={topic}
+						parent={item}
+					/>
+				}
 			</div>
 		);
 	}

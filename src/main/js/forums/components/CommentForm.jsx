@@ -87,7 +87,7 @@ var CommentForm = React.createClass({
 			return <Loading />;
 		}
 
-		if (this.state.complete) {
+		if (false && this.state.complete) {
 			return <Notice>Comment added</Notice>;
 		}
 
