@@ -1,10 +1,9 @@
 'use strict';
 
-let React = require('react');
-let Actions = require('../Actions');
-let Constants = require('../Constants');
-let Store = require('../Store');
-
+import React from 'react';
+import Actions from '../Actions';
+import Constants from '../Constants';
+import Store from '../Store';
 
 
 let Replies = React.createClass({
