@@ -57,8 +57,8 @@ export default {
 	getAvailableSections() {
 		let names = this.getSectionNames();
 		return names
-			.filter(x=>this.getListForSection(x).length)
-			.map(x=>({key: x, label: sectionNames[x]}));
+			.map(x=>({key: x, label: sectionNames[x], count: this.getListForSection(x).length}))
+			.filter(x=>x.count);
 	},
 
 
