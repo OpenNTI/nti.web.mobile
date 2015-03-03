@@ -2,6 +2,7 @@
 
 @import "settings";
 @import "variables"; // we override some foundation settings so this has to come between settings and foundation.
+@import "normalize";
 @import "foundation";
 
 @import "common/transitions";
