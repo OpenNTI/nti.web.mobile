@@ -33,7 +33,7 @@ export function setCourse (courseId) {
 			courseEnrollment =>
 				dispatch(SET_ACTIVE_COURSE, buildResponse(courseEnrollment)),
 			reason =>
-				dispatch(SET_ACTIVE_COURSE, buildResponse(new Error(reason)))
+				dispatch(SET_ACTIVE_COURSE, buildResponse(new Error(reason.toString())))
 			);
 }
 
