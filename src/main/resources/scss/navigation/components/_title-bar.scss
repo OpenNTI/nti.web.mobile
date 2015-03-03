@@ -42,28 +42,86 @@ section.right-small {
 	width: auto;
 }
 
-.tab-bar-section .title {
-	position: relative;
-	overflow: hidden;
-	color: $primary-grey;
+.tab-bar-section {
+	.title {
+		position: relative;
+		overflow: hidden;
+		color: $primary-grey;
 
-	&.branding {
-		display: inline-block;
-		width: 32px;
-		text-indent: -100rem;
-
-		&::after {
-			content: '';
+		&.branding {
+			display: inline-block;
 			width: 32px;
-			height: 32px;
-			background: transparent url('../images/icons/logo.png') center center;
-			background-size: contain;
-			position: absolute;
-			margin-top: -50%;
-			top: 50%;
-			left: 0;
+			text-indent: -100rem;
+
+			&::after {
+				content: '';
+				width: 32px;
+				height: 32px;
+				background: transparent url('../images/icons/logo.png') center center;
+				background-size: contain;
+				position: absolute;
+				margin-top: -50%;
+				top: 50%;
+				left: 0;
+			}
 		}
 	}
+
+	.title-tabs {
+		margin: 0;
+		padding: 0;
+		max-width: 99%;
+		min-width: 66%;
+		position: relative;
+		overflow: hidden;
+
+		list-style: none;
+		white-space: nowrap;
+		display: inline-block;
+		@include inline-flexbox();
+
+		border: 2px solid $primary-blue;
+		.dark & { border-color: #fff; }
+		border-radius: 5px;
+
+		& > li {
+			margin: 0;
+			padding: 0;
+			position: relative;
+			overflow: hidden;
+			display: inline-block;
+			@include flex(1 1 auto);
+
+			a {
+				position: relative;
+				overflow: hidden;
+				display: block;
+				color: $primary-blue;
+				padding: 0.1rem 0.5rem;
+				margin: 0;
+				@include ellipse;
+				line-height: 1.5;
+				font-size: 0.7rem;
+				font-weight: 400;
+
+				@media screen and (min-width: 320px) {
+					font-size: 0.8rem;
+				}
+
+				&.active {
+					background: $primary-blue;
+					color: #fff;
+					font-weight: 500;
+					.dark & {
+						background: #fff;
+						color: #525252;
+					}
+				}
+			}
+		}
+
+	}
+
 }
 
 %back-button {

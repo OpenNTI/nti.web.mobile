@@ -5,8 +5,11 @@ import {getEnvironment} from 'react-router-component/lib/environment/LocalStorag
 
 import {addClass, removeClass} from 'common/utils/dom';
 
+import ActiveState from 'common/components/ActiveState';
 import Loading from 'common/components/Loading';
 import Redirect from 'navigation/components/Redirect';
+
+import {scoped} from 'common/locale';
 
 import NavigationBar from 'navigation/components/Bar';
 
@@ -16,18 +19,50 @@ import SectionMixin from '../mixins/SectionAware';
 import BasePath from 'common/mixins/BasePath';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
+let getTitle = scoped('LIBRARY.SECTIONS');
+
+let sectionProps = x=> {
+	let title = getTitle(x.label);
+	return Object.assign({children: title, title, href: `/${x.key}`}, x);
+};
 
 let Section = React.createClass({
-	mixins: [SectionMixin],
+	mixins: [BasePath, SectionMixin],
+
+	componentWillMount () {
+		let availableSections = this.getAvailableSections();
+		this.setState({availableSections});
+	},
+
 	render () {
 		let {section} = this.props;
 		let bins = section ? this.getBinnedData(section) : [];
+
 		let props = {
 			className: 'library-view'
 		};
 
-		return React.createElement('div', props, ...bins.map(b=>
-			<Collection title={b.name} subtitle={b.label} list={b.items}/>));
+		let {availableSections} = this.state;
+
+
+		if (!availableSections || !availableSections.length) {
+			availableSections = null;
+		}
+
+		return (
+			<div>
+				<NavigationBar title="Library">
+					<a href={this.getBasePath() + 'catalog/'} position="left" className="add">Add</a>
+					{availableSections &&
+						React.createElement('ul', {className: 'title-tabs', position: 'center'},
+							...availableSections.map(x=>
+								<li><ActiveState tag="a" {...sectionProps(x)}/></li>
+							))}
+				</NavigationBar>
+				{React.createElement('div', props, ...bins.map(b=>
+					<Collection title={b.name} subtitle={b.label} list={b.items}/>))}
+			</div>
+		);
 	}
 
 });
@@ -70,25 +105,17 @@ export default React.createClass({
 
 
 	render () {
+		let {env} = this.state;
 		let {pickingDefault, loading} = this.state;
 
 		loading = loading || pickingDefault;
 
-		let {env} = this.state;
-
-		return (
-			<div>
-				<NavigationBar title="Library">
-					<a href={this.getBasePath() + 'catalog/'} position="left" className="add">Add</a>
-				</NavigationBar>
-				{loading ?
-					<Loading /> :
-					<Locations environment={env}>
-						{this.getRoutes()}
-					</Locations>
-				}
-			</div>
-		);
+		return loading ?
+			<Loading /> :
+			<Locations environment={env}>
+				{this.getRoutes()}
+			</Locations>
+			;
 	},
 
 

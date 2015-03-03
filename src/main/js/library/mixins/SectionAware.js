@@ -2,6 +2,8 @@ import Filters from '../Filters';
 import LibraryAccessor from './LibraryAccessor';
 
 const sectionNames = {
+	//SectionName's keys, MUST match the value.
+	//To customize the display name, localize in the parts that display them.
 	admin: 'admin',
 	courses: 'courses',
 	books: 'books'
@@ -64,7 +66,7 @@ export default {
 
 	getListForSection (section) {
 		let library = this.getLibrary();
-		let properties = sectionPropertyMap[section];
+		let properties = sectionPropertyMap[sectionNames[section]];
 		if (!library) {
 			return [];//not loaded yet
 		}

@@ -1,4 +1,9 @@
 export default {
+	SECTIONS: {
+		admin: 'Admin',
+		courses: 'Courses',
+		books: 'Books'
+	},
 
 	CATEGORY: {
 		current: 'Current',

@@ -157,6 +157,14 @@ $tabs-navigation-font-color: $primary-grey;
 	display: flex;
 }
 
+@mixin inline-flexbox() {
+	display: -webkit-inline-box;
+	display: -moz-inline-box;
+	display: -ms-inline-flexbox;
+	display: -webkit-inline-flex;
+	display: inline-flex;
+}
+
 @mixin flex($values) {
 	-webkit-box-flex: $values;
 	-moz-box-flex:  $values;
