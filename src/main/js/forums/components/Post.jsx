@@ -104,10 +104,10 @@ export default React.createClass({
 	},
 
 	__getContext: function() {
-		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
-		var href = this.makeHref(this.getPath());
-		var itemId = this._itemId();
-		var title = 'Post';
+		let getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
+		let href = this.makeHref(this.getPath());
+		let itemId = this._itemId();
+		let title = 'Post';
 		return getContextProvider().then(context => {
 			context.push({
 				ntiid: itemId,
@@ -137,14 +137,14 @@ export default React.createClass({
 		let topic = Store.getObject(this.props.topicId);
 
 
-		var breadcrumb = <Breadcrumb contextProvider={this.__getContext}/>;
+		let breadcrumb = <Breadcrumb contextProvider={this.__getContext}/>;
 
 		let P = (this.state.deleted || (this._item() || {}).Deleted) ? 
 			<Notice>This item has been deleted.</Notice> :
 			<PostItem item={item} topic={topic} />;
 
 
-		var replies = <Replies key="replies" item={item}
+		let replies = <Replies key="replies" item={item}
 							childComponent={PostItem}
 							topic={topic}
 							display={true}
