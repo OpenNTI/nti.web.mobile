@@ -82,7 +82,8 @@ export default React.createClass({
 		return (
 			<Router.Locations contextual>
 				<Router.Location path="/v/(:videoId)(/*)"
-									handler={Media}
+									handler={Page}
+									pageContent={Media}
 									course={course}
 									contextProvider={this.getContext}/>
 
@@ -92,7 +93,8 @@ export default React.createClass({
 									contextProvider={this.getContext}/>
 
 				<Router.Location path="/d(/*)"
-									handler={Discussions}
+									handler={Page}
+									pageContent={Discussions}
 									course={course}
 									contextProvider={this.getContext}/>
 
@@ -178,9 +180,10 @@ var Lessons = React.createClass({
 							/>
 
 					<Router.NotFound handler={Page}
-						pageContent={Outline}
-						item={course}
-						contextProvider={contextProvider} />
+							pageContent={Outline}
+							item={course}
+							contextProvider={contextProvider}
+							/>
 				</Router.Locations>
 		);
 	}
