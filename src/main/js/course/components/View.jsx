@@ -29,7 +29,7 @@ import Store from '../Store';
 
 const ROUTES = [
 	{path: '/v/(:videoId)(/*)', handler: Page, pageContent: Media},
-	{path: '/o(/*)', handler: Lessons},
+	{path: '/o(/*)', handler: Page, pageContent: Lessons},
 	{path: '/d(/*)', handler: Page, pageContent: Discussions},
 	{path: '/info', handler: Page, pageContent: CourseInfo},
 	{}//not found

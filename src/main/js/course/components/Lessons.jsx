@@ -2,8 +2,6 @@ import React from 'react';
 
 import Router from 'react-router-component';
 
-import Page from './Page';
-
 import Media from './Media';
 import Outline from './OutlineView';
 import Overview from './Overview';
@@ -11,9 +9,9 @@ import Overview from './Overview';
 import ContentViewer from 'content/components/Viewer';
 
 const ROUTES = [
-	{path: '/:outlineId/c/:rootId(/*)',		handler: Page, pageContent: ContentViewer,	slug: 'c'},
-	{path: '/:outlineId/v/:videoId(/*)',	handler: Page, pageContent: Media,			slug: 'v'},
-	{path: '/:outlineId(/*)',				handler: Page, pageContent: Overview },
+	{path: '/:outlineId/c/:rootId(/*)',		handler: ContentViewer,	slug: 'c'},
+	{path: '/:outlineId/v/:videoId(/*)',	handler: Media,			slug: 'v'},
+	{path: '/:outlineId(/*)',				handler: Overview },
 	{}//
 ];
 
@@ -28,13 +26,11 @@ export default React.createClass({
 				route.path ?
 				<Router.Location {...route}
 
-					sectionPathPrefix="../"
 					contentPackage={course}
 					contextProvider={contextProvider}
 					course={course}
 					/> :
-				<Router.NotFound handler={Page} pageContent={Outline}
-						sectionPathPrefix="../"
+				<Router.NotFound handler={Outline}
 						contextProvider={contextProvider}
 						item={course}
 						/>
