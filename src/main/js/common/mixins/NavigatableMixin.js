@@ -57,6 +57,17 @@ export default {
 
 
 	navigate (path, cb) {
-		return this.getNavigable().navigate(path, cb);
+		let parent = /^\.\.\//;
+		let n = this.getNavigable();
+
+		//This feels like a hack :/
+		while (parent.test(path)) {
+			let p = n.getParentRouter();
+			if (!p) { break; }
+			n = p;
+			path = path.replace(parent, '');
+		}
+
+		return n.navigate(path, cb);
 	}
 };
