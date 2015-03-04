@@ -10,27 +10,27 @@ import Pager from 'common/components/Pager';
 import BasePathAware from 'common/mixins/BasePath';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
-// import hash from 'object-hash';
 
-/*const Hamburger = React.createClass({
-	mixins: [PureRenderMixin],
+// const Hamburger = React.createClass({
+// 	mixins: [PureRenderMixin],
+//
+// 	onClick (e) {
+// 		e.preventDefault();
+// 		e.stopPropagation();
+// 		this.props.onClick();
+// 	},
+//
+// 	render () {
+// 		let props = {
+// 			className: 'left-off-canvas-toggle hamburger',
+// 			onClick: this.onClick,
+// 			href: '#'
+// 		};
+//
+// 		return <a {...props}><span/></a>;
+// 	}
+// });
 
-	onClick (e) {
-		e.preventDefault();
-		e.stopPropagation();
-		this.props.onClick();
-	},
-
-	render () {
-		let props = {
-			className: 'left-off-canvas-toggle hamburger',
-			onClick: this.onClick,
-			href: '#'
-		};
-
-		return <a {...props}><span/></a>;
-	}
-});*/
 
 const UserMenu = React.createClass({
 	mixins: [PureRenderMixin],
@@ -102,6 +102,7 @@ export default React.createClass({
 		this.fillIn(this.props);
 	},
 
+
 	componentWillReceiveProps (nextProps) {
 		//if (nextProps.contextProvider) {
 			this.fillIn(nextProps);
@@ -121,9 +122,6 @@ export default React.createClass({
 			this.setStateSafely({
 				returnTo: x && x[x.length-2]
 			}));
-	},
-
-	onMenuTap () {
 	},
 
 
@@ -156,6 +154,7 @@ export default React.createClass({
 		return this.getChildForSide('right') || <UserMenu onClick={triggerRightMenu}/>;
 	},
 
+
 	getCenter () {
 		let css = cx({
 			'title': true,
@@ -165,7 +164,7 @@ export default React.createClass({
 		return this.getChildForSide('center') ||
 			this.getMenu() || (
 
-			<a href={this.getBasePath()} onClick={this.onMenuTap}>
+			<a href={this.getBasePath()}>
 				<h1 className={css}>{this.props.title}</h1></a>
 		);
 	},
