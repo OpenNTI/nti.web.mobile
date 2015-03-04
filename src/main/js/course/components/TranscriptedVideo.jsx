@@ -6,6 +6,7 @@ import {
 
 import React from 'react';
 
+import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 
 import {addClass, removeClass} from 'common/utils/dom';
 
@@ -13,6 +14,7 @@ import LoadingMask from 'common/components/Loading';
 
 import HasPageSource from 'common/mixins/HasPageSource';
 import SetStateSafely from 'common/mixins/SetStateSafely';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {Component as Video} from 'video';
 
@@ -21,7 +23,7 @@ import Transcript from './Transcript';
 
 export default React.createClass({
 	displayName: 'TranscriptedVideo',
-	mixins: [HasPageSource, SetStateSafely],
+	mixins: [HasPageSource, NavigatableMixin, SetStateSafely],
 
 
 	getInitialState () {
@@ -66,16 +68,21 @@ export default React.createClass({
 
 		try {
 
-			let {video, contextProvider} = props;
+			let {video, contextProvider, outlineId} = props;
+			let pageSource = video.getPageSource();
+
+			if (outlineId) {
+				pageSource = pageSource.scopped(decodeFromURI(outlineId));
+			}
 
 			contextProvider(this.props)
 				.then(context => this.setStateSafely({ context }));
 
-			this.setPageSource(video.getPageSource(), video.getID());
+			this.setPageSource(pageSource, video.getID());
 
 			video.getTranscript('en')
 				.then(vtt => {
-					var parser = new WebVTT.Parser(global, WebVTT.StringDecoder()),
+					let parser = new WebVTT.Parser(global, WebVTT.StringDecoder()),
 	        			cues = [], regions = [];
 
 				    parser.oncue = cue=> cues.push(cue);
@@ -120,7 +127,7 @@ export default React.createClass({
 
 
 	onVideoTimeTick (event) {
-		var time = (event.target || {}).currentTime;
+		let time = (event.target || {}).currentTime;
 		if (this.isMounted()) {
 			this.setState({currentTime: time});
 		}
@@ -133,7 +140,7 @@ export default React.createClass({
 
 
 	render () {
-		var {cues, regions, currentTime} = this.state;
+		let {cues, regions, currentTime} = this.state;
 
 		return (
 			<div className="transcripted-video">

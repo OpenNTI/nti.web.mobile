@@ -68,21 +68,19 @@ export default React.createClass({
 		if (this.state.loading) {return (<Loading/>);}
 		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>); }
 
-		var p = this.props;
-		var videoId = p.videoId && decodeFromURI(p.videoId);
-		var videoIndex = this.state.videoIndex;
-		var video = videoIndex.get(videoId);
+		let p = this.props;
+		let videoId = p.videoId && decodeFromURI(p.videoId);
+		let VideoIndex = this.state.videoIndex;
+		let video = VideoIndex.get(videoId);
 
-		var props = Object.assign({}, this.props, {
-			VideoIndex: videoIndex,
-			videoId: videoId,
-			video: video,
-			parentPath: videoId ?
-				location.href.replace(p.videoId, '').replace(/\/\/$/, '/') :
-				null
+		let props = Object.assign({}, this.props, {
+			VideoIndex,
+			videoId,
+			video,
+			outlineId: this.props.outlineId
 		});
 
-		var Tag = videoId ? TranscriptedVideo : VideoGrid;
+		let Tag = videoId ? TranscriptedVideo : VideoGrid;
 
 		return <Tag {...props}/>;
 	}
