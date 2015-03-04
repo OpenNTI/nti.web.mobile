@@ -242,7 +242,8 @@ section.right-small {
 	padding: 0;
 	z-index: 1001;
 	box-shadow: 0 0 5px 1px #222;
-	border-radius: 0 0 5px 5px;
+	border-radius: 0 0 3px 3px;
+	padding-bottom: 0.5rem;
 
 	&, ul {
 		list-style: none;
