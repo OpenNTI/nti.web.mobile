@@ -8,11 +8,12 @@ import NotFound from 'notfound/components/View';
 
 import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
-import Page from 'common/components/Page';
 
 import BasePathAware from 'common/mixins/BasePath';
 import StoreEventAware from 'common/mixins/StoreEvents';
 import SetStateSafely from 'common/mixins/SetStateSafely';
+
+import Page from './Page';
 
 //import Activity
 //import Assignments

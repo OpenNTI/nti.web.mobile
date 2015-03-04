@@ -2,7 +2,7 @@ import React from 'react';
 
 import Router from 'react-router-component';
 
-import Page from 'common/components/Page';
+import Page from './Page';
 
 import Media from './Media';
 import Outline from './OutlineView';
