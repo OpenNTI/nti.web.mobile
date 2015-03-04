@@ -8,6 +8,7 @@ import ErrorWidget from 'common/components/Error';
 
 import SetStateSafely from 'common/mixins/SetStateSafely';
 import HasPageSource from 'common/mixins/HasPageSource';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import AnalyticsStore from 'analytics/Store';
 
@@ -18,7 +19,7 @@ import {Mixin} from './widgets';
 
 export default React.createClass({
 	displayName: 'CourseOverview',
-	mixins: [Mixin, SetStateSafely, HasPageSource],
+	mixins: [Mixin, NavigatableMixin, SetStateSafely, HasPageSource],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
