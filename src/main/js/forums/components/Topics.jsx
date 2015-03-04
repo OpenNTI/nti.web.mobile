@@ -60,12 +60,13 @@ var Topics = React.createClass({
 			return <Loading/>;
 		}
 
-		var {forumId} = this.props;
+		var {forum, forumId} = this.props;
 		var forumContents = Store.getObjectContents(forumId);
 
 		return (
 			<div>
 				<Breadcrumb contextProvider={this.__getContext} />
+				<h2>{forum.title}</h2>
 				<section>
 					{this._createTopicLink()}
 					<TopicList container={forumContents}/>

@@ -64,19 +64,22 @@ module.exports = React.createClass({
 					<Location path="/(#nav)"
 						handler={Topics}
 						{...this.props}
+						forum={forum}
 						contextProvider={this.__getContext}
 					/>
 					<Location path="/newtopic/(#nav)"
-						forum={forum}
 						handler={CreateTopic}
+						forum={forum}
 						contextProvider={this.__getContext}
 					/>
 					<Location path="/:topicId/(#nav)"
 						handler={TopicView}
+						forum={forum}
 						contextProvider={this.__getContext}
 					/>
 					<Location path="/:topicId/:postId/(#nav)"
 						handler={Post}
+						forum={forum}
 						contextProvider={this.__getContext}
 					/>
 				</Router.Locations>
