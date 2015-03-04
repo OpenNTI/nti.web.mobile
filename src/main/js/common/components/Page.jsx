@@ -13,18 +13,19 @@ export default React.createClass({
 	},
 
 
-	componentWillReceiveProps () {
-		this.setState({pageSource: null, currentPage: null});
-	},
-
-
 	render () {
 		let {pageSource, currentPage, navigatableContext} = this.state || {};
-		let Content = this.props.pageContent;
+		let {title, pageContent} = this.props;
+		let Content = pageContent;
 
 		return (
 			<div>
-				<NavigationBar title="Lessons" {...this.props} pageSource={pageSource} currentPage={currentPage} navigatableContext={navigatableContext}/>
+				<NavigationBar {...this.props}
+					title={title}
+					pageSource={pageSource}
+					currentPage={currentPage}
+					navigatableContext={navigatableContext}
+					/>
 				<Content {...this.props}/>
 			</div>
 		);
