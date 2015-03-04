@@ -144,11 +144,11 @@ export default React.createClass({
 
 
 	fillIn (props) {
-		let getContext = props.contextProvider;
+		let {navigatableContext, contextProvider} = props;
 		let resolve = Promise.resolve();
 
-		if (getContext) {
-			resolve = getContext(props);
+		if (contextProvider) {
+			resolve = contextProvider((navigatableContext || {}).props || props);
 		}
 
 		resolve.then(x=>
