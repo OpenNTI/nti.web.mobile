@@ -1,13 +1,18 @@
+import path from 'path';
 import React from 'react';
+import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import cx from 'react/lib/cx';
+
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
 import {getAppUsername} from 'common/utils';
 
+import ActiveState from 'common/components/ActiveState';
 import Avatar from 'common/components/Avatar';
 import Pager from 'common/components/Pager';
 
 import BasePathAware from 'common/mixins/BasePath';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
 
@@ -78,7 +83,7 @@ const ReturnTo = React.createClass({
 
 export default React.createClass({
 	displayName: 'NavigationBar',
-	mixins: [BasePathAware, SetStateSafely],
+	mixins: [BasePathAware, NavigatableMixin, SetStateSafely],
 
 	contextTypes: {
 		triggerLeftMenu: React.PropTypes.func.isRequired,
@@ -98,6 +103,13 @@ export default React.createClass({
 	},
 
 
+	getInitialState () {
+		return {
+			menuOpen: false
+		};
+	},
+
+
 	componentDidMount () {
 		this.fillIn(this.props);
 	},
@@ -107,6 +119,7 @@ export default React.createClass({
 		//if (nextProps.contextProvider) {
 			this.fillIn(nextProps);
 		//}
+		this.setState({menuOpen: false});
 	},
 
 
@@ -151,7 +164,8 @@ export default React.createClass({
 
 	getRight () {
 		let {triggerRightMenu} = this.context;
-		return this.getChildForSide('right') || <UserMenu onClick={triggerRightMenu}/>;
+		return this.getChildForSide('right') || <UserMenu onClick={()=>{
+			this.closeMenu();triggerRightMenu();}}/>;
 	},
 
 
@@ -171,11 +185,74 @@ export default React.createClass({
 
 
 	getMenu () {
+		let {availableSections} = this.props;
+		let css = cx({
+			'title': true,
+			'menu': true
+		});
 
+		if (!availableSections) {
+			return;
+		}
+
+		let ref = this.makeHref(this.getPath());
+
+		let {label} = availableSections.find(x=>
+			ref.indexOf(path.normalize(this.makeHref(x.href))) === 0) || {};
+
+		//jsxhint is killing me... it's not comprehending the default value in the destructuing assignment... :}
+		if (!label) {
+			label = 'Menu';
+		}
+
+		return (
+			<a href="#" onClick={this.toggleMenu}><h1 className={css}>{label}</h1></a>
+		);
+	},
+
+
+	toggleMenu (e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		let s = !this.state.menuOpen;
+		this.setStateSafely({menuOpen: s});
+	},
+
+
+	closeMenu (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+		this.setStateSafely({menuOpen: false});
 	},
 
 
 	render () {
+		let {menuOpen} = this.state;
+
+		let css = cx({
+			'nav-menu-open': menuOpen
+		});
+
+		if (!this.props.availableSections) {
+			return this.renderBar();
+		}
+
+		return (
+			<div className={css}>
+				<a href="#" className="nav-menu-mask" onClick={this.closeMenu}/>
+				{this.renderBar()}
+				<TransitionGroup transitionName="navmenu">
+					{this.renderMenu()}
+				</TransitionGroup>
+			</div>
+		);
+	},
+
+
+	renderBar () {
 		let {pageSource, currentPage, navigatableContext} = this.props;
 
 		return (
@@ -188,5 +265,28 @@ export default React.createClass({
 				</section>
 			</nav>
 		);
+	},
+
+
+	renderMenu () {
+		let {menuOpen} = this.state;
+		let {availableSections} = this.props;
+		let props = {
+			className: 'title-bar-menu'
+		};
+
+		let sectionProps = x=> {
+			let title = x.label;
+			let href = path.normalize(this.makeHref(x.href));
+			return Object.assign({children: title}, x, {title, href});
+		};
+
+		let sections = availableSections.map(sectionProps);
+
+		return menuOpen && React.createElement('ul', props,
+				...sections.map(x=>
+					<ActiveState tag="li" hasChildren {...x}><a {...x}/></ActiveState>
+				));
 	}
+
 });

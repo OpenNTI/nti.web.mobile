@@ -1,6 +1,6 @@
 export default {
-	ACTIVITY: 'activity',
-	ASSIGNMENTS: 'a/',
+	// ACTIVITY: 'activity',
+	// ASSIGNMENTS: 'a/',
 	DISCUSSIONS: 'd/',
 	LESSONS: 'o/',
 	INFO: 'info',

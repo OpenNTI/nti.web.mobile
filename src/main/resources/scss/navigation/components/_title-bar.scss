@@ -46,7 +46,27 @@ section.right-small {
 	.title {
 		position: relative;
 		overflow: hidden;
+		display: inline;
 		color: $primary-grey;
+
+		&.menu::after {
+			content: '';
+			@extend %chevron-down;
+			.nav-menu-open & {
+				@extend %chevron-up;
+			}
+			width: 10px;
+			height: 10px;
+			position: absolute;
+			top: 50%;
+			right: -12px;
+			margin-top: -3px;
+			background:{
+				size: contain;
+				position: center;
+				repeat: no-repeat;
+			}
+		}
 
 		&.branding {
 			display: inline-block;
@@ -137,6 +157,17 @@ section.right-small {
 }
 
 .tab-bar {
+	.nav-menu-open & {
+		box-shadow: 0 0 1px 0px #222;
+		border-radius: 0 0 1px 1px;
+		background: #fff;
+		z-index: 1010;
+
+		.dark & {
+			background: #525252;
+		}
+	}
+
 	section:not(.tab-bar-section){
 		z-index: 10;
 	}
@@ -188,4 +219,63 @@ section.right-small {
 			left: 0.625rem;
 		}*/
 	}
+}
+
+.title-bar-menu {
+	position: fixed;
+	background: $panel-background;
+	top: 2.8125rem;
+	left: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	z-index: 1008;
+	box-shadow: 0 0 5px 1px #222;
+	border-radius: 0 0 5px 5px;
+
+
+	&, ul {
+		list-style: none;
+		margin-left: 0;
+	}
+
+	li > * {
+		font: {
+			style: normal;
+			weight: 400;
+			size: 0.9rem;
+		}
+		line-height: 2.8;
+		padding: 0 0.35em 0 1.39em;
+	}
+
+	li a {
+		display: block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		color: $tertiary-grey;
+		&[href] {
+			color: $secondary-grey;
+		}
+	}
+
+
+	.active {
+		background: #3fb3f6;
+		box-shadow: inset 3px 0 0 0 #107eed;
+		&, a[href] {
+			color: #ffffff;
+			font-weight: 600;
+		}
+	}
+}
+
+.nav-menu-open .nav-menu-mask {
+	background: #000;
+	opacity: 0.7;
+	position: fixed;
+	top: 0; left: 0;
+	right: 0; bottom: 0;
+	z-index: 1008;
 }
