@@ -5,8 +5,6 @@ import Footer from 'common/components/Footer';
 
 import RouteAware from 'common/mixins/NavigatableMixin';
 
-import Navigation from 'navigation/components/View';
-
 import Notifications from 'notifications/components/View';
 
 import {getAppUsername} from 'common/utils';
@@ -64,10 +62,6 @@ export default React.createClass({
 
 				<div className={`off-canvas-wrap ${state}`} data-offcanvas>
 					<div className="inner-wrap">
-						
-						<aside className="left-off-canvas-menu" style={height}>
-							<Navigation/>
-						</aside>
 
 						<aside className="right-off-canvas-menu" style={height}>
 							<Session username={username}/>
