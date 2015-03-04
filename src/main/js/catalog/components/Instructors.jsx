@@ -5,7 +5,7 @@ import {BLANK_AVATAR, BLANK_IMAGE} from 'common/constants/DataURIs';
 
 import {scoped} from 'common/locale';
 
-const _t = scoped('COURSE_INFO');
+const _t = scoped('COURSE.INFO');
 
 var Instructor = React.createClass({
 	displayName: 'Instructor',

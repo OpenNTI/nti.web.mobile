@@ -3,7 +3,7 @@ import moment from 'moment';
 import isEmpty from 'dataserverinterface/utils/isempty';
 import {scoped, translate as locale} from 'common/locale';
 
-const _t = scoped('COURSE_INFO');
+const _t = scoped('COURSE.INFO');
 
 const isOpenEnrolled = RegExp.prototype.test.bind(/open/i);
 

@@ -5,6 +5,7 @@
 */
 
 import units from './partials/units';
+import course from './partials/course';
 import forums from './partials/forums';
 import enrollment from './partials/enrollment';
 import library from './partials/library';
@@ -40,21 +41,7 @@ export default {
 	},
 
 
-	COURSE_INFO: {
-		OpenEnrolled: 'You\'re registered for the open course.',
-		OpenEnrolledIsNotForCredit: '(No Credit)',
-		CREDIT: {
-			available: 'available'
-		},
-		NoPrerequisites: 'There are no prerequisites for this course.',
-		SchoolLabel: 'School / Department',
-		StartDate: 'Start Date',
-		Duration: 'Duration',
-		DurationUnits: 'Weeks',
-		Days: 'Days',
-		OnlyOnline: 'Fully Online',
-		Instructor: 'Course Instructor'
-	},
+	COURSE: course,
 
 	ASSESSMENT: {
 		submit: 'I\'m Finished!',
