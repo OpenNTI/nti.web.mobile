@@ -30,6 +30,10 @@ module.exports = {
 		first: 'Report',
 		again: 'Reported'
 	},
+	deletedItemsMessage: {
+		one: 'This comment has been deleted.',
+		other: '%(count)s comments deleted.'
+	},
 	posted: 'posted',
 	replied: 'replied',
 	likes: {
