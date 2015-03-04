@@ -9,10 +9,11 @@ var TopicComments = React.createClass({
 
 		var {topic} = this.props;
 		// var itemCount = topic.PostCount;
-
+		let {Items} = this.props.container;
 		return (
+			(Items || []).length > 0 && 
 			<section className="comments">
-				<List className="forum-replies" {...this.props} itemProps={{topic: topic}} />
+				<List className="forum-replies" {...this.props} itemProps={{topic: topic}} omitIfEmpty={true} />
 			</section>
 		);
 	}
