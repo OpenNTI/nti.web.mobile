@@ -6,7 +6,6 @@ import Router from 'react-router-component';
 
 import NotFound from 'notfound/components/View';
 
-import CourseInfo from './CourseDescription';
 import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
 import Page from 'common/components/Page';
@@ -15,15 +14,25 @@ import BasePathAware from 'common/mixins/BasePath';
 import StoreEventAware from 'common/mixins/StoreEvents';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
-import Media from './Media';
-import Outline from './OutlineView';
-import Overview from './Overview';
-
-import ContentViewer from 'content/components/Viewer';
+//import Activity
+//import Assignments
+//import Reports
+import CourseInfo from './CourseInfo';
 import Discussions from 'forums/components/View';
+import Lessons from './Lessons';
+import Media from './Media';
 
 import {setCourse} from '../Actions';
 import Store from '../Store';
+
+
+const ROUTES = [
+	{path: '/v/(:videoId)(/*)', handler: Page, pageContent: Media},
+	{path: '/o(/*)', handler: Lessons},
+	{path: '/d(/*)', handler: Page, pageContent: Discussions},
+	{path: '/info', handler: Page, pageContent: CourseInfo},
+	{}//not found
+];
 
 
 export default React.createClass({
@@ -35,19 +44,25 @@ export default React.createClass({
 		default: 'synchronizeFromStore'
 	},
 
+
 	propTypes: {
 		course: React.PropTypes.string.isRequired
 	},
 
+
 	getInitialState () { return { loading: true }; },
+
 
 	synchronizeFromStore () {
 		this.setStateSafely({loading: false, course: Store.getData()});
 	},
 
+
 	componentDidMount () { this.getDataIfNeeded(this.props); },
 
+
 	componentWillUnmount () { setCourse(null); /*clear left nav*/ },
+
 
 	componentWillReceiveProps (nextProps) {
 		if (nextProps.course !== this.props.course) {
@@ -79,28 +94,16 @@ export default React.createClass({
 				(<ErrorWidget error={record.error}/>);
 		}
 
-		return (
-			<Router.Locations contextual>
-				<Router.Location path="/v/(:videoId)(/*)"
-									handler={Page}
-									pageContent={Media}
-									course={course}
-									contextProvider={this.getContext}/>
+		return React.createElement(Router.Locations, {contextual: true},
+			...ROUTES.map(route=>
+				route.path ?
+				<Router.Location {...route}
 
-				<Router.Location path="/o(/*)"
-									handler={Lessons}
-									course={course}
-									contextProvider={this.getContext}/>
-
-				<Router.Location path="/d(/*)"
-									handler={Page}
-									pageContent={Discussions}
-									course={course}
-									contextProvider={this.getContext}/>
-
-				<Router.NotFound handler={CourseInfo} entry={entry} />
-			</Router.Locations>
-		);
+					course={course}
+					contextProvider={this.getContext}
+					/> :
+				<Router.NotFound handler={NotFound} />
+			));
 	},
 
 
@@ -146,45 +149,5 @@ export default React.createClass({
 					}
 				]))
 			.then(o => leafId ? o.concat([{ntiid: leafId}]) : o);
-	}
-});
-
-
-var Lessons = React.createClass({
-
-	render () {
-		let {course, contextProvider} = this.props;
-		return (
-				<Router.Locations contextual>
-					<Router.Location path="/:outlineId/c/:rootId(/*)"
-							handler={Page}
-							pageContent={ContentViewer}
-							contentPackage={course}
-							contextProvider={contextProvider}
-							slug="c"
-							/>
-
-					<Router.Location path="/:outlineId/v/:videoId(/*)"
-							handler={Page}
-							pageContent={Media}
-							course={course}
-							contextProvider={contextProvider}
-							slug="v"
-							/>
-
-					<Router.Location path="/:outlineId(/*)"
-							handler={Page}
-							pageContent={Overview}
-							course={course}
-							contextProvider={contextProvider}
-							/>
-
-					<Router.NotFound handler={Page}
-							pageContent={Outline}
-							item={course}
-							contextProvider={contextProvider}
-							/>
-				</Router.Locations>
-		);
 	}
 });

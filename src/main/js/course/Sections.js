@@ -3,6 +3,6 @@ export default {
 	ASSIGNMENTS: 'a/',
 	DISCUSSIONS: 'd/',
 	LESSONS: 'o/',
-	INFO: '',
+	INFO: 'info',
 	VIDEOS: 'v/'
 };
