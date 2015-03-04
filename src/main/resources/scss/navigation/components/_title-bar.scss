@@ -1,6 +1,6 @@
-$duration : 0.35s;
-$enter-timing : cubic-bezier(0.25, 0.8, 0.25, 1);
-$leave-timing  : cubic-bezier(0.55, 0, 0.55, 0.2);
+$duration: 0.35s;
+$enter-timing: cubic-bezier(0.25, 0.8, 0.25, 1);
+$leave-timing: cubic-bezier(0.55, 0, 0.55, 0.2);
 
 // $ease-out-quad: cubic-bezier(0.250, 0.460, 0.450, 0.940);
 // $ease-out-cubic: cubic-bezier(0.215, 0.610, 0.355, 1.000);
@@ -55,26 +55,31 @@ section.right-small {
 	.title {
 		position: relative;
 		overflow: hidden;
-		display: inline;
+		display: inline-block;
 		color: $primary-grey;
 
-		&.menu::after {
-			@include transition("all #{$duration} #{$enter-timing}");
-			content: '';
-			@extend %chevron-down;
-			.nav-menu-open & {
-				@include transform(rotate3d(0,0,1,180deg));
-			}
-			width: 10px;
-			height: 10px;
-			position: absolute;
-			top: 50%;
-			right: -12px;
-			margin-top: -3px;
-			background:{
-				size: contain;
-				position: center;
-				repeat: no-repeat;
+		&.menu{
+			overflow: visible;
+			&::after {
+				-webkit-backface-visibility: hidden;
+				transition: -webkit-transform $duration $enter-timing;
+				transition: transform $duration $enter-timing;
+				content: '';
+				@extend %chevron-down;
+				.nav-menu-open & {
+					@include transform(rotate3d(0,0,1,180deg));
+				}
+				width: 10px;
+				height: 10px;
+				position: absolute;
+				top: 50%;
+				right: -12px;
+				margin-top: -5px;
+				background:{
+					size: contain;
+					position: center;
+					repeat: no-repeat;
+				}
 			}
 		}
 
@@ -171,6 +176,7 @@ section.right-small {
 	z-index: 1002;
 
 	.nav-menu-open & {
+		top: 0; left: 0; right: 0;
 		border-radius: 0 0 1px 1px;//iOS hack to show box-shadow
 		box-shadow: 0 0 1px 0px #222;
 
@@ -233,7 +239,8 @@ section.right-small {
 }
 
 .title-bar-menu {
-	position: fixed;
+	-webkit-backface-visibility: hidden;
+	position: absolute;
 	background: $panel-background;
 	top: 2.8125rem;
 	left: 0;
@@ -283,22 +290,20 @@ section.right-small {
 
 
 	&.nav-menu-enter {
-		@include transition("all #{$duration} #{$enter-timing}");
-
-		-webkit-transition-delay: 0s !important;
+		transition: -webkit-transform $duration $enter-timing;
+		transition: transform $duration $enter-timing;
 		transition-delay: 0s !important;
 
 		@include transform(scale3d(0.95,0.95,1) translate3d(0, -150%, 0));
 
 		&.nav-menu-enter-active {
-			@include transform(scale3d(1,1,1) translate3d(0, 0, 0));
+			@include transform(translate3d(0, 0, 0));
 		}
 	}
 
 	&.nav-menu-leave {
-		@include transition("all 0.25s #{$leave-timing}");
-
-		-webkit-transition-delay: 0s !important;
+		transition: -webkit-transform 0.25s $leave-timing;
+		transition: transform 0.25s $leave-timing;
 		transition-delay: 0s !important;
 
 		@include transform(translate3d(0, 0, 0));
@@ -313,17 +318,16 @@ section.right-small {
 
 
 .nav-menu-mask {
+	-webkit-backface-visibility: hidden;
 	background: #000;
 	opacity: 0.7;
-	position: fixed;
+	position: absolute;
 	top: 0; left: 0;
 	right: 0; bottom: 0;
 	z-index: 1000;
 
 	&.nav-menu-enter{
-		@include transition("opacity #{$duration} #{$enter-timing}");
-
-		-webkit-transition-delay: 0s !important;
+		transition: opacity $duration $enter-timing;
 		transition-delay: 0s !important;
 
 		opacity: 0;
@@ -334,8 +338,7 @@ section.right-small {
 	}
 
 	&.nav-menu-leave {
-		@include transition("opacity 0.25s #{$leave-timing}");
-		-webkit-transition-delay: 0s !important;
+		transition: opacity 0.25s $leave-timing;
 		transition-delay: 0s !important;
 		opacity: 0.7;
 
