@@ -1,6 +1,6 @@
 import path from 'path';
 import React from 'react';
-import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import Transition from 'react/lib/ReactCSSTransitionGroup';
 import cx from 'react/lib/cx';
 
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
@@ -11,10 +11,13 @@ import ActiveState from 'common/components/ActiveState';
 import Avatar from 'common/components/Avatar';
 import Pager from 'common/components/Pager';
 
+import {addClass, removeClass} from 'common/utils/dom';
+
 import BasePathAware from 'common/mixins/BasePath';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
+const getViewport = ()=> document.getElementsByTagName('html')[0];
 
 // const Hamburger = React.createClass({
 // 	mixins: [PureRenderMixin],
@@ -35,6 +38,23 @@ import SetStateSafely from 'common/mixins/SetStateSafely';
 // 		return <a {...props}><span/></a>;
 // 	}
 // });
+
+
+
+
+const Menu = React.createClass({
+	componentDidMount () {
+		addClass(getViewport(), 'scroll-lock');
+	},
+
+	componentWillUnmount () {
+		removeClass(getViewport(), 'scroll-lock');
+	},
+
+	render () {
+		return (<ul {...this.props}/>);
+	}
+});
 
 
 const UserMenu = React.createClass({
@@ -236,17 +256,13 @@ export default React.createClass({
 			'nav-menu-open': menuOpen
 		});
 
-		if (!this.props.availableSections) {
-			return this.renderBar();
-		}
-
 		return (
 			<div className={css}>
-				<a href="#" className="nav-menu-mask" onClick={this.closeMenu}/>
-				{this.renderBar()}
-				<TransitionGroup transitionName="navmenu">
+				<Transition transitionName="nav-menu">
+					{menuOpen && <a href="#" className="nav-menu-mask" onClick={this.closeMenu} key="mask"/>}
 					{this.renderMenu()}
-				</TransitionGroup>
+				</Transition>
+				{this.renderBar()}
 			</div>
 		);
 	},
@@ -272,7 +288,8 @@ export default React.createClass({
 		let {menuOpen} = this.state;
 		let {availableSections} = this.props;
 		let props = {
-			className: 'title-bar-menu'
+			className: 'title-bar-menu',
+			key: 'menu'
 		};
 
 		let sectionProps = x=> {
@@ -281,9 +298,13 @@ export default React.createClass({
 			return Object.assign({children: title}, x, {title, href});
 		};
 
+		if (!availableSections) {
+			return;
+		}
+
 		let sections = availableSections.map(sectionProps);
 
-		return menuOpen && React.createElement('ul', props,
+		return menuOpen && React.createElement(Menu, props,
 				...sections.map(x=>
 					<ActiveState tag="li" hasChildren {...x}><a {...x}/></ActiveState>
 				));
