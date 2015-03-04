@@ -49,7 +49,7 @@ export default React.createClass({
 
 
 	componentWillReceiveProps (nextProps) {
-		if (nextProps.video !== this.props.video) {
+		if (nextProps.videoId !== this.props.videoId) {
 			this.getDataIfNeeded(nextProps);
 		}
 	},
@@ -68,10 +68,12 @@ export default React.createClass({
 
 		try {
 
-			let {video, contextProvider, outlineId} = props;
-			let pageSource = video.getPageSource();
+			let {VideoIndex, videoId, contextProvider, outlineId} = props;
+			let video = VideoIndex.get(decodeFromURI(videoId));
 
-			if (outlineId) {
+			let pageSource = video && video.getPageSource();
+
+			if (outlineId && pageSource) {
 				pageSource = pageSource.scopped(decodeFromURI(outlineId));
 			}
 
@@ -102,8 +104,9 @@ export default React.createClass({
 
 					this.setStateSafely({
 						loading: false,
-						cues: cues,
-						regions: regions
+						cues,
+						regions,
+						video
 					});
 
 				})
@@ -140,14 +143,16 @@ export default React.createClass({
 
 
 	render () {
-		let {cues, regions, currentTime} = this.state;
+		let {video, cues, regions, currentTime, loading} = this.state;
+
+		loading = loading || !video;
 
 		return (
 			<div className="transcripted-video">
-				<LoadingMask loading={this.state.loading}>
+				<LoadingMask loading={loading}>
 
 					<Video ref="video"
-							src={this.props.video}
+							src={video}
 							onTimeUpdate={this.onVideoTimeTick}
 							context={this.state.context}
 							transcript={true}

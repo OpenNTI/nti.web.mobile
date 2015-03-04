@@ -10,7 +10,7 @@ import ContentViewer from 'content/components/Viewer';
 
 const ROUTES = [
 	{path: '/:outlineId/c/:rootId(/*)',		handler: ContentViewer,	slug: 'c'},
-	{path: '/:outlineId/v/:videoId(/*)',	handler: Media,			slug: 'v'},
+	{path: '/:outlineId/v(/*)',				handler: Media,			slug: 'v'},
 	{path: '/:outlineId(/*)',				handler: Overview },
 	{}//
 ];

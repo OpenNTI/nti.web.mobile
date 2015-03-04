@@ -1,9 +1,10 @@
 import React from 'react';
-
-import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
+import Router from 'react-router-component';
 
 import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
+
+import SetStateSafely from 'common/mixins/SetStateSafely';
 
 import TranscriptedVideo from './TranscriptedVideo';
 import VideoGrid from './VideoGrid';
@@ -11,15 +12,15 @@ import VideoGrid from './VideoGrid';
 
 export default React.createClass({
 	displayName: 'MediaView',
+	mixins: [SetStateSafely],
 
 	propTypes: {
-		course: React.PropTypes.object.isRequired,
-		videoId: React.PropTypes.string
+		course: React.PropTypes.object.isRequired
 	},
 
 	getInitialState () {
 		return {
-			loading: true, error: false, videoIndex: null
+			loading: true, error: false, VideoIndex: null
 		};
 	},
 
@@ -40,7 +41,7 @@ export default React.createClass({
 
 
 	__onError (error) {
-		this.setState({
+		this.setStateSafely({
 			loading: false,
 			error: error,
 			videoIndex: null
@@ -49,13 +50,13 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		this.setState(this.getInitialState());
+		this.setStateSafely(this.getInitialState());
 		try {
 			props.course.getVideoIndex()
-				.then(data =>
-					this.setState({
+				.then(VideoIndex =>
+					this.setStateSafely({
 						loading: false,
-						videoIndex: data
+						VideoIndex
 					}))
 				.catch(this.__onError);
 		} catch (e) {
@@ -68,20 +69,14 @@ export default React.createClass({
 		if (this.state.loading) {return (<Loading/>);}
 		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>); }
 
-		let p = this.props;
-		let videoId = p.videoId && decodeFromURI(p.videoId);
-		let VideoIndex = this.state.videoIndex;
-		let video = VideoIndex.get(videoId);
+		let {VideoIndex} = this.state;
+		let props = Object.assign({}, this.props, { VideoIndex });
 
-		let props = Object.assign({}, this.props, {
-			VideoIndex,
-			videoId,
-			video,
-			outlineId: this.props.outlineId
-		});
-
-		let Tag = videoId ? TranscriptedVideo : VideoGrid;
-
-		return <Tag {...props}/>;
+		return (
+			<Router.Locations contextual>
+				<Router.Location path="/:videoId(/*)" handler={TranscriptedVideo} {...props}/>
+				<Router.Location path="/(*)" handler={VideoGrid} {...props}/>
+			</Router.Locations>
+		);
 	}
 });
