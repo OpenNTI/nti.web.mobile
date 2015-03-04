@@ -3,7 +3,8 @@
 export const types = {
 	FORUM: 'forums.communityforum',
 	TOPIC: 'forums.communityheadlinetopic',
-	POST: 'forums.generalforumcomment'
+	POST: 'forums.generalforumcomment',
+	DELETED_ITEM_GROUP: 'forums.deleteditemgroup'
 };
 
 export const ADD_COMMENT = Symbol('forums:ADD_COMMENT');

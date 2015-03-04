@@ -9,6 +9,7 @@ exports = module.exports = {
 	ForumItem: require('./ForumItem'),
 	TopicItem: require('./TopicItem'),
 	PostItem: require('./PostItem'),
+	DeletedGroupItem: require('./DeletedGroupItem'),
 
 	select: function(part, index, props) {
 
@@ -25,7 +26,7 @@ exports = module.exports = {
 		}
 
 		return React.createElement(
-			Item, 
+			Item,
 			Object.assign({
 				key: 'list-item-' + index,
 				index: index,

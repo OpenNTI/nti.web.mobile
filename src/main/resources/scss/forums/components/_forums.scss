@@ -86,6 +86,13 @@
 		}
 	}
 
+	.deleteditemgroup {
+		font-size: .75rem;
+		color: $tertiary-grey;
+		padding: 1rem 0;
+		margin-left: 45px; // avatar size + 10px defined in _attributed-content-item;
+	}
+
 	section {
 		margin-top:1rem;
 		h1 {

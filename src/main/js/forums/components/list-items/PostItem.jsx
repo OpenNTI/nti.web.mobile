@@ -200,9 +200,6 @@ var PostItem = React.createClass({
 				<div className="postitem deleted">
 					<div className="post">
 						<div className="wrap">
-							<div className="meta">
-								<DateTime date={createdOn} relative={true}/>
-							</div>
 							<div className="message">
 								<ModeledContentPanel body={message} />
 							</div>

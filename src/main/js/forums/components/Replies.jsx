@@ -5,7 +5,7 @@ import Actions from '../Actions';
 import {GOT_COMMENT_REPLIES, COMMENT_ADDED, OBJECT_DELETED} from '../Constants';
 import Store from '../Store';
 import StoreEvents from 'common/mixins/StoreEvents';
-
+import groupDeletedItems from '../utils/group-deleted-items';
 const gotCommentRepliesHandler = 'Replies:gotCommentRepliesHandler';
 const commentAddedHandler = 'Replies:commentAddedHandler';
 const objectDeletedHandler = 'Replies:objectDeletedHandler';
@@ -79,7 +79,7 @@ let Replies = React.createClass({
 		if (!this.props.display) {
 			return;
 		}
-		let items = (this.state.replies||[]);
+		let items = groupDeletedItems(this.state.replies||[]);
 		let Tag = this.props.childComponent;
 		return items.map(reply => {
 			return (<Tag

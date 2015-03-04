@@ -5,6 +5,7 @@ var ListItems = require('./list-items');
 var hash = require('object-hash');
 var Notice = require('common/components/Notice');
 var _t = require('common/locale').scoped('FORUMS');
+import groupDeleted from '../utils/group-deleted-items';
 
 module.exports = React.createClass({
 	displayName: 'ForumItemList',
@@ -19,6 +20,8 @@ module.exports = React.createClass({
 		return item.getID ? item.getID() : hash(item);
 	},
 
+
+
 	render: function() {
 		var {Items} = this.props.container;
 		var keyFor = this.props.keyFn || this.keyFor;
@@ -31,7 +34,7 @@ module.exports = React.createClass({
 				<Notice>{emptyText}</Notice>
 				:
 				<ul {...this.props}>
-					{Items.map((item, index)=>
+					{groupDeleted(Items).map((item, index)=>
 						<li key={keyFor(item)}>{ListItems.select(item, index, itemProps)}</li>
 					)}
 				</ul>
