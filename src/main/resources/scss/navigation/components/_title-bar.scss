@@ -62,7 +62,7 @@ section.right-small {
 			overflow: visible;
 			&::after {
 				-webkit-backface-visibility: hidden;
-				transition: -webkit-transform $duration $enter-timing;
+				-webkit-transition: -webkit-transform $duration $enter-timing;
 				transition: transform $duration $enter-timing;
 				content: '';
 				@extend %chevron-down;
@@ -240,6 +240,8 @@ section.right-small {
 
 .title-bar-menu {
 	-webkit-backface-visibility: hidden;
+	-webkit-perspective: 1000;
+
 	position: absolute;
 	background: $panel-background;
 	top: 2.8125rem;
@@ -290,10 +292,8 @@ section.right-small {
 
 
 	&.nav-menu-enter {
-		transition: -webkit-transform $duration $enter-timing;
-		transition: transform $duration $enter-timing;
+		transition: all $duration $enter-timing;
 		transition-delay: 0s !important;
-
 		@include transform(scale3d(0.95,0.95,1) translate3d(0, -150%, 0));
 
 		&.nav-menu-enter-active {
@@ -302,8 +302,7 @@ section.right-small {
 	}
 
 	&.nav-menu-leave {
-		transition: -webkit-transform 0.25s $leave-timing;
-		transition: transform 0.25s $leave-timing;
+		transition: all 0.25s $leave-timing;
 		transition-delay: 0s !important;
 
 		@include transform(translate3d(0, 0, 0));
@@ -319,6 +318,9 @@ section.right-small {
 
 .nav-menu-mask {
 	-webkit-backface-visibility: hidden;
+	-webkit-perspective: 1000;
+    -webkit-transform: translate3d(0,0,0);
+
 	background: #000;
 	opacity: 0.7;
 	position: absolute;
