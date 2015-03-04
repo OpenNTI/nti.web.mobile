@@ -99,6 +99,9 @@ export default React.createClass({
 
 	__buildHref (page) {
 		let ctx = this.props.navigatableContext;
+		if (ctx && !ctx.makeHref) {
+			console.warn('navigatableContext missing "makeHref" method');
+		}
 		if (!ctx || !ctx.makeHref) {
 			ctx = this;
 		}
