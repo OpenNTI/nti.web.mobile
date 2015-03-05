@@ -2,10 +2,11 @@ import React from 'react';
 
 import Store from '../Store';
 import Api from '../Api';
-import {DISCUSSIONS_CHANGED} from '../Constants';
+import {DISCUSSIONS_CHANGED, types} from '../Constants';
 import StoreEvents from 'common/mixins/StoreEvents';
 import keyFor from '../utils/key-for-item';
 
+import ViewHeader from './widgets/ViewHeader';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import ForumBin from './widgets/ForumBin';
@@ -91,6 +92,7 @@ export default React.createClass({
 
 		return (
 			<div>
+				<ViewHeader type={types.DISCUSSIONS} />
 				<nav className="forum">
 					<ul>
 	 					{

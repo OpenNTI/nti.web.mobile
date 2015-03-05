@@ -7,7 +7,8 @@ import Store from '../Store';
 import Api from '../Api';
 import StoreEvents from 'common/mixins/StoreEvents';
 import KeepItemInState from '../mixins/KeepItemInState';
-import {OBJECT_DELETED} from '../Constants';
+import {OBJECT_DELETED, types} from '../Constants';
+import ViewHeader from './widgets/ViewHeader';
 import Replies from './Replies';
 import CommentForm from './CommentForm';
 import Breadcrumb from 'common/components/Breadcrumb';
@@ -150,6 +151,7 @@ export default React.createClass({
 		return (
 			<div>
 				{breadcrumb}
+				<ViewHeader type={types.POST} />
 				{P}
 				{replies}
 				{topic && 

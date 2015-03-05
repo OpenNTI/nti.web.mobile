@@ -13,6 +13,7 @@ var StoreEvents = require('common/mixins/StoreEvents');
 var LoadForum = require('../mixins/LoadForum');
 var t = require('common/locale').scoped('FORUMS');
 import ViewHeader from './widgets/ViewHeader';
+import {FORUM} from '../Constants';
 
 var Topics = React.createClass({
 
@@ -67,7 +68,7 @@ var Topics = React.createClass({
 		return (
 			<div>
 				<Breadcrumb contextProvider={this.__getContext} />
-				<ViewHeader {...this.props} />
+				<ViewHeader type={FORUM} />
 				<section>
 					{this._createTopicLink()}
 					<TopicList container={forumContents}/>

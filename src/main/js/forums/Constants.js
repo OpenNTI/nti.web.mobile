@@ -1,11 +1,12 @@
 // export const LOADING = Symbol('forums:Loading');
 
+export const DISCUSSIONS = Symbol('forums:DISCUSSIONS');
 export const FORUM = Symbol('forums:FORUM');
 export const TOPIC = Symbol('forums:TOPIC');
 export const POST = Symbol('forums:POST');
 export const DELETED_ITEM_GROUP = Symbol('forums:DELETED_ITEM_GROUP');
 
-export const types = { FORUM, TOPIC, POST, DELETED_ITEM_GROUP };
+export const types = { DISCUSSIONS, FORUM, TOPIC, POST, DELETED_ITEM_GROUP };
 
 export const mimeTypes = {
 	[FORUM]: 'forums.communityforum',

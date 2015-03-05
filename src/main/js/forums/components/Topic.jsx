@@ -6,10 +6,11 @@ import Store from '../Store';
 import AnalyticsStore from 'analytics/Store';
 import Actions from '../Actions';
 import Api from '../Api';
-import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED} from '../Constants';
+import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED, types} from '../Constants';
 import {TOPIC_VIEWED} from 'dataserverinterface/models/analytics/MimeTypes';
 import NTIID from 'dataserverinterface/utils/ntiids';
 
+import ViewHeader from './widgets/ViewHeader';
 import TopicHeadline from './TopicHeadline';
 import TopicEditor from './TopicEditor';
 import TopicComments from './TopicComments';
@@ -226,6 +227,7 @@ module.exports = React.createClass({
 		return (
 			<div>
 				{breadcrumb}
+				<ViewHeader type={types.TOPIC} />
 				<Tag ref='headline'
 					item={topic.headline}
 					onSubmit={this._saveEdit}

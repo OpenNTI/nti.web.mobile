@@ -8,6 +8,12 @@ module.exports = {
 		open: 'Open Discussions',
 		other: 'Other Discussions'
 	},
+	viewHeaders: {
+		discussions: 'Discussions',
+		forum: 'Forum',
+		topic: 'Topic',
+		post: 'Post'
+	},
 	topicCount: {
 		zero:  'No Discussions',
 		one:   'One Discussion',
