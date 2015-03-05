@@ -2,11 +2,12 @@ import React from 'react';
 
 import Store from '../Store';
 import Api from '../Api';
-import {DISCUSSIONS_CHANGED, types} from '../Constants';
+import {DISCUSSIONS_CHANGED} from '../Constants';
 import StoreEvents from 'common/mixins/StoreEvents';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import keyFor from '../utils/key-for-item';
 
-import ViewHeader from './widgets/ViewHeader';
+import Breadcrumb from 'common/components/Breadcrumb';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import ForumBin from './widgets/ForumBin';
@@ -14,13 +15,14 @@ import ForumBin from './widgets/ForumBin';
 import {scoped} from 'common/locale';
 
 const _t = scoped('FORUMS.groupTitles');
+const _c = scoped('COURSE.SECTIONS');
 const discussionsChanged = 'ForumListView:discussionsChangedHandler';
 
 export default React.createClass({
 	displayName: 'ForumListView',
 
 	mixins: [
-		StoreEvents
+		StoreEvents, NavigatableMixin
 	],
 
 	backingStore: Store,
@@ -72,6 +74,18 @@ export default React.createClass({
 			});
 	},
 
+	__getContext: function() {
+		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
+		let href = this.makeHref(this.getPath());
+		return getContextProvider().then(context => {
+			context.push({
+				href: href,
+				label: _c('discussions', {fallback: 'Discussions'})
+			});
+			return context;
+		});
+	},
+
 	_courseId() {
 		return this.props.course && this.props.course.getID();
 	},
@@ -92,7 +106,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<ViewHeader type={types.DISCUSSIONS} />
+				<Breadcrumb contextProvider={this.__getContext} />
 				<nav className="forum">
 					<ul>
 	 					{
