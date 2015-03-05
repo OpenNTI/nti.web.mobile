@@ -1,6 +1,6 @@
 import React from 'react';
 import Mixin from './Mixin';
-import {types} from '../../Constants';
+import {mimeTypes, DELETED_ITEM_GROUP} from '../../Constants';
 import {scoped} from 'common/locale';
 const t = scoped('FORUMS');
 
@@ -13,7 +13,7 @@ export default React.createClass({
 
 	statics: {
 		inputType: [
-			types.DELETED_ITEM_GROUP
+			mimeTypes[DELETED_ITEM_GROUP]
 		]
 	},
 

@@ -1,7 +1,7 @@
 
-import {types} from '../Constants';
+import {mimeTypes, DELETED_ITEM_GROUP} from '../Constants';
 
-const deletedItemGroupType = 'application/vnd.nextthought.' + types.DELETED_ITEM_GROUP;
+const deletedItemGroupType = 'application/vnd.nextthought.' + mimeTypes[DELETED_ITEM_GROUP];
 
 export default function (items) {
 

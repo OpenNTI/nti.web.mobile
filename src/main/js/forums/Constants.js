@@ -1,10 +1,17 @@
 // export const LOADING = Symbol('forums:Loading');
 
-export const types = {
-	FORUM: 'forums.communityforum',
-	TOPIC: 'forums.communityheadlinetopic',
-	POST: 'forums.generalforumcomment',
-	DELETED_ITEM_GROUP: 'forums.deleteditemgroup'
+export const FORUM = Symbol('forums:FORUM');
+export const TOPIC = Symbol('forums:TOPIC');
+export const POST = Symbol('forums:POST');
+export const DELETED_ITEM_GROUP = Symbol('forums:DELETED_ITEM_GROUP');
+
+export const types = { FORUM, TOPIC, POST, DELETED_ITEM_GROUP };
+
+export const mimeTypes = {
+	[FORUM]: 'forums.communityforum',
+	[TOPIC]: 'forums.communityheadlinetopic',
+	[POST]: 'forums.generalforumcomment',
+	[DELETED_ITEM_GROUP]: 'forums.deleteditemgroup'
 };
 
 export const ADD_COMMENT = Symbol('forums:ADD_COMMENT');

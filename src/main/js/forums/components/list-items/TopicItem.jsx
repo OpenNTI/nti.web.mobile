@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import {types} from '../../Constants';
+import {mimeTypes, TOPIC, POST} from '../../Constants';
 import Store from '../../Store';
 import DisplayName from 'common/components/DisplayName';
 import DateTime from 'common/components/DateTime';
@@ -27,7 +27,7 @@ module.exports = React.createClass({
 
 	statics: {
 		inputType: [
-			types.TOPIC
+			mimeTypes[TOPIC]
 		]
 	},
 
@@ -61,7 +61,7 @@ module.exports = React.createClass({
 	// topics say "posted", comments say "replied"
 	_verbForPost: function(item) {
 		// confusing that comment is referenced as a post and a post is referred to as a topic.
-		return isMimeType(item, types.POST) ? t('replied') : t('posted');
+		return isMimeType(item, mimeTypes[POST]) ? t('replied') : t('posted');
 	},
 
 	render: function() {

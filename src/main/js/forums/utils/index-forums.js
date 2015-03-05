@@ -1,6 +1,6 @@
 'use strict';
 
-var {types} = require('../Constants');
+var {mimeTypes, FORUM} = require('../Constants');
 
 // walks a binned discussions hierarchy looking for forum objects
 // and returns a map of forumId to forum
@@ -9,7 +9,7 @@ function indexForums(input, result) {
 	if (Array.isArray(input)) {
 		input.forEach(item => {
 			// is forum? add entry to result;
-			if (item && item.hasOwnProperty('MimeType') && (item.MimeType||'').indexOf(types.FORUM) > -1) {
+			if (item && item.hasOwnProperty('MimeType') && (item.MimeType||'').indexOf(mimeTypes[FORUM]) > -1) {
 				result[item.getID()] = item;
 			}
 		});

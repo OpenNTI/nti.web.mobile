@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import {types, GOT_COMMENT_REPLIES} from '../../Constants';
+import {mimeTypes, GOT_COMMENT_REPLIES, POST} from '../../Constants';
 import Actions from '../../Actions';
 import Store from '../../Store';
 
@@ -49,7 +49,7 @@ var PostItem = React.createClass({
 
 	statics: {
 		inputType: [
-			types.POST
+			mimeTypes[POST]
 		]
 	},
 

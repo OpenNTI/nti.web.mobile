@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var Constants = require('../../Constants');
+import {mimeTypes, FORUM} from '../../Constants';
 var LoadingInline = require('common/components/LoadingInline');
 var NTIID = require('dataserverinterface/utils/ntiids');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
@@ -21,7 +21,7 @@ module.exports = React.createClass({
 
 	statics: {
 		inputType: [
-			Constants.types.FORUM
+			mimeTypes[FORUM]
 		]
 	},
 
