@@ -20,8 +20,6 @@ module.exports = React.createClass({
 		return item.getID ? item.getID() : hash(item);
 	},
 
-
-
 	render: function() {
 		var {Items} = this.props.container;
 		var keyFor = this.props.keyFn || this.keyFor;
