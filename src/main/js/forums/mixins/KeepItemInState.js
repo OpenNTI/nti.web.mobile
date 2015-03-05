@@ -12,15 +12,15 @@ module.exports = {
 		}
 		this.mixinAdditionalHandler(OBJECT_LOADED, objectLoadedHandler);
 	},
-	
+
 	componentWillReceiveProps: function(nextProps) {
 		this.setState({
 			busy: false,
-			item: nextProps.item||this.props.item
+			item: nextProps.item || this.props.item
 		});
 	},
 
-	[objectLoadedHandler]: function (event) {
+	[objectLoadedHandler]: function(event) {
 		var {object} = event;
 		if (object && object.getID && object.getID() === this._itemId()) {
 			this.setState({
@@ -29,8 +29,12 @@ module.exports = {
 		}
 	},
 
+	_itemFromStore() {
+		return this._getPropId && this.backingStore && this.backingStore.getObject && this.backingStore.getObject(this._getPropId());
+	},
+
 	_item: function() {
-		return ((this.state && this.state.item)||this.props.item);
+		return ((this.state && this.state.item) || this.props.item || this._itemFromStore());
 	},
 
 	_itemId: function() {
