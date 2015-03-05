@@ -5,7 +5,6 @@ import Actions from '../Actions';
 import {GOT_COMMENT_REPLIES, COMMENT_ADDED, OBJECT_DELETED} from '../Constants';
 import Store from '../Store';
 import StoreEvents from 'common/mixins/StoreEvents';
-import groupDeletedItems from '../utils/group-deleted-items';
 const gotCommentRepliesHandler = 'Replies:gotCommentRepliesHandler';
 const commentAddedHandler = 'Replies:commentAddedHandler';
 const objectDeletedHandler = 'Replies:objectDeletedHandler';
@@ -15,9 +14,9 @@ let Replies = React.createClass({
 	mixins: [StoreEvents],
 
 	propTypes: {
-		topic: React.PropTypes.object.isRequired
+		topic: React.PropTypes.object.isRequired,
+		listComponent: React.PropTypes.object.isRequired // passed in as a prop to dodge circular import of List
 	},
-
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
@@ -79,23 +78,16 @@ let Replies = React.createClass({
 		if (!this.props.display) {
 			return;
 		}
-		let items = groupDeletedItems(this.state.replies||[]);
-		let Tag = this.props.childComponent;
-		return items.map(reply => {
-			return (<Tag
-						{...this.props}
-						key={reply.ID}
-						item={reply} />);
-		});
+		let items = this.state.replies||[];
+		let List = this.props.listComponent;
+		return <List container={{Items: items}} {...this.props} />;
 	},
 
 	render: function() {
 		return (
 			<div className={this.props.className}>
 				<div className="replies">
-					
-						{this._renderReplies()}
-					
+					{this._renderReplies()}					
 				</div>
 			</div>
 		);
