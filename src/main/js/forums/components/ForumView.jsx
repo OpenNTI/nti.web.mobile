@@ -10,7 +10,6 @@ import StoreEvents from 'common/mixins/StoreEvents';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import Topics from './Topics';
 import TopicView from './TopicView';
-import Post from './Post';
 import CreateTopic from './CreateTopic';
 import Loading from 'common/components/Loading';
 import Router from 'react-router-component';
@@ -72,13 +71,8 @@ module.exports = React.createClass({
 						forum={forum}
 						contextProvider={this.__getContext}
 					/>
-					<Location path="/:topicId/(#nav)"
+					<Location path="/:topicId/*(#nav)"
 						handler={TopicView}
-						forum={forum}
-						contextProvider={this.__getContext}
-					/>
-					<Location path="/:topicId/:postId/(#nav)"
-						handler={Post}
 						forum={forum}
 						contextProvider={this.__getContext}
 					/>
