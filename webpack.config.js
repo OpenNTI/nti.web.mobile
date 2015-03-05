@@ -29,23 +29,19 @@ var commonLoaders = [
     { test: /\.json$/, loader: 'json' },
     { test: /\.js(x?)$/,
         loader: 'babel?optional=runtime',
-        exclude: {
-            test: excludeNodeModulesExceptOurs
-        }
+        exclude: excludeNodeModulesExceptOurs
     },
 
     {   test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
 
     {   test: appFontName, loader: 'url' },
     {
-        test: {
-            test: function(s) {
-                if (/woff$/.test(s)) {
-                    return ! appFontName.test(s);
-                }
-
-                return /\.(eot|ttf)$/.test(s);
+        test: function(s) {
+            if (/woff$/.test(s)) {
+                return ! appFontName.test(s);
             }
+
+            return /\.(eot|ttf)$/.test(s);
         },
         loader: 'file',
         query: {
@@ -160,12 +156,18 @@ exports = module.exports = [
 
         node: {
              net: 'empty',
-             tls: 'empty'
+             tls: 'empty',
+             request: 'empty'
         },
+        externals: [
+            {
+                request: true
+            }
+        ],
 
         resolve: {
             root: root,
-            extensions: ['', '.jsx', '.js', '.css', '.scss', '.html']
+            extensions: ['', '.jsx', '.js', '.json', '.css', '.scss', '.html']
         },
 
 
@@ -221,6 +223,8 @@ exports = module.exports = [
                 url: true,
                 path: true,
                 fs: true,
+                net: true,
+                tls: true,
                 request: true
             }
         ],

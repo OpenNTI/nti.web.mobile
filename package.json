@@ -96,11 +96,11 @@
     "node-sass": "^2.0.1",
     "null-loader": "^0.1.0",
     "react-tools": "^0.12.2",
-    "sass-loader": "jtangelder/sass-loader",
+    "sass-loader": "^0.4.0",
     "script-loader": "^0.6.0",
     "style-loader": "^0.8.1",
     "url-loader": "^0.5.5",
-    "webpack": "^1.5.3",
+    "webpack": "^1.7.2",
     "webpack-dev-server": "^1.7.0"
   }
 }
