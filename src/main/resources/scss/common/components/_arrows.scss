@@ -1,3 +1,4 @@
+$arrow-color: $tertiary-grey;
 
 @mixin arrow($direction:right) {
 		$size: .5em;
@@ -7,8 +8,8 @@
 		margin-top: -$size/2;
 		@include _direction($direction);
 		border: 2px solid transparent;
-		border-top-color: black;
-		border-right-color: black;
+		border-top-color: $arrow-color;
+		border-right-color: $arrow-color;
 		width: $size;
 		height: $size;
 		border-radius: 2px;
@@ -67,7 +68,7 @@
 		height: 0;
 		border: $size/2 solid transparent;
 		position: absolute;
-		border-left-color: $tertiary-grey;
+		border-left-color: $arrow-color;
 		left: 0;
 		top: 50%;
 		margin-top: -$size/2;
