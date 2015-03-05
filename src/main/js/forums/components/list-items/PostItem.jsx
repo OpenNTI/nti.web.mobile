@@ -8,14 +8,12 @@ import Store from '../../Store';
 import Avatar from 'common/components/Avatar';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
-import Replies from '../Replies';
 import {Panel as ModeledContentPanel} from 'modeled-content';
 
 import Loading from 'common/components/LoadingInline';
 import CommentForm from '../CommentForm';
 import ActionLinks from '../ActionLinks';
 
-import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
 import Prompt from 'prompts';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
@@ -26,9 +24,8 @@ import ToggleState from '../../mixins/ToggleState';
 
 import NTIID from 'dataserverinterface/utils/ntiids';
 
-var {EDIT, DELETE, REPLIES, REPLY} = ActionLinks;
+var {EDIT, DELETE} = ActionLinks;
 var t = require('common/locale').scoped('FORUMS');
-var _SHOW_FORM = 'showForm';
 var _SHOW_REPLIES = 'showReplies';
 
 const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';
@@ -58,7 +55,6 @@ var PostItem = React.createClass({
 
 	getInitialState: function() {
 		return {
-			[_SHOW_FORM]: false,
 			[_SHOW_REPLIES]: false,
 			busy: false,
 			item: null,
@@ -102,28 +98,10 @@ var PostItem = React.createClass({
 		);
 	},
 
-	_hideForm(event){
-		if (event.preventDefault) {
-			event.preventDefault();
-			event.stopPropagation();
-		}
-		this.setState({
-			[_SHOW_FORM]: false
-		});
-	},
-
-	_repliesClick: function() {
-		if (this._numComments() > 0) {
-			this._toggleState(_SHOW_REPLIES);
-		}
-	},
-
 	_actionClickHandlers() {
 		return {
-			[REPLIES]: this._repliesClick,
 			[EDIT]: this._editClick,
-			[DELETE]: this._deleteComment,
-			[REPLY]: this._toggleState.bind(this, _SHOW_FORM)
+			[DELETE]: this._deleteComment
 		};
 	},
 
@@ -154,9 +132,7 @@ var PostItem = React.createClass({
 		var modifiedOn = item.getLastModified();
 		var message = item.body;
 		var numComments = this._numComments();
-		var {topic} = this.props;
-		var topicId = topic.getID();
-		var href = this.makeHref('/' + NTIID.encodeForURI(topicId) + '/' + NTIID.encodeForURI(this._itemId()) + '/', false);
+		var href = this.makeHref('/' + NTIID.encodeForURI(this._itemId()) + '/', false);
 
 		var edited = (Math.abs(modifiedOn - createdOn) > 0);
 		
@@ -168,32 +144,12 @@ var PostItem = React.createClass({
 			replies:[]
 		};
 
-		if (this.state[_SHOW_REPLIES]) {
-			linksClasses.replies.push('open');
-		}
-
 		var links = <ActionLinks
 						key='actionlinks'
 						item={item}
 						numComments={numComments}
 						cssClasses={linksClasses}
 						clickHandlers={this._actionClickHandlers()} />;
-
-		var form = (<ReactCSSTransitionGroup key="formTransition" transitionName="forum-comments">
-							{this.state.showForm && <CommentForm key="commentForm"
-								ref='commentForm'
-								onCancel={this._hideForm}
-								onCompletion={this._commentCompletion}
-								topic={this.props.topic}
-								parent={item}
-							/>}
-						</ReactCSSTransitionGroup>);
-		var replies = <Replies key="replies" item={item}
-							childComponent={PostItem}
-							topic={this.props.topic}
-							display={this.state[_SHOW_REPLIES]}
-							className={this.state[_SHOW_REPLIES] ? 'visible' : ''} />;
-
 
 		if (item.Deleted) {
 			return (
@@ -203,7 +159,6 @@ var PostItem = React.createClass({
 							<div className="message">
 								<ModeledContentPanel body={message} />
 							</div>
-							{item.ReferencedByCount > 0 ? [links, form, replies] : null}
 						</div>
 					</div>
 				</div>
@@ -230,7 +185,7 @@ var PostItem = React.createClass({
 							}
 							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 						</div>
-						{[links, form]}
+						{links}
 					</div>
 				</div>
 			</div>
