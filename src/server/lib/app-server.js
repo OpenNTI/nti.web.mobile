@@ -30,7 +30,7 @@ export function setupApplication(app, config) {
 
 	var entryPoint = generated.entryPoint;
 	var assetPath = path.join(__dirname, '../..', entryPoint ? 'client' : 'main');
-	console.log('Static Assets: %s',assetPath);
+	logger.info('Static Assets: %s',assetPath);
 	var page = generated.page;
 	var devmode;
 
@@ -47,7 +47,7 @@ export function setupApplication(app, config) {
 		app.use(devmode.middleware);//serve in-memory compiled sources/assets
 	}
 	else if (entryPoint === false) {
-		console.error('Not in dev mode, preventing dev server from starting. Shutting down.');
+		logger.error('Not in dev mode, preventing dev server from starting. Shutting down.');
 		return;
 	}
 
@@ -74,7 +74,7 @@ export function setupApplication(app, config) {
 
 	//HTML Renderer...
 	app.get('*', (req, res)=> {
-		console.log('%s\tRendering Inital View: %s %s', new Date().toUTCString(), req.url, req.username);
+		logger.info('Rendering Inital View: %s %s', req.url, req.username);
 		var isErrorPage = false;
 		global.__setPageNotFound = ()=>isErrorPage = true;
 
@@ -90,11 +90,11 @@ export function setupApplication(app, config) {
 				var configForClient = clientConfig(req.username, req);
 				configForClient.html += datacache.getForContext(req).serialize();
 				//Final render
-				console.log('%s\tFlushing Render to client: %s %s', new Date().toUTCString(), req.url, req.username);
+				logger.info('Flushing Render to client: %s %s', req.url, req.username);
 				res.end(page(req, entryPoint, configForClient));
 			})
 			.catch((e)=>{
-				console.error(e.stack || e.message || e);
+				logger.error(e.stack || e.message || e);
 				res.end(e);
 			});
 	});

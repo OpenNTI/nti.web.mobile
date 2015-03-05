@@ -17,12 +17,12 @@ var proxiedHttp = require('proxywrap').proxy(http);
 var express = require('express');
 var common = require('./lib/common');
 var server = require('./lib/app-server');
+var logger = require('./lib/logger');
 
 var config = common.config();
 var protocol = config.protocol === 'proxy' ? proxiedHttp : http;
 var address = config.address || '0.0.0.0';
 var port = config.port || 9000;
-
 
 //WWW Server
 var app = express();
@@ -37,9 +37,9 @@ var port = server.setupApplication(app, config);
 /* jshint -W098 */	// We need the signature to be 4 args long
 					// for express to treat it as a error handler
 app.use(function(err, req, res, next){
-	console.error('%s\t%s', new Date().toUTCString(), err.stack || err);
+	logger.error(err);
 	res.status(500).send('Oops! Something broke!'); });
 
 //Go!
 protocol.createServer(mobileapp || app).listen(port, address, function() {
-	console.log('%s\tListening on port %d', new Date().toUTCString(), port); });
+	logger.info('Listening on port %d', port); });

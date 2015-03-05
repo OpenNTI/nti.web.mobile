@@ -2,22 +2,24 @@ import morgan from 'morgan';
 import responseTime from 'response-time';
 import cookieParser from 'cookie-parser';
 
-const loguser = morgan['remote-user'];
+import logger from 'dataserverinterface/logger';
 
 export default Object.assign(morgan, {
-
-	['remote-user']: req => {
-		var u = loguser(req);
-		if ((!u || u === '-') && req.username) {
-			u = req.username;
-		}
-		return u;
-	},
 
 	attachToExpress: expressApp => {
 		expressApp.use(responseTime());
 		expressApp.use(cookieParser());
-		expressApp.use(morgan('combined'));
+		expressApp.use(morgan('- - [:date[web]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'));
+	},
+
+
+	info () {
+		logger.info(...arguments);
+	},
+
+
+	error () {
+		logger.error(...arguments);
 	}
 
 });

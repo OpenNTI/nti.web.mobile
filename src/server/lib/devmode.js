@@ -2,6 +2,8 @@ import webpack from 'webpack';
 import WebpackServer from 'webpack-dev-server';
 import webpackConfigFile from '../../../webpack.config';
 
+import logger from './logger';
+
 export function setupDeveloperMode(port) {
 
 
@@ -54,10 +56,10 @@ export function setupDeveloperMode(port) {
 		start: () => {
 			webpackServer.listen(port, 'localhost', err => {
 				if (err) {
-					console.log(err);
+					logger.error(err);
 				}
 
-				console.log('WebPack Dev Server listening on port %d', port);
+				logger.info('WebPack Dev Server listening on port %d', port);
 			});
 		}
 	};
