@@ -1,4 +1,4 @@
-.tab-bar-section .title {
+.tab-bar-section .title:not(.menu) {
 	width: 148px;
 
 	&::after {
