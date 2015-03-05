@@ -7,14 +7,14 @@ import Store from '../Store';
 import Api from '../Api';
 import StoreEvents from 'common/mixins/StoreEvents';
 import KeepItemInState from '../mixins/KeepItemInState';
-import {OBJECT_LOADED, OBJECT_DELETED} from '../Constants';
+import {OBJECT_DELETED} from '../Constants';
 import Replies from './Replies';
 import CommentForm from './CommentForm';
 import Breadcrumb from 'common/components/Breadcrumb';
 import NTIID from 'dataserverinterface/utils/ntiids';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import List from './List';
 
-const objectLoadedHandler = 'Post:objectLoadedHandler';
 const objectDeletedHandler = 'Post:objectDeletedHandler';
 
 export default React.createClass({
@@ -28,12 +28,7 @@ export default React.createClass({
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[OBJECT_LOADED]: objectLoadedHandler,
 		[OBJECT_DELETED]: objectDeletedHandler
-	},
-
-	[objectLoadedHandler] (event) {
-		console.log(event);
 	},
 
 	[objectDeletedHandler] (event) {
@@ -145,6 +140,7 @@ export default React.createClass({
 
 
 		let replies = <Replies key="replies" item={item}
+							listComponent={List}
 							childComponent={PostItem}
 							topic={topic}
 							display={true}
