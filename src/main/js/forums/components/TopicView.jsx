@@ -86,9 +86,9 @@ module.exports = React.createClass({
 
 	__getContext: function() {
 		let getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
-		let href = this.makeHref(this.getPath());
+		let href = this.makeHref('/' + this.props.topicId + '/');
 		let topic = this._topic();
-		let topicId = this._itemId();
+		let topicId = this._getPropId();
 		let title = topic && topic.headline ? topic.headline.title : 'Topic';
 		return getContextProvider().then(context => {
 			context.push({
