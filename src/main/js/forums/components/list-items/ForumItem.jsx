@@ -1,10 +1,12 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 import {mimeTypes, FORUM} from '../../Constants';
-var LoadingInline = require('common/components/LoadingInline');
-var NTIID = require('dataserverinterface/utils/ntiids');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
+
+import LoadingInline from 'common/components/LoadingInline';
+import NTIID from 'dataserverinterface/utils/ntiids';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+
 var t = require('common/locale').scoped('FORUMS');
 
 /**
