@@ -11,6 +11,8 @@
 
 import React from 'react';
 
+import QueryString from 'query-string';
+
 import Card from 'common/components/Card';
 
 
@@ -25,17 +27,21 @@ export default React.createClass({
 	},
 
 
-	prefixJSONWithEmbedURL (url) {
-		var source = encodeURI(url);
+	prefixJSONWithEmbedURL (source) {
+		let title = (this.props.item || {}).label;
+		let params = QueryString.stringify({title,source});
+
+		params = params.replace(/%2F/ig, '/');//TimelineJS is not correctly decoding the URI params
+
 		// /app/resources/lib/timeline/embed/index.html?source=
-		return '/app/resources/lib/timeline/embed/index.html?source=' + source;
+		return '/app/resources/lib/timeline/embed/index.html?' + params;
 	},
 
 
 	render () {
-		var {course, item} = this.props;
+		let {course, item} = this.props;
 
-		var props = Object.assign({}, this.props, {
+		let props = Object.assign({}, this.props, {
 			slug: 'timeline',
 			contentPackage: course,
 			internalOverride: false,
