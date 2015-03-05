@@ -161,23 +161,25 @@
 				position: relative;
 				.title {
 					display: block;
+					font-family: 'Open Sans';
+					font-size: 1rem;
+					color: $body-font-color;
+					.itemtitle {
+						font-weight: 600;
+					}
 				}
 			}
-			.see-all.count {
-				// @include count-badge();
-				font-size: .75rem;
-				display: block;
-				color: $body-font-color;
-				padding: .5rem 0;
-				font-family: $button-font-family;
-				text-transform: uppercase;
-
-				// position: absolute;
-				// right: 3em;
-				// top: 50%;
-				// margin-top: -1em;
-				// text-transform: uppercase;
-			}
+		}
+		.meta, .activity {
+			font-size: .75rem;
+			display: block;
+			color: $tertiary-grey;
+			padding: .5rem 0;
+			font-family: 'Open Sans';
+			font-weight: 600;
+			// .count, .replies {
+			// 	text-transform: uppercase;
+			// }
 		}
 		ul.forum-topics {
 			border-top:1px solid $panel-border-color;
