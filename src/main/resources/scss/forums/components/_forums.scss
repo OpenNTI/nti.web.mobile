@@ -134,6 +134,12 @@
 		.bin {
 			border-bottom: 4px solid $quad-grey;
 			margin-bottom: 2rem;
+			h2 {
+				font-size: 1rem;
+				font-weight: 600;
+				color: $primary-color;
+				margin-top: 1rem;
+			}
 		}
 		.board {
 			& > h3 {
@@ -161,7 +167,6 @@
 				position: relative;
 				.title {
 					display: block;
-					font-family: 'Open Sans';
 					font-size: 1rem;
 					color: $body-font-color;
 					.itemtitle {
