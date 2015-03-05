@@ -71,6 +71,7 @@ var Topics = React.createClass({
 				<ViewHeader type={FORUM} />
 				<section>
 					{this._createTopicLink()}
+					<div className="group-heading"><h3>Topics</h3></div>
 					<TopicList container={forumContents}/>
 				</section>
 			</div>

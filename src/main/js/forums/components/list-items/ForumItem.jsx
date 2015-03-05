@@ -103,8 +103,8 @@ module.exports = React.createClass({
 		return (
 			<div className="forum-item">
 				<h3>
-					<a className="title" href={this._href()}>
-						<span className="itemtitle">{item.title}</span>
+					<a href={this._href()}>
+						<span className="title">{item.title}</span>
 						<div className="meta">
 							<span className="see-all count" href={this._href()}>{t('topicCount', {count: this.state.totalItemCount})}</span>
 						</div>
