@@ -61,7 +61,7 @@ var Topics = React.createClass({
 			return <Loading/>;
 		}
 
-		var {forum, forumId} = this.props;
+		var {forumId} = this.props;
 		var forumContents = Store.getObjectContents(forumId);
 
 		return (
