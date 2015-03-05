@@ -9,7 +9,7 @@ export default Object.assign(morgan, {
 	attachToExpress: expressApp => {
 		expressApp.use(responseTime());
 		expressApp.use(cookieParser());
-		expressApp.use(morgan('- - [:date[web]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'));
+		expressApp.use(morgan('- - [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'));
 	},
 
 
