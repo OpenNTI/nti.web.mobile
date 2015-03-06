@@ -38,9 +38,10 @@ module.exports = {
 		}
 
 		var Type = typeMap[currentResource.mimeType] || ResourceEvent;
+		var resourceId = currentResource.resourceId;
 
 		var event = new Type(
-				currentResource.resourceId,
+				resourceId,
 				currentResource.courseId,
 				(Date.now() - currentResource.loaded)/1000);
 
@@ -48,6 +49,26 @@ module.exports = {
 			var contextFunction = this.analyticsContext || this.props.contextProvider;
 			contextFunction(this.props)
 				.then(context => {
+					let first = context[0],
+						last = context[context.length -1];
+
+					//if the end of the path is the resourceId (it should) then drop it.
+					last = (last.ntiid === resourceId || last === resourceId) ? -1 : undefined;
+					if (!last) {
+						console.error('The last entry in the context path is not the resource.');
+					}
+
+
+					first = (typeof first === 'object' && !first.ntiid) ? 1 : 0;
+					if (first) {
+						console.warn('Context "root" has no ntiid, omitting: %o', context);
+					}
+
+					if (first || last) {
+						context = context.slice(first, last);
+					}
+
+
 					event.setContextPath(context.map(x=>x.ntiid || x));
 					AnalyticsActions.emitEvent(event);
 				});
