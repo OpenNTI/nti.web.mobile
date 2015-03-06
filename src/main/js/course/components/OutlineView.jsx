@@ -1,11 +1,11 @@
 import React from 'react';
 
 import ActiveState from 'common/components/ActiveState';
-import Loading from 'common/components/LoadingInline';
+import Loading from 'common/components/Loading';
 
 import isEmpty from 'dataserverinterface/utils/isempty';
 import CourseLinker from 'library/components/CourseContentLinkMixin';
-//import BasePathAware from 'common/mixins/BasePath';
+
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
 export default React.createClass({
