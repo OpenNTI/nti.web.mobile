@@ -22,7 +22,7 @@ import CommentForm from './CommentForm';
 import Err from 'common/components/Error';
 var t = require('common/locale').scoped('FORUMS');
 import ActionLinks from './ActionLinks';
-var {REPLY, REPLIES, EDIT, DELETE} = ActionLinks;
+var {EDIT, DELETE} = ActionLinks;
 // import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 
@@ -32,9 +32,6 @@ import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import KeepItemInState from '../mixins/KeepItemInState';
 import ToggleState from '../mixins/ToggleState';
-
-var _SHOW_FORM = 'showForm';
-var _SHOW_REPLIES = 'showReplies';
 
 module.exports = React.createClass({
 	displayName: 'TopicView',
@@ -46,6 +43,7 @@ module.exports = React.createClass({
 		KeepItemInState,
 		ToggleState
 	],
+
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
@@ -89,8 +87,7 @@ module.exports = React.createClass({
 	getInitialState: function() {
 		return {
 			loading: true,
-			deleted: false,
-			[_SHOW_REPLIES]: true
+			deleted: false
 		};
 	},
 
@@ -169,10 +166,8 @@ module.exports = React.createClass({
 
 	_actionClickHandlers() {
 		return {
-			[REPLIES]: this._toggleState.bind(this, _SHOW_REPLIES),
 			[EDIT]: this._editTopic,
-			[DELETE]: this._deleteTopic,
-			[REPLY]: this._toggleState.bind(this, _SHOW_FORM)
+			[DELETE]: this._deleteTopic
 		};
 	},
 
@@ -218,10 +213,6 @@ module.exports = React.createClass({
 		var numComments = topicContents.TotalItemCount;
 		var linksClasses = {replies: []};
 
-		if (this.state[_SHOW_REPLIES]) {
-			linksClasses.replies.push('open');
-		}
-
 		var Tag = this.state.editing ? TopicEditor : TopicHeadline;
 
 		return (
@@ -241,8 +232,8 @@ module.exports = React.createClass({
 					cssClasses={linksClasses}
 					clickHandlers={this._actionClickHandlers()} />
 
-				{this.state[_SHOW_REPLIES] && <TopicComments container={topicContents} topic={topic} />}
-				
+				<TopicComments container={topicContents} topic={topic} />
+
 				<CommentForm key="commentForm"
 					ref='commentForm'
 					onCancel={this._hideCommentForm}
