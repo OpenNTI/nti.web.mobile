@@ -1,4 +1,5 @@
 'use strict';
+var logger = require('./logger');
 
 var ServerRender = true;
 var src;
@@ -16,7 +17,7 @@ try {
 	if (/Cannot find module 'page\.generated'/.test(e.message)) {
 			reason = 'Missing compiled page';
 	}
-	console.warn('%s\tCould not load compiled page. %s', new Date().toUTCString(), reason);
+	logger.error('Could not load compiled page. %s', reason);
 
 	global.DISABLE_SERVER_RENDERING = true;
 }
@@ -32,8 +33,7 @@ try {
 	if (ServerRender) {
 		module.exports.entryPoint = false;
 
-		console.error('%s\tServer UI rendering: cannot load webpack`s compile info: %s',
-			new Date().toUTCString(),
+		logger.error('%s\tServer UI rendering: cannot load webpack`s compile info: %s',
 			e.stack || e.message || e);
 		return;
 	}
@@ -48,7 +48,6 @@ try {
 
 	module.exports.entryPoint = src;
 } catch (e) {
-	console.warn('%s\tCould not resolve the entryPoint script name: %s',
-		new Date().toUTCString(),
+	logger.error('%s\tCould not resolve the entryPoint script name: %s',
 		e.stack || e.message || e);
 }

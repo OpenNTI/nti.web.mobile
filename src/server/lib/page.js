@@ -3,6 +3,8 @@
 import styleCollector from './style-collector';
 import {config} from './common';
 
+import logger from './logger';
+
 import url from 'url';
 import Path from 'path';
 import fs from 'fs';
@@ -33,7 +35,7 @@ export default function getPage(render) {
 		try {
 			Application = require('../../main/js/AppView');
 		} catch (e) {
-			console.warn('%s\tNo Server-side Rendering (Because: %s)', new Date().toUTCString(),
+			logger.error('No Server-side Rendering (Because: %s)',
 				/Cannot find module '\.\.\/main\/js\/AppView'/.test(e.message || e) ?
 					e.message: e.stack || e.message || e);
 		}
@@ -48,7 +50,7 @@ export default function getPage(render) {
 		try {
 			template = fs.readFileSync(__dirname + '/../../main/page.html', 'utf8');
 		} catch (er) {
-			console.error('%s\t%s', new Date().toUTCString(), er.stack || er.message || er);
+			logger.error('%s', er.stack || er.message || er);
 			template = 'Could not load page template.';
 		}
 	}
