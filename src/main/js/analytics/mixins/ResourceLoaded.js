@@ -53,7 +53,7 @@ module.exports = {
 						last = context[context.length -1];
 
 					//if the end of the path is the resourceId (it should) then drop it.
-					last = (last.ntiid === resourceId || last === resourceId) ? -1 : undefined;
+					last = (last && (last.ntiid === resourceId || last === resourceId)) ? -1 : undefined;
 					if (!last) {
 						console.error('The last entry in the context path is not the resource.');
 					}
