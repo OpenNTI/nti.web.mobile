@@ -6,8 +6,6 @@ export const TOPIC = Symbol('forums:TOPIC');
 export const POST = Symbol('forums:POST');
 export const DELETED_ITEM_GROUP = Symbol('forums:DELETED_ITEM_GROUP');
 
-export const types = { DISCUSSIONS, FORUM, TOPIC, POST, DELETED_ITEM_GROUP };
-
 export const mimeTypes = {
 	[FORUM]: 'forums.communityforum',
 	[TOPIC]: 'forums.communityheadlinetopic',

@@ -6,7 +6,7 @@ import Store from '../Store';
 import AnalyticsStore from 'analytics/Store';
 import Actions from '../Actions';
 import Api from '../Api';
-import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED, types} from '../Constants';
+import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED, TOPIC} from '../Constants';
 import {TOPIC_VIEWED} from 'dataserverinterface/models/analytics/MimeTypes';
 import NTIID from 'dataserverinterface/utils/ntiids';
 
@@ -218,7 +218,7 @@ module.exports = React.createClass({
 		return (
 			<div>
 				{breadcrumb}
-				<ViewHeader type={types.TOPIC} />
+				<ViewHeader type={TOPIC} />
 				<Tag ref='headline'
 					item={topic.headline}
 					onSubmit={this._saveEdit}

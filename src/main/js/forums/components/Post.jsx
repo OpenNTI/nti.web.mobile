@@ -7,7 +7,7 @@ import Store from '../Store';
 import Api from '../Api';
 import StoreEvents from 'common/mixins/StoreEvents';
 import KeepItemInState from '../mixins/KeepItemInState';
-import {OBJECT_DELETED, types} from '../Constants';
+import {OBJECT_DELETED, POST} from '../Constants';
 import ViewHeader from './widgets/ViewHeader';
 import Replies from './Replies';
 import CommentForm from './CommentForm';
@@ -147,11 +147,10 @@ export default React.createClass({
 							display={true}
 							className='visible' />;
 
-
 		return (
 			<div>
 				{breadcrumb}
-				<ViewHeader type={types.POST} />
+				<ViewHeader type={POST} />
 				{P}
 				{replies}
 				{topic && 

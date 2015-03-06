@@ -1,15 +1,15 @@
 import React from 'react';
 
-import {types} from '../../Constants';
+import {DISCUSSIONS, FORUM, TOPIC, POST} from '../../Constants';
 import {scoped} from 'common/locale';
 let t = scoped('FORUMS.viewHeaders');
 
 // map symbols to the corresponding lookup keys in locale/forums
 const localeKeys = {
-	[types.DISCUSSIONS]: 'discussions',
-	[types.FORUM]: 'forum',
-	[types.TOPIC]: 'topic',
-	[types.POST]: 'post'
+	[DISCUSSIONS]: 'discussions',
+	[FORUM]: 'forum',
+	[TOPIC]: 'topic',
+	[POST]: 'post'
 };
 
 export default React.createClass({
@@ -17,10 +17,10 @@ export default React.createClass({
 
 	propTypes: {
 		type: React.PropTypes.oneOf([
-			types.DISCUSSIONS,
-			types.FORUM,
-			types.TOPIC,
-			types.POST
+			DISCUSSIONS,
+			FORUM,
+			TOPIC,
+			POST
 		]).isRequired
 	},
 
