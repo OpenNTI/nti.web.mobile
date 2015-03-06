@@ -197,29 +197,33 @@ a.blockLink {
 			padding: .5rem 0;
 			font-family: 'Open Sans';
 			font-weight: 600;
-			// .count, .replies {
-			// 	text-transform: uppercase;
-			// }
 		}
+
 		ul.forum-topics {
 			border-top:1px solid $panel-border-color;
 			li {
+				@extend %attributed-content-item;
 				padding:0;
 				border:1px solid transparent;
 				border-bottom-color: $panel-border-color;
+				.attribution {
+					font-size: .75rem;
+					line-height: 1rem;
+					font-weight: 600;
+				}
 				a {
 					display: block;
-					padding: $panel-padding;
-					padding-left: .75rem;
-					color: $body-font-color;
-					position: relative;
+					padding: .5rem 0;
 					.title {
 						display: inline-block;
 						max-width: 99%; // leave room for the arrow
+						line-height: 1.25rem;
 					}
 					.activity {
 						font-size: .75rem;
-						margin-top:.5rem;
+						padding: 0;
+						margin: 0;
+						line-height: 1rem;
 						.username {
 							margin-right:.25em;
 						}

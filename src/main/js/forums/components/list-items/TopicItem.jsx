@@ -4,6 +4,7 @@ import React from 'react';
 import {mimeTypes, TOPIC, POST} from '../../Constants';
 import Store from '../../Store';
 import DisplayName from 'common/components/DisplayName';
+import Avatar from 'common/components/Avatar';
 import DateTime from 'common/components/DateTime';
 import NTIID from 'dataserverinterface/utils/ntiids';
 import {Link} from 'react-router-component';
@@ -69,16 +70,22 @@ module.exports = React.createClass({
 		var replyTime = item.NewestDescendant.getCreatedTime();
 		return (
 			<Link className="topic-link" href={this._href(item)}>
-				<div><span className="title">{item.title}</span></div>
-				<div className="activity">
-					<div className="newest">
-						<DisplayName username={item.NewestDescendant.Creator} />
-						<span>{this._verbForPost(item.NewestDescendant)} <DateTime relative={true} date={replyTime}/></span>
+				<Avatar username={item.Creator} />
+				<div className="wrap">
+					<div>
+						<div className="attribution"><DisplayName username={item.Creator} /></div>
+						<span className="title">{item.title}</span>
 					</div>
-					{this._replies(item)}
-					{this._likes(item)}
+					<div className="activity">
+						<div className="newest">
+							<DisplayName username={item.NewestDescendant.Creator} />
+							<span>{this._verbForPost(item.NewestDescendant)} <DateTime relative={true} date={replyTime}/></span>
+						</div>
+						{this._replies(item)}
+						{this._likes(item)}
+					</div>
+					<div><span className="arrow-right" /></div>
 				</div>
-				<div><span className="arrow-right" /></div>
 			</Link>
 		);
 	}
