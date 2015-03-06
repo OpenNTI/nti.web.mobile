@@ -6,7 +6,7 @@ var t = require('common/locale').scoped('BUTTONS');
 var OkCancelButtons = React.createClass({
 
 	propTypes: {
-		onCancel: React.PropTypes.func.isRequired,
+		onCancel: React.PropTypes.func,
 		onOk: React.PropTypes.func.isRequired,
 		okEnabled: React.PropTypes.bool
 	},
@@ -36,9 +36,12 @@ var OkCancelButtons = React.createClass({
 
 		return (
 			<div className="buttons">
-			  	<a href="#"
-					onClick={this._cancelClick}
-			  		className="cancel button">{this.props.cancelText||t('cancel')}</a>
+				{this.props.onCancel && 
+					<a href="#"
+						onClick={this._cancelClick}
+			  			className="cancel button">{this.props.cancelText||t('cancel')}</a>
+				}
+			  	
 			  	<a href="#"
 					onClick={this.props.okEnabled ? this._okClick : this._killEvent}
 					disabled={!this.props.okEnabled}
