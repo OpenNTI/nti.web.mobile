@@ -1,6 +1,7 @@
 import path from 'path';
 
-import NTIID from 'dataserverinterface/utils/ntiids';
+import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
+
 import React from 'react';
 import Router from 'react-router-component';
 
@@ -73,7 +74,7 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		var courseId = NTIID.decodeFromURI(props.course);
+		var courseId = decodeFromURI(props.course);
 		this.setStateSafely({loading: true});
 
 		setCourse(courseId);
@@ -141,7 +142,7 @@ export default React.createClass({
 			return Promise.resolve(base);
 		}
 
-		return course.getOutlineNode(NTIID.decodeFromURI(props.outlineId))
+		return course.getOutlineNode(decodeFromURI(props.outlineId))
 			.then(o => base.concat([
 					{
 						ntiid: o.getID(),
@@ -149,6 +150,6 @@ export default React.createClass({
 						href: path.join(this.getBasePath(), o.href)
 					}
 				]))
-			.then(o => leafId ? o.concat([{ntiid: leafId}]) : o);
+			.then(o => leafId ? o.concat([{ntiid: decodeFromURI(leafId)}]) : o);
 	}
 });
