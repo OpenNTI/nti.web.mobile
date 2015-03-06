@@ -34,11 +34,12 @@ export default {
 
 		if (includeCurrentRoute) {
 			let route = (n.getMatch() || {}).matchedPath || '';
-			console.debug('Is this needed??\n\tA: %s\n\tB:%s\n\n\t%s\n\t%s',
+			console.error('TODO: Consolidate route-link methodology.');
+			/*console.debug('Is this needed??\n\tA: %s\n\tB:%s\n\n\t%s\n\t%s',
 				path,
 				join(route,path),
 				n.makeHref(path),
-				n.makeHref(join(route,path)));
+				n.makeHref(join(route,path)));*/
 
 			path = join(route, path);
 		}
