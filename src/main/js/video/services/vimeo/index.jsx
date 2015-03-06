@@ -14,13 +14,13 @@ const VIMEO_EVENTS_TO_HTML5 = {
 	playProgress: 'timeupdate'
 };
 
-var Source = React.createClass({
+let Source = React.createClass({
 	displayName: 'Vimeo-Video',
 
 
 	statics: {
 		getId (url) {
-			var regExp = /^.*vimeo(\:\/\/|\.com\/)(.+)/i,
+			let regExp = /^.*vimeo(\:\/\/|\.com\/)(.+)/i,
 				match = url.match(regExp);
 			if (match && match[2]) {
 				return match[2];
@@ -70,10 +70,10 @@ var Source = React.createClass({
 
 
 	buildURL () {
-		var mediaSource = this.props.source;
-		var videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source[0];
+		let mediaSource = this.props.source;
+		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source[0];
 
-		var args = {
+		let args = {
 			api: 1,
 			/* jshint -W106 */
 			player_id: this.props.id,
@@ -91,7 +91,7 @@ var Source = React.createClass({
 
 
 	updateURL () {
-		var url = this.buildURL();
+		let url = this.buildURL();
 		this.setState({
 			scope: url.split('?')[0],
 			playerURL: url
@@ -100,15 +100,15 @@ var Source = React.createClass({
 
 
 	getPlayerContext () {
-		var iframe = this.getDOMNode();
+		let iframe = this.getDOMNode();
 		return iframe && (iframe.contentWindow || window.frames[iframe.name]);
 	},
 
 
 	onMessage (event) {
-		var data = JSON.parse(event.data);
-		var mappedEvent = VIMEO_EVENTS_TO_HTML5[data.event];
-		var handlerName = EventHandlers[mappedEvent];
+		let data = JSON.parse(event.data);
+		let mappedEvent = VIMEO_EVENTS_TO_HTML5[data.event];
+		let handlerName = EventHandlers[mappedEvent];
 
 		event = data.event;
 
@@ -121,7 +121,13 @@ var Source = React.createClass({
 		console.debug('Vimeo Event: %s: %o', event, data);
 
 		if (event === 'error') {
-			alert(`Vimeo Error: ${data.code}: ${data.message}`);
+			if (data.code === 'play') {
+				//Make the view just hide the poster so the viewer can tap the embeded player's play button.
+				mappedEvent = 'playing';
+				handlerName = EventHandlers.playing;
+			} else {
+				alert(`Vimeo Error: ${data.code}: ${data.message}`);
+			}
 		}
 		else if (event === 'ready') {
 			this.postMessage('addEventListener', 'play');	//playing
@@ -130,7 +136,8 @@ var Source = React.createClass({
 			this.postMessage('addEventListener', 'seek');	//seeked
 			this.postMessage('addEventListener', 'playProgress'); //timeupdate
 		}
-		else if(mappedEvent && handlerName) {
+
+		if(mappedEvent && handlerName) {
 
 			this.props[handlerName]({
 				timeStamp: Date.now(),
@@ -146,7 +153,7 @@ var Source = React.createClass({
 
 
 	postMessage (method, params) {
-		var context = this.getPlayerContext(), data;
+		let context = this.getPlayerContext(), data;
 		if (!context) {
 			console.warn(this.props.id, ' No Player Context!');
 			return;
