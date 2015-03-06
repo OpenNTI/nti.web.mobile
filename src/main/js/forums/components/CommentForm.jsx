@@ -10,6 +10,9 @@ import Actions from '../Actions';
 import Store from '../Store';
 import {COMMENT_ADDED, COMMENT_SAVED, COMMENT_ERROR} from '../Constants';
 import StoreEvents from 'common/mixins/StoreEvents';
+import {scoped} from 'common/locale';
+
+let t = scoped('FORUMS');
 
 var CommentForm = React.createClass({
 
@@ -92,7 +95,7 @@ var CommentForm = React.createClass({
 		}
 
 		var savefunc = this.props.editItem ? this._save.bind(this, this.props.editItem) : this._addComment;
-		var buttons = <OkCancelButtons onOk={savefunc} okEnabled={this.state.canSubmit} onCancel={this.props.onCancel} />;
+		var buttons = <OkCancelButtons onOk={savefunc} okEnabled={this.state.canSubmit} onCancel={this.props.onCancel} okText={t('editorOkButton')} />;
 		var value = (this.props.editItem||{}).body;
 
 		return (

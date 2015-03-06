@@ -44,7 +44,7 @@ var TopicEditor = React.createClass({
 
 	render: function() {
 		var {title, body} = this.props.item||{};
-		var buttons = <OkCancelButtons onOk={this.props.onSubmit} onCancel={this.props.onCancel} okEnabled={this.state.canSubmit} />;
+		var buttons = <OkCancelButtons onOk={this.props.onSubmit} onCancel={this.props.onCancel} okEnabled={this.state.canSubmit} okText={t('editorOkButton')} />;
 		return (
 			<PanelButton className="comment-form" button={buttons}>
 				<div><input ref='title' defaultValue={title} placeholder={t('topicTitlePlaceholder')} onChange={this._onChange} /></div>

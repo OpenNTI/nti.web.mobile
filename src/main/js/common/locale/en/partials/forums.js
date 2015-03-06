@@ -29,6 +29,7 @@ module.exports = {
 	reply: 'Reply',
 	editComment: 'Edit',
 	deleteComment: 'Delete',
+	editorOkButton: 'Save',
 	deleteCommentPrompt: 'Delete this comment?',
 	deleteTopicPrompt: 'Delete this discussion?',
 	recentActivity: 'Recent Activity',
