@@ -169,6 +169,7 @@ class Store extends StorePrototype {
 	}
 
 	setDiscussions(courseId, data) {
+		this.setCourseId(courseId);
 		_discussions[courseId] = dataOrError(data);
 		_forums = Object.assign(_forums||{}, indexForums(_discussions));
 		this.emitChange({
