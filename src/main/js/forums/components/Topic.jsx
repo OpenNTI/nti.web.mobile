@@ -171,12 +171,6 @@ module.exports = React.createClass({
 		};
 	},
 
-	_hideCommentForm() {
-		this.setState({
-			showForm: false
-		});
-	},
-
 	_saveEdit() {
 		var val = this.refs.headline.getValue();
 		Actions.saveComment(this._topic().headline, val);
@@ -236,7 +230,6 @@ module.exports = React.createClass({
 
 				<CommentForm key="commentForm"
 					ref='commentForm'
-					onCancel={this._hideCommentForm}
 					onCompletion={this._hideCommentForm}
 					topic={topic}
 					parent={topic.parent()}
