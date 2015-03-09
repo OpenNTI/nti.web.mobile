@@ -26,7 +26,7 @@ export default {
 
 
 		__test (item) {
-			var type = item.MimeType
+			var type = item && item.MimeType
 				.replace('application/vnd.nextthought.assessment.', '')
 				.replace(/part$/i, '')
 				.toLowerCase();

@@ -15,3 +15,12 @@
 @import "components/pager";
 @import "components/panelbutton";
 @import "components/video";
+
+
+%interaction-disabled {
+	&, * {
+		pointer-events: none;
+		cursor: default !important;
+	}
+	opacity: 0.6
+}

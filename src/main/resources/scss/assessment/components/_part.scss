@@ -59,4 +59,8 @@
 		font-size: 0.875rem;
 		color: $secondary-grey;
 	}
+
+	.form-input.administrative {
+		@extend %interaction-disabled;
+	}
 }

@@ -1,22 +1,22 @@
-'use strict';
+import React from 'react';
+import cx from 'react/lib/cx';
 
-var React = require('react');
+import Content from './Content';
+import WordBank from './WordBank';
 
-var Content = require('./Content');
-var WordBank = require('./WordBank');
+import Store from '../Store';
+import Constants from '../Constants';
 
-var Store = require('../Store');
-var Constants = require('../Constants');
+import InputTypes from './input-types';
+import SolutionTypes from './solution-types';
 
-var InputTypes = require('./input-types');
-var SolutionTypes = require('./solution-types');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Part',
 
 	propTypes: {
 		index: React.PropTypes.number.isRequired,
-		part: React.PropTypes.object.isRequired
+		part: React.PropTypes.object.isRequired,
+		viewerIsAdministrative: React.PropTypes.bool
 	},
 
 
@@ -28,7 +28,7 @@ module.exports = React.createClass({
 	},
 
 	__onStoreChange () {
-		var {part} = this.props;
+		let {part} = this.props;
 		if (this.isMounted() && this.state.helpVisible && !Store.isSubmitted(part)) {
 			this.onCloseHelp();
 		}
@@ -48,9 +48,8 @@ module.exports = React.createClass({
 
 
 	componentDidUpdate (prevProps, prevState) {
-		var node;
 		if (this.state.helpVisible !== prevState.helpVisible && this.isMounted()) {
-			node = this.refs.container.getDOMNode();
+			let node = this.refs.container.getDOMNode();
 			if (node.getBoundingClientRect().top < 0) {
 				node.scrollIntoView();
 			}
@@ -76,7 +75,7 @@ module.exports = React.createClass({
 			e.stopPropagation();
 		}
 
-		var hintCount = (Store.getHints(this.props.part) || []).length;
+		let hintCount = (Store.getHints(this.props.part) || []).length;
 
 		this.setState({
 			helpVisible: Constants.HELP_VIEW_HINT,
@@ -96,25 +95,29 @@ module.exports = React.createClass({
 
 
 	render () {
-		var props = this.props;
-		var part = props.part || {};
-		var index = props.index;
-		var isHelpVisible = this.state.helpVisible;
+		let {part, index, viewerIsAdministrative} = this.props;
+		let {content, wordbank} = part || {};
+		let {helpVisible} = this.state;
 
-		var inputContainerClass = isHelpVisible ? 'hidden' : '';
+		let css = cx({
+			'form-input': 1,
+			'hidden': helpVisible,
+			'administrative': viewerIsAdministrative
+		});
+
 
 		return (
 			<div className="question-part">
-				<Content className="part-content" content={part.content}/>
-				{part.wordbank && (
-					<WordBank record={part.wordbank}/>
+				<Content className="part-content" content={content}/>
+				{wordbank && (
+					<WordBank record={wordbank} disabled={viewerIsAdministrative}/>
 				)}
 				<div ref="container">
-					<div className={'form-input ' + inputContainerClass}>
+					<div className={css}>
 						{InputTypes.select(part, index)}
 					</div>
 					{
-						isHelpVisible ?
+						helpVisible ?
 							this.renderHelpView() :
 							this.renderHelpButton()
 					}
@@ -125,11 +128,11 @@ module.exports = React.createClass({
 
 
 	renderHelpButton (label) {
-		var {part} = this.props;
-		var isSubmitted = part && Store.isSubmitted(part);
-		var hints = part && Store.getHints(part);
-		var solution = part && Store.getSolution(part);
-		var handler = null;
+		let {part} = this.props;
+		let isSubmitted = part && Store.isSubmitted(part);
+		let hints = part && Store.getHints(part);
+		let solution = part && Store.getSolution(part);
+		let handler = null;
 
 		if (this.state.helpVisible) {
 			handler = this.onCloseHelp;
@@ -169,8 +172,8 @@ module.exports = React.createClass({
 
 
 	renderHint () {
-		var part = this.props.part || {};
-		var hint = (part.hints || [])[this.state.activeHint];
+		let part = this.props.part || {};
+		let hint = (part.hints || [])[this.state.activeHint];
 
 		return (
 			<div className="part-help hint">
@@ -183,9 +186,7 @@ module.exports = React.createClass({
 
 
 	renderSolution () {
-		var props = this.props;
-		var part = props.part || {};
-		var index = props.index;
+		let {index, part} = this.props;
 
 		return (
 			<div className="part-help solution">

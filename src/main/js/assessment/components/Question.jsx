@@ -1,25 +1,24 @@
-'use strict';
+import React from 'react';
+import cx from 'react/lib/cx';
 
-var React = require('react');
+import {isFlag} from 'common/utils';
+import {Mixin as DragDropOrchestrator} from 'common/dnd';
 
-var {isFlag} = require('common/utils');
-var DragDropOrchestrator = require('common/dnd').Mixin;
+import Content from './Content';
+import WordBank from './WordBank';
 
-var Content = require('./Content');
-var WordBank = require('./WordBank');
+import Store from '../Store';
+//import Actions from '../Actions';
 
-var Store = require('../Store');
-//var Actions = require('../Actions');
+import Part from './Part';
 
-var Part = require('./Part');
-
-var STATUS_MAP = {
+const STATUS_MAP = {
 	'true':'Correct',
 	'false': 'Incorrect',
 	'null':''
 };
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Question',
 	mixins: [DragDropOrchestrator],
 
@@ -33,65 +32,71 @@ module.exports = React.createClass({
 	},
 
 
-	getChildContext: function() {
+	getChildContext () {
 		return {
 			QuestionUniqueDNDToken: this.state.QuestionUniqueDNDToken
 		};
 	},
 
 
-	onStoreChange: function () {
+	onStoreChange () {
 		//trigger a reload/redraw
 		this.forceUpdate();
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.addChangeListener(this.onStoreChange);
 	},
 
 
-	componentWillMount: function() {
+	componentWillMount () {
 		this.setState({
 			QuestionUniqueDNDToken: this.getNewUniqueToken()
 		});
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this.onStoreChange);
 	},
 
 
-	render: function() {
-		var q = this.props.question;
-		var a = Store.getAssessedQuestion(q, q.getID());
-		var parts = q.parts;
-		var title = '';
-		var status = '';//correct, incorrect, blank
+	render () {
+		let {question, contentPackage} = this.props;
+		let admin = Boolean(contentPackage.parent('isAdministrative'));
+		let a = Store.getAssessedQuestion(question, question.getID());
+		let parts = question.parts;
+		let title = '';
 
-		if (Store.isSubmitted(q) && a) {
-			status = STATUS_MAP[a.isCorrect()];
-		}
+		//correct, incorrect, blank
+		let status = (Store.isSubmitted(question) && a) ?
+			STATUS_MAP[a.isCorrect()] : '';
 
 		//Ripped from the WebApp:
 		if (isFlag('mathcounts-question-number-hack')) {
 			//HACK: there should be a more correct way to get the problem name/number...
-			title = q.getID().split('.').pop() + '. ';
+			title = question.getID().split('.').pop() + '. ';
 		}
 
+		let css = cx({
+			question: true,
+			administrative: admin,
+			[status.toLowerCase()]: true
+		});
+
 		return (
-			<div className={'question ' + status.toLowerCase()}>
+			<div className={css}>
 				<h3 className="question-title">
 					{title}
 					<span className="status">{status}</span>
 				</h3>
-				<Content className="question-content" content={q.content}/>
-				{q.wordbank && (
-					<WordBank record={q.wordbank}/>
+				<Content className="question-content" content={question.content}/>
+				{question.wordbank && (
+					<WordBank record={question.wordbank} disabled={admin}/>
 				)}
 				{parts.map((part, i) =>
-					<Part key={'part-'+i} part={part} index={i} partCount={parts.length}/>
+					<Part key={'part-'+i} part={part} index={i} partCount={parts.length} viewerIsAdministrative={admin}/>
 				)}
 				{/* Question Submission will go here, if the question is not part of a set... */}
 			</div>

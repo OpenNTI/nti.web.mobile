@@ -25,4 +25,9 @@
 			@include animation('fadeIn .6s linear');
 		}
 	}
+
+
+	&.disabled {
+		@extend %interaction-disabled;
+	}
 }

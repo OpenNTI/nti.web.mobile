@@ -8,9 +8,9 @@ export default React.createClass({
 	statics: {
 		mimeType: /naquestion/i,
 		handles (item) {
-			var type = item.type || '';
-			var cls = item.class || '';
-			var re = this.mimeType;
+			let type = item.type || '';
+			let cls = item.class || '';
+			let re = this.mimeType;
 			return re.test(type) || re.test(cls);
 		}
 	},
@@ -24,8 +24,8 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		var p = this.props;
-		var questionId = p.item.ntiid;
+		let p = this.props;
+		let questionId = p.item.ntiid;
 
 		this.setState({
 			question: p.page.getAssessmentQuestion(questionId)
@@ -35,12 +35,14 @@ export default React.createClass({
 
 
 	render () {
-		var {question} = this.state;
+		let {question} = this.state;
+		let {item, contentPackage} = this.props;
 		if (!question) {return null;}
 
 		return (
 			<QuestionWidget
-				contentHints={this.props.item}
+				contentPackage={contentPackage}
+				contentHints={item}
 				question={question}/>
 		);
 	}

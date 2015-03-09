@@ -1,35 +1,39 @@
-'use strict';
+import React from 'react';
+import cx from 'react/lib/cx';
 
-var React = require('react');
+import WordEntry from './WordBankEntry';
+import Store from '../Store';
 
-var WordEntry = require('./WordBankEntry');
-
-var Store = require('../Store');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'WordBank',
 
 	propTypes: {
-		record: React.PropTypes.object.isRequired
+		record: React.PropTypes.object.isRequired,
+		disabled: React.PropTypes.bool
 	},
 
 
 	render () {
-		var {record} = this.props;
+		let {record, disabled} = this.props;
 		if (!record) {
 			return null;
 		}
 
-		var locked = Store.isSubmitted(record);
+		let locked = Store.isSubmitted(record);
 
-		var {entries} = record;
+		let {entries} = record;
 		if (!entries) {
 			console.warn('Bad Entries property from WordBank record');
 			return null;
 		}
 
+		let css = cx({
+			'wordbank': true,
+			'disabled': disabled
+		});
+
 		return (
-			<div className="wordbank">
+			<div className={css}>
 				{entries.map(x=>
 					<WordEntry key={x.wid} entry={x} locked={locked} {...this.getEntryState(x)}/>
 				)}
@@ -38,7 +42,7 @@ module.exports = React.createClass({
 	},
 
 	getEntryState (entry) {
-		var {record} = this.props;
+		let {record} = this.props;
 		if (!record.unique) {
 			return {};
 		}

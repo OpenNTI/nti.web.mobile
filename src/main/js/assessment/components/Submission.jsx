@@ -1,21 +1,24 @@
-'use strict';
+import React from 'react';
+import Transition from 'react/lib/ReactCSSTransitionGroup';
 
-var React = require('react');
-var Transition = require("react/lib/ReactCSSTransitionGroup");
+import {scoped} from 'common/locale';
+const _t = scoped('ASSESSMENT');
 
-var _t = require('common/locale').scoped('ASSESSMENT');
+import Loading from 'common/components/Loading';
 
-var Loading = require('common/components/Loading');
+import Store from '../Store';
+import Utils from '../Utils';
+import Actions from '../Actions';
+import {
+	BUSY_SAVEPOINT,
+	BUSY_SUBMITTING,
+	BUSY_LOADING
+} from '../Constants';
 
-var Store = require('../Store');
-var Utils = require('../Utils');
-var Actions = require('../Actions');
-var Constants = require('../Constants');
-
-var Prompt = require('prompts');
+import Prompt from 'prompts';
 
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'SetSubmission',
 
 	propTypes: {
@@ -28,22 +31,22 @@ module.exports = React.createClass({
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.addChangeListener(this.onChange);
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this.onChange);
 	},
 
 
-	onChange: function () {
+	onChange () {
 		this.forceUpdate();
 	},
 
 
-	onReset: function (e) {
+	onReset (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -57,8 +60,8 @@ module.exports = React.createClass({
 	},
 
 
-	onSubmit: function (e) {
-		var assessment = this.props.assessment;
+	onSubmit (e) {
+		let assessment = this.props.assessment;
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -69,7 +72,7 @@ module.exports = React.createClass({
 	},
 
 
-	_dismissAssessmentError: function (e) {
+	_dismissAssessmentError (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -78,21 +81,25 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
-		var assessment = this.props.assessment;
-		var unanswered = Store.countUnansweredQuestions(assessment);
-		var disabled = !Store.canSubmit(assessment);
-		var cannotReset = Store.isSubmitted(assessment) || disabled;
-		var status = unanswered ? 'incomplete' : 'complete';
-		var busy = Store.getBusyState(assessment);
-		var error = Store.getError(assessment);
-		var savePoint = busy === Constants.BUSY_SAVEPOINT;
+	render () {
+		let {assessment, contentPackage} = this.props;
 
-		if (Store.isSubmitted(assessment) || !Utils.areAssessmentsSupported()) {
+		let admin = Boolean(contentPackage.parent('isAdministrative'));
+		let disabled = admin || !Store.canSubmit(assessment);
+		let cannotReset = Store.isSubmitted(assessment) || disabled;
+
+		let unanswered = Store.countUnansweredQuestions(assessment);
+		let status = unanswered ? 'incomplete' : 'complete';
+
+		let busy = Store.getBusyState(assessment);
+		let error = Store.getError(assessment);
+		let savePoint = busy === BUSY_SAVEPOINT;
+
+		if (admin || Store.isSubmitted(assessment) || !Utils.areAssessmentsSupported()) {
 			return null;
 		}
 
-		busy = (busy === Constants.BUSY_SUBMITTING || busy === Constants.BUSY_LOADING);
+		busy = (busy === BUSY_SUBMITTING || busy === BUSY_LOADING);
 
 		return (
 			<div>

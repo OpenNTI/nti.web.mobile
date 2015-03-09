@@ -10,8 +10,8 @@ import SetSubmissionWidget from 'assessment/components/Submission';
 export default {
 
 	renderAssessmentHeader () {
-		var page = this.state.page;
-		var quiz = page && page.getSubmittableAssessment();
+		let {page} = this.state;
+		let quiz = page && page.getSubmittableAssessment();
 		if (!page || !quiz) {
 			return null;
 		}
@@ -24,8 +24,8 @@ export default {
 
 
 	renderAssessmentFeedback () {
-		var page = this.state.page;
-		var quiz = page && page.getSubmittableAssessment();
+		let {page} = this.state;
+		let quiz = page && page.getSubmittableAssessment();
 		if (!page || !quiz) {
 			return null;
 		}
@@ -38,8 +38,9 @@ export default {
 
 
 	renderAssessmentSubmission () {
-		var page = this.state.page;
-		var quiz = page && page.getSubmittableAssessment();
+		let {page} = this.state;
+		let {contentPackage} = this.props;
+		let quiz = page && page.getSubmittableAssessment();
 		if (!page || !quiz || quiz.IsTimedAssignment || !areAssessmentsSupported()) {
 			return null;
 		}
@@ -49,6 +50,7 @@ export default {
 				React.createElement('div', {className: 'the-fixed'},
 					React.createElement(SetSubmissionWidget, {
 						assessment: quiz,
+						contentPackage: contentPackage,
 						page: page
 					})
 				)
@@ -58,11 +60,11 @@ export default {
 
 
 	componentWillUpdate (_, nextState) {
-		var prevPage = this.state.page;
-		var nextPage = nextState && nextState.page;
+		let prevPage = this.state.page;
+		let nextPage = nextState && nextState.page;
 
-		var prev = prevPage && prevPage.getSubmittableAssessment();
-		var next = nextPage && nextPage.getSubmittableAssessment();
+		let prev = prevPage && prevPage.getSubmittableAssessment();
+		let next = nextPage && nextPage.getSubmittableAssessment();
 
 		if ((next && next.getID()) !== (prev && prev.getID())) {
 			Store.teardownAssessment(prev);
