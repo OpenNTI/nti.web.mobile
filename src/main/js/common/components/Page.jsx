@@ -15,7 +15,7 @@ export default React.createClass({
 
 	render () {
 		let {pageSource, currentPage, navigatableContext} = this.state || {};
-		let {title, pageContent} = this.props;
+		let {title, pageContent, children} = this.props;
 		let Content = pageContent;
 
 		let props = Object.assign({}, this.props, {
@@ -23,6 +23,11 @@ export default React.createClass({
 			children: null,
 			title: null
 		});
+
+		if (!Content) {
+			Content = 'div';
+			props.children = children;
+		}
 
 		return (
 			<div>
