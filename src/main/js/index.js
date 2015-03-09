@@ -45,9 +45,11 @@ React.initializeTouchEvents(true);
 // 	//Suggest Bookmarking to the home screen...
 // }
 
+var basePath = (global.$AppConfig || {}).basepath || '/';
+
 var AppView = require('./AppView');
 var app = React.render(
-	React.createElement(AppView, {basePath: (global.$AppConfig || {}).basepath || '/'}),
+	React.createElement(AppView, {basePath: basePath}),
 	document.getElementById('content')
 );
 
@@ -60,11 +62,11 @@ LoginStore.addChangeListener(function(evt) {
 	if (evt && evt.property === LoginStore.Properties.isLoggedIn) {
 		if (evt.value) {
 			LoginActions.deleteTOS();
-			//app.navigate(returnURL || this.props.basePath, {replace:true});
-			loc.replace(returnURL || this.props.basePath);
+			//app.navigate(returnURL || basePath, {replace:true});
+			loc.replace(returnURL || basePath);
 		}
 		else {
-			app.navigate(this.props.basePath + 'login/',  {replace:true});
+			app.navigate(basePath + 'login/',  {replace:true});
 		}
 	}
 });
