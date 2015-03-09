@@ -19,7 +19,7 @@
   "public_root": "/mobile/",
 
   "scripts": {
-      "prepublish": "npm dedup react babel babel-core babel-runtime",
+      "prepublish": "npm dedupe react babel babel-core babel-runtime",
       "test": "grunt test"
   },
 
