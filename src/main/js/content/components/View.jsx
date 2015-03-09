@@ -25,19 +25,19 @@ export default React.createClass({
 									pageContent={Viewer}
 									slug="/content/"
 									title="Content"
-									contextProvider={this.__getContext}/>
+									contextProvider={this.getContext}/>
 			</Router.Locations>
 		);
 	},
 
 
 	/**
-	* Resolves the current context given the props from the direct decendent
-	* that asks.
-	*
-	* @param {Object} props The props set from the handler of the route.
-	*/
-	__getContext (/*props*/) {
+	 * Resolves the current context given the props from the direct decendent
+	 * that asks.
+	 *
+	 * @param {Object} props The props set from the handler of the route.
+	 */
+	getContext (/*props*/) {
 		return Promise.resolve([
 			{
 				label: 'Books',
