@@ -56,7 +56,7 @@ export default React.createClass({
 
 
 	onBeforeNavigation () {
-		if (this.refs.frame) {
+		if (this.refs.frame && this.refs.frame.onCloseMenus) {
 			this.refs.frame.onCloseMenus();
 		}
 	},
