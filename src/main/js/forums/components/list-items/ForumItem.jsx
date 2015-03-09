@@ -3,7 +3,7 @@
 import React from 'react';
 import {mimeTypes, FORUM} from '../../Constants';
 
-import LoadingInline from 'common/components/LoadingInline';
+import TinyLoader from 'common/components/TinyLoader';
 import NTIID from 'dataserverinterface/utils/ntiids';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
@@ -95,7 +95,9 @@ module.exports = React.createClass({
 	render: function() {
 
 		if (this.state.loading) {
-			return <LoadingInline />;
+			return (
+				<TinyLoader />
+			);
 		}
 		var {item} = this.props;
 		// var topicCount = t('topicCount', { count: item.TopicCount });

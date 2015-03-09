@@ -43,8 +43,42 @@ figure.loading {
     }
 }
 
+.tinyloader {
+    text-align: center;
+    li {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        padding:0;
+        background: lightgray;
+        border-radius: 2px;
+        opacity:0;
+        margin-right: 2px;
+        will-change: opacity;
+        &:nth-child(1) {
+            @include animation(tinyloader .7s ease-in-out infinite);
+        }
+        &:nth-child(2) {
+            @include animation(tinyloader .7s ease-in-out infinite .1s);
+        }
+        &:nth-child(3) {
+            @include animation(tinyloader .7s ease-in-out infinite .2s);
+        }
+    }
 
+}
 
+@include keyframes(tinyloader) {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1.0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
 
 .inline-loader-wrap {
     min-height: 70px;
