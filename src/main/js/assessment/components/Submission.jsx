@@ -7,7 +7,7 @@ const _t = scoped('ASSESSMENT');
 import Loading from 'common/components/Loading';
 
 import Store from '../Store';
-import Utils from '../Utils';
+import {areAssessmentsSupported} from '../Utils';
 import Actions from '../Actions';
 import {
 	BUSY_SAVEPOINT,
@@ -95,7 +95,7 @@ export default React.createClass({
 		let error = Store.getError(assessment);
 		let savePoint = busy === BUSY_SAVEPOINT;
 
-		if (admin || Store.isSubmitted(assessment) || !Utils.areAssessmentsSupported()) {
+		if (admin || Store.isSubmitted(assessment) || !areAssessmentsSupported()) {
 			return null;
 		}
 

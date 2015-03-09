@@ -1,22 +1,20 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+import AssignmentHeader from './HeaderAssignment';
+import ScoreboardHeader from './HeaderScoreboard';
+import UnsupportedPlaceholder from './UnsupportedPlaceholder';
 
-var AssignmentHeader = require('./HeaderAssignment');
-var ScoreboardHeader = require('./HeaderScoreboard');
-var UnsupportedPlaceholder = require('./UnsupportedPlaceholder');
+import {isAssignment, areAssessmentsSupported} from '../Utils';
 
-var Utils = require('../Utils');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'SetHeader',
 
-	render: function() {
-		var assessment = this.props.assessment;
-		var Component = Utils.isAssignment(assessment) ?
-							AssignmentHeader : ScoreboardHeader;
+	render () {
+		let {assessment} = this.props;
+		let Component = isAssignment(assessment) ?
+						AssignmentHeader : ScoreboardHeader;
 
-		if (!Utils.areAssessmentsSupported()) {
+		if (!areAssessmentsSupported()) {
 			return (
 				<UnsupportedPlaceholder assignment={assessment}/>
 			);
