@@ -9,13 +9,20 @@ export function reload () {
 }
 
 export function load (reload) {
-    return getCatalog(!!reload)
-		.then(catalog =>
-			dispatch(LOADED_CATALOG, catalog))
-		.catch(e=>{
-			console.log('loadCatalog failed. %O', e);
-			return Promise.reject(e);
-		});
+
+	let result = getCatalog(!!reload);
+	if (result !== load.last) {
+		load.last = result;
+		load.result = result
+			.then(catalog =>
+				dispatch(LOADED_CATALOG, catalog))
+			.catch(e=>{
+				console.log('loadCatalog failed. %O', e);
+				return Promise.reject(e);
+			});
+	}
+
+	return load.result;
 }
 
 
