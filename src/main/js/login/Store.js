@@ -175,11 +175,10 @@ function _logIn(credentials) {
 }
 
 function _logOut() {
-	var current = encodeURIComponent(location.href);
 	//TODO: this link doesn't need to be built, (we just need to append the
 	//success to the rel="logout" link in the ping...which we should store on
 	// a successfull handshake.)
-	var p = getServerURI() + Links.LOGOUT_LINK + '?success=' + current;
+	var p = getServerURI() + Links.LOGOUT_LINK + '?success=/mobile/login/';
 	location.replace(p);
 }
 
