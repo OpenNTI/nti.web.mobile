@@ -39,7 +39,6 @@ export default {
 
 	renderAssessmentSubmission () {
 		let {page} = this.state;
-		let {contentPackage} = this.props;
 		let quiz = page && page.getSubmittableAssessment();
 		if (!page || !quiz || quiz.IsTimedAssignment || !areAssessmentsSupported()) {
 			return null;
@@ -50,7 +49,6 @@ export default {
 				React.createElement('div', {className: 'the-fixed'},
 					React.createElement(SetSubmissionWidget, {
 						assessment: quiz,
-						contentPackage: contentPackage,
 						page: page
 					})
 				)
@@ -59,16 +57,20 @@ export default {
 	},
 
 
-	componentWillUpdate (_, nextState) {
+	componentWillUpdate (nextProps, nextState) {
 		let prevPage = this.state.page;
 		let nextPage = nextState && nextState.page;
 
 		let prev = prevPage && prevPage.getSubmittableAssessment();
 		let next = nextPage && nextPage.getSubmittableAssessment();
 
+
 		if ((next && next.getID()) !== (prev && prev.getID())) {
+			let {contentPackage} = nextProps;
+			let admin = Boolean(contentPackage && contentPackage.parent('isAdministrative'));
+
 			Store.teardownAssessment(prev);
-			Store.setupAssessment(next, true);
+			Store.setupAssessment(next, true, admin);
 		}
 	}
 

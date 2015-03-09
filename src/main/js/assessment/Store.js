@@ -26,8 +26,8 @@ import {
 import StorePrototype from 'common/StorePrototype';
 
 
-var AssignmentHistoryItem = getModel('assessment.assignmenthistoryitem');
-var Question = getModel('question');
+let AssignmentHistoryItem = getModel('assessment.assignmenthistoryitem');
+let Question = getModel('question');
 
 
 // const data = Symbol('data');
@@ -62,7 +62,7 @@ class Store extends StorePrototype {
 
 
 	[OnSubmitStart] (payload) {
-		var {assessment} = payload.action;
+		let {assessment} = payload.action;
 		clearTimeout(this.savepointDelay);
 		this.markBusy(assessment, BUSY_SUBMITTING);
 		this.emitChange({type: SUBMIT_BEGIN});
@@ -70,8 +70,8 @@ class Store extends StorePrototype {
 
 
 	[OnSubmitEnd] (payload) {
-		var {response, assessment} = payload.action;
-		var isError = !!response.statusCode;
+		let {response, assessment} = payload.action;
+		let isError = !!response.statusCode;
 		if (isError) {
 			this.setError(assessment, response.message || 'An Error occured.');
 			this.markBusy(assessment, false);
@@ -88,7 +88,7 @@ class Store extends StorePrototype {
 
 
 	[OnClear] (payload) {
-		var {assessment} = payload.action;
+		let {assessment} = payload.action;
 		this.setupAssessment(assessment, false)
 			.then(()=>this[SaveProgress](assessment, 1));
 		this.emitChange({type: SYNC});
@@ -116,16 +116,19 @@ class Store extends StorePrototype {
 		let {action} = payload;
 		let {part, value, savepointBuffer} = action;
 
+		let key = this[GetAssessmentKey](part);
+		let s = this.data[key];
+		let question = s && part && s.getQuestion(part.getQuestionId());
+
+		if (this.isAdministrative(part)) {
+			return;
+		}
+
 		console.debug('Question Part Interacted: %o', action);
 
-		var main = getMainSubmittable(part);
-		var key = main && main.getID();
-		var s = this.data[key];
-		var question = s && part && s.getQuestion(part.getQuestionId());
-
-		var interactionTime = new Date();
-		var time = this.timers[key] || {};
-		var duration = interactionTime - (time.lastQuestionInteraction || time.start || new Date());
+		let interactionTime = new Date();
+		let time = this.timers[key] || {};
+		let duration = interactionTime - (time.lastQuestionInteraction || time.start || new Date());
 
 		time.lastQuestionInteraction = interactionTime;
 
@@ -142,13 +145,13 @@ class Store extends StorePrototype {
 
 
 	[GetAssessmentKey] (assessment) {
-		var main = getMainSubmittable(assessment) || false;
+		let main = getMainSubmittable(assessment) || false;
 		return main && main.getID();
 	}
 
 
 	[SaveProgress](part, buffer = 1000) {
-		var main = getMainSubmittable(part);
+		let main = getMainSubmittable(part);
 		if (!main.postSavePoint) {
 			return;
 		}
@@ -185,8 +188,8 @@ class Store extends StorePrototype {
 
 
 	markBusy (part, state) {
-		var main = getMainSubmittable(part);
-		var id = main && main.getID();
+		let main = getMainSubmittable(part);
+		let id = main && main.getID();
 
 		this.busy[id] = state;
 		if (!state) {
@@ -201,8 +204,8 @@ class Store extends StorePrototype {
 
 
 	getSubmissionPreparedForPost (assessment) {
-		var d = this.getSubmissionData(assessment);
-		var times, v, now = new Date();
+		let d = this.getSubmissionData(assessment);
+		let times, v, now = new Date();
 
 		//Assignments and QuestionSets, record aggregate effort time. (questions record themselves. See: onInteraction)
 		if (d && d.getQuestions) {
@@ -216,7 +219,7 @@ class Store extends StorePrototype {
 
 
 	getAssignmentFeedback (assessment) {
-		var item = this.getAssignmentHistoryItem(assessment);
+		let item = this.getAssignmentHistoryItem(assessment);
 		return item && item.Feedback;
 	}
 
@@ -232,19 +235,19 @@ class Store extends StorePrototype {
 
 
 	getAssessedQuestion (assessment, questionId) {
-		var submission = this.getAssessedSubmission(assessment);
+		let submission = this.getAssessedSubmission(assessment);
 		//If its an AssessedQuestionSet, it has a getQuestion method.
-		var getter = submission && submission.getQuestion;
+		let getter = submission && submission.getQuestion;
 
 		//resolve down to the AssessedQuestion
-		var question = getter ? getter.call(submission, questionId) : submission;
+		let question = getter ? getter.call(submission, questionId) : submission;
 
 		return question && question.getID() === questionId ? question : undefined;
 	}
 
 
 	teardownAssessment (assessment) {
-		var m = this[GetAssessmentKey](assessment);
+		let m = this[GetAssessmentKey](assessment);
 		if (m) {
 			delete this.assignmentHistoryItems[m];
 			delete this.assessed[m];
@@ -254,19 +257,27 @@ class Store extends StorePrototype {
 	}
 
 
-	setupAssessment (assessment, loadProgress) {
-		var main = getMainSubmittable(assessment);
+	setupAssessment (assessment, loadProgress, administrative) {
+		let main = getMainSubmittable(assessment);
 		if (!main) {return;}
 		console.debug('New Assessment: %o', main);
 
 		this.assessed[main.getID()] = null;
-		this.data[main.getID()] = main.getSubmission();
+
+		let data = main.getSubmission();
+		this.data[main.getID()] = data;
+		if (administrative) {
+			data.isAdministrative = true;
+		}
+
 		this.timers[main.getID()] = {
 			start: new Date(),
 			lastQuestionInteraction: null
 		};
 
-		if (!loadProgress) {return Promise.resolve();}
+		if (!loadProgress || administrative) {
+			return Promise.resolve();
+		}
 
 		this.markBusy(assessment, BUSY_LOADING);
 		this.emitChange({type:BUSY_LOADING});
@@ -295,16 +306,16 @@ class Store extends StorePrototype {
 
 
 	[ApplySubmission] (assessment, submission) {
-		var key = this[GetAssessmentKey](assessment);
-		var s = this.getSubmissionData(assessment);
-		var questions = submission.getQuestions ? submission.getQuestions() : [submission];
-		var assessedUnit = null;
+		let key = this[GetAssessmentKey](assessment);
+		let s = this.getSubmissionData(assessment);
+		let questions = submission.getQuestions ? submission.getQuestions() : [submission];
+		let assessedUnit = null;
 
 		s.CreatorRecordedEffortDuration = submission.CreatorRecordedEffortDuration;
 
 		questions.forEach(q => {
 
-			var question = s.getQuestion(q.getID());
+			let question = s.getQuestion(q.getID());
 			if(!question) {
 				console.warn('Previous attempt question not found in current question set');
 				return;
@@ -312,9 +323,9 @@ class Store extends StorePrototype {
 
 			question.CreatorRecordedEffortDuration = q.CreatorRecordedEffortDuration;
 
-			var parts = q.parts;
-			var partCount = parts.length;
-			var x, p;
+			let parts = q.parts;
+			let partCount = parts.length;
+			let x, p;
 
 			for (x = 0; x < partCount; x++) {
 				p = parts[x];
@@ -355,21 +366,22 @@ class Store extends StorePrototype {
 
 
 	countUnansweredQuestions (assessment){
-		var main = getMainSubmittable(assessment);
-		var s = this.getSubmissionData(assessment);
+		let main = getMainSubmittable(assessment);
+		let s = this.getSubmissionData(assessment);
 		return s && s.countUnansweredQuestions(main);
 	}
 
 
 	canSubmit (assessment){
-		var s = this.getSubmissionData(assessment);
-		return s && s.canSubmit() && !this.getBusyState(assessment);
+		let s = this.getSubmissionData(assessment);
+		let admin = this.isAdministrative(assessment);
+		return !admin && s && s.canSubmit() && !this.getBusyState(assessment);
 	}
 
 
 	isSubmitted (assessment){
-		var main = getMainSubmittable(assessment);
-		var s = this.getSubmissionData(assessment);
+		let main = getMainSubmittable(assessment);
+		let s = this.getSubmissionData(assessment);
 
 		if (main.IsTimedAssignment /*&& !main.isStarted()*/) {
 			return false;
@@ -385,27 +397,27 @@ class Store extends StorePrototype {
 
 
 	getPartValue (part) {
-		var s = this.getSubmissionData(part);
-		var question = s && part && s.getQuestion(part.getQuestionId());
+		let s = this.getSubmissionData(part);
+		let question = s && part && s.getQuestion(part.getQuestionId());
 		return question.getPartValue(part.getPartIndex());
 	}
 
 
 	getError (part) {
-		var s = this.getSubmissionData(part) || {};
+		let s = this.getSubmissionData(part) || {};
 		return s.error;
 	}
 
 
 	setError (part, error) {
-		var s = this.getSubmissionData(part);
+		let s = this.getSubmissionData(part);
 		s.error = error;
 		this.emitChange({type: ERROR});
 	}
 
 
 	clearError (part) {
-		var s = this.getSubmissionData(part);
+		let s = this.getSubmissionData(part);
 		delete s.error;
 		this.emitChange({type: ERROR});
 	}
@@ -426,12 +438,18 @@ class Store extends StorePrototype {
 	}
 
 
-	isWordBankEntryUsed(wordBankEntry) {
-		var {wid} = wordBankEntry;
-		var submission = this.getSubmissionData(wordBankEntry);
-		var question = wordBankEntry.parent('constructor', {test: x=>x === Question});
+	isAdministrative (part) {
+		let data = this.data[this[GetAssessmentKey](part)];
+		return Boolean(data && data.isAdministrative);
+	}
 
-		var maybe, parts;
+
+	isWordBankEntryUsed(wordBankEntry) {
+		let {wid} = wordBankEntry;
+		let submission = this.getSubmissionData(wordBankEntry);
+		let question = wordBankEntry.parent('constructor', {test: x=>x === Question});
+
+		let maybe, parts;
 		if (question && submission) {
 			question = submission.getQuestion(question.getID()) || {};
 			parts = question.parts || [];

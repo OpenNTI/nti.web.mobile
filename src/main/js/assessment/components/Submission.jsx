@@ -82,9 +82,9 @@ export default React.createClass({
 
 
 	render () {
-		let {assessment, contentPackage} = this.props;
+		let {assessment} = this.props;
 
-		let admin = Boolean(contentPackage.parent('isAdministrative'));
+		let admin = Store.isAdministrative(assessment);
 		let disabled = admin || !Store.canSubmit(assessment);
 		let cannotReset = Store.isSubmitted(assessment) || disabled;
 

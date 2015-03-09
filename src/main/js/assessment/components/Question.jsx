@@ -63,8 +63,8 @@ export default React.createClass({
 
 
 	render () {
-		let {question, contentPackage} = this.props;
-		let admin = Boolean(contentPackage.parent('isAdministrative'));
+		let {question} = this.props;
+		let admin = Store.isAdministrative(question);
 		let a = Store.getAssessedQuestion(question, question.getID());
 		let parts = question.parts;
 		let title = '';

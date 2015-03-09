@@ -36,12 +36,11 @@ export default React.createClass({
 
 	render () {
 		let {question} = this.state;
-		let {item, contentPackage} = this.props;
+		let {item} = this.props;
 		if (!question) {return null;}
 
 		return (
 			<QuestionWidget
-				contentPackage={contentPackage}
 				contentHints={item}
 				question={question}/>
 		);
