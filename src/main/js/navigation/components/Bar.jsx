@@ -145,14 +145,22 @@ export default React.createClass({
 
 	fillIn (props) {
 		let {navigatableContext, contextProvider} = props;
+		let nc = navigatableContext || {};
+		let moreSpecificContext = (nc.props || {}).contextProvider;
+		let mostSpecificContext = nc.getContext;
 		let resolve = Promise.resolve();
 
-		if (contextProvider) {
-			resolve = contextProvider((navigatableContext || {}).props || props);
+		let getContext = mostSpecificContext || moreSpecificContext || contextProvider;
+
+
+		if (getContext) {
+			let p = nc.props || props;
+			resolve = getContext(p);
 		}
 
 		resolve.then(x=>
 			this.setStateSafely({
+				current: x && x[x.length-1],
 				returnTo: x && x[x.length-2]
 			}));
 	},
@@ -195,11 +203,15 @@ export default React.createClass({
 			'branding': !!this.props.branding
 		});
 
+		let {current} = this.state;
+
+		let title = (current || {}).label || this.props.title;
+
 		return this.getChildForSide('center') ||
 			this.getMenu() || (
 
 			<a href={this.getBasePath()}>
-				<h1 className={css}>{this.props.title}</h1></a>
+				<h1 className={css}>{title}</h1></a>
 		);
 	},
 
