@@ -12,7 +12,7 @@ module.exports = {
 		discussions: 'Discussions',
 		forum: 'Forum',
 		topic: 'Topic',
-		post: 'Post'
+		post: 'Comment'
 	},
 	topicCount: {
 		zero:  'No Discussions',
