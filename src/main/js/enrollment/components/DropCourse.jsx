@@ -7,8 +7,8 @@ var Constants = require('../Constants');
 var Store = require('../Store');
 var CatalogStore = require('catalog/Store');
 var NTIID = require('dataserverinterface/utils/ntiids');
+var BasePathAware = require('common/mixins/BasePath');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var PanelButton = require('common/components/PanelButton');
 var DropOpen = require('./drop-widgets/DropOpen');
 var DropStore = require('./drop-widgets/DropStore');
 var DropFive = require('./drop-widgets/DropFive');
@@ -16,7 +16,7 @@ var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 
 var DropCourseDialog = React.createClass({
 
-	mixins: [NavigatableMixin],
+	mixins: [NavigatableMixin, BasePathAware],
 
 	getInitialState: function() {
 		return {
@@ -93,11 +93,16 @@ var DropCourseDialog = React.createClass({
 	},
 
 	_panel: function(body) {
-		var catalogHref = "../../../../";
+		var catalogHref = this.getBasePath() + 'catalog/';
 		return (
-			<PanelButton href={catalogHref} linkText={t('viewCatalog')}>
-				<p>{body}</p>
-			</PanelButton>
+			<div className="enrollment-dropped">
+				<figure className="notice">
+					<div>{body}</div>
+				</figure>
+
+
+				<a className="button tiny" href={catalogHref}>{t('viewCatalog')}</a>
+			</div>
 		);
 	},
 
