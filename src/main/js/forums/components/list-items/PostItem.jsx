@@ -63,6 +63,12 @@ var PostItem = React.createClass({
 		};
 	},
 
+	getDefaultProps() {
+		return {
+			detailLink: true
+		};
+	},
+
 	componentWillReceiveProps: function(nextProps) {
 		if (this.props.item !== nextProps.item) {
 			this.setState({
@@ -167,7 +173,7 @@ var PostItem = React.createClass({
 
 		return (
 			<div className="postitem">
-				<a href={href} className="threadlink"><span className="arrow-right"/></a>
+				{this.props.detailLink && <a href={href} className="threadlink"><span className="arrow-right"/></a>}
 				<div className="post">
 					<Avatar username={createdBy} className="avatar"/>
 					<div className="wrap">

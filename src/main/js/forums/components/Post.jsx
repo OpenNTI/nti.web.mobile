@@ -1,5 +1,6 @@
 import React from 'react';
 import PostItem from './list-items/PostItem';
+import PostHeadline from './PostHeadline';
 import Loading from 'common/components/Loading';
 import Notice from 'common/components/Notice';
 import Err from 'common/components/Error';
@@ -137,7 +138,7 @@ export default React.createClass({
 
 		let P = (this.state.deleted || (this._item() || {}).Deleted) ? 
 			<Notice>This item has been deleted.</Notice> :
-			<PostItem item={item} topic={topic} />;
+			<PostHeadline item={item} topic={topic} asHeadline={true} />;
 
 
 		let replies = <Replies key="replies" item={item}
