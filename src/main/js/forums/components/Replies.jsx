@@ -80,7 +80,7 @@ let Replies = React.createClass({
 		}
 		let items = this.state.replies||[];
 		let List = this.props.listComponent;
-		return <List container={{Items: items}} {...this.props} />;
+		return items.length > 0 ? <List container={{Items: items}} {...this.props} /> : null;
 	},
 
 	render: function() {
