@@ -71,7 +71,7 @@ export default React.createClass({
 		let status = this.getStatus();
 		let {available, enrolled} = status || {};
 
-		return !available ? null :
+		return !available && !enrolled ? null :
 			enrolled ?
 				<button className="drop" href={this.getDetailHref()}>Drop</button> :
 				<button className="add" href={this.getDetailHref()}>Add</button>
