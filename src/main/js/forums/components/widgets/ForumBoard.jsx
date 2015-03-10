@@ -21,7 +21,7 @@ export default React.createClass({
 		return (
 			<div className="board">
 				<h3>{_t(title)}</h3>
-				<ul>
+				<ul className="forum-list">
 					{forums.map(forum => {
 						return <li className="forum-li" key={keyFor(forum)}><ForumItem item={forum}/></li>;
 					})}

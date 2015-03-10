@@ -2,6 +2,8 @@ a.blockLink {
 	display: block;
 }
 
+$indent: 0.9375rem;
+
 .forums-wrapper {
 	@include grid-column(12);
 	padding-bottom:1rem;
@@ -16,13 +18,13 @@ a.blockLink {
 		padding: 0.5rem 1rem;
 		color: white;
 		display: block;
-		margin: 0 -.9375rem;
+		margin: 0 -#{$indent};
 	}
 
 	.breadcrumbs,
 	.icon-bar {
-		margin-left: -0.9375rem;
-		margin-right: -0.9375rem;
+		margin-left: -$indent;
+		margin-right: -$indent;
 		width: auto;
 		border-radius: 0;
 	}
@@ -127,21 +129,17 @@ a.blockLink {
 	}
 
 	.forum-list {
-		& > li {
-			border: 1px solid $panel-border-color;
-			padding: 1rem;
-			margin-bottom: 1rem;
-		}
+		padding-left: $indent;
 	}
 
 	%group-heading {
-		margin-left: -0.9375rem;
-		margin-right: -0.9375rem;
+		margin-left: -$indent;
+		margin-right: -$indent;
 
 		& > h3 {
 			// padding: 0 10px 0 20px;
-			padding-left: 0.9375rem;
-			padding-right: 0.9375rem;
+			padding-left: $indent;
+			padding-right: $indent;
 			line-height: 2.3;
 			font-size: 0.6em;
 			background: #fafafa !important;
@@ -207,11 +205,11 @@ a.blockLink {
 
 		ul.forum-topics {
 			border-top:1px solid $panel-border-color;
-			margin-left: -.9375rem;
-			margin-right: -.9375rem;
+			margin-left: -$indent;
+			margin-right: -$indent;
 			li {
 				@extend %attributed-content-item;
-				padding:0 0 0 0.9375rem;
+				padding:0 0 0 $indent;
 				border:1px solid transparent;
 				border-bottom-color: $panel-border-color;
 
