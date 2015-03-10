@@ -7,6 +7,8 @@ import Router from 'react-router-component';
 
 import NotFound from 'notfound/components/View';
 
+import Redirect from 'navigation/components/Redirect';
+
 import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
 
@@ -104,7 +106,7 @@ export default React.createClass({
 					course={course}
 					contextProvider={this.getContext}
 					/> :
-				<Router.NotFound handler={NotFound} />
+				<Router.NotFound handler={Redirect} location="o/" />
 			));
 	},
 
