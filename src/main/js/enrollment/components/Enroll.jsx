@@ -11,12 +11,8 @@ export default React.createClass({
 	displayName: 'Enroll',
 	mixins: [EnrollmentOptions, CourseContentLink],
 
-	_getCourseTitle () {
+	getCourseTitle () {
 		return this.getEntry().Title;
-	},
-
-	_getCourseId () {
-		return this.getEntry().CourseNTIID;
 	},
 
 	render () {
@@ -27,8 +23,8 @@ export default React.createClass({
 
 		if(this.state.enrolled) {
 
-			let title = this._getCourseTitle();
-			let href = this.courseHref(this._getCourseId());
+			let title = this.getCourseTitle();
+			let href = this.courseHref(this.getCourseId());
 
 			return <EnrollmentSuccess href={href} courseTitle={title}/>;
 		}
