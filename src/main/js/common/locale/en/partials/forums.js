@@ -16,7 +16,7 @@ module.exports = {
 	},
 	topicCount: {
 		zero:  'No Discussions',
-		one:   'One Discussion',
+		one:   '1 Discussion',
 		other: '%(count)s Discussions'
 	},
 	replies: {
