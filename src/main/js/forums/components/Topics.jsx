@@ -14,6 +14,7 @@ var LoadForum = require('../mixins/LoadForum');
 var t = require('common/locale').scoped('FORUMS');
 import ViewHeader from './widgets/ViewHeader';
 import {FORUM} from '../Constants';
+import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
 
 var Topics = React.createClass({
 
@@ -68,12 +69,14 @@ var Topics = React.createClass({
 		return (
 			<div>
 				<Breadcrumb contextProvider={this.__getContext} />
-				<ViewHeader type={FORUM} />
-				<section>
-					{this._createTopicLink()}
-					<div className="group-heading"><h3>Topics</h3></div>
-					<TopicList container={forumContents}/>
-				</section>
+				<Transition transitionName="forums">
+					<ViewHeader type={FORUM} />
+					<section>
+						{this._createTopicLink()}
+						<div className="group-heading"><h3>Topics</h3></div>
+						<TopicList container={forumContents}/>
+					</section>
+				</Transition>
 			</div>
 		);
 	}

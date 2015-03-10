@@ -14,6 +14,8 @@ import ForumBin from './widgets/ForumBin';
 
 import {scoped} from 'common/locale';
 
+import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
+
 const _t = scoped('FORUMS.groupTitles');
 const _c = scoped('COURSE.SECTIONS');
 const discussionsChanged = 'ForumListView:discussionsChangedHandler';
@@ -107,18 +109,20 @@ export default React.createClass({
 		return (
 			<div>
 				<Breadcrumb contextProvider={this.__getContext} />
-				<nav className="forum">
-					<ul>
-	 					{
-	 						//convenient that the order we want the bins happens to be alphabeetical enrolled, open, other
-	 						Array.sort(Object.keys(discussions)).map(key => {
-	 							let bin = discussions[key];
-	 							let reactkey = keyFor(bin);
-	 							return <li key={reactkey}><ForumBin title={_t(key.toLowerCase())} bin={bin} /></li>;
-	 						})
-	 					}
-					</ul>
-				</nav>
+				<Transition transitionName="forums">
+					<nav className="forum">
+						<ul>
+		 					{
+		 						//convenient that the order we want the bins happens to be alphabeetical enrolled, open, other
+		 						Array.sort(Object.keys(discussions)).map(key => {
+		 							let bin = discussions[key];
+		 							let reactkey = keyFor(bin);
+		 							return <li key={reactkey}><ForumBin title={_t(key.toLowerCase())} bin={bin} /></li>;
+		 						})
+		 					}
+						</ul>
+					</nav>
+				</Transition>
 			</div>
 		);
 	}

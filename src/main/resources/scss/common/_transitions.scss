@@ -42,12 +42,10 @@
 
 }
 
-
-
 @include reactTransition('button');
 @include reactTransition('messages');
 @include reactTransition('navdrawer');
-@include reactTransition('forum-comments');
+@include reactTransition('forums');
 
 
 .loginforms-enter {
