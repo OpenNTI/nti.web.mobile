@@ -3,7 +3,7 @@ a.blockLink {
 }
 
 .forums-wrapper {
-	@include grid-column(12);
+	//@include grid-column(12);
 	padding-bottom:1rem;
 
 	.view-header {
@@ -16,13 +16,13 @@ a.blockLink {
 		padding: 0.5rem 1rem;
 		color: white;
 		display: block;
-		margin: 0 -.9375rem;
+		margin: 0;// -.9375rem;
 	}
 
 	.breadcrumbs,
 	.icon-bar {
-		margin-left: -0.9375rem;
-		margin-right: -0.9375rem;
+		// margin-left: -0.9375rem;
+		// margin-right: -0.9375rem;
 		width: auto;
 		border-radius: 0;
 	}
@@ -137,6 +137,8 @@ a.blockLink {
 	%group-heading {
 		& > h3 {
 			// padding: 0 10px 0 20px;
+			padding-left: 0.9375rem;
+			padding-right: 0.9375rem;
 			line-height: 2.3;
 			font-size: 0.6em;
 			background: #fafafa !important;
@@ -204,7 +206,7 @@ a.blockLink {
 			border-top:1px solid $panel-border-color;
 			li {
 				@extend %attributed-content-item;
-				padding:0;
+				padding:0 0 0 0.9375rem;
 				border:1px solid transparent;
 				border-bottom-color: $panel-border-color;
 
