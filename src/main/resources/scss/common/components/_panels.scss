@@ -1,0 +1,29 @@
+figure {
+	%isPanel {
+		margin: 1rem 2rem;
+	}
+
+	&.info {
+		@extend %isPanel;
+		@include panel($bg: transparentize($primary-blue, 0.9));
+	}
+
+	&.caution {
+		@extend %isPanel;
+		@include panel($bg: transparentize($primary-red, 0.9));
+	}
+}
+
+
+.notice {
+	text-align: center;
+	margin: 1rem;
+	padding: 2rem 1rem;
+	background: rgba(0,0,0,.2);
+	color: white;
+	border-radius: 2px;
+	&.small {
+		font-size:.7rem;
+		padding:.25rem;
+	}
+}

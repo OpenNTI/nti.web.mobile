@@ -7,7 +7,7 @@ var ErrorWidget = require('common/components/Error');
 var CourseContentLink = require('library/components/CourseContentLink');
 
 var GiftSuccess = require('./GiftSuccess');
-var EnrollmentSuccess = require('./EnrollmentSuccess');
+var EnrollmentSuccess = require('../../components/EnrollmentSuccess');
 
 var Actions = require('../Actions');
 var Store = require('../Store');

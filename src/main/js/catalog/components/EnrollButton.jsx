@@ -29,18 +29,15 @@ export default React.createClass({
 
 
 	dropOrEnrollButton () {
+		let href = this.getBasePath() + 'catalog/item/' + encodeForURI(this.getEntryID()) + '/enrollment/';
 
 		if (this.canDrop(this.getEntry())) {
 			// drop button
 
-			//ick... full path?!
-			var href = this.getBasePath() + 'catalog/item/' + encodeForURI(this.getEntryID()) + '/enrollment/drop/';
-
-			return <ButtonFullWidth href={href}>Drop This Course</ButtonFullWidth>;
+			return <ButtonFullWidth href={href + 'drop/'}>Drop This Course</ButtonFullWidth>;
 		}
 
 		if (!this.props.dropOnly && this.enrollmentOptions(this.getEntry()).length > 0) {
-			var href = this.makeHref('/enrollment/', true);
 			return <ButtonFullWidth href={href}>Enroll</ButtonFullWidth>;
 		}
 
@@ -57,7 +54,7 @@ export default React.createClass({
 
 
 	redeemButton () {
-		var catalogId = this.getEntryID();
+		let catalogId = this.getEntryID();
 		if (this.hasGiftableEnrollmentOption(this.getEntry()) && !this.isEnrolled(this.getCourseId())) {
 			return <RedeemButton catalogId={catalogId} fullWidth={true} />;
 		}
@@ -84,7 +81,7 @@ export default React.createClass({
 				</div>);
 		}
 
-		var buttons = this.getButtons();
+		let buttons = this.getButtons();
 		if (buttons.length > 0) {
 			return React.createElement.apply(null, ['div', {}].concat(
 					buttons.map(button=>

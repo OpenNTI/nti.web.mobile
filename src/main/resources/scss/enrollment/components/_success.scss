@@ -1,0 +1,9 @@
+.enrollment-success {
+	.button {
+		margin: 1rem auto;
+		position: relative;
+		left: 50%;
+		display: inline-block;
+		@include transform(translateX(-50%));
+	}
+}

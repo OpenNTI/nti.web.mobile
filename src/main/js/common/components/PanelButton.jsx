@@ -1,12 +1,13 @@
-'use strict';
+import React from 'react';
+import {translate as t} from 'common/locale';
 
-var React = require('react');
-var t = require('common/locale').translate;
+
 
 /**
-*	Renders an info panel with a link/button.
-*/
-var PanelButton = React.createClass({
+ *	Renders an info panel with a link/button.
+ */
+export default React.createClass({
+	displayName: 'PanelButton',
 
 	propTypes: {
 		linkText: React.PropTypes.string, // the text of the button
@@ -15,7 +16,7 @@ var PanelButton = React.createClass({
 		button: React.PropTypes.element // pass in your own button if you need special behavior or treatment
 	},
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			linkText: t('BUTTONS.ok'),
 			href: '#',
@@ -23,26 +24,35 @@ var PanelButton = React.createClass({
 		};
 	},
 
-	_button: function() {
-		if (!this.props.button && (!this.props.href || this.props.href === '#') && !this.props.buttonClick && !this.props.onClick) {
+	renderButton () {
+		let {button, href, buttonClick, onClick, linkText} = this.props;
+
+		onClick = onClick || buttonClick;
+
+		if (!button && (!href || href === '#') && !onClick) {
 			return null;
 		}
-		return this.props.button || <a href={this.props.href}
-			className="button tiny radius column"
-			onClick={this.props.buttonClick}>{this.props.linkText}</a>;
+
+		let props = {
+			onClick,
+			href,
+			className: 'button tiny column',
+			children: linkText
+		};
+
+		return button || <a {...props}/>;
 	},
 
-	render: function() {
+
+	render () {
 		return (
 			<div {...this.props}>
 				<div className='panel-button'>
 					{this.props.children}
-					{this._button()}
+					{this.renderButton()}
 				</div>
 			</div>
 		);
 	}
 
 });
-
-module.exports = PanelButton;

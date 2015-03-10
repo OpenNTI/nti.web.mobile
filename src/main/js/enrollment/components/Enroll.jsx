@@ -1,24 +1,25 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-var EnrollmentOptions = require('../mixins/EnrollmentMixin');
-var Loading = require('common/components/Loading');
-var PanelButton = require('common/components/PanelButton');
-var CourseContentLink = require('library/components/CourseContentLinkMixin');
+import Loading from 'common/components/Loading';
 
-var Enroll = React.createClass({
+import CourseContentLink from 'library/components/CourseContentLinkMixin';
 
+import EnrollmentOptions from '../mixins/EnrollmentMixin';
+import EnrollmentSuccess from './EnrollmentSuccess';
+
+export default React.createClass({
+	displayName: 'Enroll',
 	mixins: [EnrollmentOptions, CourseContentLink],
 
-	_getCourseTitle: function() {
+	_getCourseTitle () {
 		return this.getEntry().Title;
 	},
 
-	_getCourseId: function() {
+	_getCourseId () {
 		return this.getEntry().CourseNTIID;
 	},
 
-	render: function() {
+	render () {
 
 		if (!this.state.enrollmentStatusLoaded) {
 			return <Loading />;
@@ -26,17 +27,13 @@ var Enroll = React.createClass({
 
 		if(this.state.enrolled) {
 
-			var title = this._getCourseTitle();
-			var href = this.courseHref(this._getCourseId());
+			let title = this._getCourseTitle();
+			let href = this.courseHref(this._getCourseId());
 
-			return (
-				<PanelButton href={href} linkText='Go to the course'>
-					You are enrolled in {title}.
-				</PanelButton>
-			);
+			return <EnrollmentSuccess href={href} courseTitle={title}/>;
 		}
 
-		var widgets = this.enrollmentWidgets();
+		let widgets = this.enrollmentWidgets();
 
 		return (
 			<div>
@@ -46,5 +43,3 @@ var Enroll = React.createClass({
 	}
 
 });
-
-module.exports = Enroll;

@@ -1,6 +1,5 @@
 .panel-button {
-	@include grid-row();
-	margin-top: $panel-margin-bottom;
+	
 	&.error {
 		.panel {
 			border-color: $alert-color;

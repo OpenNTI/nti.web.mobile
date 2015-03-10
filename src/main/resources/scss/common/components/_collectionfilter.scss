@@ -43,21 +43,9 @@
 	}
 }
 
-.notice {
-	text-align: center;
-	margin: 1rem;
-	padding: 2rem 1rem;
-	background: rgba(0,0,0,.2);
-	color: white;
-	border-radius: 2px;
-	&.small {
-		font-size:.7rem;
-		padding:.25rem;
-	}
-}
 
 @media (max-width: 365px) {
-	.button-group.filters {	
+	.button-group.filters {
 		.button {
 			.count {
 				display: none; // hide the count to prevent wrapping.

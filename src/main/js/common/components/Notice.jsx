@@ -1,15 +1,20 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+/**
+ * Whats the point of this component? why not just use the element with classname?
+ * <figure class="notice">...
+ */
 
-var Notice = React.createClass({
-	render: function() {
+export default React.createClass({
+	displayName: 'Notice',
+
+	render () {
+		let {className} = this.props;
+		if (!className) {className=[];}
+
+		className = ['notice'].concat(className).join(' ');
 		return (
-			<div {...this.props} className="notice">
-				{this.props.children}
-			</div>
+			<figure {...this.props} className={className}/>
 		);
 	}
 });
-
-module.exports = Notice;
