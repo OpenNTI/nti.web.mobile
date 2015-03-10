@@ -207,6 +207,11 @@ a.blockLink {
 				padding:0;
 				border:1px solid transparent;
 				border-bottom-color: $panel-border-color;
+
+				.wrap {
+					margin-right: 20px;
+				}
+
 				.attribution {
 					font-size: .75rem;
 					line-height: 1rem;
