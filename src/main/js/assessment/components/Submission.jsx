@@ -8,7 +8,7 @@ import Loading from 'common/components/Loading';
 
 import Store from '../Store';
 import {areAssessmentsSupported} from '../Utils';
-import Actions from '../Actions';
+import {resetAssessment, submit} from '../Actions';
 import {
 	BUSY_SAVEPOINT,
 	BUSY_SUBMITTING,
@@ -54,20 +54,20 @@ export default React.createClass({
 
 		Prompt.areYouSure('This will reset this assignment.')
 			.then(
-				()=>Actions.resetAssessment(this.props.assessment),
+				()=>resetAssessment(this.props.assessment),
 				()=>{}
 			);
 	},
 
 
 	onSubmit (e) {
-		let assessment = this.props.assessment;
+		let {assessment} = this.props;
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
 		if (Store.canSubmit(assessment)) {
-			Actions.submit(assessment);
+			submit(assessment);
 		}
 	},
 
