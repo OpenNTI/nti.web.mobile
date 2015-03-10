@@ -171,6 +171,13 @@ var PostItem = React.createClass({
 			);
 		}
 
+		if (this.state.editing) {
+			return <CommentForm
+				editItem={item}
+				onCompletion={this._hideEditForm}
+				onCancel={this._hideEditForm}/>;
+		}
+
 		return (
 			<div className="postitem">
 				{this.props.detailLink && <a href={href} className="threadlink"><span className="arrow-right"/></a>}
@@ -182,13 +189,7 @@ var PostItem = React.createClass({
 							<DateTime date={createdOn} relative={true}/>
 						</div>
 						<div className="message">
-							{this.state.editing ?
-								<CommentForm
-									editItem={item}
-									onCompletion={this._hideEditForm}
-									onCancel={this._hideEditForm}/> :
-								<ModeledContentPanel body={message} />
-							}
+							<ModeledContentPanel body={message} />
 							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 						</div>
 						{links}
