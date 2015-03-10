@@ -54,7 +54,7 @@ var Topics = React.createClass({
 		if (!this._canCreateTopic()) {
 			return null;
 		}
-		return <Link className="action-link create-topic" href="/newtopic/">{t('createTopic')} <i className="arrow-right"/></Link>;
+		return <Link className="action-link create-topic" href="/newtopic/">{t('createTopic')}</Link>;
 	},
 
 	render: function() {
