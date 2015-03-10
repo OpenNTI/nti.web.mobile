@@ -18,16 +18,16 @@ export default React.createClass({
 	componentWillUnmount () { this.getItem().removeListener('changed', this.itemChanged); },
 
 	getDetailHref () {
-		var item = this.getItem();
+		let item = this.getItem();
 		if (!item) {return '';}
 
-		var courseId = encodeForURI(item.getID());
+		let courseId = encodeForURI(item.getID());
 		return `/item/${courseId}/`;
 	},
 
 
 	render () {
-		var item = this.getItem();
+		let item = this.getItem();
 
 		if (!item) {return;}
 
@@ -48,25 +48,33 @@ export default React.createClass({
 	},
 
 
-	isMaybeEnrolled () {
-		var item = this.getItem();
+	getStatus () {
+		let item = this.getItem();
+		let enrolled = false;
+		let available = false;
+
 		if (!item) {return;}
 
 		let {Items} = item.EnrollmentOptions;
 
 		for(let prop of Object.keys(Items)) {
 			let opt = Items[prop];
-			if(opt.IsEnrolled) {
-				return true;
-			}
+			available = available || Boolean(opt.IsAvailable);
+			enrolled = enrolled || Boolean(opt.IsEnrolled);
 		}
+
+		return {enrolled, available};
 	},
 
 
 	button () {
-		return this.isMaybeEnrolled() ?
-			<button className="drop" href={this.getDetailHref()}>Drop</button> :
-			<button className="add" href={this.getDetailHref()}>Add</button>
-		;
+		let status = this.getStatus();
+		let {available, enrolled} = status || {};
+
+		return !available ? null :
+			enrolled ?
+				<button className="drop" href={this.getDetailHref()}>Drop</button> :
+				<button className="add" href={this.getDetailHref()}>Add</button>
+			;
 	}
 });
