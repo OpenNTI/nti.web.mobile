@@ -43,10 +43,6 @@ var CommentForm = React.createClass({
 		return this.refs.editor.getValue();
 	},
 
-	componentDidMount: function() {
-		this.getDOMNode().scrollIntoView(false);
-	},
-
 	_success: function() {
 		this.setState({
 			busy: false,
