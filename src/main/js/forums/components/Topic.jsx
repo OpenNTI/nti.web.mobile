@@ -23,8 +23,6 @@ import Err from 'common/components/Error';
 var t = require('common/locale').scoped('FORUMS');
 import ActionLinks from './ActionLinks';
 var {EDIT, DELETE} = ActionLinks;
-// import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
-
 
 // mixins
 import StoreEvents from 'common/mixins/StoreEvents';
