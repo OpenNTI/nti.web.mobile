@@ -26,5 +26,10 @@ export default {
 
 	getCatalog () {
 		return CatalogStore.getData();
+	},
+
+
+	setPageSourceData (pageSource) {
+		CatalogStore.setActivePageSource(pageSource);
 	}
 };

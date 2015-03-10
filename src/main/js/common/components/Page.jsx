@@ -9,7 +9,7 @@ export default React.createClass({
 	mixins: [WantsPageSource],
 
 	propTypes: {
-		pageContent: React.PropTypes.func.isRequired
+		pageContent: React.PropTypes.any
 	},
 
 

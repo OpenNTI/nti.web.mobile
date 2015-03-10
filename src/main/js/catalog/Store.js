@@ -39,6 +39,16 @@ class Store extends StorePrototype {
 
 		return entry;
 	}
+
+
+	setActivePageSource (ps) {
+		this.pageSource = ps;
+	}
+
+
+	getPageSource () {
+		return this.pageSource;
+	}
 }
 
 export default new Store();

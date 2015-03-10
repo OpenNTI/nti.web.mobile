@@ -5,6 +5,8 @@ import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 import NotFound from 'notfound/components/View';
 import Loading from 'common/components/Loading';
 
+import HasPageSource from 'common/mixins/HasPageSource';
+
 import Store from '../Store';
 
 import Detail from './Detail';
@@ -12,7 +14,8 @@ import EnrollButton from './EnrollButton';
 
 
 export default React.createClass({
-	displayName: 'CatalogEntryDetail',
+	displayName: 'EntryDetail',
+	mixins: [HasPageSource],
 
 	propTypes: {
 		entryId: React.PropTypes.string,
@@ -47,10 +50,17 @@ export default React.createClass({
 
 		entry = loading ? null : entry;
 
+		this.setPageSource(Store.getPageSource(), entryId);
+
 		this.setState({
 			loading: loading,
 			entry: entry
 		});
+	},
+
+
+	makeHref () {
+		debugger;
 	},
 
 

@@ -1,27 +1,51 @@
 import React from 'react';
 
 import Filter from 'common/components/CollectionFilter';
-
-import Item from './Entry';
+import PageSource from 'dataserverinterface/models/ListBackedPageSource';
 
 import filters from 'library/Filters';
 
+import Item from './Entry';
+import CatalogAccessor from '../mixins/CatalogAccessor';
 
 const ListView = React.createClass({
-	render () {
+	mixins: [CatalogAccessor],
 
-		if (!this.props.list.map) {
+	getInitialState () {
+		return {sections: []};
+	},
+
+	componentDidMount () {
+		this.setList(this.props);
+	},
+
+	componentWillReceiveProps (props) {
+		this.setList(props);
+	},
+
+
+	setList (props) {
+		let {filter, list} = props;
+
+		if (!list.map) {
 			console.warn('this.props.list doesn\'t have a map function? %O', this.props.list);
 			return null;
 		}
-
-		let {filter, list} = this.props;
 
 		let sections = [{items:list, label: ''}];
 
 		if (filter && filter.split) {
 			sections = filter.split(list);
 		}
+
+		this.setState({sections});
+		this.setPageSourceData(new PageSource(list));
+	},
+
+
+	render () {
+
+		let {sections} = this.state;
 
 		return (
 			<div>

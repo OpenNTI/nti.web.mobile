@@ -1,11 +1,11 @@
 import React from 'react';
 
 import Collection from './Collection';
-import CatalogEntryDetail from './CatalogEntryDetail';
+import EntryDetail from './EntryDetail';
 
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
-import NavigationBar from 'navigation/components/Bar';
+import Page from 'common/components/Page';
 
 import BasePathAware from 'common/mixins/BasePath';
 
@@ -38,44 +38,47 @@ export default React.createClass({
 	render () {
         let catalog = this.getCatalog();
 
-        // console.log('CatalogView.props: %O',this.props);
+		return (
+			<Page title="Catalog" contextProvider={this._getContext}>
 
+				{!catalog? <Loading/> : this.renderPageContent(catalog)}
 
-        return (
-			<div>
-				<NavigationBar title="Catalog" contextProvider={this.getContext}/>
-				{!catalog ?
-					<Loading/> :
-					<Locations contextual={true} ref="router">
-						<Location
-							ref="enrollment"
-							path="/item/:entryId/enrollment(/*)"
-							handler={Enrollment}
-						/>
-			            <Location
-			                path="/item/:entryId(/*)"
-			                handler={CatalogEntryDetail}
-			            />
-			            <Location
-			                path="*"
-			                handler={Collection}
-			                list={catalog}
-			                section="catalog"
-			            />
-				</Locations>
-			}
-			</div>
+			</Page>
         );
 	},
 
 
-	getContext () {
+	renderPageContent (catalog) {
+		return (
+			<Locations contextual ref="router">
+				<Location
+					ref="enrollment"
+					path="/item/:entryId/enrollment(/*)"
+					handler={Enrollment}
+				/>
+				<Location
+					path="/item/:entryId(/*)"
+					handler={EntryDetail}
+				/>
+				<Location
+					path="*"
+					handler={Collection}
+					list={catalog}
+					section="catalog"
+				/>
+		</Locations>
+		);
+	},
+
+
+	_getContext () {
+		let path = this.getBasePath();
 		return Promise.resolve([{
 			label: 'Library',
-			href: this.getBasePath() + 'library/'
+			href: path + 'library/'
 		},{
 			label: 'Catalog',
-			href: location.href
+			href: path + 'catalog/'
 		}]);
 	}
 });
