@@ -129,7 +129,9 @@ $indent: 0.9375rem;
 	}
 
 	.forum-list {
-		padding-left: $indent;
+		.forum-item {
+			padding-left: $indent;	
+		}
 	}
 
 	%group-heading {
