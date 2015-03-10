@@ -21,7 +21,11 @@ export default React.createClass({
 
 	componentDidMount () { fillIn(this, this.props); },
 
-	componentWillReceiveProps (nextProps) { fillIn(this, nextProps); },
+	componentWillReceiveProps (nextProps) {
+		if (this.props.username !== nextProps.username) {
+			fillIn(this, nextProps);
+		}
+	},
 
 	render () {
 		var Tag = this.props.tag || 'span';

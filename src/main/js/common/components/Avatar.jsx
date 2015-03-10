@@ -21,7 +21,11 @@ export default React.createClass({
 	},
 
 	componentWillMount () { fillIn(this, this.props); },
-	componentWillReceiveProps (nextProps) { fillIn(this, nextProps); },
+	componentWillReceiveProps (nextProps) {
+		if (this.props.username !== nextProps.username) {
+			fillIn(this, nextProps);
+		}
+	},
 
 
 	setUnknown () {
@@ -34,12 +38,13 @@ export default React.createClass({
 
 
 	render () {
+		var {avatar} = this.state;
 		var {username, className} = this.props;
 		var css = className || '';
 
 		var props = Object.assign({}, this.props, {
 			'data-for': username,
-			src: this.state.avatar,
+			src: avatar,
 			alt: 'Avatar for ' + username,
 			onError: this.setUnknown,
 			className: `avatar ${css}`
