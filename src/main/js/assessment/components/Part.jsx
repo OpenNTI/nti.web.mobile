@@ -5,10 +5,13 @@ import Content from './Content';
 import WordBank from './WordBank';
 
 import Store from '../Store';
-import Constants from '../Constants';
+import {
+	HELP_VIEW_HINT,
+	HELP_VIEW_SOLUTION
+} from '../Constants';
 
-import InputTypes from './input-types';
-import SolutionTypes from './solution-types';
+import {getInputWidget} from './input-types';
+import {getSolutionWidget} from './solution-types';
 
 export default React.createClass({
 	displayName: 'Part',
@@ -64,7 +67,7 @@ export default React.createClass({
 		}
 
 		this.setState({
-			helpVisible: Constants.HELP_VIEW_SOLUTION,
+			helpVisible: HELP_VIEW_SOLUTION,
 		});
 	},
 
@@ -78,7 +81,7 @@ export default React.createClass({
 		let hintCount = (Store.getHints(this.props.part) || []).length;
 
 		this.setState({
-			helpVisible: Constants.HELP_VIEW_HINT,
+			helpVisible: HELP_VIEW_HINT,
 			activeHint: (this.state.activeHint + 1) % hintCount
 		});
 	},
@@ -114,7 +117,7 @@ export default React.createClass({
 				)}
 				<div ref="container">
 					<div className={css}>
-						{InputTypes.select(part, index)}
+						{getInputWidget(part, index)}
 					</div>
 					{
 						helpVisible ?
@@ -130,6 +133,7 @@ export default React.createClass({
 	renderHelpButton (label) {
 		let {part} = this.props;
 		let isSubmitted = part && Store.isSubmitted(part);
+		let isAdministrative = part && Store.isAdministrative(part);
 		let hints = part && Store.getHints(part);
 		let solution = part && Store.getSolution(part);
 		let handler = null;
@@ -137,16 +141,16 @@ export default React.createClass({
 		if (this.state.helpVisible) {
 			handler = this.onCloseHelp;
 		}
-		else if (!isSubmitted) {
-			if (hints) {
+		else {
+			//Submitted AND solution...
+			if (solution && (isSubmitted || isAdministrative)) {
+				handler = this.onShowSolution;
+				label = 'Show Solution';
+			}
+			else if (hints) {
 				handler = this.onShowHint;
 				label = 'Show Hint';
 			}
-		}
-		//Submitted AND solution...
-		else if (solution) {
-			handler = this.onShowSolution;
-			label = 'Show Solution';
 		}
 
 		return !handler ? null : (
@@ -158,15 +162,14 @@ export default React.createClass({
 
 
 	renderHelpView () {
-		switch(this.state.helpVisible) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.HELP_VIEW_HINT:
-				return this.renderHint();
+		let map = {
+			[HELP_VIEW_HINT]: this.renderHint,
+			[HELP_VIEW_SOLUTION]: this.renderSolution
+		};
 
-			case Constants.HELP_VIEW_SOLUTION:
-				return this.renderSolution();
-
-			default: return null;
+		let handler = map[this.state.helpVisible];
+		if (handler) {
+			return handler();
 		}
 	},
 
@@ -191,7 +194,8 @@ export default React.createClass({
 		return (
 			<div className="part-help solution">
 				<a href="#" className="close" onClick={this.onCloseHelp}>x</a>
-				{SolutionTypes.select(part, index)}
+				{getSolutionWidget(part, index)}
+
 				{this.renderHelpButton('Hide Solution')}
 			</div>
 		);
