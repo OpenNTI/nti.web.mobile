@@ -10,7 +10,7 @@ import Loading from 'common/components/Loading';
 //import ErrorWidget from 'common/components/Error';
 
 import StoreEvents from 'common/mixins/StoreEvents';
-import HasPageSource from 'common/mixins/HasPageSource';
+import ContextSender from 'common/mixins/ContextSender';
 
 import Pager from 'common/components/Pager';
 
@@ -39,7 +39,7 @@ export default React.createClass({
 		Interactions,
 		AssessmentFeature,
 		RouterMixin,
-		HasPageSource
+		ContextSender
 	],
 	displayName: 'Viewer',
 

@@ -12,7 +12,7 @@ import {addClass, removeClass} from 'common/utils/dom';
 
 import LoadingMask from 'common/components/Loading';
 
-import HasPageSource from 'common/mixins/HasPageSource';
+import ContextSender from 'common/mixins/ContextSender';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
@@ -23,7 +23,7 @@ import Transcript from './Transcript';
 
 export default React.createClass({
 	displayName: 'TranscriptedVideo',
-	mixins: [HasPageSource, NavigatableMixin, SetStateSafely],
+	mixins: [ContextSender, NavigatableMixin, SetStateSafely],
 
 
 	getInitialState () {

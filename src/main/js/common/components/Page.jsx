@@ -1,12 +1,12 @@
 import React from 'react';
 
-import WantsPageSource from '../mixins/WantsPageSource';
+import ContextReciever from '../mixins/ContextReciever';
 
 import NavigationBar from 'navigation/components/Bar';
 
 export default React.createClass({
 	displayName: 'Page',
-	mixins: [WantsPageSource],
+	mixins: [ContextReciever],
 
 	propTypes: {
 		pageContent: React.PropTypes.any
@@ -14,8 +14,8 @@ export default React.createClass({
 
 
 	render () {
-		let {pageSource, currentPage, navigatableContext} = this.state || {};
 		let {title, pageContent, children} = this.props;
+		let state = this.state || {};
 		let Content = pageContent;
 
 		let props = Object.assign({}, this.props, {
@@ -24,20 +24,15 @@ export default React.createClass({
 			title: null
 		});
 
-		if (!Content) {
-			Content = 'div';
-			props.children = children;
-		}
-
 		return (
 			<div>
-				<NavigationBar {...this.props}
-					title={title}
-					pageSource={pageSource}
-					currentPage={currentPage}
-					navigatableContext={navigatableContext}
-					/>
-				<Content {...props}/>
+				<NavigationBar {...this.props} {...state}
+					title={title} />
+				{Content ?
+					<Content {...props}/>
+					:
+					children
+				}
 			</div>
 		);
 	}

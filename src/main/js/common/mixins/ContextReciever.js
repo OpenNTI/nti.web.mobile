@@ -5,12 +5,12 @@ export default {
 	mixins: [SetStateSafely],
 
 	childContextTypes: {
-		hasPages: React.PropTypes.func
+		navigationContext: React.PropTypes.func
 	},
 
 	getChildContext () {
 		return {
-			hasPages: this.setPageSource
+			navigationContext: this.setNavigationContext
 		};
 	},
 
@@ -20,7 +20,7 @@ export default {
 	},
 
 
-	setPageSource (pageSource, currentPage, navigatableContext) {
+	setNavigationContext (pageSource, currentPage, navigatableContext) {
 		this.setStateSafely({pageSource, currentPage, navigatableContext});
 	}
 };

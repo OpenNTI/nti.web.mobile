@@ -113,8 +113,6 @@ export default React.createClass({
 
 	propTypes: {
 		branding: React.PropTypes.bool,
-		//this context is not the same as the component's `this.context`
-		contextProvider: React.PropTypes.func,
 		menuItems: React.PropTypes.arrayOf(React.PropTypes.shape({
 			label: React.PropTypes.string,
 			href: React.PropTypes.string
@@ -144,14 +142,12 @@ export default React.createClass({
 
 
 	fillIn (props) {
-		let {navigatableContext, contextProvider} = props;
+		let {navigatableContext} = props;
 		let nc = navigatableContext || {};
-		let moreSpecificContext = (nc.props || {}).contextProvider;
-		let mostSpecificContext = nc.getContext;
+
 		let resolve = Promise.resolve();
 
-		let getContext = mostSpecificContext || moreSpecificContext || contextProvider;
-
+		let getContext = (nc.context || {}).contextProvider;
 
 		if (getContext) {
 			let p = nc.props || props;

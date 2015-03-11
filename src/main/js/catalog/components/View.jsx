@@ -1,23 +1,26 @@
 import React from 'react';
 
+import {Locations, Location} from 'react-router-component';
+
 import Collection from './Collection';
 import EntryDetail from './EntryDetail';
 
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
-import Page from 'common/components/Page';
 
+import ContextReciever from 'common/mixins/ContextReciever';
 import BasePathAware from 'common/mixins/BasePath';
 
 import Loading from 'common/components/Loading';
-
-import {Locations, Location} from 'react-router-component';
+import NavigationBar from 'navigation/components/Bar';
 
 import Enrollment from 'enrollment/components/View';
 
+
+
 export default React.createClass({
 	displayName: 'CatalogView',
-	mixins: [CatalogAccessor, BasePathAware],
+	mixins: [CatalogAccessor, BasePathAware, ContextReciever],
 
 
 	shouldComponentUpdate (_, newState) {
@@ -39,11 +42,10 @@ export default React.createClass({
         let catalog = this.getCatalog();
 
 		return (
-			<Page title="Catalog" contextProvider={this._getContext}>
-
+			<div>
+				<NavigationBar title="Catalog" contextProvider={this.getContext} {...this.state} />
 				{!catalog? <Loading/> : this.renderPageContent(catalog)}
-
-			</Page>
+			</div>
         );
 	},
 
@@ -71,7 +73,7 @@ export default React.createClass({
 	},
 
 
-	_getContext () {
+	getContext () {
 		let path = this.getBasePath();
 		return Promise.resolve([{
 			label: 'Library',

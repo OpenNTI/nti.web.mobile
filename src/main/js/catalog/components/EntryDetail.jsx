@@ -5,7 +5,7 @@ import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 import NotFound from 'notfound/components/View';
 import Loading from 'common/components/Loading';
 
-import HasPageSource from 'common/mixins/HasPageSource';
+import ContextSender from 'common/mixins/ContextSender';
 
 import Store from '../Store';
 
@@ -15,7 +15,7 @@ import EnrollButton from './EnrollButton';
 
 export default React.createClass({
 	displayName: 'EntryDetail',
-	mixins: [HasPageSource],
+	mixins: [ContextSender],
 
 	propTypes: {
 		entryId: React.PropTypes.string,
@@ -60,7 +60,7 @@ export default React.createClass({
 
 
 	makeHref () {
-		debugger;
+		console.error(arguments);
 	},
 
 
