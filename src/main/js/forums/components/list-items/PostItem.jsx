@@ -10,7 +10,7 @@ import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 import {Panel as ModeledContentPanel} from 'modeled-content';
 
-import Loading from 'common/components/LoadingInline';
+import Loading from 'common/components/TinyLoader';
 import CommentForm from '../CommentForm';
 import ActionLinks from '../ActionLinks';
 

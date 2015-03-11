@@ -5,7 +5,7 @@ import {Editor} from 'modeled-content';
 import PanelButton from 'common/components/PanelButton';
 import Notice from 'common/components/Notice';
 import OkCancelButtons from 'common/components/OkCancelButtons';
-import Loading from 'common/components/LoadingInline';
+import Loading from 'common/components/TinyLoader';
 import Actions from '../Actions';
 import Store from '../Store';
 import {COMMENT_ADDED, COMMENT_SAVED, COMMENT_ERROR} from '../Constants';
