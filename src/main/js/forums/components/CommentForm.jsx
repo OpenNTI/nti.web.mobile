@@ -79,7 +79,7 @@ var CommentForm = React.createClass({
 			canSubmit: (newValue && newValue.length > 0)
 		});
 	},
- 
+
 	render: function() {
 
 		if (this.state.busy) {
@@ -91,12 +91,19 @@ var CommentForm = React.createClass({
 		}
 
 		var savefunc = this.props.editItem ? this._save.bind(this, this.props.editItem) : this._addComment;
-		var buttons = <OkCancelButtons onOk={savefunc} okEnabled={this.state.canSubmit} onCancel={this.props.onCancel} okText={t('editorOkButton')} />;
+		var buttons = <OkCancelButtons
+							onOk={savefunc}
+							okEnabled={this.state.canSubmit}
+							onCancel={this.props.onCancel}
+							okText={t('editorOkButton')}
+						/>;
+
 		var value = (this.props.editItem||{}).body;
 
 		return (
-			<PanelButton className="comment-form" linkText='Submit' button={buttons}>
+			<PanelButton className="comment-form" linkText='Submit' button={buttons} id={this.props.id}>
 				{this.state.error && <Notice className="err">{this.state.error.message||'An error occurred.'}</Notice>}
+				<div className="comment-form-heading">{t('addComment')}</div>
 				<Editor ref='editor'
 					onChange={this._bodyChange}
 					value={value} />

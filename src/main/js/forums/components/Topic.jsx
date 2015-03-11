@@ -6,7 +6,7 @@ import Store from '../Store';
 import AnalyticsStore from 'analytics/Store';
 import Actions from '../Actions';
 import Api from '../Api';
-import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED, TOPIC} from '../Constants';
+import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID} from '../Constants';
 import {TOPIC_VIEWED} from 'dataserverinterface/models/analytics/MimeTypes';
 import NTIID from 'dataserverinterface/utils/ntiids';
 
@@ -203,7 +203,6 @@ module.exports = React.createClass({
 		var topic = this._topic();
 		var topicContents = Store.getObjectContents(this.props.topicId);
 		var numComments = topicContents.TotalItemCount;
-		var linksClasses = {replies: []};
 
 		var Tag = this.state.editing ? TopicEditor : TopicHeadline;
 
@@ -219,19 +218,19 @@ module.exports = React.createClass({
 				/>
 				<ActionLinks
 					item={topic}
-					replyText={t('addComment')}
+					canReply={true}
 					numComments={numComments}
-					cssClasses={linksClasses}
 					clickHandlers={this._actionClickHandlers()} />
 
 				<TopicComments container={topicContents} topic={topic} />
 
 				<CommentForm key="commentForm"
-					ref='commentForm'
-					onCompletion={this._hideCommentForm}
-					topic={topic}
-					parent={topic.parent()}
-				/>
+						ref={COMMENT_FORM_ID}
+						id={COMMENT_FORM_ID}
+						onCompletion={this._hideCommentForm}
+						topic={topic}
+						parent={topic.parent()} />
+
 			</div>
 		);
 	}

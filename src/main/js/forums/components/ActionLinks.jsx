@@ -7,6 +7,9 @@ var ReportLink = require('./ReportLink');
 var nsKeyMirror = require('dataserverinterface/utils/namespaced-key-mirror');
 var {isFlag} = require('common/utils');
 
+import ScrollLink from './ScrollLink';
+import {COMMENT_FORM_ID} from '../Constants';
+
 var ActionLinks = React.createClass({
 
 	statics: nsKeyMirror('actionlink.handlers', {
@@ -35,11 +38,9 @@ var ActionLinks = React.createClass({
 		var canEdit =  isFlag('canEditForumPost') && item.hasLink('edit');
 		var canDelete =  item.hasLink('edit');
 		var canReport = item.hasLink('flag')||item.hasLink('flag.metoo');
-		// var canReply = !item.Deleted;
+		var canReply = !item.Deleted && this.props.canReply;
 
 		var {numComments} = this.props;
-
-		// var RepliesToggleTag = numComments > 0 ? "a" : "span";
 
 		var repliesClasses = numComments > 0 ? ['disclosure-triangle'] : [];
 		repliesClasses.push.apply(repliesClasses, this.props.cssClasses.replies);
@@ -47,6 +48,11 @@ var ActionLinks = React.createClass({
 
 		return (
 			<ul key="control-links" className="action-links">
+				{canReply &&
+					<li key="reply-link">
+						<ScrollLink componentId={COMMENT_FORM_ID}>{t('addComment')}</ScrollLink>
+					</li>
+				}
 				{canEdit &&
 					<li key="edit-link">
 						<a onClick={clickHandlers[ActionLinks.EDIT]}>{t('editComment')}</a>

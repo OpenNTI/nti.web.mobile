@@ -32,3 +32,4 @@ export const REPORT_ITEM = Symbol('forums:REPORT_ITEM');
 export const SAVE_COMMENT = Symbol('forums:SAVE_COMMENT');
 export const TOPIC_CREATED = Symbol('forums:TOPIC_CREATED');
 export const TOPIC_CREATION_ERROR = Symbol('forums:TOPIC_CREATION_ERROR');
+export const COMMENT_FORM_ID = 'commentForm';
