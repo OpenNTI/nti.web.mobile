@@ -1,6 +1,6 @@
-import React from 'react';
-import Router from 'react-router-component';
 import {join} from 'path';
+
+import Awareness from './NavigationAware';
 
 
 /**
@@ -10,24 +10,7 @@ import {join} from 'path';
  * navigate to a deeper route, or to a different route
  */
 export default {
-
-	contextTypes: {
-		router: React.PropTypes.any
-	},
-
-
-	getNavigable () {
-		let {environment} = this.props;
-		if (environment) {
-			return environment;
-		}
-
-		return this.context.router || Router.environment.defaultEnvironment;
-	},
-
-
-	getPath () { return this.getNavigable().getPath(); },
-
+	mixins: [Awareness],
 
 	makeHref (path, includeCurrentRoute) {
 		let n = this.getNavigable();
