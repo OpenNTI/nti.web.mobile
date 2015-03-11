@@ -9,6 +9,7 @@ import CatalogAccessor from '../mixins/CatalogAccessor';
 
 
 import ContextReciever from 'common/mixins/ContextReciever';
+import ContextSender from 'common/mixins/ContextSender';
 import BasePathAware from 'common/mixins/BasePath';
 
 import Loading from 'common/components/Loading';
@@ -17,10 +18,8 @@ import NavigationBar from 'navigation/components/Bar';
 import Enrollment from 'enrollment/components/View';
 
 
-
-export default React.createClass({
-	displayName: 'CatalogView',
-	mixins: [CatalogAccessor, BasePathAware, ContextReciever],
+let CatalogBody = React.createClass({
+	mixins: [BasePathAware, ContextSender],
 
 
 	shouldComponentUpdate (_, newState) {
@@ -39,18 +38,7 @@ export default React.createClass({
 
 
 	render () {
-        let catalog = this.getCatalog();
-
-		return (
-			<div>
-				<NavigationBar title="Catalog" contextProvider={this.getContext} {...this.state} />
-				{!catalog? <Loading/> : this.renderPageContent(catalog)}
-			</div>
-        );
-	},
-
-
-	renderPageContent (catalog) {
+		let {catalog} = this.props;
 		return (
 			<Locations contextual ref="router">
 				<Location
@@ -83,4 +71,28 @@ export default React.createClass({
 			href: path + 'catalog/'
 		}]);
 	}
+});
+
+
+export default React.createClass({
+	displayName: 'CatalogView',
+	mixins: [CatalogAccessor, ContextReciever],
+
+
+	render () {
+        let catalog = this.getCatalog();
+		let {pageSource, currentPage, navigatableContext} = this.state || {};
+
+		let nav = {
+			pageSource, currentPage,
+			navigatableContext: navigatableContext || this
+		};
+
+		return (
+			<div>
+				<NavigationBar title="Catalog" {...nav} />
+				{!catalog? <Loading/> : <CatalogBody catalog={catalog}/>}
+			</div>
+        );
+	},
 });

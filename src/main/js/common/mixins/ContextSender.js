@@ -1,12 +1,12 @@
 import React from 'react';
 
 const GetContext = 'context:provider:get-local';
-const ResolveContext = 'context:provider:resolve';
 
 export default {
 
 	contextTypes: {
 		navigationContext: React.PropTypes.func.isRequired,
+		hasPages: React.PropTypes.func.isRequired,
 		contextProvider: React.PropTypes.func
 	},
 
@@ -18,7 +18,7 @@ export default {
 
 	getChildContext () {
 		return {
-			contextProvider: this[ResolveContext]
+			contextProvider: this.resolveContext
 		};
 	},
 
@@ -30,7 +30,7 @@ export default {
 	},
 
 
-	[ResolveContext] () {
+	resolveContext () {
 		let getParentContext = this.context.contextProvider;
 		let getContext = this[GetContext];
 
@@ -53,17 +53,23 @@ export default {
 			console.error('Missing getContext implementation');
 		}
 
-		this.setPageSource();
-	},
-
-
-	setPageSource (pageSource, currentPage) {
 		let {navigationContext} = this.context;
 		if (!navigationContext) {
 			console.error('Expected a context method "navigationContext", but it does not exist.');
 			return;
 		}
 
-		navigationContext(pageSource, currentPage, this);
+		navigationContext(this);
+	},
+
+
+	setPageSource (pageSource, currentPage) {
+		let {hasPages} = this.context;
+		if (!hasPages) {
+			console.error('Expected a context method "hasPages", but it does not exist.');
+			return;
+		}
+
+		hasPages(pageSource, currentPage, this);
 	}
 };

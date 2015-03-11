@@ -147,11 +147,10 @@ export default React.createClass({
 
 		let resolve = Promise.resolve();
 
-		let getContext = (nc.context || {}).contextProvider;
+		let getContext = nc.resolveContext || nc.getContext;
 
 		if (getContext) {
-			let p = nc.props || props;
-			resolve = getContext(p);
+			resolve = getContext();
 		}
 
 		resolve.then(x=>

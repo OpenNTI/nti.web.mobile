@@ -1,16 +1,21 @@
 import React from 'react';
 import SetStateSafely from './SetStateSafely';
 
+const SetContext = 'context:set';
+const SetPageSource = 'context:set:pagesource';
+
 export default {
 	mixins: [SetStateSafely],
 
 	childContextTypes: {
-		navigationContext: React.PropTypes.func
+		navigationContext: React.PropTypes.func,
+		hasPages: React.PropTypes.func
 	},
 
 	getChildContext () {
 		return {
-			navigationContext: this.setNavigationContext
+			navigationContext: this[SetContext],
+			hasPages: this[SetPageSource]
 		};
 	},
 
@@ -20,7 +25,12 @@ export default {
 	},
 
 
-	setNavigationContext (pageSource, currentPage, navigatableContext) {
+	[SetContext] (navigatableContext) {
+		this.setStateSafely({navigatableContext});
+	},
+
+
+	[SetPageSource] (pageSource, currentPage, navigatableContext) {
 		this.setStateSafely({pageSource, currentPage, navigatableContext});
 	}
 };
