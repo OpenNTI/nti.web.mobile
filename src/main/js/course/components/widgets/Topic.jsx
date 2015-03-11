@@ -5,6 +5,12 @@ import {encodeForURI} from 'dataserverinterface/utils/ntiids';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
+/**
+ * This is not to be confused with Forum topics.
+ * The "Topic" here references the <topic> tag in the legacy ToC xml.
+ * This is is just a flat link to content.
+ */
+
 export default React.createClass({
 	displayName: 'CourseOverviewTopic',
 	mixins: [NavigatableMixin],
