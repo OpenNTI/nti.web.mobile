@@ -4,17 +4,18 @@ import webpackConfigFile from '../../../webpack.config';
 
 import logger from './logger';
 
-export function setupDeveloperMode(port) {
+export function setupDeveloperMode(config) {
+	let port = config.port;
+	let devPort = config['webpack-dev-server'] || (port + 1);
 
-
-	var webpackConfig = Object.assign({}, webpackConfigFile[0]);
+	let webpackConfig = Object.assign({}, webpackConfigFile[0]);
 
 	webpackConfig.output.path = '/';
 	webpackConfig.output.publicPath = '/mobile/';
 	webpackConfig.output.filename = 'js/main.js';
 	webpackConfig.entry = './src/main/js/index.js';
 
-	var webpackServer = new WebpackServer(webpack(webpackConfig), {
+	let webpackServer = new WebpackServer(webpack(webpackConfig), {
 		contentBase: port,
 		//hot: true,
 
@@ -48,18 +49,17 @@ export function setupDeveloperMode(port) {
 		}
 	});
 
-	port += 1;
 
 	return {
 		middleware: webpackServer.middleware,
 		entry: webpackConfig.output.filename,
 		start: () => {
-			webpackServer.listen(port, 'localhost', err => {
+			webpackServer.listen(devPort, 'localhost', err => {
 				if (err) {
 					logger.error(err);
 				}
 
-				logger.info('WebPack Dev Server listening on port %d', port);
+				logger.info('WebPack Dev Server listening on port %d', devPort);
 			});
 		}
 	};

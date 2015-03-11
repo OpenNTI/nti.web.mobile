@@ -22,7 +22,7 @@ const manifest = /\.appcache$/i;
 
 
 export function setupApplication(app, config) {
-	var port = config.port || 9000;
+	var port = config.port = (config.port || 9000);
 	//config.silent = true;
 	var dsi = dataserver(config);
 	var session = dsi.session;
@@ -31,6 +31,7 @@ export function setupApplication(app, config) {
 	var entryPoint = generated.entryPoint;
 	var assetPath = path.join(__dirname, '../..', entryPoint ? 'client' : 'main');
 	logger.info('Static Assets: %s',assetPath);
+	logger.info('DataServer end-point: %s', config.server);
 	var page = generated.page;
 	var devmode;
 
@@ -41,7 +42,7 @@ export function setupApplication(app, config) {
 	redirects.register(app, config);
 
 	if (entryPoint==null) {//only start the dev server if entryPoint is null or undefined. if its false, skip.
-		devmode = setupDeveloperMode(port);
+		devmode = setupDeveloperMode(config);
 		entryPoint = devmode.entry;
 		page = pageSource();
 		app.use(devmode.middleware);//serve in-memory compiled sources/assets
