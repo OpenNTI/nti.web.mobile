@@ -104,7 +104,7 @@ export default React.createClass({
 		let getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
 		let href = this.makeHref(this.getPath());
 		let itemId = this._itemId();
-		let title = 'Post';
+		let title = ViewHeader.headerTextForType(POST);
 		return getContextProvider().then(context => {
 			context.push({
 				ntiid: itemId,

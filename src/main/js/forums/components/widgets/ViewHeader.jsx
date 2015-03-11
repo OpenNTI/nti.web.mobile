@@ -12,6 +12,13 @@ const localeKeys = {
 	[POST]: 'post'
 };
 
+
+function headerTextForType(localeKey) {
+	let k = localeKeys[localeKey] || 'unknown';
+	let headerText = t(k, {fallback: ' '});
+	return headerText;
+}
+
 export default React.createClass({
 	displayName: 'ViewHeader',
 
@@ -24,11 +31,16 @@ export default React.createClass({
 		]).isRequired
 	},
 
+	statics: {
+		headerTextForType(localeKey) {
+			return headerTextForType(localeKey);
+		}
+	},
+
 	render () {
-		let k = localeKeys[this.props.type] || 'unknown';
-		let headerText = t(k, {fallback: ' '});
+		let headerText = headerTextForType(this.props.type);
 		if ((headerText || '').trim().length === 0 ) {
-			console.warn('No view-header entry in locale/forums for type: %s, (key: %s)', this.props.type, k);
+			console.warn('No view-header entry in locale/forums for type: %s', this.props.type);
 			return null;
 		}
 		return (
