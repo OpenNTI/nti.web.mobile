@@ -15,7 +15,7 @@ let Replies = React.createClass({
 
 	propTypes: {
 		topic: React.PropTypes.object.isRequired,
-		listComponent: React.PropTypes.object.isRequired // passed in as a prop to dodge circular import of List
+		listComponent: React.PropTypes.func.isRequired // passed in as a prop to dodge circular import of List
 	},
 
 	backingStore: Store,
@@ -68,7 +68,7 @@ let Replies = React.createClass({
 
 	_getReplies: function(reload) {
 		let {item} = this.props;
-		if (item.ReferencedByCount === 0 && !reload) {
+		if (!item || (item.ReferencedByCount === 0 && !reload)) {
 			return;
 		}
 		Actions.getCommentReplies(item);
