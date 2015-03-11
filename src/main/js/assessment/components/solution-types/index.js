@@ -1,44 +1,52 @@
-'use strict';
-var React = require('react');
+import React from 'react';
 
-var Unknown = require('./Unknown');
-
-exports = module.exports = {
-	Solution: require('./String'),
-	Unknown: Unknown, //Unknown for future items.
-
-	MultipleChoice: require('./MultipleChoice'),
-
-	// NumericMath: require('./NumericMath'),
-	// SymbolicMath: require('./SymbolicMath'),
-
-	Matching: require('./Matching'),
-	Ordering: require('./Ordering'),
-
-	FillInTheBlankShortAnswer: require('./FillInTheBlankShortAnswer'),
-	FillInTheBlankWithWordBank: require('./FillInTheBlankWithWordBank'),
+import Unknown from './Unknown';
 
 
-	select: function(part, index) {
-		var Item = Unknown, Type, key;
+import Solution from './String';
 
-		for (key in exports) {
-			if (exports.hasOwnProperty(key)) {
-				Type = exports[key];
-				if (Type !== Unknown && Type.handles && Type.handles(part)) {
-					Item = Type;
-					break;
-				}
-			}
+import MultipleChoice from './MultipleChoice';
+
+// import NumericMath from './NumericMath';
+// import SymbolicMath from './SymbolicMath';
+
+import Matching from './Matching';
+import Ordering from './Ordering';
+
+import FillInTheBlankShortAnswer from './FillInTheBlankShortAnswer';
+import FillInTheBlankWithWordBank from './FillInTheBlankWithWordBank';
+
+
+var KINDS = [
+	Unknown,
+	Solution,
+
+	MultipleChoice,
+
+	//NumericMath,
+	//SymbolicMath,
+
+	Matching,
+	Ordering,
+
+	FillInTheBlankShortAnswer,
+	FillInTheBlankWithWordBank
+];
+
+
+export function getSolutionWidget (item, index) {
+	var Item = Unknown;
+
+	for (let Type of KINDS) {
+		if (Type !== Unknown && Type.handles && Type.handles(item)) {
+			Item = Type;
+			break;
 		}
-
-		return React.createElement(Item,
-			{
-				ref: 'solution',
-				key: 'question-solution-' + index,
-				index: index,
-				item: part
-			});
 	}
 
-};
+	return React.createElement(Item, {
+		ref: 'solution',
+		key: 'question-solution-' + index,
+		index, item
+	});
+}

@@ -1,49 +1,52 @@
-'use strict';
-var React = require('react');
+import React from 'react';
 
-var Unknown = require('./Unknown');
+import Unknown from './Unknown';
+// import File from './File';
 
-exports = module.exports = {
-	Unknown: Unknown, //Unknown for future items.
+import FreeResponse from './FreeResponse';
+import ModeledContent from './ModeledContent';
 
-	// File: require('./File'),
+import MultipleChoice from './MultipleChoice';
+import MultipleChoiceMultipleAnswer from './MultipleChoiceMultipleAnswer';
 
-	FreeResponse: require('./FreeResponse'),
-	ModeledContent: require('./ModeledContent'),
+import NumericMath from './NumericMath';
+import SymbolicMath from './SymbolicMath';
 
-	MultipleChoice: require('./MultipleChoice'),
-	MultipleChoiceMultipleAnswer: require('./MultipleChoiceMultipleAnswer'),
+import Matching from './Matching';
+import Ordering from './Ordering';
 
-	NumericMath: require('./NumericMath'),
-	SymbolicMath: require('./SymbolicMath'),
-
-	Matching: require('./Matching'),
-	Ordering: require('./Ordering'),
-
-	FillInTheBlankShortAnswer: require('./FillInTheBlankShortAnswer'),
-	FillInTheBlankWithWordBank: require('./FillInTheBlankWithWordBank'),
+import FillInTheBlankShortAnswer from './FillInTheBlankShortAnswer';
+import FillInTheBlankWithWordBank from './FillInTheBlankWithWordBank';
 
 
-	select: function(part, index) {
-		var Item = Unknown, Type, key;
+var KINDS = [
+	Unknown,
+	// File,
+	FreeResponse,
+	ModeledContent,
+	MultipleChoice,
+	MultipleChoiceMultipleAnswer,
+	NumericMath,
+	Matching,
+	Ordering,
+	SymbolicMath,
+	FillInTheBlankShortAnswer,
+	FillInTheBlankWithWordBank
+];
 
-		for (key in exports) {
-			if (exports.hasOwnProperty(key)) {
-				Type = exports[key];
-				if (Type !== Unknown && Type.handles && Type.handles(part)) {
-					Item = Type;
-					break;
-				}
-			}
+export function getInputWidget (item, index) {
+	var Item = Unknown;
+
+	for (let Type of KINDS) {
+		if (Type !== Unknown && Type.handles && Type.handles(item)) {
+			Item = Type;
+			break;
 		}
-
-		return React.createElement(Item,
-			{
-				ref: 'input',
-				key: 'question-input-' + index,
-				index: index,
-				item: part
-			});
 	}
 
-};
+	return React.createElement(Item, {
+		ref: 'input',
+		key: 'question-input-' + index,
+		index, item
+	});
+}
