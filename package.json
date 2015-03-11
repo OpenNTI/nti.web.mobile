@@ -23,7 +23,7 @@
       "test": "grunt test"
   },
 
-  "main": "./dist/server/index.js",
+  "main": "./src/server/index.js",
   "bin": {
       "webapp-instance": "./src/server/index.js"
   },
