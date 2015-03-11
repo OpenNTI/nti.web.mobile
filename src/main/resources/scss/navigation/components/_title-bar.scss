@@ -53,9 +53,12 @@ section.right-small {
 
 .tab-bar-section {
 	.title {
-		position: relative;
-		overflow: hidden;
 		display: inline-block;
+		max-width: 50%;
+		overflow: hidden;
+		position: relative;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 		color: $primary-grey;
 
 		&.menu{
