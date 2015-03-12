@@ -1,3 +1,5 @@
+import logger from './logger';
+
 const map = {
 	'ou-alpha.nextthought.com': 'platform.ou.edu',
 	'ou-test.nextthought.com': 'platform.ou.edu',
@@ -7,8 +9,12 @@ const map = {
 	'learnonline.okstate.edu': 'okstate.nextthought.com'
 };
 
-
+const unknown = 'unknown';
 
 export default function getSite(site) {
-	return map[site] || site;
+	let s = map[site] || unknown;
+	if (s === unknown) {
+		logger.error('No site-mapping entry found for %s.', site);
+	}
+	return s;
 }

@@ -7,8 +7,8 @@ counterpart.registerTranslations('en', english);
 const siteName = getSiteName();
 const locale = counterpart.getLocale();
 
-if (siteName) {
-	console.debug('Site Locale: %s.%s',siteName, locale);
+if (siteName && siteName !== 'unknown') {
+	console.debug('Site Locale: %s.%s', siteName, locale);
 
 	let onceLoaded = translation => {
 		counterpart.registerTranslations(locale, translation);
@@ -22,7 +22,6 @@ if (siteName) {
 	//	.then(onceLoaded)
 	//	.catch(error=>...);
 }
-
 
 export function translate(...args) {
 	return counterpart(...args);
