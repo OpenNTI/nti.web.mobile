@@ -1,9 +1,7 @@
-import path from 'path';
-
-import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
-
 import React from 'react';
 import Router from 'react-router-component';
+
+import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 
 import NotFound from 'notfound/components/View';
 
@@ -13,6 +11,7 @@ import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
 
 import BasePathAware from 'common/mixins/BasePath';
+import ContextContributor from 'common/mixins/ContextContributor';
 import StoreEventAware from 'common/mixins/StoreEvents';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
@@ -41,7 +40,7 @@ const ROUTES = [
 
 export default React.createClass({
 	displayName: 'CourseView',
-	mixins: [BasePathAware, StoreEventAware, SetStateSafely],
+	mixins: [BasePathAware, ContextContributor, StoreEventAware, SetStateSafely],
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
@@ -101,57 +100,21 @@ export default React.createClass({
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route=>
 				route.path ?
-				<Router.Location {...route}
-
-					course={course}
-					contextProvider={this.getContext}
-					/> :
+				<Router.Location {...route} course={course}/> :
 				<Router.NotFound handler={Redirect} location="o/" />
 			));
 	},
 
 
-	/**
-	 * Resolves the current context given the props from the direct decendent
-	 * that asks.
-	 *
-	 * @param {Object} props The props set from the handler of the route.
-	 */
-	getContext (props) {
-		let record = this.state.course;
-		let course = (record || {}).CourseInstance;
-		let presentation = course.getPresentationProperties();
-		let leafId = props.videoId || props.rootId;
-
-		let base = [
+	getContext () {
+		return Promise.resolve([
 			{
 				label: 'Courses',
 				href: this.getBasePath()
-			}, {
-				ntiid: course.getID(),
-				label: presentation.title,
-				href: path.join(this.getBasePath(), 'course', this.props.course, '/o/')
-			}
-		];
+			}/*,{
+				label: 'Course Index',
 
-
-
-		if (!props.outlineId) {
-			if (leafId) {
-				base = base.concat([{ntiid: leafId}]);
-			}
-
-			return Promise.resolve(base);
-		}
-
-		return course.getOutlineNode(decodeFromURI(props.outlineId))
-			.then(o => base.concat([
-					{
-						ntiid: o.getID(),
-						label: o.title,
-						href: path.join(this.getBasePath(), o.href)
-					}
-				]))
-			.then(o => leafId ? o.concat([{ntiid: decodeFromURI(leafId)}]) : o);
+			}*/
+		]);
 	}
 });
