@@ -55,18 +55,7 @@ export default React.createClass({
 	},
 
 	componentDidMount: function() {
-		let item = Store.getObject(this._itemId());
-		let topic = Store.getObject(this.props.topicId);
-		if (item && topic) {
-			this.setState({
-				item: item,
-				topic: topic,
-				busy: false
-			});
-		}
-		else {
-			this._load();
-		}
+		this._load();
 	},
 
 	componentWillReceiveProps: function(nextProps) {
