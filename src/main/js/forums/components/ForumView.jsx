@@ -13,6 +13,7 @@ import TopicView from './TopicView';
 import CreateTopic from './CreateTopic';
 import Loading from 'common/components/Loading';
 import Router from 'react-router-component';
+import ContextSender from 'common/mixins/ContextSender';
 
 let Location = Router.Location;
 
@@ -23,7 +24,8 @@ module.exports = React.createClass({
 	mixins: [
 		NavigatableMixin,
 		StoreEvents,
-		LoadForum
+		LoadForum,
+		ContextSender
 	],
 
 	backingStore: Store,
@@ -33,6 +35,16 @@ module.exports = React.createClass({
 		return {
 			loading: true
 		};
+	},
+
+	getContext () {
+		let href = this.makeHref([this.props.forumId, ''].join('/'));
+		let forum = Store.getForum(this.props.forumId);
+		return Promise.resolve({
+			label: (forum||{}).title || 'Forum',
+			href
+		});
+
 	},
 
 	__getContext: function() {

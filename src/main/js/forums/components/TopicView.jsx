@@ -21,6 +21,7 @@ import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import KeepItemInState from '../mixins/KeepItemInState';
 import ToggleState from '../mixins/ToggleState';
+import ContextSender from 'common/mixins/ContextSender';
 
 module.exports = React.createClass({
 	displayName: 'TopicView',
@@ -30,7 +31,8 @@ module.exports = React.createClass({
 		ResourceLoaded,
 		NavigatableMixin,
 		KeepItemInState,
-		ToggleState
+		ToggleState,
+		ContextSender
 	],
 
 	backingStore: Store,
@@ -84,6 +86,20 @@ module.exports = React.createClass({
 		);
 	},
 
+	// title bar back arrow
+	getContext () {
+		let topic = this._topic();
+		let href = this.makeHref('/' + this.props.topicId + '/');
+		let label = topic && topic.headline ? topic.headline.title : 'Topic';
+
+		return Promise.resolve({
+			label,
+			href
+		});
+
+	},
+
+	// breadcrumb
 	__getContext: function() {
 		let getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
 		let href = this.makeHref('/' + this.props.topicId + '/');

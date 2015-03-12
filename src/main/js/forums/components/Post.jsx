@@ -15,17 +15,19 @@ import CommentForm from './CommentForm';
 import Breadcrumb from 'common/components/Breadcrumb';
 import NTIID from 'dataserverinterface/utils/ntiids';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import ContextSender from 'common/mixins/ContextSender';
 import List from './List';
 
 const objectDeletedHandler = 'Post:objectDeletedHandler';
 
 export default React.createClass({
-	displayName: '',
+	displayName: 'Post',
 
 	mixins: [
 		NavigatableMixin,
 		StoreEvents,
-		KeepItemInState
+		KeepItemInState,
+		ContextSender
 	],
 
 	backingStore: Store,
@@ -88,6 +90,31 @@ export default React.createClass({
 		);
 	},
 
+	// title bar back arrow
+	getContext () {
+		let result = [];
+		let label = ViewHeader.headerTextForType(POST);
+		// if this is a reply to a comment (as opposed to a reply to a topic)
+		// push an item for the parent comment.
+		let inReplyTo = (this._item()||{}).inReplyTo;
+		if (inReplyTo) {
+			result.push({
+				label,
+				href: this.getNavigable().makeHref(NTIID.encodeForURI(inReplyTo))
+			});
+		}
+
+		// entry for this post
+		result.push({
+			label,
+			href: this.getNavigable().makeHref(this.getPath())
+		});
+
+		return Promise.resolve(result);
+
+	},
+
+	// breadcrumb
 	__getContext: function() {
 		let getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
 		let href = this.makeHref(this.getPath());

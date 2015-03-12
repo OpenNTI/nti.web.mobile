@@ -6,12 +6,24 @@ import ForumView from './ForumView';
 import Breadcrumb from 'common/components/Breadcrumb';
 import Router from 'react-router-component';
 import Navigatable from 'common/mixins/NavigatableMixin';
+import ContextSender from 'common/mixins/ContextSender';
 
 export default React.createClass({
 	displayName: 'ForumsView',
 
-	mixins: [Navigatable],
+	mixins: [Navigatable, ContextSender],
 
+	// title bar back arrow
+	getContext () {
+		let href = this.getNavigable().makeHref('/d/');
+
+		return Promise.resolve({
+			label: 'Discussions',
+			href
+		});
+	},
+
+	// breadcrumb
 	__getContext: function() {
 		var href = this.makeHref('/', true);
 		return Breadcrumb.noContextProvider().then(context => {
