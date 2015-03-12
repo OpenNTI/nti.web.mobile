@@ -56,6 +56,9 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 });
 
+
+//TODO: move the bulk of the work/Async code to Api and Actions.
+//The store (as a file) just listens for changes and updates local data.
 function _getEnrollmentService() {
 	return getService().then(function(service) {
 		return service.getEnrollment();
