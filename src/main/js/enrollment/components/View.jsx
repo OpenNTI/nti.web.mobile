@@ -1,30 +1,31 @@
-'use strict';
+import React from 'react';
+import Router from 'react-router-component';
 
-var React = require('react');
-var Router = require('react-router-component');
+import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 
-var Enroll = require('./Enroll');
-var DropCourse = require('./DropCourse');
-var StoreEnrollment = require('../store-enrollment/components/View');
-var CreditEnrollment = require('../five-minute/components/View');
-var CatalogStore = require('catalog/Store');
-var Constants = require('../Constants');
-var {decodeFromURI} = require('dataserverinterface/utils/ntiids');
+import CatalogStore from 'catalog/Store';
 
+import StoreEnrollmentView from '../store-enrollment/components/View';
+import CreditEnrollmentView from '../five-minute/components/View';
+
+import Enroll from './Enroll';
+import DropCourse from './DropCourse';
+
+import {StoreEnrollment, FiveminuteEnrollment} from '../Constants';
 
 function getEntry(entryId) {
 	return CatalogStore.getEntry(decodeFromURI(entryId));
 }
 
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'enrollment:View',
 
-	_getCourseId: function() {
+	getCourseId () {
 		return (getEntry(this.props.entryId)||{}).CourseNTIID;
 	},
 
-	_getEnrollmentOption: function(key) {
+	getEnrollmentOption (key) {
 		var entry = getEntry(this.props.entryId);
 		if (entry && entry.EnrollmentOptions) {
 			return entry.EnrollmentOptions.Items[key];
@@ -32,27 +33,27 @@ module.exports = React.createClass({
 		return null;
 	},
 
-	render: function() {
+	render () {
     	return (
 			<Router.Locations contextual>
 
 				<Router.Location path="/drop/" handler={DropCourse}
 					entryId={this.props.entryId}
-					courseId={this._getCourseId()}/>
+					courseId={this.getCourseId()}/>
 
 				<Router.Location
 					path="/store(/*)"
-					handler={StoreEnrollment}
+					handler={StoreEnrollmentView}
 					entryId={this.props.entryId}
-					enrollment={this._getEnrollmentOption(Constants.StoreEnrollment)}
-					courseId={this._getCourseId()} />
+					enrollment={this.getEnrollmentOption(StoreEnrollment)}
+					courseId={this.getCourseId()} />
 
 				<Router.Location
 					path="/credit(/*)"
-					handler={CreditEnrollment}
+					handler={CreditEnrollmentView}
 					entryId={this.props.entryId}
-					enrollment={this._getEnrollmentOption(Constants.FiveminuteEnrollment)}
-					courseId={this._getCourseId()} />
+					enrollment={this.getEnrollmentOption(FiveminuteEnrollment)}
+					courseId={this.getCourseId()} />
 
                 <Router.NotFound
                 	handler={Enroll}

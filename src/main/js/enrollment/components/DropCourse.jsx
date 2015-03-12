@@ -1,29 +1,51 @@
 import React from 'react';
+
+import path from 'path';
+
+import NTIID from 'dataserverinterface/utils/ntiids';
+
 import Loading from 'common/components/Loading';
+
+import BasePathAware from 'common/mixins/BasePath';
+import ContextSender from 'common/mixins/ContextSender';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {scoped} from 'common/locale';
+
 import Actions from '../Actions';
 import {DROP_COURSE} from '../Constants';
 import Store from '../Store';
 import CatalogStore from 'catalog/Store';
-import NTIID from 'dataserverinterface/utils/ntiids';
-import BasePathAware from 'common/mixins/BasePath';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+
 import DropOpen from './drop-widgets/DropOpen';
 import DropStore from './drop-widgets/DropStore';
 import DropFive from './drop-widgets/DropFive';
-import {scoped} from 'common/locale';
+
 
 const t = scoped('ENROLLMENT.BUTTONS');
 
 export default React.createClass({
 	displayName: 'DropCourseDialog',
 
-	mixins: [NavigatableMixin, BasePathAware],
+	mixins: [NavigatableMixin, BasePathAware, ContextSender],
 
 	getInitialState () {
 		return {
 			loading: false,
 			dropped: false
 		};
+	},
+
+	getContext() {
+		return Promise.resolve([
+			{
+				label: this.getCourseTitle(),
+				href: path.normalize(this.makeHref('..'))
+			},
+			{
+				label: 'Drop',
+				href: path.normalize(this.makeHref(this.getPath()))
+			}
+		]);
 	},
 
 	onCancelClicked () {
