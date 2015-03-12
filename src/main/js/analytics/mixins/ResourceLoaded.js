@@ -46,7 +46,7 @@ module.exports = {
 				(Date.now() - currentResource.loaded)/1000);
 
 		if (event.getDuration() > MINIMUM_EVENT_DURATION_SECONDS) {
-			var contextFunction = this.analyticsContext || this.props.contextProvider;
+			var contextFunction = this.analyticsContext || this.resolveContext;
 			contextFunction(this.props)
 				.then(context => {
 					let first = context[0],
