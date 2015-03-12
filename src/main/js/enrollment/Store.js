@@ -92,12 +92,9 @@ AppDispatcher.register(function(payload) {
 			});
 		break;
 		case Constants.DROP_COURSE:
-			_dropCourse(action.courseId).then(function(result) {
-				Store.emitChange({
-					action: action,
-					result: result
-				});
-			});
+			_dropCourse(action.courseId)
+				.catch(error=>Object.assign(new Error(error.responseText), error))
+				.then(result=>Store.emitChange({ action, result }));
 		break;
 
 		default:

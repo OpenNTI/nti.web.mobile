@@ -1,53 +1,60 @@
-'use strict';
+import React from 'react';
+import Loading from 'common/components/Loading';
+import Actions from '../Actions';
+import {DROP_COURSE} from '../Constants';
+import Store from '../Store';
+import CatalogStore from 'catalog/Store';
+import NTIID from 'dataserverinterface/utils/ntiids';
+import BasePathAware from 'common/mixins/BasePath';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import DropOpen from './drop-widgets/DropOpen';
+import DropStore from './drop-widgets/DropStore';
+import DropFive from './drop-widgets/DropFive';
+import {scoped} from 'common/locale';
 
-var React = require('react');
-var Loading = require('common/components/Loading');
-var Actions = require('../Actions');
-var Constants = require('../Constants');
-var Store = require('../Store');
-var CatalogStore = require('catalog/Store');
-var NTIID = require('dataserverinterface/utils/ntiids');
-var BasePathAware = require('common/mixins/BasePath');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var DropOpen = require('./drop-widgets/DropOpen');
-var DropStore = require('./drop-widgets/DropStore');
-var DropFive = require('./drop-widgets/DropFive');
-var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
+const t = scoped('ENROLLMENT.BUTTONS');
 
-var DropCourseDialog = React.createClass({
+export default React.createClass({
+	displayName: 'DropCourseDialog',
 
 	mixins: [NavigatableMixin, BasePathAware],
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: false,
 			dropped: false
 		};
 	},
 
-	_cancelClicked: function() {
+	onCancelClicked () {
 		history.back();
 	},
 
-	_confirmClicked: function() {
+	onConfirmClicked () {
 		this.setState({
 			loading: true
 		});
 		Actions.dropCourse(this.props.courseId);
 	},
 
-	_getCourseTitle: function() {
-		var entryId = NTIID.decodeFromURI(this.props.entryId);
-		var entry = CatalogStore.getEntry(entryId);
+	getCourseTitle () {
+		let entryId = NTIID.decodeFromURI(this.props.entryId);
+		let entry = CatalogStore.getEntry(entryId);
 		return entry.Title;
 	},
 
-	_enrollmentChanged: function(event) {
-		var action = event.action||{};
-		if (action.type === Constants.DROP_COURSE && action.courseId === this.props.courseId) {
+	onEnrollmentChanged (event) {
+		let {courseId} = this.props;
+		let {action, result} = event;
+
+		let isError = result && result instanceof Error;
+
+		if (action && action.type === DROP_COURSE && action.courseId === courseId) {
+
 			this.setState({
 				loading: false,
-				dropped: true
+				dropped: !isError,
+				error: isError && result
 			});
 			// this.navigate('../', {replace: true});
 		}
@@ -59,41 +66,47 @@ var DropCourseDialog = React.createClass({
 	* it's unlikely that the user is enrolled in more than
 	* one option for a given course.
 	*/
-	_getDropWidgets: function() {
-		var entryId = NTIID.decodeFromURI(this.props.entryId);
-		var entry = CatalogStore.getEntry(entryId);
-		var items = entry.EnrollmentOptions.Items;
-		var enrollmentTypes = Object.keys(items);
-		var result = [];
-		var widgetMap = {
+	renderWidgets () {
+		let entryId = NTIID.decodeFromURI(this.props.entryId);
+		let entry = CatalogStore.getEntry(entryId);
+		let items = entry.EnrollmentOptions.Items;
+		let enrollmentTypes = Object.keys(items);
+		let result = [];
+		let widgetMap = {
 			OpenEnrollment: DropOpen,
 			StoreEnrollment: DropStore,
 			FiveminuteEnrollment: DropFive
 		};
+
+
 		enrollmentTypes.forEach(function(type) {
-			var option = items[type];
+			let option = items[type];
 			if (option.IsEnrolled) {
-				var Widget = widgetMap[type];
+				let Widget = widgetMap[type];
 				if(!Widget) {
 					console.warn('Enrolled in an unrecognized/supported enrollment option? %O', option);
 				}
-				result.push(<Widget {...this.props} courseTitle={this._getCourseTitle()} key={type} />);
+				result.push(<Widget {...this.props} courseTitle={this.getCourseTitle()} key={type} />);
 			}
 		}.bind(this));
+
+		if (result.length === 0) {
+			result = this._panel('Unable to drop this course. (Perhaps you\'ve already dropped it?)');
+		}
 
 		return result;
 	},
 
-	componentDidMount: function() {
-		Store.addChangeListener(this._enrollmentChanged);
+	componentDidMount () {
+		Store.addChangeListener(this.onEnrollmentChanged);
 	},
 
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._enrollmentChanged);
+	componentWillUnmount () {
+		Store.removeChangeListener(this.onEnrollmentChanged);
 	},
 
-	_panel: function(body) {
-		var catalogHref = this.getBasePath() + 'catalog/';
+	_panel (body) {
+		let catalogHref = this.getBasePath() + 'catalog/';
 		return (
 			<div className="enrollment-dropped">
 				<figure className="notice">
@@ -106,30 +119,28 @@ var DropCourseDialog = React.createClass({
 		);
 	},
 
-	render: function() {
+	render () {
+		let {dropped, loading, error} = this.state;
 
-		if (this.state.loading) {
+		if (loading) {
 			return <Loading />;
 		}
 
-		var title = this._getCourseTitle();
+		let title = this.getCourseTitle();
 
-		if (this.state.dropped) {
+		if (dropped) {
 			return this._panel(title + ' dropped.');
 		}
 
-		var dropWidgets = this._getDropWidgets();
-		console.debug('dropWidgets %O', dropWidgets);
-		if(dropWidgets.length === 0) {
-			return this._panel('Unable to drop this course. (Perhaps you\'ve already dropped it?)');
+		if(error) {
+			return this._panel('Unable to drop this course. Please contact support.');
 		}
+
 		return (
 			<div>
-				{dropWidgets}
+				{this.renderWidgets()}
 			</div>
 		);
 	}
 
 });
-
-module.exports = DropCourseDialog;
