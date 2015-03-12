@@ -24,6 +24,14 @@ export default class PageDescriptor {
 	getID () {return this.ntiid;}
 
 
+	getTitle () {
+		let toc = this.tableOfContents;
+		let node = toc && toc.getNode(this.ntiid);
+		let attrs = node && node.attrib;
+		return attrs && attrs.label;
+	}
+
+
 	getPageSource (id){ return this.tableOfContents.getPageSource(id);}
 
 

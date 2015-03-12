@@ -1,5 +1,3 @@
-const noContextProvider = Promise.resolve.bind(Promise, []);
-
 import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 import guid from 'dataserverinterface/utils/guid';
 
@@ -176,7 +174,7 @@ export default React.createClass({
 				widgetData,
 				this.state.page,
 				Object.assign({}, this.props, {
-					contextProvider: this.__getContext
+					contextProvider: this.resolveContext
 				}));
 		}
 	},
@@ -186,13 +184,15 @@ export default React.createClass({
 		let id = this.getPageID();
 		let page = Store.getPageDescriptor(id);
 		let pageSource = page.getPageSource(this.getRootID());
+		let pageTitle = page.getTitle();
 
 		this.setPageSource(pageSource, id);
 		this.setState({
 			currentPage: id,
 			loading: false,
 			page: page,
-			pageSource
+			pageSource,
+			pageTitle
 		});
 	},
 
@@ -263,16 +263,11 @@ export default React.createClass({
 	},
 
 
-	__getContext () {
-		var getContextFromProvider = this.props.contextProvider || noContextProvider;
-
-		return getContextFromProvider(this.props).then(context => {
-			//TODO: have the Content Api resolve page title...
-			context.push({
-				label: '??Current Page??',
-				href: location.href//current page doesn't need an href.(its the current one)
-			});
-			return context;
+	getContext () {
+		return Promise.resolve({
+			label: this.state.pageTitle,
+			ntiid: this.getPageID(),
+			href: location.href//current page doesn't need an href.(its the current one)
 		});
 	}
 });

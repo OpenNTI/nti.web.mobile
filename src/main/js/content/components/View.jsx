@@ -3,12 +3,13 @@ import Router from 'react-router-component';
 
 import Page from 'common/components/Page';
 import BasePathAware from 'common/mixins/BasePath';
+import ContextContributor from 'common/mixins/ContextContributor';
 
 import Viewer from './Viewer';
 
 export default React.createClass({
 	displayName: 'ContentView',
-	mixins: [BasePathAware],
+	mixins: [BasePathAware, ContextContributor],
 
 	propTypes: {
 		packageId: React.PropTypes.string
@@ -31,21 +32,15 @@ export default React.createClass({
 	},
 
 
-	/**
-	 * Resolves the current context given the props from the direct decendent
-	 * that asks.
-	 *
-	 * @param {Object} props The props set from the handler of the route.
-	 */
-	getContext (/*props*/) {
+	getContext () {
 		return Promise.resolve([
 			{
 				label: 'Books',
 				href: this.getBasePath()
-			}, {
-				// ntiid: course.getID(),
+			// }, {
+				// ntiid: content.getID(),
 				// label: presentation.title,
-				// href: path.join(this.getBasePath(), 'course', this.props.course, '/o/')
+				// href: ...
 			}
 		]);
 	}
