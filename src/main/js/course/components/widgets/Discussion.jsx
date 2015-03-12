@@ -115,32 +115,12 @@ export default React.createClass({
 		return path.join(forumHref, topicId) + '/';
 	},
 
-
-	_getBoardFor (o) {
-		var course = this.props.course || {};
-		var {Discussions, ParentDiscussions} = course;
-
-		return [Discussions, ParentDiscussions].reduce((found, board)=>
-				found || (board && o.href.indexOf(board.href) !== -1 && board.getID()), null);
-	},
-
-
 	getForumHref (o) {
-		var discussions = this._getBoardFor(o);
-		if(!discussions) {
-			return null;
-		}
-
-		var bin = 'jump';
 		var isForum = o.hasOwnProperty('TopicCount');
-
-		var boardId = encodeForURI(discussions);
 		var forumId = encodeForURI(isForum ? o.NTIID : o.ContainerId);
-
-		var h = path.join('..', 'd', bin, boardId, forumId) + '/';
+		var h = path.join('..', 'd', forumId) + '/';
 		return this.makeHref(h);
 	},
-
 
 	markDisabled () {
 		if (this.isMounted()) {
