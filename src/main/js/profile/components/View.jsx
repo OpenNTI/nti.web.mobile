@@ -1,22 +1,17 @@
 import React from 'react/addons';
 
-import Page from 'common/components/Page';
 import BasePathAware from 'common/mixins/BasePath';
+import ContextReciever from 'common/mixins/ContextReciever';
+import ContextSender from 'common/mixins/ContextSender';
+
+import NavigationBar from 'navigation/components/Bar';
 
 import Head from './Head';
 
-export default React.createClass({
-	displayName: 'profile:View',
-	mixins: [BasePathAware],
 
-	render () {
-		return (
-			<Page className="profile" title="Profile" contextProvider={this.getContext}>
-				<Head {...this.props}/>
-			</Page>
-		);
-	},
-
+let Content = React.createClass({
+	displayName: 'Profile:Content',
+	mixins: [BasePathAware, ContextSender],
 
 	getContext (/*props*/) {
 		let path = this.getBasePath();
@@ -28,5 +23,26 @@ export default React.createClass({
 				label: 'Profile'
 			}
 		]);
+	},
+
+	render () {
+		return (
+			<Head {...this.props} />
+		);
+	}
+});
+
+
+export default React.createClass({
+	displayName: 'profile:View',
+	mixins: [ContextReciever],
+
+	render () {
+		return (
+			<div className="profile">
+				<NavigationBar {...this.state} title="Profile" />
+				<Content {...this.props}/>
+			</div>
+		);
 	}
 });
