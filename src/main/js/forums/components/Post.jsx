@@ -59,7 +59,6 @@ export default React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		console.log(this.props, nextProps);
 		if (this.props.postId !== nextProps.postId) {
 			this.setState(this.getInitialState());
 			this._load(nextProps.postId);
@@ -106,7 +105,9 @@ export default React.createClass({
 
 	render () {
 
-		if (this.state.busy) {
+		let item = this._item();
+
+		if (this.state.busy || !item) {
 			return <Loading />;
 		}
 
@@ -119,7 +120,7 @@ export default React.createClass({
 			}
 		}
 
-		let item = this._item();
+		
 		let topic = Store.getObject(this.props.topicId);
 
 
@@ -129,20 +130,17 @@ export default React.createClass({
 			<Notice>This item has been deleted.</Notice> :
 			<PostHeadline item={item} topic={topic} asHeadline={true} />;
 
-
-		let replies = <Replies key="replies" item={item}
-							listComponent={List}
-							childComponent={PostItem}
-							topic={topic}
-							display={true}
-							className='visible' />;
-
 		return (
 			<div>
 				{breadcrumb}
 				<ViewHeader type={POST} />
 				{P}
-				{replies}
+				<Replies key="replies" item={item}
+					listComponent={List}
+					childComponent={PostItem}
+					topic={topic}
+					display={true}
+					className='visible' />
 				{topic && 
 					<CommentForm key="commentForm"
 						ref='commentForm'

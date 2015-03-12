@@ -14,6 +14,7 @@ let Replies = React.createClass({
 	mixins: [StoreEvents],
 
 	propTypes: {
+		item: React.PropTypes.object.isRequired,
 		topic: React.PropTypes.object.isRequired,
 		listComponent: React.PropTypes.func.isRequired // passed in as a prop to dodge circular import of List
 	},
@@ -64,6 +65,12 @@ let Replies = React.createClass({
 
 	componentDidMount: function() {
 		this._getReplies();
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		if (this.props.item !== nextProps.item) {
+			this._getReplies();
+		}
 	},
 
 	_getReplies: function(reload) {
