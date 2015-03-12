@@ -3,13 +3,15 @@ import React from 'react';
 import Filter from 'common/components/CollectionFilter';
 import PageSource from 'dataserverinterface/models/ListBackedPageSource';
 
+import ContextSender from 'common/mixins/ContextSender';
+
 import filters from 'library/Filters';
 
 import Item from './Entry';
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
 const ListView = React.createClass({
-	mixins: [CatalogAccessor],
+	mixins: [CatalogAccessor, ContextSender],
 
 	getInitialState () {
 		return {sections: []};
@@ -23,6 +25,9 @@ const ListView = React.createClass({
 		this.setList(props);
 	},
 
+	getContext () {
+		return Promise.resolve([]);
+	},
 
 	setList (props) {
 		let {filter, list} = props;

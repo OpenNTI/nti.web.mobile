@@ -56,12 +56,22 @@ let CatalogBody = React.createClass({
 					list={catalog}
 					section="catalog"
 				/>
-		</Locations>
+			</Locations>
 		);
 	},
 
 
 	getContext () {
+		/*
+			This instance of getContext and the instance within the Collection component
+			is are interesting cases.  Because the catalog does not literally drill in
+			as you navigate, we need to scaffold the path to the user.  This getContext
+			returns the base case: the "Library" and "Catalog" nodes, where the Collection
+			represents "this" view, so its getContext simply returns an empty array. You
+			may be asking why does it (the collection) even have the mixin? The mixin is
+			needed to broadcast the navigation context, even if it, itself, does not have
+			anything to add.
+		 */
 		let path = this.getBasePath();
 		return Promise.resolve([{
 			label: 'Library',
