@@ -1,19 +1,37 @@
 import React from 'react';
 
-import Loading from 'common/components/Loading';
+import path from 'path';
 
+import Loading from 'common/components/Loading';
 import CourseContentLink from 'library/components/CourseContentLinkMixin';
+
+import ContextSender from 'common/mixins/ContextSender';
 
 import EnrollmentOptions from '../mixins/EnrollmentMixin';
 import EnrollmentSuccess from './EnrollmentSuccess';
 
 export default React.createClass({
 	displayName: 'Enroll',
-	mixins: [EnrollmentOptions, CourseContentLink],
+	mixins: [EnrollmentOptions, CourseContentLink, ContextSender],
 
 	getCourseTitle () {
 		return this.getEntry().Title;
 	},
+
+
+	getContext () {
+		return Promise.resolve([
+			{
+				label: this.getCourseTitle(),
+				href: path.normalize(this.makeHref('..'))
+			},
+			{
+				label: 'Enroll',
+				href: path.normalize(this.makeHref(this.getPath()))
+			}
+		]);
+	},
+
 
 	render () {
 
