@@ -6,7 +6,12 @@ import Media from './Media';
 import Outline from './OutlineView';
 import Overview from './Overview';
 
+import {LESSONS} from '../Sections';
+
 import ContentViewer from 'content/components/Viewer';
+
+import ContextSender from 'common/mixins/ContextSender';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 const ROUTES = [
 	{path: '/:outlineId/c/:rootId(/*)',		handler: ContentViewer,	slug: 'c'},
@@ -17,23 +22,33 @@ const ROUTES = [
 
 export default React.createClass({
 	displayName: 'Lessons',
+	mixins: [ContextSender, NavigatableMixin],
+
+	getContext () {
+		let {course} = this.props;
+		let {title} = course.getPresentationProperties();
+
+		let href = this.makeHref(LESSONS);
+		let ntiid = course.getID();
+
+		return Promise.resolve({
+			label: title,
+			ntiid,
+			href
+		});
+	},
 
 	render () {
-		let {course, contextProvider} = this.props;
+		let {course} = this.props;
 
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route=>
 				route.path ?
 				<Router.Location {...route}
-
 					contentPackage={course}
-					contextProvider={contextProvider}
 					course={course}
 					/> :
-				<Router.NotFound handler={Outline}
-						contextProvider={contextProvider}
-						item={course}
-						/>
+				<Router.NotFound handler={Outline} item={course}/>
 			));
 	}
 });

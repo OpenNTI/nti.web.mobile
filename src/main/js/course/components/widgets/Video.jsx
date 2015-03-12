@@ -3,6 +3,8 @@ import React from 'react';
 
 import LoadingMask from 'common/components/Loading';
 import BasePathAware from 'common/mixins/BasePath';
+import SetStateSafely from 'common/mixins/SetStateSafely';
+import ContextContributor from 'common/mixins/ContextContributor';
 
 import {Component as Video} from 'video';
 import {encodeForURI} from 'dataserverinterface/utils/ntiids';
@@ -11,7 +13,7 @@ const Progress = Symbol.for('Progress');
 
 export default React.createClass({
 	displayName: 'CourseOverviewVideo',
-	mixins: [BasePathAware],
+	mixins: [BasePathAware, ContextContributor, SetStateSafely],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired,
@@ -37,8 +39,12 @@ export default React.createClass({
 
 
 	getContext () {
-		this.props.contextProvider(this.props)
-			.then(context=> this.setState({context}));
+		return Promise.resolve([]);
+	},
+
+
+	fillInContext () {
+		this.resolveContext().then(context=>this.setStateSafely({context}));
 	},
 
 
@@ -55,13 +61,13 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		this.getContext();
+		this.fillInContext();
 		this.fillInVideo(this.props);
 	},
 
 
 	componentWillReceiveProps (nextProps) {
-		this.getContext();
+		this.fillInContext();
 		this.fillInVideo(nextProps);
 
 		if (this.props.activeIndex !== nextProps.activeIndex) {

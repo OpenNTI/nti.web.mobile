@@ -2,8 +2,15 @@ import React from 'react';
 import Detail from 'catalog/components/Detail';
 import EnrollButton from 'catalog/components/EnrollButton'; // drop course button
 
+import ContextSender from 'common/mixins/ContextSender';
+
 export default React.createClass({
 	displayName: 'CourseInfo',
+	mixins: [ContextSender],
+
+	getContext () {
+		return Promise.resolve([{}]);
+	},
 
 	render () {
 		let {course} = this.props;

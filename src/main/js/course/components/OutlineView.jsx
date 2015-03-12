@@ -1,6 +1,8 @@
 import React from 'react';
 
 import ActiveState from 'common/components/ActiveState';
+import ContextSender from 'common/mixins/ContextSender';
+//import NavigationAware from 'common/mixins/NavigationAware';
 import Loading from 'common/components/Loading';
 
 import isEmpty from 'dataserverinterface/utils/isempty';
@@ -10,7 +12,12 @@ import SetStateSafely from 'common/mixins/SetStateSafely';
 
 export default React.createClass({
 	displayName: 'CourseOutlineView',
-	mixins: [SetStateSafely, CourseLinker],
+	mixins: [
+		ContextSender,
+		// NavigationAware,
+		SetStateSafely,
+		CourseLinker
+	],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired
@@ -25,6 +32,11 @@ export default React.createClass({
 
 	getInitialState () {
 		return {loading:true};
+	},
+
+
+	getContext () {
+		return Promise.resolve([]);
 	},
 
 

@@ -12,7 +12,8 @@ export default {
 
 	componentDidMount () {
 		if (!this.getContext) {
-			console.error('Missing getContext implementation');
+			this.getContext = ()=> Promise.resolve([]);
+			console.warn('Missing getContext implementation, adding empty no-op.');
 		}
 
 		let {navigationContext} = this.context;
