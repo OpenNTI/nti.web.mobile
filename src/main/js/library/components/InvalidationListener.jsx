@@ -1,16 +1,24 @@
 import React from 'react';
 
+import {
+	DROP_COURSE,
+	ENROLL_5M,
+	ENROLL_OPEN,
+	ENROLL_STORE
+} from 'enrollment/Constants';
 import EnrollmentStore from 'enrollment/Store';
 import StoreEnrollmentStore from 'enrollment/store-enrollment/Store';
 
 import {reload as reloadLibrary} from '../Actions';
 import {reload as reloadCatalog} from 'catalog/Actions';
 
+
 const INVALIDATION_EVENTS = {
-	DROP_COURSE: true,
-	ENROLL_5M: true,
-	ENROLL_OPEN: true,
-	ENROLL_STORE: true,
+	[DROP_COURSE]: true,
+	[ENROLL_5M]: true,
+	[ENROLL_OPEN]: true,
+	[ENROLL_STORE]: true,
+	//TODO: convert these to constant references
 	STRIPE_PAYMENT_SUCCESS: true,
 	GIFT_CODE_REDEEMED: true
 };
