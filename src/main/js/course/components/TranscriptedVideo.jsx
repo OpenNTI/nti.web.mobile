@@ -63,12 +63,21 @@ export default React.createClass({
 	},
 
 
+	getContext () {
+		let {videoId} = this.props;
+		return Promise.resolve({
+			label: 'Video',
+			href: this.makeHref(videoId)
+		});
+	},
+
+
 	getDataIfNeeded (props) {
 		this.setStateSafely(this.getInitialState());
 
 		try {
 
-			let {VideoIndex, videoId, contextProvider, outlineId} = props;
+			let {VideoIndex, videoId, outlineId} = props;
 			let video = VideoIndex.get(decodeFromURI(videoId));
 
 			let pageSource = video && video.getPageSource();
@@ -77,7 +86,7 @@ export default React.createClass({
 				pageSource = pageSource.scopped(decodeFromURI(outlineId));
 			}
 
-			contextProvider(this.props)
+			this.resolveContext()
 				.then(context => this.setStateSafely({ context }));
 
 			this.setPageSource(pageSource, video.getID());

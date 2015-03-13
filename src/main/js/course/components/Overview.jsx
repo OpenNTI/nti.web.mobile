@@ -36,14 +36,16 @@ export default React.createClass({
 
 
 	getContext () {
-		let id = this.getOutlineID(this.props);
-		let href = this.makeHref(id);
+		let {outlineId, course} = this.props;
+		let href = this.makeHref(outlineId);
+		let id = this.getOutlineID();
 
-		return Promise.resolve({
-			label: 'Lession Overview',
-			ntiid: decodeFromURI(id),
+		return course.getOutlineNode(id).then(node=>({
+			label: node.title,
+			ntiid: node.getID(),
+			ref: node.ref,
 			href
-		});
+		}));
 	},
 
 
