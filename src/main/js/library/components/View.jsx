@@ -75,9 +75,7 @@ export default React.createClass({
 
 	getInitialState () {
 		let env = getEnvironment('library');
-		if (env.getPath() == null) {
-			env.setPath('');
-		}
+
 		return {
 			env,
 			pickingDefault: true
@@ -97,6 +95,13 @@ export default React.createClass({
 
 
 	setDefaultSection (name) {
+		let {env} = this.state;
+		let p = env.getPath();
+		
+		if (p == null || p === '') {
+			env.setPath('/${name}');
+		}
+
 		this.setStateSafely({
 			pickingDefault: false,
 			defaultSection: name
