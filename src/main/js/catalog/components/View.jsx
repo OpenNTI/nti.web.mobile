@@ -7,8 +7,6 @@ import EntryDetail from './EntryDetail';
 
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
-
-import ContextReciever from 'common/mixins/ContextReciever';
 import ContextSender from 'common/mixins/ContextSender';
 import BasePathAware from 'common/mixins/BasePath';
 
@@ -86,21 +84,15 @@ let CatalogBody = React.createClass({
 
 export default React.createClass({
 	displayName: 'CatalogView',
-	mixins: [CatalogAccessor, ContextReciever],
+	mixins: [CatalogAccessor],
 
 
 	render () {
         let catalog = this.getCatalog();
-		let {pageSource, currentPage, navigatableContext} = this.state || {};
-
-		let nav = {
-			pageSource, currentPage,
-			navigatableContext: navigatableContext || this
-		};
 
 		return (
 			<div>
-				<NavigationBar title="Catalog" {...nav} />
+				<NavigationBar title="Catalog" />
 				{!catalog? <Loading/> : <CatalogBody catalog={catalog}/>}
 			</div>
         );

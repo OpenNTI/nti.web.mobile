@@ -1,7 +1,6 @@
 import React from 'react/addons';
 
 import BasePathAware from 'common/mixins/BasePath';
-import ContextReciever from 'common/mixins/ContextReciever';
 import ContextSender from 'common/mixins/ContextSender';
 
 import NavigationBar from 'navigation/components/Bar';
@@ -35,12 +34,11 @@ let Content = React.createClass({
 
 export default React.createClass({
 	displayName: 'profile:View',
-	mixins: [ContextReciever],
 
 	render () {
 		return (
 			<div className="profile">
-				<NavigationBar {...this.state} title="Profile" />
+				<NavigationBar title="Profile" />
 				<Content {...this.props}/>
 			</div>
 		);
