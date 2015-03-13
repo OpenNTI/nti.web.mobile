@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import classnames from 'classnames';
 import {mimeTypes, GOT_COMMENT_REPLIES, POST} from '../../Constants';
 import Actions from '../../Actions';
 import Store from '../../Store';
@@ -178,8 +179,12 @@ var PostItem = React.createClass({
 				onCancel={this._hideEditForm}/>;
 		}
 
+		let classes = classnames({
+			'headline': this.props.asHeadline
+		},'postitem');
+
 		return (
-			<div className="postitem">
+			<div className={classes}>
 				{this.props.detailLink && <a href={href} className="threadlink"><span className="arrow-right"/></a>}
 				<div className="post">
 					<Avatar username={createdBy} className="avatar"/>
