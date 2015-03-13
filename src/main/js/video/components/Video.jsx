@@ -112,7 +112,9 @@ export default React.createClass({
 		endEvent = endEvent || fallback;
 		startEvent = startEvent || fallback;
 
-		var ctx = (this.props.context || []).map(x => x.ntiid||x);
+		var ctx = (this.props.context || [])
+			.map(x=> x.ntiid || (typeof x === 'string'? x: null))
+			.filter(x=>x);
 
 		var rootContextId = ctx[0] || null;
 
