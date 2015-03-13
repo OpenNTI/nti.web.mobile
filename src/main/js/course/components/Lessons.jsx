@@ -2,19 +2,18 @@ import React from 'react';
 
 import Router from 'react-router-component';
 
+import Content from './Content';
 import Media from './Media';
 import Outline from './OutlineView';
 import Overview from './Overview';
 
 import {LESSONS} from '../Sections';
 
-import ContentViewer from 'content/components/Viewer';
-
-import ContextSender from 'common/mixins/ContextSender';
+import ContextContributor from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 const ROUTES = [
-	{path: '/:outlineId/c/:rootId(/*)',		handler: ContentViewer,	slug: 'c'},
+	{path: '/:outlineId/c/:rootId(/*)',		handler: Content },
 	{path: '/:outlineId/v(/*)',				handler: Media,			slug: 'v'},
 	{path: '/:outlineId(/*)',				handler: Overview },
 	{}//
@@ -22,7 +21,7 @@ const ROUTES = [
 
 export default React.createClass({
 	displayName: 'Lessons',
-	mixins: [ContextSender, NavigatableMixin],
+	mixins: [ContextContributor, NavigatableMixin],
 
 	getContext () {
 		let {course} = this.props;
