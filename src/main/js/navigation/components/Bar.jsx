@@ -134,9 +134,9 @@ export default React.createClass({
 
 
 	componentWillReceiveProps (nextProps) {
-		//if (nextProps.contextProvider) {
-			this.fillIn(nextProps);
-		//}
+
+		this.fillIn(nextProps);
+
 		this.setState({menuOpen: false});
 	},
 

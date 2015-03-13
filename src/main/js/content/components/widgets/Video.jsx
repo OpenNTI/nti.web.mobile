@@ -18,7 +18,7 @@ export default React.createClass({
 	propTypes: {
 		item: React.PropTypes.object.isRequired,
 		contentPackage: React.PropTypes.object.isRequired,
-		contextProvider: React.PropTypes.func.isRequired
+		contextResolver: React.PropTypes.func.isRequired
 	},
 
 
@@ -73,7 +73,7 @@ export default React.createClass({
 	fillInVideo  (props) {
 		try {
 			var {video} = this.state;
-			var {contentPackage, item, contextProvider} = props;
+			var {contentPackage, item, contextResolver} = props;
 
 			if (video && item.NTIID === video.getID()) {
 				return;
@@ -83,11 +83,11 @@ export default React.createClass({
 
 			this.setState({loading: true});
 
-			if (!contextProvider) {
-				contextProvider = Promise.resolve.bind(Promise, null);
+			if (!contextResolver) {
+				contextResolver = Promise.resolve.bind(Promise, null);
 			}
 
-			contextProvider(props)
+			contextResolver(props)
 				.then(context=>
 					this.isMounted() && this.setState({context}))
 				.then(()=>

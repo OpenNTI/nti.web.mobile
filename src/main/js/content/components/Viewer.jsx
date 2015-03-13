@@ -174,7 +174,7 @@ export default React.createClass({
 				widgetData,
 				this.state.page,
 				Object.assign({}, this.props, {
-					contextProvider: this.resolveContext
+					contextResolver: this.resolveContext
 				}));
 		}
 	},

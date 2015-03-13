@@ -5,18 +5,18 @@ const GetContext = 'context:provider:get-local';
 export default {
 
 	contextTypes: {
-		contextProvider: React.PropTypes.func
+		contextResolver: React.PropTypes.func
 	},
 
 
 	childContextTypes: {
-		contextProvider: React.PropTypes.func
+		contextResolver: React.PropTypes.func
 	},
 
 
 	getChildContext () {
 		return {
-			contextProvider: this.resolveContext
+			contextResolver: this.resolveContext
 		};
 	},
 
@@ -29,7 +29,7 @@ export default {
 
 
 	resolveContext () {
-		let getParentContext = this.context.contextProvider;
+		let getParentContext = this.context.contextResolver;
 		let getContext = this[GetContext];
 
 		if (getParentContext) {

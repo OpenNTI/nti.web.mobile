@@ -263,7 +263,7 @@ var Filter = React.createClass({
 					filtername={filtername}
 					filterpath={filterpath}
 					handler={FilterableView}
-					contextProvider={this.props.contextProvider}
+
 					list={list}
 					listcomp={cloneWithProps(listComp, {list: list})}
 					filters={filters}
@@ -290,7 +290,7 @@ var Filter = React.createClass({
 					path={path}
 					key="default"
 					handler={this.props.childHandler}
-					contextProvider={this.props.childContextProvider||this.props.contextProvider}
+
 					filters={this.props.filters}
 					list={list}
 					defaultFilter={this.props.defaultFilter}
