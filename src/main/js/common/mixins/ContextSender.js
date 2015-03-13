@@ -23,6 +23,8 @@ export default {
 		if (size===set.size) {
 			console.error('Did not remove anything.');
 		}
+
+		this[notify]();
 	},
 
 
