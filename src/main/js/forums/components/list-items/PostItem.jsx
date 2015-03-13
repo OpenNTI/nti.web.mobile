@@ -155,6 +155,7 @@ var PostItem = React.createClass({
 						key='actionlinks'
 						item={item}
 						numComments={numComments}
+						canReply={this.props.asHeadline}
 						cssClasses={linksClasses}
 						clickHandlers={this._actionClickHandlers()} />;
 
