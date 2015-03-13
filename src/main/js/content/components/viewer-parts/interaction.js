@@ -38,7 +38,7 @@ export default {
 			//split if/else for readability.
 			if (isFragmentRef) {
 				e.preventDefault();
-				let id = frag;
+				let id = decodeURIComponent(frag);
 				let scrollToEl = document.getElementById(id) || document.getElementsByName(id)[0];
 				if (!scrollToEl) {
 					if (id) {
@@ -59,7 +59,7 @@ export default {
 			//let the capture clicks widget take us to a new place...
 			if (isNTIID(id)) {
 				//the capture clicks component is parsing this, so make it parser friendly.
-				anchor.setAttribute('href', encodeForURI(id));
+				anchor.setAttribute('href', '../'+encodeForURI(id)+'/');//eww
 			}
 
 			if (frag.length) {
