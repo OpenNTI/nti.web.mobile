@@ -21,6 +21,7 @@ import SetStateSafely from 'common/mixins/SetStateSafely';
 import StoreEvents from 'common/mixins/StoreEvents';
 
 const getViewport = ()=> document.getElementsByTagName('html')[0];
+const menuOpenBodyClass = 'nav-menu-open';
 
 // const Hamburger = React.createClass({
 // 	mixins: [PureRenderMixin],
@@ -159,7 +160,7 @@ export default React.createClass({
 
 
 	componentWillReceiveProps () {
-		this.setState({menuOpen: false});
+		this.closeMenu();
 	},
 
 
@@ -265,18 +266,29 @@ export default React.createClass({
 		e.stopPropagation();
 
 		let s = !this.state.menuOpen;
+		this.updateBodyClassForMenu(s);
 		this.setStateSafely({menuOpen: s});
 	},
 
+	updateBodyClassForMenu(isOpen) {
+		// video elements interfere with the menu interaction. adding a class to body 
+		// when the menu is open allows us to use css to get the videos out of the way.
+		if (isOpen) {
+			document.body.classList.add(menuOpenBodyClass);
+		}
+		else {
+			document.body.classList.remove(menuOpenBodyClass);
+		}
+	},
 
 	closeMenu (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
+		this.updateBodyClassForMenu(false);
 		this.setStateSafely({menuOpen: false});
 	},
-
 
 	render () {
 		let {menuOpen} = this.state;
