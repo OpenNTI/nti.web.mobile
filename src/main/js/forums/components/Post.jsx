@@ -100,7 +100,7 @@ export default React.createClass({
 		if (inReplyTo) {
 			result.push({
 				label,
-				href: this.getNavigable().makeHref(NTIID.encodeForURI(inReplyTo))
+				href: this.getNavigable().makeHref(NTIID.encodeForURI(inReplyTo) + '/')
 			});
 		}
 
