@@ -32,16 +32,21 @@ class AppDispatcher extends Dispatcher {
      * @param  {object} action The data coming from the request response.
      */
     handleRequestAction (action) {
-        // console.log('AppDispatcher::handleRequestAction: %s', action.type);
+        let payload = {
+            source: 'REQUEST_ACTION',
+            action: action
+        };
 
         if ("production" !== process.env.NODE_ENV) {
             invariant(action.type, 'Expected there to be an action.type');
         }
 
-        this.dispatch({
-            source: 'REQUEST_ACTION',
-            action: action
-        });
+        if (this.isDispatching()) {
+            return void setTimeout(()=>this.dispatch(payload), 0);
+        }
+
+
+        this.dispatch(payload);
     }
 
 }
