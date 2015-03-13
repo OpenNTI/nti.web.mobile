@@ -15,5 +15,5 @@ export function setPageSource (pageSource, currentPage, context) {
 }
 
 function dispatch(key, data) {
-	AppDispatcher.handleViewAction({type: key, response: data});
+	AppDispatcher.handleRequestAction({type: key, response: data});
 }

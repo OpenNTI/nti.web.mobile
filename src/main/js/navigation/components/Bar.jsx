@@ -151,9 +151,9 @@ export default React.createClass({
 	},
 
 
-	fillIn (props) {
-		let {navigatableContext} = props;
-		let nc = navigatableContext || {};
+	fillIn () {
+		let {context} = this.state;
+		let nc = context || {};
 
 		let resolve = Promise.resolve();
 
@@ -286,14 +286,14 @@ export default React.createClass({
 
 
 	renderBar () {
-		let {pageSource, currentPage, navigatableContext} = this.props;
+		let {pageSource, currentPage, context} = this.state;
 
 		return (
 			<nav className="tab-bar">
 				<section className="left-small">{this.getLeft()}</section>
 				<section className="middle tab-bar-section">{this.getCenter()}</section>
 				<section className="right-small">
-					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={navigatableContext}/>}
+					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}/>}
 					{this.getRight()}
 				</section>
 			</nav>

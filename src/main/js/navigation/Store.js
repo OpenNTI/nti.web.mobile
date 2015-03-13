@@ -21,9 +21,15 @@ class Store extends StorePrototype {
 
 
 	[SetData] (payload) {
-		debugger;
-		this[data] = payload;
-		this.emitChange({type: SET_CONTEXT});
+		let {response, type} = payload.action;
+		this[data] = response;
+
+		this.emitChange({type});
+	}
+
+
+	getData () {
+		return this[data];
 	}
 }
 
