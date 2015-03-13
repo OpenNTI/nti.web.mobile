@@ -1,13 +1,9 @@
-import React from 'react';
 import Contributor from './ContextContributor';
+
+import {setPageSource, setContext} from 'navigation/Actions';
 
 export default {
 	mixins: [Contributor],
-
-	contextTypes: {
-		navigationContext: React.PropTypes.func.isRequired,
-		hasPages: React.PropTypes.func.isRequired
-	},
 
 
 	componentDidMount () {
@@ -16,23 +12,11 @@ export default {
 			console.warn('Missing getContext implementation, adding empty no-op.');
 		}
 
-		let {navigationContext} = this.context;
-		if (!navigationContext) {
-			console.error('Expected a context method "navigationContext", but it does not exist.');
-			return;
-		}
-
-		navigationContext(this);
+		setContext(this);
 	},
 
 
 	setPageSource (pageSource, currentPage) {
-		let {hasPages} = this.context;
-		if (!hasPages) {
-			console.error('Expected a context method "hasPages", but it does not exist.');
-			return;
-		}
-
-		hasPages(pageSource, currentPage, this);
+		setPageSource(pageSource, currentPage, this);
 	}
 };
