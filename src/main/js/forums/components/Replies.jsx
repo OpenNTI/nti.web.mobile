@@ -73,9 +73,11 @@ let Replies = React.createClass({
 		}
 	},
 
-	_getReplies: function(reload) {
+	_getReplies: function(/*reload*/) {
 		let {item} = this.props;
-		if (!item || (item.ReferencedByCount === 0 && !reload)) {
+		// if (!item || (item.ReferencedByCount === 0 && !reload)) {
+		if (!item) {
+			console.debug('not reloading replies.');
 			return;
 		}
 		Actions.getCommentReplies(item);
