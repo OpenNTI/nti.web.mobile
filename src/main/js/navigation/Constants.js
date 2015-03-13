@@ -1,4 +1,2 @@
-export const LOADING = Symbol('navigation:Loading');
-export const LOADED = Symbol('navigation:Loaded');
-export const TYPE_CONTENT = Symbol('navigation:type:content');
-export const TYPE_COURSE = Symbol('navigation:type:content');
+export const SET_CONTEXT = Symbol('set context');
+export const SET_PAGE_SOURCE = Symbol('set page source');

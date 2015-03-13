@@ -3,6 +3,8 @@ import React from 'react';
 import Transition from 'react/lib/ReactCSSTransitionGroup';
 import cx from 'react/lib/cx';
 
+import NavStore from '../Store';
+
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
 import {getAppUsername} from 'common/utils';
@@ -16,6 +18,7 @@ import {addClass, removeClass} from 'common/utils/dom';
 import BasePathAware from 'common/mixins/BasePath';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import SetStateSafely from 'common/mixins/SetStateSafely';
+import StoreEvents from 'common/mixins/StoreEvents';
 
 const getViewport = ()=> document.getElementsByTagName('html')[0];
 
@@ -103,13 +106,12 @@ const ReturnTo = React.createClass({
 
 export default React.createClass({
 	displayName: 'NavigationBar',
-	mixins: [BasePathAware, NavigatableMixin, SetStateSafely],
+	mixins: [StoreEvents, BasePathAware, NavigatableMixin, SetStateSafely],
 
 	contextTypes: {
 		triggerLeftMenu: React.PropTypes.func.isRequired,
 		triggerRightMenu: React.PropTypes.func.isRequired
 	},
-
 
 	propTypes: {
 		branding: React.PropTypes.bool,
@@ -119,6 +121,14 @@ export default React.createClass({
 		})),
 		title: React.PropTypes.string
 	},
+
+	backingStore: NavStore,
+	backingStoreEventHandlers: {
+		default: function () {
+			this.setStateSafely(NavStore.getData());
+		}
+	},
+
 
 
 	getInitialState () {
