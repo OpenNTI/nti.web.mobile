@@ -1,10 +1,9 @@
-'use strict';
+import React from 'react';
+import Router from 'react-router-component';
+import Loading from 'common/components/Loading';
 
-var React = require('react');
-var Router = require('react-router-component');
-var Loading = require('common/components/Loading');
-
-var Redirect = React.createClass({
+export default React.createClass({
+	displayName: 'Redirect',
 	mixins: [Router.NavigatableMixin],
 
 	propTypes: {
@@ -12,10 +11,10 @@ var Redirect = React.createClass({
 		location: React.PropTypes.string
 	},
 
-	_redirect: function(props) {
-		var loc = props.location;
-		var location = global.location;
-		var currentFragment = location && location.hash;
+	performRedirect (props) {
+		let loc = props.location;
+		let location = global.location;
+		let currentFragment = location && location.hash;
 
 		if (props.force) {
 			console.debug('Forceful redirect to: %s', loc);
@@ -28,24 +27,31 @@ var Redirect = React.createClass({
 					currentFragment;
 		}
 
+
+		// let routes = this.context.router.props.children.map(x=>x.props.path || 'default');
+		// console.debug('Redirecting to %s, routes: %o', loc, routes);
 		console.debug('Redirecting to %s', loc);
 		this.navigate(loc, {replace: true});
 	},
 
 
-	componentDidMount: function() {
-		this._redirect(this.props);
+	startRedirect(p) {
+		clearTimeout(this.__pendingRedirect);
+		this.__pendingRedirect = setTimeout(()=> this.performRedirect(p), 1);
 	},
 
 
-	componentWillReceiveProps: function(props) {
-		this._redirect(props);
+	componentDidMount () {
+		this.startRedirect(this.props);
 	},
 
 
-	render: function() {
-		return (<Loading/>);
+	componentWillReceiveProps (props) {
+		this.startRedirect(props);
+	},
+
+
+	render () {
+		return (<Loading message="Redirecting..."/>);
 	}
 });
-
-module.exports = Redirect;

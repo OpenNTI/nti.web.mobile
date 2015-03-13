@@ -48,7 +48,7 @@
     "query-string": "^1.0.0",
     "react": "^0.12.2",
     "react-editor-component": "NextThought/react-editor-component#f883711",
-    "react-router-component": "STRML/react-router-component#bd45a289c",
+    "react-router-component": "jsg2021/react-router-component#1d820c3f",
     "request": "^2.53.0",
     "response-time": "^2.2.0",
     "url": "^0.10.1",
