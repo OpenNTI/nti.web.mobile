@@ -22,7 +22,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<NavigationBar title={title} {...props}/>
+				<NavigationBar title={title} {...this.props}/>
 				{Content ?
 					<Content {...props}/>
 					:
