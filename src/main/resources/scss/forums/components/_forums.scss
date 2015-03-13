@@ -85,6 +85,7 @@ $indent: 0.9375rem;
 		padding-right: 0;
 
 		.threadlink {
+			text-align: right;
 			position: absolute;
 			display: block;
 			min-height: 1rem;
@@ -93,6 +94,7 @@ $indent: 0.9375rem;
 			right: 0;
 			left: 0;
 			border-top: 1px dotted lightgray;
+			font-size: .75rem;
 		}
 
 		.replies {
