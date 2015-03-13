@@ -104,6 +104,18 @@ const ReturnTo = React.createClass({
 });
 
 
+
+
+function buffer(time, fn) {
+	let id = null;
+	return function() {
+		clearTimeout(id);
+		id = setTimeout(fn.call(this), time);
+	};
+}
+
+
+
 export default React.createClass({
 	displayName: 'NavigationBar',
 	mixins: [StoreEvents, BasePathAware, NavigatableMixin, SetStateSafely],
@@ -124,9 +136,14 @@ export default React.createClass({
 
 	backingStore: NavStore,
 	backingStoreEventHandlers: {
-		default: function () {
-			this.setStateSafely(NavStore.getData());
-		}
+		default: buffer(10, function () {
+			let o = NavStore.getData();
+			if (this.isMounted()) {
+				console.debug('Set Context: %o', o);
+				this.setState(o);
+				this.fillIn();
+			}
+		})
 	},
 
 
@@ -138,15 +155,10 @@ export default React.createClass({
 	},
 
 
-	componentDidMount () {
-		this.fillIn(this.props);
-	},
+	componentDidMount () {},
 
 
-	componentWillReceiveProps (nextProps) {
-
-		this.fillIn(nextProps);
-
+	componentWillReceiveProps () {
 		this.setState({menuOpen: false});
 	},
 
@@ -163,7 +175,7 @@ export default React.createClass({
 			resolve = getContext();
 		}
 
-		resolve.then(x=>
+		resolve.then(x=>console.debug('Context Path: %o', x) ||
 			this.setStateSafely({
 				current: x && x[x.length-1],
 				returnTo: x && x[x.length-2]
