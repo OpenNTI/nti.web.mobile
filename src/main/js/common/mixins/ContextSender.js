@@ -5,6 +5,7 @@ import {setPageSource, setContext} from 'navigation/Actions';
 const RegisterChild = 'context:child:register';
 const UnregisterChild = 'context:child:unregister';
 const Children = 'context:children';
+const notify = 'context:notify';
 
 export default {
 	mixins: [Contributor],
@@ -25,6 +26,13 @@ export default {
 	},
 
 
+	[notify] () {
+		let children = this[Children] || {size:0};
+		if (children.size === 0) {
+			setContext(this);
+		}
+	},
+
 
 	componentDidMount () {
 		if (!this.getContext) {
@@ -38,10 +46,12 @@ export default {
 			contextParent[RegisterChild](this);
 		}
 
-		let children = this[Children] || {size:0};
-		if (children.size === 0) {
-			setContext(this);
-		}
+		this[notify]();
+	},
+
+
+	componentWillReceiveProps () {
+		this[notify]();
 	},
 
 
