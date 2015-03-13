@@ -12,7 +12,6 @@ import {OBJECT_DELETED, POST, COMMENT_FORM_ID} from '../Constants';
 import ViewHeader from './widgets/ViewHeader';
 import Replies from './Replies';
 import CommentForm from './CommentForm';
-import Breadcrumb from 'common/components/Breadcrumb';
 import NTIID from 'dataserverinterface/utils/ntiids';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import ContextSender from 'common/mixins/ContextSender';
@@ -114,22 +113,6 @@ export default React.createClass({
 
 	},
 
-	// breadcrumb
-	__getContext: function() {
-		let getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
-		let href = this.makeHref(this.getPath());
-		let itemId = this._itemId();
-		let title = ViewHeader.headerTextForType(POST);
-		return getContextProvider().then(context => {
-			context.push({
-				ntiid: itemId,
-				label: title,
-				href: href
-			});
-			return context;
-		});
-	},
-
 	render () {
 
 		let item = this._item();
@@ -146,12 +129,8 @@ export default React.createClass({
 				return <Err error={this.state.error} />;
 			}
 		}
-
 		
 		let topic = Store.getObject(this.props.topicId);
-
-
-		let breadcrumb = <Breadcrumb contextProvider={this.__getContext}/>;
 
 		let P = (this.state.deleted || (this._item() || {}).Deleted) ? 
 			<Notice>This item has been deleted.</Notice> :
@@ -159,7 +138,6 @@ export default React.createClass({
 
 		return (
 			<div>
-				{breadcrumb}
 				<ViewHeader type={POST} />
 				{P}
 				<Replies key="replies" item={item}

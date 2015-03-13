@@ -14,7 +14,6 @@ import ViewHeader from './widgets/ViewHeader';
 import TopicHeadline from './TopicHeadline';
 import TopicEditor from './TopicEditor';
 import TopicComments from './TopicComments';
-import Breadcrumb from 'common/components/Breadcrumb';
 import Prompt from 'prompts';
 import Notice from 'common/components/Notice';
 import Loading from 'common/components/Loading';
@@ -136,11 +135,6 @@ module.exports = React.createClass({
 		return Promise.resolve(h);
 	},
 
-	__getContext: function() {
-		let getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
-		return getContextProvider();
-	},
-
 	_editTopic: function() {
 		this.setState({
 			editing: true
@@ -182,11 +176,9 @@ module.exports = React.createClass({
 
 	render: function() {
 
-		var breadcrumb = <Breadcrumb contextProvider={this.__getContext}/>;
-
 		if (this.state.error) {
 			var {error} = this.state;
-			return (error||{}).statusCode === 404 ? <div>{breadcrumb}<Notice>This topic could not be found.</Notice></div> : <Err error={error} />;
+			return (error||{}).statusCode === 404 ? <div><Notice>This topic could not be found.</Notice></div> : <Err error={error} />;
 		}
 
 		if (this.state.loading) {
@@ -194,10 +186,7 @@ module.exports = React.createClass({
 		}
 
 		if (this.state.deleted) {
-			return <div>
-				{breadcrumb}
-				<Notice>This topic has been deleted.</Notice>
-			</div>;
+			return <div><Notice>This topic has been deleted.</Notice></div>;
 		}
 
 		var topic = this._topic();
@@ -208,7 +197,6 @@ module.exports = React.createClass({
 
 		return (
 			<div>
-				{breadcrumb}
 				<ViewHeader type={TOPIC} />
 				<Tag ref='headline'
 					item={topic.headline}

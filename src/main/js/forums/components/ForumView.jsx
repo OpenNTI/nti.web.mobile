@@ -5,7 +5,6 @@ import React from 'react';
 import Store from '../Store';
 import LoadForum from '../mixins/LoadForum';
 
-import Breadcrumb from 'common/components/Breadcrumb';
 import StoreEvents from 'common/mixins/StoreEvents';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import Topics from './Topics';
@@ -45,19 +44,6 @@ module.exports = React.createClass({
 			href
 		});
 
-	},
-
-	__getContext: function() {
-		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
-		var href = this.makeHref([this.props.forumId, ''].join('/'));
-		var forum = Store.getForum(this.props.forumId);
-		return getContextProvider().then(context => {
-			context.push({
-				label: (forum||{}).title,
-				href: href
-			});
-			return context;
-		});
 	},
 
 	render: function() {

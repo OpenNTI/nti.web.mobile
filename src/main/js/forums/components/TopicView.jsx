@@ -11,7 +11,6 @@ let {Location} = Router;
 
 import Topic from './Topic';
 import Post from './Post';
-import Breadcrumb from 'common/components/Breadcrumb';
 import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';
 
@@ -97,23 +96,6 @@ module.exports = React.createClass({
 			href
 		});
 
-	},
-
-	// breadcrumb
-	__getContext: function() {
-		let getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
-		let href = this.makeHref('/' + this.props.topicId + '/');
-		let topic = this._topic();
-		let topicId = this._getPropId();
-		let title = topic && topic.headline ? topic.headline.title : 'Topic';
-		return getContextProvider().then(context => {
-			context.push({
-				ntiid: topicId,
-				label: title,
-				href: href
-			});
-			return context;
-		});
 	},
 
 	_topic: function() {

@@ -4,7 +4,6 @@ var React = require('react');
 var Link = require('react-router-component').Link;
 var AnalyticsStore = require('analytics/Store');
 var NTIID = require('dataserverinterface/utils/ntiids');
-var Breadcrumb = require('common/components/Breadcrumb');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var TopicList = require('./TopicList');
 var Loading = require('common/components/Loading');
@@ -34,13 +33,6 @@ var Topics = React.createClass({
 		AnalyticsStore.pushHistory(NTIID.decodeFromURI(this.props.forumId));
 	},
 
-	__getContext: function() {
-		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
-		return getContextProvider().then(context => {
-			return context;
-		});
-	},
-
 	_getForum() {
 		return Store.getForum(this.props.forumId);
 	},
@@ -68,7 +60,6 @@ var Topics = React.createClass({
 
 		return (
 			<div>
-				<Breadcrumb contextProvider={this.__getContext} />
 				<Transition transitionName="forums">
 					<ViewHeader type={FORUM} />
 					<section>
