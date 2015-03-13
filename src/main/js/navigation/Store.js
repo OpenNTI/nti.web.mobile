@@ -22,7 +22,12 @@ class Store extends StorePrototype {
 
 	[SetData] (payload) {
 		let {response, type} = payload.action;
-		this[data] = response;
+		this[data] = Object.assign({
+			path: null,
+			pageSource: null,
+			currentPage: null,
+			context:  null
+		}, response);
 
 		this.emitChange({type});
 	}
