@@ -187,7 +187,7 @@ var PostItem = React.createClass({
 			<div className={classes}>
 				{this.props.detailLink && <a href={href} className="threadlink"><span className="arrow-right"/></a>}
 				<div className="post">
-					<Avatar username={createdBy} className="avatar"/>
+					<Avatar username={createdBy} />
 					<div className="wrap">
 						<div className="meta">
 							<DisplayName username={createdBy} className="name"/>

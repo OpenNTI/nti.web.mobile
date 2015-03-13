@@ -28,7 +28,7 @@ var TopicHeadline = React.createClass({
 
 		return (
 			<div className="headline post">
-				<Avatar className="avatar" username={item.Creator}/>
+				<Avatar username={item.Creator}/>
 				<div className="wrap">
 					<h1>{item.title}</h1>
 					<div className="meta">
