@@ -6,12 +6,14 @@ import {
 } from './Constants';
 
 export function setContext (context) {
-	dispatch(SET_CONTEXT, {context});
+	context.resolveContext().then(path=>
+		dispatch(SET_CONTEXT, {context, path}));
 }
 
 
 export function setPageSource (pageSource, currentPage, context) {
-	dispatch(SET_PAGE_SOURCE, {pageSource, currentPage, context});
+	context.resolveContext().then(path=>
+		dispatch(SET_PAGE_SOURCE, {pageSource, currentPage, context, path}));
 }
 
 function dispatch(key, data) {

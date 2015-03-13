@@ -139,9 +139,9 @@ export default React.createClass({
 		default: buffer(10, function () {
 			let o = NavStore.getData();
 			if (this.isMounted()) {
-				console.debug('Set Context: %o', o);
+				// console.debug('Set Context: %o', o);
 				this.setState(o);
-				this.fillIn();
+				this.fillIn(o);
 			}
 		})
 	},
@@ -163,8 +163,8 @@ export default React.createClass({
 	},
 
 
-	fillIn () {
-		let {context} = this.state;
+	fillIn (state) {
+		let {context} = state || this.state;
 		let nc = context || {};
 
 		let resolve = Promise.resolve();
