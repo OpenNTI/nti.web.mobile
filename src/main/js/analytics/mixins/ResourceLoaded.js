@@ -69,7 +69,9 @@ module.exports = {
 					}
 
 
-					event.setContextPath(context.map(x=>x.ntiid || x));
+					event.setContextPath(context
+						.map(x=> x.ntiid || (typeof x === 'string'? x: null))
+						.filter(x=>x));
 					AnalyticsActions.emitEvent(event);
 				});
 		}
