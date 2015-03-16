@@ -37,7 +37,11 @@ const ListView = React.createClass({
 			return null;
 		}
 
-		let sections = [{items:list, label: ''}];
+		if(filter && filter.sort) {
+			list.sort(filter.sort);
+		}
+
+		let sections = [{items: list, label: ''}];
 
 		if (filter && filter.split) {
 			sections = filter.split(list);
@@ -55,12 +59,12 @@ const ListView = React.createClass({
 		return (
 			<div>
 			{sections.map(s=>
-			<div className="grid-container" key={s.label}>
-				<h3>{s.label}</h3>
-				<ul className={'small-block-grid-1'}>
-					{s.items.map(o=><Item key={o.NTIID} item={o}/>)}
-				</ul>
-			</div>
+				<div className="grid-container" key={s.label}>
+					<h3>{s.label}</h3>
+					<ul className={'small-block-grid-1'}>
+						{s.items.map(o=><Item key={o.NTIID} item={o}/>)}
+					</ul>
+				</div>
 			)}
 			</div>
 		);
