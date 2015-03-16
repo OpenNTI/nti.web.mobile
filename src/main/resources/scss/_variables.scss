@@ -120,6 +120,20 @@ $tabs-navigation-font-color: $primary-grey;
 %icon-nav-library-active {background-image: url(../images/icons/nav-library_active.png);}
 %icon-nav-library-hover {background-image: url(../images/icons/nav-library_hover.png);}
 
+%middot-before {
+	&::before {
+		content: '\00B7';
+		margin: 0.5em;
+	}
+}
+
+%middot-after {
+	&::after {
+		content: '\00B7';
+		margin: 0.5em;
+	}
+}
+
 
 %hardware-render {
 	-webkit-backface-visibility: hidden;
