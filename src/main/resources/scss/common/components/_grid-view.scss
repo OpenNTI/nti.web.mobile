@@ -295,9 +295,18 @@ li.catalog-item {
 	}
 
 	h5 {
+		display: inline;
 		font-size: 0.8rem;
 		font-weight: 600;
 		text-transform: uppercase;
 		color: $tertiary-grey;
+
+		& + h5 {
+			@extend %middot-before;
+
+			// color: $tertiary-grey;
+			// font-size: 0.55rem;
+			// text-transform: uppercase;
+		}
 	}
 }

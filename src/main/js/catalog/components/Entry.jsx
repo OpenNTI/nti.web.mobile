@@ -4,6 +4,36 @@ import {encodeForURI} from 'dataserverinterface/utils/ntiids';
 
 import BasePathAware from 'common/mixins/BasePath';
 
+const OPEN = Symbol();
+const FOR_CREDIT = Symbol();
+
+
+/*
+
+item.RealEnrollmentStatus can have these values:
+
+#: the parent scopes.
+ES_PUBLIC = "Public"
+
+#: This scope extends the public scope with people that have purchase the course
+ES_PURCHASED = "Purchased"
+
+#: This scope extends the public scope with people taking the course
+#: to earn academic credit. They have probably paid money.
+ES_CREDIT = "ForCredit"
+
+#: This scope extends the ForCredit scope to be specific to people who
+#: are engaged in a degree-seeking program.
+ES_CREDIT_DEGREE = "ForCreditDegree"
+
+#: This scope extends the ForCredit scope to be specific to people who
+#: are taking the course for credit, but are not engaged in
+#: seeking a degree.
+ES_CREDIT_NONDEGREE = "ForCreditNonDegree"
+
+*/
+
+
 export default React.createClass({
 	displayName: 'Entry',
 	mixins: [BasePathAware],
@@ -43,6 +73,8 @@ export default React.createClass({
 
 		if (!item) {return;}
 
+		let {status} = this.getStatus();
+
 		let icon = item && item.icon;
 
 		return (
@@ -51,7 +83,12 @@ export default React.createClass({
 					<div className="thumbnail" style={{backgroundImage: icon && `url(${icon})`}}/>
 					<label>
 						<h3>{item.Title}</h3>
-						<h5>{item.ProviderUniqueID}</h5>
+						<div>
+							<h5>{item.ProviderUniqueID}</h5>
+							{status && (
+								<h5>{status!==FOR_CREDIT && <span>Not</span>} For Credit</h5>
+							)}
+						</div>
 					</label>
 				</a>
 				{this.button()}
@@ -67,8 +104,13 @@ export default React.createClass({
 		let dropable = false;
 
 		let dropableMime = /openenrollmentoption/i;
+		let forCredit = /forcredit/i;
 
 		if (!item) {return;}
+
+		let status = item.RealEnrollmentStatus;
+
+		status = status && (forCredit.test(status) ? FOR_CREDIT : OPEN);
 
 		let {Items} = item.EnrollmentOptions;
 
@@ -79,7 +121,7 @@ export default React.createClass({
 			enrolled = enrolled || Boolean(opt.IsEnrolled);
 		}
 
-		return {enrolled, dropable, available};
+		return {enrolled, dropable, available, status};
 	},
 
 
