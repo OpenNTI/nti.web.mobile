@@ -2,10 +2,11 @@ import React from 'react';
 
 import {encodeForURI} from 'dataserverinterface/utils/ntiids';
 
-import {Link} from 'react-router-component';
+import BasePathAware from 'common/mixins/BasePath';
 
 export default React.createClass({
 	displayName: 'Entry',
+	mixins: [BasePathAware],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired
@@ -22,7 +23,7 @@ export default React.createClass({
 		if (!item) {return '';}
 
 		let courseId = encodeForURI(item.getID());
-		return `/item/${courseId}/`;
+		return `${this.getBasePath()}catalog/item/${courseId}/`;
 	},
 
 
@@ -35,14 +36,14 @@ export default React.createClass({
 
 		return (
 			<li className="catalog-item">
-				<Link href={this.getDetailHref()}>
+				<a href={this.getDetailHref()}>
 					<div className="thumbnail" style={{backgroundImage: icon && `url(${icon})`}}/>
 					<label>
 						<h3>{item.Title}</h3>
 						<h5>{item.ProviderUniqueID}</h5>
 					</label>
 					{this.button()}
-				</Link>
+				</a>
 			</li>
 		);
 	},
