@@ -52,6 +52,9 @@ export default React.createClass({
 		let item = this.getItem();
 		let enrolled = false;
 		let available = false;
+		let dropable = false;
+
+		let dropableMime = /openenrollmentoption/i;
 
 		if (!item) {return;}
 
@@ -59,19 +62,20 @@ export default React.createClass({
 
 		for(let prop of Object.keys(Items)) {
 			let opt = Items[prop];
+			dropable = dropable || dropableMime.test(opt.MimeType);
 			available = available || Boolean(opt.IsAvailable);
 			enrolled = enrolled || Boolean(opt.IsEnrolled);
 		}
 
-		return {enrolled, available};
+		return {enrolled, dropable, available};
 	},
 
 
 	button () {
 		let status = this.getStatus();
-		let {available, enrolled} = status || {};
+		let {available, enrolled, dropable} = status || {};
 
-		return !available && !enrolled ? null :
+		return (!available && !enrolled) || (!dropable && enrolled) ? null :
 			enrolled ?
 				<button className="drop" href={this.getDetailHref()}>Drop</button> :
 				<button className="add" href={this.getDetailHref()}>Add</button>
