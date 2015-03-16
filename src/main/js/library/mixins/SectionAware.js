@@ -98,7 +98,7 @@ export default {
 
 		let getBin = o => ({
 			name: o.name,
-			items: o.filter ? items.filter(o.filter) : items
+			items: (o.filter ? items.filter(o.filter) : items).sort(o.sort || ()=>0)
 		});
 
 		if (filters) {
