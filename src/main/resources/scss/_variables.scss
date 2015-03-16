@@ -120,6 +120,15 @@ $tabs-navigation-font-color: $primary-grey;
 %icon-nav-library-active {background-image: url(../images/icons/nav-library_active.png);}
 %icon-nav-library-hover {background-image: url(../images/icons/nav-library_hover.png);}
 
+
+%hardware-render {
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
 %touch-scroll {
 	-webkit-backface-visibility: hidden;
 	-webkit-overflow-scrolling: touch;
