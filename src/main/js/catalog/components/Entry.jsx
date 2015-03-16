@@ -27,6 +27,17 @@ export default React.createClass({
 	},
 
 
+	getAddHref () {
+		return `${this.getDetailHref()}enrollment/`;
+	},
+
+
+	getDropHref () {
+		return `${this.getAddHref()}drop/`;
+	},
+
+
+
 	render () {
 		let item = this.getItem();
 
@@ -42,8 +53,8 @@ export default React.createClass({
 						<h3>{item.Title}</h3>
 						<h5>{item.ProviderUniqueID}</h5>
 					</label>
-					{this.button()}
 				</a>
+				{this.button()}
 			</li>
 		);
 	},
@@ -78,8 +89,8 @@ export default React.createClass({
 
 		return (!available && !enrolled) || (!dropable && enrolled) ? null :
 			enrolled ?
-				<button className="drop" href={this.getDetailHref()}>Drop</button> :
-				<button className="add" href={this.getDetailHref()}>Add</button>
+				<a className="action drop" href={this.getDropHref()}>Drop</a> :
+				<a className="action add" href={this.getAddHref()}>Add</a>
 			;
 	}
 });
