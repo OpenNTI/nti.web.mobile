@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Store from 'assessment/Store';
-import {areAssessmentsSupported} from 'assessment/Utils';
+import {areAssessmentsSupported, isAssignment} from 'assessment/Utils';
 import FeedbackWidget from 'assessment/components/Feedback';
 import SetHeaderWidget from 'assessment/components/Header';
 import SetSubmissionWidget from 'assessment/components/Submission';
@@ -67,7 +67,13 @@ export default {
 
 		if ((next && next.getID()) !== (prev && prev.getID())) {
 			let {contentPackage} = nextProps;
-			let admin = Boolean(contentPackage && contentPackage.parent('isAdministrative'));
+			//To be administrative, the content package must be decendent to an
+			//CourseInstanceAdministrativeRole, AND the assessment has to be an
+			//Assignment. (Self-Assessments are presently defined as not being
+			// administered.)
+			let admin = Boolean(contentPackage &&
+						contentPackage.parent('isAdministrative') &&
+						next && isAssignment(next));
 
 			Store.teardownAssessment(prev);
 			Store.setupAssessment(next, true, admin);
