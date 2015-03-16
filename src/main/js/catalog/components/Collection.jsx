@@ -91,7 +91,7 @@ export default React.createClass({
 	render () {
 		return (
 			<div>
-				<Filter {...this.props} filters={filters}>
+				<Filter {...this.props} filters={filters} localStorageKey="catalog">
 					<ListView title={this.props.title} />
 				</Filter>
 			</div>
