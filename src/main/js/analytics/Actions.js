@@ -19,6 +19,12 @@ module.exports = {
 		});
 	},
 
+	endSession() {
+		AppDispatcher.handleViewAction({
+			type: Constants.END_SESSION
+		});
+	},
+
 	_getTypes: function() {
 		if (!_types) {
 			_types = {};

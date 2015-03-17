@@ -1,11 +1,17 @@
 'use strict';
 
-var React = require('react');
-var Store = require('../Store');
+import React  from 'react';
+import Store  from '../Store';
+import Actions  from '../Actions';
+
+function cleanup() {
+	Actions.endSession();
+}
 
 var Analytics = React.createClass({
 
-	componentDidMount: function() {
+	componentDidMount() {
+		window.addEventListener('beforeunload', cleanup);
 		Store.init();
 	},
 
