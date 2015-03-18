@@ -66,16 +66,24 @@ export function loadPage (ntiid) {
 
 			let p = lib.getPackage(pi.getPackageID());
 
-			return Promise.all([
-				(p && p.getTableOfContents()) || Promise.reject('No Package for Page!'),
-				pi.getContent()
 
+			return Promise.all([
+				//Load the toc
+				(p && p.getTableOfContents()) || Promise.reject('No Package for Page!'),
+
+				//Load the page html
+				pi.getContent(),
+
+				//Get the data store. (Important note: the store itself will load in parallel
+				// (and not block page render))
+				pi.getUserData()
 			]).then(data => {
-				let [toc, htmlStr] = data;
+				let [toc, htmlStr, ugd] = data;
 				return {
 					tableOfContents: toc,
 					pageInfo: pi,
-					content: htmlStr
+					content: htmlStr,
+					userDataStore: ugd
 				};
 			});
 		})
