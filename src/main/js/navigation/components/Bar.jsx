@@ -176,7 +176,8 @@ export default React.createClass({
 			resolve = getContext();
 		}
 
-		resolve.then(x=>console.debug('Context Path: %o', x) ||
+		resolve.then(x=>
+			//console.debug('Context Path: %o', x) ||
 			this.setStateSafely({
 				current: x && x[x.length-1],
 				returnTo: x && x[x.length-2]
@@ -271,7 +272,7 @@ export default React.createClass({
 	},
 
 	updateBodyClassForMenu(isOpen) {
-		// video elements interfere with the menu interaction. adding a class to body 
+		// video elements interfere with the menu interaction. adding a class to body
 		// when the menu is open allows us to use css to get the videos out of the way.
 		if (isOpen) {
 			document.body.classList.add(menuOpenBodyClass);
