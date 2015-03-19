@@ -37,8 +37,19 @@ var port = server.setupApplication(app, config);
 /* jshint -W098 */	// We need the signature to be 4 args long
 					// for express to treat it as a error handler
 app.use(function(err, req, res, next){
-	logger.error(err);
-	res.status(500).send('Oops! Something broke!'); });
+	if (!err) {
+		err = 'Unknown Error';
+	}
+	else if (err.toJSON) {
+		err = err.toJSON();
+	}
+	else if (err.stack) {
+		err = err.stack;
+	}
+
+	logger.error('%o', err);
+
+	res.status(err.statusCode || 500).send(err.body || 'Oops! Something broke!'); });
 
 //Go!
 protocol.createServer(mobileapp || app).listen(port, address, function() {
