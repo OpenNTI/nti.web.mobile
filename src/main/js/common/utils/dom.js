@@ -6,6 +6,15 @@ import between from 'dataserverinterface/utils/between';
 
 import withValue from 'dataserverinterface/utils/object-attribute-withvalue';
 
+import addClass from 'dataserverinterface/utils/dom-addclass';
+import removeClass from 'dataserverinterface/utils/dom-removeclass';
+import hasClass from 'dataserverinterface/utils/dom-hasclass';
+import matches from 'dataserverinterface/utils/dom-matches';
+import parent from 'dataserverinterface/utils/dom-parent';
+
+export {addClass, removeClass, hasClass, matches, parent};
+
+
 function hyphenatedToCamel (s) {
 	var re = hyphenatedToCamel.re = (hyphenatedToCamel.re || /-([a-z])/g);
 	return s.replace(re, g=>g[1].toUpperCase());
@@ -122,68 +131,6 @@ export function removeEventListener  (el, event, handler) {
 }
 
 
-export function hasClass (el, className) {
-	var classes = (el.className || '').split(' ');
-	return classes.indexOf(className) !== -1;
-}
-
-
-export function addClass  (el, className) {
-	if (el.classList) {
-		return el.classList.add(className);
-	}
-
-	var classes;
-	if (!hasClass(el, className)) {
-		classes = (el.className || '').split(' ');
-		classes.push(className);
-		el.className = classes.join(' ');
-	}
-}
-
-
-export function removeClass  (el, className) {
-	if (el.classList) {
-		return el.classList.remove(className);
-	}
-
-	var classes;
-	if (hasClass(el, className)) {
-		classes = (el.className || '').split(' ');
-		classes.splice(classes.indexOf(className), 1);
-		el.className = classes.join(' ');
-	}
-}
-
-
-export function matches(el, selector) {
-	var fn = matches.nativeFn;
-	if(fn === undefined) {
-		//Figure out what the native function is called... (if any)
-		// If non, it should set it to 'null' and prevent the above
-		// strict equality from passing in the future.
-		fn = matches.nativeFn = [
-			'matches',
-			'webkitMatchesSelector',
-			'mozMatchesSelector',
-			'msMatchesSelector'
-		].reduce((fn, name) => {
-				return fn || (el[name] && name) || null; }, null);
-	}
-
-	if (fn) {
-		return el[fn](selector);
-	}
-
-	//In the fallback case, and there happens to be no `parentNode`... we're screwed. :|
-	//Maybe create a DocumentFragment and append el to that and use that as the parent?
-	return !!Array.from(el.parentNode.querySelectorAll(selector))
-		.reduce((match, potential) => {
-			return match || (el === potential && potential);
-		});
-}
-
-
 /**
  * Much like the Sencha ExtJS EventObject.getTarget() method. This will
  * resolve an event target based on the selector.  If the selector does
@@ -196,19 +143,7 @@ export function matches(el, selector) {
  */
 export function getEventTarget (event, selector) {
 	var t = event.target || event.srcElement;
-	if (t && t.nodeType === Node.TEXT_NODE) {
-		t = t.parentNode;
-	}
-
-	if (t && !isEmpty(selector)) {
-		while(t.parentNode && !matches(t, selector)) {
-			t = t.parentNode;
-		}
-	}
-
-	//this will return null for any node/falsy value of t where t's NodeType
-	// is not an Element.
-	return (t && t.nodeType === Node.ELEMENT_NODE && t) || null;
+	return parent(t, selector);
 }
 
 
