@@ -1,15 +1,15 @@
 'use strict';
 
-var EventEmitter = require('events').EventEmitter;
+import {EventEmitter} from 'events';
+import * as Constants from './Constants';
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import {getService}from 'common/utils';
+import autobind from 'dataserverinterface/utils/autobind';
+import {FixedQueue as fixedQueue} from 'fixedqueue';
 
-var Constants = require('./Constants');
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var {getService} = require('common/utils');
-var autobind = require('dataserverinterface/utils/autobind');
-var queue = [];
-var fixedQueue = require('fixedqueue').FixedQueue;
-var postFrequency = 10000;
-var timeoutId;
+let queue = [];
+let postFrequency = 10000;
+let timeoutId;
 
 var _contextHistory = fixedQueue(11);
 
@@ -25,6 +25,7 @@ function startTimer() {
 }
 
 function endSession() {
+	console.debug('Ending analytics session.');
 	clearTimeout(timeoutId);
 	return Store._processQueue().then(() => {
 		return getService().then(service => {
@@ -50,7 +51,7 @@ var Store = autobind(Object.assign({}, EventEmitter.prototype, {
 	},
 
 	enqueueEvent: function(analyticsEvent) {
-		queue.push(analyticsEvent.getData());
+		queue.push(analyticsEvent);
 	},
 
 	_processQueue: function() {
@@ -61,13 +62,25 @@ var Store = autobind(Object.assign({}, EventEmitter.prototype, {
 		console.log('AnalyticsStore processing queue (%s events)', queue.length);
 
 		// yank everything out of the queue
-		var items = queue;
+		let events = queue;
 		queue = [];
 
+		let separated = events.reduce( (previous, current) => {
+			(current.finished ? previous.finished : previous.unfinished).push(current);
+			return previous;
+		}, { finished: [], unfinished: [] } );
+
+		// return unfinished events to the queue
+		queue.push(...separated.unfinished);
+		let items = separated.finished;
+
+		if (items.length === 0) {
+			return Promise.resolve('No finished events in the queue');
+		}
 
 		return getService()
 			.then(function(service) {
-				return service.postAnalytics(items);
+				return service.postAnalytics(items.map(item => item.getData()));
 			})
 			.then(function(response) {
 				console.log('%i of %i analytics events accepted.', response, items.length);
@@ -92,7 +105,7 @@ AppDispatcher.register(function(payload) {
 
 		case Constants.NEW_EVENT:
 		case Constants.VIDEO_PLAYER_EVENT:
-			console.log('Analytics Store received event: %s, %O', action.event.type, action);
+			console.log('Analytics Store received event: %s, %O', action.event.MimeType, action);
 			Store.enqueueEvent(action.event);
 		break;
 
