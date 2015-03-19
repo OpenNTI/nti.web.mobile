@@ -6,7 +6,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "ssh://repos.nextthought.com/nextthought-webapp-mobile"
+    "url": "ssh://repos.nextthought.com/nti.web.mobile"
   },
   "src": "./src/main",
   "test": "./src/test",
