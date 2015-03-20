@@ -15,6 +15,9 @@ var Analytics = React.createClass({
 		window.addEventListener('beforeunload', cleanup);
 		pagevis.addChangeListener(visible => {
 			console.log('visibility change ' + visible);
+			if (!visible) {
+				cleanup();
+			}
 		});
 		Store.init();
 	},
