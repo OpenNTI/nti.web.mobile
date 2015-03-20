@@ -5,7 +5,6 @@ import emptyFunction from 'react/lib/emptyFunction';
 
 import {getModel} from 'dataserverinterface';
 
-import {emitVideoEvent} from '../Actions';
 import {emitEventStarted, emitEventEnded} from 'analytics/Actions';
 
 const WatchVideoEvent = getModel('analytics.watchvideoevent');
@@ -81,29 +80,40 @@ export default React.createClass({
 
 	recordPlaybackStarted (event) {
 		if (this.state.playStartEvent) {
+			// this can be triggered by a tap on the transcript, which jumps the video to that location.
 			console.warn('We already have a playStartEvent. How did we get another one without a ' +
-						'pause/stop/seek/end in between? Dropping previous start event on the floor.');
+						'pause/stop/seek/end in between?');
+			let e = this.state.playStartEvent;
+			e.finish();
+			emitEventEnded(e);
 		}
 
 		if (this.isMounted()) {
-
-			let ctx = (this.props.context || [])
-				.map(x=> x.ntiid || (typeof x === 'string'? x: null))
-				.filter(x=>x); // removes nulls
-
-			let analyticsEvent = new WatchVideoEvent(
-				this.props.src.ntiid,
-				ctx,
-				event.target.currentTime, // video_start_time
-				event.target.duration, // MaxDuration, the length of the entire video
-				!!this.props.transcript
-			);
-
+			let analyticsEvent = this._newWatchVideoEvent(event);
 			emitEventStarted(analyticsEvent);
 			this.setState({
 				playStartEvent: analyticsEvent // this.getAnalyticsEventData(event)
 			});
+			return analyticsEvent;
 		}
+	},
+
+	_newWatchVideoEvent(browserEvent) {
+		let ctx = (this.props.context || [])
+			.map(x=> x.ntiid || (typeof x === 'string'? x: null))
+			.filter(x=>x); // removes nulls
+
+		let target = (browserEvent || {}).target || {currentTime: 0, duration: 0};
+
+		let analyticsEvent = new WatchVideoEvent(
+			this.props.src.ntiid,
+			ctx,
+			target.currentTime, // video_start_time
+			target.duration, // MaxDuration, the length of the entire video
+			!!this.props.transcript
+		);
+
+		return analyticsEvent;
 	},
 
 
@@ -123,48 +133,32 @@ export default React.createClass({
 	},
 
 
-	emitAnalyticsEvent (startEvent, endEvent) {
-		let fallback = {duration:0, currentTime:0};
-
-		endEvent = endEvent || fallback;
-		startEvent = startEvent || fallback;
-
-		let ctx = (this.props.context || [])
-			.map(x=> x.ntiid || (typeof x === 'string'? x: null))
-			.filter(x=>x);
-
-		let even = new WatchVideoEvent(
-				this.props.src.ntiid,
-				ctx,
-				startEvent.currentTime,
-				startEvent.duration,
-			 	!!this.props.transcript
-			);
-
-		even.finish(endEvent.currentTime);
-
-		emitVideoEvent(even);
+	emitEmptyAnalyticsEvent () {
+		let event = this._newWatchVideoEvent();
+		emitEventStarted(event);
+		event.finish(0);
+		emitEventEnded(event);
 	},
 
 
 	onTimeUpdate (event) {
-		// this.emitAnalyticsEvent(event);
 		this.props.onTimeUpdate(event);
 	},
 
 
 	onSeeked (event) {
-		// this.emitAnalyticsEvent(event);
 		this.props.onSeeked(event);
 	},
 
 
 	onPlaying (event) {
-		this.emitAnalyticsEvent();//as soon as it starts, record an empty event. (matches webapp behavior)
+		// as soon as it starts, record an empty event. (matches webapp behavior)
+		// we do this so if the user closes the window we still ahve a record of them having played the video.
+		this.emitEmptyAnalyticsEvent();
+
 		this.recordPlaybackStarted(event);
 		this.props.onPlaying(event);
 	},
-
 
 	onPause (event) {
 		this.recordPlaybackStopped(event);

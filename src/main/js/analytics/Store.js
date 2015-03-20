@@ -103,8 +103,7 @@ AppDispatcher.register(function(payload) {
 	switch (action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 
-		case Constants.NEW_EVENT:
-		case Constants.VIDEO_PLAYER_EVENT:
+		case Constants.EVENT_STARTED:
 			console.log('Analytics Store received event: %s, %O', action.event.MimeType, action);
 			Store.enqueueEvent(action.event);
 		break;
