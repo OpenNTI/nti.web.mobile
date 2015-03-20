@@ -133,12 +133,12 @@ export default React.createClass({
 	},
 
 
-	emitEmptyAnalyticsEvent () {
-		let event = this._newWatchVideoEvent();
-		emitEventStarted(event);
-		event.finish(0);
-		emitEventEnded(event);
-	},
+	// emitEmptyAnalyticsEvent () {
+	// 	let event = this._newWatchVideoEvent();
+	// 	emitEventStarted(event);
+	// 	event.finish(0);
+	// 	emitEventEnded(event);
+	// },
 
 
 	onTimeUpdate (event) {
@@ -154,7 +154,7 @@ export default React.createClass({
 	onPlaying (event) {
 		// as soon as it starts, record an empty event. (matches webapp behavior)
 		// we do this so if the user closes the window we still ahve a record of them having played the video.
-		this.emitEmptyAnalyticsEvent();
+		// this.emitEmptyAnalyticsEvent();
 
 		this.recordPlaybackStarted(event);
 		this.props.onPlaying(event);
