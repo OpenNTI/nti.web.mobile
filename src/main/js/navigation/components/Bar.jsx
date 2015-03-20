@@ -13,7 +13,8 @@ import ActiveState from 'common/components/ActiveState';
 import Avatar from 'common/components/Avatar';
 import Pager from 'common/components/Pager';
 
-import {addClass, removeClass} from 'common/utils/dom';
+import addClass from 'nti.dom/lib/addclass';
+import removeClass from 'nti.dom/lib/removeclass';
 
 import BasePathAware from 'common/mixins/BasePath';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';

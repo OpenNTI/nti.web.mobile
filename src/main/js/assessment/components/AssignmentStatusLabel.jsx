@@ -7,7 +7,7 @@ var DateTime = require('common/components/DateTime');
 
 var toUnitString = require('common/locale').scoped('UNITS');
 var toUnitSingularString = require('common/locale').scoped('UNITS.SINGULARS');
-var {getEventTarget} = require('common/utils/dom');
+var getEventTarget = require('nti.dom/lib/geteventtarget');
 
 var moment = require('moment');
 

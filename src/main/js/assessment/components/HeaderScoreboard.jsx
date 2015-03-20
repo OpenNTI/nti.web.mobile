@@ -5,7 +5,7 @@ var React = require('react');
 var Score = require('common/components/charts/Score');
 var DateTime = require('common/components/DateTime');
 
-var {getEventTarget} = require('common/utils/dom');
+var getEventTarget = require('nti.dom/lib/geteventtarget');
 
 var Store = require('../Store');
 var Actions = require('../Actions');

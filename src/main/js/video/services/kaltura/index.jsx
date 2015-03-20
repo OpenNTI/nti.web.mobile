@@ -9,7 +9,7 @@ import url from 'url';
 import {getModel} from 'dataserverinterface';
 let MediaSource = getModel('mediasource');
 
-import {getEventTarget} from 'common/utils/dom';
+import getEventTarget from 'nti.dom/lib/geteventtarget';
 
 import Loading from 'common/components/Loading';
 import {EventHandlers} from '../../Constants';

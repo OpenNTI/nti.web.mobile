@@ -6,14 +6,6 @@ import between from 'dataserverinterface/utils/between';
 
 import withValue from 'dataserverinterface/utils/object-attribute-withvalue';
 
-import addClass from 'dataserverinterface/utils/dom-addclass';
-import removeClass from 'dataserverinterface/utils/dom-removeclass';
-import hasClass from 'dataserverinterface/utils/dom-hasclass';
-import matches from 'dataserverinterface/utils/dom-matches';
-import parent from 'dataserverinterface/utils/dom-parent';
-
-export {addClass, removeClass, hasClass, matches, parent};
-
 
 function hyphenatedToCamel (s) {
 	var re = hyphenatedToCamel.re = (hyphenatedToCamel.re || /-([a-z])/g);
@@ -131,27 +123,14 @@ export function removeEventListener  (el, event, handler) {
 }
 
 
-/**
- * Much like the Sencha ExtJS EventObject.getTarget() method. This will
- * resolve an event target based on the selector.  If the selector does
- * not match it will not return anything. If no selector is given, it will
- * simply return the target.(normalized)
- *
- * @param {Event} event    The browser/synthetic event. (Must have a
- *                         `target` property to used duck-typed)
- * @param {String} selector A CSS selector.
- */
-export function getEventTarget (event, selector) {
-	var t = event.target || event.srcElement;
-	return parent(t, selector);
-}
-
-
 export function filterNodeList (nodeList, filter) {
 	var d = Array.from(nodeList);
 
 	if (typeof filter === 'string') {
-		filter = this[filter];
+		//Predefined filter by name
+
+		//filter = this[filter];
+		throw new Error('Not Implemented');
 	}
 
 	return d.filter(filter);
@@ -307,47 +286,6 @@ export function retargetAnchorsWithExternalRefs (markup, baseUrl) {
 	});
 
 	return string ? markup.innerHTML : markup;
-}
-
-
-export function isEmpty(value) {
-	var re = (isEmpty.re || /((&nbsp;)|(\u2060)|(\u200B)|(<br\/?>)|(<\/?div>))*/ig);
-
-	isEmpty.re = re;
-
-	value = (Array.isArray(value) && value.join('')) || String(value);
-
-	return value.replace(re, '') === '';
-}
-
-
-/**
- * Replace a node in the DOM Tree
- *
- * @param {Element} oldNode The node that will be replaced.
- * @param {Element} [newNode] The node to replace the with.
- * @returns {Element} The node that was replaced.
- */
-export function replaceNode (oldNode, newNode) {
-	var parentNode = oldNode && oldNode.parentNode;
-	if (!parentNode) {
-		throw new Error('Invalid Arguments');
-	}
-
-	if(newNode) {
-		parentNode.insertBefore(newNode, oldNode);
-	}
-
-	parentNode.removeChild(oldNode);
-	return oldNode;
-}
-
-
-export function removeNode (el) {
-	var p = el && el.parentNode;
-	if (p) {
-		p.removeChild(el);
-	}
 }
 
 

@@ -8,7 +8,8 @@ import React from 'react';
 
 import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
 
-import {addClass, removeClass} from 'common/utils/dom';
+import addClass from 'nti.dom/lib/addclass';
+import removeClass from 'nti.dom/lib/removeclass';
 
 import LoadingMask from 'common/components/Loading';
 

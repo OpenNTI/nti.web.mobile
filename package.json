@@ -25,12 +25,17 @@
     "webapp-instance": "./src/server/index.js"
   },
   "dependencies": {
+    "nti.anchors": "git+https://repos.nextthought.com/git/nti.lib.anchorjs",
+    "nti.dom": "git+https://repos.nextthought.com/git/nti.lib.domjs",
+
+    "dataserverinterface": "git+https://repos.nextthought.com/git/nti.node.dataserverinterface#54359ea",
+    "react-editor-component": "NextThought/react-editor-component#f883711",
+
     "classnames": "^1.1.4",
     "compressible": "^2.0.1",
     "compression": "^1.4.3",
     "cookie-parser": "^1.3.3",
     "counterpart": "^0.16.0",
-    "dataserverinterface": "git+https://repos.nextthought.com/git/nti.node.dataserverinterface#54359ea",
     "express": "^4.9.5",
     "fastclick": "^1.0.3",
     "fixedqueue": "0.0.1",
@@ -47,7 +52,6 @@
     "proxywrap": "^0.2.0",
     "query-string": "^1.0.0",
     "react": "^0.12.2",
-    "react-editor-component": "NextThought/react-editor-component#f883711",
     "react-router-component": "0.24.2",
     "request": "^2.53.0",
     "response-time": "^2.2.0",

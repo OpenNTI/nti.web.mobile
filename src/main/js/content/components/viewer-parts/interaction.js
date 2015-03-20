@@ -1,6 +1,7 @@
 import {isNTIID, encodeForURI} from 'dataserverinterface/utils/ntiids';
 
-import {hasClass, getEventTarget} from 'common/utils/dom';
+import hasClass from 'nti.dom/lib/hasclass';
+import getEventTarget from 'nti.dom/lib/geteventtarget';
 
 export default {
 
