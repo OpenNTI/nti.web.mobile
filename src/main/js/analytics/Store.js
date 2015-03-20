@@ -27,11 +27,14 @@ function startTimer() {
 function endSession() {
 	console.debug('Ending analytics session.');
 	clearTimeout(timeoutId);
-	return Store._processQueue().then(() => {
-		return getService().then(service => {
-			return service.endAnalyticsSession();
-		});
-	});
+	let haltEvents = Store._haltActiveEvents();
+	return haltEvents.then(
+		Store._processQueue().then(() => {
+			return getService().then(service => {
+				return service.endAnalyticsSession();
+			});
+		})
+	);
 }
 
 var Store = autobind(Object.assign({}, EventEmitter.prototype, {
@@ -52,6 +55,17 @@ var Store = autobind(Object.assign({}, EventEmitter.prototype, {
 
 	enqueueEvent: function(analyticsEvent) {
 		queue.push(analyticsEvent);
+	},
+
+	_haltActiveEvents() {
+		return new Promise(resolve => {
+			queue.forEach(event => {
+				if (!event.finished) {
+					event.halt();	
+				}
+			});
+			resolve();
+		});
 	},
 
 	_processQueue: function() {
