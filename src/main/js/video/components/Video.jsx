@@ -6,6 +6,7 @@ import emptyFunction from 'react/lib/emptyFunction';
 import {getModel} from 'dataserverinterface';
 
 import {emitVideoEvent} from '../Actions';
+import {emitEventStarted, emitEventEnded} from 'analytics/Actions';
 
 const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
@@ -34,7 +35,7 @@ export default React.createClass({
 		 */
 
 		/**
-		 * Callback for time updates as video plays back.
+		 * Callback for time updates as video plays.
 		 *
 		 * @type {onTimeUpdate}
 		 */
@@ -69,7 +70,7 @@ export default React.createClass({
 
 	getAnalyticsEventData (event) {
 		return {
-			timestamp: event.timeStamp,
+			// timestamp: event.timeStamp,
 			target: event.target,
 			currentTime: event.target.currentTime,
 			duration: event.target.duration,
@@ -85,20 +86,36 @@ export default React.createClass({
 		}
 
 		if (this.isMounted()) {
-			this.setState({playStartEvent: this.getAnalyticsEventData(event)});
+
+			let ctx = (this.props.context || [])
+				.map(x=> x.ntiid || (typeof x === 'string'? x: null))
+				.filter(x=>x); // removes nulls
+
+			let analyticsEvent = new WatchVideoEvent(
+				this.props.src.ntiid,
+				ctx,
+				event.target.currentTime, // video_start_time
+				event.target.duration, // MaxDuration, the length of the entire video
+				!!this.props.transcript
+			);
+
+			emitEventStarted(analyticsEvent);
+			this.setState({
+				playStartEvent: analyticsEvent // this.getAnalyticsEventData(event)
+			});
 		}
 	},
 
 
 	recordPlaybackStopped (event) {
-		if (!this.state.playStartEvent) {
+		let {playStartEvent} = this.state;
+		if (!playStartEvent) {
 			console.warn('We don\'t have a playStartEvent? How did we get a stop event without a prior start event? Dropping the event on the floor.');
 			return;
 		}
 
-		var playEndEvent = this.getAnalyticsEventData(event);
-
-		this.emitAnalyticsEvent(this.state.playStartEvent, playEndEvent);
+		playStartEvent.finish(event.target.currentTime);
+		emitEventEnded(playStartEvent);
 
 		if (this.isMounted()) {
 			this.setState({playStartEvent: null});
@@ -107,27 +124,24 @@ export default React.createClass({
 
 
 	emitAnalyticsEvent (startEvent, endEvent) {
-		var fallback = {duration:0, currentTime:0};
+		let fallback = {duration:0, currentTime:0};
 
 		endEvent = endEvent || fallback;
 		startEvent = startEvent || fallback;
 
-		var ctx = (this.props.context || [])
+		let ctx = (this.props.context || [])
 			.map(x=> x.ntiid || (typeof x === 'string'? x: null))
 			.filter(x=>x);
 
-		var rootContextId = ctx[0] || null;
-
-		var even = new WatchVideoEvent(
+		let even = new WatchVideoEvent(
 				this.props.src.ntiid,
-				rootContextId,
 				ctx,
-				(endEvent.currentTime - startEvent.currentTime),
 				startEvent.currentTime,
-				endEvent.currentTime,
 				startEvent.duration,
 			 	!!this.props.transcript
 			);
+
+		even.finish(endEvent.currentTime);
 
 		emitVideoEvent(even);
 	},
