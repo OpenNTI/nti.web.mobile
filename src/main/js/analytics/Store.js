@@ -28,13 +28,14 @@ function endSession() {
 	console.debug('Ending analytics session.');
 	clearTimeout(timeoutId);
 	let haltEvents = Store._haltActiveEvents();
-	return haltEvents.then(
+	let shutdown = haltEvents.then(
 		Store._processQueue().then(() => {
 			return getService().then(service => {
 				return service.endAnalyticsSession();
 			});
 		})
 	);
+	shutdown.then(startTimer);
 }
 
 var Store = autobind(Object.assign({}, EventEmitter.prototype, {
