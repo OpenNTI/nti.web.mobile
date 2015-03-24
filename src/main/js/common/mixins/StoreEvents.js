@@ -12,6 +12,10 @@ export default {
 			this[handlerMapKey] = Object.create(this[getHandlers]()||{});
 		}
 
+		if (!eventId) {
+			console.error('eventId is %O. Are you using an undefined constant?', eventId);
+		}
+
 		let map = this[getHandlers]();
 
 		if (map[eventId]) {
@@ -81,7 +85,7 @@ function onStoreChangeImpl(event) {
 	let handlers = this[getHandlers]() || {};
 	let handlerSet = makeSet(handlers[event.type] || handlers.default);
 	if (!handlerSet) {
-		console.debug('Event %s does not have a handler in component: %s', event.type, componentName);
+		// console.debug('Event %s does not have a handler in component: %s', event.type, componentName);
 		return;
 	}
 	for (let handler of handlerSet) {
