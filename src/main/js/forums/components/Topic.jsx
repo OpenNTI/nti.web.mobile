@@ -31,7 +31,7 @@ import KeepItemInState from '../mixins/KeepItemInState';
 import ToggleState from '../mixins/ToggleState';
 
 module.exports = React.createClass({
-	displayName: 'TopicView',
+	displayName: 'Topic',
 
 	mixins: [
 		StoreEvents,
@@ -88,10 +88,21 @@ module.exports = React.createClass({
 		};
 	},
 
+	_startAnalyticsEvent() {
+		var {topicId} = this.props;
+		console.debug('Begin topic viewed event.');
+		this._resourceLoaded(topicId, Store.getCourseId(), TOPIC_VIEWED);
+	},
+
+	resumeAnalyticsEvents() {
+		this._startAnalyticsEvent();
+	},
+
 	componentDidMount: function() {
 		var {topicId} = this.props;
 		this._loadData(topicId);
-		this._resourceLoaded(topicId, Store.getCourseId(), TOPIC_VIEWED);
+		this._startAnalyticsEvent();
+		
 	},
 
 	componentWillUnmount: function() {
