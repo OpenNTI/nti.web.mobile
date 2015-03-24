@@ -1,62 +1,39 @@
 'use strict';
 
-import {EventEmitter} from 'events';
+import TypedEventEmitter from 'common/TypedEventEmitter';
 import * as Constants from './Constants';
+import {CHANGE_EVENT} from 'common/constants/Events';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {getService}from 'common/utils';
-import autobind from 'dataserverinterface/utils/autobind';
+// import autobind from 'dataserverinterface/utils/autobind';
 import {FixedQueue as fixedQueue} from 'fixedqueue';
 
 let queue = [];
 let postFrequency = 10000;
 let timeoutId;
 
-var _contextHistory = fixedQueue(11);
+let _contextHistory = fixedQueue(11);
 
-function startTimer() {
-	clearTimeout(timeoutId);
-	timeoutId = setTimeout(
-		function() {
-			// process the queue and start the timer again.
-			Store._processQueue().then(startTimer);
-		},
-		postFrequency
-	);
-}
+// var Store = autobind(Object.assign({}, EventEmitter.prototype, {
+class AnalyticsStore extends TypedEventEmitter {
 
-function endSession() {
-	console.debug('Ending analytics session.');
-	clearTimeout(timeoutId);
-	let haltEvents = Store._haltActiveEvents();
-	let shutdown = haltEvents.then(
-		Store._processQueue().then(() => {
-			return getService().then(service => {
-				return service.endAnalyticsSession();
-			});
-		})
-	);
-	shutdown.then(startTimer);
-}
-
-var Store = autobind(Object.assign({}, EventEmitter.prototype, {
-
-	init: function() {
+	init() {
 		startTimer();
-	},
+	}
 
 	pushHistory(item) {
 		if (_contextHistory[_contextHistory.length - 1] !== item ) { // omit duplicate entries
 			_contextHistory.enqueue(item);
 		}
-	},
+	}
 
 	getHistory() {
 		return _contextHistory.slice(0);
-	},
+	}
 
-	enqueueEvent: function(analyticsEvent) {
+	enqueueEvent(analyticsEvent) {
 		queue.push(analyticsEvent);
-	},
+	}
 
 	_haltActiveEvents() {
 		return new Promise(resolve => {
@@ -67,14 +44,12 @@ var Store = autobind(Object.assign({}, EventEmitter.prototype, {
 			});
 			resolve();
 		});
-	},
+	}
 
-	_processQueue: function() {
+	_processQueue() {
 		if (queue.length === 0) {
 			return Promise.resolve('No events in the queue.');
 		}
-
-		console.log('AnalyticsStore processing queue (%s events)', queue.length);
 
 		// yank everything out of the queue
 		let events = queue;
@@ -107,9 +82,40 @@ var Store = autobind(Object.assign({}, EventEmitter.prototype, {
 				queue.push.apply(queue, items);
 			});
 
-	},
+	}
 
-}));
+}
+
+let Store = new AnalyticsStore();
+
+function startTimer() {
+	clearTimeout(timeoutId);
+	timeoutId = setTimeout(
+		function() {
+			// process the queue and start the timer again.
+			Store._processQueue().then(startTimer);
+		},
+		postFrequency
+	);
+}
+
+function endSession() {
+	console.debug('Ending analytics session.');
+	clearTimeout(timeoutId);
+	let haltEvents = Store._haltActiveEvents();
+	let shutdown = haltEvents.then(
+		Store._processQueue().then(() => {
+			return getService().then(service => {
+				return service.endAnalyticsSession();
+			});
+		})
+	);
+	shutdown.then(startTimer);
+}
+
+function resumeSession() {
+	Store.emit(CHANGE_EVENT, {type: Constants.RESUME_SESSION});
+}
 
 
 AppDispatcher.register(function(payload) {
@@ -127,6 +133,11 @@ AppDispatcher.register(function(payload) {
 			endSession();
 		break;
 
+		case Constants.RESUME_SESSION:
+			console.log('dispatching RESUME_SESSION');
+			resumeSession();
+		break;
+
 		default:
 			return true;
 	}
@@ -134,4 +145,4 @@ AppDispatcher.register(function(payload) {
 	return true; // No errors. Needed by promise in Dispatcher.
 });
 
-module.exports = Store;
+export default Store;
