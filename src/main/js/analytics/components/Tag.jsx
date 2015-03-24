@@ -4,31 +4,33 @@ import React  from 'react';
 import Store  from '../Store';
 import Actions  from '../Actions';
 import pagevis from 'common/utils/pagevis';
+import away from 'away';
+import {analyticsConfig} from 'common/utils';
 
-function cleanup() {
-	Actions.endSession();
-}
+let _timer;
 
 var Analytics = React.createClass({
 
 	componentDidMount() {
-		window.addEventListener('beforeunload', cleanup);
+		this._initIdleTimeout();
+		window.addEventListener('beforeunload', Actions.endSession);
 		pagevis.addChangeListener(visible => {
-			console.log('visibility change ' + visible);
-			if (!visible) {
-				cleanup();
-			}
-			else {
-				Actions.resumeSession();
-			}
+			Actions[visible ? 'resumeSession' : 'endSession']();
 		});
 		Store.init();
+	},
+
+	_initIdleTimeout() {
+		let idleTimeMs = (analyticsConfig().idleTimeoutSeconds || 60) * 1000;
+		_timer = away(idleTimeMs);
+		_timer.on('idle', Actions.endSession);
+		_timer.on('active', Actions.resumeSession);
 	},
 
 	render() {
 		return (
 			<div className="buttons">
-				<div className="button tiny" onClick={cleanup}>End analytics session</div>
+				<div className="button tiny" onClick={Actions.endSession}>End analytics session</div>
 				<div className="button tiny" onClick={Actions.resumeSession}>Resume analytics session</div>
 			</div>
 		);
