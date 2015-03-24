@@ -28,12 +28,7 @@ var Analytics = React.createClass({
 	},
 
 	render() {
-		return (
-			<div className="buttons">
-				<div className="button tiny" onClick={Actions.endSession}>End analytics session</div>
-				<div className="button tiny" onClick={Actions.resumeSession}>Resume analytics session</div>
-			</div>
-		);
+		return null;
 	}
 
 });
