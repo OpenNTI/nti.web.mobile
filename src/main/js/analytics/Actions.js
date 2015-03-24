@@ -28,5 +28,11 @@ module.exports = {
 		AppDispatcher.handleViewAction({
 			type: Constants.END_SESSION
 		});
+	},
+
+	resumeSession() {
+		AppDispatcher.handleViewAction({
+			type: Constants.RESUME_SESSION
+		});
 	}
 };
