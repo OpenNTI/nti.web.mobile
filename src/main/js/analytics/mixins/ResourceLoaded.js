@@ -31,12 +31,13 @@ module.exports = {
 	__onStoreChange(event) {
 		if (event.type === RESUME_SESSION) {
 			console.log(event);
-			this.resumeAnalyticsEvents();
+			if (this.resumeAnalyticsEvents) {
+				this.resumeAnalyticsEvents();
+			}
+			else {
+				console.warn('Components using ResourceLoaded mixin should implement resumeAnalyticsEvents. (Check %s)', this.constructor.displayName);
+			} 
 		}
-	},
-
-	resumeAnalyticsEvents() {
-		console.warn('Components using ResourceLoaded mixin should override resumeAnalyticsEvents. (Check %s)', this.constructor.displayName);
 	},
 
 	_resourceLoaded (resourceId, courseId, eventMimeType) {
