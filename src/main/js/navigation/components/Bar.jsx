@@ -176,7 +176,7 @@ export default React.createClass({
 			resolve = getContext();
 		}
 
-		resolve.then(x=>console.debug('Context Path: %o', x) ||
+		resolve.then(x=> // console.debug('Context Path: %o', x) ||
 			this.setStateSafely({
 				current: x && x[x.length-1],
 				returnTo: x && x[x.length-2]
