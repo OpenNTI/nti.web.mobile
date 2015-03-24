@@ -18,12 +18,20 @@ var Analytics = React.createClass({
 			if (!visible) {
 				cleanup();
 			}
+			else {
+				Actions.resumeSession();
+			}
 		});
 		Store.init();
 	},
 
 	render() {
-		return <div className="button tiny" onClick={cleanup}>End analytics session</div>;
+		return (
+			<div className="buttons">
+				<div className="button tiny" onClick={cleanup}>End analytics session</div>
+				<div className="button tiny" onClick={Actions.resumeSession}>Resume analytics session</div>
+			</div>
+		);
 	}
 
 });
