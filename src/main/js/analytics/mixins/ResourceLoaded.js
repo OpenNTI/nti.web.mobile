@@ -1,20 +1,43 @@
-'use strict';
-
 import AnalyticsActions from '../Actions';
+import AnalyticsStore from '../Store';
+import {RESUME_SESSION} from '../Constants';
 import ResourceEvent from 'dataserverinterface/models/analytics/ResourceEvent';
 import TopicViewedEvent from 'dataserverinterface/models/analytics/TopicViewedEvent';
 import {RESOURCE_VIEWED, TOPIC_VIEWED} from 'dataserverinterface/models/analytics/MimeTypes';
 import NTIID from 'dataserverinterface/utils/ntiids';
 
-// keep track of the view start event so we can push analytics including duration
-var currentEvent = null;
+// const StoreChange = Symbol('ResourceLoaded:StoreChange');
 
-var typeMap = {
+// keep track of the view start event so we can push analytics including duration
+let currentEvent = null;
+
+let typeMap = {
 	[RESOURCE_VIEWED]: ResourceEvent,
 	[TOPIC_VIEWED]: TopicViewedEvent
 };
 
+
+
 module.exports = {
+
+	componentDidMount() {
+		AnalyticsStore.addChangeListener(this.__onStoreChange);
+	},
+
+	componentWillUnmount() {
+		AnalyticsStore.removeChangeListener(this.__onStoreChange);
+	},
+
+	__onStoreChange(event) {
+		if (event.type === RESUME_SESSION) {
+			console.log(event);
+			this.resumeAnalyticsEvents();
+		}
+	},
+
+	resumeAnalyticsEvents() {
+		console.warn('Components using ResourceLoaded mixin should override resumeAnalyticsEvents. (Check %s)', this.constructor.displayName);
+	},
 
 	_resourceLoaded (resourceId, courseId, eventMimeType) {
 		if (currentEvent) {
@@ -35,7 +58,7 @@ module.exports = {
 
 	_resourceUnloaded: function() {
 		if (!currentEvent || currentEvent.finished) {
-			return;
+			return Promise.resolve();
 		}
 
 		let resourceId = currentEvent.resourceId;
