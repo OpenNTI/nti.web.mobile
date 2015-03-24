@@ -4,6 +4,7 @@ import React from 'react';
 import {encodeForURI} from 'dataserverinterface/utils/ntiids';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
 
 /**
  * This is not to be confused with Forum topics.
@@ -13,7 +14,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 export default React.createClass({
 	displayName: 'CourseOverviewTopic',
-	mixins: [NavigatableMixin],
+	mixins: [NavigatableMixin, ResourceLoaded],
 
 	statics: {
 		mimeTest: /topic$/i,

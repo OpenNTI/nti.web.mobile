@@ -16,7 +16,6 @@ import Err from 'common/components/Error';
 
 // mixins
 import StoreEvents from 'common/mixins/StoreEvents';
-import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import KeepItemInState from '../mixins/KeepItemInState';
 import ToggleState from '../mixins/ToggleState';
@@ -27,7 +26,6 @@ module.exports = React.createClass({
 
 	mixins: [
 		StoreEvents,
-		ResourceLoaded,
 		NavigatableMixin,
 		KeepItemInState,
 		ToggleState,
