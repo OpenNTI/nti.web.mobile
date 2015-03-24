@@ -52,8 +52,14 @@ module.exports = React.createClass({
 			return <Loading />;
 		}
 
-		var {forumId} = this.props;
-		var forum = Store.getForum(forumId);
+		let {forumId, course} = this.props;
+		let forum = Store.getForum(forumId);
+
+		// if a user lands directly on a topic or post view without going through
+		// the parent views the store may not have the course id.
+		if (!Store.getCourseId() && course) { 
+			Store.setCourseId(course.getID());
+		}
 
 		return (
 			<nav className="forum">
