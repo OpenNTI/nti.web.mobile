@@ -66,6 +66,7 @@ export function clientConfig (username, context) {
 		username: username,
 		server: unsafe.server,
 		basepath: unsafe.basepath,
+		analytics: unsafe.analytics,
 		flags: unsafe.flags,
 		/* jshint -W106 */
 		siteName: getSite(context[SiteName])

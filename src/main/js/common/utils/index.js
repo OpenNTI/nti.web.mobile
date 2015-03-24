@@ -50,6 +50,10 @@ export function isFlag (flagName) {
 	return !!flags[flagName];
 }
 
+export function analyticsConfig () {
+	return $AppConfig.analytics||{};
+}
+
 /**
  * Returns the shared instance of the server interface.
  * NOTICE: This is for low-level (or anonymous/non-authenticated) work ONLY.
