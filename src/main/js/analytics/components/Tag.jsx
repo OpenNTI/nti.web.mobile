@@ -7,7 +7,7 @@ import pagevis from 'common/utils/pagevis';
 var Analytics = React.createClass({
 
 	componentDidMount() {
-		window.addEventListener('beforeunload', Store.endSession);
+		window.addEventListener('beforeunload', Store.endSession.bind(Store));
 		pagevis.addChangeListener(visible => {
 			Store[visible ? 'resumeSession' : 'endSession']();
 		});

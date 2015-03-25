@@ -19,7 +19,7 @@ class AnalyticsStore extends TypedEventEmitter {
 
 	init() {
 		startTimer();
-		startIdleTimer(this.endSession, this.resumeSession);
+		startIdleTimer(this.endSession.bind(this), this.resumeSession.bind(this));
 	}
 
 	pushHistory(item) {
