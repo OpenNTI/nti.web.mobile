@@ -8,7 +8,7 @@ let _timer;
 let analytics = analyticsConfig();
 let idleTimeMs = (analytics.idleTimeoutSeconds || 60) * 1000;
 
-let suspensionEventTypes = new Set(WATCH_VIDEO);
+let suspensionEventTypes = new Set([WATCH_VIDEO]);
 
 // events considered activity, non-idle
 let idleEvents = analytics.idleEvents || 'mousemove keydown DOMMouseScroll mousewheel mousedown touchstart touchmove';
@@ -25,13 +25,13 @@ export function startIdleTimer(idleFn, activeFn) {
 let handlers = {
 	[EVENT_STARTED](action) {
 		console.debug(action.type);	
-		if (suspensionEventTypes.has(action.event||{}).MimeType) {
+		if (suspensionEventTypes.has((action.event||{}).MimeType)) {
 			console.debug('stop idle timer: %o', action.event);
 			_timer.stop();
 		}
 	},
 	[EVENT_ENDED](action) {
-		if (suspensionEventTypes.has(action.event||{}).MimeType) {
+		if (suspensionEventTypes.has((action.event||{}).MimeType)) {
 			console.debug('start idle timer: %o', action.event);
 			_timer.start();
 		}	
