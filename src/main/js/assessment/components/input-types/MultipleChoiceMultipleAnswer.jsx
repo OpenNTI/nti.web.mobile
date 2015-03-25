@@ -3,7 +3,7 @@
 var React = require('react');
 var Mixin = require('./Mixin');
 
-var getEventTarget = require('nti.dom/lib/geteventtarget');
+var getEventTarget = require('nti.lib.dom/lib/geteventtarget');
 
 var toArray = require('dataserverinterface/utils/toarray');
 var isTruthy = require('dataserverinterface/utils/identity');

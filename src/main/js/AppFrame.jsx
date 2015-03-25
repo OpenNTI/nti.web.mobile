@@ -7,8 +7,8 @@ import RouteAware from 'common/mixins/NavigatableMixin';
 
 import Notifications from 'notifications/components/View';
 
-import addClass from 'nti.dom/lib/addclass';
-import removeClass from 'nti.dom/lib/removeclass';
+import addClass from 'nti.lib.dom/lib/addclass';
+import removeClass from 'nti.lib.dom/lib/removeclass';
 import {getAppUsername} from 'common/utils';
 import {getHeight as getViewportHeight} from 'common/utils/viewport';
 

@@ -1,4 +1,4 @@
-import replaceNode from 'nti.dom/lib/replacenode';
+import replaceNode from 'nti.lib.dom/lib/replacenode';
 import guid from 'dataserverinterface/utils/guid';
 import indexArrayByKey from 'dataserverinterface/utils/array-index-by-key';
 import toArray from 'dataserverinterface/utils/toarray';

@@ -5,7 +5,7 @@ var InputType = require('./Mixin');
 
 var Content = require('../Content');
 
-var getEventTarget = require('nti.dom/lib/geteventtarget');
+var getEventTarget = require('nti.lib.dom/lib/geteventtarget');
 var {Mixin, Draggable, DropTarget} = require('common/dnd');
 
 //var isEmpty = require('dataserverinterface/utils/isempty');
