@@ -19,7 +19,7 @@ class AnalyticsStore extends TypedEventEmitter {
 
 	init() {
 		startTimer();
-		startIdleTimer(endSession, resumeSession);
+		startIdleTimer(this.endSession, this.resumeSession);
 	}
 
 	pushHistory(item) {
@@ -45,6 +45,25 @@ class AnalyticsStore extends TypedEventEmitter {
 			});
 			resolve();
 		});
+	}
+
+	endSession() {
+		console.debug('Ending analytics session.');
+		clearTimeout(timeoutId);
+		let haltEvents = this._haltActiveEvents();
+		let shutdown = haltEvents.then(
+			this._processQueue().then(() => {
+				return getService().then(service => {
+					return service.endAnalyticsSession();
+				});
+			})
+		);
+		shutdown.then(startTimer);
+	}
+
+	resumeSession() {
+		console.debug('Resume analytics session.');
+		this.emit(CHANGE_EVENT, {type: Constants.RESUME_SESSION});
 	}
 
 	_processQueue() {
@@ -101,25 +120,6 @@ function startTimer() {
 	);
 }
 
-function endSession() {
-	console.debug('Ending analytics session.');
-	clearTimeout(timeoutId);
-	let haltEvents = Store._haltActiveEvents();
-	let shutdown = haltEvents.then(
-		Store._processQueue().then(() => {
-			return getService().then(service => {
-				return service.endAnalyticsSession();
-			});
-		})
-	);
-	shutdown.then(startTimer);
-}
-
-function resumeSession() {
-	console.debug('Resume analytics session.');
-	Store.emit(CHANGE_EVENT, {type: Constants.RESUME_SESSION});
-}
-
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
 
@@ -134,13 +134,13 @@ AppDispatcher.register(function(payload) {
 		case Constants.EVENT_ENDED:
 		break;
 
-		case Constants.END_SESSION:
-			endSession();
-		break;
+		// case Constants.END_SESSION:
+		// 	endSession();
+		// break;
 
 		case Constants.RESUME_SESSION:
 			console.log('dispatching RESUME_SESSION');
-			resumeSession();
+			Store.resumeSession();
 		break;
 
 		default:
