@@ -5,8 +5,8 @@ import * as Constants from './Constants';
 import {CHANGE_EVENT} from 'common/constants/Events';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {getService}from 'common/utils';
-// import autobind from 'dataserverinterface/utils/autobind';
 import {FixedQueue as fixedQueue} from 'fixedqueue';
+import {startIdleTimer} from './IdleTimer';
 
 let queue = [];
 let postFrequency = 10000;
@@ -19,6 +19,7 @@ class AnalyticsStore extends TypedEventEmitter {
 
 	init() {
 		startTimer();
+		startIdleTimer(endSession, resumeSession);
 	}
 
 	pushHistory(item) {
@@ -88,6 +89,7 @@ class AnalyticsStore extends TypedEventEmitter {
 
 let Store = new AnalyticsStore();
 
+// for submitting analytics events/flushing the queue.
 function startTimer() {
 	clearTimeout(timeoutId);
 	timeoutId = setTimeout(
@@ -114,9 +116,9 @@ function endSession() {
 }
 
 function resumeSession() {
+	console.debug('Resume analytics session.');
 	Store.emit(CHANGE_EVENT, {type: Constants.RESUME_SESSION});
 }
-
 
 AppDispatcher.register(function(payload) {
 	var action = payload.action;
@@ -127,6 +129,9 @@ AppDispatcher.register(function(payload) {
 		case Constants.EVENT_STARTED:
 			console.log('Analytics Store received event: %s, %O', action.event.MimeType, action);
 			Store.enqueueEvent(action.event);
+		break;
+
+		case Constants.EVENT_ENDED:
 		break;
 
 		case Constants.END_SESSION:

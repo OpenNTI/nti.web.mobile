@@ -22,17 +22,5 @@ module.exports = {
 			type: Constants.EVENT_ENDED,
 			event: event
 		});
-	},
-
-	endSession() {
-		AppDispatcher.handleViewAction({
-			type: Constants.END_SESSION
-		});
-	},
-
-	resumeSession() {
-		AppDispatcher.handleViewAction({
-			type: Constants.RESUME_SESSION
-		});
 	}
 };
