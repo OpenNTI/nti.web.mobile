@@ -1,4 +1,4 @@
-import away from 'away';
+import Idle from 'common/utils/idle';
 import {analyticsConfig} from 'common/utils';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EVENT_STARTED, EVENT_ENDED} from './Constants';
@@ -15,7 +15,7 @@ let idleEvents = analytics.idleEvents || 'mousemove keydown DOMMouseScroll mouse
 
 // end/resume analytics sesssion when user is idle/becomes active.
 export function startIdleTimer(idleFn, activeFn) {
-	_timer = away(idleTimeMs, {
+	_timer = new Idle(idleTimeMs, {
 		events: idleEvents
 	});
 	_timer.on('idle', idleFn);
