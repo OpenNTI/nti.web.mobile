@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from 'react/lib/cx';
+import cx from 'classnames';
 
 import {isFlag} from 'common/utils';
 import {Mixin as DragDropOrchestrator} from 'common/dnd';

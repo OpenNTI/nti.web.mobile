@@ -1,4 +1,6 @@
 import React from 'react';
+import cloneWithProps from 'react/lib/cloneWithProps';
+import onlyChild from 'react/lib/onlyChild';
 
 import Session from 'common/components/Session';
 import Footer from 'common/components/Footer';
@@ -23,6 +25,23 @@ const RIGHT_MENU_OPEN = 'offcanvas-overlap-left';
 export default React.createClass({
 	displayName: 'AppContainer',
 	mixins: [RouteAware],
+
+	propTypes: {
+		children: React.PropTypes.element
+	},
+
+
+	childContextTypes: {
+		triggerLeftMenu: React.PropTypes.func,
+		triggerRightMenu: React.PropTypes.func
+	},
+
+	getChildContext () {
+		return {
+			triggerLeftMenu: this.onLeftMenuClick,
+			triggerRightMenu: this.onRightMenuClick
+		};
+	},
 
 
 	onNavChange () {this.onCloseMenus();},
@@ -70,7 +89,7 @@ export default React.createClass({
 						</aside>
 
 						<section className="main-section">
-							{this.props.children}
+							{this.renderView()}
 							<Footer />
 						</section>
 						<a className="exit-off-canvas" onClick={this.onCloseMenus}></a>
@@ -78,6 +97,12 @@ export default React.createClass({
 				</div>
 			</div>
 		);
+	},
+
+
+	renderView () {
+		let {children} = this.props;
+		return cloneWithProps(onlyChild(children));
 	},
 
 

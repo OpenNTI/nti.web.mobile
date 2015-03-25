@@ -1,7 +1,7 @@
 import path from 'path';
 import React from 'react';
 import Transition from 'react/lib/ReactCSSTransitionGroup';
-import cx from 'react/lib/cx';
+import cx from 'classnames';
 
 import NavStore from '../Store';
 
@@ -23,28 +23,6 @@ import StoreEvents from 'common/mixins/StoreEvents';
 
 const getViewport = ()=> document.getElementsByTagName('html')[0];
 const menuOpenBodyClass = 'nav-menu-open';
-
-// const Hamburger = React.createClass({
-// 	mixins: [PureRenderMixin],
-//
-// 	onClick (e) {
-// 		e.preventDefault();
-// 		e.stopPropagation();
-// 		this.props.onClick();
-// 	},
-//
-// 	render () {
-// 		let props = {
-// 			className: 'left-off-canvas-toggle hamburger',
-// 			onClick: this.onClick,
-// 			href: '#'
-// 		};
-//
-// 		return <a {...props}><span/></a>;
-// 	}
-// });
-
-
 
 
 const Menu = React.createClass({
@@ -123,7 +101,6 @@ export default React.createClass({
 	mixins: [StoreEvents, BasePathAware, NavigatableMixin, SetStateSafely],
 
 	contextTypes: {
-		triggerLeftMenu: React.PropTypes.func.isRequired,
 		triggerRightMenu: React.PropTypes.func.isRequired
 	},
 
@@ -200,7 +177,6 @@ export default React.createClass({
 
 
 	getLeft () {
-		//<Hamburger onClick={triggerLeftMenu}/>;
 		let {returnTo} = this.state || {};
 		if (returnTo) {
 			return <ReturnTo {...returnTo}/>;
