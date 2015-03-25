@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "NextThought web application",
   "author": "NextThought",
-  "license": "ISC",
+  "license": "private",
   "repository": {
     "type": "git",
     "url": "ssh://repos.nextthought.com/nti.web.mobile"
@@ -25,8 +25,8 @@
     "webapp-instance": "./src/server/index.js"
   },
   "dependencies": {
-    "nti.anchors": "git+https://repos.nextthought.com/git/nti.lib.anchorjs",
-    "nti.dom": "git+https://repos.nextthought.com/git/nti.lib.domjs",
+
+    "nti.lib.dom": "git+https://repos.nextthought.com/git/nti.lib.domjs",
 
     "dataserverinterface": "git+https://repos.nextthought.com/git/nti.node.dataserverinterface#54359ea",
     "react-editor-component": "NextThought/react-editor-component#f883711",

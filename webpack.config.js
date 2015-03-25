@@ -6,7 +6,8 @@
 
 var NodeModulesThatNeedCompiling = [
     'dataserverinterface',
-    'react-editor-component'
+    'react-editor-component',
+    'nti\\..+'
     ];
 
 var webpack = require('webpack');
