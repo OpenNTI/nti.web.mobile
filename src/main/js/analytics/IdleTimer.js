@@ -15,7 +15,9 @@ let idleEvents = analytics.idleEvents || 'mousemove keydown DOMMouseScroll mouse
 
 // end/resume analytics sesssion when user is idle/becomes active.
 export function startIdleTimer(idleFn, activeFn) {
-	_timer = new Idle(idleTimeMs, {
+	console.debug('startIdleTimer');
+	_timer = new Idle({
+		timeout: idleTimeMs,
 		events: idleEvents
 	});
 	_timer.on('idle', idleFn);
