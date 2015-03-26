@@ -2,7 +2,7 @@ import React from 'react';
 import Transition from 'react/lib/ReactCSSTransitionGroup';
 
 import {scoped} from 'common/locale';
-const _t = scoped('ASSESSMENT');
+const t = scoped('ASSESSMENT');
 
 import Loading from 'common/components/Loading';
 
@@ -72,7 +72,7 @@ export default React.createClass({
 	},
 
 
-	_dismissAssessmentError (e) {
+	dismissAssessmentError (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -109,15 +109,15 @@ export default React.createClass({
 				<div className={'set-submission ' + status}>
 					{!error ? null : (
 						<div className="error">
-							<a href="#" onClick={this._dismissAssessmentError}>x</a>{error}
+							<a href="#" onClick={this.dismissAssessmentError}>x</a>{error}
 						</div>
 					)}
-					<a href={disabled?'#':null} className={'button ' + (disabled?'disabled':'')} onClick={this.onSubmit}>{_t('submit')}</a>
-					{cannotReset? null: (<a href="#" className="reset button link" onClick={this.onReset}>{_t('reset')}</a>)}
-					<span className="status-line">{_t('unanswered', { count: unanswered  })}</span>
+					<a href={disabled?'#':null} className={'button ' + (disabled?'disabled':'')} onClick={this.onSubmit}>{t('submit')}</a>
+					{cannotReset? null: (<a href="#" className="reset button link" onClick={this.onReset}>{t('reset')}</a>)}
+					<span className="status-line">{t('unanswered', { count: unanswered  })}</span>
 				</div>
 
-				{!busy ? null : <Loading message="Please Wait" maskScreen={true}/>}
+				{!busy ? null : <Loading message="Please Wait" maskScreen/>}
 			</div>
 		);
 	},

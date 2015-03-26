@@ -28,7 +28,7 @@
 
     "nti.lib.dom": "git+https://repos.nextthought.com/git/nti.lib.domjs",
 
-    "dataserverinterface": "git+https://repos.nextthought.com/git/nti.node.dataserverinterface#0368ada",
+    "dataserverinterface": "git+https://repos.nextthought.com/git/nti.node.dataserverinterface#e2b99ba",
     "react-editor-component": "NextThought/react-editor-component#f883711",
 
     "classnames": "^1.1.4",

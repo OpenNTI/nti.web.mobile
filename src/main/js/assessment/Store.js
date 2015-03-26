@@ -40,6 +40,23 @@ const OnSubmitStart = Symbol('on:Submit:Begin');
 const OnSubmitEnd = Symbol('on:Submit:End');
 const SaveProgress = Symbol('Save Progress');
 
+function getQuestion (thing, part) {
+	let id = part && (part.getQuestionId ?
+		part.getQuestionId() :
+		(typeof part === 'string' ?
+			part :
+			null));
+
+	if (id == null) {
+		throw new Error('Unknown question id');
+	}
+	return thing && (
+		thing.getQuestion ?
+			thing.getQuestion(id) :
+			thing
+		);
+}
+
 class Store extends StorePrototype {
 
 	constructor () {
@@ -118,7 +135,7 @@ class Store extends StorePrototype {
 
 		let key = this[GetAssessmentKey](part);
 		let s = this.data[key];
-		let question = s && part && s.getQuestion(part.getQuestionId());
+		let question = getQuestion(s, part);
 
 		if (this.isAdministrative(part)) {
 			return;
@@ -315,7 +332,7 @@ class Store extends StorePrototype {
 
 		questions.forEach(q => {
 
-			let question = s.getQuestion(q.getID());
+			let question = getQuestion(s, q.getID());
 			if(!question) {
 				console.warn('Previous attempt question not found in current question set');
 				return;
@@ -398,7 +415,7 @@ class Store extends StorePrototype {
 
 	getPartValue (part) {
 		let s = this.getSubmissionData(part);
-		let question = s && part && s.getQuestion(part.getQuestionId());
+		let question = getQuestion(s, part);
 		return question.getPartValue(part.getPartIndex());
 	}
 
@@ -451,7 +468,7 @@ class Store extends StorePrototype {
 
 		let maybe, parts;
 		if (question && submission) {
-			question = submission.getQuestion(question.getID()) || {};
+			question = getQuestion(submission, question.getID()) || {};
 			parts = question.parts || [];
 
 			maybe = parts.reduce((yes, part)=>yes || hasValue(part, wid), false);

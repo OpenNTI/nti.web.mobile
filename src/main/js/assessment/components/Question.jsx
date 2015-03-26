@@ -5,10 +5,10 @@ import {isFlag} from 'common/utils';
 import {Mixin as DragDropOrchestrator} from 'common/dnd';
 
 import Content from './Content';
+import QuestionSubmission from './QuestionSubmission';
 import WordBank from './WordBank';
 
 import Store from '../Store';
-//import Actions from '../Actions';
 
 import Part from './Part';
 
@@ -45,10 +45,6 @@ export default React.createClass({
 	},
 
 
-	componentDidMount () {
-		Store.addChangeListener(this.onStoreChange);
-	},
-
 
 	componentWillMount () {
 		this.setState({
@@ -57,9 +53,35 @@ export default React.createClass({
 	},
 
 
+	componentDidMount () {
+		Store.addChangeListener(this.onStoreChange);
+		this.maybeSetupSubmission(null, this.props.question);
+	},
+
+
 	componentWillUnmount () {
 		Store.removeChangeListener(this.onStoreChange);
 	},
+
+
+	componentWillReceiveProps (nextProps) {
+		this.maybeSetupSubmission(this.props.question, nextProps.question);
+	},
+
+
+	maybeSetupSubmission (prev, next) {
+
+		if ((next && next.getID()) !== (prev && prev.getID())) {
+			if (prev && prev.individual) {
+				Store.teardownAssessment(prev);
+			}
+
+			if (next && next.individual) {
+				Store.setupAssessment(next);
+			}
+		}
+	},
+
 
 
 	render () {
@@ -79,10 +101,8 @@ export default React.createClass({
 			title = question.getID().split('.').pop() + '. ';
 		}
 
-		let css = cx({
-			question: true,
-			administrative: admin,
-			[status.toLowerCase()]: true
+		let css = cx('question', status.toLowerCase(), {
+			administrative: admin
 		});
 
 		return (
@@ -96,10 +116,28 @@ export default React.createClass({
 					<WordBank record={question.wordbank} disabled={admin}/>
 				)}
 				{parts.map((part, i) =>
-					<Part key={'part-'+i} part={part} index={i} partCount={parts.length} viewerIsAdministrative={admin}/>
+					<Part key={'part-'+i} part={part} index={i} partCount={parts.length} viewerIsAdministrative={admin}>
+						{this.renderSubmission(i)}
+					</Part>
 				)}
-				{/* Question Submission will go here, if the question is not part of a set... */}
+				{this.renderSubmission()}
 			</div>
+		);
+	},
+
+
+	renderSubmission (index) {
+		let {question} = this.props;
+		if (!question || //no question
+			!question.individual || //the question is part of a set
+			(index != null && question.parts.length > 1) || //The index is set, but the question has multiple parts
+			(index == null && question.parts.length <= 1) //The index is not set, but the question only has one part, so we rendered already
+		) {
+			return;
+		}
+
+		return (
+			<QuestionSubmission question={question}/>
 		);
 	}
 });
