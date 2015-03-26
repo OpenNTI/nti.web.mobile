@@ -3,7 +3,7 @@ import {getHandler} from '../services';
 
 import emptyFunction from 'react/lib/emptyFunction';
 
-import {getModel} from 'dataserverinterface';
+import {getModel} from 'nti.lib.interfaces';
 
 import {emitEventStarted, emitEventEnded} from 'analytics/Actions';
 

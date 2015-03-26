@@ -12,7 +12,7 @@ import {OBJECT_DELETED, POST, COMMENT_FORM_ID} from '../Constants';
 import ViewHeader from './widgets/ViewHeader';
 import Replies from './Replies';
 import CommentForm from './CommentForm';
-import NTIID from 'dataserverinterface/utils/ntiids';
+import NTIID from 'nti.lib.interfaces/utils/ntiids';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import ContextSender from 'common/mixins/ContextSender';
 import List from './List';

@@ -8,7 +8,7 @@ var Content = require('../Content');
 var getEventTarget = require('nti.lib.dom/lib/geteventtarget');
 var {Mixin, Draggable, DropTarget} = require('common/dnd');
 
-//var isEmpty = require('dataserverinterface/utils/isempty');
+//var isEmpty = require('nti.lib.interfaces/utils/isempty');
 
 /**
  * This input type represents Matching

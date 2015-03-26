@@ -23,7 +23,7 @@ import StoreEvents from 'common/mixins/StoreEvents';
 import KeepItemInState from '../../mixins/KeepItemInState';
 import ToggleState from '../../mixins/ToggleState';
 
-import NTIID from 'dataserverinterface/utils/ntiids';
+import NTIID from 'nti.lib.interfaces/utils/ntiids';
 
 var {EDIT, DELETE} = ActionLinks;
 var t = require('common/locale').scoped('FORUMS');

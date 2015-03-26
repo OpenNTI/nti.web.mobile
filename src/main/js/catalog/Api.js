@@ -1,4 +1,4 @@
-import Catalog from 'dataserverinterface/stores/Catalog';
+import Catalog from 'nti.lib.interfaces/stores/Catalog';
 
 import {getService} from 'common/utils';
 

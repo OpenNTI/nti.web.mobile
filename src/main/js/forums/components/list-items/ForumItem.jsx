@@ -4,7 +4,7 @@ import React from 'react';
 import {mimeTypes, FORUM} from '../../Constants';
 
 import TinyLoader from 'common/components/TinyLoader';
-import NTIID from 'dataserverinterface/utils/ntiids';
+import NTIID from 'nti.lib.interfaces/utils/ntiids';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 var t = require('common/locale').scoped('FORUMS');

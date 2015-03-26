@@ -29,7 +29,7 @@ import NavigatableMixin from '../mixins/NavigatableMixin';
 
 import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
-import {isNTIID, encodeForURI} from 'dataserverinterface/utils/ntiids';
+import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const Progress = Symbol.for('Progress');
 

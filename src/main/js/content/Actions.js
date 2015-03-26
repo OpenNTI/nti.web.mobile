@@ -8,7 +8,7 @@ import {
 	getVideosFromDom
 } from 'common/utils/dom';
 
-import {parseNTIID} from 'dataserverinterface/utils/ntiids';
+import {parseNTIID} from 'nti.lib.interfaces/utils/ntiids';
 
 import AppDispatcher from 'dispatcher/AppDispatcher';
 

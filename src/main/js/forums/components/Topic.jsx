@@ -7,8 +7,8 @@ import AnalyticsStore from 'analytics/Store';
 import Actions from '../Actions';
 import Api from '../Api';
 import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID} from '../Constants';
-import {TOPIC_VIEWED} from 'dataserverinterface/models/analytics/MimeTypes';
-import NTIID from 'dataserverinterface/utils/ntiids';
+import {TOPIC_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
+import NTIID from 'nti.lib.interfaces/utils/ntiids';
 
 import ViewHeader from './widgets/ViewHeader';
 import TopicHeadline from './TopicHeadline';

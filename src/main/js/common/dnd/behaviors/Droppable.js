@@ -1,5 +1,5 @@
 import React from 'react';
-import ensureArray from 'dataserverinterface/utils/ensure-array';
+import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 import {isPointWithIn} from '../../utils/dom';
 import {default as Base, TYPE_SHAPE} from './Base';
 

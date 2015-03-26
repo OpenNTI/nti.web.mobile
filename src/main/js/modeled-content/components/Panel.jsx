@@ -2,8 +2,8 @@ import React from 'react';
 
 import {processContent} from 'content/Utils';
 
-import guid from 'dataserverinterface/utils/guid';
-import htmlToReactRenderer from 'dataserverinterface/utils/html-to-react';
+import guid from 'nti.lib.interfaces/utils/guid';
+import htmlToReactRenderer from 'nti.lib.interfaces/utils/html-to-react';
 
 import hash from 'object-hash';
 

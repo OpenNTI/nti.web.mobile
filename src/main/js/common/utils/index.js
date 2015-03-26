@@ -1,6 +1,6 @@
 /* global $AppConfig */
 
-import forceCurrentHost from 'dataserverinterface/utils/forcehost';
+import forceCurrentHost from 'nti.lib.interfaces/utils/forcehost';
 
 
 function isNode() {
@@ -65,7 +65,7 @@ export function getServer() {
 	var fn = getServer;
 	if (!fn.server) {
 		fn.server = $AppConfig.nodeInterface ||
-			require('dataserverinterface').default($AppConfig).interface;
+			require('nti.lib.interfaces').default($AppConfig).interface;
 	}
 	return fn.server;
 }

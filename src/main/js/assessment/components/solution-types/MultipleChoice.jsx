@@ -3,7 +3,7 @@
 var React = require('react');
 var Mixin = require('./Mixin');
 
-var ensureArray = require('dataserverinterface/utils/ensure-array');
+var ensureArray = require('nti.lib.interfaces/utils/ensure-array');
 
 /**
  * This solution type represents Muliple Choice (with multiple answers--aka Checkboxes)

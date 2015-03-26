@@ -5,7 +5,7 @@ var ButtonPlain = require('common/forms/components/Button');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
 var BasePathAware = require('common/mixins/BasePath');
 
-var NTIID = require('dataserverinterface/utils/ntiids');
+var NTIID = require('nti.lib.interfaces/utils/ntiids');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 
 var Giftable = React.createClass({

@@ -6,7 +6,7 @@ import Store from '../../Store';
 import DisplayName from 'common/components/DisplayName';
 import Avatar from 'common/components/Avatar';
 import DateTime from 'common/components/DateTime';
-import NTIID from 'dataserverinterface/utils/ntiids';
+import NTIID from 'nti.lib.interfaces/utils/ntiids';
 import {Link} from 'react-router-component';
 import {isMimeType} from 'common/utils/mimetype';
 import Mixin from './Mixin';

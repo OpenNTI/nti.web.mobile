@@ -3,8 +3,8 @@ global.SERVER = true;
 import express from 'express';
 import path from 'path';
 //import fs from 'fs';
-import waitFor from 'dataserverinterface/utils/waitfor';
-import dataserver from 'dataserverinterface';
+import waitFor from 'nti.lib.interfaces/utils/waitfor';
+import dataserver from 'nti.lib.interfaces';
 
 import api from './api';
 import cacheBuster from './no-cache';

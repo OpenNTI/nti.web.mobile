@@ -83,8 +83,8 @@ chmod +x .git/hooks/pre-commit
 Clone the library, install its dependent modules, and `npm-link` it.
 
 ```bash
-git clone {repository:source} {destination}
-cd {destination}
+git clone {repository:source} {dependency-name}
+cd {dependency-name}
 npm install
 npm link
 ```
@@ -97,7 +97,9 @@ npm link {dependency-name}
 
 | dependency-name        | repository:source                                        |
 |------------------------|----------------------------------------------------------|
-| dataserverinterface    | ssh://repos.nextthought.com/nti.node.dataserverinterface |
+| nti.lib.interfaces     | ssh://repos.nextthought.com/nti.lib.interfaces           |
+| nti.lib.anchors        | ssh://repos.nextthought.com/nti.lib.anchorjs             |
+| nti.lib.dom            | ssh://repos.nextthought.com/nti.lib.domjs                |
 | react-editor-component | git@github.com:NextThought/react-editor-component.git    |
 
 

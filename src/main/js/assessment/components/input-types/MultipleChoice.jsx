@@ -5,8 +5,8 @@ var Mixin = require('./Mixin');
 
 var getEventTarget = require('nti.lib.dom/lib/geteventtarget');
 
-var toArray = require('dataserverinterface/utils/toarray');
-var isTruthy = require('dataserverinterface/utils/identity');
+var toArray = require('nti.lib.interfaces/utils/toarray');
+var isTruthy = require('nti.lib.interfaces/utils/identity');
 
 var valueIfChecked = (i)=> i.checked && i.value;
 

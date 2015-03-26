@@ -5,8 +5,8 @@ var emptyFunction = require('react/lib/emptyFunction');
 
 var {processContent} = require('content/Utils');
 
-var isFunction = require('dataserverinterface/utils/isfunction');
-var htmlToReact = require('dataserverinterface/utils/html-to-react');
+var isFunction = require('nti.lib.interfaces/utils/isfunction');
+var htmlToReact = require('nti.lib.interfaces/utils/html-to-react');
 
 var hash = require('object-hash');
 

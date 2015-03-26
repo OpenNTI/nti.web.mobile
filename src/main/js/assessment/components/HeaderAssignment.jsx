@@ -9,7 +9,7 @@ var Grade = require('./Grade');
 
 var TimedPlaceholder = require('./TimedPlaceholder');
 
-var isEmpty = require('dataserverinterface/utils/isempty');
+var isEmpty = require('nti.lib.interfaces/utils/isempty');
 
 module.exports = React.createClass({
 	displayName: 'HeaderAssignment',

@@ -7,7 +7,7 @@ import SetStateSafely from 'common/mixins/SetStateSafely';
 import ContextContributor from 'common/mixins/ContextContributor';
 
 import {Component as Video} from 'video';
-import {encodeForURI} from 'dataserverinterface/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const Progress = Symbol.for('Progress');
 

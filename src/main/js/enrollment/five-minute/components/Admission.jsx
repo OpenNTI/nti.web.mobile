@@ -11,7 +11,7 @@ var Constants = require('../Constants');
 var Store = require('../Store');
 var StatusConstants = Constants.admissionStatus;
 var t = require('common/locale').scoped('ENROLLMENT');
-var getLink = require('dataserverinterface/utils/getlink');
+var getLink = require('nti.lib.interfaces/utils/getlink');
 
 module.exports = React.createClass({
 

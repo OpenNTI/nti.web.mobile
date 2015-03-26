@@ -5,7 +5,7 @@ import React from 'react';
 import Store from '../Store';
 import Api from '../Api';
 import {OBJECT_CONTENTS_CHANGED} from '../Constants';
-import NTIID from 'dataserverinterface/utils/ntiids';
+import NTIID from 'nti.lib.interfaces/utils/ntiids';
 import Router from 'react-router-component';
 let {Location} = Router;
 

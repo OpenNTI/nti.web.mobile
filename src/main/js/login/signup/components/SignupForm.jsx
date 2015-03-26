@@ -11,7 +11,7 @@ var NavigatableMixin = Router.NavigatableMixin;
 var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
 var ERROR_EVENT = require('common/constants/Events').ERROR_EVENT;
 
-var indexArrayByKey = require('dataserverinterface/utils/array-index-by-key');
+var indexArrayByKey = require('nti.lib.interfaces/utils/array-index-by-key');
 
 var Store = require('../Store');
 var Actions = require('../Actions');

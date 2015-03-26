@@ -1,5 +1,5 @@
 import {OBJECT_LOADED} from '../Constants';
-import NTIID from 'dataserverinterface/utils/ntiids';
+import NTIID from 'nti.lib.interfaces/utils/ntiids';
 
 const objectLoadedHandler = 'KeepItemInState:objectLoadedHandler';
 

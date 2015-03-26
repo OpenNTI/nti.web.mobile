@@ -32,11 +32,12 @@ module.exports = function (config) {
     basePath: '',
     frameworks: ['jasmine'],
     files: [
-      'src/test/helpers/**/*.js',
-      'src/test/spec/**/*.js'
+      'src/test/helpers/**/*',
+      'src/**/*.spec.js'
     ],
     preprocessors: {
-      'src/test/spec/**/*.js': ['webpack', 'sourcemap']
+      'src/test/helpers/**/*.js': ['webpack'],
+      'src/**/*.spec.js': ['webpack', 'sourcemap']
     },
     webpack: {
         quiet: true,
@@ -64,17 +65,16 @@ module.exports = function (config) {
 
 	    module: {
 	        loaders: [
-                { test: /\.js$/, loader: 'jsx?stripTypes&harmony' },
-                { test: /\.jsx$/, loader: 'jsx?stripTypes&harmony' },
+                { test: /\.js(x)?$/, loader: 'babel' },
                 { test: /\.json$/, loader: 'json' },
-                { test: /\.ico$/, loader: 'url?limit=1000000' },
-                { test: /\.gif$/, loader: 'url?limit=1000000' },
-                { test: /\.png$/, loader: 'url?limit=1000000' },
-                { test: /\.jpg$/, loader: 'url?limit=1000000' },
-                { test: /\.eot$/, loader: 'url?limit=1000000' },
-                { test: /\.ttf$/, loader: 'url?limit=1000000' },
-                { test: /\.woff$/, loader: 'url?limit=1000000' },
-                { test: /\.html$/, loader: 'html?attrs=link:href' },
+                { test: /\.ico$/, loader: 'url' },
+                { test: /\.gif$/, loader: 'url' },
+                { test: /\.png$/, loader: 'url' },
+                { test: /\.jpg$/, loader: 'url' },
+                { test: /\.eot$/, loader: 'url' },
+                { test: /\.ttf$/, loader: 'url' },
+                { test: /\.woff$/, loader: 'url' },
+                { test: /\.html$/, loader: 'html' },
                 { test: /\.css$/, loader: 'style!css' },
                 { test: /\.scss$/, loader: 'style!css!sass?' + scssIncludes }
             ]

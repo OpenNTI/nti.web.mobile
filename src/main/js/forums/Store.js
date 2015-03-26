@@ -2,7 +2,7 @@ import StorePrototype from 'common/StorePrototype';
 
 import * as Constants from './Constants';
 import indexForums from './utils/index-forums';
-import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import Api from './Api';
 
 var _discussions = {};

@@ -1,4 +1,4 @@
-import {Service} from 'dataserverinterface/CommonSymbols';
+import {Service} from 'nti.lib.interfaces/CommonSymbols';
 
 export default class PageDescriptor {
 	constructor (ntiid, data) {

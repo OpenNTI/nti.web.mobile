@@ -5,7 +5,7 @@ import ContextSender from 'common/mixins/ContextSender';
 //import NavigationAware from 'common/mixins/NavigationAware';
 import Loading from 'common/components/Loading';
 
-import isEmpty from 'dataserverinterface/utils/isempty';
+import isEmpty from 'nti.lib.interfaces/utils/isempty';
 import CourseLinker from 'library/components/CourseContentLinkMixin';
 
 import SetStateSafely from 'common/mixins/SetStateSafely';

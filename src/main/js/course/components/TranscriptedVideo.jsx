@@ -6,7 +6,7 @@ import {
 
 import React from 'react';
 
-import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import addClass from 'nti.lib.dom/lib/addclass';
 import removeClass from 'nti.lib.dom/lib/removeclass';

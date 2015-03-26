@@ -2,7 +2,7 @@ import Idle from 'common/utils/idle';
 import {analyticsConfig} from 'common/utils';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EVENT_STARTED, EVENT_ENDED} from './Constants';
-import {WATCH_VIDEO} from 'dataserverinterface/models/analytics/MimeTypes';
+import {WATCH_VIDEO} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
 let _timer;
 let analytics = analyticsConfig();

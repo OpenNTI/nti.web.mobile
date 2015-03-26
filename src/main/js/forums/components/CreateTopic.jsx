@@ -9,7 +9,7 @@ var Actions = require('../Actions');
 var Store = require('../Store');
 var Constants = require('../Constants');
 var Loading = require('common/components/Loading');
-var NTIID = require('dataserverinterface/utils/ntiids');
+var NTIID = require('nti.lib.interfaces/utils/ntiids');
 
 var CreateTopic = React.createClass({
 

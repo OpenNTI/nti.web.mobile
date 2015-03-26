@@ -1,4 +1,4 @@
-import isEmpty from 'dataserverinterface/utils/isempty';
+import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
 
 export function getMainSubmittable (assessment) {

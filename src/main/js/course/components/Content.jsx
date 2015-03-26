@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';

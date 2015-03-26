@@ -7,8 +7,8 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 import {getService}from 'common/utils';
 import {FixedQueue as fixedQueue} from 'fixedqueue';
 import {startIdleTimer} from './IdleTimer';
-import ensureArray from 'dataserverinterface/utils/ensure-array';
-import {getModel} from 'dataserverinterface';
+import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
+import {getModel} from 'nti.lib.interfaces';
 
 let localStorageKey = 'analytics_queue';
 

@@ -6,7 +6,7 @@ var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var Constants = require('./Constants');
 var {getService} = require('common/utils');
-var getLink = require('dataserverinterface/utils/getlink');
+var getLink = require('nti.lib.interfaces/utils/getlink');
 
 var Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'enrollment.Store',

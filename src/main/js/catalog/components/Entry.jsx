@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {encodeForURI} from 'dataserverinterface/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import BasePathAware from 'common/mixins/BasePath';
 

@@ -1,4 +1,4 @@
-import Notifications from 'dataserverinterface/stores/Notifications';
+import Notifications from 'nti.lib.interfaces/stores/Notifications';
 
 import {getService} from 'common/utils';
 

@@ -1,10 +1,10 @@
 import AnalyticsActions from '../Actions';
 import AnalyticsStore from '../Store';
 import {RESUME_SESSION} from '../Constants';
-import ResourceEvent from 'dataserverinterface/models/analytics/ResourceEvent';
-import TopicViewedEvent from 'dataserverinterface/models/analytics/TopicViewedEvent';
-import {RESOURCE_VIEWED, TOPIC_VIEWED} from 'dataserverinterface/models/analytics/MimeTypes';
-import NTIID from 'dataserverinterface/utils/ntiids';
+import ResourceEvent from 'nti.lib.interfaces/models/analytics/ResourceEvent';
+import TopicViewedEvent from 'nti.lib.interfaces/models/analytics/TopicViewedEvent';
+import {RESOURCE_VIEWED, TOPIC_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
+import NTIID from 'nti.lib.interfaces/utils/ntiids';
 
 // const StoreChange = Symbol('ResourceLoaded:StoreChange');
 

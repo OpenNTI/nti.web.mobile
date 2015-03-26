@@ -6,7 +6,7 @@ import selectSources from './SelectSources';
 
 import url from 'url';
 
-import {getModel} from 'dataserverinterface';
+import {getModel} from 'nti.lib.interfaces';
 let MediaSource = getModel('mediasource');
 
 import getEventTarget from 'nti.lib.dom/lib/geteventtarget';

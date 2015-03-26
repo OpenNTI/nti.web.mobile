@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Filter from 'common/components/CollectionFilter';
-import PageSource from 'dataserverinterface/models/ListBackedPageSource';
+import PageSource from 'nti.lib.interfaces/models/ListBackedPageSource';
 
 import ContextSender from 'common/mixins/ContextSender';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import path from 'path';
 
-import NTIID from 'dataserverinterface/utils/ntiids';
+import NTIID from 'nti.lib.interfaces/utils/ntiids';
 
 import Loading from 'common/components/Loading';
 

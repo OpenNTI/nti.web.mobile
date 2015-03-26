@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var isFunction = require('dataserverinterface/utils/isfunction');
+var isFunction = require('nti.lib.interfaces/utils/isfunction');
 
 var ToggleFieldset = React.createClass({
 

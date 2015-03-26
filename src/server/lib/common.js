@@ -1,5 +1,5 @@
 import getSite from './site-mapping';
-import {SiteName, ServiceStash} from 'dataserverinterface/CommonSymbols';
+import {SiteName, ServiceStash} from 'nti.lib.interfaces/CommonSymbols';
 
 var env = {};
 

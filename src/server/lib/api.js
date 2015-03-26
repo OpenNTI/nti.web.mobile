@@ -1,4 +1,4 @@
-import request from 'dataserverinterface/utils/request';
+import request from 'nti.lib.interfaces/utils/request';
 
 function throwError(msg) {
 	throw new Error(msg);

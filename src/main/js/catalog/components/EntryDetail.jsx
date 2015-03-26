@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import NotFound from 'notfound/components/View';
 import Loading from 'common/components/Loading';

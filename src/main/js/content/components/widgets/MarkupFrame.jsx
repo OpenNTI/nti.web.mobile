@@ -1,5 +1,5 @@
 import React from 'react';
-import isEmpty from 'dataserverinterface/utils/isempty';
+import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
 const ZOOMABLE = /nti\-data\-resizeable/i;
 

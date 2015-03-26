@@ -2,7 +2,7 @@
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var Constants = require('./Constants');
-var Types = require('dataserverinterface/models/analytics/MimeTypes');
+var Types = require('nti.lib.interfaces/models/analytics/MimeTypes');
 
 module.exports = {
 	emitEventStarted(event) {

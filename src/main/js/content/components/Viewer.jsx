@@ -1,5 +1,5 @@
-import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
-import guid from 'dataserverinterface/utils/guid';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import guid from 'nti.lib.interfaces/utils/guid';
 
 import React from 'react';
 import {RouterMixin} from 'react-router-component';
@@ -19,7 +19,7 @@ import {getWidget} from './widgets';
 import Store from '../Store';
 import {loadPage} from '../Actions';
 
-import {RESOURCE_VIEWED} from 'dataserverinterface/models/analytics/MimeTypes';
+import {RESOURCE_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
 import AnalyticsBehavior from 'analytics/mixins/ResourceLoaded';
 import RouterLikeBehavior from './viewer-parts/mock-router';

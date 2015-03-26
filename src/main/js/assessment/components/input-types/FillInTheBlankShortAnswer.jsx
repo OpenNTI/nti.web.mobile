@@ -6,8 +6,8 @@ var InputType = require('./Mixin');
 
 var Content = require('../Content');
 
-var toArray = require('dataserverinterface/utils/toarray');
-var isEmpty = require('dataserverinterface/utils/isempty');
+var toArray = require('nti.lib.interfaces/utils/toarray');
+var isEmpty = require('nti.lib.interfaces/utils/isempty');
 var hasValue = x => x && !isEmpty(x.value);
 
 var strategies = {

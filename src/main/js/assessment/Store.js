@@ -1,8 +1,8 @@
 import emptyFunction from 'react/lib/emptyFunction';
 
-import hasValue from 'dataserverinterface/utils/object-has-value';
+import hasValue from 'nti.lib.interfaces/utils/object-has-value';
 
-import {getModel} from 'dataserverinterface';
+import {getModel} from 'nti.lib.interfaces';
 
 import {
 	BUSY_LOADING,

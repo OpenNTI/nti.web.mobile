@@ -5,7 +5,6 @@
 'use strict';
 
 var NodeModulesThatNeedCompiling = [
-    'dataserverinterface',
     'react-editor-component',
     'nti\\..+'
     ];

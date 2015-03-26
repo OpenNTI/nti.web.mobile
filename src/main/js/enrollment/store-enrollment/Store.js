@@ -1,6 +1,6 @@
 'use strict';
 
-var StripeInterface = require('dataserverinterface/interface/Stripe');
+var StripeInterface = require('nti.lib.interfaces/interface/Stripe');
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 

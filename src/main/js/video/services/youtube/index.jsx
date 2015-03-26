@@ -7,8 +7,8 @@ import ErrorWidget from 'common/components/Error';
 
 import QueryString from 'query-string';
 
-import guid from 'dataserverinterface/utils/guid';
-import Task from 'dataserverinterface/utils/task';
+import guid from 'nti.lib.interfaces/utils/guid';
+import Task from 'nti.lib.interfaces/utils/task';
 
 var YOU_TUBE = 'https://www.youtube.com';
 

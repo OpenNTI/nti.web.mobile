@@ -1,4 +1,4 @@
-import {encodeForURI} from 'dataserverinterface/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import path from 'path';
 
 const SEGMENT_HANDLERS = {

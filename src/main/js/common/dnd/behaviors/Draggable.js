@@ -3,7 +3,7 @@
 import {PropTypes} from 'react';
 import {default as Base, TYPE_SHAPE} from './Base';
 
-import isTouchDevice from 'dataserverinterface/utils/is-touch-device';
+import isTouchDevice from 'nti.lib.interfaces/utils/is-touch-device';
 import emptyFunction from 'react/lib/emptyFunction';
 
 

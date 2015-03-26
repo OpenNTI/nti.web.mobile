@@ -1,6 +1,6 @@
 'use strict';
 
-var FiveMinuteInterface = require('dataserverinterface/interface/FiveMinuteInterface');
+var FiveMinuteInterface = require('nti.lib.interfaces/interface/FiveMinuteInterface');
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;

@@ -1,10 +1,10 @@
 import {getWidth as getViewportWidth, getHeight as getViewportHeight} from './viewport';
 
-import isEmpty from 'dataserverinterface/utils/isempty';
+import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
-import between from 'dataserverinterface/utils/between';
+import between from 'nti.lib.interfaces/utils/between';
 
-import withValue from 'dataserverinterface/utils/object-attribute-withvalue';
+import withValue from 'nti.lib.interfaces/utils/object-attribute-withvalue';
 
 
 function hyphenatedToCamel (s) {

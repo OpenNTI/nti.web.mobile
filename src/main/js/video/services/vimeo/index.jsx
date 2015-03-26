@@ -3,7 +3,7 @@ import ErrorWidget from 'common/components/Error';
 
 import {EventHandlers} from '../../Constants';
 
-import guid from 'dataserverinterface/utils/guid';
+import guid from 'nti.lib.interfaces/utils/guid';
 import QueryString from 'query-string';
 
 const VIMEO_EVENTS_TO_HTML5 = {
