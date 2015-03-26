@@ -21,7 +21,7 @@ const ToggleState = Symbol('state:toggle');
 export default class Idle {
 
 	constructor (opt) {
-
+		console.debug('new idle. %o', opt);
 	    let op = this.opt = Object.assign({}, DEFAULTS, opt);
 	    this.element = op.element || document;
 
@@ -43,6 +43,7 @@ export default class Idle {
 	 * Start the idle timer.
 	 */
 	start () {
+		console.debug('idle timer start');
 	    let {state, element, opt} = this;
 
 	    let handler = () => {
