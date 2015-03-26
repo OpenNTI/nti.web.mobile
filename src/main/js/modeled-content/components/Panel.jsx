@@ -97,7 +97,7 @@ export default React.createClass({
 			dynamicRenderers = body;
 		}
 		else {
-			props.dangerouslySetInnerHTML = {__html: body};
+			props.dangerouslySetInnerHTML = {__html: body || ''};
 		}
 
 		/*

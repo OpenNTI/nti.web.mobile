@@ -7,9 +7,9 @@ export default React.createClass({
 	displayName: 'ContentMarkupEnabled',
 
 	statics: {
-		type: /nti\-data\-markupenabled/i,
+		flag: /nti\-data\-markupenabled/i,
 		handles (item) {
-			return this.type.test(item.type);
+			return this.flag.test(item.type);
 		}
 	},
 

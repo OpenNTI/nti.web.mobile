@@ -76,7 +76,7 @@ module.exports = React.createClass({
 		if (isFunction(this.state.content)) {
 			dynamicRender = this.state.content;
 		} else {
-			props.dangerouslySetInnerHTML = {__html: this.state.content};
+			props.dangerouslySetInnerHTML = {__html: this.state.content || ''};
 		}
 
 		return React.createElement("div", props, dynamicRender(React, this.renderWidget));
