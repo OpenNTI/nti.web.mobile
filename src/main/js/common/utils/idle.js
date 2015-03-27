@@ -43,7 +43,6 @@ export default class Idle {
 	 * Start the idle timer.
 	 */
 	start () {
-		console.debug('idle timer start');
 	    let {state, element, opt} = this;
 
 	    let handler = () => {
