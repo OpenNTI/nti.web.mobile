@@ -26,7 +26,7 @@
     "webapp-instance": "./src/server/index.js"
   },
   "dependencies": {
-    "nti.lib.dom": "git+https://repos.nextthought.com/git/nti.lib.domjs",
+    "nti.lib.dom": "git+https://repos.nextthought.com/git/nti.lib.domjs#f98f447",
     "nti.lib.interfaces": "git+https://repos.nextthought.com/git/nti.lib.interfaces#552312b",
     "react-editor-component": "NextThought/react-editor-component#f883711",
 
