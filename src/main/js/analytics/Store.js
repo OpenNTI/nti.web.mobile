@@ -18,7 +18,6 @@ let timeoutId;
 
 let _contextHistory = fixedQueue(11);
 
-// var Store = autobind(Object.assign({}, EventEmitter.prototype, {
 class AnalyticsStore extends TypedEventEmitter {
 
 	init() {

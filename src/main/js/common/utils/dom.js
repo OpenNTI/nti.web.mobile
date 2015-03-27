@@ -4,8 +4,6 @@ import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
 import between from 'nti.lib.interfaces/utils/between';
 
-import withValue from 'nti.lib.interfaces/utils/object-attribute-withvalue';
-
 
 function hyphenatedToCamel (s) {
 	var re = hyphenatedToCamel.re = (hyphenatedToCamel.re || /-([a-z])/g);
@@ -217,7 +215,10 @@ export function parseDomObject (el, attributePrefix) {
 	// __directChildNodes(el, 'object').forEach(p=>parseDomObject(p));
 
 
-	Object.defineProperty(obj, 'dom', withValue(el.cloneNode(true)));
+	Object.defineProperty(obj, 'dom', {
+		//configurable: true,
+		value: el.cloneNode(true)
+	});
 
 	return obj;
 }

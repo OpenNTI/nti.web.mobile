@@ -11,7 +11,12 @@ var Constants = require('../Constants');
 var Store = require('../Store');
 var StatusConstants = Constants.admissionStatus;
 var t = require('common/locale').scoped('ENROLLMENT');
-var getLink = require('nti.lib.interfaces/utils/getlink');
+var getLinkFn = require('nti.lib.interfaces/utils/getlink');
+
+function getLink(o, k) {
+	console.error('Object should be a model and then use the getLink method off of it. %o', o);
+	return getLinkFn(o,k);
+}
 
 module.exports = React.createClass({
 
