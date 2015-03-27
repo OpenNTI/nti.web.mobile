@@ -380,10 +380,9 @@ export default {
 		var x = this.canDragX(this) ? s.x : s.startX;
 		var translation = `translate3d(${x}px,${y}px,0)`;
 		var style = {
-			webkitTransform: translation,
+			WebkitTransform: translation,
 			MozTransform: translation,
 			msTransform: translation,
-			OTransform: translation,
 			transform: translation
 		};
 
