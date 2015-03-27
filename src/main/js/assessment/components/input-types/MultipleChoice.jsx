@@ -51,7 +51,6 @@ module.exports = React.createClass({
 			input.checked = !input.checked;
 		}
 
-		console.log('Clicked');
 		this.handleInteraction();
 	},
 
