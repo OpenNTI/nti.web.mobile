@@ -4,7 +4,7 @@ import {RESUME_SESSION} from '../Constants';
 import ResourceEvent from 'nti.lib.interfaces/models/analytics/ResourceEvent';
 import TopicViewedEvent from 'nti.lib.interfaces/models/analytics/TopicViewedEvent';
 import {RESOURCE_VIEWED, TOPIC_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
-import NTIID from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 // const StoreChange = Symbol('ResourceLoaded:StoreChange');
 
@@ -36,7 +36,7 @@ module.exports = {
 			}
 			else {
 				console.warn('Components using ResourceLoaded mixin should implement resumeAnalyticsEvents. (Check %s)', this.constructor.displayName);
-			} 
+			}
 		}
 	},
 
@@ -51,7 +51,7 @@ module.exports = {
 		p.then(() => {
 			let Type = typeMap[eventMimeType] || ResourceEvent;
 			currentEvent = new Type(
-					NTIID.decodeFromURI(resourceId),
+					decodeFromURI(resourceId),
 					courseId);
 			AnalyticsActions.emitEventStarted(currentEvent);
 		});

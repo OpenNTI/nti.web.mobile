@@ -5,7 +5,7 @@ import React from 'react';
 import Store from '../Store';
 import Api from '../Api';
 import {OBJECT_CONTENTS_CHANGED} from '../Constants';
-import NTIID from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import Router from 'react-router-component';
 let {Location} = Router;
 
@@ -62,7 +62,7 @@ module.exports = React.createClass({
 	},
 
 	_topicId(props=this.props) {
-		return NTIID.decodeFromURI(props.topicId);
+		return decodeFromURI(props.topicId);
 	},
 
 	_loadData: function(topicId=this.props.topicId) {

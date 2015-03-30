@@ -2,7 +2,7 @@ import Api from '../Api';
 import Store from '../Store';
 import {OBJECT_CONTENTS_CHANGED} from '../Constants';
 
-import NTIID from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const objectContentsChangedHandler = 'LoadForum:objectContentsChangedHandler';
 
@@ -24,7 +24,7 @@ module.exports = {
 
 	[objectContentsChangedHandler]: function(event) {
 		var {forumId} = this.props;
-		if (NTIID.decodeFromURI(event.objectId) === NTIID.decodeFromURI(forumId)) {
+		if (decodeFromURI(event.objectId) === decodeFromURI(forumId)) {
 			this.setState({
 				loading: false
 			});
@@ -37,5 +37,5 @@ module.exports = {
 			Store.setObject(forumId, result.object);
 			Store.setObjectContents(forumId, result.contents);
 		});
-	},	
+	},
 };

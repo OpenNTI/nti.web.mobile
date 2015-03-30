@@ -23,7 +23,7 @@ import StoreEvents from 'common/mixins/StoreEvents';
 import KeepItemInState from '../../mixins/KeepItemInState';
 import ToggleState from '../../mixins/ToggleState';
 
-import NTIID from 'nti.lib.interfaces/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 var {EDIT, DELETE} = ActionLinks;
 var t = require('common/locale').scoped('FORUMS');
@@ -99,7 +99,7 @@ var PostItem = React.createClass({
 				this.setState({
 					busy: true
 				});
-				Actions.deleteComment(this.props.item);	
+				Actions.deleteComment(this.props.item);
 			},
 			()=>{}
 		);
@@ -139,10 +139,10 @@ var PostItem = React.createClass({
 		var modifiedOn = item.getLastModified();
 		var message = item.body;
 		var numComments = this._numComments();
-		var href = this.makeHref('/' + NTIID.encodeForURI(this._itemId()) + '/', false);
+		var href = this.makeHref('/' + encodeForURI(this._itemId()) + '/', false);
 
 		var edited = (Math.abs(modifiedOn - createdOn) > 0);
-		
+
 		if (this.state.busy) {
 			return <Loading />;
 		}

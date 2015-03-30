@@ -12,7 +12,7 @@ import {OBJECT_DELETED, POST, COMMENT_FORM_ID} from '../Constants';
 import ViewHeader from './widgets/ViewHeader';
 import Replies from './Replies';
 import CommentForm from './CommentForm';
-import NTIID from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import ContextSender from 'common/mixins/ContextSender';
 import List from './List';
@@ -67,8 +67,8 @@ export default React.createClass({
 	},
 
 	_load: function(thePostId) {
-		let postId = NTIID.decodeFromURI(thePostId || this._itemId());
-		let topicId = NTIID.decodeFromURI(this.props.topicId);
+		let postId = decodeFromURI(thePostId || this._itemId());
+		let topicId = decodeFromURI(this.props.topicId);
 		Api.getObjects([postId, topicId])
 		.then(
 			result => {
@@ -99,7 +99,7 @@ export default React.createClass({
 		if (inReplyTo) {
 			result.push({
 				label,
-				href: this.getNavigable().makeHref(NTIID.encodeForURI(inReplyTo) + '/')
+				href: this.getNavigable().makeHref(encodeForURI(inReplyTo) + '/')
 			});
 		}
 
@@ -129,10 +129,10 @@ export default React.createClass({
 				return <Err error={this.state.error} />;
 			}
 		}
-		
+
 		let topic = Store.getObject(this.props.topicId);
 
-		let P = (this.state.deleted || (this._item() || {}).Deleted) ? 
+		let P = (this.state.deleted || (this._item() || {}).Deleted) ?
 			<Notice>This item has been deleted.</Notice> :
 			<PostHeadline item={item} topic={topic} asHeadline={true} />;
 
@@ -146,7 +146,7 @@ export default React.createClass({
 					topic={topic}
 					display={true}
 					className='visible' />
-				{topic && 
+				{topic &&
 					<CommentForm key="commentForm"
 						ref='commentForm'
 						id={COMMENT_FORM_ID}

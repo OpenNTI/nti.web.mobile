@@ -8,7 +8,7 @@ import Actions from '../Actions';
 import Api from '../Api';
 import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID} from '../Constants';
 import {TOPIC_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
-import NTIID from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import ViewHeader from './widgets/ViewHeader';
 import TopicHeadline from './TopicHeadline';
@@ -54,16 +54,16 @@ module.exports = React.createClass({
 		[COMMENT_ADDED]: function(event) {
 			var {topicId} = this.props;
 			var {result} = event.data||{};
-			if (result.ContainerId === NTIID.decodeFromURI(topicId)) {
+			if (result.ContainerId === decodeFromURI(topicId)) {
 				this._loadData(topicId);
 			}
 		},
 		[OBJECT_DELETED]: function(event) {
 			var {topicId} = this.props;
-			var fullTopicId = NTIID.decodeFromURI(topicId);
+			var fullTopicId = decodeFromURI(topicId);
 			var o = event.object;
 			if (!o.inReplyTo && event.object.ContainerId === fullTopicId) {
-				this._loadData(this.props.topicId);	
+				this._loadData(this.props.topicId);
 			}
 			if (o.getID && o.getID() === fullTopicId) {
 				this.setState({
@@ -102,7 +102,7 @@ module.exports = React.createClass({
 		var {topicId} = this.props;
 		this._loadData(topicId);
 		this._startAnalyticsEvent();
-		
+
 	},
 
 	componentWillUnmount: function() {
@@ -117,7 +117,7 @@ module.exports = React.createClass({
 	},
 
 	_topicId(props=this.props) {
-		return NTIID.decodeFromURI(props.topicId);
+		return decodeFromURI(props.topicId);
 	},
 
 	_loadData: function(topicId=this.props.topicId) {

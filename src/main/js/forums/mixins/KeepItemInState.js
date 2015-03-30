@@ -1,5 +1,5 @@
 import {OBJECT_LOADED} from '../Constants';
-import NTIID from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const objectLoadedHandler = 'KeepItemInState:objectLoadedHandler';
 
@@ -40,7 +40,7 @@ module.exports = {
 	_itemId: function() {
 		var i = this._item();
 		var id = i && i.getID ? i.getID() : (this._getPropId ? this._getPropId() : null);
-		return id && NTIID.decodeFromURI(id);
+		return id && decodeFromURI(id);
 	}
 
 };

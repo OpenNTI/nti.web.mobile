@@ -9,7 +9,7 @@ var Actions = require('../Actions');
 var Store = require('../Store');
 var Constants = require('../Constants');
 var Loading = require('common/components/Loading');
-var NTIID = require('nti.lib.interfaces/utils/ntiids');
+var {encodeForURI} = require('nti.lib.interfaces/utils/ntiids');
 
 var CreateTopic = React.createClass({
 
@@ -55,7 +55,7 @@ var CreateTopic = React.createClass({
 					busy: false
 				});
 				var topicId = event.topic.getID();
-				var path = NTIID.encodeForURI(topicId);
+				var path = encodeForURI(topicId);
 				this.navigate('/' + path + '/', {replace: true});
 				break;
 
