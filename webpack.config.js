@@ -54,6 +54,11 @@ var commonLoaders = [
 
 function isOurModule (s) {
     var ourprojects = NodeModulesThatNeedCompiling.join('|');
+
+    if(s.indexOf(__dirname) === 0) {
+        s = s.substr(__dirname.length);
+    }
+
     if (new RegExp(ourprojects).test(s)) {
         return !(new RegExp('('+ourprojects+')/node_modules').test(s));
     }
