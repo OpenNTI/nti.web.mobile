@@ -20,6 +20,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import KeepItemInState from '../mixins/KeepItemInState';
 import ToggleState from '../mixins/ToggleState';
 import ContextSender from 'common/mixins/ContextSender';
+import Paging from '../mixins/Paging';
 
 module.exports = React.createClass({
 	displayName: 'TopicView',
@@ -29,7 +30,8 @@ module.exports = React.createClass({
 		NavigatableMixin,
 		KeepItemInState,
 		ToggleState,
-		ContextSender
+		ContextSender,
+		Paging
 	],
 
 	backingStore: Store,
@@ -66,7 +68,8 @@ module.exports = React.createClass({
 	},
 
 	_loadData: function(topicId=this.props.topicId) {
-		Api.getTopicContents(topicId)
+
+		Api.getTopicContents(topicId, this.batchStart(), this.pageSize())
 		.then(
 			result => {
 				Store.setObject(topicId, result.object);
@@ -117,14 +120,14 @@ module.exports = React.createClass({
 		let topic = this._topic();
 
 		return (
-			<Router.Locations contextual>
-				<Location path="/(#nav)"
+			<Router.Locations contextual>				
+				<Location path='/'
 					handler={Topic}
 					topic={topic}
 					{...this.props}
 					contextProvider={this.__getContext}
 				/>
-				<Location path="/:postId/(#nav)"
+				<Location path="/:postId/"
 					handler={Post}
 					topic={topic}
 					{...this.props}

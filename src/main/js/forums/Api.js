@@ -60,11 +60,13 @@ module.exports = {
 	},
 
 	// convenience method that just adds params to the getObjectContents call.
-	getTopicContents: function(topicId) {
+	getTopicContents: function(topicId, batchStart=0, batchSize=50) {
 		return this.getObjectContents(topicId, {
 			sortOn: 'CreatedTime',
 			sortOrder: 'ascending',
-			filter: 'TopLevel'
+			filter: 'TopLevel',
+			batchStart,
+			batchSize
 		});
 	},
 

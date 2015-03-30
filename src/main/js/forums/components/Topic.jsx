@@ -29,6 +29,7 @@ import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import KeepItemInState from '../mixins/KeepItemInState';
 import ToggleState from '../mixins/ToggleState';
+import Paging from '../mixins/Paging';
 
 module.exports = React.createClass({
 	displayName: 'Topic',
@@ -38,9 +39,9 @@ module.exports = React.createClass({
 		ResourceLoaded,
 		NavigatableMixin,
 		KeepItemInState,
-		ToggleState
+		ToggleState,
+		Paging
 	],
-
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
@@ -121,7 +122,8 @@ module.exports = React.createClass({
 	},
 
 	_loadData: function(topicId=this.props.topicId) {
-		Api.getTopicContents(topicId)
+
+		Api.getTopicContents(topicId, this.batchStart(), this.pageSize())
 		.then(
 			result => {
 				Store.setObject(topicId, result.object);
