@@ -9,6 +9,7 @@ import Api from '../Api';
 import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID} from '../Constants';
 import {TOPIC_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {Link} from 'react-router-component';
 
 import ViewHeader from './widgets/ViewHeader';
 import TopicHeadline from './TopicHeadline';
@@ -112,7 +113,7 @@ module.exports = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		if (nextProps.topicId !== this.props.topicId) {
+		if (nextProps.topicId !== this.props.topicId || this.props.page !== nextProps.page) {
 			this._loadData(nextProps.topicId);
 		}
 	},
@@ -122,7 +123,7 @@ module.exports = React.createClass({
 	},
 
 	_loadData: function(topicId=this.props.topicId) {
-
+		console.debug('_loadData: topic');
 		Api.getTopicContents(topicId, this.batchStart(), this.pageSize())
 		.then(
 			result => {
@@ -224,6 +225,9 @@ module.exports = React.createClass({
 					clickHandlers={this._actionClickHandlers()} />
 
 				<TopicComments container={topicContents} topic={topic} />
+
+				<Link href={'/?p=' + (this.currentPage() - 1)}>Previous ({this.currentPage() - 1})</Link>
+				<Link href={'/?p=' + (this.currentPage() + 1)}>Next ({this.currentPage() + 1})</Link>
 
 				<CommentForm key="commentForm"
 						ref={COMMENT_FORM_ID}

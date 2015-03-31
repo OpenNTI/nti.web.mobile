@@ -5,7 +5,7 @@ const pageSize = 2;
 module.exports = {
 	currentPage() {
 		let loc = global.location || {};
-		return this.props.page || parseInt(QueryString.parse(loc.search).p||1);
+		return parseInt(QueryString.parse(loc.search).p||1);
 	},
 
 	pageSize() {
