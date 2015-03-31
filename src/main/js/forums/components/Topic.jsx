@@ -114,7 +114,15 @@ module.exports = React.createClass({
 
 	componentWillReceiveProps: function(nextProps) {
 		if (nextProps.topicId !== this.props.topicId || this.props.page !== nextProps.page) {
-			this._loadData(nextProps.topicId);
+			this.setState({
+				loading: true
+			});
+			this._loadData(nextProps.topicId).then(() => {
+					this.setState({
+						loading: false
+					});
+				}
+			);
 		}
 	},
 
@@ -123,8 +131,7 @@ module.exports = React.createClass({
 	},
 
 	_loadData: function(topicId=this.props.topicId) {
-		console.debug('_loadData: topic');
-		Api.getTopicContents(topicId, this.batchStart(), this.pageSize())
+		return Api.getTopicContents(topicId, this.batchStart(), this.pageSize())
 		.then(
 			result => {
 				Store.setObject(topicId, result.object);
