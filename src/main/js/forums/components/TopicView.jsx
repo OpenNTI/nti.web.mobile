@@ -3,7 +3,6 @@
 import React from 'react';
 
 import Store from '../Store';
-import Api from '../Api';
 import {OBJECT_CONTENTS_CHANGED} from '../Constants';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import Router from 'react-router-component';
@@ -47,43 +46,13 @@ module.exports = React.createClass({
 
 	getInitialState: function() {
 		return {
-			loading: true,
+			// loading: true,
 			deleted: false
 		};
 	},
 
-	componentDidMount: function() {
-		var {topicId} = this.props;
-		this._loadData(topicId);
-	},
-
-	componentWillReceiveProps: function(nextProps) {
-		if (nextProps.topicId !== this.props.topicId) {
-			this._loadData(nextProps.topicId);
-		}
-	},
-
 	_topicId(props=this.props) {
 		return decodeFromURI(props.topicId);
-	},
-
-	_loadData: function(topicId=this.props.topicId) {
-
-		Api.getTopicContents(topicId, this.batchStart(), this.pageSize())
-		.then(
-			result => {
-				Store.setObject(topicId, result.object);
-				Store.setObjectContents(topicId, result.contents);
-				this.setState({
-					item: result.object
-				});
-			},
-			reason => {
-				this.setState({
-					error: reason
-				});
-			}
-		);
 	},
 
 	// title bar back arrow
@@ -119,17 +88,21 @@ module.exports = React.createClass({
 
 		let topic = this._topic();
 
+		let currentPage = this.currentPage();
+
 		return (
 			<Router.Locations contextual>				
 				<Location path='/'
 					handler={Topic}
 					topic={topic}
+					page={currentPage}
 					{...this.props}
 					contextProvider={this.__getContext}
 				/>
 				<Location path="/:postId/"
 					handler={Post}
 					topic={topic}
+					page={currentPage}
 					{...this.props}
 					contextProvider={this.__getContext}
 				/>
