@@ -58,7 +58,7 @@ function makeSet(item) {
 
 function getName() {
 	try {
-		return this.constructor.displayName || this._currentElement.type.displayName;//type is deprecated by React
+		return this.constructor.displayName;
 	} catch (e) {
 		return this;
 	}
