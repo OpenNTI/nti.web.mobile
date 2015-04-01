@@ -34,6 +34,7 @@
 
 	"rules": {
 		"camelcase": [2, {"properties": "always"}],/*default*/
+		"consistent-return": 0,
 		"curly": [2, "all"],/*default*/
 		"eqeqeq": [2, "allow-null"],
 		"indent": [2, "tab"],

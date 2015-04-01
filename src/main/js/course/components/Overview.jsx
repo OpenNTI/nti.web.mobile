@@ -124,7 +124,7 @@ export default React.createClass({
 		if (loading) { return (<Loading/>); }
 		if (error) { return (<ErrorWidget error={error}/>); }
 
-		let title = (data || {}).title;
+		let title = (data || {}).title || '';
 		let items = (data || {}).Items || [];
 
 		return (

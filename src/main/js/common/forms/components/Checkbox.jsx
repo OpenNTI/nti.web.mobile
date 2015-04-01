@@ -14,7 +14,7 @@ var Checkbox = React.createClass({
 			<label>
 				<input {...this.props}/>
 				{config.htmlLabel ?
-					<span className='htmlLabel' dangerouslySetInnerHTML={{__html: config.label}} />
+					<span className='htmlLabel' dangerouslySetInnerHTML={{__html: config.label || ''}} />
 					:
 					<span>{config.label}</span>
 				}

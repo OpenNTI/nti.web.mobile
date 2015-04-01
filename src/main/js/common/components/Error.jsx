@@ -20,7 +20,7 @@ module.exports = React.createClass({
 
 	render: function() {
 		var error = this.props.error;
-		var message = error.stack || error.message || error.responseText || error;
+		var message = error.stack || error.message || error.responseText || error || '';
 
 		if (isHTML.test(message)) {
 			message = (

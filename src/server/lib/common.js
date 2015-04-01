@@ -31,6 +31,7 @@ let opt = require('optimist').usage('WebApp Instance')
 				default: 'proxy',
 				desc: 'Protocol to use (proxy or http)'
 			})
+			/*eslint no-throw-literal:0*/
 			.check(v => {if (v.hasOwnProperty('h')){ throw false; }})
 			.argv;
 

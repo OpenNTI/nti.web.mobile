@@ -186,10 +186,10 @@ export default React.createClass({
 					</div>
 				}
 
-				<h5 dangerouslySetInnerHTML={{__html: item.title}}/>
+				<h5 dangerouslySetInnerHTML={{__html: item.title || ''}}/>
 				<hr className="break hide-for-medium-up"/>
-				<div className="label" dangerouslySetInnerHTML={{__html: item.creator}}/>
-				<div className="description" dangerouslySetInnerHTML={{__html: item.desc}}/>
+				<div className="label" dangerouslySetInnerHTML={{__html: item.creator || ''}}/>
+				<div className="description" dangerouslySetInnerHTML={{__html: item.desc || ''}}/>
 			</a>
 		);
 	}

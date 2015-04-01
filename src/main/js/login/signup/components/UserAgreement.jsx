@@ -50,7 +50,7 @@ var UserAgreement = React.createClass({
 
 		return (
 				<div className="agreement-wrapper"><div className="agreement"
-					dangerouslySetInnerHTML={{__html: this.state.content}} /></div>
+					dangerouslySetInnerHTML={{__html: this.state.content || ''}} /></div>
 				// <iframe
 				// 	className="agreement"
 

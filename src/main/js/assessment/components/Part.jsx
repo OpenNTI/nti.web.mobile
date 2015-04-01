@@ -14,6 +14,8 @@ import {
 import {getInputWidget} from './input-types';
 import {getSolutionWidget} from './solution-types';
 
+const onStoreChange = 'Part: Store Change Handler';
+
 export default React.createClass({
 	displayName: 'Part',
 
@@ -31,7 +33,7 @@ export default React.createClass({
 		};
 	},
 
-	__onStoreChange () {
+	[onStoreChange] () {
 		let {part} = this.props;
 		if (this.isMounted() && this.state.helpVisible && !Store.isSubmitted(part)) {
 			this.onCloseHelp();
@@ -41,13 +43,13 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		Store.addChangeListener(this.__onStoreChange);
+		Store.addChangeListener(this[onStoreChange]);
 	},
 
 
 
 	componentWillUnmount () {
-		Store.removeChangeListener(this.__onStoreChange);
+		Store.removeChangeListener(this[onStoreChange]);
 	},
 
 
@@ -68,7 +70,7 @@ export default React.createClass({
 		}
 
 		this.setState({
-			helpVisible: HELP_VIEW_SOLUTION,
+			helpVisible: HELP_VIEW_SOLUTION
 		});
 	},
 
@@ -94,7 +96,7 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
-		this.setState({helpVisible:false});
+		this.setState({helpVisible: false});
 	},
 
 
@@ -167,7 +169,7 @@ export default React.createClass({
 		let {helpVisible} = this.state;
 		let c = this.props.children || [];
 
-		if (helpVisible) {return;}
+		if (helpVisible) { return; }
 
 		if (!Array.isArray(c)) {
 			c = [c];
@@ -192,7 +194,7 @@ export default React.createClass({
 
 	renderHint () {
 		let part = this.props.part || {};
-		let hint = (part.hints || [])[this.state.activeHint];
+		let hint = (part.hints || [])[this.state.activeHint] || '';
 
 		return (
 			<div className="part-help hint">
