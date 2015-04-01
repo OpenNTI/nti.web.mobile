@@ -18,7 +18,7 @@
   "public_root": "/mobile/",
   "scripts": {
     "prepublish": "npm dedupe react babel babel-core babel-runtime",
-    "install": "npm test",
+    "xinstall": "npm test",
     "test": "grunt test"
   },
   "main": "./src/server/index.js",
@@ -76,7 +76,7 @@
     "grunt-execute": "^0.2.2",
     "grunt-karma": "^0.10.1",
     "grunt-rename": "^0.1.4",
-    "grunt-sass": "^0.18.0",
+    "grunt-sass": "0.18.0",
     "grunt-webpack": "^1.0.8",
     "html-loader": "^0.2.2",
     "jasmine-core": "^2.2.0",
