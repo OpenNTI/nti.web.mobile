@@ -26,9 +26,10 @@
     "webapp-instance": "./src/server/index.js"
   },
   "dependencies": {
-    "nti.lib.dom": "git+https://repos.nextthought.com/git/nti.lib.domjs#3551cf6",
-    "nti.lib.interfaces": "git+https://repos.nextthought.com/git/nti.lib.interfaces#b6b0adf",
-    "react-editor-component": "NextThought/react-editor-component#b948bc9",
+    "nti.lib.dom": "git+https://repos.nextthought.com/git/nti.lib.domjs",
+    "nti.lib.interfaces": "git+https://repos.nextthought.com/git/nti.lib.interfaces",
+    "nti.lib.whiteboardjs": "git+https://repos.nextthought.com/git/nti.lib.whiteboardjs",
+    "react-editor-component": "NextThought/react-editor-component",
 
     "classnames": "^1.1.4",
     "compressible": "^2.0.1",
