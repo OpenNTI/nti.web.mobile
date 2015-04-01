@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 /**
 	Adapted from https://github.com/jcobb/react-js-transition-wrapper
@@ -14,11 +14,11 @@ export default React.createClass({
 		transitionAppear: React.PropTypes.bool
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {mounted: false};
 	},
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			transitionEnter: true,
 			transitionLeave: true,
@@ -26,34 +26,31 @@ export default React.createClass({
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount () {
 		this.setState({ mounted: true });
 	},
 
-	render: function (){
-
-		var children;
+	render (){
+		let {props} = this;
+		let children;
 
 		if(!this.props.transitionAppear){
-			children = this.props.children;
+			children = props.children;
 		}
 		else{
 			if(this.state.mounted){
-				children = this.props.children;
+				children = props.children;
 			}
 		}
 
-		return(
-			<ReactCSSTransitionGroup {...this.props}
-				transitionName={this.props.transitionName}
-				transitionEnter={this.props.transitionEnter}
-				transitionLeave={this.props.transitionLeave}
+		return (
+			<ReactCSSTransitionGroup {...props}
+				transitionName={props.transitionName}
+				transitionEnter={props.transitionEnter}
+				transitionLeave={props.transitionLeave}
 			>
 				{children}
 			</ReactCSSTransitionGroup >
 		);
 	}
-
 });
-
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
