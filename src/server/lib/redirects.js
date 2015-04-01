@@ -4,10 +4,10 @@ import path from 'path';
 const SEGMENT_HANDLERS = {
 
 	redeem: (segments) =>
-		path.join('enrollment','store','gift', segments.slice(0,2).join('/')),
+		path.join('enrollment', 'store', 'gift', segments.slice(0, 2).join('/')),
 
 	forcredit: () =>
-		path.join('enrollment','credit','/'),
+		path.join('enrollment', 'credit', '/'),
 
 	[null]: (s)=> console.warn('There is no handler registered for ', s)
 };
@@ -23,10 +23,10 @@ export default {
 
 	handleRedirects (_, res, next) {
 
-		var url = _.originalUrl || _.url;
-		var index = (url && url.indexOf('?q=')) || 0;
-		var catalog = /library\/availablecourses\/([^\/]*)\/?(.*)/;
-		var redUrl, parts, trailingPath;
+		let url = _.originalUrl || _.url;
+		let index = (url && url.indexOf('?q=')) || 0;
+		let catalog = /library\/availablecourses\/([^\/]*)\/?(.*)/;
+		let redUrl, parts, trailingPath;
 
 		/* From:
 		 * ?q=library/availablecourses/IUB0YWc6bmV4dHRob3VnaHQuY29tLDIwMTEtMTA6TlRJLUNvdXJzZUluZm8tU3ByaW5nMjAxNV9MU1REXzExNTM/redeem/code
@@ -43,7 +43,7 @@ export default {
 			parts = url.match(catalog);
 
 			if (parts) {
-				var catalogId = translateCatalogId(parts[1]);
+				let catalogId = translateCatalogId(parts[1]);
 				trailingPath = translateTrailingPath(parts[2]) || '';
 
 				redUrl = path.join(this.basepath, 'catalog', 'item', catalogId, trailingPath);
@@ -60,24 +60,24 @@ export default {
 
 function translateTrailingPath (trailingPath) {
 	if (!trailingPath) {
-		return;
+		return void 0;
 	}
 
-	var segments = (trailingPath || '').split('/');
+	let segments = (trailingPath || '').split('/');
 
-	var handler = SEGMENT_HANDLERS[segments[0] || null];
+	let handler = SEGMENT_HANDLERS[segments[0] || null];
 
 	return handler.call(null, segments);
 }
 
 
 function translateCatalogId (input) {
-	var catalogId = input
+	let catalogId = input
 				.replace(/-/g, '+')
 				.replace(/_/g, '/');
 
 	catalogId = new Buffer(catalogId, 'base64').toString();
-	catalogId = catalogId.replace(/^!@/,'');//strip off the WebApp's 'salt'
+	catalogId = catalogId.replace(/^!@/, '');//strip off the WebApp's 'salt'
 	catalogId = encodeForURI(catalogId);
 
 	return catalogId;

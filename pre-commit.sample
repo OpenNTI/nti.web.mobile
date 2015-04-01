@@ -3,11 +3,11 @@ FILES=`git diff --cached --name-only | grep -i ".jsx\?$"`
 
 
 # if SourceTree (or your fav GUI Git interface) errors saying it cannot find
-# jsxhint or node, you will need update the sub-shell's path: (uncomment this block)
+# eslint or node, you will need update the sub-shell's path: (uncomment this block)
 #
-# if ! which jsxhint &>/dev/null ; then
+# if ! which eslint &>/dev/null ; then
 # 	PATH=/opt/local/bin/:$PATH; # path to bin directory where node is.
-# 	PATH=/Users/jgrimes/.npm/bin/:$PATH; # path to bin directory where jsxhint is.
+# 	PATH=/Users/<username>/.npm/bin/:$PATH; # path to bin directory where eslint is.
 # fi
 
 
@@ -16,5 +16,5 @@ do
 	if [ ! -f $f ]; then  #file was deleted
 		continue
 	fi
-	jsxhint $(pwd)/$f || exit 1;
+	eslint $(pwd)/$f || exit 1;
 done

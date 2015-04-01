@@ -1,5 +1,5 @@
 'use strict';
-
+/*eslint no-var: 0*/
 function StyleCollector() {}
 
 var me = StyleCollector.prototype;
@@ -14,7 +14,7 @@ me.collect = function(fn) {
 	this.add = stuff.push.bind(stuff);
 
 	fn();
-	
+
 	delete this.add;
 	return stuff.join('\n');
 };

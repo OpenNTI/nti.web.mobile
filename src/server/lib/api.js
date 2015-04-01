@@ -8,7 +8,7 @@ function throwError(msg) {
 export default {
 
 	registerAnonymousEndPoints (express, config) {
-		var prefix = /^\/api/i;
+		let prefix = /^\/api/i;
 		Object.assign(this, config);
 
 		express.get(/^\/api\/user-agreement/, this.serveUserAgreement.bind(this));
@@ -33,8 +33,8 @@ export default {
 
 
 	serveUserAgreement (req, res) {
-		var BODY_REGEX = /<body[^>]*>(.*)<\/body/i;
-		var url = this['user-agreement'] || throwError('No user-agreement url set');
+		let BODY_REGEX = /<body[^>]*>(.*)<\/body/i;
+		let url = this['user-agreement'] || throwError('No user-agreement url set');
 
 		if (/\/view/.test(req.url)) {
 			res.redirect(url);
@@ -43,9 +43,9 @@ export default {
 
 
 		request(url, (error, r, response)=> {
-			var body = BODY_REGEX.exec(response);
+			let body = BODY_REGEX.exec(response);
 
-			var data = {
+			let data = {
 				status: r.statusCode,
 				html: response,
 				body: body && body[1]

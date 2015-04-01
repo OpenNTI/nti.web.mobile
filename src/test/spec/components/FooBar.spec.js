@@ -6,36 +6,36 @@ import React from 'react';
 import Button from 'common/forms/components/Button';
 
 describe('FooBar', ()=> {
-    let component;
+	let component;
 
-    beforeEach(()=>{
-        let container = document.createElement('div');
-        container.id = 'content';
-        document.body.appendChild(container);
+	beforeEach(()=>{
+		let container = document.createElement('div');
+		container.id = 'content';
+		document.body.appendChild(container);
 
-        component = React.render(
-            React.createElement(Button, {href: '#'}, 'Test'),
-            container
-        );
+		component = React.render(
+			React.createElement(Button, {href: '#'}, 'Test'),
+			container
+		);
 
-    });
+	});
 
-    it('should create a new instance of Button', ()=> {
-        expect(component).toBeDefined();
-        expect(component.getDOMNode().textContent).toBe('Test');
-    });
+	it('should create a new instance of Button', ()=> {
+		expect(component).toBeDefined();
+		expect(component.getDOMNode().textContent).toBe('Test');
+	});
 
 
-    it('should call preventDefault onClick', ()=> {
-        let event = {
-            preventDefault: ()=> {}
-        };
+	it('should call preventDefault onClick', ()=> {
+		let event = {
+			preventDefault: ()=> {}
+		};
 
-        spyOn(event, 'preventDefault');
+		spyOn(event, 'preventDefault');
 
-        component.onClick(event);
+		component.onClick(event);
 
-        expect(event.preventDefault).toHaveBeenCalled();
+		expect(event.preventDefault).toHaveBeenCalled();
 
-    });
+	});
 });

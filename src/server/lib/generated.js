@@ -1,4 +1,5 @@
 'use strict';
+/*eslint no-var: 0*/
 var logger = require('./logger');
 
 var ServerRender = true;
@@ -6,7 +7,7 @@ var src;
 var stats = {assetsByChunkName: {}};
 var reason;
 
-module.exports.page = function() {return 'Imagine the UI.';};
+module.exports.page = function() { return 'Imagine the UI.'; };
 
 try {
 	module.exports.page = require('page.generated')(true);
@@ -15,7 +16,7 @@ try {
 	ServerRender = false;
 	//no big
 	if (/Cannot find module 'page\.generated'/.test(e.message)) {
-			reason = 'Missing compiled page';
+		reason = 'Missing compiled page';
 	}
 	logger.error('Could not load compiled page. %s', reason);
 
@@ -35,18 +36,19 @@ try {
 
 		logger.error('%s\tServer UI rendering: cannot load webpack`s compile info: %s',
 			e.stack || e.message || e);
-		return;
 	}
 }
 
 
 try {
-	src = stats.assetsByChunkName.main;
-	if (Array.isArray(src)) {
-		src = src[0];
-	}
+	if (module.exports.entryPoint !== false) {
+		src = stats.assetsByChunkName.main;
+		if (Array.isArray(src)) {
+			src = src[0];
+		}
 
-	module.exports.entryPoint = src;
+		module.exports.entryPoint = src;
+	}
 } catch (e) {
 	logger.error('%s\tCould not resolve the entryPoint script name: %s',
 		e.stack || e.message || e);

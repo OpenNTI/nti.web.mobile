@@ -1,5 +1,5 @@
 'use strict';
-
+/*eslint no-var: 0*/
 require("babel/register")({
 	ignore: false,//parse node_modules too
 
@@ -34,8 +34,9 @@ mobileapp.all('/', function(_, res) { res.redirect('/mobile/'); });
 var port = server.setupApplication(app, config);
 
 //Errors
-/* jshint -W098 */	// We need the signature to be 4 args long
-					// for express to treat it as a error handler
+/* eslint no-unused-vars:0 */
+// We need the signature to be 4 args long
+// for express to treat it as a error handler
 app.use(function(err, req, res, next){
 	if (!err) {
 		err = 'Unknown Error';
@@ -49,7 +50,8 @@ app.use(function(err, req, res, next){
 
 	logger.error('%o', err);
 
-	res.status(err.statusCode || 500).send(err.body || 'Oops! Something broke!'); });
+	res.status(err.statusCode || 500).send(err.body || 'Oops! Something broke!');
+});
 
 //Go!
 protocol.createServer(mobileapp || app).listen(port, address, function() {
