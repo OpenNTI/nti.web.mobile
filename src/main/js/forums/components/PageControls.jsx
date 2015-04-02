@@ -9,6 +9,7 @@ export default React.createClass({
 		paging: React.PropTypes.shape({
 			currentPage: React.PropTypes.func,
 			pageSize: React.PropTypes.number,
+			numPages: React.PropTypes.number,
 			hasPrevious: React.PropTypes.bool,
 			hasNext: React.PropTypes.bool
 		}).isRequired
@@ -17,15 +18,17 @@ export default React.createClass({
 	render () {
 
 		let {paging} = this.props;
-		let next = paging.currentPage() + 1;
-		let prev = paging.currentPage() - 1;
+		let current = paging.currentPage();
+		let next = current + 1;
+		let prev = current - 1;
 
 
 		return (
-			<div className="page-controls">
-				{paging.hasPrevious && <Link href={'/?p=' + prev}>Previous ({prev})</Link>}
-				{paging.hasNext && <Link href={'/?p=' + next}>Next ({next})</Link>}
-			</div>
+			<ul className="page-controls">
+				<li className="item previous">{paging.hasPrevious && <Link className="link" href={'/?p=' + prev}>Previous</Link>}</li>
+				<li className="item current">{current} of {paging.numPages}</li>
+				<li className="item next">{paging.hasNext && <Link className="link" href={'/?p=' + next}>Next</Link>}</li>
+			</ul>
 		);
 	}
 });

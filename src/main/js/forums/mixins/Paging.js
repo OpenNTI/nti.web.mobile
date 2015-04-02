@@ -18,7 +18,7 @@ module.exports = {
 	},
 
 	numPages() {
-		return (((this.state || {}).itemContents || {}).FilteredTotalItemCount || 0) / this.pageSize;
+		return Math.ceil((((this.state || {}).itemContents || {}).FilteredTotalItemCount || 0) / this.pageSize);
 	},
 
 	hasNextPage() {
@@ -29,6 +29,7 @@ module.exports = {
 		return {
 			currentPage: this.currentPage,
 			pageSize: this.pageSize,
+			numPages: this.numPages(),
 			hasNext: this.hasNextPage(),
 			hasPrevious: this.currentPage() > 1
 		};
