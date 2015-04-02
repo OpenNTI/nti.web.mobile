@@ -197,6 +197,7 @@ module.exports = function(grunt) {
 
 
 	grunt.registerTask('docs', ['react', 'jsdoc']);
+	grunt.registerTask('lint', ['eslint']);
 	grunt.registerTask('test', ['karma']);
 	grunt.registerTask('build', buildSteps);
 	grunt.registerTask('default', ['serve']);
