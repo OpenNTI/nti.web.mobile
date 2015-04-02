@@ -6,7 +6,7 @@ import TopicViewedEvent from 'nti.lib.interfaces/models/analytics/TopicViewedEve
 import {RESOURCE_VIEWED, TOPIC_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
-const onStoreChange = Symbol('onStoreChange');
+export const onStoreChange = 'ResourceLoaded:onStoreChange';
 
 // const StoreChange = Symbol('ResourceLoaded:StoreChange');
 
@@ -30,7 +30,7 @@ module.exports = {
 		AnalyticsStore.removeChangeListener(this[onStoreChange]);
 	},
 
-	__onStoreChange(event) {
+	[onStoreChange](event) {
 		if (event.type === RESUME_SESSION) {
 			console.log(event);
 			if (this.resumeAnalyticsEvents) {
