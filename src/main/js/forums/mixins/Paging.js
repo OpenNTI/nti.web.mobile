@@ -6,7 +6,6 @@ module.exports = {
 	currentPage() {
 		let loc = global.location || {};
 		let cp = parseInt(QueryString.parse(loc.search).p || 1);
-		console.debug('currentPage: %d', cp);
 		return cp;
 	},
 
@@ -18,20 +17,20 @@ module.exports = {
 		return this.pageSize * (this.currentPage() - 1);
 	},
 
-	get numPages() {
-		return ((this.state || {}).itemContents || {}).FilteredItemCount / this.pageSize;
+	numPages() {
+		return (((this.state || {}).itemContents || {}).FilteredTotalItemCount || 0) / this.pageSize;
 	},
 
 	hasNextPage() {
-		return this.numPages > (this.currentPage());
+		return this.numPages() > (this.currentPage());
 	},
 
 	pagingInfo() {
 		return {
 			currentPage: this.currentPage,
 			pageSize: this.pageSize,
-			hasNext: this.hasNextPage,
-			hasPrevious: this.currentPage > 1
+			hasNext: this.hasNextPage(),
+			hasPrevious: this.currentPage() > 1
 		};
 	}
 

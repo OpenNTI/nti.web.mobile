@@ -7,7 +7,7 @@ export default React.createClass({
 	propTypes: {
 		// available from Paging mixin
 		paging: React.PropTypes.shape({
-			currentPage: React.PropTypes.number,
+			currentPage: React.PropTypes.func,
 			pageSize: React.PropTypes.number,
 			hasPrevious: React.PropTypes.bool,
 			hasNext: React.PropTypes.bool
@@ -20,10 +20,11 @@ export default React.createClass({
 		let next = paging.currentPage() + 1;
 		let prev = paging.currentPage() - 1;
 
+
 		return (
 			<div className="page-controls">
-				<Link href={'/?p=' + prev}>Previous ({prev})</Link>
-				<Link href={'/?p=' + next}>Next ({next})</Link>
+				{paging.hasPrevious && <Link href={'/?p=' + prev}>Previous ({prev})</Link>}
+				{paging.hasNext && <Link href={'/?p=' + next}>Next ({next})</Link>}
 			</div>
 		);
 	}
