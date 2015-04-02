@@ -6,6 +6,10 @@ import TopicViewedEvent from 'nti.lib.interfaces/models/analytics/TopicViewedEve
 import {RESOURCE_VIEWED, TOPIC_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
+const onStoreChange = Symbol('onStoreChange');
+const resourceUnloaded = Symbol('resourceUnloaded');
+const resourceUnloaded = Symbol('resourceUnloaded');
+
 // const StoreChange = Symbol('ResourceLoaded:StoreChange');
 
 // keep track of the view start event so we can push analytics including duration
@@ -21,11 +25,11 @@ let typeMap = {
 module.exports = {
 
 	componentDidMount() {
-		AnalyticsStore.addChangeListener(this.__onStoreChange);
+		AnalyticsStore.addChangeListener(this[onStoreChange]);
 	},
 
 	componentWillUnmount() {
-		AnalyticsStore.removeChangeListener(this.__onStoreChange);
+		AnalyticsStore.removeChangeListener(this[onStoreChange]);
 	},
 
 	__onStoreChange(event) {
@@ -42,12 +46,12 @@ module.exports = {
 
 	_resourceLoaded (resourceId, courseId, eventMimeType) {
 		if (currentEvent) {
-			this._resourceUnloaded();
+			this[resourceUnloaded]();
 		}
 
 		// wait for _resourceUnloaded to finish before creating the
 		// new event so we don't change currentEvent out from under it.
-		let p = currentEvent ? this._resourceUnloaded() : Promise.resolve();
+		let p = currentEvent ? this[resourceUnloaded]() : Promise.resolve();
 		p.then(() => {
 			let Type = typeMap[eventMimeType] || ResourceEvent;
 			currentEvent = new Type(
@@ -65,7 +69,7 @@ module.exports = {
 		let resourceId = currentEvent.resourceId;
 		currentEvent.finish();
 
-		var contextFunction = this.analyticsContext || this.resolveContext;
+		let contextFunction = this.analyticsContext || this.resolveContext;
 		return contextFunction(this.props)
 			.then(context => {
 				let first = context[0],

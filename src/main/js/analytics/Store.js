@@ -16,24 +16,28 @@ let queue = [];
 let postFrequency = 10000;
 let timeoutId;
 
-let _contextHistory = fixedQueue(11);
+let contextHistory = fixedQueue(11);
+const ProcessLocalStorage = Symbol('ProcessLocalStorage');
+const HaltActiveEvents = Symbol('HaltActiveEvents');
+const ProcessQueue = Symbol('ProcessQueue');
+const FlushLocalStorage = Symbol('FlushLocalStorage');
 
 class AnalyticsStore extends TypedEventEmitter {
 
 	init() {
 		startTimer();
 		startIdleTimer(this.endSession.bind(this, 'idle timer'), this.resumeSession.bind(this, 'idle/activity'));
-		this._processLocalStorage();
+		this[ProcessLocalStorage]();
 	}
 
 	pushHistory(item) {
-		if (_contextHistory[_contextHistory.length - 1] !== item ) { // omit duplicate entries
-			_contextHistory.enqueue(item);
+		if (contextHistory[contextHistory.length - 1] !== item ) { // omit duplicate entries
+			contextHistory.enqueue(item);
 		}
 	}
 
 	getHistory() {
-		return _contextHistory.slice(0);
+		return contextHistory.slice(0);
 	}
 
 	enqueueEvents(analyticsEvent) {
@@ -45,7 +49,7 @@ class AnalyticsStore extends TypedEventEmitter {
 		catch (e) {}
 	}
 
-	_haltActiveEvents(events=queue) {
+	[HaltActiveEvents](events=queue) {
 		if (!events) {
 			return Promise.resolve([]);
 		}
@@ -71,9 +75,9 @@ class AnalyticsStore extends TypedEventEmitter {
 	endSession(reason='no reason specified') {
 		console.debug('Ending analytics session. (%s)', reason);
 		clearTimeout(timeoutId);
-		let haltEvents = this._haltActiveEvents();
+		let haltEvents = this[HaltActiveEvents]();
 		let shutdown = haltEvents.then(
-			this._processQueue().then(() => {
+			this[ProcessQueue]().then(() => {
 				return getService().then(service => {
 					return service.endAnalyticsSession();
 				});
@@ -87,18 +91,18 @@ class AnalyticsStore extends TypedEventEmitter {
 		this.emit(CHANGE_EVENT, {type: Constants.RESUME_SESSION});
 	}
 
-	_flushLocalStorage() {
+[FlushLocalStorage]() {
 		window.localStorage.removeItem(localStorageKey);
 	}
 
-	_processLocalStorage() {
+	[ProcessLocalStorage]() {
 		console.debug('processing local storage');
 		try {
 			let q = JSON.parse(window.localStorage.getItem(localStorageKey));
 			console.debug('localStorage events: %o', q);
-			this._haltActiveEvents(q).then(events => {
+			this[HaltActiveEvents](q).then(events => {
 				this.enqueueEvents(events);
-				this._processQueue();
+				this[ProcessQueue]();
 			});
 		}
 		catch(e) {
@@ -106,7 +110,7 @@ class AnalyticsStore extends TypedEventEmitter {
 		}
 	}
 
-	_processQueue() {
+	[ProcessQueue]() {
 		if (queue.length === 0) {
 			return Promise.resolve('No events in the queue.');
 		}
@@ -136,7 +140,7 @@ class AnalyticsStore extends TypedEventEmitter {
 			})
 			.then(function(response) {
 				console.log('%i of %i analytics events accepted.', response, items.length);
-				this._flushLocalStorage();
+				this[FlushLocalStorage]();
 				return response;
 			}.bind(this))
 			.catch(function(r) {
@@ -157,14 +161,14 @@ function startTimer() {
 	timeoutId = setTimeout(
 		function() {
 			// process the queue and start the timer again.
-			Store._processQueue().then(startTimer);
+			Store[ProcessQueue]().then(startTimer);
 		},
 		postFrequency
 	);
 }
 
 AppDispatcher.register(function(payload) {
-	var action = payload.action;
+	let action = payload.action;
 
 	switch (action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.

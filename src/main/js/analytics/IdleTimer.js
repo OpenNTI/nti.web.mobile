@@ -4,7 +4,7 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EVENT_STARTED, EVENT_ENDED} from './Constants';
 import {WATCH_VIDEO} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
-let _timer;
+let timer;
 let analytics = analyticsConfig();
 let idleTimeMs = (analytics.idleTimeoutSeconds || 60) * 1000;
 
@@ -16,25 +16,24 @@ let idleEvents = analytics.idleEvents || 'mousemove keydown DOMMouseScroll mouse
 // end/resume analytics sesssion when user is idle/becomes active.
 export function startIdleTimer(idleFn, activeFn) {
 	// console.debug('startIdleTimer');
-	_timer = new Idle({
+	timer = new Idle({
 		timeout: idleTimeMs,
 		events: idleEvents
 	});
-	_timer.on('idle', idleFn);
-	_timer.on('active', activeFn);
+	timer.on('idle', idleFn);
+	timer.on('active', activeFn);
 }
 
 let handlers = {
 	[EVENT_STARTED](action) {
-		// console.debug(action.type);	
 		if (suspensionEventTypes.has((action.event||{}).MimeType)) {
-			_timer.stop();
+			timer.stop();
 		}
 	},
 	[EVENT_ENDED](action) {
 		if (suspensionEventTypes.has((action.event||{}).MimeType)) {
-			_timer.start();
-		}	
+			timer.start();
+		}
 	}
 };
 

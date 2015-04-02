@@ -276,7 +276,9 @@ class Store extends StorePrototype {
 
 	setupAssessment (assessment, loadProgress, administrative) {
 		let main = getMainSubmittable(assessment);
-		if (!main) {return;}
+		if (!main) {
+			return;
+		}
 		console.debug('New Assessment: %o', main);
 
 		this.assessed[main.getID()] = null;
@@ -297,7 +299,7 @@ class Store extends StorePrototype {
 		}
 
 		this.markBusy(assessment, BUSY_LOADING);
-		this.emitChange({type:BUSY_LOADING});
+		this.emitChange({type: BUSY_LOADING});
 
 
 
