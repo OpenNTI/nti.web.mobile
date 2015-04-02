@@ -64,14 +64,15 @@ export function clientConfig (username, context) {
 	//unsafe to send to client raw... lets reduce it to essentials
 	let unsafe = config();
 	let cfg = {
-		username: username,
-		server: unsafe.server,
-		basepath: unsafe.basepath,
 		analytics: unsafe.analytics,
+		basepath: unsafe.basepath,
+		discussions: unsafe.discussions,
 		flags: unsafe.flags,
+		server: unsafe.server,
 		/* jshint -W106 */
-		siteName: getSite(context[SiteName])
+		siteName: getSite(context[SiteName]),
 		/* jshint +W106 */
+		username: username
 	};
 
 	return {

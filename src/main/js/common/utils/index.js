@@ -54,6 +54,10 @@ export function analyticsConfig () {
 	return $AppConfig.analytics||{};
 }
 
+export function discussionsConfig () {
+	return $AppConfig.discussions||{};
+}
+
 /**
  * Returns the shared instance of the server interface.
  * NOTICE: This is for low-level (or anonymous/non-authenticated) work ONLY.

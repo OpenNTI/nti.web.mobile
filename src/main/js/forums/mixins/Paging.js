@@ -1,6 +1,7 @@
 import QueryString from 'query-string';
+import {discussionsConfig} from 'common/utils';
 
-const pageSize = 2;
+const pageSize = discussionsConfig().pageSize || 50;
 
 module.exports = {
 	currentPage() {
