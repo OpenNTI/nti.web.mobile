@@ -1,7 +1,7 @@
 import React from 'react';
 import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 import {isPointWithIn} from '../../utils/dom';
-import {default as Base, TYPE_SHAPE} from './Base';
+import Base, {TYPE_SHAPE} from './Base';
 
 export default {
 	mixins: [Base],

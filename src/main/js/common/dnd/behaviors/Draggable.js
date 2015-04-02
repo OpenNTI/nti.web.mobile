@@ -1,7 +1,7 @@
 //heavily inspired by: https://github.com/mzabriskie/react-draggable
 
 import {PropTypes} from 'react';
-import {default as Base, TYPE_SHAPE} from './Base';
+import Base, {TYPE_SHAPE} from './Base';
 
 import isTouchDevice from 'nti.lib.interfaces/utils/is-touch-device';
 import emptyFunction from 'react/lib/emptyFunction';
