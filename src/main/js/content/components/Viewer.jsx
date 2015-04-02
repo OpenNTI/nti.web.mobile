@@ -70,7 +70,7 @@ export default React.createClass({
 
 
 	componentWillUnmount () {
-		this._resourceUnloaded();
+		this.resourceUnloaded();
 		this.cleanupWidgets();
 	},
 
@@ -138,7 +138,7 @@ export default React.createClass({
 			);
 
 			loadPage(newPageId);
-			this._resourceLoaded(newPageId, null, RESOURCE_VIEWED);
+			this.resourceLoaded(newPageId, null, RESOURCE_VIEWED);
 		}
 	},
 

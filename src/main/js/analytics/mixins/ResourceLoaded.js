@@ -7,8 +7,6 @@ import {RESOURCE_VIEWED, TOPIC_VIEWED} from 'nti.lib.interfaces/models/analytics
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const onStoreChange = Symbol('onStoreChange');
-const resourceUnloaded = Symbol('resourceUnloaded');
-const resourceUnloaded = Symbol('resourceUnloaded');
 
 // const StoreChange = Symbol('ResourceLoaded:StoreChange');
 
@@ -44,14 +42,14 @@ module.exports = {
 		}
 	},
 
-	_resourceLoaded (resourceId, courseId, eventMimeType) {
+	resourceLoaded (resourceId, courseId, eventMimeType) {
 		if (currentEvent) {
-			this[resourceUnloaded]();
+			this.resourceUnloaded();
 		}
 
 		// wait for _resourceUnloaded to finish before creating the
 		// new event so we don't change currentEvent out from under it.
-		let p = currentEvent ? this[resourceUnloaded]() : Promise.resolve();
+		let p = currentEvent ? this.resourceUnloaded() : Promise.resolve();
 		p.then(() => {
 			let Type = typeMap[eventMimeType] || ResourceEvent;
 			currentEvent = new Type(
@@ -61,7 +59,7 @@ module.exports = {
 		});
 	},
 
-	_resourceUnloaded: function() {
+	resourceUnloaded: function() {
 		if (!currentEvent || currentEvent.finished) {
 			return Promise.resolve();
 		}
