@@ -47,7 +47,7 @@ module.exports = {
 			this.resourceUnloaded();
 		}
 
-		// wait for _resourceUnloaded to finish before creating the
+		// wait for resourceUnloaded to finish before creating the
 		// new event so we don't change currentEvent out from under it.
 		let p = currentEvent ? this.resourceUnloaded() : Promise.resolve();
 		p.then(() => {

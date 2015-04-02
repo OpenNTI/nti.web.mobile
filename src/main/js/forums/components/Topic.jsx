@@ -93,7 +93,7 @@ module.exports = React.createClass({
 	_startAnalyticsEvent() {
 		var {topicId} = this.props;
 		console.debug('Begin topic viewed event.');
-		this._resourceLoaded(topicId, Store.getCourseId(), TOPIC_VIEWED);
+		this.resourceLoaded(topicId, Store.getCourseId(), TOPIC_VIEWED);
 	},
 
 	resumeAnalyticsEvents() {
@@ -109,7 +109,7 @@ module.exports = React.createClass({
 
 	componentWillUnmount: function() {
 		AnalyticsStore.pushHistory(this._topicId(this.props));
-		this._resourceUnloaded();
+		this.resourceUnloaded();
 	},
 
 	componentWillReceiveProps: function(nextProps) {
