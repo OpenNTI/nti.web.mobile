@@ -69,7 +69,7 @@ module.exports = React.createClass({
 	},
 
 	_topic: function() {
-		return this._item()||Store.getObject(this.props.topicId);
+		return this._item() || Store.getObject(this.props.topicId);
 	},
 
 	_getPropId: function() {
@@ -91,7 +91,7 @@ module.exports = React.createClass({
 		let currentPage = this.currentPage();
 
 		return (
-			<Router.Locations contextual>				
+			<Router.Locations contextual>
 				<Location path='/'
 					handler={Topic}
 					topic={topic}

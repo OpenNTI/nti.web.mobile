@@ -2,35 +2,50 @@
 
 import React from 'react';
 
-import Store from '../Store';
+
 import AnalyticsStore from 'analytics/Store';
 import Actions from '../Actions';
 import Api from '../Api';
 import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID} from '../Constants';
 import {TOPIC_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
-import {Link} from 'react-router-component';
+import Store from '../Store';
 
-import ViewHeader from './widgets/ViewHeader';
-import TopicHeadline from './TopicHeadline';
-import TopicEditor from './TopicEditor';
-import TopicComments from './TopicComments';
-import Prompt from 'prompts';
-import Notice from 'common/components/Notice';
-import Loading from 'common/components/Loading';
+import ActionLinks from './ActionLinks';
 import CommentForm from './CommentForm';
 import Err from 'common/components/Error';
-var t = require('common/locale').scoped('FORUMS');
-import ActionLinks from './ActionLinks';
-var {EDIT, DELETE} = ActionLinks;
+import Loading from 'common/components/Loading';
+import Notice from 'common/components/Notice';
+import PageControls from './PageControls';
+import Prompt from 'prompts';
+import TopicComments from './TopicComments';
+import TopicEditor from './TopicEditor';
+import TopicHeadline from './TopicHeadline';
+import ViewHeader from './widgets/ViewHeader';
+import {scoped} from 'common/locale';
 
 // mixins
-import StoreEvents from 'common/mixins/StoreEvents';
-import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import KeepItemInState from '../mixins/KeepItemInState';
-import ToggleState from '../mixins/ToggleState';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import Paging from '../mixins/Paging';
+import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
+import StoreEvents from 'common/mixins/StoreEvents';
+import ToggleState from '../mixins/ToggleState';
+
+let t = scoped('FORUMS');
+let {EDIT, DELETE} = ActionLinks;
+
+const loadData = 'Topic:LoadData';
+
+const editTopic = 'Topic:editTopic';
+const deleteTopic = 'Topic:deleteTopic';
+const getTopic = 'Topic:getTopic';
+const getPropId = 'Topic:getPropId';
+const startAnalyticsEvent = 'Topic:startAnalyticsEvent';
+const getTopicId = 'Topic:getTopicId';
+const actionClickHandlers = 'Topic:actionClickHandlers';
+const saveEdit = 'Topic:saveEdit';
+const hideEditForm = 'Topic:hideEditForm';
 
 module.exports = React.createClass({
 	displayName: 'Topic',
@@ -54,18 +69,18 @@ module.exports = React.createClass({
 			}
 		},
 		[COMMENT_ADDED]: function(event) {
-			var {topicId} = this.props;
-			var {result} = event.data||{};
+			let {topicId} = this.props;
+			let {result} = event.data || {};
 			if (result.ContainerId === decodeFromURI(topicId)) {
-				this._loadData(topicId);
+				this[loadData](topicId);
 			}
 		},
 		[OBJECT_DELETED]: function(event) {
-			var {topicId} = this.props;
-			var fullTopicId = decodeFromURI(topicId);
-			var o = event.object;
+			let {topicId} = this.props;
+			let fullTopicId = decodeFromURI(topicId);
+			let o = event.object;
 			if (!o.inReplyTo && event.object.ContainerId === fullTopicId) {
-				this._loadData(this.props.topicId);
+				this[loadData](this.props.topicId);
 			}
 			if (o.getID && o.getID() === fullTopicId) {
 				this.setState({
@@ -90,25 +105,25 @@ module.exports = React.createClass({
 		};
 	},
 
-	_startAnalyticsEvent() {
-		var {topicId} = this.props;
+	[startAnalyticsEvent]() {
+		let {topicId} = this.props;
 		console.debug('Begin topic viewed event.');
 		this.resourceLoaded(topicId, Store.getCourseId(), TOPIC_VIEWED);
 	},
 
 	resumeAnalyticsEvents() {
-		this._startAnalyticsEvent();
+		this[startAnalyticsEvent]();
 	},
 
 	componentDidMount: function() {
-		var {topicId} = this.props;
-		this._loadData(topicId);
-		this._startAnalyticsEvent();
+		let {topicId} = this.props;
+		this[loadData](topicId);
+		this[startAnalyticsEvent]();
 
 	},
 
 	componentWillUnmount: function() {
-		AnalyticsStore.pushHistory(this._topicId(this.props));
+		AnalyticsStore.pushHistory(this[getTopicId](this.props));
 		this.resourceUnloaded();
 	},
 
@@ -117,27 +132,28 @@ module.exports = React.createClass({
 			this.setState({
 				loading: true
 			});
-			this._loadData(nextProps.topicId).then(() => {
-					this.setState({
-						loading: false
-					});
-				}
-			);
+			this[loadData](nextProps.topicId).then(() =>
+			{
+				this.setState({
+					loading: false
+				});
+			});
 		}
 	},
 
-	_topicId(props=this.props) {
+	[getTopicId](props=this.props) {
 		return decodeFromURI(props.topicId);
 	},
 
-	_loadData: function(topicId=this.props.topicId) {
-		return Api.getTopicContents(topicId, this.batchStart(), this.pageSize())
+	[loadData]: function(topicId=this.props.topicId) {
+		return Api.getTopicContents(topicId, this.batchStart(), this.pageSize)
 		.then(
 			result => {
 				Store.setObject(topicId, result.object);
 				Store.setObjectContents(topicId, result.contents);
 				this.setState({
-					item: result.object
+					item: result.object,
+					itemContents: result.contents
 				});
 			},
 			reason => {
@@ -149,47 +165,47 @@ module.exports = React.createClass({
 	},
 
 	analyticsContext: function() {
-		var h = AnalyticsStore.getHistory()||[];
-		if (h.length > 0 && h[h.length - 1] === this._topicId()) {
+		let h = AnalyticsStore.getHistory() || [];
+		if (h.length > 0 && h[h.length - 1] === this[getTopicId]) {
 			h.length--; // don't include ourselves in the context
 		}
 		return Promise.resolve(h);
 	},
 
-	_editTopic: function() {
+	[editTopic]: function() {
 		this.setState({
 			editing: true
 		});
 	},
 
-	_deleteTopic: function() {
+	[deleteTopic]: function() {
 		Prompt.areYouSure(t('deleteTopicPrompt')).then(() => {
-			Actions.deleteTopic(this._topic());
+			Actions.deleteTopic(this[getTopic]());
 		},
 		()=>{});
 	},
 
-	_topic: function() {
-		return this._item()||Store.getObject(this.props.topicId);
+	[getTopic]: function() {
+		return this._item() || Store.getObject(this.props.topicId);
 	},
 
-	_getPropId: function() {
+	[getPropId]: function() {
 		return this.props.topicId;
 	},
 
-	_actionClickHandlers() {
+	[actionClickHandlers]() {
 		return {
 			[EDIT]: this._editTopic,
 			[DELETE]: this._deleteTopic
 		};
 	},
 
-	_saveEdit() {
-		var val = this.refs.headline.getValue();
-		Actions.saveComment(this._topic().headline, val);
+	[saveEdit]() {
+		let val = this.refs.headline.getValue();
+		Actions.saveComment(this[getTopic].headline, val);
 	},
 
-	_hideEditForm() {
+	[hideEditForm]() {
 		this.setState({
 			editing: false
 		});
@@ -198,8 +214,8 @@ module.exports = React.createClass({
 	render: function() {
 
 		if (this.state.error) {
-			var {error} = this.state;
-			return (error||{}).statusCode === 404 ? <div><Notice>This topic could not be found.</Notice></div> : <Err error={error} />;
+			let {error} = this.state;
+			return (error || {}).statusCode === 404 ? <div><Notice>This topic could not be found.</Notice></div> : <Err error={error} />;
 		}
 
 		if (this.state.loading) {
@@ -210,31 +226,34 @@ module.exports = React.createClass({
 			return <div><Notice>This topic has been deleted.</Notice></div>;
 		}
 
-		var topic = this._topic();
-		var topicContents = Store.getObjectContents(this.props.topicId);
-		var numComments = topicContents.TotalItemCount;
+		let topic = this[getTopic]();
+		let topicContents = Store.getObjectContents(this.props.topicId);
+		let numComments = topicContents.TotalItemCount;
 
-		var Tag = this.state.editing ? TopicEditor : TopicHeadline;
+
+		let props = {
+			ref: 'headline',
+			item: topic.headline,
+			onSubmit: this._saveEdit,
+			onCompletion: this._hideEditForm,
+			onCancel: this._hideEditForm
+		};
+
+		let pageInfo = this.pagingInfo();
 
 		return (
 			<div>
 				<ViewHeader type={TOPIC} />
-				<Tag ref='headline'
-					item={topic.headline}
-					onSubmit={this._saveEdit}
-					onCompletion={this._hideEditForm}
-					onCancel={this._hideEditForm}
-				/>
+				{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline {...props} />}
 				<ActionLinks
 					item={topic}
 					canReply={true}
 					numComments={numComments}
-					clickHandlers={this._actionClickHandlers()} />
+					clickHandlers={this[actionClickHandlers]()} />
 
 				<TopicComments container={topicContents} topic={topic} />
 
-				<Link href={'/?p=' + (this.currentPage() - 1)}>Previous ({this.currentPage() - 1})</Link>
-				<Link href={'/?p=' + (this.currentPage() + 1)}>Next ({this.currentPage() + 1})</Link>
+				<PageControls paging={pageInfo} />
 
 				<CommentForm key="commentForm"
 						ref={COMMENT_FORM_ID}
