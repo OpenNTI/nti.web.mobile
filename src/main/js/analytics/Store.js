@@ -46,7 +46,10 @@ class AnalyticsStore extends TypedEventEmitter {
 		try {
 			window.localStorage.setItem(localStorageKey, JSON.stringify(queue));
 		}
-		catch (e) {}
+		catch (e) {
+			// no local storage? that's fine.
+			console.warn('localStorage.setItem failed. (No local storage?)', e);
+		}
 	}
 
 	[HaltActiveEvents](events=queue) {
