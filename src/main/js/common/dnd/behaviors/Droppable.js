@@ -3,6 +3,12 @@ import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 import {isPointWithIn} from '../../utils/dom';
 import Base, {TYPE_SHAPE} from './Base';
 
+const getWrapperElementClassName = 'droppable:getWrapperElementClassName';
+const onDragDrop = 'droppable:onDragDrop';
+const onDragEnteredDropTarget = 'droppable:onDragEnteredDropTarget';
+const onDragLeftDropTarget = 'droppable:onDragLeftDropTarget';
+const onDraggableNotification = 'droppable:onDraggableNotification';
+
 export default {
 	mixins: [Base],
 
@@ -12,7 +18,7 @@ export default {
 			React.PropTypes.shape(TYPE_SHAPE),
 			React.PropTypes.arrayOf(React.PropTypes.string),
 			React.PropTypes.arrayOf(React.PropTypes.shape(TYPE_SHAPE))
-			]).isRequired,
+			]).isRequired
 	},
 
 
@@ -24,22 +30,22 @@ export default {
 	},
 
 
-	isActive() {
-		var drag = this.context.currentDragItem;
-		var type = drag && drag.props.type;
+	isActive () {
+		let drag = this.context.currentDragItem;
+		let type = drag && drag.props.type;
 		return drag && this.accepts(type);
 	},
 
 
-	isDisabled() {
-		var drag = this.context.currentDragItem;
-		var type = drag && drag.props.type;
+	isDisabled () {
+		let drag = this.context.currentDragItem;
+		let type = drag && drag.props.type;
 		return drag && !this.accepts(type);
 	},
 
 
-	accepts(type) {
-		var criteria = ensureArray(this.props.accepts);
+	accepts (type) {
+		let criteria = ensureArray(this.props.accepts);
 
 		return criteria.reduce((yes, x)=>{
 			return yes || (x === type) || (x.accepts && x.accepts(type));
@@ -47,17 +53,17 @@ export default {
 	},
 
 
-	getInitialState() {
+	getInitialState () {
 		return {hover: false};
 	},
 
 
-	componentDidMount() {
-		var mon = this.context.dndEvents;
+	componentDidMount () {
+		let mon = this.context.dndEvents;
 		if (mon) {
-			mon.on('drag', this._onDraggableNotification);
-			mon.on('dragEnd', this._onDragLeftDropTarget);
-			mon.on('drop', this._onDragDrop);
+			mon.on('drag', this[onDraggableNotification]);
+			mon.on('dragEnd', this[onDragLeftDropTarget]);
+			mon.on('drop', this[onDragDrop]);
 
 		} else {
 			console.error('DND: Missing cordination context');
@@ -65,27 +71,27 @@ export default {
 	},
 
 
-	componentWillUnmount() {
-		var mon = this.context.dndEvents;
+	componentWillUnmount () {
+		let mon = this.context.dndEvents;
 		if (mon) {
-			mon.removeListener('drag', this._onDraggableNotification);
-			mon.removeListener('dragEnd', this._onDragLeftDropTarget);
-			mon.removeListener('drop', this._onDragDrop);
+			mon.removeListener('drag', this[onDraggableNotification]);
+			mon.removeListener('dragEnd', this[onDragLeftDropTarget]);
+			mon.removeListener('drop', this[onDragDrop]);
 		}
 	},
 
 
-	renderDropTargetWrapper(children) {
+	renderDropTargetWrapper (children) {
 		return React.createElement(this.props.tag||'div', Object.assign({}, this.props, {
 			children: children,
-			className: this.__getWrapperElementClassName()
+			className: this[getWrapperElementClassName]()
 		}));
 	},
 
 
-	__getWrapperElementClassName() {
-		var classes = ['dnd-drop-target'];
-		var push = classes.push.bind(classes);
+	[getWrapperElementClassName] () {
+		let classes = ['dnd-drop-target'];
+		let push = classes.push.bind(classes);
 
 		if (this.isActive()) { push('active'); }
 		if (this.isDisabled()) { push('disabled'); }
@@ -96,23 +102,23 @@ export default {
 	},
 
 
-	_onDraggableNotification(dragData) {
-		var {x, y} = dragData;
-		if (!this.isMounted() || !this.context.currentDragItem) {return;}
+	[onDraggableNotification] (dragData) {
+		let {x, y} = dragData;
+		if (!this.isMounted() || !this.context.currentDragItem) { return; }
 
 		if (isPointWithIn(this.getDOMNode(), x, y)) {
 			if (!this.state.over) {
-				this._onDragEnteredDropTarget();
+				this[onDragEnteredDropTarget]();
 			}
 		} else {
 			if (this.state.over) {
-				this._onDragLeftDropTarget();
+				this[onDragLeftDropTarget]();
 			}
 		}
 	},
 
 
-	_onDragEnteredDropTarget() {
+	[onDragEnteredDropTarget] () {
 		if (this.context.currentDragItem) {
 			this.setState({over: true});
 			this.context.onDragOver(this);
@@ -120,26 +126,26 @@ export default {
 	},
 
 
-	_onDragLeftDropTarget() {
+	[onDragLeftDropTarget] () {
 		this.setState({over: false});
 		this.context.onDragOver(null, this);
 	},
 
 
-	_onDragDrop(drop) {
-		var {target} = drop;
+	[onDragDrop] (drop) {
+		let {target} = drop;
 		if(target === this && this.props.onDrop) {
 			this.props.onDrop(drop);
 		}
 	},
 
 
-	handleDrop() {
+	handleDrop () {
 		if (!this.isActive()) {
 			return;
 		}
 
-		var dropped = true;
+		let dropped = true;
 
 		if (this.onDrop) {
 			dropped = this.onDrop();

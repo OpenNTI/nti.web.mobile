@@ -52,7 +52,7 @@
 		"no-undef": 2,/*default*/
 		"no-underscore-dangle": 1,
 		"no-unused-vars": 2,/*default*/
-		"no-use-before-define": 0,
+		"no-use-before-define": [2, "nofunc"],
 		"no-var": 1,
 		"quotes": "single",
 		"strict": "never",

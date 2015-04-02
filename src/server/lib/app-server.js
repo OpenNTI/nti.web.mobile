@@ -5,6 +5,7 @@ import path from 'path';
 //import fs from 'fs';
 import waitFor from 'nti.lib.interfaces/utils/waitfor';
 import dataserver from 'nti.lib.interfaces';
+import {Pending} from 'nti.lib.interfaces/CommonSymbols';
 
 import api from './api';
 import cacheBuster from './no-cache';
@@ -87,7 +88,7 @@ export function setupApplication(app, config) {
 			res.status(404);
 		}
 
-		waitFor(req.__pendingServerRequests, 60000)
+		waitFor(req[Pending], 60000)
 			.then(()=> {
 				let configForClient = clientConfig(req.username, req);
 				configForClient.html += datacache.getForContext(req).serialize();
