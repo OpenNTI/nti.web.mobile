@@ -29,8 +29,8 @@ export default class StorePrototype extends TypedEventEmitter {
 
 
 	[GetHandler] (type) {
-		var handler;
-		var handlerKey = (this[Handlers] || {})[type];
+		let handler;
+		let handlerKey = (this[Handlers] || {})[type];
 		if (handlerKey) {
 			if (typeof handlerKey !== 'function') {
 				handler = this[handlerKey];
@@ -46,19 +46,19 @@ export default class StorePrototype extends TypedEventEmitter {
 
 
 	handleDispatch (payload) {
-		var {action} = payload;
+		let {action} = payload;
 		if (!action) {
 			console.error('Dispatched payload does not have an action. %o', payload);
 			return;
 		}
 
-		var {type} = action;
+		let {type} = action;
 		if (!type) {
 			console.error('Dispatched action does not have a type: %o', payload);
 			return;
 		}
 
-		var method = this[GetHandler](type);
+		let method = this[GetHandler](type);
 		if (method) {
 			method.call(this, payload);
 		}

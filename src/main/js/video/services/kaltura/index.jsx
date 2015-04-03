@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import getSources from './SourceGrabber';
 import selectSources from './SelectSources';
@@ -36,7 +34,7 @@ export default React.createClass({
 
 
 	getDefaultProps () {
-		var p = {};
+		let p = {};
 
 		// default no-op video event handlers
 		Object.keys(EventHandlers)
@@ -61,13 +59,13 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		var data = this.props.source;
+		let data = this.props.source;
 		// kaltura://1500101/0_4ol5o04l/
-		var src = typeof data === 'string' && data;
-		var parsed = src && url.parse(src);
+		let src = typeof data === 'string' && data;
+		let parsed = src && url.parse(src);
 
-		var partnerId;
-		var entryId;
+		let partnerId;
+		let entryId;
 
 		if (src) {
 			partnerId = parsed.host;
@@ -93,9 +91,9 @@ export default React.createClass({
 			return;
 		}
 
-		var qualityPreference = this.state.quality;//TODO: allow selection...
-		var sources = selectSources(data.sources || [], qualityPreference);
-		var availableQualities = sources.qualities;
+		let qualityPreference = this.state.quality;//TODO: allow selection...
+		let sources = selectSources(data.sources || [], qualityPreference);
+		let availableQualities = sources.qualities;
 
 		this.setState({
 			duration: data.duration,
@@ -114,8 +112,8 @@ export default React.createClass({
 
 
 	componentDidUpdate () {
-		var video = this.refs.video;
-		var props = this.props;
+		let video = this.refs.video;
+		let props = this.props;
 
 		if (video && !this.state.listening) {
 			video = video.getDOMNode();
@@ -139,7 +137,7 @@ export default React.createClass({
 
 
 	componentWillUnmount () {
-		var video = this.getDOMNode();
+		let video = this.getDOMNode();
 		if (video) {
 			Object.keys(EventHandlers).forEach(eventname =>
 				video.removeEventListener(eventname, this.props[EventHandlers[eventname]], false)
@@ -158,7 +156,7 @@ export default React.createClass({
 			return (<div className="error">Unable to load video.</div>);
 		}
 
-		var videoProps = Object.assign({}, this.props, {
+		let videoProps = Object.assign({}, this.props, {
 			ref: 'video',
 			controls: !/iP(hone|od)/i.test(navigator.userAgent),
 			poster: this.state.poster,
@@ -173,7 +171,7 @@ export default React.createClass({
 			}
 		});
 
-		var interacted = this.state.interacted ? 'loaded' : '';
+		let interacted = this.state.interacted ? 'loaded' : '';
 
 		return (
 			<div className={'video-wrapper ' + interacted}>
@@ -188,10 +186,9 @@ export default React.createClass({
 
 
 	renderSources () {
-		var sources = this.state.sources || [];
-		var Tag = 'source';
+		let sources = this.state.sources || [];
 		return sources.map(source=> (
-			<Tag key={source.src} src={source.src} type={source.type}/>
+			<source key={source.src} src={source.src} type={source.type}/>
 		));
 	},
 
@@ -204,7 +201,7 @@ export default React.createClass({
 
 
 	doPlay (e) {
-		var isAnchor = e && getEventTarget(e, 'a');
+		let isAnchor = e && getEventTarget(e, 'a');
 
 		if (isAnchor) {
 			e.preventDefault();
@@ -216,35 +213,35 @@ export default React.createClass({
 
 
 	play () {
-		var {video} = this.refs;
+		let {video} = this.refs;
 		if (video && this.isMounted()) {
 			this.setState({interacted: true});
 			video = video.getDOMNode();
-			if(video.play){video.play();}
+			if(video.play){ video.play(); }
 		}
 	},
 
 
 	pause () {
-		var video = this.refs;
+		let video = this.refs;
 		if (video && this.isMounted()) {
 			video = video.getDOMNode();
-			if(video.pause){video.pause();}
+			if(video.pause){ video.pause(); }
 		}
 	},
 
 
 	stop () {
-		var {video} = this.refs;
+		let {video} = this.refs;
 		if (video && this.isMounted()) {
 			video = video.getDOMNode();
-			if(video.stop){video.stop();}
+			if(video.stop){ video.stop(); }
 		}
 	},
 
 
 	setCurrentTime (time) {
-		var {video} = this.refs;
+		let {video} = this.refs;
 		if (video && this.isMounted()) {
 			video.getDOMNode().currentTime = time;
 		}

@@ -10,7 +10,7 @@ import QueryString from 'query-string';
 import guid from 'nti.lib.interfaces/utils/guid';
 import Task from 'nti.lib.interfaces/utils/task';
 
-var YOU_TUBE = 'https://www.youtube.com';
+const YOU_TUBE = 'https://www.youtube.com';
 
 /*
 const YOU_TUBE_STATES = {
@@ -29,12 +29,12 @@ const YT_STATE_TO_EVENTS = {
 	//There is no seek event for YT
 };
 
-var Source = React.createClass({
+let Source = React.createClass({
 	displayName: 'YouTube-Video',
 
 	statics: {
 		getId (url) {
-			var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&\?]*).*/,
+			let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&\?]*).*/,
 				match = url.match(regExp);
 			if (match && match[2].length === 11) {
 				return match[2];
@@ -88,9 +88,9 @@ var Source = React.createClass({
 
 
 	componentDidUpdate (prevProps, prevState) {
-		var state = this.state;
-		var initTask = state.initTask;
-		var prevInitTask = prevState.initTask;
+		let state = this.state;
+		let initTask = state.initTask;
+		let prevInitTask = prevState.initTask;
 
 		invariant(
 			(initTask && (initTask === prevInitTask || !prevInitTask)),
@@ -107,10 +107,10 @@ var Source = React.createClass({
 
 
 	buildURL () {
-		var mediaSource = this.props.source;
-		var videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source[0];
+		let mediaSource = this.props.source;
+		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source[0];
 
-		var args = {
+		let args = {
 			enablejsapi: 1,
 			html5: 1,
 			modestbranding: 1,
@@ -132,7 +132,7 @@ var Source = React.createClass({
 
 
 	getPlayerContext () {
-		var iframe = this.getDOMNode();
+		let iframe = this.getDOMNode();
 		return iframe && (iframe.contentWindow || window.frames[iframe.name]);
 	},
 
@@ -161,10 +161,10 @@ var Source = React.createClass({
 
 
 	onMessage (event) {
-		var data = JSON.parse(event.data);
-		var eventName = (data && data.event) || '';
-		var handlerName = 'handle' + eventName.charAt(0).toUpperCase() + eventName.substr(1);
-		var implemented = !!this[handlerName];
+		let data = JSON.parse(event.data);
+		let eventName = (data && data.event) || '';
+		let handlerName = 'handle' + eventName.charAt(0).toUpperCase() + eventName.substr(1);
+		let implemented = !!this[handlerName];
 
 		//event.source === this.getPlayerContext()
 		if (event.origin !== this.state.scope || data.id !== this.props.id) {
@@ -184,7 +184,7 @@ var Source = React.createClass({
 
 
 	postMessage (method, params) {
-		var context = this.getPlayerContext(), data;
+		let context = this.getPlayerContext(), data;
 		if (!context) {
 			console.warn(this.props.id, ' No Player Context!');
 			return;
@@ -226,7 +226,7 @@ var Source = React.createClass({
 		if (this.state.playerState !== state) {
 			this.setState({playerState: state});
 		}
-		var event = YT_STATE_TO_EVENTS[state];
+		let event = YT_STATE_TO_EVENTS[state];
 		if (event) {
 			this.fireEvent(event);
 		}

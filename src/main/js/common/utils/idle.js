@@ -2,16 +2,16 @@ const ACTIVE = 'active';
 const IDLE = 'idle';
 
 const DEFAULTS = {
-    //start as soon as timer is set up
-    start: true,
-    // timer is enabled
-    enabled: true,
-    // amount of time before timer fires
-    timeout: 30000,
-    // what element to attach to
-    element: null,
-    // activity is one of these events
-    events: 'mousemove keydown DOMMouseScroll mousewheel mousedown touchstart touchmove'
+	//start as soon as timer is set up
+	start: true,
+	// timer is enabled
+	enabled: true,
+	// amount of time before timer fires
+	timeout: 30000,
+	// what element to attach to
+	element: null,
+	// activity is one of these events
+	events: 'mousemove keydown DOMMouseScroll mousewheel mousedown touchstart touchmove'
 };
 
 
@@ -21,20 +21,20 @@ const ToggleState = Symbol('state:toggle');
 export default class Idle {
 
 	constructor (opt) {
-	    let op = this.opt = Object.assign({}, DEFAULTS, opt);
-	    this.element = op.element || document;
+		let op = this.opt = Object.assign({}, DEFAULTS, opt);
+		this.element = op.element || document;
 
-	    this.state = {
-	        idle: op.idle,
-	        timeout: op.timeout,
-	        enabled: op.enabled,
-	        idleFn: [],
-	        activeFn: []
-	    };
+		this.state = {
+			idle: op.idle,
+			timeout: op.timeout,
+			enabled: op.enabled,
+			idleFn: [],
+			activeFn: []
+		};
 
-	    if (op.start) {
-	        this.start();
-	    }
+		if (op.start) {
+			this.start();
+		}
 	}
 
 
@@ -42,30 +42,30 @@ export default class Idle {
 	 * Start the idle timer.
 	 */
 	start () {
-	    let {state, element, opt} = this;
+		let {state, element, opt} = this;
 
-	    let handler = () => {
-	        clearTimeout(state.timerId);
+		let handler = () => {
+			clearTimeout(state.timerId);
 
-	        if (!state.enabled) {
-	            return;
-	        }
+			if (!state.enabled) {
+				return;
+			}
 
-	        if (state.idle) {
-	            this[ToggleState](state);
-	        }
+			if (state.idle) {
+				this[ToggleState](state);
+			}
 
-	        state.timerId = this[Schedule]();
-	    };
+			state.timerId = this[Schedule]();
+		};
 
-	    state.handler = handler;
+		state.handler = handler;
 
-	    let events = opt.events.split(' ');
-	    for (let evt of events) {
-	        on(element, evt, handler);
-	    }
+		let events = opt.events.split(' ');
+		for (let evt of events) {
+			on(element, evt, handler);
+		}
 
-	    state.timerId = this[Schedule]();
+		state.timerId = this[Schedule]();
 	}
 
 
@@ -73,28 +73,28 @@ export default class Idle {
 	 * Stop the idle timer.
 	 */
 	stop () {
-	    let {state, element, opt} = this;
+		let {state, element, opt} = this;
 
-	    state.enabled = false;
+		state.enabled = false;
 
-	    //clear any pending timeouts
-	    clearTimeout(state.timerId);
+		//clear any pending timeouts
+		clearTimeout(state.timerId);
 
-	    let events = opt.events.split(' ');
-	    for (let evt of events) {
-	        un(element, evt, state.handler);
-	    }
+		let events = opt.events.split(' ');
+		for (let evt of events) {
+			un(element, evt, state.handler);
+		}
 	}
 
 
 	on (state, fn) {
 		let {idleFn, activeFn} = this.state;
 		let list = (state === IDLE) ? idleFn : activeFn;
-	    list.push(fn);
+		list.push(fn);
 	}
 
 	getElapsed () {
-    	return ( +new Date() ) - this.state.olddate;
+		return ( +new Date() ) - this.state.olddate;
 	}
 
 
@@ -134,23 +134,23 @@ export default class Idle {
 
 
 function on (element, event, fn) {
-    try {
-        element.addEventListener(event, fn, false);
-    }
-    catch (e) {
+	try {
+		element.addEventListener(event, fn, false);
+	}
+	catch (e) {
 		if (element.attachEvent) {
-        	element.attachEvent('on' + event, fn);
+			element.attachEvent('on' + event, fn);
 		}
-    }
+	}
 }
 
 function un (element, event, fn) {
 	try {
-        element.removeEventListener(event, fn, false);
-    }
-    catch (e) {
+		element.removeEventListener(event, fn, false);
+	}
+	catch (e) {
 		if (element.detachEvent) {
-        	element.detachEvent('on' + event, fn);
+			element.detachEvent('on' + event, fn);
 		}
-    }
+	}
 }

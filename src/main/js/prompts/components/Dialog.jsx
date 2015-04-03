@@ -1,6 +1,5 @@
-'use strict';
-var React = require('react');
-var emptyFunction = require('react/lib/emptyFunction');
+import React from 'react';
+import emptyFunction from 'react/lib/emptyFunction';
 
 function dismiss(dialog) {
 	dialog.props.onDismiss.call();
@@ -20,7 +19,7 @@ function dismiss(dialog) {
 }
 
 
-module.exports = exports = React.createClass({
+export default React.createClass({
 	displayName: 'Dialog',
 
 	statics: {
@@ -31,7 +30,7 @@ module.exports = exports = React.createClass({
 		},
 
 		clear () {
-			var res = React.unmountComponentAtNode(this.getMountPoint());
+			let res = React.unmountComponentAtNode(this.getMountPoint());
 			if (res) {//only clear active if React unmounted the component at the mount point.
 				this.active = null;
 			}
@@ -124,7 +123,7 @@ module.exports = exports = React.createClass({
 
 
 	componentDidUpdate () {
-		var focusNode;
+		let focusNode;
 		if (this.isMounted()) {
 			focusNode = this.refs.confirm || this.refs.cancel || this;
 
@@ -134,9 +133,9 @@ module.exports = exports = React.createClass({
 
 
 	render () {
-		var {title, message, iconClass} = this.props;
+		let {title, message, iconClass} = this.props;
 
-		var state = 'showing';
+		let state = 'showing';
 		if (this.state.dismissing) {
 			state = 'dismissing';
 		}
@@ -165,7 +164,7 @@ module.exports = exports = React.createClass({
 
 
 	renderCancelButton () {
-		var {onCancel, cancelButtonLabel,cancelButtonClass} = this.props;
+		let {onCancel, cancelButtonLabel, cancelButtonClass} = this.props;
 
 		cancelButtonLabel = cancelButtonLabel || 'Cancel';//TODO: localize the default
 
@@ -182,7 +181,7 @@ module.exports = exports = React.createClass({
 
 
 	renderConfirmButton () {
-		var {onConfirm, confirmButtonLabel,confirmButtonClass} = this.props;
+		let {onConfirm, confirmButtonLabel, confirmButtonClass} = this.props;
 
 		confirmButtonLabel = confirmButtonLabel || 'OK';//TODO: localize the default
 		confirmButtonClass = confirmButtonClass || 'primary';

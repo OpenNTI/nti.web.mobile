@@ -57,7 +57,7 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			context:[],
+			context: [],
 			onTimeUpdate: emptyFunction,
 			onSeeked: emptyFunction,
 			onPlaying: emptyFunction,
@@ -89,7 +89,7 @@ export default React.createClass({
 		}
 
 		if (this.isMounted()) {
-			let analyticsEvent = this._newWatchVideoEvent(event);
+			let analyticsEvent = this.newWatchVideoEvent(event);
 			emitEventStarted(analyticsEvent);
 			this.setState({
 				playStartEvent: analyticsEvent // this.getAnalyticsEventData(event)
@@ -98,7 +98,8 @@ export default React.createClass({
 		}
 	},
 
-	_newWatchVideoEvent(browserEvent) {
+
+	newWatchVideoEvent(browserEvent) {
 		let ctx = (this.props.context || [])
 			.map(x=> x.ntiid || (typeof x === 'string'? x: null))
 			.filter(x=>x); // removes nulls
@@ -134,7 +135,7 @@ export default React.createClass({
 
 
 	// emitEmptyAnalyticsEvent () {
-	// 	let event = this._newWatchVideoEvent();
+	// 	let event = this.newWatchVideoEvent();
 	// 	emitEventStarted(event);
 	// 	event.finish(0);
 	// 	emitEventEnded(event);
@@ -193,9 +194,9 @@ export default React.createClass({
 
 
 	render () {
-		var video = this.props.src;
-		var Provider = getHandler(video) || 'div';
-		var videoSource = video && (video.sources || {})[0];
+		let video = this.props.src;
+		let Provider = getHandler(video) || 'div';
+		let videoSource = video && (video.sources || {})[0];
 
 		return (
 			<div className={'flex-video widescreen ' + Provider.name}>

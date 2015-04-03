@@ -11,7 +11,7 @@ export default {
 		archived: 'Archived',
 		archivedGroup: {
 			0: 'January %(year)s',
-		 	1: 'Febuary %(year)s',
+			1: 'Febuary %(year)s',
 			2: 'March %(year)s',
 			3: 'April %(year)s',
 			4: 'May %(year)s',

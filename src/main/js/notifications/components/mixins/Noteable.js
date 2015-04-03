@@ -1,7 +1,7 @@
 export default {
 	statics: {
 		handles (item) {
-			var change = item;
+			let change = item;
 			item = change.Item || change;
 			item = item.MimeType.replace('application/vnd.nextthought.', '');
 
@@ -16,15 +16,15 @@ export default {
 	getInitialState () { return {}; },
 
 	componentWillMount () {
-		var change = this.props.item;
-		var item = change.Item || change;
-		var username = item.Creator;
+		let change = this.props.item;
+		let item = change.Item || change;
+		let username = item.Creator;
 		this.setState({ username, change, item });
 	},
 
 	getEventTime () {
-		var item = this.state.item;
-		var change = this.state.change;
+		let item = this.state.item;
+		let change = this.state.change;
 
 		return (getTime(item) || getTime(change)) * 1000;
 	}

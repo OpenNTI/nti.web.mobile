@@ -19,7 +19,10 @@ import {
 } from '../../utils/dom';
 
 
-var eventFor = isTouchDevice ? {
+const addListeners = 'dnd:behaviours:draggable:addListeners';
+const removeListeners = 'dnd:behaviours:draggable:removeListeners';
+
+const eventFor = isTouchDevice ? {
 	start: 'touchstart',
 	move: 'touchmove',
 	end: 'touchend'
@@ -29,7 +32,7 @@ var eventFor = isTouchDevice ? {
 	end: 'mouseup'
 };
 
-var DIRECTIONS = {
+const DIRECTIONS = {
 	'1': 1,
 	'-1': -1,
 	'Infinity': 1,
@@ -40,7 +43,7 @@ var DIRECTIONS = {
 
 function canDrag(x) {
 	return function() {
-		var {axis} = this.props;
+		let {axis} = this.props;
 		return axis === 'both' || axis === x;
 	};
 }
@@ -48,7 +51,7 @@ function canDrag(x) {
 
 function getDragPoint(e) {
 	e = (!e.touches ? e : e.touches[0]);
-	var {clientX, clientY} = e;
+	let {clientX, clientY} = e;
 	return {
 		x: clientX,
 		y: clientY
@@ -61,9 +64,9 @@ function isDirection(dir, key, a, b) {
 		return null;
 	}
 
-	var dx = a[key] - b[key];
+	let dx = a[key] - b[key];
 
-	dx = (dx/Math.abs(dx));
+	dx = (dx / Math.abs(dx));
 
 	return DIRECTIONS[dx] === dir;
 }
@@ -169,7 +172,7 @@ export default {
 
 
 	getPosition () {
-		var {x, y} = this.state;
+		let {x, y} = this.state;
 		return {
 			top: y,
 			left: x
@@ -185,22 +188,22 @@ export default {
 
 
 	componentWillMount () {
-		var {x, y} = this.props.start;
+		let {x, y} = this.props.start;
 		this.setState({x: x, y: y});
 	},
 
 
-	componentWillUnmount () {this._removeListeners(); },
+	componentWillUnmount () {this[removeListeners](); },
 
 
-	_addListeners () {
+	[addListeners] () {
 		_addEventListener(this.state.scrollParent, 'scroll', this.handleScroll);
 		_addEventListener(global, eventFor.move, this.handleDrag);
 		_addEventListener(global, eventFor.end, this.handleDragEnd);
 	},
 
 
-	_removeListeners () {
+	[removeListeners] () {
 		_removeEventListener(this.state.scrollParent, 'scroll', this.handleScroll);
 		_removeEventListener(global, eventFor.move, this.handleDrag);
 		_removeEventListener(global, eventFor.end, this.handleDragEnd);
@@ -208,11 +211,11 @@ export default {
 
 
 	handleDragStart (e) {
-		var node = this.getDOMNode();
-		var dragPoint = getDragPoint(e);
-		var onDragStart = this.context.onDragStart || emptyFunction;
-		var {handle, cancel} = this.props;
-		var {scrollParent} = this.state;
+		let node = this.getDOMNode();
+		let dragPoint = getDragPoint(e);
+		let onDragStart = this.context.onDragStart || emptyFunction;
+		let {handle, cancel} = this.props;
+		let {scrollParent} = this.state;
 
 		if (!this.isMounted() ||
 			this.props.locked ||
@@ -223,14 +226,16 @@ export default {
 
 		//stop scrolls
 		if (e.preventDefault) {
-			e.preventDefault(); }
+			e.preventDefault();
+		}
 		if (e.stopPropagation) {
-			e.stopPropagation(); }
+			e.stopPropagation();
+		}
 		e.returnValue = false;
 
 		if (isMultiTouch(e)) {
-		    this.handleDragEnd(e);
-		    return;
+			this.handleDragEnd(e);
+			return;
 		}
 
 		this.setState({
@@ -247,18 +252,18 @@ export default {
 
 		onDragStart(this, e, this.getPosition());
 
-		this._addListeners();
+		this[addListeners]();
 	},
 
 
 	handleDragEnd (e) {
-		var onDragEnd = this.context.onDragEnd || emptyFunction;
+		let onDragEnd = this.context.onDragEnd || emptyFunction;
 
 		if (!this.state.dragging || !this.isMounted() || this.props.locked) {
 			return;
 		}
 
-		var dragStopResultedInDrop = !onDragEnd(this, e, this.getPosition());
+		let dragStopResultedInDrop = !onDragEnd(this, e, this.getPosition());
 
 		// The drop handler may result in us no longer being mounted, so check
 		// that first (if we were unmounted, thats fine another instance of
@@ -281,25 +286,25 @@ export default {
 			));
 		}
 
-		this._removeListeners();
+		this[removeListeners]();
 	},
 
 
 	handleDrag (e) {
 		if (!this.isMounted() || this.props.locked) { return; }
 
-		var s = this.state;
-		var onDrag = this.context.onDrag || emptyFunction;
-		var dragPoint = getDragPoint(e);
-		var {lastDragPoint} = s;
+		let s = this.state;
+		let onDrag = this.context.onDrag || emptyFunction;
+		let dragPoint = getDragPoint(e);
+		let {lastDragPoint} = s;
 
-		var x = (s.startX + (dragPoint.x - s.offsetX));
-		var y = (s.startY + (dragPoint.y - s.offsetY));
+		let x = (s.startX + (dragPoint.x - s.offsetX));
+		let y = (s.startY + (dragPoint.y - s.offsetY));
 
 		// Snap to grid?
 		if (Array.isArray(this.props.grid)) {
-			x = this._snapTo(x, 'x');
-			y = this._snapTo(y, 'y');
+			x = this.snapTo(x, 'x');
+			y = this.snapTo(y, 'y');
 		}
 
 		this.setState({
@@ -310,21 +315,21 @@ export default {
 
 		onDrag(this, e, Object.assign(this.getPosition(), dragPoint));
 
-		this._maybeScrollParent(dragPoint, lastDragPoint);
+		this.maybeScrollParent(dragPoint, lastDragPoint);
 	},
 
 
 	handleScroll () {
-		var {
+		let {
 			scrollParent,
 			startingScrollPosition,
 			startX,
 			startY
 		} = this.state;
-		var currentScrollPosition = getScrollPosition(scrollParent);
+		let currentScrollPosition = getScrollPosition(scrollParent);
 
-		var dX = (startingScrollPosition.left - currentScrollPosition.left) * -1;
-		var dY = (startingScrollPosition.top - currentScrollPosition.top) * -1;
+		let dX = (startingScrollPosition.left - currentScrollPosition.left) * -1;
+		let dY = (startingScrollPosition.top - currentScrollPosition.top) * -1;
 
 		this.setState({
 			startX: startX + dX,
@@ -334,14 +339,14 @@ export default {
 	},
 
 
-	_maybeScrollParent (point, lastPoint) {
-		var y, x;
-		var region = 50;
-		var scrollParent = this.state.scrollParent;
-		var boundingRect = getElementRect(scrollParent);
+	maybeScrollParent (point, lastPoint) {
+		let y, x;
+		let region = 50;
+		let scrollParent = this.state.scrollParent;
+		let boundingRect = getElementRect(scrollParent);
 
-		var top = (point.y - boundingRect.top) < region && isDirection(-1, 'y', point, lastPoint);
-		var bottom = (boundingRect.bottom - point.y) < region && isDirection(1, 'y', point, lastPoint);
+		let top = (point.y - boundingRect.top) < region && isDirection(-1, 'y', point, lastPoint);
+		let bottom = (boundingRect.bottom - point.y) < region && isDirection(1, 'y', point, lastPoint);
 
 
 		// scroll: Vertical
@@ -360,13 +365,13 @@ export default {
 	},
 
 
-	_snapTo (initial, axis) {
-		var {props, state} = this;
-		var {grid} = props;
+	snapTo (initial, axis) {
+		let {props, state} = this;
+		let {grid} = props;
 
-		var axisInt = parseInt(state[axis], 10);
-		var axId = axis === 'x' ? 0 : 1;
-		var direction = initial < axisInt ? -1 : 1;
+		let axisInt = parseInt(state[axis], 10);
+		let axId = axis === 'x' ? 0 : 1;
+		let direction = initial < axisInt ? -1 : 1;
 
 		return Math.abs(initial - axisInt) >= grid[axId] ?
 				(axisInt + (grid[axId] * direction)) : state[axis];
@@ -374,12 +379,12 @@ export default {
 
 
 	computeStyle () {
-		var s = this.state;
-		var z = this.props.zIndex;
-		var y = this.canDragY(this) ? s.y : s.startY;
-		var x = this.canDragX(this) ? s.x : s.startX;
-		var translation = `translate3d(${x}px,${y}px,0)`;
-		var style = {
+		let s = this.state;
+		let z = this.props.zIndex;
+		let y = this.canDragY(this) ? s.y : s.startY;
+		let x = this.canDragX(this) ? s.x : s.startX;
+		let translation = `translate3d(${x}px,${y}px,0)`;
+		let style = {
 			WebkitTransform: translation,
 			MozTransform: translation,
 			msTransform: translation,

@@ -2,9 +2,15 @@ import React from 'react';
 import {EventEmitter} from 'events';
 
 function emit(o, event, ...data) {
-	var e = o.state.dndEventEmitter;
+	let e = o.state.dndEventEmitter;
 	e.emit.apply(e, [event].concat(data));
 }
+
+const onDragStart = 'dnd:mixin:onDragStart';
+const onDragEnd = 'dnd:mixin:onDragEnd';
+const onDrag = 'dnd:mixin:onDrag';
+const onDragOver = 'dnd:mixin:onDragOver';
+const onDrop = 'dnd:mixin:onDrop';
 
 export default {
 
@@ -34,18 +40,18 @@ export default {
 
 
 	getChildContext () {
-		var s = this.state;
+		let s = this.state;
 		return {
 			dndEvents: s.dndEventEmitter,
 			currentDragItem: s.currentDragItem || null,
 			lastDragOver: s.lastDragOver || null,
 
-			onDragStart: this.__onDragStart,
-			onDragEnd: this.__onDragEnd,
-			onDrag: this.__onDrag,
+			onDragStart: this[onDragStart],
+			onDragEnd: this[onDragEnd],
+			onDrag: this[onDrag],
 
-			onDragOver: this.__onDragOver,
-			onDrop: this.__onDrop
+			onDragOver: this[onDragOver],
+			onDrop: this[onDrop]
 		};
 	},
 
@@ -64,7 +70,7 @@ export default {
 		// an anonymouse object will test if the argument
 		// passed to it is the exact same object as `token`.
 
-		var token = { accepts: (t)=> t === token };
+		let token = { accepts: (t)=> t === token };
 
 		return token;
 	},
@@ -77,7 +83,7 @@ export default {
 	},
 
 
-	__onDragStart (item) {
+	[onDragStart] (item) {
 		this.setState({
 			currentDragItem: item,
 			lastDragOver: null
@@ -86,10 +92,10 @@ export default {
 	},
 
 
-	__onDragEnd () {
-		var lastOver = this.state.lastDragOver || {};
-		var {target} = lastOver;
-		var dropped = false;
+	[onDragEnd] () {
+		let lastOver = this.state.lastDragOver || {};
+		let {target} = lastOver;
+		let dropped = false;
 
 		if (target) {
 			dropped = target.handleDrop();
@@ -104,14 +110,14 @@ export default {
 	},
 
 
-	__onDrag (draggable, event, data) {
+	[onDrag] (draggable, event, data) {
 		emit(this, 'drag', data);
 	},
 
 
-	__onDragOver (target, sender) {
-		var last = this.state.lastDragOver || {};
-		var lastTarget = last.target;
+	[onDragOver] (target, sender) {
+		let last = this.state.lastDragOver || {};
+		let lastTarget = last.target;
 
 		if (!target && lastTarget && lastTarget !== sender) {
 			return;
@@ -126,8 +132,8 @@ export default {
 	},
 
 
-	__onDrop (target) {
-		var drop = {
+	[onDrop] (target) {
+		let drop = {
 			source: this.state.currentDragItem,
 			target: target
 		};

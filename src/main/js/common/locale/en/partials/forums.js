@@ -15,13 +15,13 @@ module.exports = {
 		post: 'Comment'
 	},
 	topicCount: {
-		zero:  'No Discussions',
-		one:   '1 Discussion',
+		zero: 'No Discussions',
+		one: '1 Discussion',
 		other: '%(count)s Discussions'
 	},
 	replies: {
-		zero:  '0 Comments',
-		one:   '1 Comment',
+		zero: '0 Comments',
+		one: '1 Comment',
 		other: '%(count)s Comments'
 	},
 	replyLink: 'Reply',
@@ -44,8 +44,8 @@ module.exports = {
 	posted: 'posted',
 	replied: 'replied',
 	likes: {
-		zero:  '0 Likes',
-		one:   '1 Like',
+		zero: '0 Likes',
+		one: '1 Like',
 		other: '%(count)s Likes'
 	},
 	emptyList: 'There is nothing here.',

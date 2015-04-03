@@ -9,7 +9,7 @@ export default {
 	backingStore: CatalogStore,
 	backingStoreEventHandlers: {
 		default: function () {
-			var catalog = this.getCatalog();
+			let catalog = this.getCatalog();
 			if (this.isMounted()){
 				this.setState({catalog});
 			}

@@ -43,10 +43,10 @@ export default {
 	componentDidMount () {
 		clearTimeout(this.tt);
 		this.tt = truncateText(this.getDOMNode(), this.props.measureOverflow);
-    },
+	},
 
 
-    componentDidUpdate () {
+	componentDidUpdate () {
 		clearTimeout(this.tt);
 		this.tt = truncateText(this.getDOMNode(), this.props.measureOverflow);
 	}

@@ -1,33 +1,35 @@
-'use strict';
+// import Actions from '../../Actions';
+// import Constants from '../../Constants';
+import Store from '../../Store';
 
-// var Actions = require('../../Actions');
-// var Constants = require('../../Constants');
-var Store = require('../../Store');
+const inputTypeCleaned = Symbol();
 
-module.exports = {
+const onStoreChange = 'solution-types:mixin:OnStoreChange';
+
+export default {
 
 	statics: {
-		handles: function(item) {
-			if (!this.__inputTypeCleaned) {
+		handles (item) {
+			if (!this[inputTypeCleaned]) {
 				//ensure data type:
 				if (!Array.isArray(this.inputType)) {
 					this.inputType = [this.inputType];
 				}
 				//ensure shape:
-				this.inputType.forEach(function(s,i,a){a[i]=s.toLowerCase();});
+				this.inputType.forEach((s, i, a)=> a[i] = s.toLowerCase());
 
 				//prevent re-entry:
-				this.__inputTypeCleaned = true;
+				this[inputTypeCleaned] = true;
 			}
 
 			//Perform actual test...
-			return this.__test(item);
+			return this.testType(item);
 
 		},
 
 
-		__test: function (item) {
-			var type = item && item.MimeType
+		testType (item) {
+			let type = item && item.MimeType
 				.replace('application/vnd.nextthought.assessment.', '')
 				.replace(/part$/i, '')
 				.toLowerCase();
@@ -36,7 +38,7 @@ module.exports = {
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			solution: null,
 			explanation: null
@@ -44,27 +46,27 @@ module.exports = {
 	},
 
 
-	componentWillMount: function() {
-		Store.addChangeListener(this.__onStoreChange);
-		this.__onStoreChange();
+	componentWillMount () {
+		Store.addChangeListener(this[onStoreChange]);
+		this[onStoreChange]();
 	},
 
 
 
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this.__onStoreChange);
+	componentWillUnmount () {
+		Store.removeChangeListener(this[onStoreChange]);
 	},
 
 
-	componentWillReceiveProps: function(props) {
-		this.__onStoreChange(props);
+	componentWillReceiveProps (props) {
+		this[onStoreChange](props);
 	},
 
 
-	__onStoreChange: function (props) {
-		var part = (props || {}).item || this.props.item;
-		var solution = Store.getSolution(part);
-		var explanation = Store.getExplanation(part);
+	[onStoreChange] (props) {
+		let part = (props || {}).item || this.props.item;
+		let solution = Store.getSolution(part);
+		let explanation = Store.getExplanation(part);
 		this.setState({
 			solution: solution,
 			explanation: explanation

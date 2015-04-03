@@ -1,4 +1,4 @@
-/*jshint -W106*/
+/*eslint-disable camelcase*/
 export default {
 
 	BUTTONS: {
@@ -94,6 +94,7 @@ export default {
 
 	forms: {
 		storeenrollment: {
+			/*eslint-disable camelcase*/
 			from: 'Email Address',
 			fromLabel: 'This is where we will send your purchase confirmation.',
 			name: 'Name on Card',

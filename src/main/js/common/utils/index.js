@@ -46,7 +46,7 @@ export function isFlag (flagName) {
 	if (isNode()) {
 		console.error('utils:isFlag() was called in global scope.');
 	}
-	var flags = $AppConfig.flags || {};
+	let flags = $AppConfig.flags || {};
 	return !!flags[flagName];
 }
 
@@ -66,7 +66,7 @@ export function getServer() {
 	if (isNode()) {
 		console.error('utils:getServer() was called in global scope.');
 	}
-	var fn = getServer;
+	let fn = getServer;
 	if (!fn.server) {
 		fn.server = $AppConfig.nodeInterface ||
 			require('nti.lib.interfaces').default($AppConfig).interface;
@@ -86,16 +86,16 @@ export function getService () {
 }
 
 
-export function __setUsername (str) {
+export function overrideAppUsername (str) {
 	if (isNode()) {
-		console.error('utils:__setUsername() was called in global scope.');
+		console.error('utils:overrideAppUsername() was called in global scope.');
 	}
 	$AppConfig.username = str;
 }
 
-export function __forceCurrentHost(){
+export function overrideConfigAndForceCurrentHost(){
 	if (isNode()) {
-		console.error('utils:__forceCurrentHost() was called in global scope.');
+		console.error('utils:overrideConfigAndForceCurrentHost() was called in global scope.');
 	}
 	$AppConfig.server = forceCurrentHost($AppConfig.server);
 }

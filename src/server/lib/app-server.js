@@ -79,7 +79,7 @@ export function setupApplication(app, config) {
 		logger.info('Rendering Inital View: %s %s', req.url, req.username);
 		let isErrorPage = false;
 		/*eslint no-underscore-dangle: 0*/
-		global.__setPageNotFound = ()=>isErrorPage = true;
+		global.pageRenderSetPageNotFound = ()=>isErrorPage = true;
 
 		//Pre-flight (if any widget makes a request, we will cache its result and send its result to the client)
 		page(req, entryPoint, nodeConfigAsClientConfig(config, req));

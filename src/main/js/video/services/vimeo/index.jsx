@@ -75,8 +75,7 @@ let Source = React.createClass({
 
 		let args = {
 			api: 1,
-			/* jshint -W106 */
-			player_id: this.props.id,
+			player_id: this.props.id,//eslint-disable-line camelcase
 			//autopause: 0, //we handle this for other videos, but its nice we only have to do this for cross-provider videos.
 			autoplay: 0,
 			badge: 0,
@@ -126,7 +125,7 @@ let Source = React.createClass({
 				mappedEvent = 'playing';
 				handlerName = EventHandlers.playing;
 			} else {
-				alert(`Vimeo Error: ${data.code}: ${data.message}`);
+				alert(`Vimeo Error: ${data.code}: ${data.message}`);//eslint-disable-line no-alert
 			}
 		}
 		else if (event === 'ready') {

@@ -6,18 +6,18 @@ import between from 'nti.lib.interfaces/utils/between';
 
 
 function hyphenatedToCamel (s) {
-	var re = hyphenatedToCamel.re = (hyphenatedToCamel.re || /-([a-z])/g);
+	let re = hyphenatedToCamel.re = (hyphenatedToCamel.re || /-([a-z])/g);
 	return s.replace(re, g=>g[1].toUpperCase());
 }
 
 
-export function isMultiTouch  (e) {
+export function isMultiTouch (e) {
 	return e.touches && e.touches.length > 1;
 }
 
 
-export function isPointWithIn  (el,...point) {
-	var rect,
+export function isPointWithIn (el, ...point) {
+	let rect,
 		{x, y} = point[0];
 
 	if (point.length > 1) {
@@ -34,8 +34,8 @@ export function isPointWithIn  (el,...point) {
 }
 
 
-export function getElementRect  (el) {
-	var rect, w, h;
+export function getElementRect (el) {
+	let rect, w, h;
 	if (el && el.getBoundingClientRect) {
 		rect = el.getBoundingClientRect();
 	}
@@ -67,7 +67,7 @@ export function getElementRect  (el) {
 }
 
 
-export function scrollElementBy  (el, x, y) {
+export function scrollElementBy (el, x, y) {
 	x = x||0;
 	y = y||0;
 
@@ -80,7 +80,7 @@ export function scrollElementBy  (el, x, y) {
 }
 
 
-export function getScrollPosition  (el) {
+export function getScrollPosition (el) {
 	if (el.scrollTop == null) {
 		el = document.body;
 	}
@@ -91,7 +91,7 @@ export function getScrollPosition  (el) {
 }
 
 
-export function addEventListener  (el, event, handler) {
+export function addEventListener (el, event, handler) {
 	if (el.addEventListener) {
 		el.addEventListener(event, handler, true);
 	}
@@ -106,7 +106,7 @@ export function addEventListener  (el, event, handler) {
 }
 
 
-export function removeEventListener  (el, event, handler) {
+export function removeEventListener (el, event, handler) {
 	if (el.removeEventListener) {
 		el.removeEventListener(event, handler, true);
 	}
@@ -122,7 +122,7 @@ export function removeEventListener  (el, event, handler) {
 
 
 export function filterNodeList (nodeList, filter) {
-	var d = Array.from(nodeList);
+	let d = Array.from(nodeList);
 
 	if (typeof filter === 'string') {
 		//Predefined filter by name
@@ -135,8 +135,8 @@ export function filterNodeList (nodeList, filter) {
 }
 
 
-export function parentElements  (el) {
-	var parents = [], p;
+export function parentElements (el) {
+	let parents = [], p;
 
 	while(el) {
 		el = p = el.parentNode;
@@ -149,8 +149,8 @@ export function parentElements  (el) {
 }
 
 
-export function getStyle  (el, property) {
-	var getStyles = x => {
+export function getStyle (el, property) {
+	let getStyles = x => {
 		// IE throws on elements created in popups
 		// FF meanwhile throws on frame elements (see jQuery source)
 		if ( x.ownerDocument.defaultView.opener ) {
@@ -159,7 +159,7 @@ export function getStyle  (el, property) {
 		return global.getComputedStyle( x, null );
 	};
 
-	var styles = getStyles(el);
+	let styles = getStyles(el);
 
 	return styles && styles[property];
 }
@@ -167,11 +167,11 @@ export function getStyle  (el, property) {
 
 export function scrollParent (el) {
 	//Inspired by jQuery#scrollParent
-	var position = getStyle(el, 'position' );
-	var excludeStaticParent = position === 'absolute';
-	var css = getStyle.bind(this);
-	var allowsOverflow = /(auto|scroll)/;
-	var viewport = el.ownerDocument || document;
+	let position = getStyle(el, 'position' );
+	let excludeStaticParent = position === 'absolute';
+	let css = getStyle.bind(this);
+	let allowsOverflow = /(auto|scroll)/;
+	let viewport = el.ownerDocument || document;
 
 	function overflowed(parent) {
 		if (excludeStaticParent && css(parent, 'position' ) === 'static') {
@@ -185,34 +185,34 @@ export function scrollParent (el) {
 		);
 	}
 
-	var scrollParent = position !== 'fixed' && parentElements(el).filter(overflowed);
+	let scrollingEl = position !== 'fixed' && parentElements(el).filter(overflowed);
 
-	return (!scrollParent || !scrollParent.length) ? viewport : scrollParent[0];
+	return (!scrollingEl || !scrollingEl.length) ? viewport : scrollingEl[0];
 }
 
 
 export function isRootObject(e) {
-	var p = e.parentNode;
+	let p = e.parentNode;
 	if (p && p.nodeName === 'OBJECT') { return false; }
 	return p ? isRootObject(p) : true;
 }
 
 
 export function parseDomObject (el, attributePrefix) {
-	var obj = {};
-	var prefix = isEmpty(attributePrefix, true) ?
+	let obj = {};
+	let prefix = isEmpty(attributePrefix, true) ?
 				'' : attributePrefix;
 
 	Array.from(el.attributes).forEach(p => {
-		__addValue(obj,
+		addValueFor(obj,
 			hyphenatedToCamel(prefix + p.name),
 			p.value);
 	});
 
-	__directChildNodes(el, 'param').forEach(p => __addValue(obj, p.name, p.value));
+	getDirectChildNodes(el, 'param').forEach(p => addValueFor(obj, p.name, p.value));
 
 	// SAJ: Does not work as intent and just wastes CPU cycles.
-	// __directChildNodes(el, 'object').forEach(p=>parseDomObject(p));
+	// getDirectChildNodes(el, 'object').forEach(p=>parseDomObject(p));
 
 
 	Object.defineProperty(obj, 'dom', {
@@ -225,13 +225,13 @@ export function parseDomObject (el, attributePrefix) {
 
 
 export function getVideosFromDom (contentElement) {
-	var videoQS = 'object .naqvideo, object .ntivideo',
+	let videoQS = 'object .naqvideo, object .ntivideo',
 		sourceQS = 'object[type$=videosource]',
 		videoObjects = [];
 
 	if (contentElement) {
 		Array.from(contentElement.querySelectorAll(videoQS)).forEach(v => {
-			var o = parseDomObject(v),
+			let o = parseDomObject(v),
 				s = o.sources = [];
 
 			Array.from(v.querySelectorAll(sourceQS)).forEach(source =>
@@ -246,7 +246,7 @@ export function getVideosFromDom (contentElement) {
 
 
 export function getImagesFromDom (contentElement) {
-	var imageObjects = [];
+	let imageObjects = [];
 
 	Array.from(contentElement.querySelectorAll('span > img')).forEach(i =>
 		imageObjects.push(parseDomObject(i)));
@@ -263,7 +263,7 @@ export function getImagesFromDom (contentElement) {
  * profile we do the right thing.
  */
 export function retargetAnchorsWithExternalRefs (markup, baseUrl) {
-	var string = (typeof markup === 'string'),
+	let string = (typeof markup === 'string'),
 		tempDom;
 
 	if (!markup) {
@@ -277,7 +277,7 @@ export function retargetAnchorsWithExternalRefs (markup, baseUrl) {
 	}
 
 	Array.from(markup.querySelectorAll('a[href]')).forEach(link => {
-		var href = link.href || '',
+		let href = link.href || '',
 			base = baseUrl.split('#')[0],
 			changeTarget = href.indexOf(base) !== 0;
 
@@ -298,7 +298,7 @@ export function sanitizeExternalContentForInput (html) {
 	console.debug('Sanitizing html...', html);
 	//html = html.trim().replace(/[\n\r]+/g, ' ');
 
-	var offScreenBuffer = document.createElement('div'),
+	let offScreenBuffer = document.createElement('div'),
 		toRemove, i;
 
 	if (typeof html === 'string') {
@@ -307,11 +307,11 @@ export function sanitizeExternalContentForInput (html) {
 		offScreenBuffer.appendChild(html.cloneNode(true));
 	}
 
-	toRemove = __pickUnsanitaryElements(offScreenBuffer, true);
+	toRemove = pickUnsanitaryElements(offScreenBuffer, true);
 
 	//Data gathered, do the remove (in reverse)
 	for (i = toRemove.length - 1; i >= 0; i--) {
-		__removeNodeRecursively(toRemove[i]);
+		removeNodeRecursively(toRemove[i]);
 	}
 
 	//get the new html content...
@@ -326,7 +326,7 @@ export function enforceNumber (e) {
 		return lower <= key && key <= upper;
 	}
 
-	var input = e.target,
+	let input = e.target,
 		maxLength = parseInt(input.getAttribute('size'), 10) || -1,
 		tooLong = (input.value || '').length + 1 > maxLength,
 
@@ -354,10 +354,10 @@ export function enforceNumber (e) {
 }
 
 
-function __addValue(o, n, v) {
-	var re = __addValue.re = (__addValue.re || /^data([A-Z])/);
-	/* jshint -W054 *///Creating a function without scope chain
-	var fn = __addValue.fn = (__addValue.fn || new Function('m, a', 'return a.toLowerCase();'));
+function addValueFor(o, n, v) {
+	let re = addValueFor.re = (addValueFor.re || /^data([A-Z])/);
+	//Creating a function without scope chain
+	let fn = addValueFor.fn = (addValueFor.fn || new Function('m, a', 'return a.toLowerCase();'));//eslint-disable-line no-new-func
 	if (re.test(n)) {
 		n = n.replace(re, fn);
 		o.dataset = (o.dataset || {});
@@ -365,12 +365,12 @@ function __addValue(o, n, v) {
 	}
 
 
-	var c = o[n]; o[n] = c ? (Array.isArray(c) ? c : [c]).concat(v) : v;
+	let c = o[n]; o[n] = c ? (Array.isArray(c) ? c : [c]).concat(v) : v;
 }
 
 
 
-function __directChildNodes(el, tag) {
+function getDirectChildNodes(el, tag) {
 	tag = tag.toUpperCase();
 	return Array.from(el.childNodes).filter(node => node.nodeName.toUpperCase() === tag);
 }
@@ -388,8 +388,8 @@ function __directChildNodes(el, tag) {
  * @return {Node[]}
  * @private
  */
-function __pickUnsanitaryElements (root, cleanAttributes) {
-	var namespaced = /:/,
+function pickUnsanitaryElements (root, cleanAttributes) {
+	let namespaced = /:/,
 		picked = [], tw, name, value, el, i,
 		notJs = /^(?!javascript:).*/i,
 		present = /.*/,
@@ -402,11 +402,11 @@ function __pickUnsanitaryElements (root, cleanAttributes) {
 			LINK: 1, STYLE: 1, META: 1, TITLE: 1, HEAD: 1,
 			SCRIPT: 1, OBJECT: 1, EMBED: 1, APPLET: 1
 		};
-	/* jshint -W016*/
-	tw = document.createTreeWalker(root, NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_ELEMENT, null, false);
+
+	tw = document.createTreeWalker(root, NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_ELEMENT, null, false);// eslint-disable-line no-bitwise
 	do {
 		el = tw.nextNode();
-		if (!el) {continue;}
+		if (!el) { continue; }
 
 			//Remove comments
 		if ((el.nodeType === Node.COMMENT_NODE) ||
@@ -450,11 +450,11 @@ function __pickUnsanitaryElements (root, cleanAttributes) {
  * @param {Node} el
  * @private
  */
-function __removeNodeRecursively(el) {
-	var pn = el && el.parentNode;
-	if (!pn) {return;}
+function removeNodeRecursively(el) {
+	let pn = el && el.parentNode;
+	if (!pn) { return; }
 	pn.removeChild(el);
 	if (pn.childNodes.length === 0) {
-		__removeNodeRecursively(pn);
+		removeNodeRecursively(pn);
 	}
 }

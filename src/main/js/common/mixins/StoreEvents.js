@@ -19,7 +19,7 @@ export default {
 		let map = this[getHandlers]();
 
 		if (map[eventId]) {
-			var handlers = makeSet(map[eventId]);
+			let handlers = makeSet(map[eventId]);
 			handlers.add(handlerId);
 			map[eventId] = handlers;
 		}

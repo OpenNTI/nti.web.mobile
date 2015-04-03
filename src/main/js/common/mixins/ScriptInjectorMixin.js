@@ -1,9 +1,8 @@
-'use strict';
 
-var injected = {};
+let injected = {};
 
 function exists(parent, key) {
-	var parts = key.split('.'),
+	let parts = key.split('.'),
 		part = parts.splice(0, 1)[0];
 
 	if (!part) { return true; }
@@ -13,18 +12,18 @@ function exists(parent, key) {
 	return parent && exists(parent, parts.join('.'));
 }
 
-module.exports = {
+export default {
 
-	injectScript: function(scriptUrl, shouldDefineSymbole) {
+	injectScript (scriptUrl, shouldDefineSymbole) {
 
 		if (!injected[shouldDefineSymbole]) {
-			injected[shouldDefineSymbole] = new Promise(function(fullfill,reject) {
+			injected[shouldDefineSymbole] = new Promise((fullfill, reject)=> {
 
-				var script = document.createElement('script');
+				let script = document.createElement('script');
 
-	            script.async = true;//Do not block the UI thread while loading.
-	            script.defer = true;//legacy version of async
-	            script.charset = 'utf-8'; //Be explicit
+				script.async = true;//Do not block the UI thread while loading.
+				script.defer = true;//legacy version of async
+				script.charset = 'utf-8'; //Be explicit
 				script.type = 'text/javascript'; //Be explicit
 				script.src = scriptUrl;
 
@@ -32,7 +31,7 @@ module.exports = {
 				//for an expected symbol to be defined.
 				script.onerror = reject;
 
-				script.onload = function() {
+				script.onload = ()=> {
 
 					if (shouldDefineSymbole && !exists(global, shouldDefineSymbole)) {
 						return reject('Loaded, but expected interface was not found: '.concat(shouldDefineSymbole));

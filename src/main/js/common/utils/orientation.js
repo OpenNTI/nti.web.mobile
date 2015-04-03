@@ -3,10 +3,10 @@ import removeClass from 'nti.lib.dom/lib/removeclass';
 
 function handler (component) {
 	let {body} = document;
-	var state = 'portrait';
-	var w = global; //window
+	let state = 'portrait';
+	let w = global; //window
 	if(Math.abs(w.orientation) === 90 || w.innerWidth > w.innerHeight) {
-		state ='landscape';
+		state = 'landscape';
 	}
 
 	removeClass(body, 'portrait');
