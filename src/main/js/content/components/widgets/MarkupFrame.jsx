@@ -20,24 +20,25 @@ export default React.createClass({
 	componentWillUnmount () {},
 
 
+
+
 	render () {
-		var data = this.props.item;
-		var item = data.item;
+		let data = this.props.item;
+		let item = data.item;
 
-		var zoomable = ZOOMABLE.test(data.type);
+		let zoomable = ZOOMABLE.test(data.type);
 
-		var title = item.title;
-		var caption = item.caption;
+		let title = item.title;
+		let caption = item.caption;
 
-		var noDetails = isEmpty(title) && isEmpty(caption);
+		let noDetails = isEmpty(title) && isEmpty(caption);
 
 		//The Item may not be an image... what can it be?
 
 		return (
 			<span itemProp={data.type}>
-				<img src={item.src} dataset={item.dataset} crossOrigin={item.crossorigin}/>
 				<span className="wrapper">
-					<a href="#zoom" title="Zoom" className={"zoom " + (zoomable ? '':'disabled')} data-non-anchorable="true"/>
+					<a href="#zoom" title="Zoom" className={"zoom" + (zoomable ? '':' disabled')} data-non-anchorable="true"/>
 				</span>
 				<span className="bar" data-non-anchorable="true" data-no-anchors-within="true" unselectable="true">
 					<a href="#slide" className="bar-cell slide"> </a>
