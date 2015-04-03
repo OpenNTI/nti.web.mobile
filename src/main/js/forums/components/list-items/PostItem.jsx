@@ -15,7 +15,7 @@ import Loading from 'common/components/TinyLoader';
 import CommentForm from '../CommentForm';
 import ActionLinks from '../ActionLinks';
 
-import Prompt from 'prompts';
+import {areYouSure} from 'prompts';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import Mixin from './Mixin';
@@ -25,13 +25,13 @@ import ToggleState from '../../mixins/ToggleState';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
-var {EDIT, DELETE} = ActionLinks;
-var t = require('common/locale').scoped('FORUMS');
-var _SHOW_REPLIES = 'showReplies';
+let {EDIT, DELETE} = ActionLinks;
+const t = require('common/locale').scoped('FORUMS');
+const SHOW_REPLIES = 'showReplies';
 
 const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';
 
-var PostItem = React.createClass({
+let PostItem = React.createClass({
 
 	displayName: 'PostListItem',
 
@@ -54,9 +54,9 @@ var PostItem = React.createClass({
 		]
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
-			[_SHOW_REPLIES]: false,
+			[SHOW_REPLIES]: false,
 			busy: false,
 			item: null,
 			editing: false,
@@ -70,7 +70,7 @@ var PostItem = React.createClass({
 		};
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (this.props.item !== nextProps.item) {
 			this.setState({
 				busy: false,
@@ -79,7 +79,7 @@ var PostItem = React.createClass({
 		}
 	},
 
-	[gotCommentReplies]: function (event) {
+	[gotCommentReplies] (event) {
 		if(event.comment === this.props.item) {
 			this.setState({
 				replyCount: event.replies.length
@@ -87,14 +87,14 @@ var PostItem = React.createClass({
 		}
 	},
 
-	_editClick: function() {
+	onEditClick () {
 		this.setState({
 			editing: true
 		});
 	},
 
-	_deleteComment: function() {
-		Prompt.areYouSure(t('deleteCommentPrompt')).then(
+	onDeleteComment () {
+		areYouSure(t('deleteCommentPrompt')).then(
 			()=> {
 				this.setState({
 					busy: true
@@ -105,59 +105,59 @@ var PostItem = React.createClass({
 		);
 	},
 
-	_actionClickHandlers() {
+	getActionClickHandlers() {
 		return {
-			[EDIT]: this._editClick,
-			[DELETE]: this._deleteComment
+			[EDIT]: this.onEditClick,
+			[DELETE]: this.onDeleteComment
 		};
 	},
 
 	commentCompletion(event) {
 		this.setState({
-			[_SHOW_REPLIES]: true
+			[SHOW_REPLIES]: true
 		});
 		this.hideForm(event);
 	},
 
-	_hideEditForm() {
+	onHideEditForm() {
 		this.setState({
 			editing: false
 		});
 	},
 
-	_numComments: function() {
+	getNumberOfComments () {
 		return this.state.replyCount||this.props.item.ReferencedByCount;
 	},
 
-	render: function() {
-		var item = this.getItem();
+	render () {
+		let item = this.getItem();
 		if (!item) {
 			return <div>No item?</div>;
 		}
-		var createdBy = item.Creator;
-		var createdOn = item.getCreatedTime();
-		var modifiedOn = item.getLastModified();
-		var message = item.body;
-		var numComments = this._numComments();
-		var href = this.makeHref('/' + encodeForURI(this.getItemId()) + '/', false);
+		let createdBy = item.Creator;
+		let createdOn = item.getCreatedTime();
+		let modifiedOn = item.getLastModified();
+		let message = item.body;
+		let numComments = this.getNumberOfComments();
+		let href = this.makeHref('/' + encodeForURI(this.getItemId()) + '/', false);
 
-		var edited = (Math.abs(modifiedOn - createdOn) > 0);
+		let edited = (Math.abs(modifiedOn - createdOn) > 0);
 
 		if (this.state.busy) {
 			return <Loading />;
 		}
 
-		var linksClasses = {
-			replies:[]
+		let linksClasses = {
+			replies: []
 		};
 
-		var links = <ActionLinks
+		let links = <ActionLinks
 						key='actionlinks'
 						item={item}
 						numComments={numComments}
 						canReply={this.props.asHeadline}
 						cssClasses={linksClasses}
-						clickHandlers={this._actionClickHandlers()} />;
+						clickHandlers={this.getActionClickHandlers()} />;
 
 		if (item.Deleted) {
 			return (
@@ -176,13 +176,13 @@ var PostItem = React.createClass({
 		if (this.state.editing) {
 			return <CommentForm
 				editItem={item}
-				onCompletion={this._hideEditForm}
-				onCancel={this._hideEditForm}/>;
+				onCompletion={this.onHideEditForm}
+				onCancel={this.onHideEditForm}/>;
 		}
 
 		let classes = classnames({
 			'headline': this.props.asHeadline
-		},'postitem');
+		}, 'postitem');
 
 		return (
 			<div className={classes}>

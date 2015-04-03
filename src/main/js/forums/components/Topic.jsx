@@ -16,7 +16,7 @@ import CommentForm from './CommentForm';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import Notice from 'common/components/Notice';
-import Prompt from 'prompts';
+import {areYouSure} from 'prompts';
 import TopicComments from './TopicComments';
 import TopicEditor from './TopicEditor';
 import TopicHeadline from './TopicHeadline';
@@ -178,7 +178,7 @@ module.exports = React.createClass({
 	},
 
 	[deleteTopic]: function() {
-		Prompt.areYouSure(t('deleteTopicPrompt')).then(() => {
+		areYouSure(t('deleteTopicPrompt')).then(() => {
 			Actions.deleteTopic(this[getTopic]());
 		},
 		()=>{});

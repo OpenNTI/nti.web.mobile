@@ -1,13 +1,12 @@
-'use strict';
-var Dialog = require('./components/Dialog');
+import Dialog from './components/Dialog';
 
-exports.areYouSure = function(message) {
-	return new Promise((confirm, cancel)=>{
+export function areYouSure(message) {
+	return new Promise((acknowledge, cancel)=>{
 		Dialog.show({
 			confirmButtonClass: 'caution',
 			message: message,
-			onConfirm: ()=>	confirm(),
+			onConfirm: ()=>	acknowledge(),
 			onCancel: ()=>	cancel('Prompt Canceled')
 		});
 	});
-};
+}

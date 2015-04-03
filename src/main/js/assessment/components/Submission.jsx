@@ -15,7 +15,7 @@ import {
 	BUSY_LOADING
 } from '../Constants';
 
-import Prompt from 'prompts';
+import {areYouSure} from 'prompts';
 
 
 export default React.createClass({
@@ -52,7 +52,7 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
-		Prompt.areYouSure('This will reset this assignment.')
+		areYouSure('This will reset this assignment.')
 			.then(
 				()=>resetAssessment(this.props.assessment),
 				()=>{}
@@ -114,7 +114,7 @@ export default React.createClass({
 					)}
 					<a href={disabled?'#':null} className={'button ' + (disabled?'disabled':'')} onClick={this.onSubmit}>{t('submit')}</a>
 					{cannotReset? null: (<a href="#" className="reset button link" onClick={this.onReset}>{t('reset')}</a>)}
-					<span className="status-line">{t('unanswered', { count: unanswered  })}</span>
+					<span className="status-line">{t('unanswered', { count: unanswered })}</span>
 				</div>
 
 				{!busy ? null : <Loading message="Please Wait" maskScreen/>}
