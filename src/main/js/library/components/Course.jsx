@@ -55,43 +55,47 @@ export default React.createClass({
 		let items = [];
 		let courseId = item.getCourseID();
 
-		//Activity
-		// items.push({
-		// 	title: 'Activity',
-		// 	// href: this.courseHref(courseId, COURSE_SECTIONS.ACTIVITY),
-		// });
+		if (!this.isPreview(item)) {
 
-		//Lessons
-		items.push({
-			title: 'Lessons',
-			href: this.courseHref(courseId, COURSE_SECTIONS.LESSONS),
-			hasChildren: true
-		});
+			//Activity
+			// items.push({
+			// 	title: 'Activity',
+			// 	// href: this.courseHref(courseId, COURSE_SECTIONS.ACTIVITY),
+			// });
 
-		// Assignments
-		// items.push({
-		// 	title: 'Assignments',
-		// 	href: this.courseHref(courseId, COURSE_SECTIONS.ASSIGNMENTS),
-		// 	hasChildren: true
-		// });
+			//Lessons
+			items.push({
+				title: 'Lessons',
+				href: this.courseHref(courseId, COURSE_SECTIONS.LESSONS),
+				hasChildren: true
+			});
 
-		//Discussions
-		items.push({
-			title: 'Discussions',
-			href: this.courseHref(courseId, COURSE_SECTIONS.DISCUSSIONS),
-			hasChildren: true
-		});
+			// Assignments
+			// items.push({
+			// 	title: 'Assignments',
+			// 	href: this.courseHref(courseId, COURSE_SECTIONS.ASSIGNMENTS),
+			// 	hasChildren: true
+			// });
 
-		// items.push({
-		// 	title: 'Videos',
-		// 	href: this.courseHref(courseId, COURSE_SECTIONS.VIDEOS),
-		// 	hasChildren: true
-		// });
+			//Discussions
+			items.push({
+				title: 'Discussions',
+				href: this.courseHref(courseId, COURSE_SECTIONS.DISCUSSIONS),
+				hasChildren: true
+			});
+
+			// items.push({
+			// 	title: 'Videos',
+			// 	href: this.courseHref(courseId, COURSE_SECTIONS.VIDEOS),
+			// 	hasChildren: true
+			// });
+
+		}
 
 		//Course Info
 		items.push({
 			title: 'Course Info',
-			href: this.courseHref(courseId, COURSE_SECTIONS.INFO),
+			href: this.courseHref(courseId, COURSE_SECTIONS.INFO)
 		});
 
 		return items;
@@ -114,14 +118,22 @@ export default React.createClass({
 	},
 
 
+	isPreview (item) {
+		let {CourseInstance} = item || {};
+		let {CatalogEntry} = CourseInstance || {};
+		return CatalogEntry && CatalogEntry.Preview;
+	},
+
+
 	render () {
-		var {item} = this.props;
-		var {icon, title, label, author} = this.state;
-		var courseId = item.getCourseID();
+		let {item} = this.props;
+		let {icon, title, label, author} = this.state;
+		let courseId = item.getCourseID();
+		let defaultSection = this.isPreview(item) ? COURSE_SECTIONS.INFO : COURSE_SECTIONS.LESSONS;
 
 		return (
 			<div className="library-item course">
-				<CourseContentLink courseId={courseId} section={COURSE_SECTIONS.LESSONS}>
+				<CourseContentLink courseId={courseId} section={defaultSection}>
 					<img src={icon}/>
 					<label>
 						<h5>{label}</h5>
@@ -138,7 +150,7 @@ export default React.createClass({
 
 	renderSectionItems () {
 		let {sections} = this.state;
-		if (!sections) {return;}
+		if (!sections) { return; }
 
 		return (
 			<ul className="sections">

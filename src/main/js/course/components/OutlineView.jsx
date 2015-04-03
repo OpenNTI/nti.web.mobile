@@ -31,7 +31,7 @@ export default React.createClass({
 
 
 	getInitialState () {
-		return {loading:true};
+		return {loading: true};
 	},
 
 
@@ -81,7 +81,7 @@ export default React.createClass({
 			item.addListener('changed', this.itemChanged);
 		}
 
-		let depthMap = ['h1','div'];
+		let depthMap = ['h1', 'div'];
 
 		let prefix = this.getBasePath();
 
@@ -95,6 +95,14 @@ export default React.createClass({
 				depthMap,
 				loading: false,
 				outline,
+				prefix
+			});
+		}, error => {
+			console.error(error);
+			this.setStateSafely({
+				depthMap,
+				loading: false,
+				outline: {},
 				prefix
 			});
 		});
@@ -139,15 +147,15 @@ export default React.createClass({
 		}
 
 		return React.createElement('ul', {}, ...list.map(item => {
-			var {href, depth, title} = item;
+			let {href, depth, title} = item;
 
-			var tag = depthMap[depth - 1] || 'div';
+			let tag = depthMap[depth - 1] || 'div';
 
 			if (href) {
 				href = prefix + href;
 			}
 
-			var props = {
+			let props = {
 				href, title, children: title
 			};
 

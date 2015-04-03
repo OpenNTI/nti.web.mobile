@@ -15,18 +15,30 @@ export default React.createClass({
 
 	componentDidMount () {
 		let menu = [];
-		let {sectionPathPrefix} = this.props;
+		let {sectionPathPrefix, course} = this.props;
+		let {CatalogEntry} = course || {};
 
 		if (!sectionPathPrefix) {
 			sectionPathPrefix = '';
 		}
 
-		for(let s of Object.keys(Sections)) {
-			let label = getLabel(s.toLowerCase());
-			menu.push({label, href: sectionPathPrefix+Sections[s]});
+		let push = x => {
+			let label = getLabel(x.toLowerCase());
+			menu.push({label, href: sectionPathPrefix+Sections[x]});
+		};
+
+		if (!CatalogEntry || !CatalogEntry.Preview) {
+
+			for(let s of Object.keys(Sections)) {
+				push(s);
+			}
+		}
+		else {
+			push('INFO');
 		}
 
 		this.setState({menu});
+
 	},
 
 
@@ -45,7 +57,7 @@ export default React.createClass({
 
 
 	renderChildren (c) {
-		if (!c) {return [];}
+		if (!c) { return []; }
 
 		if (!Array.isArray(c)) {
 			c = [c];
