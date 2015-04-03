@@ -13,11 +13,11 @@ import {
 	removeEventListener as _removeEventListener,
 	scrollElementBy,
 	scrollParent,
-	matches,
 	getScrollPosition,
 	getElementRect
 } from '../../utils/dom';
 
+import matches from 'nti.lib.dom/lib/matches';
 
 const addListeners = 'dnd:behaviours:draggable:addListeners';
 const removeListeners = 'dnd:behaviours:draggable:removeListeners';
