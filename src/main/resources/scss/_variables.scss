@@ -239,3 +239,41 @@ $tabs-navigation-font-color: $primary-grey;
 		@content;
 	}
 }
+
+@mixin viewportWidth($rule, $value) {
+	$w: $value;
+	#{$rule}: #{$w}vw;
+	$factor: $w/100;
+
+	//iOS 7 fix:
+	// iPad with portrait orientation.
+	@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait){
+		#{$rule}: #{768*$factor}px;
+	}
+
+	// iPad with landscape orientation.
+	@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape){
+		#{$rule}: #{1024*$factor}px;
+	}
+
+	// iPhone 1-4 with portrait orientation.
+	@media all and (device-width: 320px) and (device-height: 480px) and (orientation:portrait){
+		#{$rule}: #{320*$factor}px;
+	}
+
+	// iPhone 1-4 with landscape orientation.
+	@media all and (device-width: 320px) and (device-height: 480px) and (orientation:landscape){
+		#{$rule}: #{480*$factor}px;
+	}
+
+	// iPhone5 with portrait orientation.
+	@media all and (device-width: 320px) and (device-height: 568px) and (orientation:portrait){
+		#{$rule}: #{320*$factor}px;
+	}
+
+	// iPhone5 with landscape orientation.
+	@media all and (device-width: 320px) and (device-height: 568px) and (orientation:landscape){
+		#{$rule}: #{568*$factor}px;
+	}
+	//iPhone 6's never had iOS7 on them.
+}
