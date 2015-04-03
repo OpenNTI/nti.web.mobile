@@ -34,10 +34,9 @@ mobileapp.all('/', function(_, res) { res.redirect('/mobile/'); });
 var port = server.setupApplication(app, config);
 
 //Errors
-/* eslint no-unused-vars:0 */
 // We need the signature to be 4 args long
 // for express to treat it as a error handler
-app.use(function(err, req, res, next){
+app.use(function(err, req, res, next){// eslint-disable-line no-unused-vars
 	if (!err) {
 		err = 'Unknown Error';
 	}

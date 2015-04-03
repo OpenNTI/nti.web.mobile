@@ -12,6 +12,7 @@ import Library from 'library/components/View';
 import Login from 'login/components/View';
 import Profile from 'profile/components/View';
 import NotFound from 'notfound/components/View';
+import ObjectResolver from 'object-resolver/components/View';
 
 import BasePathAware from 'common/mixins/BasePath';
 
@@ -24,7 +25,8 @@ const HANDLER_BY_NAME = {
 	Home,
 	Library,
 	Login,
-	Profile
+	Profile,
+	Object: ObjectResolver
 };
 
 import RouteMap from './routes';
@@ -35,7 +37,7 @@ export default React.createClass({
 
 
 	onBeforeNavigation () {
-		var action = this.props.onBeforeNavigation;
+		let action = this.props.onBeforeNavigation;
 		if (action) {
 			action();
 		}
@@ -44,10 +46,10 @@ export default React.createClass({
 
 	onNavigation () {
 		if (global.scrollTo) {
-			global.scrollTo(0,0);
+			global.scrollTo(0, 0);
 		}
 
-		var action = this.props.onNavigation;
+		let action = this.props.onNavigation;
 		if (action) {
 			action();
 		}
@@ -84,7 +86,7 @@ export default React.createClass({
 				handler: lookupHandler(r)
 			}));
 
-		routes.push(React.createElement(Default, {handler:NotFound}));
+		routes.push(React.createElement(Default, {handler: NotFound}));
 
 		return routes.filter(r=>r.props.handler);
 	}
