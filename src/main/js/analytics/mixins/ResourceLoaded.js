@@ -32,7 +32,6 @@ module.exports = {
 
 	[onStoreChange](event) {
 		if (event.type === RESUME_SESSION) {
-			console.log(event);
 			if (this.resumeAnalyticsEvents) {
 				this.resumeAnalyticsEvents();
 			}
