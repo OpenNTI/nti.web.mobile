@@ -49,7 +49,7 @@ export default React.createClass({
 	},
 
 	resumeAnalyticsEvents() {
-		this.resourceLoaded(this.getPageID(), null, RESOURCE_VIEWED);
+		this.resourceLoaded(this.getPageID(), this.props.course.getID(), RESOURCE_VIEWED);
 	},
 
 	getResetState () {
@@ -143,7 +143,7 @@ export default React.createClass({
 			);
 
 			loadPage(newPageId);
-			this.resourceLoaded(newPageId, null, RESOURCE_VIEWED);
+			this.resourceLoaded(newPageId, this.props.course.getID(), RESOURCE_VIEWED);
 		}
 	},
 
