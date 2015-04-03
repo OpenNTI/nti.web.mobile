@@ -13,9 +13,9 @@ export default React.createClass({
 
 
 	render () {
-		var {className} = this.props;
+		let {className} = this.props;
 
-		var classes = ['draggable', className || ''];
+		let classes = ['draggable', className || ''];
 
 		if (this.state.dragging) {
 			classes.push('dragging');
