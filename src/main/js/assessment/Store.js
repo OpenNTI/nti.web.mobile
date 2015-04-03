@@ -422,7 +422,7 @@ class Store extends StorePrototype {
 	getPartValue (part) {
 		let s = this.getSubmissionData(part);
 		let question = getQuestion(s, part);
-		return question.getPartValue(part.getPartIndex());
+		return question && question.getPartValue(part.getPartIndex());
 	}
 
 
