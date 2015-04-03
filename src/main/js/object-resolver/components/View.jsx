@@ -6,6 +6,8 @@ import Loading from 'common/components/Loading';
 
 import Redirect from 'navigation/components/Redirect';
 
+import {getService} from 'common/utils';
+
 
 export default React.createClass({
 	displayName: 'ObjectResolver',
@@ -37,7 +39,12 @@ export default React.createClass({
 		id = decodeFromURI(id);
 		console.debug('Looking up object: %s', id);
 
-		this.setState({location: '/mobile/'});
+		getService()
+			.then(s=> s.getParsedObject(id))
+			.then(o=> {
+				console.debug('Resolve Object: %o', o);
+				this.setState({location: '/mobile/'});
+			});
 	},
 
 
