@@ -14,7 +14,7 @@ export default React.createClass({
 	},
 
 	render () {
-		var discussionTitle = this.state.item.title;
+		let discussionTitle = this.state.item.title;
 		return (
 			<li className="notification-item">
 				<Avatar username={this.state.username} width="32" height="32"/>

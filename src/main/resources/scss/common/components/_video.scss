@@ -1,3 +1,11 @@
+body.nav-menu-open {
+	video {
+		// video elements interfere with the titlebar menu interaction.
+		// get videos out of the way when the menu is open.
+		visibility: hidden !important;
+	}
+}
+
 .flex-video {
 	.flex-video {
 		position: absolute;

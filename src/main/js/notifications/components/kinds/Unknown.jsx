@@ -8,7 +8,7 @@ export default React.createClass({
 	render () {
 		//console.debug('Unhandled Notification Kind: %o', this.state.change);
 		//console.debug(this.state.item);
-		var type = this.state.item.MimeType.replace('application/vnd.nextthought.', '');
+		let type = this.state.item.MimeType.replace('application/vnd.nextthought.', '');
 		return (
 			<li className="notification-item">Unknown {type}</li>
 		);

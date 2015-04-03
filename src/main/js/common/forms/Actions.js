@@ -1,10 +1,8 @@
-'use strict';
+import Constants from './Constants';
+import AppDispatcher from 'dispatcher/AppDispatcher';
 
-var Constants = require('./Constants');
-var AppDispatcher = require('dispatcher/AppDispatcher');
-
-module.exports = {
-	loadSelectOptionsFromUserLinkRel: function(rel) {
+export default {
+	loadSelectOptionsFromUserLinkRel (rel) {
 		dispatch(
 			Constants.FETCH_LINK,
 			{
@@ -14,10 +12,10 @@ module.exports = {
 		);
 	}
 
-};
+}
 
 function dispatch(key, data) {
-	var action = {
+	let action = {
 		type: key,
 		payload: data
 	};

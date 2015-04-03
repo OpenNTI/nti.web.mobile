@@ -40,6 +40,6 @@ export default class TypedEventEmitter extends EventEmitter {
 	 * emitChange with an {isError: true} in the event.
 	 */
 	emitError (error) {
-		this.emitChange(Object.assign(error,{isError: true}));
+		this.emitChange(Object.assign(error, {isError: true}));
 	}
 }

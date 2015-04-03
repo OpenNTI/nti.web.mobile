@@ -3,9 +3,8 @@
 import React from 'react';
 
 import Store from '../Store';
-import Api from '../Api';
 import {OBJECT_CONTENTS_CHANGED} from '../Constants';
-import NTIID from 'dataserverinterface/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import Router from 'react-router-component';
 let {Location} = Router;
 
@@ -16,22 +15,22 @@ import Err from 'common/components/Error';
 
 // mixins
 import StoreEvents from 'common/mixins/StoreEvents';
-import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import KeepItemInState from '../mixins/KeepItemInState';
 import ToggleState from '../mixins/ToggleState';
 import ContextSender from 'common/mixins/ContextSender';
+import Paging from '../mixins/Paging';
 
 module.exports = React.createClass({
 	displayName: 'TopicView',
 
 	mixins: [
 		StoreEvents,
-		ResourceLoaded,
 		NavigatableMixin,
 		KeepItemInState,
 		ToggleState,
-		ContextSender
+		ContextSender,
+		Paging
 	],
 
 	backingStore: Store,
@@ -47,42 +46,13 @@ module.exports = React.createClass({
 
 	getInitialState: function() {
 		return {
-			loading: true,
+			// loading: true,
 			deleted: false
 		};
 	},
 
-	componentDidMount: function() {
-		var {topicId} = this.props;
-		this._loadData(topicId);
-	},
-
-	componentWillReceiveProps: function(nextProps) {
-		if (nextProps.topicId !== this.props.topicId) {
-			this._loadData(nextProps.topicId);
-		}
-	},
-
 	_topicId(props=this.props) {
-		return NTIID.decodeFromURI(props.topicId);
-	},
-
-	_loadData: function(topicId=this.props.topicId) {
-		Api.getTopicContents(topicId)
-		.then(
-			result => {
-				Store.setObject(topicId, result.object);
-				Store.setObjectContents(topicId, result.contents);
-				this.setState({
-					item: result.object
-				});
-			},
-			reason => {
-				this.setState({
-					error: reason
-				});
-			}
-		);
+		return decodeFromURI(props.topicId);
 	},
 
 	// title bar back arrow
@@ -99,10 +69,10 @@ module.exports = React.createClass({
 	},
 
 	_topic: function() {
-		return this._item()||Store.getObject(this.props.topicId);
+		return this.getItem() || Store.getObject(this.props.topicId);
 	},
 
-	_getPropId: function() {
+	getPropId: function() {
 		return this.props.topicId;
 	},
 
@@ -118,17 +88,21 @@ module.exports = React.createClass({
 
 		let topic = this._topic();
 
+		let currentPage = this.currentPage();
+
 		return (
 			<Router.Locations contextual>
-				<Location path="/(#nav)"
+				<Location path='/'
 					handler={Topic}
 					topic={topic}
+					page={currentPage}
 					{...this.props}
 					contextProvider={this.__getContext}
 				/>
-				<Location path="/:postId/(#nav)"
+				<Location path="/:postId/"
 					handler={Post}
 					topic={topic}
+					page={currentPage}
 					{...this.props}
 					contextProvider={this.__getContext}
 				/>

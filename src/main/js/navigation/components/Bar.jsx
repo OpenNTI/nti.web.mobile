@@ -1,7 +1,7 @@
 import path from 'path';
 import React from 'react';
 import Transition from 'react/lib/ReactCSSTransitionGroup';
-import cx from 'react/lib/cx';
+import cx from 'classnames';
 
 import NavStore from '../Store';
 
@@ -13,7 +13,8 @@ import ActiveState from 'common/components/ActiveState';
 import Avatar from 'common/components/Avatar';
 import Pager from 'common/components/Pager';
 
-import {addClass, removeClass} from 'common/utils/dom';
+import addClass from 'nti.lib.dom/lib/addclass';
+import removeClass from 'nti.lib.dom/lib/removeclass';
 
 import BasePathAware from 'common/mixins/BasePath';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
@@ -21,28 +22,7 @@ import SetStateSafely from 'common/mixins/SetStateSafely';
 import StoreEvents from 'common/mixins/StoreEvents';
 
 const getViewport = ()=> document.getElementsByTagName('html')[0];
-
-// const Hamburger = React.createClass({
-// 	mixins: [PureRenderMixin],
-//
-// 	onClick (e) {
-// 		e.preventDefault();
-// 		e.stopPropagation();
-// 		this.props.onClick();
-// 	},
-//
-// 	render () {
-// 		let props = {
-// 			className: 'left-off-canvas-toggle hamburger',
-// 			onClick: this.onClick,
-// 			href: '#'
-// 		};
-//
-// 		return <a {...props}><span/></a>;
-// 	}
-// });
-
-
+const menuOpenBodyClass = 'nav-menu-open';
 
 
 const Menu = React.createClass({
@@ -121,7 +101,6 @@ export default React.createClass({
 	mixins: [StoreEvents, BasePathAware, NavigatableMixin, SetStateSafely],
 
 	contextTypes: {
-		triggerLeftMenu: React.PropTypes.func.isRequired,
 		triggerRightMenu: React.PropTypes.func.isRequired
 	},
 
@@ -159,7 +138,7 @@ export default React.createClass({
 
 
 	componentWillReceiveProps () {
-		this.setState({menuOpen: false});
+		this.closeMenu();
 	},
 
 
@@ -175,7 +154,8 @@ export default React.createClass({
 			resolve = getContext();
 		}
 
-		resolve.then(x=>console.debug('Context Path: %o', x) ||
+		resolve.then(x=>
+			//console.debug('Context Path: %o', x) ||
 			this.setStateSafely({
 				current: x && x[x.length-1],
 				returnTo: x && x[x.length-2]
@@ -197,7 +177,6 @@ export default React.createClass({
 
 
 	getLeft () {
-		//<Hamburger onClick={triggerLeftMenu}/>;
 		let {returnTo} = this.state || {};
 		if (returnTo) {
 			return <ReturnTo {...returnTo}/>;
@@ -265,18 +244,29 @@ export default React.createClass({
 		e.stopPropagation();
 
 		let s = !this.state.menuOpen;
+		this.updateBodyClassForMenu(s);
 		this.setStateSafely({menuOpen: s});
 	},
 
+	updateBodyClassForMenu(isOpen) {
+		// video elements interfere with the menu interaction. adding a class to body
+		// when the menu is open allows us to use css to get the videos out of the way.
+		if (isOpen) {
+			document.body.classList.add(menuOpenBodyClass);
+		}
+		else {
+			document.body.classList.remove(menuOpenBodyClass);
+		}
+	},
 
 	closeMenu (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
+		this.updateBodyClassForMenu(false);
 		this.setStateSafely({menuOpen: false});
 	},
-
 
 	render () {
 		let {menuOpen} = this.state;

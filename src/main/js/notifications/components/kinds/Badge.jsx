@@ -11,7 +11,7 @@ export default React.createClass({
 	},
 
 	render () {
-		var item = (this.props.item || {}).Item;
+		let item = (this.props.item || {}).Item;
 		return (
 			<li className="notification-item">
 				<div className='badge' style={{backgroundImage: `url(${item.image})`}}/>

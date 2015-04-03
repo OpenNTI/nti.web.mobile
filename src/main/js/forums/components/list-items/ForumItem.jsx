@@ -4,7 +4,7 @@ import React from 'react';
 import {mimeTypes, FORUM} from '../../Constants';
 
 import TinyLoader from 'common/components/TinyLoader';
-import NTIID from 'dataserverinterface/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 var t = require('common/locale').scoped('FORUMS');
@@ -57,7 +57,7 @@ module.exports = React.createClass({
 	},
 
 	_href: function() {
-		var path = [NTIID.encodeForURI(this.props.item.getID()), ''];
+		var path = [encodeForURI(this.props.item.getID()), ''];
 		if (this.props.parentPath) {
 			path.unshift(this.props.parentPath);
 		}
@@ -101,7 +101,7 @@ module.exports = React.createClass({
 		}
 		var {item} = this.props;
 		// var topicCount = t('topicCount', { count: item.TopicCount });
-		
+
 		return (
 			<div className="forum-item">
 				<a href={this._href()} className="blockLink">
@@ -111,7 +111,7 @@ module.exports = React.createClass({
 							<span className="see-all count" href={this._href()}>{t('topicCount', {count: this.state.totalItemCount})}</span>
 						</div>
 						<span className="arrow-right"/>
-						
+
 					</h3>
 				</a>
 				{this._renderRecentActivity()}

@@ -1,6 +1,5 @@
 'use strict';
-/* jshint -W101 */
-
+/*eslint no-var: 0*/
 var path = require('path');
 
 var PROD = 'production';
@@ -64,20 +63,20 @@ module.exports = function(grunt) {
 		},
 
 		execute: {
-            dev: {
-				src: '<%= pkg.src %>/../server/index.js',
-            },
-            dist: {
+			dev: {
+				src: '<%= pkg.src %>/../server/index.js'
+			},
+			dist: {
 
-                src: '<%= pkg.dist %>/server/index.js'
-            }
-        },
+				src: '<%= pkg.dist %>/server/index.js'
+			}
+		},
 
 		karma: {
-            unit: {
-                configFile: 'karma.conf.js'
-            }
-        },
+			unit: {
+				configFile: 'karma.conf.js'
+			}
+		},
 
 		copy: {
 			stage: {
@@ -113,13 +112,13 @@ module.exports = function(grunt) {
 						dest: '<%= pkg.stage %>/widgets/'
 					},
 					{
-	                    // flatten: true,
-	                    cwd: '<%= pkg.src %>/../server/',
-	                    expand: true,
-	                    filter: 'isFile',
-	                    src: ['**'],
-	                    dest: '<%= pkg.stage %>/server/'
-	                }
+						// flatten: true,
+						cwd: '<%= pkg.src %>/../server/',
+						expand: true,
+						filter: 'isFile',
+						src: ['**'],
+						dest: '<%= pkg.stage %>/server/'
+					}
 				]
 			}
 		},
@@ -150,7 +149,7 @@ module.exports = function(grunt) {
 				}]
 			},
 
-			maps: ["<%= pkg.dist %>/**/*.map","<%= pkg.dist %>/**/*.map.gz"]
+			maps: ["<%= pkg.dist %>/**/*.map", "<%= pkg.dist %>/**/*.map.gz"]
 		},
 
 		sass: {
@@ -168,25 +167,24 @@ module.exports = function(grunt) {
 			}
 		},
 
-		jshint: {
-	        options: {
-				jshintrc: true,
-	            //reporter: require('jshint-log-reporter')
-	            //reporterOutput: 'lint.log'
-			},
-	        files: [
+
+		eslint: {
+			target: [
 				'<%= pkg.src %>/js/**/*.js',
 				'<%= pkg.src %>/js/**/*.jsx',
-				'<%= pkg.src %>/../server/**/*.js'
+				'<%= pkg.src %>/../server/**/*.js',
+				'<%= pkg.src %>/../test/**/*.js',
+				'<%= pkg.src %>/../webpack-plugins/**/*.js',
+				'*.js'
 			]
-	    },
+		},
 
 		symlink: {
 			SiteCSSDirectories: {
 				files: [
-			        {src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-alpha.nextthought.com'},
-			        {src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-test.nextthought.com'},
-			        {src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/janux.ou.edu'},
+					{src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-alpha.nextthought.com'},
+					{src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-test.nextthought.com'},
+					{src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/janux.ou.edu'},
 
 					{src: '<%= pkg.distSiteCSS %>/okstate.nextthought.com', dest: '<%= pkg.distSiteCSS %>/okstate-alpha.nextthought.com'},
 					{src: '<%= pkg.distSiteCSS %>/okstate.nextthought.com', dest: '<%= pkg.distSiteCSS %>/okstate-test.nextthought.com'},
@@ -198,7 +196,8 @@ module.exports = function(grunt) {
 
 
 
-	grunt.registerTask('docs',['react','jsdoc']);
+	grunt.registerTask('docs', ['react', 'jsdoc']);
+	grunt.registerTask('lint', ['eslint']);
 	grunt.registerTask('test', ['karma']);
 	grunt.registerTask('build', buildSteps);
 	grunt.registerTask('default', ['serve']);
@@ -213,7 +212,7 @@ module.exports = function(grunt) {
 
 		grunt.task.run([
 			'sass',
-			'jshint',
+			'eslint',
 			'execute:dev'
 		]);
 	});

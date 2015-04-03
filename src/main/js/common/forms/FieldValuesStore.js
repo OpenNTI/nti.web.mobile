@@ -2,7 +2,7 @@
 
 var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
-// var isFunction = require('dataserverinterface/utils/isfunction');
+// var isFunction = require('nti.lib.interfaces/utils/isfunction');
 var Constants = require('./Constants');
 
 // store field values outside of component state

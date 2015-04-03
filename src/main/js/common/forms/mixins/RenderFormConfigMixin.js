@@ -4,7 +4,7 @@ var React = require('react');
 
 var t = require('common/locale').translate;
 
-var isFunction = require('dataserverinterface/utils/isfunction');
+var isFunction = require('nti.lib.interfaces/utils/isfunction');
 var radiogroup = require('common/forms/components/RadioGroup');
 var Select = require('common/forms/components/Select');
 var Checkbox = require('common/forms/components/Checkbox');

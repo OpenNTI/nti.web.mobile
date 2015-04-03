@@ -76,8 +76,7 @@
 
 	.videos-carousel-container {
 		position: relative;
-		max-width: 100%;
-		max-width: 100vw;
+		@include viewportWidth(max-width, 100);
 		margin: 0.3rem -0.5rem;
 
 		.prev, .next {
@@ -85,7 +84,7 @@
 			position: absolute;
 			overflow: hidden;
 			line-height: 2;
-			height: 15%;
+			height: 2rem;
 			bottom: 0;
 			margin: 0;
 			padding: 0;
@@ -117,12 +116,7 @@
 	}
 
 	.videos-carousel {
-		//@include experimental(transform,translate3d(0,0,0));
-		-webkit-transform: translate3d(0,0,0);
-  		-moz-transform: translate3d(0,0,0);
-  		-ms-transform: translate3d(0,0,0);
-  		-o-transform: translate3d(0,0,0);
-  		transform: translate3d(0,0,0);
+		@extend %hardware-render;
 		//overflow: hidden;
 		position: relative;
 		white-space: nowrap;
@@ -360,6 +354,7 @@
 
 	.content-video-tap-area,
 	.overview-tap-area {
+		@extend %hardware-render;
 		position: absolute;
 		top: 0; left: 0; bottom: 0; right: 0;
 		background-color: $panel-background;

@@ -1,0 +1,36 @@
+
+.question-submission {
+	position: relative;
+	text-align: right;
+	clear: both;
+
+	.tinyloader {
+		position: absolute;
+		top: 0; right: 0; left: 0; bottom: -1px;
+		background: #fff;
+		padding-top: 0.8rem;
+	}
+
+	.button {
+		letter-spacing: normal;
+		padding: 0.8rem 1rem 0.8625rem;
+		margin: 0;
+		font-size: 0.8rem;
+		font-weight: 600;
+		background: $primary-blue;
+		border-color: $border-blue;
+		color: #fff;
+
+		&.disabled {
+			opacity: 1;
+			background: $disabled-button-background;
+			border-color: $disabled-button-border;
+			color: $disabled-button-color;
+		}
+	}
+
+	.error {
+		@extend %submission-error;
+		left: 0; right: 0;
+	}
+}

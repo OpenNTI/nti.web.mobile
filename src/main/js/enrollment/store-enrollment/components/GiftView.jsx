@@ -4,7 +4,7 @@
 var React = require('react');
 var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
 
-var isEmail = require('dataserverinterface/utils/isemail');
+var isEmail = require('nti.lib.interfaces/utils/isemail');
 
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT');
 var t = require('common/locale').scoped('ENROLLMENT.forms.storeenrollment');

@@ -9,6 +9,34 @@ a.blockLink {
 
 $indent: 0.9375rem;
 
+.page-controls {
+	@include block-grid(3);
+	position: relative;
+	font-size:.875rem;
+	.item {
+		padding: .5rem 1.4rem; // the horizontal padding makes room for the arrows.	
+	}
+	.previous {
+		 .link {
+			&::before {
+				@include arrow(left);	
+			} 	
+		 }
+	}
+	.current {
+		text-align: center;
+		color: $tertiary-grey;
+	}
+	.next {
+		text-align: right;
+		.link {
+			&::after {
+				@include arrow(right);	
+			}
+		}
+	}
+}
+
 .forums-wrapper {
 	@include grid-column(12);
 	padding-bottom:1rem;
@@ -95,6 +123,7 @@ $indent: 0.9375rem;
 			left: 0;
 			border-top: 1px dotted lightgray;
 			font-size: .75rem;
+			color: $tertiary-gray;
 		}
 
 		.replies {
@@ -200,6 +229,13 @@ $indent: 0.9375rem;
 				color: $body-font-color;
 				font-family: $header-font-family;
 				font-weight: 600;
+			}
+		}
+
+		.meta {
+			.name {
+				display: block;
+				line-height:1em;
 			}
 		}
 

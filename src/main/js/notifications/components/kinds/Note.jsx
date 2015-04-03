@@ -24,11 +24,11 @@ export default React.createClass({
 
 
 	updatePreview  (props) {
-		var change = props.item;
-		var note = change.Item || change;
-		var title = note.title;
-		var body = note.body || [];
-		var node;
+		let change = props.item;
+		let note = change.Item || change;
+		let title = note.title;
+		let body = note.body || [];
+		let node;
 
 		if (title) {
 			this.setState({preview: title});

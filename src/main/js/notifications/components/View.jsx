@@ -26,7 +26,7 @@ const Empty = React.createClass({
 const LoadMore = React.createClass({
 
 	render () {
-		var store = this.props.store;
+		let store = this.props.store;
 		return (
 			<div className="text-center button-box">
 				{store.isBusy ?
@@ -71,7 +71,7 @@ export default React.createClass({
 
 
 	synchronizeFromStore () {
-		var list = Store.getData();
+		let list = Store.getData();
 		this.setState({
 			length: list && list.length,
 			notifications: list
@@ -80,13 +80,13 @@ export default React.createClass({
 
 
 	getItems () {
-		var {state} = this;
+		let {state} = this;
 		return (state || {}).notifications || {};
 	},
 
 
 	render () {
-		var list = this.getItems();
+		let list = this.getItems();
 		if (!list.map) {
 			return <Loading />;
 		}
@@ -99,6 +99,6 @@ export default React.createClass({
 					<LoadMore onClick={this.onLoadMore} store={list}/> : null
 				}
 			</ul>
-	    );
+		);
 	}
 });

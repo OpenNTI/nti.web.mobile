@@ -1,15 +1,15 @@
-import Catalog from 'dataserverinterface/stores/Catalog';
+import Catalog from 'nti.lib.interfaces/stores/Catalog';
 
 import {getService} from 'common/utils';
 
-var _catalog;
+let catalog;
 
 export function getCatalog(reload) {
 
-	if (!_catalog || reload) {
-		_catalog = getService()
+	if (!catalog || reload) {
+		catalog = getService()
 			.then(service => Catalog.load(service, reload));
 	}
 
-	return _catalog;
+	return catalog;
 }

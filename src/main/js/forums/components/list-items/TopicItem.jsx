@@ -6,7 +6,7 @@ import Store from '../../Store';
 import DisplayName from 'common/components/DisplayName';
 import Avatar from 'common/components/Avatar';
 import DateTime from 'common/components/DateTime';
-import NTIID from 'dataserverinterface/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import {Link} from 'react-router-component';
 import {isMimeType} from 'common/utils/mimetype';
 import Mixin from './Mixin';
@@ -35,7 +35,7 @@ module.exports = React.createClass({
 	backingStore: Store,
 
 	componentWillMount: function() {
-		var item = Store.getObject(this._itemId());
+		var item = Store.getObject(this.getItemId());
 		if (item) {
 			this.setState({
 				item: item
@@ -48,7 +48,7 @@ module.exports = React.createClass({
 	},
 
 	_href: function(item) {
-		return (this.props.parentPath||'').concat(NTIID.encodeForURI(item.getID()),'/');
+		return (this.props.parentPath||'').concat(encodeForURI(item.getID()),'/');
 	},
 
 	_replies: function(item) {
@@ -66,7 +66,7 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		var item = this._item();
+		var item = this.getItem();
 		var replyTime = item.NewestDescendant.getCreatedTime();
 		return (
 			<Link className="topic-link" href={this._href(item)}>

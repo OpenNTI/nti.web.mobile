@@ -8,9 +8,9 @@ export function reload () {
 	return load(true);
 }
 
-export function load (reload) {
+export function load (force = false) {
 
-	let result = getCatalog(!!reload);
+	let result = getCatalog(!!force);
 	if (result !== load.last) {
 		load.last = result;
 		load.result = result

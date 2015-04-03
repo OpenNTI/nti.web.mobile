@@ -1,15 +1,9 @@
-'use strict';
-
-var nsKeyMirror = require('dataserverinterface/utils/namespaced-key-mirror');
-
-module.exports = nsKeyMirror('commonforms', {
-	FORM_CONFIG: null,
-	SUBFIELDS: null,
-	MESSAGE: null,
-	ERROR_ADDED: null,
-	FETCH_LINK: null,
-	URL_RETRIEVED: null,
-	FIELD_VALUE_CHANGE: null,
-	FIELD_VALUES_REMOVED: null,
-	AVAILABLE_FIELDS_CHANGED: null
-});
+export const FORM_CONFIG = 'forms:Form Config';
+export const SUBFIELDS = 'forms:Subfield';
+export const MESSAGE = 'forms:Message';
+export const ERROR_ADDED = 'forms:Error Added';
+export const FETCH_LINK = 'forms:Fetch Link';
+export const URL_RETRIEVED = 'forms:URL Retrieved';
+export const FIELD_VALUE_CHANGE = 'forms:Field Value Changed';
+export const FIELD_VALUES_REMOVED = 'forms:Field Value Removed';
+export const AVAILABLE_FIELDS_CHANGED = 'forms:Available Fields Changed';

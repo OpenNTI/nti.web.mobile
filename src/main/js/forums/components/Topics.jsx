@@ -3,7 +3,7 @@
 var React = require('react');
 var Link = require('react-router-component').Link;
 var AnalyticsStore = require('analytics/Store');
-var NTIID = require('dataserverinterface/utils/ntiids');
+var {decodeFromURI} = require('nti.lib.interfaces/utils/ntiids');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
 var TopicList = require('./TopicList');
 var Loading = require('common/components/Loading');
@@ -25,12 +25,12 @@ var Topics = React.createClass({
 
 	getInitialState: function() {
 		return {
-			loading: true 
+			loading: true
 		};
 	},
 
 	componentWillUnmount: function() {
-		AnalyticsStore.pushHistory(NTIID.decodeFromURI(this.props.forumId));
+		AnalyticsStore.pushHistory(decodeFromURI(this.props.forumId));
 	},
 
 	_getForum() {

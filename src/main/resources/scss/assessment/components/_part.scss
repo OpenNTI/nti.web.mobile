@@ -9,6 +9,15 @@
 
 .question-part {
 
+	&::after {
+		clear: both;
+		content: '';
+		display: block;
+		line-height: 0;
+		margin: 0;
+		padding: 0;
+	}
+
 	.part-content:not(:empty) {
 		margin: 1rem 0;
 	}
@@ -45,13 +54,28 @@
 		background: $panel-background;
 	}
 
+	.question-submission {
+		float: right;
+		position: static;
 
-	.help-button-box {
+		.error {
+			bottom: -1rem;
+		}
+
+		& + .button-box {
+			float: right;
+			line-height: normal;
+			padding: 0.6rem 1rem 0.8625rem;
+			margin: 0;
+		}
+	}
+
+	.button-box {
 		margin: 0 1rem 0.5rem;
 	}
 
 
-	// .form-input + .help-button-box {
+	// .form-input + .button-box {
 		// margin-top: -1rem;
 	// }
 

@@ -73,7 +73,8 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 	getUserAgreement: function() {
 		return this.getUserAgreementUrl().then(function(url) {
-			return getServer()._get(url)
+			//BAD: TODO: Fix to use get() from Service!
+			return getServer().get(url)
 				.catch(function(reason) {
 					if (reason.responseJSON) {
 						reason = reason.responseJSON.message;

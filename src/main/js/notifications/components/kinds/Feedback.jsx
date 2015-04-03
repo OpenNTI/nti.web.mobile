@@ -13,8 +13,8 @@ export default React.createClass({
 	},
 
 	render () {
-		var item = this.props.item;
-		var assignmentName = item.AssignmentName || 'an assignment';
+		let item = this.props.item;
+		let assignmentName = item.AssignmentName || 'an assignment';
 		return (
 			<li className="notification-item">
 				<Avatar username={this.state.username} width="32" height="32"/>

@@ -2,9 +2,9 @@ import React from 'react';
 import {BLANK_AVATAR} from '../constants/DataURIs';
 import {getServerURI} from '../utils';
 import {resolve} from './DisplayName';
-import {isNTIID} from 'dataserverinterface/utils/ntiids';
+import {isNTIID} from 'nti.lib.interfaces/utils/ntiids';
 
-import urlJoin from 'dataserverinterface/utils/urljoin';
+import urlJoin from 'nti.lib.interfaces/utils/urljoin';
 
 export default React.createClass({
 	displayName: 'Avatar',

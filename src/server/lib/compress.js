@@ -11,12 +11,12 @@ import fs from 'fs';
 export function attachToExpress (expressApp, assetPath) {
 
 	expressApp.all('*', function(req, res, next) {
-		var ext = path.extname(Url.parse(req.url).pathname);
-		var gz = req.url + '.gz';
+		let ext = path.extname(Url.parse(req.url).pathname);
+		let gz = req.url + '.gz';
 
-		var type = mimes.lookup(ext);
+		let type = mimes.lookup(ext);
 
-		var compress = WantsCompressed.test(req.header('accept-encoding') || '');
+		let compress = WantsCompressed.test(req.header('accept-encoding') || '');
 		if (compress && fs.existsSync(path.join(assetPath, gz))) {
 			req.url = gz;
 			res.set('Content-Encoding', 'gzip');
@@ -31,8 +31,8 @@ export function attachToExpress (expressApp, assetPath) {
 
 	expressApp.use(compression({
 		filter (req, res) {
-			var type = res.getHeader('Content-Type');
-			var isGz = path.extname(Url.parse(req.url).pathname) === '.gz';
+			let type = res.getHeader('Content-Type');
+			let isGz = path.extname(Url.parse(req.url).pathname) === '.gz';
 
 			if (isGz || (type !== undefined && !compressible(type))) {
 				//console.debug('Not compressing: %s %s ', req.url, type);

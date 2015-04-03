@@ -1,5 +1,5 @@
 import React from 'react';
-import isEmpty from 'dataserverinterface/utils/isempty';
+import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
 const ZOOMABLE = /nti\-data\-resizeable/i;
 
@@ -7,9 +7,9 @@ export default React.createClass({
 	displayName: 'ContentMarkupEnabled',
 
 	statics: {
-		type: /nti\-data\-markupenabled/i,
+		flag: /nti\-data\-markupenabled/i,
 		handles (item) {
-			return this.type.test(item.type);
+			return this.flag.test(item.type);
 		}
 	},
 

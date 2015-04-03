@@ -10,15 +10,15 @@ import Path from 'path';
 import fs from 'fs';
 import React from 'react';
 
-var basepathreplace = /(manifest|src|href)="(.*?)"/igm;
-var configValues = /<\[cfg\:([^\]]*)\]>/igm;
+const basepathreplace = /(manifest|src|href)="(.*?)"/igm;
+const configValues = /<\[cfg\:([^\]]*)\]>/igm;
 
 function injectConfig(cfg, orginal, prop) {
 	return cfg[prop] || 'MissingConfigValue';
 }
 
 
-function basePathFix(original,attr,val) {
+function basePathFix(original, attr, val) {
 	if (val.charAt(0) === '/' && val.charAt(1) !== '/') {
 		val = (config().basepath || '/') + val.substr(1);
 	}
@@ -28,8 +28,8 @@ function basePathFix(original,attr,val) {
 
 
 export default function getPage(render) {
-	var Application;
-	var template;
+	let Application;
+	let template;
 
 	if (render) {
 		try {
@@ -48,7 +48,7 @@ export default function getPage(render) {
 	} catch (e) {
 		//For Node... (dev)
 		try {
-			template = fs.readFileSync(__dirname + '/../../main/page.html', 'utf8');
+			template = fs.readFileSync(Path.resolve(__dirname, '../../main/page.html'), 'utf8');
 		} catch (er) {
 			logger.error('%s', er.stack || er.message || er);
 			template = 'Could not load page template.';
@@ -64,18 +64,18 @@ export default function getPage(render) {
 
 
 	return function(req, scriptFilename, clientConfig) {
-		var u = url.parse(req.url);
-		var manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache"' : '<html';
-		var path = u.pathname;
-		var cfg = clientConfig.config || {};
-		var html = '';
-		var css = '';
+		let u = url.parse(req.url);
+		let manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache"' : '<html';
+		let path = u.pathname;
+		let cfg = clientConfig.config || {};
+		let html = '';
+		let css = '';
 
 		if (Application) {
 			try {
 				global.$AppConfig = cfg;
 				css = styleCollector.collect(() => {
-					var app = React.createElement(Application, {
+					let app = React.createElement(Application, {
 						path: Path.join(cfg.basepath || '', path),
 						basePath: config().basepath
 					});
@@ -91,7 +91,7 @@ export default function getPage(render) {
 		html += clientConfig.html;
 		css = `<style type="text/css" id="server-side-style">${css}</style>`;
 
-		var out = template
+		let out = template
 				.replace(/<html/, manifest)
 				.replace(configValues, injectConfig.bind(this, cfg))
 				.replace(basepathreplace, basePathFix)

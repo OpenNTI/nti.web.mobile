@@ -4,7 +4,7 @@ var React = require('react');
 
 var t = require('common/locale').scoped('FORUMS');
 var ReportLink = require('./ReportLink');
-var nsKeyMirror = require('dataserverinterface/utils/namespaced-key-mirror');
+var nsKeyMirror = require('nti.lib.interfaces/utils/namespaced-key-mirror');
 var {isFlag} = require('common/utils');
 
 import ScrollLink from './ScrollLink';

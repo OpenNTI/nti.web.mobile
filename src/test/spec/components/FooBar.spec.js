@@ -1,39 +1,41 @@
-'use strict';
+/**
+ * This is an example unit test for a React component. Tests should be placed in __test__ folders
+ * along side the components/units they will be testing.
+ */
+import React from 'react';
+import Button from 'common/forms/components/Button';
 
-var React = require('react');
+describe('FooBar', ()=> {
+	let component;
 
-describe('FooBar', function () {
-    var Component, component;
+	beforeEach(()=>{
+		let container = document.createElement('div');
+		container.id = 'content';
+		document.body.appendChild(container);
 
-    beforeEach(function () {
-        var container = document.createElement('div');
-        container.id = 'content';
-        document.body.appendChild(container);
+		component = React.render(
+			React.createElement(Button, {href: '#'}, 'Test'),
+			container
+		);
 
-        var Component = React.createFactory(require('common/forms/components/Button'));
-        component = React.render(
-            Component({href: '#'}, 'Test'),
-            container
-        );
+	});
 
-    });
-
-    it('should create a new instance of Button', function () {
-        expect(component).toBeDefined();
-        expect(component.getDOMNode().textContent).toBe('Test');
-    });
+	it('should create a new instance of Button', ()=> {
+		expect(component).toBeDefined();
+		expect(component.getDOMNode().textContent).toBe('Test');
+	});
 
 
-    it('should call preventDefault onClick', function() {
-        var event = {
-            preventDefault: function () {}
-        };
+	it('should call preventDefault onClick', ()=> {
+		let event = {
+			preventDefault: ()=> {}
+		};
 
-        spyOn(event, 'preventDefault');
+		spyOn(event, 'preventDefault');
 
-        component.onClick(event);
+		component.onClick(event);
 
-        expect(event.preventDefault).toHaveBeenCalled();
+		expect(event.preventDefault).toHaveBeenCalled();
 
-    });
+	});
 });

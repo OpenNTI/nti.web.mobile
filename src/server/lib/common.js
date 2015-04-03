@@ -1,7 +1,7 @@
 import getSite from './site-mapping';
-import {SiteName, ServiceStash} from 'dataserverinterface/CommonSymbols';
+import {SiteName, ServiceStash} from 'nti.lib.interfaces/CommonSymbols';
 
-var env = {};
+let env = {};
 
 try {
 	env = require('../config/env.json');
@@ -11,16 +11,16 @@ try {
 }
 
 //Use native node require() for optimist since it defines a 'default' property on the exports.
-var opt = require('optimist').usage('WebApp Instance')
+let opt = require('optimist').usage('WebApp Instance')
 			.options('h', {
 				alias: ['?', 'help'],
 				desc: 'Usage'
 			})
 			.options('l', {
-		        alias: 'listen',
-		        default: '0.0.0.0',
+				alias: 'listen',
+				default: '0.0.0.0',
 				desc: 'Force server to liston on address'
-		    })
+			})
 			.options('p', {
 				alias: 'port',
 				default: env.port || undefined,
@@ -31,20 +31,21 @@ var opt = require('optimist').usage('WebApp Instance')
 				default: 'proxy',
 				desc: 'Protocol to use (proxy or http)'
 			})
-			.check(v => {if (v.hasOwnProperty('h')){throw false;}})
-		    .argv;
+			/*eslint no-throw-literal:0*/
+			.check(v => {if (v.hasOwnProperty('h')){ throw false; }})
+			.argv;
 
-var overrides = {
+let baseOverrides = {
 	protocol: opt.protocol,
 	address: opt.l,
 	port: opt.p
 };
 
 
-function _override(dest, override) {
-	for (var key in override) {
-		if(override[key]) {
-			dest[key] = override[key];
+function override(dest, overrides) {
+	for (let key in overrides) {
+		if(overrides[key]) {
+			dest[key] = overrides[key];
 		}
 	}
 	return dest;
@@ -52,24 +53,26 @@ function _override(dest, override) {
 
 
 export function config() {
-	var base = 'development';
+	let base = 'development';
 
-	return _override(
+	return override(
 		Object.assign({}, env[base], env[process.env.NODE_ENV] || {}),
-		overrides);
+		baseOverrides);
 }
 
 export function clientConfig (username, context) {
 	//unsafe to send to client raw... lets reduce it to essentials
-	var unsafe = config();
-	var cfg = {
-		username: username,
-		server: unsafe.server,
+	let unsafe = config();
+	let cfg = {
+		analytics: unsafe.analytics,
 		basepath: unsafe.basepath,
+		discussions: unsafe.discussions,
 		flags: unsafe.flags,
+		server: unsafe.server,
 		/* jshint -W106 */
-		siteName: getSite(context[SiteName])
+		siteName: getSite(context[SiteName]),
 		/* jshint +W106 */
+		username: username
 	};
 
 	return {
@@ -93,10 +96,10 @@ function noServiceAndThereShouldBe() {
 	throw new Error('No Service.');
 }
 
-export function nodeConfigAsClientConfig (config, context) {
+export function nodeConfigAsClientConfig (cfg, context) {
 	return {
 		html: '',
-		config: Object.assign({}, config, {
+		config: Object.assign({}, cfg, {
 			username: context.username,
 			nodeInterface: dontUseMe,
 			/* jshint -W106 */

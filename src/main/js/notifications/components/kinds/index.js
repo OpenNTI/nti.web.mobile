@@ -13,7 +13,7 @@ import BlogComment from './BlogComment';
 import ForumComment from './ForumComment';
 import ForumTopic from './ForumTopic';
 
-var KINDS = [
+const KINDS = [
 	Unknown,
 
 	Chat,
@@ -33,7 +33,7 @@ var KINDS = [
 ];
 
 export function getNotificationItem (item, index) {
-	var Item = Unknown;
+	let Item = Unknown;
 
 	for (let Type of KINDS) {
 		if (Type !== Unknown && Type.handles && Type.handles(item)) {

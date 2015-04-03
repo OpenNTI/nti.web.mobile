@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Filter from 'common/components/CollectionFilter';
-import PageSource from 'dataserverinterface/models/ListBackedPageSource';
+import PageSource from 'nti.lib.interfaces/models/ListBackedPageSource';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -37,7 +37,11 @@ const ListView = React.createClass({
 			return null;
 		}
 
-		let sections = [{items:list, label: ''}];
+		if(filter && filter.sort) {
+			list.sort(filter.sort);
+		}
+
+		let sections = [{items: list, label: ''}];
 
 		if (filter && filter.split) {
 			sections = filter.split(list);
@@ -55,12 +59,12 @@ const ListView = React.createClass({
 		return (
 			<div>
 			{sections.map(s=>
-			<div className="grid-container" key={s.label}>
-				<h3>{s.label}</h3>
-				<ul className={'small-block-grid-1'}>
-					{s.items.map(o=><Item key={o.NTIID} item={o}/>)}
-				</ul>
-			</div>
+				<div className="grid-container" key={s.label}>
+					<h3>{s.label}</h3>
+					<ul className={'small-block-grid-1'}>
+						{s.items.map(o=><Item key={o.NTIID} item={o}/>)}
+					</ul>
+				</div>
 			)}
 			</div>
 		);
@@ -91,7 +95,7 @@ export default React.createClass({
 	render () {
 		return (
 			<div>
-				<Filter {...this.props} filters={filters}>
+				<Filter {...this.props} filters={filters} localStorageKey="catalog">
 					<ListView title={this.props.title} />
 				</Filter>
 			</div>

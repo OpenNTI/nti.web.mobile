@@ -1,6 +1,6 @@
 import React from 'react';
 import emptyFunction from 'react/lib/emptyFunction';
-import isEmpty from 'dataserverinterface/utils/isempty';
+import isEmpty from 'nti.lib.interfaces/utils/isempty';
 import moment from 'moment';
 
 export default React.createClass({

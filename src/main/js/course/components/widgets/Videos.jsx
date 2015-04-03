@@ -21,7 +21,8 @@ export default React.createClass({
 		return {
 			active: 0,
 			loading: true,
-			error: false
+			error: false,
+			pixelOffset: 0
 		};
 	},
 
@@ -38,7 +39,13 @@ export default React.createClass({
 	},
 
 
-	componentDidUpdate () {},
+	componentDidUpdate (_, prevState) {
+		let node = this.refs.v && this.refs.v.getDOMNode();
+		let {offsetWidth} = node || {};
+		if (prevState.offsetWidth !== offsetWidth) {
+			this.setState({offsetWidth});
+		}
+	},
 
 
 	__onError (error) {
@@ -68,8 +75,8 @@ export default React.createClass({
 
 
 	stopVideo () {
-		var refs = this.refs;
-		var key;
+		let refs = this.refs;
+		let key;
 		for(key in refs) {
 			if (key.indexOf('CourseOverviewVideo-') === 0) {
 				refs[key].stop();
@@ -83,7 +90,7 @@ export default React.createClass({
 			e.preventDefault();
 			e.stopPropagation();
 		}
-		var active = this.state.active;
+		let active = this.state.active;
 		this.stopVideo();
 		this.setState({
 			touch: null,
@@ -97,7 +104,7 @@ export default React.createClass({
 			e.preventDefault();
 			e.stopPropagation();
 		}
-		var active = this.state.active;
+		let active = this.state.active;
 		this.stopVideo();
 		this.setState({
 			touch: null,
@@ -109,7 +116,7 @@ export default React.createClass({
 	onActivateSlide (e) {
 		e.preventDefault();
 		e.stopPropagation();
-		var newActive = parseInt(e.target.getAttribute('data-index'), 10);
+		let newActive = parseInt(e.target.getAttribute('data-index'), 10);
 		this.stopVideo();
 		this.setState({
 			touch: null,
@@ -119,11 +126,11 @@ export default React.createClass({
 
 
 	onTouchStart (e) {
-		var touch = event.targetTouches[0];
+		let touch = event.targetTouches[0];
 
-		var active = this.state.active;
-		var videos = this.refs.v;
-		var pixelOffset = 0;
+		let active = this.state.active;
+		let videos = this.refs.v;
+		let pixelOffset = 0;
 		if (videos) {
 			videos = videos.getDOMNode();
 			pixelOffset = active * -videos.offsetWidth;
@@ -150,23 +157,23 @@ export default React.createClass({
 
 	onTouchMove (e) {
 
-		let find = (t, i) =>t || (i.identifier === state.touch.id && i);
 
-		var me = this;
-		var state = me.state;
-		var data = state.touch;
+		let me = this;
+		let state = me.state;
+		let data = state.touch;
+		let find = (t, i) =>t || (i.identifier === state.touch.id && i);
 		if (!data) {
 			console.debug('No touch data...ignoring.');
 			return;
 		}
 
-		var active = state.active;
-		var touch = Array.from(e.targetTouches||[]).reduce(find, null);
-		var sliding = data.sliding;
-		var pixelOffset = data.pixelOffset;
-		var startPixelOffset = data.startPixelOffset;
-		var delta = 0;
-		var touchPixelRatio = 1;
+		let active = state.active;
+		let touch = Array.from(e.targetTouches||[]).reduce(find, null);
+		let sliding = data.sliding;
+		let pixelOffset = data.pixelOffset;
+		let startPixelOffset = data.startPixelOffset;
+		let delta = 0;
+		let touchPixelRatio = 1;
 
 		if (touch) {
 			e.stopPropagation();
@@ -210,11 +217,11 @@ export default React.createClass({
 	onTouchEnd (/*e*/) {
 		//e.stopPropagation();
 
-		var touch = this.state.touch || {};
+		let touch = this.state.touch || {};
 
-		var pixelOffset = touch.pixelOffset;
-		var startPixelOffset = touch.startPixelOffset;
-		var fn;
+		let pixelOffset = touch.pixelOffset;
+		let startPixelOffset = touch.startPixelOffset;
+		let fn;
 
 		if (touch.sliding === 2) {
 			fn = //(Math.abs(pixelOffset - startPixelOffset)/touch.dom.offsetWidth) > 0.2 ? null ://elastic
@@ -231,11 +238,10 @@ export default React.createClass({
 
 
 	getTranslation () {
-		var active = this.state.active;
-		var touch = this.state.touch;
-		var node = this.refs.v && this.refs.v.getDOMNode();
-		var offset = touch ? touch.pixelOffset :
-				node ? (active * -node.offsetWidth) : 0;
+		let {active, touch, offsetWidth} = this.state;
+		let offset = touch ?
+				touch.pixelOffset :
+				(active * -offsetWidth);
 
 		return 'translate3d(' + offset + 'px,0,0)';
 	},
@@ -250,13 +256,12 @@ export default React.createClass({
 		if (this.state.loading) { return (<Loading/>); }
 		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>);}
 
-		var animate = this.state.touch ? '' : 'animate';
-		var translation = this.getTranslation();
-		var style = {
-			webkitTransform: translation,
+		let animate = this.state.touch ? '' : 'animate';
+		let translation = this.getTranslation();
+		let style = {
+			WebkitTransform: translation,
 			MozTransform: translation,
 			msTransform: translation,
-			OTransform: translation,
 			transform: translation
 		};
 
@@ -281,7 +286,7 @@ export default React.createClass({
 
 	_renderDots () {
 		return this.getVideoList().map((_, i) => {
-			var active = (i === (this.state.active || 0)) ? 'active' : null;
+			let active = (i === (this.state.active || 0)) ? 'active' : null;
 			return (<li key={'video-'+i}><a className={active} href={"#"+i}
 				onClick={this.onActivateSlide} data-index={i}/></li>);
 		});

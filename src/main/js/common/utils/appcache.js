@@ -1,5 +1,7 @@
 import VisibilityMonitor from './pagevis';
 
+let cache = global.applicationCache;
+
 const cacheStatusValues = [
 	'uncached',		//0
 	'idle',			//1
@@ -11,20 +13,19 @@ const cacheStatusValues = [
 
 
 function logEvent(e) {
-	var online, status, type, message;
+	let online, status, type, message;
 	online = (navigator.onLine) ? 'yes' : 'no';
 	status = cacheStatusValues[cache.status];
 	type = e.type;
 	message = 'online: ' + online;
-	message+= ', event: ' + type;
-	message+= ', status: ' + status;
+	message += ', event: ' + type;
+	message += ', status: ' + status;
 	if (type === 'error' && navigator.onLine) {
-		message+= ' (missing or syntax error in manifest?)';
+		message += ' (missing or syntax error in manifest?)';
 	}
 	console.debug(message);
 }
 
-var cache = global.applicationCache;
 
 if (cache) {
 	cache.addEventListener('cached', logEvent, false);
@@ -37,11 +38,11 @@ if (cache) {
 	cache.addEventListener('updateready', logEvent, false);
 
 	cache.addEventListener('updateready',
-	    () => {
-	        cache.swapCache();
-	        console.debug('swap cache has been called');
-	    },
-	    false
+		() => {
+			cache.swapCache();
+			console.debug('swap cache has been called');
+		},
+		false
 	);
 
 	VisibilityMonitor.addChangeListener(visible => {

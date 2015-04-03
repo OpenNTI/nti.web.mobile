@@ -26,8 +26,8 @@ class Store extends StorePrototype {
 		if (_data && _data instanceof Error) {
 			_data = {
 				error: data,
-				notFound: data.message === NOT_FOUND};
-			return;
+				notFound: _data.message === NOT_FOUND.toString() || _data.message === NOT_FOUND
+			};
 		}
 
 		this[data] = _data;

@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var isEmpty = require('dataserverinterface/utils/isempty');
+var isEmpty = require('nti.lib.interfaces/utils/isempty');
 
 module.exports = React.createClass({
 	displayName: 'Loading',

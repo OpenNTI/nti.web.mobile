@@ -22,7 +22,7 @@ export function setupDeveloperMode(config) {
 		noInfo: false,
 		quiet: false,
 		lazy: false,
-		watchDelay: 1000,
+		watchDelay: 5000,
 		publicPath: '/',
 
 		stats: {

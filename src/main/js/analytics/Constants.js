@@ -1,2 +1,5 @@
-export const NEW_EVENT = 'analytics:New Event';
-export const VIDEO_PLAYER_EVENT = 'analytics:Video Player Event';
+export const EVENT_STARTED = 'analytics:Event Started';
+export const EVENT_ENDED = 'analytics:Event Ended';
+export const END_SESSION = 'analytics:End Session';
+export const RESUME_SESSION = 'analytics:Resume Session';
+

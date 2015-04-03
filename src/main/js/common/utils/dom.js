@@ -1,24 +1,23 @@
 import {getWidth as getViewportWidth, getHeight as getViewportHeight} from './viewport';
 
-import isEmpty from 'dataserverinterface/utils/isempty';
+import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
-import between from 'dataserverinterface/utils/between';
+import between from 'nti.lib.interfaces/utils/between';
 
-import withValue from 'dataserverinterface/utils/object-attribute-withvalue';
 
 function hyphenatedToCamel (s) {
-	var re = hyphenatedToCamel.re = (hyphenatedToCamel.re || /-([a-z])/g);
+	let re = hyphenatedToCamel.re = (hyphenatedToCamel.re || /-([a-z])/g);
 	return s.replace(re, g=>g[1].toUpperCase());
 }
 
 
-export function isMultiTouch  (e) {
+export function isMultiTouch (e) {
 	return e.touches && e.touches.length > 1;
 }
 
 
-export function isPointWithIn  (el,...point) {
-	var rect,
+export function isPointWithIn (el, ...point) {
+	let rect,
 		{x, y} = point[0];
 
 	if (point.length > 1) {
@@ -35,8 +34,8 @@ export function isPointWithIn  (el,...point) {
 }
 
 
-export function getElementRect  (el) {
-	var rect, w, h;
+export function getElementRect (el) {
+	let rect, w, h;
 	if (el && el.getBoundingClientRect) {
 		rect = el.getBoundingClientRect();
 	}
@@ -68,7 +67,7 @@ export function getElementRect  (el) {
 }
 
 
-export function scrollElementBy  (el, x, y) {
+export function scrollElementBy (el, x, y) {
 	x = x||0;
 	y = y||0;
 
@@ -81,7 +80,7 @@ export function scrollElementBy  (el, x, y) {
 }
 
 
-export function getScrollPosition  (el) {
+export function getScrollPosition (el) {
 	if (el.scrollTop == null) {
 		el = document.body;
 	}
@@ -92,7 +91,7 @@ export function getScrollPosition  (el) {
 }
 
 
-export function addEventListener  (el, event, handler) {
+export function addEventListener (el, event, handler) {
 	if (el.addEventListener) {
 		el.addEventListener(event, handler, true);
 	}
@@ -107,7 +106,7 @@ export function addEventListener  (el, event, handler) {
 }
 
 
-export function removeEventListener  (el, event, handler) {
+export function removeEventListener (el, event, handler) {
 	if (el.removeEventListener) {
 		el.removeEventListener(event, handler, true);
 	}
@@ -122,109 +121,22 @@ export function removeEventListener  (el, event, handler) {
 }
 
 
-export function hasClass (el, className) {
-	var classes = (el.className || '').split(' ');
-	return classes.indexOf(className) !== -1;
-}
-
-
-export function addClass  (el, className) {
-	if (el.classList) {
-		return el.classList.add(className);
-	}
-
-	var classes;
-	if (!hasClass(el, className)) {
-		classes = (el.className || '').split(' ');
-		classes.push(className);
-		el.className = classes.join(' ');
-	}
-}
-
-
-export function removeClass  (el, className) {
-	if (el.classList) {
-		return el.classList.remove(className);
-	}
-
-	var classes;
-	if (hasClass(el, className)) {
-		classes = (el.className || '').split(' ');
-		classes.splice(classes.indexOf(className), 1);
-		el.className = classes.join(' ');
-	}
-}
-
-
-export function matches(el, selector) {
-	var fn = matches.nativeFn;
-	if(fn === undefined) {
-		//Figure out what the native function is called... (if any)
-		// If non, it should set it to 'null' and prevent the above
-		// strict equality from passing in the future.
-		fn = matches.nativeFn = [
-			'matches',
-			'webkitMatchesSelector',
-			'mozMatchesSelector',
-			'msMatchesSelector'
-		].reduce((fn, name) => {
-				return fn || (el[name] && name) || null; }, null);
-	}
-
-	if (fn) {
-		return el[fn](selector);
-	}
-
-	//In the fallback case, and there happens to be no `parentNode`... we're screwed. :|
-	//Maybe create a DocumentFragment and append el to that and use that as the parent?
-	return !!Array.from(el.parentNode.querySelectorAll(selector))
-		.reduce((match, potential) => {
-			return match || (el === potential && potential);
-		});
-}
-
-
-/**
- * Much like the Sencha ExtJS EventObject.getTarget() method. This will
- * resolve an event target based on the selector.  If the selector does
- * not match it will not return anything. If no selector is given, it will
- * simply return the target.(normalized)
- *
- * @param {Event} event    The browser/synthetic event. (Must have a
- *                         `target` property to used duck-typed)
- * @param {String} selector A CSS selector.
- */
-export function getEventTarget (event, selector) {
-	var t = event.target || event.srcElement;
-	if (t && t.nodeType === Node.TEXT_NODE) {
-		t = t.parentNode;
-	}
-
-	if (t && !isEmpty(selector)) {
-		while(t.parentNode && !matches(t, selector)) {
-			t = t.parentNode;
-		}
-	}
-
-	//this will return null for any node/falsy value of t where t's NodeType
-	// is not an Element.
-	return (t && t.nodeType === Node.ELEMENT_NODE && t) || null;
-}
-
-
 export function filterNodeList (nodeList, filter) {
-	var d = Array.from(nodeList);
+	let d = Array.from(nodeList);
 
 	if (typeof filter === 'string') {
-		filter = this[filter];
+		//Predefined filter by name
+
+		//filter = this[filter];
+		throw new Error('Not Implemented');
 	}
 
 	return d.filter(filter);
 }
 
 
-export function parentElements  (el) {
-	var parents = [], p;
+export function parentElements (el) {
+	let parents = [], p;
 
 	while(el) {
 		el = p = el.parentNode;
@@ -237,8 +149,8 @@ export function parentElements  (el) {
 }
 
 
-export function getStyle  (el, property) {
-	var getStyles = x => {
+export function getStyle (el, property) {
+	let getStyles = x => {
 		// IE throws on elements created in popups
 		// FF meanwhile throws on frame elements (see jQuery source)
 		if ( x.ownerDocument.defaultView.opener ) {
@@ -247,7 +159,7 @@ export function getStyle  (el, property) {
 		return global.getComputedStyle( x, null );
 	};
 
-	var styles = getStyles(el);
+	let styles = getStyles(el);
 
 	return styles && styles[property];
 }
@@ -255,11 +167,11 @@ export function getStyle  (el, property) {
 
 export function scrollParent (el) {
 	//Inspired by jQuery#scrollParent
-	var position = getStyle(el, 'position' );
-	var excludeStaticParent = position === 'absolute';
-	var css = getStyle.bind(this);
-	var allowsOverflow = /(auto|scroll)/;
-	var viewport = el.ownerDocument || document;
+	let position = getStyle(el, 'position' );
+	let excludeStaticParent = position === 'absolute';
+	let css = getStyle.bind(this);
+	let allowsOverflow = /(auto|scroll)/;
+	let viewport = el.ownerDocument || document;
 
 	function overflowed(parent) {
 		if (excludeStaticParent && css(parent, 'position' ) === 'static') {
@@ -273,50 +185,53 @@ export function scrollParent (el) {
 		);
 	}
 
-	var scrollParent = position !== 'fixed' && parentElements(el).filter(overflowed);
+	let scrollingEl = position !== 'fixed' && parentElements(el).filter(overflowed);
 
-	return (!scrollParent || !scrollParent.length) ? viewport : scrollParent[0];
+	return (!scrollingEl || !scrollingEl.length) ? viewport : scrollingEl[0];
 }
 
 
 export function isRootObject(e) {
-	var p = e.parentNode;
+	let p = e.parentNode;
 	if (p && p.nodeName === 'OBJECT') { return false; }
 	return p ? isRootObject(p) : true;
 }
 
 
 export function parseDomObject (el, attributePrefix) {
-	var obj = {};
-	var prefix = isEmpty(attributePrefix, true) ?
+	let obj = {};
+	let prefix = isEmpty(attributePrefix, true) ?
 				'' : attributePrefix;
 
 	Array.from(el.attributes).forEach(p => {
-		__addValue(obj,
+		addValueFor(obj,
 			hyphenatedToCamel(prefix + p.name),
 			p.value);
 	});
 
-	__directChildNodes(el, 'param').forEach(p => __addValue(obj, p.name, p.value));
+	getDirectChildNodes(el, 'param').forEach(p => addValueFor(obj, p.name, p.value));
 
 	// SAJ: Does not work as intent and just wastes CPU cycles.
-	// __directChildNodes(el, 'object').forEach(p=>parseDomObject(p));
+	// getDirectChildNodes(el, 'object').forEach(p=>parseDomObject(p));
 
 
-	Object.defineProperty(obj, 'dom', withValue(el.cloneNode(true)));
+	Object.defineProperty(obj, 'dom', {
+		//configurable: true,
+		value: el.cloneNode(true)
+	});
 
 	return obj;
 }
 
 
 export function getVideosFromDom (contentElement) {
-	var videoQS = 'object .naqvideo, object .ntivideo',
+	let videoQS = 'object .naqvideo, object .ntivideo',
 		sourceQS = 'object[type$=videosource]',
 		videoObjects = [];
 
 	if (contentElement) {
 		Array.from(contentElement.querySelectorAll(videoQS)).forEach(v => {
-			var o = parseDomObject(v),
+			let o = parseDomObject(v),
 				s = o.sources = [];
 
 			Array.from(v.querySelectorAll(sourceQS)).forEach(source =>
@@ -331,7 +246,7 @@ export function getVideosFromDom (contentElement) {
 
 
 export function getImagesFromDom (contentElement) {
-	var imageObjects = [];
+	let imageObjects = [];
 
 	Array.from(contentElement.querySelectorAll('span > img')).forEach(i =>
 		imageObjects.push(parseDomObject(i)));
@@ -348,7 +263,7 @@ export function getImagesFromDom (contentElement) {
  * profile we do the right thing.
  */
 export function retargetAnchorsWithExternalRefs (markup, baseUrl) {
-	var string = (typeof markup === 'string'),
+	let string = (typeof markup === 'string'),
 		tempDom;
 
 	if (!markup) {
@@ -362,7 +277,7 @@ export function retargetAnchorsWithExternalRefs (markup, baseUrl) {
 	}
 
 	Array.from(markup.querySelectorAll('a[href]')).forEach(link => {
-		var href = link.href || '',
+		let href = link.href || '',
 			base = baseUrl.split('#')[0],
 			changeTarget = href.indexOf(base) !== 0;
 
@@ -375,47 +290,6 @@ export function retargetAnchorsWithExternalRefs (markup, baseUrl) {
 }
 
 
-export function isEmpty(value) {
-	var re = (isEmpty.re || /((&nbsp;)|(\u2060)|(\u200B)|(<br\/?>)|(<\/?div>))*/ig);
-
-	isEmpty.re = re;
-
-	value = (Array.isArray(value) && value.join('')) || String(value);
-
-	return value.replace(re, '') === '';
-}
-
-
-/**
- * Replace a node in the DOM Tree
- *
- * @param {Element} oldNode The node that will be replaced.
- * @param {Element} [newNode] The node to replace the with.
- * @returns {Element} The node that was replaced.
- */
-export function replaceNode (oldNode, newNode) {
-	var parentNode = oldNode && oldNode.parentNode;
-	if (!parentNode) {
-		throw new Error('Invalid Arguments');
-	}
-
-	if(newNode) {
-		parentNode.insertBefore(newNode, oldNode);
-	}
-
-	parentNode.removeChild(oldNode);
-	return oldNode;
-}
-
-
-export function removeNode (el) {
-	var p = el && el.parentNode;
-	if (p) {
-		p.removeChild(el);
-	}
-}
-
-
 /**
  * @param {String|Node} html
  * @return {String}
@@ -424,7 +298,7 @@ export function sanitizeExternalContentForInput (html) {
 	console.debug('Sanitizing html...', html);
 	//html = html.trim().replace(/[\n\r]+/g, ' ');
 
-	var offScreenBuffer = document.createElement('div'),
+	let offScreenBuffer = document.createElement('div'),
 		toRemove, i;
 
 	if (typeof html === 'string') {
@@ -433,11 +307,11 @@ export function sanitizeExternalContentForInput (html) {
 		offScreenBuffer.appendChild(html.cloneNode(true));
 	}
 
-	toRemove = __pickUnsanitaryElements(offScreenBuffer, true);
+	toRemove = pickUnsanitaryElements(offScreenBuffer, true);
 
 	//Data gathered, do the remove (in reverse)
 	for (i = toRemove.length - 1; i >= 0; i--) {
-		__removeNodeRecursively(toRemove[i]);
+		removeNodeRecursively(toRemove[i]);
 	}
 
 	//get the new html content...
@@ -452,7 +326,7 @@ export function enforceNumber (e) {
 		return lower <= key && key <= upper;
 	}
 
-	var input = e.target,
+	let input = e.target,
 		maxLength = parseInt(input.getAttribute('size'), 10) || -1,
 		tooLong = (input.value || '').length + 1 > maxLength,
 
@@ -480,10 +354,10 @@ export function enforceNumber (e) {
 }
 
 
-function __addValue(o, n, v) {
-	var re = __addValue.re = (__addValue.re || /^data([A-Z])/);
-	/* jshint -W054 *///Creating a function without scope chain
-	var fn = __addValue.fn = (__addValue.fn || new Function('m, a', 'return a.toLowerCase();'));
+function addValueFor(o, n, v) {
+	let re = addValueFor.re = (addValueFor.re || /^data([A-Z])/);
+	//Creating a function without scope chain
+	let fn = addValueFor.fn = (addValueFor.fn || new Function('m, a', 'return a.toLowerCase();'));//eslint-disable-line no-new-func
 	if (re.test(n)) {
 		n = n.replace(re, fn);
 		o.dataset = (o.dataset || {});
@@ -491,12 +365,12 @@ function __addValue(o, n, v) {
 	}
 
 
-	var c = o[n]; o[n] = c ? (Array.isArray(c) ? c : [c]).concat(v) : v;
+	let c = o[n]; o[n] = c ? (Array.isArray(c) ? c : [c]).concat(v) : v;
 }
 
 
 
-function __directChildNodes(el, tag) {
+function getDirectChildNodes(el, tag) {
 	tag = tag.toUpperCase();
 	return Array.from(el.childNodes).filter(node => node.nodeName.toUpperCase() === tag);
 }
@@ -514,8 +388,8 @@ function __directChildNodes(el, tag) {
  * @return {Node[]}
  * @private
  */
-function __pickUnsanitaryElements (root, cleanAttributes) {
-	var namespaced = /:/,
+function pickUnsanitaryElements (root, cleanAttributes) {
+	let namespaced = /:/,
 		picked = [], tw, name, value, el, i,
 		notJs = /^(?!javascript:).*/i,
 		present = /.*/,
@@ -528,11 +402,11 @@ function __pickUnsanitaryElements (root, cleanAttributes) {
 			LINK: 1, STYLE: 1, META: 1, TITLE: 1, HEAD: 1,
 			SCRIPT: 1, OBJECT: 1, EMBED: 1, APPLET: 1
 		};
-	/* jshint -W016*/
-	tw = document.createTreeWalker(root, NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_ELEMENT, null, false);
+
+	tw = document.createTreeWalker(root, NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_ELEMENT, null, false);// eslint-disable-line no-bitwise
 	do {
 		el = tw.nextNode();
-		if (!el) {continue;}
+		if (!el) { continue; }
 
 			//Remove comments
 		if ((el.nodeType === Node.COMMENT_NODE) ||
@@ -576,11 +450,11 @@ function __pickUnsanitaryElements (root, cleanAttributes) {
  * @param {Node} el
  * @private
  */
-function __removeNodeRecursively(el) {
-	var pn = el && el.parentNode;
-	if (!pn) {return;}
+function removeNodeRecursively(el) {
+	let pn = el && el.parentNode;
+	if (!pn) { return; }
 	pn.removeChild(el);
 	if (pn.childNodes.length === 0) {
-		__removeNodeRecursively(pn);
+		removeNodeRecursively(pn);
 	}
 }

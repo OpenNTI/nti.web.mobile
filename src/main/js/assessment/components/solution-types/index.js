@@ -17,7 +17,7 @@ import FillInTheBlankShortAnswer from './FillInTheBlankShortAnswer';
 import FillInTheBlankWithWordBank from './FillInTheBlankWithWordBank';
 
 
-var KINDS = [
+const KINDS = [
 	Unknown,
 	Solution,
 
@@ -35,7 +35,7 @@ var KINDS = [
 
 
 export function getSolutionWidget (item, index) {
-	var Item = Unknown;
+	let Item = Unknown;
 
 	for (let Type of KINDS) {
 		if (Type !== Unknown && Type.handles && Type.handles(item)) {

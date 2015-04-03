@@ -28,7 +28,7 @@ export default {
 		}
 
 		return n.makeHref(path);
- 	},
+	},
 
 
 	makeParentRouterHref (path) {

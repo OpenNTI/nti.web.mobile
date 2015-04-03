@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from 'react-router-component';
 
-import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';

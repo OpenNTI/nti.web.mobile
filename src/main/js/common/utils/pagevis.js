@@ -1,19 +1,17 @@
-'use strict';
+import {EventEmitter} from 'events';
 
-var EventEmitter = require('events').EventEmitter;
-
-var CHANGE_EVENT = 'visibilitychange';
-var views = 0;
-var prefix = (function () {
+const CHANGE_EVENT = 'visibilitychange';
+let views = 0;
+let prefix = (()=> {
 
 	try {
-		var prefixes = ['webkit','moz','ms','o'];
-	    var p = null, i = 0;
+		let prefixes = ['webkit', 'moz', 'ms', 'o'];
+		let p = null, i = 0;
 		if (typeof document === 'undefined') {
 			return;
 		}
 
-	    if (document.hidden !== undefined) {
+		if (document.hidden !== undefined) {
 			p = '';
 		}
 		else {
@@ -32,23 +30,23 @@ var prefix = (function () {
 	}
 
 })();
-var eventName = prefix + 'visibilitychange';
-var propertyName = prefix === '' ? 'hidden' : (prefix + 'Hidden');
 
-function VisibilityMonitor(){}
+const eventName = prefix + 'visibilitychange';
+const propertyName = prefix === '' ? 'hidden' : (prefix + 'Hidden');
 
-Object.assign(VisibilityMonitor.prototype, EventEmitter.prototype, {
-	getViews: function() {return views;},
+class VisibilityMonitor extends EventEmitter {
 
-	addChangeListener: function(callback) {
+	getViews () { return views; }
+
+	addChangeListener (callback) {
 		this.on(CHANGE_EVENT, callback);
-	},
-});
+	}
+}
 
-var mon = new VisibilityMonitor();
+let mon = new VisibilityMonitor();
 
 function countView() {
-	var hidden = document[propertyName];
+	let hidden = document[propertyName];
 
 	// The page is in foreground and visible
 	if (hidden === false) {
@@ -62,8 +60,9 @@ function setupPageVisibility() {
 	if (prefix !== null && typeof document !== 'undefined') {
 		document.addEventListener(eventName, countView);
 		countView();
-    }
+	}
 }
 
 setupPageVisibility();
-module.exports = mon;
+
+export default mon;

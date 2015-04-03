@@ -7,6 +7,7 @@ import {translate as t} from 'common/locale';
 
 const WHITESPACE_ENTITIES_AND_TAGS = /((<[^>]+>)|&nbsp;|[\s\r\n])+/ig;
 
+//TODO: combine this into nti.lib.domjs's isValueEmpty
 function isEmpty(html) {
 	if (!Array.isArray(html)) {
 		html = [html];

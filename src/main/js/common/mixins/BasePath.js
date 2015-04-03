@@ -1,8 +1,6 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-
-Object.assign(exports, {
+export default {
 
 	contextTypes: {
 		basePath: React.PropTypes.string.isRequired
@@ -12,4 +10,4 @@ Object.assign(exports, {
 		return this.context.basePath;
 	}
 
-});
+}

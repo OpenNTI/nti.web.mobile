@@ -17,5 +17,5 @@ export default {
 	},
 
 
-	getPath () { return this.getNavigable().getPath(); },
+	getPath () { return this.getNavigable().getPath(); }
 };

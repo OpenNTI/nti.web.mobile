@@ -1,27 +1,7 @@
-'use strict';
-var React = require('react');
-var emptyFunction = require('react/lib/emptyFunction');
+import React from 'react';
+import emptyFunction from 'react/lib/emptyFunction';
 
-function dismiss(dialog) {
-	dialog.props.onDismiss.call();
-	dialog.props.onDismiss = emptyFunction;//don't double call
-
-	dialog.setState({dismissing: true});
-
-	//Wait for animation before we remove it.
-	setTimeout(
-		()=>{
-			if (!exports.clear() && dialog.isMounted()) {
-				console.warn('React did not unmount %o', dialog);
-			}
-		},
-		500//animation delay (0.5s)
-	);
-}
-
-
-module.exports = exports = React.createClass({
-	displayName: 'Dialog',
+let Dialog = React.createClass({
 
 	statics: {
 		active: null,
@@ -31,7 +11,7 @@ module.exports = exports = React.createClass({
 		},
 
 		clear () {
-			var res = React.unmountComponentAtNode(this.getMountPoint());
+			let res = React.unmountComponentAtNode(this.getMountPoint());
 			if (res) {//only clear active if React unmounted the component at the mount point.
 				this.active = null;
 			}
@@ -43,10 +23,14 @@ module.exports = exports = React.createClass({
 				this.active.dismiss();
 			}
 
-
-			this.active = React.render(
-				React.createElement(exports, props),
-				this.getMountPoint());
+			try {
+				this.active = React.render(
+					React.createElement(Dialog, props),
+					this.getMountPoint());
+			}
+			catch (e) {
+				console.error(e.stack || e.message || e);
+			}
 
 		}
 	},
@@ -124,7 +108,7 @@ module.exports = exports = React.createClass({
 
 
 	componentDidUpdate () {
-		var focusNode;
+		let focusNode;
 		if (this.isMounted()) {
 			focusNode = this.refs.confirm || this.refs.cancel || this;
 
@@ -134,9 +118,9 @@ module.exports = exports = React.createClass({
 
 
 	render () {
-		var {title, message, iconClass} = this.props;
+		let {title, message, iconClass} = this.props;
 
-		var state = 'showing';
+		let state = 'showing';
 		if (this.state.dismissing) {
 			state = 'dismissing';
 		}
@@ -165,7 +149,7 @@ module.exports = exports = React.createClass({
 
 
 	renderCancelButton () {
-		var {onCancel, cancelButtonLabel,cancelButtonClass} = this.props;
+		let {onCancel, cancelButtonLabel, cancelButtonClass} = this.props;
 
 		cancelButtonLabel = cancelButtonLabel || 'Cancel';//TODO: localize the default
 
@@ -182,7 +166,7 @@ module.exports = exports = React.createClass({
 
 
 	renderConfirmButton () {
-		var {onConfirm, confirmButtonLabel,confirmButtonClass} = this.props;
+		let {onConfirm, confirmButtonLabel, confirmButtonClass} = this.props;
 
 		confirmButtonLabel = confirmButtonLabel || 'OK';//TODO: localize the default
 		confirmButtonClass = confirmButtonClass || 'primary';
@@ -210,3 +194,23 @@ module.exports = exports = React.createClass({
 	}
 
 });
+
+export default Dialog;
+
+
+function dismiss(dialog) {
+	dialog.props.onDismiss.call();
+	dialog.props.onDismiss = emptyFunction;//don't double call
+
+	dialog.setState({dismissing: true});
+
+	//Wait for animation before we remove it.
+	setTimeout(
+		()=>{
+			if (!Dialog.clear() && dialog.isMounted()) {
+				console.warn('React did not unmount %o', dialog);
+			}
+		},
+		500//animation delay (0.5s)
+	);
+}

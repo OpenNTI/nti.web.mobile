@@ -8,7 +8,7 @@ import {
 	getVideosFromDom
 } from 'common/utils/dom';
 
-import {parseNTIID} from 'dataserverinterface/utils/ntiids';
+import {parseNTIID} from 'nti.lib.interfaces/utils/ntiids';
 
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
@@ -46,7 +46,7 @@ function dispatch(type, response) {
  *	@param {String} Content Page NTIID
  */
 export function loadPage (ntiid) {
-	var isAssessmentID = parseNTIID(ntiid).specific.type === 'NAQ';
+	let isAssessmentID = parseNTIID(ntiid).specific.type === 'NAQ';
 
 	Promise.all([
 		getLibrary(),
@@ -54,8 +54,7 @@ export function loadPage (ntiid) {
 	])
 
 		.then(data => {
-			var lib= data[0];
-			var pi = data[1];
+			let [lib, pi] = data;
 
 			if (pi.getID() !== ntiid && !isAssessmentID) {
 				// We will always missmatch for assessments, since we
@@ -65,19 +64,26 @@ export function loadPage (ntiid) {
 				console.warn('PageInfo ID missmatch! %s != %s %o', ntiid, pi.getID());
 			}
 
-			var p = lib.getPackage(pi.getPackageID());
+			let p = lib.getPackage(pi.getPackageID());
+
 
 			return Promise.all([
+				//Load the toc
 				(p && p.getTableOfContents()) || Promise.reject('No Package for Page!'),
-				pi.getContent()
 
+				//Load the page html
+				pi.getContent(),
+
+				//Get the data store. (Important note: the store itself will load in parallel
+				// (and not block page render))
+				pi.getUserData()
 			]).then(data => {
-				var toc = data[0];
-				var htmlStr = data[1];
+				let [toc, htmlStr, ugd] = data;
 				return {
 					tableOfContents: toc,
 					pageInfo: pi,
-					content: htmlStr
+					content: htmlStr,
+					userDataStore: ugd
 				};
 			});
 		})
@@ -96,9 +102,9 @@ export function loadPage (ntiid) {
 
 
 function fetchResources(packet) {
-	var page = packet.pageInfo;
-	var get = page.getResource.bind(page);
-	var requests = packet.styles.map(get);
+	let page = packet.pageInfo;
+	let get = page.getResource.bind(page);
+	let requests = packet.styles.map(get);
 
 	return Promise.all(requests)
 		// .catch(reason=>{
@@ -128,7 +134,7 @@ function parseFramedElement(el) {
 		return o || (Array.isArray(i) ? i.reduce(flat) : i);
 	}
 
-	var data = parseDomObject(el);
+	let data = parseDomObject(el);
 
 	data.item = [
 		getImagesFromDom(el),

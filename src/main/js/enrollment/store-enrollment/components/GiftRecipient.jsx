@@ -4,8 +4,8 @@
 var React = require('react');
 
 var _t = require('common/locale').scoped('ENROLLMENT.GIFT.RECIPIENT');
-var isEmail = require('dataserverinterface/utils/isemail');
-var toArray = require('dataserverinterface/utils/toarray');
+var isEmail = require('nti.lib.interfaces/utils/isemail');
+var toArray = require('nti.lib.interfaces/utils/toarray');
 
 var Store = require('../Store');
 

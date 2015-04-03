@@ -2,7 +2,7 @@ import React from 'react';
 
 import path from 'path';
 
-import NTIID from 'dataserverinterface/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import Loading from 'common/components/Loading';
 
@@ -60,7 +60,7 @@ export default React.createClass({
 	},
 
 	getCourseTitle () {
-		let entryId = NTIID.decodeFromURI(this.props.entryId);
+		let entryId = decodeFromURI(this.props.entryId);
 		let entry = CatalogStore.getEntry(entryId);
 		return entry.Title;
 	},
@@ -89,7 +89,7 @@ export default React.createClass({
 	* one option for a given course.
 	*/
 	renderWidgets () {
-		let entryId = NTIID.decodeFromURI(this.props.entryId);
+		let entryId = decodeFromURI(this.props.entryId);
 		let entry = CatalogStore.getEntry(entryId);
 		let items = entry.EnrollmentOptions.Items;
 		let enrollmentTypes = Object.keys(items);

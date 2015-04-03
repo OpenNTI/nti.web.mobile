@@ -1,7 +1,7 @@
-import {replaceNode} from 'common/utils/dom';
-import guid from 'dataserverinterface/utils/guid';
-import indexArrayByKey from 'dataserverinterface/utils/array-index-by-key';
-import toArray from 'dataserverinterface/utils/toarray';
+import replaceNode from 'nti.lib.dom/lib/replacenode';
+import guid from 'nti.lib.interfaces/utils/guid';
+import indexArrayByKey from 'nti.lib.interfaces/utils/array-index-by-key';
+import toArray from 'nti.lib.interfaces/utils/toarray';
 
 var MARKER_REGEX = /nti:widget-marker\[([^\]\>]+)\]/i;
 var WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(?:[^\]>]*)-->/ig;

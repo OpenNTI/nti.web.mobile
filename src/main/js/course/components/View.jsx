@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from 'react-router-component';
 
-import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import NotFound from 'notfound/components/View';
 
@@ -100,8 +100,8 @@ export default React.createClass({
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route=>
 				route.path ?
-				<Router.Location {...route} course={course}/> :
-				<Router.NotFound handler={Redirect} location="o/" />
+				React.createElement(Router.Location, Object.assign({}, route, {course})) :
+				React.createElement(Router.NotFound, {handler:Redirect, location: 'o/'})
 			));
 	},
 

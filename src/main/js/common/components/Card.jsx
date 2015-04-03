@@ -29,7 +29,7 @@ import NavigatableMixin from '../mixins/NavigatableMixin';
 
 import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
-import {isNTIID, encodeForURI} from 'dataserverinterface/utils/ntiids';
+import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const Progress = Symbol.for('Progress');
 
@@ -186,10 +186,10 @@ export default React.createClass({
 					</div>
 				}
 
-				<h5 dangerouslySetInnerHTML={{__html: item.title}}/>
+				<h5 dangerouslySetInnerHTML={{__html: item.title || ''}}/>
 				<hr className="break hide-for-medium-up"/>
-				<div className="label" dangerouslySetInnerHTML={{__html: item.creator}}/>
-				<div className="description" dangerouslySetInnerHTML={{__html: item.desc}}/>
+				<div className="label" dangerouslySetInnerHTML={{__html: item.creator || ''}}/>
+				<div className="description" dangerouslySetInnerHTML={{__html: item.desc || ''}}/>
 			</a>
 		);
 	}

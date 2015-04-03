@@ -6,9 +6,10 @@ import {
 
 import React from 'react';
 
-import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import {addClass, removeClass} from 'common/utils/dom';
+import addClass from 'nti.lib.dom/lib/addclass';
+import removeClass from 'nti.lib.dom/lib/removeclass';
 
 import LoadingMask from 'common/components/Loading';
 

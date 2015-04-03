@@ -5,7 +5,7 @@ var React = require('react');
 var ButtonPlain = require('common/forms/components/Button');
 var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
 var {getBasePath} = require('common/utils');
-var {encodeForURI} = require('dataserverinterface/utils/ntiids');
+var {encodeForURI} = require('nti.lib.interfaces/utils/ntiids');
 var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 
 var RedeemButton = React.createClass({

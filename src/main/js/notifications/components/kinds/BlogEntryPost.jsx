@@ -14,7 +14,7 @@ export default React.createClass({
 	},
 
 	render () {
-		var thestring = " commented on a discussion.";
+		let thestring = " commented on a discussion.";
 		return (
 			<li className="notification-item">
 				<Avatar username={this.state.username} width="32" height="32"/>

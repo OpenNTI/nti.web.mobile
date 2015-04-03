@@ -169,14 +169,16 @@ section.right-small {
 %back-button {
 	display: inline-block;
 	position: relative;
-	max-width: 35vw;
 	height: 2.8125rem;
 	line-height: 2.8125rem;
 	font-weight: 400;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+
+	@include viewportWidth(max-width, 35);
 }
+
 
 .tab-bar {
 	background: #fff;

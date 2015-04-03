@@ -1,4 +1,4 @@
-import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import React from 'react';
 
 import DateTime from 'common/components/DateTime';
@@ -124,7 +124,7 @@ export default React.createClass({
 		if (loading) { return (<Loading/>); }
 		if (error) { return (<ErrorWidget error={error}/>); }
 
-		let title = (data || {}).title;
+		let title = (data || {}).title || '';
 		let items = (data || {}).Items || [];
 
 		return (

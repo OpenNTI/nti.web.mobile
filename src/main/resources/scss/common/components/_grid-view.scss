@@ -220,6 +220,7 @@
 
 
 li.catalog-item {
+	position: relative;
 	border-top: 1px solid #eaeaea;
 	padding: 0;
 
@@ -232,7 +233,7 @@ li.catalog-item {
 		}
 	}
 
-	button {
+	.action {
 		float: right;
 		padding: 0.25rem 0.5rem;
 		text-transform: uppercase;
@@ -294,9 +295,18 @@ li.catalog-item {
 	}
 
 	h5 {
+		display: inline;
 		font-size: 0.8rem;
 		font-weight: 600;
 		text-transform: uppercase;
 		color: $tertiary-grey;
+
+		& + h5 {
+			@extend %middot-before;
+
+			// color: $tertiary-grey;
+			// font-size: 0.55rem;
+			// text-transform: uppercase;
+		}
 	}
 }

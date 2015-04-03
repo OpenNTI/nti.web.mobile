@@ -2,6 +2,15 @@ import {scoped} from 'common/locale';
 
 let getLabel = scoped('LIBRARY.CATEGORY');
 
+function courseSortComparatorFunc(a, b) {
+
+	function strComp(s1, s2) {
+		return s1 < s2 ? -1 : s1 > s2 ? 1 : 0;
+	}
+
+	return strComp((a||{}).ProviderUniqueID, (b||{}).ProviderUniqueID) || strComp((a||{}).title, (b||{}).title);
+}
+
 export default [
 	{
 		name: getLabel('upcoming'),
@@ -15,7 +24,8 @@ export default [
 				console.error(e);
 				return false;
 			}
-		}
+		},
+		sort: courseSortComparatorFunc
 	},
 	{
 		name: getLabel('current'),
@@ -32,7 +42,8 @@ export default [
 				console.error(e);
 				return false;
 			}
-		}
+		},
+		sort: courseSortComparatorFunc
 	},
 	{
 		name: getLabel('archived'),
@@ -47,7 +58,7 @@ export default [
 				return false;
 			}
 		},
-
+		sort: courseSortComparatorFunc,
 		split: list => {
 			let bins = {};
 

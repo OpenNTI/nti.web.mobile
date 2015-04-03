@@ -3,10 +3,10 @@
 var React = require('react');
 var Mixin = require('./Mixin');
 
-var {getEventTarget} = require('common/utils/dom');
+var getEventTarget = require('nti.lib.dom/lib/geteventtarget');
 
-var toArray = require('dataserverinterface/utils/toarray');
-var isTruthy = require('dataserverinterface/utils/identity');
+var toArray = require('nti.lib.interfaces/utils/toarray');
+var isTruthy = require('nti.lib.interfaces/utils/identity');
 var valueIfChecked = function(i){return i.checked && i.value; };
 
 /**

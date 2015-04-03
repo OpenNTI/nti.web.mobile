@@ -5,7 +5,7 @@ var Mixin = require('./Mixin');
 
 var Content = require('../Content');
 
-var toArray = require('dataserverinterface/utils/toarray');
+var toArray = require('nti.lib.interfaces/utils/toarray');
 
 /**
  * This solution type represents Matching

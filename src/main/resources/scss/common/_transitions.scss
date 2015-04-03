@@ -4,16 +4,13 @@
 		@error "This mixin cannot handle the specialcase of transform";
 	}
 	-webkit-transition: #{$prop};
-	-o-transition: #{$prop};
 	transition: #{$prop};
 }
 
 @mixin transform($prop) {
-	-webkit-transform: #{$prop};
-	-moz-transform: #{$prop};
-	-ms-transform: #{$prop};
-	-o-transform: #{$prop};
-	transform: #{$prop};
+	-webkit-transform: #{$prop};//Apple products
+	-ms-transform: #{$prop};//IE9
+	transform: #{$prop};//Everyone else
 }
 
 @mixin reactTransition($name) {

@@ -3,8 +3,9 @@ global.SERVER = true;
 import express from 'express';
 import path from 'path';
 //import fs from 'fs';
-import waitFor from 'dataserverinterface/utils/waitfor';
-import dataserver from 'dataserverinterface';
+import waitFor from 'nti.lib.interfaces/utils/waitfor';
+import dataserver from 'nti.lib.interfaces';
+import {Pending} from 'nti.lib.interfaces/CommonSymbols';
 
 import api from './api';
 import cacheBuster from './no-cache';
@@ -22,18 +23,18 @@ const manifest = /\.appcache$/i;
 
 
 export function setupApplication(app, config) {
-	var port = config.port = (config.port || 9000);
+	let port = config.port = (config.port || 9000);
 	//config.silent = true;
-	var dsi = dataserver(config);
-	var session = dsi.session;
-	var datacache = dsi.datacache;
+	let dsi = dataserver(config);
+	let session = dsi.session;
+	let datacache = dsi.datacache;
 
-	var entryPoint = generated.entryPoint;
-	var assetPath = path.join(__dirname, '../..', entryPoint ? 'client' : 'main');
-	logger.info('Static Assets: %s',assetPath);
+	let entryPoint = generated.entryPoint;
+	let assetPath = path.join(__dirname, '../..', entryPoint ? 'client' : 'main');
+	logger.info('Static Assets: %s', assetPath);
 	logger.info('DataServer end-point: %s', config.server);
-	var page = generated.page;
-	var devmode;
+	let page = generated.page;
+	let devmode;
 
 	logger.attachToExpress(app);
 	setupCORS(app);
@@ -49,7 +50,7 @@ export function setupApplication(app, config) {
 	}
 	else if (entryPoint === false) {
 		logger.error('Not in dev mode, preventing dev server from starting. Shutting down.');
-		return;
+		return void 0;
 	}
 
 	//Static files...
@@ -68,16 +69,17 @@ export function setupApplication(app, config) {
 
 	api.registerAnonymousEndPoints(app, config);
 
-	app.use(/^\/login.*/,session.anonymousMiddleware.bind(session));
-	app.use(/^(?!\/(login|resources)).*/,session.middleware.bind(session));
+	app.use(/^\/login.*/, session.anonymousMiddleware.bind(session));
+	app.use(/^(?!\/(login|resources)).*/, session.middleware.bind(session));
 
 	api.registerAuthenticationRequiredEndPoints(app, config);
 
 	//HTML Renderer...
 	app.get('*', (req, res)=> {
 		logger.info('Rendering Inital View: %s %s', req.url, req.username);
-		var isErrorPage = false;
-		global.__setPageNotFound = ()=>isErrorPage = true;
+		let isErrorPage = false;
+		/*eslint no-underscore-dangle: 0*/
+		global.pageRenderSetPageNotFound = ()=>isErrorPage = true;
 
 		//Pre-flight (if any widget makes a request, we will cache its result and send its result to the client)
 		page(req, entryPoint, nodeConfigAsClientConfig(config, req));
@@ -86,9 +88,9 @@ export function setupApplication(app, config) {
 			res.status(404);
 		}
 
-		waitFor(req.__pendingServerRequests, 60000)
+		waitFor(req[Pending], 60000)
 			.then(()=> {
-				var configForClient = clientConfig(req.username, req);
+				let configForClient = clientConfig(req.username, req);
 				configForClient.html += datacache.getForContext(req).serialize();
 				//Final render
 				logger.info('Flushing Render to client: %s %s', req.url, req.username);

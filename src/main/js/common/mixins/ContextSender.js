@@ -29,7 +29,7 @@ export default {
 
 
 	[notify] () {
-		let children = this[Children] || {size:0};
+		let children = this[Children] || {size: 0};
 		if (children.size === 0) {
 			setContext(this);
 		}
@@ -66,7 +66,7 @@ export default {
 
 
 	setPageSource (pageSource, currentPage) {
-		let children = this[Children] || {size:0};
+		let children = this[Children] || {size: 0};
 		if (children.size === 0) {
 			setPageSource(pageSource, currentPage, this);
 		}

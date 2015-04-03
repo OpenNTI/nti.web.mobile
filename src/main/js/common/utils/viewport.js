@@ -7,16 +7,16 @@ export function getHeight () {
 	return global.innerHeight || getDocument().clientHeight;
 }
 
-export function getWidth  () {
+export function getWidth () {
 	return global.innerWidth || getDocument().clientWidth;
 }
 
 export function getScreenWidth () {
-	var fallback = getWidth();
+	let fallback = getWidth();
 	return (global.screen || {}).width || fallback;
 }
 
 export function getScreenHeight () {
-	var fallback = getHeight();
+	let fallback = getHeight();
 	return (global.screen || {}).height || fallback;
 }

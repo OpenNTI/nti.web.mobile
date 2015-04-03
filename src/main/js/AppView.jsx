@@ -21,15 +21,11 @@ export default React.createClass({
 	},
 
 	childContextTypes: {
-		basePath: React.PropTypes.string,
-		triggerLeftMenu: React.PropTypes.func,
-		triggerRightMenu: React.PropTypes.func
+		basePath: React.PropTypes.string
 	},
 
 	getChildContext () {
 		return {
-			triggerLeftMenu: ()=>this.refs.frame.onLeftMenuClick(),
-			triggerRightMenu: ()=>this.refs.frame.onRightMenuClick(),
 			basePath: this.props.basePath
 		};
 	},

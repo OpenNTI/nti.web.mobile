@@ -1,11 +1,11 @@
 import ReadOnlyStore from './Store';
 import {getMainSubmittable, isAssignment} from './Utils';
 
-var isHistoryItem = RegExp.prototype.test.bind(/AssignmentHistoryItem/i);
+let isHistoryItem = RegExp.prototype.test.bind(/AssignmentHistoryItem/i);
 
 export function loadPreviousState (assessment) {
-	var main = getMainSubmittable(assessment);
-	var load;
+	let main = getMainSubmittable(assessment);
+	let load;
 
 	if (main && main.loadPreviousSubmission) {
 		load = main.loadPreviousSubmission();
@@ -16,8 +16,8 @@ export function loadPreviousState (assessment) {
 
 
 export function saveProgress (assessment) {
-	var main = getMainSubmittable(assessment);
-	var progress = ReadOnlyStore.getSubmissionPreparedForPost(assessment);
+	let main = getMainSubmittable(assessment);
+	let progress = ReadOnlyStore.getSubmissionPreparedForPost(assessment);
 
 	if (!main || !main.postSavePoint) {
 		return Promise.reject('Nothing to do.');
@@ -28,8 +28,8 @@ export function saveProgress (assessment) {
 
 
 export function submit (assessment) {
-	var data = ReadOnlyStore.getSubmissionPreparedForPost(assessment);
-	var main = getMainSubmittable(assessment);
+	let data = ReadOnlyStore.getSubmissionPreparedForPost(assessment);
+	let main = getMainSubmittable(assessment);
 
 	return data.submit()
 		.then(response => {
@@ -47,7 +47,7 @@ export function submit (assessment) {
 
 
 export function submitFeedback (assessment, feedbackBody) {
-	var feedback = ReadOnlyStore.getAssignmentFeedback(assessment);
+	let feedback = ReadOnlyStore.getAssignmentFeedback(assessment);
 
 	if (!feedback) {
 		return Promise.reject('No Feedback object');
@@ -59,7 +59,7 @@ export function submitFeedback (assessment, feedbackBody) {
 
 
 export function deleteFeedbackItem (assessment, feedbackItem) {
-	var feedback = ReadOnlyStore.getAssignmentFeedback(assessment);
+	let feedback = ReadOnlyStore.getAssignmentFeedback(assessment);
 
 	if (!feedback) {
 		return Promise.reject('No Feedback object');
@@ -70,7 +70,7 @@ export function deleteFeedbackItem (assessment, feedbackItem) {
 }
 
 export function updateFeedbackItem (assessment, feedbackItem, feedbackBody) {
-	var feedback = ReadOnlyStore.getAssignmentFeedback(assessment);
+	let feedback = ReadOnlyStore.getAssignmentFeedback(assessment);
 
 	if (!feedback) {
 		return Promise.reject('No Feedback object');

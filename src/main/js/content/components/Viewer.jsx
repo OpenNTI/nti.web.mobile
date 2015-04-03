@@ -1,5 +1,5 @@
-import {decodeFromURI} from 'dataserverinterface/utils/ntiids';
-import guid from 'dataserverinterface/utils/guid';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import guid from 'nti.lib.interfaces/utils/guid';
 
 import React from 'react';
 import {RouterMixin} from 'react-router-component';
@@ -19,7 +19,7 @@ import {getWidget} from './widgets';
 import Store from '../Store';
 import {loadPage} from '../Actions';
 
-import {RESOURCE_VIEWED} from 'dataserverinterface/models/analytics/MimeTypes';
+import {RESOURCE_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
 import AnalyticsBehavior from 'analytics/mixins/ResourceLoaded';
 import RouterLikeBehavior from './viewer-parts/mock-router';
@@ -27,6 +27,7 @@ import GlossaryFeature from './viewer-parts/glossary';
 import Interactions from './viewer-parts/interaction';
 import AssessmentFeature from './viewer-parts/assessment';
 
+const applyStyle = 'Viewer:applyStyle';
 
 export default React.createClass({
 	mixins: [
@@ -45,6 +46,10 @@ export default React.createClass({
 	backingStore: Store,
 	backingStoreEventHandlers: {
 		default: 'onStoreChange'
+	},
+
+	resumeAnalyticsEvents() {
+		this.resourceLoaded(this.getPageID(), this.props.course.getID(), RESOURCE_VIEWED);
 	},
 
 	getResetState () {
@@ -70,20 +75,20 @@ export default React.createClass({
 
 
 	componentWillUnmount () {
-		this._resourceUnloaded();
+		this.resourceUnloaded();
 		this.cleanupWidgets();
 	},
 
 
 	componentDidUpdate () {
 		//See if we need to re-mount/render our components...
-		var guid, el, w,
+		let guid, el, w,
 			widgets = this.getPageWidgets();
 		// console.debug('Content View: Did Update... %o', widgets);
 
 		if (widgets) {
 			for(guid in widgets) {
-				if (!widgets.hasOwnProperty(guid)) {continue;}
+				if (!widgets.hasOwnProperty(guid)) { continue; }
 				el = document.getElementById(guid);
 				w = widgets[guid];
 				if (el && !el.hasAttribute('mounted')) {
@@ -107,11 +112,11 @@ export default React.createClass({
 
 	cleanupWidgets () {
 		//Cleanup our components...
-		var guid, el,
+		let guid, el,
 			widgets = this.getPageWidgets();
 
 		for(guid in widgets) {
-			if (!widgets.hasOwnProperty(guid)) {continue;}
+			if (!widgets.hasOwnProperty(guid)) { continue; }
 
 			el = document.getElementById(guid);
 			if (el) {
@@ -123,10 +128,10 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		var newPageId = this.getPageID(props);
-		var newPage = newPageId !== this.state.currentPage;
-		var newRoot = this.getRootID(props) !== this.getRootID();
-		var initial = this.props === props;
+		let newPageId = this.getPageID(props);
+		let newPage = newPageId !== this.state.currentPage;
+		let newRoot = this.getRootID(props) !== this.getRootID();
+		let initial = this.props === props;
 
 		if (initial || newPage || newRoot) {
 			this.cleanupWidgets();
@@ -138,7 +143,7 @@ export default React.createClass({
 			);
 
 			loadPage(newPageId);
-			this._resourceLoaded(newPageId, null, RESOURCE_VIEWED);
+			this.resourceLoaded(newPageId, this.props.course.getID(), RESOURCE_VIEWED);
 		}
 	},
 
@@ -149,15 +154,15 @@ export default React.createClass({
 
 
 	getPageID (props) {
-		var p = props || this.props;
-		var h = this.getPropsFromRoute(p);
+		let p = props || this.props;
+		let h = this.getPropsFromRoute(p);
 		return decodeFromURI(h.pageId || p.rootId);
 	},
 
 
 	getPageWidgets () {
-		var o = this.state.pageWidgets;
-		var id = this.getPageID();
+		let o = this.state.pageWidgets;
+		let id = this.getPageID();
 		if (o && !o[id]) {
 			//console.debug('Content View: Creating bin for PageWidgets for %s', id);
 			o[id] = {};
@@ -167,7 +172,7 @@ export default React.createClass({
 
 
 	createWidget (widgetData) {
-		var widgets = this.getPageWidgets();
+		let widgets = this.getPageWidgets();
 		if (!widgets[widgetData.guid]) {
 			// console.debug('Content View: Creating widget for %s', widgetData.guid);
 			widgets[widgetData.guid] = getWidget(
@@ -198,7 +203,7 @@ export default React.createClass({
 
 
 	getBodyParts () {
-		var page = this.state.page;
+		let page = this.state.page;
 		if (page) {
 			return page.getBodyParts();
 		}
@@ -206,7 +211,7 @@ export default React.createClass({
 
 
 	getPageStyles () {
-		var page = this.state.page;
+		let page = this.state.page;
 		if (page) {
 			return page.getPageStyles();
 		}
@@ -214,8 +219,8 @@ export default React.createClass({
 
 
 	render () {
-		var body = this.getBodyParts() || [];
-		var pageSource = this.state.pageSource;
+		let body = this.getBodyParts() || [];
+		let pageSource = this.state.pageSource;
 
 		if (this.state.loading) {
 			return (<Loading/>);
@@ -224,7 +229,7 @@ export default React.createClass({
 		return (
 			<div className="content-view">
 
-				{this.__applyStyle()}
+				{this[applyStyle]()}
 
 				{this.renderAssessmentHeader()}
 
@@ -255,8 +260,8 @@ export default React.createClass({
 	},
 
 
-	__applyStyle () {
-		var styles = this.getPageStyles() || [];
+	[applyStyle] () {
+		let styles = this.getPageStyles() || [];
 		return styles.map(css =>
 			<style scoped type="text/css" key={guid()} dangerouslySetInnerHTML={{__html: css}}/>
 		);

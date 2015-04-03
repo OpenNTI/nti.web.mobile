@@ -1,5 +1,6 @@
 import React from 'react';
-import cx from 'react/lib/cx';
+import cloneWithProps from 'react/lib/cloneWithProps';
+import cx from 'classnames';
 
 import Content from './Content';
 import WordBank from './WordBank';
@@ -12,6 +13,8 @@ import {
 
 import {getInputWidget} from './input-types';
 import {getSolutionWidget} from './solution-types';
+
+const onStoreChange = 'Part: Store Change Handler';
 
 export default React.createClass({
 	displayName: 'Part',
@@ -30,7 +33,7 @@ export default React.createClass({
 		};
 	},
 
-	__onStoreChange () {
+	[onStoreChange] () {
 		let {part} = this.props;
 		if (this.isMounted() && this.state.helpVisible && !Store.isSubmitted(part)) {
 			this.onCloseHelp();
@@ -40,13 +43,13 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		Store.addChangeListener(this.__onStoreChange);
+		Store.addChangeListener(this[onStoreChange]);
 	},
 
 
 
 	componentWillUnmount () {
-		Store.removeChangeListener(this.__onStoreChange);
+		Store.removeChangeListener(this[onStoreChange]);
 	},
 
 
@@ -67,7 +70,7 @@ export default React.createClass({
 		}
 
 		this.setState({
-			helpVisible: HELP_VIEW_SOLUTION,
+			helpVisible: HELP_VIEW_SOLUTION
 		});
 	},
 
@@ -93,7 +96,7 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
-		this.setState({helpVisible:false});
+		this.setState({helpVisible: false});
 	},
 
 
@@ -102,8 +105,7 @@ export default React.createClass({
 		let {content, wordbank} = part || {};
 		let {helpVisible} = this.state;
 
-		let css = cx({
-			'form-input': 1,
+		let css = cx('form-input', {
 			'hidden': helpVisible,
 			'administrative': viewerIsAdministrative
 		});
@@ -119,6 +121,7 @@ export default React.createClass({
 					<div className={css}>
 						{getInputWidget(part, index)}
 					</div>
+					{this.renderChildren()}
 					{
 						helpVisible ?
 							this.renderHelpView() :
@@ -132,13 +135,14 @@ export default React.createClass({
 
 	renderHelpButton (label) {
 		let {part} = this.props;
+		let {helpVisible} = this.state;
 		let isSubmitted = part && Store.isSubmitted(part);
 		let isAdministrative = part && Store.isAdministrative(part);
 		let hints = part && Store.getHints(part);
 		let solution = part && Store.getSolution(part);
 		let handler = null;
 
-		if (this.state.helpVisible) {
+		if (helpVisible) {
 			handler = this.onCloseHelp;
 		}
 		else {
@@ -154,10 +158,24 @@ export default React.createClass({
 		}
 
 		return !handler ? null : (
-			<div className="help-button-box text-right">
+			<div className="button-box text-right">
 				<a href="#" className="help-link" onClick={handler}>{label}</a>
 			</div>
 		);
+	},
+
+
+	renderChildren () {
+		let {helpVisible} = this.state;
+		let c = this.props.children || [];
+
+		if (helpVisible) { return; }
+
+		if (!Array.isArray(c)) {
+			c = [c];
+		}
+
+		return c.map(c=>cloneWithProps(c));
 	},
 
 
@@ -176,7 +194,7 @@ export default React.createClass({
 
 	renderHint () {
 		let part = this.props.part || {};
-		let hint = (part.hints || [])[this.state.activeHint];
+		let hint = (part.hints || [])[this.state.activeHint] || '';
 
 		return (
 			<div className="part-help hint">

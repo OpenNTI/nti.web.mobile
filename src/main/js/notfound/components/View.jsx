@@ -4,9 +4,9 @@ export default React.createClass({
 	displayName: 'NotFound',
 
 	render () {
-		/* global __setPageNotFound */
-		if (global.__setPageNotFound) {
-			__setPageNotFound();
+		/* global pageRenderSetPageNotFound */
+		if (global.pageRenderSetPageNotFound) {
+			pageRenderSetPageNotFound();
 		}
 		return (
 			<div className="grid-container">

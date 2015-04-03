@@ -12,7 +12,7 @@ import {OBJECT_DELETED, POST, COMMENT_FORM_ID} from '../Constants';
 import ViewHeader from './widgets/ViewHeader';
 import Replies from './Replies';
 import CommentForm from './CommentForm';
-import NTIID from 'dataserverinterface/utils/ntiids';
+import {decodeFromURI, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import ContextSender from 'common/mixins/ContextSender';
 import List from './List';
@@ -35,7 +35,7 @@ export default React.createClass({
 	},
 
 	[objectDeletedHandler] (event) {
-		if (event.objectId === this._itemId()) {
+		if (event.objectId === this.getItemId()) {
 			this.setState({
 				deleted: true,
 				busy: false
@@ -43,7 +43,7 @@ export default React.createClass({
 		}
 	},
 
-	_getPropId () {
+	getPropId () {
 		return this.props.postId;
 	},
 
@@ -55,20 +55,20 @@ export default React.createClass({
 		};
 	},
 
-	componentDidMount: function() {
-		this._load();
+	componentDidMount () {
+		this.doLoad();
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (this.props.postId !== nextProps.postId) {
 			this.setState(this.getInitialState());
-			this._load(nextProps.postId);
+			this.doLoad(nextProps.postId);
 		}
 	},
 
-	_load: function(thePostId) {
-		let postId = NTIID.decodeFromURI(thePostId || this._itemId());
-		let topicId = NTIID.decodeFromURI(this.props.topicId);
+	doLoad (thePostId) {
+		let postId = decodeFromURI(thePostId || this.getItemId());
+		let topicId = decodeFromURI(this.props.topicId);
 		Api.getObjects([postId, topicId])
 		.then(
 			result => {
@@ -95,11 +95,11 @@ export default React.createClass({
 		let label = ViewHeader.headerTextForType(POST);
 		// if this is a reply to a comment (as opposed to a reply to a topic)
 		// push an item for the parent comment.
-		let inReplyTo = (this._item()||{}).inReplyTo;
+		let inReplyTo = (this.getItem()||{}).inReplyTo;
 		if (inReplyTo) {
 			result.push({
 				label,
-				href: this.getNavigable().makeHref(NTIID.encodeForURI(inReplyTo) + '/')
+				href: this.getNavigable().makeHref(encodeForURI(inReplyTo) + '/')
 			});
 		}
 
@@ -115,7 +115,7 @@ export default React.createClass({
 
 	render () {
 
-		let item = this._item();
+		let item = this.getItem();
 
 		if (this.state.busy || !item) {
 			return <Loading />;
@@ -129,10 +129,10 @@ export default React.createClass({
 				return <Err error={this.state.error} />;
 			}
 		}
-		
+
 		let topic = Store.getObject(this.props.topicId);
 
-		let P = (this.state.deleted || (this._item() || {}).Deleted) ? 
+		let P = (this.state.deleted || (this.getItem() || {}).Deleted) ?
 			<Notice>This item has been deleted.</Notice> :
 			<PostHeadline item={item} topic={topic} asHeadline={true} />;
 
@@ -146,12 +146,12 @@ export default React.createClass({
 					topic={topic}
 					display={true}
 					className='visible' />
-				{topic && 
+				{topic &&
 					<CommentForm key="commentForm"
 						ref='commentForm'
 						id={COMMENT_FORM_ID}
-						onCancel={this._hideForm}
-						onCompletion={this._commentCompletion}
+						onCancel={this.hideForm}
+						onCompletion={this.commentCompletion}
 						topic={topic}
 						parent={item}
 					/>

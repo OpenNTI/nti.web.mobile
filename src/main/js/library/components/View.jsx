@@ -3,7 +3,8 @@ import React from 'react';
 import { Locations, Location, NotFound as DefaultRoute } from 'react-router-component';
 import {getEnvironment} from 'react-router-component/lib/environment/LocalStorageKeyEnvironment';
 
-import {addClass, removeClass} from 'common/utils/dom';
+import addClass from 'nti.lib.dom/lib/addclass';
+import removeClass from 'nti.lib.dom/lib/removeclass';
 
 import ActiveState from 'common/components/ActiveState';
 import Loading from 'common/components/Loading';
@@ -97,7 +98,7 @@ export default React.createClass({
 	setDefaultSection (name) {
 		let {env} = this.state;
 		let p = env.getPath();
-		
+
 		if (p == null || p === '') {
 			env.setPath('/${name}');
 		}

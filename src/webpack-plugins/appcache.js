@@ -1,5 +1,5 @@
 'use strict';
-
+/*eslint no-var: 0*/
 function AppCache(cache, network, fallback, hash) {
 	this.cache = cache;
 	this.network = network;
@@ -28,7 +28,7 @@ AppCache.prototype.getManifestBody = function() {
 		network.length && ('NETWORK:\n' + network.join('\n') + '\n'),
 		fallback.length && ('FALLBACK:\n' + fallback.join('\n') + '\n')
 	]
-		.filter(function (v) {return v && v.length;})
+		.filter(function (v) { return v && v.length; })
 		.join('\n');
 };
 

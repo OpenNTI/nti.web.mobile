@@ -1,4 +1,4 @@
-import {Service} from 'dataserverinterface/CommonSymbols';
+import {Service} from 'nti.lib.interfaces/CommonSymbols';
 
 export default class PageDescriptor {
 	constructor (ntiid, data) {
@@ -48,10 +48,17 @@ export default class PageDescriptor {
 		return this.pageInfo.getAssessmentQuestion(questionId);
 	}
 
-
+	//This should only ever return Assignment, QuestionSet or falsy.
+	//Individual Question submission is handled within the scope of
+	//the question widget, not the page.
 	getSubmittableAssessment () {
-		var items = this.pageInfo.AssessmentItems || [];
-		return items.reduce((v, item) =>
-			v || (item.isSubmittable && item), null);
+		let items = this.pageInfo.AssessmentItems || [];
+		let search = (v, item) => v || (
+				item.isSubmittable &&
+				!item.isQuestion ?
+					item :
+					v);
+
+		return items.reduce(search,	null);
 	}
 }

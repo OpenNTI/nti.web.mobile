@@ -12,7 +12,7 @@ import {loadPreviousState} from 'assessment/Api';
 import {getService} from 'common/utils';
 import SetStateSafely from 'common/mixins/SetStateSafely';
 
-import {encodeForURI} from 'dataserverinterface/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const SUBMITTED_QUIZ = 'application/vnd.nextthought.assessment.assessedquestionset';
 

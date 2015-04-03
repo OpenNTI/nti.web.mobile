@@ -1,6 +1,6 @@
 'use strict';
 
-var nsKeyMirror = require('dataserverinterface/utils/namespaced-key-mirror');
+var nsKeyMirror = require('nti.lib.interfaces/utils/namespaced-key-mirror');
 var namespace = 'fiveminute';
 
 module.exports = {

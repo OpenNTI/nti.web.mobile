@@ -21,7 +21,7 @@ class Store extends StorePrototype {
 
 
 	[SetData] (payload) {
-		var d = this[data] = payload.action.response;
+		let d = this[data] = payload.action.response;
 		d.applied = new Date();
 		this.emitChange({type: LOADED_CATALOG});
 	}
@@ -31,8 +31,8 @@ class Store extends StorePrototype {
 
 
 	getEntry (id) {
-		var d = this[data];
-		var entry = {loading: true};
+		let d = this[data];
+		let entry = {loading: true};
 		if (d && d.findEntry) {
 			entry = d.findEntry(id);
 		}

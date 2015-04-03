@@ -3,7 +3,7 @@
 var React = require('react');
 var Mixin = require('./Mixin');
 
-var isEmpty = require('dataserverinterface/utils/isempty');
+var isEmpty = require('nti.lib.interfaces/utils/isempty');
 
 /**
  * This input type represents Free Response

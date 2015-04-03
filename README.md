@@ -1,20 +1,33 @@
 
 
-## Requirements
+### Requirements
 
 You'll need to have the following items installed before continuing.
 
   * [Node.js](http://nodejs.org):
-  	* Use the installer provided on the NodeJS website. (currently v0.10.x is what we support)
-  * [React Tools](http://facebook.github.io/react/): Run `[sudo] npm install -g react-tools`
-  * [Grunt](http://gruntjs.com/): Run `[sudo] npm install -g grunt-cli`
-  * [Bower](http://bower.io): Run `[sudo] npm install -g bower`
+    * Use the installer provided on the NodeJS website. (currently v0.10.x is what we support)
+    * Setup `npm` to store "global" modules in your home directory:
+      ```bash
+      mkdir ~/.npm
+      npm config set prefix ~/.npm
+      npm config set cache ~/.npm/cache
+      ```
+    * Add `~/.npm/bin` to your path
+
+  * [Grunt](http://gruntjs.com): Run `npm install -g grunt-cli`
+  * [Bower](http://bower.io): Run `npm install -g bower`
+  * [Karma](http://karma-runner.github.io): Run `npm install -g karma-cli`
+
+Optional:
+  * Node Inspector: `npm install -g node-inspector`
+
+
 
 ## Quickstart
 
 ```bash
-git clone ssh://repos.nextthought.com/nextthought-webapp-mobile
-cd nextthought-webapp-mobile
+git clone ssh://repos.nextthought.com/nti.web.mobile
+cd nti.web.mobile
 npm install && bower install
 ```
 
@@ -24,7 +37,31 @@ While you're working on this project, run:
 grunt
 ```
 
-#### Git Pre-Commit Hook:
+***Please read:*** `doc/source control workflow.md`, it outlines how this project is worked on.
+
+--
+
+### Recommended
+
+If you haven't already done so, configure `git` to make all new branches rebase on pull by default:
+```bash
+git config branch.autosetuprebase always --global
+```
+
+Set `master`, `develop` to default to rebase on pull
+```bash
+git config branch.master.rebase true
+git config branch.develop.rebase true
+```
+
+I can't make this change centrally. It must be made per-clone.  This explains why you would want to rebase on pull: http://stevenharman.net/git-pull-with-automatic-rebase
+
+It basically simplifies your interactions. so you can simply `git pull` to get updated code, instead of `git pull -r` or `git fetch && git rebase... ` etc. With out this change, a `git pull` will make a merge bubble, and thats just ugly.
+
+
+--
+
+### Git Pre-Commit Hook:
 
 Make sure you have `jshint` and `jsxhint` installed "globally."
 ```bash
@@ -39,47 +76,34 @@ cp ./pre-commit.sample .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
 ```
 
+--
 
-
-# Working on dependent projects:
-
-### The server interface:
+## Working on dependent projects:
 
 Clone the library, install its dependent modules, and `npm-link` it.
 
 ```bash
-git clone ssh://repos.nextthought.com/nti.node.dataserverinterface
-cd nti.node.dataserverinterface
+git clone {repository:source} {dependency-name}
+cd {dependency-name}
 npm install
 npm link
 ```
 
-from `nextthought-webapp-mobile`:
+from `nti.web.mobile`:
 
 ```bash
-npm link dataserverinterface
+npm link {dependency-name}
 ```
 
----
+| dependency-name        | repository:source                                        |
+|------------------------|----------------------------------------------------------|
+| nti.lib.interfaces     | ssh://repos.nextthought.com/nti.lib.interfaces           |
+| nti.lib.anchors        | ssh://repos.nextthought.com/nti.lib.anchorjs             |
+| nti.lib.dom            | ssh://repos.nextthought.com/nti.lib.domjs                |
+| react-editor-component | git@github.com:NextThought/react-editor-component.git    |
 
-### The Editor
 
-Clone the library, install its dependent modules, and `npm-link` it.
-
-```bash
-git clone git@github.com:NextThought/react-editor-component.git
-cd react-editor-component
-npm install
-npm link
-```
-
-from `nextthought-webapp-mobile`:
-
-```bash
-npm link react-editor-component
-```
+--
 
 ### Sublime Text Snippets
 If you're using Sublime Text you can install the [NextThought snippets package](https://github.com/themaxx/nt-sublime-snippets) via package control.
-
-

@@ -13,7 +13,7 @@ var MessagesActions = require('messages/Actions');
 var Message = require('messages/Message');
 
 var t = require('common/locale').translate;
-var {getServer, getServerURI, __setUsername} = require('common/utils');
+var {getServer, getServerURI, overrideAppUsername} = require('common/utils');
 
 var Constants = require('./Constants');
 var ActionConstants = Constants.actions;
@@ -161,7 +161,7 @@ function _logIn(credentials) {
 			credentials);
 
 	p.then(function(r) {
-		__setUsername(credentials.username);
+		overrideAppUsername(credentials.username);
 		console.log('login attempt resolved. %O', r);
 		_setLoggedIn(true);
 	});

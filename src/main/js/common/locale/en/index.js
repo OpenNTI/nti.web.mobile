@@ -44,8 +44,10 @@ export default {
 	COURSE: course,
 
 	ASSESSMENT: {
+		checkit: 'Check It!',
 		submit: 'I\'m Finished!',
 		reset: 'Cancel',
+		tryagain: 'Try Again',
 		unanswered: {
 			zero: 'All questions answered',
 			one: '%(count)s question unanswered',
