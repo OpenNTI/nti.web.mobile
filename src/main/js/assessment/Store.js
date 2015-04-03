@@ -89,13 +89,17 @@ class Store extends StorePrototype {
 	[OnSubmitEnd] (payload) {
 		let {response, assessment} = payload.action;
 		let isError = !!response.statusCode;
+		let isIndividual = assessment && assessment.individual;
+
 		if (isError) {
 			this.setError(assessment, response.message || 'An Error occured.');
 			this.markBusy(assessment, false);
 			return;
 		}
 
-		scrollTo(0, 0);
+		if (!isIndividual) {
+			scrollTo(0, 0);
+		}
 
 		this[ApplySubmission](assessment, response);
 		this.getSubmissionData(assessment).markSubmitted(true);
