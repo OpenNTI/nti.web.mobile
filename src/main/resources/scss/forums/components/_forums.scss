@@ -232,6 +232,13 @@ $indent: 0.9375rem;
 			}
 		}
 
+		.meta {
+			.name {
+				display: block;
+				line-height:1em;
+			}
+		}
+
 		.meta, .activity {
 			font-size: .75rem;
 			display: block;
