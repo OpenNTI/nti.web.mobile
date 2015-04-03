@@ -185,7 +185,7 @@ module.exports = React.createClass({
 	},
 
 	[getTopic]: function() {
-		return this._item() || Store.getObject(this.props.topicId);
+		return this.getItem() || Store.getObject(this.props.topicId);
 	},
 
 	[getPropId]: function() {

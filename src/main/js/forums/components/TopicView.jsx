@@ -69,10 +69,10 @@ module.exports = React.createClass({
 	},
 
 	_topic: function() {
-		return this._item() || Store.getObject(this.props.topicId);
+		return this.getItem() || Store.getObject(this.props.topicId);
 	},
 
-	_getPropId: function() {
+	getPropId: function() {
 		return this.props.topicId;
 	},
 

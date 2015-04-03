@@ -112,11 +112,11 @@ var PostItem = React.createClass({
 		};
 	},
 
-	_commentCompletion(event) {
+	commentCompletion(event) {
 		this.setState({
 			[_SHOW_REPLIES]: true
 		});
-		this._hideForm(event);
+		this.hideForm(event);
 	},
 
 	_hideEditForm() {
@@ -130,7 +130,7 @@ var PostItem = React.createClass({
 	},
 
 	render: function() {
-		var item = this._item();
+		var item = this.getItem();
 		if (!item) {
 			return <div>No item?</div>;
 		}
@@ -139,7 +139,7 @@ var PostItem = React.createClass({
 		var modifiedOn = item.getLastModified();
 		var message = item.body;
 		var numComments = this._numComments();
-		var href = this.makeHref('/' + encodeForURI(this._itemId()) + '/', false);
+		var href = this.makeHref('/' + encodeForURI(this.getItemId()) + '/', false);
 
 		var edited = (Math.abs(modifiedOn - createdOn) > 0);
 

@@ -35,7 +35,7 @@ module.exports = React.createClass({
 	backingStore: Store,
 
 	componentWillMount: function() {
-		var item = Store.getObject(this._itemId());
+		var item = Store.getObject(this.getItemId());
 		if (item) {
 			this.setState({
 				item: item
@@ -66,7 +66,7 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		var item = this._item();
+		var item = this.getItem();
 		var replyTime = item.NewestDescendant.getCreatedTime();
 		return (
 			<Link className="topic-link" href={this._href(item)}>

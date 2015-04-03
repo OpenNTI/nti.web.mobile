@@ -1,43 +1,45 @@
-'use strict';
+import {getService} from 'common/utils';
 
-var {getService} = require('common/utils');
+const GetInterface = 'forum:api:getInterface';
 
-var _promises = {};
+let promises = {};
 
-module.exports = {
+export default {
+
 	loadDiscussions(course) {
 		if (!course) {
 			return Promise.reject('Course not specified.');
 		}
-		var courseId = course.getID();
+		let courseId = course.getID();
 
 		// do we already have a promise for loading this course's discussions?
-		var promise = _promises[courseId];
+		let promise = promises[courseId];
 
 		// if not, create one.
 		if (!promise) {
-			var courseId = course.getID();
+			let courseId = course.getID();
 			promise = course.getDiscussions()
-				.then( result => {
+				.then(
+					result => {
 						return result;
 						// _discussionsLoaded(courseId, result);
 					},
 					reason => {
 						// don't hang on to a rejected promise; we want to try again next time.
-						delete _promises[course];
+						delete promises[course];
 						return reason;
 						// _discussionsLoaded(courseId, reason);
 					}
 				);
 			// keep this promise around so we're not making redundant calls.
-			_promises[courseId] = promise;
+			promises[courseId] = promise;
 		}
 
 		return promise;
 	},
 
-	_getInterface() {
-		var me = this._getInterface;
+	[GetInterface]() {
+		let me = this[GetInterface];
 		if (!me.promise) {
 			me.promise = getService().then(service => (service.forums));
 		}
@@ -45,7 +47,7 @@ module.exports = {
 	},
 
 	deleteObject(o) {
-		var link = o && o.getLink && o.getLink('edit');
+		let link = o && o.getLink && o.getLink('edit');
 		if (!link) {
 			console.error('No edit link. Ignoring delete request.');
 			return;
@@ -56,7 +58,7 @@ module.exports = {
 	},
 
 	reportItem(o) {
-		return this._getInterface().then(f => f.reportItem(o));
+		return this[GetInterface]().then(f => f.reportItem(o));
 	},
 
 	// convenience method that just adds params to the getObjectContents call.
@@ -79,11 +81,11 @@ module.exports = {
 	},
 
 	getObject: function(ntiid) {
-		return this._getInterface().then(f => f.getObject(ntiid));
+		return this[GetInterface]().then(f => f.getObject(ntiid));
 	},
 
 	getObjects: function(ntiids) {
-		return this._getInterface().then(f => f.getObjects(ntiids));
+		return this[GetInterface]().then(f => f.getObjects(ntiids));
 	}
 
 };
