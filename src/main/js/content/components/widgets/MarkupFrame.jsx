@@ -2,6 +2,7 @@ import React from 'react';
 import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
 const ZOOMABLE = /nti\-data\-resizeable/i;
+const zoom = 'MarkupFrame:zoom';
 
 export default React.createClass({
 	displayName: 'ContentMarkupEnabled',
@@ -19,8 +20,12 @@ export default React.createClass({
 
 	componentWillUnmount () {},
 
-
-
+	[zoom]() {
+		let img = this.refs.image.getDOMNode();
+		if(img && img.src) {
+			window.open(img.src, 'zoomy');
+		}
+	},
 
 	render () {
 		let data = this.props.item;
@@ -36,9 +41,10 @@ export default React.createClass({
 		//The Item may not be an image... what can it be?
 
 		return (
-			<span itemProp={data.type}>
+			<span itemProp={data.type} className="markupframe">
+				<img src={item.src} dataset={item.dataset} crossOrigin={item.crossorigin} ref='image' />
 				<span className="wrapper">
-					<a href="#zoom" title="Zoom" className={"zoom" + (zoomable ? '':' disabled')} data-non-anchorable="true"/>
+					<a href="#zoom" title="Zoom" className={"zoom fi-magnifying-glass" + (zoomable ? '':' disabled')} data-non-anchorable="true" onClick={this[zoom]} />
 				</span>
 				<span className="bar" data-non-anchorable="true" data-no-anchors-within="true" unselectable="true">
 					<a href="#slide" className="bar-cell slide"> </a>
