@@ -16,7 +16,6 @@ import CommentForm from './CommentForm';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import Notice from 'common/components/Notice';
-import PageControls from './PageControls';
 import Prompt from 'prompts';
 import TopicComments from './TopicComments';
 import TopicEditor from './TopicEditor';
@@ -128,7 +127,7 @@ module.exports = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		if (nextProps.topicId !== this.props.topicId || this.props.page !== nextProps.page) {
+		if (nextProps.topicId !== this.props.topicId) {
 			this.setState({
 				loading: true
 			});
@@ -239,8 +238,6 @@ module.exports = React.createClass({
 			onCancel: this._hideEditForm
 		};
 
-		let pageInfo = this.pagingInfo();
-
 		return (
 			<div>
 				<ViewHeader type={TOPIC} />
@@ -251,9 +248,7 @@ module.exports = React.createClass({
 					numComments={numComments}
 					clickHandlers={this[actionClickHandlers]()} />
 
-				<TopicComments container={topicContents} topic={topic} />
-
-				<PageControls paging={pageInfo} />
+				<TopicComments topicId={this[getTopicId]()} currentPage={this.currentPage()} />
 
 				<CommentForm key="commentForm"
 						ref={COMMENT_FORM_ID}
