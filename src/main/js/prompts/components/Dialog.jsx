@@ -1,26 +1,7 @@
 import React from 'react';
 import emptyFunction from 'react/lib/emptyFunction';
 
-function dismiss(dialog) {
-	dialog.props.onDismiss.call();
-	dialog.props.onDismiss = emptyFunction;//don't double call
-
-	dialog.setState({dismissing: true});
-
-	//Wait for animation before we remove it.
-	setTimeout(
-		()=>{
-			if (!exports.clear() && dialog.isMounted()) {
-				console.warn('React did not unmount %o', dialog);
-			}
-		},
-		500//animation delay (0.5s)
-	);
-}
-
-
-export default React.createClass({
-	displayName: 'Dialog',
+let Dialog = React.createClass({
 
 	statics: {
 		active: null,
@@ -42,10 +23,14 @@ export default React.createClass({
 				this.active.dismiss();
 			}
 
-
-			this.active = React.render(
-				React.createElement(exports, props),
-				this.getMountPoint());
+			try {
+				this.active = React.render(
+					React.createElement(Dialog, props),
+					this.getMountPoint());
+			}
+			catch (e) {
+				console.error(e.stack || e.message || e);
+			}
 
 		}
 	},
@@ -209,3 +194,23 @@ export default React.createClass({
 	}
 
 });
+
+export default Dialog;
+
+
+function dismiss(dialog) {
+	dialog.props.onDismiss.call();
+	dialog.props.onDismiss = emptyFunction;//don't double call
+
+	dialog.setState({dismissing: true});
+
+	//Wait for animation before we remove it.
+	setTimeout(
+		()=>{
+			if (!Dialog.clear() && dialog.isMounted()) {
+				console.warn('React did not unmount %o', dialog);
+			}
+		},
+		500//animation delay (0.5s)
+	);
+}
