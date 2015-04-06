@@ -3,8 +3,7 @@ import React from 'react';
 
 import LoadingMask from 'common/components/Loading';
 import BasePathAware from 'common/mixins/BasePath';
-import SetStateSafely from 'common/mixins/SetStateSafely';
-import ContextContributor from 'common/mixins/ContextContributor';
+import ContextAccessor from 'common/mixins/ContextAccessor';
 
 import {Component as Video} from 'video';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
@@ -13,7 +12,7 @@ const Progress = Symbol.for('Progress');
 
 export default React.createClass({
 	displayName: 'CourseOverviewVideo',
-	mixins: [BasePathAware, ContextContributor, SetStateSafely],
+	mixins: [BasePathAware, ContextAccessor],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired,
@@ -44,19 +43,17 @@ export default React.createClass({
 
 
 	fillInContext () {
-		this.resolveContext().then(context=>this.setStateSafely({context}));
+		this.resolveContext().then(context=>this.setState({context}));
 	},
 
 
 	onError (error) {
-		if (this.isMounted()) {
-			this.setState({
-				loading: false,
-				playing: false,
-				video: null,
-				error
-			});
-		}
+		this.setState({
+			loading: false,
+			playing: false,
+			video: null,
+			error
+		});
 	},
 
 
@@ -67,8 +64,10 @@ export default React.createClass({
 
 
 	componentWillReceiveProps (nextProps) {
-		this.fillInContext();
-		this.fillInVideo(nextProps);
+		if (this.props.item.NTIID !== nextProps.item.NTIID) {
+			this.fillInContext();
+			this.fillInVideo(nextProps);
+		}
 
 		if (this.props.activeIndex !== nextProps.activeIndex) {
 			this.setState({playing: false});
@@ -78,8 +77,8 @@ export default React.createClass({
 
 	fillInVideo  (props) {
 		try {
-			var {video} = this.state;
-			var {course, item} = props;
+			let {video} = this.state;
+			let {course, item} = props;
 
 			if (video && item.NTIID === video.getID()) {
 				return;
@@ -91,8 +90,7 @@ export default React.createClass({
 					let video = videoIndex.get(item.NTIID);
 					this.setState({ loading: false, video });
 					video.getPoster().then(poster=>
-						this.isMounted() &&
-							this.setState({poster}));
+						this.setState({poster}));
 				})
 				.catch(this.onError);
 		} catch (e) {
@@ -105,7 +103,7 @@ export default React.createClass({
 		e.preventDefault();
 		e.stopPropagation();
 
-		var {video} = this.refs;
+		let {video} = this.refs;
 		if (video) {
 			video.play();
 		}
@@ -113,7 +111,7 @@ export default React.createClass({
 
 
 	stop () {
-		var {video} = this.refs;
+		let {video} = this.refs;
 		if (video) {
 			video.stop();
 		}
@@ -121,42 +119,38 @@ export default React.createClass({
 
 
 	onStop () {
-		if (this.isMounted()) {
-			this.setState({playing: false});
-		}
+		this.setState({playing: false});
 	},
 
 
 	onPlay  () {
-		if (this.isMounted()) {
-			this.setState({playing: true});
-		}
+		this.setState({playing: true});
 	},
 
 
 	render () {
-		var {props} = this;
-		var {activeIndex, index, item} = props;
-		var renderVideoFully = true;
+		let {props} = this;
+		let {activeIndex, index, touching, item} = props;
+		let renderVideoFully = !touching;
 
-		var Tag = props.tag || 'div';
-		var style = {
+		let Tag = props.tag || 'div';
+		let style = {
 			backgroundImage: 'url(' + this.state.poster + ')'
 		};
 
 		if (activeIndex != null) {
-			renderVideoFully = (activeIndex === index);
+			renderVideoFully = (!touching && activeIndex === index);
 		}
 
 
-		var viewed = false;
-		var progress = item[Progress];
+		let viewed = false;
+		let progress = item[Progress];
 		if (progress && progress.hasProgress()) {
 			viewed = true;
 		}
 
 
-		var link = path.join('v', encodeForURI(item.NTIID))  + '/';
+		let link = path.join('v', encodeForURI(item.NTIID)) + '/';
 
 		return (
 			<Tag className="overview-video video-wrap flex-video widescreen">
@@ -164,7 +158,8 @@ export default React.createClass({
 					<Video ref="video" src={this.state.video}
 						onEnded={this.onStop}
 						onPlaying={this.onPlay}
-						context={this.state.context} />
+						context={this.state.context}
+						deferred />
 				}
 				{this.state.playing ? null :
 				<LoadingMask style={style} loading={this.state.loading}

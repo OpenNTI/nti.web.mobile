@@ -138,7 +138,7 @@ export default React.createClass({
 
 		if (!this.state.touch) {
 			e.stopPropagation();
-			// console.debug('Touch Start...')
+			console.debug('Touch Start...');
 			this.setState({
 				touch: {
 					dom: videos,
@@ -189,7 +189,7 @@ export default React.createClass({
 			if (sliding === 1 && delta) {
 				sliding = 2;
 				startPixelOffset = pixelOffset;
-				// console.debug('Touch move tripped...');
+				console.debug('Touch move tripped...');
 			}
 
 			if (sliding === 2) {
@@ -200,7 +200,7 @@ export default React.createClass({
 
 				pixelOffset = startPixelOffset + (delta / touchPixelRatio);
 
-				// console.debug('Touch move... %d %d %d', startPixelOffset, pixelOffset, delta);
+				console.debug('Touch move... %d %d %d', startPixelOffset, pixelOffset, delta);
 				me.setState({
 					touch: Object.assign(state.touch, {
 						delta: delta,
@@ -227,7 +227,7 @@ export default React.createClass({
 			fn = //(Math.abs(pixelOffset - startPixelOffset)/touch.dom.offsetWidth) > 0.2 ? null ://elastic
 				pixelOffset < startPixelOffset ? 'onNext' : 'onPrev';
 
-			// console.debug('Touch End, result: %s', fn);
+			console.debug('Touch End, result: %s', fn);
 
 			if(fn) {
 				this[fn]();
@@ -254,29 +254,11 @@ export default React.createClass({
 
 	render () {
 		if (this.state.loading) { return (<Loading/>); }
-		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>);}
-
-		let animate = this.state.touch ? '' : 'animate';
-		let translation = this.getTranslation();
-		let style = {
-			WebkitTransform: translation,
-			MozTransform: translation,
-			msTransform: translation,
-			transform: translation
-		};
+		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>); }
 
 		return (
 			<div className="videos-carousel-container">
-				<ul ref="v" className={'videos-carousel ' + animate} style={style}
-				 	onTouchStart={this.onTouchStart}
-					onTouchMove={this.onTouchMove}
-					onTouchEnd={this.onTouchEnd}
-					tabIndex="0">
-					{this.renderItems(this.getVideoList(), {
-						tag: 'li',
-						activeIndex: this.state.active
-					})}
-				</ul>
+				{this.renderCarousel()}
 				<button className="prev fi-arrow-left" onClick={this.onPrev} title="Prevous Video"/>
 				<button className="next fi-arrow-right" onClick={this.onNext} title="Next Video"/>
 				<ul className="videos-carousel-dots">
@@ -284,6 +266,36 @@ export default React.createClass({
 				</ul>
 			</div>
 		);
+	},
+
+
+	renderCarousel () {
+		let touching = !!this.state.touch;
+		let animateChanges = touching ? '' : 'animate';
+		let translation = this.getTranslation();
+
+		let props = {
+			tabIndex: '0',
+			ref: 'v',
+			style: {
+				WebkitTransform: translation,
+				MozTransform: translation,
+				msTransform: translation,
+				transform: translation
+			},
+			className: 'videos-carousel ' + animateChanges,
+			onTouchStart: this.onTouchStart,
+			onTouchMove: this.onTouchMove,
+			onTouchEnd: this.onTouchEnd
+		};
+
+		return React.createElement('ul', props,
+			...this.renderItems(this.getVideoList(), {
+				tag: 'li',
+				activeIndex: this.state.active,
+				touching
+			}));
+
 	},
 
 
