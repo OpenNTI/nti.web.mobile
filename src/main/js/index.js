@@ -1,6 +1,9 @@
 'use strict';
 require('babel/polyfill');
 
+//monkey patch react and stop warning about contexts
+let warn = require('react/lib/ReactCompositeComponent');
+warn.Mixin._warnIfContextsDiffer = function(){};// eslint-disable-line
 
 //TODO: find a way to get rid of this dirty import. All deps should come
 // from node_modules, so switch to this in the future:
