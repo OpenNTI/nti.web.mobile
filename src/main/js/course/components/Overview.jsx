@@ -131,7 +131,7 @@ export default React.createClass({
 			<div className="course-overview row">
 				<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
 				<h1 dangerouslySetInnerHTML={{__html: title}}/>
-				{this._renderItems(items, {node: node})}
+				{this.renderItems(items, {node: node})}
 			</div>
 		);
 	}

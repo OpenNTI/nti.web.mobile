@@ -48,7 +48,7 @@ export default React.createClass({
 	},
 
 
-	__onError (error) {
+	onError (error) {
 		if (this.isMounted()) {
 			this.setState({
 				loading: false,
@@ -66,10 +66,10 @@ export default React.createClass({
 				.then(data=>
 					this.setState({loading: false, data})
 				)
-				.catch(this.__onError);
+				.catch(this.onError);
 		}
 		catch(e) {
-			this.__onError(e);
+			this.onError(e);
 		}
 	},
 
@@ -272,19 +272,22 @@ export default React.createClass({
 					onTouchMove={this.onTouchMove}
 					onTouchEnd={this.onTouchEnd}
 					tabIndex="0">
-					{this._renderItems(this.getVideoList(), {tag: 'li', activeIndex: this.state.active})}
+					{this.renderItems(this.getVideoList(), {
+						tag: 'li',
+						activeIndex: this.state.active
+					})}
 				</ul>
 				<button className="prev fi-arrow-left" onClick={this.onPrev} title="Prevous Video"/>
 				<button className="next fi-arrow-right" onClick={this.onNext} title="Next Video"/>
 				<ul className="videos-carousel-dots">
-					{this._renderDots()}
+					{this.renderDots()}
 				</ul>
 			</div>
 		);
 	},
 
 
-	_renderDots () {
+	renderDots () {
 		return this.getVideoList().map((_, i) => {
 			let active = (i === (this.state.active || 0)) ? 'active' : null;
 			return (<li key={'video-'+i}><a className={active} href={"#"+i}

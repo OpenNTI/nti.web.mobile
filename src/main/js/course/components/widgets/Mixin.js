@@ -21,15 +21,15 @@ import {select} from './index';
 
 export default {
 
-	_renderItems (items, props) {
-		var s = this.state || {};
-		var p = this.props || {};
-		var node = s.node || p.node || (props && props.node);
-		var status = node && node.parent('isEnrollment').getStatus();
+	renderItems (items, props) {
+		let s = this.state || {};
+		let p = this.props || {};
+		let node = s.node || p.node || (props && props.node);
+		let status = node && node.parent('isEnrollment').getStatus();
 
-		var toReturn = items && items.map((item, i, list)=>{
-			var use = true;
-			var itemProps = Object.assign({}, props, p, {node: node});
+		let toReturn = items && items.map((item, i, list)=>{
+			let use = true;
+			let itemProps = Object.assign({}, props, p, {node: node});
 
 			if (node && !node.hasVisibility(item, status)) {
 				use = null;
