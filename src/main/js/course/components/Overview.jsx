@@ -89,7 +89,7 @@ export default React.createClass({
 
 
 	onError (error) {
-		console.error(error);
+		console.error('Error loading Overview: ', error.stack || error.message || error);
 		this.setStateSafely({
 			error,
 			loading: false,
