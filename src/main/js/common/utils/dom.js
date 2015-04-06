@@ -41,7 +41,7 @@ export function getElementRect (el) {
 	}
 
 	if (!rect && el) {
-		if (el.nodeType !== Node.ELEMENT_NODE) {
+		if (el.nodeType !== 1/*Node.ELEMENT_NODE*/) {
 			//
 			h = getViewportHeight();
 			w = getViewportWidth();
@@ -68,8 +68,8 @@ export function getElementRect (el) {
 
 
 export function scrollElementBy (el, x, y) {
-	x = x||0;
-	y = y||0;
+	x = x || 0;
+	y = y || 0;
 
 
 	if (el.scrollBy) {
@@ -140,7 +140,7 @@ export function parentElements (el) {
 
 	while(el) {
 		el = p = el.parentNode;
-		if(p && p.nodeType === Node.ELEMENT_NODE) {
+		if(p && p.nodeType === 1/*Node.ELEMENT_NODE*/) {
 			parents.push(p);
 		}
 	}
@@ -385,7 +385,7 @@ function getDirectChildNodes(el, tag) {
  * @param {Node} root - Root Node to select unwanted elements
  * @param {Boolean} cleanAttributes - if true, will remove all attributes that
  *                                    are not white listed. (See KEEP_ATTRS)
- * @return {Node[]}
+ * @return {Node[]} Array of Nodes
  * @private
  */
 function pickUnsanitaryElements (root, cleanAttributes) {
@@ -447,7 +447,8 @@ function pickUnsanitaryElements (root, cleanAttributes) {
  * recursively remove an elment (if removing a node produces an empty parent
  * node, remove it too...until we get to the root)
  *
- * @param {Node} el
+ * @param {Node} el element to remove
+ * @return {void}
  * @private
  */
 function removeNodeRecursively(el) {
