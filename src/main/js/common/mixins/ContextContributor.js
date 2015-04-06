@@ -1,19 +1,21 @@
 import React from 'react';
-import Accessor from './ContextAccessor';
+import Accessor, {ContextParent, ContextResolver} from './ContextAccessor';
+
+export {ContextParent, ContextResolver};
 
 export default {
 	mixins: [Accessor],
 
 	childContextTypes: {
-		contextResolver: React.PropTypes.func,
-		contextParent: React.PropTypes.any
+		[ContextResolver]: React.PropTypes.func,
+		[ContextParent]: React.PropTypes.any
 	},
 
 
 	getChildContext () {
 		return {
-			contextResolver: this.resolveContext,
-			contextParent: this
+			[ContextResolver]: this.resolveContext,
+			[ContextParent]: this
 		};
 	}
 };

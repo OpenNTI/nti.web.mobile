@@ -1,4 +1,4 @@
-import Contributor from './ContextContributor';
+import Contributor, {ContextParent, ContextResolver} from './ContextContributor';
 
 import * as Actions from 'navigation/Actions';
 
@@ -42,10 +42,10 @@ export default {
 			console.warn('Missing getContext implementation, adding empty no-op.');
 		}
 
-		let {contextParent} = this.context;
+		let parent = this.context[ContextParent];
 
-		if (contextParent && contextParent[RegisterChild]) {
-			contextParent[RegisterChild](this);
+		if (parent && parent[RegisterChild]) {
+			parent[RegisterChild](this);
 		}
 
 		this[notify]();
@@ -58,9 +58,9 @@ export default {
 
 
 	componentWillUnmount () {
-		let {contextParent} = this.context;
-		if (contextParent && contextParent[UnregisterChild]) {
-			contextParent[UnregisterChild](this);
+		let parent = this.context[ContextParent];
+		if (parent && parent[UnregisterChild]) {
+			parent[UnregisterChild](this);
 		}
 	},
 
