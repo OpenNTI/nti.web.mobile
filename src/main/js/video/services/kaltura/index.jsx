@@ -213,17 +213,20 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
+		console.log('doPlay');
 		this.play();
 	},
 
 
 	play () {
 		let {video} = this.refs;
+		this.setState({interacted: true});
 		if (video && this.isMounted()) {
 			video = video.getDOMNode();
-			if(video.play){ video.play(); }
+			if(video.play){
+				video.play();
+			}
 		}
-		this.setState({interacted: true});
 	},
 
 

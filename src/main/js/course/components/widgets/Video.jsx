@@ -85,12 +85,14 @@ export default React.createClass({
 			}
 
 			this.setState({loading: true});
+
 			course.getVideoIndex()
 				.then(videoIndex => {
-					let video = videoIndex.get(item.NTIID);
-					this.setState({ loading: false, video });
-					video.getPoster().then(poster=>
-						this.setState({poster}));
+					let v = videoIndex.get(item.NTIID);
+					return v.getPoster()
+						.then(poster=> {
+							this.setState({loading: false, poster, video: v});
+						});
 				})
 				.catch(this.onError);
 		} catch (e) {
@@ -100,11 +102,10 @@ export default React.createClass({
 
 
 	onPlayClicked (e) {
-		e.preventDefault();
-		e.stopPropagation();
-
 		let {video} = this.refs;
 		if (video) {
+			e.preventDefault();
+			e.stopPropagation();
 			video.play();
 		}
 	},
@@ -129,14 +130,19 @@ export default React.createClass({
 
 
 	render () {
-		let {props} = this;
-		let {activeIndex, index, touching, item} = props;
+		let {
+			activeIndex,
+			index,
+			touching,
+			item,
+			tag = 'div',
+			onFocus
+		} = this.props;
+
+		let {video, poster} = this.state;
 		let renderVideoFully = !touching;
 
-		let Tag = props.tag || 'div';
-		let style = {
-			backgroundImage: 'url(' + this.state.poster + ')'
-		};
+		let style = { backgroundImage: 'url(' + poster + ')' };
 
 		if (activeIndex != null) {
 			renderVideoFully = (!touching && activeIndex === index);
@@ -149,12 +155,11 @@ export default React.createClass({
 			viewed = true;
 		}
 
-
 		let link = path.join('v', encodeForURI(item.NTIID)) + '/';
 
 		return (
-			<Tag className="overview-video video-wrap flex-video widescreen">
-				{!this.state.video || !renderVideoFully ? null :
+			<tag className="overview-video video-wrap flex-video widescreen">
+				{(!video || !renderVideoFully) ? {video: !!this.state.video} :
 					<Video ref="video" src={this.state.video}
 						onEnded={this.onStop}
 						onPlaying={this.onPlay}
@@ -163,7 +168,7 @@ export default React.createClass({
 				}
 				{this.state.playing ? null :
 				<LoadingMask style={style} loading={this.state.loading}
-					tag="a" onFocus={props.onFocus}
+					tag="a" onFocus={onFocus}
 					className="overview-tap-area" href={link}>
 					{viewed && <div className="viewed">Viewed</div>}
 					<div className="wrapper">
@@ -174,7 +179,7 @@ export default React.createClass({
 					</div>
 				</LoadingMask>
 				}
-			</Tag>
+			</tag>
 		);
-	}//controls autobuffer autoplay loop
+	}
 });
