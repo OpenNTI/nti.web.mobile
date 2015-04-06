@@ -104,13 +104,16 @@ export default React.createClass({
 
 	newWatchVideoEvent(browserEvent) {
 		let ctx = (this.props.context || [])
-			.map(x=> x.ntiid || (typeof x === 'string' ? x : null))
+			.map( x => {
+				x.ntiid || x.href || (typeof x === 'string' ? x : null)
+			})
 			.filter(x=>x); // removes nulls
 
 		let target = (browserEvent || {}).target || {currentTime: 0, duration: 0};
 
 		let analyticsEvent = new WatchVideoEvent(
 			this.props.src.ntiid,
+			this.props.courseId,
 			ctx,
 			target.currentTime, // video_start_time
 			target.duration, // MaxDuration, the length of the entire video

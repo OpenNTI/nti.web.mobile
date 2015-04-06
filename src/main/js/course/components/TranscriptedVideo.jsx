@@ -105,8 +105,8 @@ export default React.createClass({
 						global.VTTCue = VTTCue;
 					}
 
-				    parser.parse(vtt);
-				    parser.flush();
+					parser.parse(vtt);
+					parser.flush();
 
 					if (global.VTTCue === VTTCue) {
 						delete global.VTTCue;
@@ -162,6 +162,7 @@ export default React.createClass({
 				<LoadingMask loading={loading}>
 
 					<Video ref="video"
+							courseId={this.props.course.getID()}
 							src={video}
 							onTimeUpdate={this.onVideoTimeTick}
 							context={this.state.context}
