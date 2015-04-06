@@ -8,13 +8,13 @@ require('babel/polyfill');
 // Its not a simple swap...otherwise I would have done that.
 require('script!../resources/vendor/modernizr/modernizr.js');
 
-var FastClick = require('fastclick');
-var QueryString = require('query-string');
-var React = require('react');
-var {overrideConfigAndForceCurrentHost, getServerURI} = require('common/utils');
-var OrientationHandler = require('common/utils/orientation');
-//var emptyFunction = require('react/lib/emptyFunction');
-// var preventOverscroll = require('common/thirdparty/prevent-overscroll');
+let FastClick = require('fastclick');
+let QueryString = require('query-string');
+let React = require('react');
+let {overrideConfigAndForceCurrentHost, getServerURI} = require('common/utils');
+let OrientationHandler = require('common/utils/orientation');
+//let emptyFunction = require('react/lib/emptyFunction');
+// let preventOverscroll = require('common/thirdparty/prevent-overscroll');
 
 
 //Allow CSS :active states:
@@ -23,9 +23,9 @@ var OrientationHandler = require('common/utils/orientation');
 overrideConfigAndForceCurrentHost();
 console.debug('Client is using host: %s', getServerURI());
 
-var EventPluginHub = require('react/lib/EventPluginHub');
-var ResponderEventPlugin = require('common/thirdparty/ResponderEventPlugin');
-var TapEventPlugin = require('common/thirdparty/TapEventPlugin');
+let EventPluginHub = require('react/lib/EventPluginHub');
+let ResponderEventPlugin = require('common/thirdparty/ResponderEventPlugin');
+let TapEventPlugin = require('common/thirdparty/TapEventPlugin');
 
 EventPluginHub.injection.injectEventPluginsByName({
 	ResponderEventPlugin: ResponderEventPlugin,
@@ -45,20 +45,20 @@ React.initializeTouchEvents(true);
 // 	//Suggest Bookmarking to the home screen...
 // }
 
-var basePath = (global.$AppConfig || {}).basepath || '/';
+let basePath = (global.$AppConfig || {}).basepath || '/';
 
-var AppView = require('./AppView');
-var app = React.render(
+let AppView = require('./AppView');
+let app = React.render(
 	React.createElement(AppView, {basePath: basePath}),
 	document.getElementById('content')
 );
 
 
-var LoginActions = require('login/Actions');
-var LoginStore = require('login/Store');
+let LoginActions = require('login/Actions');
+let LoginStore = require('login/Store');
 LoginStore.addChangeListener(function(evt) {
-	var loc = global.location || {};
-	var returnURL = QueryString.parse(loc.search).return;
+	let loc = global.location || {};
+	let returnURL = QueryString.parse(loc.search).return;
 	if (evt && evt.property === LoginStore.Properties.isLoggedIn) {
 		if (evt.value) {
 			LoginActions.deleteTOS();
@@ -66,17 +66,17 @@ LoginStore.addChangeListener(function(evt) {
 			loc.replace(returnURL || basePath);
 		}
 		else {
-			app.navigate(basePath + 'login/',  {replace:true});
+			app.navigate(basePath + 'login/', {replace: true});
 		}
 	}
 });
 
 
 //After bundle CSS is injected, lets move this back down so it overrides the bundle.
-var site = document.getElementById('site-override-styles');
-if (site) {site.parentNode.appendChild(site);}
+let site = document.getElementById('site-override-styles');
+if (site) { site.parentNode.appendChild(site); }
 
-var sscss = document.getElementById('server-side-style');
+let sscss = document.getElementById('server-side-style');
 
 //Lets free some memory... the server sends styles to the initial page view looks
 //correct while the bundle downloads/loads...once loaded and in place, we want to
