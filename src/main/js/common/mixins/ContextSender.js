@@ -1,6 +1,6 @@
 import Contributor from './ContextContributor';
 
-import {setPageSource, setContext} from 'navigation/Actions';
+import * as Actions from 'navigation/Actions';
 
 const RegisterChild = 'context:child:register';
 const UnregisterChild = 'context:child:unregister';
@@ -31,7 +31,7 @@ export default {
 	[notify] () {
 		let children = this[Children] || {size: 0};
 		if (children.size === 0) {
-			setContext(this);
+			Actions.setContext(this);
 		}
 	},
 
@@ -68,7 +68,7 @@ export default {
 	setPageSource (pageSource, currentPage) {
 		let children = this[Children] || {size: 0};
 		if (children.size === 0) {
-			setPageSource(pageSource, currentPage, this);
+			Actions.setPageSource(pageSource, currentPage, this);
 		}
 	}
 };
