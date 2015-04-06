@@ -93,16 +93,23 @@ export default React.createClass({
 
 		if (this.isMounted()) {
 			let analyticsEvent = this.newWatchVideoEvent(event);
-			emitEventStarted(analyticsEvent);
-			this.setState({
-				playStartEvent: analyticsEvent // this.getAnalyticsEventData(event)
-			});
+			if (analyticsEvent) {
+				emitEventStarted(analyticsEvent);
+				this.setState({
+					playStartEvent: analyticsEvent
+				});	
+			}
 			return analyticsEvent;
 		}
 	},
 
-
 	newWatchVideoEvent(browserEvent) {
+
+		if (!this.props.src.ntiid) {
+			console.warn('No ntiid. Skipping WatchVideoEvent instantiation.');
+			return null;
+		}
+
 		let ctx = (this.props.context || [])
 			.map( x => {
 				x.ntiid || x.href || (typeof x === 'string' ? x : null)
@@ -127,7 +134,7 @@ export default React.createClass({
 	recordPlaybackStopped (event) {
 		let {playStartEvent} = this.state;
 		if (!playStartEvent) {
-			console.warn('We don\'t have a playStartEvent? How did we get a stop event without a prior start event? Dropping the event on the floor.');
+			console.warn('We don\'t have a playStartEvent. Dropping playbackStopped event on the floor.');
 			return;
 		}
 
@@ -138,15 +145,6 @@ export default React.createClass({
 			this.setState({playStartEvent: null});
 		}
 	},
-
-
-	// emitEmptyAnalyticsEvent () {
-	// 	let event = this.newWatchVideoEvent();
-	// 	emitEventStarted(event);
-	// 	event.finish(0);
-	// 	emitEventEnded(event);
-	// },
-
 
 	onTimeUpdate (event) {
 		this.props.onTimeUpdate(event);
