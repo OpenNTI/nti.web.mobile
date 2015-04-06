@@ -6,7 +6,7 @@ import {WATCH_VIDEO} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
 let timer;
 let analytics = analyticsConfig();
-let idleTimeMs = (analytics.idleTimeoutSeconds || 60) * 1000;
+let idleTimeMs = (analytics.idleTimeoutSeconds || 1800) * 1000;//default to 30min
 
 let suspensionEventTypes = new Set([WATCH_VIDEO]);
 
