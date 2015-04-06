@@ -42,7 +42,10 @@ export default React.createClass({
 		onSeeked: React.PropTypes.func,
 		onPlaying: React.PropTypes.func,
 		onPause: React.PropTypes.func,
-		onEnded: React.PropTypes.func
+		onEnded: React.PropTypes.func,
+
+
+		deferred: React.PropTypes.bool
 	},
 
 

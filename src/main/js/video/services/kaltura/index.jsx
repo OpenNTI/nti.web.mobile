@@ -186,7 +186,12 @@ export default React.createClass({
 
 
 	renderSources () {
-		let sources = this.state.sources || [];
+		let {interacted, sources = {}} = this.state;
+
+		if (this.props.deferred && !interacted) {
+			return null;
+		}
+
 		return sources.map(source=> (
 			<source key={source.src} src={source.src} type={source.type}/>
 		));
@@ -215,10 +220,10 @@ export default React.createClass({
 	play () {
 		let {video} = this.refs;
 		if (video && this.isMounted()) {
-			this.setState({interacted: true});
 			video = video.getDOMNode();
 			if(video.play){ video.play(); }
 		}
+		this.setState({interacted: true});
 	},
 
 

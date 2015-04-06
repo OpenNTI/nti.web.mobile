@@ -138,8 +138,14 @@ let Source = React.createClass({
 
 
 	render () {
-		if (!this.props.src) {
+		let {src, deferred} = this.props;
+
+		if (!src) {
 			return (<ErrorWidget error="No source"/>);
+		}
+
+		if (deferred) {
+			console.warn('YouTube videos do not have a safe way to preload assets, and defer their render');
 		}
 
 		return (<iframe {...this.props} src={this.state.playerURL}

@@ -172,6 +172,10 @@ let Source = React.createClass({
 			return (<ErrorWidget error="No source"/>);
 		}
 
+		if (this.props.deferred) {
+			console.warn('Vimeo videos do not have a safe way to preload assets, and defer their render');
+		}
+
 		return (
 			<iframe {...this.props} src={this.state.playerURL}
 				frameBorder="0" seemless allowFullScreen allowTransparency />
