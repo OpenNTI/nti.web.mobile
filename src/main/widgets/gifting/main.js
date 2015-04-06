@@ -1,5 +1,5 @@
 'use strict';
-require('script!babel/browser-polyfill');
+require('babel/polyfill');
 require('babel/polyfill');
 
 var React = require('react');
