@@ -104,7 +104,7 @@ export default React.createClass({
 
 	newWatchVideoEvent(browserEvent) {
 		let ctx = (this.props.context || [])
-			.map(x=> x.ntiid || (typeof x === 'string'? x: null))
+			.map(x=> x.ntiid || (typeof x === 'string' ? x : null))
 			.filter(x=>x); // removes nulls
 
 		let target = (browserEvent || {}).target || {currentTime: 0, duration: 0};

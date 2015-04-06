@@ -138,7 +138,7 @@ export default React.createClass({
 
 		if (!this.state.touch) {
 			e.stopPropagation();
-			console.debug('Touch Start...');
+			// console.debug('Touch Start...');
 			this.setState({
 				touch: {
 					dom: videos,
@@ -168,7 +168,7 @@ export default React.createClass({
 		}
 
 		let active = state.active;
-		let touch = Array.from(e.targetTouches||[]).reduce(find, null);
+		let touch = Array.from(e.targetTouches || []).reduce(find, null);
 		let sliding = data.sliding;
 		let pixelOffset = data.pixelOffset;
 		let startPixelOffset = data.startPixelOffset;
@@ -200,7 +200,7 @@ export default React.createClass({
 
 				pixelOffset = startPixelOffset + (delta / touchPixelRatio);
 
-				console.debug('Touch move... %d %d %d', startPixelOffset, pixelOffset, delta);
+				// console.debug('Touch move... %d %d %d', startPixelOffset, pixelOffset, delta);
 				me.setState({
 					touch: Object.assign(state.touch, {
 						delta: delta,
@@ -302,7 +302,7 @@ export default React.createClass({
 	renderDots () {
 		return this.getVideoList().map((_, i) => {
 			let active = (i === (this.state.active || 0)) ? 'active' : null;
-			return (<li key={'video-'+i}><a className={active} href={"#"+i}
+			return (<li key={'video-' + i}><a className={active} href={"#" + i}
 				onClick={this.onActivateSlide} data-index={i}/></li>);
 		});
 	}
