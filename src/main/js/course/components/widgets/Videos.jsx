@@ -138,7 +138,7 @@ export default React.createClass({
 
 		if (!this.state.touch) {
 			e.stopPropagation();
-			// console.debug('Touch Start...');
+			console.debug('Touch Start...');
 			this.setState({
 				touch: {
 					dom: videos,
@@ -214,8 +214,7 @@ export default React.createClass({
 	},
 
 
-	onTouchEnd (/*e*/) {
-		//e.stopPropagation();
+	onTouchEnd (e) {
 
 		let touch = this.state.touch || {};
 
@@ -224,10 +223,13 @@ export default React.createClass({
 		let fn;
 
 		if (touch.sliding === 2) {
-			fn = //(Math.abs(pixelOffset - startPixelOffset)/touch.dom.offsetWidth) > 0.2 ? null ://elastic
+			e.preventDefault();
+			e.stopPropagation();
+
+			fn = (Math.abs(pixelOffset - startPixelOffset) / touch.dom.offsetWidth) > 0.35 ? null ://elastic
 				pixelOffset < startPixelOffset ? 'onNext' : 'onPrev';
 
-			console.debug('Touch End, result: %s', fn);
+			console.debug('Touch End, result: %s', fn || 'stay');
 
 			if(fn) {
 				this[fn]();
