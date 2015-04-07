@@ -157,9 +157,10 @@ export default React.createClass({
 
 		let link = path.join('v', encodeForURI(item.NTIID)) + '/';
 
+		let Tag = tag;
 		return (
-			<tag className="overview-video video-wrap flex-video widescreen">
-				{(!video || !renderVideoFully) ? {video: !!this.state.video} :
+			<Tag className="overview-video video-wrap flex-video widescreen">
+				{(!video || !renderVideoFully) ? null :
 					<Video ref="video" src={this.state.video}
 						onEnded={this.onStop}
 						onPlaying={this.onPlay}
@@ -179,7 +180,7 @@ export default React.createClass({
 					</div>
 				</LoadingMask>
 				}
-			</tag>
+			</Tag>
 		);
 	}
 });

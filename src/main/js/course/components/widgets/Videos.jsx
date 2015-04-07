@@ -218,6 +218,8 @@ export default React.createClass({
 
 		let touch = this.state.touch || {};
 
+		let find = (t, i) =>t || (i.identifier === touch.id && i);
+		let endedTouch = Array.from(e.targetTouches || []).reduce(find, null);
 		let pixelOffset = touch.pixelOffset;
 		let startPixelOffset = touch.startPixelOffset;
 		let fn;
@@ -226,7 +228,7 @@ export default React.createClass({
 			e.preventDefault();
 			e.stopPropagation();
 
-			fn = (Math.abs(pixelOffset - startPixelOffset) / touch.dom.offsetWidth) > 0.35 ? null ://elastic
+			fn = (Math.abs(pixelOffset - startPixelOffset) / touch.dom.offsetWidth) < 0.35 ? null ://elastic
 				pixelOffset < startPixelOffset ? 'onNext' : 'onPrev';
 
 			console.debug('Touch End, result: %s', fn || 'stay');
@@ -234,7 +236,14 @@ export default React.createClass({
 			if(fn) {
 				this[fn]();
 			}
+
 			this.setState({ touch: null	});
+		}
+
+		if (endedTouch || e.targetTouches.length === 0) {
+			this.setState({ touch: null	});
+		} else {
+			console.debug('Not my touch', touch.id, e.targetTouches);
 		}
 	},
 
@@ -272,7 +281,8 @@ export default React.createClass({
 
 
 	renderCarousel () {
-		let touching = !!this.state.touch;
+		let {touch} = this.state;
+		let touching = (touch && touch.sliding !== 1);
 		let animateChanges = touching ? '' : 'animate';
 		let translation = this.getTranslation();
 
