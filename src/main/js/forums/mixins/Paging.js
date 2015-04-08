@@ -10,7 +10,7 @@ export default {
 		return cp;
 	},
 
-	get pageSize() {
+	getPageSize () {
 		if (pageSize == null) {
 			pageSize = discussionsConfig().pageSize || 20;
 		}
@@ -18,11 +18,11 @@ export default {
 	},
 
 	batchStart() {
-		return this.pageSize * (this.currentPage() - 1);
+		return this.getPageSize() * (this.currentPage() - 1);
 	},
 
 	numPages() {
-		return Math.ceil((((this.state || {}).itemContents || {}).FilteredTotalItemCount || 0) / this.pageSize);
+		return Math.ceil((((this.state || {}).itemContents || {}).FilteredTotalItemCount || 0) / this.getPageSize());
 	},
 
 	hasNextPage() {
@@ -32,7 +32,7 @@ export default {
 	pagingInfo() {
 		return {
 			currentPage: this.currentPage,
-			pageSize: this.pageSize,
+			pageSize: this.getPageSize(),
 			numPages: this.numPages(),
 			hasNext: this.hasNextPage(),
 			hasPrevious: this.currentPage() > 1

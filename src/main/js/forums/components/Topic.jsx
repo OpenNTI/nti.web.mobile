@@ -145,7 +145,7 @@ module.exports = React.createClass({
 	},
 
 	[loadData]: function(topicId=this.props.topicId) {
-		return Api.getTopicContents(topicId, this.batchStart(), this.pageSize)
+		return Api.getTopicContents(topicId, this.batchStart(), this.getPageSize())
 		.then(
 			result => {
 				Store.setObject(topicId, result.object);
