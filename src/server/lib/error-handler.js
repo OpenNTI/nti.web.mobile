@@ -1,14 +1,16 @@
+import fs from 'fs';
+import guid from 'nti.lib.interfaces/utils/guid';
 import logger from './logger';
 import path from 'path';
-import fs from 'fs';
 
 const basepathreplace = /(manifest|src|href)="(.*?)"/igm;
 
 const isRootPath = /^\/(?!\/).*/;
 
 
-export default function setupErrorHandler(express) {
+export default function setupErrorHandler(express, config) {
 	const basePath = express.mountpath || '/';
+	const appConfig = config;
 
 	//Fail fast, if readFileSync throws, it will halt node.
 	//Second, keep this in memory once, no need to read it from disk every time.
@@ -29,14 +31,19 @@ export default function setupErrorHandler(express) {
 			err = err.stack;
 		}
 
-		logger.error(err);
+		let errorid = guid();
+		logger.error(errorid, err);
 
 		let body;
 
 		try {
-			body = preprocess(template, err);
+			body = preprocess(template, {
+				err,
+				errorid,
+				appVersion: (appConfig.appVersion || 'Unknown version (development?)')
+			});
 		} catch (er) {
-			logger.error('%s', er.stack || er.message || er);
+			logger.error(errorid, er.stack || er.message || er);
 			body = 'Couldn\'t populate error template.';
 		}
 
@@ -44,6 +51,18 @@ export default function setupErrorHandler(express) {
 	});
 }
 
-function preprocess(templateStr, err={}) {
-	return templateStr.replace(/(id="error">).*(<\/)/, '$1<pre><code>' + (err.stack || err.message || err) + '</code></pre>$2');
+function preprocess(templateStr, data={}) {
+	// {
+	// 	err={},
+	// 	errorid,
+	// 	appVersion,
+	// }
+	// return templateStr.replace(/(id="error">).*(<\/)/, '$1<pre><code>' + (err.stack || err.message || err) + '</code></pre>$2');
+	Object.keys(data).forEach(key => {
+		templateStr = templateStr.replace('{' + key + '}', data[key] || '');
+	});
+
+	// strip remaining placeholders before returning the result.
+	return templateStr.replace(/\{.*\}/, '');
+
 }
