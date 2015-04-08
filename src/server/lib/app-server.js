@@ -42,7 +42,7 @@ export function setupApplication(app, config) {
 
 	redirects.register(app, config);
 
-	if (entryPoint==null) {//only start the dev server if entryPoint is null or undefined. if its false, skip.
+	if (entryPoint == null) {//only start the dev server if entryPoint is null or undefined. if its false, skip.
 		devmode = setupDeveloperMode(config);
 		entryPoint = devmode.entry;
 		page = pageSource();
@@ -64,13 +64,18 @@ export function setupApplication(app, config) {
 		}
 	}));//static files
 
-	//Session manager...
+	//Do not let requests for static assets (that are not found) fall through to page rendering.
+	app.get(/^\/(js|resources)\//i, (_, res)=>
+		res.status(404).send('Asset Not Found'));
+
 	app.use(cacheBuster);
 
 	api.registerAnonymousEndPoints(app, config);
 
-	app.use(/^\/login.*/, session.anonymousMiddleware.bind(session));
-	app.use(/^(?!\/(login|resources)).*/, session.middleware.bind(session));
+	app.use(/^\/login/i, session.anonymousMiddleware.bind(session));
+
+	//Session manager...
+	app.use(/^(?!\/(login|resources)).*/i, session.middleware.bind(session));
 
 	api.registerAuthenticationRequiredEndPoints(app, config);
 

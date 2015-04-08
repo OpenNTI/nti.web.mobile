@@ -60,7 +60,7 @@ e[0].plugins = [
 e.forEach(function(x) {
 	x.stats = true;
 	x.debug = false;
-	x.devtool = 'source-map';
+	x.devtool = 'hidden-source-map';
 });
 
 
