@@ -53,6 +53,10 @@ export function setupApplication(app, config) {
 		return void 0;
 	}
 
+	app.use('/errortest/', function() {
+		throw new Error("This is an error. Neato.");
+	});
+
 	//Static files...
 	app.use(express.static(assetPath, {
 		maxage: 3600000, //1hour

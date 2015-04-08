@@ -18,6 +18,7 @@ var express = require('express');
 var common = require('./lib/common');
 var server = require('./lib/app-server');
 var logger = require('./lib/logger');
+var errorHandler = require('./lib/error-handler');
 
 common.loadConfig().then(function(config) {
 
@@ -35,23 +36,7 @@ common.loadConfig().then(function(config) {
 	port = server.setupApplication(app, config);
 
 	//Errors
-	// We need the signature to be 4 args long
-	// for express to treat it as a error handler
-	app.use(function(err, req, res, next){// eslint-disable-line no-unused-vars
-		if (!err) {
-			err = 'Unknown Error';
-		}
-		else if (err.toJSON) {
-			err = err.toJSON();
-		}
-		else if (err.stack) {
-			err = err.stack;
-		}
-
-		logger.error('%o', err);
-
-		res.status(err.statusCode || 500).send(err.body || 'Oops! Something broke!');
-	});
+	app.use(errorHandler);
 
 	//Go!
 	protocol.createServer(mobileapp || app).listen(port, address, function() {

@@ -160,6 +160,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
+					'src/main/resources/css/errorpage.css': 'src/main/resources/scss/errorpage.scss',
 					'src/main/resources/css/app.css': 'src/main/resources/scss/app.scss',
 					'src/main/resources/css/sites/platform.ou.edu/site.css': 'src/main/resources/scss/sites/platform.ou.edu/site.scss',
 					'src/main/resources/css/sites/okstate.nextthought.com/site.css': 'src/main/resources/scss/sites/okstate.nextthought.com/site.scss'
