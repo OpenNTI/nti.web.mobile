@@ -5,6 +5,13 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/errorpage.css" />
 </head>
 <body>
-	<div id="error">An error occurred.</div>
+	<div class="erroralert">
+		<div id="error">An error occurred.</div>
+		<div id="message">{message}</div>
+		<div id="info">
+			<div id="errorid">Error reference number: {errorid}</div>
+			<div id="appVersion">App Version: {appVersion}</div>
+		</div>
+	</div>
 </body>
 </html>

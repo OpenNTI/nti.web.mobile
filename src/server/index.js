@@ -37,7 +37,7 @@ common.loadConfig()
 	port = server.setupApplication(app, config);
 
 	//Errors
-	setupErrorHandler(app);
+	setupErrorHandler(app, config);
 
 	//Go!
 	protocol.createServer(mobileapp || app).listen(port, address, function() {
