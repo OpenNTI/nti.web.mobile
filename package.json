@@ -18,7 +18,6 @@
   "public_root": "/mobile/",
   "scripts": {
     "prepublish": "npm dedupe react babel babel-core babel-runtime",
-    "install": "npm test",
     "test": "grunt test"
   },
   "main": "./src/server/index.js",
