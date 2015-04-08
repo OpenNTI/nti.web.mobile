@@ -18,9 +18,10 @@ var express = require('express');
 var common = require('./lib/common');
 var server = require('./lib/app-server');
 var logger = require('./lib/logger');
-var errorHandler = require('./lib/error-handler');
+var setupErrorHandler = require('./lib/error-handler');
 
-common.loadConfig().then(function(config) {
+common.loadConfig()
+.then(function(config) {
 
 	var protocol = config.protocol === 'proxy' ? proxiedHttp : http;
 	var address = config.address || '0.0.0.0';
@@ -36,7 +37,7 @@ common.loadConfig().then(function(config) {
 	port = server.setupApplication(app, config);
 
 	//Errors
-	app.use(errorHandler);
+	setupErrorHandler(app);
 
 	//Go!
 	protocol.createServer(mobileapp || app).listen(port, address, function() {
@@ -44,4 +45,8 @@ common.loadConfig().then(function(config) {
 
 }, function (error) {
 	logger.error('Failed to load config: ', error);
+})
+.catch(function(error) {
+	logger.error('Failed to start: ', error);
+	process.kill();//just in case dev server is already up.
 });

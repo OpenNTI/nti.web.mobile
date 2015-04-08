@@ -53,7 +53,7 @@ export function setupApplication(app, config) {
 		return void 0;
 	}
 
-	app.use('/errortest/', function() {
+	app.use('/errortest*', function() {
 		throw new Error("This is an error. Neato.");
 	});
 
