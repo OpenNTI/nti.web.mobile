@@ -1,9 +1,9 @@
 import QueryString from 'query-string';
 import {discussionsConfig} from 'common/utils';
 
-const pageSize = discussionsConfig().pageSize || 20;
+let pageSize;
 
-module.exports = {
+export default {
 	currentPage() {
 		let loc = global.location || {};
 		let cp = parseInt(QueryString.parse(loc.search).p || 1);
@@ -11,6 +11,9 @@ module.exports = {
 	},
 
 	get pageSize() {
+		if (pageSize == null) {
+			pageSize = discussionsConfig().pageSize || 20;
+		}
 		return pageSize;
 	},
 

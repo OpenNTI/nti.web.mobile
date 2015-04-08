@@ -16,7 +16,7 @@ export default function setupErrorHandler(express, config) {
 	//Second, keep this in memory once, no need to read it from disk every time.
 	let file = path.resolve(__dirname, '../../main/error.html');
 	if (!fs.existsSync(file)) {
-		file = path.resolve(__dirname, '../../error.html');
+		file = path.resolve(__dirname, '../../client/error.html');
 	}
 
 	const template = fs.readFileSync(file, 'utf8')
