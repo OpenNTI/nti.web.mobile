@@ -28,6 +28,12 @@ let opt = require('optimist').usage('WebApp Instance')
 				default: 'proxy',
 				desc: 'Protocol to use (proxy or http)'
 			})
+			.options('dataserver-host', {
+				desc: 'Override DataServer host (this trumps the config)'
+			})
+			.options('dataserver-port', {
+				desc: 'Override DataServer port (this trumps the config)'
+			})
 			.options('config', {
 				demand: true,
 				default: '../config/env.json',
@@ -88,12 +94,29 @@ function override(dest, overrides) {
 export function config() {
 	let base = 'development';
 
-	return override(
+	let serverHost = opt['dataserver-host'];
+	let serverPort = opt['dataserver-port'];
+
+	let c = override(
 		Object.assign({}, env[base], env[process.env.NODE_ENV] || {}), {
 			protocol: opt.protocol,
 			address: opt.l,
 			port: opt.p || env.port
 		});
+
+	if (serverHost || serverPort) {
+		let server = url.parse(c.server);
+		server.host = null;
+		if (serverHost) {
+			server.hostname = serverHost;
+		}
+		if (serverPort) {
+			server.port = serverPort;
+		}
+		c.server = server.format();
+	}
+
+	return c;
 }
 
 export function clientConfig (username, context) {
