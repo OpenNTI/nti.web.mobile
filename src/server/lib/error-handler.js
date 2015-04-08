@@ -15,7 +15,7 @@ export default function setupErrorHandler(express, config) {
 	//Fail fast, if readFileSync throws, it will halt node.
 	//Second, keep this in memory once, no need to read it from disk every time.
 	let file = path.resolve(__dirname, '../../main/error.html');
-	if (!fs.existsSync(path)) {
+	if (!fs.existsSync(file)) {
 		file = path.resolve(__dirname, '../../error.html');
 	}
 
