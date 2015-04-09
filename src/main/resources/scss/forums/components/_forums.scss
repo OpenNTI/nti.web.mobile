@@ -15,25 +15,31 @@ $indent: 0.9375rem;
 	font-size:.875rem;
 	.item {
 		padding: .5rem 1.4rem; // the horizontal padding makes room for the arrows.	
+		text-align: center;
 	}
 	.previous {
+		position: relative;
 		 .link {
 			&::before {
-				@include arrow(left);	
+				@include arrow(left);
 			} 	
 		 }
 	}
 	.current {
 		text-align: center;
 		color: $tertiary-grey;
+		white-space: nowrap;
 	}
 	.next {
-		text-align: right;
+		position: relative;
 		.link {
 			&::after {
 				@include arrow(right);	
 			}
 		}
+	}
+	.page-select {
+		width: 3em;
 	}
 }
 
