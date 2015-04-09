@@ -1,7 +1,6 @@
 'use strict';
 
 import styleCollector from './style-collector';
-import {config} from './common';
 
 import logger from './logger';
 
@@ -10,20 +9,12 @@ import Path from 'path';
 import fs from 'fs';
 import React from 'react';
 
+const isRootPath = /^\/(?!\/).*/;
 const basepathreplace = /(manifest|src|href)="(.*?)"/igm;
 const configValues = /<\[cfg\:([^\]]*)\]>/igm;
 
 function injectConfig(cfg, orginal, prop) {
 	return cfg[prop] || 'MissingConfigValue';
-}
-
-
-function basePathFix(original, attr, val) {
-	if (val.charAt(0) === '/' && val.charAt(1) !== '/') {
-		val = (config().basepath || '/') + val.substr(1);
-	}
-
-	return attr + '="' + val + '"';
 }
 
 
@@ -37,7 +28,7 @@ export default function getPage(render) {
 		} catch (e) {
 			logger.error('No Server-side Rendering (Because: %s)',
 				/Cannot find module '\.\.\/main\/js\/AppView'/.test(e.message || e) ?
-					e.message: e.stack || e.message || e);
+					e.message : e.stack || e.message || e);
 		}
 	}
 
@@ -63,7 +54,7 @@ export default function getPage(render) {
 
 
 
-	return function(req, scriptFilename, clientConfig) {
+	return function(basePath, req, scriptFilename, clientConfig) {
 		let u = url.parse(req.url);
 		let manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache"' : '<html';
 		let path = u.pathname;
@@ -71,13 +62,16 @@ export default function getPage(render) {
 		let html = '';
 		let css = '';
 
+		let basePathFix = (original, attr, val) => attr + '="' +
+				(isRootPath.test(val) ? (basePath || '/') + val.substr(1) : val) + '"';
+
 		if (Application) {
 			try {
 				global.$AppConfig = cfg;
 				css = styleCollector.collect(() => {
 					let app = React.createElement(Application, {
-						path: Path.join(cfg.basepath || '', path),
-						basePath: config().basepath
+						path: Path.join(basePath || '', path),
+						basePath
 					});
 
 					html = React.renderToString(app);

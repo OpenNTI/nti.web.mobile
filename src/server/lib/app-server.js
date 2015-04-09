@@ -29,10 +29,13 @@ export function setupApplication(app, config) {
 	let session = dsi.session;
 	let datacache = dsi.datacache;
 
+	let {basepath} = config;
+
 	let entryPoint = generated.entryPoint;
 	let assetPath = path.join(__dirname, '../..', entryPoint ? 'client' : 'main');
 	logger.info('Static Assets: %s', assetPath);
 	logger.info('DataServer end-point: %s', config.server);
+	logger.info('mount-point: %s', basepath);
 	let page = generated.page;
 	let devmode;
 
@@ -91,7 +94,7 @@ export function setupApplication(app, config) {
 		global.pageRenderSetPageNotFound = ()=>isErrorPage = true;
 
 		//Pre-flight (if any widget makes a request, we will cache its result and send its result to the client)
-		page(req, entryPoint, nodeConfigAsClientConfig(config, req));
+		page(basepath, req, entryPoint, nodeConfigAsClientConfig(config, req));
 
 		if (isErrorPage) {
 			res.status(404);
@@ -103,7 +106,7 @@ export function setupApplication(app, config) {
 				configForClient.html += datacache.getForContext(req).serialize();
 				//Final render
 				logger.info('Flushing Render to client: %s %s', req.url, req.username);
-				res.end(page(req, entryPoint, configForClient));
+				res.end(page(basepath, req, entryPoint, configForClient));
 			})
 			.catch((e)=>{
 				logger.error(e.stack || e.message || e);
