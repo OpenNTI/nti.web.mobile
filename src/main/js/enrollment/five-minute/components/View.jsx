@@ -1,42 +1,46 @@
-'use strict';
+import React from 'react';
+import Router from 'react-router-component';
 
-var React = require('react');
-var Router = require('react-router-component');
-var PaymentComplete = require('./PaymentComplete');
-var ConcurrentSent = require('./ConcurrentSent');
-var PanelButton = require('common/components/PanelButton');
-var Admission = require('./Admission');
-var CourseContentLink = require('library/components/CourseContentLinkMixin');
-var Store = require('../Store');
-var Constants = require('../Constants');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
+import PanelButton from 'common/components/PanelButton';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-var View = React.createClass({
+import CourseContentLink from 'library/components/CourseContentLinkMixin';
+
+import PaymentComplete from './PaymentComplete';
+import ConcurrentSent from './ConcurrentSent';
+import Admission from './Admission';
+
+import Store from '../Store';
+import {CONCURRENT_ENROLLMENT_SUCCESS} from '../Constants';
+
+
+export default React.createClass({
+	displayName: 'View',
 
 	mixins: [NavigatableMixin, CourseContentLink],
 
-	componentDidMount: function() {
-		Store.addChangeListener(this._storeChange);
+	componentDidMount () {
+		Store.addChangeListener(this.onStoreChange);
 	},
 
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChange);
+	componentWillUnmount () {
+		Store.removeChangeListener(this.onStoreChange);
 	},
 
-	_storeChange: function(event) {
+	onStoreChange (event) {
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.events.CONCURRENT_ENROLLMENT_SUCCESS:
+			case CONCURRENT_ENROLLMENT_SUCCESS:
 				this.navigate('credit/concurrent/');
 				break;
 		}
 	},
 
-	render: function() {
+	render () {
 
-		if ((this.props.enrollment||{}).IsEnrolled) {
+		if ((this.props.enrollment || {}).IsEnrolled) {
 
-			var href = this.courseHref(this.props.courseId);
+			let href = this.courseHref(this.props.courseId);
 
 			return (
 				<PanelButton href={href} linkText='Proceed to the course'>
@@ -70,5 +74,3 @@ var View = React.createClass({
 	}
 
 });
-
-module.exports = View;

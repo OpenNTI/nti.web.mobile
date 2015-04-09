@@ -1,14 +1,13 @@
-'use strict';
+import React from 'react';
+import PanelButton from 'common/components/PanelButton';
+import QueryString from 'query-string';
 
-var React = require('react');
-var PanelButton = require('common/components/PanelButton');
-var QueryString = require('query-string');
+export default React.createClass({
+	displayName: 'PaymentComplete',
 
-var PaymentComplete = React.createClass({
-
-	componentWillMount: function() {
-		var loc = global.location || {};
-		var paymentState = (QueryString.parse(loc.search).State||'').toLowerCase() === 'true';
+	componentWillMount () {
+		let loc = global.location || {};
+		let paymentState = (QueryString.parse(loc.search).State || '').toLowerCase() === 'true';
 		this.setState({
 			paymentState: paymentState
 		});
@@ -16,9 +15,9 @@ var PaymentComplete = React.createClass({
 
 	// if enrollment was successful we won't get here. there's an enrollment check
 	// in a parent view that will render
-	render: function() {
+	render () {
 
-		var message = this.state.paymentState ? '' : 'Payment was not processed.';
+		let message = this.state.paymentState ? '' : 'Payment was not processed.';
 
 		return (
 			<PanelButton href="../../../" linkText='Go back'>
@@ -28,5 +27,3 @@ var PaymentComplete = React.createClass({
 	}
 
 });
-
-module.exports = PaymentComplete;

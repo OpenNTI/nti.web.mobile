@@ -9,7 +9,7 @@ module.exports = Object.freeze([
 	{
 		fields: [
 			{
-				ref: Constants.fields.IS_CONCURRENT_FORM,
+				ref: Constants.IS_CONCURRENT_FORM,
 				type: 'hidden',
 				value: true
 			},

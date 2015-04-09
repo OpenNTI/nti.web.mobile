@@ -1,53 +1,45 @@
-'use strict';
+import {EventEmitter} from 'events';
 
-var FiveMinuteInterface = require('nti.lib.interfaces/interface/FiveMinuteInterface');
+import FiveMinuteInterface from 'nti.lib.interfaces/interface/FiveMinuteInterface';
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var Constants = require('./Constants');
-var {getService} = require('common/utils');
+import {CHANGE_EVENT} from 'common/constants/Events';
+import {getService} from 'common/utils';
+import AppDispatcher from 'dispatcher/AppDispatcher';
 
-var Store = Object.assign({}, EventEmitter.prototype, {
+import * as Constants from './Constants';
+
+const Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'enrollment.Store',
 
-	emitChange: function(evt) {
+	emitChange (evt) {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
-	emitError: function(event) {
+	emitError (event) {
 		this.emitChange(Object.assign({isError: true}, event));
 	},
 
-	/**
-	 * @param {function} callback
-	 */
-	addChangeListener: function(callback) {
+	addChangeListener (callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
-	/**
-	 * @param {function} callback
-	 */
-	removeChangeListener: function(callback) {
+	removeChangeListener (callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	getAdmissionStatus: function() {
-		var me = this.getAdmissionStatus;
+	getAdmissionStatus () {
+		let me = this.getAdmissionStatus;
 		if(!me.promise) {
-			me.promise = _getFiveMinuteService().then(function(service) {
-				return service.getAdmissionStatus();
-			});
+			me.promise = getFiveMinuteService().then(service => service.getAdmissionStatus());
 		}
 		return me.promise;
 	}
 
 });
 
-function _getFiveMinuteService() {
-	var me = _getFiveMinuteService;
+
+function getFiveMinuteService() {
+	let me = getFiveMinuteService;
 	if (!me.promise) {
 		me.promise = getService().then(service =>
 			FiveMinuteInterface.fromService(service));
@@ -55,140 +47,101 @@ function _getFiveMinuteService() {
 	return me.promise;
 }
 
-function _preflightAndSubmit(action) {
 
-	var input = action.payload.data;
-	var preflight = _preflight(input);
-	var requestAdmission = preflight.then(
-		_requestAdmission.bind(null,input),
-		function(reason) {
-			Store.emitError({
-    			type: Constants.errors.PREFLIGHT_ERROR,
-				action: action,
-				reason: reason
-			});
-			return Promise.reject(reason);
-		}
-	);
-	requestAdmission.then(
-		function(response) {
-			Store.emitChange({
-    			type: Constants.events.ADMISSION_SUCCESS,
-				action: action,
-				response: response
-			});
-		},
-		function(reason) {
-			var rsn = reason || {};
-			// normalize property names for message and field to lowercase.
-			['Field', 'Message'].forEach(function(propName) {
-				if (rsn[propName] && !rsn[propName.toLowerCase()]) {
-					rsn[propName.toLowerCase()] = rsn[propName];
-				}
-			});
-			Store.emitError({
-    			type: Constants.errors.REQUEST_ADMISSION_ERROR,
-				action: action,
-				reason: reason
-			});
-			return Promise.reject(reason);
-		}
-	);
+function preflightAndSubmit(action) {
+
+	let input = action.payload.data;
+
+	preflight(input)
+		.then(
+			() => requestAdmission(input),
+			reason => {
+				Store.emitError({type: Constants.PREFLIGHT_ERROR, action, reason});
+				return Promise.reject(reason);
+			}
+		)
+		.then(
+			response => Store.emitChange({ type: Constants.ADMISSION_SUCCESS, action, response }),
+			reason => {
+				let rsn = reason || {};
+				// normalize property names for message and field to lowercase.
+				['Field', 'Message'].forEach(propName => {
+					if (rsn[propName] && !rsn[propName.toLowerCase()]) {
+						rsn[propName.toLowerCase()] = rsn[propName];
+					}
+				});
+				Store.emitError({type: Constants.REQUEST_ADMISSION_ERROR, action, reason});
+				return Promise.reject(reason);
+			}
+		);
 }
 
-function _preflight(data) {
-	return _getFiveMinuteService().then(function(service) {
-		return service.preflight(data);
-	});
+function preflight(data) {
+	return getFiveMinuteService().then(service => service.preflight(data));
 }
 
-function _requestAdmission(data) {
-	return _getFiveMinuteService().then(function(service) {
-		return service.requestAdmission(data);
-	});
+function requestAdmission(data) {
+	return getFiveMinuteService().then(service => service.requestAdmission(data));
 }
 
-function _requestConcurrentEnrollment(data) {
-	var requestEnrollment = _getFiveMinuteService().then(function(service) {
-		return service.requestConcurrentEnrollment(data);
-	});
+function requestConcurrentEnrollment(action) {
+	let requestEnrollment = getFiveMinuteService().then(service => service.requestConcurrentEnrollment(action));
 
-	requestEnrollment
-	.then(
-		function(response) {
-			Store.emitChange({
-				type: Constants.events.CONCURRENT_ENROLLMENT_SUCCESS,
-				action: data,
-				response: response
-			});
-		},
-		function(reason) {
-			Store.emitError({
-				type: Constants.events.CONCURRENT_ENROLLMENT_ERROR,
-				action: data,
-				reason: reason
-			});
-		}
+	requestEnrollment.then(
+		response => Store.emitChange({type: Constants.CONCURRENT_ENROLLMENT_SUCCESS, action, response}),
+		reason => Store.emitError({type: Constants.CONCURRENT_ENROLLMENT_ERROR, action, reason})
 	);
 }
 
-function _doExternalPayment(action) {
-	var data = action.payload.data;
+function externalPayment(action) {
+	let data = action.payload.data;
+
 	if (!data.ntiCrn || !data.ntiTerm || !data.returnUrl) {
 		throw new Error('action payload requires ntiCrn and ntiTerm parameters. Received %O', data);
 	}
-	var getUrl = _getExternalPaymentUrl(data.link, data.ntiCrn, data.ntiTerm, data.returnUrl);
+
+	let getUrl = getExternalPaymentUrl(data.link, data.ntiCrn, data.ntiTerm, data.returnUrl);
+
 	getUrl.then(
-		function(response) {
+		response => {
 			if(response.rel === 'redirect') {
-				Store.emitChange({
-					type: Constants.events.RECEIVED_PAY_AND_ENROLL_LINK,
-					action: action,
-					response: response
-				});
+				Store.emitChange({type: Constants.RECEIVED_PAY_AND_ENROLL_LINK, action, response});
 			}
 		},
-		function(reason) {
-			var rsn = reason || {};
-			Store.emitError({
-				type: Constants.errors.PAY_AND_ENROLL_ERROR,
-				action: action,
-				reason: rsn
-			});
-			return Promise.reject(rsn);
+		(reason = {}) => {
+			Store.emitError({type: Constants.PAY_AND_ENROLL_ERROR, action, reason});
+			return Promise.reject(reason);
 		}
 	);
 }
 
-function _getExternalPaymentUrl(link, ntiCrn, ntiTerm, returnUrl) {
- 	return _getFiveMinuteService().then(function(service) {
- 		return service.getPayAndEnroll(link, ntiCrn, ntiTerm, returnUrl);
- 	});
+function getExternalPaymentUrl(link, ntiCrn, ntiTerm, returnUrl) {
+	return getFiveMinuteService().then(service =>
+		service.getPayAndEnroll(link, ntiCrn, ntiTerm, returnUrl));
 }
 
-Store.appDispatch = AppDispatcher.register(function(data) {
-    var action = data.action;
+Store.appDispatch = AppDispatcher.register(data => {
+	let action = data.action;
 
-    switch(action.type) {
-    //TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-    	case Constants.actions.REQUEST_CONCURRENT_ENROLLMENT:
-    		var fields = action.payload.data;
-			_requestConcurrentEnrollment(fields);
-    		break;
-
-		case Constants.actions.PREFLIGHT_AND_SUBMIT:
-			_preflightAndSubmit(action);
+	switch(action.type) {
+	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
+		case Constants.REQUEST_CONCURRENT_ENROLLMENT:
+			requestConcurrentEnrollment(action.payload.data);
 			break;
 
-		case Constants.actions.DO_EXTERNAL_PAYMENT:
-			_doExternalPayment(action);
+		case Constants.PREFLIGHT_AND_SUBMIT:
+			preflightAndSubmit(action);
 			break;
 
-        default:
-            return true;
-    }
-    return true;
+		case Constants.DO_EXTERNAL_PAYMENT:
+			externalPayment(action);
+			break;
+
+		default:
+			return true;
+	}
+	return true;
 });
 
 
-module.exports = Store;
+export default Store;

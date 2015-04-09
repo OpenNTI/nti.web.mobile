@@ -1,42 +1,25 @@
-'use strict';
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import {
+	PREFLIGHT_AND_SUBMIT,
+	REQUEST_CONCURRENT_ENROLLMENT,
+	DO_EXTERNAL_PAYMENT
+} from './Constants';
 
-var Constants = require('./Constants');
-var AppDispatcher = require('dispatcher/AppDispatcher');
-
-module.exports = {
-	preflightAndSubmit: function(data) {
-		dispatch(
-			Constants.actions.PREFLIGHT_AND_SUBMIT,
-			{
-				data: data
-			}
-		);
+export default {
+	preflightAndSubmit (data) {
+		dispatch(PREFLIGHT_AND_SUBMIT, { data });
 	},
 
-	requestConcurrentEnrollment: function(data) {
-		dispatch(
-			Constants.actions.REQUEST_CONCURRENT_ENROLLMENT,
-			{
-				data: data
-			}
-		);
+	requestConcurrentEnrollment (data) {
+		dispatch(REQUEST_CONCURRENT_ENROLLMENT, { data });
 	},
-	
+
 	// @param {object} data should inlude props for link, ntiCrn, and ntiTerm
-	doExternalPayment: function(data) {
-		dispatch(
-			Constants.actions.DO_EXTERNAL_PAYMENT,
-			{
-				data: data
-			}
-		);
+	doExternalPayment (data) {
+		dispatch(DO_EXTERNAL_PAYMENT, { data });
 	}
 };
 
-function dispatch(key, data) {
-	var action = {
-		type: key,
-		payload: data
-	};
-	AppDispatcher.handleRequestAction(action);
+function dispatch(type, payload) {
+	AppDispatcher.handleRequestAction({type, payload});
 }
