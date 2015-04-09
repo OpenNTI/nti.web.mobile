@@ -3,8 +3,8 @@ import guid from 'nti.lib.interfaces/utils/guid';
 import indexArrayByKey from 'nti.lib.interfaces/utils/array-index-by-key';
 import toArray from 'nti.lib.interfaces/utils/toarray';
 
-var MARKER_REGEX = /nti:widget-marker\[([^\]\>]+)\]/i;
-var WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(?:[^\]>]*)-->/ig;
+const MARKER_REGEX = /nti:widget-marker\[([^\]\>]+)\]/i;
+const WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(?:[^\]>]*)-->/ig;
 
 
 /**
@@ -16,28 +16,28 @@ var WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(?:
  * @param {Object} packet     Should be and object with a property named 'content' that is a string.
  */
 export function processContent(strategies, packet) {
-	var html = packet.content;
-	var parser = null;
+	let html = packet.content;
+	let parser = null;
 	if (typeof DOMParser !== 'undefined') {
 		parser = new DOMParser();
 	}
 
 
-	var doc = parser && parser.parseFromString(html, 'text/html');
-	var elementFactory = doc || document;
+	let doc = parser && parser.parseFromString(html, 'text/html');
+	let elementFactory = doc || document;
 	if (!doc) {
 		doc = document.createElement('html');
 		doc.innerHTML = html;
 	}
 
-	var body = doc.getElementsByTagName('body')[0];
-	var styles = toArray(doc.querySelectorAll('link[rel=stylesheet]'))
+	let body = doc.getElementsByTagName('body')[0];
+	let styles = toArray(doc.querySelectorAll('link[rel=stylesheet]'))
 					.map(i=>i.getAttribute('href'));
 
-	var widgets = indexArrayByKey(parseWidgets(strategies, doc, elementFactory), 'guid');
+	let widgets = indexArrayByKey(parseWidgets(strategies, doc, elementFactory), 'guid');
 
-	var bodyParts = body.innerHTML.split(WIDGET_MARKER_REGEX).map(part=>{
-		var m = part.match(MARKER_REGEX);
+	let bodyParts = body.innerHTML.split(WIDGET_MARKER_REGEX).map(part=>{
+		let m = part.match(MARKER_REGEX);
 		if (m && m[1]) {
 			return widgets[m[1]];
 		}
@@ -78,8 +78,8 @@ export function parseWidgets(strategies, doc, elementFactory) {
 
 	return Object.keys(strategies).map(selector=>
 		toArray(doc.querySelectorAll(selector)).map(el=>{
-			var id = el.getAttribute('id');
-			var result = strategies[selector](el) || {element: el};
+			let id = el.getAttribute('id');
+			let result = strategies[selector](el) || {element: el};
 
 			if (!id) {
 				el.setAttribute('id', (id = guid()));
