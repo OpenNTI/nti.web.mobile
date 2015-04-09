@@ -49,13 +49,18 @@ let Source = React.createClass({
 
 
 	componentWillMount () {
-		this.setState({playerURL: this.buildURL()});
+		this.setState({playerURL: this.buildURL(this.props)});
 	},
 
 
 	componentDidMount () {
-		this.updateURL();
+		this.updateURL(this.props);
 		window.addEventListener('message', this.onMessage, false);
+	},
+
+
+	componentWillReceiveProps (nextProps) {
+		this.updateURL(nextProps);
 	},
 
 
@@ -64,18 +69,13 @@ let Source = React.createClass({
 	},
 
 
-	componentWillReceiveProps () {
-		this.updateURL();
-	},
-
-
-	buildURL () {
-		let mediaSource = this.props.source;
+	buildURL (props) {
+		let mediaSource = props.source;
 		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source[0];
 
 		let args = {
 			api: 1,
-			player_id: this.props.id,//eslint-disable-line camelcase
+			player_id: props.id,//eslint-disable-line camelcase
 			//autopause: 0, //we handle this for other videos, but its nice we only have to do this for cross-provider videos.
 			autoplay: 0,
 			badge: 0,
@@ -89,8 +89,8 @@ let Source = React.createClass({
 	},
 
 
-	updateURL () {
-		let url = this.buildURL();
+	updateURL (props) {
+		let url = this.buildURL(props);
 		this.setState({
 			scope: url.split('?')[0],
 			playerURL: url

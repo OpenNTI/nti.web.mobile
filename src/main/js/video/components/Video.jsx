@@ -97,11 +97,12 @@ export default React.createClass({
 				emitEventStarted(analyticsEvent);
 				this.setState({
 					playStartEvent: analyticsEvent
-				});	
+				});
 			}
 			return analyticsEvent;
 		}
 	},
+
 
 	newWatchVideoEvent(browserEvent) {
 
@@ -111,9 +112,7 @@ export default React.createClass({
 		}
 
 		let ctx = (this.props.context || [])
-			.map( x => {
-				x.ntiid || x.href || (typeof x === 'string' ? x : null)
-			})
+			.map(x => x.ntiid || x.href || (typeof x === 'string' ? x : null))
 			.filter(x=>x); // removes nulls
 
 		let target = (browserEvent || {}).target || {currentTime: 0, duration: 0};
@@ -146,6 +145,7 @@ export default React.createClass({
 		}
 	},
 
+
 	onTimeUpdate (event) {
 		this.props.onTimeUpdate(event);
 	},
@@ -164,6 +164,7 @@ export default React.createClass({
 		this.recordPlaybackStarted(event);
 		this.props.onPlaying(event);
 	},
+
 
 	onPause (event) {
 		this.recordPlaybackStopped(event);

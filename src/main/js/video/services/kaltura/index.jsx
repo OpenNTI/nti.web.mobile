@@ -59,7 +59,19 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		let data = this.props.source;
+		this.setupSource(this.props);
+	},
+
+
+	componentWillReceiveProps (nextProps) {
+		if (this.props.source !== nextProps.source) {
+			this.setupSource(nextProps);
+		}
+	},
+
+
+	setupSource (props) {
+		let data = props.source;
 		// kaltura://1500101/0_4ol5o04l/
 		let src = typeof data === 'string' && data;
 		let parsed = src && url.parse(src);
@@ -82,7 +94,6 @@ export default React.createClass({
 
 		getSources({ entryId: entryId, partnerId: partnerId })
 			.then(this.setSources);
-
 	},
 
 
@@ -179,7 +190,7 @@ export default React.createClass({
 					{this.renderSources()}
 				</video>
 				{!this.state.interacted && <a className="tap-area play" href="#" onClick={this.doPlay}
-						style={{backgroundImage: 'url('+this.state.poster+')'}}/>}
+						style={{backgroundImage: `url(${this.state.poster})`}}/>}
 			</div>
 		);
 	},

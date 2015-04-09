@@ -63,7 +63,7 @@ let Source = React.createClass({
 
 
 	componentWillMount () {
-		this.updateURL();
+		this.updateURL(this.props);
 		this.setState({
 			initTask: new Task(this.sendListening, 500)
 		});
@@ -71,7 +71,7 @@ let Source = React.createClass({
 
 
 	componentDidMount () {
-		this.updateURL();
+		this.updateURL(this.props);
 		window.addEventListener('message', this.onMessage, false);
 	},
 
@@ -82,8 +82,8 @@ let Source = React.createClass({
 	},
 
 
-	componentWillReceiveProps () {
-		this.updateURL();
+	componentWillReceiveProps (props) {
+		this.updateURL(props);
 	},
 
 
@@ -106,8 +106,8 @@ let Source = React.createClass({
 	},
 
 
-	buildURL () {
-		let mediaSource = this.props.source;
+	buildURL (props) {
+		let mediaSource = props.source;
 		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source[0];
 
 		let args = {
@@ -118,16 +118,16 @@ let Source = React.createClass({
 			wmode: 'transparent',
 			rel: 0,
 			showinfo: 0,
-			autoplay: this.props.autoPlay? 1:0,
+			autoplay: props.autoPlay ? 1 : 0,
 			origin: location.protocol + '//' + location.host
 		};
 
-		return YOU_TUBE + '/embed/' + videoId + '?' + QueryString.stringify(args);
+		return `${YOU_TUBE}/embed/${videoId}?${QueryString.stringify(args)}`;
 	},
 
 
-	updateURL () {
-		this.setState({playerURL: this.buildURL()});
+	updateURL (props) {
+		this.setState({playerURL: this.buildURL(props)});
 	},
 
 
@@ -182,7 +182,7 @@ let Source = React.createClass({
 			this.finishInitialization();
 		}
 
-		console[implemented?'debug':'warn']('[YouTube] Event: %s', data.event);
+		console[implemented ? 'debug' : 'warn']('[YouTube] Event: %s', data.event);
 		if (implemented) {
 			this[handlerName](data.info);
 		}

@@ -3,8 +3,8 @@ const isSource = RegExp.prototype.test.bind(/source/i);
 
 const FORMAT_RANKS = {
 	'application/vnd.apple.mpegurl': 0,
-	'video/webm':5,
-	'video/mp4':10
+	'video/webm': 5,
+	'video/mp4': 10
 };
 
 
@@ -12,29 +12,31 @@ const getRank = o=> FORMAT_RANKS[o.type] || 0;
 
 
 export default function(list, targetQuality) {
-	var chosen = [];
-	var types = {};
+	let chosen = [];
+	let types = {};
 
 	//Bin by type
 	list.forEach(s => {
-		var b = types[s.type] = (types[s.type] || []); b.push(s); });
+		let b = types[s.type] = (types[s.type] || []);
+		b.push(s);
+	});
 
 
 	Object.keys(types).forEach(mimeType => {
-		var pick = pickBestMatchFrom(types[mimeType], targetQuality);
+		let pick = pickBestMatchFrom(types[mimeType], targetQuality);
 		if (pick) {
 			chosen.push(pick);
 		}
 	});
 
-	chosen.sort((a,b)=> getRank(a) - getRank(b) );
+	chosen.sort((a, b)=> getRank(a) - getRank(b) );
 
 	return chosen;
 }
 
 //export const QUALITY_TARGETS = {};
 
-const findMin = (prop) => (m,s) => Math.min(m,s[prop]);
+const findMin = (prop) => (m, s) => Math.min(m, s[prop]);
 //const findMax = (prop) => (m,s) => Math.max(m,s[prop]);
 
 
@@ -56,8 +58,8 @@ function pickBestFromScreenSize(list) {
 	});
 
 	//Make sure the list is in smallest -> biggest order
-	list.sort((a,b) => {
-		var x = a.width,
+	list.sort((a, b) => {
+		let x = a.width,
 			y = b.width;
 
 		//If the widths are the same, compare bitrates
