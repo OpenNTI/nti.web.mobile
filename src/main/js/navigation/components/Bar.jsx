@@ -157,8 +157,8 @@ export default React.createClass({
 		resolve.then(x=>
 			//console.debug('Context Path: %o', x) ||
 			this.setStateSafely({
-				current: x && x[x.length-1],
-				returnTo: x && x[x.length-2]
+				current: x && x[x.length - 1],
+				returnTo: x && x[x.length - 2]
 			}));
 	},
 
@@ -172,7 +172,7 @@ export default React.createClass({
 
 		let is = x=> ((x && x.props) || {}).position === side ? x : null;
 
-		return children.reduce((x,a)=>x || is(a), null);
+		return children.reduce((x, a)=>x || is(a), null);
 	},
 
 
@@ -189,7 +189,9 @@ export default React.createClass({
 	getRight () {
 		let {triggerRightMenu} = this.context;
 		return this.getChildForSide('right') || <UserMenu onClick={()=>{
-			this.closeMenu();triggerRightMenu();}}/>;
+			this.closeMenu();
+			triggerRightMenu();
+		}}/>;
 	},
 
 
@@ -290,10 +292,14 @@ export default React.createClass({
 	renderBar () {
 		let {pageSource, currentPage, context} = this.state;
 
+		let middle = cx('middle tab-bar-section', {
+			'has-pager': pageSource
+		});
+
 		return (
 			<nav className="tab-bar">
 				<section className="left-small">{this.getLeft()}</section>
-				<section className="middle tab-bar-section">{this.getCenter()}</section>
+				<section className={middle}>{this.getCenter()}</section>
 				<section className="right-small">
 					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}/>}
 					{this.getRight()}

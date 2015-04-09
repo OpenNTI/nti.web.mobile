@@ -52,9 +52,16 @@ section.right-small {
 }
 
 .tab-bar-section {
+
+	&.has-pager .title {
+		max-width: -webkit-calc(50% - 50px);//fit pager
+		max-width: -moz-calc(50% - 50px);//fit pager
+		max-width: calc(50% - 50px);//fit pager
+	}
+
 	.title {
 		display: inline-block;
-		max-width: 50%;
+		max-width: 50%;//fall back
 		overflow: hidden;
 		position: relative;
 		text-overflow: ellipsis;
