@@ -66,8 +66,8 @@ export default React.createClass({
 	itemChanged () {
 		let {item} = this.props;
 		let presentation = item ? item.getPresentationProperties() : {};
-		let {icon, title, label} = presentation;
-		this.setStateSafely({ icon, title, label });
+		let {icon, background, title, label} = presentation;
+		this.setStateSafely({ icon, background, title, label });
 	},
 
 
@@ -110,7 +110,7 @@ export default React.createClass({
 
 
 	render () {
-		let {outline, loading, icon, label, title} = this.state;
+		let {outline, loading, icon, background, label, title} = this.state;
 
 		if (loading) {
 			return (<Loading/>);
@@ -119,7 +119,7 @@ export default React.createClass({
 		return (
 			<div className={this.props.className}>
 				<div className="head">
-					<img src={icon}/>
+					<img src={background || icon}/>
 					<label>
 						<h3>{title}</h3>
 						<h5>{label}</h5>

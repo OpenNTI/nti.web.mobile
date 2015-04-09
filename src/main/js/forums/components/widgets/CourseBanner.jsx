@@ -17,7 +17,7 @@ export default React.createClass({
 		let p = course.getPresentationProperties();
 		return (
 			<div className="course-banner">
-				<img src={p.icon || BLANK_IMAGE} />
+				<img src={p.background || p.icon || BLANK_IMAGE} />
 				<label>
 					<h3>{p.title}</h3>
 					<h5>{p.label}</h5>
