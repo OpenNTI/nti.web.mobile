@@ -1,28 +1,25 @@
-'use strict';
+const getConst = x => Symbol(x);
+//const getConst = x => `store-enrollment:${x}`;
 
-var keyMirror = require('react/lib/keyMirror');
+export const EDIT = getConst('edit');
+export const RESET = getConst('reset');
 
-module.exports = keyMirror({
-	EDIT: null,
-	RESET: null,
-
-	LOCK_SUBMIT: null,
-	UNLOCK_SUBMIT: null,
-	UPDATE_COUPON: null,
-	VALID_COUPON: null,
-	INVALID_COUPON: null,
-	INVALID_GIFT_CODE: null,
-	REDEEM_GIFT: null,
-	GIFT_CODE_REDEEMED: null,
-	GIFT_PURCHASE_DONE: null,
-	PRICE_ITEM_ACTION: null,
-	PRICED_ITEM_RECEIVED: null,
-	PRICED_ITEM_ERROR: null,
-	VERIFY_BILLING_INFO: null,
-	BILLING_INFO_VERIFIED: null,
-	BILLING_INFO_REJECTED: null,
-	SUBMIT_STRIPE_PAYMENT: null,
-	STRIPE_PAYMENT_SUCCESS: null,
-	STRIPE_PAYMENT_FAILURE: null,
-	POLLING_ERROR: null
-});
+export const LOCK_SUBMIT = getConst('submit:Lock');
+export const UNLOCK_SUBMIT = getConst('submit:Unlock');
+export const UPDATE_COUPON = getConst('coupon:Update');
+export const VALID_COUPON = getConst('coupon:Valid');
+export const INVALID_COUPON = getConst('coupon:Invalid');
+export const INVALID_GIFT_CODE = getConst('gift:Code Invalid');
+export const REDEEM_GIFT = getConst('gift:Redeem');
+export const GIFT_CODE_REDEEMED = getConst('gift:Code Redeemed');
+export const GIFT_PURCHASE_DONE = getConst('gift:purchase:Done');
+export const PRICE_ITEM_ACTION = getConst('priced item:Action');
+export const PRICED_ITEM_RECEIVED = getConst('priced item:Received');
+export const PRICED_ITEM_ERROR = getConst('priced item:Error');
+export const VERIFY_BILLING_INFO = getConst('billing:info:Verify');
+export const BILLING_INFO_VERIFIED = getConst('billing:info:Verified');
+export const BILLING_INFO_REJECTED = getConst('billing:info:Rejected');
+export const SUBMIT_STRIPE_PAYMENT = getConst('stripe:payment:Submit');
+export const STRIPE_PAYMENT_SUCCESS = getConst('stripe:payment:Success');
+export const STRIPE_PAYMENT_FAILURE = getConst('stripe:payment:Failure');
+export const POLLING_ERROR = getConst('Polling Error');
