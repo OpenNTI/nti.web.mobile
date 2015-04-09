@@ -5,9 +5,9 @@ import {BLANK_AVATAR, BLANK_IMAGE} from 'common/constants/DataURIs';
 
 import {scoped} from 'common/locale';
 
-const _t = scoped('COURSE.INFO');
+const t = scoped('COURSE.INFO');
 
-var Instructor = React.createClass({
+const Instructor = React.createClass({
 	displayName: 'Instructor',
 
 
@@ -19,8 +19,8 @@ var Instructor = React.createClass({
 
 
 	componentDidMount () {
-		var {assetRoot, index} = this.props;
-		var img = new Image();
+		let {assetRoot, index} = this.props;
+		let img = new Image();
 
 		img.onload = () => {
 			if (!this.isMounted()) {
@@ -35,17 +35,17 @@ var Instructor = React.createClass({
 
 
 	render () {
-		var {photo} = this.state;
-		var {instructor} = this.props;
-		var {Name, JobTitle} = instructor;
-		var background = {backgroundImage: `url(${photo})`};
+		let {photo} = this.state;
+		let {instructor} = this.props;
+		let {Name, JobTitle} = instructor;
+		let background = {backgroundImage: `url(${photo})`};
 
 		return (
 			<div className="row instructor">
 				<div className="small-12 columns">
 					<img style={background} src={BLANK_IMAGE} alt="Instructor Photo"/>
 					<div className='meta'>
-						<div className="label">{_t('Instructor')}</div>
+						<div className="label">{t('Instructor')}</div>
 						<div className="name">{Name}</div>
 						<div className="job-title">{JobTitle}</div>
 					</div>
@@ -59,9 +59,9 @@ var Instructor = React.createClass({
 export default React.createClass({
 	displayName: 'Instructors',
 	render () {
-		var {entry} = this.props;
-		var instructors = ((entry || {}).Instructors) || [];
-		var root = '/no-root/';
+		let {entry} = this.props;
+		let instructors = ((entry || {}).Instructors) || [];
+		let root = '/no-root/';
 
 		if (entry) {
 			root = entry.getAssetRoot() || root;

@@ -6,14 +6,14 @@ export default React.createClass({
 	displayName: 'Title',
 
 	render () {
-		var {entry} = this.props;
-		if (!entry) {return;}
+		let {entry} = this.props;
+		if (!entry) { return; }
 
-		var videoSrc = entry.Video;
-		var context = [entry.getID()];
+		let videoSrc = entry.Video;
+		let context = [entry.getID()];
 
 		return (
-			<div className={'header ' + (videoSrc? 'with-video' : '')}>
+			<div className={'header ' + (videoSrc ? 'with-video' : '')}>
 				{videoSrc ?
 					<div className="row">
 						<div className="columns video-wrap">

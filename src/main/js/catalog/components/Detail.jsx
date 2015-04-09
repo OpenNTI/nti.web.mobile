@@ -11,7 +11,7 @@ export default React.createClass({
 	},
 
 	render () {
-		var {entry} = this.props;
+		let {entry} = this.props;
 		return (
 			<div className="course-detail-view">
 				<Title entry={entry} />
