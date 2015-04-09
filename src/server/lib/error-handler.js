@@ -42,11 +42,24 @@ export default function setupErrorHandler(express, config) {
 		let body;
 
 		try {
-			body = preprocess(template, {
+			let data = {
 				err,
 				errorid,
 				appVersion: (appConfig.appVersion || 'Unknown version (development?)')
-			});
+			};
+
+			// add contact phone and email if available.
+			let {contacts} = appConfig;
+			if (Array.isArray(contacts) && contacts.length > 0) {
+				['phone', 'email'].forEach(key => {
+					if (contacts[0][key]) {
+						console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' + contacts[0][key]);
+						data[key] = contacts[0][key];
+					}
+				});
+			}
+
+			body = preprocess(template, data);
 		} catch (er) {
 			logger.error(errorid, er.stack || er.message || er);
 			body = 'Couldn\'t populate error template.';
