@@ -39,7 +39,7 @@ export default React.createClass({
 						className="page-select">
 							{options}
 						</select>
-					of {paging.numPages})
+					of {paging.numPages}
 			</div>
 		);
 	},
