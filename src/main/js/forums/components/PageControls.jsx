@@ -25,28 +25,37 @@ export default React.createClass({
 		this.navigate('/?p=' + page);
 	},
 
+	pageSelector(paging) {
+		let current = paging.currentPage();
+		let options = [];
+		for(let i = 1; i <= paging.numPages; i++) {
+			options.push(<option key={'option' + i} value={i}>{i}</option>);
+		}
+		return (
+			<div className="page-selector-wrapper">
+				<select defaultValue={current}
+						ref="pageselect"
+						onChange={this[goToPage]}
+						className="page-select">
+							{options}
+						</select>
+					of {paging.numPages})
+			</div>
+		);
+	},
+
 	render () {
 
 		let {paging} = this.props;
 		let current = paging.currentPage();
 		let next = current + 1;
 		let prev = current - 1;
-		let options = [];
-		for(let i = 1; i <= paging.numPages; i++) {
-			options.push(<option key={'option' + i} value={i}>{i}</option>);
-		}
 
 		return (
 			<ul className="page-controls">
 				<li className="item previous">{paging.hasPrevious && <Link className="link" href={'/?p=' + prev}>Previous</Link>}</li>
 				<li className="item current">
-					<select defaultValue={current}
-						ref="pageselect"
-						onChange={this[goToPage]}
-						className="page-select">
-							{options}
-						</select>
-					of {paging.numPages}
+					{paging.numPages > 1 ? this.pageSelector(paging) : 'Page 1 of 1'}
 				</li>
 				<li className="item next">{paging.hasNext && <Link className="link" href={'/?p=' + next}>Next</Link>}</li>
 			</ul>
