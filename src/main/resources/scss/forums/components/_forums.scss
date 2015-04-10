@@ -15,7 +15,6 @@ $indent: 0.9375rem;
 	font-size:.875rem;
 	.item {
 		padding: .5rem 1.4rem; // the horizontal padding makes room for the arrows.	
-		text-align: center;
 	}
 	.previous {
 		position: relative;
@@ -32,6 +31,7 @@ $indent: 0.9375rem;
 	}
 	.next {
 		position: relative;
+		text-align: right;
 		.link {
 			&::after {
 				@include arrow(right);	
