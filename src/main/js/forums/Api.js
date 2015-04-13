@@ -4,6 +4,16 @@ const GetInterface = 'forum:api:getInterface';
 
 let promises = {};
 
+const defaultBatchSize = 20;
+
+export const defaultPagingParams = {
+	sortOn: 'CreatedTime',
+	sortOrder: 'ascending',
+	filter: 'TopLevel',
+	batchStart: 0,
+	batchSize: defaultBatchSize
+};
+
 export default {
 
 	loadDiscussions(course) {
@@ -63,19 +73,26 @@ export default {
 
 	// convenience method that just adds params to the getObjectContents call.
 	getTopicContents: function(topicId, batchStart=0, batchSize=50) {
-		return this.getObjectContents(topicId, {
-			sortOn: 'CreatedTime',
-			sortOrder: 'ascending',
-			filter: 'TopLevel',
-			batchStart,
-			batchSize
-		});
+		return this.getPagedContents(topicId, batchStart, batchSize);
+	},
+
+	getForumContents(forumId, batchStart, batchSize) {
+		return this.getPagedContents(forumId, batchStart, batchSize);
+	},
+
+	getPagedContents(ntiid, batchStart=0, batchSize=defaultBatchSize) {
+		let params = Object.assign(
+			{},
+			defaultPagingParams,
+			{batchStart, batchSize}
+		);
+		return this.getObjectContents(ntiid, params);
 	},
 
 	getObjectContents: function(ntiid, params) {
 		return this.getObject(ntiid).then(object => {
 			return object.getContents(params).then(contents => {
-				return { object: object, contents: contents};
+				return { object: object, contents: contents, params: params};
 			});
 		});
 	},

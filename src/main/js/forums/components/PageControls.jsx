@@ -33,7 +33,7 @@ export default React.createClass({
 		}
 		return (
 			<div className="page-selector-wrapper">
-				<select defaultValue={current}
+				<select value={current}
 						ref="pageselect"
 						onChange={this[goToPage]}
 						className="page-select">

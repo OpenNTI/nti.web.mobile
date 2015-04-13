@@ -1,16 +1,45 @@
 'use strict';
 
-var React = require('react');
-var List = require('./List');
-var _t = require('common/locale').scoped('FORUMS');
+import List from './List';
+import PageControls from './PageControls';
+import Paging from '../mixins/Paging';
+import React from 'react';
+import {scoped} from 'common/locale';
 
-var TopicList = React.createClass({
+let t = scoped('FORUMS');
+
+export default React.createClass({
+
+	mixins: [Paging],
+
+	componentDidMount: function() {
+		this.setItemContentsState();
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		this.setItemContentsState(nextProps);
+	},
+
+	setItemContentsState(props = this.props) {
+		if (props.container) {
+			// paging mixin expects to find list info in state.itemContents
+			this.setState({
+				itemContents: props.container
+			});
+		}
+	},
+
 	render: function() {
-		var emptyText = _t('emptyTopicList');
+		let emptyText = t('emptyTopicList');
 
-		return <List {...this.props} className="forum-topics" emptyText={emptyText} />;
+		let pageInfo = this.pagingInfo();
+
+		return (
+			<div>
+				<List {...this.props} className="forum-topics" emptyText={emptyText} />
+				<PageControls paging={pageInfo} />
+			</div>
+		);
 	}
 
 });
-
-module.exports = TopicList;

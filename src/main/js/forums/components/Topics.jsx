@@ -1,21 +1,23 @@
 'use strict';
 
-var React = require('react');
-var Link = require('react-router-component').Link;
-var AnalyticsStore = require('analytics/Store');
-var {decodeFromURI} = require('nti.lib.interfaces/utils/ntiids');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var TopicList = require('./TopicList');
-var Loading = require('common/components/Loading');
-var Store = require('../Store');
-var StoreEvents = require('common/mixins/StoreEvents');
-var LoadForum = require('../mixins/LoadForum');
-var t = require('common/locale').scoped('FORUMS');
+import React from 'react';
+import {Link} from 'react-router-component';
+import AnalyticsStore from 'analytics/Store';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import TopicList from './TopicList';
+import Loading from 'common/components/Loading';
+import paging from '../mixins/Paging';
+import Store from '../Store';
+import StoreEvents from 'common/mixins/StoreEvents';
+import LoadForum from '../mixins/LoadForum';
 import ViewHeader from './widgets/ViewHeader';
 import {FORUM} from '../Constants';
 import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
+var t = require('common/locale').scoped('FORUMS');
 
-var Topics = React.createClass({
+
+export default React.createClass({
 
 	displayName: 'Topics',
 
@@ -38,7 +40,7 @@ var Topics = React.createClass({
 	},
 
 	_canCreateTopic() {
-		var forum = this._getForum();
+		let forum = this._getForum();
 		return !!(forum && forum.hasLink('add'));
 	},
 
@@ -55,8 +57,9 @@ var Topics = React.createClass({
 			return <Loading/>;
 		}
 
-		var {forumId} = this.props;
-		var forumContents = Store.getObjectContents(forumId);
+		let {forumId} = this.props;
+		let batchStart = paging.batchStart();
+		let forumContents = Store.getForumContents(forumId, batchStart, paging.getPageSize());
 
 		return (
 			<div>
@@ -73,5 +76,3 @@ var Topics = React.createClass({
 	}
 
 });
-
-module.exports = Topics;

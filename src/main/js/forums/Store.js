@@ -4,13 +4,18 @@ import * as Constants from './Constants';
 import indexForums from './utils/index-forums';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import Api from './Api';
+import {defaultPagingParams} from './Api';
+import hash from 'object-hash';
 
-var _discussions = {};
-var _forums = {}; // forum objects by id.
-// var _forumContents = {};
-var _objectContents = {};
-var _objects = {};
-var _courseId;
+let _discussions = {};
+let _forums = {}; // forum objects by id.
+// let _forumContents = {};
+let _objectContents = {};
+let _objects = {};
+let _courseId;
+
+const keyForObject = "ForumStore:keyForObject";
+const keyForContents = "ForumStore:keyForContents";
 
 function getCommentReplies(comment) {
 	if(!comment || !comment.getReplies) {
@@ -179,7 +184,7 @@ class Store extends StorePrototype {
 	}
 
 	setObject(ntiid, object) {
-		var key = this.__keyForObject(ntiid);
+		let key = this[keyForObject](ntiid);
 		_objects[key] = object;
 		this.emitChange({
 			type: Constants.OBJECT_LOADED,
@@ -188,12 +193,12 @@ class Store extends StorePrototype {
 		});
 	}
 
-	setObjectContents(objectId, contents) {
-		var key = this.__keyForContents(objectId);
+	setObjectContents(objectId, contents, params={}) {
+		let key = this[keyForContents](objectId, params);
 		_objectContents[key] = contents;
 		this.emitChange({
 			type: Constants.OBJECT_CONTENTS_CHANGED,
-			objectId: objectId,
+			objectId: objectId
 		});
 	}
 
@@ -213,18 +218,29 @@ class Store extends StorePrototype {
 		return _forums[decodeFromURI(forumId)] || this.getObject(forumId);
 	}
 
-	getObject(objectId) {
-		return _objects[this.__keyForObject(objectId)];
+	getForumContents(forumId, batchStart, batchSize) {
+		return this.getObjectContents(
+			forumId,
+			Object.assign(
+				{},
+				defaultPagingParams,
+				{batchStart, batchSize}
+			)
+		);
 	}
 
-	getObjectContents(objectId) {
-		var key = this.__keyForContents(objectId);
+	getObject(objectId) {
+		return _objects[this[keyForObject](objectId)];
+	}
+
+	getObjectContents(objectId, params={}) {
+		let key = this[keyForContents](objectId, params);
 		return _objectContents[key];
 	}
 
 	deleteObject(object) {
-		var objectId = object && object.getID ? object.getID() : object;
-		delete _objects[this.__keyForObject(objectId)];
+		let objectId = object && object.getID ? object.getID() : object;
+		delete _objects[this[keyForObject](objectId)];
 		this.emitChange({
 			type: Constants.OBJECT_DELETED,
 			objectId: objectId,
@@ -261,11 +277,11 @@ class Store extends StorePrototype {
 		});
 	}
 
-	__keyForContents(objectId) {
-		return [decodeFromURI(objectId), 'contents'].join(':');
+	[keyForContents](objectId, params={}) {
+		return [decodeFromURI(objectId), hash(params), 'contents'].join(':');
 	}
 
-	__keyForObject(objectId) {
+	[keyForObject](objectId) {
 		return [decodeFromURI(objectId), 'object'].join(':');
 	}
 }

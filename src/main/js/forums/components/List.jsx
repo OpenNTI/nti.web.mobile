@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react');
-var ListItems = require('./list-items');
-var hash = require('object-hash');
-var Notice = require('common/components/Notice');
+import React from 'react';
+import ListItems from './list-items';
+import hash from 'object-hash';
+import Notice from 'common/components/Notice';
 var _t = require('common/locale').scoped('FORUMS');
 import groupDeleted from '../utils/group-deleted-items';
 
@@ -21,11 +21,15 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		var {Items} = this.props.container;
-		var keyFor = this.props.keyFn || this.keyFor;
-		var {itemProps} = this.props;
-		var empty = Items.length === 0;
-		var emptyText = this.props.emptyText || _t('emptyList');
+		if (!this.props.container || !this.props.container.Items) {
+			console.error('List component requires a container prop.');
+			return null;
+		}
+		let {Items} = this.props.container;
+		let keyFor = this.props.keyFn || this.keyFor;
+		let {itemProps} = this.props;
+		let empty = Items.length === 0;
+		let emptyText = this.props.emptyText || _t('emptyList');
 
 		return (
 			empty ?
