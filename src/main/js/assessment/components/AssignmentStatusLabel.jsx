@@ -219,6 +219,9 @@ export default React.createClass({
 
 		let text = complete ? (assignment.isNonSubmit() ? 'Graded' : 'Completed') : 'Due';
 
+		if (!date) {
+			return null;//no date? we have nothing to show
+		}
 
 		return (
 			<div className="assignment status-label-wrapper">
