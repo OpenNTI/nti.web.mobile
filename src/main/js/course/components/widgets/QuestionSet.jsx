@@ -2,6 +2,8 @@ import path from 'path';
 
 import React from 'react';
 
+import {getModel} from 'nti.lib.interfaces';
+
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 // import DateTime from 'common/components/DateTime';
 import Score from 'common/components/charts/Score';
@@ -18,6 +20,8 @@ const SUBMITTED_QUIZ = 'application/vnd.nextthought.assessment.assessedquestions
 
 const assignmentType = /assignment/i;
 
+const OutlineNode = getModel('courses.courseoutlinenode');
+
 export default React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
 	mixins: [NavigatableMixin, SetStateSafely],
@@ -29,8 +33,8 @@ export default React.createClass( {
 		},
 
 		canRender  (item, node) {
-			var render = true;
-			var id = item['Target-NTIID'];
+			let render = true;
+			let id = item['Target-NTIID'];
 
 			if (assignmentType.test(item.MimeType) || node.isAssignment(id)) {
 				render = Boolean(node && node.getAssignment(id));
@@ -38,6 +42,12 @@ export default React.createClass( {
 
 			return render;
 		}
+	},
+
+
+	propTypes: {
+		item: React.PropTypes.object,
+		node: React.PropTypes.instanceOf(OutlineNode)
 	},
 
 
@@ -57,14 +67,14 @@ export default React.createClass( {
 
 
 	fillInData (service) {
-		var {item} = this.props;
-		var ntiid = item['Target-NTIID'];
-		var assignment = this.props.node.getAssignment(ntiid);
-		var isAssignment = assignment || assignmentType.test(item.MimeType);
+		let {item} = this.props;
+		let ntiid = item['Target-NTIID'];
+		let assignment = this.props.node.getAssignment(ntiid);
+		let isAssignment = assignment || assignmentType.test(item.MimeType);
 
 		this.setStateSafely({assignment: assignment, loading: true});
 
-		var work;
+		let work;
 
 		if (!isAssignment) {
 			work = service.getPageInfo(ntiid)
@@ -131,29 +141,29 @@ export default React.createClass( {
 
 
 	setQuizHref () {
-		var ntiid = this.props.item['Target-NTIID'];
-		var link = path.join('c', encodeForURI(ntiid)) + '/';
+		let ntiid = this.props.item['Target-NTIID'];
+		let link = path.join('c', encodeForURI(ntiid)) + '/';
 		this.setStateSafely({href: this.makeHref(link, true)});
 	},
 
 
 	render () {
-		var state = this.state;
-		var item = this.props.item;
-		var questionCount = item["question-count"];
-		var label = item.label;
+		let state = this.state;
+		let item = this.props.item;
+		let questionCount = item["question-count"];
+		let label = item.label;
 
-		//var latestAttempt = state.latestAttempt;
-		var assignment = state.assignment;
-		var assignmentHistory = state.assignmentHistory;
+		//let latestAttempt = state.latestAttempt;
+		let assignment = state.assignment;
+		let assignmentHistory = state.assignmentHistory;
 
-		// var due = assignment && assignment.getDueDate();
+		// let due = assignment && assignment.getDueDate();
 
-		var score = state.score || 0;
+		let score = state.score || 0;
 
-		var isLate = assignment && assignment.isLate(new Date());
+		let isLate = assignment && assignment.isLate(new Date());
 
-		var addClass =
+		let addClass =
 			(state.networkError ? ' networkerror' : '') +
 			(state.loading ? ' loading' : '') +
 			(state.completed ? ' completed' : '') +
