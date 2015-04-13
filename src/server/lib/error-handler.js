@@ -50,13 +50,13 @@ export default function setupErrorHandler(express, config) {
 
 			// add contact phone and email if available.
 			let {contacts} = appConfig;
-			if (Array.isArray(contacts) && contacts.length > 0) {
-				['phone', 'email'].forEach(key => {
-					if (contacts[0][key]) {
-						console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' + contacts[0][key]);
-						data[key] = contacts[0][key];
-					}
+
+			if (contacts) {
+				let tmp = "<div class=\"contact\"><p>If you'd like to contact support about this issue you may reach us via the following channels:</p>";
+				Object.keys(contacts).forEach( key => {
+					tmp = tmp.concat('<div class="contact-item"><span class="contact-method">', key, '</span>:<span class="contact-detail">', contacts[key], '</span></div>');
 				});
+				data['contact'] = tmp.concat('</div>');
 			}
 
 			body = preprocess(template, data);
