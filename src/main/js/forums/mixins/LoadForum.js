@@ -22,6 +22,7 @@ module.exports = {
 		if (nextProps.forumId !== this.props.forumId || paging.batchStart() !== this.state.batchStart) {
 			this[loadData](nextProps.forumId);
 			this.setState({
+				loading: true,
 				batchStart: paging.batchStart()
 			});
 		}
