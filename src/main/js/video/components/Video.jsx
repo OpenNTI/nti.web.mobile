@@ -24,8 +24,9 @@ export default React.createClass({
 			]).isRequired,
 
 		/**
-		* An array of ntiids reflecting the current course/node/etc.
-		*/
+		 * An array of ntiids reflecting the current course/node/etc.
+		 * TODO: not used by this component except by newWatchVideoEvent, move this prop to the host component
+		 */
 		context: React.PropTypes.array.isRequired,
 
 		/**
@@ -45,7 +46,16 @@ export default React.createClass({
 		onEnded: React.PropTypes.func,
 
 
-		deferred: React.PropTypes.bool
+		deferred: React.PropTypes.bool,
+
+		/**
+		 * A factory method to construct a contextually relevant WatchVideoEvent.
+		 * The one and only argument will be the video element to read off the
+		 * currentTime and duration of the video.
+		 *
+		 * The factory should return a new WatchVideoEvent instance.
+		 */
+		newWatchEventFactory: React.PropTypes.func.isRequired
 	},
 
 
@@ -111,19 +121,27 @@ export default React.createClass({
 			return null;
 		}
 
+		let target = (browserEvent || {}).target || {currentTime: 0, duration: 0};
+
+		//TODO: Make this call this.props.newWatchEventFactory(target)
+		// From this point down, this method body should be simplified to be:
+		//
+		// return this.props.newWatchEventFactory(target);
+		//
+		//The rest of the this code should move to the host component
+		//the Context, courseId, transcript etc are all not universally relevant
 		let ctx = (this.props.context || [])
 			.map(x => x.ntiid || x.href || (typeof x === 'string' ? x : null))
 			.filter(x=>x); // removes nulls
 
-		let target = (browserEvent || {}).target || {currentTime: 0, duration: 0};
 
 		let analyticsEvent = new WatchVideoEvent(
 			this.props.src.ntiid,
-			this.props.courseId,
+			this.props.courseId, // courseId won't be relevant on Books
 			ctx,
 			target.currentTime, // video_start_time
 			target.duration, // MaxDuration, the length of the entire video
-			!!this.props.transcript
+			!!this.props.transcript // transcript is not used by this component, so its superfluous.
 		);
 
 		return analyticsEvent;
