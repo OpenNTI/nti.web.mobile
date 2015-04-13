@@ -1,17 +1,18 @@
-'use strict';
+import React from 'react';
+import PanelButton from 'common/components/PanelButton';
+import OkCancelButtons from 'common/components/OkCancelButtons';
+import {Editor} from 'modeled-content';
+import {scoped} from 'common/locale';
 
-var React = require('react');
-var PanelButton = require('common/components/PanelButton');
-var OkCancelButtons = require('common/components/OkCancelButtons');
-var Editor = require('modeled-content').Editor;
-var t = require('common/locale').scoped('FORUMS');
+const t = scoped('FORUMS');
 
 function isValid(topicValue) {
-	return topicValue.title.trim().length > 0 && (topicValue.body||[]).length > 0;
+	return topicValue.title.trim().length > 0 && (topicValue.body || []).length > 0;
 }
 
 
-var TopicEditor = React.createClass({
+export default React.createClass({
+	displayName: 'TopicEditor',
 
 	propTypes: {
 		item: React.PropTypes.object,
@@ -19,13 +20,13 @@ var TopicEditor = React.createClass({
 		onCancel: React.PropTypes.func.isRequired
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			canSubmit: false
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount () {
 		this.refs.title.getDOMNode().focus();
 	},
 
@@ -36,23 +37,21 @@ var TopicEditor = React.createClass({
 		};
 	},
 
-	_onChange() {
+	onEditorChange() {
 		this.setState({
 			canSubmit: isValid(this.getValue())
 		});
 	},
 
-	render: function() {
-		var {title, body} = this.props.item||{};
-		var buttons = <OkCancelButtons onOk={this.props.onSubmit} onCancel={this.props.onCancel} okEnabled={this.state.canSubmit} okText={t('editorOkButton')} />;
+	render () {
+		let {title, body} = this.props.item || {};
+		let buttons = <OkCancelButtons onOk={this.props.onSubmit} onCancel={this.props.onCancel} okEnabled={this.state.canSubmit} okText={t('editorOkButton')} />;
 		return (
 			<PanelButton className="comment-form" button={buttons}>
-				<div><input ref='title' defaultValue={title} placeholder={t('topicTitlePlaceholder')} onChange={this._onChange} /></div>
-				<div><Editor ref='editor' value={body} onChange={this._onChange} /></div>
+				<div><input ref='title' defaultValue={title} placeholder={t('topicTitlePlaceholder')} onChange={this.onEditorChange} /></div>
+				<div><Editor ref='editor' value={body} onChange={this.onEditorChange} /></div>
 			</PanelButton>
 		);
 	}
 
 });
-
-module.exports = TopicEditor;

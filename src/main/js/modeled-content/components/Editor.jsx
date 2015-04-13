@@ -1,5 +1,6 @@
-import Editor from 'react-editor-component';
 import React from 'react';
+
+import Editor from 'react-editor-component';
 
 export default React.createClass({
 	displayName: 'ModeledBodyContentEditor',
@@ -23,16 +24,17 @@ export default React.createClass({
 
 		onBlur: React.PropTypes.func,
 
-		
+
 		onChange: React.PropTypes.func
 	},
 
 
 	/**
-	 * @returns the modeled body array, where each item in the array is either
-	 *  a modeled content object (Whiteboard, embedded Video, etc) or an html
-	 *  fragment. (The server 'tidies' the fragment into a complete document
-	 *  complete with <html><body> tags... be aware that those come back..)
+	 * @returns {Object|String} the modeled body array, where each item in
+	 * the array is either a modeled content object (Whiteboard, embedded
+	 * Video, etc) or an html fragment. (The server 'tidies' the fragment
+	 * into a complete document complete with <html><body> tags... be
+	 * aware that those come back..)
 	 *
 	 * @note: We can typically ignore the superfluous tags wrapper tags, but
 	 * this will do its best to handle them.
@@ -44,10 +46,10 @@ export default React.createClass({
 
 	render () {
 		//TODO: parse/build value sent to the RTE from the modeled body.
-		var {value} = this.props;
+		let {value} = this.props;
 
 		if (Array.isArray(value)) {
-			value = value.join('\n').replace(/<(\/?)(body|html)>/ig,'');
+			value = value.join('\n').replace(/<(\/?)(body|html)>/ig, '');
 		}
 
 		return (
