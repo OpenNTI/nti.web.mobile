@@ -12,7 +12,7 @@ import {
 	addEventListener as _addEventListener,
 	removeEventListener as _removeEventListener,
 	scrollElementBy,
-	scrollParent,
+	scrollParent as getScrollParent,
 	getScrollPosition,
 	getElementRect
 } from '../../utils/dom';
@@ -164,7 +164,6 @@ export default {
 			startX: 0, startY: 0,
 			offsetX: 0, offsetY: 0,
 			x: 0, y: 0,
-			scrollParent: null,
 			startingScrollPosition: null,
 			lastDragPoint: null
 		};
@@ -181,9 +180,7 @@ export default {
 
 
 	componentDidMount () {
-		this.setState({
-			scrollParent: scrollParent(this.getDOMNode())
-		});
+		this.scrollParent = getScrollParent(this.getDOMNode());
 	},
 
 
@@ -197,14 +194,14 @@ export default {
 
 
 	[addListeners] () {
-		_addEventListener(this.state.scrollParent, 'scroll', this.handleScroll);
+		_addEventListener(this.scrollParent, 'scroll', this.handleScroll);
 		_addEventListener(global, eventFor.move, this.handleDrag);
 		_addEventListener(global, eventFor.end, this.handleDragEnd);
 	},
 
 
 	[removeListeners] () {
-		_removeEventListener(this.state.scrollParent, 'scroll', this.handleScroll);
+		_removeEventListener(this.scrollParent, 'scroll', this.handleScroll);
 		_removeEventListener(global, eventFor.move, this.handleDrag);
 		_removeEventListener(global, eventFor.end, this.handleDragEnd);
 	},
@@ -215,7 +212,7 @@ export default {
 		let dragPoint = getDragPoint(e);
 		let onDragStart = this.context.onDragStart || emptyFunction;
 		let {handle, cancel} = this.props;
-		let {scrollParent} = this.state;
+		let {scrollParent} = this;
 
 		if (!this.isMounted() ||
 			this.props.locked ||
@@ -320,8 +317,8 @@ export default {
 
 
 	handleScroll () {
+		let {scrollParent} = this;
 		let {
-			scrollParent,
 			startingScrollPosition,
 			startX,
 			startY
@@ -342,7 +339,7 @@ export default {
 	maybeScrollParent (point, lastPoint) {
 		let y, x;
 		let region = 50;
-		let scrollParent = this.state.scrollParent;
+		let {scrollParent} = this;
 		let boundingRect = getElementRect(scrollParent);
 
 		let top = (point.y - boundingRect.top) < region && isDirection(-1, 'y', point, lastPoint);

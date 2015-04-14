@@ -1,8 +1,1 @@
-'use strict';
-
-var keyMirror = require('react/lib/keyMirror');
-
-module.exports = keyMirror({
-	SEND_MESSAGE: null
-});
-
+export const SEND_MESSAGE = 'contact:Send Message';

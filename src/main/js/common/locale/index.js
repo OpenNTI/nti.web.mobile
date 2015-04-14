@@ -28,7 +28,7 @@ export function translate(...args) {
 }
 
 export function scoped(scope) {
-	return (key, options) => counterpart(key, Object.assign(options||{}, {scope}));
+	return (key, options) => counterpart(key, Object.assign(options || {}, {scope}));
 }
 
 export function addChangeListener(fn) {

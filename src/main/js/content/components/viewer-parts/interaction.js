@@ -60,7 +60,7 @@ export default {
 			//let the capture clicks widget take us to a new place...
 			if (isNTIID(id)) {
 				//the capture clicks component is parsing this, so make it parser friendly.
-				anchor.setAttribute('href', '../'+encodeForURI(id)+'/');//eww
+				anchor.setAttribute('href', `../${encodeForURI(id)}/`);//eww
 			}
 
 			if (frag.length) {

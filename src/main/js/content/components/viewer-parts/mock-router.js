@@ -1,7 +1,9 @@
+const ROUTES = Symbol('Routes');
+
 export default {
 
 	getInitialState  () {
-		this.__registerRoute('/:pageId(/)');
+		this.registerContentViewerSubRoute('/:pageId(/)');
 	},
 
 
@@ -12,7 +14,7 @@ export default {
 
 	getPropsFromRoute  (props) {
 		let {match} = this.getRouterState(props || this.props);
-		var p = match && (match.getHandler() || match.match);
+		let p = match && (match.getHandler() || match.match);
 		if (p && p.props) {
 			p = p.props;
 		}
@@ -27,14 +29,14 @@ export default {
 	/**
 	 * For the RouterMixin
 	 * @private
-	 * @param {Object} props
+	 * @returns {Array} Route Objects
 	 */
 	getRoutes (/*props*/) {
-		return this.__routes || [];
+		return this[ROUTES] || [];
 	},
 
 
-	__registerRoute (route) {
+	registerContentViewerSubRoute (route) {
 		if (typeof route === 'string') {
 			route = {
 				props: {
@@ -44,7 +46,7 @@ export default {
 			};
 		}
 
-		var set = this.__routes = this.__routes || [];
+		let set = this[ROUTES] = this[ROUTES] || [];
 		set.push(route);
 	}
 };

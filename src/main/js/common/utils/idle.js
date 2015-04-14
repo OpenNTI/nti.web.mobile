@@ -40,6 +40,7 @@ export default class Idle {
 
 	/**
 	 * Start the idle timer.
+	 * @returns {void}
 	 */
 	start () {
 		let {state, element, opt} = this;
@@ -71,6 +72,7 @@ export default class Idle {
 
 	/**
 	 * Stop the idle timer.
+	 * @returns {void}
 	 */
 	stop () {
 		let {state, element, opt} = this;

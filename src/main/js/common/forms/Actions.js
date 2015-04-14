@@ -12,7 +12,7 @@ export default {
 		);
 	}
 
-}
+};
 
 function dispatch(key, data) {
 	let action = {

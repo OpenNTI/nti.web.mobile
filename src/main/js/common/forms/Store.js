@@ -1,45 +1,48 @@
-'use strict';
+//TODO: Cleanup/Rewrite -- this was only translated to ES6, it is still in need of updating.
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var Constants = require('./Constants');
-var {getService} = require('common/utils');
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import {EventEmitter} from 'events';
+import {CHANGE_EVENT} from 'common/constants/Events';
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import Constants from './Constants';
+import {getService} from 'common/utils';
 
-var Store = Object.assign({}, EventEmitter.prototype, {
-	displayName: 'enrollment.Store',
+class Store extends EventEmitter {
 
-	emitChange: function(evt) {
+	emitChange (evt) {
 		this.emit(CHANGE_EVENT, evt);
-	},
+	}
 
-	emitError: function(event) {
+	emitError (event) {
 		this.emitChange(Object.assign({isError: true}, event));
-	},
+	}
 
 	/**
-	 * @param {function} callback
+	 * @param {function} callback Event Handler
+	 * @returns {void}
 	 */
-	addChangeListener: function(callback) {
+	addChangeListener (callback) {
 		this.on(CHANGE_EVENT, callback);
-	},
+	}
 
 	/**
-	 * @param {function} callback
+	 * @param {function} callback Event Handler
+	 * @returns {void}
 	 */
-	removeChangeListener: function(callback) {
+	removeChangeListener (callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	}
 
-});
+}
 
 /**
 * Fetch a link with the given rel.
+* @param {String} linkRel link to fetch
+* @returns {Promise} response promise.
 */
-function _fetchLink(linkRel) {
+function fetchLink(linkRel) {
 
-	var me = _fetchLink;
+	let me = fetchLink;
 
 	if (!me.promises) {
 		me.promises = {};
@@ -50,73 +53,51 @@ function _fetchLink(linkRel) {
 		return me.promises[linkRel];
 	}
 
-	var service = getService();
+	let servicePromise = getService();
 
-	var getUser = service.then(
-		function(service) {
-			return service.getAppUser();
-		}
-	);
+	let getUser = servicePromise.then(service=> service.getAppUser());
 
-	var getHref = getUser.then(
-		function(user) {
-			return user.getLink(linkRel);
-		}
-	);
+	let getHref = getUser.then(user=>user.getLink(linkRel));
 
-	var promise = getHref.then(
-		function(href) {
-			return service.then(function(service) {
-				return service.get(href);
-			}
-		);
-	});
+	let promise = getHref.then(href => servicePromise.then(service=>service.get(href)));
 
 	console.debug('caching resolved fetchLink promise for %s', linkRel);
 	me.promises[linkRel] = promise;
 
-	promise.catch(function(/*reason*/) {
-		delete me.promises[linkRel];
-	});
+	promise.catch((/*reason*/)=> delete me.promises[linkRel]);
 
 	return promise;
 }
 
-Store.appDispatch = AppDispatcher.register(function(data) {
-    var action = data.action;
+Store.appDispatch = AppDispatcher.register(data => {
+	let {action} = data;
 
-    switch(action.type) {
-    //TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-    	/**
-    	* FETCH_LINK action is used to populate select options
-    	* from remote sources, e.g. state and country lists in
-    	* RelatedFormPanel.
-    	*/
+	switch(action.type) {
+	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
+		/**
+		* FETCH_LINK action is used to populate select options
+		* from remote sources, e.g. state and country lists in
+		* RelatedFormPanel.
+		*/
 		case Constants.FETCH_LINK:
-			var data = action.payload;
-			_fetchLink(data.link).then(
-				function(response) {
-					Store.emitChange({
-						type: Constants.URL_RETRIEVED,
-						action: action,
-						response: response
-					});
-				},
-				function(reason) {
+			let {payload} = action;
+			fetchLink(payload.link).then(
+				response =>
+					Store.emitChange({ type: Constants.URL_RETRIEVED, action, response }),
+				reason => {
 					Store.emitError({
-						url: data.url,
+						url: payload.url,
 						reason: reason
 					});
 					Promise.reject(reason);
-				}
-			);
+				});
 			break;
 
-        default:
-            return true;
-    }
-    return true;
+		default:
+			return true;
+	}
+	return true;
 });
 
 
-module.exports = Store;
+export default new Store();

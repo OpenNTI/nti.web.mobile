@@ -82,7 +82,7 @@ export default {
 
 
 	renderDropTargetWrapper (children) {
-		return React.createElement(this.props.tag||'div', Object.assign({}, this.props, {
+		return React.createElement(this.props.tag || 'div', Object.assign({}, this.props, {
 			children: children,
 			className: this[getWrapperElementClassName]()
 		}));

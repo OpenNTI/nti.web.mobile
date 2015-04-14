@@ -51,11 +51,11 @@ export function isFlag (flagName) {
 }
 
 export function analyticsConfig () {
-	return $AppConfig.analytics||{};
+	return $AppConfig.analytics || {};
 }
 
 export function discussionsConfig () {
-	return $AppConfig.discussions||{};
+	return $AppConfig.discussions || {};
 }
 
 /**

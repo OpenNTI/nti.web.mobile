@@ -70,7 +70,7 @@ module.exports = {
 		return contextFunction(this.props)
 			.then(context => {
 				let first = context[0],
-					last = context[context.length -1];
+					last = context[context.length - 1];
 
 				//if the end of the path is the resourceId (it should) then drop it.
 				last = (last && (last.ntiid === resourceId || last === resourceId)) ? -1 : undefined;
@@ -88,7 +88,7 @@ module.exports = {
 				}
 
 				currentEvent.setContextPath(context
-					.map(x=> x.ntiid || (typeof x === 'string'? x: null))
+					.map(x=> x.ntiid || (typeof x === 'string' ? x : null))
 					.filter(x=>x));
 				AnalyticsActions.emitEventEnded(currentEvent);
 				currentEvent = null;

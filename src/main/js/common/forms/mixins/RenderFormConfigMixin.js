@@ -30,9 +30,9 @@ module.exports = {
 	*/
 	renderField: function(translator, values, field) {
 		var state = this.state;
-		var err = (state.errors||{})[field.ref];
+		var err = (state.errors || {})[field.ref];
 		var cssClass = err ? ['error'] : [];
-		var tr = translator||t;
+		var tr = translator || t;
 		var type = field.type;
 		var related = null;
 
@@ -66,7 +66,7 @@ module.exports = {
 				input = radiogroup;
 				var radioChange = this._radioChanged.bind(null, field);
 				var tmp = onChange;
-				onChange = tmp ? function(event) { tmp(event); radioChange(event); }.bind(this) : radioChange;
+				onChange = tmp ? function(event) { tmp(event); radioChange(event); } : radioChange;
 			break;
 			case 'checkbox':
 				input = Checkbox;
@@ -80,28 +80,28 @@ module.exports = {
 
 		var component = type === 'label' ?
 			React.createElement('label', {ref: ref, className: cssClass.join(' ') }, tr(ref, translateOptions)) :
-			React.createElement('input', {
+			React.createElement(input, {
 				ref: ref,
 				//value: (values||{})[ref],
 				name: ref,
 				onBlur: this._onBlur,
 				onFocus: this._onFocus,
 				onChange: onChange,
-				placeholder: tr(ref,translateOptions),
+				placeholder: tr(ref, translateOptions),
 				className: cssClass.join(' '),
-				defaultValue: (values||{})[ref],
+				defaultValue: (values || {})[ref],
 				type: type,
 				field: field,
 				// passing renderField function to custom input components to
 				// avoid the circular references that would occur if the
 				// component imported this mixin. ToggleFieldset needs this.
 				renderField: this.renderField,
-				options: field.options||null,
+				options: field.options || null,
 				translator: translator,
 				pattern: (field.type === 'number' && '[0-9]*') || null
 			});
 
-		var subfields = ((state.subfields||{})[field.ref]||[]).map(
+		var subfields = ((state.subfields || {})[field.ref] || []).map(
 			item=>this.renderField(translator, values, item)
 		);
 
@@ -154,7 +154,7 @@ module.exports = {
 
     _onFocus: function(event) {
 		var target = event.target.name;
-		var errors = this.state.errors||{};
+		var errors = this.state.errors || {};
 		if (errors[target]) {
 			delete errors[target];
 			this.forceUpdate();

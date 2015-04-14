@@ -33,7 +33,7 @@ const WIDGET_SELECTORS_AND_STRATEGIES = {
 
 	'object[type$=ntisequenceitem]': parseDomObject,
 	'object[type$=ntiaudio]': parseDomObject,
-	'object[type*=naquestion]': parseDomObject,
+	'object[type*=naquestion]': parseDomObject
 };
 
 
@@ -77,8 +77,8 @@ export function loadPage (ntiid) {
 				//Get the data store. (Important note: the store itself will load in parallel
 				// (and not block page render))
 				pi.getUserData()
-			]).then(data => {
-				let [toc, htmlStr, ugd] = data;
+			]).then(pack => {
+				let [toc, htmlStr, ugd] = pack;
 				return {
 					tableOfContents: toc,
 					pageInfo: pi,

@@ -1,40 +1,33 @@
-'use strict';
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import Constants from './Constants';
+import {CHANGE_EVENT} from 'common/constants/Events';
+import {EventEmitter} from 'events';
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var Constants = require('./Constants');
-var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
-var EventEmitter = require('events').EventEmitter;
+class Store extends EventEmitter {
 
-var Store = Object.assign({}, EventEmitter.prototype, {
-
-	emitChange: function(event) {
+	emitChange (event) {
 		this.emit(CHANGE_EVENT, event);
 	}
 
-});
+}
 
-module.exports = Store;
+export default new Store();
 
 function sendMessage() {
 	console.debug('faking a message send success');
 	return Promise.resolve('not implemented');
 }
 
-AppDispatcher.register(function(payload) {
-    var action = payload.action;
-    switch(action.type) {
-    //TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-        case Constants.SEND_MESSAGE:
-            sendMessage(payload).then(function(result) {
-            	Store.emit({
-            		type: Constants.MESSAGE_SENT,
-            		result: result
-            	});
-            });
-            break;
-        default:
-            return true;
-    }
-    Store.emitChange();
-    return true;
+AppDispatcher.register(payload => {
+	let {action} = payload;
+	switch(action.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
+		case Constants.SEND_MESSAGE:
+			sendMessage(payload).then(result => Store.emit({ type: Constants.MESSAGE_SENT, result}));
+			break;
+		default:
+			return true;
+	}
+	Store.emitChange();
+	return true;
 });

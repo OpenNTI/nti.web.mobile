@@ -1,4 +1,4 @@
-import Contributor, {ContextParent, ContextResolver} from './ContextContributor';
+import Contributor, {ContextParent} from './ContextContributor';
 
 import * as Actions from 'navigation/Actions';
 
@@ -20,7 +20,7 @@ export default {
 		let set = (this[Children] = (this[Children] || new Set()));
 		let {size} = set;
 		set.delete(child);
-		if (size===set.size) {
+		if (size === set.size) {
 			console.error('Did not remove anything.');
 		}
 

@@ -22,20 +22,20 @@ export default React.createClass({
 	},
 
 
-	_handleSubmit (event) {
+	handleSubmit (event) {
 		event.preventDefault();
 		sendMessage(this.state.fieldValues);
 	},
 
 
 	render () {
-		var fields = this.renderFormConfig(
+		let fields = this.renderFormConfig(
 				this.props.fieldConfig,
 				this.state.fieldValues,
 				t);
 
 		return (
-			<FormPanel onSubmit={this._handleSubmit}>
+			<FormPanel onSubmit={this.handleSubmit}>
 				{fields}
 				<input type="submit"
 					key="submit"

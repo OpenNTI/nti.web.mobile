@@ -4,7 +4,7 @@ export default class PageDescriptor {
 	constructor (ntiid, data) {
 		this.ntiid = ntiid;
 
-		Object.assign(this,{
+		Object.assign(this, {
 			[Symbol.for('Created')]: new Date(),
 			[Service]: data.pageInfo[Service],
 
@@ -21,7 +21,7 @@ export default class PageDescriptor {
 	}
 
 
-	getID () {return this.ntiid;}
+	getID () { return this.ntiid; }
 
 
 	getTitle () {
@@ -32,7 +32,7 @@ export default class PageDescriptor {
 	}
 
 
-	getPageSource (id){ return this.tableOfContents.getPageSource(id);}
+	getPageSource (id){ return this.tableOfContents.getPageSource(id); }
 
 
 	getTableOfContents () { return this.tableOfContents; }

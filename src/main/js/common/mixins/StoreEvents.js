@@ -9,7 +9,7 @@ export default {
 
 	mixinAdditionalHandler (eventId, handlerId) {
 		if (!this.hasOwnProperty(handlerMapKey)) {
-			this[handlerMapKey] = Object.create(this[getHandlers]()||{});
+			this[handlerMapKey] = Object.create(this[getHandlers]() || {});
 		}
 
 		if (!eventId) {
@@ -49,9 +49,7 @@ export default {
 	}
 };
 
-/**
-* Returns a new Set containing item if item is not null and not already a Set
-*/
+
 function makeSet(item) {
 	return (!item || item instanceof Set) ? item : new Set([item]);
 }

@@ -42,16 +42,16 @@ var FieldValuesStore = Object.assign({}, EventEmitter.prototype, {
 
 	__setsAreEquivalent: function(set1, set2) {
 		if(set1 instanceof Set && set2 instanceof Set && set1.size === set2.size) {
-			var v = set1.values();
-			while(true) {
-				var val = v.next();
+			var val, v = set1.values();
+			do {
+				val = v.next();
 				if (val.done) {
 					return true;
 				}
 				if (!set2.has(val.value)) {
 					return false;
 				}
-			}
+			} while(!val.done);
 		}
 		return false;
 	},
@@ -67,7 +67,7 @@ var FieldValuesStore = Object.assign({}, EventEmitter.prototype, {
 			this.emitChange({
 				type: Constants.AVAILABLE_FIELDS_CHANGED,
 				fields: new Set(this._availableFields)
-			});	
+			});
 		}
 	},
 
