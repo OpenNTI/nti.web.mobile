@@ -3,7 +3,7 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 import {CHANGE_EVENT} from 'common/constants/Events';
-import Constants from './Constants';
+import * as Constants from './Constants';
 import {getService} from 'common/utils';
 
 class Store extends EventEmitter {
