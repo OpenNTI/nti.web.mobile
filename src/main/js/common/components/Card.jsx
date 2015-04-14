@@ -110,10 +110,10 @@ export default React.createClass({
 
 
 	resolveHref (props) {
-		var href = props.item.href;
+		let href = props.item.href;
 
 		if (isNTIID(href)) {
-			var link = path.join(
+			let link = path.join(
 				props.slug || '',
 				encodeForURI(href)) + '/';
 
@@ -148,8 +148,8 @@ export default React.createClass({
 
 
 	isExternal (props) {
-		var p = props || this.props;
-		var {item, internalOverride} = p;
+		let p = props || this.props;
+		let {item, internalOverride} = p;
 
 		return !isNTIID(item.href) && !internalOverride;
 	},
@@ -168,7 +168,7 @@ export default React.createClass({
 		let extern = external ? 'external' : '';
 		let seen = this.isSeen() ? 'seen' : '';
 
-		var {icon} = state;
+		let {icon} = state;
 		if (seen && !icon) {
 			icon = BLANK_IMAGE;
 		}

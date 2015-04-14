@@ -1,17 +1,18 @@
-'use strict';
-var React = require('react');
-var t = require('../locale').scoped('FILTER');
-var Notice = require('./Notice');
+import React from 'react';
 
-var EmptyList = React.createClass({
+import Notice from './Notice';
 
-	render: function() {
+import {scoped} from '../locale';
+
+const t = scoped('FILTER');
+
+export default React.createClass({
+	displayName: 'EmptyList',
+
+	render () {
 		return (
 			<Notice>{t('emptyList')}</Notice>
 		);
 	}
 
 });
-
-
-module.exports = EmptyList;

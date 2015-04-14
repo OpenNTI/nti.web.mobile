@@ -1,8 +1,6 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-
-var _t = require('common/locale').translate;
+import {scoped} from 'common/locale';
 
 module.exports = React.createClass({
 	displayName: 'LocalizedHTML',
@@ -10,11 +8,13 @@ module.exports = React.createClass({
 	propTypes: {
 		stringId: React.PropTypes.string.isRequired,
 		scoped: React.PropTypes.string,
-		tag: React.PropTypes.string
+		tag: React.PropTypes.string,
+
+		className: React.PropTypes.string
 	},
 
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			tag: 'div',
 			scoped: ''
@@ -22,12 +22,12 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
-		var _t2 = _t.scoped(this.props.scoped);
-		var Tag = this.props.tag;
+	render () {
+		let t = scoped(this.props.scoped);
+		let Tag = this.props.tag;
 
 		return (
-			<Tag className={this.props.className} dangerouslySetInnerHTML={{__html: _t2(this.props.stringId, this.props)}} />
+			<Tag className={this.props.className} dangerouslySetInnerHTML={{__html: t(this.props.stringId, this.props)}} />
 		);
 	}
 });

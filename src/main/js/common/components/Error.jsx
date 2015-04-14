@@ -1,10 +1,8 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+const isHTML = /<html|<([a-z]+)[^>]*>(.+)<\/\1>/i;
 
-var isHTML = /<html|<([a-z]+)[^>]*>(.+)<\/\1>/i;
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Error',
 
 	propTypes: {
@@ -12,15 +10,15 @@ module.exports = React.createClass({
 	},
 
 
-	componentDidMount: function() {
-		var e = this.props.error;
+	componentDidMount () {
+		let e = this.props.error;
 		console.error(e.stack || e.message || e.responseText || e);
 	},
 
 
-	render: function() {
-		var error = this.props.error;
-		var message = error.stack || error.message || error.responseText || error || '';
+	render () {
+		let error = this.props.error;
+		let message = error.stack || error.message || error.responseText || error || '';
 
 		if (isHTML.test(message)) {
 			message = (

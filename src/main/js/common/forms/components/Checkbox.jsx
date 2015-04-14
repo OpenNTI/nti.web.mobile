@@ -9,7 +9,7 @@ var Checkbox = React.createClass({
 	},
 
 	render: function() {
-		var config = this.props.field||{};
+		var config = this.props.field || {};
 		return (
 			<label>
 				<input {...this.props}/>

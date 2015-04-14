@@ -36,7 +36,7 @@ var ToggleFieldset = React.createClass({
 	render: function() {
 
 		var fieldset = this.state.fieldset;
-		var fields = (fieldset||{}).fields||[];
+		var fields = (fieldset || {}).fields || [];
 		var displayFields = fields.map(function(field) {
 			return this.props.renderField(field, this.state.fieldValues);
 		}.bind(this));

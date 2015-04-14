@@ -43,8 +43,7 @@ export default React.createClass({
 			relative,
 			todayText } = this.props;
 
-		let _m = moment(date),
-			m = _m;
+		let m = moment(date);
 
 		if (relativeTo) {
 			m = moment.duration(m.diff(relativeTo));

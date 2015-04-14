@@ -1,8 +1,6 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Score',
 
 	propTypes: {
@@ -12,7 +10,7 @@ module.exports = React.createClass({
 		score: React.PropTypes.number
 	},
 
-	getDefaultProps: function () {
+	getDefaultProps () {
 		return {
 			title: '',
 			colors: ['#40b450', '#b8b8b8'],
@@ -22,12 +20,12 @@ module.exports = React.createClass({
 	},
 
 
-	getInitialState: function () {
+	getInitialState () {
 		//FIXME: Re-write this:
 		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
 		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
 
-		var score = parseInt(this.props.score, 10);
+		let score = parseInt(this.props.score, 10);
 		return {
 			series: [
 				{value: score, label: 'Score'},
@@ -37,14 +35,14 @@ module.exports = React.createClass({
 	},
 
 
-	getCanvas: function() {
+	getCanvas () {
 		return this.getDOMNode();
 	},
 
 
-	componentDidMount: function() {
-		var canvas = this.getCanvas();
-		var context = canvas.getContext('2d');
+	componentDidMount () {
+		let canvas = this.getCanvas();
+		let context = canvas.getContext('2d');
 
 		context.imageSmoothingEnabled = true;
 
@@ -52,17 +50,17 @@ module.exports = React.createClass({
 	},
 
 
-	componentDidUpdate: function() {
-		var context = this.getCanvas().getContext('2d');
+	componentDidUpdate () {
+		let context = this.getCanvas().getContext('2d');
 		this.paint(context);
 	},
 
 
-	render: function() {
-		var p = this.props;
-		var width = p.width * p.pixelDensity;
-		var height = p.height * p.pixelDensity;
-		var style = {
+	render () {
+		let p = this.props;
+		let width = p.width * p.pixelDensity;
+		let height = p.height * p.pixelDensity;
+		let style = {
 			width: p.width,
 			height: p.height
 		};
@@ -73,8 +71,8 @@ module.exports = React.createClass({
 	},
 
 
-	paint: function(ctx) {
-		var centerX = ctx.canvas.width / 2,
+	paint (ctx) {
+		let centerX = ctx.canvas.width / 2,
 			centerY = ctx.canvas.height / 2,
 			len = this.state.series.length, i = 0;
 
@@ -105,14 +103,13 @@ module.exports = React.createClass({
 	},
 
 
-	getTotal: function () {
-		return this.state.series.reduce(function (sum, i) {
-			return sum + i.value; }, 0);
+	getTotal () {
+		return this.state.series.reduce((sum, i) => sum + i.value, 0);
 	},
 
 
-	drawSegment: function(ctx, i) {
-		var radius = Math.floor(ctx.canvas.width / 2),
+	drawSegment (ctx, i) {
+		let radius = Math.floor(ctx.canvas.width / 2),
 			series = this.state.series[i].value,
 			total = this.getTotal(),
 
@@ -149,11 +146,11 @@ module.exports = React.createClass({
 	},
 
 
-	drawLabel: function(ctx) {
+	drawLabel (ctx) {
 		try {
-			var centerX = ctx.canvas.width / 2,
+			let centerX = ctx.canvas.width / 2,
 				centerY = ctx.canvas.height / 2,
-				radius = Math.floor(ctx.canvas.width / 2) *0.75,
+				radius = Math.floor(ctx.canvas.width / 2) * 0.75,
 				textbox,
 				score = parseInt(this.props.score, 10),
 				font = {
@@ -187,7 +184,7 @@ module.exports = React.createClass({
 
 
 function sumTo(data, i) {
-	var sum = 0, j = 0;
+	let sum = 0, j = 0;
 	for (j; j < i; j++) {
 		sum += data[j].value;
 	}

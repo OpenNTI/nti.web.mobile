@@ -22,7 +22,7 @@ var _labelIsRenderedByComponent = new Set();
 
 // safari doesn't support construction of a set from an array (!?)
 // so we'll create the Set empty and add each item.
-['radiogroup', 'select', 'checkbox','toggleFieldset'].forEach(function(comp) {
+['radiogroup', 'select', 'checkbox', 'toggleFieldset'].forEach(function(comp) {
 	_labelIsRenderedByComponent.add(comp);
 });
 
@@ -48,10 +48,10 @@ var RelatedFormPanel = React.createClass({
 	statics: {
 		// static because it's easier to test
 		_getInlineSubfields: function(field, currentValue) {
-			var selectedOption = (field.options||[]).find(function(item) {
+			var selectedOption = (field.options || []).find(function(item) {
 				return item.value === currentValue;
 			});
-			return (selectedOption.related||[]).filter(function(item) {
+			return (selectedOption.related || []).filter(function(item) {
 				return item.type === Constants.SUBFIELDS;
 			});
 		}
@@ -104,7 +104,7 @@ var RelatedFormPanel = React.createClass({
 	renderField: function(field, values) {
 
 		var cssClass = [];
-		var tr = this.props.translator||t;
+		var tr = this.props.translator || t;
 		var type = field.type || 'text';
 		var inlineSubfields = null;
 
@@ -129,7 +129,7 @@ var RelatedFormPanel = React.createClass({
 			fallback: ''
 		};
 
-		var configuredValue = field.type !== 'checkbox' && (field.value||field.defaultValue);
+		var configuredValue = field.type !== 'checkbox' && (field.value || field.defaultValue);
 
 		// explicit test against undefined because the value could be zero which is falsy.
 		if (configuredValue !== undefined && (type === 'hidden' || !FieldValuesStore.getValue(ref))) {
@@ -141,14 +141,14 @@ var RelatedFormPanel = React.createClass({
 			name: ref,
 			onBlur: this._onBlur,
 			onFocus: this.props.inputFocus,
-			placeholder: tr(ref,translateOptions),
+			placeholder: tr(ref, translateOptions),
 			className: cssClass.join(' '),
-			defaultValue: (values||{})[ref]||configuredValue,
+			defaultValue: (values || {})[ref] || configuredValue,
 			type: type,
 			field: field,
 			// ToggleFieldset needs to call renderField.
 			renderField: this.renderField,
-			options: field.options||null,
+			options: field.options || null,
 			// pattern: (field.type === 'number' && '[0-9]*') || null,
 			translator: tr
 		};
@@ -294,7 +294,7 @@ var RelatedFormPanel = React.createClass({
 	_getRelatedConfigs: function(fieldConfig) {
 		var result = [];
 		var currentValue = FieldValuesStore.getValue(fieldConfig.ref);
-		(fieldConfig.options||[]).forEach(function(option) {
+		(fieldConfig.options || []).forEach(function(option) {
 			if(option.related) {
 				result.push({
 					isActive: currentValue && option.value === currentValue,

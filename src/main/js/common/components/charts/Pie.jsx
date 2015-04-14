@@ -1,8 +1,6 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Pie',
 
 	propTypes: {
@@ -12,7 +10,7 @@ module.exports = React.createClass({
 		series: React.PropTypes.arrayOf(React.PropTypes.object)
 	},
 
-	getDefaultProps: function () {
+	getDefaultProps  () {
 		return {
 			title: '',
 			colors: ['#40b450', /*'#b8b8b8',*/ '#3fb3f6', '#F35252'],
@@ -26,14 +24,14 @@ module.exports = React.createClass({
 	},
 
 
-	getCanvas: function() {
+	getCanvas () {
 		return this.refs.canvas.getDOMNode();
 	},
 
 
-	componentDidMount: function() {
-		var canvas = this.getCanvas();
-		var context = canvas.getContext('2d');
+	componentDidMount () {
+		let canvas = this.getCanvas();
+		let context = canvas.getContext('2d');
 
 		context.imageSmoothingEnabled = true;
 
@@ -41,25 +39,25 @@ module.exports = React.createClass({
 	},
 
 
-	componentDidUpdate: function() {
-		var context = this.getCanvas().getContext('2d');
+	componentDidUpdate () {
+		let context = this.getCanvas().getContext('2d');
 		this.paint(context);
 	},
 
 
-	getTotal: function () {
-		return this.props.series.reduce(function(sum, i){return sum + i.value;}, 0);
+	getTotal  () {
+		return this.props.series.reduce((sum, i) => sum + i.value, 0);
 	},
 
 
-	render: function() {
-		var p = this.props;
-		var colors = p.colors;
-		var data = p.series;
-		var total = this.getTotal();
-		var width = p.width * p.pixelDensity;
-		var height = p.height * p.pixelDensity;
-		var style = {
+	render () {
+		let p = this.props;
+		let colors = p.colors;
+		let data = p.series;
+		let total = this.getTotal();
+		let width = p.width * p.pixelDensity;
+		let height = p.height * p.pixelDensity;
+		let style = {
 			width: p.width,
 			height: p.height
 		};
@@ -69,13 +67,12 @@ module.exports = React.createClass({
 				<canvas ref="canvas" style={style} width={width} height={height} />
 				<div className="label title">{p.title}</div>
 				<ul className="legend">
-				{data.map(function(item, i){
-					var style = {color: colors[i % colors.length]};
+				{data.map((item, i) => {
 					return (
 						<li className="series label"
 							key={item.label}
 							data-value={item.value}
-							style={style}>
+							style={{color: colors[i % colors.length]}}>
 							{item.label}
 						</li>
 					);
@@ -87,8 +84,8 @@ module.exports = React.createClass({
 	},
 
 
-	paint: function(ctx) {
-		var centerX = ctx.canvas.width / 2,
+	paint (ctx) {
+		let centerX = ctx.canvas.width / 2,
 			centerY = ctx.canvas.height / 2 - 10,
 			len = this.props.series.length, i = 0;
 
@@ -116,8 +113,8 @@ module.exports = React.createClass({
 	},
 
 
-	drawSegment: function(ctx, i) {
-		var radius = Math.floor(ctx.canvas.width / 4),
+	drawSegment (ctx, i) {
+		let radius = Math.floor(ctx.canvas.width / 4),
 			series = this.props.series[i].value,
 			total = this.getTotal(),
 
@@ -156,7 +153,7 @@ module.exports = React.createClass({
 
 
 function sumTo(data, i) {
-	var sum = 0, j = 0;
+	let sum = 0, j = 0;
 	for (j; j < i; j++) {
 		sum += data[j].value;
 	}

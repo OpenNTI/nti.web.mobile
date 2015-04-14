@@ -15,7 +15,9 @@ export default React.createClass({
 	mixins: [BasePathAware],
 
 	propTypes: {
-		username: React.PropTypes.string.isRequired
+		username: React.PropTypes.string.isRequired,
+
+		children: React.PropTypes.any
 	},
 
 

@@ -5,6 +5,15 @@ import React from 'react';
  * @class Button
  */
 export default React.createClass({
+	displayName: 'Button',
+
+	propTypes: {
+		href: React.PropTypes.string,
+		className: React.PropTypes.string,
+		onClick: React.PropTypes.func,
+		enabled: React.PropTypes.bool
+	},
+
 
 	getDefaultProps () {
 		return {
@@ -17,11 +26,11 @@ export default React.createClass({
 	onClick (e) {
 		let {onClick, enabled, href} = this.props;
 
-		if(enabled && onClick) {
+		if (enabled && onClick) {
 			onClick(...arguments);
 		}
 
-		if(href==='#' || !enabled) {
+		if (href === '#' || !enabled) {
 			e.preventDefault();
 		}
 	},
@@ -29,7 +38,7 @@ export default React.createClass({
 
 	render () {
 
-		var css = `button tiny ${this.props.className}`;
+		let css = `button tiny ${this.props.className}`;
 		if(!this.props.enabled) {
 			css = `disabled ${css}`;
 		}

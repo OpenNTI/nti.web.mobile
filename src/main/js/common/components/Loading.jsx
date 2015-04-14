@@ -1,20 +1,18 @@
-'use strict';
+import React from 'react';
+import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
-var React = require('react');
-var isEmpty = require('nti.lib.interfaces/utils/isempty');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Loading',
 
 	propType: {
 		maskScreen: React.PropTypes.bool,
 		loading: React.PropTypes.bool,
 		message: React.PropTypes.string,
-		tag: React.PropTypes.string,
+		tag: React.PropTypes.string
 	},
 
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			tag: 'div',
 			message: 'Loading'
@@ -22,8 +20,8 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
-		var Tag = this.props.tag;
+	render () {
+		let Tag = this.props.tag;
 		if (!isEmpty(this.props.children) && !this.props.loading) {
 			return <Tag {...this.props}/>;
 		}
@@ -31,16 +29,16 @@ module.exports = React.createClass({
 		if (this.props.maskScreen) {
 			return (
 				<div className="mask-loader">
-					{this._renderSpiner()}
+					{this.renderSpiner()}
 				</div>
 			);
 		}
 
-		return this._renderSpiner();
+		return this.renderSpiner();
 	},
 
 
-	_renderSpiner: function () {
+	renderSpiner () {
 		return (
 			<figure className="loading">
 				<div className="m spinner"></div>

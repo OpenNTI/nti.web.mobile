@@ -37,12 +37,12 @@ export default React.createClass({
 			return [React.createElement(pageContent, props)];
 		}
 
-		if (!c) {return [];}
+		if (!c) { return []; }
 
 		if (!Array.isArray(c)) {
 			c = [c];
 		}
 
-		return c.map(c=>cloneWithProps(c));
+		return c.map(x=>cloneWithProps(x));
 	}
 });
