@@ -25,9 +25,15 @@ export default React.createClass({
 			'expanded': !this.state.collapsed
 		});
 
+		let titleClasses = React.addons.classSet({
+			'collapsible-title': true,
+			'open': !this.state.collapsed,
+			'disclosure-triangle': true
+		});
+
 		return (
 			<div className={classes}>
-				<span className="collapsible-title" onClick={this[toggle]}>{this.props.title}</span>
+				<div className={titleClasses} onClick={this[toggle]}>{this.props.title}</div>
 				{this.state.collapsed ? null : this.props.children}
 			</div>
 		);
