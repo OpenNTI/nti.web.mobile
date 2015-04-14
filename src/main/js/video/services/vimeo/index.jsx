@@ -32,7 +32,8 @@ let Source = React.createClass({
 
 	propTypes: {
 		id: React.PropTypes.string,
-		source: React.PropTypes.any.isRequired
+		source: React.PropTypes.any.isRequired,
+		deferred: React.PropTypes.bool
 	},
 
 

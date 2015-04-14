@@ -30,14 +30,14 @@ export default React.createClass({
 		this.refs.title.getDOMNode().focus();
 	},
 
-	getValue() {
+	getValue () {
 		return {
 			title: this.refs.title.getDOMNode().value,
 			body: this.refs.editor.getValue()
 		};
 	},
 
-	onEditorChange() {
+	onEditorChange () {
 		this.setState({
 			canSubmit: isValid(this.getValue())
 		});

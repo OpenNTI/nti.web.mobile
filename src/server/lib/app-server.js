@@ -63,8 +63,8 @@ export function setupApplication(app, config) {
 	//Static files...
 	app.use(express.static(assetPath, {
 		maxage: 3600000, //1hour
-		setHeaders: (res, path) =>{
-			if (manifest.test(path)) {
+		setHeaders: (res, requsestPath) =>{
+			if (manifest.test(requsestPath)) {
 				//manifests never cache
 				res.setHeader('Cache-Control', 'public, max-age=0');
 			}

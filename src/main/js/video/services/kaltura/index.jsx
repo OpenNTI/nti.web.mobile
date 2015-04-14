@@ -29,7 +29,10 @@ export default React.createClass({
 		source: React.PropTypes.oneOfType([
 			React.PropTypes.string,
 			React.PropTypes.instanceOf(MediaSource)
-			]).isRequired
+			]).isRequired,
+
+		autoPlay: React.PropTypes.bool,
+		deferred: React.PropTypes.bool
 	},
 
 
@@ -124,8 +127,22 @@ export default React.createClass({
 
 	componentDidUpdate () {
 		let video = this.refs.video;
-		let props = this.props;
+		this.ensureListeningToEvents(video);
+	},
 
+
+	componentWillUnmount () {
+		let video = this.getDOMNode();
+		if (video) {
+			Object.keys(EventHandlers).forEach(eventname =>
+				video.removeEventListener(eventname, this.props[EventHandlers[eventname]], false)
+			);
+		}
+	},
+
+
+	ensureListeningToEvents (video) {
+		let {props} = this;
 		if (video && !this.state.listening) {
 			video = video.getDOMNode();
 			video.addEventListener('error', this.onError, false);
@@ -143,16 +160,6 @@ export default React.createClass({
 			});
 
 			this.setState({listening: true});
-		}
-	},
-
-
-	componentWillUnmount () {
-		let video = this.getDOMNode();
-		if (video) {
-			Object.keys(EventHandlers).forEach(eventname =>
-				video.removeEventListener(eventname, this.props[EventHandlers[eventname]], false)
-			);
 		}
 	},
 

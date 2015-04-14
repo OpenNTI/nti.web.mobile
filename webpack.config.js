@@ -60,7 +60,7 @@ function isOurModule (s) {
 	}
 
 	if (new RegExp(ourprojects).test(s)) {
-		return !(new RegExp('('+ourprojects+')/node_modules').test(s));
+		return !(new RegExp('(' + ourprojects + ')/node_modules').test(s));
 	}
 	return false;
 }
@@ -103,7 +103,7 @@ function includeWidgets(o) {
 		if (!w.hasOwnProperty(k)) {continue; }
 
 		v = assign({}, o[0], {
-			name: 'Widget: '+ k,
+			name: 'Widget: ' + k,
 
 			output: {
 				path: '<%= pkg.stage %>/widgets/' + k + '/',
@@ -118,7 +118,7 @@ function includeWidgets(o) {
 					SERVER: false,
 					"process.env": {
 						// This has effect on the react lib size
-						"NODE_ENV": JSON.stringify(process.env.NODE_ENV||"development")
+						"NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development")
 					}
 				}),
 				new webpack.optimize.OccurenceOrderPlugin(),
@@ -183,7 +183,7 @@ exports = module.exports = [
 				SERVER: false,
 				"process.env": {
 					// This has effect on the react lib size
-					"NODE_ENV": JSON.stringify(process.env.NODE_ENV||"development")
+					"NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development")
 				}
 			})
 		],
@@ -218,7 +218,7 @@ exports = module.exports = [
 				SERVER: true,
 				"process.env": {
 					// This has effect on the react lib size
-					"NODE_ENV": JSON.stringify(process.env.NODE_ENV||"development")
+					"NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development")
 				}
 			})
 		],

@@ -1,13 +1,17 @@
-'use strict';
-
 import React from 'react';
-import ListItems from './list-items';
+
 import hash from 'object-hash';
+
 import Notice from 'common/components/Notice';
-var _t = require('common/locale').scoped('FORUMS');
+
+import {scoped} from 'common/locale';
+
+import ListItem from './list-items';
 import groupDeleted from '../utils/group-deleted-items';
 
-module.exports = React.createClass({
+const t = scoped('FORUMS');
+
+export default React.createClass({
 	displayName: 'ForumItemList',
 
 	propTypes: {
@@ -29,7 +33,7 @@ module.exports = React.createClass({
 		let keyFor = this.props.keyFn || this.keyFor;
 		let {itemProps} = this.props;
 		let empty = Items.length === 0;
-		let emptyText = this.props.emptyText || _t('emptyList');
+		let emptyText = this.props.emptyText || t('emptyList');
 
 		return (
 			empty ?
@@ -37,7 +41,7 @@ module.exports = React.createClass({
 				:
 				<ul {...this.props}>
 					{groupDeleted(Items).map((item, index)=>
-						<li key={keyFor(item)}>{ListItems.select(item, index, itemProps)}</li>
+						<li key={keyFor(item)}>{ListItem(item, index, itemProps)}</li>
 					)}
 				</ul>
 		);

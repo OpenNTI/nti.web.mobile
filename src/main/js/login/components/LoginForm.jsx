@@ -51,7 +51,7 @@ var View = React.createClass({
 
 	_signupLink: function() {
 		// if we have a confirmation message show the confirmation view, otherwise go directly to signup
-		return t(Constants.messages.SIGNUP_CONFIRMATION,{fallback: 'missing'}) === 'missing' ? '/signup/' : '/signup/confirm';
+		return t(Constants.messages.SIGNUP_CONFIRMATION, {fallback: 'missing'}) === 'missing' ? '/signup/' : '/signup/confirm';
 	},
 
 
@@ -124,15 +124,15 @@ var View = React.createClass({
 	_usernameChanged: function() {
 		clearTimeout(this.state.timeoutId);
 		var timeoutId = global.setTimeout(()=>{
-				console.log('timeout, firing userInputChanged: username: %s', this._username());
-				Actions.userInputChanged({
+			console.log('timeout, firing userInputChanged: username: %s', this._username());
+			Actions.userInputChanged({
 					credentials: {
 						username: this._username(),
 						password: this._password()
 					}
 				});
-			},
-			_pingDelayMs);
+		},
+		_pingDelayMs);
 
 		this.setState({timeoutId: timeoutId});
 	},

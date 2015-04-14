@@ -86,7 +86,7 @@ var View = React.createClass({
 		// it...)
 		if (this.state.links[Constants.links.LOGIN_CONTINUE_LINK]) {
 			returnPath = QueryString.parse(loc.search).return;
-			return (<Redirect location={returnPath||basePath} force="true"/>);
+			return (<Redirect location={returnPath || basePath} force="true"/>);
 		}
 
 		return (

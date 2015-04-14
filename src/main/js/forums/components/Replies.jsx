@@ -1,19 +1,29 @@
-'use strict';
-
 import React from 'react';
-import Actions from '../Actions';
-import {GOT_COMMENT_REPLIES, COMMENT_ADDED, OBJECT_DELETED} from '../Constants';
-import Store from '../Store';
+
 import StoreEvents from 'common/mixins/StoreEvents';
+
+import Actions from '../Actions';
+import Store from '../Store';
+import {
+	GOT_COMMENT_REPLIES,
+	COMMENT_ADDED,
+	OBJECT_DELETED
+} from '../Constants';
+
+
 const gotCommentRepliesHandler = 'Replies:gotCommentRepliesHandler';
 const commentAddedHandler = 'Replies:commentAddedHandler';
 const objectDeletedHandler = 'Replies:objectDeletedHandler';
 
-let Replies = React.createClass({
+export default React.createClass({
+	displayName: 'Replies',
 
 	mixins: [StoreEvents],
 
 	propTypes: {
+		className: React.PropTypes.string,
+		display: React.PropTypes.bool,
+
 		item: React.PropTypes.object.isRequired,
 		topic: React.PropTypes.object.isRequired,
 		listComponent: React.PropTypes.func.isRequired // passed in as a prop to dodge circular import of List
@@ -31,7 +41,7 @@ let Replies = React.createClass({
 		if(event.comment === item) {
 			let itemId = item.getID();
 			this.setState({
-				replies: (event.replies||[]).filter(item => (item.inReplyTo === itemId))
+				replies: (event.replies || []).filter(x => (x.inReplyTo === itemId))
 			});
 		}
 	},
@@ -40,7 +50,7 @@ let Replies = React.createClass({
 		let {item} = this.props;
 		let {parent, result} = event.data;
 		if (parent === item || result.inReplyTo === item.getID()) {
-			this._getReplies(true);
+			this.getReplies(true);
 		}
 	},
 
@@ -50,12 +60,12 @@ let Replies = React.createClass({
 		let parent = eventItem && eventItem.parent();
 		// if the deleted item is a reply to our item, reload our children.
 		if (parent && parent.getID && parent.getID() === item.getID()) {
-			this._getReplies(true);
+			this.getReplies(true);
 		}
 	},
 
-	
-	getInitialState: function() {
+
+	getInitialState () {
 		return {
 			replies: null,
 			display: false,
@@ -63,17 +73,17 @@ let Replies = React.createClass({
 		};
 	},
 
-	componentDidMount: function() {
-		this._getReplies();
+	componentDidMount () {
+		this.getReplies();
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (this.props.item !== nextProps.item) {
-			this._getReplies();
+			this.getReplies();
 		}
 	},
 
-	_getReplies: function(/*reload*/) {
+	getReplies (/*reload*/) {
 		let {item} = this.props;
 		// if (!item || (item.ReferencedByCount === 0 && !reload)) {
 		if (!item) {
@@ -83,25 +93,23 @@ let Replies = React.createClass({
 		Actions.getCommentReplies(item);
 	},
 
-	_renderReplies: function() {
+	renderReplies () {
 		if (!this.props.display) {
 			return;
 		}
-		let items = this.state.replies||[];
+		let items = this.state.replies || [];
 		let List = this.props.listComponent;
 		return items.length > 0 ? <List container={{Items: items}} {...this.props} /> : null;
 	},
 
-	render: function() {
+	render () {
 		return (
 			<div className={this.props.className}>
 				<div className="replies">
-					{this._renderReplies()}					
+					{this.renderReplies()}
 				</div>
 			</div>
 		);
 	}
 
 });
-
-module.exports = Replies;

@@ -19,10 +19,10 @@ var _fields = [
 		ref: 'password2',
 		type: 'password',
 		placeholder: 'Verify Password',
-		getError: function(value,fieldValues) {
+		getError: function(value, fieldValues) {
 			return (value !== fieldValues.password) ? {message: 'Passwords do not match.'} : null;
 		}
-	},
+	}
 ];
 
 var _errs = {};
@@ -72,10 +72,10 @@ var PasswordResetForm = React.createClass({
 		_errs = {};
 		return _fields.every(function(fieldConfig) {
 			var value = this.state.fieldValues[fieldConfig.ref];
-			if((value||'').trim().length === 0) {
+			if((value || '').trim().length === 0) {
 				return false;
 			}
-			var fieldErr = fieldConfig.getError ? fieldConfig.getError(value,this.state.fieldValues) : null;
+			var fieldErr = fieldConfig.getError ? fieldConfig.getError(value, this.state.fieldValues) : null;
 			if(fieldErr) {
 				_errs[fieldConfig.ref] = fieldErr;
 				return false;

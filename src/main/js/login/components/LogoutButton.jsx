@@ -7,7 +7,7 @@ export default React.createClass({
 	displayName: 'LogoutButton',
 
 	render () {
-		return(
+		return (
 			<Button className="logout" onClick={Actions.logOut}>Log Out</Button>
 		);
 	}

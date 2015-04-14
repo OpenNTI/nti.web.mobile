@@ -170,6 +170,9 @@ module.exports = function(grunt) {
 
 
 		eslint: {
+			options: {
+				quiet: true
+			},
 			target: [
 				'<%= pkg.src %>/js/**/*.js',
 				'<%= pkg.src %>/js/**/*.jsx',

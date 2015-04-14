@@ -9,6 +9,7 @@ import {scoped} from 'common/locale';
 let t = scoped('FORUMS');
 
 export default React.createClass({
+	displayName: 'TopicList',
 
 	mixins: [Paging],
 

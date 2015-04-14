@@ -1,50 +1,64 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+import {isFlag} from 'common/utils';
+import {scoped} from 'common/locale';
 
-var t = require('common/locale').scoped('FORUMS');
-var ReportLink = require('./ReportLink');
-var nsKeyMirror = require('nti.lib.interfaces/utils/namespaced-key-mirror');
-var {isFlag} = require('common/utils');
-
+import ReportLink from './ReportLink';
 import ScrollLink from './ScrollLink';
+
 import {COMMENT_FORM_ID} from '../Constants';
 
-var ActionLinks = React.createClass({
+const t = scoped('FORUMS');
+const gs = x=> `actionlink.handlers${x}`;
 
-	statics: nsKeyMirror('actionlink.handlers', {
-		REPLIES: null,
-		REPLY: null,
-		EDIT: null,
-		DELETE: null
-	}),
+const ActionLinkConstants = {
+	//wut? not using constants?
+	REPLIES: gs('REPLIES'),
+	REPLY: gs('REPLY'),
+	EDIT: gs('EDIT'),
+	DELETE: gs('DELETE')
+};
 
-	_handleClick(event) {
+export default React.createClass({
+	displayName: 'ActionLinks',
+
+	statics: ActionLinkConstants,
+
+	propTypes: {
+		item: React.PropTypes.object,
+		canReply: React.PropTypes.bool,
+		clickHandlers: React.PropTypes.object,//over engineering?
+		cssClasses: React.PropTypes.object, //wut?
+		numComments: React.PropTypes.number
+	},
+
+
+	handleClick(event) {
 		console.debug(event);
 	},
 
-	getDefaultProps: function() {
+
+	getDefaultProps () {
 		return {
 			cssClasses: {
-				replies:[]
+				replies: []
 			},
 			clickHandlers: {}
 		};
 	},
 
-	render: function() {
+	render () {
+		let {item, canReply, clickHandlers, cssClasses, numComments} = this.props;
 
-		var {item} = this.props;
-		var canEdit =  isFlag('canEditForumPost') && item.hasLink('edit');
-		var canDelete =  item.hasLink('edit');
-		var canReport = item.hasLink('flag')||item.hasLink('flag.metoo');
-		var canReply = !item.Deleted && this.props.canReply;
+		let canEdit = isFlag('canEditForumPost') && item.hasLink('edit');
+		let canDelete = item.hasLink('edit');
+		let canReport = item.hasLink('flag') || item.hasLink('flag.metoo');
 
-		var {numComments} = this.props;
+		canReply = !item.Deleted && canReply;
 
-		var repliesClasses = numComments > 0 ? ['disclosure-triangle'] : [];
-		repliesClasses.push.apply(repliesClasses, this.props.cssClasses.replies);
-		var {clickHandlers} = this.props;
+		let repliesClasses = numComments > 0 ? ['disclosure-triangle'] : [];
+
+		repliesClasses.push.apply(repliesClasses, cssClasses.replies);
 
 		return (
 			<ul key="control-links" className="action-links">
@@ -55,11 +69,11 @@ var ActionLinks = React.createClass({
 				}
 				{canEdit &&
 					<li key="edit-link">
-						<a onClick={clickHandlers[ActionLinks.EDIT]}>{t('editComment')}</a>
+						<a onClick={clickHandlers[ActionLinkConstants.EDIT]}>{t('editComment')}</a>
 					</li>}
 				{canDelete &&
 					<li key="delete-link">
-						<a onClick={clickHandlers[ActionLinks.DELETE]}>{t('deleteComment')}</a>
+						<a onClick={clickHandlers[ActionLinkConstants.DELETE]}>{t('deleteComment')}</a>
 					</li>}
 				{canReport &&
 					<li key="report-link">
@@ -70,5 +84,3 @@ var ActionLinks = React.createClass({
 	}
 
 });
-
-module.exports = ActionLinks;

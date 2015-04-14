@@ -18,11 +18,11 @@ export default React.createClass({
 
 	mixins: [Paging],
 
-	componentDidMount: function() {
+	componentDidMount () {
 		this[loadData]();
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (this.props.currentPage !== nextProps.currentPage) {
 			this.setState({
 				loading: true
@@ -37,7 +37,7 @@ export default React.createClass({
 		};
 	},
 
-	[loadData]: function(topicId=this.props.topicId) {
+	[loadData] (topicId=this.props.topicId) {
 		return Api.getTopicContents(topicId, this.batchStart(), this.getPageSize())
 		.then(
 			result => {
@@ -58,7 +58,7 @@ export default React.createClass({
 		);
 	},
 
-	render: function() {
+	render () {
 
 		if (this.state.loading) {
 			return <Loading />;

@@ -1,15 +1,14 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+import Avatar from 'common/components/Avatar';
+import DateTime from 'common/components/DateTime';
+import DisplayName from 'common/components/DisplayName';
+import Loading from 'common/components/LoadingInline';
 
-var Avatar = require('common/components/Avatar');
-var DateTime = require('common/components/DateTime');
-var DisplayName = require('common/components/DisplayName').default;
-var Loading = require('common/components/LoadingInline');
+import {Panel as ModeledContentPanel} from 'modeled-content';
 
-var ModeledContentPanel = require('modeled-content').Panel;
-
-var TopicHeadline = React.createClass({
+export default React.createClass({
+	displayName: 'TopicHeadline',
 
 	propTypes: {
 		item: React.PropTypes.shape({
@@ -20,8 +19,8 @@ var TopicHeadline = React.createClass({
 		})
 	},
 
-	render: function() {
-		var {item} = this.props;
+	render () {
+		let {item} = this.props;
 		if (!item) {
 			return <Loading />;
 		}
@@ -41,5 +40,3 @@ var TopicHeadline = React.createClass({
 	}
 
 });
-
-module.exports = TopicHeadline;

@@ -46,7 +46,10 @@ let Source = React.createClass({
 
 	propTypes: {
 		id: React.PropTypes.string,
-		source: React.PropTypes.any.isRequired
+
+		source: React.PropTypes.any.isRequired,
+
+		deferred: React.PropTypes.bool
 	},
 
 
@@ -138,9 +141,9 @@ let Source = React.createClass({
 
 
 	render () {
-		let {src, deferred} = this.props;
+		let {source, deferred} = this.props;
 
-		if (!src) {
+		if (!source) {
 			return (<ErrorWidget error="No source"/>);
 		}
 

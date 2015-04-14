@@ -22,13 +22,19 @@ export default React.createClass({
 	},
 
 
+	updateRender (scene) {
+		getDataURI(scene)
+			.then(src=> this.setState({src}));
+	},
+
+
 	componentDidMount () {
-		getDataURI(this.props.scene).then(src=> this.setState({src}));
+		this.updateRender(this.props.scene);
 	},
 
 
 	componentWillReceiveProps (nextProps) {
-		getDataURI(nextProps.scene).then(src=> this.setState({src}));
+		this.updateRender(nextProps.scene);
 	},
 
 	render () {

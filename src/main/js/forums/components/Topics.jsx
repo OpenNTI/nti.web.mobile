@@ -1,27 +1,41 @@
-'use strict';
-
 import React from 'react';
+
 import {Link} from 'react-router-component';
+
 import AnalyticsStore from 'analytics/Store';
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
-import TopicList from './TopicList';
+
+import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
+
 import Loading from 'common/components/Loading';
-import paging from '../mixins/Paging';
-import Store from '../Store';
+
+import {scoped} from 'common/locale';
+
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import StoreEvents from 'common/mixins/StoreEvents';
+
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+
+import paging from '../mixins/Paging';
 import LoadForum from '../mixins/LoadForum';
+
+import Store from '../Store';
+
+import TopicList from './TopicList';
 import ViewHeader from './widgets/ViewHeader';
 import {FORUM} from '../Constants';
-import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
-var t = require('common/locale').scoped('FORUMS');
+
+
+const t = scoped('FORUMS');
 
 
 export default React.createClass({
-
 	displayName: 'Topics',
 
 	mixins: [NavigatableMixin, StoreEvents, LoadForum],
+
+	propTypes: {
+		forumId: React.PropTypes.string
+	},
 
 	backingStore: Store,
 
@@ -35,17 +49,17 @@ export default React.createClass({
 		AnalyticsStore.pushHistory(decodeFromURI(this.props.forumId));
 	},
 
-	_getForum() {
+	getForum() {
 		return Store.getForum(this.props.forumId);
 	},
 
-	_canCreateTopic() {
-		let forum = this._getForum();
+	canCreateTopic() {
+		let forum = this.getForum();
 		return !!(forum && forum.hasLink('add'));
 	},
 
-	_createTopicLink() {
-		if (!this._canCreateTopic()) {
+	createTopicLink() {
+		if (!this.canCreateTopic()) {
 			return null;
 		}
 		return <Link className="action-link create-topic" href="/newtopic/">{t('createTopic')}</Link>;
@@ -66,7 +80,7 @@ export default React.createClass({
 				<Transition transitionName="forums">
 					<ViewHeader type={FORUM} />
 					<section>
-						{this._createTopicLink()}
+						{this.createTopicLink()}
 						<div className="group-heading"><h3>Topics</h3></div>
 						<TopicList container={forumContents}/>
 					</section>

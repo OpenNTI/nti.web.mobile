@@ -138,7 +138,7 @@ export default React.createClass({
 					<label>
 						<h5>{label}</h5>
 						<E tag="h3">{title}</E>
-						<E tag="address" className="author" measureOverflow="parent">{'By '+author}</E>
+						<E tag="address" className="author" measureOverflow="parent">{`By ${author}`}</E>
 					</label>
 				</CourseContentLink>
 

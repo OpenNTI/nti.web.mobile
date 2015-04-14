@@ -8,19 +8,19 @@ export default React.createClass({
 	},
 
 
-	getItem () {return this.props.item;},
+	getItem () {return this.props.item; },
 
 	itemChanged () { this.forceUpdate(); },
 
 	componentWillMount () {
-		this.getItem().addListener('changed', this.itemChanged);},
+		this.getItem().addListener('changed', this.itemChanged); },
 
 	componentWillUnmount () {
-		this.getItem().removeListener('changed', this.itemChanged);},
+		this.getItem().removeListener('changed', this.itemChanged); },
 
 
 	render () {
-		var p = this.getItem();
+		let p = this.getItem();
 		let {icon} = p || {};
 
 		return (

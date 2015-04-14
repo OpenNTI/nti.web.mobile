@@ -4,7 +4,7 @@ import ForumItem from '../list-items/ForumItem';
 import keyFor from '../../utils/key-for-item';
 import {scoped} from 'common/locale';
 
-const _t = scoped('FORUMS.groupTitles');
+const t = scoped('FORUMS.groupTitles');
 
 export default React.createClass({
 	displayName: 'ForumBoard',
@@ -17,10 +17,10 @@ export default React.createClass({
 	render () {
 
 		let {title, board} = this.props;
-		let forums = (board||{}).forums||[];
+		let forums = (board || {}).forums || [];
 		return (
 			<div className="board">
-				<h3>{_t(title)}</h3>
+				<h3>{t(title)}</h3>
 				<ul className="forum-list">
 					{forums.map(forum => {
 						return <li className="forum-li" key={keyFor(forum)}><ForumItem item={forum}/></li>;

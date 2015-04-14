@@ -17,6 +17,10 @@ export default React.createClass({
 		]
 	},
 
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
 	render () {
 
 		let {item} = this.props;

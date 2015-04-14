@@ -1,29 +1,25 @@
-'use strict';
+import {isMimeType} from 'common/utils/mimetype';
 
-var {isMimeType} = require('common/utils/mimetype');
+const CLEANED = Symbol('Type has been cleaned');
 
-module.exports = {
+export default {
 
 	statics: {
-		handles: function(item) {
-			if (!this.__typeCleaned) {
+		handles (item) {
+			if (!this[CLEANED]) {
 				//ensure data type:
 				if (!Array.isArray(this.inputType)) {
 					this.inputType = [this.inputType];
 				}
+
 				//ensure shape:
-				this.inputType.forEach(function(s,i,a){a[i]=s.toLowerCase();});
+				this.inputType.forEach((s, i, a) => a[i] = s.toLowerCase());
 
 				//prevent re-entry:
-				this.__typeCleaned = true;
+				this[CLEANED] = true;
 			}
 
 			//Perform actual test...
-			return this.__test(item);
-
-		},
-
-		__test: function (item) {
 			return isMimeType(item, this.inputType);
 		}
 

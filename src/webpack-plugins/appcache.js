@@ -53,7 +53,7 @@ AppCachePlugin.prototype.apply = function(compiler) {
 		try {
 			work.chunks.forEach(function(chunk) {
 				if (chunk.name === 'main') {
-					me.fallback.unshift('js/main.js '+chunk.files[0]);
+					me.fallback.unshift('js/main.js ' + chunk.files[0]);
 				}
 			});
 

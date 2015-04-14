@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 
 import Store from '../Store';
@@ -33,9 +31,13 @@ module.exports = React.createClass({
 		Paging
 	],
 
+	propTypes: {
+		topicId: React.PropTypes.string
+	},
+
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[OBJECT_CONTENTS_CHANGED]: function(event) {
+		[OBJECT_CONTENTS_CHANGED] (event) {
 			if (event.objectId === this.props.topicId) {
 				this.setState({
 					loading: false
@@ -44,20 +46,20 @@ module.exports = React.createClass({
 		}
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			// loading: true,
 			deleted: false
 		};
 	},
 
-	_topicId(props=this.props) {
+	getTopicId(props=this.props) {//this doesn't appear to be referenced?
 		return decodeFromURI(props.topicId);
 	},
 
 	// title bar back arrow
 	getContext () {
-		let topic = this._topic();
+		let topic = this.getTopic();
 		let href = this.makeHref('/' + this.props.topicId + '/');
 		let label = topic && topic.headline ? topic.headline.title : 'Topic';
 
@@ -68,15 +70,15 @@ module.exports = React.createClass({
 
 	},
 
-	_topic: function() {
+	getTopic () {
 		return this.getItem() || Store.getObject(this.props.topicId);
 	},
 
-	getPropId: function() {
+	getPropId () {//this doesn't appear to be referenced?
 		return this.props.topicId;
 	},
 
-	render: function() {
+	render () {
 
 		if (this.state.error) {
 			return <Err error={this.state.error} />;
@@ -86,7 +88,7 @@ module.exports = React.createClass({
 			return <Loading />;
 		}
 
-		let topic = this._topic();
+		let topic = this.getTopic();
 
 		let currentPage = this.currentPage();
 
@@ -97,14 +99,14 @@ module.exports = React.createClass({
 					topic={topic}
 					page={currentPage}
 					{...this.props}
-					contextProvider={this.__getContext}
+					contextProvider={this.getContext}
 				/>
 				<Location path="/:postId/"
 					handler={Post}
 					topic={topic}
 					page={currentPage}
 					{...this.props}
-					contextProvider={this.__getContext}
+					contextProvider={this.getContext}
 				/>
 			</Router.Locations>
 		);

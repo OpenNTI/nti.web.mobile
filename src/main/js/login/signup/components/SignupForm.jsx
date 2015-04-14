@@ -77,7 +77,7 @@ var SignupForm = React.createClass({
 		}
 
 		if (event.type === ERROR_EVENT) {
-			errs = indexArrayByKey(Store.getErrors(),'field');
+			errs = indexArrayByKey(Store.getErrors(), 'field');
 			// realname is a synthetic field; map its error messages to the last name field.
 			// if (errs['realname'] && !errs['lname']) {
 			// 	errs['lname'] = errs['realname'];
@@ -141,7 +141,7 @@ var SignupForm = React.createClass({
 		var values = this.state.fieldValues;
 		return this.state.formConfig.every(function(fieldset) {
 			return fieldset.fields.every(function(field) {
-				return !field.required || (values[field.ref]||'').length > 0;
+				return !field.required || (values[field.ref] || '').length > 0;
 			});
 		});
 	},
@@ -168,7 +168,7 @@ var SignupForm = React.createClass({
 										var err = state.errors[ref];
 										console.debug(err);
 										return (<small key={ref} className='error'>{err.message}</small>);
-								})}
+									})}
 							</ReactCSSTransitionGroup>
 						</div>
 					<input type="submit"
