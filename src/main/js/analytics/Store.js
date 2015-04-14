@@ -1,14 +1,16 @@
-'use strict';
+import {FixedQueue as fixedQueue} from 'fixedqueue';
+
+import AppDispatcher from 'dispatcher/AppDispatcher';
 
 import TypedEventEmitter from 'common/TypedEventEmitter';
-import * as Constants from './Constants';
 import {CHANGE_EVENT} from 'common/constants/Events';
-import AppDispatcher from 'dispatcher/AppDispatcher';
 import {getService}from 'common/utils';
-import {FixedQueue as fixedQueue} from 'fixedqueue';
-import {startIdleTimer} from './IdleTimer';
+
 import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 import {getModel} from 'nti.lib.interfaces';
+
+import {startIdleTimer} from './IdleTimer';
+import * as Constants from './Constants';
 
 let localStorageKey = 'analytics_queue';
 
@@ -17,6 +19,7 @@ let postFrequency = 10000;
 let timeoutId;
 
 let contextHistory = fixedQueue(11);
+
 const ProcessLocalStorage = Symbol('ProcessLocalStorage');
 const HaltActiveEvents = Symbol('HaltActiveEvents');
 const ProcessQueue = Symbol('ProcessQueue');

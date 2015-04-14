@@ -1,14 +1,12 @@
-'use strict';
+import React from 'react';
+import Mixin from './Mixin';
 
-var React = require('react');
-var Mixin = require('./Mixin');
-
-var ensureArray = require('nti.lib.interfaces/utils/ensure-array');
+import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 
 /**
  * This solution type represents Muliple Choice (with multiple answers--aka Checkboxes)
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'MultipleChoiceMulipleAnswer',
 	mixins: [Mixin],
 
@@ -21,8 +19,13 @@ module.exports = React.createClass({
 		]
 	},
 
-	render: function() {
-		var ex = this.state.explanation || '';
+
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
+	render () {
+		let ex = this.state.explanation || '';
 		return (
 			<div className="multiple-choice solutions">
 				{this.renderSolution()}
@@ -32,10 +35,10 @@ module.exports = React.createClass({
 	},
 
 
-	renderSolution: function () {
-		var item = this.props.item;
-		var choices = (item || {}).choices || [];
-		var solution = this.state.solution;
+	renderSolution () {
+		let item = this.props.item;
+		let choices = (item || {}).choices || [];
+		let solution = this.state.solution;
 
 		if (!solution) {
 			return null;
@@ -43,14 +46,14 @@ module.exports = React.createClass({
 
 		solution = ensureArray(solution.value);
 
-		return solution.map(x=>{
-					var numeral = String.fromCharCode(65+x);
-					return (
-						<div className="solution" key={x}>
-							<span className="numeral">{numeral}</span>
-							<span dangerouslySetInnerHTML={{__html: choices[x]}}/>
-						</div>
-					);
-				});
+		return solution.map(x=> {
+			let numeral = String.fromCharCode(65 + x);
+			return (
+				<div className="solution" key={x}>
+					<span className="numeral">{numeral}</span>
+					<span dangerouslySetInnerHTML={{__html: choices[x]}}/>
+				</div>
+			);
+		});
 	}
 });

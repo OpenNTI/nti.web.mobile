@@ -26,6 +26,8 @@ const menuOpenBodyClass = 'nav-menu-open';
 
 
 const Menu = React.createClass({
+	displayName: 'Menu',
+
 	componentDidMount () {
 		addClass(getViewport(), 'scroll-lock');
 	},
@@ -41,7 +43,12 @@ const Menu = React.createClass({
 
 
 const UserMenu = React.createClass({
+	displayName: 'UserMenu',
 	mixins: [PureRenderMixin],
+
+	propTypes: {
+		onClick: React.PropTypes.func
+	},
 
 	onClick (e) {
 		e.preventDefault();
@@ -62,6 +69,7 @@ const UserMenu = React.createClass({
 
 
 const ReturnTo = React.createClass({
+	displayName: 'ReturnTo',
 	mixins: [PureRenderMixin],
 
 	propTypes: {
@@ -110,7 +118,10 @@ export default React.createClass({
 			label: React.PropTypes.string,
 			href: React.PropTypes.string
 		})),
-		title: React.PropTypes.string
+		title: React.PropTypes.string,
+
+		children: React.PropTypes.any,
+		availableSections: React.PropTypes.array
 	},
 
 	backingStore: NavStore,

@@ -11,7 +11,13 @@ import Item from './Entry';
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
 const ListView = React.createClass({
+	displayName: 'ListView',
+
 	mixins: [CatalogAccessor, ContextSender],
+
+	propTypes: {
+		list: React.PropTypes.array
+	},
 
 	getInitialState () {
 		return {sections: []};

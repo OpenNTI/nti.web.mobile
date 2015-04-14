@@ -17,7 +17,13 @@ import Enrollment from 'enrollment/components/View';
 
 
 const CatalogBody = React.createClass({
+	displayName: 'CatalogBody',
 	mixins: [BasePathAware, ContextSender],
+
+
+	propTypes: {
+		catalog: React.PropTypes.object
+	},
 
 
 	shouldComponentUpdate (_, newState) {

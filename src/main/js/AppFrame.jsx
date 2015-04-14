@@ -44,7 +44,7 @@ export default React.createClass({
 	},
 
 
-	onNavChange () {this.onCloseMenus();},
+	onNavChange () { this.onCloseMenus(); },
 
 
 	componentDidMount () {
@@ -63,17 +63,17 @@ export default React.createClass({
 
 
 	componentDidUpdate () {
-		var viewport = document.getElementsByTagName('html')[0];
-		var action = (this.getOverlayState() == null) ? removeClass : addClass;
+		let viewport = document.getElementsByTagName('html')[0];
+		let action = (this.getOverlayState() == null) ? removeClass : addClass;
 
 		action(viewport, 'scroll-lock');
 	},
 
 
 	render () {
-		var height = {height: getViewportHeight()};
-		var state = this.getOverlayState();
-		var username = getAppUsername();
+		let height = {height: getViewportHeight()};
+		let state = this.getOverlayState();
+		let username = getAppUsername();
 
 		return (
 			<div className="app-container">

@@ -1,8 +1,6 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'TimedPlaceholder',
 
 
@@ -26,8 +24,7 @@ module.exports = React.createClass({
 
 
 	render () {
-		var {assignment, message, buttonLabel, className, pageTitle, onConfirm} = this.props;
-
+		let {assignment, message, buttonLabel, className, pageTitle, onConfirm} = this.props;
 
 		return (
 			<div className={"assignment-placeholder " + className}>

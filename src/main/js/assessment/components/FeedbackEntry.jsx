@@ -4,7 +4,7 @@ import Editor from './FeedbackEditor';
 
 import {scoped} from 'common/locale';
 
-const _t = scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
+const t = scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
 
 
 
@@ -34,7 +34,7 @@ export default React.createClass({
 
 
 	render () {
-		var {feedback} = this.props;
+		let {feedback} = this.props;
 		if (!feedback || !feedback.getLink('edit')) {
 			return null;
 		}
@@ -45,7 +45,7 @@ export default React.createClass({
 				{this.state.active ?
 					<Editor onSubmit={this.onSubmit} onCancel={this.toggleEditor}/>
 					:
-					<a href="#" className="placeholder" onClick={this.toggleEditor}>{_t('entryPlaceholder')}</a>
+					<a href="#" className="placeholder" onClick={this.toggleEditor}>{t('entryPlaceholder')}</a>
 				}
 				</div>
 			</div>
@@ -54,7 +54,7 @@ export default React.createClass({
 
 
 	onSubmit (value) {
-		var thenable = this.props.onSubmit(value);
+		let thenable = this.props.onSubmit(value);
 		if (!thenable) {
 			return;
 		}

@@ -26,7 +26,7 @@ class Store extends StorePrototype {
 			path: null,
 			pageSource: null,
 			currentPage: null,
-			context:  null
+			context: null
 		}, response);
 
 		this.emitChange({type});

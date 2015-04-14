@@ -21,7 +21,7 @@ export default React.createClass({
 
 	propTypes: {
 		entryId: React.PropTypes.string,
-		entry: React.PropTypes.object,
+		entry: React.PropTypes.object
 	},
 
 	getInitialState () { return { loading: true }; },
@@ -46,9 +46,9 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		var entryId = decodeFromURI(props.entryId);
-		var entry = props.entry || Store.getEntry(entryId);
-		var loading = entry && entry.loading;
+		let entryId = decodeFromURI(props.entryId);
+		let entry = props.entry || Store.getEntry(entryId);
+		let loading = entry && entry.loading;
 
 		entry = loading ? null : entry;
 
@@ -93,7 +93,7 @@ export default React.createClass({
 
 
 	render () {
-		var {entry, loading} =  this.state;
+		let {entry, loading} = this.state;
 
 		if (loading) {
 			return (<Loading />);

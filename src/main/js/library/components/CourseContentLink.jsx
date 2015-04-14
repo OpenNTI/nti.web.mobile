@@ -7,7 +7,8 @@ export default React.createClass({
 
 	propTypes: {
 		courseId: React.PropTypes.string.isRequired,
-		section: React.PropTypes.string
+		section: React.PropTypes.string,
+		children: React.PropTypes.any
 	},
 
 	render () {

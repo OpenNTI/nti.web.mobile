@@ -5,6 +5,10 @@ import {Component as Video} from 'video';
 export default React.createClass({
 	displayName: 'Title',
 
+	propTypes: {
+		entry: React.PropTypes.object
+	},
+
 	render () {
 		let {entry} = this.props;
 		if (!entry) { return; }

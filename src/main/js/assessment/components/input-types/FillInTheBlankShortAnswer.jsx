@@ -1,16 +1,15 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+import InputType from './Mixin';
 
-var InputType = require('./Mixin');
+import Content from '../Content';
 
-var Content = require('../Content');
+import toArray from 'nti.lib.interfaces/utils/toarray';
+import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
-var toArray = require('nti.lib.interfaces/utils/toarray');
-var isEmpty = require('nti.lib.interfaces/utils/isempty');
-var hasValue = x => x && !isEmpty(x.value);
+const hasValue = x => x && !isEmpty(x.value);
 
-var strategies = {
+const strategies = {
 	'input[type=blankfield]': x => ({
 			name: x.getAttribute('name'),
 			maxLength: x.getAttribute('maxlength')
@@ -20,7 +19,7 @@ var strategies = {
 /**
  * This input type represents Fill In The Blank - Short Answer
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'FillInTheBlankShortAnswer',
 	mixins: [InputType],
 
@@ -28,6 +27,11 @@ module.exports = React.createClass({
 		inputType: [
 			'FillInTheBlankShortAnswer'
 		]
+	},
+
+
+	propTypes: {
+		item: React.PropTypes.object
 	},
 
 
@@ -45,8 +49,8 @@ module.exports = React.createClass({
 
 
 	renderInput(tag, props) {
-		var {name,maxLength} = props;
-		var value = (this.state.value || {})[name];
+		let {name, maxLength} = props;
+		let value = (this.state.value || {})[name];
 		return (
 			<span className="blank">
 				<input ref={name} name={name} value={value} size={maxLength} onChange={this.handleInteraction}/>
@@ -56,12 +60,12 @@ module.exports = React.createClass({
 
 
 	getValue: function () {
-		var {form} = this.refs;
-		if (!form || !this.isMounted()) {return;}
+		let {form} = this.refs;
+		if (!form || !this.isMounted()) { return; }
 
 		form = form.getDOMNode();
 
-		var values = null;
+		let values = null;
 
 		toArray(form.elements).forEach(x =>{
 			if (hasValue(x)){

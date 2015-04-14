@@ -48,7 +48,7 @@ export default React.createClass({
 		}
 
 		return Store.isWordBankEntryUsed(entry) ?
-			{className:"used"} :
+			{className: 'used'} :
 			{};
 	}
 });

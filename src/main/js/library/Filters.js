@@ -17,7 +17,7 @@ export default [
 		path: 'upcoming',
 		filter: item => {
 			try {
-				var start = item.getStartDate();
+				let start = item.getStartDate();
 				return start > Date.now();
 			}
 			catch(e) {
@@ -32,9 +32,9 @@ export default [
 		path: 'current',
 		filter: item => {
 			try {
-				var now = Date.now();
-				var start = item.getStartDate();
-				var end = item.getEndDate();
+				let now = Date.now();
+				let start = item.getStartDate();
+				let end = item.getEndDate();
 
 				return start < now && end > now;
 			}
@@ -50,7 +50,7 @@ export default [
 		path: 'archived',
 		filter: item => {
 			try {
-				var end = item.getEndDate();
+				let end = item.getEndDate();
 				return end < Date.now();
 			}
 			catch(e) {
@@ -63,7 +63,7 @@ export default [
 			let bins = {};
 
 			let add = (sort, label, i) => {
-				let o = bins[label] || {sort, label, items:[]};
+				let o = bins[label] || {sort, label, items: []};
 				bins[label] = o;
 				o.items.push(i);
 			};
@@ -83,7 +83,7 @@ export default [
 
 
 			bins = Object.values(bins);
-			bins.sort((a,b)=>b.sort - a.sort);
+			bins.sort((a, b)=>b.sort - a.sort);
 
 			return bins;
 		}

@@ -15,8 +15,8 @@ export default React.createClass({
 	},
 
 	render () {
-		var {feedback} = this.props;
-		var items = (feedback && feedback.Items) || [];
+		let {feedback} = this.props;
+		let items = (feedback && feedback.Items) || [];
 
 		return (
 			<div className="feedback list">

@@ -38,15 +38,15 @@ export default React.createClass({
 
 
 	render () {
-		var {item} = this.props;
-		var {editing} = this.state;
-		var createdBy = item.Creator;
-		var createdOn = item.getCreatedTime();
-		var modifiedOn = item.getLastModified();
-		var message = item.body.join('');
+		let {item} = this.props;
+		let {editing} = this.state;
+		let createdBy = item.Creator;
+		let createdOn = item.getCreatedTime();
+		let modifiedOn = item.getLastModified();
+		let message = item.body.join('');
 
-		var edited = (Math.abs(modifiedOn - createdOn) > 0);
-		var canEdit = item.hasLink('edit') && item.Creator === getAppUsername();
+		let edited = (Math.abs(modifiedOn - createdOn) > 0);
+		let canEdit = item.hasLink('edit') && item.Creator === getAppUsername();
 
 		if (this.state.deleting) {
 			return <div className="feedback item"><LoadingInline/></div>;

@@ -1,14 +1,12 @@
-'use strict';
+import React from 'react';
+import emptyFunction from 'react/lib/emptyFunction';
 
-var React = require('react');
-var emptyFunction = require('react/lib/emptyFunction');
+import {processContent} from 'content/Utils';
 
-var {processContent} = require('content/Utils');
+import isFunction from 'nti.lib.interfaces/utils/isfunction';
+import htmlToReact from 'nti.lib.interfaces/utils/html-to-react';
 
-var isFunction = require('nti.lib.interfaces/utils/isfunction');
-var htmlToReact = require('nti.lib.interfaces/utils/html-to-react');
-
-var hash = require('object-hash');
+import hash from 'object-hash';
 
 
 /**
@@ -18,7 +16,7 @@ var hash = require('object-hash');
  * TODO: Implement Audio Snippets
  * maybe Sequences?
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Content',
 
 	propTypes: {
@@ -26,24 +24,24 @@ module.exports = React.createClass({
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			propHash: null
 		};
 	},
 
 
-	componentDidMount: function() { this.buildContent(this.props); },
+	componentDidMount () { this.buildContent(this.props); },
 
 
-	componentWillReceiveProps: function(props) { this.buildContent(props); },
+	componentWillReceiveProps (props) { this.buildContent(props); },
 
 
-	buildContent: function (props) {
-		var {content, strategies} = props;
-		var packet = hash(props);
-		var widgets;
-		var h = hash(props);
+	buildContent (props) {
+		let {content, strategies} = props;
+		let packet = hash(props);
+		let widgets;
+		let h = hash(props);
 
 		if (this.state.propHash === h) {
 			return;
@@ -59,7 +57,7 @@ module.exports = React.createClass({
 					part : ('<widget id="'+ part.guid +'">--x--</widget>')
 			).join('');
 
-			content = htmlToReact(content, (n,a)=>_isWidget(n,a,widgets));
+			content = htmlToReact(content, (n, a)=>isWidget(n, a, widgets));
 		}
 
 		this.setState({
@@ -70,9 +68,9 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
-		var props = Object.assign({}, this.props, {content: undefined});
-		var dynamicRender = emptyFunction;
+	render () {
+		let props = Object.assign({}, this.props, {content: undefined});
+		let dynamicRender = emptyFunction;
 		if (isFunction(this.state.content)) {
 			dynamicRender = this.state.content;
 		} else {
@@ -83,17 +81,17 @@ module.exports = React.createClass({
 	},
 
 
-	renderWidget: function (tagName, props, children) {
+	renderWidget (tagName, props, children) {
 		props = props || {};//ensure we have an object.
 
 		//TODO: Is it known internally? Renderit directly.
-		var {id} = props;
-		var {widgets} = this.state;
-		var {renderCustomWidget} = this.props;
+		let {id} = props;
+		let {widgets} = this.state;
+		let {renderCustomWidget} = this.props;
 
-		var widget = (widgets || {})[id] || {};
+		let widget = (widgets || {})[id] || {};
 
-		var f = renderCustomWidget || React.createElement;
+		let f = renderCustomWidget || React.createElement;
 
 		props = Object.assign({}, props, widget);
 		return f(tagName, props, children);
@@ -101,7 +99,7 @@ module.exports = React.createClass({
 });
 
 
-function _isWidget (tagName, props, widgets) {
-	var widget = widgets && widgets[props && props.id];
+function isWidget (tagName, props, widgets) {
+	let widget = widgets && widgets[props && props.id];
 	return (tagName === 'widget' && widget) ? tagName : null;
 }

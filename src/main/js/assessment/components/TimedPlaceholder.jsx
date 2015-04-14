@@ -1,9 +1,7 @@
-'use strict';
+import React from 'react';
+import Placeholder from './Placeholder';
 
-var React = require('react');
-var Placeholder = require('./Placeholder');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'TimedPlaceholder',
 
 
@@ -26,10 +24,10 @@ module.exports = React.createClass({
 	render () {
 		//You have <strong>5 minutes</strong> to complete this Timed Assignment.
 		//<span className="red">Once you've started, the timer will not stop.</span>
-		var {assignment} = this.props;
+		let {assignment} = this.props;
 
-		var props = {
-			assignment: assignment, 
+		let props = {
+			assignment: assignment,
 			message: 'Timed assignments are currently not supported on the mobile app.',
 			buttonLabel: 'Back',
 			pageTitle: 'Timed Assignment',

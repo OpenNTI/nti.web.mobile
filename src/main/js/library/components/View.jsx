@@ -28,7 +28,12 @@ let sectionProps = x=> {
 };
 
 let Section = React.createClass({
+	displayName: 'Section',
 	mixins: [BasePath, SectionMixin],
+
+	propTypes: {
+		section: React.PropTypes.string
+	},
 
 	componentWillMount () {
 		let availableSections = this.getAvailableSections();

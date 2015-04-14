@@ -10,6 +10,12 @@ const t = scoped('COURSE.INFO');
 const Instructor = React.createClass({
 	displayName: 'Instructor',
 
+	propTypes: {
+		instructor: React.PropTypes.object,
+		assetRoot: React.PropTypes.string,
+		index: React.PropTypes.string
+	},
+
 
 	getInitialState () {
 		return {
@@ -58,6 +64,11 @@ const Instructor = React.createClass({
 
 export default React.createClass({
 	displayName: 'Instructors',
+
+	propTypes: {
+		entry: React.PropTypes.object
+	},
+
 	render () {
 		let {entry} = this.props;
 		let instructors = ((entry || {}).Instructors) || [];

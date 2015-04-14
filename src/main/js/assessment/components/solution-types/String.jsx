@@ -1,12 +1,10 @@
-'use strict';
-
-var React = require('react');
-var Mixin = require('./Mixin');
+import React from 'react';
+import Mixin from './Mixin';
 
 /**
  * This solution type represents Any solution who's value is just a string/html.
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'StringBasedAnswer',
 	mixins: [Mixin],
 
@@ -20,7 +18,7 @@ module.exports = React.createClass({
 	},
 
 	render () {
-		var ex = this.state.explanation || '';
+		let ex = this.state.explanation || '';
 		return (
 			<div className="solutions">
 				{this.renderSolution()}
@@ -31,7 +29,7 @@ module.exports = React.createClass({
 
 
 	renderSolution () {
-		var solution = this.state.solution;
+		let solution = this.state.solution;
 
 		if (!solution) {
 			return null;

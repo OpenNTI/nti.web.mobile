@@ -1,19 +1,19 @@
-'use strict';
+import React from 'react';
+import InputType from './Mixin';
 
-var React = require('react');
-var InputType = require('./Mixin');
+import Content from '../Content';
 
-var Content = require('../Content');
+import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {Mixin, Draggable, DropTarget} from 'common/dnd';
 
-var getEventTarget = require('nti.lib.dom/lib/geteventtarget');
-var {Mixin, Draggable, DropTarget} = require('common/dnd');
+//let isEmpty from 'nti.lib.interfaces/utils/isempty';
 
-//var isEmpty = require('nti.lib.interfaces/utils/isempty');
+const SetValueRaw = Symbol('SetValue');
 
 /**
  * This input type represents Matching
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Matching',
 	mixins: [InputType, Mixin],
 
@@ -24,24 +24,29 @@ module.exports = React.createClass({
 	},
 
 
-	getInitialState: function() {
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
+
+	getInitialState () {
 		return {
 			PartLocalDNDToken: 'default'
 		};
 	},
 
 
-	componentDidMount: function() {
+	componentWillMount () {
 		this.setState({
 			PartLocalDNDToken: this.getNewUniqueToken()
 		});
 	},
 
 
-	onDrop: function (drop) {
-		var value = Object.assign({}, this.state.value || {});
-		var data = drop || {};
-		var {source, target} = data;
+	onDrop (drop) {
+		let value = Object.assign({}, this.state.value || {});
+		let data = drop || {};
+		let {source, target} = data;
 
 		if (source) {
 			source = source.props['data-source'];
@@ -64,34 +69,34 @@ module.exports = React.createClass({
 		});
 
 		value[source] = target;
-		this.__setValue(value);
+		this[SetValueRaw](value);
 	},
 
 
-	onDragReset: function (e) {
+	onDragReset (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
 
 		function get(sel, attr) {
-			var o = getEventTarget(e, sel+'['+attr+']');
+			let o = getEventTarget(e, sel+'['+attr+']');
 			o = o && o.getAttribute(attr);
 			//the double equals is intentional here.
 			return o == null ? null : parseInt(o, 10);
 		}
 
-		var source = get('.source', 'data-source');
-		//var target = get('.target', 'data-target');
+		let source = get('.source', 'data-source');
+		//let target = get('.target', 'data-target');
 
-		var val = Object.assign({}, this.state.value || {});
+		let val = Object.assign({}, this.state.value || {});
 
 		delete val[source];
-		this.__setValue(val);
+		this[SetValueRaw](val);
 	},
 
 
-	__setValue (value) {
+	[SetValueRaw] (value) {
 		if (value && Object.keys(value).length === 0) {
 			value = null;
 		}
@@ -100,24 +105,24 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
-		var dragSources = this.props.item.labels || [];
-		var dropTargets = this.props.item.values || [];
-		var submitted = this.isSubmitted();
-		var solution = submitted && this.getSolution();
+	render () {
+		let dragSources = this.props.item.labels || [];
+		let dropTargets = this.props.item.values || [];
+		let submitted = this.isSubmitted();
+		let solution = submitted && this.getSolution();
 
-		var isUsed = i => (this.state.value || {}).hasOwnProperty(i);
+		let isUsed = i => (this.state.value || {}).hasOwnProperty(i);
 
 		return (
 			<div className="matching">
 				<div className="terms">
-					{dragSources.map((x,i)=>
+					{dragSources.map((x, i)=>
 						this.renderDragSource(x, i, isUsed(i)?'used':'', isUsed(i))
 					)}
 				</div>
 
 				<form className="box">
-					{dropTargets.map((x,i)=>
+					{dropTargets.map((x, i)=>
 						this.renderDropTarget(x, i, solution)
 					)}
 				</form>
@@ -127,7 +132,7 @@ module.exports = React.createClass({
 	},
 
 
-	renderDropTarget: function (target, targetIndex, solution) {
+	renderDropTarget (target, targetIndex, solution) {
 
 		return (
 			<DropTarget accepts={this.state.PartLocalDNDToken} className="drop target" key={targetIndex} data-target={targetIndex}>
@@ -141,11 +146,11 @@ module.exports = React.createClass({
 	},
 
 
-	renderDroppedDragSource: function (targetIndex, solution) {
-		var sources = this.props.item.labels || [];
-		var value = Array.from(Object.assign({length: sources.length}, this.state.value || {}));
-		var correct = '';
-		var dragSourceIndex = value.indexOf(targetIndex);
+	renderDroppedDragSource (targetIndex, solution) {
+		let sources = this.props.item.labels || [];
+		let value = Array.from(Object.assign({length: sources.length}, this.state.value || {}));
+		let correct = '';
+		let dragSourceIndex = value.indexOf(targetIndex);
 
 		if (dragSourceIndex < 0) {
 			return null;
@@ -161,9 +166,9 @@ module.exports = React.createClass({
 	},
 
 
-	renderDragSource: function (term, sourceIndex, extraClass, lock) {
-		var locked = this.isSubmitted() || Boolean(lock);
-		var classes = ['drag','match','source'];
+	renderDragSource (term, sourceIndex, extraClass, lock) {
+		let locked = this.isSubmitted() || Boolean(lock);
+		let classes = ['drag', 'match', 'source'];
 		if (locked) {
 			classes.push('locked');
 		}
@@ -191,7 +196,7 @@ module.exports = React.createClass({
 	},
 
 
-	getValue: function () {
+	getValue () {
 		return this.state.value;
 	}
 });

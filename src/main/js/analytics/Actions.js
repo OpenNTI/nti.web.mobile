@@ -1,5 +1,3 @@
-'use strict';
-
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EVENT_STARTED, EVENT_ENDED} from './Constants';
 

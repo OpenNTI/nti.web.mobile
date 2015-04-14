@@ -1,13 +1,15 @@
-'use strict';
-
-var React = require('react');
-var t = require('common/locale').translate;
+import React from 'react';
+import {translate as t} from 'common/locale';
 
 
 module.exports = React.createClass({
 	displayName: 'Unknown',
 
-	render: function() {
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
+	render () {
 		console.debug('Input Type Missing: %s', this.props.item.MimeType);
 		return (
 			<div className="unknown solution">

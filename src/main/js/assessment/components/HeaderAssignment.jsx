@@ -1,49 +1,51 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+import Store from '../Store';
 
-var Store = require('../Store');
+import AssignmentStatusLabel from './AssignmentStatusLabel';
+import Grade from './Grade';
 
-var AssignmentStatusLabel = require('./AssignmentStatusLabel');
-var Grade = require('./Grade');
+import TimedPlaceholder from './TimedPlaceholder';
 
-var TimedPlaceholder = require('./TimedPlaceholder');
+import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
-var isEmpty = require('nti.lib.interfaces/utils/isempty');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'HeaderAssignment',
 
-	componentDidMount: function() {
+	propTypes: {
+		assessment: React.PropTypes.string
+	},
+
+	componentDidMount () {
 		Store.addChangeListener(this.synchronizeFromStore);
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this.synchronizeFromStore);
 	},
 
 
-	componentWillReceiveProps: function(props) {
+	componentWillReceiveProps (props) {
 		this.synchronizeFromStore(props);
 	},
 
 
-	synchronizeFromStore: function() {
+	synchronizeFromStore () {
 		this.forceUpdate();
 	},
 
 
-	isLate: function (date) {
-		var a = this.props.assessment;
-		var ot = a.isOverTime && a.isOverTime();
+	isLate  (date) {
+		let a = this.props.assessment;
+		let ot = a.isOverTime && a.isOverTime();
 		return ot || a.isLate(date);
 	},
 
 
-	render: function() {
-		var assignment = this.props.assessment;
-		var item = Store.getAssignmentHistoryItem(assignment);
+	render () {
+		let assignment = this.props.assessment;
+		let item = Store.getAssignmentHistoryItem(assignment);
 
 		if (assignment.IsTimedAssignment /*&& !assignment.isStarted()*/) {
 			return (
@@ -51,17 +53,17 @@ module.exports = React.createClass({
 			);
 		}
 
-		var nonSubmit = assignment.isNonSubmit();
+		let nonSubmit = assignment.isNonSubmit();
 
 		if (!item && !nonSubmit) {
 			return null;
 		}
 
-		var grade = item && item.getGradeValue();
-		var date = (item && item.getCreatedTime()) || new Date();
+		let grade = item && item.getGradeValue();
+		let date = (item && item.getCreatedTime()) || new Date();
 
-		var late = this.isLate(date);
-		var state = late ? 'late' : nonSubmit ? '' : 'ontime';
+		let late = this.isLate(date);
+		let state = late ? 'late' : nonSubmit ? '' : 'ontime';
 
 		return (
 			<div className={'header assessment assignment ' + state}>

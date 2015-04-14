@@ -1,8 +1,6 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Grade',
 
 	propTypes: {
@@ -27,7 +25,7 @@ module.exports = React.createClass({
 
 
 	parseGrade (grade) {
-		var n;
+		let n;
 		if (typeof grade === 'number') {
 			n = grade.toFixed(1);
 			if (n.split('.')[1] === '0') {
@@ -35,7 +33,7 @@ module.exports = React.createClass({
 			}
 			grade = n;
 		}
-		var parts = grade.split(' ');
+		let parts = grade.split(' ');
 
 		this.setState({
 			grade: parts[0],
@@ -46,9 +44,9 @@ module.exports = React.createClass({
 
 
 	render () {
-		var {grade} = this.state;
+		let {grade} = this.state;
 		return (
-			<div  className="grade">{grade}</div>
+			<div className="grade">{grade}</div>
 		);
 	}
 });

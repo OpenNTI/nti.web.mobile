@@ -22,7 +22,9 @@ export default React.createClass({
 	propTypes: {
 		index: React.PropTypes.number.isRequired,
 		part: React.PropTypes.object.isRequired,
-		viewerIsAdministrative: React.PropTypes.bool
+		viewerIsAdministrative: React.PropTypes.bool,
+
+		children: React.PropTypes.any
 	},
 
 
@@ -175,7 +177,7 @@ export default React.createClass({
 			c = [c];
 		}
 
-		return c.map(c=>cloneWithProps(c));
+		return c.map(x=>cloneWithProps(x));
 	},
 
 

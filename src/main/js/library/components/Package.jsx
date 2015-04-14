@@ -13,23 +13,23 @@ export default React.createClass({
 
 
 	componentWillMount () {
-		this.props.item.addListener('changed', this._onChange);
+		this.props.item.addListener('changed', this.onChange);
 	},
 
 
 	componentWillUnmount () {
-		this.props.item.removeListener('changed', this._onChange);
+		this.props.item.removeListener('changed', this.onChange);
 	},
 
 
-	_onChange () {
+	onChange () {
 		this.forceUpdate();
 	},
 
 
 	render () {
-		var p = this.props.item;
-		var id = encodeForURI(p.getID());
+		let p = this.props.item;
+		let id = encodeForURI(p.getID());
 		let {icon} = p || {};
 
 		return (
