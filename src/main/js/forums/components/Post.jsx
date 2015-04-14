@@ -129,10 +129,6 @@ export default React.createClass({
 
 		let item = this.getItem();
 
-		if (this.state.busy || !item) {
-			return <Loading />;
-		}
-
 		if (this.state.error) {
 			if (this.state.error.statusCode === 404) {
 				return <Notice>Not found.</Notice>;
@@ -140,6 +136,10 @@ export default React.createClass({
 			else {
 				return <Err error={this.state.error} />;
 			}
+		}
+
+		if (this.state.busy || !item) {
+			return <Loading />;
 		}
 
 		let topic = Store.getObject(this.props.topicId);

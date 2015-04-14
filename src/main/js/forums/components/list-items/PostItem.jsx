@@ -171,6 +171,7 @@ let PostItem = React.createClass({
 		if (item.Deleted) {
 			return (
 				<div className="postitem deleted">
+					{this.props.detailLink && <a href={href} className="threadlink"><span className="num-comments">{t('replies', {count: numComments})}</span><span className="arrow-right"/></a>}
 					<div className="post">
 						<div className="wrap">
 							<div className="message">

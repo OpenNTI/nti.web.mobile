@@ -14,6 +14,12 @@ const t = scoped('FORUMS');
 export default React.createClass({
 	displayName: 'ForumItemList',
 
+	getDefaultProps: function() {
+		return {
+			groupDeleted: true
+		};
+	},
+
 	propTypes: {
 		container: React.PropTypes.shape({
 			Items: React.PropTypes.array
@@ -34,13 +40,16 @@ export default React.createClass({
 		let {itemProps} = this.props;
 		let empty = Items.length === 0;
 		let emptyText = this.props.emptyText || t('emptyList');
+		if (!empty && this.props.groupDeleted) {
+			Items = groupDeleted(Items);
+		}
 
 		return (
 			empty ?
 				<Notice>{emptyText}</Notice>
 				:
 				<ul {...this.props}>
-					{groupDeleted(Items).map((item, index)=>
+					{Items.map((item, index)=>
 						<li key={keyFor(item)}>{ListItem(item, index, itemProps)}</li>
 					)}
 				</ul>
