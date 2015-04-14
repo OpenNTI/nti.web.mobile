@@ -4,8 +4,8 @@
  * This file is set up for serving the distribution version. It will be compiled to dist/ by default
  */
 
+/*eslint no-var: 0 strict: 0*/
 'use strict';
-/*eslint no-var: 0*/
 var assign = require('object-assign');
 
 var webpack = require('webpack');

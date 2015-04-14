@@ -1,7 +1,7 @@
 /*
  * Webpack development server configuration
  */
- /*eslint no-var: 0*/
+/*eslint no-var: 0 strict: 0*/
 'use strict';
 
 var NodeModulesThatNeedCompiling = [

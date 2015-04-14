@@ -1,3 +1,4 @@
+/*eslint no-var: 0 strict: 0*/
 'use strict';
 exports = module.exports = function StyleLoader() {};
 exports.pitch = function pitch (req) {

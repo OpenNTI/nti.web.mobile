@@ -1,5 +1,5 @@
+/*eslint no-var: 0 strict: 0*/
 'use strict';
-/*eslint no-var: 0*/
 function AppCache(cache, network, fallback, hash) {
 	this.cache = cache;
 	this.network = network;

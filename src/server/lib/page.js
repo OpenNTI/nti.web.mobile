@@ -1,5 +1,3 @@
-'use strict';
-
 import styleCollector from './style-collector';
 
 import logger from './logger';
