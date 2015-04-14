@@ -83,6 +83,7 @@ $indent: 0.9375rem;
 	}
 
 	.fi-flag {
+		padding-right: 1rem;
 		&.flagged {
 			color: $primary-red;
 		}
