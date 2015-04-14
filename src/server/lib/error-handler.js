@@ -48,16 +48,16 @@ export default function setupErrorHandler(express, config) {
 				appVersion: (appConfig.appVersion || 'Unknown version (development?)')
 			};
 
-			// add contact phone and email if available.
-			let {contacts} = appConfig;
+			// // add contact phone and email if available.
+			// let {contacts} = appConfig;
 
-			if (contacts) {
-				let tmp = "<div class=\"contact\"><p>If you'd like to contact support about this issue you may reach us via the following channels:</p>";
-				Object.keys(contacts).forEach( key => {
-					tmp = tmp.concat('<div class="contact-item"><span class="contact-method">', key, '</span>:<span class="contact-detail">', contacts[key], '</span></div>');
-				});
-				data['contact'] = tmp.concat('</div>');
-			}
+			// if (contacts) {
+			// 	let tmp = "<div class=\"contact\"><p>If you'd like to contact support about this issue you may reach us via the following channels:</p>";
+			// 	Object.keys(contacts).forEach( key => {
+			// 		tmp = tmp.concat('<div class="contact-item"><span class="contact-method">', key, '</span>:<span class="contact-detail">', contacts[key], '</span></div>');
+			// 	});
+			// 	data['contact'] = tmp.concat('</div>');
+			// }
 
 			body = preprocess(template, data);
 		} catch (er) {
@@ -81,6 +81,6 @@ function preprocess(templateStr, data={}) {
 	});
 
 	// strip remaining placeholders before returning the result.
-	return templateStr.replace(/\{.*\}/, '');
+	return templateStr.replace(/\{.*\}/g, '');
 
 }
