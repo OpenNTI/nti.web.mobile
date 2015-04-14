@@ -1,47 +1,55 @@
+import React from 'react';
+import update from 'react/lib/update';
 
-'use strict';
+import ButtonFullWidth from 'common/forms/components/ButtonFullWidth';
+import FieldRender from 'common/forms/mixins/RenderFormConfigMixin';
+import FieldValuesStore from 'common/forms/FieldValuesStore';
+import FormConstants from 'common/forms/Constants';
+import FormErrors from 'common/forms/components/FormErrors';
+import RelatedFormPanel from 'common/forms/components/RelatedFormPanel';
 
-var React = require('react');
-var FieldRender = require('common/forms/mixins/RenderFormConfigMixin');
-var RelatedFormPanel = require('common/forms/components/RelatedFormPanel');
-var FormErrors = require('common/forms/components/FormErrors');
-var _formConfig = require('../configs/FiveMinuteEnrollmentForm');
-var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
-var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
-var Loading = require('common/components/Loading');
-var Actions = require('../Actions');
-var Store = require('../Store');
-var FieldValuesStore = require('common/forms/FieldValuesStore');
-var FormConstants = require('common/forms/Constants');
-var Constants = require('../Constants');
-var update = require('react/lib/update');
+import Loading from 'common/components/Loading';
+import {scoped} from 'common/locale';
 
-var _rootFormRef = 'rootForm';
+import _formConfig from '../configs/FiveMinuteEnrollmentForm';
 
-var FiveMinuteEnrollmentForm = React.createClass({
+import Actions from '../Actions';
+import Store from '../Store';
+
+import {
+	ADMISSION_SUCCESS,
+	IS_CONCURRENT_FORM
+} from '../Constants';
+
+const t = scoped('ENROLLMENT.forms.fiveminute');
+
+let ROOT_FORM_REF = 'rootForm';
+
+export default React.createClass({
+	displayName: 'FiveMinuteEnrollmentForm',
 
 	mixins: [FieldRender],
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			busy: false,
 			errors: []
 		};
 	},
 
-	componentDidMount: function() {
-		Store.addChangeListener(this._storeChange);
+	componentDidMount () {
+		Store.addChangeListener(this.onStoreChange);
 		FieldValuesStore.addChangeListener(this.fieldValuesStoreChange);
 	},
 
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChange);
+	componentWillUnmount () {
+		Store.removeChangeListener(this.onStoreChange);
 		FieldValuesStore.removeChangeListener(this.fieldValuesStoreChange);
 	},
 
-	_storeChange: function(event) {
+	onStoreChange (event) {
 		if(event.isError) {
-			var errs = update(
+			let errs = update(
 				this.state.errors,
 				{$push: [{
 					field: event.reason.field,
@@ -62,7 +70,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		}
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.events.ADMISSION_SUCCESS:
+			case ADMISSION_SUCCESS:
 
 				break;
 		}
@@ -71,7 +79,7 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		console.groupEnd();
 	},
 
-	fieldValuesStoreChange: function(event) {
+	fieldValuesStoreChange (event) {
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 
@@ -82,24 +90,24 @@ var FiveMinuteEnrollmentForm = React.createClass({
 				break;
 
 			case FormConstants.AVAILABLE_FIELDS_CHANGED:
-				this._pruneErrors(event.fields);
+				this.pruneErrors(event.fields);
 				break;
 		}
 	},
 
-	inputFocused: function(event) {
-		var ref = event.target.name;
-		this._removeError(ref);
+	inputFocused (event) {
+		let ref = event.target.name;
+		this.removeError(ref);
 	},
 
-	_removeError: function(ref) {
-		var errors = this.state.errors;
-		var error = errors.find(function(entry) {
+	removeError (ref) {
+		let errors = this.state.errors;
+		let error = errors.find(function(entry) {
 			return entry.field === ref;
 		});
-		var index = errors.indexOf(error);
+		let index = errors.indexOf(error);
 		if (index > -1) {
-			var newErrs = update(errors, {$splice: [[index, 1]]}); // errors.splice(index, 1);
+			let newErrs = update(errors, {$splice: [[index, 1]]}); // errors.splice(index, 1);
 			console.debug('remove error %s', error.field);
 			this.setState({
 				errors: newErrs
@@ -108,10 +116,10 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		return !!error;
 	},
 
-	_pruneErrors: function(visibleFieldRefs) {
-		var errs = this.state.errors;
-		var newErrs = [];
-		var anyRemoved = false;
+	pruneErrors (visibleFieldRefs) {
+		let errs = this.state.errors;
+		let newErrs = [];
+		let anyRemoved = false;
 		errs.forEach(function(err) {
 			if (visibleFieldRefs.has(err.field)) {
 				newErrs.push(err);
@@ -126,55 +134,55 @@ var FiveMinuteEnrollmentForm = React.createClass({
 		}
 	},
 
-	_handleSubmit: function() {
-		var fields = FieldValuesStore.getValues();
+	handleSubmit () {
+		let fields = FieldValuesStore.getValues();
 
-		if (this._isValid()) {
+		if (this.isValid()) {
 			this.setState({
 				busy: true
 			});
-			if (fields[Constants.fields.IS_CONCURRENT_FORM]) {
+			if (fields[IS_CONCURRENT_FORM]) {
 				Actions.requestConcurrentEnrollment(fields);
 			}
 			else {
-				Actions.preflightAndSubmit(fields);	
+				Actions.preflightAndSubmit(fields);
 			}
 		}
 	},
 
-	_isValid: function() {
-		var errors = [];
-		var fields = this.refs[_rootFormRef].getVisibleFields();
-		var values = FieldValuesStore.getValues();
-		fields.forEach(function(field){
-			var value = values[field.ref];
+	isValid () {
+		let errors = [];
+		let fields = this.refs[ROOT_FORM_REF].getVisibleFields();
+		let values = FieldValuesStore.getValues();
+		fields.forEach(field => {
+			let value = values[field.ref];
 			if(field.required && !value) {
 				errors.push({
 					field: field.ref,
 					message: 'Please complete all required fields'
 				});
 			}
-		}.bind(this));
+		});
 		this.setState({
 			errors: errors
 		});
 		return errors.length === 0;
 	},
 
-	_submitEnabled: function() {
-		var values = FieldValuesStore.getValues();
-		return !!(values.signature||values.contactme);
+	submitEnabled () {
+		let values = FieldValuesStore.getValues();
+		return !!(values.signature || values.contactme);
 	},
 
-	render: function() {
+	render () {
 
 		if (this.state.busy) {
 			return <Loading />;
 		}
 
-		var title = t('admissionTitle');
-		var errors = this.state.errors;
-		var errorRefs = new Set(errors.map(function(err) {
+		let title = t('admissionTitle');
+		let errors = this.state.errors;
+		let errorRefs = new Set(errors.map(function(err) {
 			return err.field;
 		}));
 
@@ -187,13 +195,13 @@ var FiveMinuteEnrollmentForm = React.createClass({
 						<FormErrors errors={errors} />
 						<RelatedFormPanel
 							inputFocus={this.inputFocused}
-							ref={_rootFormRef}
+							ref={ROOT_FORM_REF}
 							title={title}
 							formConfig={_formConfig}
 							errorFieldRefs={errorRefs}
 							translator={t} />
 						<FormErrors errors={errors} />
-						<ButtonFullWidth enabled={this._submitEnabled()} onClick={this._handleSubmit}>{t('submit')}</ButtonFullWidth>
+						<ButtonFullWidth enabled={this.submitEnabled()} onClick={this.handleSubmit}>{t('submit')}</ButtonFullWidth>
 					</div>
 				</div>
 			</div>
@@ -201,5 +209,3 @@ var FiveMinuteEnrollmentForm = React.createClass({
 	}
 
 });
-
-module.exports = FiveMinuteEnrollmentForm;
