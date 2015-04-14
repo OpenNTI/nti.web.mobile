@@ -15,6 +15,11 @@ export default React.createClass({
 	},
 
 
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
+
 	componentDidMount () {},
 
 
@@ -44,7 +49,7 @@ export default React.createClass({
 			<span itemProp={data.type} className="markupframe">
 				<img src={item.src} dataset={item.dataset} crossOrigin={item.crossorigin} ref='image' />
 				<span className="wrapper">
-					<a href="#zoom" title="Zoom" className={"zoom fi-magnifying-glass" + (zoomable ? '':' disabled')} data-non-anchorable="true" onClick={this[zoom]} />
+					<a href="#zoom" title="Zoom" className={"zoom fi-magnifying-glass" + (zoomable ? '' : ' disabled')} data-non-anchorable="true" onClick={this[zoom]} />
 				</span>
 				<span className="bar" data-non-anchorable="true" data-no-anchors-within="true" unselectable="true">
 					<a href="#slide" className="bar-cell slide"> </a>

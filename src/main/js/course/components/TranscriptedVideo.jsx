@@ -26,6 +26,10 @@ export default React.createClass({
 	displayName: 'TranscriptedVideo',
 	mixins: [ContextSender, NavigatableMixin, SetStateSafely],
 
+	propTypes: {
+		videoId: React.PropTypes.string,
+		course: React.PropTypes.object
+	},
 
 	getInitialState () {
 		return {
@@ -55,7 +59,7 @@ export default React.createClass({
 		}
 	},
 
-	__onError (error) {
+	onError (error) {
 		this.setStateSafely({
 			loading: false,
 			error: error,
@@ -95,11 +99,11 @@ export default React.createClass({
 			video.getTranscript('en')
 				.then(vtt => {
 					let parser = new WebVTT.Parser(global, WebVTT.StringDecoder()),
-	        			cues = [], regions = [];
+						cues = [], regions = [];
 
-				    parser.oncue = cue=> cues.push(cue);
+					parser.oncue = cue=> cues.push(cue);
 					parser.onregion = region=> regions.push(region);
-					parser.onparsingerror = e=> {throw e;};
+					parser.onparsingerror = e=> { throw e; };
 
 					if (!global.VTTCue) {
 						global.VTTCue = VTTCue;
@@ -131,10 +135,10 @@ export default React.createClass({
 
 				})
 
-				.catch(this.__onError);
+				.catch(this.onError);
 
 		} catch (e) {
-			this.__onError(e);
+			this.onError(e);
 		}
 	},
 

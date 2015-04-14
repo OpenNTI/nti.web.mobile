@@ -16,6 +16,11 @@ export default React.createClass({
 	},
 
 
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
+
 	getInitialState () {
 		return {
 			question: null
@@ -23,7 +28,7 @@ export default React.createClass({
 	},
 
 
-	componentDidMount () {
+	componentWillMount () {
 		let p = this.props;
 		let questionId = p.item.ntiid;
 
@@ -33,11 +38,10 @@ export default React.createClass({
 	},
 
 
-
 	render () {
 		let {question} = this.state;
 		let {item} = this.props;
-		if (!question) {return null;}
+		if (!question) { return null; }
 
 		return (
 			<QuestionWidget

@@ -24,7 +24,7 @@ export default React.createClass({
 
 		let push = x => {
 			let label = getLabel(x.toLowerCase());
-			menu.push({label, href: sectionPathPrefix+Sections[x]});
+			menu.push({label, href: sectionPathPrefix + Sections[x]});
 		};
 
 		if (!CatalogEntry || !CatalogEntry.Preview) {
@@ -38,7 +38,6 @@ export default React.createClass({
 		}
 
 		this.setState({menu});
-
 	},
 
 

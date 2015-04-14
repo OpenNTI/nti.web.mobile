@@ -30,6 +30,7 @@ import AssessmentFeature from './viewer-parts/assessment';
 const applyStyle = 'Viewer:applyStyle';
 
 export default React.createClass({
+	displayName: 'Viewer',
 	mixins: [
 		StoreEvents,
 		RouterLikeBehavior,
@@ -40,8 +41,14 @@ export default React.createClass({
 		RouterMixin,
 		ContextSender
 	],
-	displayName: 'Viewer',
 
+
+	propTypes: {
+		rootId: React.PropTypes.string,
+		pageId: React.PropTypes.string,
+		slug: React.PropTypes.string,
+		contentPackage: React.PropTypes.object
+	},
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
@@ -49,7 +56,7 @@ export default React.createClass({
 	},
 
 	resumeAnalyticsEvents() {
-		this.resourceLoaded(this.getPageID(), this.props.course.getID(), RESOURCE_VIEWED);
+		this.resourceLoaded(this.getPageID(), this.props.contentPackage.getID(), RESOURCE_VIEWED);
 	},
 
 	getResetState () {
@@ -82,15 +89,13 @@ export default React.createClass({
 
 	componentDidUpdate () {
 		//See if we need to re-mount/render our components...
-		let guid, el, w,
-			widgets = this.getPageWidgets();
+		let widgets = this.getPageWidgets();
 		// console.debug('Content View: Did Update... %o', widgets);
 
 		if (widgets) {
-			for(guid in widgets) {
-				if (!widgets.hasOwnProperty(guid)) { continue; }
-				el = document.getElementById(guid);
-				w = widgets[guid];
+			for(let guid of Object.keys(widgets)) {
+				let el = document.getElementById(guid);
+				let w = widgets[guid];
 				if (el && !el.hasAttribute('mounted')) {
 					// console.debug('Content View: Mounting Widget...');
 					try {
@@ -112,13 +117,10 @@ export default React.createClass({
 
 	cleanupWidgets () {
 		//Cleanup our components...
-		let guid, el,
-			widgets = this.getPageWidgets();
+		let widgets = this.getPageWidgets();
 
-		for(guid in widgets) {
-			if (!widgets.hasOwnProperty(guid)) { continue; }
-
-			el = document.getElementById(guid);
+		for(let guid of Object.keys(widgets)) {
+			let el = document.getElementById(guid);
 			if (el) {
 				React.unmountComponentAtNode(el);
 				el.removeAttribute('mounted');
@@ -143,13 +145,13 @@ export default React.createClass({
 			);
 
 			loadPage(newPageId);
-			this.resourceLoaded(newPageId, this.props.course.getID(), RESOURCE_VIEWED);
+			this.resourceLoaded(newPageId, this.props.contentPackage.getID(), RESOURCE_VIEWED);
 		}
 	},
 
 
 	getRootID (props) {
-		return decodeFromURI((props ||this.props).rootId);
+		return decodeFromURI((props || this.props).rootId);
 	},
 
 
@@ -256,7 +258,7 @@ export default React.createClass({
 
 		this.createWidget(part);
 
-		return '<widget id="'+ part.guid +'"><error>If this is still visible, something went wrong.</error></widget>';
+		return `<widget id="${part.guid}"><error>If this is still visible, something went wrong.</error></widget>`;
 	},
 
 

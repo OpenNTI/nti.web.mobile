@@ -3,14 +3,14 @@ import React from 'react';
 export default React.createClass({
 	displayName: 'ContentWidgetUnknown',
 
-	render () {
-		var {type} = this.props.item;
-		return (
-			<div onClick={this._onClick}>Unknown Type: {type}</div>
-		);
+	propTypes: {
+		item: React.PropTypes.object
 	},
 
-	_onClick () {
-		this._owner.setState({foobar: true});
+	render () {
+		let {type} = this.props.item;
+		return (
+			<div>Unknown Type: {type}</div>
+		);
 	}
 });

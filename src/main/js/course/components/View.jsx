@@ -75,7 +75,7 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		var courseId = decodeFromURI(props.course);
+		let courseId = decodeFromURI(props.course);
 		this.setStateSafely({loading: true});
 
 		setCourse(courseId);
@@ -83,9 +83,9 @@ export default React.createClass({
 
 
 	render () {
-		var record = this.state.course;
-		var course = (record || {}).CourseInstance;
-		var entry = course && course.CatalogEntry;
+		let record = this.state.course;
+		let course = (record || {}).CourseInstance;
+		let entry = course && course.CatalogEntry;
 
 		if (this.state.loading) {
 			return (<Loading/>);
@@ -101,7 +101,7 @@ export default React.createClass({
 			...ROUTES.map(route=>
 				route.path ?
 				React.createElement(Router.Location, Object.assign({}, route, {course})) :
-				React.createElement(Router.NotFound, {handler:Redirect, location: 'o/'})
+				React.createElement(Router.NotFound, {handler: Redirect, location: 'o/'})
 			));
 	},
 

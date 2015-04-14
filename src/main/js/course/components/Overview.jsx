@@ -114,7 +114,7 @@ export default React.createClass({
 
 
 	getOutlineID  (props) {
-		return decodeFromURI((props||this.props).outlineId);
+		return decodeFromURI((props || this.props).outlineId);
 	},
 
 

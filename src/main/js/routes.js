@@ -27,7 +27,7 @@ export default [
 	{handler: 'Catalog',	path: 'catalog/*'},
 	{handler: 'Contact',	path: 'contact/:configname(/*)'},
 	// {handler: 'Contacts',	path: 'contacts/*'},
-	{handler: 'Content',	path: 'content/:pkgId/*'},
+	{handler: 'Content',	path: 'content/:packageId/*'},
 	{handler: 'Course',		path: 'course/:course/*'},
 	{handler: 'Enrollment',	path: 'enroll/:course/*'},
 	// {handler: 'Forums',		path: 'forums/*'},

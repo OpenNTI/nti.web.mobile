@@ -20,6 +20,7 @@ export default React.createClass({
 	mixins: [BasePathAware, NavigatableMixin, SetStateSafely, ContextContributor],
 
 	propTypes: {
+		outlineId: React.PropTypes.string,
 		course: React.PropTypes.object.isRequired
 	},
 
@@ -45,7 +46,7 @@ export default React.createClass({
 	},
 
 
-	__onError (error) {
+	onError (error) {
 		this.setStateSafely({
 			loading: false,
 			error: error,
@@ -63,9 +64,9 @@ export default React.createClass({
 						loading: false,
 						VideoIndex
 					}))
-				.catch(this.__onError);
+				.catch(this.onError);
 		} catch (e) {
-			this.__onError(e);
+			this.onError(e);
 		}
 	},
 
@@ -93,7 +94,7 @@ export default React.createClass({
 
 
 	render () {
-		if (this.state.loading) {return (<Loading/>);}
+		if (this.state.loading) { return (<Loading/>); }
 		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>); }
 
 		let {VideoIndex} = this.state;

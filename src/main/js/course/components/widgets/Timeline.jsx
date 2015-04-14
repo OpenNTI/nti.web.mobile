@@ -27,9 +27,15 @@ export default React.createClass({
 	},
 
 
+	propTypes: {
+		course: React.PropTypes.object,
+		item: React.PropTypes.object
+	},
+
+
 	prefixJSONWithEmbedURL (source) {
 		let title = (this.props.item || {}).label;
-		let params = QueryString.stringify({title,source});
+		let params = QueryString.stringify({title, source});
 
 		params = params.replace(/%2F/ig, '/');//TimelineJS is not correctly decoding the URI params
 
