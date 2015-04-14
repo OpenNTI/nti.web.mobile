@@ -3,7 +3,6 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 import {CHANGE_EVENT} from 'common/constants/Events';
-import AppDispatcher from 'dispatcher/AppDispatcher';
 import Constants from './Constants';
 import {getService} from 'common/utils';
 
