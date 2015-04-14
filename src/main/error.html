@@ -6,13 +6,18 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/errorpage.css" />
 </head>
 <body>
-	<div class="erroralert">
-		<div id="error">An error occurred.</div>
-		<div id="message">{message}</div>
-		<div id="info">
-			<div id="contacts">{contact}</div>
-			<div id="errorid"><span class="label">Error reference number</span>: {errorid}</div>
-			<div id="appVersion"><span class="label">App Version</span>: {appVersion}</div>
+	<div class="error-alert">
+		<div class="error-alert-content">
+			<div id="error">An error occurred.</div>
+			<div id="message">{message}</div>
+			<div id="info">
+				<div id="contacts">{contact}</div>
+				<div id="errorid"><span class="label">Error reference number</span>: {errorid}</div>
+				<div id="appVersion"><span class="label">App Version</span>: {appVersion}</div>
+			</div>
+		</div>
+		<div class="error-alert-controls">
+			<a href="/" class="button">Drat</a>
 		</div>
 	</div>
 </body>
