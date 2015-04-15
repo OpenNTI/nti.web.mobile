@@ -6,6 +6,11 @@ const toggle = 'Collapsible:toggle';
 export default React.createClass({
 	displayName: 'Collapsible',
 
+	propTypes: {
+		title: React.PropTypes.string.isRequired,
+		children: React.PropTypes.any
+	},
+
 	getInitialState: function() {
 		return {
 			collapsed: true
