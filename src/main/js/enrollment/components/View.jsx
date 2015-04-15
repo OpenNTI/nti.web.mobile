@@ -21,12 +21,16 @@ function getEntry(entryId) {
 export default React.createClass({
 	displayName: 'enrollment:View',
 
+	propTypes: {
+		entryId: React.PropTypes.string.isRequired
+	},
+
 	getCourseId () {
 		return (getEntry(this.props.entryId)||{}).CourseNTIID;
 	},
 
 	getEnrollmentOption (key) {
-		var entry = getEntry(this.props.entryId);
+		let entry = getEntry(this.props.entryId);
 		if (entry && entry.EnrollmentOptions) {
 			return entry.EnrollmentOptions.Items[key];
 		}
@@ -34,7 +38,7 @@ export default React.createClass({
 	},
 
 	render () {
-    	return (
+		return (
 			<Router.Locations contextual>
 
 				<Router.Location path="/drop/" handler={DropCourse}
@@ -55,11 +59,11 @@ export default React.createClass({
 					enrollment={this.getEnrollmentOption(FiveminuteEnrollment)}
 					courseId={this.getCourseId()} />
 
-                <Router.NotFound
-                	handler={Enroll}
-                	entryId={this.props.entryId} />
+				<Router.NotFound
+					handler={Enroll}
+					entryId={this.props.entryId} />
 
 			</Router.Locations>
-	    );
+		);
 	}
 });
