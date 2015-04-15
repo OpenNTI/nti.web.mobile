@@ -1,6 +1,7 @@
 import React from 'react';
+import cx from 'classnames';
 
-const toggle = "Collapsible:toggle";
+const toggle = 'Collapsible:toggle';
 
 export default React.createClass({
 	displayName: 'Collapsible',
@@ -19,13 +20,13 @@ export default React.createClass({
 
 	render () {
 
-		let classes = React.addons.classSet({
+		let classes = cx({
 			'collapsible': true,
 			'collapsed': this.state.collapsed,
 			'expanded': !this.state.collapsed
 		});
 
-		let titleClasses = React.addons.classSet({
+		let titleClasses = cx({
 			'collapsible-title': true,
 			'open': !this.state.collapsed,
 			'disclosure-triangle': true
