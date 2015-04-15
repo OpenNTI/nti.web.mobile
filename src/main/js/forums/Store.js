@@ -9,130 +9,12 @@ import hash from 'object-hash';
 
 let _discussions = {};
 let _forums = {}; // forum objects by id.
-// let _forumContents = {};
 let _objectContents = {};
 let _objects = {};
 let _courseId;
 
 const keyForObject = "ForumStore:keyForObject";
 const keyForContents = "ForumStore:keyForContents";
-
-function getCommentReplies(comment) {
-	if(!comment || !comment.getReplies) {
-		console.warn('Can\'t get replies from %O', comment);
-		return;
-	}
-	comment.getReplies().then(replies => {
-	store.emitChange({
-			type: Constants.GOT_COMMENT_REPLIES,
-			comment: comment,
-			replies: replies
-		});
-	});
-}
-
-function addComment(topic, parent, comment) {
-	return topic.addComment(comment, parent)
-	.then(
-		result => {
-			// getObjectContents()
-			store.commentAdded({
-				topic: topic,
-				parent: parent,
-				result: result
-			});
-		},
-		reason => {
-			console.error(reason);
-			store.commentError({
-				topic: topic,
-				parent: parent,
-				reason: reason
-			});
-		}
-	);
-}
-
-/**
-* @param item {Post} the post to be updated.
-* @param newProperties {object} properties to update and save on the item.
-* 	{
-*		title: 'new title',
-* 		body: [...] // as returned by the editor component's getValue()
-*	}
-*/
-function saveComment(payload) {
-	var {postItem, newValue} = payload.action;
-	return postItem.setProperties(newValue)
-	.then(result => {
-		store.commentSaved(result);
-	});
-}
-
-function createTopic(forum, topic) {
-	return forum.createTopic(topic)
-	.then(
-		result => {
-			store.emitChange({
-				type: Constants.TOPIC_CREATED,
-				topic: result,
-				forum: forum
-			});
-			getObjectContents(forum.getID());
-		},
-		reason => {
-			store.topicCreationError({
-				forum: forum,
-				topic: topic,
-				reason: reason
-			});
-		}
-	);
-}
-
-function deleteTopic(topic) {
-	return _deleteObject(topic).then(()=>{
-		console.log('Reloading forum contents in response to topic deletion.');
-		getObjectContents(topic.ContainerId);
-	});
-}
-
-function _deleteObject(o) {
-	return Api.deleteObject(o).then(()=>{
-		store.deleteObject(o);
-	});
-}
-
-function deleteComment(comment) {
-	return _deleteObject(comment);
-}
-
-function getObjectContents(ntiid, params) {
-	return getObject(ntiid).then(object => {
-		return object.getContents(params).then(contents => {
-			store.setObjectContents(ntiid, contents);
-		});
-	});
-}
-
-function getObject(ntiid) {
-	return Api.getObject(ntiid).then(
-		object => {
-			store.setObject(ntiid, object);
-			return object;
-		});
-}
-
-function reportItem(item) {
-	return Api.reportItem(item)
-	.then((result) => {
-		store.setObject(result.getID(), result);
-		store.emitChange({
-			type: Constants.ITEM_REPORTED,
-			item: item
-		});
-	});
-}
 
 class Store extends StorePrototype {
 	constructor() {
@@ -142,7 +24,7 @@ class Store extends StorePrototype {
 			[Constants.GET_COMMENT_REPLIES]: function(payload) {
 				getCommentReplies(payload.action.comment);
 			},
-				
+
 			[Constants.ADD_COMMENT]: function(payload) {
 				var {topic, parent, comment} = payload.action;
 				addComment(topic, parent, comment);
@@ -161,7 +43,7 @@ class Store extends StorePrototype {
 				deleteTopic(topic);
 			},
 
-			[Constants.DELETE_COMMENT]: function(payload) { // TODO: unify delete topic and delete comment under delete object 
+			[Constants.DELETE_COMMENT]: function(payload) { // TODO: unify delete topic and delete comment under delete object
 				var {comment} = payload.action;
 				deleteComment(comment);
 			},
@@ -299,5 +181,122 @@ function dataOrError(data) {
 }
 
 const store = new Store();
+
+function getCommentReplies(comment) {
+	if(!comment || !comment.getReplies) {
+		console.warn('Can\'t get replies from %O', comment);
+		return;
+	}
+	comment.getReplies().then(replies => {
+		store.emitChange({
+			type: Constants.GOT_COMMENT_REPLIES,
+			comment: comment,
+			replies: replies
+		});
+	});
+}
+
+function addComment(topic, parent, comment) {
+	return topic.addComment(comment, parent)
+	.then(
+		result => {
+			// getObjectContents()
+			store.commentAdded({
+				topic: topic,
+				parent: parent,
+				result: result
+			});
+		},
+		reason => {
+			console.error(reason);
+			store.commentError({
+				topic: topic,
+				parent: parent,
+				reason: reason
+			});
+		}
+	);
+}
+
+/**
+* @param item {Post} the post to be updated.
+* @param newProperties {object} properties to update and save on the item.
+* 	{
+*		title: 'new title',
+* 		body: [...] // as returned by the editor component's getValue()
+*	}
+*/
+function saveComment(payload) {
+	let {postItem, newValue} = payload.action;
+	return postItem.setProperties(newValue)
+	.then(result => {
+		store.commentSaved(result);
+	});
+}
+
+function createTopic(forum, topic) {
+	return forum.createTopic(topic)
+	.then(
+		result => {
+			store.emitChange({
+				type: Constants.TOPIC_CREATED,
+				topic: result,
+				forum: forum
+			});
+			getObjectContents(forum.getID());
+		},
+		reason => {
+			store.topicCreationError({
+				forum: forum,
+				topic: topic,
+				reason: reason
+			});
+		}
+	);
+}
+
+function deleteTopic(topic) {
+	return _deleteObject(topic).then(()=>{
+		console.log('Reloading forum contents in response to topic deletion.');
+		getObjectContents(topic.ContainerId);
+	});
+}
+
+function _deleteObject(o) {
+	return Api.deleteObject(o).then(()=>{
+		store.deleteObject(o);
+	});
+}
+
+function deleteComment(comment) {
+	return _deleteObject(comment);
+}
+
+function getObjectContents(ntiid, params) {
+	return getObject(ntiid).then(object => {
+		return object.getContents(params).then(contents => {
+			store.setObjectContents(ntiid, contents);
+		});
+	});
+}
+
+function getObject(ntiid) {
+	return Api.getObject(ntiid).then(
+		object => {
+			store.setObject(ntiid, object);
+			return object;
+		});
+}
+
+function reportItem(item) {
+	return Api.reportItem(item)
+	.then((result) => {
+		store.setObject(result.getID(), result);
+		store.emitChange({
+			type: Constants.ITEM_REPORTED,
+			item: item
+		});
+	});
+}
 
 export default store;
