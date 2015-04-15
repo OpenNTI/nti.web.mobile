@@ -45,7 +45,7 @@ module.exports = {
 	deleteTopic: function(topic) {
 		dispatch(DELETE_TOPIC, {
 			topic: topic
-		});	
+		});
 	},
 
 	deleteComment: function(comment) {
@@ -57,7 +57,7 @@ module.exports = {
 	reportItem: function(item) {
 		dispatch(REPORT_ITEM, {
 			item: item
-		});	
+		});
 	}
 };
 

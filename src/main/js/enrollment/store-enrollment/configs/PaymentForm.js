@@ -1,5 +1,3 @@
-
-
 module.exports = Object.freeze([
 	{
 		title: 'Billing Info',
