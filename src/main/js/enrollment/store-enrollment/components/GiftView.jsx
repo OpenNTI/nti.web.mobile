@@ -1,35 +1,39 @@
 /* global jQuery, Stripe */
 
+import React from 'react';
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
-var React = require('react');
-var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
+import isEmail from 'nti.lib.interfaces/utils/isemail';
 
-var isEmail = require('nti.lib.interfaces/utils/isemail');
+import {scoped} from 'common/locale';
 
-var _t = require('common/locale').scoped('ENROLLMENT.GIFT');
-var t = require('common/locale').scoped('ENROLLMENT.forms.storeenrollment');
-var t2 = require('common/locale').scoped('ENROLLMENT');
+let _t = scoped('ENROLLMENT.GIFT');
+let t = scoped('ENROLLMENT.forms.storeenrollment');
+let t2 = scoped('ENROLLMENT');
 
-var Recipient = require('./GiftRecipient');
-var Pricing = require('./Pricing');
+import Recipient from './GiftRecipient';
+import Pricing from './Pricing';
 
-var fieldConfig = require('../configs/GiftPaymentForm.js');
+import fieldConfig from '../configs/GiftPaymentForm.js';
 
-var Loading = require('common/components/Loading');
-var RenderFormConfigMixin = require('common/forms/mixins/RenderFormConfigMixin');
-var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
-var FormPanel = require('common/forms/components/FormPanel');
-var Localized = require('common/components/LocalizedHTML');
-var ScriptInjector = require('common/mixins/ScriptInjectorMixin');
-var Err = require('common/components/Error');
+import Loading from 'common/components/Loading';
+import RenderFormConfigMixin from 'common/forms/mixins/RenderFormConfigMixin';
+import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
+import FormPanel from 'common/forms/components/FormPanel';
+import Localized from 'common/components/LocalizedHTML';
+import ScriptInjector from 'common/mixins/ScriptInjectorMixin';
+import Err from 'common/components/Error';
 
-var Actions = require('../Actions');
-var Store = require('../Store');
-var Constants = require('../Constants');
+import Actions from '../Actions';
+import Store from '../Store';
+import Constants from '../Constants';
 
-var agreementURL = '/mobile/api/user-agreement/view';
+let agreementURL = '/mobile/api/user-agreement/view';
 
-var Header = React.createClass({
+let Header = React.createClass({
+
+	displayName: 'GiftView:Header',
+
 	render: function() {
 		return (
 			<div>
@@ -43,7 +47,7 @@ var Header = React.createClass({
 module.exports = React.createClass({
 	displayName: 'GiftView',
 
-	mixins: [RenderFormConfigMixin,ScriptInjector,FormattedPriceMixin],
+	mixins: [RenderFormConfigMixin, ScriptInjector, FormattedPriceMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired
@@ -54,7 +58,7 @@ module.exports = React.createClass({
 		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
 		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
 
-		var formData = Store.getPaymentFormData();
+		let formData = Store.getPaymentFormData();
 
 		return {
 			agreed: false,
@@ -116,17 +120,17 @@ module.exports = React.createClass({
 				console.log(event);
 				break;
 
-		case Constants.LOCK_SUBMIT:
-			this.setState({
-				submitEnabled: false
-			});
-			break;
+			case Constants.LOCK_SUBMIT:
+				this.setState({
+					submitEnabled: false
+				});
+				break;
 
-		case Constants.UNLOCK_SUBMIT:
-			this.setState({
-				submitEnabled: true
-			});
-			break;
+			case Constants.UNLOCK_SUBMIT:
+				this.setState({
+					submitEnabled: true
+				});
+				break;
 		}
 	},
 
@@ -174,10 +178,8 @@ module.exports = React.createClass({
 
 				return {
 					//External API... ignore names
-					/* jshint -W106 */
-					exp_month: result.month,
-					exp_year: result.year
-					/* jshint +W106 */
+					exp_month: result.month, // eslint-disable-line camelcase
+					exp_year: result.year // eslint-disable-line camelcase
 				};
 			}
 
@@ -273,30 +275,30 @@ module.exports = React.createClass({
 			if (this.refs.Recipient.isEmpty()) {
 				markRequired('Recipient');
 			} else {
-				errors.Recipient =  {message: t2('invalidRecipient')};
+				errors.Recipient = {message: t2('invalidRecipient')};
 			}
 		}
 
-		var number = (fieldValues.number||'');
+		let number = (fieldValues.number||'');
 		if(number.trim().length > 0 && !Stripe.card.validateCardNumber(number)) {
-			errors.number =  {message: t2('invalidCardNumber')};
+			errors.number = {message: t2('invalidCardNumber')};
 		}
 
-		var cvc = (fieldValues.cvc||'');
+		let cvc = (fieldValues.cvc||'');
 		if(cvc.trim().length > 0 && !Stripe.card.validateCVC(cvc)) {
-			errors.cvc =  {message: t2('invalidCVC')};
+			errors.cvc = {message: t2('invalidCVC')};
 		}
 		/* jshint -W106 */
-		var mon = (fieldValues.exp_month||'');
-		var year = (fieldValues.exp_year||'');
+		let mon = (fieldValues.exp_month||'');
+		let year = (fieldValues.exp_year||'');
 
-		if([mon,year].join('').trim().length > 0 && !Stripe.card.validateExpiry(mon,year)) {
-			errors.exp_month =  {message: t2('invalidExpiration')};
+		if([mon, year].join('').trim().length > 0 && !Stripe.card.validateExpiry(mon, year)) {
+			errors.exp_month = {message: t2('invalidExpiration')}; // eslint-disable-line camelcase
 			// no message property because we don't want the error message repeated
-			errors.exp_year =  {error: t2('invalidExpiration')};
+			errors.exp_year = {error: t2('invalidExpiration')}; // eslint-disable-line camelcase
 			// since these two are combined in one input set an error on that field name
 			// so the input can show the error
-			errors.exp_ = {error: t2('invalidExpiration')};
+			errors.exp_ = {error: t2('invalidExpiration')}; // eslint-disable-line camelcase
 		}
 
 		this.setState({
@@ -308,7 +310,7 @@ module.exports = React.createClass({
 
 
 	_inputBlurred: function(/*event*/) {
-		var errs = this.state.errors;
+		let errs = this.state.errors;
 		if(Object.keys(errs).length === 1 && errs.hasOwnProperty('required')) {
 			this.setState({
 				errors: {}
@@ -319,8 +321,8 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var enabled = (this.state.agreed && this.state.submitEnabled);
-		var submitCls = enabled ? '' : 'disabled';
+		let enabled = (this.state.agreed && this.state.submitEnabled);
+		let submitCls = enabled ? '' : 'disabled';
 
 		if(this.state.loading) {
 			return <Loading />;
@@ -345,7 +347,7 @@ module.exports = React.createClass({
 				<div className="errors">
 					<ReactCSSTransitionGroup transitionName="messages">
 					{Object.keys(this.state.errors).map(ref => {
-						var err = this.state.errors[ref];
+						let err = this.state.errors[ref];
 						return (err.message ? <small key={ref} className='error'>{err.message}</small> : null);
 					})}
 					</ReactCSSTransitionGroup>
