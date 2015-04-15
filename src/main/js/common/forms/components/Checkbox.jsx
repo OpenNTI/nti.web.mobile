@@ -1,15 +1,15 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+export default React.createClass({
 
-var Checkbox = React.createClass({
+	displayName: 'Checkbox',
 
 	propTypes: {
 		field: React.PropTypes.object.isRequired
 	},
 
 	render: function() {
-		var config = this.props.field || {};
+		let config = this.props.field || {};
 		return (
 			<label>
 				<input {...this.props}/>
@@ -23,5 +23,3 @@ var Checkbox = React.createClass({
 	}
 
 });
-
-module.exports = Checkbox;

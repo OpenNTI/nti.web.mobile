@@ -1,5 +1,3 @@
-'use strict';
-
 function IllegalStateException(message) {
 	Error.call(this, message || 'Illegal State. No message provided.');
 }
