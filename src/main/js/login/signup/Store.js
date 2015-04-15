@@ -121,7 +121,7 @@ function _serverSidePreflight(fields) {
 		getServer().preflightAccountCreate(fields).then(function(result) {
 			fulfill(result);
 		}, function(result) {
-			console.debug('Store received preflight result: %O',result);
+			console.debug('Store received preflight result: %O', result);
 			Store._clearErrors();
 			if (result.statusCode === 422 || result.statusCode === 409) {
 				Store._addError(result);
@@ -142,8 +142,8 @@ function _createAccount(fields) {
 	}
 
 	function fail(result) {
-		console.log('Account creation fail: %O',result);
-		if (Math.floor(result.statusCode/100) === 4) {
+		console.log('Account creation fail: %O', result);
+		if (Math.floor(result.statusCode / 100) === 4) {
 			console.debug(result);
 			var res = JSON.parse(result.response);
 			Store._addError({
@@ -160,7 +160,7 @@ function _createAccount(fields) {
 
 function _preflightCreateAccount(fields) {
 	_preflight(fields)
-		.then(_createAccount.bind(null,fields))
+		.then(_createAccount.bind(null, fields))
 		.catch(function(reason) {
 			console.debug(reason);
 		});
