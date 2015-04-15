@@ -149,7 +149,7 @@ module.exports = function(grunt) {
 				}]
 			},
 
-			maps: ["<%= pkg.dist %>/**/*.map", "<%= pkg.dist %>/**/*.map.gz"]
+			maps: ['<%= pkg.dist %>/**/*.map', '<%= pkg.dist %>/**/*.map.gz']
 		},
 
 		sass: {
@@ -170,9 +170,9 @@ module.exports = function(grunt) {
 
 
 		eslint: {
-			options: {
-				quiet: true
-			},
+			// options: {
+			// 	quiet: true
+			// },
 			target: [
 				'<%= pkg.src %>/js/**/*.js',
 				'<%= pkg.src %>/js/**/*.jsx',
