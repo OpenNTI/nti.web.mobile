@@ -13,7 +13,8 @@ import {translate as t} from 'common/locale';
 import {getServer, getServerURI, overrideAppUsername} from 'common/utils';
 
 import Constants from './Constants';
-const {ActionConstants, Links, LoginMessages} = Constants;
+const {Links, LoginMessages} = Constants;
+const ActionConstants = Constants.actions;
 
 import StoreProperties from './StoreProperties';
 
