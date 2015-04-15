@@ -5,7 +5,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import TopicEditor from './TopicEditor';
 import Actions from '../Actions';
 import Store from '../Store';
-import Constants from '../Constants';
+import * as Constants from '../Constants';
 import Loading from 'common/components/Loading';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
