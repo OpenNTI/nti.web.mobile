@@ -141,15 +141,13 @@ class AnalyticsStore extends TypedEventEmitter {
 
 
 		return getService()
-			.then(function(service) {
-				return service.postAnalytics(items.map(item => item.getData()));
-			})
-			.then(function(response) {
-				console.log('%i of %i analytics events accepted.', response, items.length);
+			.then(service => service.postAnalytics(items.map(item => item.getData())))
+			.then(response => {
+				console.log('%i of %i analytics events accepted.', response.EventCount, items.length);
 				this[FlushLocalStorage]();
 				return response;
-			}.bind(this))
-			.catch(function(r) {
+			})
+			.catch(r => {
 				console.warn(r);
 				// put items back in the queue
 				queue.push.apply(queue, items);
@@ -173,7 +171,7 @@ function startTimer() {
 	);
 }
 
-AppDispatcher.register(function(payload) {
+AppDispatcher.register(payload => {
 	let action = payload.action;
 
 	switch (action.type) {
