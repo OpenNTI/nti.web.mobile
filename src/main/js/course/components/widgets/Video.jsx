@@ -16,7 +16,13 @@ export default React.createClass({
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired,
-		course: React.PropTypes.object.isRequired
+		course: React.PropTypes.object.isRequired,
+
+		activeIndex: React.PropTypes.number,
+		index: React.PropTypes.number,
+		touching: React.PropTypes.bool,
+		tag: React.PropTypes.string,
+		onFocus: React.PropTypes.func
 	},
 
 
@@ -101,13 +107,13 @@ export default React.createClass({
 	},
 
 
-	onPlayClicked (e) {
-		let {video} = this.refs;
+	onPlayClicked (/*e*/) {
+		/*let {video} = this.refs;
 		if (video) {
 			e.preventDefault();
 			e.stopPropagation();
 			video.play();
-		}
+		}*/
 	},
 
 
