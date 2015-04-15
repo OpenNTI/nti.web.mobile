@@ -1,13 +1,11 @@
 
+import React from 'react';
+import {scoped} from 'common/locale';
+let _t = scoped('ENROLLMENT.GIFT.RECIPIENT');
+import isEmail from 'nti.lib.interfaces/utils/isemail';
+import toArray from 'nti.lib.interfaces/utils/toarray';
 
-
-var React = require('react');
-
-var _t = require('common/locale').scoped('ENROLLMENT.GIFT.RECIPIENT');
-var isEmail = require('nti.lib.interfaces/utils/isemail');
-var toArray = require('nti.lib.interfaces/utils/toarray');
-
-var Store = require('../Store');
+let Store = require('../Store');
 
 module.exports = React.createClass({
 	displayName: 'Recipient',
@@ -26,8 +24,8 @@ module.exports = React.createClass({
 
 
 	componentDidMount: function() {
-		var prevState = Store.getGiftInfo();
-		var name;
+		let prevState = Store.getGiftInfo();
+		let name;
 
 		if (prevState) {
 			name = (prevState.to || '').split(' ');
@@ -35,17 +33,17 @@ module.exports = React.createClass({
 			prevState.toLastName = name[1] || '';
 
 
-			var enabled = ["toFirstName", "toLastName", "receiver", "message", "sender"].some(function(key) {
+			let enabled = ['toFirstName', 'toLastName', 'receiver', 'message', 'sender'].some(function(key) {
 				return (prevState[key]||'').trim().length > 0;
 			});
-			this.setState(Object.assign({enabled: enabled},prevState));
+			this.setState(Object.assign({enabled: enabled}, prevState));
 		}
 	},
 
 
 
 	getData: function() {
-		var result = {},
+		let result = {},
 			elements = toArray(this.refs.form.getDOMNode().elements) || [];
 
 		if (!this.state.enabled) {
@@ -127,8 +125,8 @@ module.exports = React.createClass({
 
 
 	_updateState: function(e) {
-		var input = e.target;
-		var state = {};
+		let input = e.target;
+		let state = {};
 
 		state[input.name] = input.value;
 
@@ -137,9 +135,9 @@ module.exports = React.createClass({
 
 
 	render: function() {
-		var enabled = this.state.enabled;
-		var enabledCls = enabled ? '' : 'disabled';
-		var requiredIfEnabled = enabled ? 'required' : '';
+		let enabled = this.state.enabled;
+		let enabledCls = enabled ? '' : 'disabled';
+		let requiredIfEnabled = enabled ? 'required' : '';
 
 		if (!this.state.valid) {
 			requiredIfEnabled += ' error';
@@ -161,9 +159,9 @@ module.exports = React.createClass({
 								onClick={this._fieldClicked}
 								onChange={this._fieldChanged} value={this.state.toLastName} />
 							<input type="email" name="receiver" placeholder={_t("email")}
-							 	onClick={this._fieldClicked}
+								onClick={this._fieldClicked}
 								onChange={this._fieldChanged} value={this.state.receiver}
-							 	ref="email" className={requiredIfEnabled} />
+								ref="email" className={requiredIfEnabled} />
 						</div>
 						<textarea name="message" placeholder={_t("message")}
 							onClick={this._fieldClicked}
