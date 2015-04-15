@@ -1,5 +1,6 @@
 import React from 'react';
 
+import InsertImageButton from './InsertImageButton';
 import Editor, {FormatButton, ToolbarRegions} from 'react-editor-component';
 
 const {SOUTH} = ToolbarRegions;
@@ -60,6 +61,7 @@ export default React.createClass({
 				<FormatButton format="bold" region={SOUTH}/>
 				<FormatButton format="italic" region={SOUTH}/>
 				<FormatButton format="underline" region={SOUTH}/>
+				<InsertImageButton region={SOUTH}/>
 			</Editor>
 		);
 	}
