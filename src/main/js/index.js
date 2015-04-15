@@ -9,9 +9,6 @@ require('script!../resources/vendor/modernizr/modernizr.js');//injects a <script
 import FastClick from 'fastclick';
 import QueryString from 'query-string';
 
-//monkey patch react and stop warning about contexts
-import rcc from 'react/lib/ReactCompositeComponent';
-rcc.Mixin._warnIfContextsDiffer = function(){};// eslint-disable-line
 
 import React from 'react';
 
