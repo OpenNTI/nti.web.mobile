@@ -58,7 +58,7 @@ export default React.createClass({
 
 	isExcused () {
 		let i = this.props.historyItem;
-		return i && i.isGradeExcused();
+		return i && i.isGradeExcused && i.isGradeExcused();
 	},
 
 
