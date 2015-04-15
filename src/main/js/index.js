@@ -1,34 +1,33 @@
-
-require('babel/polyfill');
-
-//monkey patch react and stop warning about contexts
-let warn = require('react/lib/ReactCompositeComponent');
-warn.Mixin._warnIfContextsDiffer = function(){};// eslint-disable-line
+require('babel/polyfill');//applies hooks into global
 
 //TODO: find a way to get rid of this dirty import. All deps should come
 // from node_modules, so switch to this in the future:
-// 		https://www.npmjs.com/package/modernizr
+//  https://www.npmjs.com/package/modernizr
 // Its not a simple swap...otherwise I would have done that.
-require('script!../resources/vendor/modernizr/modernizr.js');
+require('script!../resources/vendor/modernizr/modernizr.js');//injects a <script> into the html
 
-let FastClick = require('fastclick');
-let QueryString = require('query-string');
-let React = require('react');
-let {overrideConfigAndForceCurrentHost, getServerURI} = require('common/utils');
-let OrientationHandler = require('common/utils/orientation');
-//let emptyFunction = require('react/lib/emptyFunction');
-// let preventOverscroll = require('common/thirdparty/prevent-overscroll');
+import FastClick from 'fastclick';
+import QueryString from 'query-string';
 
+//monkey patch react and stop warning about contexts
+import rcc from 'react/lib/ReactCompositeComponent';
+rcc.Mixin._warnIfContextsDiffer = function(){};// eslint-disable-line
 
-//Allow CSS :active states:
-//document.addEventListener("touchstart", emptyFunction, true);
+import React from 'react';
+
+import EventPluginHub from 'react/lib/EventPluginHub';
+import ResponderEventPlugin from 'common/thirdparty/ResponderEventPlugin';
+import TapEventPlugin from 'common/thirdparty/TapEventPlugin';
+
+import {overrideConfigAndForceCurrentHost, getServerURI} from 'common/utils';
+import OrientationHandler from 'common/utils/orientation';
+//import emptyFunction from 'react/lib/emptyFunction';
+//import preventOverscroll from 'common/thirdparty/prevent-overscroll';
+
 
 overrideConfigAndForceCurrentHost();
 console.debug('Client is using host: %s', getServerURI());
 
-let EventPluginHub = require('react/lib/EventPluginHub');
-let ResponderEventPlugin = require('common/thirdparty/ResponderEventPlugin');
-let TapEventPlugin = require('common/thirdparty/TapEventPlugin');
 
 EventPluginHub.injection.injectEventPluginsByName({
 	ResponderEventPlugin: ResponderEventPlugin,
@@ -59,7 +58,7 @@ let app = React.render(
 
 let LoginActions = require('login/Actions');
 let LoginStore = require('login/Store');
-LoginStore.addChangeListener(function(evt) {
+LoginStore.addChangeListener(evt => {
 	let loc = global.location || {};
 	let returnURL = QueryString.parse(loc.search).return;
 	if (evt && evt.property === LoginStore.Properties.isLoggedIn) {
@@ -92,6 +91,4 @@ if (sscss) {
 
 OrientationHandler.init(app);
 
-global.onbeforeunload = function() {
-	app.setState({mask: 'Reloading...'});
-};
+global.onbeforeunload = () => app.setState({mask: 'Reloading...'});
