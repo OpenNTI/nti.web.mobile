@@ -6,7 +6,7 @@ import DateTime from 'common/components/DateTime';
 import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
 
 import Store from '../Store';
-import Actions from '../Actions';
+import {clearAssessmentAnswers} from '../Actions';
 
 //Still need to get the list of previous attempts. Not just the last one.
 
@@ -70,7 +70,7 @@ export default React.createClass({
 			return;
 		}
 
-		Actions.clearAssessmentAnswers(this.props.assessment);
+		clearAssessmentAnswers(this.props.assessment);
 	},
 
 
