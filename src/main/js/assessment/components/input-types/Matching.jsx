@@ -8,7 +8,7 @@ import {Mixin, Draggable, DropTarget} from 'common/dnd';
 
 //let isEmpty from 'nti.lib.interfaces/utils/isempty';
 
-const SetValueRaw = Symbol('SetValue');
+const SetValueRaw = 'matching:SetValueRaw';
 
 /**
  * This input type represents Matching
