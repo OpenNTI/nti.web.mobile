@@ -5,7 +5,7 @@ import Content from '../Content';
 
 import {Mixin, Draggable, DropTarget} from 'common/dnd';
 
-const SetValueRaw = Symbol('SetValueRaw');
+const SetValueRaw = 'ordering:SetValueRaw';
 
 /**
  * This input type represents Ordering
