@@ -27,7 +27,7 @@ var actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	MESSAGES_REMOVE: null,
+	MESSAGES_REMOVE: null
 
 });
 
@@ -39,7 +39,7 @@ var events = keyMirror({
 	* @type String
 	* @final
 	*/
-	MESSAGES_CHANGE: null,
+	MESSAGES_CHANGE: null
 
 });
 
