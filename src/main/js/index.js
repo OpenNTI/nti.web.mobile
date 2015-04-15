@@ -1,4 +1,4 @@
-'use strict';
+
 require('babel/polyfill');
 
 //monkey patch react and stop warning about contexts

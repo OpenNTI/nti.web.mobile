@@ -1,5 +1,5 @@
 
-'use strict';
+
 
 var Store = require('../Store');
 var LoginStoreProperties = require('../StoreProperties');

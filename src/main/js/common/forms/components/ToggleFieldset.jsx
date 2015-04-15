@@ -1,4 +1,4 @@
-'use strict';
+
 
 var React = require('react');
 var isFunction = require('nti.lib.interfaces/utils/isfunction');

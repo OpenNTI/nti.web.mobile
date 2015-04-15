@@ -1,4 +1,4 @@
-'use strict';
+
 
 var Widgets = [
 	require('./OpenEnrollment'),

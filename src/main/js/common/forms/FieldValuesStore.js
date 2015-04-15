@@ -1,4 +1,4 @@
-'use strict';
+
 
 var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;

@@ -1,4 +1,4 @@
-'use strict';
+
 
 var React = require('react');
 var Actions = require('../../Actions');

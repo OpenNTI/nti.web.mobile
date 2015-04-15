@@ -1,4 +1,4 @@
-'use strict';
+
 
 var IllegalArgumentException = require('common/exceptions').IllegalArgumentException;
 

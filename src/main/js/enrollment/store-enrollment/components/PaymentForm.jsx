@@ -1,4 +1,4 @@
-'use strict';
+
 
 // tell jshint that Stripe is declared elsewhere
 /* global Stripe: false */

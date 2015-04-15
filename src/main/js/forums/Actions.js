@@ -1,4 +1,4 @@
-'use strict';
+
 /** @module forums/Actions */
 
 import AppDispatcher from 'dispatcher/AppDispatcher';

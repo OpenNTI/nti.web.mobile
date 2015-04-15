@@ -1,4 +1,4 @@
-'use strict';
+
 
 var React = require('react');
 var t = require('common/locale').scoped('LOGIN.forgot');

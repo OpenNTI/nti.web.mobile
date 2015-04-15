@@ -1,4 +1,4 @@
-'use strict';
+
 
 var StripeInterface = require('nti.lib.interfaces/interface/Stripe');
 var AppDispatcher = require('dispatcher/AppDispatcher');

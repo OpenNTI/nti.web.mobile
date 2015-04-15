@@ -1,4 +1,4 @@
-'use strict';
+
 
 import ContextSender from 'common/mixins/ContextSender';
 import CreateTopic from './CreateTopic';

@@ -1,5 +1,5 @@
 
-'use strict';
+
 
 var React = require('react');
 var _formConfig = require('../configs/GiftRedeem');

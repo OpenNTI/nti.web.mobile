@@ -1,4 +1,4 @@
-'use strict';
+
 
 var React = require('react');
 var Notice = require('common/components/Notice');

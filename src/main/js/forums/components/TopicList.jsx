@@ -1,4 +1,4 @@
-'use strict';
+
 
 import List from './List';
 import PageControls from './PageControls';

@@ -1,4 +1,4 @@
-'use strict';
+
 
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var concurrentForm = require('./ConcurrentEnrollmentForm');

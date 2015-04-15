@@ -1,5 +1,5 @@
 
-'use strict';
+
 
 var React = require('react');
 var ButtonPlain = require('common/forms/components/Button');

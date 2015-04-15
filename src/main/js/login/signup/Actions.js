@@ -1,4 +1,4 @@
-'use strict';
+
 /** @module login/LoginActions */
 
 var AppDispatcher = require('dispatcher/AppDispatcher');
