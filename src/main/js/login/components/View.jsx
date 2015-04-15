@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 import Router from 'react-router-component';
 let Locations = Router.Locations;
@@ -20,9 +20,9 @@ import PasswordResetForm from './PasswordResetForm';
 import SignupConfirm from './SignupConfirm';
 
 import MessageDisplay from 'messages/components/Display';
-import Constants from '../Constants';
+import * as Constants from '../Constants';
 
-import Actions from '../Actions';
+import {begin, clearErrors, setReturnPath} from '../Actions';
 import Store from '../Store';
 import StoreProperties from '../StoreProperties';
 
@@ -35,11 +35,12 @@ import QueryString from 'query-string';
 const storeChanged = '_storeChanged';
 
 export default React.createClass({
+	displayName: 'LoginView',
 
 	mixins: [BasePathAware, Router.NavigatableMixin], // needed for getPath() call we're using for the router's key.
 
 	clearMessages() {
-		Actions.clearErrors();
+		clearErrors();
 	},
 
 	[storeChanged] (event) {
@@ -62,10 +63,10 @@ export default React.createClass({
 		let loc = global.location || {};
 		let returnPath = QueryString.parse(loc.search).return;
 		if (returnPath) {
-			Actions.setReturnPath(returnPath);
+			setReturnPath(returnPath);
 		}
 		Store.addChangeListener(this[storeChanged]);//All React Class methods are "auto bound"
-		Actions.begin();
+		begin();
 	},
 
 	componentWillUnmount() {
@@ -117,4 +118,3 @@ export default React.createClass({
 		);
 	}
 });
-

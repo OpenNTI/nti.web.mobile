@@ -1,5 +1,5 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
-import Constants from './Constants';
+import * as Constants from './Constants';
 
 import {getServer} from 'common/utils';
 import Store from './Store';

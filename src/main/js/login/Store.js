@@ -12,9 +12,13 @@ import Message from 'messages/Message';
 import {translate as t} from 'common/locale';
 import {getServer, getServerURI, overrideAppUsername} from 'common/utils';
 
-import Constants from './Constants';
-const {Links, LoginMessages} = Constants;
-const ActionConstants = Constants.actions;
+//TODO: Rewrite these constants
+import {
+	actions as ActionConstants,
+	events as Events,
+	links as Links,
+	messages as LoginMessages
+} from './Constants';
 
 import StoreProperties from './StoreProperties';
 
@@ -177,7 +181,7 @@ function logOut() {
 }
 
 function clearErrors() {
-	MessagesActions.clearMessages(null, Constants.messages.category);
+	MessagesActions.clearMessages(null, LoginMessages.category);
 }
 
 
@@ -190,7 +194,7 @@ AppDispatcher.register(function(payload) {
 			ping();
 		break;
 
-		case Constants.events.LOGIN_FORM_CHANGED:
+		case Events.LOGIN_FORM_CHANGED:
 			ping(action.credentials);
 		break;
 
