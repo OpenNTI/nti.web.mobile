@@ -1,6 +1,3 @@
-
-/** @module forums/Actions */
-
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
 import {
@@ -60,8 +57,6 @@ export function reportItem (item) {
 	});
 }
 
-function dispatch(key, data) {
-	AppDispatcher.handleRequestAction(Object.assign( data, {
-		type: key
-	}));
+function dispatch(type, data) {
+	AppDispatcher.handleRequestAction(Object.assign(data, {type}));
 }
