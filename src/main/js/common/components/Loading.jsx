@@ -4,7 +4,7 @@ import isEmpty from 'nti.lib.interfaces/utils/isempty';
 export default React.createClass({
 	displayName: 'Loading',
 
-	propType: {
+	propTypes: {
 		maskScreen: React.PropTypes.bool,
 		loading: React.PropTypes.bool,
 		message: React.PropTypes.string,
