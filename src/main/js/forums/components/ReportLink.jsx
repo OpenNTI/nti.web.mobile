@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import Prompt from 'prompts';
 
-import Actions from '../Actions';
+import {reportItem} from '../Actions';
 
 
 export default React.createClass({
@@ -12,24 +12,24 @@ export default React.createClass({
 		item: React.PropTypes.object.isRequired
 	},
 
-	onClick: function() {
+	onClick () {
 		Prompt.areYouSure('Report this as inappropriate?').then(
 			()=> {
 				this.setState({
 					busy: true
 				});
-				Actions.reportItem(this.props.item);
+				reportItem(this.props.item);
 			},
 			()=>{}
 		);
 	},
 
-	render: function() {
+	render () {
 		let {item} = this.props;
 
 		let isReported = item.hasLink('flag.metoo');
 
-		let Tag = isReported ? "span" : "a";
+		let Tag = isReported ? 'span' : 'a';
 
 		let classNames = cx('fi-flag', {
 			flagged: isReported

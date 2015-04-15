@@ -5,6 +5,7 @@ import indexForums from './utils/index-forums';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import Api from './Api';
 import {defaultPagingParams} from './Api';
+
 import hash from 'object-hash';
 
 let _discussions = {};
