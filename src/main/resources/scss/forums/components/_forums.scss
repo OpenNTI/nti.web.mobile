@@ -139,12 +139,14 @@ $indent: 0.9375rem;
 		}
 
 		&.deleted {
-			font-size: .6875rem;
-			color: $tertiary-grey;
+			border: none;
 			& > .modeled-content {
 				text-transform: uppercase;
 			}
-			padding: .25rem;
+			.wrap {
+				color: $tertiary-grey;
+			}
+			// padding: .25rem;
 		}
 	}
 
