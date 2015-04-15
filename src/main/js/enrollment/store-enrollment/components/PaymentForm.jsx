@@ -8,25 +8,26 @@
 // in this file.
 /* jshint camelcase:false */
 
-var React = require('react');
-var RenderFormConfigMixin = require('common/forms/mixins/RenderFormConfigMixin');
-var t = require('common/locale').scoped('ENROLLMENT.forms.storeenrollment');
-var t2 = require('common/locale').scoped('ENROLLMENT');
+import React from 'react';
+import RenderFormConfigMixin from 'common/forms/mixins/RenderFormConfigMixin';
+import {scoped} from 'common/locale';
+let t = scoped('ENROLLMENT.forms.storeenrollment');
+let t2 = scoped('ENROLLMENT');
 
-var ScriptInjector = require('common/mixins/ScriptInjectorMixin');
-var Loading = require('common/components/Loading');
+import ScriptInjector from 'common/mixins/ScriptInjectorMixin';
+import Loading from 'common/components/Loading';
 
-var Actions = require('../Actions');
-var Store = require('../Store');
-var Constants = require('../Constants');
-var _fieldConfig = require('../configs/PaymentForm');
-var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
-var FormPanel = require('common/forms/components/FormPanel');
-var FormErrors = require('common/forms/components/FormErrors');
+import Actions from '../Actions';
+import Store from '../Store';
+import Constants from '../Constants';
+import _fieldConfig from '../configs/PaymentForm';
+import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
+import FormPanel from 'common/forms/components/FormPanel';
+import FormErrors from 'common/forms/components/FormErrors';
 
-var Form = React.createClass({
+export default React.createClass({
 
-	mixins: [RenderFormConfigMixin,ScriptInjector,FormattedPriceMixin],
+	mixins: [RenderFormConfigMixin, ScriptInjector, FormattedPriceMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired
@@ -37,7 +38,7 @@ var Form = React.createClass({
 		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
 		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
 
-		var formData = Store.getPaymentFormData();
+		let formData = Store.getPaymentFormData();
 
 		return {
 			loading: true,
@@ -64,7 +65,7 @@ var Form = React.createClass({
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.BILLING_INFO_REJECTED:
-				var errors = this.state.errors||{};
+				let errors = this.state.errors||{};
 				errors[event.response.error.param] = event.response.error;
 				this.setState({
 					errors: errors,
@@ -76,12 +77,12 @@ var Form = React.createClass({
 	},
 
 	_validate: function() {
-		var errors = {};
-		var fieldValues = this.state.fieldValues||{};
+		let errors = {};
+		let fieldValues = this.state.fieldValues||{};
 		_fieldConfig.forEach(function(fieldset) {
 			fieldset.fields.forEach(function(field) {
 				if (field.required) {
-					var value = (fieldValues[field.ref]||'');
+					let value = (fieldValues[field.ref]||'');
 					if (value.trim().length === 0) {
 						errors[field.ref] = {
 							// no message property because we don't want the 'required' message
@@ -99,22 +100,22 @@ var Form = React.createClass({
 			});
 		});
 
-		var number = (this.state.fieldValues.number||'');
+		let number = (this.state.fieldValues.number||'');
 		if(number.trim().length > 0 && !Stripe.card.validateCardNumber(number)) {
-			errors.number =  {message: t2('invalidCardNumber')};
+			errors.number = {message: t2('invalidCardNumber')};
 		}
 
-		var cvc = (this.state.fieldValues.cvc||'');
+		let cvc = (this.state.fieldValues.cvc||'');
 		if(cvc.trim().length > 0 && !Stripe.card.validateCVC(cvc)) {
-			errors.cvc =  {message: t2('invalidCVC')};
+			errors.cvc = {message: t2('invalidCVC')};
 		}
 
-		var mon = (this.state.fieldValues.exp_month||'');
-		var year = (this.state.fieldValues.exp_year||'');
-		if([mon,year].join('').trim().length > 0 && !Stripe.card.validateExpiry(mon,year)) {
-			errors.exp_month =  {message: t2('invalidExpiration')};
+		let mon = (this.state.fieldValues.exp_month||'');
+		let year = (this.state.fieldValues.exp_year||'');
+		if([mon, year].join('').trim().length > 0 && !Stripe.card.validateExpiry(mon, year)) {
+			errors.exp_month = {message: t2('invalidExpiration')}; // eslint-disable-line camelcase
 			// no message property because we don't want the error message repeated
-			errors.exp_year =  {error: t2('invalidExpiration')};
+			errors.exp_year = {error: t2('invalidExpiration')}; // eslint-disable-line camelcase
 		}
 
 		this.setState({
@@ -124,7 +125,7 @@ var Form = React.createClass({
 	},
 
 	_inputBlurred: function(/*event*/) {
-		var errs = this.state.errors;
+		let errs = this.state.errors;
 		if(Object.keys(errs).length === 1 && errs.hasOwnProperty('required')) {
 			this.setState({
 				errors: {}
@@ -143,7 +144,7 @@ var Form = React.createClass({
 			busy: true
 		});
 
-		var stripeKey = this.props.purchasable.StripeConnectKey.PublicKey;
+		let stripeKey = this.props.purchasable.StripeConnectKey.PublicKey;
 		Actions.verifyBillingInfo(stripeKey, this.state.fieldValues);
 	},
 
@@ -153,19 +154,19 @@ var Form = React.createClass({
 			return <Loading />;
 		}
 
-		var purch = this.props.purchasable;
-		var price = this.getFormattedPrice(purch.Currency, purch.Amount);
-		var title = purch.Name||null;
-		var state = this.state;
-		var cssClasses = ['row'];
+		let purch = this.props.purchasable;
+		let price = this.getFormattedPrice(purch.Currency, purch.Amount);
+		let title = purch.Name||null;
+		let state = this.state;
+		let cssClasses = ['row'];
 
 		if(this.state.busy) {
 			cssClasses.push('busy');
 		}
 
-		var subhead = t2('enrollAsLifelongLearnerWithPrice', {price: price});
+		let subhead = t2('enrollAsLifelongLearnerWithPrice', {price: price});
 
-		var fields = this.renderFormConfig(_fieldConfig, state.fieldValues, t);
+		let fields = this.renderFormConfig(_fieldConfig, state.fieldValues, t);
 
 		return (
 			<FormPanel onSubmit={this._handleSubmit} title={title} subhead={subhead}>
@@ -182,4 +183,3 @@ var Form = React.createClass({
 
 });
 
-module.exports = Form;
