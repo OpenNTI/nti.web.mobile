@@ -1,6 +1,6 @@
 /*eslint no-var: 0 strict: 0*/
 'use strict';
-require("babel/register")({
+require('babel/register')({
 	ignore: false,//parse node_modules too
 
 	//but...

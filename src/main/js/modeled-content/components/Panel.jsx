@@ -100,7 +100,7 @@ export default React.createClass({
 			props.dangerouslySetInnerHTML = {__html: body || ''};
 		}
 
-		return React.createElement("div", props,
+		return React.createElement('div', props,
 			...dynamicRenderers.map(renderer => renderer(React, this.renderWidget))
 		);
 	},

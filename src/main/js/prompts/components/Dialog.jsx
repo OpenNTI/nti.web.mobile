@@ -2,6 +2,7 @@ import React from 'react';
 import emptyFunction from 'react/lib/emptyFunction';
 
 let Dialog = React.createClass({
+	displayName: 'Dialog',
 
 	statics: {
 		active: null,

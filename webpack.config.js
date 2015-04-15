@@ -11,7 +11,7 @@ var NodeModulesThatNeedCompiling = [
 
 var webpack = require('webpack');
 var assign = require('object-assign');
-var CompressionPlugin = require("compression-webpack-plugin");
+var CompressionPlugin = require('compression-webpack-plugin');
 
 var path = require('path');
 var fs = require('fs');
@@ -116,17 +116,17 @@ function includeWidgets(o) {
 			plugins: [
 				new webpack.DefinePlugin({
 					SERVER: false,
-					"process.env": {
+					'process.env': {
 						// This has effect on the react lib size
-						"NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development")
+						'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 					}
 				}),
 				new webpack.optimize.OccurenceOrderPlugin(),
 				new webpack.optimize.DedupePlugin(),
 				new webpack.optimize.UglifyJsPlugin(),
 				new CompressionPlugin({
-					asset: "{file}.gz",
-					algorithm: "gzip",
+					asset: '{file}.gz',
+					algorithm: 'gzip',
 					regExp: /$/
 				})
 			]
@@ -181,9 +181,9 @@ exports = module.exports = [
 			new webpack.optimize.DedupePlugin(),
 			new webpack.DefinePlugin({
 				SERVER: false,
-				"process.env": {
+				'process.env': {
 					// This has effect on the react lib size
-					"NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development")
+					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 				}
 			})
 		],
@@ -216,9 +216,9 @@ exports = module.exports = [
 		plugins: [
 			new webpack.DefinePlugin({
 				SERVER: true,
-				"process.env": {
+				'process.env': {
 					// This has effect on the react lib size
-					"NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development")
+					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 				}
 			})
 		],

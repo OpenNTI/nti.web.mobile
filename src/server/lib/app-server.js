@@ -57,7 +57,7 @@ export function setupApplication(app, config) {
 	}
 
 	app.use('/errortest*', function() {
-		throw new Error("This is an error. Neato.");
+		throw new Error('This is an error. Neato.');
 	});
 
 	//Static files...
