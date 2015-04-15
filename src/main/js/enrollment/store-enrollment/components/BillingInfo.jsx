@@ -18,7 +18,7 @@ let BillingInfo = React.createClass({
 
 	propTypes: {
 		edit: React.PropTypes.any,
-		card: React.propTypes.object
+		card: React.PropTypes.object
 	},
 
 	[rowIfNotEmpty]: function(value) {
