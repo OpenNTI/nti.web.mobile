@@ -1,45 +1,48 @@
 
 
-var React = require('react');
-var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
+import React from 'react';
+import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
 
-var Router = require('react-router-component');
-var Locations = Router.Locations;
-var Location = Router.Location;
-var DefaultRoute = Router.NotFound;
+import Router from 'react-router-component';
+let Locations = Router.Locations;
+let Location = Router.Location;
+let DefaultRoute = Router.NotFound;
 
-var BasePathAware = require('common/mixins/BasePath');
+import BasePathAware from 'common/mixins/BasePath';
 
-var Loading = require('common/components/Loading');
-var Redirect = require('navigation/components/Redirect');
+import Loading from 'common/components/Loading';
+import Redirect from 'navigation/components/Redirect';
 
-var LoginForm = require('./LoginForm');
-var ForgotForm = require('./ForgotForm');
-var SignupForm = require('../signup/components/SignupForm');
-var PasswordResetForm = require('./PasswordResetForm');
-var SignupConfirm = require('./SignupConfirm');
+import LoginForm from './LoginForm';
+import ForgotForm from './ForgotForm';
+import SignupForm from '../signup/components/SignupForm';
+import PasswordResetForm from './PasswordResetForm';
+import SignupConfirm from './SignupConfirm';
 
-var MessageDisplay = require('messages/components/Display');
-var Constants = require('../Constants');
+import MessageDisplay from 'messages/components/Display';
+import Constants from '../Constants';
 
-var Actions = require('../Actions');
-var Store = require('../Store');
-var StoreProperties = require('../StoreProperties');
+import Actions from '../Actions';
+import Store from '../Store';
+import StoreProperties from '../StoreProperties';
 
-var tg = require('common/locale').scoped('GLOBAL');
-var QueryString = require('query-string');
+import {scoped} from 'common/locale';
+
+let tg = scoped('GLOBAL');
+import QueryString from 'query-string';
 
 
+const storeChanged = '_storeChanged';
 
-var View = React.createClass({
+export default React.createClass({
 
 	mixins: [BasePathAware, Router.NavigatableMixin], // needed for getPath() call we're using for the router's key.
 
-	clearMessages: function() {
+	clearMessages() {
 		Actions.clearErrors();
 	},
 
-	_storeChanged: function (event) {
+	[storeChanged] (event) {
 		if (event.property === StoreProperties.links) {
 			this.setState({
 				links: event.value,
@@ -48,36 +51,36 @@ var View = React.createClass({
 		}
 	},
 
-	getInitialState: function() {
+	getInitialState() {
 		return {
 			links: {},
 			initialized: false
 		};
 	},
 
-	componentDidMount: function() {
-		var loc = global.location || {};
-		var returnPath = QueryString.parse(loc.search).return;
+	componentDidMount() {
+		let loc = global.location || {};
+		let returnPath = QueryString.parse(loc.search).return;
 		if (returnPath) {
 			Actions.setReturnPath(returnPath);
 		}
-		Store.addChangeListener(this._storeChanged);//All React Class methods are "auto bound"
+		Store.addChangeListener(this[storeChanged]);//All React Class methods are "auto bound"
 		Actions.begin();
 	},
 
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChanged);//this was blowing up.
+	componentWillUnmount() {
+		Store.removeChangeListener(this[storeChanged]);//this was blowing up.
 	},
 
-	render: function() {
+	render() {
 
 		if (!this.state.initialized) {
 			return (<Loading />);
 		}
 
-		var basePath = this.getBasePath();
-		var loc = global.location || {};
-		var returnPath;
+		let basePath = this.getBasePath();
+		let loc = global.location || {};
+		let returnPath;
 
 		//FIXME: If this evaluates to true while the user is typing in their
 		// info, and auto-redirects... that would be weird for the user. (this
@@ -115,4 +118,3 @@ var View = React.createClass({
 	}
 });
 
-module.exports = View;
