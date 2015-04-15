@@ -88,7 +88,7 @@ const CatalogBody = React.createClass({
 });
 
 
-export default React.createClass({
+export default React.createClass({//eslint-disable-line react/no-multi-comp
 	displayName: 'CatalogView',
 	mixins: [CatalogAccessor],
 

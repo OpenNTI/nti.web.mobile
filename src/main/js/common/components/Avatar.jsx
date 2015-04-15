@@ -10,7 +10,9 @@ export default React.createClass({
 	displayName: 'Avatar',
 
 	propTypes: {
-		username: React.PropTypes.string.isRequired
+		username: React.PropTypes.string.isRequired,
+
+		className: React.PropTypes.string
 	},
 
 

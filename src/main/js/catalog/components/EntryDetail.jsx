@@ -28,13 +28,13 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		Store.addChangeListener(this._onChange);
+		Store.addChangeListener(this.onChange);
 		this.getDataIfNeeded(this.props);
 	},
 
 
 	componentWillUnmount () {
-		Store.removeChangeListener(this._onChange);
+		Store.removeChangeListener(this.onChange);
 	},
 
 
@@ -87,7 +87,7 @@ export default React.createClass({
 	},
 
 
-	_onChange () {
+	onChange () {
 		this.getDataIfNeeded(this.props);
 	},
 
