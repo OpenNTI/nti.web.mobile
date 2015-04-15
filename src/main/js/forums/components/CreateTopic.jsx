@@ -5,7 +5,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import TopicEditor from './TopicEditor';
 import Actions from '../Actions';
 import Store from '../Store';
-import * as Constants from '../Constants';
+import {TOPIC_CREATED, TOPIC_CREATION_ERROR} from '../Constants';
 import Loading from 'common/components/Loading';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
@@ -51,7 +51,7 @@ export default React.createClass({
 	onStoreChanged (event) {
 		switch (event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.TOPIC_CREATED:
+			case TOPIC_CREATED:
 				this.setState({
 					busy: false
 				});
@@ -60,7 +60,7 @@ export default React.createClass({
 				this.navigate('/' + path + '/', {replace: true});
 				break;
 
-			case Constants.TOPIC_CREATION_ERROR:
+			case TOPIC_CREATION_ERROR:
 				this.setState({
 					busy: false,
 					error: event.data.reason,
