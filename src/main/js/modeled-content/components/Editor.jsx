@@ -1,6 +1,8 @@
 import React from 'react';
 
-import Editor from 'react-editor-component';
+import Editor, {FormatButton, ToolbarRegions} from 'react-editor-component';
+
+const {SOUTH} = ToolbarRegions;
 
 export default React.createClass({
 	displayName: 'ModeledBodyContentEditor',
@@ -54,7 +56,11 @@ export default React.createClass({
 
 		return (
 			<Editor className="modeled content editor" value={value}
-				onChange={this.props.onChange} onBlur={this.props.onBlur} ref="editor"/>
+				onChange={this.props.onChange} onBlur={this.props.onBlur} ref="editor">
+				<FormatButton format="bold" region={SOUTH}/>
+				<FormatButton format="italic" region={SOUTH}/>
+				<FormatButton format="underline" region={SOUTH}/>
+			</Editor>
 		);
 	}
 });
