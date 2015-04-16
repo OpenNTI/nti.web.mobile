@@ -3,7 +3,7 @@ import Mixin from './Mixin';
 
 import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
-import ModeledContent from 'modeled-content';
+import {Panel, Editor} from 'modeled-content';
 
 /**
  * This input type represents Modeled Body Content
@@ -28,8 +28,8 @@ export default React.createClass({
 
 		return (
 			<form className="modeled content">
-				{submitted && (<ModeledContent.Panel body={value}/>)}
-				{!submitted && (<ModeledContent.Editor ref="input" value={value}
+				{submitted && (<Panel body={value}/>)}
+				{!submitted && (<Editor ref="input" value={value}
 					onChange={this.handleInteraction}
 					onBlur={this.onBlur}
 					/>)}
