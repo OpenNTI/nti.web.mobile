@@ -10,13 +10,22 @@ import Paging from '../mixins/Paging';
 import PageControls from './PageControls';
 import React from 'react';
 import Store from '../Store';
+import StoreEvents from 'common/mixins/StoreEvents';
+import {COMMENT_ADDED} from '../Constants';
 import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
 
 const loadData = 'TopicComments:load';
 
 export default React.createClass({
 
-	mixins: [Paging],
+	mixins: [Paging, StoreEvents],
+
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		[COMMENT_ADDED] () {
+			this[loadData]();
+		}
+	},
 
 	componentDidMount () {
 		this[loadData]();
