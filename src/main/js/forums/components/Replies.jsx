@@ -2,7 +2,7 @@ import React from 'react';
 
 import StoreEvents from 'common/mixins/StoreEvents';
 
-import Actions from '../Actions';
+import * as Actions from '../Actions';
 import Store from '../Store';
 import {
 	GOT_COMMENT_REPLIES,
