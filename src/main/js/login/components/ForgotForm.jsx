@@ -4,10 +4,10 @@ import {scoped} from 'common/locale';
 import Message from 'messages/Message';
 import MessageActions from 'messages/Actions';
 
-import Constants from '../Constants';
+import * as Constants from '../Constants';
 import Button from './Button';
 
-import Actions from '../Actions';
+import * as Actions from '../Actions';
 import Router from 'react-router-component';
 
 const t = scoped('LOGIN.forgot');
