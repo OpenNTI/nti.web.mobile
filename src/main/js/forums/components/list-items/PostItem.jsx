@@ -3,7 +3,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import {mimeTypes, GOT_COMMENT_REPLIES, POST} from '../../Constants';
-import Actions from '../../Actions';
+import * as Actions from '../../Actions';
 import Store from '../../Store';
 
 import Avatar from 'common/components/Avatar';

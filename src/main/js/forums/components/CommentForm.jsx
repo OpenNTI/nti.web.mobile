@@ -8,7 +8,7 @@ import Loading from 'common/components/TinyLoader';
 
 import StoreEvents from 'common/mixins/StoreEvents';
 
-import Actions from '../Actions';
+import * as Actions from '../Actions';
 import Store from '../Store';
 import {COMMENT_ADDED, COMMENT_SAVED, COMMENT_ERROR} from '../Constants';
 
