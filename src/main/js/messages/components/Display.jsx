@@ -1,19 +1,30 @@
 
 
-var React = require('react');
-var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
+import React from 'react';
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
-var Store = require('../Store');
-var MessageActions = require('../Actions');
+import Store from '../Store';
+import * as MessageActions from '../Actions';
 
-var Alert = require('./Alert');
+import Alert from './Alert';
 
 
-var MessageDisplay = React.createClass({
+const dismiss = 'Display:dismiss';
+const getMessages = 'Display:getMessages';
+const updateMessages = 'Display:updateMessages';
 
-	_updateMessages: function() {
+
+export default React.createClass({
+
+	displayName: 'messages:Display',
+
+	propTypes: {
+		category: React.PropTypes.string
+	},
+
+	[updateMessages]: function() {
 		if (this.isMounted()) {
-			var options = this.props.category ? {category: this.props.category} : null;
+			let options = this.props.category ? {category: this.props.category} : null;
 			this.setState({messages: Store.messages(options)});
 		}
 		//else {
@@ -24,26 +35,26 @@ var MessageDisplay = React.createClass({
 	},
 
 	componentWillMount: function() {
-		Store.addChangeListener(this._updateMessages);
-		this._getMessages();
+		Store.addChangeListener(this[updateMessages]);
+		this[getMessages]();
 	},
 
 	componentWillReceiveProps: function() {
-		this._getMessages();
+		this[getMessages]();
 	},
 
 	componentDidUnmount: function() {
-		Store.removeChangeListener(this._updateMessages);
+		Store.removeChangeListener(this[updateMessages]);
 	},
 
-	_getMessages: function() {
-		var options = this.props.category ? {category: this.props.category} : null;
+	[getMessages]: function() {
+		let options = this.props.category ? {category: this.props.category} : null;
 		this.setState({
 			messages: Store.messages(options)
 		});
 	},
 
-	_dismiss: function(component) {
+	[dismiss]: function(component) {
 		MessageActions.removeMessage(component.props.message.id);
 	},
 
@@ -51,10 +62,10 @@ var MessageDisplay = React.createClass({
 		if (this.state.messages.length === 0) {
 			return (<div />);
 		}
-		var dismiss = this._dismiss;
-		var msgs = this.state.messages.map(function(e) {
+		let dis = this[dismiss];
+		let msgs = this.state.messages.map(function(e) {
 			return (
-				<Alert key={'m' + e.id} message={e} dismiss={dismiss} />
+				<Alert key={'m' + e.id} message={e} dismiss={dis} />
 			);
 		});
 		return (
@@ -63,5 +74,3 @@ var MessageDisplay = React.createClass({
 	}
 
 });
-
-module.exports = MessageDisplay;
