@@ -1,9 +1,16 @@
 import React from 'react';
 
+import WhiteboardRenderer from 'nti.lib.whiteboardjs/lib/Canvas';
+
 import {createFromImage} from 'nti.lib.whiteboardjs/lib/utils';
+
+import {ToolMixin, Constants} from 'react-editor-component';
+
+import WhiteboardIcon from './editor-parts/WhiteboardIcon';
 
 export default React.createClass({
 	displayName: 'InsertImageButton',
+	mixins: [ToolMixin],
 
 	render () {
 		if (typeof FileReader === 'undefined') {
@@ -19,8 +26,22 @@ export default React.createClass({
 	},
 
 
-	insertWhiteboard (data) {
-		console.log(data);
+	insertWhiteboard (scene) {
+		let editor = this.getEditor();
+
+		WhiteboardRenderer
+			.getThumbnail(scene)
+				.then(thumbnail=> {
+					let markup = React.renderToStaticMarkup(
+						React.createElement(WhiteboardIcon, {
+							thumbnail,
+							scene
+						}));
+
+					if (!editor.insertAtSelection(markup)) {
+						console.error('No seletion to insert');
+					}
+				});
 	},
 
 
@@ -30,9 +51,15 @@ export default React.createClass({
 
 
 	onSelect (e) {
+		let editor = this.getEditor();
 		let reader = new FileReader();
 		let img = new Image();
 		let file = e.target.files[0];
+
+		let sel = editor[Constants.SAVED_SELECTION];
+		if (sel){
+			editor.restoreSelection(sel);
+		}
 
 		img.onerror = this.onError;
 		img.onload = ()=> createFromImage(img).then(this.insertWhiteboard, this.onError);
