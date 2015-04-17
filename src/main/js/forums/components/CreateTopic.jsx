@@ -3,7 +3,7 @@ import Notice from 'common/components/Notice';
 import Breadcrumb from 'common/components/Breadcrumb';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import TopicEditor from './TopicEditor';
-import Actions from '../Actions';
+import * as Actions from '../Actions';
 import Store from '../Store';
 import {TOPIC_CREATED, TOPIC_CREATION_ERROR} from '../Constants';
 import Loading from 'common/components/Loading';
