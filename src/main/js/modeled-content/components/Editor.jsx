@@ -9,6 +9,8 @@ export default React.createClass({
 	displayName: 'ModeledBodyContentEditor',
 
 	propTypes: {
+		allowInsertImage: React.PropTypes.bool,
+
 		/**
 		 * The raw or parsed modeled content body.
 		 *
@@ -29,6 +31,13 @@ export default React.createClass({
 
 
 		onChange: React.PropTypes.func
+	},
+
+
+	getDefaultProps () {
+		return {
+			allowInsertImage: true
+		};
 	},
 
 
@@ -61,7 +70,11 @@ export default React.createClass({
 				<FormatButton format="bold" region={SOUTH}/>
 				<FormatButton format="italic" region={SOUTH}/>
 				<FormatButton format="underline" region={SOUTH}/>
-				<InsertImageButton region={SOUTH}/>
+
+				{!allowInsertImage ? null : (
+					<InsertImageButton region={SOUTH}/>
+				)}
+
 			</Editor>
 		);
 	}

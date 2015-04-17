@@ -32,6 +32,7 @@ export default React.createClass({
 				{!submitted && (<Editor ref="input" value={value}
 					onChange={this.handleInteraction}
 					onBlur={this.onBlur}
+					allowInsertImage={false}
 					/>)}
 			</form>
 		);
