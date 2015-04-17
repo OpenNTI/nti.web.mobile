@@ -56,20 +56,28 @@ export default React.createClass({
 		let img = new Image();
 		let file = e.target.files[0];
 
+
+		if (!file) { return; }
+
+
 		let sel = editor[Constants.SAVED_SELECTION];
 		if (sel){
 			editor.restoreSelection(sel);
 		}
 
 		img.onerror = this.onError;
-		img.onload = ()=> createFromImage(img).then(this.insertWhiteboard, this.onError);
+		img.onload = ()=> createFromImage(img)
+							.then(this.insertWhiteboard, this.onError)
+							.catch(er=>console.error(er))
+							.then(()=>editor.clearBusy());
 
 		//file.size
-		if (!file || !(/image\/.*/i).test(file.type)) {
+		if (!(/image\/.*/i).test(file.type)) {
 			alert('Please Select an Image');//eslint-disable-line no-alert
 			return;
 		}
 
+		editor.markBusy();
 
 		reader.onload = event => img.src = event.target.result;
 		reader.readAsDataURL(file);
