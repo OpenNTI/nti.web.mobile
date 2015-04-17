@@ -1,17 +1,16 @@
 
 /** @module login/LoginActions */
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var ActionConstants = require('./Constants').actions;
-var EventEmitter = require('events').EventEmitter;
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import {actions as ActionConstants} from './Constants';
+import {EventEmitter} from 'events';
 
-
-var bufferTime = 500;
+const bufferTime = 500;
 
 /**
  * Actions available to views for login-related functionality.
  **/
-module.exports = Object.assign({}, EventEmitter.prototype, {
+export default Object.assign({}, EventEmitter.prototype, {
 
 	/**
 	* Fired in response to user changes on the form.
