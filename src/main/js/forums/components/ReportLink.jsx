@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import Prompt from 'prompts';
+import {areYouSure} from 'prompts';
 
 import {reportItem} from '../Actions';
 
@@ -13,7 +13,7 @@ export default React.createClass({
 	},
 
 	onClick () {
-		Prompt.areYouSure('Report this as inappropriate?').then(
+		areYouSure('Report this as inappropriate?').then(
 			()=> {
 				this.setState({
 					busy: true
