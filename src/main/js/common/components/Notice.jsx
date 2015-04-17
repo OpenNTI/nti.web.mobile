@@ -15,12 +15,12 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			className: React.PropTypes.string
+			className: []
 		};
 	},
 
 	render () {
-		let {className = []} = this.props;
+		let {className} = this.props;
 
 		className = ['notice'].concat(className).join(' ');
 		return (
