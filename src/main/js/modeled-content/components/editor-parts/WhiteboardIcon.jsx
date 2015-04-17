@@ -14,14 +14,16 @@ export default React.createClass({
 		scene = JSON.stringify(scene) || '';
 
 		return (
-			<div contentEditable="false" className="body-divider whiteboard" unselectable="on">
-				<div className="whiteboard-wrapper" onClick="void(0)">
+			<div contentEditable={false} className="body-divider whiteboard">
+				<div className="whiteboard-wrapper">
 					<script type="application/json" dangerouslySetInnerHTML={{__html: scene}}/>
-					<img src={thumbnail} className="wb-thumbnail" alt="Whiteboard Thumbnail" unselectable="on" border="0"/>
-					<div className="fill" unselectable="on"/>
-					<div className="centerer" unselectable="on">
-						<div unselectable="on" className="edit"></div>
+					<img src={thumbnail} className="thumbnail" alt="Whiteboard Thumbnail" border="0"/>
+					<div className="fill"/>
+					{/*}
+					<div className="centerer">
+						<div className="edit">Edit</div>
 					</div>
+					{*/}
 				</div>
 			</div>
 		);
