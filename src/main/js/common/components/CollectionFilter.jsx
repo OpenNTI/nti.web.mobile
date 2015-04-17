@@ -1,5 +1,4 @@
 import React from 'react';
-import cloneWithProps from 'react/lib/cloneWithProps';
 
 import Loading from 'common/components/Loading';
 import {Locations, Location, Link, NavigatableMixin, NotFound as DefaultRoute} from 'react-router-component';
@@ -120,7 +119,7 @@ let FilterableView = React.createClass({
 				<FilterBar {...this.props}/>
 				{list.length === 0 ? <NoMatches /> : null}
 				<div>
-					{cloneWithProps(this.props.listcomp, {list, filter, omittitle: true})}
+					{React.cloneElement(this.props.listcomp, {list, filter, omittitle: true})}
 				</div>
 			</div>
 		);
@@ -285,7 +284,7 @@ let Filter = React.createClass({
 
 		if(!filters || filters.length === 0) {
 			//console.debug('No filters. Returning list view.');
-			return cloneWithProps(this.props.children, {list: list});
+			return React.cloneElement(this.props.children, {list: list});
 		}
 
 		return (
@@ -314,7 +313,7 @@ let Filter = React.createClass({
 					handler={FilterableView}
 
 					list={list}
-					listcomp={cloneWithProps(listComp, {list: list})}
+					listcomp={React.cloneElement(listComp, {list: list})}
 					filters={filters}
 					title={title}
 				/>
