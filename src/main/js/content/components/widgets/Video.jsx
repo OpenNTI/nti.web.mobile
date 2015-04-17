@@ -1,4 +1,4 @@
-import path from 'path';
+// import path from 'path';
 import React from 'react';
 
 import LoadingMask from 'common/components/Loading';
@@ -6,7 +6,7 @@ import BasePathAware from 'common/mixins/BasePath';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {Component as Video} from 'video';
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+// import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const Progress = Symbol.for('Progress');
 
@@ -85,15 +85,18 @@ export default React.createClass({
 			}
 
 			contextResolver(props)
-				.then(context=>
-					this.isMounted() && this.setState({context}))
+				.then(context=>this.setState({context}))
 				.then(()=>
-					contentPackage.getVideoIndex().then(videoIndex => {
-						this.setState({ loading: false, video: videoIndex.get(NTIID) });
-						video.getPoster().then(poster=>
-							this.isMounted() &&
-								this.setState({poster}));
-					})
+					contentPackage.getVideoIndex()
+						.then(videoIndex => {
+							video.getPoster()
+								.then(poster=>
+									this.setState({
+										loading: false,
+										video: videoIndex.get(NTIID),
+										poster
+									}));
+						})
 				)
 				.catch(this.onError);
 		} catch (e) {
@@ -104,6 +107,7 @@ export default React.createClass({
 
 	onPosterClicked (e) {
 		e.stopPropagation();
+		this.onPlayClicked(e);
 	},
 
 
@@ -143,6 +147,7 @@ export default React.createClass({
 	render () {
 		let {props} = this;
 		let {item} = props;
+		let {loading, playing, poster, video} = this.state;
 
 		let label = item.label || item.title;
 
@@ -154,21 +159,24 @@ export default React.createClass({
 			viewed = true;
 		}
 
-		let link = path.join('v', encodeForURI(this.getVideoID())) + '/';
+		let link = '#';
+		// let link = path.join('v', encodeForURI(this.getVideoID())) + '/';
+		//
+		// link = this.makeParentRouterHref(link);
 
-		link = this.makeParentRouterHref(link);
+		poster = poster && {backgroundImage: `url(${poster})`};
 
 		return (
 			<Tag className="content-video video-wrap flex-video widescreen">
-				{!this.state.video ? null :
-					<Video ref="video" src={this.state.video}
+				{!video ? null :
+					<Video ref="video" src={video}
 						onEnded={this.onStop}
 						onPlaying={this.onPlay}
 						context={this.state.context} />
 				}
 
-				{this.state.playing ? null :
-					<LoadingMask style={{backgroundImage: `url(${this.state.poster})`}} loading={this.state.loading}
+				{playing ? null :
+					<LoadingMask style={poster} loading={loading}
 						tag="a" onFocus={props.onFocus} onClick={this.onPosterClicked}
 						className="content-video-tap-area" href={link}>
 
