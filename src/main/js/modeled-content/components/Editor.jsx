@@ -58,7 +58,7 @@ export default React.createClass({
 
 	render () {
 		//TODO: parse/build value sent to the RTE from the modeled body.
-		let {value} = this.props;
+		let {value, allowInsertImage} = this.props;
 
 		if (Array.isArray(value)) {
 			value = value.join('\n').replace(/<(\/?)(body|html)>/ig, '');
