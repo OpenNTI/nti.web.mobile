@@ -1,19 +1,33 @@
 
 
 
-var Store = require('../Store');
-var LoginStoreProperties = require('../StoreProperties');
-var Actions = require('../Actions');
-var OAuthButtons = require('./OAuthButtons');
-var RecoveryLinks = require('./RecoveryLinks');
-var t = require('common/locale').scoped('LOGIN');
-var React = require('react');
-var Constants = require('../Constants');
-var Link = require('react-router-component').Link;
+import Store from '../Store';
+import LoginStoreProperties from '../StoreProperties';
+import OAuthButtons from './OAuthButtons';
+import RecoveryLinks from './RecoveryLinks';
+import React from 'react';
+import * as Actions from '../Actions';
+import * as Constants from '../Constants';
+import {Link} from 'react-router-component';
+import {scoped} from 'common/locale';
+let t = scoped('LOGIN');
 
-var _pingDelayMs = 1000; // how long to buffer user input before sending another dataserver ping request.
+const pingDelayMs = 1000; // how long to buffer user input before sending another dataserver ping request.
 
-var View = React.createClass({
+const handleSubmit = 'LoginForm:handleSubmit';
+const inputChanged = 'LoginForm:inputChanged';
+const onLoginStoreChange = 'LoginForm:onLoginStoreChange';
+const password = 'LoginForm:password';
+const passwordChanged = 'LoginForm:passwordChanged';
+const signupLink = 'LoginForm:signupLink';
+const updateSubmitButton = 'LoginForm:updateSubmitButton';
+const username = 'LoginForm:username';
+const usernameChanged = 'LoginForm:usernameChanged';
+
+
+export default React.createClass({
+
+	displayName: 'LoginForm',
 
 	getInitialState: function() {
 		return {
@@ -28,38 +42,38 @@ var View = React.createClass({
 
 	componentDidMount: function() {
 		console.log('LoginView::componentDidMount');
-		Store.addChangeListener(this._onLoginStoreChange);
+		Store.addChangeListener(this[onLoginStoreChange]);
 		Actions.clearErrors({category: Constants.messages.category});
 	},
 
 
 	componentDidUpdate: function() {
-		var name = this._username();
+		let name = this[username]();
 		if (name && !this.state.timeoutId) {
-			this._usernameChanged();
+			this[usernameChanged]();
 		}
 	},
 
 
 	componentWillUnmount: function() {
 		console.log('LoginView::componentWillUnmount');
-		Store.removeChangeListener(this._onLoginStoreChange);
+		Store.removeChangeListener(this[onLoginStoreChange]);
 		Actions.clearErrors();
 		delete this.state.password;
 	},
 
 
-	_signupLink: function() {
+	[signupLink]: function() {
 		// if we have a confirmation message show the confirmation view, otherwise go directly to signup
 		return t(Constants.messages.SIGNUP_CONFIRMATION, {fallback: 'missing'}) === 'missing' ? '/signup/' : '/signup/confirm';
 	},
 
 
 	render: function() {
-		var submitEnabled = this.state.submitEnabled;
-		var signupLink = this._signupLink();
+		let submitEnabled = this.state.submitEnabled;
+		let signup = this[signupLink]();
 
-		var fields = Store.loginFormFields().map(function(fieldConfig) {
+		let fields = Store.loginFormFields().map(function(fieldConfig) {
 			return (
 				<input type={fieldConfig.type}
 						ref={fieldConfig.ref}
@@ -68,14 +82,14 @@ var View = React.createClass({
 						autoCorrect={false}
 						placeholder={fieldConfig.placeholder}
 						defaultValue={this.state[fieldConfig.ref]}
-						onChange={this._inputChanged} />
+						onChange={this[inputChanged]} />
 			);
 		}.bind(this));
 
 		return (
 
 			<div className="row">
-				<form className="login-form medium-6 medium-centered columns" onSubmit={this._handleSubmit} noValidate>
+				<form className="login-form medium-6 medium-centered columns" onSubmit={this[handleSubmit]} noValidate>
 
 					<fieldset>
 						<legend>Sign In</legend>
@@ -90,7 +104,7 @@ var View = React.createClass({
 						</div>
 						<OAuthButtons links={this.state.links} buttonClass="small-12 columns" />
 						<div className="text-center">
-							<Link id="login:signup" href={signupLink}>{t('signup.link')}</Link>
+							<Link id="login:signup" href={signup}>{t('signup.link')}</Link>
 						</div>
 
 					</fieldset>
@@ -104,15 +118,15 @@ var View = React.createClass({
 	},
 
 
-	_inputChanged: function(event) {
+	[inputChanged]: function(event) {
 		switch(event.target.name) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case 'username':
-				this._usernameChanged(event);
+				this[usernameChanged](event);
 			break;
 
 			case 'password':
-				this._passwordChanged(event);
+				this[passwordChanged](event);
 			break;
 		}
 	},
@@ -121,68 +135,66 @@ var View = React.createClass({
 	/**
 	 * onChange handler for the username field. Triggers Actions.userInputChanged
 	 */
-	_usernameChanged: function() {
+	[usernameChanged]: function() {
 		clearTimeout(this.state.timeoutId);
-		var timeoutId = global.setTimeout(()=>{
-			console.log('timeout, firing userInputChanged: username: %s', this._username());
+		let timeoutId = global.setTimeout(()=>{
+			console.log('timeout, firing userInputChanged: username: %s', this[username]());
 			Actions.userInputChanged({
 					credentials: {
-						username: this._username(),
-						password: this._password()
+						username: this[username](),
+						password: this[password]()
 					}
 				});
 		},
-		_pingDelayMs);
+		pingDelayMs);
 
 		this.setState({timeoutId: timeoutId});
 	},
 
 
-	_passwordChanged: function(/*event*/) {
-		this._updateSubmitButton();
+	[passwordChanged]: function(/*event*/) {
+		this[updateSubmitButton]();
 	},
 
 
-	_handleSubmit: function(evt) {
+	[handleSubmit]: function(evt) {
 		evt.preventDefault();
 		console.log('LoginView::_handleSubmit');
 		Actions.clearErrors();
 		Actions.logIn({
-			username: this._username(),
-			password: this._password()
+			username: this[username](),
+			password: this[password]()
 		});
 	},
 
 
-	_username: function() {
+	[username]: function() {
 		return this.refs.username.getDOMNode().value.trim();
 	},
 
 
-	_password: function() {
+	[password]: function() {
 		return this.refs.password.getDOMNode().value.trim();
 	},
 
 
-	_updateSubmitButton: function() {
+	[updateSubmitButton]: function() {
 		this.setState({
 			submitEnabled:
-				this._username().length > 0 &&
-				this._password().length > 0 &&
+				this[username]().length > 0 &&
+				this[password]().length > 0 &&
 				Store.canDoPasswordLogin()
 		});
 	},
 
 
-	_onLoginStoreChange: function(evt) {
+	[onLoginStoreChange]: function(evt) {
 		console.log('LoginView::_onLoginStoreChange invoked %O', evt);
 		if (this.isMounted()) {
-			this._updateSubmitButton();
+			this[updateSubmitButton]();
 		}
 		if (evt && evt.property === LoginStoreProperties.links) {
 			this.setState({links: evt.value});
 		}
 	}
 });
-
-module.exports = View;
