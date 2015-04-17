@@ -2,7 +2,7 @@
 import {
 	WebVTT,
 	VTTCue/*, VTTRegion*/
-} from "vtt.js";
+} from 'vtt.js';
 
 import React from 'react';
 
@@ -157,14 +157,14 @@ export default React.createClass({
 
 
 	render () {
-		let {video, cues, regions, currentTime, loading} = this.state;
+		let {error, video, cues, regions, currentTime, loading} = this.state;
 
 		loading = loading || !video;
 
 		return (
 			<div className="transcripted-video">
 				<LoadingMask loading={loading}>
-
+					{!video ? null : (
 					<Video ref="video"
 							courseId={this.props.course.getID()}
 							src={video}
@@ -172,10 +172,10 @@ export default React.createClass({
 							context={this.state.context}
 							transcript={true}
 							autoPlay/>
-
+					)}
 					<div className="transcript">
 						{
-							this.state.error ?
+							error ?
 								<div>Transcript not available</div> :
 								<Transcript ref="transcript"
 									onJumpTo={this.onJumpTo}

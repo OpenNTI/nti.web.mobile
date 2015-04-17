@@ -10,8 +10,8 @@ const youtubeRe = /youtu(\.?)be/i;
 
 
 export function getUrl(data) {
-	var src = data && data.sources[0];
-	var url = src && Url.parse(src.source[0]);
+	let src = data && data.sources[0];
+	let url = src && Url.parse(src.source[0]);
 
 	if (!data || !/^kaltura/i.test(src.service)) {
 		return url;
@@ -31,15 +31,15 @@ const serviceMap = {
 	kaltura: kaltura
 };
 
-// var getVimeoId = vimeo.getId;
-// var getYouTubeId = youtube.getId;
+// let getVimeoId = vimeo.getId;
+// let getYouTubeId = youtube.getId;
 
 
 export function getHandler(src) {
-	var url = (typeof src === 'string') ? Url.parse(src) : getUrl(src);
-	var service = ((src.sources || [])[0] || {}).service;
+	let url = (typeof src === 'string') ? Url.parse(src) : getUrl(src);
+	let service = ((src.sources || [])[0] || {}).service;
 
-	var handler = serviceMap[service];
+	let handler = serviceMap[service];
 
 	if (url && !handler) {
 		handler = null;
