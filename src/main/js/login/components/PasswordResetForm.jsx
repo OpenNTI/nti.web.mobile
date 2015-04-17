@@ -1,15 +1,24 @@
 
 
-var React = require('react');
-var t = require('common/locale').scoped('LOGIN.forgot');
-var Button = require('./Button');
-var Store = require('../Store');
-var Constants = require('../Constants');
-var PanelButton = require('common/components/PanelButton');
+import React from 'react';
 
-var Actions = require('../Actions');
+import Button from './Button';
+import Store from '../Store';
+import PanelButton from 'common/components/PanelButton';
 
-var _fields = [
+import * as Constants from '../Constants';
+import * as Actions from '../Actions';
+import {scoped} from 'common/locale';
+let t = scoped('LOGIN.forgot');
+
+const fieldsValid = 'PasswordResetForm:fieldsValid';
+const handleSubmit = 'PasswordResetForm:handleSubmit';
+const inputChanged = 'PasswordResetForm:inputChanged';
+const inputs = 'PasswordResetForm:inputs';
+const storeChanged = 'PasswordResetForm:storeChanged';
+const validateInput = 'PasswordResetForm:validateInput';
+
+const fields = [
 	{
 		ref: 'password',
 		type: 'password',
@@ -25,9 +34,16 @@ var _fields = [
 	}
 ];
 
-var _errs = {};
+let errs = {};
 
-var PasswordResetForm = React.createClass({
+export default React.createClass({
+
+	displayName: 'PasswordResetForm',
+
+	propTypes: {
+		username: React.PropTypes.string,
+		token: React.PropTypes.string
+	},
 
 	getInitialState: function() {
 		return {
@@ -38,10 +54,10 @@ var PasswordResetForm = React.createClass({
 	},
 
 	componentDidMount: function() {
-		Store.addChangeListener(this._storeChanged);
+		Store.addChangeListener(this[storeChanged]);
 	},
 
-	_storeChanged: function(event) {
+	[storeChanged]: function(event) {
 		if(event.type === Constants.events.PASSWORD_RESET_SUCCESSFUL) {
 			this.setState({
 				resetSuccessful: true
@@ -49,59 +65,59 @@ var PasswordResetForm = React.createClass({
 		}
 	},
 
-	_inputs: function() {
-		return _fields.map(function(fieldConfig) {
+	[inputs]: function() {
+		return fields.map(function(fieldConfig) {
 
-			var err = _errs[fieldConfig.ref];
-			var cssClass = err ? 'error' : null;
-			var error = err ? <small className='error'>{err.message}</small> : null;
+			let err = errs[fieldConfig.ref];
+			let cssClass = err ? 'error' : null;
+			let error = err ? <small className='error'>{err.message}</small> : null;
 
 			return (
 				<div key={fieldConfig.ref}><input type={fieldConfig.type}
 					ref={fieldConfig.ref}
 					name={fieldConfig.ref}
 					placeholder={fieldConfig.placeholder || fieldConfig.ref}
-					onChange={this._inputChanged}
+					onChange={this[inputChanged]}
 					className={cssClass}
 					defaultValue='' />{error}</div>
 			);
 		}.bind(this));
 	},
 
-	_fieldsValid: function() {
-		_errs = {};
-		return _fields.every(function(fieldConfig) {
-			var value = this.state.fieldValues[fieldConfig.ref];
+	[fieldsValid]: function() {
+		errs = {};
+		return fields.every(function(fieldConfig) {
+			let value = this.state.fieldValues[fieldConfig.ref];
 			if((value || '').trim().length === 0) {
 				return false;
 			}
-			var fieldErr = fieldConfig.getError ? fieldConfig.getError(value, this.state.fieldValues) : null;
+			let fieldErr = fieldConfig.getError ? fieldConfig.getError(value, this.state.fieldValues) : null;
 			if(fieldErr) {
-				_errs[fieldConfig.ref] = fieldErr;
+				errs[fieldConfig.ref] = fieldErr;
 				return false;
 			}
 			return !fieldErr;
 		}.bind(this));
 	},
 
-	_validateInput: function() {
-		return this._fieldsValid();
+	[validateInput]: function() {
+		return this[fieldsValid]();
 	},
 
-	_inputChanged: function(event) {
-		var newState = {};
+	[inputChanged]: function(event) {
+		let newState = {};
 		newState[event.target.name] = event.target.value;
-		var tmp = Object.assign(this.state.fieldValues, newState);
+		let tmp = Object.assign(this.state.fieldValues, newState);
 		this.setState({
 			fieldValues: tmp
 		});
 	},
 
-	_handleSubmit: function(event) {
+	[handleSubmit]: function(event) {
 		event.preventDefault();
-		var promise = Actions.resetPassword({
+		let promise = Actions.resetPassword({
 			username: this.props.username,
-			password: this.state.fieldValues[_fields[0].ref],
+			password: this.state.fieldValues[fields[0].ref],
 			token: this.props.token
 		});
 
@@ -112,28 +128,26 @@ var PasswordResetForm = React.createClass({
 
 	render: function() {
 
-		var button = <Button href="/" className="fi-arrow-left"> Return to Login</Button>;
+		let button = <Button href="/" className="fi-arrow-left"> Return to Login</Button>;
 
 		if (this.state.resetSuccessful) {
 			return <PanelButton href="/" button={button}>{t('resetSuccessful')}</PanelButton>;
 		}
 
-		var buttonLabel = t('RESET_PW', {fallback: 'Reset Password'});
-		var cssClasses = ['tiny small-12 columns'];
+		let buttonLabel = t('RESET_PW', {fallback: 'Reset Password'});
+		let cssClasses = ['tiny small-12 columns'];
 
-		var submitEnabled = this._validateInput();
+		let submitEnabled = this[validateInput]();
 		if (!submitEnabled) {
 			cssClasses.push('disabled');
 		}
 
-		var inputs = this._inputs();
-
 		return (
 			<div className="row">
-				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
+				<form className="login-form large-6 large-centered columns" onSubmit={this[handleSubmit]}>
 					<fieldset>
 						<legend>Reset your password</legend>
-						{inputs}
+						{this[inputs]()}
 						<button
 							type="submit"
 							className={cssClasses.join(' ')}
@@ -148,4 +162,3 @@ var PasswordResetForm = React.createClass({
 
 });
 
-module.exports = PasswordResetForm;
