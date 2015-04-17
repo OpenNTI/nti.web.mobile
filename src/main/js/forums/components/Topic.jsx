@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-
+import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
 
 import AnalyticsStore from 'analytics/Store';
 import Actions from '../Actions';
@@ -246,23 +246,24 @@ module.exports = React.createClass({
 
 		return (
 			<div>
-				<ViewHeader type={TOPIC} />
-				{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline {...props} />}
-				<ActionLinks
-					item={topic}
-					canReply={true}
-					numComments={numComments}
-					clickHandlers={this[actionClickHandlers]()} />
+				<Transition transitionName="forums">
+					<ViewHeader type={TOPIC} />
+					{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline {...props} />}
+					<ActionLinks
+						item={topic}
+						canReply={true}
+						numComments={numComments}
+						clickHandlers={this[actionClickHandlers]()} />
 
-				<TopicComments topicId={this[getTopicId]()} currentPage={this.currentPage()} />
+					<TopicComments topicId={this[getTopicId]()} currentPage={this.currentPage()} />
 
-				<CommentForm key="commentForm"
-						ref={COMMENT_FORM_ID}
-						id={COMMENT_FORM_ID}
-						onCompletion={this.hideCommentForm}
-						topic={topic}
-						parent={topic.parent()} />
-
+					<CommentForm key="commentForm"
+							ref={COMMENT_FORM_ID}
+							id={COMMENT_FORM_ID}
+							onCompletion={this.hideCommentForm}
+							topic={topic}
+							parent={topic.parent()} />
+				</Transition>
 			</div>
 		);
 	}
