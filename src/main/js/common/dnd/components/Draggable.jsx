@@ -1,4 +1,5 @@
 import React from 'react';
+import cloneWithProps from 'react/lib/cloneWithProps';
 
 import DragBehavior from '../behaviors/Draggable';
 
@@ -24,7 +25,7 @@ export default React.createClass({
 			classes.push('restoring');
 		}
 
-		return React.cloneElement(
+		return cloneWithProps(
 			React.Children.only(this.props.children),
 
 			Object.assign(this.getHandlers(), {

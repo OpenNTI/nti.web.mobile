@@ -1,4 +1,5 @@
 import React from 'react';
+import cloneWithProps from 'react/lib/cloneWithProps';
 import cx from 'classnames';
 
 import Content from './Content';
@@ -176,7 +177,7 @@ export default React.createClass({
 			c = [c];
 		}
 
-		return c.map(x=>x && React.cloneElement(x));
+		return c.map(x=>cloneWithProps(x));
 	},
 
 

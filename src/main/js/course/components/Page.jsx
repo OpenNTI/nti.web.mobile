@@ -1,4 +1,5 @@
 import React from 'react';
+import cloneWithProps from 'react/lib/cloneWithProps';
 
 import {scoped} from 'common/locale';
 
@@ -61,6 +62,6 @@ export default React.createClass({
 			c = [c];
 		}
 
-		return c.map(x=>x && React.cloneElement(x));
+		return c.map(x=>cloneWithProps(x));
 	}
 });
