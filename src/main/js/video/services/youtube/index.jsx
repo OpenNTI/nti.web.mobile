@@ -13,21 +13,29 @@ import Task from 'nti.lib.interfaces/utils/task';
 
 const YOU_TUBE = 'https://www.youtube.com';
 
+// const UNSTARTED = -1;
+// const ENDED = 0;
+const PLAYING = 1;
+// const PAUSED = 2;
+// const BUFFERING = 3;
+// const CUED = 5;
+
 /*
 const YOU_TUBE_STATES = {
-	'-1': 'UNSTARTED',
-	0: 'ENDED',
-	1: 'PLAYING',
-	2: 'PAUSED',
-	3: 'BUFFERING',
-	5: 'CUED'
+	[UNSTARTED]: 'UNSTARTED',
+	[ENDED]: 'ENDED',
+	[PLAYING]: 'PLAYING',
+	[PAUSED]: 'PAUSED',
+	[BUFFERING]: 'BUFFERING',
+	[CUED]: 'CUED'
 };
 */
+
+
 const YT_STATE_TO_EVENTS = {
 	0: 'ended',
 	1: 'playing',
-	2: 'pause',
-	3: 'playing'
+	2: 'pause'
 	//There is no seek event for YT
 };
 
@@ -48,12 +56,13 @@ let Source = React.createClass({
 
 
 	propTypes: {
-		source: React.PropTypes.any.isRequired
+		source: React.PropTypes.any.isRequired,
+		deferred: React.PropTypes.bool
 	},
 
 
 	getInitialState () {
-		return {id: guid(), scope: YOU_TUBE};
+		return {id: guid(), scope: YOU_TUBE, playerState: -1};
 	},
 
 
@@ -98,6 +107,10 @@ let Source = React.createClass({
 		}
 
 		initTask.start();
+
+		if (state.autoPlay !== prevState.autoPlay) {
+			this.updateURL(this.props);
+		}
 	},
 
 
@@ -113,7 +126,8 @@ let Source = React.createClass({
 			wmode: 'transparent',
 			rel: 0,
 			showinfo: 0,
-			autoplay: props.autoPlay ? 1 : 0,
+			playsinline: 1,
+			autoplay: (props.autoPlay || (this.state.autoPlay && props.deferred)) ? 1 : 0,
 			origin: location.protocol + '//' + location.host
 		};
 
@@ -127,14 +141,17 @@ let Source = React.createClass({
 
 
 	getPlayerContext () {
-		let iframe = this.getDOMNode();
+		let {iframe} = this.refs;
+		if (iframe) {
+			iframe = iframe.getDOMNode();
+		}
 		return iframe && (iframe.contentWindow || window.frames[iframe.name]);
 	},
 
 
 	render () {
-		let {id} = this.state;
-		let {source} = this.props;
+		let {autoPlay, id} = this.state;
+		let {source, deferred} = this.props;
 
 		if (!source) {
 			return (<ErrorWidget error="No source"/>);
@@ -142,11 +159,16 @@ let Source = React.createClass({
 
 		let props = Object.assign({}, props, {
 			name: id,
-			deferred: null
+			deferred: null,
+			frameBorder: 0,
+			ref: 'iframe'
 		});
 
-		return (<iframe {...props} src={this.state.playerURL}
-			frameBorder="0" allowFullScreen allowTransparency />);
+		let render = !deferred || autoPlay;
+
+		return !render ? null : (
+			<iframe {...props} src={this.state.playerURL} allowFullScreen allowTransparency />
+		);
 	},
 
 
@@ -185,11 +207,14 @@ let Source = React.createClass({
 			return;
 		}
 
+		if (window.debugYT || !implemented) {
+			console[implemented ? 'debug' : 'warn']('[YouTube] Event: %s %s %o', data.id, data.event, data);
+		}
+
 		if (!this.state.initialized) {
 			this.finishInitialization();
 		}
 
-		console[implemented ? 'debug' : 'warn']('[YouTube] Event: %s %s %o', data.id, data.event, data);
 		if (implemented) {
 			this[handlerName](data.info);
 		}
@@ -203,7 +228,7 @@ let Source = React.createClass({
 			return;
 		}
 
-		data = arguments.length ?
+		data = method ?
 			{
 				event: 'command',
 				func: method,
@@ -213,7 +238,10 @@ let Source = React.createClass({
 				event: 'listening',
 				id: this.state.id
 			};
-		console.debug('[YouTube] Sending: %o', data);
+
+		if (window.debugYT) {
+			console.debug('[YouTube] Sending: %s %o', method || 'listening', data);
+		}
 		context.postMessage(JSON.stringify(data), this.state.scope);
 	},
 
@@ -238,8 +266,8 @@ let Source = React.createClass({
 	handleOnStateChange (state) {
 		if (this.state.playerState !== state) {
 			this.setState({playerState: state});
-			if (state === 3) { this.play(); }
 		}
+
 		let event = YT_STATE_TO_EVENTS[state];
 		if (event) {
 			this.fireEvent(event);
@@ -264,6 +292,15 @@ let Source = React.createClass({
 
 	play () {
 		this.postMessage('playVideo');
+		if (this.props.deferred) {
+			this.setState({autoPlay: true}, ()=>{
+				setTimeout(()=>{
+					if (this.state.playerState !== PLAYING) {
+						this.fireEvent('playing');
+					}
+				}, 500);
+			});
+		}
 	},
 
 
