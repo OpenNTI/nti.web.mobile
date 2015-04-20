@@ -14,14 +14,14 @@ $indent: 0.9375rem;
 	position: relative;
 	font-size:.875rem;
 	.item {
-		padding: .5rem 1.4rem; // the horizontal padding makes room for the arrows.	
+		padding: .5rem 1.4rem; // the horizontal padding makes room for the arrows.
 	}
 	.previous {
 		position: relative;
 		 .link {
 			&::before {
 				@include arrow(left);
-			} 	
+			}
 		 }
 	}
 	.current {
@@ -34,7 +34,7 @@ $indent: 0.9375rem;
 		text-align: right;
 		.link {
 			&::after {
-				@include arrow(right);	
+				@include arrow(right);
 			}
 		}
 	}
@@ -71,6 +71,7 @@ $indent: 0.9375rem;
 	.breadcrumbs {border-width: 1px 0;}
 
 	.comment-form {
+		margin-top: 1rem;
 		input {
 			font-size: 1rem;
 			color: $body-font-color;
@@ -176,7 +177,7 @@ $indent: 0.9375rem;
 
 	.forum-list {
 		.forum-item {
-			padding-left: $indent;	
+			padding-left: $indent;
 		}
 	}
 
