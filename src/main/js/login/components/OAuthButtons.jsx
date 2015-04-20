@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 import Button from 'common/forms/components/Button';
 
-import {translate as t} from 'common/locale';
+import t from 'common/locale';
 
 import BasePathAware from 'common/mixins/BasePath';
 

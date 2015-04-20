@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import isEmpty from 'nti.lib.interfaces/utils/isempty';
-import {scoped, translate as locale} from 'common/locale';
+import locale, {scoped} from 'common/locale';
 
 const t = scoped('COURSE.INFO');
 

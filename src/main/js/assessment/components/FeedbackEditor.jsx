@@ -3,7 +3,7 @@ import {Editor} from 'modeled-content';
 
 import Loading from 'common/components/Loading';
 
-import {translate as t} from 'common/locale';
+import t from 'common/locale';
 
 const WHITESPACE_ENTITIES_AND_TAGS = /((<[^>]+>)|&nbsp;|[\s\r\n])+/ig;
 

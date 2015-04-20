@@ -1,6 +1,5 @@
 import React from 'react';
-import {translate as t} from 'common/locale';
-
+import t from 'common/locale';
 
 
 /**

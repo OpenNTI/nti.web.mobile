@@ -1,7 +1,7 @@
 import React from 'react';
 import FormPanel from 'common/forms/components/FormPanel';
 import RenderField from 'common/forms/mixins/RenderFormConfigMixin';
-import {translate as t} from 'common/locale';
+import t from 'common/locale';
 import BasePathAware from 'common/mixins/BasePath';
 import {sendMessage} from '../Actions';
 

@@ -23,7 +23,7 @@ if (siteName && siteName !== 'unknown') {
 	//	.catch(error=>...);
 }
 
-export function translate(...args) {
+export default function translate(...args) {
 	return counterpart(...args);
 }
 

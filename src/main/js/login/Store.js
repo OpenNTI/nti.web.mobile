@@ -9,7 +9,7 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 import MessagesActions from 'messages/Actions';
 import Message from 'messages/Message';
 
-import {translate as t} from 'common/locale';
+import t from 'common/locale';
 import {getServer, getServerURI, overrideAppUsername} from 'common/utils';
 
 //TODO: Rewrite these constants

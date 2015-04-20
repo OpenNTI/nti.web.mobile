@@ -1,10 +1,12 @@
 
 
-var React = require('react');
-var PanelButton = require('common/components/PanelButton');
-var t = require('common/locale').translate;
+import React from 'react';
+import PanelButton from 'common/components/PanelButton';
+import t from 'common/locale';
 
-var NoOptions = React.createClass({
+export default React.createClass({
+
+	displayName: 'envrollment:NoOptions',
 
 	render: function() {
 		return (
@@ -15,5 +17,3 @@ var NoOptions = React.createClass({
 	}
 
 });
-
-module.exports = NoOptions;
