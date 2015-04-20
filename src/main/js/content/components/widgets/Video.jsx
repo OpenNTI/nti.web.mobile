@@ -1,18 +1,13 @@
-// import path from 'path';
 import React from 'react';
 
 import LoadingMask from 'common/components/Loading';
-import BasePathAware from 'common/mixins/BasePath';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {Component as Video} from 'video';
-// import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const Progress = Symbol.for('Progress');
 
 export default React.createClass({
 	displayName: 'NTIVideo',
-	mixins: [BasePathAware, NavigatableMixin],
 
 
 	propTypes: {
@@ -89,11 +84,12 @@ export default React.createClass({
 				.then(()=>
 					contentPackage.getVideoIndex()
 						.then(videoIndex => {
+							video = videoIndex.get(NTIID);
 							video.getPoster()
 								.then(poster=>
 									this.setState({
 										loading: false,
-										video: videoIndex.get(NTIID),
+										video,
 										poster
 									}));
 						})
@@ -159,11 +155,6 @@ export default React.createClass({
 			viewed = true;
 		}
 
-		let link = '#';
-		// let link = path.join('v', encodeForURI(this.getVideoID())) + '/';
-		//
-		// link = this.makeParentRouterHref(link);
-
 		poster = poster && {backgroundImage: `url(${poster})`};
 
 		return (
@@ -178,7 +169,7 @@ export default React.createClass({
 				{playing ? null :
 					<LoadingMask style={poster} loading={loading}
 						tag="a" onFocus={props.onFocus} onClick={this.onPosterClicked}
-						className="content-video-tap-area" href={link}>
+						className="content-video-tap-area" href="#">
 
 						{viewed && <div className="viewed">Viewed</div>}
 
