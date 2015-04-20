@@ -163,7 +163,8 @@ export default React.createClass({
 					<Video ref="video" src={video}
 						onEnded={this.onStop}
 						onPlaying={this.onPlay}
-						context={this.state.context} />
+						context={this.state.context}
+						deferred />
 				}
 
 				{playing ? null :
