@@ -69,7 +69,7 @@ let Source = React.createClass({
 	componentWillMount () {
 		this.updateURL(this.props);
 		this.setState({
-			initTask: new Task(this.sendListening, 500)
+			initTask: new Task(this.sendListening, 250)
 		});
 	},
 
@@ -291,16 +291,22 @@ let Source = React.createClass({
 
 
 	play () {
-		this.postMessage('playVideo');
+
 		if (this.props.deferred) {
-			this.setState({autoPlay: true}, ()=>{
-				setTimeout(()=>{
-					if (this.state.playerState !== PLAYING) {
-						this.fireEvent('playing');
-					}
-				}, 500);
-			});
+			if (!this.state.autoPlay) {
+				this.setState({autoPlay: true}, ()=>{
+					setTimeout(()=>{
+						if (this.state.playerState !== PLAYING) {
+							this.fireEvent('playing');//force event, triggers poster to hide.
+						}
+					}, 1000);
+				});
+
+				return;
+			}
 		}
+
+		this.postMessage('playVideo');
 	},
 
 
