@@ -20,13 +20,13 @@ export default React.createClass({
 		return (
 			<button className="insert-whiteboard">
 				Insert Whiteboard
-				<input type="file" onChange={this.onSelect}/>
+				<input type="file" accept="image/*" multiple onChange={this.onSelect}/>
 			</button>
 		);
 	},
 
 
-	insertWhiteboard (scene) {
+	insertWhiteboard (scene, last) {
 		let editor = this.getEditor();
 
 		WhiteboardRenderer
@@ -38,8 +38,15 @@ export default React.createClass({
 							scene
 						}));
 
-					if (!editor.insertAtSelection(markup)) {
-						console.error('No seletion to insert');
+					let node = editor.insertAtSelection(markup);
+					if (node) {
+						let s = document.getSelection();
+						s.selectAllChildren(node);
+						s.collapseToEnd();
+
+						if (last) {
+							setTimeout(()=> node.scrollIntoView(), 500);
+						}
 					}
 				});
 	},
@@ -50,36 +57,50 @@ export default React.createClass({
 	},
 
 
+	readFile (file, last) {
+		return new Promise((finish, error) => {
+			let reader = new FileReader();
+			let img = new Image();
+
+			if (!(/image\/.*/i).test(file.type)) {
+				return;
+			}
+
+			img.onerror = e => error(e);
+			img.onload = ()=> createFromImage(img)
+								.then(scene=>this.insertWhiteboard(scene, last), error)
+								.then(finish, error);
+
+			reader.onerror = reader.onabort = e => error(e);
+			reader.onload = event => {
+				img.src = event.target.result;
+			};
+
+			reader.readAsDataURL(file);
+		});
+	},
+
+
 	onSelect (e) {
 		let editor = this.getEditor();
-		let reader = new FileReader();
-		let img = new Image();
-		let file = e.target.files[0];
+		let {files} = e.target;
 
-
-		if (!file) { return; }
-
+		if (!files || files.length === 0) { return; }
 
 		let sel = editor[Constants.SAVED_SELECTION];
 		if (sel){
 			editor.restoreSelection(sel);
 		}
 
-		img.onerror = this.onError;
-		img.onload = ()=> createFromImage(img)
-							.then(this.insertWhiteboard, this.onError)
-							.catch(er=>console.error(er))
-							.then(()=>editor.clearBusy());
-
-		//file.size
-		if (!(/image\/.*/i).test(file.type)) {
-			alert('Please Select an Image');//eslint-disable-line no-alert
-			return;
-		}
+		let getNext = (file, last) => ()=>this.readFile(file, last);
 
 		editor.markBusy();
 
-		reader.onload = event => img.src = event.target.result;
-		reader.readAsDataURL(file);
+		let run = Promise.resolve();
+		for(let i = 0, len = files.length; i < len; i++) {
+			run = run.then(getNext(files[i], (len-1)===i));
+		}
+
+		run.then(()=>editor.clearBusy());
 	}
 });
