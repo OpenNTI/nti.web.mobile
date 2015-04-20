@@ -1,21 +1,21 @@
 
 
-var React = require('react');
+import React from 'react';
 
-var t = require('common/locale').translate;
+import t from 'common/locale';
 
-var Constants = require('../Constants');
-var FieldValuesStore = require('../FieldValuesStore');
+import Constants from '../Constants';
+import FieldValuesStore from '../FieldValuesStore';
 
-var RadioGroup = require('./RadioGroup');
-var ToggleFieldset = require('./ToggleFieldset');
-var Select = require('common/forms/components/Select');
-var Checkbox = require('common/forms/components/Checkbox');
+import RadioGroup from './RadioGroup';
+import ToggleFieldset from './ToggleFieldset';
+import Select from 'common/forms/components/Select';
+import Checkbox from 'common/forms/components/Checkbox';
 
-var PanelNoButton = require('common/components/PanelNoButton');
-var LocalizedHTML = require('common/components/LocalizedHTML');
+import PanelNoButton from 'common/components/PanelNoButton';
+import LocalizedHTML from 'common/components/LocalizedHTML';
 
-var hash = require('object-hash');
+import hash from 'object-hash';
 
 // components that render their own label:
 var _labelIsRenderedByComponent = new Set();
