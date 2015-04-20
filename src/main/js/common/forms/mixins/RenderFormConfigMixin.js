@@ -1,20 +1,36 @@
 
+import React from 'react';
 
-var React = require('react');
+import isFunction from 'nti.lib.interfaces/utils/isfunction';
+import radiogroup from 'common/forms/components/RadioGroup';
+import Select from 'common/forms/components/Select';
+import Checkbox from 'common/forms/components/Checkbox';
+import ToggleFieldset from '../components/ToggleFieldset';
 
-var t = require('common/locale').translate;
+import t from 'common/locale';
+import {RENDERED_FORM_EVENT_HANDLERS as Events} from '../Constants';
 
-var isFunction = require('nti.lib.interfaces/utils/isfunction');
-var radiogroup = require('common/forms/components/RadioGroup');
-var Select = require('common/forms/components/Select');
-var Checkbox = require('common/forms/components/Checkbox');
-var ToggleFieldset = require('../components/ToggleFieldset');
+const prefix = 'RenderFormConfig:';
+const stashedTranslator = prefix + 'translator';
 
-module.exports = {
+/** Constants for private methods **/
+const blurhandler = prefix + 'onblur';
+const focushandler = prefix + 'onfocus';
+const radiochangehandler = prefix + 'radiochange';
+
+const inputMap = {
+	'checkbox': Checkbox,
+	'radiogroup': radiogroup,
+	'select': Select,
+	'textarea': 'textarea',
+	'toggleFieldset': ToggleFieldset
+};
+
+export default {
 
 	// when we're given a translator in renderFormConfig we'll hang onto it
 	// so we can use it for rendering related fields and sub-forms.
-	_translator: null,
+	[stashedTranslator]: null,
 
 	/**
 	* Renders an html form field from a config object.
@@ -29,12 +45,13 @@ module.exports = {
 	*	}
 	*/
 	renderField: function(translator, values, field) {
-		var state = this.state;
-		var err = (state.errors || {})[field.ref];
-		var cssClass = err ? ['error'] : [];
-		var tr = translator || t;
-		var type = field.type;
-		var related = null;
+
+		let state = this.state;
+		let err = (state.errors || {})[field.ref];
+		let cssClass = err ? ['error'] : [];
+		let tr = translator || t;
+		let type = field.type;
+		let related = null;
 
 		if(field.required) {
 			cssClass.push('required');
@@ -44,48 +61,31 @@ module.exports = {
 			type = 'text';
 		}
 
-		var ref = field.ref;
+		let ref = field.ref;
 
 		// default placeholder for inputs
-		var translateOptions = {
+		let translateOptions = {
 			fallback: ''
 		};
 
-		var onChange = isFunction(this._inputChanged) ? this._inputChanged : null;
+		let onChange = isFunction(this[Events.ON_CHANGE]) ? this[Events.ON_CHANGE] : null;
 
-		var input;
-		switch(field.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case 'textarea':
-				input = 'textarea';
-			break;
-			case 'select':
-				input = Select;
-			break;
-			case 'radiogroup':
-				input = radiogroup;
-				var radioChange = this._radioChanged.bind(null, field);
-				var tmp = onChange;
-				onChange = tmp ? function(event) { tmp(event); radioChange(event); } : radioChange;
-			break;
-			case 'checkbox':
-				input = Checkbox;
-			break;
-			case 'toggleFieldset':
-				input = ToggleFieldset;
-			break;
-			default:
-				input = 'input';
+		let input = inputMap[field.type] || 'input';
+
+		if (field.type === 'radiogroup') {
+			let radioChange = this[radiochangehandler].bind(null, field);
+			let tmp = onChange;
+			onChange = tmp ? function(event) { tmp(event); radioChange(event); } : radioChange;
 		}
 
-		var component = type === 'label' ?
+		let component = type === 'label' ?
 			React.createElement('label', {ref: ref, className: cssClass.join(' ') }, tr(ref, translateOptions)) :
 			React.createElement(input, {
 				ref: ref,
 				//value: (values||{})[ref],
 				name: ref,
-				onBlur: this._onBlur,
-				onFocus: this._onFocus,
+				onBlur: this[blurhandler],
+				onFocus: this[focushandler],
 				onChange: onChange,
 				placeholder: tr(ref, translateOptions),
 				className: cssClass.join(' '),
@@ -101,7 +101,7 @@ module.exports = {
 				pattern: (field.type === 'number' && '[0-9]*') || null
 			});
 
-		var subfields = ((state.subfields || {})[field.ref] || []).map(
+		let subfields = ((state.subfields || {})[field.ref] || []).map(
 			item=>this.renderField(translator, values, item)
 		);
 
@@ -129,9 +129,9 @@ module.exports = {
 
 	renderFieldset: function(translator, values, fieldset, index) {
 
-		var fieldRenderFn = this.renderField.bind(null, translator, values);
+		let fieldRenderFn = this.renderField.bind(null, translator, values);
 
-		var key = 'fieldset-'.concat(index);
+		let key = 'fieldset-'.concat(index);
 		return React.createElement('fieldset',
 			{
 				key: key,
@@ -143,8 +143,8 @@ module.exports = {
 	},
 
 	renderFormConfig: function(config, values, translator) {
-		this._translator = translator; // stash for rendering related sub-forms later
-		var args = ['div', {className: 'form-render'}].concat(
+		this[stashedTranslator] = translator; // stash for rendering related sub-forms later
+		let args = ['div', {className: 'form-render'}].concat(
 			config.map(
 				(fieldset, index)=>this.renderFieldset(translator, values, fieldset, index)
 			)
@@ -152,37 +152,37 @@ module.exports = {
 		return React.createElement.apply(null, args);
 	},
 
-    _onFocus: function(event) {
-		var target = event.target.name;
-		var errors = this.state.errors || {};
+    [focushandler](event) {
+		let target = event.target.name;
+		let errors = this.state.errors || {};
 		if (errors[target]) {
 			delete errors[target];
 			this.forceUpdate();
 		}
-		if (isFunction(this._inputFocused)) {
-			this._inputFocused(event);
+		if (isFunction(this[Events.ON_FOCUS])) {
+			this[Events.ON_FOCUS](event);
 		}
 	},
 
-	_onBlur: function(event) {
+	[blurhandler](event) {
 		this.updateFieldValueState(event);
-		if (isFunction(this._inputBlurred)) {
-			this._inputBlurred(event);
+		if (isFunction(this[Events.ON_BLUR])) {
+			this[Events.ON_BLUR](event);
 		}
 	},
 
-	_radioChanged: function(fieldConfig, event) {
+	[radiochangehandler](fieldConfig, event) {
 		this.updateFieldValueState(event);
-		if(isFunction(this._inputChanged)) {
-			this._inputChanged(event);
+		if(isFunction(this[Events.ON_CHANGE])) {
+			this[Events.ON_CHANGE](event);
 		}
 	},
 
 	updateFieldValueState: function(event) {
-		var target = event.target;
-		var field = target.name;
-		var value = target.value;
-		var tmp = Object.assign({}, this.state.fieldValues);
+		let target = event.target;
+		let field = target.name;
+		let value = target.value;
+		let tmp = Object.assign({}, this.state.fieldValues);
 
 		if (value || tmp.hasOwnProperty(field)) {
 			// don't set an empty value if there's not already
@@ -193,10 +193,10 @@ module.exports = {
 	},
 
 	addFormatters: function() {
-		var i;
-		var ref;
-		var format;
-		var formatters = this.inputFormatters;
+		let i;
+		let ref;
+		let format;
+		let formatters = this.inputFormatters;
 
 		if (formatters) {
 			for (i in formatters) {

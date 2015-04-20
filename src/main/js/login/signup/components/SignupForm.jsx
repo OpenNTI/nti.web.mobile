@@ -20,9 +20,11 @@ import * as LoginActions from '../../Actions';
 import LoginStore from '../../Store';
 
 import RenderFormConfigMixin from 'common/forms/mixins/RenderFormConfigMixin';
+import {RENDERED_FORM_EVENT_HANDLERS as Events} from 'common/forms/Constants';
+
+console.debug(RenderFormConfigMixin);
 
 const fullname = 'SignupForm:fullname';
-const inputBlurred = 'SignupForm:inputBlurred';
 const requiredFieldsFilled = 'SignupForm:requiredFieldsFilled';
 const handleSubmit = 'SignupForm:handleSubmit';
 
@@ -117,7 +119,7 @@ export default React.createClass({
 		Store.removeChangeListener(this.storeChanged);
 	},
 
-	[inputBlurred]: function(event) {
+	[Events.ON_BLUR]: function(event) {
 		let target = event.target;
 		let field = target.name;
 		let value = target.value;
@@ -141,9 +143,9 @@ export default React.createClass({
 		// });
 	},
 
-	// [inputChanged]: function(event) {
-	// 	this[inputBlurred](event); // we're not preflighting on blur anymore so update the submit button state on every change.
-	// },
+	[Events.ON_CHANGE](event) {
+		this[Events.ON_BLUR](event);
+	},
 
 	isSubmitEnabled: function() {
 		let state = this.state;
