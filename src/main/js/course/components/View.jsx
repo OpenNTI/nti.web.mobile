@@ -109,6 +109,7 @@ export default React.createClass({
 	getContext () {
 		return Promise.resolve([
 			{
+				source: 'course/components/View',
 				label: 'Courses',
 				href: this.getBasePath()
 			}/*,{
