@@ -1,6 +1,8 @@
 import React from 'react';
 import ErrorWidget from 'common/components/Error';
 
+import MESSAGES from 'common/utils/WindowMessageListener';
+
 import {EventHandlers} from '../../Constants';
 
 import guid from 'nti.lib.interfaces/utils/guid';
@@ -31,21 +33,12 @@ let Source = React.createClass({
 
 
 	propTypes: {
-		id: React.PropTypes.string,
-		source: React.PropTypes.any.isRequired,
-		deferred: React.PropTypes.bool
+		source: React.PropTypes.any.isRequired
 	},
 
 
 	getInitialState () {
-		return { playerURL: null };
-	},
-
-
-	getDefaultProps () {
-		return {
-			id: guid()
-		};
+		return { id: guid(), playerURL: null };
 	},
 
 
@@ -56,7 +49,7 @@ let Source = React.createClass({
 
 	componentDidMount () {
 		this.updateURL(this.props);
-		window.addEventListener('message', this.onMessage, false);
+		MESSAGES.add(this.onMessage);
 	},
 
 
@@ -66,7 +59,7 @@ let Source = React.createClass({
 
 
 	componentWillUnmount () {
-		window.removeEventListener('message', this.onMessage, false);
+		MESSAGES.remove(this.onMessage);
 	},
 
 
@@ -113,7 +106,7 @@ let Source = React.createClass({
 		event = data.event;
 
 		/* jshint -W106 */
-		if (data.player_id !== this.props.id) {
+		if (data.player_id !== this.state.id) {
 			return;
 		}
 
@@ -155,7 +148,7 @@ let Source = React.createClass({
 	postMessage (method, params) {
 		let context = this.getPlayerContext(), data;
 		if (!context) {
-			console.warn(this.props.id, ' No Player Context!');
+			console.warn(this.state.id, ' No Player Context!');
 			return;
 		}
 
@@ -173,12 +166,13 @@ let Source = React.createClass({
 			return (<ErrorWidget error="No source"/>);
 		}
 
-		if (this.props.deferred) {
-			console.warn('Vimeo videos do not have a safe way to preload assets, and defer their render');
-		}
+		let props = Object.assign({}, this.props, {
+			deferred: null,
+			name: this.state.id
+		});
 
 		return (
-			<iframe {...this.props} src={this.state.playerURL}
+			<iframe {...props} src={this.state.playerURL}
 				frameBorder="0" seemless allowFullScreen allowTransparency />
 		);
 	},

@@ -4,6 +4,7 @@ import invariant from 'react/lib/invariant';
 import {EventHandlers} from '../../Constants';
 
 import ErrorWidget from 'common/components/Error';
+import MESSAGES from 'common/utils/WindowMessageListener';
 
 import QueryString from 'query-string';
 
@@ -25,9 +26,11 @@ const YOU_TUBE_STATES = {
 const YT_STATE_TO_EVENTS = {
 	0: 'ended',
 	1: 'playing',
-	2: 'pause'
+	2: 'pause',
+	3: 'playing'
 	//There is no seek event for YT
 };
+
 
 let Source = React.createClass({
 	displayName: 'YouTube-Video',
@@ -45,23 +48,12 @@ let Source = React.createClass({
 
 
 	propTypes: {
-		id: React.PropTypes.string,
-
-		source: React.PropTypes.any.isRequired,
-
-		deferred: React.PropTypes.bool
+		source: React.PropTypes.any.isRequired
 	},
 
 
 	getInitialState () {
-		return {scope: YOU_TUBE};
-	},
-
-
-	getDefaultProps () {
-		return {
-			id: guid()
-		};
+		return {id: guid(), scope: YOU_TUBE};
 	},
 
 
@@ -75,13 +67,13 @@ let Source = React.createClass({
 
 	componentDidMount () {
 		this.updateURL(this.props);
-		window.addEventListener('message', this.onMessage, false);
+		MESSAGES.add(this.onMessage);
 	},
 
 
 	componentWillUnmount () {
 		this.state.initTask.stop();
-		window.removeEventListener('message', this.onMessage, false);
+		MESSAGES.remove(this.onMessage);
 	},
 
 
@@ -141,23 +133,27 @@ let Source = React.createClass({
 
 
 	render () {
-		let {source, deferred} = this.props;
+		let {id} = this.state;
+		let {source} = this.props;
 
 		if (!source) {
 			return (<ErrorWidget error="No source"/>);
 		}
 
-		if (deferred) {
-			console.warn('YouTube videos do not have a safe way to preload assets, and defer their render');
-		}
+		let props = Object.assign({}, props, {
+			name: id,
+			deferred: null
+		});
 
-		return (<iframe {...this.props} src={this.state.playerURL}
+		return (<iframe {...props} src={this.state.playerURL}
 			frameBorder="0" allowFullScreen allowTransparency />);
 	},
 
 
 	sendListening () {
-		this.postMessage();
+		if (this.getPlayerContext()) {
+			this.postMessage();
+		}
 	},
 
 
@@ -176,8 +172,16 @@ let Source = React.createClass({
 		let implemented = !!this[handlerName];
 
 		//event.source === this.getPlayerContext()
-		if (event.origin !== this.state.scope || data.id !== this.props.id) {
-			console.debug('[YouTube] Ignoring Event: %o', event);
+
+		let originMismatch = event.origin !== this.state.scope;
+		let idMismatch = data.id !== this.state.id;
+
+		if (originMismatch || idMismatch) {
+
+			// console.debug('[YouTube] Ignoring Event (because origin mismatch: %o %o %o, or id mismatch %o, %o) %o',
+			// 	originMismatch, event.origin, this.state.scope,
+			// 	idMismatch, data.id || data,
+			// 	event);
 			return;
 		}
 
@@ -185,7 +189,7 @@ let Source = React.createClass({
 			this.finishInitialization();
 		}
 
-		console[implemented ? 'debug' : 'warn']('[YouTube] Event: %s', data.event);
+		console[implemented ? 'debug' : 'warn']('[YouTube] Event: %s %s %o', data.id, data.event, data);
 		if (implemented) {
 			this[handlerName](data.info);
 		}
@@ -195,7 +199,7 @@ let Source = React.createClass({
 	postMessage (method, params) {
 		let context = this.getPlayerContext(), data;
 		if (!context) {
-			console.warn(this.props.id, ' No Player Context!');
+			console.warn(this.state.id, ' No Player Context!');
 			return;
 		}
 
@@ -204,12 +208,12 @@ let Source = React.createClass({
 				event: 'command',
 				func: method,
 				args: params,
-				id: this.props.id
+				id: this.state.id
 			} : {
 				event: 'listening',
-				id: this.props.id
+				id: this.state.id
 			};
-		//console.debug('[YouTube] Sending: %o', data);
+		console.debug('[YouTube] Sending: %o', data);
 		context.postMessage(JSON.stringify(data), this.state.scope);
 	},
 
@@ -234,6 +238,7 @@ let Source = React.createClass({
 	handleOnStateChange (state) {
 		if (this.state.playerState !== state) {
 			this.setState({playerState: state});
+			if (state === 3) { this.play(); }
 		}
 		let event = YT_STATE_TO_EVENTS[state];
 		if (event) {
