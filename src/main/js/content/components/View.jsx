@@ -25,7 +25,7 @@ export default React.createClass({
 									handler={Page}
 									pageContent={Viewer}
 									slug="/content/"
-									title="Content"/>
+									title=""/>
 			</Router.Locations>
 		);
 	},
