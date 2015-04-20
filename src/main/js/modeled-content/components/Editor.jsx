@@ -96,8 +96,11 @@ export default React.createClass({
 
 
 	onInsertionHook (editorNode, range, newNode) {
-		if (hasClass(range.startContainer, 'body-divider') || matches(range.startContainer, '.body-divider *')) {
-			let part = parent(range.startContainer, '.body-divider') || range.startContainer;
+		let node = (x=> (!x ? x : x.nodeType===3 ? x.parentNode : x))(range.startContainer);
+
+		if (hasClass(node, 'body-divider') || matches(node, '.body-divider *') || newNode.querySelector('.body-divider')) {
+
+			let part = parent(node, '.body-divider') || node;
 
 			//get the next sibling so insertBefore will be after the body divider
 			part = part && part.nextSibling;
