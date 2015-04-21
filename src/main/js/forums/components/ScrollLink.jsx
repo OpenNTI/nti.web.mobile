@@ -15,7 +15,7 @@ export default React.createClass({
 		event.stopPropagation();
 		let node = document.getElementById(this.props.componentId);
 		if(node) {
-			node.scrollIntoView(false);
+			node.scrollIntoView(true);
 			let input = node.querySelector('input, textarea, [contenteditable]');
 			if (input) {
 				input.focus();
