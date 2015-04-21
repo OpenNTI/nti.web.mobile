@@ -222,7 +222,7 @@ export default React.createClass({
 		let videoSource = video && (video.sources || {})[0];
 
 		return (
-			<div className={'flex-video widescreen ' + Provider.name}>
+			<div className={'flex-video widescreen ' + Provider.displayName}>
 				<Provider {...this.props}
 					ref="activeVideo"
 					source={videoSource || video}

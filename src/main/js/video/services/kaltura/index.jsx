@@ -56,7 +56,8 @@ export default React.createClass({
 			sources: [],
 			sourcesLoaded: false,
 			isError: false,
-			listening: false
+			listening: false,
+			interacted: false
 		};
 	},
 
@@ -125,9 +126,16 @@ export default React.createClass({
 	},
 
 
-	componentDidUpdate () {
+	componentDidUpdate (prevProps) {
 		let video = this.refs.video;
 		this.ensureListeningToEvents(video);
+		if (prevProps.source !== this.props.source) {
+			video = video && video.getDOMNode();
+			this.setState(this.getInitialState());
+			if (video) {
+				video.load();
+			}
+		}
 	},
 
 
