@@ -70,11 +70,10 @@ module.exports = React.createClass({
 	},
 
 	componentDidMount: function() {
-		Promise.all([
-			this.injectScript('https://code.jquery.com/jquery-2.1.3.min.js', 'jQuery'),
-			this.injectScript('https://js.stripe.com/v2/', 'Stripe'),
-			this.injectScript('//cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.0.2/jquery.payment.min.js', 'jQuery.payment')
-		])
+		
+		this.injectScript('https://code.jquery.com/jquery-2.1.3.min.js', 'jQuery')
+			.then(() => this.injectScript('https://js.stripe.com/v2/', 'Stripe'))
+				.then(() => this.injectScript('//cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.0.2/jquery.payment.min.js', 'jQuery.payment'))
 		.then(
 			function() {
 				this.setState({
