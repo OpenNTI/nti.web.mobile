@@ -1,17 +1,16 @@
 
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import {EventEmitter} from 'events';
 
+import * as Constants from './Constants';
+import {CHANGE_EVENT} from 'common/constants/Events';
 
-var Constants = require('./Constants');
-var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
+import {getService} from 'common/utils';
 
-var {getService} = require('common/utils');
+let enrollmentStatus = {};
 
-var _enrollmentStatus = {};
-
-var Store = Object.assign({}, EventEmitter.prototype, {
+let Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'enrollment.Store',
 
 	emitChange: function(evt) {
@@ -35,7 +34,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	loadEnrollmentStatus: function(courseId) {
 		return getService().then(function(service) {
 			service.getEnrollment().isEnrolled(courseId).then(function(result) {
-				_enrollmentStatus[courseId] = result;
+				enrollmentStatus[courseId] = result;
 				this.emitChange({
 					action: {
 						type: Constants.LOAD_ENROLLMENT_STATUS,
@@ -48,8 +47,8 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	isEnrolled: function(courseId) {
-		if (_enrollmentStatus.hasOwnProperty(courseId)) {
-			return _enrollmentStatus[courseId];
+		if (enrollmentStatus.hasOwnProperty(courseId)) {
+			return enrollmentStatus[courseId];
 		}
 		console.error('Enrollment status unknown. Maybe call loadEnrollmentStatus first.');
 		return false;
@@ -60,14 +59,14 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 
 //TODO: move the bulk of the work/Async code to Api and Actions.
 //The store (as a file) just listens for changes and updates local data.
-function _getEnrollmentService() {
+function getEnrollmentService() {
 	return getService().then(function(service) {
 		return service.getEnrollment();
 	});
 }
 
-function _enrollOpen(catalogId) {
-	return _getEnrollmentService().then(function(enrollmentService) {
+function enrollOpen(catalogId) {
+	return getEnrollmentService().then(function(enrollmentService) {
 		return enrollmentService.enrollOpen(catalogId).then(function(result) {
 			return {
 				serviceResponse: result,
@@ -77,18 +76,18 @@ function _enrollOpen(catalogId) {
 	});
 }
 
-function _dropCourse(courseId) {
-	return _getEnrollmentService().then(function(enrollmentService) {
+function dropCourse(courseId) {
+	return getEnrollmentService().then(function(enrollmentService) {
 		return enrollmentService.dropCourse(courseId);
 	});
 }
 
 AppDispatcher.register(function(payload) {
-	var action = payload.action;
+	let action = payload.action;
 	switch(action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 		case Constants.ENROLL_OPEN:
-			_enrollOpen(action.catalogId).then(function(result) {
+			enrollOpen(action.catalogId).then(function(result) {
 				Store.emitChange({
 					action: action,
 					result: result
@@ -96,7 +95,7 @@ AppDispatcher.register(function(payload) {
 			});
 		break;
 		case Constants.DROP_COURSE:
-			_dropCourse(action.courseId)
+			dropCourse(action.courseId)
 				.catch(error=>Object.assign(new Error(error.responseText), error))
 				.then(result=>Store.emitChange({ action, result }));
 		break;
