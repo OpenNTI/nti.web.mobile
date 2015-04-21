@@ -51,7 +51,8 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		if (_enrollmentStatus.hasOwnProperty(courseId)) {
 			return _enrollmentStatus[courseId];
 		}
-		throw new Error('Enrollment status unknown. Maybe call loadEnrollmentStatus first.');
+		console.error('Enrollment status unknown. Maybe call loadEnrollmentStatus first.');
+		return false;
 	}
 
 });
