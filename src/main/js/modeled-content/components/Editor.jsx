@@ -105,7 +105,7 @@ export default React.createClass({
 			//get the next sibling so insertBefore will be after the body divider
 			part = part && part.nextSibling;
 
-			if (part) {
+			if (part && editorNode.contains(part)) {
 				//if there is a part, insert before it
 				editorNode.insertBefore(newNode, part);
 			} else {
