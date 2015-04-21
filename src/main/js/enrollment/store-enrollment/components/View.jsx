@@ -19,12 +19,11 @@ var PaymentConfirm = require('./PaymentConfirm');
 var Loading = require('common/components/Loading');
 var ErrorComponent = require('common/components/Error');
 var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var {getBasePath} = require('common/utils');
-
+import BasePathAware from 'common/mixins/BasePath';
 
 var View = React.createClass({
 
-	mixins: [NavigatableMixin], // needed for getPath() call we're using for the router's key.
+	mixins: [NavigatableMixin, BasePathAware], // needed for getPath() call we're using for the router's key.
 
 	propTypes: {
 		enrollment: React.PropTypes.shape({
@@ -131,7 +130,7 @@ var View = React.createClass({
 		var purchasable = this.getPurchasable();
 		var courseTitle = (purchasable || {}).Title || '';
 		var courseId = this.props.courseId;
-		var giftDoneLink = getBasePath() + 'catalog/';
+		var giftDoneLink = this.getBasePath() + 'catalog/';
 		var isGift = !!Store.getGiftInfo();
 
 		return (
