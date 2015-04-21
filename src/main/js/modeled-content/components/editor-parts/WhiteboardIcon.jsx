@@ -14,7 +14,7 @@ export default React.createClass({
 		scene = JSON.stringify(scene) || '';
 
 		return (
-			<div contentEditable={false} className="body-divider whiteboard" unselectable="on">
+			<object contentEditable={false} className="body-divider whiteboard" unselectable="on">
 				<div className="whiteboard-wrapper" unselectable="on">
 					<script type="application/json" dangerouslySetInnerHTML={{__html: scene}}/>
 					<img src={thumbnail} className="thumbnail" alt="Whiteboard Thumbnail" border="0" unselectable="no"/>
@@ -25,7 +25,7 @@ export default React.createClass({
 					</div>
 					{*/}
 				</div>
-			</div>
+			</object>
 		);
 	}
 });
