@@ -26,7 +26,7 @@ import Err from 'common/components/Error';
 
 import Actions from '../Actions';
 import Store from '../Store';
-import Constants from '../Constants';
+import * as Constants from '../Constants';
 
 let agreementURL = '/mobile/api/user-agreement/view';
 

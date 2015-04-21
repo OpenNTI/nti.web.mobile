@@ -6,7 +6,7 @@ import DateTime from 'common/components/DateTime';
 
 import Store from '../Store';
 import Actions from '../Actions';
-import Constants from '../Constants';
+import * as Constants from '../Constants';
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
 const getDiscountString = 'Pricing:getDiscountString';
