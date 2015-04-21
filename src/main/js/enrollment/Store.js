@@ -4,6 +4,7 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 
 import * as Constants from './Constants';
+import * as Api from './Api';
 import {CHANGE_EVENT} from 'common/constants/Events';
 
 import {getService} from 'common/utils';
@@ -57,37 +58,14 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 });
 
 
-//TODO: move the bulk of the work/Async code to Api and Actions.
-//The store (as a file) just listens for changes and updates local data.
-function getEnrollmentService() {
-	return getService().then(function(service) {
-		return service.getEnrollment();
-	});
-}
 
-function enrollOpen(catalogId) {
-	return getEnrollmentService().then(function(enrollmentService) {
-		return enrollmentService.enrollOpen(catalogId).then(function(result) {
-			return {
-				serviceResponse: result,
-				success: true
-			};
-		});
-	});
-}
-
-function dropCourse(courseId) {
-	return getEnrollmentService().then(function(enrollmentService) {
-		return enrollmentService.dropCourse(courseId);
-	});
-}
 
 AppDispatcher.register(function(payload) {
 	let action = payload.action;
 	switch(action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 		case Constants.ENROLL_OPEN:
-			enrollOpen(action.catalogId).then(function(result) {
+			Api.enrollOpen(action.catalogId).then(function(result) {
 				Store.emitChange({
 					action: action,
 					result: result
@@ -95,7 +73,7 @@ AppDispatcher.register(function(payload) {
 			});
 		break;
 		case Constants.DROP_COURSE:
-			dropCourse(action.courseId)
+			Api.dropCourse(action.courseId)
 				.catch(error=>Object.assign(new Error(error.responseText), error))
 				.then(result=>Store.emitChange({ action, result }));
 		break;
