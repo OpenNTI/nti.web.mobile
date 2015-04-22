@@ -32,7 +32,7 @@ export default React.createClass({
 		purchasable: React.PropTypes.object
 	},
 
-	componentWillMount: function() {
+	componentWillMount () {
 		try {
 			this.setState({
 				stripeToken: Store.getStripeToken(),
@@ -48,7 +48,7 @@ export default React.createClass({
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		if (!this.state.stripeToken) {
 			Actions.resetProcess({
 				gift: (Store.getGiftInfo() !== null)
@@ -56,7 +56,7 @@ export default React.createClass({
 		}
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			stripeToken: null,
 			pricing: null,
@@ -65,37 +65,37 @@ export default React.createClass({
 		};
 	},
 
-	[getStripeToken]: function() {
+	[getStripeToken] () {
 		return this.state.stripeToken;
 	},
 
-	[getCouponPricing]: function() {
+	[getCouponPricing] () {
 		return Store.getCouponPricing();
 	},
 
-	[getPricing]: function() {
+	[getPricing] () {
 		return this.state.pricing;
 	},
 
-	[getGiftInfo]: function() {
+	[getGiftInfo] () {
 		return this.state.giftInfo;
 	},
 
-	[getPrice]: function() {
+	[getPrice] () {
 		let pricing = this[getCouponPricing]();
 		let price = pricing ? pricing.PurchasePrice : this.props.purchasable.Amount;
 
 		return this.getFormattedPrice(this.props.purchasable.Currency, price);
 	},
 
-	[shouldAllowUpdates]: function() {
+	[shouldAllowUpdates] () {
 		let ref = this.refs.subscribeToUpdates;
 		let el = ref && ref.isMounted() && React.findDOMNode(ref);
 
 		return el && el.checked;
 	},
 
-	[submitPayment]: function(event) {
+	[submitPayment] (event) {
 		event.preventDefault();
 		this.setState({
 			busy: true
@@ -110,7 +110,7 @@ export default React.createClass({
 		Actions.submitPayment(payload);
 	},
 
-	render: function() {
+	render () {
 
 		if (this.state.error || !this.state.stripeToken) {
 			return <ErrorWidget error="No data"/>;
