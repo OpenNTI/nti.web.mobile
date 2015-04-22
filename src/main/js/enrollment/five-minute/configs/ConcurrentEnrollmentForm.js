@@ -61,7 +61,7 @@ module.exports = Object.freeze([
 			CountrySelect.withProps({
 				placeholder: t('country'),
 				required: false,
-				label: t('state')
+				label: t('country')
 			}),
 			{
 				ref: 'postal_code',
