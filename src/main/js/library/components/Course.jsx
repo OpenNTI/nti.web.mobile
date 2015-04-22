@@ -5,12 +5,11 @@ import CourseContentLink from './CourseContentLink';
 import COURSE_SECTIONS from 'course/Sections';
 
 import ActiveState from 'common/components/ActiveState';
-import SetStateSafely from 'common/mixins/SetStateSafely';
 import E from 'common/components/Ellipsed';
 
 export default React.createClass({
 	displayName: 'Course',
-	mixins: [CourseLinker, SetStateSafely],
+	mixins: [CourseLinker],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired
@@ -47,7 +46,7 @@ export default React.createClass({
 		let {item} = this.props;
 		let presentation = item ? item.getPresentationProperties() : {};
 		let {icon, title, label, author} = presentation;
-		this.setStateSafely({ icon, title, label, author });
+		this.setState({ icon, title, label, author });
 	},
 
 
@@ -112,7 +111,7 @@ export default React.createClass({
 
 		let sections = item ? this.resolveSections(item) : [];
 
-		this.setStateSafely({
+		this.setState({
 			sections
 		});
 	},

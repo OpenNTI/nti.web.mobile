@@ -18,7 +18,6 @@ import removeClass from 'nti.lib.dom/lib/removeclass';
 
 import BasePathAware from 'common/mixins/BasePath';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
-import SetStateSafely from 'common/mixins/SetStateSafely';
 import StoreEvents from 'common/mixins/StoreEvents';
 
 const getViewport = ()=> document.getElementsByTagName('html')[0];
@@ -106,7 +105,7 @@ function buffer(time, fn) {
 
 export default React.createClass({
 	displayName: 'NavigationBar',
-	mixins: [StoreEvents, BasePathAware, NavigatableMixin, SetStateSafely],
+	mixins: [StoreEvents, BasePathAware, NavigatableMixin],
 
 	contextTypes: {
 		triggerRightMenu: React.PropTypes.func.isRequired
@@ -167,7 +166,7 @@ export default React.createClass({
 
 		resolve.then(x=>
 			//console.debug('Context Path: %o', x) ||
-			this.setStateSafely({
+			this.setState({
 				current: x && x[x.length - 1],
 				returnTo: x && x[x.length - 2]
 			}));
@@ -258,7 +257,7 @@ export default React.createClass({
 
 		let s = !this.state.menuOpen;
 		this.updateBodyClassForMenu(s);
-		this.setStateSafely({menuOpen: s});
+		this.setState({menuOpen: s});
 	},
 
 	updateBodyClassForMenu(isOpen) {
@@ -278,7 +277,7 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 		this.updateBodyClassForMenu(false);
-		this.setStateSafely({menuOpen: false});
+		this.setState({menuOpen: false});
 	},
 
 	render () {

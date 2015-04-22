@@ -6,7 +6,6 @@ import DateTime from 'common/components/DateTime';
 import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
 
-import SetStateSafely from 'common/mixins/SetStateSafely';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
@@ -19,7 +18,7 @@ import {Mixin} from './widgets';
 
 export default React.createClass({
 	displayName: 'CourseOverview',
-	mixins: [Mixin, NavigatableMixin, SetStateSafely, ContextSender],
+	mixins: [Mixin, NavigatableMixin, ContextSender],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
@@ -75,7 +74,7 @@ export default React.createClass({
 
 			node.getContent()
 				.then(data=>
-					this.setStateSafely({
+					this.setState({
 						node, data,
 						loading: false,
 						error: false
@@ -90,7 +89,7 @@ export default React.createClass({
 
 	onError (error) {
 		console.error('Error loading Overview: ', error.stack || error.message || error);
-		this.setStateSafely({
+		this.setState({
 			error,
 			loading: false,
 			data: null
@@ -99,7 +98,7 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		this.setStateSafely(this.getInitialState());
+		this.setState(this.getInitialState());
 		try {
 
 			props.course.getOutlineNode(this.getOutlineID(props))

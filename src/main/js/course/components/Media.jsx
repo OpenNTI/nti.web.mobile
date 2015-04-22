@@ -7,7 +7,6 @@ import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
 
 import BasePathAware from 'common/mixins/BasePath';
-import SetStateSafely from 'common/mixins/SetStateSafely';
 import ContextContributor from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
@@ -17,7 +16,7 @@ import VideoGrid from './VideoGrid';
 
 export default React.createClass({
 	displayName: 'MediaView',
-	mixins: [BasePathAware, NavigatableMixin, SetStateSafely, ContextContributor],
+	mixins: [BasePathAware, NavigatableMixin, ContextContributor],
 
 	propTypes: {
 		outlineId: React.PropTypes.string,
@@ -47,7 +46,7 @@ export default React.createClass({
 
 
 	onError (error) {
-		this.setStateSafely({
+		this.setState({
 			loading: false,
 			error: error,
 			videoIndex: null
@@ -56,11 +55,11 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		this.setStateSafely(this.getInitialState());
+		this.setState(this.getInitialState());
 		try {
 			props.course.getVideoIndex()
 				.then(VideoIndex =>
-					this.setStateSafely({
+					this.setState({
 						loading: false,
 						VideoIndex
 					}))

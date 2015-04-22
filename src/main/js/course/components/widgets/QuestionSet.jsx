@@ -12,7 +12,6 @@ import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 import {loadPreviousState} from 'assessment/Api';
 
 import {getService} from 'common/utils';
-import SetStateSafely from 'common/mixins/SetStateSafely';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
@@ -24,7 +23,7 @@ const OutlineNode = getModel('courses.courseoutlinenode');
 
 export default React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
-	mixins: [NavigatableMixin, SetStateSafely],
+	mixins: [NavigatableMixin],
 
 	statics: {
 		mimeTest: /(naquestionset|naquestionbank|assignment)$/i,
@@ -72,7 +71,7 @@ export default React.createClass( {
 		let assignment = this.props.node.getAssignment(ntiid);
 		let isAssignment = assignment || assignmentType.test(item.MimeType);
 
-		this.setStateSafely({assignment: assignment, loading: true});
+		this.setState({assignment: assignment, loading: true});
 
 		let work;
 
@@ -95,19 +94,19 @@ export default React.createClass( {
 				.catch(this.setNotTaken);
 		}
 
-		work.then(()=>this.setStateSafely({loading: false}), ()=>{});
+		work.then(()=>this.setState({loading: false}), ()=>{});
 	},
 
 
 	setAssignmentHistory (history) {
-		this.setStateSafely({
+		this.setState({
 			assignmentHistory: history
 		});
 	},
 
 
 	setLatestAttempt  (assessedQuestionSet) {
-		this.setStateSafely({
+		this.setState({
 			score: assessedQuestionSet.getScore(),
 			correct: assessedQuestionSet.getCorrect() || null,
 			incorrect: assessedQuestionSet.getIncorrect() || null,
@@ -120,7 +119,7 @@ export default React.createClass( {
 	maybeNetworkError (reason) {
 
 		if (!reason || reason.statusCode === 0 || reason.statusCode >= 500) {
-			this.setStateSafely({networkError: true});
+			this.setState({networkError: true});
 			return;
 		}
 
@@ -130,7 +129,7 @@ export default React.createClass( {
 
 	setNotTaken () {
 		//mark as not started
-		this.setStateSafely({
+		this.setState({
 			assignmentHistory: null,
 			latestAttempt: null,
 			completed: false
@@ -141,14 +140,14 @@ export default React.createClass( {
 	setQuizHref () {
 		let ntiid = this.props.item['Target-NTIID'];
 		let link = path.join('c', encodeForURI(ntiid)) + '/';
-		this.setStateSafely({href: this.makeHref(link, true)});
+		this.setState({href: this.makeHref(link, true)});
 	},
 
 
 	render () {
 		let state = this.state;
 		let item = this.props.item;
-		let questionCount = item["question-count"];
+		let questionCount = item['question-count'];
 		let label = item.label;
 
 		//let latestAttempt = state.latestAttempt;

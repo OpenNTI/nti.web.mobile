@@ -14,7 +14,6 @@ import removeClass from 'nti.lib.dom/lib/removeclass';
 import LoadingMask from 'common/components/Loading';
 
 import ContextSender from 'common/mixins/ContextSender';
-import SetStateSafely from 'common/mixins/SetStateSafely';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {Component as Video} from 'video';
@@ -24,7 +23,7 @@ import Transcript from './Transcript';
 
 export default React.createClass({
 	displayName: 'TranscriptedVideo',
-	mixins: [ContextSender, NavigatableMixin, SetStateSafely],
+	mixins: [ContextSender, NavigatableMixin],
 
 	propTypes: {
 		videoId: React.PropTypes.string,
@@ -60,7 +59,7 @@ export default React.createClass({
 	},
 
 	onError (error) {
-		this.setStateSafely({
+		this.setState({
 			loading: false,
 			error: error,
 			data: null
@@ -78,7 +77,7 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		this.setStateSafely(this.getInitialState());
+		this.setState(this.getInitialState());
 
 		try {
 
@@ -92,7 +91,7 @@ export default React.createClass({
 			}
 
 			this.resolveContext()
-				.then(context => this.setStateSafely({ context }));
+				.then(context => this.setState({ context }));
 
 			this.setPageSource(pageSource, video.getID());
 
@@ -116,7 +115,7 @@ export default React.createClass({
 						delete global.VTTCue;
 					}
 
-					this.setStateSafely({
+					this.setState({
 						loading: false,
 						cues,
 						regions,
@@ -127,7 +126,7 @@ export default React.createClass({
 				.catch(reason=> {
 					if (reason === video.NO_TRANSCRIPT ||
 						reason === video.NO_TRANSCRIPT_LANG) {
-						this.setStateSafely({
+						this.setState({
 							loading: false, cues: null, regions: null });
 						return;
 					}

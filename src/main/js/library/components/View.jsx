@@ -18,7 +18,6 @@ import Collection from './Collection';
 
 import SectionMixin from '../mixins/SectionAware';
 import BasePath from 'common/mixins/BasePath';
-import SetStateSafely from 'common/mixins/SetStateSafely';
 
 let getTitle = scoped('LIBRARY.SECTIONS');
 
@@ -77,7 +76,7 @@ let Section = React.createClass({
 
 export default React.createClass({
 	displayName: 'Library:View',
-	mixins: [BasePath, SetStateSafely, SectionMixin],
+	mixins: [BasePath, SectionMixin],
 
 	getInitialState () {
 		let env = getEnvironment('library');
@@ -108,7 +107,7 @@ export default React.createClass({
 			env.setPath('/${name}');
 		}
 
-		this.setStateSafely({
+		this.setState({
 			pickingDefault: false,
 			defaultSection: name
 		});

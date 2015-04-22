@@ -8,14 +8,11 @@ import Loading from 'common/components/Loading';
 import isEmpty from 'nti.lib.interfaces/utils/isempty';
 import CourseLinker from 'library/components/CourseContentLinkMixin';
 
-import SetStateSafely from 'common/mixins/SetStateSafely';
-
 export default React.createClass({
 	displayName: 'CourseOutlineView',
 	mixins: [
 		ContextSender,
 		// NavigationAware,
-		SetStateSafely,
 		CourseLinker
 	],
 
@@ -67,13 +64,13 @@ export default React.createClass({
 		let {item} = this.props;
 		let presentation = item ? item.getPresentationProperties() : {};
 		let {icon, background, title, label} = presentation;
-		this.setStateSafely({ icon, background, title, label });
+		this.setState({ icon, background, title, label });
 	},
 
 
 	fillIn (props) {
 		this.itemChanged();
-		this.setStateSafely({loading: true});
+		this.setState({loading: true});
 		let {item} = props;
 		let resolvingOutline = item ? item.getOutline() : Promise.reject();
 
@@ -91,7 +88,7 @@ export default React.createClass({
 				depthMap.splice(1, 0, 'h3');
 			}
 
-			this.setStateSafely({
+			this.setState({
 				depthMap,
 				loading: false,
 				outline,
@@ -99,7 +96,7 @@ export default React.createClass({
 			});
 		}, error => {
 			console.error(error);
-			this.setStateSafely({
+			this.setState({
 				depthMap,
 				loading: false,
 				outline: {},

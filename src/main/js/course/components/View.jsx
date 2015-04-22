@@ -13,7 +13,6 @@ import ErrorWidget from 'common/components/Error';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';
 import StoreEventAware from 'common/mixins/StoreEvents';
-import SetStateSafely from 'common/mixins/SetStateSafely';
 
 import Page from './Page';
 
@@ -40,7 +39,7 @@ const ROUTES = [
 
 export default React.createClass({
 	displayName: 'CourseView',
-	mixins: [BasePathAware, ContextContributor, StoreEventAware, SetStateSafely],
+	mixins: [BasePathAware, ContextContributor, StoreEventAware],
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
@@ -57,7 +56,7 @@ export default React.createClass({
 
 
 	synchronizeFromStore () {
-		this.setStateSafely({loading: false, course: Store.getData()});
+		this.setState({loading: false, course: Store.getData()});
 	},
 
 
@@ -76,7 +75,7 @@ export default React.createClass({
 
 	getDataIfNeeded (props) {
 		let courseId = decodeFromURI(props.course);
-		this.setStateSafely({loading: true});
+		this.setState({loading: true});
 
 		setCourse(courseId);
 	},
