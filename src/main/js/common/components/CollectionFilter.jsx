@@ -14,7 +14,7 @@ let FilterBar = React.createClass({
 	propTypes: {
 		filters: React.PropTypes.array,
 		filter: React.PropTypes.object,
-		list: React.PropTypes.array,
+		list: React.PropTypes.object,
 		title: React.PropTypes.string
 	},
 
@@ -72,8 +72,8 @@ let FilterableView = React.createClass({
 
 	propTypes: {
 		filtername: React.PropTypes.string,
-		filters: React.PropTypes.object,
-		list: React.PropTypes.array,
+		filters: React.PropTypes.array,
+		list: React.PropTypes.object,
 		listcomp: React.PropTypes.node
 	},
 
@@ -168,11 +168,12 @@ let DefaultPath = React.createClass({
 			let df = (typeof dfp === 'string') ? this.findFilter(dfp) : dfp;
 			return (df||{}).path;
 		}
-		let filters = this.props.filters||[];
+
+		let {filters = [], list} = this.props;
 		let result = filters.length > 0 ? filters[0].path : null;
 
 		filters.some(filter => {
-			if (this.props.list.filter(filter.filter).length > 0) {
+			if (list.filter(filter.filter).length > 0) {
 				result = filter.path || filter.name.toLowerCase();
 				return true;
 			}
@@ -184,7 +185,7 @@ let DefaultPath = React.createClass({
 
 
 	isDefaulted () {
-		let filters = this.props.filters||[];
+		let {filters = []} = this.props;
 		let p = this.getPath() || '';
 
 		let inSet = ()=> filters.reduce((x, f)=> x || (f.path === p), null);
