@@ -22,7 +22,6 @@ import LoginStore from '../../Store';
 import RenderFormConfigMixin from 'common/forms/mixins/RenderFormConfigMixin';
 import {RENDERED_FORM_EVENT_HANDLERS as Events} from 'common/forms/Constants';
 
-console.debug(RenderFormConfigMixin);
 
 const fullname = 'SignupForm:fullname';
 const requiredFieldsFilled = 'SignupForm:requiredFieldsFilled';
@@ -202,4 +201,3 @@ export default React.createClass({
 	}
 
 });
-
