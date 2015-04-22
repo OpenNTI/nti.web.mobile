@@ -122,17 +122,15 @@ $indent: 0.9375rem;
 		padding-right: 0;
 
 		.threadlink {
-			text-align: right;
-			position: absolute;
 			display: block;
-			min-height: 1rem;
-			padding: 1.5rem;
-			top: 0;
-			right: 0;
-			left: 0;
-			border-top: 1px dotted lightgray;
+			min-height: 1rem;			
 			font-size: .75rem;
-			color: $tertiary-gray;
+			color: #b8b8b8;
+			white-space: nowrap;
+			float: right;
+			padding-right: 1.5rem;
+			position: relative;
+			line-height: 1.8rem;
 		}
 
 		.replies {
@@ -146,6 +144,7 @@ $indent: 0.9375rem;
 			}
 			.wrap {
 				color: $tertiary-grey;
+				margin-left: 0;
 			}
 			// padding: .25rem;
 		}
