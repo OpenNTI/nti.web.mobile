@@ -90,7 +90,7 @@ export default React.createClass({
 
 	[shouldAllowUpdates]: function() {
 		let ref = this.refs.subscribeToUpdates;
-		let el = ref && ref.isMounted() && ref.getDOMNode();
+		let el = ref && ref.isMounted() && React.findDOMNode(ref);
 
 		return el && el.checked;
 	},
