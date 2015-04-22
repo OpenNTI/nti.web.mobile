@@ -1,24 +1,36 @@
+import React from 'react';
+import Store from '../Store';
+import Actions from '../Actions';
+import PanelButton from 'common/components/PanelButton';
+import ErrorWidget from 'common/components/Error';
+import Loading from 'common/components/Loading';
+import Localized from 'common/components/LocalizedHTML';
+import BillingInfo from './BillingInfo';
+import GiftInfo from './GiftInfo';
+import Pricing from './Pricing';
 
+import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
-var React = require('react');
-var Store = require('../Store');
-var Actions = require('../Actions');
-var PanelButton = require('common/components/PanelButton');
-var ErrorWidget = require('common/components/Error');
-var Loading = require('common/components/Loading');
-var Localized = require('common/components/LocalizedHTML');
-var BillingInfo = require('./BillingInfo');
-var GiftInfo = require('./GiftInfo');
-var Pricing = require('./Pricing');
+import {scoped} from 'common/locale';
+let t = scoped('ENROLLMENT.CONFIRMATION');
 
-var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
+const getCouponPricing = 'PaymentConfirm:getCouponPricing';
+const getStripeToken = 'PaymentConfirm:getStripeToken';
+const getPricing = 'PaymentConfirm:getPricing';
+const getGiftInfo = 'PaymentConfirm:getGiftInfo';
+const shouldAllowUpdates = 'PaymentConfirm:shouldAllowUpdates';
+const getPrice = 'PaymentConfirm:getPrice';
+const submitPayment = 'PaymentConfirm:submitPayment';
 
-var _t = require('common/locale').scoped('ENROLLMENT.CONFIRMATION');
+export default React.createClass({
 
-
-var PaymentConfirm = React.createClass({
+	displayName: 'store-enrollment:PaymentConfirm',
 
 	mixins: [FormattedPriceMixin],
+
+	propTypes: {
+		purchasable: React.PropTypes.object
+	},
 
 	componentWillMount: function() {
 		try {
@@ -53,47 +65,47 @@ var PaymentConfirm = React.createClass({
 		};
 	},
 
-	_getStripeToken: function() {
+	[getStripeToken]: function() {
 		return this.state.stripeToken;
 	},
 
-	_getCouponPricing: function() {
+	[getCouponPricing]: function() {
 		return Store.getCouponPricing();
 	},
 
-	_getPricing: function() {
+	[getPricing]: function() {
 		return this.state.pricing;
 	},
 
-	_getGiftInfo: function() {
+	[getGiftInfo]: function() {
 		return this.state.giftInfo;
 	},
 
-	_getPrice: function() {
-		var pricing = this._getCouponPricing();
-		var price = pricing ? pricing.PurchasePrice : this.props.purchasable.Amount;
+	[getPrice]: function() {
+		let pricing = this[getCouponPricing]();
+		let price = pricing ? pricing.PurchasePrice : this.props.purchasable.Amount;
 
 		return this.getFormattedPrice(this.props.purchasable.Currency, price);
 	},
 
-	_shouldAllowUpdates: function() {
-		var ref = this.refs.subscribeToUpdates;
-		var el = ref && ref.isMounted() && ref.getDOMNode();
+	[shouldAllowUpdates]: function() {
+		let ref = this.refs.subscribeToUpdates;
+		let el = ref && ref.isMounted() && ref.getDOMNode();
 
 		return el && el.checked;
 	},
 
-	_submitPayment: function(event) {
+	[submitPayment]: function(event) {
 		event.preventDefault();
 		this.setState({
 			busy: true
 		});
-		var payload = {
-			stripeToken: this._getStripeToken(),
+		let payload = {
+			stripeToken: this[getStripeToken](),
 			purchasable: this.props.purchasable,
-			pricing: this._getPricing(),
-			giftInfo: this._getGiftInfo(),
-			allowVendorUpdates: this._shouldAllowUpdates()
+			pricing: this[getPricing](),
+			giftInfo: this[getGiftInfo](),
+			allowVendorUpdates: this[shouldAllowUpdates]()
 		};
 		Actions.submitPayment(payload);
 	},
@@ -108,20 +120,20 @@ var PaymentConfirm = React.createClass({
 			return <Loading />;
 		}
 
-		var purchasable = this.props.purchasable;
+		let purchasable = this.props.purchasable;
 
-		var price = this._getPrice();
-		var edit = this.state.giftInfo && 'gift/';
-		var allowVendorUpdates = purchasable.VendorInfo.AllowVendorUpdates;
-		var isGift = this.state.giftInfo !== null;
+		let price = this[getPrice]();
+		let edit = this.state.giftInfo && 'gift/';
+		let allowVendorUpdates = purchasable.VendorInfo.AllowVendorUpdates;
+		let isGift = this.state.giftInfo !== null;
 
 		return (
 			<div className="payment-confirm">
 				<Pricing purchasable={purchasable} locked={true} />
-				<PanelButton className="medium-8 medium-centered columns" buttonClick={this._submitPayment} linkText="Submit Payment">
-					<h3>{_t("header")}</h3>
-					<p>{_t("review")}</p>
-					<p>{_t("salesFinal")}</p>
+				<PanelButton className="medium-8 medium-centered columns" buttonClick={this[submitPayment]} linkText="Submit Payment">
+					<h3>{t('header')}</h3>
+					<p>{t('review')}</p>
+					<p>{t('salesFinal')}</p>
 					<GiftInfo info={this.state.giftInfo} edit={edit} />
 					<BillingInfo card={this.state.stripeToken.card} edit={edit} />
 					<p>Clicking submit will charge your card {price}{isGift ? '' : ' and enroll you in the course'}.</p>
@@ -142,5 +154,3 @@ var PaymentConfirm = React.createClass({
 	}
 
 });
-
-module.exports = PaymentConfirm;
