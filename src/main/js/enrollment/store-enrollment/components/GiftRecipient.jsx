@@ -44,7 +44,7 @@ module.exports = React.createClass({
 
 	getData: function() {
 		let result = {},
-			elements = toArray(this.refs.form.getDOMNode().elements) || [];
+			elements = toArray(React.findDOMNode(this.refs.form).elements) || [];
 
 		if (!this.state.enabled) {
 			return result;
@@ -81,7 +81,7 @@ module.exports = React.createClass({
 	isEmpty: function() {
 		var email = this.refs.email;
 
-		email = email && email.isMounted() && email.getDOMNode();
+		email = email && email.isMounted() && React.findDOMNode(email);
 		email = email && email.value;
 		email = email || '';
 
@@ -92,7 +92,7 @@ module.exports = React.createClass({
 	isValid: function() {
 		var email = this.refs.email;
 
-		email = email && email.isMounted() && email.getDOMNode();
+		email = email && email.isMounted() && React.findDOMNode(email);
 		email = email && email.value;
 		email = email || '';
 

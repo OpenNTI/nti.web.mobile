@@ -130,7 +130,7 @@ export default React.createClass({
 		let video = this.refs.video;
 		this.ensureListeningToEvents(video);
 		if (prevProps.source !== this.props.source) {
-			video = video && video.getDOMNode();
+			video = video && React.findDOMNode(video);
 			this.setState(this.getInitialState());
 			if (video) {
 				video.load();
@@ -140,7 +140,7 @@ export default React.createClass({
 
 
 	componentWillUnmount () {
-		let video = this.getDOMNode();
+		let video = React.findDOMNode(this);
 		if (video) {
 			Object.keys(EventHandlers).forEach(eventname =>
 				video.removeEventListener(eventname, this.props[EventHandlers[eventname]], false)
@@ -152,7 +152,7 @@ export default React.createClass({
 	ensureListeningToEvents (video) {
 		let {props} = this;
 		if (video && !this.state.listening) {
-			video = video.getDOMNode();
+			video = React.findDOMNode(video);
 			video.addEventListener('error', this.onError, false);
 
 			if (this.props.autoPlay) {
@@ -248,7 +248,7 @@ export default React.createClass({
 		let {video} = this.refs;
 		this.setState({interacted: true});
 		if (video && this.isMounted()) {
-			video = video.getDOMNode();
+			video = React.findDOMNode(video);
 			if(video.play){
 				video.play();
 			}
@@ -259,7 +259,7 @@ export default React.createClass({
 	pause () {
 		let video = this.refs;
 		if (video && this.isMounted()) {
-			video = video.getDOMNode();
+			video = React.findDOMNode(video);
 			if(video.pause){ video.pause(); }
 		}
 	},
@@ -268,7 +268,7 @@ export default React.createClass({
 	stop () {
 		let {video} = this.refs;
 		if (video && this.isMounted()) {
-			video = video.getDOMNode();
+			video = React.findDOMNode(video);
 			if(video.stop){ video.stop(); }
 		}
 	},
@@ -277,7 +277,7 @@ export default React.createClass({
 	setCurrentTime (time) {
 		let {video} = this.refs;
 		if (video && this.isMounted()) {
-			video.getDOMNode().currentTime = time;
+			React.findDOMNode(video).currentTime = time;
 		}
 	}
 });

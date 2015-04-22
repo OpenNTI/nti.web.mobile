@@ -191,7 +191,7 @@ export default React.createClass({
 				Object.assign(result, v.getData());
 
 			} else if (this.outputFormatters[i]) {
-				Object.assign(result, this.outputFormatters[i](v.getDOMNode()));
+				Object.assign(result, this.outputFormatters[i](React.findDOMNode(v)));
 			}
 
 		}

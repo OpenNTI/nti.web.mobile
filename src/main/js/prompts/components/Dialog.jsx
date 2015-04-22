@@ -113,7 +113,7 @@ let Dialog = React.createClass({
 		if (this.isMounted()) {
 			focusNode = this.refs.confirm || this.refs.cancel || this;
 
-			focusNode.getDOMNode().focus();
+			React.findDOMNode(focusNode).focus();
 		}
 	},
 

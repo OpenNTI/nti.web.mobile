@@ -27,12 +27,12 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		this.refs.title.getDOMNode().focus();
+		React.findDOMNode(this.refs.title).focus();
 	},
 
 	getValue () {
 		return {
-			title: this.refs.title.getDOMNode().value,
+			title: React.findDOMNode(this.refs.title).value,
 			body: this.refs.editor.getValue()
 		};
 	},

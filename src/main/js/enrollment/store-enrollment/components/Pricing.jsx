@@ -135,7 +135,7 @@ module.exports = React.createClass({
 		}
 
 		let couponRef = this.refs.coupon,
-			couponEl = couponRef && couponRef.isMounted() && couponRef.getDOMNode(),
+			couponEl = couponRef && couponRef.isMounted() && React.findDOMNode(couponRef),
 			coupon = couponEl && couponEl.value;
 
 		this.setState({

@@ -87,7 +87,7 @@ export default React.createClass({
 
 	getValue () {
 		let ref = this.refs.form;
-		let form = ref && ref.getDOMNode();
+		let form = ref && React.findDOMNode(ref);
 		let inputs = form && toArray(form.elements);
 		let values = form && inputs
 							.map(valueIfChecked)

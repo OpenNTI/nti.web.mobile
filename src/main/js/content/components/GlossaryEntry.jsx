@@ -11,7 +11,7 @@ export default React.createClass({
 		let entryEl = document.getElementById(this.props.entryid);
 		console.debug('didmount, %O', entryEl);
 		if (entryEl) {
-			this.refs.content.getDOMNode().innerHTML = entryEl.innerHTML;
+			React.findDOMNode(this.refs.content).innerHTML = entryEl.innerHTML;
 		}
 	},
 

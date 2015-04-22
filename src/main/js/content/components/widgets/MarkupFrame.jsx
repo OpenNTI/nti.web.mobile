@@ -26,7 +26,7 @@ export default React.createClass({
 	componentWillUnmount () {},
 
 	[zoom]() {
-		let img = this.refs.image.getDOMNode();
+		let img = React.findDOMNode(this.refs.image);
 		if(img && img.src) {
 			window.open(img.src, 'zoomy');
 		}

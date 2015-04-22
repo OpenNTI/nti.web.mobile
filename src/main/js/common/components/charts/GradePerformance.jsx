@@ -44,7 +44,7 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		let canvas = this.getDOMNode();
+		let canvas = React.findDOMNode(this);
 		let context = canvas.getContext('2d');
 
 		canvas.width = this.props.width * this.props.pixelDensity;

@@ -57,7 +57,7 @@ export default React.createClass({
 
 	componentDidUpdate (prevProps, prevState) {
 		if (this.state.helpVisible !== prevState.helpVisible && this.isMounted()) {
-			let node = this.refs.container.getDOMNode();
+			let node = React.findDOMNode(this.refs.container);
 			if (node.getBoundingClientRect().top < 0) {
 				node.scrollIntoView();
 			}

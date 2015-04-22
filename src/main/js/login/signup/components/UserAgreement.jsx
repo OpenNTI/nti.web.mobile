@@ -34,7 +34,7 @@ var UserAgreement = React.createClass({
 			content: result.body,
 			loading: false
 		});
-		// preventOverscroll(this.getDOMNode().querySelector('.agreement'));
+		// preventOverscroll(React.findDOMNode(this).querySelector('.agreement'));
 	},
 
 

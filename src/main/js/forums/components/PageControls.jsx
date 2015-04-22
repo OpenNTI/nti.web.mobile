@@ -21,7 +21,7 @@ export default React.createClass({
 	},
 
 	[goToPage]() {
-		let page = this.refs.pageselect.getDOMNode().value;
+		let page = React.findDOMNode(this.refs.pageselect).value;
 		this.navigate('/?p=' + page);
 	},
 

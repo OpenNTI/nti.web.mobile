@@ -32,7 +32,7 @@ export default React.createClass({
 
 	getValue: function () {
 		let ref = this.refs.input;
-		let input = ref && ref.getDOMNode();
+		let input = ref && React.findDOMNode(ref);
 		let value = (input && input.value) || '';
 
 		return isEmpty(value) ? null :

@@ -42,12 +42,12 @@ export default {
 
 	componentDidMount () {
 		clearTimeout(this.tt);
-		this.tt = truncateText(this.getDOMNode(), this.props.measureOverflow);
+		this.tt = truncateText(React.findDOMNode(this), this.props.measureOverflow);
 	},
 
 
 	componentDidUpdate () {
 		clearTimeout(this.tt);
-		this.tt = truncateText(this.getDOMNode(), this.props.measureOverflow);
+		this.tt = truncateText(React.findDOMNode(this), this.props.measureOverflow);
 	}
 };

@@ -34,7 +34,7 @@ export default React.createClass({
 		if (!this.isMounted()) {
 			return;
 		}
-		console.log('Failed to load avatar: %s', this.getDOMNode().src);
+		console.log('Failed to load avatar: %s', React.findDOMNode(this).src);
 		this.setState({ avatar: BLANK_AVATAR });
 	},
 

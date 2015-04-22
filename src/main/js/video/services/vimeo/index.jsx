@@ -93,7 +93,7 @@ let Source = React.createClass({
 
 
 	getPlayerContext () {
-		let iframe = this.getDOMNode();
+		let iframe = React.findDOMNode(this);
 		return iframe && (iframe.contentWindow || window.frames[iframe.name]);
 	},
 

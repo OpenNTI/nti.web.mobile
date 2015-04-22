@@ -63,7 +63,7 @@ export default React.createClass({
 		let {form} = this.refs;
 		if (!form || !this.isMounted()) { return; }
 
-		form = form.getDOMNode();
+		form = React.findDOMNode(form);
 
 		let values = null;
 

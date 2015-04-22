@@ -68,7 +68,7 @@ export default React.createClass( {
 
 
 	componentDidMount () {
-		let canvas = this.getDOMNode();
+		let canvas = React.findDOMNode(this);
 		let context = canvas.getContext('2d');
 
 		context.imageSmoothingEnabled = true;
@@ -78,7 +78,7 @@ export default React.createClass( {
 
 
 	componentDidUpdate () {
-		let context = this.getDOMNode().getContext('2d');
+		let context = React.findDOMNode(this).getContext('2d');
 		this.paint(context);
 	},
 

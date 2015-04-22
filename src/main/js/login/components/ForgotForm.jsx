@@ -79,7 +79,7 @@ export default React.createClass({
 			fieldValues: tmp
 		});
 		this.setState({
-			submitEnabled: (this.refs.email.getDOMNode().value.trim().length > 0)
+			submitEnabled: (React.findDOMNode(this.refs.email).value.trim().length > 0)
 		});
 	},
 

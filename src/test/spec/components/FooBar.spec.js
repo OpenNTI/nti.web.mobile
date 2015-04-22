@@ -22,7 +22,7 @@ describe('FooBar', ()=> {
 
 	it('should create a new instance of Button', ()=> {
 		expect(component).toBeDefined();
-		expect(component.getDOMNode().textContent).toBe('Test');
+		expect(React.findDOMNode(component).textContent).toBe('Test');
 	});
 
 

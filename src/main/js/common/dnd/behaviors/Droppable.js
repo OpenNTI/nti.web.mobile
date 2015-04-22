@@ -106,7 +106,7 @@ export default {
 		let {x, y} = dragData;
 		if (!this.isMounted() || !this.context.currentDragItem) { return; }
 
-		if (isPointWithIn(this.getDOMNode(), x, y)) {
+		if (isPointWithIn(React.findDOMNode(this), x, y)) {
 			if (!this.state.over) {
 				this[onDragEnteredDropTarget]();
 			}

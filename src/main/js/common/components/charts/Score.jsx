@@ -36,7 +36,7 @@ export default React.createClass({
 
 
 	getCanvas () {
-		return this.getDOMNode();
+		return React.findDOMNode(this);
 	},
 
 

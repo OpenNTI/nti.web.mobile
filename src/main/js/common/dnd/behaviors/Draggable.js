@@ -1,6 +1,6 @@
 //heavily inspired by: https://github.com/mzabriskie/react-draggable
 
-import {PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import Base, {TYPE_SHAPE} from './Base';
 
 import isTouchDevice from 'nti.lib.interfaces/utils/is-touch-device';
@@ -180,7 +180,7 @@ export default {
 
 
 	componentDidMount () {
-		this.scrollParent = getScrollParent(this.getDOMNode());
+		this.scrollParent = getScrollParent(React.findDOMNode(this));
 	},
 
 
@@ -208,7 +208,7 @@ export default {
 
 
 	handleDragStart (e) {
-		let node = this.getDOMNode();
+		let node = React.findDOMNode(this);
 		let dragPoint = getDragPoint(e);
 		let onDragStart = this.context.onDragStart || emptyFunction;
 		let {handle, cancel} = this.props;
