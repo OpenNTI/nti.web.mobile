@@ -97,7 +97,7 @@ class AnalyticsStore extends TypedEventEmitter {
 		this.emit(CHANGE_EVENT, {type: Constants.RESUME_SESSION});
 	}
 
-[FlushLocalStorage]() {
+	[FlushLocalStorage]() {
 		window.localStorage.removeItem(localStorageKey);
 	}
 
