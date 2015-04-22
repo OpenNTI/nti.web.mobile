@@ -6,7 +6,7 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import Router from 'react-router-component';
 let {Locations, Location, NotFound} = Router;
 
-import Constants from '../Constants';
+import * as Constants from '../Constants';
 import Store from '../Store';
 
 import Form from './PaymentForm';
