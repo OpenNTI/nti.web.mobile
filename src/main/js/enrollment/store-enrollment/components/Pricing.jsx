@@ -19,7 +19,7 @@ module.exports = React.createClass({
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired,
-		locked: React.PropTypes.boolean
+		locked: React.PropTypes.bool
 	},
 
 	getInitialState: function() {
