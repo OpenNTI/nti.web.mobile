@@ -32,6 +32,7 @@ export default React.createClass({
 		WhiteboardRenderer
 			.getThumbnail(scene)
 				.then(thumbnail=> {
+
 					let markup = React.renderToStaticMarkup(
 						React.createElement(WhiteboardIcon, {
 							thumbnail,
@@ -48,6 +49,12 @@ export default React.createClass({
 							setTimeout(()=> node.scrollIntoView(), 500);
 						}
 					}
+
+				})
+				.catch(e=>{
+					e = JSON.stringify(e);
+					console.error(e);
+					alert(e);//eslint-disable-line
 				});
 	},
 
