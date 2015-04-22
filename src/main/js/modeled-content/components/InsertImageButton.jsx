@@ -47,6 +47,8 @@ export default React.createClass({
 
 						if (last) {
 							setTimeout(()=> node.scrollIntoView(), 500);
+						} else {
+							node.scrollIntoView();
 						}
 					}
 
