@@ -68,6 +68,8 @@ function fetchLink(linkRel) {
 	return promise;
 }
 
+let store = new Store();
+
 Store.appDispatch = AppDispatcher.register(data => {
 	let {action} = data;
 
@@ -82,9 +84,9 @@ Store.appDispatch = AppDispatcher.register(data => {
 			let {payload} = action;
 			fetchLink(payload.link).then(
 				response =>
-					Store.emitChange({ type: Constants.URL_RETRIEVED, action, response }),
+					store.emitChange({ type: Constants.URL_RETRIEVED, action, response }),
 				reason => {
-					Store.emitError({
+					store.emitError({
 						url: payload.url,
 						reason: reason
 					});
@@ -99,4 +101,4 @@ Store.appDispatch = AppDispatcher.register(data => {
 });
 
 
-export default new Store();
+export default store;
