@@ -1,10 +1,10 @@
-import Constants from './Constants';
+import {FETCH_LINK} from './Constants';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
 export default {
 	loadSelectOptionsFromUserLinkRel (rel) {
 		dispatch(
-			Constants.FETCH_LINK,
+			FETCH_LINK,
 			{
 				type: 'rel',
 				link: rel

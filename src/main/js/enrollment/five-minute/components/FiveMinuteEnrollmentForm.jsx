@@ -4,7 +4,7 @@ import update from 'react/lib/update';
 import ButtonFullWidth from 'common/forms/components/ButtonFullWidth';
 import FieldRender from 'common/forms/mixins/RenderFormConfigMixin';
 import FieldValuesStore from 'common/forms/FieldValuesStore';
-import FormConstants from 'common/forms/Constants';
+import * as FormConstants from 'common/forms/Constants';
 import FormErrors from 'common/forms/components/FormErrors';
 import RelatedFormPanel from 'common/forms/components/RelatedFormPanel';
 
