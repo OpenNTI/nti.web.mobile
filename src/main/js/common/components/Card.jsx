@@ -25,16 +25,22 @@ import path from 'path';
 import React from 'react';
 import emptyFunction from 'react/lib/emptyFunction';
 
+import {toAnalyticsPath} from 'analytics/utils';
+
+import ContextAccessor from '../mixins/ContextAccessor';
 import NavigatableMixin from '../mixins/NavigatableMixin';
 
-import {BLANK_IMAGE} from 'common/constants/DataURIs';
+import {BLANK_IMAGE} from '../constants/DataURIs';
 
+import ExternalResourceEvent from 'nti.lib.interfaces/models/analytics/ExternalResourceEvent';
 import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+
+import AnalyticsActions from 'analytics/Actions';
 
 const Progress = Symbol.for('Progress');
 
 export default React.createClass({
-	mixins: [NavigatableMixin],
+	mixins: [ContextAccessor, NavigatableMixin],
 	displayName: 'RelatedWorkRef',
 
 	propTypes: {
@@ -76,7 +82,13 @@ export default React.createClass({
 		 * The functoin must take one argument, and return a string.
 		 * @type {Function}
 		 */
-		resolveUrlHook: React.PropTypes.func
+		resolveUrlHook: React.PropTypes.func,
+
+
+		onClick: React.PropTypes.func,
+
+
+		icon: React.PropTypes.string
 	},
 
 
@@ -102,8 +114,12 @@ export default React.createClass({
 
 
 	componentWillReceiveProps (props) {
-		if (this.props.icon !== props.icon) {
+		let {icon, item} = this.props;
+		if (icon !== props.icon) {
 			this.resolveIcon(props);
+		}
+
+		if(item !== props.item) {
 			this.resolveHref(props);
 		}
 	},
@@ -138,12 +154,7 @@ export default React.createClass({
 			return;
 		}
 		props.contentPackage.resolveContentURL(props.item.icon)
-			.then(function(u) {
-				this.setState({
-					iconResolved: true,
-					icon: u
-				});
-			}.bind(this));
+			.then(icon =>this.setState({iconResolved: true, icon}));
 	},
 
 
@@ -158,6 +169,29 @@ export default React.createClass({
 	isSeen () {
 		let progress = this.props.item[Progress];
 		return progress && progress.hasProgress();
+	},
+
+
+	onClick (e) {
+		let {contentPackage, item, onClick} = this.props;
+		let resourceId = item.NTIID;
+		let contentId = contentPackage.getID();//this can be a CourseInstance, ContentBundle, or ContentPackage
+
+		if (onClick) {
+			onClick(e);
+		}
+
+		if (this.isExternal()) {
+			this.resolveContext().then(context => {
+				let viewEvent = new ExternalResourceEvent(
+					resourceId,
+					contentId,
+					toAnalyticsPath(context, resourceId)
+				);
+
+				AnalyticsActions.emitEventStarted(viewEvent);
+			});
+		}
 	},
 
 
@@ -178,7 +212,7 @@ export default React.createClass({
 		return (
 			<a className={`content-link related-work-ref ${extra}`}
 				href={state.href} target={external ? '_blank' : null}
-				onClick={this.props.onClick}>
+				onClick={this.onClick}>
 
 				{!icon ? null :
 					<div className="icon" style={{backgroundImage: `url(${icon})`}}>
