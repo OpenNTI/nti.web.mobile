@@ -1,42 +1,41 @@
-'use strict';
+import React from 'react';
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
-var React = require('react');
-var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
+import Router, {Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
+import CaptureClicks from 'react-router-component/lib/CaptureClicks';
 
-var Router = require('react-router-component');
-var Locations = Router.Locations;
-var Location = Router.Location;
-var DefaultRoute = Router.NotFound;
-var CaptureClicks = require('react-router-component/lib/CaptureClicks');
+import {getServer} from 'common/utils';
 
-var {getServer} = require('common/utils');
+import Loading from 'common/components/Loading';
+import ErrorComponent from 'common/components/Error';
 
-var Loading = require('common/components/Loading');
-var ErrorComponent = require('common/components/Error');
+import Constants from 'enrollment/store-enrollment/Constants';
+import Store from 'enrollment/store-enrollment/Store';
 
-var Constants = require('enrollment/store-enrollment/Constants');
-var Store = require('enrollment/store-enrollment/Store');
+import Form from 'enrollment/store-enrollment/components/GiftView';
 
-var Form = require('enrollment/store-enrollment/components/GiftView');
+import Confirm from 'enrollment/store-enrollment/components/PaymentConfirm';
+import Success from 'enrollment/store-enrollment/components/PaymentSuccess';
+import PaymentError from 'enrollment/store-enrollment/components/PaymentError';
 
-var Confirm = require('enrollment/store-enrollment/components/PaymentConfirm');
-var Success = require('enrollment/store-enrollment/components/PaymentSuccess');
-var PaymentError = require('enrollment/store-enrollment/components/PaymentError');
+export default React.createClass({
+	displayName: 'GiftingWidget',
 
-module.exports = React.createClass({
+	propTypes: {
+		purchasableId: React.PropTypes.string.isRequired
+	},
 
-
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: true,
 			purchasable: null
 		};
 	},
 
-	componentDidMount: function() {
-		Store.addChangeListener(this._onChange);
+	componentWillMount () {
+		Store.addChangeListener(this.onChange);
 
-		var purchasableId = this.props.purchasableId;
+		let purchasableId = this.props.purchasableId;
 		if (!purchasableId) {
 			this.setState({
 				loading: false,
@@ -66,12 +65,12 @@ module.exports = React.createClass({
 			});
 	},
 
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._onChange);
+	componentWillUnmount () {
+		Store.removeChangeListener(this.onChange);
 	},
 
-	_onChange: function(event) {
-		var router = this.refs.router;
+	onChange (event) {
+		let router = this.refs.router;
 
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
@@ -105,17 +104,17 @@ module.exports = React.createClass({
 	},
 
 
-	_onDone: function() {
+	onDone () {
 		window.top.location.href = 'https://historychannel.ou.edu';
 	},
 
 
-	onNavigation: function() {
+	onNavigation () {
 		parent.postMessage('{"event": "navigation"}', '*');
 	},
 
 
-	render: function() {
+	render () {
 		if(this.state.error) {
 			return <div className="column"><ErrorComponent error={this.state.error} /></div>;
 		}
@@ -124,15 +123,15 @@ module.exports = React.createClass({
 			return <Loading />;
 		}
 
-		var purchasable = this.state.purchasable;
-		var courseTitle = purchasable.Title;
+		let purchasable = this.state.purchasable;
+		let courseTitle = purchasable.Title;
 
 		return (
 			<CaptureClicks environment={Router.environment.hashEnvironment}>
 				<ReactCSSTransitionGroup transitionName="loginforms">
 					<Locations hash ref="router" onNavigation={this.onNavigation}>
 						<Location path="/confirm/*" handler={Confirm} purchasable={purchasable}/>
-						<Location path="/success/*" handler={Success} purchasable={purchasable} onDone={this._onDone} />
+						<Location path="/success/*" handler={Success} purchasable={purchasable} onDone={this.onDone} />
 						<Location path="/error/*" handler={PaymentError} courseTitle={courseTitle} />
 						<DefaultRoute handler={Form} purchasable={purchasable}/>
 					</Locations>

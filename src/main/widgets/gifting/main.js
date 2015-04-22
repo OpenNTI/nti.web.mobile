@@ -1,30 +1,28 @@
-'use strict';
+/*bootstrap junk begin*/
 require('babel/polyfill');
-require('babel/polyfill');
-
-var React = require('react');
-
-var QueryString = require('query-string');
-
-require('common/utils').overrideConfigAndForceCurrentHost();//ensures we talk back to our current host instead of anything else.
-
-require('../../resources/scss/app.scss');
 
 //Client code, injects script blocks into <HEAD> tag
 require('script!../../resources/vendor/modernizr/modernizr.js');
+require('../../resources/scss/app.scss');
+/*bootstrap junk end*/
 
-require('fastclick').attach(document.body);
+import React from 'react';
+import QueryString from 'query-string';
+import FastClick from 'fastclick';
+
+import {overrideConfigAndForceCurrentHost} from 'common/utils';
+
+import Widget from './widget';
+
+FastClick.attach(document.body);
+overrideConfigAndForceCurrentHost();//ensures we talk back to our current host instead of anything else.
 
 
+React.initializeTouchEvents(true);
+const props = QueryString.parse(global.location.search);
 
 
-//React.initializeTouchEvents(true);
-
-
-var props = QueryString.parse(global.location.search);
-
-
-var WidgetView = React.createFactory(require('./widget'));
+const WidgetView = React.createFactory(Widget);
 React.render(
 	WidgetView({
 		purchasableId: props.purchasableId,
