@@ -17,6 +17,8 @@ export function filterContextPath (context, resourceId) {
 	if (first || last) {
 		context = context.slice(first, last);
 	}
+
+	return context;
 }
 
 
