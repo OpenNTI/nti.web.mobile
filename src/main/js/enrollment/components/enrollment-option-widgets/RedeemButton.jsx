@@ -8,12 +8,11 @@ import BasePathAware from 'common/mixins/BasePath';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import {scoped} from 'common/locale';
-let t = scoped('ENROLLMENT.BUTTONS');
+
+const t = scoped('ENROLLMENT.BUTTONS');
 
 export default React.createClass({
-
 	displayName: 'RedeemButton',
-
 	mixins: [BasePathAware],
 
 	propTypes: {
@@ -22,12 +21,12 @@ export default React.createClass({
 		fullWidth: React.PropTypes.bool
 	},
 
-	urlForEntry: function() {
+	urlForEntry () {
 		let href = this.getBasePath() + 'catalog/item/' + encodeForURI(this.props.catalogId) + '/enrollment/store/gift/redeem/';
 		return href;
 	},
 
-	render: function() {
+	render () {
 
 		let href = this.props.href || this.urlForEntry();
 		let Button = this.props.fullWidth ? ButtonFullWidth : ButtonPlain;

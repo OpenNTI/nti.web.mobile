@@ -14,25 +14,25 @@ let enrollmentStatus = {};
 let Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'enrollment.Store',
 
-	emitChange: function(evt) {
+	emitChange (evt) {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
 	/**
 	 * @param {function} callback
 	 */
-	addChangeListener: function(callback) {
+	addChangeListener (callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
 	/**
 	 * @param {function} callback
 	 */
-	removeChangeListener: function(callback) {
+	removeChangeListener (callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	loadEnrollmentStatus: function(courseId) {
+	loadEnrollmentStatus (courseId) {
 		return getService().then(function(service) {
 			service.getEnrollment().isEnrolled(courseId).then(function(result) {
 				enrollmentStatus[courseId] = result;
@@ -47,7 +47,7 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 		}.bind(this));
 	},
 
-	isEnrolled: function(courseId) {
+	isEnrolled (courseId) {
 		if (enrollmentStatus.hasOwnProperty(courseId)) {
 			return enrollmentStatus[courseId];
 		}
@@ -65,12 +65,11 @@ AppDispatcher.register(function(payload) {
 	switch(action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 		case Constants.ENROLL_OPEN:
-			Api.enrollOpen(action.catalogId).then(function(result) {
+			Api.enrollOpen(action.catalogId).then(result =>
 				Store.emitChange({
 					action: action,
 					result: result
-				});
-			});
+				}));
 		break;
 		case Constants.DROP_COURSE:
 			Api.dropCourse(action.courseId)

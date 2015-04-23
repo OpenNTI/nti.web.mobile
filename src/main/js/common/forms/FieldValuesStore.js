@@ -1,85 +1,66 @@
-
-
-var EventEmitter = require('events').EventEmitter;
-var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
-// var isFunction = require('nti.lib.interfaces/utils/isfunction');
-var Constants = require('./Constants');
+import {EventEmitter} from 'events';
+import {CHANGE_EVENT} from 'common/constants/Events';
+// import isFunction from 'nti.lib.interfaces/utils/isfunction';
+import Constants from './Constants';
 
 // store field values outside of component state
 // so we can update without triggering a re-render.
-var FieldValuesStore = Object.assign({}, EventEmitter.prototype, {
+export default Object.assign({}, EventEmitter.prototype, {
 
-	_fieldValues: {},
-	_availableFields: new Set(),
+	fieldValues: {},
+	availableFields: new Set(),
 
-	addChangeListener: function(callback) {
+	addChangeListener (callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
-	removeChangeListener: function(callback) {
+	removeChangeListener (callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	emitChange: function(evt) {
+	emitChange (evt) {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
-	getValues: function() {
-		return Object.assign({}, this._fieldValues);
+	getValues () {
+		return Object.assign({}, this.fieldValues);
 	},
 
-	setValue: function(name, value) {
-		this._fieldValues[name] = value;
+	setValue (name, value) {
+		this.fieldValues[name] = value;
 	},
 
-	getValue: function(name) {
-		return this._fieldValues[name];
+	getValue (name) {
+		return this.fieldValues[name];
 	},
 
-	clearValue: function(name) {
-		delete this._fieldValues[name];
+	clearValue (name) {
+		delete this.fieldValues[name];
 	},
 
-	__setsAreEquivalent: function(set1, set2) {
-		if(set1 instanceof Set && set2 instanceof Set && set1.size === set2.size) {
-			var val, v = set1.values();
-			do {
-				val = v.next();
-				if (val.done) {
-					return true;
-				}
-				if (!set2.has(val.value)) {
-					return false;
-				}
-			} while(!val.done);
-		}
-		return false;
-	},
-
-	setAvailableFields: function(fieldNames) {
-		var oldFields = this._availableFields;
-		this._availableFields = new Set(fieldNames);
+	setAvailableFields (fieldNames) {
+		let oldFields = this.availableFields;
+		this.availableFields = new Set(fieldNames);
 		// only emit change if the fields actually changed.
 		// otherwise we trigger an infinite loop:
 		// fields change triggers a render which triggers a fields change
-		if (!this.__setsAreEquivalent(oldFields, this._availableFields)) {
+		if (!setsAreEquivalent(oldFields, this.availableFields)) {
 			this.pruneValues(fieldNames);
 			this.emitChange({
 				type: Constants.AVAILABLE_FIELDS_CHANGED,
-				fields: new Set(this._availableFields)
+				fields: new Set(this.availableFields)
 			});
 		}
 	},
 
-	updateFieldValue: function(event) {
-		var target = event.target;
-		var field = target.name;
-		var value = target.value;
+	updateFieldValue (event) {
+		let {target} = event.target;
+		let {field, value} = target;
 
 		if(target.type === 'checkbox' && !target.checked) {
-			delete this._fieldValues[field];
+			delete this.fieldValues[field];
 		}
-		else if (value || this._fieldValues.hasOwnProperty(field)) {
+		else if (value || this.fieldValues.hasOwnProperty(field)) {
 			// ^ don't set an empty value if there's not already
 			// an entry for this field in this.state.fieldValues
 			this.setValue(field, value);
@@ -99,15 +80,16 @@ var FieldValuesStore = Object.assign({}, EventEmitter.prototype, {
 	* Clear values whose names are not in keep
 	* @param keep {Set} The set of field names to keep.
 	*/
-	pruneValues: function(keep) {
-		var removed = [];
-		var fieldValues = this._fieldValues;
-		Object.keys(fieldValues).forEach(function(key) {
+	pruneValues (keep) {
+		let removed = [];
+		let {fieldValues} = this;
+		Object.keys(fieldValues).forEach(key => {
 			if (!keep.has(key)) {
 				delete fieldValues[key];
 				removed.push(key);
 			}
 		});
+
 		if(removed.length > 0) {
 			this.emitChange({
 				type: Constants.FIELD_VALUES_REMOVED,
@@ -118,4 +100,18 @@ var FieldValuesStore = Object.assign({}, EventEmitter.prototype, {
 
 });
 
-module.exports = FieldValuesStore;
+function setsAreEquivalent (set1, set2) {
+	if(set1 instanceof Set && set2 instanceof Set && set1.size === set2.size) {
+		let val, v = set1.values();
+		do {
+			val = v.next();
+			if (val.done) {
+				return true;
+			}
+			if (!set2.has(val.value)) {
+				return false;
+			}
+		} while(!val.done);
+	}
+	return false;
+}

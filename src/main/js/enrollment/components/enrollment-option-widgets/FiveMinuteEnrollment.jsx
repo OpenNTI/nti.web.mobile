@@ -1,21 +1,22 @@
+import React from 'react';
+import PanelButton from 'common/components/PanelButton';
+import {scoped} from 'common/locale';
 
+const t = scoped('ENROLLMENT');
 
-var React = require('react');
-var PanelButton = require('common/components/PanelButton');
-var t = require('common/locale').scoped('ENROLLMENT');
+import {isFlag} from 'common/utils';
 
-var {isFlag} = require('common/utils');
-
-var FiveMinuteEnrollment = React.createClass({
+export default React.createClass({
+	displayName: 'FiveMinuteEnrollment',
 
 	statics: {
 		re: /FiveMinuteEnrollment/i,//The server sends lower case M, but we're comparing case-insensitively.
-		handles: function (options) {
+		handles (options) {
 			return isFlag('fiveMinuteEnabled') && this.re.test(options && options.key);
 		}
 	},
 
-	render: function() {
+	render () {
 		return (
 			<PanelButton href="credit/" linkText={t('fiveMinuteEnrollmentButton')}>
 				<h2>{t('fiveMinuteEnrollmentTitle')}</h2>
@@ -25,5 +26,3 @@ var FiveMinuteEnrollment = React.createClass({
 	}
 
 });
-
-module.exports = FiveMinuteEnrollment;

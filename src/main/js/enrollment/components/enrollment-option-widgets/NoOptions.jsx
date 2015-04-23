@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import PanelButton from 'common/components/PanelButton';
 import t from 'common/locale';

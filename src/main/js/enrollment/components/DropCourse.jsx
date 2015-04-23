@@ -25,8 +25,12 @@ const t = scoped('ENROLLMENT.BUTTONS');
 
 export default React.createClass({
 	displayName: 'DropCourseDialog',
-
 	mixins: [NavigatableMixin, BasePathAware, ContextSender],
+
+	propTypes: {
+		courseId: React.PropTypes.string.isRequired,
+		entryId: React.PropTypes.string
+	},
 
 	getInitialState () {
 		return {
@@ -113,7 +117,7 @@ export default React.createClass({
 		}.bind(this));
 
 		if (result.length === 0) {
-			result = this._panel('Unable to drop this course. (Perhaps you\'ve already dropped it?)');
+			result = this.renderPanel('Unable to drop this course. (Perhaps you\'ve already dropped it?)');
 		}
 
 		return result;
@@ -127,7 +131,7 @@ export default React.createClass({
 		Store.removeChangeListener(this.onEnrollmentChanged);
 	},
 
-	_panel (body) {
+	renderPanel (body) {
 		let catalogHref = this.getBasePath() + 'catalog/';
 		return (
 			<div className="enrollment-dropped">
@@ -151,11 +155,11 @@ export default React.createClass({
 		let title = this.getCourseTitle();
 
 		if (dropped) {
-			return this._panel(title + ' dropped.');
+			return this.renderPanel(title + ' dropped.');
 		}
 
 		if(error) {
-			return this._panel('Unable to drop this course. Please contact support.');
+			return this.renderPanel('Unable to drop this course. Please contact support.');
 		}
 
 		return (

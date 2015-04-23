@@ -1,17 +1,16 @@
+import React from 'react';
 
+export default React.createClass({
+	displayName: 'UnrecogzniedEnrollmentType',
 
-var React = require('react');
-var requiredProps = require('./RequiredProps');
+	propTypes: {
+		catalogEntry: React.PropTypes.object.isRequired,
+		enrollmentOption: React.PropTypes.object.isRequired
+	},
 
-var UnrecogzniedEnrollmentType = React.createClass({
-
-	propTypes: requiredProps,
-
-	render: function() {
+	render () {
 		console.warn('Not rendering UnrecogzniedEnrollmentType: %s %O', this.props.enrollmentOption.key, this.props.enrollmentOption);
 		return null;
 	}
 
 });
-
-module.exports = UnrecogzniedEnrollmentType;

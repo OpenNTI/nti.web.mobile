@@ -1,27 +1,28 @@
+import React from 'react';
 
+import ErrorWidget from 'common/components/Error';
+import Loading from 'common/components/Loading';
+// import preventOverscroll from 'common/thirdparty/prevent-overscroll';
 
-var React = require('react');
-var Store = require('../Store');
-var ErrorWidget = require('common/components/Error');
-var Loading = require('common/components/Loading');
-// var preventOverscroll = require('common/thirdparty/prevent-overscroll');
+import Store from '../Store';
 
-var UserAgreement = React.createClass({
+export default React.createClass({
+	displayName: 'UserAgreement',
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: true,
 			url: null
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.getUserAgreement()
-			.then(this.setContent, this.__setError);
+			.then(this.setContent, this.setError);
 	},
 
 
-	__setError: function (reason) {
+	setError  (reason) {
 		this.setState({
 			error: reason,
 			loading: false
@@ -29,7 +30,7 @@ var UserAgreement = React.createClass({
 	},
 
 
-	setContent: function(result) {
+	setContent (result) {
 		this.setState({
 			content: result.body,
 			loading: false
@@ -38,7 +39,7 @@ var UserAgreement = React.createClass({
 	},
 
 
-	render: function() {
+	render () {
 
 		if (this.state.loading) {
 			return (<div className="agreement-wrapper"><Loading /></div>);
@@ -60,5 +61,3 @@ var UserAgreement = React.createClass({
 	}
 
 });
-
-module.exports = UserAgreement;

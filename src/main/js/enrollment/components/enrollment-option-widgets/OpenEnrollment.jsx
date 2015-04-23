@@ -1,30 +1,35 @@
+import React from 'react';
 
+import PanelButton from 'common/components/PanelButton';
+import {scoped} from 'common/locale';
 
-var React = require('react');
-var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
-var Actions = require('../../Actions');
-var requiredProps = require('./RequiredProps');
-var PanelButton = require('common/components/PanelButton');
+import {enrollOpen} from '../../Actions';
 
-var OpenEnrollmentWidget = React.createClass({
+const t = scoped('ENROLLMENT.BUTTONS');
 
-	propTypes: requiredProps,
+export default React.createClass({
+	displayName: 'OpenEnrollmentWidget',
+
+	propTypes: {
+		catalogEntry: React.PropTypes.object.isRequired,
+		enrollmentOption: React.PropTypes.object.isRequired
+	},
 
 	statics: {
 		re: /OpenEnrollment/i,
-		handles: function (options) {
+		handles (options) {
 			return this.re.test(options && options.key);
 		}
 	},
 
-	_enroll: function(event) {
+	enroll (event) {
 		event.preventDefault();
-		Actions.enrollOpen(this.props.catalogEntry.getID());
+		enrollOpen(this.props.catalogEntry.getID());
 	},
 
-	render: function() {
+	render () {
 		return (
-			<PanelButton onClick={this._enroll} linkText={t(this.props.enrollmentOption.key)}>
+			<PanelButton onClick={this.enroll} linkText={t(this.props.enrollmentOption.key)}>
 				<h2>Enroll for Free</h2>
 				<p>Get complete access to interact with all course content, including lectures, course materials, quizzes, and discussions once class is in session.</p>
 			</PanelButton>
@@ -32,5 +37,3 @@ var OpenEnrollmentWidget = React.createClass({
 	}
 
 });
-
-module.exports = OpenEnrollmentWidget;

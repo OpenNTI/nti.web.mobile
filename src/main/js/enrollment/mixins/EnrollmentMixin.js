@@ -7,7 +7,7 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import {LOAD_ENROLLMENT_STATUS, ENROLL_OPEN} from '../Constants';
 
-import EnrollmentWidgets from '../components/enrollment-option-widgets';
+import {getWidget} from '../components/enrollment-option-widgets';
 import NoOptions from '../components/enrollment-option-widgets/NoOptions';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
@@ -119,7 +119,7 @@ export default {
 		if (this.state.enrollmentStatusLoaded && !this.state.enrolled) {
 
 			let widgets = this.enrollmentOptions(catalogEntry).map((option, index) => {
-				let widget = EnrollmentWidgets.getWidget(option);
+				let widget = getWidget(option);
 				return widget ? React.createElement(widget, {
 					catalogEntry: catalogEntry,
 					enrollmentOption: option,

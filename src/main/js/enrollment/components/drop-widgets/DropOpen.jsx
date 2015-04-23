@@ -1,31 +1,36 @@
+import React from 'react';
 
+import Notice from 'common/components/Notice';
+import Button from 'common/forms/components/Button';
+import Loading from 'common/components/Loading';
 
-var React = require('react');
-var Actions = require('../../Actions');
-var Notice = require('common/components/Notice');
-var Button = require('common/forms/components/Button');
-var Loading = require('common/components/Loading');
+import {dropCourse} from '../../Actions';
 
-var DropOpen = React.createClass({
+export default React.createClass({
+	displayName: 'DropOpen',
 
-	getInitialState: function() {
+	propTypes: {
+		courseId: React.PropTypes.string.isRequired,
+		courseTitle: React.PropTypes.string.isRequired
+	},
+
+	getInitialState () {
 		return {
 			loading: false
 		};
 	},
 
-	_cancelClicked: function() {
+	onCancel () {
 		history.back();
 	},
 
-	_confirmClicked: function() {
-		this.setState({
-			loading: true
-		});
-		Actions.dropCourse(this.props.courseId);
+	onConfirm () {
+		this.setState({ loading: true });
+
+		dropCourse(this.props.courseId);
 	},
 
-	render: function() {
+	render () {
 
 		if(this.state.loading) {
 			return <Loading />;
@@ -35,13 +40,11 @@ var DropOpen = React.createClass({
 			<div>
 				<Notice>Drop {this.props.courseTitle}?</Notice>
 				<div className="small-12 columns">
-					<Button onClick={this._cancelClicked} className="small-5 columns">Cancel</Button>
-					<Button onClick={this._confirmClicked} className="small-5 columns">Drop course</Button>
+					<Button onClick={this.onCancel} className="small-5 columns">Cancel</Button>
+					<Button onClick={this.onConfirm} className="small-5 columns">Drop course</Button>
 				</div>
 			</div>
 		);
 	}
 
 });
-
-module.exports = DropOpen;

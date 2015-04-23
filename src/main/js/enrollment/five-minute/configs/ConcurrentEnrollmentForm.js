@@ -1,4 +1,4 @@
-
+/*eslint-disable*/
 
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var StateSelect = require('common/forms/fields').StateSelect;
