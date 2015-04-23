@@ -2,17 +2,11 @@ import React from 'react';
 
 import WhiteboardRenderer from 'nti.lib.whiteboardjs/lib/Canvas';
 
-import {createFromImage} from 'nti.lib.whiteboardjs/lib/utils';
+import {createFromImage, URL} from 'nti.lib.whiteboardjs/lib/utils';
 
 import {ToolMixin, Constants} from 'react-editor-component';
 
 import WhiteboardIcon from './editor-parts/WhiteboardIcon';
-
-const URL = global.URL && global.URL.createObjectURL ?
-				global.URL :
-				global.webkitURL && global.webkitURL.createObjectURL ?
-					global.webkitURL :
-					null;
 
 export default React.createClass({
 	displayName: 'InsertImageButton',
@@ -36,7 +30,7 @@ export default React.createClass({
 		let editor = this.getEditor();
 
 		WhiteboardRenderer
-			.getThumbnail(scene)
+			.getThumbnail(scene, false)
 				.then(thumbnail=> {
 
 					let markup = React.renderToStaticMarkup(
