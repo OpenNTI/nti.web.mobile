@@ -8,12 +8,18 @@ import {ToolMixin, Constants} from 'react-editor-component';
 
 import WhiteboardIcon from './editor-parts/WhiteboardIcon';
 
+const URL = global.URL && global.URL.createObjectURL ?
+				global.URL :
+				global.webkitURL && global.webkitURL.createObjectURL ?
+					global.webkitURL :
+					null;
+
 export default React.createClass({
 	displayName: 'InsertImageButton',
 	mixins: [ToolMixin],
 
 	render () {
-		if (typeof FileReader === 'undefined') {
+		if (!URL) {
 			return null;//don't render the button.
 		}
 
@@ -68,8 +74,7 @@ export default React.createClass({
 
 	readFile (file, last) {
 		return new Promise((finish, error) => {
-			let reader = new FileReader();
-			let img = new Image();
+			let img = new Image(), src;
 
 			if (!(/image\/.*/i).test(file.type)) {
 				return;
@@ -78,14 +83,10 @@ export default React.createClass({
 			img.onerror = e => error(e);
 			img.onload = ()=> createFromImage(img)
 								.then(scene=>this.insertWhiteboard(scene, last), error)
-								.then(finish, error);
+								.then(finish, error)
+								.then(()=> URL.revokeObjectURL(src));
 
-			reader.onerror = reader.onabort = e => error(e);
-			reader.onload = event => {
-				img.src = event.target.result;
-			};
-
-			reader.readAsDataURL(file);
+			img.src = src = URL.createObjectURL(file);
 		});
 	},
 
