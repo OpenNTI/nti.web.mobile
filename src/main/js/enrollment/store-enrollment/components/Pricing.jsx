@@ -5,7 +5,7 @@ let t = scoped('ENROLLMENT.GIFT.PRICING');
 import DateTime from 'common/components/DateTime';
 
 import Store from '../Store';
-import Actions from '../Actions';
+import {updateCoupon} from '../Actions';
 import * as Constants from '../Constants';
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
@@ -22,7 +22,7 @@ module.exports = React.createClass({
 		locked: React.PropTypes.bool
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		//FIXME: Re-write this:
 		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
 		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
@@ -53,22 +53,22 @@ module.exports = React.createClass({
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.addChangeListener(this[onChange]);
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this[onChange]);
 	},
 
 
-	getCouponPricing: function() {
+	getCouponPricing () {
 		return Store.getCouponPricing();
 	},
 
 
-	[getDiscountString]: function(coupon) {
+	[getDiscountString] (coupon) {
 		let discount = '';
 
 		if (coupon.PercentOff) {
@@ -81,7 +81,7 @@ module.exports = React.createClass({
 	},
 
 
-	[onChange]: function(e) {
+	[onChange] (e) {
 		let pricing = e.pricing,
 			discount;
 
@@ -119,7 +119,7 @@ module.exports = React.createClass({
 	},
 
 
-	getData: function() {
+	getData () {
 		let use = this.state.triedCoupon && this.state.couponDiscount || null;
 
 		return {
@@ -129,7 +129,7 @@ module.exports = React.createClass({
 	},
 
 
-	onCouponChanged: function () {
+	onCouponChanged () {
 		if (this.props.locked) {
 			return this.setState({ coupon: this.state.coupon });
 		}
@@ -143,11 +143,11 @@ module.exports = React.createClass({
 			checkingCoupon: true
 		});
 
-		Actions.updateCoupon(this.props.purchasable, coupon);
+		updateCoupon(this.props.purchasable, coupon);
 	},
 
 
-	render: function() {
+	render () {
 		let type = 'Lifelong Learner';
 		let vendorInfo = this.props.purchasable.VendorInfo;
 		let startDate = vendorInfo && vendorInfo.StartDate;

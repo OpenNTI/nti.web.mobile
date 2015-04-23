@@ -18,29 +18,29 @@ let couponPricing;
 let Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'store-enrollment.Store',
 
-	emitChange: function(evt) {
+	emitChange (evt) {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
-	emitError: function(event) {
+	emitError (event) {
 		this.emitChange(Object.assign({ isError: true}, event));
 	},
 
 	/**
 	 * @param {function} callback
 	 */
-	addChangeListener: function(callback) {
+	addChangeListener (callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
 	/**
 	 * @param {function} callback
 	 */
-	removeChangeListener: function(callback) {
+	removeChangeListener (callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	priceItem: function(purchasable) {
+	priceItem (purchasable) {
 		return getStripeInterface()
 			.then(function(stripe) {
 				return stripe.getPricing(purchasable);
@@ -54,26 +54,26 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 			});
 	},
 
-	getStripeToken: function() {
+	getStripeToken () {
 		if(!stripeToken) {
 			throw new Error('Store doesn\'t currently have a stripe token. (Did you get a BILLING_INFO_VERIFIED event after a call to Actions.verifyBillingInfo?)');
 		}
 		return Object.assign({}, stripeToken);
 	},
 
-	getPricing: function() {
+	getPricing () {
 		return pricing;
 	},
 
-	getGiftInfo: function() {
+	getGiftInfo () {
 		return giftInfo;
 	},
 
-	getCouponPricing: function() {
+	getCouponPricing () {
 		return couponPricing;
 	},
 
-	getPaymentFormData: function() {
+	getPaymentFormData () {
 		let data = Object.assign({}, paymentFormData);
 
 		// don't repopulate credit card number
@@ -84,11 +84,14 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 		return data;
 	},
 
-	getPaymentResult: function() {
+	getPaymentResult () {
 		return paymentResult;
 	}
 
 });
+
+export default Store;
+
 
 function getStripeInterface() {
 	let me = getStripeInterface;
@@ -304,6 +307,3 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 	}
 	return true;
 });
-
-
-module.exports = Store;

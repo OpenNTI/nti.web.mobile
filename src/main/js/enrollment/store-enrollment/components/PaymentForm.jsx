@@ -1,39 +1,37 @@
-
-
 // tell jshint that Stripe is declared elsewhere
-/* global Stripe: false */
+/* global Stripe */
 
 // we're naming fields to line up with the stripe api which uses lowercase
 // with underscores (e.g. exp_month vs. expMonth) so don't enforce camel case
 // in this file.
-/* jshint camelcase:false */
 
 import React from 'react';
 import RenderFormConfigMixin from 'common/forms/mixins/RenderFormConfigMixin';
 import {scoped} from 'common/locale';
-let t = scoped('ENROLLMENT.forms.storeenrollment');
-let t2 = scoped('ENROLLMENT');
+
+const t = scoped('ENROLLMENT.forms.storeenrollment');
+const t2 = scoped('ENROLLMENT');
 
 import ScriptInjector from 'common/mixins/ScriptInjectorMixin';
 import Loading from 'common/components/Loading';
 
-import Actions from '../Actions';
 import Store from '../Store';
-import Constants from '../Constants';
-import _fieldConfig from '../configs/PaymentForm';
+import {verifyBillingInfo} from '../Actions';
+import {BILLING_INFO_REJECTED} from '../Constants';
+import fieldConfig from '../configs/PaymentForm';
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
 
 export default React.createClass({
-
+	displayName: 'PaymentForm',
 	mixins: [RenderFormConfigMixin, ScriptInjector, FormattedPriceMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		//FIXME: Re-write this:
 		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
 		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
@@ -47,24 +45,20 @@ export default React.createClass({
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount () {
 		this.injectScript('https://js.stripe.com/v2/', 'Stripe')
-		.then(function() {
-			this.setState({
-				loading: false
-			});
-		}.bind(this));
-		Store.addChangeListener(this._onStoreChange);
+			.then(() => this.setState({ loading: false}));
+		Store.addChangeListener(this.onStoreChange);
 	},
 
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._onStoreChange);
+	componentWillUnmount () {
+		Store.removeChangeListener(this.onStoreChange);
 	},
 
-	_onStoreChange: function(event) {
+	onStoreChange (event) {
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.BILLING_INFO_REJECTED:
+			case BILLING_INFO_REJECTED:
 				let errors = this.state.errors||{};
 				errors[event.response.error.param] = event.response.error;
 				this.setState({
@@ -76,11 +70,11 @@ export default React.createClass({
 		}
 	},
 
-	_validate: function() {
+	validate () {
 		let errors = {};
 		let fieldValues = this.state.fieldValues||{};
-		_fieldConfig.forEach(function(fieldset) {
-			fieldset.fields.forEach(function(field) {
+		fieldConfig.forEach(fieldset => {
+			fieldset.fields.forEach(field => {
 				if (field.required) {
 					let value = (fieldValues[field.ref]||'');
 					if (value.trim().length === 0) {
@@ -124,7 +118,8 @@ export default React.createClass({
 		return Object.keys(errors).length === 0;
 	},
 
-	_inputBlurred: function(/*event*/) {
+	//XXX: not referenced?
+	inputBlurred (/*event*/) {
 		let errs = this.state.errors;
 		if(Object.keys(errs).length === 1 && errs.hasOwnProperty('required')) {
 			this.setState({
@@ -133,10 +128,11 @@ export default React.createClass({
 		}
 	},
 
-	_handleSubmit: function(event) {
+
+	handleSubmit (event) {
 		event.preventDefault();
 
-		if(!this._validate()) {
+		if(!this.validate()) {
 			return;
 		}
 
@@ -145,10 +141,10 @@ export default React.createClass({
 		});
 
 		let stripeKey = this.props.purchasable.StripeConnectKey.PublicKey;
-		Actions.verifyBillingInfo(stripeKey, this.state.fieldValues);
+		verifyBillingInfo(stripeKey, this.state.fieldValues);
 	},
 
-	render: function() {
+	render () {
 
 		if(this.state.loading) {
 			return <Loading />;
@@ -166,10 +162,10 @@ export default React.createClass({
 
 		let subhead = t2('enrollAsLifelongLearnerWithPrice', {price: price});
 
-		let fields = this.renderFormConfig(_fieldConfig, state.fieldValues, t);
+		let fields = this.renderFormConfig(fieldConfig, state.fieldValues, t);
 
 		return (
-			<FormPanel onSubmit={this._handleSubmit} title={title} subhead={subhead}>
+			<FormPanel onSubmit={this.handleSubmit} title={title} subhead={subhead}>
 				{fields}
 				<FormErrors errors={state.errors} />
 				<input type="submit"
@@ -182,4 +178,3 @@ export default React.createClass({
 	}
 
 });
-

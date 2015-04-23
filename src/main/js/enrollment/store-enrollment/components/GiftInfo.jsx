@@ -1,25 +1,29 @@
+import React from 'react';
 
+import {edit} from '../Actions';
 
+import {scoped} from 'common/locale';
 
-var React = require('react');
+const t = scoped('ENROLLMENT.CONFIRMATION');
 
-var Actions = require('../Actions');
-
-var _t = require('common/locale').scoped("ENROLLMENT.CONFIRMATION");
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'GiftInfo',
 
-
-	onEdit: function (e) {
-		e.preventDefault();
-		e.stopPropagation();
-		Actions.edit(this.props.edit);
+	propTypes: {
+		info: React.PropTypes.object.isRequired,
+		edit: React.PropTypes.any
 	},
 
 
-	render: function() {
-		var info = this.props.info;
+	onEdit (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		edit(this.props.edit);
+	},
+
+
+	render () {
+		let {info} = this.props;
 
 		if (!info || !info.from) {
 			return (<div/>);
@@ -28,21 +32,21 @@ module.exports = React.createClass({
 		return (
 			<fieldset>
 				<div className="title">
-					<span>{_t("giftInfo")}</span> <a href="#" onClick={this.onEdit}>edit</a>
+					<span>{t('giftInfo')}</span> <a href="#" onClick={this.onEdit}>edit</a>
 				</div>
 				<div className="field">
-					<span className="label">{_t("from")}</span>	<span className="value">
+					<span className="label">{t('from')}</span>	<span className="value">
 						{info.sender ? info.sender + ' (' + info.from + ')' : info.from}</span>
 				</div>
 				{!info.receiver ? '' :
 					<div className="field">
-						<span className="label">{_t("to")}</span> <span className="value">
+						<span className="label">{t('to')}</span> <span className="value">
 							{info.to ? info.to + ' (' + info.receiver + ')' : info.receiver}</span>
 					</div>
 				}
 				{!info.message ? '' :
 					<div className="field">
-						<span className="label">{_t("message")}</span>
+						<span className="label">{t('message')}</span>
 						<span className="value">{info.message}</span>
 					</div>
 				}

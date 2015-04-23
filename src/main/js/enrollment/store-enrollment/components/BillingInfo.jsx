@@ -1,12 +1,10 @@
-
-
 // we're naming fields to line up with the stripe api which uses lowercase
 // with underscores (e.g. exp_month vs. expMonth) so don't enforce camel case
 // in this file.
 /* jshint camelcase:false */
 
 import React from 'react';
-import Actions from '../Actions';
+import {edit} from '../Actions';
 import {scoped} from 'common/locale';
 let t = scoped('ENROLLMENT.CONFIRMATION');
 
@@ -28,7 +26,7 @@ let BillingInfo = React.createClass({
 	onEdit: function (e) {
 		e.preventDefault();
 		e.stopPropagation();
-		Actions.edit(this.props.edit);
+		edit(this.props.edit);
 	},
 
 	render: function() {

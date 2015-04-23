@@ -1,13 +1,16 @@
 import React from 'react';
-import Store from '../Store';
-import Actions from '../Actions';
-import PanelButton from 'common/components/PanelButton';
+
 import ErrorWidget from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import Localized from 'common/components/LocalizedHTML';
+import PanelButton from 'common/components/PanelButton';
+
 import BillingInfo from './BillingInfo';
 import GiftInfo from './GiftInfo';
 import Pricing from './Pricing';
+
+import Store from '../Store';
+import * as Actions from '../Actions';
 
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 

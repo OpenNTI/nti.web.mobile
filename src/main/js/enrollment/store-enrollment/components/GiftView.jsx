@@ -24,8 +24,8 @@ import Localized from 'common/components/LocalizedHTML';
 import ScriptInjector from 'common/mixins/ScriptInjectorMixin';
 import Err from 'common/components/Error';
 
-import Actions from '../Actions';
 import Store from '../Store';
+import * as Actions from '../Actions';
 import * as Constants from '../Constants';
 
 let agreementURL = '/mobile/api/user-agreement/view';

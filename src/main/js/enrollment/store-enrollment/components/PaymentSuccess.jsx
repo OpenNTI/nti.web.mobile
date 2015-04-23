@@ -1,26 +1,27 @@
+import React from 'react';
 
+import ErrorWidget from 'common/components/Error';
 
-var React = require('react');
+import CourseContentLink from 'library/components/CourseContentLink';
 
-var ErrorWidget = require('common/components/Error');
+import GiftSuccess from './GiftSuccess';
+import EnrollmentSuccess from '../../components/EnrollmentSuccess';
 
-var CourseContentLink = require('library/components/CourseContentLink');
+import {resetProcess} from '../Actions';
+import Store from '../Store';
 
-var GiftSuccess = require('./GiftSuccess');
-var EnrollmentSuccess = require('../../components/EnrollmentSuccess');
-
-var Actions = require('../Actions');
-var Store = require('../Store');
-
-var PaymentSuccess = React.createClass({
+export default React.createClass({
+	displayName: 'PaymentSuccess',
 
 	propTypes: {
 		courseId: React.PropTypes.string,
-		purchasable: React.PropTypes.object.isRequired
+		purchasable: React.PropTypes.object.isRequired,
+		giftDoneLink: React.PropTypes.string,
+		onDone: React.PropTypes.func
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			purchaseAttempt: null
 		};
@@ -28,32 +29,34 @@ var PaymentSuccess = React.createClass({
 
 
 
-	componentWillMount: function() {
+	componentWillMount () {
 		this.setState({
 			purchaseAttempt: Store.getPaymentResult()
 		});
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		if (!this.state.purchaseAttempt) {
-			Actions.resetProcess();
+			resetProcess();
 		}
 	},
 
 
-	_courseLink: function() {
-		return <CourseContentLink
+	_courseLink () {
+		return (
+			<CourseContentLink
 					className="button tiny radius column"
-					courseId={this.props.courseId}>Go to course</CourseContentLink>;
+					courseId={this.props.courseId}>Go to course</CourseContentLink>
+		);
 	},
 
-	render: function() {
-		var {purchaseAttempt} = this.state;
-		var {purchasable} = this.props;
-		var title = (purchasable || {}).Title || '[Course Title]';
+	render () {
+		let {purchaseAttempt} = this.state;
+		let {purchasable} = this.props;
+		let title = (purchasable || {}).Title || '[Course Title]';
 
-		var isGift = (purchaseAttempt || {}).RedemptionCode;
+		let isGift = (purchaseAttempt || {}).RedemptionCode;
 
 		if (!purchaseAttempt) {
 			return <ErrorWidget error="No data"/>;
@@ -74,5 +77,3 @@ var PaymentSuccess = React.createClass({
 	}
 
 });
-
-module.exports = PaymentSuccess;
