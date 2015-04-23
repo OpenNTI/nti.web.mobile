@@ -37,6 +37,7 @@ import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import AnalyticsActions from 'analytics/Actions';
 
+const Seen = Symbol('Seen');
 const Progress = Symbol.for('Progress');
 
 export default React.createClass({
@@ -167,8 +168,9 @@ export default React.createClass({
 
 
 	isSeen () {
-		let progress = this.props.item[Progress];
-		return progress && progress.hasProgress();
+		let {item} = this.props;
+		let progress = item[Progress];
+		return item[Seen] || (progress && progress.hasProgress());
 	},
 
 
@@ -179,6 +181,10 @@ export default React.createClass({
 
 		if (onClick) {
 			onClick(e);
+		}
+
+		if (!this.isSeen()) {
+			item[Seen] = true;
 		}
 
 		if (this.isExternal()) {
