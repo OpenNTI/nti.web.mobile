@@ -92,6 +92,9 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 
 export default Store;
 
+//TODO: Move all this code that is directly invoked by a "dispatched action" into the action and the result be what is dispatched
+// Store modules (the entire JS file) should only contain the synchronous data set/get/emit-event code.
+
 
 function getStripeInterface() {
 	let me = getStripeInterface;
