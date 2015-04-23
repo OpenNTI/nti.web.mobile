@@ -1,17 +1,22 @@
+import React from 'react';
 
+import {scoped} from 'common/locale';
 
-var React = require('react');
-var Button = require('./Button');
-var t = require('common/locale').scoped('LOGIN');
-var MESSAGE = require('../Constants').messages.SIGNUP_CONFIRMATION;
+import Button from './Button';
 
-var SignupConfirm = React.createClass({
+const t = scoped('LOGIN');
 
-	render: function() {
+import {messages as MessageConstants} from '../Constants';
+const {SIGNUP_CONFIRMATION} = MessageConstants;
+
+export default React.createClass({
+	displayName: 'SignupConfirm',
+
+	render () {
 		return (
 			<div>
 				<div className="notice simple">
-					{t(MESSAGE)}
+					{t(SIGNUP_CONFIRMATION)}
 				</div>
 				<div className="medium-6 medium-centered columns">
 					<Button id="signup:confirm:yes" href="/signup/">
@@ -24,5 +29,3 @@ var SignupConfirm = React.createClass({
 	}
 
 });
-
-module.exports = SignupConfirm;
