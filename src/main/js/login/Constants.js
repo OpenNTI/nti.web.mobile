@@ -2,7 +2,6 @@
  * Constants related to (and used by) the login modules.
  * @class LoginConstants
  */
-import keyMirror from 'react/lib/keyMirror';
 
 export const links = {
 	/**
@@ -104,7 +103,7 @@ export const links = {
 	RESET_PASSCODE: 'logon.reset.passcode'
 };
 
-export const actions = keyMirror({
+export const actions = {
 
 	/**
 	* The name of the action for initializing the LoginController.
@@ -112,7 +111,7 @@ export const actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_BEGIN: null,
+	LOGIN_BEGIN: 'LOGIN_BEGIN',
 
 	/**
 	* Action name for attempting a password login.
@@ -120,7 +119,7 @@ export const actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_PASSWORD: null,
+	LOGIN_PASSWORD: 'LOGIN_PASSWORD',
 
 	/**
 	* Action name for clearing login errors.
@@ -128,7 +127,7 @@ export const actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_CLEAR_ERRORS: null,
+	LOGIN_CLEAR_ERRORS: 'LOGIN_CLEAR_ERRORS',
 
 	/**
 	* Action name for attempting an oauth login.
@@ -136,7 +135,7 @@ export const actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_OAUTH: null,
+	LOGIN_OAUTH: 'LOGIN_OAUTH',
 
 	/**
 	* Action name for logout.
@@ -144,7 +143,7 @@ export const actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGOUT: null,
+	LOGOUT: 'LOGOUT',
 
 	/**
 	* Action name for password recovery.
@@ -152,7 +151,7 @@ export const actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	RECOVER_PASSWORD: null,
+	RECOVER_PASSWORD: 'RECOVER_PASSWORD',
 
 	/**
 	* Action name for username recovery.
@@ -160,7 +159,7 @@ export const actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	RECOVER_USERNAME: null,
+	RECOVER_USERNAME: 'RECOVER_USERNAME',
 
 	/**
 	* Action for requesting a ping/pong/handshake with the
@@ -169,11 +168,11 @@ export const actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	UPDATE_LINKS: null
+	UPDATE_LINKS: 'UPDATE_LINKS'
 
-});
+};
 
-export const events = keyMirror({
+export const events = {
 
 	/**
 	* Emitted by LoginForm input changes.
@@ -181,21 +180,21 @@ export const events = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_FORM_CHANGED: null,
+	LOGIN_FORM_CHANGED: 'LOGIN_FORM_CHANGED',
 
 	/**
 	* @property LOGIN_SUCCESS
 	* @type String
 	* @final
 	*/
-	LOGIN_SUCCESS: null,
+	LOGIN_SUCCESS: 'LOGIN_SUCCESS',
 
 	/**
 	* @property LOGIN_FAILURE
 	* @type String
 	* @final
 	*/
-	LOGIN_FAILURE: null,
+	LOGIN_FAILURE: 'LOGIN_FAILURE',
 
 	/**
 	* The event emitted by the LoginController when its links change.
@@ -203,7 +202,7 @@ export const events = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_LINKS_CHANGED: null,
+	LOGIN_LINKS_CHANGED: 'LOGIN_LINKS_CHANGED',
 
 	/**
 	* The event emitted upon successful password reset.
@@ -211,9 +210,9 @@ export const events = keyMirror({
 	* @type String
 	* @final
 	*/
-	PASSWORD_RESET_SUCCESSFUL: null
+	PASSWORD_RESET_SUCCESSFUL: 'PASSWORD_RESET_SUCCESSFUL'
 
-});
+};
 
 export const messages = {
 	LOGIN_ERROR: 'LOGIN.LOGIN_ERROR',
