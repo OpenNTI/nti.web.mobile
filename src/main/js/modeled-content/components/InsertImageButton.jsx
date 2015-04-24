@@ -8,12 +8,30 @@ import {ToolMixin, Constants} from 'react-editor-component';
 
 import WhiteboardIcon from './editor-parts/WhiteboardIcon';
 
+import iOSversion from 'common/utils/ios-version';
+
 export default React.createClass({
 	displayName: 'InsertImageButton',
 	mixins: [ToolMixin],
 
+
+	getInitialState () {
+		return {
+			disabled: true
+		};
+	},
+
+
+	componentWillMount () {
+		let iOSV = iOSversion();
+		if (iOSV == null || iOSV[0] > 7) {
+			this.setState({disabled: false});
+		}
+	},
+
+
 	render () {
-		if (!URL) {
+		if (!URL || this.state.disabled) {
 			return null;//don't render the button.
 		}
 
