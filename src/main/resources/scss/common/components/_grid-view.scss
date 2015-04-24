@@ -206,10 +206,20 @@
 			repeat: no-repeat;
 		}
 
-		&::after {
+		&::before {
 			content: '';
 			display: block;
 			padding-top: 70%;
+		}
+
+		&.resolving {
+			position: relative;
+			@extend %inline-loader;
+
+			&::before {
+				position: static !important;
+				background: #fff !important;
+			}
 		}
 	}
 

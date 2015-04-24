@@ -1,5 +1,7 @@
 import React from 'react';
 
+import cx from 'classnames';
+
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import path from 'path';
@@ -76,6 +78,8 @@ export default React.createClass({
 
 					let style = poster && { backgroundImage: `url(${poster})` };
 
+					let thumbnail = cx('thumbnail', {resolving: !poster});
+
 					let link = path.join(
 						basePath,
 						'course', encodeForURI(course.getID()),
@@ -84,7 +88,7 @@ export default React.createClass({
 					return (
 						<li className="thumbnail-grid-item" key={v.ntiid + '-' + i}>
 							<a title="Play" href={link}>
-								<div className="thumbnail" style={style}/>
+								<div className={thumbnail} style={style}/>
 								<h3>{v.title}</h3>
 							</a>
 						</li>

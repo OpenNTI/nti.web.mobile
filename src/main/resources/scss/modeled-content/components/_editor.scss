@@ -6,37 +6,7 @@
 	position: relative;
 
 	&.busy {
-		* {
-			opacity: 0;
-		}
-
-		&::before {
-			content: '';
-			position: absolute;
-			top: 0; left: 0; right: 0; bottom: 0;
-			background: rgba(240, 240, 240, 0.1);
-			z-index: 10;
-		}
-
-		&::after {
-			content: '';
-			position: absolute;
-			top: 50%;
-			left: 50%;
-
-			width: 40px;
-			height: 40px;
-			margin: -20px 0 0 -20px;
-			z-index: 12;
-
-			@include animation('rotation .9s infinite linear');
-
-			// border: 1px solid rgba(142,183,55,.15);
-			// border-top-color: rgba(142,183,55,.8);
-			border: 1px solid rgba(63,179,79,.15);
-			border-top-color: rgba(63,179,79,.8);
-			border-radius:100%;
-		}
+		@extend %inline-loader;
 	}
 
 	[contenteditable] {
