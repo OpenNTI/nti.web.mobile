@@ -8,14 +8,14 @@ import {defaultPagingParams} from './Api';
 
 import hash from 'object-hash';
 
-let _discussions = {};
-let _forums = {}; // forum objects by id.
-let _objectContents = {};
-let _objects = {};
-let _courseId;
+let discussions = {};
+let forums = {}; // forum objects by id.
+let objectContents = {};
+let objects = {};
+let courseId;
 
-const keyForObject = "ForumStore:keyForObject";
-const keyForContents = "ForumStore:keyForContents";
+const keyForObject = 'ForumStore:keyForObject';
+const keyForContents = 'ForumStore:keyForContents';
 
 class Store extends StorePrototype {
 	constructor() {
@@ -56,19 +56,19 @@ class Store extends StorePrototype {
 		});
 	}
 
-	setDiscussions(courseId, data) {
-		this.setCourseId(courseId);
-		_discussions[courseId] = dataOrError(data);
-		_forums = Object.assign(_forums||{}, indexForums(_discussions));
+	setDiscussions(theCourseId, data) {
+		this.setCourseId(theCourseId);
+		discussions[theCourseId] = dataOrError(data);
+		forums = Object.assign(forums||{}, indexForums(discussions));
 		this.emitChange({
 			type: Constants.DISCUSSIONS_CHANGED,
-			courseId: courseId
+			courseId: theCourseId
 		});
 	}
 
 	setObject(ntiid, object) {
 		let key = this[keyForObject](ntiid);
-		_objects[key] = object;
+		objects[key] = object;
 		this.emitChange({
 			type: Constants.OBJECT_LOADED,
 			ntiid: ntiid,
@@ -78,27 +78,27 @@ class Store extends StorePrototype {
 
 	setObjectContents(objectId, contents, params={}) {
 		let key = this[keyForContents](objectId, params);
-		_objectContents[key] = contents;
+		objectContents[key] = contents;
 		this.emitChange({
 			type: Constants.OBJECT_CONTENTS_CHANGED,
 			objectId: objectId
 		});
 	}
 
-	setCourseId(courseId) {
-		_courseId = courseId;
+	setCourseId(newCourseId) {
+		courseId = newCourseId;
 	}
 
 	getCourseId() {
-		return _courseId;
+		return courseId;
 	}
 
-	getDiscussions(courseId) {
-		return _discussions[courseId];
+	getDiscussions(forCourseId) {
+		return discussions[forCourseId];
 	}
 
 	getForum(forumId) {
-		return _forums[decodeFromURI(forumId)] || this.getObject(forumId);
+		return forums[decodeFromURI(forumId)] || this.getObject(forumId);
 	}
 
 	getForumContents(forumId, batchStart, batchSize) {
@@ -113,17 +113,17 @@ class Store extends StorePrototype {
 	}
 
 	getObject(objectId) {
-		return _objects[this[keyForObject](objectId)];
+		return objects[this[keyForObject](objectId)];
 	}
 
 	getObjectContents(objectId, params={}) {
 		let key = this[keyForContents](objectId, params);
-		return _objectContents[key];
+		return objectContents[key];
 	}
 
 	deleteObject(object) {
 		let objectId = object && object.getID ? object.getID() : object;
-		delete _objects[this[keyForObject](objectId)];
+		delete objects[this[keyForObject](objectId)];
 		this.emitChange({
 			type: Constants.OBJECT_DELETED,
 			objectId: objectId,
@@ -257,20 +257,20 @@ function createTopic(forum, topic) {
 }
 
 function deleteTopic(topic) {
-	return _deleteObject(topic).then(()=>{
+	return deleteObject(topic).then(()=>{
 		console.log('Reloading forum contents in response to topic deletion.');
 		getObjectContents(topic.ContainerId);
 	});
 }
 
-function _deleteObject(o) {
+function deleteObject(o) {
 	return Api.deleteObject(o).then(()=>{
 		store.deleteObject(o);
 	});
 }
 
 function deleteComment(comment) {
-	return _deleteObject(comment);
+	return deleteObject(comment);
 }
 
 function getObjectContents(ntiid, params) {

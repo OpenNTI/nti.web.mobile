@@ -10,9 +10,13 @@ let Actions = Constants.actions;
 
 import {CHANGE_EVENT, ERROR_EVENT} from 'common/constants/Events';
 
-import _fieldConfig from './configs/signup';
+import fieldConfig from './configs/signup';
 
-let _errors = [];
+let errors = [];
+
+const addError = 'signupStore:addError';
+const clearErrors = 'signupStore:clearErrors';
+const accountCreated = 'signupStore:accountCreated';
 
 let Store = Object.assign({}, EventEmitter.prototype, {
 
@@ -37,28 +41,28 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	getErrors: function() {
-		return _errors;
+		return errors;
 	},
 
-	_addError: function(error) {
-		_errors.push(error);
+	[addError]: function(error) {
+		errors.push(error);
 		this.emitChange({
 			type: ERROR_EVENT,
-			errors: _errors
+			errors: errors
 		});
 	},
 
-	_clearErrors: function() {
-		if (_errors.length > 0) {
-			_errors.length = 0;
+	[clearErrors]: function() {
+		if (errors.length > 0) {
+			errors.length = 0;
 			this.emitChange({
 				type: ERROR_EVENT
 			});
 		}
 	},
 
-	_accountCreated: function(result) {
-		this._clearErrors();
+	[accountCreated]: function(result) {
+		this[clearErrors]();
 		this.emitChange({
 			type: 'created',
 			details: result
@@ -89,7 +93,7 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	getFormConfig: function() {
-		return Promise.resolve(_fieldConfig);
+		return Promise.resolve(fieldConfig);
 	}
 });
 
@@ -100,14 +104,14 @@ function fieldsMatch(value1, value2) {
 	return value1 === value2;
 }
 
-function _clientSidePreflight(fields) {
+function clientSidePreflight(fields) {
 	return new Promise(function(fulfill, reject) {
 		if (!fieldsMatch(fields.password, fields.password2)) {
 			let error = {
 				field: 'password2',
 				message: 'Passwords do not match.'
 			};
-			Store._addError(error);
+			Store[addError](error);
 			reject(error);
 			return;
 		}
@@ -115,29 +119,29 @@ function _clientSidePreflight(fields) {
 	});
 }
 
-function _serverSidePreflight(fields) {
+function serverSidePreflight(fields) {
 	return new Promise(function(fulfill, reject) {
 		getServer().preflightAccountCreate(fields).then(function(result) {
 			fulfill(result);
 		}, function(result) {
 			console.debug('Store received preflight result: %O', result);
-			Store._clearErrors();
+			Store[clearErrors]();
 			if (result.statusCode === 422 || result.statusCode === 409) {
-				Store._addError(result);
+				Store[addError](result);
 			}
 			reject(result);
 		});
 	});
 }
 
-function _preflight(fields) {
-	return _clientSidePreflight(fields).then(_serverSidePreflight);
+function preflight(fields) {
+	return clientSidePreflight(fields).then(serverSidePreflight);
 }
 
-function _createAccount(fields) {
+function createAccount(fields) {
 
 	function success(result) {
-		Store._accountCreated(result);
+		Store[accountCreated](result);
 	}
 
 	function fail(result) {
@@ -145,7 +149,7 @@ function _createAccount(fields) {
 		if (Math.floor(result.statusCode / 100) === 4) {
 			console.debug(result);
 			let res = JSON.parse(result.response);
-			Store._addError({
+			Store[addError]({
 				field: res.field,
 				message: res.message
 			});
@@ -157,9 +161,9 @@ function _createAccount(fields) {
 
 }
 
-function _preflightCreateAccount(fields) {
-	_preflight(fields)
-		.then(_createAccount.bind(null, fields))
+function preflightCreateAccount(fields) {
+	preflight(fields)
+		.then(createAccount.bind(null, fields))
 		.catch(function(reason) {
 			console.debug(reason);
 		});
@@ -172,19 +176,19 @@ AppDispatcher.register(function(payload) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 
 		case Actions.PREFLIGHT:
-			_preflight(action.fields);
+			preflight(action.fields);
 		break;
 
 		case Actions.CREATE_ACCOUNT:
-			_createAccount(action.fields);
+			createAccount(action.fields);
 		break;
 
 		case Actions.PREFLIGHT_AND_CREATE_ACCOUNT:
-			_preflightCreateAccount(action.fields);
+			preflightCreateAccount(action.fields);
 		break;
 
 		case Actions.CLEAR_ERRORS:
-			Store._clearErrors();
+			Store[clearErrors]();
 		break;
 
 		default:
