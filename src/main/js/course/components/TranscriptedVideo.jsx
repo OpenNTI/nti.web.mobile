@@ -127,7 +127,7 @@ export default React.createClass({
 					if (reason === video.NO_TRANSCRIPT ||
 						reason === video.NO_TRANSCRIPT_LANG) {
 						this.setState({
-							loading: false, cues: null, regions: null });
+							loading: false, cues: null, regions: null, video });
 						return;
 					}
 					return Promise.reject(reason);
