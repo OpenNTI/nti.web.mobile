@@ -29,6 +29,8 @@ const HANDLER_BY_NAME = {
 	Object: ObjectResolver
 };
 
+const sendGAEvent = 'Router:sendGAEvent';
+
 import RouteMap from './routes';
 
 export default React.createClass({
@@ -43,6 +45,14 @@ export default React.createClass({
 		}
 	},
 
+	[sendGAEvent]() {
+		if (!global.ga) {
+			console.warn('Router requires ga to be available in global scope. Aborting attempt to send google analytics navigation event');
+			return;
+		}
+		global.ga('set', 'page', global.location.pathname);
+		global.ga('send', 'pageview');
+	},
 
 	onNavigation () {
 		if (global.scrollTo) {
@@ -53,6 +63,8 @@ export default React.createClass({
 		if (action) {
 			action();
 		}
+
+		this[sendGAEvent]();
 
 		// let {router} = this.refs;
 		// debugger;
