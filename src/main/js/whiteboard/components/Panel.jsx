@@ -33,6 +33,12 @@ export default React.createClass({
 	},
 
 
+	stopLongPressMenu (e) {
+		e.preventDefault();
+		e.stopPropagation();
+	},
+
+
 	componentDidMount () {
 		this.updateRender(this.props.scene);
 	},
@@ -48,8 +54,15 @@ export default React.createClass({
 	},
 
 	render () {
+		let touches = {
+			onTouchStart: this.stopLongPressMenu,
+			onTouchMove: this.stopLongPressMenu,
+			onTouchEnd: this.stopLongPressMenu,
+			onTouchCancel: this.stopLongPressMenu
+		};
+
 		return (
-			<img src={this.state.src} alt="Whiteboard Thumbnail" className="whiteboard thumbnail"/>
+			<img {...touches} src={this.state.src} alt="Whiteboard Thumbnail" className="whiteboard thumbnail"/>
 		);
 	}
 });
