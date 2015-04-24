@@ -48,7 +48,7 @@ export default React.createClass({
 					let poster = s.thumbnail || s.poster;
 
 					let style = poster && {
-						backgroundImage: 'url(' + poster + ')'
+						backgroundImage: `url(${poster})`
 					};
 
 					let link = path.join(
