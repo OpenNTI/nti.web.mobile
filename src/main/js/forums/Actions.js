@@ -1,6 +1,3 @@
-'use strict';
-/** @module forums/Actions */
-
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
 import {
@@ -13,56 +10,53 @@ import {
 	REPORT_ITEM
 } from './Constants';
 
-module.exports = {
-	getCommentReplies: function(comment) {
-		dispatch(GET_COMMENT_REPLIES, {
-			comment: comment
-		});
-	},
 
-	addComment: function(topic, parent, comment) {
-		dispatch(ADD_COMMENT, {
-			topic: topic,
-			parent: parent,
-			comment: comment
-		});
-	},
+export function getCommentReplies (comment) {
+	dispatch(GET_COMMENT_REPLIES, {
+		comment: comment
+	});
+}
 
-	saveComment: function(postItem, newValue) {
-		dispatch(SAVE_COMMENT, {
-			postItem: postItem,
-			newValue: newValue
-		});
-	},
+export function addComment (topic, parent, comment) {
+	dispatch(ADD_COMMENT, {
+		topic: topic,
+		parent: parent,
+		comment: comment
+	});
+}
 
-	createTopic: function(forum, topic) {
-		dispatch(CREATE_TOPIC, {
-			forum: forum,
-			topic: topic
-		});
-	},
+export function saveComment (postItem, newValue) {
+	dispatch(SAVE_COMMENT, {
+		postItem: postItem,
+		newValue: newValue
+	});
+}
 
-	deleteTopic: function(topic) {
-		dispatch(DELETE_TOPIC, {
-			topic: topic
-		});	
-	},
+export function createTopic (forum, topic) {
+	dispatch(CREATE_TOPIC, {
+		forum: forum,
+		topic: topic
+	});
+}
 
-	deleteComment: function(comment) {
-		dispatch(DELETE_COMMENT, {
-			comment: comment
-		});
-	},
+export function deleteTopic (topic) {
+	dispatch(DELETE_TOPIC, {
+		topic: topic
+	});
+}
 
-	reportItem: function(item) {
-		dispatch(REPORT_ITEM, {
-			item: item
-		});	
-	}
-};
+export function deleteComment (comment) {
+	dispatch(DELETE_COMMENT, {
+		comment: comment
+	});
+}
 
-function dispatch(key, data) {
-	AppDispatcher.handleRequestAction(Object.assign( data, {
-		type: key
-	}));
+export function reportItem (item) {
+	dispatch(REPORT_ITEM, {
+		item: item
+	});
+}
+
+function dispatch(type, data) {
+	AppDispatcher.handleRequestAction(Object.assign(data, {type}));
 }

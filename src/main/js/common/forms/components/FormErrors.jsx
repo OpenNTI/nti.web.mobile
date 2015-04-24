@@ -1,4 +1,4 @@
-'use strict';
+
 
 var React = require('react');
 var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
@@ -20,7 +20,7 @@ var FormErrors = React.createClass({
 								return <small key={ref} className='error'>{err.message}</small>;
 							}
 							return null;
-					}.bind(this))}
+						}.bind(this))}
 				</ReactCSSTransitionGroup>
 			</div>
 		);

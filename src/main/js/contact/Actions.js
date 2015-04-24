@@ -1,23 +1,15 @@
-'use strict';
+import * as Constants from './Constants';
+import AppDispatcher from 'dispatcher/AppDispatcher';
 
-var Constants = require('./Constants');
-var AppDispatcher = require('dispatcher/AppDispatcher');
+export default {
 
-module.exports = {
-
-	sendMessage: function(fieldValues) {
-		dispatch(
-			Constants.SEND_MESSAGE,
-			fieldValues
-		);
+	sendMessage (fieldValues) {
+		dispatch(Constants.SEND_MESSAGE, fieldValues);
 	}
 
 };
 
 
-function dispatch(key, data) {
-	AppDispatcher.handleRequestAction({
-		type: key,
-		data: data
-	});
+function dispatch(type, data) {
+	AppDispatcher.handleRequestAction({type, data});
 }

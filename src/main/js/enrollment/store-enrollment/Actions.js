@@ -1,68 +1,41 @@
-'use strict';
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import * as Constants from './Constants';
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var Constants = require('./Constants');
-
-module.exports = {
-	verifyBillingInfo: function(stripePublicKey, formData) {
-		dispatch(
-			Constants.VERIFY_BILLING_INFO,
-			{
-				stripePublicKey: stripePublicKey,
-				formData: formData
-			}
-		);
-	},
-
-	submitPayment: function(payload) {
-		dispatch(
-			Constants.SUBMIT_STRIPE_PAYMENT,
-			{formData: payload}
-		);
-	},
+function dispatch(type, payload) {
+	AppDispatcher.handleRequestAction({type, payload});
+}
 
 
-	giftPurchaseDone: function() {
-		dispatch(
-			Constants.GIFT_PURCHASE_DONE
-		);
-	},
-
-	updateCoupon: function(purchasable, coupon) {
-		dispatch(
-			Constants.UPDATE_COUPON,
-			{purchasable: purchasable, coupon: coupon}
-		);
-	},
+export function verifyBillingInfo (stripePublicKey, formData) {
+	dispatch(Constants.VERIFY_BILLING_INFO, { stripePublicKey, formData });
+}
 
 
-	resetProcess: function (options) {
-		dispatch(
-			Constants.RESET, { options: options }
-		);
-	},
+export function submitPayment (formData) {
+	dispatch(Constants.SUBMIT_STRIPE_PAYMENT, {formData});
+}
 
-	redeemGift: function(purchasable, accessKey) {
-		dispatch(
-			Constants.REDEEM_GIFT,
-			{
-				purchasable: purchasable,
-				accessKey: accessKey
-			}
-		);
-	},
+//XXX: Doesn't seem to be referenced.
+export function giftPurchaseDone () {
+	dispatch(Constants.GIFT_PURCHASE_DONE);
+}
 
-	edit: function (mode) {
-		dispatch(
-			Constants.EDIT, {mode: mode}
-		);
-	}
-};
 
-function dispatch(key, data) {
-	var action = {
-		type: key,
-		payload: data
-	};
-	AppDispatcher.handleRequestAction(action);
+export function updateCoupon (purchasable, coupon) {
+	dispatch(Constants.UPDATE_COUPON, {purchasable, coupon});
+}
+
+
+export function resetProcess (options) {
+	dispatch(Constants.RESET, { options: options });
+}
+
+
+export function redeemGift (purchasable, accessKey) {
+	dispatch(Constants.REDEEM_GIFT, { purchasable, accessKey });
+}
+
+
+export function edit (mode) {
+	dispatch(Constants.EDIT, {mode});
 }

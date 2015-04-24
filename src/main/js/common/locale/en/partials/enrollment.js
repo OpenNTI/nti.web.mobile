@@ -192,7 +192,7 @@ export default {
 	fiveMinuteNotAvailableOnMobile: 'Please visit from a desktop to enroll for credit. Coming soon to mobile.',
 	fiveMinuteEnrollmentButton: 'Enroll for Credit',
 	fiveMinuteEnrollmentDescription: 'Earn transcripted college credit from the University of Oklahoma.',
-	proceedToPayment: "Proceed to payment",
+	proceedToPayment: 'Proceed to payment',
 	concurrentThanksHead: 'Thank you for your interest in concurrent enrollment.',
 	concurrentThanksBody: 'We\'ve received your contact information and a Concurrent Enrollment Counselor will ' +
 		'be contacting you shortly. In the mean time, please feel free to explore the <a href="http://www.ou.edu/content/go2/admissions/concurrent.html">Concurent Enrollment website</a> ' +

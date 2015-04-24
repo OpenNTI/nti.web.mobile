@@ -1,11 +1,13 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Unknown',
 
-	render: function() {
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
+	render () {
 		console.debug(this.props.item);
 		return (
 			<div>

@@ -1,38 +1,37 @@
-'use strict';
-var React = require('react');
+import React from 'react';
 
-var Unknown = require('./Unknown');
+import Unknown from './Unknown';
 
-exports = module.exports = {
-	Unknown: Unknown, //Unknown for future items.
+import ForumItem from './ForumItem';
+import TopicItem from './TopicItem';
+import PostItem from './PostItem';
+import DeletedGroupItem from './DeletedGroupItem';
 
-	ForumItem: require('./ForumItem'),
-	TopicItem: require('./TopicItem'),
-	PostItem: require('./PostItem'),
-	DeletedGroupItem: require('./DeletedGroupItem'),
+const Types = [
+	Unknown, //Unknown for future items.
+	ForumItem,
+	TopicItem,
+	PostItem,
+	DeletedGroupItem
+];
 
-	select: function(part, index, props) {
+export default function(part, index, props) {
 
-		var Item = Unknown, Type, key;
+	let Item = Unknown;
 
-		for (key in exports) {
-			if (exports.hasOwnProperty(key)) {
-				Type = exports[key];
-				if (Type !== Unknown && Type.handles && Type.handles(part)) {
-					Item = Type;
-					break;
-				}
-			}
+	for (let Type of Types) {
+		if (Type !== Unknown && Type.handles && Type.handles(part)) {
+			Item = Type;
+			break;
 		}
-
-		return React.createElement(
-			Item,
-			Object.assign({
-				key: 'list-item-' + index,
-				index: index,
-				item: part
-			}, props)
-		);
 	}
 
-};
+	return React.createElement(
+		Item,
+		Object.assign({
+			key: 'list-item-' + index,
+			index: index,
+			item: part
+		}, props)
+	);
+}

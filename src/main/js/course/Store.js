@@ -22,15 +22,15 @@ class Store extends StorePrototype {
 
 	[SetData] (payload) {
 		let {response} = payload.action;
-		let _data = response && response.body;
-		if (_data && _data instanceof Error) {
-			_data = {
+		let {body} = response || {};
+		if (body && body instanceof Error) {
+			body = {
 				error: data,
-				notFound: _data.message === NOT_FOUND.toString() || _data.message === NOT_FOUND
+				notFound: body.message === NOT_FOUND.toString() || body.message === NOT_FOUND
 			};
 		}
 
-		this[data] = _data;
+		this[data] = body;
 		this.emitChange({type: SET_ACTIVE_COURSE});
 	}
 

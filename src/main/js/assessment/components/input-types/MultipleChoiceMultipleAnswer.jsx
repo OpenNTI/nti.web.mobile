@@ -1,13 +1,12 @@
-'use strict';
+import React from 'react';
+import Mixin from './Mixin';
 
-var React = require('react');
-var Mixin = require('./Mixin');
+import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
 
-var getEventTarget = require('nti.lib.dom/lib/geteventtarget');
+import toArray from 'nti.lib.interfaces/utils/toarray';
+import isTruthy from 'nti.lib.interfaces/utils/identity';
 
-var toArray = require('nti.lib.interfaces/utils/toarray');
-var isTruthy = require('nti.lib.interfaces/utils/identity');
-var valueIfChecked = function(i){return i.checked && i.value; };
+const valueIfChecked = i => i.checked && i.value;
 
 /**
  * This input type represents Muliple Choice (with multiple answers--aka Checkboxes)
@@ -23,16 +22,18 @@ module.exports = React.createClass({
 		]
 	},
 
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
 	render () {
-		var choices = this.props.item.choices || [];
-		var submitted = this.isSubmitted();
-		var solution = submitted && this.getSolution();
+		let choices = this.props.item.choices || [];
+		let submitted = this.isSubmitted();
+		let solution = submitted && this.getSolution();
 
 		return (
 			<form className="multiple-choice multiple-answer" ref="form">
-				{choices.map((x,i)=>{
-					return this.renderChoice(x, i, solution);
-				})}
+				{choices.map((x, i)=> this.renderChoice(x, i, solution))}
 			</form>
 		);
 	},
@@ -43,8 +44,8 @@ module.exports = React.createClass({
 			e.preventDefault();
 			e.stopPropagation();
 		}
-		var label = getEventTarget(e, 'label');
-		var input = label && label.querySelector('input');
+		let label = getEventTarget(e, 'label');
+		let input = label && label.querySelector('input');
 		if (input) {
 			input.checked = !input.checked;
 		}
@@ -55,10 +56,10 @@ module.exports = React.createClass({
 
 
 	renderChoice (choice, index, solution) {
-		var numeral = String.fromCharCode(65+index);
-		var ref = 'choice-' + index;
-		var checked = (this.state.value || []).indexOf(index) !== -1;
-		var correct = '';
+		let numeral = String.fromCharCode(65+index);
+		let ref = 'choice-' + index;
+		let checked = (this.state.value || []).indexOf(index) !== -1;
+		let correct = '';
 
 		if (solution) {
 			solution = (solution.value || []).indexOf(index) > -1;
@@ -81,13 +82,13 @@ module.exports = React.createClass({
 
 
 	getValue () {
-		var ref = this.refs.form;
-		var form = ref && ref.getDOMNode();
-		var inputs = form && toArray(form.elements);
-		var values = form && inputs
+		let ref = this.refs.form;
+		let form = ref && React.findDOMNode(ref);
+		let inputs = form && toArray(form.elements);
+		let values = form && inputs
 							.map(valueIfChecked)
 							.filter(isTruthy)
-							.map(function(i){return parseInt(i,10);});
+							.map(i => parseInt(i, 10));
 
 		return !form ? undefined :
 					values.length ?

@@ -10,7 +10,9 @@ export default React.createClass({
 	displayName: 'Avatar',
 
 	propTypes: {
-		username: React.PropTypes.string.isRequired
+		username: React.PropTypes.string.isRequired,
+
+		className: React.PropTypes.string
 	},
 
 
@@ -32,17 +34,17 @@ export default React.createClass({
 		if (!this.isMounted()) {
 			return;
 		}
-		console.log('Failed to load avatar: %s', this.getDOMNode().src);
+		console.log('Failed to load avatar: %s', React.findDOMNode(this).src);
 		this.setState({ avatar: BLANK_AVATAR });
 	},
 
 
 	render () {
-		var {avatar} = this.state;
-		var {username, className} = this.props;
-		var css = className || '';
+		let {avatar} = this.state;
+		let {username, className} = this.props;
+		let css = className || '';
 
-		var props = Object.assign({}, this.props, {
+		let props = Object.assign({}, this.props, {
 			'data-for': username,
 			src: avatar,
 			alt: 'Avatar for ' + username,
@@ -57,9 +59,9 @@ export default React.createClass({
 
 
 function fillIn (cmp, props) {
-	var user = props.user;
-	var username = (user && user.Username) || props.username;
-	var promise;
+	let user = props.user;
+	let username = (user && user.Username) || props.username;
+	let promise;
 
 	if (user) {
 		promise = Promise.resolve(user.AvatarURL);

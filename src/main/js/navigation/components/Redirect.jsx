@@ -36,8 +36,8 @@ export default React.createClass({
 
 
 	startRedirect(p) {
-		clearTimeout(this.__pendingRedirect);
-		this.__pendingRedirect = setTimeout(()=> this.performRedirect(p), 1);
+		clearTimeout(this.pendingRedirect);
+		this.pendingRedirect = setTimeout(()=> this.performRedirect(p), 1);
 	},
 
 

@@ -1,6 +1,6 @@
-import Contributor from './ContextContributor';
+import Contributor, {ContextParent} from './ContextContributor';
 
-import {setPageSource, setContext} from 'navigation/Actions';
+import * as Actions from 'navigation/Actions';
 
 const RegisterChild = 'context:child:register';
 const UnregisterChild = 'context:child:unregister';
@@ -20,7 +20,7 @@ export default {
 		let set = (this[Children] = (this[Children] || new Set()));
 		let {size} = set;
 		set.delete(child);
-		if (size===set.size) {
+		if (size === set.size) {
 			console.error('Did not remove anything.');
 		}
 
@@ -31,7 +31,7 @@ export default {
 	[notify] () {
 		let children = this[Children] || {size: 0};
 		if (children.size === 0) {
-			setContext(this);
+			Actions.setContext(this);
 		}
 	},
 
@@ -42,10 +42,10 @@ export default {
 			console.warn('Missing getContext implementation, adding empty no-op.');
 		}
 
-		let {contextParent} = this.context;
+		let parent = this.context[ContextParent];
 
-		if (contextParent && contextParent[RegisterChild]) {
-			contextParent[RegisterChild](this);
+		if (parent && parent[RegisterChild]) {
+			parent[RegisterChild](this);
 		}
 
 		this[notify]();
@@ -58,9 +58,9 @@ export default {
 
 
 	componentWillUnmount () {
-		let {contextParent} = this.context;
-		if (contextParent && contextParent[UnregisterChild]) {
-			contextParent[UnregisterChild](this);
+		let parent = this.context[ContextParent];
+		if (parent && parent[UnregisterChild]) {
+			parent[UnregisterChild](this);
 		}
 	},
 
@@ -68,7 +68,7 @@ export default {
 	setPageSource (pageSource, currentPage) {
 		let children = this[Children] || {size: 0};
 		if (children.size === 0) {
-			setPageSource(pageSource, currentPage, this);
+			Actions.setPageSource(pageSource, currentPage, this);
 		}
 	}
 };

@@ -1,10 +1,9 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+export default React.createClass({
+	displayName: 'NavUp',
 
-module.exports = React.createClass({
-
-	render: function() {
+	render () {
 		return (
 			<div className="nav-up">
 				<a href="../"><span className='arrow-left'/></a>

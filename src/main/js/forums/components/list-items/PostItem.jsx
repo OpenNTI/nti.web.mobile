@@ -1,9 +1,9 @@
-'use strict';
+
 
 import React from 'react';
 import classnames from 'classnames';
 import {mimeTypes, GOT_COMMENT_REPLIES, POST} from '../../Constants';
-import Actions from '../../Actions';
+import * as Actions from '../../Actions';
 import Store from '../../Store';
 
 import Avatar from 'common/components/Avatar';
@@ -54,6 +54,13 @@ let PostItem = React.createClass({
 		]
 	},
 
+
+	propTypes: {
+		item: React.PropTypes.object,
+		asHeadline: React.PropTypes.bool,
+		detailLink: React.PropTypes.string
+	},
+
 	getInitialState () {
 		return {
 			[SHOW_REPLIES]: false,
@@ -74,7 +81,7 @@ let PostItem = React.createClass({
 		if (this.props.item !== nextProps.item) {
 			this.setState({
 				busy: false,
-				item: nextProps.item||this.props.item
+				item: nextProps.item || this.props.item
 			});
 		}
 	},
@@ -126,7 +133,7 @@ let PostItem = React.createClass({
 	},
 
 	getNumberOfComments () {
-		return this.state.replyCount||this.props.item.ReferencedByCount;
+		return this.state.replyCount || this.props.item.ReferencedByCount;
 	},
 
 	render () {
@@ -151,17 +158,20 @@ let PostItem = React.createClass({
 			replies: []
 		};
 
-		let links = <ActionLinks
-						key='actionlinks'
-						item={item}
-						numComments={numComments}
-						canReply={this.props.asHeadline}
-						cssClasses={linksClasses}
-						clickHandlers={this.getActionClickHandlers()} />;
+		let links = (
+			<ActionLinks
+				key='actionlinks'
+				item={item}
+				numComments={numComments}
+				canReply={this.props.asHeadline}
+				cssClasses={linksClasses}
+				clickHandlers={this.getActionClickHandlers()} />
+		);
 
 		if (item.Deleted) {
 			return (
 				<div className="postitem deleted">
+					{this.props.detailLink && <a href={href} className="threadlink"><span className="num-comments">{t('replies', {count: numComments})}</span><span className="arrow-right"/></a>}
 					<div className="post">
 						<div className="wrap">
 							<div className="message">
@@ -174,10 +184,12 @@ let PostItem = React.createClass({
 		}
 
 		if (this.state.editing) {
-			return <CommentForm
-				editItem={item}
-				onCompletion={this.onHideEditForm}
-				onCancel={this.onHideEditForm}/>;
+			return (
+				<CommentForm
+					editItem={item}
+					onCompletion={this.onHideEditForm}
+					onCancel={this.onHideEditForm}/>
+			);
 		}
 
 		let classes = classnames({

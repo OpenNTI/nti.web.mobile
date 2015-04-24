@@ -5,5 +5,5 @@ export const ENROLL_STORE = Symbol('enrollment:store');
 export const DROP_COURSE = Symbol('enrollment:drop');
 export const LOAD_ENROLLMENT_STATUS = Symbol('enrollment:load status');
 
-export const StoreEnrollment = Symbol('enrollment:interface:store');
-export const FiveminuteEnrollment = Symbol('enrollment:interface:five minute');
+export const StoreEnrollment = 'StoreEnrollment';
+export const FiveminuteEnrollment = 'FiveminuteEnrollment';

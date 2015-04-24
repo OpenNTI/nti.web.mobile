@@ -8,14 +8,11 @@ import Loading from 'common/components/Loading';
 import isEmpty from 'nti.lib.interfaces/utils/isempty';
 import CourseLinker from 'library/components/CourseContentLinkMixin';
 
-import SetStateSafely from 'common/mixins/SetStateSafely';
-
 export default React.createClass({
 	displayName: 'CourseOutlineView',
 	mixins: [
 		ContextSender,
 		// NavigationAware,
-		SetStateSafely,
 		CourseLinker
 	],
 
@@ -66,14 +63,14 @@ export default React.createClass({
 	itemChanged () {
 		let {item} = this.props;
 		let presentation = item ? item.getPresentationProperties() : {};
-		let {icon, title, label} = presentation;
-		this.setStateSafely({ icon, title, label });
+		let {icon, background, title, label} = presentation;
+		this.setState({ icon, background, title, label });
 	},
 
 
 	fillIn (props) {
 		this.itemChanged();
-		this.setStateSafely({loading: true});
+		this.setState({loading: true});
 		let {item} = props;
 		let resolvingOutline = item ? item.getOutline() : Promise.reject();
 
@@ -91,7 +88,7 @@ export default React.createClass({
 				depthMap.splice(1, 0, 'h3');
 			}
 
-			this.setStateSafely({
+			this.setState({
 				depthMap,
 				loading: false,
 				outline,
@@ -99,7 +96,7 @@ export default React.createClass({
 			});
 		}, error => {
 			console.error(error);
-			this.setStateSafely({
+			this.setState({
 				depthMap,
 				loading: false,
 				outline: {},
@@ -110,7 +107,7 @@ export default React.createClass({
 
 
 	render () {
-		let {outline, loading, icon, label, title} = this.state;
+		let {outline, loading, icon, background, label, title} = this.state;
 
 		if (loading) {
 			return (<Loading/>);
@@ -119,7 +116,7 @@ export default React.createClass({
 		return (
 			<div className={this.props.className}>
 				<div className="head">
-					<img src={icon}/>
+					<img src={background || icon}/>
 					<label>
 						<h3>{title}</h3>
 						<h5>{label}</h5>

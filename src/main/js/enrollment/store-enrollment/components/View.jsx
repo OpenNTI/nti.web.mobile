@@ -1,32 +1,34 @@
-'use strict';
-
-var React = require('react');
-var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
-
-var Router = require('react-router-component');
-var {Locations, Location, NotFound} = Router;
-
-var Constants = require('../Constants');
-var Store = require('../Store');
-
-var Form = require('./PaymentForm');
-var GiftView = require('./GiftView');
-var GiftRedeem = require('./GiftRedeem');
-var PaymentSuccess = require('./PaymentSuccess');
-var PaymentError = require('./PaymentError');
-var PaymentConfirm = require('./PaymentConfirm');
-
-var Loading = require('common/components/Loading');
-var ErrorComponent = require('common/components/Error');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var {getBasePath} = require('common/utils');
 
 
-var View = React.createClass({
+import React from 'react';
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
-	mixins: [NavigatableMixin], // needed for getPath() call we're using for the router's key.
+import Router from 'react-router-component';
+let {Locations, Location, NotFound} = Router;
+
+import * as Constants from '../Constants';
+import Store from '../Store';
+
+import Form from './PaymentForm';
+import GiftView from './GiftView';
+import GiftRedeem from './GiftRedeem';
+import PaymentSuccess from './PaymentSuccess';
+import PaymentError from './PaymentError';
+import PaymentConfirm from './PaymentConfirm';
+
+import Loading from 'common/components/Loading';
+import ErrorComponent from 'common/components/Error';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+
+import BasePathAware from 'common/mixins/BasePath';
+
+let View = React.createClass({
+	displayName: 'StoreEnrollmentView',
+
+	mixins: [NavigatableMixin, BasePathAware], // needed for getPath() call we're using for the router's key.
 
 	propTypes: {
+		courseId: React.PropTypes.string,
 		enrollment: React.PropTypes.shape({
 			Purchasable: React.PropTypes.object
 		}).isRequired
@@ -40,14 +42,14 @@ var View = React.createClass({
 
 
 	getPurchasable () {
-		var {enrollment} = this.props;
+		let {enrollment} = this.props;
 
 		if (!enrollment) {
 			console.warn('Missing prop value for `enrollment`!!');
 			return;
 		}
 
-		var {Purchasable} = enrollment;
+		let {Purchasable} = enrollment;
 
 		return Purchasable || (()=>{
 			console.warn('Enrollment.Purchasable is not defined!');
@@ -56,30 +58,22 @@ var View = React.createClass({
 
 
 	componentDidMount () {
-		Store.addChangeListener(this._onChange);
-		var purchasable = this.getPurchasable();
+		Store.addChangeListener(this.onChange);
+
+		let purchasable = this.getPurchasable();
+
 		Store.priceItem(purchasable).then(
-			pricedItem => {
-				this.setState({
-					loading: false,
-					pricedItem: pricedItem
-				});
-			},
-			reason => {
-				this.setState({
-					loading: false,
-					error: reason
-				});
-			}
+			pricedItem => this.setState({ loading: false, pricedItem }),
+			error => this.setState({ loading: false, error })
 		);
 	},
 
 	componentWillUnmount () {
-		Store.removeChangeListener(this._onChange);
+		Store.removeChangeListener(this.onChange);
 	},
 
-	_onChange (event) {
-		var router = this.refs.router;
+	onChange (event) {
+		let router = this.refs.router;
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case Constants.PRICED_ITEM_RECEIVED:
@@ -98,7 +92,7 @@ var View = React.createClass({
 				break;
 
 			case Constants.RESET:
-				var path = event.options && event.options.gift ? '/gift/' : '/';
+				let path = event.options && event.options.gift ? '/gift/' : '/';
 				router.navigate(path, {replace: true});
 				break;
 
@@ -128,11 +122,11 @@ var View = React.createClass({
 			return <Loading />;
 		}
 
-		var purchasable = this.getPurchasable();
-		var courseTitle = (purchasable || {}).Title || '';
-		var courseId = this.props.courseId;
-		var giftDoneLink = getBasePath() + 'catalog/';
-		var isGift = !!Store.getGiftInfo();
+		let purchasable = this.getPurchasable();
+		let courseTitle = (purchasable || {}).Title || '';
+		let {courseId} = this.props;
+		let giftDoneLink = this.getBasePath() + 'catalog/';
+		let isGift = !!Store.getGiftInfo();
 
 		return (
 			<div>

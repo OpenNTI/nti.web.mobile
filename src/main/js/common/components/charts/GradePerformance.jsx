@@ -1,10 +1,9 @@
-'use strict';
-
-var React = require('react');
-var emptyFunction = require('react/lib/emptyFunction');
+import React from 'react';
+import emptyFunction from 'react/lib/emptyFunction';
 
 //See http://jsfiddle.net/jsg2021/6yfw8/ for a demo
-module.exports = React.createClass( {
+export default React.createClass({
+	displayName: 'GradePerformance',
 
 	propTypes: {
 		averageColor: React.PropTypes.string,
@@ -14,11 +13,15 @@ module.exports = React.createClass( {
 		store: React.PropTypes.arrayOf(React.PropTypes.object),
 		topMargin: React.PropTypes.number,
 		bottomMargin: React.PropTypes.number,
-		pixelDensity: React.PropTypes.number
+		pixelDensity: React.PropTypes.number,
+
+		width: React.PropTypes.number,
+		height: React.PropTypes.number
+
 	},
 
 
-	getDefaultProps: function () {
+	getDefaultProps () {
 		return {
 			averageColor: '#b8b8b8',
 			averageWidth: 3,
@@ -32,7 +35,7 @@ module.exports = React.createClass( {
 	},
 
 
-	getInitialState: function () {
+	getInitialState () {
 		return {
 			dashOffset: 0,
 			canAnimate: this.testAnimationProperties()
@@ -40,9 +43,9 @@ module.exports = React.createClass( {
 	},
 
 
-	componentDidMount: function() {
-		var canvas = this.getDOMNode();
-		var context = canvas.getContext('2d');
+	componentDidMount () {
+		let canvas = React.findDOMNode(this);
+		let context = canvas.getContext('2d');
 
 		canvas.width = this.props.width * this.props.pixelDensity;
 		canvas.height = this.props.height * this.props.pixelDensity;
@@ -54,16 +57,16 @@ module.exports = React.createClass( {
 			animateTask: {
 				run: this.redraw,
 				interval: 50,
-				start: function() {
-					if (this._id) {
+				start () {
+					if (this.id) {
 						return;
 					}
-					this._id = setInterval(this.run, this.interval);
+					this.id = setInterval(this.run, this.interval);
 				},
 
-				stop: function () {
-					clearInterval(this._id);
-					delete this._id;
+				stop () {
+					clearInterval(this.id);
+					delete this.id;
 				}
 			}
 		});
@@ -77,21 +80,21 @@ module.exports = React.createClass( {
 	},
 
 
-	componentDidUpdate: function() {
+	componentDidUpdate () {
 		this.paint(this.state.context);
 	},
 
 
-	componentWillUnmount: function () {
+	componentWillUnmount () {
 		this.stopAnimation();
 	},
 
 
-	render: function() {
-		var p = this.props;
-		var width = p.width * p.pixelDensity;
-		var height = p.height * p.pixelDensity;
-		var style = {
+	render () {
+		let p = this.props;
+		let width = p.width * p.pixelDensity;
+		let height = p.height * p.pixelDensity;
+		let style = {
 			width: p.width,
 			height: p.height
 		};
@@ -102,12 +105,12 @@ module.exports = React.createClass( {
 	},
 
 
-	testAnimationProperties: function() {
+	testAnimationProperties () {
 		if (this.state && this.state.hasOwnProperty('canAnimate')) {
 			return this.state.canAnimate;
 		}
 
-		var ctx = document.createElement('canvas').getContext('2d'),
+		let ctx = document.createElement('canvas').getContext('2d'),
 			hasDashOffset = ctx.hasOwnProperty('lineDashOffset') || ctx.hasOwnProperty('mozDashOffset'),
 			hasSetLineDash = !!ctx.setLineDash;
 
@@ -115,31 +118,31 @@ module.exports = React.createClass( {
 	},
 
 
-	startAnimation: function() {
-		var canAnimate = this.testAnimationProperties();
+	startAnimation () {
+		let canAnimate = this.testAnimationProperties();
 		if (canAnimate && this.isMounted()) {
 			this.state.animateTask.start();//safe to call repeatedly (will noop if already started)
 		}
 	},
 
 
-	stopAnimation: function() {
+	stopAnimation () {
 		if (this.state && this.state.animateTask) {
 			this.state.animateTask.stop();
 		}
 	},
 
 
-	repaint: function() {
-		var next = this.state && (this.state.dashOffset - 1);
+	repaint () {
+		let next = this.state && (this.state.dashOffset - 1);
 		this.setState({
 			dashOffset: next || 0
 		});
 	},
 
 
-	paint: function(ctx) {
-		if (!ctx) {return;}
+	paint (ctx) {
+		if (!ctx) { return; }
 
 		ctx.canvas.width += 0; //set the canvas dirty and make it clear on next draw.
 		this.drawAverages(ctx);
@@ -147,7 +150,7 @@ module.exports = React.createClass( {
 	},
 
 
-	drawAverages: function(ctx) {
+	drawAverages (ctx) {
 
 		ctx.save();
 		try {
@@ -170,7 +173,7 @@ module.exports = React.createClass( {
 	},
 
 
-	drawGrades: function(ctx) {
+	drawGrades (ctx) {
 		ctx.save();
 		try {
 			ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -189,14 +192,14 @@ module.exports = React.createClass( {
 	},
 
 
-	drawLine: function(ctx, property) {
+	drawLine (ctx, property) {
 		if (!this.store || !this.store.length) {
 			this.stopAnimation();
 			console.warn('No data for chart:', this.id);
 			return;
 		}
 
-		var pointDistance = (ctx.canvas.width / (this.store.length - 1)),
+		let pointDistance = (ctx.canvas.width / (this.store.length - 1)),
 			t = this.props.topMargin * this.props.pixelDensity,
 			h = ctx.canvas.height - (t + (this.props.bottomMargin * this.props.pixelDensity)),
 			currentX = 0;
@@ -204,7 +207,7 @@ module.exports = React.createClass( {
 		ctx.translate(0, t);
 
 		this.store.forEach(function(rec, x) {
-			var y = ((rec[property] || 0) / 100) * h;
+			let y = ((rec[property] || 0) / 100) * h;
 			ctx[x === 0 ? 'moveTo' : 'lineTo'](currentX, y);
 			currentX += pointDistance;
 		});

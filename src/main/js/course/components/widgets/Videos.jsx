@@ -40,7 +40,7 @@ export default React.createClass({
 
 
 	componentDidUpdate (_, prevState) {
-		let node = this.refs.v && this.refs.v.getDOMNode();
+		let node = this.refs.v && React.findDOMNode(this.refs.v);
 		let {offsetWidth} = node || {};
 		if (prevState.offsetWidth !== offsetWidth) {
 			this.setState({offsetWidth});
@@ -48,7 +48,7 @@ export default React.createClass({
 	},
 
 
-	__onError (error) {
+	onError (error) {
 		if (this.isMounted()) {
 			this.setState({
 				loading: false,
@@ -66,10 +66,10 @@ export default React.createClass({
 				.then(data=>
 					this.setState({loading: false, data})
 				)
-				.catch(this.__onError);
+				.catch(this.onError);
 		}
 		catch(e) {
-			this.__onError(e);
+			this.onError(e);
 		}
 	},
 
@@ -132,13 +132,13 @@ export default React.createClass({
 		let videos = this.refs.v;
 		let pixelOffset = 0;
 		if (videos) {
-			videos = videos.getDOMNode();
+			videos = React.findDOMNode(videos);
 			pixelOffset = active * -videos.offsetWidth;
 		}
 
 		if (!this.state.touch) {
 			e.stopPropagation();
-			// console.debug('Touch Start...')
+			console.debug('Touch Start...');
 			this.setState({
 				touch: {
 					dom: videos,
@@ -168,7 +168,7 @@ export default React.createClass({
 		}
 
 		let active = state.active;
-		let touch = Array.from(e.targetTouches||[]).reduce(find, null);
+		let touch = Array.from(e.targetTouches || []).reduce(find, null);
 		let sliding = data.sliding;
 		let pixelOffset = data.pixelOffset;
 		let startPixelOffset = data.startPixelOffset;
@@ -189,7 +189,7 @@ export default React.createClass({
 			if (sliding === 1 && delta) {
 				sliding = 2;
 				startPixelOffset = pixelOffset;
-				// console.debug('Touch move tripped...');
+				console.debug('Touch move tripped...');
 			}
 
 			if (sliding === 2) {
@@ -214,25 +214,36 @@ export default React.createClass({
 	},
 
 
-	onTouchEnd (/*e*/) {
-		//e.stopPropagation();
+	onTouchEnd (e) {
 
 		let touch = this.state.touch || {};
 
+		let find = (t, i) =>t || (i.identifier === touch.id && i);
+		let endedTouch = Array.from(e.targetTouches || []).reduce(find, null);
 		let pixelOffset = touch.pixelOffset;
 		let startPixelOffset = touch.startPixelOffset;
 		let fn;
 
 		if (touch.sliding === 2) {
-			fn = //(Math.abs(pixelOffset - startPixelOffset)/touch.dom.offsetWidth) > 0.2 ? null ://elastic
+			e.preventDefault();
+			e.stopPropagation();
+
+			fn = (Math.abs(pixelOffset - startPixelOffset) / touch.dom.offsetWidth) < 0.35 ? null ://elastic
 				pixelOffset < startPixelOffset ? 'onNext' : 'onPrev';
 
-			// console.debug('Touch End, result: %s', fn);
+			console.debug('Touch End, result: %s', fn || 'stay');
 
 			if(fn) {
 				this[fn]();
 			}
+
 			this.setState({ touch: null	});
+		}
+
+		if (endedTouch || e.targetTouches.length === 0) {
+			this.setState({ touch: null	});
+		} else {
+			console.debug('Not my touch', touch.id, e.targetTouches);
 		}
 	},
 
@@ -254,40 +265,56 @@ export default React.createClass({
 
 	render () {
 		if (this.state.loading) { return (<Loading/>); }
-		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>);}
-
-		let animate = this.state.touch ? '' : 'animate';
-		let translation = this.getTranslation();
-		let style = {
-			WebkitTransform: translation,
-			MozTransform: translation,
-			msTransform: translation,
-			transform: translation
-		};
+		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>); }
 
 		return (
 			<div className="videos-carousel-container">
-				<ul ref="v" className={'videos-carousel ' + animate} style={style}
-				 	onTouchStart={this.onTouchStart}
-					onTouchMove={this.onTouchMove}
-					onTouchEnd={this.onTouchEnd}
-					tabIndex="0">
-					{this._renderItems(this.getVideoList(), {tag: 'li', activeIndex: this.state.active})}
-				</ul>
+				{this.renderCarousel()}
 				<button className="prev fi-arrow-left" onClick={this.onPrev} title="Prevous Video"/>
 				<button className="next fi-arrow-right" onClick={this.onNext} title="Next Video"/>
 				<ul className="videos-carousel-dots">
-					{this._renderDots()}
+					{this.renderDots()}
 				</ul>
 			</div>
 		);
 	},
 
 
-	_renderDots () {
+	renderCarousel () {
+		let {touch} = this.state;
+		let touching = (touch && touch.sliding !== 1);
+		let animateChanges = touching ? '' : 'animate';
+		let translation = this.getTranslation();
+
+		let props = {
+			tabIndex: '0',
+			ref: 'v',
+			style: {
+				WebkitTransform: translation,
+				MozTransform: translation,
+				msTransform: translation,
+				transform: translation
+			},
+			className: 'videos-carousel ' + animateChanges,
+			onTouchStart: this.onTouchStart,
+			onTouchMove: this.onTouchMove,
+			onTouchEnd: this.onTouchEnd
+		};
+
+		return React.createElement('ul', props,
+			...this.renderItems(this.getVideoList(), {
+				tag: 'li',
+				activeIndex: this.state.active,
+				touching
+			}));
+
+	},
+
+
+	renderDots () {
 		return this.getVideoList().map((_, i) => {
 			let active = (i === (this.state.active || 0)) ? 'active' : null;
-			return (<li key={'video-'+i}><a className={active} href={"#"+i}
+			return (<li key={'video-' + i}><a className={active} href={"#" + i}
 				onClick={this.onActivateSlide} data-index={i}/></li>);
 		});
 	}

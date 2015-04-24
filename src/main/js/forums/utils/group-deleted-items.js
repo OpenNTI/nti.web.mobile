@@ -25,9 +25,8 @@ export default function (items) {
 			deletedItemGroup.items.push(current);
 		}
 		else {
-			previous.push(current);	
+			previous.push(current);
 		}
 		return previous;
 	}, []);
 }
-

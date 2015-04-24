@@ -1,11 +1,10 @@
-'use strict';
+import React from 'react';
+import PanelButton from 'common/components/PanelButton';
 
-var React = require('react');
-var PanelButton = require('common/components/PanelButton');
+export default React.createClass({
+	displayName: 'DropStore',
 
-var DropStore = React.createClass({
-
-	render: function() {
+	render () {
 		return (
 			<div className="column">
 				<PanelButton linkText="Okay" href="../../">
@@ -16,5 +15,3 @@ var DropStore = React.createClass({
 	}
 
 });
-
-module.exports = DropStore;

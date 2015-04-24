@@ -19,7 +19,7 @@ export default React.createClass({
 				<Avatar username={this.state.username} width="32" height="32"/>
 				<div className="wrap">
 					<DisplayName username={this.state.username}/>
-						{" created a thought: " + blogName}
+						{' created a thought: ' + blogName}
 					<DateTime date={this.getEventTime()} relative/>
 				</div>
 			</li>

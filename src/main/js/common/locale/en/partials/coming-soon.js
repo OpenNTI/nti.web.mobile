@@ -1,4 +1,4 @@
-'use strict';
+
 
 module.exports = {
 	general: 'Coming soon to mobile.\nUntil then, please use a desktop or iPad app to access it.',

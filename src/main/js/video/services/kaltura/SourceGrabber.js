@@ -16,14 +16,14 @@ const isMP4 = test.bind(/mp4/i);
 const is3gp = test.bind(/3gp/i);
 
 function kalturaSig(str) {
-	var hash = 0;
-	if (str.length === 0) {return hash;}
-	for (var i = 0; i < str.length; i++) {
-		var currentChar = str.charCodeAt(i);
-		/* jshint -W016 */
+	let hash = 0;
+	if (str.length === 0) { return hash; }
+	for (let i = 0; i < str.length; i++) {
+		let currentChar = str.charCodeAt(i);
+		/* eslint-disable no-bitwise */
 		hash = ((hash << 5) - hash) + currentChar;
 		hash = hash & hash;
-		/* jshint +W016 */
+		/* eslint-enable no-bitwise */
 	}
 	return hash;
 }
@@ -31,26 +31,26 @@ function kalturaSig(str) {
 
 function parseResult( result ) { // API result
 
-	var protocol = location.protocol.substr(0, location.protocol.length-1);
+	let protocol = location.protocol.substr(0, location.protocol.length - 1);
 	// Set the service url based on protocol type
-	var serviceUrl = (protocol === 'https') ?
+	let serviceUrl = (protocol === 'https') ?
 		'://www.kaltura.com' :
 		'://cdnbakmi.kaltura.com';
 
-	var data = result[1];
-	var entryInfo = result[2];
-	var assets = data.flavorAssets || [];
+	let data = result[1];
+	let entryInfo = result[2];
+	let assets = data.flavorAssets || [];
 
-	var baseUrl = protocol + serviceUrl + '/p/' + entryInfo.partnerId +
+	let baseUrl = protocol + serviceUrl + '/p/' + entryInfo.partnerId +
 			'/sp/' + entryInfo.partnerId + '00/playManifest';
 
-	var adaptiveFlavors = assets.map(a => isHLS(a.tags) && a.id).filter(is);
+	let adaptiveFlavors = assets.map(a => isHLS(a.tags) && a.id).filter(is);
 
-	var deviceSources = assets
+	let deviceSources = assets
 		.filter(asset=> asset.status === 2 && asset.width)
 		.map(asset => {
-			var src = baseUrl + '/entryId/' + asset.entryId;
-			var source = {
+			let src = baseUrl + '/entryId/' + asset.entryId;
+			let source = {
 				bitrate: asset.bitrate * 8,
 				width: asset.width,
 				height: asset.height,
@@ -61,7 +61,7 @@ function parseResult( result ) { // API result
 			if( isAppleMBR(asset.tags)) {
 				return {
 					type: 'application/vnd.apple.mpegurl',
-					src: src + '/format/applehttp/protocol/'+ protocol + '/a.m3u8'
+					src: `${src}/format/applehttp/protocol/${protocol}/a.m3u8`
 				};
 			}
 
@@ -97,14 +97,13 @@ function parseResult( result ) { // API result
 		deviceSources.push({
 			'data-flavorid': 'HLS',
 			type: 'application/vnd.apple.mpegurl',
-			src: baseUrl + '/entryId/' + entryInfo.id + '/flavorIds/' + adaptiveFlavors.join(',')  +
-							'/format/applehttp/protocol/' + protocol + '/a.m3u8'
+			src: `${baseUrl}/entryId/${entryInfo.id}/flavorIds/${adaptiveFlavors.join(',')}/format/applehttp/protocol/${protocol}/a.m3u8`
 		});
 	}
 
 
-	var w = 1280;
-	var poster =	'//www.kaltura.com/p/' + entryInfo.partnerId +
+	let w = 1280;
+	let poster =	'//www.kaltura.com/p/' + entryInfo.partnerId +
 					'/thumbnail/entry_id/' + entryInfo.id +
 					'/width/' + w + '/';
 
@@ -114,7 +113,7 @@ function parseResult( result ) { // API result
 		poster: poster,
 		duration: entryInfo.duration,
 		name: entryInfo.name,
-		entryId :  entryInfo.id,
+		entryId: entryInfo.id,
 		description: entryInfo.description,
 		sources: deviceSources
 	};
@@ -123,7 +122,7 @@ function parseResult( result ) { // API result
 
 export default function getSources(settings) {
 
-	var param = {
+	let param = {
 		service: 'multirequest',
 		apiVersion: '3.1',
 		expiry: '86400',
@@ -156,9 +155,9 @@ export default function getSources(settings) {
 	param.format = 1;
 	delete param.service;
 
-	var url = 'https://cdnapisec.kaltura.com/api_v3/index.php?service=multirequest&' + QueryString.stringify(param);
+	let url = 'https://cdnapisec.kaltura.com/api_v3/index.php?service=multirequest&' + QueryString.stringify(param);
 
 	return getService()
-		.then(srv=> srv.get({url:url, headers: null}))
+		.then(srv=> srv.get({url, headers: null}))
 		.then(parseResult);
 }

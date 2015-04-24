@@ -16,7 +16,7 @@ const WIDGETS = [
 ];
 
 export function getWidget(item, page, ownerProps) {
-	var Item = Unknown;
+	let Item = Unknown;
 
 	for (let Type of WIDGETS) {
 		if (Type !== Unknown && Type.handles && Type.handles(item)) {

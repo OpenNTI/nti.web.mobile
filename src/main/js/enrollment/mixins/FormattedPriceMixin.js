@@ -1,10 +1,7 @@
-'use strict';
+import Price from 'format-price';
 
-var Price = require('format-price');
-
-module.exports = {
-	getFormattedPrice: function(currency, price) {
-		return Price.format('en-US',currency,price);
+export default {
+	getFormattedPrice (currency, price) {
+		return Price.format('en-US', currency, price);
 	}
 };
-

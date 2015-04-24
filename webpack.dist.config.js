@@ -4,17 +4,17 @@
  * This file is set up for serving the distribution version. It will be compiled to dist/ by default
  */
 
+/*eslint no-var: 0 strict: 0*/
 'use strict';
-/*eslint no-var: 0*/
 var assign = require('object-assign');
 
 var webpack = require('webpack');
-var CompressionPlugin = require("compression-webpack-plugin");
+var CompressionPlugin = require('compression-webpack-plugin');
 var AppCachePlugin = require('./src/webpack-plugins/appcache');
 var statsCollector = require('./src/webpack-plugins/stats-collector');
 
 var e = [];
-var cfg = require("./webpack.config.js");
+var cfg = require('./webpack.config.js');
 if (!Array.isArray(cfg)) {
 	cfg = [cfg];
 }
@@ -26,9 +26,9 @@ e[0].plugins = [
 	statsCollector(__dirname),
 	new webpack.DefinePlugin({
 		SERVER: false,
-		"process.env": {
+		'process.env': {
 			// This has effect on the react lib size
-			"NODE_ENV": JSON.stringify("production")
+			'NODE_ENV': JSON.stringify('production')
 		}
 	}),
 	new webpack.optimize.OccurenceOrderPlugin(),
@@ -50,8 +50,8 @@ e[0].plugins = [
 		fallback: ['/dataserver2/ offline.json', '/ page.html']
 	}),
 	new CompressionPlugin({
-		asset: "{file}.gz",
-		algorithm: "gzip",
+		asset: '{file}.gz',
+		algorithm: 'gzip',
 		regExp: /$/
 	})
 ];
@@ -60,7 +60,7 @@ e[0].plugins = [
 e.forEach(function(x) {
 	x.stats = true;
 	x.debug = false;
-	x.devtool = 'source-map';
+	x.devtool = 'hidden-source-map';
 });
 
 

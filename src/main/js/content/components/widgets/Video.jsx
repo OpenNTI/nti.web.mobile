@@ -1,18 +1,13 @@
-import path from 'path';
 import React from 'react';
 
 import LoadingMask from 'common/components/Loading';
-import BasePathAware from 'common/mixins/BasePath';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {Component as Video} from 'video';
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const Progress = Symbol.for('Progress');
 
 export default React.createClass({
 	displayName: 'NTIVideo',
-	mixins: [BasePathAware, NavigatableMixin],
 
 
 	propTypes: {
@@ -56,10 +51,7 @@ export default React.createClass({
 
 	componentWillReceiveProps (nextProps) {
 		this.fillInVideo(nextProps);
-
-		if (this.props.activeIndex !== nextProps.activeIndex) {
-			this.setState({playing: false});
-		}
+		this.setState({playing: false});
 	},
 
 
@@ -72,14 +64,14 @@ export default React.createClass({
 
 	fillInVideo  (props) {
 		try {
-			var {video} = this.state;
-			var {contentPackage, item, contextResolver} = props;
+			let {video} = this.state;
+			let {contentPackage, item, contextResolver} = props;
 
 			if (video && item.NTIID === video.getID()) {
 				return;
 			}
 
-			var NTIID = this.getVideoID();
+			let NTIID = this.getVideoID();
 
 			this.setState({loading: true});
 
@@ -88,15 +80,18 @@ export default React.createClass({
 			}
 
 			contextResolver(props)
-				.then(context=>
-					this.isMounted() && this.setState({context}))
+				.then(context=>this.setState({context}))
 				.then(()=>
-					contentPackage.getVideoIndex().then(videoIndex => {
-							let video = videoIndex.get(NTIID);
-							this.setState({ loading: false, video });
-							video.getPoster().then(poster=>
-								this.isMounted() &&
-									this.setState({poster}));
+					contentPackage.getVideoIndex()
+						.then(videoIndex => {
+							video = videoIndex.get(NTIID);
+							video.getPoster()
+								.then(poster=>
+									this.setState({
+										loading: false,
+										video,
+										poster
+									}));
 						})
 				)
 				.catch(this.onError);
@@ -108,6 +103,7 @@ export default React.createClass({
 
 	onPosterClicked (e) {
 		e.stopPropagation();
+		this.onPlayClicked(e);
 	},
 
 
@@ -115,7 +111,7 @@ export default React.createClass({
 		e.preventDefault();
 		e.stopPropagation();
 
-		var {video} = this.refs;
+		let {video} = this.refs;
 		if (video) {
 			video.play();
 		}
@@ -123,7 +119,7 @@ export default React.createClass({
 
 
 	stop () {
-		var {video} = this.refs;
+		let {video} = this.refs;
 		if (video) {
 			video.stop();
 		}
@@ -145,36 +141,36 @@ export default React.createClass({
 
 
 	render () {
-		var {props} = this;
-		var {item} = props;
+		let {props} = this;
+		let {item} = props;
+		let {loading, playing, poster, video} = this.state;
 
-		var label = item.label || item.title;
+		let label = item.label || item.title;
 
-		var Tag = props.tag || 'div';
+		let Tag = props.tag || 'div';
 
-		var viewed = false;
-		var progress = item[Progress];
+		let viewed = false;
+		let progress = item[Progress];
 		if (progress && progress.hasProgress()) {
 			viewed = true;
 		}
 
-		var link = path.join('v', encodeForURI(this.getVideoID()))  + '/';
-
-		link = this.makeParentRouterHref(link);
+		poster = poster && {backgroundImage: `url(${poster})`};
 
 		return (
 			<Tag className="content-video video-wrap flex-video widescreen">
-				{!this.state.video ? null :
-					<Video ref="video" src={this.state.video}
+				{!video ? null :
+					<Video ref="video" src={video}
 						onEnded={this.onStop}
 						onPlaying={this.onPlay}
-						context={this.state.context} />
+						context={this.state.context}
+						deferred />
 				}
 
-				{this.state.playing ? null :
-					<LoadingMask style={{backgroundImage: `url(${this.state.poster})`}} loading={this.state.loading}
+				{playing ? null :
+					<LoadingMask style={poster} loading={loading}
 						tag="a" onFocus={props.onFocus} onClick={this.onPosterClicked}
-						className="content-video-tap-area" href={link}>
+						className="content-video-tap-area" href="#">
 
 						{viewed && <div className="viewed">Viewed</div>}
 

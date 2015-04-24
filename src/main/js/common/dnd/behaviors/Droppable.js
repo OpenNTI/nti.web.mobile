@@ -82,7 +82,7 @@ export default {
 
 
 	renderDropTargetWrapper (children) {
-		return React.createElement(this.props.tag||'div', Object.assign({}, this.props, {
+		return React.createElement(this.props.tag || 'div', Object.assign({}, this.props, {
 			children: children,
 			className: this[getWrapperElementClassName]()
 		}));
@@ -106,7 +106,7 @@ export default {
 		let {x, y} = dragData;
 		if (!this.isMounted() || !this.context.currentDragItem) { return; }
 
-		if (isPointWithIn(this.getDOMNode(), x, y)) {
+		if (isPointWithIn(React.findDOMNode(this), x, y)) {
 			if (!this.state.over) {
 				this[onDragEnteredDropTarget]();
 			}

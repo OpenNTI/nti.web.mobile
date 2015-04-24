@@ -26,12 +26,12 @@ const INVALIDATION_EVENTS = {
 
 function flush (event) {
 
-	var type = event && (event.type || (event.action||{}).type);
+	let type = event && (event.type || (event.action || {}).type);
 	if (!type) {
 		return;
 	}
 
-	var act = INVALIDATION_EVENTS[type];
+	let act = INVALIDATION_EVENTS[type];
 
 	if (!act) {
 		console.debug('InvalidationListener: ignoring non-invalidation event: %o', event);

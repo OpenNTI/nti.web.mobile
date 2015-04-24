@@ -1,60 +1,63 @@
 /* global jQuery, Stripe */
-'use strict';
 
-var React = require('react');
-var ReactCSSTransitionGroup = require("react/lib/ReactCSSTransitionGroup");
+import React from 'react';
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
-var isEmail = require('nti.lib.interfaces/utils/isemail');
+import isEmail from 'nti.lib.interfaces/utils/isemail';
 
-var _t = require('common/locale').scoped('ENROLLMENT.GIFT');
-var t = require('common/locale').scoped('ENROLLMENT.forms.storeenrollment');
-var t2 = require('common/locale').scoped('ENROLLMENT');
+import {scoped} from 'common/locale';
 
-var Recipient = require('./GiftRecipient');
-var Pricing = require('./Pricing');
+let t = scoped('ENROLLMENT');
+let tGift = scoped('ENROLLMENT.GIFT');
+let tForm = scoped('ENROLLMENT.forms.storeenrollment');
 
-var fieldConfig = require('../configs/GiftPaymentForm.js');
+import Recipient from './GiftRecipient';
+import Pricing from './Pricing';
 
-var Loading = require('common/components/Loading');
-var RenderFormConfigMixin = require('common/forms/mixins/RenderFormConfigMixin');
-var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
-var FormPanel = require('common/forms/components/FormPanel');
-var Localized = require('common/components/LocalizedHTML');
-var ScriptInjector = require('common/mixins/ScriptInjectorMixin');
-var Err = require('common/components/Error');
+import fieldConfig from '../configs/GiftPaymentForm.js';
 
-var Actions = require('../Actions');
-var Store = require('../Store');
-var Constants = require('../Constants');
+import Loading from 'common/components/Loading';
+import RenderFormConfigMixin from 'common/forms/mixins/RenderFormConfigMixin';
+import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
+import FormPanel from 'common/forms/components/FormPanel';
+import Localized from 'common/components/LocalizedHTML';
+import ScriptInjector from 'common/mixins/ScriptInjectorMixin';
+import Err from 'common/components/Error';
 
-var agreementURL = '/mobile/api/user-agreement/view';
+import Store from '../Store';
+import * as Actions from '../Actions';
+import * as Constants from '../Constants';
 
-var Header = React.createClass({
-	render: function() {
+let agreementURL = '/mobile/api/user-agreement/view';
+
+const Header = React.createClass({
+	displayName: 'GiftView:Header',
+
+	render () {
 		return (
 			<div>
-				<h2>{_t('HEADER.title')}</h2>
-				<p>{_t('HEADER.description')}</p>
+				<h2>{tGift('HEADER.title')}</h2>
+				<p>{tGift('HEADER.description')}</p>
 			</div>
 		);
 	}
 });
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'GiftView',
 
-	mixins: [RenderFormConfigMixin,ScriptInjector,FormattedPriceMixin],
+	mixins: [RenderFormConfigMixin, ScriptInjector, FormattedPriceMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		//FIXME: Re-write this:
 		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
 		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
 
-		var formData = Store.getPaymentFormData();
+		let formData = Store.getPaymentFormData();
 
 		return {
 			agreed: false,
@@ -65,39 +68,30 @@ module.exports = React.createClass({
 		};
 	},
 
-	componentDidMount: function() {
-		Promise.all([
-			this.injectScript('https://code.jquery.com/jquery-2.1.3.min.js', 'jQuery'),
-			this.injectScript('https://js.stripe.com/v2/', 'Stripe'),
-			this.injectScript('//cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.0.2/jquery.payment.min.js', 'jQuery.payment')
-		])
-		.then(
-			function() {
-				this.setState({
-					loading: false
-				});
-			}.bind(this),
-			function(reason) {
-				this.setState({
-					loading: false,
-					error: reason
-				});
-			}.bind(this));
+	componentDidMount () {
 
-		Store.addChangeListener(this._onChange);
+		this.injectScript('https://code.jquery.com/jquery-2.1.3.min.js', 'jQuery')
+			.then(() => this.injectScript('https://js.stripe.com/v2/', 'Stripe'))
+			.then(() => this.injectScript('//cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.0.2/jquery.payment.min.js', 'jQuery.payment'))
+			.then(
+				()=> this.setState({ loading: false }),
+				reason => this.setState({ loading: false, error: reason })
+			);
+
+		Store.addChangeListener(this.onChange);
 
 		this.addFormatters();
 	},
 
 
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._onChange);
+	componentWillUnmount () {
+		Store.removeChangeListener(this.onChange);
 	},
 
 
-	_onChange: function(event) {
-		var errors = this.state.error || {};
-		var key;
+	onChange (event) {
+		let errors = this.state.error || {};
+		let key;
 
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
@@ -116,45 +110,45 @@ module.exports = React.createClass({
 				console.log(event);
 				break;
 
-		case Constants.LOCK_SUBMIT:
-			this.setState({
-				submitEnabled: false
-			});
-			break;
+			case Constants.LOCK_SUBMIT:
+				this.setState({
+					submitEnabled: false
+				});
+				break;
 
-		case Constants.UNLOCK_SUBMIT:
-			this.setState({
-				submitEnabled: true
-			});
-			break;
+			case Constants.UNLOCK_SUBMIT:
+				this.setState({
+					submitEnabled: true
+				});
+				break;
 		}
 	},
 
 
-	componentDidUpdate: function() {
+	componentDidUpdate () {
 		this.addFormatters();
 	},
 
 
 	inputFormatters: {
-		number: function(dom) {
-			var jDom = jQuery(dom);
+		number (dom) {
+			let jDom = jQuery(dom);
 
 			if (jDom && jDom.payment && !dom.hasFormatter) {
 				jDom.payment('formatCardNumber');
 				dom.hasFormatter = true;
 			}
 		},
-		exp_: function(dom) {
-			var jDom = jQuery(dom);
+		exp_ (dom) {
+			let jDom = jQuery(dom);
 
 			if (jDom && jDom.payment && !dom.hasFormatter) {
 				jDom.payment('formatCardExpiry');
 				dom.hasFormatter = true;
 			}
 		},
-		cvc: function(dom) {
-			var jDom = jQuery(dom);
+		cvc (dom) {
+			let jDom = jQuery(dom);
 
 			if (jDom && jDom.payment && !dom.hasFormatter) {
 				jDom.payment('formatCardCVC');
@@ -165,19 +159,17 @@ module.exports = React.createClass({
 
 
 	outputFormatters: {
-		exp_: function(dom) {
-			var jDom = jQuery(dom);
-			var result = {};
+		exp_ (dom) {
+			let jDom = jQuery(dom);
+			let result = {};
 
 			if (jDom && jDom.payment) {
 				result = jDom.payment('cardExpiryVal');
 
 				return {
 					//External API... ignore names
-					/* jshint -W106 */
-					exp_month: result.month,
-					exp_year: result.year
-					/* jshint +W106 */
+					exp_month: result.month, // eslint-disable-line camelcase
+					exp_year: result.year // eslint-disable-line camelcase
 				};
 			}
 
@@ -186,8 +178,8 @@ module.exports = React.createClass({
 	},
 
 
-	getFormData: function () {
-		var i, refs = this.refs,
+	getFormData  () {
+		let i, refs = this.refs,
 			v, result = Object.assign({}, this.state.fieldValues);
 
 		for (i in refs) {
@@ -199,7 +191,7 @@ module.exports = React.createClass({
 				Object.assign(result, v.getData());
 
 			} else if (this.outputFormatters[i]) {
-				Object.assign(result, this.outputFormatters[i](v.getDOMNode()));
+				Object.assign(result, this.outputFormatters[i](React.findDOMNode(v)));
 			}
 
 		}
@@ -208,47 +200,47 @@ module.exports = React.createClass({
 	},
 
 
-	_onAgreementCheckedChange: function (e) {
-		var result = this.getFormData();
+	onAgreementCheckedChange  (e) {
+		let result = this.getFormData();
 
 		this.setState({
 			agreed: e.target.checked
 		});
 
-		this._validate(result);
+		this.validate(result);
 	},
 
 
-	_onClick: function() {
-		var stripeKey = this.props.purchasable.StripeConnectKey.PublicKey;
-		var result = this.getFormData();
+	onClick () {
+		let stripeKey = this.props.purchasable.StripeConnectKey.PublicKey;
+		let result = this.getFormData();
 
-		if (this._validate(result) && this.state.agreed) {
+		if (this.validate(result) && this.state.agreed) {
 			Actions.verifyBillingInfo(stripeKey, result);
 		}
 	},
 
 
-	_validate: function(fieldValues) {
-		var errors = {};
+	validate (fieldValues) {
+		let errors = {};
 
 		function markRequired(ref) {
 			errors[ref] = {
-				// no message property because we don't want the 'required' message
+				// no message property because we don'tForm want the 'required' message
 				// repeated for every required field...
 
 				// ...but we still want an entry for this ref so the field gets flagged
 				// as invalid.
-				error: t2('requiredField')
+				error: t('requiredField')
 			};
 			errors.required = {
-				message: t2('incompleteForm')
+				message: t('incompleteForm')
 			};
 		}
 
 		fieldConfig.forEach(function(fieldset) {
 			fieldset.fields.forEach(function(field) {
-				var value = (fieldValues[field.ref]||'').trim();
+				let value = (fieldValues[field.ref]||'').trim();
 				if (value.length === 0) {
 					if (field.required) {
 						markRequired(field.ref);
@@ -258,7 +250,7 @@ module.exports = React.createClass({
 
 					if (field.type === 'email' && !isEmail(value)) {
 						errors[field.ref] = {
-							message: t2('invalidEmail'),
+							message: t('invalidEmail'),
 							error: 'not an email address'
 						};
 					}
@@ -273,30 +265,30 @@ module.exports = React.createClass({
 			if (this.refs.Recipient.isEmpty()) {
 				markRequired('Recipient');
 			} else {
-				errors.Recipient =  {message: t2('invalidRecipient')};
+				errors.Recipient = {message: t('invalidRecipient')};
 			}
 		}
 
-		var number = (fieldValues.number||'');
+		let number = (fieldValues.number||'');
 		if(number.trim().length > 0 && !Stripe.card.validateCardNumber(number)) {
-			errors.number =  {message: t2('invalidCardNumber')};
+			errors.number = {message: t('invalidCardNumber')};
 		}
 
-		var cvc = (fieldValues.cvc||'');
+		let cvc = (fieldValues.cvc||'');
 		if(cvc.trim().length > 0 && !Stripe.card.validateCVC(cvc)) {
-			errors.cvc =  {message: t2('invalidCVC')};
+			errors.cvc = {message: t('invalidCVC')};
 		}
 		/* jshint -W106 */
-		var mon = (fieldValues.exp_month||'');
-		var year = (fieldValues.exp_year||'');
+		let mon = (fieldValues.exp_month||'');
+		let year = (fieldValues.exp_year||'');
 
-		if([mon,year].join('').trim().length > 0 && !Stripe.card.validateExpiry(mon,year)) {
-			errors.exp_month =  {message: t2('invalidExpiration')};
-			// no message property because we don't want the error message repeated
-			errors.exp_year =  {error: t2('invalidExpiration')};
+		if([mon, year].join('').trim().length > 0 && !Stripe.card.validateExpiry(mon, year)) {
+			errors.exp_month = {message: t('invalidExpiration')}; // eslint-disable-line camelcase
+			// no message property because we don'tForm want the error message repeated
+			errors.exp_year = {error: t('invalidExpiration')}; // eslint-disable-line camelcase
 			// since these two are combined in one input set an error on that field name
 			// so the input can show the error
-			errors.exp_ = {error: t2('invalidExpiration')};
+			errors.exp_ = {error: t('invalidExpiration')}; // eslint-disable-line
 		}
 
 		this.setState({
@@ -307,8 +299,8 @@ module.exports = React.createClass({
 	},
 
 
-	_inputBlurred: function(/*event*/) {
-		var errs = this.state.errors;
+	_inputBlurred (/*event*/) {
+		let errs = this.state.errors;
 		if(Object.keys(errs).length === 1 && errs.hasOwnProperty('required')) {
 			this.setState({
 				errors: {}
@@ -318,9 +310,9 @@ module.exports = React.createClass({
 
 
 
-	render: function() {
-		var enabled = (this.state.agreed && this.state.submitEnabled);
-		var submitCls = enabled ? '' : 'disabled';
+	render () {
+		let enabled = (this.state.agreed && this.state.submitEnabled);
+		let submitCls = enabled ? '' : 'disabled';
 
 		if(this.state.loading) {
 			return <Loading />;
@@ -335,8 +327,8 @@ module.exports = React.createClass({
 			<div className="gift enrollment">
 				<Pricing ref="Pricing" purchasable={this.props.purchasable} />
 
-				<FormPanel title={_t('PAYMENT.title')} subhead={_t('PAYMENT.sub')} styled={false}>
-					{this.renderFormConfig(fieldConfig, this.state.fieldValues, t)}
+				<FormPanel title={tGift('PAYMENT.title')} subhead={tGift('PAYMENT.sub')} styled={false}>
+					{this.renderFormConfig(fieldConfig, this.state.fieldValues, tForm)}
 				</FormPanel>
 
 				<Header />
@@ -345,7 +337,7 @@ module.exports = React.createClass({
 				<div className="errors">
 					<ReactCSSTransitionGroup transitionName="messages">
 					{Object.keys(this.state.errors).map(ref => {
-						var err = this.state.errors[ref];
+						let err = this.state.errors[ref];
 						return (err.message ? <small key={ref} className='error'>{err.message}</small> : null);
 					})}
 					</ReactCSSTransitionGroup>
@@ -353,14 +345,14 @@ module.exports = React.createClass({
 
 				<div className="agreement">
 					<label>
-						<input type="checkbox" name="agree" checked={this.state.agreed} onChange={this._onAgreementCheckedChange}/>
+						<input type="checkbox" name="agree" checked={this.state.agreed} onChange={this.onAgreementCheckedChange}/>
 						<Localized tag="span" stringId="ENROLLMENT.GIFT.agreeToTerms" url={agreementURL} />
 					</label>
 				</div>
 
 				<div className="button-row">
-					{/*<a ref="cancelButton">{_t('cancelPurchaseButton')}</a>*/}
-					<button disabled={!enabled} className={submitCls} onClick={this._onClick}>{_t('purchaseButton')}</button>
+					{/*<a ref="cancelButton">{tGift('cancelPurchaseButton')}</a>*/}
+					<button disabled={!enabled} className={submitCls} onClick={this.onClick}>{tGift('purchaseButton')}</button>
 				</div>
 			</div>
 		);

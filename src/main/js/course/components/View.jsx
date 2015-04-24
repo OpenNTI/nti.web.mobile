@@ -13,7 +13,6 @@ import ErrorWidget from 'common/components/Error';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';
 import StoreEventAware from 'common/mixins/StoreEvents';
-import SetStateSafely from 'common/mixins/SetStateSafely';
 
 import Page from './Page';
 
@@ -40,7 +39,7 @@ const ROUTES = [
 
 export default React.createClass({
 	displayName: 'CourseView',
-	mixins: [BasePathAware, ContextContributor, StoreEventAware, SetStateSafely],
+	mixins: [BasePathAware, ContextContributor, StoreEventAware],
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
@@ -57,7 +56,7 @@ export default React.createClass({
 
 
 	synchronizeFromStore () {
-		this.setStateSafely({loading: false, course: Store.getData()});
+		this.setState({loading: false, course: Store.getData()});
 	},
 
 
@@ -75,17 +74,17 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		var courseId = decodeFromURI(props.course);
-		this.setStateSafely({loading: true});
+		let courseId = decodeFromURI(props.course);
+		this.setState({loading: true});
 
 		setCourse(courseId);
 	},
 
 
 	render () {
-		var record = this.state.course;
-		var course = (record || {}).CourseInstance;
-		var entry = course && course.CatalogEntry;
+		let record = this.state.course;
+		let course = (record || {}).CourseInstance;
+		let entry = course && course.CatalogEntry;
 
 		if (this.state.loading) {
 			return (<Loading/>);
@@ -101,7 +100,7 @@ export default React.createClass({
 			...ROUTES.map(route=>
 				route.path ?
 				React.createElement(Router.Location, Object.assign({}, route, {course})) :
-				React.createElement(Router.NotFound, {handler:Redirect, location: 'o/'})
+				React.createElement(Router.NotFound, {handler: Redirect, location: 'o/'})
 			));
 	},
 
@@ -109,6 +108,7 @@ export default React.createClass({
 	getContext () {
 		return Promise.resolve([
 			{
+				source: 'course/components/View',
 				label: 'Courses',
 				href: this.getBasePath()
 			}/*,{

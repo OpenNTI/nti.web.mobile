@@ -4,6 +4,7 @@ import invariant from 'react/lib/invariant';
 import {EventHandlers} from '../../Constants';
 
 import ErrorWidget from 'common/components/Error';
+import MESSAGES from 'common/utils/WindowMessageListener';
 
 import QueryString from 'query-string';
 
@@ -12,22 +13,32 @@ import Task from 'nti.lib.interfaces/utils/task';
 
 const YOU_TUBE = 'https://www.youtube.com';
 
+// const UNSTARTED = -1;
+// const ENDED = 0;
+const PLAYING = 1;
+// const PAUSED = 2;
+// const BUFFERING = 3;
+// const CUED = 5;
+
 /*
 const YOU_TUBE_STATES = {
-	'-1': 'UNSTARTED',
-	0: 'ENDED',
-	1: 'PLAYING',
-	2: 'PAUSED',
-	3: 'BUFFERING',
-	5: 'CUED'
+	[UNSTARTED]: 'UNSTARTED',
+	[ENDED]: 'ENDED',
+	[PLAYING]: 'PLAYING',
+	[PAUSED]: 'PAUSED',
+	[BUFFERING]: 'BUFFERING',
+	[CUED]: 'CUED'
 };
 */
+
+
 const YT_STATE_TO_EVENTS = {
 	0: 'ended',
 	1: 'playing',
 	2: 'pause'
 	//There is no seek event for YT
 };
+
 
 let Source = React.createClass({
 	displayName: 'YouTube-Video',
@@ -45,45 +56,38 @@ let Source = React.createClass({
 
 
 	propTypes: {
-		id: React.PropTypes.string,
-		source: React.PropTypes.any.isRequired
+		source: React.PropTypes.any.isRequired,
+		deferred: React.PropTypes.bool
 	},
 
 
 	getInitialState () {
-		return {scope: YOU_TUBE};
-	},
-
-
-	getDefaultProps () {
-		return {
-			id: guid()
-		};
+		return {id: guid(), scope: YOU_TUBE, playerState: -1};
 	},
 
 
 	componentWillMount () {
-		this.updateURL();
+		this.updateURL(this.props);
 		this.setState({
-			initTask: new Task(this.sendListening, 500)
+			initTask: new Task(this.sendListening, 250)
 		});
 	},
 
 
 	componentDidMount () {
-		this.updateURL();
-		window.addEventListener('message', this.onMessage, false);
+		this.updateURL(this.props);
+		MESSAGES.add(this.onMessage);
 	},
 
 
 	componentWillUnmount () {
 		this.state.initTask.stop();
-		window.removeEventListener('message', this.onMessage, false);
+		MESSAGES.remove(this.onMessage);
 	},
 
 
-	componentWillReceiveProps () {
-		this.updateURL();
+	componentWillReceiveProps (props) {
+		this.updateURL(props);
 	},
 
 
@@ -103,11 +107,15 @@ let Source = React.createClass({
 		}
 
 		initTask.start();
+
+		if (state.autoPlay !== prevState.autoPlay) {
+			this.updateURL(this.props);
+		}
 	},
 
 
-	buildURL () {
-		let mediaSource = this.props.source;
+	buildURL (props) {
+		let mediaSource = props.source;
 		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source[0];
 
 		let args = {
@@ -118,37 +126,56 @@ let Source = React.createClass({
 			wmode: 'transparent',
 			rel: 0,
 			showinfo: 0,
-			autoplay: this.props.autoPlay? 1:0,
+			playsinline: 1,
+			autoplay: (props.autoPlay || (this.state.autoPlay && props.deferred)) ? 1 : 0,
 			origin: location.protocol + '//' + location.host
 		};
 
-		return YOU_TUBE + '/embed/' + videoId + '?' + QueryString.stringify(args);
+		return `${YOU_TUBE}/embed/${videoId}?${QueryString.stringify(args)}`;
 	},
 
 
-	updateURL () {
-		this.setState({playerURL: this.buildURL()});
+	updateURL (props) {
+		this.setState({playerURL: this.buildURL(props)});
 	},
 
 
 	getPlayerContext () {
-		let iframe = this.getDOMNode();
+		let {iframe} = this.refs;
+		if (iframe) {
+			iframe = React.findDOMNode(iframe);
+		}
 		return iframe && (iframe.contentWindow || window.frames[iframe.name]);
 	},
 
 
 	render () {
-		if (!this.props.src) {
+		let {autoPlay, id} = this.state;
+		let {source, deferred} = this.props;
+
+		if (!source) {
 			return (<ErrorWidget error="No source"/>);
 		}
 
-		return (<iframe {...this.props} src={this.state.playerURL}
-			frameBorder="0" allowFullScreen allowTransparency />);
+		let props = Object.assign({}, props, {
+			name: id,
+			deferred: null,
+			frameBorder: 0,
+			ref: 'iframe'
+		});
+
+		let render = !deferred || autoPlay;
+
+		return !render ? null : (
+			<iframe {...props} src={this.state.playerURL} allowFullScreen allowTransparency />
+		);
 	},
 
 
 	sendListening () {
-		this.postMessage();
+		if (this.getPlayerContext()) {
+			this.postMessage();
+		}
 	},
 
 
@@ -167,16 +194,27 @@ let Source = React.createClass({
 		let implemented = !!this[handlerName];
 
 		//event.source === this.getPlayerContext()
-		if (event.origin !== this.state.scope || data.id !== this.props.id) {
-			console.debug('[YouTube] Ignoring Event: %o', event);
+
+		let originMismatch = event.origin !== this.state.scope;
+		let idMismatch = data.id !== this.state.id;
+
+		if (originMismatch || idMismatch) {
+
+			// console.debug('[YouTube] Ignoring Event (because origin mismatch: %o %o %o, or id mismatch %o, %o) %o',
+			// 	originMismatch, event.origin, this.state.scope,
+			// 	idMismatch, data.id || data,
+			// 	event);
 			return;
+		}
+
+		if (window.debugYT || !implemented) {
+			console[implemented ? 'debug' : 'warn']('[YouTube] Event: %s %s %o', data.id, data.event, data);
 		}
 
 		if (!this.state.initialized) {
 			this.finishInitialization();
 		}
 
-		console[implemented?'debug':'warn']('[YouTube] Event: %s', data.event);
 		if (implemented) {
 			this[handlerName](data.info);
 		}
@@ -186,21 +224,24 @@ let Source = React.createClass({
 	postMessage (method, params) {
 		let context = this.getPlayerContext(), data;
 		if (!context) {
-			console.warn(this.props.id, ' No Player Context!');
+			console.warn(this.state.id, ' No Player Context!');
 			return;
 		}
 
-		data = arguments.length ?
+		data = method ?
 			{
 				event: 'command',
 				func: method,
 				args: params,
-				id: this.props.id
+				id: this.state.id
 			} : {
 				event: 'listening',
-				id: this.props.id
+				id: this.state.id
 			};
-		//console.debug('[YouTube] Sending: %o', data);
+
+		if (window.debugYT) {
+			console.debug('[YouTube] Sending: %s %o', method || 'listening', data);
+		}
 		context.postMessage(JSON.stringify(data), this.state.scope);
 	},
 
@@ -226,6 +267,7 @@ let Source = React.createClass({
 		if (this.state.playerState !== state) {
 			this.setState({playerState: state});
 		}
+
 		let event = YT_STATE_TO_EVENTS[state];
 		if (event) {
 			this.fireEvent(event);
@@ -249,6 +291,21 @@ let Source = React.createClass({
 
 
 	play () {
+
+		if (this.props.deferred) {
+			if (!this.state.autoPlay) {
+				this.setState({autoPlay: true}, ()=>{
+					setTimeout(()=>{
+						if (this.state.playerState !== PLAYING) {
+							this.fireEvent('playing');//force event, triggers poster to hide.
+						}
+					}, 1000);
+				});
+
+				return;
+			}
+		}
+
 		this.postMessage('playVideo');
 	},
 

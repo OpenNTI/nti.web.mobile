@@ -1,25 +1,28 @@
 import QueryString from 'query-string';
 import {discussionsConfig} from 'common/utils';
 
-const pageSize = discussionsConfig().pageSize || 20;
+let pageSize;
 
-module.exports = {
+export default {
 	currentPage() {
 		let loc = global.location || {};
 		let cp = parseInt(QueryString.parse(loc.search).p || 1);
 		return cp;
 	},
 
-	get pageSize() {
+	getPageSize () {
+		if (pageSize == null) {
+			pageSize = discussionsConfig().pageSize || 20;
+		}
 		return pageSize;
 	},
 
 	batchStart() {
-		return this.pageSize * (this.currentPage() - 1);
+		return this.getPageSize() * (this.currentPage() - 1);
 	},
 
 	numPages() {
-		return Math.ceil((((this.state || {}).itemContents || {}).FilteredTotalItemCount || 0) / this.pageSize);
+		return Math.ceil((((this.state || {}).itemContents || {}).FilteredTotalItemCount || 0) / this.getPageSize());
 	},
 
 	hasNextPage() {
@@ -29,7 +32,7 @@ module.exports = {
 	pagingInfo() {
 		return {
 			currentPage: this.currentPage,
-			pageSize: this.pageSize,
+			pageSize: this.getPageSize(),
 			numPages: this.numPages(),
 			hasNext: this.hasNextPage(),
 			hasPrevious: this.currentPage() > 1

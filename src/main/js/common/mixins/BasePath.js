@@ -10,4 +10,4 @@ export default {
 		return this.context.basePath;
 	}
 
-}
+};

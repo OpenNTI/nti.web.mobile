@@ -8,15 +8,22 @@ export default React.createClass({
 	statics: {
 		mimeType: /ntirelatedworkref$|nticard$/i,
 		handles (item) {
-			var re = this.mimeType;
+			let re = this.mimeType;
 			return re.test(item.type) || re.test(item.class);
 		}
 	},
 
 
+	propTypes: {
+		item: React.PropTypes.object,
+		slug: React.PropTypes.string,
+		contentPackage: React.PropTypes.object
+	},
+
+
 	componentWillMount () {
-		var {item} = this.props;
-		var el;
+		let {item} = this.props;
+		let el;
 		if (item) {
 
 			if (!item.desc && item.dom) {

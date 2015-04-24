@@ -1,36 +1,39 @@
+import ResourceEvent from 'nti.lib.interfaces/models/analytics/ResourceEvent';
+import TopicViewedEvent from 'nti.lib.interfaces/models/analytics/TopicViewedEvent';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {
+	RESOURCE_VIEWED,
+	TOPIC_VIEWED
+} from 'nti.lib.interfaces/models/analytics/MimeTypes';
+
 import AnalyticsActions from '../Actions';
 import AnalyticsStore from '../Store';
 import {RESUME_SESSION} from '../Constants';
-import ResourceEvent from 'nti.lib.interfaces/models/analytics/ResourceEvent';
-import TopicViewedEvent from 'nti.lib.interfaces/models/analytics/TopicViewedEvent';
-import {RESOURCE_VIEWED, TOPIC_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {toAnalyticsPath} from '../utils';
 
 export const onStoreChange = 'ResourceLoaded:onStoreChange';
 
-// const StoreChange = Symbol('ResourceLoaded:StoreChange');
-
 // keep track of the view start event so we can push analytics including duration
-let currentEvent = null;
+const CURRENT_EVENT = Symbol('CurrentEvent');
 
-let typeMap = {
+const typeMap = {
 	[RESOURCE_VIEWED]: ResourceEvent,
 	[TOPIC_VIEWED]: TopicViewedEvent
 };
 
 
 
-module.exports = {
+export default {
 
-	componentDidMount() {
+	componentDidMount () {
 		AnalyticsStore.addChangeListener(this[onStoreChange]);
 	},
 
-	componentWillUnmount() {
+	componentWillUnmount () {
 		AnalyticsStore.removeChangeListener(this[onStoreChange]);
 	},
 
-	[onStoreChange](event) {
+	[onStoreChange] (event) {
 		if (event.type === RESUME_SESSION) {
 			if (this.resumeAnalyticsEvents) {
 				this.resumeAnalyticsEvents();
@@ -42,56 +45,39 @@ module.exports = {
 	},
 
 	resourceLoaded (resourceId, courseId, eventMimeType) {
-		if (currentEvent) {
+		if (this[CURRENT_EVENT]) {
 			this.resourceUnloaded();
 		}
 
 		// wait for resourceUnloaded to finish before creating the
-		// new event so we don't change currentEvent out from under it.
-		let p = currentEvent ? this.resourceUnloaded() : Promise.resolve();
+		// new event so we don't change this[CURRENT_EVENT] out from under us.
+		let p = this[CURRENT_EVENT] ? this.resourceUnloaded() : Promise.resolve();
 		p.then(() => {
 			let Type = typeMap[eventMimeType] || ResourceEvent;
-			currentEvent = new Type(
+			this[CURRENT_EVENT] = new Type(
 					decodeFromURI(resourceId),
 					courseId);
-			AnalyticsActions.emitEventStarted(currentEvent);
+			AnalyticsActions.emitEventStarted(this[CURRENT_EVENT]);
 		});
 	},
 
-	resourceUnloaded: function() {
-		if (!currentEvent || currentEvent.finished) {
+	resourceUnloaded () {
+		if (!this[CURRENT_EVENT] || this[CURRENT_EVENT].finished) {
 			return Promise.resolve();
 		}
 
-		let resourceId = currentEvent.resourceId;
-		currentEvent.finish();
+		let resourceId = this[CURRENT_EVENT].resourceId;
+		this[CURRENT_EVENT].finish();
 
 		let contextFunction = this.analyticsContext || this.resolveContext;
 		return contextFunction(this.props)
 			.then(context => {
-				let first = context[0],
-					last = context[context.length -1];
 
-				//if the end of the path is the resourceId (it should) then drop it.
-				last = (last && (last.ntiid === resourceId || last === resourceId)) ? -1 : undefined;
-				if (!last) {
-					console.error('The last entry in the context path is not the resource.');
-				}
+				this[CURRENT_EVENT].setContextPath(toAnalyticsPath(context, resourceId));
 
-				first = (typeof first === 'object' && !first.ntiid) ? 1 : 0;
-				if (first) {
-					console.warn('Context "root" has no ntiid, omitting: %o', context);
-				}
+				AnalyticsActions.emitEventEnded(this[CURRENT_EVENT]);
 
-				if (first || last) {
-					context = context.slice(first, last);
-				}
-
-				currentEvent.setContextPath(context
-					.map(x=> x.ntiid || (typeof x === 'string'? x: null))
-					.filter(x=>x));
-				AnalyticsActions.emitEventEnded(currentEvent);
-				currentEvent = null;
+				this[CURRENT_EVENT] = null;
 			});
 	}
 

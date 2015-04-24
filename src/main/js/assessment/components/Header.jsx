@@ -9,6 +9,10 @@ import {isAssignment, areAssessmentsSupported} from '../Utils';
 export default React.createClass({
 	displayName: 'SetHeader',
 
+	propTypes: {
+		assessment: React.PropTypes.string
+	},
+
 	render () {
 		let {assessment} = this.props;
 		let Component = isAssignment(assessment) ?

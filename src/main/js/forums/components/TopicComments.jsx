@@ -1,5 +1,6 @@
-'use strict';
-
+import React from 'react';
+import {Link} from 'react-router-component';
+import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
 
 import Api from '../Api';
 import Err from 'common/components/Error';
@@ -8,21 +9,31 @@ import Loading from 'common/components/TinyLoader';
 import Notice from 'common/components/Notice';
 import Paging from '../mixins/Paging';
 import PageControls from './PageControls';
-import React from 'react';
 import Store from '../Store';
-import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
+import StoreEvents from 'common/mixins/StoreEvents';
+import {COMMENT_ADDED} from '../Constants';
 
 const loadData = 'TopicComments:load';
+const commentAdded = 'TopicComments:commentAdded';
+const showCommentAddedMessage = 'TopicComments:showCommentAddedMessage';
+const showJumpToLastPage = 'TopicComments:showJumpToLastPage';
 
 export default React.createClass({
 
-	mixins: [Paging],
+	mixins: [Paging, StoreEvents],
 
-	componentDidMount: function() {
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		[COMMENT_ADDED] (event) {
+			this[commentAdded](event);
+		}
+	},
+
+	componentDidMount () {
 		this[loadData]();
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (this.props.currentPage !== nextProps.currentPage) {
 			this.setState({
 				loading: true
@@ -33,12 +44,31 @@ export default React.createClass({
 
 	getInitialState() {
 		return {
-			loading: true
+			loading: true,
+			[showJumpToLastPage]: false
 		};
 	},
 
-	[loadData]: function(topicId=this.props.topicId) {
-		return Api.getTopicContents(topicId, this.batchStart(), this.pageSize)
+	[commentAdded](/*event*/) {
+		this[loadData]()
+			.then(() => {
+				// if a comment was added and it's not on the current page
+				// offer a link to get there.
+				let pi = this.pagingInfo();
+				if (pi.currentPage() !== pi.numPages) {
+					this[showCommentAddedMessage]();
+				}
+			});
+	},
+
+	[showCommentAddedMessage]() {
+		this.setState({
+			[showJumpToLastPage]: true
+		});
+	},
+
+	[loadData] (topicId=this.props.topicId) {
+		return Api.getTopicContents(topicId, this.batchStart(), this.getPageSize())
 		.then(
 			result => {
 				Store.setObject(topicId, result.object);
@@ -58,7 +88,12 @@ export default React.createClass({
 		);
 	},
 
-	render: function() {
+	jumpToLastPageMessage() {
+		let lastPage = this.pagingInfo().numPages;
+		return <Notice className="small">Comment added. <Link className="link" href={'/?p=' + lastPage}>Jump to last page?</Link></Notice>;
+	},
+
+	render () {
 
 		if (this.state.loading) {
 			return <Loading />;
@@ -73,6 +108,8 @@ export default React.createClass({
 		let container = Store.getObjectContents(this.props.topicId);
 		let pageInfo = this.pagingInfo();
 
+		// console.debug('pageInfo: %o', pageInfo);
+
 		return (
 			(container.Items || []).length > 0 &&
 			<div>
@@ -81,9 +118,9 @@ export default React.createClass({
 						<List className="forum-replies" container={container} {...this.props} itemProps={{topic: topic}} omitIfEmpty={true} />
 					</Transition>
 				</section>
+				{this.state[showJumpToLastPage] && this.jumpToLastPageMessage()}
 				<PageControls paging={pageInfo} />
 			</div>
 		);
 	}
 });
-

@@ -29,7 +29,10 @@ export default React.createClass({
 		source: React.PropTypes.oneOfType([
 			React.PropTypes.string,
 			React.PropTypes.instanceOf(MediaSource)
-			]).isRequired
+			]).isRequired,
+
+		autoPlay: React.PropTypes.bool,
+		deferred: React.PropTypes.bool
 	},
 
 
@@ -53,13 +56,26 @@ export default React.createClass({
 			sources: [],
 			sourcesLoaded: false,
 			isError: false,
-			listening: false
+			listening: false,
+			interacted: false
 		};
 	},
 
 
 	componentDidMount () {
-		let data = this.props.source;
+		this.setupSource(this.props);
+	},
+
+
+	componentWillReceiveProps (nextProps) {
+		if (this.props.source !== nextProps.source) {
+			this.setupSource(nextProps);
+		}
+	},
+
+
+	setupSource (props) {
+		let data = props.source;
 		// kaltura://1500101/0_4ol5o04l/
 		let src = typeof data === 'string' && data;
 		let parsed = src && url.parse(src);
@@ -82,7 +98,6 @@ export default React.createClass({
 
 		getSources({ entryId: entryId, partnerId: partnerId })
 			.then(this.setSources);
-
 	},
 
 
@@ -111,12 +126,33 @@ export default React.createClass({
 	},
 
 
-	componentDidUpdate () {
+	componentDidUpdate (prevProps) {
 		let video = this.refs.video;
-		let props = this.props;
+		this.ensureListeningToEvents(video);
+		if (prevProps.source !== this.props.source) {
+			video = video && React.findDOMNode(video);
+			this.setState(this.getInitialState());
+			if (video) {
+				video.load();
+			}
+		}
+	},
 
+
+	componentWillUnmount () {
+		let video = React.findDOMNode(this);
+		if (video) {
+			Object.keys(EventHandlers).forEach(eventname =>
+				video.removeEventListener(eventname, this.props[EventHandlers[eventname]], false)
+			);
+		}
+	},
+
+
+	ensureListeningToEvents (video) {
+		let {props} = this;
 		if (video && !this.state.listening) {
-			video = video.getDOMNode();
+			video = React.findDOMNode(video);
 			video.addEventListener('error', this.onError, false);
 
 			if (this.props.autoPlay) {
@@ -132,16 +168,6 @@ export default React.createClass({
 			});
 
 			this.setState({listening: true});
-		}
-	},
-
-
-	componentWillUnmount () {
-		let video = this.getDOMNode();
-		if (video) {
-			Object.keys(EventHandlers).forEach(eventname =>
-				video.removeEventListener(eventname, this.props[EventHandlers[eventname]], false)
-			);
 		}
 	},
 
@@ -179,14 +205,19 @@ export default React.createClass({
 					{this.renderSources()}
 				</video>
 				{!this.state.interacted && <a className="tap-area play" href="#" onClick={this.doPlay}
-						style={{backgroundImage: 'url('+this.state.poster+')'}}/>}
+						style={{backgroundImage: `url(${this.state.poster})`}}/>}
 			</div>
 		);
 	},
 
 
 	renderSources () {
-		let sources = this.state.sources || [];
+		let {interacted, sources = {}} = this.state;
+
+		if (this.props.deferred && !interacted) {
+			return null;
+		}
+
 		return sources.map(source=> (
 			<source key={source.src} src={source.src} type={source.type}/>
 		));
@@ -208,16 +239,19 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
+		console.log('doPlay');
 		this.play();
 	},
 
 
 	play () {
 		let {video} = this.refs;
+		this.setState({interacted: true});
 		if (video && this.isMounted()) {
-			this.setState({interacted: true});
-			video = video.getDOMNode();
-			if(video.play){ video.play(); }
+			video = React.findDOMNode(video);
+			if(video.play){
+				video.play();
+			}
 		}
 	},
 
@@ -225,7 +259,7 @@ export default React.createClass({
 	pause () {
 		let video = this.refs;
 		if (video && this.isMounted()) {
-			video = video.getDOMNode();
+			video = React.findDOMNode(video);
 			if(video.pause){ video.pause(); }
 		}
 	},
@@ -234,7 +268,7 @@ export default React.createClass({
 	stop () {
 		let {video} = this.refs;
 		if (video && this.isMounted()) {
-			video = video.getDOMNode();
+			video = React.findDOMNode(video);
 			if(video.stop){ video.stop(); }
 		}
 	},
@@ -243,7 +277,7 @@ export default React.createClass({
 	setCurrentTime (time) {
 		let {video} = this.refs;
 		if (video && this.isMounted()) {
-			video.getDOMNode().currentTime = time;
+			React.findDOMNode(video).currentTime = time;
 		}
 	}
 });

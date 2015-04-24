@@ -1,35 +1,35 @@
-'use strict';
+import Url from 'url';
 
 
-var Url = require('url');
+import invariant from 'react/lib/invariant';
+import {EventEmitter} from 'events';
+
+import {IllegalArgumentException} from 'common/exceptions';
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import MessagesActions from 'messages/Actions';
+import Message from 'messages/Message';
+
+import t from 'common/locale';
+import {getServer, getServerURI, overrideAppUsername} from 'common/utils';
+
+//TODO: Rewrite these constants
+import {
+	actions as ActionConstants,
+	events as Events,
+	links as Links,
+	messages as LoginMessages
+} from './Constants';
+
+import StoreProperties from './StoreProperties';
 
 
-var invariant = require('react/lib/invariant');
-var EventEmitter = require('events').EventEmitter;
+let CHANGE_EVENT = 'change';
+let links = {};
+let isLoggedIn = false;
+let returnPath;
 
-var IllegalArgumentException = require('common/exceptions/').IllegalArgumentException;
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var MessagesActions = require('messages/Actions');
-var Message = require('messages/Message');
-
-var t = require('common/locale').translate;
-var {getServer, getServerURI, overrideAppUsername} = require('common/utils');
-
-var Constants = require('./Constants');
-var ActionConstants = Constants.actions;
-var Links = Constants.links;
-var LoginMessages = Constants.messages;
-
-var StoreProperties = require('./StoreProperties');
-
-var _t = require('common/locale').scoped('LOGIN');
-
-var CHANGE_EVENT = 'change';
-var _links = {};
-var _isLoggedIn = false;
-var _returnPath;
-
-var LoginStore = Object.assign({}, EventEmitter.prototype, {
+//TODO: rewrite as the more-modern StoreEvents subclass
+let LoginStore = Object.assign({}, EventEmitter.prototype, {
 	Properties: StoreProperties,
 
 	emitChange: function(evt) {
@@ -51,7 +51,7 @@ var LoginStore = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	canDoPasswordLogin: function() {
-		return (Links.LOGIN_PASSWORD_LINK in _links);
+		return (Links.LOGIN_PASSWORD_LINK in links);
 	},
 
 	getPasswordRecoveryReturnUrl: function() {
@@ -64,22 +64,22 @@ var LoginStore = Object.assign({}, EventEmitter.prototype, {
 			{
 				ref: 'username',
 				type: 'text',
-				placeholder: _t('UsernamePlaceholder')
+				placeholder: t('LOGIN.UsernamePlaceholder')
 			},
 			{
 				ref: 'password',
 				type: 'password',
-				placeholder: _t('PasswordPlaceholder')
+				placeholder: t('LOGIN.PasswordPlaceholder')
 			}
 		];
 	},
 
 	setReturnPath: function(path) {
-		_returnPath = path;
+		returnPath = path;
 	},
 
 	getReturnPath: function() {
-		return _returnPath;
+		return returnPath;
 	}
 
 });
@@ -89,13 +89,13 @@ var LoginStore = Object.assign({}, EventEmitter.prototype, {
 * Add an error
 * @param {Object} error object should include properties for statusCode (http status code) and raw (the raw response)
 */
-function _addError(error) {
+function addError(error) {
 	invariant(
 		(error && 'statusCode' in error && 'raw' in error),
 		'error should contain values for statusCode and raw; { statusCode:xxx, raw:{...} }'
 	);
-	var msg = t(LoginMessages.LOGIN_ERROR, error.statusCode.toString());
-	var message = new Message(msg, {category: LoginMessages.category, error: error});
+	let msg = t(LoginMessages.LOGIN_ERROR, error.statusCode.toString());
+	let message = new Message(msg, {category: LoginMessages.category, error: error});
 	MessagesActions.addMessage(message);
 
 }
@@ -109,107 +109,105 @@ function LoginStoreChangeEvent(prop, val, oldval) {
 	this.oldValue = oldval;
 }
 
-function _setLinks(links) {
-	var oldVal = _links;
-	_links = links || {};
+function setLinks(newLinks) {
+	let oldVal = links;
+	links = newLinks || {};
 	LoginStore.emitChange(
-		new LoginStoreChangeEvent(StoreProperties.links, _links, oldVal)
+		new LoginStoreChangeEvent(StoreProperties.links, links, oldVal)
 	);
 }
 
-function _ping(credentials) {
-	function resp(res) { _setLinks(res.links || {}); }
+function ping(credentials) {
+	function resp(res) { setLinks(res.links || {}); }
 
-	var username = (credentials && credentials.username);
+	let username = (credentials && credentials.username);
 	getServer().ping(null, username)
 		.then(resp, resp)
-		.catch (function(r) {
-			console.error(r);
-		});
+		.catch(r=> console.error(r));
 }
 
-function _setLoggedIn(isLoggedIn) {
-	console.log('LoginStore::_setLoggedIn: %s', isLoggedIn);
+function setLoggedIn(state) {
+	console.log('LoginStore::setLoggedIn: %s', state);
 	// emit a change event if the new value is different.
-	if (_isLoggedIn !== (_isLoggedIn = isLoggedIn)) {
+	if (isLoggedIn !== (isLoggedIn = state)) {
 		LoginStore.emitChange(
 			new LoginStoreChangeEvent(StoreProperties.isLoggedIn,
-				_isLoggedIn,
-				!_isLoggedIn
+				isLoggedIn,
+				!isLoggedIn
 			)
 		);
 	}
-	return _isLoggedIn;
+	return isLoggedIn;
 }
 
-function _logIn(credentials) {
+function logIn(credentials) {
 //	LOGIN_LDAP_LINK: "logon.ldap.okstate",
 //	LOGIN_LDAP_LINK: "logon.ldap.ou",
 
-	var url = _links[Links.LOGIN_PASSWORD_LINK];
+	let url = links[Links.LOGIN_PASSWORD_LINK];
 	// prefer the LDAP link if available.
-	for (let k of Object.keys(_links)) {
+	for (let k of Object.keys(links)) {
 		if((/logon\.ldap\./).test(k)) {
-			url = _links[k];
+			url = links[k];
 			console.debug('Found rel: "%s", using.', k);
 		}
 	}
 
 
-	var p = getServer().logInPassword(
+	let p = getServer().logInPassword(
 			url,
 			credentials);
 
 	p.then(function(r) {
 		overrideAppUsername(credentials.username);
 		console.log('login attempt resolved. %O', r);
-		_setLoggedIn(true);
+		setLoggedIn(true);
 	});
 	p.catch(function(r) {
 		console.log('login attempt rejected. %O', r);
-		_addError({
+		addError({
 			statusCode: r.status || r.statusCode,
 			raw: r
 		});
 	});
 }
 
-function _logOut() {
+function logOut() {
 	//TODO: this link doesn't need to be built, (we just need to append the
 	//success to the rel="logout" link in the ping...which we should store on
 	// a successfull handshake.)
-	var p = getServerURI() + Links.LOGOUT_LINK + '?success=/mobile/login/';
+	let p = getServerURI() + Links.LOGOUT_LINK + '?success=/mobile/login/';
 	location.replace(p);
 }
 
-function _clearErrors() {
-	MessagesActions.clearMessages(null,Constants.messages.category);
+function clearErrors() {
+	MessagesActions.clearMessages(null, LoginMessages.category);
 }
 
 
 AppDispatcher.register(function(payload) {
-	var action = payload.action;
+	let action = payload.action;
 
 	switch (action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 		case ActionConstants.LOGIN_BEGIN:
-			_ping();
+			ping();
 		break;
 
-		case Constants.events.LOGIN_FORM_CHANGED:
-			_ping(action.credentials);
+		case Events.LOGIN_FORM_CHANGED:
+			ping(action.credentials);
 		break;
 
 		case ActionConstants.LOGIN_PASSWORD:
-			_logIn(action.credentials);
+			logIn(action.credentials);
 		break;
 
 		case ActionConstants.LOGOUT:
-			_logOut(action);
+			logOut(action);
 		break;
 
 		case ActionConstants.LOGIN_CLEAR_ERRORS:
-			_clearErrors(action);
+			clearErrors(action);
 		break;
 
 		default:

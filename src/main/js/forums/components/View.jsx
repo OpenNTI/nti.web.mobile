@@ -12,6 +12,10 @@ export default React.createClass({
 
 	mixins: [Navigatable, ContextSender],
 
+	propTypes: {
+		course: React.PropTypes.object
+	},
+
 	// title bar back arrow
 	getContext () {
 		let href = this.getNavigable().makeHref('/d/');
@@ -29,7 +33,7 @@ export default React.createClass({
 				<CourseBanner course={course} />
 				<div className="forums-wrapper">
 					<Router.Locations contextual>
-						<Router.Location path="/(:forumId)/*" handler={ForumView} course={course} contextProvider={this.__getContext}/>
+						<Router.Location path="/(:forumId)/*" handler={ForumView} course={course} contextProvider={this.getContext}/>
 						<Router.Location path="/" handler={ForumListView} course={course} />
 					</Router.Locations>
 				</div>

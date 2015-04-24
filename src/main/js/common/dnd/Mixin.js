@@ -78,7 +78,7 @@ export default {
 
 	getNewCombinationToken (...tokens) {
 		return {
-			accepts: (t)=> tokens.filter(x=> x===t || x.accepts(t)).length > 0
+			accepts: (t)=> tokens.filter(x=> x === t || x.accepts(t)).length > 0
 		};
 	},
 

@@ -1,59 +1,43 @@
-'use strict';
-
 // we're naming fields to line up with the stripe api which uses lowercase
 // with underscores (e.g. exp_month vs. expMonth) so don't enforce camel case
 // in this file.
 /* jshint camelcase:false */
 
-var React = require('react');
-var _t = require('common/locale').scoped('ENROLLMENT.CONFIRMATION');
+import React from 'react';
+import {edit} from '../Actions';
+import {scoped} from 'common/locale';
+let t = scoped('ENROLLMENT.CONFIRMATION');
 
-var Actions = require('../Actions');
+const rowIfNotEmpty = 'BillingInfo:rowIfNotEmpty';
 
-function notEmpty(value) {
-	return (value||'').trim().length > 0;
-}
+let BillingInfo = React.createClass({
 
-var BillingInfo = React.createClass({
+	displayName: 'BillingInfo',
 
-	_rowIfNotEmpty: function(value) {
-		return (value||'').trim().length > 0 ? <div>{value}</div> : null;
+	propTypes: {
+		edit: React.PropTypes.any,
+		card: React.PropTypes.object
 	},
 
-	_cityStateZipRow: function(card) {
-		var parts = [];
-		// if city and state, join with ', '.
-		// if city and zip, join with ', '
-		var city = card.address_city;
-		var state = card.address_state;
-		var zip = card.address_zip;
-
-		if (notEmpty(city) && (notEmpty(state) || notEmpty(zip))) {
-			city = city.concat(', ');
-		}
-		[city,state,zip].forEach(function(value) {
-			if (notEmpty(value)) {
-				parts.push(value);
-			}
-		});
-		return this._rowIfNotEmpty(parts.join(' '));
+	[rowIfNotEmpty]: function(value) {
+		return (value||'').trim().length > 0 ? <div>{value}</div> : null;
 	},
 
 	onEdit: function (e) {
 		e.preventDefault();
 		e.stopPropagation();
-		Actions.edit(this.props.edit);
+		edit(this.props.edit);
 	},
 
 	render: function() {
-		var card = this.props.card,
+		let card = this.props.card,
 			city = card.address_city ? card.address_city + ',' : '';
 
 		return (
 			<div>
 				<fieldset>
 					<div className="title">
-						<span>{_t("paymentInfo")}</span>
+						<span>{t('paymentInfo')}</span>
 						<span> </span>
 						<a href="#" onClick={this.onEdit}>edit</a>
 					</div>
@@ -65,14 +49,14 @@ var BillingInfo = React.createClass({
 						<span className="value">**** **** **** {card.last4}</span>
 					</div>
 					<div className="field">
-						<span className="label">{_t("expires")}</span>
+						<span className="label">{t('expires')}</span>
 						<span> </span>
 						<span className="value">{card.exp_month}/{card.exp_year}</span>
 					</div>
 				</fieldset>
 				<fieldset>
 					<div className="title">
-						<span>{_t("billingInfo")}</span> <a href="#" onClick={this.onEdit}>edit</a>
+						<span>{t('billingInfo')}</span> <a href="#" onClick={this.onEdit}>edit</a>
 					</div>
 
 					<div className="field">{card.address_line1}</div>

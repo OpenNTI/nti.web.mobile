@@ -5,10 +5,11 @@ import {Link} from 'react-router-component';
 let t = scoped('LOGIN');
 
 export default React.createClass({
+	displayName: 'RecoveryLinks',
 
 	render () {
 
-		var cssClasses = "tiny button small-12 columns";
+		let cssClasses = 'tiny button small-12 columns';
 
 		return (
 			<div>

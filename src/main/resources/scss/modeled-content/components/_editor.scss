@@ -1,8 +1,43 @@
-
+@import "whiteboard-icon";
 
 .modeled.editor {
 	border: 1px solid $border-grey;
 	background: #fff;
+	position: relative;
+
+	&.busy {
+		* {
+			opacity: 0;
+		}
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0; left: 0; right: 0; bottom: 0;
+			background: rgba(240, 240, 240, 0.1);
+			z-index: 10;
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+
+			width: 40px;
+			height: 40px;
+			margin: -20px 0 0 -20px;
+			z-index: 12;
+
+			@include animation('rotation .9s infinite linear');
+
+			// border: 1px solid rgba(142,183,55,.15);
+			// border-top-color: rgba(142,183,55,.8);
+			border: 1px solid rgba(63,179,79,.15);
+			border-top-color: rgba(63,179,79,.8);
+			border-radius:100%;
+		}
+	}
 
 	[contenteditable] {
 		color: $primary-grey;
@@ -15,7 +50,9 @@
 			style: normal;
 		}
 		&:focus {
-			outline: none;
+			outline: 1px solid $primary-blue;
+			box-shadow: inset 0 0 5px -1px rgba(0,0,0, 0.3);
+			background-color: rgba(245,245,245,0.2);
 		}
 	}
 
@@ -24,27 +61,64 @@
 		button[data-format=#{$format}] {
 			@extend %icon-editor-#{$format};
 		}
+		button[data-format=#{$format}]:active,
+		button[data-format=#{$format}]:focus,
 		&.format-#{$format} button[data-format=#{$format}] {
 			@extend %icon-editor-#{$format}-active;
 		}
 	}
 
+	.insert-whiteboard {
+		@extend %icon-editor-image;
+		&:active, &:focus {
+			@extend %icon-editor-image-active;
+		}
+
+		input[type=file] {
+			position: absolute;
+			cursor: pointer;
+			right: 0;
+			bottom: 0;
+			padding: 0;
+			margin: 0;
+			font-size: 2rem;
+			border: 0;
+			background-color: red; //for debugging
+			opacity: 0;
+		}
+	}
+
 	.toolbar {
-		border: 0 solid $border-grey;
-		border-top-width: 1px;
 		background: $panel-background;
+		border: 0 solid $border-grey;
+
+		&.south {
+			border-top-width: 1px;
+		}
+
 		button {
 			color: $secondary-grey;
 			font-weight: bold;
 			margin: 0;
-			padding: 0.5rem 0.8rem;
+			padding: 0;
+			width: 1.875rem;
+			height: 2.375rem;
+
 			background: {
 				color: $panel-background;
 				repeat: no-repeat;
 				position: center center;
 			}
-			text-indent: -100px;
+
+			position: relative;
+			text-indent: -1000px;
 			overflow: hidden;
+
+			&:active,
+			&:focus {
+				outline: none;
+				background-color: darken($panel-background, 10%);
+			}
 		}
 	}
 }

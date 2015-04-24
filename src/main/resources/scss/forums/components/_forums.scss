@@ -14,26 +14,33 @@ $indent: 0.9375rem;
 	position: relative;
 	font-size:.875rem;
 	.item {
-		padding: .5rem 1.4rem; // the horizontal padding makes room for the arrows.	
+		padding: .5rem 1.4rem; // the horizontal padding makes room for the arrows.
 	}
 	.previous {
+		position: relative;
 		 .link {
 			&::before {
-				@include arrow(left);	
-			} 	
+				@include arrow(left);
+			}
 		 }
 	}
 	.current {
 		text-align: center;
 		color: $tertiary-grey;
+		white-space: nowrap;
 	}
 	.next {
+		position: relative;
 		text-align: right;
 		.link {
 			&::after {
-				@include arrow(right);	
+				@include arrow(right);
 			}
 		}
+	}
+	.page-select {
+		width: 3em;
+		margin-right: .5em;
 	}
 }
 
@@ -64,6 +71,7 @@ $indent: 0.9375rem;
 	.breadcrumbs {border-width: 1px 0;}
 
 	.comment-form {
+		margin-top: 1rem;
 		input {
 			font-size: 1rem;
 			color: $body-font-color;
@@ -76,6 +84,7 @@ $indent: 0.9375rem;
 	}
 
 	.fi-flag {
+		padding-right: 1rem;
 		&.flagged {
 			color: $primary-red;
 		}
@@ -113,17 +122,15 @@ $indent: 0.9375rem;
 		padding-right: 0;
 
 		.threadlink {
-			text-align: right;
-			position: absolute;
 			display: block;
-			min-height: 1rem;
-			padding: 1.5rem;
-			top: 0;
-			right: 0;
-			left: 0;
-			border-top: 1px dotted lightgray;
+			min-height: 1rem;			
 			font-size: .75rem;
-			color: $tertiary-gray;
+			color: #b8b8b8;
+			white-space: nowrap;
+			float: right;
+			padding-right: 1.5rem;
+			position: relative;
+			line-height: 1.8rem;
 		}
 
 		.replies {
@@ -131,12 +138,15 @@ $indent: 0.9375rem;
 		}
 
 		&.deleted {
-			font-size: .6875rem;
-			color: $tertiary-grey;
+			border: none;
 			& > .modeled-content {
 				text-transform: uppercase;
 			}
-			padding: .25rem;
+			.wrap {
+				color: $tertiary-grey;
+				margin-left: 0;
+			}
+			// padding: .25rem;
 		}
 	}
 
@@ -166,7 +176,7 @@ $indent: 0.9375rem;
 
 	.forum-list {
 		.forum-item {
-			padding-left: $indent;	
+			padding-left: $indent;
 		}
 	}
 

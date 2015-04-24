@@ -1,13 +1,9 @@
-'use strict';
+import moment from 'moment';
 
-var moment = require('moment');
-
-module.exports = {
-	getDate: function(date) {
-		var d = new Date(date);
-		var m = moment(d);
+export default {
+	getDate (date) {
+		let m = moment(new Date(date));
 
 		return m.format('LL');
 	}
 };
-

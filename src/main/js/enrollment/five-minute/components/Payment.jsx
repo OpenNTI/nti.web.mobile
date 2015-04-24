@@ -1,17 +1,17 @@
-'use strict';
+import React from 'react';
+import PanelButton from 'common/components/PanelButton';
+import {scoped} from 'common/locale';
+import Actions from '../Actions';
+import Err from 'common/components/Error';
+import Loading from 'common/components/Loading';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import Store from '../Store';
+import {PAY_AND_ENROLL_ERROR} from '../Constants';
 
-var React = require('react');
-var PanelButton = require('common/components/PanelButton');
-var t = require('common/locale').scoped('ENROLLMENT');
-var Actions = require('../Actions');
-var Err = require('common/components/Error');
-var Loading = require('common/components/Loading');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var Store = require('../Store');
-var Constants = require('../Constants');
+const t = scoped('ENROLLMENT');
 
-
-var Payment = React.createClass({
+export default React.createClass({
+	displayName: 'Payment',
 
 	mixins: [NavigatableMixin],
 
@@ -21,24 +21,24 @@ var Payment = React.createClass({
 		ntiTerm: React.PropTypes.string.isRequired // passed to dataserver to get payment site url
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: false
 		};
 	},
 
-	componentDidMount: function() {
-		Store.addChangeListener(this._storeChange);
+	componentDidMount () {
+		Store.addChangeListener(this.onStoreChange);
 	},
 
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChange);
+	componentWillUnmount () {
+		Store.removeChangeListener(this.onStoreChange);
 	},
 
-	_storeChange: function(event) {
+	onStoreChange (event) {
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.errors.PAY_AND_ENROLL_ERROR:
+			case PAY_AND_ENROLL_ERROR:
 				this.setState({
 					loading: false,
 					error: event
@@ -47,7 +47,7 @@ var Payment = React.createClass({
 		}
 	},
 
-	buttonClick: function(event) {
+	buttonClick (event) {
 		event.preventDefault();
 		this.setState({
 			loading: true
@@ -60,7 +60,7 @@ var Payment = React.createClass({
 		});
 	},
 
-	render: function() {
+	render () {
 
 		if (this.state.loading) {
 			return <Loading />;
@@ -80,5 +80,3 @@ var Payment = React.createClass({
 	}
 
 });
-
-module.exports = Payment;

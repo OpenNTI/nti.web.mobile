@@ -1,43 +1,43 @@
-'use strict';
+import React from 'react';
+import cx from 'classnames';
+import {areYouSure} from 'prompts';
 
-var React = require('react');
-var Prompt = require('prompts');
-
-var Actions = require('../Actions');
+import {reportItem} from '../Actions';
 
 
-var ReportLink = React.createClass({
+export default React.createClass({
+	displayName: 'ReportLink',
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired
 	},
 
-	_report: function() {
-		Prompt.areYouSure('Report this as inappropriate?').then(
+	onClick () {
+		areYouSure('Report this as inappropriate?').then(
 			()=> {
 				this.setState({
 					busy: true
 				});
-				Actions.reportItem(this.props.item);	
+				reportItem(this.props.item);
 			},
 			()=>{}
 		);
 	},
 
-	render: function() {
-		var {item} = this.props;
-		var isReported = item.hasLink('flag.metoo');
-		var Tag = isReported ? "span" : "a";
-		var classNames = ['fi-flag'];
-		if (isReported) {
-			classNames.push('flagged');
-		}
+	render () {
+		let {item} = this.props;
+
+		let isReported = item.hasLink('flag.metoo');
+
+		let Tag = isReported ? 'span' : 'a';
+
+		let classNames = cx('fi-flag', {
+			flagged: isReported
+		});
 
 		return (
-			<Tag className={classNames.join(' ')} onClick={this._report}></Tag>
+			<Tag className={classNames} onClick={this.onClick}/>
 		);
 	}
 
 });
-
-module.exports = ReportLink;

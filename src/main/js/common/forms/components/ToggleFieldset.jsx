@@ -1,4 +1,4 @@
-'use strict';
+
 
 var React = require('react');
 var isFunction = require('nti.lib.interfaces/utils/isfunction');
@@ -36,7 +36,7 @@ var ToggleFieldset = React.createClass({
 	render: function() {
 
 		var fieldset = this.state.fieldset;
-		var fields = (fieldset||{}).fields||[];
+		var fields = (fieldset || {}).fields || [];
 		var displayFields = fields.map(function(field) {
 			return this.props.renderField(field, this.state.fieldValues);
 		}.bind(this));

@@ -1,16 +1,22 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+export default React.createClass({
+	displayName: 'Alert',
 
-var Alert = React.createClass({
+	propTypes: {
+		dismiss: React.PropTypes.func,
+		message: React.PropTypes.object
+	},
 
-	_dismiss: function() {
-		if(typeof this.props.dismiss === "function") {
-			this.props.dismiss(this);
+	dismiss () {
+		let {dismiss} = this.props;
+		if(typeof dismiss === 'function') {
+			dismiss(this);
 		}
 	},
 
-	render: function() {
+	render () {
+		let {message} = this.props;
 		return (
 			<div
 				id="mainAlert1"
@@ -20,17 +26,15 @@ var Alert = React.createClass({
 				aria-live="assertive"
 				role="dialogalert">
 
-				<span>{this.props.message.message}</span>
+				<span>{message.message}</span>
 
 				<button
 					href="#"
 					tabIndex="0"
 					className="close"
 					aria-label="Close Alert"
-					onClick={this._dismiss}>&times;</button>
+					onClick={this.dismiss}>&times;</button>
 			</div>
 		);
 	}
 });
-
-module.exports = Alert;

@@ -1,4 +1,4 @@
-import React from  'react';
+import React from 'react';
 import BasePathAware from 'common/mixins/BasePath';
 import Redirect from 'navigation/components/Redirect';
 

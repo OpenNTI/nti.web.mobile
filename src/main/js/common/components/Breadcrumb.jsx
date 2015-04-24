@@ -1,83 +1,83 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-var ActiveState = require('./ActiveState');
+import ActiveState from './ActiveState';
 
-module.exports = React.createClass({
+export default React.createClass({
+	displayName: 'Breadcrumb',
 
 	statics: {
-		noContextProvider: function() {
+		noContextProvider () {
 			return Promise.resolve([]);
 		}
 	},
 
-	displayName: 'Breadcrumb',
 
-	getInitialState: function() {
+	propTypes: {
+		children: React.PropTypes.any
+	},
+
+
+	getInitialState () {
 		return {
 			context: []
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount () {
 		this.maybeUpdateContext(this.props);
 	},
 
 
-	componentWillUnmount: function() {},
+	componentWillUnmount () {},
 
 
-	componentWillReceiveProps: function(props) {
+	componentWillReceiveProps (props) {
 		this.maybeUpdateContext(props);
 	},
 
 
-	maybeUpdateContext: function(props) {
-		var promiseMaker = props.contextProvider;
-		var stamp = Date.now();
+	maybeUpdateContext (props) {
+		let promiseMaker = props.contextProvider;
+		let stamp = Date.now();
 		if (promiseMaker) {
 			this.setState({contextTime: stamp});
-			promiseMaker().then(this.__applyContext.bind(this, stamp));
+			promiseMaker().then(this.applyContext.bind(this, stamp));
 		}
 	},
 
 
-	__applyContext: function(contextTime, context) {
+	applyContext (contextTime, context) {
 		if (this.state.contextTime === contextTime && this.isMounted()) {
 			this.setState({context: context});
 		}
 	},
 
 
-	render: function() {
-		var context = this.state.context.slice(-2);
+	render () {
+		let context = this.state.context.slice(-2);
 		return (
 			<ul className="breadcrumbs" role="menubar" aria-label="breadcrumbs">
 				{this.props.children}
-				{context.map(function(o, i) {
-					return this._renderItem(o, !o.href, i);
-				}.bind(this))}
+				{context.map((o, i)=>this.renderItem(o, !o.href, i))}
 			</ul>
 		);
 	},
 
 
-	_renderMenu: function(items, className) {
+	renderMenu (items, className) {
 		if (!items || !items.length) {
 			return null;
 		}
 		return (
 			<ul className={className} role="menu" aria-label="menu">
-				{items.map(function(o, i) {
-					return this._renderItem(o, !o.href, i);
-				}.bind(this))}
+				{items.map((o, i) => this.renderItem(o, !o.href, i))}
 			</ul>
 		);
 	},
 
 
-	_renderItem: function(item, disabled, index) {
-		var className = disabled ? 'unavailable' : null;
+	renderItem (item, disabled, index) {
+		let className = disabled ? 'unavailable' : null;
 
 		disabled = disabled ? 'true' : null;//don't include the attribute
 		return (
@@ -88,7 +88,7 @@ module.exports = React.createClass({
 				activeClassName="current"
 				aria-disabled={disabled}>
 				<a href={item.href}>{item.label}</a>
-				{this._renderMenu(item.children, 'menu')}
+				{this.renderMenu(item.children, 'menu')}
 			</ActiveState>
 		);
 	}

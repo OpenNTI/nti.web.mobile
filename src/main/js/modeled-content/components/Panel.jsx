@@ -69,7 +69,7 @@ export default React.createClass({
 
 			let processed = packet.body.map(
 				part => (typeof part !== 'string') ?
-					('<widget id="'+ part.guid +'" data-type="' + part.type + '"></widget>') :
+					('<widget id="' + part.guid + '" data-type="' + part.type + '"></widget>') :
 					part);
 
 			return htmlToReactRenderer(
@@ -100,7 +100,7 @@ export default React.createClass({
 			props.dangerouslySetInnerHTML = {__html: body || ''};
 		}
 
-		return React.createElement("div", props,
+		return React.createElement('div', props,
 			...dynamicRenderers.map(renderer => renderer(React, this.renderWidget))
 		);
 	},

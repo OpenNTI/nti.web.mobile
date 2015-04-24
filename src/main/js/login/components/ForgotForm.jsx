@@ -1,17 +1,18 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-var t = require('common/locale').scoped('LOGIN.forgot');
-var Button = require('./Button');
-var Message = require('messages/Message');
-var MessageActions = require('messages/Actions');
-var Constants = require('../Constants');
+import {scoped} from 'common/locale';
+import Message from 'messages/Message';
+import MessageActions from 'messages/Actions';
 
-var Actions = require('../Actions');
-var Router = require('react-router-component');
+import * as Constants from '../Constants';
+import Button from './Button';
 
+import * as Actions from '../Actions';
+import Router from 'react-router-component';
 
-var _fields = {
+const t = scoped('LOGIN.forgot');
+
+const FIELDS = {
 	password: [
 		{
 			type: 'text',
@@ -30,77 +31,85 @@ var _fields = {
 	]
 };
 
-module.exports = React.createClass({
+export default React.createClass({
+	displayName: 'ForgotForm',
 
 	mixins: [Router.NavigatableMixin],
 
-	componentDidMount: function() {
+	propTypes: {
+		param: React.PropTypes.string
+	},
+
+	componentDidMount () {
 		Actions.clearErrors({category: Constants.messages.category});
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			submitEnabled: false,
 			fieldValues: {}
 		};
 	},
 
-	_handleSubmit: function(event) {
+	handleSubmit (event) {
 		event.preventDefault();
-		var messageOptions = {category: Constants.messages.category};
+		let messageOptions = {category: Constants.messages.category};
 		MessageActions.clearMessages(messageOptions);
-		var action = this.props.param === 'password' ? Actions.recoverPassword : Actions.recoverUsername;
+		let action = this.props.param === 'password' ?
+			Actions.recoverPassword :
+			Actions.recoverUsername;
+
 		action(this.state.fieldValues)
-		.then(function() {
-			var message = new Message('Check your email for recovery instructions.', messageOptions);
-			MessageActions.addMessage(message, messageOptions);
-		}.bind(this))
-		.catch (function(res) {
-			var r = JSON.parse(res.response);
-			var message = new Message(t(r.code), messageOptions);
-			MessageActions.addMessage(message);
-		}.bind(this));
+			.then(() => {
+				let message = new Message('Check your email for recovery instructions.', messageOptions);
+				MessageActions.addMessage(message, messageOptions);
+			})
+			.catch(res => {
+				let r = JSON.parse(res.response);
+				let message = new Message(t(r.code), messageOptions);
+				MessageActions.addMessage(message);
+			});
 	},
 
-	_inputChanged: function(event) {
-		var newState = {};
+	onInputChanged (event) {
+		let newState = {};
 		newState[event.target.name] = event.target.value;
-		var tmp = Object.assign(this.state.fieldValues, newState);
+		let tmp = Object.assign(this.state.fieldValues, newState);
 		this.setState({
 			fieldValues: tmp
 		});
 		this.setState({
-			submitEnabled: (this.refs.email.getDOMNode().value.trim().length > 0)
+			submitEnabled: (React.findDOMNode(this.refs.email).value.trim().length > 0)
 		});
 	},
 
-	_inputs: function() {
-		return _fields[this.props.param].map(function(fieldConfig) {
+	renderInputs () {
+		return FIELDS[this.props.param].map(fieldConfig => {
 			return (<input type={fieldConfig.type}
 							ref={fieldConfig.ref}
 							name={fieldConfig.ref}
 							placeholder={fieldConfig.ref}
-							onChange={this._inputChanged}
+							onChange={this.onInputChanged}
 							defaultValue='' />);
-		}.bind(this));
+		});
 	},
 
-	render: function() {
+	render () {
 
-		var buttonLabel = t(this.props.param === 'password' ? 'recoverpassword' : 'recoverusername');
-		var cssClasses = ['tiny small-12 columns'];
+		let buttonLabel = t(this.props.param === 'password' ? 'recoverpassword' : 'recoverusername');
+		let cssClasses = ['tiny small-12 columns'];
 
-		var submitEnabled = this.state.submitEnabled;
+		let submitEnabled = this.state.submitEnabled;
 		if (!submitEnabled) {
 			cssClasses.push('disabled');
 		}
 
 		return (
 			<div className="row">
-				<form className="login-form large-6 large-centered columns" onSubmit={this._handleSubmit}>
+				<form className="login-form large-6 large-centered columns" onSubmit={this.handleSubmit}>
 					<fieldset>
 						<legend>Recover {this.props.param}</legend>
-						{this._inputs()}
+						{this.renderInputs()}
 						<button
 							id="login:forgot:submit"
 							type="submit"

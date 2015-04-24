@@ -1,5 +1,5 @@
+/*eslint no-var: 0 strict: 0*/
 'use strict';
-/*eslint no-var: 0*/
 var path = require('path');
 
 var PROD = 'production';
@@ -149,7 +149,7 @@ module.exports = function(grunt) {
 				}]
 			},
 
-			maps: ["<%= pkg.dist %>/**/*.map", "<%= pkg.dist %>/**/*.map.gz"]
+			maps: ['<%= pkg.dist %>/**/*.map', '<%= pkg.dist %>/**/*.map.gz']
 		},
 
 		sass: {
@@ -160,6 +160,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
+					'src/main/resources/css/errorpage.css': 'src/main/resources/scss/errorpage.scss',
 					'src/main/resources/css/app.css': 'src/main/resources/scss/app.scss',
 					'src/main/resources/css/sites/platform.ou.edu/site.css': 'src/main/resources/scss/sites/platform.ou.edu/site.scss',
 					'src/main/resources/css/sites/okstate.nextthought.com/site.css': 'src/main/resources/scss/sites/okstate.nextthought.com/site.scss'
@@ -169,6 +170,9 @@ module.exports = function(grunt) {
 
 
 		eslint: {
+			// options: {
+			// 	quiet: true
+			// },
 			target: [
 				'<%= pkg.src %>/js/**/*.js',
 				'<%= pkg.src %>/js/**/*.jsx',

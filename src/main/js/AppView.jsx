@@ -17,6 +17,7 @@ export default React.createClass({
 	mixins: [Navigatable],
 
 	propTypes: {
+		path: React.PropTypes.string,
 		basePath: React.PropTypes.string.isRequired
 	},
 
@@ -64,10 +65,10 @@ export default React.createClass({
 
 
 	render () {
-	var path = this.props.path || location.href;
-		var isLoginView = /\/login/i.test(path);
+		let path = this.props.path || location.href;
+		let isLoginView = /\/login/i.test(path);
 
-		var Wrapper = isLoginView ? 'div' : AppContainer;
+		let Wrapper = isLoginView ? 'div' : AppContainer;
 
 		if (this.state.mask) {
 			return <Loading message={this.state.mask}/>;

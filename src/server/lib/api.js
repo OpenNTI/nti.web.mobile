@@ -63,8 +63,8 @@ export default {
 
 		let url = server.replace(/\/?dataserver2.+$/, '');
 
-		request(url+'/_ops/ping', (error)=>{
-			res.status(error? 503 : 200);
+		request(url + '/_ops/ping', (error)=>{
+			res.status(error ? 503 : 200);
 			res.end();
 		});
 	}

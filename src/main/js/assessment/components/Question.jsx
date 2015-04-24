@@ -13,9 +13,9 @@ import Store from '../Store';
 import Part from './Part';
 
 const STATUS_MAP = {
-	'true':'Correct',
+	'true': 'Correct',
 	'false': 'Incorrect',
-	'null':''
+	'null': ''
 };
 
 export default React.createClass({

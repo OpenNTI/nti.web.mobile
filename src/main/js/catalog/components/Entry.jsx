@@ -42,7 +42,7 @@ export default React.createClass({
 		item: React.PropTypes.object.isRequired
 	},
 
-	getItem () {return this.props.item;},
+	getItem () { return this.props.item; },
 	itemChanged () {this.forceUpdate(); },
 
 	componentWillMount () { this.getItem().addListener('changed', this.itemChanged); },
@@ -50,7 +50,7 @@ export default React.createClass({
 
 	getDetailHref () {
 		let item = this.getItem();
-		if (!item) {return '';}
+		if (!item) { return ''; }
 
 		let courseId = encodeForURI(item.getID());
 		return `${this.getBasePath()}catalog/item/${courseId}/`;
@@ -71,7 +71,7 @@ export default React.createClass({
 	render () {
 		let item = this.getItem();
 
-		if (!item) {return;}
+		if (!item) { return; }
 
 		let {status} = this.getStatus();
 
@@ -86,7 +86,7 @@ export default React.createClass({
 						<div>
 							<h5>{item.ProviderUniqueID}</h5>
 							{status && (
-								<h5>{status!==FOR_CREDIT && <span>Not</span>} For Credit</h5>
+								<h5>{status !== FOR_CREDIT && <span>Not</span>} For Credit</h5>
 							)}
 						</div>
 					</label>
@@ -106,7 +106,7 @@ export default React.createClass({
 		let dropableMime = /openenrollmentoption/i;
 		let forCredit = /forcredit/i;
 
-		if (!item) {return;}
+		if (!item) { return; }
 
 		let status = item.RealEnrollmentStatus;
 

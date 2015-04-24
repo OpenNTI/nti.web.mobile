@@ -1,29 +1,37 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-var requiredProps = require('./RequiredProps');
-var PanelButton = require('common/components/PanelButton');
-var FormattedPriceMixin = require('../../mixins/FormattedPriceMixin');
-var t = require('common/locale').scoped('ENROLLMENT');
-var Giftable = require('./Giftable');
+import PanelButton from 'common/components/PanelButton';
 
-var StoreEnrollment = React.createClass({
+import {scoped} from 'common/locale';
+
+import FormattedPriceMixin from '../../mixins/FormattedPriceMixin';
+
+import Giftable from './Giftable';
+
+const t = scoped('ENROLLMENT');
+
+export default React.createClass({
+	displayName: 'StoreEnrollment',
 
 	mixins: [FormattedPriceMixin],
 
-	propTypes: requiredProps,
+	propTypes: {
+		catalogEntry: React.PropTypes.object.isRequired,
+		enrollmentOption: React.PropTypes.object.isRequired,
+		isGiftable: React.PropTypes.bool
+	},
 
 	statics: {
 		re: /StoreEnrollment/i,
-		handles: function (options) {
+		handles (options) {
 			return this.re.test(options && options.key);
 		}
 	},
 
-	render: function() {
+	render () {
 
-		var option = this.props.enrollmentOption.option;
-		var formattedPrice = this.getFormattedPrice(option.Currency, option.Price);
+		let option = this.props.enrollmentOption.option;
+		let formattedPrice = this.getFormattedPrice(option.Currency, option.Price);
 
 		return (
 			<PanelButton href="store/" linkText={t('enrollAsLifelongLearner')}>
@@ -39,5 +47,3 @@ var StoreEnrollment = React.createClass({
 	}
 
 });
-
-module.exports = StoreEnrollment;

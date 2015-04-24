@@ -1,10 +1,12 @@
-'use strict';
-var React = require('react');
-var t = require('../locale').scoped('FILTER');
+import React from 'react';
+import {scoped} from '../locale';
 
-var NoMatches = React.createClass({
+const t = scoped('FILTER');
 
-	render: function() {
+export default React.createClass({
+	displayName: 'NoMatches',
+
+	render () {
 		return (
 			<div className="notice nomatches">
 				{t('noMatches')}
@@ -13,5 +15,3 @@ var NoMatches = React.createClass({
 	}
 
 });
-
-module.exports = NoMatches;

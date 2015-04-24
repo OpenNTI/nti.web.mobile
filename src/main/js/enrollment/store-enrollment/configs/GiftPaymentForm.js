@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = Object.freeze([
 	{
 		fields: [
@@ -60,28 +58,28 @@ module.exports = Object.freeze([
 				type: 'text',
 				required: false,
 				placeholder: 'Address (optional)'
-			 },
-			 {
+			},
+			{
 				ref: 'address_city', // this is the name expected by the stripe api and returned by Stripe.getToken().
 				type: 'text',
 				placeholder: 'City'
-			 },
-			 {
+			},
+			{
 				ref: 'address_state', // this is the name expected by the stripe api and returned by Stripe.getToken().
 				type: 'text',
 				placeholder: 'State/Province/Territory/Region'
-			 },
-			 {
+			},
+			{
 				ref: 'address_country', // this is the name expected by the stripe api and returned by Stripe.getToken().
 				type: 'text',
 				required: true,
 				placeholder: 'Country'
-			 },
-			 {
-			 	ref: 'address_zip', // this is the name expected by the stripe api and returned by Stripe.getToken().
-			 	type: 'text',
-			 	placeholder: 'Zip/Postal Code'
-			 }
+			},
+			{
+				ref: 'address_zip', // this is the name expected by the stripe api and returned by Stripe.getToken().
+				type: 'text',
+				placeholder: 'Zip/Postal Code'
+			}
 		]
 	}
 ]);

@@ -1,8 +1,5 @@
-'use strict';
+import support from './support';
 
-var support = require('./support');
+export {support};
 
-module.exports = {
-	support: support,
-	defaultConfig: support
-};
+export const defaultConfig = support;

@@ -5,15 +5,19 @@ import {Component as Video} from 'video';
 export default React.createClass({
 	displayName: 'Title',
 
-	render () {
-		var {entry} = this.props;
-		if (!entry) {return;}
+	propTypes: {
+		entry: React.PropTypes.object
+	},
 
-		var videoSrc = entry.Video;
-		var context = [entry.getID()];
+	render () {
+		let {entry} = this.props;
+		if (!entry) { return; }
+
+		let videoSrc = entry.Video;
+		let context = [entry.getID()];
 
 		return (
-			<div className={'header ' + (videoSrc? 'with-video' : '')}>
+			<div className={'header ' + (videoSrc ? 'with-video' : '')}>
 				{videoSrc ?
 					<div className="row">
 						<div className="columns video-wrap">

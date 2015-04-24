@@ -1,27 +1,28 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-var Store = require('../Store');
-var ErrorWidget = require('common/components/Error');
-var Loading = require('common/components/Loading');
-// var preventOverscroll = require('common/thirdparty/prevent-overscroll');
+import ErrorWidget from 'common/components/Error';
+import Loading from 'common/components/Loading';
+// import preventOverscroll from 'common/thirdparty/prevent-overscroll';
 
-var UserAgreement = React.createClass({
+import Store from '../Store';
 
-	getInitialState: function() {
+export default React.createClass({
+	displayName: 'UserAgreement',
+
+	getInitialState () {
 		return {
 			loading: true,
 			url: null
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.getUserAgreement()
-			.then(this.setContent, this.__setError);
+			.then(this.setContent, this.setError);
 	},
 
 
-	__setError: function (reason) {
+	setError  (reason) {
 		this.setState({
 			error: reason,
 			loading: false
@@ -29,16 +30,16 @@ var UserAgreement = React.createClass({
 	},
 
 
-	setContent: function(result) {
+	setContent (result) {
 		this.setState({
 			content: result.body,
 			loading: false
 		});
-		// preventOverscroll(this.getDOMNode().querySelector('.agreement'));
+		// preventOverscroll(React.findDOMNode(this).querySelector('.agreement'));
 	},
 
 
-	render: function() {
+	render () {
 
 		if (this.state.loading) {
 			return (<div className="agreement-wrapper"><Loading /></div>);
@@ -60,5 +61,3 @@ var UserAgreement = React.createClass({
 	}
 
 });
-
-module.exports = UserAgreement;

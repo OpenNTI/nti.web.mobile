@@ -1,6 +1,5 @@
 import React from 'react';
-import {translate as t} from 'common/locale';
-
+import t from 'common/locale';
 
 
 /**
@@ -12,8 +11,11 @@ export default React.createClass({
 	propTypes: {
 		linkText: React.PropTypes.string, // the text of the button
 		href: React.PropTypes.string, // the href of the button, if applicable
-		buttonClick: React.PropTypes.func, // click handler for the button
-		button: React.PropTypes.element // pass in your own button if you need special behavior or treatment
+		buttonClick: React.PropTypes.func, // click handler for the button (deprecated)
+		onClick: React.PropTypes.func, // click handler for the button
+		button: React.PropTypes.element, // pass in your own button if you need special behavior or treatment
+
+		children: React.PropTypes.any
 	},
 
 	getDefaultProps () {

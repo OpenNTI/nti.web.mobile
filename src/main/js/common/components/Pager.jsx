@@ -7,7 +7,7 @@ export default React.createClass({
 	mixins: [NavigatableMixin],
 	displayName: 'Pager',
 
-	propType: {
+	propTypes: {
 		/**
 		 * An object that provides an interface to get the current/prev/next
 		 * PageSourceItem-like objects.
@@ -68,16 +68,16 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		this.__setupLinks(this.props);
+		this.setupLinks(this.props);
 	},
 
 
 	componentWillReceiveProps (props) {
-		this.__setupLinks(props);
+		this.setupLinks(props);
 	},
 
 
-	__setupLinks (props) {
+	setupLinks (props) {
 		let pages, source = props.pageSource;
 		if (source) {
 			invariant(
@@ -90,14 +90,14 @@ export default React.createClass({
 			this.setState({
 				page: pages.index + 1,
 				total: pages.total,
-				next: this.__buildHref(pages.next),
-				prev: this.__buildHref(pages.prev)
+				next: this.buildHref(pages.next),
+				prev: this.buildHref(pages.prev)
 			});
 		}
 	},
 
 
-	__buildHref (page) {
+	buildHref (page) {
 		let ctx = this.props.navigatableContext;
 		if (ctx && !ctx.makeHref) {
 			console.warn('navigatableContext missing "makeHref" method');
@@ -106,7 +106,7 @@ export default React.createClass({
 			ctx = this;
 		}
 
-		return page && {href :ctx.makeHref(page.ref, false) + '/', title: page.title};
+		return page && {href: ctx.makeHref(page.ref, false) + '/', title: page.title};
 	},
 
 
@@ -122,7 +122,7 @@ export default React.createClass({
 			return (
 				<ul className="bottompager">
 					<li><a href={prev.href} title={prev.title} className="button secondary tiny radius">Back</a></li>
-					<li className="counts">{this.state.total > 1 && this._makeCounts() }</li>
+					<li className="counts">{this.state.total > 1 && this.makeCounts() }</li>
 					<li><a href={next.href} title={next.title} className="button secondary tiny radius">Next</a></li>
 				</ul>
 			);
@@ -130,7 +130,7 @@ export default React.createClass({
 
 		return (
 			<div className="pager">
-				{this.state.total > 1 && this._makeCounts() }
+				{this.state.total > 1 && this.makeCounts() }
 				<a className="prev" href={prev.href} title={prev.title}/>
 				<a className="next" href={next.href} title={next.title}/>
 			</div>
@@ -138,7 +138,7 @@ export default React.createClass({
 	},
 
 
-	_makeCounts () {
+	makeCounts () {
 		let s = this.state,
 			page = s.page,
 			total = s.total;

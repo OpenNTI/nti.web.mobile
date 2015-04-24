@@ -2,11 +2,14 @@ import React from 'react';
 
 const GetContext = 'context:provider:get-local';
 
+export const ContextParent = 'context:provider:parent';
+export const ContextResolver = 'context:provider:resolver';
+
 export default {
 
 	contextTypes: {
-		contextResolver: React.PropTypes.func,
-		contextParent: React.PropTypes.any
+		[ContextResolver]: React.PropTypes.func,
+		[ContextParent]: React.PropTypes.any
 	},
 
 
@@ -18,7 +21,7 @@ export default {
 
 
 	resolveContext () {
-		let getParentContext = this.context.contextResolver;
+		let getParentContext = this.context[ContextResolver];
 		let getContext = this[GetContext];
 
 		if (getParentContext) {

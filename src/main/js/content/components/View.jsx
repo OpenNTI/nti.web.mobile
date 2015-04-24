@@ -21,11 +21,11 @@ export default React.createClass({
 		return (
 			<Router.Locations contextual>
 				<Router.Location path="/*"
-									rootId={this.props.pkgId}
+									rootId={this.props.packageId}
 									handler={Page}
 									pageContent={Viewer}
 									slug="/content/"
-									title="Content"/>
+									title=""/>
 			</Router.Locations>
 		);
 	},

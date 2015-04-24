@@ -1,14 +1,12 @@
-'use strict';
+import React from 'react';
+import Mixin from './Mixin';
 
-var React = require('react');
-var Mixin = require('./Mixin');
-
-var isEmpty = require('nti.lib.interfaces/utils/isempty');
+import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
 /**
  * This input type represents Free Response
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'FreeResponse',
 	mixins: [Mixin],
 	saveBuffer: 10000,//10seconds
@@ -19,9 +17,9 @@ module.exports = React.createClass({
 		]
 	},
 
-	render: function() {
+	render () {
 
-		var value = this.state.value;
+		let value = this.state.value;
 
 		return (
 			<form className="free-response">
@@ -37,9 +35,9 @@ module.exports = React.createClass({
 
 
 	getValue: function () {
-		var ref = this.refs.input;
-		var input = ref && ref.getDOMNode();
-		var value = input && input.value;
+		let ref = this.refs.input;
+		let input = ref && React.findDOMNode(ref);
+		let value = input && input.value;
 
 		return isEmpty(value) ? null : value;
 	}

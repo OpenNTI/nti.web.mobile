@@ -1,28 +1,27 @@
-'use strict';
-require('script!babel/browser-polyfill');
+/*bootstrap junk begin*/
 require('babel/polyfill');
 
-var React = require('react');
-
-require('common/utils').overrideConfigAndForceCurrentHost();//ensures we talk back to our current host instead of anything else.
-
-require('../../resources/scss/app.scss');
-
 //Client code, injects script blocks into <HEAD> tag
+require('../../resources/scss/app.scss');
 require('script!../../resources/vendor/modernizr/modernizr.js');
+/*bootstrap junk end*/
 
-require('fastclick').attach(document.body);
+import React from 'react';
 
+import FastClick from 'fastclick';
 
+import {overrideConfigAndForceCurrentHost} from 'common/utils';
 
+import Widget from './widget';
+
+FastClick.attach(document.body);
+
+//ensures we talk back to our current host instead of anything else.
+overrideConfigAndForceCurrentHost();
 
 React.initializeTouchEvents(true);
 
-
-
-
-
-var WidgetView = React.createFactory(require('./widget'));
+const WidgetView = React.createFactory(Widget);
 React.render(
 	WidgetView(),
 	document.getElementById('content')

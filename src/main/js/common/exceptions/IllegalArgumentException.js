@@ -1,5 +1,3 @@
-'use strict';
-
 function IllegalArgumentException(message) {
 	Error.call(this, message || 'Illegal argument. No message provided.');
 }

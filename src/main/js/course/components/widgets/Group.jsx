@@ -26,7 +26,7 @@ export default React.createClass({
 			return (
 				<fieldset className="course-overview-group">
 					<legend style={{backgroundColor: `#${item.accentColor}`}}>{item.title}</legend>
-					{this._renderItems(item.Items)}
+					{this.renderItems(item.Items)}
 				</fieldset>
 			);
 

@@ -1,12 +1,10 @@
-'use strict';
+import React from 'react';
+import Mixin from './Mixin';
 
-var React = require('react');
-var Mixin = require('./Mixin');
+import Content from '../Content';
+import WordBankEntry from '../WordBankEntry';
 
-var Content = require('../Content');
-var WordBankEntry = require('../WordBankEntry');
-
-var strategies = {
+const strategies = {
 	'input[type=blankfield]': (x)=>({name: x.getAttribute('name')})
 };
 
@@ -14,7 +12,7 @@ var strategies = {
 /**
  * This solution type represents Fill in the Blank - WordBank
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'FillInTheBlankWithWordBankAnswer',
 	mixins: [Mixin],
 
@@ -24,8 +22,13 @@ module.exports = React.createClass({
 		]
 	},
 
+
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
 	render () {
-		var ex = this.state.explanation || '';
+		let ex = this.state.explanation || '';
 
 		return (
 			<div className="fill-in-the-blank solutions">
@@ -40,8 +43,8 @@ module.exports = React.createClass({
 	},
 
 
-	renderInput(tag, props) {
-		var {name} = props;
+	renderInput (tag, props) {
+		let {name} = props;
 		return (
 			<span className="drop target">
 				<span className="match blank dropzone" data-dnd>
@@ -52,11 +55,11 @@ module.exports = React.createClass({
 	},
 
 
-	renderWordBankEntry(input) {
-		var solution = (this.state.solution || {}).value;
-		var wid = (solution || {})[input];
-		var {item} = this.props;
-		var entry = item.getWordBankEntry(wid);
+	renderWordBankEntry (input) {
+		let solution = (this.state.solution || {}).value;
+		let wid = (solution || {})[input];
+		let {item} = this.props;
+		let entry = item.getWordBankEntry(wid);
 
 		if (!entry) {
 			return null;

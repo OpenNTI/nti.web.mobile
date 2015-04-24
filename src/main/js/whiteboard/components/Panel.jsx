@@ -1,11 +1,10 @@
 import React from 'react';
 import WhiteboardRenderer from 'nti.lib.whiteboardjs/lib/Canvas';
 
+import {URL} from 'nti.lib.whiteboardjs/lib/utils';
+
 import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
-function getDataURI (scene) {
-	return WhiteboardRenderer.getThumbnail(scene);
-}
 
 export default React.createClass({
 	displayName: 'WhiteboardPanel',
@@ -22,13 +21,30 @@ export default React.createClass({
 	},
 
 
+	updateRender (scene) {
+		let {src} = this.state;
+		if (src) {
+			URL.revokeObjectURL(src);
+		}
+
+		WhiteboardRenderer.getThumbnail(scene)
+			.then(blob=> URL.createObjectURL(blob))
+			.then(url=> this.setState({src: url}));
+	},
+
+
 	componentDidMount () {
-		getDataURI(this.props.scene).then(src=> this.setState({src}));
+		this.updateRender(this.props.scene);
 	},
 
 
 	componentWillReceiveProps (nextProps) {
-		getDataURI(nextProps.scene).then(src=> this.setState({src}));
+		this.updateRender(nextProps.scene);
+	},
+
+
+	componentWillUnmount () {
+		URL.revokeObjectURL(this.state.src || '');
 	},
 
 	render () {

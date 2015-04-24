@@ -1,4 +1,4 @@
-'use strict';
+/*eslint-disable*/
 
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var StateSelect = require('common/forms/fields').StateSelect;
@@ -9,7 +9,7 @@ module.exports = Object.freeze([
 	{
 		fields: [
 			{
-				ref: Constants.fields.IS_CONCURRENT_FORM,
+				ref: Constants.IS_CONCURRENT_FORM,
 				type: 'hidden',
 				value: true
 			},
@@ -61,7 +61,7 @@ module.exports = Object.freeze([
 			CountrySelect.withProps({
 				placeholder: t('country'),
 				required: false,
-				label: t('state')
+				label: t('country')
 			}),
 			{
 				ref: 'postal_code',

@@ -110,7 +110,7 @@ export default React.createClass({
 					className={buttonClass}
 					onClick={
 						submitted ?
-						 	this.onReset :
+							this.onReset :
 							this.onSubmit
 					}>{
 					submitted ?

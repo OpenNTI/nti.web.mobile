@@ -1,14 +1,17 @@
-'use strict';
-
-var React = require('react');
-var PanelButton = require('./PanelButton');
+import React from 'react';
+import PanelButton from './PanelButton';
 
 /**
-*	Renders an info panel with a link/button.
-*/
-var PanelNoButton = React.createClass({
+ *	Renders an info panel with a link/button.
+ */
+export default React.createClass({
+	displayName: 'PanelNoButton',
 
-	render: function() {
+	propTypes: {
+		children: React.PropTypes.any
+	},
+
+	render () {
 		return (
 			<PanelButton {...this.props}>
 				{this.props.children}
@@ -17,5 +20,3 @@ var PanelNoButton = React.createClass({
 	}
 
 });
-
-module.exports = PanelNoButton;

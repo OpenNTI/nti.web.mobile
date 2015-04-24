@@ -1,61 +1,67 @@
+import React from 'react';
 
-'use strict';
+import DateMixin from 'enrollment/mixins/Dates';
 
-var React = require('react');
+import LocalizedHTML from 'common/components/LocalizedHTML';
 
-var DateMixin = require('enrollment/mixins/Dates');
+import Pricing from './Pricing';
+import {resetProcess} from '../Actions';
 
-var LocalizedHTML = require('common/components/LocalizedHTML');
+import Button from 'common/forms/components/Button';
 
-var Pricing = require('./Pricing');
-var Actions = require('../Actions');
+import {scoped} from 'common/locale';
 
-var Button = require('common/forms/components/Button');
+const t = scoped('ENROLLMENT.GIFT.SUCCESS');
+const siteString = scoped('CONTACTINFO');
 
-var _t = require('common/locale').scoped('ENROLLMENT.GIFT.SUCCESS');
-var _siteT = require('common/locale').scoped('CONTACTINFO');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'GiftSuccess',
-
 	mixins: [DateMixin],
 
+	propTypes: {
+		purchasable: React.PropTypes.object,
+		purchaseattempt: React.PropTypes.object,
+		doneLink: React.PropTypes.string,
+		onDone: React.PropTypes.func
+	},
 
-	onNewGift: function() {
-		Actions.resetProcess({
+	onNewGift () {
+		resetProcess({
 			gift: true
 		});
 	},
 
-	ignoreChange: function () {
+	ignoreChange  () {
 		//replaces changes user made with current state (effectively making
 		//the field readonly, while still letting it be focusable)
 		this.forceUpdate();
 	},
 
-	render: function() {
-		var courseTitle = this.props.purchasable.Title;
-		var purchaseAttempt = this.props.purchaseattempt;
-		var receiver = purchaseAttempt && purchaseAttempt.Receiver;
-		var sender = purchaseAttempt && purchaseAttempt.Creator;
-		var vendorInfo = this.props.purchasable && this.props.purchasable.VendorInfo;
-		var date = this.getDate(vendorInfo && vendorInfo.StartDate);
-		var alert;
-		var infoKey;
-		var support = _siteT("GIFTSUPPORT");
+	render () {
+		let courseTitle = this.props.purchasable.Title;
+		let purchaseAttempt = this.props.purchaseattempt;
+
+		let receiver = purchaseAttempt && purchaseAttempt.Receiver;
+		let sender = purchaseAttempt && purchaseAttempt.Creator;
+
+		let vendorInfo = this.props.purchasable && this.props.purchasable.VendorInfo;
+		let date = this.getDate(vendorInfo && vendorInfo.StartDate);
+		let alert;
+		let infoKey;
+		let support = siteString('GIFTSUPPORT');
 
 		if (receiver) {
 			infoKey = 'toRecipient';
 		} else {
 			infoKey = 'toSender';
-			alert = _t("alert");
+			alert = t('alert');
 		}
 
 		return (
 			<div className="gift-success row">
 				<Pricing purchasable={this.props.purchasable} locked={true} />
 				<div className="medium-8 medium-centered columns panel">
-					<h3 className="header">{_t("title")}</h3>
+					<h3 className="header">{t('title')}</h3>
 					<LocalizedHTML className="gift" stringId={infoKey} scoped="ENROLLMENT.GIFT.SUCCESS" sender={sender} receiver={receiver} />
 					<p className="alert">{alert}</p>
 					<LocalizedHTML className="prompt"
@@ -69,11 +75,11 @@ module.exports = React.createClass({
 							email={support} />
 
 					<div className="token">
-						<span className="label">{_t("accessKey")}</span>
+						<span className="label">{t('accessKey')}</span>
 						<input type="text" className="value" value={purchaseAttempt.RedemptionCode} onChange={this.ignoreChange}/>
 					</div>
 					<div className="token">
-						<span className="label">{_t("transactionID")}</span>
+						<span className="label">{t('transactionID')}</span>
 						<input type="text" className="value" value={purchaseAttempt.TransactionID} onChange={this.ignoreChange} />
 					</div>
 				</div>

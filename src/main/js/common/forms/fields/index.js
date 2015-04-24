@@ -1,6 +1,4 @@
-'use strict';
-
-var StateSelect  = {
+export const StateSelect = {
 	baseConfig: {
 		ref: 'state',
 		required: true,
@@ -11,11 +9,11 @@ var StateSelect  = {
 		}
 	},
 	withProps: function(props) {
-		return Object.assign({},this.baseConfig,props);
+		return Object.assign({}, this.baseConfig, props);
 	}
 };
 
-var CountrySelect  = {
+export const CountrySelect = {
 	baseConfig: {
 		ref: 'nation_code',
 		required: true,
@@ -28,9 +26,4 @@ var CountrySelect  = {
 	withProps: function(props) {
 		return Object.assign({}, this.baseConfig, props);
 	}
-};
-
-module.exports = {
-	StateSelect: StateSelect,
-	CountrySelect: CountrySelect
 };

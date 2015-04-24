@@ -1,11 +1,23 @@
-'use strict';
 
-var React = require('react');
-var RenderField = require('../mixins/RenderFormConfigMixin');
 
-var FormPanel = React.createClass({
+import React from 'react';
+import RenderField from '../mixins/RenderFormConfigMixin';
+
+export default React.createClass({
+
+	displayName: 'FormPanel',
 
 	mixins: [RenderField],
+
+	propTypes: {
+		busy: React.PropTypes.bool,
+		children: React.PropTypes.any,
+		noValidate: React.PropTypes.bool,
+		onSubmit: React.PropTypes.func,
+		styled: React.PropTypes.bool,
+		subhead: React.PropTypes.string,
+		title: React.PropTypes.string
+	},
 
 	getDefaultProps: function() {
 		return {
@@ -17,9 +29,9 @@ var FormPanel = React.createClass({
 	},
 
 	render: function() {
-		var cssClasses = [];
-		var formClasses = '';
-		var headingClasses = '';
+		let cssClasses = [];
+		let formClasses = '';
+		let headingClasses = '';
 
 		if (this.props.styled) {
 			headingClasses = 'column';
@@ -47,4 +59,3 @@ var FormPanel = React.createClass({
 
 });
 
-module.exports = FormPanel;

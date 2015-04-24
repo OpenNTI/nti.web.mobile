@@ -8,8 +8,8 @@ const SetData = Symbol('set:data');
 class Store extends StorePrototype {
 
 	constructor () {
-		this[data] = {};
 		super();
+		this[data] = {};
 		this.registerHandlers({
 			[PAGE_LOADED]: SetData
 		});

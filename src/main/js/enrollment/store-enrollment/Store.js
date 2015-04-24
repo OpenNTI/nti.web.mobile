@@ -1,49 +1,46 @@
-'use strict';
+import StripeInterface from 'nti.lib.interfaces/interface/Stripe';
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import {EventEmitter} from 'events';
 
-var StripeInterface = require('nti.lib.interfaces/interface/Stripe');
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
+import * as Constants from './Constants';
+import {CHANGE_EVENT} from 'common/constants/Events';
 
-var Constants = require('./Constants');
-var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
-//var ERROR_EVENT = require('common/constants/Events').ERROR_EVENT;
+import {getService} from 'common/utils';
 
-var {getService} = require('common/utils');
+let stripeToken; // store the result of a Stripe.getToken() call
+let pricing;
+let giftInfo;
+let paymentFormData = {}; // store cc info so we can repopulate the form if the user navigates back from the confirmation view.
+let paymentResult;
+let couponTimeout;
+let couponPricing;
 
-var _stripeToken; // store the result of a Stripe.getToken() call
-var _pricing;
-var _giftInfo;
-var _paymentFormData = {}; // store cc info so we can repopulate the form if the user navigates back from the confirmation view.
-var _paymentResult;
-var _couponTimeout;
-var _couponPricing;
-
-var Store = Object.assign({}, EventEmitter.prototype, {
+let Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'store-enrollment.Store',
 
-	emitChange: function(evt) {
+	emitChange (evt) {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
-	emitError: function(event) {
+	emitError (event) {
 		this.emitChange(Object.assign({ isError: true}, event));
 	},
 
 	/**
 	 * @param {function} callback
 	 */
-	addChangeListener: function(callback) {
+	addChangeListener (callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
 	/**
 	 * @param {function} callback
 	 */
-	removeChangeListener: function(callback) {
+	removeChangeListener (callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	priceItem: function(purchasable) {
+	priceItem (purchasable) {
 		return getStripeInterface()
 			.then(function(stripe) {
 				return stripe.getPricing(purchasable);
@@ -57,27 +54,27 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 			});
 	},
 
-	getStripeToken: function() {
-		if(!_stripeToken) {
-			throw new Error("Store doesn't currently have a stripe token. (Did you get a BILLING_INFO_VERIFIED event after a call to Actions.verifyBillingInfo?)");
+	getStripeToken () {
+		if(!stripeToken) {
+			throw new Error('Store doesn\'t currently have a stripe token. (Did you get a BILLING_INFO_VERIFIED event after a call to Actions.verifyBillingInfo?)');
 		}
-		return Object.assign({},_stripeToken);
+		return Object.assign({}, stripeToken);
 	},
 
-	getPricing: function() {
-		return _pricing;
+	getPricing () {
+		return pricing;
 	},
 
-	getGiftInfo: function() {
-		return _giftInfo;
+	getGiftInfo () {
+		return giftInfo;
 	},
 
-	getCouponPricing: function() {
-		return _couponPricing;
+	getCouponPricing () {
+		return couponPricing;
 	},
 
-	getPaymentFormData: function() {
-		var data = Object.assign({},_paymentFormData);
+	getPaymentFormData () {
+		let data = Object.assign({}, paymentFormData);
 
 		// don't repopulate credit card number
 		delete data.number;
@@ -87,14 +84,20 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		return data;
 	},
 
-	getPaymentResult: function() {
-		return _paymentResult;
+	getPaymentResult () {
+		return paymentResult;
 	}
 
 });
 
+export default Store;
+
+//TODO: Move all this code that is directly invoked by a "dispatched action" into the action and the result be what is dispatched
+// Store modules (the entire JS file) should only contain the synchronous data set/get/emit-event code.
+
+
 function getStripeInterface() {
-	var me = getStripeInterface;
+	let me = getStripeInterface;
 
 	if (!me.promise) {
 		me.promise = getService().then(service =>
@@ -104,22 +107,21 @@ function getStripeInterface() {
 	return me.promise;
 }
 
-function _pullData(data) {
-	var result = {};
+function pullData(data) {
+	let result = {};
 
-	var copy = x => {
+	let copy = x => {
 		if (data.hasOwnProperty(x)) {
-			result[x] = data[x]; } };
-	var pull = x => {
+			result[x] = data[x];
+		}};
+	let pull = x => {
 		copy(x);
 		delete data[x];
 	};
 
-	_pricing = {
+	pricing = {
 		coupon: data.coupon,
-		/* jshint -W106*/
-		expected_price: data.expected_price
-		/* jshint +W106*/
+		expected_price: data.expected_price // eslint-disable-line camelcase
 	};
 
 	copy('from');
@@ -130,24 +132,24 @@ function _pullData(data) {
 	pull('message');
 	pull('sender');
 
-	_giftInfo = data.from && Object.keys(result).length ? result : null;
+	giftInfo = data.from && Object.keys(result).length ? result : null;
 }
 
-function _verifyBillingInfo(data) {
+function verifyBillingInfo(data) {
 
-	_stripeToken = null; // reset
-	_pricing = null;
-	_giftInfo = null;
-	_paymentFormData = data.formData;
+	stripeToken = null; // reset
+	pricing = null;
+	giftInfo = null;
+	paymentFormData = data.formData;
 
 	return getStripeInterface()
 		.then(function(stripe) {
-			return stripe.getToken(data.stripePublicKey,data.formData);
+			return stripe.getToken(data.stripePublicKey, data.formData);
 		})
 		.then(function(result) {
-			var eventType = result.status === 200 ? Constants.BILLING_INFO_VERIFIED : Constants.BILLING_INFO_REJECTED;
-			_stripeToken = result.response;
-			_pullData(_paymentFormData);
+			let eventType = result.status === 200 ? Constants.BILLING_INFO_VERIFIED : Constants.BILLING_INFO_REJECTED;
+			stripeToken = result.response;
+			pullData(paymentFormData);
 			Store.emitChange({
 				type: eventType,
 				status: result.status,
@@ -159,21 +161,21 @@ function _verifyBillingInfo(data) {
 		});
 }
 
-function _submitPayment(formData) {
-	_paymentResult = null;
+function submitPayment(formData) {
+	paymentResult = null;
 
 	return getStripeInterface()
 		.then(function(stripe){
 			return stripe.submitPayment(formData);
 		})
 		.then(function(result) {
-			var type = (result||{}).State === 'Success' ? Constants.STRIPE_PAYMENT_SUCCESS : Constants.STRIPE_PAYMENT_FAILURE;
+			let type = (result||{}).State === 'Success' ? Constants.STRIPE_PAYMENT_SUCCESS : Constants.STRIPE_PAYMENT_FAILURE;
 			if (type === Constants.STRIPE_PAYMENT_SUCCESS) {
-				_paymentFormData = {}; //
-				_stripeToken = null;
+				paymentFormData = {}; //
+				stripeToken = null;
 			}
 
-			_paymentResult = result;
+			paymentResult = result;
 
 			Store.emitChange({
 				type: type,
@@ -181,71 +183,71 @@ function _submitPayment(formData) {
 			});
 		}, function(reason) {
 			Store.emitError({
-    			type: Constants.POLLING_ERROR,
+				type: Constants.POLLING_ERROR,
 				reason: reason
 			});
 		});
 }
 
-function _priceWithCoupon(data) {
-		if (!_couponTimeout) {
-			Store.emitChange({
-				type: Constants.LOCK_SUBMIT
-			});
-		}
+function priceWithCoupon(data) {
+	if (!couponTimeout) {
+		Store.emitChange({
+			type: Constants.LOCK_SUBMIT
+		});
+	}
 
-		clearTimeout(_couponTimeout);
+	clearTimeout(couponTimeout);
 
-		_couponTimeout = setTimeout(function() {
-			_couponPricing = null;
+	couponTimeout = setTimeout(function() {
+		couponPricing = null;
 
-			return getStripeInterface()
-				.then(function(stripe) {
-					return stripe.getCouponPricing(data.purchasable, data.coupon);
-				})
-				.then(function(result) {
-					_couponPricing = result;
+		return getStripeInterface()
+			.then(function(stripe) {
+				return stripe.getCouponPricing(data.purchasable, data.coupon);
+			})
+			.then(function(result) {
+				couponPricing = result;
 
-					Store.emitChange({
-						type: Constants.VALID_COUPON,
-						pricing: result,
-						coupon: data.coupon
-					});
-
-					Store.emitChange({
-						type: Constants.UNLOCK_SUBMIT
-					});
-				})
-				.catch(function(/*reason*/) {
-					Store.emitChange({
-						type: Constants.INVALID_COUPON,
-						coupon: data.coupon
-					});
-
-					Store.emitChange({
-						type: Constants.UNLOCK_SUBMIT
-					});
+				Store.emitChange({
+					type: Constants.VALID_COUPON,
+					pricing: result,
+					coupon: data.coupon
 				});
-		}, 2000);
+
+				Store.emitChange({
+					type: Constants.UNLOCK_SUBMIT
+				});
+			})
+			.catch(function(/*reason*/) {
+				Store.emitChange({
+					type: Constants.INVALID_COUPON,
+					coupon: data.coupon
+				});
+
+				Store.emitChange({
+					type: Constants.UNLOCK_SUBMIT
+				});
+			});
+	}, 2000);
 }
 
-function _getEnrollmentService() {
+function getEnrollmentService() {
 	return getService().then(function(service) {
 		return service.getEnrollment();
 	});
 }
 
-function _redeemGift(purchasable, accessKey) {
-	return _getEnrollmentService().then(function(service) {
+function redeemGift(purchasable, accessKey) {
+	return getEnrollmentService().then(function(service) {
 		return service.redeemGift(purchasable, accessKey);
 	});
 }
 
 Store.appDispatch = AppDispatcher.register(function(data) {
-    var action = data.action;
+	let action = data.action;
 
-    switch(action.type) {
-    //TODO: remove all switch statements, replace with functional object literals. No new switch statements.
+	switch(action.type) {
+		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 		case Constants.EDIT:
 			Store.emitChange({
 				type: action.type,
@@ -254,60 +256,57 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 			break;
 
 		case Constants.RESET:
-			_pricing =
-			_giftInfo =
-			_couponPricing =
-			_paymentFormData =
-			_paymentResult = null;
+			pricing =
+			giftInfo =
+			couponPricing =
+			paymentFormData =
+			paymentResult = null;
 			Store.emitChange({
 				type: action.type,
 				options: (action.payload||{}).options
 			});
 			break;
 
-    	case Constants.UPDATE_COUPON:
-    		_priceWithCoupon(action.payload);
-    		break;
-
-    	case Constants.VERIFY_BILLING_INFO:
-    		_verifyBillingInfo(action.payload);
+		case Constants.UPDATE_COUPON:
+			priceWithCoupon(action.payload);
 			break;
 
-    	case Constants.SUBMIT_STRIPE_PAYMENT:
-    		_submitPayment(action.payload.formData);
-	    	break;
+		case Constants.VERIFY_BILLING_INFO:
+			verifyBillingInfo(action.payload);
+			break;
 
-	    case Constants.GIFT_PURCHASE_DONE:
-	    	Store.emitChange({
-	    		type: action.type
-	    	});
-	    	break;
+		case Constants.SUBMIT_STRIPE_PAYMENT:
+			submitPayment(action.payload.formData);
+			break;
+
+		case Constants.GIFT_PURCHASE_DONE:
+			Store.emitChange({
+				type: action.type
+			});
+			break;
 
 		case Constants.REDEEM_GIFT:
-	    	_redeemGift(action.payload.purchasable, action.payload.accessKey)
-	    	.then(function(result) {
-	    		Store.emitChange({
-	    			type: Constants.GIFT_CODE_REDEEMED,
+			redeemGift(action.payload.purchasable, action.payload.accessKey)
+			.then(function(result) {
+				Store.emitChange({
+					type: Constants.GIFT_CODE_REDEEMED,
 					action: action,
 					result: result
 				});
-	    	},function(reason) {
+			}, function(reason) {
 
-	    		var message = reason.Message;
+				let message = reason.Message;
 
-	    		Store.emitError({
-	    			type: Constants.INVALID_GIFT_CODE,
+				Store.emitError({
+					type: Constants.INVALID_GIFT_CODE,
 					action: action,
 					reason: message
 				});
-	    	});
-	    	break;
+			});
+			break;
 
-        default:
-            return true;
-    }
-    return true;
+		default:
+			return true;
+	}
+	return true;
 });
-
-
-module.exports = Store;

@@ -7,7 +7,7 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import {LOAD_ENROLLMENT_STATUS, ENROLL_OPEN} from '../Constants';
 
-import EnrollmentWidgets from '../components/enrollment-option-widgets';
+import {getWidget} from '../components/enrollment-option-widgets';
 import NoOptions from '../components/enrollment-option-widgets/NoOptions';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
@@ -26,7 +26,7 @@ export default {
 
 
 	componentDidMount () {
-		var entry = this.getEntry();
+		let entry = this.getEntry();
 		EnrollmentStore.addChangeListener(this.storeChange);
 		EnrollmentStore.loadEnrollmentStatus(entry.CourseNTIID);
 	},
@@ -37,8 +37,8 @@ export default {
 	},
 
 	storeChange (event) {
-		var action = (event||{}).action;
-		var entry = this.getEntry();
+		let action = (event||{}).action;
+		let entry = this.getEntry();
 		if(action) {
 			switch(action.type) {
 			//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
@@ -72,13 +72,13 @@ export default {
 
 	canDrop (catalogEntry) {
 		// we currently only support dropping open enrollment within the app.
-		var options = catalogEntry.EnrollmentOptions.Items||{};
+		let options = catalogEntry.EnrollmentOptions.Items||{};
 		return options.OpenEnrollment && options.OpenEnrollment.IsEnrolled;
 	},
 
 
 	isGiftable (enrollmentOption) {
-		var opt = (enrollmentOption && enrollmentOption.option)||{};
+		let opt = (enrollmentOption && enrollmentOption.option)||{};
 		return opt.Purchasable && opt.Purchasable.Giftable;
 	},
 
@@ -92,8 +92,8 @@ export default {
 		if (!catalogEntry) {
 			return result;
 		}
-		var result = [];
-		var options = catalogEntry.EnrollmentOptions.Items||{};
+		let result = [];
+		let options = catalogEntry.EnrollmentOptions.Items||{};
 
 		function showOption (op) {
 			return op && op.IsAvailable;
@@ -112,14 +112,14 @@ export default {
 
 
 	enrollmentWidgets () {
-		var catalogEntry = this.getEntry();
+		let catalogEntry = this.getEntry();
 		if (!this.state.enrollmentStatusLoaded) {
-			return "Loading";
+			return 'Loading';
 		}
 		if (this.state.enrollmentStatusLoaded && !this.state.enrolled) {
 
-			let widgets = this.enrollmentOptions(catalogEntry).map((option,index) => {
-				var widget = EnrollmentWidgets.getWidget(option);
+			let widgets = this.enrollmentOptions(catalogEntry).map((option, index) => {
+				let widget = getWidget(option);
 				return widget ? React.createElement(widget, {
 					catalogEntry: catalogEntry,
 					enrollmentOption: option,
@@ -148,14 +148,14 @@ export default {
 			return this.props.catalogEntry;
 		}
 
-		var entryId = decodeFromURI(this.props.entryId);
-		var entry = CatalogStore.getEntry(entryId);
+		let entryId = decodeFromURI(this.props.entryId);
+		let entry = CatalogStore.getEntry(entryId);
 		return entry;
 	},
 
 
 	getCourseId () {
-		var entry = this.getEntry() || {};
+		let entry = this.getEntry() || {};
 		return entry.CourseNTIID;
 	},
 

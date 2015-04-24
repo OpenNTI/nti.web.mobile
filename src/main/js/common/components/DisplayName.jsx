@@ -12,6 +12,11 @@ import {getService} from '../utils';
 export default React.createClass({
 	displayName: 'DisplayName',
 
+	propTypes: {
+		username: React.PropTypes.string,
+		tag: React.PropTypes.string
+	},
+
 	getInitialState () {
 		return {
 			displayName: 'Resolving...'
@@ -28,10 +33,10 @@ export default React.createClass({
 	},
 
 	render () {
-		var Tag = this.props.tag || 'span';
-		var displayName = this.state.displayName;
+		let Tag = this.props.tag || 'span';
+		let displayName = this.state.displayName;
 
-		var props = Object.assign({
+		let props = Object.assign({
 			'data-for': this.props.username,
 			className: 'username'
 		}, this.props);
@@ -42,9 +47,9 @@ export default React.createClass({
 
 
 export function resolve (cmp, props) {
-	var username = props.username;
-	var user = props.user;
-	var promise;
+	let username = props.username;
+	let user = props.user;
+	let promise;
 
 	if (!username && !user) {
 		promise = Promise.reject();

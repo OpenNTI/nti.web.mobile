@@ -1,13 +1,13 @@
-'use strict';
+import React from 'react';
+import emptyFunction from 'react/lib/emptyFunction';
+import {Draggable} from 'common/dnd';
 
-var React = require('react');
-var emptyFunction = require('react/lib/emptyFunction');
-var {PropTypes} = React;
-var {Draggable} = require('common/dnd');
+import Content from './Content';
 
-var Content = require('./Content');
+let {PropTypes} = React;
 
-module.exports = React.createClass({
+export default React.createClass({
+	displayName: 'WordBankEntry',
 
 	contextTypes: {
 		QuestionUniqueDNDToken: PropTypes.object.isRequired
@@ -15,7 +15,10 @@ module.exports = React.createClass({
 
 	propTypes: {
 		entry: PropTypes.object.isRequired,
-		className: PropTypes.string
+		className: PropTypes.string,
+
+		locked: PropTypes.bool,
+		onReset: PropTypes.func
 	},
 
 	getDefaultProps () {
@@ -37,10 +40,10 @@ module.exports = React.createClass({
 	},
 
 	render () {
-		var {content,wid} = this.props.entry;
-		var props = Object.assign({}, this.props, {entry: undefined});
-		var {locked} = props;
-		var classes = ['drag','source'];
+		let {content, wid} = this.props.entry;
+		let props = Object.assign({}, this.props, {entry: undefined});
+		let {locked} = props;
+		let classes = ['drag', 'source'];
 		if (locked) {
 			classes.push('locked');
 		}

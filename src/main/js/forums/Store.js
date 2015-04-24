@@ -4,13 +4,184 @@ import * as Constants from './Constants';
 import indexForums from './utils/index-forums';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import Api from './Api';
+import {defaultPagingParams} from './Api';
 
-var _discussions = {};
-var _forums = {}; // forum objects by id.
-// var _forumContents = {};
-var _objectContents = {};
-var _objects = {};
-var _courseId;
+import hash from 'object-hash';
+
+let _discussions = {};
+let _forums = {}; // forum objects by id.
+let _objectContents = {};
+let _objects = {};
+let _courseId;
+
+const keyForObject = "ForumStore:keyForObject";
+const keyForContents = "ForumStore:keyForContents";
+
+class Store extends StorePrototype {
+	constructor() {
+		super();
+		this.setMaxListeners(0);
+		this.registerHandlers({
+			[Constants.GET_COMMENT_REPLIES]: function(payload) {
+				getCommentReplies(payload.action.comment);
+			},
+
+			[Constants.ADD_COMMENT]: function(payload) {
+				var {topic, parent, comment} = payload.action;
+				addComment(topic, parent, comment);
+			},
+
+			[Constants.SAVE_COMMENT]: saveComment,
+			[Constants.SAVE_TOPIC_HEADLINE]: saveComment,
+
+			[Constants.CREATE_TOPIC]: function(payload) {
+				var {forum, topic} = payload.action;
+				createTopic(forum, topic);
+			},
+
+			[Constants.DELETE_TOPIC]: function(payload) {
+				var {topic} = payload.action;
+				deleteTopic(topic);
+			},
+
+			[Constants.DELETE_COMMENT]: function(payload) { // TODO: unify delete topic and delete comment under delete object
+				var {comment} = payload.action;
+				deleteComment(comment);
+			},
+
+			[Constants.REPORT_ITEM]: function(payload) {
+				var {item} = payload.action;
+				reportItem(item);
+			}
+		});
+	}
+
+	setDiscussions(courseId, data) {
+		this.setCourseId(courseId);
+		_discussions[courseId] = dataOrError(data);
+		_forums = Object.assign(_forums||{}, indexForums(_discussions));
+		this.emitChange({
+			type: Constants.DISCUSSIONS_CHANGED,
+			courseId: courseId
+		});
+	}
+
+	setObject(ntiid, object) {
+		let key = this[keyForObject](ntiid);
+		_objects[key] = object;
+		this.emitChange({
+			type: Constants.OBJECT_LOADED,
+			ntiid: ntiid,
+			object: object
+		});
+	}
+
+	setObjectContents(objectId, contents, params={}) {
+		let key = this[keyForContents](objectId, params);
+		_objectContents[key] = contents;
+		this.emitChange({
+			type: Constants.OBJECT_CONTENTS_CHANGED,
+			objectId: objectId
+		});
+	}
+
+	setCourseId(courseId) {
+		_courseId = courseId;
+	}
+
+	getCourseId() {
+		return _courseId;
+	}
+
+	getDiscussions(courseId) {
+		return _discussions[courseId];
+	}
+
+	getForum(forumId) {
+		return _forums[decodeFromURI(forumId)] || this.getObject(forumId);
+	}
+
+	getForumContents(forumId, batchStart, batchSize) {
+		return this.getObjectContents(
+			forumId,
+			Object.assign(
+				{},
+				defaultPagingParams,
+				{batchStart, batchSize}
+			)
+		);
+	}
+
+	getObject(objectId) {
+		return _objects[this[keyForObject](objectId)];
+	}
+
+	getObjectContents(objectId, params={}) {
+		let key = this[keyForContents](objectId, params);
+		return _objectContents[key];
+	}
+
+	deleteObject(object) {
+		let objectId = object && object.getID ? object.getID() : object;
+		delete _objects[this[keyForObject](objectId)];
+		this.emitChange({
+			type: Constants.OBJECT_DELETED,
+			objectId: objectId,
+			object: object
+		});
+	}
+
+	commentAdded (data) {
+		this.emitChange({
+			type: Constants.COMMENT_ADDED,
+			data: data
+		});
+	}
+
+	commentSaved (result) {
+		this.setObject(result.getID(), result);
+		this.emitChange({
+			type: Constants.COMMENT_SAVED,
+			data: result
+		});
+	}
+
+	commentError (data) {
+		this.emitError({
+			type: Constants.COMMENT_ERROR,
+			data: data
+		});
+	}
+
+	topicCreationError (data) {
+		this.emitError({
+			type: Constants.TOPIC_CREATION_ERROR,
+			data: data
+		});
+	}
+
+	[keyForContents](objectId, params={}) {
+		return [decodeFromURI(objectId), hash(params), 'contents'].join(':');
+	}
+
+	[keyForObject](objectId) {
+		return [decodeFromURI(objectId), 'object'].join(':');
+	}
+}
+
+// convenience method for creating an error object
+// for failed fetch attempts
+function dataOrError(data) {
+	if (data && data instanceof Error) {
+		return {
+			error: data,
+			isError: true
+		};
+	}
+	return data;
+}
+
+const store = new Store();
 
 function getCommentReplies(comment) {
 	if(!comment || !comment.getReplies) {
@@ -18,7 +189,7 @@ function getCommentReplies(comment) {
 		return;
 	}
 	comment.getReplies().then(replies => {
-	store.emitChange({
+		store.emitChange({
 			type: Constants.GOT_COMMENT_REPLIES,
 			comment: comment,
 			replies: replies
@@ -57,7 +228,7 @@ function addComment(topic, parent, comment) {
 *	}
 */
 function saveComment(payload) {
-	var {postItem, newValue} = payload.action;
+	let {postItem, newValue} = payload.action;
 	return postItem.setProperties(newValue)
 	.then(result => {
 		store.commentSaved(result);
@@ -128,160 +299,5 @@ function reportItem(item) {
 		});
 	});
 }
-
-class Store extends StorePrototype {
-	constructor() {
-		super();
-		this.setMaxListeners(0);
-		this.registerHandlers({
-			[Constants.GET_COMMENT_REPLIES]: function(payload) {
-				getCommentReplies(payload.action.comment);
-			},
-				
-			[Constants.ADD_COMMENT]: function(payload) {
-				var {topic, parent, comment} = payload.action;
-				addComment(topic, parent, comment);
-			},
-
-			[Constants.SAVE_COMMENT]: saveComment,
-			[Constants.SAVE_TOPIC_HEADLINE]: saveComment,
-
-			[Constants.CREATE_TOPIC]: function(payload) {
-				var {forum, topic} = payload.action;
-				createTopic(forum, topic);
-			},
-
-			[Constants.DELETE_TOPIC]: function(payload) {
-				var {topic} = payload.action;
-				deleteTopic(topic);
-			},
-
-			[Constants.DELETE_COMMENT]: function(payload) { // TODO: unify delete topic and delete comment under delete object 
-				var {comment} = payload.action;
-				deleteComment(comment);
-			},
-
-			[Constants.REPORT_ITEM]: function(payload) {
-				var {item} = payload.action;
-				reportItem(item);
-			}
-		});
-	}
-
-	setDiscussions(courseId, data) {
-		this.setCourseId(courseId);
-		_discussions[courseId] = dataOrError(data);
-		_forums = Object.assign(_forums||{}, indexForums(_discussions));
-		this.emitChange({
-			type: Constants.DISCUSSIONS_CHANGED,
-			courseId: courseId
-		});
-	}
-
-	setObject(ntiid, object) {
-		var key = this.__keyForObject(ntiid);
-		_objects[key] = object;
-		this.emitChange({
-			type: Constants.OBJECT_LOADED,
-			ntiid: ntiid,
-			object: object
-		});
-	}
-
-	setObjectContents(objectId, contents) {
-		var key = this.__keyForContents(objectId);
-		_objectContents[key] = contents;
-		this.emitChange({
-			type: Constants.OBJECT_CONTENTS_CHANGED,
-			objectId: objectId,
-		});
-	}
-
-	setCourseId(courseId) {
-		_courseId = courseId;
-	}
-
-	getCourseId() {
-		return _courseId;
-	}
-
-	getDiscussions(courseId) {
-		return _discussions[courseId];
-	}
-
-	getForum(forumId) {
-		return _forums[decodeFromURI(forumId)] || this.getObject(forumId);
-	}
-
-	getObject(objectId) {
-		return _objects[this.__keyForObject(objectId)];
-	}
-
-	getObjectContents(objectId) {
-		var key = this.__keyForContents(objectId);
-		return _objectContents[key];
-	}
-
-	deleteObject(object) {
-		var objectId = object && object.getID ? object.getID() : object;
-		delete _objects[this.__keyForObject(objectId)];
-		this.emitChange({
-			type: Constants.OBJECT_DELETED,
-			objectId: objectId,
-			object: object
-		});
-	}
-
-	commentAdded (data) {
-		this.emitChange({
-			type: Constants.COMMENT_ADDED,
-			data: data
-		});
-	}
-
-	commentSaved (result) {
-		this.setObject(result.getID(), result);
-		this.emitChange({
-			type: Constants.COMMENT_SAVED,
-			data: result
-		});
-	}
-
-	commentError (data) {
-		this.emitError({
-			type: Constants.COMMENT_ERROR,
-			data: data
-		});
-	}
-
-	topicCreationError (data) {
-		this.emitError({
-			type: Constants.TOPIC_CREATION_ERROR,
-			data: data
-		});
-	}
-
-	__keyForContents(objectId) {
-		return [decodeFromURI(objectId), 'contents'].join(':');
-	}
-
-	__keyForObject(objectId) {
-		return [decodeFromURI(objectId), 'object'].join(':');
-	}
-}
-
-// convenience method for creating an error object
-// for failed fetch attempts
-function dataOrError(data) {
-	if (data && data instanceof Error) {
-		return {
-			error: data,
-			isError: true
-		};
-	}
-	return data;
-}
-
-const store = new Store();
 
 export default store;

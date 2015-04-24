@@ -3,11 +3,15 @@ import React from 'react';
 export default React.createClass({
 	displayName: 'GlossaryEntry',
 
+	propTypes: {
+		entryid: React.PropTypes.string
+	},
+
 	componentDidMount () {
-		var entryEl = document.getElementById(this.props.entryid);
-		console.debug('didmount, %O',entryEl);
+		let entryEl = document.getElementById(this.props.entryid);
+		console.debug('didmount, %O', entryEl);
 		if (entryEl) {
-			this.refs.content.getDOMNode().innerHTML = entryEl.innerHTML;
+			React.findDOMNode(this.refs.content).innerHTML = entryEl.innerHTML;
 		}
 	},
 

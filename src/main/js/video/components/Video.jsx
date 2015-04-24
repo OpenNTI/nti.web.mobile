@@ -24,8 +24,9 @@ export default React.createClass({
 			]).isRequired,
 
 		/**
-		* An array of ntiids reflecting the current course/node/etc.
-		*/
+		 * An array of ntiids reflecting the current course/node/etc.
+		 * TODO: not used by this component except by newWatchVideoEvent, move this prop to the host component
+		 */
 		context: React.PropTypes.array.isRequired,
 
 		/**
@@ -42,7 +43,19 @@ export default React.createClass({
 		onSeeked: React.PropTypes.func,
 		onPlaying: React.PropTypes.func,
 		onPause: React.PropTypes.func,
-		onEnded: React.PropTypes.func
+		onEnded: React.PropTypes.func,
+
+
+		deferred: React.PropTypes.bool,
+
+		/**
+		 * A factory method to construct a contextually relevant WatchVideoEvent.
+		 * The one and only argument will be the video element to read off the
+		 * currentTime and duration of the video.
+		 *
+		 * The factory should return a new WatchVideoEvent instance.
+		 */
+		newWatchEventFactory: React.PropTypes.func.isRequired
 	},
 
 
@@ -90,28 +103,45 @@ export default React.createClass({
 
 		if (this.isMounted()) {
 			let analyticsEvent = this.newWatchVideoEvent(event);
-			emitEventStarted(analyticsEvent);
-			this.setState({
-				playStartEvent: analyticsEvent // this.getAnalyticsEventData(event)
-			});
+			if (analyticsEvent) {
+				emitEventStarted(analyticsEvent);
+				this.setState({
+					playStartEvent: analyticsEvent
+				});
+			}
 			return analyticsEvent;
 		}
 	},
 
 
 	newWatchVideoEvent(browserEvent) {
-		let ctx = (this.props.context || [])
-			.map(x=> x.ntiid || (typeof x === 'string'? x: null))
-			.filter(x=>x); // removes nulls
+
+		if (!this.props.src.ntiid) {
+			console.warn('No ntiid. Skipping WatchVideoEvent instantiation.');
+			return null;
+		}
 
 		let target = (browserEvent || {}).target || {currentTime: 0, duration: 0};
 
+		//TODO: Make this call this.props.newWatchEventFactory(target)
+		// From this point down, this method body should be simplified to be:
+		//
+		// return this.props.newWatchEventFactory(target);
+		//
+		//The rest of the this code should move to the host component
+		//the Context, courseId, transcript etc are all not universally relevant
+		let ctx = (this.props.context || [])
+			.map(x => x.ntiid || x.href || (typeof x === 'string' ? x : null))
+			.filter(x=>x); // removes nulls
+
+
 		let analyticsEvent = new WatchVideoEvent(
 			this.props.src.ntiid,
+			this.props.courseId, // courseId won't be relevant on Books
 			ctx,
 			target.currentTime, // video_start_time
 			target.duration, // MaxDuration, the length of the entire video
-			!!this.props.transcript
+			!!this.props.transcript // transcript is not used by this component, so its superfluous.
 		);
 
 		return analyticsEvent;
@@ -121,7 +151,7 @@ export default React.createClass({
 	recordPlaybackStopped (event) {
 		let {playStartEvent} = this.state;
 		if (!playStartEvent) {
-			console.warn('We don\'t have a playStartEvent? How did we get a stop event without a prior start event? Dropping the event on the floor.');
+			console.warn('We don\'t have a playStartEvent. Dropping playbackStopped event on the floor.');
 			return;
 		}
 
@@ -132,14 +162,6 @@ export default React.createClass({
 			this.setState({playStartEvent: null});
 		}
 	},
-
-
-	// emitEmptyAnalyticsEvent () {
-	// 	let event = this.newWatchVideoEvent();
-	// 	emitEventStarted(event);
-	// 	event.finish(0);
-	// 	emitEventEnded(event);
-	// },
 
 
 	onTimeUpdate (event) {
@@ -160,6 +182,7 @@ export default React.createClass({
 		this.recordPlaybackStarted(event);
 		this.props.onPlaying(event);
 	},
+
 
 	onPause (event) {
 		this.recordPlaybackStopped(event);
@@ -199,7 +222,7 @@ export default React.createClass({
 		let videoSource = video && (video.sources || {})[0];
 
 		return (
-			<div className={'flex-video widescreen ' + Provider.name}>
+			<div className={'flex-video widescreen ' + Provider.displayName}>
 				<Provider {...this.props}
 					ref="activeVideo"
 					source={videoSource || video}

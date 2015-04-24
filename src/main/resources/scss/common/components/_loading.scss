@@ -1,93 +1,93 @@
 .mask-loader {
-    position: fixed;
-    top: 0; bottom: 0;
-    left: 0; right: 0;
-    background: rgba(255,255,255, 0.8);
+	position: fixed;
+	top: 0; bottom: 0;
+	left: 0; right: 0;
+	background: rgba(255,255,255, 0.8);
 }
 
 
 figure.loading {
-    & + & {display: none;}
+	& + & {display: none;}
 
-    $size: 80px;
-    overflow: visible;
-    position: absolute;
-    margin-top: -($size/2);
-    top: 50%; left: 0; right: 0;
+	$size: 80px;
+	overflow: visible;
+	position: absolute;
+	margin-top: -($size/2);
+	top: 50%; left: 0; right: 0;
 
-    figcaption {
-        position: absolute;
-        top: 50%; left: 0; right: 0;
-        margin-top: -0.5rem;
-        line-height: 1rem;
-        font-size: 9px;
-        text-align: center;
-        color: #757575;
-    }
+	figcaption {
+		position: absolute;
+		top: 50%; left: 0; right: 0;
+		margin-top: -0.5rem;
+		line-height: 1rem;
+		font-size: 9px;
+		text-align: center;
+		color: #757575;
+	}
 
-    .m {
-        margin: 0px auto;
-        position:relative;
-    }
+	.m {
+		margin: 0px auto;
+		position:relative;
+	}
 
-    .spinner {
-        height:$size; width:$size;
+	.spinner {
+		height:$size; width:$size;
 
-        @include animation('rotation .9s infinite linear');
+		@include animation('rotation .9s infinite linear');
 
-        // border: 1px solid rgba(142,183,55,.15);
-        // border-top-color: rgba(142,183,55,.8);
-        border: 1px solid rgba(63,179,79,.15);
-        border-top-color: rgba(63,179,79,.8);
-        border-radius:100%;
-    }
+		// border: 1px solid rgba(142,183,55,.15);
+		// border-top-color: rgba(142,183,55,.8);
+		border: 1px solid rgba(63,179,79,.15);
+		border-top-color: rgba(63,179,79,.8);
+		border-radius:100%;
+	}
 }
 
 .tinyloader {
-    margin: 0;
-    text-align: center;
-    li {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        padding:0;
-        background: lightgray;
-        border-radius: 2px;
-        opacity:0;
-        margin-right: 2px;
-        will-change: opacity;
-        &:nth-child(1) {
-            @include animation(tinyloader .7s ease-in-out infinite);
-        }
-        &:nth-child(2) {
-            @include animation(tinyloader .7s ease-in-out infinite .1s);
-        }
-        &:nth-child(3) {
-            @include animation(tinyloader .7s ease-in-out infinite .2s);
-        }
-    }
+	margin: 0;
+	text-align: center;
+	li {
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		padding:0;
+		background: lightgray;
+		border-radius: 2px;
+		opacity:0;
+		margin-right: 2px;
+		will-change: opacity;
+		&:nth-child(1) {
+			@include animation(tinyloader .7s ease-in-out infinite);
+		}
+		&:nth-child(2) {
+			@include animation(tinyloader .7s ease-in-out infinite .1s);
+		}
+		&:nth-child(3) {
+			@include animation(tinyloader .7s ease-in-out infinite .2s);
+		}
+	}
 
 }
 
 @include keyframes(tinyloader) {
-    0% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1.0;
-    }
-    100% {
-        opacity: 0;
-    }
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1.0;
+	}
+	100% {
+		opacity: 0;
+	}
 }
 
 .inline-loader-wrap {
-    min-height: 70px;
-    position: relative;
-    margin: {
-        bottom: 75px;
-        top: 25px;
-    }
+	min-height: 70px;
+	position: relative;
+	margin: {
+		bottom: 75px;
+		top: 25px;
+	}
 }
 
 ul.loader{
@@ -99,29 +99,29 @@ ul.loader{
 	margin-top:-30px;
 	width:60px;
 	height:60px;
-    list-style:none;
+	list-style:none;
 
-    li {
-        background-color: #757575;
-        // background-color: rgba(142,183,55,.8);
-        background-color: rgba(63,179,79,.8);
-        width:10px;
-        height:10px;
-        float:left;
-        margin-right:5px;
-        box-shadow: 0px 45px 20px rgba(0,0,0,0.2);
-        will-change: height, margin-top;
+	li {
+		background-color: #757575;
+		// background-color: rgba(142,183,55,.8);
+		background-color: rgba(63,179,79,.8);
+		width:10px;
+		height:10px;
+		float:left;
+		margin-right:5px;
+		box-shadow: 0px 45px 20px rgba(0,0,0,0.2);
+		will-change: height, margin-top;
 
-        &:nth-child(1){
-            @include animation('laadbalk 0.6s ease-in-out infinite 0s');
-        }
-        &:nth-child(2){
-            @include animation('laadbalk 0.6s ease-in-out infinite -0.2s');
-        }
-        &:nth-child(3){
-            @include animation('laadbalk 0.6s ease-in-out infinite -0.4s');
-        }
-    }
+		&:nth-child(1){
+			@include animation('laadbalk 0.6s ease-in-out infinite 0s');
+		}
+		&:nth-child(2){
+			@include animation('laadbalk 0.6s ease-in-out infinite -0.2s');
+		}
+		&:nth-child(3){
+			@include animation('laadbalk 0.6s ease-in-out infinite -0.4s');
+		}
+	}
 }
 
 @include keyframes(laadbalk) {

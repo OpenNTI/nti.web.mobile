@@ -1,21 +1,28 @@
 import React from 'react';
-import PostItem from './list-items/PostItem';
-import PostHeadline from './PostHeadline';
+
+import {decodeFromURI, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+
 import Loading from 'common/components/Loading';
 import Notice from 'common/components/Notice';
 import Err from 'common/components/Error';
-import Store from '../Store';
-import Api from '../Api';
-import StoreEvents from 'common/mixins/StoreEvents';
-import KeepItemInState from '../mixins/KeepItemInState';
-import {OBJECT_DELETED, POST, COMMENT_FORM_ID} from '../Constants';
-import ViewHeader from './widgets/ViewHeader';
-import Replies from './Replies';
-import CommentForm from './CommentForm';
-import {decodeFromURI, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import ContextSender from 'common/mixins/ContextSender';
+import StoreEvents from 'common/mixins/StoreEvents';
+
+import KeepItemInState from '../mixins/KeepItemInState';
+
+import PostItem from './list-items/PostItem';
+import PostHeadline from './PostHeadline';
+import ViewHeader from './widgets/ViewHeader';
+
+import Replies from './Replies';
+import CommentForm from './CommentForm';
 import List from './List';
+
+import {OBJECT_DELETED, POST, COMMENT_FORM_ID} from '../Constants';
+import Store from '../Store';
+import Api from '../Api';
 
 const objectDeletedHandler = 'Post:objectDeletedHandler';
 
@@ -28,6 +35,11 @@ export default React.createClass({
 		KeepItemInState,
 		ContextSender
 	],
+
+	propTypes: {
+		postId: React.PropTypes.string,
+		topicId: React.PropTypes.string
+	},
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
@@ -95,7 +107,7 @@ export default React.createClass({
 		let label = ViewHeader.headerTextForType(POST);
 		// if this is a reply to a comment (as opposed to a reply to a topic)
 		// push an item for the parent comment.
-		let inReplyTo = (this.getItem()||{}).inReplyTo;
+		let inReplyTo = (this.getItem() || {}).inReplyTo;
 		if (inReplyTo) {
 			result.push({
 				label,
@@ -117,10 +129,6 @@ export default React.createClass({
 
 		let item = this.getItem();
 
-		if (this.state.busy || !item) {
-			return <Loading />;
-		}
-
 		if (this.state.error) {
 			if (this.state.error.statusCode === 404) {
 				return <Notice>Not found.</Notice>;
@@ -128,6 +136,10 @@ export default React.createClass({
 			else {
 				return <Err error={this.state.error} />;
 			}
+		}
+
+		if (this.state.busy || !item) {
+			return <Loading />;
 		}
 
 		let topic = Store.getObject(this.props.topicId);

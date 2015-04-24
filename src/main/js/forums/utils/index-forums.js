@@ -1,11 +1,9 @@
-'use strict';
-
-var {mimeTypes, FORUM} = require('../Constants');
+import {mimeTypes, FORUM} from '../Constants';
 
 // walks a binned discussions hierarchy looking for forum objects
 // and returns a map of forumId to forum
-function indexForums(input, result) {
-	var result = result || {};
+export default function indexForums(input, result) {
+	result = result || {};
 	if (Array.isArray(input)) {
 		input.forEach(item => {
 			// is forum? add entry to result;
@@ -19,8 +17,6 @@ function indexForums(input, result) {
 			result = indexForums(input[key], result);
 		});
 	}
-	
+
 	return result;
 }
-
-module.exports = indexForums;

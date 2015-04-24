@@ -2,6 +2,7 @@ import React from 'react';
 import emptyFunction from 'react/lib/emptyFunction';
 
 let Dialog = React.createClass({
+	displayName: 'Dialog',
 
 	statics: {
 		active: null,
@@ -112,7 +113,7 @@ let Dialog = React.createClass({
 		if (this.isMounted()) {
 			focusNode = this.refs.confirm || this.refs.cancel || this;
 
-			focusNode.getDOMNode().focus();
+			React.findDOMNode(focusNode).focus();
 		}
 	},
 

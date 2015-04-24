@@ -5,7 +5,7 @@ export default {
 	mixins: [BasePathAware],
 
 	courseHref (courseId, section) {
-		var courseUrl = encodeForURI(courseId);
+		let courseUrl = encodeForURI(courseId);
 		let url = this.getBasePath() + 'course/' + courseUrl + '/';
 		if (section) {
 			url += section;

@@ -1,4 +1,4 @@
-'use strict';
+/*eslint-disable*/
 
 var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
 var Constants = require('common/forms/Constants');

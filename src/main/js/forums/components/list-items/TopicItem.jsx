@@ -1,4 +1,4 @@
-'use strict';
+
 
 import React from 'react';
 import {mimeTypes, TOPIC, POST} from '../../Constants';
@@ -34,8 +34,12 @@ module.exports = React.createClass({
 
 	backingStore: Store,
 
-	componentWillMount: function() {
-		var item = Store.getObject(this.getItemId());
+	propTypes: {
+		parentPath: React.PropTypes.string
+	},
+
+	componentWillMount () {
+		let item = Store.getObject(this.getItemId());
 		if (item) {
 			this.setState({
 				item: item
@@ -43,33 +47,33 @@ module.exports = React.createClass({
 		}
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {};
 	},
 
-	_href: function(item) {
-		return (this.props.parentPath||'').concat(encodeForURI(item.getID()),'/');
+	getHref (item) {
+		return (this.props.parentPath || '').concat(encodeForURI(item.getID()), '/');
 	},
 
-	_replies: function(item) {
+	renderReplies (item) {
 		return item.PostCount > 0 ? <div className="replies">{t('replies', {count: item.PostCount})}</div> : null;
 	},
 
-	_likes: function(item) {
+	renderLikes (item) {
 		return item.LikeCount > 0 ? <div className="likes">{t('likes', {count: item.LikeCount})}</div>	: null;
 	},
 
 	// topics say "posted", comments say "replied"
-	_verbForPost: function(item) {
+	renderVerbForPost (item) {
 		// confusing that comment is referenced as a post and a post is referred to as a topic.
 		return isMimeType(item, mimeTypes[POST]) ? t('replied') : t('posted');
 	},
 
-	render: function() {
-		var item = this.getItem();
-		var replyTime = item.NewestDescendant.getCreatedTime();
+	render () {
+		let item = this.getItem();
+		let replyTime = item.NewestDescendant.getCreatedTime();
 		return (
-			<Link className="topic-link" href={this._href(item)}>
+			<Link className="topic-link" href={this.getHref(item)}>
 				<Avatar username={item.Creator} />
 				<div className="wrap">
 					<div>
@@ -79,10 +83,10 @@ module.exports = React.createClass({
 					<div className="activity">
 						<div className="newest">
 							<DisplayName username={item.NewestDescendant.Creator} />
-							<span>{this._verbForPost(item.NewestDescendant)} <DateTime relative={true} date={replyTime}/></span>
+							<span>{this.renderVerbForPost(item.NewestDescendant)} <DateTime relative={true} date={replyTime}/></span>
 						</div>
-						{this._replies(item)}
-						{this._likes(item)}
+						{this.renderReplies(item)}
+						{this.renderLikes(item)}
 					</div>
 					<div><span className="arrow-right" /></div>
 				</div>

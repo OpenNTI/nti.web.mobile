@@ -1,28 +1,42 @@
-'use strict';
-
 import React from 'react';
 import {Editor} from 'modeled-content';
-import PanelButton from 'common/components/PanelButton';
+
 import Notice from 'common/components/Notice';
 import OkCancelButtons from 'common/components/OkCancelButtons';
+import PanelButton from 'common/components/PanelButton';
 import Loading from 'common/components/TinyLoader';
-import Actions from '../Actions';
+
+import StoreEvents from 'common/mixins/StoreEvents';
+
+import * as Actions from '../Actions';
 import Store from '../Store';
 import {COMMENT_ADDED, COMMENT_SAVED, COMMENT_ERROR} from '../Constants';
-import StoreEvents from 'common/mixins/StoreEvents';
+
 import {scoped} from 'common/locale';
 
 let t = scoped('FORUMS');
 
-var CommentForm = React.createClass({
+export default React.createClass({
+	displayName: 'CommentForm',
 
 	mixins: [StoreEvents],
 
+	propTypes: {
+		id: React.PropTypes.string,
+
+		onCancel: React.PropTypes.func,
+		onCompletion: React.PropTypes.func,
+
+		editItem: React.PropTypes.object,//??
+		topic: React.PropTypes.object,
+		parent: React.PropTypes.object
+	},
+
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[COMMENT_ADDED]: '_success',
-		[COMMENT_SAVED]: '_success',
-		[COMMENT_ERROR]: function(event) {
+		[COMMENT_ADDED]: 'onSuccess',
+		[COMMENT_SAVED]: 'onSuccess',
+		[COMMENT_ERROR] (event) {
 			this.setState({
 				error: event.data.reason,
 				busy: false
@@ -30,7 +44,7 @@ var CommentForm = React.createClass({
 		}
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			busy: false,
 			complete: false,
@@ -39,23 +53,26 @@ var CommentForm = React.createClass({
 		};
 	},
 
+
 	getValue() {
 		return this.refs.editor.getValue();
 	},
 
-	_success: function() {
+
+	onSuccess () {
 		this.setState({
 			busy: false,
 			complete: true,
 			error: null
 		});
+
 		if (this.props.onCompletion) {
 			this.props.onCompletion(event);
 		}
 	},
 
-	_addComment: function() {
-		var val = this.getValue();
+	onAddComment () {
+		let val = this.getValue();
 		if (!val || val.length === 0) {
 			return;
 		}
@@ -65,7 +82,7 @@ var CommentForm = React.createClass({
 		Actions.addComment(this.props.topic, this.props.parent, val);
 	},
 
-	_save: function(item) {
+	onSave (item) {
 		this.setState({
 			busy: true
 		});
@@ -74,13 +91,13 @@ var CommentForm = React.createClass({
 		});
 	},
 
-	_bodyChange(oldValue, newValue) {
+	onBodyChange (oldValue, newValue) {
 		this.setState({
 			canSubmit: (newValue && newValue.length > 0)
 		});
 	},
 
-	render: function() {
+	render () {
 
 		if (this.state.busy) {
 			return <Loading />;
@@ -90,27 +107,26 @@ var CommentForm = React.createClass({
 			return <Notice>Comment added</Notice>;
 		}
 
-		var savefunc = this.props.editItem ? this._save.bind(this, this.props.editItem) : this._addComment;
-		var buttons = <OkCancelButtons
-							onOk={savefunc}
-							okEnabled={this.state.canSubmit}
-							onCancel={this.props.onCancel}
-							okText={t('editorOkButton')}
-						/>;
+		let savefunc = this.props.editItem ? this.onSave.bind(this, this.props.editItem) : this.onAddComment;
+		let buttons = (
+			<OkCancelButtons
+				onOk={savefunc}
+				okEnabled={this.state.canSubmit}
+				onCancel={this.props.onCancel}
+				okText={t('editorOkButton')} />
+		);
 
-		var value = (this.props.editItem||{}).body;
+		let value = (this.props.editItem || {}).body;
 
 		return (
 			<PanelButton className="comment-form" linkText='Submit' button={buttons} id={this.props.id}>
-				{this.state.error && <Notice className="err">{this.state.error.message||'An error occurred.'}</Notice>}
+				{this.state.error && <Notice className="err">{this.state.error.message || 'An error occurred.'}</Notice>}
 				<div className="comment-form-heading">{t('addComment')}</div>
 				<Editor ref='editor'
-					onChange={this._bodyChange}
+					onChange={this.onBodyChange}
 					value={value} />
 			</PanelButton>
 		);
 	}
 
 });
-
-module.exports = CommentForm;

@@ -23,8 +23,8 @@ const WIDGETS = [
 ];
 
 export function select (item, index, list, props, node) {
-	var Item = Unknown;
-	var render = true;
+	let Item = Unknown;
+	let render = true;
 
 	for (let Type of WIDGETS) {
 		if (Type !== Unknown && Type.handles && Type.handles(item)) {

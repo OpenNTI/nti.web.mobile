@@ -1,29 +1,35 @@
 
-'use strict';
 
-var React = require('react');
-var ButtonPlain = require('common/forms/components/Button');
-var ButtonFullWidth = require('common/forms/components/ButtonFullWidth');
-var {getBasePath} = require('common/utils');
-var {encodeForURI} = require('nti.lib.interfaces/utils/ntiids');
-var t = require('common/locale').scoped('ENROLLMENT.BUTTONS');
 
-var RedeemButton = React.createClass({
+import React from 'react';
+import ButtonPlain from 'common/forms/components/Button';
+import ButtonFullWidth from 'common/forms/components/ButtonFullWidth';
+import BasePathAware from 'common/mixins/BasePath';
+
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {scoped} from 'common/locale';
+
+const t = scoped('ENROLLMENT.BUTTONS');
+
+export default React.createClass({
+	displayName: 'RedeemButton',
+	mixins: [BasePathAware],
 
 	propTypes: {
 		catalogId: React.PropTypes.string,
-		href: React.PropTypes.string
+		href: React.PropTypes.string,
+		fullWidth: React.PropTypes.bool
 	},
 
-	_urlForEntry: function() {
-		var href = getBasePath() + 'catalog/item/' + encodeForURI(this.props.catalogId) + '/enrollment/store/gift/redeem/';
+	urlForEntry () {
+		let href = this.getBasePath() + 'catalog/item/' + encodeForURI(this.props.catalogId) + '/enrollment/store/gift/redeem/';
 		return href;
 	},
 
-	render: function() {
+	render () {
 
-		var href = this.props.href || this._urlForEntry();
-		var Button = this.props.fullWidth ? ButtonFullWidth : ButtonPlain;
+		let href = this.props.href || this.urlForEntry();
+		let Button = this.props.fullWidth ? ButtonFullWidth : ButtonPlain;
 		return (
 			<div>
 				<Button className="redeemButton" href={href}>{t('redeemGift')}</Button>
@@ -32,5 +38,3 @@ var RedeemButton = React.createClass({
 	}
 
 });
-
-module.exports = RedeemButton;

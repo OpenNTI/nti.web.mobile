@@ -18,7 +18,7 @@ export default class StorePrototype extends TypedEventEmitter {
 	 *                          functions or property-keys to handle
 	 *                          the action.
 	 *
-	 *
+	 * @returns {void}
 	 */
 	registerHandlers (handlers) {
 		//TODO: merge, if a key exists, chain the handler call. Test the

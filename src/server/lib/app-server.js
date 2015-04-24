@@ -29,10 +29,13 @@ export function setupApplication(app, config) {
 	let session = dsi.session;
 	let datacache = dsi.datacache;
 
+	let {basepath} = config;
+
 	let entryPoint = generated.entryPoint;
 	let assetPath = path.join(__dirname, '../..', entryPoint ? 'client' : 'main');
 	logger.info('Static Assets: %s', assetPath);
 	logger.info('DataServer end-point: %s', config.server);
+	logger.info('mount-point: %s', basepath);
 	let page = generated.page;
 	let devmode;
 
@@ -42,7 +45,7 @@ export function setupApplication(app, config) {
 
 	redirects.register(app, config);
 
-	if (entryPoint==null) {//only start the dev server if entryPoint is null or undefined. if its false, skip.
+	if (entryPoint == null) {//only start the dev server if entryPoint is null or undefined. if its false, skip.
 		devmode = setupDeveloperMode(config);
 		entryPoint = devmode.entry;
 		page = pageSource();
@@ -53,24 +56,33 @@ export function setupApplication(app, config) {
 		return void 0;
 	}
 
+	app.use('/errortest*', function() {
+		throw new Error('This is an error. Neato.');
+	});
+
 	//Static files...
 	app.use(express.static(assetPath, {
 		maxage: 3600000, //1hour
-		setHeaders: (res, path) =>{
-			if (manifest.test(path)) {
+		setHeaders: (res, requsestPath) =>{
+			if (manifest.test(requsestPath)) {
 				//manifests never cache
 				res.setHeader('Cache-Control', 'public, max-age=0');
 			}
 		}
 	}));//static files
 
-	//Session manager...
+	//Do not let requests for static assets (that are not found) fall through to page rendering.
+	app.get(/^\/(js|resources)\//i, (_, res)=>
+		res.status(404).send('Asset Not Found'));
+
 	app.use(cacheBuster);
 
 	api.registerAnonymousEndPoints(app, config);
 
-	app.use(/^\/login.*/, session.anonymousMiddleware.bind(session));
-	app.use(/^(?!\/(login|resources)).*/, session.middleware.bind(session));
+	app.use(/^\/login/i, session.anonymousMiddleware.bind(session));
+
+	//Session manager...
+	app.use(/^(?!\/(login|resources)).*/i, session.middleware.bind(session));
 
 	api.registerAuthenticationRequiredEndPoints(app, config);
 
@@ -82,7 +94,7 @@ export function setupApplication(app, config) {
 		global.pageRenderSetPageNotFound = ()=>isErrorPage = true;
 
 		//Pre-flight (if any widget makes a request, we will cache its result and send its result to the client)
-		page(req, entryPoint, nodeConfigAsClientConfig(config, req));
+		page(basepath, req, entryPoint, nodeConfigAsClientConfig(config, req));
 
 		if (isErrorPage) {
 			res.status(404);
@@ -94,7 +106,7 @@ export function setupApplication(app, config) {
 				configForClient.html += datacache.getForContext(req).serialize();
 				//Final render
 				logger.info('Flushing Render to client: %s %s', req.url, req.username);
-				res.end(page(req, entryPoint, configForClient));
+				res.end(page(basepath, req, entryPoint, configForClient));
 			})
 			.catch((e)=>{
 				logger.error(e.stack || e.message || e);

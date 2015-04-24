@@ -198,7 +198,7 @@ class Store extends StorePrototype {
 			this.markBusy(part, BUSY_SAVEPOINT);
 			this.emitChange({type: BUSY_SAVEPOINT});
 
-			saveProgress(part)
+			saveProgress(part)//eslint-disable-line no-use-before-define
 				.catch(emptyFunction)//handle errors
 				.then(() => {
 					this.markBusy(part, false);
@@ -307,7 +307,7 @@ class Store extends StorePrototype {
 
 
 
-		return loadPreviousState(assessment)
+		return loadPreviousState(assessment)//eslint-disable-line no-use-before-define
 			.then(this[ApplySubmission].bind(this, assessment))
 
 			.catch(reason => {

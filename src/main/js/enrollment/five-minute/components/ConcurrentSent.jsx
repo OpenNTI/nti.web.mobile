@@ -1,12 +1,14 @@
-'use strict';
+import React from 'react'
+;
+import PanelButton from 'common/components/PanelButton';
+import {scoped} from 'common/locale';
 
-var React = require('react');
-var PanelButton = require('common/components/PanelButton');
-var t = require('common/locale').scoped('ENROLLMENT');
+const t = scoped('ENROLLMENT');
 
-var ConcurrentSent = React.createClass({
+export default React.createClass({
+	displayName: 'ConcurrentSent',
 
-	render: function() {
+	render () {
 		return (
 
 			<PanelButton href='../../../' linkText="Back">
@@ -17,5 +19,3 @@ var ConcurrentSent = React.createClass({
 	}
 
 });
-
-module.exports = ConcurrentSent;

@@ -1,16 +1,14 @@
-'use strict';
+import React from 'react';
+import Mixin from './Mixin';
 
-var React = require('react');
-var Mixin = require('./Mixin');
+import Content from '../Content';
 
-var Content = require('../Content');
-
-var toArray = require('nti.lib.interfaces/utils/toarray');
+import toArray from 'nti.lib.interfaces/utils/toarray';
 
 /**
  * This solution type represents Ordering
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Ordering',
 	mixins: [Mixin],
 
@@ -21,10 +19,15 @@ module.exports = React.createClass({
 	},
 
 
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
+
 	render () {
-		var values = this.props.item.labels || [];
-		var solution = (this.state.solution || {}).value;
-		var ex = this.state.explanation || '';
+		let values = this.props.item.labels || [];
+		let solution = (this.state.solution || {}).value;
+		let ex = this.state.explanation || '';
 
 		solution = solution && toArray(Object.assign({length: values.length}, solution));
 
@@ -32,7 +35,7 @@ module.exports = React.createClass({
 			<div className="ordered solutions">
 				<form className="box">
 					<div className="ordering">
-						{values.map((x,i)=>this.renderRow(x, i, solution) )}
+						{values.map((x, i)=>this.renderRow(x, i, solution) )}
 					</div>
 				</form>
 				<div className="explanation" dangerouslySetInnerHTML={{__html: ex}}/>
@@ -42,8 +45,8 @@ module.exports = React.createClass({
 
 
 	renderRow (target, targetIndex, solution) {
-		var sources = this.props.item.values || [];
-		var source = sources[solution[targetIndex]];
+		let sources = this.props.item.values || [];
+		let source = sources[solution[targetIndex]];
 
 		return (
 			<div className="match-row" key={targetIndex}>

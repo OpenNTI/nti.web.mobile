@@ -1,18 +1,16 @@
-'use strict';
 
-import React from 'react';
 
-import Store from '../Store';
+import ContextSender from 'common/mixins/ContextSender';
+import CreateTopic from './CreateTopic';
 import LoadForum from '../mixins/LoadForum';
-
-import StoreEvents from 'common/mixins/StoreEvents';
+import Loading from 'common/components/Loading';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import React from 'react';
+import Router from 'react-router-component';
+import Store from '../Store';
+import StoreEvents from 'common/mixins/StoreEvents';
 import Topics from './Topics';
 import TopicView from './TopicView';
-import CreateTopic from './CreateTopic';
-import Loading from 'common/components/Loading';
-import Router from 'react-router-component';
-import ContextSender from 'common/mixins/ContextSender';
 
 let Location = Router.Location;
 
@@ -40,7 +38,7 @@ module.exports = React.createClass({
 		let href = this.makeHref([this.props.forumId, ''].join('/'));
 		let forum = Store.getForum(this.props.forumId);
 		return Promise.resolve({
-			label: (forum||{}).title || 'Forum',
+			label: (forum || {}).title || 'Forum',
 			href
 		});
 
@@ -57,7 +55,7 @@ module.exports = React.createClass({
 
 		// if a user lands directly on a topic or post view without going through
 		// the parent views the store may not have the course id.
-		if (!Store.getCourseId() && course) { 
+		if (!Store.getCourseId() && course) {
 			Store.setCourseId(course.getID());
 		}
 

@@ -1,55 +1,57 @@
-'use strict';
+import React from 'react';
+import {scoped} from 'common/locale';
 
-var React = require('react');
-var t = require('common/locale').scoped('BUTTONS');
+const t = scoped('BUTTONS');
 
-var OkCancelButtons = React.createClass({
+export default React.createClass({
+	displayName: 'OkCancelButtons',
 
 	propTypes: {
+		cancelText: React.PropTypes.string,
+		okText: React.PropTypes.string,
+
 		onCancel: React.PropTypes.func,
 		onOk: React.PropTypes.func.isRequired,
 		okEnabled: React.PropTypes.bool
 	},
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			okEnabled: true
 		};
 	},
 
-	_cancelClick(event) {
-		this._killEvent(event);
+	onCancel (event) {
+		this.killEvent(event);
 		this.props.onCancel(event);
 	},
 
-	_okClick(event) {
-		this._killEvent(event);
+	onConfirm (event) {
+		this.killEvent(event);
 		this.props.onOk(event);
 	},
 
-	_killEvent: function(event) {
+	killEvent (event) {
 		event.preventDefault();
 		event.stopPropagation();
 	},
 
-	render: function() {
+	render () {
 
 		return (
 			<div className="buttons">
-				{this.props.onCancel && 
+				{this.props.onCancel &&
 					<a href="#"
-						onClick={this._cancelClick}
-			  			className="cancel button">{this.props.cancelText||t('cancel')}</a>
+						onClick={this.onCancel}
+						className="cancel button">{this.props.cancelText || t('cancel')}</a>
 				}
-			  	
-			  	<a href="#"
-					onClick={this.props.okEnabled ? this._okClick : this._killEvent}
+
+				<a href="#"
+					onClick={this.props.okEnabled ? this.onConfirm : this.killEvent}
 					disabled={!this.props.okEnabled}
-					className="confirm button">{this.props.okText||t('ok')}</a>
+					className="confirm button">{this.props.okText || t('ok')}</a>
 			</div>
 		);
 	}
 
 });
-
-module.exports = OkCancelButtons;

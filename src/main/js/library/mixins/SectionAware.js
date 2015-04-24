@@ -13,7 +13,7 @@ const sectionNames = {
 const sectionPropertyMap = {
 	[sectionNames.admin]: 'administeredCourses',
 	[sectionNames.courses]: 'courses',
-	[sectionNames.books]: ['bundles','packages']
+	[sectionNames.books]: ['bundles', 'packages']
 };
 
 
@@ -98,14 +98,14 @@ export default {
 
 		let getBin = o => ({
 			name: o.name,
-			items: (o.filter ? items.filter(o.filter) : items).sort(o.sort || ()=>0)
+			items: (o.filter ? items.filter(o.filter) : items).sort(o.sort || (()=>0))
 		});
 
 		if (filters) {
 			filters.forEach(f=> {
 				let b = getBin(f);
 				if (f.split){
-					f.split(b.items).forEach(b=>bins.push(Object.assign(b,{name: f.name})));
+					f.split(b.items).forEach(x=>bins.push(Object.assign(x, {name: f.name})));
 				} else {
 					bins.push(b);
 				}

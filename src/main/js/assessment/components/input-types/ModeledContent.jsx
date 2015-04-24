@@ -1,16 +1,14 @@
-'use strict';
+import React from 'react';
+import Mixin from './Mixin';
 
-var React = require('react');
-var Mixin = require('./Mixin');
+import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
-var isEmpty = require('nti.lib.interfaces/utils/isempty');
-
-var ModeledContent = require('modeled-content');
+import {Panel, Editor} from 'modeled-content';
 
 /**
  * This input type represents Modeled Body Content
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'ModeledBodyContent',
 	mixins: [Mixin],
 	saveBuffer: 30000,
@@ -22,18 +20,19 @@ module.exports = React.createClass({
 	},
 
 	render () {
-		var {value} = this.state;
-		var submitted = this.isSubmitted();
+		let {value} = this.state;
+		let submitted = this.isSubmitted();
 
 		//Because we return a model in getValue()
 		value = this.unwrapValue(value);
 
 		return (
 			<form className="modeled content">
-				{submitted && (<ModeledContent.Panel body={value}/>)}
-				{!submitted && (<ModeledContent.Editor ref="input" value={value}
+				{submitted && (<Panel body={value}/>)}
+				{!submitted && (<Editor ref="input" value={value}
 					onChange={this.handleInteraction}
 					onBlur={this.onBlur}
+					allowInsertImage={false}
 					/>)}
 			</form>
 		);
@@ -55,8 +54,8 @@ module.exports = React.createClass({
 
 
 	getValue () {
-		var ref = this.refs.input;
-		var value = ref && ref.getValue();
+		let ref = this.refs.input;
+		let value = ref && ref.getValue();
 
 		if (Array.isArray(value) && isEmpty(value.join(''))) {
 			return null;

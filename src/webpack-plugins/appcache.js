@@ -1,5 +1,5 @@
+/*eslint no-var: 0 strict: 0*/
 'use strict';
-/*eslint no-var: 0*/
 function AppCache(cache, network, fallback, hash) {
 	this.cache = cache;
 	this.network = network;
@@ -53,7 +53,7 @@ AppCachePlugin.prototype.apply = function(compiler) {
 		try {
 			work.chunks.forEach(function(chunk) {
 				if (chunk.name === 'main') {
-					me.fallback.unshift('js/main.js '+chunk.files[0]);
+					me.fallback.unshift('js/main.js ' + chunk.files[0]);
 				}
 			});
 

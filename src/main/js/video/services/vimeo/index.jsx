@@ -1,6 +1,8 @@
 import React from 'react';
 import ErrorWidget from 'common/components/Error';
 
+import MESSAGES from 'common/utils/WindowMessageListener';
+
 import {EventHandlers} from '../../Constants';
 
 import guid from 'nti.lib.interfaces/utils/guid';
@@ -31,51 +33,43 @@ let Source = React.createClass({
 
 
 	propTypes: {
-		id: React.PropTypes.string,
 		source: React.PropTypes.any.isRequired
 	},
 
 
 	getInitialState () {
-		return { playerURL: null };
-	},
-
-
-	getDefaultProps () {
-		return {
-			id: guid()
-		};
+		return { id: guid(), playerURL: null };
 	},
 
 
 	componentWillMount () {
-		this.setState({playerURL: this.buildURL()});
+		this.setState({playerURL: this.buildURL(this.props)});
 	},
 
 
 	componentDidMount () {
-		this.updateURL();
-		window.addEventListener('message', this.onMessage, false);
+		this.updateURL(this.props);
+		MESSAGES.add(this.onMessage);
+	},
+
+
+	componentWillReceiveProps (nextProps) {
+		this.updateURL(nextProps);
 	},
 
 
 	componentWillUnmount () {
-		window.removeEventListener('message', this.onMessage, false);
+		MESSAGES.remove(this.onMessage);
 	},
 
 
-	componentWillReceiveProps () {
-		this.updateURL();
-	},
-
-
-	buildURL () {
-		let mediaSource = this.props.source;
+	buildURL (props) {
+		let mediaSource = props.source;
 		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source[0];
 
 		let args = {
 			api: 1,
-			player_id: this.props.id,//eslint-disable-line camelcase
+			player_id: props.id,//eslint-disable-line camelcase
 			//autopause: 0, //we handle this for other videos, but its nice we only have to do this for cross-provider videos.
 			autoplay: 0,
 			badge: 0,
@@ -89,8 +83,8 @@ let Source = React.createClass({
 	},
 
 
-	updateURL () {
-		let url = this.buildURL();
+	updateURL (props) {
+		let url = this.buildURL(props);
 		this.setState({
 			scope: url.split('?')[0],
 			playerURL: url
@@ -99,7 +93,7 @@ let Source = React.createClass({
 
 
 	getPlayerContext () {
-		let iframe = this.getDOMNode();
+		let iframe = React.findDOMNode(this);
 		return iframe && (iframe.contentWindow || window.frames[iframe.name]);
 	},
 
@@ -112,7 +106,7 @@ let Source = React.createClass({
 		event = data.event;
 
 		/* jshint -W106 */
-		if (data.player_id !== this.props.id) {
+		if (data.player_id !== this.state.id) {
 			return;
 		}
 
@@ -154,7 +148,7 @@ let Source = React.createClass({
 	postMessage (method, params) {
 		let context = this.getPlayerContext(), data;
 		if (!context) {
-			console.warn(this.props.id, ' No Player Context!');
+			console.warn(this.state.id, ' No Player Context!');
 			return;
 		}
 
@@ -172,8 +166,13 @@ let Source = React.createClass({
 			return (<ErrorWidget error="No source"/>);
 		}
 
+		let props = Object.assign({}, this.props, {
+			deferred: null,
+			name: this.state.id
+		});
+
 		return (
-			<iframe {...this.props} src={this.state.playerURL}
+			<iframe {...props} src={this.state.playerURL}
 				frameBorder="0" seemless allowFullScreen allowTransparency />
 		);
 	},

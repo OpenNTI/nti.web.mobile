@@ -3,8 +3,10 @@ import Store from '../Store';
 import {OBJECT_CONTENTS_CHANGED} from '../Constants';
 
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import paging from './Paging';
 
 const objectContentsChangedHandler = 'LoadForum:objectContentsChangedHandler';
+const loadData = "LoadForum:loadData";
 
 module.exports = {
 	componentWillMount: function() {
@@ -13,17 +15,21 @@ module.exports = {
 			return;
 		}
 		this.mixinAdditionalHandler(OBJECT_CONTENTS_CHANGED, objectContentsChangedHandler);
-		this._loadData(this.props.forumId);
+		this[loadData](this.props.forumId);
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		if (nextProps.forumId !== this.props.forumId) {
-			this._loadData(nextProps.forumId);
+		if (nextProps.forumId !== this.props.forumId || paging.batchStart() !== this.state.batchStart) {
+			this[loadData](nextProps.forumId);
+			this.setState({
+				loading: true,
+				batchStart: paging.batchStart()
+			});
 		}
 	},
 
 	[objectContentsChangedHandler]: function(event) {
-		var {forumId} = this.props;
+		let {forumId} = this.props;
 		if (decodeFromURI(event.objectId) === decodeFromURI(forumId)) {
 			this.setState({
 				loading: false
@@ -31,11 +37,11 @@ module.exports = {
 		}
 	},
 
-	_loadData: function(forumId) {
-		Api.getObjectContents(forumId)
+	[loadData]: function(forumId) {
+		Api.getForumContents(forumId, paging.batchStart(), paging.getPageSize())
 		.then(result => {
 			Store.setObject(forumId, result.object);
-			Store.setObjectContents(forumId, result.contents);
+			Store.setObjectContents(forumId, result.contents, result.params);
 		});
-	},
+	}
 };

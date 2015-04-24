@@ -1,18 +1,17 @@
 
-'use strict';
+import React from 'react';
+import {scoped} from 'common/locale';
+import isEmail from 'nti.lib.interfaces/utils/isemail';
+import toArray from 'nti.lib.interfaces/utils/toarray';
 
-var React = require('react');
+import Store from '../Store';
 
-var _t = require('common/locale').scoped('ENROLLMENT.GIFT.RECIPIENT');
-var isEmail = require('nti.lib.interfaces/utils/isemail');
-var toArray = require('nti.lib.interfaces/utils/toarray');
+const t = scoped('ENROLLMENT.GIFT.RECIPIENT');
 
-var Store = require('../Store');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Recipient',
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			valid: true,
 			enabled: false,
@@ -25,9 +24,9 @@ module.exports = React.createClass({
 	},
 
 
-	componentDidMount: function() {
-		var prevState = Store.getGiftInfo();
-		var name;
+	componentDidMount () {
+		let prevState = Store.getGiftInfo();
+		let name;
 
 		if (prevState) {
 			name = (prevState.to || '').split(' ');
@@ -35,18 +34,19 @@ module.exports = React.createClass({
 			prevState.toLastName = name[1] || '';
 
 
-			var enabled = ["toFirstName", "toLastName", "receiver", "message", "sender"].some(function(key) {
+			let enabled = ['toFirstName', 'toLastName', 'receiver', 'message', 'sender'].some(function(key) {
 				return (prevState[key]||'').trim().length > 0;
 			});
-			this.setState(Object.assign({enabled: enabled},prevState));
+
+			this.setState(Object.assign({enabled: enabled}, prevState));
 		}
 	},
 
 
 
-	getData: function() {
-		var result = {},
-			elements = toArray(this.refs.form.getDOMNode().elements) || [];
+	getData () {
+		let result = {},
+			elements = toArray(React.findDOMNode(this.refs.form).elements) || [];
 
 		if (!this.state.enabled) {
 			return result;
@@ -80,10 +80,10 @@ module.exports = React.createClass({
 	},
 
 
-	isEmpty: function() {
-		var email = this.refs.email;
+	isEmpty () {
+		let {email} = this.refs;
 
-		email = email && email.isMounted() && email.getDOMNode();
+		email = email && email.isMounted() && React.findDOMNode(email);
 		email = email && email.value;
 		email = email || '';
 
@@ -91,44 +91,44 @@ module.exports = React.createClass({
 	},
 
 
-	isValid: function() {
-		var email = this.refs.email;
+	isValid () {
+		let email = this.refs.email;
 
-		email = email && email.isMounted() && email.getDOMNode();
+		email = email && email.isMounted() && React.findDOMNode(email);
 		email = email && email.value;
 		email = email || '';
 
-		var v = !this.state.enabled || isEmail(email);
+		let v = !this.state.enabled || isEmail(email);
 		this.setState({valid: v});
 		return v;
 	},
 
 
-	_fieldClicked: function() {
-		this._enable();
+	fieldClicked () {
+		this.enable();
 	},
 
-	_fieldChanged: function(event) {
-		this._enable();
-		this._updateState(event);
+	fieldChanged (event) {
+		this.enable();
+		this.updateState(event);
 	},
 
-	_enable: function() {
+	enable () {
 		this.setState({
 			enabled: true
 		});
 	},
 
-	_onCheckedChange: function(e) {
+	onCheckedChange (e) {
 		this.setState({
 			enabled: e.target.checked
 		});
 	},
 
 
-	_updateState: function(e) {
-		var input = e.target;
-		var state = {};
+	updateState (e) {
+		let input = e.target;
+		let state = {};
 
 		state[input.name] = input.value;
 
@@ -136,45 +136,45 @@ module.exports = React.createClass({
 	},
 
 
-	render: function() {
-		var enabled = this.state.enabled;
-		var enabledCls = enabled ? '' : 'disabled';
-		var requiredIfEnabled = enabled ? 'required' : '';
+	render () {
+		let enabled = this.state.enabled;
+		let enabledCls = enabled ? '' : 'disabled';
+		let requiredIfEnabled = enabled ? 'required' : '';
 
 		if (!this.state.valid) {
 			requiredIfEnabled += ' error';
 		}
 
 		return (
-			<div className={"gift-info " + enabledCls}>
+			<div className={'gift-info ' + enabledCls}>
 				<form ref="form" className="">
 					<fieldset className="recipient-info">
 						<label className="">
-							<input type="checkbox" name="enable_recipient" checked={this.state.enabled} onChange={this._onCheckedChange}/>
-							{_t("enable")}
+							<input type="checkbox" name="enable_recipient" checked={this.state.enabled} onChange={this.onCheckedChange}/>
+							{t('enable')}
 						</label>
 						<div className="line">
-							<input type="text" name="toFirstName" placeholder={_t("firstName")}
-								onClick={this._fieldClicked}
-								onChange={this._fieldChanged} value={this.state.toFirstName} />
-							<input type="text" name="toLastName" placeholder={_t("lastName")}
-								onClick={this._fieldClicked}
-								onChange={this._fieldChanged} value={this.state.toLastName} />
-							<input type="email" name="receiver" placeholder={_t("email")}
-							 	onClick={this._fieldClicked}
-								onChange={this._fieldChanged} value={this.state.receiver}
-							 	ref="email" className={requiredIfEnabled} />
+							<input type="text" name="toFirstName" placeholder={t('firstName')}
+								onClick={this.fieldClicked}
+								onChange={this.fieldChanged} value={this.state.toFirstName} />
+							<input type="text" name="toLastName" placeholder={t('lastName')}
+								onClick={this.fieldClicked}
+								onChange={this.fieldChanged} value={this.state.toLastName} />
+							<input type="email" name="receiver" placeholder={t('email')}
+								onClick={this.fieldClicked}
+								onChange={this.fieldChanged} value={this.state.receiver}
+								ref="email" className={requiredIfEnabled} />
 						</div>
-						<textarea name="message" placeholder={_t("message")}
-							onClick={this._fieldClicked}
-							onChange={this._fieldChanged} value={this.state.message}/>
+						<textarea name="message" placeholder={t('message')}
+							onClick={this.fieldClicked}
+							onChange={this.fieldChanged} value={this.state.message}/>
 					</fieldset>
 					<fieldset>
-						<label htmlFor="sender">{_t("fromLabel")}</label>
+						<label htmlFor="sender">{t('fromLabel')}</label>
 						<div className="line">
-							<input type="text" id="sender" name="sender" onChange={this._fieldChanged} value={this.state.sender}
-								placeholder={_t("from")} />
-							<div className="box">{_t("sendDate")}</div>
+							<input type="text" id="sender" name="sender" onChange={this.fieldChanged} value={this.state.sender}
+								placeholder={t('from')} />
+							<div className="box">{t('sendDate')}</div>
 						</div>
 					</fieldset>
 				</form>

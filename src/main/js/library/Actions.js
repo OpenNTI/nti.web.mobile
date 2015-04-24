@@ -3,14 +3,14 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 import {getLibrary} from './Api';
 import {LOADED_LIBRARY} from './Constants';
 
-var willLoad;
+let willLoad;
 
 
-export function load (reload) {
+export function load (forceLoad) {
 	let result = willLoad;
-	if (!result || reload) {
+	if (!result || forceLoad) {
 		//This should only fire for actual loads and not cached (previously-resolved) promises.
-		willLoad = result = getLibrary(reload)
+		willLoad = result = getLibrary(forceLoad)
 			.then(library => dispatch(LOADED_LIBRARY, library));
 	}
 

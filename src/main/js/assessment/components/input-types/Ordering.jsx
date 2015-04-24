@@ -1,16 +1,16 @@
-'use strict';
+import React from 'react';
+import InputType from './Mixin';
 
-var React = require('react');
-var InputType = require('./Mixin');
+import Content from '../Content';
 
-var Content = require('../Content');
+import {Mixin, Draggable, DropTarget} from 'common/dnd';
 
-var {Mixin, Draggable, DropTarget} = require('common/dnd');
+const SetValueRaw = 'ordering:SetValueRaw';
 
 /**
  * This input type represents Ordering
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Ordering',
 	mixins: [InputType, Mixin],
 
@@ -18,6 +18,12 @@ module.exports = React.createClass({
 		inputType: [
 			'Ordering'
 		]
+	},
+
+
+	propTypes: {
+		item: React.PropTypes.object,
+		value: React.PropTypes.any
 	},
 
 
@@ -29,8 +35,8 @@ module.exports = React.createClass({
 
 
 	getDefaultValue () {
-		var values = (this.props.item || {}).labels || [];
-		return Object.assign({}, values.map((_,i)=>i));
+		let values = (this.props.item || {}).labels || [];
+		return Object.assign({}, values.map((_, i)=>i));
 	},
 
 
@@ -42,22 +48,22 @@ module.exports = React.createClass({
 	},
 
 
-	getLabel (index) {
+	getItemLabel (index) {
 		return this.props.item.labels[index];
 	},
 
 
-	_getValue (index) {
+	getItemValue (index) {
 		return this.props.item.values[index];
 	},
 
 
 	onDrop (drop) {
-		var value = Object.assign({}, this.getValue());
-		var valueArray = this.getValueAsArray();
-		var data = drop || {};
-		var {source, target} = data;
-		var swapFrom;
+		let value = Object.assign({}, this.getValue());
+		let valueArray = this.getValueAsArray();
+		let data = drop || {};
+		let {source, target} = data;
+		let swapFrom;
 
 		if (source) {
 			source = source.props['data-source'];
@@ -82,14 +88,14 @@ module.exports = React.createClass({
 		onto %s (%s),
 		swappingWith: %s (%s)`,
 
-			this._getValue(source),
+			this.getItemValue(source),
 			source,
 			target,
-			this.getLabel(target),
+			this.getItemLabel(target),
 			swapFrom,
-			this.getLabel(swapFrom),
+			this.getItemLabel(swapFrom),
 			value[swapFrom],
-			this._getValue(value[swapFrom])
+			this.getItemValue(value[swapFrom])
 			);
 
 		value[swapFrom] = value[target];
@@ -99,18 +105,18 @@ module.exports = React.createClass({
 
 
 
-		this.__setValue(value);
+		this[SetValueRaw](value);
 	},
 
 
 	render () {
-		var dropTargets = this.props.item.labels || [];
-		var submitted = this.isSubmitted();
-		var solution = submitted && this.getSolution();
+		let dropTargets = this.props.item.labels || [];
+		let submitted = this.isSubmitted();
+		let solution = submitted && this.getSolution();
 
 		return (
 			<form className="ordering">
-				{dropTargets.map((x,i)=>
+				{dropTargets.map((x, i)=>
 					this.renderDropTarget(x, i, solution)
 				)}
 			</form>
@@ -137,10 +143,10 @@ module.exports = React.createClass({
 
 
 	renderDraggable (targetIndex, solution) {
-		var correct = '';
-		var sources = this.props.item.values || [];
-		var value = this.getValue();
-		var sourceIndex = value[targetIndex];
+		let correct = '';
+		let sources = this.props.item.values || [];
+		let value = this.getValue();
+		let sourceIndex = value[targetIndex];
 
 		if (!value || sourceIndex < 0 || sourceIndex == null) {
 			console.warn('THIS SHOULD NOT HAPPEN', value);
@@ -157,8 +163,8 @@ module.exports = React.createClass({
 
 
 	renderDragSource (source, sourceIndex, targetIndex, extraClass, lock) {
-		var locked = this.isSubmitted() || Boolean(lock) || this.state.busy;
-		var classes = ['order','source'];
+		let locked = this.isSubmitted() || Boolean(lock) || this.state.busy;
+		let classes = ['order', 'source'];
 
 		if (locked) {
 			classes.push('locked');
@@ -188,17 +194,18 @@ module.exports = React.createClass({
 	//The mixin implements @setValue(), but it just for external usage...when
 	// we interact with this widget, and update the value state internally,
 	// this will apply the state, and notify the store of the change.
-	__setValue (value) {
-		var {length} = this.props.item.values;
-		var array = Array.from(Object.assign({length: length}, value));
+	[SetValueRaw] (value) {
+		let {length} = this.props.item.values;
+		let array = Array.from(Object.assign({length: length}, value));
 
 		if (value && Object.keys(value).length !== length) {
 			value = null;
 		}
 
-		var seen = {};
+		let seen = {};
+
 		function notSeen(x) {
-			var s = seen[x]; seen[x] = 1;
+			let s = seen[x]; seen[x] = 1;
 			return !s;
 		}
 
@@ -217,7 +224,7 @@ module.exports = React.createClass({
 
 
 	getValueAsArray () {
-		var {length} = this.props.item.values;
+		let {length} = this.props.item.values;
 		return Array.from(Object.assign({length: length}, this.getValue()));
 	}
 });

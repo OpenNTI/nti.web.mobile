@@ -1,16 +1,14 @@
-'use strict';
+import React from 'react';
+import Mixin from './Mixin';
 
-var React = require('react');
-var Mixin = require('./Mixin');
+import Content from '../Content';
 
-var Content = require('../Content');
-
-var toArray = require('nti.lib.interfaces/utils/toarray');
+import toArray from 'nti.lib.interfaces/utils/toarray';
 
 /**
  * This solution type represents Matching
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'MatchingAnswer',
 	mixins: [Mixin],
 
@@ -20,10 +18,16 @@ module.exports = React.createClass({
 		]
 	},
 
-	render: function() {
-		var values = this.props.item.values || [];
-		var solution = (this.state.solution || {}).value;
-		var ex = this.state.explanation || '';
+
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
+
+	render () {
+		let values = this.props.item.values || [];
+		let solution = (this.state.solution || {}).value;
+		let ex = this.state.explanation || '';
 
 		solution = solution && toArray(Object.assign({length: values.length}, solution));
 
@@ -31,7 +35,7 @@ module.exports = React.createClass({
 			<div className="matching solutions">
 				<div className="matching">
 					<form className="box">
-					{values.map((x,i)=>
+					{values.map((x, i)=>
 						this.renderDropTarget(x, i, solution) )}
 					</form>
 				</div>
@@ -41,7 +45,7 @@ module.exports = React.createClass({
 	},
 
 
-	renderDragSource: function (term, index) {
+	renderDragSource (term, index) {
 		return (
 			<div className="drag source" key={term + index}>
 				<div className="match" data-source={term}>
@@ -52,10 +56,10 @@ module.exports = React.createClass({
 	},
 
 
-	renderDropTarget: function (value, idx, solution) {
-		var i = solution && solution.indexOf(idx);
-		var labels = this.props.item.labels || [];
-		var label = labels[i];
+	renderDropTarget (value, idx, solution) {
+		let i = solution && solution.indexOf(idx);
+		let labels = this.props.item.labels || [];
+		let label = labels[i];
 
 		if (!solution) {
 			return null;

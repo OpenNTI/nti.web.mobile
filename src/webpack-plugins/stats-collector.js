@@ -1,5 +1,5 @@
+/*eslint no-var: 0 strict: 0*/
 'use strict';
-/*eslint no-var: 0*/
 var path = require('path');
 var fs = require('fs');
 
@@ -14,7 +14,7 @@ module.exports = exports = function (dirname) {
 					fs.writeFileSync(file, JSON.stringify(stats.toJson()));
 				}
 			} catch (e) {
-				console.warn('Could not write %s, because %s', file, e.stack||e.message||e);
+				console.warn('Could not write %s, because %s', file, e.stack || e.message || e);
 			}
 		});
 	};

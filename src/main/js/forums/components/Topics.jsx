@@ -1,25 +1,41 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-var Link = require('react-router-component').Link;
-var AnalyticsStore = require('analytics/Store');
-var {decodeFromURI} = require('nti.lib.interfaces/utils/ntiids');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var TopicList = require('./TopicList');
-var Loading = require('common/components/Loading');
-var Store = require('../Store');
-var StoreEvents = require('common/mixins/StoreEvents');
-var LoadForum = require('../mixins/LoadForum');
-var t = require('common/locale').scoped('FORUMS');
-import ViewHeader from './widgets/ViewHeader';
-import {FORUM} from '../Constants';
+import {Link} from 'react-router-component';
+
+import AnalyticsStore from 'analytics/Store';
+
 import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
 
-var Topics = React.createClass({
+import Loading from 'common/components/Loading';
 
+import {scoped} from 'common/locale';
+
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import StoreEvents from 'common/mixins/StoreEvents';
+
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+
+import paging from '../mixins/Paging';
+import LoadForum from '../mixins/LoadForum';
+
+import Store from '../Store';
+
+import TopicList from './TopicList';
+import ViewHeader from './widgets/ViewHeader';
+import {FORUM} from '../Constants';
+
+
+const t = scoped('FORUMS');
+
+
+export default React.createClass({
 	displayName: 'Topics',
 
 	mixins: [NavigatableMixin, StoreEvents, LoadForum],
+
+	propTypes: {
+		forumId: React.PropTypes.string
+	},
 
 	backingStore: Store,
 
@@ -33,17 +49,17 @@ var Topics = React.createClass({
 		AnalyticsStore.pushHistory(decodeFromURI(this.props.forumId));
 	},
 
-	_getForum() {
+	getForum() {
 		return Store.getForum(this.props.forumId);
 	},
 
-	_canCreateTopic() {
-		var forum = this._getForum();
+	canCreateTopic() {
+		let forum = this.getForum();
 		return !!(forum && forum.hasLink('add'));
 	},
 
-	_createTopicLink() {
-		if (!this._canCreateTopic()) {
+	createTopicLink() {
+		if (!this.canCreateTopic()) {
 			return null;
 		}
 		return <Link className="action-link create-topic" href="/newtopic/">{t('createTopic')}</Link>;
@@ -52,18 +68,19 @@ var Topics = React.createClass({
 	render: function() {
 
 		if (this.state.loading) {
-			return <Loading/>;
+			return <Loading />;
 		}
 
-		var {forumId} = this.props;
-		var forumContents = Store.getObjectContents(forumId);
+		let {forumId} = this.props;
+		let batchStart = paging.batchStart();
+		let forumContents = Store.getForumContents(forumId, batchStart, paging.getPageSize());
 
 		return (
 			<div>
 				<Transition transitionName="forums">
 					<ViewHeader type={FORUM} />
 					<section>
-						{this._createTopicLink()}
+						{this.createTopicLink()}
 						<div className="group-heading"><h3>Topics</h3></div>
 						<TopicList container={forumContents}/>
 					</section>
@@ -73,5 +90,3 @@ var Topics = React.createClass({
 	}
 
 });
-
-module.exports = Topics;

@@ -1,4 +1,4 @@
-'use strict';
+
 
 var React = require('react');
 var Actions = require('../Actions');
@@ -37,35 +37,35 @@ var Select = React.createClass({
 	},
 
 	componentDidMount: function() {
-		Store.addChangeListener(this._storeChange);
+		Store.addChangeListener(this.onStoreChange);
 		if (this.props.optionsLink) {
 			this.setState({
 				loading: true
 			});
-			this._loadOptions();
+			this.loadOptions();
 		}
 	},
 
 	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChange);
+		Store.removeChangeListener(this.onStoreChange);
 	},
 
-	_loadOptions: function() {
-		var link = this.props.optionsLink||{};
+	loadOptions: function() {
+		var link = this.props.optionsLink || {};
 		if (link.type === 'rel' && link.rel) {
 			Actions.loadSelectOptionsFromUserLinkRel(link.rel);
 		}
 		else {
 			throw new Error(
-				'_loadOptions requires that this.props.optionsLink be an object with type:\'rel\' and ' +
+				'loadOptions requires that this.props.optionsLink be an object with type:\'rel\' and ' +
 				'a rel property for looking getting a link from user.'
 			);
 		}
 	},
 
-	_storeChange: function(event) {
-		var action = event.action||{};
-		var rel = (action.payload||{}).link;
+	onStoreChange: function(event) {
+		var action = event.action || {};
+		var rel = (action.payload || {}).link;
 		if(event.type === Constants.URL_RETRIEVED && rel && this.props.optionsLink && rel === this.props.optionsLink.rel) {
 			this.setState({
 				loading: false,
@@ -81,7 +81,7 @@ var Select = React.createClass({
 	},
 
 	_options: function() {
-		var raw = this.state.options||this.props.options||[];
+		var raw = this.state.options || this.props.options || [];
 		var options = raw.map(function(item) {
 			var option = this._makeOption(item);
 			return <option value={option.value} key={option.value}>{option.name}</option>;

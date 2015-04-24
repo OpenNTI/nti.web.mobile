@@ -8,9 +8,19 @@ import React from 'react';
 export default React.createClass({
 	displayName: 'Notice',
 
+	propTypes: {
+		className: React.PropTypes.string
+	},
+
+
+	getDefaultProps () {
+		return {
+			className: []
+		};
+	},
+
 	render () {
 		let {className} = this.props;
-		if (!className) {className=[];}
 
 		className = ['notice'].concat(className).join(' ');
 		return (

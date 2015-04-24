@@ -16,8 +16,14 @@ import NavigationBar from 'navigation/components/Bar';
 import Enrollment from 'enrollment/components/View';
 
 
-let CatalogBody = React.createClass({
+const CatalogBody = React.createClass({
+	displayName: 'CatalogBody',
 	mixins: [BasePathAware, ContextSender],
+
+
+	propTypes: {
+		catalog: React.PropTypes.object
+	},
 
 
 	shouldComponentUpdate (_, newState) {
@@ -74,7 +80,7 @@ let CatalogBody = React.createClass({
 		return Promise.resolve([{
 			label: 'Library',
 			href: path + 'library/'
-		},{
+		}, {
 			label: 'Catalog',
 			href: path + 'catalog/'
 		}]);
@@ -82,19 +88,19 @@ let CatalogBody = React.createClass({
 });
 
 
-export default React.createClass({
+export default React.createClass({//eslint-disable-line react/no-multi-comp
 	displayName: 'CatalogView',
 	mixins: [CatalogAccessor],
 
 
 	render () {
-        let catalog = this.getCatalog();
+		let catalog = this.getCatalog();
 
 		return (
 			<div>
 				<NavigationBar title="Catalog" />
-				{!catalog? <Loading/> : <CatalogBody catalog={catalog}/>}
+				{!catalog ? <Loading/> : <CatalogBody catalog={catalog}/>}
 			</div>
-        );
-	},
+		);
+	}
 });

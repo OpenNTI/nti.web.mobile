@@ -9,9 +9,13 @@ import NoMatches from './NoMatches';
 
 
 let FilterBar = React.createClass({
+	displayName: 'FilterBar',
 
 	propTypes: {
-		filters: React.PropTypes.array
+		filters: React.PropTypes.array,
+		filter: React.PropTypes.object,
+		list: React.PropTypes.object,
+		title: React.PropTypes.string
 	},
 
 
@@ -64,6 +68,14 @@ let FilterBar = React.createClass({
 
 
 let FilterableView = React.createClass({
+	displayName: 'FilterableView',
+
+	propTypes: {
+		filtername: React.PropTypes.string,
+		filters: React.PropTypes.array,
+		list: React.PropTypes.object,
+		listcomp: React.PropTypes.node
+	},
 
 	/**
 	 * filter the list according using the currently selected filter.
@@ -108,7 +120,7 @@ let FilterableView = React.createClass({
 				<FilterBar {...this.props}/>
 				{list.length === 0 ? <NoMatches /> : null}
 				<div>
-					{cloneWithProps(this.props.listcomp, { list: list, filter:filter, omittitle: true	})}
+					{cloneWithProps(this.props.listcomp, {list, filter, omittitle: true})}
 				</div>
 			</div>
 		);
@@ -117,12 +129,18 @@ let FilterableView = React.createClass({
 
 
 let DefaultPath = React.createClass({
+	displayName: 'DefaultPath',
 	mixins: [NavigatableMixin],
 
+	propTypes: {
+		filters: React.PropTypes.array,
+		list: React.PropTypes.array,
+		defaultFilter: React.PropTypes.string
+	},
 
 	startRedirect() {
-		clearTimeout(this.__pendingRedirect);
-		this.__pendingRedirect = setTimeout(()=> this.performRedirect(), 1);
+		clearTimeout(this.pendingRedirect);
+		this.pendingRedirect = setTimeout(()=> this.performRedirect(), 1);
 	},
 
 
@@ -150,11 +168,12 @@ let DefaultPath = React.createClass({
 			let df = (typeof dfp === 'string') ? this.findFilter(dfp) : dfp;
 			return (df||{}).path;
 		}
-		let filters = this.props.filters||[];
+
+		let {filters = [], list} = this.props;
 		let result = filters.length > 0 ? filters[0].path : null;
 
 		filters.some(filter => {
-			if (this.props.list.filter(filter.filter).length > 0) {
+			if (list.filter(filter.filter).length > 0) {
 				result = filter.path || filter.name.toLowerCase();
 				return true;
 			}
@@ -166,7 +185,7 @@ let DefaultPath = React.createClass({
 
 
 	isDefaulted () {
-		let filters = this.props.filters||[];
+		let {filters = []} = this.props;
 		let p = this.getPath() || '';
 
 		let inSet = ()=> filters.reduce((x, f)=> x || (f.path === p), null);
@@ -198,6 +217,7 @@ let DefaultPath = React.createClass({
 
 
 let Filter = React.createClass({
+	displayName: 'Filter',
 
 	propTypes: {
 		/**
@@ -226,7 +246,16 @@ let Filter = React.createClass({
 		 * 		}
 		 *	}
 		 */
-		filters: React.PropTypes.array
+		filters: React.PropTypes.array,
+
+
+		title: React.PropTypes.string,
+
+
+		defaultFilter: React.PropTypes.string,
+
+
+		localStorageKey: React.PropTypes.string
 	},
 
 
@@ -253,7 +282,7 @@ let Filter = React.createClass({
 		let {env} = this.state || {};
 		let {list, filters} = this.props;
 
-		if (!env) {return;}
+		if (!env) { return; }
 
 		if(!filters || filters.length === 0) {
 			//console.debug('No filters. Returning list view.');
@@ -304,7 +333,7 @@ let Filter = React.createClass({
 			);
 
 		return routes;
-	},
+	}
 
 });
 

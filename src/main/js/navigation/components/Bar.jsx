@@ -18,7 +18,6 @@ import removeClass from 'nti.lib.dom/lib/removeclass';
 
 import BasePathAware from 'common/mixins/BasePath';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
-import SetStateSafely from 'common/mixins/SetStateSafely';
 import StoreEvents from 'common/mixins/StoreEvents';
 
 const getViewport = ()=> document.getElementsByTagName('html')[0];
@@ -26,6 +25,8 @@ const menuOpenBodyClass = 'nav-menu-open';
 
 
 const Menu = React.createClass({
+	displayName: 'Menu',
+
 	componentDidMount () {
 		addClass(getViewport(), 'scroll-lock');
 	},
@@ -41,7 +42,12 @@ const Menu = React.createClass({
 
 
 const UserMenu = React.createClass({
+	displayName: 'UserMenu',
 	mixins: [PureRenderMixin],
+
+	propTypes: {
+		onClick: React.PropTypes.func
+	},
 
 	onClick (e) {
 		e.preventDefault();
@@ -62,6 +68,7 @@ const UserMenu = React.createClass({
 
 
 const ReturnTo = React.createClass({
+	displayName: 'ReturnTo',
 	mixins: [PureRenderMixin],
 
 	propTypes: {
@@ -98,7 +105,7 @@ function buffer(time, fn) {
 
 export default React.createClass({
 	displayName: 'NavigationBar',
-	mixins: [StoreEvents, BasePathAware, NavigatableMixin, SetStateSafely],
+	mixins: [StoreEvents, BasePathAware, NavigatableMixin],
 
 	contextTypes: {
 		triggerRightMenu: React.PropTypes.func.isRequired
@@ -110,7 +117,10 @@ export default React.createClass({
 			label: React.PropTypes.string,
 			href: React.PropTypes.string
 		})),
-		title: React.PropTypes.string
+		title: React.PropTypes.string,
+
+		children: React.PropTypes.any,
+		availableSections: React.PropTypes.array
 	},
 
 	backingStore: NavStore,
@@ -156,9 +166,9 @@ export default React.createClass({
 
 		resolve.then(x=>
 			//console.debug('Context Path: %o', x) ||
-			this.setStateSafely({
-				current: x && x[x.length-1],
-				returnTo: x && x[x.length-2]
+			this.setState({
+				current: x && x[x.length - 1],
+				returnTo: x && x[x.length - 2]
 			}));
 	},
 
@@ -172,7 +182,7 @@ export default React.createClass({
 
 		let is = x=> ((x && x.props) || {}).position === side ? x : null;
 
-		return children.reduce((x,a)=>x || is(a), null);
+		return children.reduce((x, a)=>x || is(a), null);
 	},
 
 
@@ -189,7 +199,9 @@ export default React.createClass({
 	getRight () {
 		let {triggerRightMenu} = this.context;
 		return this.getChildForSide('right') || <UserMenu onClick={()=>{
-			this.closeMenu();triggerRightMenu();}}/>;
+			this.closeMenu();
+			triggerRightMenu();
+		}}/>;
 	},
 
 
@@ -245,7 +257,7 @@ export default React.createClass({
 
 		let s = !this.state.menuOpen;
 		this.updateBodyClassForMenu(s);
-		this.setStateSafely({menuOpen: s});
+		this.setState({menuOpen: s});
 	},
 
 	updateBodyClassForMenu(isOpen) {
@@ -265,7 +277,7 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 		this.updateBodyClassForMenu(false);
-		this.setStateSafely({menuOpen: false});
+		this.setState({menuOpen: false});
 	},
 
 	render () {
@@ -290,10 +302,14 @@ export default React.createClass({
 	renderBar () {
 		let {pageSource, currentPage, context} = this.state;
 
+		let middle = cx('middle tab-bar-section', {
+			'has-pager': pageSource
+		});
+
 		return (
 			<nav className="tab-bar">
 				<section className="left-small">{this.getLeft()}</section>
-				<section className="middle tab-bar-section">{this.getCenter()}</section>
+				<section className={middle}>{this.getCenter()}</section>
 				<section className="right-small">
 					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}/>}
 					{this.getRight()}

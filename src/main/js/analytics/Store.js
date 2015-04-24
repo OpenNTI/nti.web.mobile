@@ -1,14 +1,16 @@
-'use strict';
+import {FixedQueue as fixedQueue} from 'fixedqueue';
+
+import AppDispatcher from 'dispatcher/AppDispatcher';
 
 import TypedEventEmitter from 'common/TypedEventEmitter';
-import * as Constants from './Constants';
 import {CHANGE_EVENT} from 'common/constants/Events';
-import AppDispatcher from 'dispatcher/AppDispatcher';
 import {getService}from 'common/utils';
-import {FixedQueue as fixedQueue} from 'fixedqueue';
-import {startIdleTimer} from './IdleTimer';
+
 import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 import {getModel} from 'nti.lib.interfaces';
+
+import {startIdleTimer} from './IdleTimer';
+import * as Constants from './Constants';
 
 let localStorageKey = 'analytics_queue';
 
@@ -17,6 +19,7 @@ let postFrequency = 10000;
 let timeoutId;
 
 let contextHistory = fixedQueue(11);
+
 const ProcessLocalStorage = Symbol('ProcessLocalStorage');
 const HaltActiveEvents = Symbol('HaltActiveEvents');
 const ProcessQueue = Symbol('ProcessQueue');
@@ -94,7 +97,7 @@ class AnalyticsStore extends TypedEventEmitter {
 		this.emit(CHANGE_EVENT, {type: Constants.RESUME_SESSION});
 	}
 
-[FlushLocalStorage]() {
+	[FlushLocalStorage]() {
 		window.localStorage.removeItem(localStorageKey);
 	}
 
@@ -138,15 +141,13 @@ class AnalyticsStore extends TypedEventEmitter {
 
 
 		return getService()
-			.then(function(service) {
-				return service.postAnalytics(items.map(item => item.getData()));
-			})
-			.then(function(response) {
-				console.log('%i of %i analytics events accepted.', response, items.length);
+			.then(service => service.postAnalytics(items.map(item => item.getData())))
+			.then(response => {
+				console.log('%i of %i analytics events accepted.', response.EventCount, items.length);
 				this[FlushLocalStorage]();
 				return response;
-			}.bind(this))
-			.catch(function(r) {
+			})
+			.catch(r => {
 				console.warn(r);
 				// put items back in the queue
 				queue.push.apply(queue, items);
@@ -170,7 +171,7 @@ function startTimer() {
 	);
 }
 
-AppDispatcher.register(function(payload) {
+AppDispatcher.register(payload => {
 	let action = payload.action;
 
 	switch (action.type) {

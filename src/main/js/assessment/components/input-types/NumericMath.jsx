@@ -1,15 +1,14 @@
-'use strict';
+import React from 'react';
+import Mixin from './Mixin';
 
-var React = require('react');
-var Mixin = require('./Mixin');
+import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
-var isEmpty = require('nti.lib.interfaces/utils/isempty');
-var isValid = /^[0-9\-\/\\,\.\*¼-¾]*$/;
+const isValid = /^[0-9\-\/\\,\.\*¼-¾]*$/;
 
 /**
-* This input type represents Numeric Math
-*/
-module.exports = React.createClass({
+ * This input type represents Numeric Math
+ */
+export default React.createClass({
 	displayName: 'NumericMath',
 	mixins: [Mixin],
 
@@ -19,9 +18,9 @@ module.exports = React.createClass({
 		]
 	},
 
-	render: function() {
+	render () {
 
-		var value = this.state.value || '';
+		let value = this.state.value || '';
 
 		return (
 			<form className="free-response">
@@ -32,9 +31,9 @@ module.exports = React.createClass({
 
 
 	getValue: function () {
-		var ref = this.refs.input;
-		var input = ref && ref.getDOMNode();
-		var value = (input && input.value) || '';
+		let ref = this.refs.input;
+		let input = ref && React.findDOMNode(ref);
+		let value = (input && input.value) || '';
 
 		return isEmpty(value) ? null :
 				!isValid.test(value) ?

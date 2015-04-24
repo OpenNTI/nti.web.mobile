@@ -1,21 +1,23 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
+import Score from 'common/components/charts/Score';
+import DateTime from 'common/components/DateTime';
 
-var Score = require('common/components/charts/Score');
-var DateTime = require('common/components/DateTime');
+import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
 
-var getEventTarget = require('nti.lib.dom/lib/geteventtarget');
-
-var Store = require('../Store');
-var Actions = require('../Actions');
+import Store from '../Store';
+import {clearAssessmentAnswers} from '../Actions';
 
 //Still need to get the list of previous attempts. Not just the last one.
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'HeaderScoreboard',
 
-	getInitialState: function() {
+	propTypes: {
+		assessment: React.PropTypes.object
+	},
+
+	getInitialState () {
 		return {
 			total: 0,
 			correct: 0,
@@ -26,32 +28,32 @@ module.exports = React.createClass({
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.addChangeListener(this.synchronizeFromStore);
 		this.synchronizeFromStore();
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this.synchronizeFromStore);
 	},
 
 
-	componentWillReceiveProps: function(props) {
+	componentWillReceiveProps (props) {
 		this.synchronizeFromStore(props);
 	},
 
 
-	synchronizeFromStore: function(props) {
-		var assessment = (props && props.assessment) || this.props.assessment;
-		var assessed = Store.getAssessedSubmission(assessment);
+	synchronizeFromStore (props) {
+		let assessment = (props && props.assessment) || this.props.assessment;
+		let assessed = Store.getAssessedSubmission(assessment);
 
 		if (!assessed) {
 			this.setState(this.getInitialState());
 			return;
 		}
 
-		var questionCount = assessed.getQuestions ? assessed.getQuestions().length : 1;
+		let questionCount = assessed.getQuestions ? assessed.getQuestions().length : 1;
 
 		this.setState({
 			total: questionCount,
@@ -63,19 +65,19 @@ module.exports = React.createClass({
 	},
 
 
-	reset: function (e) {
+	reset (e) {
 		if (getEventTarget(e, 'span[data-dropdown]')) {
 			return;
 		}
 
-		Actions.clearAssessmentAnswers(this.props.assessment);
+		clearAssessmentAnswers(this.props.assessment);
 	},
 
 
-	render: function() {
-		var state = this.state;
-		var assessment = this.props.assessment;
-		var submitted = Store.isSubmitted(assessment);
+	render () {
+		let state = this.state;
+		let assessment = this.props.assessment;
+		let submitted = Store.isSubmitted(assessment);
 		if (!submitted) {
 			return null;
 		}

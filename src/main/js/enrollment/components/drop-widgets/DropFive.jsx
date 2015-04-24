@@ -1,26 +1,28 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-var Notice = require('common/components/Notice');
-var Button = require('common/forms/components/Button');
+import Notice from 'common/components/Notice';
+import Button from 'common/forms/components/Button';
 
-var DropFive = React.createClass({
+export default React.createClass({
+	displayName: 'DropFive',
 
-	_cancelClicked: function() {
+	propTypes: {
+		courseTitle: React.PropTypes.string.isRequired
+	},
+
+	onCancel () {
 		history.back();
 	},
 
-	render: function() {
+	render () {
 		return (
 			<div>
 				<Notice>To drop {this.props.courseTitle} please contact someone.</Notice>
 				<div className="small-12 columns">
-					<Button onClick={this._cancelClicked} className="small-5 columns">Okay</Button>
+					<Button onClick={this.onCancel} className="small-5 columns">Okay</Button>
 				</div>
 			</div>
 		);
 	}
 
 });
-
-module.exports = DropFive;

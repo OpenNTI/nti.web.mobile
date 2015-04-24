@@ -1,8 +1,6 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-
-module.exports = React.createClass( {
+export default React.createClass( {
 	displayName: 'Grade',
 
 	propTypes: {
@@ -58,38 +56,38 @@ module.exports = React.createClass( {
 	},
 
 
-	getDefaultProps: function () {
+	getDefaultProps () {
 		return {
 			grade: 90,
 			color: '#40b450',//#a5c959
 			pixelDensity: 2,
 			width: 200,
-			height: 200,
+			height: 200
 		};
 	},
 
 
-	componentDidMount: function() {
-		var canvas = this.getDOMNode();
-		var context = canvas.getContext('2d');
+	componentDidMount () {
+		let canvas = React.findDOMNode(this);
+		let context = canvas.getContext('2d');
 
 		context.imageSmoothingEnabled = true;
 
-	    this.paint(context);
-	},
-
-
-	componentDidUpdate: function() {
-		var context = this.getDOMNode().getContext('2d');
 		this.paint(context);
 	},
 
 
-	render: function() {
-		var p = this.props;
-		var width = p.width * p.pixelDensity;
-		var height = p.height * p.pixelDensity;
-		var style = {
+	componentDidUpdate () {
+		let context = React.findDOMNode(this).getContext('2d');
+		this.paint(context);
+	},
+
+
+	render () {
+		let p = this.props;
+		let width = p.width * p.pixelDensity;
+		let height = p.height * p.pixelDensity;
+		let style = {
 			width: p.width,
 			height: p.height
 		};
@@ -100,7 +98,7 @@ module.exports = React.createClass( {
 	},
 
 
-	paint: function(context) {
+	paint (context) {
 		context.canvas.width += 0; //set the canvas dirty and make it clear on next draw.
 
 		this.drawCircle(context);
@@ -110,8 +108,8 @@ module.exports = React.createClass( {
 	},
 
 
-	getColor: function () {
-		var c = this.props.color;
+	getColor () {
+		let c = this.props.color;
 		if (Array.isArray(c)) {
 			c = c[0];
 		}
@@ -119,8 +117,8 @@ module.exports = React.createClass( {
 	},
 
 
-	getSecondaryColor: function () {
-		var c = this.props.color;
+	getSecondaryColor () {
+		let c = this.props.color;
 		if (!Array.isArray(c)) {
 			c = [];
 		}
@@ -128,8 +126,8 @@ module.exports = React.createClass( {
 	},
 
 
-	drawCircle: function(ctx) {
-		var node = ctx.canvas,
+	drawCircle (ctx) {
+		let node = ctx.canvas,
 			stroke = node.width * (1 / 112),
 			centerX = node.width / 2,
 			centerY = node.height / 2,
@@ -176,8 +174,8 @@ module.exports = React.createClass( {
 	},
 
 
-	drawDot: function(ctx) {
-		var node = ctx.canvas,
+	drawDot (ctx) {
+		let node = ctx.canvas,
 			slope = node.height / node.width,
 			centerY = (node.height / 2) + (node.width / 4),
 			centerX = centerY / slope,

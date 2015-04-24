@@ -1,10 +1,9 @@
-'use strict';
 /**
  * Constants for HTTP response codes.
  * @class HTTP_STATUS_CODES
  */
 
-module.exports = {
+export default {
 	/**
 	* @property NO_CONTENT (204)
 	* @static

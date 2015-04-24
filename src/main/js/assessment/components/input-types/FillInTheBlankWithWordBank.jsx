@@ -1,18 +1,16 @@
-'use strict';
+import React from 'react';
+import emptyFunction from 'react/lib/emptyFunction';
 
-var React = require('react');
-var emptyFunction = require('react/lib/emptyFunction');
+import InputType from './Mixin';
 
-var InputType = require('./Mixin');
+import Content from '../Content';
+import Store from '../../Store';
 
-var Content = require('../Content');
-var Store = require('../../Store');
+import WordBankEntry from '../WordBankEntry';
 
-var WordBankEntry = require('../WordBankEntry');
+import {Mixin, DropTarget} from 'common/dnd';
 
-var {Mixin, DropTarget} = require('common/dnd');
-
-var strategies = {
+const strategies = {
 	'input[type=blankfield]': x => ({
 		name: x.getAttribute('name')
 	})
@@ -21,7 +19,7 @@ var strategies = {
 /**
  * This input type represents Fill In The Blank: With Word Bank
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'FillInTheBlankWithWordBank',
 	mixins: [InputType],
 
@@ -36,6 +34,7 @@ module.exports = React.createClass({
 	},
 
 	propTypes: {
+		item: React.PropTypes.object,
 		onDrop: React.PropTypes.func
 	},
 
@@ -55,9 +54,9 @@ module.exports = React.createClass({
 
 
 	onDrop(drop) {
-		var value = Object.assign({}, this.state.value || {});
-		var data = drop || {}, movedFrom;
-		var {source, target} = data;
+		let value = Object.assign({}, this.state.value || {});
+		let data = drop || {}, movedFrom;
+		let {source, target} = data;
 
 		if (source) {
 			movedFrom = source.props['data-dropped-on'];
@@ -84,7 +83,7 @@ module.exports = React.createClass({
 
 
 	onReset(dropId) {
-		var v = Object.assign({}, this.state.value || {});
+		let v = Object.assign({}, this.state.value || {});
 		delete v[dropId];
 
 		if (Object.keys(v).length === 0) {
@@ -119,7 +118,7 @@ module.exports = React.createClass({
 
 
 	renderInput(tag, props) {
-		var {name} = props;
+		let {name} = props;
 		return (
 			<DropTarget accepts={this.state.PartLocalDNDToken}
 				tag="span" onDrop={this.onDrop}
@@ -133,17 +132,17 @@ module.exports = React.createClass({
 
 
 	renderWordBankEntry(input) {
-		var wid = (this.state.value || {})[input];
-		var {item} = this.props;
-		var entry = item.getWordBankEntry(wid);
-		var correct = '';
+		let wid = (this.state.value || {})[input];
+		let {item} = this.props;
+		let entryItem = item.getWordBankEntry(wid);
+		let correct = '';
 
-		if (!entry) {
+		if (!entryItem) {
 			return null;
 		}
 
-		var locked = Store.isSubmitted(item);
-		var solution = this.getSolution();
+		let locked = Store.isSubmitted(item);
+		let solution = this.getSolution();
 		if (locked && solution && solution.value) {
 			solution = solution.value;
 			correct = solution[input] === wid ? 'correct' : 'incorrect';
@@ -151,7 +150,7 @@ module.exports = React.createClass({
 		}
 
 		return (
-			<WordBankEntry entry={entry} className={`dropped ${correct}`} data-dropped-on={input} locked={locked}
+			<WordBankEntry entry={entryItem} className={`dropped ${correct}`} data-dropped-on={input} locked={locked}
 				onReset={(entry, cmp)=>this.onReset(input, entry, cmp)}/>
 		);
 	},

@@ -1,22 +1,29 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-var PanelButton = require('common/components/PanelButton');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var Store = require('../Store');
-var Actions = require('../Actions');
+import PanelButton from 'common/components/PanelButton';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-var PaymentError = React.createClass({
+import Store from '../Store';
+import {resetProcess} from '../Actions';
 
+export default React.createClass({
+	displayName: 'PaymentError',
 	mixins: [NavigatableMixin],
 
-	getInitialState: function() {
+	propTypes: {
+		courseTitle: React.PropTypes.string,
+		isGift: React.PropTypes.bool
+	},
+
+
+	getInitialState () {
 		return {};
 	},
 
-	componentWillMount: function() {
-		var error = (Store.getPaymentResult()||{}).Error;
-		var message = (error||{}).Message;
+
+	componentWillMount () {
+		let error = (Store.getPaymentResult()||{}).Error;
+		let message = (error||{}).Message;
 		if (message) {
 			this.setState({
 				message: message
@@ -24,23 +31,23 @@ var PaymentError = React.createClass({
 		}
 	},
 
-	errorMessage: function() {
+
+	errorMessage () {
 		return this.state.message ? <p>{this.state.message}</p> : null;
 	},
 
-	_buttonClick: function() {
-		Actions.resetProcess({
-			gift: !!this.props.isGift
-		});
+
+	onClick () {
+		resetProcess({ gift: !!this.props.isGift });
 	},
 
-	render: function() {
 
-		var courseTitle = this.props.courseTitle;
+	render () {
+		let courseTitle = this.props.courseTitle;
 
 		return (
 			<div className="small-12 columns">
-				<PanelButton className="error" buttonClick={this._buttonClick}>
+				<PanelButton className="error" buttonClick={this.onClick}>
 					<p>We were unable to process your enrollment for '{courseTitle}'.</p>
 					{this.errorMessage()}
 					<p>If this issue persists contact support.</p>
@@ -50,5 +57,3 @@ var PaymentError = React.createClass({
 	}
 
 });
-
-module.exports = PaymentError;

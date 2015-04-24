@@ -1,35 +1,36 @@
-'use strict';
+import React from 'react';
+import Notice from 'common/components/Notice';
+import Breadcrumb from 'common/components/Breadcrumb';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import TopicEditor from './TopicEditor';
+import * as Actions from '../Actions';
+import Store from '../Store';
+import {TOPIC_CREATED, TOPIC_CREATION_ERROR} from '../Constants';
+import Loading from 'common/components/Loading';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
-var React = require('react');
-var Notice = require('common/components/Notice');
-var Breadcrumb = require('common/components/Breadcrumb');
-var NavigatableMixin = require('common/mixins/NavigatableMixin');
-var TopicEditor = require('./TopicEditor');
-var Actions = require('../Actions');
-var Store = require('../Store');
-var Constants = require('../Constants');
-var Loading = require('common/components/Loading');
-var {encodeForURI} = require('nti.lib.interfaces/utils/ntiids');
-
-var CreateTopic = React.createClass({
+export default React.createClass({
+	displayName: 'CreateTopic',
 
 	mixins: [NavigatableMixin],
 
 	propTypes: {
-		forum: React.PropTypes.object.isRequired
+		forum: React.PropTypes.object.isRequired,
+
+		contextProvider: React.PropTypes.func //Deprecated
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			busy: false,
 			item: null
 		};
 	},
 
-	__getContext: function() {
-		var getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
-		var href = this.makeHref(this.getPath());
-		var label = 'New Discussion';
+	getContext () {
+		let getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
+		let href = this.makeHref(this.getPath());
+		let label = 'New Discussion';
 		return getContextProvider().then(context => {
 			context.push({
 				label: label,
@@ -39,27 +40,27 @@ var CreateTopic = React.createClass({
 		});
 	},
 
-	componentDidMount: function() {
-		Store.addChangeListener(this._storeChanged);
+	componentDidMount () {
+		Store.addChangeListener(this.onStoreChanged);
 	},
 
-	componentWillUnmount: function() {
-		Store.removeChangeListener(this._storeChanged);
+	componentWillUnmount () {
+		Store.removeChangeListener(this.onStoreChanged);
 	},
 
-	_storeChanged: function(event) {
+	onStoreChanged (event) {
 		switch (event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.TOPIC_CREATED:
+			case TOPIC_CREATED:
 				this.setState({
 					busy: false
 				});
-				var topicId = event.topic.getID();
-				var path = encodeForURI(topicId);
+				let topicId = event.topic.getID();
+				let path = encodeForURI(topicId);
 				this.navigate('/' + path + '/', {replace: true});
 				break;
 
-			case Constants.TOPIC_CREATION_ERROR:
+			case TOPIC_CREATION_ERROR:
 				this.setState({
 					busy: false,
 					error: event.data.reason,
@@ -69,44 +70,42 @@ var CreateTopic = React.createClass({
 		}
 	},
 
-	_canCreateTopic() {
-		var {forum} = this.props;
+	canCreateTopic () {
+		let {forum} = this.props;
 		return !!(forum && forum.hasLink('add'));
 	},
 
-	_createTopic() {
-		var value = this.refs.editor.getValue();
+	createTopic() {
+		let value = this.refs.editor.getValue();
 		this.setState({
 			busy: true,
 			value: value
 		});
-		var {forum} = this.props;
+		let {forum} = this.props;
 		Actions.createTopic(forum, value);
 	},
 
-	_cancel() {
+	onCancel () {
 		this.navigate('/', {replace: true});
 	},
 
-	render: function() {
+	render () {
 
 		if (this.state.busy) {
 			return <Loading />;
 		}
 
-		if (!this._canCreateTopic()) {
+		if (!this.canCreateTopic()) {
 			return <Notice>Can't create a new topic here.</Notice>;
 		}
 
 		return (
 			<div>
-				<Breadcrumb contextProvider={this.__getContext} />
-				{this.state.error && <div className="alert-box radius">{this.state.error.message||'An error occurred.'}</div>}
-				<TopicEditor ref="editor" onSubmit={this._createTopic} onCancel={this._cancel} item={this.state.item} />
+				<Breadcrumb contextProvider={this.getContext} />
+				{this.state.error && <div className="alert-box radius">{this.state.error.message || 'An error occurred.'}</div>}
+				<TopicEditor ref="editor" onSubmit={this.createTopic} onCancel={this.onCancel} item={this.state.item} />
 			</div>
 		);
 	}
 
 });
-
-module.exports = CreateTopic;

@@ -1,24 +1,32 @@
+import React from 'react';
 
-'use strict';
+import FieldRender from 'common/forms/mixins/RenderFormConfigMixin';
+import FormPanel from 'common/forms/components/FormPanel';
+import FormErrors from 'common/forms/components/FormErrors';
 
-var React = require('react');
-var _formConfig = require('../configs/GiftRedeem');
-var FieldRender = require('common/forms/mixins/RenderFormConfigMixin');
-var FormPanel = require('common/forms/components/FormPanel');
-var FormErrors = require('common/forms/components/FormErrors');
-var Loading = require('common/components/Loading');
-var EnrollmentSuccess = require('../../components/EnrollmentSuccess');
-var t = require('common/locale').scoped('ENROLLMENT.GIFT.REDEEM');
-var Actions = require('../Actions');
-var Store = require('../Store');
-var Constants = require('../Constants');
+import Loading from 'common/components/Loading';
 
+import EnrollmentSuccess from '../../components/EnrollmentSuccess';
+import {scoped} from 'common/locale';
 
-var GiftRedeem = React.createClass({
+import FORM_CONFIG from '../configs/GiftRedeem';
 
+import Store from '../Store';
+import {GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from '../Constants';
+import {redeemGift} from '../Actions';
+
+const t = scoped('ENROLLMENT.GIFT.REDEEM');
+
+export default React.createClass({
+	displayName: 'GiftRedeem',
 	mixins: [FieldRender],
 
-	getInitialState: function() {
+	propTypes: {
+		purchasable: React.PropTypes.object,
+		code: React.PropTypes.string
+	},
+
+	getInitialState () {
 		return {
 			fieldValues: {},
 			errors: {},
@@ -27,7 +35,8 @@ var GiftRedeem = React.createClass({
 		};
 	},
 
-	componentWillMount: function() {
+
+	componentWillMount () {
 		this.setState({
 			fieldValues: {
 				accessKey: this.props.code || ''
@@ -35,18 +44,21 @@ var GiftRedeem = React.createClass({
 		});
 	},
 
-	componentDidMount: function() {
+
+	componentDidMount () {
 		Store.addChangeListener(this.onStoreChange);
 	},
 
-	componentWillUnmount: function() {
+
+	componentWillUnmount () {
 		Store.removeChangeListener(this.onStoreChange);
 	},
 
-	onStoreChange: function(event) {
+
+	onStoreChange (event) {
 		switch( (event||{}).type ) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.INVALID_GIFT_CODE:
+			case INVALID_GIFT_CODE:
 				this.setState({
 					busy: false,
 					errors: {
@@ -56,7 +68,7 @@ var GiftRedeem = React.createClass({
 					}
 				});
 			break;
-			case Constants.GIFT_CODE_REDEEMED:
+			case GIFT_CODE_REDEEMED:
 				this.setState({
 					busy: false,
 					success: true,
@@ -66,19 +78,23 @@ var GiftRedeem = React.createClass({
 		}
 	},
 
-	_handleSubmit: function(event) {
+
+	handleSubmit (event) {
 		event.preventDefault();
 		this.setState({
 			busy: true
 		});
-		Actions.redeemGift(this.props.purchasable, this.state.fieldValues.accessKey);
+		redeemGift(this.props.purchasable, this.state.fieldValues.accessKey);
 	},
 
-	_inputChanged: function(event) {
+
+	//XXX: _inputChanged nor inputChanged seem to be referenced.
+	inputChanged (event) {
 		this.updateFieldValueState(event);
 	},
 
-	render: function() {
+
+	render () {
 
 		if (this.state.busy) {
 			return <Loading />;
@@ -88,17 +104,17 @@ var GiftRedeem = React.createClass({
 			return (<EnrollmentSuccess courseTitle={this.props.purchasable.Title} />);
 		}
 
-		var title = t('formTitle');
+		let title = t('formTitle');
 
-		var buttonLabel = t('redeemButton');
+		let buttonLabel = t('redeemButton');
 
-		var errors = this.state.errors;
+		let errors = this.state.errors;
 
-		var disabled = (this.state.fieldValues.accessKey||'').trim().length === 0;
+		let disabled = (this.state.fieldValues.accessKey||'').trim().length === 0;
 
 		return (
-			<FormPanel title={title} onSubmit={this._handleSubmit}>
-				{this.renderFormConfig(_formConfig, this.state.fieldValues, t)}
+			<FormPanel title={title} onSubmit={this.handleSubmit}>
+				{this.renderFormConfig(FORM_CONFIG, this.state.fieldValues, t)}
 				<FormErrors errors={errors} />
 				<input type="submit"
 					key="submit"
@@ -112,5 +128,3 @@ var GiftRedeem = React.createClass({
 	}
 
 });
-
-module.exports = GiftRedeem;

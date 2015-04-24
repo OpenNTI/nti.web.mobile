@@ -2,36 +2,35 @@
  * Constants related to (and used by) the login modules.
  * @class LoginConstants
  */
-var keyMirror = require('react/lib/keyMirror');
 
-var links = {
+export const links = {
 	/**
 	* @property ACCOUNT_CREATE
 	* @type String
 	* @final
 	*/
-	ACCOUNT_CREATE: "account.create",
+	ACCOUNT_CREATE: 'account.create',
 
 	/**
 	* @property ACCOUNT_PREFLIGHT_CREATE
 	* @type String
 	* @final
 	*/
-	ACCOUNT_PREFLIGHT_CREATE: "account.preflight.create",
+	ACCOUNT_PREFLIGHT_CREATE: 'account.preflight.create',
 
 	/**
 	* @property FORGOT_PASSCODE
 	* @type String
 	* @final
 	*/
-	FORGOT_PASSCODE: "logon.forgot.passcode",
+	FORGOT_PASSCODE: 'logon.forgot.passcode',
 
 	/**
 	* @property FORGOT_USERNAME
 	* @type String
 	* @final
 	*/
-	FORGOT_USERNAME: "logon.forgot.username",
+	FORGOT_USERNAME: 'logon.forgot.username',
 
 	/**
 	* The rel/key for the handshake link
@@ -39,7 +38,7 @@ var links = {
 	* @type String
 	* @final
 	*/
-	HANDSHAKE_LINK: "logon.handshake",
+	HANDSHAKE_LINK: 'logon.handshake',
 
 	/**
 	* The rel/key for the logon continue link
@@ -47,7 +46,7 @@ var links = {
 	* @type String
 	* @final
 	*/
-	LOGIN_CONTINUE_LINK: "logon.continue",
+	LOGIN_CONTINUE_LINK: 'logon.continue',
 
 	/**
 	* The rel/key for the log-out link.
@@ -55,7 +54,7 @@ var links = {
 	* @type String
 	* @final
 	*/
-	LOGOUT_LINK: "logon.logout",
+	LOGOUT_LINK: 'logon.logout',
 
 	/**
 	* The rel/key for the log in with facebook link.
@@ -63,7 +62,7 @@ var links = {
 	* @type String
 	* @final
 	*/
-	OAUTH_LINK_FACEBOOK: "logon.facebook",
+	OAUTH_LINK_FACEBOOK: 'logon.facebook',
 
 	/**
 	* The rel/key for the log in with google link.
@@ -71,7 +70,7 @@ var links = {
 	* @type String
 	* @final
 	*/
-	OAUTH_LINK_GOOGLE: "logon.google",
+	OAUTH_LINK_GOOGLE: 'logon.google',
 
 	/**
 	* The rel for the password login link from the dataserver.
@@ -79,7 +78,7 @@ var links = {
 	* @type String
 	* @final
 	*/
-	LOGIN_PASSWORD_LINK: "logon.nti.password",
+	LOGIN_PASSWORD_LINK: 'logon.nti.password',
 
 	/**
 	* The rel for the ldap login link from the dataserver.
@@ -87,24 +86,24 @@ var links = {
 	* @type String
 	* @final
 	*/
-	LOGIN_LDAP_LINK: "logon.ldap.ou",
+	LOGIN_LDAP_LINK: 'logon.ldap.ou',
 
 	/**
 	* @property MIMETYPE_PONG
 	* @type String
 	* @final
 	*/
-	MIMETYPE_PONG: "application/vnd.nextthought.pong",
+	MIMETYPE_PONG: 'application/vnd.nextthought.pong',
 
 	/**
 	* @property RESET_PASSCODE
 	* @type String
 	* @final
 	*/
-	RESET_PASSCODE: "logon.reset.passcode"
+	RESET_PASSCODE: 'logon.reset.passcode'
 };
 
-var actions = keyMirror({
+export const actions = {
 
 	/**
 	* The name of the action for initializing the LoginController.
@@ -112,7 +111,7 @@ var actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_BEGIN: null,
+	LOGIN_BEGIN: 'LOGIN_BEGIN',
 
 	/**
 	* Action name for attempting a password login.
@@ -120,7 +119,7 @@ var actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_PASSWORD: null,
+	LOGIN_PASSWORD: 'LOGIN_PASSWORD',
 
 	/**
 	* Action name for clearing login errors.
@@ -128,7 +127,7 @@ var actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_CLEAR_ERRORS: null,
+	LOGIN_CLEAR_ERRORS: 'LOGIN_CLEAR_ERRORS',
 
 	/**
 	* Action name for attempting an oauth login.
@@ -136,7 +135,7 @@ var actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_OAUTH: null,
+	LOGIN_OAUTH: 'LOGIN_OAUTH',
 
 	/**
 	* Action name for logout.
@@ -144,7 +143,7 @@ var actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGOUT: null,
+	LOGOUT: 'LOGOUT',
 
 	/**
 	* Action name for password recovery.
@@ -152,7 +151,7 @@ var actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	RECOVER_PASSWORD: null,
+	RECOVER_PASSWORD: 'RECOVER_PASSWORD',
 
 	/**
 	* Action name for username recovery.
@@ -160,7 +159,7 @@ var actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	RECOVER_USERNAME: null,
+	RECOVER_USERNAME: 'RECOVER_USERNAME',
 
 	/**
 	* Action for requesting a ping/pong/handshake with the
@@ -169,11 +168,11 @@ var actions = keyMirror({
 	* @type String
 	* @final
 	*/
-	UPDATE_LINKS: null
+	UPDATE_LINKS: 'UPDATE_LINKS'
 
-});
+};
 
-var events = keyMirror({
+export const events = {
 
 	/**
 	* Emitted by LoginForm input changes.
@@ -181,21 +180,21 @@ var events = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_FORM_CHANGED: null,
+	LOGIN_FORM_CHANGED: 'LOGIN_FORM_CHANGED',
 
 	/**
 	* @property LOGIN_SUCCESS
 	* @type String
 	* @final
 	*/
-	LOGIN_SUCCESS: null,
+	LOGIN_SUCCESS: 'LOGIN_SUCCESS',
 
 	/**
 	* @property LOGIN_FAILURE
 	* @type String
 	* @final
 	*/
-	LOGIN_FAILURE: null,
+	LOGIN_FAILURE: 'LOGIN_FAILURE',
 
 	/**
 	* The event emitted by the LoginController when its links change.
@@ -203,7 +202,7 @@ var events = keyMirror({
 	* @type String
 	* @final
 	*/
-	LOGIN_LINKS_CHANGED: null,
+	LOGIN_LINKS_CHANGED: 'LOGIN_LINKS_CHANGED',
 
 	/**
 	* The event emitted upon successful password reset.
@@ -211,17 +210,12 @@ var events = keyMirror({
 	* @type String
 	* @final
 	*/
-	PASSWORD_RESET_SUCCESSFUL: null
+	PASSWORD_RESET_SUCCESSFUL: 'PASSWORD_RESET_SUCCESSFUL'
 
-});
+};
 
-var messages = {
+export const messages = {
 	LOGIN_ERROR: 'LOGIN.LOGIN_ERROR',
 	SIGNUP_CONFIRMATION: 'SIGNUP_CONFIRMATION',
 	category: 'login'
 };
-
-exports.actions = actions;
-exports.events = events;
-exports.links = links;
-exports.messages = messages;

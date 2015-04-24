@@ -2,7 +2,7 @@
 import {
 	WebVTT,
 	VTTCue/*, VTTRegion*/
-} from "vtt.js";
+} from 'vtt.js';
 
 import React from 'react';
 
@@ -14,7 +14,6 @@ import removeClass from 'nti.lib.dom/lib/removeclass';
 import LoadingMask from 'common/components/Loading';
 
 import ContextSender from 'common/mixins/ContextSender';
-import SetStateSafely from 'common/mixins/SetStateSafely';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {Component as Video} from 'video';
@@ -24,8 +23,12 @@ import Transcript from './Transcript';
 
 export default React.createClass({
 	displayName: 'TranscriptedVideo',
-	mixins: [ContextSender, NavigatableMixin, SetStateSafely],
+	mixins: [ContextSender, NavigatableMixin],
 
+	propTypes: {
+		videoId: React.PropTypes.string,
+		course: React.PropTypes.object
+	},
 
 	getInitialState () {
 		return {
@@ -55,8 +58,8 @@ export default React.createClass({
 		}
 	},
 
-	__onError (error) {
-		this.setStateSafely({
+	onError (error) {
+		this.setState({
 			loading: false,
 			error: error,
 			data: null
@@ -74,7 +77,7 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		this.setStateSafely(this.getInitialState());
+		this.setState(this.getInitialState());
 
 		try {
 
@@ -88,31 +91,31 @@ export default React.createClass({
 			}
 
 			this.resolveContext()
-				.then(context => this.setStateSafely({ context }));
+				.then(context => this.setState({ context }));
 
 			this.setPageSource(pageSource, video.getID());
 
 			video.getTranscript('en')
 				.then(vtt => {
 					let parser = new WebVTT.Parser(global, WebVTT.StringDecoder()),
-	        			cues = [], regions = [];
+						cues = [], regions = [];
 
-				    parser.oncue = cue=> cues.push(cue);
+					parser.oncue = cue=> cues.push(cue);
 					parser.onregion = region=> regions.push(region);
-					parser.onparsingerror = e=> {throw e;};
+					parser.onparsingerror = e=> { throw e; };
 
 					if (!global.VTTCue) {
 						global.VTTCue = VTTCue;
 					}
 
-				    parser.parse(vtt);
-				    parser.flush();
+					parser.parse(vtt);
+					parser.flush();
 
 					if (global.VTTCue === VTTCue) {
 						delete global.VTTCue;
 					}
 
-					this.setStateSafely({
+					this.setState({
 						loading: false,
 						cues,
 						regions,
@@ -123,7 +126,7 @@ export default React.createClass({
 				.catch(reason=> {
 					if (reason === video.NO_TRANSCRIPT ||
 						reason === video.NO_TRANSCRIPT_LANG) {
-						this.setStateSafely({
+						this.setState({
 							loading: false, cues: null, regions: null });
 						return;
 					}
@@ -131,10 +134,10 @@ export default React.createClass({
 
 				})
 
-				.catch(this.__onError);
+				.catch(this.onError);
 
 		} catch (e) {
-			this.__onError(e);
+			this.onError(e);
 		}
 	},
 
@@ -153,24 +156,25 @@ export default React.createClass({
 
 
 	render () {
-		let {video, cues, regions, currentTime, loading} = this.state;
+		let {error, video, cues, regions, currentTime, loading} = this.state;
 
 		loading = loading || !video;
 
 		return (
 			<div className="transcripted-video">
 				<LoadingMask loading={loading}>
-
+					{!video ? null : (
 					<Video ref="video"
+							courseId={this.props.course.getID()}
 							src={video}
 							onTimeUpdate={this.onVideoTimeTick}
 							context={this.state.context}
 							transcript={true}
 							autoPlay/>
-
+					)}
 					<div className="transcript">
 						{
-							this.state.error ?
+							error ?
 								<div>Transcript not available</div> :
 								<Transcript ref="transcript"
 									onJumpTo={this.onJumpTo}

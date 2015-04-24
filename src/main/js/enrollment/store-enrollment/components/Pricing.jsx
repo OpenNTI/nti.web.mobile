@@ -1,15 +1,16 @@
 
-'use strict';
+import React from 'react';
+import {scoped} from 'common/locale';
+let t = scoped('ENROLLMENT.GIFT.PRICING');
+import DateTime from 'common/components/DateTime';
 
-var React = require('react');
+import Store from '../Store';
+import {updateCoupon} from '../Actions';
+import * as Constants from '../Constants';
+import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
-var _t = require('common/locale').scoped('ENROLLMENT.GIFT.PRICING');
-var DateTime = require('common/components/DateTime');
-
-var Store = require('../Store');
-var Actions = require('../Actions');
-var Constants = require('../Constants');
-var FormattedPriceMixin = require('enrollment/mixins/FormattedPriceMixin');
+const getDiscountString = 'Pricing:getDiscountString';
+const onChange = 'Pricing:onChange';
 
 module.exports = React.createClass({
 	displayName: 'Pricing',
@@ -17,16 +18,17 @@ module.exports = React.createClass({
 	mixins: [FormattedPriceMixin],
 
 	propTypes: {
-		purchasable: React.PropTypes.object.isRequired
+		purchasable: React.PropTypes.object.isRequired,
+		locked: React.PropTypes.bool
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		//FIXME: Re-write this:
 		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
 		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-		
-		var pricing = this.getCouponPricing();
-		var state = {
+
+		let pricing = this.getCouponPricing();
+		let state = {
 				currency: this.props.purchasable.Currency,
 				currentPrice: this.props.purchasable.Amount,
 				triedCoupon: false,
@@ -35,13 +37,13 @@ module.exports = React.createClass({
 			};
 
 		if (this.props.locked) {
-			state.coupon = _t("noCoupon");
+			state.coupon = t('noCoupon');
 		}
 
 
 		if (pricing && pricing.Coupon) {
 			state.coupon = pricing.Coupon.ID;
-			state.couponDiscount = this._getDiscountString(pricing.Coupon);
+			state.couponDiscount = this[getDiscountString](pricing.Coupon);
 			state.oldPrice = pricing.Amount;
 			state.currentPrice = pricing.PurchasePrice;
 			state.triedCoupon = true;
@@ -51,27 +53,23 @@ module.exports = React.createClass({
 	},
 
 
-	componentDidMount: function() {
-		//if (!this.props.locked) {
-			Store.addChangeListener(this._onChange);
-		//}
+	componentDidMount () {
+		Store.addChangeListener(this[onChange]);
 	},
 
 
-	componentWillUnmount: function() {
-		//if (!this.props.locked) {
-			Store.removeChangeListener(this._onChange);
-		//}
+	componentWillUnmount () {
+		Store.removeChangeListener(this[onChange]);
 	},
 
 
-	getCouponPricing: function() {
+	getCouponPricing () {
 		return Store.getCouponPricing();
 	},
 
 
-	_getDiscountString: function(coupon) {
-		var discount = '';
+	[getDiscountString] (coupon) {
+		let discount = '';
 
 		if (coupon.PercentOff) {
 			discount = coupon.PercentOff + '%';
@@ -83,14 +81,14 @@ module.exports = React.createClass({
 	},
 
 
-	_onChange: function(e) {
-		var pricing = e.pricing,
+	[onChange] (e) {
+		let pricing = e.pricing,
 			discount;
 
 		if (!this.isMounted() || this.props.locked) { return; }
 
 		if (e.type === Constants.VALID_COUPON) {
-			discount = this._getDiscountString(pricing.Coupon);
+			discount = this[getDiscountString](pricing.Coupon);
 
 			this.setState({
 				currentPrice: pricing.PurchasePrice,
@@ -121,8 +119,8 @@ module.exports = React.createClass({
 	},
 
 
-	getData: function() {
-		var use = this.state.triedCoupon && this.state.couponDiscount || null;
+	getData () {
+		let use = this.state.triedCoupon && this.state.couponDiscount || null;
 
 		return {
 			coupon: use && this.state.coupon,
@@ -131,13 +129,13 @@ module.exports = React.createClass({
 	},
 
 
-	onCouponChanged: function () {
+	onCouponChanged () {
 		if (this.props.locked) {
 			return this.setState({ coupon: this.state.coupon });
 		}
 
-		var couponRef = this.refs.coupon,
-			couponEl = couponRef && couponRef.isMounted() && couponRef.getDOMNode(),
+		let couponRef = this.refs.coupon,
+			couponEl = couponRef && couponRef.isMounted() && React.findDOMNode(couponRef),
 			coupon = couponEl && couponEl.value;
 
 		this.setState({
@@ -145,43 +143,43 @@ module.exports = React.createClass({
 			checkingCoupon: true
 		});
 
-		Actions.updateCoupon(this.props.purchasable, coupon);
+		updateCoupon(this.props.purchasable, coupon);
 	},
 
 
-	render: function() {
-		var type = 'Lifelong Learner';
-		var vendorInfo = this.props.purchasable.VendorInfo;
-		var startDate = vendorInfo && vendorInfo.StartDate;
-		var endDate = vendorInfo && vendorInfo.EndDate;
-		var creditHours= 'No College Credit';//_t('x_creditHours', {count: (vendorInfo && vendorInfo.Hours) || 0});
-		var refund = _t('noRefunds');
-		var oldTotal = this.state.oldPrice && this.getFormattedPrice(this.state.currency, this.state.oldPrice);
-		var total = this.getFormattedPrice(this.state.currency, this.state.currentPrice || 0);
-		var discount = this.state.couponDiscount || '';
-		var couponLabel = _t('coupon');
-		var couponLabelCls = '';
+	render () {
+		let type = 'Lifelong Learner';
+		let vendorInfo = this.props.purchasable.VendorInfo;
+		let startDate = vendorInfo && vendorInfo.StartDate;
+		let endDate = vendorInfo && vendorInfo.EndDate;
+		let creditHours = 'No College Credit';//t('x_creditHours', {count: (vendorInfo && vendorInfo.Hours) || 0});
+		let refund = t('noRefunds');
+		let oldTotal = this.state.oldPrice && this.getFormattedPrice(this.state.currency, this.state.oldPrice);
+		let total = this.getFormattedPrice(this.state.currency, this.state.currentPrice || 0);
+		let discount = this.state.couponDiscount || '';
+		let couponLabel = t('coupon');
+		let couponLabelCls = '';
 
 		if (this.props.locked) {
 			couponLabelCls = '';
-			couponLabel = _t('lockedCoupon');
+			couponLabel = t('lockedCoupon');
 		} else if (this.state.checkingCoupon) {
 			couponLabelCls = 'working';
-			couponLabel = _t('checkingCoupon');
+			couponLabel = t('checkingCoupon');
 		} else if (this.state.triedCoupon) {
 			if (this.state.couponDiscount) {
 				couponLabelCls = 'valid';
-				couponLabel = _t('validCoupon', {discount:discount});
+				couponLabel = t('validCoupon', {discount: discount});
 			} else {
 				couponLabelCls = 'invalid';
-				couponLabel = _t('invalidCoupon');
+				couponLabel = t('invalidCoupon');
 			}
 		}
 
 		return (
 			<div className="pricing-info">
 				<div className="title">
-					<span className="sub">{_t("subType")}</span>
+					<span className="sub">{t('subType')}</span>
 					<span className="main">{type}</span>
 				</div>
 				<div className="info">
@@ -189,11 +187,11 @@ module.exports = React.createClass({
 
 						<div className="small-6 medium-4 columns">
 							<div className="cell">
-								<span className="label">{_t("begins")}</span>
+								<span className="label">{t('begins')}</span>
 								<DateTime className="value" date={startDate} />
 							</div>
 							<div className="cell">
-								<span className="label">{_t("ends")}</span>
+								<span className="label">{t('ends')}</span>
 								<DateTime className="value" date={endDate} />
 							</div>
 						</div>
@@ -201,11 +199,11 @@ module.exports = React.createClass({
 
 						<div className="small-6 medium-4 columns">
 							<div className="cell">
-								<span className="label">{_t("hours")}</span>
+								<span className="label">{t('hours')}</span>
 								<span className="value">{creditHours}</span>
 							</div>
 							<div className="cell">
-								<span className="label">{_t("refunds")}</span>
+								<span className="label">{t('refunds')}</span>
 								<span className="value red">{refund}</span>
 							</div>
 						</div>
@@ -213,17 +211,17 @@ module.exports = React.createClass({
 
 						<div className="small-12 medium-4 columns">
 							<div className="cell total">
-								<span className="label">{_t("total")}</span>
+								<span className="label">{t('total')}</span>
 								<span className="value">
 									{oldTotal? <span className="old-amount">{oldTotal}</span> : null}
 									<span className="amount">{total}</span>
 								</span>
 							</div>
 							<div className="cell coupon">
-								<span className={"label " + couponLabelCls}>{couponLabel}</span>
+								<span className={'label ' + couponLabelCls}>{couponLabel}</span>
 								<input type="text"
 									ref="coupon" name="coupon"
-									placeholder={_t("couponPlaceholder")}
+									placeholder={t('couponPlaceholder')}
 									onChange={this.onCouponChanged}
 									value={this.state.coupon}/>
 							</div>

@@ -1,7 +1,7 @@
-'use strict';
+
 
 import React from 'react';
-
+import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
 
 import AnalyticsStore from 'analytics/Store';
 import Actions from '../Actions';
@@ -58,23 +58,29 @@ module.exports = React.createClass({
 		Paging
 	],
 
+
+	propTypes: {
+		topicId: React.PropTypes.string
+	},
+
+
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[OBJECT_CONTENTS_CHANGED]: function(event) {
+		[OBJECT_CONTENTS_CHANGED] (event) {
 			if (event.objectId === this.props.topicId) {
 				this.setState({
 					loading: false
 				});
 			}
 		},
-		[COMMENT_ADDED]: function(event) {
+		[COMMENT_ADDED] (event) {
 			let {topicId} = this.props;
 			let {result} = event.data || {};
 			if (result.ContainerId === decodeFromURI(topicId)) {
 				this[loadData](topicId);
 			}
 		},
-		[OBJECT_DELETED]: function(event) {
+		[OBJECT_DELETED] (event) {
 			let {topicId} = this.props;
 			let fullTopicId = decodeFromURI(topicId);
 			let o = event.object;
@@ -87,7 +93,7 @@ module.exports = React.createClass({
 				});
 			}
 		},
-		[COMMENT_SAVED]: function(event) {
+		[COMMENT_SAVED] (event) {
 			console.debug(event.data);
 			if (event.data) {
 				this.setState({
@@ -97,7 +103,7 @@ module.exports = React.createClass({
 		}
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: true,
 			deleted: false
@@ -114,19 +120,19 @@ module.exports = React.createClass({
 		this[startAnalyticsEvent]();
 	},
 
-	componentDidMount: function() {
+	componentDidMount () {
 		let {topicId} = this.props;
 		this[loadData](topicId);
 		this[startAnalyticsEvent]();
 
 	},
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		AnalyticsStore.pushHistory(this[getTopicId](this.props));
 		this.resourceUnloaded();
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (nextProps.topicId !== this.props.topicId) {
 			this.setState({
 				loading: true
@@ -144,8 +150,8 @@ module.exports = React.createClass({
 		return decodeFromURI(props.topicId);
 	},
 
-	[loadData]: function(topicId=this.props.topicId) {
-		return Api.getTopicContents(topicId, this.batchStart(), this.pageSize)
+	[loadData] (topicId=this.props.topicId) {
+		return Api.getTopicContents(topicId, this.batchStart(), this.getPageSize())
 		.then(
 			result => {
 				Store.setObject(topicId, result.object);
@@ -163,7 +169,7 @@ module.exports = React.createClass({
 		);
 	},
 
-	analyticsContext: function() {
+	analyticsContext () {
 		let h = AnalyticsStore.getHistory() || [];
 		if (h.length > 0 && h[h.length - 1] === this[getTopicId]) {
 			h.length--; // don't include ourselves in the context
@@ -171,31 +177,31 @@ module.exports = React.createClass({
 		return Promise.resolve(h);
 	},
 
-	[editTopic]: function() {
+	[editTopic] () {
 		this.setState({
 			editing: true
 		});
 	},
 
-	[deleteTopic]: function() {
+	[deleteTopic] () {
 		areYouSure(t('deleteTopicPrompt')).then(() => {
 			Actions.deleteTopic(this[getTopic]());
 		},
 		()=>{});
 	},
 
-	[getTopic]: function() {
+	[getTopic] () {
 		return this.getItem() || Store.getObject(this.props.topicId);
 	},
 
-	[getPropId]: function() {
+	[getPropId] () {
 		return this.props.topicId;
 	},
 
 	[actionClickHandlers]() {
 		return {
-			[EDIT]: this._editTopic,
-			[DELETE]: this._deleteTopic
+			[EDIT]: this.editTopic,
+			[DELETE]: this.deleteTopic
 		};
 	},
 
@@ -210,7 +216,7 @@ module.exports = React.createClass({
 		});
 	},
 
-	render: function() {
+	render () {
 
 		if (this.state.error) {
 			let {error} = this.state;
@@ -233,30 +239,31 @@ module.exports = React.createClass({
 		let props = {
 			ref: 'headline',
 			item: topic.headline,
-			onSubmit: this._saveEdit,
-			onCompletion: this._hideEditForm,
-			onCancel: this._hideEditForm
+			onSubmit: this.saveEdit,
+			onCompletion: this.hideEditForm,
+			onCancel: this.hideEditForm
 		};
 
 		return (
 			<div>
-				<ViewHeader type={TOPIC} />
-				{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline {...props} />}
-				<ActionLinks
-					item={topic}
-					canReply={true}
-					numComments={numComments}
-					clickHandlers={this[actionClickHandlers]()} />
+				<Transition transitionName="forums">
+					<ViewHeader type={TOPIC} />
+					{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline {...props} />}
+					<ActionLinks
+						item={topic}
+						canReply={true}
+						numComments={numComments}
+						clickHandlers={this[actionClickHandlers]()} />
 
-				<TopicComments topicId={this[getTopicId]()} currentPage={this.currentPage()} />
+					<TopicComments topicId={this[getTopicId]()} currentPage={this.currentPage()} />
 
-				<CommentForm key="commentForm"
-						ref={COMMENT_FORM_ID}
-						id={COMMENT_FORM_ID}
-						onCompletion={this._hideCommentForm}
-						topic={topic}
-						parent={topic.parent()} />
-
+					<CommentForm key="commentForm"
+							ref={COMMENT_FORM_ID}
+							id={COMMENT_FORM_ID}
+							onCompletion={this.hideCommentForm}
+							topic={topic}
+							parent={topic.parent()} />
+				</Transition>
 			</div>
 		);
 	}
