@@ -87,7 +87,7 @@ export default React.createClass({
 			let pageSource = video && video.getPageSource();
 
 			if (outlineId && pageSource) {
-				pageSource = pageSource.scopped(decodeFromURI(outlineId));
+				pageSource = pageSource.scoped(decodeFromURI(outlineId));
 			}
 
 			this.resolveContext()
