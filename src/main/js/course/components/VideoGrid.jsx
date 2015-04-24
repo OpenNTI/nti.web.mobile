@@ -15,45 +15,70 @@ export default React.createClass({
 	mixins: [BasePathAware, ContextSender],
 
 	propTypes: {
+		course: React.PropTypes.object.isRequired,
 		VideoIndex: React.PropTypes.object.isRequired
 	},
 
 
 	getInitialState () {
-		return {};
+		return {
+			icons: {}
+		};
 	},
 
 
 	getContext () { return Promise.resolve([]); },
 
 
-	componentDidMount () {},
+	componentDidMount () {
+		this.fillInIcons(this.props);
+	},
 
 
 	componentWillUnmount () {},
 
 
-	componentWillReceiveProps (/*nextProps*/) {},
+	componentWillReceiveProps (nextProps) {
+		if (this.props.VideoIndex !== nextProps.VideoIndex) {
+			this.fillInIcons(nextProps);
+		}
+	},
+
+
+	fillInIcons (props) {
+		let icons = {};
+
+		function fallback (x) {
+			let s = x && ((x.sources || [])[0] || {});
+			return s.thumbnail || s.poster;
+		}
+
+		props.VideoIndex.map(v=>
+			v.getThumbnail()
+				.then(
+					i=> icons[v.ntiid] = i,
+					()=> icons[v.ntiid] = fallback(v)
+				)
+				.then(()=>this.setState({icons}))
+			);
+	},
 
 
 	render () {
 		let basePath = this.getBasePath();
-		let props = this.props;
-		let Videos = props.VideoIndex;
+		let {course, VideoIndex} = this.props;
+		let {icons} = this.state;
 
 		return (
 			<ul className="small-block-grid-1 medium-block-grid-2">
-				{Videos.map((v, i) => {
-					let s = v && ((v.sources || [])[0] || {});
-					let poster = s.thumbnail || s.poster;
+				{VideoIndex.map((v, i) => {
+					let poster = icons[v.ntiid];
 
-					let style = poster && {
-						backgroundImage: `url(${poster})`
-					};
+					let style = poster && { backgroundImage: `url(${poster})` };
 
 					let link = path.join(
 						basePath,
-						'course', encodeForURI(props.course.getID()),
+						'course', encodeForURI(course.getID()),
 						'v', encodeForURI(v.ntiid)) + '/';
 
 					return (
