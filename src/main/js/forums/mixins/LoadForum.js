@@ -6,7 +6,7 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import paging from './Paging';
 
 const objectContentsChangedHandler = 'LoadForum:objectContentsChangedHandler';
-const loadData = "LoadForum:loadData";
+const loadData = 'LoadForum:loadData';
 
 module.exports = {
 	componentWillMount: function() {

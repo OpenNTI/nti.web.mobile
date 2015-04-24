@@ -24,10 +24,10 @@ export default React.createClass({
 
 
 	renderCues (cue) {
-		var divider = null;
-		var time = this.props.currentTime;
+		let divider = null;
+		let time = this.props.currentTime;
 
-		var active = (cue.startTime < time && time <= cue.endTime) ? 'active' : '';
+		let active = (cue.startTime < time && time <= cue.endTime) ? 'active' : '';
 
 		//There is HTML escaped text in the cue, so we have to
 		// use: "dangerouslySetInnerHTML={{__html: ''}}"

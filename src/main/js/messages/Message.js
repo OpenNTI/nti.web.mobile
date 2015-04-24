@@ -1,6 +1,6 @@
 
 
-var IllegalArgumentException = require('common/exceptions').IllegalArgumentException;
+import {IllegalArgumentException} from 'common/exceptions';
 
 module.exports = function Message(message, options) {
 	if(!(options && options.category)) {

@@ -27,7 +27,7 @@ class Store extends StorePrototype {
 			},
 
 			[Constants.ADD_COMMENT]: function(payload) {
-				var {topic, parent, comment} = payload.action;
+				let {topic, parent, comment} = payload.action;
 				addComment(topic, parent, comment);
 			},
 
@@ -35,22 +35,22 @@ class Store extends StorePrototype {
 			[Constants.SAVE_TOPIC_HEADLINE]: saveComment,
 
 			[Constants.CREATE_TOPIC]: function(payload) {
-				var {forum, topic} = payload.action;
+				let {forum, topic} = payload.action;
 				createTopic(forum, topic);
 			},
 
 			[Constants.DELETE_TOPIC]: function(payload) {
-				var {topic} = payload.action;
+				let {topic} = payload.action;
 				deleteTopic(topic);
 			},
 
 			[Constants.DELETE_COMMENT]: function(payload) { // TODO: unify delete topic and delete comment under delete object
-				var {comment} = payload.action;
+				let {comment} = payload.action;
 				deleteComment(comment);
 			},
 
 			[Constants.REPORT_ITEM]: function(payload) {
-				var {item} = payload.action;
+				let {item} = payload.action;
 				reportItem(item);
 			}
 		});

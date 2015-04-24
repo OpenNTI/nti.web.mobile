@@ -1,14 +1,14 @@
 
 
 
-var EventEmitter = require('events').EventEmitter;
+import {EventEmitter} from 'events';
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var IllegalArgumentException = require('common/exceptions').IllegalArgumentException;
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import {IllegalArgumentException} from 'common/exceptions';
 
-var Actions = require('./Constants').actions;
-var Store = require('./Store');
-var Message = require('./Message');
+let Actions = require('./Constants').actions;
+import Store from './Store';
+import Message from './Message';
 
 
 /**
@@ -18,7 +18,7 @@ module.exports = Object.assign({}, EventEmitter.prototype, {
 
 	addMessage: function(message) {
 		if (!(message instanceof Message)) {
-			var e = new IllegalArgumentException('message must be an instance of Message');
+			let e = new IllegalArgumentException('message must be an instance of Message');
 			console.error(e);
 			throw e;
 		}

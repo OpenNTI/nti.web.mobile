@@ -28,7 +28,7 @@ export default React.createClass({
 		let {props} = this;
 		let {item} = props;
 
-		var link = path.join('c', encodeForURI(item.NTIID)) + '/';
+		let link = path.join('c', encodeForURI(item.NTIID)) + '/';
 
 		link = this.makeHref(link, true);
 

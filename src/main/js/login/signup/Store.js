@@ -1,21 +1,20 @@
 
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import {EventEmitter} from 'events';
 
-var {getServer, getBasePath} = require('common/utils');
+import {getServer, getBasePath} from 'common/utils';
 
-var Constants = require('./Constants');
-var Actions = Constants.actions;
+import * as Constants from './Constants';
+let Actions = Constants.actions;
 
-var CHANGE_EVENT = require('common/constants/Events').CHANGE_EVENT;
-var ERROR_EVENT = require('common/constants/Events').ERROR_EVENT;
+import {CHANGE_EVENT, ERROR_EVENT} from 'common/constants/Events';
 
-var _fieldConfig = require('./configs/signup');
+import _fieldConfig from './configs/signup';
 
-var _errors = [];
+let _errors = [];
 
-var Store = Object.assign({}, EventEmitter.prototype, {
+let Store = Object.assign({}, EventEmitter.prototype, {
 
 	emitChange: function(evt) {
 		console.log('Store: emitting change');
@@ -104,7 +103,7 @@ function fieldsMatch(value1, value2) {
 function _clientSidePreflight(fields) {
 	return new Promise(function(fulfill, reject) {
 		if (!fieldsMatch(fields.password, fields.password2)) {
-			var error = {
+			let error = {
 				field: 'password2',
 				message: 'Passwords do not match.'
 			};
@@ -145,7 +144,7 @@ function _createAccount(fields) {
 		console.log('Account creation fail: %O', result);
 		if (Math.floor(result.statusCode / 100) === 4) {
 			console.debug(result);
-			var res = JSON.parse(result.response);
+			let res = JSON.parse(result.response);
 			Store._addError({
 				field: res.field,
 				message: res.message
@@ -167,7 +166,7 @@ function _preflightCreateAccount(fields) {
 }
 
 AppDispatcher.register(function(payload) {
-	var action = payload.action;
+	let action = payload.action;
 
 	switch (action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
@@ -195,4 +194,4 @@ AppDispatcher.register(function(payload) {
 	return true; // No errors. Needed by promise in Dispatcher.
 });
 
-module.exports = Store;
+export default Store;

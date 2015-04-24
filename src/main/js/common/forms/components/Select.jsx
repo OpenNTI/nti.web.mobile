@@ -1,12 +1,14 @@
 
 
-var React = require('react');
-var Actions = require('../Actions');
-var Store = require('../Store');
-var Constants = require('../Constants');
-var Loading = require('common/components/LoadingInline');
+import React from 'react';
+import Actions from '../Actions';
+import Store from '../Store';
+import Constants from '../Constants';
+import Loading from 'common/components/LoadingInline';
 
-var Select = React.createClass({
+export default React.createClass({
+
+	displayName: 'forms:Select',
 
 	propTypes: {
 
@@ -51,7 +53,7 @@ var Select = React.createClass({
 	},
 
 	loadOptions: function() {
-		var link = this.props.optionsLink || {};
+		let link = this.props.optionsLink || {};
 		if (link.type === 'rel' && link.rel) {
 			Actions.loadSelectOptionsFromUserLinkRel(link.rel);
 		}
@@ -64,8 +66,8 @@ var Select = React.createClass({
 	},
 
 	onStoreChange: function(event) {
-		var action = event.action || {};
-		var rel = (action.payload || {}).link;
+		let action = event.action || {};
+		let rel = (action.payload || {}).link;
 		if(event.type === Constants.URL_RETRIEVED && rel && this.props.optionsLink && rel === this.props.optionsLink.rel) {
 			this.setState({
 				loading: false,
@@ -81,9 +83,9 @@ var Select = React.createClass({
 	},
 
 	_options: function() {
-		var raw = this.state.options || this.props.options || [];
-		var options = raw.map(function(item) {
-			var option = this._makeOption(item);
+		let raw = this.state.options || this.props.options || [];
+		let options = raw.map(function(item) {
+			let option = this._makeOption(item);
 			return <option value={option.value} key={option.value}>{option.name}</option>;
 		}.bind(this));
 
@@ -111,5 +113,3 @@ var Select = React.createClass({
 	}
 
 });
-
-module.exports = Select;

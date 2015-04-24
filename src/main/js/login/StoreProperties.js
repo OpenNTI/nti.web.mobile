@@ -2,10 +2,13 @@
  * Constants used in LoginStoreChangeEvents to identify properties.
  * @class LoginStoreProperties
  */
-var keyMirror = require('react/lib/keyMirror');
 
-module.exports = keyMirror({
-	isLoggedIn: null,
-	links: null,
-	errors: null
-});
+const isLoggedIn = 'isLoggedIn';
+const links = 'links';
+const errors = 'errors';
+
+export default {
+	isLoggedIn,
+	links,
+	errors
+};
