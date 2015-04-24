@@ -37,14 +37,15 @@ export default React.createClass({
 
 
 	render () {
-		var basePath = this.getBasePath();
-		var props = this.props;
-		var Videos = props.VideoIndex;
+		let basePath = this.getBasePath();
+		let props = this.props;
+		let Videos = props.VideoIndex;
 
 		function itr(v, i) {
 			let s = v && ((v.sources || [])[0] || {});
 			let poster = s.thumbnail || s.poster;
-			let style = {
+
+			let style = poster && {
 				backgroundImage: 'url(' + poster + ')'
 			};
 
