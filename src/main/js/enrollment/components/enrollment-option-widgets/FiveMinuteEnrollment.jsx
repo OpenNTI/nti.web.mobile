@@ -4,15 +4,13 @@ import {scoped} from 'common/locale';
 
 const t = scoped('ENROLLMENT');
 
-import {isFlag} from 'common/utils';
-
 export default React.createClass({
 	displayName: 'FiveMinuteEnrollment',
 
 	statics: {
 		re: /FiveMinuteEnrollment/i,//The server sends lower case M, but we're comparing case-insensitively.
 		handles (options) {
-			return isFlag('fiveMinuteEnabled') && this.re.test(options && options.key);
+			return this.re.test(options && options.key);
 		}
 	},
 
