@@ -10,6 +10,16 @@ export default React.createClass({
 		itemType: 'image-collection'
 	},
 
+
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
+
+	componentDidMount () {
+		console.log(this.props.item);
+	},
+
 	render () {
 		return (
 			<div>Image Roll!!</div>

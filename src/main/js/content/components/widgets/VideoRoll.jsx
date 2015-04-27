@@ -10,6 +10,10 @@ export default React.createClass({
 		itemType: 'videoroll'
 	},
 
+	componentDidMount () {
+		console.log(this.props.item);
+	},
+
 	render () {
 		return (
 			<div>VIDEO ROLL!!</div>
