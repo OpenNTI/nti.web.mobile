@@ -3,7 +3,7 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 
-import {getServer, getBasePath} from 'common/utils';
+import {getServer} from 'common/utils';
 
 import * as Constants from './Constants';
 
@@ -68,13 +68,16 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 		});
 	},
 
-	getUserAgreementUrl: function() {
+	getUserAgreementUrl: function(basePath) {
+		if (!basePath) {
+			throw new Error('basePath is required.');
+		}
 		// return Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
-		return Promise.resolve( getBasePath() + 'api/user-agreement/');
+		return Promise.resolve( basePath + 'api/user-agreement/');
 	},
 
-	getUserAgreement: function() {
-		return this.getUserAgreementUrl().then(function(url) {
+	getUserAgreement: function(basePath) {
+		return this.getUserAgreementUrl(basePath).then(function(url) {
 			//BAD: TODO: Fix to use get() from Service!
 			return getServer().get(url)
 				.catch(function(reason) {

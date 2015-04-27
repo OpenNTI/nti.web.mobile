@@ -2,12 +2,15 @@ import React from 'react';
 
 import ErrorWidget from 'common/components/Error';
 import Loading from 'common/components/Loading';
+import BasePath from 'common/mixins/BasePath';
 // import preventOverscroll from 'common/thirdparty/prevent-overscroll';
 
 import Store from '../Store';
 
 export default React.createClass({
 	displayName: 'UserAgreement',
+
+	mixins: [BasePath],
 
 	getInitialState () {
 		return {
@@ -17,7 +20,7 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		Store.getUserAgreement()
+		Store.getUserAgreement(this.getBasePath())
 			.then(this.setContent, this.setError);
 	},
 
