@@ -3,16 +3,20 @@ import React from 'react';
 import Unknown from './Unknown';
 
 import Card from './Card';
+import ImageRoll from './ImageRoll';
 import MarkupFrame from './MarkupFrame';
 import Question from './Question';
 import Video from './Video';
+import VideoRoll from './VideoRoll';
 
 const WIDGETS = [
 	Unknown,
 	Card,
+	ImageRoll,
 	MarkupFrame,
 	Question,
-	Video
+	Video,
+	VideoRoll
 ];
 
 export function getWidget(item, page, ownerProps) {
