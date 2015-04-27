@@ -116,8 +116,9 @@ export default {
 			admissionDescription: 'Before you can earn college credit from the University of Oklahoma, ' +
 				'we need you to answer some questions. Don\'t worry, the admission process is free and ' +
 				'should only take a few minutes.',
+			oklahomaResident: 'Are you an Oklahoma resident?',
 			currentlyAttending: 'Are you currently attending the University of Oklahoma?',
-			oklahomaResidentHighSchool: 'Are you an Oklahoma resident currently attending high school?',
+			attendingHighschool: 'Are you currently attending high school?',
 			historyEnrollViaOzone: 'LSTD 1153.500 fulfills US History Gen Ed requirement. To enroll, visit ' +
 					'<a href="http://ozone.ou.edu" target="_blank">ozone.ou.edu</a> and enroll in LSTD 1153, Section 500.',
 			name: 'Full Name',

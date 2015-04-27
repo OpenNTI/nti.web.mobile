@@ -35,13 +35,15 @@ var attendingOU = [{
 	]
 }];
 
+
+
 var highSchoolQuestion = [{
 	fields: [
 		{
 			ref: 'is_currently_attending_highschool',
 			type: 'radiogroup',
 			required: true,
-			label: t('oklahomaResidentHighSchool'),
+			label: t('attendingHighschool'),
 			options: [
 				{
 					label: 'Yes',
@@ -72,4 +74,37 @@ var highSchoolQuestion = [{
 	]
 }];
 
-module.exports = Object.freeze(highSchoolQuestion);
+var okResidentQuestion = [{
+	fields: [
+		{
+			ref: 'oklahoma_resident',
+			type: 'radiogroup',
+			required: true,
+			label: t('oklahomaResident'),
+			options: [
+				{
+					label: 'Yes',
+					value: 'Y',
+					related: [
+						{
+							type: Constants.FORM_CONFIG,
+							content: highSchoolQuestion
+						}
+					]
+				},
+				{
+					label: 'No',
+					value: 'N',
+					related: [
+						{
+							type: Constants.FORM_CONFIG,
+							content: attendingOU
+						}
+					]
+				}
+			]
+		}
+	]
+}];
+
+module.exports = Object.freeze(okResidentQuestion);
