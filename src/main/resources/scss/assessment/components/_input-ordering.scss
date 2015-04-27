@@ -8,7 +8,6 @@
 .question-part .ordering {
 	display: table;
 	table-layout: fixed;
-	border-collapse: collapse;
 	width: 100%;
 	border: 1px solid $tertiary-grey;
 	margin-bottom: 1rem;
@@ -16,9 +15,10 @@
 	.match-row {
 		display: table-row;
 		line-height: 2;
+		border: 0;
 
-		&:not(:last-of-type) .cell {
-			border-bottom-width: 1px;
+		&:last-of-type .cell {
+			border-bottom-width: 0;
 		}
 
 		&.over {
@@ -29,11 +29,18 @@
 	.cell {
 		display: table-cell;
 		padding: 1rem;
-		border: 0px solid $tertiary-grey;
+		border: 1px solid $tertiary-grey;
 		vertical-align: middle;
+		border-top-width: 0;
 
-		&:not(:last-of-type) {
+		&:nth-child(2n+1) { //left cell
 			border-right-width: 1px;
+			border-left-width: 0;
+		}
+
+		&:nth-child(2n) { //right cell
+			border-right-width: 0;
+			border-left-width: 0;
 		}
 
 		p:last-of-type {margin-bottom: 0;}
