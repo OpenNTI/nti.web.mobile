@@ -1,7 +1,5 @@
 import {getWidth as getViewportWidth, getHeight as getViewportHeight} from './viewport';
 
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
-
 import between from 'nti.lib.interfaces/utils/between';
 
 
@@ -198,10 +196,9 @@ export function isRootObject(e) {
 }
 
 
-export function parseDomObject (el, attributePrefix) {
+export function parseDomObject (el) {
 	let obj = {};
-	let prefix = isEmpty(attributePrefix, true) ?
-				'' : attributePrefix;
+	let prefix = '';
 
 	Array.from(el.attributes).forEach(p => {
 		addValueFor(obj,
@@ -211,12 +208,9 @@ export function parseDomObject (el, attributePrefix) {
 
 	getDirectChildNodes(el, 'param').forEach(p => addValueFor(obj, p.name, p.value));
 
-	// SAJ: Does not work as intent and just wastes CPU cycles.
-	// getDirectChildNodes(el, 'object').forEach(p=>parseDomObject(p));
-
+	obj.children = getDirectChildNodes(el, 'object').map(p => parseDomObject(p));
 
 	Object.defineProperty(obj, 'dom', {
-		//configurable: true,
 		value: el.cloneNode(true)
 	});
 
