@@ -6,7 +6,6 @@ import {EventEmitter} from 'events';
 import {getServer, getBasePath} from 'common/utils';
 
 import * as Constants from './Constants';
-let Actions = Constants.actions;
 
 import {CHANGE_EVENT, ERROR_EVENT} from 'common/constants/Events';
 
@@ -175,19 +174,19 @@ AppDispatcher.register(function(payload) {
 	switch (action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 
-		case Actions.PREFLIGHT:
+		case Constants.PREFLIGHT:
 			preflight(action.fields);
 		break;
 
-		case Actions.CREATE_ACCOUNT:
+		case Constants.CREATE_ACCOUNT:
 			createAccount(action.fields);
 		break;
 
-		case Actions.PREFLIGHT_AND_CREATE_ACCOUNT:
+		case Constants.PREFLIGHT_AND_CREATE_ACCOUNT:
 			preflightCreateAccount(action.fields);
 		break;
 
-		case Actions.CLEAR_ERRORS:
+		case Constants.CLEAR_ERRORS:
 			Store[clearErrors]();
 		break;
 
