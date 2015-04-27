@@ -41,7 +41,7 @@ let View = React.createClass({
 	},
 
 
-	getPurchasable () {
+	getPurchasable (forGifting=false) {
 		let {enrollment} = this.props;
 
 		if (!enrollment) {
@@ -49,13 +49,15 @@ let View = React.createClass({
 			return;
 		}
 
-		let {Purchasable} = enrollment;
+		let {Purchasables} = enrollment;
 
-		return Purchasable || (()=>{
-			console.warn('Enrollment.Purchasable is not defined!');
-		})();
+		if (!Purchasables) {
+			console.warn('Enrollment.Purchasables is not defined!');
+			return null;
+		}
+		let id = forGifting ? Purchasables.DefaultGiftingNTIID : Purchasables.DefaultPurchaseNTIID;
+		return Purchasables.Items.find((element) => element.ID === id);
 	},
-
 
 	componentDidMount () {
 		Store.addChangeListener(this.onChange);
@@ -123,6 +125,7 @@ let View = React.createClass({
 		}
 
 		let purchasable = this.getPurchasable();
+		let giftPurchasable = this.getPurchasable(true);
 		let courseTitle = (purchasable || {}).Title || '';
 		let {courseId} = this.props;
 		let giftDoneLink = this.getBasePath() + 'catalog/';
@@ -136,21 +139,21 @@ let View = React.createClass({
 						<Location path="/confirm/" handler={PaymentConfirm} purchasable={purchasable}/>
 						<Location path="/success/"
 							handler={PaymentSuccess}
-							purchasable={purchasable}
+							purchasable={isGift ? giftPurchasable : purchasable}
 							courseId={courseId}
 							giftDoneLink={giftDoneLink} />
 						<Location path="/error/"
 							handler={PaymentError}
 							isGift={isGift}
-							purchasable={purchasable}
+							purchasable={isGift ? giftPurchasable : purchasable}
 							courseTitle={courseTitle} />
 						<Location path="/gift/"
 							handler={GiftView}
-							purchasable={purchasable}
+							purchasable={giftPurchasable}
 							courseTitle={courseTitle} />
 						<Location path="/gift/redeem/(:code)"
 							handler={GiftRedeem}
-							purchasable={purchasable}
+							purchasable={giftPurchasable}
 							courseTitle={courseTitle}
 							courseId={courseId} />
 						<NotFound handler={Form} purchasable={purchasable}/>
