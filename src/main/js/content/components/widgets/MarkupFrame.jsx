@@ -1,17 +1,17 @@
 import React from 'react';
 import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
+import Mixin from './Mixin';
+
 const ZOOMABLE = /nti\-data\-resizeable/i;
 const zoom = 'MarkupFrame:zoom';
 
 export default React.createClass({
 	displayName: 'ContentMarkupEnabled',
+	mixins: [Mixin],
 
 	statics: {
-		flag: /nti\-data\-markupenabled/i,
-		handles (item) {
-			return this.flag.test(item.type);
-		}
+		itemType: /nti\-data\-markupenabled/i
 	},
 
 

@@ -2,17 +2,14 @@ import React from 'react';
 
 import QuestionWidget from 'assessment/components/Question';
 
+import Mixin from './Mixin';
+
 export default React.createClass({
 	displayName: 'NAQuestion',
+	mixins: [Mixin],
 
 	statics: {
-		mimeType: /naquestion/i,
-		handles (item) {
-			let type = item.type || '';
-			let cls = item.class || '';
-			let re = this.mimeType;
-			return re.test(type) || re.test(cls);
-		}
+		itemType: /naquestion/i
 	},
 
 
