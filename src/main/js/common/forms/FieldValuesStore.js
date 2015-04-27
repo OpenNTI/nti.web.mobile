@@ -1,7 +1,7 @@
 import {EventEmitter} from 'events';
 import {CHANGE_EVENT} from 'common/constants/Events';
 // import isFunction from 'nti.lib.interfaces/utils/isfunction';
-import Constants from './Constants';
+import * as Constants from './Constants';
 
 // store field values outside of component state
 // so we can update without triggering a re-render.
@@ -54,20 +54,20 @@ export default Object.assign({}, EventEmitter.prototype, {
 	},
 
 	updateFieldValue (event) {
-		let {target} = event.target;
-		let {field, value} = target;
+		let {target} = event;
+		let {name, value} = target;
 
 		if(target.type === 'checkbox' && !target.checked) {
-			delete this.fieldValues[field];
+			delete this.fieldValues[name];
 		}
-		else if (value || this.fieldValues.hasOwnProperty(field)) {
+		else if (value || this.fieldValues.hasOwnProperty(name)) {
 			// ^ don't set an empty value if there's not already
 			// an entry for this field in this.state.fieldValues
-			this.setValue(field, value);
+			this.setValue(name, value);
 		}
 		this.emitChange({
 			type: Constants.FIELD_VALUE_CHANGE,
-			fieldName: field,
+			fieldName: name,
 			fieldValue: value
 		});
 

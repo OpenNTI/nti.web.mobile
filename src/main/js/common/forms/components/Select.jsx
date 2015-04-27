@@ -1,9 +1,9 @@
 
 
 import React from 'react';
-import Actions from '../Actions';
+import * as Actions from '../Actions';
 import Store from '../Store';
-import Constants from '../Constants';
+import * as Constants from '../Constants';
 import Loading from 'common/components/LoadingInline';
 
 export default React.createClass({
