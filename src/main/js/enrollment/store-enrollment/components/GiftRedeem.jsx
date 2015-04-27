@@ -13,6 +13,7 @@ import FORM_CONFIG from '../configs/GiftRedeem';
 
 import Store from '../Store';
 import {GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from '../Constants';
+import {RENDERED_FORM_EVENT_HANDLERS as Events} from 'common/forms/Constants';
 import {redeemGift} from '../Actions';
 
 const t = scoped('ENROLLMENT.GIFT.REDEEM');
@@ -87,12 +88,9 @@ export default React.createClass({
 		redeemGift(this.props.purchasable, this.state.fieldValues.accessKey);
 	},
 
-
-	//XXX: _inputChanged nor inputChanged seem to be referenced.
-	inputChanged (event) {
+	[Events.ON_CHANGE] (event) {
 		this.updateFieldValueState(event);
 	},
-
 
 	render () {
 
