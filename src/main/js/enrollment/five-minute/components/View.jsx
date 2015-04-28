@@ -9,6 +9,7 @@ import CourseContentLink from 'library/components/CourseContentLinkMixin';
 import PaymentComplete from './PaymentComplete';
 import ConcurrentSent from './ConcurrentSent';
 import Admission from './Admission';
+import Policy from './Policy';
 
 import Store from '../Store';
 import {CONCURRENT_ENROLLMENT_SUCCESS} from '../Constants';
@@ -59,6 +60,14 @@ export default React.createClass({
 				<Router.Location
 					path="/paymentcomplete/*"
 					handler={PaymentComplete}
+					entryId={this.props.entryId}
+					courseId={this.props.courseId}
+					enrollment={this.props.enrollment}
+				/>
+
+				<Router.Location
+					path="/policy/"
+					handler={Policy}
 					entryId={this.props.entryId}
 					courseId={this.props.courseId}
 					enrollment={this.props.enrollment}

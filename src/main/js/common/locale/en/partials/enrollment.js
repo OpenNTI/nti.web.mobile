@@ -160,7 +160,7 @@ export default {
 			obtainedDegree: 'I have obtained a Bachelor\'s degree or higher.',
 			goodAcademicStanding: 'I am in good academic standing.',
 			signature: 'Signature',
-			signatureAgreement: 'I affirm that I am not prohibited from enrolling in any University of Oklahoma program. ' +
+			signatureAgreement: 'I affirm that I am not <a href="policy/">prohibited</a> from enrolling in any University of Oklahoma program. ' +
 				'I understand that submitting any false information to the University, including but not limited to, ' +
 				'any information contained on this form, or withholding information about my previous academic history will ' +
 				'make my application for admission to the University, as well as any future applications, subject to denial, ' +
@@ -171,6 +171,8 @@ export default {
 				'and seniors can enroll in college classes and earn college credit while will in high school. Submit your contact info ' +
 				'and date of birth below and a Concurrent Enrollment Counselor will be in touch to guide you through the ' +
 				'<a href="http://www.ou.edu/content/go2/admissions/concurrent.html">Concurrent Enrollment Process.</a></p>',
+			prohibitionPolicyHeading: 'Policy on Non-Academic Criteria in the Admission of Students',
+			prohibitionPolicy: 'In addition to the academic criteria used as the basis for the admission of students, the University shall consider the following non-academic criteria in deciding whether a student shall be granted admission: whether an applicant has been expelled, suspended, or denied admission or readmission by any other educational institution; whether an applicant has been convicted of a felony or lesser crime involving moral turpitude; whether an applicant\'s conduct would be grounds for expulsion, suspension, dismissal or denial of readmission, had the student been enrolled at the University of Oklahoma. An applicant may be denied admission to the University if the University determines that there is substantial evidence, based on any of the instances described above, to indicate the applicant\'s unfitness to be a student at the University of Oklahoma.',
 			contactMe: 'I want someone from the University of Oklahoma to contact me.'
 		}
 	},
