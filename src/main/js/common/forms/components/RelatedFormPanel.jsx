@@ -119,6 +119,7 @@ let RelatedFormPanel = React.createClass({
 		let tr = this.props.translator || t;
 		let type = field.type || 'text';
 		let inlineSubfields = null;
+		let help = null;
 
 		this[visibleFields].push(field);
 
@@ -202,6 +203,16 @@ let RelatedFormPanel = React.createClass({
 				input = 'input';
 		}
 
+		if (typeof field.helptext === 'string' && field.helptext.trim().length > 0) {
+			help = React.createElement('div',
+				{
+					className: 'helptext',
+					key: ref.concat('-helptext'),
+					dangerouslySetInnerHTML: {__html: field.helptext}
+				}
+			);
+		}
+
 		let component = type === 'label' ?
 			React.createElement('label', { ref: ref, className: cssClass.join(' ') }, tr(ref, translateOptions)) :
 			React.createElement(input, props);
@@ -209,8 +220,9 @@ let RelatedFormPanel = React.createClass({
 		if (field.label && !labelIsRenderedByComponent.has(type)) {
 			component = React.createElement('label', {},
 				React.createElement('span', { className: 'fieldLabel' }, field.label),
+				help,
 				component
-				);
+			);
 		}
 
 		let subfields = this._renderActiveSubfields(field);
