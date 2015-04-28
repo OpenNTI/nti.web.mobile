@@ -151,6 +151,7 @@ export default {
 			residentOf: 'I am a resident of',
 			okResident: 'Are you a resident of Oklahoma?',
 			years_of_oklahoma_residency: 'How many years have you been an Oklahoma resident?',
+			years_of_oklahoma_residency_placeholder: 'How many years?',
 			hsGraduate: 'Are you a high school graduate?',
 			attendedOU: 'Have you ever attended the University of Oklahoma?',
 			sooner_id: 'What was your Sooner ID? (Leave this field blank if you do not remember.)',

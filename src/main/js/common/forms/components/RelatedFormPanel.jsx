@@ -154,7 +154,7 @@ let RelatedFormPanel = React.createClass({
 			name: ref,
 			onBlur: this._onBlur,
 			onFocus: this.props.inputFocus,
-			placeholder: tr(ref, translateOptions),
+			placeholder: field.placeholder || tr(ref, translateOptions),
 			className: cssClass.join(' '),
 			defaultValue: (values || {})[ref] || configuredValue,
 			type: type,

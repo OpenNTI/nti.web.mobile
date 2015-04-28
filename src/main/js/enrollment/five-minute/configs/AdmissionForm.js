@@ -223,7 +223,8 @@ module.exports = Object.freeze([
 									ref: 'years_of_oklahoma_residency',
 									required: true,
 									type: 'number',
-									label: t('years_of_oklahoma_residency')
+									label: t('years_of_oklahoma_residency'),
+									placeholder: t('years_of_oklahoma_residency_placeholder')
 								}
 							]
 						}]
