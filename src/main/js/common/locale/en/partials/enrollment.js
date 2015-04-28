@@ -125,7 +125,7 @@ export default {
 			first_name: 'First Name',
 			middle_name: 'Middle Name',
 			last_name: 'Last Name',
-			former_name: 'Do you have a former last name?',
+			former_name: 'What is your former last name?',
 			date_of_birth: 'Birthdate',
 			genderPrompt: 'What is your gender?',
 			street_line1: 'Address',
