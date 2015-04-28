@@ -144,7 +144,7 @@ export default {
 			mailing_postal_code: 'Zip',
 			mailing_nation_code: 'Country',
 			telephone_number: 'Phone Number',
-			email: 'email Address',
+			email: 'Email Address',
 			social_security_number: 'Social Security Number',
 			ssn_helptext: 'Your social security number is not requried for admission, but it is used for submission of a <a href="http://www.irs.gov/uac/Form-1098-T,-Tuition-Statement">1098T</a> to the IRS.',
 			citizen: 'Are you a U.S. citizen?',
