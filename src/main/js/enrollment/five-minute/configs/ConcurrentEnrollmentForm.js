@@ -56,6 +56,7 @@ module.exports = Object.freeze([
 				label: t('city')
 			},
 			StateSelect.withProps({
+				label: t('state'),
 				required: false
 			}),
 			CountrySelect.withProps({
