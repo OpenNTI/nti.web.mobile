@@ -51,7 +51,6 @@ var mailingAddressFieldset = {
 		}),
 		{
 			ref: 'mailing_postal_code',
-			required: true,
 			placeholder: t('zip')
 		}
 	]
@@ -140,7 +139,6 @@ module.exports = Object.freeze([
 			}),
 			{
 				ref: 'postal_code',
-				required: true,
 				label: t('postal_code'),
 				placeholder: t('postal_code')
 			},
