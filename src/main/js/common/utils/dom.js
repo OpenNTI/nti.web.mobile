@@ -3,10 +3,7 @@ import {getWidth as getViewportWidth, getHeight as getViewportHeight} from './vi
 import between from 'nti.lib.interfaces/utils/between';
 
 
-function hyphenatedToCamel (s) {
-	let re = hyphenatedToCamel.re = (hyphenatedToCamel.re || /-([a-z])/g);
-	return s.replace(re, g=>g[1].toUpperCase());
-}
+
 
 
 export function isMultiTouch (e) {
@@ -189,64 +186,6 @@ export function scrollParent (el) {
 }
 
 
-export function isRootObject(e) {
-	let p = e.parentNode;
-	if (p && p.nodeName === 'OBJECT') { return false; }
-	return p ? isRootObject(p) : true;
-}
-
-
-export function parseDomObject (el) {
-	let obj = {};
-	let prefix = '';
-
-	Array.from(el.attributes).forEach(p => {
-		addValueFor(obj,
-			hyphenatedToCamel(prefix + p.name),
-			p.value);
-	});
-
-	getDirectChildNodes(el, 'param').forEach(p => addValueFor(obj, p.name, p.value));
-
-	obj.children = getDirectChildNodes(el, 'object').map(p => parseDomObject(p));
-
-	Object.defineProperty(obj, 'dom', {
-		value: el.cloneNode(true)
-	});
-
-	return obj;
-}
-
-
-export function getVideosFromDom (contentElement) {
-	let videoQS = 'object .naqvideo, object .ntivideo',
-		sourceQS = 'object[type$=videosource]',
-		videoObjects = [];
-
-	if (contentElement) {
-		Array.from(contentElement.querySelectorAll(videoQS)).forEach(v => {
-			let o = parseDomObject(v),
-				s = o.sources = [];
-
-			Array.from(v.querySelectorAll(sourceQS)).forEach(source =>
-				s.push(parseDomObject(source)));
-
-			videoObjects.push(o);
-		});
-	}
-
-	return videoObjects;
-}
-
-
-export function getImagesFromDom (contentElement) {
-	let imageObjects = [];
-
-	Array.from(contentElement.querySelectorAll('span > img')).forEach(i =>
-		imageObjects.push(parseDomObject(i)));
-	return imageObjects;
-}
-
 
 /* CU: A function that adjust links displayed to the user.
  * Note this is different then any content reference cleanup that happens
@@ -348,29 +287,6 @@ export function enforceNumber (e) {
 }
 
 
-function addValueFor(o, n, v) {
-	let re = addValueFor.re = (addValueFor.re || /^data([A-Z])/);
-	//Creating a function without scope chain
-	let fn = addValueFor.fn = (addValueFor.fn || new Function('m, a', 'return a.toLowerCase();'));//eslint-disable-line no-new-func
-	if (re.test(n)) {
-		n = n.replace(re, fn);
-		o.dataset = (o.dataset || {});
-		o = o.dataset;
-	}
-
-
-	let c = o[n]; o[n] = c ? (Array.isArray(c) ? c : [c]).concat(v) : v;
-}
-
-
-
-function getDirectChildNodes(el, tag) {
-	tag = tag.toUpperCase();
-	return Array.from(el.childNodes).filter(node => node.nodeName.toUpperCase() === tag);
-}
-
-
-
 /**
  * Select the nodes we might want to remove.
  *
@@ -434,7 +350,6 @@ function pickUnsanitaryElements (root, cleanAttributes) {
 
 	return picked;
 }
-
 
 
 /**

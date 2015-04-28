@@ -1,8 +1,6 @@
-import {
-	parseDomObject,
-	getImagesFromDom,
-	getVideosFromDom
-} from 'common/utils/dom';
+import parseDomObject from './object';
+import getImagesFromDom from './image';
+import getVideosFromDom from './video';
 
 export default function parseFramedElement(el) {
 	//This should always be a <span><img/></span> construct:
@@ -17,9 +15,7 @@ export default function parseFramedElement(el) {
 	// 		style="width:320px; height:389px">
 	// </span>
 
-	function flat(o, i) {
-		return o || (Array.isArray(i) ? i.reduce(flat) : i);
-	}
+	let flat = (o, i) => o || (Array.isArray(i) ? i.reduce(flat) : i);
 
 	let data = parseDomObject(el);
 

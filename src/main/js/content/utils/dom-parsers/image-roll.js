@@ -1,6 +1,9 @@
-import {
-	parseDomObject,
-	// getImagesFromDom
-} from 'common/utils/dom';
+import parseDomObject from './object';
+import getImagesFromDom from './image';
 
-export default parseDomObject;
+export default function parseElement(el) {
+
+	console.log(getImagesFromDom(el));
+
+	return parseDomObject(el);
+}

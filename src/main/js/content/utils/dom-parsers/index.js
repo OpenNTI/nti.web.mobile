@@ -1,4 +1,4 @@
-import {parseDomObject} from 'common/utils/dom';
+import parseDomObject from './object';
 import parseFramedElement from './framed-elements';
 import parseImageRoll from './image-roll';
 import parseVideoRoll from './video-roll';
