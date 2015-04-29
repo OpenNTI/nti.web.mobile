@@ -123,7 +123,7 @@ export default React.createClass({
 
 
 	onTouchStart (e) {
-		let touch = event.targetTouches[0];
+		let touch = e.targetTouches[0];
 
 		let active = this.state.active;
 		let videos = this.refs.v;
@@ -190,8 +190,8 @@ export default React.createClass({
 			}
 
 			if (sliding === 2) {
-				if ((active === 0 && event.clientX > data.x) ||
-					(active === (me.getVideoList().length - 1) && event.clientX < data.x)) {
+				if ((active === 0 && e.clientX > data.x) ||
+					(active === (me.getVideoList().length - 1) && e.clientX < data.x)) {
 					touchPixelRatio = 3;
 				}
 
