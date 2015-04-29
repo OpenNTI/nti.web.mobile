@@ -38,6 +38,9 @@ export default function parseDomObject (el) {
 	getDirectChildNodes(el, 'param').forEach(p => addValueFor(obj, p.name, p.value));
 
 	obj.children = getDirectChildNodes(el, 'object').map(p => parseDomObject(p));
+	if (obj.children.length === 0) {
+		delete obj.children;
+	}
 
 	Object.defineProperty(obj, 'dom', {
 		value: el.cloneNode(true)
