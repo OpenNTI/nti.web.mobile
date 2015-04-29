@@ -17,6 +17,12 @@ export default React.createClass({
 	},
 
 
+	propTypes: {
+		outlineId: React.PropTypes.string.isRequred,
+		item: React.PropTypes.object.isRequred
+	},
+
+
 	getInitialState () {
 		return {
 			active: 0,
@@ -35,15 +41,6 @@ export default React.createClass({
 	componentWillReceiveProps (nextProps) {
 		if (nextProps.outlineId !== this.props.outlineId) {
 			this.getDataIfNeeded(nextProps);
-		}
-	},
-
-
-	componentDidUpdate (_, prevState) {
-		let node = this.refs.v && React.findDOMNode(this.refs.v);
-		let {offsetWidth} = node || {};
-		if (prevState.offsetWidth !== offsetWidth) {
-			this.setState({offsetWidth});
 		}
 	},
 
@@ -314,7 +311,7 @@ export default React.createClass({
 	renderDots () {
 		return this.getVideoList().map((_, i) => {
 			let active = (i === (this.state.active || 0)) ? 'active' : null;
-			return (<li key={'video-' + i}><a className={active} href={"#" + i}
+			return (<li key={'video-' + i}><a className={active} href={'#' + i}
 				onClick={this.onActivateSlide} data-index={i}/></li>);
 		});
 	}
