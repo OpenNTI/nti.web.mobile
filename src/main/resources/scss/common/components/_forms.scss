@@ -75,6 +75,7 @@ label:not(.css3unsupported) {
 			line-height: 3;
 			padding-left: 1.5rem;
 			position: relative;
+			z-index: -1; // fixes an issue on iOS where you can't click the label to toggle the input.
 
 			&::before {
 				content: '';
