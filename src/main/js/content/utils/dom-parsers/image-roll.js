@@ -2,8 +2,9 @@ import parseDomObject from './object';
 import getImagesFromDom from './image';
 
 export default function parseElement(el) {
+	let data = parseDomObject(el);
 
-	console.log(getImagesFromDom(el));
+	data.images = getImagesFromDom(el);
 
-	return parseDomObject(el);
+	return data;
 }
