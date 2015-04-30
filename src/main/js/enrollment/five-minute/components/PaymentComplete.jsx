@@ -49,6 +49,8 @@ export default React.createClass({
 		let entry;
 		let message = 'You have successfully enrolled!';
 		let cls = 'enrollment-failed';
+		let buttonCls = 'button tiny';
+		let library = this.getBasePath() + 'library/';
 
 		if (!this.state.paymentState) {
 
@@ -71,11 +73,15 @@ export default React.createClass({
 					<div>{message}</div>
 				</figure>
 
-				<a className="button tiny" href={this.getBasePath()}>Go Home</a>
+				{entry ? (
+					<a className={buttonCls} href={library}>Go to my courses</a>
+				):(
+					<a className={buttonCls} href={this.getBasePath()}>Go Home</a>
+				)}
 
 				{entry && ( <Detail entry={entry}/> )}
 
-				{entry && ( <a className="button tiny" href={this.getBasePath()}>Go Home</a> )}
+				{entry && ( <a className={buttonCls} href={library}>Go to my courses</a> )}
 			</div>
 		);
 	}

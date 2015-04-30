@@ -3,7 +3,6 @@ import React from 'react';
 import path from 'path';
 
 import Loading from 'common/components/Loading';
-import CourseContentLink from 'library/components/CourseContentLinkMixin';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -12,7 +11,7 @@ import EnrollmentSuccess from './EnrollmentSuccess';
 
 export default React.createClass({
 	displayName: 'Enroll',
-	mixins: [EnrollmentOptions, CourseContentLink, ContextSender],
+	mixins: [EnrollmentOptions, ContextSender],
 
 	getCourseTitle () {
 		let e = this.getEntry();
@@ -39,9 +38,8 @@ export default React.createClass({
 		if(this.state.enrolled) {
 
 			let title = this.getCourseTitle();
-			let href = this.courseHref(this.getCourseId());
 
-			return <EnrollmentSuccess href={href} courseTitle={title}/>;
+			return <EnrollmentSuccess courseTitle={title}/>;
 		}
 
 		let widgets = this.enrollmentWidgets();
