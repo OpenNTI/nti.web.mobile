@@ -154,11 +154,10 @@ export default React.createClass({
 
 	onTouchMove (e) {
 
-
-		let me = this;
-		let state = me.state;
+		let {state} = this;
 		let data = state.touch;
 		let find = (t, i) =>t || (i.identifier === state.touch.id && i);
+
 		if (!data) {
 			console.debug('No touch data...ignoring.');
 			return;
@@ -191,14 +190,14 @@ export default React.createClass({
 
 			if (sliding === 2) {
 				if ((active === 0 && e.clientX > data.x) ||
-					(active === (me.getVideoList().length - 1) && e.clientX < data.x)) {
+					(active === (this.getVideoList().length - 1) && e.clientX < data.x)) {
 					touchPixelRatio = 3;
 				}
 
 				pixelOffset = startPixelOffset + (delta / touchPixelRatio);
 
 				// console.debug('Touch move... %d %d %d', startPixelOffset, pixelOffset, delta);
-				me.setState({
+				this.setState({
 					touch: Object.assign(state.touch, {
 						delta: delta,
 						pixelOffset: pixelOffset,
