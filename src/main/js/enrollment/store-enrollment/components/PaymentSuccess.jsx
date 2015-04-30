@@ -54,7 +54,7 @@ export default React.createClass({
 	render () {
 		let {purchaseAttempt} = this.state;
 		let {purchasable} = this.props;
-		let title = (purchasable || {}).Title || '[Course Title]';
+		let title = (purchasable || {}).Title || 'the course';
 
 		let isGift = (purchaseAttempt || {}).RedemptionCode;
 
