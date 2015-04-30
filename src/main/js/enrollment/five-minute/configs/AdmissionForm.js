@@ -50,6 +50,7 @@ var mailingAddressFieldset = {
 			placeholder: t('country')
 		}),
 		{
+			label: t('zip'),
 			ref: 'mailing_postal_code',
 			placeholder: t('zip')
 		}
