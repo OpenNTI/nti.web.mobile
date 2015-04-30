@@ -11,6 +11,21 @@ export default React.createClass({
 	},
 
 
+	childContextTypes: {
+		PageWrapped: React.PropTypes.bool
+	},
+
+
+	contextTypes: {
+		PageWrapped: React.PropTypes.bool
+	},
+
+
+	getChildContext () {
+		return {PageWrapped: true};
+	},
+
+
 	render () {
 		let {children} = this.props;
 
@@ -19,7 +34,9 @@ export default React.createClass({
 		});
 
 		return React.createElement('div', {},
-				React.createElement(NavigationBar, props),
+				this.context.PageWrapped ?
+					null :
+					React.createElement(NavigationBar, props),
 				...this.renderChildren(children)
 		);
 	},

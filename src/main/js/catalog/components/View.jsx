@@ -11,7 +11,7 @@ import ContextSender from 'common/mixins/ContextSender';
 import BasePathAware from 'common/mixins/BasePath';
 
 import Loading from 'common/components/Loading';
-import NavigationBar from 'navigation/components/Bar';
+import Page from 'common/components/Page';
 
 import Enrollment from 'enrollment/components/View';
 
@@ -97,10 +97,9 @@ export default React.createClass({//eslint-disable-line react/no-multi-comp
 		let catalog = this.getCatalog();
 
 		return (
-			<div>
-				<NavigationBar title="Catalog" />
+			<Page title="Catalog">
 				{!catalog ? <Loading/> : <CatalogBody catalog={catalog}/>}
-			</div>
+			</Page>
 		);
 	}
 });
