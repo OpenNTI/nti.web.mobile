@@ -199,6 +199,14 @@ let RelatedFormPanel = React.createClass({
 				input = ToggleFieldset;
 				break;
 
+			case 'number':
+				Object.assign(props, {
+					pattern: '[0-9]*',
+					inputmode: 'numeric'
+				});
+				input = 'input';
+				break;
+
 			default:
 				input = 'input';
 		}
