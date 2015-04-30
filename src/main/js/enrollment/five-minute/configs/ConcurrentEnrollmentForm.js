@@ -16,20 +16,20 @@ module.exports = Object.freeze([
 			{
 				ref: 'name',
 				required: true,
-				placeholder: t('fullName'),
+				// placeholder: t('fullName'),
 				label: t('name')
 			},
 			{
 				ref: 'email',
 				required: true,
 				type: 'email',
-				placeholder: t('email'),
+				// placeholder: t('email'),
 				label: t('email')
 			},
 			{
 				ref: 'telephone_number',
 				type: 'tel',
-				placeholder: t('telephone_number'),
+				// placeholder: t('telephone_number'),
 				label: t('telephone_number')
 			},
 			{
@@ -66,7 +66,7 @@ module.exports = Object.freeze([
 			}),
 			{
 				ref: 'postal_code',
-				placeholder: t('postal_code'),
+				// placeholder: t('postal_code'),
 				label: t('postal_code')
 			}
 		]
