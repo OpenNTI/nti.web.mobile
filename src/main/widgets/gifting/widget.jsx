@@ -9,7 +9,7 @@ import {getServer} from 'common/utils';
 import Loading from 'common/components/Loading';
 import ErrorComponent from 'common/components/Error';
 
-import Constants from 'enrollment/store-enrollment/Constants';
+import * as Constants from 'enrollment/store-enrollment/Constants';
 import Store from 'enrollment/store-enrollment/Store';
 
 import Form from 'enrollment/store-enrollment/components/GiftView';
