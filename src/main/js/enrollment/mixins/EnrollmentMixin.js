@@ -74,15 +74,20 @@ export default {
 
 	canDrop (catalogEntry) {
 		// we currently only support dropping open enrollment within the app.
-		let options = catalogEntry.EnrollmentOptions.Items||{};
-		return options.OpenEnrollment && options.OpenEnrollment.IsEnrolled;
+
+		let {Items = {}} = catalogEntry.EnrollmentOptions || {};
+
+		return (Items.OpenEnrollment || {}).IsEnrolled;
 	},
 
 
 	isGiftable (enrollmentOption) {
-		let opt = (enrollmentOption && enrollmentOption.option)||{};
-		return !!(opt.Purchasables && opt.Purchasables.DefaultGiftingNTIID);
+		let {option = {}} = enrollmentOption || {};
+		let {DefaultGiftingNTIID} = option.Purchasables || {};
+
+		return !!DefaultGiftingNTIID;
 	},
+
 
 	hasGiftableEnrollmentOption (catalogEntry) {
 		return this.enrollmentOptions(catalogEntry, true).some(this.isGiftable);
@@ -93,21 +98,24 @@ export default {
 		if (!catalogEntry) {
 			return result;
 		}
+
 		let result = [];
 		let options = catalogEntry.EnrollmentOptions.Items||{};
 
 		function showOption (op) {
-			return op && op.IsAvailable;
+			return op && op.IsAvailable && !op.IsEnrolled;
 		}
 
-		Object.keys(options).forEach(key => {
-			if(includeUnavailable||showOption(options[key])) {
-				result.push({
-					key: key,
-					option: options[key]
-				});
+		for(let key of Object.keys(options)){
+
+			if(includeUnavailable || showOption(options[key])) {
+
+				result.push({key, option: options[key] });
+
 			}
-		});
+
+		}
+
 		return result;
 	},
 
