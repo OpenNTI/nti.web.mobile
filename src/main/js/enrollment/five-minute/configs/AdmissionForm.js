@@ -40,8 +40,8 @@ var mailingAddressFieldset = {
 		},
 		StateSelect.withProps({
 			label: t('state'),
-			ref: 'mailing_state',
-			required: true
+			required: false,
+			ref: 'mailing_state'
 		}),
 		CountrySelect.withProps({
 			label: t('country'),
@@ -129,7 +129,7 @@ module.exports = Object.freeze([
 			StateSelect.withProps({
 				label: t('state'),
 				ref: 'state',
-				required: true
+				required: false
 			}),
 			CountrySelect.withProps({
 				label: t('country'),
