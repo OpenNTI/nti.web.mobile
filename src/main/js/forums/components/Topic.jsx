@@ -4,7 +4,7 @@ import React from 'react';
 import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
 
 import AnalyticsStore from 'analytics/Store';
-import Actions from '../Actions';
+import * as Actions from '../Actions';
 import Api from '../Api';
 import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID} from '../Constants';
 import {TOPIC_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
@@ -12,6 +12,7 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import Store from '../Store';
 
 import ActionLinks from './ActionLinks';
+import {ActionLinkConstants} from './ActionLinks';
 import CommentForm from './CommentForm';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
@@ -32,7 +33,6 @@ import StoreEvents from 'common/mixins/StoreEvents';
 import ToggleState from '../mixins/ToggleState';
 
 let t = scoped('FORUMS');
-let {EDIT, DELETE} = ActionLinks;
 
 const loadData = 'Topic:LoadData';
 
@@ -200,14 +200,14 @@ export default React.createClass({
 
 	[actionClickHandlers]() {
 		return {
-			[EDIT]: this.editTopic,
-			[DELETE]: this.deleteTopic
+			[ActionLinkConstants.EDIT]: this[editTopic],
+			[ActionLinkConstants.DELETE]: this[deleteTopic]
 		};
 	},
 
 	[saveEdit]() {
 		let val = this.refs.headline.getValue();
-		Actions.saveComment(this[getTopic].headline, val);
+		Actions.saveComment(this[getTopic]().headline, val);
 	},
 
 	[hideEditForm]() {
@@ -239,9 +239,9 @@ export default React.createClass({
 		let props = {
 			ref: 'headline',
 			item: topic.headline,
-			onSubmit: this.saveEdit,
-			onCompletion: this.hideEditForm,
-			onCancel: this.hideEditForm
+			onSubmit: this[saveEdit],
+			onCompletion: this[hideEditForm],
+			onCancel: this[hideEditForm]
 		};
 
 		return (
