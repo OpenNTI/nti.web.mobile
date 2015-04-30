@@ -28,7 +28,9 @@ export default {
 	componentDidMount () {
 		let entry = this.getEntry();
 		EnrollmentStore.addChangeListener(this.storeChange);
-		EnrollmentStore.loadEnrollmentStatus(entry.CourseNTIID);
+		if (entry) {
+			EnrollmentStore.loadEnrollmentStatus(entry.CourseNTIID);
+		}
 	},
 
 

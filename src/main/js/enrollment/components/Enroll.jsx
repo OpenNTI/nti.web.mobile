@@ -15,16 +15,13 @@ export default React.createClass({
 	mixins: [EnrollmentOptions, CourseContentLink, ContextSender],
 
 	getCourseTitle () {
-		return this.getEntry().Title;
+		let e = this.getEntry();
+		return e ? e.Title : 'Unknown';
 	},
 
 
 	getContext () {
 		return Promise.resolve([
-			{
-				label: this.getCourseTitle(),
-				href: path.normalize(this.makeHref('..'))
-			},
 			{
 				label: 'Enroll',
 				href: path.normalize(this.makeHref(this.getPath()))
