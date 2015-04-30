@@ -14,7 +14,7 @@ import TopicView from './TopicView';
 
 let Location = Router.Location;
 
-module.exports = React.createClass({
+export default React.createClass({
 
 	displayName: 'ForumView',
 

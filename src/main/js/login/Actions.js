@@ -3,7 +3,7 @@ import * as Constants from './Constants';
 
 import {getServer} from 'common/utils';
 import Store from './Store';
-import MessageActions from 'messages/Actions';
+import * as MessageActions from 'messages/Actions';
 import Message from 'messages/Message';
 
 /**

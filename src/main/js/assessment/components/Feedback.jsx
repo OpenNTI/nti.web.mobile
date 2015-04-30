@@ -9,7 +9,7 @@ import FeedbackEntry from './FeedbackEntry';
 
 const t = scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Feedback',
 	mixins: [StoreEvents],
 

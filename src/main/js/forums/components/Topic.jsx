@@ -46,7 +46,7 @@ const actionClickHandlers = 'Topic:actionClickHandlers';
 const saveEdit = 'Topic:saveEdit';
 const hideEditForm = 'Topic:hideEditForm';
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Topic',
 
 	mixins: [

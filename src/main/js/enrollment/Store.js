@@ -84,4 +84,4 @@ AppDispatcher.register(function(payload) {
 });
 
 
-module.exports = Store;
+export default Store;

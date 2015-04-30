@@ -22,7 +22,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import BasePathAware from 'common/mixins/BasePath';
 
-let View = React.createClass({
+export default React.createClass({
 	displayName: 'StoreEnrollmentView',
 
 	mixins: [NavigatableMixin, BasePathAware], // needed for getPath() call we're using for the router's key.
@@ -165,5 +165,3 @@ let View = React.createClass({
 	}
 
 });
-
-module.exports = View;

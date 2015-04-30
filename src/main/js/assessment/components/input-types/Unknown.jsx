@@ -1,7 +1,7 @@
 import React from 'react';
 import t from 'common/locale';
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Unknown',
 
 	propTypes: {

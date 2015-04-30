@@ -24,7 +24,7 @@ function getLink(o, k) {
 	return getLinkFn(o, k);
 }
 
-module.exports = React.createClass({
+export default React.createClass({
 
 	getInitialState () {
 		return {

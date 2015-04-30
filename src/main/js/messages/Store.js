@@ -106,4 +106,4 @@ AppDispatcher.register(function(payload) {
 	return true; // No errors. Needed by promise in Dispatcher.
 });
 
-module.exports = Store;
+export default Store;

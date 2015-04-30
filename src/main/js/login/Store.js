@@ -6,7 +6,7 @@ import {EventEmitter} from 'events';
 
 import {IllegalArgumentException} from 'common/exceptions';
 import AppDispatcher from 'dispatcher/AppDispatcher';
-import MessagesActions from 'messages/Actions';
+import * as MessagesActions from 'messages/Actions';
 import Message from 'messages/Message';
 
 import t from 'common/locale';
@@ -217,4 +217,4 @@ AppDispatcher.register(function(payload) {
 	return true; // No errors. Needed by promise in Dispatcher.
 });
 
-module.exports = LoginStore;
+export default LoginStore;

@@ -12,7 +12,7 @@ import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 const getDiscountString = 'Pricing:getDiscountString';
 const onChange = 'Pricing:onChange';
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Pricing',
 
 	mixins: [FormattedPriceMixin],

@@ -352,4 +352,4 @@ let RelatedFormPanel = React.createClass({
 
 });
 
-module.exports = RelatedFormPanel;
+export default RelatedFormPanel;
