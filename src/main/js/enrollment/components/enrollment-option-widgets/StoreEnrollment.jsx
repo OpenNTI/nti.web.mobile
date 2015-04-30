@@ -1,6 +1,7 @@
 import React from 'react';
 
 import PanelButton from 'common/components/PanelButton';
+import Err from 'common/components/Error';
 
 import {scoped} from 'common/locale';
 
@@ -31,6 +32,11 @@ export default React.createClass({
 	render () {
 
 		let option = this.props.enrollmentOption.option;
+
+		if (!option || !option.Currency || !option.Price) {
+			return <Err error="Pricing information is unavailable." />;
+		}
+
 		let formattedPrice = this.getFormattedPrice(option.Currency, option.Price);
 
 		return (
