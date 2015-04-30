@@ -36,17 +36,12 @@ export default React.createClass({
 		}
 
 		if(this.state.enrolled) {
-
-			let title = this.getCourseTitle();
-
-			return <EnrollmentSuccess courseTitle={title}/>;
+			return <EnrollmentSuccess courseTitle={this.getCourseTitle()}/>;
 		}
-
-		let widgets = this.enrollmentWidgets();
 
 		return (
 			<div>
-				{widgets}
+				{this.enrollmentWidgets()}
 			</div>
 		);
 	}

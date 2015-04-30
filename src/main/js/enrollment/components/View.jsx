@@ -56,7 +56,7 @@ export default React.createClass({
 
 	getContext () {
 		let {router} = this.refs;
-		let href = router && path.normalize(router.makeHref('.'));
+		let href = router && path.normalize(router.makeHref('../'));
 
 		return Promise.resolve([{ label: this.getCourseTitle(), href }]);
 	},
