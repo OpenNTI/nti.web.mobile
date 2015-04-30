@@ -9,7 +9,7 @@ import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import CatalogStore from 'catalog/Store';
+import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
 
 import NotFound from 'notfound/components/View';
 
@@ -21,32 +21,35 @@ import DropCourse from './DropCourse';
 
 import {StoreEnrollment, FiveminuteEnrollment} from '../Constants';
 
-function getEntry(entryId) {
-	return CatalogStore.getEntry(decodeFromURI(entryId));
-}
-
 
 export default React.createClass({
 	displayName: 'enrollment:View',
-	mixins: [BasePathAware, ContextSender, NavigatableMixin],
+	mixins: [BasePathAware, CatalogAccessor, ContextSender, NavigatableMixin],
 
 	propTypes: {
 		entryId: React.PropTypes.string.isRequired
 	},
 
+
+	getEntry () {
+		return this.getCatalogEntry(
+			decodeFromURI(
+				this.props.entryId));
+	},
+
 	getCourseId () {
-		return (getEntry(this.props.entryId)||{}).CourseNTIID;
+		return (this.getEntry() || {}).CourseNTIID;
 	},
 
 
 	getCourseTitle () {
-		let e = getEntry(this.props.entryId);
+		let e = this.getEntry();
 		return e ? e.Title : 'Enrollment';
 	},
 
 
 	getEnrollmentOption (key) {
-		let entry = getEntry(this.props.entryId);
+		let entry = this.getEntry();
 		if (entry && entry.EnrollmentOptions) {
 			return entry.EnrollmentOptions.Items[key];
 		}
@@ -62,13 +65,12 @@ export default React.createClass({
 	},
 
 	render () {
+		let {entryId} = this.props;
 		let courseId = this.getCourseId();
 
-		if (!courseId) {
+		if (!this.state.catalogLoading && !courseId) {
 			return (
-				<Router.Locations contextual>
-					<Router.NotFound handler={NotFound}/>
-				</Router.Locations>
+				<NotFound/>
 			);
 		}
 
@@ -76,26 +78,26 @@ export default React.createClass({
 			<Router.Locations contextual ref="router">
 
 				<Router.Location path="/drop/" handler={DropCourse}
-					entryId={this.props.entryId}
+					entryId={entryId}
 					courseId={courseId}/>
 
 				<Router.Location
 					path="/store(/*)"
 					handler={StoreEnrollmentView}
-					entryId={this.props.entryId}
+					entryId={entryId}
 					enrollment={this.getEnrollmentOption(StoreEnrollment)}
 					courseId={courseId} />
 
 				<Router.Location
 					path="/credit(/*)"
 					handler={CreditEnrollmentView}
-					entryId={this.props.entryId}
+					entryId={entryId}
 					enrollment={this.getEnrollmentOption(FiveminuteEnrollment)}
 					courseId={courseId} />
 
 				<Router.NotFound
 					handler={Enroll}
-					entryId={this.props.entryId} />
+					entryId={entryId} />
 
 			</Router.Locations>
 		);
