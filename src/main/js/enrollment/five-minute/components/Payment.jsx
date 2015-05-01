@@ -1,5 +1,5 @@
 import React from 'react';
-import PanelButton from 'common/components/PanelButton';
+
 import {scoped} from 'common/locale';
 import Actions from '../Actions';
 import Err from 'common/components/Error';
