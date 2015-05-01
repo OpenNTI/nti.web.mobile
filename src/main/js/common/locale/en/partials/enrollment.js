@@ -120,8 +120,7 @@ export default {
 			oklahomaResident: 'Are you an Oklahoma resident?',
 			currentlyAttending: 'Are you currently attending the University of Oklahoma?',
 			attendingHighschool: 'Are you currently attending high school?',
-			historyEnrollViaOzone: 'LSTD 1153.500 fulfills US History Gen Ed requirement. To enroll, visit ' +
-					'<a href="http://ozone.ou.edu" target="_blank">ozone.ou.edu</a> and enroll in LSTD 1153, Section 500.',
+			historyEnrollViaOzone: 'Please sign up for the course using your <a href="http://ozone.ou.edu" target="_blank">Ozone</a> account. Note: not all Janux courses are available for credit to ou students',
 			name: 'Full Name',
 			fullName: 'Full Name',
 			first_name: 'First Name',
