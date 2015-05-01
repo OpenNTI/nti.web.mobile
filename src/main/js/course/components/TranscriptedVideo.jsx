@@ -11,6 +11,7 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import addClass from 'nti.lib.dom/lib/addclass';
 import removeClass from 'nti.lib.dom/lib/removeclass';
 
+import Error from 'common/components/Error';
 import LoadingMask from 'common/components/Loading';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -158,7 +159,12 @@ export default React.createClass({
 	render () {
 		let {error, video, cues, regions, currentTime, loading} = this.state;
 
+
 		loading = loading || !video;
+
+		if (error && !video) {
+			return ( <Error error={error}/> );
+		}
 
 		return (
 			<div className="transcripted-video">

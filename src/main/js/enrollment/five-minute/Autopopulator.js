@@ -5,16 +5,20 @@ import FieldValuesStore from 'common/forms/FieldValuesStore';
 let valuesMap = {
 };
 
-class Autopopulator {
+export default class Autopopulator {
 
 	constructor() {
-		getService().then(service => {
-			service.getAppUser().then(user => {
-				valuesMap.first_name = user.NonI18NFirstName;
-				valuesMap.last_name = user.NonI18NLastName;
-				valuesMap.email = user.email;
+		try {
+			getService().then(service => {
+				service.getAppUser().then(user => {
+					valuesMap.first_name = user.NonI18NFirstName;
+					valuesMap.last_name = user.NonI18NLastName;
+					valuesMap.email = user.email;
+				});
 			});
-		});
+		} catch (e) {
+			console.error(e.stack || e.message || e);
+		}
 	}
 
 	valueFor(fieldName) {
@@ -30,5 +34,3 @@ class Autopopulator {
 	}
 
 }
-
-export default new Autopopulator();
