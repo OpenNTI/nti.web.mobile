@@ -120,7 +120,7 @@ export default {
 			oklahomaResident: 'Are you an Oklahoma resident?',
 			currentlyAttending: 'Are you currently attending the University of Oklahoma?',
 			attendingHighschool: 'Are you currently attending high school?',
-			historyEnrollViaOzone: 'Please sign up for the course using your <a href="http://ozone.ou.edu" target="_blank">Ozone</a> account. Note: not all Janux courses are available for credit to ou students',
+			historyEnrollViaOzone: 'Please sign up for the course using your <a href="http://ozone.ou.edu" target="_blank">Ozone</a> account. Note: not all Janux courses are available for credit to OU students.',
 			name: 'Full Name',
 			fullName: 'Full Name',
 			first_name: 'First Name',
