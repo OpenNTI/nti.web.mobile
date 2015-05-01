@@ -12,6 +12,7 @@ import Loading from 'common/components/Loading';
 import {scoped} from 'common/locale';
 
 import _formConfig from '../configs/FiveMinuteEnrollmentForm';
+import autopop from '../Autopopulator';
 
 import Actions from '../Actions';
 import Store from '../Store';
@@ -39,11 +40,13 @@ export default React.createClass({
 
 	componentDidMount () {
 		Store.addChangeListener(this.onStoreChange);
+		FieldValuesStore.setAutopopulator(autopop);
 		FieldValuesStore.addChangeListener(this.fieldValuesStoreChange);
 	},
 
 	componentWillUnmount () {
 		Store.removeChangeListener(this.onStoreChange);
+		FieldValuesStore.setAutopopulator(null);
 		FieldValuesStore.removeChangeListener(this.fieldValuesStoreChange);
 	},
 

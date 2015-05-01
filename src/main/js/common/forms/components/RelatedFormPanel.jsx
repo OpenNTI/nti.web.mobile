@@ -157,7 +157,7 @@ let RelatedFormPanel = React.createClass({
 			onFocus: this.props.inputFocus,
 			placeholder: field.placeholder || '', // tr(ref, translateOptions),
 			className: cssClass.join(' '),
-			defaultValue: (values || {})[ref] || configuredValue,
+			defaultValue: (values || {})[ref] || FieldValuesStore.getValue(ref) || configuredValue,
 			type: type,
 			field: field,
 			// ToggleFieldset needs to call renderField.

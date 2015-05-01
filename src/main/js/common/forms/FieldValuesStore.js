@@ -9,6 +9,7 @@ export default Object.assign({}, EventEmitter.prototype, {
 
 	fieldValues: {},
 	availableFields: new Set(),
+	autopopulator: null,
 
 	addChangeListener (callback) {
 		this.on(CHANGE_EVENT, callback);
@@ -30,8 +31,23 @@ export default Object.assign({}, EventEmitter.prototype, {
 		this.fieldValues[name] = value;
 	},
 
+	autopopValue(name) {
+		return this.autopopulator ? this.autopopulator.valueFor(name) : undefined;
+	},
+
 	getValue (name) {
-		return this.fieldValues[name];
+		let v = this.fieldValues[name];
+		if (!v) {
+			v = this.autopopValue(name);
+			if (v) {
+				this.setValue(name, v);
+			}
+		}
+		return v;
+	},
+
+	setAutopopulator (autopop) {
+		this.autopopulator = autopop;
 	},
 
 	clearValue (name) {
