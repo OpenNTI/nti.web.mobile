@@ -29,6 +29,7 @@ export default React.createClass({
 
 	propTypes: {
 		courseId: React.PropTypes.string,
+		entryId: React.PropTypes.string,
 		enrollment: React.PropTypes.shape({
 			Purchasable: React.PropTypes.object
 		}).isRequired
@@ -134,7 +135,7 @@ export default React.createClass({
 		let purchasable = this.getPurchasable();
 		let giftPurchasable = this.getPurchasable(true);
 		let courseTitle = (purchasable || {}).Title || '';
-		let {courseId} = this.props;
+		let {entryId, courseId} = this.props;
 		let giftDoneLink = this.getBasePath() + 'catalog/';
 		let isGift = !!Store.getGiftInfo();
 
@@ -162,7 +163,8 @@ export default React.createClass({
 							handler={GiftRedeem}
 							purchasable={giftPurchasable}
 							courseTitle={courseTitle}
-							courseId={courseId} />
+							courseId={courseId}
+							entryId={entryId} />
 						<NotFound handler={Form} purchasable={purchasable}/>
 					</Locations>
 				</ReactCSSTransitionGroup>

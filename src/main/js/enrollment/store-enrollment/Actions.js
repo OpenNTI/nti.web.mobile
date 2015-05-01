@@ -31,8 +31,8 @@ export function resetProcess (options) {
 }
 
 
-export function redeemGift (purchasable, accessKey) {
-	dispatch(Constants.REDEEM_GIFT, { purchasable, accessKey });
+export function redeemGift (purchasable, courseId, accessKey) {
+	dispatch(Constants.REDEEM_GIFT, { purchasable, courseId, accessKey });
 }
 
 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+
 import FieldRender from 'common/forms/mixins/RenderFormConfigMixin';
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
@@ -23,7 +25,8 @@ export default React.createClass({
 	mixins: [FieldRender],
 
 	propTypes: {
-		purchasable: React.PropTypes.object,
+		purchasable: React.PropTypes.object.isRequired,
+		entryId: React.PropTypes.string.isRequired,
 		code: React.PropTypes.string
 	},
 
@@ -85,7 +88,13 @@ export default React.createClass({
 		this.setState({
 			busy: true
 		});
-		redeemGift(this.props.purchasable, this.state.fieldValues.accessKey);
+
+		let {entryId} = this.props;
+
+		redeemGift(
+			this.props.purchasable,
+			decodeFromURI(entryId),
+			this.state.fieldValues.accessKey);
 	},
 
 	[Events.ON_CHANGE] (event) {

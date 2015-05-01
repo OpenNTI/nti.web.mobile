@@ -237,10 +237,9 @@ function getEnrollmentService() {
 	});
 }
 
-function redeemGift(purchasable, accessKey) {
-	return getEnrollmentService().then(function(service) {
-		return service.redeemGift(purchasable, accessKey);
-	});
+function redeemGift(purchasable, courseId, accessKey) {
+	return getEnrollmentService().then(service =>
+		service.redeemGift(purchasable, courseId, accessKey));
 }
 
 Store.appDispatch = AppDispatcher.register(function(data) {
@@ -286,7 +285,11 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 			break;
 
 		case Constants.REDEEM_GIFT:
-			redeemGift(action.payload.purchasable, action.payload.accessKey)
+			redeemGift(
+				action.payload.purchasable,
+				action.payload.courseId,
+				action.payload.accessKey)
+
 			.then(function(result) {
 				Store.emitChange({
 					type: Constants.GIFT_CODE_REDEEMED,
