@@ -19,7 +19,7 @@ export default React.createClass({
 		return (
 			<div className="enrollment-success">
 				<figure className="notice">
-					<div>You are enrolled{courseTitle ? ' in ' + {courseTitle} : ''}.</div>
+					<div>You are enrolled{courseTitle ? ' in ' + courseTitle : ''}.</div>
 				</figure>
 
 
