@@ -78,7 +78,16 @@ export default React.createClass({
 		}
 	},
 
+
+	componentDidUpdate (prevProps, prevState) {
+		if (this.state.admissionStatus !== prevState.admissionStatus) {
+			global.scrollTo(0, 0);
+		}
+	},
+
+
 	render () {
+		//TODO: Rewrite into a router (memory env) or some other "select" style to split this into smaller, clearer render methods/components.
 
 		if (this.state.error) {
 			return <Err error={this.state.error} />;
