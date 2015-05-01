@@ -21,6 +21,7 @@ import DropCourse from './DropCourse';
 
 import {StoreEnrollment, FiveminuteEnrollment} from '../Constants';
 
+const entry = Symbol('cce');
 
 export default React.createClass({
 	displayName: 'enrollment:View',
@@ -32,9 +33,27 @@ export default React.createClass({
 
 
 	getEntry () {
-		return this.getCatalogEntry(
-			decodeFromURI(
-				this.props.entryId));
+		let id = decodeFromURI(this.props.entryId);
+		let e = this.getCatalogEntry();
+
+		// Enrollment can trigger a catalog reload. If we started on one catalog entry,
+		// but the service mapped us to a different one on completing enrollment, the
+		// catalog will contain a new and different Entry that represents the same thing,
+		// but the ID will not map, and thus, we will have a nill `e` variable. So, to
+		// make sure routes continue to work while we are wrapping up the enrollment
+		// proccess save the last-known-good Entry, if it fails to come back on a
+		// subsequent call, use the cached one IF (AND ONLY IF) the ID matches.
+		if (!e) {
+			e = this[entry];
+			if (!e || e.getID() !== id) {
+				e = null;
+			}
+		} else {
+			this[entry] = e;
+		}
+
+
+		return e;
 	},
 
 	getCourseId () {
