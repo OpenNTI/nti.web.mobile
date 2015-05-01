@@ -60,6 +60,16 @@ select.error {
 	}
 }
 
+%labelspan {
+	//iOS tab bug fix.
+	-webkit-pointer-events: none;
+	pointer-events: none;
+	a {
+		-webkit-pointer-events: all;
+		pointer-events: all;
+	}
+
+}
 // css3unsupported is not a class we use, but the :not() isn't supported in IE8 ..we're using it as a feature test.
 // so this block of style will not apply at all in IE8. (or android 2.x)
 // so the system default checkbox will be left as is.
@@ -67,22 +77,26 @@ label:not(.css3unsupported) {
 	$checkbox: 'input[type="checkbox"]';
 	$radiobox: 'input[type="radio"]';
 
+	&.radio {
+		span {
+			@extend %labelspan;
+			background: $quad-grey;
+			padding: 1rem;
+			margin-bottom: .25rem;
+			display: inline-block;
+			width: 90%;
+		}
+	}
 
 	& > #{$checkbox} {
 		position: absolute !important;
 		opacity: 0 !important;//Cannot "display:none" nor "visibilitiy:hidden" or you cannot access it with tab/keyboard.
 
 		& + span {
+			@extend %labelspan;
 			line-height: 3;
 			padding-left: 1.5rem;
 			position: relative;
-
-			//iOS tab bug fix.
-			& {
-				pointer-events: none;
-				a {pointer-events: all;}
-			}
-
 
 			&::before {
 				content: '';
