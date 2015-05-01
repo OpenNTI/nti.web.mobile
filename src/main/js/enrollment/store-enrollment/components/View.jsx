@@ -144,7 +144,10 @@ export default React.createClass({
 				<ReactCSSTransitionGroup transitionName="loginforms">
 					<Locations contextual
 						ref='router'>
-						<Location path="/confirm/" handler={PaymentConfirm} purchasable={purchasable}/>
+						<Location path="/confirm/"
+							handler={PaymentConfirm}
+							purchasable={isGift ? giftPurchasable : purchasable}
+							/>
 						<Location path="/success/"
 							handler={PaymentSuccess}
 							purchasable={isGift ? giftPurchasable : purchasable}
