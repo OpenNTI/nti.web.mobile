@@ -109,7 +109,7 @@ export function installAnonymousService () {
 	getServer();//(re)build instances
 
 	//preset-cache to empty doc
-	getServer.datacache.getForContext().set('service-doc', {});
+	getServer.datacache.getForContext().set('service-doc', {Items: []});
 }
 
 
