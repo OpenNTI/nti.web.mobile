@@ -103,7 +103,9 @@ export default React.createClass({
 				break;
 
 			case Constants.STRIPE_PAYMENT_SUCCESS:
-				router.navigate('success/');
+				// the catalog entry we're rooted under may not exist when the catalog reloads
+				// so the success message lives under the root catalog router.
+				this.navigate('../enrollment/success/');
 				break;
 
 			case Constants.STRIPE_PAYMENT_FAILURE:

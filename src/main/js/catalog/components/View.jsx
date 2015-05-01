@@ -14,6 +14,7 @@ import Loading from 'common/components/Loading';
 import Page from 'common/components/Page';
 
 import Enrollment from 'enrollment/components/View';
+import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 
 
 const CatalogBody = React.createClass({
@@ -53,6 +54,10 @@ const CatalogBody = React.createClass({
 				<Location
 					path="/item/:entryId(/*)"
 					handler={EntryDetail}
+				/>
+				<Location
+					path="/enrollment/success/"
+					handler={EnrollmentSuccess}
 				/>
 				<Location
 					path="*"

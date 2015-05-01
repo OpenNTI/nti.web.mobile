@@ -13,17 +13,17 @@ export default React.createClass({
 	render () {
 		let basePath = this.getBasePath();
 		let {courseTitle} = this.props;
-		let verbage = 'Go to my courses';
+		let verbiage = 'Go to my courses';
 		let href = basePath + 'library/';
 
 		return (
 			<div className="enrollment-success">
 				<figure className="notice">
-					<div>You are enrolled in {courseTitle}.</div>
+					<div>You are enrolled{courseTitle ? ' in ' + {courseTitle} : ''}.</div>
 				</figure>
 
 
-				<a className="button tiny" href={href}>{verbage}</a>
+				<a className="button tiny" href={href}>{verbiage}</a>
 			</div>
 		);
 	}
