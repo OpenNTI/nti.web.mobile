@@ -142,7 +142,7 @@ let RelatedFormPanel = React.createClass({
 			fallback: ''
 		};
 
-		let configuredValue = field.type !== 'checkbox' && (field.value || field.defaultValue);
+		let configuredValue = field.type === 'checkbox' ? undefined : (field.value || field.defaultValue);
 
 		// explicit test against undefined because the value could be zero which is falsy.
 		if (configuredValue !== undefined && (type === 'hidden' || !FieldValuesStore.getValue(ref))) {
