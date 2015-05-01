@@ -128,6 +128,7 @@ export default React.createClass({
 		let active = this.state.active;
 		let videos = this.refs.v;
 		let pixelOffset = 0;
+
 		if (videos) {
 			videos = React.findDOMNode(videos);
 			pixelOffset = active * -videos.offsetWidth;
@@ -155,7 +156,9 @@ export default React.createClass({
 	onTouchMove (e) {
 
 		let {state} = this;
-		let data = state.touch;
+		let {active, touch} = state;
+		let data = touch;
+
 		let find = (t, i) =>t || (i.identifier === state.touch.id && i);
 
 		if (!data) {
@@ -163,11 +166,10 @@ export default React.createClass({
 			return;
 		}
 
-		let active = state.active;
-		let touch = Array.from(e.targetTouches || []).reduce(find, null);
-		let sliding = data.sliding;
-		let pixelOffset = data.pixelOffset;
-		let startPixelOffset = data.startPixelOffset;
+		touch = Array.from(e.targetTouches || []).reduce(find, null);
+
+		let {sliding, pixelOffset, startPixelOffset} = data;
+
 		let delta = 0;
 		let touchPixelRatio = 1;
 
@@ -215,9 +217,11 @@ export default React.createClass({
 		let touch = this.state.touch || {};
 
 		let find = (t, i) =>t || (i.identifier === touch.id && i);
+
 		let endedTouch = Array.from(e.targetTouches || []).reduce(find, null);
-		let pixelOffset = touch.pixelOffset;
-		let startPixelOffset = touch.startPixelOffset;
+
+		let {pixelOffset, startPixelOffset} = touch;
+
 		let fn;
 
 		if (touch.sliding === 2) {
