@@ -31,14 +31,14 @@ export default Object.assign({}, EventEmitter.prototype, {
 		this.fieldValues[name] = value;
 	},
 
-	autopopValue(name) {
+	autopopulatedValue(name) {
 		return this.autopopulator ? this.autopopulator.valueFor(name) : undefined;
 	},
 
 	getValue (name) {
 		let v = this.fieldValues[name];
 		if (!v) {
-			v = this.autopopValue(name);
+			v = this.autopopulatedValue(name);
 			if (v) {
 				this.setValue(name, v);
 			}
