@@ -24,6 +24,8 @@ import Localized from 'common/components/LocalizedHTML';
 import ScriptInjector from 'common/mixins/ScriptInjectorMixin';
 import Err from 'common/components/Error';
 
+import ProfileStore from 'profile/Store';
+
 import Store from '../Store';
 import * as Actions from '../Actions';
 import * as Constants from '../Constants';
@@ -62,7 +64,7 @@ export default React.createClass({
 	},
 
 	componentWillMount() {
-		let formData = Store.getPaymentFormData();
+		let formData = Object.assign( { from: ProfileStore.getUserEmail() }, Store.getPaymentFormData() );
 		this.setState({
 			fieldValues: formData
 		});
