@@ -240,7 +240,7 @@
     "nti.lib.interfaces": {
       "version": "0.0.0",
       "from": "nti.lib.interfaces@git+https://repos.nextthought.com/git/nti.lib.interfaces",
-      "resolved": "git+https://repos.nextthought.com/git/nti.lib.interfaces#ba02611531c45efe9c6f2fe10e02c1659691b8fc"
+      "resolved": "git+https://repos.nextthought.com/git/nti.lib.interfaces#a66667d1ca96b2c654917c51296f2418f227dbe0"
     },
     "nti.lib.whiteboardjs": {
       "version": "0.0.0",
