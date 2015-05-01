@@ -23,8 +23,18 @@ export default Object.assign({}, EventEmitter.prototype, {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
-	getValues () {
-		return Object.assign({}, this.fieldValues);
+	getValues (stripEmpty = false) {
+		let vals = Object.assign({}, this.fieldValues);
+		return stripEmpty ? this.stripEmptyValues(vals) : vals;
+	},
+
+	stripEmptyValues(values) {
+		return Object.keys(values||{}).reduce((previous, current) => {
+			if (typeof values[current] !== 'string' || values[current].trim().length > 0) {
+				previous[current] = values[current];
+			}
+			return previous;
+		}, {});
 	},
 
 	setValue (name, value) {

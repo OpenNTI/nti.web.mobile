@@ -138,7 +138,7 @@ export default React.createClass({
 	},
 
 	handleSubmit () {
-		let fields = FieldValuesStore.getValues();
+		let fields = FieldValuesStore.getValues(true);
 
 		if (this.isValid()) {
 			this.setState({
