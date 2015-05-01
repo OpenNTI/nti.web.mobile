@@ -64,11 +64,13 @@ export default React.createClass({
 					<h3 className="header">{t('title')}</h3>
 					<LocalizedHTML className="gift" stringId={infoKey} scoped="ENROLLMENT.GIFT.SUCCESS" sender={sender} receiver={receiver} />
 					<p className="alert">{alert}</p>
+
 					<LocalizedHTML className="prompt"
-							stringId="info"
+							stringId={date ? 'info': 'infoNoDate'}
 							scoped="ENROLLMENT.GIFT.SUCCESS"
 							courseTitle={courseTitle}
 							startDate={date}/>
+
 					<LocalizedHTML className="support"
 							stringId="support"
 							scoped="ENROLLMENT.GIFT.SUCCESS"

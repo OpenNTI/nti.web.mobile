@@ -186,14 +186,18 @@ export default React.createClass({
 					<div className="row">
 
 						<div className="small-6 medium-4 columns">
-							<div className="cell">
-								<span className="label">{t('begins')}</span>
-								<DateTime className="value" date={startDate} />
-							</div>
-							<div className="cell">
-								<span className="label">{t('ends')}</span>
-								<DateTime className="value" date={endDate} />
-							</div>
+							{startDate && (
+								<div className="cell">
+									<span className="label">{t('begins')}</span>
+									<DateTime className="value" date={startDate} />
+								</div>
+							)}
+							{endDate && (
+								<div className="cell">
+									<span className="label">{t('ends')}</span>
+									<DateTime className="value" date={endDate} />
+								</div>
+							)}
 						</div>
 
 

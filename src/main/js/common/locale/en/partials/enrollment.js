@@ -68,6 +68,7 @@ export default {
 		SUCCESS: {
 			title: 'Gift Purchase Successful',
 			info: '<strong>%(courseTitle)s</strong> starts on <strong>%(startDate)s</strong> and will be conducted fully online.',
+			infoNoDate: '<strong>%(courseTitle)s</strong> will be conducted fully online.',
 			toSender: 'We\'ve sent an email of this transaction to you at <a>%(sender)s</a>. ' +
 						'We\'ve also sent a separate email that contains instructions on how to redeem this gift.',
 			alert: 'Please be sure to pass this information along to the gift recipient in time to take advantage of the course.',
