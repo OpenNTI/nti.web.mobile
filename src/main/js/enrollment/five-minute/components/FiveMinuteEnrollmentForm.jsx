@@ -53,7 +53,7 @@ export default React.createClass({
 				this.state.errors,
 				{$push: [{
 					field: event.reason.field,
-					message: event.reason.message
+					message: event.reason.message || event.reason.responseText
 				}]}
 			);
 			this.setState({
