@@ -180,6 +180,7 @@ export default {
 			contactMe: 'I want someone from the University of Oklahoma to contact me.'
 		}
 	},
+	admissionPendingMessage: 'Your application has been received. An admissions counselor will contact you soon.',
 	incompleteForm: 'Please complete all required fields.',
 	requiredField: 'Field is required.',
 

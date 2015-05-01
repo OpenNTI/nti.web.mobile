@@ -119,7 +119,7 @@ export default React.createClass({
 				break;
 
 			case Constants.ADMISSION_PENDING:
-				view = <PanelButton href="http://google.com">{t('admissionPendingMessage')}</PanelButton>;
+				view = <PanelButton href="../">{t('admissionPendingMessage')}</PanelButton>;
 				break;
 
 			default:
