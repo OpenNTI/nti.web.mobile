@@ -57,7 +57,7 @@
 		"no-underscore-dangle": 1,
 		"no-unused-vars": 2,/*default*/
 		"no-use-before-define": [2, "nofunc"],
-		"no-var": 1,
+		"no-var": 2,
 		"quotes": [1, "single"],
 		"strict": [2, "never"],
 		"wrap-iife": [2, "outside"],

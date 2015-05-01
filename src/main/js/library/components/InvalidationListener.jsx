@@ -6,6 +6,12 @@ import {
 	ENROLL_OPEN,
 	ENROLL_STORE
 } from 'enrollment/Constants';
+
+import {
+	GIFT_CODE_REDEEMED,
+	STRIPE_PAYMENT_SUCCESS
+} from 'enrollment/store-enrollment/Constants';
+
 import EnrollmentStore from 'enrollment/Store';
 import StoreEnrollmentStore from 'enrollment/store-enrollment/Store';
 
@@ -18,11 +24,9 @@ const INVALIDATION_EVENTS = {
 	[ENROLL_5M]: true,
 	[ENROLL_OPEN]: true,
 	[ENROLL_STORE]: true,
-	//TODO: convert these to constant references
-	STRIPE_PAYMENT_SUCCESS: true,
-	GIFT_CODE_REDEEMED: true
+	[STRIPE_PAYMENT_SUCCESS]: true,
+	[GIFT_CODE_REDEEMED]: true
 };
-
 
 function flush (event) {
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {scoped} from 'common/locale';
 import Message from 'messages/Message';
-import MessageActions from 'messages/Actions';
+import * as MessageActions from 'messages/Actions';
 
 import * as Constants from '../Constants';
 import Button from './Button';

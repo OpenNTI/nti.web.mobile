@@ -1,20 +1,19 @@
 
 
-var AppDispatcher = require('dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import {EventEmitter} from 'events';
 
-var Message = require('./Message');
-var Constants = require('./Constants');
+import Message from './Message';
+import * as Constants from './Constants';
 
-var Actions = Constants.actions;
-var Events = Constants.events;
-
-
-
-var _messages = {};
+let Actions = Constants.actions;
+let Events = Constants.events;
 
 
-var Store = Object.assign({}, EventEmitter.prototype, {
+let _messages = {};
+
+
+let Store = Object.assign({}, EventEmitter.prototype, {
 
 	emitChange: function() {
 		this.emit(Events.MESSAGES_CHANGE, this.messages());
@@ -35,7 +34,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	messages: function(options) {
-		var result = Object.keys(_messages).map(function(key) {
+		let result = Object.keys(_messages).map(function(key) {
 			return _messages[key];
 		});
 		if(options && options.category) {
@@ -52,7 +51,7 @@ var Store = Object.assign({}, EventEmitter.prototype, {
 		}
 		if(category) {
 			Object.keys(_messages).forEach(function(key) {
-				var m = _messages[key];
+				let m = _messages[key];
 				if(m.category === category) {
 					delete _messages[key];
 				}
@@ -85,7 +84,7 @@ function _removeMessage(id) {
 
 
 AppDispatcher.register(function(payload) {
-	var action = payload.action;
+	let action = payload.action;
 	switch (action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 		case Actions.MESSAGES_ADD:
@@ -107,4 +106,4 @@ AppDispatcher.register(function(payload) {
 	return true; // No errors. Needed by promise in Dispatcher.
 });
 
-module.exports = Store;
+export default Store;

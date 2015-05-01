@@ -1,7 +1,7 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
 import {getCatalog} from './Api';
-import {LOADED_CATALOG} from './Constants';
+import {LOAD_CATALOG, LOADED_CATALOG} from './Constants';
 
 
 export function reload () {
@@ -12,6 +12,7 @@ export function load (force = false) {
 
 	let result = getCatalog(!!force);
 	if (result !== load.last) {
+		dispatch(LOAD_CATALOG);
 		load.last = result;
 		load.result = result
 			.then(catalog =>

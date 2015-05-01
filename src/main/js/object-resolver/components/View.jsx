@@ -1,16 +1,22 @@
 import React from 'react';
 
+import path from 'path';
+
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import Loading from 'common/components/Loading';
+
+import BasePathAware from 'common/mixins/BasePath';
 
 import Redirect from 'navigation/components/Redirect';
 
 import {getService} from 'common/utils';
 
+import {resolve} from '../resolvers';
 
 export default React.createClass({
 	displayName: 'ObjectResolver',
+	mixins: [BasePathAware],
 
 	propTypes: {
 		objectId: React.PropTypes.string.isRequired
@@ -41,10 +47,14 @@ export default React.createClass({
 
 		getService()
 			.then(s=> s.getParsedObject(id))
-			.then(o=> {
-				console.debug('Resolve Object: %o', o);
-				this.setState({location: '/mobile/'});
-			});
+			.then(resolve)
+			.then(p=> path.join(this.getBasePath(), p))
+			.then(location => this.setState({location}))
+			// .catch(error => {
+			// 	console.error('Could not resolve: %o', error);
+			// 	this.setState({error});
+			// });
+			.catch(location => console.debug('Resolved: %o', location));
 	},
 
 

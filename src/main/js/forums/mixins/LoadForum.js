@@ -6,10 +6,10 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import paging from './Paging';
 
 const objectContentsChangedHandler = 'LoadForum:objectContentsChangedHandler';
-const loadData = "LoadForum:loadData";
+const loadData = 'LoadForum:loadData';
 
-module.exports = {
-	componentWillMount: function() {
+export default {
+	componentWillMount () {
 		if (!this.mixinAdditionalHandler) {
 			console.warn('this.mixinAdditionalHandler is undefined. (Forgot to include the StoreEvents mixin?)');
 			return;
@@ -18,7 +18,7 @@ module.exports = {
 		this[loadData](this.props.forumId);
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (nextProps.forumId !== this.props.forumId || paging.batchStart() !== this.state.batchStart) {
 			this[loadData](nextProps.forumId);
 			this.setState({
@@ -28,7 +28,7 @@ module.exports = {
 		}
 	},
 
-	[objectContentsChangedHandler]: function(event) {
+	[objectContentsChangedHandler] (event) {
 		let {forumId} = this.props;
 		if (decodeFromURI(event.objectId) === decodeFromURI(forumId)) {
 			this.setState({
@@ -37,7 +37,7 @@ module.exports = {
 		}
 	},
 
-	[loadData]: function(forumId) {
+	[loadData] (forumId) {
 		Api.getForumContents(forumId, paging.batchStart(), paging.getPageSize())
 		.then(result => {
 			Store.setObject(forumId, result.object);

@@ -17,6 +17,12 @@ export default React.createClass({
 	},
 
 
+	propTypes: {
+		outlineId: React.PropTypes.string.isRequred,
+		item: React.PropTypes.object.isRequred
+	},
+
+
 	getInitialState () {
 		return {
 			active: 0,
@@ -35,15 +41,6 @@ export default React.createClass({
 	componentWillReceiveProps (nextProps) {
 		if (nextProps.outlineId !== this.props.outlineId) {
 			this.getDataIfNeeded(nextProps);
-		}
-	},
-
-
-	componentDidUpdate (_, prevState) {
-		let node = this.refs.v && React.findDOMNode(this.refs.v);
-		let {offsetWidth} = node || {};
-		if (prevState.offsetWidth !== offsetWidth) {
-			this.setState({offsetWidth});
 		}
 	},
 
@@ -126,7 +123,7 @@ export default React.createClass({
 
 
 	onTouchStart (e) {
-		let touch = event.targetTouches[0];
+		let touch = e.targetTouches[0];
 
 		let active = this.state.active;
 		let videos = this.refs.v;
@@ -140,6 +137,7 @@ export default React.createClass({
 			e.stopPropagation();
 			console.debug('Touch Start...');
 			this.setState({
+				offsetWidth: videos.offsetWidth,
 				touch: {
 					dom: videos,
 					pixelOffset: pixelOffset,
@@ -157,11 +155,10 @@ export default React.createClass({
 
 	onTouchMove (e) {
 
-
-		let me = this;
-		let state = me.state;
+		let {state} = this;
 		let data = state.touch;
 		let find = (t, i) =>t || (i.identifier === state.touch.id && i);
+
 		if (!data) {
 			console.debug('No touch data...ignoring.');
 			return;
@@ -193,15 +190,15 @@ export default React.createClass({
 			}
 
 			if (sliding === 2) {
-				if ((active === 0 && event.clientX > data.x) ||
-					(active === (me.getVideoList().length - 1) && event.clientX < data.x)) {
+				if ((active === 0 && e.clientX > data.x) ||
+					(active === (this.getVideoList().length - 1) && e.clientX < data.x)) {
 					touchPixelRatio = 3;
 				}
 
 				pixelOffset = startPixelOffset + (delta / touchPixelRatio);
 
 				// console.debug('Touch move... %d %d %d', startPixelOffset, pixelOffset, delta);
-				me.setState({
+				this.setState({
 					touch: Object.assign(state.touch, {
 						delta: delta,
 						pixelOffset: pixelOffset,
@@ -314,7 +311,7 @@ export default React.createClass({
 	renderDots () {
 		return this.getVideoList().map((_, i) => {
 			let active = (i === (this.state.active || 0)) ? 'active' : null;
-			return (<li key={'video-' + i}><a className={active} href={"#" + i}
+			return (<li key={'video-' + i}><a className={active} href={'#' + i}
 				onClick={this.onActivateSlide} data-index={i}/></li>);
 		});
 	}

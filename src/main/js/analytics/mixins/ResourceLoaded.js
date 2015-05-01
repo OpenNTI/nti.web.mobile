@@ -6,7 +6,7 @@ import {
 	TOPIC_VIEWED
 } from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
-import AnalyticsActions from '../Actions';
+import {emitEventStarted, emitEventEnded} from '../Actions';
 import AnalyticsStore from '../Store';
 import {RESUME_SESSION} from '../Constants';
 import {toAnalyticsPath} from '../utils';
@@ -57,7 +57,7 @@ export default {
 			this[CURRENT_EVENT] = new Type(
 					decodeFromURI(resourceId),
 					courseId);
-			AnalyticsActions.emitEventStarted(this[CURRENT_EVENT]);
+			emitEventStarted(this[CURRENT_EVENT]);
 		});
 	},
 
@@ -75,7 +75,7 @@ export default {
 
 				this[CURRENT_EVENT].setContextPath(toAnalyticsPath(context, resourceId));
 
-				AnalyticsActions.emitEventEnded(this[CURRENT_EVENT]);
+				emitEventEnded(this[CURRENT_EVENT]);
 
 				this[CURRENT_EVENT] = null;
 			});

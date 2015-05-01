@@ -11,6 +11,7 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import addClass from 'nti.lib.dom/lib/addclass';
 import removeClass from 'nti.lib.dom/lib/removeclass';
 
+import Error from 'common/components/Error';
 import LoadingMask from 'common/components/Loading';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -87,7 +88,7 @@ export default React.createClass({
 			let pageSource = video && video.getPageSource();
 
 			if (outlineId && pageSource) {
-				pageSource = pageSource.scopped(decodeFromURI(outlineId));
+				pageSource = pageSource.scoped(decodeFromURI(outlineId));
 			}
 
 			this.resolveContext()
@@ -127,7 +128,7 @@ export default React.createClass({
 					if (reason === video.NO_TRANSCRIPT ||
 						reason === video.NO_TRANSCRIPT_LANG) {
 						this.setState({
-							loading: false, cues: null, regions: null });
+							loading: false, cues: null, regions: null, video });
 						return;
 					}
 					return Promise.reject(reason);
@@ -158,7 +159,12 @@ export default React.createClass({
 	render () {
 		let {error, video, cues, regions, currentTime, loading} = this.state;
 
+
 		loading = loading || !video;
+
+		if (error && !video) {
+			return ( <Error error={error}/> );
+		}
 
 		return (
 			<div className="transcripted-video">

@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 
 import t from 'common/locale';
@@ -22,21 +20,19 @@ let labelIsRenderedByComponent = new Set();
 
 // safari doesn't support construction of a set from an array (!?)
 // so we'll create the Set empty and add each item.
-['radiogroup', 'select', 'checkbox', 'toggleFieldset'].forEach(function(comp) {
-	labelIsRenderedByComponent.add(comp);
-});
+['radiogroup', 'select', 'checkbox', 'toggleFieldset'].forEach(comp => labelIsRenderedByComponent.add(comp));
 
 // just a dumb wrapper around an array to isolate the
 // accumulation of related configs during render.
 let RelatedConfigsStash = {
 	stash: [],
-	get: function() {
+	get () {
 		return this.stash;
 	},
-	clear: function() {
+	clear () {
 		this.stash.length = 0;
 	},
-	concat: function(elements) {
+	concat (elements) {
 		this.stash = this.stash.concat(elements);
 	}
 };
@@ -55,17 +51,14 @@ let RelatedFormPanel = React.createClass({
 
 	statics: {
 		// static because it's easier to test
-		_getInlineSubfields: function(field, currentValue) {
-			let selectedOption = (field.options || []).find(function(item) {
-				return item.value === currentValue;
-			});
-			return (selectedOption.related || []).filter(function(item) {
-				return item.type === Constants.SUBFIELDS;
-			});
+		_getInlineSubfields (field, currentValue) {
+			let selectedOption = (field.options || []).find(item => item.value === currentValue);
+			return (selectedOption.related || []).filter(item => item.type === Constants.SUBFIELDS);
 		}
 	},
 
 	propTypes: {
+		inputFocus: React.PropTypes.func,
 		formConfig: React.PropTypes.array.isRequired,
 		translator: React.PropTypes.func,
 		errorFieldRefs: React.PropTypes.shape({ // a Set
@@ -74,51 +67,52 @@ let RelatedFormPanel = React.createClass({
 		children: React.PropTypes.any
 	},
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			errorFieldRefs: new Set()
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount () {
 		FieldValuesStore.addChangeListener(this[fieldValueChange]);
 	},
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		FieldValuesStore.removeChangeListener(this[fieldValueChange]);
 	},
 
-	[fieldValueChange]: function(/* event */) {
+	[fieldValueChange] (/* event */) {
 		this.forceUpdate();
 	},
 
-	componentWillUpdate: function() {
+	componentWillUpdate () {
 		this[visibleFields].length = 0;
 	},
 
-	componentDidUpdate: function() {
+	componentDidUpdate () {
 		let visible = this[getVisibleFieldRefs]();
 		FieldValuesStore.setAvailableFields(visible);
 	},
 
-	_onBlur: function(event) {
+	onBlur (event) {
 		FieldValuesStore.updateFieldValue(event);
 	},
 
-	_radioChanged: function(event) {
+	radioChanged (event) {
 		FieldValuesStore.updateFieldValue(event);
 	},
 
-	_checkboxChanged: function(event) {
+	checkboxChanged (event) {
 		FieldValuesStore.updateFieldValue(event);
 	},
 
-	renderField: function(field, values) {
+	renderField (field, values) {
 
 		let cssClass = [];
 		let tr = this.props.translator || t;
 		let type = field.type || 'text';
 		let inlineSubfields = null;
+		let help = null;
 
 		this[visibleFields].push(field);
 
@@ -141,7 +135,7 @@ let RelatedFormPanel = React.createClass({
 			fallback: ''
 		};
 
-		let configuredValue = field.type !== 'checkbox' && (field.value || field.defaultValue);
+		let configuredValue = field.type === 'checkbox' ? undefined : (field.value || field.defaultValue);
 
 		// explicit test against undefined because the value could be zero which is falsy.
 		if (configuredValue !== undefined && (type === 'hidden' || !FieldValuesStore.getValue(ref))) {
@@ -151,11 +145,12 @@ let RelatedFormPanel = React.createClass({
 		let props = {
 			ref: ref,
 			name: ref,
-			onBlur: this._onBlur,
+			onBlur: this.onBlur,
+			onChange: this.onBlur,
 			onFocus: this.props.inputFocus,
-			placeholder: tr(ref, translateOptions),
+			placeholder: field.placeholder || '', // tr(ref, translateOptions),
 			className: cssClass.join(' '),
-			defaultValue: (values || {})[ref] || configuredValue,
+			defaultValue: (values || {})[ref] || FieldValuesStore.getValue(ref) || configuredValue,
 			type: type,
 			field: field,
 			// ToggleFieldset needs to call renderField.
@@ -181,14 +176,14 @@ let RelatedFormPanel = React.createClass({
 
 			case 'radiogroup':
 				input = RadioGroup;
-				props.onChange = this._radioChanged;
-				RelatedConfigsStash.concat(this._getRelatedConfigs(field));
+				props.onChange = this.radioChanged;
+				RelatedConfigsStash.concat(this.getRelatedConfigs(field));
 				break;
 
 			case 'checkbox':
 				input = Checkbox;
 				Object.assign(props, {
-					onChange: this._checkboxChanged,
+					onChange: this.checkboxChanged,
 					value: field.value,
 					checked: (FieldValuesStore.getValue(ref) === field.value)
 				});
@@ -198,8 +193,26 @@ let RelatedFormPanel = React.createClass({
 				input = ToggleFieldset;
 				break;
 
+			case 'number':
+				Object.assign(props, {
+					pattern: '[0-9]*',
+					inputmode: 'numeric'
+				});
+				input = 'input';
+				break;
+
 			default:
 				input = 'input';
+		}
+
+		if (typeof field.helptext === 'string' && field.helptext.trim().length > 0) {
+			help = React.createElement('div',
+				{
+					className: 'helptext',
+					key: ref.concat('-helptext'),
+					dangerouslySetInnerHTML: {__html: field.helptext}
+				}
+			);
 		}
 
 		let component = type === 'label' ?
@@ -209,11 +222,12 @@ let RelatedFormPanel = React.createClass({
 		if (field.label && !labelIsRenderedByComponent.has(type)) {
 			component = React.createElement('label', {},
 				React.createElement('span', { className: 'fieldLabel' }, field.label),
+				help,
 				component
-				);
+			);
 		}
 
-		let subfields = this._renderActiveSubfields(field);
+		let subfields = this.renderActiveSubfields(field);
 
 		if (subfields.length > 0) {
 			inlineSubfields = React.createElement('div',
@@ -235,8 +249,8 @@ let RelatedFormPanel = React.createClass({
 		);
 	},
 
-	_renderActiveSubfields: function(fieldConfig) {
-		let relatedConfigs = this._getRelatedConfigs(fieldConfig);
+	renderActiveSubfields (fieldConfig) {
+		let relatedConfigs = this.getRelatedConfigs(fieldConfig);
 		let activeInlineSubfields = relatedConfigs.filter(item =>
 			item.config[0].type === Constants.SUBFIELDS && item.isActive);
 
@@ -248,7 +262,7 @@ let RelatedFormPanel = React.createClass({
 			);
 	},
 
-	renderFieldset: function(fieldset, values, index) {
+	renderFieldset (fieldset, values, index) {
 		let fieldsetComponent = React.createElement('fieldset',
 			{
 				className: fieldset.className || null,
@@ -260,10 +274,10 @@ let RelatedFormPanel = React.createClass({
 
 		let related = [];
 
-		RelatedConfigsStash.get().forEach(function(config) {
+		RelatedConfigsStash.get().forEach(config => {
 			if(config.isActive) {
 				// let conf = config.config[0];
-				config.config.forEach(function(conf) {
+				config.config.forEach(conf => {
 					switch(conf.type) {
 					//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 						case Constants.FORM_CONFIG:
@@ -278,12 +292,12 @@ let RelatedFormPanel = React.createClass({
 						default:
 							console.warn('Unrecognized related config type: %O', config);
 					}
-				}.bind(this));
+				});
 			}
 			// if(config.isActive && config.config[0].type === Constants.FORM_CONFIG) {
 			// 	related.push(this[renderFormConfig](config.config[0].content, values));
 			// }
-		}.bind(this));
+		});
 
 		return React.createElement('div',
 			{
@@ -295,7 +309,7 @@ let RelatedFormPanel = React.createClass({
 		);
 	},
 
-	[renderFormConfig]: function(config, values) {
+	[renderFormConfig] (config, values) {
 		RelatedConfigsStash.clear();
 		let args = ['div', {className: 'form-render', key: hash(config)}].concat(
 			config.map((fieldset, index)=>this.renderFieldset(fieldset, values, index)));
@@ -303,10 +317,10 @@ let RelatedFormPanel = React.createClass({
 		return React.createElement.apply(null, args);
 	},
 
-	_getRelatedConfigs: function(fieldConfig) {
+	getRelatedConfigs (fieldConfig) {
 		let result = [];
 		let currentValue = FieldValuesStore.getValue(fieldConfig.ref);
-		(fieldConfig.options || []).forEach(function(option) {
+		(fieldConfig.options || []).forEach(option => {
 			if(option.related) {
 				result.push({
 					isActive: currentValue && option.value === currentValue,
@@ -317,19 +331,17 @@ let RelatedFormPanel = React.createClass({
 		return result;
 	},
 
-	getVisibleFields: function() {
+	getVisibleFields () {
 		return this[visibleFields].slice(0);
 	},
 
-	[getVisibleFieldRefs]: function() {
+	[getVisibleFieldRefs] () {
 		return new Set(
-			this[visibleFields].map(function(item) {
-				return item.ref;
-			})
+			this[visibleFields].map(item => item.ref)
 		);
 	},
 
-	render: function() {
+	render () {
 		return (
 			<div>
 				{this[renderFormConfig](this.props.formConfig, FieldValuesStore.getValues())}
@@ -340,4 +352,4 @@ let RelatedFormPanel = React.createClass({
 
 });
 
-module.exports = RelatedFormPanel;
+export default RelatedFormPanel;

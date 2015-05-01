@@ -26,33 +26,36 @@ var mailingAddressFieldset = {
 		},
 		{
 			ref: 'mailing_street_line1',
+			label: t('street_line1'),
 			required: true,
-			placeholder: t('address1')
+			// placeholder: t('address1')
 		},
 		{
 			ref: 'mailing_street_line2',
-			placeholder: t('address2')
+			label: t('street_line2'),
+			// placeholder: t('address2')
 		},
 		{
 			ref: 'mailing_city',
+			label: t('city'),
 			required: true,
-			placeholder: t('city')
+			// placeholder: t('city')
 		},
 		StateSelect.withProps({
 			label: t('state'),
-			ref: 'mailing_state',
-			required: true
+			required: false,
+			ref: 'mailing_state'
 		}),
 		CountrySelect.withProps({
 			label: t('country'),
 			ref: 'mailing_nation_code',
 			required: true,
-			placeholder: t('country')
+			// placeholder: t('country')
 		}),
 		{
+			label: t('zip'),
 			ref: 'mailing_postal_code',
-			required: true,
-			placeholder: t('zip')
+			// placeholder: t('zip')
 		}
 	]
 };
@@ -77,14 +80,14 @@ module.exports = Object.freeze([
 			{
 				ref: 'former_name',
 				label: t('former_name'),
-				placeholder: t('former_name')
+				// placeholder: t('former_name')
 			},
 			{
 				ref: 'date_of_birth',
 				label: t('date_of_birth'),
 				required: true,
 				type: 'date',
-				placeholder: t('date_of_birth')
+				// placeholder: t('date_of_birth')
 			},
 			{
 				ref: 'gender',
@@ -114,35 +117,34 @@ module.exports = Object.freeze([
 				ref: 'street_line1',
 				label: t('street_line1'),
 				required: true,
-				placeholder: t('address1')
+				// placeholder: t('address1')
 			},
 			{
 				ref: 'street_line2',
 				label: t('street_line2'),
-				placeholder: t('address2')
+				// placeholder: t('address2')
 			},
 			{
 				ref: 'city',
 				label: t('city'),
 				required: true,
-				placeholder: t('city')
+				// placeholder: t('city')
 			},
 			StateSelect.withProps({
 				label: t('state'),
 				ref: 'state',
-				required: true
+				required: false
 			}),
 			CountrySelect.withProps({
 				label: t('country'),
 				ref: 'nation_code',
 				required: true,
-				placeholder: t('country')
+				// placeholder: t('country')
 			}),
 			{
 				ref: 'postal_code',
-				required: true,
 				label: t('postal_code'),
-				placeholder: t('postal_code')
+				// placeholder: t('postal_code')
 			},
 			{
 				ref: 'has_mailing_address',
@@ -168,7 +170,8 @@ module.exports = Object.freeze([
 			},
 			{
 				ref: 'social_security_number',
-				label: t('social_security_number')
+				label: t('social_security_number'),
+				helptext: t('ssn_helptext')
 			},
 			{
 				ref: 'citizen',
@@ -224,7 +227,8 @@ module.exports = Object.freeze([
 									ref: 'years_of_oklahoma_residency',
 									required: true,
 									type: 'number',
-									label: t('years_of_oklahoma_residency')
+									label: t('years_of_oklahoma_residency'),
+									// placeholder: t('years_of_oklahoma_residency_placeholder')
 								}
 							]
 						}]

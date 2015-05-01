@@ -1,8 +1,9 @@
-import {LOADED_CATALOG} from './Constants';
+import {LOAD_CATALOG, LOADED_CATALOG} from './Constants';
 
 import StorePrototype from 'common/StorePrototype';
 
 const data = Symbol('data');
+const SetLoading = Symbol('set:loading');
 const SetData = Symbol('set:data');
 
 class Store extends StorePrototype {
@@ -10,6 +11,7 @@ class Store extends StorePrototype {
 	constructor () {
 		super();
 		this.registerHandlers({
+			[LOAD_CATALOG]: SetLoading,
 			[LOADED_CATALOG]: SetData
 		});
 	}
@@ -20,9 +22,16 @@ class Store extends StorePrototype {
 	}
 
 
+	[SetLoading] () {
+		this.loading = true;
+		this.emitChange({type: LOAD_CATALOG});
+	}
+
+
 	[SetData] (payload) {
 		let d = this[data] = payload.action.response;
 		d.applied = new Date();
+		this.loading = false;
 		this.emitChange({type: LOADED_CATALOG});
 	}
 

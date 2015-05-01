@@ -11,9 +11,10 @@ import ContextSender from 'common/mixins/ContextSender';
 import BasePathAware from 'common/mixins/BasePath';
 
 import Loading from 'common/components/Loading';
-import NavigationBar from 'navigation/components/Bar';
+import Page from 'common/components/Page';
 
 import Enrollment from 'enrollment/components/View';
+import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 
 
 const CatalogBody = React.createClass({
@@ -53,6 +54,10 @@ const CatalogBody = React.createClass({
 				<Location
 					path="/item/:entryId(/*)"
 					handler={EntryDetail}
+				/>
+				<Location
+					path="/enrollment/success/"
+					handler={EnrollmentSuccess}
 				/>
 				<Location
 					path="*"
@@ -97,10 +102,9 @@ export default React.createClass({//eslint-disable-line react/no-multi-comp
 		let catalog = this.getCatalog();
 
 		return (
-			<div>
-				<NavigationBar title="Catalog" />
+			<Page title="Catalog">
 				{!catalog ? <Loading/> : <CatalogBody catalog={catalog}/>}
-			</div>
+			</Page>
 		);
 	}
 });

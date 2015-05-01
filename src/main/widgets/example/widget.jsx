@@ -1,10 +1,9 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'Example',
-	render: function() {
+
+	render () {
 
 		return (
 			<div className="grid-container">

@@ -4,7 +4,6 @@ import getLinkFn from 'nti.lib.interfaces/utils/getlink';
 
 import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';
-import PanelButton from 'common/components/PanelButton';
 
 import Redirect from 'navigation/components/Redirect';
 
@@ -18,13 +17,14 @@ import * as Constants from '../Constants';
 import {scoped} from 'common/locale';
 
 const t = scoped('ENROLLMENT');
+const tt = scoped('BUTTONS');
 
 function getLink(o, k) {
 	console.error('Object should be a model and then use the getLink method off of it. %o', o);
 	return getLinkFn(o, k);
 }
 
-module.exports = React.createClass({
+export default React.createClass({
 
 	getInitialState () {
 		return {
@@ -78,7 +78,16 @@ module.exports = React.createClass({
 		}
 	},
 
+
+	componentDidUpdate (prevProps, prevState) {
+		if (this.state.admissionStatus !== prevState.admissionStatus) {
+			global.scrollTo(0, 0);
+		}
+	},
+
+
 	render () {
+		//TODO: Rewrite into a router (memory env) or some other "select" style to split this into smaller, clearer render methods/components.
 
 		if (this.state.error) {
 			return <Err error={this.state.error} />;
@@ -106,11 +115,8 @@ module.exports = React.createClass({
 
 				view = link ? (
 					<Payment paymentLink={link} ntiCrn={crn} ntiTerm={term}/>
-				) : (
-					<PanelButton href="../" linkText="Go Back" className="error">
-						<p>Unable to direct to payment site. Please try again later.</p>
-					</PanelButton>
-				);
+				) :
+					this.renderPanel('Unable to direct to payment site. Please try again later.', 'Go Back', 'error');
 				break;
 
 			case Constants.ADMISSION_REJECTED:
@@ -119,7 +125,7 @@ module.exports = React.createClass({
 				break;
 
 			case Constants.ADMISSION_PENDING:
-				view = <PanelButton href="http://google.com">{t('admissionPendingMessage')}</PanelButton>;
+				view = this.renderPanel(t('admissionPendingMessage'), tt('ok'));
 				break;
 
 			default:
@@ -127,6 +133,19 @@ module.exports = React.createClass({
 		}
 
 		return view;
+	},
+
+
+
+	renderPanel (message, buttonLabel, cls = '') {
+		return (
+			<div className={'enrollment-admission ' + cls}>
+				<figure className="notice">
+					<div>{message}</div>
+				</figure>
+				<a className="button tiny" href="../">{buttonLabel}</a>
+			</div>
+		);
 	}
 
 });

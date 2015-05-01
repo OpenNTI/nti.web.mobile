@@ -2,9 +2,9 @@
  * Constants related to (and used by) the message modules.
  * @class message.Constants
  */
-var keyMirror = require('react/lib/keyMirror');
+let keyMirror = require('react/lib/keyMirror');
 
-var actions = keyMirror({
+export const actions = keyMirror({
 	/**
 	* Action for adding a message.
 	* @property MESSAGES_ADD
@@ -31,7 +31,7 @@ var actions = keyMirror({
 
 });
 
-var events = keyMirror({
+export const events = keyMirror({
 
 	/**
 	* Emitted when a message is added or removed
@@ -42,6 +42,3 @@ var events = keyMirror({
 	MESSAGES_CHANGE: null
 
 });
-
-exports.actions = actions;
-exports.events = events;

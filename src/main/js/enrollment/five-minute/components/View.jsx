@@ -1,7 +1,10 @@
 import React from 'react';
 import Router from 'react-router-component';
 
+import path from 'path';
+
 import PanelButton from 'common/components/PanelButton';
+import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import CourseContentLink from 'library/components/CourseContentLinkMixin';
@@ -9,6 +12,7 @@ import CourseContentLink from 'library/components/CourseContentLinkMixin';
 import PaymentComplete from './PaymentComplete';
 import ConcurrentSent from './ConcurrentSent';
 import Admission from './Admission';
+import Policy from './Policy';
 
 import Store from '../Store';
 import {CONCURRENT_ENROLLMENT_SUCCESS} from '../Constants';
@@ -17,7 +21,13 @@ import {CONCURRENT_ENROLLMENT_SUCCESS} from '../Constants';
 export default React.createClass({
 	displayName: 'View',
 
-	mixins: [NavigatableMixin, CourseContentLink],
+	mixins: [NavigatableMixin, CourseContentLink, ContextSender],
+
+	propTypes: {
+		courseId: React.PropTypes.string.isRequired,
+		entryId: React.PropTypes.string.isRequired,
+		enrollment: React.PropTypes.object.isRequired
+	},
 
 	componentDidMount () {
 		Store.addChangeListener(this.onStoreChange);
@@ -25,6 +35,17 @@ export default React.createClass({
 
 	componentWillUnmount () {
 		Store.removeChangeListener(this.onStoreChange);
+	},
+
+
+	getContext () {
+		let {router} = this.refs;
+		let href = router ? router.makeHref('') : '';
+
+		return Promise.resolve([
+			{ label: 'Enroll', href: path.join(href, '../')},
+			{ label: 'Enroll For Credit', href }
+		]);
 	},
 
 	onStoreChange (event) {
@@ -50,7 +71,7 @@ export default React.createClass({
 		}
 
 		return (
-			<Router.Locations contextual>
+			<Router.Locations contextual ref="router">
 
 				<Router.Location
 					path="/concurrent/*"
@@ -59,6 +80,14 @@ export default React.createClass({
 				<Router.Location
 					path="/paymentcomplete/*"
 					handler={PaymentComplete}
+					entryId={this.props.entryId}
+					courseId={this.props.courseId}
+					enrollment={this.props.enrollment}
+				/>
+
+				<Router.Location
+					path="/policy/"
+					handler={Policy}
 					entryId={this.props.entryId}
 					courseId={this.props.courseId}
 					enrollment={this.props.enrollment}

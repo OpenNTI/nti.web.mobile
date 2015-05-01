@@ -1,7 +1,7 @@
 import React from 'react';
 import emptyFunction from 'react/lib/emptyFunction';
 
-import {processContent} from 'content/Utils';
+import {processContent} from 'content/utils';
 
 import isFunction from 'nti.lib.interfaces/utils/isfunction';
 import htmlToReact from 'nti.lib.interfaces/utils/html-to-react';
@@ -49,7 +49,7 @@ export default React.createClass({
 
 
 		if (strategies) {
-			packet = processContent(strategies, {content: content});
+			packet = processContent({content: content}, strategies);
 			widgets = packet.widgets;
 
 			content = packet.body.map(part=>
@@ -77,7 +77,7 @@ export default React.createClass({
 			props.dangerouslySetInnerHTML = {__html: this.state.content || ''};
 		}
 
-		return React.createElement("div", props, dynamicRender(React, this.renderWidget));
+		return React.createElement('div', props, dynamicRender(React, this.renderWidget));
 	},
 
 

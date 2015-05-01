@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+
 import FieldRender from 'common/forms/mixins/RenderFormConfigMixin';
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
@@ -13,6 +15,7 @@ import FORM_CONFIG from '../configs/GiftRedeem';
 
 import Store from '../Store';
 import {GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from '../Constants';
+import {RENDERED_FORM_EVENT_HANDLERS as Events} from 'common/forms/Constants';
 import {redeemGift} from '../Actions';
 
 const t = scoped('ENROLLMENT.GIFT.REDEEM');
@@ -22,7 +25,8 @@ export default React.createClass({
 	mixins: [FieldRender],
 
 	propTypes: {
-		purchasable: React.PropTypes.object,
+		purchasable: React.PropTypes.object.isRequired,
+		entryId: React.PropTypes.string.isRequired,
 		code: React.PropTypes.string
 	},
 
@@ -84,15 +88,18 @@ export default React.createClass({
 		this.setState({
 			busy: true
 		});
-		redeemGift(this.props.purchasable, this.state.fieldValues.accessKey);
+
+		let {entryId} = this.props;
+
+		redeemGift(
+			this.props.purchasable,
+			decodeFromURI(entryId),
+			this.state.fieldValues.accessKey);
 	},
 
-
-	//XXX: _inputChanged nor inputChanged seem to be referenced.
-	inputChanged (event) {
+	[Events.ON_CHANGE] (event) {
 		this.updateFieldValueState(event);
 	},
-
 
 	render () {
 

@@ -1,7 +1,7 @@
 import {EventEmitter} from 'events';
 import {CHANGE_EVENT} from 'common/constants/Events';
 // import isFunction from 'nti.lib.interfaces/utils/isfunction';
-import Constants from './Constants';
+import * as Constants from './Constants';
 
 // store field values outside of component state
 // so we can update without triggering a re-render.
@@ -9,6 +9,7 @@ export default Object.assign({}, EventEmitter.prototype, {
 
 	fieldValues: {},
 	availableFields: new Set(),
+	autopopulator: null,
 
 	addChangeListener (callback) {
 		this.on(CHANGE_EVENT, callback);
@@ -22,16 +23,41 @@ export default Object.assign({}, EventEmitter.prototype, {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
-	getValues () {
-		return Object.assign({}, this.fieldValues);
+	getValues (stripEmpty = false) {
+		let vals = Object.assign({}, this.fieldValues);
+		return stripEmpty ? this.stripEmptyValues(vals) : vals;
+	},
+
+	stripEmptyValues(values) {
+		return Object.keys(values||{}).reduce((previous, current) => {
+			if (typeof values[current] !== 'string' || values[current].trim().length > 0) {
+				previous[current] = values[current];
+			}
+			return previous;
+		}, {});
 	},
 
 	setValue (name, value) {
 		this.fieldValues[name] = value;
 	},
 
+	autopopulatedValue(name) {
+		return this.autopopulator ? this.autopopulator.valueFor(name) : undefined;
+	},
+
 	getValue (name) {
-		return this.fieldValues[name];
+		let v = this.fieldValues[name];
+		if (!v) {
+			v = this.autopopulatedValue(name);
+			if (v) {
+				this.setValue(name, v);
+			}
+		}
+		return v;
+	},
+
+	setAutopopulator (autopop) {
+		this.autopopulator = autopop;
 	},
 
 	clearValue (name) {
@@ -54,20 +80,20 @@ export default Object.assign({}, EventEmitter.prototype, {
 	},
 
 	updateFieldValue (event) {
-		let {target} = event.target;
-		let {field, value} = target;
+		let {target} = event;
+		let {name, value} = target;
 
 		if(target.type === 'checkbox' && !target.checked) {
-			delete this.fieldValues[field];
+			delete this.fieldValues[name];
 		}
-		else if (value || this.fieldValues.hasOwnProperty(field)) {
+		else if (value || this.fieldValues.hasOwnProperty(name)) {
 			// ^ don't set an empty value if there's not already
 			// an entry for this field in this.state.fieldValues
-			this.setValue(field, value);
+			this.setValue(name, value);
 		}
 		this.emitChange({
 			type: Constants.FIELD_VALUE_CHANGE,
-			fieldName: field,
+			fieldName: name,
 			fieldValue: value
 		});
 

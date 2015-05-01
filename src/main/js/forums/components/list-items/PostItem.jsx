@@ -31,7 +31,7 @@ const SHOW_REPLIES = 'showReplies';
 
 const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';
 
-let PostItem = React.createClass({
+export default React.createClass({
 
 	displayName: 'PostListItem',
 
@@ -219,5 +219,3 @@ let PostItem = React.createClass({
 	}
 
 });
-
-module.exports = PostItem;

@@ -12,6 +12,7 @@ import Loading from 'common/components/Loading';
 import {scoped} from 'common/locale';
 
 import _formConfig from '../configs/FiveMinuteEnrollmentForm';
+import Autopopulator from '../Autopopulator';
 
 import Actions from '../Actions';
 import Store from '../Store';
@@ -39,11 +40,13 @@ export default React.createClass({
 
 	componentDidMount () {
 		Store.addChangeListener(this.onStoreChange);
+		FieldValuesStore.setAutopopulator(new Autopopulator());
 		FieldValuesStore.addChangeListener(this.fieldValuesStoreChange);
 	},
 
 	componentWillUnmount () {
 		Store.removeChangeListener(this.onStoreChange);
+		FieldValuesStore.setAutopopulator(null);
 		FieldValuesStore.removeChangeListener(this.fieldValuesStoreChange);
 	},
 
@@ -53,7 +56,7 @@ export default React.createClass({
 				this.state.errors,
 				{$push: [{
 					field: event.reason.field,
-					message: event.reason.message
+					message: event.reason.message || event.reason.responseText
 				}]}
 			);
 			this.setState({
@@ -135,7 +138,7 @@ export default React.createClass({
 	},
 
 	handleSubmit () {
-		let fields = FieldValuesStore.getValues();
+		let fields = FieldValuesStore.getValues(true);
 
 		if (this.isValid()) {
 			this.setState({

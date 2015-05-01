@@ -22,13 +22,14 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import BasePathAware from 'common/mixins/BasePath';
 
-let View = React.createClass({
+export default React.createClass({
 	displayName: 'StoreEnrollmentView',
 
 	mixins: [NavigatableMixin, BasePathAware], // needed for getPath() call we're using for the router's key.
 
 	propTypes: {
 		courseId: React.PropTypes.string,
+		entryId: React.PropTypes.string,
 		enrollment: React.PropTypes.shape({
 			Purchasable: React.PropTypes.object
 		}).isRequired
@@ -41,7 +42,7 @@ let View = React.createClass({
 	},
 
 
-	getPurchasable () {
+	getPurchasable (forGifting=false) {
 		let {enrollment} = this.props;
 
 		if (!enrollment) {
@@ -49,13 +50,15 @@ let View = React.createClass({
 			return;
 		}
 
-		let {Purchasable} = enrollment;
+		let {Purchasables} = enrollment;
 
-		return Purchasable || (()=>{
-			console.warn('Enrollment.Purchasable is not defined!');
-		})();
+		if (!Purchasables) {
+			console.warn('Enrollment.Purchasables is not defined!');
+			return null;
+		}
+		let id = forGifting ? Purchasables.DefaultGiftingNTIID : Purchasables.DefaultPurchaseNTIID;
+		return Purchasables.Items.find((element) => element.ID === id);
 	},
-
 
 	componentDidMount () {
 		Store.addChangeListener(this.onChange);
@@ -101,7 +104,14 @@ let View = React.createClass({
 				break;
 
 			case Constants.STRIPE_PAYMENT_SUCCESS:
-				router.navigate('success/');
+
+				if ((Store.getPaymentResult() || {}).RedemptionCode) {
+					router.navigate('success/');
+				} else {
+					// the catalog entry we're rooted under may not exist when the catalog reloads
+					// so the success message lives under the root catalog router.
+					this.navigate('../enrollment/success/');
+				}
 				break;
 
 			case Constants.STRIPE_PAYMENT_FAILURE:
@@ -123,8 +133,9 @@ let View = React.createClass({
 		}
 
 		let purchasable = this.getPurchasable();
+		let giftPurchasable = this.getPurchasable(true);
 		let courseTitle = (purchasable || {}).Title || '';
-		let {courseId} = this.props;
+		let {entryId, courseId} = this.props;
 		let giftDoneLink = this.getBasePath() + 'catalog/';
 		let isGift = !!Store.getGiftInfo();
 
@@ -133,26 +144,30 @@ let View = React.createClass({
 				<ReactCSSTransitionGroup transitionName="loginforms">
 					<Locations contextual
 						ref='router'>
-						<Location path="/confirm/" handler={PaymentConfirm} purchasable={purchasable}/>
+						<Location path="/confirm/"
+							handler={PaymentConfirm}
+							purchasable={isGift ? giftPurchasable : purchasable}
+							/>
 						<Location path="/success/"
 							handler={PaymentSuccess}
-							purchasable={purchasable}
+							purchasable={isGift ? giftPurchasable : purchasable}
 							courseId={courseId}
 							giftDoneLink={giftDoneLink} />
 						<Location path="/error/"
 							handler={PaymentError}
 							isGift={isGift}
-							purchasable={purchasable}
+							purchasable={isGift ? giftPurchasable : purchasable}
 							courseTitle={courseTitle} />
 						<Location path="/gift/"
 							handler={GiftView}
-							purchasable={purchasable}
+							purchasable={giftPurchasable}
 							courseTitle={courseTitle} />
 						<Location path="/gift/redeem/(:code)"
 							handler={GiftRedeem}
-							purchasable={purchasable}
+							purchasable={giftPurchasable}
 							courseTitle={courseTitle}
-							courseId={courseId} />
+							courseId={courseId}
+							entryId={entryId} />
 						<NotFound handler={Form} purchasable={purchasable}/>
 					</Locations>
 				</ReactCSSTransitionGroup>
@@ -162,5 +177,3 @@ let View = React.createClass({
 	}
 
 });
-
-module.exports = View;

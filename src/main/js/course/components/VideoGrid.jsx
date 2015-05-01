@@ -1,5 +1,7 @@
 import React from 'react';
 
+import cx from 'classnames';
+
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import path from 'path';
@@ -15,57 +17,83 @@ export default React.createClass({
 	mixins: [BasePathAware, ContextSender],
 
 	propTypes: {
+		course: React.PropTypes.object.isRequired,
 		VideoIndex: React.PropTypes.object.isRequired
 	},
 
 
 	getInitialState () {
-		return {};
+		return {
+			icons: {}
+		};
 	},
 
 
 	getContext () { return Promise.resolve([]); },
 
 
-	componentDidMount () {},
+	componentDidMount () {
+		this.fillInIcons(this.props);
+	},
 
 
 	componentWillUnmount () {},
 
 
-	componentWillReceiveProps (/*nextProps*/) {},
+	componentWillReceiveProps (nextProps) {
+		if (this.props.VideoIndex !== nextProps.VideoIndex) {
+			this.fillInIcons(nextProps);
+		}
+	},
+
+
+	fillInIcons (props) {
+		let icons = {};
+
+		function fallback (x) {
+			let s = x && ((x.sources || [])[0] || {});
+			return s.thumbnail || s.poster;
+		}
+
+		props.VideoIndex.map(v=>
+			v.getThumbnail()
+				.then(
+					i=> icons[v.ntiid] = i,
+					()=> icons[v.ntiid] = fallback(v)
+				)
+				.then(()=>this.setState({icons}))
+			);
+	},
 
 
 	render () {
-		var basePath = this.getBasePath();
-		var props = this.props;
-		var Videos = props.VideoIndex;
-
-		function itr(v, i) {
-			let s = v && ((v.sources || [])[0] || {});
-			let poster = s.thumbnail || s.poster;
-			let style = {
-				backgroundImage: 'url(' + poster + ')'
-			};
-
-			let link = path.join(
-				basePath,
-				'course', encodeForURI(props.course.getID()),
-				'v', encodeForURI(v.ntiid)) + '/';
-
-			return (
-				<li className="thumbnail-grid-item" key={v.ntiid + '-' + i}>
-					<a title="Play" href={link}>
-						<div className="thumbnail" style={style}/>
-						<h3>{v.title}</h3>
-					</a>
-				</li>
-			);
-		}
+		let basePath = this.getBasePath();
+		let {course, VideoIndex} = this.props;
+		let {icons} = this.state;
 
 		return (
 			<ul className="small-block-grid-1 medium-block-grid-2">
-				{Videos.map(itr.bind(this))}
+				{VideoIndex.map((v, i) => {
+					let poster = icons[v.ntiid];
+
+					let style = poster && { backgroundImage: `url(${poster})` };
+
+					let thumbnail = cx('thumbnail', {resolving: !poster});
+
+					let link = path.join(
+						basePath,
+						'course', encodeForURI(course.getID()),
+						'v', encodeForURI(v.ntiid)) + '/';
+
+					return (
+						<li className="thumbnail-grid-item" key={v.ntiid + '-' + i}>
+							<a title="Play" href={link}>
+								<div className={thumbnail} style={style}/>
+								<h3>{v.title}</h3>
+							</a>
+						</li>
+					);
+				})}
 			</ul>
 		);
 	}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {processContent} from 'content/Utils';
+import {processContent} from 'content/utils';
 
 import guid from 'nti.lib.interfaces/utils/guid';
 import htmlToReactRenderer from 'nti.lib.interfaces/utils/html-to-react';
@@ -50,7 +50,7 @@ export default React.createClass({
 		body = (body || []).map(content=> {
 			let packet;
 			if (typeof content === 'string') {
-				packet = processContent(strategies, {content: content});
+				packet = processContent({content: content}, strategies);
 			}
 			else {
 				let key = guid();

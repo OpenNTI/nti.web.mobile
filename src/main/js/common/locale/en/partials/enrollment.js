@@ -68,6 +68,7 @@ export default {
 		SUCCESS: {
 			title: 'Gift Purchase Successful',
 			info: '<strong>%(courseTitle)s</strong> starts on <strong>%(startDate)s</strong> and will be conducted fully online.',
+			infoNoDate: '<strong>%(courseTitle)s</strong> will be conducted fully online.',
 			toSender: 'We\'ve sent an email of this transaction to you at <a>%(sender)s</a>. ' +
 						'We\'ve also sent a separate email that contains instructions on how to redeem this gift.',
 			alert: 'Please be sure to pass this information along to the gift recipient in time to take advantage of the course.',
@@ -116,22 +117,26 @@ export default {
 			admissionDescription: 'Before you can earn college credit from the University of Oklahoma, ' +
 				'we need you to answer some questions. Don\'t worry, the admission process is free and ' +
 				'should only take a few minutes.',
+			oklahomaResident: 'Are you an Oklahoma resident?',
 			currentlyAttending: 'Are you currently attending the University of Oklahoma?',
-			oklahomaResidentHighSchool: 'Are you an Oklahoma resident currently attending high school?',
-			historyEnrollViaOzone: 'LSTD 1153.500 fulfills US History Gen Ed requirement. To enroll, visit ' +
-					'<a href="http://ozone.ou.edu" target="_blank">ozone.ou.edu</a> and enroll in LSTD 1153, Section 500.',
+			attendingHighschool: 'Are you currently attending high school?',
+			historyEnrollViaOzone: 'Please sign up for the course using your <a href="http://ozone.ou.edu" target="_blank">Ozone</a> account. Note: not all Janux courses are available for credit to OU students.',
 			name: 'Full Name',
+			fullName: 'Full Name',
 			first_name: 'First Name',
 			middle_name: 'Middle Name',
 			last_name: 'Last Name',
-			former_name: 'Do you have a former last name?',
+			former_name: 'What is your former last name?',
 			date_of_birth: 'Birthdate',
 			genderPrompt: 'What is your gender?',
 			street_line1: 'Address',
 			street_line2: 'Address Continued',
+			address1: 'Address',
+			address2: 'Address Continued',
 			city: 'City',
 			state: 'State',
 			postal_code: 'Zip',
+			zip: 'Zip',
 			nation_code: 'Country',
 			country: 'Country',
 			mailingAddressDifferent: 'My mailing address is different.',
@@ -143,12 +148,14 @@ export default {
 			mailing_postal_code: 'Zip',
 			mailing_nation_code: 'Country',
 			telephone_number: 'Phone Number',
-			email: 'email Address',
+			email: 'Email Address',
 			social_security_number: 'Social Security Number',
+			ssn_helptext: 'Your social security number is not requried for admission, but it is used for submission of a <a href="http://www.irs.gov/uac/Form-1098-T,-Tuition-Statement">1098T</a> to the IRS.',
 			citizen: 'Are you a U.S. citizen?',
 			residentOf: 'I am a resident of',
 			okResident: 'Are you a resident of Oklahoma?',
 			years_of_oklahoma_residency: 'How many years have you been an Oklahoma resident?',
+			years_of_oklahoma_residency_placeholder: 'How many years?',
 			hsGraduate: 'Are you a high school graduate?',
 			attendedOU: 'Have you ever attended the University of Oklahoma?',
 			sooner_id: 'What was your Sooner ID? (Leave this field blank if you do not remember.)',
@@ -157,7 +164,7 @@ export default {
 			obtainedDegree: 'I have obtained a Bachelor\'s degree or higher.',
 			goodAcademicStanding: 'I am in good academic standing.',
 			signature: 'Signature',
-			signatureAgreement: 'I affirm that I am not prohibited from enrolling in any University of Oklahoma program. ' +
+			signatureAgreement: 'I affirm that I am not <a href="policy/">prohibited</a> from enrolling in any University of Oklahoma program. ' +
 				'I understand that submitting any false information to the University, including but not limited to, ' +
 				'any information contained on this form, or withholding information about my previous academic history will ' +
 				'make my application for admission to the University, as well as any future applications, subject to denial, ' +
@@ -168,9 +175,12 @@ export default {
 				'and seniors can enroll in college classes and earn college credit while will in high school. Submit your contact info ' +
 				'and date of birth below and a Concurrent Enrollment Counselor will be in touch to guide you through the ' +
 				'<a href="http://www.ou.edu/content/go2/admissions/concurrent.html">Concurrent Enrollment Process.</a></p>',
+			prohibitionPolicyHeading: 'Policy on Non-Academic Criteria in the Admission of Students',
+			prohibitionPolicy: 'In addition to the academic criteria used as the basis for the admission of students, the University shall consider the following non-academic criteria in deciding whether a student shall be granted admission: whether an applicant has been expelled, suspended, or denied admission or readmission by any other educational institution; whether an applicant has been convicted of a felony or lesser crime involving moral turpitude; whether an applicant\'s conduct would be grounds for expulsion, suspension, dismissal or denial of readmission, had the student been enrolled at the University of Oklahoma. An applicant may be denied admission to the University if the University determines that there is substantial evidence, based on any of the instances described above, to indicate the applicant\'s unfitness to be a student at the University of Oklahoma.',
 			contactMe: 'I want someone from the University of Oklahoma to contact me.'
 		}
 	},
+	admissionPendingMessage: 'Your application has been received. An admissions counselor will contact you soon.',
 	incompleteForm: 'Please complete all required fields.',
 	requiredField: 'Field is required.',
 

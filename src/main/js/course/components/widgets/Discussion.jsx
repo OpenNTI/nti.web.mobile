@@ -26,20 +26,20 @@ export default React.createClass({
 
 
 	getNTIIDs () {
-		var i = this.props.item,
+		let i = this.props.item,
 			id = i && i.NTIID;
 		return id ? id.split(' ') : [];
 	},
 
 
 	getNTIID  () {
-		var ids = this.getNTIIDs();
+		let ids = this.getNTIIDs();
 		return ids[this.state.ntiidIndex];
 	},
 
 
 	getInitialState (){
-		//var ids = this.getNTIIDs();
+		//let ids = this.getNTIIDs();
 		return {
 			count: 0,
 			commentType: ' Comments',
@@ -69,7 +69,7 @@ export default React.createClass({
 
 
 	resolveItem () {
-		var id = this.getNTIID();
+		let id = this.getNTIID();
 
 		return getService()
 			.then(service => service.getObject(id))
@@ -80,8 +80,8 @@ export default React.createClass({
 
 
 	tryNextId () {
-		var ids = this.getNTIIDs();
-		var i = this.state.ntiidIndex + 1;
+		let ids = this.getNTIIDs();
+		let i = this.state.ntiidIndex + 1;
 		if (i >= ids.length) {
 			return Promise.reject('No more');
 		}
@@ -92,7 +92,7 @@ export default React.createClass({
 
 
 	fillInDataFrom (o) {
-		var isForum = o.hasOwnProperty('TopicCount');
+		let isForum = o.hasOwnProperty('TopicCount');
 		if (this.isMounted()) {
 
 			this.setState({
@@ -107,18 +107,18 @@ export default React.createClass({
 
 
 	getTopicHref (o) {
-		var forumHref = this.getForumHref(o);
+		let forumHref = this.getForumHref(o);
 		if(!forumHref) {
 			return null;
 		}
-		var topicId = encodeForURI(o.NTIID);
+		let topicId = encodeForURI(o.NTIID);
 		return path.join(forumHref, topicId) + '/';
 	},
 
 	getForumHref (o) {
-		var isForum = o.hasOwnProperty('TopicCount');
-		var forumId = encodeForURI(isForum ? o.NTIID : o.ContainerId);
-		var h = path.join('..', 'd', forumId) + '/';
+		let isForum = o.hasOwnProperty('TopicCount');
+		let forumId = encodeForURI(isForum ? o.NTIID : o.ContainerId);
+		let h = path.join('..', 'd', forumId) + '/';
 		return this.makeHref(h);
 	},
 
@@ -136,11 +136,11 @@ export default React.createClass({
 
 
 	render () {
-		var {props} = this;
-		var {item} = props;
-		var title = item.title || this.state.title || 'Discussion';
+		let {props} = this;
+		let {item} = props;
+		let title = item.title || this.state.title || 'Discussion';
 
-		var disabled = this.state.disabled ? 'unavailable' : '';
+		let disabled = this.state.disabled ? 'unavailable' : '';
 
 		return (
 			<LoadingMask loading={this.state.loading}

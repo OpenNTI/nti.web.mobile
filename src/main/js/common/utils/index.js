@@ -1,5 +1,5 @@
 /* global $AppConfig */
-
+import dataserver from 'nti.lib.interfaces';
 import forceCurrentHost from 'nti.lib.interfaces/utils/forcehost';
 
 
@@ -50,13 +50,16 @@ export function isFlag (flagName) {
 	return !!flags[flagName];
 }
 
+
 export function analyticsConfig () {
 	return $AppConfig.analytics || {};
 }
 
+
 export function discussionsConfig () {
 	return $AppConfig.discussions || {};
 }
+
 
 /**
  * Returns the shared instance of the server interface.
@@ -67,11 +70,20 @@ export function getServer() {
 		console.error('utils:getServer() was called in global scope.');
 	}
 	let fn = getServer;
-	if (!fn.server) {
-		fn.server = $AppConfig.nodeInterface ||
-			require('nti.lib.interfaces').default($AppConfig).interface;
+
+	if (!fn.interface) {
+		let s = $AppConfig.nodeInterface;
+		if (!s) {
+			let i = dataserver($AppConfig);
+
+			s = i.interface;
+
+			fn.datacache = i.datacache;
+		}
+
+		fn.interface = s;
 	}
-	return fn.server;
+	return fn.interface;
 }
 
 
@@ -82,7 +94,22 @@ export function getService () {
 	if (isNode()) {
 		console.error('utils:getService() was called in global scope.');
 	}
-	return $AppConfig.nodeService || getServer().getServiceDocument();
+	return $AppConfig.nodeService ?
+		Promise.resolve($AppConfig.nodeService) :
+		getServer().getServiceDocument();
+}
+
+
+export function installAnonymousService () {
+	if ($AppConfig.nodeInterface || isNode()) {
+		return;
+	}
+
+	delete getServer.interface; //force any previous instances to get rebuilt.
+	getServer();//(re)build instances
+
+	//preset-cache to empty doc
+	getServer.datacache.getForContext().set('service-doc', {Items: []});
 }
 
 

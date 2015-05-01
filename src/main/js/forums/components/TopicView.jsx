@@ -19,7 +19,7 @@ import ToggleState from '../mixins/ToggleState';
 import ContextSender from 'common/mixins/ContextSender';
 import Paging from '../mixins/Paging';
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'TopicView',
 
 	mixins: [

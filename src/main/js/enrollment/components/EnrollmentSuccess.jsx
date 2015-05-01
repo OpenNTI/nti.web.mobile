@@ -7,28 +7,23 @@ export default React.createClass({
 	mixins: [BasePathAware],
 
 	propTypes: {
-		courseTitle: React.PropTypes.string,
-		href: React.PropTypes.string
+		courseTitle: React.PropTypes.string
 	},
 
 	render () {
 		let basePath = this.getBasePath();
-		let {courseTitle, href} = this.props;
-		let verbage = 'Go to the course';
-
-		if (!href) {
-			href = basePath + 'library/';
-			verbage = 'Go to my courses';
-		}
+		let {courseTitle} = this.props;
+		let verbiage = 'Go to my courses';
+		let href = basePath + 'library/';
 
 		return (
 			<div className="enrollment-success">
 				<figure className="notice">
-					<div>You are enrolled in {courseTitle}.</div>
+					<div>You are enrolled{courseTitle ? ' in ' + courseTitle : ''}.</div>
 				</figure>
 
 
-				<a className="button tiny" href={href}>{verbage}</a>
+				<a className="button tiny" href={href}>{verbiage}</a>
 			</div>
 		);
 	}

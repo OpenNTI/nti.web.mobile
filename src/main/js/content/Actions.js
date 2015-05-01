@@ -1,13 +1,3 @@
-/**
- * Actions available to views for content-related functionality.
- */
-
-import {
-	parseDomObject,
-	getImagesFromDom,
-	getVideosFromDom
-} from 'common/utils/dom';
-
 import {parseNTIID} from 'nti.lib.interfaces/utils/ntiids';
 
 import AppDispatcher from 'dispatcher/AppDispatcher';
@@ -16,26 +6,10 @@ import PageDescriptor from './PageDescriptor';
 
 import {getPageInfo} from './Api';
 import {PAGE_LOADED} from './Constants';
-import {processContent} from './Utils';
+
+import {processContent} from './utils';
 
 import {getLibrary} from 'library/Api';
-
-const WIDGET_SELECTORS_AND_STRATEGIES = {
-	'[itemprop~=nti-data-markupenabled],[itemprop~=nti-slide-video]': parseFramedElement,
-
-	'object[type$=nticard]': parseDomObject,
-	'object[type$=ntislidedeck]': parseDomObject,
-	'object[type$=ntislidevideo][itemprop=presentation-card]': parseDomObject,
-	'object[type$=ntivideo][itemprop=presentation-video]': parseDomObject,
-	'object[type$=videoroll]': parseDomObject,
-	'object[type$=image-collection]': parseDomObject,
-	'object[class=ntirelatedworkref]': parseDomObject,
-
-	'object[type$=ntisequenceitem]': parseDomObject,
-	'object[type$=ntiaudio]': parseDomObject,
-	'object[type*=naquestion]': parseDomObject
-};
-
 
 function dispatch(type, response) {
 	AppDispatcher.handleRequestAction({type, response});
@@ -89,7 +63,7 @@ export function loadPage (ntiid) {
 		})
 
 		//get the html and split out some resource references to fetch.
-		.then(processContent.bind(this, WIDGET_SELECTORS_AND_STRATEGIES))
+		.then(processContent)
 
 		//load css
 		.then(fetchResources)
@@ -114,36 +88,4 @@ function fetchResources(packet) {
 			packet.styles = styles;
 			return packet;
 		});
-}
-
-
-function parseFramedElement(el) {
-	//This should always be a <span><img/></span> construct:
-	// <span itemprop="nti-data-markupenabled">
-	// 	<img crossorigin="anonymous"
-	// 		data-nti-image-full="resources/CHEM..."
-	// 		data-nti-image-half="resources/CHEM..."
-	// 		data-nti-image-quarter="resources/CHEM..."
-	// 		data-nti-image-size="actual"
-	// 		id="bbba3b97a2251587d4a483af98cb398c"
-	// 		src="/content/sites/platform.ou.edu/CHEM..."
-	// 		style="width:320px; height:389px">
-	// </span>
-
-	function flat(o, i) {
-		return o || (Array.isArray(i) ? i.reduce(flat) : i);
-	}
-
-	let data = parseDomObject(el);
-
-	data.item = [
-		getImagesFromDom(el),
-		getVideosFromDom(el)
-	].reduce(flat, null) || {};
-
-	if (!data.type) {
-		data.type = data.itemprop;
-	}
-
-	return data;
 }

@@ -11,7 +11,7 @@ const valueIfChecked = i => i.checked && i.value;
 /**
  * This input type represents Muliple Choice (with multiple answers--aka Checkboxes)
  */
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'MultipleChoiceMulipleAnswer',
 	mixins: [Mixin],
 

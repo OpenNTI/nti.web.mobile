@@ -24,6 +24,8 @@ import Localized from 'common/components/LocalizedHTML';
 import ScriptInjector from 'common/mixins/ScriptInjectorMixin';
 import Err from 'common/components/Error';
 
+import ProfileStore from 'profile/Store';
+
 import Store from '../Store';
 import * as Actions from '../Actions';
 import * as Constants from '../Constants';
@@ -53,19 +55,19 @@ export default React.createClass({
 	},
 
 	getInitialState () {
-		//FIXME: Re-write this:
-		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-		// Additional Node: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-
-		let formData = Store.getPaymentFormData();
-
 		return {
 			agreed: false,
 			loading: true,
-			fieldValues: formData,
 			submitEnabled: true,
 			errors: {}
 		};
+	},
+
+	componentWillMount() {
+		let formData = Object.assign( { from: ProfileStore.getUserEmail() }, Store.getPaymentFormData() );
+		this.setState({
+			fieldValues: formData
+		});
 	},
 
 	componentDidMount () {

@@ -2,7 +2,7 @@
 /** @module login/LoginActions */
 
 import AppDispatcher from 'dispatcher/AppDispatcher';
-import {actions as ActionConstants} from './Constants';
+import * as Constants from './Constants';
 import {EventEmitter} from 'events';
 
 const bufferTime = 500;
@@ -19,7 +19,7 @@ export default Object.assign({}, EventEmitter.prototype, {
 		clearTimeout(preflight.buffer);
 		preflight.buffer = setTimeout(function(){
 			AppDispatcher.handleViewAction({
-				type: ActionConstants.PREFLIGHT,
+				type: Constants.PREFLIGHT,
 				fields: (data && data.fields)
 			});
 		}, bufferTime);
@@ -27,21 +27,21 @@ export default Object.assign({}, EventEmitter.prototype, {
 
 	preflightAndCreateAccount: function(data) {
 		AppDispatcher.handleViewAction({
-			type: ActionConstants.PREFLIGHT_AND_CREATE_ACCOUNT,
+			type: Constants.PREFLIGHT_AND_CREATE_ACCOUNT,
 			fields: (data && data.fields)
 		});
 	},
 
 	createAccount: function(data) {
 		AppDispatcher.handleViewAction({
-			type: ActionConstants.CREATE_ACCOUNT,
+			type: Constants.CREATE_ACCOUNT,
 			fields: (data && data.fields)
 		});
 	},
 
 	clearErrors: function() {
 		AppDispatcher.handleViewAction({
-			type: ActionConstants.CLEAR_ERRORS
+			type: Constants.CLEAR_ERRORS
 		});
 	}
 

@@ -1,7 +1,6 @@
 // we're naming fields to line up with the stripe api which uses lowercase
 // with underscores (e.g. exp_month vs. expMonth) so don't enforce camel case
 // in this file.
-/* jshint camelcase:false */
 
 import React from 'react';
 import {edit} from '../Actions';
@@ -10,8 +9,7 @@ let t = scoped('ENROLLMENT.CONFIRMATION');
 
 const rowIfNotEmpty = 'BillingInfo:rowIfNotEmpty';
 
-let BillingInfo = React.createClass({
-
+export default React.createClass({
 	displayName: 'BillingInfo',
 
 	propTypes: {
@@ -19,17 +17,17 @@ let BillingInfo = React.createClass({
 		card: React.PropTypes.object
 	},
 
-	[rowIfNotEmpty]: function(value) {
+	[rowIfNotEmpty] (value) {
 		return (value||'').trim().length > 0 ? <div>{value}</div> : null;
 	},
 
-	onEdit: function (e) {
+	onEdit (e) {
 		e.preventDefault();
 		e.stopPropagation();
 		edit(this.props.edit);
 	},
 
-	render: function() {
+	render () {
 		let card = this.props.card,
 			city = card.address_city ? card.address_city + ',' : '';
 
@@ -75,5 +73,3 @@ let BillingInfo = React.createClass({
 	}
 
 });
-
-module.exports = BillingInfo;

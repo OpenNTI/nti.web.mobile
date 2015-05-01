@@ -1,6 +1,8 @@
 import React from 'react';
 
 import PanelButton from 'common/components/PanelButton';
+import PanelNoButton from 'common/components/PanelNoButton';
+import Err from 'common/components/Error';
 
 import {scoped} from 'common/locale';
 
@@ -9,6 +11,8 @@ import FormattedPriceMixin from '../../mixins/FormattedPriceMixin';
 import Giftable from './Giftable';
 
 const t = scoped('ENROLLMENT');
+
+const getPurchasable = 'StoreEnrollment:getPurchasable';
 
 export default React.createClass({
 	displayName: 'StoreEnrollment',
@@ -28,10 +32,24 @@ export default React.createClass({
 		}
 	},
 
+	[getPurchasable](enrollmentOption) {
+		let {Purchasables} = enrollmentOption;
+		let {DefaultPurchaseNTIID} = Purchasables;
+		let purchasable = (Purchasables.Items||[]).find(item => {
+			return (item || {}).NTIID === DefaultPurchaseNTIID;
+		});
+		return purchasable;
+	},
+
 	render () {
 
-		let option = this.props.enrollmentOption.option;
-		let formattedPrice = this.getFormattedPrice(option.Currency, option.Price);
+		let purchasable = this[getPurchasable](this.props.enrollmentOption.option);
+
+		if (!purchasable || !purchasable.Currency || !purchasable.Amount) {
+			return <PanelNoButton><Err error="Pricing information is unavailable." /></PanelNoButton>;
+		}
+
+		let formattedPrice = this.getFormattedPrice(purchasable.Currency, purchasable.Amount);
 
 		return (
 			<PanelButton href="store/" linkText={t('enrollAsLifelongLearner')}>

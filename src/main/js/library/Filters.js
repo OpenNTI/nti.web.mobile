@@ -11,6 +11,38 @@ function courseSortComparatorFunc(a, b) {
 	return strComp((a||{}).ProviderUniqueID, (b||{}).ProviderUniqueID) || strComp((a||{}).title, (b||{}).title);
 }
 
+
+function splitBySemester (list) {
+	let bins = {};
+
+	let add = (sort, label, i) => {
+		let o = bins[label] || {sort, label, items: []};
+		bins[label] = o;
+		o.items.push(i);
+	};
+
+	list.forEach(item=> {
+		try {
+			let start = item.getStartDate();
+			let key = 'archivedGroup.' + start.getMonth();
+			let bin = getLabel(key, {year: start.getFullYear()});
+
+			add(start, bin, item);
+
+		} catch (e) {
+			console.error(e);
+		}
+	});
+
+
+	bins = Object.values(bins);
+	bins.sort((a, b)=>b.sort - a.sort);
+
+	return bins;
+}
+
+
+
 export default [
 	{
 		name: getLabel('upcoming'),
@@ -25,7 +57,8 @@ export default [
 				return false;
 			}
 		},
-		sort: courseSortComparatorFunc
+		sort: courseSortComparatorFunc,
+		split: splitBySemester
 	},
 	{
 		name: getLabel('current'),
@@ -59,33 +92,6 @@ export default [
 			}
 		},
 		sort: courseSortComparatorFunc,
-		split: list => {
-			let bins = {};
-
-			let add = (sort, label, i) => {
-				let o = bins[label] || {sort, label, items: []};
-				bins[label] = o;
-				o.items.push(i);
-			};
-
-			list.forEach(item=> {
-				try {
-					let start = item.getStartDate();
-					let key = 'archivedGroup.' + start.getMonth();
-					let bin = getLabel(key, {year: start.getFullYear()});
-
-					add(start, bin, item);
-
-				} catch (e) {
-					console.error(e);
-				}
-			});
-
-
-			bins = Object.values(bins);
-			bins.sort((a, b)=>b.sort - a.sort);
-
-			return bins;
-		}
+		split: splitBySemester
 	}
 ];

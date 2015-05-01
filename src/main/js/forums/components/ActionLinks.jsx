@@ -9,10 +9,9 @@ import ScrollLink from './ScrollLink';
 import {COMMENT_FORM_ID} from '../Constants';
 
 const t = scoped('FORUMS');
-const gs = x=> `actionlink.handlers${x}`;
+const gs = x => `actionlink.handlers.${x}`;
 
-const ActionLinkConstants = {
-	//wut? not using constants?
+export const ActionLinkConstants = {
 	REPLIES: gs('REPLIES'),
 	REPLY: gs('REPLY'),
 	EDIT: gs('EDIT'),
@@ -27,8 +26,8 @@ export default React.createClass({
 	propTypes: {
 		item: React.PropTypes.object,
 		canReply: React.PropTypes.bool,
-		clickHandlers: React.PropTypes.object,//over engineering?
-		cssClasses: React.PropTypes.object, //wut?
+		clickHandlers: React.PropTypes.object,
+		cssClasses: React.PropTypes.object,
 		numComments: React.PropTypes.number
 	},
 

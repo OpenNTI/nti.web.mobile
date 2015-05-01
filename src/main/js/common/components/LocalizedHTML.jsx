@@ -2,7 +2,7 @@ import React from 'react';
 
 import {scoped} from 'common/locale';
 
-module.exports = React.createClass({
+export default React.createClass({
 	displayName: 'LocalizedHTML',
 
 	propTypes: {

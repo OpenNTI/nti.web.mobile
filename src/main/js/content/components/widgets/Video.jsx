@@ -4,11 +4,17 @@ import LoadingMask from 'common/components/Loading';
 
 import {Component as Video} from 'video';
 
+import Mixin from './Mixin';
+
 const Progress = Symbol.for('Progress');
 
 export default React.createClass({
 	displayName: 'NTIVideo',
+	mixins: [Mixin],
 
+	statics: {
+		itemType: /ntivideo$/i
+	},
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired,
@@ -17,14 +23,6 @@ export default React.createClass({
 	},
 
 
-	statics: {
-		mimeType: /ntivideo$/i,
-
-		handles (item) {
-			let re = this.mimeType;
-			return re.test(item.type) || re.test(item.class);
-		}
-	},
 
 
 	getInitialState () {

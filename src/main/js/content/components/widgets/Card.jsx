@@ -2,15 +2,14 @@ import React from 'react';
 
 import Card from 'common/components/Card';
 
+import Mixin from './Mixin';
+
 export default React.createClass({
 	displayName: 'NTICard',
+	mixins: [Mixin],
 
 	statics: {
-		mimeType: /ntirelatedworkref$|nticard$/i,
-		handles (item) {
-			let re = this.mimeType;
-			return re.test(item.type) || re.test(item.class);
-		}
+		itemType: /ntirelatedworkref$|nticard$/i
 	},
 
 

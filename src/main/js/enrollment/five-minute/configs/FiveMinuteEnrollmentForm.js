@@ -5,7 +5,7 @@ var concurrentForm = require('./ConcurrentEnrollmentForm');
 var admissionForm = require('./AdmissionForm');
 var Constants = require('common/forms/Constants');
 
-var attendingOU = [{
+let attendingOU = [{
 	// title: 'Admission Status',
 	fields: [
 		{
@@ -35,13 +35,14 @@ var attendingOU = [{
 	]
 }];
 
-var highSchoolQuestion = [{
+
+let okResidentQuestion = [{
 	fields: [
 		{
-			ref: 'is_currently_attending_highschool',
+			ref: 'oklahoma_resident',
 			type: 'radiogroup',
 			required: true,
-			label: t('oklahomaResidentHighSchool'),
+			label: t('oklahomaResident'),
 			options: [
 				{
 					label: 'Yes',
@@ -72,4 +73,38 @@ var highSchoolQuestion = [{
 	]
 }];
 
-module.exports = Object.freeze(highSchoolQuestion);
+let highSchoolQuestion = [{
+	fields: [
+		{
+			ref: 'is_currently_attending_highschool',
+			type: 'radiogroup',
+			required: true,
+			label: t('attendingHighschool'),
+			options: [
+				{
+					label: 'Yes',
+					value: 'Y',
+					related: [
+						{
+							type: Constants.FORM_CONFIG,
+							content: okResidentQuestion
+						}
+					]
+				},
+				{
+					label: 'No',
+					value: 'N',
+					related: [
+						{
+							type: Constants.FORM_CONFIG,
+							content: attendingOU
+						}
+					]
+				}
+			]
+		}
+	]
+}];
+
+
+export default Object.freeze(highSchoolQuestion);

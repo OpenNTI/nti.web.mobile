@@ -37,7 +37,7 @@ export default React.createClass({
 			return <ButtonFullWidth href={href + 'drop/'}>Drop This Course</ButtonFullWidth>;
 		}
 
-		if (!this.props.dropOnly && this.enrollmentOptions(this.getEntry()).length > 0) {
+		if (!this.state.enrolled && !this.props.dropOnly && this.enrollmentOptions(this.getEntry()).length > 0) {
 			return <ButtonFullWidth href={href}>Enroll</ButtonFullWidth>;
 		}
 
