@@ -53,19 +53,19 @@ export default React.createClass({
 	},
 
 	getInitialState () {
-		//FIXME: Re-write this:
-		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-		// Additional Note: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-
-		let formData = Store.getPaymentFormData();
-
 		return {
 			agreed: false,
 			loading: true,
-			fieldValues: formData,
 			submitEnabled: true,
 			errors: {}
 		};
+	},
+
+	componentWillMount() {
+		let formData = Store.getPaymentFormData();
+		this.setState({
+			fieldValues: formData
+		});
 	},
 
 	componentDidMount () {
