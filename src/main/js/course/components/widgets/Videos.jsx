@@ -137,6 +137,7 @@ export default React.createClass({
 			e.stopPropagation();
 			console.debug('Touch Start...');
 			this.setState({
+				offsetWidth: videos.offsetWidth,
 				touch: {
 					dom: videos,
 					pixelOffset: pixelOffset,
