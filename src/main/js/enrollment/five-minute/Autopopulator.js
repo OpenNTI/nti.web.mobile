@@ -22,8 +22,12 @@ class Autopopulator {
 		return valuesMap[fieldName] || (typeof this[fieldName] === 'function' ? this[fieldName]() : undefined);
 	}
 
-	['okResident']() {
+	['okResident']() { // the second time we ask if you're an oklahoma resident it should be pre-filled with the answer you gave the first time.
 		return FieldValuesStore.getValue('oklahoma_resident');
+	}
+
+	['high_school_graduate']() { // if you're still attending high school you're probably not a high school graduate.
+		return FieldValuesStore.getValue('is_currently_attending_highschool') === 'Y' ? 'N' : undefined;
 	}
 
 }
