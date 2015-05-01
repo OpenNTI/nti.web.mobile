@@ -34,7 +34,7 @@ export default React.createClass({
 
 	getEntry () {
 		let id = decodeFromURI(this.props.entryId);
-		let e = this.getCatalogEntry();
+		let e = this.getCatalogEntry(id);
 
 		// Enrollment can trigger a catalog reload. If we started on one catalog entry,
 		// but the service mapped us to a different one on completing enrollment, the
