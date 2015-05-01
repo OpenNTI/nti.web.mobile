@@ -31,10 +31,20 @@ export default {
 	},
 
 
-	makeParentRouterHref (path) {
+	buildHref (path) {
+		let parent = /^\.\.\//;
 		let n = this.getNavigable();
+		let p;
 
-		n = n.getParentRouter() || n;
+		//This feels like a hack :/
+		while (parent.test(path)) {
+			p = n.getParentRouter();
+			if (!p) { break; }
+			n = p;
+			path = path.replace(parent, '');
+		}
+
+		if (p) { path = '/' + path; }
 
 		return n.makeHref(path);
 	},
