@@ -52,11 +52,15 @@ export default React.createClass({
 		this.setState({
 			loading: true
 		});
+
+		let returnUrl = this.buildHref('../../enrollment/success/');
+		console.log('UPay return URL: %s', returnUrl);
+
 		Actions.doExternalPayment({
 			link: this.props.paymentLink,
 			ntiCrn: this.props.ntiCrn,
 			ntiTerm: this.props.ntiTerm,
-			returnUrl: this.makeHref('/paymentcomplete/')
+			returnUrl
 		});
 	},
 
@@ -71,11 +75,14 @@ export default React.createClass({
 		}
 
 		return (
-			<PanelButton
-				buttonClick={this.buttonClick}
-				linkText={t("proceedToPayment")}>
-					<span>You will be taken to a secure external site for payment.</span>
-			</PanelButton>
+
+			<div className="enrollment-pending">
+				<figure className="notice">
+					<div>You will be taken to a secure external site for payment.</div>
+				</figure>
+
+				<a className="button tiny" href="#" onClick={this.buttonClick}>{t('proceedToPayment')}</a>
+			</div>
 		);
 	}
 
