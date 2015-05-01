@@ -26,15 +26,18 @@ var mailingAddressFieldset = {
 		},
 		{
 			ref: 'mailing_street_line1',
+			label: t('street_line1'),
 			required: true,
 			// placeholder: t('address1')
 		},
 		{
 			ref: 'mailing_street_line2',
+			label: t('street_line2'),
 			// placeholder: t('address2')
 		},
 		{
 			ref: 'mailing_city',
+			label: t('city'),
 			required: true,
 			// placeholder: t('city')
 		},
