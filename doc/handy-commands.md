@@ -7,6 +7,10 @@
 
     http -a admin@nextthought.com:temp001 POST http://localhost:8082/dataserver2/CourseAdmin/UserCourseDrop ntiid=tag:nextthought.com,2011-10:NTI-CourseInfo-Spring2015_LSTD_1153 username=ray.hatfield@gmail.com
 
+(or for history course summer 2015)
+
+    http -a admin@nextthought.com:temp001 POST http://localhost:8082/dataserver2/CourseAdmin/UserCourseDrop ntiid=tag:nextthought.com,2011-10:NTI-CourseInfo-Summer2015_LSTD_1153_801 username=ray.hatfield@gmail.com
+
 ## enroll user for credit
 
     http -a admin@nextthought.com:temp001 POST http://localhost:8082/dataserver2/CourseAdmin/UserCourseEnroll username=local ntiid='tag:nextthought.com,2011-10:NTI-CourseInfo-Spring2015_LSTD_1153_SubInstances_500' scope=ForCredit
