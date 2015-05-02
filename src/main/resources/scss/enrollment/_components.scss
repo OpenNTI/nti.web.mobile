@@ -6,8 +6,13 @@
 @import "components/payment-confirm";
 
 .enrollment-panels {
-	@include grid-row();
+	@include grid-column(12);
 	& > * {
-		@include grid-column(12);
+		.panel-button {
+			@include grid-row();
+			padding: 1rem;
+			margin: 1rem 0;
+			border: 1px solid $border-grey;
+		}
 	}
 }
