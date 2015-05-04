@@ -15,6 +15,7 @@ import Page from 'common/components/Page';
 
 import Enrollment from 'enrollment/components/View';
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
+import GiftRedeem from 'enrollment/store-enrollment/components/GiftRedeem';
 
 
 const CatalogBody = React.createClass({
@@ -54,6 +55,10 @@ const CatalogBody = React.createClass({
 				<Location
 					path="/item/:entryId(/*)"
 					handler={EntryDetail}
+				/>
+				<Location
+					path="/redeem/:entryId/*"
+					handler={GiftRedeem}
 				/>
 				<Location
 					path="/enrollment/success/"

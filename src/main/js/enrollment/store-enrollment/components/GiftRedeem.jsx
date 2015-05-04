@@ -3,6 +3,7 @@ import React from 'react';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import FieldRender from 'common/forms/mixins/RenderFormConfigMixin';
+import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
 
@@ -22,7 +23,7 @@ const t = scoped('ENROLLMENT.GIFT.REDEEM');
 
 export default React.createClass({
 	displayName: 'GiftRedeem',
-	mixins: [FieldRender],
+	mixins: [FieldRender, CatalogAccessor],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired,
@@ -82,6 +83,14 @@ export default React.createClass({
 		}
 	},
 
+	getPurchasable () {
+		let entry = this.getCatalogEntry(decodeFromURI(this.props.entryId));
+		let {Purchasables} = entry.EnrollmentOptions.Items.StoreEnrollment;
+		let pid = Purchasables.DefaultGiftingNTIID;
+		return Purchasables.Items.find( item=> {
+			return item.NTIID === pid;
+		});
+	},
 
 	handleSubmit (event) {
 		event.preventDefault();
@@ -92,7 +101,7 @@ export default React.createClass({
 		let {entryId} = this.props;
 
 		redeemGift(
-			this.props.purchasable,
+			this.getPurchasable(),
 			decodeFromURI(entryId),
 			this.state.fieldValues.accessKey);
 	},
@@ -108,7 +117,8 @@ export default React.createClass({
 		}
 
 		if (this.state.success) {
-			return (<EnrollmentSuccess courseTitle={this.props.purchasable.Title} />);
+			let {Title} = this.getPurchasable();
+			return (<EnrollmentSuccess courseTitle={Title} />);
 		}
 
 		let title = t('formTitle');
