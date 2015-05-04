@@ -57,7 +57,7 @@ const CatalogBody = React.createClass({
 					handler={EntryDetail}
 				/>
 				<Location
-					path="/redeem/:entryId/*"
+					path="/redeem/:entryId/(:code)"
 					handler={GiftRedeem}
 				/>
 				<Location
