@@ -23,20 +23,32 @@ export default React.createClass({
 	},
 
 	getInitialState () {
-		//FIXME: Re-write this:
-		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-		// Additional Note: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
+		return {
+			triedCoupon: false,
+			couponDiscount: false,
+			checkingCoupon: false
+		};
+	},
 
+	componentWillMount: function() {
+		this.resetState();
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		this.resetState(nextProps);
+	},
+
+	resetState(theprops = this.props) {
 		let pricing = this.getCouponPricing();
 		let state = {
-				currency: this.props.purchasable.Currency,
-				currentPrice: this.props.purchasable.Amount,
+				currency: theprops.purchasable.currency,
+				currentPrice: theprops.purchasable.amount,
 				triedCoupon: false,
 				couponDiscount: false,
 				checkingCoupon: false
 			};
 
-		if (this.props.locked) {
+		if (theprops.locked) {
 			state.coupon = t('noCoupon');
 		}
 
@@ -49,9 +61,8 @@ export default React.createClass({
 			state.triedCoupon = true;
 		}
 
-		return state;
+		this.setState(state);
 	},
-
 
 	componentDidMount () {
 		Store.addChangeListener(this[onChange]);

@@ -49,14 +49,10 @@ export default React.createClass({
 			return;
 		}
 
-		let {Purchasables} = enrollment;
+		let purchasable = forGifting ? enrollment.getPurchasableForGifting() : enrollment.getPurchasable();
 
-		if (!Purchasables) {
-			console.warn('Enrollment.Purchasables is not defined!');
-			return null;
-		}
-		let id = forGifting ? Purchasables.DefaultGiftingNTIID : Purchasables.DefaultPurchaseNTIID;
-		return Purchasables.Items.find((element) => element.ID === id);
+		return purchasable;
+
 	},
 
 	componentDidMount () {
