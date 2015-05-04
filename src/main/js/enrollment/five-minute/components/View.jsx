@@ -59,7 +59,7 @@ export default React.createClass({
 
 	render () {
 
-		if ((this.props.enrollment || {}).IsEnrolled) {
+		if ((this.props.enrollment || {}).enrolled) {
 
 			let href = this.courseHref(this.props.courseId);
 

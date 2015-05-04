@@ -57,7 +57,7 @@ export default React.createClass({
 			message = 'Payment was not processed.';
 
 		}
-		else if (!this.props.enrollment.IsEnrolled) {
+		else if (!this.props.enrollment.enrolled) {
 
 			message = 'You were not enrolled.';
 

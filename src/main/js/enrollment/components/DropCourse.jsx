@@ -107,7 +107,7 @@ export default React.createClass({
 
 		enrollmentTypes.forEach(function(type) {
 			let option = items[type];
-			if (option.IsEnrolled) {
+			if (option.enrolled) {
 				let Widget = widgetMap[type];
 				if(!Widget) {
 					console.warn('Enrolled in an unrecognized/supported enrollment option? %O', option);

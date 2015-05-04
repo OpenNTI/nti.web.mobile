@@ -117,8 +117,8 @@ export default React.createClass({
 		for(let prop of Object.keys(Items)) {
 			let opt = Items[prop];
 			dropable = dropable || dropableMime.test(opt.MimeType);
-			available = available || Boolean(opt.IsAvailable);
-			enrolled = enrolled || Boolean(opt.IsEnrolled);
+			available = available || Boolean(opt.available);
+			enrolled = enrolled || Boolean(opt.enrolled);
 		}
 
 		return {enrolled, dropable, available, status};

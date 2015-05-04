@@ -77,7 +77,7 @@ export default {
 
 		let {Items = {}} = catalogEntry.EnrollmentOptions || {};
 
-		return (Items.OpenEnrollment || {}).IsEnrolled;
+		return (Items.OpenEnrollment || {}).enrolled;
 	},
 
 
@@ -103,7 +103,7 @@ export default {
 		let options = catalogEntry.EnrollmentOptions.Items||{};
 
 		function showOption (op) {
-			return op && op.IsAvailable && !op.IsEnrolled;
+			return op && op.available && !op.enrolled;
 		}
 
 		for(let key of Object.keys(options)){
