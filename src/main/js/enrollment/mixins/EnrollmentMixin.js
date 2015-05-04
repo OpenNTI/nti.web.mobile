@@ -83,9 +83,7 @@ export default {
 
 	isGiftable (enrollmentOption) {
 		let {option = {}} = enrollmentOption || {};
-		let {DefaultGiftingNTIID} = option.Purchasables || {};
-
-		return !!DefaultGiftingNTIID;
+		return !!(option.getPurchasableForGifting && option.getPurchasableForGifting());
 	},
 
 
