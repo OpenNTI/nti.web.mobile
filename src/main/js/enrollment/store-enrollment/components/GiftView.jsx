@@ -64,7 +64,13 @@ export default React.createClass({
 	},
 
 	componentWillMount() {
-		let formData = Object.assign( { from: ProfileStore.getUserEmail() }, Store.getPaymentFormData() );
+		let formData = Object.assign(
+			{
+				from: ProfileStore.getUserEmail(),
+				name: ProfileStore.getUserRealName()
+			},
+			Store.getPaymentFormData()
+		);
 		this.setState({
 			fieldValues: formData
 		});

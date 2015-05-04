@@ -23,6 +23,10 @@ class Store extends EventEmitter {
 		return (user || {}).email;
 	}
 
+	getUserRealName() {
+		return (user || {}).realname;
+	}
+
 }
 
 export default new Store();
