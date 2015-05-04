@@ -4,7 +4,7 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import Router, {Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
 import CaptureClicks from 'react-router-component/lib/CaptureClicks';
 
-import {getServer} from 'common/utils';
+import {getService} from 'common/utils';
 
 import Loading from 'common/components/Loading';
 import ErrorComponent from 'common/components/Error';
@@ -44,8 +44,8 @@ export default React.createClass({
 			return;
 		}
 
-		getServer().getPurchasables(purchasableId)
-			.then(x => x.Items[0])
+		getService().getPurchasables(purchasableId)
+			.then(x => x[0])
 			.then(x => {
 				this.setState({purchasable: x});
 				return x;
