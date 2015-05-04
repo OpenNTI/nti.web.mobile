@@ -16,6 +16,8 @@ var CompressionPlugin = require('compression-webpack-plugin');
 var path = require('path');
 var fs = require('fs');
 
+var gitRevision = require('./src/server/lib/git-revision');
+
 var StyleCollector = path.join(__dirname, 'src', 'server', 'lib', 'style-collector');
 
 var scssIncludes =
@@ -116,6 +118,7 @@ function includeWidgets(o) {
 			plugins: [
 				new webpack.DefinePlugin({
 					SERVER: false,
+					'build_source': gitRevision,
 					'process.env': {
 						// This has effect on the react lib size
 						'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
@@ -181,6 +184,7 @@ exports = module.exports = [
 			new webpack.optimize.DedupePlugin(),
 			new webpack.DefinePlugin({
 				SERVER: false,
+				'build_source': gitRevision,
 				'process.env': {
 					// This has effect on the react lib size
 					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
@@ -216,6 +220,7 @@ exports = module.exports = [
 		plugins: [
 			new webpack.DefinePlugin({
 				SERVER: true,
+				'build_source': gitRevision,
 				'process.env': {
 					// This has effect on the react lib size
 					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')

@@ -4,6 +4,7 @@ import path from 'path';
 import request from 'request';
 import getSite from './site-mapping';
 import logger from './logger';
+import gitRevision from './git-revision';
 import {SiteName, ServiceStash} from 'nti.lib.interfaces/CommonSymbols';
 
 let env = null; //until this loads, calling config() should blow up.
@@ -101,7 +102,8 @@ export function config() {
 		Object.assign({}, env[base], env[process.env.NODE_ENV] || {}), {
 			protocol: opt.protocol,
 			address: opt.l,
-			port: opt.p || env.port
+			port: opt.p || env.port,
+			revision: gitRevision
 		});
 
 	if (serverHost || serverPort) {
