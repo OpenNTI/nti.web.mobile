@@ -3,6 +3,21 @@ import dataserver from 'nti.lib.interfaces';
 import forceCurrentHost from 'nti.lib.interfaces/utils/forcehost';
 
 
+function exposeGlobaly (...fns) {
+
+	function wrap (fn) {
+		return (...args)=> {
+			console.error(`[DEBUG API ACCESSED (${fn.name})]: This message should only be seen when invoking this method on the REPL.`);
+			return fn(...args);
+		};
+	}
+
+	for (let fn of fns) {
+		Object.assign(global, { [fn.name]: wrap(fn) });
+	}
+}
+
+
 function isNode() {
 	return typeof $AppConfig === 'undefined' && typeof global.process !== 'undefined';
 }
@@ -99,6 +114,7 @@ export function getService () {
 		getServer().getServiceDocument();
 }
 
+exposeGlobaly(getServer, getService);
 
 export function installAnonymousService () {
 	if ($AppConfig.nodeInterface || isNode()) {
