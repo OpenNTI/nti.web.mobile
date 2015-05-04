@@ -19,8 +19,6 @@ import CreditEnrollmentView from '../five-minute/components/View';
 import Enroll from './Enroll';
 import DropCourse from './DropCourse';
 
-import {StoreEnrollment, FiveminuteEnrollment} from '../Constants';
-
 const entry = Symbol('cce');
 
 export default React.createClass({
@@ -67,12 +65,11 @@ export default React.createClass({
 	},
 
 
-	getEnrollmentOption (key) {
+	getEnrollmentOptionFor (sufix) {
 		let e = this.getEntry();
-		if (e && e.EnrollmentOptions) {
-			return e.EnrollmentOptions.Items[key];
-		}
-		return null;
+		e = e && e.getEnrollmentOptions();
+
+		return e ? e[`getEnrollmentOptionFor${sufix}`]() : null;
 	},
 
 
@@ -104,14 +101,14 @@ export default React.createClass({
 					path="/store(/*)"
 					handler={StoreEnrollmentView}
 					entryId={entryId}
-					enrollment={this.getEnrollmentOption(StoreEnrollment)}
+					enrollment={this.getEnrollmentOptionFor('Purchase')}
 					courseId={courseId} />
 
 				<Router.Location
 					path="/credit(/*)"
 					handler={CreditEnrollmentView}
 					entryId={entryId}
-					enrollment={this.getEnrollmentOption(FiveminuteEnrollment)}
+					enrollment={this.getEnrollmentOptionFor('FiveMinute')}
 					courseId={courseId} />
 
 				<Router.NotFound

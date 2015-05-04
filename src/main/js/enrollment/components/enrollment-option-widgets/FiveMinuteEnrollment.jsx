@@ -8,9 +8,9 @@ export default React.createClass({
 	displayName: 'FiveMinuteEnrollment',
 
 	statics: {
-		re: /FiveMinuteEnrollment/i,//The server sends lower case M, but we're comparing case-insensitively.
-		handles (options) {
-			return this.re.test(options && options.key);
+		re: /fiveminuteenrollmentoption/i,//The server sends lower case M, but we're comparing case-insensitively.
+		handles (option) {
+			return this.re.test(option && option.MimeType);
 		}
 	},
 

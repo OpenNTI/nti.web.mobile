@@ -85,11 +85,10 @@ export default React.createClass({
 
 	getPurchasable () {
 		let entry = this.getCatalogEntry(decodeFromURI(this.props.entryId));
-		let {Purchasables} = entry.EnrollmentOptions.Items.StoreEnrollment;
-		let pid = Purchasables.DefaultGiftingNTIID;
-		return Purchasables.Items.find( item=> {
-			return item.NTIID === pid;
-		});
+		let options = entry.getEnrollmentOptions();
+		let option = options.getEnrollmentOptionForPurchase();
+
+		return option && option.getPurchasableForGifting();
 	},
 
 	handleSubmit (event) {

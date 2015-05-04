@@ -26,9 +26,9 @@ export default React.createClass({
 	},
 
 	statics: {
-		re: /StoreEnrollment/i,
-		handles (options) {
-			return this.re.test(options && options.key);
+		re: /storeenrollmentoption/i,
+		handles (option) {
+			return this.re.test(option && option.MimeType);
 		}
 	},
 
@@ -43,7 +43,7 @@ export default React.createClass({
 
 	render () {
 
-		let purchasable = this[getPurchasable](this.props.enrollmentOption.option);
+		let purchasable = this[getPurchasable](this.props.enrollmentOption);
 
 		if (!purchasable || !purchasable.Currency || !purchasable.Amount) {
 			return <PanelNoButton><Err error="Pricing information is unavailable." /></PanelNoButton>;

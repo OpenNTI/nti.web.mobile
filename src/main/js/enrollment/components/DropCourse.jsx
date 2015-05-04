@@ -95,26 +95,26 @@ export default React.createClass({
 	renderWidgets () {
 		let entryId = decodeFromURI(this.props.entryId);
 		let entry = CatalogStore.getEntry(entryId);
-		let items = entry.EnrollmentOptions.Items;
-		let enrollmentTypes = Object.keys(items);
+
 		let result = [];
+
 		let widgetMap = {
-			OpenEnrollment: DropOpen,
-			StoreEnrollment: DropStore,
-			FiveminuteEnrollment: DropFive
+			'application/vnd.nextthought.courseware.openenrollmentoption': DropOpen,
+			'application/vnd.nextthought.courseware.storeenrollmentoption': DropStore,
+			'application/vnd.nextthought.courseware.fiveminuteenrollmentoption': DropFive
 		};
 
 
-		enrollmentTypes.forEach(function(type) {
-			let option = items[type];
+		for (let option of entry.getEnrollmentOptions()) {
+			let {MimeType} = option;
 			if (option.enrolled) {
-				let Widget = widgetMap[type];
+				let Widget = widgetMap[MimeType];
 				if(!Widget) {
 					console.warn('Enrolled in an unrecognized/supported enrollment option? %O', option);
 				}
-				result.push(<Widget {...this.props} courseTitle={this.getCourseTitle()} key={type} />);
+				result.push(<Widget {...this.props} courseTitle={this.getCourseTitle()} key={MimeType} />);
 			}
-		}.bind(this));
+		}
 
 		if (result.length === 0) {
 			result = this.renderPanel('Unable to drop this course. (Perhaps you\'ve already dropped it?)');

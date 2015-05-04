@@ -112,10 +112,7 @@ export default React.createClass({
 
 		status = status && (forCredit.test(status) ? FOR_CREDIT : OPEN);
 
-		let {Items} = item.EnrollmentOptions;
-
-		for(let prop of Object.keys(Items)) {
-			let opt = Items[prop];
+		for(let opt of item.getEnrollmentOptions()) {
 			dropable = dropable || dropableMime.test(opt.MimeType);
 			available = available || Boolean(opt.available);
 			enrolled = enrolled || Boolean(opt.enrolled);
