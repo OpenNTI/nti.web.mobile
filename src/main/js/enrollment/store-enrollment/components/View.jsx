@@ -162,12 +162,6 @@ export default React.createClass({
 							handler={GiftView}
 							purchasable={giftPurchasable}
 							courseTitle={courseTitle} />
-						<Location path="/gift/redeem/(:code)"
-							handler={GiftRedeem}
-							purchasable={giftPurchasable}
-							courseTitle={courseTitle}
-							courseId={courseId}
-							entryId={entryId} />
 						<NotFound handler={Form} purchasable={purchasable}/>
 					</Locations>
 				</ReactCSSTransitionGroup>
