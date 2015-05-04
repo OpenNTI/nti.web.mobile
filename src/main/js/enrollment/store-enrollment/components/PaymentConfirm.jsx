@@ -86,9 +86,9 @@ export default React.createClass({
 
 	[getPrice] () {
 		let pricing = this[getCouponPricing]();
-		let price = pricing ? pricing.PurchasePrice : this.props.purchasable.Amount;
+		let price = pricing ? pricing.PurchasePrice : this.props.purchasable.amount;
 
-		return this.getFormattedPrice(this.props.purchasable.Currency, price);
+		return this.getFormattedPrice(this.props.purchasable.currency, price);
 	},
 
 	[shouldAllowUpdates] () {

@@ -220,7 +220,7 @@ export default React.createClass({
 
 
 	onClick () {
-		let stripeKey = this.props.purchasable.StripeConnectKey.PublicKey;
+		let stripeKey = this.props.purchasable.getStripeConnectKey().PublicKey;
 		let result = this.getFormData();
 
 		if (this.validate(result) && this.state.agreed) {
