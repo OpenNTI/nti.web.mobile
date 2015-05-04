@@ -68,9 +68,9 @@ export default React.createClass({
 
 
 	getEnrollmentOption (key) {
-		let entry = this.getEntry();
-		if (entry && entry.EnrollmentOptions) {
-			return entry.EnrollmentOptions.Items[key];
+		let e = this.getEntry();
+		if (e && e.EnrollmentOptions) {
+			return e.EnrollmentOptions.Items[key];
 		}
 		return null;
 	},

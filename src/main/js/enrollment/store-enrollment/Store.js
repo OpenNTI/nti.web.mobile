@@ -231,16 +231,6 @@ function priceWithCoupon(data) {
 	}, 2000);
 }
 
-function getEnrollmentService() {
-	return getService().then(function(service) {
-		return service.getEnrollment();
-	});
-}
-
-function redeemGift(purchasable, courseId, accessKey) {
-	return getEnrollmentService().then(service =>
-		service.redeemGift(purchasable, courseId, accessKey));
-}
 
 Store.appDispatch = AppDispatcher.register(function(data) {
 	let action = data.action;
@@ -281,30 +271,6 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 		case Constants.GIFT_PURCHASE_DONE:
 			Store.emitChange({
 				type: action.type
-			});
-			break;
-
-		case Constants.REDEEM_GIFT:
-			redeemGift(
-				action.payload.purchasable,
-				action.payload.courseId,
-				action.payload.accessKey)
-
-			.then(function(result) {
-				Store.emitChange({
-					type: Constants.GIFT_CODE_REDEEMED,
-					action: action,
-					result: result
-				});
-			}, function(reason) {
-
-				let message = reason.Message;
-
-				Store.emitError({
-					type: Constants.INVALID_GIFT_CODE,
-					action: action,
-					reason: message
-				});
 			});
 			break;
 

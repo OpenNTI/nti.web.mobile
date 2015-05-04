@@ -31,11 +31,6 @@ export function resetProcess (options) {
 }
 
 
-export function redeemGift (purchasable, courseId, accessKey) {
-	dispatch(Constants.REDEEM_GIFT, { purchasable, courseId, accessKey });
-}
-
-
 export function edit (mode) {
 	dispatch(Constants.EDIT, {mode});
 }

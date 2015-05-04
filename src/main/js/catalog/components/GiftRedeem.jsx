@@ -3,13 +3,13 @@ import React from 'react';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import FieldRender from 'common/forms/mixins/RenderFormConfigMixin';
-import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
+import CatalogAccessor from '../mixins/CatalogAccessor';
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
 
 import Loading from 'common/components/Loading';
 
-import EnrollmentSuccess from '../../components/EnrollmentSuccess';
+import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 import {scoped} from 'common/locale';
 
 import FORM_CONFIG from '../configs/GiftRedeem';

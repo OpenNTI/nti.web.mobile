@@ -15,7 +15,7 @@ import Page from 'common/components/Page';
 
 import Enrollment from 'enrollment/components/View';
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
-import GiftRedeem from 'enrollment/store-enrollment/components/GiftRedeem';
+import GiftRedeem from './GiftRedeem';
 
 
 const CatalogBody = React.createClass({

@@ -11,7 +11,6 @@ import Store from '../Store';
 
 import Form from './PaymentForm';
 import GiftView from './GiftView';
-import GiftRedeem from './GiftRedeem';
 import PaymentSuccess from './PaymentSuccess';
 import PaymentError from './PaymentError';
 import PaymentConfirm from './PaymentConfirm';
@@ -135,7 +134,7 @@ export default React.createClass({
 		let purchasable = this.getPurchasable();
 		let giftPurchasable = this.getPurchasable(true);
 		let courseTitle = (purchasable || {}).Title || '';
-		let {entryId, courseId} = this.props;
+		let {courseId} = this.props;
 		let giftDoneLink = this.getBasePath() + 'catalog/';
 		let isGift = !!Store.getGiftInfo();
 
