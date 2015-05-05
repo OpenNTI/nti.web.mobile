@@ -140,7 +140,7 @@ export default React.createClass({
 			busy: true
 		});
 
-		let stripeKey = this.props.purchasable.StripeConnectKey.PublicKey;
+		let stripeKey = this.props.purchasable.getStripeConnectKey().PublicKey;
 		verifyBillingInfo(stripeKey, this.state.fieldValues);
 	},
 
@@ -151,7 +151,7 @@ export default React.createClass({
 		}
 
 		let purch = this.props.purchasable;
-		let price = this.getFormattedPrice(purch.Currency, purch.Amount);
+		let price = this.getFormattedPrice(purch.currency, purch.amount);
 		let title = purch.Name||null;
 		let state = this.state;
 		let cssClasses = ['row'];

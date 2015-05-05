@@ -1,5 +1,4 @@
 import React from 'react';
-import Router from 'react-router-component';
 
 import path from 'path';
 
@@ -21,12 +20,25 @@ import DropCourse from './DropCourse';
 
 const entry = Symbol('cce');
 
+const HANDLERS = {
+	open: Enroll,
+	purchase: StoreEnrollmentView,
+	apply: CreditEnrollmentView,
+	drop: DropCourse
+};
+
+const ENROLLMENT_SUFFIXES = {
+	purchase: 'Purchase',
+	apply: 'FiveMinute'
+};
+
 export default React.createClass({
 	displayName: 'enrollment:View',
 	mixins: [BasePathAware, CatalogAccessor, ContextSender, NavigatableMixin],
 
 	propTypes: {
-		entryId: React.PropTypes.string.isRequired
+		entryId: React.PropTypes.string.isRequired,
+		enrollmentType: React.PropTypes.string.isRequired
 	},
 
 
@@ -65,11 +77,11 @@ export default React.createClass({
 	},
 
 
-	getEnrollmentOptionFor (sufix) {
+	getEnrollmentOptionFor (suffix) {
 		let e = this.getEntry();
 		e = e && e.getEnrollmentOptions();
 
-		return e ? e[`getEnrollmentOptionFor${sufix}`]() : null;
+		return e ? e[`getEnrollmentOptionFor${suffix}`]() : null;
 	},
 
 
@@ -81,6 +93,7 @@ export default React.createClass({
 	},
 
 	render () {
+
 		let {entryId} = this.props;
 		let courseId = this.getCourseId();
 
@@ -90,32 +103,12 @@ export default React.createClass({
 			);
 		}
 
+		let Comp = HANDLERS[this.props.enrollmentType] || NotFound;
+		let enrollment = ENROLLMENT_SUFFIXES[this.props.enrollmentType] ? this.getEnrollmentOptionFor(ENROLLMENT_SUFFIXES[this.props.enrollmentType]) : null;
 		return (
-			<Router.Locations contextual ref="router">
-
-				<Router.Location path="/drop/" handler={DropCourse}
-					entryId={entryId}
-					courseId={courseId}/>
-
-				<Router.Location
-					path="/store(/*)"
-					handler={StoreEnrollmentView}
-					entryId={entryId}
-					enrollment={this.getEnrollmentOptionFor('Purchase')}
-					courseId={courseId} />
-
-				<Router.Location
-					path="/credit(/*)"
-					handler={CreditEnrollmentView}
-					entryId={entryId}
-					enrollment={this.getEnrollmentOptionFor('FiveMinute')}
-					courseId={courseId} />
-
-				<Router.NotFound
-					handler={Enroll}
-					entryId={entryId} />
-
-			</Router.Locations>
-		);
+			<Comp entryId={entryId}
+				courseId={courseId}
+				enrollment={enrollment}
+			/>);
 	}
 });

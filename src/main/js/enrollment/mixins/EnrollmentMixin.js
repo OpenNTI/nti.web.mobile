@@ -123,6 +123,7 @@ export default {
 				let widget = getWidget(option);
 				return widget ? React.createElement(widget, {
 					catalogEntry: catalogEntry,
+					entryId: this.props.entryId,
 					enrollmentOption: option,
 					isGiftable: this.isGiftable(option),
 					className: 'enrollment-panel',
