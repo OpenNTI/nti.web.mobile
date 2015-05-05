@@ -31,6 +31,11 @@ export function getAppUsername () {
 }
 
 
+export function getAppUser () {
+	return getService().then(s=> s.getAppUser());
+}
+
+
 export function getBasePath () {
 	if (noConfig()) {
 		console.error('utils:getBasePath() was called before config was defined.');

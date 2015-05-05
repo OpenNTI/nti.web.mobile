@@ -6,6 +6,7 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import isEmail from 'nti.lib.interfaces/utils/isemail';
 
 import {scoped} from 'common/locale';
+import {getAppUser} from 'common/utils';
 
 let t = scoped('ENROLLMENT');
 let tGift = scoped('ENROLLMENT.GIFT');
@@ -23,8 +24,6 @@ import FormPanel from 'common/forms/components/FormPanel';
 import Localized from 'common/components/LocalizedHTML';
 import ScriptInjector from 'common/mixins/ScriptInjectorMixin';
 import Err from 'common/components/Error';
-
-import ProfileStore from 'profile/Store';
 
 import Store from '../Store';
 import * as Actions from '../Actions';
@@ -64,16 +63,28 @@ export default React.createClass({
 	},
 
 	componentWillMount() {
-		let formData = Object.assign(
-			{
-				from: ProfileStore.getUserEmail(),
-				name: ProfileStore.getUserRealName()
-			},
-			Store.getPaymentFormData()
-		);
-		this.setState({
-			fieldValues: formData
-		});
+		let fieldValues = Object.assign({}, Store.getPaymentFormData());
+
+		getAppUser()
+			.then(u => {
+				let o = {};
+				let current = this.state.fieldValues || {};
+
+				if (!current.from) {
+					o.from = u.email;
+				}
+
+				if (!current.name) {
+					o.name = u.realname;
+				}
+
+				if (Object.keys(o).length) {
+					fieldValues = Object.assign(o, fieldValues);
+					this.setState({ fieldValues });
+				}
+			});
+
+		this.setState({ fieldValues });
 	},
 
 	componentDidMount () {
