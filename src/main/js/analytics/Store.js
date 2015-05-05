@@ -78,8 +78,8 @@ class AnalyticsStore extends TypedEventEmitter {
 		});
 	}
 
-	endSession(reason='no reason specified') {
-		console.debug('Ending analytics session. (%s)', reason);
+	endSession(/*reason='no reason specified'*/) {
+		// console.debug('Ending analytics session. (%s)', reason);
 		clearTimeout(timeoutId);
 		let haltEvents = this[HaltActiveEvents]();
 		let shutdown = haltEvents.then(
@@ -92,8 +92,8 @@ class AnalyticsStore extends TypedEventEmitter {
 		shutdown.then(startTimer);
 	}
 
-	resumeSession(reason='no reason specified') {
-		console.debug('Resume analytics session. (%s)', reason);
+	resumeSession(/*reason='no reason specified'*/) {
+		// console.debug('Resume analytics session. (%s)', reason);
 		this.emit(CHANGE_EVENT, {type: Constants.RESUME_SESSION});
 	}
 
