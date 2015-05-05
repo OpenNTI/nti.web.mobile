@@ -4,11 +4,11 @@ import path from 'path';
 
 const SEGMENT_HANDLERS = {
 
-	redeem: (segments) =>
-		path.join('enrollment', 'store', 'gift', segments.slice(0, 2).join('/')),
+	redeem: (catalogId, segments) =>
+		path.join('catalog', 'redeem', catalogId, segments[1]),
 
-	forcredit: () =>
-		path.join('enrollment', 'credit', '/'),
+	forcredit: (catalogId) =>
+		path.join('catalog', 'item', catalogId, 'enrollment', 'credit', '/'),
 
 	[null]: (s)=> console.warn('There is no handler registered for ', s)
 };
@@ -56,9 +56,9 @@ export default {
 		let parts = url.match(catalog);
 		if (parts) {
 			let catalogId = translateCatalogId(parts[1]);
-			let trailingPath = translateTrailingPath(parts[2]) || '';
+			let trailingPath = translatePath(catalogId, parts[2]) || '';
 
-			url = path.join(this.basepath, 'catalog', 'item', catalogId, trailingPath);
+			url = path.join(this.basepath, trailingPath);
 
 			logger.info('redirecting to: %s', url);
 			res.redirect(url);
@@ -98,7 +98,7 @@ export default {
 };
 
 
-function translateTrailingPath (trailingPath) {
+function translatePath (catalogId, trailingPath) {
 	if (!trailingPath) {
 		return void 0;
 	}
@@ -107,7 +107,7 @@ function translateTrailingPath (trailingPath) {
 
 	let handler = SEGMENT_HANDLERS[segments[0] || null];
 
-	return handler.call(null, segments);
+	return handler.call(null, catalogId, segments);
 }
 
 
