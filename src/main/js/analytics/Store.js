@@ -102,10 +102,10 @@ class AnalyticsStore extends TypedEventEmitter {
 	}
 
 	[ProcessLocalStorage]() {
-		console.debug('processing local storage');
+		// console.debug('processing local storage');
 		try {
 			let q = JSON.parse(window.localStorage.getItem(localStorageKey));
-			console.debug('localStorage events: %o', q);
+			// console.debug('localStorage events: %o', q);
 			this[HaltActiveEvents](q).then(events => {
 				this.enqueueEvents(events);
 				this[ProcessQueue]();
