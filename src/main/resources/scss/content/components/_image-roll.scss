@@ -1,3 +1,8 @@
+%transition-image {
+	-webkit-transition: -webkit-transform .25s ease-out;
+	transition: transform .25s ease-out;
+}
+
 .image-roll {
 	margin: 2rem 0 2rem;
 	background: $panel-background;
@@ -85,6 +90,7 @@
 		a.zoom, button {
 			transition: opacity 0.5s;
 		}
+
 		&.touching {
 			a.zoom, button {
 				opacity: 0;
@@ -132,6 +138,47 @@
 		&.next {
 			z-index: 2;
 			left: 100%;
+		}
+	}
+
+	.stage.transitioning {
+
+		.image {
+			@extend %transition-image;
+			-webkit-transform: translate3d(0,0,0);
+			transform: translate3d(0,0,0);
+		}
+
+		&.next {
+
+			.image.next {
+				-webkit-transform: translate3d(-100%,0,0) !important;
+				transform: translate3d(-100%,0,0) !important;
+			}
+
+			.image.current,
+			.image.prev {
+				-webkit-transform: translate3d(0,0,-5px) !important;
+				transform: translate3d(0,0,-5px) !important;
+			}
+
+		}
+
+		&.prev {
+
+			.image.prev,
+			.image.next {
+				-webkit-transform: translate3d(0,0,0) !important;
+				transform: translate3d(0,0,0) !important;
+			}
+
+			.image.current {
+				-webkit-transform: translate3d(100%,0,0) !important;
+				transform: translate3d(100%,0,0) !important;
+			}
+
+			.image.prev {}
+
 		}
 	}
 

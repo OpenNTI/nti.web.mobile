@@ -1,5 +1,8 @@
 import React from 'react';
 
+import CSSCore from 'react/lib/CSSCore';
+import ReactTransitionEvents from 'react/lib/ReactTransitionEvents';
+
 import cx from 'classnames';
 
 import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
@@ -14,14 +17,6 @@ function getTouch(e, id) {
 }
 
 function getTransform (offset, z = 0) {
-	let filter;
-
-	let b = Math.abs(Math.round(z));
-	if (isFinite(b) && z) {
-
-		filter = `blur(${b}px) saturate(${100 - (b * 3)}%)`;
-	}
-
 	let transform = `translate3d(${offset}px, 0, ${z}px)`;
 	return {
 		boxShadow: offset ? '0 0 5px #000' : null,
@@ -29,17 +24,16 @@ function getTransform (offset, z = 0) {
 		WebkitTransform: transform,
 		MozTransform: transform,
 		msTransform: transform,
-		transform,
-
-		MozFilter: filter,
-		WebkitFilter: filter,
-		msFilter: filter,
-		filter: filter
+		transform
 	};
 }
 
 function getZOffset (offset, max) {
-	return -Math.log2(Math.abs(offset)) - 3;
+	let ratio = (offset / max);
+	if (!isFinite(ratio)) {
+		ratio = 1;
+	}
+	return 5 * ratio;
 }
 
 export default React.createClass({
@@ -93,23 +87,59 @@ export default React.createClass({
 	},
 
 
+	onStay (e) { this.go(e, 0); },
 	onPrev (e) { this.go(e, -1); },
 	onNext (e) { this.go(e, 1); },
 
 
-	go (e, n) {
-		stop(e);
-		e.target.blur();
+	go (e, n, cb) {
+		if (e) {
+			stop(e);
+			e.target.blur();
+		}
 
 		let images = this.getImages().length;
 		let index = this.getActiveIndex();
+		let next = index + n;
+		let {touchEnd = {}} = this.state;
+		let stage = React.findDOMNode(this.refs.stage);
+		let currentImage = React.findDOMNode(this.refs.current);
 
-		index = (index + n) % images;
-		if (index < 0) {
-			index += images;
+		if (next >= 0 && next < images) {
+			index = next;
 		}
 
-		this.setState({current: index});
+		let action = (n === 0 || next !== index) ? 'stay' : n < 0 ? 'prev' : 'next';
+
+		let finish = ()=> this.setState({
+			current: index,
+			touch: void 0,
+			touchEnd: void 0
+		}, ()=> cb && cb());
+
+
+		let transitionEnded = () => {
+			ReactTransitionEvents.removeEndEventListener(currentImage, transitionEnded);
+			CSSCore.removeClass(stage, 'transitioning');
+			CSSCore.removeClass(stage, action);
+			finish();
+			stage = null;//flag we've already run.
+		};
+
+
+		if (!stage) {
+			return finish();
+		}
+
+
+		ReactTransitionEvents.addEndEventListener(currentImage, transitionEnded);
+
+		this.setState({touchEnd}, () =>{//ensure we're transitioning (see render method)
+			if (stage) {//we may execute out of order... so if the transitionEnded function executes first, don't add the class.
+				CSSCore.addClass(stage, action);
+			}
+			this.setState({touchEnd: {}});//remove inline-transforms
+		});
 	},
 
 
@@ -144,9 +174,9 @@ export default React.createClass({
 
 
 	onTouchStart (e) {
-		let {touch} = this.state;
+		let {touch, touchEnd} = this.state;
 
-		if (!touch) {
+		if (!touch && !touchEnd) {
 			touch = e.targetTouches[0];
 
 			e.stopPropagation();
@@ -154,7 +184,7 @@ export default React.createClass({
 			let {stage} = this.refs;
 			stage = React.findDOMNode(stage);
 
-			console.debug('Touch Start...');
+			// console.debug('Touch Start...');
 
 			this.setState({
 				touch: {
@@ -171,6 +201,9 @@ export default React.createClass({
 					delta: 0
 				}
 			});
+		}
+		else {
+			console.debug('Ignored Touch Start...');
 		}
 	},
 
@@ -211,7 +244,7 @@ export default React.createClass({
 
 				startPixelOffset = pixelOffset;
 
-				console.debug('Touch move tripped...');
+				// console.debug('Touch move tripped...');
 			}
 
 			if (sliding === 2) {
@@ -246,16 +279,12 @@ export default React.createClass({
 		if (sliding === 2) {
 			stop(e);
 
-			fn = (Math.abs(pixelOffset - startPixelOffset) / targetWidth) < 0.35 ? null ://elastic
+			fn = (Math.abs(pixelOffset - startPixelOffset) / targetWidth) < 0.35 ? 'onStay' ://elastic
 				pixelOffset < startPixelOffset ? 'onNext' : 'onPrev';
 
-			console.debug('Touch End, result: %s', fn || 'stay');
+			//console.debug('Touch End, result: %s', fn || 'stay');
 
-			// if(fn) {
-			// 	this[fn]();
-			// }
-
-			this.setState({ touch: void 0 });
+			this.setState({touchEnd: {pixelOffset, targetWidth}}, ()=> this[fn] && this[fn]());
 		}
 
 
@@ -275,11 +304,18 @@ export default React.createClass({
 	},
 
 
+	getOffsetAndBound () {
+		let {touch, touchEnd} = this.state;
+		let {pixelOffset = 0, targetWidth = 0} = touch || touchEnd || {};
+		return {pixelOffset, targetWidth};
+	},
+
+
 	getCurrentItemStyle () {
 		let style = this.getStageStyle(this.getCurrentImage());
 		if (!style) { return void 0; }
 
-		let {pixelOffset, targetWidth} = this.state.touch || {};
+		let {pixelOffset, targetWidth} = this.getOffsetAndBound();
 
 		if (pixelOffset > 0) {
 			Object.assign(style, getTransform(pixelOffset));
@@ -297,7 +333,7 @@ export default React.createClass({
 		let style = this.getStageStyle(this.getNextImage());
 		if (!style) { return void 0; }
 
-		let {pixelOffset} = this.state.touch || {};
+		let {pixelOffset} = this.getOffsetAndBound();
 
 		if (pixelOffset < 0) {
 			Object.assign(style, getTransform(pixelOffset));
@@ -311,12 +347,12 @@ export default React.createClass({
 		let style = this.getStageStyle(this.getPrevImage());
 		if (!style) { return void 0; }
 
-		let {targetWidth = 0, pixelOffset = 0} = this.state.touch || {};
+		let {pixelOffset, targetWidth} = this.getOffsetAndBound();
 
-		let z = getZOffset(targetWidth, targetWidth);
+		let z = -getZOffset(targetWidth, targetWidth);
 
 		if (pixelOffset > 0) {
-			z += -getZOffset(pixelOffset, targetWidth);
+			z += getZOffset(pixelOffset, targetWidth);
 		}
 
 		Object.assign(style, getTransform(0, z));
@@ -328,7 +364,7 @@ export default React.createClass({
 	render () {
 		let {length} = this.getImages();
 		let {item} = this.props;
-		let {touch = {}} = this.state;
+		let {touchEnd, touch = {}} = this.state;
 		let {title} = item;
 
 		let empty = length === 0;
@@ -339,16 +375,21 @@ export default React.createClass({
 		let prev = this.getPreviousItemStyle();
 		let style = this.getCurrentItemStyle();
 
-		let touchHandlers = {
+		let handlers = {
 			onTouchStart: this.onTouchStart,
 			onTouchMove: this.onTouchMove,
 			onTouchEnd: this.onTouchEnd
 		};
 
+		let stageClasses = cx('stage', {
+			transitioning: !!touchEnd,
+			touching: touch.sliding > 1
+		});
+
 		return (
 			<div className="image-roll">
 				<label>{title}</label>
-				<div ref="stage" className={cx('stage', {touching: touch.sliding > 1})} {...touchHandlers}>
+				<div ref="stage" className={stageClasses} {...handlers}>
 
 					{empty ? (
 
@@ -356,7 +397,7 @@ export default React.createClass({
 
 					) : (
 
-						<div className="image" style={style}>
+						<div ref="current" className="image current" style={style}>
 							<img src={current.src} alt={current.alt} title={current.title} />
 
 							<a href="#zoom" className="zoom fi-magnifying-glass" onClick={this.onZoom}/>
