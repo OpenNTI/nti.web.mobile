@@ -11,6 +11,9 @@ import PaymentError from './PaymentError';
 import PaymentConfirm from './PaymentConfirm';
 import BasePath from 'common/mixins/BasePath';
 
+/**
+* Used by both store-enrollment/components/View and store-enrollment/components/GiftPurchaseView.
+*/
 export default React.createClass({
 	displayName: 'StoreEnrollmentRoutes',
 
@@ -61,8 +64,7 @@ export default React.createClass({
 				break;
 
 			case Constants.RESET:
-				let path = event.options && event.options.gift ? '/gift/' : '/';
-				router.navigate(path, {replace: true});
+				router.navigate('/', {replace: true});
 				break;
 
 			case Constants.BILLING_INFO_VERIFIED:
