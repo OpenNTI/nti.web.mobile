@@ -15,6 +15,7 @@ import Page from 'common/components/Page';
 
 import Enrollment from 'enrollment/components/View';
 import Enroll from 'enrollment/components/Enroll';
+import GiftPurchase from 'enrollment/store-enrollment/components/GiftPurchase';
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 import GiftRedeem from './GiftRedeem';
 
@@ -57,6 +58,11 @@ const CatalogBody = React.createClass({
 					ref="enroll"
 					path="/enroll/:enrollmentType/:entryId(/*)"
 					handler={Enrollment}
+				/>
+				<Location
+					ref="gift"
+					path="/gift/purchase/:entryId(/*)"
+					handler={GiftPurchase}
 				/>
 				<Location
 					path="/item/:entryId(/*)"
