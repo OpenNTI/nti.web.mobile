@@ -6,8 +6,8 @@ function hyphenatedToCamel (s) {
 
 function addValueFor(o, n, v) {
 	let re = addValueFor.re = (addValueFor.re || /^data([A-Z])/);
-	//Creating a function without scope chain
-	let fn = addValueFor.fn = (addValueFor.fn || new Function('m, a', 'return a.toLowerCase();'));//eslint-disable-line no-new-func
+	let fn = addValueFor.fn = (addValueFor.fn || ((_, a) => a.toLowerCase()));
+
 	if (re.test(n)) {
 		n = n.replace(re, fn);
 		o.dataset = (o.dataset || {});
@@ -27,11 +27,10 @@ function getDirectChildNodes(el, tag) {
 
 export default function parseDomObject (el) {
 	let obj = {};
-	let prefix = '';
 
 	Array.from(el.attributes).forEach(p => {
 		addValueFor(obj,
-			hyphenatedToCamel(prefix + p.name),
+			hyphenatedToCamel(p.name),
 			p.value);
 	});
 
@@ -42,9 +41,7 @@ export default function parseDomObject (el) {
 		delete obj.children;
 	}
 
-	Object.defineProperty(obj, 'dom', {
-		value: el.cloneNode(true)
-	});
+	Object.defineProperty(obj, 'dom', { value: el.cloneNode(true) });
 
 	return obj;
 }

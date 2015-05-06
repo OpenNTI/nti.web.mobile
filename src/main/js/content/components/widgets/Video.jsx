@@ -74,24 +74,22 @@ export default React.createClass({
 			this.setState({loading: true});
 
 			if (!contextResolver) {
-				contextResolver = Promise.resolve.bind(Promise, null);
+				contextResolver = ()=>Promise.resolve(null);
 			}
 
 			contextResolver(props)
 				.then(context=>this.setState({context}))
-				.then(()=>
-					contentPackage.getVideoIndex()
-						.then(videoIndex => {
-							video = videoIndex.get(NTIID);
-							video.getPoster()
-								.then(poster=>
-									this.setState({
-										loading: false,
-										video,
-										poster
-									}));
-						})
-				)
+				.then(()=>contentPackage.getVideoIndex())
+				.then(videoIndex => {
+					video = videoIndex.get(NTIID);
+					video.getPoster()
+						.then(poster=>
+							this.setState({
+								loading: false,
+								video,
+								poster
+							}));
+				})
 				.catch(this.onError);
 		} catch (e) {
 			this.onError(e);
