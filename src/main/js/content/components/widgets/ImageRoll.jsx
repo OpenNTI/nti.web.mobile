@@ -395,11 +395,11 @@ export default React.createClass({
 
 					{empty ? (
 
-						<div className="image" style={style} data-empty-message="No Images"/>
+						<div className="item image" style={style} data-empty-message="No Images"/>
 
 					) : (
 
-						<div ref="current" className="image current" style={style}>
+						<div ref="current" className="item image current" style={style}>
 							<img src={current.src} alt={current.alt} title={current.title} />
 
 							{allowZoom && ( <a href="#zoom" className="zoom fi-magnifying-glass" onClick={this.onZoom}/> )}
@@ -409,8 +409,8 @@ export default React.createClass({
 
 					)}
 
-					{prev && ( <div className="image prev" style={prev} /> )}
-					{next && ( <div className="image next" style={next} /> )}
+					{prev && ( <div className="item image prev" style={prev} /> )}
+					{next && ( <div className="item image next" style={next} /> )}
 
 				</div>
 				{this.renderList()}
