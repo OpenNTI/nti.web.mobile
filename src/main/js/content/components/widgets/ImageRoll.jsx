@@ -299,7 +299,7 @@ export default React.createClass({
 	},
 
 
-	getStageStyle (image) {
+	getImageStyle (image) {
 		let {src} = image || {};
 
 		return src && { backgroundImage: `url(${src})` };
@@ -314,7 +314,7 @@ export default React.createClass({
 
 
 	getCurrentItemStyle () {
-		let style = this.getStageStyle(this.getCurrentImage());
+		let style = this.getImageStyle(this.getCurrentImage());
 		if (!style) { return void 0; }
 
 		let {pixelOffset, targetWidth} = this.getOffsetAndBound();
@@ -332,7 +332,7 @@ export default React.createClass({
 
 
 	getNextItemStyle () {
-		let style = this.getStageStyle(this.getNextImage());
+		let style = this.getImageStyle(this.getNextImage());
 		if (!style) { return void 0; }
 
 		let {pixelOffset} = this.getOffsetAndBound();
@@ -346,7 +346,7 @@ export default React.createClass({
 
 
 	getPreviousItemStyle () {
-		let style = this.getStageStyle(this.getPrevImage());
+		let style = this.getImageStyle(this.getPrevImage());
 		if (!style) { return void 0; }
 
 		let {pixelOffset, targetWidth} = this.getOffsetAndBound();
@@ -389,7 +389,7 @@ export default React.createClass({
 		});
 
 		return (
-			<div className="image-roll">
+			<div className="media-roll image-roll">
 				<label>{title}</label>
 				<div ref="stage" className={stageClasses} {...handlers}>
 
