@@ -11,6 +11,8 @@ import Mixin from './Mixin';
 
 const stop = e => { e.preventDefault(); e.stopPropagation(); };
 
+const allowZoom = false;
+
 function getTouch(e, id) {
 	return Array.from(e.targetTouches || [])
 		.find(i=>i.identifier === id);
@@ -400,7 +402,7 @@ export default React.createClass({
 						<div ref="current" className="image current" style={style}>
 							<img src={current.src} alt={current.alt} title={current.title} />
 
-							<a href="#zoom" className="zoom fi-magnifying-glass" onClick={this.onZoom}/>
+							{allowZoom && ( <a href="#zoom" className="zoom fi-magnifying-glass" onClick={this.onZoom}/> )}
 							{prev && ( <button className="prev" onClick={this.onPrev} alt="previous"/> )}
 							{next && ( <button className="next" onClick={this.onNext} alt="next"/> )}
 						</div>
