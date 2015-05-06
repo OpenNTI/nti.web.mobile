@@ -2,11 +2,8 @@ import React from 'react';
 
 import cx from 'classnames';
 
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
-
-import Mixin from './Mixin';
-
-const stop = e => { e.preventDefault(); e.stopPropagation(); };
+import Mixin from '../Mixin';
+import RollCommon from './Mixin';
 
 
 function getVideo (object, index) {
@@ -18,7 +15,7 @@ function getVideo (object, index) {
 
 export default React.createClass({
 	displayName: 'VideoRoll',
-	mixins: [Mixin],
+	mixins: [Mixin, RollCommon],
 
 	statics: {
 		itemType: 'videoroll'
@@ -29,11 +26,7 @@ export default React.createClass({
 	},
 
 
-	getInitialState () {
-		return {
-			current: 0
-		};
-	},
+	getItemCount () { return this.getVideos().length; },
 
 
 	getVideos () {
@@ -58,10 +51,6 @@ export default React.createClass({
 	},
 
 
-	getActiveIndex () {
-		let {current = 0} = this.state;
-		return current;
-	},
 
 
 	getCurrentVideo () {
@@ -125,17 +114,6 @@ export default React.createClass({
 
 	onError (e) {
 		console.error(e.stack || e.message || e);
-	},
-
-
-	onThumbnailClick (e) {
-		stop(e);
-		let attr = 'data-index';
-		let index = getEventTarget(e, `[${attr}]`);
-		if (index) {
-			index = parseInt(index.getAttribute(attr), 10);
-			this.setState({current: index});
-		}
 	},
 
 
