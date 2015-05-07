@@ -2,6 +2,9 @@ import React from 'react';
 
 import cx from 'classnames';
 
+import Error from 'common/components/Error';
+import Loading from 'common/components/Loading';
+
 import Mixin from '../Mixin';
 import RollCommon from './Mixin';
 
@@ -138,12 +141,13 @@ export default React.createClass({
 
 
 	render () {
-		let {length} = this.getVideos();
+		let count = this.getItemCount();
 		let {item} = this.props;
+		let {loading, error} = this.state;
 
 		let {title} = item;
 
-		let empty = length === 0;
+		let empty = loading || error || count === 0;
 
 		let stageClasses = cx('stage', {});
 
@@ -157,7 +161,15 @@ export default React.createClass({
 				<label>{title}</label>
 				<div ref="stage" className={stageClasses}>
 
-					{empty ? (
+					{ loading ? (
+
+						<Loading/>
+
+					) : error ? (
+
+						<Error error={error}/>
+
+					) : empty ? (
 
 						<div className="item video" style={style} data-empty-message="No Videos"/>
 
@@ -191,7 +203,8 @@ export default React.createClass({
 
 
 	renderThumbnail (video, index) {
-		let thumb = this.state.posters[index];
+		let {posters = []} = this.state;
+		let thumb = posters[index];
 
 		let active = index === this.getActiveIndex();
 
@@ -202,7 +215,7 @@ export default React.createClass({
 				ref={'thumbnail' + index}
 				data-index={index}
 				style={thumb}>
-				<a href="#" onClick={this.onThumbnailClick} title="thumbnail"><div className="play fi-play-circle"/></a>
+				<a href="#" onClick={this.onThumbnailClick} title="thumbnail"><div className="icon fi-play-circle"/></a>
 			</li>
 		);
 	}

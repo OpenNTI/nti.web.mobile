@@ -139,12 +139,12 @@ export default React.createClass({
 
 
 	render () {
-		let {length} = this.getImages();
+		let count = this.getItemCount();
 		let {item} = this.props;
 		let {touchEnd, touch = {}} = this.state;
 		let {title} = item;
 
-		let empty = length === 0;
+		let empty = count === 0;
 
 		let current = this.getCurrentImage() || {};
 
@@ -215,7 +215,7 @@ export default React.createClass({
 				ref={'thumbnail' + index}
 				data-index={index}
 				style={thumb}>
-				<a href="#" onClick={this.onThumbnailClick} title="thumbnail"><div className="play fi-play-circle"/></a>
+				<a href="#" onClick={this.onThumbnailClick} title="thumbnail"><div className="icon fi-eye"/></a>
 			</li>
 		);
 	}
