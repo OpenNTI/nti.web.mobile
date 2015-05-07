@@ -78,7 +78,7 @@ export default React.createClass({
 				} else {
 					// the catalog entry we're rooted under may not exist when the catalog reloads
 					// so the success message lives under the root catalog router.
-					this.navigate('../enrollment/success/');
+					this.navigate('./success/');
 				}
 				break;
 
