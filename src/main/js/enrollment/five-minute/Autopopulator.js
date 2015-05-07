@@ -30,7 +30,17 @@ export default class Autopopulator {
 	}
 
 	['high_school_graduate']() { // if you're still attending high school you're probably not a high school graduate.
-		return FieldValuesStore.getValue('is_currently_attending_highschool') === 'Y' ? 'N' : undefined;
+		return FieldValuesStore.getValue('attending-highschool') === 'Y' ? 'N' : undefined;
+	}
+
+	preprocess(values) {
+		// let okhs = 'ok-highschool-student';
+		// if (values[okhs] === undefined) {
+		// 	let hs = values.is_currently_attending_highschool === 'Y';
+		// 	let ok = values.okResident === 'Y';
+		// 	values[okhs] = hs && ok ? 'Y' : 'N';
+		// }
+		return values;
 	}
 
 }

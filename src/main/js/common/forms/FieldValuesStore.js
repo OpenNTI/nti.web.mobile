@@ -24,7 +24,7 @@ export default Object.assign({}, EventEmitter.prototype, {
 	},
 
 	getValues (stripEmpty = false) {
-		let vals = Object.assign({}, this.fieldValues);
+		let vals = this.preprocess(Object.assign({}, this.fieldValues));
 		return stripEmpty ? this.stripEmptyValues(vals) : vals;
 	},
 
@@ -39,6 +39,10 @@ export default Object.assign({}, EventEmitter.prototype, {
 
 	setValue (name, value) {
 		this.fieldValues[name] = value;
+	},
+
+	preprocess(values) {
+		return this.autopopulator && this.autopopulator.preprocess ? this.autopopulator.preprocess(values) : values;
 	},
 
 	autopopulatedValue(name) {

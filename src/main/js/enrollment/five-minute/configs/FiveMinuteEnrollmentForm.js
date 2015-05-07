@@ -76,7 +76,7 @@ let okResidentQuestion = [{
 let highSchoolQuestion = [{
 	fields: [
 		{
-			ref: 'is_currently_attending_highschool',
+			ref: 'attending-highschool',
 			type: 'radiogroup',
 			required: true,
 			label: t('attendingHighschool'),
