@@ -19,6 +19,10 @@
 
     http -a admin@nextthought.com:temp001 POST http://localhost:8082/dataserver2/janux/fmaep_set_state/ username="ray.hatfield@gmail.com" state="reseted"
 
+## set admission status to admitted
+note: PIDM value can be an arbitrary number
+    http -a admin@nextthought.com:temp001 POST http://localhost:8082/dataserver2/janux/fmaep_set_state/ username="ray.hatfield@gmail.com" state="Admitted" PIDM=1234
+
 ## generate reusable gift token [^notresuablebysameuser]
 note: as of this writing (2015.01.03) these tokens can't be reused by the same user even after dropping the course.
 
