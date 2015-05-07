@@ -8,12 +8,14 @@ import {
 } from 'enrollment/Constants';
 
 import {
-	GIFT_CODE_REDEEMED,
 	STRIPE_PAYMENT_SUCCESS
 } from 'enrollment/store-enrollment/Constants';
 
+import {GIFT_CODE_REDEEMED} from 'catalog/Constants';
+
 import EnrollmentStore from 'enrollment/Store';
 import StoreEnrollmentStore from 'enrollment/store-enrollment/Store';
+import CatalogStore from 'catalog/Store';
 
 import {reload as reloadLibrary} from '../Actions';
 import {reload as reloadCatalog} from 'catalog/Actions';
@@ -54,6 +56,7 @@ export default React.createClass({
 	displayName: 'InvalidationListener',
 
 	componentDidMount () {
+		CatalogStore.addChangeListener(flush);
 		EnrollmentStore.addChangeListener(flush);
 		StoreEnrollmentStore.addChangeListener(flush);
 	},
