@@ -30,11 +30,11 @@ export default React.createClass({
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount () {
 		this.resetState();
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		this.resetState(nextProps);
 	},
 
@@ -93,8 +93,8 @@ export default React.createClass({
 
 
 	[onChange] (e) {
-		let pricing = e.pricing,
-			discount;
+		let {pricing} = e;
+		let discount;
 
 		if (!this.isMounted() || this.props.locked) { return; }
 
