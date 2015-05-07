@@ -50,11 +50,6 @@ const CatalogBody = React.createClass({
 		return (
 			<Locations contextual ref="router">
 				<Location
-					ref="enrollment"
-					path="/item/:entryId/enrollment(/*)"
-					handler={Enroll}
-				/>
-				<Location
 					ref="enroll"
 					path="/enroll/:enrollmentType/:entryId(/*)"
 					handler={Enrollment}
@@ -63,6 +58,11 @@ const CatalogBody = React.createClass({
 					ref="gift"
 					path="/gift/purchase/:entryId(/*)"
 					handler={GiftPurchaseView}
+				/>
+				<Location
+					ref="enrollment"
+					path="/item/:entryId/enrollment(/*)"
+					handler={Enroll}
 				/>
 				<Location
 					path="/item/:entryId(/*)"

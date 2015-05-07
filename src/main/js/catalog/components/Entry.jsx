@@ -61,9 +61,14 @@ export default React.createClass({
 		return `${this.getDetailHref()}enrollment/`;
 	},
 
+	getBaseEnrollHref () {
+		return `${this.getBasePath()}catalog/enroll/`;
+	},
 
 	getDropHref () {
-		return `${this.getAddHref()}drop/`;
+		let item = this.getItem();
+		let courseId = encodeForURI(item.getID());
+		return `${this.getBaseEnrollHref()}drop/${courseId}/`;
 	},
 
 
