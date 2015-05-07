@@ -162,7 +162,8 @@ $indent: 0.9375rem;
 		.collapsible {
 			margin-left: $avatarsize + 10px;
 			&.expanded ul {
-				padding-top: 1.5rem;
+				margin-top: 1.5rem;
+				border-top: 1px solid #f0f0f0;
 			}
 		}
 		.avatar {
