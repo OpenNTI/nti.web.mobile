@@ -1,5 +1,3 @@
-
-
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 
@@ -10,7 +8,7 @@ let Actions = Constants.actions;
 let Events = Constants.events;
 
 
-let _messages = {};
+let messages = {};
 
 
 let Store = Object.assign({}, EventEmitter.prototype, {
@@ -19,23 +17,19 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 		this.emit(Events.MESSAGES_CHANGE, this.messages());
 	},
 
-	/**
-	* @param {function} callback
-	*/
+
 	addChangeListener: function(callback) {
 		this.on(Events.MESSAGES_CHANGE, callback);
 	},
 
-	/**
-	* @param {function} callback
-	*/
+
 	removeChangeListener: function(callback) {
 		this.removeListener(Events.MESSAGES_CHANGE, callback);
 	},
 
 	messages: function(options) {
-		let result = Object.keys(_messages).map(function(key) {
-			return _messages[key];
+		let result = Object.keys(messages).map(function(key) {
+			return messages[key];
 		});
 		if(options && options.category) {
 			result = result.filter(function(v) {
@@ -46,19 +40,19 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	clearMessages: function(category) {
-		if (Object.keys(_messages).length === 0) {
+		if (Object.keys(messages).length === 0) {
 			return;
 		}
 		if(category) {
-			Object.keys(_messages).forEach(function(key) {
-				let m = _messages[key];
+			Object.keys(messages).forEach(function(key) {
+				let m = messages[key];
 				if(m.category === category) {
-					delete _messages[key];
+					delete messages[key];
 				}
 			});
 		}
 		else {
-			_messages = {};
+			messages = {};
 		}
 		this.emitChange();
 	}
@@ -66,19 +60,20 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 });
 
 /**
-* Add a message
-* @param {Object} message object
-*/
-function _addMessage(message) {
+ * Add a message
+ * @param {Object} message object
+ * @return {void}
+ */
+function addMessage(message) {
 	if (!(message instanceof Message)) {
 		throw new Error('message must be an instance of Message.');
 	}
-	_messages[message.id] = message;
+	messages[message.id] = message;
 	Store.emitChange();
 }
 
-function _removeMessage(id) {
-	delete _messages[id];
+function removeMessage(id) {
+	delete messages[id];
 	Store.emitChange();
 }
 
@@ -88,7 +83,7 @@ AppDispatcher.register(function(payload) {
 	switch (action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 		case Actions.MESSAGES_ADD:
-			_addMessage(action.message);
+			addMessage(action.message);
 		break;
 
 		case Actions.MESSAGES_CLEAR:
@@ -96,7 +91,7 @@ AppDispatcher.register(function(payload) {
 		break;
 
 		case Actions.MESSAGES_REMOVE:
-			_removeMessage(action.messageId);
+			removeMessage(action.messageId);
 		break;
 
 		default:

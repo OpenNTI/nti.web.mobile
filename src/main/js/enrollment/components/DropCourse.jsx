@@ -87,11 +87,11 @@ export default React.createClass({
 	},
 
 	/**
-	* return the appropriate widget for each enrollment option.
-	* this will (almost?) always return a single widget, as
-	* it's unlikely that the user is enrolled in more than
-	* one option for a given course.
-	*/
+	 * @return {Class} the appropriate widget for each enrollment option.
+	 * this will (almost?) always return a single widget, as
+	 * it's unlikely that the user is enrolled in more than
+	 * one option for a given course.
+	 */
 	renderWidgets () {
 		let entryId = decodeFromURI(this.props.entryId);
 		let entry = CatalogStore.getEntry(entryId);

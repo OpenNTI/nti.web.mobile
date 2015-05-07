@@ -1,6 +1,3 @@
-
-
-
 import Store from '../Store';
 import LoginStoreProperties from '../StoreProperties';
 import OAuthButtons from './OAuthButtons';
@@ -132,7 +129,7 @@ export default React.createClass({
 	},
 
 
-	/**
+	/*
 	 * onChange handler for the username field. Triggers Actions.userInputChanged
 	 */
 	[usernameChanged]: function() {

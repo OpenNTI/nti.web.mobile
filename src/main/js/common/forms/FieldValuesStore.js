@@ -103,9 +103,11 @@ export default Object.assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	* Clear values whose names are not in keep
-	* @param keep {Set} The set of field names to keep.
-	*/
+	 * Clear values whose names are not in keep
+	 *
+	 * @param {Set} keep The set of field names to keep.
+	 * @return {void}
+	 */
 	pruneValues (keep) {
 		let removed = [];
 		let {fieldValues} = this;

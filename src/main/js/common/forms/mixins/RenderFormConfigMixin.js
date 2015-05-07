@@ -33,17 +33,19 @@ export default {
 	[stashedTranslator]: null,
 
 	/**
-	* Renders an html form field from a config object.
-	* @param translator: localization function for placeholders.
-	* @param values: field values indexed by field.ref
-	* @param field: field config, e.g.
-	*	{
-	*		ref: 'name',
-	*		type: 'text',
-	*		required: true,
-	*		placeholder: 'Your Name'
-	*	}
-	*/
+	 * Renders an html form field from a config object.
+	 * @param {function} translator localization function for placeholders.
+	 * @param {object} values field values indexed by field.ref
+	 * @param {object} field field config, e.g.
+	 *	{
+	 *		ref: 'name',
+	 *		type: 'text',
+	 *		required: true,
+	 *		placeholder: 'Your Name'
+	 *	}
+	 *
+	 * @return {ReactElement} The Rendered Field
+	 */
 	renderField: function(translator, values, field) {
 
 		let state = this.state;

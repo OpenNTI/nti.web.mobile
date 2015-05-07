@@ -27,7 +27,7 @@ export default React.createClass({
 		let {assignment, message, buttonLabel, className, pageTitle, onConfirm} = this.props;
 
 		return (
-			<div className={"assignment-placeholder " + className}>
+			<div className={'assignment-placeholder ' + className}>
 				<div className="header">{assignment.title}</div>
 				<div className="fake-questions">
 

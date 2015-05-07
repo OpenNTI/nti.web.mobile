@@ -36,16 +36,12 @@ let LoginStore = Object.assign({}, EventEmitter.prototype, {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
-	/**
-	* @param {function} callback
-	*/
+
 	addChangeListener: function(callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
-	/**
-	* @param {function} callback
-	*/
+
 	removeChangeListener: function(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
@@ -86,9 +82,10 @@ let LoginStore = Object.assign({}, EventEmitter.prototype, {
 
 
 /**
-* Add an error
-* @param {Object} error object should include properties for statusCode (http status code) and raw (the raw response)
-*/
+ * Adds an error
+ * @param {Object} error object should include properties for statusCode (http status code) and raw (the raw response)
+ * @return {void}
+ */
 function addError(error) {
 	invariant(
 		(error && 'statusCode' in error && 'raw' in error),

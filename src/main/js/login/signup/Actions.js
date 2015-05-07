@@ -1,20 +1,13 @@
-
-/** @module login/LoginActions */
-
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import * as Constants from './Constants';
 import {EventEmitter} from 'events';
 
 const bufferTime = 500;
 
-/**
- * Actions available to views for login-related functionality.
- **/
+
 export default Object.assign({}, EventEmitter.prototype, {
 
-	/**
-	* Fired in response to user changes on the form.
-	*/
+
 	preflight: function preflight(data) {
 		clearTimeout(preflight.buffer);
 		preflight.buffer = setTimeout(function(){

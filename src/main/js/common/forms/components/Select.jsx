@@ -29,30 +29,39 @@ export default React.createClass({
 		* where rel is a reference to a Link available on User
 		* This allows room for other types in the future (e.g. raw urls)
 		*/
-		optionsLink: React.PropTypes.object
+		optionsLink: React.PropTypes.object,
+
+
+		field: React.PropTypes.object.isRequired
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: false
 		};
 	},
 
-	componentDidMount: function() {
-		Store.addChangeListener(this.onStoreChange);
+
+	componentWillMount () {
 		if (this.props.optionsLink) {
 			this.setState({
 				loading: true
 			});
+		}
+	},
+
+	componentDidMount () {
+		Store.addChangeListener(this.onStoreChange);
+		if (this.props.optionsLink) {
 			this.loadOptions();
 		}
 	},
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this.onStoreChange);
 	},
 
-	loadOptions: function() {
+	loadOptions () {
 		let link = this.props.optionsLink || {};
 		if (link.type === 'rel' && link.rel) {
 			Actions.loadSelectOptionsFromUserLinkRel(link.rel);
@@ -65,7 +74,7 @@ export default React.createClass({
 		}
 	},
 
-	onStoreChange: function(event) {
+	onStoreChange (event) {
 		let action = event.action || {};
 		let rel = (action.payload || {}).link;
 		if(event.type === Constants.URL_RETRIEVED && rel && this.props.optionsLink && rel === this.props.optionsLink.rel) {
@@ -78,14 +87,14 @@ export default React.createClass({
 
 	// if our options are simple strings turn them into objects
 	// with name and value properties.
-	_makeOption: function(option) {
+	makeOption (option) {
 		return typeof option === 'string' ? { name: option, value: option } : option;
 	},
 
-	_options: function() {
+	renderOptions () {
 		let raw = this.state.options || this.props.options || [];
 		let options = raw.map(function(item) {
-			let option = this._makeOption(item);
+			let option = this.makeOption(item);
 			return <option value={option.value} key={option.value}>{option.name}</option>;
 		}.bind(this));
 
@@ -96,7 +105,7 @@ export default React.createClass({
 
 	},
 
-	render: function() {
+	render () {
 
 		if (this.state.loading) {
 			return <Loading />;
@@ -106,7 +115,7 @@ export default React.createClass({
 			<label>
 				<span>{this.props.field.label}</span>
 				<select {...this.props}>
-					{this._options()}
+					{this.renderOptions()}
 				</select>
 			</label>
 		);

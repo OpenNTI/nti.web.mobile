@@ -23,16 +23,18 @@ const sectionFiltersMap = {
 	[sectionNames.books]: [{name: 'Books'}]
 };
 
+function setSections (cmp) {
+	if (cmp.isMounted()) {
+		cmp.setState({sections: cmp.getAvailableSections()});
+	}
+}
+
 
 export default {
 	mixins: [LibraryAccessor],
 
 	componentDidMount () {
-		this.ensureLibraryLoaded().then(()=>{
-			if (this.isMounted()) {
-				this.setState({sections: this.getAvailableSections()});
-			}
-		});
+		this.ensureLibraryLoaded().then(()=>setSections(this));
 	},
 
 

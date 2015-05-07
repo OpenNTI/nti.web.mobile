@@ -79,6 +79,8 @@ let FilterableView = React.createClass({
 
 	/**
 	 * filter the list according using the currently selected filter.
+	 * @param {object} list Any object that implements filter.
+	 * @return {object} The result of calling filter on the `list`
 	 */
 	filter (list) {
 
@@ -161,6 +163,8 @@ let DefaultPath = React.createClass({
 	 *	Returns the path of the first filter that doesn't result in an emtpy list,
 	 *	or the first filter if all result in empty lists,
 	 *	or null if this.props.filters.length === 0
+	 *
+	 *	@return {object} The default filter or nothing.
 	 */
 	defaultFilterPath () {
 		if (this.props.defaultFilter) {

@@ -26,16 +26,12 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 		this.emitChange(Object.assign({ isError: true}, event));
 	},
 
-	/**
-	 * @param {function} callback
-	 */
+
 	addChangeListener (callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
-	/**
-	 * @param {function} callback
-	 */
+
 	removeChangeListener (callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
