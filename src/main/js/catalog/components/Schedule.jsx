@@ -9,7 +9,7 @@ export default React.createClass({
 
 	propTypes: {
 		startDate: PropTypes.string.isRequired,
-		schedule: PropTypes.shapeOf({
+		schedule: PropTypes.shape({
 			days: PropTypes.arrayOf(PropTypes.string),
 			times: PropTypes.arrayOf(PropTypes.string)
 		}).isRequired
