@@ -116,7 +116,11 @@ let Source = React.createClass({
 
 	buildURL (props) {
 		let mediaSource = props.source;
-		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source[0];
+		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source;
+
+		if (Array.isArray(videoId)) {
+			videoId = videoId[0];
+		}
 
 		let args = {
 			enablejsapi: 1,

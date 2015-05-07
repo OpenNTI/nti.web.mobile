@@ -38,6 +38,10 @@
 		padding: 0 0 0.5rem;
 	}
 
+	a.content-video-tap-area .wrapper {
+		@extend %video-play-button;
+	}
+
 	button {
 		position: absolute;
 		top: 2rem; bottom: 2rem;
@@ -75,9 +79,16 @@
 		}
 	}
 
+	.flex-video {margin: 0;padding-top: 0;}
+
+
+	&.video-roll .stage {
+		padding-bottom: 56.34%;
+	}
+
 	.stage {
 		overflow: hidden;
-		padding-top: 66%;
+		padding-bottom: 66%;
 		position: relative;
 
 		-webkit-perspective: 100px;

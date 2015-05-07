@@ -5,6 +5,8 @@ import cx from 'classnames';
 import Error from 'common/components/Error';
 import Loading from 'common/components/Loading';
 
+import {Component as Video} from 'video';
+
 import Mixin from '../Mixin';
 import RollCommon from './Mixin';
 
@@ -54,8 +56,6 @@ export default React.createClass({
 	},
 
 
-
-
 	getCurrentVideo () {
 		return this.getVideo(this.getActiveIndex());
 	},
@@ -83,6 +83,13 @@ export default React.createClass({
 
 	componentWillReceiveProps (nextProps) {
 		this.fillInVideo(nextProps);
+	},
+
+
+	componentWillUpdate (_, state) {
+		if (this.state.current !== state.current) {
+			this.setState({playing: false});
+		}
 	},
 
 
@@ -117,6 +124,46 @@ export default React.createClass({
 
 	onError (e) {
 		console.error(e.stack || e.message || e);
+		this.setState({
+			loading: false,
+			error: e
+		});
+	},
+
+
+	onStop () {
+		this.setState({playing: false});
+	},
+
+
+	onPlay () {
+		this.setState({playing: true});
+	},
+
+
+	onPosterClicked (e) {
+		e.stopPropagation();
+		this.onPlayClicked(e);
+	},
+
+
+	onPlayClicked (e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		let {video} = this.refs;
+		if (video) {
+			video.play();
+			this.setState({playing: true});
+		}
+	},
+
+
+	stop () {
+		let {video} = this.refs;
+		if (video) {
+			video.stop();
+		}
 	},
 
 
@@ -143,7 +190,7 @@ export default React.createClass({
 	render () {
 		let count = this.getItemCount();
 		let {item} = this.props;
-		let {loading, error} = this.state;
+		let {loading, error, playing} = this.state;
 
 		let {title} = item;
 
@@ -155,6 +202,7 @@ export default React.createClass({
 		let prev = this.getPreviousItemStyle();
 		let style = this.getCurrentItemStyle();
 
+		let video = this.getCurrentVideo();
 
 		return (
 			<div className="media-roll video-roll">
@@ -175,7 +223,25 @@ export default React.createClass({
 
 					) : (
 
-						<div ref="current" className="item video current" style={style}>
+						<div ref="current" className="item video current content-video" style={style}>
+
+							{!video ? null :
+								<Video ref="video" src={video}
+									onEnded={this.onStop}
+									onPlaying={this.onPlay}
+									context={this.state.context}
+									/>
+							}
+
+							{playing ? null :
+								<a style={style} onClick={this.onPosterClicked} className="content-video-tap-area" href="#">
+									<div className="wrapper">
+										<div className="buttons">
+											<span className="play" title="Play" onClick={this.onPlayClicked}/>
+										</div>
+									</div>
+								</a>
+							}
 
 							{prev && ( <button className="prev" onClick={this.onPrev} alt="previous"/> )}
 							{next && ( <button className="next" onClick={this.onNext} alt="next"/> )}
