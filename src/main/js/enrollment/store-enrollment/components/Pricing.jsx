@@ -35,7 +35,9 @@ export default React.createClass({
 	},
 
 	componentWillReceiveProps (nextProps) {
-		this.resetState(nextProps);
+		if (this.props.purchasable !== nextProps.purchasable) {
+			this.resetState(nextProps);	
+		}
 	},
 
 	resetState(theprops = this.props) {
