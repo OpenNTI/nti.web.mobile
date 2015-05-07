@@ -25,10 +25,15 @@ export default React.createClass({
 		ContextSender
 	],
 
+	propTypes: {
+		forumId: React.PropTypes.string.isRequired,
+		course: React.PropTypes.object //probably should be abstracted to be container or some 'interface'
+	},
+
 	backingStore: Store,
 	backingStoreEventHandlers: {},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: true
 		};
@@ -44,7 +49,7 @@ export default React.createClass({
 
 	},
 
-	render: function() {
+	render () {
 
 		if (this.state.loading) {
 			return <Loading />;

@@ -7,6 +7,7 @@ import isEmail from 'nti.lib.interfaces/utils/isemail';
 
 import {scoped} from 'common/locale';
 import {getAppUser} from 'common/utils';
+import {clearLoadingFlag} from 'common/utils/react-state';
 
 let t = scoped('ENROLLMENT');
 let tGift = scoped('ENROLLMENT.GIFT');
@@ -28,21 +29,10 @@ import Err from 'common/components/Error';
 import Store from '../Store';
 import * as Actions from '../Actions';
 import * as Constants from '../Constants';
+import Header from './GiftViewHeader';
 
 let agreementURL = '/mobile/api/user-agreement/view';
 
-const Header = React.createClass({
-	displayName: 'GiftView:Header',
-
-	render () {
-		return (
-			<div>
-				<h2>{tGift('HEADER.title')}</h2>
-				<p>{tGift('HEADER.description')}</p>
-			</div>
-		);
-	}
-});
 
 export default React.createClass({
 	displayName: 'GiftView',
@@ -92,10 +82,8 @@ export default React.createClass({
 		this.injectScript('https://code.jquery.com/jquery-2.1.3.min.js', 'jQuery')
 			.then(() => this.injectScript('https://js.stripe.com/v2/', 'Stripe'))
 			.then(() => this.injectScript('//cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.0.2/jquery.payment.min.js', 'jQuery.payment'))
-			.then(
-				()=> this.setState({ loading: false }),
-				reason => this.setState({ loading: false, error: reason })
-			);
+			.then(()=> clearLoadingFlag(this))
+			.catch(this.onError);
 
 		Store.addChangeListener(this.onChange);
 
@@ -105,6 +93,11 @@ export default React.createClass({
 
 	componentWillUnmount () {
 		Store.removeChangeListener(this.onChange);
+	},
+
+
+	onError (error) {
+		this.setState({ loading: false, error });
 	},
 
 

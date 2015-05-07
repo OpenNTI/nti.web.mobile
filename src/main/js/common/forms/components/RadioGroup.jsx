@@ -3,6 +3,24 @@ import React from 'react';
 export default React.createClass({
 	displayName: 'RadioGroup',
 
+	propTypes: {
+		defaultValue: React.PropTypes.any,
+
+		field: React.PropTypes.shape({
+				label: React.PropTypes.string
+			}).isRequired,
+
+		options: React.PropTypes.arrayOf(
+				React.PropTypes.shape({
+					label: React.PropTypes.string,
+					value: React.PropTypes.string
+				})),
+
+		name: React.PropTypes.string,
+
+		value: React.PropTypes.any
+	},
+
 	renderOptions () {
 		return (this.props.options || []).map((option, index) => {
 			let value = this.props.value || this.props.defaultValue;

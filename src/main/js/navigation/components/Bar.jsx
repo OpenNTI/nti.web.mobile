@@ -1,96 +1,23 @@
-import path from 'path';
 import React from 'react';
 import Transition from 'react/lib/ReactCSSTransitionGroup';
+
+import path from 'path';
 import cx from 'classnames';
 
-import NavStore from '../Store';
-
-import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
-
-import {getAppUsername} from 'common/utils';
-
 import ActiveState from 'common/components/ActiveState';
-import Avatar from 'common/components/Avatar';
 import Pager from 'common/components/Pager';
-
-import addClass from 'nti.lib.dom/lib/addclass';
-import removeClass from 'nti.lib.dom/lib/removeclass';
 
 import BasePathAware from 'common/mixins/BasePath';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import StoreEvents from 'common/mixins/StoreEvents';
 
-const getViewport = ()=> document.getElementsByTagName('html')[0];
+import Menu from './Menu';
+import UserMenu from './UserMenu';
+import ReturnTo from './ReturnTo';
+
+import NavStore from '../Store';
+
 const menuOpenBodyClass = 'nav-menu-open';
-
-
-const Menu = React.createClass({
-	displayName: 'Menu',
-
-	componentDidMount () {
-		addClass(getViewport(), 'scroll-lock');
-	},
-
-	componentWillUnmount () {
-		removeClass(getViewport(), 'scroll-lock');
-	},
-
-	render () {
-		return (<ul {...this.props}/>);
-	}
-});
-
-
-const UserMenu = React.createClass({
-	displayName: 'UserMenu',
-	mixins: [PureRenderMixin],
-
-	propTypes: {
-		onClick: React.PropTypes.func
-	},
-
-	onClick (e) {
-		e.preventDefault();
-		e.stopPropagation();
-		this.props.onClick();
-	},
-
-	render () {
-		let props = {
-			className: 'right-off-canvas-toggle',
-			onClick: this.onClick,
-			href: '#'
-		};
-		let username = getAppUsername();
-		return <a {...props}><Avatar username={username} /></a>;
-	}
-});
-
-
-const ReturnTo = React.createClass({
-	displayName: 'ReturnTo',
-	mixins: [PureRenderMixin],
-
-	propTypes: {
-		href: React.PropTypes.string,
-		label: React.PropTypes.string
-	},
-
-
-	render () {
-		let {href, label} = this.props;
-		let props = {
-			className: 'return-to',
-			href,
-			title: label,
-			children: label
-		};
-
-		return <a {...props}/>;
-	}
-});
-
-
 
 
 function buffer(time, fn) {
@@ -100,7 +27,6 @@ function buffer(time, fn) {
 		id = setTimeout(fn.call(this), time);
 	};
 }
-
 
 
 export default React.createClass({

@@ -8,8 +8,8 @@ import NavigationBar from 'navigation/components/Bar';
 import Head from './Head';
 
 
-let Content = React.createClass({
-	displayName: 'Profile:Content',
+export default React.createClass({
+	displayName: 'profile:View',
 	mixins: [BasePathAware, ContextSender],
 
 	getContext (/*props*/) {
@@ -26,20 +26,9 @@ let Content = React.createClass({
 
 	render () {
 		return (
-			<Head {...this.props} />
-		);
-	}
-});
-
-
-export default React.createClass({
-	displayName: 'profile:View',
-
-	render () {
-		return (
 			<div className="profile">
 				<NavigationBar title="Profile" />
-				<Content {...this.props}/>
+				<Head {...this.props} />
 			</div>
 		);
 	}

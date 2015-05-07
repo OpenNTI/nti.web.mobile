@@ -9,7 +9,9 @@ export default React.createClass({
 
 	propTypes: {
 		activeClassName: React.PropTypes.string,
+		className: React.PropTypes.string,
 		hasChildren: React.PropTypes.bool,
+		href: React.PropTypes.string,
 		tag: React.PropTypes.string
 	},
 

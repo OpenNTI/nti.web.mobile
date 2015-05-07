@@ -10,6 +10,10 @@ export default React.createClass({
 		noteableType: 'openbadges.badge'
 	},
 
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
 	render () {
 		let item = (this.props.item || {}).Item;
 		return (

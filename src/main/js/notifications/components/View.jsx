@@ -1,7 +1,5 @@
 import React from 'react';
 import Loading from 'common/components/Loading';
-import InlineLoader from 'common/components/LoadingInline';
-import Button from 'common/forms/components/Button';
 
 import StoreEvents from 'common/mixins/StoreEvents';
 
@@ -10,35 +8,8 @@ import Store from '../Store';
 import {load, loadMore} from '../Actions';
 import {getNotificationItem} from './kinds';
 
-const Empty = React.createClass({
-
-	render () {
-		return (
-			<li className="notification-item empty">
-				All Caught Up!
-			</li>
-		);
-	}
-
-});
-
-
-const LoadMore = React.createClass({
-
-	render () {
-		let store = this.props.store;
-		return (
-			<div className="text-center button-box">
-				{store.isBusy ?
-					<InlineLoader/>
-				:
-					<Button onClick={this.props.onClick}>Load More</Button>
-				}
-			</div>
-		);
-	}
-
-});
+import Empty from './Empty';
+import LoadMore from './LoadMore';
 
 
 export default React.createClass({

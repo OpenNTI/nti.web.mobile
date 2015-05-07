@@ -12,6 +12,13 @@ export default React.createClass({
 	displayName: 'CourseOverviewGroup',
 	mixins: [Mixin],
 
+	propTypes: {
+		item: React.PropTypes.shape({
+				accentColor: React.PropTypes.string,
+				Items: React.PropTypes.arrayOf(React.PropTypes.object)
+			}).isRequired
+	},
+
 	statics: {
 		mimeTest: /^application\/vnd\.nextthought\.nticourseoverviewgroup/i,
 		handles (item) {

@@ -14,9 +14,6 @@ export default React.createClass({
 		transitionAppear: React.PropTypes.bool
 	},
 
-	getInitialState () {
-		return {mounted: false};
-	},
 
 	getDefaultProps () {
 		return {
@@ -27,8 +24,9 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		this.setState({ mounted: true });
+		this.forceUpdate();
 	},
+
 
 	render (){
 		let {props} = this;
@@ -38,7 +36,7 @@ export default React.createClass({
 			children = props.children;
 		}
 		else{
-			if(this.state.mounted){
+			if(this.isMounted()){
 				children = props.children;
 			}
 		}

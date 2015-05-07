@@ -34,22 +34,31 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		Store.getAdmissionStatus().then(status=> this.setState({
-				admissionStatus: status ? status.toUpperCase() : Constants.ADMISSION_NONE,
-				loading: false
-			}),
-			reason => {
-				console.error('unable to fetch admission status:', reason);
-				this.setState({
-					loading: false,
-					error: reason
-				});
-			});
+		this.getAdmissionStatus();
+
 		Store.addChangeListener(this.onStoreChange);
 	},
 
 	componentWillUnmount () {
 		Store.removeChangeListener(this.onStoreChange);
+	},
+
+
+	getAdmissionStatus () {
+		Store.getAdmissionStatus()
+
+			.then(
+
+				status=> this.setState({
+					admissionStatus: status ? status.toUpperCase() : Constants.ADMISSION_NONE,
+					loading: false
+				}),
+
+				error => {
+					console.error('unable to fetch admission status:', error);
+					this.setState({ loading: false, error });
+				}
+			);
 	},
 
 	onStoreChange (event) {

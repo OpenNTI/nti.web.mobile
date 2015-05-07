@@ -1,4 +1,4 @@
-// tell jshint that Stripe is declared elsewhere
+// tell eslint that Stripe is declared elsewhere
 /* global Stripe */
 
 // we're naming fields to line up with the stripe api which uses lowercase
@@ -9,19 +9,23 @@ import React from 'react';
 import RenderFormConfigMixin from 'common/forms/mixins/RenderFormConfigMixin';
 import {scoped} from 'common/locale';
 
-const t = scoped('ENROLLMENT.forms.storeenrollment');
-const t2 = scoped('ENROLLMENT');
+import FormPanel from 'common/forms/components/FormPanel';
+import FormErrors from 'common/forms/components/FormErrors';
+
+import Loading from 'common/components/Loading';
+import {clearLoadingFlag} from 'common/utils/react-state';
 
 import ScriptInjector from 'common/mixins/ScriptInjectorMixin';
-import Loading from 'common/components/Loading';
+
+import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
 import Store from '../Store';
 import {verifyBillingInfo} from '../Actions';
 import {BILLING_INFO_REJECTED} from '../Constants';
 import fieldConfig from '../configs/PaymentForm';
-import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
-import FormPanel from 'common/forms/components/FormPanel';
-import FormErrors from 'common/forms/components/FormErrors';
+
+const t = scoped('ENROLLMENT.forms.storeenrollment');
+const t2 = scoped('ENROLLMENT');
 
 export default React.createClass({
 	displayName: 'PaymentForm',
@@ -47,7 +51,7 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.injectScript('https://js.stripe.com/v2/', 'Stripe')
-			.then(() => this.setState({ loading: false}));
+			.then(() => clearLoadingFlag(this));
 		Store.addChangeListener(this.onStoreChange);
 	},
 

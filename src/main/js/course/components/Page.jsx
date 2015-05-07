@@ -13,7 +13,7 @@ let getLabel = scoped('COURSE.SECTIONS');
 export default React.createClass({
 	displayName: 'course:Page',
 
-	componentDidMount () {
+	componentWillMount () {
 		let menu = [];
 		let {sectionPathPrefix, course} = this.props;
 		let {CatalogEntry} = course || {};

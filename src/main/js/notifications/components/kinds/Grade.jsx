@@ -10,6 +10,12 @@ export default React.createClass({
 		noteableType: 'grade'
 	},
 
+
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
+
 	render () {
 		let item = this.props.item.Item;
 		let courseName = item.CourseName;

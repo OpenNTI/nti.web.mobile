@@ -6,6 +6,15 @@ export default React.createClass({
 
 
 	propTypes: {
+		cues: React.PropTypes.arrayOf(
+			React.PropTypes.shape({
+				endTime: React.PropTypes.number,
+				startTime: React.PropTypes.number,
+				text: React.PropTypes.string
+			})),
+
+		currentTime: React.PropTypes.number,
+
 		onJumpTo: React.PropTypes.func
 	},
 

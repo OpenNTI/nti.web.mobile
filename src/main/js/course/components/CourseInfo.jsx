@@ -8,6 +8,10 @@ export default React.createClass({
 	displayName: 'CourseInfo',
 	mixins: [ContextSender],
 
+	propTypes: {
+		course: React.PropTypes.object.isRequired
+	},
+
 	getContext () {
 		return Promise.resolve([{}]);
 	},

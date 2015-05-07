@@ -17,6 +17,8 @@ export default React.createClass({
 	],
 
 	propTypes: {
+		children: React.PropTypes.any,
+		className: React.PropTypes.string,
 		item: React.PropTypes.object.isRequired
 	},
 

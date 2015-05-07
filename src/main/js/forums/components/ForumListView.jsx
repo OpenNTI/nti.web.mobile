@@ -10,6 +10,8 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {scoped} from 'common/locale';
 
+import {clearLoadingFlag} from 'common/utils/react-state';
+
 import keyFor from '../utils/key-for-item';
 
 import Store from '../Store';
@@ -42,49 +44,40 @@ export default React.createClass({
 
 	[discussionsChanged](event) {
 		if(event.courseId === this.getCourseId()) {
-			this.setState({
-				loading: false
-			});
+			clearLoadingFlag(this);
 		}
 	},
 
-	getInitialState() {
+	getInitialState () {
 		return {
 			loading: true
 		};
 	},
 
-	componentDidMount() {
+	componentDidMount () {
 		if(!Store.getDiscussions(this.getCourseId())) {
-			this.setState({
-				loading: true
-			});
 			this.load();
 		}
 		else {
-			this.setState({
-				loading: false
-			});
+			clearLoadingFlag(this);
 		}
 	},
 
-	load() {
+	load () {
 		let {course} = this.props;
 		Api.loadDiscussions(course)
-		.then(
-			result => {
-				Store.setDiscussions(course.getID(), result);
-				Store.setCourseId(this.getCourseId());
-			},
-			reason => {
-				console.error('Failed to load discussions', reason);
-				this.setState({
-					error: reason
+			.then(
+				result => {
+					Store.setDiscussions(course.getID(), result);
+					Store.setCourseId(this.getCourseId());
+				},
+				error => {
+					console.error('Failed to load discussions', error);
+					this.setState({ error });
 				});
-			});
 	},
 
-	getCourseId() {
+	getCourseId () {
 		return this.props.course && this.props.course.getID();
 	},
 

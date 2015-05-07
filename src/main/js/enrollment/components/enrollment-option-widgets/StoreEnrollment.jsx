@@ -21,6 +21,7 @@ export default React.createClass({
 	propTypes: {
 		catalogEntry: React.PropTypes.object.isRequired,
 		enrollmentOption: React.PropTypes.object.isRequired,
+		entryId: React.PropTypes.string.isRequired,
 		isGiftable: React.PropTypes.bool
 	},
 

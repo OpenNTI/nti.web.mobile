@@ -24,7 +24,7 @@ export default React.createClass({
 	},
 
 
-	componentDidMount () {
+	componentWillMount () {
 		let prevState = Store.getGiftInfo();
 		let name;
 
