@@ -1,8 +1,5 @@
-
-
 import React from 'react';
 
-import * as Constants from '../Constants';
 import Store from '../Store';
 
 import StoreEnrollmentRoutes from './StoreEnrollmentRoutes';
@@ -36,11 +33,6 @@ export default React.createClass({
 
 	getPurchasable (forGifting=false) {
 		let {enrollment} = this.props;
-
-		if (!enrollment) {
-			console.warn('Missing prop value for `enrollment`!!');
-			return;
-		}
 
 		let purchasable = forGifting ? enrollment.getPurchasableForGifting() : enrollment.getPurchasable();
 
