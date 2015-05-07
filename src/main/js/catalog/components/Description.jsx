@@ -1,82 +1,28 @@
 import React from 'react';
 import moment from 'moment';
 import isEmpty from 'nti.lib.interfaces/utils/isempty';
-import locale, {scoped} from 'common/locale';
+import {scoped} from 'common/locale';
+
+import OpenEnrolledMessage from './OpenEnrolledMessage';
+import CreditHours from './CreditHours';
+import FullyOnline from './FullyOnline';
+import Schedule from './Schedule';
 
 const t = scoped('COURSE.INFO');
 
 const isOpenEnrolled = RegExp.prototype.test.bind(/open/i);
 
-const OpenEnrolledMessage = React.createClass({
-	render () {
-		return (
-			<div className="open">
-				{t('OpenEnrolled')} <span className="red">{t('OpenEnrolledIsNotForCredit')}</span>
-			</div>
-		);
-	}
-});
-
-
-const CreditHours = React.createClass({
-	render () {
-		let keyPrefix = this.props.entry + '-credit-';
-		let credits = this.props.credit || [];
-		//let hours = (credits[0] || {}).Hours;
-
-		return (
-			<div className="enroll-for-credit">
-				{/*{locale('UNITS.credits', { count: hours  })} {t('CREDIT.available')}<br />*/}
-				{credits.map((credit, i) => {
-					let e = credit.Enrollment || {};
-					return (
-						<div className="credit" key={keyPrefix + i}>
-							{locale('UNITS.credits', { count: credit.Hours })} {t('CREDIT.available')}<br />
-							<a href={e.url} target="_blank">{e.label}</a>
-						</div>
-					);
-				})}
-			</div>
-		);
-	}
-});
-
-
-const FullyOnline = React.createClass({
-	render () {
-		return (<div className="value">{t('OnlyOnline')}</div>);
-	}
-});
-
-
-const Schedule = React.createClass({
-
-	format (d) {
-		let date = this.props.startDate.split('T')[0];//YUCK
-		date = [date, d].join('T'); //ICK!
-
-		return moment(date).format('h:mm a');
-	},
-
-	render () {
-		let schedule = this.props.schedule;
-		return (
-			<div className="value">
-				<span>{schedule.days.join(' / ')}</span>
-				<span className="space"> </span>
-				<span>{schedule.times.map(this.format).join(' - ')}</span>
-			</div>
-		);
-
-	}
-});
-
-
 export default React.createClass({
 	displayName: 'Description',
 
+	propTypes: {
+		enrollmentStatus: React.PropTypes.string,
+
+		entry: React.PropTypes.object.isRequired
+	},
+
 	render () {
-		let enrollmentStatus = this.props.enrollmentStatus || 'None';
+		let {enrollmentStatus = 'None'} = this.props;
 		let EnrollmentMessage = isOpenEnrolled(enrollmentStatus) ?
 				OpenEnrolledMessage : 'div';
 
