@@ -58,7 +58,7 @@ export default React.createClass({
 		if (pricing && pricing.Coupon) {
 			state.coupon = pricing.Coupon.ID;
 			state.couponDiscount = this[getDiscountString](pricing.Coupon);
-			state.oldPrice = pricing.amount;
+			state.oldPrice = pricing.Amount;
 			state.currentPrice = pricing.PurchasePrice;
 			state.triedCoupon = true;
 		}
@@ -105,7 +105,7 @@ export default React.createClass({
 
 			this.setState({
 				currentPrice: pricing.PurchasePrice,
-				oldPrice: pricing.amount,
+				oldPrice: pricing.Amount,
 				triedCoupon: true,
 				couponDiscount: discount,
 				checkingCoupon: false
