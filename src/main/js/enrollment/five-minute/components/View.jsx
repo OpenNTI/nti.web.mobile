@@ -49,11 +49,8 @@ export default React.createClass({
 	},
 
 	onStoreChange (event) {
-		switch(event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case CONCURRENT_ENROLLMENT_SUCCESS:
-				this.navigate('credit/concurrent/');
-				break;
+		if (event.type === CONCURRENT_ENROLLMENT_SUCCESS) {
+			this.navigate('/concurrent/');
 		}
 	},
 
