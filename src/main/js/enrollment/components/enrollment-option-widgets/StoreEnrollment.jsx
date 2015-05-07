@@ -9,6 +9,7 @@ import {scoped} from 'common/locale';
 import FormattedPriceMixin from '../../mixins/FormattedPriceMixin';
 import BasePathAware from 'common/mixins/BasePath';
 import Giftable from './Giftable';
+import RedeemButton from './RedeemButton';
 
 const t = scoped('ENROLLMENT');
 const getPurchasable = 'StoreEnrollment:getPurchasable';
@@ -57,8 +58,13 @@ export default React.createClass({
 				including lectures, course materials, quizzes,
 				and discussions once the class is in session.</p>
 				<p className="price">{formattedPrice}</p>
-				{this.props.isGiftable ? <Giftable href={giftHref} /> : null }
 				<small>{t('enrollmentNotRefundable')}</small>
+				{this.props.isGiftable &&
+					<ul className="small-block-grid-2">
+						<li><Giftable fullWidth={true} href={giftHref} /></li>
+						<li><RedeemButton fullWidth={true} catalogId={this.props.entryId} /></li>
+					</ul>
+				}
 			</PanelButton>
 		);
 	}
