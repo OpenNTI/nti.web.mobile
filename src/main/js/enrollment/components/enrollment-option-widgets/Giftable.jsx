@@ -20,7 +20,7 @@ export default React.createClass({
 	},
 
 	getUrlForEntry () {
-		let href = this.getBasePath() + 'catalog/item/' + encodeForURI(this.props.catalogId) + '/enrollment/store/gift/';
+		let href = `${this.getBasePath()}catalog/gift/purchase/${encodeForURI(this.props.catalogId)}/`;
 		return href;
 	},
 
