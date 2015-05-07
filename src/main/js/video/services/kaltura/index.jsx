@@ -126,12 +126,18 @@ export default React.createClass({
 	},
 
 
+	componentWillUpdate (nextProps) {
+		if (nextProps.source !== this.props.source) {
+			this.setState(this.getInitialState());
+		}
+	},
+
+
 	componentDidUpdate (prevProps) {
 		let video = this.refs.video;
 		this.ensureListeningToEvents(video);
 		if (prevProps.source !== this.props.source) {
 			video = video && React.findDOMNode(video);
-			this.setState(this.getInitialState());
 			if (video) {
 				video.load();
 			}
