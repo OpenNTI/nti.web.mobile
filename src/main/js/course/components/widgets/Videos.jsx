@@ -18,8 +18,8 @@ export default React.createClass({
 
 
 	propTypes: {
-		outlineId: React.PropTypes.string.isRequred,
-		item: React.PropTypes.object.isRequred
+		outlineId: React.PropTypes.string.isRequired,
+		item: React.PropTypes.object.isRequired
 	},
 
 

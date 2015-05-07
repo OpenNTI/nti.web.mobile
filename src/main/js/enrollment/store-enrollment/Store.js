@@ -194,14 +194,12 @@ function priceWithCoupon(data) {
 
 	clearTimeout(couponTimeout);
 
-	couponTimeout = setTimeout(function() {
+	couponTimeout = setTimeout(() => {
 		couponPricing = null;
 
 		return getStripeInterface()
-			.then(function(stripe) {
-				return stripe.getCouponPricing(data.purchasable, data.coupon);
-			})
-			.then(function(result) {
+			.then(stripe => stripe.getCouponPricing(data.purchasable, data.coupon))
+			.then(result => {
 				couponPricing = result;
 
 				Store.emitChange({
@@ -214,7 +212,7 @@ function priceWithCoupon(data) {
 					type: Constants.UNLOCK_SUBMIT
 				});
 			})
-			.catch(function(/*reason*/) {
+			.catch((/*reason*/) => {
 				Store.emitChange({
 					type: Constants.INVALID_COUPON,
 					coupon: data.coupon

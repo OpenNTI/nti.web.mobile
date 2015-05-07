@@ -27,7 +27,7 @@ export default React.createClass({
 		let Tag = this.props.tag;
 
 		return (
-			<Tag className={this.props.className} dangerouslySetInnerHTML={{__html: t(this.props.stringId, this.props)}} />
+			<Tag {...this.props} dangerouslySetInnerHTML={{__html: t(this.props.stringId, this.props)}} />
 		);
 	}
 });

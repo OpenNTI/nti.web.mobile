@@ -12,7 +12,7 @@ export default React.createClass({
 	mixins: [BasePathAware, ContextContributor],
 
 	propTypes: {
-		course: React.PropTypes.object.isRequried,
+		course: React.PropTypes.object.isRequired,
 
 		outlineId: React.PropTypes.string.isRequired
 	},
