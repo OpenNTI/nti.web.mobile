@@ -36,7 +36,7 @@ export default React.createClass({
 
 	componentWillReceiveProps (nextProps) {
 		if (this.props.purchasable !== nextProps.purchasable) {
-			this.resetState(nextProps);	
+			this.resetState(nextProps);
 		}
 	},
 
@@ -55,11 +55,11 @@ export default React.createClass({
 		}
 
 
-		if (pricing && pricing.Coupon) {
-			state.coupon = pricing.Coupon.ID;
-			state.couponDiscount = this[getDiscountString](pricing.Coupon);
-			state.oldPrice = pricing.Amount;
-			state.currentPrice = pricing.PurchasePrice;
+		if (pricing && pricing.coupon) {
+			state.coupon = pricing.coupon.getCode();
+			state.couponDiscount = this[getDiscountString](pricing.coupon);
+			state.oldPrice = pricing.amount;
+			state.currentPrice = pricing.price;
 			state.triedCoupon = true;
 		}
 
@@ -84,10 +84,10 @@ export default React.createClass({
 	[getDiscountString] (coupon) {
 		let discount = '';
 
-		if (coupon.PercentOff) {
-			discount = coupon.PercentOff + '%';
-		} else if (coupon.AmountOff) {
-			discount = this.getFormattedPrice(coupon.Currency, coupon.AmountOff / 100);
+		if (coupon.percentOff) {
+			discount = coupon.percentOff + '%';
+		} else if (coupon.amountOff) {
+			discount = this.getFormattedPrice(coupon.currency, coupon.amountOff / 100);
 		}
 
 		return discount;
@@ -101,11 +101,11 @@ export default React.createClass({
 		if (!this.isMounted() || this.props.locked) { return; }
 
 		if (e.type === Constants.VALID_COUPON) {
-			discount = this[getDiscountString](pricing.Coupon);
+			discount = this[getDiscountString](pricing.coupon);
 
 			this.setState({
-				currentPrice: pricing.PurchasePrice,
-				oldPrice: pricing.Amount,
+				currentPrice: pricing.price,
+				oldPrice: pricing.amount,
 				triedCoupon: true,
 				couponDiscount: discount,
 				checkingCoupon: false
