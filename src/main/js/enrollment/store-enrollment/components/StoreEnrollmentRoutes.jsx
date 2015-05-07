@@ -26,7 +26,7 @@ export default React.createClass({
 		isGift: React.PropTypes.bool
 	},
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			isGift: false
 		};
@@ -36,11 +36,11 @@ export default React.createClass({
 		this.refs.router.navigate(...arguments);
 	},
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.addChangeListener(this.storeChange);
 	},
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this.storeChange);
 	},
 

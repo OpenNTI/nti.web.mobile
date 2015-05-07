@@ -34,10 +34,9 @@ export default React.createClass({
 	getPurchasable (forGifting=false) {
 		let {enrollment} = this.props;
 
-		let purchasable = forGifting ? enrollment.getPurchasableForGifting() : enrollment.getPurchasable();
-
-		return purchasable;
-
+		return forGifting ?
+			enrollment.getPurchasableForGifting() :
+			enrollment.getPurchasable();
 	},
 
 	componentWillMount () {
@@ -58,10 +57,9 @@ export default React.createClass({
 			return <Loading />;
 		}
 
-		let purchasable = this.getPurchasable();
-		let giftPurchasable = this.getPurchasable(true);
-		let {courseId} = this.props;
 		let isGift = !!Store.getGiftInfo();
+		let purchasable = this.getPurchasable(isGift);
+		let {courseId} = this.props;
 
 		return (
 			<div>
