@@ -138,23 +138,38 @@ $indent: 0.9375rem;
 		}
 
 		&.deleted {
-			border: none;
+			
 			& > .modeled-content {
 				text-transform: uppercase;
 			}
 			.wrap {
 				color: $tertiary-grey;
-				margin-left: 35px;
+				margin-left: 0;
 			}
-			// padding: .25rem;
+			padding: .6875rem 0;
 		}
 	}
 
 	.deleteditemgroup {
+		$avatarsize: 35px;
 		font-size: .75rem;
 		color: $tertiary-grey;
-		padding: 1rem 0;
-		margin-left: 10px; // avatar size + 10px defined in _attributed-content-item;
+		background: $quad-grey;
+		padding: 1rem;
+		padding-bottom: 0;
+		min-height: 4rem;
+		margin: 0 -1rem;
+		.collapsible {
+			margin-left: $avatarsize + 10px;
+			&.expanded ul {
+				padding-top: 1.5rem;
+			}
+		}
+		.avatar {
+			float: left;
+			width: $avatarsize;
+			height: $avatarsize;
+		}
 	}
 
 	section {
