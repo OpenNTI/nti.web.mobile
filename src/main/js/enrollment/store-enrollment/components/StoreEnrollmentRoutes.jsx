@@ -72,7 +72,7 @@ export default React.createClass({
 
 			case Constants.STRIPE_PAYMENT_SUCCESS:
 
-				if ((Store.getPaymentResult() || {}).RedemptionCode) {
+				if ((Store.getPaymentResult() || {}).redemptionCode) {
 					router.navigate('success/');
 				} else {
 					// the catalog entry we're rooted under may not exist when the catalog reloads

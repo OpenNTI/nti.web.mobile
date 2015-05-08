@@ -76,7 +76,7 @@ export default React.createClass({
 
 					<div className="token">
 						<span className="label">{t('accessKey')}</span>
-						<input type="text" className="value" value={purchaseAttempt.RedemptionCode} onChange={this.ignoreChange}/>
+						<input type="text" className="value" value={purchaseAttempt.redemptionCode} onChange={this.ignoreChange}/>
 					</div>
 					<div className="token">
 						<span className="label">{t('transactionID')}</span>
