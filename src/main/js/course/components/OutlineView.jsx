@@ -1,6 +1,8 @@
 import React from 'react';
 
 import ActiveState from 'common/components/ActiveState';
+import E from 'common/components/Ellipsed';
+
 import ContextSender from 'common/mixins/ContextSender';
 //import NavigationAware from 'common/mixins/NavigationAware';
 import Loading from 'common/components/Loading';
@@ -160,7 +162,7 @@ export default React.createClass({
 
 			return (
 				<li>
-					<ActiveState hasChildren href={href} tag={tag}><a {...props}/></ActiveState>
+					<ActiveState hasChildren href={href} tag={tag}><E tag="a" {...props}/></ActiveState>
 					{renderTree(item.contents)}
 				</li>
 			);
