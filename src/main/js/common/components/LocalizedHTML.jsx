@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {scoped} from 'common/locale';
+import t from 'common/locale';
 
 export default React.createClass({
 	displayName: 'LocalizedHTML',
 
 	propTypes: {
 		stringId: React.PropTypes.string.isRequired,
-		scoped: React.PropTypes.string,
+
 		tag: React.PropTypes.string,
 
 		className: React.PropTypes.string
@@ -15,15 +15,11 @@ export default React.createClass({
 
 
 	getDefaultProps () {
-		return {
-			tag: 'div',
-			scoped: ''
-		};
+		return { tag: 'div' };
 	},
 
 
 	render () {
-		let t = scoped(this.props.scoped);
 		let Tag = this.props.tag;
 
 		return (

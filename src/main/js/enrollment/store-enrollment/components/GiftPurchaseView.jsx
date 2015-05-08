@@ -10,8 +10,7 @@ export default React.createClass({
 	mixins: [CatalogAccessor],
 
 	propTypes: {
-		entryId: React.PropTypes.string.isRequired,
-		courseId: React.PropTypes.string.isRequired
+		entryId: React.PropTypes.string.isRequired
 	},
 
 	getPurchasable() {
@@ -23,12 +22,11 @@ export default React.createClass({
 
 	render () {
 		let purchasable = this.getPurchasable();
-		let {courseId} = this.props;
 		return (
 			<StoreEnrollmentRoutes
+				{...this.props}
 				ref='router'
 				purchasable={purchasable}
-				courseId={courseId}
 				defaultHandler={GiftView}
 			/>
 		);

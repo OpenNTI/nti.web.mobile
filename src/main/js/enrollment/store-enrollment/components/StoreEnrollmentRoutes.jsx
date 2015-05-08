@@ -21,8 +21,7 @@ export default React.createClass({
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired,
-		courseId: React.PropTypes.string.isRequired,
-		defaultHandler: React.PropTypes.element.isRequired,
+		defaultHandler: React.PropTypes.func.isRequired,
 		isGift: React.PropTypes.bool
 	},
 
