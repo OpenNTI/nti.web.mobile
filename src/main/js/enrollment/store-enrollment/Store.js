@@ -165,7 +165,7 @@ function submitPayment(formData) {
 			return stripe.submitPayment(formData);
 		})
 		.then(function(result) {
-			let type = (result||{}).State === 'Success' ? Constants.STRIPE_PAYMENT_SUCCESS : Constants.STRIPE_PAYMENT_FAILURE;
+			let type = (result||{}).state === 'Success' ? Constants.STRIPE_PAYMENT_SUCCESS : Constants.STRIPE_PAYMENT_FAILURE;
 			if (type === Constants.STRIPE_PAYMENT_SUCCESS) {
 				paymentFormData = {}; //
 				stripeToken = null;

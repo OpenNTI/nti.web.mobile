@@ -74,7 +74,7 @@ export default React.createClass({
 			case Constants.ADMISSION_SUCCESS:
 				let payAndEnrollLink = getLink(event.response, Constants.PAY_AND_ENROLL);
 				this.setState({
-					admissionStatus: event.response.State,
+					admissionStatus: event.response.State,//what is event.response?
 					payAndEnrollLink: payAndEnrollLink
 				});
 				break;
