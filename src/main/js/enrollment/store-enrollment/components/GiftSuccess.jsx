@@ -41,8 +41,8 @@ export default React.createClass({
 		let courseTitle = this.props.purchasable.Title;
 		let purchaseAttempt = this.props.purchaseattempt;
 
-		let receiver = purchaseAttempt && purchaseAttempt.Receiver;
-		let sender = purchaseAttempt && purchaseAttempt.Creator;
+		let receiver = purchaseAttempt && purchaseAttempt.receiver;
+		let sender = purchaseAttempt && purchaseAttempt.creator;
 
 		let vendorInfo = this.props.purchasable && this.props.purchasable.VendorInfo;
 		let date = this.getDate(vendorInfo && vendorInfo.StartDate);
@@ -80,7 +80,7 @@ export default React.createClass({
 					</div>
 					<div className="token">
 						<span className="label">{t('transactionID')}</span>
-						<input type="text" className="value" value={purchaseAttempt.TransactionID} onChange={this.ignoreChange} />
+						<input type="text" className="value" value={purchaseAttempt.transactionID} onChange={this.ignoreChange} />
 					</div>
 				</div>
 				<div className="medium-8 medium-centered columns row actions">
