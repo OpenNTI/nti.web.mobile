@@ -139,13 +139,16 @@ function verifyBillingInfo(data) {
 	paymentFormData = data.formData;
 
 	return getStripeInterface()
-		.then(function(stripe) {
-			return stripe.getToken(data.stripePublicKey, data.formData);
-		})
-		.then(function(result) {
-			let eventType = result.status === 200 ? Constants.BILLING_INFO_VERIFIED : Constants.BILLING_INFO_REJECTED;
+		.then(stripe => stripe.getToken(data.stripePublicKey, data.formData))
+		.then(result => {
+			let eventType = result.status === 200 ?
+				Constants.BILLING_INFO_VERIFIED :
+				Constants.BILLING_INFO_REJECTED;
+
 			stripeToken = result.response;
+
 			pullData(paymentFormData);
+
 			Store.emitChange({
 				type: eventType,
 				status: result.status,
@@ -161,11 +164,12 @@ function submitPayment(formData) {
 	paymentResult = null;
 
 	return getStripeInterface()
-		.then(function(stripe){
-			return stripe.submitPayment(formData);
-		})
-		.then(function(result) {
-			let type = (result||{}).state === 'Success' ? Constants.STRIPE_PAYMENT_SUCCESS : Constants.STRIPE_PAYMENT_FAILURE;
+		.then(stripe => stripe.submitPayment(formData))
+		.then(result => {
+			let type = (result||{}).state === 'Success' ?
+				Constants.STRIPE_PAYMENT_SUCCESS :
+				Constants.STRIPE_PAYMENT_FAILURE;
+
 			if (type === Constants.STRIPE_PAYMENT_SUCCESS) {
 				paymentFormData = {}; //
 				stripeToken = null;
@@ -177,12 +181,8 @@ function submitPayment(formData) {
 				type: type,
 				purchaseAttempt: result
 			});
-		}, function(reason) {
-			Store.emitError({
-				type: Constants.POLLING_ERROR,
-				reason: reason
-			});
-		});
+		},
+		reason => Store.emitError({ type: Constants.POLLING_ERROR, reason }));
 }
 
 function priceWithCoupon(data) {
