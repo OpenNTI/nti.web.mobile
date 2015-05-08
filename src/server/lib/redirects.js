@@ -8,7 +8,7 @@ const SEGMENT_HANDLERS = {
 		path.join('catalog', 'redeem', catalogId, segments[1]),
 
 	forcredit: (catalogId) =>
-		path.join('catalog', 'item', catalogId, 'enrollment', 'credit', '/'),
+		path.join('catalog', 'enroll', 'apply', catalogId, '/'),
 
 	[null]: (s)=> console.warn('There is no handler registered for ', s)
 };
