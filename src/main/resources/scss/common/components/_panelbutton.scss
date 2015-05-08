@@ -1,5 +1,4 @@
 .panel-button {
-	@include grid-column();
 	&.error {
 		.panel {
 			border-color: $alert-color;
