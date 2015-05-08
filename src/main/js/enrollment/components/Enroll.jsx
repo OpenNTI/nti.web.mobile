@@ -3,7 +3,7 @@ import React from 'react';
 import path from 'path';
 
 import Loading from 'common/components/Loading';
-
+import Err from 'common/components/Error';
 import ContextSender from 'common/mixins/ContextSender';
 
 import EnrollmentOptions from '../mixins/EnrollmentMixin';
@@ -30,6 +30,10 @@ export default React.createClass({
 
 
 	render () {
+
+		if (this.state.error) {
+			return <Err error={this.state.error} />;
+		}
 
 		if (!this.state.enrollmentStatusLoaded) {
 			return <Loading />;

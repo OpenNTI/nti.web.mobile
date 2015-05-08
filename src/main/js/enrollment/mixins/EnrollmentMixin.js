@@ -24,6 +24,15 @@ export default {
 		};
 	},
 
+	componentWillMount () {
+		if (!this.getEntry()) {
+			this.setState({
+				error: {
+					message: 'Catalog entry not found.'
+				}
+			});
+		}
+	},
 
 	componentDidMount () {
 		let entry = this.getEntry();
