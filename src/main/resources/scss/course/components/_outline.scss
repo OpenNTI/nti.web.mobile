@@ -42,7 +42,7 @@
 		overflow: hidden;
 		// text-overflow: ellipsis;
 		// white-space: nowrap;
-		max-height: 4.875rem;
+		max-height: 3rem;
 		color: $tertiary-grey;
 		&[href] {
 			color: $secondary-grey;
@@ -65,7 +65,8 @@
 
 	li:first-of-type {
 		& > h1 {
-  			padding-top: 0.20835em;
+			padding-top: 0.8125rem;
+			padding-bottom: 0.5625rem;
 		}
 		& > h3 {
 			margin-top: 0;
@@ -92,7 +93,6 @@
 			weight: 100;
 			size: 1.5em;
 		}
-		line-height: 2.1;
 		text-transform: none;
 		padding: 1.25em 0.42em 0 0.84em;
 	}
@@ -122,8 +122,7 @@
 			weight: 400;
 			size: 0.9rem;
 		}
-		line-height: 2.8;
-		padding: 0 0.35em 0 1.39em;
+		padding: 0.5625rem 0.3125rem 0.5rem 1.25rem;
 	}
 }
 
