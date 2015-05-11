@@ -7,7 +7,7 @@ import Page from 'common/components/Page';
 
 import Sections from '../Sections';
 
-let getLabel = scoped('COURSE.SECTIONS');
+let getLabel = scoped('CONTENT.SECTIONS');
 
 
 export default React.createClass({
@@ -15,22 +15,14 @@ export default React.createClass({
 
 	componentWillMount () {
 		let menu = [];
-		let {course} = this.props;
-		let {CatalogEntry} = course || {};
 
-		let push = x => {
-			let label = getLabel(x.toLowerCase());
-			menu.push({label, href: Sections[x]});
-		};
+		let push = x => menu.push({
+				label: getLabel(x.toLowerCase()),
+				href: Sections[x]
+			});
 
-		if (!CatalogEntry || !CatalogEntry.Preview) {
-
-			for(let s of Object.keys(Sections)) {
-				push(s);
-			}
-		}
-		else {
-			push('INFO');
+		for(let s of Object.keys(Sections)) {
+			push(s);
 		}
 
 		this.setState({menu});

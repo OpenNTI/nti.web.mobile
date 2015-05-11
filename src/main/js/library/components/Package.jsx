@@ -12,33 +12,29 @@ export default React.createClass({
 	},
 
 
-	componentWillMount () {
-		this.props.item.addListener('changed', this.onChange);
-	},
+	getItem () {return this.props.item; },
 
+	itemChanged () { this.forceUpdate(); },
+
+	componentWillMount () {
+		this.getItem().addListener('changed', this.itemChanged); },
 
 	componentWillUnmount () {
-		this.props.item.removeListener('changed', this.onChange);
-	},
-
-
-	onChange () {
-		this.forceUpdate();
-	},
+		this.getItem().removeListener('changed', this.itemChanged); },
 
 
 	render () {
-		let p = this.props.item;
-		let id = encodeForURI(p.getID());
-		let {icon} = p || {};
+		let item = this.getItem();
+		let id = encodeForURI(item.getID());
+		let {author, icon, title} = item;
 
 		return (
 			<div className="library-item package">
 				<a href={this.getBasePath() + 'content/' + id + '/'}>
 					<img src={icon}/>
 					<label>
-						<h3>{p.title}</h3>
-						<address className="author">{p.author}</address>
+						<h3>{title}</h3>
+						<address className="author">{author}</address>
 					</label>
 				</a>
 			</div>

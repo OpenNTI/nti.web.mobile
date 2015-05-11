@@ -5,7 +5,7 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 import PageDescriptor from './PageDescriptor';
 
 import {getPageInfo} from './Api';
-import {PAGE_LOADED} from './Constants';
+import {PAGE_LOADED, PACKAGE_NOT_FOUND} from './Constants';
 
 import {processContent} from './utils';
 
@@ -13,6 +13,13 @@ import {getLibrary} from 'library/Api';
 
 function dispatch(type, response) {
 	AppDispatcher.handleRequestAction({type, response});
+}
+
+
+export function getPackage (id) {
+	return getLibrary()
+		.then(lib=> lib.getPackage(id))
+		.then(pkg=> pkg ? pkg : Promise.reject(PACKAGE_NOT_FOUND));
 }
 
 
