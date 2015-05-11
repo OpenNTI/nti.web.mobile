@@ -23,10 +23,24 @@ export default React.createClass({
 		};
 	},
 
-	componentDidMount () {
-		this.forceUpdate();
+	getInitialState() {
+		return {
+			mounted: false
+		};
 	},
 
+	componentDidMount: function() {
+		/* eslint-disable react/no-did-mount-set-state */
+		/*
+		* Disabling the react/no-set-state lint rule because we want
+		* to the children to animate in. So the first render will be without
+		* children then this call will trigger a re-render that
+		* animates them in.
+		*/
+		this.setState({
+			mounted: true
+		});
+	},
 
 	render (){
 		let {props} = this;
@@ -36,7 +50,7 @@ export default React.createClass({
 			children = props.children;
 		}
 		else{
-			if(this.isMounted()){
+			if(this.state.mounted){
 				children = props.children;
 			}
 		}
