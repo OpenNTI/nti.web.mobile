@@ -49,7 +49,7 @@ export default React.createClass({
 		 * The slug to put between the basePath and the resource
 		 * target/href/ntiid at the end of the uri.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 */
 		slug: React.PropTypes.string.isRequired,
 
@@ -68,20 +68,20 @@ export default React.createClass({
 		 * 	- title
 		 * 	- label
 		 *
-		 * @type {Object}
+		 * @type {object}
 		 */
 		item: React.PropTypes.object.isRequired,
 
 		/**
 		 * Allow the parent to force this card to be an "internal" link.
-		 * @type {Boolean}
+		 * @type {boolean}
 		 */
 		internalOverride: React.PropTypes.bool,
 
 		/**
 		 * Allow the parent to have final word on the resolved url.
 		 * The functoin must take one argument, and return a string.
-		 * @type {Function}
+		 * @type {function}
 		 */
 		resolveUrlHook: React.PropTypes.func,
 

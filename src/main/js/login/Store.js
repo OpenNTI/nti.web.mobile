@@ -83,7 +83,7 @@ let LoginStore = Object.assign({}, EventEmitter.prototype, {
 
 /**
  * Adds an error
- * @param {Object} error object should include properties for statusCode (http status code) and raw (the raw response)
+ * @param {object} error object should include properties for statusCode (http status code) and raw (the raw response)
  * @return {void}
  */
 function addError(error) {

@@ -17,7 +17,7 @@ import {
  *
  * @param {Part} part      Question Part model.
  * @param {any} value      The value
- * @param {Number} [savepointBuffer] The optional delay to buffer the save point call by.
+ * @param {number} [savepointBuffer] The optional delay to buffer the save point call by.
  */
 export function partInteracted (part, value, savepointBuffer) {
 	AppDispatcher.handleViewAction({ type: INTERACTED, part, value, savepointBuffer });

@@ -17,7 +17,7 @@ function dispatch(type, response) {
 
 
 /**
- *	@param {String} Content Page NTIID
+ *	@param {string} Content Page NTIID
  */
 export function loadPage (ntiid) {
 	let isAssessmentID = parseNTIID(ntiid).specific.type === 'NAQ';

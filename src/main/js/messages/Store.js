@@ -61,7 +61,7 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 
 /**
  * Add a message
- * @param {Object} message object
+ * @param {object} message object
  * @return {void}
  */
 function addMessage(message) {

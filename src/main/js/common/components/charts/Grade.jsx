@@ -20,34 +20,34 @@ export default React.createClass( {
 		/**
 		 * Optional stroke color.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 */
 		strokeColor: React.PropTypes.string,
 
 		/**
 		 * The Value to chart.
 		 *
-		 * @type {Number} Default: 90
+		 * @type {number} Default: 90
 		 */
 		grade: React.PropTypes.number.isRequired,
 
 		/**
 		 * Width of the graph
 		 *
-		 * @type {Number} Default: 200
+		 * @type {number} Default: 200
 		 */
 		width: React.PropTypes.number,
 
 		/**
 		 * Height of the graph
-		 * @type {Number} Default: 200
+		 * @type {number} Default: 200
 		 */
 		height: React.PropTypes.number,
 
 		/**
 		 * The pixel density to render at.
 		 *
-		 * @type {Number} Default: 2
+		 * @type {number} Default: 2
 		 */
 		pixelDensity: React.PropTypes.number,
 

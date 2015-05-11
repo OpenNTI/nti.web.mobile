@@ -44,20 +44,20 @@ export default React.createClass({
 
 		/**
 		 * The "current" page ID (ntiid)
-		 * @type {String}
+		 * @type {string}
 		 */
 		current: React.PropTypes.string,
 
 		/**
 		 * The imposed content root.
-		 * @type {String}
+		 * @type {string}
 		 */
 		root: React.PropTypes.string,
 
 
 		/**
 		 * Describes which style this pager will take on. "bottom" vs Default.
-		 * @type {String}
+		 * @type {string}
 		 */
 		position: React.PropTypes.string,
 

@@ -224,8 +224,8 @@ export function retargetAnchorsWithExternalRefs (markup, baseUrl) {
 
 
 /**
- * @param {String|Node} html
- * @return {String}
+ * @param {string|Node} html
+ * @return {string}
  */
 export function sanitizeExternalContentForInput (html) {
 	console.debug('Sanitizing html...', html);
@@ -293,7 +293,7 @@ export function enforceNumber (e) {
  * WARNING: this will MODIFY children of `root` if `cleanAttributes` is true.
  *
  * @param {Node} root - Root Node to select unwanted elements
- * @param {Boolean} cleanAttributes - if true, will remove all attributes that
+ * @param {boolean} cleanAttributes - if true, will remove all attributes that
  *                                    are not white listed. (See KEEP_ATTRS)
  * @return {Node[]} Array of Nodes
  * @private

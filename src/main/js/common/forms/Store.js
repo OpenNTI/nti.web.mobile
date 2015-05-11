@@ -36,7 +36,7 @@ class Store extends EventEmitter {
 
 /**
 * Fetch a link with the given rel.
-* @param {String} linkRel link to fetch
+* @param {string} linkRel link to fetch
 * @returns {Promise} response promise.
 */
 function fetchLink(linkRel) {

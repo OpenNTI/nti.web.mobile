@@ -39,7 +39,7 @@ export function deleteTOS () {
 }
 
 /** Attempt a login using the provided credentials.
- * @param {Object} credentials The credentials to submit for authentication. Currently expects 'username' and 'password'.
+ * @param {object} credentials The credentials to submit for authentication. Currently expects 'username' and 'password'.
  */
 export function logIn (credentials) {
 	AppDispatcher.handleViewAction({
@@ -49,7 +49,7 @@ export function logIn (credentials) {
 }
 
 /** Attempt an oauth login via the specified url
- * @param {String} the url to hit.
+ * @param {string} the url to hit.
  */
 export function logInOAuth (url) {
 	AppDispatcher.handleViewAction({

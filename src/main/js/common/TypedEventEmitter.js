@@ -38,7 +38,7 @@ export default class TypedEventEmitter extends EventEmitter {
 
 	/**
 	 * emitChange with an {isError: true} in the event.
-	 * @param {Object} error Error data
+	 * @param {object} error Error data
 	 * @returns {void}
 	 */
 	emitError (error) {
