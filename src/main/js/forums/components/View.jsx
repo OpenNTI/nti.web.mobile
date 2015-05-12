@@ -13,7 +13,7 @@ export default React.createClass({
 	mixins: [Navigatable, ContextSender],
 
 	propTypes: {
-		course: React.PropTypes.object
+		contentPackage: React.PropTypes.object
 	},
 
 	// title bar back arrow
@@ -27,14 +27,14 @@ export default React.createClass({
 	},
 
 	render () {
-		let {course} = this.props;
+		let contentPackage = this.props.course || this.props.contentPackage;
 		return (
 			<div>
-				<CourseBanner course={course} />
+				<CourseBanner course={contentPackage} />
 				<div className="forums-wrapper">
 					<Router.Locations contextual>
-						<Router.Location path="/(:forumId)/*" handler={ForumView} course={course} contextProvider={this.getContext}/>
-						<Router.Location path="/" handler={ForumListView} course={course} />
+						<Router.Location path="/(:forumId)/*" handler={ForumView} course={contentPackage} contextProvider={this.getContext}/>
+						<Router.Location path="/" handler={ForumListView} course={contentPackage} />
 					</Router.Locations>
 				</div>
 			</div>
