@@ -93,7 +93,7 @@ export default React.createClass({
 	render () {
 
 		let giftDoneLink = this.getBasePath() + 'catalog/';
-		let courseTitle = (this.props.purchasable || {}).Title || '';
+		let courseTitle = (this.props.purchasable || {}).title || '';
 
 		return (
 			<ReactCSSTransitionGroup transitionName="loginforms">

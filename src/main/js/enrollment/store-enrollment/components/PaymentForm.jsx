@@ -156,7 +156,7 @@ export default React.createClass({
 
 		let purch = this.props.purchasable;
 		let price = this.getFormattedPrice(purch.currency, purch.amount);
-		let title = purch.Name||null;
+		let title = purch.name||null;
 		let state = this.state;
 		let cssClasses = ['row'];
 
