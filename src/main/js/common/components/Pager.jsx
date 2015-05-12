@@ -3,13 +3,13 @@ import invariant from 'react/lib/invariant';
 
 import NavigatableMixin from '../mixins/NavigatableMixin';
 
-function buildHref (page, props) {
+function buildHref (page, props, scope) {
 	let ctx = props.navigatableContext;
 	if (ctx && !ctx.makeHref) {
 		console.warn('navigatableContext missing "makeHref" method');
 	}
 	if (!ctx || !ctx.makeHref) {
-		ctx = this;
+		ctx = scope;
 	}
 
 	return page && {href: ctx.makeHref(page.ref, false) + '/', title: page.title};
@@ -103,8 +103,8 @@ export default React.createClass({
 			this.setState({
 				page: pages.index + 1,
 				total: pages.total,
-				next: buildHref(pages.next, props),
-				prev: buildHref(pages.prev, props)
+				next: buildHref(pages.next, props, this),
+				prev: buildHref(pages.prev, props, this)
 			});
 		}
 	},
