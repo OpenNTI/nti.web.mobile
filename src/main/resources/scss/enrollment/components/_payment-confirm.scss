@@ -37,6 +37,11 @@
 		label {
 			font-weight: 600;
 			font-size: 0.9rem;
+			& > span {
+				margin: 1rem 0;
+				display: inline-block;
+				line-height: inherit !important;
+			}
 		}
 
 		a {
