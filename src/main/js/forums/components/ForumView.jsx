@@ -71,17 +71,14 @@ export default React.createClass({
 						handler={Topics}
 						{...this.props}
 						forum={forum}
-						contextProvider={this.__getContext}
 					/>
 					<Location path="/newtopic/(#nav)"
 						handler={CreateTopic}
 						forum={forum}
-						contextProvider={this.__getContext}
 					/>
 					<Location path="/:topicId/*(#nav)"
 						handler={TopicView}
 						forum={forum}
-						contextProvider={this.__getContext}
 					/>
 				</Router.Locations>
 			</nav>
