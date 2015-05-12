@@ -1,13 +1,21 @@
 import React from 'react';
 
-import ContextSender from 'common/mixins/ContextSender';
+import Router from 'react-router-component';
+
+import ContextContributor from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-// import Viewer from './Viewer';
+import Content from './Viewer';
+import TableOfContents from './TableOfContentsView';
+
+const ROUTES = [
+	{path: '/:rootId(/*)',	handler: Content },
+	{path: '(/*)',			handler: TableOfContents }
+];
 
 export default React.createClass({
 	displayName: 'Content:OutlineView',
-	mixins: [ContextSender, NavigatableMixin],
+	mixins: [ContextContributor, NavigatableMixin],
 
 	propTypes: {
 		contentPackage: React.PropTypes.object.isRequired
@@ -31,8 +39,12 @@ export default React.createClass({
 
 	render () {
 		let {contentPackage} = this.props;
-		return (
-			<div>{contentPackage.title}</div>
-		);
+
+		return React.createElement(Router.Locations, {contextual: true},
+			...ROUTES.map(route=>
+				<Router.Location {...route}
+					contentPackage={contentPackage}
+					/>
+			));
 	}
 });

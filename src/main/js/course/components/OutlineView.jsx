@@ -10,6 +10,7 @@ import Loading from 'common/components/Loading';
 import isEmpty from 'nti.lib.interfaces/utils/isempty';
 import CourseLinker from 'library/components/CourseContentLinkMixin';
 
+
 export default React.createClass({
 	displayName: 'CourseOutlineView',
 	mixins: [
@@ -33,11 +34,6 @@ export default React.createClass({
 
 	getInitialState () {
 		return {loading: true};
-	},
-
-
-	getContext () {
-		return Promise.resolve([]);
 	},
 
 

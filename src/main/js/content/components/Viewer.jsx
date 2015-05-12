@@ -5,7 +5,7 @@ import React from 'react';
 import {RouterMixin} from 'react-router-component';
 
 import Loading from 'common/components/Loading';
-//import ErrorWidget from 'common/components/Error';
+import Err from 'common/components/Error';
 
 import StoreEvents from 'common/mixins/StoreEvents';
 import ContextSender from 'common/mixins/ContextSender';
@@ -18,6 +18,7 @@ import {getWidget} from './widgets';
 
 import Store from '../Store';
 import {loadPage} from '../Actions';
+import PageDescriptor from '../PageDescriptor';
 
 import {RESOURCE_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
@@ -190,16 +191,24 @@ export default React.createClass({
 	onStoreChange () {
 		let id = this.getPageID();
 		let page = Store.getPageDescriptor(id);
-		let pageSource = page.getPageSource(this.getRootID());
-		let pageTitle = page.getTitle();
+		let pageSource, pageTitle, error;
+
+		if (page instanceof PageDescriptor) {
+			pageSource = page.getPageSource(this.getRootID());
+			pageTitle = page.getTitle();
+		} else {
+			error = page;
+			page = undefined;
+		}
 
 		this.setPageSource(pageSource, id);
 		this.setState({
 			currentPage: id,
 			loading: false,
-			page: page,
+			page,
 			pageSource,
-			pageTitle
+			pageTitle,
+			error
 		});
 	},
 
@@ -222,10 +231,13 @@ export default React.createClass({
 
 	render () {
 		let body = this.getBodyParts() || [];
-		let pageSource = this.state.pageSource;
+		let {error, loading, pageSource} = this.state;
 
-		if (this.state.loading) {
+		if (loading) {
 			return (<Loading/>);
+		}
+		else if (error) {
+			return (<Err error={error}/>);
 		}
 
 		return (

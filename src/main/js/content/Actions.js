@@ -5,7 +5,7 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 import PageDescriptor from './PageDescriptor';
 
 import {getPageInfo} from './Api';
-import {PAGE_LOADED, PACKAGE_NOT_FOUND} from './Constants';
+import {PAGE_LOADED, PAGE_FAILED, PACKAGE_NOT_FOUND} from './Constants';
 
 import {processContent} from './utils';
 
@@ -78,7 +78,9 @@ export function loadPage (ntiid) {
 
 		.then(packet =>
 			dispatch(PAGE_LOADED,
-				new PageDescriptor(ntiid, packet)));
+				new PageDescriptor(ntiid, packet)))
+
+		.catch(error => dispatch(PAGE_FAILED, {error, ntiid}));
 }
 
 
