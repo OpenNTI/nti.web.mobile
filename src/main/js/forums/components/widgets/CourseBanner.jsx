@@ -12,7 +12,7 @@ export default React.createClass({
 		let {course} = this.props;
 		if (!course) {
 			console.warn('course prop is required. skipping render.');
-			return;
+			return null;
 		}
 		let p = course.getPresentationProperties();
 		return (
