@@ -132,6 +132,7 @@ export default React.createClass({
 
 		//XXX: Do not fix this line of lint by adding these props to this elements PropTypes, nor making eslint ignore.
 		//To fix it, do the above mentioned "FIXME".
+		/*eslint "react/prop-types": 1*/ //Force this to be a warning for now.
 		let {context, courseId, transcript} = this.props;
 
 		let analyticsEvent = new WatchVideoEvent(
