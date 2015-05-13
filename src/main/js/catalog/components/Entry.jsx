@@ -74,6 +74,7 @@ export default React.createClass({
 
 
 	render () {
+
 		let item = this.getItem();
 
 		if (!item) { return; }
@@ -106,9 +107,9 @@ export default React.createClass({
 		let item = this.getItem();
 		let enrolled = false;
 		let available = false;
-		let dropable = false;
+		let droppable = false;
 
-		let dropableMime = /openenrollmentoption/i;
+		let droppableMime = /openenrollmentoption/i;
 		let forCredit = /forcredit/i;
 
 		if (!item) { return; }
@@ -118,12 +119,12 @@ export default React.createClass({
 		status = status && (forCredit.test(status) ? FOR_CREDIT : OPEN);
 
 		for(let opt of item.getEnrollmentOptions()) {
-			dropable = dropable || dropableMime.test(opt.MimeType);
+			droppable = droppable || droppableMime.test(opt.MimeType);
 			available = available || Boolean(opt.available);
 			enrolled = enrolled || Boolean(opt.enrolled);
 		}
 
-		return {enrolled, dropable, available, status};
+		return {enrolled, droppable, available, status};
 	},
 
 
