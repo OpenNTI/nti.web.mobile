@@ -6,6 +6,7 @@ import ActiveState from 'common/components/ActiveState';
 import E from 'common/components/Ellipsed';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
+import Search from 'common/components/Search';
 
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
@@ -22,8 +23,6 @@ const TYPE_TAG_MAP = {
 	part: 'h1',
 	chapter: 'h3'
 };
-
-const stop = e => e.preventDefault();
 
 export default React.createClass({
 	displayName: 'TableOfContentsView',
@@ -96,31 +95,19 @@ export default React.createClass({
 	},
 
 
-	clearFilter () {
-		this.setState({filter: undefined});
-		React.findDOMNode(this.refs.filter).focus();
-	},
-
-
-	updateFilter (event) {
-		let filter = event.target.value;
+	updateFilter (filter) {
 		this.setState({filter});
 	},
 
 
 	doPropFilter (node) {
-		if (!isTopic(node.tag) /*|| isAnchor(node.get('href'))*/) {
-			return false;
-		}
-
 		let {filter} = this.state;
-
 		return isEmpty(filter) || node.matches(filter);
 	},
 
 
 	render () {
-		let {data, filter, loading, icon, background, label, title} = this.state;
+		let {data, loading, icon, background, label, title} = this.state;
 
 		if (loading) {
 			return (<Loading/>);
@@ -137,10 +124,7 @@ export default React.createClass({
 					<div className="branding"/>
 				</div>
 
-				<form onSubmit={stop} className="search">
-					<input ref="filter" type="text" value={filter} onChange={this.updateFilter} required/>
-					<input type="reset" onClick={this.clearFilter}/>
-				</form>
+				<Search onChange={this.updateFilter}/>
 
 				<ul className="contents">
 					{this.renderRoot(data)}
@@ -184,6 +168,7 @@ export default React.createClass({
 		let prefix = this.makeHref(`/${root}/`);
 
 		return React.createElement('ul', {}, ...list
+			.filter(x=> isTopic(x.tag) /*&& !isAnchor(x.get('href'))*/)
 			.filter(this.doPropFilter)
 			.map(item => {
 				let {id, title, type, children} = item;
