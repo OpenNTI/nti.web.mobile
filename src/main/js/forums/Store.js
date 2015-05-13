@@ -8,12 +8,6 @@ import {defaultPagingParams} from './Api';
 
 import hash from 'object-hash';
 
-let discussions = {};
-let forums = {}; // forum objects by id.
-let objectContents = {};
-let objects = {};
-let courseId;
-
 const keyForObject = 'ForumStore:keyForObject';
 const keyForContents = 'ForumStore:keyForContents';
 
@@ -21,12 +15,21 @@ class Store extends StorePrototype {
 	constructor() {
 		super();
 		this.setMaxListeners(0);
+
+		Object.assign(this, {
+			discussions: {},
+			forums: {},// forum objects by id.
+			objectContents: {},
+			objects: {},
+			packageId: undefined
+		});
+
 		this.registerHandlers({
-			[Constants.GET_COMMENT_REPLIES]: function(payload) {
+			[Constants.GET_COMMENT_REPLIES] (payload) {
 				getCommentReplies(payload.action.comment);
 			},
 
-			[Constants.ADD_COMMENT]: function(payload) {
+			[Constants.ADD_COMMENT] (payload) {
 				let {topic, parent, comment} = payload.action;
 				addComment(topic, parent, comment);
 			},
@@ -34,71 +37,61 @@ class Store extends StorePrototype {
 			[Constants.SAVE_COMMENT]: saveComment,
 			[Constants.SAVE_TOPIC_HEADLINE]: saveComment,
 
-			[Constants.CREATE_TOPIC]: function(payload) {
+			[Constants.CREATE_TOPIC] (payload) {
 				let {forum, topic} = payload.action;
 				createTopic(forum, topic);
 			},
 
-			[Constants.DELETE_TOPIC]: function(payload) {
+			[Constants.DELETE_TOPIC] (payload) {
 				let {topic} = payload.action;
 				deleteTopic(topic);
 			},
 
-			[Constants.DELETE_COMMENT]: function(payload) { // TODO: unify delete topic and delete comment under delete object
+			[Constants.DELETE_COMMENT] (payload) { // TODO: unify delete topic and delete comment under delete object
 				let {comment} = payload.action;
 				deleteComment(comment);
 			},
 
-			[Constants.REPORT_ITEM]: function(payload) {
+			[Constants.REPORT_ITEM] (payload) {
 				let {item} = payload.action;
 				reportItem(item);
 			}
 		});
 	}
 
-	setDiscussions(theCourseId, data) {
-		this.setCourseId(theCourseId);
-		discussions[theCourseId] = dataOrError(data);
-		forums = Object.assign(forums||{}, indexForums(discussions));
-		this.emitChange({
-			type: Constants.DISCUSSIONS_CHANGED,
-			courseId: theCourseId
-		});
+	setDiscussions(packageId, data) {
+		this.setPackageId(packageId);
+		this.discussions[packageId] = dataOrError(data);
+		this.forums = Object.assign(this.forums||{}, indexForums(this.discussions));
+		this.emitChange({ type: Constants.DISCUSSIONS_CHANGED, packageId });
 	}
 
 	setObject(ntiid, object) {
 		let key = this[keyForObject](ntiid);
-		objects[key] = object;
-		this.emitChange({
-			type: Constants.OBJECT_LOADED,
-			ntiid: ntiid,
-			object: object
-		});
+		this.objects[key] = object;
+		this.emitChange({ type: Constants.OBJECT_LOADED, ntiid, object });
 	}
 
 	setObjectContents(objectId, contents, params={}) {
 		let key = this[keyForContents](objectId, params);
-		objectContents[key] = contents;
-		this.emitChange({
-			type: Constants.OBJECT_CONTENTS_CHANGED,
-			objectId: objectId
-		});
+		this.objectContents[key] = contents;
+		this.emitChange({ type: Constants.OBJECT_CONTENTS_CHANGED, objectId });
 	}
 
-	setCourseId(newCourseId) {
-		courseId = newCourseId;
+	setPackageId(packageId) {
+		this.packageId = packageId;
 	}
 
-	getCourseId() {
-		return courseId;
+	getPackageId() {
+		return this.packageId;
 	}
 
-	getDiscussions(forCourseId) {
-		return discussions[forCourseId];
+	getDiscussions(forPackageId) {
+		return this.discussions[forPackageId];
 	}
 
 	getForum(forumId) {
-		return forums[decodeFromURI(forumId)] || this.getObject(forumId);
+		return this.forums[decodeFromURI(forumId)] || this.getObject(forumId);
 	}
 
 	getForumContents(forumId, batchStart, batchSize) {
@@ -113,51 +106,35 @@ class Store extends StorePrototype {
 	}
 
 	getObject(objectId) {
-		return objects[this[keyForObject](objectId)];
+		return this.objects[this[keyForObject](objectId)];
 	}
 
 	getObjectContents(objectId, params={}) {
 		let key = this[keyForContents](objectId, params);
-		return objectContents[key];
+		return this.objectContents[key];
 	}
 
 	deleteObject(object) {
 		let objectId = object && object.getID ? object.getID() : object;
-		delete objects[this[keyForObject](objectId)];
-		this.emitChange({
-			type: Constants.OBJECT_DELETED,
-			objectId: objectId,
-			object: object
-		});
+		delete this.objects[this[keyForObject](objectId)];
+		this.emitChange({ type: Constants.OBJECT_DELETED, objectId, object });
 	}
 
 	commentAdded (data) {
-		this.emitChange({
-			type: Constants.COMMENT_ADDED,
-			data: data
-		});
+		this.emitChange({ type: Constants.COMMENT_ADDED, data });
 	}
 
-	commentSaved (result) {
-		this.setObject(result.getID(), result);
-		this.emitChange({
-			type: Constants.COMMENT_SAVED,
-			data: result
-		});
+	commentSaved (data) {
+		this.setObject(data.getID(), data);
+		this.emitChange({ type: Constants.COMMENT_SAVED, data });
 	}
 
 	commentError (data) {
-		this.emitError({
-			type: Constants.COMMENT_ERROR,
-			data: data
-		});
+		this.emitError({ type: Constants.COMMENT_ERROR, data });
 	}
 
 	topicCreationError (data) {
-		this.emitError({
-			type: Constants.TOPIC_CREATION_ERROR,
-			data: data
-		});
+		this.emitError({ type: Constants.TOPIC_CREATION_ERROR, data });
 	}
 
 	[keyForContents](objectId, params={}) {

@@ -1,16 +1,19 @@
-
-
-import ContextSender from 'common/mixins/ContextSender';
-import CreateTopic from './CreateTopic';
-import LoadForum from '../mixins/LoadForum';
-import Loading from 'common/components/Loading';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import React from 'react';
 import Router from 'react-router-component';
-import Store from '../Store';
+
+import Loading from 'common/components/Loading';
+
+import ContextSender from 'common/mixins/ContextSender';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import StoreEvents from 'common/mixins/StoreEvents';
+
+import CreateTopic from './CreateTopic';
 import Topics from './Topics';
 import TopicView from './TopicView';
+
+import LoadForum from '../mixins/LoadForum';
+
+import Store from '../Store';
 
 let Location = Router.Location;
 
@@ -27,7 +30,14 @@ export default React.createClass({
 
 	propTypes: {
 		forumId: React.PropTypes.string.isRequired,
-		course: React.PropTypes.object //probably should be abstracted to be container or some 'interface'
+
+		/**
+		 * @type {object} Any model that implements getDiscussions() and getID()
+		 */
+		contentPackage: React.PropTypes.shape({
+			getDiscussions: React.PropTypes.func,
+			getID: React.PropTypes.func
+		})
 	},
 
 	backingStore: Store,
@@ -55,28 +65,28 @@ export default React.createClass({
 			return <Loading />;
 		}
 
-		let {forumId, course} = this.props;
+		let {forumId, contentPackage} = this.props;
 		let forum = Store.getForum(forumId);
 
 		// if a user lands directly on a topic or post view without going through
-		// the parent views the store may not have the course id.
-		if (!Store.getCourseId() && course) {
-			Store.setCourseId(course.getID());
+		// the parent views the store may not have the package id.
+		if (!Store.getPackageId() && contentPackage) {
+			Store.setPackageId(contentPackage.getID());
 		}
 
 		return (
 			<nav className="forum">
 				<Router.Locations contextual>
-					<Location path="/(#nav)"
+					<Location path="/"
 						handler={Topics}
 						{...this.props}
 						forum={forum}
 					/>
-					<Location path="/newtopic/(#nav)"
+					<Location path="/newtopic/"
 						handler={CreateTopic}
 						forum={forum}
 					/>
-					<Location path="/:topicId/*(#nav)"
+					<Location path="/:topicId/*"
 						handler={TopicView}
 						forum={forum}
 					/>

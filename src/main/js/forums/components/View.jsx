@@ -1,11 +1,13 @@
 import React from 'react';
+import Router from 'react-router-component';
 
-import CourseBanner from './widgets/CourseBanner';
+import Banner from 'common/components/Banner';
+
+import ContextSender from 'common/mixins/ContextSender';
+import Navigatable from 'common/mixins/NavigatableMixin';
+
 import ForumListView from './ForumListView';
 import ForumView from './ForumView';
-import Router from 'react-router-component';
-import Navigatable from 'common/mixins/NavigatableMixin';
-import ContextSender from 'common/mixins/ContextSender';
 
 export default React.createClass({
 	displayName: 'ForumsView',
@@ -27,14 +29,24 @@ export default React.createClass({
 	},
 
 	render () {
-		let contentPackage = this.props.course || this.props.contentPackage;
+		let {contentPackage} = this.props;
 		return (
 			<div>
-				<CourseBanner course={contentPackage} />
+				<Banner contentPackage={contentPackage} />
 				<div className="forums-wrapper">
 					<Router.Locations contextual>
-						<Router.Location path="/(:forumId)/*" handler={ForumView} course={contentPackage} contextProvider={this.getContext}/>
-						<Router.Location path="/" handler={ForumListView} course={contentPackage} />
+
+						<Router.Location path="/(:forumId)/*"
+							handler={ForumView}
+							contentPackage={contentPackage}
+							contextProvider={this.getContext}
+							/>
+
+						<Router.Location path="/"
+							handler={ForumListView}
+							contentPackage={contentPackage}
+							/>
+
 					</Router.Locations>
 				</div>
 			</div>

@@ -34,9 +34,13 @@ export default React.createClass({
 	],
 
 	propTypes: {
-		/*probably shouldn't be called "course" and should probably just be an interface so
-			"Forums" do 	not need to know its a course or reference it by "course" */
-		course: React.PropTypes.object
+		/**
+		 * @type {object} Any model that implements getDiscussions() and getID()
+		 */
+		contentPackage: React.PropTypes.shape({
+			getDiscussions: React.PropTypes.func,
+			getID: React.PropTypes.func
+		})
 	},
 
 	backingStore: Store,
@@ -45,7 +49,7 @@ export default React.createClass({
 	},
 
 	[discussionsChanged](event) {
-		if(event.courseId === this[getContentPackageId]()) {
+		if(event.packageId === this[getContentPackageId]()) {
 			clearLoadingFlag(this);
 		}
 	},
@@ -71,7 +75,7 @@ export default React.createClass({
 			.then(
 				result => {
 					Store.setDiscussions(contentPackage.getID(), result);
-					Store.setCourseId(contentPackage.getID());
+					Store.setPackageId(contentPackage.getID());
 				},
 				error => {
 					console.error('Failed to load discussions', error);
@@ -85,7 +89,7 @@ export default React.createClass({
 	},
 
 	[getContentPackage] () {
-		return this.props.course || this.props.contentPackage;
+		return this.props.contentPackage;
 	},
 
 	render () {

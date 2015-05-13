@@ -99,7 +99,7 @@ export default React.createClass({
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route=>
 				route.path ?
-				React.createElement(Router.Location, Object.assign({}, route, {course})) :
+				React.createElement(Router.Location, Object.assign({course, contentPackage: course}, route)) :
 				React.createElement(Router.NotFound, {handler: Redirect, location: 'o/'})
 			));
 	},

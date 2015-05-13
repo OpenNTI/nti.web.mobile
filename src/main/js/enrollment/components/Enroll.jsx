@@ -49,7 +49,7 @@ export default React.createClass({
 		return (
 			<div className="enrollment-options">
 				{thumb && (
-					<div className="course-banner">
+					<div className="content-banner">
 						<img src={thumb} />
 						<label>
 							<h3>{title}</h3>

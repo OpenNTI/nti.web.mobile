@@ -1,0 +1,66 @@
+%content-card {
+	position: relative;
+	overflow: hidden;
+	display: block;
+
+	&::after {
+		content: '';
+		display: block;
+		//make the height not jump while loading the avatar
+		// padding-top: 73.3%;//for full aspect ratio of library card icons.
+		padding-top: 60%;
+	}
+
+	img {
+		width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	label {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: rgba(0,0,0,0.7);
+		overflow: hidden;
+		text-align: left;
+		padding: 0.2rem 1rem;
+
+		h3, h5, address {
+			&::after {content: ' ';}
+		}
+
+		h3, h5 {
+			color: white;
+			text-transform: uppercase;
+			overflow: hidden;
+			@include ellipse();
+			margin: 0;
+			font-weight: 700;
+		}
+
+		h3 {
+			font-size: 1.1rem;
+		}
+
+		h5 {
+			color: $tertiary-grey;
+			font-size: 0.5rem;
+		}
+
+		address {
+			font-size: 0.8rem;
+			font-style: normal;
+			overflow: hidden;
+			color: $primary-blue;
+		}
+	}
+}
+
+
+.content-banner {
+	@extend %content-card;
+	height: 132px;
+}

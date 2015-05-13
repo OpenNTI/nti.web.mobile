@@ -16,33 +16,33 @@ export const defaultPagingParams = {
 
 export default {
 
-	loadDiscussions(course) {
-		if (!course) {
-			return Promise.reject('Course not specified.');
+	loadDiscussions(pkg) {
+		if (!pkg) {
+			return Promise.reject('Package not specified.');
 		}
-		let courseId = course.getID();
+		let pkgId = pkg.getID();
 
-		// do we already have a promise for loading this course's discussions?
-		let promise = promises[courseId];
+		// do we already have a promise for loading this pkg's discussions?
+		let promise = promises[pkgId];
 
 		// if not, create one.
 		if (!promise) {
-			let courseId = course.getID();
-			promise = course.getDiscussions()
+			let pkgId = pkg.getID();
+			promise = pkg.getDiscussions()
 				.then(
 					result => {
 						return result;
-						// _discussionsLoaded(courseId, result);
+						// _discussionsLoaded(pkgId, result);
 					},
 					reason => {
 						// don't hang on to a rejected promise; we want to try again next time.
-						delete promises[course];
+						delete promises[pkgId];
 						return reason;
-						// _discussionsLoaded(courseId, reason);
+						// _discussionsLoaded(pkgId, reason);
 					}
 				);
 			// keep this promise around so we're not making redundant calls.
-			promises[courseId] = promise;
+			promises[pkgId] = promise;
 		}
 
 		return promise;

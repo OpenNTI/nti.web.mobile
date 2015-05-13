@@ -12,49 +12,31 @@ import {
 
 
 export function getCommentReplies (comment) {
-	dispatch(GET_COMMENT_REPLIES, {
-		comment: comment
-	});
+	dispatch(GET_COMMENT_REPLIES, { comment });
 }
 
 export function addComment (topic, parent, comment) {
-	dispatch(ADD_COMMENT, {
-		topic: topic,
-		parent: parent,
-		comment: comment
-	});
+	dispatch(ADD_COMMENT, { topic, parent, comment });
 }
 
 export function saveComment (postItem, newValue) {
-	dispatch(SAVE_COMMENT, {
-		postItem: postItem,
-		newValue: newValue
-	});
+	dispatch(SAVE_COMMENT, { postItem, newValue });
 }
 
 export function createTopic (forum, topic) {
-	dispatch(CREATE_TOPIC, {
-		forum: forum,
-		topic: topic
-	});
+	dispatch(CREATE_TOPIC, { forum, topic });
 }
 
 export function deleteTopic (topic) {
-	dispatch(DELETE_TOPIC, {
-		topic: topic
-	});
+	dispatch(DELETE_TOPIC, { topic });
 }
 
 export function deleteComment (comment) {
-	dispatch(DELETE_COMMENT, {
-		comment: comment
-	});
+	dispatch(DELETE_COMMENT, { comment });
 }
 
 export function reportItem (item) {
-	dispatch(REPORT_ITEM, {
-		item: item
-	});
+	dispatch(REPORT_ITEM, { item });
 }
 
 function dispatch(type, data) {
