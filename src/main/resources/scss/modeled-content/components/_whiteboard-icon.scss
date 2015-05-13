@@ -43,7 +43,7 @@
 				@include transform(translate3d(-50%, -50%, 0));
 
 				&::after {
-					@extend %edit-icon-14;
+					@extend %icon-edit-14;
 					content: ' ';
 					position: absolute;
 					top: 5px;

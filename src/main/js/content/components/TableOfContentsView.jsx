@@ -23,6 +23,7 @@ const TYPE_TAG_MAP = {
 	chapter: 'h3'
 };
 
+const stop = e => e.preventDefault();
 
 export default React.createClass({
 	displayName: 'TableOfContentsView',
@@ -33,13 +34,14 @@ export default React.createClass({
 	],
 
 	propTypes: {
-		contentPackage: React.PropTypes.object.isRequired,
-
-		filter: React.PropTypes.string
+		contentPackage: React.PropTypes.object.isRequired
 	},
 
 	getInitialState () {
-		return {loading: true};
+		return {
+			filter: null,
+			loading: true
+		};
 	},
 
 
@@ -94,19 +96,31 @@ export default React.createClass({
 	},
 
 
+	clearFilter () {
+		this.setState({filter: undefined});
+		React.findDOMNode(this.refs.filter).focus();
+	},
+
+
+	updateFilter (event) {
+		let filter = event.target.value;
+		this.setState({filter});
+	},
+
+
 	doPropFilter (node) {
 		if (!isTopic(node.tag) /*|| isAnchor(node.get('href'))*/) {
 			return false;
 		}
 
-		let {filter} = this.props;
+		let {filter} = this.state;
 
 		return isEmpty(filter) || node.matches(filter);
 	},
 
 
 	render () {
-		let {data, loading, icon, background, label, title} = this.state;
+		let {data, filter, loading, icon, background, label, title} = this.state;
 
 		if (loading) {
 			return (<Loading/>);
@@ -122,6 +136,11 @@ export default React.createClass({
 					</label>
 					<div className="branding"/>
 				</div>
+
+				<form onSubmit={stop} className="search">
+					<input ref="filter" type="text" value={filter} onChange={this.updateFilter} required/>
+					<input type="reset" onClick={this.clearFilter}/>
+				</form>
 
 				<ul className="contents">
 					{this.renderRoot(data)}
