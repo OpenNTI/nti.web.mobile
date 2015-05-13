@@ -1,64 +1,59 @@
 import React from 'react';
 
-import ActiveState from './ActiveState';
+import buffer from 'nti.lib.interfaces/utils/function-buffer';
+
+import ActiveState from 'common/components/ActiveState';
+
+import StoreEvents from 'common/mixins/StoreEvents';
+
+import NavStore from '../Store';
 
 export default React.createClass({
 	displayName: 'Breadcrumb',
-
-	statics: {
-		noContextProvider () {
-			return Promise.resolve([]);
-		}
-	},
-
+	mixins: [StoreEvents],
 
 	propTypes: {
 		children: React.PropTypes.any
 	},
 
+	backingStore: NavStore,
+	backingStoreEventHandlers: {
+		default: buffer(10, function () {
+			this.applyContext();
+		})
+	},
+
 
 	getInitialState () {
 		return {
-			context: []
+			path: []
 		};
 	},
 
 	componentDidMount () {
-		this.maybeUpdateContext(this.props);
+		this.applyContext();
+	},
+
+	componentWillReceiveProps () {
+		this.applyContext();
 	},
 
 
-	componentWillUnmount () {},
-
-
-	componentWillReceiveProps (props) {
-		this.maybeUpdateContext(props);
-	},
-
-
-	maybeUpdateContext (props) {
-		let promiseMaker = props.contextProvider;
-		let stamp = Date.now();
-		if (promiseMaker) {
-			this.setState({contextTime: stamp});
-			promiseMaker().then(this.applyContext.bind(this, stamp));
-		}
-	},
-
-
-	applyContext (contextTime, context) {
-		if (this.state.contextTime === contextTime && this.isMounted()) {
-			this.setState({context: context});
+	applyContext () {
+		if (this.isMounted()) {
+			// console.debug('Set Context: %o', o);
+			this.setState(NavStore.getData());
 		}
 	},
 
 
 	render () {
-		let context = this.state.context.slice(-2);
+		let {path = []} = this.state;
+
 		return (
 			<ul className="breadcrumbs" role="menubar" aria-label="breadcrumbs">
 				{this.props.children}
-				{context.map((o, i)=>this.renderItem(o, !o.href, i))}
+				{path.slice(-2).map((o, i)=>this.renderItem(o, !o.href, i))}
 			</ul>
 		);
 	},

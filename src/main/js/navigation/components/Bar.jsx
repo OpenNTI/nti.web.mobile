@@ -4,6 +4,8 @@ import Transition from 'react/lib/ReactCSSTransitionGroup';
 import path from 'path';
 import cx from 'classnames';
 
+import buffer from 'nti.lib.interfaces/utils/function-buffer';
+
 import ActiveState from 'common/components/ActiveState';
 import Pager from 'common/components/Pager';
 
@@ -18,15 +20,6 @@ import ReturnTo from './ReturnTo';
 import NavStore from '../Store';
 
 const menuOpenBodyClass = 'nav-menu-open';
-
-
-function buffer(time, fn) {
-	let id = null;
-	return function() {
-		clearTimeout(id);
-		id = setTimeout(fn.call(this), time);
-	};
-}
 
 
 export default React.createClass({
