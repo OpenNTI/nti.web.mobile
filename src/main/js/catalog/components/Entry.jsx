@@ -130,9 +130,9 @@ export default React.createClass({
 
 	button () {
 		let status = this.getStatus();
-		let {available, enrolled, dropable} = status || {};
+		let {available, enrolled, droppable} = status || {};
 
-		return (!available && !enrolled) || (!dropable && enrolled) ? null :
+		return (!available && !enrolled) || (!droppable && enrolled) ? null :
 			enrolled ?
 				<a className="action drop" href={this.getDropHref()}>Drop</a> :
 				<a className="action add" href={this.getAddHref()}>Add</a>
