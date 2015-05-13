@@ -59,7 +59,7 @@ export default React.createClass({
 	},
 
 
-	getValue: function () {
+	getValue () {
 		let {form} = this.refs;
 		if (!form || !this.isMounted()) { return; }
 

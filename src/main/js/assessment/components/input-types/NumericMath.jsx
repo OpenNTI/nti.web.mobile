@@ -19,8 +19,7 @@ export default React.createClass({
 	},
 
 	render () {
-
-		let value = this.state.value || '';
+		let {value} = this.state;
 
 		return (
 			<form className="free-response">
@@ -30,10 +29,9 @@ export default React.createClass({
 	},
 
 
-	getValue: function () {
-		let ref = this.refs.input;
-		let input = ref && React.findDOMNode(ref);
-		let value = (input && input.value) || '';
+	getValue () {
+		let {input} = this.refs;
+		let {value} = (input && React.findDOMNode(input)) || {};
 
 		return isEmpty(value) ? null :
 				!isValid.test(value) ?
