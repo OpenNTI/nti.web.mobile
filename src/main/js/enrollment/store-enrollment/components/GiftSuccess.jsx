@@ -38,7 +38,7 @@ export default React.createClass({
 	},
 
 	render () {
-		let courseTitle = this.props.purchasable.Title;
+		let courseTitle = this.props.purchasable.title;
 		let purchaseAttempt = this.props.purchaseattempt;
 
 		let receiver = purchaseAttempt && purchaseAttempt.receiver;
