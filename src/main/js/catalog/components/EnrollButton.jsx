@@ -33,8 +33,8 @@ export default React.createClass({
 
 		if (this.canDrop(this.getEntry())) {
 			// drop button
-
-			return <ButtonFullWidth href={href + 'drop/'}>Drop This Course</ButtonFullWidth>;
+			let drophref = this.getBasePath() + 'catalog/enroll/drop/' + encodeForURI(this.getEntryID()) + '/';
+			return <ButtonFullWidth href={drophref}>Drop This Course</ButtonFullWidth>;
 		}
 
 		if (!this.state.enrolled && !this.props.dropOnly && this.enrollmentOptions(this.getEntry()).length > 0) {
