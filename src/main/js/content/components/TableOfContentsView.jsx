@@ -4,6 +4,7 @@ import cx from 'classnames';
 
 import ActiveState from 'common/components/ActiveState';
 import E from 'common/components/Ellipsed';
+import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 
 import BasePathAware from 'common/mixins/BasePath';
@@ -13,6 +14,9 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import isEmpty from 'nti.lib.interfaces/utils/isempty';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
+
+// const isAnchor = RegExp.prototype.test.bind(/#/);
+const isTopic = RegExp.prototype.test.bind(/topic/i);
 
 const TYPE_TAG_MAP = {
 	part: 'h1',
@@ -29,7 +33,9 @@ export default React.createClass({
 	],
 
 	propTypes: {
-		contentPackage: React.PropTypes.object.isRequired
+		contentPackage: React.PropTypes.object.isRequired,
+
+		filter: React.PropTypes.string
 	},
 
 	getInitialState () {
@@ -88,6 +94,17 @@ export default React.createClass({
 	},
 
 
+	doPropFilter (node) {
+		if (!isTopic(node.tag) /*|| isAnchor(node.get('href'))*/) {
+			return false;
+		}
+
+		let {filter} = this.props;
+
+		return isEmpty(filter) || node.matches(filter);
+	},
+
+
 	render () {
 		let {data, loading, icon, background, label, title} = this.state;
 
@@ -123,13 +140,17 @@ export default React.createClass({
 			'multi-root': length !== 1
 		});
 
-		for(let t of data) {
-			result.push(
-				<li key={result.length}>
-					<h1 className={cls}>Package: {t.title}</h1>
-					{this.renderTree(t.children, encodeForURI(t.id))}
-				</li>
-			);
+		try {
+			for(let t of data) {
+				result.push(
+					<li key={result.length}>
+						<h1 className={cls}>Package: {t.title}</h1>
+						{this.renderTree(t.children, encodeForURI(t.id))}
+					</li>
+				);
+			}
+		} catch (e) {
+			result.push( <Err error={e}/> );
 		}
 
 		return result;
@@ -144,7 +165,7 @@ export default React.createClass({
 		let prefix = this.makeHref(`/${root}/`);
 
 		return React.createElement('ul', {}, ...list
-			.filter(x=> x.tag === 'topic')
+			.filter(this.doPropFilter)
 			.map(item => {
 				let {id, title, type, children} = item;
 
