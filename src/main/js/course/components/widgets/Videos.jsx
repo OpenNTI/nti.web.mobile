@@ -250,7 +250,7 @@ export default React.createClass({
 
 
 	getTranslation () {
-		let {active, touch, offsetWidth} = this.state;
+		let {active = 0, touch, offsetWidth = 0} = this.state;
 		let offset = touch ?
 				touch.pixelOffset :
 				(active * -offsetWidth);
