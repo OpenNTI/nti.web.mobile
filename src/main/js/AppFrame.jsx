@@ -1,5 +1,4 @@
 import React from 'react';
-import cloneWithProps from 'react/lib/cloneWithProps';
 
 import Session from 'common/components/Session';
 import Footer from 'common/components/Footer';
@@ -100,8 +99,11 @@ export default React.createClass({
 
 
 	renderView () {
-		let {children} = this.props;
-		return cloneWithProps(React.Children.only(children));
+		let child = React.Children.only(this.props.children);
+		//Until React Switches to Parent-Based-Context passing, we have to "re-owner" the child.
+		//Once React makes the switch, we can replace the next two lines with "return React.cloneElement(child);"
+		let {type, props} = child;
+		return React.createElement(type, props);
 	},
 
 
