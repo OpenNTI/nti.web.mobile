@@ -10,7 +10,7 @@ export default React.createClass({
 	displayName: 'SetHeader',
 
 	propTypes: {
-		assessment: React.PropTypes.string
+		assessment: React.PropTypes.object
 	},
 
 	render () {

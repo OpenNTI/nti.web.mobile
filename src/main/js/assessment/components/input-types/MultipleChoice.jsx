@@ -24,7 +24,7 @@ export default React.createClass({
 
 
 	propTypes: {
-		item: React.PropTypes.string
+		item: React.PropTypes.object
 	},
 
 
