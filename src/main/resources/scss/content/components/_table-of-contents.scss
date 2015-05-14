@@ -2,6 +2,9 @@
 	@extend %outline;
 
 	.single-root {display: none;}
+	.filtered-out {
+		opacity: 0.3;
+	}
 
 	& > .head {
 		@extend %content-header;
@@ -11,8 +14,12 @@
 		color: $primary-grey;
 	}
 
-	.contents {
+	.hit {
+		background-color: #FCFF13;
+		box-shadow: inset 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+	}
 
+	.contents {
 		.part {
 			&::before {content: none !important;}
 

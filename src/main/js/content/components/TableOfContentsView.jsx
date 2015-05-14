@@ -36,6 +36,7 @@ export default React.createClass({
 		contentPackage: React.PropTypes.object.isRequired
 	},
 
+
 	getInitialState () {
 		return {
 			filter: null,
@@ -100,12 +101,6 @@ export default React.createClass({
 	},
 
 
-	doPropFilter (node) {
-		let {filter} = this.state;
-		return isEmpty(filter) || node.matches(filter);
-	},
-
-
 	render () {
 		let {data, loading, icon, background, label, title} = this.state;
 
@@ -145,10 +140,11 @@ export default React.createClass({
 
 		try {
 			for(let t of data) {
+				let tree = t;
 				result.push(
 					<li key={result.length}>
 						<h1 className={cls}>Package: {t.title}</h1>
-						{this.renderTree(t.children, encodeForURI(t.id))}
+						{this.renderTree(tree.children, encodeForURI(t.id))}
 					</li>
 				);
 			}
@@ -165,35 +161,55 @@ export default React.createClass({
 			return null;
 		}
 
+		let {filter} = this.state;
 		let prefix = this.makeHref(`/${root}/`);
 
-		return React.createElement('ul', {}, ...list
-			.filter(x=> isTopic(x.tag) /*&& !isAnchor(x.get('href'))*/)
-			.filter(this.doPropFilter)
-			.map(item => {
-				let {id, title, type, children} = item;
+		list = list.map(item => {
+			if (!isTopic(item.tag) /*|| isAnchor(item.get('href'))*/) {
+				return null;
+			}
 
-				let tag = TYPE_TAG_MAP[type] || 'div';
-				let href = prefix;
+			let {id, title, type, children} = item;
+			let hasFilter = !isEmpty(filter);
+			let filtered = hasFilter && !item.matches(filter, false);
+			let branch = this.renderTree(children, root);
+			let prune = filtered && !branch;
 
-				if (id && id !== root) {
-					href = prefix + encodeForURI(id) + '/';
-				}
+			let tag = TYPE_TAG_MAP[type] || 'div';
+			let href = prefix;
 
-				let props = {
-					href, title, children: title
-				};
+			if (id && id !== root) {
+				href = prefix + encodeForURI(id) + '/';
+			}
 
-				let cls = cx(type, {
-					'no-children': children.length === 0
-				});
+			let cls = cx(type, {
+				'no-children': children.length === 0,
+				'filtered-out': filtered
+			});
 
-				return (
-					<li>
-						<ActiveState hasChildren href={href} tag={tag} className={cls}><E tag="a" {...props}/></ActiveState>
-						{this.renderTree(children, root)}
-					</li>
-				);
-			}));
+			let props = {
+				href, title, children: title
+			};
+
+			if (hasFilter && !filtered) {
+				delete props.children;
+				let re = item.getMatchExp(filter);
+				title = title.replace(re, x => `<span class="hit">${x}</span>`);
+				props.dangerouslySetInnerHTML = {__html: title};
+			}
+
+			return !prune && (
+				<li>
+					<ActiveState hasChildren href={href} tag={tag} className={cls}><E tag="a" {...props}/></ActiveState>
+					{branch}
+				</li>
+			);
+		}).filter(x=>x);//only truthy
+
+		if (!list.length) {
+			return null;
+		}
+
+		return React.createElement('ul', {}, ...list);
 	}
 });
