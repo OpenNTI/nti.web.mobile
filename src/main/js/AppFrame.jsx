@@ -1,6 +1,5 @@
 import React from 'react';
 import cloneWithProps from 'react/lib/cloneWithProps';
-import onlyChild from 'react/lib/onlyChild';
 
 import Session from 'common/components/Session';
 import Footer from 'common/components/Footer';
@@ -102,7 +101,7 @@ export default React.createClass({
 
 	renderView () {
 		let {children} = this.props;
-		return cloneWithProps(onlyChild(children));
+		return cloneWithProps(React.Children.only(children));
 	},
 
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import cloneWithProps from 'react/lib/cloneWithProps';
 
 import NavigationBar from 'navigation/components/Bar';
 
@@ -60,6 +59,6 @@ export default React.createClass({
 			c = [c];
 		}
 
-		return c.map(x=>cloneWithProps(x));
+		return c.map(x=>React.cloneElement(x));
 	}
 });

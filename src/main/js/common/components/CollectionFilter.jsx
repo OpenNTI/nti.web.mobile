@@ -1,5 +1,4 @@
 import React from 'react';
-import cloneWithProps from 'react/lib/cloneWithProps';
 
 import {getEnvironment} from 'react-router-component/lib/environment/LocalStorageKeyEnvironment';
 import {Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
@@ -72,13 +71,13 @@ export default React.createClass({
 
 	render () {
 		let {env} = this.state || {};
-		let {list, filters} = this.props;
+		let {children, list, filters} = this.props;
 
 		if (!env) { return; }
 
 		if(!filters || filters.length === 0) {
 			//console.debug('No filters. Returning list view.');
-			return cloneWithProps(this.props.children, {list: list});
+			return React.cloneElement(children, {list: list});
 		}
 
 		return (
@@ -90,7 +89,7 @@ export default React.createClass({
 
 
 	getRoutes () {
-		let {children, list, filters, title} = this.props;
+		let {children, defaultFilter, list, filters, title} = this.props;
 		let listComp = children;
 
 
@@ -107,7 +106,7 @@ export default React.createClass({
 					handler={FilterableView}
 
 					list={list}
-					listcomp={cloneWithProps(listComp, {list: list})}
+					listcomp={React.cloneElement(listComp, {list: list})}
 					filters={filters}
 					title={title}
 				/>
@@ -118,9 +117,9 @@ export default React.createClass({
 			<DefaultRoute
 				key="default"
 				handler={DefaultPath}
-				filters={this.props.filters}
+				filters={filters}
 				list={list}
-				defaultFilter={this.props.defaultFilter}
+				defaultFilter={defaultFilter}
 				/>
 			);
 

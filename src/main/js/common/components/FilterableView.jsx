@@ -1,7 +1,5 @@
 import React from 'react';
 
-import cloneWithProps from 'react/lib/cloneWithProps';
-
 import FilterBar from './FilterBar';
 import NoMatches from './NoMatches';
 
@@ -61,7 +59,7 @@ export default React.createClass({
 				<FilterBar {...this.props}/>
 				{list.length === 0 ? <NoMatches /> : null}
 				<div>
-					{cloneWithProps(this.props.listcomp, {list, filter, omittitle: true})}
+					{React.cloneElement(this.props.listcomp, {list, filter, omittitle: true})}
 				</div>
 			</div>
 		);

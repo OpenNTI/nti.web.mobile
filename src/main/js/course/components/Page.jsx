@@ -1,5 +1,4 @@
 import React from 'react';
-import cloneWithProps from 'react/lib/cloneWithProps';
 
 import {scoped} from 'common/locale';
 
@@ -45,7 +44,7 @@ export default React.createClass({
 
 		let props = Object.assign({}, this.props, {
 			availableSections: menu,
-			children: React.Children.map(children, x => cloneWithProps(x))
+			children: React.Children.map(children, x => React.cloneElement(x))
 		});
 
 		return React.createElement(Page, props);
