@@ -25,6 +25,11 @@ export default React.createClass({
 	},
 
 
+	getInitialState () {
+		return {};
+	},
+
+
 	onZoom() {
 		let {image} = this.refs;
 		image = React.findDOMNode(image);
