@@ -180,6 +180,8 @@ export default React.createClass({
 			video = false;
 		}
 
+		let label = item.title || item.label;
+
 		return (
 			<Tag className="overview-video video-wrap flex-video widescreen">
 				{error && (
@@ -200,7 +202,7 @@ export default React.createClass({
 					<div className="wrapper">
 						<div className="buttons">
 							<span className="play" title="Play" onClick={this.onPlayClicked}/>
-							<span className="label" title={item.title}>{item.title}</span>
+							<span className="label" title={label}>{label}</span>
 						</div>
 					</div>
 				</LoadingMask>
