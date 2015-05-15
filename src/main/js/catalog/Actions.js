@@ -17,7 +17,7 @@ export function load (force = false) {
 		load.result = result
 			.then(catalog =>
 				dispatch(LOADED_CATALOG, catalog))
-			.catch(e=>{
+			.catch(e => {
 				console.log('loadCatalog failed. %O', e);
 				return Promise.reject(e);
 			});

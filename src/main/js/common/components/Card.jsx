@@ -93,7 +93,7 @@ export default React.createClass({
 	},
 
 
-	getInitialState (){
+	getInitialState () {
 		return {
 			icon: null
 		};
@@ -142,8 +142,8 @@ export default React.createClass({
 		this.setState({	href: null });
 
 		props.contentPackage.resolveContentURL(href)
-			.then(url=>props.resolveUrlHook(url))
-			.then(url=>{
+			.then(url=> props.resolveUrlHook(url))
+			.then(url=> {
 				this.setState({ href: url });
 			});
 	},

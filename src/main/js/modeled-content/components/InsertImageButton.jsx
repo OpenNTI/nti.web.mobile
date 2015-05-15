@@ -71,7 +71,7 @@ export default React.createClass({
 					}
 
 				})
-				.catch(e=>{
+				.catch(e=> {
 					e = JSON.stringify(e);
 					console.error(e);
 					alert(e);//eslint-disable-line
@@ -110,7 +110,7 @@ export default React.createClass({
 		if (!files || files.length === 0) { return; }
 
 		let sel = editor[Constants.SAVED_SELECTION];
-		if (sel){
+		if (sel) {
 			editor.restoreSelection(sel);
 		}
 

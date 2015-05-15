@@ -47,7 +47,7 @@ export default {
 	accepts (type) {
 		let criteria = ensureArray(this.props.accepts);
 
-		return criteria.reduce((yes, x)=>{
+		return criteria.reduce((yes, x) => {
 			return yes || (x === type) || (x.accepts && x.accepts(type));
 		}, false);
 	},

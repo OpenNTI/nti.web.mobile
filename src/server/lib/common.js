@@ -41,7 +41,7 @@ let opt = require('optimist').usage('WebApp Instance')
 				desc: 'URI/path to config file (http/https/file/path)'
 			})
 			/*eslint no-throw-literal:0*/
-			.check(v => {if (v.hasOwnProperty('h')){ throw false; }})
+			.check(v => {if (v.hasOwnProperty('h')) { throw false; }})
 			.argv;
 
 

@@ -143,7 +143,7 @@ export function overrideAppUsername (str) {
 	$AppConfig.username = str;
 }
 
-export function overrideConfigAndForceCurrentHost(){
+export function overrideConfigAndForceCurrentHost() {
 	if (noConfig()) {
 		console.error('utils:overrideConfigAndForceCurrentHost() was called before config was defined.');
 	}

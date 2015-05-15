@@ -67,8 +67,8 @@ export default React.createClass({
 
 		let values = null;
 
-		toArray(form.elements).forEach(x =>{
-			if (hasValue(x)){
+		toArray(form.elements).forEach(x => {
+			if (hasValue(x)) {
 				values = values || {};
 				values[x.name] = x.value;
 			}

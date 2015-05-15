@@ -40,7 +40,7 @@ export function processContent(packet, strategies = DEFAULT_STRATEGIES) {
 
 	let widgets = indexArrayByKey(parseWidgets(strategies, doc, elementFactory), 'guid');
 
-	let bodyParts = body.innerHTML.split(WIDGET_MARKER_REGEX).map(part=>{
+	let bodyParts = body.innerHTML.split(WIDGET_MARKER_REGEX).map(part => {
 		let m = part.match(MARKER_REGEX);
 		if (m && m[1]) {
 			return widgets[m[1]];
@@ -87,7 +87,7 @@ export function parseWidgets(strategies, doc, elementFactory) {
 		.map(selector=> toArray(doc.querySelectorAll(selector))
 			//do not process nested objects
 			.filter(el => selectors.every(x=> !parent(el.parentNode, x)))
-			.map(el=>{
+			.map(el => {
 
 				let id = el.getAttribute('id');
 				let result = strategies[selector](el) || {element: el};

@@ -54,8 +54,8 @@ export default React.createClass({
 
 		areYouSure('This will reset this assignment.')
 			.then(
-				()=>resetAssessment(this.props.assessment),
-				()=>{}
+				()=> resetAssessment(this.props.assessment),
+				()=> {}
 			);
 	},
 

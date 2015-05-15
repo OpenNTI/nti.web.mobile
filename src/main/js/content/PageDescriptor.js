@@ -31,7 +31,7 @@ export default class PageDescriptor {
 	}
 
 
-	getPageSource (id){ return this.tableOfContents.getPageSource(id); }
+	getPageSource (id) { return this.tableOfContents.getPageSource(id); }
 
 
 	getTableOfContents () { return this.tableOfContents; }

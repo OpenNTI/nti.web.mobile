@@ -236,14 +236,14 @@ function createTopic(forum, topic) {
 }
 
 function deleteTopic(topic) {
-	return deleteObject(topic).then(()=>{
+	return deleteObject(topic).then(() => {
 		console.log('Reloading forum contents in response to topic deletion.');
 		getObjectContents(topic.ContainerId);
 	});
 }
 
 function deleteObject(o) {
-	return Api.deleteObject(o).then(()=>{
+	return Api.deleteObject(o).then(() => {
 		store.deleteObject(o);
 	});
 }

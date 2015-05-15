@@ -8,7 +8,7 @@ function truncateText (el, measure) {
 
 	let setTitleOnce = () => {
 		el.setAttribute('title', getText());
-		setTitleOnce = ()=>{};
+		setTitleOnce = () => {};
 	};
 
 	return setTimeout(() => {

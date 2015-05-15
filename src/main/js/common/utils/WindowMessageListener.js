@@ -7,7 +7,7 @@ export class WindowMessageListener {
 
 
 	onMessage (event) {
-		this.listers.forEach(fn=>{
+		this.listers.forEach(fn => {
 			try {
 				fn(event);
 			} catch (e) {

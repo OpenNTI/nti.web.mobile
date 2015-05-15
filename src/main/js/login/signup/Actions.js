@@ -1,16 +1,15 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import * as Constants from './Constants';
-import {EventEmitter} from 'events';
 
 const bufferTime = 500;
 
 
-export default Object.assign({}, EventEmitter.prototype, {
+export default {
 
 
 	preflight: function preflight(data) {
 		clearTimeout(preflight.buffer);
-		preflight.buffer = setTimeout(function(){
+		preflight.buffer = setTimeout(() => {
 			AppDispatcher.handleViewAction({
 				type: Constants.PREFLIGHT,
 				fields: (data && data.fields)
@@ -18,24 +17,24 @@ export default Object.assign({}, EventEmitter.prototype, {
 		}, bufferTime);
 	},
 
-	preflightAndCreateAccount: function(data) {
+	preflightAndCreateAccount (data) {
 		AppDispatcher.handleViewAction({
 			type: Constants.PREFLIGHT_AND_CREATE_ACCOUNT,
 			fields: (data && data.fields)
 		});
 	},
 
-	createAccount: function(data) {
+	createAccount (data) {
 		AppDispatcher.handleViewAction({
 			type: Constants.CREATE_ACCOUNT,
 			fields: (data && data.fields)
 		});
 	},
 
-	clearErrors: function() {
+	clearErrors () {
 		AppDispatcher.handleViewAction({
 			type: Constants.CLEAR_ERRORS
 		});
 	}
 
-});
+};

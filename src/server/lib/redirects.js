@@ -25,7 +25,7 @@ export default {
 	register (express, config) {
 		this.basepath = config.basepath;
 
-		express.use((req, res, next)=>{
+		express.use((req, res, next) => {
 			let redirectQuery = req.query.q;
 			if (!redirectQuery) {
 				return next();

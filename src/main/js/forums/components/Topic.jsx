@@ -187,7 +187,7 @@ export default React.createClass({
 		areYouSure(t('deleteTopicPrompt')).then(() => {
 			Actions.deleteTopic(this[getTopic]());
 		},
-		()=>{});
+		()=> {});
 	},
 
 	[getTopic] () {

@@ -25,7 +25,7 @@ export default function setupErrorHandler(express, config) {
 
 	// We need the signature to be 4 args long
 	// for express to treat it as a error handler
-	express.use(function(err, req, res, next){ // eslint-disable-line no-unused-vars
+	express.use(function(err, req, res, next) { // eslint-disable-line no-unused-vars
 		if (!err) {
 			err = 'Unknown Error';
 		}

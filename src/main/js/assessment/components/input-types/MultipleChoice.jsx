@@ -36,7 +36,7 @@ export default React.createClass({
 
 		return (
 			<form className="multiple-choice" ref="form">
-				{choices.map((x, i)=>{
+				{choices.map((x, i) => {
 					return this.renderChoice(x, i, solution);
 				})}
 			</form>

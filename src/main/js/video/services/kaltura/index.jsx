@@ -255,7 +255,7 @@ export default React.createClass({
 		this.setState({interacted: true});
 		if (video && this.isMounted()) {
 			video = React.findDOMNode(video);
-			if(video.play){
+			if (video.play) {
 				video.play();
 			}
 		}
@@ -266,7 +266,7 @@ export default React.createClass({
 		let video = this.refs;
 		if (video && this.isMounted()) {
 			video = React.findDOMNode(video);
-			if(video.pause){ video.pause(); }
+			if (video.pause) { video.pause(); }
 		}
 	},
 
@@ -275,7 +275,7 @@ export default React.createClass({
 		let {video} = this.refs;
 		if (video && this.isMounted()) {
 			video = React.findDOMNode(video);
-			if(video.stop){ video.stop(); }
+			if (video.stop) { video.stop(); }
 		}
 	},
 

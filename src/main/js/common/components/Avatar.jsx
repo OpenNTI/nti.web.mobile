@@ -68,7 +68,7 @@ function fillIn (cmp, props) {
 	}
 
 
-	if (!isNTIID(username)){
+	if (!isNTIID(username)) {
 		promise = Promise.resolve(
 			username ?
 				urlJoin(getServerURI(), 'users', encodeURIComponent(username), '@@avatar') : BLANK_AVATAR
@@ -79,7 +79,7 @@ function fillIn (cmp, props) {
 		promise = resolve(cmp, props).then(obj=>obj.avatarURL);
 	}
 
-	promise.then(avatar=>{
+	promise.then(avatar => {
 		if (cmp.isMounted()) {
 			cmp.setState({avatar});
 		}

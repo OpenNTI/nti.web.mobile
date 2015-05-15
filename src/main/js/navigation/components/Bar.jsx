@@ -117,7 +117,7 @@ export default React.createClass({
 
 	getRight () {
 		let {triggerRightMenu} = this.context;
-		return this.getChildForSide('right') || <UserMenu onClick={()=>{
+		return this.getChildForSide('right') || <UserMenu onClick={()=> {
 			this.closeMenu();
 			triggerRightMenu();
 		}}/>;

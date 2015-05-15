@@ -111,7 +111,7 @@ export default {
 			return op && op.available && !op.enrolled;
 		}
 
-		for(let option of catalogEntry.getEnrollmentOptions()){
+		for (let option of catalogEntry.getEnrollmentOptions()) {
 			if(includeUnavailable || showOption(option)) {
 				result.push(option);
 			}

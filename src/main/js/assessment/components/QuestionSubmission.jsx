@@ -39,7 +39,7 @@ export default React.createClass({
 
 
 	onReset (e) {
-		if (e){
+		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}

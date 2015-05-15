@@ -88,7 +88,7 @@ export default React.createClass({
 
 
 	onToggleEditor (e) {
-		if (e){
+		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}

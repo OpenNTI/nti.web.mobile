@@ -20,7 +20,7 @@ export default React.createClass({
 				});
 				reportItem(this.props.item);
 			},
-			()=>{}
+			()=> {}
 		);
 	},
 

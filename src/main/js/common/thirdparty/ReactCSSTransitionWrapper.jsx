@@ -29,7 +29,7 @@ export default React.createClass({
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount () {
 		/* eslint-disable react/no-did-mount-set-state */
 		/*
 		* Disabling the react/no-set-state lint rule because we want
@@ -42,15 +42,15 @@ export default React.createClass({
 		});
 	},
 
-	render (){
+	render () {
 		let {props} = this;
 		let children;
 
-		if(!this.props.transitionAppear){
+		if (!this.props.transitionAppear) {
 			children = props.children;
 		}
-		else{
-			if(this.state.mounted){
+		else {
+			if (this.state.mounted) {
 				children = props.children;
 			}
 		}

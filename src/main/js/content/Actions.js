@@ -93,7 +93,7 @@ function fetchResources(packet) {
 		// .catch(reason=>{
 		// 	console.log(reason);
 		// })
-		.then(styles=>{
+		.then(styles => {
 			packet.styles = styles;
 			return packet;
 		});

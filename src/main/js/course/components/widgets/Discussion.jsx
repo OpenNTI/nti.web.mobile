@@ -38,7 +38,7 @@ export default React.createClass({
 	},
 
 
-	getInitialState (){
+	getInitialState () {
 		//let ids = this.getNTIIDs();
 		return {
 			count: 0,

@@ -103,7 +103,7 @@ export default {
 
 		CSSCore.addClass(stage, 'transitioning');
 
-		setTimeout(() =>{
+		setTimeout(() => {
 			if (stage) {//we may execute out of order... so if the transitionEnded function executes first, don't add the class.
 				CSSCore.addClass(stage, action);
 			}

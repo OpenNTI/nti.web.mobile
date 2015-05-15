@@ -298,8 +298,8 @@ let Source = React.createClass({
 
 		if (this.props.deferred) {
 			if (!this.state.autoPlay) {
-				this.setState({autoPlay: true}, ()=>{
-					setTimeout(()=>{
+				this.setState({autoPlay: true}, ()=> {
+					setTimeout(()=> {
 						if (this.state.playerState !== PLAYING) {
 							this.fireEvent('playing');//force event, triggers poster to hide.
 						}

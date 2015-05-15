@@ -58,7 +58,7 @@ function parseResult( result ) { // API result
 			};
 
 			// Check if Apple http streaming is enabled and the tags include applembr ( single stream HLS )
-			if( isAppleMBR(asset.tags)) {
+			if ( isAppleMBR(asset.tags)) {
 				return {
 					type: 'application/vnd.apple.mpegurl',
 					src: `${src}/format/applehttp/protocol/${protocol}/a.m3u8`
@@ -67,22 +67,22 @@ function parseResult( result ) { // API result
 
 			src += '/flavorId/' + asset.id + '/format/url/protocol/' + protocol;
 
-			if( isMP4(asset.fileExt) || asset.containerFormat === 'isom'){
+			if ( isMP4(asset.fileExt) || asset.containerFormat === 'isom') {
 				source.src = src + '/a.mp4';
 				source.type = 'video/mp4';
 			}
 
-			if( isOGG(asset.fileExt) || isOGG(asset.containerFormat)) {
+			if ( isOGG(asset.fileExt) || isOGG(asset.containerFormat)) {
 				source.src = src + '/a.ogg';
 				source.type = 'video/ogg';
 			}
 
-			if( isWebM(asset.fileExt) || isWebM(asset.tags) || isWebM(asset.containerFormat)) {
+			if ( isWebM(asset.fileExt) || isWebM(asset.tags) || isWebM(asset.containerFormat)) {
 				source.src = src + '/a.webm';
 				source.type = 'video/webm';
 			}
 
-			if(is3gp(asset.fileExt)){
+			if (is3gp(asset.fileExt)) {
 				source.src = src + '/a.3gp';
 				source.type = 'video/3gp';
 			}
@@ -93,7 +93,7 @@ function parseResult( result ) { // API result
 
 
 	// Add the flavor list adaptive style urls ( multiple flavor HLS ):
-	if( adaptiveFlavors.length !== 0 ) {
+	if ( adaptiveFlavors.length !== 0 ) {
 		deviceSources.push({
 			'data-flavorid': 'HLS',
 			type: 'application/vnd.apple.mpegurl',

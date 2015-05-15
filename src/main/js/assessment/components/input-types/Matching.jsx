@@ -62,7 +62,7 @@ export default React.createClass({
 			throw new Error('Illegal State, there must be BOTH a source and a target');
 		}
 
-		Object.keys(value).forEach(x=>{
+		Object.keys(value).forEach(x => {
 			if (value[x] === target) {
 				delete value[x];
 			}

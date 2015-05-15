@@ -48,7 +48,7 @@ export default class ForumObjectPathResolver {
 			//clone the array, reverse it.
 			.then(x=>x.slice().reverse())
 			//add the focusObject to the end
-			.then(x=>{ x.push(this.focusObject); return x; })
+			.then(x=> { x.push(this.focusObject); return x; })
 			//convert it to path
 			.then(x=> path.join(...x.map(toPathPart)))
 			//ensure it begins and ends with '/'
@@ -65,7 +65,7 @@ export default class ForumObjectPathResolver {
 	getPathPart(obj, i) {
 		let id = encodeForURI(obj.getID());
 
-		if (isBoard(obj.MimeType) && i !== 0){
+		if (isBoard(obj.MimeType) && i !== 0) {
 			return 'd';
 		}
 
@@ -86,7 +86,7 @@ export default class ForumObjectPathResolver {
 
 				//Find a course that has a discussion board with our href.
 				return getLibrary()
-					.then(library=> library.findCourse(course=>{
+					.then(library=> library.findCourse(course=> {
 						let {
 							ParentDiscussions = {},
 							Discussions = {}

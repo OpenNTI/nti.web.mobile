@@ -63,7 +63,7 @@ export function setupApplication(app, config) {
 	//Static files...
 	app.use(express.static(assetPath, {
 		maxage: 3600000, //1hour
-		setHeaders: (res, requsestPath) =>{
+		setHeaders: (res, requsestPath) => {
 			if (manifest.test(requsestPath)) {
 				//manifests never cache
 				res.setHeader('Cache-Control', 'public, max-age=0');
@@ -108,7 +108,7 @@ export function setupApplication(app, config) {
 				logger.info('Flushing Render to client: %s %s', req.url, req.username);
 				res.end(page(basepath, req, entryPoint, configForClient));
 			})
-			.catch((e)=>{
+			.catch(e=> {
 				logger.error(e.stack || e.message || e);
 				res.end(e);
 			});

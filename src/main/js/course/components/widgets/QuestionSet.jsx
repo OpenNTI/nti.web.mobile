@@ -94,7 +94,7 @@ export default React.createClass( {
 				.catch(this.setNotTaken);
 		}
 
-		work.then(()=>this.setState({loading: false}), ()=>{});
+		work.then(()=>this.setState({loading: false}), ()=> {});
 	},
 
 
