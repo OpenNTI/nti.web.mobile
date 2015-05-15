@@ -13,6 +13,17 @@ export default React.createClass({
 	displayName: 'course:Page',
 
 	componentWillMount () {
+		this.setup();
+	},
+
+
+	componentWillReceiveProps (nextProps) {
+		this.setup(nextProps);
+	},
+
+
+	setup (props = this.props) {
+		let {contentPackage} = props;
 		let menu = [];
 
 		let push = x => menu.push({
@@ -20,8 +31,13 @@ export default React.createClass({
 				href: Sections[x]
 			});
 
+
 		for(let s of Object.keys(Sections)) {
 			push(s);
+		}
+
+		if (!contentPackage.hasDiscussions()) {
+			menu = menu.filter(x=> x.href !== Sections.DISCUSSIONS);
 		}
 
 		this.setState({menu});

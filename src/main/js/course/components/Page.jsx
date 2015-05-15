@@ -32,6 +32,10 @@ export default React.createClass({
 			push('INFO');
 		}
 
+		if (!course.hasDiscussions()) {
+			menu = menu.filter(x=>x.href !== Sections.DISCUSSIONS);
+		}
+
 		this.setState({menu});
 	},
 
