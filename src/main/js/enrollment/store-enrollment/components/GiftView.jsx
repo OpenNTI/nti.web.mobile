@@ -290,7 +290,7 @@ export default React.createClass({
 		if(cvc.trim().length > 0 && !Stripe.card.validateCVC(cvc)) {
 			errors.cvc = {message: t('invalidCVC')};
 		}
-		/* jshint -W106 */
+
 		let mon = (fieldValues.exp_month||'');
 		let year = (fieldValues.exp_year||'');
 

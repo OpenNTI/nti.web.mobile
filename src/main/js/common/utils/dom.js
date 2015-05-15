@@ -325,10 +325,8 @@ function pickUnsanitaryElements (root, cleanAttributes) {
 			//remove empty nodes (maybe dangerous, images?, is there a way to know if an element is meant to be unary?)
 			//allow img and br tags
 			(el.childNodes.length === 0 && !/^(IMG|BR)$/i.test(el.tagName)) ||
-			/* jshint -W101 */
 			//remove elements that are effectively empty (whitespace only text node as their only child)
 			(el.childNodes.length === 1 && el.childNodes[0].nodeType === Node.TEXT_NODE && el.childNodes[0].nodeValue.trim() === '') ||
-			/* jshint +W101 */
 			//remove Office (xml namespaced) elements (that are empty)... need an would be nice to just
 			// find all patterns <(/?)FOO:BAR( ...?)> and delete them and leave the content they surround.
 			(namespaced.test(el.tagName) && el.childNodes.length === 0)) {

@@ -118,9 +118,9 @@ export default React.createClass({
 				let enrollment = this.props.enrollment;
 				let link = this.state.payAndEnrollLink || getLink(enrollment, Constants.PAY_AND_ENROLL);
 				let crn = enrollment.NTI_CRN;
-				// ignore jshint on the following line because we know NTI_Term
+				// ignore eslint on the following line because we know NTI_Term
 				// is not not camel cased; that's what we get from dataserver.
-				let term = this.props.enrollment.NTI_Term; // jshint ignore:line
+				let term = this.props.enrollment.NTI_Term;
 
 				view = link ? (
 					<Payment paymentLink={link} ntiCrn={crn} ntiTerm={term}/>

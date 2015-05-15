@@ -109,7 +109,6 @@ let Source = React.createClass({
 
 		event = data.event;
 
-		/* jshint -W106 */
 		if (data.player_id !== this.state.id) {
 			return;
 		}

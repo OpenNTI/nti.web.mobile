@@ -130,9 +130,7 @@ export function clientConfig (username, context) {
 		discussions: unsafe.discussions,
 		flags: unsafe.flags,
 		server: unsafe.server,
-		/* jshint -W106 */
 		siteName: getSite(context[SiteName]),
-		/* jshint +W106 */
 		username: username
 	};
 
@@ -163,10 +161,8 @@ export function nodeConfigAsClientConfig (cfg, context) {
 		config: Object.assign({}, cfg, {
 			username: context.username,
 			nodeInterface: dontUseMe,
-			/* jshint -W106 */
 			siteName: getSite(context[SiteName]),
 			nodeService: context[ServiceStash] || noServiceAndThereShouldBe
-			/* jshint +W106 */
 		})
 	};
 

@@ -60,10 +60,9 @@ It basically simplifies your interactions. so you can simply `git pull` to get u
 
 ### Git Pre-Commit Hook:
 
-Make sure you have `jshint` and `jsxhint` installed "globally."
+Make sure you have `eslint` installed "globally."
 ```bash
-npm install jshint -g
-npm install jsxhint -g
+npm install eslint -g
 ```
 
 Activate the hook:
