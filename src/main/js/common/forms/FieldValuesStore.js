@@ -29,7 +29,7 @@ export default Object.assign({}, EventEmitter.prototype, {
 	},
 
 	stripEmptyValues(values) {
-		return Object.keys(values||{}).reduce((previous, current) => {
+		return Object.keys(values || {}).reduce((previous, current) => {
 			if (typeof values[current] !== 'string' || values[current].trim().length > 0) {
 				previous[current] = values[current];
 			}

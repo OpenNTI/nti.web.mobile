@@ -230,7 +230,7 @@ export default React.createClass({
 							<div className="cell total">
 								<span className="label">{t('total')}</span>
 								<span className="value">
-									{oldTotal? <span className="old-amount">{oldTotal}</span> : null}
+									{oldTotal ? <span className="old-amount">{oldTotal}</span> : null}
 									<span className="amount">{total}</span>
 								</span>
 							</div>

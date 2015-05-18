@@ -61,7 +61,7 @@ export default React.createClass({
 
 
 	onStoreChange (event) {
-		switch( (event||{}).type ) {
+		switch( (event || {}).type ) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case INVALID_GIFT_CODE:
 				this.setState({
@@ -126,7 +126,7 @@ export default React.createClass({
 
 		let errors = this.state.errors;
 
-		let disabled = (this.state.fieldValues.accessKey||'').trim().length === 0;
+		let disabled = (this.state.fieldValues.accessKey || '').trim().length === 0;
 
 		return (
 			<FormPanel title={title} onSubmit={this.handleSubmit}>

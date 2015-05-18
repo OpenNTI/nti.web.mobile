@@ -44,7 +44,7 @@ export default React.createClass({
 		if (this.props.defaultFilter) {
 			let dfp = this.props.defaultFilter;
 			let df = (typeof dfp === 'string') ? this.findFilter(dfp) : dfp;
-			return (df||{}).path;
+			return (df || {}).path;
 		}
 
 		let {filters = [], list} = this.props;

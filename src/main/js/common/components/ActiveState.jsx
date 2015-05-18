@@ -42,7 +42,7 @@ export default React.createClass({
 		let {tag, className, activeClassName} = this.props;
 
 		if (activeClassName && this.isActive()) {
-			className = className? `${className} ${activeClassName}` : activeClassName;
+			className = className ? `${className} ${activeClassName}` : activeClassName;
 		}
 
 		let props = Object.assign({}, this.props, {className});

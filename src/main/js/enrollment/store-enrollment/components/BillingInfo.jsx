@@ -18,7 +18,7 @@ export default React.createClass({
 	},
 
 	[rowIfNotEmpty] (value) {
-		return (value||'').trim().length > 0 ? <div>{value}</div> : null;
+		return (value || '').trim().length > 0 ? <div>{value}</div> : null;
 	},
 
 	onEdit (e) {

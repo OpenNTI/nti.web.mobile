@@ -63,7 +63,7 @@ export default React.createClass({
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case BILLING_INFO_REJECTED:
-				let errors = this.state.errors||{};
+				let errors = this.state.errors || {};
 				errors[event.response.error.param] = event.response.error;
 				this.setState({
 					errors: errors,
@@ -76,11 +76,11 @@ export default React.createClass({
 
 	validate () {
 		let errors = {};
-		let fieldValues = this.state.fieldValues||{};
+		let fieldValues = this.state.fieldValues || {};
 		fieldConfig.forEach(fieldset => {
 			fieldset.fields.forEach(field => {
 				if (field.required) {
-					let value = (fieldValues[field.ref]||'');
+					let value = (fieldValues[field.ref] || '');
 					if (value.trim().length === 0) {
 						errors[field.ref] = {
 							// no message property because we don't want the 'required' message
@@ -98,18 +98,18 @@ export default React.createClass({
 			});
 		});
 
-		let number = (this.state.fieldValues.number||'');
+		let number = (this.state.fieldValues.number || '');
 		if(number.trim().length > 0 && !Stripe.card.validateCardNumber(number)) {
 			errors.number = {message: t2('invalidCardNumber')};
 		}
 
-		let cvc = (this.state.fieldValues.cvc||'');
+		let cvc = (this.state.fieldValues.cvc || '');
 		if(cvc.trim().length > 0 && !Stripe.card.validateCVC(cvc)) {
 			errors.cvc = {message: t2('invalidCVC')};
 		}
 
-		let mon = (this.state.fieldValues.exp_month||'');
-		let year = (this.state.fieldValues.exp_year||'');
+		let mon = (this.state.fieldValues.exp_month || '');
+		let year = (this.state.fieldValues.exp_year || '');
 		if([mon, year].join('').trim().length > 0 && !Stripe.card.validateExpiry(mon, year)) {
 			errors.exp_month = {message: t2('invalidExpiration')}; // eslint-disable-line camelcase
 			// no message property because we don't want the error message repeated
@@ -156,7 +156,7 @@ export default React.createClass({
 
 		let purch = this.props.purchasable;
 		let price = this.getFormattedPrice(purch.currency, purch.amount);
-		let title = purch.name||null;
+		let title = purch.name || null;
 		let state = this.state;
 		let cssClasses = ['row'];
 

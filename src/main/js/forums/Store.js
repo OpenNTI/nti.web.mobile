@@ -62,7 +62,7 @@ class Store extends StorePrototype {
 	setDiscussions(packageId, data) {
 		this.setPackageId(packageId);
 		this.discussions[packageId] = dataOrError(data);
-		this.forums = Object.assign(this.forums||{}, indexForums(this.discussions));
+		this.forums = Object.assign(this.forums || {}, indexForums(this.discussions));
 		this.emitChange({ type: Constants.DISCUSSIONS_CHANGED, packageId });
 	}
 

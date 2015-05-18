@@ -252,7 +252,7 @@ export default React.createClass({
 
 		fieldConfig.forEach(function(fieldset) {
 			fieldset.fields.forEach(function(field) {
-				let value = (fieldValues[field.ref]||'').trim();
+				let value = (fieldValues[field.ref] || '').trim();
 				if (value.length === 0) {
 					if (field.required) {
 						markRequired(field.ref);
@@ -281,18 +281,18 @@ export default React.createClass({
 			}
 		}
 
-		let number = (fieldValues.number||'');
+		let number = (fieldValues.number || '');
 		if(number.trim().length > 0 && !Stripe.card.validateCardNumber(number)) {
 			errors.number = {message: t('invalidCardNumber')};
 		}
 
-		let cvc = (fieldValues.cvc||'');
+		let cvc = (fieldValues.cvc || '');
 		if(cvc.trim().length > 0 && !Stripe.card.validateCVC(cvc)) {
 			errors.cvc = {message: t('invalidCVC')};
 		}
 
-		let mon = (fieldValues.exp_month||'');
-		let year = (fieldValues.exp_year||'');
+		let mon = (fieldValues.exp_month || '');
+		let year = (fieldValues.exp_year || '');
 
 		if([mon, year].join('').trim().length > 0 && !Stripe.card.validateExpiry(mon, year)) {
 			errors.exp_month = {message: t('invalidExpiration')}; // eslint-disable-line camelcase

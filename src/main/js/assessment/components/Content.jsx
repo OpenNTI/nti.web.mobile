@@ -53,8 +53,7 @@ export default React.createClass({
 			widgets = packet.widgets;
 
 			content = packet.body.map(part=>
-				(typeof part === 'string') ?
-					part : ('<widget id="'+ part.guid +'">--x--</widget>')
+				(typeof part === 'string') ? part : `<widget id="${part.guid}">--x--</widget>`
 			).join('');
 
 			content = htmlToReact(content, (n, a)=>isWidget(n, a, widgets));

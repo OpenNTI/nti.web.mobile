@@ -106,7 +106,7 @@ export default React.createClass({
 					</div>
 				)}
 
-				<a href={disabled?'#':null}
+				<a href={disabled ? '#' : null}
 					className={buttonClass}
 					onClick={
 						submitted ?

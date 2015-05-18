@@ -48,7 +48,7 @@ export default {
 	},
 
 	storeChange (event) {
-		let action = (event||{}).action;
+		let action = (event || {}).action;
 		let entry = this.getEntry();
 		if(action) {
 			switch(action.type) {

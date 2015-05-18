@@ -116,7 +116,7 @@ export default React.createClass({
 					<WordBank record={question.wordbank} disabled={admin}/>
 				)}
 				{parts.map((part, i) =>
-					<Part key={'part-'+i} part={part} index={i} partCount={parts.length} viewerIsAdministrative={admin}>
+					<Part key={`part-${i}`} part={part} index={i} partCount={parts.length} viewerIsAdministrative={admin}>
 						{this.renderSubmission(i)}
 					</Part>
 				)}

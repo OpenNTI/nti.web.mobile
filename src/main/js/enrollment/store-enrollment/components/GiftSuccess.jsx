@@ -66,7 +66,7 @@ export default React.createClass({
 					<p className="alert">{alert}</p>
 
 					<LocalizedHTML className="prompt"
-							stringId={`ENROLLMENT.GIFT.SUCCESS.${(date ? 'info': 'infoNoDate')}`}
+							stringId={`ENROLLMENT.GIFT.SUCCESS.${(date ? 'info' : 'infoNoDate')}`}
 							courseTitle={courseTitle}
 							startDate={date}/>
 

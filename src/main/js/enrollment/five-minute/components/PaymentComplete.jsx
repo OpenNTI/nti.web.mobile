@@ -75,7 +75,7 @@ export default React.createClass({
 
 				{entry ? (
 					<a className={buttonCls} href={library}>Go to my courses</a>
-				):(
+				) : (
 					<a className={buttonCls} href={this.getBasePath()}>Go Home</a>
 				)}
 

@@ -120,7 +120,7 @@ export default React.createClass({
 
 		let run = Promise.resolve();
 		for(let i = 0, len = files.length; i < len; i++) {
-			run = run.then(getNext(files[i], (len-1)===i));
+			run = run.then(getNext(files[i], (len - 1) === i));
 		}
 
 		run.then(()=>editor.clearBusy());

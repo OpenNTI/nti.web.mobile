@@ -166,7 +166,7 @@ function submitPayment(formData) {
 	return getStripeInterface()
 		.then(stripe => stripe.submitPayment(formData))
 		.then(result => {
-			let type = (result||{}).state === 'Success' ?
+			let type = (result || {}).state === 'Success' ?
 				Constants.STRIPE_PAYMENT_SUCCESS :
 				Constants.STRIPE_PAYMENT_FAILURE;
 
@@ -246,7 +246,7 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 			paymentResult = null;
 			Store.emitChange({
 				type: action.type,
-				options: (action.payload||{}).options
+				options: (action.payload || {}).options
 			});
 			break;
 

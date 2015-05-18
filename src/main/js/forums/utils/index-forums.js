@@ -7,7 +7,7 @@ export default function indexForums(input, result) {
 	if (Array.isArray(input)) {
 		input.forEach(item => {
 			// is forum? add entry to result;
-			if (item && item.hasOwnProperty('MimeType') && (item.MimeType||'').indexOf(mimeTypes[FORUM]) > -1) {
+			if (item && item.hasOwnProperty('MimeType') && (item.MimeType || '').indexOf(mimeTypes[FORUM]) > -1) {
 				result[item.getID()] = item;
 			}
 		});
