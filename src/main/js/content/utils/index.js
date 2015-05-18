@@ -18,6 +18,7 @@ const WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(
  * @param {Object} strategies An object where the keys are the CSS selectors for widgets, and
  *                            the values are functions to transform that selected element into
  *                            an Object used to render the Widget.
+ * @returns {object} A packet of data, content, body, styles and widgets.
  */
 export function processContent(packet, strategies = DEFAULT_STRATEGIES) {
 	let html = packet.content;
@@ -64,6 +65,7 @@ export function processContent(packet, strategies = DEFAULT_STRATEGIES) {
  * @param {Document} doc			The content to search.
  *
  * @param {Node} elementFactory		A Dom object that has an implementation for 'createComment'.
+ * @returns {object[]} An array of objects representing widgets.
  */
 export function parseWidgets(strategies, doc, elementFactory) {
 

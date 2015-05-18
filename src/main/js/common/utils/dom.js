@@ -224,8 +224,8 @@ export function retargetAnchorsWithExternalRefs (markup, baseUrl) {
 
 
 /**
- * @param {string|Node} html
- * @return {string}
+ * @param {string|Node} html Un-tamed wild markup.
+ * @returns {string} html
  */
 export function sanitizeExternalContentForInput (html) {
 	console.debug('Sanitizing html...', html);

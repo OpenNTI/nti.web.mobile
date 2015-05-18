@@ -94,8 +94,8 @@ export default React.createClass({
 		// console.debug('Content View: Did Update... %o', widgets);
 
 		if (widgets) {
-			for(let guid of Object.keys(widgets)) {
-				let el = document.getElementById(guid);
+			for(let id of Object.keys(widgets)) {
+				let el = document.getElementById(id);
 				let w = widgets[guid];
 				if (el && !el.hasAttribute('mounted')) {
 					// console.debug('Content View: Mounting Widget...');
@@ -120,8 +120,8 @@ export default React.createClass({
 		//Cleanup our components...
 		let widgets = this.getPageWidgets();
 
-		for(let guid of Object.keys(widgets)) {
-			let el = document.getElementById(guid);
+		for(let id of Object.keys(widgets)) {
+			let el = document.getElementById(id);
 			if (el) {
 				React.unmountComponentAtNode(el);
 				el.removeAttribute('mounted');

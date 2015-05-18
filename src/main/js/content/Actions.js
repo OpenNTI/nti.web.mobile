@@ -24,7 +24,8 @@ export function getPackage (id) {
 
 
 /**
- *	@param {string} Content Page NTIID
+ *	@param {string} ntiid Content Page NTIID
+ *	@returns {void}
  */
 export function loadPage (ntiid) {
 	let isAssessmentID = parseNTIID(ntiid).specific.type === 'NAQ';

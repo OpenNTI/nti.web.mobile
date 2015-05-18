@@ -82,7 +82,7 @@ export function discussionsConfig () {
 
 
 /**
- * Returns the shared instance of the server interface.
+ * @returns {Interface} the shared instance of the server interface.
  * NOTICE: This is for low-level (or anonymous/non-authenticated) work ONLY.
  */
 export function getServer() {
@@ -108,7 +108,7 @@ export function getServer() {
 
 
 /**
- * Returns a promise that fulfills with the service descriptor.
+ * @returns {Promise} a promise that fulfills with the service descriptor.
  */
 export function getService () {
 	if (noConfig()) {

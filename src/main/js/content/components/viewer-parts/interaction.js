@@ -50,7 +50,7 @@ export default {
 			//split if/else for readability.
 			if (isFragmentRef) {
 				e.preventDefault();
-				let id = decodeURIComponent(frag);
+				id = decodeURIComponent(frag);
 				if (!this.scrollToTarget(id)) {
 					console.warn('Link (%s) refers to an element not found by normal means on the page.', href);
 				}

@@ -27,7 +27,6 @@ export default {
 
 		// if not, create one.
 		if (!promise) {
-			let pkgId = pkg.getID();
 			promise = pkg.getDiscussions()
 				.then(
 					result => {
