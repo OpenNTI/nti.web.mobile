@@ -3,7 +3,18 @@ import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import hasClass from 'nti.lib.dom/lib/hasclass';
 import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
 
+const SCROLL = Symbol('Scroll-To-Target-Delay');
+
 export default {
+
+	componentWillMount () {
+		this.maybeScrollToFragment();
+	},
+
+	componentWillReceiveProps () {
+		this.maybeScrollToFragment();
+	},
+
 
 	onContentClick (e) {
 		let anchor = getEventTarget(e, 'a[href]');
@@ -40,18 +51,8 @@ export default {
 			if (isFragmentRef) {
 				e.preventDefault();
 				let id = decodeURIComponent(frag);
-				let scrollToEl = document.getElementById(id) || document.getElementsByName(id)[0];
-				if (!scrollToEl) {
-					if (id) {
-						console.warn('Link (%s) refers to an element not found by normal means on the page.', href);
-					}
-				} else {
-					let fn = scrollToEl.scrollIntoViewIfNeeded || scrollToEl.scrollIntoView;
-					if (fn) {
-						fn.call(scrollToEl, true);
-					} else {
-						console.warn('No function to scroll... pollyfill time');
-					}
+				if (!this.scrollToTarget(id)) {
+					console.warn('Link (%s) refers to an element not found by normal means on the page.', href);
 				}
 				return;
 			}
@@ -67,5 +68,39 @@ export default {
 				console.warn('TODO: implement navigating to a fragment on a new page.');
 			}
 		}
+	},
+
+
+	getScrollTargetIdFromHash () {
+		let {hash} = location;
+		return hash && decodeURIComponent(hash.substr(1));
+	},
+
+
+	scrollToTarget (id) {
+		let scrollToEl = document.getElementById(id) || document.getElementsByName(id)[0];
+		if (scrollToEl) {
+			let fn = scrollToEl.scrollIntoViewIfNeeded || scrollToEl.scrollIntoView;
+			if (fn) {
+				fn.call(scrollToEl, true);
+			} else {
+				console.warn('No function to scroll... pollyfill time');
+			}
+			return true;
+		}
+
+		return false;
+	},
+
+
+	maybeScrollToFragment () {
+		clearTimeout(this[SCROLL]);
+		this[SCROLL] = setTimeout(()=> {
+			let id = this.getScrollTargetIdFromHash();
+			if (id) {
+				console.debug('Scrolling to %s...', id);
+				this.scrollToTarget(id);
+			}
+		}, 500);
 	}
 };

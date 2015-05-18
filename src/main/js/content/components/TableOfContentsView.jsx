@@ -16,9 +16,6 @@ import isEmpty from 'nti.lib.interfaces/utils/isempty';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 
-// const isAnchor = RegExp.prototype.test.bind(/#/);
-const isTopic = RegExp.prototype.test.bind(/topic/i);
-
 const TYPE_TAG_MAP = {
 	part: 'h1',
 	chapter: 'h3'
@@ -165,7 +162,7 @@ export default React.createClass({
 		let prefix = this.makeHref(`/${root}/`);
 
 		list = list.map(item => {
-			if (!isTopic(item.tag) /*|| isAnchor(item.get('href'))*/) {
+			if (!item.isTopic() /*|| item.isAnchor()*/) {
 				return null;
 			}
 
@@ -179,7 +176,14 @@ export default React.createClass({
 			let href = prefix;
 
 			if (id && id !== root) {
-				href = prefix + encodeForURI(id) + '/';
+				let fragment = '';
+
+				if (item.isAnchor()) {
+					id = item.parent.id;
+					fragment = '#' + item.getAchorTarget();
+				}
+
+				href = prefix + encodeForURI(id) + '/' + fragment;
 			}
 
 			let cls = cx(type, {
