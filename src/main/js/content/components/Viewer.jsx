@@ -27,20 +27,21 @@ import RouterLikeBehavior from './viewer-parts/mock-router';
 import GlossaryFeature from './viewer-parts/glossary';
 import Interactions from './viewer-parts/interaction';
 import AssessmentFeature from './viewer-parts/assessment';
+import AnnotationFeature from './viewer-parts/annotations';
 
-const applyStyle = 'Viewer:applyStyle';
 
 export default React.createClass({
 	displayName: 'Viewer',
 	mixins: [
-		StoreEvents,
-		RouterLikeBehavior,
 		AnalyticsBehavior,
+		AnnotationFeature,
+		AssessmentFeature,
+		ContextSender,
 		GlossaryFeature,
 		Interactions,
-		AssessmentFeature,
+		RouterLikeBehavior,
 		RouterMixin,
-		ContextSender
+		StoreEvents
 	],
 
 
@@ -151,15 +152,14 @@ export default React.createClass({
 	},
 
 
-	getRootID (props) {
-		return decodeFromURI((props || this.props).rootId);
+	getRootID (props = this.props) {
+		return decodeFromURI(props.rootId);
 	},
 
 
-	getPageID (props) {
-		let p = props || this.props;
-		let h = this.getPropsFromRoute(p);
-		return decodeFromURI(h.pageId || p.rootId);
+	getPageID (props = this.props) {
+		let h = this.getPropsFromRoute(props);
+		return decodeFromURI(h.pageId || props.rootId);
 	},
 
 
@@ -243,11 +243,11 @@ export default React.createClass({
 		return (
 			<div className="content-view">
 
-				{this[applyStyle]()}
+				{this.applyStyle()}
 
 				{this.renderAssessmentHeader()}
 
-				<div id="NTIContent" className="nti-content-panel" onClick={this.onContentClick}
+				<div id="NTIContent" className="nti-content-panel" onClick={this.onContentClick} ref="content"
 					dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>
 
 				{this.renderAssessmentFeedback()}
@@ -274,7 +274,7 @@ export default React.createClass({
 	},
 
 
-	[applyStyle] () {
+	applyStyle () {
 		let styles = this.getPageStyles() || [];
 		return styles.map(css =>
 			<style scoped type="text/css" key={guid()} dangerouslySetInnerHTML={{__html: css}}/>
