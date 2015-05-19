@@ -2,13 +2,10 @@ import React from 'react';
 import Store from '../Store';
 import StoreEvents from 'common/mixins/StoreEvents';
 import {SRC_CHANGED} from '../Constants';
+import Point from '../Point';
 
-function copyTouch(touch) {
-	return {
-		identifier: touch.identifier,
-		pageX: touch.pageX,
-		pageY: touch.pageY
-	};
+function pointFromTouch(t) {
+	return new Point(t.pageX, t.pageY, t.identifier);
 }
 
 let activeTouches = {};
@@ -28,14 +25,7 @@ export default React.createClass({
 			src: null,
 			startScale: 1.0,
 			scale: 1.0,
-			transformOrigin: {
-				x: '50%',
-				y: '50%'
-			},
-			translate: {
-				x: 0,
-				y: 0
-			}
+			translate: Point.ORIGIN
 		};
 	},
 
@@ -56,92 +46,74 @@ export default React.createClass({
 		// keep track of active touches.
 		let touches = evt.changedTouches;
 		for (let i = 0; i < touches.length; i++) {
-			let t = touches[i];
-			activeTouches[t.identifier] = copyTouch(t);
+			let p = pointFromTouch(touches[i]);
+			activeTouches[p.id] = p;
 		}
 		if (touches.length > 1) {
-			this.setTransformOrigin(touches[0], touches[1]);
+			this.setTransformOrigin(pointFromTouch(touches[0]), pointFromTouch(touches[1]));
 		}
 	},
 
-	setTransformOrigin(touch1, touch2) {
-		let asPoint = p => {
-			return {
-				x: p.pageX,
-				y: p.pageY
-			};
-		};
-		let p1 = asPoint(touch1);
-		let p2 = asPoint(touch2);
-		let center = this.findCenter(p1, p2);
+	setTransformOrigin(p1, p2) {
+		let center = p1.middle(p2);
 		this.setState({
 			transformOrigin: center
 		});
 	},
 
-	/**
-	* Returns a point halfway between the two given points
-	* @param {Object} p1 First point
-	* @param {Object} p2 Second point
-	* @returns {Object} the point halfway between p1 and p2
-	*/
-	findCenter(p1, p2) {
-		return {
-			x: (p2.x - p1.x) / 2 + p1.x,
-			y: (p2.y - p1.y) / 2 + p1.y
-		};
-	},
-
-	/**
-	* Returns a new point which is the sum of the two given
-	* @param {Object} p1 the starting point
-	* @param {Object} offset the offset
-	* @returns {Object} The sum of the two points
-	*/
-	addPoints(p1, offset) {
-		return {
-			x: p1.x + offset.x,
-			y: p1.y + offset.y
-		};
-	},
-
-	touchDelta(touch1, touch2) {
-		return {
-			x: touch1.pageX - touch2.pageX,
-			y: touch1.pageY - touch2.pageY
-		};
-	},
-
 	handleMultitouchMove(touches) {
 
-		let t1 = touches[0];
-		let t2 = touches[1];
-		let ot1 = activeTouches[t1.identifier];
-		let ot2 = activeTouches[t2.identifier];
+		let t1 = pointFromTouch(touches[0]);
+		let t2 = pointFromTouch(touches[1]);
+		let ot1 = activeTouches[t1.id];
+		let ot2 = activeTouches[t2.id];
 
-		let od = this.touchDelta(ot1, ot2);
-		let nd = this.touchDelta(t1, t2);
+		let od = ot1.minus(ot2);
+		let nd = t1.minus(t2);
 
 		let originalDistance = Math.sqrt(od.x * od.x + od.y * od.y);
 		let newDistance = Math.sqrt(nd.x * nd.x + nd.y * nd.y);
 		let startScale = this.state.startScale || 1.0;
 		let scale = Math.max(newDistance / originalDistance * startScale, 1.0);
-		console.log(`scale: ${scale}`);
+
 		this.setState({
 			scale: scale
 		});
 	},
 
-	handleSingleTouchMove (touch) {
-		console.debug('single touch');
-		let ot = activeTouches[touch.identifier];
-		let offset = this.touchDelta(touch, ot);
+	limitOffset (offset) {
+
+		let {scale, transformOrigin} = this.state;
+		let containerRect = React.findDOMNode(this.refs.container).getBoundingClientRect();
+		let imgRect = React.findDOMNode(this.refs.img).getBoundingClientRect();
+
+		// img bounding rect without transforms (no scale, no translate)
+		let topLeft = Point.ORIGIN;
+		let bottomRight = topLeft.plus(new Point(imgRect.width / scale, imgRect.height / scale)); // the un-scaled values
+
+		transformOrigin = transformOrigin || topLeft.middle(bottomRight);
+		let transformedTopLeft = topLeft.scale(scale, transformOrigin).plus(offset);
+		let transformedBottomRight = bottomRight.scale(scale, transformOrigin).plus(offset);
+
+		console.debug(`transformedImageRect: (${transformedTopLeft}, ${transformedBottomRight})`);
+		return offset;
+	},
+
+	handleSingleTouchMove (point) {
+		// console.debug('single touch');
+		let ot = activeTouches[point.id];
+		if (!ot) {
+			debugger;
+		}
+		let offset = point.minus(ot);
+		offset = this.limitOffset(offset);
 		this.setState({
 			translate: {
 				x: offset.x,
 				y: offset.y
 			}
 		});
+
 	},
 
 	touchMove (evt) {
@@ -151,7 +123,7 @@ export default React.createClass({
 			this.handleMultitouchMove(touches);
 		}
 		else if (Object.keys(activeTouches).length === 1) {
-			this.handleSingleTouchMove(touches[0]);
+			this.handleSingleTouchMove(pointFromTouch(touches[0]));
 		}
 	},
 
@@ -168,25 +140,29 @@ export default React.createClass({
 	},
 
 	render () {
-		console.log('render');
 		if (!this.state.src) {
 			return null;
 		}
 		let {scale, transformOrigin, translate} = this.state;
 		scale = scale || 1.0;
-		console.debug(`transformOrigin: (${transformOrigin.x}, ${transformOrigin.y})`);
+
 		let style = {
-			WebkitTransformOrigin: `${transformOrigin.x} ${transformOrigin.y}`,
-			WebkitTransform: `scale3d(${scale}, ${scale}, 1) translate3d(${translate.x}px, ${translate.y}px, 0)`,
+			WebkitTransform: `translate3d(${translate.x}px, ${translate.y}px, 0) scale3d(${scale}, ${scale}, 1)`,
 		};
+
+		if (transformOrigin) {
+			style.WebkitTransformOrigin = `${transformOrigin.x} ${transformOrigin.y}`;
+		}
+
 		return (
 			<div>
 				<div className="zoomable"
+					ref="container"
 					onTouchStart={this.touchStart}
 					onTouchMove={this.touchMove}
 					onTouchEnd={this.touchEnd}
 				>
-					<img src={this.state.src} style={style} />
+					<img src={this.state.src} style={style} ref="img" />
 				</div>
 				<button onClick={this.close}>close</button>
 			</div>
