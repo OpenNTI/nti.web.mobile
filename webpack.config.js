@@ -24,6 +24,7 @@ var scssIncludes =
 	'includePaths[]=' + (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss'));
 
 var root = path.join(__dirname, 'src', 'main', 'js');
+var modules = path.join(__dirname, 'node_modules');
 
 var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
 
@@ -178,7 +179,7 @@ exports = module.exports = [
 		],
 
 		resolve: {
-			root: root,
+			root: [root, modules],
 			extensions: ['', '.jsx', '.js', '.json', '.css', '.scss', '.html']
 		},
 
@@ -218,7 +219,7 @@ exports = module.exports = [
 			libraryTarget: 'commonjs2'
 		},
 		resolve: {
-			root: root,
+			root: [root, modules],
 			extensions: ['', '.jsx', '.js', '.css', '.scss', '.html']
 		},
 		plugins: [
