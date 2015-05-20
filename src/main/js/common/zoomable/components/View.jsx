@@ -151,7 +151,7 @@ export default React.createClass({
 		};
 
 		if (transformOrigin) {
-			style.WebkitTransformOrigin = `${transformOrigin.x} ${transformOrigin.y}`;
+			style.WebkitTransformOrigin = `${transformOrigin.x}px ${transformOrigin.y}px`;
 		}
 
 		return (
