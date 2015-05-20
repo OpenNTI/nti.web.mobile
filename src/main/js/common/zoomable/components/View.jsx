@@ -25,7 +25,8 @@ export default React.createClass({
 			src: null,
 			startScale: 1.0,
 			scale: 1.0,
-			translate: Point.ORIGIN
+			translate: Point.ORIGIN,
+			startOffset: Point.ORIGIN
 		};
 	},
 
@@ -39,6 +40,7 @@ export default React.createClass({
 	},
 
 	close () {
+		activeTouches = {};
 		this.setState(this.getInitialState());
 	},
 
@@ -112,19 +114,20 @@ export default React.createClass({
 		if (transformedBottomRight.x < containerRect.right) {
 			offset.x += containerRect.right - transformedBottomRight.x;
 		}
+		if (transformedBottomRight.y < containerRect.bottom && transformedTopLeft.top < containerRect.top) {
+			offset.y += containerRect.bottom - transformedBottomRight.y;
+		}
 
 		return offset;
 	},
 
 	handleSingleTouchMove (point) {
-		// console.debug('single touch');
 		let ot = activeTouches[point.id];
 		let offset = point.minus(ot).plus(this.state.startOffset);
 		offset = this.limitOffset(offset);
 		this.setState({
 			translate: offset
 		});
-
 	},
 
 	touchMove (evt) {
@@ -167,7 +170,6 @@ export default React.createClass({
 		}
 
 		return (
-			<div>
 				<div className="zoomable"
 					ref="container"
 					onTouchStart={this.touchStart}
@@ -175,9 +177,8 @@ export default React.createClass({
 					onTouchEnd={this.touchEnd}
 				>
 					<img src={this.state.src} style={style} ref="img" />
+					<button className="zoomable-close" onClick={this.close}>close</button>
 				</div>
-				<button onClick={this.close}>close</button>
-			</div>
 		);
 	}
 });

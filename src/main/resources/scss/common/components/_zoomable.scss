@@ -6,6 +6,10 @@
 	left: 0; 
 	bottom: 0;
 	right: 0;
-	border:5px solid red;
 	overflow:scroll;
+	.zoomable-close {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
 }
