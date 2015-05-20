@@ -1,4 +1,5 @@
-import React from 'react';
+import buffer from 'nti.lib.interfaces/utils/function-buffer';
+
 import Highlight from './Highlight';
 import Note from './Note';
 
@@ -13,6 +14,8 @@ function select (item) {
 			return type;
 		}
 	}
+
+	console.warn('Unhandled Item:', item);
 }
 
 
@@ -25,8 +28,15 @@ function getStore (state) {
 export default {
 
 	getContentNode () {
-		return React.findDOMNode(this.refs.content);
+		let {content} = this.refs;
+		return content && content.getCurrent();
 	},
+
+	getContentNodeClean () {
+		let {content} = this.refs;
+		return content && content.getPristine();
+	},
+
 
 	componentWillUpdate (_, nextState) {
 		let store = getStore(this.state);
@@ -39,16 +49,24 @@ export default {
 		}
 	},
 
-	componentDidUpdate (/*prevProps, prevState*/) {
-		// let pageId = this.getPageID();
-		let {page} = this.state;
-
-		console.log('Whats my page?! %o', page);
+	componentDidUpdate () {
+		let store = getStore(this.state);
+		this.renderAnnotations(store);
 	},
 
 
 	onUserDataChange (store) {
-		console.log('Hi!');
-	}
+		this.renderAnnotations(store);
+	},
 
+
+	renderAnnotations: buffer(20, function (store) {
+		if (!store) { return; }
+		console.debug('Render Pass');
+		for (let i of store) {
+			let Annotation = select(i);
+			let annotation = new Annotation(i, this);
+			console.log(annotation, annotation.getRange());
+		}
+	})
 };
