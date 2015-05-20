@@ -28,10 +28,10 @@ import GlossaryFeature from './viewer-parts/glossary';
 import Interactions from './viewer-parts/interaction';
 import AssessmentFeature from './viewer-parts/assessment';
 import AnnotationFeature from './viewer-parts/annotations';
-
+import BodyContent from './viewer-parts/Content.jsx';
 
 export default React.createClass({
-	displayName: 'Viewer',
+	displayName: 'content:Viewer',
 	mixins: [
 		AnalyticsBehavior,
 		AnnotationFeature,
@@ -92,9 +92,10 @@ export default React.createClass({
 	componentDidUpdate () {
 		//See if we need to re-mount/render our components...
 		let widgets = this.getPageWidgets();
-		// console.debug('Content View: Did Update... %o', widgets);
 
-		if (widgets) {
+		if (widgets && this.refs.content) {
+			// console.debug('Content View: Did Update... %o', widgets);
+
 			for(let id of Object.keys(widgets)) {
 				let el = document.getElementById(id);
 				let w = widgets[guid];
@@ -232,6 +233,7 @@ export default React.createClass({
 	render () {
 		let body = this.getBodyParts() || [];
 		let {error, loading, pageSource} = this.state;
+		let pageId = this.getPageID();
 
 		if (loading) {
 			return (<Loading/>);
@@ -247,7 +249,11 @@ export default React.createClass({
 
 				{this.renderAssessmentHeader()}
 
-				<div id="NTIContent" className="nti-content-panel" onClick={this.onContentClick} ref="content"
+				<BodyContent id="NTIContent" ref="content"
+					className="nti-content-panel"
+					onClick={this.onContentClick}
+					data-ntiid={pageId}
+					data-page-ntiid={pageId}
 					dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>
 
 				{this.renderAssessmentFeedback()}
