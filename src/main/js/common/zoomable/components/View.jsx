@@ -96,16 +96,23 @@ export default React.createClass({
 		let transformedBottomRight = bottomRight.scale(scale, transformOrigin).plus(offset);
 
 		console.debug(`transformedImageRect: (${transformedTopLeft}, ${transformedBottomRight})`);
+		if (transformedTopLeft.x > containerRect.left) {
+			offset.x -= transformedTopLeft.x;
+		}
+		if (transformedTopLeft.y > containerRect.top) {
+			offset.y -= transformedTopLeft.y;
+		}
+		if (transformedBottomRight.x < containerRect.right) {
+			offset.x += containerRect.right - transformedBottomRight.x;
+		}
+
 		return offset;
 	},
 
 	handleSingleTouchMove (point) {
 		// console.debug('single touch');
 		let ot = activeTouches[point.id];
-		if (!ot) {
-			debugger;
-		}
-		let offset = point.minus(ot);
+		let offset = point.minus(ot).plus(this.state.startOffset);
 		offset = this.limitOffset(offset);
 		this.setState({
 			translate: {
@@ -135,7 +142,8 @@ export default React.createClass({
 			delete activeTouches[t.identifier];
 		}
 		this.setState({
-			startScale: this.state.scale || 1.0
+			startScale: this.state.scale || 1.0,
+			startOffset: this.state.translate || Point.ORIGIN
 		});
 	},
 
