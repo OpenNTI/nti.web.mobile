@@ -30,7 +30,7 @@ export default React.createClass({
 	},
 
 	onSrcChange(event) {
-		console.debug('src changed handler');
+		// console.debug('src changed handler');
 		if (event.src) {
 			this.setState({
 				src: event.src
@@ -76,12 +76,19 @@ export default React.createClass({
 		let startScale = this.state.startScale || 1.0;
 		let scale = Math.max(newDistance / originalDistance * startScale, 1.0);
 
+		let offset = this.limitOffset();
+
 		this.setState({
-			scale: scale
+			scale: scale,
+			translate: offset
 		});
 	},
 
 	limitOffset (offset) {
+
+		if (!offset) {
+			offset = this.state.translate;
+		}
 
 		let {scale, transformOrigin} = this.state;
 		let containerRect = React.findDOMNode(this.refs.container).getBoundingClientRect();
@@ -95,7 +102,7 @@ export default React.createClass({
 		let transformedTopLeft = topLeft.scale(scale, transformOrigin).plus(offset);
 		let transformedBottomRight = bottomRight.scale(scale, transformOrigin).plus(offset);
 
-		console.debug(`transformedImageRect: (${transformedTopLeft}, ${transformedBottomRight})`);
+		// console.debug(`transformedImageRect: (${transformedTopLeft}, ${transformedBottomRight})`);
 		if (transformedTopLeft.x > containerRect.left) {
 			offset.x -= transformedTopLeft.x;
 		}
@@ -115,10 +122,7 @@ export default React.createClass({
 		let offset = point.minus(ot).plus(this.state.startOffset);
 		offset = this.limitOffset(offset);
 		this.setState({
-			translate: {
-				x: offset.x,
-				y: offset.y
-			}
+			translate: offset
 		});
 
 	},
