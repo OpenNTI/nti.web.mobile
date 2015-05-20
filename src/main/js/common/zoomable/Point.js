@@ -70,7 +70,7 @@ export default class Point {
 	}
 
 	toString() {
-		return `(${this.x}, ${this.y})`;
+		return `Point (${this.id}): (${this.x}, ${this.y})`;
 	}
 
 }

@@ -87,4 +87,9 @@ describe('Point', () => {
 		expect(p4.y).toBe(2);
 	});
 
+	it('should have a toString in the form of \'Point (id): (x, y)\'', () => {
+		let p = new Point(10, 20, 'testPointId');
+		expect(''.concat(p)).toEqual('Point (testPointId): (10, 20)');
+	});
+
 });
