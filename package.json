@@ -28,6 +28,7 @@
     "nti.lib.anchorjs": "git+https://repos.nextthought.com/git/nti.lib.anchorjs",
     "nti.lib.dom": "git+https://repos.nextthought.com/git/nti.lib.domjs",
     "nti.lib.interfaces": "git+https://repos.nextthought.com/git/nti.lib.interfaces",
+    "nti.lib.ranges": "git+https://repos.nextthought.com/git/nti.lib.ranges",
     "nti.lib.whiteboardjs": "git+https://repos.nextthought.com/git/nti.lib.whiteboardjs",
     "react-editor-component": "NextThought/react-editor-component",
 
