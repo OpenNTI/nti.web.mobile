@@ -15,6 +15,12 @@ export default {
 		this.maybeScrollToFragment();
 	},
 
+	componentDidUpdate (_, prevState) {
+		if (this.state.loading !== prevState.loading) {
+			this.maybeScrollToFragment();
+		}
+	},
+
 
 	onContentClick (e) {
 		let anchor = getEventTarget(e, 'a[href]');
@@ -94,6 +100,11 @@ export default {
 
 
 	maybeScrollToFragment () {
+		let {content} = this.refs;
+		if (!content || !content.isMounted()) {
+			return;
+		}
+
 		clearTimeout(this[SCROLL]);
 		this[SCROLL] = setTimeout(()=> {
 			let id = this.getScrollTargetIdFromHash();
