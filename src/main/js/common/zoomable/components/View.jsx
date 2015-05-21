@@ -57,10 +57,10 @@ export default React.createClass({
 	},
 
 	setTransformOrigin(p1, p2) {
-		let center = p1.middle(p2);
-		this.setState({
-			transformOrigin: center
-		});
+		// let center = p1.middle(p2);
+		// this.setState({
+		// 	transformOrigin: center
+		// });
 	},
 
 	handleMultitouchMove(touches) {
@@ -78,7 +78,7 @@ export default React.createClass({
 		let startScale = this.state.startScale || 1.0;
 		let scale = Math.max(newDistance / originalDistance * startScale, 1.0);
 
-		let offset = this.limitOffset();
+		let offset = this.constrainOffsets();
 
 		this.setState({
 			scale: scale,
@@ -86,45 +86,23 @@ export default React.createClass({
 		});
 	},
 
-	limitOffset (offset) {
-
-		if (!offset) {
-			offset = this.state.translate;
-		}
-
-		let {scale, transformOrigin} = this.state;
+	constrainOffsets(offset=this.state.translate) {
 		let containerRect = React.findDOMNode(this.refs.container).getBoundingClientRect();
 		let imgRect = React.findDOMNode(this.refs.img).getBoundingClientRect();
+		let widthDiff = imgRect.width - containerRect.width;
+		let maxPanX = widthDiff > 0 ? widthDiff / 2 : 0;
 
-		// img bounding rect without transforms (no scale, no translate)
-		let topLeft = Point.ORIGIN;
-		let bottomRight = topLeft.plus(new Point(imgRect.width / scale, imgRect.height / scale)); // the un-scaled values
-
-		transformOrigin = transformOrigin || topLeft.middle(bottomRight);
-		let transformedTopLeft = topLeft.scale(scale, transformOrigin).plus(offset);
-		let transformedBottomRight = bottomRight.scale(scale, transformOrigin).plus(offset);
-
-		// console.debug(`transformedImageRect: (${transformedTopLeft}, ${transformedBottomRight})`);
-		if (transformedTopLeft.x > containerRect.left) {
-			offset.x -= transformedTopLeft.x;
-		}
-		if (transformedTopLeft.y > containerRect.top) {
-			offset.y -= transformedTopLeft.y;
-		}
-		if (transformedBottomRight.x < containerRect.right) {
-			offset.x += containerRect.right - transformedBottomRight.x;
-		}
-		if (transformedBottomRight.y < containerRect.bottom && transformedTopLeft.top < containerRect.top) {
-			offset.y += containerRect.bottom - transformedBottomRight.y;
-		}
-
+		let heightDiff = imgRect.height - containerRect.height;
+		let maxPanY = heightDiff > 0 ? heightDiff / 2 : 0;
+		offset.x = Math.max(Math.min(offset.x, maxPanX), -maxPanX);
+		offset.y = Math.max(Math.min(offset.y, maxPanY), -maxPanY);
 		return offset;
 	},
 
 	handleSingleTouchMove (point) {
 		let ot = activeTouches[point.id];
 		let offset = point.minus(ot).plus(this.state.startOffset);
-		offset = this.limitOffset(offset);
+		offset = this.constrainOffsets(offset);
 		this.setState({
 			translate: offset
 		});
@@ -176,7 +154,7 @@ export default React.createClass({
 					onTouchMove={this.touchMove}
 					onTouchEnd={this.touchEnd}
 				>
-					<img src={this.state.src} style={style} ref="img" />
+					<img src={this.state.src} style={style} ref="img" className="zoomable-img" />
 					<button className="zoomable-close" onClick={this.close}>close</button>
 				</div>
 		);

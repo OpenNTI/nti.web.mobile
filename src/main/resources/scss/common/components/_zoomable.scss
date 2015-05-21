@@ -1,5 +1,6 @@
 .zoomable {
-	position:absolute;
+	position:fixed;
+	border:5px solid red;
 	background: rgba(255,255,255,.8);
 	z-index: 9999;
 	top: 0;
@@ -7,6 +8,18 @@
 	bottom: 0;
 	right: 0;
 	overflow:scroll;
+	.zoomable-img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		margin-top: auto;
+		margin-bottom: auto;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
 	.zoomable-close {
 		position: absolute;
 		top: 0;
