@@ -1,5 +1,4 @@
-import addClass from 'nti.lib.dom/lib/addclass';
-import removeClass from 'nti.lib.dom/lib/removeclass';
+import {addClass, removeClass} from 'nti.lib.dom';
 
 function handler (component) {
 	let {body} = document;

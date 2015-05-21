@@ -1,7 +1,6 @@
 import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import hasClass from 'nti.lib.dom/lib/hasclass';
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {hasClass, getEventTarget} from 'nti.lib.dom';
 
 const SCROLL = Symbol('Scroll-To-Target-Delay');
 

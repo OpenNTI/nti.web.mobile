@@ -1,5 +1,4 @@
-import replaceNode from 'nti.lib.dom/lib/replacenode';
-import parent from 'nti.lib.dom/lib/parent';
+import {replaceNode, parent} from 'nti.lib.dom';
 
 import guid from 'nti.lib.interfaces/utils/guid';
 import indexArrayByKey from 'nti.lib.interfaces/utils/array-index-by-key';
