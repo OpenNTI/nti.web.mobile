@@ -60,13 +60,13 @@ export default {
 	},
 
 
-	renderAnnotations: buffer(20, function (store) {
+	renderAnnotations: buffer(50, function (store) {
 		if (!store) { return; }
 		console.debug('Render Pass');
 		for (let i of store) {
 			let Annotation = select(i);
 			let annotation = new Annotation(i, this);
-			console.log(annotation, annotation.getRange());
+			console.log(annotation.render());
 		}
 	})
 };

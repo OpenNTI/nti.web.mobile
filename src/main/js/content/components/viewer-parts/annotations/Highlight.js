@@ -1,10 +1,23 @@
+import * as Anchors from 'nti.lib.anchorjs';
+
+import mixin from 'nti.lib.interfaces/utils/mixin';
+
 import Annotation from './Annotation';
 
-import * as Anchors from 'nti.lib.anchorjs';
+import RangeWrapperMixin from './RangeWrapperMixin';
 
 export default class Highlight extends Annotation {
 	static handles (item) {
 		return /highlight$/i.test(item.MimeType);
+	}
+
+
+	constructor (...args) {
+		super(...args);
+
+		mixin(this, RangeWrapperMixin);
+
+		this.highlightCls = 'blue';
 	}
 
 
@@ -28,4 +41,10 @@ export default class Highlight extends Annotation {
 		return range;
 	}
 
+
+	render () {
+		let r = this.getRange();
+		if (!r) { return; }
+		return this.wrapRange(r.commonAncestorContainer, r);
+	}
 }
