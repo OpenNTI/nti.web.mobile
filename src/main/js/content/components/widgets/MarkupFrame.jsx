@@ -6,6 +6,8 @@ import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
 import Mixin from './Mixin';
 
+import ZoomStore from 'common/zoomable/Store';
+
 // due to a bug in eslint 0.20.0, it can't tell this const is referenced in the
 // destructured assignment default below.
 const ZOOMABLE = /nti\-data\-resizeable/i; //eslint-disable-line no-unused-vars
@@ -35,7 +37,8 @@ export default React.createClass({
 		image = React.findDOMNode(image);
 
 		if(image && image.src) {
-			window.open(image.src, 'zoomy');
+			ZoomStore.setZoomable(image.src);
+			// window.open(image.src, 'zoomy');
 		}
 	},
 
