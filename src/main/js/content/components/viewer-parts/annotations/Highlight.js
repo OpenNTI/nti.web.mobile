@@ -1,7 +1,6 @@
 import cx from 'classnames';
 
 import * as Anchors from 'nti.lib.anchorjs';
-import * as DOM from 'nti.lib.dom';
 import * as RangeUtils from 'nti.lib.ranges';
 
 import mixin from 'nti.lib.interfaces/utils/mixin';
@@ -44,10 +43,12 @@ export default class Highlight extends Annotation {
 		let elements = this[RENDERED];
 
 		if (elements && elements.length > 0) {
-			try {
-				range.setStartBefore(elements[0]);
-				range.setEndAfter(elements[elements.length - 1]);
+			let a = elements[0];
+			let b = elements[elements.length - 1];
 
+			try {
+				range.setStartBefore(a);
+				range.setEndAfter(b);
 			}
 			catch (e) {
 				console.error(e.stack || e.message || e);

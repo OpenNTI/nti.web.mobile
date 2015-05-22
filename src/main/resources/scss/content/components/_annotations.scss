@@ -20,7 +20,7 @@
 		$name: nth($item,1);
 		$menu_color: nth($item,2);
 		$hover_color: nth($item,3);
-		$highlight_color: rgba($hover_color,.65);
+		$highlight_color: lighten($hover_color, 4%);
 
 		$prefix: if($onParentSelector,'&','');
 
@@ -32,11 +32,11 @@
 		#{$computedSelector} {
 			// color: $menu_color;
 			background-color: $highlight_color;
-			//@include transition(all 0.2s);
+			box-shadow: 0 0 0 2px $highlight_color;
+			//@include transition('all 0.2s');
 
 			&.highlight-mouse-over {
 				background-color: $hover_color;
-				box-shadow: 0 0 4px rgba(0,0,0,.4);
 			}
 
 			@if($nibselector) {
@@ -76,7 +76,7 @@
 		}
 
 		// color: #076da7;
-		background-color: #e1f4fe;
+		// background-color: #e1f4fe;
 		overflow: hidden;
 
 		@include highlight-colors();
