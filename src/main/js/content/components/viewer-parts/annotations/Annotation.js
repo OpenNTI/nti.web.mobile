@@ -28,4 +28,20 @@ export default class Annotation {
 	getRecordField(field) {
 		return this[RECORD][field];
 	}
+
+
+	getDocument () {
+		let node = this.reader.getContentNode();
+		return node && node.ownerDocument;
+	}
+
+
+	createNonAnchorableSpan () {
+		let span = this.getDocument().createElement('span');
+
+		span.setAttribute('data-non-anchorable', 'true');
+
+		return span;
+	}
+
 }

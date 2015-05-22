@@ -1,6 +1,8 @@
 import cx from 'classnames';
 
 import * as Anchors from 'nti.lib.anchorjs';
+import * as DOM from 'nti.lib.dom';
+import * as RangeUtils from 'nti.lib.ranges';
 
 import mixin from 'nti.lib.interfaces/utils/mixin';
 
@@ -9,6 +11,7 @@ import Annotation from './Annotation';
 import RangeWrapperMixin from './RangeWrapperMixin';
 
 const RENDERED = Symbol('highlight elements');
+const RANGE = Symbol('cached range');
 
 export default class Highlight extends Annotation {
 	static handles (item) {
@@ -35,8 +38,7 @@ export default class Highlight extends Annotation {
 
 
 	buildRange () {
-		let node = this.reader.getContentNode();
-		let doc = node && node.ownerDocument;
+		let doc = this.getDocument();
 		let range = doc && doc.createRange();
 
 		let elements = this[RENDERED];
@@ -57,8 +59,13 @@ export default class Highlight extends Annotation {
 
 
 	getRange () {
+		let range = this[RANGE];
+		if (RangeUtils.isValidRange(range)) {
+			return range;
+		}
+
 		let {reader} = this;
-		let range = Anchors.toDomRange(
+		range = Anchors.toDomRange(
 						this.getRecordField('applicableRange'),
 						reader.getContentNode(),
 						reader.getContentNodeClean(),
@@ -73,6 +80,8 @@ export default class Highlight extends Annotation {
 
 		//console.log(this.id,': ',(this.getRecordField('body')||[]).join('|'), ': got range from description:', range, range.toString());
 		Anchors.expandRangeToIncludeMath(range);
+
+		this[RANGE] = range;
 		return range;
 	}
 

@@ -45,13 +45,6 @@ function validToWrapEntireNode (node) {
 }
 
 
-function createNonAnchorableSpan (doc) {
-	let span = doc.createElement('span');
-	span.setAttribute('data-non-anchorable', 'true');
-	return span;
-}
-
-
 export default {
 
 
@@ -123,7 +116,7 @@ export default {
 			return;
 		}
 
-		let span = createNonAnchorableSpan(ownerDocument);
+		let span = this.createNonAnchorableSpan();
 
 		if (sc && !DOM.isTextNode(sc) && sc === range.endContainer) {
 			let first = RangeUtils.getSelectedNodes(range, ownerDocument)[0];
@@ -134,7 +127,7 @@ export default {
 			}
 		}
 
-		this.highlightCls.split(/\s+/).forEach(cls => DOM.addClass(span, cls));
+		DOM.addClass(span, this.highlightCls);
 		DOM.addClass(span, style);
 
 		range.surroundContents(span);
