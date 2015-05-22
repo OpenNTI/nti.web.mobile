@@ -120,7 +120,8 @@ export default React.createClass({
 		scale = scale || 1.0;
 
 		let style = {
-			WebkitTransform: `translate3d(${translate.x}px, ${translate.y}px, 0) scale3d(${scale}, ${scale}, 1)`
+			WebkitTransform: `translate3d(${translate.x}px, ${translate.y}px, 0) scale3d(${scale}, ${scale}, 1)`,
+			transform: `translate3d(${translate.x}px, ${translate.y}px, 0) scale3d(${scale}, ${scale}, 1)`
 		};
 
 		if (transformOrigin) {
