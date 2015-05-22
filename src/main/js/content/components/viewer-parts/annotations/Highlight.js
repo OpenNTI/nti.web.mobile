@@ -1,3 +1,5 @@
+import cx from 'classnames';
+
 import * as Anchors from 'nti.lib.anchorjs';
 
 import mixin from 'nti.lib.interfaces/utils/mixin';
@@ -5,6 +7,8 @@ import mixin from 'nti.lib.interfaces/utils/mixin';
 import Annotation from './Annotation';
 
 import RangeWrapperMixin from './RangeWrapperMixin';
+
+const RENDERED = Symbol('highlight elements');
 
 export default class Highlight extends Annotation {
 	static handles (item) {
@@ -17,7 +21,38 @@ export default class Highlight extends Annotation {
 
 		mixin(this, RangeWrapperMixin);
 
-		this.highlightCls = 'blue';
+		let {highlightColorName} = this.getRecordField('presentationProperties') || {};
+
+		this.highlightCls = cx('application-highlight', {
+			[highlightColorName]: highlightColorName,
+			'shared-with-me': !this.isModifiable
+		});
+
+		Object.assign(this, {
+			highlightColorName
+		});
+	}
+
+
+	buildRange () {
+		let node = this.reader.getContentNode();
+		let doc = node && node.ownerDocument;
+		let range = doc && doc.createRange();
+
+		let elements = this[RENDERED];
+
+		if (elements && elements.length > 0) {
+			try {
+				range.setStartBefore(elements[0]);
+				range.setEndAfter(elements[elements.length - 1]);
+
+			}
+			catch (e) {
+				console.error(e.stack || e.message || e);
+			}
+		}
+
+		return range;
 	}
 
 
@@ -45,6 +80,9 @@ export default class Highlight extends Annotation {
 	render () {
 		let r = this.getRange();
 		if (!r) { return; }
-		return this.wrapRange(r.commonAncestorContainer, r);
+
+		if (this[RENDERED]) { return; }
+
+		this[RENDERED] = this.wrapRange(r.commonAncestorContainer, r);
 	}
 }

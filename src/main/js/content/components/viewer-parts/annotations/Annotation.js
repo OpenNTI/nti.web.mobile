@@ -20,6 +20,11 @@ export default class Annotation {
 	}
 
 
+	get isModifiable () {
+		return this[RECORD].isModifiable;
+	}
+
+
 	getRecordField(field) {
 		return this[RECORD][field];
 	}

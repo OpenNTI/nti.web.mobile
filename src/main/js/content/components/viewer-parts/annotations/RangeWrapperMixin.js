@@ -134,7 +134,7 @@ export default {
 			}
 		}
 
-		DOM.addClass(span, this.highlightCls);
+		this.highlightCls.split(/\s+/).forEach(cls => DOM.addClass(span, cls));
 		DOM.addClass(span, style);
 
 		range.surroundContents(span);

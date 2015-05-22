@@ -54,6 +54,14 @@ $text-red: #f2713e;
 $panel-background: #fbfbfb;
 
 
+$highlight-colors: (
+	// (name, menu color, hover) actual highlight will be computed from hover color.
+	('yellow',#EDE619,#F9F6AF),
+	('green',#4CE67F,#B7F5CC),
+	('blue',#3FB3F6,#CFECFD)
+);
+
+
 $body-font-color: $primary-grey;
 $header-font-color: $primary-grey;
 $accordion-navigation-font-color: $primary-grey;
