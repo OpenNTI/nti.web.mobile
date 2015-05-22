@@ -6,7 +6,8 @@ import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
 import Mixin from './Mixin';
 
-import ZoomStore from 'common/zoomable/Store';
+// import ZoomStore from 'common/zoomable/Store';
+import Zoomable from 'common/zoomable/components/View';
 
 // due to a bug in eslint 0.20.0, it can't tell this const is referenced in the
 // destructured assignment default below.
@@ -28,20 +29,27 @@ export default React.createClass({
 
 
 	getInitialState () {
-		return {};
+		return {
+			zoomed: false
+		};
 	},
-
 
 	onZoom() {
 		let {image} = this.refs;
 		image = React.findDOMNode(image);
 
 		if(image && image.src) {
-			ZoomStore.setZoomable(image.src);
-			// window.open(image.src, 'zoomy');
+			this.setState({
+				zoomed: true
+			});
 		}
 	},
 
+	unZoom() {
+		this.setState({
+			zoomed: false
+		});
+	},
 
 	onLoad () {
 		let i = React.findDOMNode(this.refs.image);
@@ -77,7 +85,7 @@ export default React.createClass({
 			<span itemProp={data.type} className="markupframe">
 				<img src={item.src} crossOrigin={item.crossorigin} ref="image" onLoad={this.onLoad}/>
 				<span className="wrapper">
-					<a href="#zoom" title="Zoom"
+					<a title="Zoom"
 						className={zoomClasses}
 						data-non-anchorable="true"
 						onClick={this.onZoom} />
@@ -90,6 +98,7 @@ export default React.createClass({
 						<a href="#mark" className="mark"></a>
 					</span>
 				</span>
+				{this.state.zoomed && <Zoomable src={item.src} onClose={this.unZoom} />}
 			</span>
 		);
 	}

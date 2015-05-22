@@ -2,7 +2,6 @@ import React from 'react';
 
 import Session from 'common/components/Session';
 import Footer from 'common/components/Footer';
-import Zoomable from 'common/zoomable/components/View';
 
 import RouteAware from 'common/mixins/NavigatableMixin';
 
@@ -88,7 +87,6 @@ export default React.createClass({
 						</aside>
 
 						<section className="main-section">
-							<Zoomable />
 							{this.renderView()}
 							<Footer />
 						</section>

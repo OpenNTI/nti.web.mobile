@@ -1,7 +1,4 @@
 import React from 'react';
-import Store from '../Store';
-import StoreEvents from 'common/mixins/StoreEvents';
-import {SRC_CHANGED} from '../Constants';
 import Point from '../Point';
 
 function pointFromTouch(t) {
@@ -13,11 +10,9 @@ let activeTouches = {};
 export default React.createClass({
 	displayName: 'Zoomable:View',
 
-	mixins: [StoreEvents],
-
-	backingStore: Store,
-	backingStoreEventHandlers: {
-		[SRC_CHANGED]: 'onSrcChange'
+	propTypes: {
+		src: React.PropTypes.string,
+		onClose: React.PropTypes.func
 	},
 
 	getInitialState () {
@@ -30,18 +25,12 @@ export default React.createClass({
 		};
 	},
 
-	onSrcChange(event) {
-		// console.debug('src changed handler');
-		if (event.src) {
-			this.setState({
-				src: event.src
-			});
-		}
-	},
-
 	close () {
 		activeTouches = {};
 		this.setState(this.getInitialState());
+		if (this.props.onClose) {
+			this.props.onClose();
+		}
 	},
 
 	touchStart (evt) {
@@ -123,7 +112,8 @@ export default React.createClass({
 	},
 
 	render () {
-		if (!this.state.src) {
+		let {src} = this.props;
+		if (!src) {
 			return null;
 		}
 		let {scale, transformOrigin, translate} = this.state;
@@ -144,7 +134,7 @@ export default React.createClass({
 					onTouchMove={this.touchMove}
 					onTouchEnd={this.touchEnd}
 				>
-					<img src={this.state.src} style={style} ref="img" className="zoomable-img" />
+					<img src={src} style={style} ref="img" className="zoomable-img" />
 					<button className="zoomable-close" onClick={this.close}></button>
 				</div>
 		);
