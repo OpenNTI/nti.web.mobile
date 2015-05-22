@@ -13,9 +13,10 @@ import {
 	removeEventListener as _removeEventListener,
 	scrollElementBy,
 	scrollParent as getScrollParent,
-	getScrollPosition,
-	getElementRect
+	getScrollPosition
 } from '../../utils/dom';
+
+import {getElementRect} from '../../utils/rects';
 
 import {matches} from 'nti.lib.dom';
 
