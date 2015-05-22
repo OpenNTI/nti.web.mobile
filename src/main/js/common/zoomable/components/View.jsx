@@ -51,16 +51,6 @@ export default React.createClass({
 			let p = pointFromTouch(touches[i]);
 			activeTouches[p.id] = p;
 		}
-		if (touches.length > 1) {
-			this.setTransformOrigin(pointFromTouch(touches[0]), pointFromTouch(touches[1]));
-		}
-	},
-
-	setTransformOrigin(p1, p2) {
-		// let center = p1.middle(p2);
-		// this.setState({
-		// 	transformOrigin: center
-		// });
 	},
 
 	handleMultitouchMove(touches) {
@@ -140,7 +130,7 @@ export default React.createClass({
 		scale = scale || 1.0;
 
 		let style = {
-			WebkitTransform: `translate3d(${translate.x}px, ${translate.y}px, 0) scale3d(${scale}, ${scale}, 1)`,
+			WebkitTransform: `translate3d(${translate.x}px, ${translate.y}px, 0) scale3d(${scale}, ${scale}, 1)`
 		};
 
 		if (transformOrigin) {
