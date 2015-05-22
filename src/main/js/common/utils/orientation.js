@@ -1,4 +1,4 @@
-import {addClass, removeClass} from 'nti.lib.dom';
+import CSS from 'react/lib/CSSCore';
 
 function handler (component) {
 	let {body} = document;
@@ -8,9 +8,9 @@ function handler (component) {
 		state = 'landscape';
 	}
 
-	removeClass(body, 'portrait');
-	removeClass(body, 'landscape');
-	addClass(body, state);
+	CSS.removeClass(body, 'portrait');
+	CSS.removeClass(body, 'landscape');
+	CSS.addClass(body, state);
 
 	//console.debug('Window is now: %s', state);
 	if (component && component.isMounted()) {

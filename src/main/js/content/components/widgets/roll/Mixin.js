@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CSSCore from 'react/lib/CSSCore';
+import CSS from 'react/lib/CSSCore';
 import ReactTransitionEvents from 'react/lib/ReactTransitionEvents';
 
 import {getEventTarget} from 'nti.lib.dom';
@@ -87,8 +87,8 @@ export default {
 
 		let transitionEnded = () => {
 			ReactTransitionEvents.removeEndEventListener(current, transitionEnded);
-			CSSCore.removeClass(stage, 'transitioning');
-			CSSCore.removeClass(stage, action);
+			CSS.removeClass(stage, 'transitioning');
+			CSS.removeClass(stage, action);
 			finish();
 			stage = null;//flag we've already run.
 		};
@@ -101,11 +101,11 @@ export default {
 
 		ReactTransitionEvents.addEndEventListener(current, transitionEnded);
 
-		CSSCore.addClass(stage, 'transitioning');
+		CSS.addClass(stage, 'transitioning');
 
 		setTimeout(() => {
 			if (stage) {//we may execute out of order... so if the transitionEnded function executes first, don't add the class.
-				CSSCore.addClass(stage, action);
+				CSS.addClass(stage, action);
 			}
 			this.setState({touchEnd: {}});//remove inline-transforms
 		}, 0);

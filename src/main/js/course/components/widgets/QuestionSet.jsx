@@ -2,6 +2,8 @@ import path from 'path';
 
 import React from 'react';
 
+import cx from 'classnames';
+
 import {getModel} from 'nti.lib.interfaces';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
@@ -160,16 +162,18 @@ export default React.createClass( {
 
 		let isLate = assignment && assignment.isLate(new Date());
 
-		let addClass =
-			(state.networkError ? ' networkerror' : '') +
-			(state.loading ? ' loading' : '') +
-			(state.completed ? ' completed' : '') +
-			(isLate ? ' late' : '') +
-			(assignment ? ' assignment' : ' assessment') +
-			(assignmentHistory && assignmentHistory.isSubmitted() ? ' submitted' : '');
+		let classList = cx('overview-naquestionset', {
+			networkerror: state.networkError,
+			loading: state.loading,
+			completed: state.completed,
+			late: isLate,
+			assignment: assignment,
+			assessment: !assignment,
+			submitted: assignmentHistory && assignmentHistory.isSubmitted()
+		});
 
 		return (
-			<a className={'overview-naquestionset' + addClass} href={state.href}>
+			<a className={classList} href={state.href}>
 				<div className="body">
 					{assignment ?
 						<div className="icon assignment"/>

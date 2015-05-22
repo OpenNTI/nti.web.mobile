@@ -1,10 +1,8 @@
 import React from 'react';
+import CSS from 'react/lib/CSSCore';
 
 import { Locations, Location, NotFound as DefaultRoute } from 'react-router-component';
 import {getEnvironment} from 'react-router-component/lib/environment/LocalStorageKeyEnvironment';
-
-import addClass from 'nti.lib.dom/lib/addclass';
-import removeClass from 'nti.lib.dom/lib/removeclass';
 
 import ActiveState from 'common/components/ActiveState';
 import Loading from 'common/components/Loading';
@@ -90,12 +88,12 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.defaultSection().then(this.setDefaultSection);
-		addClass(document.body, 'dark');
+		CSS.addClass(document.body, 'dark');
 	},
 
 
 	componentWillUnmount () {
-		removeClass(document.body, 'dark');
+		CSS.removeClass(document.body, 'dark');
 	},
 
 
