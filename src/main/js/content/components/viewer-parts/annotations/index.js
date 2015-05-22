@@ -49,9 +49,11 @@ export default {
 		}
 	},
 
-	componentDidUpdate () {
+	componentDidUpdate (_, prevState) {
 		let store = getStore(this.state);
-		this.renderAnnotations(store);
+		if (store !== getStore(prevState)) {
+			this.renderAnnotations(store);
+		}
 	},
 
 
@@ -63,10 +65,42 @@ export default {
 	renderAnnotations: buffer(50, function (store) {
 		if (!store) { return; }
 		console.debug('Render Pass');
+
+		let newObjects = 0, skipped = 0, dead = 0;
+		let {annotations = {}} = this.state;
+
+		let deadIDs = new Set(Object.keys(annotations));
+
 		for (let i of store) {
-			let Annotation = select(i);
-			let annotation = new Annotation(i, this);
-			console.log(annotation.render());
+			let id = i.getID();
+			let annotation = annotations[id];
+
+			deadIDs.delete(id);
+
+			if (annotation && !annotation.shouldRender()) {
+				skipped++;
+				continue;
+			}
+			else if (!annotation) {
+				newObjects++;
+				let Annotation = select(i);
+				annotation = new Annotation(i, this);
+				annotations[id] = annotation;
+			}
+
+			annotation.render();
+		}
+
+		for (let i of deadIDs) {
+			dead++;
+			//annotations[i].cleanup();
+			delete annotations[i];
+		}
+
+		console.log('Render Complete: new: %s, skipped: %s, removed: %s', newObjects, skipped, dead);
+
+		if (newObjects > 0 || dead > 0) {
+			this.setState({annotations});
 		}
 	})
 };
