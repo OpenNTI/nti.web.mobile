@@ -5,11 +5,10 @@ import * as RangeUtils from 'nti.lib.ranges';
 
 import mixin from 'nti.lib.interfaces/utils/mixin';
 
-import Annotation from './Annotation';
+import Annotation, {RENDERED} from './Annotation';
 
 import RangeWrapperMixin from './RangeWrapperMixin';
 
-const RENDERED = Symbol('highlight elements');
 const RANGE = Symbol('cached range');
 
 export default class Highlight extends Annotation {
@@ -61,18 +60,28 @@ export default class Highlight extends Annotation {
 
 	getRange () {
 		let range = this[RANGE];
+
 		if (RangeUtils.isValidRange(range)) {
 			return range;
 		}
 
-		let {reader} = this;
-		range = Anchors.toDomRange(
+		else if (range) {
+			range = this.buildRange();
+			if (!RangeUtils.isValidRange(range)) {
+				range = null;
+			}
+		}
+
+		if (!range) {
+			let {reader} = this;
+			range = Anchors.toDomRange(
 						this.getRecordField('applicableRange'),
 						reader.getContentNode(),
 						reader.getContentNodeClean(),
 						this.getRecordField('ContainerId'),
 						reader.getPageID()
 						);
+		}
 
 		if (!range) {
 			console.error('bad range', this);
