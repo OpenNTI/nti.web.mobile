@@ -47,6 +47,20 @@ function validToWrapEntireNode (node) {
 
 export default {
 
+	unwrap (node) {
+		let {parentNode, ownerDocument} = node;
+
+		if (node.firstChild) {
+			let r = ownerDocument.createRange();
+			r.selectNode(node);
+			while (node.lastChild) {
+				r.insertNode(node.lastChild);
+			}
+		}
+
+		parentNode.removeChild(node);
+		parentNode.normalize();
+	},
 
 	wrapRange (node, range) {
 		let nodeList = [];
