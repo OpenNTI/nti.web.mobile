@@ -96,11 +96,19 @@ export default class Highlight extends Annotation {
 	}
 
 
+	shouldRender () {
+		let elements = this[RENDERED];
+		if (!elements) { return true; }
+
+	}
+
+
 	render () {
+		if (!this.shouldRender()) { return; }
+
 		let r = this.getRange();
 		if (!r) { return; }
 
-		if (this[RENDERED]) { return; }
 
 		this[RENDERED] = this.wrapRange(r.commonAncestorContainer, r);
 	}
