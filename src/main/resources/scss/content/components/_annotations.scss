@@ -15,12 +15,29 @@
 	padding: 0 0 0 4px;
 }
 
+// makes a transparent-as-possible equivalent color.
+@function makeTransparentColor($desired_color) {
+
+    $r: round(red($desired_color));
+    $g: round(green($desired_color));
+    $b: round(blue($desired_color));
+
+    $min: min($r, $g, $b);
+
+    $alpha: (255 - $min) / 255;
+    $r: round(($r - $min) / $alpha);
+    $g: round(($g - $min) / $alpha);
+    $b: round(($b - $min) / $alpha);
+
+    @return rgba($r, $g, $b, $alpha);
+}
+
 @mixin highlight-colors($onParentSelector: true, $selector:'', $nibselector:null) {
 	@each $item in $highlight-colors {
 		$name: nth($item,1);
 		$menu_color: nth($item,2);
-		$hover_color: nth($item,3);
-		$highlight_color: lighten($hover_color, 4%);
+		$hover_color: makeTransparentColor(nth($item,3));
+		$highlight_color: makeTransparentColor(lighten(nth($item,3), 4%));
 
 		$prefix: if($onParentSelector,'&','');
 
@@ -32,7 +49,7 @@
 		#{$computedSelector} {
 			// color: $menu_color;
 			background-color: $highlight_color;
-			box-shadow: 0 0 0 2px $highlight_color;
+			box-shadow: 0 0 0 3px $highlight_color;
 			//@include transition('all 0.2s');
 
 			&.highlight-mouse-over {
@@ -80,6 +97,7 @@
 		overflow: hidden;
 
 		@include highlight-colors();
+		// -webkit-clip-path: polygon(5px 4px, 50% 7%, 100% 16%, 98% 93%, 50% 86%, 0% 91%);
 
 		&.shared-with-me {
 			&,.math {
