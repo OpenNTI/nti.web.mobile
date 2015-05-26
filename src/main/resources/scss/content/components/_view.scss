@@ -1,14 +1,64 @@
 
-.content-view .fixed-footer {
-	min-height: 4rem;
+.content-view {
+	.fixed-footer {
+		min-height: 4rem;
 
-	& > .the-fixed {
-		border: 1px solid $tertiary-grey;
-		border-width: 1px 0 0 0;
-		background: #f8f8f8;
-		position: fixed;
-		bottom: 0;
-		left: 0;
+		& > .the-fixed {
+			border: 1px solid $tertiary-grey;
+			border-width: 1px 0 0 0;
+			background: #f8f8f8;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+	}
+
+
+	&.open-discussions-drawer {
+		@include transform(translate3d(-90vw, 0, 0));
+	}
+
+	position: relative;
+	transition: transform 0.4s;
+	transition: -webkit-transform 0.4s;
+
+	.gutter {
+		position: absolute;
+		top: 0;
 		right: 0;
+		width: 1rem;
+		z-index: 9;
+
+		.bin {
+			position: absolute;
+			left: 0;
+			color: $primary-blue;
+			font-size: 0.65rem;
+			padding: 0.3rem 0.5rem;
+			border-radius: 3px;
+			background: transparent;
+			@include transform(translate3d(-0.65rem, -0.25rem, 0));
+
+			&.active {
+				background: #3fb3f6;
+				color: #fff !important;
+				font-weight: bolder;
+				box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.4);
+			}
+		}
+	}
+
+	.discussions {
+		position: fixed;
+		top: 0;
+		left: 0;
+
+		bottom: 0;
+		min-height: 80vh;
+		width: 90vw;
+		background: $panel-background;
+		z-index: 9999;
+		@include transform(translate3d(100vw, 0, 0));
 	}
 }

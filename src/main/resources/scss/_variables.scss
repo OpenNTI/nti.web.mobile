@@ -48,6 +48,7 @@ $border-blue: #39a1dd;
 $border-grey: #ccc;
 $border-gray: $border-grey;
 //$border-grey: #dbdbdb;
+$border-grey-light: #ededed;
 $border-red: #f35252;
 $text-red: #f2713e;
 
@@ -122,6 +123,8 @@ $tabs-navigation-font-color: $primary-grey;
 
 %icon-edit-14 {background-image: url(../images/icons/editor/image-edit-14.png);}
 %icon-search-18 {background-image: url(../images/icons/search-18.png);}
+
+%icon-discussions {background-image: url(../images/icons/discussions.png); }
 
 %icon-topic {background-image: url(../images/icons/topic.png); }
 %icon-topic-blue {background-image: url(../images/icons/topic-blue.png); }

@@ -1,8 +1,12 @@
+import React from 'react';
+
+import {RouterMixin} from 'react-router-component';
+
+import cx from 'classnames';
+
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import guid from 'nti.lib.interfaces/utils/guid';
 
-import React from 'react';
-import {RouterMixin} from 'react-router-component';
 
 import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';
@@ -23,11 +27,13 @@ import PageDescriptor from '../PageDescriptor';
 import {RESOURCE_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
 import AnalyticsBehavior from 'analytics/mixins/ResourceLoaded';
+import AnnotationFeature from './viewer-parts/annotations';
+import AssessmentFeature from './viewer-parts/assessment';
 import RouterLikeBehavior from './viewer-parts/mock-router';
 import GlossaryFeature from './viewer-parts/glossary';
+import GutterInteractions from './viewer-parts/gutter-interaction';
 import Interactions from './viewer-parts/interaction';
-import AssessmentFeature from './viewer-parts/assessment';
-import AnnotationFeature from './viewer-parts/annotations';
+
 import BodyContent from './viewer-parts/Content';
 import Gutter from './viewer-parts/Gutter';
 
@@ -39,6 +45,7 @@ export default React.createClass({
 		AssessmentFeature,
 		ContextSender,
 		GlossaryFeature,
+		GutterInteractions,
 		Interactions,
 		RouterLikeBehavior,
 		RouterMixin,
@@ -233,7 +240,7 @@ export default React.createClass({
 
 	render () {
 		let body = this.getBodyParts() || [];
-		let {annotations, error, loading, pageSource} = this.state;
+		let {annotations, error, loading, pageSource, style, className = ''} = this.state;
 		let pageId = this.getPageID();
 
 		if (loading) {
@@ -243,8 +250,13 @@ export default React.createClass({
 			return (<Err error={error}/>);
 		}
 
+		let props = {
+			className: cx('content-view', className.split(/\s+/)),
+			style
+		};
+
 		return (
-			<div className="content-view">
+			<div {...props}>
 
 				{this.applyStyle()}
 
@@ -263,7 +275,7 @@ export default React.createClass({
 
 				<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
 
-				<Gutter items={annotations}/>
+				<Gutter items={annotations} openGutterDrawer={this.openGutterDrawer} closeGutterDrawer={this.closeGutterDrawer}/>
 
 				{this.renderAssessmentSubmission()}
 			</div>

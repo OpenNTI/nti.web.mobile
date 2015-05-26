@@ -1,6 +1,4 @@
 
-import * as RectUtils from 'common/utils/rects';
-
 const RECORD = Symbol('record');
 
 export const RENDERED = Symbol('elements');
@@ -38,6 +36,9 @@ export default class Annotation {
 	}
 
 
+	getRecord() { return this[RECORD]; }
+
+
 	getRecordField(field) {
 		return this[RECORD][field];
 	}
@@ -59,12 +60,7 @@ export default class Annotation {
 
 
 	resolveVerticalLocation () {
-		let rect = RectUtils.safeBoundingBoxForRange(this.getRange());
-		if (!rect) {
-			return NOT_FOUND;
-		}
-
-		return !RectUtils.isZeroRect(rect) ? rect.top : HIDDEN;
+		return HIDDEN;
 	}
 
 }
