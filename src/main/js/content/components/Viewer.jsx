@@ -28,7 +28,8 @@ import GlossaryFeature from './viewer-parts/glossary';
 import Interactions from './viewer-parts/interaction';
 import AssessmentFeature from './viewer-parts/assessment';
 import AnnotationFeature from './viewer-parts/annotations';
-import BodyContent from './viewer-parts/Content.jsx';
+import BodyContent from './viewer-parts/Content';
+import Gutter from './viewer-parts/Gutter';
 
 export default React.createClass({
 	displayName: 'content:Viewer',
@@ -232,7 +233,7 @@ export default React.createClass({
 
 	render () {
 		let body = this.getBodyParts() || [];
-		let {error, loading, pageSource} = this.state;
+		let {annotations, error, loading, pageSource} = this.state;
 		let pageId = this.getPageID();
 
 		if (loading) {
@@ -261,6 +262,8 @@ export default React.createClass({
 				{this.renderGlossaryEntry()}
 
 				<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
+
+				<Gutter items={annotations}/>
 
 				{this.renderAssessmentSubmission()}
 			</div>
