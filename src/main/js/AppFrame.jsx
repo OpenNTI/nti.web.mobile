@@ -56,7 +56,7 @@ export default React.createClass({
 	},
 
 
-	getOverlayState () { return (this.state || {}).overlay;	},
+	getOverlayState () { return (this.state || {}).overlay; },
 
 
 	componentDidUpdate () {
@@ -69,7 +69,7 @@ export default React.createClass({
 
 	render () {
 		let height = {height: getViewportHeight()};
-		let state = this.getOverlayState();
+		let state = this.getOverlayState() || '';
 		let username = getAppUsername();
 
 		return (
