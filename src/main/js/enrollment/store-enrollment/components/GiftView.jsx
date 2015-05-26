@@ -60,11 +60,11 @@ export default React.createClass({
 				let o = {};
 				let current = this.state.fieldValues || {};
 
-				if (!current.from) {
+				if (u && !current.from) {
 					o.from = u.email;
 				}
 
-				if (!current.name) {
+				if (u && !current.name) {
 					o.name = u.realname;
 				}
 
