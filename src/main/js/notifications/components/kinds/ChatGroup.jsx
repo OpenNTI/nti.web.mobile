@@ -6,15 +6,15 @@ import NoteableMixin from '../mixins/Noteable';
 // import DateTime from 'common/components/DateTime';
 
 export default React.createClass({
-	displayName: 'Chat',
+	displayName: 'ChatGroup',
 	mixins: [NoteableMixin],
 
 	statics: {
-		noteableType: 'messageinfo'
+		noteableType: '_meeting'
 	},
 
 	componentWillMount () {
-		console.debug('One on One Chat:', this.state.item);
+		console.debug('Group Chat:', this.state.item);
 	},
 
 	render () {
