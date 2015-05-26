@@ -98,7 +98,7 @@ export default React.createClass({
 
 			for(let id of Object.keys(widgets)) {
 				let el = document.getElementById(id);
-				let w = widgets[guid];
+				let w = widgets[id];
 				if (el && !el.hasAttribute('mounted')) {
 					// console.debug('Content View: Mounting Widget...');
 					try {
