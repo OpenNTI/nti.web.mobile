@@ -13,18 +13,10 @@ export default React.createClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.item !== this.props.item) {
-			this.setState({preview: null});
-		}
-	},
-
-
 	render () {
 		let {item} = this.props;
 		let {body, creator, title} = item;
 		let date = item.getCreatedTime();
-		// console.log(item);
 
 		let preview = (title && [title]) || body;
 
