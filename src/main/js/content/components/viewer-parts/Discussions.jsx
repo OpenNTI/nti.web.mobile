@@ -12,10 +12,11 @@ export default React.createClass({
 	},
 
 	render () {
-		let items = this.props.items.filter(notes);
+		let {props} = this;
+		let items = props.items.filter(notes);
 
 		return (
-			<div className="discussions">
+			<div className="discussions" {...props}>
 				<h1>Discussions</h1>
 
 				<div className="list">

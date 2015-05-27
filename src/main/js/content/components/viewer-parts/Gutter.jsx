@@ -110,6 +110,7 @@ export default React.createClass({
 		return (
 			<div>
 				{this.renderGutter()}
+				<a href="#" className="close-gutter-drawer" onClick={this.closeGutterDrawer}/>
 				<Discussions items={items}/>
 			</div>
 		);
@@ -159,5 +160,13 @@ export default React.createClass({
 		} else {
 			closeGutterDrawer();
 		}
+	},
+
+
+	closeGutterDrawer (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		this.props.closeGutterDrawer();
+		this.setState({active: undefined});
 	}
 });

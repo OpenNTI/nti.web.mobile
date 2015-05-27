@@ -1,4 +1,4 @@
-
+import CSS from 'react/lib/CSSCore';
 import cx from 'classnames';
 
 export default {
@@ -9,6 +9,7 @@ export default {
 		className = cx('open-discussions-drawer', className.split(/\s+/));
 
 		this.setState({className});
+		CSS.addClass(document.body, 'scroll-lock');
 	},
 
 
@@ -18,6 +19,8 @@ export default {
 		className = className.replace(/open\-discussions\-drawer/g, ' ').replace(/\s+/g, ' ');
 
 		this.setState({className});
+
+		CSS.removeClass(document.body, 'scroll-lock');
 	}
 
 };

@@ -16,12 +16,32 @@
 
 
 	&.open-discussions-drawer {
-		@include transform(translate3d(-90vw, 0, 0));
+		// @include transform(translate3d(-90vw, 0, 0));
+		left: -90vw;
+		.discussions {
+			@include transform(translate3d(10vw, 0, 0));
+		}
+
+		.close-gutter-drawer {
+			display: block;
+		}
+
+		.gutter .bin {
+			background: #fff;
+		}
+
 	}
 
 	position: relative;
-	transition: transform 0.4s;
-	transition: -webkit-transform 0.4s;
+	top: 0; left: 0;
+	@include transition('left 0.4s');
+
+	.close-gutter-drawer {
+		@include animation('fadeIn 0.4s');
+		position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+		background: rgba(0,0,0,0.2);
+		display: none;
+	}
 
 	.gutter {
 		position: absolute;
@@ -47,10 +67,15 @@
 				box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.4);
 			}
 		}
+
+
 	}
 
 	.discussions {
+		-webkit-transition: -webkit-transform 0.4s;
+		transition: transform 0.4s, -webkit-transform 0.4s;
 		position: fixed;
+
 		top: 0;
 		left: 0;
 
