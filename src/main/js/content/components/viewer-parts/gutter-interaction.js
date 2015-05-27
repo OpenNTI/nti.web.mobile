@@ -1,6 +1,8 @@
 import CSS from 'react/lib/CSSCore';
 import cx from 'classnames';
 
+const root = () => document.getElementsByTagName('html')[0];
+
 export default {
 
 	openGutterDrawer () {
@@ -9,7 +11,7 @@ export default {
 		className = cx('open-discussions-drawer', className.split(/\s+/));
 
 		this.setState({className});
-		CSS.addClass(document.body, 'scroll-lock');
+		CSS.addClass(root(), 'scroll-lock');
 	},
 
 
@@ -20,7 +22,7 @@ export default {
 
 		this.setState({className});
 
-		CSS.removeClass(document.body, 'scroll-lock');
+		CSS.removeClass(root(), 'scroll-lock');
 	}
 
 };
