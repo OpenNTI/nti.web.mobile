@@ -42,6 +42,10 @@ export default {
 		.then(result => {
 			Store.setObject(forumId, result.object);
 			Store.setObjectContents(forumId, result.contents, result.params);
+		},
+		reason => {
+			Store.setObject(forumId, reason);
+			Store.setObjectContents(forumId, reason);
 		});
 	}
 };
