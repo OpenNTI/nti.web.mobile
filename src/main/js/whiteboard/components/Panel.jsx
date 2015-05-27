@@ -50,7 +50,9 @@ export default React.createClass({
 	render () {
 
 		return (
-			<img src={this.state.src} alt="Whiteboard Thumbnail" className="whiteboard thumbnail"/>
+			<div className="whiteboard thumbnail">
+				<img src={this.state.src} alt="Whiteboard Thumbnail" className="whiteboard-thumbnail"/>
+			</div>
 		);
 	}
 });
