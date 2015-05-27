@@ -143,7 +143,7 @@ export default React.createClass({
 		e.preventDefault();
 		e.stopPropagation();
 
-		let {openGutterDrawer, closeGutterDrawer} = this.props;
+		let {openGutterDrawer} = this.props;
 
 		let active = getEventTarget(e, 'a[data-line]');
 		if (active) {
@@ -157,8 +157,8 @@ export default React.createClass({
 
 		if (active) {
 			openGutterDrawer();
-		} else {
-			closeGutterDrawer();
+		// } else {
+		// 	closeGutterDrawer();
 		}
 	},
 

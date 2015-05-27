@@ -1,5 +1,5 @@
 import React from 'react';
-import * as RectUtils from 'common/utils/rects';
+import {safeBoundingBoxForRange, isZeroRect} from 'common/utils/rects';
 
 import {NOT_FOUND, HIDDEN} from './Annotation';
 import Highlight from './Highlight';
@@ -18,15 +18,31 @@ export default class Note extends Highlight {
 
 
 	resolveVerticalLocation () {
-		let rect = RectUtils.safeBoundingBoxForRange(this.getRange());
+		let range = this.getRange();
+		let rect = safeBoundingBoxForRange(range);
 		if (!rect) {
+			console.log('Not Found:', this.getRecord(), range);
 			return NOT_FOUND;
 		}
 
-		let reader = React.findDOMNode(this.reader);
+		let has = !isZeroRect(rect);
 
-		reader = reader ? reader.getBoundingClientRect().top : 0;
+		if (!has) {
+			let e = range.startContainer;
+			rect = e && e.getBoundingClientRect();
+			has = !isZeroRect(rect);
+		}
 
-		return !RectUtils.isZeroRect(rect) ? (rect.top - reader) : HIDDEN;
+		let top = (has && rect.top) || HIDDEN;
+
+		if (has) {
+			let reader = React.findDOMNode(this.reader);
+			top -= reader ? reader.getBoundingClientRect().top : 0;
+		}
+		else {
+			console.log('Hidden:', range, rect);
+		}
+
+		return top;
 	}
 }
