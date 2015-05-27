@@ -14,6 +14,14 @@
 		}
 	}
 
+	#NTIContent *:not(input):not(textarea) {
+		-webkit-user-select: text;
+		-moz-user-select: text;
+		-ms-user-select: text;
+		-o-user-select: text;
+		user-select: text;
+	}
+
 
 	&.open-discussions-drawer {
 		// @include transform(translate3d(-90vw, 0, 0));
