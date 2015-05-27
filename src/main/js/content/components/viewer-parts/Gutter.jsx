@@ -133,6 +133,8 @@ export default React.createClass({
 			active: this.state.active === h
 		});
 
+		count = count > 99 ? '99+' : count;
+
 		return (
 			<a data-line={h} href="#" style={top} className={css} onClick={this.onClick}>{count}</a>
 		);
