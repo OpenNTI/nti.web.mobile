@@ -2,45 +2,44 @@
 .discussions {
 	@extend %hardware-render;
 	overflow: hidden;
+	// background: $panel-background;
 	border: {
 		style: solid;
 		color: $border-grey-light;
-		width: 1px 0 0 1px;
+		width: 0;//1px 0 0 1px;
 	}
 
-	& > h1 {
-		@extend %icon-discussions;
-		text-transform: uppercase;
-		background: {
-			position: 1rem 1.45rem;
-			repeat: no-repeat;
-		}
-
-		font-size: 0.9rem;
-		font-weight: 600;
-		margin: 0;
-		padding: 1.25rem 1.25rem 1.25rem 2.75rem;
-		box-shadow: inset 0 -4px 0 0 $primary-grey;
-		color: $primary-grey;
-		border: {
-			style: solid;
-			color: $border-grey-light;
-			width: 0 0 1px 0;
-		}
-
-		float: left;
-	}
+	// & > h1 {
+	// 	@extend %icon-discussions;
+	// 	text-transform: uppercase;
+	// 	background: {
+	// 		position: 1rem 1.45rem;
+	// 		repeat: no-repeat;
+	// 	}
+	//
+	// 	font-size: 0.9rem;
+	// 	font-weight: 600;
+	// 	margin: 0;
+	// 	padding: 1.25rem 1.25rem 1.25rem 2.75rem;
+	// 	box-shadow: inset 0 -4px 0 0 $primary-grey;
+	// 	color: $primary-grey;
+	// 	border: {
+	// 		style: solid;
+	// 		color: $border-grey-light;
+	// 		width: 0 0 1px 0;
+	// 	}
+	// }
 
 	.list {
 		@extend %touch-scroll;
-		clear: both;
 		border: {
 			style: solid;
 			color: $border-grey-light;
-			width: 1px 0 0 0;
+			width: 0;//1px 0 0 0;
 		}
 
-		max-height: calc(100% - 3.75rem);
+		// max-height: calc(100% - 3.75rem);
+		max-height: 100%;
 		overflow: {
 			x: hidden;
 			y: scroll;

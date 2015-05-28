@@ -19,8 +19,8 @@ function select (item) {
 }
 
 
-function getStore (state) {
-	let {page} = state;
+function getStore (o) {
+	let {page} = o;
 	return page && page.getUserDataStore();
 }
 
@@ -63,7 +63,7 @@ export default {
 
 
 	renderAnnotations: buffer(50, function (store) {
-		if (!store) { return; }
+		if (!store || !this.getContentNode()) { return; }
 		console.debug('Render Pass');
 
 		let newObjects = 0, skipped = 0, dead = 0;

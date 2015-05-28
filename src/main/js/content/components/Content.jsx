@@ -36,7 +36,7 @@ export default React.createClass({
 		let current = this.getCurrent();
 		let prestine = current && current.cloneNode(true);
 		this.setState({prestine});
-		console.debug('Updated Prestine', prestine);
+		// console.debug('Updated Prestine', prestine);
 	},
 
 	render () {

@@ -31,11 +31,11 @@ import AnnotationFeature from './viewer-parts/annotations';
 import AssessmentFeature from './viewer-parts/assessment';
 import RouterLikeBehavior from './viewer-parts/mock-router';
 import GlossaryFeature from './viewer-parts/glossary';
-import GutterInteractions from './viewer-parts/gutter-interaction';
 import Interactions from './viewer-parts/interaction';
 
-import BodyContent from './viewer-parts/Content';
-import Gutter from './viewer-parts/Gutter';
+import BodyContent from './Content';
+import Gutter from './Gutter';
+import Discussions from './Discussions';
 
 export default React.createClass({
 	displayName: 'content:Viewer',
@@ -45,7 +45,6 @@ export default React.createClass({
 		AssessmentFeature,
 		ContextSender,
 		GlossaryFeature,
-		GutterInteractions,
 		Interactions,
 		RouterLikeBehavior,
 		RouterMixin,
@@ -240,8 +239,9 @@ export default React.createClass({
 
 	render () {
 		let body = this.getBodyParts() || [];
-		let {annotations, error, loading, pageSource, style, className = ''} = this.state;
+		let {annotations, error, loading, page, pageSource, style, className = ''} = this.state;
 		let pageId = this.getPageID();
+		let {discussions} = this.getPropsFromRoute();
 
 		if (loading) {
 			return (<Loading/>);
@@ -258,26 +258,34 @@ export default React.createClass({
 		return (
 			<div {...props}>
 
-				{this.applyStyle()}
+				{discussions ? (
 
-				{this.renderAssessmentHeader()}
+					<Discussions page={page}/>
 
-				<BodyContent id="NTIContent" ref="content"
-					className="nti-content-panel"
-					onClick={this.onContentClick}
-					data-ntiid={pageId}
-					data-page-ntiid={pageId}
-					dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>
+				) : (
+					<div className="content-body">
+						{this.applyStyle()}
 
-				{this.renderAssessmentFeedback()}
+						{this.renderAssessmentHeader()}
 
-				{this.renderGlossaryEntry()}
+						<BodyContent id="NTIContent" ref="content"
+							className="nti-content-panel"
+							onClick={this.onContentClick}
+							data-ntiid={pageId}
+							data-page-ntiid={pageId}
+							dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>
 
-				<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
+						{this.renderAssessmentFeedback()}
 
-				<Gutter items={annotations} openGutterDrawer={this.openGutterDrawer} closeGutterDrawer={this.closeGutterDrawer}/>
+						{this.renderGlossaryEntry()}
 
-				{this.renderAssessmentSubmission()}
+						<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
+
+						<Gutter items={annotations} />
+
+						{this.renderAssessmentSubmission()}
+					</div>
+				)}
 			</div>
 		);
 	},
@@ -307,7 +315,7 @@ export default React.createClass({
 		return Promise.resolve({
 			label: this.state.pageTitle,
 			ntiid: this.getPageID(),
-			href: location.href//current page doesn't need an href.(its the current one)
+			href: this.makeHref(this.getPageID())
 		});
 	}
 });

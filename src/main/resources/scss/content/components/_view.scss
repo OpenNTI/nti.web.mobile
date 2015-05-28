@@ -80,18 +80,18 @@
 	}
 
 	.discussions {
-		-webkit-transition: -webkit-transform 0.4s;
-		transition: transform 0.4s, -webkit-transform 0.4s;
-		position: fixed;
+		// -webkit-transition: -webkit-transform 0.4s;
+		// transition: transform 0.4s, -webkit-transform 0.4s;
+		// position: fixed;
 
-		top: 0;
-		left: 0;
+		// top: 0;
+		// left: 0;
+		// bottom: 0;
 
-		bottom: 0;
-		min-height: 80vh;
-		width: 90vw;
-		background: $panel-background;
-		z-index: 9999;
-		@include transform(translate3d(100vw, 0, 0));
+		// min-height: 80vh;
+		// width: 90vw;
+		
+		// z-index: 9999;
+		// @include transform(translate3d(100vw, 0, 0));
 	}
 }

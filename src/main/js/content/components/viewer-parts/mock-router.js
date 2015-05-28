@@ -3,6 +3,8 @@ const ROUTES = Symbol('Routes');
 export default {
 
 	getInitialState  () {
+		let discussions = {discussions: true};
+		this.registerContentViewerSubRoute('/:pageId/discussions(/(:noteId))', discussions);
 		this.registerContentViewerSubRoute('/:pageId(/)');
 	},
 
@@ -13,7 +15,9 @@ export default {
 
 
 	getPropsFromRoute  (props) {
-		let {match} = this.getRouterState(props || this.props);
+		props = Object.assign({contextual: true}, props || this.props);
+
+		let {match} = this.getRouterState(props);
 		let p = match && (match.getHandler() || match.match);
 		if (p && p.props) {
 			p = p.props;
@@ -36,13 +40,13 @@ export default {
 	},
 
 
-	registerContentViewerSubRoute (route) {
+	registerContentViewerSubRoute (route, extra) {
 		if (typeof route === 'string') {
 			route = {
-				props: {
+				props: Object.assign(extra || {}, {
 					handler: 'div',
 					path: route
-				}
+				})
 			};
 		}
 

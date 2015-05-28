@@ -24,13 +24,14 @@ export default React.createClass({
 
 	getContext () {
 		let {contentPackage} = this.props;
-		let {title} = contentPackage;
+		// let {title} = contentPackage;
 
 		let href = this.makeHref('o/');
 		let ntiid = contentPackage.getID();
 
 		return Promise.resolve({
-			label: title,
+			// label: title + ' Contents',
+			label: 'Contents',
 			ntiid,
 			href
 		});

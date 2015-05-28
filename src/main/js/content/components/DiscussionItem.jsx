@@ -16,7 +16,7 @@ export default React.createClass({
 	render () {
 		let {item} = this.props;
 		let {body, creator, title} = item;
-		let date = item.getCreatedTime();
+		let date = item.getLastModified();
 
 		let preview = (title && [title]) || body;
 

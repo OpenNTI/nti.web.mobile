@@ -5,25 +5,16 @@ import hash from 'object-hash';
 
 import {getEventTarget} from 'nti.lib.dom';
 
-import Discussions from './Discussions';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 const pluck = (a, k) => a.map(x=> x[k]);
 
 export default React.createClass({
 	displayName: 'content:AnnotationGutter',
+	mixins: [NavigatableMixin],
 
 	propTypes: {
-		items: React.PropTypes.object,
-
-		openGutterDrawer: React.PropTypes.func,
-		closeGutterDrawer: React.PropTypes.func
-	},
-
-	getDefaultProps () {
-		return {
-			openGutterDrawer: ()=> {},
-			closeGutterDrawer: ()=> {}
-		};
+		items: React.PropTypes.object
 	},
 
 
@@ -105,13 +96,11 @@ export default React.createClass({
 
 
 	render () {
-		let items = this.getActiveBin() || Object.values(this.props.items || {});
+		// let items = this.getActiveBin() || Object.values(this.props.items || {});
 
 		return (
 			<div>
 				{this.renderGutter()}
-				<a href="#" className="close-gutter-drawer" onClick={this.closeGutterDrawer}/>
-				<Discussions items={items}/>
 			</div>
 		);
 	},
@@ -135,18 +124,15 @@ export default React.createClass({
 
 		count = count > 99 ? '99+' : count;
 
+		let href = this.makeHref('discussions/');
+
 		return (
-			<a data-line={h} href="#" style={top} className={css} onClick={this.onClick}>{count}</a>
+			<a data-line={h} href={href} style={top} className={css} onClick={this.onClick}>{count}</a>
 		);
 	},
 
 
 	onClick (e) {
-		e.preventDefault();
-		e.stopPropagation();
-
-		let {openGutterDrawer} = this.props;
-
 		let active = getEventTarget(e, 'a[data-line]');
 		if (active) {
 			active = active.getAttribute('data-line');
@@ -156,19 +142,13 @@ export default React.createClass({
 		}
 
 		this.setState({active});
-
-		if (active) {
-			openGutterDrawer();
-		// } else {
-		// 	closeGutterDrawer();
-		}
 	},
 
 
 	closeGutterDrawer (e) {
 		e.preventDefault();
 		e.stopPropagation();
-		this.props.closeGutterDrawer();
+		// this.props.closeGutterDrawer();
 		this.setState({active: undefined});
 	}
 });
