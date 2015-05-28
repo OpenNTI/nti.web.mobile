@@ -4,6 +4,7 @@ import cx from 'classnames';
 import hash from 'object-hash';
 
 import {getEventTarget} from 'nti.lib.dom';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
@@ -14,7 +15,9 @@ export default React.createClass({
 	mixins: [NavigatableMixin],
 
 	propTypes: {
-		items: React.PropTypes.object
+		pageId: React.PropTypes.string.isRequired,
+
+		items: React.PropTypes.object //annotation dictionary {[obj.id]: obj}
 	},
 
 
@@ -122,9 +125,11 @@ export default React.createClass({
 			active: this.state.active === h
 		});
 
+		let page = encodeForURI(this.props.pageId);
+
 		count = count > 99 ? '99+' : count;
 
-		let href = this.makeHref('discussions/');
+		let href = this.makeHref(`/${page}/discussions/`);
 
 		return (
 			<a data-line={h} href={href} style={top} className={css} onClick={this.onClick}>{count}</a>
@@ -142,13 +147,5 @@ export default React.createClass({
 		}
 
 		this.setState({active});
-	},
-
-
-	closeGutterDrawer (e) {
-		e.preventDefault();
-		e.stopPropagation();
-		// this.props.closeGutterDrawer();
-		this.setState({active: undefined});
 	}
 });

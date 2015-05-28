@@ -4,7 +4,7 @@ import {RouterMixin} from 'react-router-component';
 
 import cx from 'classnames';
 
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import guid from 'nti.lib.interfaces/utils/guid';
 
 
@@ -281,7 +281,7 @@ export default React.createClass({
 
 						<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
 
-						<Gutter items={annotations} />
+						<Gutter items={annotations} pageId={pageId}/>
 
 						{this.renderAssessmentSubmission()}
 					</div>
@@ -315,7 +315,7 @@ export default React.createClass({
 		return Promise.resolve({
 			label: this.state.pageTitle,
 			ntiid: this.getPageID(),
-			href: this.makeHref(this.getPageID())
+			href: this.makeHref(encodeForURI(this.getPageID()))
 		});
 	}
 });

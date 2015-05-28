@@ -1,4 +1,5 @@
 import GlossaryEntry from '../GlossaryEntry';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 export default {
 
@@ -14,7 +15,7 @@ export default {
 
 	onDismissGlossary (evt) {
 		evt.preventDefault();
-		let pid = this.getPageID();
+		let pid = encodeForURI(this.getPageID());
 		this.navigate(`/${pid}/`);
 	},
 
