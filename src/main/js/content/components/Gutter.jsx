@@ -71,7 +71,7 @@ export default React.createClass({
 
 
 	resolveBins (items = {}) {
-		let {lines = {}} = this.state;
+		let lines = {};
 
 		for (let item of Object.values(items)) {
 
