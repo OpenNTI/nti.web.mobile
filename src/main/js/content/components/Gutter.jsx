@@ -89,8 +89,13 @@ export default React.createClass({
 	},
 
 
-	getActiveBin () {
+	getActiveBin (bin) {
 		let {active, lines = {}} = this.state;
+
+		if (bin) {
+			active = bin;
+		}
+
 		if (!active) { return; }
 
 		return Object.values(lines)
@@ -145,6 +150,9 @@ export default React.createClass({
 				active = undefined;
 			}
 		}
+
+		let bin = this.getActiveBin(active);
+		console.debug('Filter IDs', pluck(bin, 'id'));
 
 		this.setState({active});
 	}
