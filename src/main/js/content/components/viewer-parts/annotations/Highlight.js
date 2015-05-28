@@ -97,9 +97,15 @@ export default class Highlight extends Annotation {
 
 
 	shouldRender () {
+		let n = this.reader.getContentNode();
 		let elements = this[RENDERED];
-		if (!elements) { return true; }
-
+		if (n && (!elements || elements.some(e => !n.contains(e)))) {
+			delete this[RENDERED];
+			if (elements) {
+				delete this[RANGE];
+			}
+			return true;
+		}
 	}
 
 
@@ -107,9 +113,12 @@ export default class Highlight extends Annotation {
 		if (!this.shouldRender()) { return; }
 
 		let r = this.getRange();
-		if (!r) { return; }
+		if (!r) {
+			return;
+		}
 
 
 		this[RENDERED] = this.wrapRange(r.commonAncestorContainer, r);
+		return true;
 	}
 }

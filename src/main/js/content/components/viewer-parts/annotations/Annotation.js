@@ -63,4 +63,8 @@ export default class Annotation {
 		return HIDDEN;
 	}
 
+
+	shouldRender () {}
+
+	render () {}
 }
