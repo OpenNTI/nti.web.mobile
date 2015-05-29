@@ -35,7 +35,7 @@ import {BLANK_IMAGE} from '../constants/DataURIs';
 import ExternalResourceEvent from 'nti.lib.interfaces/models/analytics/ExternalResourceEvent';
 import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import AnalyticsActions from 'analytics/Actions';
+import {emitEventStarted} from 'analytics/Actions';
 
 const Seen = Symbol('Seen');
 const Progress = Symbol.for('Progress');
@@ -195,7 +195,7 @@ export default React.createClass({
 					toAnalyticsPath(context, resourceId)
 				);
 
-				AnalyticsActions.emitEventStarted(viewEvent);
+				emitEventStarted(viewEvent);
 			});
 		}
 	},
