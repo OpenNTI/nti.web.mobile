@@ -246,7 +246,9 @@ export default React.createClass({
 		let body = this.getBodyParts() || [];
 		let {annotations, error, loading, page, pageSource, selectedDiscussions, style, className = ''} = this.state;
 		let pageId = this.getPageID();
-		let {discussions, noteId} = this.getPropsFromRoute();
+		let {discussions, discussionId} = this.getPropsFromRoute();
+
+		discussionId = discussionId && decodeFromURI(discussionId);
 
 		if (loading) {
 			return (<Loading/>);
@@ -265,7 +267,7 @@ export default React.createClass({
 
 				{discussions ? (
 
-					<Discussions page={page} itemId={noteId} filter={selectedDiscussions}/>
+					<Discussions page={page} itemId={discussionId} filter={selectedDiscussions}/>
 
 				) : (
 					<div className="content-body">

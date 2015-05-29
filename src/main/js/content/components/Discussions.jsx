@@ -10,11 +10,6 @@ import Item from './DiscussionItem';
 
 const Note = getModel('note');
 
-function getStore (props) {
-	let {page} = props;
-	return page && page.getUserDataStore();
-}
-
 export default React.createClass({
 	displayName: 'content:Discussions',
 	mixins: [
@@ -45,6 +40,12 @@ export default React.createClass({
 	},
 
 
+	getStore (props = this.props) {
+		let {page} = props;
+		return page && page.getUserDataStore();
+	},
+
+
 	componentDidMount () {
 		this.updateStore(this.props, true);
 	},
@@ -56,8 +57,8 @@ export default React.createClass({
 
 
 	updateStore (props, mounting) {
-		let store = getStore(this.props);
-		let nextStore = getStore(props);
+		let store = this.getStore();
+		let nextStore = this.getStore(props);
 		if (store && store !== nextStore) {
 			store.removeListener('load', this.onUserDataChange);
 		}
@@ -74,29 +75,29 @@ export default React.createClass({
 
 
 	onUserDataChange (store) {
-		let items, {filter} = this.props;
+		let items, item, {filter, itemId} = this.props;
 
 		if (store) {
 			items = [];
+			item = itemId && store.get(itemId);
 
-			for (let item of store) {
-				if (item instanceof Note && (!filter || filter.includes(item.getID()))) {
-					items.push(item);
+			for (let x of store) {
+				if (x instanceof Note && (!filter || filter.includes(x.getID()))) {
+					items.push(x);
 				}
 			}
 		}
 
-		this.setState({items});
+		this.setState({items, item});
 	},
 
 
 	render () {
 		let {state, props} = this;
-		let {items} = state;
-		let {itemId} = props;
+		let {items, item} = state;
 
-		return itemId ? (
-			<div>{itemId}</div>
+		return item ? (
+			<div>{item.getID()}</div>
 		) : (
 			<div className="discussions" {...props}>
 				<div className="list">

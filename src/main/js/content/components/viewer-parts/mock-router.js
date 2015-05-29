@@ -4,7 +4,7 @@ export default {
 
 	getInitialState  () {
 		let discussions = {discussions: true};
-		this.registerContentViewerSubRoute('/:pageId/discussions(/(:noteId))', discussions);
+		this.registerContentViewerSubRoute('/:pageId/discussions(/(:discussionId))', discussions);
 		this.registerContentViewerSubRoute('/:pageId(/)');
 	},
 
