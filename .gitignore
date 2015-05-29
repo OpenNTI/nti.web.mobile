@@ -7,3 +7,4 @@ node_modules
 src/main/resources/css
 src/main/resources/vendor
 env.json
+.update.sh
