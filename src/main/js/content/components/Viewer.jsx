@@ -4,7 +4,7 @@ import {RouterMixin} from 'react-router-component';
 
 import cx from 'classnames';
 
-import {decodeFromURI, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import guid from 'nti.lib.interfaces/utils/guid';
 
 
@@ -35,7 +35,7 @@ import Interactions from './viewer-parts/interaction';
 
 import BodyContent from './Content';
 import Gutter from './Gutter';
-import Discussions from './Discussions';
+import Discussions from './discussions';
 
 export default React.createClass({
 	displayName: 'content:Viewer',
@@ -243,12 +243,10 @@ export default React.createClass({
 
 
 	render () {
+		let pageId = this.getPageID();
 		let body = this.getBodyParts() || [];
 		let {annotations, error, loading, page, pageSource, selectedDiscussions, style, className = ''} = this.state;
-		let pageId = this.getPageID();
-		let {discussions, discussionId} = this.getPropsFromRoute();
-
-		discussionId = discussionId && decodeFromURI(discussionId);
+		let {discussions} = this.getPropsFromRoute();
 
 		if (loading) {
 			return (<Loading/>);
@@ -267,7 +265,7 @@ export default React.createClass({
 
 				{discussions ? (
 
-					<Discussions page={page} itemId={discussionId} filter={selectedDiscussions}/>
+					<Discussions page={page} filter={selectedDiscussions}/>
 
 				) : (
 					<div className="content-body">
@@ -322,7 +320,7 @@ export default React.createClass({
 		return Promise.resolve({
 			label: this.state.pageTitle,
 			ntiid: this.getPageID(),
-			href: this.makeHref(encodeForURI(this.getPageID()))
+			href: this.makeHref('')
 		});
 	}
 });

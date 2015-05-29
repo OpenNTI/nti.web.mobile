@@ -1,11 +1,31 @@
 const ROUTES = Symbol('Routes');
 
+
+const makeRoute = (path, extra) => ({props: Object.assign({ handler: 'div', path }, extra || {})});
+
 export default {
 
 	getInitialState  () {
-		let discussions = {discussions: true};
-		this.registerContentViewerSubRoute('/:pageId/discussions(/(:discussionId))', discussions);
-		this.registerContentViewerSubRoute('/:pageId(/)');
+		this.getRoutes().push(makeRoute('/:pageId(/)'));
+
+		this.registerContentViewerSubRoute('/discussions(/*)', {discussions: true});
+	},
+
+
+	componentWillMount () {
+
+		let {makeHref} = this;
+
+		this.makeHref = link => {
+			let {pageId} = this.getPropsFromRoute();
+			if (pageId) {
+				if (pageId !== this.props.rootId) {
+					link = `/${pageId}/${link}`;
+				}
+			}
+
+			return makeHref.call(this, link);
+		};
 	},
 
 
@@ -35,22 +55,42 @@ export default {
 	 * @private
 	 * @returns {Array} Route Objects
 	 */
-	getRoutes (/*props*/) {
-		return this[ROUTES] || [];
+	getRoutes () {
+		if (!this[ROUTES]) { this[ROUTES] = []; }
+		return this[ROUTES];
 	},
 
 
-	registerContentViewerSubRoute (route, extra) {
-		if (typeof route === 'string') {
-			route = {
-				props: Object.assign(extra || {}, {
-					handler: 'div',
-					path: route
-				})
-			};
+	registerContentViewerSubRoute (route, extra = {}) {
+		if (typeof route !== 'string') {
+			throw new Error('Invalid Argument');
 		}
+		let page = /^\/\:pageId/;
 
-		let set = this[ROUTES] = this[ROUTES] || [];
-		set.push(route);
+		let routes = [
+			makeRoute('/:pageId' + route, extra),
+			makeRoute(route, extra)
+		];
+
+		let s = o => o.props.path;
+
+		let set = this.getRoutes();
+
+		set.push(...routes);
+
+		//We have to ensure the '/:pageId' routes are last. And that the /:pageId(/) route is the last.
+		set.sort((a, b)=> {
+			a = s(a);
+			b = s(b);
+
+			let x = page.test(a);
+			let y = page.test(b);
+
+			if (x === y) {
+				return -a.localeCompare(b);
+			}
+
+			return x ? 1 : -1;
+		});
 	}
 };

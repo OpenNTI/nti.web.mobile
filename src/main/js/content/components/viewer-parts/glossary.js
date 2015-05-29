@@ -4,7 +4,7 @@ import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 export default {
 
 	getInitialState () {
-		this.registerContentViewerSubRoute('/:pageId/glossary/:glossaryId');
+		this.registerContentViewerSubRoute('/glossary/:glossaryId');
 	},
 
 

@@ -8,7 +8,7 @@ import DateTime from 'common/components/DateTime';
 import Panel from 'modeled-content/components/Panel';
 
 export default React.createClass({
-	displayName: 'content:DiscussionItem',
+	displayName: 'content:discussions:Item',
 
 	propTypes: {
 		item: React.PropTypes.object

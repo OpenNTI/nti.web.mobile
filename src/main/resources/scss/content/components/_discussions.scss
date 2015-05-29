@@ -28,6 +28,7 @@
 
 
 .discussion-item {
+	cursor: pointer;
 	display: block;
 	padding: 0.625rem;
 	padding-top: .3125rem;
@@ -69,6 +70,7 @@
 	}
 
 	.snippet {
+		cursor: pointer;
 		text-overflow: ellipsis;
 		word-wrap: break-word;
 		overflow: hidden;
