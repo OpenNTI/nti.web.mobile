@@ -205,7 +205,7 @@ export default {
 	proceedToPayment: 'Proceed to payment',
 	concurrentThanksHead: 'Thank you for your interest in concurrent enrollment.',
 	concurrentThanksBody: 'We\'ve received your contact information and a Concurrent Enrollment Counselor will ' +
-		'be contacting you shortly. In the mean time, please feel free to explore the <a href="http://www.ou.edu/content/go2/admissions/concurrent.html">Concurent Enrollment website</a> ' +
+		'be contacting you shortly. In the meantime, please feel free to explore the <a href="http://www.ou.edu/content/go2/admissions/concurrent.html">Concurent Enrollment website</a> ' +
 		'to learn more about the process.'
 
 
