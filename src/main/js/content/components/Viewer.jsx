@@ -221,6 +221,11 @@ export default React.createClass({
 	},
 
 
+	setDiscussionFilter (selectedDiscussions) {
+		this.setState({selectedDiscussions});
+	},
+
+
 	getBodyParts () {
 		let page = this.state.page;
 		if (page) {
@@ -239,9 +244,9 @@ export default React.createClass({
 
 	render () {
 		let body = this.getBodyParts() || [];
-		let {annotations, error, loading, page, pageSource, style, className = ''} = this.state;
+		let {annotations, error, loading, page, pageSource, selectedDiscussions, style, className = ''} = this.state;
 		let pageId = this.getPageID();
-		let {discussions} = this.getPropsFromRoute();
+		let {discussions, noteId} = this.getPropsFromRoute();
 
 		if (loading) {
 			return (<Loading/>);
@@ -260,7 +265,7 @@ export default React.createClass({
 
 				{discussions ? (
 
-					<Discussions page={page}/>
+					<Discussions page={page} itemId={noteId} filter={selectedDiscussions}/>
 
 				) : (
 					<div className="content-body">
@@ -281,7 +286,7 @@ export default React.createClass({
 
 						<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
 
-						<Gutter items={annotations} pageId={pageId}/>
+						<Gutter items={annotations} pageId={pageId} selectFilter={this.setDiscussionFilter}/>
 
 						{this.renderAssessmentSubmission()}
 					</div>

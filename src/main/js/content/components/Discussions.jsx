@@ -24,7 +24,11 @@ export default React.createClass({
 	propTypes: {
 		page: React.PropTypes.shape({
 			getUserDataStore: React.PropTypes.func
-		})
+		}),
+
+		itemId: React.PropTypes.string,
+
+		filter: React.PropTypes.arrayOf(React.PropTypes.string)
 	},
 
 
@@ -70,13 +74,13 @@ export default React.createClass({
 
 
 	onUserDataChange (store) {
-		let items;
+		let items, {filter} = this.props;
 
 		if (store) {
 			items = [];
 
 			for (let item of store) {
-				if (item instanceof Note) {
+				if (item instanceof Note && (!filter || filter.includes(item.getID()))) {
 					items.push(item);
 				}
 			}
@@ -89,8 +93,11 @@ export default React.createClass({
 	render () {
 		let {state, props} = this;
 		let {items} = state;
+		let {itemId} = props;
 
-		return (
+		return itemId ? (
+			<div>{itemId}</div>
+		) : (
 			<div className="discussions" {...props}>
 				<div className="list">
 					{!items ? ( <Loading/> ) :

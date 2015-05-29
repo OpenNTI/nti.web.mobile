@@ -8,7 +8,7 @@ import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-const pluck = (a, k) => a.map(x=> x[k]);
+const pluck = (a, k) => a && a.map(x=> x[k]);
 
 export default React.createClass({
 	displayName: 'content:AnnotationGutter',
@@ -17,7 +17,16 @@ export default React.createClass({
 	propTypes: {
 		pageId: React.PropTypes.string.isRequired,
 
-		items: React.PropTypes.object //annotation dictionary {[obj.id]: obj}
+		items: React.PropTypes.object, //annotation dictionary {[obj.id]: obj}
+
+		selectFilter: React.PropTypes.func
+	},
+
+
+	getDefaultProps () {
+		return {
+			selectFilter: () => {}
+		};
 	},
 
 
@@ -29,6 +38,7 @@ export default React.createClass({
 	componentDidMount () {
 		window.addEventListener('resize', this.handleResize);
 		this.resolveBins(this.props.items);
+		this.props.selectFilter(void 0);//reset
 	},
 
 	componentWillUnmount () {
@@ -151,9 +161,8 @@ export default React.createClass({
 			}
 		}
 
-		let bin = this.getActiveBin(active);
-		console.debug('Filter IDs', pluck(bin, 'id'));
-
+		let bin = pluck(this.getActiveBin(active), 'id');
 		this.setState({active});
+		this.props.selectFilter(bin);
 	}
 });
