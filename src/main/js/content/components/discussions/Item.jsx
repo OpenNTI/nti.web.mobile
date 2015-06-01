@@ -17,7 +17,7 @@ export default React.createClass({
 
 	render () {
 		let {item} = this.props;
-		let {body, creator, title} = item;
+		let {body, creator, title, replyCount} = item;
 		let date = item.getLastModified();
 		let id = encodeForURI(item.getID());
 
@@ -28,7 +28,7 @@ export default React.createClass({
 				<DisplayName username={creator}/>
 				<Panel className="snippet" body={preview} previewMode/>
 				<div className="footer">
-					<span>0 Comments</span>
+					<span>{replyCount} Comments</span>
 					<DateTime date={date} relative/>
 				</div>
 			</a>
