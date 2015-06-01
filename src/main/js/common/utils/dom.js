@@ -255,18 +255,15 @@ export function sanitizeExternalContentForInput (html) {
 
 
 export function enforceNumber (e) {
-	function between(key, lower, upper) {
-		return lower <= key && key <= upper;
-	}
 
 	let input = e.target,
 		maxLength = parseInt(input.getAttribute('size'), 10) || -1,
 		tooLong = (input.value || '').length + 1 > maxLength,
 
 		letter = e.charCode || 13,
-		isArrow = between(letter, 37, 40),//left arrow, and down arrow
-		isNumber = between(letter, 48, 57) || between(letter, 95, 105),//numbers across the top and num pad
-		isAllowedCtrl = between(letter, 8, 9) || letter === 13, //backspace, tab, or enter
+		isArrow = between.inclusive(letter, 37, 40),//left arrow, and down arrow
+		isNumber = between.inclusive(letter, 48, 57) || between.inclusive(letter, 95, 105),//numbers across the top and num pad
+		isAllowedCtrl = between.inclusive(letter, 8, 9) || letter === 13, //backspace, tab, or enter
 		hasSelection = Math.abs(input.selectionStart - input.selectionEnd) !== 0,
 		ctrlPressed = e.ctrlKey; //ext maps the metaKey to ctrlKey
 
