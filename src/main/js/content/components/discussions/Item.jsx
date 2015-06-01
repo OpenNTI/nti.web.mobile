@@ -5,7 +5,12 @@ import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import DisplayName from 'common/components/DisplayName';
 import DateTime from 'common/components/DateTime';
 
+import {scoped} from 'common/locale';
+
 import Panel from 'modeled-content/components/Panel';
+
+
+const t = scoped('CONTENT.DISCUSSIONS');
 
 export default React.createClass({
 	displayName: 'content:discussions:Item',
@@ -28,7 +33,7 @@ export default React.createClass({
 				<DisplayName username={creator}/>
 				<Panel className="snippet" body={preview} previewMode/>
 				<div className="footer">
-					<span>{replyCount} Comments</span>
+					<span>{t('replies', {count: replyCount})}</span>
 					<DateTime date={date} relative/>
 				</div>
 			</a>
