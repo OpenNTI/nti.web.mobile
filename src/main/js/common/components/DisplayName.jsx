@@ -1,5 +1,10 @@
 import React from 'react';
+
+import cx from 'classnames';
+
 import {getService} from '../utils';
+
+import t from 'common/locale';
 
 /**
  * This DisplayName component can use the full User instance if you have it.
@@ -13,8 +18,13 @@ export default React.createClass({
 	displayName: 'DisplayName',
 
 	propTypes: {
-		username: React.PropTypes.string,
-		tag: React.PropTypes.string
+		className: React.PropTypes.string,
+
+		localeKey: React.PropTypes.string,
+
+		tag: React.PropTypes.string,
+
+		username: React.PropTypes.string.isRequired
 	},
 
 	getInitialState () {
@@ -33,15 +43,25 @@ export default React.createClass({
 	},
 
 	render () {
-		let Tag = this.props.tag || 'span';
-		let displayName = this.state.displayName;
+		let {className, localeKey, username, tag = 'address'} = this.props;
+		let {displayName} = this.state;
+		let Tag = tag;
 
 		let props = Object.assign({
-			'data-for': this.props.username,
-			className: 'username'
+			className: cx('username', className),
+			children: displayName
 		}, this.props);
 
-		return <Tag {...props}>{displayName}</Tag>;
+		if (localeKey) {
+			let name = React.renderToStaticMarkup(<a rel="author" className="username">{displayName}</a>);
+
+			Object.assign(props, {
+				children: void 0,
+				dangerouslySetInnerHTML: {'__html': t(localeKey, {name})}
+			});
+		}
+
+		return <Tag {...props} rel="author" data-for={username}/>;
 	}
 });
 
