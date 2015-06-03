@@ -1,0 +1,79 @@
+
+.author-info {
+	position: relative;
+	overflow: hidden;
+
+	.avatar {
+		float: left;
+		width: 60px;
+		height: 60px;
+		border-radius: 6px;
+		margin-top: 10px;
+	}
+
+	.meta {
+		// margin-top: 0;
+		// position: relative;
+		margin-left: 70px;
+		font-size: 0.875rem;
+	}
+
+	.name-wrapper {
+		position: relative;
+
+		time::after {
+			text-decoration: none;
+			position: static;
+			content: '\00B7';
+			padding: 0 0.5em;
+			background: none;
+		}
+
+		.tinyloader {
+			display: inline-block;
+			vertical-align: bottom;
+		}
+	}
+
+	address {display: inline;}
+
+	a[rel=author] {
+		margin-right: 0.3125rem;
+		display: inline-block;
+		max-width: 12.5rem;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		vertical-align: bottom;
+	}
+
+}
+
+.discussion-detail {
+	border-top: 1px solid $border-grey;
+	position: relative;
+	padding: 0 0.75rem;
+
+	.context {
+		position: relative;
+		margin: 1.25rem 0;
+		padding: 1.25rem;
+
+		background: #fff;
+		box-shadow: 0 .0625rem .1875rem 0 rgba(0,0,0,0.2);
+
+		clear: both;
+		overflow-x: hidden;
+		overflow-y: auto;
+		max-height: 30em;
+	}
+
+	.whiteboard {
+		max-width: 200px;
+		margin: 0.1875rem;
+		margin-bottom: 0.5rem;
+		border: 1px solid $tertiary-grey-alt;
+		box-shadow: 0.125rem 0.1875rem 0.0625rem 0 rgba(0,0,0,0.13);
+		border-radius: 1px;//iOS fix for box-shadow
+	}
+}

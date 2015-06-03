@@ -57,8 +57,9 @@
 	}
 
 	.username {
-		@include ellipse();
 		text-transform: uppercase;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		overflow: hidden;
 		color: $primary-blue;
 		line-height: 0.9375;

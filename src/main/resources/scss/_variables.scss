@@ -97,6 +97,11 @@ $tabs-navigation-font-color: $primary-grey;
 %x-close {background-image: url(../images/icons/close.png);}
 %x-light {background-image: url(../images/icons/light-x.png);}
 
+%icon-bookmark {background-image: url(../images/icons/bookmark.png);}
+%icon-bookmark-active {background-image: url(../images/icons/bookmark_active.png);}
+%icon-like {background-image: url(../images/icons/like.png);}
+%icon-like-active {background-image: url(../images/icons/like_active.png);}
+
 %icon-assignment-due {background-image: url(../images/icons/assignment_due.png);}
 %icon-assignment-late {background-image: url(../images/icons/assignment_late.png);}
 %icon-assignment-ontime {background-image: url(../images/icons/assignment_ontime.png);}
@@ -179,13 +184,6 @@ $tabs-navigation-font-color: $primary-grey;
 	filter: blur(8px);
 }
 
-
-@mixin ellipse{
-	white-space: nowrap;
-	-ms-text-overflow: ellipsis;
-	-o-text-overflow: ellipsis;
-	text-overflow: ellipsis;
-}
 
 @mixin vertical-align {
   position: relative;

@@ -6,17 +6,19 @@ import Avatar from 'common/components/Avatar';
 import ContextSender from 'common/mixins/ContextSender';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
+import LuckyCharms from 'common/components/LuckyCharms';
+import SharedWithList from 'common/components/SharedWithList';
+
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-// import {scoped} from 'common/locale';
 
 import Panel from 'modeled-content/components/Panel';
 
+// import {scoped} from 'common/locale';
 // const t = scoped('CONTENT.DISCUSSIONS');
 
-const LuckyCharms = 'div'; //TODO: create and import new widgets
-const SharedWithList = 'div';
-const ItemActions = 'div';
+import Context from './Context';
+import ItemActions from './ItemActions';
 
 export default React.createClass({
 	displayName: 'content:discussions:Detail',
@@ -80,13 +82,15 @@ export default React.createClass({
 					<Avatar username={creator}/>
 					<div className="meta">
 						<h1>{title}</h1>
-						<DisplayName username={creator} localeKey="CONTENT.DISCUSSIONS.postedBy"/>
-						<DateTime date={date} relative/>
-						<SharedWithList item={item}/>
+						<div className="name-wrapper">
+							<DisplayName username={creator} localeKey="CONTENT.DISCUSSIONS.postedBy"/>
+							<DateTime date={date} relative/>
+							<SharedWithList item={item}/>
+						</div>
 					</div>
 				</div>
 
-				<div className="context">TODO: some context here</div>
+				<Context item={item}/>
 
 				<Panel body={body}/>
 

@@ -173,7 +173,8 @@
 					text-align: center;
 					margin-left: 5px;
 					overflow: hidden;
-					// @include ellipse;
+					// white-space: nowrap;
+					// text-overflow: ellipsis;
 				}
 			}
 		}
