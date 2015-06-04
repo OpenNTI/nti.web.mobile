@@ -156,7 +156,6 @@ exports = module.exports = [
 		},
 
 		cache: true,
-		debug: true,
 		devtool: 'source-map',
 
 		entry: '<%= pkg.src %>/js/index.js',
@@ -209,7 +208,6 @@ exports = module.exports = [
 		name: 'server-side rendering',
 		entry: '<%= pkg.src %>/../server/lib/page.js',
 		target: 'node',
-		bail: true,
 		output: {
 			path: '<%= pkg.stage %>/server/node_modules/page.generated/',
 			filename: 'index.js',
