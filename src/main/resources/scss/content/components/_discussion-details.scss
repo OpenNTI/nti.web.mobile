@@ -54,6 +54,12 @@
 	position: relative;
 	padding: 0 0.75rem;
 
+	.meta {
+		h1.title {
+			margin: 0;
+		}
+	}
+
 	.context {
 		position: relative;
 		margin: 1.25rem 0;

@@ -70,32 +70,42 @@ export default React.createClass({
 
 	render () {
 		let {item} = this.props;
-		// let {children} = this.state;
 		let {body, creator, title} = item;
 		let date = item.getLastModified();
 
 
 		return (
 			<div className="discussion-detail">
-				<LuckyCharms item={item}/>
-				<div className="author-info">
-					<Avatar username={creator}/>
-					<div className="meta">
-						<h1>{title}</h1>
-						<div className="name-wrapper">
-							<DisplayName username={creator} localeKey="CONTENT.DISCUSSIONS.postedBy"/>
-							<DateTime date={date} relative/>
-							<SharedWithList item={item}/>
+				<div className="root">
+					<LuckyCharms item={item}/>
+					<div className="author-info">
+						<Avatar username={creator}/>
+						<div className="meta">
+							<h1 className="title">{title}</h1>
+							<div className="name-wrapper">
+								<DisplayName username={creator} localeKey="CONTENT.DISCUSSIONS.postedBy"/>
+								<DateTime date={date} relative/>
+								<SharedWithList item={item}/>
+							</div>
 						</div>
 					</div>
+
+					<Context item={item}/>
+
+					<Panel body={body}/>
+
+					<ItemActions item={item} isTopLevel/>
 				</div>
-
-				<Context item={item}/>
-
-				<Panel body={body}/>
-
-				<ItemActions item={item} isTopLevel/>
+				{this.renderReplies()}
 			</div>
+		);
+	},
+
+
+	renderReplies () {
+		// let {loading} = this.state;
+		return (
+			<div/>
 		);
 	}
 });
