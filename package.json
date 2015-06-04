@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "NextThought web application",
   "author": "NextThought",
-  "license": "private",
+
   "repository": {
     "type": "git",
     "url": "ssh://repos.nextthought.com/nti.web.mobile"
@@ -17,7 +17,6 @@
   "stage": "./stage",
   "public_root": "/mobile/",
   "scripts": {
-    "prepublish": "npm dedupe react babel babel-core babel-runtime",
     "test": "grunt test"
   },
   "main": "./src/server/index.js",
