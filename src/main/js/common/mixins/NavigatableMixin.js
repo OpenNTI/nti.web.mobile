@@ -50,7 +50,7 @@ export default {
 	},
 
 
-	navigate (path, cb) {
+	navigate (path, navigation, cb) {
 		let parent = /^\.\.\//;
 		let n = this.getNavigable();
 		let p;
@@ -65,6 +65,6 @@ export default {
 
 		if (p) { path = '/' + path; }
 
-		return n.navigate(path, cb);
+		return n.navigate(path, navigation, cb);
 	}
 };
