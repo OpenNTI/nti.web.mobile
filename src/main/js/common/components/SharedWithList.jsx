@@ -2,6 +2,7 @@ import React from 'react';
 
 import Communities from '../mixins/CommunityAccessor';
 
+import DisplayName from './DisplayName';
 import Loading from './TinyLoader';
 
 const isEmpty = x => !Array.isArray(x) || x.length === 0;
@@ -16,6 +17,11 @@ export default React.createClass({
 	propTypes: {
 		item: React.PropTypes.object.isRequired,
 
+		/**
+		 * The User Data scope, it should provide a getPublicScope method.
+		 *
+		 * @type {OutlineNode|Enrollment|Instance|Bundle|Package}
+		 */
 		scope: React.PropTypes.shape({
 			getPublicScope: React.PropTypes.func
 		})
@@ -33,7 +39,7 @@ export default React.createClass({
 		}
 
 		let {scope} = this.props;
-		let {communities} = this.state;
+		let {communities = []} = this.state;
 
 		let publicScope = (scope && scope.getPublicScope()) || [];
 
@@ -47,12 +53,15 @@ export default React.createClass({
 
 
 	render () {
+		let {item} = this.props;
 		let {loading} = this.state;
+		let {sharedWith} = item;
 
-		return loading ? (
-			<Loading />
-		) : (
-			<span>List</span>
-		);
+		let state = this.isPublic(sharedWith) ? 'Public' : sharedWith.length ? 'Private' : 'Only Me';
+
+		let names = loading ? [] : [state].concat(sharedWith.map(x => <DisplayName username={x}/>));
+
+		return loading ? ( <Loading /> ) :
+			React.createElement('span', {className: 'shared-with-list'}, ...names);
 	}
 });

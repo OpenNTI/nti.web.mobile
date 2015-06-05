@@ -1,0 +1,9 @@
+.shared-with-list {
+	span, address {
+		color: $primary-blue;
+
+		&:not(:last-child)::after {
+			content: ', ';
+		}
+	}
+}
