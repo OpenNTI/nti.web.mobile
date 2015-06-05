@@ -1,30 +1,18 @@
 import React from 'react';
 
-import Communities from '../mixins/CommunityAccessor';
-
 import DisplayName from './DisplayName';
-import Loading from './TinyLoader';
 
 const isEmpty = x => !Array.isArray(x) || x.length === 0;
 
 const difference = (a, b) => a.filter(x=> !b.includes(x));
 
+const EVERYONE = 'everyone';
 
 export default React.createClass({
 	displayName: 'SharedWithList',
-	mixins: [Communities],
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired,
-
-		/**
-		 * The User Data scope, it should provide a getPublicScope method.
-		 *
-		 * @type {OutlineNode|Enrollment|Instance|Bundle|Package}
-		 */
-		scope: React.PropTypes.shape({
-			getPublicScope: React.PropTypes.func
-		})
+		item: React.PropTypes.object.isRequired
 	},
 
 
@@ -38,30 +26,18 @@ export default React.createClass({
 			return false;
 		}
 
-		let {scope} = this.props;
-		let {communities = []} = this.state;
-
-		let publicScope = (scope && scope.getPublicScope()) || [];
-
-		if (!isEmpty(publicScope)) {
-			return isEmpty(difference(publicScope, sharedWith));
-		}
-
-		//if communities is a subset of sharedWithIds we call it public
-		return isEmpty(difference(communities.map(x => x && x.getID()), sharedWith));
+		return sharedWith.includes(EVERYONE);
 	},
 
 
 	render () {
 		let {item} = this.props;
-		let {loading} = this.state;
 		let {sharedWith} = item;
 
 		let state = this.isPublic(sharedWith) ? 'Public' : sharedWith.length ? 'Private' : 'Only Me';
 
-		let names = loading ? [] : [state].concat(sharedWith.map(x => <DisplayName username={x}/>));
+		let names = [state].concat(sharedWith.filter(x => x !== EVERYONE).map(x => <DisplayName username={x}/>));
 
-		return loading ? ( <Loading /> ) :
-			React.createElement('span', {className: 'shared-with-list'}, ...names);
+		return React.createElement('span', {className: 'shared-with-list'}, ...names);
 	}
 });
