@@ -6,6 +6,8 @@ import {isNTIID} from 'nti.lib.interfaces/utils/ntiids';
 
 import urlJoin from 'nti.lib.interfaces/utils/urljoin';
 
+const DEFAULT = { avatar: BLANK_AVATAR };
+
 export default React.createClass({
 	displayName: 'Avatar',
 
@@ -17,9 +19,7 @@ export default React.createClass({
 
 
 	getInitialState () {
-		return {
-			avatar: BLANK_AVATAR
-		};
+		return DEFAULT;
 	},
 
 	componentWillMount () { fillIn(this, this.props); },
@@ -35,7 +35,7 @@ export default React.createClass({
 			return;
 		}
 		console.log('Failed to load avatar: %s', React.findDOMNode(this).src);
-		this.setState({ avatar: BLANK_AVATAR });
+		this.setState(DEFAULT);
 	},
 
 
@@ -79,9 +79,11 @@ function fillIn (cmp, props) {
 		promise = resolve(cmp, props).then(obj=>obj.avatarURL);
 	}
 
-	promise.then(avatar => {
-		if (cmp.isMounted()) {
-			cmp.setState({avatar});
-		}
-	});
+	promise
+		.catch(()=> BLANK_AVATAR)
+		.then(avatar => {
+			if (cmp.isMounted()) {
+				cmp.setState({avatar});
+			}
+		});
 }

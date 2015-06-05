@@ -61,7 +61,7 @@ export default React.createClass({
 			});
 		}
 
-		return <Tag {...props} rel="author" data-for={username}/>;
+		return <Tag {...props} rel="author" data-for={username || 'unknown'}/>;
 	}
 });
 
@@ -72,7 +72,7 @@ export function resolve (cmp, props) {
 	let promise;
 
 	if (!username && !user) {
-		promise = Promise.reject();
+		promise = Promise.reject('No User or no Username');
 	}
 
 	promise = promise || (user && Promise.resolve(user));
