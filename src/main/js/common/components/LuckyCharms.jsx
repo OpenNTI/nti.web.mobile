@@ -16,7 +16,7 @@ export default React.createClass({
 		return (
 			<div className="charms">
 				<Like item={item}/>
-				<Bookmark item={item}/>
+				{item.isTopLevel() && ( <Bookmark item={item}/> )}
 			</div>
 		);
 	}
