@@ -26,15 +26,6 @@ export default React.createClass({
 			getUserDataStore: React.PropTypes.func
 		}),
 
-		/**
-		 * The User Data scope, it should provide a getPublicScope method.
-		 *
-		 * @type {Enrollment|Instance|Bundle|Package}
-		 */
-		scope: React.PropTypes.shape({
-			getPublicScope: React.PropTypes.func
-		}).isRequired,
-
 		itemId: React.PropTypes.string,
 
 		filter: React.PropTypes.arrayOf(React.PropTypes.string)
@@ -111,7 +102,7 @@ export default React.createClass({
 	render () {
 		let {state, props} = this;
 		let {items, item, pageSource} = state;
-		let {itemId, scope} = props;
+		let {itemId} = props;
 
 		props = Object.assign({}, props);
 		delete props.itemId;
@@ -122,7 +113,7 @@ export default React.createClass({
 		}
 
 		return item ? (
-			<Detail item={item} pageSource={pageSource} scope={scope}/>
+			<Detail item={item} pageSource={pageSource}/>
 		) : (
 			<div className="discussions" {...props}>
 				<div className="list">

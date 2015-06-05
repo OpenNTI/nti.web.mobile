@@ -33,10 +33,6 @@ export default React.createClass({
 	propTypes: {
 		pageSource: React.PropTypes.object,
 
-		scope: React.PropTypes.shape({
-			getPublicScope: React.PropTypes.func
-		}),
-
 		item: React.PropTypes.object
 	},
 
@@ -76,7 +72,7 @@ export default React.createClass({
 
 
 	render () {
-		let {item, scope} = this.props;
+		let {item} = this.props;
 		let {body, creator, title} = item;
 		let date = item.getLastModified();
 
@@ -92,7 +88,7 @@ export default React.createClass({
 							<div className="name-wrapper">
 								<DisplayName username={creator} localeKey="CONTENT.DISCUSSIONS.postedBy"/>
 								<DateTime date={date} relative/>
-								<SharedWithList item={item} scope={scope}/>
+								<SharedWithList item={item}/>
 							</div>
 						</div>
 					</div>
