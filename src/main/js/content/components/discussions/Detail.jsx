@@ -6,19 +6,22 @@ import Avatar from 'common/components/Avatar';
 import ContextSender from 'common/mixins/ContextSender';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
+import Err from 'common/components/Error';
+import Loading from 'common/components/LoadingInline';
 import LuckyCharms from 'common/components/LuckyCharms';
 import SharedWithList from 'common/components/SharedWithList';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 
-import Panel from 'modeled-content/components/Panel';
+import Body from 'modeled-content/components/Panel';
 
 // import {scoped} from 'common/locale';
 // const t = scoped('CONTENT.DISCUSSIONS');
 
 import Context from './Context';
 import ItemActions from './ItemActions';
+import Reply from './Panel';
 
 export default React.createClass({
 	displayName: 'content:discussions:Detail',
@@ -31,11 +34,6 @@ export default React.createClass({
 		pageSource: React.PropTypes.object,
 
 		item: React.PropTypes.object
-	},
-
-
-	componentWillMount () {
-
 	},
 
 
@@ -64,7 +62,12 @@ export default React.createClass({
 		this.setPageSource(pageSource, item.getID());
 
 		this.setState({loading: true});
-		item.getReplies().then(x=> this.setState({loading: false, children: x}));
+		item.getReplies()
+			.then(
+				x => ({children: x}),
+				x => ({error: x})
+			)
+			.then(x => this.setState(Object.assign({loading: false}, x)));
 	},
 
 
@@ -77,10 +80,10 @@ export default React.createClass({
 		return (
 			<div className="discussion-detail">
 				<div className="root">
-					<LuckyCharms item={item}/>
 					<div className="author-info">
 						<Avatar username={creator}/>
 						<div className="meta">
+							<LuckyCharms item={item}/>
 							<h1 className="title">{title}</h1>
 							<div className="name-wrapper">
 								<DisplayName username={creator} localeKey="CONTENT.DISCUSSIONS.postedBy"/>
@@ -92,7 +95,7 @@ export default React.createClass({
 
 					<Context item={item}/>
 
-					<Panel body={body}/>
+					<Body body={body}/>
 
 					<ItemActions item={item} isTopLevel/>
 				</div>
@@ -103,9 +106,17 @@ export default React.createClass({
 
 
 	renderReplies () {
-		// let {loading} = this.state;
-		return (
-			<div/>
+		let {loading=true, error, children=[]} = this.state || {};
+		return loading ? (
+			<Loading />
+		) : error ? (
+			<Err error={error}/>
+		) : (
+			children.map(x=> (
+
+				<Reply item={x} key={x.getID()}/>
+
+			))
 		);
 	}
 });
