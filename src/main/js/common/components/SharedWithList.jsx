@@ -31,12 +31,20 @@ export default React.createClass({
 
 
 	render () {
-		let {item} = this.props;
-		let {sharedWith} = item;
+		let {sharedWith} = this.props.item;
 
-		let state = this.isPublic(sharedWith) ? 'Public' : sharedWith.length ? 'Private' : 'Only Me';
+		let state = this.isPublic(sharedWith) ?
+			'Public' :
+			sharedWith.length ?
+				'Private' :
+				'Only Me';
 
-		let names = [state].concat(sharedWith.filter(x => x !== EVERYONE).map(x => <DisplayName username={x}/>));
+		let names = [state].concat(
+				sharedWith
+					.filter(x => x !== EVERYONE)
+					.map(x =>
+						<DisplayName username={x}/>
+					));
 
 		return React.createElement('span', {className: 'shared-with-list'}, ...names);
 	}
