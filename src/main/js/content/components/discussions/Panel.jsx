@@ -4,7 +4,7 @@ import Avatar from 'common/components/Avatar';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 import Err from 'common/components/Error';
-import Loading from 'common/components/LoadingInline';
+import Loading from 'common/components/TinyLoader';
 import LuckyCharms from 'common/components/LuckyCharms';
 
 import Body from 'modeled-content/components/Panel';
