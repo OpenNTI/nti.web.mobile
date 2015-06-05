@@ -33,7 +33,7 @@ export default React.createClass({
 				<div className="arrow-tab"><div className="arrow-right"/></div>
 				<Avatar username={username}/>
 				<div className="meta">
-					<DisplayName username={username}/>
+					<DisplayName username={username} tag="span"/>
 				</div>
 				<div className="actions">
 					{children}
