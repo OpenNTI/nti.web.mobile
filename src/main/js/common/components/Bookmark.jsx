@@ -28,7 +28,7 @@ export default React.createClass({
 	render () {
 		let {item} = this.props;
 
-		let cls = cx('favorite', {
+		let cls = cx('bookmark', {
 			active: item.hasLink('unfavorite')
 		});
 
