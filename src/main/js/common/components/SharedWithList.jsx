@@ -12,6 +12,19 @@ export default React.createClass({
 	displayName: 'SharedWithList',
 
 	propTypes: {
+
+		/**
+		 * Sometimes you just want the first entity and a remainder count. Ex:
+		 *
+		 *  Shared With:
+		 *  	"Johny, and 42 others"
+		 *
+		 * This prop turns that format on.
+		 *
+		 * @type {boolean}
+		 */
+		short: React.PropTypes.bool,
+
 		item: React.PropTypes.object.isRequired
 	},
 
@@ -31,7 +44,10 @@ export default React.createClass({
 
 
 	render () {
-		let {sharedWith=[]} = this.props.item;
+		let {item/*, short*/} = this.props;
+		let {sharedWith=[]} = item;
+		//TODO: implement short format.
+
 
 		let state = this.isPublic(sharedWith) ?
 			'Public' :
