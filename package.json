@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "NextThought web application",
   "author": "NextThought",
-  "license": "private",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "ssh://repos.nextthought.com/nti.web.mobile"
