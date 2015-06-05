@@ -45,7 +45,7 @@ export default React.createClass({
 	render () {
 		let {className, localeKey, username, tag} = this.props;
 		let {displayName} = this.state;
-		let Tag = tag || (localeKey ? 'address' : 'a');
+		let Tag = tag || (localeKey ? 'address' : 'span');
 
 		let props = Object.assign({
 			className: cx('username', className),
