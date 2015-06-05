@@ -31,17 +31,17 @@ export default React.createClass({
 
 
 	render () {
-		let {sharedWith} = this.props.item;
+		let {sharedWith=[]} = this.props.item;
 
 		let state = this.isPublic(sharedWith) ?
 			'Public' :
 			sharedWith.length ?
-				'Private' :
+				'' :
 				'Only Me';
 
-		let names = [state].concat(
+		let names = (state ? [state] : []).concat(
 				sharedWith
-					.filter(x => x !== EVERYONE)
+					.filter(x => x && x !== EVERYONE)
 					.map(x =>
 						<DisplayName username={x}/>
 					));
