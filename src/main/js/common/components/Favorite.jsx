@@ -5,7 +5,7 @@ import cx from 'classnames';
 import ItemChanges from '../mixins/ItemChanges';
 
 export default React.createClass({
-	displayName: 'Bookmark',
+	displayName: 'Favorite',
 	mixins: [ItemChanges],
 
 	propTypes: {
@@ -28,7 +28,7 @@ export default React.createClass({
 	render () {
 		let {item} = this.props;
 
-		let cls = cx('bookmark', {
+		let cls = cx('favorite', {
 			active: item.hasLink('unfavorite')
 		});
 

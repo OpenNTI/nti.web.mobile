@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Bookmark from './Bookmark';
+import Favorite from './Favorite';
 import Like from './Like';
 
 export default React.createClass({
@@ -16,7 +16,7 @@ export default React.createClass({
 		return (
 			<div className="charms">
 				<Like item={item}/>
-				{item.isTopLevel() && ( <Bookmark item={item}/> )}
+				{item.isTopLevel() && ( <Favorite item={item}/> )}
 			</div>
 		);
 	}

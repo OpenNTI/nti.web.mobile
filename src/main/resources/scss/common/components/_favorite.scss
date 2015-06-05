@@ -1,5 +1,5 @@
 
-.bookmark {
+.favorite {
 	position: relative;
 	display: inline-block;
 	margin: 0 10px 0 0;
@@ -10,7 +10,7 @@
 	vertical-align: top;
 
 	&::after {
-		@extend %icon-bookmark;
+		@extend %icon-favorite;
 		content: '';
 		overflow: hidden;
 		position: absolute;
@@ -21,6 +21,6 @@
 	}
 
 	&.active::after {
-		@extend %icon-bookmark-active;
+		@extend %icon-favorite-active;
 	}
 }
