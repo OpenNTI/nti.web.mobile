@@ -16,10 +16,6 @@ import ContextSender from 'common/mixins/ContextSender';
 
 import Pager from 'common/components/Pager';
 
-
-import {getWidget} from './widgets';
-
-
 import Store from '../Store';
 import {loadPage} from '../Actions';
 import PageDescriptor from '../PageDescriptor';
@@ -71,7 +67,6 @@ export default React.createClass({
 	getResetState () {
 		return {
 			loading: true,
-			pageWidgets: {},
 			page: null,
 			pageSource: null
 		};
@@ -92,50 +87,11 @@ export default React.createClass({
 
 	componentWillUnmount () {
 		this.resourceUnloaded();
-		this.cleanupWidgets();
-	},
-
-
-	componentDidUpdate () {
-		//See if we need to re-mount/render our components...
-		let widgets = this.getPageWidgets();
-
-		if (widgets && this.refs.content) {
-			// console.debug('Content View: Did Update... %o', widgets);
-
-			for(let id of Object.keys(widgets)) {
-				let el = document.getElementById(id);
-				let w = widgets[id];
-				if (el && !el.hasAttribute('mounted')) {
-					// console.debug('Content View: Mounting Widget...');
-					try {
-						w = React.render(w, el);
-						el.setAttribute('mounted', 'true');
-					} catch (e) {
-						console.error('A content widget blew up while rendering: %s', e.stack || e.message || e);
-					}
-				}
-			}
-		}
 	},
 
 
 	componentWillReceiveProps (props) {
 		this.getDataIfNeeded(props);
-	},
-
-
-	cleanupWidgets () {
-		//Cleanup our components...
-		let widgets = this.getPageWidgets();
-
-		for(let id of Object.keys(widgets)) {
-			let el = document.getElementById(id);
-			if (el) {
-				React.unmountComponentAtNode(el);
-				el.removeAttribute('mounted');
-			}
-		}
 	},
 
 
@@ -146,7 +102,6 @@ export default React.createClass({
 		let initial = this.props === props;
 
 		if (initial || newPage || newRoot) {
-			this.cleanupWidgets();
 			this.setState(
 				Object.assign(
 					{ currentPage: newPageId },
@@ -168,31 +123,6 @@ export default React.createClass({
 	getPageID (props = this.props) {
 		let h = this.getPropsFromRoute(props);
 		return decodeFromURI(h.pageId || props.rootId);
-	},
-
-
-	getPageWidgets () {
-		let o = this.state.pageWidgets;
-		let id = this.getPageID();
-		if (o && !o[id]) {
-			//console.debug('Content View: Creating bin for PageWidgets for %s', id);
-			o[id] = {};
-		}
-		return o && o[id];
-	},
-
-
-	createWidget (widgetData) {
-		let widgets = this.getPageWidgets();
-		if (!widgets[widgetData.guid]) {
-			// console.debug('Content View: Creating widget for %s', widgetData.guid);
-			widgets[widgetData.guid] = getWidget(
-				widgetData,
-				this.state.page,
-				Object.assign({}, this.props, {
-					contextResolver: this.resolveContext
-				}));
-		}
 	},
 
 
@@ -226,14 +156,6 @@ export default React.createClass({
 	},
 
 
-	getBodyParts () {
-		let page = this.state.page;
-		if (page) {
-			return page.getBodyParts();
-		}
-	},
-
-
 	getPageStyles () {
 		let page = this.state.page;
 		if (page) {
@@ -244,7 +166,6 @@ export default React.createClass({
 
 	render () {
 		let pageId = this.getPageID();
-		let body = this.getBodyParts() || [];
 		let {annotations, error, loading, page, pageSource, selectedDiscussions, style, className = ''} = this.state;
 		let {discussions} = this.getPropsFromRoute();
 
@@ -276,9 +197,8 @@ export default React.createClass({
 						<BodyContent id="NTIContent" ref="content"
 							className="nti-content-panel"
 							onClick={this.onContentClick}
-							data-ntiid={pageId}
-							data-page-ntiid={pageId}
-							dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>
+							pageId={pageId}
+							page={page}/>
 
 						{this.renderAssessmentFeedback()}
 
@@ -293,18 +213,6 @@ export default React.createClass({
 				)}
 			</div>
 		);
-	},
-
-
-	buildBody (part) {
-
-		if (typeof part === 'string') {
-			return part;
-		}
-
-		this.createWidget(part);
-
-		return `<widget id="${part.guid}"><error>If this is still visible, something went wrong.</error></widget>`;
 	},
 
 
