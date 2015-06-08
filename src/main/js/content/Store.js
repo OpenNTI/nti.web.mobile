@@ -29,8 +29,9 @@ class Store extends StorePrototype {
 
 	[SetData] (payload) {
 		let descriptor = payload.action.response;
-		this[data][descriptor.getID()] = descriptor;
-		this.emitChange({type: PAGE_LOADED, ntiid: payload.ntiid});
+		let ntiid = descriptor.getID();
+		this[data][ntiid] = descriptor;
+		this.emitChange({type: PAGE_LOADED, ntiid});
 	}
 
 
