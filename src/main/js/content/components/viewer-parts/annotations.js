@@ -1,11 +1,11 @@
 import buffer from 'nti.lib.interfaces/utils/function-buffer';
 
-import Highlight from './Highlight';
-import Note from './Note';
+import Highlight from '../annotations/Highlight';
+import Note from '../annotations/Note';
 
 const ANNOTATION_TYPES = [Highlight, Note];
 
-function select (item) {
+export function select (item) {
 	for (let type of ANNOTATION_TYPES) {
 		if (!type.handles) {
 			console.warn('Annotation missing handles static method: ', type);
