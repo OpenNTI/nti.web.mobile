@@ -1,10 +1,16 @@
 import React from 'react';
 
+import {declareCustomElement} from 'common/utils/dom';
+
 import {getWidget} from './widgets';
 
 function getComparable (o) {
 	return o.page;
 }
+
+declareCustomElement('error');
+declareCustomElement('nti-content');
+declareCustomElement('widget');
 
 export default React.createClass({
 	displayName: 'content:Viewer:BodyContent',
@@ -139,7 +145,7 @@ export default React.createClass({
 				{styles.map((css, i) =>
 					<style scoped type="text/css" key={i} dangerouslySetInnerHTML={{__html: css}}/>
 				)}
-				<div {...this.props} ref="content"
+				<nti-content {...this.props} ref="content"
 					data-ntiid={pageId}
 					data-page-ntiid={pageId}
 					dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>

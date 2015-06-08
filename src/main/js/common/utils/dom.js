@@ -3,6 +3,13 @@ import {getElementRect} from './rects';
 import between from 'nti.lib.interfaces/utils/between';
 
 
+export function declareCustomElement(name) {
+	if (typeof document !== 'undefined') {
+		document.createElement(name);
+	}
+}
+
+
 export function isMultiTouch (e) {
 	return e.touches && e.touches.length > 1;
 }
