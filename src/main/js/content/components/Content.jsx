@@ -124,7 +124,8 @@ export default React.createClass({
 
 		this.createWidget(part);
 
-		return `<widget id="${part.guid}"><error>If this is still visible, something went wrong.</error></widget>`;
+		return `<widget id="${part.guid}"><error><span>Missing Component</span></error></widget>`;
+		// return `<widget id="${part.guid}"><error>If this is still visible, something went wrong.</error></widget>`;
 	},
 
 

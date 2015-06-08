@@ -42,3 +42,33 @@ figure.error {
 		text-align: center;
 	}
 }
+
+widget error {
+	display: block;
+	margin: 2rem auto;
+	padding: 1rem;
+	max-width: 90%;
+	background: $primary-red;
+	border: 2px solid $secondary-red;
+	border-radius: 3px;
+
+	@include animation('fadeIn 0.5s ease-in 1s 1 normal both');
+
+	span::before {
+		display: inline-block;
+		content: "\f101";
+		font: {
+			family: "foundation-icons";
+			style: normal;
+			size: 3rem;
+			weight: normal;
+			variant: normal;
+		}
+		vertical-align: middle;
+		text-transform: none;
+		line-height: 1;
+		-webkit-font-smoothing: antialiased;
+		text-decoration: none;
+		margin: 0 1rem 0 0;
+	}
+}
