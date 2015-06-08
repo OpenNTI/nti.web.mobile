@@ -132,12 +132,18 @@ export default React.createClass({
 	render () {
 		let {pageId, page} = this.props;
 		let body = page.getBodyParts();
+		let styles = (page && page.getPageStyles()) || [];
 
 		return (
-			<div {...this.props} ref="content"
-				data-ntiid={pageId}
-				data-page-ntiid={pageId}
-				dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>
+			<div>
+				{styles.map((css, i) =>
+					<style scoped type="text/css" key={i} dangerouslySetInnerHTML={{__html: css}}/>
+				)}
+				<div {...this.props} ref="content"
+					data-ntiid={pageId}
+					data-page-ntiid={pageId}
+					dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>
+			</div>
 		);
 	}
 });

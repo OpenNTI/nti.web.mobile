@@ -5,8 +5,6 @@ import {RouterMixin} from 'react-router-component';
 import cx from 'classnames';
 
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
-import guid from 'nti.lib.interfaces/utils/guid';
-
 
 import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';
@@ -156,14 +154,6 @@ export default React.createClass({
 	},
 
 
-	getPageStyles () {
-		let page = this.state.page;
-		if (page) {
-			return page.getPageStyles();
-		}
-	},
-
-
 	render () {
 		let pageId = this.getPageID();
 		let {annotations, error, loading, page, pageSource, selectedDiscussions, style, className = ''} = this.state;
@@ -190,8 +180,6 @@ export default React.createClass({
 
 				) : (
 					<div className="content-body">
-						{this.applyStyle()}
-
 						{this.renderAssessmentHeader()}
 
 						<BodyContent id="NTIContent" ref="content"
@@ -212,14 +200,6 @@ export default React.createClass({
 					</div>
 				)}
 			</div>
-		);
-	},
-
-
-	applyStyle () {
-		let styles = this.getPageStyles() || [];
-		return styles.map(css =>
-			<style scoped type="text/css" key={guid()} dangerouslySetInnerHTML={{__html: css}}/>
 		);
 	},
 
