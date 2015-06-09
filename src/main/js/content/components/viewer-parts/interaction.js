@@ -1,7 +1,6 @@
 import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import hasClass from 'nti.lib.dom/lib/hasclass';
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {hasClass, getEventTarget} from 'nti.lib.dom';
 
 const SCROLL = Symbol('Scroll-To-Target-Delay');
 
@@ -13,6 +12,12 @@ export default {
 
 	componentWillReceiveProps () {
 		this.maybeScrollToFragment();
+	},
+
+	componentDidUpdate (_, prevState) {
+		if (this.state.loading !== prevState.loading) {
+			this.maybeScrollToFragment();
+		}
 	},
 
 
@@ -94,6 +99,11 @@ export default {
 
 
 	maybeScrollToFragment () {
+		let {content} = this.refs;
+		if (!content || !content.isMounted()) {
+			return;
+		}
+
 		clearTimeout(this[SCROLL]);
 		this[SCROLL] = setTimeout(()=> {
 			let id = this.getScrollTargetIdFromHash();

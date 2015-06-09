@@ -1,0 +1,182 @@
+
+@mixin highlight-tip {
+	position: relative;
+	top: 0;
+
+	vertical-align: baseline;
+	//vertical-align: initial;
+	display: inline-block;
+	width: 5px;
+	width: 0px;
+	overflow: hidden;
+	//line-height: 23px;
+	//height: 24px;
+	text-align: center;
+	padding: 0 0 0 4px;
+}
+
+// makes a transparent-as-possible equivalent color.
+@function makeTransparentColor($desired_color) {
+
+    $r: round(red($desired_color));
+    $g: round(green($desired_color));
+    $b: round(blue($desired_color));
+
+    $min: min($r, $g, $b);
+
+    $alpha: (255 - $min) / 255;
+    $r: round(($r - $min) / $alpha);
+    $g: round(($g - $min) / $alpha);
+    $b: round(($b - $min) / $alpha);
+
+    @return rgba($r, $g, $b, $alpha);
+}
+
+@mixin highlight-colors($onParentSelector: true, $selector:'', $nibselector:null) {
+	@each $item in $highlight-colors {
+		$name: nth($item,1);
+		$menu_color: nth($item,2);
+		$hover_color: makeTransparentColor(nth($item,3));
+		$highlight_color: makeTransparentColor(lighten(nth($item,3), 4%));
+
+		$prefix: if($onParentSelector,'&','');
+
+		$withColor: "#{$prefix}.#{$name} #{$selector}";
+		$withOutColor: "#{$prefix} #{$selector}";
+
+		$computedSelector: if($name=='blue', $withOutColor, $withColor);
+
+		#{$computedSelector} {
+			// color: $menu_color;
+			background-color: $highlight_color;
+			box-shadow: 0 0 0 3px $highlight_color;
+			//@include transition('all 0.2s');
+
+			&.highlight-mouse-over {
+				background-color: $hover_color;
+			}
+
+			@if($nibselector) {
+				#{$nibselector} {
+					border-top-color: $highlight_color;
+				}
+			}
+		}
+	}
+}
+
+.math .application-highlight.plain {
+	display: inline-block;
+}
+
+.application-highlight {
+	&.suppressed {
+		//do nothing special when range is suppressed.
+	}
+
+	& + li.part,
+	& + li.exercise {
+		&::before, &::after { z-index: 1; color: #076da7 }
+	}
+
+	// &.highlight-mouse-over {
+	// 	& + li.part, & + li.exercise {
+	// 		&::before, &::after { color: #ffffff; }
+	// 	}
+	// }
+
+	&.plain {
+
+		&, * {
+			position: relative;
+			z-index: 1;
+		}
+
+		// color: #076da7;
+		// background-color: #e1f4fe;
+		overflow: hidden;
+
+		&:not(.shared-with-me) {
+			@include highlight-colors();
+			// -webkit-clip-path: polygon(5px 4px, 50% 7%, 100% 16%, 98% 93%, 50% 86%, 0% 91%);
+		}
+
+		&.shared-with-me {
+			&,.math {
+				background: none;
+				color: $primary-grey;
+				border-bottom: 1px solid #9fd9fa;
+			}
+
+
+			// &.highlight-mouse-over {
+			// 	&,.math {
+			// 		color: #ffffff;
+			// 		background-color: $primary-blue;
+			// 	}
+			// }
+
+			.application-highlight.shared-with-me {
+				&,.math {
+					border-bottom: none;
+				}
+			}
+		}
+
+		// &.highlight-mouse-over{
+		// 	&,a {
+		// 		// color: #ffffff;
+		// 		// background-color: $primary-blue;
+		// 		.application-highlight {
+		// 			background-color: transparent;
+		// 		}
+		// 	}
+		//
+		// 	&.counter {
+		// 		background: transparent;
+		// 	}
+		// }
+
+		&.redaction {
+			&.redacted {
+				display: none;
+			}
+			background: #efefef;
+			color: $secondary-grey;
+			border-bottom: 0px;
+		}
+
+		&.counter {
+			color: $secondary-grey;
+			font-weight: bold;
+
+			background: transparent;
+
+			@include highlight-tip;
+
+			//this is adding a space between letters when the highlight ends in a word
+			padding-left: 0;
+
+			&.with-count {
+				overflow: hidden;
+				width: 30px;
+				// background-image: url(../images/counter_tip_default.png);
+
+
+				&.highlight-mouse-over{
+					color: #ffffff;
+					// background-image: url(../images/counter_tip_hover.png);
+				}
+
+				span {
+					display: block;
+					text-align: center;
+					margin-left: 5px;
+					overflow: hidden;
+					// white-space: nowrap;
+					// text-overflow: ellipsis;
+				}
+			}
+		}
+	}
+}

@@ -30,23 +30,23 @@ export function getPackage (id) {
 export function loadPage (ntiid) {
 	let isAssessmentID = parseNTIID(ntiid).specific.type === 'NAQ';
 
-	Promise.all([
+	return Promise.all([
 		getLibrary(),
 		getPageInfo(ntiid)
 	])
 
 		.then(data => {
-			let [lib, pi] = data;
+			let [lib, pageInfo] = data;
 
-			if (pi.getID() !== ntiid && !isAssessmentID) {
+			if (pageInfo.getID() !== ntiid && !isAssessmentID) {
 				// We will always missmatch for assessments, since we
 				// get the pageInfo for an assessment id and the server
 				// returns the pageInfo that the assessment is on...
 				// so lets silence this error for that case.
-				console.warn('PageInfo ID missmatch! %s != %s %o', ntiid, pi.getID());
+				console.warn('PageInfo ID missmatch! %s != %s %o', ntiid, pageInfo.getID());
 			}
 
-			let p = lib.getPackage(pi.getPackageID());
+			let p = lib.getPackage(pageInfo.getPackageID());
 
 
 			return Promise.all([
@@ -54,34 +54,38 @@ export function loadPage (ntiid) {
 				(p && p.getTableOfContents()) || Promise.reject('No Package for Page!'),
 
 				//Load the page html
-				pi.getContent(),
+				getPageContent(pageInfo),
 
 				//Get the data store. (Important note: the store itself will load in parallel
 				// (and not block page render))
-				pi.getUserData()
+				pageInfo.getUserData()
+
 			]).then(pack => {
-				let [toc, htmlStr, ugd] = pack;
-				return {
-					tableOfContents: toc,
-					pageInfo: pi,
-					content: htmlStr,
-					userDataStore: ugd
-				};
+				let [tableOfContents, packet, userDataStore] = pack;
+				return Object.assign(packet, { tableOfContents, userDataStore });
 			});
 		})
 
+		.then(packet => {
+			let data = new PageDescriptor(ntiid, packet);
+			dispatch(PAGE_LOADED, data);
+			return data;
+		})
+
+		.catch(error => {
+			dispatch(PAGE_FAILED, {error, ntiid});
+			return Promise.reject(error);
+		});
+}
+
+
+export function getPageContent (pageInfo) {
+	return pageInfo.getContent()
+		.then(content => ({pageInfo, content}))
 		//get the html and split out some resource references to fetch.
 		.then(processContent)
-
 		//load css
-		.then(fetchResources)
-
-
-		.then(packet =>
-			dispatch(PAGE_LOADED,
-				new PageDescriptor(ntiid, packet)))
-
-		.catch(error => dispatch(PAGE_FAILED, {error, ntiid}));
+		.then(fetchResources);
 }
 
 
@@ -95,7 +99,7 @@ function fetchResources(packet) {
 		// 	console.log(reason);
 		// })
 		.then(styles => {
-			packet.styles = styles;
+			packet.styles = styles.map(css => css.replace(/#NTIContent/g, 'nti-content'));
 			return packet;
 		});
 }

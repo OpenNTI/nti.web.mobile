@@ -1,5 +1,4 @@
-import replaceNode from 'nti.lib.dom/lib/replacenode';
-import parent from 'nti.lib.dom/lib/parent';
+import {replaceNode, parent} from 'nti.lib.dom';
 
 import guid from 'nti.lib.interfaces/utils/guid';
 import indexArrayByKey from 'nti.lib.interfaces/utils/array-index-by-key';
@@ -104,4 +103,49 @@ export function parseWidgets(strategies, doc, elementFactory) {
 				return result;
 			}))
 		.reduce(flatten, []);
+}
+
+
+/**
+ * Filters out all TAGs except for the ones absolutely necessary to convey the content.
+ *
+ * @param {string} html The content to filter
+ *
+ * @return {string} Filtered HTML
+ */
+export function filterContent (html) {
+
+	function allowedTags (match, tag) {
+		return /u|b|i|br|span|div|strong|em/i.test(tag) ? match : '';
+	}
+
+	return html
+		.replace(/\s*(class|style)=".*?"\s*/ig, ' ') //strip CSS
+		.replace(/<\/?([^\s>]+)[^>]*?>/gm, allowedTags) // strip all tags, except allowed
+		.replace(/\s+/g, ' ');//reduce multiple spaces to single
+}
+
+
+
+/**
+ * Trims a HTML block into a snippet...
+ *
+ * @param {string} html content to reduce.
+ * @param {number} max Max characters to allow.
+ * @return {string} the snippet html.
+ */
+export function getHTMLSnippet (html, max) {
+	const markup = /(<[^\>]+>)/;
+	let count = 0;
+
+	html = html.split(markup).filter(x=> x.trim().length);
+
+	let text = x => (count >= max) ? '' :
+			((x.length + count) >= max) ?
+				(x.substr(0, (max - count) - 3) + '...') :
+				x;
+
+	return html
+		.reduce((out, line) => out + (markup.test(line) ? line : text(line)), '')
+		.replace(/<([^\s>]+)[^>]*><\/\1>/g, '');//remove all empty nodes
 }

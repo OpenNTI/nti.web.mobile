@@ -1,9 +1,10 @@
 import GlossaryEntry from '../GlossaryEntry';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 export default {
 
 	getInitialState () {
-		this.registerContentViewerSubRoute('/:pageId/glossary/:glossaryId');
+		this.registerContentViewerSubRoute('/glossary/:glossaryId');
 	},
 
 
@@ -14,7 +15,7 @@ export default {
 
 	onDismissGlossary (evt) {
 		evt.preventDefault();
-		let pid = this.getPropsFromRoute({}).pageId;
+		let pid = encodeForURI(this.getPageID());
 		this.navigate(`/${pid}/`);
 	},
 

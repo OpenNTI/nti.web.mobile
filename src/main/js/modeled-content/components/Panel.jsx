@@ -1,6 +1,7 @@
 import React from 'react';
+import nullRender from 'react/lib/emptyFunction';
 
-import {processContent} from 'content/utils';
+import {getHTMLSnippet, filterContent, processContent} from 'content/utils';
 
 import guid from 'nti.lib.interfaces/utils/guid';
 import htmlToReactRenderer from 'nti.lib.interfaces/utils/html-to-react';
@@ -20,10 +21,20 @@ export default React.createClass({
 	propTypes: {
 		body: React.PropTypes.array.isRequired,
 
+		previewMode: React.PropTypes.bool,
+		previewLength: React.PropTypes.number,
+
 		strategies: React.PropTypes.object,
 		renderCustomWidget: React.PropTypes.func
 	},
 
+
+	getDefaultProps () {
+		return {
+			previewLength: 36,
+			previewMode: false
+		};
+	},
 
 	getInitialState () {
 		return {
@@ -38,9 +49,10 @@ export default React.createClass({
 
 
 	buildContent (props) {
-		let {body, strategies} = props;
+		let {body, strategies, previewLength, previewMode} = props;
 		let h = hash(props);
 		let widgets = {};
+		let letterCount = 0;
 		if (this.state.propHash === h) {
 			return;
 		}
@@ -48,9 +60,17 @@ export default React.createClass({
 		strategies = Object.assign({}, SYSTEM_WIDGET_STRATEGIES, strategies);
 
 		body = (body || []).map(content=> {
+			if (previewMode && previewLength <= letterCount) {
+				return nullRender;
+			}
+
 			let packet;
 			if (typeof content === 'string') {
-				packet = processContent({content: content}, strategies);
+				if (previewMode) {
+					content = filterContent(content);
+					content = getHTMLSnippet(content, previewLength - letterCount);
+				}
+				packet = processContent({content}, strategies);
 			}
 			else {
 				let key = guid();
@@ -65,12 +85,22 @@ export default React.createClass({
 				};
 			}
 
+			if (previewMode) {
+				letterCount += packet.body
+								.map(x=> typeof x !== 'string' ? 0 :
+									x
+									.replace(/<[^>]*>/g, ' ')//replace all markup with spaces.
+									.replace(/\s+/g, ' ') //replace all spanning whitespaces with a single space.
+									.length
+								)
+								.reduce((sum, x)=> sum + x);
+			}
+
 			Object.assign(widgets, packet.widgets);
 
 			let processed = packet.body.map(
 				part => (typeof part !== 'string') ?
-					('<widget id="' + part.guid + '" data-type="' + part.type + '"></widget>') :
-					part);
+					`<widget id="${part.guid}" data-type="${part.type}"></widget>` : part);
 
 			return htmlToReactRenderer(
 				processed.join(''),

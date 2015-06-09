@@ -48,7 +48,9 @@ export default React.createClass({
 		let {menu} = this.state || {};
 		let {children} = this.props;
 
-		// if (course) {}
+		if (menu && menu.length < 2) {
+			menu = null;
+		}
 
 		let props = Object.assign({}, this.props, {
 			availableSections: menu,

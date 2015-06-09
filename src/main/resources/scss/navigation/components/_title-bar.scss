@@ -148,7 +148,8 @@ section.right-small {
 				color: $primary-blue;
 				padding: 0.1rem 0.5rem;
 				margin: 0;
-				@include ellipse;
+				white-space: nowrap;
+				text-overflow: ellipsis;
 				line-height: 1.5;
 				font-size: 0.7rem;
 				font-weight: 400;

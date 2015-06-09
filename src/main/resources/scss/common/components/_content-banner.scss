@@ -36,7 +36,8 @@
 			color: white;
 			text-transform: uppercase;
 			overflow: hidden;
-			@include ellipse();
+			white-space: nowrap;
+			text-overflow: ellipsis;
 			margin: 0;
 			font-weight: 700;
 		}

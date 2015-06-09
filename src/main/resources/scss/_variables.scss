@@ -48,10 +48,19 @@ $border-blue: #39a1dd;
 $border-grey: #ccc;
 $border-gray: $border-grey;
 //$border-grey: #dbdbdb;
+$border-grey-light: #ededed;
 $border-red: #f35252;
 $text-red: #f2713e;
 
 $panel-background: #fbfbfb;
+
+
+$highlight-colors: (
+	// (name, menu color, hover) actual highlight will be computed from hover color.
+	('yellow',#EDE619,#F9F6AF),
+	('green',#4CE67F,#B7F5CC),
+	('blue',#3FB3F6,#CFECFD)
+);
 
 
 $body-font-color: $primary-grey;
@@ -88,6 +97,12 @@ $tabs-navigation-font-color: $primary-grey;
 %x-close {background-image: url(../images/icons/close.png);}
 %x-light {background-image: url(../images/icons/light-x.png);}
 
+%icon-favorite {background-image: url(../images/icons/favorite.png);}
+%icon-favorite-active {background-image: url(../images/icons/favorite_active.png);}
+%icon-like {background-image: url(../images/icons/like.png);}
+%icon-like-active {background-image: url(../images/icons/like_active.png);}
+%icon-reply-arrow {background-image: url(../images/icons/reply-arrow.png);}
+
 %icon-assignment-due {background-image: url(../images/icons/assignment_due.png);}
 %icon-assignment-late {background-image: url(../images/icons/assignment_late.png);}
 %icon-assignment-ontime {background-image: url(../images/icons/assignment_ontime.png);}
@@ -115,6 +130,8 @@ $tabs-navigation-font-color: $primary-grey;
 %icon-edit-14 {background-image: url(../images/icons/editor/image-edit-14.png);}
 %icon-search-18 {background-image: url(../images/icons/search-18.png);}
 
+%icon-discussions {background-image: url(../images/icons/discussions.png); }
+
 %icon-topic {background-image: url(../images/icons/topic.png); }
 %icon-topic-blue {background-image: url(../images/icons/topic-blue.png); }
 %icon-topic-active {background-image: url(../images/icons/topic_active.png); }
@@ -130,6 +147,13 @@ $tabs-navigation-font-color: $primary-grey;
 %icon-nav-library {background-image: url(../images/icons/nav-library.png);}
 %icon-nav-library-active {background-image: url(../images/icons/nav-library_active.png);}
 %icon-nav-library-hover {background-image: url(../images/icons/nav-library_hover.png);}
+
+%icon-action-edit {background-image: url(../images/icons/actions/edit.png);}
+%icon-action-flag {background-image: url(../images/icons/actions/flag.png);}
+%icon-action-more-options {background-image: url(../images/icons/actions/more-options.png);}
+%icon-action-reply {background-image: url(../images/icons/actions/reply.png);}
+%icon-action-share {background-image: url(../images/icons/actions/share.png);}
+%icon-action-delete {background-image: url(../images/icons/actions/trash-can.png);}
 
 %middot-before {
 	&::before {
@@ -168,13 +192,6 @@ $tabs-navigation-font-color: $primary-grey;
 	filter: blur(8px);
 }
 
-
-@mixin ellipse{
-	white-space: nowrap;
-	-ms-text-overflow: ellipsis;
-	-o-text-overflow: ellipsis;
-	text-overflow: ellipsis;
-}
 
 @mixin vertical-align {
   position: relative;

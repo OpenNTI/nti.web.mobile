@@ -36,6 +36,11 @@ export function getAppUser () {
 }
 
 
+export function getAppUserCommunities (excludeGroups) {
+	return getAppUser().then(x => x.getCommunities(excludeGroups));
+}
+
+
 export function getBasePath () {
 	if (noConfig()) {
 		console.error('utils:getBasePath() was called before config was defined.');

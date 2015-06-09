@@ -169,7 +169,8 @@ body.nav-menu-open {
 		overflow: hidden;
 		vertical-align: bottom;
 		padding: 0 1em 0 0.5em;
-		@include ellipse();
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		color: #fff;
 		font: normal 400 1.1rem/2.75em 'Open Sans Condensed';
 		margin-left: 50px;

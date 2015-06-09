@@ -1,0 +1,181 @@
+
+.author-info {
+	position: relative;
+	overflow: hidden;
+
+	.charms {
+		position: relative;
+		float: right;
+	}
+
+	.avatar {
+		float: left;
+		width: 3.75rem;
+		height: 3.75rem;
+		border-radius: 6px;
+		margin-top: 0.625rem;
+	}
+
+	.meta {
+		// margin-top: 0;
+		// position: relative;
+		margin-left: 4.375rem;
+		font-size: 0.875rem;
+	}
+
+	.name-wrapper {
+		position: relative;
+
+		time::after {
+			text-decoration: none;
+			position: static;
+			content: '\00B7';
+			padding: 0 0.5em;
+			background: none;
+		}
+
+		.tinyloader {
+			display: inline-block;
+			vertical-align: bottom;
+		}
+	}
+
+	address {display: inline;}
+
+	a[rel=author] {
+		margin-right: 0.3125rem;
+		display: inline-block;
+		max-width: 12.5rem;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		vertical-align: bottom;
+	}
+
+}
+
+.discussion-detail {
+	border-top: 1px solid $border-grey;
+	position: relative;
+	padding: 0 0.75rem;
+
+	.meta {
+		h1.title {
+			margin: 0;
+			&:empty::after {
+				content: '(empty)';
+				visibility: hidden;
+			}
+		}
+	}
+
+	.context {
+		position: relative;
+		margin: 1.25rem 0;
+		padding: 1.25rem;
+
+		background: #fff;
+		box-shadow: 0 .0625rem .1875rem 0 rgba(0,0,0,0.2);
+
+		clear: both;
+		overflow-x: hidden;
+		overflow-y: hidden;
+		max-height: 15rem;
+	}
+
+	.whiteboard {
+		max-width: 200px;
+		margin: 0.1875rem;
+		margin-bottom: 0.5rem;
+		border: 1px solid $tertiary-grey-alt;
+		box-shadow: 0.125rem 0.1875rem 0.0625rem 0 rgba(0,0,0,0.13);
+		border-radius: 1px;//iOS fix for box-shadow
+	}
+}
+
+
+.discussion-reply {
+	box-shadow: inset 0 1px 0 0 #ffffff;
+	border-top: 1px solid #f2f2f2;
+	padding: 1rem 0 0.5rem 0;
+	position: relative;
+
+	.charms {
+		top: -1rem;
+	}
+
+	.discussion-reply {
+		.placeholder,
+		.body {
+			margin-left: 2rem;
+		}
+	}
+
+	.placeholder, .body {
+		margin-left: 1rem;
+	}
+
+	.placeholder {
+		color: $tertiary-grey;
+		padding-bottom: 1rem;
+		font: {
+			size: 0.875rem;
+			style: italic;
+		}
+	}
+
+	.body {
+		position: relative;
+
+		&::before {
+			@extend %icon-reply-arrow;
+			content: '';
+			position: absolute;
+			height: 9px;
+			width: 8px;
+
+			top: 0.5rem;
+			left: -0.625rem;
+		}
+	}
+
+	.author-info {
+		.avatar {
+			margin: 0 0 0 4px;
+			border-radius: 2px;
+			width: 2rem;
+			height: 2rem;
+		}
+
+		.username {
+			color: $primary-blue;
+		}
+	}
+
+	.modeled-content,
+	.meta {
+		margin-left: 3rem;
+	}
+
+	.meta {
+		margin-top: 0.3125rem;
+	}
+
+	.footer {
+		position: relative;
+
+		time {
+			vertical-align: middle;
+			color: $tertiary-grey;
+			float: right;
+			font: {
+				size: 0.625rem;
+				style: italic;
+			}
+		}
+	}
+
+	.modeled-content {
+		clear: both;
+	}
+}

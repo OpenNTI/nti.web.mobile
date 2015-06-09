@@ -5,11 +5,9 @@ import {
 } from 'vtt.js';
 
 import React from 'react';
+import CSS from 'react/lib/CSSCore';
 
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
-
-import addClass from 'nti.lib.dom/lib/addclass';
-import removeClass from 'nti.lib.dom/lib/removeclass';
 
 import Error from 'common/components/Error';
 import LoadingMask from 'common/components/Loading';
@@ -44,12 +42,12 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.getDataIfNeeded(this.props);
-		addClass(document.body, 'dark');
+		CSS.addClass(document.body, 'dark');
 	},
 
 
 	componentWillUnmount () {
-		removeClass(document.body, 'dark');
+		CSS.removeClass(document.body, 'dark');
 	},
 
 
