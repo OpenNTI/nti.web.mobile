@@ -84,7 +84,7 @@
     "query-string": "^2.0.0",
     "react": "^0.13.1",
     "react-editor-component": "NextThought/react-editor-component",
-    "react-router-component": "^0.25.1",
+    "react-router-component": "^0.24.4",
     "request": "^2.53.0",
     "response-time": "^2.2.0",
     "sass-loader": "0.4.2",
