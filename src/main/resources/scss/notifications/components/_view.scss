@@ -1,6 +1,9 @@
 
 
 .notification-item {
+	&:empty {
+		display: none;
+	}
 
 	line-height: 1.7;
 	font-family: 'Open Sans';

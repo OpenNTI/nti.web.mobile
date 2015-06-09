@@ -13,14 +13,17 @@ export default React.createClass({
 		noteableType: '_meeting'
 	},
 
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
 	componentWillMount () {
-		console.debug('Group Chat:', this.state.item);
+		console.debug('Group Chat:', this.props.item);
 	},
 
 	render () {
-		// return (
-		// 	<li className="notification-item">
-		// 	</li>
-		// );
+		return (
+			<li className="notification-item"/>
+		);
 	}
 });
