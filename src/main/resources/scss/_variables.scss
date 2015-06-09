@@ -148,6 +148,13 @@ $tabs-navigation-font-color: $primary-grey;
 %icon-nav-library-active {background-image: url(../images/icons/nav-library_active.png);}
 %icon-nav-library-hover {background-image: url(../images/icons/nav-library_hover.png);}
 
+%icon-action-edit {background-image: url(../images/icons/actions/edit.png);}
+%icon-action-flag {background-image: url(../images/icons/actions/flag.png);}
+%icon-action-more-options {background-image: url(../images/icons/actions/more-options.png);}
+%icon-action-reply {background-image: url(../images/icons/actions/reply.png);}
+%icon-action-share {background-image: url(../images/icons/actions/share.png);}
+%icon-action-delete {background-image: url(../images/icons/actions/trash-can.png);}
+
 %middot-before {
 	&::before {
 		content: '\00B7';
