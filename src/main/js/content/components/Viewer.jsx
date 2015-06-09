@@ -18,11 +18,15 @@ import Store from '../Store';
 import {loadPage} from '../Actions';
 import PageDescriptor from '../PageDescriptor';
 
-import {RESOURCE_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
+import {
+	ASSIGNMENT_VIEWED,
+	RESOURCE_VIEWED,
+	SELFASSESSMENT_VIEWED
+} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
 import AnalyticsBehavior from 'analytics/mixins/ResourceLoaded';
 import AnnotationFeature from './viewer-parts/annotations';
-import AssessmentFeature from './viewer-parts/assessment';
+import AssessmentFeature, {isAssignment} from './viewer-parts/assessment';
 import RouterLikeBehavior from './viewer-parts/mock-router';
 import GlossaryFeature from './viewer-parts/glossary';
 import Interactions from './viewer-parts/interaction';
@@ -58,8 +62,26 @@ export default React.createClass({
 		default: 'onStoreChange'
 	},
 
+	signalResourceLoaded () {
+		let {page} = this.state;
+		let quiz = page && page.getSubmittableAssessment();
+		let mime = quiz ? (isAssignment(quiz) ? ASSIGNMENT_VIEWED : SELFASSESSMENT_VIEWED) : RESOURCE_VIEWED;
+
+		let args = [
+			this.getPageID(),
+			this.props.contentPackage.getID(),
+			mime
+		];
+
+		if (quiz) {
+			args.unshift(quiz.getID());
+		}
+
+		this.resourceLoaded.apply(this, args);
+	},
+
 	resumeAnalyticsEvents() {
-		this.resourceLoaded(this.getPageID(), this.props.contentPackage.getID(), RESOURCE_VIEWED);
+		this.signalResourceLoaded();
 	},
 
 	getResetState () {
@@ -108,7 +130,6 @@ export default React.createClass({
 			);
 
 			loadPage(newPageId);
-			this.resourceLoaded(newPageId, this.props.contentPackage.getID(), RESOURCE_VIEWED);
 		}
 	},
 
@@ -145,7 +166,8 @@ export default React.createClass({
 			pageSource,
 			pageTitle,
 			error
-		});
+		},
+		()=> this.signalResourceLoaded());
 	},
 
 

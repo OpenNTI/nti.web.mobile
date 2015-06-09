@@ -1,8 +1,15 @@
-import ResourceEvent from 'nti.lib.interfaces/models/analytics/ResourceEvent';
-import TopicViewedEvent from 'nti.lib.interfaces/models/analytics/TopicViewedEvent';
+import {getModel} from 'nti.lib.interfaces';
+
+const AssessmentEvent = getModel('analytics.assessmentevent');
+const AssignmentEvent = getModel('analytics.assignmentevent');
+const ResourceEvent = getModel('analytics.resourceevent');
+const TopicViewedEvent = getModel('analytics.topicviewedevent');
+
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import {
+	ASSIGNMENT_VIEWED,
 	RESOURCE_VIEWED,
+	SELFASSESSMENT_VIEWED,
 	TOPIC_VIEWED
 } from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
@@ -17,6 +24,8 @@ export const onStoreChange = 'ResourceLoaded:onStoreChange';
 const CURRENT_EVENT = Symbol('CurrentEvent');
 
 const typeMap = {
+	[ASSIGNMENT_VIEWED]: AssignmentEvent,
+	[SELFASSESSMENT_VIEWED]: AssessmentEvent,
 	[RESOURCE_VIEWED]: ResourceEvent,
 	[TOPIC_VIEWED]: TopicViewedEvent
 };
@@ -49,14 +58,21 @@ export default {
 			this.resourceUnloaded();
 		}
 
+		let assessmentId;
+		if (arguments.length > 3) {
+			[assessmentId, resourceId, courseId, eventMimeType] = arguments;
+		}
+
 		// wait for resourceUnloaded to finish before creating the
 		// new event so we don't change this[CURRENT_EVENT] out from under us.
-		let p = this[CURRENT_EVENT] ? this.resourceUnloaded() : Promise.resolve();
-		p.then(() => {
+		this.resourceUnloaded().then(() => {
+
 			let Type = typeMap[eventMimeType] || ResourceEvent;
 			this[CURRENT_EVENT] = new Type(
-					decodeFromURI(resourceId),
-					courseId);
+				decodeFromURI(resourceId),
+				courseId,
+				assessmentId);
+
 			emitEventStarted(this[CURRENT_EVENT]);
 		});
 	},
