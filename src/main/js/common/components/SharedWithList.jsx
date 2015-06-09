@@ -4,8 +4,6 @@ import DisplayName from './DisplayName';
 
 const isEmpty = x => !Array.isArray(x) || x.length === 0;
 
-const difference = (a, b) => a.filter(x=> !b.includes(x));
-
 const EVERYONE = 'everyone';
 
 export default React.createClass({
