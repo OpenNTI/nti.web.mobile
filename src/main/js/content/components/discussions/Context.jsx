@@ -110,7 +110,9 @@ export default React.createClass({
 
 				//we can't insert this into the dom without causing problems. There may be other instances, so
 				//we need to remove the ID before it goes into the dom.
-				let node = frag.getElementById('NTIContent');
+				let node = frag.querySelector('#NTIContent');	// documentFragments do not (universally) implement
+																// getElementById.. both querySelector and
+																// getElementById are linear searches. No speed-up/down.
 				if (node) {
 					node.removeAttribute('id');
 				}
