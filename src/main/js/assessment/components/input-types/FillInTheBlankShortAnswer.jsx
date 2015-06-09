@@ -51,9 +51,11 @@ export default React.createClass({
 	renderInput(tag, props) {
 		let {name, maxLength} = props;
 		let value = (this.state.value || {})[name];
+		let submitted = this.isSubmitted();
+
 		return (
 			<span className="blank">
-				<input ref={name} name={name} value={value} size={maxLength} onChange={this.handleInteraction}/>
+				<input ref={name} name={name} value={value} size={maxLength} onChange={this.handleInteraction} readOnly={submitted}/>
 			</span>
 		);
 	},

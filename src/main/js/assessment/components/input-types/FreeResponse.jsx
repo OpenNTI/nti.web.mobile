@@ -19,10 +19,11 @@ export default React.createClass({
 
 	render () {
 		let {value} = this.state;
+		let submitted = this.isSubmitted();
 
 		return (
 			<form className="free-response">
-				<input ref="input" value={value} onChange={this.handleInteraction} onBlur={this.onBlur}/>
+				<input ref="input" value={value} onChange={this.handleInteraction} onBlur={this.onBlur} readOnly={submitted}/>
 			</form>
 		);
 	},
