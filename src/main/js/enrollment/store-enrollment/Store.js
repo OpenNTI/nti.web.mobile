@@ -7,6 +7,8 @@ import {CHANGE_EVENT} from 'common/constants/Events';
 
 import {getService} from 'common/utils';
 
+
+//FIXME: Never put mutable variables in module global scope.
 let stripeToken; // store the result of a Stripe.getToken() call
 let pricing;
 let giftInfo;
