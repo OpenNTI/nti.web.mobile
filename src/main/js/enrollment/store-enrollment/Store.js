@@ -17,6 +17,7 @@ let paymentResult;
 let couponTimeout;
 let couponPricing;
 
+//FIXME: Make this a true class that extends StorePrototype
 let Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'store-enrollment.Store',
 
