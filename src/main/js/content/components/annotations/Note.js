@@ -17,6 +17,13 @@ export default class Note extends Highlight {
 	}
 
 
+	shouldRender() {
+		if (this.getRecordField('style') !== 'suppressed') {
+			return super.shouldRender();
+		}
+	}
+
+
 	resolveVerticalLocation () {
 		let range = this.getRange();
 		let rect = safeBoundingBoxForRange(range);
