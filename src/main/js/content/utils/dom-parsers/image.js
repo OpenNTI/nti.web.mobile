@@ -12,7 +12,10 @@ const addPrefix = (list, prefix) => list.map(x => prefix + x);
 
 const srcPropertyDescription = {
 	enumerable: true,
-	get () { return this.source.sizes[this.source.size]; }
+	get () {
+		let {size, sizes} = this.source;
+		return sizes[size < 0 ? 0 : size];
+	}
 };
 
 
