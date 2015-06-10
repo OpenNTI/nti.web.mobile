@@ -266,6 +266,11 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 			break;
 
 		case Constants.GIFT_PURCHASE_DONE:
+			pricing =
+			giftInfo =
+			couponPricing =
+			paymentFormData =
+			paymentResult = null;
 			Store.emitChange({
 				type: action.type
 			});
