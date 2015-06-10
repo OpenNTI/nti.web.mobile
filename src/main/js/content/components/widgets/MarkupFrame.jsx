@@ -6,12 +6,9 @@ import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
 import Mixin from './Mixin';
 
-// import ZoomStore from 'common/zoomable/Store';
 import Zoomable from 'common/zoomable/components/View';
 
-// due to a bug in eslint 0.20.0, it can't tell this const is referenced in the
-// destructured assignment default below.
-const ZOOMABLE = /nti\-data\-resizeable/i; //eslint-disable-line no-unused-vars
+const ZOOMABLE = /nti\-data\-resizeable/i;
 
 
 export default React.createClass({
@@ -34,6 +31,12 @@ export default React.createClass({
 		};
 	},
 
+
+	componentDidMount () {
+		console.log(this.props.item);
+	},
+
+
 	onZoom() {
 		let {image} = this.refs;
 		image = React.findDOMNode(image);
@@ -45,11 +48,13 @@ export default React.createClass({
 		}
 	},
 
+
 	unZoom() {
 		this.setState({
 			zoomed: false
 		});
 	},
+
 
 	onLoad () {
 		let i = React.findDOMNode(this.refs.image);
@@ -83,8 +88,8 @@ export default React.createClass({
 
 		return (
 			<span itemProp={data.type} className="markupframe">
-				<img src={item.src} crossOrigin={item.crossorigin} ref="image" onLoad={this.onLoad}/>
 				<span className="wrapper">
+					<img src={item.src} crossOrigin={item.crossorigin} ref="image" onLoad={this.onLoad}/>
 					<a title="Zoom"
 						className={zoomClasses}
 						data-non-anchorable="true"
@@ -93,8 +98,8 @@ export default React.createClass({
 				<span className="bar" data-non-anchorable="true" data-no-anchors-within="true" unselectable="true">
 					<a href="#slide" className="bar-cell slide"> </a>
 					<span className={'bar-cell ' + (noDetails ? 'no-details' : '')}>
-						<span className="image-title">{title}</span>
-						<span className="image-caption">{caption}</span>
+						<span className="image-title" dangerouslySetInnerHTML={{__html: title}}/>
+						<span className="image-caption" dangerouslySetInnerHTML={{__html: caption}}/>
 						<a href="#mark" className="mark"></a>
 					</span>
 				</span>
