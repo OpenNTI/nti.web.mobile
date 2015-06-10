@@ -49,8 +49,9 @@ export default React.createClass({
 	},
 
 	onStoreChange (event) {
+		let {router} = this.refs;
 		if (event.type === CONCURRENT_ENROLLMENT_SUCCESS) {
-			this.navigate('/concurrent/');
+			router.navigate('/concurrent/');
 		}
 	},
 
