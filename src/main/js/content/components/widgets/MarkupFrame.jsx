@@ -32,11 +32,6 @@ export default React.createClass({
 	},
 
 
-	componentDidMount () {
-		console.log(this.props.item);
-	},
-
-
 	onZoom() {
 		let {image} = this.refs;
 		image = React.findDOMNode(image);
