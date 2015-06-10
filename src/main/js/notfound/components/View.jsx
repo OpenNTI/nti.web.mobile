@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Page from 'common/components/Page';
+// import Page from 'common/components/Page';
 import BasePathAware from 'common/mixins/BasePath';
 
 export default React.createClass({
@@ -24,7 +24,7 @@ export default React.createClass({
 		let {length = 1} = global.history || {};
 
 		return (
-			<Page title="Not Found">
+			<div title="Not Found">
 				<div className="grid-container">
 					<hr/>
 					<div className="row">
@@ -44,7 +44,7 @@ export default React.createClass({
 						</div>
 					</div>
 				</div>
-			</Page>
+			</div>
 		);
 	}
 });
