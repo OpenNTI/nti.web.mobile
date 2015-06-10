@@ -17,26 +17,29 @@ function isInlineElement (node) {
 	}[getComputedStyle(node).display];
 }
 
+function isWidget (node) {
+	return node.hasAttribute('data-reactid')
+		|| node.tagName.toUpperCase() === 'WIDGET';
+}
 
 function validToWrapEntireNode (node) {
 	if (DOM.isTextNode(node)) {
 		return true;
 	}
 	if (DOM.isElement(node)) {
-		if (node.childNodes.length === 0) {
-			return true;
-		}
 
 		if (node.tagName === 'P') {
 			return false;
 		}
 
-		if (isInlineElement(node)) {
-			return true;
-		}
-
-		if ((DOM.hasClass(node, 'mathjax') || DOM.hasClass(node, 'mathquill')) &&
-			DOM.hasClass(node, 'link-button')) {
+		if (node.childNodes.length === 0
+			|| isWidget(node)
+			|| isInlineElement(node)
+			|| (
+				(DOM.hasClass(node, 'mathjax') || DOM.hasClass(node, 'mathquill'))
+				&& DOM.hasClass(node, 'link-button')
+			)
+		) {
 			return true;
 		}
 	}

@@ -89,7 +89,7 @@ export default class Highlight extends Annotation {
 		}
 
 		//console.log(this.id,': ',(this.getRecordField('body')||[]).join('|'), ': got range from description:', range, range.toString());
-		Anchors.expandRangeToIncludeMath(range);
+		Anchors.expandRangeToIncludeImmutableBlocks(range);
 
 		this[RANGE] = range;
 		return range;

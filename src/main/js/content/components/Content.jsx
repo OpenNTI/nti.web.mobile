@@ -34,12 +34,9 @@ export default React.createClass({
 
 
 	componentDidUpdate (prevProps) {
-		if (getComparable(prevProps) !== getComparable(this.props)) {
-			this.updatePrestine();
-		}
-
 		//See if we need to re-mount/render our components...
 		let widgets = this.getPageWidgets();
+		let newWidgets = false;
 
 		if (widgets && this.refs.content) {
 			// console.debug('Content View: Did Update... %o', widgets);
@@ -50,6 +47,7 @@ export default React.createClass({
 				if (el && !el.hasAttribute('mounted')) {
 					// console.debug('Content View: Mounting Widget...');
 					try {
+						newWidgets = true;
 						w = React.render(w, el);
 						el.setAttribute('mounted', 'true');
 					} catch (e) {
@@ -57,6 +55,10 @@ export default React.createClass({
 					}
 				}
 			}
+		}
+
+		if (getComparable(prevProps) !== getComparable(this.props) || newWidgets) {
+			this.updatePrestine();
 		}
 	},
 

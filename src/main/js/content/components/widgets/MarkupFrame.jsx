@@ -84,7 +84,7 @@ export default React.createClass({
 		return (
 			<span itemProp={data.type} className="markupframe">
 				<span className="wrapper">
-					<img src={item.src} crossOrigin={item.crossorigin} ref="image" onLoad={this.onLoad}/>
+					<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref="image" onLoad={this.onLoad}/>
 					<a title="Zoom"
 						className={zoomClasses}
 						data-non-anchorable="true"
