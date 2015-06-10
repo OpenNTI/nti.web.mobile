@@ -6,6 +6,8 @@ function dispatch(type, payload) {
 }
 
 
+//FIXME: This is not how to do "Actions".  Actions should DO the work and dispatch results.
+
 export function verifyBillingInfo (stripePublicKey, formData) {
 	dispatch(Constants.VERIFY_BILLING_INFO, { stripePublicKey, formData });
 }
