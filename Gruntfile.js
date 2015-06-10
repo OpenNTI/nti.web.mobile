@@ -2,6 +2,8 @@
 'use strict';
 var path = require('path');
 
+var distWebPack = require('./webpack.dist.config.js');
+
 var PROD = 'production';
 var DEV = 'development';
 
@@ -11,7 +13,7 @@ module.exports = function(grunt) {
 
 	var pkgConfig = grunt.file.readJSON('package.json');
 
-	var env = /prod|uat/i.test(grunt.option('environment')) ? PROD : DEV;
+	var env = /prod/i.test(grunt.option('environment')) ? PROD : DEV;
 	process.env.NODE_ENV = env;
 
 	var buildSteps = [
@@ -25,6 +27,7 @@ module.exports = function(grunt) {
 	];
 
 	if (env === PROD) {
+		distWebPack.forEach(function(e) { e.devtool = 'hidden-source-map'; });
 		buildSteps.push('clean:maps');
 	}
 
@@ -35,7 +38,7 @@ module.exports = function(grunt) {
 		pkg: pkgConfig,
 
 		webpack: {
-			dist: require('./webpack.dist.config.js')
+			dist: distWebPack
 		},
 
 		'webpack-dev-server': {//not setup yet, ignore for now.
