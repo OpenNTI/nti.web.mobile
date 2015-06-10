@@ -1,5 +1,7 @@
 import buffer from 'nti.lib.interfaces/utils/function-buffer';
 
+import {preresolveLocatorInfo} from 'nti.lib.anchorjs';
+
 import Highlight from '../annotations/Highlight';
 import Note from '../annotations/Note';
 
@@ -61,6 +63,22 @@ export default {
 	},
 
 
+	preresolveLocators (store) {
+		let descriptions = [], containers = [];
+		for (let i of store) {
+			descriptions.push(i.applicableRange);
+			containers.push(i.ContainerId);
+		}
+
+		preresolveLocatorInfo(
+			descriptions,
+			this.getContentNode(),
+			this.getContentNodeClean(),
+			containers,
+			this.getPageID());
+	},
+
+
 	renderAnnotations: buffer(50, function (store) {
 		if (!store || !this.getContentNode()) { return; }
 		console.debug('Render Pass');
@@ -69,6 +87,8 @@ export default {
 		let {annotations = {}} = this.state;
 
 		let deadIDs = new Set(Object.keys(annotations));
+
+		this.preresolveLocators(store);
 
 		for (let i of store) {
 			let id = i.getID();
