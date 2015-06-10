@@ -106,7 +106,7 @@ export default React.createClass({
 		});
 
 		return (
-			<div className={css}>
+			<div className={css} data-ntiid={question.getID()} type={question.MimeType}>
 				<h3 className="question-title">
 					{title}
 					<span className="status">{status}</span>
