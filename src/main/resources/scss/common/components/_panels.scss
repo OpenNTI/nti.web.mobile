@@ -16,11 +16,12 @@ figure {
 
 
 .notice {
-	text-align: center;
+	/*text-align: center;*/
 	margin: 1rem;
 	padding: 2rem 1rem;
-	background: rgba(0,0,0,.2);
-	color: white;
+	background: $panel-background;
+	color: $secondary-grey;
+	border: 1px solid $border-grey;
 	border-radius: 2px;
 	&.small {
 		font-size:.7rem;
