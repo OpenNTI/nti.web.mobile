@@ -7,6 +7,10 @@
 	min-height: 18rem;
 	height: 90vh;
 
+	& ~ * {
+		display: none;
+	}
+
 	.header {
 		position: relative;
 		display: block;
