@@ -59,24 +59,25 @@ export default class Highlight extends Annotation {
 
 
 	getRange () {
+		let {reader} = this;
 		let range = this[RANGE];
+		let contentNode = reader.getContentNode();
 
-		if (RangeUtils.isValidRange(range)) {
+		if (RangeUtils.isValidRange(range, contentNode)) {
 			return range;
 		}
 
 		else if (range) {
 			range = this.buildRange();
-			if (!RangeUtils.isValidRange(range)) {
+			if (!RangeUtils.isValidRange(range, contentNode)) {
 				range = null;
 			}
 		}
 
 		if (!range) {
-			let {reader} = this;
 			range = Anchors.toDomRange(
 						this.getRecordField('applicableRange'),
-						reader.getContentNode(),
+						contentNode,
 						reader.getContentNodeClean(),
 						this.getRecordField('ContainerId'),
 						reader.getPageID()
