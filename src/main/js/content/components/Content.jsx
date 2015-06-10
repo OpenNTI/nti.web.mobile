@@ -117,10 +117,6 @@ export default React.createClass({
 		let prestine = current && current.cloneNode(true);
 		this.setState({prestine});
 		// console.debug('Updated Prestine', prestine);
-
-		if (current && current.querySelector('widget[mounted]')) {
-			console.warn('Prestine shouldn`t have mounted widgets');
-		}
 	},
 
 
