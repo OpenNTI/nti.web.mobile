@@ -100,7 +100,7 @@ export default {
 
 		console.debug('Render Complete: rendered: %s, new: %s, skipped: %s, removed: %s', rendered, newObjects, skipped, dead);
 
-		if (rendered > 0 || dead > 0) {
+		if (rendered > 0 || dead > 0 || newObjects > 0) {
 			this.setState({annotations});
 		}
 	})
