@@ -38,12 +38,12 @@ let Source = React.createClass({
 
 
 	getInitialState () {
-		return { id: guid(), playerURL: null };
+		return {};
 	},
 
 
 	componentWillMount () {
-		this.setState({playerURL: this.buildURL(this.props)});
+		this.setState({id: guid()});
 	},
 
 
@@ -73,7 +73,7 @@ let Source = React.createClass({
 
 		let args = {
 			api: 1,
-			player_id: props.id,//eslint-disable-line camelcase
+			player_id: this.state.id,//eslint-disable-line camelcase
 			//autopause: 0, //we handle this for other videos, but its nice we only have to do this for cross-provider videos.
 			autoplay: 0,
 			badge: 0,
@@ -169,9 +169,11 @@ let Source = React.createClass({
 			return (<ErrorWidget error="No source"/>);
 		}
 
+		let {id} = this.state;
+
 		let props = Object.assign({}, this.props, {
 			deferred: null,
-			name: this.state.id
+			name: id
 		});
 
 		return (
