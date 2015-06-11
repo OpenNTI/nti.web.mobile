@@ -1,6 +1,5 @@
 const ROUTES = Symbol('Routes');
 
-
 const makeRoute = (path, extra) => ({props: Object.assign({ handler: 'div', path }, extra || {})});
 
 export default {
@@ -17,14 +16,23 @@ export default {
 		let {makeHref} = this;
 
 		this.makeHref = link => {
+			if (link === '' || link === '/') {
+				link = '';
+			}
+
+			let {rootId} = this.props;
 			let {pageId} = this.getPropsFromRoute();
-			if (pageId) {
-				if (pageId !== this.props.rootId) {
+			let isLinkForSubView = /^\//.test(link);
+
+			if (pageId && (isLinkForSubView || link === '')) {
+				if (pageId !== rootId) {
 					link = `/${pageId}/${link}`;
 				}
 			}
 
-			return makeHref.call(this, link);
+			return makeHref.call(this, link)
+				.replace(`/${rootId}/${rootId}/`, '/')
+				.replace(/\/\/$/, '');
 		};
 	},
 
