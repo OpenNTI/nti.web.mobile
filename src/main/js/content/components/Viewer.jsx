@@ -115,6 +115,12 @@ export default React.createClass({
 	},
 
 
+	componentDidUpdate: function() {
+		let {pageSource, currentPage} = this.state;
+		this.setPageSource(pageSource, currentPage);
+	},
+
+
 	getDataIfNeeded (props) {
 		let newPageId = this.getPageID(props);
 		let newPage = newPageId !== this.state.currentPage;
@@ -158,7 +164,6 @@ export default React.createClass({
 			page = undefined;
 		}
 
-		this.setPageSource(pageSource, id);
 		this.setState({
 			currentPage: id,
 			loading: false,
