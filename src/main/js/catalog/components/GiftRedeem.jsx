@@ -2,7 +2,6 @@ import React from 'react';
 
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import FieldRender from 'common/forms/mixins/RenderFormConfigMixin';
 import CatalogAccessor from '../mixins/CatalogAccessor';
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
@@ -11,8 +10,6 @@ import Loading from 'common/components/Loading';
 
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 import {scoped} from 'common/locale';
-
-import FORM_CONFIG from '../configs/GiftRedeem';
 
 import Store from '../Store';
 import {GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from '../Constants';
@@ -23,7 +20,7 @@ const t = scoped('ENROLLMENT.GIFT.REDEEM');
 
 export default React.createClass({
 	displayName: 'GiftRedeem',
-	mixins: [FieldRender, CatalogAccessor],
+	mixins: [CatalogAccessor],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired,
@@ -33,7 +30,7 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
-			fieldValues: {},
+			accessKey: '',
 			errors: {},
 			busy: false,
 			success: false
@@ -43,9 +40,7 @@ export default React.createClass({
 
 	componentWillMount () {
 		this.setState({
-			fieldValues: {
-				accessKey: this.props.code || ''
-			}
+			accessKey: this.props.code || ''
 		});
 	},
 
@@ -57,6 +52,14 @@ export default React.createClass({
 
 	componentWillUnmount () {
 		Store.removeChangeListener(this.onStoreChange);
+	},
+
+
+	updateKey () {
+		let {key} = this.refs;
+		let {value} = (key && React.findDOMNode(key)) || {};
+
+		this.setState({accessKey: value});
 	},
 
 
@@ -97,12 +100,10 @@ export default React.createClass({
 			busy: true
 		});
 
-		let {entryId} = this.props;
-
 		redeemGift(
 			this.getPurchasable(),
-			decodeFromURI(entryId),
-			this.state.fieldValues.accessKey);
+			decodeFromURI(this.props.entryId),
+			this.state.accessKey);
 	},
 
 	[Events.ON_CHANGE] (event) {
@@ -110,12 +111,13 @@ export default React.createClass({
 	},
 
 	render () {
+		let {busy, success, errors, accessKey=''} = this.state;
 
-		if (this.state.busy) {
+		if (busy) {
 			return <Loading />;
 		}
 
-		if (this.state.success) {
+		if (success) {
 			let {Title} = this.getPurchasable();
 			return (<EnrollmentSuccess courseTitle={Title} />);
 		}
@@ -124,13 +126,23 @@ export default React.createClass({
 
 		let buttonLabel = t('redeemButton');
 
-		let errors = this.state.errors;
-
-		let disabled = (this.state.fieldValues.accessKey || '').trim().length === 0;
+		let disabled = accessKey.trim().length === 0;
 
 		return (
 			<FormPanel title={title} onSubmit={this.handleSubmit}>
-				{this.renderFormConfig(FORM_CONFIG, this.state.fieldValues, t)}
+				<fieldset>
+					<legend>Redeem</legend>
+					<div>
+						<input name="accessKey" ref="key"
+							placeholder={t('accessKey')}
+							className="required"
+							type="text"
+							value={accessKey}
+							onChange={this.updateKey}
+							required/>
+					</div>
+				</fieldset>
+
 				<FormErrors errors={errors} />
 				<input type="submit"
 					key="submit"
