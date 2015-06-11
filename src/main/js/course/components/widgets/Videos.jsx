@@ -45,6 +45,16 @@ export default React.createClass({
 	},
 
 
+	componentDidUpdate () {
+		let {offsetWidth} = this.state;
+		let v = React.findDOMNode(this.refs.v);
+		let renderedOffsetWidth = v && v.offsetWidth;
+		if (offsetWidth !== renderedOffsetWidth) {
+			this.setState({offsetWidth: renderedOffsetWidth});//eslint-disable-line react/no-did-update-set-state
+		}
+	},
+
+
 	onError (error) {
 		if (this.isMounted()) {
 			this.setState({
