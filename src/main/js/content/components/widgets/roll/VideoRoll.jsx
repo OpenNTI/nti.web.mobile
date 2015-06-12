@@ -5,6 +5,8 @@ import cx from 'classnames';
 import Error from 'common/components/Error';
 import Loading from 'common/components/Loading';
 
+import ContextAccessor from 'common/mixins/ContextAccessor';
+
 import {Component as Video} from 'video';
 
 import Mixin from '../Mixin';
@@ -20,7 +22,7 @@ function getVideo (object, index) {
 
 export default React.createClass({
 	displayName: 'VideoRoll',
-	mixins: [Mixin, RollCommon],
+	mixins: [Mixin, RollCommon, ContextAccessor],
 
 	statics: {
 		itemType: 'videoroll'
@@ -94,15 +96,12 @@ export default React.createClass({
 
 
 	fillInValues (props) {
-		let {contentPackage, item, contextResolver} = props;
+		let {contentPackage, item} = props;
 
 		this.setState({loading: true});
 
-		if (!contextResolver) {
-			contextResolver = ()=>Promise.resolve(null);
-		}
 
-		contextResolver(props)
+		this.resolveContext()
 			.then(context => this.setState({context}))
 
 			.then(()=> contentPackage.getVideoIndex())

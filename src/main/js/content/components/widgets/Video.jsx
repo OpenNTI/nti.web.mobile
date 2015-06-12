@@ -2,6 +2,8 @@ import React from 'react';
 
 import LoadingMask from 'common/components/Loading';
 
+import ContextAccessor from 'common/mixins/ContextAccessor';
+
 import {Component as Video} from 'video';
 
 import Mixin from './Mixin';
@@ -10,7 +12,7 @@ const Progress = Symbol.for('Progress');
 
 export default React.createClass({
 	displayName: 'NTIVideo',
-	mixins: [Mixin],
+	mixins: [Mixin, ContextAccessor],
 
 	statics: {
 		itemType: /ntivideo$/i
@@ -18,8 +20,7 @@ export default React.createClass({
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired,
-		contentPackage: React.PropTypes.object.isRequired,
-		contextResolver: React.PropTypes.func.isRequired
+		contentPackage: React.PropTypes.object.isRequired
 	},
 
 
@@ -63,7 +64,7 @@ export default React.createClass({
 	fillInVideo  (props) {
 		try {
 			let {video} = this.state;
-			let {contentPackage, item, contextResolver} = props;
+			let {contentPackage, item} = props;
 
 			if (video && item.NTIID === video.getID()) {
 				return;
@@ -73,13 +74,12 @@ export default React.createClass({
 
 			this.setState({loading: true});
 
-			if (!contextResolver) {
-				contextResolver = ()=>Promise.resolve(null);
-			}
 
-			contextResolver(props)
+			this.resolveContext()
 				.then(context=>this.setState({context}))
+
 				.then(()=>contentPackage.getVideoIndex())
+
 				.then(videoIndex => {
 					video = videoIndex.get(NTIID);
 					video.getPoster()
