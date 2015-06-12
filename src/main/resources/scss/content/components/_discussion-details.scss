@@ -80,7 +80,22 @@
 		clear: both;
 		overflow-x: hidden;
 		overflow-y: hidden;
-		max-height: 15rem;
+		&:not(.scoped) {
+			max-height: 15rem;
+		}
+
+		& > .question {
+			margin: 0;
+			border: none;
+			.question-title {
+				padding: 0;
+			}
+		}
+
+		.question {
+			pointer-events: none;
+			.question-submission {display: none;}
+		}
 	}
 
 	.whiteboard {
