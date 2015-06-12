@@ -66,13 +66,14 @@
 			border-top-width: 1px;
 		}
 
-		button {
+		button, .button {
 			color: $secondary-grey;
 			font-weight: bold;
 			margin: 0;
 			padding: 0;
 			width: 1.875rem;
 			height: 2.375rem;
+			vertical-align: bottom;
 
 			background: {
 				color: $panel-background;

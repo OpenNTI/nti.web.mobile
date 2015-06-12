@@ -36,10 +36,10 @@ export default React.createClass({
 		}
 
 		return (
-			<button className="insert-whiteboard">
+			<div className="button insert-whiteboard">
 				Insert Whiteboard
 				<input type="file" accept="image/*" multiple onChange={this.onSelect}/>
-			</button>
+			</div>
 		);
 	},
 
