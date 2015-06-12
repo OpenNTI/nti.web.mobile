@@ -10,7 +10,7 @@ export default React.createClass({
 	render () {
 		let {type} = this.props.item;
 		return (
-			<div>Unknown Type: {type}</div>
+			<error><span>Unknown Type:<br/>{type}</span></error>
 		);
 	}
 });

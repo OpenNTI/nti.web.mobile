@@ -48,13 +48,15 @@ widget error {
 	margin: 2rem auto;
 	padding: 1rem;
 	max-width: 90%;
+	min-width: 80vw;
+	text-align: left;
 	background: $primary-red;
 	border: 2px solid $secondary-red;
 	border-radius: 3px;
 
 	@include animation('fadeIn 0.5s ease-in 1s 1 normal both');
 
-	span::before {
+	& > span:first-of-type::before {
 		display: inline-block;
 		content: "\f101";
 		font: {
