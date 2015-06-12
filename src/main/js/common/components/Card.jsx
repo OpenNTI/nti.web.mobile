@@ -133,8 +133,10 @@ export default React.createClass({
 	},
 
 
-	getInternalHref (ntiid, slug = '') {
-		return this.makeHref(path.join(slug, encodeForURI(ntiid)) + '/', true);
+	getInternalHref (ntiid, slug = null) {
+		return slug
+			? this.makeHref(path.join(slug, encodeForURI(ntiid)) + '/', true)
+			: ntiid; //No slug, assume we're in a context that can understand raw NTIID links
 	},
 
 
