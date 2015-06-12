@@ -16,7 +16,7 @@ export default React.createClass({
 	mixins: [Mixin],
 
 	statics: {
-		itemType: /nti\-data\-markupenabled/i
+		itemType: /nti\-data\-markup(dis|en)abled/i
 	},
 
 
