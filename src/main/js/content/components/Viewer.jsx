@@ -183,6 +183,7 @@ export default React.createClass({
 
 	render () {
 		let pageId = this.getPageID();
+		let {contentPackage} = this.props;
 		let {annotations, error, loading, page, pageSource, selectedDiscussions, style, className = ''} = this.state;
 		let {discussions} = this.getPropsFromRoute();
 
@@ -212,6 +213,7 @@ export default React.createClass({
 						<BodyContent id="NTIContent" ref="content"
 							className="nti-content-panel"
 							onClick={this.onContentClick}
+							contentPackage={contentPackage}
 							pageId={pageId}
 							page={page}/>
 

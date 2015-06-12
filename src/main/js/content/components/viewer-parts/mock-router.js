@@ -1,3 +1,5 @@
+import Path from 'path';
+
 const ROUTES = Symbol('Routes');
 
 const makeRoute = (path, extra) => ({props: Object.assign({ handler: 'div', path }, extra || {})});
@@ -34,6 +36,8 @@ export default {
 				.replace(`/${rootId}/${rootId}/`, '/')
 				.replace(/\/\/$/, '');
 		};
+
+		this.makeHrefNewRoot = root => Path.resolve(makeHref.call(this, '/'), `../${root}`);
 	},
 
 
