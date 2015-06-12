@@ -31,7 +31,7 @@ export default React.createClass({
 	},
 
 
-	componentDidMount () { this.buildContent(this.props); },
+	componentWillMount () { this.buildContent(this.props); },
 
 
 	componentWillReceiveProps (props) { this.buildContent(props); },
