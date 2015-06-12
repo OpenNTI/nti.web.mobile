@@ -1,11 +1,16 @@
 import React from 'react';
 
+import cx from 'classnames';
+
 import {getModel} from 'nti.lib.interfaces';
 
 import Loading from 'common/components/TinyLoader';
+import Err from 'common/components/Error';
 
 import Content from '../Content';
+
 import {select as getAnnotation} from '../viewer-parts/annotations';
+import {getWidget} from '../widgets';
 
 import {getPageContent} from '../../Actions';
 import PageDescriptor from '../../PageDescriptor';
@@ -123,18 +128,35 @@ export default React.createClass({
 
 
 	setWidgetContainerContext (_, object) {
-		console.log('?', object);
+		let props = {
+			record: object
+		};
+
+		try {
+			this.setState({
+				loading: false,
+				scoped: true,
+				context: React.renderToStaticMarkup(getWidget(object, undefined, props))
+			});
+		} catch (error) {
+			this.setState({
+				loading: false,
+				scoped: true,
+				error
+			});
+		}
 	},
 
 
 	render () {
-		let {loading, context} = this.state;
-		return (
-			<div className="context">
-				{loading ? ( <Loading/> ) : (
-					<div dangerouslySetInnerHTML={{__html: context}}/>
-				)}
-			</div>
-		);
+		let {error, loading, scoped, context} = this.state;
+		let className = cx('context', {scoped});
+		let props = {className};
+
+		return loading
+			? ( <div {...props}><Loading/></div> )
+			: error
+				? ( <div {...props}><Err error={error}/></div>)
+				: ( <div {...props} dangerouslySetInnerHTML={{__html: context}}/> );
 	}
 });
