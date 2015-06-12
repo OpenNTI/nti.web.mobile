@@ -3,6 +3,10 @@
 	display: block;
 	border: 1px solid $border-grey;//#dadada;
 
+	&.bare {
+		border: none;
+	}
+
 	.application-highlight & {
 		margin-right: 1rem;
 	}

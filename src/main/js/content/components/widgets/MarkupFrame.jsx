@@ -8,9 +8,6 @@ import Mixin from './Mixin';
 
 import Zoomable from 'common/zoomable/components/View';
 
-const ZOOMABLE = /nti\-data\-resizeable/i;
-
-
 export default React.createClass({
 	displayName: 'ContentMarkupEnabled',
 	mixins: [Mixin],
@@ -63,41 +60,49 @@ export default React.createClass({
 
 
 	render () {
-		let data = this.props.item;
-		let {item} = data;
+		let {item, itemprop, isSlide} = this.props.item;
 
-		let {zoomable = ZOOMABLE.test(data.type)} = item;
-
-		if (this.state.forceZoomable) {
-			zoomable = true;
-		}
+		let {zoomable, markable} = item;
 
 		let title = item.title;
 		let caption = item.caption;
 
-		let zoomClasses = cx('zoom fi-magnifying-glass', { disabled: !zoomable });
-
 		let noDetails = isEmpty(title) && isEmpty(caption);
+		let bare = noDetails && !markable && !isSlide;
 
-		//The Item may not be an image, it could also be a video embed, a slide, or an iframe.
+		//force zoom if the image has been scaled down and only if the frame will show.
+		if (!bare && this.state.forceZoomable) {
+			zoomable = true;
+		}
+
+		//FIXME: The Item may not be an image, it could also be a video embed, a slide, or an iframe.
 
 		return (
-			<span itemProp={data.type} className="markupframe">
+			<span itemProp={itemprop} className={cx('markupframe', {bare})}>
+
 				<span className="wrapper">
 					<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref="image" onLoad={this.onLoad}/>
-					<a title="Zoom"
-						className={zoomClasses}
+					{!zoomable ? null : (
+						<a title="Zoom"
+						className="zoom fi-magnifying-glass"
 						data-non-anchorable="true"
 						onClick={this.onZoom} />
+					)}
 				</span>
-				<span className="bar" data-non-anchorable="true" data-no-anchors-within="true" unselectable="true">
-					<a href="#slide" className="bar-cell slide"> </a>
-					<span className={'bar-cell ' + (noDetails ? 'no-details' : '')}>
-						<span className="image-title" dangerouslySetInnerHTML={{__html: title}}/>
-						<span className="image-caption" dangerouslySetInnerHTML={{__html: caption}}/>
-						<a href="#mark" className="mark"></a>
+
+				{bare ? null : (
+					<span className="bar" data-non-anchorable="true" data-no-anchors-within="true" unselectable="true">
+						{!isSlide ? null : ( <a href="#slide" className="bar-cell slide"/> )}
+						{noDetails && !markable ? null : (
+							<span className="bar-cell">
+								<span className="image-title" dangerouslySetInnerHTML={{__html: title}}/>
+								<span className="image-caption" dangerouslySetInnerHTML={{__html: caption}}/>
+								{markable && ( <a href="#mark" className="mark"/> )}
+							</span>
+						)}
 					</span>
-				</span>
+				)}
+
 				{this.state.zoomed && <Zoomable src={item.src} onClose={this.unZoom} />}
 			</span>
 		);

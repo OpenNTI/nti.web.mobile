@@ -19,14 +19,20 @@ export default function parseFramedElement(el) {
 
 	let data = parseDomObject(el);
 
+	let {itemprop} = data;
+
 	data.item = [
 		getImagesFromDom(el),
 		getVideosFromDom(el)
 	].reduce(flat, null) || {};
 
 	if (!data.type) {
-		data.type = data.itemprop;
+		data.type = itemprop;
 	}
+
+	data.markable =
+	data.item.markable = /nti-data-markupenabled/i.test(itemprop);
+	data.isSlide = /slide/i.test(data.type);
 
 	return data;
 }
