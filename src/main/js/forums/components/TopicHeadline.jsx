@@ -12,7 +12,7 @@ export default React.createClass({
 
 	propTypes: {
 		item: React.PropTypes.shape({
-			Creator: React.PropTypes.string,
+			creator: React.PropTypes.string,
 			body: React.PropTypes.array,
 			title: React.PropTypes.string,
 			getCreatedTime: React.PropTypes.func
@@ -27,11 +27,11 @@ export default React.createClass({
 
 		return (
 			<div className="headline post">
-				<Avatar username={item.Creator}/>
+				<Avatar username={item.creator}/>
 				<div className="wrap">
 					<h1>{item.title}</h1>
 					<div className="meta">
-						<DisplayName username={item.Creator}/>{" · "}<DateTime date={item.getCreatedTime()} relative={true}/>
+						<DisplayName username={item.creator}/>{" · "}<DateTime date={item.getCreatedTime()} relative={true}/>
 					</div>
 				</div>
 				<ModeledContentPanel body={item.body} />
