@@ -1,0 +1,12 @@
+svg.avatar {
+	background: $tertiary-grey;
+	border-radius: 5px;
+
+	text {
+		font-weight: 700;
+		font-size: 10pt;
+		font-family: 'Open Sans', Sans-Serif;
+		text-transform: uppercase;
+		-webkit-font-smoothing: subpixel-antialiased;
+	}
+}

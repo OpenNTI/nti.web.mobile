@@ -1,12 +1,9 @@
 import React from 'react';
 import {BLANK_AVATAR} from '../constants/DataURIs';
-import {getServerURI} from '../utils';
+
 import {resolve} from './DisplayName';
-import {isNTIID} from 'nti.lib.interfaces/utils/ntiids';
 
-import urlJoin from 'nti.lib.interfaces/utils/urljoin';
-
-const DEFAULT = { avatar: BLANK_AVATAR };
+const DEFAULT = { user: {avatar: BLANK_AVATAR }};
 
 export default React.createClass({
 	displayName: 'Avatar',
@@ -19,7 +16,7 @@ export default React.createClass({
 
 
 	getInitialState () {
-		return DEFAULT;
+		return {};
 	},
 
 	componentWillMount () { fillIn(this, this.props); },
@@ -34,56 +31,51 @@ export default React.createClass({
 		if (!this.isMounted()) {
 			return;
 		}
-		console.log('Failed to load avatar: %s', React.findDOMNode(this).src);
+
 		this.setState(DEFAULT);
 	},
 
 
 	render () {
-		let {avatar} = this.state;
+		let {user} = this.state;
 		let {username, className} = this.props;
 		let css = className || '';
 
+		let {avatar, initials = '...'} = user || {};
+
 		let props = Object.assign({}, this.props, {
 			'data-for': username,
-			src: avatar,
 			alt: 'Avatar for ' + username,
-			onError: this.setUnknown,
 			className: `avatar ${css}`
 		});
 
-		return <img {...props}/>;
+
+
+		return avatar ? (
+				<img {...props} src={avatar} onError={this.setUnknown}/>
+			) : initials ? (
+				<svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 32 32">
+					<text textAnchor="middle" x="16px"  y="22px">{initials}</text>
+				</svg>
+			) : (
+				<img {...props} src={BLANK_AVATAR}/>
+			);
 	}
 });
 
 
 
 function fillIn (cmp, props) {
-	let user = props.user;
-	let username = (user && user.Username) || props.username;
+	let {user} = props;
 	let promise;
 
 	if (user) {
-		promise = Promise.resolve(user.AvatarURL);
-	}
-
-
-	if (!isNTIID(username)) {
-		promise = Promise.resolve(
-			username ?
-				urlJoin(getServerURI(), 'users', encodeURIComponent(username), '@@avatar') : BLANK_AVATAR
-		);
-	}
-
-	if (!promise) {
-		promise = resolve(cmp, props).then(obj=>obj.avatarURL);
+		promise = Promise.resolve(user);
+	} else {
+		promise = resolve(cmp, props);
 	}
 
 	promise
 		.catch(()=> BLANK_AVATAR)
-		.then(avatar => {
-			if (cmp.isMounted()) {
-				cmp.setState({avatar});
-			}
-		});
+		.then(x => cmp.setState({user: x}));
 }
