@@ -18,7 +18,7 @@ export default React.createClass({
 
 	render () {
 		let item = this.props.item.Item;
-		let courseName = item.CourseName ? ` in ${item.CourseName}`;
+		let courseName = item.CourseName ? ` in ${item.CourseName}` : '';
 		let assignmentName = item.AssignmentName || 'an assignment';
 		return (
 			<li className="notification-item">
