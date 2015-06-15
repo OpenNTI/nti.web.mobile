@@ -24,8 +24,18 @@ export default React.createClass({
 
 		tag: React.PropTypes.string,
 
-		username: React.PropTypes.string.isRequired
+		username: React.PropTypes.string.isRequired,
+
+		onResolve: React.PropTypes.func
 	},
+
+
+	getDefaultProps () {
+		return {
+			onResolve: () => {}
+		};
+	},
+
 
 	getInitialState () {
 		return {
@@ -88,16 +98,15 @@ export function resolve (cmp, props) {
 
 function fillIn(cmp, props) {
 
-	resolve(cmp, props).then(
-		user => {
-			if (cmp.isMounted()) {
-				cmp.setState({ displayName: user.DisplayName });
-			}
-		},
-		()=> {
-			if (cmp.isMounted()) {
-				cmp.setState({ displayName: 'Unknown' });
-			}
-		});
+	let set = state => new Promise(cb => cmp.setState(state, cb));
+
+	resolve(cmp, props)
+		.then(
+			user => set({ displayName: user.displayName }),
+			()=> set({ failed: true, displayName: 'Unknown' })
+		)
+		.then(
+			() => cmp.props.onResolve(cmp.state)
+		);
 
 }
