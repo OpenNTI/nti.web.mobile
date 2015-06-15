@@ -18,13 +18,13 @@ export default React.createClass({
 
 	render () {
 		let item = this.props.item.Item;
-		let courseName = item.CourseName;
+		let courseName = item.CourseName ? ` in ${item.CourseName}`;
 		let assignmentName = item.AssignmentName || 'an assignment';
 		return (
 			<li className="notification-item">
 				<div className='grade'/>
 				<div className="wrap">
-					Grade recieved for {assignmentName} in {courseName}
+					Grade received for {assignmentName}{courseName}
 					<DateTime date={this.getEventTime()} relative />
 				</div>
 			</li>
