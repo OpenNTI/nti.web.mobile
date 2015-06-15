@@ -24,9 +24,7 @@ export default React.createClass({
 
 		tag: React.PropTypes.string,
 
-		username: React.PropTypes.string.isRequired,
-
-		onResolve: React.PropTypes.func
+		username: React.PropTypes.string.isRequired
 	},
 
 
@@ -47,7 +45,7 @@ export default React.createClass({
 	componentDidMount () { fillIn(this, this.props); },
 
 	componentWillReceiveProps (nextProps) {
-		if (this.props.username !== nextProps.username) {
+		if (this.props.username !== nextProps.username || this.props.user !== nextProps.user) {
 			fillIn(this, nextProps);
 		}
 	},
@@ -98,15 +96,17 @@ export function resolve (cmp, props) {
 
 function fillIn(cmp, props) {
 
-	let set = state => new Promise(cb => cmp.setState(state, cb));
+	let set = state => {
+		if (cmp.state.task === task) {
+			cmp.setState(state);
+		}
+	};
 
-	resolve(cmp, props)
+	let task = Date.now();
+	cmp.setState({task}, ()=> resolve(cmp, props)
 		.then(
 			user => set({ displayName: user.displayName }),
 			()=> set({ failed: true, displayName: 'Unknown' })
-		)
-		.then(
-			() => cmp.props.onResolve(cmp.state)
-		);
+		));
 
 }
