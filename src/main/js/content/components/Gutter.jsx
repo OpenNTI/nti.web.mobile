@@ -134,8 +134,6 @@ export default React.createClass({
 
 
 	render () {
-		// let items = this.getActiveBin() || Object.values(this.props.items || {});
-
 		return (
 			<div>
 				{this.renderGutter()}

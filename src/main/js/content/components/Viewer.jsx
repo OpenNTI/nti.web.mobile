@@ -228,7 +228,7 @@ export default React.createClass({
 
 						<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
 
-						<Gutter items={annotations} pageId={pageId} selectFilter={this.setDiscussionFilter}/>
+						<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
 
 						{this.renderAssessmentSubmission()}
 					</div>
