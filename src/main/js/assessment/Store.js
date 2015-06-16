@@ -313,7 +313,6 @@ class Store extends StorePrototype {
 			.catch(reason => {
 				if (reason && reason.statusCode !== 404) {
 					console.error('Could not load previous state: %o', reason);
-					return Promise.reject(reason);
 				}
 
 				return void undefined;
