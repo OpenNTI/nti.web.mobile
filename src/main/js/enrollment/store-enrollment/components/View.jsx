@@ -59,12 +59,13 @@ export default React.createClass({
 
 		let isGift = !!Store.getGiftInfo();
 		let purchasable = this.getPurchasable(isGift);
-		let {courseId} = this.props;
+		let {courseId, entryId} = this.props;
 
 		return (
 			<div>
 				<StoreEnrollmentRoutes
 					ref='router'
+					entryId={entryId}
 					purchasable={purchasable}
 					courseId={courseId}
 					isGift={isGift}

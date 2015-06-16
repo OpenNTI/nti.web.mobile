@@ -42,8 +42,10 @@ export default React.createClass({
 		let {router} = this.refs;
 		let href = router ? router.makeHref('') : '';
 
+		let enrollmentOptionsHref = this.makeHref( path.join('/item', this.props.entryId, 'enrollment/' ));
+
 		return Promise.resolve([
-			{ label: 'Enroll', href: path.join(href, '../')},
+			{ label: 'Enroll', href: enrollmentOptionsHref},
 			{ label: 'Enroll For Credit', href }
 		]);
 	},

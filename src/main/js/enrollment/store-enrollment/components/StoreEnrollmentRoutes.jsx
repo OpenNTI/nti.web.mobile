@@ -1,4 +1,5 @@
 import React from 'react';
+import path from 'path';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 import Router from 'react-router-component';
@@ -10,6 +11,8 @@ import PaymentSuccess from './PaymentSuccess';
 import PaymentError from './PaymentError';
 import PaymentConfirm from './PaymentConfirm';
 import BasePath from 'common/mixins/BasePath';
+import ContextSender from 'common/mixins/ContextSender';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 /**
 * Used by both store-enrollment/components/View and store-enrollment/components/GiftPurchaseView.
@@ -17,7 +20,7 @@ import BasePath from 'common/mixins/BasePath';
 export default React.createClass({
 	displayName: 'StoreEnrollmentRoutes',
 
-	mixins: [BasePath],
+	mixins: [BasePath, ContextSender, NavigatableMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired,
@@ -31,7 +34,19 @@ export default React.createClass({
 		};
 	},
 
-	navigate() {
+	getContext () {
+		return Promise.resolve([
+			{
+				label: 'Enrollment Options',
+				href: this.makeHref(path.join('item', this.props.entryId, 'enrollment'))
+			},
+			{
+				label: 'Lifelong Learner'
+			}
+		]);
+	},
+
+	nav() {
 		this.refs.router.navigate(...arguments);
 	},
 
@@ -77,7 +92,7 @@ export default React.createClass({
 				} else {
 					// the catalog entry we're rooted under may not exist when the catalog reloads
 					// so the success message lives under the root catalog router.
-					this.navigate('./success/');
+					this.nav('./success/');
 				}
 				break;
 
