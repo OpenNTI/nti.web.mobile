@@ -39,6 +39,8 @@ $indent: 0.9375rem;
 		}
 	}
 	.page-select {
+		-webkit-appearance: none !important;
+		-moz-appearance: none !important;
 		width: 3em;
 		margin-right: .5em;
 	}
