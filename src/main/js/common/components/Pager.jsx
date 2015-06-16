@@ -90,6 +90,16 @@ export default React.createClass({
 	},
 
 
+	componentDidUpdate () {
+		let dom = React.findDOMNode(this);
+		if (dom) {
+			for (let a of dom.querySelectorAll('a[href=""]')) {
+				a.removeAttribute('href');
+			}
+		}
+	},
+
+
 	setupLinks (props) {
 		let pages, source = props.pageSource;
 		if (source) {
@@ -118,12 +128,18 @@ export default React.createClass({
 			return null;
 		}
 
+		let get = (x, key) => x && x[key] ? {[key]: x[key]} : {};
+		let getProps = x => Object.assign({}, get(x, 'href'), get(x, 'title'));
+
+		next = getProps(next);
+		prev = getProps(prev);
+
 		if (this.props.position === 'bottom') {
 			return (
 				<ul className="bottompager">
-					<li><a href={prev.href} title={prev.title} className="button secondary tiny radius">Back</a></li>
+					<li><a {...prev} className="button secondary tiny radius">Back</a></li>
 					<li className="counts">{this.state.total > 1 && this.makeCounts() }</li>
-					<li><a href={next.href} title={next.title} className="button secondary tiny radius">Next</a></li>
+					<li><a {...next} className="button secondary tiny radius">Next</a></li>
 				</ul>
 			);
 		}
@@ -131,8 +147,8 @@ export default React.createClass({
 		return (
 			<div className="pager">
 				{this.state.total > 1 && this.makeCounts() }
-				<a className="prev" href={prev.href} title={prev.title}/>
-				<a className="next" href={next.href} title={next.title}/>
+				<a className="prev" {...prev}/>
+				<a className="next" {...next}/>
 			</div>
 		);
 	},
