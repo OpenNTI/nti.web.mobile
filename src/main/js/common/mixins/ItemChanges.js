@@ -1,5 +1,12 @@
 import React from 'react';
 
+function getItem (o, p) {
+	if (o.getItem) {
+		return o.getItem(p);
+	}
+	return p.item;
+}
+
 export default {
 	propTypes: {
 		item: React.PropTypes.object.isRequired
@@ -7,18 +14,18 @@ export default {
 
 
 	componentDidMount () {
-		this.listen(this.props.item);
+		this.listen(getItem(this, this.props));
 	},
 
 
 	componentWillReceiveProps (nextProps) {
-		this.stopListening(this.props.item);
-		this.listen(nextProps.item);
+		this.stopListening(getItem(this, this.props));
+		this.listen(getItem(this, nextProps));
 	},
 
 
 	componentWillUnmount () {
-		this.stopListening(this.props.item);
+		this.stopListening(getItem(this, this.props));
 	},
 
 
