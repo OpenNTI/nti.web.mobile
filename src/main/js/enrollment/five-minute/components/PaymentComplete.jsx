@@ -47,7 +47,7 @@ export default React.createClass({
 
 	render () {
 		let entry;
-		let message = 'You have successfully enrolled!';
+		let message = 'You are now enrolled.';
 		let cls = 'enrollment-failed';
 		let buttonCls = 'button tiny';
 		let library = this.getBasePath() + 'library/';
@@ -57,7 +57,7 @@ export default React.createClass({
 			message = 'Payment was not processed.';
 
 		}
-		else if (!this.props.enrollment.enrolled) {
+		else if (this.props.enrollment && !this.props.enrollment.enrolled) {
 
 			message = 'You were not enrolled.';
 
@@ -73,15 +73,10 @@ export default React.createClass({
 					<div>{message}</div>
 				</figure>
 
-				{entry ? (
-					<a className={buttonCls} href={library}>Go to my courses</a>
-				) : (
-					<a className={buttonCls} href={this.getBasePath()}>Go Home</a>
-				)}
+				<a className={buttonCls} href={library}>Go to my courses</a>
 
 				{entry && ( <Detail entry={entry}/> )}
 
-				{entry && ( <a className={buttonCls} href={library}>Go to my courses</a> )}
 			</div>
 		);
 	}

@@ -14,6 +14,7 @@ import Loading from 'common/components/Loading';
 import Page from 'common/components/Page';
 
 import Enrollment from 'enrollment/components/View';
+import PaymentComplete from 'enrollment/five-minute/components/PaymentComplete';
 import Enroll from 'enrollment/components/Enroll';
 import GiftPurchaseView from 'enrollment/store-enrollment/components/GiftPurchaseView';
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
@@ -49,6 +50,11 @@ const CatalogBody = React.createClass({
 		let {catalog} = this.props;
 		return (
 			<Locations contextual ref="router">
+				<Location
+					ref="paymentcomplete"
+					path="/enroll/:enrollmentType/paymentcomplete/"
+					handler={PaymentComplete}
+				/>
 				<Location
 					ref="enroll"
 					path="/enroll/:enrollmentType/:entryId(/*)"

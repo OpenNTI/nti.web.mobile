@@ -50,7 +50,7 @@ export default React.createClass({
 			loading: true
 		});
 
-		let returnUrl = this.buildHref('/paymentcomplete/');
+		let returnUrl = this.buildHref('../enroll/apply/paymentcomplete/');
 		console.log('UPay return URL: %s', returnUrl);
 
 		Actions.doExternalPayment({
