@@ -55,7 +55,7 @@ export default React.createClass({
 				<img {...props} src={avatar} onError={this.setUnknown}/>
 			) : initials ? (
 				<svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 32 32">
-					<text textAnchor="middle" x="16px" y="22px">{initials}</text>
+					<text textAnchor="middle" x="16px" y="21px">{initials}</text>
 				</svg>
 			) : (
 				<img {...props} src={BLANK_AVATAR}/>
