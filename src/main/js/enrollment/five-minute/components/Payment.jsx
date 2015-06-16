@@ -36,14 +36,11 @@ export default React.createClass({
 	},
 
 	onStoreChange (event) {
-		switch(event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case PAY_AND_ENROLL_ERROR:
-				this.setState({
-					loading: false,
-					error: event
-				});
-				break;
+		if(event.type === PAY_AND_ENROLL_ERROR) {
+			this.setState({
+				loading: false,
+				error: event
+			});
 		}
 	},
 
