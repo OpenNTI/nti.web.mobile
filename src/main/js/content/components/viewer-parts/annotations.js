@@ -44,10 +44,10 @@ export default {
 		let store = getStore(this.state);
 		let nextStore = getStore(nextState);
 		if (store && store !== nextStore) {
-			store.removeListener('load', this.onUserDataChange);
+			store.removeListener('change', this.onUserDataChange);
 		}
 		else if (nextStore && nextStore !== store) {
-			nextStore.addListener('load', this.onUserDataChange);
+			nextStore.addListener('change', this.onUserDataChange);
 		}
 	},
 
