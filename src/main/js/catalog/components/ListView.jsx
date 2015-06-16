@@ -29,10 +29,6 @@ export default React.createClass({
 		this.setList(props);
 	},
 
-	getContext () {
-		return Promise.resolve([]);
-	},
-
 	setList (props) {
 		let {filter, list} = props;
 
