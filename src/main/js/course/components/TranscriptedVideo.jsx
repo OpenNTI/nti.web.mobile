@@ -7,7 +7,10 @@ import {
 import React from 'react';
 import CSS from 'react/lib/CSSCore';
 
+import {getModel} from 'nti.lib.interfaces';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+
+import {toAnalyticsPath} from 'analytics/utils';
 
 import Error from 'common/components/Error';
 import LoadingMask from 'common/components/Loading';
@@ -19,6 +22,7 @@ import {Component as Video} from 'video';
 
 import Transcript from './Transcript';
 
+const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
 export default React.createClass({
 	displayName: 'TranscriptedVideo',
@@ -141,6 +145,23 @@ export default React.createClass({
 	},
 
 
+	onNewWatchEventFactory (e) {
+		let {context, cues, regions, video} = this.state;
+		let {course} = this.props;
+
+		let courseId = course.getID();
+
+		return new WatchVideoEvent(
+			video.ntiid,
+			courseId,
+			toAnalyticsPath(context || []),
+			e.currentTime,
+			e.duration,
+			Boolean(cues || regions)
+		);
+	},
+
+
 	onVideoTimeTick (event) {
 		let time = (event.target || {}).currentTime;
 		if (this.isMounted()) {
@@ -169,11 +190,9 @@ export default React.createClass({
 				<LoadingMask loading={loading}>
 					{!video ? null : (
 					<Video ref="video"
-							courseId={this.props.course.getID()}
 							src={video}
 							onTimeUpdate={this.onVideoTimeTick}
-							context={this.state.context}
-							transcript={true}
+							newWatchEventFactory={this.onNewWatchEventFactory}
 							autoPlay/>
 					)}
 					<div className="transcript">
