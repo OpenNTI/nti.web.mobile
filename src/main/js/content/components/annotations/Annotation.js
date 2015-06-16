@@ -5,7 +5,7 @@ export const RENDERED = Symbol('elements');
 
 export const HIDDEN = void 0;
 export const NOT_FOUND = -3;
-// export const NOT_VISIBLE = -4;
+export const RETRY_AFTER_DOM_SETTLES = -4;
 
 export default class Annotation {
 	static handles (/*item*/) {

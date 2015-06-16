@@ -199,6 +199,11 @@ export default React.createClass({
 			style
 		};
 
+		if (!this.refs.content) {
+			//Annotations cannot resolve their anchors if the content ref is not present... so don't even try.
+			annotations = undefined;
+		}
+
 		return (
 			<div {...props}>
 

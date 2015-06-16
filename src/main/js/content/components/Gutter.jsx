@@ -7,6 +7,9 @@ import {getEventTarget} from 'nti.lib.dom';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
+import {RETRY_AFTER_DOM_SETTLES} from './annotations/Annotation';
+
+
 const pluck = (a, k) => a && a.map(x=> x[k]);
 
 export default React.createClass({
@@ -77,12 +80,27 @@ export default React.createClass({
 	},
 
 
-	resolveBins (items = {}) {
+	resolveBins (items) {
 		let lines = {};
+		let shouldRetry = false;
+		let {resolveRetyDelay} = this.state;
 
+
+		if (resolveRetyDelay != null) {
+			clearTimeout(resolveRetyDelay);
+			resolveRetyDelay = void 0;
+		}
+
+		if (!items) { return; }
+
+		// console.debug('Resolving Bins');
 		for (let item of Object.values(items)) {
 
 			let line = item.resolveVerticalLocation();
+			if (line === RETRY_AFTER_DOM_SETTLES) {
+				shouldRetry = true;
+				break;
+			}
 
 			if (line != null) {
 				line = this.getLine(lines, line);
@@ -92,7 +110,12 @@ export default React.createClass({
 			}
 		}
 
-		this.setState({lines});
+		if (shouldRetry) {
+			resolveRetyDelay = setTimeout(()=> this.resolveBins(items), 200);
+			lines = {};
+		}
+
+		this.setState({lines, resolveRetyDelay});
 	},
 
 

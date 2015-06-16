@@ -1,7 +1,7 @@
 import React from 'react';
 import {safeBoundingBoxForRange, isZeroRect} from 'common/utils/rects';
 
-import {NOT_FOUND, HIDDEN} from './Annotation';
+import {NOT_FOUND, HIDDEN, RETRY_AFTER_DOM_SETTLES} from './Annotation';
 import Highlight from './Highlight';
 
 export default class Note extends Highlight {
@@ -28,6 +28,10 @@ export default class Note extends Highlight {
 		let range = this.getRange();
 		let rect = safeBoundingBoxForRange(range);
 		if (!rect) {
+			if (this.hadValidRange()) {
+				return RETRY_AFTER_DOM_SETTLES;
+			}
+
 			console.log('Not Found:', this.getRecord(), range);
 			return NOT_FOUND;
 		}

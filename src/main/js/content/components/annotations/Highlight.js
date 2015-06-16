@@ -58,9 +58,19 @@ export default class Highlight extends Annotation {
 	}
 
 
+	hadValidRange () {
+		let {reader} = this;
+		let range = this[RANGE];
+		let contentNode = reader.getContentNode();
+
+		return range && !RangeUtils.isValidRange(range, contentNode);
+	}
+
+
 	getRange () {
 		let {reader} = this;
 		let range = this[RANGE];
+		let hadRange = !!range;
 		let contentNode = reader.getContentNode();
 
 		if (RangeUtils.isValidRange(range, contentNode)) {
@@ -85,7 +95,10 @@ export default class Highlight extends Annotation {
 		}
 
 		if (!range) {
-			console.error('bad range', this);
+			if (!hadRange) {
+				console.error('bad range', this);
+			}
+
 			return null;
 		}
 
