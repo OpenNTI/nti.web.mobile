@@ -24,7 +24,10 @@ export default React.createClass({
 
 		tag: React.PropTypes.string,
 
-		username: React.PropTypes.string.isRequired
+		//One of these two Props (username, and user) are required. User trumps Username.
+		username: React.PropTypes.string,
+
+		user: React.PropTypes.object
 	},
 
 
@@ -95,14 +98,13 @@ export function resolve (cmp, props) {
 
 
 function fillIn(cmp, props) {
-
+	let task = Date.now();
 	let set = state => {
 		if (cmp.state.task === task) {
 			cmp.setState(state);
 		}
 	};
 
-	let task = Date.now();
 	cmp.setState({task}, ()=> resolve(cmp, props)
 		.then(
 			user => set({ displayName: user.displayName }),
