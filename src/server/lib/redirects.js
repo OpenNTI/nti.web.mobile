@@ -8,8 +8,8 @@ const SEGMENT_HANDLERS = {
 		path.join('catalog', 'redeem', catalogId, segments[1]),
 
 	forcredit: (catalogId) =>
-		path.join('catalog', 'item', catalogId, 'enrollment', '/'),
-		// path.join('catalog', 'enroll', 'apply', catalogId, '/'),
+		// catalog/enroll/apply/NTI-CourseInfo-Summer2015_LSTD_1153_Block_C/
+		path.join('catalog', 'enroll', 'apply', catalogId, '/'),
 
 	[null]: (s)=> console.warn('There is no handler registered for ', s)
 };
