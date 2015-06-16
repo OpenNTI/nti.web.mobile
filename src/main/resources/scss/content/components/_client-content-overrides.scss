@@ -24,6 +24,8 @@ widget {
 	}
 
 
+	li a:empty {display: none;}
+
 	td {
 		padding: {
 			left: 6px;
