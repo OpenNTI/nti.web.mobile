@@ -52,6 +52,7 @@ export default React.createClass({
 
 	componentWillUnmount () {
 		CSS.removeClass(document.body, 'dark');
+		this.loadDiscussions(null);
 	},
 
 
@@ -99,14 +100,31 @@ export default React.createClass({
 			this.setPageSource(pageSource, video.getID());
 
 			let transcript = this.loadTranscript(video);
+			let notes = this.loadDiscussions(video);
 
-			Promise.all([ transcript ])
+			Promise.all([ notes, transcript ])
 				.then(this.setState({loading: false}))
 				.catch(this.onError);
 
 		} catch (e) {
 			this.onError(e);
 		}
+	},
+
+
+	loadDiscussions (video) {
+		let {store} = this.state;
+
+		if (store) {
+			store.removeListener('change', this.onStoreChanged);
+		}
+
+		return video && video.getUserData()
+			.then(x => x.waitForPending().then(()=>x))
+			.then(x => {
+				x.addListener('change', this.onStoreChanged);
+				this.setState({store: x}, ()=> this.onStoreChanged(x));
+			});
 	},
 
 
@@ -164,6 +182,28 @@ export default React.createClass({
 			e.duration,
 			Boolean(cues || regions)
 		);
+	},
+
+
+	onStoreChanged (store) {
+		if (this.state.store !== store) {
+			return;
+		}
+
+		const Annotation = {
+			resolveVerticalLocation () {
+				console.log(this.item);
+				return 0;
+			}
+		};
+
+		let annotations = {};
+		for (let item of store) {
+			let id = item.getID();
+			annotations[id] = Object.create(Annotation, {item: {value: item}});
+		}
+
+		this.setState({annotations});
 	},
 
 
