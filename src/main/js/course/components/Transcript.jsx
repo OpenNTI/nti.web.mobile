@@ -45,7 +45,9 @@ export default React.createClass({
 		return [
 			divider,
 			(
-				<a href="#" data-start-time={cue.startTime}
+				<a href="#"
+					data-start-time={cue.startTime.toFixed(3)}
+					data-end-time={cue.endTime.toFixed(3)}
 					className={active}
 					onClick={this.onJumpToCue}
 					dangerouslySetInnerHTML={{__html: cue.text}}/>
