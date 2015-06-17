@@ -2,10 +2,11 @@ import React from 'react';
 
 import cx from 'classnames';
 import hash from 'object-hash';
+import {join} from 'path';
 
 import {getEventTarget} from 'nti.lib.dom';
 
-// import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {RETRY_AFTER_DOM_SETTLES} from './annotations/Annotation';
 
@@ -14,7 +15,7 @@ const pluck = (a, k) => a && a.map(x=> x[k]);
 
 export default React.createClass({
 	displayName: 'content:AnnotationGutter',
-	// mixins: [NavigatableMixin],
+	mixins: [NavigatableMixin],
 
 	propTypes: {
 		items: React.PropTypes.object, //annotation dictionary {[obj.id]: obj}
@@ -151,10 +152,10 @@ export default React.createClass({
 
 		count = count > 99 ? '99+' : count;
 
-		// let href = this.makeHref(`/discussions/`);
-
+		let href = this.makeHref(join(this.getPath(), `/discussions/`));
+		console.log(href);
 		return (
-			<a data-line={h} href="./discussions/" style={top} className={css} onClick={this.onClick}>{count}</a>
+			<a data-line={h} href={href} style={top} className={css} onClick={this.onClick}>{count}</a>
 		);
 	},
 
