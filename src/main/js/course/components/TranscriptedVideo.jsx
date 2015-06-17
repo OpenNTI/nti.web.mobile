@@ -27,6 +27,26 @@ import Transcript from './Transcript';
 
 const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
+
+class Annotation {
+	constructor (item, root) {
+		Object.assign(this, {item, root});
+	}
+
+	get id () { return this.item.getID(); }
+
+	resolveVerticalLocation () {
+		let {root, item} = this;
+		let {applicableRange} = item;
+		let start = applicableRange.getStart().getSeconds().toFixed(3);
+
+		let cue = root.querySelector(`[data-start-time="${start}"]`);
+
+		return (cue ? cue : root).getBoundingClientRect().top;
+	}
+}
+
+
 export default React.createClass({
 	displayName: 'TranscriptedVideo',
 	mixins: [ContextSender, NavigatableMixin],
@@ -197,19 +217,11 @@ export default React.createClass({
 			return;
 		}
 
-		const Annotation = {
-			get id () { return this.item.getID(); },
-
-			resolveVerticalLocation () {
-				console.log(this.item);
-				return 0;
-			}
-		};
-
 		let annotations = {};
+		let cues = React.findDOMNode(this.refs.transcript);
+
 		for (let item of store) {
-			let id = item.getID();
-			annotations[id] = Object.create(Annotation, {item: {value: item}});
+			annotations[item.getID()] = new Annotation(item, cues);
 		}
 
 		this.setState({annotations});
@@ -230,7 +242,6 @@ export default React.createClass({
 
 
 	setDiscussionFilter (selectedDiscussions) {
-		console.log(selectedDiscussions);
 		this.setState({selectedDiscussions});
 	},
 

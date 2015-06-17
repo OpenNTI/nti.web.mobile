@@ -115,10 +115,10 @@ body.nav-menu-open {
 
 
 	.transcript {
-		margin: 0.625rem 1.5rem 0 0.625rem;
+		margin: 0.625rem 1rem 0 0.625rem;
 
 		color: #b8b8b8;
-		position: relative;
+		// position: relative;
 
 		hr.break {
 			border: 0;
@@ -141,7 +141,7 @@ body.nav-menu-open {
 		}
 
 		.gutter {
-			width: 0.5rem;
+			right: 0.5rem;
 
 			.bin {
 				background: rgba(51,51,51,0.95);
