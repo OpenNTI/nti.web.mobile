@@ -11,7 +11,7 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import {toAnalyticsPath} from 'analytics/utils';
 
-//import Discussions from 'content/components/discussions';
+import Discussions from 'content/components/discussions';
 import Gutter from 'content/components/Gutter';
 
 import DarkMode from 'common/components/DarkMode';
@@ -33,7 +33,9 @@ export default React.createClass({
 
 	propTypes: {
 		videoId: React.PropTypes.string,
-		course: React.PropTypes.object
+		course: React.PropTypes.object,
+
+		showDiscussions: React.PropTypes.bool
 	},
 
 	getInitialState () {
@@ -124,7 +126,11 @@ export default React.createClass({
 			.then(x => x.waitForPending().then(()=>x))
 			.then(x => {
 				x.addListener('change', this.onStoreChanged);
-				this.setState({store: x}, ()=> this.onStoreChanged(x));
+				this.setState({
+						store: x,
+						storeProvider: {getUserDataStore: ()=>x}
+					},
+					()=> this.onStoreChanged(x));
 			});
 	},
 
@@ -192,6 +198,8 @@ export default React.createClass({
 		}
 
 		const Annotation = {
+			get id () { return this.item.getID(); },
+
 			resolveVerticalLocation () {
 				console.log(this.item);
 				return 0;
@@ -221,14 +229,14 @@ export default React.createClass({
 	},
 
 
-	setDiscussionFilter (ids) {
-		console.log(ids);
+	setDiscussionFilter (selectedDiscussions) {
+		console.log(selectedDiscussions);
+		this.setState({selectedDiscussions});
 	},
 
 
 	render () {
-		let {annotations, error, video, cues, regions, currentTime, loading} = this.state;
-
+		let {annotations, storeProvider, selectedDiscussions, error, video, cues, regions, currentTime, loading} = this.state;
 
 		loading = loading || !video;
 
@@ -238,6 +246,10 @@ export default React.createClass({
 
 		if (loading) {
 			return ( <Loading /> );
+		}
+
+		if (this.props.showDiscussions) {
+			return ( <Discussions UserDataStoreProvider={storeProvider} filter={selectedDiscussions}/> );
 		}
 
 		return (
