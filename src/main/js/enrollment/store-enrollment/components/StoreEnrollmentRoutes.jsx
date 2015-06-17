@@ -23,6 +23,7 @@ export default React.createClass({
 	mixins: [BasePath, ContextSender, NavigatableMixin],
 
 	propTypes: {
+		entryId: React.PropTypes.string.isRequired,
 		purchasable: React.PropTypes.object.isRequired,
 		defaultHandler: React.PropTypes.func.isRequired,
 		isGift: React.PropTypes.bool
