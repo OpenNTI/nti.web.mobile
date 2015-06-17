@@ -5,7 +5,6 @@ import {
 } from 'vtt.js';
 
 import React from 'react';
-import CSS from 'react/lib/CSSCore';
 
 import {getModel} from 'nti.lib.interfaces';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
@@ -15,8 +14,9 @@ import {toAnalyticsPath} from 'analytics/utils';
 //import Discussions from 'content/components/discussions';
 import Gutter from 'content/components/Gutter';
 
+import DarkMode from 'common/components/DarkMode';
 import Error from 'common/components/Error';
-import LoadingMask from 'common/components/Loading';
+import Loading from 'common/components/Loading';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
@@ -49,12 +49,10 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.getDataIfNeeded(this.props);
-		CSS.addClass(document.body, 'dark');
 	},
 
 
 	componentWillUnmount () {
-		CSS.removeClass(document.body, 'dark');
 		this.loadDiscussions(null);
 	},
 
@@ -238,31 +236,35 @@ export default React.createClass({
 			return ( <Error error={error}/> );
 		}
 
+		if (loading) {
+			return ( <Loading /> );
+		}
+
 		return (
 			<div className="transcripted-video">
-				<LoadingMask loading={loading}>
-					{!video ? null : (
-					<Video ref="video"
-							src={video}
-							onTimeUpdate={this.onVideoTimeTick}
-							newWatchEventFactory={this.onNewWatchEventFactory}
-							autoPlay/>
+				<DarkMode/>
+				{!video ? null : (
+				<Video ref="video"
+						src={video}
+						onTimeUpdate={this.onVideoTimeTick}
+						newWatchEventFactory={this.onNewWatchEventFactory}
+						autoPlay={false}/>
+				)}
+				<div className="transcript">
+					{error ? (
+						<div>
+							Transcript not available
+						</div>
+					) : (
+						<Transcript ref="transcript"
+							onJumpTo={this.onJumpTo}
+							currentTime={currentTime}
+							regions={regions}
+							cues={cues}/>
 					)}
-					<div className="transcript">
-						{error ? (
-							<div>
-								Transcript not available
-							</div>
-						) : (
-							<Transcript ref="transcript"
-								onJumpTo={this.onJumpTo}
-								currentTime={currentTime}
-								regions={regions}
-								cues={cues}/>
-						)}
-						<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
-					</div>
-				</LoadingMask>
+					<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
+				</div>
+
 			</div>
 		);
 	}
