@@ -98,50 +98,55 @@ export default React.createClass({
 
 			this.setPageSource(pageSource, video.getID());
 
-			video.getTranscript('en')
-				.then(vtt => {
-					let parser = new WebVTT.Parser(global, WebVTT.StringDecoder()),
-						cues = [], regions = [];
+			let transcript = this.loadTranscript(video);
 
-					parser.oncue = cue=> cues.push(cue);
-					parser.onregion = region=> regions.push(region);
-					parser.onparsingerror = e=> { throw e; };
-
-					if (!global.VTTCue) {
-						global.VTTCue = VTTCue;
-					}
-
-					parser.parse(vtt);
-					parser.flush();
-
-					if (global.VTTCue === VTTCue) {
-						delete global.VTTCue;
-					}
-
-					this.setState({
-						loading: false,
-						cues,
-						regions,
-						video
-					});
-
-				})
-				.catch(reason=> {
-					if (reason === video.NO_TRANSCRIPT ||
-						reason === video.NO_TRANSCRIPT_LANG) {
-						this.setState({
-							loading: false, cues: null, regions: null, video });
-						return;
-					}
-					return Promise.reject(reason);
-
-				})
-
+			Promise.all([ transcript ])
+				.then(this.setState({loading: false}))
 				.catch(this.onError);
 
 		} catch (e) {
 			this.onError(e);
 		}
+	},
+
+
+	loadTranscript (video) {
+		return video.getTranscript('en')
+			.then(vtt => {
+				let parser = new WebVTT.Parser(global, WebVTT.StringDecoder()),
+					cues = [], regions = [];
+
+				parser.oncue = cue=> cues.push(cue);
+				parser.onregion = region=> regions.push(region);
+				parser.onparsingerror = e=> { throw e; };
+
+				if (!global.VTTCue) {
+					global.VTTCue = VTTCue;
+				}
+
+				parser.parse(vtt);
+				parser.flush();
+
+				if (global.VTTCue === VTTCue) {
+					delete global.VTTCue;
+				}
+
+				this.setState({
+					cues,
+					regions,
+					video
+				});
+
+			})
+			.catch(reason=> {
+				if (reason === video.NO_TRANSCRIPT ||
+					reason === video.NO_TRANSCRIPT_LANG) {
+					this.setState({ cues: null, regions: null, video });
+					return;
+				}
+				return Promise.reject(reason);
+
+			});
 	},
 
 
@@ -196,16 +201,17 @@ export default React.createClass({
 							autoPlay/>
 					)}
 					<div className="transcript">
-						{
-							error ?
-								<div>Transcript not available</div> :
-								<Transcript ref="transcript"
-									onJumpTo={this.onJumpTo}
-									currentTime={currentTime}
-									regions={regions}
-									cues={cues}
-								/>
-						}
+						{error ? (
+							<div>
+								Transcript not available
+							</div>
+						) : (
+							<Transcript ref="transcript"
+								onJumpTo={this.onJumpTo}
+								currentTime={currentTime}
+								regions={regions}
+								cues={cues}/>
+						)}
 					</div>
 				</LoadingMask>
 			</div>
