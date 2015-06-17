@@ -40,6 +40,15 @@ class Annotation {
 		let {applicableRange} = item;
 		let start = applicableRange.getStart().getSeconds().toFixed(3);
 
+		root = root.refs.transcript;
+
+		if (!root.isMounted()) {
+			return -1;
+		}
+
+
+		root = React.findDOMNode(root);
+
 		let cue = root.querySelector(`[data-start-time="${start}"]`);
 
 		return (cue ? cue : root).getBoundingClientRect().top;
@@ -218,10 +227,9 @@ export default React.createClass({
 		}
 
 		let annotations = {};
-		let cues = React.findDOMNode(this.refs.transcript);
 
 		for (let item of store) {
-			annotations[item.getID()] = new Annotation(item, cues);
+			annotations[item.getID()] = new Annotation(item, this);
 		}
 
 		this.setState({annotations});
