@@ -115,7 +115,7 @@ body.nav-menu-open {
 
 
 	.transcript {
-		margin: 0.625rem 0.625rem 0;
+		margin: 0.625rem 1.5rem 0 0.625rem;
 
 		color: #b8b8b8;
 		position: relative;
@@ -129,8 +129,10 @@ body.nav-menu-open {
 			overflow: hidden;
 
 			a {
+				& + a::before { content: ' '; }
+
 				color: inherit;
-				display: block;
+				// display: block;
 				font-size: 0.9em;
 				margin-bottom: 0.5rem;
 

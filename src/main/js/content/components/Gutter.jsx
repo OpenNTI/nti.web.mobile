@@ -134,15 +134,6 @@ export default React.createClass({
 
 
 	render () {
-		return (
-			<div>
-				{this.renderGutter()}
-			</div>
-		);
-	},
-
-
-	renderGutter () {
 		let {lines = {}} = this.state;
 		let linePositions = Object.keys(lines);
 		return React.createElement('div', {className: 'gutter'},

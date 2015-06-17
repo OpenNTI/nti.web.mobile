@@ -209,7 +209,7 @@ export default React.createClass({
 
 				{discussions ? (
 
-					<Discussions page={page} filter={selectedDiscussions}/>
+					<Discussions UserDataStoreProvider={page} filter={selectedDiscussions}/>
 
 				) : (
 					<div className="content-body">

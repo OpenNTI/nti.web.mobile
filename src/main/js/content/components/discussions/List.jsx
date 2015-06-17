@@ -22,7 +22,7 @@ export default React.createClass({
 	],
 
 	propTypes: {
-		page: React.PropTypes.shape({
+		UserDataStoreProvider: React.PropTypes.shape({
 			getUserDataStore: React.PropTypes.func
 		}),
 
@@ -46,8 +46,8 @@ export default React.createClass({
 
 
 	getStore (props = this.props) {
-		let {page} = props;
-		return page && page.getUserDataStore();
+		let {UserDataStoreProvider} = props;
+		return UserDataStoreProvider && UserDataStoreProvider.getUserDataStore();
 	},
 
 
