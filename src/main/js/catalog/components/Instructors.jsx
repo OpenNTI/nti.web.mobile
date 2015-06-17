@@ -6,7 +6,7 @@ export default React.createClass({
 	displayName: 'Instructors',
 
 	propTypes: {
-		entry: React.PropTypes.object
+		entry: React.PropTypes.object.isRequired
 	},
 
 	render () {

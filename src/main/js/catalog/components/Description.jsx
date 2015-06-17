@@ -22,11 +22,10 @@ export default React.createClass({
 	},
 
 	render () {
-		let {enrollmentStatus = 'None'} = this.props;
+		let {entry, enrollmentStatus = 'None'} = this.props;
 		let EnrollmentMessage = isOpenEnrolled(enrollmentStatus) ?
 				OpenEnrolledMessage : 'div';
 
-		let entry = this.props.entry;
 		let prerequisites = entry.Prerequisites;
 		if (isEmpty(prerequisites)) {
 			prerequisites = [t('NoPrerequisites')];
@@ -52,7 +51,7 @@ export default React.createClass({
 								<tr>
 									<td>Prerequisites</td>
 									<td>
-										{(prerequisites || []).map(_ => (<div key={_}>{_}</div>))}
+										{(prerequisites || []).map((x, i) => (<div key={x.id || i}>{x.title}</div>))}
 									</td>
 								</tr>
 								<tr>
