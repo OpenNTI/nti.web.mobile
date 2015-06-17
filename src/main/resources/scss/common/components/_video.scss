@@ -139,6 +139,15 @@ body.nav-menu-open {
 				&.active {color: #fff;}
 			}
 		}
+
+		.gutter {
+			width: 0.5rem;
+
+			.bin {
+				background: rgba(51,51,51,0.95);
+				@include transform(translate3d(0, -0.35rem, 0));
+			}
+		}
 	}
 }
 

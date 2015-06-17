@@ -12,6 +12,9 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import {toAnalyticsPath} from 'analytics/utils';
 
+//import Discussions from 'content/components/discussions';
+import Gutter from 'content/components/Gutter';
+
 import Error from 'common/components/Error';
 import LoadingMask from 'common/components/Loading';
 
@@ -220,8 +223,13 @@ export default React.createClass({
 	},
 
 
+	setDiscussionFilter (ids) {
+		console.log(ids);
+	},
+
+
 	render () {
-		let {error, video, cues, regions, currentTime, loading} = this.state;
+		let {annotations, error, video, cues, regions, currentTime, loading} = this.state;
 
 
 		loading = loading || !video;
@@ -252,6 +260,7 @@ export default React.createClass({
 								regions={regions}
 								cues={cues}/>
 						)}
+						<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
 					</div>
 				</LoadingMask>
 			</div>
