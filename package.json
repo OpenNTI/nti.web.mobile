@@ -56,6 +56,10 @@
     "grunt-rename": "^0.1.4",
     "grunt-sass": "^1.0.0",
     "grunt-webpack": "^1.0.8",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-concat": "^2.5.2",
+    "gulp-sass": "^2.0.1",
+    "gulp-sourcemaps": "^1.5.2",
     "html-loader": "^0.3.0",
     "jasmine-core": "^2.2.0",
     "json-loader": "^0.5.1",
@@ -97,5 +101,8 @@
     "webpack": "^1.8.9",
     "webpack-dev-server": "^1.8.2",
     "zpad": "^0.5.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0"
   }
 }
