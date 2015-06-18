@@ -122,7 +122,7 @@ export default React.createClass({
 					node.removeAttribute('id');
 				}
 
-				this.setState({loading: false, context: root.innerHTML});
+				this.setState({loading: false, fragment: true, context: root.innerHTML});
 			});
 	},
 
@@ -135,12 +135,14 @@ export default React.createClass({
 		try {
 			this.setState({
 				loading: false,
+				fragment: false,
 				scoped: true,
 				context: React.renderToStaticMarkup(getWidget(object, undefined, props))
 			});
 		} catch (error) {
 			this.setState({
 				loading: false,
+				fragment: false,
 				scoped: true,
 				error
 			});
@@ -149,8 +151,8 @@ export default React.createClass({
 
 
 	render () {
-		let {error, loading, scoped, context} = this.state;
-		let className = cx('context', {scoped});
+		let {error, loading, scoped, fragment, context} = this.state;
+		let className = cx('context', {scoped, fragment});
 		let props = {className};
 
 		return loading
