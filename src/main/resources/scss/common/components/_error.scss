@@ -54,7 +54,7 @@ widget error {
 	border: 2px solid $secondary-red;
 	border-radius: 3px;
 
-	@include animation('fadeIn 0.5s ease-in 1s 1 normal both');
+	animation: fadeIn 0.5s ease-in 1s 1 normal both;
 
 	& > span:first-of-type::before {
 		display: inline-block;

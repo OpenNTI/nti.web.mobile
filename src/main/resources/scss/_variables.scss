@@ -227,23 +227,6 @@ $tabs-navigation-font-color: $primary-grey;
 	align-self: $val;
 }
 
-
-@mixin animation($str) {
-	animation: #{$str};
-}
-
-@mixin keyframes($animation-name) {
-	@-webkit-keyframes #{$animation-name} {
-		@content;
-	}
-	@-moz-keyframes #{$animation-name} {
-		@content;
-	}
-	@keyframes #{$animation-name} {
-		@content;
-	}
-}
-
 @mixin viewportWidth($rule, $value) {
 	$w: $value;
 	#{$rule}: #{$w}vw;

@@ -40,11 +40,11 @@ aside[class*=off-canvas-menu] {
 
 .exit-off-canvas {
 	.move-left & {
-		@include animation('fadeSlideInLeft .25s 1 ease-in');
+		animation: fadeSlideInLeft .25s 1 ease-in;
 	}
 
 	.move-right & {
-		@include animation('fadeSlideInRight .25s 1 ease-in');
+		animation: fadeSlideInRight .25s 1 ease-in;
 	}
 }
 

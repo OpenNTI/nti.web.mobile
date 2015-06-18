@@ -22,7 +22,7 @@
 			border: 1px dashed $border-grey;
 			color: $border-grey;
 			cursor: default;
-			@include animation('fadeIn .6s linear');
+			animation: fadeIn .6s linear;
 		}
 	}
 

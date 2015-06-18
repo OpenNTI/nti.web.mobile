@@ -17,7 +17,7 @@ $neutral: $primary-blue;//#3fb3f6;
 	font-size: 1rem;
 	text-align: left;
 
-	@include animation('fadeInUp 0.5s');
+	animation: fadeInUp 0.5s;
 
 
 	a {
