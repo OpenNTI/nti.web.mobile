@@ -7,7 +7,10 @@ export default React.createClass({
 	mixins: [NoteableMixin],
 
 	statics: {
-		noteableType: 'grade'
+		noteableType: [
+			'gradebook.grade',
+			'grade'
+		]
 	},
 
 
