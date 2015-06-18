@@ -50,10 +50,12 @@ class Annotation {
 
 
 		root = React.findDOMNode(root);
+		let {scrollTop} = document.body;
 
 		let cue = root.querySelector(`[data-start-time="${start}"]`);
 
-		return (cue ? cue : root).getBoundingClientRect().top;
+		//getBoundingClientRect is effected by scroll position... so add it back in.
+		return (cue ? cue : root).getBoundingClientRect().top + scrollTop;
 	}
 }
 
