@@ -133,11 +133,13 @@ export default React.createClass({
 		};
 
 		try {
+			let widget = getWidget(object, undefined, props);
+			let {type={}} = widget || {};
 			this.setState({
 				loading: false,
 				fragment: false,
 				scoped: true,
-				context: React.renderToStaticMarkup(getWidget(object, undefined, props))
+				context: type.interactiveInContext ? widget : React.renderToStaticMarkup(widget)
 			});
 		} catch (error) {
 			this.setState({
@@ -159,6 +161,8 @@ export default React.createClass({
 			? ( <div {...props}><Loading/></div> )
 			: error
 				? ( <div {...props}><Err error={error}/></div>)
-				: ( <div {...props} dangerouslySetInnerHTML={{__html: context}}/> );
+				: (typeof context === 'string')
+					? ( <div {...props} dangerouslySetInnerHTML={{__html: context}}/> )
+					: ( <div {...props}>{context}</div> );
 	}
 });
