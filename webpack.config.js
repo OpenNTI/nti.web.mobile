@@ -199,7 +199,7 @@ exports = module.exports = [
 		module: {
 			loaders: commonLoaders.concat([
 				{ test: /\.css$/, loader: 'style!css' },
-				{ test: /\.scss$/, loader: 'style!css!sass?' + scssIncludes }
+				{ test: /\.scss$/, loader: 'style!css!autoprefixer-loader!sass?' + scssIncludes }
 			])
 		}
 	},
@@ -246,7 +246,7 @@ exports = module.exports = [
 			loaders: commonLoaders.concat([
 				{ test: /\.html$/, loader: 'html?attrs=link:href' },
 				{ test: /\.css$/, loader: StyleCollector + '!css' },
-				{ test: /\.scss$/, loader: StyleCollector + '!css!sass?' + scssIncludes }
+				{ test: /\.scss$/, loader: StyleCollector + '!css!autoprefixer-loader!sass?' + scssIncludes }
 			])
 		}
 	}
