@@ -5,8 +5,10 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import CatalogAccessor from '../mixins/CatalogAccessor';
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
-
 import Loading from 'common/components/Loading';
+
+import ContextSender from 'common/mixins/ContextSender';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 import {scoped} from 'common/locale';
@@ -20,7 +22,7 @@ const t = scoped('ENROLLMENT.GIFT.REDEEM');
 
 export default React.createClass({
 	displayName: 'GiftRedeem',
-	mixins: [CatalogAccessor],
+	mixins: [CatalogAccessor, ContextSender, NavigatableMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired,
@@ -52,6 +54,21 @@ export default React.createClass({
 
 	componentWillUnmount () {
 		Store.removeChangeListener(this.onStoreChange);
+	},
+
+
+	getContext () {
+		let {entryId} = this.props;
+		return [
+			{
+				label: 'Course',
+				href: this.makeHref(`/item/${entryId}/`)
+			},
+			{
+				label: 'Redeem Gift',
+				href: this.makeHref(`/redeem/${entryId}/`)
+			}
+		];
 	},
 
 
