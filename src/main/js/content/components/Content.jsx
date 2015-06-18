@@ -17,7 +17,15 @@ export default React.createClass({
 
 	propTypes: {
 		page: React.PropTypes.object.isRequired,
-		pageId: React.PropTypes.string.isRequired
+		pageId: React.PropTypes.string.isRequired,
+		onContentReady: React.PropTypes.func
+	},
+
+
+	getDefaultProps () {
+		return {
+			onContentReady: () => {}
+		};
 	},
 
 
@@ -59,6 +67,7 @@ export default React.createClass({
 
 		if (getComparable(prevProps) !== getComparable(this.props) || newWidgets) {
 			this.updatePrestine();
+			this.props.onContentReady();
 		}
 	},
 
