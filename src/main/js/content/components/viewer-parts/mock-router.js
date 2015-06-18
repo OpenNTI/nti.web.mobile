@@ -33,7 +33,7 @@ export default {
 			}
 
 			return makeHref.call(this, link)
-				.replace(`/${rootId}/${rootId}/`, '/')
+				.replace(`/${rootId}/${rootId}/`, `/${rootId}/`)
 				.replace(/\/\/$/, '');
 		};
 
