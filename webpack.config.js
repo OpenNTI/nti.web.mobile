@@ -28,8 +28,6 @@ var modules = path.join(__dirname, 'node_modules');
 
 var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
 
-var browserPrefixSupport = 'last 2 version';
-
 var commonLoaders = [
 	{ test: /\.json$/, loader: 'json' },
 	{ test: /\.js(x?)$/,
@@ -201,7 +199,7 @@ exports = module.exports = [
 		module: {
 			loaders: commonLoaders.concat([
 				{ test: /\.css$/, loader: 'style!css' },
-				{ test: /\.scss$/, loader: 'style!css!autoprefixer-loader?browsers=' + browserPrefixSupport + '!sass?' + scssIncludes }
+				{ test: /\.scss$/, loader: 'style!css!autoprefixer-loader!sass?' + scssIncludes }
 			])
 		}
 	},
@@ -248,7 +246,7 @@ exports = module.exports = [
 			loaders: commonLoaders.concat([
 				{ test: /\.html$/, loader: 'html?attrs=link:href' },
 				{ test: /\.css$/, loader: StyleCollector + '!css' },
-				{ test: /\.scss$/, loader: StyleCollector + '!css!autoprefixer-loader?browsers=' + browserPrefixSupport + '!sass?' + scssIncludes }
+				{ test: /\.scss$/, loader: StyleCollector + '!css!autoprefixer-loader!sass?' + scssIncludes }
 			])
 		}
 	}
