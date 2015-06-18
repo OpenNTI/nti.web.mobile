@@ -41,7 +41,7 @@ export default React.createClass({
 		let {username, className} = this.props;
 		let css = className || '';
 
-		let {avatar, initials = '...'} = user || {};
+		let {avatar, initials} = user || {};
 
 		let props = Object.assign({}, this.props, {
 			'data-for': username,
@@ -76,6 +76,6 @@ function fillIn (cmp, props) {
 	}
 
 	promise
-		.catch(()=> BLANK_AVATAR)
+		.catch(()=> DEFAULT)
 		.then(x => cmp.setState({user: x}));
 }
