@@ -20,8 +20,9 @@ export default React.createClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired,
-		contentPackage: React.PropTypes.object.isRequired
+		item: React.PropTypes.object,
+
+		contentPackage: React.PropTypes.object
 	},
 
 
@@ -79,15 +80,16 @@ export default React.createClass({
 			this.resolveContext()
 				.then(context=>this.setState({context}))
 
-				.then(()=>contentPackage.getVideoIndex())
+				.then(()=> (typeof item.getPoster === 'function')
+						? item
+						: contentPackage.getVideoIndex().then(x=> x.get(NTIID)))
 
-				.then(videoIndex => {
-					video = videoIndex.get(NTIID);
-					video.getPoster()
+				.then(v => {
+					v.getPoster()
 						.then(poster=>
 							this.setState({
+								video: v,
 								loading: false,
-								video,
 								poster
 							}));
 				})
