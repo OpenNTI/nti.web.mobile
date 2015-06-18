@@ -1,5 +1,4 @@
 %transition-image {
-	-webkit-transition: -webkit-transform .25s ease-out;
 	transition: transform .25s ease-out;
 }
 
@@ -156,11 +155,9 @@
 
 		.item {
 			@extend %transition-image;
-			-webkit-transform: translate3d(0,0,0);
 			transform: translate3d(0,0,0);
 
 			&.prev {
-				-webkit-transform: translate3d(0,0,-5px) !important;
 				transform: translate3d(0,0,-5px) !important;
 			}
 		}
@@ -168,13 +165,11 @@
 		&.next {
 
 			.item.next {
-				-webkit-transform: translate3d(-100%,0,0) !important;
 				transform: translate3d(-100%,0,0) !important;
 			}
 
 			.item.current,
 			.item.prev {
-				-webkit-transform: translate3d(0,0,-5px) !important;
 				transform: translate3d(0,0,-5px) !important;
 			}
 
@@ -184,12 +179,10 @@
 
 			.item.prev,
 			.item.next {
-				-webkit-transform: translate3d(0,0,0) !important;
 				transform: translate3d(0,0,0) !important;
 			}
 
 			.item.current {
-				-webkit-transform: translate3d(100%,0,0) !important;
 				transform: translate3d(100%,0,0) !important;
 			}
 
