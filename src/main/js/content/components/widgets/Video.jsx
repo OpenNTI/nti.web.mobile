@@ -15,6 +15,7 @@ export default React.createClass({
 	mixins: [Mixin, ContextAccessor],
 
 	statics: {
+		interactiveInContext: true,
 		itemType: /ntivideo$/i
 	},
 
