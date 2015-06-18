@@ -41,7 +41,6 @@
 
 .loginforms-enter {
 	opacity: 0.01;
-	-webkit-transition: -webkit-transform .25s ease-out, opacity .25s ease-out;
 	transition: transform .25s ease-out, opacity .25s ease-out;
 	width:100%;
 	top: 0;
