@@ -85,8 +85,18 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 
 	getPaymentResult () {
 		return paymentResult;
-	}
+	},
 
+
+	clear () {
+		stripeToken = null;
+		pricing = null;
+		giftInfo = null;
+		paymentFormData = null;
+		paymentResult = null;
+		couponTimeout = null;
+		couponPricing = null;
+	}
 });
 
 export default Store;
@@ -242,11 +252,7 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 			break;
 
 		case Constants.RESET:
-			pricing =
-			giftInfo =
-			couponPricing =
-			paymentFormData =
-			paymentResult = null;
+			Store.clear();
 			Store.emitChange({
 				type: action.type,
 				options: (action.payload || {}).options
@@ -266,11 +272,7 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 			break;
 
 		case Constants.GIFT_PURCHASE_DONE:
-			pricing =
-			giftInfo =
-			couponPricing =
-			paymentFormData =
-			paymentResult = null;
+			Store.clear();
 			Store.emitChange({
 				type: action.type
 			});
