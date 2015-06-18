@@ -156,13 +156,8 @@ export default React.createClass({
 
 		let ref = this.makeHref(this.getPath());
 
-		let {label} = availableSections.find(x=>
-			ref.indexOf(path.normalize(this.makeHref(x.href))) === 0) || {};
-
-		//jsxhint is killing me... it's not comprehending the default value in the destructuing assignment... :}
-		if (!label) {
-			label = 'Menu';
-		}
+		let {label = 'Menu'} = availableSections.find(x=>
+			path.normalize(this.makeHref(x.href)).indexOf(ref) === 0) || {};
 
 		return (
 			<a href="#" onClick={this.toggleMenu}><h1 className={css}>{label}</h1></a>
