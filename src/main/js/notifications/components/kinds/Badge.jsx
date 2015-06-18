@@ -20,7 +20,7 @@ export default React.createClass({
 			<li className="notification-item">
 				<div className='badge' style={{backgroundImage: `url(${item.image})`}}/>
 				<div className="wrap">
-					{item.name}
+					<b>{item.name}</b> badge earned.
 					<DateTime date={this.getEventTime()} relative/>
 				</div>
 			</li>
