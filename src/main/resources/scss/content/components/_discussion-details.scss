@@ -72,16 +72,17 @@
 	.context {
 		position: relative;
 		margin: 1.25rem 0;
-		padding: 1.25rem;
 
 		background: #fff;
 		box-shadow: 0 .0625rem .1875rem 0 rgba(0,0,0,0.2);
 
 		clear: both;
-		overflow-x: hidden;
-		overflow-y: hidden;
-		&:not(.scoped) {
+
+		&:not(.scoped) > div{
+			padding: 0 1.25rem;
 			max-height: 15rem;
+			overflow-x: hidden;
+			overflow-y: hidden;
 		}
 
 		&.fragment {
@@ -94,13 +95,13 @@
 				top: 0;
 				height: 1.5rem;
 				z-index: 10;
-				background: linear-gradient(to top,  rgba(255,252,242,0.5) 0%,rgba(255,252,242,1) 72%,rgba(255,252,242,1) 100%);
+				background: linear-gradient(to top, rgba(255, 252, 242, 0) 0%, rgba(255, 252, 242, 0.88) 60%, rgb(255, 252, 242) 72%, rgb(255, 252, 242) 100%);
 			}
 
 			&::after {
 				top: initial;
 				bottom: 0;
-				background: linear-gradient(to bottom,  rgba(255,252,242,0.5) 0%,rgba(255,252,242,1) 72%,rgba(255,252,242,1) 100%);
+				background: linear-gradient(to bottom, rgba(255, 252, 242, 0) 0%, rgba(255, 252, 242, 0.88) 60%, rgb(255, 252, 242) 72%, rgb(255, 252, 242) 100%);
 			}
 		}
 
