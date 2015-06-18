@@ -49,6 +49,9 @@ export default React.createClass({
 		let node = React.findDOMNode(this);
 		if (node) {
 			let focus = node.querySelector('.fucus-context-here');
+
+			node = node.firstChild;//this is what scrolls.
+
 			if (focus && node.scrollHeight > node.offsetHeight) {
 				console.log('TODO: ensure focus node', focus, 'is positioned into view.');
 				let r = focus.getBoundingClientRect();
@@ -66,7 +69,7 @@ export default React.createClass({
 
 
 	updateContext (item) {
-		this.setState({loading: true});
+		this.setState({found: false, loading: true});
 		item.getContextData()
 			.then(x => x instanceof PageInfo ?
 				this.setPageContext(item, x) :
@@ -76,53 +79,18 @@ export default React.createClass({
 
 
 	setPageContext (item, pageInfo) {
-		let Annotation = getAnnotation(item);
-
 		getPageContent(pageInfo)
 			.then(x => new PageDescriptor(x.pageInfo.getID(), x))
 			.then(x => {
-
-				let frag = document.createDocumentFragment();
-				let root = frag.appendChild(document.createElement('div'));
-
-				root.innerHTML = React.renderToStaticMarkup(
-					React.createElement(Content, {
+				let pageId = x.getID();
+				let context = React.createElement(Content, {
 						id: 'NTIContent',
 						page: x,
-						pageId: x.getID()
-					}));
+						pageId,
+						onContentReady: () => this.findApplicableRange()
+					});
 
-
-				let renderable = new Annotation(item, {
-					getContentNode: () => root,
-					getContentNodeClean: () => root,
-					getPageID: () => x.getID()
-				});
-
-
-				if (!renderable.render()) {
-					console.warn('Could not render annotation into context');
-				}
-
-				let range = renderable.getRange();
-				if (range) {
-					let s = document.createElement('span');
-					s.setAttribute('class', 'fucus-context-here');
-					range.insertNode(s);
-				} else {
-					console.warn('Could not insert focus node');
-				}
-
-				//we can't insert this into the dom without causing problems. There may be other instances, so
-				//we need to remove the ID before it goes into the dom.
-				let node = frag.querySelector('#NTIContent');	// documentFragments do not (universally) implement
-																// getElementById.. both querySelector and
-																// getElementById are linear searches. No speed-up/down.
-				if (node) {
-					node.removeAttribute('id');
-				}
-
-				this.setState({loading: false, fragment: true, context: root.innerHTML});
+				this.setState({loading: false, fragment: true, context, pageId});
 			});
 	},
 
@@ -149,6 +117,49 @@ export default React.createClass({
 				error
 			});
 		}
+	},
+
+
+	findApplicableRange () {
+		let {item} = this.props;
+		let {found, fragment, pageId} = this.state;
+
+		let root = React.findDOMNode(this);
+		if (!root || found || !fragment) {
+			return !!found;
+		}
+
+		let Annotation = getAnnotation(item);
+		let renderable = new Annotation(item, {
+			getContentNode: () => root,
+			getContentNodeClean: () => root,
+			getPageID: () => pageId
+		});
+
+
+		renderable.render();
+
+		let range = renderable.getRange();
+		if (range) {
+			let s = document.createElement('span');
+			s.setAttribute('class', 'fucus-context-here');
+			range.insertNode(s);
+			found = renderable;
+		} else {
+			console.warn('Could not insert focus node');
+		}
+
+		let node = root.querySelector('#NTIContent');
+		if (node) {
+			//we can't insert this into the dom without causing problems. There may be other instances, so
+			//we need to remove the ID before it goes into the dom.
+			node.removeAttribute('id');
+		}
+
+
+		this.setState({found});
+
+		return !!found;
 	},
 
 

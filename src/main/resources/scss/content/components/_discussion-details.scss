@@ -105,6 +105,11 @@
 			}
 		}
 
+		widget {
+			pointer-events: none;
+			.zoom {display: none;}
+		}
+
 		& > .question {
 			margin: 0;
 			border: none;
