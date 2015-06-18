@@ -46,25 +46,7 @@ export default React.createClass({
 
 
 	componentDidUpdate () {
-		let node = React.findDOMNode(this);
-		if (node) {
-			let focus = node.querySelector('.fucus-context-here');
-
-			node = node.firstChild;//this is what scrolls.
-
-			if (focus && node.scrollHeight > node.offsetHeight) {
-				console.log('TODO: ensure focus node', focus, 'is positioned into view.');
-				let r = focus.getBoundingClientRect();
-				let r2 = node.getBoundingClientRect();
-				let approxOneLineHeight = 16;
-
-				//if the focus node is completely below the bottom of the view, OR
-				//if the top is in the lower 70% of the view...
-				if (r.top > r2.bottom || ((r2.bottom - r.top) / r2.height) < 0.7 ) {
-					node.scrollTop = (r.top - r2.top - approxOneLineHeight);
-				}
-			}
-		}
+		this.focusApplicableRange();
 	},
 
 
@@ -96,8 +78,10 @@ export default React.createClass({
 
 
 	setWidgetContainerContext (_, object) {
+		let {item} = this.props;
 		let props = {
-			record: object
+			record: object,
+			applicableRange: item.applicableRange
 		};
 
 		try {
@@ -163,6 +147,29 @@ export default React.createClass({
 	},
 
 
+	focusApplicableRange () {
+		let node = React.findDOMNode(this);
+		if (node) {
+			let focus = node.querySelector('.fucus-context-here');
+
+			node = node.firstChild;//this is what scrolls.
+
+			if (focus && node.scrollHeight > node.offsetHeight) {
+				console.log('TODO: ensure focus node', focus, 'is positioned into view.');
+				let r = focus.getBoundingClientRect();
+				let r2 = node.getBoundingClientRect();
+				let approxOneLineHeight = 16;
+
+				//if the focus node is completely below the bottom of the view, OR
+				//if the top is in the lower 70% of the view...
+				if (r.top > r2.bottom || ((r2.bottom - r.top) / r2.height) < 0.7 ) {
+					node.scrollTop = (r.top - r2.top - approxOneLineHeight);
+				}
+			}
+		}
+	},
+
+
 	render () {
 		let {error, loading, scoped, fragment, context} = this.state;
 		let className = cx('context', {scoped, fragment});
@@ -174,6 +181,13 @@ export default React.createClass({
 				? ( <div {...props}><Err error={error}/></div>)
 				: (typeof context === 'string')
 					? ( <div {...props} dangerouslySetInnerHTML={{__html: context}}/> )
-					: ( <div {...props}>{context}</div> );
+					: (
+						<div {...props}>
+						{
+							React.createElement(context.type,
+								Object.assign({}, context.props, {ref: 'widget'}))
+						}
+						</div>
+					);
 	}
 });
