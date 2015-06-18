@@ -18,22 +18,18 @@ $arrow-color: $tertiary-grey;
 
 @mixin _direction($direction, $size) {
 	@if $direction == right {
-		-webkit-transform: rotate3d(0,0,1,45deg);
 		transform: rotate3d(0,0,1,45deg);
 		right: $size * 1.5;
 	}
 	@else if $direction == left {
-		-webkit-transform: rotate3d(0,0,1,-135deg);
 		transform: rotate3d(0,0,1,-135deg);
 		left: $size * 1.5;
 	}
 	@else if $direction == up {
-		-webkit-transform: rotate3d(0,0,1,-45deg);
 		transform: rotate3d(0,0,1,-45deg);
 		right: $size * 1.5;
 	}
 	@else if $direction == down {
-		-webkit-transform: rotate3d(0,0,1,135deg);
 		transform: rotate3d(0,0,1,135deg);
 		right: $size * 1.5;
 	}
@@ -71,11 +67,11 @@ $arrow-color: $tertiary-grey;
 		left: 0;
 		top: 50%;
 		margin-top: -$size/2;
-		-webkit-transform-origin-x: $size/8;
+		transform-origin: $size/8 50%;
 		transition-property: all;
-		-webkit-transition-duration: 0.3s;
+		transition-duration: 0.3s;
 	}
 	&.open::before {
-		-webkit-transform: rotate3d(0, 0, 1, 90deg); 
+		transform: rotate3d(0, 0, 1, 90deg); 
 	}
 }
