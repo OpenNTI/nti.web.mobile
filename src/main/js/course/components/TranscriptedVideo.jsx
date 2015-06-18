@@ -27,6 +27,8 @@ import Transcript from './Transcript';
 
 const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
+const None = void 0;
+
 
 class Annotation {
 	constructor (item, root) {
@@ -71,8 +73,8 @@ export default React.createClass({
 		return {
 			loading: true,
 			error: false,
-			cues: null,
-			regions: null,
+			cues: None,
+			regions: None,
 			currentTime: 0
 		};
 	},
@@ -84,7 +86,7 @@ export default React.createClass({
 
 
 	componentWillUnmount () {
-		this.loadDiscussions(null);
+		this.loadDiscussions(None);
 	},
 
 
@@ -98,7 +100,7 @@ export default React.createClass({
 		this.setState({
 			loading: false,
 			error: error,
-			data: null
+			data: None
 		});
 	},
 
@@ -195,7 +197,7 @@ export default React.createClass({
 			.catch(reason=> {
 				if (reason === video.NO_TRANSCRIPT ||
 					reason === video.NO_TRANSCRIPT_LANG) {
-					this.setState({ cues: null, regions: null, video });
+					this.setState({ cues: None, regions: None, video });
 					return;
 				}
 				return Promise.reject(reason);
@@ -274,7 +276,7 @@ export default React.createClass({
 		return (
 			<div className="transcripted-video">
 				<DarkMode/>
-				{!video ? null : (
+				{!video ? None : (
 				<Video ref="video"
 						src={video}
 						onTimeUpdate={this.onVideoTimeTick}
