@@ -22,7 +22,7 @@
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		@include transform(translate3d(-50%,-50%,0));
+		transform: translate3d(-50%,-50%,0);
 
 		font-size: 1.5rem;
 		color: rgba(255,255,255, 0.5);
@@ -134,7 +134,7 @@
 				left: 50%;
 				font: normal bold 10vw/1 $body-font-family;
 				white-space: nowrap;
-				@include transform(translate(-50%, -50%) rotate(20deg));
+				transform: translate(-50%, -50%) rotate(20deg);
 				color: rgba(204,204,204, 0.5);
 			}
 		}
@@ -238,7 +238,7 @@
 				top: 50%;
 				left: 50%;
 
-				@include transform(translate3d(-50%, -50%, 0));
+				transform: translate3d(-50%, -50%, 0);
 
 				&::before {
 					opacity: 0.5;

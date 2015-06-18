@@ -12,11 +12,11 @@
 @include keyframes(fadeInUp) {
 	from {
 		opacity: 0;
-		@include transform(translate3d(0,150%,0));
+		transform: translate3d(0,150%,0);
 	}
 	to {
 		opacity: 1;
-		@include transform(translate3d(0,0,0));
+		transform: translate3d(0,0,0);
 	}
 }
 
@@ -27,33 +27,33 @@
 
 	100% {
 		opacity: 0;
-		@include transform(translate3d(0,-100%,0));
+		transform: translate3d(0,-100%,0);
 	}
 }
 
 
 @include keyframes(rotation) {
-	from { @include transform(rotate(0deg));}
-	to { @include transform(rotate(359deg));}
+	from { transform: rotate(0deg);}
+	to { transform: rotate(359deg);}
 }
 
 @include keyframes(slideDown) {
 	0% {
-		@include transform(translate3d(0, -2000px, 0));
+		transform: translate3d(0, -2000px, 0);
 	}
 
 	100% {
-		@include transform(translate3d(0,0,0));
+		transform: translate3d(0,0,0);
 	}
 }
 
 
 @include keyframes(fadeSlideInLeft) {
-	from { opacity: 0.5; @include transform(translate3d(100%,0,0)); }
-	to { opacity: 1; @include transform(translate3d(0,0,0)); }
+	from { opacity: 0.5; transform: translate3d(100%,0,0); }
+	to { opacity: 1; transform: translate3d(0,0,0); }
 }
 
 @include keyframes(fadeSlideInRight) {
-	from { opacity: 0.5; @include transform(translate3d(-100%,0,0)); }
-	to { opacity: 1; @include transform(translate3d(0,0,0)); }
+	from { opacity: 0.5; transform: translate3d(-100%,0,0); }
+	to { opacity: 1; transform: translate3d(0,0,0); }
 }

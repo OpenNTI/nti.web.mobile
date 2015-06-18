@@ -94,7 +94,7 @@ a.disabled {
 
 .sadface {
 	font-size: 5rem;
-	@include transform(rotate3d(0,0,1,90deg));
+	transform: rotate3d(0,0,1,90deg);
 	display: inline-block;
 	background: lightblue;
 	border-radius: 100%;

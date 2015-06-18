@@ -1,5 +1,5 @@
 %icon-tabs {
-	@include flexbox();
+	display: flex;
 	margin: 0;
 	list-style: none;
 	position: relative;

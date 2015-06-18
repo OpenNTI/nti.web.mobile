@@ -9,6 +9,6 @@
 		position: relative;
 		left: 50%;
 		display: inline-block;
-		@include transform(translateX(-50%));
+		transform: translateX(-50%);
 	}
 }

@@ -35,7 +35,7 @@
 			position: absolute;
 			top: 50%;
 			left: 50%;
-			@include transform(translate3d(-50%,-50%,0));
+			transform: translate3d(-50%,-50%,0);
 			background: {
 				size: contain;
 				repeat: no-repeat;

@@ -196,7 +196,7 @@ li.catalog-item {
 		margin: 0 0.2rem;
 		position: absolute;
 		top: 50%; right: 0;
-		@include transform(translateY(-50%));
+		transform: translateY(-50%);
 		background: white;
 
 		&.add {
@@ -217,7 +217,7 @@ li.catalog-item {
 	}
 
 	& > a {
-		@include flexbox();
+		display: flex;
 		.thumbnail, label {
 			position: relative;
 			display: inline-block;

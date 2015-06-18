@@ -9,7 +9,7 @@
 	position: absolute;
 	top: 30%;
 	left: 50%;
-	@include transform(translate3d(-50%,0,0));
+	transform: translate3d(-50%,0,0);
 	background: white;
 
 

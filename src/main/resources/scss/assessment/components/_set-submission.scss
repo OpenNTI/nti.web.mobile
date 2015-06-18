@@ -3,7 +3,7 @@
 .set-submission {
 	font-size: 0.7rem;
 	font-style: italic;
-	@include flexbox();
+	display: flex;
 
 	&.complete {
 		.status-line{color: $primary-green;}

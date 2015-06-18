@@ -7,12 +7,6 @@
 	transition: #{$prop};
 }
 
-@mixin transform($prop) {
-	-webkit-transform: #{$prop};//Apple products
-	-ms-transform: #{$prop};//IE9
-	transform: #{$prop};//Everyone else
-}
-
 @mixin reactTransition($name) {
 
 	.#{$name}-enter {
@@ -52,12 +46,12 @@
 	width:100%;
 	top: 0;
 	position: absolute;
-	@include transform(translate3d(0,-1rem,0));
+	transform: translate3d(0,-1rem,0);
 }
 
 .loginforms-enter.loginforms-enter-active {
 	opacity: 1;
-	@include transform(translate3d(0,0,0));
+	transform: translate3d(0,0,0);
 }
 
 .loginforms-leave {
@@ -67,12 +61,12 @@
 	width:100%;
 	top: 0;
 	position: absolute;
-	@include transform(translate3d(0,0,0));
+	transform: translate3d(0,0,0);
 }
 
 .loginforms-leave.loginforms-leave-active {
 	opacity: 0.01;
-	@include transform(translate3d(0,1rem,0));
+	transform: translate3d(0,1rem,0);
 }
 
 .loginforms {

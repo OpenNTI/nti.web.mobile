@@ -77,7 +77,7 @@ section.right-small {
 				content: '';
 				@extend %chevron-down;
 				.nav-menu-open & {
-					@include transform(rotate3d(0,0,1,180deg));
+					transform: rotate3d(0,0,1,180deg);
 				}
 				width: 10px;
 				height: 10px;
@@ -311,10 +311,10 @@ section.right-small {
 	&.nav-menu-enter {
 		transition: all $duration $enter-timing;
 		transition-delay: 0s !important;
-		@include transform(scale3d(0.95,0.95,1) translate3d(0, -150%, 0));
+		transform: scale3d(0.95,0.95,1) translate3d(0, -150%, 0);
 
 		&.nav-menu-enter-active {
-			@include transform(translate3d(0, 0, 0));
+			transform: translate3d(0, 0, 0);
 		}
 	}
 
@@ -322,10 +322,10 @@ section.right-small {
 		transition: all 0.25s $leave-timing;
 		transition-delay: 0s !important;
 
-		@include transform(translate3d(0, 0, 0));
+		transform: translate3d(0, 0, 0);
 
 		&.nav-menu-leave-active {
-			@include transform(scale3d(0.95,0.95,1) translate3d(0, -150%, 0));
+			transform: scale3d(0.95,0.95,1) translate3d(0, -150%, 0);
 		}
 	}
 }

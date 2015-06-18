@@ -171,10 +171,7 @@ $tabs-navigation-font-color: $primary-grey;
 
 
 %hardware-render {
-	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
-	-webkit-transform: translate3d(0, 0, 0);
-	-ms-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
 }
 
@@ -185,43 +182,27 @@ $tabs-navigation-font-color: $primary-grey;
 }
 
 
-@mixin blur-effect() {
-	//filter: blur(add = 0, direction = 0, strength = 10);//IE
-	//filter: url(#blur-effect);//moz
-	-webkit-filter: blur(8px);
-	filter: blur(8px);
-}
+// @mixin blur-effect() {
+// 	//filter: blur(add = 0, direction = 0, strength = 10);//IE
+// 	//filter: url(#blur-effect);//moz
+// 	-webkit-filter: blur(8px);
+// 	filter: blur(8px);
+// }
 
 
 @mixin vertical-align {
   position: relative;
   top: 50%;
-  @include transform(translate3d(0,-50%, 0));
+  transform: translate3d(0,-50%, 0);
 }
 
-
-@mixin flexbox() {
-	display: -webkit-box;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-}
 
 @mixin inline-flexbox() {
-	display: -webkit-inline-box;
-	display: -moz-inline-box;
-	display: -ms-inline-flexbox;
-	display: -webkit-inline-flex;
 	display: inline-flex;
 }
 
 @mixin flex($values) {
-	-webkit-box-flex: $values;
-	-moz-box-flex:  $values;
-	-webkit-flex:  $values;
-	-ms-flex:  $values;
-	flex:  $values;
+	flex: $values;
 }
 
 @mixin order($val) {
@@ -248,13 +229,8 @@ $tabs-navigation-font-color: $primary-grey;
 
 
 @mixin animation($str) {
-	-webkit-animation: #{$str};
-	   -moz-animation: #{$str};
-		-ms-animation: #{$str};
-		 -o-animation: #{$str};
-			animation: #{$str};
+	animation: #{$str};
 }
-
 
 @mixin keyframes($animation-name) {
 	@-webkit-keyframes #{$animation-name} {
