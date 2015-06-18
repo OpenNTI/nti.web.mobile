@@ -98,7 +98,7 @@ export default React.createClass({
 	render () {
 		//TODO: Rewrite into a router (memory env) or some other "select" style to split this into smaller, clearer render methods/components.
 
-		if (!this.state.error) {
+		if (this.state.error) {
 			return <Err error="There was a problem on the backend. Please try again later."/>;
 		}
 
