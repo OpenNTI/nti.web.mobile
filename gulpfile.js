@@ -14,3 +14,7 @@ gulp.task('css', function() {
 		.pipe(sourcemaps.write('./')) // write sourcemaps to the same directory as the output.
 		.pipe(gulp.dest('src/main/resources/css'))
 });
+
+gulp.task('watch', function() {
+	gulp.watch('src/main/resources/scss/**/*.scss', ['css']);
+});
