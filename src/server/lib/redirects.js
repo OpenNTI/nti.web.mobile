@@ -11,7 +11,7 @@ const SEGMENT_HANDLERS = {
 		// catalog/enroll/apply/NTI-CourseInfo-Summer2015_LSTD_1153_Block_C/
 		path.join('catalog', 'enroll', 'apply', catalogId, '/'),
 
-	[null]: (s)=> console.warn('There is no handler registered for ', s)
+	[null]: (catalogId)=> path.join('catalog', 'item', catalogId)
 };
 
 const HANDLERS = {
@@ -100,10 +100,6 @@ export default {
 
 
 function translatePath (catalogId, trailingPath) {
-	if (!trailingPath) {
-		return void 0;
-	}
-
 	let segments = (trailingPath || '').split('/');
 
 	let handler = SEGMENT_HANDLERS[segments[0] || null];
