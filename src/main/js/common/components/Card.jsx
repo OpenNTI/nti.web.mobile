@@ -230,7 +230,7 @@ export default React.createClass({
 
 		if (this.isExternal()) {
 			anchor.setAttribute('target', '');
-			anchor.setAttribute('href', this.getInternalHref(item['target-NTIID'], slug));
+			anchor.setAttribute('href', this.getInternalHref(item.NTIID, slug));
 		}
 
 		let href = path.join(anchor.getAttribute('href'), subRef);
