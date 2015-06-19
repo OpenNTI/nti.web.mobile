@@ -33,11 +33,14 @@ export default React.createClass({
 
 
 	setDefaultSection (name) {
+		const get = v => `/${v}`;
 		let {env} = this.state;
 		let p = env.getPath();
 
-		if (p == null || p === '') {
-			env.setPath('/${name}');
+		let available = this.getAvailableSections().map(get);
+
+		if (p == null || !available.includes(p)) {
+			env.setPath(get(name));
 		}
 
 		this.setState({
