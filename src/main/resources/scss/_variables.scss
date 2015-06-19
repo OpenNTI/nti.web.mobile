@@ -176,7 +176,7 @@ $tabs-navigation-font-color: $primary-grey;
 }
 
 %touch-scroll {
-	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
 	-webkit-overflow-scrolling: touch;
 	-ms-overflow-style: -ms-autohiding-scrollbar;
 }
