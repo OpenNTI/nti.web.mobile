@@ -21,6 +21,19 @@ import NavStore from '../Store';
 
 const menuOpenBodyClass = 'nav-menu-open';
 
+function ensureSlash (str) {
+	const split = /[?#]/.exec(str);
+	let args = '';
+	if (split) {
+		let {index} = split;
+		args = str.substr(index);
+		str = str.substr(0, index);
+	}
+
+	str = /\/$/.test(str) ? str : (str + '/');
+
+	return str + args;
+}
 
 export default React.createClass({
 	displayName: 'NavigationBar',
@@ -154,10 +167,10 @@ export default React.createClass({
 			return;
 		}
 
-		let ref = this.makeHref(this.getPath());
+		let ref = ensureSlash(this.makeHref(this.getPath()));
 
 		let {label = 'Menu'} = availableSections.find(x=>
-			path.normalize(this.makeHref(x.href)).indexOf(ref) === 0) || {};
+			ref.indexOf(path.normalize(this.makeHref(x.href))) === 0) || {};
 
 		return (
 			<a href="#" onClick={this.toggleMenu}><h1 className={css}>{label}</h1></a>
