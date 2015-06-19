@@ -111,6 +111,10 @@
 			.zoom {display: none;}
 		}
 
+		figure.error {
+			position: relative;
+		}
+
 		& > .question {
 			margin: 1.25rem;
 			border: none;

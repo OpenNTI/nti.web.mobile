@@ -15,7 +15,15 @@ import {getWidget} from '../widgets';
 import {getPageContent} from '../../Actions';
 import PageDescriptor from '../../PageDescriptor';
 
+import ContentAquirePrompt from './ContentAquirePrompt';
+
 const PageInfo = getModel('pageinfo');
+
+
+function is403 (e) {
+	return e && e.statusCode === 403;
+}
+
 
 export default React.createClass({
 	displayName: 'Context',
@@ -51,12 +59,14 @@ export default React.createClass({
 
 
 	updateContext (item) {
-		this.setState({found: false, loading: true});
+		this.setState({error: null, found: false, loading: true});
+
 		item.getContextData()
 			.then(x => x instanceof PageInfo ?
 				this.setPageContext(item, x) :
 				this.setWidgetContainerContext(item, x)
-			);
+			)
+			.catch(error => this.setState({error, loading: false}));
 	},
 
 
@@ -173,12 +183,16 @@ export default React.createClass({
 	render () {
 		let {error, loading, scoped, fragment, context} = this.state;
 		let className = cx('context', {scoped, fragment});
+		let {item} = this.props;
 		let props = {className};
 
 		return loading
 			? ( <div {...props}><Loading/></div> )
 			: error
-				? ( <div {...props}><Err error={error}/></div>)
+				? (is403(error)
+					? ( <ContentAquirePrompt {...props} relatedItem={item} data={error}/> )
+					: ( <div {...props}><Err error={error}/></div> )
+				)
 				: (typeof context === 'string')
 					? ( <div {...props} dangerouslySetInnerHTML={{__html: context}}/> )
 					: (
