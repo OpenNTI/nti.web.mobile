@@ -70,6 +70,7 @@
 	}
 
 	.context {
+		overflow: hidden;
 		position: relative;
 		margin: 1.25rem 0;
 
@@ -111,8 +112,15 @@
 		}
 
 		& > .question {
-			margin: 0;
+			margin: 1.25rem;
 			border: none;
+
+			&::before {
+				content: '';
+				clear: both;
+				display: table;
+			}
+
 			.question-title {
 				padding: 0;
 			}
