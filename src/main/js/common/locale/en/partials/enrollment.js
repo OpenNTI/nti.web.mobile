@@ -180,6 +180,8 @@ export default {
 			contactMe: 'I want someone from the University of Oklahoma to contact me.'
 		}
 	},
+
+
 	admissionPendingMessage: 'Your application has been received. An admissions counselor will contact you soon.',
 	incompleteForm: 'Please complete all required fields.',
 	requiredField: 'Field is required.',
@@ -201,6 +203,11 @@ export default {
 	fiveMinuteEnrollmentTitle: 'Enroll for Credit',
 	fiveMinuteNotAvailableOnMobile: 'Please visit from a desktop to enroll for credit. Coming soon to mobile.',
 	fiveMinuteEnrollmentButton: 'Enroll for Credit',
+	fiveMinuteEnrollmentSeatAvailable: {
+		zero: 'No Seats Remaining',
+		one: '%(count)s Seat Available',
+		other: '%(count)s Seats Available'
+	},
 	fiveMinuteEnrollmentDescription: 'Earn transcripted college credit from the University of Oklahoma.',
 	proceedToPayment: 'Proceed to payment',
 	concurrentThanksHead: 'Thank you for your interest in concurrent enrollment.',
