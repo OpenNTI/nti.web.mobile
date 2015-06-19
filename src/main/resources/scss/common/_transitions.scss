@@ -55,7 +55,6 @@
 
 .loginforms-leave {
 	opacity: 1;
-	-webkit-transition: -webkit-transform .25s ease-out, opacity .25s ease-out;
 	transition: transform .25s ease-out, opacity .25s ease-out;
 	width:100%;
 	top: 0;
@@ -69,7 +68,6 @@
 }
 
 .loginforms {
-	-webkit-transition: -webkit-transform .25s ease-out, opacity .25s ease-out;
 	transition: transform .25s ease-out, opacity .25s ease-out;
 }
 
