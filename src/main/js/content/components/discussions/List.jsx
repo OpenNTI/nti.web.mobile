@@ -9,6 +9,8 @@ import Loading from 'common/components/Loading';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
+import NotFound from 'notfound/components/View';
+
 import Detail from './Detail';
 import Item from './Item';
 
@@ -64,19 +66,20 @@ export default React.createClass({
 	updateStore (props, mounting) {
 		let store = this.getStore();
 		let nextStore = this.getStore(props);
+		this.setState({loading: true});
+
 		if (store && store !== nextStore) {
-			store.removeListener('load', this.onUserDataChange);
+			store.removeListener('change', this.onUserDataChange);
 		}
-		else if (nextStore) {
+
+		if (nextStore) {
 			if (nextStore !== store || mounting) {
-				nextStore.addListener('load', this.onUserDataChange);
+				nextStore.addListener('change', this.onUserDataChange);
 			}
 
 			if (!nextStore.loading) {
 				this.onUserDataChange(nextStore, props);
 			}
-		} else {
-			console.debug('Nothing.');
 		}
 	},
 
@@ -87,6 +90,9 @@ export default React.createClass({
 		if (store) {
 			items = [];
 			item = itemId && store.get(decodeFromURI(itemId));
+			if (!item && itemId) {
+				console.error(store, itemId, decodeFromURI(itemId));
+			}
 
 			for (let x of store) {
 				if (x instanceof Note && (!filter || filter.includes(x.getID()))) {
@@ -95,13 +101,17 @@ export default React.createClass({
 			}
 		}
 
-		this.setState({items, item, pageSource: item && new PageSource(items)});
+		this.setState({
+			loading: false,
+			items,
+			item,
+			pageSource: item && new PageSource(items)});
 	},
 
 
 	render () {
 		let {state, props} = this;
-		let {items, item, pageSource} = state;
+		let {items, item, loading, pageSource} = state;
 		let {itemId} = props;
 
 		props = Object.assign({}, props);
@@ -112,8 +122,12 @@ export default React.createClass({
 			items = null;
 		}
 
-		return item ? (
-			<Detail item={item} pageSource={pageSource}/>
+		return itemId ? (
+			item
+			? ( <Detail item={item} pageSource={pageSource}/> )
+			: loading
+				? ( <Loading/> )
+				: ( <NotFound/> )
 		) : (
 			<div className="discussions" {...props}>
 				<div className="list">
