@@ -172,7 +172,7 @@ export default {
 				'abide by the tenets of The University of Oklahoma\'s <a href="http://integrity.ou.edu/" target="_blank">Integrity Pledge.</a>',
 			submit: 'Submit Application',
 			concurrentFormIntro: '<h2>You may qualify for concurrent enrollment.<h2><p>Through Concurrent Enrollment (CE), high school juniors ' +
-				'and seniors can enroll in college classes and earn college credit while will in high school. Submit your contact info ' +
+				'and seniors can enroll in college classes and earn college credit while still in high school. Submit your contact info ' +
 				'and date of birth below and a Concurrent Enrollment Counselor will be in touch to guide you through the ' +
 				'<a href="http://www.ou.edu/content/go2/admissions/concurrent.html">Concurrent Enrollment Process.</a></p>',
 			prohibitionPolicyHeading: 'Policy on Non-Academic Criteria in the Admission of Students',
@@ -212,7 +212,7 @@ export default {
 	proceedToPayment: 'Proceed to payment',
 	concurrentThanksHead: 'Thank you for your interest in concurrent enrollment.',
 	concurrentThanksBody: 'We\'ve received your contact information and a Concurrent Enrollment Counselor will ' +
-		'be contacting you shortly. In the meantime, please feel free to explore the <a href="http://www.ou.edu/content/go2/admissions/concurrent.html">Concurent Enrollment website</a> ' +
+		'be contacting you shortly. In the meantime, please feel free to explore the <a href="http://www.ou.edu/content/go2/admissions/concurrent.html">Concurrent Enrollment website</a> ' +
 		'to learn more about the process.'
 
 
