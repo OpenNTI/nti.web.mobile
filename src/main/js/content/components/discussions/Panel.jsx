@@ -11,6 +11,12 @@ import Body from 'modeled-content/components/Panel';
 
 import ItemActions from './ItemActions';
 
+export function ReplyComparator (a, b) {
+	a = a.getCreatedTime();
+	b = b.getCreatedTime();
+	return a === b ? 0 : a < b ? -1 : 1;
+}
+
 const Panel = React.createClass({
 	displayName: 'content:discussions:Panel',
 
@@ -84,7 +90,7 @@ const Panel = React.createClass({
 		) : error ? (
 			<Err error={error}/>
 		) : (
-			children.map(x=> (
+			children.sort(ReplyComparator).map(x=> (
 
 				<Panel item={x} key={x.getID()}/>
 

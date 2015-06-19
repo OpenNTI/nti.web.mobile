@@ -21,7 +21,7 @@ import Body from 'modeled-content/components/Panel';
 
 import Context from './Context';
 import ItemActions from './ItemActions';
-import Reply from './Panel';
+import Reply, {ReplyComparator} from './Panel';
 
 export default React.createClass({
 	displayName: 'content:discussions:Detail',
@@ -112,7 +112,7 @@ export default React.createClass({
 		) : error ? (
 			<Err error={error}/>
 		) : (
-			children.map(x=> (
+			children.sort(ReplyComparator).map(x=> (
 
 				<Reply item={x} key={x.getID()}/>
 
