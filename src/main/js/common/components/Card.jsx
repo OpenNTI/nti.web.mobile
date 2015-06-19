@@ -266,7 +266,7 @@ export default React.createClass({
 
 				<h5 dangerouslySetInnerHTML={{__html: item.title}}/>
 				<hr className="break hide-for-medium-up"/>
-				<div className="label" dangerouslySetInnerHTML={{__html: item.creator}}/>
+				<div className="label" dangerouslySetInnerHTML={{__html: 'By ' + item.creator}/*TODO: localize*/}/>
 				<div className="description" dangerouslySetInnerHTML={{__html: item.desc}}/>
 				<div className="comment-count" href="/discussions" onClick={this.onClickDiscussion}>{commentCount ? t('comments', {count: commentCount}) : null}</div>
 			</a>
