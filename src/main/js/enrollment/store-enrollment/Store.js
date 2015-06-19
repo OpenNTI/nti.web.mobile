@@ -184,8 +184,7 @@ function submitPayment(formData) {
 				Constants.STRIPE_PAYMENT_FAILURE;
 
 			if (type === Constants.STRIPE_PAYMENT_SUCCESS) {
-				paymentFormData = {}; //
-				stripeToken = null;
+				Store.clear();
 			}
 
 			paymentResult = result;
