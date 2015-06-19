@@ -5,7 +5,7 @@ import {declareCustomElement} from 'common/utils/dom';
 import {getWidget} from './widgets';
 
 function getComparable (o) {
-	return o.page;
+	return o && o.page;
 }
 
 declareCustomElement('error');
@@ -37,14 +37,24 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		this.updatePrestine();
+		this.onContentMaybeReady();
 	},
 
 
 	componentDidUpdate (prevProps) {
+		let shouldUpdate = getComparable(prevProps) !== getComparable(this.props);
+		this.onContentMaybeReady(shouldUpdate);
+	},
+
+
+	onContentMaybeReady (shouldUpdate) {
+		if (this.updatingPrestine) {
+			return;
+		}
 		//See if we need to re-mount/render our components...
 		let widgets = this.getPageWidgets();
-		let newWidgets = false;
+		let widgetCount = Object.keys(widgets).length;
+		shouldUpdate = shouldUpdate || widgetCount === 0;
 
 		if (widgets && this.refs.content) {
 			// console.debug('Content View: Did Update... %o', widgets);
@@ -55,7 +65,7 @@ export default React.createClass({
 				if (el && !el.hasAttribute('mounted')) {
 					// console.debug('Content View: Mounting Widget...');
 					try {
-						newWidgets = true;
+						shouldUpdate = true;
 						w = React.render(w, el);
 						el.setAttribute('mounted', 'true');
 					} catch (e) {
@@ -65,7 +75,7 @@ export default React.createClass({
 			}
 		}
 
-		if (getComparable(prevProps) !== getComparable(this.props) || newWidgets) {
+		if (shouldUpdate) {
 			this.updatePrestine();
 			this.props.onContentReady();
 		}
@@ -124,7 +134,8 @@ export default React.createClass({
 	updatePrestine () {
 		let current = this.getCurrent();
 		let prestine = current && current.cloneNode(true);
-		this.setState({prestine});
+		this.updatingPrestine = true;
+		this.setState({prestine}, () => delete this.updatingPrestine);
 		// console.debug('Updated Prestine', prestine);
 	},
 
