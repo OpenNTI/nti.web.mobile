@@ -54,9 +54,6 @@
 				display: inline-block;
 				overflow: hidden;
 				vertical-align: bottom;
-				-webkit-animation: loadingellipse .75s .2s infinite linear;
-		        -moz-animation: loadingellipse .75s .2s infinite linear;
-		        -o-animation: loadingellipse .75s .2s infinite linear;
         		animation: loadingellipse .75s .2s infinite linear;
 			}
 		}
