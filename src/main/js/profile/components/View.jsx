@@ -7,6 +7,7 @@ import NavigationBar from 'navigation/components/Bar';
 
 import Head from './Head';
 
+import {resolve} from 'common/components/DisplayName';
 
 export default React.createClass({
 	displayName: 'profile:View',
@@ -22,6 +23,38 @@ export default React.createClass({
 				label: 'Profile'
 			}
 		]);
+	},
+
+	componentDidMount () {
+		resolve(this, this.props).then(u => console.debug('User: ', u));
+
+		/*
+		alias
+		firstName
+		displayName
+		lastName
+		realname
+		email
+
+		birthdate
+
+		avatarURL
+		backgroundURL
+
+		affiliation
+		description
+		education
+		home_page
+		interests
+		location
+		positions
+		role
+
+		facebook
+		googlePlus
+		linkedIn
+		twitter
+		 */
 	},
 
 	render () {
