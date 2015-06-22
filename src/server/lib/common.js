@@ -10,35 +10,38 @@ import {SiteName, ServiceStash} from 'nti.lib.interfaces/CommonSymbols';
 let env = null; //until this loads, calling config() should blow up.
 
 //Use native node require() for optimist since it defines a 'default' property on the exports.
-let opt = require('optimist').usage('WebApp Instance')
-			.options('h', {
-				alias: ['?', 'help'],
-				desc: 'Usage'
-			})
-			.options('l', {
-				alias: 'listen',
-				default: '0.0.0.0',
-				desc: 'Force server to liston on address'
-			})
-			.options('p', {
-				alias: 'port',
-				desc: 'Liston on port'
-			})
-			.options('protocol', {
-				demand: true,
-				default: 'proxy',
-				desc: 'Protocol to use (proxy or http)'
-			})
-			.options('dataserver-host', {
-				desc: 'Override DataServer host (this trumps the config)'
-			})
-			.options('dataserver-port', {
-				desc: 'Override DataServer port (this trumps the config)'
-			})
-			.options('config', {
-				demand: true,
-				default: '../config/env.json',
-				desc: 'URI/path to config file (http/https/file/path)'
+let opt = require('yargs')
+		.usage('WebApp Instance')
+			.options({
+				'h': {
+					alias: ['?', 'help'],
+					desc: 'Usage'
+				},
+				'l': {
+					alias: 'listen',
+					default: '0.0.0.0',
+					desc: 'Force server to liston on address'
+				},
+				'p': {
+					alias: 'port',
+					desc: 'Liston on port'
+				},
+				'protocol': {
+					demand: true,
+					default: 'proxy',
+					desc: 'Protocol to use (proxy or http)'
+				},
+				'dataserver-host': {
+					desc: 'Override DataServer host (this trumps the config)'
+				},
+				'dataserver-port': {
+					desc: 'Override DataServer port (this trumps the config)'
+				},
+				'config': {
+					demand: true,
+					default: '../config/env.json',
+					desc: 'URI/path to config file (http/https/file/path)'
+				}
 			})
 			/*eslint no-throw-literal:0*/
 			.check(v => {if (v.hasOwnProperty('h')) { throw false; }})
