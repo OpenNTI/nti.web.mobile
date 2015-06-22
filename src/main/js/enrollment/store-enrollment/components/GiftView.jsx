@@ -6,6 +6,8 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import isEmail from 'nti.lib.interfaces/utils/isemail';
 
 import {scoped} from 'common/locale';
+import {getAppUser} from 'common/utils';
+import {clearLoadingFlag} from 'common/utils/react-state';
 
 let t = scoped('ENROLLMENT');
 let tGift = scoped('ENROLLMENT.GIFT');
@@ -24,26 +26,13 @@ import Localized from 'common/components/LocalizedHTML';
 import ScriptInjector from 'common/mixins/ScriptInjectorMixin';
 import Err from 'common/components/Error';
 
-import ProfileStore from 'profile/Store';
-
 import Store from '../Store';
 import * as Actions from '../Actions';
 import * as Constants from '../Constants';
+import Header from './GiftViewHeader';
 
 let agreementURL = '/mobile/api/user-agreement/view';
 
-const Header = React.createClass({
-	displayName: 'GiftView:Header',
-
-	render () {
-		return (
-			<div>
-				<h2>{tGift('HEADER.title')}</h2>
-				<p>{tGift('HEADER.description')}</p>
-			</div>
-		);
-	}
-});
 
 export default React.createClass({
 	displayName: 'GiftView',
@@ -64,10 +53,28 @@ export default React.createClass({
 	},
 
 	componentWillMount() {
-		let formData = Object.assign( { from: ProfileStore.getUserEmail() }, Store.getPaymentFormData() );
-		this.setState({
-			fieldValues: formData
-		});
+		let fieldValues = Object.assign({}, Store.getPaymentFormData());
+
+		getAppUser()
+			.then(u => {
+				let o = {};
+				let current = this.state.fieldValues || {};
+
+				if (u && !current.from) {
+					o.from = u.email;
+				}
+
+				if (u && !current.name) {
+					o.name = u.realname;
+				}
+
+				if (Object.keys(o).length) {
+					fieldValues = Object.assign(o, fieldValues);
+					this.setState({ fieldValues });
+				}
+			});
+
+		this.setState({ fieldValues });
 	},
 
 	componentDidMount () {
@@ -75,10 +82,8 @@ export default React.createClass({
 		this.injectScript('https://code.jquery.com/jquery-2.1.3.min.js', 'jQuery')
 			.then(() => this.injectScript('https://js.stripe.com/v2/', 'Stripe'))
 			.then(() => this.injectScript('//cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.0.2/jquery.payment.min.js', 'jQuery.payment'))
-			.then(
-				()=> this.setState({ loading: false }),
-				reason => this.setState({ loading: false, error: reason })
-			);
+			.then(()=> clearLoadingFlag(this))
+			.catch(this.onError);
 
 		Store.addChangeListener(this.onChange);
 
@@ -88,6 +93,11 @@ export default React.createClass({
 
 	componentWillUnmount () {
 		Store.removeChangeListener(this.onChange);
+	},
+
+
+	onError (error) {
+		this.setState({ loading: false, error });
 	},
 
 
@@ -214,7 +224,7 @@ export default React.createClass({
 
 
 	onClick () {
-		let stripeKey = this.props.purchasable.StripeConnectKey.PublicKey;
+		let stripeKey = this.props.purchasable.getStripeConnectKey().PublicKey;
 		let result = this.getFormData();
 
 		if (this.validate(result) && this.state.agreed) {
@@ -242,7 +252,7 @@ export default React.createClass({
 
 		fieldConfig.forEach(function(fieldset) {
 			fieldset.fields.forEach(function(field) {
-				let value = (fieldValues[field.ref]||'').trim();
+				let value = (fieldValues[field.ref] || '').trim();
 				if (value.length === 0) {
 					if (field.required) {
 						markRequired(field.ref);
@@ -271,18 +281,18 @@ export default React.createClass({
 			}
 		}
 
-		let number = (fieldValues.number||'');
+		let number = (fieldValues.number || '');
 		if(number.trim().length > 0 && !Stripe.card.validateCardNumber(number)) {
 			errors.number = {message: t('invalidCardNumber')};
 		}
 
-		let cvc = (fieldValues.cvc||'');
+		let cvc = (fieldValues.cvc || '');
 		if(cvc.trim().length > 0 && !Stripe.card.validateCVC(cvc)) {
 			errors.cvc = {message: t('invalidCVC')};
 		}
-		/* jshint -W106 */
-		let mon = (fieldValues.exp_month||'');
-		let year = (fieldValues.exp_year||'');
+
+		let mon = (fieldValues.exp_month || '');
+		let year = (fieldValues.exp_year || '');
 
 		if([mon, year].join('').trim().length > 0 && !Stripe.card.validateExpiry(mon, year)) {
 			errors.exp_month = {message: t('invalidExpiration')}; // eslint-disable-line camelcase

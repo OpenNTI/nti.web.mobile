@@ -11,13 +11,14 @@
 	border-width: 1px 0;
 	border-radius: 0;
 
-	@include flexbox();
+	display: flex;
 
 	li {
 		display: inline-block;
 		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		@include flex(0 1 auto);
-		@include ellipse;
 
 		&:last-of-type {
 			@include flex(1 1 auto);

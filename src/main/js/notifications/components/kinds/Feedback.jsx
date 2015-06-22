@@ -12,6 +12,12 @@ export default React.createClass({
 		noteableType: 'assessment.userscourseassignmenthistoryitemfeedback'
 	},
 
+
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
+
 	render () {
 		let item = this.props.item;
 		let assignmentName = item.AssignmentName || 'an assignment';

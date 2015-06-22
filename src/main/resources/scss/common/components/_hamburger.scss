@@ -71,7 +71,6 @@
 		&:after {
 			width: 100%;
 			will-change: transform;
-			transition: -webkit-transform .5s ease-in-out;
 			transition: transform .5s ease-in-out;
 		}
 	}
@@ -86,12 +85,10 @@
 			}
 
 			&:before {
-				-webkit-transform: rotate3d(0,0,1, 45deg);
 				transform: rotate3d(0,0,1, 45deg);
 			}
 
 			&:after {
-				-webkit-transform: rotate3d(0,0,1, -45deg);
 				transform: rotate3d(0,0,1, -45deg);
 			}
 		}

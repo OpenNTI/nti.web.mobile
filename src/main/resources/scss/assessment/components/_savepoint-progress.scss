@@ -16,27 +16,27 @@
 
 	&::after {
 		left: 100%;
-		@include transform(translate3d(-1.8em,0,0));
+		transform: translate3d(-1.8em,0,0);
 		position: absolute;
 		content: '.\a0.\a0.';
 		display: inline-block;
 		overflow: hidden;
 		vertical-align: bottom;
-		@include animation('loadingellipse 1s infinite linear');
+		animation: loadingellipse 1s infinite linear;
 	}
 }
 
 
 .savepoint-enter {
-	@include animation('slideDown .7s cubic-bezier(0, 1, 0.5, 1) 0s');
+	animation: slideDown .7s cubic-bezier(0, 1, 0.5, 1) 0s;
 }
 
 .savepoint-leave {
-	@include animation('fadeOutUp 1s cubic-bezier(0, 1, 0.5, 1) .5s');
+	animation: fadeOutUp 1s cubic-bezier(0, 1, 0.5, 1) .5s;
 }
 
 
-@include keyframes(loadingellipse) {
+@keyframes loadingellipse {
 	25% {width: 0; }
 	50% { width: 0.466667em; }
 	75% { width: 0.933333em; }

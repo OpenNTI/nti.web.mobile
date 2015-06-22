@@ -6,7 +6,7 @@ let pageSize;
 export default {
 	currentPage() {
 		let loc = global.location || {};
-		let cp = parseInt(QueryString.parse(loc.search).p || 1);
+		let cp = parseInt(QueryString.parse(loc.search).p || 1, 10);
 		return cp;
 	},
 

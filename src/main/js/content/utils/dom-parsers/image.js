@@ -12,7 +12,10 @@ const addPrefix = (list, prefix) => list.map(x => prefix + x);
 
 const srcPropertyDescription = {
 	enumerable: true,
-	get () { return this.source.sizes[this.source.size]; }
+	get () {
+		let {size, sizes} = this.source;
+		return sizes[size < 0 ? 0 : size];
+	}
 };
 
 
@@ -33,6 +36,11 @@ export default function getImagesFromDom (contentElement) {
 		//  ntiImageSize: "full"
 
 		let {src, dataset = {}} = i;
+		let {caption, title} = dataset;
+		if (i.caption || i.title) {
+			caption = caption || i.caption;
+			title = title || i.title;
+		}
 
 		let size = SIZE_MAP[dataset.ntiImageSize];//the currently represented size by the 'src' property
 		let sizes = [
@@ -78,6 +86,7 @@ export default function getImagesFromDom (contentElement) {
 
 		//Define Zoomable, and the source structure.
 		Object.assign(i, {
+			caption, title,
 			zoomable,
 			source: { prefix, sizes, size }
 		});

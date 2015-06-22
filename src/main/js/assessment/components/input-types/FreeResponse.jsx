@@ -18,12 +18,12 @@ export default React.createClass({
 	},
 
 	render () {
-
-		let value = this.state.value;
+		let {value} = this.state;
+		let submitted = this.isSubmitted();
 
 		return (
 			<form className="free-response">
-				<input ref="input" value={value} onChange={this.handleInteraction} onBlur={this.onBlur}/>
+				<input ref="input" value={value} onChange={this.handleInteraction} onBlur={this.onBlur} readOnly={submitted}/>
 			</form>
 		);
 	},
@@ -34,10 +34,9 @@ export default React.createClass({
 	},
 
 
-	getValue: function () {
-		let ref = this.refs.input;
-		let input = ref && React.findDOMNode(ref);
-		let value = input && input.value;
+	getValue () {
+		let {input} = this.refs;
+		let {value} = (input && React.findDOMNode(input)) || {};
 
 		return isEmpty(value) ? null : value;
 	}

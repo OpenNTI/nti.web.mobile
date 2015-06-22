@@ -23,6 +23,7 @@ import Store from '../Store';
 import TopicList from './TopicList';
 import ViewHeader from './widgets/ViewHeader';
 import {FORUM} from '../Constants';
+import Err from 'common/components/Error';
 
 
 const t = scoped('FORUMS');
@@ -74,6 +75,10 @@ export default React.createClass({
 		let {forumId} = this.props;
 		let batchStart = paging.batchStart();
 		let forumContents = Store.getForumContents(forumId, batchStart, paging.getPageSize());
+
+		if (!forumContents) {
+			return <Err error="Unable to load forum" />;
+		}
 
 		return (
 			<div>

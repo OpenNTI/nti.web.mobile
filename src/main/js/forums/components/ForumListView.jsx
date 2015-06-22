@@ -10,6 +10,8 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {scoped} from 'common/locale';
 
+import {clearLoadingFlag} from 'common/utils/react-state';
+
 import keyFor from '../utils/key-for-item';
 
 import Store from '../Store';
@@ -21,6 +23,8 @@ import ForumBin from './widgets/ForumBin';
 
 const t = scoped('FORUMS.groupTitles');
 const discussionsChanged = 'ForumListView:discussionsChangedHandler';
+const getContentPackage = 'ForumListView:getContentPackage';
+const getContentPackageId = 'ForumListView:getContentPackageId';
 
 export default React.createClass({
 	displayName: 'ForumListView',
@@ -30,9 +34,13 @@ export default React.createClass({
 	],
 
 	propTypes: {
-		/*probably shouldn't be called "course" and should probably just be an interface so
-			"Forums" do 	not need to know its a course or reference it by "course" */
-		course: React.PropTypes.object
+		/**
+		 * @type {object} Any model that implements getDiscussions() and getID()
+		 */
+		contentPackage: React.PropTypes.shape({
+			getDiscussions: React.PropTypes.func,
+			getID: React.PropTypes.func
+		})
 	},
 
 	backingStore: Store,
@@ -41,51 +49,47 @@ export default React.createClass({
 	},
 
 	[discussionsChanged](event) {
-		if(event.courseId === this.getCourseId()) {
-			this.setState({
-				loading: false
-			});
+		if(event.packageId === this[getContentPackageId]()) {
+			clearLoadingFlag(this);
 		}
 	},
 
-	getInitialState() {
+	getInitialState () {
 		return {
 			loading: true
 		};
 	},
 
-	componentDidMount() {
-		if(!Store.getDiscussions(this.getCourseId())) {
-			this.setState({
-				loading: true
-			});
+	componentDidMount () {
+		if(!Store.getDiscussions(this[getContentPackageId]())) {
 			this.load();
 		}
 		else {
-			this.setState({
-				loading: false
-			});
+			clearLoadingFlag(this);
 		}
 	},
 
-	load() {
-		let {course} = this.props;
-		Api.loadDiscussions(course)
-		.then(
-			result => {
-				Store.setDiscussions(course.getID(), result);
-				Store.setCourseId(this.getCourseId());
-			},
-			reason => {
-				console.error('Failed to load discussions', reason);
-				this.setState({
-					error: reason
+	load () {
+		let contentPackage = this[getContentPackage]();
+		Api.loadDiscussions(contentPackage)
+			.then(
+				result => {
+					Store.setDiscussions(contentPackage.getID(), result);
+					Store.setPackageId(contentPackage.getID());
+				},
+				error => {
+					console.error('Failed to load discussions', error);
+					this.setState({ error });
 				});
-			});
 	},
 
-	getCourseId() {
-		return this.props.course && this.props.course.getID();
+	[getContentPackageId] () {
+		let p = this[getContentPackage]();
+		return p && p.getID();
+	},
+
+	[getContentPackage] () {
+		return this.props.contentPackage;
 	},
 
 	render () {
@@ -94,8 +98,8 @@ export default React.createClass({
 			return <Loading />;
 		}
 
-		let courseId = this.getCourseId();
-		let discussions = Store.getDiscussions(courseId);
+		let contentPackageId = this[getContentPackageId]();
+		let discussions = Store.getDiscussions(contentPackageId);
 		let err = this.state.error || ((discussions || {}).isError ? discussions.error : null);
 
 		if (err) {

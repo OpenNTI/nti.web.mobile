@@ -116,7 +116,11 @@ let Source = React.createClass({
 
 	buildURL (props) {
 		let mediaSource = props.source;
-		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source[0];
+		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source;
+
+		if (Array.isArray(videoId)) {
+			videoId = videoId[0];
+		}
 
 		let args = {
 			enablejsapi: 1,
@@ -294,8 +298,8 @@ let Source = React.createClass({
 
 		if (this.props.deferred) {
 			if (!this.state.autoPlay) {
-				this.setState({autoPlay: true}, ()=>{
-					setTimeout(()=>{
+				this.setState({autoPlay: true}, ()=> {
+					setTimeout(()=> {
 						if (this.state.playerState !== PLAYING) {
 							this.fireEvent('playing');//force event, triggers poster to hide.
 						}

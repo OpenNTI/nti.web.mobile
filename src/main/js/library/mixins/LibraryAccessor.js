@@ -9,7 +9,7 @@ export default {
 	backingStore: LibraryStore,
 	backingStoreEventHandlers: {
 		default: function () {
-			if (this.isMounted()){
+			if (this.isMounted()) {
 				this.forceUpdate();
 			}
 		}
@@ -26,7 +26,7 @@ export default {
 		let promise = load();//will return the same promise every time until reloaded.
 
 		promise.then(() => {
-			if (this.isMounted()){
+			if (this.isMounted()) {
 				this.setState({loading: false});
 			}
 		});

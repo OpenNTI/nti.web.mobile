@@ -23,16 +23,18 @@ const sectionFiltersMap = {
 	[sectionNames.books]: [{name: 'Books'}]
 };
 
+function setSections (cmp) {
+	if (cmp.isMounted()) {
+		cmp.setState({sections: cmp.getAvailableSections()});
+	}
+}
+
 
 export default {
 	mixins: [LibraryAccessor],
 
 	componentDidMount () {
-		this.ensureLibraryLoaded().then(()=>{
-			if (this.isMounted()) {
-				this.setState({sections: this.getAvailableSections()});
-			}
-		});
+		this.ensureLibraryLoaded().then(()=>setSections(this));
 	},
 
 
@@ -104,7 +106,7 @@ export default {
 		if (filters) {
 			filters.forEach(f=> {
 				let b = getBin(f);
-				if (f.split){
+				if (f.split) {
 					f.split(b.items).forEach(x=>bins.push(Object.assign(x, {name: f.name})));
 				} else {
 					bins.push(b);

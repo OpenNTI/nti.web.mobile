@@ -10,7 +10,7 @@ const Widgets = [
 ];
 
 export function getWidget (enrollmentOption) {
-	let widget = Widgets.reduce((found, Type)=>{
+	let widget = Widgets.reduce((found, Type) => {
 
 		return found || (Type.handles && Type.handles(enrollmentOption) && Type);
 

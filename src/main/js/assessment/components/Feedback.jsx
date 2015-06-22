@@ -14,7 +14,7 @@ export default React.createClass({
 	mixins: [StoreEvents],
 
 	propTypes: {
-		assessment: React.PropTypes.string
+		assessment: React.PropTypes.object
 	},
 
 	backingStore: Store,

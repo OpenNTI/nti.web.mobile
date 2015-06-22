@@ -101,6 +101,7 @@ export default React.createClass({
 
 		return (
 			<Router.Locations contextual>
+				<Router.Location path="/:videoId/discussions(/*)" handler={TranscriptedVideo} {...props} showDiscussions/>
 				<Router.Location path="/:videoId(/*)" handler={TranscriptedVideo} {...props}/>
 				<Router.Location path="/(*)" handler={VideoGrid} {...props}/>
 			</Router.Locations>

@@ -60,7 +60,7 @@ export default React.createClass({
 		}
 
 		return thenable.then(
-			()=>{//success, close editor
+			()=> {//success, close editor
 				if (this.isMounted()) {
 					this.setState({active: false});
 				}

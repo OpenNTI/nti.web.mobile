@@ -1,7 +1,7 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
 import {getCatalog} from './Api';
-import {LOAD_CATALOG, LOADED_CATALOG} from './Constants';
+import {LOAD_CATALOG, LOADED_CATALOG, REDEEM_GIFT} from './Constants';
 
 
 export function reload () {
@@ -17,7 +17,7 @@ export function load (force = false) {
 		load.result = result
 			.then(catalog =>
 				dispatch(LOADED_CATALOG, catalog))
-			.catch(e=>{
+			.catch(e => {
 				console.log('loadCatalog failed. %O', e);
 				return Promise.reject(e);
 			});
@@ -26,6 +26,9 @@ export function load (force = false) {
 	return load.result;
 }
 
+export function redeemGift (purchasable, courseId, accessKey) {
+	AppDispatcher.handleRequestAction( {type: REDEEM_GIFT, payload: { purchasable, courseId, accessKey }});
+}
 
 function dispatch(type, collection) {
 	AppDispatcher.handleRequestAction({ type, response: collection });

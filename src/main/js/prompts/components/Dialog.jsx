@@ -207,7 +207,7 @@ function dismiss(dialog) {
 
 	//Wait for animation before we remove it.
 	setTimeout(
-		()=>{
+		()=> {
 			if (!Dialog.clear() && dialog.isMounted()) {
 				console.warn('React did not unmount %o', dialog);
 			}

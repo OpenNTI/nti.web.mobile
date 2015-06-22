@@ -1,18 +1,19 @@
 .content-link.related-work-ref {
+	$gap: 0.625rem;
 	position: relative;
 	overflow: hidden;
 	display: block;
 	background: #fafdff;
 	border: 1px solid #e3f2fc;
-	margin: 0.625rem 0;
-	padding: 0.3125rem;
+	margin: $gap 0;
+	padding: $gap;
+	line-height: 1.5;
 
 	.icon {
 		position: relative;
 		width: 100px;
 		height: 125px;
-		//margin: -4px 4px 0 -8px;
-		margin: -0.3125rem 0.3125rem 0.3125rem -0.3125rem;
+		margin: -$gap $gap 0 (-$gap);
 		float: left;
 		background-size: cover;
 		background-position: center center;
@@ -36,6 +37,17 @@
 		white-space: normal;
 		text-align: left;
 		color: $primary-color;
+	}
+
+	.comment-count {
+		&:empty {display: none;}
+		font: normal 600 .625rem/1.6 "Open Sans", sans-serif;
+		color: $tertiary-grey;
+		margin: $gap 0 0 0;
+
+		&[href] {
+			color: $primary-blue;
+		}
 	}
 
 	.description {

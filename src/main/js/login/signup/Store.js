@@ -1,5 +1,3 @@
-
-
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 
@@ -24,17 +22,13 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
-	/**
-	* @param {function} callback
-	*/
+
 	addChangeListener: function(callback) {
 		console.log('Store: adding change listener');
 		this.on(CHANGE_EVENT, callback);
 	},
 
-	/**
-	* @param {function} callback
-	*/
+
 	removeChangeListener: function(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},

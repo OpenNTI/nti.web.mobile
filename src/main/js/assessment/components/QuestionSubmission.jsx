@@ -39,7 +39,7 @@ export default React.createClass({
 
 
 	onReset (e) {
-		if (e){
+		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
@@ -106,7 +106,7 @@ export default React.createClass({
 					</div>
 				)}
 
-				<a href={disabled?'#':null}
+				<a href={disabled ? '#' : null}
 					className={buttonClass}
 					onClick={
 						submitted ?

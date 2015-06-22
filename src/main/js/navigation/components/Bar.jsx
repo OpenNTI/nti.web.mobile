@@ -1,107 +1,39 @@
-import path from 'path';
 import React from 'react';
 import Transition from 'react/lib/ReactCSSTransitionGroup';
+
+import path from 'path';
 import cx from 'classnames';
 
-import NavStore from '../Store';
-
-import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
-
-import {getAppUsername} from 'common/utils';
+import buffer from 'nti.lib.interfaces/utils/function-buffer';
 
 import ActiveState from 'common/components/ActiveState';
-import Avatar from 'common/components/Avatar';
 import Pager from 'common/components/Pager';
-
-import addClass from 'nti.lib.dom/lib/addclass';
-import removeClass from 'nti.lib.dom/lib/removeclass';
 
 import BasePathAware from 'common/mixins/BasePath';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import StoreEvents from 'common/mixins/StoreEvents';
 
-const getViewport = ()=> document.getElementsByTagName('html')[0];
+import Menu from './Menu';
+import UserMenu from './UserMenu';
+import ReturnTo from './ReturnTo';
+
+import NavStore from '../Store';
+
 const menuOpenBodyClass = 'nav-menu-open';
 
-
-const Menu = React.createClass({
-	displayName: 'Menu',
-
-	componentDidMount () {
-		addClass(getViewport(), 'scroll-lock');
-	},
-
-	componentWillUnmount () {
-		removeClass(getViewport(), 'scroll-lock');
-	},
-
-	render () {
-		return (<ul {...this.props}/>);
+function ensureSlash (str) {
+	const split = /[?#]/.exec(str);
+	let args = '';
+	if (split) {
+		let {index} = split;
+		args = str.substr(index);
+		str = str.substr(0, index);
 	}
-});
 
+	str = /\/$/.test(str) ? str : (str + '/');
 
-const UserMenu = React.createClass({
-	displayName: 'UserMenu',
-	mixins: [PureRenderMixin],
-
-	propTypes: {
-		onClick: React.PropTypes.func
-	},
-
-	onClick (e) {
-		e.preventDefault();
-		e.stopPropagation();
-		this.props.onClick();
-	},
-
-	render () {
-		let props = {
-			className: 'right-off-canvas-toggle',
-			onClick: this.onClick,
-			href: '#'
-		};
-		let username = getAppUsername();
-		return <a {...props}><Avatar username={username} /></a>;
-	}
-});
-
-
-const ReturnTo = React.createClass({
-	displayName: 'ReturnTo',
-	mixins: [PureRenderMixin],
-
-	propTypes: {
-		href: React.PropTypes.string,
-		label: React.PropTypes.string
-	},
-
-
-	render () {
-		let {href, label} = this.props;
-		let props = {
-			className: 'return-to',
-			href,
-			title: label,
-			children: label
-		};
-
-		return <a {...props}/>;
-	}
-});
-
-
-
-
-function buffer(time, fn) {
-	let id = null;
-	return function() {
-		clearTimeout(id);
-		id = setTimeout(fn.call(this), time);
-	};
+	return str + args;
 }
-
-
 
 export default React.createClass({
 	displayName: 'NavigationBar',
@@ -198,7 +130,7 @@ export default React.createClass({
 
 	getRight () {
 		let {triggerRightMenu} = this.context;
-		return this.getChildForSide('right') || <UserMenu onClick={()=>{
+		return this.getChildForSide('right') || <UserMenu onClick={()=> {
 			this.closeMenu();
 			triggerRightMenu();
 		}}/>;
@@ -235,15 +167,10 @@ export default React.createClass({
 			return;
 		}
 
-		let ref = this.makeHref(this.getPath());
+		let ref = ensureSlash(this.makeHref(this.getPath()));
 
-		let {label} = availableSections.find(x=>
+		let {label = 'Menu'} = availableSections.find(x=>
 			ref.indexOf(path.normalize(this.makeHref(x.href))) === 0) || {};
-
-		//jsxhint is killing me... it's not comprehending the default value in the destructuing assignment... :}
-		if (!label) {
-			label = 'Menu';
-		}
 
 		return (
 			<a href="#" onClick={this.toggleMenu}><h1 className={css}>{label}</h1></a>

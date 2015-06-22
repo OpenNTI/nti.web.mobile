@@ -126,12 +126,18 @@ export default React.createClass({
 	},
 
 
+	componentWillUpdate (nextProps) {
+		if (nextProps.source !== this.props.source) {
+			this.setState(this.getInitialState());
+		}
+	},
+
+
 	componentDidUpdate (prevProps) {
 		let video = this.refs.video;
 		this.ensureListeningToEvents(video);
 		if (prevProps.source !== this.props.source) {
 			video = video && React.findDOMNode(video);
-			this.setState(this.getInitialState());
 			if (video) {
 				video.load();
 			}
@@ -249,7 +255,7 @@ export default React.createClass({
 		this.setState({interacted: true});
 		if (video && this.isMounted()) {
 			video = React.findDOMNode(video);
-			if(video.play){
+			if (video.play) {
 				video.play();
 			}
 		}
@@ -260,7 +266,7 @@ export default React.createClass({
 		let video = this.refs;
 		if (video && this.isMounted()) {
 			video = React.findDOMNode(video);
-			if(video.pause){ video.pause(); }
+			if (video.pause) { video.pause(); }
 		}
 	},
 
@@ -269,7 +275,7 @@ export default React.createClass({
 		let {video} = this.refs;
 		if (video && this.isMounted()) {
 			video = React.findDOMNode(video);
-			if(video.stop){ video.stop(); }
+			if (video.stop) { video.stop(); }
 		}
 	},
 

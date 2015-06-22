@@ -3,76 +3,15 @@ import React from 'react';
 import { Locations, Location, NotFound as DefaultRoute } from 'react-router-component';
 import {getEnvironment} from 'react-router-component/lib/environment/LocalStorageKeyEnvironment';
 
-import addClass from 'nti.lib.dom/lib/addclass';
-import removeClass from 'nti.lib.dom/lib/removeclass';
 
-import ActiveState from 'common/components/ActiveState';
+import DarkMode from 'common/components/DarkMode';
 import Loading from 'common/components/Loading';
 import Redirect from 'navigation/components/Redirect';
 
-import {scoped} from 'common/locale';
-
-import NavigationBar from 'navigation/components/Bar';
-
-import Collection from './Collection';
+import Section from './Section';
 
 import SectionMixin from '../mixins/SectionAware';
 import BasePath from 'common/mixins/BasePath';
-
-let getTitle = scoped('LIBRARY.SECTIONS');
-
-let sectionProps = x=> {
-	let title = getTitle(x.label);
-	return Object.assign({children: title, title, href: `/${x.key}`}, x);
-};
-
-let Section = React.createClass({
-	displayName: 'Section',
-	mixins: [BasePath, SectionMixin],
-
-	propTypes: {
-		section: React.PropTypes.string
-	},
-
-	componentWillMount () {
-		let availableSections = this.getAvailableSections();
-		this.setState({availableSections});
-	},
-
-	render () {
-		let {section} = this.props;
-		let bins = section ? this.getBinnedData(section) : [];
-
-		let props = {
-			className: 'library-view'
-		};
-
-		let {availableSections} = this.state;
-
-
-		if (!availableSections || !availableSections.length) {
-			availableSections = null;
-		}
-
-		return (
-			<div>
-				<NavigationBar title="Library">
-					<a href={this.getBasePath() + 'catalog/'} position="left" className="add">Add</a>
-					{availableSections &&
-						React.createElement('ul', {className: 'title-tabs', position: 'center'},
-							...availableSections.map(x=>
-								<li><ActiveState tag="a" {...sectionProps(x)}/></li>
-							))}
-				</NavigationBar>
-				{React.createElement('div', props, ...bins.map(b=>
-					<Collection title={b.name} subtitle={b.label} list={b.items}/>))}
-			</div>
-		);
-	}
-
-});
-
-
 
 export default React.createClass({
 	displayName: 'Library:View',
@@ -90,21 +29,18 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.defaultSection().then(this.setDefaultSection);
-		addClass(document.body, 'dark');
-	},
-
-
-	componentWillUnmount () {
-		removeClass(document.body, 'dark');
 	},
 
 
 	setDefaultSection (name) {
+		const get = v => `/${v}`;
 		let {env} = this.state;
 		let p = env.getPath();
 
-		if (p == null || p === '') {
-			env.setPath('/${name}');
+		let available = this.getAvailableSections().map(get);
+
+		if (p == null || !available.includes(p)) {
+			env.setPath(get(name));
 		}
 
 		this.setState({
@@ -120,12 +56,18 @@ export default React.createClass({
 
 		loading = loading || pickingDefault;
 
-		return loading ?
-			<Loading /> :
-			<Locations environment={env}>
-				{this.getRoutes()}
-			</Locations>
-			;
+		return (
+			<div>
+				<DarkMode/>
+				{loading ? (
+					<Loading />
+				) : (
+					<Locations environment={env}>
+						{this.getRoutes()}
+					</Locations>
+				)}
+			</div>
+		);
 	},
 
 

@@ -13,11 +13,17 @@ export default React.createClass({
 		noteableType: 'messageinfo'
 	},
 
+	propTypes: {
+		item: React.PropTypes.object
+	},
+
+	componentWillMount () {
+		console.debug('One on One Chat:', this.props.item);
+	},
 
 	render () {
 		return (
-			<li className="notification-item">
-			</li>
+			<li className="notification-item"/>
 		);
 	}
 });

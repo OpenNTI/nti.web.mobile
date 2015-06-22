@@ -14,7 +14,12 @@ export default React.createClass({
 
 
 	propTypes: {
-		item: React.PropTypes.object
+		//Normal Path:
+		item: React.PropTypes.object,
+		page: React.PropTypes.object,
+
+		//Static Rendering Path:
+		record: React.PropTypes.object
 	},
 
 
@@ -26,24 +31,24 @@ export default React.createClass({
 
 
 	componentWillMount () {
-		let p = this.props;
-		let questionId = p.item.ntiid;
+		let {item, page, record} = this.props;
 
-		this.setState({
-			question: p.page.getAssessmentQuestion(questionId)
-		});
+		let question = record;
+
+		if (!question) {
+			question = page.getAssessmentQuestion(item.ntiid);
+		}
+
+		this.setState({ question });
 	},
 
 
 	render () {
 		let {question} = this.state;
-		let {item} = this.props;
 		if (!question) { return null; }
 
 		return (
-			<QuestionWidget
-				contentHints={item}
-				question={question}/>
+			<QuestionWidget question={question}/>
 		);
 	}
 });

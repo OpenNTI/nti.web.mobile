@@ -1,14 +1,26 @@
 
-.content-view .fixed-footer {
-	min-height: 4rem;
+.content-view {
+	position: relative;
 
-	& > .the-fixed {
-		border: 1px solid $tertiary-grey;
-		border-width: 1px 0 0 0;
-		background: #f8f8f8;
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
+	.fixed-footer {
+		min-height: 4rem;
+
+		& > .the-fixed {
+			border: 1px solid $tertiary-grey;
+			border-width: 1px 0 0 0;
+			background: #f8f8f8;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+	}
+
+	nti-content *:not(input):not(textarea) {
+		-webkit-user-select: text;
+		-moz-user-select: text;
+		-ms-user-select: text;
+		-o-user-select: text;
+		user-select: text;
 	}
 }

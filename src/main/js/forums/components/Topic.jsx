@@ -113,7 +113,7 @@ export default React.createClass({
 	[startAnalyticsEvent]() {
 		let {topicId} = this.props;
 		console.debug('Begin topic viewed event.');
-		this.resourceLoaded(topicId, Store.getCourseId(), TOPIC_VIEWED);
+		this.resourceLoaded(topicId, Store.getPackageId(), TOPIC_VIEWED);
 	},
 
 	resumeAnalyticsEvents() {
@@ -187,7 +187,7 @@ export default React.createClass({
 		areYouSure(t('deleteTopicPrompt')).then(() => {
 			Actions.deleteTopic(this[getTopic]());
 		},
-		()=>{});
+		()=> {});
 	},
 
 	[getTopic] () {

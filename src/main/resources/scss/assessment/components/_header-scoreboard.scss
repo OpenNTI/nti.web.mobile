@@ -34,7 +34,7 @@
 
 	.body {
 
-		@include flexbox();
+		display: flex;
 
 		.score {
 			@include flex(0 0 60px);
@@ -46,7 +46,7 @@
 				margin: 0;
 				top: 50%;
 				left: 0;
-				@include transform(translate3d(0,-50%,0));
+				transform: translate3d(0,-50%,0);
 			}
 		}
 
@@ -62,7 +62,7 @@
 				margin: 0;
 				top: 50%;
 				right: 0;
-				@include transform(translate3d(0,-50%,0));
+				transform: translate3d(0,-50%,0);
 			}
 		}
 

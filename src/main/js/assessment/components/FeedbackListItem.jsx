@@ -40,13 +40,13 @@ export default React.createClass({
 	render () {
 		let {item} = this.props;
 		let {editing} = this.state;
-		let createdBy = item.Creator;
+		let createdBy = item.creator;
 		let createdOn = item.getCreatedTime();
 		let modifiedOn = item.getLastModified();
 		let message = item.body.join('');
 
 		let edited = (Math.abs(modifiedOn - createdOn) > 0);
-		let canEdit = item.hasLink('edit') && item.Creator === getAppUsername();
+		let canEdit = item.hasLink('edit') && item.creator === getAppUsername();
 
 		if (this.state.deleting) {
 			return <div className="feedback item"><LoadingInline/></div>;
@@ -88,7 +88,7 @@ export default React.createClass({
 
 
 	onToggleEditor (e) {
-		if (e){
+		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}

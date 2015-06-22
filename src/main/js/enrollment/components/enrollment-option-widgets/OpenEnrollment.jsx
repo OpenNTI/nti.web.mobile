@@ -11,14 +11,13 @@ export default React.createClass({
 	displayName: 'OpenEnrollmentWidget',
 
 	propTypes: {
-		catalogEntry: React.PropTypes.object.isRequired,
-		enrollmentOption: React.PropTypes.object.isRequired
+		catalogEntry: React.PropTypes.object.isRequired
 	},
 
 	statics: {
-		re: /OpenEnrollment/i,
-		handles (options) {
-			return this.re.test(options && options.key);
+		re: /openenrollmentoption/i,
+		handles (option) {
+			return this.re.test(option && option.MimeType);
 		}
 	},
 
@@ -29,7 +28,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<PanelButton onClick={this.enroll} linkText={t(this.props.enrollmentOption.key)}>
+			<PanelButton onClick={this.enroll} linkText={t('OpenEnrollment')}>
 				<h2>Enroll for Free</h2>
 				<p>Get complete access to interact with all course content, including lectures, course materials, quizzes, and discussions once class is in session.</p>
 			</PanelButton>

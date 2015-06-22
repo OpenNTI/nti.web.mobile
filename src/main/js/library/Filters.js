@@ -8,7 +8,7 @@ function courseSortComparatorFunc(a, b) {
 		return s1 < s2 ? -1 : s1 > s2 ? 1 : 0;
 	}
 
-	return strComp((a||{}).ProviderUniqueID, (b||{}).ProviderUniqueID) || strComp((a||{}).title, (b||{}).title);
+	return strComp((a || {}).ProviderUniqueID, (b || {}).ProviderUniqueID) || strComp((a || {}).title, (b || {}).title);
 }
 
 

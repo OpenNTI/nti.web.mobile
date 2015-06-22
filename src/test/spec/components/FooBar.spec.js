@@ -8,7 +8,7 @@ import Button from 'common/forms/components/Button';
 describe('FooBar', ()=> {
 	let component;
 
-	beforeEach(()=>{
+	beforeEach(()=> {
 		let container = document.createElement('div');
 		container.id = 'content';
 		document.body.appendChild(container);

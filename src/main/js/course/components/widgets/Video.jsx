@@ -2,6 +2,7 @@ import path from 'path';
 import React from 'react';
 
 import LoadingMask from 'common/components/Loading';
+import Err from 'common/components/Error';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
@@ -70,7 +71,7 @@ export default React.createClass({
 
 
 	componentWillReceiveProps (nextProps) {
-		if (this.props.item.NTIID !== nextProps.item.NTIID) {
+		if (this.getID() !== this.getID(nextProps)) {
 			this.fillInContext();
 			this.fillInVideo(nextProps);
 		}
@@ -81,20 +82,29 @@ export default React.createClass({
 	},
 
 
+	getID (props= this.props) {
+		let {NTIID, ntiid} = props.item;
+		return NTIID || ntiid;
+	},
+
+
 	fillInVideo  (props) {
 		try {
 			let {video} = this.state;
-			let {course, item} = props;
+			let {course} = props;
+			let id = this.getID();
 
-			if (video && item.NTIID === video.getID()) {
+			if (video && id === video.getID()) {
 				return;
 			}
 
 			this.setState({loading: true});
+			//The "item" is now going to be a full Video object, we no longer have to look it up.
+			//TODO: Simply Parse/Present the video w/o looking it up in the VideoIndex
 
 			course.getVideoIndex()
 				.then(videoIndex => {
-					let v = videoIndex.get(item.NTIID);
+					let v = videoIndex.get(id);
 					return v.getPoster()
 						.then(poster=> {
 							this.setState({loading: false, poster, video: v});
@@ -145,10 +155,10 @@ export default React.createClass({
 			onFocus
 		} = this.props;
 
-		let {video, poster} = this.state;
+		let {video, poster, playing, error} = this.state;
 		let renderVideoFully = !touching;
 
-		let style = { backgroundImage: 'url(' + poster + ')' };
+		let style = poster && { backgroundImage: 'url(' + poster + ')' };
 
 		if (activeIndex != null) {
 			renderVideoFully = (!touching && activeIndex === index);
@@ -161,11 +171,22 @@ export default React.createClass({
 			viewed = true;
 		}
 
-		let link = path.join('v', encodeForURI(item.NTIID)) + '/';
+		let link = path.join('v', encodeForURI(this.getID())) + '/';
 
 		let Tag = tag;
+
+		if (error) {
+			playing = true;
+			video = false;
+		}
+
+		let label = item.title || item.label;
+
 		return (
 			<Tag className="overview-video video-wrap flex-video widescreen">
+				{error && (
+					<Err error={error}/>
+				)}
 				{(!video || !renderVideoFully) ? null :
 					<Video ref="video" src={this.state.video}
 						onEnded={this.onStop}
@@ -173,7 +194,7 @@ export default React.createClass({
 						context={this.state.context}
 						deferred />
 				}
-				{this.state.playing ? null :
+				{playing ? null :
 				<LoadingMask style={style} loading={this.state.loading}
 					tag="a" onFocus={onFocus}
 					className="overview-tap-area" href={link}>
@@ -181,7 +202,7 @@ export default React.createClass({
 					<div className="wrapper">
 						<div className="buttons">
 							<span className="play" title="Play" onClick={this.onPlayClicked}/>
-							<span className="label" title={item.label}>{item.label}</span>
+							<span className="label" title={label}>{label}</span>
 						</div>
 					</div>
 				</LoadingMask>

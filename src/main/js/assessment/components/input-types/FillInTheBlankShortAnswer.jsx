@@ -51,15 +51,17 @@ export default React.createClass({
 	renderInput(tag, props) {
 		let {name, maxLength} = props;
 		let value = (this.state.value || {})[name];
+		let submitted = this.isSubmitted();
+
 		return (
 			<span className="blank">
-				<input ref={name} name={name} value={value} size={maxLength} onChange={this.handleInteraction}/>
+				<input ref={name} name={name} value={value} size={maxLength} onChange={this.handleInteraction} readOnly={submitted}/>
 			</span>
 		);
 	},
 
 
-	getValue: function () {
+	getValue () {
 		let {form} = this.refs;
 		if (!form || !this.isMounted()) { return; }
 
@@ -67,8 +69,8 @@ export default React.createClass({
 
 		let values = null;
 
-		toArray(form.elements).forEach(x =>{
-			if (hasValue(x)){
+		toArray(form.elements).forEach(x => {
+			if (hasValue(x)) {
 				values = values || {};
 				values[x.name] = x.value;
 			}

@@ -1,5 +1,5 @@
 /**
- * @returns iOS version or null of not iOS
+ * @returns {number[]} iOS version or null of not iOS
  */
 export default function iOSversion() {
 	if (/iP(hone|od|ad)/.test(navigator.platform)) {

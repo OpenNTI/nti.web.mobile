@@ -10,6 +10,10 @@ import LogoutButton from 'login/components/LogoutButton';
 export default React.createClass({
 	displayName: 'profile:Head',
 
+	propTypes: {
+		username: React.PropTypes.string.isRequired
+	},
+
 	render () {
 		let {username} = this.props;
 

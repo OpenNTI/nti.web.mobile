@@ -96,7 +96,7 @@ export default React.createClass({
 
 
 	onInsertionHook (editorNode, range, newNode) {
-		let node = (x=> (!x ? x : x.nodeType===3 ? x.parentNode : x))(range.startContainer);
+		let node = (x=> (!x ? x : x.nodeType === 3 ? x.parentNode : x))(range.startContainer);
 
 		if (hasClass(node, 'body-divider') || matches(node, '.body-divider *') || newNode.querySelector('.body-divider')) {
 

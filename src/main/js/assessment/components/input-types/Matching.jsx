@@ -62,7 +62,7 @@ export default React.createClass({
 			throw new Error('Illegal State, there must be BOTH a source and a target');
 		}
 
-		Object.keys(value).forEach(x=>{
+		Object.keys(value).forEach(x => {
 			if (value[x] === target) {
 				delete value[x];
 			}
@@ -80,7 +80,7 @@ export default React.createClass({
 		}
 
 		function get(sel, attr) {
-			let o = getEventTarget(e, sel+'['+attr+']');
+			let o = getEventTarget(e, `${sel}[${attr}]`);
 			o = o && o.getAttribute(attr);
 			//the double equals is intentional here.
 			return o == null ? null : parseInt(o, 10);
@@ -117,7 +117,7 @@ export default React.createClass({
 			<div className="matching">
 				<div className="terms">
 					{dragSources.map((x, i)=>
-						this.renderDragSource(x, i, isUsed(i)?'used':'', isUsed(i))
+						this.renderDragSource(x, i, isUsed(i) ? 'used' : '', isUsed(i))
 					)}
 				</div>
 
@@ -162,7 +162,7 @@ export default React.createClass({
 			correct = solution[dragSourceIndex] === targetIndex ? 'correct' : 'incorrect';
 		}
 
-		return this.renderDragSource(sources[dragSourceIndex], dragSourceIndex, 'dropped '+correct);
+		return this.renderDragSource(sources[dragSourceIndex], dragSourceIndex, 'dropped ' + correct);
 	},
 
 

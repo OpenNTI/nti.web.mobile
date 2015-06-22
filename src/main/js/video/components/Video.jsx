@@ -6,6 +6,7 @@ import emptyFunction from 'react/lib/emptyFunction';
 import {getModel} from 'nti.lib.interfaces';
 
 import {emitEventStarted, emitEventEnded} from 'analytics/Actions';
+import {toAnalyticsPath} from 'analytics/utils';
 
 const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
@@ -23,11 +24,6 @@ export default React.createClass({
 			React.PropTypes.instanceOf(getModel('video'))
 			]).isRequired,
 
-		/**
-		 * An array of ntiids reflecting the current course/node/etc.
-		 * TODO: not used by this component except by newWatchVideoEvent, move this prop to the host component
-		 */
-		context: React.PropTypes.array.isRequired,
 
 		/**
 		 * @callback onTimeUpdate
@@ -70,7 +66,6 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			context: [],
 			onTimeUpdate: emptyFunction,
 			onSeeked: emptyFunction,
 			onPlaying: emptyFunction,
@@ -115,33 +110,38 @@ export default React.createClass({
 
 
 	newWatchVideoEvent(browserEvent) {
+		let {newWatchEventFactory, src} = this.props;
 
-		if (!this.props.src.ntiid) {
+		if (!src.ntiid) {
 			console.warn('No ntiid. Skipping WatchVideoEvent instantiation.');
 			return null;
 		}
 
 		let target = (browserEvent || {}).target || {currentTime: 0, duration: 0};
 
-		//TODO: Make this call this.props.newWatchEventFactory(target)
-		// From this point down, this method body should be simplified to be:
-		//
-		// return this.props.newWatchEventFactory(target);
-		//
-		//The rest of the this code should move to the host component
-		//the Context, courseId, transcript etc are all not universally relevant
-		let ctx = (this.props.context || [])
-			.map(x => x.ntiid || x.href || (typeof x === 'string' ? x : null))
-			.filter(x=>x); // removes nulls
+		if (newWatchEventFactory) {
+			return newWatchEventFactory(target);
+		}
 
+		//FIXME: The rest of the this code should move to the host component
+		//the Context, courseId, transcript etc are all not universally relevant
+
+		if (process.env.NODE_ENV !== 'production') {
+			console.error('TODO: Move the rest of this method to be passed as an event factory');
+		}
+
+		//XXX: Do not fix this line of lint by adding these props to this elements PropTypes, nor making eslint ignore.
+		//To fix it, do the above mentioned "FIXME".
+		/*eslint "react/prop-types": 1*/ //Force this to be a warning for now.
+		let {context, courseId, transcript} = this.props;
 
 		let analyticsEvent = new WatchVideoEvent(
-			this.props.src.ntiid,
-			this.props.courseId, // courseId won't be relevant on Books
-			ctx,
+			src.ntiid,
+			courseId, // courseId won't be relevant on Books
+			toAnalyticsPath(context || []),
 			target.currentTime, // video_start_time
 			target.duration, // MaxDuration, the length of the entire video
-			!!this.props.transcript // transcript is not used by this component, so its superfluous.
+			!!transcript // transcript is not used by this component, so its superfluous.
 		);
 
 		return analyticsEvent;

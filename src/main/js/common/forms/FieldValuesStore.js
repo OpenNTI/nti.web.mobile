@@ -24,12 +24,12 @@ export default Object.assign({}, EventEmitter.prototype, {
 	},
 
 	getValues (stripEmpty = false) {
-		let vals = Object.assign({}, this.fieldValues);
+		let vals = this.preprocess(Object.assign({}, this.fieldValues));
 		return stripEmpty ? this.stripEmptyValues(vals) : vals;
 	},
 
 	stripEmptyValues(values) {
-		return Object.keys(values||{}).reduce((previous, current) => {
+		return Object.keys(values || {}).reduce((previous, current) => {
 			if (typeof values[current] !== 'string' || values[current].trim().length > 0) {
 				previous[current] = values[current];
 			}
@@ -39,6 +39,10 @@ export default Object.assign({}, EventEmitter.prototype, {
 
 	setValue (name, value) {
 		this.fieldValues[name] = value;
+	},
+
+	preprocess(values) {
+		return this.autopopulator && this.autopopulator.preprocess ? this.autopopulator.preprocess(values) : values;
 	},
 
 	autopopulatedValue(name) {
@@ -103,9 +107,11 @@ export default Object.assign({}, EventEmitter.prototype, {
 	},
 
 	/**
-	* Clear values whose names are not in keep
-	* @param keep {Set} The set of field names to keep.
-	*/
+	 * Clear values whose names are not in keep
+	 *
+	 * @param {Set} keep The set of field names to keep.
+	 * @return {void}
+	 */
 	pruneValues (keep) {
 		let removed = [];
 		let {fieldValues} = this;

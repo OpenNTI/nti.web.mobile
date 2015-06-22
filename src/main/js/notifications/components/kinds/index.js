@@ -2,6 +2,7 @@ import React from 'react';
 
 import Unknown from './Unknown';
 import Chat from './Chat';
+import ChatGroup from './ChatGroup';
 import Contact from './Contact';
 import Badge from './Badge';
 import Grade from './Grade';
@@ -17,6 +18,7 @@ const KINDS = [
 	Unknown,
 
 	Chat,
+	ChatGroup,
 	Contact,
 	Badge,
 	Grade,

@@ -6,13 +6,17 @@ import {
 
 import React from 'react';
 
+import {getModel} from 'nti.lib.interfaces';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import addClass from 'nti.lib.dom/lib/addclass';
-import removeClass from 'nti.lib.dom/lib/removeclass';
+import {toAnalyticsPath} from 'analytics/utils';
 
+import Discussions from 'content/components/discussions';
+import Gutter from 'content/components/Gutter';
+
+import DarkMode from 'common/components/DarkMode';
 import Error from 'common/components/Error';
-import LoadingMask from 'common/components/Loading';
+import Loading from 'common/components/Loading';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
@@ -21,6 +25,40 @@ import {Component as Video} from 'video';
 
 import Transcript from './Transcript';
 
+const WatchVideoEvent = getModel('analytics.watchvideoevent');
+
+const None = void 0;
+
+
+class Annotation {
+	constructor (item, root) {
+		Object.assign(this, {item, root});
+	}
+
+	get id () { return this.item.getID(); }
+
+	resolveVerticalLocation () {
+		let {root, item} = this;
+		let {applicableRange} = item;
+		let start = applicableRange.getStart().getSeconds().toFixed(3);
+
+		root = root.refs.transcript;
+
+		if (!root.isMounted()) {
+			return -1;
+		}
+
+
+		root = React.findDOMNode(root);
+		let {scrollTop} = document.body;
+
+		let cue = root.querySelector(`[data-start-time="${start}"]`);
+
+		//getBoundingClientRect is effected by scroll position... so add it back in.
+		return (cue ? cue : root).getBoundingClientRect().top + scrollTop;
+	}
+}
+
 
 export default React.createClass({
 	displayName: 'TranscriptedVideo',
@@ -28,15 +66,17 @@ export default React.createClass({
 
 	propTypes: {
 		videoId: React.PropTypes.string,
-		course: React.PropTypes.object
+		course: React.PropTypes.object,
+
+		showDiscussions: React.PropTypes.bool
 	},
 
 	getInitialState () {
 		return {
 			loading: true,
 			error: false,
-			cues: null,
-			regions: null,
+			cues: None,
+			regions: None,
 			currentTime: 0
 		};
 	},
@@ -44,12 +84,11 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.getDataIfNeeded(this.props);
-		addClass(document.body, 'dark');
 	},
 
 
 	componentWillUnmount () {
-		removeClass(document.body, 'dark');
+		this.loadDiscussions(None);
 	},
 
 
@@ -63,7 +102,7 @@ export default React.createClass({
 		this.setState({
 			loading: false,
 			error: error,
-			data: null
+			data: None
 		});
 	},
 
@@ -96,50 +135,108 @@ export default React.createClass({
 
 			this.setPageSource(pageSource, video.getID());
 
-			video.getTranscript('en')
-				.then(vtt => {
-					let parser = new WebVTT.Parser(global, WebVTT.StringDecoder()),
-						cues = [], regions = [];
+			let transcript = this.loadTranscript(video);
+			let notes = this.loadDiscussions(video);
 
-					parser.oncue = cue=> cues.push(cue);
-					parser.onregion = region=> regions.push(region);
-					parser.onparsingerror = e=> { throw e; };
-
-					if (!global.VTTCue) {
-						global.VTTCue = VTTCue;
-					}
-
-					parser.parse(vtt);
-					parser.flush();
-
-					if (global.VTTCue === VTTCue) {
-						delete global.VTTCue;
-					}
-
-					this.setState({
-						loading: false,
-						cues,
-						regions,
-						video
-					});
-
-				})
-				.catch(reason=> {
-					if (reason === video.NO_TRANSCRIPT ||
-						reason === video.NO_TRANSCRIPT_LANG) {
-						this.setState({
-							loading: false, cues: null, regions: null, video });
-						return;
-					}
-					return Promise.reject(reason);
-
-				})
-
+			Promise.all([ notes, transcript ])
+				.then(this.setState({loading: false}))
 				.catch(this.onError);
 
 		} catch (e) {
 			this.onError(e);
 		}
+	},
+
+
+	loadDiscussions (video) {
+		let {store} = this.state;
+
+		if (store) {
+			store.removeListener('change', this.onStoreChanged);
+		}
+
+		return video && video.getUserData()
+			.then(x => x.waitForPending().then(()=>x))
+			.then(x => {
+				x.addListener('change', this.onStoreChanged);
+				this.setState({
+						store: x,
+						storeProvider: {getUserDataStore: ()=>x}
+					},
+					()=> this.onStoreChanged(x));
+			});
+	},
+
+
+	loadTranscript (video) {
+		return video.getTranscript('en')
+			.then(vtt => {
+				let parser = new WebVTT.Parser(global, WebVTT.StringDecoder()),
+					cues = [], regions = [];
+
+				parser.oncue = cue=> cues.push(cue);
+				parser.onregion = region=> regions.push(region);
+				parser.onparsingerror = e=> { throw e; };
+
+				if (!global.VTTCue) {
+					global.VTTCue = VTTCue;
+				}
+
+				parser.parse(vtt);
+				parser.flush();
+
+				if (global.VTTCue === VTTCue) {
+					delete global.VTTCue;
+				}
+
+				this.setState({
+					cues,
+					regions,
+					video
+				});
+
+			})
+			.catch(reason=> {
+				if (reason === video.NO_TRANSCRIPT ||
+					reason === video.NO_TRANSCRIPT_LANG) {
+					this.setState({ cues: None, regions: None, video });
+					return;
+				}
+				return Promise.reject(reason);
+
+			});
+	},
+
+
+	onNewWatchEventFactory (e) {
+		let {context, cues, regions, video} = this.state;
+		let {course} = this.props;
+
+		let courseId = course.getID();
+
+		return new WatchVideoEvent(
+			video.ntiid,
+			courseId,
+			toAnalyticsPath(context || []),
+			e.currentTime,
+			e.duration,
+			Boolean(cues || regions)
+		);
+	},
+
+
+	onStoreChanged (store) {
+		if (this.state.store !== store) {
+			return;
+		}
+
+		let annotations = {};
+
+		for (let item of store) {
+			annotations[item.getID()] = new Annotation(item, this);
+		}
+
+		this.setState({annotations});
 	},
 
 
@@ -156,9 +253,13 @@ export default React.createClass({
 	},
 
 
-	render () {
-		let {error, video, cues, regions, currentTime, loading} = this.state;
+	setDiscussionFilter (selectedDiscussions) {
+		this.setState({selectedDiscussions});
+	},
 
+
+	render () {
+		let {annotations, storeProvider, selectedDiscussions, error, video, cues, regions, currentTime, loading} = this.state;
 
 		loading = loading || !video;
 
@@ -166,31 +267,39 @@ export default React.createClass({
 			return ( <Error error={error}/> );
 		}
 
+		if (loading) {
+			return ( <Loading /> );
+		}
+
+		if (this.props.showDiscussions) {
+			return ( <Discussions UserDataStoreProvider={storeProvider} filter={selectedDiscussions}/> );
+		}
+
 		return (
 			<div className="transcripted-video">
-				<LoadingMask loading={loading}>
-					{!video ? null : (
-					<Video ref="video"
-							courseId={this.props.course.getID()}
-							src={video}
-							onTimeUpdate={this.onVideoTimeTick}
-							context={this.state.context}
-							transcript={true}
-							autoPlay/>
+				<DarkMode/>
+				{!video ? None : (
+				<Video ref="video"
+						src={video}
+						onTimeUpdate={this.onVideoTimeTick}
+						newWatchEventFactory={this.onNewWatchEventFactory}
+						autoPlay/>
+				)}
+				<div className="transcript">
+					{error ? (
+						<div>
+							Transcript not available
+						</div>
+					) : (
+						<Transcript ref="transcript"
+							onJumpTo={this.onJumpTo}
+							currentTime={currentTime}
+							regions={regions}
+							cues={cues}/>
 					)}
-					<div className="transcript">
-						{
-							error ?
-								<div>Transcript not available</div> :
-								<Transcript ref="transcript"
-									onJumpTo={this.onJumpTo}
-									currentTime={currentTime}
-									regions={regions}
-									cues={cues}
-								/>
-						}
-					</div>
-				</LoadingMask>
+					<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
+				</div>
+
 			</div>
 		);
 	}

@@ -7,6 +7,8 @@ import {CHANGE_EVENT} from 'common/constants/Events';
 
 import {getService} from 'common/utils';
 
+
+//FIXME: Never put mutable variables in module global scope.
 let stripeToken; // store the result of a Stripe.getToken() call
 let pricing;
 let giftInfo;
@@ -15,6 +17,7 @@ let paymentResult;
 let couponTimeout;
 let couponPricing;
 
+//FIXME: Make this a true class that extends StorePrototype
 let Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'store-enrollment.Store',
 
@@ -26,16 +29,12 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 		this.emitChange(Object.assign({ isError: true}, event));
 	},
 
-	/**
-	 * @param {function} callback
-	 */
+
 	addChangeListener (callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
-	/**
-	 * @param {function} callback
-	 */
+
 	removeChangeListener (callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
@@ -86,8 +85,18 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 
 	getPaymentResult () {
 		return paymentResult;
-	}
+	},
 
+
+	clear () {
+		stripeToken = null;
+		pricing = null;
+		giftInfo = null;
+		paymentFormData = null;
+		paymentResult = null;
+		couponTimeout = null;
+		couponPricing = null;
+	}
 });
 
 export default Store;
@@ -143,13 +152,16 @@ function verifyBillingInfo(data) {
 	paymentFormData = data.formData;
 
 	return getStripeInterface()
-		.then(function(stripe) {
-			return stripe.getToken(data.stripePublicKey, data.formData);
-		})
-		.then(function(result) {
-			let eventType = result.status === 200 ? Constants.BILLING_INFO_VERIFIED : Constants.BILLING_INFO_REJECTED;
+		.then(stripe => stripe.getToken(data.stripePublicKey, data.formData))
+		.then(result => {
+			let eventType = result.status === 200 ?
+				Constants.BILLING_INFO_VERIFIED :
+				Constants.BILLING_INFO_REJECTED;
+
 			stripeToken = result.response;
+
 			pullData(paymentFormData);
+
 			Store.emitChange({
 				type: eventType,
 				status: result.status,
@@ -165,14 +177,14 @@ function submitPayment(formData) {
 	paymentResult = null;
 
 	return getStripeInterface()
-		.then(function(stripe){
-			return stripe.submitPayment(formData);
-		})
-		.then(function(result) {
-			let type = (result||{}).State === 'Success' ? Constants.STRIPE_PAYMENT_SUCCESS : Constants.STRIPE_PAYMENT_FAILURE;
+		.then(stripe => stripe.submitPayment(formData))
+		.then(result => {
+			let type = (result || {}).state === 'Success' ?
+				Constants.STRIPE_PAYMENT_SUCCESS :
+				Constants.STRIPE_PAYMENT_FAILURE;
+
 			if (type === Constants.STRIPE_PAYMENT_SUCCESS) {
-				paymentFormData = {}; //
-				stripeToken = null;
+				Store.clear();
 			}
 
 			paymentResult = result;
@@ -181,12 +193,8 @@ function submitPayment(formData) {
 				type: type,
 				purchaseAttempt: result
 			});
-		}, function(reason) {
-			Store.emitError({
-				type: Constants.POLLING_ERROR,
-				reason: reason
-			});
-		});
+		},
+		reason => Store.emitError({ type: Constants.POLLING_ERROR, reason }));
 }
 
 function priceWithCoupon(data) {
@@ -198,14 +206,12 @@ function priceWithCoupon(data) {
 
 	clearTimeout(couponTimeout);
 
-	couponTimeout = setTimeout(function() {
+	couponTimeout = setTimeout(() => {
 		couponPricing = null;
 
 		return getStripeInterface()
-			.then(function(stripe) {
-				return stripe.getCouponPricing(data.purchasable, data.coupon);
-			})
-			.then(function(result) {
+			.then(stripe => stripe.getCouponPricing(data.purchasable, data.coupon))
+			.then(result => {
 				couponPricing = result;
 
 				Store.emitChange({
@@ -218,7 +224,7 @@ function priceWithCoupon(data) {
 					type: Constants.UNLOCK_SUBMIT
 				});
 			})
-			.catch(function(/*reason*/) {
+			.catch((/*reason*/) => {
 				Store.emitChange({
 					type: Constants.INVALID_COUPON,
 					coupon: data.coupon
@@ -231,16 +237,6 @@ function priceWithCoupon(data) {
 	}, 2000);
 }
 
-function getEnrollmentService() {
-	return getService().then(function(service) {
-		return service.getEnrollment();
-	});
-}
-
-function redeemGift(purchasable, courseId, accessKey) {
-	return getEnrollmentService().then(service =>
-		service.redeemGift(purchasable, courseId, accessKey));
-}
 
 Store.appDispatch = AppDispatcher.register(function(data) {
 	let action = data.action;
@@ -255,14 +251,10 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 			break;
 
 		case Constants.RESET:
-			pricing =
-			giftInfo =
-			couponPricing =
-			paymentFormData =
-			paymentResult = null;
+			Store.clear();
 			Store.emitChange({
 				type: action.type,
-				options: (action.payload||{}).options
+				options: (action.payload || {}).options
 			});
 			break;
 
@@ -279,32 +271,9 @@ Store.appDispatch = AppDispatcher.register(function(data) {
 			break;
 
 		case Constants.GIFT_PURCHASE_DONE:
+			Store.clear();
 			Store.emitChange({
 				type: action.type
-			});
-			break;
-
-		case Constants.REDEEM_GIFT:
-			redeemGift(
-				action.payload.purchasable,
-				action.payload.courseId,
-				action.payload.accessKey)
-
-			.then(function(result) {
-				Store.emitChange({
-					type: Constants.GIFT_CODE_REDEEMED,
-					action: action,
-					result: result
-				});
-			}, function(reason) {
-
-				let message = reason.Message;
-
-				Store.emitError({
-					type: Constants.INVALID_GIFT_CODE,
-					action: action,
-					reason: message
-				});
 			});
 			break;
 

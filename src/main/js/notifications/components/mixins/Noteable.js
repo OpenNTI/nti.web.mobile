@@ -18,7 +18,7 @@ export default {
 	componentWillMount () {
 		let change = this.props.item;
 		let item = change.Item || change;
-		let username = item.Creator;
+		let username = item.creator || item.Creator;
 		this.setState({ username, change, item });
 	},
 

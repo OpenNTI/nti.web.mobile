@@ -7,7 +7,7 @@ export class WindowMessageListener {
 
 
 	onMessage (event) {
-		this.listers.forEach(fn=>{
+		this.listers.forEach(fn => {
 			try {
 				fn(event);
 			} catch (e) {
@@ -30,14 +30,14 @@ export class WindowMessageListener {
 	}
 
 	add (fn) {
-		this.listers = this.listers.filter(x=> x!==fn);
+		this.listers = this.listers.filter(x=> x !== fn);
 		this.listers.push(fn);
 		this.attach();
 	}
 
 
 	remove (fn) {
-		this.listers = this.listers.filter(x=> x!==fn);
+		this.listers = this.listers.filter(x=> x !== fn);
 		if (this.listers.length === 0) {
 			this.detach();
 		}

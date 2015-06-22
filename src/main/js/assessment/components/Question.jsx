@@ -106,7 +106,7 @@ export default React.createClass({
 		});
 
 		return (
-			<div className={css}>
+			<div className={css} data-ntiid={question.getID()} type={question.MimeType}>
 				<h3 className="question-title">
 					{title}
 					<span className="status">{status}</span>
@@ -116,7 +116,7 @@ export default React.createClass({
 					<WordBank record={question.wordbank} disabled={admin}/>
 				)}
 				{parts.map((part, i) =>
-					<Part key={'part-'+i} part={part} index={i} partCount={parts.length} viewerIsAdministrative={admin}>
+					<Part key={`part-${i}`} part={part} index={i} partCount={parts.length} viewerIsAdministrative={admin}>
 						{this.renderSubmission(i)}
 					</Part>
 				)}

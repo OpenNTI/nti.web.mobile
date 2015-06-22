@@ -17,7 +17,7 @@ export function begin () {
 	});
 }
 
-/**
+/*
  * Fired in response to user changes on the login form.
  */
 export function userInputChanged (data) {
@@ -38,8 +38,10 @@ export function deleteTOS () {
 	return getServer().deleteTOS();
 }
 
-/** Attempt a login using the provided credentials.
- * @param {Object} credentials The credentials to submit for authentication. Currently expects 'username' and 'password'.
+/**
+ * Attempt a login using the provided credentials.
+ * @param {object} credentials The credentials to submit for authentication. Currently expects 'username' and 'password'.
+ * @returns {void}
  */
 export function logIn (credentials) {
 	AppDispatcher.handleViewAction({
@@ -48,8 +50,10 @@ export function logIn (credentials) {
 	});
 }
 
-/** Attempt an oauth login via the specified url
- * @param {String} the url to hit.
+/**
+ *  Attempt an oauth login via the specified url
+ * @param {string} url the url to hit.
+ * @returns {void}
  */
 export function logInOAuth (url) {
 	AppDispatcher.handleViewAction({
@@ -58,14 +62,21 @@ export function logInOAuth (url) {
 	});
 }
 
-/** Log the out of the system. */
+/**
+ * Log the out of the system.
+ * @returns {void}
+ */
 export function logOut () {
 	AppDispatcher.handleViewAction({
 		type: Constants.actions.LOGOUT
 	});
 }
 
-/** dispatch a dataserver request to recover a user's password */
+/**
+ * dispatch a dataserver request to recover a user's password
+ * @param {object} fields Form field dictionary
+ * @returns {void}
+ */
 export function recoverPassword (fields) {
 	return Store.getPasswordRecoveryReturnUrl().then(function(returnUrl) {
 		return getServer().recoverPassword(fields.email, fields.username, returnUrl);

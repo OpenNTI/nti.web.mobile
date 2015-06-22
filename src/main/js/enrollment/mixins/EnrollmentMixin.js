@@ -24,6 +24,15 @@ export default {
 		};
 	},
 
+	componentWillMount () {
+		if (!this.getEntry()) {
+			this.setState({
+				error: {
+					message: 'Catalog entry not found.'
+				}
+			});
+		}
+	},
 
 	componentDidMount () {
 		let entry = this.getEntry();
@@ -39,7 +48,7 @@ export default {
 	},
 
 	storeChange (event) {
-		let action = (event||{}).action;
+		let action = (event || {}).action;
 		let entry = this.getEntry();
 		if(action) {
 			switch(action.type) {
@@ -75,17 +84,14 @@ export default {
 	canDrop (catalogEntry) {
 		// we currently only support dropping open enrollment within the app.
 
-		let {Items = {}} = catalogEntry.EnrollmentOptions || {};
+		let o = catalogEntry.getEnrollmentOptions().getEnrollmentOptionForOpen() || {};
 
-		return (Items.OpenEnrollment || {}).IsEnrolled;
+		return o.enrolled;
 	},
 
 
-	isGiftable (enrollmentOption) {
-		let {option = {}} = enrollmentOption || {};
-		let {DefaultGiftingNTIID} = option.Purchasables || {};
-
-		return !!DefaultGiftingNTIID;
+	isGiftable (option) {
+		return !!(option.getPurchasableForGifting && option.getPurchasableForGifting());
 	},
 
 
@@ -100,20 +106,15 @@ export default {
 		}
 
 		let result = [];
-		let options = catalogEntry.EnrollmentOptions.Items||{};
 
 		function showOption (op) {
-			return op && op.IsAvailable && !op.IsEnrolled;
+			return op && op.available && !op.enrolled;
 		}
 
-		for(let key of Object.keys(options)){
-
-			if(includeUnavailable || showOption(options[key])) {
-
-				result.push({key, option: options[key] });
-
+		for (let option of catalogEntry.getEnrollmentOptions()) {
+			if(includeUnavailable || showOption(option)) {
+				result.push(option);
 			}
-
 		}
 
 		return result;
@@ -131,6 +132,7 @@ export default {
 				let widget = getWidget(option);
 				return widget ? React.createElement(widget, {
 					catalogEntry: catalogEntry,
+					entryId: this.props.entryId,
 					enrollmentOption: option,
 					isGiftable: this.isGiftable(option),
 					className: 'enrollment-panel',

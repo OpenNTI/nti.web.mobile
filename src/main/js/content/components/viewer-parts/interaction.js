@@ -1,9 +1,25 @@
 import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import hasClass from 'nti.lib.dom/lib/hasclass';
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {hasClass, getEventTarget} from 'nti.lib.dom';
+
+const SCROLL = Symbol('Scroll-To-Target-Delay');
 
 export default {
+
+	componentWillMount () {
+		this.maybeScrollToFragment();
+	},
+
+	componentWillReceiveProps () {
+		this.maybeScrollToFragment();
+	},
+
+	componentDidUpdate (_, prevState) {
+		if (this.state.loading !== prevState.loading) {
+			this.maybeScrollToFragment();
+		}
+	},
+
 
 	onContentClick (e) {
 		let anchor = getEventTarget(e, 'a[href]');
@@ -39,19 +55,9 @@ export default {
 			//split if/else for readability.
 			if (isFragmentRef) {
 				e.preventDefault();
-				let id = decodeURIComponent(frag);
-				let scrollToEl = document.getElementById(id) || document.getElementsByName(id)[0];
-				if (!scrollToEl) {
-					if (id) {
-						console.warn('Link (%s) refers to an element not found by normal means on the page.', href);
-					}
-				} else {
-					let fn = scrollToEl.scrollIntoViewIfNeeded || scrollToEl.scrollIntoView;
-					if (fn) {
-						fn.call(scrollToEl, true);
-					} else {
-						console.warn('No function to scroll... pollyfill time');
-					}
+				id = decodeURIComponent(frag);
+				if (!this.scrollToTarget(id)) {
+					console.warn('Link (%s) refers to an element not found by normal means on the page.', href);
 				}
 				return;
 			}
@@ -59,13 +65,51 @@ export default {
 
 			//let the capture clicks widget take us to a new place...
 			if (isNTIID(id)) {
-				//the capture clicks component is parsing this, so make it parser friendly.
-				anchor.setAttribute('href', `../${encodeForURI(id)}/`);//eww
+				anchor.setAttribute('href', this.makeHrefNewRoot(encodeForURI(id)));
 			}
 
 			if (frag.length) {
 				console.warn('TODO: implement navigating to a fragment on a new page.');
 			}
 		}
+	},
+
+
+	getScrollTargetIdFromHash () {
+		let {hash} = location;
+		return hash && decodeURIComponent(hash.substr(1));
+	},
+
+
+	scrollToTarget (id) {
+		let scrollToEl = document.getElementById(id) || document.getElementsByName(id)[0];
+		if (scrollToEl) {
+			let fn = scrollToEl.scrollIntoViewIfNeeded || scrollToEl.scrollIntoView;
+			if (fn) {
+				fn.call(scrollToEl, true);
+			} else {
+				console.warn('No function to scroll... pollyfill time');
+			}
+			return true;
+		}
+
+		return false;
+	},
+
+
+	maybeScrollToFragment () {
+		let {content} = this.refs;
+		if (!content || !content.isMounted()) {
+			return;
+		}
+
+		clearTimeout(this[SCROLL]);
+		this[SCROLL] = setTimeout(()=> {
+			let id = this.getScrollTargetIdFromHash();
+			if (id) {
+				console.debug('Scrolling to %s...', id);
+				this.scrollToTarget(id);
+			}
+		}, 500);
 	}
 };

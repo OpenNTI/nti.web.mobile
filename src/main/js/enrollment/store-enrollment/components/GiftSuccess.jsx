@@ -38,11 +38,11 @@ export default React.createClass({
 	},
 
 	render () {
-		let courseTitle = this.props.purchasable.Title;
+		let courseTitle = this.props.purchasable.title;
 		let purchaseAttempt = this.props.purchaseattempt;
 
-		let receiver = purchaseAttempt && purchaseAttempt.Receiver;
-		let sender = purchaseAttempt && purchaseAttempt.Creator;
+		let receiver = purchaseAttempt && purchaseAttempt.receiver;
+		let sender = purchaseAttempt && purchaseAttempt.creator;
 
 		let vendorInfo = this.props.purchasable && this.props.purchasable.VendorInfo;
 		let date = this.getDate(vendorInfo && vendorInfo.StartDate);
@@ -62,27 +62,25 @@ export default React.createClass({
 				<Pricing purchasable={this.props.purchasable} locked={true} />
 				<div className="medium-8 medium-centered columns panel">
 					<h3 className="header">{t('title')}</h3>
-					<LocalizedHTML className="gift" stringId={infoKey} scoped="ENROLLMENT.GIFT.SUCCESS" sender={sender} receiver={receiver} />
+					<LocalizedHTML className="gift" stringId={`ENROLLMENT.GIFT.SUCCESS.${infoKey}`} sender={sender} receiver={receiver} />
 					<p className="alert">{alert}</p>
 
 					<LocalizedHTML className="prompt"
-							stringId={date ? 'info': 'infoNoDate'}
-							scoped="ENROLLMENT.GIFT.SUCCESS"
+							stringId={`ENROLLMENT.GIFT.SUCCESS.${(date ? 'info' : 'infoNoDate')}`}
 							courseTitle={courseTitle}
 							startDate={date}/>
 
 					<LocalizedHTML className="support"
-							stringId="support"
-							scoped="ENROLLMENT.GIFT.SUCCESS"
+							stringId="ENROLLMENT.GIFT.SUCCESS.support"
 							email={support} />
 
 					<div className="token">
 						<span className="label">{t('accessKey')}</span>
-						<input type="text" className="value" value={purchaseAttempt.RedemptionCode} onChange={this.ignoreChange}/>
+						<input type="text" className="value" value={purchaseAttempt.redemptionCode} onChange={this.ignoreChange}/>
 					</div>
 					<div className="token">
 						<span className="label">{t('transactionID')}</span>
-						<input type="text" className="value" value={purchaseAttempt.TransactionID} onChange={this.ignoreChange} />
+						<input type="text" className="value" value={purchaseAttempt.transactionID} onChange={this.ignoreChange} />
 					</div>
 				</div>
 				<div className="medium-8 medium-centered columns row actions">
@@ -90,7 +88,7 @@ export default React.createClass({
 						<Button onClick={this.onNewGift}>Purchase another Gift</Button>
 					</div>
 					<div className="small-12 medium-6 columns">
-						<Button href={this.props.doneLink} onClick={this.props.onDone}>I'm done</Button>
+						<Button href={this.props.doneLink}>I'm done</Button>
 					</div>
 				</div>
 			</div>

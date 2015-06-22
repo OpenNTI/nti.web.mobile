@@ -124,7 +124,7 @@ class Store extends StorePrototype {
 		} else {
 			let reloadAnswers = !isAssignment(assessment);
 			this.setupAssessment(assessment, reloadAnswers)
-				.then(()=>{
+				.then(() => {
 					this[SaveProgress](assessment, 1);
 					this.emitChange({type: SYNC});
 				});
@@ -194,7 +194,7 @@ class Store extends StorePrototype {
 				()=>0 :						//drop on the floor
 				fn=>(fn() && 0);			//execute task immediately
 
-		this.savepointDelay = schedual(()=>{
+		this.savepointDelay = schedual(() => {
 			this.markBusy(part, BUSY_SAVEPOINT);
 			this.emitChange({type: BUSY_SAVEPOINT});
 
@@ -313,13 +313,12 @@ class Store extends StorePrototype {
 			.catch(reason => {
 				if (reason && reason.statusCode !== 404) {
 					console.error('Could not load previous state: %o', reason);
-					return Promise.reject(reason);
 				}
 
 				return void undefined;
 			})
 
-			.then(type=>{
+			.then(type => {
 				type = type || BUSY_LOADING;
 				this.clearBusy(assessment);
 				this.emitChange({type});
@@ -388,21 +387,21 @@ class Store extends StorePrototype {
 	}
 
 
-	countUnansweredQuestions (assessment){
+	countUnansweredQuestions (assessment) {
 		let main = getMainSubmittable(assessment);
 		let s = this.getSubmissionData(assessment);
 		return s && s.countUnansweredQuestions(main);
 	}
 
 
-	canSubmit (assessment){
+	canSubmit (assessment) {
 		let s = this.getSubmissionData(assessment);
 		let admin = this.isAdministrative(assessment);
 		return !admin && s && s.canSubmit() && !this.getBusyState(assessment);
 	}
 
 
-	isSubmitted (assessment){
+	isSubmitted (assessment) {
 		let main = getMainSubmittable(assessment);
 		let s = this.getSubmissionData(assessment);
 

@@ -1,6 +1,3 @@
-
-
-
 import Store from '../Store';
 import LoginStoreProperties from '../StoreProperties';
 import OAuthButtons from './OAuthButtons';
@@ -29,7 +26,7 @@ export default React.createClass({
 
 	displayName: 'LoginForm',
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			username: '',
 			password: '',
@@ -40,14 +37,14 @@ export default React.createClass({
 	},
 
 
-	componentDidMount: function() {
+	componentDidMount () {
 		console.log('LoginView::componentDidMount');
 		Store.addChangeListener(this[onLoginStoreChange]);
 		Actions.clearErrors({category: Constants.messages.category});
 	},
 
 
-	componentDidUpdate: function() {
+	componentDidUpdate () {
 		let name = this[username]();
 		if (name && !this.state.timeoutId) {
 			this[usernameChanged]();
@@ -55,7 +52,7 @@ export default React.createClass({
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		console.log('LoginView::componentWillUnmount');
 		Store.removeChangeListener(this[onLoginStoreChange]);
 		Actions.clearErrors();
@@ -63,13 +60,13 @@ export default React.createClass({
 	},
 
 
-	[signupLink]: function() {
+	[signupLink] () {
 		// if we have a confirmation message show the confirmation view, otherwise go directly to signup
 		return t(Constants.messages.SIGNUP_CONFIRMATION, {fallback: 'missing'}) === 'missing' ? '/signup/' : '/signup/confirm';
 	},
 
 
-	render: function() {
+	render () {
 		let submitEnabled = this.state.submitEnabled;
 		let signup = this[signupLink]();
 
@@ -118,7 +115,7 @@ export default React.createClass({
 	},
 
 
-	[inputChanged]: function(event) {
+	[inputChanged] (event) {
 		switch(event.target.name) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 			case 'username':
@@ -132,12 +129,12 @@ export default React.createClass({
 	},
 
 
-	/**
+	/*
 	 * onChange handler for the username field. Triggers Actions.userInputChanged
 	 */
-	[usernameChanged]: function() {
+	[usernameChanged] () {
 		clearTimeout(this.state.timeoutId);
-		let timeoutId = global.setTimeout(()=>{
+		let timeoutId = global.setTimeout(()=> {
 			console.log('timeout, firing userInputChanged: username: %s', this[username]());
 			Actions.userInputChanged({
 					credentials: {
@@ -152,12 +149,12 @@ export default React.createClass({
 	},
 
 
-	[passwordChanged]: function(/*event*/) {
+	[passwordChanged] (/*event*/) {
 		this[updateSubmitButton]();
 	},
 
 
-	[handleSubmit]: function(evt) {
+	[handleSubmit] (evt) {
 		evt.preventDefault();
 		console.log('LoginView::_handleSubmit');
 		Actions.clearErrors();
@@ -168,17 +165,17 @@ export default React.createClass({
 	},
 
 
-	[username]: function() {
+	[username] () {
 		return React.findDOMNode(this.refs.username).value.trim();
 	},
 
 
-	[password]: function() {
+	[password] () {
 		return React.findDOMNode(this.refs.password).value.trim();
 	},
 
 
-	[updateSubmitButton]: function() {
+	[updateSubmitButton] () {
 		this.setState({
 			submitEnabled:
 				this[username]().length > 0 &&
@@ -188,7 +185,7 @@ export default React.createClass({
 	},
 
 
-	[onLoginStoreChange]: function(evt) {
+	[onLoginStoreChange] (evt) {
 		console.log('LoginView::_onLoginStoreChange invoked %O', evt);
 		if (this.isMounted()) {
 			this[updateSubmitButton]();

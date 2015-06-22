@@ -1,5 +1,4 @@
 import React from 'react';
-import cloneWithProps from 'react/lib/cloneWithProps';
 
 import {scoped} from 'common/locale';
 
@@ -13,18 +12,14 @@ let getLabel = scoped('COURSE.SECTIONS');
 export default React.createClass({
 	displayName: 'course:Page',
 
-	componentDidMount () {
+	componentWillMount () {
 		let menu = [];
-		let {sectionPathPrefix, course} = this.props;
+		let {course} = this.props;
 		let {CatalogEntry} = course || {};
-
-		if (!sectionPathPrefix) {
-			sectionPathPrefix = '';
-		}
 
 		let push = x => {
 			let label = getLabel(x.toLowerCase());
-			menu.push({label, href: sectionPathPrefix + Sections[x]});
+			menu.push({label, href: Sections[x]});
 		};
 
 		if (!CatalogEntry || !CatalogEntry.Preview) {
@@ -35,6 +30,10 @@ export default React.createClass({
 		}
 		else {
 			push('INFO');
+		}
+
+		if (!course.hasDiscussions()) {
+			menu = menu.filter(x=>x.href !== Sections.DISCUSSIONS);
 		}
 
 		this.setState({menu});
@@ -49,20 +48,10 @@ export default React.createClass({
 		// if (course) {}
 
 		let props = Object.assign({}, this.props, {
-			availableSections: menu
+			availableSections: menu,
+			children: React.Children.map(children, x => React.cloneElement(x))
 		});
 
-		return React.createElement(Page, props, ...this.renderChildren(children));
-	},
-
-
-	renderChildren (c) {
-		if (!c) { return []; }
-
-		if (!Array.isArray(c)) {
-			c = [c];
-		}
-
-		return c.map(x=>cloneWithProps(x));
+		return React.createElement(Page, props);
 	}
 });

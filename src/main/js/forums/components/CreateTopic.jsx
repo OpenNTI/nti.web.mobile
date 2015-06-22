@@ -1,23 +1,27 @@
 import React from 'react';
-import Notice from 'common/components/Notice';
-import Breadcrumb from 'common/components/Breadcrumb';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
-import TopicEditor from './TopicEditor';
-import * as Actions from '../Actions';
-import Store from '../Store';
-import {TOPIC_CREATED, TOPIC_CREATION_ERROR} from '../Constants';
-import Loading from 'common/components/Loading';
+
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+
+import Loading from 'common/components/Loading';
+import Notice from 'common/components/Notice';
+
+import ContextSender from 'common/mixins/ContextSender';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+
+import Breadcrumb from 'navigation/components/Breadcrumb';
+
+import TopicEditor from './TopicEditor';
+
+import * as Actions from '../Actions';
+import {TOPIC_CREATED, TOPIC_CREATION_ERROR} from '../Constants';
+import Store from '../Store';
 
 export default React.createClass({
 	displayName: 'CreateTopic',
-
-	mixins: [NavigatableMixin],
+	mixins: [ContextSender, NavigatableMixin],
 
 	propTypes: {
-		forum: React.PropTypes.object.isRequired,
-
-		contextProvider: React.PropTypes.func //Deprecated
+		forum: React.PropTypes.object.isRequired
 	},
 
 	getInitialState () {
@@ -28,16 +32,9 @@ export default React.createClass({
 	},
 
 	getContext () {
-		let getContextProvider = this.props.contextProvider || Breadcrumb.noContextProvider;
 		let href = this.makeHref(this.getPath());
 		let label = 'New Discussion';
-		return getContextProvider().then(context => {
-			context.push({
-				label: label,
-				href: href
-			});
-			return context;
-		});
+		return Promise.resolve({label, href});
 	},
 
 	componentDidMount () {
@@ -101,7 +98,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Breadcrumb contextProvider={this.getContext} />
+				<Breadcrumb />
 				{this.state.error && <div className="alert-box radius">{this.state.error.message || 'An error occurred.'}</div>}
 				<TopicEditor ref="editor" onSubmit={this.createTopic} onCancel={this.onCancel} item={this.state.item} />
 			</div>

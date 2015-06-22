@@ -71,13 +71,12 @@ section.right-small {
 		&.menu{
 			overflow: visible;
 			&::after {
-				-webkit-backface-visibility: hidden;
-				-webkit-transition: -webkit-transform $duration $enter-timing;
+				backface-visibility: hidden;
 				transition: transform $duration $enter-timing;
 				content: '';
 				@extend %chevron-down;
 				.nav-menu-open & {
-					@include transform(rotate3d(0,0,1,180deg));
+					transform: rotate3d(0,0,1,180deg);
 				}
 				width: 10px;
 				height: 10px;
@@ -148,7 +147,8 @@ section.right-small {
 				color: $primary-blue;
 				padding: 0.1rem 0.5rem;
 				margin: 0;
-				@include ellipse;
+				white-space: nowrap;
+				text-overflow: ellipsis;
 				line-height: 1.5;
 				font-size: 0.7rem;
 				font-weight: 400;
@@ -255,8 +255,8 @@ section.right-small {
 }
 
 .title-bar-menu {
-	-webkit-backface-visibility: hidden;
-	-webkit-perspective: 1000;
+	backface-visibility: hidden;
+	perspective: 1000;
 
 	position: absolute;
 	background: $panel-background;
@@ -310,10 +310,10 @@ section.right-small {
 	&.nav-menu-enter {
 		transition: all $duration $enter-timing;
 		transition-delay: 0s !important;
-		@include transform(scale3d(0.95,0.95,1) translate3d(0, -150%, 0));
+		transform: scale3d(0.95,0.95,1) translate3d(0, -150%, 0);
 
 		&.nav-menu-enter-active {
-			@include transform(translate3d(0, 0, 0));
+			transform: translate3d(0, 0, 0);
 		}
 	}
 
@@ -321,10 +321,10 @@ section.right-small {
 		transition: all 0.25s $leave-timing;
 		transition-delay: 0s !important;
 
-		@include transform(translate3d(0, 0, 0));
+		transform: translate3d(0, 0, 0);
 
 		&.nav-menu-leave-active {
-			@include transform(scale3d(0.95,0.95,1) translate3d(0, -150%, 0));
+			transform: scale3d(0.95,0.95,1) translate3d(0, -150%, 0);
 		}
 	}
 }
@@ -333,9 +333,9 @@ section.right-small {
 
 
 .nav-menu-mask {
-	-webkit-backface-visibility: hidden;
-	-webkit-perspective: 1000;
-    -webkit-transform: translate3d(0,0,0);
+	backface-visibility: hidden;
+	perspective: 1000;
+    transform: translate3d(0,0,0);
 
 	background: #000;
 	opacity: 0.7;

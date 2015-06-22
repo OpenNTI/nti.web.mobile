@@ -27,7 +27,7 @@ export default {
 		let node = s.node || p.node || (props && props.node);
 		let status = node && node.parent('isEnrollment').getStatus();
 
-		let toReturn = items && items.map((item, i, list)=>{
+		let toReturn = items && items.map((item, i, list) => {
 			let use = true;
 			let itemProps = Object.assign({}, props, p, {node: node});
 

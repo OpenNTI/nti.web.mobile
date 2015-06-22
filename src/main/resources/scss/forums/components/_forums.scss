@@ -39,6 +39,8 @@ $indent: 0.9375rem;
 		}
 	}
 	.page-select {
+		-webkit-appearance: none !important;
+		-moz-appearance: none !important;
 		width: 3em;
 		margin-right: .5em;
 	}
@@ -47,6 +49,8 @@ $indent: 0.9375rem;
 .forums-wrapper {
 	@include grid-column(12);
 	padding-bottom:1rem;
+	position: relative; // Error component is position: absolute; we want it to appear in the content area if it has to appear at all.
+	min-height: 10em; // loading widget is vertically centered. don't want it overlapping the heading.
 
 	.view-header {
 		font-size: 1rem;
@@ -138,23 +142,39 @@ $indent: 0.9375rem;
 		}
 
 		&.deleted {
-			border: none;
+			
 			& > .modeled-content {
 				text-transform: uppercase;
 			}
 			.wrap {
 				color: $tertiary-grey;
-				margin-left: 35px;
+				margin-left: 0;
 			}
-			// padding: .25rem;
+			padding: .6875rem 0;
 		}
 	}
 
 	.deleteditemgroup {
+		$avatarsize: 35px;
 		font-size: .75rem;
 		color: $tertiary-grey;
-		padding: 1rem 0;
-		margin-left: 10px; // avatar size + 10px defined in _attributed-content-item;
+		background: $quad-grey;
+		padding: 1rem;
+		padding-bottom: 0;
+		min-height: 4rem;
+		margin: 0 -1rem;
+		.collapsible {
+			margin-left: $avatarsize + 10px;
+			&.expanded ul {
+				margin-top: 1.5rem;
+				border-top: 1px solid #f0f0f0;
+			}
+		}
+		.avatar {
+			float: left;
+			width: $avatarsize;
+			height: $avatarsize;
+		}
 	}
 
 	section {

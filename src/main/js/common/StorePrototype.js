@@ -14,7 +14,7 @@ export default class StorePrototype extends TypedEventEmitter {
 
 
 	/**
-	 * @param {Object} handlers - a dictionary of actionTypes to
+	 * @param {object} handlers - a dictionary of actionTypes to
 	 *                          functions or property-keys to handle
 	 *                          the action.
 	 *

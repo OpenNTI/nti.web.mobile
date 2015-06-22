@@ -6,6 +6,7 @@
 
 import units from './partials/units';
 import course from './partials/course';
+import content from './partials/content';
 import forums from './partials/forums';
 import enrollment from './partials/enrollment';
 import library from './partials/library';
@@ -40,7 +41,7 @@ export default {
 		emptyList: 'This list is empty.'
 	},
 
-
+	CONTENT: content,
 	COURSE: course,
 
 	ASSESSMENT: {

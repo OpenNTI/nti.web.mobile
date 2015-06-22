@@ -13,7 +13,7 @@ export default React.createClass({
 	propTypes: {
 		instructor: React.PropTypes.object,
 		assetRoot: React.PropTypes.string,
-		index: React.PropTypes.string
+		index: React.PropTypes.number
 	},
 
 

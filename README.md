@@ -5,15 +5,12 @@
 You'll need to have the following items installed before continuing.
 
   * [Node.js](http://nodejs.org):
-    * Use the installer provided on the NodeJS website. (currently v0.10.x is what we support)
-    * Setup `npm` to store "global" modules in your home directory:
-      ```bash
-      mkdir ~/.npm
-      npm config set prefix ~/.npm
-      npm config set cache ~/.npm/cache
-      ```
-    * Add `~/.npm/bin` to your path
-
+    * Use [nvm](https://github.com/creationix/nvm) to install NodeJS.
+        * `nvm install v0.10.38`
+        * Setup default node:
+          ```bash
+          echo v0.10.38 > ~/.nvmrc
+          ```
   * [Grunt](http://gruntjs.com): Run `npm install -g grunt-cli`
   * [Bower](http://bower.io): Run `npm install -g bower`
   * [Karma](http://karma-runner.github.io): Run `npm install -g karma-cli`
@@ -63,10 +60,9 @@ It basically simplifies your interactions. so you can simply `git pull` to get u
 
 ### Git Pre-Commit Hook:
 
-Make sure you have `jshint` and `jsxhint` installed "globally."
+Make sure you have `eslint` installed "globally."
 ```bash
-npm install jshint -g
-npm install jsxhint -g
+npm install eslint -g
 ```
 
 Activate the hook:

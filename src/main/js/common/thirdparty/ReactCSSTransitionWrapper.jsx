@@ -14,9 +14,6 @@ export default React.createClass({
 		transitionAppear: React.PropTypes.bool
 	},
 
-	getInitialState () {
-		return {mounted: false};
-	},
 
 	getDefaultProps () {
 		return {
@@ -26,19 +23,34 @@ export default React.createClass({
 		};
 	},
 
-	componentDidMount () {
-		this.setState({ mounted: true });
+	getInitialState() {
+		return {
+			mounted: false
+		};
 	},
 
-	render (){
+	componentDidMount () {
+		/* eslint-disable react/no-did-mount-set-state */
+		/*
+		* Disabling the react/no-set-state lint rule because we want
+		* to the children to animate in. So the first render will be without
+		* children then this call will trigger a re-render that
+		* animates them in.
+		*/
+		this.setState({
+			mounted: true
+		});
+	},
+
+	render () {
 		let {props} = this;
 		let children;
 
-		if(!this.props.transitionAppear){
+		if (!this.props.transitionAppear) {
 			children = props.children;
 		}
-		else{
-			if(this.state.mounted){
+		else {
+			if (this.state.mounted) {
 				children = props.children;
 			}
 		}

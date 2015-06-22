@@ -209,7 +209,7 @@ export default React.createClass({
 			return !s;
 		}
 
-		if (array.filter(x=>x!=null && notSeen(x)).length !== length) {
+		if (array.filter(x=> x != null && notSeen(x)).length !== length) {
 			console.warn('Something went wrong. Preventing bad value from persisting. Here is the bad value:', value);
 			return;
 		}

@@ -3,7 +3,7 @@ import React from 'react';
 import path from 'path';
 
 import Loading from 'common/components/Loading';
-
+import Err from 'common/components/Error';
 import ContextSender from 'common/mixins/ContextSender';
 
 import EnrollmentOptions from '../mixins/EnrollmentMixin';
@@ -31,6 +31,10 @@ export default React.createClass({
 
 	render () {
 
+		if (this.state.error) {
+			return <Err error={this.state.error} />;
+		}
+
 		if (!this.state.enrollmentStatusLoaded) {
 			return <Loading />;
 		}
@@ -39,8 +43,19 @@ export default React.createClass({
 			return <EnrollmentSuccess courseTitle={this.getCourseTitle()}/>;
 		}
 
+		let thumb = (this.getEntry() || {}).thumb;
+		let title = this.getCourseTitle();
+
 		return (
-			<div>
+			<div className="enrollment-options">
+				{thumb && (
+					<div className="content-banner">
+						<img src={thumb} />
+						<label>
+							<h3>{title}</h3>
+						</label>
+					</div>
+				)}
 				{this.enrollmentWidgets()}
 			</div>
 		);

@@ -108,7 +108,7 @@ export default React.createClass({
 				});
 				Actions.deleteComment(this.props.item);
 			},
-			()=>{}
+			()=> {}
 		);
 	},
 
@@ -141,7 +141,7 @@ export default React.createClass({
 		if (!item) {
 			return <div>No item?</div>;
 		}
-		let createdBy = item.Creator;
+		let createdBy = item.creator;
 		let createdOn = item.getCreatedTime();
 		let modifiedOn = item.getLastModified();
 		let message = item.body;

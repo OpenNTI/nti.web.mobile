@@ -21,5 +21,5 @@ export default {
 
 	'object[type*=naquestion]': parseDomObject,
 
-	'[itemprop~=nti-data-markupenabled],[itemprop~=nti-slide-video]': parseFramedElement
+	'[itemprop*=nti-data-markup],[itemprop~=nti-slide-video]': parseFramedElement
 };

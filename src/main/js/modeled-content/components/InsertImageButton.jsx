@@ -36,10 +36,10 @@ export default React.createClass({
 		}
 
 		return (
-			<button className="insert-whiteboard">
+			<div className="button insert-whiteboard">
 				Insert Whiteboard
 				<input type="file" accept="image/*" multiple onChange={this.onSelect}/>
-			</button>
+			</div>
 		);
 	},
 
@@ -71,7 +71,7 @@ export default React.createClass({
 					}
 
 				})
-				.catch(e=>{
+				.catch(e=> {
 					e = JSON.stringify(e);
 					console.error(e);
 					alert(e);//eslint-disable-line
@@ -110,7 +110,7 @@ export default React.createClass({
 		if (!files || files.length === 0) { return; }
 
 		let sel = editor[Constants.SAVED_SELECTION];
-		if (sel){
+		if (sel) {
 			editor.restoreSelection(sel);
 		}
 
@@ -120,7 +120,7 @@ export default React.createClass({
 
 		let run = Promise.resolve();
 		for(let i = 0, len = files.length; i < len; i++) {
-			run = run.then(getNext(files[i], (len-1)===i));
+			run = run.then(getNext(files[i], (len - 1) === i));
 		}
 
 		run.then(()=>editor.clearBusy());

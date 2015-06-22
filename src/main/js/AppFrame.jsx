@@ -1,6 +1,5 @@
 import React from 'react';
-import cloneWithProps from 'react/lib/cloneWithProps';
-import onlyChild from 'react/lib/onlyChild';
+import CSS from 'react/lib/CSSCore';
 
 import Session from 'common/components/Session';
 import Footer from 'common/components/Footer';
@@ -9,8 +8,6 @@ import RouteAware from 'common/mixins/NavigatableMixin';
 
 import Notifications from 'notifications/components/View';
 
-import addClass from 'nti.lib.dom/lib/addclass';
-import removeClass from 'nti.lib.dom/lib/removeclass';
 import {getAppUsername} from 'common/utils';
 import {getHeight as getViewportHeight} from 'common/utils/viewport';
 
@@ -59,12 +56,12 @@ export default React.createClass({
 	},
 
 
-	getOverlayState () { return (this.state || {}).overlay;	},
+	getOverlayState () { return (this.state || {}).overlay; },
 
 
 	componentDidUpdate () {
 		let viewport = document.getElementsByTagName('html')[0];
-		let action = (this.getOverlayState() == null) ? removeClass : addClass;
+		let action = (this.getOverlayState() == null) ? CSS.removeClass : CSS.addClass;
 
 		action(viewport, 'scroll-lock');
 	},
@@ -72,7 +69,7 @@ export default React.createClass({
 
 	render () {
 		let height = {height: getViewportHeight()};
-		let state = this.getOverlayState();
+		let state = this.getOverlayState() || '';
 		let username = getAppUsername();
 
 		return (
@@ -101,8 +98,11 @@ export default React.createClass({
 
 
 	renderView () {
-		let {children} = this.props;
-		return cloneWithProps(onlyChild(children));
+		let child = React.Children.only(this.props.children);
+		//Until React Switches to Parent-Based-Context passing, we have to "re-owner" the child.
+		//Once React makes the switch, we can replace the next two lines with "return React.cloneElement(child);"
+		let {type, props} = child;
+		return React.createElement(type, props);
 	},
 
 

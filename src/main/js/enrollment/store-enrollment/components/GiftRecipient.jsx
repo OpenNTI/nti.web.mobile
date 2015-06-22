@@ -24,7 +24,7 @@ export default React.createClass({
 	},
 
 
-	componentDidMount () {
+	componentWillMount () {
 		let prevState = Store.getGiftInfo();
 		let name;
 
@@ -34,9 +34,8 @@ export default React.createClass({
 			prevState.toLastName = name[1] || '';
 
 
-			let enabled = ['toFirstName', 'toLastName', 'receiver', 'message', 'sender'].some(function(key) {
-				return (prevState[key]||'').trim().length > 0;
-			});
+			let enabled = ['toFirstName', 'toLastName', 'receiver', 'message', 'sender']
+				.some(key => (prevState[key] || '').trim().length > 0);
 
 			this.setState(Object.assign({enabled: enabled}, prevState));
 		}

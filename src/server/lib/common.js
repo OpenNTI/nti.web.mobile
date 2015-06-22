@@ -4,6 +4,7 @@ import path from 'path';
 import request from 'request';
 import getSite from './site-mapping';
 import logger from './logger';
+import gitRevision from './git-revision';
 import {SiteName, ServiceStash} from 'nti.lib.interfaces/CommonSymbols';
 
 let env = null; //until this loads, calling config() should blow up.
@@ -40,7 +41,7 @@ let opt = require('optimist').usage('WebApp Instance')
 				desc: 'URI/path to config file (http/https/file/path)'
 			})
 			/*eslint no-throw-literal:0*/
-			.check(v => {if (v.hasOwnProperty('h')){ throw false; }})
+			.check(v => {if (v.hasOwnProperty('h')) { throw false; }})
 			.argv;
 
 
@@ -101,7 +102,8 @@ export function config() {
 		Object.assign({}, env[base], env[process.env.NODE_ENV] || {}), {
 			protocol: opt.protocol,
 			address: opt.l,
-			port: opt.p || env.port
+			port: opt.p || env.port,
+			revision: gitRevision
 		});
 
 	if (serverHost || serverPort) {
@@ -128,9 +130,7 @@ export function clientConfig (username, context) {
 		discussions: unsafe.discussions,
 		flags: unsafe.flags,
 		server: unsafe.server,
-		/* jshint -W106 */
 		siteName: getSite(context[SiteName]),
-		/* jshint +W106 */
 		username: username
 	};
 
@@ -161,10 +161,8 @@ export function nodeConfigAsClientConfig (cfg, context) {
 		config: Object.assign({}, cfg, {
 			username: context.username,
 			nodeInterface: dontUseMe,
-			/* jshint -W106 */
 			siteName: getSite(context[SiteName]),
 			nodeService: context[ServiceStash] || noServiceAndThereShouldBe
-			/* jshint +W106 */
 		})
 	};
 

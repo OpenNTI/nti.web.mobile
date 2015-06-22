@@ -4,7 +4,7 @@ import getVideosFromDom from './video';
 
 export default function parseFramedElement(el) {
 	//This should always be a <span><img/></span> construct:
-	// <span itemprop="nti-data-markupenabled">
+	// <span itemprop="nti-data-markup(enabled|disabled)">
 	// 	<img crossorigin="anonymous"
 	// 		data-nti-image-full="resources/CHEM..."
 	// 		data-nti-image-half="resources/CHEM..."
@@ -19,14 +19,20 @@ export default function parseFramedElement(el) {
 
 	let data = parseDomObject(el);
 
+	let {itemprop} = data;
+
 	data.item = [
 		getImagesFromDom(el),
 		getVideosFromDom(el)
 	].reduce(flat, null) || {};
 
 	if (!data.type) {
-		data.type = data.itemprop;
+		data.type = itemprop;
 	}
+
+	data.markable =
+	data.item.markable = /nti-data-markupenabled/i.test(itemprop);
+	data.isSlide = /slide/i.test(data.type);
 
 	return data;
 }

@@ -17,7 +17,7 @@ export default React.createClass({
 	render () {
 		return (
 			<div>
-				<Notice>To drop {this.props.courseTitle} please contact someone.</Notice>
+				<Notice>To drop {this.props.courseTitle} please contact support.</Notice>
 				<div className="small-12 columns">
 					<Button onClick={this.onCancel} className="small-5 columns">Okay</Button>
 				</div>

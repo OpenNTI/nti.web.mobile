@@ -1,6 +1,9 @@
 
 
 .notification-item {
+	&:empty {
+		display: none;
+	}
 
 	line-height: 1.7;
 	font-family: 'Open Sans';
@@ -16,9 +19,12 @@
 	time {
 		display: block;
 		font-size: 0.75em;
+		font-weight: 700;
+		text-transform: uppercase;
+		color: $secondary-grey;
 	}
 
-	img, .grade, .badge {
+	.avatar, .grade, .badge {
 		display: inline-block;
 		position: relative;
 		float: left;

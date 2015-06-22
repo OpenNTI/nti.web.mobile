@@ -42,24 +42,24 @@ export default React.createClass({
 		let {router} = this.refs;
 		let href = router ? router.makeHref('') : '';
 
+		let enrollmentOptionsHref = this.makeHref( path.join('/item', this.props.entryId, 'enrollment/' ));
+
 		return Promise.resolve([
-			{ label: 'Enroll', href: path.join(href, '../')},
+			{ label: 'Enroll', href: enrollmentOptionsHref},
 			{ label: 'Enroll For Credit', href }
 		]);
 	},
 
 	onStoreChange (event) {
-		switch(event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case CONCURRENT_ENROLLMENT_SUCCESS:
-				this.navigate('credit/concurrent/');
-				break;
+		let {router} = this.refs;
+		if (event.type === CONCURRENT_ENROLLMENT_SUCCESS) {
+			router.navigate('/concurrent/');
 		}
 	},
 
 	render () {
 
-		if ((this.props.enrollment || {}).IsEnrolled) {
+		if ((this.props.enrollment || {}).enrolled) {
 
 			let href = this.courseHref(this.props.courseId);
 

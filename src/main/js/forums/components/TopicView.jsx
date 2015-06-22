@@ -99,14 +99,12 @@ export default React.createClass({
 					topic={topic}
 					page={currentPage}
 					{...this.props}
-					contextProvider={this.getContext}
 				/>
 				<Location path="/:postId/"
 					handler={Post}
 					topic={topic}
 					page={currentPage}
 					{...this.props}
-					contextProvider={this.getContext}
 				/>
 			</Router.Locations>
 		);

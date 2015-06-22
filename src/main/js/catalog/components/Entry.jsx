@@ -61,14 +61,20 @@ export default React.createClass({
 		return `${this.getDetailHref()}enrollment/`;
 	},
 
+	getBaseEnrollHref () {
+		return `${this.getBasePath()}catalog/enroll/`;
+	},
 
 	getDropHref () {
-		return `${this.getAddHref()}drop/`;
+		let item = this.getItem();
+		let courseId = encodeForURI(item.getID());
+		return `${this.getBaseEnrollHref()}drop/${courseId}/`;
 	},
 
 
 
 	render () {
+
 		let item = this.getItem();
 
 		if (!item) { return; }
@@ -101,9 +107,9 @@ export default React.createClass({
 		let item = this.getItem();
 		let enrolled = false;
 		let available = false;
-		let dropable = false;
+		let droppable = false;
 
-		let dropableMime = /openenrollmentoption/i;
+		let droppableMime = /openenrollmentoption/i;
 		let forCredit = /forcredit/i;
 
 		if (!item) { return; }
@@ -112,24 +118,21 @@ export default React.createClass({
 
 		status = status && (forCredit.test(status) ? FOR_CREDIT : OPEN);
 
-		let {Items} = item.EnrollmentOptions;
-
-		for(let prop of Object.keys(Items)) {
-			let opt = Items[prop];
-			dropable = dropable || dropableMime.test(opt.MimeType);
-			available = available || Boolean(opt.IsAvailable);
-			enrolled = enrolled || Boolean(opt.IsEnrolled);
+		for(let opt of item.getEnrollmentOptions()) {
+			droppable = droppable || droppableMime.test(opt.MimeType);
+			available = available || Boolean(opt.available);
+			enrolled = enrolled || Boolean(opt.enrolled);
 		}
 
-		return {enrolled, dropable, available, status};
+		return {enrolled, droppable, available, status};
 	},
 
 
 	button () {
 		let status = this.getStatus();
-		let {available, enrolled, dropable} = status || {};
+		let {available, enrolled, droppable} = status || {};
 
-		return (!available && !enrolled) || (!dropable && enrolled) ? null :
+		return (!available && !enrolled) || (!droppable && enrolled) ? null :
 			enrolled ?
 				<a className="action drop" href={this.getDropHref()}>Drop</a> :
 				<a className="action add" href={this.getAddHref()}>Add</a>

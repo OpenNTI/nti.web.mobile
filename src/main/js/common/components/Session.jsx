@@ -30,10 +30,10 @@ export default React.createClass({
 
 		return (
 			<a className="user-session" href={profile}>
-				<div className="arrow-tab"><div className="arrow-right"/></div>
 				<Avatar username={username}/>
 				<div className="meta">
 					<DisplayName username={username}/>
+					<div>View Profile</div>
 				</div>
 				<div className="actions">
 					{children}

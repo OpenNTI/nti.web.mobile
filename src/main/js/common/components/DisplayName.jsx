@@ -1,5 +1,10 @@
 import React from 'react';
+
+import cx from 'classnames';
+
 import {getService} from '../utils';
+
+import t from 'common/locale';
 
 /**
  * This DisplayName component can use the full User instance if you have it.
@@ -13,9 +18,25 @@ export default React.createClass({
 	displayName: 'DisplayName',
 
 	propTypes: {
+		className: React.PropTypes.string,
+
+		localeKey: React.PropTypes.string,
+
+		tag: React.PropTypes.string,
+
+		//One of these two Props (username, and user) are required. User trumps Username.
 		username: React.PropTypes.string,
-		tag: React.PropTypes.string
+
+		user: React.PropTypes.object
 	},
+
+
+	getDefaultProps () {
+		return {
+			onResolve: () => {}
+		};
+	},
+
 
 	getInitialState () {
 		return {
@@ -27,21 +48,31 @@ export default React.createClass({
 	componentDidMount () { fillIn(this, this.props); },
 
 	componentWillReceiveProps (nextProps) {
-		if (this.props.username !== nextProps.username) {
+		if (this.props.username !== nextProps.username || this.props.user !== nextProps.user) {
 			fillIn(this, nextProps);
 		}
 	},
 
 	render () {
-		let Tag = this.props.tag || 'span';
-		let displayName = this.state.displayName;
+		let {className, localeKey, username, tag} = this.props;
+		let {displayName} = this.state;
+		let Tag = tag || (localeKey ? 'address' : 'span');
 
 		let props = Object.assign({
-			'data-for': this.props.username,
-			className: 'username'
+			className: cx('username', className),
+			children: displayName
 		}, this.props);
 
-		return <Tag {...props}>{displayName}</Tag>;
+		if (localeKey) {
+			let name = React.renderToStaticMarkup(<a rel="author" className="username">{displayName}</a>);
+
+			Object.assign(props, {
+				children: void 0,
+				dangerouslySetInnerHTML: {'__html': t(localeKey, {name})}
+			});
+		}
+
+		return <Tag {...props} rel="author" data-for={username || 'unknown'}/>;
 	}
 });
 
@@ -52,7 +83,7 @@ export function resolve (cmp, props) {
 	let promise;
 
 	if (!username && !user) {
-		promise = Promise.reject();
+		promise = Promise.reject('No User or no Username');
 	}
 
 	promise = promise || (user && Promise.resolve(user));
@@ -67,17 +98,17 @@ export function resolve (cmp, props) {
 
 
 function fillIn(cmp, props) {
+	let task = Date.now();
+	let set = state => {
+		if (cmp.state.task === task) {
+			cmp.setState(state);
+		}
+	};
 
-	resolve(cmp, props).then(
-		user => {
-			if (cmp.isMounted()) {
-				cmp.setState({ displayName: user.DisplayName });
-			}
-		},
-		()=> {
-			if (cmp.isMounted()) {
-				cmp.setState({ displayName: 'Unknown' });
-			}
-		});
+	cmp.setState({task}, ()=> resolve(cmp, props)
+		.then(
+			user => set({ displayName: user.displayName }),
+			()=> set({ failed: true, displayName: 'Unknown' })
+		));
 
 }

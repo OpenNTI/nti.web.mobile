@@ -4,7 +4,7 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import Router, {Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
 import CaptureClicks from 'react-router-component/lib/CaptureClicks';
 
-import {getServer} from 'common/utils';
+import {getService} from 'common/utils';
 
 import Loading from 'common/components/Loading';
 import ErrorComponent from 'common/components/Error';
@@ -35,7 +35,7 @@ export default React.createClass({
 	componentWillMount () {
 		Store.addChangeListener(this.onChange);
 
-		let purchasableId = this.props.purchasableId;
+		let {purchasableId} = this.props;
 		if (!purchasableId) {
 			this.setState({
 				loading: false,
@@ -44,25 +44,18 @@ export default React.createClass({
 			return;
 		}
 
-		getServer().getPurchasables(purchasableId)
-			.then(x => x.Items[0])
+		getService()
+			.then(x => x.getPurchasables(purchasableId))
+			.then(x => x[0] || Promise.reject(`Bad ID given: (${purchasableId})`))
 			.then(x => {
 				this.setState({purchasable: x});
 				return x;
 			})
 			.then(Store.priceItem.bind(Store))
-			.then(pricedItem => {
-				this.setState({
-					loading: false,
-					pricedItem: pricedItem
-				});
-			})
-			.catch(reason => {
-				this.setState({
-					loading: false,
-					error: reason
-				});
-			});
+			.then(pricedItem =>
+				this.setState({ loading: false, pricedItem }))
+			.catch(error =>
+				this.setState({ loading: false, error }));
 	},
 
 	componentWillUnmount () {
@@ -70,7 +63,7 @@ export default React.createClass({
 	},
 
 	onChange (event) {
-		let router = this.refs.router;
+		let {router} = this.refs;
 
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
@@ -123,8 +116,8 @@ export default React.createClass({
 			return <Loading />;
 		}
 
-		let purchasable = this.state.purchasable;
-		let courseTitle = purchasable.Title;
+		let {purchasable} = this.state;
+		let {title} = purchasable;
 
 		return (
 			<CaptureClicks environment={Router.environment.hashEnvironment}>
@@ -132,7 +125,7 @@ export default React.createClass({
 					<Locations hash ref="router" onNavigation={this.onNavigation}>
 						<Location path="/confirm/*" handler={Confirm} purchasable={purchasable}/>
 						<Location path="/success/*" handler={Success} purchasable={purchasable} onDone={this.onDone} />
-						<Location path="/error/*" handler={PaymentError} courseTitle={courseTitle} />
+						<Location path="/error/*" handler={PaymentError} courseTitle={title} />
 						<DefaultRoute handler={Form} purchasable={purchasable}/>
 					</Locations>
 				</ReactCSSTransitionGroup>

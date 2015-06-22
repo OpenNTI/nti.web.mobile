@@ -3,11 +3,11 @@ import React from 'react';
 import Unknown from './Unknown';
 
 import Card from './Card';
-import ImageRoll from './ImageRoll';
+import ImageRoll from './roll/ImageRoll';
 import MarkupFrame from './MarkupFrame';
 import Question from './Question';
 import Video from './Video';
-import VideoRoll from './VideoRoll';
+import VideoRoll from './roll/VideoRoll';
 
 const WIDGETS = [
 	Unknown,

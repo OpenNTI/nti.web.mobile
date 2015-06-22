@@ -4,13 +4,14 @@ import path from 'path';
 
 const SEGMENT_HANDLERS = {
 
-	redeem: (segments) =>
-		path.join('enrollment', 'store', 'gift', segments.slice(0, 2).join('/')),
+	redeem: (catalogId, segments) =>
+		path.join('catalog', 'redeem', catalogId, segments[1]),
 
-	forcredit: () =>
-		path.join('enrollment', 'credit', '/'),
+	forcredit: (catalogId) =>
+		// catalog/enroll/apply/NTI-CourseInfo-Summer2015_LSTD_1153_Block_C/
+		path.join('catalog', 'enroll', 'apply', catalogId, '/'),
 
-	[null]: (s)=> console.warn('There is no handler registered for ', s)
+	[null]: (catalogId)=> path.join('catalog', 'item', catalogId)
 };
 
 const HANDLERS = {
@@ -24,7 +25,7 @@ export default {
 	register (express, config) {
 		this.basepath = config.basepath;
 
-		express.use((req, res, next)=>{
+		express.use((req, res, next) => {
 			let redirectQuery = req.query.q;
 			if (!redirectQuery) {
 				return next();
@@ -56,9 +57,9 @@ export default {
 		let parts = url.match(catalog);
 		if (parts) {
 			let catalogId = translateCatalogId(parts[1]);
-			let trailingPath = translateTrailingPath(parts[2]) || '';
+			let trailingPath = translatePath(catalogId, parts[2]) || '';
 
-			url = path.join(this.basepath, 'catalog', 'item', catalogId, trailingPath);
+			url = path.join(this.basepath, trailingPath);
 
 			logger.info('redirecting to: %s', url);
 			res.redirect(url);
@@ -98,16 +99,12 @@ export default {
 };
 
 
-function translateTrailingPath (trailingPath) {
-	if (!trailingPath) {
-		return void 0;
-	}
-
+function translatePath (catalogId, trailingPath) {
 	let segments = (trailingPath || '').split('/');
 
 	let handler = SEGMENT_HANDLERS[segments[0] || null];
 
-	return handler.call(null, segments);
+	return handler.call(null, catalogId, segments);
 }
 
 

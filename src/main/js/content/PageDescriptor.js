@@ -1,5 +1,7 @@
 import {Service} from 'nti.lib.interfaces/CommonSymbols';
 
+const UserData = Symbol('UserData');
+
 export default class PageDescriptor {
 	constructor (ntiid, data) {
 		this.ntiid = ntiid;
@@ -7,6 +9,7 @@ export default class PageDescriptor {
 		Object.assign(this, {
 			[Symbol.for('Created')]: new Date(),
 			[Service]: data.pageInfo[Service],
+			[UserData]: data.userDataStore,
 
 			content: {
 				raw: data.content,
@@ -16,6 +19,7 @@ export default class PageDescriptor {
 
 		delete data.content;
 		delete data.body;
+		delete data.userDataStore;
 
 		Object.assign(this, data);
 	}
@@ -27,12 +31,11 @@ export default class PageDescriptor {
 	getTitle () {
 		let toc = this.tableOfContents;
 		let node = toc && toc.getNode(this.ntiid);
-		let attrs = node && node.attrib;
-		return attrs && attrs.label;
+		return node && node.get('label');
 	}
 
 
-	getPageSource (id){ return this.tableOfContents.getPageSource(id); }
+	getPageSource (id) { return this.tableOfContents.getPageSource(id); }
 
 
 	getTableOfContents () { return this.tableOfContents; }
@@ -42,6 +45,11 @@ export default class PageDescriptor {
 
 
 	getPageStyles () { return this.styles; }
+
+
+	getUserDataStore () {
+		return this[UserData];
+	}
 
 
 	getAssessmentQuestion (questionId) {

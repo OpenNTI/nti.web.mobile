@@ -6,17 +6,14 @@ import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
 import Mixin from './Mixin';
 
-// due to a bug in eslint 0.20.0, it can't tell this const is referenced in the
-// destructured assignment default below.
-const ZOOMABLE = /nti\-data\-resizeable/i; //eslint-disable-line no-unused-vars
-
+import Zoomable from 'common/zoomable/components/View';
 
 export default React.createClass({
 	displayName: 'ContentMarkupEnabled',
 	mixins: [Mixin],
 
 	statics: {
-		itemType: /nti\-data\-markupenabled/i
+		itemType: /nti\-data\-markup(dis|en)abled/i
 	},
 
 
@@ -25,13 +22,29 @@ export default React.createClass({
 	},
 
 
+	getInitialState () {
+		return {
+			zoomed: false
+		};
+	},
+
+
 	onZoom() {
 		let {image} = this.refs;
 		image = React.findDOMNode(image);
 
 		if(image && image.src) {
-			window.open(image.src, 'zoomy');
+			this.setState({
+				zoomed: true
+			});
 		}
+	},
+
+
+	unZoom() {
+		this.setState({
+			zoomed: false
+		});
 	},
 
 
@@ -47,41 +60,50 @@ export default React.createClass({
 
 
 	render () {
-		let data = this.props.item;
-		let {item} = data;
+		let {item, itemprop, isSlide} = this.props.item;
 
-		let {zoomable = ZOOMABLE.test(data.type)} = item;
-
-		if (this.state.forceZoomable) {
-			zoomable = true;
-		}
+		let {zoomable, markable} = item;
 
 		let title = item.title;
 		let caption = item.caption;
 
-		let zoomClasses = cx('zoom fi-magnifying-glass', { disabled: !zoomable });
-
 		let noDetails = isEmpty(title) && isEmpty(caption);
+		let bare = noDetails && !markable && !isSlide;
 
-		//The Item may not be an image, it could also be a video embed, a slide, or an iframe.
+		//force zoom if the image has been scaled down and only if the frame will show.
+		if (!bare && this.state.forceZoomable) {
+			zoomable = true;
+		}
+
+		//FIXME: The Item may not be an image, it could also be a video embed, a slide, or an iframe.
 
 		return (
-			<span itemProp={data.type} className="markupframe">
-				<img src={item.src} crossOrigin={item.crossorigin} ref="image" onLoad={this.onLoad}/>
+			<span itemProp={itemprop} className={cx('markupframe', {bare})}>
+
 				<span className="wrapper">
-					<a href="#zoom" title="Zoom"
-						className={zoomClasses}
+					<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref="image" onLoad={this.onLoad}/>
+					{!zoomable ? null : (
+						<a title="Zoom"
+						className="zoom fi-magnifying-glass"
 						data-non-anchorable="true"
 						onClick={this.onZoom} />
+					)}
 				</span>
-				<span className="bar" data-non-anchorable="true" data-no-anchors-within="true" unselectable="true">
-					<a href="#slide" className="bar-cell slide"> </a>
-					<span className={'bar-cell ' + (noDetails ? 'no-details' : '')}>
-						<span className="image-title">{title}</span>
-						<span className="image-caption">{caption}</span>
-						<a href="#mark" className="mark"></a>
+
+				{bare ? null : (
+					<span className="bar" data-non-anchorable="true" data-no-anchors-within="true" unselectable="true">
+						{!isSlide ? null : ( <a href="#slide" className="bar-cell slide"/> )}
+						{noDetails && !markable ? null : (
+							<span className="bar-cell">
+								<span className="image-title" dangerouslySetInnerHTML={{__html: title}}/>
+								<span className="image-caption" dangerouslySetInnerHTML={{__html: caption}}/>
+								{markable && ( <a href="#mark" className="mark"/> )}
+							</span>
+						)}
 					</span>
-				</span>
+				)}
+
+				{this.state.zoomed && <Zoomable src={item.src} onClose={this.unZoom} />}
 			</span>
 		);
 	}

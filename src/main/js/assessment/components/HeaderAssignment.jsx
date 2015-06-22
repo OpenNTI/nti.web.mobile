@@ -13,7 +13,7 @@ export default React.createClass({
 	displayName: 'HeaderAssignment',
 
 	propTypes: {
-		assessment: React.PropTypes.string
+		assessment: React.PropTypes.object
 	},
 
 	componentDidMount () {

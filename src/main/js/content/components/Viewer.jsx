@@ -1,45 +1,52 @@
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
-import guid from 'nti.lib.interfaces/utils/guid';
-
 import React from 'react';
+
 import {RouterMixin} from 'react-router-component';
 
+import cx from 'classnames';
+
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+
 import Loading from 'common/components/Loading';
-//import ErrorWidget from 'common/components/Error';
+import Err from 'common/components/Error';
 
 import StoreEvents from 'common/mixins/StoreEvents';
 import ContextSender from 'common/mixins/ContextSender';
 
 import Pager from 'common/components/Pager';
 
-
-import {getWidget} from './widgets';
-
-
 import Store from '../Store';
 import {loadPage} from '../Actions';
+import PageDescriptor from '../PageDescriptor';
 
-import {RESOURCE_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
+import {
+	ASSIGNMENT_VIEWED,
+	RESOURCE_VIEWED,
+	SELFASSESSMENT_VIEWED
+} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
 import AnalyticsBehavior from 'analytics/mixins/ResourceLoaded';
+import AnnotationFeature from './viewer-parts/annotations';
+import AssessmentFeature, {isAssignment} from './viewer-parts/assessment';
 import RouterLikeBehavior from './viewer-parts/mock-router';
 import GlossaryFeature from './viewer-parts/glossary';
 import Interactions from './viewer-parts/interaction';
-import AssessmentFeature from './viewer-parts/assessment';
 
-const applyStyle = 'Viewer:applyStyle';
+import BodyContent from './Content';
+import Gutter from './Gutter';
+import Discussions from './discussions';
 
 export default React.createClass({
-	displayName: 'Viewer',
+	displayName: 'content:Viewer',
 	mixins: [
-		StoreEvents,
-		RouterLikeBehavior,
 		AnalyticsBehavior,
+		AnnotationFeature,
+		AssessmentFeature,
+		ContextSender,
 		GlossaryFeature,
 		Interactions,
-		AssessmentFeature,
+		RouterLikeBehavior,
 		RouterMixin,
-		ContextSender
+		StoreEvents
 	],
 
 
@@ -55,14 +62,31 @@ export default React.createClass({
 		default: 'onStoreChange'
 	},
 
+	signalResourceLoaded () {
+		let {page} = this.state;
+		let quiz = page && page.getSubmittableAssessment();
+		let mime = quiz ? (isAssignment(quiz) ? ASSIGNMENT_VIEWED : SELFASSESSMENT_VIEWED) : RESOURCE_VIEWED;
+
+		let args = [
+			this.getPageID(),
+			this.props.contentPackage.getID(),
+			mime
+		];
+
+		if (quiz) {
+			args.unshift(quiz.getID());
+		}
+
+		this.resourceLoaded.apply(this, args);
+	},
+
 	resumeAnalyticsEvents() {
-		this.resourceLoaded(this.getPageID(), this.props.contentPackage.getID(), RESOURCE_VIEWED);
+		this.signalResourceLoaded();
 	},
 
 	getResetState () {
 		return {
 			loading: true,
-			pageWidgets: {},
 			page: null,
 			pageSource: null
 		};
@@ -83,30 +107,6 @@ export default React.createClass({
 
 	componentWillUnmount () {
 		this.resourceUnloaded();
-		this.cleanupWidgets();
-	},
-
-
-	componentDidUpdate () {
-		//See if we need to re-mount/render our components...
-		let widgets = this.getPageWidgets();
-		// console.debug('Content View: Did Update... %o', widgets);
-
-		if (widgets) {
-			for(let guid of Object.keys(widgets)) {
-				let el = document.getElementById(guid);
-				let w = widgets[guid];
-				if (el && !el.hasAttribute('mounted')) {
-					// console.debug('Content View: Mounting Widget...');
-					try {
-						w = React.render(w, el);
-						el.setAttribute('mounted', 'true');
-					} catch (e) {
-						console.error('A content widget blew up while rendering: %s', e.stack || e.message || e);
-					}
-				}
-			}
-		}
 	},
 
 
@@ -115,17 +115,9 @@ export default React.createClass({
 	},
 
 
-	cleanupWidgets () {
-		//Cleanup our components...
-		let widgets = this.getPageWidgets();
-
-		for(let guid of Object.keys(widgets)) {
-			let el = document.getElementById(guid);
-			if (el) {
-				React.unmountComponentAtNode(el);
-				el.removeAttribute('mounted');
-			}
-		}
+	componentDidUpdate: function() {
+		let {pageSource, currentPage} = this.state;
+		this.setPageSource(pageSource, currentPage);
 	},
 
 
@@ -136,7 +128,6 @@ export default React.createClass({
 		let initial = this.props === props;
 
 		if (initial || newPage || newRoot) {
-			this.cleanupWidgets();
 			this.setState(
 				Object.assign(
 					{ currentPage: newPageId },
@@ -145,127 +136,104 @@ export default React.createClass({
 			);
 
 			loadPage(newPageId);
-			this.resourceLoaded(newPageId, this.props.contentPackage.getID(), RESOURCE_VIEWED);
 		}
 	},
 
 
-	getRootID (props) {
-		return decodeFromURI((props || this.props).rootId);
+	getRootID (props = this.props) {
+		return decodeFromURI(props.rootId);
 	},
 
 
-	getPageID (props) {
-		let p = props || this.props;
-		let h = this.getPropsFromRoute(p);
-		return decodeFromURI(h.pageId || p.rootId);
-	},
-
-
-	getPageWidgets () {
-		let o = this.state.pageWidgets;
-		let id = this.getPageID();
-		if (o && !o[id]) {
-			//console.debug('Content View: Creating bin for PageWidgets for %s', id);
-			o[id] = {};
-		}
-		return o && o[id];
-	},
-
-
-	createWidget (widgetData) {
-		let widgets = this.getPageWidgets();
-		if (!widgets[widgetData.guid]) {
-			// console.debug('Content View: Creating widget for %s', widgetData.guid);
-			widgets[widgetData.guid] = getWidget(
-				widgetData,
-				this.state.page,
-				Object.assign({}, this.props, {
-					contextResolver: this.resolveContext
-				}));
-		}
+	getPageID (props = this.props) {
+		let h = this.getPropsFromRoute(props);
+		return decodeFromURI(h.pageId || props.rootId);
 	},
 
 
 	onStoreChange () {
 		let id = this.getPageID();
 		let page = Store.getPageDescriptor(id);
-		let pageSource = page.getPageSource(this.getRootID());
-		let pageTitle = page.getTitle();
+		let pageSource, pageTitle, error;
 
-		this.setPageSource(pageSource, id);
+		if (page instanceof PageDescriptor) {
+			pageSource = page.getPageSource(this.getRootID());
+			pageTitle = page.getTitle();
+		} else {
+			error = page;
+			page = undefined;
+		}
+
 		this.setState({
 			currentPage: id,
 			loading: false,
-			page: page,
+			page,
 			pageSource,
-			pageTitle
-		});
+			pageTitle,
+			error
+		},
+		()=> this.signalResourceLoaded());
 	},
 
 
-	getBodyParts () {
-		let page = this.state.page;
-		if (page) {
-			return page.getBodyParts();
-		}
-	},
-
-
-	getPageStyles () {
-		let page = this.state.page;
-		if (page) {
-			return page.getPageStyles();
-		}
+	setDiscussionFilter (selectedDiscussions) {
+		this.setState({selectedDiscussions});
 	},
 
 
 	render () {
-		let body = this.getBodyParts() || [];
-		let pageSource = this.state.pageSource;
+		let pageId = this.getPageID();
+		let {contentPackage} = this.props;
+		let {annotations, error, loading, page, pageSource, selectedDiscussions, style, className = ''} = this.state;
+		let {discussions} = this.getPropsFromRoute();
 
-		if (this.state.loading) {
+		if (loading) {
 			return (<Loading/>);
+		}
+		else if (error) {
+			return (<Err error={error}/>);
+		}
+
+		let props = {
+			className: cx('content-view', className.split(/\s+/)),
+			style
+		};
+
+		if (!this.refs.content) {
+			//Annotations cannot resolve their anchors if the content ref is not present... so don't even try.
+			annotations = undefined;
 		}
 
 		return (
-			<div className="content-view">
+			<div {...props}>
 
-				{this[applyStyle]()}
+				{discussions ? (
 
-				{this.renderAssessmentHeader()}
+					<Discussions UserDataStoreProvider={page} filter={selectedDiscussions}/>
 
-				<div id="NTIContent" className="nti-content-panel" onClick={this.onContentClick}
-					dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>
+				) : (
+					<div className="content-body">
+						{this.renderAssessmentHeader()}
 
-				{this.renderAssessmentFeedback()}
+						<BodyContent id="NTIContent" ref="content"
+							className="nti-content-panel"
+							onClick={this.onContentClick}
+							contentPackage={contentPackage}
+							pageId={pageId}
+							page={page}/>
 
-				{this.renderGlossaryEntry()}
+						{this.renderAssessmentFeedback()}
 
-				<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
+						{this.renderGlossaryEntry()}
 
-				{this.renderAssessmentSubmission()}
+						<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
+
+						<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
+
+						{this.renderAssessmentSubmission()}
+					</div>
+				)}
 			</div>
-		);
-	},
-
-
-	buildBody (part) {
-
-		if (typeof part === 'string') {
-			return part;
-		}
-
-		this.createWidget(part);
-
-		return `<widget id="${part.guid}"><error>If this is still visible, something went wrong.</error></widget>`;
-	},
-
-
-	[applyStyle] () {
-		let styles = this.getPageStyles() || [];
-		return styles.map(css =>
-			<style scoped type="text/css" key={guid()} dangerouslySetInnerHTML={{__html: css}}/>
 		);
 	},
 
@@ -274,7 +242,7 @@ export default React.createClass({
 		return Promise.resolve({
 			label: this.state.pageTitle,
 			ntiid: this.getPageID(),
-			href: location.href//current page doesn't need an href.(its the current one)
+			href: this.makeHref('')
 		});
 	}
 });

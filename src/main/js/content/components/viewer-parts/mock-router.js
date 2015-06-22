@@ -1,9 +1,43 @@
+import Path from 'path';
+
 const ROUTES = Symbol('Routes');
+
+const makeRoute = (path, extra) => ({props: Object.assign({ handler: 'div', path }, extra || {})});
 
 export default {
 
 	getInitialState  () {
-		this.registerContentViewerSubRoute('/:pageId(/)');
+		this.getRoutes().push(makeRoute('/:pageId(/)'));
+
+		this.registerContentViewerSubRoute('/discussions(/*)', {discussions: true});
+	},
+
+
+	componentWillMount () {
+
+		let {makeHref} = this;
+
+		this.makeHref = link => {
+			if (link === '' || link === '/') {
+				link = '';
+			}
+
+			let {rootId} = this.props;
+			let {pageId} = this.getPropsFromRoute();
+			let isLinkForSubView = /^\//.test(link);
+
+			if (pageId && (isLinkForSubView || link === '')) {
+				if (pageId !== rootId) {
+					link = `/${pageId}/${link}`;
+				}
+			}
+
+			return makeHref.call(this, link)
+				.replace(`/${rootId}/${rootId}/`, `/${rootId}/`)
+				.replace(/\/\/$/, '');
+		};
+
+		this.makeHrefNewRoot = root => Path.resolve(makeHref.call(this, '/'), `../${root}`);
 	},
 
 
@@ -13,7 +47,9 @@ export default {
 
 
 	getPropsFromRoute  (props) {
-		let {match} = this.getRouterState(props || this.props);
+		props = Object.assign({contextual: true}, props || this.props);
+
+		let {match} = this.getRouterState(props);
 		let p = match && (match.getHandler() || match.match);
 		if (p && p.props) {
 			p = p.props;
@@ -31,22 +67,42 @@ export default {
 	 * @private
 	 * @returns {Array} Route Objects
 	 */
-	getRoutes (/*props*/) {
-		return this[ROUTES] || [];
+	getRoutes () {
+		if (!this[ROUTES]) { this[ROUTES] = []; }
+		return this[ROUTES];
 	},
 
 
-	registerContentViewerSubRoute (route) {
-		if (typeof route === 'string') {
-			route = {
-				props: {
-					handler: 'div',
-					path: route
-				}
-			};
+	registerContentViewerSubRoute (route, extra = {}) {
+		if (typeof route !== 'string') {
+			throw new Error('Invalid Argument');
 		}
+		let page = /^\/\:pageId/;
 
-		let set = this[ROUTES] = this[ROUTES] || [];
-		set.push(route);
+		let routes = [
+			makeRoute('/:pageId' + route, extra),
+			makeRoute(route, extra)
+		];
+
+		let s = o => o.props.path;
+
+		let set = this.getRoutes();
+
+		set.push(...routes);
+
+		//We have to ensure the '/:pageId' routes are last. And that the /:pageId(/) route is the last.
+		set.sort((a, b)=> {
+			a = s(a);
+			b = s(b);
+
+			let x = page.test(a);
+			let y = page.test(b);
+
+			if (x === y) {
+				return -a.localeCompare(b);
+			}
+
+			return x ? 1 : -1;
+		});
 	}
 };

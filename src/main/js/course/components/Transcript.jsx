@@ -6,6 +6,17 @@ export default React.createClass({
 
 
 	propTypes: {
+		children: React.PropTypes.any,
+
+		cues: React.PropTypes.arrayOf(
+			React.PropTypes.shape({
+				endTime: React.PropTypes.number,
+				startTime: React.PropTypes.number,
+				text: React.PropTypes.string
+			})),
+
+		currentTime: React.PropTypes.number,
+
 		onJumpTo: React.PropTypes.func
 	},
 
@@ -33,18 +44,24 @@ export default React.createClass({
 		// use: "dangerouslySetInnerHTML={{__html: ''}}"
 		return [
 			divider,
-			(<a href="#" data-start-time={cue.startTime}
-				className={active}
-				onClick={this.onJumpToCue}
-				dangerouslySetInnerHTML={{__html: cue.text}}/>)
+			(
+				<a href="#"
+					data-start-time={cue.startTime.toFixed(3)}
+					data-end-time={cue.endTime.toFixed(3)}
+					className={active}
+					onClick={this.onJumpToCue}
+					dangerouslySetInnerHTML={{__html: cue.text}}/>
+			)
 		];
 	},
 
 
 	render () {
+		let {cues = [], children} = this.props;
 		return (
 			<div className="cues">
-				{(this.props.cues || []).map(this.renderCues)}
+				{cues.map(this.renderCues)}
+				{children}
 			</div>
 		);
 	}

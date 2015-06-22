@@ -34,22 +34,31 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		Store.getAdmissionStatus().then(status=> this.setState({
-				admissionStatus: status ? status.toUpperCase() : Constants.ADMISSION_NONE,
-				loading: false
-			}),
-			reason => {
-				console.error('unable to fetch admission status:', reason);
-				this.setState({
-					loading: false,
-					error: reason
-				});
-			});
+		this.getAdmissionStatus();
+
 		Store.addChangeListener(this.onStoreChange);
 	},
 
 	componentWillUnmount () {
 		Store.removeChangeListener(this.onStoreChange);
+	},
+
+
+	getAdmissionStatus () {
+		Store.getAdmissionStatus()
+
+			.then(
+
+				status=> this.setState({
+					admissionStatus: status ? status.toUpperCase() : Constants.ADMISSION_NONE,
+					loading: false
+				}),
+
+				error => {
+					console.error('unable to fetch admission status:', error);
+					this.setState({ loading: false, error });
+				}
+			);
 	},
 
 	onStoreChange (event) {
@@ -65,7 +74,7 @@ export default React.createClass({
 			case Constants.ADMISSION_SUCCESS:
 				let payAndEnrollLink = getLink(event.response, Constants.PAY_AND_ENROLL);
 				this.setState({
-					admissionStatus: event.response.State,
+					admissionStatus: event.response.State,//what is event.response?
 					payAndEnrollLink: payAndEnrollLink
 				});
 				break;
@@ -90,7 +99,7 @@ export default React.createClass({
 		//TODO: Rewrite into a router (memory env) or some other "select" style to split this into smaller, clearer render methods/components.
 
 		if (this.state.error) {
-			return <Err error={this.state.error} />;
+			return <Err error="There was a problem on the backend. Please try again later."/>;
 		}
 
 		if (this.state.loading) {
@@ -109,9 +118,9 @@ export default React.createClass({
 				let enrollment = this.props.enrollment;
 				let link = this.state.payAndEnrollLink || getLink(enrollment, Constants.PAY_AND_ENROLL);
 				let crn = enrollment.NTI_CRN;
-				// ignore jshint on the following line because we know NTI_Term
+				// ignore eslint on the following line because we know NTI_Term
 				// is not not camel cased; that's what we get from dataserver.
-				let term = this.props.enrollment.NTI_Term; // jshint ignore:line
+				let term = this.props.enrollment.NTI_Term;
 
 				view = link ? (
 					<Payment paymentLink={link} ntiCrn={crn} ntiTerm={term}/>

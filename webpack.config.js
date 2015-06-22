@@ -16,19 +16,22 @@ var CompressionPlugin = require('compression-webpack-plugin');
 var path = require('path');
 var fs = require('fs');
 
+var gitRevision = require('./src/server/lib/git-revision');
+
 var StyleCollector = path.join(__dirname, 'src', 'server', 'lib', 'style-collector');
 
 var scssIncludes =
 	'includePaths[]=' + (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss'));
 
 var root = path.join(__dirname, 'src', 'main', 'js');
+var modules = path.join(__dirname, 'node_modules');
 
 var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
 
 var commonLoaders = [
 	{ test: /\.json$/, loader: 'json' },
 	{ test: /\.js(x?)$/,
-		loader: 'babel?optional=runtime',
+		loader: 'babel?optional[]=runtime',
 		exclude: excludeNodeModulesExceptOurs
 	},
 
@@ -54,13 +57,17 @@ var commonLoaders = [
 
 function isOurModule (s) {
 	var ourprojects = NodeModulesThatNeedCompiling.join('|');
+	var ours = new RegExp(ourprojects);
 
 	if(s.indexOf(__dirname) === 0) {
 		s = s.substr(__dirname.length);
 	}
 
-	if (new RegExp(ourprojects).test(s)) {
-		return !(new RegExp('(' + ourprojects + ')/node_modules').test(s));
+	if (ours.test(s)) {
+		//ignore node_modules in our libraries
+		s = s.split(new RegExp('(' + ourprojects + ')/node_modules')).pop();
+		//still ours?
+		return ours.test(s);
 	}
 	return false;
 }
@@ -116,6 +123,7 @@ function includeWidgets(o) {
 			plugins: [
 				new webpack.DefinePlugin({
 					SERVER: false,
+					'build_source': gitRevision,
 					'process.env': {
 						// This has effect on the react lib size
 						'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
@@ -148,7 +156,6 @@ exports = module.exports = [
 		},
 
 		cache: true,
-		debug: true,
 		devtool: 'source-map',
 
 		entry: '<%= pkg.src %>/js/index.js',
@@ -171,7 +178,7 @@ exports = module.exports = [
 		],
 
 		resolve: {
-			root: root,
+			root: [root, modules],
 			extensions: ['', '.jsx', '.js', '.json', '.css', '.scss', '.html']
 		},
 
@@ -181,6 +188,7 @@ exports = module.exports = [
 			new webpack.optimize.DedupePlugin(),
 			new webpack.DefinePlugin({
 				SERVER: false,
+				'build_source': gitRevision,
 				'process.env': {
 					// This has effect on the react lib size
 					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
@@ -191,7 +199,7 @@ exports = module.exports = [
 		module: {
 			loaders: commonLoaders.concat([
 				{ test: /\.css$/, loader: 'style!css' },
-				{ test: /\.scss$/, loader: 'style!css!sass?' + scssIncludes }
+				{ test: /\.scss$/, loader: 'style!css!autoprefixer-loader!sass?' + scssIncludes }
 			])
 		}
 	},
@@ -200,7 +208,6 @@ exports = module.exports = [
 		name: 'server-side rendering',
 		entry: '<%= pkg.src %>/../server/lib/page.js',
 		target: 'node',
-		bail: true,
 		output: {
 			path: '<%= pkg.stage %>/server/node_modules/page.generated/',
 			filename: 'index.js',
@@ -210,12 +217,13 @@ exports = module.exports = [
 			libraryTarget: 'commonjs2'
 		},
 		resolve: {
-			root: root,
+			root: [root, modules],
 			extensions: ['', '.jsx', '.js', '.css', '.scss', '.html']
 		},
 		plugins: [
 			new webpack.DefinePlugin({
 				SERVER: true,
+				'build_source': gitRevision,
 				'process.env': {
 					// This has effect on the react lib size
 					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
@@ -238,7 +246,7 @@ exports = module.exports = [
 			loaders: commonLoaders.concat([
 				{ test: /\.html$/, loader: 'html?attrs=link:href' },
 				{ test: /\.css$/, loader: StyleCollector + '!css' },
-				{ test: /\.scss$/, loader: StyleCollector + '!css!sass?' + scssIncludes }
+				{ test: /\.scss$/, loader: StyleCollector + '!css!autoprefixer-loader!sass?' + scssIncludes }
 			])
 		}
 	}

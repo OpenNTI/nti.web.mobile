@@ -11,6 +11,12 @@ export default React.createClass({
 	displayName: 'Content',
 	mixins: [BasePathAware, ContextContributor],
 
+	propTypes: {
+		course: React.PropTypes.object.isRequired,
+
+		outlineId: React.PropTypes.string.isRequired
+	},
+
 	getContext () {
 		let {outlineId, course} = this.props;
 		let id = decodeFromURI(outlineId);

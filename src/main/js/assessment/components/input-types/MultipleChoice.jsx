@@ -24,7 +24,7 @@ export default React.createClass({
 
 
 	propTypes: {
-		item: React.PropTypes.string
+		item: React.PropTypes.object
 	},
 
 
@@ -36,7 +36,7 @@ export default React.createClass({
 
 		return (
 			<form className="multiple-choice" ref="form">
-				{choices.map((x, i)=>{
+				{choices.map((x, i) => {
 					return this.renderChoice(x, i, solution);
 				})}
 			</form>
@@ -74,7 +74,7 @@ export default React.createClass({
 		}
 
 		return (
-			<label className={'choice ' + correct} key={'choice-'+index} onClick={this.onClick}>
+			<label className={'choice ' + correct} key={`choice-${index}`} onClick={this.onClick}>
 				<input type="radio" name={group} checked={checked} value={index} onChange={this.handleInteraction}/>
 				<div>
 					<span className="numeral">{numeral}.</span>
@@ -95,7 +95,7 @@ export default React.createClass({
 							.map(i => parseInt(i, 10));
 
 		return !form ? undefined :
-					values.length===1 ?
+					values.length === 1 ?
 						values[0] : null;
 	}
 });

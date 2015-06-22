@@ -32,7 +32,7 @@ module.exports = function (config) {
 		basePath: '',
 		frameworks: ['jasmine'],
 		files: [
-			'src/test/helpers/**/*',
+			'src/test/helpers/**/*.js',
 			'src/**/*.spec.js'
 		],
 		preprocessors: {

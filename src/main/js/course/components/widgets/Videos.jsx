@@ -18,8 +18,8 @@ export default React.createClass({
 
 
 	propTypes: {
-		outlineId: React.PropTypes.string.isRequred,
-		item: React.PropTypes.object.isRequred
+		outlineId: React.PropTypes.string.isRequired,
+		item: React.PropTypes.object.isRequired
 	},
 
 
@@ -41,6 +41,16 @@ export default React.createClass({
 	componentWillReceiveProps (nextProps) {
 		if (nextProps.outlineId !== this.props.outlineId) {
 			this.getDataIfNeeded(nextProps);
+		}
+	},
+
+
+	componentDidUpdate () {
+		let {offsetWidth} = this.state;
+		let v = React.findDOMNode(this.refs.v);
+		let renderedOffsetWidth = v && v.offsetWidth;
+		if (offsetWidth !== renderedOffsetWidth) {
+			this.setState({offsetWidth: renderedOffsetWidth});//eslint-disable-line react/no-did-update-set-state
 		}
 	},
 
@@ -128,6 +138,7 @@ export default React.createClass({
 		let active = this.state.active;
 		let videos = this.refs.v;
 		let pixelOffset = 0;
+
 		if (videos) {
 			videos = React.findDOMNode(videos);
 			pixelOffset = active * -videos.offsetWidth;
@@ -156,7 +167,9 @@ export default React.createClass({
 	onTouchMove (e) {
 
 		let {state} = this;
-		let data = state.touch;
+		let {active, touch} = state;
+		let data = touch;
+
 		let find = (t, i) =>t || (i.identifier === state.touch.id && i);
 
 		if (!data) {
@@ -164,11 +177,10 @@ export default React.createClass({
 			return;
 		}
 
-		let active = state.active;
-		let touch = Array.from(e.targetTouches || []).reduce(find, null);
-		let sliding = data.sliding;
-		let pixelOffset = data.pixelOffset;
-		let startPixelOffset = data.startPixelOffset;
+		touch = Array.from(e.targetTouches || []).reduce(find, null);
+
+		let {sliding, pixelOffset, startPixelOffset} = data;
+
 		let delta = 0;
 		let touchPixelRatio = 1;
 
@@ -216,9 +228,11 @@ export default React.createClass({
 		let touch = this.state.touch || {};
 
 		let find = (t, i) =>t || (i.identifier === touch.id && i);
+
 		let endedTouch = Array.from(e.targetTouches || []).reduce(find, null);
-		let pixelOffset = touch.pixelOffset;
-		let startPixelOffset = touch.startPixelOffset;
+
+		let {pixelOffset, startPixelOffset} = touch;
+
 		let fn;
 
 		if (touch.sliding === 2) {
@@ -246,7 +260,7 @@ export default React.createClass({
 
 
 	getTranslation () {
-		let {active, touch, offsetWidth} = this.state;
+		let {active = 0, touch, offsetWidth = 0} = this.state;
 		let offset = touch ?
 				touch.pixelOffset :
 				(active * -offsetWidth);

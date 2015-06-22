@@ -71,68 +71,7 @@ body.nav-menu-open {
 	}
 
 	.wrapper {
-		position: absolute;
-		max-width: 90%;
-		top: 50%;
-		left: 50%;
-
-
-		.buttons {
-			display: block;
-			position: relative;
-			overflow: hidden;
-
-			line-height: 0;
-
-			top: -25px;
-			left: -50%;
-
-			border-radius: 5em;
-			background-color: rgba(0,0,0,0.8);
-			box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15),//stroke
-						0 0 3px 0 black;//shadow
-		}
-
-
-		.label {
-			display: block;
-			overflow: hidden;
-			vertical-align: bottom;
-			padding: 0 1em 0 0.5em;
-			@include ellipse();
-			color: #fff;
-			font: normal 400 1.1rem/2.75em 'Open Sans Condensed';
-			margin-left: 50px;
-			background: none;
-		}
-
-
-		.play, .player {
-			float: left;
-			display: inline-block;
-			border-radius: 50px;
-			margin: 0.2em;
-			&::before {
-				position: relative;
-				overflow: hidden;
-			}
-		}
-
-		.play::before {
-			@extend %icon-play;
-			content: '';
-			display: inline-block;
-			width: 43px;
-			height: 43px;
-		}
-
-		.player::before {
-			@extend %icon-transcript;
-			content: '';
-			display: inline-block;
-			width: 42px;
-			height: 42px;
-		}
+		@extend %video-play-button;
 	}
 }
 
@@ -176,10 +115,10 @@ body.nav-menu-open {
 
 
 	.transcript {
-		margin: 0.625rem 0.625rem 0;
+		margin: 0.625rem 1rem 0 0.625rem;
 
 		color: #b8b8b8;
-		position: relative;
+		// position: relative;
 
 		hr.break {
 			border: 0;
@@ -190,13 +129,90 @@ body.nav-menu-open {
 			overflow: hidden;
 
 			a {
+				& + a::before { content: ' '; }
+
 				color: inherit;
-				display: block;
+				// display: block;
 				font-size: 0.9em;
 				margin-bottom: 0.5rem;
 
 				&.active {color: #fff;}
 			}
 		}
+
+		.gutter {
+			right: 0.5rem;
+
+			.bin {
+				background: rgba(51,51,51,0.95);
+				transform: translate3d(0, -0.35rem, 0);
+			}
+		}
+	}
+}
+
+%video-play-button {
+	position: absolute;
+	max-width: 90%;
+	top: 50%;
+	left: 50%;
+
+
+	.buttons {
+		display: block;
+		position: relative;
+		overflow: hidden;
+
+		line-height: 0;
+
+		top: -25px;
+		left: -50%;
+
+		border-radius: 5em;
+		background-color: rgba(0,0,0,0.8);
+		box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15),//stroke
+					0 0 3px 0 black;//shadow
+	}
+
+
+	.label {
+		display: block;
+		overflow: hidden;
+		vertical-align: bottom;
+		padding: 0 1em 0 0.5em;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		color: #fff;
+		font: normal 400 1.1rem/2.75em 'Open Sans Condensed';
+		margin-left: 50px;
+		background: none;
+	}
+
+
+	.play, .player {
+		float: left;
+		display: inline-block;
+		border-radius: 50px;
+		margin: 0.2em;
+		&::before {
+			position: relative;
+			overflow: hidden;
+		}
+	}
+
+	.play::before {
+		@extend %icon-play;
+		content: '';
+		display: inline-block;
+		width: 43px;
+		height: 43px;
+	}
+
+	.player::before {
+		@extend %icon-transcript;
+		content: '';
+		display: inline-block;
+		width: 42px;
+		height: 42px;
 	}
 }

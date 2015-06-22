@@ -1,6 +1,5 @@
-import React from 'react'
-;
-import PanelButton from 'common/components/PanelButton';
+import React from 'react';
+
 import {scoped} from 'common/locale';
 
 const t = scoped('ENROLLMENT');
@@ -10,11 +9,15 @@ export default React.createClass({
 
 	render () {
 		return (
-
-			<PanelButton href='../../../' linkText="Back">
-				<h2>{t('concurrentThanksHead')}</h2>
-				<p dangerouslySetInnerHTML={{__html: t('concurrentThanksBody')}} />
-			</PanelButton>
+			<div className="enrollment-pending">
+				<figure className="notice">
+					<div>
+						<h2>{t('concurrentThanksHead')}</h2>
+						<span dangerouslySetInnerHTML={{__html: t('concurrentThanksBody')}} />
+					</div>
+				</figure>
+				<a className="button tiny" href="../../../">Back</a>
+			</div>
 		);
 	}
 

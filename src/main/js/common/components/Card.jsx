@@ -30,12 +30,16 @@ import {toAnalyticsPath} from 'analytics/utils';
 import ContextAccessor from '../mixins/ContextAccessor';
 import NavigatableMixin from '../mixins/NavigatableMixin';
 
+import {scoped} from '../locale';
+
 import {BLANK_IMAGE} from '../constants/DataURIs';
 
 import ExternalResourceEvent from 'nti.lib.interfaces/models/analytics/ExternalResourceEvent';
 import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import AnalyticsActions from 'analytics/Actions';
+import {emitEventStarted} from 'analytics/Actions';
+
+const t = scoped('UNITS');
 
 const Seen = Symbol('Seen');
 const Progress = Symbol.for('Progress');
@@ -49,7 +53,7 @@ export default React.createClass({
 		 * The slug to put between the basePath and the resource
 		 * target/href/ntiid at the end of the uri.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 */
 		slug: React.PropTypes.string.isRequired,
 
@@ -68,20 +72,20 @@ export default React.createClass({
 		 * 	- title
 		 * 	- label
 		 *
-		 * @type {Object}
+		 * @type {object}
 		 */
 		item: React.PropTypes.object.isRequired,
 
 		/**
 		 * Allow the parent to force this card to be an "internal" link.
-		 * @type {Boolean}
+		 * @type {boolean}
 		 */
 		internalOverride: React.PropTypes.bool,
 
 		/**
 		 * Allow the parent to have final word on the resolved url.
 		 * The functoin must take one argument, and return a string.
-		 * @type {Function}
+		 * @type {function}
 		 */
 		resolveUrlHook: React.PropTypes.func,
 
@@ -89,11 +93,14 @@ export default React.createClass({
 		onClick: React.PropTypes.func,
 
 
-		icon: React.PropTypes.string
+		icon: React.PropTypes.string,
+
+
+		commentCount: React.PropTypes.number
 	},
 
 
-	getInitialState (){
+	getInitialState () {
 		return {
 			icon: null
 		};
@@ -126,35 +133,43 @@ export default React.createClass({
 	},
 
 
+	getInternalHref (ntiid, slug = null) {
+		return slug
+			? this.makeHref(path.join(slug, encodeForURI(ntiid)) + '/', true)
+			: ntiid; //No slug, assume we're in a context that can understand raw NTIID links
+	},
+
+
 	resolveHref (props) {
-		let href = props.item.href;
+		let {contentPackage, item} = props;
+		let {href} = item;
 
 		if (isNTIID(href)) {
-			let link = path.join(
-				props.slug || '',
-				encodeForURI(href)) + '/';
-
-			this.setState({href: this.makeHref(link, true)});
+			this.setState({href: this.getInternalHref(href, props.slug)});
 			return;
 		}
 
 
-		this.setState({	href: null });
+		this.setState({href: null });
 
-		props.contentPackage.resolveContentURL(href)
-			.then(url=>props.resolveUrlHook(url))
-			.then(url=>{
-				this.setState({ href: url });
-			});
+		if (contentPackage) {
+			contentPackage.resolveContentURL(href)
+				.then(url=> props.resolveUrlHook(url))
+				.then(url=> {
+					this.setState({ href: url });
+				});
+		}
 	},
 
 
 	resolveIcon (props) {
+		let {contentPackage, item} = props;
 		this.setState({	icon: null	});
-		if (!props.item.icon) {
+		if (!contentPackage || !item || !item.icon) {
 			return;
 		}
-		props.contentPackage.resolveContentURL(props.item.icon)
+
+		contentPackage.resolveContentURL(props.item.icon)
 			.then(icon =>this.setState({iconResolved: true, icon}));
 	},
 
@@ -175,6 +190,11 @@ export default React.createClass({
 
 
 	onClick (e) {
+		if (this.ignoreClick) {
+			delete this.ignoreClick;
+			return;
+		}
+
 		let {contentPackage, item, onClick} = this.props;
 		let resourceId = item.NTIID;
 		let contentId = contentPackage.getID();//this can be a CourseInstance, ContentBundle, or ContentPackage
@@ -195,15 +215,33 @@ export default React.createClass({
 					toAnalyticsPath(context, resourceId)
 				);
 
-				AnalyticsActions.emitEventStarted(viewEvent);
+				emitEventStarted(viewEvent);
 			});
 		}
 	},
 
 
+	onClickDiscussion (e) {
+		let anchor = React.findDOMNode(this);
+		let {item, slug} = this.props;
+		let subRef = e.target.getAttribute('href');
+
+		this.ignoreClick = true;
+
+		if (this.isExternal()) {
+			anchor.setAttribute('target', '');
+			anchor.setAttribute('href', this.getInternalHref(item.NTIID, slug));
+		}
+
+		let href = path.join(anchor.getAttribute('href'), subRef);
+
+		anchor.setAttribute('href', href);
+	},
+
+
 	render () {
 		let {state} = this;
-		let {item} = this.props;
+		let {item, commentCount} = this.props;
 		let external = this.isExternal();
 		let extern = external ? 'external' : '';
 		let seen = this.isSeen() ? 'seen' : '';
@@ -226,10 +264,11 @@ export default React.createClass({
 					</div>
 				}
 
-				<h5 dangerouslySetInnerHTML={{__html: item.title || ''}}/>
+				<h5 dangerouslySetInnerHTML={{__html: item.title}}/>
 				<hr className="break hide-for-medium-up"/>
-				<div className="label" dangerouslySetInnerHTML={{__html: item.creator || ''}}/>
-				<div className="description" dangerouslySetInnerHTML={{__html: item.desc || ''}}/>
+				<div className="label" dangerouslySetInnerHTML={{__html: 'By ' + item.creator}/*TODO: localize*/}/>
+				<div className="description" dangerouslySetInnerHTML={{__html: item.desc}}/>
+				<div className="comment-count" href="/discussions" onClick={this.onClickDiscussion}>{commentCount ? t('comments', {count: commentCount}) : null}</div>
 			</a>
 		);
 	}

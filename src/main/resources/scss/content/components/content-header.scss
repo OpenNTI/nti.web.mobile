@@ -1,0 +1,34 @@
+%content-header {
+	position: relative;
+	overflow: hidden;
+
+
+	& > img {
+		width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -2;
+	}
+
+	label {
+		position: relative;
+		background: transparentize(#000, 0.15);
+		// border: 0 solid $border-grey;
+		// border-width: 1px 0;
+		padding: 0.2rem  1.39em;
+		margin-top: 8rem;
+
+		h3, h5 {font-weight: 700;}
+
+		h3 {
+			color: #fff;
+			font-size: 1rem;
+		}
+
+		h5 {
+			color: $secondary-grey;
+			font-size: 0.8rem;
+		}
+	}
+}

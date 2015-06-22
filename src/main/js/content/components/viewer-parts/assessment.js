@@ -6,6 +6,7 @@ import FeedbackWidget from 'assessment/components/Feedback';
 import SetHeaderWidget from 'assessment/components/Header';
 import SetSubmissionWidget from 'assessment/components/Submission';
 
+export {isAssignment};
 
 export default {
 

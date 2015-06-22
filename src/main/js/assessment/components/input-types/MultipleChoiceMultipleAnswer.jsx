@@ -56,7 +56,7 @@ export default React.createClass({
 
 
 	renderChoice (choice, index, solution) {
-		let numeral = String.fromCharCode(65+index);
+		let numeral = String.fromCharCode(65 + index);
 		let ref = 'choice-' + index;
 		let checked = (this.state.value || []).indexOf(index) !== -1;
 		let correct = '';

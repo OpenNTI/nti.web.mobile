@@ -23,6 +23,10 @@ export default React.createClass({
 	displayName: 'Lessons',
 	mixins: [ContextContributor, NavigatableMixin],
 
+	propTypes: {
+		course: React.PropTypes.object.isRequired
+	},
+
 	getContext () {
 		let {course} = this.props;
 		let {title} = course.getPresentationProperties();

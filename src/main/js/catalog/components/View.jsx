@@ -14,7 +14,11 @@ import Loading from 'common/components/Loading';
 import Page from 'common/components/Page';
 
 import Enrollment from 'enrollment/components/View';
+import PaymentComplete from 'enrollment/five-minute/components/PaymentComplete';
+import Enroll from 'enrollment/components/Enroll';
+import GiftPurchaseView from 'enrollment/store-enrollment/components/GiftPurchaseView';
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
+import GiftRedeem from './GiftRedeem';
 
 
 const CatalogBody = React.createClass({
@@ -47,13 +51,32 @@ const CatalogBody = React.createClass({
 		return (
 			<Locations contextual ref="router">
 				<Location
+					ref="paymentcomplete"
+					path="/enroll/:enrollmentType/paymentcomplete/"
+					handler={PaymentComplete}
+				/>
+				<Location
+					ref="enroll"
+					path="/enroll/:enrollmentType/:entryId(/*)"
+					handler={Enrollment}
+				/>
+				<Location
+					ref="gift"
+					path="/gift/purchase/:entryId(/*)"
+					handler={GiftPurchaseView}
+				/>
+				<Location
 					ref="enrollment"
 					path="/item/:entryId/enrollment(/*)"
-					handler={Enrollment}
+					handler={Enroll}
 				/>
 				<Location
 					path="/item/:entryId(/*)"
 					handler={EntryDetail}
+				/>
+				<Location
+					path="/redeem/:entryId/(:code)"
+					handler={GiftRedeem}
 				/>
 				<Location
 					path="/enrollment/success/"

@@ -54,8 +54,8 @@ export default React.createClass({
 
 		areYouSure('This will reset this assignment.')
 			.then(
-				()=>resetAssessment(this.props.assessment),
-				()=>{}
+				()=> resetAssessment(this.props.assessment),
+				()=> {}
 			);
 	},
 
@@ -112,8 +112,8 @@ export default React.createClass({
 							<a href="#" onClick={this.dismissAssessmentError}>x</a>{error}
 						</div>
 					)}
-					<a href={disabled?'#':null} className={'button ' + (disabled?'disabled':'')} onClick={this.onSubmit}>{t('submit')}</a>
-					{cannotReset? null: (<a href="#" className="reset button link" onClick={this.onReset}>{t('reset')}</a>)}
+					<a href={disabled ? '#' : null} className={'button ' + (disabled ? 'disabled' : '')} onClick={this.onSubmit}>{t('submit')}</a>
+					{cannotReset ? null : (<a href="#" className="reset button link" onClick={this.onReset}>{t('reset')}</a>)}
 					<span className="status-line">{t('unanswered', { count: unanswered })}</span>
 				</div>
 

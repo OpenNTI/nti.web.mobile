@@ -56,7 +56,7 @@
 	.gift-info {
 
 		.line {
-			@include flexbox();
+			display: flex;
 			input, div.box {
 				margin: 0 0.4rem 0 0;
 				&:last-child {

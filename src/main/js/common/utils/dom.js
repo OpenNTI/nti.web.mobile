@@ -1,9 +1,13 @@
-import {getWidth as getViewportWidth, getHeight as getViewportHeight} from './viewport';
+import {getElementRect} from './rects';
 
 import between from 'nti.lib.interfaces/utils/between';
 
 
-
+export function declareCustomElement(name) {
+	if (typeof document !== 'undefined') {
+		document.createElement(name);
+	}
+}
 
 
 export function isMultiTouch (e) {
@@ -26,39 +30,6 @@ export function isPointWithIn (el, ...point) {
 		between(x, rect.left, rect.right) &&
 		between(y, rect.top, rect.bottom)
 	);
-}
-
-
-export function getElementRect (el) {
-	let rect, w, h;
-	if (el && el.getBoundingClientRect) {
-		rect = el.getBoundingClientRect();
-	}
-
-	if (!rect && el) {
-		if (el.nodeType !== 1/*Node.ELEMENT_NODE*/) {
-			//
-			h = getViewportHeight();
-			w = getViewportWidth();
-			rect = {
-				top: 0, left: 0,
-				right: w, bottom: h,
-				width: w, height: h
-			};
-		}
-		// else {
-		// 	rect = {
-		// 		top: el.offsetTop,
-		// 		left: el.offsetLeft,
-		// 		bottom: el.offsetTop + el.offsetHeight,
-		// 		right: el.offsetLeft + el.offsetWidth,
-		// 		width: el.offsetWidth,
-		// 		height: el.offsetHeight
-		// 	};
-		// }
-	}
-
-	return rect;
 }
 
 
@@ -224,8 +195,8 @@ export function retargetAnchorsWithExternalRefs (markup, baseUrl) {
 
 
 /**
- * @param {String|Node} html
- * @return {String}
+ * @param {string|Node} html Un-tamed wild markup.
+ * @returns {string} html
  */
 export function sanitizeExternalContentForInput (html) {
 	console.debug('Sanitizing html...', html);
@@ -255,18 +226,15 @@ export function sanitizeExternalContentForInput (html) {
 
 
 export function enforceNumber (e) {
-	function between(key, lower, upper) {
-		return lower <= key && key <= upper;
-	}
 
 	let input = e.target,
 		maxLength = parseInt(input.getAttribute('size'), 10) || -1,
 		tooLong = (input.value || '').length + 1 > maxLength,
 
 		letter = e.charCode || 13,
-		isArrow = between(letter, 37, 40),//left arrow, and down arrow
-		isNumber = between(letter, 48, 57) || between(letter, 95, 105),//numbers across the top and num pad
-		isAllowedCtrl = between(letter, 8, 9) || letter === 13, //backspace, tab, or enter
+		isArrow = between.inclusive(letter, 37, 40),//left arrow, and down arrow
+		isNumber = between.inclusive(letter, 48, 57) || between.inclusive(letter, 95, 105),//numbers across the top and num pad
+		isAllowedCtrl = between.inclusive(letter, 8, 9) || letter === 13, //backspace, tab, or enter
 		hasSelection = Math.abs(input.selectionStart - input.selectionEnd) !== 0,
 		ctrlPressed = e.ctrlKey; //ext maps the metaKey to ctrlKey
 
@@ -293,7 +261,7 @@ export function enforceNumber (e) {
  * WARNING: this will MODIFY children of `root` if `cleanAttributes` is true.
  *
  * @param {Node} root - Root Node to select unwanted elements
- * @param {Boolean} cleanAttributes - if true, will remove all attributes that
+ * @param {boolean} cleanAttributes - if true, will remove all attributes that
  *                                    are not white listed. (See KEEP_ATTRS)
  * @return {Node[]} Array of Nodes
  * @private
@@ -325,10 +293,8 @@ function pickUnsanitaryElements (root, cleanAttributes) {
 			//remove empty nodes (maybe dangerous, images?, is there a way to know if an element is meant to be unary?)
 			//allow img and br tags
 			(el.childNodes.length === 0 && !/^(IMG|BR)$/i.test(el.tagName)) ||
-			/* jshint -W101 */
 			//remove elements that are effectively empty (whitespace only text node as their only child)
 			(el.childNodes.length === 1 && el.childNodes[0].nodeType === Node.TEXT_NODE && el.childNodes[0].nodeValue.trim() === '') ||
-			/* jshint +W101 */
 			//remove Office (xml namespaced) elements (that are empty)... need an would be nice to just
 			// find all patterns <(/?)FOO:BAR( ...?)> and delete them and leave the content they surround.
 			(namespaced.test(el.tagName) && el.childNodes.length === 0)) {

@@ -7,6 +7,10 @@
 	min-height: 18rem;
 	height: 90vh;
 
+	& ~ * {
+		display: none;
+	}
+
 	.header {
 		position: relative;
 		display: block;
@@ -17,7 +21,7 @@
 		margin-bottom: 0.5em;
 	}
 
-	& + #NTIContent {
+	& + nti-content {
 		display: none;
 	}
 
@@ -26,7 +30,7 @@
 		top: 40%;
 		left: 50%;
 		box-shadow: 0 0 5em 0 rgba(0, 0, 0, 0.5);
-		@include transform(translate3D(-50%, -50%, 0));
+		transform: translate3D(-50%, -50%, 0);
 
 
 		.icon {
@@ -54,9 +58,6 @@
 			bottom: 0;
 			left: 0; right: 0;
 			height: 40%;
-
-			background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 100%);
-			background: -webkit-linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 100%);
 			background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 100%);
 		}
 
@@ -130,7 +131,7 @@
 							content: '';
 							position: absolute;
 							top: 50%;
-							@include transform(translate3d(0,-50%,0));
+							transform: translate3d(0,-50%,0);
 							right: 5px; left: 35px;
 							height: 1.5em;
 							background-color: #f6f6f6;

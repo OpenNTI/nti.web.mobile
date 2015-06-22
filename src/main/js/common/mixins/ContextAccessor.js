@@ -27,7 +27,7 @@ export default {
 		if (getParentContext) {
 			return Promise.all([
 				getParentContext(),
-				getContext()]).then(x=>{
+				getContext()]).then(x => {
 					let [parent, ours] = x;
 
 					return [].concat(parent).concat(ours);

@@ -6,8 +6,7 @@ FILES=`git diff --cached --name-only | grep -i ".jsx\?$"`
 # eslint or node, you will need update the sub-shell's path: (uncomment this block)
 #
 # if ! which eslint &>/dev/null ; then
-# 	PATH=/opt/local/bin/:$PATH; # path to bin directory where node is.
-# 	PATH=/Users/<username>/.npm/bin/:$PATH; # path to bin directory where eslint is.
+# 	PATH=/Users/<username>/.nvm/<version>/bin/:$PATH; # path to bin directory where eslint is.
 # fi
 
 

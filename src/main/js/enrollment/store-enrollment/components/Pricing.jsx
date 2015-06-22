@@ -23,35 +23,48 @@ export default React.createClass({
 	},
 
 	getInitialState () {
-		//FIXME: Re-write this:
-		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-		// Additional Note: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
+		return {
+			triedCoupon: false,
+			couponDiscount: false,
+			checkingCoupon: false
+		};
+	},
 
+	componentWillMount () {
+		this.resetState();
+	},
+
+	componentWillReceiveProps (nextProps) {
+		if (this.props.purchasable !== nextProps.purchasable) {
+			this.resetState(nextProps);
+		}
+	},
+
+	resetState(theprops = this.props) {
 		let pricing = this.getCouponPricing();
 		let state = {
-				currency: this.props.purchasable.Currency,
-				currentPrice: this.props.purchasable.Amount,
+				currency: theprops.purchasable.currency,
+				currentPrice: theprops.purchasable.amount,
 				triedCoupon: false,
 				couponDiscount: false,
 				checkingCoupon: false
 			};
 
-		if (this.props.locked) {
+		if (theprops.locked) {
 			state.coupon = t('noCoupon');
 		}
 
 
-		if (pricing && pricing.Coupon) {
-			state.coupon = pricing.Coupon.ID;
-			state.couponDiscount = this[getDiscountString](pricing.Coupon);
-			state.oldPrice = pricing.Amount;
-			state.currentPrice = pricing.PurchasePrice;
+		if (pricing && pricing.coupon) {
+			state.coupon = pricing.coupon.getCode();
+			state.couponDiscount = this[getDiscountString](pricing.coupon);
+			state.oldPrice = pricing.amount;
+			state.currentPrice = pricing.price;
 			state.triedCoupon = true;
 		}
 
-		return state;
+		this.setState(state);
 	},
-
 
 	componentDidMount () {
 		Store.addChangeListener(this[onChange]);
@@ -71,10 +84,10 @@ export default React.createClass({
 	[getDiscountString] (coupon) {
 		let discount = '';
 
-		if (coupon.PercentOff) {
-			discount = coupon.PercentOff + '%';
-		} else if (coupon.AmountOff) {
-			discount = this.getFormattedPrice(coupon.Currency, coupon.AmountOff / 100);
+		if (coupon.percentOff) {
+			discount = coupon.percentOff + '%';
+		} else if (coupon.amountOff) {
+			discount = this.getFormattedPrice(coupon.currency, coupon.amountOff / 100);
 		}
 
 		return discount;
@@ -82,17 +95,17 @@ export default React.createClass({
 
 
 	[onChange] (e) {
-		let pricing = e.pricing,
-			discount;
+		let {pricing} = e;
+		let discount;
 
 		if (!this.isMounted() || this.props.locked) { return; }
 
 		if (e.type === Constants.VALID_COUPON) {
-			discount = this[getDiscountString](pricing.Coupon);
+			discount = this[getDiscountString](pricing.coupon);
 
 			this.setState({
-				currentPrice: pricing.PurchasePrice,
-				oldPrice: pricing.Amount,
+				currentPrice: pricing.price,
+				oldPrice: pricing.amount,
 				triedCoupon: true,
 				couponDiscount: discount,
 				checkingCoupon: false
@@ -103,7 +116,7 @@ export default React.createClass({
 					triedCoupon: false,
 					couponDiscount: '',
 					oldPrice: null,
-					currentPrice: this.props.purchasable.Amount,
+					currentPrice: this.props.purchasable.amount,
 					checkingCoupon: false
 				});
 			} else {
@@ -111,7 +124,7 @@ export default React.createClass({
 					triedCoupon: true,
 					couponDiscount: '',
 					oldPrice: null,
-					currentPrice: this.props.purchasable.Amount,
+					currentPrice: this.props.purchasable.amount,
 					checkingCoupon: false
 				});
 			}
@@ -217,7 +230,7 @@ export default React.createClass({
 							<div className="cell total">
 								<span className="label">{t('total')}</span>
 								<span className="value">
-									{oldTotal? <span className="old-amount">{oldTotal}</span> : null}
+									{oldTotal ? <span className="old-amount">{oldTotal}</span> : null}
 									<span className="amount">{total}</span>
 								</span>
 							</div>

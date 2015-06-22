@@ -87,34 +87,34 @@ export default React.createClass({
 	},
 
 	/**
-	* return the appropriate widget for each enrollment option.
-	* this will (almost?) always return a single widget, as
-	* it's unlikely that the user is enrolled in more than
-	* one option for a given course.
-	*/
+	 * @return {Class} the appropriate widget for each enrollment option.
+	 * this will (almost?) always return a single widget, as
+	 * it's unlikely that the user is enrolled in more than
+	 * one option for a given course.
+	 */
 	renderWidgets () {
 		let entryId = decodeFromURI(this.props.entryId);
 		let entry = CatalogStore.getEntry(entryId);
-		let items = entry.EnrollmentOptions.Items;
-		let enrollmentTypes = Object.keys(items);
+
 		let result = [];
+
 		let widgetMap = {
-			OpenEnrollment: DropOpen,
-			StoreEnrollment: DropStore,
-			FiveminuteEnrollment: DropFive
+			'application/vnd.nextthought.courseware.openenrollmentoption': DropOpen,
+			'application/vnd.nextthought.courseware.storeenrollmentoption': DropStore,
+			'application/vnd.nextthought.courseware.fiveminuteenrollmentoption': DropFive
 		};
 
 
-		enrollmentTypes.forEach(function(type) {
-			let option = items[type];
-			if (option.IsEnrolled) {
-				let Widget = widgetMap[type];
+		for (let option of entry.getEnrollmentOptions()) {
+			let {MimeType} = option;
+			if (option.enrolled) {
+				let Widget = widgetMap[MimeType];
 				if(!Widget) {
 					console.warn('Enrolled in an unrecognized/supported enrollment option? %O', option);
 				}
-				result.push(<Widget {...this.props} courseTitle={this.getCourseTitle()} key={type} />);
+				result.push(<Widget {...this.props} courseTitle={this.getCourseTitle()} key={MimeType} />);
 			}
-		}.bind(this));
+		}
 
 		if (result.length === 0) {
 			result = this.renderPanel('Unable to drop this course. (Perhaps you\'ve already dropped it?)');

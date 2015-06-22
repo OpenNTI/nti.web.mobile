@@ -1,0 +1,13 @@
+.shared-with-list {
+
+	& > span {cursor: default;}
+	address, a { cursor: pointer; }
+
+	span, address, a {
+		color: $primary-blue;
+
+		&:not(:last-child)::after {
+			content: ', ';
+		}
+	}
+}

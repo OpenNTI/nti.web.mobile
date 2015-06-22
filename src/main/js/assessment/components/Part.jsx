@@ -1,5 +1,4 @@
 import React from 'react';
-import cloneWithProps from 'react/lib/cloneWithProps';
 import cx from 'classnames';
 
 import Content from './Content';
@@ -169,15 +168,11 @@ export default React.createClass({
 
 	renderChildren () {
 		let {helpVisible} = this.state;
-		let c = this.props.children || [];
+		let {children} = this.props;
 
 		if (helpVisible) { return; }
 
-		if (!Array.isArray(c)) {
-			c = [c];
-		}
-
-		return c.map(x=>cloneWithProps(x));
+		return React.Children.map(children, x=>React.cloneElement(x));
 	},
 
 

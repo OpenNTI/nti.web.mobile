@@ -18,16 +18,15 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
-	/**
-	 * @param {function} callback
-	 */
+
 	addChangeListener (callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
-	/**
-	 * @param {function} callback
-	 */
+	flushEnrollmentStatus () {
+		enrollmentStatus = {};
+	},
+
 	removeChangeListener (callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
@@ -65,16 +64,22 @@ AppDispatcher.register(function(payload) {
 	switch(action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 		case Constants.ENROLL_OPEN:
-			Api.enrollOpen(action.catalogId).then(result =>
-				Store.emitChange({
-					action: action,
-					result: result
-				}));
+			Api.enrollOpen(action.catalogId)
+				.then(result => {
+					Store.flushEnrollmentStatus();
+					Store.emitChange({
+						action: action,
+						result: result
+					});
+				});
 		break;
 		case Constants.DROP_COURSE:
 			Api.dropCourse(action.courseId)
 				.catch(error=>Object.assign(new Error(error.responseText), error))
-				.then(result=>Store.emitChange({ action, result }));
+				.then(result => {
+					Store.flushEnrollmentStatus();
+					Store.emitChange({ action, result });
+				});
 		break;
 
 		default:

@@ -54,9 +54,6 @@
 				display: inline-block;
 				overflow: hidden;
 				vertical-align: bottom;
-				-webkit-animation: loadingellipse .75s .2s infinite linear;
-		        -moz-animation: loadingellipse .75s .2s infinite linear;
-		        -o-animation: loadingellipse .75s .2s infinite linear;
         		animation: loadingellipse .75s .2s infinite linear;
 			}
 		}
@@ -92,7 +89,7 @@
 	}
 }
 
-@include keyframes(loadingellipse) {
+@keyframes loadingellipse {
     25% {width: 0; }
 	50% { width: 0.466667em; }
 	75% { width: 0.933333em; }

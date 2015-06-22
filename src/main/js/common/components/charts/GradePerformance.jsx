@@ -52,8 +52,8 @@ export default React.createClass({
 
 		context.imageSmoothingEnabled = true;
 
-		this.setState({
-			context: context,
+		Object.assign(this, {
+			canvasContext: context,
 			animateTask: {
 				run: this.redraw,
 				interval: 50,
@@ -81,7 +81,10 @@ export default React.createClass({
 
 
 	componentDidUpdate () {
-		this.paint(this.state.context);
+		let ctx = this.canvasContext;
+		if (ctx) {
+			this.paint(ctx);
+		}
 	},
 
 
@@ -121,23 +124,24 @@ export default React.createClass({
 	startAnimation () {
 		let canAnimate = this.testAnimationProperties();
 		if (canAnimate && this.isMounted()) {
-			this.state.animateTask.start();//safe to call repeatedly (will noop if already started)
+			this.animateTask.start();//safe to call repeatedly (will noop if already started)
 		}
 	},
 
 
 	stopAnimation () {
-		if (this.state && this.state.animateTask) {
-			this.state.animateTask.stop();
+		if (this.animateTask) {
+			this.animateTask.stop();
 		}
 	},
 
 
 	repaint () {
-		let next = this.state && (this.state.dashOffset - 1);
-		this.setState({
-			dashOffset: next || 0
-		});
+		let {dashOffset = 0} = this.state || {};
+
+		dashOffset--;
+
+		this.setState({dashOffset});
 	},
 
 

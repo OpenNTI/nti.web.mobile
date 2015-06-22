@@ -1,12 +1,15 @@
 import React from 'react';
 
 import ActiveState from 'common/components/ActiveState';
+import E from 'common/components/Ellipsed';
+
 import ContextSender from 'common/mixins/ContextSender';
 //import NavigationAware from 'common/mixins/NavigationAware';
 import Loading from 'common/components/Loading';
 
 import isEmpty from 'nti.lib.interfaces/utils/isempty';
 import CourseLinker from 'library/components/CourseContentLinkMixin';
+
 
 export default React.createClass({
 	displayName: 'CourseOutlineView',
@@ -17,6 +20,8 @@ export default React.createClass({
 	],
 
 	propTypes: {
+		children: React.PropTypes.any,
+		className: React.PropTypes.string,
 		item: React.PropTypes.object.isRequired
 	},
 
@@ -29,11 +34,6 @@ export default React.createClass({
 
 	getInitialState () {
 		return {loading: true};
-	},
-
-
-	getContext () {
-		return Promise.resolve([]);
 	},
 
 
@@ -158,7 +158,7 @@ export default React.createClass({
 
 			return (
 				<li>
-					<ActiveState hasChildren href={href} tag={tag}><a {...props}/></ActiveState>
+					<ActiveState hasChildren href={href} tag={tag}><E tag="a" {...props}/></ActiveState>
 					{renderTree(item.contents)}
 				</li>
 			);
