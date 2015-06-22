@@ -8,7 +8,7 @@ export default React.createClass({
 	displayName: 'FormErrors',
 
 	propTypes: {
-		errors: React.PropTypes.array
+		errors: React.PropTypes.object
 	},
 
 	render: function() {

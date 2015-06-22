@@ -14,7 +14,13 @@ export default React.createClass({
 	mixins: [CatalogAccessor, ContextSender],
 
 	propTypes: {
-		list: React.PropTypes.array
+		list: React.PropTypes.oneOfType([
+			React.PropTypes.array,
+			React.PropTypes.shape({
+				map: React.PropTypes.func,
+				sort: React.PropTypes.func
+			})
+		])
 	},
 
 	getInitialState () {
