@@ -90,7 +90,7 @@ export function resolve (cmp, props) {
 
 	if (!promise) {
 		promise = getService()
-			.then(service=>service.resolveUser(username));
+			.then(service=>service.resolveUser(decodeURIComponent(username)));
 	}
 
 	return promise;
@@ -107,7 +107,7 @@ function fillIn(cmp, props) {
 
 	cmp.setState({task}, ()=> resolve(cmp, props)
 		.then(
-			user => set({ displayName: user.displayName }),
+			user => set({ displayName: user.DisplayName }),
 			()=> set({ failed: true, displayName: 'Unknown' })
 		));
 
