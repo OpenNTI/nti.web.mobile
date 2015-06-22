@@ -34,7 +34,11 @@ export default React.createClass({
 					<DisplayName username={this.props.username}/>
 				</div>
 				<ul className="profile-head-summary-attrs">
-					{['education', 'affiliation', 'location'].map( attr => user[attr] && <li className={attr}>{user[attr]}</li>)}
+					{[
+						'education',
+						'affiliation',
+						'location',
+						'home_page'].map( attr => user[attr] && <li className={attr}>{user[attr]}</li>)}
 				</ul>
 			</div>
 		);
