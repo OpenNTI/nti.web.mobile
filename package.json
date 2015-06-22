@@ -61,6 +61,7 @@
     "gulp-concat": "^2.5.2",
     "gulp-eslint": "^0.14.0",
     "gulp-if": "^1.2.5",
+    "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.1",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-symlink": "^2.1.0",

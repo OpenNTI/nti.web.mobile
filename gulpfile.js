@@ -61,7 +61,6 @@ gulp.task('lint', function() {
 });
 
 gulp.task('symlink', function() {
-	console.log(pkgConfig.distSiteCSS);
 	var ou = gulp.src(path.join(pkgConfig.distSiteCSS, 'platform.ou.edu'))
 		.pipe(symlink(path.join(pkgConfig.distSiteCSS, 'ou-alpha.nextthought.com')))
 		.pipe(symlink(path.join(pkgConfig.distSiteCSS, 'ou-test.nextthought.com')))
@@ -73,4 +72,14 @@ gulp.task('symlink', function() {
 		.pipe(symlink(path.join(pkgConfig.distSiteCSS, 'learnonline.okstate.edu')));
 
 	return merge(ou, osu);
+});
+
+gulp.task('rename', function() {
+	// this actually copies stage to dist; renaming a directory is proving harder than expected.
+	return gulp.src(pkgConfig.stage + '/**/*')
+		.pipe(gulp.dest(pkgConfig.dist));
+});
+
+gulp.task('copy:stage', function() {
+	// TODO
 });
