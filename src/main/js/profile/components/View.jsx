@@ -5,6 +5,7 @@ import ContextSender from 'common/mixins/ContextSender';
 
 import NavigationBar from 'navigation/components/Bar';
 
+import Gradient from 'common/components/GradientBackground';
 import Head from './Head';
 
 import {resolve} from 'common/components/DisplayName';
@@ -59,10 +60,10 @@ export default React.createClass({
 
 	render () {
 		return (
-			<div className="profile">
+			<Gradient className="profile">
 				<NavigationBar title="Profile" />
 				<Head {...this.props} />
-			</div>
+			</Gradient>
 		);
 	}
 });
