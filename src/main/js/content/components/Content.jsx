@@ -103,7 +103,7 @@ export default React.createClass({
 			widgets[widgetData.guid] = getWidget(
 				widgetData,
 				this.props.page,
-				Object.assign({}, this.props));
+				Object.assign({}, this.props, {id: void 0}));
 		}
 	},
 
