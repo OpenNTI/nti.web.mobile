@@ -10,7 +10,7 @@ export default React.createClass({
 	displayName: 'GiftInfo',
 
 	propTypes: {
-		info: React.PropTypes.object.isRequired,
+		info: React.PropTypes.object,
 		edit: React.PropTypes.any
 	},
 
