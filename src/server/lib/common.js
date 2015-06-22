@@ -13,10 +13,6 @@ let env = null; //until this loads, calling config() should blow up.
 let opt = require('yargs')
 		.usage('WebApp Instance')
 			.options({
-				'h': {
-					alias: ['?', 'help'],
-					desc: 'Usage'
-				},
 				'l': {
 					alias: 'listen',
 					default: '0.0.0.0',
@@ -43,8 +39,7 @@ let opt = require('yargs')
 					desc: 'URI/path to config file (http/https/file/path)'
 				}
 			})
-			/*eslint no-throw-literal:0*/
-			.check(v => {if (v.hasOwnProperty('h')) { throw false; }})
+			.help('help', 'Usage').alias('help', '?')
 			.argv;
 
 
