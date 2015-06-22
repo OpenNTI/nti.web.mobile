@@ -107,7 +107,7 @@ function fillIn(cmp, props) {
 
 	cmp.setState({task}, ()=> resolve(cmp, props)
 		.then(
-			user => set({ displayName: user.DisplayName }),
+			user => set({ displayName: user.displayName }),
 			()=> set({ failed: true, displayName: 'Unknown' })
 		));
 
