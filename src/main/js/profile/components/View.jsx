@@ -1,12 +1,17 @@
 import React from 'react/addons';
 
+import {Locations, Location} from 'react-router-component';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
+import Activity from './Activity';
+import Achievements from './Achievements';
+import About from './About';
 
 import NavigationBar from 'navigation/components/Bar';
 
 import Gradient from 'common/components/GradientBackground';
 import Head from './Head';
+
 
 import {resolve} from 'common/components/DisplayName';
 
@@ -63,6 +68,20 @@ export default React.createClass({
 			<Gradient className="profile">
 				<NavigationBar title="Profile" />
 				<Head {...this.props} />
+				<Locations contextual ref="router">
+					<Location
+						path="/activity/"
+						handler={Activity}
+					/>
+					<Location
+						path="/achievements/"
+						handler={Achievements}
+					/>
+					<Location
+						path="*"
+						handler={About}
+					/>
+				</Locations>
 			</Gradient>
 		);
 	}
