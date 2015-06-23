@@ -15,12 +15,18 @@
 .profile-top-controls {
 	display: flex;
 	justify-content: space-between;
+	align-items: baseline;
 	color: $tertiary-grey;
 	& > ul {
 		list-style-type: none;
 		margin: 0;
+		white-space: nowrap;
 	}
 	li {
 		display: inline-block;
 	}
+}
+
+.profile-top-controls-breadcrumb {
+	font-size: .6875rem;
 }
