@@ -92,7 +92,7 @@ class Store extends StorePrototype {
 		let isIndividual = assessment && assessment.individual;
 
 		if (isError) {
-			this.setError(assessment, response.message || 'An Error occured.');
+			this.setError(assessment, response.message || 'An error occurred.');
 			this.markBusy(assessment, false);
 			return;
 		}
