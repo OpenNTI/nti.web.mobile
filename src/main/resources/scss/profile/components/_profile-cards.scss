@@ -6,9 +6,26 @@
 .profile-card {
 	background: white;
 	padding: 1rem;
+	padding-bottom: 2rem;
 	margin: 4px 0;
 	border-left: 4px solid transparent;
+	font-size: .875rem;
+
 	&.about {
-		border-left-color: peachpuff;
+		border-left-color: #fc9f77;
+	}
+	&.education {
+		border-left-color: #fdcf61;
+	}
+	&.positions {
+		border-left-color: #7ecfc8;
+	}
+	h1 {
+		font-size: 1.25rem;
+		border-bottom: 1px solid $quad-grey;
+		padding: .2em 0;
+		font-family: $body-font-family;
+		color: $secondary-grey;
 	}
 }
+

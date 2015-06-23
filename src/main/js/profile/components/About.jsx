@@ -1,5 +1,10 @@
 import React from 'react';
 import Loading from 'common/components/TinyLoader';
+import {scoped} from 'common/locale';
+
+const t = scoped('PROFILE.ABOUT.SECTIONTITLES');
+
+let sections = ['about', 'education', 'positions'];
 
 export default React.createClass({
 	displayName: 'About',
@@ -10,16 +15,26 @@ export default React.createClass({
 
 	render () {
 
-		if (!this.props.user) {
+		let {user} = this.props;
+
+		if (!user) {
 			return <Loading />;
 		}
 
 		return (
 			<ul className="profile-cards">
-				<li className="profile-card about">About</li>
-				<li className="profile-card education">Education</li>
-				<li className="profile-card professional">Professional</li>
+				{sections.map(s => {
+					return (
+						<li className={'profile-card ' + s}>
+							<h1>{t(s)}</h1>
+							<div>
+								{user[s]}
+							</div>
+						</li>
+					);
+				})}
 			</ul>
 		);
 	}
 });
+

@@ -9,8 +9,8 @@
 		position: relative;
 		overflow: hidden;
 
-		img {
-			max-height: 160px;
+		img, svg {
+			height: 100%;
 		}
 
 		.label {
