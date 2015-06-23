@@ -1,7 +1,7 @@
 import React from 'react';
 import {BLANK_AVATAR} from '../constants/DataURIs';
 
-import {resolve} from './DisplayName';
+import resolveUser from 'common/utils/resolve-user';
 
 const DEFAULT = { user: {avatarURL: BLANK_AVATAR }};
 
@@ -72,7 +72,7 @@ function fillIn (cmp, props) {
 	if (user) {
 		promise = Promise.resolve(user);
 	} else {
-		promise = resolve(props);
+		promise = resolveUser(props);
 	}
 
 	promise

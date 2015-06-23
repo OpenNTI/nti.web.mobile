@@ -18,7 +18,7 @@ import Head from './Head';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import {resolve} from 'common/components/DisplayName';
+import resolveUser from 'common/utils/resolve-user';
 
 export default React.createClass({
 	displayName: 'profile:View',
@@ -41,7 +41,7 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		resolve(this.props).then(u => console.debug('User: ', u));
+		resolveUser(this.props).then(u => console.debug('User: ', u));
 
 		/*
 		alias

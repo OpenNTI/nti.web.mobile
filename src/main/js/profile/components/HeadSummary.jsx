@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Loader from 'common/components/TinyLoader';
-import {default as DisplayName, resolve} from 'common/components/DisplayName';
+import {default as DisplayName} from 'common/components/DisplayName';
+import resolveUser from 'common/utils/resolve-user';
 
 export default React.createClass({
 	displayName: 'HeadSummary',
@@ -16,7 +17,7 @@ export default React.createClass({
 	},
 
 	componentWillMount: function() {
-		resolve(this.props).then(user => {
+		resolveUser(this.props).then(user => {
 			this.setState({user});
 		});
 	},
