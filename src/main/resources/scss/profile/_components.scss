@@ -1,1 +1,26 @@
 @import "components/head";
+
+.profile {
+	min-height: 100vh;
+}
+
+.profile-wrapper {
+	& > * {
+		max-width: 800px;
+		margin-left: auto;
+		margin-right: auto; 
+	}
+}
+
+.profile-top-controls {
+	display: flex;
+	justify-content: space-between;
+	color: $tertiary-grey;
+	& > ul {
+		list-style-type: none;
+		margin: 0;
+	}
+	li {
+		display: inline-block;
+	}
+}

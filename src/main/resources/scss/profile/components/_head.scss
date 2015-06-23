@@ -5,19 +5,12 @@
 	color: white;
 
 	.user {
-		@include grid-row();
+		display: flex;
 		position: relative;
 		overflow: hidden;
-		display: inline-block;
-
-		// &::after {
-		// 	content: '';
-		// 	display: block;
-		// 	padding-top: 100%;//make the height not jump while loading the avatar
-		// }
 
 		img {
-			@include grid-column(4, $collapse: true);
+			max-height: 160px;
 		}
 
 		.label {
@@ -44,17 +37,19 @@
 		font-size: $h3-font-size;
 	}
 	.profile-head-summary-attrs {
-		font-size: .875rem;
+		font-size: .6875rem;
 		list-style-type: none;
 		margin-left: 0;	
 	}
 }
 
 .profile-nav {
-	@include block-grid($per-row: 3, $spacing: 0);
+	display: flex;
 	list-style-type: none;
-	font-size: .875rem;
+	margin: 0;
+	font-size: .6875rem;
 	.profile-nav-item {
+		width: 100%;
 		background: $primary-grey;
 		color: $tertiary-grey;
 		text-align: center;

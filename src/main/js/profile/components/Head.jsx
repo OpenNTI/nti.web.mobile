@@ -18,8 +18,10 @@ export default React.createClass({
 		return (
 			<div className="profile-head">
 				<div className="user">
+				<div className="profile-avatar-container">
 					<Avatar username={username}/>
-					<HeadSummary username={username} />
+				</div>
+				<HeadSummary username={username} />
 				</div>
 			</div>
 		);
