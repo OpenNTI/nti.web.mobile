@@ -32,7 +32,7 @@ export default React.createClass({
 				//a HTML style "fallback" to allow us flexibility and all,
 				//but we still split "data points" into it... hmm...
 				el = item.dom.querySelector('span.description');
-				item.desc = el && el.innerHTML;
+				item.description = el && el.innerHTML;
 			}
 
 			if (!item.icon && item.dom) {

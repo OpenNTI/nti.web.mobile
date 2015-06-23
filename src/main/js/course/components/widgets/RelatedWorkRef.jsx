@@ -41,9 +41,6 @@ export default React.createClass({
 		let {props} = this;
 		let {item} = props;
 
-		//map fields for the card
-		item.title = item.label;
-
 		return (
 			<Card {...props} slug="content" contentPackage={props.course}/>
 		);

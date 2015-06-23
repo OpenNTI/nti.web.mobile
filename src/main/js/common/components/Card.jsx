@@ -50,6 +50,13 @@ export default React.createClass({
 
 	propTypes: {
 		/**
+		 * Make the widget render without the link behavior.
+		 *
+		 * @type {boolean}
+		 */
+		disableLink: React.PropTypes.bool,
+
+		/**
 		 * The slug to put between the basePath and the resource
 		 * target/href/ntiid at the end of the uri.
 		 *
@@ -199,6 +206,12 @@ export default React.createClass({
 
 
 	onClick (e) {
+		if (this.props.disableLink) {
+			e.preventDefault();
+			e.stopPropagation();
+			return;
+		}
+
 		if (this.ignoreClick) {
 			delete this.ignoreClick;
 			return;
@@ -231,6 +244,7 @@ export default React.createClass({
 
 
 	onClickDiscussion (e) {
+		if (this.props.disableLink) { return; }
 		let anchor = React.findDOMNode(this);
 		let {item, externalSlug = 'external'} = this.props;
 		let subRef = e.target.getAttribute('href');
@@ -250,21 +264,29 @@ export default React.createClass({
 
 	render () {
 		let {state} = this;
-		let {item, commentCount} = this.props;
+		let {item, commentCount, disableLink} = this.props;
 		let external = this.isExternal();
 		let extern = external ? 'external' : '';
 		let seen = this.isSeen() ? 'seen' : '';
+		let {href, icon} = state;
 
-		let {icon} = state;
 		if (seen && !icon) {
 			icon = BLANK_IMAGE;
 		}
 
 		let extra = `${extern} ${seen}`;
 
+		if (disableLink) {
+			href = null;
+		}
+
+		let {label, title, desc, description, creator} = item;
+		label = label || title;
+		desc = description || desc;
+
 		return (
 			<a className={`content-link related-work-ref ${extra}`}
-				href={state.href} target={external ? '_blank' : null}
+				href={href} target={external ? '_blank' : null}
 				onClick={this.onClick}>
 
 				{!icon ? null :
@@ -273,11 +295,13 @@ export default React.createClass({
 					</div>
 				}
 
-				<h5 dangerouslySetInnerHTML={{__html: item.title}}/>
+				<h5 dangerouslySetInnerHTML={{__html: label}}/>
 				<hr className="break hide-for-medium-up"/>
-				<div className="label" dangerouslySetInnerHTML={{__html: 'By ' + item.creator}/*TODO: localize*/}/>
-				<div className="description" dangerouslySetInnerHTML={{__html: item.desc}}/>
-				<div className="comment-count" href="/discussions" onClick={this.onClickDiscussion}>{commentCount ? t('comments', {count: commentCount}) : null}</div>
+				<div className="label" dangerouslySetInnerHTML={{__html: 'By ' + creator}/*TODO: localize*/}/>
+				<div className="description" dangerouslySetInnerHTML={{__html: desc}}/>
+				<div className="comment-count" href="/discussions" onClick={this.onClickDiscussion}>
+					{typeof commentCount === 'number' ? t('comments', {count: commentCount}) : null}
+				</div>
 			</a>
 		);
 	}
