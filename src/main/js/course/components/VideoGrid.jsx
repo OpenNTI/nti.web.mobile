@@ -4,17 +4,15 @@ import cx from 'classnames';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import path from 'path';
-
-import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 //some notes: http://stackoverflow.com/questions/20870448/reactjs-modeling-bi-directional-infinite-scrolling
 //I want to turn this into a buffered list.
 
 export default React.createClass({
 	displayName: 'VideoGrid',
-	mixins: [BasePathAware, ContextSender],
+	mixins: [NavigatableMixin, ContextSender],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
@@ -67,7 +65,6 @@ export default React.createClass({
 
 
 	render () {
-		let basePath = this.getBasePath();
 		let {course, VideoIndex} = this.props;
 		let {icons} = this.state;
 
@@ -80,10 +77,7 @@ export default React.createClass({
 
 					let thumbnail = cx('thumbnail', {resolving: !poster});
 
-					let link = path.join(
-						basePath,
-						'course', encodeForURI(course.getID()),
-						'v', encodeForURI(v.ntiid)) + '/';
+					let link = this.makeHref(encodeForURI(v.ntiid)) + '/';
 
 					return (
 						<li className="thumbnail-grid-item" key={v.ntiid + '-' + i}>
