@@ -1,0 +1,14 @@
+.profile-cards {
+	list-style-type: none;
+	margin: 0;
+}
+
+.profile-card {
+	background: white;
+	padding: 1rem;
+	margin: 4px 0;
+	border-left: 4px solid transparent;
+	&.about {
+		border-left-color: peachpuff;
+	}
+}

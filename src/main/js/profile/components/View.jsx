@@ -28,6 +28,11 @@ export default React.createClass({
 		username: React.PropTypes.string.isRequired
 	},
 
+	getInitialState: function() {
+		return {
+		};
+	},
+
 	getContext (/*props*/) {
 		let path = this.getBasePath();
 		return Promise.resolve([
@@ -40,8 +45,17 @@ export default React.createClass({
 		]);
 	},
 
+	setUser(u) {
+		this.setState({
+			user: u
+		});
+	},
+
 	componentDidMount () {
-		resolveUser(this.props).then(u => console.debug('User: ', u));
+		resolveUser(this.props).then(u => {
+			console.debug('User: ', u);
+			this.setUser(u);
+		});
 
 		/*
 		alias
@@ -101,14 +115,17 @@ export default React.createClass({
 							<Location
 								path="/activity(/*)"
 								handler={Activity}
+								user={this.state.user}
 							/>
 							<Location
 								path="/achievements(/*)"
 								handler={Achievements}
+								user={this.state.user}
 							/>
 							<Location
 								path="/about(/*)"
 								handler={About}
+								user={this.state.user}
 							/>
 							<NotFound handler={About} />
 						</Locations>
