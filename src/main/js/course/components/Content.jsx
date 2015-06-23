@@ -31,7 +31,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<ContentViewer slug="content" {...this.props} />
+			<ContentViewer {...this.props} />
 		);
 	}
 });

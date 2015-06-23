@@ -53,7 +53,6 @@ export default React.createClass({
 	propTypes: {
 		rootId: React.PropTypes.string,
 		pageId: React.PropTypes.string,
-		slug: React.PropTypes.string,
 		contentPackage: React.PropTypes.object
 	},
 

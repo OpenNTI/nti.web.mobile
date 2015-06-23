@@ -15,7 +15,6 @@ export default React.createClass({
 
 	propTypes: {
 		item: React.PropTypes.object,
-		slug: React.PropTypes.string,
 		contentPackage: React.PropTypes.object
 	},
 
@@ -47,12 +46,11 @@ export default React.createClass({
 
 
 	render () {
-		let {item, slug, contentPackage} = this.props;
+		let {item, contentPackage} = this.props;
+		//We do not pass a slug, because this widget represents a Card from within Content.
+		//It's NTIID is the link, and we handle that specially...
 		return (
-			<Card
-				item={item}
-				slug={slug}
-				contentPackage={contentPackage}/>
+			<Card item={item} contentPackage={contentPackage}/>
 		);
 	}
 });

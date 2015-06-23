@@ -53,9 +53,18 @@ export default React.createClass({
 		 * The slug to put between the basePath and the resource
 		 * target/href/ntiid at the end of the uri.
 		 *
+		 * Do not pass a slug to have the card render as a NTIID link.
+		 *
 		 * @type {string}
 		 */
-		slug: React.PropTypes.string.isRequired,
+		slug: React.PropTypes.string,
+
+		/**
+		 * alternate slug for external links. See onClickDiscussion.
+		 *
+		 * @type {string}
+		 */
+		externalSlug: React.PropTypes.string,
 
 		/**
 		 * The owning contentPackage to provide a method "resolveContentURL"
@@ -223,14 +232,14 @@ export default React.createClass({
 
 	onClickDiscussion (e) {
 		let anchor = React.findDOMNode(this);
-		let {item, slug} = this.props;
+		let {item, externalSlug = 'external'} = this.props;
 		let subRef = e.target.getAttribute('href');
 
 		this.ignoreClick = true;
 
 		if (this.isExternal()) {
 			anchor.setAttribute('target', '');
-			anchor.setAttribute('href', this.getInternalHref(item.NTIID, slug));
+			anchor.setAttribute('href', this.getInternalHref(item.NTIID, externalSlug));
 		}
 
 		let href = path.join(anchor.getAttribute('href'), subRef);
