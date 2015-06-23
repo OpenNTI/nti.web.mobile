@@ -131,6 +131,7 @@ export default React.createClass({
 				: ( <NotFound/> )
 		) : (
 			<div className="discussions" {...props}>
+				{props.children}
 				<div className="list">
 					{!items
 						? ( <Loading/> )

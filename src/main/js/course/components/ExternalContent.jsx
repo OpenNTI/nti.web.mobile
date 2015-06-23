@@ -7,6 +7,10 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import Card from 'common/components/Card';
 import Loading from 'common/components/Loading';
 
+import BasePathAware from 'common/mixins/BasePath';
+import ContextContributor from 'common/mixins/ContextContributor';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+
 import {getService} from 'common/utils';
 
 import Discussions from 'content/components/discussions';
@@ -15,11 +19,30 @@ const RelatedWorkReference = getModel('relatedworkref');
 
 export default React.createClass({
 	displayName: 'ExternalContent',
+	mixins: [BasePathAware, ContextContributor, NavigatableMixin],
 
 	propTypes: {
 		contentPackage: React.PropTypes.object.isRequired,
 
-		relatedWorkRefId: React.PropTypes.string.isRequired
+		relatedWorkRefId: React.PropTypes.string.isRequired,
+
+		//TODO: refactor this into two components... one generic, one with getContext.
+		outlineId: React.PropTypes.string.isRequired,
+		course: React.PropTypes.object.isRequired
+	},
+
+
+	getContext () {
+		let {outlineId, course} = this.props;
+
+		let id = decodeFromURI(outlineId);
+		return course.getOutlineNode(id).then(node=>({
+			ntiid: node.getID(),
+			label: node.label,
+			// ref: node.ref,
+			href: this.getBasePath() + node.href
+		}));
+
 	},
 
 
@@ -91,9 +114,9 @@ export default React.createClass({
 
 		return (
 			<div>
-				{relatedWorkRef && ( <Card item={relatedWorkRef} contentPackage={contentPackage} disableLink/> )}
-
-				<Discussions UserDataStoreProvider={storeProvider}/>
+				<Discussions UserDataStoreProvider={storeProvider}>
+					{relatedWorkRef && ( <Card item={relatedWorkRef} contentPackage={contentPackage} disableLink/> )}
+				</Discussions>
 			</div>
 		);
 	}
