@@ -23,6 +23,10 @@ export default React.createClass({
 	displayName: 'profile:View',
 	mixins: [BasePathAware, ContextSender, NavigatableMixin],
 
+	propTypes: {
+		username: React.PropTypes.string.isRequired
+	},
+
 	getContext (/*props*/) {
 		let path = this.getBasePath();
 		return Promise.resolve([
