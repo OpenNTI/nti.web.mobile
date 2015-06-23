@@ -41,7 +41,7 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		resolve(this, this.props).then(u => console.debug('User: ', u));
+		resolve(this.props).then(u => console.debug('User: ', u));
 
 		/*
 		alias

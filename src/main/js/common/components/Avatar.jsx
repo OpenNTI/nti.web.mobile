@@ -72,7 +72,7 @@ function fillIn (cmp, props) {
 	if (user) {
 		promise = Promise.resolve(user);
 	} else {
-		promise = resolve(cmp, props);
+		promise = resolve(props);
 	}
 
 	promise

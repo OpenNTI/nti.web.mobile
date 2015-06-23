@@ -77,7 +77,7 @@ export default React.createClass({
 });
 
 
-export function resolve (cmp, props) {
+export function resolve (props) {
 	let username = props.username;
 	let user = props.user;
 	let promise;
@@ -105,7 +105,7 @@ function fillIn(cmp, props) {
 		}
 	};
 
-	cmp.setState({task}, ()=> resolve(cmp, props)
+	cmp.setState({task}, ()=> resolve(props)
 		.then(
 			user => set({ displayName: user.displayName }),
 			()=> set({ failed: true, displayName: 'Unknown' })
