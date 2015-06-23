@@ -36,9 +36,10 @@ export default {
 		save: 'Save'
 	},
 
-	FILTER: {
+	LISTS: {
 		noMatches: 'No items match the selected filter.',
-		emptyList: 'This list is empty.'
+		emptyList: 'This list is empty.',
+		'emptyList:discussions': 'No discussions.'
 	},
 
 	CONTENT: content,
