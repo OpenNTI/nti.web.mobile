@@ -171,7 +171,7 @@ export default React.createClass({
 			viewed = true;
 		}
 
-		let link = path.join('v', encodeForURI(this.getID())) + '/';
+		let link = path.join('videos', encodeForURI(this.getID())) + '/';
 
 		let Tag = tag;
 

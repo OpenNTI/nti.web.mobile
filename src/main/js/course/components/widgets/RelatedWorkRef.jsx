@@ -45,7 +45,7 @@ export default React.createClass({
 		item.title = item.label;
 
 		return (
-			<Card {...props} slug="c" contentPackage={props.course}/>
+			<Card {...props} slug="content" contentPackage={props.course}/>
 		);
 	}
 });

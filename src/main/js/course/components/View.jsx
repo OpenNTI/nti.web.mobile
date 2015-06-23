@@ -16,6 +16,8 @@ import StoreEventAware from 'common/mixins/StoreEvents';
 
 import Page from './Page';
 
+import {LESSONS} from '../Sections';
+
 //import Activity
 //import Assignments
 //import Reports
@@ -29,9 +31,9 @@ import Store from '../Store';
 
 
 const ROUTES = [
-	{path: '/v(/*)', handler: Page, pageContent: Media},
-	{path: '/o(/*)', handler: Page, pageContent: Lessons},
-	{path: '/d(/*)', handler: Page, pageContent: Discussions},
+	{path: '/videos(/*)', handler: Page, pageContent: Media},
+	{path: '/lessons(/*)', handler: Page, pageContent: Lessons},
+	{path: '/discussions(/*)', handler: Page, pageContent: Discussions},
 	{path: '/info', handler: Page, pageContent: CourseInfo},
 	{}//not found
 ];
@@ -100,7 +102,7 @@ export default React.createClass({
 			...ROUTES.map(route=>
 				route.path ?
 				React.createElement(Router.Location, Object.assign({course, contentPackage: course}, route)) :
-				React.createElement(Router.NotFound, {handler: Redirect, location: 'o/'})
+				React.createElement(Router.NotFound, {handler: Redirect, location: LESSONS})
 			));
 	},
 

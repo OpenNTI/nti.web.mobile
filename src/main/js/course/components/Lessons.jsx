@@ -13,9 +13,9 @@ import ContextContributor from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 const ROUTES = [
-	{path: '/:outlineId/c/:rootId(/*)',		handler: Content },
-	{path: '/:outlineId/v(/*)',				handler: Media,			slug: 'v'},
-	{path: '/:outlineId(/*)',				handler: Overview },
+	{path: '/:outlineId/content/:rootId(/*)',		handler: Content },
+	{path: '/:outlineId/videos(/*)',				handler: Media },
+	{path: '/:outlineId(/*)',						handler: Overview },
 	{}//
 ];
 

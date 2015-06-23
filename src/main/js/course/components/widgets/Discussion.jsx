@@ -118,7 +118,7 @@ export default React.createClass({
 	getForumHref (o) {
 		let isForum = o.hasOwnProperty('TopicCount');
 		let forumId = encodeForURI(isForum ? o.NTIID : o.ContainerId);
-		let h = path.join('..', 'd', forumId) + '/';
+		let h = path.join('..', 'discussions', forumId) + '/';
 		return this.makeHref(h);
 	},
 

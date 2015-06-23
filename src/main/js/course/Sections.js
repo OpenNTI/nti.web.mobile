@@ -1,8 +1,8 @@
 export default {
-	// ACTIVITY: 'activity',
-	// ASSIGNMENTS: 'a/',
-	DISCUSSIONS: 'd/',
-	LESSONS: 'o/',
+	// ACTIVITY: 'activity/',
+	// ASSIGNMENTS: 'assignments/',
+	DISCUSSIONS: 'discussions/',
+	LESSONS: 'lessons/',
 	INFO: 'info',
-	VIDEOS: 'v/'
+	VIDEOS: 'videos/'
 };
