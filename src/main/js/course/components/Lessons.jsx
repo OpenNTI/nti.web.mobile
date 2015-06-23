@@ -3,6 +3,7 @@ import React from 'react';
 import Router from 'react-router-component';
 
 import Content from './Content';
+import External from './ExternalContent';
 import Media from './Media';
 import Outline from './OutlineView';
 import Overview from './Overview';
@@ -13,9 +14,10 @@ import ContextContributor from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 const ROUTES = [
-	{path: '/:outlineId/content/:rootId(/*)',		handler: Content },
-	{path: '/:outlineId/videos(/*)',				handler: Media },
-	{path: '/:outlineId(/*)',						handler: Overview },
+	{path: '/:outlineId/content/:rootId(/*)',	handler: Content },
+	{path: '/:outlineId/external-content/:relatedWorkRefId(/discussions)(/*)',	handler: External },
+	{path: '/:outlineId/videos(/*)',			handler: Media },
+	{path: '/:outlineId(/*)',					handler: Overview },
 	{}//
 ];
 

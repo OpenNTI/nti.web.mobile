@@ -42,7 +42,12 @@ export default React.createClass({
 		let {item} = props;
 
 		return (
-			<Card {...props} slug="content" contentPackage={props.course}/>
+			<Card {...props}
+				commentCount={0}
+				slug="content"
+				externalSlug="external-content"
+				contentPackage={props.course}
+			/>
 		);
 	}
 });
