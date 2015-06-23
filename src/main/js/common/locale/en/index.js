@@ -12,6 +12,7 @@ import enrollment from './partials/enrollment';
 import library from './partials/library';
 import login from './partials/login';
 import soon from './partials/coming-soon';
+import profile from './partials/profile';
 
 export default {
 	GLOBAL: {
@@ -29,6 +30,8 @@ export default {
 	ENROLLMENT: enrollment,
 
 	LIBRARY: library,
+
+	PROFILE: profile,
 
 	BUTTONS: {
 		ok: 'Okay',
