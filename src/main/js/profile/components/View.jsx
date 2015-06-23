@@ -23,9 +23,6 @@ import {resolve} from 'common/components/DisplayName';
 export default React.createClass({
 	displayName: 'profile:View',
 	mixins: [BasePathAware, ContextSender, NavigatableMixin],
-	propTypes: {
-		username: React.PropTypes.string.isRequired
-	},
 
 	propTypes: {
 		username: React.PropTypes.string.isRequired
