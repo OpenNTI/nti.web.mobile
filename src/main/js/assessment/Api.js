@@ -34,7 +34,8 @@ export function submit (assessment) {
 	return data.submit()
 		.then(response => {
 			if (isAssignment(assessment) && !isHistoryItem(response.Class)) {
-				return main.loadPreviousSubmission();
+				return main.loadPreviousSubmission()
+					.catch(e=> e.statusCode === 404 ? response : Promise.reject(e));
 			}
 			return response;
 		})
