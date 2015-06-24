@@ -52,6 +52,7 @@
 		"no-inner-declarations": 2,/*default*/
 		"no-irregular-whitespace": 2,/*default*/
 		"no-new": 2,/*default*/
+		"no-shadow": [1, {"hoist": "never"}],
 		"no-throw-literal": 2,
 		"no-undef": 2,/*default*/
 		"no-underscore-dangle": 1,
