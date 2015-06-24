@@ -18,9 +18,5 @@ export default {
 			delete: 'Delete'
 		},
 		postedBy: 'Posted by %(name)s',
-		replies: {
-			one: '1 Comment',
-			other: '%(count)s Comments'
-		}
 	}
 };
