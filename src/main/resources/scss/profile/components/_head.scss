@@ -9,8 +9,12 @@
 		position: relative;
 		overflow: hidden;
 
+		.profile-avatar-container {
+			flex-basis: 160px;
+		}
+
 		img, svg {
-			height: 100%;
+			
 		}
 
 		.label {
