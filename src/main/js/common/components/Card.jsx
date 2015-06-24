@@ -203,13 +203,18 @@ export default React.createClass({
 
 
 	resolveIcon (props) {
-		let {contentPackage, item} = props;
-		this.setState({	icon: null	});
-		if (!contentPackage || !item || !item.icon) {
-			return;
-		}
+		let {contentPackage, item = {}} = props;
 
-		contentPackage.resolveContentURL(props.item.icon)
+		new Promise((done, bail) => {
+			let {icon = ''} = item;
+			let u = Url.parse(icon);
+			if (u && (u.host || u.path[0] === '/')) {
+				done(icon);
+			}
+			bail();
+		})
+			.catch(()=> contentPackage.resolveContentURL(props.item.icon))
+			.catch(()=> null)
 			.then(icon =>this.setState({iconResolved: true, icon}));
 	},
 
