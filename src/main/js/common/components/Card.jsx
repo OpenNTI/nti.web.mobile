@@ -121,7 +121,10 @@ export default React.createClass({
 		icon: React.PropTypes.string,
 
 
-		commentCount: React.PropTypes.number
+		commentCount: React.PropTypes.oneOfType([
+			React.PropTypes.number,
+			React.PropTypes.string
+			])
 	},
 
 
@@ -307,7 +310,12 @@ export default React.createClass({
 				<div className="label" dangerouslySetInnerHTML={{__html: 'By ' + creator}/*TODO: localize*/}/>
 				<div className="description" dangerouslySetInnerHTML={{__html: desc}}/>
 				<div className="comment-count" href="/discussions" onClick={this.onClickDiscussion}>
-					{typeof commentCount === 'number' ? t('comments', {count: commentCount}) : null}
+					{commentCount == null
+						? null
+						: typeof commentCount === 'number'
+							? t('comments', {count: commentCount})
+							: commentCount
+					}
 				</div>
 			</a>
 		);
