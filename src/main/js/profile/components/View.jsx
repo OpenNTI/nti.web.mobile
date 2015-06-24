@@ -127,7 +127,10 @@ export default React.createClass({
 								handler={About}
 								user={this.state.user}
 							/>
-							<NotFound handler={About} />
+							<NotFound
+								handler={About}
+								user={this.state.user}
+							/>
 						</Locations>
 					</div>
 				</Gradient>
