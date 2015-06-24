@@ -10,6 +10,7 @@ import LuckyCharms from 'common/components/LuckyCharms';
 import Body from 'modeled-content/components/Panel';
 
 import ItemActions from './ItemActions';
+import ReplyEditor from './ReplyEditor';
 
 export function ReplyComparator (a, b) {
 	a = a.getCreatedTime();
@@ -22,6 +23,11 @@ const Panel = React.createClass({
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired
+	},
+
+
+	getInitialState () {
+		return {};
 	},
 
 
@@ -48,7 +54,18 @@ const Panel = React.createClass({
 	},
 
 
+	hideReplyEditor () {
+		this.setState({replying: false});
+	},
+
+
+	showReplyEditor () {
+		this.setState({replying: true});
+	},
+
+
 	render () {
+		let {replying} = this.state;
 		let {item} = this.props;
 		let {body, creator, placeholder} = item;
 		let date = item.getLastModified();
@@ -70,10 +87,16 @@ const Panel = React.createClass({
 
 						<Body body={body}/>
 
-						<div className="footer">
-							<DateTime date={date} relative/>
-							<ItemActions item={item} isTopLevel/>
-						</div>
+						{replying ? (
+							<div className="footer">
+								<ReplyEditor item={item} onCancel={this.hideReplyEditor}/>
+							</div>
+						) : (
+							<div className="footer">
+								<DateTime date={date} relative/>
+								<ItemActions item={item} isTopLevel onReply={this.showReplyEditor}/>
+							</div>
+						)}
 					</div>
 				)}
 				{this.renderReplies()}

@@ -22,6 +22,7 @@ import Body from 'modeled-content/components/Panel';
 import Context from './Context';
 import ItemActions from './ItemActions';
 import Reply, {ReplyComparator} from './Panel';
+import ReplyEditor from './ReplyEditor';
 
 export default React.createClass({
 	displayName: 'content:discussions:Detail',
@@ -34,6 +35,11 @@ export default React.createClass({
 		pageSource: React.PropTypes.object,
 
 		item: React.PropTypes.object
+	},
+
+
+	getInitialState () {
+		return {};
 	},
 
 
@@ -71,7 +77,18 @@ export default React.createClass({
 	},
 
 
+	hideReplyEditor () {
+		this.setState({replying: false});
+	},
+
+
+	showReplyEditor () {
+		this.setState({replying: true});
+	},
+
+
 	render () {
+		let {replying} = this.state;
 		let {item} = this.props;
 		let {body, creator, title} = item;
 		let date = item.getLastModified();
@@ -97,7 +114,11 @@ export default React.createClass({
 
 					<Body body={body}/>
 
-					<ItemActions item={item} isTopLevel/>
+					{replying ? (
+						<ReplyEditor item={item} onCancel={this.hideReplyEditor}/>
+					) : (
+						<ItemActions item={item} isTopLevel onReply={this.showReplyEditor}/>
+					)}
 				</div>
 				{this.renderReplies()}
 			</div>
