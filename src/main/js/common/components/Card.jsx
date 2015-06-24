@@ -88,7 +88,7 @@ export default React.createClass({
 		 * The owning contentPackage to provide a method "resolveContentURL"
 		 * @type {Package}
 		 */
-		contentPackage: React.PropTypes.object.isRequired,
+		contentPackage: React.PropTypes.object,
 
 		/**
 		 * The object with with all the metadata. Should have properties:
@@ -151,7 +151,7 @@ export default React.createClass({
 	},
 
 
-	componentDidMount () {
+	componentWillMount () {
 		this.resolveIcon(this.props);
 		this.resolveHref(this.props);
 	},
