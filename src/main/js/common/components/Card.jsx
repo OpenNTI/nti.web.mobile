@@ -23,6 +23,7 @@ External Links:
 */
 import path from 'path';
 import React from 'react';
+import Url from 'url';
 import emptyFunction from 'react/lib/emptyFunction';
 
 import {toAnalyticsPath} from 'analytics/utils';
@@ -185,9 +186,13 @@ export default React.createClass({
 		}
 
 
-		this.setState({href: null });
+		let u = Url.parse(href);
 
-		if (contentPackage) {
+		if (u && (u.host || u.path[0] === '/')) {
+			this.setState({href});
+		}
+		else if (contentPackage) {
+			this.setState({href: null });
 			contentPackage.resolveContentURL(href)
 				.then(url=> props.resolveUrlHook(url))
 				.then(url=> {
