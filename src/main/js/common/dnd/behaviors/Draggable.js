@@ -3,7 +3,7 @@
 import React, {PropTypes} from 'react';
 import Base, {TYPE_SHAPE} from './Base';
 
-import isTouchDevice from 'nti.lib.interfaces/utils/is-touch-device';
+import {PointerEvents} from 'nti.lib.interfaces/utils/is-touch-device';
 import emptyFunction from 'react/lib/emptyFunction';
 
 
@@ -23,14 +23,11 @@ import {matches} from 'nti.lib.dom';
 const addListeners = 'dnd:behaviours:draggable:addListeners';
 const removeListeners = 'dnd:behaviours:draggable:removeListeners';
 
-const eventFor = isTouchDevice ? {
-	start: 'touchstart',
-	move: 'touchmove',
-	end: 'touchend'
-} : {
-	start: 'mousedown',
-	move: 'mousemove',
-	end: 'mouseup'
+const eventFor = {
+	start: PointerEvents.pointerDown,
+	move: PointerEvents.pointerMove,
+	end: PointerEvents.pointerUp,
+	abort: PointerEvents.pointerOut
 };
 
 const DIRECTIONS = {
@@ -198,6 +195,7 @@ export default {
 		_addEventListener(this.scrollParent, 'scroll', this.handleScroll);
 		_addEventListener(global, eventFor.move, this.handleDrag);
 		_addEventListener(global, eventFor.end, this.handleDragEnd);
+		_addEventListener(global, eventFor.abort, this.handleDragEnd);
 	},
 
 
@@ -205,6 +203,7 @@ export default {
 		_removeEventListener(this.scrollParent, 'scroll', this.handleScroll);
 		_removeEventListener(global, eventFor.move, this.handleDrag);
 		_removeEventListener(global, eventFor.end, this.handleDragEnd);
+		_removeEventListener(global, eventFor.abort, this.handleDragEnd);
 	},
 
 
