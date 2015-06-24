@@ -5,24 +5,6 @@ import Loading from 'common/components/Loading';
 
 import t from 'common/locale';
 
-const WHITESPACE_ENTITIES_AND_TAGS = /((<[^>]+>)|&nbsp;|[\s\r\n])+/ig;
-
-//TODO: combine this into nti.lib.domjs's isValueEmpty
-function isEmpty(html) {
-	if (!Array.isArray(html)) {
-		html = [html];
-	}
-
-	// This filter fn will return true if:
-	// 1) x is not 'null' AND:
-	// 2a) x is not a string OR
-	// 2b) is a string that does not reduce to lenth 0
-	let empties = x=>
-	x && (typeof x !== 'string' || x.replace(WHITESPACE_ENTITIES_AND_TAGS, '').length);
-
-	return html.filter(empties).length === 0;
-}
-
 export default React.createClass({
 	displayName: 'FeedbackEditor',
 
@@ -43,7 +25,7 @@ export default React.createClass({
 	render () {
 		let {value} = this.state;
 
-		let disabled = isEmpty(value) ? 'disabled' : '';
+		let disabled = Editor.isEmpty(value) ? 'disabled' : '';
 		let busy = this.state.busy ? 'busy' : '';
 
 		return (
@@ -79,7 +61,7 @@ export default React.createClass({
 
 		let {value} = this.state;
 
-		if (isEmpty(value)) {
+		if (Editor.isEmpty(value)) {
 			return;
 		}
 
