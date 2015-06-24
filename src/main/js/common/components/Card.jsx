@@ -44,9 +44,18 @@ const t = scoped('UNITS');
 const Seen = Symbol('Seen');
 const Progress = Symbol.for('Progress');
 
+function isExternal (item) {
+	return /external/i.test(item.type) || !isNTIID(item.href);
+}
+
 export default React.createClass({
 	mixins: [ContextAccessor, NavigatableMixin],
 	displayName: 'RelatedWorkRef',
+
+	statics: {
+		isExternal
+	},
+
 
 	propTypes: {
 		/**
@@ -131,6 +140,12 @@ export default React.createClass({
 	},
 
 
+	isExternal (props = this.props) {
+		let {item, internalOverride} = props || {};
+		return isExternal(item) && !internalOverride;
+	},
+
+
 	componentDidMount () {
 		this.resolveIcon(this.props);
 		this.resolveHref(this.props);
@@ -187,14 +202,6 @@ export default React.createClass({
 
 		contentPackage.resolveContentURL(props.item.icon)
 			.then(icon =>this.setState({iconResolved: true, icon}));
-	},
-
-
-	isExternal (props) {
-		let p = props || this.props;
-		let {item, internalOverride} = p;
-
-		return !isNTIID(item.href) && !internalOverride;
 	},
 
 
