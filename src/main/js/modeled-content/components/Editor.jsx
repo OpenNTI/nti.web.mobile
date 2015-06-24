@@ -36,6 +36,8 @@ export default React.createClass({
 
 
 	propTypes: {
+		children: React.PropTypes.any,
+
 		allowInsertImage: React.PropTypes.bool,
 
 		/**
@@ -145,7 +147,7 @@ export default React.createClass({
 
 	render () {
 		//TODO: parse/build value sent to the RTE from the modeled body.
-		let {value, allowInsertImage} = this.props;
+		let {value, allowInsertImage, children} = this.props;
 
 		if (Array.isArray(value)) {
 			value = value.join('\n').replace(/<(\/?)(body|html)>/ig, '');
@@ -167,6 +169,9 @@ export default React.createClass({
 					<InsertImageButton region={SOUTH}/>
 				)}
 
+				<div className="right-south" region={SOUTH}>
+					{children}
+				</div>
 			</Editor>
 		);
 	}
