@@ -58,11 +58,6 @@ address {font-style: normal;}
 
 body {
 	-webkit-touch-callout: none;
-	//We only want specifc parts to be selectible.
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
 	user-select: none;
 }
 
@@ -85,7 +80,7 @@ a.disabled {
 }
 
 .animate {
-	@include transition('all .3s ease-out');
+	transition: all .3s ease-out;
 }
 
 .sadface {

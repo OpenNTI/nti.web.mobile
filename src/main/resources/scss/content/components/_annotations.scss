@@ -50,7 +50,7 @@
 			// color: $menu_color;
 			background-color: $highlight_color;
 			box-shadow: 0 0 0 3px $highlight_color;
-			//@include transition('all 0.2s');
+			//transition: all 0.2s;
 
 			&.highlight-mouse-over {
 				background-color: $hover_color;

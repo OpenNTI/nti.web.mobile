@@ -29,7 +29,7 @@
 
 		&:empty {
 			&::before {
-				@include transition('font-size 0.5s ease-in');
+				transition: 'font-size 0.5s ease-in';
 				content: '(blank)';
 				visibility: hidden;
 			}

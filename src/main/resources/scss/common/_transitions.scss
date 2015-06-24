@@ -1,17 +1,8 @@
-
-@mixin transition($prop) {
-	@if str-index($prop, transform) {
-		@error "This mixin cannot handle the specialcase of transform";
-	}
-	-webkit-transition: #{$prop};
-	transition: #{$prop};
-}
-
 @mixin reactTransition($name) {
 
 	.#{$name}-enter {
 		opacity: 0.01;
-		@include transition('opacity .25s ease-in');
+		transition: opacity .25s ease-in;
 	}
 
 	.#{$name}-enter.#{$name}-enter-active {
@@ -20,7 +11,7 @@
 
 	.#{$name}-leave {
 		opacity: 1;
-		@include transition('opacity .25s ease-in');
+		transition: opacity .25s ease-in;
 	}
 
 	.#{$name}-leave.#{$name}-leave-active {
@@ -28,7 +19,7 @@
 	}
 
 	.#{$name} {
-		@include transition('opacity .25s ease-in');
+		transition: opacity .25s ease-in;
 	}
 
 }
