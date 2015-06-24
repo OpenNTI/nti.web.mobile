@@ -9,7 +9,7 @@ export default React.createClass({
 	mixins: [Mixin],
 
 	statics: {
-		itemType: /ntirelatedworkref$|nticard$/i
+		itemType: /ntirelatedworkref$|nticard$|externallink$/i
 	},
 
 

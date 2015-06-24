@@ -130,6 +130,11 @@
 			}
 		}
 
+		& > .related-work-ref {
+			margin: 0; border: 0;
+			cursor: default;
+		}
+
 		.question {
 			pointer-events: none;
 			.question-submission {display: none;}
