@@ -18,5 +18,6 @@ export default {
 			delete: 'Delete'
 		},
 		postedBy: 'Posted by %(name)s',
+		viewComments: 'View Comments'
 	}
 };
