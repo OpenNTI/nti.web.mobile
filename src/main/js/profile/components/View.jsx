@@ -51,11 +51,19 @@ export default React.createClass({
 		});
 	},
 
-	componentDidMount () {
-		resolveUser(this.props).then(u => {
+	updateUser(props = this.props) {
+		resolveUser(props).then(u => {
 			console.debug('User: ', u);
 			this.setUser(u);
 		});
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		this.updateUser(nextProps);
+	},
+
+	componentDidMount () {
+		this.updateUser();
 
 		/*
 		alias
