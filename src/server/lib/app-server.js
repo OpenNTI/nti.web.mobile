@@ -4,8 +4,8 @@ import express from 'express';
 import path from 'path';
 //import fs from 'fs';
 import waitFor from 'nti.lib.interfaces/utils/waitfor';
-import dataserver from 'nti.lib.interfaces';
-import {Pending} from 'nti.lib.interfaces/CommonSymbols';
+import dataserver, {CommonSymbols} from 'nti.lib.interfaces';
+let {Pending} = CommonSymbols;
 
 import api from './api';
 import cacheBuster from './no-cache';

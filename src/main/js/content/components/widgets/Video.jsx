@@ -1,5 +1,8 @@
 import React from 'react';
 
+import {CommonSymbols} from 'nti.lib.interfaces';
+let {Progress} = CommonSymbols;
+
 import LoadingMask from 'common/components/Loading';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
@@ -8,7 +11,6 @@ import {Component as Video} from 'video';
 
 import Mixin from './Mixin';
 
-const Progress = Symbol.for('Progress');
 
 export default React.createClass({
 	displayName: 'NTIVideo',

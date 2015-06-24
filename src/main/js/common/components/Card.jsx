@@ -36,13 +36,14 @@ import {BLANK_IMAGE} from '../constants/DataURIs';
 
 import ExternalResourceEvent from 'nti.lib.interfaces/models/analytics/ExternalResourceEvent';
 import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {CommonSymbols} from 'nti.lib.interfaces';
 
 import {emitEventStarted} from 'analytics/Actions';
 
 const t = scoped('UNITS');
 
 const Seen = Symbol('Seen');
-const Progress = Symbol.for('Progress');
+let {Progress} = CommonSymbols;
 
 function isExternal (item) {
 	return /external/i.test(item.type) || !isNTIID(item.href);
