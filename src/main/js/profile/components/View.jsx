@@ -12,6 +12,7 @@ import {getAppUsername} from 'common/utils';
 import FollowButton from './FollowButton';
 import EditButton from './EditButton';
 import NavigationBar from 'navigation/components/Bar';
+import Redirect from 'navigation/components/Redirect';
 
 import Gradient from 'common/components/GradientBackground';
 import Head from './Head';
@@ -136,8 +137,8 @@ export default React.createClass({
 								user={this.state.user}
 							/>
 							<NotFound
-								handler={About}
-								user={this.state.user}
+								handler={Redirect}
+								location='/about/'
 							/>
 						</Locations>
 					</div>
