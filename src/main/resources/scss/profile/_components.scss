@@ -29,5 +29,33 @@
 }
 
 .profile-top-controls-breadcrumb {
-	font-size: .6875rem;
+	font-size: .75rem;
+	font-weight: 700;
+	flex-shrink: 1;
+	overflow: hidden;
+	li {
+		&::after {
+			content: '›';
+			padding: 0 .5em;
+		}
+		&:last-child::after {
+			content:'';
+		}
+	}
+}
+
+.profile-top-controls-buttons {
+	.button {
+		margin: 0.75rem;
+	    margin-left: 0;
+	    padding: 0.5rem 1.5rem;
+	    text-transform: none;
+	    border-radius: 3px;
+	    font-weight: 700;
+	    font-size: .75rem;
+	    background-color: $secondary-green;
+	    letter-spacing: 0;
+	    // box-shadow: 0 0 1px 0 #554459, inset 0 0 0 1px #42b653;
+	    // border: 1px solid #4b9156;	
+	}   
 }
