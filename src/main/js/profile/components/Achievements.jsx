@@ -1,11 +1,14 @@
 import React from 'react';
+import Card from './Card';
 
 export default React.createClass({
 	displayName: 'Achievements',
 
 	render () {
 		return (
-			<div>Achievements</div>
+			<ul className="profile-cards">
+				<Card className="achievements" title="Achievements">...</Card>
+			</ul>
 		);
 	}
 });

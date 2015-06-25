@@ -1,6 +1,8 @@
 import React from 'react';
 import Loading from 'common/components/TinyLoader';
 import {scoped} from 'common/locale';
+import Card from './Card';
+import Editable from './Editable';
 
 const t = scoped('PROFILE.ABOUT.SECTIONTITLES');
 
@@ -25,12 +27,7 @@ export default React.createClass({
 			<ul className="profile-cards">
 				{sections.map(s => {
 					return (
-						<li className={'profile-card ' + s}>
-							<h1>{t(s)}</h1>
-							<div>
-								{user[s]}
-							</div>
-						</li>
+						<Card className={s} title={t(s)}><Editable>{user[s]}</Editable></Card>
 					);
 				})}
 			</ul>
