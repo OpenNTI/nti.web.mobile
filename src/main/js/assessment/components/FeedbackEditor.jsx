@@ -30,11 +30,12 @@ export default React.createClass({
 
 		return (
 			<div className={`feedback editor ${busy}`}>
-				<Editor ref="editor" value={value} onChange={this.onChange} onBlur={this.onChange} allowInsertImage={false}/>
-				<div className="buttons">
+
+				<Editor ref="editor" value={value} onChange={this.onChange} onBlur={this.onChange} allowInsertImage={false}>
 					<button onClick={this.onCancel} className={`cancel`}>{t('BUTTONS.cancel')}</button>
 					<button onClick={this.onClick} className={`save ${disabled}`}>{t('BUTTONS.save')}</button>
-				</div>
+				</Editor>
+
 				{this.state.busy ?
 					<Loading message="Saving..."/> : null}
 			</div>
