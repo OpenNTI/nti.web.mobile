@@ -20,7 +20,6 @@ export default React.createClass({
 			<div className="educational-experience">
 				<h2 className="educational-experience-school">{item.school}</h2>
 				<p className="educational-experience-degree">{item.degree}</p>
-				<div className="educational-experience-description">{item.description}</div>
 			</div>
 		);
 	}
