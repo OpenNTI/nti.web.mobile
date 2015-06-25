@@ -83,19 +83,24 @@ export default React.createClass({
 	},
 
 
+	getCourse (strict = true) {
+		let {course} = this.state;
+		return (course || {}).CourseInstance || (strict ? null : course);
+	},
+
+
 	render () {
-		let record = this.state.course;
-		let course = (record || {}).CourseInstance;
+		let course = this.getCourse();
 		let entry = course && course.CatalogEntry;
 
 		if (this.state.loading) {
 			return (<Loading/>);
 		}
 
-		if ((record && record.error) || !course || !entry) {
-			return record.notFound ?
+		if ((course && course.error) || !entry) {
+			return course.notFound ?
 				(<NotFound/>) :
-				(<ErrorWidget error={record.error}/>);
+				(<ErrorWidget error={course.error}/>);
 		}
 
 		return React.createElement(Router.Locations, {contextual: true},
