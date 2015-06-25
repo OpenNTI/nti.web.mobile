@@ -1,4 +1,7 @@
 import React from 'react';
+
+import cx from 'classnames';
+
 import {Editor} from 'modeled-content';
 
 import Loading from 'common/components/Loading';
@@ -23,20 +26,18 @@ export default React.createClass({
 
 
 	render () {
-		let {value} = this.state;
-
-		let disabled = Editor.isEmpty(value) ? 'disabled' : '';
-		let busy = this.state.busy ? 'busy' : '';
+		let {value, busy} = this.state;
+		let disabled = Editor.isEmpty(value);
 
 		return (
-			<div className={`feedback editor ${busy}`}>
+			<div className={cx('feedback editor', {busy})}>
 
 				<Editor ref="editor" value={value} onChange={this.onChange} onBlur={this.onChange} allowInsertImage={false}>
-					<button onClick={this.onCancel} className={`cancel`}>{t('BUTTONS.cancel')}</button>
-					<button onClick={this.onClick} className={`save ${disabled}`}>{t('BUTTONS.save')}</button>
+					<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
+					<button onClick={this.onClick} className={cx('save', {disabled})}>{t('BUTTONS.save')}</button>
 				</Editor>
 
-				{this.state.busy ?
+				{busy ?
 					<Loading message="Saving..."/> : null}
 			</div>
 		);
