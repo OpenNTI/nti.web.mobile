@@ -35,8 +35,10 @@
 	}
 }
 
-.professional-position {
-	.professional-position-company {
+.professional-position,
+.educational-experience {
+	.professional-position-company,
+	.educational-experience-school {
 		font-size: 1rem;
 		font-weight: 700;
 		margin: 0;
@@ -44,7 +46,8 @@
 	.professional-position-title {
 
 	}
-	.professional-position-description {
+	.professional-position-description,
+	.educational-experience-description {
 		font-style: italic;
 	}
 }
