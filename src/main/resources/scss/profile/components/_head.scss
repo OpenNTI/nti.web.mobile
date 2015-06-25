@@ -44,6 +44,40 @@
 		font-size: .6875rem;
 		list-style-type: none;
 		margin-left: 0;	
+		li {
+			$icon-color: $secondary-grey;
+			$icon-size: 1.5em;
+			line-height: $icon-size * 1.5;
+			padding-left: $icon-size * 1.5;
+			position: relative;
+			&::before {
+				position: absolute;
+				content: ' ';
+				top: 10%;
+				left: 0;
+				width: $icon-size;
+				height: $icon-size;
+				mask-size: 100% 100%;
+			}
+			&.education {
+				&::before {
+					background-color: $icon-color;
+					mask-image: url('../images/svg/profile-education.svg');
+				}
+			}
+			&.affiliation {
+				&::before {
+					background-color: $icon-color;
+					mask-image: url('../images/svg/profile-professional.svg');
+				}
+			}
+			&.location {
+				&::before {
+					background-color: $icon-color;
+					mask-image: url('../images/svg/profile-location.svg');
+				}
+			}
+		}
 	}
 }
 
