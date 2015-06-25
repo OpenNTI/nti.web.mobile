@@ -19,7 +19,7 @@ export default React.createClass({
 		return (
 			<div className="professional-position">
 				<h2 className="professional-position-company">{item.companyName}</h2>
-				<p className="professional-position-title">{item.title}</p>
+				<p><span className="title">{item.title}</span>, <span className="years">{item.startYear} to {item.endYear}</span></p>
 				<div className="professional-position-description">{item.description}</div>
 			</div>
 		);
