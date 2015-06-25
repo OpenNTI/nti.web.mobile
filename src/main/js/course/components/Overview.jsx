@@ -43,6 +43,7 @@ export default React.createClass({
 			label: node.title,
 			ntiid: node.getID(),
 			ref: node.ref,
+			scope: node,//for UGD
 			href
 		}));
 	},

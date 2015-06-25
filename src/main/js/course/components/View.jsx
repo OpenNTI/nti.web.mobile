@@ -117,11 +117,13 @@ export default React.createClass({
 			{
 				source: 'course/components/View',
 				label: 'Courses',
-				href: this.getBasePath()
-			}/*,{
-				label: 'Course Index',
-
-			}*/
+				href: this.getBasePath(),
+				//You may be asking why is this on this context node, instead of on the next level down...
+				//The reason is to not repeat ourselves. Each route below this point would just echo this value,
+				//so while this node points back to the library, it allows us a common point to supply a scope
+				//for saving UGD.
+				scope: this.getCourse(true)
+			}
 		]);
 	}
 });
