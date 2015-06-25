@@ -3,6 +3,7 @@ import React from 'react';
 import Loader from 'common/components/TinyLoader';
 import {default as DisplayName} from 'common/components/DisplayName';
 import resolveUser from 'common/utils/resolve-user';
+import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 
 export default React.createClass({
 	displayName: 'HeadSummary',
@@ -29,17 +30,22 @@ export default React.createClass({
 			return <Loader />;
 		}
 
+		let ed = ensureArray(user.education);
+
 		return (
 			<div className="profile-head-summary">
 				<div className="label">
 					<DisplayName username={this.props.username}/>
 				</div>
 				<ul className="profile-head-summary-attrs">
+					{ed.map(item => {
+						return <li className='education'>{item.degree} at {item.school}</li>;
+					})}
 					{[
-						'education',
 						'affiliation',
 						'location',
-						'home_page'].map( attr => user[attr] && <li className={attr}>{user[attr]}</li>)}
+						'home_page'].map( attr => user[attr] && <li className={attr}>{user[attr]}</li>)
+					}
 				</ul>
 			</div>
 		);
