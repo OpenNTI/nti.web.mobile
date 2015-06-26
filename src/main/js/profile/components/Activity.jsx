@@ -43,8 +43,9 @@ export default React.createClass({
 			<ul className="profile-cards">
 				{activity.map(a => {
 					// localize the last segment of the mime type for the card title.
-					let title = t(a.MimeType.substr(a.MimeType.lastIndexOf('.') + 1));
-					return <Card className="activity" title={title}>{this.renderItems(a)}</Card>
+					let mime = a.MimeType.substr(a.MimeType.lastIndexOf('.') + 1);
+					let title = t(mime);
+					return <Card className={mime} title={title}>{this.renderItems(a)}</Card>;
 				})}
 			</ul>
 		);

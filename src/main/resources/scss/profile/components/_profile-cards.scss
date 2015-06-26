@@ -26,6 +26,15 @@
 	&.achievements {
 		border-left-color: #fdcf61;
 	}
+	&.generalforumcomment {
+		border-left-color: #fdcf61;	
+	}
+	&.communityheadlinetopic {
+		border-left-color: #7ecfc8;
+	}
+	&.highlight {
+		border-left-color: #fc9f77;	
+	}
 	h1 {
 		font-size: 1.25rem;
 		border-bottom: 1px solid $quad-grey;
