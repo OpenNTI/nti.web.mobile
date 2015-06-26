@@ -1,37 +1,35 @@
 import React from 'react/addons';
 
-import {Locations, Location, NotFound} from 'react-router-component';
+import Router from 'react-router-component';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
+
+import Page from './Page';
 import Activity from './Activity';
 import Achievements from './Achievements';
 import About from './About';
-import ActiveLink from 'forums/components/ActiveLink';
-import LogoutButton from 'login/components/LogoutButton';
-import {getAppUsername} from 'common/utils';
-import FollowButton from './FollowButton';
-import EditButton from './EditButton';
-import NavigationBar from 'navigation/components/Bar';
+
 import Redirect from 'navigation/components/Redirect';
-
-import Gradient from 'common/components/GradientBackground';
-import Head from './Head';
-
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import resolveUser from 'common/utils/resolve-user';
 
+const ROUTES = [
+	{path: '/activity(/*)',		handler: Activity },
+	{path: '/achievements(/*)',	handler: Achievements },
+	{path: '/about(/*)',		handler: About },
+	{}//default
+];
+
 export default React.createClass({
 	displayName: 'profile:View',
-	mixins: [BasePathAware, ContextSender, NavigatableMixin],
+	mixins: [BasePathAware, ContextSender],
 
 	propTypes: {
 		username: React.PropTypes.string.isRequired
 	},
 
-	getInitialState: function() {
-		return {
-		};
+	getInitialState () {
+		return {};
 	},
 
 	getContext (/*props*/) {
@@ -97,53 +95,19 @@ export default React.createClass({
 
 	render () {
 		let {username} = this.props;
+		let {user} = this.state;
+
 		username = decodeURIComponent(username);
-		let me = username === getAppUsername();
-		return (
-			<div>
-				<NavigationBar title="Profile" />
-				<Gradient className="profile-wrapper">
-					<div className="profile-top-controls">
-						<ul className="profile-top-controls-breadcrumb">
-							<li>People</li>
-							<li>{username}</li>
-						</ul>
-						<ul className="profile-top-controls-buttons">
-							{me && <li><LogoutButton/></li>}
-							<li>{me ? <EditButton/> : <FollowButton />}</li>
-						</ul>
-					</div>
-					<div className="profile">
-						<Head {...this.props} />
-						<ul className="profile-nav">
-							<li className="profile-nav-item"><ActiveLink href={this.makeHref('/about/', true)}>About</ActiveLink></li>
-							<li className="profile-nav-item"><ActiveLink href={this.makeHref('/activity/', true)}>Activity</ActiveLink></li>
-							<li className="profile-nav-item"><ActiveLink href={this.makeHref('/achievements/', true)}>Achievements</ActiveLink></li>
-						</ul>
-						<Locations contextual ref="router">
-							<Location
-								path="/activity(/*)"
-								handler={Activity}
-								user={this.state.user}
-							/>
-							<Location
-								path="/achievements(/*)"
-								handler={Achievements}
-								user={this.state.user}
-							/>
-							<Location
-								path="/about(/*)"
-								handler={About}
-								user={this.state.user}
-							/>
-							<NotFound
-								handler={Redirect}
-								location='/about/'
-							/>
-						</Locations>
-					</div>
-				</Gradient>
-			</div>
-		);
+
+		return React.createElement(Router.Locations, {ref: 'router', contextual: true},
+			...ROUTES.map(route=>
+				route.path ?
+				<Router.Location {...route}
+					handler={Page} pageContent={route.handler}
+					user={user}
+					username={username}
+					/> :
+				<Router.NotFound handler={Redirect} location="/about/"/>
+			));
 	}
 });
