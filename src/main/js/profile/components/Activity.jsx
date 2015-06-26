@@ -40,7 +40,7 @@ export default React.createClass({
 		}
 
 		return (
-			<ul className="profile-cards">
+			<ul className="profile-cards activity">
 				{activity.map(a => {
 					// localize the last segment of the mime type for the card title.
 					let mime = a.MimeType.substr(a.MimeType.lastIndexOf('.') + 1);
