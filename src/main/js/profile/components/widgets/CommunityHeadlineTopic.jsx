@@ -1,4 +1,5 @@
 import React from 'react';
+import ModeledContent from 'modeled-content/components/Panel';
 
 export default React.createClass({
 	displayName: 'CommunityHeadlineTopic',
@@ -22,7 +23,7 @@ export default React.createClass({
 		}
 
 		return (
-			<div>{item.title}</div>
+			<ModeledContent body={item.headline.body} />
 		);
 
 	}

@@ -1,4 +1,5 @@
 import React from 'react';
+import ModeledContent from 'modeled-content/components/Panel';
 
 export default React.createClass({
 	displayName: 'ForumTopic',
@@ -22,7 +23,7 @@ export default React.createClass({
 		}
 
 		return (
-			<div>{item.body}</div>
+			<ModeledContent body={item.body} />
 		);
 
 	}
