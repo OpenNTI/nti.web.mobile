@@ -57,24 +57,20 @@
 				left: 0;
 				width: $icon-size;
 				height: $icon-size;
-				mask-size: 100% 100%;
 			}
 			&.education {
 				&::before {
 					@extend %profile-education;
-					background-color: $icon-color;
 				}
 			}
 			&.affiliation {
 				&::before {
 					@extend %profile-professional;
-					background-color: $icon-color;
 				}
 			}
 			&.location {
 				&::before {
 					@extend %profile-location;
-					background-color: $icon-color;
 				}
 			}
 		}
