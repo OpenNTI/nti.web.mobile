@@ -305,7 +305,7 @@
     "nti.lib.interfaces": {
       "version": "0.0.0",
       "from": "nti.lib.interfaces@git+https://repos.nextthought.com/git/nti.lib.interfaces",
-      "resolved": "git+https://repos.nextthought.com/git/nti.lib.interfaces#75f6090094d8acd0b5b3e8e198d1f90a4f8899d4"
+      "resolved": "git+https://repos.nextthought.com/git/nti.lib.interfaces#d50d76710e2b056762b2e773613037e31ac130ac"
     },
     "nti.lib.ranges": {
       "version": "1.0.3",
