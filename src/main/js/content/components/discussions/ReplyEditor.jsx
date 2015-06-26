@@ -4,20 +4,25 @@ import cx from 'classnames';
 
 import {Editor} from 'modeled-content';
 
+import Loading from 'common/components/Loading';
+
 import t from 'common/locale';
 
-import Loading from 'common/components/Loading';
+import ContextAccessor from 'common/mixins/ContextAccessor';
 
 export default React.createClass({
 	displayName: 'ReplyEditor',
+	mixins: [ContextAccessor],
+
 
 	propTypes: {
+		item: React.PropTypes.object,
+
 		value: React.PropTypes.array,
 
 		onCancel: React.PropTypes.func,
 
-
-		onSubmit: React.PropTypes.func
+		onSubmitted: React.PropTypes.func
 	},
 
 
@@ -27,6 +32,7 @@ export default React.createClass({
 
 
 	componentWillMount () {
+		this.resolveContext().then(context => this.setState({context}));
 		this.setState({
 			value: this.props.value || null
 		});
@@ -48,35 +54,35 @@ export default React.createClass({
 		e.preventDefault();
 		e.stopPropagation();
 
+		let {item, onSubmitted} = this.props;
+		let {context, value} = this.state;
 
-		let {value} = this.state;
-
-		if (Editor.isEmpty(value)) {
+		if (!item || !context || Editor.isEmpty(value)) {
 			return;
 		}
+
+		let scopes = context.map(x=> x.scope).filter(x=> x);
 
 		this.setState({busy: true});
-		let thenable = this.props.onSubmit(value);
-		if (!thenable) {
-			console.error('onSubmit callback did not return a thenable, this component will never leave the busy state.');
-			return;
-		}
 
-		thenable
-			.catch(()=> {
+		item.postReply(value, scopes)
+			.then(()=> onSubmitted())
+			.catch(er=> {
 				//is there a message to display?
+				console.error(er);
 			})
 			.then(()=> this.isMounted() && this.setState({busy: false}));
+
 	},
 
 
 	render () {
-		let {value, busy} = this.state;
+		let {busy, context, value} = this.state;
 
-		let disabled = Editor.isEmpty(value);
+		let disabled = !context || Editor.isEmpty(value);
 
 		return (
-			<div className={cx('reply editor', {busy})}>
+			<div className={cx('discussion-reply-editor editor', {busy})}>
 				<Editor ref="editor" value={value} onChange={this.onChange} onBlur={this.onChange}>
 					<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
 					<button onClick={this.onSubmit} className={cx('save', {disabled})}>{t('BUTTONS.save')}</button>

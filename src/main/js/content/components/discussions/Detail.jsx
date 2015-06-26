@@ -6,8 +6,6 @@ import Avatar from 'common/components/Avatar';
 import ContextSender from 'common/mixins/ContextSender';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
-import Err from 'common/components/Error';
-import Loading from 'common/components/LoadingInline';
 import LuckyCharms from 'common/components/LuckyCharms';
 import SharedWithList from 'common/components/SharedWithList';
 
@@ -21,14 +19,17 @@ import Body from 'modeled-content/components/Panel';
 
 import Context from './Context';
 import ItemActions from './ItemActions';
-import Reply, {ReplyComparator} from './Panel';
 import ReplyEditor from './ReplyEditor';
+import Reply from './Panel';
+
+import NotePanelBehavior from './NotePanelBehavior';
 
 export default React.createClass({
 	displayName: 'content:discussions:Detail',
 	mixins: [
 		ContextSender,
-		NavigatableMixin
+		NavigatableMixin,
+		NotePanelBehavior
 	],
 
 	propTypes: {
@@ -38,8 +39,12 @@ export default React.createClass({
 	},
 
 
-	getInitialState () {
-		return {};
+	componentDidMount () { this.updatePageSource(); },
+	componentWillReceiveProps (props) { this.updatePageSource(props); },
+
+	updatePageSource (props = this.props) {
+		let {pageSource, item} = props;
+		this.setPageSource(pageSource, item.getID());
 	},
 
 
@@ -50,40 +55,6 @@ export default React.createClass({
 			label: item.title || 'Note',
 			href: this.makeHref(encodeForURI(item.getID()))
 		});
-	},
-
-
-	componentDidMount () {
-		this.updateData();
-	},
-
-
-	componentWillReceiveProps (nextProps) {
-		this.updateData(nextProps);
-	},
-
-
-	updateData (props = this.props) {
-		let {pageSource, item} = props;
-		this.setPageSource(pageSource, item.getID());
-
-		this.setState({loading: true});
-		item.getReplies()
-			.then(
-				x => ({children: x}),
-				x => ({error: x})
-			)
-			.then(x => this.setState(Object.assign({loading: false}, x)));
-	},
-
-
-	hideReplyEditor () {
-		this.setState({replying: false});
-	},
-
-
-	showReplyEditor () {
-		this.setState({replying: true});
 	},
 
 
@@ -115,7 +86,7 @@ export default React.createClass({
 					<Body body={body}/>
 
 					{replying ? (
-						<ReplyEditor item={item} onCancel={this.hideReplyEditor}/>
+						<ReplyEditor item={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
 					) : (
 						<ItemActions item={item} isTopLevel onReply={this.showReplyEditor}/>
 					)}
@@ -126,18 +97,9 @@ export default React.createClass({
 	},
 
 
-	renderReplies () {
-		let {loading=true, error, children=[]} = this.state || {};
-		return loading ? (
-			<Loading />
-		) : error ? (
-			<Err error={error}/>
-		) : (
-			children.sort(ReplyComparator).map(x=> (
-
-				<Reply item={x} key={x.getID()}/>
-
-			))
+	renderReply (item) {
+		return (
+			<Reply item={item} key={item.getID()}/>
 		);
 	}
 });

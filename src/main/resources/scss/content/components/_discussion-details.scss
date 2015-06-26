@@ -237,3 +237,14 @@
 		clear: both;
 	}
 }
+
+.discussion-reply-editor {
+	margin-top: 1rem;
+	position: relative;
+
+	&.busy {
+		.editor {
+			visibility: hidden;
+		}
+	}
+}

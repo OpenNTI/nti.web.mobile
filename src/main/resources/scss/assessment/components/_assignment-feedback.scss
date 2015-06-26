@@ -69,8 +69,6 @@
 
 .feedback.editor{
 	&.busy {
-		button.save,
-		button.cancel,
 		.editor {
 			visibility: hidden;
 		}
