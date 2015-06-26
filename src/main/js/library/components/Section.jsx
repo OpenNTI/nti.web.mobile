@@ -36,6 +36,7 @@ export default React.createClass({
 	render () {
 		let {section} = this.props;
 		let bins = section ? this.getBinnedData(section) : [];
+		let showCatalog = /courses/i.test(section);
 
 		let props = {
 			className: 'library-view'
@@ -51,7 +52,7 @@ export default React.createClass({
 		return (
 			<div>
 				<NavigationBar title="Library">
-					<a href={this.getBasePath() + 'catalog/'} position="left" className="add">Add</a>
+					{showCatalog && ( <a href={this.getBasePath() + 'catalog/'} position="left" className="add">Add</a> )}
 					{availableSections &&
 						React.createElement('ul', {className: 'title-tabs', position: 'center'},
 							...availableSections.map(x=>
