@@ -3,9 +3,13 @@ import React from 'react';
 export default React.createClass({
 	displayName: 'UnknownWidget',
 
+	propTypes: {
+		item: React.PropTypes.any.isRequired
+	},
+
 	render () {
 		return (
-			<div>UnknownWidget</div>
+			<div>UnknownWidget: {this.props.item.MimeType}</div>
 		);
 	}
 });
