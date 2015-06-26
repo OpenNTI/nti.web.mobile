@@ -23,6 +23,21 @@ widget {
 		-webkit-box-sizing: border-box;
 	}
 
+	.label {
+		font-family: inherit;
+		line-height: inherit;
+		white-space: inherit;
+		display: inherit;
+		margin-bottom: inherit;
+		padding: inherit;
+		font-size: inherit;
+		background-color: inherit;
+		color: inherit;
+		text-decoration: inherit;
+		font-weight: inherit;
+		text-align: inherit;
+	}
+
 
 	li a:empty {display: none;}
 
