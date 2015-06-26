@@ -18,7 +18,15 @@ export default React.createClass({
 	},
 
 	componentWillMount: function() {
-		resolveUser(this.props).then(user => {
+		this.setUser();
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		this.setUser(nextProps);
+	},
+
+	setUser(props=this.props) {
+		resolveUser(props).then(user => {
 			this.setState({user});
 		});
 	},
