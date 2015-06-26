@@ -61,20 +61,20 @@
 			}
 			&.education {
 				&::before {
+					@extend %profile-education;
 					background-color: $icon-color;
-					mask-image: url('../images/svg/profile-education.svg');
 				}
 			}
 			&.affiliation {
 				&::before {
+					@extend %profile-professional;
 					background-color: $icon-color;
-					mask-image: url('../images/svg/profile-professional.svg');
 				}
 			}
 			&.location {
 				&::before {
+					@extend %profile-location;
 					background-color: $icon-color;
-					mask-image: url('../images/svg/profile-location.svg');
 				}
 			}
 		}
