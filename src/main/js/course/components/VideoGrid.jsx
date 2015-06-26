@@ -6,7 +6,6 @@ import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
-import EmptyList from 'common/components/EmptyList';
 
 //some notes: http://stackoverflow.com/questions/20870448/reactjs-modeling-bi-directional-infinite-scrolling
 //I want to turn this into a buffered list.
@@ -68,10 +67,6 @@ export default React.createClass({
 	render () {
 		let {course, VideoIndex} = this.props;
 		let {icons} = this.state;
-
-		if(VideoIndex.length === 0) {
-			return <EmptyList type="videos"/>;
-		}
 
 		return (
 			<ul className="small-block-grid-1 medium-block-grid-2">

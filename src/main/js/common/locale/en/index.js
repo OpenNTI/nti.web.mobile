@@ -42,9 +42,7 @@ export default {
 	LISTS: {
 		noMatches: 'No items match the selected filter.',
 		emptyList: 'This list is empty.',
-		'emptyList:discussions': 'No discussions.',
-		'emptyList:videos': 'No videos.'
-
+		'emptyList:discussions': 'No discussions.'
 	},
 
 	CONTENT: content,
