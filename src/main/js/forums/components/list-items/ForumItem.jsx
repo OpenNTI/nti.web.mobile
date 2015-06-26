@@ -27,9 +27,7 @@ export default React.createClass({
 	],
 
 	statics: {
-		inputType: [
-			mimeTypes[FORUM]
-		]
+		inputType: mimeTypes[FORUM]
 	},
 
 	propTypes: {
