@@ -11,7 +11,7 @@ import {
 const URLPatternCompilerFactory = createURLPatternCompiler;
 setCreateURLPatternCompilerFactory(() => {
 	let compiler = URLPatternCompilerFactory();
-	compiler.segmentValueCharset = 'a-zA-Z0-9-_ %.:';
+	compiler.segmentValueCharset = 'a-zA-Z0-9-_ %.:()';
 	return compiler;
 });
 
