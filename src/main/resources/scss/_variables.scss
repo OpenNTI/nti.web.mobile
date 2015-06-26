@@ -72,19 +72,55 @@ $table-head-font-color: $primary-grey;
 $table-row-font-color: $primary-grey;
 $tabs-navigation-font-color: $primary-grey;
 
-%chevron-left {background-image: url(../images/svg/chevron-left.svg);}
-%chevron-left-white {background-image: url(../images/svg/chevron-left-white.svg);}
-%chevron-right {background-image: url(../images/svg/chevron-right.svg);}
-%chevron-right-white {background-image: url(../images/svg/chevron-right-white.svg);}
-%chevron-up {background-image: url(../images/svg/chevron-up.svg);}
-%chevron-up-white {background-image: url(../images/svg/chevron-up-white.svg);}
-%chevron-down {background-image: url(../images/svg/chevron-down.svg);}
-%chevron-down-white {background-image: url(../images/svg/chevron-down-white.svg);}
-
 %svg-icon-mask {
 	mask-size: 100% 100%;
 	background-color: $secondary-grey;
 }
+
+%chevron-left {
+	@extend %svg-icon-mask;
+	mask-image: url(../images/svg/chevron-left.svg);
+	background-color: $primary-blue;
+}
+
+%chevron-left-white {
+	@extend %chevron-left;
+	background-color: white;
+}
+
+%chevron-right {
+	@extend %svg-icon-mask;
+	mask-image: url(../images/svg/chevron-right.svg);
+	background-color: $primary-blue;
+}
+
+%chevron-right-white {
+	@extend %chevron-right;
+	background-color: white;
+}
+
+%chevron-up {
+	@extend %svg-icon-mask;
+	mask-image: url(../images/svg/chevron-up.svg);
+	background-color: $primary-blue;
+}
+
+%chevron-up-white {
+	@extend %chevron-up;
+	background-color: white;
+}
+
+%chevron-down {
+	@extend %svg-icon-mask;
+	mask-image: url(../images/svg/chevron-down.svg);
+	background-color: $primary-blue;
+}
+
+%chevron-down-white {
+	@extend %chevron-down;
+	background-color: white;
+}
+
 %profile-education {
 	@extend %svg-icon-mask;
 	mask-image: url('../images/svg/profile-education.svg');
