@@ -214,7 +214,9 @@ widget {
 
 	.externalvideo {
 		display: inline-block;
-		margin: 0.75em auto 2em;
+		margin: 0 auto 2em;
+
+		iframe {max-width: 100%;}
 	}
 
 	div.section-problems,
