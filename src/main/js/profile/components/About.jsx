@@ -26,13 +26,18 @@ export default React.createClass({
 			return <Loading />;
 		}
 
+		let hasInfo = false;
+
 		return (
 			<ul className="profile-cards">
 				{sections.map((s, index) => {
-					return (
-						<Card className={s} title={t(s)}><div>{this.renderItems(user[s], index)}</div></Card>
-					);
+					if (user[s]) {
+						hasInfo = true;
+						return <Card className={s} title={t(s)}><div>{this.renderItems(user[s], index)}</div></Card>;
+					}
+					return null;
 				})}
+				{!hasInfo && <Card><div>No additional information available.</div></Card>}
 			</ul>
 		);
 	}
