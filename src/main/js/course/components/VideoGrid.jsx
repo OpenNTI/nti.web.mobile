@@ -17,7 +17,7 @@ export default React.createClass({
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
-		VideoIndex: React.PropTypes.object.isRequired
+		VideoIndex: React.PropTypes.object
 	},
 
 
@@ -48,20 +48,23 @@ export default React.createClass({
 
 	fillInIcons (props) {
 		let icons = {};
+		let {VideoIndex} = props || {};
 
 		function fallback (x) {
 			let s = x && ((x.sources || [])[0] || {});
 			return s.thumbnail || s.poster;
 		}
 
-		props.VideoIndex.map(v=>
-			v.getThumbnail()
-				.then(
-					i=> icons[v.ntiid] = i,
-					()=> icons[v.ntiid] = fallback(v)
-				)
-				.then(()=>this.setState({icons}))
-			);
+		if (VideoIndex) {
+			VideoIndex.map(v=>
+				v.getThumbnail()
+					.then(
+						i=> icons[v.ntiid] = i,
+						()=> icons[v.ntiid] = fallback(v)
+					)
+					.then(()=>this.setState({icons}))
+				);
+		}
 	},
 
 
@@ -69,7 +72,7 @@ export default React.createClass({
 		let {course, VideoIndex} = this.props;
 		let {icons} = this.state;
 
-		if(VideoIndex.length === 0) {
+		if(!VideoIndex || VideoIndex.length === 0) {
 			return <EmptyList type="videos"/>;
 		}
 
