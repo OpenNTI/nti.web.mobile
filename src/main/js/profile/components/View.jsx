@@ -1,6 +1,9 @@
 import React from 'react/addons';
 
 import Router from 'react-router-component';
+
+import Loading from 'common/components/Loading';
+
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -98,6 +101,10 @@ export default React.createClass({
 		let {user} = this.state;
 
 		username = decodeURIComponent(username);
+
+		if (!user) {
+			return ( <Loading /> );
+		}
 
 		return React.createElement(Router.Locations, {ref: 'router', contextual: true},
 			...ROUTES.map(route=>
