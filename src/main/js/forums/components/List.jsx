@@ -46,7 +46,7 @@ export default React.createClass({
 
 		return (
 			empty ?
-				<Notice>{emptyText}</Notice>
+				<Notice className="empty-list">{emptyText}</Notice>
 				:
 				<ul {...this.props}>
 					{Items.map((item, index)=>
