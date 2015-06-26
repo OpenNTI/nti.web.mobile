@@ -5,5 +5,13 @@ export default {
 			'education': 'Education',
 			'positions': 'Professional'
 		}
+	},
+
+	ACTIVITY: {
+		TITLES: {
+			communityheadlinetopic: 'Topic',
+			generalforumcomment: 'Forum Comment',
+			highlight: 'Highlight'
+		}
 	}
 };

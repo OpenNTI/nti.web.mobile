@@ -2,6 +2,8 @@ import React from 'react';
 import Card from './Card';
 import renderItemsMixin from './widgets/Mixin';
 import Loading from 'common/components/TinyLoader';
+import {scoped} from 'common/locale';
+let t = scoped('PROFILE.ACTIVITY.TITLES');
 
 export default React.createClass({
 	displayName: 'Activity',
@@ -39,9 +41,11 @@ export default React.createClass({
 
 		return (
 			<ul className="profile-cards">
-				<Card className="activity" title="Activity">
-					{this.renderItems(activity)}
-				</Card>
+				{activity.map(a => {
+					// localize the last segment of the mime type for the card title.
+					let title = t(a.MimeType.substr(a.MimeType.lastIndexOf('.') + 1));
+					return <Card className="activity" title={title}>{this.renderItems(a)}</Card>
+				})}
 			</ul>
 		);
 	}

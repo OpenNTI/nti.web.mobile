@@ -22,7 +22,7 @@ export default React.createClass({
 		}
 
 		return (
-			<div>{item.title}</div>
+			<div>{item.body}</div>
 		);
 
 	}
