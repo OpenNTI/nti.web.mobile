@@ -3,6 +3,7 @@ import React from 'react';
 import {scoped} from 'common/locale';
 
 import ActiveState from 'common/components/ActiveState';
+import EmptyList from 'common/components/EmptyList';
 
 import NavigationBar from 'navigation/components/Bar';
 
@@ -59,8 +60,13 @@ export default React.createClass({
 								<li><ActiveState tag="a" {...sectionProps(x)}/></li>
 							))}
 				</NavigationBar>
-				{React.createElement('div', props, ...bins.map(b=>
-					<Collection title={b.name} subtitle={b.label} list={b.items}/>))}
+				{ bins && bins.length > 0
+					? React.createElement('div', props, ...bins.map(b=>
+						<Collection title={b.name} subtitle={b.label} list={b.items}/>))
+					: (
+						<EmptyList type={'library-' + section}/>
+					)
+				}
 			</div>
 		);
 	}

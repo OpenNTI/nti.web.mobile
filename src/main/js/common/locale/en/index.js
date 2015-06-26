@@ -42,7 +42,9 @@ export default {
 	LISTS: {
 		noMatches: 'No items match the selected filter.',
 		emptyList: 'This list is empty.',
-		'emptyList:discussions': 'No discussions.'
+		'emptyList:discussions': 'No discussions.',
+		'emptyList:library-admin': 'No Administered Courses.',
+		'emptyList:library-courses': 'You don\'t have any courses yet...'
 	},
 
 	CONTENT: content,
