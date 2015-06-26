@@ -152,7 +152,7 @@ export default React.createClass({
 
 		count = count > 99 ? '99+' : count;
 
-		let href = this.makeHref(join(this.getPath(), `/discussions/`));
+		let href = this.makeHref(`/discussions/`);
 
 		return (
 			<a data-line={h} href={href} style={top} className={css} onClick={this.onClick}>{count}</a>
