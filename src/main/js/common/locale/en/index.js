@@ -44,7 +44,8 @@ export default {
 		emptyList: 'This list is empty.',
 		'emptyList:discussions': 'No discussions.',
 		'emptyList:library-admin': 'No Administered Courses.',
-		'emptyList:library-courses': 'You don\'t have any courses yet...'
+		'emptyList:library-courses': 'You don\'t have any courses yet...',
+		'emptyList:videos': 'No videos.'
 	},
 
 	CONTENT: content,
