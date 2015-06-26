@@ -316,20 +316,9 @@ widget {
 			margin-top: 1.1875rem;
 			margin-bottom: 0.5em;
 
-			span.ref{
-				display: block;
-				width: 65px;
-				text-align: right;
-				float: left;
-				padding: 0;
-			}
-
+			span.ref,
 			span.label {
-				font-size: inherit;
-				margin-left: 80px;
-				border: none;
-				padding: 0;
-				display: block;
+				display: inline;
 			}
 		}
 
