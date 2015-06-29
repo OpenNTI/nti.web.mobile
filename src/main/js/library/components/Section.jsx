@@ -1,5 +1,7 @@
 import React from 'react';
 
+import cx from 'classnames';
+
 import {scoped} from 'common/locale';
 
 import ActiveState from 'common/components/ActiveState';
@@ -40,7 +42,7 @@ export default React.createClass({
 		let showCatalog = /courses/i.test(section);
 
 		let props = {
-			className: 'library-view'
+			className: cx('library-view', { 'single-section': bins.length === 1 })
 		};
 
 		let {availableSections} = this.state;
