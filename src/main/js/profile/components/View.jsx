@@ -60,7 +60,7 @@ export default React.createClass({
 		});
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		this.updateUser(nextProps);
 	},
 

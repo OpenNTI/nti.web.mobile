@@ -9,12 +9,12 @@ export default React.createClass({
 	displayName: 'Activity',
 	mixins: [renderItemsMixin],
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 		};
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if(nextProps.user) {
 			nextProps.user.getActivity().then(
 				activity => this.setState({

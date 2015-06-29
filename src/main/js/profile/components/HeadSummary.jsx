@@ -12,16 +12,16 @@ export default React.createClass({
 		username: React.PropTypes.string.isRequired
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount () {
 		this.setUser();
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		this.setUser(nextProps);
 	},
 
