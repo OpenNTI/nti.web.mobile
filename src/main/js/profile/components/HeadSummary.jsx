@@ -22,7 +22,10 @@ export default React.createClass({
 	},
 
 	componentWillReceiveProps (nextProps) {
-		this.setUser(nextProps);
+		let {username} = this.props;
+		if (username !== nextProps.username) {
+			this.setUser(nextProps);
+		}
 	},
 
 	setUser(props=this.props) {
