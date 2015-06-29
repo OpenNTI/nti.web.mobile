@@ -6,6 +6,7 @@ import FollowButton from './FollowButton';
 // import EditButton from './EditButton';
 
 import ActiveLink from 'common/components/ActiveLink';
+import DisplayName from 'common/components/DisplayName';
 import Gradient from 'common/components/GradientBackground';
 import Page from 'common/components/Page';
 
@@ -34,7 +35,7 @@ export default React.createClass({
 					<div className="profile-top-controls">
 						<ul className="profile-top-controls-breadcrumb">
 							<li>People</li>
-							<li>{username}</li>
+							<li><DisplayName username={username}/></li>
 						</ul>
 						<ul className="profile-top-controls-buttons">
 							{me && <li><LogoutButton/></li>}
