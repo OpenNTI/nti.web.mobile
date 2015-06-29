@@ -53,13 +53,15 @@ export default React.createClass({
 	propTypes: {
 		rootId: React.PropTypes.string,
 		pageId: React.PropTypes.string,
-		contentPackage: React.PropTypes.object
+		contentPackage: React.PropTypes.object,
+		onPageLoaded: React.PropTypes.func
 	},
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
 		default: 'onStoreChange'
 	},
+
 
 	signalResourceLoaded () {
 		let {page} = this.state;
@@ -79,9 +81,18 @@ export default React.createClass({
 		this.resourceLoaded.apply(this, args);
 	},
 
+
 	resumeAnalyticsEvents() {
 		this.signalResourceLoaded();
 	},
+
+
+	getDefaultProps () {
+		return {
+			onPageLoaded: () => {}
+		};
+	},
+
 
 	getResetState () {
 		return {
@@ -114,7 +125,7 @@ export default React.createClass({
 	},
 
 
-	componentDidUpdate: function() {
+	componentDidUpdate () {
 		let {pageSource, currentPage} = this.state;
 		this.setPageSource(pageSource, currentPage);
 	},
@@ -154,6 +165,11 @@ export default React.createClass({
 		let id = this.getPageID();
 		let page = Store.getPageDescriptor(id);
 		let pageSource, pageTitle, error;
+		let {onPageLoaded} = this.props;
+
+		if (!page) { //the event was not for this component.
+			return;
+		}
 
 		if (page instanceof PageDescriptor) {
 			pageSource = page.getPageSource(this.getRootID());
@@ -163,15 +179,41 @@ export default React.createClass({
 			page = undefined;
 		}
 
-		this.setState({
-			currentPage: id,
-			loading: false,
-			page,
-			pageSource,
-			pageTitle,
-			error
-		},
-		()=> this.signalResourceLoaded());
+		let pageLoaded = Promise.resolve(page);
+		if (page) {
+			pageLoaded = this.verifyContentPackage(page.pageInfo)
+				.then(()=> onPageLoaded(page.pageInfo));
+		}
+
+		pageLoaded.then(()=> {
+
+			this.setState({
+				currentPage: id,
+				loading: false,
+				page,
+				pageSource,
+				pageTitle,
+				error
+			},
+
+			()=> this.signalResourceLoaded());
+
+		});
+	},
+
+
+	verifyContentPackage (pageInfo) {
+		let {contentPackage} = this.props;
+		let packageId = pageInfo.getPackageID();
+
+		let fallback = p => p.getID() === packageId;
+		let test = p => p.containsPackage ? p.containsPackage(packageId) : fallback(p);
+
+		if (!test(contentPackage)) {
+			console.debug('Cross-Referenced... need to redirect to a new context that contains: %s', packageId);
+		}
+
+		return Promise.resolve();
 	},
 
 
