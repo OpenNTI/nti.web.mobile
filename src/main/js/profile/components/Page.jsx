@@ -3,7 +3,7 @@ import React from 'react';
 import LogoutButton from 'login/components/LogoutButton';
 
 import FollowButton from './FollowButton';
-import EditButton from './EditButton';
+// import EditButton from './EditButton';
 
 import ActiveLink from 'common/components/ActiveLink';
 import Gradient from 'common/components/GradientBackground';
@@ -38,7 +38,7 @@ export default React.createClass({
 						</ul>
 						<ul className="profile-top-controls-buttons">
 							{me && <li><LogoutButton/></li>}
-							<li>{me ? <EditButton/> : <FollowButton />}</li>
+							<li>{me ? null : <FollowButton />}</li>
 						</ul>
 					</div>
 					<div className="profile">
