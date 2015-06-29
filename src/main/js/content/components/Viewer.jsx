@@ -15,7 +15,7 @@ import ContextSender from 'common/mixins/ContextSender';
 import Pager from 'common/components/Pager';
 
 import Store from '../Store';
-import {loadPage} from '../Actions';
+import {loadPage, resolveNewContext} from '../Actions';
 import PageDescriptor from '../PageDescriptor';
 
 import {
@@ -211,6 +211,7 @@ export default React.createClass({
 
 		if (!test(contentPackage)) {
 			console.debug('Cross-Referenced... need to redirect to a new context that contains: %s', packageId);
+			return resolveNewContext(pageInfo);
 		}
 
 		return Promise.resolve();
