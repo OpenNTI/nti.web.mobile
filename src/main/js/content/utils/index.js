@@ -26,6 +26,11 @@ export function processContent(packet, strategies = DEFAULT_STRATEGIES) {
 		parser = new DOMParser();
 	}
 
+	let start = /<(!DOCTYPE|html)/i.exec(html);
+	if (start && start.index > 0) {
+		html = html.substr(start.index);
+	}
+
 
 	let doc = parser && parser.parseFromString(html, 'text/html');
 	let elementFactory = doc || document;
