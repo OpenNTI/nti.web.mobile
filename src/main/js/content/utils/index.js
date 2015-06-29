@@ -26,6 +26,7 @@ export function processContent(packet, strategies = DEFAULT_STRATEGIES) {
 		parser = new DOMParser();
 	}
 
+	//Some content pages have invalid text before the beginning of the document. This will strip it.
 	let start = /<(!DOCTYPE|html)/i.exec(html);
 	if (start && start.index > 0) {
 		html = html.substr(start.index);
