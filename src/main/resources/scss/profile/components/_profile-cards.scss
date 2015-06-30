@@ -42,6 +42,12 @@
 		font-family: $body-font-family;
 		color: $secondary-grey;
 	}
+	.breadcrumb {
+		color: $tertiary-grey;
+    	font-size: .6875rem;
+    	text-transform: uppercase;
+    	font-weight: 700;
+	}
 }
 
 .professional-position {
@@ -65,3 +71,4 @@
 		font-style: italic;
 	}
 }
+

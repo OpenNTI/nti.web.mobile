@@ -32,7 +32,7 @@ export default React.createClass({
 		getTopicBreadcrumb(item.getID())
 		.then(breadcrumb => {
 			this.setState({
-				breadcrumb: breadcrumb
+				breadcrumb: breadcrumb[0]
 			});
 		})
 		.catch(reason => {
@@ -44,7 +44,6 @@ export default React.createClass({
 				}
 			});
 		});
-
 	},
 
 	fallbackText (item) {
@@ -53,13 +52,22 @@ export default React.createClass({
 		return text;
 	},
 
+	crumbText (breadcrumb) {
+		return breadcrumb.reduce( (previous, current) => {
+			let p = (current || {}).getPresentationProperties ? current.getPresentationProperties() : current;
+			let title = (p || {}).title;
+			// if there's no previous value (first iteration) just return the title so we don't have a leading slash.
+			return previous ? [previous, title].join(' / ') : title;
+		}, null);
+	},
+
 	render () {
 		let {breadcrumb} = this.state;
 		let bc = <Loading />;
 		let href = this.objectLink(this.props.item);
 
 		if (breadcrumb) {
-			bc = <a href={href} className="breadcrumb">{breadcrumb.isError ? this.fallbackText(this.props.item) : 'YAY' }</a>;
+			bc = <a href={href} className="breadcrumb">{breadcrumb.isError ? this.fallbackText(this.props.item) : this.crumbText(breadcrumb) }</a>;
 		}
 		return (
 			<div>{bc}</div>
