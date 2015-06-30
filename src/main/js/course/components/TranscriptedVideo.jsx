@@ -40,7 +40,7 @@ class Annotation {
 	resolveVerticalLocation () {
 		let {root, item} = this;
 		let {applicableRange} = item;
-		let start = applicableRange.getStart().getSeconds().toFixed(3);
+		let start = applicableRange && applicableRange.getStart().getSeconds().toFixed(3);
 
 		root = root.refs.transcript;
 
@@ -52,7 +52,7 @@ class Annotation {
 		root = React.findDOMNode(root);
 		let {scrollTop} = document.body;
 
-		let cue = root.querySelector(`[data-start-time="${start}"]`);
+		let cue = start && root.querySelector(`[data-start-time="${start}"]`);
 
 		//getBoundingClientRect is effected by scroll position... so add it back in.
 		return (cue ? cue : root).getBoundingClientRect().top + scrollTop;
