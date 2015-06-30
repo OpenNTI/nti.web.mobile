@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Loading from 'common/components/TinyLoader';
-
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import BasePathAware from 'common/mixins/BasePath';
 import {scoped} from 'common/locale';
 
 
@@ -13,7 +14,8 @@ let t = scoped('PROFILE.ACTIVITY.TITLES');
 
 export default React.createClass({
 	displayName: 'Activity',
-	mixins: [HasItems],
+
+	mixins: [HasItems, BasePathAware],
 
 	propTypes: {
 		user: React.PropTypes.object
@@ -70,8 +72,12 @@ export default React.createClass({
 					// localize the last segment of the mime type for the card title.
 					let mime = a.MimeType.split('.').pop();
 					let title = t(mime);
+					let href = this.getBasePath() + 'object/' + encodeForURI(a.NTIID) + '/';
 
-					return ( <Card key={a.NTIID} className={mime} title={title}>{this.renderItems(a)}</Card> );
+					return ( <a href={href}><Card key={a.NTIID}
+								className={mime}
+								title={title}
+								>{this.renderItems(a)}</Card></a> );
 				})}
 			</ul>
 		);
