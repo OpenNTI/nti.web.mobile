@@ -4,8 +4,9 @@
 }
 
 .profile-card {
+	$card-padding: 1rem;
 	background: white;
-	padding: 1rem;
+	padding: $card-padding;
 	padding-bottom: 2rem;
 	margin: 0.25rem 0;
 	border-left: 0.25rem solid transparent;
@@ -20,21 +21,21 @@
 	&.positions {
 		border-left-color: #7ecfc8;
 	}
-	&.activity {
-		border-left-color: #fdcf61;
-	}
-	&.achievements {
-		border-left-color: #fdcf61;
-	}
-	&.generalforumcomment {
-		border-left-color: #fdcf61;
-	}
-	&.communityheadlinetopic {
-		border-left-color: #7ecfc8;
-	}
-	&.highlight {
-		border-left-color: #fc9f77;
-	}
+	// &.activity {
+	// 	border-left-color: #fdcf61;
+	// }
+	// &.achievements {
+	// 	border-left-color: #fdcf61;
+	// }
+	// &.generalforumcomment {
+	// 	border-left-color: #fdcf61;
+	// }
+	// &.communityheadlinetopic {
+	// 	border-left-color: #7ecfc8;
+	// }
+	// &.highlight {
+	// 	border-left-color: #fc9f77;
+	// }
 	h1 {
 		font-size: 1.25rem;
 		border-bottom: 0.0625rem solid $quad-grey;
@@ -43,13 +44,21 @@
 		color: $secondary-grey;
 	}
 
+	.breadcrumb {
+	    border-bottom: 1px solid $quad-grey;
+	    display: block;
+	    padding-bottom: 1em;
+	    margin: 0px #{-$card-padding};
+	    padding-left: 0;
+	}
+
 	.breadcrumb-list {
+		margin: 0 $card-padding;
 		color: $tertiary-grey;
     	font-size: .6875rem;
     	text-transform: uppercase;
     	font-weight: 700;
     	list-style-type: none;
-    	margin: 0;
     	.crumb {
     		display: inline-block;
 			&::after {
