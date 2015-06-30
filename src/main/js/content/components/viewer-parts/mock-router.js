@@ -37,7 +37,7 @@ export default {
 				.replace(/\/\/$/, '');
 		};
 
-		this.makeHrefNewRoot = root => Path.resolve(makeHref.call(this, '/'), `../${root}`);
+		this.makeHrefNewRoot = root => Path.resolve(makeHref.call(this, '/'), `../${root}/`) + '/';
 	},
 
 
