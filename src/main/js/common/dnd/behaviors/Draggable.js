@@ -256,7 +256,7 @@ export default {
 	handleDragEnd (e) {
 		let onDragEnd = this.context.onDragEnd || emptyFunction;
 
-		if (!this.state.dragging || !this.isMounted() || this.props.locked) {
+		if (!this.state.dragging || !this.isMounted() || this.props.locked || e.type === 'mouseout') {
 			return;
 		}
 
