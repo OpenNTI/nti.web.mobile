@@ -94,11 +94,29 @@ export default React.createClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.videoId !== this.props.videoId) {
-			this.getDataIfNeeded(nextProps);
+	componentWillReceiveProps (props) {
+		let {showDiscussions, videoId} = this.props;
+
+		if (props.videoId !== videoId || (!props.showDiscussions && props.showDiscussions !== showDiscussions)) {
+			this.getDataIfNeeded(props);
 		}
 	},
+
+
+	componentDidUpdate () {
+		let {outlineId} = this.props;
+		let {video} = this.state;
+		let pageSource = video && video.getPageSource();
+
+		if (outlineId && pageSource) {
+			pageSource = pageSource.scoped(decodeFromURI(outlineId));
+		}
+
+		if (video) {
+			this.setPageSource(pageSource, video.getID());
+		}
+	},
+
 
 	onError (error) {
 		this.setState({
@@ -113,7 +131,7 @@ export default React.createClass({
 		let {videoId} = this.props;
 		return Promise.resolve({
 			label: 'Video',
-			href: this.makeHref(videoId)
+			href: this.makeHref(videoId + '/')
 		});
 	},
 
@@ -126,16 +144,8 @@ export default React.createClass({
 			let {VideoIndex, videoId, outlineId} = props;
 			let video = VideoIndex.get(decodeFromURI(videoId));
 
-			let pageSource = video && video.getPageSource();
-
-			if (outlineId && pageSource) {
-				pageSource = pageSource.scoped(decodeFromURI(outlineId));
-			}
-
 			this.resolveContext()
 				.then(context => this.setState({ context }));
-
-			this.setPageSource(pageSource, video.getID());
 
 			let transcript = this.loadTranscript(video);
 			let notes = this.loadDiscussions(video);
