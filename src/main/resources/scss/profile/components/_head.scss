@@ -104,7 +104,9 @@
 }
 
 .profile .empty-list.user-details {
-	background: none;
-	border: none;
-	color: $primary-grey;
+	margin: 0.25rem 0;
+	&, h1 {
+		font-family: $body-font-family;
+		color: $tertiary-grey;
+	}
 }
