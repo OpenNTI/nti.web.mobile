@@ -9,43 +9,63 @@ export default React.createClass({
 	displayName: 'Activity',
 	mixins: [renderItemsMixin],
 
-	getInitialState () {
-		return {
-		};
+	propTypes: {
+		user: React.PropTypes.object
 	},
+
+	getInitialState () {
+		return {};
+	},
+
+
+	componentDidMount () {
+		this.setUser();
+	},
+
 
 	componentWillReceiveProps (nextProps) {
-		if(nextProps.user) {
-			nextProps.user.getActivity().then(
-				activity => this.setState({
-					activity
-				}),
-				reason => this.setState({
-					error: reason
-				})
-			);
+		let {user} = nextProps;
+
+		if(user !== this.props.user) {
+			this.setUser(user);
 		}
 	},
 
-	render () {
 
-		if (this.state.error) {
-			return <div>Error</div>;
+	setUser (user = this.props.user) {
+		if (user) {
+			user.getActivity()
+				.then(
+					activity => this.setState({activity}),
+					error => this.setState({error}));
+
+		}
+		else {
+			this.setState({activity: []});
+		}
+	},
+
+
+	render () {
+		let {error, activity} = this.state;
+
+		if (error) {
+			return ( <div>Error</div> );
 		}
 
-		let activity = this.state.activity;
-
 		if (!activity) {
-			return <Loading />;
+			return ( <Loading /> );
 		}
 
 		return (
 			<ul className="profile-cards activity">
 				{activity.map(a => {
+
 					// localize the last segment of the mime type for the card title.
-					let mime = a.MimeType.substr(a.MimeType.lastIndexOf('.') + 1);
+					let mime = a.MimeType.split('.').pop();
 					let title = t(mime);
-					return <Card className={mime} title={title}>{this.renderItems(a)}</Card>;
+
+					return ( <Card key={a.NTIID} className={mime} title={title}>{this.renderItems(a)}</Card> );
 				})}
 			</ul>
 		);
