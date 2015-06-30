@@ -37,7 +37,7 @@ export default class ForumObjectPathResolver {
 	getPath () {
 		/*
 			/course/system-OID-0x09a0a6:5573657273%3ASxckbJ5KZAZ/   <-- course instance id
-			d/
+			discussions/
 			unknown-OID-0x0b2915%3A5573657273%3Aar9paCPkF0R/	<-- forum id
 			unknown-OID-0x0b2916%3A5573657273%3Aar9paCPkF0P/	<-- topic id
 			local-OID-0x14dc6b%3A5573657273%3Ams7PHFqe0n0/		<-- comment id
@@ -67,7 +67,7 @@ export default class ForumObjectPathResolver {
 		let id = encodeForURI(obj.getID());
 
 		if (isBoard(obj.MimeType) && i !== 0) {
-			return 'd';
+			return 'discussions';
 		}
 
 		if (obj.isCourse) {
