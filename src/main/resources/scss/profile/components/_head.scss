@@ -14,7 +14,7 @@
 		}
 
 		img, svg {
-			
+
 		}
 
 		.label {
@@ -43,7 +43,7 @@
 	.profile-head-summary-attrs {
 		font-size: .6875rem;
 		list-style-type: none;
-		margin-left: 0;	
+		margin-left: 0;
 		li {
 			$icon-color: $secondary-grey;
 			$icon-size: 1.5em;
@@ -100,5 +100,11 @@
 			}
 		}
 	}
-	
+
+}
+
+.profile .empty-list.user-details {
+	background: none;
+	border: none;
+	color: $primary-grey;
 }

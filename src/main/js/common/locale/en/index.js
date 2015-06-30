@@ -42,7 +42,8 @@ export default {
 	LISTS: {
 		noMatches: 'No items match the selected filter.',
 		emptyList: 'This list is empty.',
-		'emptyList:discussions': 'No discussions.'
+		'emptyList:discussions': 'No discussions.',
+		'emptyList:user-details': 'Empty Profile :(\nThis user has not filled out their profile.'
 	},
 
 	CONTENT: content,
