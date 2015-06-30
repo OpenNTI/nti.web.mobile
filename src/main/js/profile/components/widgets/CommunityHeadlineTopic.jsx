@@ -1,6 +1,8 @@
 import React from 'react';
-import ModeledContent from 'modeled-content/components/Panel';
 import TopicHeadline from 'forums/components/TopicHeadline';
+
+import Breadcrumb from './Breadcrumb';
+
 
 export default React.createClass({
 	displayName: 'CommunityHeadlineTopic',
@@ -25,6 +27,7 @@ export default React.createClass({
 
 		return (
 			<div>
+				<Breadcrumb item={item} />
 				<TopicHeadline item={item.headline} />
 			</div>
 		);
