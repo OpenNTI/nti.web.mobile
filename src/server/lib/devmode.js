@@ -22,7 +22,9 @@ export function setupDeveloperMode(config) {
 		noInfo: false,
 		quiet: false,
 		lazy: false,
-		watchDelay: 5000,
+		watchOptions: {
+			aggregateTimeout: 5000
+		},
 		publicPath: '/',
 
 		stats: {
