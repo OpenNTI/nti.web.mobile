@@ -1,6 +1,6 @@
 import React from 'react';
-
 import ModeledContent from 'modeled-content/components/Panel';
+import Breadcrumb from './Breadcrumb';
 
 import Mixin from './Mixin';
 
@@ -9,7 +9,7 @@ export default React.createClass({
 	mixins: [Mixin],
 
 	statics: {
-		mimeType: /^forums\.(.+)forumcomment/i
+		mimeType: /forums\.(.+)forumcomment/i
 	},
 
 	propTypes: {
@@ -24,8 +24,10 @@ export default React.createClass({
 		}
 
 		return (
-			<ModeledContent body={item.body} />
+			<div className="forum-comment">
+				<Breadcrumb item={item} />
+				<ModeledContent body={item.body} />
+			</div>
 		);
-
 	}
 });
