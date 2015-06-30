@@ -15,11 +15,11 @@ export function filterContextPath (context, resourceId) {
 	//}
 
 	first = (typeof first === 'object' && !first.ntiid) ? 1 : 0;
-	if (first) {
+	// if (first) {
 		// This is actually OKAY... the root context node is our home view:
 		// "/mobile/" which does not have an NTIID.
-		console.warn('Context "root" has no ntiid, omitting: %o', context);
-	}
+		// console.warn('Context "root" has no ntiid, omitting: %o', context);
+	// }
 
 	if (first || last) {
 		context = context.slice(first, last);
