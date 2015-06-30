@@ -3,9 +3,6 @@ import React from 'react';
 import Unknown from './Unknown';
 import ArrayWidget from './ArrayWidget';
 import StringWidget from './StringWidget';
-import CommunityHeadlineTopic from './CommunityHeadlineTopic';
-import ForumComment from './ForumComment';
-import Highlight from './Highlight';
 import ProfessionalPosition from './ProfessionalPosition';
 import EducationalExperience from './EducationalExperience';
 
@@ -13,9 +10,6 @@ const WIDGETS = [
 	Unknown,
 	StringWidget,
 	ArrayWidget,
-	CommunityHeadlineTopic,
-	ForumComment,
-	Highlight,
 	EducationalExperience,
 	ProfessionalPosition
 ];
@@ -40,6 +34,3 @@ export default function select (item, index, props) {
 			ref: Item.displayName + '-' + index
 		}));
 }
-
-import Mixin from './Mixin';
-export {Mixin};

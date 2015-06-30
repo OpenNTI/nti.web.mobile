@@ -1,14 +1,15 @@
 import React from 'react';
+
 import ModeledContent from 'modeled-content/components/Panel';
+
+import Mixin from './Mixin';
 
 export default React.createClass({
 	displayName: 'ForumTopic',
+	mixins: [Mixin],
 
 	statics: {
-		mimeTest: /^application\/vnd\.nextthought\.forums\.generalforumcomment/i,
-		handles (item) {
-			return item.MimeType && this.mimeTest.test(item.MimeType);
-		}
+		mimeType: /^forums\.(.+)forumcomment/i
 	},
 
 	propTypes: {

@@ -8,7 +8,7 @@ import {scoped} from 'common/locale';
 import Card from './Card';
 // import Editable from './Editable';
 
-import renderItemsMixin from './widgets/Mixin';
+import Mixin from './about/Mixin';
 
 const t = scoped('PROFILE.ABOUT.SECTIONTITLES');
 
@@ -17,7 +17,7 @@ let sections = ['about', 'education', 'positions'];
 export default React.createClass({
 	displayName: 'About',
 
-	mixins: [renderItemsMixin],
+	mixins: [Mixin],
 
 	propTypes: {
 		user: React.PropTypes.object.isRequired

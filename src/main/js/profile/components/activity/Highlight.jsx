@@ -1,13 +1,13 @@
 import React from 'react';
 
+import Mixin from './Mixin';
+
 export default React.createClass({
 	displayName: 'Highlight',
+	mixins: [Mixin],
 
 	statics: {
-		mimeTest: /^application\/vnd\.nextthought\.highlight/i,
-		handles (item) {
-			return item.MimeType && this.mimeTest.test(item.MimeType);
-		}
+		mimeType: /highlight/i
 	},
 
 	propTypes: {

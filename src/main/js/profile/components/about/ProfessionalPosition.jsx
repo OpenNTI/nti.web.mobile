@@ -4,9 +4,8 @@ export default React.createClass({
 	displayName: 'ProfessionalPositionWidget',
 
 	statics: {
-		mimeTest: /^application\/vnd\.nextthought\.profile\.professionalposition/i,
 		handles (item) {
-			return item.MimeType && this.mimeTest.test(item.MimeType);
+			return item.MimeType && (/profile\.professionalposition$/i).test(item.MimeType);
 		}
 	},
 

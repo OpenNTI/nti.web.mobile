@@ -1,5 +1,5 @@
 import React from 'react';
-import {getTopicBreadcrumb} from './Api';
+import {getTopicBreadcrumb} from '../../Api';
 import Loading from 'common/components/TinyLoader';
 
 export default React.createClass({

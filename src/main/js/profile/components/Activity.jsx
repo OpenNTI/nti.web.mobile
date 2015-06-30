@@ -1,13 +1,19 @@
 import React from 'react';
-import Card from './Card';
-import renderItemsMixin from './widgets/Mixin';
+
 import Loading from 'common/components/TinyLoader';
+
 import {scoped} from 'common/locale';
+
+
+import Card from './Card';
+
+import HasItems from './activity/HasItems';
+
 let t = scoped('PROFILE.ACTIVITY.TITLES');
 
 export default React.createClass({
 	displayName: 'Activity',
-	mixins: [renderItemsMixin],
+	mixins: [HasItems],
 
 	propTypes: {
 		user: React.PropTypes.object

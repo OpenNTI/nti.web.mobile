@@ -3,15 +3,14 @@ import TopicHeadline from 'forums/components/TopicHeadline';
 
 import Breadcrumb from './Breadcrumb';
 
+import Mixin from './Mixin';
 
 export default React.createClass({
 	displayName: 'CommunityHeadlineTopic',
+	mixins: [Mixin],
 
 	statics: {
-		mimeTest: /^application\/vnd\.nextthought\.forums\.communityheadlinetopic/i,
-		handles (item) {
-			return item.MimeType && this.mimeTest.test(item.MimeType);
-		}
+		mimeType: /forums\.(.+)headlinetopic$/i
 	},
 
 	propTypes: {
