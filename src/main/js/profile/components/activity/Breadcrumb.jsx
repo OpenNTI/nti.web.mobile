@@ -56,7 +56,7 @@ export default React.createClass({
 		return breadcrumb.map( (current) => {
 			let p = (current || {}).getPresentationProperties ? current.getPresentationProperties() : current;
 			let title = (p || {}).title;
-			return <span>{title}</span>;
+			return <li className="crumb">{title}</li>;
 		});
 	},
 
@@ -66,7 +66,7 @@ export default React.createClass({
 		let href = this.objectLink(this.props.item);
 
 		if (breadcrumb) {
-			bc = <a href={href} className="breadcrumb">{breadcrumb.isError ? this.fallbackText(this.props.item) : this.crumbText(breadcrumb) }</a>;
+			bc = <a href={href} className="breadcrumb"><ul className="breadcrumb-list">{breadcrumb.isError ? <li>{this.fallbackText(this.props.item)}</li> : this.crumbText(breadcrumb) }</ul></a>;
 		}
 		return (
 			<div>{bc}</div>

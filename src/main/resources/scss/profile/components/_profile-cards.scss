@@ -42,16 +42,23 @@
 		font-family: $body-font-family;
 		color: $secondary-grey;
 	}
-	.breadcrumb {
+
+	.breadcrumb-list {
 		color: $tertiary-grey;
     	font-size: .6875rem;
     	text-transform: uppercase;
     	font-weight: 700;
-    	span::after {
-    		content: ' / ';
-    		&.last-child {
+    	list-style-type: none;
+    	margin: 0;
+    	.crumb {
+    		display: inline-block;
+			&::after {
+	    		content: '/';
+	    		padding: 0 0.3em;
+	    	}
+	    	&:last-child::after {
 				content: ' ';
-    		}
+	    	}
     	}
 	}
 }
