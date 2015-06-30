@@ -20,12 +20,15 @@ export default React.createClass({
 	propTypes: {
 		items: React.PropTypes.object, //annotation dictionary {[obj.id]: obj}
 
-		selectFilter: React.PropTypes.func
+		selectFilter: React.PropTypes.func,
+
+		prefix: React.PropTypes.string
 	},
 
 
 	getDefaultProps () {
 		return {
+			prefix: '/',
 			selectFilter: () => {}
 		};
 	},
@@ -152,7 +155,7 @@ export default React.createClass({
 
 		count = count > 99 ? '99+' : count;
 
-		let href = this.makeHref(`/discussions/`);
+		let href = this.makeHref(join('/', this.props.prefix, '/discussions/'));
 
 		return (
 			<a data-line={h} href={href} style={top} className={css} onClick={this.onClick}>{count}</a>

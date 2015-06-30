@@ -46,7 +46,7 @@ class Annotation {
 
 		root = root.refs.transcript;
 
-		if (!root.isMounted()) {
+		if (!root || !root.isMounted()) {
 			return -1;
 		}
 
@@ -261,6 +261,7 @@ export default React.createClass({
 
 
 	render () {
+		let {showDiscussions, videoId} = this.props;
 		let {annotations, storeProvider, selectedDiscussions, error, video, cues, regions, currentTime, loading} = this.state;
 
 		loading = loading || !video;
@@ -273,7 +274,7 @@ export default React.createClass({
 			return ( <Loading /> );
 		}
 
-		if (this.props.showDiscussions) {
+		if (showDiscussions) {
 			return ( <Discussions UserDataStoreProvider={storeProvider} filter={selectedDiscussions}/> );
 		}
 
@@ -299,7 +300,7 @@ export default React.createClass({
 							regions={regions}
 							cues={cues}/>
 					)}
-					<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
+					<Gutter items={annotations} selectFilter={this.setDiscussionFilter} prefix={videoId}/>
 				</div>
 
 			</div>
