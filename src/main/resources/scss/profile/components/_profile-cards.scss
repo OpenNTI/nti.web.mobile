@@ -47,6 +47,12 @@
     	font-size: .6875rem;
     	text-transform: uppercase;
     	font-weight: 700;
+    	span::after {
+    		content: ' / ';
+    		&.last-child {
+				content: ' ';
+    		}
+    	}
 	}
 }
 

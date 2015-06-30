@@ -53,12 +53,11 @@ export default React.createClass({
 	},
 
 	crumbText (breadcrumb) {
-		return breadcrumb.reduce( (previous, current) => {
+		return breadcrumb.map( (current) => {
 			let p = (current || {}).getPresentationProperties ? current.getPresentationProperties() : current;
 			let title = (p || {}).title;
-			// if there's no previous value (first iteration) just return the title so we don't have a leading slash.
-			return previous ? [previous, title].join(' / ') : title;
-		}, null);
+			return <span>{title}</span>;
+		});
 	},
 
 	render () {
