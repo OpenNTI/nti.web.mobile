@@ -1,6 +1,9 @@
 import React from 'react';
 import {getTopicBreadcrumb} from '../../Api';
+import ObjectLink from './ObjectLink';
 import Loading from 'common/components/TinyLoader';
+import {scoped} from 'common/locale';
+let t = scoped('PROFILE.ACTIVITY.TITLES');
 
 export default React.createClass({
 	displayName: 'Breadcrumb',
@@ -8,6 +11,8 @@ export default React.createClass({
 	propTypes: {
 		item: React.PropTypes.any.isRequired
 	},
+
+	mixins: [ObjectLink],
 
 	getInitialState () {
 		return {
@@ -24,7 +29,7 @@ export default React.createClass({
 	},
 
 	loadBreadcrumb (item) {
-		getTopicBreadcrumb(item)
+		getTopicBreadcrumb(item.getID())
 		.then(breadcrumb => {
 			this.setState({
 				breadcrumb: breadcrumb
@@ -42,12 +47,19 @@ export default React.createClass({
 
 	},
 
+	fallbackText (item) {
+		let mime = (item || {}).MimeType && item.MimeType.split('.').pop();
+		let text = mime && t(mime) || 'View';
+		return text;
+	},
+
 	render () {
 		let {breadcrumb} = this.state;
 		let bc = <Loading />;
+		let href = this.objectLink(this.props.item);
 
 		if (breadcrumb) {
-			bc = <div className="breadcrumb">{breadcrumb.isError ? null : 'YAY' }</div>;
+			bc = <a href={href} className="breadcrumb">{breadcrumb.isError ? this.fallbackText(this.props.item) : 'YAY' }</a>;
 		}
 		return (
 			<div>{bc}</div>
