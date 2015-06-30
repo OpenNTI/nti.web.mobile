@@ -28,13 +28,6 @@
 		text-overflow: ellipsis;
 		position: relative;
 		display: inline-block;
-
-		&[data-for]::after {
-			color: $secondary-grey;
-			content: ' (' attr(data-for) ')';
-			white-space: nowrap;
-			text-overflow: ellipsis;
-		}
 	}
 
 	.meta, .actions {

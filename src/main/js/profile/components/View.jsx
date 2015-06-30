@@ -7,6 +7,8 @@ import Loading from 'common/components/Loading';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 
+import NotFound from 'notfound/components/View';
+
 import Page from './Page';
 import Activity from './Activity';
 import Achievements from './Achievements';
@@ -14,7 +16,7 @@ import About from './About';
 
 import Redirect from 'navigation/components/Redirect';
 
-import resolveUser from 'common/utils/resolve-user';
+import {resolve, decode} from 'common/utils/user';
 
 const ROUTES = [
 	{path: '/activity(/*)',		handler: Activity },
@@ -47,21 +49,21 @@ export default React.createClass({
 		]);
 	},
 
-	setUser(u) {
-		this.setState({
-			user: u
-		});
-	},
 
 	updateUser(props = this.props) {
-		resolveUser(props).then(u => {
-			console.debug('User: ', u);
-			this.setUser(u);
-		});
+		this.setState({user: null}, () =>
+			resolve(props, true)
+				.catch(()=> false)
+				.then(user => {
+					console.debug('User: ', user);
+					this.setState({user});
+				}));
 	},
 
 	componentWillReceiveProps (nextProps) {
-		this.updateUser(nextProps);
+		if (nextProps.username !== this.props.username) {
+			this.updateUser(nextProps);
+		}
 	},
 
 	componentDidMount () {
@@ -100,10 +102,13 @@ export default React.createClass({
 		let {username} = this.props;
 		let {user} = this.state;
 
-		username = decodeURIComponent(username);
 
-		if (!user) {
+		if (user == null) {
 			return ( <Loading /> );
+		}
+
+		if (user === false) {
+			return ( <NotFound/> );
 		}
 
 		return React.createElement(Router.Locations, {ref: 'router', contextual: true},
@@ -112,7 +117,7 @@ export default React.createClass({
 				<Router.Location {...route}
 					handler={Page} pageContent={route.handler}
 					user={user}
-					username={username}
+					username={decode(username, true)}
 					/> :
 				<Router.NotFound handler={Redirect} location="/about/"/>
 			));

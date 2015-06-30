@@ -1,7 +1,7 @@
 import React from 'react';
 
 import cx from 'classnames';
-import resolveUser from 'common/utils/resolve-user';
+import {resolve, getDebugUsernameString} from '../utils/user';
 import t from 'common/locale';
 
 /**
@@ -58,7 +58,8 @@ export default React.createClass({
 
 		let props = Object.assign({
 			className: cx('username', className),
-			children: displayName
+			children: displayName,
+			'data-for': getDebugUsernameString(username)
 		}, this.props);
 
 		if (localeKey) {
@@ -70,7 +71,7 @@ export default React.createClass({
 			});
 		}
 
-		return <Tag {...props} rel="author" data-for={username || 'unknown'}/>;
+		return <Tag {...props} rel="author"/>;
 	}
 });
 
@@ -83,7 +84,7 @@ function fillIn(cmp, props) {
 		}
 	};
 
-	cmp.setState({task}, ()=> resolveUser(props)
+	cmp.setState({task}, ()=> resolve(props)
 		.then(
 			user => set({ displayName: user.displayName }),
 			()=> set({ failed: true, displayName: 'Unknown' })

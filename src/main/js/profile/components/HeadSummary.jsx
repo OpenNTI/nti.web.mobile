@@ -2,7 +2,7 @@ import React from 'react';
 
 import Loader from 'common/components/TinyLoader';
 import {default as DisplayName} from 'common/components/DisplayName';
-import resolveUser from 'common/utils/resolve-user';
+import {resolve} from 'common/utils/user';
 import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 
 export default React.createClass({
@@ -29,9 +29,7 @@ export default React.createClass({
 	},
 
 	setUser(props=this.props) {
-		resolveUser(props).then(user => {
-			this.setState({user});
-		});
+		resolve(props).then(user => this.setState({user}));
 	},
 
 	render () {

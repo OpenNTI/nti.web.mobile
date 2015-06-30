@@ -5,6 +5,8 @@ import DisplayName from './DisplayName';
 
 import BasePathAware from '../mixins/BasePath';
 
+import {encode} from '../utils/user';
+
 import {join} from 'path';
 
 /**
@@ -26,7 +28,7 @@ export default React.createClass({
 
 		let base = this.getBasePath();
 
-		let profile = join(base, 'profile', encodeURIComponent(username));
+		let profile = join(base, 'profile', encode(username));
 
 		return (
 			<a className="user-session" href={profile}>

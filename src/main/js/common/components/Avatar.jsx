@@ -1,7 +1,7 @@
 import React from 'react';
 import {BLANK_AVATAR} from '../constants/DataURIs';
 
-import resolveUser from 'common/utils/resolve-user';
+import {resolve, getDebugUsernameString} from '../utils/user';
 
 const DEFAULT = { user: {avatarURL: BLANK_AVATAR }};
 
@@ -41,11 +41,11 @@ export default React.createClass({
 		let {username, className} = this.props;
 		let css = className || '';
 
-		let {avatarURL, initials} = user || {};
+		let {avatarURL, initials, displayName} = user || {};
 
 		let props = Object.assign({}, this.props, {
-			'data-for': username,
-			alt: 'Avatar for ' + username,
+			'data-for': getDebugUsernameString(username),
+			alt: 'Avatar for ' + displayName,
 			className: `avatar ${css}`
 		});
 
@@ -72,7 +72,7 @@ function fillIn (cmp, props) {
 	if (user) {
 		promise = Promise.resolve(user);
 	} else {
-		promise = resolveUser(props);
+		promise = resolve(props);
 	}
 
 	promise
