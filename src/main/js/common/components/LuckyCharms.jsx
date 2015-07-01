@@ -13,6 +13,11 @@ export default React.createClass({
 	render () {
 		let {item} = this.props;
 
+		if (!item.isTopLevel) {
+			console.warn('Item doesn\'t have isTopLevel method. bailing.');
+			return null;
+		}
+
 		return (
 			<div className="charms">
 				<Like item={item}/>
