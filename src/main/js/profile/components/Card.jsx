@@ -10,12 +10,11 @@ export default React.createClass({
 	},
 
 	render () {
+		let {children, className, title} = this.props;
 		return (
-			<li className={'profile-card ' + this.props.className}>
-				{this.props.title && <h1>{this.props.title}</h1>}
-				<div>
-					{this.props.children}
-				</div>
+			<li className={'profile-card ' + className}>
+				{title && <h1>{title}</h1>}
+				{children}
 			</li>
 		);
 	}

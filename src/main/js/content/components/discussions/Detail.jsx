@@ -37,7 +37,12 @@ export default React.createClass({
 
 		item: React.PropTypes.object,
 
-		suppressContext: React.PropTypes.bool
+		/**
+		 * Turns off alot of things for activity views.
+		 *
+		 * @type {bool}
+		 */
+		lite: React.PropTypes.bool
 	},
 
 
@@ -62,7 +67,7 @@ export default React.createClass({
 
 	render () {
 		let {replying} = this.state;
-		let {item, suppressContext} = this.props;
+		let {item, lite} = this.props;
 		let {body, creator, title} = item;
 		let date = item.getLastModified();
 
@@ -76,24 +81,28 @@ export default React.createClass({
 							<LuckyCharms item={item}/>
 							<h1 className="title">{title}</h1>
 							<div className="name-wrapper">
-								<DisplayName username={creator} localeKey="CONTENT.DISCUSSIONS.postedBy"/>
+								<DisplayName username={creator} localeKey={lite ? void 0 : 'CONTENT.DISCUSSIONS.postedBy'}/>
 								<DateTime date={date} relative/>
 								<SharedWithList item={item}/>
 							</div>
 						</div>
 					</div>
 
-					{!suppressContext && ( <Context item={item}/> )}
+					{!lite && ( <Context item={item}/> )}
 
 					<Body body={body}/>
 
-					{replying ? (
-						<ReplyEditor item={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
-					) : (
-						<ItemActions item={item} isTopLevel onReply={this.showReplyEditor}/>
+					{!lite && (
+						replying ? (
+							<ReplyEditor item={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
+						) : (
+							<ItemActions item={item} isTopLevel onReply={this.showReplyEditor}/>
+						)
 					)}
+
+
 				</div>
-				{this.renderReplies()}
+				{!lite && this.renderReplies()}
 			</div>
 		);
 	},

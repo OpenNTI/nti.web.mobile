@@ -25,7 +25,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Detail suppressContext item={item}/>
+				<Detail item={item} lite/>
 			</div>
 		);
 
