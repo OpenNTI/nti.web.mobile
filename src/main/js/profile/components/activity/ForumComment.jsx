@@ -5,7 +5,7 @@ import Breadcrumb from './Breadcrumb';
 import Mixin from './Mixin';
 
 export default React.createClass({
-	displayName: 'ForumTopic',
+	displayName: 'ForumComment',
 	mixins: [Mixin],
 
 	statics: {

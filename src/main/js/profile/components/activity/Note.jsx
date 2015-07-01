@@ -5,7 +5,7 @@ import Detail from 'content/components/discussions/Detail';
 import Mixin from './Mixin';
 
 export default React.createClass({
-	displayName: 'Highlight',
+	displayName: 'Note',
 	mixins: [Mixin],
 
 	statics: {

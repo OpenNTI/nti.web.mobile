@@ -9,7 +9,7 @@ let t = scoped('FORUMS');
 import Mixin from './Mixin';
 
 export default React.createClass({
-	displayName: 'CommunityHeadlineTopic',
+	displayName: 'ForumTopic',
 	mixins: [Mixin, ObjectLink],
 
 	statics: {

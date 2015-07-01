@@ -8,7 +8,7 @@ export default {
 		handles (item) {
 			if (!this[inputTypeCleaned]) {
 				//ensure event type:
-				if (!Array.isArray(this.type)) {
+				if (!Array.isArray(this.mimeType)) {
 					this.mimeType = [this.mimeType];
 				}
 				//ensure shape:
