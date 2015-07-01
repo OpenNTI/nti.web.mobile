@@ -1,3 +1,10 @@
+%middot {
+	text-decoration: none;
+	position: static;
+	content: '\00B7';
+	padding: 0 0.5em;
+	background: none;
+}
 
 .author-info {
 	position: relative;
@@ -21,17 +28,25 @@
 		// position: relative;
 		margin-left: 4.375rem;
 		font-size: 0.875rem;
+
+		.profile-card & {
+			padding-top: 1rem;
+		}
 	}
 
 	.name-wrapper {
 		position: relative;
 
+		.profile-card & {
+			font-size: 0.75rem;
+
+			& > .username::after {
+				@extend %middot;
+			}
+		}
+
 		time::after {
-			text-decoration: none;
-			position: static;
-			content: '\00B7';
-			padding: 0 0.5em;
-			background: none;
+			@extend %middot;
 		}
 
 		.tinyloader {
@@ -58,6 +73,12 @@
 	border-top: 1px solid $border-grey;
 	position: relative;
 	padding: 0 0.75rem;
+
+	.modeled-content {
+		.profile-card & {
+			padding: 1rem 0;
+		}
+	}
 
 	.meta {
 		h1.title {
