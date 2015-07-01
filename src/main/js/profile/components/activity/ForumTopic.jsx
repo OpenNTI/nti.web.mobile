@@ -2,6 +2,7 @@ import React from 'react';
 import TopicHeadline from 'forums/components/TopicHeadline';
 import Breadcrumb from './Breadcrumb';
 import ReportLink from 'forums/components/ReportLink';
+import ObjectLink from './ObjectLink';
 import {scoped} from 'common/locale';
 let t = scoped('FORUMS');
 
@@ -9,7 +10,7 @@ import Mixin from './Mixin';
 
 export default React.createClass({
 	displayName: 'CommunityHeadlineTopic',
-	mixins: [Mixin],
+	mixins: [Mixin, ObjectLink],
 
 	statics: {
 		mimeType: /forums\.(.+)headlinetopic$/i
@@ -31,7 +32,7 @@ export default React.createClass({
 				<Breadcrumb item={item} />
 				<TopicHeadline item={item.headline} />
 				<div className="footer">
-					<div className="postCount">{t('replies', {count: item.PostCount})}</div>
+					<a href={this.objectLink(item)} className="postCount">{t('replies', {count: item.PostCount})}</a>
 					<ReportLink item={item} />
 				</div>
 			</div>
