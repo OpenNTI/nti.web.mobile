@@ -6,6 +6,7 @@ import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import EmptyList from 'common/components/EmptyList';
 
 //some notes: http://stackoverflow.com/questions/20870448/reactjs-modeling-bi-directional-infinite-scrolling
 //I want to turn this into a buffered list.
@@ -16,7 +17,7 @@ export default React.createClass({
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
-		VideoIndex: React.PropTypes.object.isRequired
+		VideoIndex: React.PropTypes.object
 	},
 
 
@@ -47,26 +48,33 @@ export default React.createClass({
 
 	fillInIcons (props) {
 		let icons = {};
+		let {VideoIndex} = props || {};
 
 		function fallback (x) {
 			let s = x && ((x.sources || [])[0] || {});
 			return s.thumbnail || s.poster;
 		}
 
-		props.VideoIndex.map(v=>
-			v.getThumbnail()
-				.then(
-					i=> icons[v.ntiid] = i,
-					()=> icons[v.ntiid] = fallback(v)
-				)
-				.then(()=>this.setState({icons}))
-			);
+		if (VideoIndex) {
+			VideoIndex.map(v=>
+				v.getThumbnail()
+					.then(
+						i=> icons[v.ntiid] = i,
+						()=> icons[v.ntiid] = fallback(v)
+					)
+					.then(()=>this.setState({icons}))
+				);
+		}
 	},
 
 
 	render () {
 		let {course, VideoIndex} = this.props;
 		let {icons} = this.state;
+
+		if(!VideoIndex || VideoIndex.length === 0) {
+			return <EmptyList type="videos"/>;
+		}
 
 		return (
 			<ul className="small-block-grid-1 medium-block-grid-2">

@@ -1,7 +1,7 @@
 import Filters from '../Filters';
 import LibraryAccessor from './LibraryAccessor';
 
-const sectionNames = {
+const SECTION_NAMES = {
 	//SectionName's keys, MUST match the value.
 	//To customize the display name, localize in the parts that display them.
 	admin: 'admin',
@@ -10,17 +10,22 @@ const sectionNames = {
 };
 
 
-const sectionPropertyMap = {
-	[sectionNames.admin]: 'administeredCourses',
-	[sectionNames.courses]: 'courses',
-	[sectionNames.books]: ['bundles', 'packages']
+const SECTION_PROPERTY_MAP = {
+	[SECTION_NAMES.admin]: 'administeredCourses',
+	[SECTION_NAMES.courses]: 'courses',
+	[SECTION_NAMES.books]: ['bundles', 'packages']
 };
 
 
-const sectionFiltersMap = {
-	[sectionNames.admin]: Filters,
-	[sectionNames.courses]: Filters,
-	[sectionNames.books]: [{name: 'Books'}]
+const SECTION_FILTERS_MAP = {
+	[SECTION_NAMES.admin]: Filters,
+	[SECTION_NAMES.courses]: Filters,
+	[SECTION_NAMES.books]: [{name: 'Books'}]
+};
+
+const AVAILABLILITY = {
+	[SECTION_NAMES.courses]: (list, library) =>
+									(list.count > 0) || (library.hasCatalog || (()=> true)).call(library)
 };
 
 function setSections (cmp) {
@@ -39,7 +44,7 @@ export default {
 
 
 	getSectionNames () {
-		return Object.keys(sectionNames);
+		return Object.keys(SECTION_NAMES);
 	},
 
 
@@ -49,26 +54,31 @@ export default {
 				if (!this.getLibrary()) {
 					console.warn('Early!!!');
 				}
-				let admin = this.getListForSection(sectionNames.admin);
+				let admin = this.getListForSection(SECTION_NAMES.admin);
+				let courses = this.getListForSection(SECTION_NAMES.courses);
 					//if there are admin courses, default there...
-				return admin.length ? sectionNames.admin :
-					// if user doesn't have any courses default to the catalog.
-						sectionNames.courses;
+				return admin.length
+					? SECTION_NAMES.admin
+					: courses.length
+						? SECTION_NAMES.courses
+						// if user doesn't have any courses default to books.
+						: SECTION_NAMES.books;
 			});
 	},
 
 
 	getAvailableSections() {
 		let names = this.getSectionNames();
+		let defaultAvailability = list => list.count > 0;
 		return names
-			.map(x=>({key: x, label: sectionNames[x], count: this.getListForSection(x).length}))
-			.filter(x=>x.count);
+			.map(x=>({key: x, label: SECTION_NAMES[x], count: this.getListForSection(x).length}))
+			.filter(x=> (AVAILABLILITY[x.key] || defaultAvailability)(x, this.getLibrary()));
 	},
 
 
 	getListForSection (section) {
 		let library = this.getLibrary();
-		let properties = sectionPropertyMap[sectionNames[section]];
+		let properties = SECTION_PROPERTY_MAP[SECTION_NAMES[section]];
 		if (!library) {
 			return [];//not loaded yet
 		}
@@ -89,7 +99,7 @@ export default {
 
 
 	getFiltersForSection (section) {
-		return sectionFiltersMap[section];
+		return SECTION_FILTERS_MAP[section];
 	},
 
 

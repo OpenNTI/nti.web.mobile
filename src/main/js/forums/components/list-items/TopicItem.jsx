@@ -27,9 +27,7 @@ export default React.createClass({
 	],
 
 	statics: {
-		inputType: [
-			mimeTypes[TOPIC]
-		]
+		inputType: mimeTypes[TOPIC]
 	},
 
 	backingStore: Store,

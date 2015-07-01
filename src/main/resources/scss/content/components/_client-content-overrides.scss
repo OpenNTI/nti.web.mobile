@@ -23,6 +23,21 @@ widget {
 		-webkit-box-sizing: border-box;
 	}
 
+	.label {
+		font-family: inherit;
+		line-height: inherit;
+		white-space: inherit;
+		display: inherit;
+		margin-bottom: inherit;
+		padding: inherit;
+		font-size: inherit;
+		background-color: inherit;
+		color: inherit;
+		text-decoration: inherit;
+		font-weight: inherit;
+		text-align: inherit;
+	}
+
 
 	li a:empty {display: none;}
 
@@ -199,7 +214,9 @@ widget {
 
 	.externalvideo {
 		display: inline-block;
-		margin: 0.75em auto 2em;
+		margin: 0 auto 2em;
+
+		iframe {max-width: 100%;}
 	}
 
 	div.section-problems,
@@ -301,20 +318,9 @@ widget {
 			margin-top: 1.1875rem;
 			margin-bottom: 0.5em;
 
-			span.ref{
-				display: block;
-				width: 65px;
-				text-align: right;
-				float: left;
-				padding: 0;
-			}
-
+			span.ref,
 			span.label {
-				font-size: inherit;
-				margin-left: 80px;
-				border: none;
-				padding: 0;
-				display: block;
+				display: inline;
 			}
 		}
 

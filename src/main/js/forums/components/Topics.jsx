@@ -77,7 +77,7 @@ export default React.createClass({
 		let forumContents = Store.getForumContents(forumId, batchStart, paging.getPageSize());
 
 		if (!forumContents) {
-			return <Err error="Unable to load forum" />;
+			return <Err error="There was a problem loading the forum. Please try again later." />;
 		}
 
 		return (

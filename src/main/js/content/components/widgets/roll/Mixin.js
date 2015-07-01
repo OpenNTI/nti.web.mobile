@@ -104,10 +104,11 @@ export default {
 		CSS.addClass(stage, 'transitioning');
 
 		setTimeout(() => {
-			if (stage) {//we may execute out of order... so if the transitionEnded function executes first, don't add the class.
-				CSS.addClass(stage, action);
-			}
-			this.setState({touchEnd: {}});//remove inline-transforms
+			this.setState({touchEnd: {}}, () => {
+				if (stage) {//we may execute out of order... so if the transitionEnded function executes first, don't add the class.
+					CSS.addClass(stage, action);
+				}
+			});
 		}, 0);
 	},
 

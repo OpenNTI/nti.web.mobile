@@ -43,6 +43,10 @@ export default React.createClass({
 			relative,
 			todayText } = this.props;
 
+		if (date == null) {
+			return null;
+		}
+
 		let m = moment(date);
 
 		if (relativeTo) {

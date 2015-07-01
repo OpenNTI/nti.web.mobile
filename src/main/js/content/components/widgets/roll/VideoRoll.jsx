@@ -16,6 +16,10 @@ import RollCommon from './Mixin';
 function getVideo (object, index) {
 	let {NTIID = object.ntiid} = object;
 
+	if (object.getID) {
+		return object;
+	}
+
 	return NTIID ? index.get(NTIID) : index.videoFrom(object);
 }
 

@@ -320,7 +320,7 @@ export default React.createClass({
 				<hr className="break hide-for-medium-up"/>
 				<div className="label" dangerouslySetInnerHTML={{__html: 'By ' + creator}/*TODO: localize*/}/>
 				<div className="description" dangerouslySetInnerHTML={{__html: desc}}/>
-				<div className="comment-count" href="/discussions" onClick={this.onClickDiscussion}>
+				<div className="comment-count" href="/discussions/" onClick={this.onClickDiscussion}>
 					{commentCount == null
 						? null
 						: typeof commentCount === 'number'

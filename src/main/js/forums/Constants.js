@@ -7,9 +7,9 @@ export const POST = Symbol('forums:POST');
 export const DELETED_ITEM_GROUP = Symbol('forums:DELETED_ITEM_GROUP');
 
 export const mimeTypes = {
-	[FORUM]: 'forums.communityforum',
-	[TOPIC]: 'forums.communityheadlinetopic',
-	[POST]: 'forums.generalforumcomment',
+	[FORUM]: ['forums.communityforum', 'forums.contentforum'],
+	[TOPIC]: ['forums.communityheadlinetopic', 'forums.contentheadlinetopic'],
+	[POST]: ['forums.generalforumcomment', 'forums.contentforumcomment'],
 	[DELETED_ITEM_GROUP]: 'forums.deleteditemgroup'
 };
 

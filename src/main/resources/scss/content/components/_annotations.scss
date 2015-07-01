@@ -36,8 +36,8 @@
 	@each $item in $highlight-colors {
 		$name: nth($item,1);
 		$menu_color: nth($item,2);
-		$hover_color: makeTransparentColor(nth($item,3));
-		$highlight_color: makeTransparentColor(lighten(nth($item,3), 4%));
+		$hover_color: nth($item,3); // makeTransparentColor(nth($item,3));
+		$highlight_color: lighten(nth($item,3), 4%); // makeTransparentColor(lighten(nth($item,3), 4%));
 
 		$prefix: if($onParentSelector,'&','');
 
