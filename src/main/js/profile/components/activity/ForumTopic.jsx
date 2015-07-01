@@ -3,6 +3,7 @@ import TopicHeadline from 'forums/components/TopicHeadline';
 import Breadcrumb from './Breadcrumb';
 import ReportLink from 'forums/components/ReportLink';
 import ObjectLink from './ObjectLink';
+import LuckyCharms from 'common/components/LuckyCharms';
 import {scoped} from 'common/locale';
 let t = scoped('FORUMS');
 
@@ -30,7 +31,10 @@ export default React.createClass({
 		return (
 			<div>
 				<Breadcrumb item={item} />
-				<TopicHeadline item={item.headline} />
+				<div className="body">
+					<LuckyCharms item={item} />
+					<TopicHeadline item={item.headline} />
+				</div>
 				<div className="footer">
 					<a href={this.objectLink(item)} className="postCount">{t('replies', {count: item.PostCount})}</a>
 					<ReportLink item={item} />
