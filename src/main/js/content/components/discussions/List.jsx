@@ -12,7 +12,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import NotFound from 'notfound/components/View';
 
-import Detail from './Detail';
+import View from './View';
 import Item from './Item';
 
 const Note = getModel('note');
@@ -125,7 +125,7 @@ export default React.createClass({
 
 		return itemId ? (
 			item
-			? ( <Detail item={item} pageSource={pageSource}/> )
+			? ( <View item={item} pageSource={pageSource}/> )
 			: loading
 				? ( <Loading/> )
 				: ( <NotFound/> )

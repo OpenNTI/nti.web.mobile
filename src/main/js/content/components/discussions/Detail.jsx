@@ -1,16 +1,10 @@
 import React from 'react';
 
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
-
 import Avatar from 'common/components/Avatar';
-import ContextSender from 'common/mixins/ContextSender';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 import LuckyCharms from 'common/components/LuckyCharms';
 import SharedWithList from 'common/components/SharedWithList';
-
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
-
 
 import Body from 'modeled-content/components/Panel';
 
@@ -27,8 +21,6 @@ import NotePanelBehavior from './NotePanelBehavior';
 export default React.createClass({
 	displayName: 'content:discussions:Detail',
 	mixins: [
-		ContextSender,
-		NavigatableMixin,
 		NotePanelBehavior
 	],
 
@@ -43,25 +35,6 @@ export default React.createClass({
 		 * @type {bool}
 		 */
 		lite: React.PropTypes.bool
-	},
-
-
-	componentDidMount () { this.updatePageSource(); },
-	componentWillReceiveProps (props) { this.updatePageSource(props); },
-
-	updatePageSource (props = this.props) {
-		let {pageSource, item} = props;
-		this.setPageSource(pageSource, item.getID());
-	},
-
-
-	getContext () {
-		let {item} = this.props;
-
-		return Promise.resolve({
-			label: item.title || 'Note',
-			href: this.makeHref(encodeForURI(item.getID()))
-		});
 	},
 
 
