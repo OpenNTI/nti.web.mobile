@@ -25,7 +25,9 @@ export default React.createClass({
 
 		return (
 			<div>
+				{/*Context With Image and Breadcrumb*/}
 				<Detail item={item} lite/>
+				{/*<Actions item={item}/> -- Comment count, [edit] [delete]*/}
 			</div>
 		);
 
