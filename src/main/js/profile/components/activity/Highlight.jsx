@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Mixin from './Mixin';
+import Breadcrumb from './Breadcrumb';
+import cx from 'classnames';
 
 export default React.createClass({
 	displayName: 'Highlight',
@@ -21,8 +23,15 @@ export default React.createClass({
 			return null;
 		}
 
+		let css = cx('application-highlight', 'plain', item.presentationProperties.highlightColorName);
+
 		return (
-			<div>{item.selectedText}</div>
+			<div>
+				<Breadcrumb item={item} />
+				<div className="body">
+					<span className={css}>{item.selectedText}</span>
+				</div>
+			</div>
 		);
 
 	}
