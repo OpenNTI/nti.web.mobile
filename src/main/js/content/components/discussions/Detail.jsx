@@ -35,7 +35,9 @@ export default React.createClass({
 	propTypes: {
 		pageSource: React.PropTypes.object,
 
-		item: React.PropTypes.object
+		item: React.PropTypes.object,
+
+		suppressContext: React.PropTypes.bool
 	},
 
 
@@ -60,7 +62,7 @@ export default React.createClass({
 
 	render () {
 		let {replying} = this.state;
-		let {item} = this.props;
+		let {item, suppressContext} = this.props;
 		let {body, creator, title} = item;
 		let date = item.getLastModified();
 
@@ -81,7 +83,7 @@ export default React.createClass({
 						</div>
 					</div>
 
-					<Context item={item}/>
+					{!suppressContext && ( <Context item={item}/> )}
 
 					<Body body={body}/>
 
