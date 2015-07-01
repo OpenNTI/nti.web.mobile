@@ -56,8 +56,8 @@ export default React.createClass({
 		return breadcrumb.map( (current) => {
 			let p = (current || {}).getPresentationProperties ? current.getPresentationProperties() : current;
 			let title = (p || {}).title;
-			return <li key={title} className="crumb">{title}</li>;
-		});
+			return title ? <li key={title} className="crumb">{title}</li> : null;
+		}).filter(x => x); // filter out nulls
 	},
 
 	render () {
