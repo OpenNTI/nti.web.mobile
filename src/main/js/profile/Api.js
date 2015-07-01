@@ -1,8 +1,8 @@
 import {getService} from 'common/utils';
 
-export function getTopicBreadcrumb(topicId) {
+export function getBreadcrumb(ntiid) {
 	return getService()
 	.then(
-		service => service.getContextPathFor(topicId)
+		service => service.getContextPathFor(ntiid)
 	);
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {getTopicBreadcrumb} from '../../Api';
+import {getBreadcrumb} from '../../Api';
 import ObjectLink from './ObjectLink';
 import Loading from 'common/components/TinyLoader';
 import {scoped} from 'common/locale';
@@ -29,10 +29,13 @@ export default React.createClass({
 	},
 
 	loadBreadcrumb (item) {
-		getTopicBreadcrumb(item.getID())
+		getBreadcrumb(item.getID())
 		.then(breadcrumb => {
 			this.setState({
-				breadcrumb: breadcrumb[0]
+				breadcrumb: breadcrumb.length > 0 ? breadcrumb[0] : {
+					isError: true,
+					reason: 'breadcrumb has zero length'
+				}
 			});
 		})
 		.catch(reason => {
@@ -53,10 +56,10 @@ export default React.createClass({
 	},
 
 	crumbText (breadcrumb) {
-		return breadcrumb.map( (current) => {
+		return breadcrumb.map( (current, index) => {
 			let p = (current || {}).getPresentationProperties ? current.getPresentationProperties() : current;
 			let title = (p || {}).title;
-			return title ? <li key={title} className="crumb">{title}</li> : null;
+			return title ? <li key={title + index} className="crumb">{title}</li> : null;
 		}).filter(x => x); // filter out nulls
 	},
 
