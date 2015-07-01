@@ -22,9 +22,15 @@
 		list-style-type: none;
 		margin: 0;
 		white-space: nowrap;
+		flex: 0 1 auto;
+		display: flex;
 	}
 	li {
 		display: inline-block;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		flex: 0 0 auto;
+		overflow: hidden;
 	}
 }
 
@@ -38,13 +44,17 @@
 			content: '›';
 			padding: 0 .5em;
 		}
-		&:last-child::after {
-			content:'';
+		&:last-child {
+			flex: 1 1 auto;
+			&::after {
+				content: none;
+			}
 		}
 	}
 }
 
 .profile-top-controls-buttons {
+	flex: 0 0 auto;
 	.button {
 		margin: 0.75rem;
 		margin-right: 0;
