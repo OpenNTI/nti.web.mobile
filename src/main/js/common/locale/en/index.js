@@ -43,6 +43,7 @@ export default {
 		noMatches: 'No items match the selected filter.',
 		emptyList: 'This list is empty.',
 		'emptyList:discussions': 'No discussions.',
+		'emptyList:lesson-overview': 'Empty Overview :(\nThis lesson is missing content.',
 		'emptyList:library-admin': 'No Administered Courses.',
 		'emptyList:library-courses': 'You don\'t have any courses yet...',
 		'emptyList:videos': 'No videos.'
