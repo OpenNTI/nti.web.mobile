@@ -4,13 +4,15 @@ import Unknown from './Unknown';
 import ForumComment from './ForumComment';
 import ForumTopic from './ForumTopic';
 import Highlight from './Highlight';
+import Note from './Note';
 
 
 const KINDS = [
 	Unknown,
 	ForumComment,
 	ForumTopic,
-	Highlight
+	Highlight,
+	Note
 ];
 
 export default function select (item, index) {
