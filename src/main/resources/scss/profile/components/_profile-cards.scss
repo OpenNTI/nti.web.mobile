@@ -21,6 +21,12 @@
 	&.positions {
 		border-left-color: #7ecfc8;
 	}
+
+	.headline.post {
+		.avatar {
+			top: 0;
+		}
+	}
 	// &.activity {
 	// 	border-left-color: #fdcf61;
 	// }
@@ -36,12 +42,17 @@
 	// &.highlight {
 	// 	border-left-color: #fc9f77;
 	// }
-	h1 {
-		font-size: 1.25rem;
+	& > h1 {
 		border-bottom: 0.0625rem solid $quad-grey;
 		padding: .2em 0;
+	}
+
+	.headline
+
+	h1 {
+		font-size: 1.25rem;
 		font-family: $body-font-family;
-		color: $secondary-grey;
+		color: $secondary-grey;	
 	}
 
 	.breadcrumb {
