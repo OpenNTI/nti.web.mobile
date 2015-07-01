@@ -70,25 +70,25 @@ export default React.createClass({
 
 
 	setUser (user = this.props.user) {
-		let activity = null;
+		let store = null;
 		if (user) {
-			activity = user.getActivity();
+			store = user.getActivity();
 		}
 
-		this.setState({activity});
+		this.setState({store});
 	},
 
 
 	render () {
-		let {activity} = this.state;
+		let {store} = this.state;
 
-		if (!activity || activity.loading) {
+		if (!store || store.loading) {
 			return ( <Loading /> );
 		}
 
 		return (
 			<ul className="profile-cards activity">
-				{activity.map(a => {
+				{store.map(a => {
 
 					// // localize the last segment of the mime type for the card title.
 					let mime = a.MimeType.split('.').pop();
