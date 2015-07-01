@@ -39,28 +39,50 @@ export default React.createClass({
 	},
 
 
-	setUser (user = this.props.user) {
-		if (user) {
-			user.getActivity()
-				.then(
-					activity => this.setState({activity}),
-					error => this.setState({error}));
-
-		}
-		else {
-			this.setState({activity: []});
+	componentWillUnmount () {
+		let {store} = this.state;
+		if (store) {
+			store.removeListener('change', this.onStoreChange);
 		}
 	},
 
 
-	render () {
-		let {error, activity} = this.state;
+	componentWillUpdate (_, nextState) {
+		let {store} = this.state;
+		let nextStore = nextState.store;
 
-		if (error) {
-			return ( <div>Error</div> );
+		if (store && store !== nextStore) {
+			store.removeListener('change', this.onStoreChange);
+		}
+		else if (nextStore && nextStore !== store) {
+			nextStore.addListener('change', this.onStoreChange);
+
+			if (!nextStore.loading) {
+				console.log('Wut?');
+			}
+		}
+	},
+
+
+	onStoreChange () {
+		this.forceUpdate();
+	},
+
+
+	setUser (user = this.props.user) {
+		let activity = null;
+		if (user) {
+			activity = user.getActivity();
 		}
 
-		if (!activity) {
+		this.setState({activity});
+	},
+
+
+	render () {
+		let {activity} = this.state;
+
+		if (!activity || activity.loading) {
 			return ( <Loading /> );
 		}
 
@@ -72,9 +94,11 @@ export default React.createClass({
 					let mime = a.MimeType.split('.').pop();
 					// let title = t(mime);
 
-					return ( <Card key={a.NTIID}
-								className={mime}
-								>{this.renderItems(a)}</Card> );
+					return (
+						<Card key={a.NTIID} className={mime}>
+							{this.renderItems(a)}
+						</Card>
+					);
 				})}
 			</ul>
 		);

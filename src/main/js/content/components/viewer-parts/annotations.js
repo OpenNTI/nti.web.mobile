@@ -39,6 +39,12 @@ export default {
 		return content && content.getPristine();
 	},
 
+	componentWillUnmount () {
+		let store = getStore(this.state);
+		if (store) {
+			store.removeListener('change', this.onUserDataChange);
+		}
+	},
 
 	componentWillUpdate (_, nextState) {
 		let store = getStore(this.state);
