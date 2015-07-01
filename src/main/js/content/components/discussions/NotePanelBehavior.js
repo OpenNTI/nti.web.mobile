@@ -37,7 +37,10 @@ export default {
 
 
 	updateData (props = this.props, setLoading = true) {
-		let {item} = props;
+		let {item, lite} = props;
+		if (lite) {
+			return;
+		}
 
 		let t = setTimeout(()=> this.setState({loading: setLoading}), 100);
 		item.getReplies()
