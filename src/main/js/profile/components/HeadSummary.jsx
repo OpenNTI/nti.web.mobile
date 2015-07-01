@@ -48,12 +48,12 @@ export default React.createClass({
 				</div>
 				<ul className="profile-head-summary-attrs">
 					{ed.map(item => {
-						return <li className='education'>{item.degree} at {item.school}</li>;
+						return <li key={item.NTIID} className='education'>{item.degree} at {item.school}</li>;
 					})}
 					{[
 						'affiliation',
 						'location',
-						'home_page'].map( attr => user[attr] && <li className={attr}>{user[attr]}</li>)
+						'home_page'].map( attr => user[attr] && <li key={attr} className={attr}>{user[attr]}</li>)
 					}
 				</ul>
 			</div>
