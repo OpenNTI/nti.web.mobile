@@ -1,7 +1,9 @@
 import React from 'react';
 import TopicHeadline from 'forums/components/TopicHeadline';
-
 import Breadcrumb from './Breadcrumb';
+import ReportLink from 'forums/components/ReportLink';
+import {scoped} from 'common/locale';
+let t = scoped('FORUMS');
 
 import Mixin from './Mixin';
 
@@ -28,6 +30,10 @@ export default React.createClass({
 			<div>
 				<Breadcrumb item={item} />
 				<TopicHeadline item={item.headline} />
+				<div className="footer">
+					<div className="postCount">{t('replies', {count: item.PostCount})}</div>
+					<ReportLink item={item} />
+				</div>
 			</div>
 		);
 

@@ -43,16 +43,17 @@
 	// 	border-left-color: #fc9f77;
 	// }
 	& > h1 {
+		font-family: $body-font-family;
+		font-size: 1.25rem;
+		color: $secondary-grey;	
 		border-bottom: 0.0625rem solid $quad-grey;
 		padding: .2em 0;
 	}
 
-	.headline
-
 	h1 {
-		font-size: 1.25rem;
 		font-family: $body-font-family;
-		color: $secondary-grey;	
+		font-size: 1.25rem;
+		color: $secondary-grey;
 	}
 
 	.breadcrumb {
@@ -80,6 +81,13 @@
 				content: ' ';
 	    	}
     	}
+	}
+	.footer {
+		margin-top: 1rem;
+		& > * {
+			display: inline-block;
+			margin-right: 1rem;
+		}
 	}
 }
 
