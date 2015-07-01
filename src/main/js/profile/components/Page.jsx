@@ -43,12 +43,13 @@ export default React.createClass({
 						</ul>
 					</div>
 					<div className="profile">
-						<Head {...this.props} />
-						<ul className="profile-nav">
-							<li className="profile-nav-item"><ActiveLink href="/about/">About</ActiveLink></li>
-							<li className="profile-nav-item"><ActiveLink href="/activity/">Activity</ActiveLink></li>
-							<li className="profile-nav-item"><ActiveLink href="/achievements/">Achievements</ActiveLink></li>
-						</ul>
+						<Head {...this.props}>
+							<ul className="profile-nav">
+								<li className="profile-nav-item"><ActiveLink href="/about/">About</ActiveLink></li>
+								<li className="profile-nav-item"><ActiveLink href="/activity/">Activity</ActiveLink></li>
+								<li className="profile-nav-item"><ActiveLink href="/achievements/">Achievements</ActiveLink></li>
+							</ul>
+						</Head>
 						<Content {...this.props}/>
 					</div>
 				</Gradient>

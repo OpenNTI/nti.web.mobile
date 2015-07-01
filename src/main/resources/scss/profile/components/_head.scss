@@ -3,6 +3,7 @@
 	// margin: 1rem 0.625rem;
 	background: $primary-grey;
 	color: white;
+	position: relative;
 
 	.user {
 		display: flex;
@@ -10,12 +11,15 @@
 		overflow: hidden;
 
 		.profile-avatar-container {
-			flex: 1 1 120px;
+			max-width: 180px;
+			flex: 0 0.5 180px;
 		}
 
-		img, svg {
-
+		.profile-head-summary {
+			flex: 1 1 auto;
 		}
+
+		img, svg {}
 
 		.label {
 			background: none;
@@ -108,5 +112,19 @@
 	&, h1 {
 		font-family: $body-font-family;
 		color: $tertiary-grey;
+	}
+}
+
+@media screen and (min-width: 500px) {
+
+	ul.profile-nav {
+		position: absolute;
+		bottom: 0;
+		left: 180px;
+		right: 0;
+	}
+
+	.profile-head-summary {
+		margin-bottom: 3.5rem;
 	}
 }

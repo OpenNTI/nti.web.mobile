@@ -7,22 +7,25 @@ export default React.createClass({
 	displayName: 'profile:Head',
 
 	propTypes: {
+		children: React.PropTypes.any,
+
 		username: React.PropTypes.string.isRequired
 	},
 
 	render () {
-		let {username} = this.props;
+		let {children, username} = this.props;
 
 		username = decodeURIComponent(username);
 
 		return (
 			<div className="profile-head">
 				<div className="user">
-				<div className="profile-avatar-container">
-					<Avatar username={username}/>
+					<div className="profile-avatar-container">
+						<Avatar username={username}/>
+					</div>
+					<HeadSummary username={username} />
 				</div>
-				<HeadSummary username={username} />
-				</div>
+				{children}
 			</div>
 		);
 	}
