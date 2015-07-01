@@ -4,6 +4,7 @@ import Breadcrumb from './Breadcrumb';
 import LuckyCharms from 'common/components/LuckyCharms';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
+import DateTime from 'common/components/DateTime';
 
 import Mixin from './Mixin';
 
@@ -31,7 +32,12 @@ export default React.createClass({
 				<Breadcrumb item={item} />
 				<div className="body">
 					<LuckyCharms item={item} />
-					<Avatar username={item.creator} /> <DisplayName username={item.creator} /> commented on this discussion.
+					<div className="wrap">
+						<Avatar username={item.creator} /> <DisplayName username={item.creator} /> commented on this discussion.
+						<div className="meta">
+							<DateTime date={item.getCreatedTime()} relative={true}/>
+						</div>
+					</div>
 					<ModeledContent body={item.body} />
 				</div>
 			</div>
