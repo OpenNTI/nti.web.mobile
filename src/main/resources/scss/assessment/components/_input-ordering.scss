@@ -46,14 +46,10 @@
 		p:last-of-type {margin-bottom: 0;}
 
 		.draggable {
-			cursor: -webkit-grab;
-			cursor: -moz-grab;
 			cursor: grab;
 
 			&.dragging {
 				&, .hamburger {
-					cursor: -webkit-grabbing;
-					cursor: -moz-grabbing;
 					cursor: grabbing;
 				}
 

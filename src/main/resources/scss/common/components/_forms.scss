@@ -62,10 +62,8 @@ select.error {
 
 %labelspan {
 	//iOS tab bug fix.
-	-webkit-pointer-events: none;
 	pointer-events: none;
 	a {
-		-webkit-pointer-events: all;
 		pointer-events: all;
 	}
 
