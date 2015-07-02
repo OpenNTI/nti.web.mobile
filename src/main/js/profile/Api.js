@@ -1,14 +1,9 @@
-import {getService} from 'common/utils';
-
-export function getBreadcrumb(ntiid) {
-	return getService()
-	.then(
-		service => service.getContextPathFor(ntiid)
-	);
+export function getBreadcrumb(item) {
+	return (item || {}).getContextPath ? item.getContextPath() : Promise.reject('item doesn\'t have a getContextPath method.');
 }
 
-export function getThumbnail(ntiid) {
-	return getBreadcrumb(ntiid)
+export function getThumbnail(item) {
+	return getBreadcrumb(item)
 	.then(breadcrumb => {
 		if (breadcrumb.length > 0 && breadcrumb[0].getPresentationProperties) {
 			return (breadcrumb[0].getPresentationProperties() || {}).thumb;

@@ -29,7 +29,7 @@ export default React.createClass({
 	},
 
 	loadBreadcrumb (item) {
-		getBreadcrumb(item.getID())
+		getBreadcrumb(item)
 		.then(breadcrumb => {
 			this.setState({
 				breadcrumb: breadcrumb.length > 0 ? breadcrumb[0] : {
