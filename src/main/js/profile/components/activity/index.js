@@ -4,6 +4,7 @@ import Unknown from './Unknown';
 import ForumComment from './ForumComment';
 import ForumTopic from './ForumTopic';
 import Highlight from './Highlight';
+import HighlightContainer from './HighlightContainer';
 import Note from './Note';
 
 
@@ -11,6 +12,7 @@ const KINDS = [
 	Unknown,
 	ForumComment,
 	ForumTopic,
+	HighlightContainer,
 	Highlight,
 	Note
 ];

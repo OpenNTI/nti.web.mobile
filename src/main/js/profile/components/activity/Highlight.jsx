@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Mixin from './Mixin';
-import Breadcrumb from './Breadcrumb';
 import cx from 'classnames';
 
 export default React.createClass({
@@ -9,7 +8,7 @@ export default React.createClass({
 	mixins: [Mixin],
 
 	statics: {
-		mimeType: /highlight/i
+		mimeType: /highlight$/i
 	},
 
 	propTypes: {
@@ -27,7 +26,6 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Breadcrumb item={item} />
 				<div className="body">
 					<span className={css}>{item.selectedText}</span>
 				</div>
