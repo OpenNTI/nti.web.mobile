@@ -72,6 +72,12 @@
 	    padding-left: 0;
 	}
 
+	.highlight-group {
+		.breadcrumb {
+			padding-bottom: 0;
+		}
+	}
+
 	.breadcrumb-list {
 		margin: 0 $card-padding;
 		color: $tertiary-grey;
