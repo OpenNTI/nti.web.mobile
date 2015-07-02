@@ -63,7 +63,7 @@
 			&::before {
 				font-family: 'icomoon';
 				color: $icon-color;
-				padding-right: .5em;
+				padding-right: .4em;
 				position: relative;
 				top: 0.1em;
 				line-height: 0;
@@ -71,17 +71,17 @@
 			}
 			&.education {
 				&::before {
-					content: '\e604';
+					content: '\e600';
 				}
 			}
 			&.affiliation {
 				&::before {
-					content: '\e606';
+					content: '\e602';
 				}
 			}
 			&.location {
 				&::before {
-					content: '\e605';
+					content: '\e601';
 				}
 			}
 			&.home_page {
