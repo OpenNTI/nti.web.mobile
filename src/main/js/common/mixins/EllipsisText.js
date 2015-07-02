@@ -36,9 +36,7 @@ class SharedExecution {
 
 	start () {
 		if (!this.timeout) {
-			this.timeout = setTimeout(() => { this.stop(); this.run(); }, 17);
-		} else {
-			console.log('Skip start');
+			this.timeout = setTimeout(() => { this.stop(); this.run(); }, 1);
 		}
 	}
 
@@ -64,7 +62,7 @@ class SharedExecution {
 		}
 
 		this.tasks = this.get();
-		console.log('Run... remain: ', this.tasks.length);
+		console.debug('Ellipse Pass... remain: ', this.tasks.length);
 	}
 }
 
