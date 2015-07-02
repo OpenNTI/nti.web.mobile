@@ -69,24 +69,25 @@ section.right-small {
 		&.menu{
 			overflow: visible;
 			&::after {
+				
+				$size: .75rem;
+
 				backface-visibility: hidden;
 				transition: transform $duration $enter-timing;
-				content: '';
+				// content: '';
 				@extend %chevron-down;
 				.nav-menu-open & {
 					transform: rotate3d(0,0,1,180deg);
 				}
-				width: 10px;
-				height: 10px;
 				position: absolute;
+				width: $size;
+				height: $size;
+				font-size: $size;
 				top: 50%;
-				right: -12px;
-				margin-top: -5px;
-				background:{
-					size: contain;
-					position: center;
-					repeat: no-repeat;
-				}
+				line-height: 1;
+				right: -1rem;
+				top: 50%;
+				margin-top: -$size/2;
 			}
 		}
 
@@ -218,24 +219,13 @@ section.right-small {
 
 	.return-to {
 		@extend %back-button;
-		padding-left: 1.875rem;
+		// padding-left: 1.875rem;
 
 
 		&::before {
 			@extend %chevron-left;
 			.dark & {
 				@extend %chevron-left-white;
-			}
-
-			content: '';
-			width: 24px;
-			height: 24px;
-			position: absolute;
-			top: 0.625rem;
-			left: .3125rem;
-			background: {
-				size: contain;
-				repeat: no-repeat;
 			}
 		}
 		/*

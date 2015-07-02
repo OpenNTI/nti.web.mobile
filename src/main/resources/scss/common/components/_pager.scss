@@ -28,20 +28,6 @@
 		width: 2rem;
 		height: 2.8125rem;
 
-		&::before {
-			content: '';
-			width: 24px;
-			height: 24px;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate3d(-50%,-50%,0);
-			background: {
-				size: contain;
-				repeat: no-repeat;
-			}
-		}
-
 		&:not([href]) {
 			opacity: 0.2;
 		}

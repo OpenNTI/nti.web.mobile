@@ -77,43 +77,48 @@ $tabs-navigation-font-color: $primary-grey;
 	background-color: $secondary-grey;
 }
 
+%chevron {
+	font-family: 'icomoon';
+	content: '<';
+	color: $primary-blue;
+	font-size: 1.5em;
+	vertical-align: middle;
+}
+
 %chevron-left {
-	@extend %svg-icon-mask;
-	mask-image: url(../images/svg/chevron-left.svg);
-	background-color: $primary-blue;
+	@extend %chevron;
+	position: relative;
+	top: -1px;
 }
 
 %chevron-left-white {
 	@extend %chevron-left;
-	background-color: white;
+	color: white;
 }
 
 %chevron-right {
-	@extend %svg-icon-mask;
-	mask-image: url(../images/svg/chevron-right.svg);
-	background-color: $primary-blue;
+	@extend %chevron;
+	content: '>';
 }
 
 %chevron-right-white {
 	@extend %chevron-right;
-	background-color: white;
+	color: white;
 }
 
 %chevron-up {
-	@extend %svg-icon-mask;
-	mask-image: url(../images/svg/chevron-up.svg);
-	background-color: $primary-blue;
+	@extend %chevron;
+	content: '^';
 }
 
 %chevron-up-white {
 	@extend %chevron-up;
-	background-color: white;
+	color: white;
 }
 
 %chevron-down {
-	@extend %svg-icon-mask;
-	mask-image: url(../images/svg/chevron-down.svg);
-	background-color: $primary-blue;
+	@extend %chevron;
+	content: 'v';
 }
 
 %chevron-down-white {
