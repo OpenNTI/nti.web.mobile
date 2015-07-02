@@ -56,6 +56,11 @@
 			line-height: $icon-size * 1.5;
 			padding-left: $icon-size * 1.5;
 			position: relative;
+
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+
 			&::before {
 				position: absolute;
 				content: ' ';
@@ -77,6 +82,15 @@
 			&.location {
 				&::before {
 					@extend %profile-location;
+				}
+
+				& > * {
+					&:last-child::after {
+						content: none;
+					}
+					&::after {
+						@extend %middot;
+					}
 				}
 			}
 		}

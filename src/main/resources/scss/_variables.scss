@@ -124,7 +124,7 @@ $tabs-navigation-font-color: $primary-grey;
 %profile-education {
 	@extend %svg-icon-mask;
 	mask-image: url('../images/svg/profile-education.svg');
-	
+
 }
 %profile-location {
 	@extend %svg-icon-mask;
@@ -223,6 +223,13 @@ $tabs-navigation-font-color: $primary-grey;
 	}
 }
 
+%middot {
+	text-decoration: none;
+	position: static;
+	content: '\00B7';
+	padding: 0 0.5em;
+	background: none;
+}
 
 %hardware-render {
 	backface-visibility: hidden;

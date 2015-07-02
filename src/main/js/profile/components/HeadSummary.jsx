@@ -39,7 +39,12 @@ export default React.createClass({
 			return <Loader />;
 		}
 
-		let ed = ensureArray(user.education);
+		let {affiliation, education, location} = user;
+		let homePage = user.home_page; //eslint-disable-line camecase
+
+		education = ensureArray(education)[0]; //TODO: pick "latest" (start year)?
+
+		//Is the affiliation field deprecated in favor of professional positions?
 
 		return (
 			<div className="profile-head-summary">
@@ -47,14 +52,18 @@ export default React.createClass({
 					<DisplayName username={this.props.username}/>
 				</div>
 				<ul className="profile-head-summary-attrs">
-					{ed.map(item => {
-						return <li key={item.NTIID} className='education'>{item.degree} at {item.school}</li>;
-					})}
-					{[
-						'affiliation',
-						'location',
-						'home_page'].map( attr => user[attr] && <li key={attr} className={attr}>{user[attr]}</li>)
-					}
+					{education && (
+						<li className='education'>{education.degree} at {education.school}</li>
+					)}
+
+					{affiliation && ( <li className="affiliation">{affiliation}</li> )}
+
+					{ (location || homePage) && (
+						<li className="location">
+							{location && ( <span className="location">{location}</span> )}
+							{homePage && ( <a className="home-page" href={homePage} target="_blank">{homePage}</a> )}
+						</li>
+					)}
 				</ul>
 			</div>
 		);
