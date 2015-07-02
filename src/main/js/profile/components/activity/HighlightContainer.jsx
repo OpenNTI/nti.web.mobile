@@ -14,7 +14,7 @@ export default React.createClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.array.isRequired
+		item: React.PropTypes.object.isRequired
 	},
 
 	render () {
@@ -26,7 +26,7 @@ export default React.createClass({
 			<div className="highlight-container">
 				<DisplayName username={item.creator} /> created {item.count} highlights on <DateTime date={item.date} />
 			{
-				Object.keys(items).map(ntiid => <HighlightGroup containerId={ntiid} items={items[ntiid]} />)
+				Object.keys(items).map(ntiid => <HighlightGroup key={ntiid} ntiid={ntiid} items={items[ntiid]} />)
 			}
 			</div>
 		);

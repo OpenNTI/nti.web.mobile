@@ -88,14 +88,14 @@ export default React.createClass({
 
 		return (
 			<ul className="profile-cards activity">
-				{store.map(a => {
+				{store.map((a, index) => {
 
 					// // localize the last segment of the mime type for the card title.
 					let mime = a.MimeType.split('.').pop();
 					// let title = t(mime);
 
 					return (
-						<Card key={a.NTIID} className={mime}>
+						<Card key={a.NTIID + index} className={mime}>
 							{this.renderItems(a)}
 						</Card>
 					);
