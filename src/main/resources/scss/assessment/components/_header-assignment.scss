@@ -82,11 +82,11 @@
 		}
 
 		.meta {
-			@include flex(1 1 auto);
+			flex: 1 1 auto;
 		}
 
 		.grade-container {
-			@include flex(0 0 auto);
+			flex: 0 0 auto;
 		}
 	}
 }
