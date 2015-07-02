@@ -3,6 +3,7 @@ import React from 'react';
 import Loading from 'common/components/TinyLoader';
 import BasePathAware from 'common/mixins/BasePath';
 import {scoped} from 'common/locale';
+import Button from 'common/forms/components/Button';
 
 
 import Card from './Card';
@@ -78,6 +79,12 @@ export default React.createClass({
 		this.setState({store});
 	},
 
+	more () {
+		let {store} = this.state;
+		if (store && !store.loading) {
+			store.nextBatch();
+		}
+	},
 
 	render () {
 		let {store} = this.state;
@@ -100,6 +107,7 @@ export default React.createClass({
 						</Card>
 					);
 				})}
+				{store.more && <li onClick={this.more}><Card key="morebutton">{store.loading ? <Loading/> : <Button>More</Button>}</Card></li>}
 			</ul>
 		);
 	}
