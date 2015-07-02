@@ -25,7 +25,7 @@ export default React.createClass({
 	},
 
 	load(props=this.props) {
-		let {items} = props.items;
+		let {items} = props;
 		if (items && items.length > 0) {
 			getThumbnail(items[0])
 			.then(thumb => {

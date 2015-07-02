@@ -73,8 +73,17 @@
 	}
 
 	.highlight-group {
+		position: relative;
+		padding-left: 76px;
+		margin-bottom: 2rem;
 		.breadcrumb {
 			padding-bottom: 0;
+		}
+		img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 60px;
 		}
 	}
 
