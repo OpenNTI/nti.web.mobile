@@ -12,15 +12,9 @@ widget {
 		word-wrap: break-word;
 
 		//Add the html-entity "&shy;" for break points you want to allow to hypnen-wrap.
-		-webkit-hyphens: manual;
-		-moz-hyphens: manual;
-		-ms-hyphens: manual;
 		hyphens: manual;
 
 		box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		-ms-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
 	}
 
 	.label {

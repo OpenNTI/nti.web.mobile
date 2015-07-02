@@ -54,8 +54,6 @@ section.right-small {
 .tab-bar-section {
 
 	&.has-pager .title {
-		max-width: -webkit-calc(50% - 50px);//fit pager
-		max-width: -moz-calc(50% - 50px);//fit pager
 		max-width: calc(50% - 50px);//fit pager
 	}
 
@@ -122,7 +120,7 @@ section.right-small {
 		list-style: none;
 		white-space: nowrap;
 		display: inline-block;
-		@include inline-flexbox();
+		display: inline-flex;
 
 		border: 1px solid $primary-blue;
 		box-shadow: inset 0 0 0 1px $primary-blue;
@@ -138,7 +136,7 @@ section.right-small {
 			position: relative;
 			overflow: hidden;
 			display: inline-block;
-			@include flex(1 1 auto);
+			flex: 1 1 auto;
 
 			a {
 				position: relative;

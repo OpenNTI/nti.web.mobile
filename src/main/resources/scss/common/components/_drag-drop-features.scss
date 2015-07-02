@@ -1,10 +1,6 @@
 
 .drag.source {
 	position: relative;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
 	user-select: none;
 
 	color: $primary-blue;
@@ -24,8 +20,6 @@
 	};
 	line-height: 2rem;
 
-	cursor: -webkit-grab;
-	cursor: -moz-grab;
 	cursor: grab;
 
 	&.used {
@@ -42,8 +36,6 @@
 
 	&.dragging,
 	&:active {
-		cursor: -webkit-grabbing;
-		cursor: -moz-grabbing;
 		cursor: grabbing;
 	}
 

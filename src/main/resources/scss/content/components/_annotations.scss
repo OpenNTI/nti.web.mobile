@@ -98,7 +98,7 @@
 
 		&:not(.shared-with-me) {
 			@include highlight-colors();
-			// -webkit-clip-path: polygon(5px 4px, 50% 7%, 100% 16%, 98% 93%, 50% 86%, 0% 91%);
+			// clip-path: polygon(5px 4px, 50% 7%, 100% 16%, 98% 93%, 50% 86%, 0% 91%);
 		}
 
 		&.shared-with-me {

@@ -18,8 +18,8 @@ ul.off-canvas-list {
 }
 
 
-
 aside[class*=off-canvas-menu] {
+	backface-visibility: visible;
 	transition: transform 500ms ease 0s;
 	z-index: 1004;
 	bottom: auto;
