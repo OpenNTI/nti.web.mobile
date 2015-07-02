@@ -54,7 +54,6 @@
 			$icon-color: $secondary-grey;
 			$icon-size: 1.5em;
 			line-height: $icon-size * 1.5;
-			padding-left: $icon-size * 1.5;
 			position: relative;
 
 			white-space: nowrap;
@@ -62,26 +61,32 @@
 			text-overflow: ellipsis;
 
 			&::before {
-				position: absolute;
-				content: ' ';
-				top: 10%;
-				left: 0;
-				width: $icon-size;
-				height: $icon-size;
+				font-family: 'icomoon';
+				color: $icon-color;
+				padding-right: .5em;
+				position: relative;
+				top: 0.1em;
+				line-height: 0;
+				font-size: 1.5em;
 			}
 			&.education {
 				&::before {
-					@extend %profile-education;
+					content: '\e604';
 				}
 			}
 			&.affiliation {
 				&::before {
-					@extend %profile-professional;
+					content: '\e606';
 				}
 			}
 			&.location {
 				&::before {
-					@extend %profile-location;
+					content: '\e605';
+				}
+			}
+			&.home_page {
+				&::before {
+					content: '\00a0\00a0';
 				}
 
 				& > * {
