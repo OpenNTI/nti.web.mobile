@@ -83,11 +83,6 @@
 				&::before {
 					content: '\e601';
 				}
-			}
-			&.home_page {
-				&::before {
-					content: '\00a0\00a0';
-				}
 
 				& > * {
 					&:last-child::after {
