@@ -26,6 +26,25 @@
 		border-left-color: #7ecfc8;
 	}
 
+	.avatar-heading {
+		position: relative;
+		img.avatar {
+			position: absolute;
+			width: 60px;
+			top: 0;
+			left: 0;
+		}
+		.wrap {
+			margin: 0 0 1rem 4.375rem;
+			h1 {
+				margin-bottom: 0;
+			}
+			.meta {
+				font-size: .8rem;
+			}
+		}
+	}
+
 	.headline.post {
 		margin-top: 0;
 		padding-top: 1rem;
@@ -35,21 +54,6 @@
 		padding: 0;
 	}
 
-	// &.activity {
-	// 	border-left-color: #fdcf61;
-	// }
-	// &.achievements {
-	// 	border-left-color: #fdcf61;
-	// }
-	// &.generalforumcomment {
-	// 	border-left-color: #fdcf61;
-	// }
-	// &.communityheadlinetopic {
-	// 	border-left-color: #7ecfc8;
-	// }
-	// &.highlight {
-	// 	border-left-color: #fc9f77;
-	// }
 	& > h1 {
 		font-family: $body-font-family;
 		font-size: 1.25rem;

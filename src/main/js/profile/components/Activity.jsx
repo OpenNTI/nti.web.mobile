@@ -4,6 +4,7 @@ import Loading from 'common/components/TinyLoader';
 import BasePathAware from 'common/mixins/BasePath';
 import {scoped} from 'common/locale';
 import Button from 'common/forms/components/Button';
+import Joined from './activity/Joined';
 
 
 import Card from './Card';
@@ -107,7 +108,8 @@ export default React.createClass({
 						</Card>
 					);
 				})}
-				{store.more && <li onClick={this.more}><Card key="morebutton">{store.loading ? <Loading/> : <Button>More</Button>}</Card></li>}
+				{(store.more || store.loading) && <Card key="morebutton">{store.loading ? <Loading/> : <Button onClick={this.more}>More</Button>}</Card>}
+				{!store.more && <Card><Joined user={this.props.user} /></Card>}
 			</ul>
 		);
 	}
