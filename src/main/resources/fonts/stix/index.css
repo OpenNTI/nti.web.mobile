@@ -1,175 +1,175 @@
 //Stix fonts for mathjax renderings
 @font-face {
     font-family: 'STIXGeneral';
-    src: url('../lib/fonts/stix/STIXGeneral-Bold.woff');
+    src: url('STIXGeneral-Bold.woff');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXGeneral';
-    src: url('../lib/fonts/stix/STIXGeneral-BoldItalic.woff');
+    src: url('STIXGeneral-BoldItalic.woff');
     font-weight: bold;
     font-style: italic;
 }
 @font-face {
     font-family: 'STIXGeneral';
-    src: url('../lib/fonts/stix/STIXGeneral-Italic.woff');
+    src: url('STIXGeneral-Italic.woff');
     font-weight: normal;
     font-style: italic;
 }
 @font-face {
     font-family: 'STIXGeneral';
-    src: url('../lib/fonts/stix/STIXGeneral-Regular.woff');
+    src: url('STIXGeneral-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXIntegralsD';
-    src: url('../lib/fonts/stix/STIXIntegralsD-Bold.woff');
+    src: url('STIXIntegralsD-Bold.woff');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXIntegralsD';
-    src: url('../lib/fonts/stix/STIXIntegralsD-Regular.woff');
+    src: url('STIXIntegralsD-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXIntegralsSm';
-    src: url('../lib/fonts/stix/STIXIntegralsSm-Bold.woff');
+    src: url('STIXIntegralsSm-Bold.woff');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXIntegralsSm';
-    src: url('../lib/fonts/stix/STIXIntegralsSm-Regular.woff');
+    src: url('STIXIntegralsSm-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXIntegralsUp';
-    src: url('../lib/fonts/stix/STIXIntegralsUp-Bold.woff');
+    src: url('STIXIntegralsUp-Bold.woff');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXIntegralsUp';
-    src: url('../lib/fonts/stix/STIXIntegralsUp-Regular.woff');
+    src: url('STIXIntegralsUp-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXIntegralsUpD';
-    src: url('../lib/fonts/stix/STIXIntegralsUpD-Bold.woff');
+    src: url('STIXIntegralsUpD-Bold.woff');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXIntegralsUpD';
-    src: url('../lib/fonts/stix/STIXIntegralsUpD-Regular.woff');
+    src: url('STIXIntegralsUpD-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXIntegralsUpSm';
-    src: url('../lib/fonts/stix/STIXIntegralsUpSm-Bold.woff');
+    src: url('STIXIntegralsUpSm-Bold.woff');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXIntegralsUpSm';
-    src: url('../lib/fonts/stix/STIXIntegralsUpSm-Regular.woff');
+    src: url('STIXIntegralsUpSm-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXNonUnicode';
-    src: url('../lib/fonts/stix/STIXNonUnicode-Bold.woff');
+    src: url('STIXNonUnicode-Bold.woff');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXNonUnicode';
-    src: url('../lib/fonts/stix/STIXNonUnicode-BoldItalic.woff');
+    src: url('STIXNonUnicode-BoldItalic.woff');
     font-weight: bold;
     font-style: italic;
 }
 @font-face {
     font-family: 'STIXNonUnicode';
-    src: url('../lib/fonts/stix/STIXNonUnicode-Italic.woff');
+    src: url('STIXNonUnicode-Italic.woff');
     font-weight: normal;
     font-style: italic;
 }
 @font-face {
     font-family: 'STIXNonUnicode';
-    src: url('../lib/fonts/stix/STIXNonUnicode-Regular.woff');
+    src: url('STIXNonUnicode-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXSizeFiveSym';
-    src: url('../lib/fonts/stix/STIXSizeFiveSym-Regular.woff');
+    src: url('STIXSizeFiveSym-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXSizeFourSym';
-    src: url('../lib/fonts/stix/STIXSizeFourSym-Bold.woff');
+    src: url('STIXSizeFourSym-Bold.woff');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXSizeFourSym';
-    src: url('../lib/fonts/stix/STIXSizeFourSym-Regular.woff');
+    src: url('STIXSizeFourSym-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXSizeOneSym';
-    src: url('../lib/fonts/stix/STIXSizeOneSym-Bold.woff');
+    src: url('STIXSizeOneSym-Bold.woff');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXSizeOneSym';
-    src: url('../lib/fonts/stix/STIXSizeOneSym-Regular.woff');
+    src: url('STIXSizeOneSym-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXSizeThreeSym';
-    src: url('../lib/fonts/stix/STIXSizeThreeSym-Bold.woff');
+    src: url('STIXSizeThreeSym-Bold.woff');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXSizeThreeSym';
-    src: url('../lib/fonts/stix/STIXSizeThreeSym-Regular.woff');
+    src: url('STIXSizeThreeSym-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXSizeTwoSym';
-    src: url('../lib/fonts/stix/STIXSizeTwoSym-Bold.woff');
+    src: url('STIXSizeTwoSym-Bold.woff');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXSizeTwoSym';
-    src: url('../lib/fonts/stix/STIXSizeTwoSym-Regular.woff');
+    src: url('STIXSizeTwoSym-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXVariants';
-    src: url('../lib/fonts/stix/STIXVariants-Bold.woff');
+    src: url('STIXVariants-Bold.woff');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'STIXVariants';
-    src: url('../lib/fonts/stix/STIXVariants-Regular.woff');
+    src: url('STIXVariants-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
