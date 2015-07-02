@@ -5,6 +5,9 @@ import DateTime from 'common/components/DateTime';
 
 import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
+import EmptyList from 'common/components/EmptyList';
+
+import {IllegalStateException} from 'common/exceptions';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
@@ -127,12 +130,22 @@ export default React.createClass({
 		let title = (data || {}).title || '';
 		let items = (data || {}).Items || [];
 
+		try {
+			return (
+				<div className="course-overview row">
+					<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
+					<h1 dangerouslySetInnerHTML={{__html: title}}/>
+					{this.renderItems(items, {node: node})}
+				</div>
+			);
+		} catch (e) {
+			if (!(e instanceof IllegalStateException)) {
+				return (<ErrorWidget error={e}/>);
+			}
+		}
+
 		return (
-			<div className="course-overview row">
-				<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
-				<h1 dangerouslySetInnerHTML={{__html: title}}/>
-				{this.renderItems(items, {node: node})}
-			</div>
+			<EmptyList type="lesson-overview"/>
 		);
 	}
 });

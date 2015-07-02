@@ -98,7 +98,7 @@ export default React.createClass({
 		}
 
 		if ((course && course.error) || !entry) {
-			return course.notFound ?
+			return !course || course.notFound ?
 				(<NotFound/>) :
 				(<ErrorWidget error={course.error}/>);
 		}

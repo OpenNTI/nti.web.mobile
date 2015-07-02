@@ -6,6 +6,10 @@ export default React.createClass({
 	displayName: 'ellipsis',
 	mixins: [ellipsis],
 
+	propTypes: {
+		tag: React.PropTypes.string
+	},
+
 	getDefaultProps () {
 		return {
 			tag: 'div'
