@@ -51,11 +51,11 @@ export default React.createClass({
 
 		if (relativeTo) {
 			m = moment.duration(m.diff(relativeTo));
-			m.fromNow = (s)=>this.humanize(!s);
+			m.fromNow = (s)=>m.humanize(!s);
 			m.isSame = emptyFunction;//will return falsy
 		}
 
-		let text = relative ?
+		let text = relative || relativeTo ?
 					m.fromNow(!isEmpty(suffix)) :
 					m.format(format);
 
