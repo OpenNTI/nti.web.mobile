@@ -80,7 +80,7 @@ export default React.createClass({
 
 	more () {
 		let {store} = this.state;
-		// let el = React.findDOMNode(this.refs.more);
+		// let el = React.findDOMNode(this.refs.end);
 		// if (el) {
 		// 	el = el.previousSibling;
 		// }
@@ -116,18 +116,15 @@ export default React.createClass({
 					);
 				})}
 
-				{!store.more && ( <Card><Joined user={this.props.user} /></Card> )}
-
-				{store.more && (
-					<li ref="more">
-						<Card key="morebutton">
-							{store.loading
-								? ( <Loading/> )
-								: ( <Button onClick={this.more}>More</Button>
-							)}
-						</Card>
-					</li>
-				)}
+				<Card ref="end" key="theend">
+					{store.more
+						? store.loading
+							? ( <Loading/> )
+							: ( <Button onClick={this.more}>More</Button> )
+						: (
+						<Joined user={this.props.user} />
+					)}
+				</Card>
 
 			</ul>
 		);
