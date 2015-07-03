@@ -5,19 +5,22 @@ import ArrayWidget from './ArrayWidget';
 import StringWidget from './StringWidget';
 import ProfessionalPosition from './ProfessionalPosition';
 import EducationalExperience from './EducationalExperience';
+import CommunityWidget from './CommunityWidget';
 
 const WIDGETS = [
 	Unknown,
 	StringWidget,
 	ArrayWidget,
 	EducationalExperience,
-	ProfessionalPosition
+	ProfessionalPosition,
+	CommunityWidget
 ];
 
 export default function select (item, index, props) {
 	if (!item) {
 		return null;
 	}
+	console.debug('select widget');
 	let Item = Unknown;
 
 	for (let Type of WIDGETS) {
