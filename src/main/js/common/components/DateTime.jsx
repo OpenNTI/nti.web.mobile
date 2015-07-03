@@ -7,7 +7,7 @@ export default React.createClass({
 	displayName: 'DateTime',
 
 	propTypes: {
-		date: React.PropTypes.any.isRequired,//Date
+		date: React.PropTypes.any,//Date
 		relativeTo: React.PropTypes.any,//Date
 		format: React.PropTypes.string,
 		relative: React.PropTypes.bool,
