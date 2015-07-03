@@ -4,6 +4,10 @@ import Detail from 'content/components/discussions/Detail';
 
 import Mixin from './Mixin';
 
+import ContentIcon from './ContentIcon';
+import Breadcrumb from './Breadcrumb';
+import Context from 'content/components/discussions/Context';
+
 export default React.createClass({
 	displayName: 'Note',
 	mixins: [Mixin],
@@ -19,13 +23,18 @@ export default React.createClass({
 	render () {
 
 		let {item} = this.props;
+
 		if (!item) {
 			return null;
 		}
 
 		return (
-			<div>
-				{/*Context With Image and Breadcrumb*/}
+			<div className="activity discussion-detail">
+				<div className="note heading">
+					<ContentIcon item={item} />
+					<Breadcrumb item={item} />
+					<Context item={item}/>
+				</div>
 				<Detail item={item} lite/>
 				{/*<Actions item={item}/> -- Comment count, [edit] [delete]*/}
 			</div>

@@ -69,6 +69,28 @@
 
 	&.note {
 		padding: 0;
+
+		.note.heading {
+			border: none;
+			margin: 1rem 0 0 0;
+
+			.breadcrumb {
+				margin-botom: 0.5rem;
+			}
+
+			img {
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+
+			.context {
+				max-height: 10rem;
+				overflow: hidden;
+				margin: 0;
+				clear: none;
+			}
+		}
 	}
 
 	& > h1 {
@@ -97,6 +119,7 @@
 		margin: 0 0 1rem 0;
 	}
 
+	.note.heading,
 	.highlight-group {
 		position: relative;
 		padding-left: 76px;

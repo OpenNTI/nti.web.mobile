@@ -1,7 +1,7 @@
 import React from 'react';
 import Highlight from './Highlight';
 import Breadcrumb from './Breadcrumb';
-import {getThumbnail} from '../../Api';
+import ContentIcon from './ContentIcon';
 
 export default React.createClass({
 	displayName: 'HighlightGroup',
@@ -11,44 +11,23 @@ export default React.createClass({
 		items: React.PropTypes.array.isRequired
 	},
 
-	getInitialState () {
-		return {
-		};
-	},
-
-	componentDidMount () {
-		this.load();
-	},
-
-	componentWillReceiveProps (nextProps) {
-		this.load(nextProps);
-	},
-
-	load(props=this.props) {
-		let {items} = props;
-		if (items && items.length > 0) {
-			getThumbnail(items[0])
-			.then(thumb => {
-				this.setState({
-					thumb
-				});
-			});
-		}
-	},
 
 	render () {
+		let {items = []} = this.props;
 
-		if (!this.props.items || this.props.items.length === 0) {
+		if (items.length === 0) {
 			return null;
 		}
 
 		return (
 			<div className="highlight-group">
-				{this.state.thumb && <img src={this.state.thumb} />}
-				{this.props.items.length > 0 && <Breadcrumb item={this.props.items[0]} />}
-				{
-					this.props.items.map((item, index) => <Highlight item={item} key={'highlight' + index} />)
-				}
+				<ContentIcon item={items[0]} />
+				<Breadcrumb item={items[0]} />
+				{ items.map((item, index) =>(
+
+					<Highlight item={item} key={'highlight' + index} />
+
+				) ) }
 			</div>
 		);
 	}
