@@ -11,16 +11,16 @@ export default React.createClass({
 		items: React.PropTypes.array.isRequired
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount () {
 		this.load();
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		this.load(nextProps);
 	},
 

@@ -24,7 +24,7 @@ export default React.createClass({
 		this.loadBreadcrumb(this.props.item);
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		this.loadBreadcrumb(nextProps.item);
 	},
 
