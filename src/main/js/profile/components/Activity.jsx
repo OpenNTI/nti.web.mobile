@@ -116,7 +116,7 @@ export default React.createClass({
 					);
 				})}
 
-				{!store.more && <Card><Joined user={this.props.user} /></Card>}
+				{!store.more && ( <Card><Joined user={this.props.user} /></Card> )}
 
 				{store.more && (
 					<li ref="more">
