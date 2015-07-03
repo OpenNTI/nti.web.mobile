@@ -39,7 +39,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<div><Memberships memberships={user.getMemberships()} /></div>
+				<div><Memberships entity={user} /></div>
 				<ul className="profile-cards">
 					{sections.map((s, index) => {
 						return user[s] && ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(user[s], index)}</div></Card> );

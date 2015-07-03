@@ -1,6 +1,7 @@
 import React from 'react';
+
 import Mixin from './Mixin';
-import selectWidget from './';
+
 import Card from '../Card';
 
 export default React.createClass({
@@ -15,12 +16,16 @@ export default React.createClass({
 
 	render () {
 
-		let {list} = this.props;
+		let {title, list = []} = this.props;
+
+		if (list.length === 0) {
+			return null;
+		}
 
 		return (
-			<Card title={this.props.title}>
+			<Card title={title}>
 				<ul>
-					{list.map((item, index) => selectWidget(item, index))}
+					{this.renderItems(list)}
 				</ul>
 			</Card>
 		);
