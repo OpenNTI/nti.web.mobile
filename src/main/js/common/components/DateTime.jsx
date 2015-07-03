@@ -12,7 +12,10 @@ export default React.createClass({
 		format: React.PropTypes.string,
 		relative: React.PropTypes.bool,
 		prefix: React.PropTypes.string,
-		suffix: React.PropTypes.string,
+		suffix: React.PropTypes.oneOfType([
+			React.PropTypes.string,
+			React.PropTypes.bool
+			]),
 		showToday: React.PropTypes.bool,
 		todayText: React.PropTypes.string
 	},
