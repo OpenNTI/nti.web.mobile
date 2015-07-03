@@ -14,9 +14,9 @@ export default React.createClass({
 		let {user} = this.props;
 		return (
 			<div className="joined avatar-heading">
-				<Avatar user={user} />
+				<Avatar entity={user} />
 				<div className="wrap">
-					<h1><DisplayName user={user} usePronoun/> joined NextThought!</h1>
+					<h1><DisplayName entity={user} usePronoun/> joined NextThought!</h1>
 					<div className="meta"><DateTime date={user.getCreatedTime()} /></div>
 				</div>
 			</div>

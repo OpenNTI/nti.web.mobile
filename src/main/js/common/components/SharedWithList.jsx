@@ -98,7 +98,7 @@ export default React.createClass({
 				'Only Me';
 
 		let names = (state ? [state] : [])
-			.concat(users.map(x => <DisplayName user={x}/> ))
+			.concat(users.map(x => <DisplayName entity={x}/> ))
 			//Only show " N Others" when there are more than 0 others, AND we have at least one resolved name.
 			.concat(others === 0 || users.length === 0 ? [] : (`${others} Others`));
 

@@ -68,34 +68,6 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.updateUser();
-
-		/*
-		alias
-		firstName
-		displayName
-		lastName
-		realname
-		email
-
-		birthdate
-
-		avatarURL
-		backgroundURL
-
-		affiliation
-		description
-		education
-		home_page
-		interests
-		location
-		positions
-		role
-
-		facebook
-		googlePlus
-		linkedIn
-		twitter
-		 */
 	},
 
 	render () {

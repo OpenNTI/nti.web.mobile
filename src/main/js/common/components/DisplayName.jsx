@@ -10,9 +10,9 @@ import {getAppUsername} from 'common/utils';
 
 /**
  * This DisplayName component can use the full User instance if you have it.
- * Otherwise, it will take a username prop. If you do not have the full user
- * object, and you want to show the display name, do not resolve the full user
- * object yourself just to pass to this componenent. Only resolve the user IF
+ * Otherwise, it will take a username prop. If you do not have the full entity
+ * object, and you want to show the display name, do not resolve the full entity
+ * object yourself just to pass to this componenent. Only resolve the entity IF
  * and ONLY IF you need it for something else. Most likely. If its a link, or
  * something, use the corresponding Component, do not roll your own.
  */
@@ -26,10 +26,11 @@ export default React.createClass({
 
 		tag: React.PropTypes.string,
 
-		//One of these two Props (username, and user) are required. User trumps Username.
+		//One of these two Props (username, and entity) are required. User trumps Username.
 		username: React.PropTypes.string,
 		//or
-		user: React.PropTypes.object,
+		entity: React.PropTypes.object,
+		user: function() { return new Error('Deprecated, use "entity"'); },
 
 		/**
 		 * Specifies to substitute your name with "You".
@@ -57,8 +58,8 @@ export default React.createClass({
 	componentDidMount () { fillIn(this, this.props); },
 
 	componentWillReceiveProps (nextProps) {
-		let {user, username} = this.props;
-		if (username !== nextProps.username || user !== nextProps.user) {
+		let {entity, username} = this.props;
+		if (username !== nextProps.username || entity !== nextProps.entity) {
 			fillIn(this, nextProps);
 		}
 	},
@@ -100,10 +101,10 @@ function fillIn(cmp, props) {
 
 	cmp.setState({task}, ()=> resolve(props)
 		.then(
-			user => {
-				let displayName = (usePronoun && user.getID() === appuser)
+			entity => {
+				let displayName = (usePronoun && entity.getID() === appuser)
 					? 'You'
-					: user.displayName;
+					: entity.displayName;
 
 				set({ displayName });
 			},

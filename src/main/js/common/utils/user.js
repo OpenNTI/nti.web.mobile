@@ -70,14 +70,16 @@ export function decode (blob, strict) {
 
 
 export function resolve (props, strict = false) {
-	let {username, user} = props;
+	let {username, user, entity} = props;
 	let promise;
 
-	if (!username && !user) {
-		promise = Promise.reject('No User or no Username');
+	entity = entity || user;
+
+	if (!username && !entity) {
+		promise = Promise.reject('No Entity or no Username');
 	}
 
-	promise = promise || (user && Promise.resolve(user));
+	promise = promise || (entity && Promise.resolve(entity));
 
 	if (!promise) {
 		promise = getService()

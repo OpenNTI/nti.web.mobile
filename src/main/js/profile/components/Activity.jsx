@@ -122,7 +122,7 @@ export default React.createClass({
 							? ( <Loading/> )
 							: ( <Button className="more" onClick={this.more}>More</Button> )
 						: (
-						<Joined user={this.props.user} />
+						<Joined entity={this.props.user} />
 					)}
 				</Card>
 

@@ -3,7 +3,7 @@ import {BLANK_AVATAR} from '../constants/DataURIs';
 
 import {resolve, getDebugUsernameString} from '../utils/user';
 
-const DEFAULT = { user: {avatarURL: BLANK_AVATAR }};
+const DEFAULT = { entity: {avatarURL: BLANK_AVATAR }};
 
 export default React.createClass({
 	displayName: 'Avatar',
@@ -11,7 +11,8 @@ export default React.createClass({
 	propTypes: {
 		username: React.PropTypes.string,
 		//or
-		user: React.PropTypes.object,
+		entity: React.PropTypes.object,
+		user: function() { return new Error('Deprecated, use "entity"'); },
 
 		className: React.PropTypes.string
 	},
@@ -39,11 +40,11 @@ export default React.createClass({
 
 
 	render () {
-		let {user} = this.state;
+		let {entity} = this.state;
 		let {username, className} = this.props;
 		let css = className || '';
 
-		let {avatarURL, initials, displayName} = user || {};
+		let {avatarURL, initials, displayName} = entity || {};
 
 		let props = Object.assign({}, this.props, {
 			'data-for': getDebugUsernameString(username),
@@ -68,16 +69,16 @@ export default React.createClass({
 
 
 function fillIn (cmp, props) {
-	let {user} = props;
+	let {entity} = props;
 	let promise;
 
-	if (user) {
-		promise = Promise.resolve(user);
+	if (entity) {
+		promise = Promise.resolve(entity);
 	} else {
 		promise = resolve(props);
 	}
 
 	promise
 		.catch(()=> DEFAULT)
-		.then(x => cmp.setState({user: x}));
+		.then(x => cmp.setState({entity: x}));
 }
