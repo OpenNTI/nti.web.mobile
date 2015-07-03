@@ -68,12 +68,16 @@
 		color: $secondary-grey;
 	}
 
-	.breadcrumb {
+	.breadcrumb, .heading {
 		border-bottom: 1px solid $quad-grey;
 		display: block;
 		padding-bottom: 1em;
 		margin: 0px #{-$card-padding};
 		padding-left: 0;
+	}
+
+	.heading {
+		margin: 0 0 1rem 0;
 	}
 
 	.highlight-group {

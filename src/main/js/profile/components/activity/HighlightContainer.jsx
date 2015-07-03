@@ -24,10 +24,16 @@ export default React.createClass({
 
 		return (
 			<div className="highlight-container">
-				<DisplayName username={item.creator} /> created {item.count} highlights on <DateTime date={item.date} />
-			{
-				Object.keys(items).map(ntiid => <HighlightGroup key={ntiid} ntiid={ntiid} items={items[ntiid]} />)
-			}
+				<div className="heading">
+					<DisplayName username={item.creator} /> created {item.count} highlights on <DateTime date={item.date} />
+				</div>
+
+				{ Object.keys(items).map(ntiid => (
+
+					<HighlightGroup key={ntiid} ntiid={ntiid} items={items[ntiid]} />
+
+				) ) }
+
 			</div>
 		);
 	}
