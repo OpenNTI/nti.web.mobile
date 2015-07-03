@@ -3,7 +3,8 @@ export default {
 		SECTIONTITLES: {
 			'about': 'About',
 			'education': 'Education',
-			'positions': 'Professional'
+			'positions': 'Professional',
+			'interests': 'Interests'
 		}
 	},
 

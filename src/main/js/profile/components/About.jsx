@@ -12,7 +12,7 @@ import Mixin from './about/Mixin';
 
 const t = scoped('PROFILE.ABOUT.SECTIONTITLES');
 
-let sections = ['about', 'education', 'positions'];
+let sections = ['about', 'education', 'positions', 'interests'];
 
 export default React.createClass({
 	displayName: 'About',

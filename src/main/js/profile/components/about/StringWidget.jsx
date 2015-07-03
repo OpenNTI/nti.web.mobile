@@ -14,6 +14,6 @@ export default React.createClass({
 	},
 
 	render () {
-		return <div>{this.props.item}</div>;
+		return <div className="string-item">{this.props.item}</div>;
 	}
 });
