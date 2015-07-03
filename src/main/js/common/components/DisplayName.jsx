@@ -30,7 +30,7 @@ export default React.createClass({
 		username: React.PropTypes.string,
 		//or
 		entity: React.PropTypes.object,
-		user: function() { return new Error('Deprecated, use "entity"'); },
+		user: function(o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } },
 
 		/**
 		 * Specifies to substitute your name with "You".
