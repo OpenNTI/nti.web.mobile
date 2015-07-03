@@ -112,7 +112,9 @@
 			}
 
 			.context {
-				max-height: 10rem;
+				&.fragment {
+					max-height: 10rem;
+				}
 				overflow: hidden;
 				margin: 0;
 				clear: none;
