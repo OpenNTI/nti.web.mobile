@@ -20,12 +20,14 @@ export default React.createClass({
 	render () {
 
 		let {item} = this.props;
-		let {contributors} = item;
+		let {contributorsWithoutOriginator, originator} = item;
+		let others = contributorsWithoutOriginator;
 
 		return (
 			<div className="chat avatar-heading">
 				<div className="wrap">
-					<h1><DisplayName username={contributors[0]}/> had a chat with <DisplayName username={contributors[1]}/></h1>
+					<h1><DisplayName username={originator} usePronoun/> had a chat with {others.map(this.renderOthers)}
+					</h1>
 					<ul className="meta">
 						<li><DateTime date={item.getCreatedTime()}/></li>
 						<li>Lasted <DateTime suffix={false} relativeTo={item.getLastModified()} date={item.getCreatedTime()} /></li>
@@ -33,6 +35,19 @@ export default React.createClass({
 					</ul>
 				</div>
 			</div>
+		);
+	},
+
+
+	renderOthers (name, i, a) {
+		let suffix = (a.length === 1)
+			? ''
+			: (i === (a.length - 1))
+				? ' and '
+				: ', ';
+
+		return (
+			<span><DisplayName username={name} usePronoun/>{suffix}</span>
 		);
 	}
 });
