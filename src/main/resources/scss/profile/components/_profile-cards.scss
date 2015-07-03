@@ -45,6 +45,23 @@
 		}
 	}
 
+	.chat {
+		&.avatar-heading {
+			$avatarsize: 60px;
+			$iconsize: 32px;
+			$position: ($avatarsize - $iconsize)/2; // center in the 60x60 avatar space
+			background: url('../images/icons/chat-32-blue.png') $position $position no-repeat;
+		}
+		ul.meta {
+			margin: 0;
+			list-style-type: none;
+			li {
+				display: inline-block;
+				margin-right: 1em;
+			}
+		}
+	}
+
 	.headline.post {
 		margin-top: 0;
 		padding-top: 1rem;

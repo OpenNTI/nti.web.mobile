@@ -23,8 +23,7 @@ export default React.createClass({
 		let {contributors} = item;
 
 		return (
-			<div className="avatar-heading">
-				<img className="avatar" src="#"/>
+			<div className="chat avatar-heading">
 				<div className="wrap">
 					<h1><DisplayName username={contributors[0]}/> had a chat with <DisplayName username={contributors[1]}/></h1>
 					<ul className="meta">
