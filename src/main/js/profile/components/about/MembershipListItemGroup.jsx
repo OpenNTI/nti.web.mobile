@@ -8,7 +8,7 @@ export default React.createClass({
 
 	statics: {
 		handles (item) {
-			return item.isCommunity;
+			return item.isGroup;
 		}
 	},
 
