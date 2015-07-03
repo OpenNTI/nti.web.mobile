@@ -16,7 +16,7 @@ export default React.createClass({
 			<div className="joined avatar-heading">
 				<Avatar user={user} />
 				<div className="wrap">
-					<h1><DisplayName user={user} /> joined NextThought!</h1>
+					<h1><DisplayName user={user} usePronoun/> joined NextThought!</h1>
 					<div className="meta"><DateTime date={user.getCreatedTime()} /></div>
 				</div>
 			</div>
