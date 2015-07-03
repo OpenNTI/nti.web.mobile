@@ -165,7 +165,7 @@ export default React.createClass({
 			node = node.firstChild;//this is what scrolls.
 
 			if (focus && node.scrollHeight > node.offsetHeight) {
-				console.log('TODO: ensure focus node', focus, 'is positioned into view.');
+				// console.log('TODO: ensure focus node', focus, 'is positioned into view.');
 				let r = focus.getBoundingClientRect();
 				let r2 = node.getBoundingClientRect();
 				let approxOneLineHeight = 16;
