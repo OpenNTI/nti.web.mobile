@@ -53,7 +53,11 @@ export default React.createClass({
 	},
 
 
-	componentDidUpdate () {
+	componentDidUpdate (_, state) {
+		let {error} = this.state;
+		if (error && error !== state.error) {
+			console.error(error);
+		}
 		this.focusApplicableRange();
 	},
 
@@ -191,7 +195,7 @@ export default React.createClass({
 			: error
 				? (is403(error)
 					? ( <ContentAquirePrompt {...props} relatedItem={item} data={error}/> )
-					: ( <div {...props}><Err error={error}/></div> )
+					: ( null )
 				)
 				: (typeof context === 'string')
 					? ( <div {...props} dangerouslySetInnerHTML={{__html: context}}/> )
