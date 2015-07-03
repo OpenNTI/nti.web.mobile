@@ -116,11 +116,11 @@ export default React.createClass({
 					);
 				})}
 
-				<Card ref="end" key="theend">
+				<Card ref="end" key="theend" className="end">
 					{store.more
 						? store.loading
 							? ( <Loading/> )
-							: ( <Button onClick={this.more}>More</Button> )
+							: ( <Button className="more" onClick={this.more}>More</Button> )
 						: (
 						<Joined user={this.props.user} />
 					)}
