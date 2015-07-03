@@ -70,12 +70,13 @@ export function decode (blob, strict) {
 
 
 export function resolve (props, strict = false) {
-	let {username, user, entity} = props;
+	let {username, user, entity, entityId} = props;
 	let promise;
 
 	entity = entity || user;
+	entityId = entityId || username;
 
-	if (!username && !entity) {
+	if (!entityId && !entity) {
 		promise = Promise.reject('No Entity or no Username');
 	}
 
@@ -83,7 +84,7 @@ export function resolve (props, strict = false) {
 
 	if (!promise) {
 		promise = getService()
-			.then(service=>service.resolveUser(decode(username, strict)));
+			.then(service=>service.resolveUser(decode(entityId, strict)));
 	}
 
 	return promise;
