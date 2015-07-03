@@ -100,7 +100,13 @@ function fillIn(cmp, props) {
 
 	cmp.setState({task}, ()=> resolve(props)
 		.then(
-			user => set({ displayName: (usePronoun && user.getID() === appuser) ? 'You' : user.displayName }),
+			user => {
+				let displayName = (usePronoun && user.getID() === appuser)
+					? 'You'
+					: user.displayName;
+
+				set({ displayName });
+			},
 			()=> set({ failed: true, displayName: 'Unknown' })
 		));
 
