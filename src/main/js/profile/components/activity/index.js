@@ -6,6 +6,7 @@ import ForumTopic from './ForumTopic';
 import Highlight from './Highlight';
 import HighlightContainer from './HighlightContainer';
 import Note from './Note';
+import Chat from './Chat';
 
 
 const KINDS = [
@@ -14,7 +15,8 @@ const KINDS = [
 	ForumTopic,
 	HighlightContainer,
 	Highlight,
-	Note
+	Note,
+	Chat
 ];
 
 export default function select (item, index) {
