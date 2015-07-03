@@ -39,7 +39,7 @@ export default React.createClass({
 		return (
 			<ul className="profile-cards">
 				{sections.map((s, index) => {
-					return user[s] && ( <Card className={s} title={t(s)}><div>{this.renderItems(user[s], index)}</div></Card> );
+					return user[s] && ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(user[s], index)}</div></Card> );
 				})}
 			</ul>
 		);
