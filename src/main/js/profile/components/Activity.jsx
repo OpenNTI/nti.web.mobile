@@ -1,17 +1,15 @@
 import React from 'react';
 
 import Loading from 'common/components/TinyLoader';
-import BasePathAware from 'common/mixins/BasePath';
-import {scoped} from 'common/locale';
 import Button from 'common/forms/components/Button';
-import Joined from './activity/Joined';
 
+import BasePathAware from 'common/mixins/BasePath';
 
 import Card from './Card';
 
-import HasItems from './activity/HasItems';
+import Joined from './activity/Joined';
 
-// let t = scoped('PROFILE.ACTIVITY.TITLES');
+import HasItems from './activity/HasItems';
 
 export default React.createClass({
 	displayName: 'Activity',
@@ -82,15 +80,24 @@ export default React.createClass({
 
 	more () {
 		let {store} = this.state;
-		if (store && !store.loading) {
-			store.nextBatch();
-		}
+		// let el = React.findDOMNode(this.refs.more);
+		// if (el) {
+		// 	el = el.previousSibling;
+		// }
+
+		store.nextBatch();
+			// .then(()=> {
+			// 	el = el && el.nextSibling;
+			// 	if (el) {
+			// 		el.scrollIntoView(true);
+			// 	}
+			// });
 	},
 
 	render () {
 		let {store} = this.state;
 
-		if (!store || store.loading) {
+		if (!store || (store.loading && !store.length)) {
 			return ( <Loading /> );
 		}
 
@@ -103,13 +110,25 @@ export default React.createClass({
 					// let title = t(mime);
 
 					return (
-						<Card key={a.NTIID + index} className={mime}>
+						<Card key={`${a.NTIID}:${index}`} className={mime}>
 							{this.renderItems(a)}
 						</Card>
 					);
 				})}
-				{(store.more || store.loading) && <Card key="morebutton">{store.loading ? <Loading/> : <Button onClick={this.more}>More</Button>}</Card>}
+
 				{!store.more && <Card><Joined user={this.props.user} /></Card>}
+
+				{store.more && (
+					<li ref="more">
+						<Card key="morebutton">
+							{store.loading
+								? ( <Loading/> )
+								: ( <Button onClick={this.more}>More</Button>
+							)}
+						</Card>
+					</li>
+				)}
+
 			</ul>
 		);
 	}
