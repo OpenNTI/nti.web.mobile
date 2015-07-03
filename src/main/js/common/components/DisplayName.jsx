@@ -1,8 +1,12 @@
 import React from 'react';
 
 import cx from 'classnames';
+
 import {resolve, getDebugUsernameString} from '../utils/user';
+
 import t from 'common/locale';
+
+import {getAppUsername} from 'common/utils';
 
 /**
  * This DisplayName component can use the full User instance if you have it.
@@ -24,8 +28,15 @@ export default React.createClass({
 
 		//One of these two Props (username, and user) are required. User trumps Username.
 		username: React.PropTypes.string,
+		//or
+		user: React.PropTypes.object,
 
-		user: React.PropTypes.object
+		/**
+		 * Specifies to substitute your name with "You".
+		 *
+		 * @type {boolean}
+		 */
+		usePronoun: React.PropTypes.bool
 	},
 
 
@@ -46,7 +57,8 @@ export default React.createClass({
 	componentDidMount () { fillIn(this, this.props); },
 
 	componentWillReceiveProps (nextProps) {
-		if (this.props.username !== nextProps.username || this.props.user !== nextProps.user) {
+		let {user, username} = this.props;
+		if (username !== nextProps.username || user !== nextProps.user) {
 			fillIn(this, nextProps);
 		}
 	},
@@ -77,6 +89,8 @@ export default React.createClass({
 
 
 function fillIn(cmp, props) {
+	let appuser = getAppUsername();
+	let {usePronoun} = props;
 	let task = Date.now();
 	let set = state => {
 		if (cmp.state.task === task) {
@@ -86,7 +100,7 @@ function fillIn(cmp, props) {
 
 	cmp.setState({task}, ()=> resolve(props)
 		.then(
-			user => set({ displayName: user.displayName }),
+			user => set({ displayName: (usePronoun && user.getID() === appuser) ? 'You' : user.displayName }),
 			()=> set({ failed: true, displayName: 'Unknown' })
 		));
 
