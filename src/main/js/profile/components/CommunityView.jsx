@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default React.createClass({
-	displayName: 'CommunuView',
+	displayName: 'CommunityView',
 
 	render () {
 		return (

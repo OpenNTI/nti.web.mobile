@@ -6,7 +6,7 @@ import Loading from 'common/components/Loading';
 
 import NotFound from 'notfound/components/View';
 
-import CommunityView from './CommunuView';
+import CommunityView from './CommunityView';
 import GroupView from './GroupView';
 import UserView from './UserView';
 
