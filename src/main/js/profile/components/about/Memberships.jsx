@@ -8,7 +8,9 @@ export default React.createClass({
 	propTypes: {
 		entity: React.PropTypes.shape({
 			getMemberships: React.PropTypes.func.isRequired
-		}).isRequired
+		}).isRequired,
+
+		preview: React.PropTypes.bool
 	},
 
 	getInitialState () {
@@ -81,11 +83,12 @@ export default React.createClass({
 
 	render () {
 		let {groups = [], communities = []} = this.state;
+		let {preview} = this.props;
 
 		return (
 			<div className="profile-memberships">
-				<MembershipList list={communities} title="Communities"/>
-				<MembershipList list={groups} title="Groups" />
+				<MembershipList list={communities} title="Communities" preview={preview}/>
+				<MembershipList list={groups} title="Groups" preview={preview}/>
 			</div>
 		);
 	}

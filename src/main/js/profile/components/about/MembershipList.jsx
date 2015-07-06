@@ -7,17 +7,23 @@ export default React.createClass({
 
 	propTypes: {
 		list: React.PropTypes.array.isRequired,
-		title: React.PropTypes.string
+		title: React.PropTypes.string,
+
+		preview: React.PropTypes.bool
 	},
 
 	mixins: [Mixin],
 
 	render () {
 
-		let {title, list = []} = this.props;
+		let {title, preview, list = []} = this.props;
 
 		if (list.length === 0) {
 			return null;
+		}
+
+		if (preview) {
+			list = list.slice(0, 5);
 		}
 
 		return (
