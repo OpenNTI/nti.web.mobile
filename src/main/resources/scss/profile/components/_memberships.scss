@@ -42,7 +42,7 @@
 		& + * {
 			margin: 0.5rem 0 0 $avatar-size + .25rem;
 			display: block;
-
+			min-height: 2em;
 			overflow: hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
