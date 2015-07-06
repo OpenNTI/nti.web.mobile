@@ -8,11 +8,12 @@ import FollowButton from './FollowButton';
 import ActiveLink from 'common/components/ActiveLink';
 import DisplayName from 'common/components/DisplayName';
 import Gradient from 'common/components/GradientBackground';
+
 import Page from 'common/components/Page';
 
 import {getAppUsername} from 'common/utils';
 
-import Head from './UserHead';
+import Head from './Head';
 
 export default React.createClass({
 	displayName: 'profile:Page',

@@ -2,11 +2,11 @@ import React from 'react';
 import Button from 'common/forms/components/Button';
 
 export default React.createClass({
-	displayName: 'EditButton',
+	displayName: 'CommunityLeaveButton',
 
 	render () {
 		return (
-			<Button className="edit-button">Edit</Button>
+			<Button className="leave-button">Leave Community</Button>
 		);
 	}
 });

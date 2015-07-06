@@ -5,9 +5,9 @@ import Router from 'react-router-component';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 
-import Page from './GroupPageFrame';
-import Activity from './Activity';
-import Members from './Members';
+import Page from './PageFrame';
+import Activity from '../Activity';
+import Members from '../Members';
 
 import Redirect from 'navigation/components/Redirect';
 

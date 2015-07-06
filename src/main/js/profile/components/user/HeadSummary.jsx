@@ -1,9 +1,11 @@
 import React from 'react';
 
+import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
+
 import Loader from 'common/components/TinyLoader';
 import {default as DisplayName} from 'common/components/DisplayName';
+
 import {resolve} from 'common/utils/user';
-import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 
 export default React.createClass({
 	displayName: 'HeadSummary',

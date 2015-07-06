@@ -5,11 +5,11 @@ import Loading from 'common/components/TinyLoader';
 
 import {scoped} from 'common/locale';
 
-import Card from './Card';
-// import Editable from './Editable';
-import Memberships from './about/Memberships';
+import Card from '../Card';
+// import Editable from '../Editable';
+import Memberships from '../about/Memberships';
 
-import Mixin from './about/Mixin';
+import Mixin from '../about/Mixin';
 
 const t = scoped('PROFILE.ABOUT.SECTIONTITLES');
 

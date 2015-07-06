@@ -5,11 +5,13 @@ import Router from 'react-router-component';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 
-import Page from './UserPageFrame';
-import Activity from './Activity';
-import Achievements from './Achievements';
+import Page from './PageFrame';
+
 import About from './About';
-import Memberships from './about/Memberships';
+import Achievements from './Achievements';
+
+import Activity from '../Activity';
+import Memberships from '../about/Memberships';
 
 import Redirect from 'navigation/components/Redirect';
 
