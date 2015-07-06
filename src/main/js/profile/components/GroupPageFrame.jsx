@@ -29,7 +29,7 @@ export default React.createClass({
 					<div className="profile-top-controls">
 						<ul className="profile-top-controls-breadcrumb">
 							<li>Groups</li>
-							<li>entity.displayName</li>
+							<li>{entity.displayName}</li>
 						</ul>
 						<ul className="profile-top-controls-buttons">
 							<li>{follows ? <GroupControls entity={entity}/> : <FollowGroup entity={entity} />}</li>
