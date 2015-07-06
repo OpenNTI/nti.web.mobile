@@ -17,6 +17,19 @@
 		list-style: none;
 		margin: 0;
 	}
+
+	a.more {
+		display: block;
+		text-transform: uppercase;
+		font-size: .625rem;
+		font-weight: 700;
+		color: $tertiary-grey;
+		text-align: center;
+		padding: 0.5rem 1rem;
+		margin: -1rem;
+		margin-top: 1rem;
+		background: $quad-grey;
+	}
 }
 
 .membership {

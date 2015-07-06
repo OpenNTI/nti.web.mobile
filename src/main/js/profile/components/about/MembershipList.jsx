@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-component';
 
 import Mixin from './Mixin';
 
@@ -32,6 +33,7 @@ export default React.createClass({
 				<ul>
 					{this.renderItems(list)}
 				</ul>
+				{preview && ( <Link href="/memberships/" className="more">Show More</Link> )}
 			</div>
 		);
 	}
