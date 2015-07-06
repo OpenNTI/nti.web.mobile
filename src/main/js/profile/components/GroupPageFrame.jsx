@@ -10,7 +10,7 @@ import Page from 'common/components/Page';
 import Head from './GroupHead';
 
 export default React.createClass({
-	displayName: 'profile:Page',
+	displayName: 'Group:Page',
 
 	propTypes: {
 		pageContent: React.PropTypes.any,

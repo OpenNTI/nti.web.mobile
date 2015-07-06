@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'common/forms/components/Button';
 
 export default React.createClass({
-	displayName: 'FollowButton',
+	displayName: 'GroupFollowButton',
 
 	render () {
 		return (

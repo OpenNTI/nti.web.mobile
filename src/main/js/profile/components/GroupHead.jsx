@@ -2,7 +2,7 @@ import React from 'react/addons';
 
 
 export default React.createClass({
-	displayName: 'profile:Head',
+	displayName: 'Group:Head',
 
 	propTypes: {
 		children: React.PropTypes.any,

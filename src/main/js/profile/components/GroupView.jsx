@@ -18,7 +18,7 @@ const ROUTES = [
 ];
 
 export default React.createClass({
-	displayName: 'profile:View',
+	displayName: 'Group:View',
 	mixins: [BasePathAware, ContextSender],
 
 	propTypes: {
