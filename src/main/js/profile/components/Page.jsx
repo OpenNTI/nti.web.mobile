@@ -47,6 +47,7 @@ export default React.createClass({
 							<ul className="profile-nav">
 								<li className="profile-nav-item"><ActiveLink href="/about/">About</ActiveLink></li>
 								<li className="profile-nav-item"><ActiveLink href="/activity/">Activity</ActiveLink></li>
+								<li className="profile-nav-item"><ActiveLink href="/memberships/">Memberships</ActiveLink></li>
 								{/*<li className="profile-nav-item"><ActiveLink href="/achievements/">Achievements</ActiveLink></li>*/}
 							</ul>
 						</Head>

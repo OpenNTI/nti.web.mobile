@@ -16,6 +16,7 @@ const ROUTES = [
 	{path: '/activity(/*)',		handler: Activity },
 	{path: '/achievements(/*)',	handler: Achievements },
 	{path: '/about(/*)',		handler: About },
+	{path: '/memberships(/*)',	handler: 'div' },
 	{}//default
 ];
 
