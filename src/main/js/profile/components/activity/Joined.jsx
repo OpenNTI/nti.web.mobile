@@ -7,17 +7,17 @@ export default React.createClass({
 	displayName: 'Joined',
 
 	propTypes: {
-		user: React.PropTypes.object.isRequired
+		entity: React.PropTypes.object.isRequired
 	},
 
 	render () {
-		let {user} = this.props;
+		let {entity} = this.props;
 		return (
 			<div className="joined avatar-heading">
-				<Avatar entity={user} />
+				<Avatar entity={entity} />
 				<div className="wrap">
-					<h1><DisplayName entity={user} usePronoun/> joined NextThought!</h1>
-					<div className="meta"><DateTime date={user.getCreatedTime()} /></div>
+					<h1><DisplayName entity={entity} usePronoun/> joined NextThought!</h1>
+					<div className="meta"><DateTime date={entity.getCreatedTime()} /></div>
 				</div>
 			</div>
 		);
