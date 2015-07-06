@@ -24,7 +24,7 @@ export default React.createClass({
 	mixins: [BasePathAware, ContextSender],
 
 	propTypes: {
-		user: React.PropTypes.object.isRequired
+		entity: React.PropTypes.object.isRequired
 	},
 
 	getInitialState () {
@@ -45,9 +45,9 @@ export default React.createClass({
 
 
 	render () {
-		let {user} = this.props;
+		let {entity} = this.props;
 
-		if (!user) {
+		if (!entity) {
 			return null;
 		}
 
@@ -56,8 +56,8 @@ export default React.createClass({
 				route.path ?
 				<Router.Location {...route}
 					handler={Page} pageContent={route.handler}
-					user={user}
-					username={user.getID()}
+					entity={entity}
+					username={entity.getID()}
 					/> :
 				<Router.NotFound handler={Redirect} location="/about/"/>
 			));

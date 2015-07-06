@@ -17,7 +17,7 @@ export default React.createClass({
 	mixins: [HasItems, BasePathAware],
 
 	propTypes: {
-		user: React.PropTypes.object
+		entity: React.PropTypes.object
 	},
 
 	getInitialState () {
@@ -31,10 +31,10 @@ export default React.createClass({
 
 
 	componentWillReceiveProps (nextProps) {
-		let {user} = nextProps;
+		let {entity} = nextProps;
 
-		if(user !== this.props.user) {
-			this.setUser(user);
+		if(entity !== this.props.entity) {
+			this.setUser(entity);
 		}
 	},
 
@@ -69,10 +69,10 @@ export default React.createClass({
 	},
 
 
-	setUser (user = this.props.user) {
+	setUser (entity = this.props.entity) {
 		let store = null;
-		if (user) {
-			store = user.getActivity();
+		if (entity) {
+			store = entity.getActivity();
 		}
 
 		this.setState({store});
@@ -96,6 +96,7 @@ export default React.createClass({
 
 	render () {
 		let {store} = this.state;
+		let {entity} = this.props;
 
 		if (!store || (store.loading && !store.length)) {
 			return ( <Loading /> );
@@ -122,7 +123,7 @@ export default React.createClass({
 							? ( <Loading/> )
 							: ( <Button className="more" onClick={this.more}>More</Button> )
 						: (
-						<Joined entity={this.props.user} />
+						<Joined entity={entity} />
 					)}
 				</Card>
 

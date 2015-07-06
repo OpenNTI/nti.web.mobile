@@ -5,14 +5,14 @@ export default React.createClass({
 	displayName: 'Achievements',
 
 	propTypes: {
-		user: React.PropTypes.object.isRequired
+		entity: React.PropTypes.object.isRequired
 	},
 
 
 	componentDidMount () {
-		let {user} = this.props;
-		if (user) {
-			user.getAchievements().then(achievements=> console.debug(achievements));
+		let {entity} = this.props;
+		if (entity) {
+			entity.getAchievements().then(achievements=> console.debug(achievements));
 		}
 	},
 

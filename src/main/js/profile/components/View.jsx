@@ -65,7 +65,7 @@ export default React.createClass({
 		return entity instanceof Community ? (
 			<CommunityView entity={entity}/>
 		) : entity instanceof User ? (
-			<UserView user={entity}/>
+			<UserView entity={entity}/>
 		) : (
 			<GroupView entity={entity}/>
 		);

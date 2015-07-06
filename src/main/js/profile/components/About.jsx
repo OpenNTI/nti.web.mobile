@@ -21,15 +21,15 @@ export default React.createClass({
 	mixins: [Mixin],
 
 	propTypes: {
-		user: React.PropTypes.object.isRequired
+		entity: React.PropTypes.object.isRequired
 	},
 
 	render () {
 
-		let {user} = this.props;
-		let empty = !sections.reduce((result, section)=> result || !!user[section], false);
+		let {entity} = this.props;
+		let empty = !sections.reduce((result, section)=> result || !!entity[section], false);
 
-		if (!user) {
+		if (!entity) {
 			return <Loading />;
 		}
 
@@ -39,10 +39,10 @@ export default React.createClass({
 
 		return (
 			<div>
-				<div><Memberships entity={user} /></div>
+				<div><Memberships entity={entity} /></div>
 				<ul className="profile-cards">
 					{sections.map((s, index) => {
-						return user[s] && ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(user[s], index)}</div></Card> );
+						return entity[s] && ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );
 					})}
 				</ul>
 			</div>
