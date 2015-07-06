@@ -84,7 +84,7 @@ export function resolve (props, strict = false) {
 
 	if (!promise) {
 		promise = getService()
-			.then(service=>service.resolveUser(decode(entityId, strict)));
+			.then(service=>service.resolveEntity(decode(entityId, strict)));
 	}
 
 	return promise;
