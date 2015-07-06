@@ -9,6 +9,8 @@
 
 	& > h3 {
 		font-family: $body-font-family;
+		font-size: 1rem;
+		color: $secondary-grey;
 	}
 
 	& > ul {
@@ -18,7 +20,20 @@
 }
 
 .membership {
+	$avatar-size: 3rem;
+	position: relative;
+	min-height: $avatar-size + .25rem;
+	padding-left: $avatar-size + .25rem;
 	img, svg {
-		width: 3rem;
+		width: $avatar-size;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	a {
+		color: $body-font-color;
+		font-size: .875rem;
+		font-weight: 600;
+		line-height: 1;
 	}
 }
