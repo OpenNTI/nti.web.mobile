@@ -2,8 +2,6 @@ import React from 'react';
 
 import Mixin from './Mixin';
 
-import Card from '../Card';
-
 export default React.createClass({
 	displayName: 'MembershipList',
 
@@ -23,11 +21,12 @@ export default React.createClass({
 		}
 
 		return (
-			<Card title={title}>
+			<div>
+				<h3>{title}</h3>
 				<ul>
 					{this.renderItems(list)}
 				</ul>
-			</Card>
+			</div>
 		);
 	}
 });

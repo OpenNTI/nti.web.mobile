@@ -20,10 +20,10 @@ export default React.createClass({
 		let {item} = this.props;
 
 		return (
-			<div className="memembership group">
+			<li className="memembership group">
 				<Avatar entity={item}/>
 				<DisplayName entity={item}/>
-			</div>
+			</li>
 		);
 	}
 });
