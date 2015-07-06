@@ -1,4 +1,19 @@
-.memembership {
+.memberships {
+	background: #fff;
+	padding: 0.625rem;
+	margin: 0.25rem 0;
+
+	& > h3 {
+		font-family: $body-font-family;
+	}
+
+	& > ul {
+		list-style: none;
+		margin: 0;
+	}
+}
+
+.membership {
 	img, svg {
 		width: 3rem;
 	}

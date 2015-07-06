@@ -21,7 +21,7 @@ export default React.createClass({
 		}
 
 		return (
-			<div>
+			<div className="memberships">
 				<h3>{title}</h3>
 				<ul>
 					{this.renderItems(list)}
