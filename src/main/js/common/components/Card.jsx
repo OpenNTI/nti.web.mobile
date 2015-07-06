@@ -158,12 +158,9 @@ export default React.createClass({
 
 
 	componentWillReceiveProps (props) {
-		let {icon, item} = this.props;
-		if (icon !== props.icon) {
-			this.resolveIcon(props);
-		}
-
+		let {item} = this.props;
 		if(item !== props.item) {
+			this.resolveIcon(props);
 			this.resolveHref(props);
 		}
 	},
