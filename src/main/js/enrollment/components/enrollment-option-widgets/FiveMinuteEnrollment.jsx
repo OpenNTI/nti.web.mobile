@@ -60,8 +60,9 @@ export default React.createClass({
 
 	render () {
 		let {entryId} = this.props;
-		let {error, loading, ContactInformation, Course} = this.state;
+		let {error, loading, Course} = this.state;
 		let href = this.getBasePath() + 'catalog/enroll/apply/' + entryId + '/';
+		let count = Course.SeatAvailable;
 
 		let props = {
 			href,
@@ -83,9 +84,11 @@ export default React.createClass({
 
 				{error ? (
 					<small className="error">{error.Message}</small>
-				) : (
-					<small>{t('fiveMinuteEnrollmentSeatAvailable', {count: Course.SeatAvailable})}</small>
-				)}
+				) : count < 10 ? (
+					<small>{t('fiveMinuteEnrollmentSeatAvailable', {count})}</small>
+				) :
+					null
+				}
 			</PanelButton>
 		);
 	}
