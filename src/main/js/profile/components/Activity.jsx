@@ -117,6 +117,7 @@ export default React.createClass({
 					);
 				})}
 
+				{(entity.isUser || store.more) && (
 				<Card ref="end" key="theend" className="end">
 					{store.more
 						? store.loading
@@ -126,7 +127,7 @@ export default React.createClass({
 						<Joined entity={entity} />
 					)}
 				</Card>
-
+				)}
 			</ul>
 		);
 	}
