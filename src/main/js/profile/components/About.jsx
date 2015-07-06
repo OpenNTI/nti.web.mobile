@@ -38,8 +38,8 @@ export default React.createClass({
 		}
 
 		return (
-			<div>
-				<div><Memberships entity={entity} /></div>
+			<div className="profile-about-body">
+				<div className="profile-memberships-container"><Memberships entity={entity} /></div>
 				<ul className="profile-cards">
 					{sections.map((s, index) => {
 						return entity[s] && ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );

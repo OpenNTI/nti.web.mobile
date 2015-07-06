@@ -70,3 +70,15 @@
 		// border: 1px solid #4b9156;
 	}
 }
+
+@media screen and (min-width: 500px) {
+	.profile-about-body { // two columns on wide screens
+		display: flex;
+		flex-direction: row-reverse;
+		.profile-memberships-container {
+			flex-basis: 250px;
+			margin-left: .25rem;
+			display: block;
+		}
+	}
+}
