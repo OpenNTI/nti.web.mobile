@@ -161,12 +161,17 @@
 		}
 	}
 
+	.user-profile {
+		.profile-nav {
+			position: absolute;
+			bottom: 0;
+			left: 184px;
+			right: 0;
+		}
+		
+	}
 
 	.profile-nav {
-		position: absolute;
-		bottom: 0;
-		left: 184px;
-		right: 0;
 
 		.profile-nav-item {
 			flex: 0 1 auto !important;

@@ -18,7 +18,7 @@ export default React.createClass({
 		username = decodeURIComponent(username);
 
 		return (
-			<div className="profile-head">
+			<div className="profile-head user-profile">
 				<div className="user">
 					<div className="profile-avatar-container">
 						<Avatar username={username}/>
