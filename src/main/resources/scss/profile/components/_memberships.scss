@@ -37,3 +37,26 @@
 		line-height: 1;
 	}
 }
+
+//Memberships page.
+.profile > .profile-memberships {
+	background: #fff;
+
+	.memberships {
+
+		& > ul {
+			display: flex;
+			flex-wrap: wrap;
+			margin: 0 -0.25rem;
+		}
+
+		.membership {
+			margin: .25rem;
+			flex: 1 1 calc(50% - 0.25rem);
+			@media all and (min-width: 500px) {
+				flex-basis: calc(33% - 0.25rem);
+			}
+		}
+
+	}
+}

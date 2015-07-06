@@ -9,6 +9,7 @@ import Page from './Page';
 import Activity from './Activity';
 import Achievements from './Achievements';
 import About from './About';
+import Memberships from './about/Memberships';
 
 import Redirect from 'navigation/components/Redirect';
 
@@ -16,7 +17,7 @@ const ROUTES = [
 	{path: '/activity(/*)',		handler: Activity },
 	{path: '/achievements(/*)',	handler: Achievements },
 	{path: '/about(/*)',		handler: About },
-	{path: '/memberships(/*)',	handler: 'div' },
+	{path: '/memberships(/*)',	handler: Memberships },
 	{}//default
 ];
 
