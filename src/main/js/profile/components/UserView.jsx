@@ -5,7 +5,7 @@ import Router from 'react-router-component';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 
-import Page from './Page';
+import Page from './UserPageFrame';
 import Activity from './Activity';
 import Achievements from './Achievements';
 import About from './About';
