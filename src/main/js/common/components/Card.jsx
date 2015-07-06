@@ -158,12 +158,9 @@ export default React.createClass({
 
 
 	componentWillReceiveProps (props) {
-		let {icon, item} = this.props;
-		if (icon !== props.icon) {
-			this.resolveIcon(props);
-		}
-
+		let {item} = this.props;
 		if(item !== props.item) {
+			this.resolveIcon(props);
 			this.resolveHref(props);
 		}
 	},
@@ -189,7 +186,7 @@ export default React.createClass({
 		let u = Url.parse(href);
 
 		if (u && (u.host || u.path[0] === '/')) {
-			this.setState({href});
+			this.setState({href: props.resolveUrlHook(href)});
 		}
 		else if (contentPackage) {
 			this.setState({href: null });
