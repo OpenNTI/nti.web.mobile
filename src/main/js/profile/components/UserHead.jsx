@@ -1,7 +1,7 @@
 import React from 'react/addons';
 
 import Avatar from 'common/components/Avatar';
-import HeadSummary from './HeadSummary';
+import HeadSummary from './UserHeadSummary';
 
 export default React.createClass({
 	displayName: 'profile:Head',
