@@ -33,7 +33,7 @@ export default React.createClass({
 
 
 	setDefaultSection (name) {
-		const get = v => `/${v}`;
+		const get = v => `/${(v || {}).key}`;
 		let {env} = this.state;
 		let p = env.getPath();
 

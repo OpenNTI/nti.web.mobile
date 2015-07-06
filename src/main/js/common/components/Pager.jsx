@@ -69,7 +69,9 @@ export default React.createClass({
 		 *
 		 * @type {ReactElement}
 		 */
-		navigatableContext: React.PropTypes.element
+		navigatableContext: React.PropTypes.shape({
+			makeHref: React.PropTypes.func
+		})
 	},
 
 

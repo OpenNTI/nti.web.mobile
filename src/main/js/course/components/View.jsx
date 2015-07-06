@@ -16,6 +16,8 @@ import StoreEventAware from 'common/mixins/StoreEvents';
 
 import Page from './Page';
 
+import {LESSONS} from '../Sections';
+
 //import Activity
 //import Assignments
 //import Reports
@@ -29,9 +31,9 @@ import Store from '../Store';
 
 
 const ROUTES = [
-	{path: '/v(/*)', handler: Page, pageContent: Media},
-	{path: '/o(/*)', handler: Page, pageContent: Lessons},
-	{path: '/d(/*)', handler: Page, pageContent: Discussions},
+	{path: '/videos(/*)', handler: Page, pageContent: Media},
+	{path: '/lessons(/*)', handler: Page, pageContent: Lessons},
+	{path: '/discussions(/*)', handler: Page, pageContent: Discussions},
 	{path: '/info', handler: Page, pageContent: CourseInfo},
 	{}//not found
 ];
@@ -81,26 +83,31 @@ export default React.createClass({
 	},
 
 
+	getCourse (strict = true) {
+		let {course} = this.state;
+		return (course || {}).CourseInstance || (strict ? null : course);
+	},
+
+
 	render () {
-		let record = this.state.course;
-		let course = (record || {}).CourseInstance;
+		let course = this.getCourse();
 		let entry = course && course.CatalogEntry;
 
 		if (this.state.loading) {
 			return (<Loading/>);
 		}
 
-		if ((record && record.error) || !course || !entry) {
-			return record.notFound ?
+		if ((course && course.error) || !entry) {
+			return !course || course.notFound ?
 				(<NotFound/>) :
-				(<ErrorWidget error={record.error}/>);
+				(<ErrorWidget error={course.error}/>);
 		}
 
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route=>
 				route.path ?
 				React.createElement(Router.Location, Object.assign({course, contentPackage: course}, route)) :
-				React.createElement(Router.NotFound, {handler: Redirect, location: 'o/'})
+				React.createElement(Router.NotFound, {handler: Redirect, location: LESSONS})
 			));
 	},
 
@@ -110,11 +117,13 @@ export default React.createClass({
 			{
 				source: 'course/components/View',
 				label: 'Courses',
-				href: this.getBasePath()
-			}/*,{
-				label: 'Course Index',
-
-			}*/
+				href: this.getBasePath(),
+				//You may be asking why is this on this context node, instead of on the next level down...
+				//The reason is to not repeat ourselves. Each route below this point would just echo this value,
+				//so while this node points back to the library, it allows us a common point to supply a scope
+				//for saving UGD.
+				scope: this.getCourse(true)
+			}
 		]);
 	}
 });

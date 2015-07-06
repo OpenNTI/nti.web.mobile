@@ -40,6 +40,10 @@ export default {
 
 
 	itemChanged () {
-		this.forceUpdate();
+		if (this.onItemChanged) {
+			this.onItemChanged();
+		} else {
+			this.forceUpdate();
+		}
 	}
 };

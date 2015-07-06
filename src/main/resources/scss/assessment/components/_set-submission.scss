@@ -13,9 +13,9 @@
 		padding-left: 0.75rem;
 		color: $primary-red;
 		font-weight: 300;
-		@include alignself(center);
-		@include order(1);
-		@include flex(1 1 auto);
+		align-self: center;
+		order: 1;
+		flex: 1 1 auto;
 	}
 
 	.button.reset {
@@ -25,13 +25,13 @@
 		font-weight: 300;
 		text-decoration: underline;
 		text-transform: none;
-		@include order(2);
+		order: 2;
 	}
 
 	.button {
-		@include flex(0 0 auto);
-		@include alignself(center);
-		@include order(3);
+		flex: 0 0 auto;
+		align-self: center;
+		order: 3;
 		letter-spacing: normal;
 		padding: 0.8rem 1rem 0.8625rem;
 		margin: 0;

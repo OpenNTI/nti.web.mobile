@@ -80,7 +80,7 @@ export default React.createClass({
 				<div className={`off-canvas-wrap ${state}`} data-offcanvas>
 					<div className="inner-wrap">
 
-						<aside className="right-off-canvas-menu" style={height}>
+						<aside className="right-off-canvas-menu" style={height} ref="rightMenu">
 							<Session username={username}/>
 							<Notifications/>
 						</aside>
@@ -111,7 +111,33 @@ export default React.createClass({
 			e.preventDefault();
 			e.stopPropagation();
 		}
-		this.setState({overlay: null});
+		this.setState({overlay: null}, () => {
+
+			//if there is a timer going already, kill it.
+			clearTimeout(this.waitForCloseAnimation);
+			//We don't want to just kick the drawer off screen... wait for its animation to finish. (if it will)
+			this.waitForCloseAnimation = setTimeout(() => {
+
+				//get a reference to the dom node.
+				let el = React.findDOMNode(this.refs.rightMenu);
+				// resolve the rects around it and its parentNode.
+				let A = el && el.parentNode.getBoundingClientRect();
+				let B = el && el.getBoundingClientRect();
+
+				//The drawer's left edge will be at the parent's right edge...
+				//so if the drawer is stuck, it will not equal.
+				if (B && B.left !== A.right) {
+					//The only way to force a browser to recalculate its CSS layout,
+					//is to alter a style property that effects its measurments...
+					el.style.display = 'none';
+					//Let the style apply, so clear it on the next event pump...
+					setTimeout(()=> el.style.display = '', 0);
+				}
+
+			}, 550);
+
+
+		});
 	},
 
 

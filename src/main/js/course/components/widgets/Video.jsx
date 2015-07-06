@@ -8,8 +8,8 @@ import ContextAccessor from 'common/mixins/ContextAccessor';
 
 import {Component as Video} from 'video';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
-
-const Progress = Symbol.for('Progress');
+import {CommonSymbols} from 'nti.lib.interfaces';
+let {Progress} = CommonSymbols;
 
 export default React.createClass({
 	displayName: 'CourseOverviewVideo',
@@ -171,7 +171,7 @@ export default React.createClass({
 			viewed = true;
 		}
 
-		let link = path.join('v', encodeForURI(this.getID())) + '/';
+		let link = path.join('videos', encodeForURI(this.getID())) + '/';
 
 		let Tag = tag;
 

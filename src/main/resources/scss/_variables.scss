@@ -81,6 +81,10 @@ $tabs-navigation-font-color: $primary-grey;
 %chevron-down {background-image: url(../images/svg/chevron-down.svg);}
 %chevron-down-white {background-image: url(../images/svg/chevron-down-white.svg);}
 
+%profile-education {background-image: url('../images/svg/profile-education.svg');}
+%profile-location {background-image: url('../images/svg/profile-location.svg');}
+%profile-professional {background-image: url('../images/svg/profile-professional.svg');}
+
 %checkbox-image {background-image: url(../images/icons/checkbox-14.png);}
 %checkbox-image-active {background-image: url(../images/icons/checkbox-14_active.png);}
 %checkbox-image-hover {background-image: url(../images/icons/checkbox-14_hover.png);}
@@ -185,7 +189,6 @@ $tabs-navigation-font-color: $primary-grey;
 // @mixin blur-effect() {
 // 	//filter: blur(add = 0, direction = 0, strength = 10);//IE
 // 	//filter: url(#blur-effect);//moz
-// 	-webkit-filter: blur(8px);
 // 	filter: blur(8px);
 // }
 
@@ -196,36 +199,6 @@ $tabs-navigation-font-color: $primary-grey;
   transform: translate3d(0,-50%, 0);
 }
 
-
-@mixin inline-flexbox() {
-	display: inline-flex;
-}
-
-@mixin flex($values) {
-	flex: $values;
-}
-
-@mixin order($val) {
-	-webkit-box-ordinal-group: $val;
-	-moz-box-ordinal-group: $val;
-	-ms-flex-order: $val;
-	-webkit-order: $val;
-	order: $val;
-}
-
-@mixin alignitems($val) {
-	-webkit-box-align: $val;
-    -moz-box-align: $val;
-    -webkit-align-items: $val;
-    -ms-flex-align: $val;
-    align-items: $val;
-}
-
-@mixin alignself($val) {
-	-webkit-align-self: $val;
-	-ms-flex-item-align: $val;
-	align-self: $val;
-}
 
 @mixin viewportWidth($rule, $value) {
 	$w: $value;

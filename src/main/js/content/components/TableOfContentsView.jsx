@@ -162,7 +162,7 @@ export default React.createClass({
 		let prefix = this.makeHref(`/${root}/`);
 
 		list = list.map(item => {
-			if (!item.isTopic() /*|| item.isAnchor()*/) {
+			if (!item.isTopic() /*|| item.isAnchor()*/ || item.isBeyondLevel()) {
 				return null;
 			}
 

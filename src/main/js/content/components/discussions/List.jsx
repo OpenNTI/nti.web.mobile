@@ -4,6 +4,7 @@ import {getModel} from 'nti.lib.interfaces';
 import PageSource from 'nti.lib.interfaces/models/ListBackedPageSource';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
+import Empty from 'common/components/EmptyList';
 import Loading from 'common/components/Loading';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -130,9 +131,14 @@ export default React.createClass({
 				: ( <NotFound/> )
 		) : (
 			<div className="discussions" {...props}>
+				{props.children}
 				<div className="list">
-					{!items ? ( <Loading/> ) :
-						items.map(x => <Item item={x} key={x.getID()}/>)}
+					{!items
+						? ( <Loading/> )
+						: items.length
+							? items.map(x => <Item item={x} key={x.getID()}/>)
+							: ( <Empty type="discussions"/> )
+					}
 				</div>
 			</div>
 		);

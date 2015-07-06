@@ -67,6 +67,14 @@ And `CHEM4970.csv` is a file with the forum content:
 
  [^notresuablebysameuser]: as of this writing (2015.01.03) these tokens can't be reused by the same user even after dropping the course.
 
+## add user profile data
+### professional position:
+
+    echo '[{"MimeType":"application/vnd.nextthought.profile.professionalposition", "companyName":"Jimbobcorp", "title":"Vice President of Pencil Sharpening", "startYear": "2010", "endYear":"2014", "description":"Did lots of work"}]' | http -a ray.hatfield@gmail.com:test1234 PUT http://localhost:8082/dataserver2/users/ray.hatfield%40gmail.com/++fields++positions
+
+### educational experience
+    echo '[{"MimeType":"application/vnd.nextthought.profile.educationalexperience", "school":"University of Wherever", "degree":"Masters in Study Hall", "startYear": "1991", "endYear":"1998", "description":"Description of studies"}]' | http -a ray.hatfield@gmail.com:test1234 PUT http://localhost:8082/dataserver2/users/ray.hatfield%40gmail.com/++fields++education
+
 ## sync/update library
 
 If you haven't already:

@@ -9,10 +9,35 @@ import Editor, {FormatButton, ToolbarRegions} from 'react-editor-component';
 
 const {SOUTH} = ToolbarRegions;
 
+const WHITESPACE_ENTITIES_AND_TAGS = /((<[^>]+>)|&nbsp;|[\s\r\n])+/ig;
+
 export default React.createClass({
 	displayName: 'ModeledBodyContentEditor',
 
+
+	statics: {
+
+		isEmpty (html) {
+			if (!Array.isArray(html)) {
+				html = [html];
+			}
+
+			// This filter fn will return true if:
+			// 1) x is not 'null' AND:
+			// 2a) x is not a string OR
+			// 2b) is a string that does not reduce to lenth 0
+			let empties = x=>
+				x && (typeof x !== 'string' || x.replace(WHITESPACE_ENTITIES_AND_TAGS, '').length);
+
+			return html.filter(empties).length === 0;
+		}
+
+	},
+
+
 	propTypes: {
+		children: React.PropTypes.any,
+
 		allowInsertImage: React.PropTypes.bool,
 
 		/**
@@ -122,7 +147,7 @@ export default React.createClass({
 
 	render () {
 		//TODO: parse/build value sent to the RTE from the modeled body.
-		let {value, allowInsertImage} = this.props;
+		let {value, allowInsertImage, children} = this.props;
 
 		if (Array.isArray(value)) {
 			value = value.join('\n').replace(/<(\/?)(body|html)>/ig, '');
@@ -144,6 +169,9 @@ export default React.createClass({
 					<InsertImageButton region={SOUTH}/>
 				)}
 
+				<div className="right-south" region={SOUTH}>
+					{children}
+				</div>
 			</Editor>
 		);
 	}

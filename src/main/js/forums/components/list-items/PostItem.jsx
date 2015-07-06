@@ -49,9 +49,7 @@ export default React.createClass({
 	},
 
 	statics: {
-		inputType: [
-			mimeTypes[POST]
-		]
+		inputType: mimeTypes[POST]
 	},
 
 

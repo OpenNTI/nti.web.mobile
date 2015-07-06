@@ -130,6 +130,11 @@
 			}
 		}
 
+		& > .related-work-ref {
+			margin: 0; border: 0;
+			cursor: default;
+		}
+
 		.question {
 			pointer-events: none;
 			.question-submission {display: none;}
@@ -230,5 +235,16 @@
 
 	.modeled-content {
 		clear: both;
+	}
+}
+
+.discussion-reply-editor {
+	margin-top: 1rem;
+	position: relative;
+
+	&.busy {
+		.editor {
+			visibility: hidden;
+		}
 	}
 }

@@ -39,8 +39,7 @@ $indent: 0.9375rem;
 		}
 	}
 	.page-select {
-		-webkit-appearance: none !important;
-		-moz-appearance: none !important;
+		appearance: none !important;
 		width: 3em;
 		margin-right: .5em;
 	}
@@ -127,7 +126,7 @@ $indent: 0.9375rem;
 
 		.threadlink {
 			display: block;
-			min-height: 1rem;			
+			min-height: 1rem;
 			font-size: .75rem;
 			color: #b8b8b8;
 			white-space: nowrap;
@@ -142,7 +141,7 @@ $indent: 0.9375rem;
 		}
 
 		&.deleted {
-			
+
 			& > .modeled-content {
 				text-transform: uppercase;
 			}

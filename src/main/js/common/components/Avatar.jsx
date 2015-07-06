@@ -1,9 +1,9 @@
 import React from 'react';
 import {BLANK_AVATAR} from '../constants/DataURIs';
 
-import {resolve} from './DisplayName';
+import resolveUser from 'common/utils/resolve-user';
 
-const DEFAULT = { user: {avatar: BLANK_AVATAR }};
+const DEFAULT = { user: {avatarURL: BLANK_AVATAR }};
 
 export default React.createClass({
 	displayName: 'Avatar',
@@ -41,7 +41,7 @@ export default React.createClass({
 		let {username, className} = this.props;
 		let css = className || '';
 
-		let {avatar, initials} = user || {};
+		let {avatarURL, initials} = user || {};
 
 		let props = Object.assign({}, this.props, {
 			'data-for': username,
@@ -51,8 +51,8 @@ export default React.createClass({
 
 
 
-		return avatar ? (
-				<img {...props} src={avatar} onError={this.setUnknown}/>
+		return avatarURL ? (
+				<img {...props} src={avatarURL} onError={this.setUnknown}/>
 			) : initials ? (
 				<svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 32 32">
 					<text textAnchor="middle" x="16px" y="21px">{initials}</text>
@@ -72,7 +72,7 @@ function fillIn (cmp, props) {
 	if (user) {
 		promise = Promise.resolve(user);
 	} else {
-		promise = resolve(cmp, props);
+		promise = resolveUser(props);
 	}
 
 	promise

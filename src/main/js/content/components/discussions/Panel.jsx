@@ -3,52 +3,26 @@ import React from 'react';
 import Avatar from 'common/components/Avatar';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
-import Err from 'common/components/Error';
-import Loading from 'common/components/TinyLoader';
 import LuckyCharms from 'common/components/LuckyCharms';
 
 import Body from 'modeled-content/components/Panel';
 
 import ItemActions from './ItemActions';
+import ReplyEditor from './ReplyEditor';
 
-export function ReplyComparator (a, b) {
-	a = a.getCreatedTime();
-	b = b.getCreatedTime();
-	return a === b ? 0 : a < b ? -1 : 1;
-}
+import NotePanelBehavior from './NotePanelBehavior';
 
 const Panel = React.createClass({
 	displayName: 'content:discussions:Panel',
+	mixins: [NotePanelBehavior],
+
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired
 	},
 
-
-	componentDidMount () {
-		this.updateData();
-	},
-
-
-	componentWillReceiveProps (nextProps) {
-		this.updateData(nextProps);
-	},
-
-
-	updateData (props = this.props) {
-		let {item} = props;
-
-		this.setState({loading: true});
-		item.getReplies()
-			.then(
-				x => ({children: x}),
-				x => ({error: x})
-			)
-			.then(x => this.setState(Object.assign({loading: false}, x)));
-	},
-
-
 	render () {
+		let {replying} = this.state;
 		let {item} = this.props;
 		let {body, creator, placeholder} = item;
 		let date = item.getLastModified();
@@ -70,10 +44,16 @@ const Panel = React.createClass({
 
 						<Body body={body}/>
 
-						<div className="footer">
-							<DateTime date={date} relative/>
-							<ItemActions item={item} isTopLevel/>
-						</div>
+						{replying ? (
+							<div className="footer">
+								<ReplyEditor item={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
+							</div>
+						) : (
+							<div className="footer">
+								<DateTime date={date} relative/>
+								<ItemActions item={item} isTopLevel onReply={this.showReplyEditor}/>
+							</div>
+						)}
 					</div>
 				)}
 				{this.renderReplies()}
@@ -82,19 +62,9 @@ const Panel = React.createClass({
 	},
 
 
-	renderReplies () {
-		let {loading=true, error, children=[]} = this.state || {};
-
-		return loading ? (
-			<Loading />
-		) : error ? (
-			<Err error={error}/>
-		) : (
-			children.sort(ReplyComparator).map(x=> (
-
-				<Panel item={x} key={x.getID()}/>
-
-			))
+	renderReply (item) {
+		return (
+			<Panel item={item} key={item.getID()}/>
 		);
 	}
 

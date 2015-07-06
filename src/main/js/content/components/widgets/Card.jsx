@@ -9,13 +9,12 @@ export default React.createClass({
 	mixins: [Mixin],
 
 	statics: {
-		itemType: /ntirelatedworkref$|nticard$/i
+		itemType: /ntirelatedworkref$|nticard$|externallink$/i
 	},
 
 
 	propTypes: {
 		item: React.PropTypes.object,
-		slug: React.PropTypes.string,
 		contentPackage: React.PropTypes.object
 	},
 
@@ -33,7 +32,7 @@ export default React.createClass({
 				//a HTML style "fallback" to allow us flexibility and all,
 				//but we still split "data points" into it... hmm...
 				el = item.dom.querySelector('span.description');
-				item.desc = el && el.innerHTML;
+				item.description = el && el.innerHTML;
 			}
 
 			if (!item.icon && item.dom) {
@@ -47,12 +46,11 @@ export default React.createClass({
 
 
 	render () {
-		let {item, slug, contentPackage} = this.props;
+		let {item, contentPackage} = this.props;
+		//We do not pass a slug, because this widget represents a Card from within Content.
+		//It's NTIID is the link, and we handle that specially...
 		return (
-			<Card
-				item={item}
-				slug={slug}
-				contentPackage={contentPackage}/>
+			<Card item={item} contentPackage={contentPackage}/>
 		);
 	}
 });

@@ -13,6 +13,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import TranscriptedVideo from './TranscriptedVideo';
 import VideoGrid from './VideoGrid';
 
+import {VIDEOS} from '../Sections';
 
 export default React.createClass({
 	displayName: 'MediaView',
@@ -79,6 +80,7 @@ export default React.createClass({
 				ntiid: node.getID(),
 				label: node.label,
 				// ref: node.ref,
+				scope: node,//for UGD
 				href: this.getBasePath() + node.href
 			}));
 		}
@@ -86,7 +88,7 @@ export default React.createClass({
 		return Promise.resolve([
 			{
 				label: 'Videos',
-				href: this.makeHref('v')
+				href: this.makeHref(VIDEOS)
 			}
 		]);
 	},

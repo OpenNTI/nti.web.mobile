@@ -10,7 +10,7 @@ import {scoped} from 'common/locale';
 import Panel from 'modeled-content/components/Panel';
 
 
-const t = scoped('CONTENT.DISCUSSIONS');
+const t = scoped('UNITS');
 
 export default React.createClass({
 	displayName: 'content:discussions:Item',
@@ -33,7 +33,7 @@ export default React.createClass({
 				<DisplayName username={creator}/>
 				<Panel className="snippet" body={preview} previewMode/>
 				<div className="footer">
-					<span>{t('replies', {count: replyCount})}</span>
+					<span>{t('comments', {count: replyCount})}</span>
 					<DateTime date={date} relative/>
 				</div>
 			</a>

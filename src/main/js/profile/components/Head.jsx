@@ -1,11 +1,7 @@
 import React from 'react/addons';
 
-import {getAppUsername} from 'common/utils';
-
 import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
-
-import LogoutButton from 'login/components/LogoutButton';
+import HeadSummary from './HeadSummary';
 
 export default React.createClass({
 	displayName: 'profile:Head',
@@ -19,19 +15,14 @@ export default React.createClass({
 
 		username = decodeURIComponent(username);
 
-		let me = username === getAppUsername();
-
 		return (
 			<div className="profile-head">
 				<div className="user">
+				<div className="profile-avatar-container">
 					<Avatar username={username}/>
-					<div className="label">
-						<DisplayName username={username}/>
-					</div>
 				</div>
-				<ul className="actions">
-					{me && <li><LogoutButton/></li>}
-				</ul>
+				<HeadSummary username={username} />
+				</div>
 			</div>
 		);
 	}

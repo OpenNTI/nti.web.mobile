@@ -1,8 +1,10 @@
 import React from 'react';
 
 
-import DisplayName, {resolve} from './DisplayName';
+import DisplayName from './DisplayName';
 import Loading from './TinyLoader';
+
+import resolve from '../utils/resolve-user';
 
 const isEmpty = x => !Array.isArray(x) || x.length === 0;
 

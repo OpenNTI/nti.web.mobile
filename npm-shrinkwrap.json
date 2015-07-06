@@ -8,29 +8,29 @@
       "resolved": "https://registry.npmjs.org/autoprefixer-loader/-/autoprefixer-loader-2.0.0.tgz"
     },
     "babel": {
-      "version": "5.5.8",
-      "from": "babel@^5.2.1",
-      "resolved": "https://registry.npmjs.org/babel/-/babel-5.5.8.tgz"
+      "version": "5.6.6",
+      "from": "babel@5.6.6",
+      "resolved": "https://registry.npmjs.org/babel/-/babel-5.6.6.tgz"
     },
     "babel-core": {
-      "version": "5.5.8",
-      "from": "babel-core@^5.2.1",
-      "resolved": "https://registry.npmjs.org/babel-core/-/babel-core-5.5.8.tgz"
+      "version": "5.6.6",
+      "from": "babel-core@5.6.6",
+      "resolved": "https://registry.npmjs.org/babel-core/-/babel-core-5.6.6.tgz"
     },
     "babel-eslint": {
-      "version": "3.1.17",
+      "version": "3.1.18",
       "from": "babel-eslint@>=2.0.2",
-      "resolved": "https://registry.npmjs.org/babel-eslint/-/babel-eslint-3.1.17.tgz"
+      "resolved": "https://registry.npmjs.org/babel-eslint/-/babel-eslint-3.1.18.tgz"
     },
     "babel-loader": {
-      "version": "5.1.4",
-      "from": "babel-loader@^5.0.0",
-      "resolved": "https://registry.npmjs.org/babel-loader/-/babel-loader-5.1.4.tgz"
+      "version": "5.2.2",
+      "from": "babel-loader@^5.2.0",
+      "resolved": "https://registry.npmjs.org/babel-loader/-/babel-loader-5.2.2.tgz"
     },
     "babel-runtime": {
-      "version": "5.5.8",
-      "from": "babel-runtime@^5.2.1",
-      "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.5.8.tgz"
+      "version": "5.6.6",
+      "from": "babel-runtime@5.6.6",
+      "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.6.6.tgz"
     },
     "classnames": {
       "version": "2.1.2",
@@ -64,8 +64,13 @@
     },
     "css-loader": {
       "version": "0.14.5",
-      "from": "css-loader@^0.14.0",
+      "from": "css-loader@^0.14.5",
       "resolved": "https://registry.npmjs.org/css-loader/-/css-loader-0.14.5.tgz"
+    },
+    "del": {
+      "version": "1.2.0",
+      "from": "del@^1.2.0",
+      "resolved": "https://registry.npmjs.org/del/-/del-1.2.0.tgz"
     },
     "eslint": {
       "version": "0.23.0",
@@ -78,9 +83,9 @@
       "resolved": "https://registry.npmjs.org/eslint-plugin-react/-/eslint-plugin-react-2.5.2.tgz"
     },
     "express": {
-      "version": "4.12.4",
+      "version": "4.13.0",
       "from": "express@^4.9.5",
-      "resolved": "https://registry.npmjs.org/express/-/express-4.12.4.tgz"
+      "resolved": "https://registry.npmjs.org/express/-/express-4.13.0.tgz"
     },
     "fastclick": {
       "version": "1.0.6",
@@ -143,9 +148,9 @@
       "resolved": "https://registry.npmjs.org/grunt-execute/-/grunt-execute-0.2.2.tgz"
     },
     "grunt-karma": {
-      "version": "0.11.0",
+      "version": "0.11.1",
       "from": "grunt-karma@^0.11.0",
-      "resolved": "https://registry.npmjs.org/grunt-karma/-/grunt-karma-0.11.0.tgz"
+      "resolved": "https://registry.npmjs.org/grunt-karma/-/grunt-karma-0.11.1.tgz"
     },
     "grunt-rename": {
       "version": "0.1.4",
@@ -168,19 +173,39 @@
       "resolved": "https://registry.npmjs.org/gulp-autoprefixer/-/gulp-autoprefixer-2.3.1.tgz"
     },
     "gulp-concat": {
-      "version": "2.5.2",
+      "version": "2.6.0",
       "from": "gulp-concat@^2.5.2",
-      "resolved": "https://registry.npmjs.org/gulp-concat/-/gulp-concat-2.5.2.tgz"
+      "resolved": "https://registry.npmjs.org/gulp-concat/-/gulp-concat-2.6.0.tgz"
+    },
+    "gulp-eslint": {
+      "version": "0.14.0",
+      "from": "gulp-eslint@^0.14.0",
+      "resolved": "https://registry.npmjs.org/gulp-eslint/-/gulp-eslint-0.14.0.tgz"
+    },
+    "gulp-if": {
+      "version": "1.2.5",
+      "from": "gulp-if@^1.2.5",
+      "resolved": "https://registry.npmjs.org/gulp-if/-/gulp-if-1.2.5.tgz"
+    },
+    "gulp-rename": {
+      "version": "1.2.2",
+      "from": "gulp-rename@^1.2.2",
+      "resolved": "https://registry.npmjs.org/gulp-rename/-/gulp-rename-1.2.2.tgz"
     },
     "gulp-sass": {
-      "version": "2.0.1",
+      "version": "2.0.2",
       "from": "gulp-sass@^2.0.1",
-      "resolved": "https://registry.npmjs.org/gulp-sass/-/gulp-sass-2.0.1.tgz"
+      "resolved": "https://registry.npmjs.org/gulp-sass/-/gulp-sass-2.0.2.tgz"
     },
     "gulp-sourcemaps": {
       "version": "1.5.2",
       "from": "gulp-sourcemaps@^1.5.2",
       "resolved": "https://registry.npmjs.org/gulp-sourcemaps/-/gulp-sourcemaps-1.5.2.tgz"
+    },
+    "gulp-symlink": {
+      "version": "2.1.1",
+      "from": "gulp-symlink@^2.1.0",
+      "resolved": "https://registry.npmjs.org/gulp-symlink/-/gulp-symlink-2.1.1.tgz"
     },
     "html-loader": {
       "version": "0.3.0",
@@ -198,9 +223,9 @@
       "resolved": "https://registry.npmjs.org/json-loader/-/json-loader-0.5.2.tgz"
     },
     "karma": {
-      "version": "0.12.36",
+      "version": "0.12.37",
       "from": "karma@^0.12.31",
-      "resolved": "https://registry.npmjs.org/karma/-/karma-0.12.36.tgz"
+      "resolved": "https://registry.npmjs.org/karma/-/karma-0.12.37.tgz"
     },
     "karma-jasmine": {
       "version": "0.3.5",
@@ -237,10 +262,15 @@
       "from": "load-grunt-tasks@^3.1.0",
       "resolved": "https://registry.npmjs.org/load-grunt-tasks/-/load-grunt-tasks-3.2.0.tgz"
     },
+    "merge-stream": {
+      "version": "0.1.7",
+      "from": "merge-stream@^0.1.7",
+      "resolved": "https://registry.npmjs.org/merge-stream/-/merge-stream-0.1.7.tgz"
+    },
     "mime-db": {
-      "version": "1.13.0",
+      "version": "1.14.0",
       "from": "mime-db@^1.8.0",
-      "resolved": "https://registry.npmjs.org/mime-db/-/mime-db-1.13.0.tgz"
+      "resolved": "https://registry.npmjs.org/mime-db/-/mime-db-1.14.0.tgz"
     },
     "mime-types": {
       "version": "2.1.1",
@@ -275,7 +305,7 @@
     "nti.lib.interfaces": {
       "version": "0.0.0",
       "from": "nti.lib.interfaces@git+https://repos.nextthought.com/git/nti.lib.interfaces",
-      "resolved": "git+https://repos.nextthought.com/git/nti.lib.interfaces#7f45c34a3b1d1d14d7622336d1749981b0d809a7"
+      "resolved": "git+https://repos.nextthought.com/git/nti.lib.interfaces#3ef4074df18c7c051fe2b78f624a876555e40a71"
     },
     "nti.lib.ranges": {
       "version": "1.0.3",
@@ -306,11 +336,6 @@
       "version": "0.8.0",
       "from": "object-hash@^0.8.0",
       "resolved": "https://registry.npmjs.org/object-hash/-/object-hash-0.8.0.tgz"
-    },
-    "optimist": {
-      "version": "0.6.1",
-      "from": "optimist@^0.6.1",
-      "resolved": "https://registry.npmjs.org/optimist/-/optimist-0.6.1.tgz"
     },
     "phantomjs": {
       "version": "1.9.17",
@@ -343,9 +368,9 @@
       "resolved": "git://github.com/NextThought/react-editor-component#81896b3b19e5dab342c1abadc58d8bd2118111d2"
     },
     "react-router-component": {
-      "version": "0.24.4",
-      "from": "react-router-component@^0.24.4",
-      "resolved": "https://registry.npmjs.org/react-router-component/-/react-router-component-0.24.4.tgz"
+      "version": "0.25.4",
+      "from": "react-router-component@^0.25.4",
+      "resolved": "https://registry.npmjs.org/react-router-component/-/react-router-component-0.25.4.tgz"
     },
     "request": {
       "version": "2.58.0",
@@ -388,14 +413,19 @@
       "resolved": "https://registry.npmjs.org/vtt.js/-/vtt.js-0.12.1.tgz"
     },
     "webpack": {
-      "version": "1.9.11",
+      "version": "1.9.12",
       "from": "webpack@^1.8.9",
-      "resolved": "https://registry.npmjs.org/webpack/-/webpack-1.9.11.tgz"
+      "resolved": "https://registry.npmjs.org/webpack/-/webpack-1.9.12.tgz"
     },
     "webpack-dev-server": {
       "version": "1.9.0",
       "from": "webpack-dev-server@^1.8.2",
       "resolved": "https://registry.npmjs.org/webpack-dev-server/-/webpack-dev-server-1.9.0.tgz"
+    },
+    "yargs": {
+      "version": "3.13.0",
+      "from": "yargs@^3.11.0",
+      "resolved": "https://registry.npmjs.org/yargs/-/yargs-3.13.0.tgz"
     },
     "zpad": {
       "version": "0.5.0",

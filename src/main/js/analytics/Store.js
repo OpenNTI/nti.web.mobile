@@ -148,6 +148,12 @@ class AnalyticsStore extends TypedEventEmitter {
 				return response;
 			})
 			.catch(r => {
+				if (r.statusCode === 501) {
+					console.log('Dropping analytics: ', r.message);
+					this[FlushLocalStorage]();
+					return;
+				}
+
 				console.warn(r);
 				// put items back in the queue
 				queue.push.apply(queue, items);

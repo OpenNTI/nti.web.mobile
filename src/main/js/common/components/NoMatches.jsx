@@ -1,7 +1,7 @@
 import React from 'react';
 import {scoped} from '../locale';
 
-const t = scoped('FILTER');
+const t = scoped('LISTS');
 
 export default React.createClass({
 	displayName: 'NoMatches',

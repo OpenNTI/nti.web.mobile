@@ -38,13 +38,15 @@ class Annotation {
 	get id () { return this.item.getID(); }
 
 	resolveVerticalLocation () {
+		let getStart = x => x && x.getStart && x.getStart().getSeconds().toFixed(3);
+
 		let {root, item} = this;
 		let {applicableRange} = item;
-		let start = applicableRange.getStart().getSeconds().toFixed(3);
+		let start = getStart(applicableRange);
 
 		root = root.refs.transcript;
 
-		if (!root.isMounted()) {
+		if (!root || !root.isMounted()) {
 			return -1;
 		}
 
@@ -52,7 +54,7 @@ class Annotation {
 		root = React.findDOMNode(root);
 		let {scrollTop} = document.body;
 
-		let cue = root.querySelector(`[data-start-time="${start}"]`);
+		let cue = start && root.querySelector(`[data-start-time="${start}"]`);
 
 		//getBoundingClientRect is effected by scroll position... so add it back in.
 		return (cue ? cue : root).getBoundingClientRect().top + scrollTop;
@@ -92,11 +94,29 @@ export default React.createClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.videoId !== this.props.videoId) {
-			this.getDataIfNeeded(nextProps);
+	componentWillReceiveProps (props) {
+		let {showDiscussions, videoId} = this.props;
+
+		if (props.videoId !== videoId || (!props.showDiscussions && props.showDiscussions !== showDiscussions)) {
+			this.getDataIfNeeded(props);
 		}
 	},
+
+
+	componentDidUpdate () {
+		let {outlineId} = this.props;
+		let {video} = this.state;
+		let pageSource = video && video.getPageSource();
+
+		if (outlineId && pageSource) {
+			pageSource = pageSource.scoped(decodeFromURI(outlineId));
+		}
+
+		if (video) {
+			this.setPageSource(pageSource, video.getID());
+		}
+	},
+
 
 	onError (error) {
 		this.setState({
@@ -111,7 +131,7 @@ export default React.createClass({
 		let {videoId} = this.props;
 		return Promise.resolve({
 			label: 'Video',
-			href: this.makeHref(videoId)
+			href: this.makeHref(videoId + '/')
 		});
 	},
 
@@ -124,16 +144,8 @@ export default React.createClass({
 			let {VideoIndex, videoId, outlineId} = props;
 			let video = VideoIndex.get(decodeFromURI(videoId));
 
-			let pageSource = video && video.getPageSource();
-
-			if (outlineId && pageSource) {
-				pageSource = pageSource.scoped(decodeFromURI(outlineId));
-			}
-
 			this.resolveContext()
 				.then(context => this.setState({ context }));
-
-			this.setPageSource(pageSource, video.getID());
 
 			let transcript = this.loadTranscript(video);
 			let notes = this.loadDiscussions(video);
@@ -259,6 +271,7 @@ export default React.createClass({
 
 
 	render () {
+		let {showDiscussions, videoId} = this.props;
 		let {annotations, storeProvider, selectedDiscussions, error, video, cues, regions, currentTime, loading} = this.state;
 
 		loading = loading || !video;
@@ -271,7 +284,7 @@ export default React.createClass({
 			return ( <Loading /> );
 		}
 
-		if (this.props.showDiscussions) {
+		if (showDiscussions) {
 			return ( <Discussions UserDataStoreProvider={storeProvider} filter={selectedDiscussions}/> );
 		}
 
@@ -297,7 +310,7 @@ export default React.createClass({
 							regions={regions}
 							cues={cues}/>
 					)}
-					<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
+					<Gutter items={annotations} selectFilter={this.setDiscussionFilter} prefix={videoId}/>
 				</div>
 
 			</div>

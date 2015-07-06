@@ -12,6 +12,7 @@ import enrollment from './partials/enrollment';
 import library from './partials/library';
 import login from './partials/login';
 import soon from './partials/coming-soon';
+import profile from './partials/profile';
 
 export default {
 	GLOBAL: {
@@ -30,15 +31,22 @@ export default {
 
 	LIBRARY: library,
 
+	PROFILE: profile,
+
 	BUTTONS: {
 		ok: 'Okay',
 		cancel: 'Cancel',
 		save: 'Save'
 	},
 
-	FILTER: {
+	LISTS: {
 		noMatches: 'No items match the selected filter.',
-		emptyList: 'This list is empty.'
+		emptyList: 'This list is empty.',
+		'emptyList:discussions': 'No discussions.',
+		'emptyList:lesson-overview': 'Empty Overview :(\nThis lesson is missing content.',
+		'emptyList:library-admin': 'No Administered Courses.',
+		'emptyList:library-courses': 'You don\'t have any courses yet...',
+		'emptyList:videos': 'No videos.'
 	},
 
 	CONTENT: content,

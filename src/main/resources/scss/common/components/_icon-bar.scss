@@ -8,11 +8,11 @@
 		position: relative;
 		display: inline-block;
 		overflow: hidden;
-		@include flex(1 1 auto);
-		//@include flex(1 0 auto);
+		flex: 1 1 auto;
+		//flex: 1 0 auto;
 
 		// &.active {
-		// 	@include flex(2 auto); // without this there's still a small sliver when horizontal.
+		// 	flex: 2 auto; // without this there's still a small sliver when horizontal.
 		// }
 	}
 }

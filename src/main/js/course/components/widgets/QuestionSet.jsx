@@ -141,7 +141,7 @@ export default React.createClass( {
 
 	setQuizHref () {
 		let ntiid = this.props.item['Target-NTIID'];
-		let link = path.join('c', encodeForURI(ntiid)) + '/';
+		let link = path.join('content', encodeForURI(ntiid)) + '/';
 		this.setState({href: this.makeHref(link, true)});
 	},
 

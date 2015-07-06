@@ -2,7 +2,7 @@ export default {
 	SECTIONS: {
 		activity: 'Activity',
 		discussions: 'Discussions',
-		index: 'Index',
+		index: 'Book',
 		info: 'Info',
 		videos: 'Videos'
 	},
@@ -18,9 +18,6 @@ export default {
 			delete: 'Delete'
 		},
 		postedBy: 'Posted by %(name)s',
-		replies: {
-			one: '1 Comment',
-			other: '%(count)s Comments'
-		}
+		viewComments: 'View Comments'
 	}
 };

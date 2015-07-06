@@ -292,7 +292,7 @@ export default React.createClass({
 		let duration = this.getDuration();
 		let maxtime = this.getMaximumTimeAllowed();
 
-		let time = this.getNaturalDuration(duration || maxtime, duration ? 2 : 1, !duration);
+		let time = this.getNaturalDuration(duration || maxtime, 2, !duration);
 
 		if (duration) {
 			return (

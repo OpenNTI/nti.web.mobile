@@ -8,7 +8,7 @@
 	width: 180px;
 	position: relative;
 	overflow: visible;
-	-webkit-transform: translate3d(0,0,0);
+
 	transform: translate3d(0,0,0);
 	box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.8);
 	border-radius: 1px;//iOS won't render the shadow w/o this :/
@@ -122,6 +122,21 @@
 	}
 }
 
+// .library-view.single-section {
+	// .library-collection {
+
+		// & > h5 {display: none;}
+		// & > ul {
+		// 	overflow: hidden;
+		// 	white-space: normal;
+		//
+		// 	& > li {
+		// 		margin: 0 0.625rem 0.625rem 0;
+		// 	}
+		// }
+	// }
+// }
+
 .cell {
 	display: inline-block;
 }
@@ -225,10 +240,10 @@ li.catalog-item {
 		}
 
 		label{
-			@include flex(1 1 auto);
+			flex: 1 1 auto;
 		}
 		.thumbnail {
-			@include flex(0 0 auto);
+			flex: 0 0 auto;
 		}
 	}
 

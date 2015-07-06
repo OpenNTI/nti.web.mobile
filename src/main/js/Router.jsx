@@ -1,5 +1,19 @@
 import React from 'react';
-import {Locations, Location, NotFound as Default} from 'react-router-component';
+
+import {
+	Locations,
+	Location,
+	NotFound,
+	createURLPatternCompiler,
+	setCreateURLPatternCompilerFactory
+} from 'react-router-component';
+
+const URLPatternCompilerFactory = createURLPatternCompiler;
+setCreateURLPatternCompilerFactory(() => {
+	let compiler = URLPatternCompilerFactory();
+	compiler.segmentValueCharset = 'a-zA-Z0-9-_ %.:()';
+	return compiler;
+});
 
 //Main View Handlers
 import Catalog from 'catalog/components/View';
@@ -11,7 +25,7 @@ import Home from 'home/components/View';
 import Library from 'library/components/View';
 import Login from 'login/components/View';
 import Profile from 'profile/components/View';
-import NotFound from 'notfound/components/View';
+import NotFoundPage from 'notfound/components/View';
 import ObjectResolver from 'object-resolver/components/View';
 
 import BasePathAware from 'common/mixins/BasePath';
@@ -98,7 +112,7 @@ export default React.createClass({
 				handler: lookupHandler(r)
 			}));
 
-		routes.push(React.createElement(Default, {handler: NotFound}));
+		routes.push(React.createElement(NotFound, {handler: NotFoundPage}));
 
 		return routes.filter(r=>r.props.handler);
 	}

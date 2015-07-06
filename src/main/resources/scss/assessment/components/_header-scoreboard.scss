@@ -37,7 +37,7 @@
 		display: flex;
 
 		.score {
-			@include flex(0 0 60px);
+			flex: 0 0 60px;
 			position: relative;
 			min-height: 60px;
 
@@ -51,7 +51,7 @@
 		}
 
 		.reset-button {
-			@include flex(0 0 6.75rem);
+			flex: 0 0 6.75rem;
 			position: relative;
 
 
@@ -81,7 +81,7 @@
 		}
 
 		.tally {
-			@include flex(1 1 auto);
+			flex: 1 1 auto;
 
 			.stat {
 				display: inline-block;

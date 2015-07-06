@@ -1,0 +1,63 @@
+.profile-cards {
+	list-style-type: none;
+	margin: 0;
+}
+
+.profile-card {
+	background: white;
+	padding: 1rem;
+	padding-bottom: 2rem;
+	margin: 4px 0;
+	border-left: 4px solid transparent;
+	font-size: .875rem;
+
+	&.about {
+		border-left-color: #fc9f77;
+	}
+	&.education {
+		border-left-color: #fdcf61;
+	}
+	&.positions {
+		border-left-color: #7ecfc8;
+	}
+	&.activity {
+		border-left-color: #fdcf61;
+	}
+	&.achievements {
+		border-left-color: #fdcf61;
+	}
+	&.generalforumcomment {
+		border-left-color: #fdcf61;	
+	}
+	&.communityheadlinetopic {
+		border-left-color: #7ecfc8;
+	}
+	&.highlight {
+		border-left-color: #fc9f77;	
+	}
+	h1 {
+		font-size: 1.25rem;
+		border-bottom: 1px solid $quad-grey;
+		padding: .2em 0;
+		font-family: $body-font-family;
+		color: $secondary-grey;
+	}
+}
+
+.professional-position,
+.educational-experience {
+	.professional-position-company,
+	.educational-experience-school {
+		font-size: 1rem;
+		font-weight: 700;
+		margin: 0;
+		font-family: $body-font-family;
+	}
+	.professional-position-title {
+
+	}
+	.professional-position-description,
+	.educational-experience-description {
+		font-style: italic;
+	}
+}

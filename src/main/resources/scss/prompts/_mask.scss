@@ -9,7 +9,7 @@
 
 .modal.mask {
 	background-color: rgba(0,0,0,0);
-	@include transition('background-color .35s ease-in');
+	transition: background-color .35s ease-in;
 
 	&.showing {
 		background-color: rgb(100,100,100);

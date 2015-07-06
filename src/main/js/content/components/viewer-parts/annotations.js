@@ -102,13 +102,14 @@ export default {
 
 			deadIDs.delete(id);
 
-			if (annotation && !annotation.shouldRender()) {
+			let Annotation = select(i);
+
+			if ((annotation && !annotation.shouldRender()) || !Annotation) {
 				skipped++;
 				continue;
 			}
 			else if (!annotation) {
 				newObjects++;
-				let Annotation = select(i);
 				annotation = new Annotation(i, this);
 				annotations[id] = annotation;
 			}

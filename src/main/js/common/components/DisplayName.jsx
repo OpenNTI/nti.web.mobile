@@ -1,9 +1,7 @@
 import React from 'react';
 
 import cx from 'classnames';
-
-import {getService} from '../utils';
-
+import resolveUser from 'common/utils/resolve-user';
 import t from 'common/locale';
 
 /**
@@ -77,26 +75,6 @@ export default React.createClass({
 });
 
 
-export function resolve (cmp, props) {
-	let username = props.username;
-	let user = props.user;
-	let promise;
-
-	if (!username && !user) {
-		promise = Promise.reject('No User or no Username');
-	}
-
-	promise = promise || (user && Promise.resolve(user));
-
-	if (!promise) {
-		promise = getService()
-			.then(service=>service.resolveUser(username));
-	}
-
-	return promise;
-}
-
-
 function fillIn(cmp, props) {
 	let task = Date.now();
 	let set = state => {
@@ -105,7 +83,7 @@ function fillIn(cmp, props) {
 		}
 	};
 
-	cmp.setState({task}, ()=> resolve(cmp, props)
+	cmp.setState({task}, ()=> resolveUser(props)
 		.then(
 			user => set({ displayName: user.displayName }),
 			()=> set({ failed: true, displayName: 'Unknown' })

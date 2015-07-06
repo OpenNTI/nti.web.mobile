@@ -1,8 +1,11 @@
 import React from 'react';
 
+import cx from 'classnames';
+
 import {scoped} from 'common/locale';
 
 import ActiveState from 'common/components/ActiveState';
+import EmptyList from 'common/components/EmptyList';
 
 import NavigationBar from 'navigation/components/Bar';
 
@@ -36,9 +39,10 @@ export default React.createClass({
 	render () {
 		let {section} = this.props;
 		let bins = section ? this.getBinnedData(section) : [];
+		let showCatalog = /courses/i.test(section);
 
 		let props = {
-			className: 'library-view'
+			className: cx('library-view', { 'single-section': bins.length === 1 })
 		};
 
 		let {availableSections} = this.state;
@@ -51,15 +55,20 @@ export default React.createClass({
 		return (
 			<div>
 				<NavigationBar title="Library">
-					<a href={this.getBasePath() + 'catalog/'} position="left" className="add">Add</a>
+					{showCatalog && ( <a href={this.getBasePath() + 'catalog/'} position="left" className="add">Add</a> )}
 					{availableSections &&
 						React.createElement('ul', {className: 'title-tabs', position: 'center'},
 							...availableSections.map(x=>
 								<li><ActiveState tag="a" {...sectionProps(x)}/></li>
 							))}
 				</NavigationBar>
-				{React.createElement('div', props, ...bins.map(b=>
-					<Collection title={b.name} subtitle={b.label} list={b.items}/>))}
+				{ bins && bins.length > 0
+					? React.createElement('div', props, ...bins.map(b=>
+						<Collection title={b.name} subtitle={b.label} list={b.items}/>))
+					: (
+						<EmptyList type={'library-' + section}/>
+					)
+				}
 			</div>
 		);
 	}

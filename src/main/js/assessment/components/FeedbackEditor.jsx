@@ -1,27 +1,12 @@
 import React from 'react';
+
+import cx from 'classnames';
+
 import {Editor} from 'modeled-content';
 
 import Loading from 'common/components/Loading';
 
 import t from 'common/locale';
-
-const WHITESPACE_ENTITIES_AND_TAGS = /((<[^>]+>)|&nbsp;|[\s\r\n])+/ig;
-
-//TODO: combine this into nti.lib.domjs's isValueEmpty
-function isEmpty(html) {
-	if (!Array.isArray(html)) {
-		html = [html];
-	}
-
-	// This filter fn will return true if:
-	// 1) x is not 'null' AND:
-	// 2a) x is not a string OR
-	// 2b) is a string that does not reduce to lenth 0
-	let empties = x=>
-	x && (typeof x !== 'string' || x.replace(WHITESPACE_ENTITIES_AND_TAGS, '').length);
-
-	return html.filter(empties).length === 0;
-}
 
 export default React.createClass({
 	displayName: 'FeedbackEditor',
@@ -41,19 +26,18 @@ export default React.createClass({
 
 
 	render () {
-		let {value} = this.state;
-
-		let disabled = isEmpty(value) ? 'disabled' : '';
-		let busy = this.state.busy ? 'busy' : '';
+		let {value, busy} = this.state;
+		let disabled = Editor.isEmpty(value);
 
 		return (
-			<div className={`feedback editor ${busy}`}>
-				<Editor ref="editor" value={value} onChange={this.onChange} onBlur={this.onChange} allowInsertImage={false}/>
-				<div className="buttons">
-					<button onClick={this.onCancel} className={`cancel`}>{t('BUTTONS.cancel')}</button>
-					<button onClick={this.onClick} className={`save ${disabled}`}>{t('BUTTONS.save')}</button>
-				</div>
-				{this.state.busy ?
+			<div className={cx('feedback editor', {busy})}>
+
+				<Editor ref="editor" value={value} onChange={this.onChange} onBlur={this.onChange} allowInsertImage={false}>
+					<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
+					<button onClick={this.onClick} className={cx('save', {disabled})}>{t('BUTTONS.save')}</button>
+				</Editor>
+
+				{busy ?
 					<Loading message="Saving..."/> : null}
 			</div>
 		);
@@ -79,7 +63,7 @@ export default React.createClass({
 
 		let {value} = this.state;
 
-		if (isEmpty(value)) {
+		if (Editor.isEmpty(value)) {
 			return;
 		}
 

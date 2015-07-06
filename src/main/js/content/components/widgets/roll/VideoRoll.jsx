@@ -16,6 +16,10 @@ import RollCommon from './Mixin';
 function getVideo (object, index) {
 	let {NTIID = object.ntiid} = object;
 
+	if (object.getID) {
+		return object;
+	}
+
 	return NTIID ? index.get(NTIID) : index.videoFrom(object);
 }
 
@@ -104,9 +108,10 @@ export default React.createClass({
 		this.resolveContext()
 			.then(context => this.setState({context}))
 
-			.then(()=> contentPackage.getVideoIndex())
-
-			.then(index => item.videos.map(v=> getVideo(v, index)))
+			.then(() => item.videos.map(v=> getVideo(v)))
+			.catch(() => contentPackage && contentPackage.getVideoIndex()
+				.catch(() => null)
+				.then(index => item.videos.map(v=> getVideo(v, index))))
 
 			.then(videos => Promise.all(videos.map(v => v.getPoster()))
 					.then(posters=> ({videos, posters})))

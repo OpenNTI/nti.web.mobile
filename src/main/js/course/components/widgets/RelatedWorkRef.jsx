@@ -23,8 +23,12 @@ External Links:
 */
 import React from 'react';
 
+import {CommonSymbols} from 'nti.lib.interfaces';
+let {Summary} = CommonSymbols;
+
 import Card from 'common/components/Card';
 
+import t from 'common/locale';
 
 export default React.createClass({
 	displayName: 'CourseOverviewRelatedWorkRef',
@@ -40,12 +44,23 @@ export default React.createClass({
 	render () {
 		let {props} = this;
 		let {item} = props;
+		let commentCount = item[Summary];
 
-		//map fields for the card
-		item.title = item.label;
+		if (commentCount) {
+			commentCount = commentCount.ItemCount;
+		}
+
+		if (typeof commentCount !== 'number') {
+			commentCount = t('CONTENT.DISCUSSIONS.viewComments');
+		}
 
 		return (
-			<Card {...props} slug="c" contentPackage={props.course}/>
+			<Card {...props}
+				commentCount={commentCount}
+				slug="content"
+				externalSlug="external-content"
+				contentPackage={props.course}
+			/>
 		);
 	}
 });

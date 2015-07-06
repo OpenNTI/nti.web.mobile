@@ -17,12 +17,7 @@ export default {
 
 		if (includeCurrentRoute) {
 			let route = (n.getMatch() || {}).matchedPath || '';
-			console.error('TODO: Consolidate route-link methodology.');
-			/*console.debug('Is this needed??\n\tA: %s\n\tB:%s\n\n\t%s\n\t%s',
-				path,
-				join(route,path),
-				n.makeHref(path),
-				n.makeHref(join(route,path)));*/
+			console.error('FIXME: If there is a subrouter active, move the component requesting this down into the sub-router');
 
 			path = join(route, path);
 		}

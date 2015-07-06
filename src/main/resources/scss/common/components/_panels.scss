@@ -27,4 +27,18 @@ figure {
 		font-size:.7rem;
 		padding:.25rem;
 	}
+
+	&.empty-list {
+		text-align: center;
+	}
+}
+
+
+.empty-list {
+	&.library-courses {
+		background: none;
+		border: none;
+
+		font-size: 2rem;
+	}
 }

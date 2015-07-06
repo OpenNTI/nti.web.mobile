@@ -1,5 +1,7 @@
 import {parseNTIID} from 'nti.lib.interfaces/utils/ntiids';
 
+import {getService} from 'common/utils';
+
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
 import PageDescriptor from './PageDescriptor';
@@ -101,5 +103,20 @@ function fetchResources(packet) {
 		.then(styles => {
 			packet.styles = styles.map(css => css.replace(/#NTIContent/g, 'nti-content'));
 			return packet;
+		});
+}
+
+export function resolveNewContext (pageInfo) {
+	let ntiid = pageInfo.getPackageID();
+	return getService()
+		.then(service => service.getContextPathFor(ntiid))
+		.catch(x => {
+			let code = x && x.statusCode;
+			if (code === 501 || code === 422) {
+				console.log('Ignored condition. Either the link did not exist, or has not been adapted to be generic.');
+				return;//ignore error. do not do anything. (let the caller continue.)
+			}
+
+			return Promise.reject(x);
 		});
 }

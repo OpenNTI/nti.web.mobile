@@ -24,6 +24,7 @@ export default React.createClass({
 			ntiid: node.getID(),
 			label: node.label,
 			// ref: node.ref,
+			scope: node,//for UGD
 			href: this.getBasePath() + node.href
 		}));
 	},
@@ -31,7 +32,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<ContentViewer slug="c" {...this.props} />
+			<ContentViewer {...this.props} />
 		);
 	}
 });
