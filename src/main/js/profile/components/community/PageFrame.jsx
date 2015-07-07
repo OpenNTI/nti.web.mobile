@@ -5,7 +5,7 @@ import Controls from './HeaderControls';
 import Head from './Head';
 import Invite from './Invite';
 
-import {getWidth} from 'common/utils/viewport';
+// import {getWidth} from 'common/utils/viewport';
 
 import Gradient from 'common/components/GradientBackground';
 import Link from 'common/components/ActiveLink';
@@ -62,7 +62,7 @@ export default React.createClass({
 		let {sections, showMenu} = this.state || {};
 		let {selected, entity, pageContent = 'div'} = this.props;
 
-		let narrow = getWidth() < 1024;
+		let narrow = true;// getWidth() < 1024;
 		let Content = pageContent;
 		let filterParams;
 
