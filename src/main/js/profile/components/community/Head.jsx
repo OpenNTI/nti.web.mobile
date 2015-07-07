@@ -13,11 +13,11 @@ export default React.createClass({
 	propTypes: {
 		entity: React.PropTypes.object,
 
-		sections: React.PropTypes.object,
+		sections: React.PropTypes.array,
 
 		selected: React.PropTypes.object,
 
-		narrow: React.PropTypes.object,
+		narrow: React.PropTypes.bool,
 
 		onMenuToggle: React.PropTypes.func
 	},

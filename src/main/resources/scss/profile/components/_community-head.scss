@@ -101,10 +101,25 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 
+		animation: {
+			name: NavItemEnter;
+			duration: 0.2s;
+			fill-mode: both;
+			timing-function: cubic-bezier(0.410, 0.590, 0.645, 1.385);
+		}
+
+		animation-delay: 0ms;
+
 		&.active {
 			font-weight: 400;
 		}
 	}
+}
+
+
+@keyframes NavItemEnter {
+	0% { transform: translate3d(0, 200px, 0); }
+	100% { transform: translate3d(0, 0, 0); }
 }
 
 

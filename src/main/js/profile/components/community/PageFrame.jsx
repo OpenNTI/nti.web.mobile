@@ -124,8 +124,12 @@ export default React.createClass({
 		let {sections = []} = this.state;
 		let all = {ID: '', title: 'All Topics'};
 
-		let items = [all].concat(sections).map(x=> (
-			<Link href={(`/activity/${x.ID}/`).replace(/\/\//g, '/')} onClick={this.toggleMenu}>{x.title}</Link>
+		let animationDelay = i => ({animationDelay: (i * 100) + 'ms'});
+
+		let items = [all].concat(sections).map((x, i)=> (
+			<Link href={(`/activity/${x.ID}/`).replace(/\/\//g, '/')}
+				style={animationDelay(i)}
+				onClick={this.toggleMenu}>{x.title}</Link>
 		));
 
 		return React.createElement('nav', {key: 'menu', className: 'fullscreen-sections'}, ...items);
