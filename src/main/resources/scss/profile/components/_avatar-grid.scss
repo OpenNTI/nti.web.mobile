@@ -1,8 +1,10 @@
 .avatar-grid {
+	display: flex;
+	flex-wrap: wrap;
 	list-style-type: none;
 	margin: 0;
 	li {
-		display: inline-block;
+		// display: inline-block;
 		.avatar {
 			width: 2.7rem;
 			margin: .1rem;
@@ -13,8 +15,6 @@
 .profile-body-main {
 	$avatarsize: 4.5rem;
 	.avatar-grid {
-		display: flex;
-		flex-wrap: wrap;
 		li {
 			flex: 1 1 215px;
 			border: 2px solid #eee;
@@ -72,16 +72,5 @@
 	}
 	.body {
 		display: none;
-	}
-}
-
-.profile-members-container {
-	background: white;
-	margin: .25rem 0;
-	.avatar-grid {
-		& > li {
-			display: inline-block;
-			width: 48%;
-		}
 	}
 }
