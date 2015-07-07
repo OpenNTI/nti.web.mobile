@@ -45,8 +45,9 @@ export default {
 		'emptyList:discussions': 'No discussions.',
 		'emptyList:lesson-overview': 'Empty Overview :(\nThis lesson is missing content.',
 		'emptyList:library-admin': 'No Administered Courses.',
-		'emptyList:library-courses': 'You don\'t have any courses yet...',
+		'emptyList:library-courses': 'You don\'t have any courses yet.',
 		'emptyList:videos': 'No videos.',
+		'emptyList:activity': 'No Activity.',
 		'emptyList:user-details': 'Empty Profile :(\nThis user has not filled out their profile.'
 	},
 
