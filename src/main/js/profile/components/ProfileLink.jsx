@@ -6,8 +6,10 @@ import {encode} from 'common/utils/user';
 
 import BasePathAware from 'common/mixins/BasePath';
 
+import {getAppUsername} from 'common/utils';
 
-export function makeHref (id) {
+
+export function makeHref (id=getAppUsername()) {
 	id = id && id.getID ? id.getID() : id;
 	return (`profile/${encode(id)}/`).replace(/\/\//g, '/');
 }
