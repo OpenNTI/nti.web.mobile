@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default React.createClass({
-	displayName: 'GroupSubhead',
+	displayName: 'Group:Subhead',
 
 	propTypes: {
 		entity: React.PropTypes.object.isRequired

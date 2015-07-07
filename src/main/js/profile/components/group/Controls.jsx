@@ -1,5 +1,6 @@
 import React from 'react';
-import Button from 'common/forms/components/Button';
+
+import MembershipButton from './MembershipButton';
 
 export default React.createClass({
 	displayName: 'GroupControls',
@@ -11,7 +12,7 @@ export default React.createClass({
 					<a className="gear-button"/>
 					<ul className="menu"/>
 				</li>
-				<li><Button className="leave-button">Leave Group</Button></li>
+				<li><MembershipButton {...this.props} /></li>
 			</ul>
 		);
 	}

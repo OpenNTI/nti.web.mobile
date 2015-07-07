@@ -3,7 +3,7 @@ import React from 'react';
 import Activity from '../Activity';
 import ProfileBodyContainer from '../ProfileBodyContainer';
 
-import GroupMembers from './GroupMembers';
+import GroupMembers from './Members';
 
 
 export default React.createClass({

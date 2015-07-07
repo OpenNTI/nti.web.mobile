@@ -1,7 +1,9 @@
 import React from 'react/addons';
+
 import DisplayName from 'common/components/DisplayName';
-import GroupSubhead from './GroupSubhead';
-import GroupDescription from './GroupDescription';
+
+import Subhead from './Subhead';
+import Description from './Description';
 
 export default React.createClass({
 	displayName: 'Group:Head',
@@ -20,9 +22,9 @@ export default React.createClass({
 				<div className="group">
 					<div className="label">
 						<DisplayName entity={entity} />
-						<GroupSubhead entity={entity} />
+						<Subhead entity={entity} />
 					</div>
-					<GroupDescription entity={entity} />
+					<Description entity={entity} />
 				</div>
 				{children}
 			</div>

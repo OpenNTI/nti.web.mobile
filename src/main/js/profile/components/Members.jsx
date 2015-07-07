@@ -1,6 +1,6 @@
 import React from 'react';
 import AvatarGrid from './AvatarGrid';
-import GroupMembers from './group/GroupMembers';
+import GroupMembers from './group/Members';
 import ProfileBodyContainer from './ProfileBodyContainer';
 
 export default React.createClass({

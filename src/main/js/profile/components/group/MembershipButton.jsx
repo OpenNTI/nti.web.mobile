@@ -1,10 +1,17 @@
 import React from 'react';
-import Button from 'common/forms/components/Button';
-import {leaveGroup} from '../../Api';
-import {makeHref as profileLink} from 'profile/components/ProfileLink';
+
+import {join} from 'path';
+
 import BasePath from 'common/mixins/BasePath';
 import Navigable from 'common/mixins/NavigatableMixin';
-import {join} from 'path';
+
+import Button from 'common/forms/components/Button';
+
+import {makeHref as profileLink} from 'profile/components/ProfileLink';
+
+import {leaveGroup} from '../../Api';
+
+
 
 export default React.createClass({
 	displayName: 'GroupLeaveButton',
@@ -39,6 +46,7 @@ export default React.createClass({
 		if (!isMember) {
 			return null;
 		}
+		//Leave is grey, Join is blue...
 		return (
 			<Button className="group-leave-button" onClick={this.handleClick}>Leave Group</Button>
 		);

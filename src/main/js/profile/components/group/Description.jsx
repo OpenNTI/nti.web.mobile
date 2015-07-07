@@ -2,7 +2,7 @@ import React from 'react';
 import Ellipsed from 'common/components/Ellipsed';
 
 export default React.createClass({
-	displayName: 'GroupDescription',
+	displayName: 'Group:Description',
 
 	propTypes: {
 		entity: React.PropTypes.object.isRequired

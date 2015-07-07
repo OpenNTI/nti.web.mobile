@@ -3,7 +3,7 @@ import AvatarGrid from '../AvatarGrid';
 import {Link} from 'react-router-component';
 
 export default React.createClass({
-	displayName: 'GroupMembers',
+	displayName: 'Group:Members',
 
 	propTypes: {
 		entity: React.PropTypes.object.isRequired

@@ -1,13 +1,12 @@
 import React from 'react';
 
-import GroupLeaveButton from './GroupLeaveButton';
-import GroupControls from './GroupControls';
+import GroupControls from './Controls';
 
 import ActiveLink from 'common/components/ActiveLink';
 import Gradient from 'common/components/GradientBackground';
 import Page from 'common/components/Page';
 
-import Head from './GroupHead';
+import Head from './Head';
 
 export default React.createClass({
 	displayName: 'Group:Page',
@@ -21,7 +20,6 @@ export default React.createClass({
 		let {entity, pageContent = 'div'} = this.props;
 
 		let Content = pageContent;
-		let follows = false;
 
 		return (
 			<Page title="Profile">
@@ -32,7 +30,7 @@ export default React.createClass({
 							<li>{entity.displayName}</li>
 						</ul>
 						<ul className="profile-top-controls-buttons">
-							<li>{follows ? <GroupControls entity={entity}/> : <GroupLeaveButton entity={entity} />}</li>
+							<li><GroupControls entity={entity}/></li>
 						</ul>
 					</div>
 					<div className="profile">
