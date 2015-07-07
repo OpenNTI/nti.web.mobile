@@ -1,5 +1,6 @@
 import React from 'react';
 import Avatar from 'common/components/Avatar';
+import DisplayName from 'common/components/DisplayName';
 
 export default React.createClass({
 	displayName: 'AvatarGrid',
@@ -14,20 +15,16 @@ export default React.createClass({
 
 		return (
 			<ul className="avatar-grid">
-				{(entities || []).map(e => <li><Avatar user={e} /></li>)}
-				{(entities || []).map(e => <li><Avatar user={e} /></li>)}
-				{(entities || []).map(e => <li><Avatar user={e} /></li>)}
-				{(entities || []).map(e => <li><Avatar user={e} /></li>)}
-				{(entities || []).map(e => <li><Avatar user={e} /></li>)}
-				{(entities || []).map(e => <li><Avatar user={e} /></li>)}
-				{(entities || []).map(e => <li><Avatar user={e} /></li>)}
-				{(entities || []).map(e => <li><Avatar user={e} /></li>)}
-				{(entities || []).map(e => <li><Avatar user={e} /></li>)}
-				{(entities || []).map(e => <li><Avatar user={e} /></li>)}
-				{(entities || []).map(e => <li><Avatar user={e} /></li>)}
-				{(entities || []).map(e => <li><Avatar user={e} /></li>)}
-				{(entities || []).map(e => <li><Avatar user={e} /></li>)}
-				
+				{(entities || []).map((e, i) => <li key={'avatar' + i}><Avatar user={e} /><DisplayName username={e.Username} /></li>)}
+				{(entities || []).map((e, i) => <li key={'avatar' + i}><Avatar user={e} /><DisplayName username={e.Username} /></li>)}
+				{(entities || []).map((e, i) => <li key={'avatar' + i}><Avatar user={e} /><DisplayName username={e.Username} /></li>)}
+				{(entities || []).map((e, i) => <li key={'avatar' + i}><Avatar user={e} /><DisplayName username={e.Username} /></li>)}
+				{(entities || []).map((e, i) => <li key={'avatar' + i}><Avatar user={e} /><DisplayName username={e.Username} /></li>)}
+				{(entities || []).map((e, i) => <li key={'avatar' + i}><Avatar user={e} /><DisplayName username={e.Username} /></li>)}
+				{(entities || []).map((e, i) => <li key={'avatar' + i}><Avatar user={e} /><DisplayName username={e.Username} /></li>)}
+				{(entities || []).map((e, i) => <li key={'avatar' + i}><Avatar user={e} /><DisplayName username={e.Username} /></li>)}
+				{(entities || []).map((e, i) => <li key={'avatar' + i}><Avatar user={e} /><DisplayName username={e.Username} /></li>)}
+				{(entities || []).map((e, i) => <li key={'avatar' + i}><Avatar user={e} /><DisplayName username={e.Username} /></li>)}
 			</ul>
 		);
 	}

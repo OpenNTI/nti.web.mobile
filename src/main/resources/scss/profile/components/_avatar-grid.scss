@@ -1,4 +1,5 @@
 .avatar-grid {
+	list-style-type: none;
 	margin: 0;
 	li {
 		display: inline-block;
@@ -22,6 +23,20 @@
 		& > * {
 			display: inline-block;
 			margin-right: 1em;
+		}
+	}
+	.username {
+		display: none;
+	}
+}
+
+.profile-members-container {
+	background: white;
+	margin: .25rem 0;
+	.avatar-grid {
+		& > li {
+			display: inline-block;
+			width: 48%;
 		}
 	}
 }
