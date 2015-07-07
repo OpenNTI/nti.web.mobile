@@ -18,7 +18,9 @@ export default React.createClass({
 	mixins: [HasItems, BasePathAware],
 
 	propTypes: {
-		entity: React.PropTypes.object
+		entity: React.PropTypes.object,
+
+		filterParams: React.PropTypes.object
 	},
 
 	getInitialState () {
@@ -27,15 +29,15 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		this.setUser();
+		this.setupStore();
 	},
 
 
 	componentWillReceiveProps (nextProps) {
-		let {entity} = nextProps;
+		let {entity, filterParams} = nextProps;
 
-		if(entity !== this.props.entity) {
-			this.setUser(entity);
+		if(entity !== this.props.entity || filterParams !== nextProps.filterParams) {
+			this.setupStore(nextProps);
 		}
 	},
 
@@ -70,10 +72,11 @@ export default React.createClass({
 	},
 
 
-	setUser (entity = this.props.entity) {
+	setupStore (props = this.props) {
+		let {entity, filterParams} = props;
 		let store = null;
 		if (entity) {
-			store = entity.getActivity();
+			store = entity.getActivity(filterParams);
 		}
 
 		this.setState({store});
