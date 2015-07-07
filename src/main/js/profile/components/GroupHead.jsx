@@ -1,6 +1,7 @@
 import React from 'react/addons';
 import DisplayName from 'common/components/DisplayName';
-import Ellipsed from 'common/components/Ellipsed';
+import GroupSubhead from './GroupSubhead';
+import GroupDescription from './GroupDescription';
 
 export default React.createClass({
 	displayName: 'Group:Head',
@@ -19,10 +20,9 @@ export default React.createClass({
 				<div className="group">
 					<div className="label">
 						<DisplayName entity={entity} />
-						<div className="subhead"><span className="icon" />Civil Rights and Civil Liberties P SC 4283-001</div>
+						<GroupSubhead entity={entity} />
 					</div>
-
-					<Ellipsed className="description">The purpose of this group is to start a respectful and reflective discussion on how social rights have progressed in modern day. In addition, this group is also a place to make a case on how social rights are still needing to improve in the 21st century.</Ellipsed>
+					<GroupDescription entity={entity} />
 				</div>
 				{children}
 			</div>
