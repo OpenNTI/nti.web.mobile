@@ -61,5 +61,10 @@ export default {
 		if (p) { path = '/' + path; }
 
 		return n.navigate(path, navigation, cb);
+	},
+
+
+	navigateRoot (path, navigation, cb) {
+		return this.getNavigable().getEnvironment().setPath(path, navigation, cb);
 	}
 };
