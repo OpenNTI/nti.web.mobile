@@ -6,6 +6,11 @@
 		.profile-card {
 			margin-top: 0;
 		}
+		h2 {
+			font-family: $body-font-family;
+			font-size: 1.5rem;
+			font-weight: 100;
+		}
 	}
 	.profile-body-aside {
 		flex: 0 0 250px;
