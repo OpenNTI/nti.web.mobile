@@ -1,0 +1,75 @@
+
+
+
+.avatar-wrapper {
+	@extend %hardware-render;
+	// transform: translateZ(0);
+	overflow: hidden;
+	position: relative;
+	padding-top: 54%;
+	border-radius: 0.3125rem;
+	box-shadow: 0 0 0.3125rem 0 rgba(0,0,0,0.5);
+
+	.avatar {
+		width: 100%;
+		transform: translateY(-50%);
+		position: absolute;
+		top: 50%;
+	}
+
+	& + .meta {
+		position: absolute;
+		bottom: 0; left: 0; right: 0;
+		margin: 0 0.5rem 1rem;
+		text-shadow: 0px 1px 1px rgba(0,0,0,0.5);
+
+		.info-icon {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+
+			width: 1.5rem;
+			height: 1.5rem;
+
+			border-radius: 100%;
+			background: $primary-blue;
+			box-sizing: 0 0 0.625rem -0.125rem rgba(0,0,0,0.5);
+		}
+
+		h1 {
+			color: #fff;
+			margin: 0;
+			font: {
+				family: $body-font-family;
+				size: 1.5rem;
+				weight: 600;
+			}
+		}
+
+		ul {
+			margin: 0;
+			display: block;
+			list-style: none;
+			text-transform: uppercase;
+			font: {
+				size: 0.625rem;
+				weight: 700;
+			}
+
+			color: #fff;
+
+			li {
+				display: inline;
+				&.role {
+					color: $primary-blue;
+				}
+
+				& + li {
+					&::before {
+						@extend %middot;
+					}
+				}
+			}
+		}
+	}
+}

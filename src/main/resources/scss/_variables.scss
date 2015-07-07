@@ -248,6 +248,11 @@ $tabs-navigation-font-color: $primary-grey;
 }
 
 
+.coordinate-root {
+	position: relative;
+}
+
+
 // @mixin blur-effect() {
 // 	//filter: blur(add = 0, direction = 0, strength = 10);//IE
 // 	//filter: url(#blur-effect);//moz
