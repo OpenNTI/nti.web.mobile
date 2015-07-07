@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FollowGroup from './GroupFollowButton';
+import GroupLeaveButton from './GroupLeaveButton';
 import GroupControls from './GroupControls';
 
 import ActiveLink from 'common/components/ActiveLink';
@@ -32,7 +32,7 @@ export default React.createClass({
 							<li>{entity.displayName}</li>
 						</ul>
 						<ul className="profile-top-controls-buttons">
-							<li>{follows ? <GroupControls entity={entity}/> : <FollowGroup entity={entity} />}</li>
+							<li>{follows ? <GroupControls entity={entity}/> : <GroupLeaveButton entity={entity} />}</li>
 						</ul>
 					</div>
 					<div className="profile">
