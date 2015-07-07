@@ -13,11 +13,13 @@
 .profile-body-main {
 	$avatarsize: 4.5rem;
 	.avatar-grid {
+		display: flex;
+		flex-wrap: wrap;
 		li {
+			flex: 1 1 215px;
 			border: 2px solid #eee;
 			border-radius: 3px;
-		    width: 47%;
-		    min-width: 175px;
+		    // min-width: 175px;
 		    white-space: nowrap;
 		    margin: .25rem;
 		    background: $quad-grey;
