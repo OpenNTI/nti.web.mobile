@@ -12,7 +12,7 @@ export default React.createClass({
 
 		let {entity} = this.props;
 
-		if (!entity) {
+		if (!entity || !entity.description) {
 			return null;
 		}
 

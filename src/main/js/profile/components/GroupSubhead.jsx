@@ -10,7 +10,8 @@ export default React.createClass({
 	render () {
 
 		let {entity} = this.props;
-		if (!entity) {
+
+		if (!entity || !entity.subhead) {
 			return null;
 		}
 
