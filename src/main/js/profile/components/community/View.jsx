@@ -15,9 +15,9 @@ import ProfileLink from '../ProfileLink';
 import Redirect from 'navigation/components/Redirect';
 
 const ROUTES = [
-	{path: '/activity(/*)',	handler: Activity },
-	{path: '/members(/*)',	handler: Members },
-	{path: '/info(/*)',	handler: Info },
+	{path: '/activity(/:selected)(/*)', handler: Activity },
+	{path: '/members(/*)', handler: Members },
+	{path: '/info(/*)', handler: Info },
 	{}//default
 ];
 
