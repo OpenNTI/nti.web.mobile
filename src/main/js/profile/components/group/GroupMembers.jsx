@@ -12,7 +12,7 @@ export default React.createClass({
 	render () {
 
 		let {entity} = this.props;
-		let entities = (entity || {}).friends || [];
+		let entities = ((entity || {}).friends || []).slice(0, 30);
 
 		return (
 			<div className="group-members-container">
