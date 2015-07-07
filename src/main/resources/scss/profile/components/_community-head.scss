@@ -9,6 +9,12 @@
 	padding-top: 54%;
 	border-radius: 0.3125rem;
 	box-shadow: 0 0 0.3125rem 0 rgba(0,0,0,0.5);
+	&::after {
+		content: '';
+		top: 0; left: 0; right: 0; bottom: 0;
+		position: absolute;
+		background-image: linear-gradient(-180deg, rgba(0,0,0,0.04) 46%, rgba(0,0,0,0.14) 58%, rgba(0,0,0,0.40) 72%, rgba(0,0,0,0.74) 90%, rgba(0,0,0,0.85) 97%);
+	}
 
 	.avatar {
 		width: 100%;

@@ -6,14 +6,18 @@ import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 
 import Page from './PageFrame';
+import Info from './Info';
+
 import Activity from '../Activity';
 import Members from '../Members';
+import ProfileLink from '../ProfileLink';
 
 import Redirect from 'navigation/components/Redirect';
 
 const ROUTES = [
 	{path: '/activity(/*)',	handler: Activity },
 	{path: '/members(/*)',	handler: Members },
+	{path: '/info(/*)',	handler: Info },
 	{}//default
 ];
 
@@ -31,12 +35,14 @@ export default React.createClass({
 
 	getContext (/*props*/) {
 		let path = this.getBasePath();
+		let {entity} = this.props;
+		let id = entity ? entity.getID() : '';
 		return Promise.resolve([
 			{
 				href: path, label: 'Home'
 			}, {
-				href: location.href,
-				label: 'Profile'
+				href: path + ProfileLink.makeHref(id),
+				label: 'Community'
 			}
 		]);
 	},

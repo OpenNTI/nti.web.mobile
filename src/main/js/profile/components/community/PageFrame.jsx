@@ -27,22 +27,30 @@ export default React.createClass({
 			? ( <Invite entity={entity}/> )
 			: ( <h1>{entity.displayName}</h1> );
 
+		let {removePageWrapping} = Content || {};
 
 		return (
 			<Page title="Profile">
 				<Gradient className="community profile-wrapper">
-					<div className="profile-top-controls">
-						{topLeft}
-						<Controls entity={entity}/>
-					</div>
-					<div className="profile">
-						<nav>
-							<Head entity={entity} narrow={narrow}/>
-						</nav>
-						<section>
-							<Content {...this.props}/>
-						</section>
-					</div>
+
+				{removePageWrapping
+					? ( <Content {...this.props}/> )
+					: ( <div>
+							<div className="profile-top-controls">
+								{topLeft}
+								<Controls entity={entity}/>
+							</div>
+							<div className="profile">
+								<nav>
+									<Head entity={entity} narrow={narrow}/>
+								</nav>
+								<section>
+									<Content {...this.props}/>
+								</section>
+							</div>
+						</div>
+					)}
+
 				</Gradient>
 			</Page>
 		);
