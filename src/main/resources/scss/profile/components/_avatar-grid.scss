@@ -1,0 +1,16 @@
+.avatar-grid {
+	margin: 0;
+	li {
+		display: inline-block;
+		.avatar {
+			width: 2.7rem;
+			margin: .1rem;
+		}
+	}
+}
+
+.group-members-container {
+	margin: .25rem 0;
+	padding: 2rem .5rem;
+	background: white;
+}

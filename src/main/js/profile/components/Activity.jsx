@@ -10,6 +10,7 @@ import Card from './Card';
 import Joined from './activity/Joined';
 
 import HasItems from './activity/HasItems';
+import GroupMembers from './group/GroupMembers';
 
 export default React.createClass({
 	displayName: 'Activity',
@@ -17,7 +18,8 @@ export default React.createClass({
 	mixins: [HasItems, BasePathAware],
 
 	propTypes: {
-		entity: React.PropTypes.object
+		entity: React.PropTypes.object,
+		entityType: React.PropTypes.string // we hang 'group' here to trigger membership rendering.
 	},
 
 	getInitialState () {
@@ -96,39 +98,44 @@ export default React.createClass({
 
 	render () {
 		let {store} = this.state;
-		let {entity} = this.props;
+		let {entity, entityType} = this.props;
 
 		if (!store || (store.loading && !store.length)) {
 			return ( <Loading /> );
 		}
 
 		return (
-			<ul className="profile-cards activity">
-				{store.map((a, index) => {
+			<div className="profile-activity-body">
+				{
+					entityType === 'group' && <div className="profile-memberships-container"><GroupMembers entity={entity} /></div>
+				}
+				<ul className="profile-cards activity">
+					{store.map((a, index) => {
 
-					// // localize the last segment of the mime type for the card title.
-					let mime = a.MimeType.split('.').pop();
-					// let title = t(mime);
+						// // localize the last segment of the mime type for the card title.
+						let mime = a.MimeType.split('.').pop();
+						// let title = t(mime);
 
-					return (
-						<Card key={`${a.NTIID}:${index}`} className={mime}>
-							{this.renderItems(a)}
-						</Card>
-					);
-				})}
+						return (
+							<Card key={`${a.NTIID}:${index}`} className={mime}>
+								{this.renderItems(a)}
+							</Card>
+						);
+					})}
 
-				{(entity.isUser || store.more) && (
-				<Card ref="end" key="theend" className="end">
-					{store.more
-						? store.loading
-							? ( <Loading/> )
-							: ( <Button className="more" onClick={this.more}>More</Button> )
-						: (
-						<Joined entity={entity} />
+					{(entity.isUser || store.more) && (
+					<Card ref="end" key="theend" className="end">
+						{store.more
+							? store.loading
+								? ( <Loading/> )
+								: ( <Button className="more" onClick={this.more}>More</Button> )
+							: (
+							<Joined entity={entity} />
+						)}
+					</Card>
 					)}
-				</Card>
-				)}
-			</ul>
+				</ul>
+			</div>
 		);
 	}
 });

@@ -52,7 +52,7 @@ export default React.createClass({
 		return React.createElement(Router.Locations, {ref: 'router', contextual: true},
 			...ROUTES.map(route=>
 				route.path ?
-				<Router.Location {...route} handler={Page} pageContent={route.handler} entity={entity} /> :
+				<Router.Location {...route} handler={Page} pageContent={route.handler} entity={entity} entityType='group' /> :
 				<Router.NotFound handler={Redirect} location="/activity/"/>
 			));
 	}

@@ -2,6 +2,7 @@
 @import "components/head";
 @import "components/memberships";
 @import "components/profile-cards";
+@import "components/avatar-grid";
 
 .gradient-bg.group {
 	background: #505560;
@@ -77,7 +78,7 @@
 }
 
 @media screen and (min-width: 500px) {
-	.profile-about-body { // two columns on wide screens
+	.profile-about-body, .group .profile-activity-body { // two columns on wide screens
 		display: flex;
 		flex-direction: row-reverse;
 		.profile-memberships-container {
