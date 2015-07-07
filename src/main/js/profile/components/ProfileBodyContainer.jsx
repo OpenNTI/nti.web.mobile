@@ -1,6 +1,9 @@
 import React from 'react';
 import cx from 'classnames';
 
+const FIRST = 0;
+const SECOND = 1;
+
 export default React.createClass({
 	displayName: 'ProfileBodyContainer',
 
@@ -10,10 +13,15 @@ export default React.createClass({
 	},
 
 	render () {
+		let {className, children} = this.props;
 		return (
-			<div className={cx('profile-body-container', this.props.className)}>
-				<div className="profile-body-main">{this.props.children[0]}</div>
-				{this.props.children.length > 1 && <aside className="profile-body-aside">{this.props.children[1]}</aside>}
+			<div className={cx('profile-body-container', className)}>
+				{React.Children.map(children, (child, position) =>
+					position === FIRST
+						? (<div className="profile-body-main">{child}</div>)
+						: position === SECOND
+							? (<aside className="profile-body-aside">{child}</aside>)
+							: null)}
 			</div>
 		);
 	}
