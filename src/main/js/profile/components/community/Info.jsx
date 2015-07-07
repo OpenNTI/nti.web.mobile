@@ -3,8 +3,16 @@ import React from 'react';
 
 import {Link} from 'react-router-component';
 
+import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 
+import ProfileLink from '../ProfileLink';
+
+import Members from './Members';
+
+const MEMBERS = 'members';
+const FACULTY = 'faculty';
+const PEOPLE_YOU_KNOW = 'pyk';
 
 const Breakdown = React.createClass({
 	displayName: 'Breakdown',
@@ -34,7 +42,7 @@ const Breakdown = React.createClass({
 
 export default React.createClass({
 	displayName: 'Community:Info',
-	mixins: [ContextSender],
+	mixins: [BasePathAware, ContextSender],
 
 	statics: {
 		removePageWrapping: true
@@ -45,22 +53,28 @@ export default React.createClass({
 		return Promise.resolve([
 			{
 				label: 'Community Information',
-				href: ''
+				href: this.getBasePath() + ProfileLink.makeHref(this.props.entity) + 'info/'
 			}
 		]);
 	},
 
 
 	propTypes: {
-		entity: React.PropTypes.object
+		entity: React.PropTypes.object,
+
+		show: React.PropTypes.oneOf([MEMBERS, FACULTY, PEOPLE_YOU_KNOW])
 	},
 
 	render () {
-		let {entity} = this.props;
+		let {entity, show} = this.props;
 
 		let members = void 0;
 		// let faculty = 0;
 		// let people = 0;
+
+		if (show === MEMBERS) {
+			return ( <Members {...this.props} nested/> );
+		}
 
 		return (
 			<div className="community-info">

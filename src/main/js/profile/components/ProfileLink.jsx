@@ -8,7 +8,8 @@ import BasePathAware from 'common/mixins/BasePath';
 
 
 export function makeHref (id) {
-	return `profile/${encode(id)}`;
+	id = id && id.getID ? id.getID() : id;
+	return (`profile/${encode(id)}/`).replace(/\/\//g, '/');
 }
 
 export default React.createClass({
@@ -38,7 +39,7 @@ export default React.createClass({
 			//the router seems to not know its own root. :/ The global flag make
 			//the link use the root router to generate the link, and to
 			//call #navigate() ... so we have to bake in the base path.
-			href: `${this.getBasePath()}${makeHref(entity)}/`,
+			href: `${this.getBasePath()}${makeHref(entity)}`,
 			global: true
 		});
 

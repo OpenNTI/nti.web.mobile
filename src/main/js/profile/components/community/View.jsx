@@ -9,7 +9,7 @@ import Page from './PageFrame';
 import Info from './Info';
 
 import Activity from '../Activity';
-import Members from '../Members';
+import Members from './Members';
 import ProfileLink from '../ProfileLink';
 
 import Redirect from 'navigation/components/Redirect';
@@ -17,6 +17,10 @@ import Redirect from 'navigation/components/Redirect';
 const ROUTES = [
 	{path: '/activity(/:selected)(/*)', handler: Activity },
 	{path: '/members(/*)', handler: Members },
+
+	{path: '/info/members(/*)', handler: Info, show: 'members' },
+	{path: '/info/faculty(/*)', handler: Info, show: 'faculty' },
+	{path: '/info/pyk(/*)', handler: Info, show: 'pyk' },
 	{path: '/info(/*)', handler: Info },
 	{}//default
 ];
@@ -36,12 +40,11 @@ export default React.createClass({
 	getContext (/*props*/) {
 		let path = this.getBasePath();
 		let {entity} = this.props;
-		let id = entity ? entity.getID() : '';
 		return Promise.resolve([
 			{
 				href: path, label: 'Home'
 			}, {
-				href: path + ProfileLink.makeHref(id),
+				href: path + ProfileLink.makeHref(entity),
 				label: 'Community'
 			}
 		]);
