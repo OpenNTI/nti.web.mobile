@@ -2,6 +2,7 @@ import React from 'react';
 
 import Loading from 'common/components/TinyLoader';
 import Button from 'common/forms/components/Button';
+import EmptyList from 'common/components/EmptyList';
 
 import BasePathAware from 'common/mixins/BasePath';
 
@@ -104,6 +105,7 @@ export default React.createClass({
 
 		return (
 			<ul className="profile-cards activity">
+				{store.length === 0 && <Card key='emptyList'><EmptyList /></Card>}
 				{store.map((a, index) => {
 
 					// // localize the last segment of the mime type for the card title.
