@@ -79,17 +79,3 @@
 	}
 }
 
-@media screen and (min-width: 500px) {
-	.profile-about-body, .group .profile-activity-body { // two columns on wide screens
-		display: flex;
-		flex-direction: row-reverse;
-		.profile-memberships-container {
-			flex:0 0 250px;
-			margin-left: .25rem;
-			display: block;
-		}
-		.profile-cards {
-			flex: 1 1 auto;
-		}
-	}
-}

@@ -8,6 +8,7 @@ import {scoped} from 'common/locale';
 import Card from '../Card';
 // import Editable from '../Editable';
 import Memberships from '../about/Memberships';
+import ProfileBodyContainer from '../ProfileBodyContainer';
 
 import Mixin from '../about/Mixin';
 
@@ -38,14 +39,14 @@ export default React.createClass({
 		}
 
 		return (
-			<div className="profile-about-body">
-				<div className="profile-memberships-container"><Memberships entity={entity} preview/></div>
+			<ProfileBodyContainer className="profile-about-body">
 				<ul className="profile-cards">
 					{sections.map((s, index) => {
 						return entity[s] && ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );
 					})}
 				</ul>
-			</div>
+				<Memberships entity={entity} preview/>
+			</ProfileBodyContainer>
 		);
 	}
 });
