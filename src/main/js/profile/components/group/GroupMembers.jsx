@@ -16,8 +16,10 @@ export default React.createClass({
 
 		return (
 			<div className="group-members-container">
-				<div className="group-members-heading">Members ({entities.length})</div>
-				<Link href="/members/">View All</Link>
+				<div className="group-members-heading">
+					<div className="member-count">Members ({entities.length})</div>
+					<Link className="view-all-link" href="/members/">View All</Link>
+				</div>
 				<AvatarGrid entities={entities} />
 			</div>
 

@@ -11,6 +11,17 @@
 
 .group-members-container {
 	margin: .25rem 0;
-	padding: 2rem .5rem;
+	padding: 1rem .5rem;
 	background: white;
+	.group-members-heading {
+		font-size: .6875rem;
+		text-transform: uppercase;
+		font-weight: 700;
+		margin: .5rem 0;
+		color: $secondary-grey;
+		& > * {
+			display: inline-block;
+			margin-right: 1em;
+		}
+	}
 }
