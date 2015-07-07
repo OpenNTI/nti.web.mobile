@@ -7,7 +7,7 @@ import ContextSender from 'common/mixins/ContextSender';
 
 import Page from './PageFrame';
 import Activity from './Activity';
-import Members from '../Members';
+import Members from '../Members'; //This seems backwards. The Group-specific Members view should be in the folder and wrap the generic Members view.
 
 import Redirect from 'navigation/components/Redirect';
 
