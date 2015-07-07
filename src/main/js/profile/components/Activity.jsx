@@ -10,8 +10,6 @@ import Card from './Card';
 import Joined from './activity/Joined';
 
 import HasItems from './activity/HasItems';
-import GroupMembers from './group/GroupMembers';
-import ProfileBodyContainer from './ProfileBodyContainer';
 
 export default React.createClass({
 	displayName: 'Activity',
@@ -19,8 +17,7 @@ export default React.createClass({
 	mixins: [HasItems, BasePathAware],
 
 	propTypes: {
-		entity: React.PropTypes.object,
-		entityType: React.PropTypes.string // we hang 'group' here to trigger membership rendering.
+		entity: React.PropTypes.object
 	},
 
 	getInitialState () {
@@ -99,14 +96,14 @@ export default React.createClass({
 
 	render () {
 		let {store} = this.state;
-		let {entity, entityType} = this.props;
+		let {entity} = this.props;
 
 		if (!store || (store.loading && !store.length)) {
 			return ( <Loading /> );
 		}
 
 		return (
-			<ProfileBodyContainer className="activity">
+			<div>
 				<ul className="profile-cards activity">
 					{store.map((a, index) => {
 
@@ -133,10 +130,7 @@ export default React.createClass({
 					</Card>
 					)}
 				</ul>
-				{
-					entityType === 'group' && <GroupMembers entity={entity} />
-				}
-			</ProfileBodyContainer>
+			</div>
 		);
 	}
 });

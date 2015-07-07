@@ -6,7 +6,7 @@ import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 
 import Page from './GroupPageFrame';
-import Activity from '../Activity';
+import Activity from './Activity';
 import Members from '../Members';
 
 import Redirect from 'navigation/components/Redirect';
@@ -52,7 +52,7 @@ export default React.createClass({
 		return React.createElement(Router.Locations, {ref: 'router', contextual: true},
 			...ROUTES.map(route=>
 				route.path ?
-				<Router.Location {...route} handler={Page} pageContent={route.handler} entity={entity} entityType='group' /> :
+				<Router.Location {...route} handler={Page} pageContent={route.handler} entity={entity} /> :
 				<Router.NotFound handler={Redirect} location="/activity/"/>
 			));
 	}
