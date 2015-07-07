@@ -7,7 +7,7 @@ import Loading from 'common/components/Loading';
 import NotFound from 'notfound/components/View';
 
 import CommunityView from './community/View';
-import GroupView from './GroupView';
+import GroupView from './group/GroupView';
 import UserView from './user/View';
 
 import {resolve} from 'common/utils/user';
