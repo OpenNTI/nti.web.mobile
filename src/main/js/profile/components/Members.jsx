@@ -1,6 +1,7 @@
 import React from 'react';
 import AvatarGrid from './AvatarGrid';
 import GroupMembers from './group/GroupMembers';
+import ProfileBodyContainer from './ProfileBodyContainer';
 
 export default React.createClass({
 	displayName: 'Members',
@@ -15,10 +16,13 @@ export default React.createClass({
 		let entities = (entity || {}).friends;
 
 		return (
-			<div className="profile-members-container">
-				<div className="profile-memberships-container"><GroupMembers entity={entity} /></div>
-				<AvatarGrid entities={entities} />
-			</div>
+			<ProfileBodyContainer className="group-members">
+				<div>
+					<h2>Group Members ({entities.length})</h2>
+					<AvatarGrid entities={entities} />
+				</div>
+				<GroupMembers entity={entity} />
+			</ProfileBodyContainer>
 		);
 	}
 });

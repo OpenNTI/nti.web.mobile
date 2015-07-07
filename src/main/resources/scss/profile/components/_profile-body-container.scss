@@ -1,0 +1,20 @@
+.profile-body-container {
+	display: flex;
+	margin-top: .25rem;
+	.profile-body-main {
+		flex: 1 1 auto;
+		.profile-card {
+			margin-top: 0;
+		}
+	}
+	.profile-body-aside {
+		flex: 0 0 250px;
+		margin-left: .25rem;
+		display: none;
+	}
+	@media screen and (min-width: 500px) {
+		.profile-body-aside { // show sidebar on wide screens
+			display: block;
+		}
+	}
+}

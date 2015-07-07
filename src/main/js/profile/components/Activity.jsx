@@ -11,6 +11,7 @@ import Joined from './activity/Joined';
 
 import HasItems from './activity/HasItems';
 import GroupMembers from './group/GroupMembers';
+import ProfileBodyContainer from './ProfileBodyContainer';
 
 export default React.createClass({
 	displayName: 'Activity',
@@ -105,10 +106,7 @@ export default React.createClass({
 		}
 
 		return (
-			<div className="profile-activity-body">
-				{
-					entityType === 'group' && <div className="profile-memberships-container"><GroupMembers entity={entity} /></div>
-				}
+			<ProfileBodyContainer className="activity">
 				<ul className="profile-cards activity">
 					{store.map((a, index) => {
 
@@ -135,7 +133,10 @@ export default React.createClass({
 					</Card>
 					)}
 				</ul>
-			</div>
+				{
+					entityType === 'group' && <GroupMembers entity={entity} />
+				}
+			</ProfileBodyContainer>
 		);
 	}
 });
