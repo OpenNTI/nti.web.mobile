@@ -2,6 +2,10 @@
 @import "components/memberships";
 @import "components/profile-cards";
 
+.gradient-bg.group {
+	background: #505560;
+}
+
 .profile {
 	min-height: 100vh;
 }

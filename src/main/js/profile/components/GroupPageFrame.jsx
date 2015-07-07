@@ -25,7 +25,7 @@ export default React.createClass({
 
 		return (
 			<Page title="Profile">
-				<Gradient className="profile-wrapper">
+				<Gradient className="profile-wrapper group">
 					<div className="profile-top-controls">
 						<ul className="profile-top-controls-breadcrumb">
 							<li>Groups</li>

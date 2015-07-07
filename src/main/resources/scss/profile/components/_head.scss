@@ -5,32 +5,60 @@
 	color: white;
 	position: relative;
 
-	.user {
-		position: relative;
-		overflow: hidden;
+	.username {
+		font-size: $h3-font-size;
+	}
 
-		.profile-avatar-container {
-			max-width: 3rem;
-			float: left;
-			margin: 0.5rem;
-		}
-
-		.profile-head-summary {
-		}
-
-		img, svg {}
-
-		.label {
-			background: none;
-			display: block;
-			font: normal 600 1.1rem/2 $header-font-family;
+	.group {
+		background: #373a43;
+		padding: 2rem;
+		.description {
+			$lineheight: 1.5em;
+			font-size: .75rem;
+			line-height: $lineheight; // probably already 
+			max-height: $lineheight * 3; // 3 lines
 			overflow: hidden;
-			text-align: left;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			padding: 0;
+			color: $tertiary-grey;
+		}
+		.label {
+			line-height: 1.5em;
+			margin-bottom: 1rem;
+		}
+		.subhead {
+			font-size: .75rem;
+			font-weight: 700;
+			font-family: $body-font-family;
+		}
+		.icon {
+
 		}
 	}
+
+	position: relative;
+	overflow: hidden;
+
+	.profile-avatar-container {
+		max-width: 3rem;
+		float: left;
+		margin: 0.5rem;
+	}
+
+	.profile-head-summary {
+	}
+
+	img, svg {}
+
+	.label {
+		background: none;
+		display: block;
+		font: normal 600 1.1rem/2 $header-font-family;
+		overflow: hidden;
+		text-align: left;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		padding: 0;
+	}
+
 
 	.actions {
 		margin: 0;
@@ -38,13 +66,13 @@
 	}
 }
 
+
+
 .profile-head-summary {
 	padding: 0 0.625rem;
 	// @include grid-column(8, $last-column: true);
 
-	.username {
-		font-size: $h3-font-size;
-	}
+	
 	.profile-head-summary-attrs {
 		clear: both;
 		font-size: .6875rem;
@@ -124,6 +152,12 @@
 		}
 	}
 
+}
+
+.group {
+	.profile-nav {
+		background-color: rgba(0,0,0,0.35);
+	}
 }
 
 .profile .empty-list.user-details {
