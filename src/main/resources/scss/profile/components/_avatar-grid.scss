@@ -13,15 +13,23 @@
 .profile-body-main {
 	.avatar-grid {
 		li {
-			border: 1px solid lightgray;
-		    width: 48%;
+			border: 1px solid $tertiary-grey;
+			border-radius: 3px;
+		    width: 47%;
+		    min-width: 175px;
+		    white-space: nowrap;
 		    margin: .25rem;
-		    background: #eee;
+		    background: $quad-grey;
 		    padding: 0;
 			.avatar {
 		    	margin: 0;
 		    	margin-right: .5rem;
-			}	
+			}
+			.username {
+				font-family: $header-font-family;
+				font-weight: 700;
+				text-transform: uppercase;
+			}
 		}
 		
 	}
