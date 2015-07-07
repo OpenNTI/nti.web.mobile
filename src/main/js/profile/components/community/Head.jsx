@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Link} from 'react-router-component';
 
-import cx from 'classnames';
+//import cx from 'classnames';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
@@ -13,12 +13,13 @@ export default React.createClass({
 	propTypes: {
 		entity: React.PropTypes.object,
 
+		selected: React.PropTypes.object,
+
 		narrow: React.PropTypes.object
 	},
 
 	render () {
-		let {entity, narrow} = this.props;
-		let role = 'admin';
+		let {entity, narrow, selected = 'All Topics'} = this.props;
 
 		return (
 			<div className="community head">
@@ -32,8 +33,7 @@ export default React.createClass({
 							<Link href="/info/" className="info-icon" />
 							<DisplayName entity={entity} tag="h1"/>
 							<ul>
-								<li>Community</li>
-								{role && ( <li className={cx('role', role)}>{role}</li> ) }
+								<li><a href="#" className="selector">{selected}</a></li>
 							</ul>
 						</div>
 

@@ -7,6 +7,7 @@ import Invite from './Invite';
 import {getWidth} from 'common/utils/viewport';
 
 import Gradient from 'common/components/GradientBackground';
+import Loading from 'common/components/Loading';
 import Page from 'common/components/Page';
 
 export default React.createClass({
@@ -17,11 +18,38 @@ export default React.createClass({
 		entity: React.PropTypes.object.isRequired
 	},
 
+
+	componentDidMount () {
+		this.populateSections();
+	},
+
+	componentWillReceiveProps (nextProps) {
+		let {entity} = this.props;
+		if (entity !== nextProps.entity) {
+			this.populateSections(nextProps);
+		}
+	},
+
+
+	populateSections (props = this.props) {
+		let {entity} = props;
+		this.setState({sections: null}, ()=>
+			entity.getDiscussionBoardContents()
+				.then(o => this.setState({sections: o.Items}))
+			);
+	},
+
+
 	render () {
 		let narrow = getWidth() < 1024;
+		let {sections} = this.state || {};
 		let {entity, pageContent = 'div'} = this.props;
 
 		let Content = pageContent;
+
+		if (!sections) {
+			return ( <Loading/> );
+		}
 
 		let topLeft = narrow
 			? ( <Invite entity={entity}/> )
@@ -42,7 +70,7 @@ export default React.createClass({
 							</div>
 							<div className="profile">
 								<nav>
-									<Head entity={entity} narrow={narrow}/>
+									<Head entity={entity} narrow={narrow} selected={void 0}/>
 								</nav>
 								<section>
 									<Content {...this.props}/>
