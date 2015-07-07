@@ -1,6 +1,8 @@
 import React from 'react';
 import Router from 'react-router-component';
 
+import cx from 'classnames';
+
 const Link = Router.Link;
 
 //This is duplicating "common/components/ActiveState"
@@ -17,18 +19,23 @@ export default React.createClass({
 	},
 
 	isActive () {
-		return this.getPath().indexOf(this.props.href) === 0;
+		let {href} = this.props;
+		let path = this.getPath();
+		try {
+			path = this.context.router.getMatch().matchedPath;
+			return path === href;
+		} catch (e) {
+			console.warn('Strange', e.stack || e.message || e);
+		}
+
+		return path.indexOf(href) === 0;
 	},
 
 	render () {
-
-		let cssClass = [this.props.className || ''];
-		if (this.isActive()) {
-			cssClass.push('active');
-		}
+		let {className} = this.props;
 
 		return (
-			<Link {...this.props} className={cssClass.join(' ')}>{this.props.children}</Link>
+			<Link {...this.props} className={cx(className, {active: this.isActive()})}/>
 		);
 	}
 
