@@ -25,12 +25,11 @@
 		    background: $quad-grey;
 		    padding: 0;
 		    position: relative;
-		    min-height: $avatarsize;
+		    min-height: $avatarsize + .2rem;
 		    overflow: hidden;
 		    padding-left: $avatarsize + .5rem;
 			.avatar {
 		    	margin: 0;
-		    	margin-right: .5rem;
 		    	position: absolute;
 		    	top: 0;
 		    	left: 0;
