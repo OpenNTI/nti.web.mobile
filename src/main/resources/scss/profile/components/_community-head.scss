@@ -106,3 +106,46 @@
 		}
 	}
 }
+
+
+@keyframes ActivityExit {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+		transform: translate3d(0, 100vh, 0) rotate3d(0, 0, 1, -15deg);
+	}
+}
+
+section {
+	&.community-menu-enter,
+	&.community-menu-leave {
+		animation: ActivityExit 0.3s ease-in-out 0s 1 both;
+	}
+	&.community-menu-enter {
+		animation-direction: reverse;
+	}
+}
+
+nav {
+	&.community-menu-enter {
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+
+	&.community-menu-enter-active {
+		opacity: 1;
+	}
+
+	&.community-menu-leave {
+		position: absolute;
+		opacity: 1;
+		transition: opacity 0.3s;
+	}
+
+	&.community-menu-leave-active {
+		opacity: 0;
+	}
+}

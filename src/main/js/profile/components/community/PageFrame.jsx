@@ -82,7 +82,7 @@ export default React.createClass({
 
 		let body = narrow && showMenu
 			? this.renderMenu()
-			: ( <section><Content {...this.props} filterParams={filterParams}/></section> );
+			: ( <section key="content"><Content {...this.props} filterParams={filterParams}/></section> );
 
 		let {removePageWrapping} = Content || {};
 
@@ -107,7 +107,7 @@ export default React.createClass({
 										/>
 								</nav>
 
-								<TransitionGroup transitionName="community-menu">
+								<TransitionGroup transitionName="community-menu" className="coordinate-root">
 									{body}
 								</TransitionGroup>
 							</div>
@@ -125,10 +125,10 @@ export default React.createClass({
 		let all = {ID: '', title: 'All Topics'};
 
 		let items = [all].concat(sections).map(x=> (
-			<Link href={`/activity/${x.ID}`} onClick={this.toggleMenu}>{x.title}</Link>
+			<Link href={(`/activity/${x.ID}/`).replace(/\/\//g, '/')} onClick={this.toggleMenu}>{x.title}</Link>
 		));
 
-		return React.createElement('nav', {className: 'fullscreen-sections'}, ...items);
+		return React.createElement('nav', {key: 'menu', className: 'fullscreen-sections'}, ...items);
 
 	}
 });
