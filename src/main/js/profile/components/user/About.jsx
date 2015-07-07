@@ -16,6 +16,10 @@ const t = scoped('PROFILE.ABOUT.SECTIONTITLES');
 
 let sections = ['about', 'education', 'positions', 'interests'];
 
+function hasValue (s) {
+	return (Array.isArray(s) && s.length > 0) || s != null;
+}
+
 export default React.createClass({
 	displayName: 'About',
 
@@ -42,7 +46,7 @@ export default React.createClass({
 			<ProfileBodyContainer className="profile-about-body">
 				<ul className="profile-cards">
 					{sections.map((s, index) => {
-						return entity[s] && ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );
+						return hasValue(entity[s]) && ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );
 					})}
 				</ul>
 				<Memberships entity={entity} preview/>
