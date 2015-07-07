@@ -103,34 +103,32 @@ export default React.createClass({
 		}
 
 		return (
-			<div>
-				<ul className="profile-cards activity">
-					{store.map((a, index) => {
+			<ul className="profile-cards activity">
+				{store.map((a, index) => {
 
-						// // localize the last segment of the mime type for the card title.
-						let mime = a.MimeType.split('.').pop();
-						// let title = t(mime);
+					// // localize the last segment of the mime type for the card title.
+					let mime = a.MimeType.split('.').pop();
+					// let title = t(mime);
 
-						return (
-							<Card key={`${a.NTIID}:${index}`} className={mime}>
-								{this.renderItems(a)}
-							</Card>
-						);
-					})}
+					return (
+						<Card key={`${a.NTIID}:${index}`} className={mime}>
+							{this.renderItems(a)}
+						</Card>
+					);
+				})}
 
-					{(entity.isUser || store.more) && (
-					<Card ref="end" key="theend" className="end">
-						{store.more
-							? store.loading
-								? ( <Loading/> )
-								: ( <Button className="more" onClick={this.more}>More</Button> )
-							: (
-							<Joined entity={entity} />
-						)}
-					</Card>
+				{(entity.isUser || store.more) && (
+				<Card ref="end" key="theend" className="end">
+					{store.more
+						? store.loading
+							? ( <Loading/> )
+							: ( <Button className="more" onClick={this.more}>More</Button> )
+						: (
+						<Joined entity={entity} />
 					)}
-				</ul>
-			</div>
+				</Card>
+				)}
+			</ul>
 		);
 	}
 });
