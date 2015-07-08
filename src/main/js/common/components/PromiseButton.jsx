@@ -30,18 +30,22 @@ export default React.createClass({
 		this.setState({
 			status: PROCESSING
 		});
-		promise().then(result => {
+		Promise.all([
+			promise(),
+			wait(1000) // ensure it takes long enough for the loader to show
+		]).then(result => {
 			this.setState({
 				status: FINISHED
 			});
-			let reset = this.reset.bind(this);
+
 			let {then} = this.props;
-			setTimeout(function() {
-				reset();
-				if (typeof then === 'function') {
-					then(result);
-				}
-			}, 1000);
+			if (typeof then === 'function') {
+				then(result[0]);
+			}
+
+			let reset = this.reset.bind(this);
+			setTimeout(reset, 3000);
+
 		});
 	},
 
@@ -54,9 +58,15 @@ export default React.createClass({
 				<ul>
 					<li>{this.props.text || 'Go'}</li>
 					<li className="processing"><TinyLoader /></li>
-					<li className="finished">Result</li>
+					<li className="finished"></li>
 				</ul>
 			</button>
 		);
 	}
 });
+
+function wait(ms) {
+	return new Promise(function(resolve) {
+		setTimeout(resolve.bind(null, ms), ms);
+	});
+}
