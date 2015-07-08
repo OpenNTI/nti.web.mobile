@@ -16,7 +16,7 @@ export default React.createClass({
 		let entities = (entity || {}).friends;
 
 		return (
-			<ProfileBodyContainer className="group-members">
+			<ProfileBodyContainer className="members">
 				<div>
 					<h2>Group Members ({entities.length})</h2>
 					<AvatarGrid entities={entities} />
