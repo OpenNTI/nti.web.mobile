@@ -23,14 +23,44 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-education:before {
+.icon-search:before {
 	content: "\e600";
 }
-.icon-location:before {
+.icon-add-user:before {
 	content: "\e601";
 }
-.icon-professional:before {
+.icon-share:before {
 	content: "\e602";
+}
+.icon-add-image:before {
+	content: "\e603";
+}
+.icon-add-comment:before {
+	content: "\e604";
+}
+.icon-bold-x:before {
+	content: "\58";
+}
+.icon-light-x:before {
+	content: "\78";
+}
+.icon-hamburger-menu:before {
+	content: "\e607";
+}
+.icon-check:before {
+	content: "\221a";
+}
+.icon-userburger:before {
+	content: "\e609";
+}
+.icon-education:before {
+	content: "\e60a";
+}
+.icon-location:before {
+	content: "\e60b";
+}
+.icon-briefcase:before {
+	content: "\e60c";
 }
 .icon-chevron-down:before {
 	content: "\76";
@@ -43,4 +73,7 @@
 }
 .icon-chevron-up:before {
 	content: "\5e";
+}
+.icon-info:before {
+	content: "\69";
 }
