@@ -102,17 +102,17 @@
 			}
 			&.education {
 				&::before {
-					content: '\e600';
+					content: '\e60a';
 				}
 			}
 			&.affiliation {
 				&::before {
-					content: '\e602';
+					content: '\e60c';
 				}
 			}
 			&.location {
 				&::before {
-					content: '\e601';
+					content: '\e60b';
 				}
 
 				& > * {
