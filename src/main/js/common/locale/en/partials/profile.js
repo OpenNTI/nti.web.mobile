@@ -12,7 +12,8 @@ export default {
 		TITLES: {
 			communityheadlinetopic: 'Topic',
 			generalforumcomment: 'Forum Comment',
-			highlight: 'Highlight'
+			highlight: 'Highlight',
+			note: 'Note'
 		}
 	}
 };
