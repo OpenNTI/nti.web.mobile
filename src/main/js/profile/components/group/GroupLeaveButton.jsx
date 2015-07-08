@@ -1,15 +1,12 @@
 import React from 'react';
 import Button from 'common/forms/components/Button';
 import {leaveGroup} from '../../Api';
-import {makeHref as profileLink} from 'profile/components/ProfileLink';
-import BasePath from 'common/mixins/BasePath';
-import Navigable from 'common/mixins/NavigatableMixin';
-import {join} from 'path';
+import RedirectToProfile from '../../mixins/RedirectToProfile';
 
 export default React.createClass({
 	displayName: 'GroupLeaveButton',
 
-	mixins: [BasePath, Navigable],
+	mixins: [RedirectToProfile],
 
 	propTypes: {
 		entity: React.PropTypes.object.isRequired
@@ -26,12 +23,6 @@ export default React.createClass({
 		leaveGroup(this.props.entity).then(() => {
 			this.redirectToProfile();
 		});
-	},
-
-	redirectToProfile() {
-		let link = profileLink();
-		let memberships = join(this.getBasePath(), link, 'memberships/');
-		this.navigateRoot(memberships);
 	},
 
 	render () {
