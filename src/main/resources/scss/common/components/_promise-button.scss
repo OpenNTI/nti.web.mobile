@@ -4,7 +4,7 @@
     border: none;
     position: relative;
     height: $button-height;
-    margin: 0;
+    margin: .5rem;
     padding: 0;
     overflow: hidden;
     border-radius:3px;
@@ -28,19 +28,26 @@
             height: $button-height;
             padding: 0 1.25rem;
             overflow: hidden;
+            &.processing {
+                display: flex;
+                align-items: center;
+                align-content: center;
+                & > ul.tinyloader {
+                    flex: 1 1 auto;
+                }
+            }
         }
-
     }
 
     &.processing {
         background: $quad-grey;
-        ul {
+        & > ul {
             top: -$button-height;
             transition: top .25s ease-in;
         }
     }
 
-    &.finished ul {
+    &.finished > ul {
         top: -$button-height * 2;
         transition: top .25s ease-in;
     }
