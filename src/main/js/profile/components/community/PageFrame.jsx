@@ -88,7 +88,7 @@ export default React.createClass({
 
 		return (
 			<Page title="Profile">
-				<Gradient className="community profile-wrapper">
+				<Gradient className="community profile-wrapper" imgUrl={entity.backgroundURL}>
 
 				{removePageWrapping
 					? ( <Content {...this.props}/> )
