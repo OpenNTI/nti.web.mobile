@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'common/forms/components/Button';
+import PromiseButton from 'common/components/PromiseButton';
 import RedirectToProfile from '../../mixins/RedirectToProfile';
 
 export default React.createClass({
@@ -11,18 +11,15 @@ export default React.createClass({
 		entity: React.PropTypes.object.isRequired
 	},
 
-	onClick () {
-		let {entity} = this.props;
-		if (entity && entity.leave) {
-			entity.leave().then(() => {
-				this.redirectToProfile();
-			});
-		}
-	},
-
 	render () {
+
+		let {entity} = this.props;
+		let promise = entity.leave.bind(entity);
+
 		return (
-			<Button className="leave-button" onClick={this.onClick}>Leave Community</Button>
+			<div>
+				<PromiseButton text="Leave Community" promise={promise} then={this.redirectToProfile} />
+			</div>
 		);
 	}
 });

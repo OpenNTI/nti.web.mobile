@@ -1,36 +1,39 @@
 .promise-button {
-    $button-height: 2rem;
+    $button-height: 2em;
     -webkit-appearance: none;
     border: none;
-    background: #99cc99;
     position: relative;
     height: $button-height;
     margin: 0;
     padding: 0;
     overflow: hidden;
     border-radius:3px;
+    text-transform: none;
+    letter-spacing: 0;
 
     & > ul {
         list-style-type: none;
+        font-size: inherit;
         margin: 0;
         padding: 0;
         width: 100%;
         position: relative;
         top: 0;
         left: 0;
+        line-height: 2;
         transition: top .25s ease-in;
 
         & > li {
             display: block;
             height: $button-height;
-            padding: ($button-height/4) 1.25rem;
+            padding: 0 1.25rem;
             overflow: hidden;
         }
 
     }
 
     &.processing {
-        background: gray;
+        background: $quad-grey;
         ul {
             top: -$button-height;
             transition: top .25s ease-in;
@@ -38,7 +41,7 @@
     }
 
     &.finished ul {
-        top: -4rem;
+        top: -$button-height * 2;
         transition: top .25s ease-in;
     }
 
