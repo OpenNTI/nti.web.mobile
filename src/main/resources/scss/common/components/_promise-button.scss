@@ -1,0 +1,45 @@
+.promise-button {
+    $button-height: 2rem;
+    -webkit-appearance: none;
+    border: none;
+    background: #99cc99;
+    position: relative;
+    height: $button-height;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius:3px;
+
+    & > ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        position: relative;
+        top: 0;
+        left: 0;
+        transition: top .25s ease-in;
+
+        & > li {
+            display: block;
+            height: $button-height;
+            padding: ($button-height/4) 1.25rem;
+            overflow: hidden;
+        }
+
+    }
+
+    &.processing {
+        background: gray;
+        ul {
+            top: -$button-height;
+            transition: top .25s ease-in;
+        }
+    }
+
+    &.finished ul {
+        top: -4rem;
+        transition: top .25s ease-in;
+    }
+
+}
