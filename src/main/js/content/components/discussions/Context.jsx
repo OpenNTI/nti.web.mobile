@@ -5,7 +5,7 @@ import cx from 'classnames';
 import {getModel} from 'nti.lib.interfaces';
 
 import Loading from 'common/components/TinyLoader';
-import Err from 'common/components/Error';
+// import Err from 'common/components/Error';
 
 import Content from '../Content';
 
@@ -101,11 +101,19 @@ export default React.createClass({
 		try {
 			let widget = getWidget(object, undefined, props);
 			let {type={}} = widget || {};
+
+			let context;
+			try {
+				context = type.interactiveInContext ? widget : React.renderToStaticMarkup(widget);
+			} catch(e) {
+				console.warn('Oops', e.stack || e.message || e);
+			}
+
 			this.setState({
 				loading: false,
 				fragment: false,
 				scoped: true,
-				context: type.interactiveInContext ? widget : React.renderToStaticMarkup(widget)
+				context
 			});
 		} catch (error) {
 			this.setState({
