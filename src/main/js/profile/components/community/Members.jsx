@@ -92,7 +92,7 @@ export default React.createClass({
 		return (
 			<ProfileBodyContainer className="members">
 				<div>
-					<h2>Group Members ({store.length})</h2>
+					<h2>Community Members ({store.length})</h2>
 					<AvatarGrid entities={store} />
 				</div>
 			</ProfileBodyContainer>
