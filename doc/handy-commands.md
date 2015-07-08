@@ -99,3 +99,19 @@ Mount pandora/Content at /Volumes/Content/
 ## synclibraries
 
     http --timeout 1000000 -a admin@nextthought.com:temp001 POST http://localhost:8082/dataserver2/@@SyncAllLibraries
+
+## set background image on a community
+
+    echo \"`./toDataURI.sh "/Users/ray/Desktop/gypsy.jpg"`\" | http --auth ray.hatfield@gmail.com:test1234 PUT http://ray.local:8082/dataserver2/Objects/tag:nextthought.com,2011-10:system-NamedEntity:Community-ou.nextthought.com/++fields++backgroundURL
+
+where toDataURI.sh is:
+
+    #!/bin/bash
+    
+    for filename in "$@";
+    do
+        mimetype=`file -b --mime-type "$filename"`
+        encoded=`base64 "$filename"`
+        echo "data:$mimetype;base64,$encoded"
+    done
+
