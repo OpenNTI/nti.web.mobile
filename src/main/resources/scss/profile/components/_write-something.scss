@@ -1,9 +1,15 @@
+.card-write-something {
+	background: $tertiary-grey;
+	background: $quad-grey;
+}
+
 .write-something {
+	background: white;
 	& > label {
-		border: 1px solid lightgray;
+		border: 1px solid $border-grey;
 	    padding: .5em;
 	    border-radius: 3px;
 	    color: lightgray;
-	    font-style: italic;	
+	    font-style: italic;
 	}
 }

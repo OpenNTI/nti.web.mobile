@@ -9,24 +9,24 @@
 	@import "forum-comment";
 	@import "profile-card-interests";
 
-	$card-padding: 1rem;
+	$card-padding: .5rem;
 	position: relative;
 	background: white;
 	padding: $card-padding;
 	border-radius: 3px;
 
-	margin: 0.25rem 0;
-	border-left: 0.25rem solid transparent;
+	margin: 0.5rem 0;
+	// border-left: 0.25rem solid transparent;
 	font-size: .875rem;
 
 	&.about {
-		border-left-color: #fc9f77;
+		border-left: .25rem solid #fc9f77;
 	}
 	&.education {
-		border-left-color: #fdcf61;
+		border-left: .25rem solid #fdcf61;
 	}
 	&.positions {
-		border-left-color: #7ecfc8;
+		border-left: .25rem solid #7ecfc8;
 	}
 
 	.avatar-heading {
