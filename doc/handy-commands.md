@@ -123,3 +123,6 @@ where toDataURI.sh is:
         echo "data:$mimetype;base64,$encoded"
     done
 
+## set about/description on a community
+
+    echo '"This is the description"' | http --auth ray.hatfield@gmail.com:test1234 PUT http://ray.local:8082/dataserver2/Objects/tag:nextthought.com,2011-10:system-NamedEntity:Community-bleach/++fields++about
