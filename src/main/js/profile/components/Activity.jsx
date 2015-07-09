@@ -5,12 +5,11 @@ import Button from 'common/forms/components/Button';
 import EmptyList from 'common/components/EmptyList';
 
 import BasePathAware from 'common/mixins/BasePath';
+import HasItems from './activity/HasItems';
 
 import Card from './Card';
-
 import Joined from './activity/Joined';
-
-import HasItems from './activity/HasItems';
+import WriteSomething from './WriteSomething';
 
 export default React.createClass({
 	displayName: 'Activity',
@@ -106,8 +105,11 @@ export default React.createClass({
 			return ( <Loading /> );
 		}
 
+		let canPost = true;
+
 		return (
 			<ul className="profile-cards activity">
+				{canPost && <Card key="editor"><WriteSomething /></Card> }
 				{store.length === 0 && <Card key='emptyList'><EmptyList type="activity"/></Card>}
 				{store.map((a, index) => {
 

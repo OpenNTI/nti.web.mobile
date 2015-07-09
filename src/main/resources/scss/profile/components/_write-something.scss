@@ -1,0 +1,9 @@
+.write-something {
+	& > label {
+		border: 1px solid lightgray;
+	    padding: .5em;
+	    border-radius: 3px;
+	    color: lightgray;
+	    font-style: italic;	
+	}
+}
