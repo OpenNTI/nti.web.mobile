@@ -31,15 +31,19 @@
 
 		.info-icon {
 			position: absolute;
-			bottom: 0;
-			right: 0;
+			bottom: .25em;
+			right: 0.25em;
 
 			width: 1.5rem;
 			height: 1.5rem;
 
-			border-radius: 100%;
-			background: $primary-blue;
 			box-sizing: 0 0 0.625rem -0.125rem rgba(0,0,0,0.5);
+			font-family: icomoon;
+			font-size: 1.5rem;
+			&:before {
+				content: 'i';
+				color: white;
+			}
 		}
 
 		h1 {
