@@ -26,7 +26,7 @@ export default React.createClass({
 
 		return (
 			items.length > 0 && (
-				<ul className="social">
+				<ul className="social-links">
 					{items}
 				</ul>
 			)

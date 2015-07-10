@@ -1,0 +1,9 @@
+ul.social-links {
+	list-style-type: none;
+	display: flex;
+	flex-wrap: wrap;
+	font-size: .6875rem;
+	& > li {
+		margin-right: 1rem;
+	}
+}
