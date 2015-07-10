@@ -41,8 +41,10 @@ export default React.createClass({
 			return <Loader />;
 		}
 
-		let {affiliation, education, location} = user;
+		let {affiliation, positions, education, location} = user;
 		let homePage = user.home_page; //eslint-disable-line camecase
+
+		let position = ensureArray(positions)[0]; //TODO: pick "latest" (start year)?
 
 		education = ensureArray(education)[0]; //TODO: pick "latest" (start year)?
 
@@ -58,7 +60,7 @@ export default React.createClass({
 						<li className='education'>{education.degree} at {education.school}</li>
 					)}
 
-					{affiliation && ( <li className="affiliation">{affiliation}</li> )}
+					{position && ( <li className="affiliation"><span className="title">{position.title}</span> at <span className="company">{position.companyName}</span></li> )}
 
 					{ (location || homePage) && (
 						<li className="location">
