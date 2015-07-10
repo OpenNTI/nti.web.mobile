@@ -13,7 +13,8 @@ export default {
 			communityheadlinetopic: 'Topic',
 			generalforumcomment: 'Forum Comment',
 			highlight: 'Highlight',
-			note: 'Note'
+			note: 'Note',
+			personalblogentry: 'Personal Blog Entry'
 		}
 	}
 };
