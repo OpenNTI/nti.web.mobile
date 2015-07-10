@@ -15,10 +15,11 @@ export default React.createClass({
 
 	render () {
 		let {item} = this.props;
+		let years = [item.startYear, item.endYear].filter(x=>x).join('–');
 		return (
 			<div className="educational-experience">
 				<h2 className="educational-experience-school">{item.school}</h2>
-				<p className="educational-experience-degree">{item.degree}</p>
+				<p className="educational-experience-degree">{item.degree}, {years}</p>
 			</div>
 		);
 	}
