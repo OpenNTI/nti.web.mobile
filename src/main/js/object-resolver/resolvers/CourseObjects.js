@@ -1,7 +1,7 @@
 // import {CommonSymbols} from 'nti.lib.interfaces';
 // let {Service} = CommonSymbols;
 
-import {encodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const isCourse = RegExp.prototype.test.bind(/\.courseinstance/i);
 
@@ -33,7 +33,7 @@ export default class CourseObjectPathResolver {
 		*/
 
 		let object = this.focusObject;
-		let id = encodeFromURI(object.getID());
+		let id = encodeForURI(object.getID());
 
 		// if (object is enrollement wrapper) {
 		// 	object = object get instance
