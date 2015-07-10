@@ -1,9 +1,10 @@
 import React from 'react';
-import {BLANK_AVATAR} from '../constants/DataURIs';
+import {BLANK_AVATAR, BLANK_GROUP_AVATAR} from '../constants/DataURIs';
 
 import {resolve, getDebugUsernameString} from '../utils/user';
 
 const DEFAULT = { entity: {avatarURL: BLANK_AVATAR }};
+const GROUP_DEFAULT = { entity: {avatarURL: BLANK_GROUP_AVATAR }};
 
 export default React.createClass({
 	displayName: 'Avatar',
@@ -34,7 +35,7 @@ export default React.createClass({
 		if (!this.isMounted()) {
 			return;
 		}
-
+		// TODO: entity.isGroup ? GROUP_DEFAULT : DEFAULT;
 		this.setState(DEFAULT);
 	},
 
