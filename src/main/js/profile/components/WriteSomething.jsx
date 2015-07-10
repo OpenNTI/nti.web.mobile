@@ -3,6 +3,7 @@ import Editor from 'modeled-content/components/Editor';
 import t from 'common/locale';
 import cx from 'classnames';
 import Loading from 'common/components/TinyLoader';
+import Err from 'common/components/Error';
 
 export default React.createClass({
 	displayName: 'WriteSomething',
@@ -48,24 +49,39 @@ export default React.createClass({
 	},
 
 	onSubmit () {
-		let {store} = this.props;
 		let {title, value} = this.state;
+		if (Editor.isEmpty(value) || Editor.isEmpty(title)) {
+			return;
+		}
+		let {store} = this.props;
 		this.setState({
 			busy: true
 		});
-		store.postToActivity(value, title).then(result => {
+		store.postToActivity(value, title)
+		.then(result => {
 			console.log(result);
 			this.setState({
 				edit: false,
 				busy: false,
+				error: false,
 				value: null
+			});
+		},
+		reason => {
+			this.setState({
+				busy: false,
+				error: reason
 			});
 		});
 	},
 
 	render () {
 
-		let {busy, value, title} = this.state;
+		let {busy, value, title, error} = this.state;
+
+		if (error) {
+			return <Err error={error} />;
+		}
 
 		if (busy) {
 			return <Loading />;
