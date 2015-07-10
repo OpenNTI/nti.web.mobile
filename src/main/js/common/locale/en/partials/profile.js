@@ -5,6 +5,12 @@ export default {
 			'education': 'Education',
 			'positions': 'Professional',
 			'interests': 'Interests'
+		},
+		SOCIAL: {
+			'twitter': 'Twitter',
+			'googlePlus': 'Google+',
+			'linkedIn': 'LinkedIn',
+			'facebook': 'Facebook'
 		}
 	},
 

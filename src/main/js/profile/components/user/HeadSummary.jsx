@@ -3,6 +3,8 @@ import React from 'react';
 import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 
 import Loader from 'common/components/TinyLoader';
+import SocialLinks from './SocialLinks';
+
 import {default as DisplayName} from 'common/components/DisplayName';
 
 import {resolve} from 'common/utils/user';
@@ -69,6 +71,7 @@ export default React.createClass({
 						</li>
 					)}
 				</ul>
+				<SocialLinks user={user} />
 			</div>
 		);
 	}
