@@ -105,11 +105,11 @@ export default React.createClass({
 			return ( <Loading /> );
 		}
 
-		let canPost = true;
+		let canPost = !!store.postToActivity;
 
 		return (
 			<ul className="profile-cards activity">
-				{canPost && <Card key="editor" className="card-write-something"><WriteSomething /></Card> }
+				{canPost && <Card key="editor" className="card-write-something"><WriteSomething store={store}/></Card> }
 				{store.length === 0 && <Card key='emptyList'><EmptyList type="activity"/></Card>}
 				{store.map((a, index) => {
 
