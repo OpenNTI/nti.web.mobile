@@ -3,9 +3,9 @@ import ForumObjects from './ForumObjects';
 import LibraryPath from './LibraryPath';
 
 const handlers = [
-	LibraryPath,
 	CourseObjects,
-	ForumObjects
+	ForumObjects,
+	LibraryPath
 ];
 
 
