@@ -21,7 +21,7 @@ export default React.createClass({
 
 		let {user} = this.props;
 		let items = this.socialPropNames.map(prop => {
-			return user[prop] ? <li className={'social-' + prop.toLowerCase()}><a href={user[prop]}><span>{t(prop)}</span></a></li> : null;
+			return user[prop] ? <li><a className={'social-' + prop.toLowerCase()} href={user[prop]}><span>{t(prop)}</span></a></li> : null;
 		}).filter(x=>x);
 
 		return (
