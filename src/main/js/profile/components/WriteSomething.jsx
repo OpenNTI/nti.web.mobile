@@ -2,6 +2,7 @@ import React from 'react';
 import Editor from 'modeled-content/components/Editor';
 import t from 'common/locale';
 import cx from 'classnames';
+import Loading from 'common/components/TinyLoader';
 
 export default React.createClass({
 	displayName: 'WriteSomething',
@@ -65,6 +66,11 @@ export default React.createClass({
 	render () {
 
 		let {busy, value, title} = this.state;
+
+		if (busy) {
+			return <Loading />;
+		}
+
 		let disabled = Editor.isEmpty(value) || Editor.isEmpty(title);
 
 		return (
