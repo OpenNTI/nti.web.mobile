@@ -58,7 +58,7 @@ export default React.createClass({
 	crumbText (breadcrumb) {
 		return breadcrumb.map( (current, index) => {
 			let p = (current || {}).getPresentationProperties ? current.getPresentationProperties() : current;
-			let title = (p || {}).title;
+			let title = (p || {}).title || (p || {}).Title;
 			return title ? <li key={title + index} className="crumb">{title}</li> : null;
 		}).filter(x => x); // filter out nulls
 	},
