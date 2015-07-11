@@ -25,7 +25,7 @@ export default React.createClass({
 		if (item) {
 			getThumbnail(item)
 				.then(src => this.setState({ src }))
-				.catch(e => console.warn(e));
+				.catch(() => ({/*console.warn(e)*/}));
 		}
 		else {
 			this.setState({ src: null });

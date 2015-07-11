@@ -39,7 +39,7 @@ export default React.createClass({
 			});
 		})
 		.catch(reason => {
-			console.error(reason);
+			// console.error(reason);
 			this.setState({
 				breadcrumb: {
 					isError: true,
