@@ -4,10 +4,26 @@
 	list-style-type: none;
 	margin: 0;
 	li {
+		$avatarsize: 2.7rem;
 		// display: inline-block;
 		.avatar {
-			width: 2.7rem;
+			width: $avatarsize;
 			margin: .1rem;
+		}
+		&.group-admin {
+			position: relative;
+			a::after {
+				$badgesize: 1rem;
+				content: '';
+				background: url('../images/icons/admin_badge.png');
+				width: $badgesize;
+				height: $badgesize;
+				position: absolute;
+				bottom: 0;
+				left: $avatarsize - $badgesize;
+				background-repeat: no-repeat;
+				background-size: $badgesize;
+			}
 		}
 	}
 }
@@ -34,6 +50,12 @@
 		    	top: 0;
 		    	left: 0;
 		    	width: $avatarsize;
+			}
+			&.group-admin {
+				$badgesize: 1rem;
+				a::after {
+					left: $avatarsize - $badgesize - .1rem;
+				}
 			}
 			
 			.body {
