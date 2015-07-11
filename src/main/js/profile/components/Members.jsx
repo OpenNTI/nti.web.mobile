@@ -2,7 +2,7 @@ import React from 'react';
 import AvatarGrid from './AvatarGrid';
 import GroupMembers from './group/Members';
 import ProfileBodyContainer from './ProfileBodyContainer';
-import HasMembers from '../mixins/HasMembers';
+import HasMembers, {classesFor} from '../mixins/HasMembers';
 
 export default React.createClass({
 	displayName: 'Members',
@@ -22,7 +22,7 @@ export default React.createClass({
 			<ProfileBodyContainer className="members">
 				<div>
 					<h2>Group Members ({entities.length})</h2>
-					<AvatarGrid entities={entities} />
+					<AvatarGrid entities={entities} classesFor={classesFor.bind(null, entity.creator)} />
 				</div>
 				<GroupMembers entity={entity} />
 			</ProfileBodyContainer>

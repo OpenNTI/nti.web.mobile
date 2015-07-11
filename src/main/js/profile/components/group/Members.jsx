@@ -1,7 +1,7 @@
 import React from 'react';
 import AvatarGrid from '../AvatarGrid';
 import {Link} from 'react-router-component';
-import HasMembers from '../../mixins/HasMembers';
+import HasMembers, {classesFor} from '../../mixins/HasMembers';
 
 export default React.createClass({
 	displayName: 'Group:Members',
@@ -23,7 +23,7 @@ export default React.createClass({
 					<div className="member-count">Members ({entities.length})</div>
 					<Link className="view-all-link" href="/members/">View All</Link>
 				</div>
-				<AvatarGrid entities={entities} />
+				<AvatarGrid entities={entities} classesFor={classesFor.bind(null, entity.creator)} />
 			</div>
 
 		);
