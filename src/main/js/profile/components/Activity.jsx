@@ -110,7 +110,7 @@ export default React.createClass({
 		return (
 			<ul className="profile-cards activity">
 				{canPost && <Card key="editor" className="card-write-something"><WriteSomething store={store}/></Card> }
-				{store.length === 0 && <Card key='emptyList'><EmptyList type="activity"/></Card>}
+				{store.length === 0 && !entity.isUser && <Card key='emptyList'><EmptyList type="activity"/></Card>}
 				{store.map((a, index) => {
 
 					// // localize the last segment of the mime type for the card title.
