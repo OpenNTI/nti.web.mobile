@@ -127,7 +127,7 @@ export default React.createClass({
 		let animationDelay = i => ({animationDelay: (i * 100) + 'ms'});
 
 		let items = [all].concat(sections).map((x, i)=> (
-			<Link href={(`/activity/${x.ID}/`).replace(/\/\//g, '/')}
+			x.title !== 'Forum' && <Link href={(`/activity/${x.ID}/`).replace(/\/\//g, '/')}
 				style={animationDelay(i)}
 				onClick={this.toggleMenu}>{x.title}</Link>
 		));
