@@ -8,6 +8,7 @@
 		// display: inline-block;
 		.avatar {
 			width: $avatarsize;
+			height: $avatarsize;
 			margin: .1rem;
 		}
 		&.group-admin {
@@ -50,6 +51,7 @@
 		    	top: 0;
 		    	left: 0;
 		    	width: $avatarsize;
+		    	height: $avatarsize;
 			}
 			&.group-admin {
 				$badgesize: 1rem;

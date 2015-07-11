@@ -32,8 +32,10 @@
 	.avatar-heading {
 		position: relative;
 		.avatar {
+			$size: 60px;
 			position: absolute;
-			width: 60px;
+			width: $size;
+			height: $size;
 			top: 0;
 			left: 0;
 		}
