@@ -32,7 +32,7 @@ export default React.createClass({
 	render () {
 
 		let {entity} = this.props;
-		let empty = !sections.reduce((result, section)=> result || !!entity[section], false);
+		let empty = !sections.reduce((result, section)=> result || hasValue(entity[section]), false);
 
 		if (!entity) {
 			return <Loading />;
