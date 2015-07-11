@@ -53,7 +53,7 @@ function isExternal (item) {
 function canSetState(cmp) {
 	let can = false;
 
-	try { can = !!React.findDOMNode(cmp); }
+	try { can = !cmp.shouldHaveDOM || !!React.findDOMNode(cmp); }
 	catch (e) {} //eslint-disable-line
 
 	return can;
@@ -157,6 +157,11 @@ export default React.createClass({
 	isExternal (props = this.props) {
 		let {item, internalOverride} = props || {};
 		return isExternal(item) && !internalOverride;
+	},
+
+
+	componentDidMount () {
+		this.shouldHaveDOM = true;
 	},
 
 
