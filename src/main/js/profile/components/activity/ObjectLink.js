@@ -2,7 +2,7 @@ import BasePathAware from 'common/mixins/BasePath';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import path from 'path';
 
-const exclude = RegExp.prototype.test.bind(/personalblogentry$/i);
+const exclude = RegExp.prototype.test.bind(/(personalblogentry|communityheadlinetopic)$/i);
 
 export default {
 
