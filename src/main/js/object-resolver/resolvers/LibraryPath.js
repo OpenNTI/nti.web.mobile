@@ -1,10 +1,42 @@
 // import {CommonSymbols} from 'nti.lib.interfaces';
 // let {Service} = CommonSymbols;
 
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
-import {getHandler} from './';
-import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
+import {encodeForURI as encode} from 'nti.lib.interfaces/utils/ntiids';
+
 import {join} from 'path';
+
+const MIME_TYPES = {
+	'application/vnd.nextthought.courses.courseinstance': (o) => `/course/${encode(o.getID())}/`,
+	'application/vnd.nextthought.courses.courseoutlinecontentnode': (o) => `/lessons/${encode(o.getID())}/`,
+	'application/vnd.nextthought.relatedworkref': (o) => `/content/${encode(o.target)}/`,
+
+	'application/vnd.nextthought.pageinfo': (o, prev, next) => {
+		let c = `/content/${encode(o.getID())}`;
+		if (prev && /relatedworkref$/i.test(prev.MimeType)) {
+			c = encode(o.getID());
+		}
+		else if (next && /pageinfo$/i.test(next.MimeType)) {
+			c = '';
+		}
+		return c;
+	}
+};
+
+
+function getPathPart(o, i, a) {
+	let p = MIME_TYPES[o.MimeType];
+	while(typeof p === 'string') {
+		p = MIME_TYPES[p];
+	}
+
+	if (!p) {
+		console.error(o);
+		return 'Unknown Path Component';
+	}
+
+	return p(o, a[i - 1], a[i + 1]);
+}
+
 
 export default class LibraryPathResolver {
 
@@ -19,40 +51,24 @@ export default class LibraryPathResolver {
 
 
 	constructor (o) {
-		this.focusObject = o;
+		this.object = o;
 	}
 
 	getPath () {
-
-		let objectPath = this.focusObject.getContextPath();
-
+		let {object} = this;
+		let objectPath = object.getContextPath();
 		return objectPath.then(result => {
-			let parts = ensureArray(result)[0];
-			let promises = parts.reduce( (previous, current) => {
-				previous.push(pathFromPart(current));
-				return previous;
-			}, []);
-			return Promise.all(promises).then(segments => join(...(segments.filter(x=>x))));
+			let path = result[0].map(getPathPart);
+
+			//This is primarily for UGD... all UGD at this momement is either a Note or Highlight. (Forum/Blog stuff is already handled)
+
+			//if the object has a 'body' we will assume the object is a note or note-like and append the path accordingly...
+			if (object.body) {
+				let id = (object.references || [])[0] || object.getID();
+				path.push(`/discussions/${encode(id)}`);
+			}
+
+			return join(...path);
 		});
-
-		//The resolution of the objectPath should have all the information we need to construct the path.
-		//
-		//  /course/<courseId>/...etc.
-
-		// return Promise.reject('Implement Library Path Resolver');
-	}
-}
-
-function pathFromPart(part) {
-	let handler = getHandler(part);
-	if (handler) {
-		return handler.resolve(part);
-	}
-	else {
-		console.debug(part);
-		if (part.getID) {
-			console.log(encodeForURI(part.getID()));
-		}
-		return null;
 	}
 }

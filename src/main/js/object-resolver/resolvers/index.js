@@ -1,12 +1,10 @@
 import CourseObjects from './CourseObjects';
 import ForumObjects from './ForumObjects';
-import OutlineNodes from './OutlineNodes';
 import LibraryPath from './LibraryPath';
 
 const handlers = [
 	CourseObjects,
 	ForumObjects,
-	OutlineNodes,
 	LibraryPath
 ];
 
