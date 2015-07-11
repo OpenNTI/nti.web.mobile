@@ -62,7 +62,7 @@ export default React.createClass({
 		let {entryId} = this.props;
 		let {error, loading, Course} = this.state;
 		let href = this.getBasePath() + 'catalog/enroll/apply/' + entryId + '/';
-		let count = Course.SeatAvailable;
+		let count = Course && Course.SeatAvailable;
 
 		let props = {
 			href,
