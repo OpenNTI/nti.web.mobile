@@ -1,9 +1,12 @@
 import React from 'react';
 import AvatarGrid from '../AvatarGrid';
 import {Link} from 'react-router-component';
+import HasMembers from '../../mixins/HasMembers';
 
 export default React.createClass({
 	displayName: 'Group:Members',
+
+	mixins: [HasMembers],
 
 	propTypes: {
 		entity: React.PropTypes.object.isRequired
@@ -12,7 +15,7 @@ export default React.createClass({
 	render () {
 
 		let {entity} = this.props;
-		let entities = ((entity || {}).friends || []).slice(0, 30);
+		let entities = this.getMembers(entity).slice(0, 30);
 
 		return (
 			<div className="group-members-container">

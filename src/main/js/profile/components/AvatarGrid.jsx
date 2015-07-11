@@ -21,7 +21,7 @@ export default React.createClass({
 					<li key={'avatar' + i}>
 						<ProfileLink entity={e}><Avatar entity={e} /></ProfileLink>
 						<div className="body">
-							<DisplayName entity={e} />
+							{ typeof e === 'string' ? <DisplayName username={e} /> : <DisplayName entity={e} />}
 							<span className="location">{e.location}</span>
 						</div>
 					</li>
