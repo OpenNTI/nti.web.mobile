@@ -67,6 +67,9 @@
 
 .profile-top-controls-buttons {
 	flex: 0 0 auto;
+	ul {
+		margin: 0;
+	}
 	.button {
 		margin: 0.75rem;
 		margin-right: 0;
