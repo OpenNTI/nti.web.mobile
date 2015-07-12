@@ -46,7 +46,7 @@ export default React.createClass({
 			<ProfileBodyContainer className="profile-about-body">
 				<ul className="profile-cards">
 					{sections.map((s, index) => {
-						return hasValue(entity[s]) && ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );
+						return ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );
 					})}
 				</ul>
 				<Memberships entity={entity} preview/>
