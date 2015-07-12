@@ -33,6 +33,14 @@
 	}
 }
 
+.profile-body-aside {
+	.membership {
+		img, svg {
+			margin-bottom: .25rem;
+		}
+	}
+}
+
 .membership {
 	$avatar-size: 3rem;
 
@@ -40,7 +48,6 @@
 		width: $avatar-size;
 		height: $avatar-size;
 		float: left;
-		margin-bottom: .25rem;
 
 		& + * {
 			margin: 0.5rem 0 0 $avatar-size + .25rem;
