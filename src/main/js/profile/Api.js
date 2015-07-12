@@ -23,3 +23,19 @@ export function leaveGroup(entity) {
 		return service.delete(link);
 	});
 }
+
+export function savePost(postItem, value) {
+	let link = postItem.getLink('edit');
+	if (!link) {
+		return Promise.reject('postItem has no \'edit\' link.');
+	}
+	return getService().then(service => {
+		return service.put(link, value);
+	});
+}
+
+export function deletePost(postItem) {
+	return getService().then(service => {
+		return service.delete(postItem.href);
+	});
+}

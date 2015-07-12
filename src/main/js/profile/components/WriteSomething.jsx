@@ -1,7 +1,6 @@
 import React from 'react';
 import Editor from 'modeled-content/components/Editor';
-import t from 'common/locale';
-import cx from 'classnames';
+import PostEditor from './PostEditor';
 import Loading from 'common/components/TinyLoader';
 import Err from 'common/components/Error';
 
@@ -16,8 +15,7 @@ export default React.createClass({
 
 	getInitialState: function() {
 		return {
-			edit: false,
-			value: null
+			edit: false
 		};
 	},
 
@@ -33,23 +31,12 @@ export default React.createClass({
 		});
 	},
 
-	onTitleChange (event) {
-		this.setState({
-			title: event.target.value
-		});
-	},
-
-	onChange () {
-		let value = this.refs.editor.getValue();
-		this.setState({value});
-	},
-
 	onCancel () {
 		this.hideEditor();
 	},
 
-	onSubmit () {
-		let {title, value} = this.state;
+	onSubmit (title, value) {
+
 		if (Editor.isEmpty(value) || Editor.isEmpty(title)) {
 			return;
 		}
@@ -63,8 +50,7 @@ export default React.createClass({
 			this.setState({
 				edit: false,
 				busy: false,
-				error: false,
-				value: null
+				error: false
 			});
 		},
 		reason => {
@@ -87,19 +73,11 @@ export default React.createClass({
 			return <Loading />;
 		}
 
-		let disabled = Editor.isEmpty(value) || Editor.isEmpty(title);
-
 		return (
 			<div className="write-something">
 				{this.state.edit
 					?
-					<div className="editor">
-						<input type="text" ref="title" onChange={this.onTitleChange} />
-						<Editor ref="editor" onChange={this.onChange} onBlur={this.onChange}>
-							<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
-							<button onClick={this.onSubmit} className={cx('save', {disabled})}>{t('BUTTONS.save')}</button>
-						</Editor>
-					</div>
+					<PostEditor ref='postEditor' onSubmit={this.onSubmit} onCancel={this.onCancel} />
 					:
 					<label onClick={this.showEditor}>Write something</label>
 				}
