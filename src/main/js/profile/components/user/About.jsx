@@ -17,7 +17,7 @@ const t = scoped('PROFILE.ABOUT.SECTIONTITLES');
 let sections = ['about', 'education', 'positions', 'interests'];
 
 function hasValue (s) {
-	return (Array.isArray(s) && s.length > 0) || s != null;
+	return Array.isArray(s) ? s.length > 0 : s != null;
 }
 
 export default React.createClass({
