@@ -20,7 +20,7 @@
 				width: $badgesize;
 				height: $badgesize;
 				position: absolute;
-				bottom: 0;
+				top: $avatarsize - $badgesize + .1rem;
 				left: $avatarsize - $badgesize;
 				background-repeat: no-repeat;
 				background-size: $badgesize;
@@ -57,6 +57,7 @@
 				$badgesize: 1rem;
 				a::after {
 					left: $avatarsize - $badgesize - .1rem;
+					top: $avatarsize - $badgesize;
 				}
 			}
 
