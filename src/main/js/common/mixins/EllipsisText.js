@@ -5,8 +5,8 @@ import React from 'react';
  * Goal: Group dom reads/writes into single passes.
  */
 class SharedExecution {
-	static isInterupted (task) {
-		return task.skip || (task.parent && this.isInterupted(task.parent));
+	static isInterrupted (task) {
+		return task.skip || (task.parent && this.isInterrupted(task.parent));
 	}
 
 	static clear(t) { if(t) { t.skip = true; } }
@@ -24,7 +24,7 @@ class SharedExecution {
 
 
 	get () {
-		return (this.tasks || []).filter(x => !SharedExecution.isInterupted(x) && !x.run);
+		return (this.tasks || []).filter(x => !SharedExecution.isInterrupted(x) && !x.run);
 	}
 
 
