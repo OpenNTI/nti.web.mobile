@@ -2,6 +2,8 @@ import React from 'react';
 import Mixin from './Mixin';
 import DisplayName from 'common/components/DisplayName';
 import DateTime from 'common/components/DateTime';
+import {scoped} from 'common/locale';
+let t = scoped('UNITS');
 
 export default React.createClass({
 	displayName: 'Chat Card',
@@ -30,7 +32,7 @@ export default React.createClass({
 					<ul className="meta">
 						<li><DateTime date={item.getCreatedTime()}/></li>
 						<li>Lasted <DateTime suffix={false} relativeTo={item.getLastModified()} date={item.getCreatedTime()} /></li>
-						<li>{item.RoomInfo.messageCount} messages</li>
+						<li>{ t('messages', {count: item.RoomInfo.messageCount}) }</li>
 					</ul>
 				</div>
 			</div>

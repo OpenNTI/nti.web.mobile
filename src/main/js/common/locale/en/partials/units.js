@@ -47,9 +47,13 @@ export default {
 		other: '%(count)s Milliseconds'
 	},
 
-
 	comments: {
 		one: '%(count)s Comment',
 		other: '%(count)s Comments'
+	},
+
+	messages: {
+		one: '%(count)s message',
+		other: '%(count)s messages'
 	}
 };
