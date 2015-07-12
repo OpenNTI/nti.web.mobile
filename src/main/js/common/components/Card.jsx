@@ -162,10 +162,6 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.shouldHaveDOM = true;
-	},
-
-
-	componentWillMount () {
 		this.resolveIcon(this.props);
 		this.resolveHref(this.props);
 	},
