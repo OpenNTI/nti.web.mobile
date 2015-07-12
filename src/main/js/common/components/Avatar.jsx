@@ -6,6 +6,8 @@ import {resolve, getDebugUsernameString} from '../utils/user';
 const DEFAULT = { entity: {avatarURL: BLANK_AVATAR }};
 const GROUP_DEFAULT = { entity: {avatarURL: BLANK_GROUP_AVATAR }};
 
+const isGroup = RegExp.prototype.test.bind(/\.(friendslist|community)/i);
+
 export default React.createClass({
 	displayName: 'Avatar',
 
@@ -39,6 +41,9 @@ export default React.createClass({
 		this.setState(DEFAULT);
 	},
 
+	fallbackFor(entity) {
+		return isGroup((entity || {}).MimeType) ? BLANK_GROUP_AVATAR : BLANK_AVATAR;
+	},
 
 	render () {
 		let {entity} = this.state;
@@ -62,7 +67,7 @@ export default React.createClass({
 					<text textAnchor="middle" x="16px" y="21px">{initials}</text>
 				</svg>
 			) : (
-				<img {...props} src={BLANK_AVATAR}/>
+				<img {...props} src={this.fallbackFor(entity)}/>
 			);
 	}
 });
