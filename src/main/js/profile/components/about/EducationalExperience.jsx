@@ -16,10 +16,12 @@ export default React.createClass({
 	render () {
 		let {item} = this.props;
 		let years = [item.startYear, item.endYear].filter(x=>x).join('–');
+		let exp = [item.degree, years].filter(x=>x).join(', ');
+
 		return (
 			<div className="educational-experience">
 				<div className="educational-experience-school" dangerouslySetInnerHTML={{__html: item.school}} />
-				<p className="educational-experience-degree">{item.degree}, {years}</p>
+				<p className="educational-experience-degree">{exp}</p>
 			</div>
 		);
 	}
