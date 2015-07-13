@@ -18,7 +18,7 @@ export default React.createClass({
 	},
 
 	componentWillMount () {
-		console.debug('Group Chat:', this.props.item);
+		// console.debug('Group Chat:', this.props.item);
 	},
 
 	render () {

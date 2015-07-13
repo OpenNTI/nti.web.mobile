@@ -18,7 +18,7 @@ export default React.createClass({
 	},
 
 	componentWillMount () {
-		console.debug('One on One Chat:', this.props.item);
+		// console.debug('One on One Chat:', this.props.item);
 	},
 
 	render () {
