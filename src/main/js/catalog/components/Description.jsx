@@ -31,6 +31,8 @@ export default React.createClass({
 			prerequisites = [t('NoPrerequisites')];
 		}
 
+		let weeks = Math.floor(moment.duration(entry.Duration).asWeeks());
+
 		return (
 			<div>
 				<div className="row">
@@ -66,12 +68,14 @@ export default React.createClass({
 									<td>{t('StartDate')}</td>
 									<td>{moment(entry.StartDate).format('LL')}</td>
 								</tr>
+								{weeks > 0 && (
 								<tr>
 									<td>{t('Duration')}</td>
 									<td>
-										{Math.floor(moment.duration(entry.Duration).asWeeks())} {t('DurationUnits')}
+										{weeks} {t('DurationUnits')}
 									</td>
 								</tr>
+								)}
 								<tr>
 									<td>{t('Days')}</td>
 									<td>
