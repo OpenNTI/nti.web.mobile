@@ -159,7 +159,7 @@ export default React.createClass({
 		poster = poster && {backgroundImage: `url(${poster})`};
 
 		return (
-			<Tag className="content-video video-wrap flex-video widescreen">
+			<Tag className="content-video video-wrap flex-video widescreen" data-ntiid={this.getVideoID()}>
 				{!video ? null :
 					<Video ref="video" src={video}
 						onEnded={this.onStop}
