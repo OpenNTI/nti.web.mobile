@@ -80,7 +80,7 @@ export default React.createClass({
 			<div className="community-info">
 				<div className="heading">
 					<h3>Description</h3>
-					<p>{entity.about}</p>
+					<div className="description" dangerouslySetInnerHTML={{__html: entity.about}}/>
 					{this.renderAdmins()}
 				</div>
 				<div className="inset-shadow">

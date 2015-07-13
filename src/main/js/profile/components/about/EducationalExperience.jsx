@@ -1,6 +1,4 @@
 import React from 'react';
-import ModeledContentPanel from 'modeled-content/components/Panel';
-import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 
 export default React.createClass({
 	displayName: 'ProfessionalPositionWidget',
@@ -20,7 +18,7 @@ export default React.createClass({
 		let years = [item.startYear, item.endYear].filter(x=>x).join('–');
 		return (
 			<div className="educational-experience">
-				<div className="educational-experience-school"><ModeledContentPanel body={ensureArray(item.school)} /></div>
+				<div className="educational-experience-school" dangerouslySetInnerHTML={{__html: item.school}} />
 				<p className="educational-experience-degree">{item.degree}, {years}</p>
 			</div>
 		);

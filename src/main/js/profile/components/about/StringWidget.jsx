@@ -1,6 +1,4 @@
 import React from 'react';
-import ModeledContentPanel from 'modeled-content/components/Panel';
-import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 
 export default React.createClass({
 	displayName: 'StringWidget',
@@ -16,6 +14,6 @@ export default React.createClass({
 	},
 
 	render () {
-		return <div className="string-item"><ModeledContentPanel body={ensureArray(this.props.item)}/></div>;
+		return <div className="string-item" dangerouslySetInnerHTML={{__html: this.props.item}}/>;
 	}
 });

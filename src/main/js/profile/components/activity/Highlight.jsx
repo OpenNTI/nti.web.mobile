@@ -22,12 +22,14 @@ export default React.createClass({
 			return null;
 		}
 
-		let css = cx('application-highlight', 'plain', item.presentationProperties.highlightColorName);
+		let {presentationProperties} = item;
+
+		let css = cx('application-highlight', 'plain', (presentationProperties || {}).highlightColorName);
 
 		return (
 			<div>
 				<div className="body">
-					<span className={css}>{item.selectedText}</span>
+					<span className={css} dangerouslySetInnerHTML={{__html: item.selectedText}}/>
 				</div>
 			</div>
 		);
