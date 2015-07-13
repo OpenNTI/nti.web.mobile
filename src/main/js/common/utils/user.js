@@ -5,12 +5,12 @@ const FLAG = 'obfuscate-usernames';
 const SALT = '!@';
 
 
-export function getDebugUsernameString (username) {
+export function getDebugUsernameString (entity) {
 	if (!isFlag(FLAG)) {
 		return void 0;
 	}
 
-	return username || 'unknown';
+	return (typeof entity === 'string' ? entity : entity.Username) || 'Unknown';
 }
 
 /**
@@ -73,18 +73,17 @@ export function resolve (props, strict = false) {
 	let {username, user, entity, entityId} = props;
 	let promise;
 
-	entity = entity || user;
-	entityId = entityId || username;
+	entity = entity || user || entityId || username;
 
-	if (!entityId && !entity) {
-		promise = Promise.reject('No Entity or no Username');
+	if (!entity) {
+		promise = Promise.reject('No Entity');
 	}
 
-	promise = promise || (entity && Promise.resolve(entity));
+	promise = promise || (entity && typeof entity === 'object' && Promise.resolve(entity));
 
 	if (!promise) {
 		promise = getService()
-			.then(service=>service.resolveEntity(decode(entityId, strict)));
+			.then(service=>service.resolveEntity(decode(entity, strict)));
 	}
 
 	return promise;

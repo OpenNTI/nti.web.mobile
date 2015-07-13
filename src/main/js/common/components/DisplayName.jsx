@@ -8,6 +8,8 @@ import t from 'common/locale';
 
 import {getAppUsername} from 'common/utils';
 
+function deprecated(o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }
+
 /**
  * This DisplayName component can use the full User instance if you have it.
  * Otherwise, it will take a username prop. If you do not have the full entity
@@ -26,11 +28,13 @@ export default React.createClass({
 
 		tag: React.PropTypes.string,
 
-		//One of these two Props (username, and entity) are required. User trumps Username.
-		username: React.PropTypes.string,
-		//or
-		entity: React.PropTypes.object,
-		user: function(o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } },
+		entity: React.PropTypes.oneOfType([
+			React.PropTypes.object,
+			React.PropTypes.string
+		]).isRequired,
+
+		username: deprecated,
+		user: deprecated,
 
 		/**
 		 * Specifies to substitute your name with "You".
@@ -65,14 +69,14 @@ export default React.createClass({
 	},
 
 	render () {
-		let {className, localeKey, username, tag} = this.props;
+		let {className, entity, localeKey, tag} = this.props;
 		let {displayName} = this.state;
 		let Tag = tag || (localeKey ? 'address' : 'span');
 
 		let props = Object.assign({
 			className: cx('username', className),
 			children: displayName,
-			'data-for': getDebugUsernameString(username)
+			'data-for': getDebugUsernameString(entity)
 		}, this.props);
 
 		if (localeKey) {

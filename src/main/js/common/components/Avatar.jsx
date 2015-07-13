@@ -8,6 +8,7 @@ const DEFAULT = { entity: {avatarURL: BLANK_AVATAR }};
 
 import cx from 'classnames';
 
+function deprecated(o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }
 
 const isGroup = RegExp.prototype.test.bind(/\.(friendslist|community)/i);
 
@@ -15,10 +16,13 @@ export default React.createClass({
 	displayName: 'Avatar',
 
 	propTypes: {
-		username: React.PropTypes.string,
-		//or
-		entity: React.PropTypes.object,
-		user: function(o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } },
+		entity: React.PropTypes.oneOfType([
+			React.PropTypes.object,
+			React.PropTypes.string
+		]).isRequired,
+
+		username: deprecated,
+		user: deprecated,
 
 		className: React.PropTypes.string
 	},
@@ -50,13 +54,13 @@ export default React.createClass({
 
 	render () {
 		let {entity} = this.state;
-		let {username, className} = this.props;
-		let css = cx('avatar', avatarColorClass(entity || username), className);
+		let {className} = this.props;
+		let css = cx('avatar', avatarColorClass(entity), className);
 
 		let {avatarURL, initials, displayName} = entity || {};
 
 		let props = Object.assign({}, this.props, {
-			'data-for': getDebugUsernameString(username),
+			'data-for': getDebugUsernameString(entity),
 			alt: 'Avatar for ' + displayName,
 			className: css
 		});
@@ -74,10 +78,11 @@ export default React.createClass({
 });
 
 const NUM_COLORS = 12;
+
 function avatarColorClass(entity) {
 	let username = typeof entity === 'string' ? entity : (entity || {}).Username || 'unknown';
-	let idx = Math.abs(hash(username)) % NUM_COLORS; // % NextThought.util.Format.DEFAULT_AVATAR_BG_COLORS.length;
-	let cssClass = `avatar-color-${idx}`; // NextThought.util.Format.DEFAULT_AVATAR_BG_COLORS[idx];
+	let idx = Math.abs(hash(username)) % NUM_COLORS;
+	let cssClass = `avatar-color-${idx}`;
 	return cssClass;
 }
 
@@ -86,25 +91,19 @@ function hash(str) {
 	if (str.length === 0) {
 		return h;
 	}
+
 	for (let i = 0; i < str.length; i++) {
 		c = str.charCodeAt(i);
+		/*eslint-disable no-bitwise */
 		h = ((h << 5) - h) + c;
 		h = h & h; // Convert to 32bit integer
+		/*eslint-enable no-bitwise */
 	}
 	return h;
 }
 
 function fillIn (cmp, props) {
-	let {entity} = props;
-	let promise;
-
-	if (entity) {
-		promise = Promise.resolve(entity);
-	} else {
-		promise = resolve(props);
-	}
-
-	promise
+	return resolve(props)
 		.catch(()=> DEFAULT)
 		.then(x => cmp.setState({entity: x}));
 }
