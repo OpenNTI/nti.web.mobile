@@ -83,7 +83,7 @@ let Source = React.createClass({
 			title: 0
 		};
 
-		return location.protocol + '//player.vimeo.com/video/' + videoId + '?' + QueryString.stringify(args);
+		return 'https://player.vimeo.com/video/' + videoId + '?' + QueryString.stringify(args);
 	},
 
 
