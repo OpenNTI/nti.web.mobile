@@ -2,7 +2,7 @@ import React from 'react';
 
 import LogoutButton from 'login/components/LogoutButton';
 
-import FollowButton from './FollowButton';
+// import FollowButton from './FollowButton';
 // import EditButton from './EditButton';
 
 import ActiveLink from 'common/components/ActiveLink';
@@ -40,7 +40,7 @@ export default React.createClass({
 						</ul>
 						<ul className="profile-top-controls-buttons">
 							{me && <li><LogoutButton/></li>}
-							<li>{me ? null : <FollowButton />}</li>
+							{/*<li>{me ? null : <FollowButton username={username} />}</li>*/}
 						</ul>
 					</div>
 					<div className="profile">
