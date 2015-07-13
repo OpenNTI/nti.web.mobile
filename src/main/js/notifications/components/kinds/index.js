@@ -44,8 +44,5 @@ export function getNotificationItem (item, index) {
 		}
 	}
 
-	return React.createElement(Item, {
-		key: 'notifications-' + index + '-' + item.OID,
-		item: item, index: index
-	});
+	return React.createElement(Item, { key: 'notifications-' + item.OID, item, index });
 }
