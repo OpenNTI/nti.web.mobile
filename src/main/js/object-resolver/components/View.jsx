@@ -6,6 +6,8 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import Loading from 'common/components/Loading';
 
+import NotFound from 'notfound/components/View';
+
 import BasePathAware from 'common/mixins/BasePath';
 
 import Redirect from 'navigation/components/Redirect';
@@ -50,18 +52,19 @@ export default React.createClass({
 			.then(resolve)
 			.then(p=> path.join(this.getBasePath(), p))
 			.then(location => this.setState({location}))
-			// .catch(error => {
-			// 	console.error('Could not resolve: %o', error);
-			// 	this.setState({error});
-			// });
-			.catch(location => console.debug('Resolved: %o', location));
+			.catch(error => {
+				console.error('Could not resolve: %o', error);
+				this.setState({error});
+			});
 	},
 
 
 	render () {
-		let {location} = this.state;
+		let {location, error} = this.state;
 		return location ? (
 			<Redirect location={location}/>
+		) : error ? (
+			<NotFound/>
 		) : (
 			<Loading />
 		);

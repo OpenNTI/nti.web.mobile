@@ -119,6 +119,10 @@ export default class LibraryPathResolver {
 		let objectPath = object.getContextPath();
 		return objectPath.then(result => {
 			result = result[0];
+			if (!result) {
+				return Promise.reject('Not Found');
+			}
+
 			let path = result.map(getPathPart.bind(this, object)),
 				ugd = object.headline || object;
 
