@@ -12,6 +12,17 @@ import {Component as Video} from 'video';
 import Mixin from './Mixin';
 
 
+function getVideo (object, index) {
+	let {NTIID = object.ntiid} = object;
+
+	if (object.getID) {
+		return object;
+	}
+
+	return NTIID ? index.get(NTIID) : index.videoFrom(object);
+}
+
+
 export default React.createClass({
 	displayName: 'NTIVideo',
 	mixins: [Mixin, ContextAccessor],
@@ -74,17 +85,16 @@ export default React.createClass({
 				return;
 			}
 
-			let NTIID = this.getVideoID();
-
 			this.setState({loading: true});
 
 
 			this.resolveContext()
 				.then(context=>this.setState({context}))
 
-				.then(()=> (typeof item.getPoster === 'function')
-						? item
-						: contentPackage.getVideoIndex().then(x=> x.get(NTIID)))
+				.then(() => getVideo(item))
+				.catch(() => contentPackage && contentPackage.getVideoIndex()
+					.catch(() => null)
+					.then(index => getVideo(item, index)))
 
 				.then(v => {
 					v.getPoster()
