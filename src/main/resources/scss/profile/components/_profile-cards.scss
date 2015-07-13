@@ -3,6 +3,12 @@
 	margin: 0;
 }
 
+.activity .profile-card {
+	&, & > div {
+		border-radius: 3px;
+	}
+}
+
 //TODO: split specific cards into their own file.
 .profile-card {
 
@@ -10,27 +16,27 @@
 	@import "profile-card-interests";
 	@import "action-links";
 
-	$card-padding: .5rem;
+	$card-padding: .625rem;
 	position: relative;
 	background: white;
 	padding: $card-padding;
+	padding-left: 0.75rem;
 
 	margin: 0.3125rem 0;
 	// border-left: 0.25rem solid transparent;
 	font-size: .875rem;
 
-	&, & > div {
-		border-radius: 3px;
-	}
-
 	&.about {
-		border-left: .25rem solid #fc9f77;
+		box-shadow: inset 0.25rem 0 0 0 #fc9f77;
 	}
 	&.education {
-		border-left: .25rem solid #fdcf61;
+		box-shadow: inset 0.25rem 0 0 0 #fdcf61;
 	}
 	&.positions {
-		border-left: .25rem solid #7ecfc8;
+		box-shadow: inset 0.25rem 0 0 0 #7ecfc8;
+	}
+	&.interests {
+		box-shadow: inset 0.25rem 0 0 0 #c671c1;
 	}
 
 	.avatar-heading {
@@ -148,7 +154,7 @@
 		border-bottom: 1px solid $quad-grey;
 		display: block;
 		padding-bottom: 1em;
-		margin: 0px #{-$card-padding};
+		margin: 0 #{-$card-padding};
 		padding-left: 0;
 	}
 
@@ -217,8 +223,8 @@
 	a.more.button {
 		display: block;
 		border-radius: 3px;
-		margin: -0.5rem;
-		/* width: 40%; */
+		margin: -$card-padding;
+		margin-left: -0.75rem;
 	}
 }
 
