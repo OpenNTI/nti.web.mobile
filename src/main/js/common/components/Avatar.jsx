@@ -73,7 +73,7 @@ export default React.createClass({
 	}
 });
 
-const NUM_COLORS = 13;
+const NUM_COLORS = 12;
 function avatarColorClass(entity) {
 	let username = typeof entity === 'string' ? entity : (entity || {}).Username || 'unknown';
 	let idx = Math.abs(hash(username)) % NUM_COLORS; // % NextThought.util.Format.DEFAULT_AVATAR_BG_COLORS.length;
