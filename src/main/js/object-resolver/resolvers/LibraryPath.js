@@ -40,6 +40,13 @@ const MIME_TYPES = {
 			c = '';
 		}
 		return c;
+	},
+	'application/vnd.nextthought.ntivideoref': (o, prev, next) => {
+		let c = `/videos/${encode(o.getID())}`;
+		if(next && /pageinfo$/i.test(next.MimeType)) {
+			next[IGNORE] = true;
+		}
+		return c;
 	}
 };
 
