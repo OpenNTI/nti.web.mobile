@@ -11,10 +11,12 @@ import Info from './Info';
 import Activity from '../Activity';
 import Members from './Members';
 import ProfileLink from '../ProfileLink';
+import Topic from '../Topic';
 
 import Redirect from 'navigation/components/Redirect';
 
 const ROUTES = [
+	{path: '/activity/:selected/topic(/:topicId)(/*)', handler: Topic },
 	{path: '/activity(/:selected)(/*)', handler: Activity },
 	{path: '/members(/*)', handler: Members },
 
