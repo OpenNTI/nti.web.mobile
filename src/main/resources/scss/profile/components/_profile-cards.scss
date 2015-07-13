@@ -14,11 +14,14 @@
 	position: relative;
 	background: white;
 	padding: $card-padding;
-	border-radius: 3px;
 
-	margin: 0.25rem 0;
+	margin: 0.3125rem 0;
 	// border-left: 0.25rem solid transparent;
 	font-size: .875rem;
+
+	&, & > div {
+		border-radius: 3px;
+	}
 
 	&.about {
 		border-left: .25rem solid #fc9f77;
