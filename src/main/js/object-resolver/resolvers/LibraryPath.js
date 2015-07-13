@@ -7,52 +7,64 @@ import {join} from 'path';
 
 const IGNORE = Symbol();
 
+const isPageInfo = RegExp.prototype.test.bind(/pageinfo$/i);
+
+
 const MIME_TYPES = {
 	'application/vnd.nextthought.courses.courseinstance': (o) => `/course/${encode(o.getID())}/`,
 	'application/vnd.nextthought.courses.courseoutlinecontentnode': (o) => `/lessons/${encode(o.getID())}/`,
 	'application/vnd.nextthought.community': (o) => `/profile/${encodeURIComponent(o.getID())}/activity/`,
 	'application/vnd.nextthought.forums.communityboard': () => '/discussions/',
+
 	'application/vnd.nextthought.forums.communityforum': (o, prev) => {
 		if (prev && /community$/i.test(prev.MimeType)) {
 			return `/${o.ID}/`;
 		}
 		return `/${encode(o.getID())}/`;
 	},
+
 	'application/vnd.nextthought.forums.communityheadlinetopic': (o) => {
 		console.debug(o);
 		return `/${encode(o.getID())}/`;
 	},
-	'application/vnd.nextthought.relatedworkref': (o, prev, next) => {
-		let c;
 
-		if (next && /pageinfo$/i.test(next.MimeType)) {
-			if (!prev || prev.ContentNTIID !== next.NTIID) {
-				c = `/content/${encode(o.target)}/`;
-			} else {
+
+	'application/vnd.nextthought.relatedworkref': (o, prev, next) => {
+		let c = `/content/`;
+
+		if (o.isExternal) {
+			c = `/external-content/${encode(o.getID())}`;
+			if (next) {
 				next[IGNORE] = true;
 			}
-
 		}
-
-		if (!c) {
-			c = `/external-content/${encode(o.getID())}`;
+		else if (!next || !isPageInfo(next.MimeType)) {
+			console.error('Unexpected Path sequence. Internal RelatedWorkReferences should be followed by a pageInfo');
+		}
+		else if (next && next.getID() !== o.target) {
+			c += `${encode(o.target)}/`;
 		}
 
 		return c;
 	},
 
-	'application/vnd.nextthought.pageinfo': (o, prev, next) => {
-		if (o[IGNORE]) { return ''; }
 
-		let c = `/content/${encode(o.getID())}`;
-		if (prev && /relatedworkref$/i.test(prev.MimeType)) {
-			c = encode(o.getID());
-		}
-		else if (next && /pageinfo$/i.test(next.MimeType)) {
+	'application/vnd.nextthought.pageinfo': (o, prev, next, target) => {
+		let c = `${encode(o.getID())}/`;
+
+
+		if (next && isPageInfo(next.MimeType)) {
 			c = '';
 		}
+
+		if (!next && target && target.body) {
+			c += 'discussions/';
+		}
+
 		return c;
 	},
+
+
 	'application/vnd.nextthought.ntivideoref': (o, prev, next) => {
 		let c = `/videos/${encode(o.getID())}`;
 		if(next && /pageinfo$/i.test(next.MimeType)) {
@@ -63,7 +75,15 @@ const MIME_TYPES = {
 };
 
 
-function getPathPart(o, i, a) {
+function getPathPart(targetObject, o, i, a) {
+	if (o[IGNORE]) {
+		o = a[i + 1]; //once we ignore, we continue to ignore.
+		if (o) {
+			o[IGNORE] = true;
+		}
+		return '';
+	}
+
 	let p = MIME_TYPES[o.MimeType];
 	while(typeof p === 'string') {
 		p = MIME_TYPES[p];
@@ -74,7 +94,7 @@ function getPathPart(o, i, a) {
 		return 'Unknown Path Component';
 	}
 
-	return p(o, a[i - 1], a[i + 1]);
+	return p(o, a[i - 1], a[i + 1], targetObject);
 }
 
 
@@ -98,7 +118,8 @@ export default class LibraryPathResolver {
 		let {object} = this;
 		let objectPath = object.getContextPath();
 		return objectPath.then(result => {
-			let path = result[0].map(getPathPart),
+			result = result[0];
+			let path = result.map(getPathPart.bind(this, object)),
 				ugd = object.headline || object;
 
 			//This is primarily for UGD... all UGD at this momement is either a Note or Highlight. (Forum/Blog stuff is already handled)
