@@ -16,8 +16,8 @@ import Topic from '../Topic';
 import Redirect from 'navigation/components/Redirect';
 
 const ROUTES = [
-	{path: '/activity/:selected/topic(/:topicId)(/*)', handler: Topic },
-	{path: '/activity/discussions(/:selected)(/*)', handler: Activity },
+	{path: '/activity/discussions/:selected/topic(/:topicId)(/*)', handler: Topic },
+	{path: '/activity(/:selected)(/*)', handler: Activity },
 	{path: '/members(/*)', handler: Members },
 
 	{path: '/info/members(/*)', handler: Info, show: 'members' },
