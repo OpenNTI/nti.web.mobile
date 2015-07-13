@@ -1,8 +1,10 @@
+import CommunityTopics from './CommunityTopics';
 import CourseObjects from './CourseObjects';
 import ForumObjects from './ForumObjects';
 import LibraryPath from './LibraryPath';
 
 const handlers = [
+	CommunityTopics,
 	CourseObjects,
 	ForumObjects,
 	LibraryPath
