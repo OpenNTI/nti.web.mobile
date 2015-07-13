@@ -17,13 +17,16 @@ const MIME_TYPES = {
 		return `/profile/${encodeURIComponent(o.getID())}/activity/`;
 	},
 	'application/vnd.nextthought.forums.communityboard': () => '/discussions/',
-	'application/vnd.nextthought.forums.communityforum': (o, prev, next) => {
+	'application/vnd.nextthought.forums.communityforum': (o, prev) => {
 		if (prev && /community$/i.test(prev.MimeType)) {
 			return `/${o.ID}/`;
 		}
 		return `/${encode(o.getID())}/`;
 	},
-	'application/vnd.nextthought.forums.communityheadlinetopic': (o) =>`/${encode(o.getID())}/`,
+	'application/vnd.nextthought.forums.communityheadlinetopic': (o) => {
+		console.debug(o);
+		return `/${encode(o.getID())}/`;
+	},
 	'application/vnd.nextthought.relatedworkref': (o, prev, next) => {
 		let c;
 
