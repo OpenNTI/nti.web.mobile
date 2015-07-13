@@ -1,4 +1,6 @@
 import {getService} from 'common/utils';
+import AppDispatcher from 'dispatcher/AppDispatcher';
+import {FEED_CHANGED} from './Constants';
 
 export function getBreadcrumb(item) {
 	return (item || {}).getContextPath ? item.getContextPath() : Promise.reject('item doesn\'t have a getContextPath method.');
@@ -36,6 +38,11 @@ export function savePost(postItem, value) {
 
 export function deletePost(postItem) {
 	return getService().then(service => {
-		return service.delete(postItem.href);
+		return service.delete(postItem.href)
+		.then( () => emitFeedChange());
 	});
+}
+
+export function emitFeedChange() {
+	AppDispatcher.handleViewAction({type: FEED_CHANGED});
 }
