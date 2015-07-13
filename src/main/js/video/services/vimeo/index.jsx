@@ -165,7 +165,7 @@ let Source = React.createClass({
 
 
 	render () {
-		if (!this.state.playerURL) {
+		if (this.isMounted() && !this.state.playerURL) {
 			return (<ErrorWidget error="No source"/>);
 		}
 
