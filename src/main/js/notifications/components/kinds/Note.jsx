@@ -52,12 +52,14 @@ export default React.createClass({
 		let {url, username, preview} = this.state;
 		return (
 			<li className="notification-item">
-				<Avatar entity={username} width="32" height="32"/>
-				<div className="wrap">
-					<DisplayName entity={username}/>
-						{' shared a note: ' + preview}
-					<DateTime date={this.getEventTime()} relative/>
-				</div>
+				<a href={url}>
+					<Avatar entity={username} width="32" height="32"/>
+					<div className="wrap">
+						<DisplayName entity={username}/>
+							{' shared a note: ' + preview}
+						<DateTime date={this.getEventTime()} relative/>
+					</div>
+				</a>
 			</li>
 
 		);

@@ -20,12 +20,14 @@ export default React.createClass({
 
 		return (
 			<li className="notification-item">
-				<Avatar entity={username} width="32" height="32"/>
-				<div className="wrap">
-					<DisplayName entity={username}/>
-						{thestring}
-					<DateTime date={this.getEventTime()} relative/>
-				</div>
+				<a href={url}>
+					<Avatar entity={username} width="32" height="32"/>
+					<div className="wrap">
+						<DisplayName entity={username}/>
+							{thestring}
+						<DateTime date={this.getEventTime()} relative/>
+					</div>
+				</a>
 			</li>
 		);
 	}

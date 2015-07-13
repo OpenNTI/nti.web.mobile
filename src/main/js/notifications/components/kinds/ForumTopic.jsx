@@ -19,12 +19,14 @@ export default React.createClass({
 
 		return (
 			<li className="notification-item">
-				<Avatar entity={username} width="32" height="32"/>
-				<div className="wrap">
-					<DisplayName entity={username}/>
-						{` created a discussion: ${item.title}`}
-					<DateTime date={date} relative/>
-				</div>
+				<a href={url}>
+					<Avatar entity={username} width="32" height="32"/>
+					<div className="wrap">
+						<DisplayName entity={username}/>
+							{` created a discussion: ${item.title}`}
+						<DateTime date={date} relative/>
+					</div>
+				</a>
 			</li>
 		);
 	}

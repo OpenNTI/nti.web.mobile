@@ -1,4 +1,8 @@
+import BasePathAware from 'common/mixins/BasePath';
+
 export default {
+	mixins: [BasePathAware],
+
 	statics: {
 		handles (item) {
 			let change = item;
@@ -19,7 +23,10 @@ export default {
 		let change = this.props.item;
 		let item = change.Item || change;
 		let username = item.creator || item.Creator;
-		this.setState({ username, change, item });
+
+		let url = `${this.getBasePath()}object/${item.getID()}/`;
+
+		this.setState({ username, change, item, url });
 	},
 
 	getEventTime () {
