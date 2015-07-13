@@ -14,14 +14,14 @@ export default React.createClass({
 	},
 
 	render () {
-		let {item, username} = this.state;
+		let {item, username, url} = this.state;
 		let date = item.getLastModified();
 
 		return (
 			<li className="notification-item">
-				<Avatar username={username} width="32" height="32"/>
+				<Avatar entity={username} width="32" height="32"/>
 				<div className="wrap">
-					<DisplayName username={username}/>
+					<DisplayName entity={username}/>
 						{` created a discussion: ${item.title}`}
 					<DateTime date={date} relative/>
 				</div>
