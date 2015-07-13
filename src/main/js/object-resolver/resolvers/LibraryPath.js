@@ -10,6 +10,20 @@ const IGNORE = Symbol();
 const MIME_TYPES = {
 	'application/vnd.nextthought.courses.courseinstance': (o) => `/course/${encode(o.getID())}/`,
 	'application/vnd.nextthought.courses.courseoutlinecontentnode': (o) => `/lessons/${encode(o.getID())}/`,
+	'application/vnd.nextthought.community': (o, prev, next) => {
+		if (next && /communityboard$/i.test(next.MimeType)) {
+			next[IGNORE] = true;
+		}
+		return `/profile/${encodeURIComponent(o.getID())}/activity/`;
+	},
+	'application/vnd.nextthought.forums.communityboard': () => '/discussions/',
+	'application/vnd.nextthought.forums.communityforum': (o, prev, next) => {
+		if (prev && /community$/i.test(prev.MimeType)) {
+			return `/${o.ID}/`;
+		}
+		return `/${encode(o.getID())}/`;
+	},
+	'application/vnd.nextthought.forums.communityheadlinetopic': (o) =>`/${encode(o.getID())}/`,
 	'application/vnd.nextthought.relatedworkref': (o, prev, next) => {
 		let c;
 
@@ -91,10 +105,10 @@ export default class LibraryPathResolver {
 			//This is primarily for UGD... all UGD at this momement is either a Note or Highlight. (Forum/Blog stuff is already handled)
 
 			//if the object has a 'body' we will assume the object is a note or note-like and append the path accordingly...
-			if (object.body) {
-				let id = (object.references || [])[0] || object.getID();
-				path.push(`/discussions/${encode(id)}`);
-			}
+			// if (object.body) {
+			// 	let id = (object.references || [])[0] || object.getID();
+			// 	path.push(`/discussions/${encode(id)}`);
+			// }
 
 			return join(...path);
 		});

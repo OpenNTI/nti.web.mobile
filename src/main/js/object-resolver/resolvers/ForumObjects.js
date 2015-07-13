@@ -10,6 +10,7 @@ import {getLibrary} from 'library/Api';
 const isForum = RegExp.prototype.test.bind(/\.forums\./i);
 const isBlog = RegExp.prototype.test.bind(/blog/i);
 const isBoard = RegExp.prototype.test.bind(/board/i);
+const isCommunity = RegExp.prototype.test.bind(/community$/);
 
 
 export default class ForumObjectPathResolver {
@@ -35,12 +36,23 @@ export default class ForumObjectPathResolver {
 	}
 
 	getPath () {
+		// course forums
 		/*
 			/course/system-OID-0x09a0a6:5573657273%3ASxckbJ5KZAZ/   <-- course instance id
 			discussions/
 			unknown-OID-0x0b2915%3A5573657273%3Aar9paCPkF0R/	<-- forum id
 			unknown-OID-0x0b2916%3A5573657273%3Aar9paCPkF0P/	<-- topic id
 			local-OID-0x14dc6b%3A5573657273%3Ams7PHFqe0n0/		<-- comment id
+		*/
+
+		// community forums
+		/*
+			/profile/
+			tag%3Anextthought.com%2C2011-10%3Asystem-NamedEntity%3ACommunity-bleach/	<-- community id
+			activity/
+			Course_Design/																<-- forum id
+			topic/
+			Bleach-Topic%3AGeneralCommunity-Course_Design.from_chrome_iOS_pano			<-- topic id
 		*/
 
 		let toPathPart = this.getPathPart.bind(this);
@@ -82,6 +94,10 @@ export default class ForumObjectPathResolver {
 	resolveContainers (o) {
 		if (!o.ContainerId) {
 			let {href} = o;
+
+			if (isCommunity(o.MimeType)) {
+				return Promise.resolve([o]);
+			}
 
 			if (isBoard(o.MimeType)) {
 
