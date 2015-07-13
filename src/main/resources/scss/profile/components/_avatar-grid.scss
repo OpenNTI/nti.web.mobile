@@ -36,22 +36,29 @@
 			flex: 1 1 215px;
 			border: 2px solid #eee;
 			border-radius: 3px;
-		    // min-width: 175px;
-		    // white-space: nowrap;
-		    margin: .25rem;
-		    background: $quad-grey;
-		    padding: 0;
-		    position: relative;
-		    min-height: $avatarsize + .2rem;
-		    overflow: hidden;
-		    padding-left: $avatarsize + .5rem;
+
+			// white-space: nowrap;
+			margin: .25rem;
+			background: $quad-grey;
+			padding: 0;
+
+			a {
+				display: block;
+				min-height: $avatarsize;
+				padding-left: 0 0 0 $avatarsize + .5rem;
+				position: relative;
+				overflow: hidden;
+			}
+
+
+
 			.avatar {
-		    	margin: 0;
-		    	position: absolute;
-		    	top: 0;
-		    	left: 0;
-		    	width: $avatarsize;
-		    	height: $avatarsize;
+				margin: 0;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: $avatarsize;
+				height: $avatarsize;
 			}
 			&.group-admin {
 				$badgesize: 1rem;
@@ -63,10 +70,11 @@
 
 			& > * {
 				overflow: hidden;
-    			max-width: calc(100% - .5rem);
+				max-width: calc(100% - .5rem);
 			}
 
 			.body {
+				color: $primary-grey;
 				line-height: 1.3;
 				padding: .5rem 0;
 				.location {
@@ -81,7 +89,7 @@
 				text-transform: uppercase;
 			}
 		}
-		
+
 	}
 }
 

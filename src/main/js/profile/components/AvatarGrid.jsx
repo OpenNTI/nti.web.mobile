@@ -21,11 +21,13 @@ export default React.createClass({
 					let css = classesFor ? classesFor(e) : null;
 					return (
 						<li key={'avatar' + i} className={css}>
-							<ProfileLink entity={e}><Avatar entity={e} /></ProfileLink>
-							<div className="body">
-								{ typeof e === 'string' ? <DisplayName username={e} /> : <DisplayName entity={e} />}
-								<span className="location" dangerouslySetInnerHTML={{__html: e.location}}/>
-							</div>
+							<ProfileLink entity={e}>
+								<Avatar entity={e} />
+								<div className="body">
+									{ typeof e === 'string' ? <DisplayName username={e} /> : <DisplayName entity={e} />}
+									<span className="location" dangerouslySetInnerHTML={{__html: e.location}}/>
+								</div>
+							</ProfileLink>
 						</li>
 					);
 				})}
