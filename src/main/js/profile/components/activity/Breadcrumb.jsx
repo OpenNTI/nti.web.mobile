@@ -1,9 +1,15 @@
 import React from 'react';
-import {getBreadcrumb} from '../../Api';
-import ObjectLink from './ObjectLink';
+
 import Loading from 'common/components/TinyLoader';
+
 import {scoped} from 'common/locale';
+
+import ObjectLink from './ObjectLink';
+
+import {getBreadcrumb} from '../../Api';
+
 let t = scoped('PROFILE.ACTIVITY.TITLES');
+
 
 export default React.createClass({
 	displayName: 'Breadcrumb',
@@ -20,34 +26,39 @@ export default React.createClass({
 		};
 	},
 
+
 	componentDidMount () {
 		this.loadBreadcrumb(this.props.item);
 	},
 
 	componentWillReceiveProps (nextProps) {
-		this.loadBreadcrumb(nextProps.item);
+		if (this.props.item !== nextProps.item) {
+			this.loadBreadcrumb(nextProps.item);
+		}
 	},
+
 
 	loadBreadcrumb (item) {
 		getBreadcrumb(item)
-		.then(breadcrumb => {
-			this.setState({
-				breadcrumb: breadcrumb.length > 0 ? breadcrumb[0] : {
-					isError: true,
-					reason: 'breadcrumb has zero length'
-				}
+			.then(breadcrumb => {
+				this.setState({
+					breadcrumb: breadcrumb.length > 0 ? breadcrumb[0] : {
+						isError: true,
+						reason: 'breadcrumb has zero length'
+					}
+				});
+			})
+			.catch(reason => {
+				// console.error(reason);
+				this.setState({
+					breadcrumb: {
+						isError: true,
+						reason: reason
+					}
+				});
 			});
-		})
-		.catch(reason => {
-			// console.error(reason);
-			this.setState({
-				breadcrumb: {
-					isError: true,
-					reason: reason
-				}
-			});
-		});
 	},
+
 
 	fallbackText (item) {
 		let mime = (item || {}).MimeType && item.MimeType.split('.').pop();
@@ -55,13 +66,23 @@ export default React.createClass({
 		return text;
 	},
 
+
 	crumbText (breadcrumb) {
-		return breadcrumb.map( (current, index) => {
-			let p = (current || {}).getPresentationProperties ? current.getPresentationProperties() : current;
-			let title = (p || {}).title || (p || {}).Title;
-			return title ? <li key={title + index} className="crumb">{title}</li> : null;
-		}).filter(x => x); // filter out nulls
+		const prop = 'getPresentationProperties';
+		function getTitle (x) {
+			x = ((x || {})[prop] ? x[prop]() : x) || {};
+			return x.title || x.Title;
+		}
+
+		return breadcrumb
+			.map( (current, index) => {
+				let title = getTitle(current);
+				return title ? <li key={index} className="crumb">{title}</li> : null;
+			})
+
+			.filter(x => x); // filter out nulls
 	},
+
 
 	render () {
 		let {breadcrumb} = this.state;
@@ -69,8 +90,24 @@ export default React.createClass({
 		let href = this.objectLink(this.props.item);
 
 		if (breadcrumb) {
-			bc = <a href={href} className="breadcrumb"><ul className="breadcrumb-list">{breadcrumb.isError ? <li>{this.fallbackText(this.props.item)}</li> : this.crumbText(breadcrumb) }</ul></a>;
+			bc = (
+				<a href={href} className="breadcrumb">
+					<ul className="breadcrumb-list">
+						{breadcrumb.isError ? (
+
+							<li>{this.fallbackText(this.props.item)}</li>
+
+						) : (
+
+							this.crumbText(breadcrumb)
+
+						)}
+					</ul>
+				</a>
+			);
 		}
+
+
 		return (
 			<div>{bc}</div>
 		);
