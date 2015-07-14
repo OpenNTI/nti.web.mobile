@@ -8,7 +8,9 @@ export default React.createClass({
 	displayName: 'AvatarGrid',
 
 	propTypes: {
-		entities: React.PropTypes.array.isRequired,
+		entities: React.PropTypes.shape({
+					map: React.PropTypes.func }).isRequired,
+
 		classesFor: React.PropTypes.func
 	},
 
