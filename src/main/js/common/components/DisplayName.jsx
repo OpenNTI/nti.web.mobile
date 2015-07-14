@@ -54,19 +54,46 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
-			displayName: 'Resolving...'
+			displayName: ''
 		};
 	},
 
 
-	componentDidMount () { fillIn(this, this.props); },
+	componentDidMount () { this.fillIn(); },
 
 	componentWillReceiveProps (nextProps) {
-		let {entity, username} = this.props;
-		if (username !== nextProps.username || entity !== nextProps.entity) {
-			fillIn(this, nextProps);
+		let {entity} = this.props;
+		if (entity !== nextProps.entity) {
+			this.fillIn(nextProps);
 		}
 	},
+
+
+	fillIn(props = this.props) {
+		let appuser = getAppUsername();
+		let {usePronoun} = props;
+		let task = Date.now();
+
+		let set = state => {
+			if (this.state.task === task && this.isMounted()) {
+				this.setState(state);
+			}
+		};
+
+		this.setState({task}, ()=> resolve(props)
+			.then(
+				entity => {
+					let displayName = (usePronoun && entity.getID() === appuser)
+						? 'You'
+						: entity.displayName;
+
+					set({ displayName });
+				},
+				()=> set({ failed: true, displayName: 'Unknown' })
+			));
+
+	},
+
 
 	render () {
 		let {className, entity, localeKey, tag} = this.props;
@@ -91,28 +118,3 @@ export default React.createClass({
 		return <Tag {...props} rel="author"/>;
 	}
 });
-
-
-function fillIn(cmp, props) {
-	let appuser = getAppUsername();
-	let {usePronoun} = props;
-	let task = Date.now();
-	let set = state => {
-		if (cmp.state.task === task) {
-			cmp.setState(state);
-		}
-	};
-
-	cmp.setState({task}, ()=> resolve(props)
-		.then(
-			entity => {
-				let displayName = (usePronoun && entity.getID() === appuser)
-					? 'You'
-					: entity.displayName;
-
-				set({ displayName });
-			},
-			()=> set({ failed: true, displayName: 'Unknown' })
-		));
-
-}

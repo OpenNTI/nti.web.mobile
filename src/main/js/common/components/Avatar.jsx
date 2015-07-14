@@ -4,13 +4,11 @@ import {BLANK_AVATAR, BLANK_GROUP_AVATAR} from '../constants/DataURIs';
 import {resolve, getDebugUsernameString} from '../utils/user';
 
 const DEFAULT = { entity: {avatarURL: BLANK_AVATAR }};
-// const GROUP_DEFAULT = { entity: {avatarURL: BLANK_GROUP_AVATAR }};
+const DEFAULT_GROUP = { entity: {avatarURL: BLANK_GROUP_AVATAR }};
 
 import cx from 'classnames';
 
 function deprecated(o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }
-
-const isGroup = RegExp.prototype.test.bind(/\.(friendslist|community)/i);
 
 export default React.createClass({
 	displayName: 'Avatar',
@@ -32,11 +30,60 @@ export default React.createClass({
 		return {};
 	},
 
-	componentWillMount () { fillIn(this, this.props); },
+	componentWillMount () { this.fillIn(); },
 	componentWillReceiveProps (nextProps) {
-		if (this.props.username !== nextProps.username) {
-			fillIn(this, nextProps);
+		if (this.props.entity !== nextProps.entity) {
+			this.fillIn(nextProps);
 		}
+	},
+
+
+	fillIn (props = this.props) {
+
+		this.setState({loading: true});
+
+		resolve(props)
+			.catch(e => console.warn(e) || DEFAULT)
+			.then(x => this.setState({
+				entity: x,
+				color: this.getColorClass(x),
+				loading: false
+			}));
+	},
+
+
+	getColorClass(entity) {
+
+		function hash(str) {
+			let h = 0, c;
+			if (str.length === 0) {
+				return h;
+			}
+
+			for (let i = 0; i < str.length; i++) {
+				c = str.charCodeAt(i);
+				/*eslint-disable no-bitwise */
+				h = ((h << 5) - h) + c;
+				h = h & h; // Convert to 32bit integer
+				/*eslint-enable no-bitwise */
+			}
+			return h;
+		}
+
+		const NUM_COLORS = 12;
+
+		let hashedString = (typeof entity === 'string'
+								? entity
+								: (entity || {}).Username) || 'unknown';
+
+		let idx = Math.abs(hash(hashedString)) % NUM_COLORS;
+
+		return `avatar-color-${idx}`;
+	},
+
+
+	isGroup () {
+		return /\.(friendslist|community)/i.test((this.state.entity || {}).MimeType);
 	},
 
 
@@ -44,18 +91,21 @@ export default React.createClass({
 		if (!this.isMounted()) {
 			return;
 		}
-		// TODO: entity.isGroup ? GROUP_DEFAULT : DEFAULT;
-		this.setState(DEFAULT);
+		this.setState(this.isGroup() ? DEFAULT_GROUP : DEFAULT);
 	},
 
-	fallbackFor(entity) {
-		return isGroup((entity || {}).MimeType) ? BLANK_GROUP_AVATAR : BLANK_AVATAR;
+
+	fallback() {
+		return this.isGroup() ? BLANK_GROUP_AVATAR : BLANK_AVATAR;
 	},
+
 
 	render () {
-		let {entity} = this.state;
+		let {loading, entity, color} = this.state;
 		let {className} = this.props;
-		let css = cx('avatar', avatarColorClass(entity), className);
+		let css = cx('avatar', color, className);
+
+		if (loading) { return null; }
 
 		let {avatarURL, initials, displayName} = entity || {};
 
@@ -72,38 +122,7 @@ export default React.createClass({
 					<text textAnchor="middle" x="16px" y="21px">{initials}</text>
 				</svg>
 			) : (
-				<img {...props} src={this.fallbackFor(entity)}/>
+				<img {...props} src={this.fallback()}/>
 			);
 	}
 });
-
-const NUM_COLORS = 12;
-
-function avatarColorClass(entity) {
-	let username = typeof entity === 'string' ? entity : (entity || {}).Username || 'unknown';
-	let idx = Math.abs(hash(username)) % NUM_COLORS;
-	let cssClass = `avatar-color-${idx}`;
-	return cssClass;
-}
-
-function hash(str) {
-	let h = 0, c;
-	if (str.length === 0) {
-		return h;
-	}
-
-	for (let i = 0; i < str.length; i++) {
-		c = str.charCodeAt(i);
-		/*eslint-disable no-bitwise */
-		h = ((h << 5) - h) + c;
-		h = h & h; // Convert to 32bit integer
-		/*eslint-enable no-bitwise */
-	}
-	return h;
-}
-
-function fillIn (cmp, props) {
-	return resolve(props)
-		.catch(()=> DEFAULT)
-		.then(x => cmp.setState({entity: x}));
-}
