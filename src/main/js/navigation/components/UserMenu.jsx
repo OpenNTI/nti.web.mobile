@@ -26,7 +26,7 @@ export default React.createClass({
 			onClick: this.onClick,
 			href: '#'
 		};
-		let username = getAppUsername();
-		return <a {...props}><Avatar username={username} /></a>;
+
+		return <a {...props}><Avatar entity={getAppUsername()} /></a>;
 	}
 });

@@ -32,9 +32,9 @@ export default React.createClass({
 
 		return (
 			<a className="user-session" href={profile}>
-				<Avatar username={username}/>
+				<Avatar entity={username}/>
 				<div className="meta">
-					<DisplayName username={username}/>
+					<DisplayName entity={username}/>
 					<div>View Profile</div>
 				</div>
 				<div className="actions">
