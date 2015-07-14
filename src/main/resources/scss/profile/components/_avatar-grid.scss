@@ -59,6 +59,7 @@
 				left: 0;
 				width: $avatarsize;
 				height: $avatarsize;
+				border-radius: 3px 0 0 3px;
 			}
 			&.group-admin {
 				$badgesize: 1rem;
