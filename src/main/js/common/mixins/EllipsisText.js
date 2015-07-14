@@ -1,5 +1,5 @@
 import React from 'react';
-
+import setTextContent from 'react/lib/setTextContent';
 
 /**
  * Goal: Group dom reads/writes into single passes.
@@ -73,7 +73,7 @@ function truncateText (el, measure) {
 	let textProperty = (el.textContent != null) ? 'textContent' : 'innerText';
 
 	let getText = () => el[textProperty];
-	let setText = text => el[textProperty] = text;
+	let setText = text => setTextContent(el, text);
 
 	let setTitleOnce = () => {
 		el.setAttribute('title', getText());
