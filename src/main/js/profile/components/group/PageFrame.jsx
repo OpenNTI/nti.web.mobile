@@ -6,10 +6,14 @@ import ActiveLink from 'common/components/ActiveLink';
 import Gradient from 'common/components/GradientBackground';
 import Page from 'common/components/Page';
 
+import ContextSender from 'common/mixins/ContextSender';
+
 import Head from './Head';
 
 export default React.createClass({
 	displayName: 'Group:Page',
+	mixins: [ContextSender],
+
 
 	propTypes: {
 		pageContent: React.PropTypes.any,
@@ -22,7 +26,7 @@ export default React.createClass({
 		let Content = pageContent;
 
 		return (
-			<Page title="Profile">
+			<Page title="Group">
 				<Gradient className="profile-wrapper group">
 					<div className="profile-top-controls">
 						<ul className="profile-top-controls-breadcrumb">

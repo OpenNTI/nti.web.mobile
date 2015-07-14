@@ -11,12 +11,15 @@ import Gradient from 'common/components/GradientBackground';
 
 import Page from 'common/components/Page';
 
+import ContextSender from 'common/mixins/ContextSender';
+
 import {getAppUsername} from 'common/utils';
 
 import Head from './Head';
 
 export default React.createClass({
 	displayName: 'profile:Page',
+	mixins: [ContextSender],
 
 	propTypes: {
 		pageContent: React.PropTypes.any,

@@ -7,6 +7,8 @@ import Invite from './Invite';
 
 // import {getWidth} from 'common/utils/viewport';
 
+import ContextSender from 'common/mixins/ContextSender';
+
 import Gradient from 'common/components/GradientBackground';
 import Link from 'common/components/ActiveLink';
 import Loading from 'common/components/Loading';
@@ -14,6 +16,7 @@ import Page from 'common/components/Page';
 
 export default React.createClass({
 	displayName: 'Community:Page',
+	mixins: [ContextSender],
 
 	propTypes: {
 		pageContent: React.PropTypes.any,
@@ -87,7 +90,7 @@ export default React.createClass({
 		let {removePageWrapping} = Content || {};
 
 		return (
-			<Page title="Profile">
+			<Page title="Community">
 				<Gradient className="community profile-wrapper" imgUrl={entity.backgroundURL}>
 
 				{removePageWrapping
