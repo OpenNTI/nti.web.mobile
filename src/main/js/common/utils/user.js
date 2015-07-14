@@ -82,8 +82,11 @@ export function resolve (props, strict = false) {
 	promise = promise || (entity && typeof entity === 'object' && Promise.resolve(entity));
 
 	if (!promise) {
+
+		entityId = decode(entity, strict);
+
 		promise = getService()
-			.then(service=>service.resolveEntity(decode(entity, strict)));
+			.then(service => service.resolveEntity(entityId));
 	}
 
 	return promise;
