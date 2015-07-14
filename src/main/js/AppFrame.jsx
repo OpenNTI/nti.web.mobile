@@ -8,7 +8,6 @@ import RouteAware from 'common/mixins/NavigatableMixin';
 
 import Notifications from 'notifications/components/View';
 
-import {getAppUsername} from 'common/utils';
 import {getHeight as getViewportHeight} from 'common/utils/viewport';
 
 // import preventOverscroll from 'common/thirdparty/prevent-overscroll';
@@ -70,7 +69,6 @@ export default React.createClass({
 	render () {
 		let height = {height: getViewportHeight()};
 		let state = this.getOverlayState() || '';
-		let username = getAppUsername();
 
 		return (
 			<div className="app-container">
@@ -81,7 +79,7 @@ export default React.createClass({
 					<div className="inner-wrap">
 
 						<aside className="right-off-canvas-menu" style={height} ref="rightMenu">
-							<Session username={username}/>
+							<Session />
 							<Notifications/>
 						</aside>
 
