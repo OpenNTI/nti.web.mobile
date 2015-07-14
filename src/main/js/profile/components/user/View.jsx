@@ -61,7 +61,6 @@ export default React.createClass({
 				<Router.Location {...route}
 					handler={Page} pageContent={route.handler}
 					entity={entity}
-					username={entity.getID()}
 					/> :
 				<Router.NotFound handler={Redirect} location="/about/"/>
 			));

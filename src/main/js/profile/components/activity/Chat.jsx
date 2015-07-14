@@ -28,7 +28,7 @@ export default React.createClass({
 		return (
 			<div className="chat avatar-heading">
 				<div className="wrap">
-					<h1><DisplayName username={originator} usePronoun/> had a chat with {others.map(this.renderOthers)}</h1>
+					<h1><DisplayName entity={originator} usePronoun/> had a chat with {others.map(this.renderOthers)}</h1>
 					<ul className="meta">
 						<li><DateTime date={item.getCreatedTime()}/></li>
 						<li>Lasted <DateTime suffix={false} relativeTo={item.getLastModified()} date={item.getCreatedTime()} /></li>
@@ -48,7 +48,7 @@ export default React.createClass({
 				: ', ';
 
 		return (
-			<span key={i}><DisplayName username={name} usePronoun/>{suffix}</span>
+			<span key={i}><DisplayName entity={name} usePronoun/>{suffix}</span>
 		);
 	}
 });

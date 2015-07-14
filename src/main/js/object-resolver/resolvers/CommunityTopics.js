@@ -49,7 +49,7 @@ export default class CommunityTopicResolver {
 
 	resolveContainers(o) {
 		if (!o.ContainerId) {
-			return isCommunity(o.MimeType) ? Promise.resolve([o]) : resolve({username: o.creator}); // resolve call will get us the Community
+			return isCommunity(o.MimeType) ? Promise.resolve([o]) : resolve({entity: o.creator}); // resolve call will get us the Community
 		}
 		return this.getObject(o.ContainerId)
 			.then(x => this.resolveContainers(x).then(y => [x].concat(y)));

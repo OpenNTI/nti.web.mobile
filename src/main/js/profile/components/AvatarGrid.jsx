@@ -24,7 +24,7 @@ export default React.createClass({
 							<ProfileLink entity={e}>
 								<Avatar entity={e} />
 								<div className="body">
-									{ typeof e === 'string' ? <DisplayName username={e} /> : <DisplayName entity={e} />}
+									{ typeof e === 'string' ? <DisplayName entity={e} /> : <DisplayName entity={e} />}
 									<span className="location" dangerouslySetInnerHTML={{__html: e.location}}/>
 								</div>
 							</ProfileLink>

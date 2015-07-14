@@ -62,7 +62,7 @@ export default React.createClass({
 		let {sharedWith=[]} = item;
 		let pending = sharedWith
 			.filter(x => x && x !== EVERYONE)
-			.map(username=> resolve(this, {username}).catch(()=>null));
+			.map(entity=> resolve(this, {entity}).catch(()=>null));
 
 
 		Promise.all(pending)

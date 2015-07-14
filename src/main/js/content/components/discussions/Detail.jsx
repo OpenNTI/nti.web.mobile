@@ -49,12 +49,12 @@ export default React.createClass({
 			<div className="discussion-detail">
 				<div className="root">
 					<div className="author-info">
-						<Avatar username={creator}/>
+						<Avatar entity={creator}/>
 						<div className="meta">
 							<LuckyCharms item={item}/>
 							<h1 className="title">{title}</h1>
 							<div className="name-wrapper">
-								<DisplayName username={creator} localeKey={lite ? void 0 : 'CONTENT.DISCUSSIONS.postedBy'}/>
+								<DisplayName entity={creator} localeKey={lite ? void 0 : 'CONTENT.DISCUSSIONS.postedBy'}/>
 								<DateTime date={date} relative/>
 								<SharedWithList item={item}/>
 							</div>

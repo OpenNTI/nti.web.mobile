@@ -25,7 +25,7 @@ export default React.createClass({
 		return (
 			<div className="highlight-container">
 				<div className="heading">
-					<DisplayName username={item.creator} /> created {item.count} highlights on <DateTime date={item.date} />
+					<DisplayName entity={item.creator} /> created {item.count} highlights on <DateTime date={item.date} />
 				</div>
 
 				{ Object.keys(items).map(ntiid => (

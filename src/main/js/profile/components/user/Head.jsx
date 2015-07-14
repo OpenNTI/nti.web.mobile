@@ -9,21 +9,19 @@ export default React.createClass({
 	propTypes: {
 		children: React.PropTypes.any,
 
-		username: React.PropTypes.string.isRequired
+		entity: React.PropTypes.any.isRequired
 	},
 
 	render () {
-		let {children, username} = this.props;
-
-		username = decodeURIComponent(username);
+		let {children, entity} = this.props;
 
 		return (
 			<div className="profile-head user-profile">
 				<div className="user">
 					<div className="profile-avatar-container">
-						<Avatar username={username}/>
+						<Avatar entity={entity}/>
 					</div>
-					<HeadSummary username={username} />
+					<HeadSummary entity={entity} />
 				</div>
 				{children}
 			</div>

@@ -33,7 +33,7 @@ export default React.createClass({
 				<div className="body">
 					<LuckyCharms item={item} />
 					<div className="wrap">
-						<Avatar username={item.creator} /> <DisplayName username={item.creator} /> commented on this discussion.
+						<Avatar entity={item.creator} /> <DisplayName entity={item.creator} /> commented on this discussion.
 						<div className="meta">
 							<DateTime date={item.getCreatedTime()} relative={true}/>
 						</div>

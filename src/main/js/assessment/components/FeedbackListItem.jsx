@@ -54,10 +54,10 @@ export default React.createClass({
 
 		return (
 			<div className="feedback item">
-				<Avatar username={createdBy} className="avatar"/>
+				<Avatar entity={createdBy} className="avatar"/>
 				<div className="wrap">
 					<div className="meta">
-						<DisplayName username={createdBy} className="name"/>
+						<DisplayName entity={createdBy} className="name"/>
 						<DateTime date={createdOn} relative={true}/>
 					</div>
 					{editing ?

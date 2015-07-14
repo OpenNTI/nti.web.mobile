@@ -10,6 +10,6 @@ export default {
 
 // callback function passed to AvatarGrid for marking group creators as admins with a css class.
 export function classesFor(creator, user) {
-	let name = typeof user === 'string' ? user : (user || {}).username;
+	let name = typeof user === 'string' ? user : (user || {}).getID();
 	return name === creator ? 'group-admin' : null;
 }

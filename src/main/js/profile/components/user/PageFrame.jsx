@@ -21,12 +21,12 @@ export default React.createClass({
 	propTypes: {
 		pageContent: React.PropTypes.any,
 
-		username: React.PropTypes.string
+		entity: React.PropTypes.any
 	},
 
 	render () {
-		let {username, pageContent = 'div'} = this.props;
-		let me = username === getAppUsername();
+		let {entity, pageContent = 'div'} = this.props;
+		let me = entity === getAppUsername();
 
 		let Content = pageContent;
 
@@ -36,11 +36,11 @@ export default React.createClass({
 					<div className="profile-top-controls">
 						<ul className="profile-top-controls-breadcrumb">
 							<li>People</li>
-							<li><DisplayName username={username}/></li>
+							<li><DisplayName entity={entity}/></li>
 						</ul>
 						<ul className="profile-top-controls-buttons">
 							{me && <li><LogoutButton/></li>}
-							{/*<li>{me ? null : <FollowButton username={username} />}</li>*/}
+							{/*<li>{me ? null : <FollowButton entity={entity} />}</li>*/}
 						</ul>
 					</div>
 					<div className="profile">

@@ -35,9 +35,9 @@ const Panel = React.createClass({
 					<div className="body">
 						<LuckyCharms item={item}/>
 						<div className="author-info">
-							<Avatar username={creator}/>
+							<Avatar entity={creator}/>
 							<div className="meta">
-								<DisplayName username={creator}/>
+								<DisplayName entity={creator}/>
 								<div className="name-wrapper"/>
 							</div>
 						</div>

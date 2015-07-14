@@ -27,11 +27,11 @@ export default React.createClass({
 
 		return (
 			<div className="headline post">
-				<Avatar username={item.creator}/>
+				<Avatar entity={item.creator}/>
 				<div className="wrap">
 					<h1>{item.title}</h1>
 					<div className="meta">
-						<DisplayName username={item.creator}/>{" · "}<DateTime date={item.getCreatedTime()} relative={true}/>
+						<DisplayName entity={item.creator}/>{" · "}<DateTime date={item.getCreatedTime()} relative={true}/>
 					</div>
 				</div>
 				<ModeledContentPanel body={item.body} />

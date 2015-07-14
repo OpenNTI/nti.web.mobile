@@ -13,7 +13,7 @@ export default React.createClass({
 	displayName: 'HeadSummary',
 
 	propTypes: {
-		username: React.PropTypes.string.isRequired
+		entity: React.PropTypes.any.isRequired
 	},
 
 	getInitialState () {
@@ -26,8 +26,8 @@ export default React.createClass({
 	},
 
 	componentWillReceiveProps (nextProps) {
-		let {username} = this.props;
-		if (username !== nextProps.username) {
+		let {entity} = this.props;
+		if (entity !== nextProps.entity) {
 			this.setUser(nextProps);
 		}
 	},
@@ -55,7 +55,7 @@ export default React.createClass({
 		return (
 			<div className="profile-head-summary">
 				<div className="label">
-					<DisplayName username={this.props.username}/>
+					<DisplayName entity={this.props.entity}/>
 				</div>
 				<ul className="profile-head-summary-attrs">
 					{education && (

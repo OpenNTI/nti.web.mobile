@@ -72,15 +72,15 @@ export default React.createClass({
 		let replyTime = item.NewestDescendant.getCreatedTime();
 		return (
 			<Link className="topic-link" href={this.getHref(item)}>
-				<Avatar username={item.creator} />
+				<Avatar entity={item.creator} />
 				<div className="wrap">
 					<div>
-						<div className="attribution"><DisplayName username={item.creator} /></div>
+						<div className="attribution"><DisplayName entity={item.creator} /></div>
 						<span className="title">{item.title}</span>
 					</div>
 					<div className="activity">
 						<div className="newest">
-							<DisplayName username={item.NewestDescendant.creator} />
+							<DisplayName entity={item.NewestDescendant.creator} />
 							<span>{this.renderVerbForPost(item.NewestDescendant)} <DateTime relative={true} date={replyTime}/></span>
 						</div>
 						{this.renderReplies(item)}

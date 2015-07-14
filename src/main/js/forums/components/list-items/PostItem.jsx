@@ -198,10 +198,10 @@ export default React.createClass({
 			<div className={classes}>
 				{this.props.detailLink && <a href={href} className="threadlink"><span className="num-comments">{t('replies', {count: numComments})}</span><span className="arrow-right"/></a>}
 				<div className="post">
-					<Avatar username={createdBy} />
+					<Avatar entity={createdBy} />
 					<div className="wrap">
 						<div className="meta">
-							<DisplayName username={createdBy} className="name"/>
+							<DisplayName entity={createdBy} className="name"/>
 							<DateTime date={createdOn} relative={true}/>
 						</div>
 						<div className="message">

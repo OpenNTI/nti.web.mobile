@@ -30,7 +30,7 @@ export default React.createClass({
 
 		return (
 			<a className="discussion-item" href={id}>
-				<DisplayName username={creator}/>
+				<DisplayName entity={creator}/>
 				<Panel className="snippet" body={preview} previewMode/>
 				<div className="footer">
 					<span>{t('comments', {count: replyCount})}</span>
