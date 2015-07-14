@@ -54,10 +54,8 @@ export default {
 	},
 
 
-	componentWillReceiveProps () {
-	// componentDidUpdate () {
-		this[notify]();
-	},
+	// componentWillReceiveProps () { this[notify](); },
+	componentDidUpdate () { this[notify](); },
 
 
 	componentWillUnmount () {
