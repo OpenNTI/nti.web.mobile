@@ -30,7 +30,9 @@ export default {
 
 	[notify] () {
 		let children = this[Children] || {size: 0};
+		// console.debug('Notify', children.size, (this.constructor || {}).displayName);
 		if (children.size === 0) {
+			// console.debug('Notify', (this.constructor || {}).displayName);
 			Actions.setContext(this);
 		}
 	},
@@ -53,6 +55,7 @@ export default {
 
 
 	componentWillReceiveProps () {
+	// componentDidUpdate () {
 		this[notify]();
 	},
 
