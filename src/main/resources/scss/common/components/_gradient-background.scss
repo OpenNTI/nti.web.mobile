@@ -1,5 +1,5 @@
 .gradient-bg {
-	background: linear-gradient(to bottom, $primary-grey, $tertiary-grey);
+	background: linear-gradient(to bottom, makeTransparentColor($secondary-grey), makeTransparentColor($tertiary-grey));
 	padding: 0.625rem;
 	min-height: calc(100vh - 2.8125rem);
 }

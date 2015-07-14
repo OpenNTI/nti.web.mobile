@@ -11,14 +11,35 @@ export default React.createClass({
 		children: React.PropTypes.any
 	},
 
+	componentDidMount () {
+		this.setBackground();
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		this.setBackground(nextProps);
+	},
+
+	componentWillUnmount: function() {
+		this.removeBackground();
+	},
+
+	setBackground (props=this.props) {
+		if (props.imgUrl) {
+			document.body.style.background = `url('${props.imgUrl}') 0px 100vh fixed`;
+		}
+		else {
+			this.removeBackground();
+		}
+	},
+
+	removeBackground () {
+		document.body.style.background = '';
+	},
+
 	render () {
-		let {className, imgUrl} = this.props;
-		let style = imgUrl ? {
-			backgroundImage: 'url(' + imgUrl + ')',
-			backgroundSize: 'cover'
-		} : {};
+		let {className} = this.props;
 		return (
-			<div {...this.props} style={style} className={cx('gradient-bg', className)} />
+			<div {...this.props} className={cx('gradient-bg', className)} />
 		);
 	}
 });

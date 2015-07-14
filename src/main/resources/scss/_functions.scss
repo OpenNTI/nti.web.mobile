@@ -1,0 +1,16 @@
+// makes a transparent-as-possible equivalent color.
+@function makeTransparentColor($desired_color) {
+
+    $r: round(red($desired_color));
+    $g: round(green($desired_color));
+    $b: round(blue($desired_color));
+
+    $min: min($r, $g, $b);
+
+    $alpha: (255 - $min) / 255;
+    $r: round(($r - $min) / $alpha);
+    $g: round(($g - $min) / $alpha);
+    $b: round(($b - $min) / $alpha);
+
+    @return rgba($r, $g, $b, $alpha);
+}
