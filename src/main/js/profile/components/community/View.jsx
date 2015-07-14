@@ -39,7 +39,7 @@ export default React.createClass({
 		return {};
 	},
 
-	getContext (/*props*/) {
+	getContext () {
 		let path = this.getBasePath();
 		let {entity} = this.props;
 		return Promise.resolve([
