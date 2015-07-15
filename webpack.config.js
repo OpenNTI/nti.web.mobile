@@ -129,12 +129,15 @@ function includeWidgets(o) {
 						// This has effect on the react lib size
 						'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 					}
-				}),
-				new ExtractTextPlugin('app-styles', 'styles.css', {
-					disable: false,
-					allChunks: true
 				})
-			]
+			],
+
+			module: {
+				loaders: commonLoaders.concat([
+					{ test: /\.(s?)css$/, loader: 'style!css!autoprefixer!sass?' + scssIncludes }
+				])
+			}
+
 		});
 
 		o.push(v);
