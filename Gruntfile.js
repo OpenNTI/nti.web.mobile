@@ -2,8 +2,6 @@
 'use strict';
 var path = require('path');
 
-var distWebPack = require('./webpack.dist.config.js');
-
 var PROD = 'production';
 var DEV = 'development';
 
@@ -26,6 +24,7 @@ module.exports = function(grunt) {
 		'symlink'
 	];
 
+	var distWebPack = require('./webpack.dist.config.js');
 	if (env === PROD) {
 		distWebPack.forEach(function(e) { e.devtool = false; });
 		buildSteps.push('clean:maps');
