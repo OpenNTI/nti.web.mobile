@@ -24,16 +24,7 @@ cfg.forEach(function(o) { e.push(assign({}, o)); });
 
 e[0].plugins = [
 	statsCollector(__dirname),
-	new webpack.DefinePlugin({
-		SERVER: false,
-		'process.env': {
-			// This has effect on the react lib size
-			'NODE_ENV': JSON.stringify('production')
-		}
-	}),
-	new webpack.optimize.OccurenceOrderPlugin(),
-	new webpack.optimize.DedupePlugin(),
-	new webpack.optimize.UglifyJsPlugin(),
+	// new webpack.optimize.UglifyJsPlugin(),
 	new AppCachePlugin({
 		cache: [
 			'page.html',
@@ -54,7 +45,7 @@ e[0].plugins = [
 		algorithm: 'gzip',
 		regExp: /$/
 	})
-];
+].concat(e[0].plugins || []);
 
 
 e.forEach(function(x) {

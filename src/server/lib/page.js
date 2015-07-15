@@ -89,6 +89,7 @@ export default function getPage(render) {
 				.replace(basepathreplace, basePathFix)
 				.replace(/<!--css:server-values-->/i, css)
 				.replace(/<!--html:server-values-->/i, html)
+				.replace(/resources\/styles\.css/, 'resources/styles.css?rel='+encodeURIComponent(scriptFilename))
 				.replace(/js\/main\.js/, scriptFilename);
 
 		return out;
