@@ -120,13 +120,19 @@ function includeWidgets(o) {
 			entry: w[k],
 
 			plugins: [
-				new webpack.optimize.UglifyJsPlugin(),
-				new CompressionPlugin({
-					asset: '{file}.gz',
-					algorithm: 'gzip',
-					regExp: /$/
+				new webpack.DefinePlugin({
+					SERVER: false,
+					'build_source': gitRevision,
+					'process.env': {
+						// This has effect on the react lib size
+						'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+					}
+				}),
+				new ExtractTextPlugin('app-styles', 'styles.css', {
+					disable: false,
+					allChunks: true
 				})
-			].concat(o[0].plugins || [])
+			]
 		});
 
 		o.push(v);
@@ -185,12 +191,6 @@ exports = module.exports = [
 
 
 		plugins: [
-			new ExtractTextPlugin('app-styles', 'resources/styles.css', {
-				disable: false,
-				allChunks: true
-			}),
-			new webpack.optimize.DedupePlugin(),
-			new webpack.optimize.OccurenceOrderPlugin(),
 			new webpack.DefinePlugin({
 				SERVER: false,
 				'build_source': gitRevision,
@@ -198,6 +198,10 @@ exports = module.exports = [
 					// This has effect on the react lib size
 					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 				}
+			}),
+			new ExtractTextPlugin('app-styles', 'resources/styles.css', {
+				disable: false,
+				allChunks: true
 			})
 		]
 	},
@@ -219,8 +223,6 @@ exports = module.exports = [
 			extensions: ['', '.jsx', '.js', '.css', '.scss', '.html']
 		},
 		plugins: [
-			new webpack.optimize.DedupePlugin(),
-			new webpack.optimize.OccurenceOrderPlugin(),
 			new webpack.DefinePlugin({
 				SERVER: true,
 				'build_source': gitRevision,

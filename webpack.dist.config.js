@@ -14,8 +14,11 @@ var AppCachePlugin = require('./src/webpack-plugins/appcache');
 var statsCollector = require('./src/webpack-plugins/stats-collector');
 
 var e = [];
+
 global.distribution = true;
 var cfg = require('./webpack.config.js');
+delete global.distribution;
+
 if (!Array.isArray(cfg)) {
 	cfg = [cfg];
 }
@@ -23,9 +26,8 @@ if (!Array.isArray(cfg)) {
 cfg.forEach(function(o) { e.push(assign({}, o)); });
 
 
-e[0].plugins = [
+e[0].plugins.unshift(
 	statsCollector(__dirname),
-	new webpack.optimize.UglifyJsPlugin(),
 	new AppCachePlugin({
 		cache: [
 			'page.html',
@@ -40,19 +42,27 @@ e[0].plugins = [
 			'*'
 		],
 		fallback: ['/dataserver2/ offline.json', '/ page.html']
-	}),
-	new CompressionPlugin({
-		asset: '{file}.gz',
-		algorithm: 'gzip',
-		regExp: /$/
 	})
-].concat(e[0].plugins || []);
+);
 
 
 e.forEach(function(x) {
 	x.stats = true;
 	x.debug = false;
 	// x.devtool = 'hidden-source-map';
+
+	if (x.target === 'web') {
+		x.plugins.push(
+			new webpack.optimize.DedupePlugin(),
+			new webpack.optimize.OccurenceOrderPlugin(),
+			// new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false, sourceMap: false }}),
+			new CompressionPlugin({
+				asset: '{file}.gz',
+				algorithm: 'gzip',
+				regExp: /$/
+			})
+		);
+	}
 });
 
 

@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 	];
 
 	if (env === PROD) {
-		distWebPack.forEach(function(e) { e.devtool = 'hidden-source-map'; });
+		distWebPack.forEach(function(e) { e.devtool = false; });
 		buildSteps.push('clean:maps');
 	}
 

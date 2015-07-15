@@ -1,7 +1,6 @@
 /*bootstrap junk begin*/
 require('babel/polyfill');
 
-//Client code, injects script blocks into <HEAD> tag
 require('../../resources/scss/app.scss');
 require('script!../../resources/vendor/modernizr/modernizr.js');
 /*bootstrap junk end*/
