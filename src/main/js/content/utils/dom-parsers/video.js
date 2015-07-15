@@ -34,7 +34,7 @@ export default function parseVideo (contentElement) {
 		s = o.sources = [];
 
 	fixType(o);
-	o.ntiid = o.ntiid || o.dataset.ntiid;
+	o.ntiid = o.ntiid || (o.dataset || {}).ntiid;
 
 	for (let source of Array.from(contentElement.querySelectorAll(SOURCE_QS))) {
 		source = parseDomObject(source);
