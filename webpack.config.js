@@ -126,7 +126,7 @@ function includeWidgets(o) {
 					algorithm: 'gzip',
 					regExp: /$/
 				})
-			].concat(o.plugins || [])
+			].concat(o[0].plugins || [])
 		});
 
 		o.push(v);
@@ -216,6 +216,8 @@ exports = module.exports = [
 			extensions: ['', '.jsx', '.js', '.css', '.scss', '.html']
 		},
 		plugins: [
+			new webpack.optimize.DedupePlugin(),
+			new webpack.optimize.OccurenceOrderPlugin(),
 			new webpack.DefinePlugin({
 				SERVER: true,
 				'build_source': gitRevision,
@@ -247,4 +249,4 @@ exports = module.exports = [
 ];
 
 
-// includeWidgets(exports);
+includeWidgets(exports);

@@ -24,7 +24,7 @@ cfg.forEach(function(o) { e.push(assign({}, o)); });
 
 e[0].plugins = [
 	statsCollector(__dirname),
-	// new webpack.optimize.UglifyJsPlugin(),
+	new webpack.optimize.UglifyJsPlugin(),
 	new AppCachePlugin({
 		cache: [
 			'page.html',
