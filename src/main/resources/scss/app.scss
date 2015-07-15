@@ -44,6 +44,8 @@
 	opacity: 0.2;
 }
 
+.app-container { opacity: 1; } //unhides the UI once styles load.
+
 body.dark {
 	background: #333;
 }

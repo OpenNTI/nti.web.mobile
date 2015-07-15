@@ -41,6 +41,7 @@
     "eslint": ">=0.21.0",
     "eslint-plugin-react": ">=2.1.0",
     "express": "^4.9.5",
+    "extract-text-webpack-plugin": "^0.8.2",
     "fastclick": "^1.0.3",
     "file-loader": "^0.8.1",
     "fixedqueue": "0.0.1",

@@ -12,6 +12,7 @@ var NodeModulesThatNeedCompiling = [
 var webpack = require('webpack');
 var assign = require('object-assign');
 var CompressionPlugin = require('compression-webpack-plugin');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var path = require('path');
 var fs = require('fs');
@@ -121,23 +122,13 @@ function includeWidgets(o) {
 			entry: w[k],
 
 			plugins: [
-				new webpack.DefinePlugin({
-					SERVER: false,
-					'build_source': gitRevision,
-					'process.env': {
-						// This has effect on the react lib size
-						'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-					}
-				}),
-				new webpack.optimize.OccurenceOrderPlugin(),
-				new webpack.optimize.DedupePlugin(),
 				new webpack.optimize.UglifyJsPlugin(),
 				new CompressionPlugin({
 					asset: '{file}.gz',
 					algorithm: 'gzip',
 					regExp: /$/
 				})
-			]
+			].concat(o.plugins || [])
 		});
 
 		o.push(v);
@@ -182,10 +173,23 @@ exports = module.exports = [
 			extensions: ['', '.jsx', '.js', '.json', '.css', '.scss', '.html']
 		},
 
+		module: {
+			loaders: commonLoaders.concat([
+				{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
+					'style-loader',
+					'css?sourceMap!autoprefixer!sass?sourceMap&' + scssIncludes )
+				}
+			])
+		},
+
 
 		plugins: [
-			//new webpack.HotModuleReplacementPlugin(),
+			new ExtractTextPlugin('app-styles', 'resources/styles.css', {
+				disable: false,
+				allChunks: true
+			}),
 			new webpack.optimize.DedupePlugin(),
+			new webpack.optimize.OccurenceOrderPlugin(),
 			new webpack.DefinePlugin({
 				SERVER: false,
 				'build_source': gitRevision,
@@ -194,14 +198,7 @@ exports = module.exports = [
 					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 				}
 			})
-		],
-
-		module: {
-			loaders: commonLoaders.concat([
-				{ test: /\.css$/, loader: 'style!css' },
-				{ test: /\.scss$/, loader: 'style!css!autoprefixer-loader!sass?' + scssIncludes }
-			])
-		}
+		]
 	},
 	{
 		// The configuration for the server-side rendering
@@ -245,12 +242,11 @@ exports = module.exports = [
 		module: {
 			loaders: commonLoaders.concat([
 				{ test: /\.html$/, loader: 'html?attrs=link:href' },
-				{ test: /\.css$/, loader: StyleCollector + '!css' },
-				{ test: /\.scss$/, loader: StyleCollector + '!css!autoprefixer-loader!sass?' + scssIncludes }
+				{ test: /\.(s?)css$/, loader: 'null' }
 			])
 		}
 	}
 ];
 
 
-includeWidgets(exports);
+// includeWidgets(exports);
