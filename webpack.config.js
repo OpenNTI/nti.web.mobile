@@ -120,6 +120,8 @@ function includeWidgets(o) {
 			entry: w[k],
 
 			plugins: [
+				new webpack.optimize.DedupePlugin(),
+				new webpack.optimize.OccurenceOrderPlugin(),
 				new webpack.DefinePlugin({
 					SERVER: false,
 					'build_source': gitRevision,
@@ -191,6 +193,8 @@ exports = module.exports = [
 
 
 		plugins: [
+			new webpack.optimize.DedupePlugin(),
+			new webpack.optimize.OccurenceOrderPlugin(),
 			new webpack.DefinePlugin({
 				SERVER: false,
 				'build_source': gitRevision,

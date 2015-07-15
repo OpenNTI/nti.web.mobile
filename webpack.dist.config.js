@@ -49,12 +49,9 @@ e[0].plugins.unshift(
 e.forEach(function(x) {
 	x.stats = true;
 	x.debug = false;
-	// x.devtool = 'hidden-source-map';
 
 	if (x.target === 'web') {
 		x.plugins.push(
-			new webpack.optimize.DedupePlugin(),
-			new webpack.optimize.OccurenceOrderPlugin(),
 			// new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false, sourceMap: false }}),
 			new CompressionPlugin({
 				asset: '{file}.gz',
