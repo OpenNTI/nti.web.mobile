@@ -234,8 +234,7 @@ exports = module.exports = [
 				SERVER: true,
 				'build_source': gitRevision,
 				'process.env': {
-					// This has effect on the react lib size
-					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+					'NODE_ENV': 'production'
 				}
 			})
 		],

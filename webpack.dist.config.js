@@ -51,19 +51,18 @@ e.forEach(function(x) {
 	x.debug = false;
 
 	if (x.target === 'web') {
-		if (/prod/i.test(process.env.NODE_ENV)) {
-			console.log('Will Minimize ' + x.name);
-			x.plugins.push( new webpack.optimize.UglifyJsPlugin({
+		x.plugins.push(
+			new webpack.optimize.UglifyJsPlugin({
 				warnings: false,
 				sourceMap: false,
 				test: /\.js(x?)($|\?)/i
-			}));
-		}
-		x.plugins.push(new CompressionPlugin({
-			asset: '{file}.gz',
-			algorithm: 'gzip',
-			regExp: /$/
-		}));
+			}),
+			new CompressionPlugin({
+				asset: '{file}.gz',
+				algorithm: 'gzip',
+				regExp: /$/
+			})
+		);
 	}
 });
 
