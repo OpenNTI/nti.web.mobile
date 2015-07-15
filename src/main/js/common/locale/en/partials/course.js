@@ -11,7 +11,7 @@ export default {
 		StartDate: 'Start Date',
 		Duration: 'Duration',
 		DurationUnits: 'Weeks',
-		Days: 'Days',
+		DaysAndTimes: 'Day & Time',
 		OnlyOnline: 'Fully Online',
 		Instructor: 'Course Instructor'
 	},

@@ -56,14 +56,18 @@ export default React.createClass({
 										{(prerequisites || []).map((x, i) => (<div key={x.id || i}>{x.title}</div>))}
 									</td>
 								</tr>
-								<tr>
-									<td>Hours</td>
-									<td>
-										{!isEmpty(entry.Credit) ?
-											<CreditHours credit={entry.Credit} entry={entry.getID()} /> : null}
-										<EnrollmentMessage/>
-									</td>
-								</tr>
+								{EnrollmentMessage !== 'div' || !isEmpty(entry.Credit) ? (
+									<tr>
+										<td>Hours</td>
+										<td>
+											{!isEmpty(entry.Credit) ?
+												<CreditHours credit={entry.Credit} entry={entry.getID()} /> : null}
+											<EnrollmentMessage/>
+										</td>
+									</tr>
+								) : (
+									<tr/>
+								)}
 								<tr>
 									<td>{t('StartDate')}</td>
 									<td>{moment(entry.StartDate).format('LL')}</td>
@@ -77,7 +81,7 @@ export default React.createClass({
 								</tr>
 								)}
 								<tr>
-									<td>{t('Days')}</td>
+									<td>{t('DaysAndTimes')}</td>
 									<td>
 										{isEmpty(entry.Schedule && entry.Schedule.days) ?
 											<FullyOnline/> :
