@@ -19,8 +19,6 @@ var fs = require('fs');
 
 var gitRevision = require('./src/server/lib/git-revision');
 
-var StyleCollector = path.join(__dirname, 'src', 'server', 'lib', 'style-collector');
-
 var scssIncludes =
 	'includePaths[]=' + (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss'));
 

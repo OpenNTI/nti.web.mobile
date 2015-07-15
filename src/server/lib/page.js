@@ -1,5 +1,3 @@
-import styleCollector from './style-collector';
-
 import logger from './logger';
 
 import url from 'url';
@@ -58,7 +56,6 @@ export default function getPage(render) {
 		let path = u.pathname;
 		let cfg = clientConfig.config || {};
 		let html = '';
-		let css = '';
 
 		let basePathFix = (original, attr, val) => attr + '="' +
 				(isRootPath.test(val) ? (basePath || '/') + val.substr(1) : val) + '"';
@@ -66,14 +63,13 @@ export default function getPage(render) {
 		if (Application) {
 			try {
 				global.$AppConfig = cfg;
-				css = styleCollector.collect(() => {
-					let app = React.createElement(Application, {
-						path: Path.join(basePath || '', path),
-						basePath
-					});
 
-					html = React.renderToString(app);
+				let app = React.createElement(Application, {
+					path: Path.join(basePath || '', path),
+					basePath
 				});
+
+				html = React.renderToString(app);
 			}
 			finally {
 				delete global.$AppConfig;
@@ -81,13 +77,11 @@ export default function getPage(render) {
 		}
 
 		html += clientConfig.html;
-		css = `<style type="text/css" id="server-side-style">${css}</style>`;
 
 		let out = template
 				.replace(/<html/, manifest)
 				.replace(configValues, injectConfig.bind(this, cfg))
 				.replace(basepathreplace, basePathFix)
-				.replace(/<!--css:server-values-->/i, css)
 				.replace(/<!--html:server-values-->/i, html)
 				.replace(/resources\/styles\.css/, 'resources/styles.css?rel='+encodeURIComponent(scriptFilename))
 				.replace(/js\/main\.js/, scriptFilename);
