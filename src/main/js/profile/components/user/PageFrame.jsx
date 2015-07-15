@@ -29,7 +29,7 @@ export default React.createClass({
 
 	render () {
 		let {entity, pageContent = 'div'} = this.props;
-		let me = entity === getAppUsername();
+		let me = (typeof entity === 'object' ? entity.getID() : entity) === getAppUsername();
 
 		let Content = pageContent;
 
