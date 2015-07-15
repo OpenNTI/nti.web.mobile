@@ -175,7 +175,10 @@ exports = module.exports = [
 			loaders: commonLoaders.concat([
 				{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
 					'style-loader',
-					'css?sourceMap!autoprefixer!sass?sourceMap&' + scssIncludes )
+					(global.distribution
+						? 'css!autoprefixer!sass?'
+						: 'css?sourceMap!autoprefixer!sass?sourceMap&'
+					) + scssIncludes )
 				}
 			])
 		},

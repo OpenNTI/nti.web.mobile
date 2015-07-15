@@ -14,6 +14,7 @@ var AppCachePlugin = require('./src/webpack-plugins/appcache');
 var statsCollector = require('./src/webpack-plugins/stats-collector');
 
 var e = [];
+global.distribution = true;
 var cfg = require('./webpack.config.js');
 if (!Array.isArray(cfg)) {
 	cfg = [cfg];
