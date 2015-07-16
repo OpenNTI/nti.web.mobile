@@ -67,10 +67,10 @@ export default React.createClass({
 			upper = Math.round(line + (lineTolerance / 2));
 
 		if (!bin) {
-			for (let potentialLine of Object.keys(lines)) {
-				potentialLine = parseInt(potentialLine, 10);
+			for (let lineKey of Object.keys(lines)) {
+				let potentialLine = parseInt(lineKey, 10);
 				if (potentialLine >= lower && potentialLine <= upper) {
-					bin = lines[potentialLine];
+					bin = lines[lineKey];
 					break;
 				}
 			}
