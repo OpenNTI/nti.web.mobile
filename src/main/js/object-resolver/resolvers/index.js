@@ -1,11 +1,13 @@
 // import CommunityTopics from './CommunityTopics';
 import CourseObjects from './CourseObjects';
+import Entities from './Entities';
 // import ForumObjects from './ForumObjects';
 import LibraryPath from './LibraryPath';
 
 const handlers = [
-	// CommunityTopics,
 	CourseObjects,
+	Entities,
+	// CommunityTopics,
 	// ForumObjects,
 	LibraryPath
 ];
