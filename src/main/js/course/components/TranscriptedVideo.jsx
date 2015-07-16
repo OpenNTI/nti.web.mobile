@@ -25,6 +25,8 @@ import {Component as Video} from 'video';
 
 import Transcript from './Transcript';
 
+import {NOT_FOUND, RETRY_AFTER_DOM_SETTLES} from 'content/components/annotations/Annotation';
+
 const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
 const None = void 0;
@@ -46,8 +48,10 @@ class Annotation {
 
 		root = root.refs.transcript;
 
-		if (!root || !root.isMounted()) {
-			return -1;
+		if (!root) {
+			return RETRY_AFTER_DOM_SETTLES;
+		} else if (!root.isMounted()) {
+			return NOT_FOUND;
 		}
 
 
@@ -67,6 +71,7 @@ export default React.createClass({
 	mixins: [ContextSender, NavigatableMixin],
 
 	propTypes: {
+		outlineId: React.PropTypes.string,
 		videoId: React.PropTypes.string,
 		course: React.PropTypes.object,
 
@@ -141,7 +146,7 @@ export default React.createClass({
 
 		try {
 
-			let {VideoIndex, videoId, outlineId} = props;
+			let {VideoIndex, videoId} = props;
 			let video = VideoIndex.get(decodeFromURI(videoId));
 
 			this.resolveContext()
