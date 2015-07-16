@@ -11,8 +11,8 @@ var NodeModulesThatNeedCompiling = [
 
 var webpack = require('webpack');
 var assign = require('object-assign');
-var CompressionPlugin = require('compression-webpack-plugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var path = require('path');
 var fs = require('fs');
@@ -234,7 +234,7 @@ exports = module.exports = [
 				SERVER: true,
 				'build_source': gitRevision,
 				'process.env': {
-					'NODE_ENV': 'production'
+					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
 				}
 			})
 		],

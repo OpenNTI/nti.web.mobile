@@ -52,11 +52,11 @@ e.forEach(function(x) {
 
 	if (x.target === 'web') {
 		x.plugins.push(
-			new webpack.optimize.UglifyJsPlugin({
-				warnings: false,
-				sourceMap: false,
-				test: /\.js(x?)($|\?)/i
-			}),
+			// new webpack.optimize.UglifyJsPlugin({
+			// 	warnings: false,
+			// 	sourceMap: false,
+			// 	test: /\.js(x?)($|\?)/i
+			// }),
 			new CompressionPlugin({
 				asset: '{file}.gz',
 				algorithm: 'gzip',
