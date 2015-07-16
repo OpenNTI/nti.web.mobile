@@ -1,4 +1,3 @@
-@import "../input-vars";
 
 @mixin choice-icon($type, $selector) {
 	input[type=#{$type}] + div::before { @extend #{$selector}; }
