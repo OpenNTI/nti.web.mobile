@@ -194,6 +194,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', ['serve']);
 
 	grunt.registerTask('build', function (target) {
+		target = target || 'dist';
 
 		var buildSteps = [
 			'clean:stage',
