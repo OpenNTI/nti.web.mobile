@@ -65,11 +65,16 @@ const MIME_TYPES = {
 	},
 
 
-	'application/vnd.nextthought.ntivideoref': (o, prev, next) => {
-		let c = `/videos/${encode(o.getID())}`;
+	'application/vnd.nextthought.ntivideoref': (o, prev, next, target) => {
+		let c = `/videos/${encode(o.getID())}/`;
 		if(next && /pageinfo$/i.test(next.MimeType)) {
 			next[IGNORE] = true;
 		}
+
+		if ((!next || next[IGNORE]) && target && target.body) {
+			c += 'discussions/';
+		}
+
 		return c;
 	}
 };
