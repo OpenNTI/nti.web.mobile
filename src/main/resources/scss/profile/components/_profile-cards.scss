@@ -12,10 +12,6 @@
 //TODO: split specific cards into their own file.
 .profile-card {
 
-	@import "forum-comment";
-	@import "profile-card-interests";
-	@import "action-links";
-
 	$card-padding: .625rem;
 	position: relative;
 	background: white;

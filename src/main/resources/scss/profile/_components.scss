@@ -1,15 +1,18 @@
+@import "components/action-links";
+@import "components/avatar-grid";
 @import "components/community-head";
 @import "components/community-info";
+@import "components/forum-comment";
+@import "components/forum-view";
 @import "components/head";
 @import "components/memberships";
 @import "components/profile-cards";
-@import "components/avatar-grid";
-@import "components/profile-body-container";
 @import "components/members";
-@import "components/write-something";
+@import "components/profile-body-container";
+@import "components/profile-card-interests";
 @import "components/social-links";
 @import "components/topic";
-@import "components/forum-view";
+@import "components/write-something";
 
 
 .gradient-bg.group {
@@ -91,7 +94,6 @@
 	    color: #333;
 	    font-size:1rem;
 	    font-weight:600;
-	    padding: .5rem 1rem;	
+	    padding: .5rem 1rem;
 	}
 }
-
