@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 
 	var distWebPack = require('./webpack.dist.config.js');
 	if (env === PROD) {
-		distWebPack.forEach(function(e) { e.devtool = false; });
+		// distWebPack.forEach(function(e) { e.devtool = false; });
 		buildSteps.push('clean:maps');
 	}
 

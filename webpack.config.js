@@ -187,7 +187,7 @@ exports = module.exports = [
 				{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
 					'style-loader',
 					(global.distribution
-						? 'css!autoprefixer!sass?'
+						? 'css?-minimize!autoprefixer!sass?'
 						: 'css?sourceMap!autoprefixer!sass?sourceMap&'
 					) + scssIncludes )
 				}
@@ -206,10 +206,7 @@ exports = module.exports = [
 					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 				}
 			}),
-			new ExtractTextPlugin('app-styles', 'resources/styles.css', {
-				disable: false,
-				allChunks: true
-			})
+			new ExtractTextPlugin('resources/styles.css', {allChunks: true})
 		]
 	},
 	{
@@ -260,4 +257,4 @@ exports = module.exports = [
 ];
 
 
-includeWidgets(exports);
+// includeWidgets(exports);
