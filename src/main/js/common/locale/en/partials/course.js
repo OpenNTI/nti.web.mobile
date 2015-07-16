@@ -3,6 +3,7 @@ export default {
 	INFO: {
 		OpenEnrolled: 'You\'re registered for the open course.',
 		OpenEnrolledIsNotForCredit: '(No Credit)',
+		CreditHours: 'Credit Hours',
 		CREDIT: {
 			available: 'available'
 		},

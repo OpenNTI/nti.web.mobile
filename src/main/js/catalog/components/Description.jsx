@@ -58,7 +58,7 @@ export default React.createClass({
 								</tr>
 								{EnrollmentMessage !== 'div' || !isEmpty(entry.Credit) ? (
 									<tr>
-										<td>Hours</td>
+										<td>t('CreditHours')</td>
 										<td>
 											{!isEmpty(entry.Credit) ?
 												<CreditHours credit={entry.Credit} entry={entry.getID()} /> : null}
