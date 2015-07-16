@@ -14,22 +14,6 @@ module.exports = function(grunt) {
 	var env = /prod/i.test(grunt.option('environment')) ? PROD : DEV;
 	process.env.NODE_ENV = env;
 
-	var buildSteps = [
-		'clean:stage',
-		'sass',
-		'copy:stage',
-		'webpack:dist',
-		'clean:dist',
-		'rename:StageToDist',
-		'symlink'
-	];
-
-	var distWebPack = require('./webpack.dist.config.js');
-	if (env === PROD) {
-		// distWebPack.forEach(function(e) { e.devtool = false; });
-		buildSteps.push('clean:maps');
-	}
-
 	pkgConfig.distSiteCSS = path.join(pkgConfig.dist, '/client/resources/css/sites/');
 
 	grunt.initConfig({
@@ -37,7 +21,8 @@ module.exports = function(grunt) {
 		pkg: pkgConfig,
 
 		webpack: {
-			dist: distWebPack
+			dist: require('./webpack/app.config.dist'),
+			widgets: require('./webpack/widgets.config')
 		},
 
 		execute: {
@@ -57,7 +42,7 @@ module.exports = function(grunt) {
 		},
 
 		copy: {
-			stage: {
+			'stage-dist': {
 				files: [
 				// includes files within path
 					{
@@ -83,14 +68,6 @@ module.exports = function(grunt) {
 					},
 					{
 						// flatten: true,
-						cwd: '<%= pkg.src %>/widgets/',
-						expand: true,
-						filter: 'isFile',
-						src: ['**/*.html'],
-						dest: '<%= pkg.stage %>/widgets/'
-					},
-					{
-						// flatten: true,
 						cwd: '<%= pkg.src %>/../server/',
 						expand: true,
 						filter: 'isFile',
@@ -98,13 +75,31 @@ module.exports = function(grunt) {
 						dest: '<%= pkg.stage %>/server/'
 					}
 				]
+			},
+
+			'stage-widgets': {
+				files: [
+					{
+						// flatten: true,
+						cwd: '<%= pkg.src %>/widgets/',
+						expand: true,
+						filter: 'isFile',
+						src: ['**/*.html'],
+						dest: '<%= pkg.stage %>/'
+					}
+				]
 			}
 		},
 
 		rename: {
-			StageToDist: {
+			'stage-dist': {
 				src: '<%= pkg.stage %>',
 				dest: '<%= pkg.dist %>'
+			},
+
+			'stage-widgets': {
+				src: '<%= pkg.stage %>',
+				dest: '<%= pkg.dist %>/widgets'
 			}
 		},
 
@@ -127,6 +122,16 @@ module.exports = function(grunt) {
 				}]
 			},
 
+
+			widgets: {
+				files: [{
+					dot: true,
+					src: [
+					'<%= pkg.dist %>/widgets/'
+					]
+				}]
+			},
+
 			maps: ['<%= pkg.dist %>/**/*.map', '<%= pkg.dist %>/**/*.map.gz']
 		},
 
@@ -143,9 +148,10 @@ module.exports = function(grunt) {
 					'src/main/resources/css/sites/platform.ou.edu/site.css': 'src/main/resources/scss/sites/platform.ou.edu/site.scss',
 					'src/main/resources/css/sites/okstate.nextthought.com/site.css': 'src/main/resources/scss/sites/okstate.nextthought.com/site.scss'
 				}
-			}
-		},
+			},
 
+			widgets: {}
+		},
 
 		eslint: {
 			// options: {
@@ -162,7 +168,7 @@ module.exports = function(grunt) {
 		},
 
 		symlink: {
-			SiteCSSDirectories: {
+			'link-dist': {
 				files: [
 					{src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-alpha.nextthought.com'},
 					{src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-test.nextthought.com'},
@@ -172,6 +178,10 @@ module.exports = function(grunt) {
 					{src: '<%= pkg.distSiteCSS %>/okstate.nextthought.com', dest: '<%= pkg.distSiteCSS %>/okstate-test.nextthought.com'},
 					{src: '<%= pkg.distSiteCSS %>/okstate.nextthought.com', dest: '<%= pkg.distSiteCSS %>/learnonline.okstate.edu'}
 				]
+			},
+
+			'link-widgets': {
+				files: []
 			}
 		}
 	});
@@ -181,8 +191,27 @@ module.exports = function(grunt) {
 	grunt.registerTask('docs', ['react', 'jsdoc']);
 	grunt.registerTask('lint', ['eslint']);
 	grunt.registerTask('test', ['karma']);
-	grunt.registerTask('build', buildSteps);
 	grunt.registerTask('default', ['serve']);
+
+	grunt.registerTask('build', function (target) {
+
+		var buildSteps = [
+			'clean:stage',
+			'sass:' + target,
+			'copy:stage-' + target,
+			'webpack:' + target,
+			'clean:' + target,
+			'rename:stage-' + target,
+			'symlink:link-' + target
+		];
+
+		if (env === PROD) {
+			buildSteps.push('clean:maps');
+		}
+
+		return grunt.task.run(buildSteps);
+
+	});
 
 	grunt.registerTask('serve', function(target) {
 		if (target === 'dist') {

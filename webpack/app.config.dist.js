@@ -10,13 +10,13 @@ var assign = require('object-assign');
 
 var webpack = require('webpack');
 var CompressionPlugin = require('compression-webpack-plugin');
-var AppCachePlugin = require('./src/webpack-plugins/appcache');
-var statsCollector = require('./src/webpack-plugins/stats-collector');
+var AppCachePlugin = require('../src/webpack-plugins/appcache');
+var statsCollector = require('../src/webpack-plugins/stats-collector');
 
 var e = [];
 
 global.distribution = true;
-var cfg = require('./webpack.config.js');
+var cfg = require('./app.config.js');
 delete global.distribution;
 
 if (!Array.isArray(cfg)) {

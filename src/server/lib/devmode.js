@@ -1,6 +1,6 @@
 import webpack from 'webpack';
 import WebpackServer from 'webpack-dev-server';
-import webpackConfigFile from '../../../webpack.config';
+import webpackConfigFile from '../../../webpack/app.config';
 
 import logger from './logger';
 

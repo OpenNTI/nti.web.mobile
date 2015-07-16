@@ -1,6 +1,3 @@
-/*
- * Webpack development server configuration
- */
 /*eslint no-var: 0 strict: 0*/
 'use strict';
 
@@ -10,20 +7,19 @@ var NodeModulesThatNeedCompiling = [
 	];
 
 var webpack = require('webpack');
-var assign = require('object-assign');
+
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var path = require('path');
-var fs = require('fs');
 
-var gitRevision = require('./src/server/lib/git-revision');
+var gitRevision = require('../src/server/lib/git-revision');
 
 var scssIncludes =
-	'includePaths[]=' + (path.resolve(__dirname, './src/main/resources/vendor/foundation/scss'));
+	'includePaths[]=' + (path.resolve(__dirname, '../src/main/resources/vendor/foundation/scss'));
 
-var root = path.join(__dirname, 'src', 'main', 'js');
-var modules = path.join(__dirname, 'node_modules');
+var root = path.join(__dirname, '..', 'src', 'main', 'js');
+var modules = path.join(__dirname, '..', 'node_modules');
 
 var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
 
@@ -58,8 +54,10 @@ function isOurModule (s) {
 	var ourprojects = NodeModulesThatNeedCompiling.join('|');
 	var ours = new RegExp(ourprojects);
 
-	if(s.indexOf(__dirname) === 0) {
-		s = s.substr(__dirname.length);
+	var dir = path.resolve(__dirname, '..');
+
+	if(s.indexOf(dir) === 0) {
+		s = s.substr(dir.length);
 	}
 
 	if (ours.test(s)) {
@@ -77,71 +75,6 @@ function excludeNodeModulesExceptOurs(s) {
 		return !isOurModule(s);
 	}
 	return false;
-}
-
-
-function getWidgets() {
-	var widgetPath = path.join(__dirname, 'src', 'main', 'widgets');
-
-	var o = {};
-
-	fs.readdirSync(widgetPath).forEach(function(file) {
-		if (file === 'example') {return; } //skip the example
-
-		var dir = path.join(widgetPath, file);
-		var entry = path.join(dir, 'main.js');
-		var isDir = fs.statSync(dir).isDirectory();
-		var entryExists = isDir && fs.existsSync(entry);
-		if (entryExists) {
-			o[file] = entry;
-		}
-	});
-
-	return o;
-}
-
-
-function includeWidgets(o) {
-	var w = getWidgets();
-	var v;
-
-	for (var k in w) {
-		if (!w.hasOwnProperty(k)) {continue; }
-
-		v = assign({}, o[0], {
-			name: 'Widget: ' + k,
-
-			output: {
-				path: '<%= pkg.stage %>/widgets/' + k + '/',
-				filename: 'main.js',
-				chunkFilename: '[id].chunk.js'
-			},
-
-			entry: w[k],
-
-			plugins: [
-				new webpack.optimize.DedupePlugin(),
-				new webpack.optimize.OccurenceOrderPlugin(),
-				new webpack.DefinePlugin({
-					SERVER: false,
-					'build_source': gitRevision,
-					'process.env': {
-						// This has effect on the react lib size
-						'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-					}
-				})
-			],
-
-			module: {
-				loaders: commonLoaders.concat([
-					{ test: /\.(s?)css$/, loader: 'style!css!autoprefixer!sass?' + scssIncludes }
-				])
-			}
-
-		});
-
-		o.push(v);
-	}
 }
 
 
@@ -255,6 +188,3 @@ exports = module.exports = [
 		}
 	}
 ];
-
-
-// includeWidgets(exports);
