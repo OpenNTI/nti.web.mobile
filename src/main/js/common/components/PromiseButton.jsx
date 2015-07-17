@@ -102,8 +102,11 @@ export default React.createClass({
 		let {children, className} = this.props;
 		let css = cx('promise-button', className, this.state.status);
 
+		let sizer = React.renderToStaticMarkup(React.createElement('span', {}, children));
+
 		return (
 			<button className={css} onClick={this.go}>
+				<span className="sizer" dangerouslySetInnerHTML={{__html: sizer}}/>
 				<ul>
 					<li>{children}</li>
 					<li className="processing"><TinyLoader /></li>
