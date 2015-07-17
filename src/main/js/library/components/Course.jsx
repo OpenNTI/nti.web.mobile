@@ -26,7 +26,7 @@ export default React.createClass({
 	componentWillUnmount () {
 		let {item} = this.props;
 		if (item) {
-			item.removeListener('changed', this.itemChanged);
+			item.removeListener('change', this.itemChanged);
 		}
 	},
 
@@ -35,7 +35,7 @@ export default React.createClass({
 		let {item} = this.props;
 		if (nextProps.item !== item) {
 			if (item) {
-				item.removeListener('changed', this.itemChanged);
+				item.removeListener('change', this.itemChanged);
 			}
 			this.fillIn(nextProps);
 		}
@@ -106,7 +106,7 @@ export default React.createClass({
 
 		let {item} = props;
 		if (item) {
-			item.addListener('changed', this.itemChanged);
+			item.addListener('change', this.itemChanged);
 		}
 
 		let sections = item ? this.resolveSections(item) : [];

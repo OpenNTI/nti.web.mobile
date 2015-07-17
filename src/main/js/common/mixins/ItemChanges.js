@@ -30,12 +30,12 @@ export default {
 
 
 	listen (item) {
-		item.addListener('changed', this.itemChanged);
+		item.addListener('change', this.itemChanged);
 	},
 
 
 	stopListening (item) {
-		item.removeListener('changed', this.itemChanged);
+		item.removeListener('change', this.itemChanged);
 	},
 
 
