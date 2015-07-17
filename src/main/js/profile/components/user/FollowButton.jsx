@@ -1,43 +1,67 @@
 import React from 'react';
-import Loader from 'common/components/TinyLoader';
+
+import cx from 'classnames';
+
 import PromiseButton from 'common/components/PromiseButton';
+
+import ItemChanges from 'common/mixins/ItemChanges';
+
 import {resolve} from 'common/utils/user';
 
 export default React.createClass({
 	displayName: 'FollowButton',
+	mixins: [ItemChanges],
 
 	propTypes: {
-		username: React.PropTypes.string.isRequired
+		entity: React.PropTypes.any.isRequired
 	},
 
-	getInitialState () {
-		return {
-			busy: true
-		};
+	componentDidMount () { this.setup(); },
+	componentWillReceiveProps (nextProps) {
+		if (this.props.entity !== nextProps.entity) {
+			this.setup(nextProps);
+		}
 	},
 
-	componentDidMount () {
-		this.getStatus();
+
+	getItem (_, state) {
+		return (state || {}).entity;
 	},
 
-	getStatus () {
-		resolve({username: this.props.username})
-			.then(user => {
-				this.setState({
-					user: user,
-					busy: false
-				});
-			});
+
+	setup (props = this.props) {
+		let {entity} = props;
+		//so far, entity is always the full object, but allow it to be a string...
+		resolve({entity})
+			.then(e => this.setState({entity: e}));
 	},
+
+
+	onClick () {
+		return this.state.entity.follow();
+	},
+
 
 	render () {
-
-		if (this.state.busy) {
-			return <Loader />;
+		//Get the entity on the state, not the props. See @setup() above.
+		let {entity} = this.state || {};
+		if (!entity) {
+			return null;
 		}
 
+		let {following} = entity;
+
+		let css = cx({
+			'follow-button': following,
+			'unfollow-button': !following
+		});
+
+		let text = following ? 'Unfollow' : 'Follow';
+
 		return (
-			<PromiseButton className="follow-button" text="Follow" />
+			<PromiseButton className={css} onClick={this.onClick}>
+				{text}
+			</PromiseButton>
 		);
 	}
 });

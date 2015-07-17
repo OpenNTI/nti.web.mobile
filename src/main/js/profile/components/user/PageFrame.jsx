@@ -2,7 +2,7 @@ import React from 'react';
 
 import LogoutButton from 'login/components/LogoutButton';
 
-// import FollowButton from './FollowButton';
+import FollowButton from './FollowButton';
 // import EditButton from './EditButton';
 
 import ActiveLink from 'common/components/ActiveLink';
@@ -42,8 +42,11 @@ export default React.createClass({
 							<li><DisplayName entity={entity}/></li>
 						</ul>
 						<ul className="profile-top-controls-buttons">
-							{me && <li><LogoutButton/></li>}
-							{/*<li>{me ? null : <FollowButton entity={entity} />}</li>*/}
+							<li>{me ? (
+								<LogoutButton/>
+							) : (
+								<FollowButton entity={entity} />
+							)}</li>
 						</ul>
 					</div>
 					<div className="profile">
