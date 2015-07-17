@@ -7,11 +7,11 @@
 /*eslint no-var: 0 strict: 0*/
 'use strict';
 var assign = require('object-assign');
-
+var path = require('path');
 var webpack = require('webpack');
 var CompressionPlugin = require('compression-webpack-plugin');
-var AppCachePlugin = require('../src/webpack-plugins/appcache');
-var statsCollector = require('../src/webpack-plugins/stats-collector');
+var AppCachePlugin = require('./plugins/appcache');
+var statsCollector = require('./plugins/stats-collector');
 
 var e = [];
 
@@ -27,7 +27,7 @@ cfg.forEach(function(o) { e.push(assign({}, o)); });
 
 
 e[0].plugins.unshift(
-	statsCollector(__dirname),
+	statsCollector(path.resolve(__dirname, '..')),
 	new AppCachePlugin({
 		cache: [
 			'page.html',
