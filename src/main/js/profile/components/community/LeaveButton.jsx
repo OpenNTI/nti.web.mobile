@@ -11,15 +11,22 @@ export default React.createClass({
 		entity: React.PropTypes.object.isRequired
 	},
 
-	render () {
 
+	onClick () {
 		let {entity} = this.props;
-		let promise = entity.leave.bind(entity);
+		let leaving = entity.leave();
 
+		leaving.then(this.redirectToProfile());
+
+		return leaving;
+	},
+
+
+	render () {
 		return (
-			<div>
-				<PromiseButton text="Leave Community" promise={promise} then={this.redirectToProfile} />
-			</div>
+			<PromiseButton onClick={this.onClick}>
+				Leave Community
+			</PromiseButton>
 		);
 	}
 });

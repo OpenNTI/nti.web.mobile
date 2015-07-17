@@ -1,62 +1,111 @@
 import React from 'react';
-import TinyLoader from 'common/components/TinyLoader';
+
 import cx from 'classnames';
 
-const NORMAL = 'normal',
-		PROCESSING = 'processing',
-		FINISHED = 'finished';
+import wait from 'nti.lib.interfaces/utils/wait';
+
+import TinyLoader from 'common/components/TinyLoader';
+
+const NORMAL = 'normal';
+const PROCESSING = 'processing';
+const FINISHED = 'finished';
+const FINISHED_ERROR = 'finished-error';
+
+const RESET_DELAY = 3000; //milliseconds
+const MIN_DELAY_BEFORE_FINISHING = 1000; //milliseconds
+
+function ensureDelayOf(delay, start) {
+	return (o) => {
+		let timeFromStart = (Date.now() - start);
+		let remaining = delay - timeFromStart;
+
+		if (remaining > 0) {
+			return wait(remaining).then(()=>o);
+		}
+		return o;
+	};
+}
 
 export default React.createClass({
 	displayName: 'PromiseButton',
 
 	propTypes: {
-		text: React.PropTypes.string,
-		promise: React.PropTypes.func.isRequired,
-		then: React.PropTypes.func
+		children: React.PropTypes.any,
+		className: React.PropTypes.string,
+
+		//The callback can return a promise if the work to be done will be async...
+		onClick: React.PropTypes.func
 	},
 
-	getInitialState: function() {
+
+	getDefaultProps () {
 		return {
-			status: NORMAL
+			onClick: () => wait(2000)
 		};
 	},
+
+
+	getInitialState () {
+		return {
+			status: NORMAL,
+			reset: void 0
+		};
+	},
+
 
 	reset() {
 		this.setState(this.getInitialState());
 	},
 
-	go() {
-		let {promise} = this.props;
-		this.setState({
-			status: PROCESSING
-		});
-		Promise.all([
-			promise(),
-			wait(1000) // ensure it takes long enough for the loader to show
-		]).then(result => {
-			this.setState({
-				status: FINISHED
-			});
 
-			let {then} = this.props;
-			if (typeof then === 'function') {
-				then(result[0]);
-			}
+	componentWillUnmount () {
+		//clearTimeout is safe to call on any value.
+		clearTimeout(this.state.reset);
+	},
 
-			let reset = this.reset.bind(this);
-			setTimeout(reset, 3000);
 
+	go(e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		//Ensure the react component has redrawn. (using setState's callback)
+		this.setState({ status: PROCESSING }, () => {
+
+			let start = Date.now();
+
+			// If the return value of onClick is not a promise, this will convert it,
+			// otherwize it will resolve with it transparently.
+			Promise.resolve(this.props.onClick.call())
+				// This helper function returns a function that when invoked ensires the
+				// time passed has been at least the amount specified from the start (second arg)
+				// It will pass the promise's resolution on. (we aren't using that, but it
+				// was written so it could be moved to a utility.)
+				.then(ensureDelayOf(MIN_DELAY_BEFORE_FINISHING, start))
+
+				.then(()=> FINISHED, ()=>FINISHED_ERROR) //handle promise rejection...
+
+				// Once the onClick task has been completed, set the state to finished
+				// and schedule the reset. If the component is unmounted before the reset,
+				// the componentWillUnmount can cancel the timer.
+				.then(status => {
+					this.setState({
+						status,
+						reset: setTimeout(()=>this.reset(), RESET_DELAY)
+					});
+				});
 		});
 	},
 
 	render () {
-
-		let css = cx('promise-button', this.state.status);
+		let {children, className} = this.props;
+		let css = cx('promise-button', className, this.state.status);
 
 		return (
 			<button className={css} onClick={this.go}>
 				<ul>
-					<li>{this.props.text || 'Go'}</li>
+					<li>{children}</li>
 					<li className="processing"><TinyLoader /></li>
 					<li className="finished"></li>
 				</ul>
@@ -64,9 +113,3 @@ export default React.createClass({
 		);
 	}
 });
-
-function wait(ms) {
-	return new Promise(function(resolve) {
-		setTimeout(resolve.bind(null, ms), ms);
-	});
-}
