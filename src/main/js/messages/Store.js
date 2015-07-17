@@ -13,38 +13,34 @@ let messages = {};
 
 let Store = Object.assign({}, EventEmitter.prototype, {
 
-	emitChange: function() {
+	emitChange () {
 		this.emit(Events.MESSAGES_CHANGE, this.messages());
 	},
 
 
-	addChangeListener: function(callback) {
+	addChangeListener (callback) {
 		this.on(Events.MESSAGES_CHANGE, callback);
 	},
 
 
-	removeChangeListener: function(callback) {
+	removeChangeListener (callback) {
 		this.removeListener(Events.MESSAGES_CHANGE, callback);
 	},
 
-	messages: function(options) {
-		let result = Object.keys(messages).map(function(key) {
-			return messages[key];
-		});
+	messages (options) {
+		let result = Object.keys(messages).map(key => messages[key]);
 		if(options && options.category) {
-			result = result.filter(function(v) {
-				return v.category === options.category;
-			});
+			result = result.filter(v => v.category === options.category);
 		}
 		return result;
 	},
 
-	clearMessages: function(category) {
+	clearMessages (category) {
 		if (Object.keys(messages).length === 0) {
 			return;
 		}
 		if(category) {
-			Object.keys(messages).forEach(function(key) {
+			Object.keys(messages).forEach(key => {
 				let m = messages[key];
 				if(m.category === category) {
 					delete messages[key];
@@ -78,7 +74,7 @@ function removeMessage(id) {
 }
 
 
-AppDispatcher.register(function(payload) {
+AppDispatcher.register(payload => {
 	let action = payload.action;
 	switch (action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.

@@ -6,7 +6,7 @@ export default React.createClass({
 
 	displayName: 'envrollment:NoOptions',
 
-	render: function() {
+	render () {
 		return (
 			<PanelButton href="../" linkText={t('BUTTONS.ok')}>
 				This course is not currently available for enrollment.

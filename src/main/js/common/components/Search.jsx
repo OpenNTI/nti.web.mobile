@@ -19,7 +19,7 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			onChange: function() {}
+			onChange () {}
 		};
 	},
 

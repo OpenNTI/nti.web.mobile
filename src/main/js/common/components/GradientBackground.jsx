@@ -15,11 +15,11 @@ export default React.createClass({
 		this.setBackground();
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		this.setBackground(nextProps);
 	},
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		this.removeBackground();
 	},
 

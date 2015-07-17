@@ -55,7 +55,7 @@ export default {
 		return me.promise;
 	},
 
-	deleteObject(o) {
+	deleteObject (o) {
 		let link = o && o.getLink && o.getLink('edit');
 		if (!link) {
 			console.error('No edit link. Ignoring delete request.');
@@ -66,20 +66,20 @@ export default {
 		});
 	},
 
-	reportItem(o) {
+	reportItem (o) {
 		return this[GetInterface]().then(f => f.reportItem(o));
 	},
 
 	// convenience method that just adds params to the getObjectContents call.
-	getTopicContents: function(topicId, batchStart=0, batchSize=50) {
+	getTopicContents (topicId, batchStart=0, batchSize=50) {
 		return this.getPagedContents(topicId, batchStart, batchSize);
 	},
 
-	getForumContents(forumId, batchStart, batchSize) {
+	getForumContents (forumId, batchStart, batchSize) {
 		return this.getPagedContents(forumId, batchStart, batchSize);
 	},
 
-	getPagedContents(ntiid, batchStart=0, batchSize=defaultBatchSize) {
+	getPagedContents (ntiid, batchStart=0, batchSize=defaultBatchSize) {
 		let params = Object.assign(
 			{},
 			defaultPagingParams,
@@ -88,7 +88,7 @@ export default {
 		return this.getObjectContents(ntiid, params);
 	},
 
-	getObjectContents: function(ntiid, params) {
+	getObjectContents (ntiid, params) {
 		return this.getObject(ntiid).then(object => {
 			return object.getContents(params).then(contents => {
 				return { object: object, contents: contents, params: params};
@@ -96,11 +96,11 @@ export default {
 		});
 	},
 
-	getObject: function(ntiid) {
+	getObject (ntiid) {
 		return this[GetInterface]().then(f => f.getObject(ntiid));
 	},
 
-	getObjects: function(ntiids) {
+	getObjects (ntiids) {
 		return this[GetInterface]().then(f => f.getObjects(ntiids));
 	}
 

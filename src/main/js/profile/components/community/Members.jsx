@@ -17,7 +17,7 @@ export default React.createClass({
 		nested: React.PropTypes.bool
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 		};
 	},

@@ -38,14 +38,14 @@ export default React.createClass({
 		basePath: React.PropTypes.string
 	},
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			privacyUrl: Store.getPrivacyUrl()
 		};
 	},
 
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: true,
 			preflightTimeoutId: null,
@@ -55,13 +55,13 @@ export default React.createClass({
 		};
 	},
 
-	[fullname]: function(tmpValues) {
+	[fullname] (tmpValues) {
 		let values = tmpValues || this.state.fieldValues;
 		return [values.fname, values.lname].join(' ');
 	},
 
 
-	[handleSubmit]: function(evt) {
+	[handleSubmit] (evt) {
 		evt.preventDefault();
 		if(Object.keys(this.state.errors).length > 0) {
 			return;
@@ -78,7 +78,7 @@ export default React.createClass({
 		return false;
 	},
 
-	storeChanged: function(event) {
+	storeChanged (event) {
 		let errs;
 		console.debug('SignupForm received Store change event: %O', event);
 		if (event.type === 'created') {
@@ -100,7 +100,7 @@ export default React.createClass({
 		this.setState({busy: false, errors: errs});
 	},
 
-	componentWillMount: function() {
+	componentWillMount () {
 		Store.getFormConfig().then(function(value) {
 			this.setState({
 				loading: false,
@@ -109,16 +109,16 @@ export default React.createClass({
 		}.bind(this));
 	},
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.addChangeListener(this.storeChanged);
 	},
 
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this.storeChanged);
 	},
 
-	[Events.ON_BLUR]: function(event) {
+	[Events.ON_BLUR] (event) {
 		let target = event.target;
 		let field = target.name;
 		let value = target.value;
@@ -146,13 +146,13 @@ export default React.createClass({
 		this[Events.ON_BLUR](event);
 	},
 
-	isSubmitEnabled: function() {
+	isSubmitEnabled () {
 		let state = this.state;
 		return !state.busy && Object.keys(state.errors).length === 0 &&
 				this[requiredFieldsFilled]();
 	},
 
-	[requiredFieldsFilled]: function() {
+	[requiredFieldsFilled] () {
 		let values = this.state.fieldValues;
 		return this.state.formConfig.every(function(fieldset) {
 			return fieldset.fields.every(function(field) {
@@ -161,7 +161,7 @@ export default React.createClass({
 		});
 	},
 
-	render: function() {
+	render () {
 		let state = this.state;
 		let enabled = this.isSubmitEnabled();
 

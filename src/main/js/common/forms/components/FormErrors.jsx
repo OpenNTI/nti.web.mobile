@@ -11,7 +11,7 @@ export default React.createClass({
 		errors: React.PropTypes.object
 	},
 
-	render: function() {
+	render () {
 
 		let messages = new Set();
 

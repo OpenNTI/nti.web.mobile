@@ -8,7 +8,7 @@ export const StateSelect = {
 			rel: 'fmaep.state.names'
 		}
 	},
-	withProps: function(props) {
+	withProps (props) {
 		return Object.assign({}, this.baseConfig, props);
 	}
 };
@@ -23,7 +23,7 @@ export const CountrySelect = {
 			rel: 'fmaep.country.names'
 		}
 	},
-	withProps: function(props) {
+	withProps (props) {
 		return Object.assign({}, this.baseConfig, props);
 	}
 };

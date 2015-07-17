@@ -40,13 +40,13 @@ export default React.createClass({
 
 	backingStore: Store,
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: true
 		};
 	},
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		AnalyticsStore.pushHistory(decodeFromURI(this.props.forumId));
 	},
 
@@ -66,7 +66,7 @@ export default React.createClass({
 		return <Link className="action-link create-topic" href="/newtopic/">{t('createTopic')}</Link>;
 	},
 
-	render: function() {
+	render () {
 
 		if (this.state.loading) {
 			return <Loading />;

@@ -28,7 +28,7 @@ const fields = [
 		ref: 'password2',
 		type: 'password',
 		placeholder: 'Verify Password',
-		getError: function(value, fieldValues) {
+		getError (value, fieldValues) {
 			return (value !== fieldValues.password) ? {message: 'Passwords do not match.'} : null;
 		}
 	}
@@ -45,7 +45,7 @@ export default React.createClass({
 		token: React.PropTypes.string
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			submitEnabled: false,
 			resetSuccessful: false,
@@ -53,11 +53,11 @@ export default React.createClass({
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount () {
 		Store.addChangeListener(this[storeChanged]);
 	},
 
-	[storeChanged]: function(event) {
+	[storeChanged] (event) {
 		if(event.type === Constants.events.PASSWORD_RESET_SUCCESSFUL) {
 			this.setState({
 				resetSuccessful: true
@@ -65,7 +65,7 @@ export default React.createClass({
 		}
 	},
 
-	[inputs]: function() {
+	[inputs] () {
 		return fields.map(function(fieldConfig) {
 
 			let err = errs[fieldConfig.ref];
@@ -84,7 +84,7 @@ export default React.createClass({
 		}.bind(this));
 	},
 
-	[fieldsValid]: function() {
+	[fieldsValid] () {
 		errs = {};
 		return fields.every(function(fieldConfig) {
 			let value = this.state.fieldValues[fieldConfig.ref];
@@ -100,11 +100,11 @@ export default React.createClass({
 		}.bind(this));
 	},
 
-	[validateInput]: function() {
+	[validateInput] () {
 		return this[fieldsValid]();
 	},
 
-	[inputChanged]: function(event) {
+	[inputChanged] (event) {
 		let newState = {};
 		newState[event.target.name] = event.target.value;
 		let tmp = Object.assign(this.state.fieldValues, newState);
@@ -113,7 +113,7 @@ export default React.createClass({
 		});
 	},
 
-	[handleSubmit]: function(event) {
+	[handleSubmit] (event) {
 		event.preventDefault();
 		let promise = Actions.resetPassword({
 			username: this.props.username,
@@ -126,7 +126,7 @@ export default React.createClass({
 		});
 	},
 
-	render: function() {
+	render () {
 
 		let button = <Button href="/" className="fi-arrow-left"> Return to Login</Button>;
 
@@ -161,4 +161,3 @@ export default React.createClass({
 	}
 
 });
-

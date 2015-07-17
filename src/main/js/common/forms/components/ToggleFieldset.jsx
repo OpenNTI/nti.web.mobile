@@ -16,7 +16,7 @@ export default React.createClass({
 		onChange: React.PropTypes.func
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		//FIXME: Re-write this:
 		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
 		// Additional Note: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
@@ -27,7 +27,7 @@ export default React.createClass({
 		};
 	},
 
-	[onToggle]: function(event) {
+	[onToggle] (event) {
 		let config = this.props.field;
 		let fs = event.target.checked ? config.fieldsetOn : config.fieldsetOff;
 		this.setState({
@@ -38,7 +38,7 @@ export default React.createClass({
 		}
 	},
 
-	render: function() {
+	render () {
 
 		let fieldset = this.state.fieldset;
 		let fields = (fieldset || {}).fields || [];

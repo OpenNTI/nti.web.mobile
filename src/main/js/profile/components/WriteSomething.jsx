@@ -13,19 +13,19 @@ export default React.createClass({
 		}).isRequired
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			edit: false
 		};
 	},
 
-	showEditor() {
+	showEditor () {
 		this.setState({
 			edit: true
 		});
 	},
 
-	hideEditor() {
+	hideEditor () {
 		this.setState({
 			edit: false
 		});
@@ -63,7 +63,7 @@ export default React.createClass({
 
 	render () {
 
-		let {busy, value, title, error} = this.state;
+		let {busy, error} = this.state;
 
 		if (error) {
 			return <Err error={error} />;

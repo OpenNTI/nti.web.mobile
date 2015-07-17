@@ -46,7 +46,7 @@ export default {
 	 *
 	 * @return {ReactElement} The Rendered Field
 	 */
-	renderField: function(translator, values, field) {
+	renderField (translator, values, field) {
 
 		let state = this.state;
 		let err = (state.errors || {})[field.ref];
@@ -129,7 +129,7 @@ export default {
 		);
 	},
 
-	renderFieldset: function(translator, values, fieldset, index) {
+	renderFieldset (translator, values, fieldset, index) {
 
 		let fieldRenderFn = this.renderField.bind(null, translator, values);
 
@@ -144,7 +144,7 @@ export default {
 		);
 	},
 
-	renderFormConfig: function(config, values, translator) {
+	renderFormConfig (config, values, translator) {
 		this[stashedTranslator] = translator; // stash for rendering related sub-forms later
 		let args = ['div', {className: 'form-render'}].concat(
 			config.map(
@@ -180,7 +180,7 @@ export default {
 		}
 	},
 
-	updateFieldValueState: function(event) {
+	updateFieldValueState (event) {
 		let target = event.target;
 		let field = target.name;
 		let value = target.value;
@@ -194,7 +194,7 @@ export default {
 		}
 	},
 
-	addFormatters: function() {
+	addFormatters () {
 		let i;
 		let ref;
 		let format;

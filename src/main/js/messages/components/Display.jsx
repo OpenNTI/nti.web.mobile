@@ -22,7 +22,7 @@ export default React.createClass({
 		category: React.PropTypes.string
 	},
 
-	[updateMessages]: function() {
+	[updateMessages] () {
 		if (this.isMounted()) {
 			let options = this.props.category ? {category: this.props.category} : null;
 			this.setState({messages: Store.messages(options)});
@@ -34,40 +34,39 @@ export default React.createClass({
 		//}
 	},
 
-	componentWillMount: function() {
+	componentWillMount () {
 		Store.addChangeListener(this[updateMessages]);
 		this[getMessages]();
 	},
 
-	componentWillReceiveProps: function() {
+	componentWillReceiveProps () {
 		this[getMessages]();
 	},
 
-	componentDidUnmount: function() {
+	componentDidUnmount () {
 		Store.removeChangeListener(this[updateMessages]);
 	},
 
-	[getMessages]: function() {
+	[getMessages] () {
 		let options = this.props.category ? {category: this.props.category} : null;
 		this.setState({
 			messages: Store.messages(options)
 		});
 	},
 
-	[dismiss]: function(component) {
+	[dismiss] (component) {
 		MessageActions.removeMessage(component.props.message.id);
 	},
 
-	render: function() {
+	render () {
 		if (this.state.messages.length === 0) {
 			return (<div />);
 		}
 		let dis = this[dismiss];
-		let msgs = this.state.messages.map(function(e) {
-			return (
-				<Alert key={'m' + e.id} message={e} dismiss={dis} />
-			);
-		});
+		let msgs = this.state.messages.map(e => (
+			<Alert key={'m' + e.id} message={e} dismiss={dis} />
+		));
+
 		return (
 			<ReactCSSTransitionGroup transitionName="messages">{msgs}</ReactCSSTransitionGroup>
 		);

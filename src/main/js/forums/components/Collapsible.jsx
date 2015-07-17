@@ -11,7 +11,7 @@ export default React.createClass({
 		children: React.PropTypes.any
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			collapsed: true
 		};

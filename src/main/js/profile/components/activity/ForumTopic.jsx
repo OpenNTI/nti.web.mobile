@@ -25,7 +25,7 @@ export default React.createClass({
 		item: React.PropTypes.any.isRequired
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			editing: false,
 			busy: false

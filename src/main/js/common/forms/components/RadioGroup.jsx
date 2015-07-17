@@ -39,7 +39,7 @@ export default React.createClass({
 		});
 	},
 
-	render: function() {
+	render () {
 		return (
 			<div className="radiogroup">
 				<p>{this.props.field.label}</p>

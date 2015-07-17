@@ -32,30 +32,30 @@ let returnPath;
 let LoginStore = Object.assign({}, EventEmitter.prototype, {
 	Properties: StoreProperties,
 
-	emitChange: function(evt) {
+	emitChange (evt) {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
 
-	addChangeListener: function(callback) {
+	addChangeListener (callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
 
-	removeChangeListener: function(callback) {
+	removeChangeListener (callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	canDoPasswordLogin: function() {
+	canDoPasswordLogin () {
 		return (Links.LOGIN_PASSWORD_LINK in links);
 	},
 
-	getPasswordRecoveryReturnUrl: function() {
+	getPasswordRecoveryReturnUrl () {
 		//'https://ou-alpha.nextthought.com/login/passwordrecover.html?return=https://ou-alpha.nextthought.com/app/&username=ray.hatfield&id=2f36ca6e7a5f4c5b9f54cea84b3c8ca1';
 		return Promise.resolve(Url.resolve(document.URL, '/login/passwordrecover.html'));
 	},
 
-	loginFormFields: function() {
+	loginFormFields () {
 		return [
 			{
 				ref: 'username',
@@ -70,11 +70,11 @@ let LoginStore = Object.assign({}, EventEmitter.prototype, {
 		];
 	},
 
-	setReturnPath: function(path) {
+	setReturnPath (path) {
 		returnPath = path;
 	},
 
-	getReturnPath: function() {
+	getReturnPath () {
 		return returnPath;
 	}
 

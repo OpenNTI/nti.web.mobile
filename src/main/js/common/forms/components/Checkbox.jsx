@@ -8,7 +8,7 @@ export default React.createClass({
 		field: React.PropTypes.object.isRequired
 	},
 
-	render: function() {
+	render () {
 		let config = this.props.field || {};
 		return (
 			<label>

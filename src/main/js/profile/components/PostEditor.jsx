@@ -13,12 +13,12 @@ export default React.createClass({
 		value: React.PropTypes.any
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount () {
 		this.setState({
 			title: this.props.title,
 			value: this.props.value
@@ -47,7 +47,7 @@ export default React.createClass({
 	},
 
 	render () {
-		let {busy, value, title, error} = this.state;
+		let {value, title} = this.state;
 		let disabled = Editor.isEmpty(value) || Editor.isEmpty(title);
 		return (
 			<div className="editor">

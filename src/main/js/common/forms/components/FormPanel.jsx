@@ -19,7 +19,7 @@ export default React.createClass({
 		title: React.PropTypes.string
 	},
 
-	getDefaultProps: function() {
+	getDefaultProps () {
 		return {
 			noValidate: true,
 			styled: true,
@@ -28,7 +28,7 @@ export default React.createClass({
 		};
 	},
 
-	render: function() {
+	render () {
 		let cssClasses = [];
 		let formClasses = '';
 		let headingClasses = '';
@@ -58,4 +58,3 @@ export default React.createClass({
 	}
 
 });
-

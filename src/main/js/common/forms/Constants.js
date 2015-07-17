@@ -10,9 +10,9 @@ export const AVAILABLE_FIELDS_CHANGED = 'forms:Available Fields Changed';
 
 /**
 	Constants for users of the RenderFormConfix mixin to declare event handlers, as in:
-	[ON_CHANGE]: function(event) { ... }
-	[ON_BLUR]: function(event) { ... }
-	[ON_FOCUS]: function(event) { ... }
+	[ON_CHANGE] (event) { ... }
+	[ON_BLUR] (event) { ... }
+	[ON_FOCUS] (event) { ... }
 */
 const prefix = 'FormConstants:';
 const ON_BLUR = prefix + 'ON_BLUR';
