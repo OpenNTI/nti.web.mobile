@@ -143,12 +143,10 @@
 			&.with-count {
 				overflow: hidden;
 				width: 30px;
-				// background-image: url(../images/counter_tip_default.png);
 
 
 				&.highlight-mouse-over{
 					color: #ffffff;
-					// background-image: url(../images/counter_tip_hover.png);
 				}
 
 				span {

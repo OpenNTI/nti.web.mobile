@@ -14,9 +14,9 @@
 		&.group-admin {
 			position: relative;
 			a::after {
+				@extend %avatar-admin-badge;
 				$badgesize: 1rem;
 				content: '';
-				background: url('../images/icons/admin_badge.png');
 				width: $badgesize;
 				height: $badgesize;
 				position: absolute;

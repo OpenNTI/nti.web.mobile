@@ -61,7 +61,11 @@
 			$avatarsize: 60px;
 			$iconsize: 32px;
 			$position: ($avatarsize - $iconsize)/2; // center in the 60x60 avatar space
-			background: url('../images/icons/chat-32-blue.png') $position $position no-repeat;
+			@extend %profile-card-chat-icon;
+			background: {
+				position: $position $position;
+				repeat: no-repeat;
+			}
 		}
 		ul.meta {
 			margin: 0;

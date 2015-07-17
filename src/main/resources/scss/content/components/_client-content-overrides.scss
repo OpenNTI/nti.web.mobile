@@ -158,8 +158,9 @@ widget {
 		height: 200px;
 
 		&.video {
-			/* background: {
-				image: url(../images/backdrops/whiteboard_error_loading_image.png);
+			/*
+			@extend %backdrops-whiteboard-error-loading-image ;; // ../images/backdrops/whiteboard_error_loading_image.png
+			background: {
 				repeat: no-repeat;
 				position: center 10px;
 			} */

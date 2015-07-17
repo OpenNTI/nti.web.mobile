@@ -70,7 +70,7 @@ section.right-small {
 		&.menu{
 			overflow: visible;
 			&::after {
-				
+
 				$size: .75rem;
 
 				backface-visibility: hidden;
@@ -98,11 +98,15 @@ section.right-small {
 			text-indent: -100rem;
 
 			&::after {
+				@extend %title-bar-logo;
 				content: '';
 				width: 32px;
 				height: 32px;
-				background: transparent url('../images/icons/logo.png') center center;
-				background-size: contain;
+				background: {
+					color: transparent;
+					position: center center;
+					size: contain;
+				}
 				position: absolute;
 				margin-top: -50%;
 				top: 50%;

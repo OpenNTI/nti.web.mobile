@@ -16,16 +16,16 @@ ul.social-links {
 			background-size: $size;
 			background-repeat: no-repeat;
 			&.social-twitter {
-				background-image: url('../images/icons/social/twitter.png');
+				@extend %profile-social-twitter;
 			}
 			&.social-facebook {
-				background-image: url('../images/icons/social/facebook.png');
+				@extend %profile-social-facebook;
 			}
 			&.social-googleplus {
-				background-image: url('../images/icons/social/google.png');
+				@extend %profile-social-googleplus;
 			}
 			&.social-linkedin {
-				background-image: url('../images/icons/social/linkedin.png');
+				@extend %profile-social-linkedin;
 			}
 		}
 	}
