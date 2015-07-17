@@ -9,9 +9,6 @@ import Button from 'common/forms/components/Button';
 
 import {makeHref as profileLink} from 'profile/components/ProfileLink';
 
-import {leaveGroup} from '../../Api';
-
-
 
 export default React.createClass({
 	displayName: 'GroupLeaveButton',
@@ -25,14 +22,13 @@ export default React.createClass({
 	updateStatus(props=this.props) {
 		let {entity} = props;
 		this.setState({
-			isMember: entity.getLink('my_membership')
+			isMember: entity.isMember
 		});
 	},
 
 	handleClick() {
-		leaveGroup(this.props.entity).then(() => {
-			this.redirectToProfile();
-		});
+		this.props.entity.leave()
+			.then(() => this.redirectToProfile());
 	},
 
 	redirectToProfile() {
@@ -42,7 +38,7 @@ export default React.createClass({
 	},
 
 	render () {
-		let isMember = !!this.props.entity.getLink('my_membership');
+		let {isMember} = this.props.entity;
 		if (!isMember) {
 			return null;
 		}

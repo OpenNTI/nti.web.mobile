@@ -7,7 +7,6 @@ import ObjectLink from './ObjectLink';
 import LuckyCharms from 'common/components/LuckyCharms';
 import PostEditor from '../PostEditor';
 import Loading from 'common/components/TinyLoader';
-import {savePost, deletePost} from '../../Api';
 import {areYouSure} from 'prompts';
 import t from 'common/locale';
 
@@ -38,20 +37,14 @@ export default React.createClass({
 		});
 	},
 
-	onSave (title, value) {
+	onSave (title, body) {
 		this.setState({
 			busy: true
 		});
 		let {item} = this.props;
-		savePost(item.headline, {
-			title: title,
-			body: value
-		})
-		.then( result => {
-			// update the copy we're using in the view so we don't have to reload the stream
-			Object.assign(item.headline, {title: result.title, body: result.body});
-			this.setState(this.getInitialState());
-		});
+		item.headline
+			.save({title, body})
+			.then(() => this.setState(this.getInitialState()));
 	},
 
 	storeChange (event) {
@@ -59,12 +52,8 @@ export default React.createClass({
 	},
 
 	deleteClicked() {
-		areYouSure(t('FORUMS.deleteTopicPrompt')).then(() => {
-			deletePost(this.props.item)
-			.then(result => {
-				console.debug(result);
-			});
-		});
+		areYouSure(t('FORUMS.deleteTopicPrompt')).then(() =>
+			this.props.item.delete());
 	},
 
 	render () {

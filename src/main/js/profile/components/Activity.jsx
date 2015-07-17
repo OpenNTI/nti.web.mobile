@@ -10,7 +10,7 @@ import HasItems from './activity/HasItems';
 import Card from './Card';
 import Joined from './activity/Joined';
 import WriteSomething from './WriteSomething';
-import ProfileStore from '../Store';
+
 
 export default React.createClass({
 	displayName: 'Activity',
@@ -30,7 +30,6 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.setupStore();
-		ProfileStore.addChangeListener(this.profileStoreChange);
 	},
 
 
@@ -48,7 +47,6 @@ export default React.createClass({
 		if (store) {
 			store.removeListener('change', this.onStoreChange);
 		}
-		ProfileStore.removeChangeListener(this.profileStoreChange);
 	},
 
 
