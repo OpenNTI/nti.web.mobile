@@ -52,8 +52,8 @@ export default React.createClass({
 		let {following} = entity;
 
 		let css = cx({
-			'follow-button': following,
-			'unfollow-button': !following
+			'follow-button': !following,
+			'unfollow-button': following
 		});
 
 		let text = following ? 'Unfollow' : 'Follow';
