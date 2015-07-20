@@ -1,4 +1,5 @@
 import React from 'react';
+import t from 'common/locale';
 
 export default React.createClass({
 	displayName: 'ContentWidgetUnknown',
@@ -7,7 +8,7 @@ export default React.createClass({
 		item: React.PropTypes.object
 	},
 
-	componentDidUpdate () {
+	componentDidMount () {
 		if (typeof document === 'undefined') { return; }
 
 		let {type} = this.props.item;
@@ -21,7 +22,9 @@ export default React.createClass({
 
 	render () {
 		return (
-			<error className="unsupported-content"><span>This content is not supported by your version of the application.</span></error>
+			<error className="unsupported-content">
+				<span>{t('COMING_SOON.singular', {subject: 'This content'})}</span>
+			</error>
 		);
 	}
 });
