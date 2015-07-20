@@ -23,16 +23,14 @@ export default {
 		if (size === set.size) {
 			console.error('Did not remove anything.');
 		}
-
-		this[notify]();
 	},
 
 
 	[notify] () {
 		let children = this[Children] || {size: 0};
-		// console.debug('Notify', children.size, (this.constructor || {}).displayName);
+		// console.debug('Wants to Notify', children.size, (this.constructor || {}).displayName);
 		if (children.size === 0) {
-			// console.debug('Notify', (this.constructor || {}).displayName);
+			console.debug('Notify', (this.constructor || {}).displayName, this.isMounted());
 			Actions.setContext(this);
 		}
 	},
