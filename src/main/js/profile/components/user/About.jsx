@@ -1,6 +1,5 @@
 import React from 'react';
 
-import EmptyList from 'common/components/EmptyList';
 import Loading from 'common/components/TinyLoader';
 
 import {scoped} from 'common/locale';
@@ -16,10 +15,6 @@ const t = scoped('PROFILE.ABOUT.SECTIONTITLES');
 
 let sections = ['about', 'education', 'positions', 'interests'];
 
-function hasValue (s) {
-	return Array.isArray(s) ? s.length > 0 : s != null;
-}
-
 export default React.createClass({
 	displayName: 'About',
 
@@ -32,15 +27,10 @@ export default React.createClass({
 	render () {
 
 		let {entity} = this.props;
-		// let empty = !sections.reduce((result, section)=> result || hasValue(entity[section]), false);
 
 		if (!entity) {
 			return <Loading />;
 		}
-
-		// if (empty) {
-		// 	return ( <EmptyList type="user-details"/> );
-		// }
 
 		return (
 			<ProfileBodyContainer className="profile-about-body">

@@ -16,7 +16,6 @@ export default React.createClass({
 	mixins: [NavigatableMixin, ContextSender],
 
 	propTypes: {
-		course: React.PropTypes.object.isRequired,
 		VideoIndex: React.PropTypes.object
 	},
 
@@ -69,7 +68,7 @@ export default React.createClass({
 
 
 	render () {
-		let {course, VideoIndex} = this.props;
+		let {VideoIndex} = this.props;
 		let {icons} = this.state;
 
 		if(!VideoIndex || VideoIndex.length === 0) {

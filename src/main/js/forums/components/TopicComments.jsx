@@ -19,6 +19,7 @@ const showCommentAddedMessage = 'TopicComments:showCommentAddedMessage';
 const showJumpToLastPage = 'TopicComments:showJumpToLastPage';
 
 export default React.createClass({
+	displayName: 'TopicComments',
 
 	mixins: [Paging, StoreEvents],
 
@@ -27,6 +28,11 @@ export default React.createClass({
 		[COMMENT_ADDED] (event) {
 			this[commentAdded](event);
 		}
+	},
+
+	propTypes: {
+		topicId: React.PropTypes.string,
+		currentPage: React.PropTypes.string
 	},
 
 	componentDidMount () {

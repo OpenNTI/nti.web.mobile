@@ -51,6 +51,12 @@ export default React.createClass({
 	displayName: 'Router',
 	mixins: [BasePathAware],
 
+	propTypes: {
+		onBeforeNavigation: React.PropTypes.func,
+		onNavigation: React.PropTypes.func,
+		path: React.PropTypes.string
+	},
+
 
 	onBeforeNavigation () {
 		let action = this.props.onBeforeNavigation;

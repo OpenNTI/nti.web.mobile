@@ -8,7 +8,9 @@ export default React.createClass({
 		maskScreen: React.PropTypes.bool,
 		loading: React.PropTypes.bool,
 		message: React.PropTypes.string,
-		tag: React.PropTypes.string
+		tag: React.PropTypes.string,
+
+		children: React.PropTypes.any
 	},
 
 

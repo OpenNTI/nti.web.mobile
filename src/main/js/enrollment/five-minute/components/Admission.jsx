@@ -25,6 +25,11 @@ function getLink(o, k) {
 }
 
 export default React.createClass({
+	displayName: 'Admission',
+
+	propTypes: {
+		enrollment: React.PropTypes.object
+	},
 
 	getInitialState () {
 		return {

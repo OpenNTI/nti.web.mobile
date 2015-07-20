@@ -12,6 +12,13 @@ let getLabel = scoped('COURSE.SECTIONS');
 export default React.createClass({
 	displayName: 'course:Page',
 
+	propTypes: {
+		children: React.PropTypes.any,
+
+		course: React.PropTypes.object.isRequired
+	},
+
+
 	componentWillMount () {
 		let menu = [];
 		let {course} = this.props;

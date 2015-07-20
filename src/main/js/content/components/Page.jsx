@@ -12,6 +12,10 @@ let getLabel = scoped('CONTENT.SECTIONS');
 export default React.createClass({
 	displayName: 'course:Page',
 
+	propTypes: {
+		children: React.PropTypes.any
+	},
+
 	componentWillMount () {
 		this.setup();
 	},
