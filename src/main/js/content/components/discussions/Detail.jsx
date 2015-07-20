@@ -46,7 +46,7 @@ export default React.createClass({
 
 
 		return (
-			<div className="discussion-detail">
+			<div className={`discussion-${item.isReply() ? 'reply' : 'detail'}`}>
 				<div className="root">
 					<div className="author-info">
 						<Avatar entity={creator}/>

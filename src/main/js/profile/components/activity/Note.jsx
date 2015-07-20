@@ -29,11 +29,11 @@ export default React.createClass({
 		}
 
 		return (
-			<div className="activity discussion-detail">
+			<div className={`activity discussion-${item.isReply() ? 'reply' : 'detail'}`}>
 				<div className="note heading">
 					<ContentIcon item={item} />
 					<Breadcrumb item={item} />
-					<Context item={item}/>
+					{item.isReply() ? null : ( <Context item={item}/> )}
 				</div>
 				<Detail item={item} lite/>
 				{/*<Actions item={item}/> -- Comment count, [edit] [delete]*/}

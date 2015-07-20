@@ -79,62 +79,12 @@
 
 	.headline.post {
 		margin-top: 0;
-		padding-top: 1rem;
-	}
-
-	&.note {
-		padding: 0;
-
-		.note.heading {
-			border: none;
-			margin: 1rem 0 0 0;
-
-			&:after, &:before {
-				bottom: -1px;
-				left: 30px;
-				border: solid transparent;
-				content: " ";
-				height: 0;
-				width: 0;
-				position: absolute;
-				z-index: 1;
-			}
-
-			&:after {
-				border-color: rgba(255, 255, 255, 0);
-				border-bottom-color: #fff;
-				border-width: 8px;
-				margin-left: -8px;
-			}
-
-			&:before {
-				border-color: rgba(204, 204, 204, 0);
-				border-bottom-color: #ccc;
-				border-width: 9px;
-				margin-left: -9px;
-			}
-
-			.breadcrumb {
-				margin-bottom: 0.5rem;
-				padding-bottom: 0.5rem;
-			}
-
-			& > img {
-				position: absolute;
-				left: 0;
-				top: 0;
-			}
-
-			.context {
-				&.fragment {
-					max-height: 10rem;
-				}
-				overflow: hidden;
-				margin: 0;
-				clear: none;
-			}
+		// padding-top: 1rem;
+		.avatar {
+			top: 0;
 		}
 	}
+
 
 	& > h1 {
 		font-family: $body-font-family;
