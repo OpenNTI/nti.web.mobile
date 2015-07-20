@@ -12,11 +12,13 @@ export default React.createClass({
 	},
 
 
-	onClick () {
+	onClick (animationEnd) {
 		let {entity} = this.props;
 		let leaving = entity.leave();
 
-		leaving.then(this.redirectToProfile());
+
+		(animationEnd || leaving)
+			.then(() => this.redirectToProfile());
 
 		return leaving;
 	},
