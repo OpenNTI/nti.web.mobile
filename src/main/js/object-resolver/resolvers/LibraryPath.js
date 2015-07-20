@@ -11,25 +11,25 @@ const isPageInfo = RegExp.prototype.test.bind(/pageinfo$/i);
 
 
 const MIME_TYPES = {
-	'application/vnd.nextthought.courses.courseinstance': (o) => `/course/${encode(o.getID())}/`,
-	'application/vnd.nextthought.courses.courseoutlinecontentnode': (o) => `/lessons/${encode(o.getID())}/`,
-	'application/vnd.nextthought.community': (o) => `/profile/${encodeURIComponent(o.getID())}/activity/`,
-	'application/vnd.nextthought.forums.communityboard': () => '/discussions/',
+	'courses.courseinstance': (o) => `/course/${encode(o.getID())}/`,
+	'courses.courseoutlinecontentnode': (o) => `/lessons/${encode(o.getID())}/`,
+	'community': (o) => `/profile/${encodeURIComponent(o.getID())}/activity/`,
+	'forums.communityboard': () => '/discussions/',
 
-	'application/vnd.nextthought.forums.communityforum': (o, prev) => {
+	'forums.communityforum': (o, prev) => {
 		if (prev && /community$/i.test(prev.MimeType)) {
 			return `/${o.ID}/`;
 		}
 		return `/${encode(o.getID())}/`;
 	},
 
-	'application/vnd.nextthought.forums.communityheadlinetopic': (o) => {
-		console.debug(o);
+	'forums.communityheadlinetopic': (o) => {
+		// console.debug(o);
 		return `/${encode(o.getID())}/`;
 	},
 
-
-	'application/vnd.nextthought.relatedworkref': (o, prev, next) => {
+	'questionsetref': 'relatedworkref',
+	'relatedworkref': (o, prev, next) => {
 		let c = `/content/`;
 
 		if (o.isExternal) {
@@ -49,7 +49,7 @@ const MIME_TYPES = {
 	},
 
 
-	'application/vnd.nextthought.pageinfo': (o, prev, next, target) => {
+	'pageinfo': (o, prev, next, target) => {
 		let c = `${encode(o.getID())}/`;
 
 
@@ -65,7 +65,7 @@ const MIME_TYPES = {
 	},
 
 
-	'application/vnd.nextthought.ntivideoref': (o, prev, next, target) => {
+	'ntivideoref': (o, prev, next, target) => {
 		let c = `/videos/${encode(o.getID())}/`;
 		if(next && /pageinfo$/i.test(next.MimeType)) {
 			next[IGNORE] = true;
@@ -89,7 +89,7 @@ function getPathPart(targetObject, o, i, a) {
 		return '';
 	}
 
-	let p = MIME_TYPES[o.MimeType];
+	let p = MIME_TYPES[o.MimeType.replace(/application\/vnd\.nextthought\./, '')];
 	while(typeof p === 'string') {
 		p = MIME_TYPES[p];
 	}
