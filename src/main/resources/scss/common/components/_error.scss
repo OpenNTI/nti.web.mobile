@@ -75,4 +75,9 @@ widget error {
 		text-decoration: none;
 		margin: 0 1rem 0 0;
 	}
+
+	&.unsupported-content {
+		background: $panel-background;
+		border-color: $border-grey;
+	}
 }

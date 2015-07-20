@@ -7,10 +7,21 @@ export default React.createClass({
 		item: React.PropTypes.object
 	},
 
-	render () {
+	componentDidUpdate () {
+		if (typeof document === 'undefined') { return; }
+
 		let {type} = this.props.item;
+		let dom = React.findDOMNode(this);
+
+		if (dom) {
+			dom.appendChild(
+				document.createComment(`Unknown Type: ${type}`));
+		}
+	},
+
+	render () {
 		return (
-			<error><span>Unknown Type:<br/>{type}</span></error>
+			<error className="unsupported-content"><span>This content is not supported by your version of the application.</span></error>
 		);
 	}
 });
