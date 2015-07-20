@@ -234,18 +234,22 @@
 
 .professional-position,
 .educational-experience {
-	.professional-position-company,
-	.educational-experience-school {
+
+	&:nth-child(1n+2) {
+		margin-top: 1rem;
+	}
+
+	.company,
+	.school {
 		font-size: 1rem;
 		font-weight: 700;
 		margin: 0;
 		font-family: $body-font-family;
 	}
-	.professional-position-title {
+	.title {
 
 	}
-	.professional-position-description,
-	.educational-experience-description {
+	.description {
 		font-style: italic;
 	}
 }

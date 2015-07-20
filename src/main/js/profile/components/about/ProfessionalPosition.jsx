@@ -15,11 +15,16 @@ export default React.createClass({
 
 	render () {
 		let {item} = this.props;
+		let years = [item.startYear, item.endYear].filter(x=>x).join(' – ');
+
 		return (
 			<div className="professional-position">
-				<div className="professional-position-company" dangerouslySetInnerHTML={{__html: item.companyName}}/>
-				<p><span className="title" dangerouslySetInnerHTML={{__html: item.title}}/>, <span className="years">{item.startYear} {item.endYear && <span>&ndash; {item.endYear}</span>}</span></p>
-				<div className="professional-position-description" dangerouslySetInnerHTML={{__html: item.description}} />
+				<div className="company" dangerouslySetInnerHTML={{__html: item.companyName}}/>
+				<div>
+					<span className="title" dangerouslySetInnerHTML={{__html: item.title}}/>
+					{years && years.length > 0 ? ( <span>, <span className="years">{years}</span></span>) : null}
+				</div>
+				<div className="description" dangerouslySetInnerHTML={{__html: item.description}} />
 			</div>
 		);
 	}
