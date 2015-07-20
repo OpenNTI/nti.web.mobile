@@ -30,7 +30,7 @@ export default React.createClass({
 			canJoin(entity) && this.renderJoinButton(entity)
 		];
 
-		return React.createElement('ul', {}, ...controls.filter(x=>x));
+		return React.createElement('ul', {className: 'profile-top-controls-buttons'}, ...controls.filter(x=>x));
 	},
 
 
