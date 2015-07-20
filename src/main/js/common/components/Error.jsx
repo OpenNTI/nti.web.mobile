@@ -9,15 +9,42 @@ export default React.createClass({
 		error: React.PropTypes.any
 	},
 
-
 	componentDidMount () {
-		let e = this.props.error;
-		console.error(e.stack || e.message || e.responseText || e);
+		this.log();
+	},
+
+
+	componentWillReceiveProps(props) {
+		if (this.props.error !== props.error) {
+			this.log(props);
+		}
+	},
+
+
+	log (props = this.props) {
+		let {error} = props;
+		console.error(error.stack
+					|| error.message
+					|| error.responseText
+					|| error);
+	},
+
+
+
+	isAccessError (props = this.props) {
+		let {error} = props;
+		if (error.statusCode != null) {
+			let code = parseInt(error.statusCode, 10);//just a precaution, should already be an int.
+			return (code > 400 && code < 404);
+		}
+
+		return false;
 	},
 
 
 	render () {
-		let error = this.props.error;
+		let {error} = this.props;
+		let label = 'Error';
 		let message = error.stack || error.message || error.responseText || error || '';
 
 		if (isHTML.test(message)) {
@@ -26,11 +53,16 @@ export default React.createClass({
 			);
 		}
 
+		if (this.isAccessError()) {
+			label = 'Access was denied.';
+			message = 'We\'re sorry, but you do not have access to this content.';
+		}
+
 		return (
 			<figure className="error">
 				<div className="m glyph fi-alert"></div>
 				<figcaption>
-					Error
+					{label}
 					<div>{message}</div>
 				</figcaption>
 			</figure>
