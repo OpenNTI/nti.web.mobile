@@ -48,7 +48,8 @@ export default {
 		'emptyList:library-courses': 'You don\'t have any courses yet.',
 		'emptyList:videos': 'No videos.',
 		'emptyList:activity': 'No Activity.',
-		'emptyList:user-details': 'Empty Profile :(\nNo additional profile information available.'
+		'emptyList:user-details': 'Empty Profile :(\nNo additional profile information available.',
+		'emptyList:memberships': 'No memberships'
 	},
 
 	CONTENT: content,

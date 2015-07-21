@@ -1,6 +1,7 @@
 import React from 'react';
 
 import MembershipList from './MembershipList';
+import EmptyList from 'common/components/EmptyList';
 
 export default React.createClass({
 	displayName: 'Memberships',
@@ -89,6 +90,7 @@ export default React.createClass({
 			<div className="profile-memberships">
 				<MembershipList list={communities} title="Communities" preview={preview}/>
 				<MembershipList list={groups} title="Groups" preview={preview}/>
+				{communities.length + groups.length === 0 && <EmptyList type="memberships" />}
 			</div>
 		);
 	}
