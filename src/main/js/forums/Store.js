@@ -23,6 +23,16 @@ class Store extends StorePrototype {
 			packageId: undefined
 		});
 
+		//FIXME: Stores respond to Action's results and store. period.
+		// Actions should not be hollow shells that dispatch commands.
+		// Actions should do the heavy lifting and calling the Api,
+		// and dispatching finalized data for the store to apply
+		// synchronously.
+		//
+		// No method, nor function within the entire FILE of a Store
+		//  should have any "Action"-like behavior. Nor should there
+		//  ever be Action/Api imports in a Store.
+		//  The Store is the File. Not the Export.
 		this.registerHandlers({
 			[Constants.GET_COMMENT_REPLIES] (payload) {
 				getCommentReplies(payload.action.comment);
