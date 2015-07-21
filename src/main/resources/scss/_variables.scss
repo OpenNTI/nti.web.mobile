@@ -284,12 +284,7 @@ $tabs-navigation-font-color: $primary-grey;
   transform: translate3d(0,-50%, 0);
 }
 
-
-@mixin viewportWidth($rule, $value) {
-	$w: $value;
-	#{$rule}: #{$w}vw;
-	$factor: $w/100;
-
+@mixin viewports($rule, $factor) { // used by viewportWidth and viewportHeight, below.
 	//iOS 7 fix:
 	// iPad with portrait orientation.
 	@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait){
@@ -322,3 +317,19 @@ $tabs-navigation-font-color: $primary-grey;
 	}
 	//iPhone 6's never had iOS7 on them.
 }
+
+@mixin viewportWidth($rule, $value) {
+	$w: $value;
+	#{$rule}: #{$w}vw;
+	$factor: $w/100;
+	@include viewports($rule, $factor)
+}
+
+
+@mixin viewportHeight($rule, $value) {
+	$h: $value;
+	#{$rule}: #{$h}vh;
+	$factor: $h/100;
+	@include viewports($rule, $factor)
+}
+
