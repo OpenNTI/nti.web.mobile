@@ -43,12 +43,13 @@ let Source = React.createClass({
 
 
 	componentWillMount () {
-		this.setState({id: guid()});
+		let id = guid();
+		this.setState({id});
+		this.updateURL(this.props, id);
 	},
 
 
 	componentDidMount () {
-		this.updateURL(this.props);
 		MESSAGES.add(this.onMessage);
 	},
 
@@ -63,7 +64,7 @@ let Source = React.createClass({
 	},
 
 
-	buildURL (props) {
+	buildURL (props, id = this.state.id) {
 		let mediaSource = props.source;
 		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source;
 
@@ -71,9 +72,13 @@ let Source = React.createClass({
 			videoId = videoId[0];
 		}
 
+		if (!id) {
+			console.error('Player ID missing');
+		}
+
 		let args = {
 			api: 1,
-			player_id: this.state.id,//eslint-disable-line camelcase
+			player_id: id,//eslint-disable-line camelcase
 			//autopause: 0, //we handle this for other videos, but its nice we only have to do this for cross-provider videos.
 			autoplay: 0,
 			badge: 0,
@@ -87,8 +92,8 @@ let Source = React.createClass({
 	},
 
 
-	updateURL (props) {
-		let url = this.buildURL(props);
+	updateURL (props, id) {
+		let url = this.buildURL(props, id);
 		this.setState({
 			scope: url.split('?')[0],
 			playerURL: url
@@ -165,7 +170,7 @@ let Source = React.createClass({
 
 
 	render () {
-		if (this.isMounted() && !this.state.playerURL) {
+		if (!this.state.playerURL) {
 			return (<ErrorWidget error="No source"/>);
 		}
 

@@ -157,6 +157,11 @@ let Source = React.createClass({
 		let {autoPlay, id} = this.state;
 		let {source, deferred} = this.props;
 
+		if (!id) {
+			console.error('No ID');
+			return;
+		}
+
 		if (!source) {
 			return (<ErrorWidget error="No source"/>);
 		}
