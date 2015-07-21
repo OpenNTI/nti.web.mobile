@@ -118,20 +118,8 @@ export default React.createClass({
 
 				//get a reference to the dom node.
 				let el = React.findDOMNode(this.refs.rightMenu);
-				// resolve the rects around it and its parentNode.
-				let A = el && el.parentNode.getBoundingClientRect();
-				let B = el && el.getBoundingClientRect();
-
-				//The drawer's left edge will be at the parent's right edge...
-				//so if the drawer is stuck, it will not equal.
-				if (B && B.left !== A.right) {
-					//The only way to force a browser to recalculate its CSS layout,
-					//is to alter a style property that effects its measurments...
-					el.style.display = 'none';
-					//Let the style apply, so clear it on the next event pump...
-					setTimeout(()=> el.style.display = '', 0);
-				}
-
+				CSS.addClass(el, 'kill-transitions');
+				setTimeout(()=> CSS.removeClass(el, 'kill-transitions'), 0);
 			}, 550);
 
 

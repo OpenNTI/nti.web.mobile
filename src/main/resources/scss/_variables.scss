@@ -262,6 +262,10 @@ $tabs-navigation-font-color: $primary-grey;
 }
 
 
+.kill-transitions {
+	transition: none !important;
+}
+
 .coordinate-root {
 	position: relative;
 }
