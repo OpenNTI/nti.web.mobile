@@ -119,7 +119,7 @@ export default React.createClass({
 				//get a reference to the dom node.
 				let el = React.findDOMNode(this.refs.rightMenu);
 				CSS.addClass(el, 'kill-transitions');
-				setTimeout(()=> CSS.removeClass(el, 'kill-transitions'), 0);
+				setTimeout(()=> CSS.removeClass(el, 'kill-transitions'), 17/*one frame*/);
 			}, 550);
 
 
