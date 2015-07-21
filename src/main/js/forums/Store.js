@@ -3,8 +3,7 @@ import StorePrototype from 'common/StorePrototype';
 import * as Constants from './Constants';
 import indexForums from './utils/index-forums';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
-import Api from './Api';
-import {defaultPagingParams} from './Api';
+import {getObject, DEFAULT_PAGING_PARAMS} from './Api';
 
 import hash from 'object-hash';
 
@@ -99,7 +98,7 @@ class Store extends StorePrototype {
 			forumId,
 			Object.assign(
 				{},
-				defaultPagingParams,
+				DEFAULT_PAGING_PARAMS,
 				{batchStart, batchSize}
 			)
 		);
@@ -176,24 +175,23 @@ function getCommentReplies(comment) {
 
 function addComment(topic, parent, comment) {
 	return topic.addComment(comment, parent)
-	.then(
-		result => {
-			// getObjectContents()
-			store.commentAdded({
-				topic: topic,
-				parent: parent,
-				result: result
-			});
-		},
-		reason => {
-			console.error(reason);
-			store.commentError({
-				topic: topic,
-				parent: parent,
-				reason: reason
-			});
-		}
-	);
+		.then(
+			result => {
+				store.commentAdded({
+					topic: topic,
+					parent: parent,
+					result: result
+				});
+			},
+			reason => {
+				console.error(reason);
+				store.commentError({
+					topic: topic,
+					parent: parent,
+					reason: reason
+				});
+			}
+		);
 }
 
 /**
@@ -209,30 +207,30 @@ function addComment(topic, parent, comment) {
 function saveComment(payload) {
 	let {postItem, newValue} = payload.action;
 	return postItem.setProperties(newValue)
-	.then(result => {
-		store.commentSaved(result);
-	});
+		.then(result => {
+			store.commentSaved(result);
+		});
 }
 
 function createTopic(forum, topic) {
 	return forum.createTopic(topic)
-	.then(
-		result => {
-			store.emitChange({
-				type: Constants.TOPIC_CREATED,
-				topic: result,
-				forum: forum
-			});
-			getObjectContents(forum.getID());
-		},
-		reason => {
-			store.topicCreationError({
-				forum: forum,
-				topic: topic,
-				reason: reason
-			});
-		}
-	);
+		.then(
+			result => {
+				store.emitChange({
+					type: Constants.TOPIC_CREATED,
+					topic: result,
+					forum: forum
+				});
+				getObjectContents(forum.getID());
+			},
+			reason => {
+				store.topicCreationError({
+					forum: forum,
+					topic: topic,
+					reason: reason
+				});
+			}
+		);
 }
 
 function deleteTopic(topic) {
@@ -243,9 +241,8 @@ function deleteTopic(topic) {
 }
 
 function deleteObject(o) {
-	return Api.deleteObject(o).then(() => {
-		store.deleteObject(o);
-	});
+	return o.delete().then(() =>
+		store.deleteObject(o));
 }
 
 function deleteComment(comment) {
@@ -253,24 +250,19 @@ function deleteComment(comment) {
 }
 
 function getObjectContents(ntiid, params) {
-	return getObject(ntiid).then(object => {
-		return object.getContents(params).then(contents => {
-			store.setObjectContents(ntiid, contents);
-		});
-	});
-}
-
-function getObject(ntiid) {
-	return Api.getObject(ntiid).then(
-		object => {
+	return getObject(ntiid)
+		.then(object => {
 			store.setObject(ntiid, object);
 			return object;
-		});
+		})
+		.then(object => object.getContents(params))
+		.then(contents =>
+			store.setObjectContents(ntiid, contents));
 }
 
+
 function reportItem(item) {
-	return Api.reportItem(item)
-	.then((result) => {
+	return item.flag().then((result) => {
 		store.setObject(result.getID(), result);
 		store.emitChange({
 			type: Constants.ITEM_REPORTED,

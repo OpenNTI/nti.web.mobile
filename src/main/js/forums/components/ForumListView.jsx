@@ -15,7 +15,7 @@ import {clearLoadingFlag} from 'common/utils/react-state';
 import keyFor from '../utils/key-for-item';
 
 import Store from '../Store';
-import Api from '../Api';
+import {loadDiscussions} from '../Api';
 import {DISCUSSIONS_CHANGED} from '../Constants';
 
 import ForumBin from './widgets/ForumBin';
@@ -71,7 +71,7 @@ export default React.createClass({
 
 	load () {
 		let contentPackage = this[getContentPackage]();
-		Api.loadDiscussions(contentPackage)
+		loadDiscussions(contentPackage)
 			.then(
 				result => {
 					Store.setDiscussions(contentPackage.getID(), result);

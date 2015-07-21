@@ -5,7 +5,7 @@ import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
 
 import AnalyticsStore from 'analytics/Store';
 import * as Actions from '../Actions';
-import Api from '../Api';
+import {getTopicContents} from '../Api';
 import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID} from '../Constants';
 import {TOPIC_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
@@ -151,22 +151,22 @@ export default React.createClass({
 	},
 
 	[loadData] (topicId=this.props.topicId) {
-		return Api.getTopicContents(topicId, this.batchStart(), this.getPageSize())
-		.then(
-			result => {
-				Store.setObject(topicId, result.object);
-				Store.setObjectContents(topicId, result.contents);
-				this.setState({
-					item: result.object,
-					itemContents: result.contents
-				});
-			},
-			reason => {
-				this.setState({
-					error: reason
-				});
-			}
-		);
+		return getTopicContents(topicId, this.batchStart(), this.getPageSize())
+			.then(
+				result => {
+					Store.setObject(topicId, result.object);
+					Store.setObjectContents(topicId, result.contents);
+					this.setState({
+						item: result.object,
+						itemContents: result.contents
+					});
+				},
+				reason => {
+					this.setState({
+						error: reason
+					});
+				}
+			);
 	},
 
 	analyticsContext () {

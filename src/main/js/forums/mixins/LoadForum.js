@@ -1,4 +1,4 @@
-import Api from '../Api';
+import {getForumContents} from '../Api';
 import Store from '../Store';
 import {OBJECT_CONTENTS_CHANGED} from '../Constants';
 
@@ -38,14 +38,15 @@ export default {
 	},
 
 	[loadData] (forumId) {
-		Api.getForumContents(forumId, paging.batchStart(), paging.getPageSize())
-		.then(result => {
-			Store.setObject(forumId, result.object);
-			Store.setObjectContents(forumId, result.contents, result.params);
-		},
-		reason => {
-			Store.setObject(forumId, reason);
-			Store.setObjectContents(forumId, reason);
-		});
+		getForumContents(forumId, paging.batchStart(), paging.getPageSize())
+			.then(
+				result => {
+					Store.setObject(forumId, result.object);
+					Store.setObjectContents(forumId, result.contents, result.params);
+				},
+				reason => {
+					Store.setObject(forumId, reason);
+					Store.setObjectContents(forumId, reason);
+				});
 	}
 };

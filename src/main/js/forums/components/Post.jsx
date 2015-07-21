@@ -22,7 +22,7 @@ import List from './List';
 
 import {OBJECT_DELETED, POST, COMMENT_FORM_ID} from '../Constants';
 import Store from '../Store';
-import Api from '../Api';
+import {getObjects} from '../Api';
 
 const objectDeletedHandler = 'Post:objectDeletedHandler';
 
@@ -81,8 +81,7 @@ export default React.createClass({
 	doLoad (thePostId) {
 		let postId = decodeFromURI(thePostId || this.getItemId());
 		let topicId = decodeFromURI(this.props.topicId);
-		Api.getObjects([postId, topicId])
-		.then(
+		getObjects([postId, topicId]).then(
 			result => {
 				result.forEach(object => {
 					Store.setObject(object.getID(), object);

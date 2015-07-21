@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-component';
 import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
 
-import Api from '../Api';
+import {getTopicContents} from '../Api';
 import Err from 'common/components/Error';
 import List from './List';
 import Loading from 'common/components/TinyLoader';
@@ -74,24 +74,24 @@ export default React.createClass({
 	},
 
 	[loadData] (topicId=this.props.topicId) {
-		return Api.getTopicContents(topicId, this.batchStart(), this.getPageSize())
-		.then(
-			result => {
-				Store.setObject(topicId, result.object);
-				Store.setObjectContents(topicId, result.contents);
-				this.setState({
-					item: result.object,
-					itemContents: result.contents,
-					loading: false
-				});
-			},
-			reason => {
-				this.setState({
-					loading: false,
-					error: reason
-				});
-			}
-		);
+		return getTopicContents(topicId, this.batchStart(), this.getPageSize())
+			.then(
+				result => {
+					Store.setObject(topicId, result.object);
+					Store.setObjectContents(topicId, result.contents);
+					this.setState({
+						item: result.object,
+						itemContents: result.contents,
+						loading: false
+					});
+				},
+				reason => {
+					this.setState({
+						loading: false,
+						error: reason
+					});
+				}
+			);
 	},
 
 	jumpToLastPageMessage() {
