@@ -71,6 +71,7 @@ export default React.createClass({
 	mixins: [ContextSender, NavigatableMixin],
 
 	propTypes: {
+		VideoIndex: React.PropTypes.object.isRequired,
 		outlineId: React.PropTypes.string,
 		videoId: React.PropTypes.string,
 		course: React.PropTypes.object,
@@ -109,9 +110,10 @@ export default React.createClass({
 
 
 	componentDidUpdate () {
-		let {outlineId} = this.props;
+		let {outlineId, VideoIndex} = this.props;
 		let {video} = this.state;
-		let pageSource = video && video.getPageSource();
+
+		let pageSource = video && VideoIndex.getPageSource(video);
 
 		if (outlineId && pageSource) {
 			pageSource = pageSource.scoped(decodeFromURI(outlineId));
