@@ -15,7 +15,7 @@ export default React.createClass({
 
 	render () {
 		let {item, username, url} = this.state;
-		let date = item.getLastModified();
+		let date = this.getEventTime(item.headline);
 
 		return (
 			<li className="notification-item">
