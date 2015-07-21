@@ -85,6 +85,7 @@ export default React.createClass({
 
 
 	resolveBins (items) {
+		let isMounted = this.isMounted();
 		let lines = {};
 		let shouldRetry = false;
 		let {resolveRetyDelay} = this.state;
@@ -95,7 +96,7 @@ export default React.createClass({
 			resolveRetyDelay = void 0;
 		}
 
-		if (!items) { return; }
+		if (!items || !isMounted) { return; }
 
 		// console.debug('Resolving Bins');
 		for (let item of Object.values(items)) {
@@ -114,7 +115,7 @@ export default React.createClass({
 			}
 		}
 
-		if (shouldRetry) {
+		if (shouldRetry && isMounted) {
 			resolveRetyDelay = setTimeout(()=> this.resolveBins(items), 200);
 			lines = {};
 		}
