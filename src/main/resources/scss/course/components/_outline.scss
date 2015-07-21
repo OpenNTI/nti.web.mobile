@@ -38,6 +38,10 @@
 
 	li ul {margin-left: 0;}
 
+	li {
+		position: relative; // to get the chevron on the anchor below to line up.
+	}
+
 	li a {
 		display: block;
 		overflow: hidden;
@@ -47,6 +51,15 @@
 		color: $tertiary-grey;
 		&[href] {
 			color: $secondary-grey;
+			padding-right: 1em; // leave room for the chevron
+			&::after {
+				@extend %chevron-right;
+				position: absolute;
+				font-size: inherit;
+				right: .5em;
+				top: 50%;
+				transform: translateY(-44%); // 50% pulls it up a bit too high relative to the text.
+			}
 		}
 	}
 
