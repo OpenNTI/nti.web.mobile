@@ -2,4 +2,12 @@
 	background: linear-gradient(to bottom, makeTransparentColor($secondary-grey), makeTransparentColor($tertiary-grey));
 	padding: 0.625rem;
 	min-height: calc(100vh - 2.8125rem);
+	.gradient-bg-img {
+		position: fixed;
+		top: 0;
+		left: 0;
+		min-width: 100%;
+		min-height: 100%;
+		opacity: .8;
+	}
 }
