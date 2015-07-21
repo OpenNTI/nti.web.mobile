@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Avatar from 'common/components/Avatar';
+import Conditional from 'common/components/Conditional';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 import LuckyCharms from 'common/components/LuckyCharms';
@@ -34,13 +35,13 @@ const Panel = React.createClass({
 				) : (
 					<div className="body">
 						<LuckyCharms item={item}/>
-						<div className="author-info">
+						<Conditional condition={!item.placeholder} className="author-info">
 							<Avatar entity={creator}/>
 							<div className="meta">
 								<DisplayName entity={creator}/>
 								<div className="name-wrapper"/>
 							</div>
-						</div>
+						</Conditional>
 
 						<Body body={body}/>
 
@@ -49,10 +50,10 @@ const Panel = React.createClass({
 								<ReplyEditor item={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
 							</div>
 						) : (
-							<div className="footer">
+							<Conditional condition={!item.placeholder} className="footer">
 								<DateTime date={date} relative/>
 								<ItemActions item={item} isTopLevel onReply={this.showReplyEditor}/>
-							</div>
+							</Conditional>
 						)}
 					</div>
 				)}

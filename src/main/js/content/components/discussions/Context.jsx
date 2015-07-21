@@ -63,7 +63,7 @@ export default React.createClass({
 
 
 	updateContext (item) {
-		this.setState({error: null, found: false, loading: true});
+		this.setState({error: null, found: false, loading: true, scoped: false, fragment: false});
 
 		item.getContextData()
 			.then(x => x instanceof PageInfo ?

@@ -2,6 +2,7 @@ import React from 'react';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
+import Conditional from 'common/components/Conditional';
 import DisplayName from 'common/components/DisplayName';
 import DateTime from 'common/components/DateTime';
 
@@ -26,16 +27,16 @@ export default React.createClass({
 		let date = item.getLastModified();
 		let id = encodeForURI(item.getID());
 
-		let preview = (title && [title]) || body;
+		let preview = item.placeholder ? ['[Deleted]'] : ((title && [title]) || body);
 
 		return (
 			<a className="discussion-item" href={id}>
-				<DisplayName entity={creator}/>
+				{!item.placeholder && ( <DisplayName entity={creator}/> )}
 				<Panel className="snippet" body={preview} previewMode/>
-				<div className="footer">
+				<Conditional condition={!item.placeholder} className="footer">
 					<span>{t('comments', {count: replyCount})}</span>
 					<DateTime date={date} relative/>
-				</div>
+				</Conditional>
 			</a>
 		);
 	}

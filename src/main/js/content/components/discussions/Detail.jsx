@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Avatar from 'common/components/Avatar';
+import Conditional from 'common/components/Conditional';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 import LuckyCharms from 'common/components/LuckyCharms';
@@ -48,7 +49,7 @@ export default React.createClass({
 		return (
 			<div className={`discussion-${item.isReply() ? 'reply' : 'detail'}`}>
 				<div className="root">
-					<div className="author-info">
+					<Conditional condition={!item.placeholder} className="author-info">
 						<Avatar entity={creator}/>
 						<div className="meta">
 							<LuckyCharms item={item}/>
@@ -59,13 +60,13 @@ export default React.createClass({
 								<SharedWithList item={item}/>
 							</div>
 						</div>
-					</div>
+					</Conditional>
 
 					{!lite && ( <Context item={item}/> )}
 
-					<Body body={body}/>
+					{!item.placeholder && ( <Body body={body}/> )}
 
-					{!lite && (
+					{!lite && !item.placeholder && (
 						replying ? (
 							<ReplyEditor item={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
 						) : (
