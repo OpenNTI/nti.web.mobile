@@ -7,6 +7,8 @@ const UnregisterChild = 'context:child:unregister';
 const Children = 'context:children';
 const notify = 'context:notify';
 
+const CONTEXT_DATA = Symbol();
+
 export default {
 	mixins: [Contributor],
 
@@ -31,7 +33,12 @@ export default {
 		// console.debug('Wants to Notify', children.size, (this.constructor || {}).displayName);
 		if (children.size === 0) {
 			console.debug('Notify', (this.constructor || {}).displayName, this.isMounted());
-			Actions.setContext(this);
+			let context = this[CONTEXT_DATA];
+			if (context) {
+				Actions.setPageSource(...context);
+			} else {
+				Actions.setContext(this);
+			}
 		}
 	},
 
@@ -61,13 +68,16 @@ export default {
 		if (parent && parent[UnregisterChild]) {
 			parent[UnregisterChild](this);
 		}
+		delete this[CONTEXT_DATA];
 	},
 
 
 	setPageSource (pageSource, currentPage) {
 		let children = this[Children] || {size: 0};
+		let context = [pageSource, currentPage, this];
+		this[CONTEXT_DATA] = context;
 		if (children.size === 0) {
-			Actions.setPageSource(pageSource, currentPage, this);
+			Actions.setPageSource(...context);
 		}
 	}
 };
