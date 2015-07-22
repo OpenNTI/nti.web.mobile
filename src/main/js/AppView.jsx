@@ -38,6 +38,7 @@ export default React.createClass({
 
 
 	componentWillMount () {
+		//webpack's require
 		require('../resources/scss/app.scss');
 	},
 
@@ -66,19 +67,21 @@ export default React.createClass({
 
 
 	render () {
-		let path = this.props.path || location.href;
-		let isLoginView = /\/login/i.test(path);
+		let {mask} = this.state;
+		let {path} = this.props;
+		let isLoginView = /\/login/i.test(path || location.href);
 
 		let Wrapper = isLoginView ? 'div' : AppContainer;
 
-		if (this.state.mask) {
-			return <Loading message={this.state.mask}/>;
+		if (mask) {
+			return <Loading message={typeof mask === 'string' ? mask : void 0}/>;
 		}
+
 
 		return (
 			<CaptureClicks>
 				<Wrapper ref="frame">
-					<Router path={this.props.path} onBeforeNavigation={this.onBeforeNavigation}/>
+					<Router path={path} onBeforeNavigation={this.onBeforeNavigation}/>
 				</Wrapper>
 			</CaptureClicks>
 		);
