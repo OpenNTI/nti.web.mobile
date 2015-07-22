@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
-import {links as LinkConstants} from '../Constants';
+// import {links as LinkConstants} from '../Constants';
 
 import OAuthButton from './OAuthButtons';
 
@@ -12,7 +12,7 @@ export default React.createClass({
 
 		// filter the list of LoginConstants to include those that
 		// begin with OAUTH_LINK
-		let authlinks = Object.keys(LinkConstants)
+		let authlinks = []
 			.filter(k =>k.indexOf('OAUTH_LINK') === 0);
 
 		let buttons = [];
@@ -23,15 +23,15 @@ export default React.createClass({
 				<div>
 					<ReactCSSTransitionGroup transitionName="button">
 						{authlinks.forEach(linkKey => {
-							if (LinkConstants[linkKey] in props.links) {
-								buttons.push(
-									<OAuthButton
-										id={'login:rel:' + LinkConstants[linkKey]}
-										linkKey={linkKey}
-										link={props.links[LinkConstants[linkKey]]}
-										className={props.buttonClass} />
-								);
-							}
+
+							buttons.push(
+								<OAuthButton
+									id={'login:rel:' + linkKey}
+									linkKey={linkKey}
+									link={props.links[linkKey]}
+									className={props.buttonClass} />
+							);
+
 						})}
 					</ReactCSSTransitionGroup>
 				</div>

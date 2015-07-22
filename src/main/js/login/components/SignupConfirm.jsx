@@ -6,8 +6,7 @@ import Button from './Button';
 
 const t = scoped('LOGIN');
 
-import {messages as MessageConstants} from '../Constants';
-const {SIGNUP_CONFIRMATION} = MessageConstants;
+import {MESSAGE_SIGNUP_CONFIRMATION} from '../Constants';
 
 export default React.createClass({
 	displayName: 'SignupConfirm',
@@ -16,7 +15,7 @@ export default React.createClass({
 		return (
 			<div>
 				<div className="notice simple">
-					{t(SIGNUP_CONFIRMATION)}
+					{t(MESSAGE_SIGNUP_CONFIRMATION)}
 				</div>
 				<div className="medium-6 medium-centered columns">
 					<Button id="signup:confirm:yes" href="/signup/">

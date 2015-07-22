@@ -15,9 +15,6 @@ import soon from './partials/coming-soon';
 import profile from './partials/profile';
 
 export default {
-	GLOBAL: {
-		siteName: 'next thought'
-	},
 
 	UNITS: units,
 

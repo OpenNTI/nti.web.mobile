@@ -1,197 +1,145 @@
-import Store from '../Store';
-import LoginStoreProperties from '../StoreProperties';
+import React from 'react';
+
+import Conditional from 'common/components/Conditional';
+
+import StoreEvents from 'common/mixins/StoreEvents';
+
+import {scoped} from 'common/locale';
+
 import OAuthButtons from './OAuthButtons';
 import RecoveryLinks from './RecoveryLinks';
-import React from 'react';
-import * as Actions from '../Actions';
-import * as Constants from '../Constants';
-import {Link} from 'react-router-component';
-import {scoped} from 'common/locale';
+
+
+import {
+	LINK_ACCOUNT_CREATE,
+	MESSAGE_SIGNUP_CONFIRMATION
+} from '../Constants';
+
+import Store from '../Store';
+
+import {updateWithNewUsername} from '../Actions';
+
+const UPDATE_DELAY = Symbol();
+const UPDATE_DELAY_TIME = 150;
+
 let t = scoped('LOGIN');
 
-const pingDelayMs = 1000; // how long to buffer user input before sending another dataserver ping request.
-
-const handleSubmit = 'LoginForm:handleSubmit';
-const inputChanged = 'LoginForm:inputChanged';
-const onLoginStoreChange = 'LoginForm:onLoginStoreChange';
-const password = 'LoginForm:password';
-const passwordChanged = 'LoginForm:passwordChanged';
-const signupLink = 'LoginForm:signupLink';
-const updateSubmitButton = 'LoginForm:updateSubmitButton';
-const username = 'LoginForm:username';
-const usernameChanged = 'LoginForm:usernameChanged';
-
-
 export default React.createClass({
-
 	displayName: 'LoginForm',
+	mixins: [StoreEvents],
+
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		default () {
+			if (this.isMounted()) {
+				this.forceUpdate();
+			}
+		}
+	},
 
 	getInitialState () {
 		return {
 			username: '',
-			password: '',
-			submitEnabled: false,
-			timeoutId: null,
-			links: {}
+			password: ''
 		};
 	},
 
 
-	componentDidMount () {
-		console.log('LoginView::componentDidMount');
-		Store.addChangeListener(this[onLoginStoreChange]);
-		Actions.clearErrors({category: Constants.messages.category});
-	},
-
-
-	componentDidUpdate () {
-		let name = this[username]();
-		if (name && !this.state.timeoutId) {
-			this[usernameChanged]();
-		}
-	},
-
-
-	componentWillUnmount () {
-		console.log('LoginView::componentWillUnmount');
-		Store.removeChangeListener(this[onLoginStoreChange]);
-		Actions.clearErrors();
-		delete this.state.password;
-	},
-
-
-	[signupLink] () {
+	signupLink () {
 		// if we have a confirmation message show the confirmation view, otherwise go directly to signup
-		return t(Constants.messages.SIGNUP_CONFIRMATION, {fallback: 'missing'}) === 'missing' ? '/signup/' : '/signup/confirm';
+		return t(MESSAGE_SIGNUP_CONFIRMATION, {fallback: 'missing'}) === 'missing' ? '/signup/' : '/signup/confirm';
+	},
+
+
+	setError (error) {
+		console.error(error);
+		this.setState({error});
+	},
+
+
+	componentDidMount () {
+		let f = React.findDOMNode(this.refs.username);
+		if (f) {
+			f.focus();
+		}
 	},
 
 
 	render () {
-		let submitEnabled = this.state.submitEnabled;
-		let signup = this[signupLink]();
-
-		let fields = Store.loginFormFields().map(function(fieldConfig) {
-			return (
-				<input type={fieldConfig.type}
-						ref={fieldConfig.ref}
-						name={fieldConfig.ref}
-						autoCapitalize={false}
-						autoCorrect={false}
-						placeholder={fieldConfig.placeholder}
-						defaultValue={this.state[fieldConfig.ref]}
-						onChange={this[inputChanged]} />
-			);
-		}.bind(this));
-
 		return (
-
-			<div className="row">
-				<form className="login-form medium-6 medium-centered columns" onSubmit={this[handleSubmit]} noValidate>
-
+			<div className="login-wrapper">
+				<form ref="form" className="login-form" onSubmit={this.handleSubmit} noValidate>
+					<div className="header">next thought</div>
 					<fieldset>
-						<legend>Sign In</legend>
-						{fields}
-						<div>
-							<button
-								id="login:rel:password"
-								type="submit"
-								className={'small-12 columns tiny ' + (submitEnabled ? '' : 'disabled')}
-								disabled={!submitEnabled}
-							>{t('login')}</button>
+						<div className="field-container" data-title="Username">
+							<input ref="username"
+								name="username"
+								type="text"
+								placeholder="Username"
+								autoCorrect="off"
+								autoCapitalize="off"
+								tabIndex="1"
+								ariaLabel="Username"
+								auto=""
+								onChange={this.updateUsername}/>
 						</div>
-						<OAuthButtons links={this.state.links} buttonClass="small-12 columns" />
-						<div className="text-center">
-							<Link id="login:signup" href={signup}>{t('signup.link')}</Link>
+						<div className="field-container" data-title="Password">
+							<input ref="password"
+								name="password"
+								type="password"
+								autoComplete="off"
+								placeholder="Password"
+								tabIndex="2"
+								ariaLabel="Password"/>
 						</div>
 
+						<div className="submit-row">
+							<button id="login:rel:password" type="submit">{t('login')}</button>
+						</div>
+
+						<OAuthButtons links={this.state.links} />
+
+						<Conditional className="account-creation" condition={!!Store.getLink(LINK_ACCOUNT_CREATE)}>
+							<a id="login:signup" href={this.signupLink()}>{t('signup.link')}</a>
+						</Conditional>
 					</fieldset>
 
 					<RecoveryLinks links={this.state.links} />
-
 				</form>
-			</div>
 
+				<div className="links">
+					<a href="http://nextthought.com" id="about" title="About" target="_blank" tabIndex="9">About</a>
+					<a href="mailto:support@nextthought.com" id="help" title="Contact Support" target="_blank" tabIndex="10">Help</a>
+					<a href="https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM" target="_blank" title="NextThought Terms of Service and User Agreements" tabIndex="11">Terms</a>
+					<a href="https://docs.google.com/document/pub?id=1W9R8s1jIHWTp38gvacXOStsfmUz5TjyDYYy3CVJ2SmM" target="_blank" title="Learn about your privacy and NextThought" className="privacy" tabIndex="12">Privacy</a>
+				</div>
+			</div>
 		);
 	},
 
 
-	[inputChanged] (event) {
-		switch(event.target.name) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case 'username':
-				this[usernameChanged](event);
-			break;
-
-			case 'password':
-				this[passwordChanged](event);
-			break;
+	handleSubmit (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
 		}
+
+
+		return false;
 	},
 
 
-	/*
-	 * onChange handler for the username field. Triggers Actions.userInputChanged
-	 */
-	[usernameChanged] () {
-		clearTimeout(this.state.timeoutId);
-		let timeoutId = global.setTimeout(()=> {
-			console.log('timeout, firing userInputChanged: username: %s', this[username]());
-			Actions.userInputChanged({
-					credentials: {
-						username: this[username](),
-						password: this[password]()
-					}
-				});
-		},
-		pingDelayMs);
+	updateUsername (e) {
+		let username = e.target.value;
 
-		this.setState({timeoutId: timeoutId});
-	},
+		clearTimeout(this[UPDATE_DELAY]);
 
+		this[UPDATE_DELAY] = setTimeout(()=> {
 
-	[passwordChanged] (/*event*/) {
-		this[updateSubmitButton]();
-	},
+			this.inflightUpdate = updateWithNewUsername(username)
+				.catch(er => this.setError(er))
+				.then(() => delete this.inflightUpdate);
 
-
-	[handleSubmit] (evt) {
-		evt.preventDefault();
-		console.log('LoginView::_handleSubmit');
-		Actions.clearErrors();
-		Actions.logIn({
-			username: this[username](),
-			password: this[password]()
-		});
-	},
-
-
-	[username] () {
-		return React.findDOMNode(this.refs.username).value.trim();
-	},
-
-
-	[password] () {
-		return React.findDOMNode(this.refs.password).value.trim();
-	},
-
-
-	[updateSubmitButton] () {
-		this.setState({
-			submitEnabled:
-				this[username]().length > 0 &&
-				this[password]().length > 0 &&
-				Store.canDoPasswordLogin()
-		});
-	},
-
-
-	[onLoginStoreChange] (evt) {
-		console.log('LoginView::_onLoginStoreChange invoked %O', evt);
-		if (this.isMounted()) {
-			this[updateSubmitButton]();
-		}
-		if (evt && evt.property === LoginStoreProperties.links) {
-			this.setState({links: evt.value});
-		}
+		}, UPDATE_DELAY_TIME);
 	}
 });

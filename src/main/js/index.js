@@ -46,21 +46,23 @@ React.initializeTouchEvents(true);
 
 let basePath = (global.$AppConfig || {}).basepath || '/';
 
-let AppView = require('./AppView');
+import AppView from './AppView';
+
 let app = React.render(
 	React.createElement(AppView, {basePath: basePath}),
 	document.getElementById('content')
 );
 
 
-let LoginActions = require('login/Actions');
-let LoginStore = require('login/Store');
+import {LOGIN_STATE_CHANGED} from 'login/Constants';
+import LoginStore from 'login/Store';
+
 LoginStore.addChangeListener(evt => {
 	let loc = global.location || {};
 	let returnURL = QueryString.parse(loc.search).return;
-	if (evt && evt.property === LoginStore.Properties.isLoggedIn) {
-		if (evt.value) {
-			LoginActions.deleteTOS();
+
+	if (evt && evt.type === LOGIN_STATE_CHANGED) {
+		if (LoginStore.isLoggedIn) {
 			//app.navigate(returnURL || basePath, {replace:true});
 			loc.replace(returnURL || basePath);
 		}

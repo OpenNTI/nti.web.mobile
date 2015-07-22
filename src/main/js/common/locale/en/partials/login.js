@@ -1,19 +1,19 @@
 
 
 module.exports = {
-	login: 'Log In',
+	login: 'Sign In',
 	PasswordPlaceholder: 'Password',
 	UsernamePlaceholder: 'Username',
 	signup: {
 		submit: 'Create Account',
-		link: 'No account? Sign up.'
+		link: 'Create an Account.'
 	},
 	oauth: {
 		login: 'Log in with %(service)s'
 	},
 	forgot: {
-		username: 'Forgot Username?',
-		password: 'Forgot Password?',
+		username: 'username',
+		password: 'password',
 		recoverpassword: 'Reset Password',
 		recoverusername: 'Recover Username',
 		EmailAddressInvalid: 'The email address you have entered is not valid.',
