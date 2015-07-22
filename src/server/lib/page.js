@@ -83,7 +83,7 @@ export default function getPage(render) {
 				.replace(configValues, injectConfig.bind(this, cfg))
 				.replace(basepathreplace, basePathFix)
 				.replace(/<!--html:server-values-->/i, html)
-				.replace(/resources\/styles\.css/, 'resources/styles.css?rel='+encodeURIComponent(scriptFilename))
+				.replace(/resources\/styles\.css/, 'resources/styles.css?rel=' + encodeURIComponent(scriptFilename))
 				.replace(/js\/main\.js/, scriptFilename);
 
 		return out;
