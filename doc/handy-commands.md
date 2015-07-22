@@ -75,6 +75,9 @@ And `CHEM4970.csv` is a file with the forum content:
 ### educational experience
     echo '[{"MimeType":"application/vnd.nextthought.profile.educationalexperience", "school":"University of Wherever", "degree":"Masters in Study Hall", "startYear": "1991", "endYear":"1998", "description":"Description of studies"}]' | http -a ray.hatfield@gmail.com:test1234 PUT http://localhost:8082/dataserver2/users/ray.hatfield%40gmail.com/++fields++education
 
+### profile/about
+    echo '"This is the new about"' | http --auth ray.hatfield@gmail.com:test1234 PUT http://ray.local:8082/dataserver2/users/ray.hatfield%40gmail.com/++fields++about
+
 ## sync/update library
 
 If you haven't already:
