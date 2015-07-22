@@ -59,7 +59,7 @@ export default React.createClass({
 					<Loading />
 				</Conditional>
 
-				<Conditional condition={!loading && transcript} className="wrap">
+				<Conditional condition={!loading && !!transcript} className="wrap">
 					<Transcript transcript={transcript} />
 				</Conditional>
 

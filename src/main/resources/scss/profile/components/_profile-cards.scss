@@ -37,7 +37,7 @@
 
 	.avatar-heading {
 		position: relative;
-		.avatar {
+		& > .avatar {
 			$size: 60px;
 			position: absolute;
 			width: $size;
@@ -76,6 +76,11 @@
 				margin-right: 1em;
 			}
 		}
+
+		.chat-transcript {
+			margin: 0 0.625rem 0 -0.3125rem;
+		}
+
 	}
 
 	.headline.post {
