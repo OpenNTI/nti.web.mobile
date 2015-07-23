@@ -56,7 +56,7 @@
 		background: #fff;
 		position: absolute;
 		max-width: 300px;
-		min-height: 300px;
+		min-height: 250px;
 		width: 100%;
 
 		margin: 0;
@@ -68,6 +68,11 @@
 		top: 1rem;
 		left: 50%;
 		transform: translate3d(-50%, 0, 0);
+
+		input {
+			text-transform: none;
+			letter-spacing: normal;
+		}
 
 		@media screen and (min-height: 480px) {
 			top: 50%;
@@ -83,10 +88,11 @@
 		margin: 0 -1rem;
 		background: none;
 		border: 0;
-		& + .return-link {
-			display: block;
-			margin: 1.5rem 0;
-		}
+	}
+
+	a.return-link {
+		display: block;
+		margin: 1.5rem 0;
 	}
 
 	.oauth-login {
@@ -114,6 +120,40 @@
 		padding: 0;
 		margin: 0 1rem;
 		border: 0;
+
+		&.success {
+			color: $secondary-green;
+			padding: 5rem 0 1rem;
+			text-align: center;
+			position: relative;
+
+			&:before {
+				content: " ";
+				display: block;
+				border: solid 2.5rem $primary-green;
+				border-radius: 2.5rem;
+				height: 0;
+				width: 0;
+				position: absolute;
+				left: 50%;
+				top: 0;
+				margin-top: -.5rem;
+				transform: translateX(-50%);
+			}
+			&:after {
+				content: " ";
+				display: block;
+				width: 1.5rem;
+				height: 3rem;
+				border: solid #fff;
+				border-width: 0 0.3rem 0.3rem 0;
+				position: absolute;
+				left: 50%;
+				top: 0;
+				margin-top: -0.5rem;
+				transform: translate3d(-50%, 20%, 0) rotate(45deg);
+			}
+		}
 	}
 
 	.oauth-button,
@@ -129,6 +169,8 @@
 		// text-shadow: 0 -1px #87a000;
 		// background-image: linear-gradient(to top, #a4ce50 0%, #87b133 100%);
 
+		text-transform: none;
+		letter-spacing: normal;
 		font-size: 0.875rem;
 		font-weight: 600;
 		line-height: 2.6;

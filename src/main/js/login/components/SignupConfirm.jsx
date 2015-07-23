@@ -16,6 +16,7 @@ export default React.createClass({
 		return (
 			<div className="login-wrapper">
 				<div className="login-form no-zoom">
+					<div className="header">next thought</div>
 					<fieldset>
 						<div className="notice">
 							{t(MESSAGE_SIGNUP_CONFIRMATION)}
