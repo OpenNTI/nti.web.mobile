@@ -80,9 +80,9 @@ export default React.createClass({
 	formatError (error) {
 		let message = typeof error === 'string'
 			? error
-			: t(`LOGIN_ERROR.${error.statusCode}`, {fallback: 'missing'});
+			: t(`LOGIN_ERROR.${(error || {}).statusCode}`, {fallback: 'missing'});
 
-		if (message === 'missing') {
+		if (message === 'missing' && error != null) {
 			message = 'Unknown error';
 			console.error('Unknown error: %o', error);
 		}
