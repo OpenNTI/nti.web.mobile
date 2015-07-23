@@ -1,4 +1,4 @@
-import selectWidget from './';
+import selectWidget from './widgets/';
 import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 
 export default {
