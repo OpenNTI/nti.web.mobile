@@ -9,7 +9,10 @@ module.exports = {
 		link: 'Create an Account.'
 	},
 	oauth: {
-		login: 'Log in with %(service)s'
+		facebook: 'Log in with Facebook',
+		google: 'Log in with Google',
+		openid: 'Log in with OpenID',
+		linkedin: 'Log in with LinkedIn'
 	},
 	forgot: {
 		username: 'username',

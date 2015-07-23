@@ -56,6 +56,7 @@
 		background: #fff;
 		position: absolute;
 		max-width: 300px;
+		min-height: 300px;
 		width: 100%;
 
 		margin: 0;
@@ -71,9 +72,42 @@
 		@media screen and (min-height: 480px) {
 			top: 50%;
 			transform: translate3d(-50%, -50%, 0);
-			animation: bounceIn 0.5s 0.2s ease both;
+			&:not(.no-zoom) {
+				animation: bounceIn 0.5s 0.2s ease both;
+			}
 		}
 
+	}
+
+	.notice {
+		margin: 0 -1rem;
+		background: none;
+		border: 0;
+		& + .return-link {
+			display: block;
+			margin: 1.5rem 0;
+		}
+	}
+
+	.oauth-login {
+		background: {
+			color: none;
+			image: url(../images/login-oauth.png);
+			position: center 0;
+			size: 100%;
+			repeat: no-repeat;
+		}
+		padding: 15px 0 0 0;
+		margin: -1rem 0 0 0;
+		max-width: 100%;
+	}
+
+	.oauth-button {
+		display: block;
+		white-space: nowrap;
+		display: block;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	fieldset {
@@ -82,11 +116,11 @@
 		border: 0;
 	}
 
-
+	.oauth-button,
 	button{
 		vertical-align: middle;
 		padding: 0 20px;
-		margin: 10px 0 0 10px;
+		margin: 10px 0 0 0;
 
 		border-radius: 5px;
 		border: 1px solid $primary-blue;//#a8a8a8;

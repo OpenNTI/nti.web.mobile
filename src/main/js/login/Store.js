@@ -89,8 +89,23 @@ class Store extends StorePrototype {
 
 		return url;
 	}
-}
 
-console.debug('Login Instance');
+
+	getAvailableOAuthLinks () {
+		let {links = {}} = this.getData() || {};
+
+		let whiteList = [
+			// 'logon.facebook',
+			'logon.google',
+			'logon.linkedin.oauth1',
+			'logon.openid'
+		];
+
+		return whiteList
+			.map(rel => links[rel] && {[rel]: links[rel]})
+			.filter(x => x)
+			.reduce((a, b) => Object.assign(a, b), {});
+	}
+}
 
 export default new Store();

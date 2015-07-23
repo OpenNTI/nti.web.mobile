@@ -1,8 +1,9 @@
 import React from 'react';
 
+import {Link} from 'react-router-component';
+
 import {scoped} from 'common/locale';
 
-import Button from './Button';
 
 const t = scoped('LOGIN');
 
@@ -13,15 +14,21 @@ export default React.createClass({
 
 	render () {
 		return (
-			<div>
-				<div className="notice simple">
-					{t(MESSAGE_SIGNUP_CONFIRMATION)}
-				</div>
-				<div className="medium-6 medium-centered columns">
-					<Button id="signup:confirm:yes" href="/signup/">
-						<span>Create Account</span> <i className="fi-arrow-right" />
-					</Button>
-					<Button id="signup:confirm:no" href="/" className="fi-arrow-left"> Return to Login</Button>
+			<div className="login-wrapper">
+				<div className="login-form no-zoom">
+					<fieldset>
+						<div className="notice">
+							{t(MESSAGE_SIGNUP_CONFIRMATION)}
+						</div>
+
+						<Link id="signup:confirm:no" href="/" className="return-link fi-arrow-left"> Return to Login</Link>
+
+						<div className="account-creation">
+							<Link id="signup:confirm:yes" href="/signup/">
+								<span>Create an Account</span> <i className="fi-arrow-right" />
+							</Link>
+						</div>
+					</fieldset>
 				</div>
 			</div>
 		);

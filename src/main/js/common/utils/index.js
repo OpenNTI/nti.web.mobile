@@ -1,4 +1,5 @@
 /* global $AppConfig */
+import QueryString from 'query-string';
 import dataserver from 'nti.lib.interfaces';
 import forceCurrentHost from 'nti.lib.interfaces/utils/forcehost';
 
@@ -48,6 +49,12 @@ export function getBasePath () {
 		console.error('[DEPRECATED] utils:getBasePath() is replaced with the BasePath Mixin');
 	}
 	return $AppConfig.basepath;
+}
+
+
+export function getReturnURL() {
+	let loc = global.location || {};
+	return QueryString.parse(loc.search).return;
 }
 
 

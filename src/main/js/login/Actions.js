@@ -7,9 +7,7 @@ import Store from './Store'; //ONLY READ from the store!!
 import {
 	LOGIN_INIT_DATA,
 	LOGIN_PONG,
-	LOGIN_SUCCESS,
-
-	LINK_LOGOUT
+	LOGIN_SUCCESS
 } from './Constants';
 
 
@@ -53,4 +51,9 @@ export function logout() {
 		let url = s.getLogoutURL('/mobile/login/');
 		location.replace(url);
 	});
+}
+
+
+export function deleteTOS() { //silly
+	return getServer().deleteTOS();
 }

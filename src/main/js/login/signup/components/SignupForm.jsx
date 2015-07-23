@@ -16,12 +16,14 @@ import indexArrayByKey from 'nti.lib.interfaces/utils/array-index-by-key';
 
 import Store from '../Store';
 import Actions from '../Actions';
-import * as LoginActions from '../../Actions';
-import LoginStore from '../../Store';
+
+import {deleteTOS} from '../../Actions';
+
 
 import RenderFormConfigMixin from 'common/forms/mixins/RenderFormConfigMixin';
 import {RENDERED_FORM_EVENT_HANDLERS as Events} from 'common/forms/Constants';
 
+import {getReturnURL} from 'common/utils';
 
 const fullname = 'SignupForm:fullname';
 const requiredFieldsFilled = 'SignupForm:requiredFieldsFilled';
@@ -82,8 +84,8 @@ export default React.createClass({
 		let errs;
 		console.debug('SignupForm received Store change event: %O', event);
 		if (event.type === 'created') {
-			LoginActions.deleteTOS();
-			let returnPath = LoginStore.getReturnPath();
+			deleteTOS();
+			let returnPath = getReturnURL();
 			let path = returnPath || this.props.basePath;
 			window.location.replace(path);
 			return;

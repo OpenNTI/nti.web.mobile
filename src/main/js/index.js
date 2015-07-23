@@ -7,8 +7,6 @@ require('babel/polyfill');//applies hooks into global
 require('script!../resources/vendor/modernizr/modernizr.js');//injects a <script> into the html
 
 import FastClick from 'fastclick';
-import QueryString from 'query-string';
-
 
 import React from 'react';
 
@@ -16,7 +14,7 @@ import EventPluginHub from 'react/lib/EventPluginHub';
 import ResponderEventPlugin from 'common/thirdparty/ResponderEventPlugin';
 import TapEventPlugin from 'common/thirdparty/TapEventPlugin';
 
-import {overrideConfigAndForceCurrentHost, getServerURI} from 'common/utils';
+import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'common/utils';
 import OrientationHandler from 'common/utils/orientation';
 //import emptyFunction from 'react/lib/emptyFunction';
 //import preventOverscroll from 'common/thirdparty/prevent-overscroll';
@@ -58,13 +56,12 @@ import {LOGIN_STATE_CHANGED} from 'login/Constants';
 import LoginStore from 'login/Store';
 
 LoginStore.addChangeListener(evt => {
-	let loc = global.location || {};
-	let returnURL = QueryString.parse(loc.search).return;
+	let returnURL = getReturnURL();
 
 	if (evt && evt.type === LOGIN_STATE_CHANGED) {
 		if (LoginStore.isLoggedIn) {
 			//app.navigate(returnURL || basePath, {replace:true});
-			loc.replace(returnURL || basePath);
+			location.replace(returnURL || basePath);
 		}
 		else {
 			app.navigate(basePath + 'login/', {replace: true});

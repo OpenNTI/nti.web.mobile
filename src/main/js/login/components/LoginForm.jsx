@@ -1,7 +1,10 @@
 import React from 'react';
+import QueryString from 'query-string';
+
+import {Link} from 'react-router-component';
 
 import Conditional from 'common/components/Conditional';
-import Loading from 'common/components/TinyLoader';
+import Loading from 'common/components/Loading';
 
 import StoreEvents from 'common/mixins/StoreEvents';
 
@@ -51,6 +54,16 @@ export default React.createClass({
 	},
 
 
+	componentWillMount () {
+		if (typeof location !== 'undefined' && location.search) {
+			let query = QueryString.parse(location.search);
+			if (query.error) {
+				this.setError(query.error);
+			}
+		}
+	},
+
+
 	componentDidMount () {
 		this.updateUsername();
 		let f = React.findDOMNode(this.refs.username);
@@ -61,7 +74,9 @@ export default React.createClass({
 
 
 	formatError (error) {
-		let message = t(`LOGIN_ERROR.${error.statusCode}`, {fallback: 'missing'});
+		let message = typeof error === 'string'
+			? error
+			: t(`LOGIN_ERROR.${error.statusCode}`, {fallback: 'missing'});
 
 		if (message === 'missing') {
 			message = 'Unknown error';
@@ -80,45 +95,47 @@ export default React.createClass({
 		return (
 			<div className="login-wrapper">
 				<form ref="form" className="login-form" onSubmit={this.handleSubmit} noValidate>
-					<div className="header">next thought</div>
-					{error && ( <div className="message">{this.formatError(error)}</div>)}
-					<fieldset>
-						<div className="field-container" data-title="Username">
-							<input ref="username"
-								name="username"
-								type="text"
-								placeholder="Username"
-								autoCorrect="off"
-								autoCapitalize="off"
-								tabIndex="1"
-								ariaLabel="Username"
-								auto=""
-								onChange={this.updateUsername}/>
-						</div>
-						<div className="field-container" data-title="Password">
-							<input ref="password"
-								name="password"
-								type="password"
-								autoComplete="off"
-								placeholder="Password"
-								tabIndex="2"
-								ariaLabel="Password"
-								onChange={this.updatePassword}/>
-						</div>
+					{busy ? ( <Loading/> ) : (
+						<div>
+							<div className="header">next thought</div>
+							{error && ( <div className="message">{this.formatError(error)}</div>)}
+							<fieldset>
+								<div className="field-container" data-title="Username">
+									<input ref="username"
+										name="username"
+										type="text"
+										placeholder="Username"
+										autoCorrect="off"
+										autoCapitalize="off"
+										tabIndex="1"
+										ariaLabel="Username"
+										auto=""
+										onChange={this.updateUsername}/>
+								</div>
+								<div className="field-container" data-title="Password">
+									<input ref="password"
+										name="password"
+										type="password"
+										autoComplete="off"
+										placeholder="Password"
+										tabIndex="2"
+										ariaLabel="Password"
+										onChange={this.updatePassword}/>
+								</div>
 
-						<div className="submit-row">
-							<button id="login:rel:password" type="submit" disabled={disabled}>
-								{ busy ? ( <Loading/> ) : t('login') }
-							</button>
-						</div>
+								<div className="submit-row">
+									<button id="login:rel:password" type="submit" disabled={disabled}>
+										{t('login')}
+									</button>
+								</div>
 
-						<OAuthButtons />
+								<OAuthButtons />
 
-						<Conditional className="account-creation" condition={!!Store.getLink(LINK_ACCOUNT_CREATE)}>
-							<a id="login:signup" href={this.signupLink()}>{t('signup.link')}</a>
-						</Conditional>
-					</fieldset>
-
+								<Conditional className="account-creation" condition={!!Store.getLink(LINK_ACCOUNT_CREATE)}>
+									<Link id="login:signup" href={this.signupLink()}>{t('signup.link')}</Link>
+								</Conditional>
+							</fieldset>
+						</div>)}
 					<RecoveryLinks />
 				</form>
 
