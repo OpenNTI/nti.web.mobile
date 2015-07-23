@@ -59,7 +59,11 @@ class Store extends StorePrototype {
 	getData () {
 		let a = this[data];
 		let b = this[pong] || {};
+		// We want to keep annonymouse ping data prestine.
+		// Data from pong's change as we type and rappid
+		// fire, so only we keep the last one.
 
+		// So only merge pong data on request.
 		return a && Object.assign({}, a, b, {
 			links: Object.assign({},
 				a.links || {},

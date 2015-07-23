@@ -52,6 +52,11 @@ let app = React.render(
 );
 
 
+/**
+ * Login Store State Change listener.
+ * This is only responsible for reloading the app on the home url once logged in.
+ * The node service is responsible for enforcing auth-required pages.
+ */
 import {LOGIN_STATE_CHANGED} from 'login/Constants';
 import LoginStore from 'login/Store';
 
@@ -63,6 +68,14 @@ LoginStore.addChangeListener(evt => {
 			//app.navigate(returnURL || basePath, {replace:true});
 			location.replace(returnURL || basePath);
 		}
+
+		//Future idea: if we ever broadcast a login state changed event and
+		//the store reports not logged in (which it always will unless you
+		//go through the login process for now) we can client-side redirect
+		//to the login view.
+		//
+		//I currently have a better idea for this, so this block will
+		//probably just go unused.
 		else {
 			app.navigate(basePath + 'login/', {replace: true});
 		}
