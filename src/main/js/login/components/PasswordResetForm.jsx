@@ -1,40 +1,14 @@
-
-
 import React from 'react';
+import {Link} from 'react-router-component';
+import cx from 'classnames';
 
-import Button from './Button';
-import Store from '../Store';
-import PanelButton from 'common/components/PanelButton';
+import Conditional from 'common/components/Conditional';
+import Loading from 'common/components/Loading';
 
-import * as Constants from '../Constants';
-import * as Actions from '../Actions';
+import {getServer} from 'common/utils';
 import {scoped} from 'common/locale';
-let t = scoped('LOGIN.forgot');
 
-const fieldsValid = 'PasswordResetForm:fieldsValid';
-const handleSubmit = 'PasswordResetForm:handleSubmit';
-const inputChanged = 'PasswordResetForm:inputChanged';
-const inputs = 'PasswordResetForm:inputs';
-const storeChanged = 'PasswordResetForm:storeChanged';
-const validateInput = 'PasswordResetForm:validateInput';
-
-const fields = [
-	{
-		ref: 'password',
-		type: 'password',
-		placeholder: 'New Password'
-	},
-	{
-		ref: 'password2',
-		type: 'password',
-		placeholder: 'Verify Password',
-		getError (value, fieldValues) {
-			return (value !== fieldValues.password) ? {message: 'Passwords do not match.'} : null;
-		}
-	}
-];
-
-let errs = {};
+const t = scoped('LOGIN.forgot');
 
 export default React.createClass({
 
@@ -46,115 +20,103 @@ export default React.createClass({
 	},
 
 	getInitialState () {
-		return {
-			submitEnabled: false,
-			resetSuccessful: false,
-			fieldValues: {}
-		};
+		return {};
 	},
 
-	componentDidMount () {
-		Store.addChangeListener(this[storeChanged]);
-	},
 
-	[storeChanged] (event) {
-		if(event.type === Constants.events.PASSWORD_RESET_SUCCESSFUL) {
-			this.setState({
-				resetSuccessful: true
-			});
+	onInput () {
+		let {valid} = this.state;
+		let fields = this.getFieldValues();
+		let submitEnabled = Object.values(fields).every(x => x && x.trim().length > 0);
+
+		if (valid === false) {
+			let {password, password2} = fields;
+			valid = password === password2;
 		}
+
+		this.setState({submitEnabled, valid});
 	},
 
-	[inputs] () {
-		return fields.map(function(fieldConfig) {
 
-			let err = errs[fieldConfig.ref];
-			let cssClass = err ? 'error' : null;
-			let error = err ? <small className='error'>{err.message}</small> : null;
+	getFieldValues () {
+		let {password, password2} = (React.findDOMNode(this.refs.form) || {}).elements || {};
 
-			return (
-				<div key={fieldConfig.ref}><input type={fieldConfig.type}
-					ref={fieldConfig.ref}
-					name={fieldConfig.ref}
-					placeholder={fieldConfig.placeholder || fieldConfig.ref}
-					onChange={this[inputChanged]}
-					className={cssClass}
-					defaultValue='' />{error}</div>
-			);
-		}.bind(this));
+		let fields = {password, password2};
+
+		for (let key of Object.keys(fields)) {
+			fields[key] = fields[key].value;
+		}
+
+		return fields;
 	},
 
-	[fieldsValid] () {
-		errs = {};
-		return fields.every(function(fieldConfig) {
-			let value = this.state.fieldValues[fieldConfig.ref];
-			if((value || '').trim().length === 0) {
-				return false;
+
+	handleSubmit (e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		let {password, password2} = this.getFieldValues();
+
+		this.setState({error: null, busy: true}, () => {
+
+			if (password !== password2) {
+				this.setState({valid: false, busy: false});
+				return;
 			}
-			let fieldErr = fieldConfig.getError ? fieldConfig.getError(value, this.state.fieldValues) : null;
-			if(fieldErr) {
-				errs[fieldConfig.ref] = fieldErr;
-				return false;
-			}
-			return !fieldErr;
-		}.bind(this));
-	},
 
-	[validateInput] () {
-		return this[fieldsValid]();
-	},
 
-	[inputChanged] (event) {
-		let newState = {};
-		newState[event.target.name] = event.target.value;
-		let tmp = Object.assign(this.state.fieldValues, newState);
-		this.setState({
-			fieldValues: tmp
+			let {username, token} = this.props;
+			getServer().resetPassword(username, password, token)
+				.then(() => this.setState({success: true}))
+				.catch(x => {
+					let error = t(x.code, {fallback: x.message});
+					this.setState({error});
+				})
+				.then(() => this.setState({busy: false}));
 		});
 	},
 
-	[handleSubmit] (event) {
-		event.preventDefault();
-		let promise = Actions.resetPassword({
-			username: this.props.username,
-			password: this.state.fieldValues[fields[0].ref],
-			token: this.props.token
-		});
-
-		promise.catch(function(reason) {
-			console.debug(reason);
-		});
-	},
 
 	render () {
-
-		let button = <Button href="/" className="fi-arrow-left"> Return to Login</Button>;
-
-		if (this.state.resetSuccessful) {
-			return <PanelButton href="/" button={button}>{t('resetSuccessful')}</PanelButton>;
-		}
-
-		let buttonLabel = t('RESET_PW', {fallback: 'Reset Password'});
-		let cssClasses = ['tiny small-12 columns'];
-
-		let submitEnabled = this[validateInput]();
-		if (!submitEnabled) {
-			cssClasses.push('disabled');
-		}
+		let {busy, submitEnabled, success, error, valid = true} = this.state;
 
 		return (
-			<div className="row">
-				<form className="login-form large-6 large-centered columns" onSubmit={this[handleSubmit]}>
-					<fieldset>
-						<legend>Reset your password</legend>
-						{this[inputs]()}
-						<button
-							type="submit"
-							className={cssClasses.join(' ')}
-							disabled={!submitEnabled}
-						>{buttonLabel}</button>
-					</fieldset>
-					{button}
+			<div className="login-wrapper">
+				<form ref="form" className="login-form" onSubmit={this.handleSubmit}>
+					<div className="header">next thought</div>
+					<Conditional condition={!busy && !success}>
+						<Conditional condition={!!error} className="message">{error}</Conditional>
+						<Conditional condition={!error} className="message recover green">Create your new password.</Conditional>
+					</Conditional>
+
+					<Conditional condition={!!success && !busy} tag="fieldset" className="success">
+						Your password has been reset.
+						<Link id="login:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
+					</Conditional>
+
+					<Conditional condition={busy}>
+						<Loading/>
+					</Conditional>
+
+					<Conditional condition={!success && !busy} tag="fieldset">
+						<div className="field-container">
+							<input type="password" name="password" placeholder="New Password"
+								onChange={this.onInput} />
+						</div>
+						<div className="field-container">
+							<input type="password" name="password2" placeholder="Verify Password"
+								onChange={this.onInput} className={cx({error: !valid})} />
+							<Conditional condition={!valid} tag="small" className="error">
+								Passwords do not match.
+							</Conditional>
+						</div>
+						<div className="submit-row">
+							<button type="submit" disabled={!submitEnabled}>
+								{t('RESET_PW', {fallback: 'Reset Password'})}
+							</button>
+						</div>
+						<Link id="login:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
+					</Conditional>
 				</form>
 			</div>
 		);

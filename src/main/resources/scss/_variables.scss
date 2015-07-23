@@ -228,6 +228,9 @@ $tabs-navigation-font-color: $primary-grey;
 %icon-action-share {background-image: url(../images/icons/actions/share.png);}
 %icon-action-delete {background-image: url(../images/icons/actions/trash-can.png);}
 
+
+%login-header {background-image: url(../images/login-header.png);}
+
 %middot-before {
 	&::before {
 		content: '\00B7';
@@ -332,4 +335,3 @@ $tabs-navigation-font-color: $primary-grey;
 	$factor: $h/100;
 	@include viewports($rule, $factor)
 }
-

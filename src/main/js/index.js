@@ -7,8 +7,6 @@ require('babel/polyfill');//applies hooks into global
 require('script!../resources/vendor/modernizr/modernizr.js');//injects a <script> into the html
 
 import FastClick from 'fastclick';
-import QueryString from 'query-string';
-
 
 import React from 'react';
 
@@ -16,7 +14,7 @@ import EventPluginHub from 'react/lib/EventPluginHub';
 import ResponderEventPlugin from 'common/thirdparty/ResponderEventPlugin';
 import TapEventPlugin from 'common/thirdparty/TapEventPlugin';
 
-import {overrideConfigAndForceCurrentHost, getServerURI} from 'common/utils';
+import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'common/utils';
 import OrientationHandler from 'common/utils/orientation';
 //import emptyFunction from 'react/lib/emptyFunction';
 //import preventOverscroll from 'common/thirdparty/prevent-overscroll';
@@ -46,24 +44,38 @@ React.initializeTouchEvents(true);
 
 let basePath = (global.$AppConfig || {}).basepath || '/';
 
-let AppView = require('./AppView');
+import AppView from './AppView';
+
 let app = React.render(
 	React.createElement(AppView, {basePath: basePath}),
 	document.getElementById('content')
 );
 
 
-let LoginActions = require('login/Actions');
-let LoginStore = require('login/Store');
+/**
+ * Login Store State Change listener.
+ * This is only responsible for reloading the app on the home url once logged in.
+ * The node service is responsible for enforcing auth-required pages.
+ */
+import {LOGIN_STATE_CHANGED} from 'login/Constants';
+import LoginStore from 'login/Store';
+
 LoginStore.addChangeListener(evt => {
-	let loc = global.location || {};
-	let returnURL = QueryString.parse(loc.search).return;
-	if (evt && evt.property === LoginStore.Properties.isLoggedIn) {
-		if (evt.value) {
-			LoginActions.deleteTOS();
+	let returnURL = getReturnURL();
+
+	if (evt && evt.type === LOGIN_STATE_CHANGED) {
+		if (LoginStore.isLoggedIn) {
 			//app.navigate(returnURL || basePath, {replace:true});
-			loc.replace(returnURL || basePath);
+			location.replace(returnURL || basePath);
 		}
+
+		//Future idea: if we ever broadcast a login state changed event and
+		//the store reports not logged in (which it always will unless you
+		//go through the login process for now) we can client-side redirect
+		//to the login view.
+		//
+		//I currently have a better idea for this, so this block will
+		//probably just go unused.
 		else {
 			app.navigate(basePath + 'login/', {replace: true});
 		}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {logOut} from '../Actions';
+import {logout} from '../Actions';
 import Button from 'common/forms/components/Button';
 
 export default React.createClass({
@@ -8,7 +8,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<Button className="logout" onClick={logOut}>Log Out</Button>
+			<Button className="logout" onClick={logout}>Log Out</Button>
 		);
 	}
 });
