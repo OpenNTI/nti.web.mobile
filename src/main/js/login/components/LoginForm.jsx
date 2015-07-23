@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Conditional from 'common/components/Conditional';
+import Loading from 'common/components/TinyLoader';
 
 import StoreEvents from 'common/mixins/StoreEvents';
 
@@ -17,7 +18,7 @@ import {
 
 import Store from '../Store';
 
-import {updateWithNewUsername} from '../Actions';
+import {updateWithNewUsername, login} from '../Actions';
 
 const UPDATE_DELAY = Symbol();
 const UPDATE_DELAY_TIME = 150;
@@ -37,13 +38,6 @@ export default React.createClass({
 		}
 	},
 
-	getInitialState () {
-		return {
-			username: '',
-			password: ''
-		};
-	},
-
 
 	signupLink () {
 		// if we have a confirmation message show the confirmation view, otherwise go directly to signup
@@ -58,6 +52,7 @@ export default React.createClass({
 
 
 	componentDidMount () {
+		this.updateUsername();
 		let f = React.findDOMNode(this.refs.username);
 		if (f) {
 			f.focus();
@@ -65,11 +60,28 @@ export default React.createClass({
 	},
 
 
+	formatError (error) {
+		let message = t(`LOGIN_ERROR.${error.statusCode}`, {fallback: 'missing'});
+
+		if (message === 'missing') {
+			message = 'Unknown error';
+			console.error('Unknown error: %o', error);
+		}
+
+		return message;
+	},
+
+
 	render () {
+		let {blankPassword, busy, error} = this.state || {};
+
+		let disabled = busy || blankPassword || !Store.getLoginLink();
+
 		return (
 			<div className="login-wrapper">
 				<form ref="form" className="login-form" onSubmit={this.handleSubmit} noValidate>
 					<div className="header">next thought</div>
+					{error && ( <div className="message">{this.formatError(error)}</div>)}
 					<fieldset>
 						<div className="field-container" data-title="Username">
 							<input ref="username"
@@ -90,21 +102,24 @@ export default React.createClass({
 								autoComplete="off"
 								placeholder="Password"
 								tabIndex="2"
-								ariaLabel="Password"/>
+								ariaLabel="Password"
+								onChange={this.updatePassword}/>
 						</div>
 
 						<div className="submit-row">
-							<button id="login:rel:password" type="submit">{t('login')}</button>
+							<button id="login:rel:password" type="submit" disabled={disabled}>
+								{ busy ? ( <Loading/> ) : t('login') }
+							</button>
 						</div>
 
-						<OAuthButtons links={this.state.links} />
+						<OAuthButtons />
 
 						<Conditional className="account-creation" condition={!!Store.getLink(LINK_ACCOUNT_CREATE)}>
 							<a id="login:signup" href={this.signupLink()}>{t('signup.link')}</a>
 						</Conditional>
 					</fieldset>
 
-					<RecoveryLinks links={this.state.links} />
+					<RecoveryLinks />
 				</form>
 
 				<div className="links">
@@ -124,22 +139,54 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
+		let {username, password} = React.findDOMNode(this.refs.form).elements;
 
-		return false;
+		this.setState({busy: true}, () => {
+
+			this.updateUsername()
+				.then(()=> login(username.value, password.value))
+				.catch(error => this.setState({busy: false, error}));
+		});
+	},
+
+
+	updatePassword (e) {
+		let password = (e ? e.target : React.findDOMNode(this.refs.password)).value;
+		let empty = (!password || password === '');
+		this.setState({blankPassword: empty});
 	},
 
 
 	updateUsername (e) {
-		let username = e.target.value;
+		let username = (e ? e.target : React.findDOMNode(this.refs.username)).value;
 
 		clearTimeout(this[UPDATE_DELAY]);
 
-		this[UPDATE_DELAY] = setTimeout(()=> {
+		let coordinator = new Promise((done, canceled) => {
+			let timeout = setTimeout(canceled, UPDATE_DELAY_TIME + 10);
+			this[UPDATE_DELAY] = setTimeout(()=> {
+				clearTimeout(timeout);
 
-			this.inflightUpdate = updateWithNewUsername(username)
-				.catch(er => this.setError(er))
-				.then(() => delete this.inflightUpdate);
+				this.updatePassword();
 
-		}, UPDATE_DELAY_TIME);
+				this.inflightUpdate = updateWithNewUsername(username)
+					.catch(er => canceled(er) && this.setError(er))
+					.then(() => delete this.inflightUpdate)
+					.then(done);
+
+			}, UPDATE_DELAY_TIME);
+
+		});
+
+		if (e) { // from an dom event and its not expecting a return value, we need to return nothing.
+
+			//silence unhandled promise rejection warnings.
+			//(we don't care in this case, the task was simply interupted)
+			coordinator.catch(()=> {});
+
+			return void 0; //true undefined
+		}
+
+		return coordinator;
 	}
 });

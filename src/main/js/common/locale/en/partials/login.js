@@ -21,7 +21,7 @@ module.exports = {
 	},
 
 	LOGIN_ERROR: {
-		401: 'Login failed.'
+		401: 'The username or password you entered is incorrect. Please try again.'
 	},
 	forms: {
 		createaccount: {

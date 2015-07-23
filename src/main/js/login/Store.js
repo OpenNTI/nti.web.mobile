@@ -1,8 +1,11 @@
 import {
 	LINK_LOGIN_CONTINUE,
+	LINK_LOGIN_PASSWORD,
+
 	LOGIN_STATE_CHANGED,
 	LOGIN_INIT_DATA,
-	LOGIN_PONG
+	LOGIN_PONG,
+	LOGIN_SUCCESS
 } from './Constants';
 
 import StorePrototype from 'common/StorePrototype';
@@ -19,7 +22,8 @@ class Store extends StorePrototype {
 		super();
 		this.registerHandlers({
 			[LOGIN_INIT_DATA]: SetInitialData,
-			[LOGIN_PONG]: SetPongData
+			[LOGIN_PONG]: SetPongData,
+			[LOGIN_SUCCESS]: SetLoggedIn
 		});
 	}
 
@@ -34,7 +38,9 @@ class Store extends StorePrototype {
 
 
 	[SetPongData] (payload) {
-		this[pong] = payload.action.data;
+		let {action} = payload;
+		this[pong] = action.data;
+		this[pong].for = action.username;
 		this.emitChange({type: LOGIN_PONG});
 	}
 
@@ -65,6 +71,23 @@ class Store extends StorePrototype {
 	getLink (rel) {
 		let {links = {}} = this.getData() || {};
 		return links[rel];
+	}
+
+
+	getLoginLink () {
+		let {links = {}} = this.getData() || {};
+		let url = links[LINK_LOGIN_PASSWORD];
+
+		// prefer the LDAP link if available.
+		for (let k of Object.keys(links)) {
+			if((/logon\.ldap\./).test(k)) {
+				url = links[k];
+				console.debug('Found rel: "%s", using.', k);
+				break;
+			}
+		}
+
+		return url;
 	}
 }
 
