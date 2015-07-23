@@ -1,7 +1,5 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
-import Url from 'url';
-
 import {getServer, getService} from 'common/utils';
 
 import Store from './Store'; //ONLY READ from the store!!
@@ -53,20 +51,4 @@ export function logout() {
 		let url = s.getLogoutURL('/mobile/login/');
 		location.replace(url);
 	});
-}
-
-
-export function deleteTOS() { //silly
-	return getServer().deleteTOS();
-}
-
-
-export function recoverUsername (email) {
-	return getServer().recoverUsername(email);
-}
-
-
-export function recoverPassword (email, username) {
-	let returnUrl = Url.resolve(document.URL, '/login/passwordrecover.html');
-	return getServer().recoverPassword(email, username, returnUrl);
 }

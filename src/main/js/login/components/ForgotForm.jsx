@@ -1,11 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-component';
+import Url from 'url';
 
 import Conditional from 'common/components/Conditional';
 
 import {scoped} from 'common/locale';
 
-import {recoverPassword, recoverUsername} from '../Actions';
+import {getServer} from 'common/utils';
 
 const t = scoped('LOGIN.forgot');
 
@@ -39,13 +40,15 @@ export default React.createClass({
 		e.preventDefault();
 		e.stopPropagation();
 
-		let action = this.props.param === 'password' ? recoverPassword : recoverUsername;
+		let action = this.props.param === 'password' ? 'recoverPassword' : 'recoverUsername';
 
 		let {email, username} = this.getFieldValues();
 
 		this.setState({busy: true, success: void 0, error: void 0 }, () => {
 
-			action(email, username)
+			let returnUrl = Url.resolve(document.URL, '/login/passwordrecover.html');
+
+			getServer()[action](email, username, returnUrl)
 				.then(() => {
 					this.setState({error: void 0, success: 'Check your email for recovery instructions.'});
 				})
