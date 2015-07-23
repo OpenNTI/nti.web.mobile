@@ -1,24 +1,17 @@
 import React from 'react';
 
+import Router from 'react-router-component';
+import Redirect from 'navigation/components/Redirect';
+
 import Loading from 'common/components/TinyLoader';
 
-import {scoped} from 'common/locale';
-
-import Card from '../Card';
-// import Editable from '../Editable';
 import Memberships from '../about/Memberships';
 import ProfileBodyContainer from '../ProfileBodyContainer';
-
-import Mixin from '../about/Mixin';
-
-const t = scoped('PROFILE.ABOUT.SECTIONTITLES');
-
-let sections = ['about', 'education', 'positions', 'interests'];
+import View from '../about/View';
+import Edit from '../about/Edit';
 
 export default React.createClass({
 	displayName: 'About',
-
-	mixins: [Mixin],
 
 	propTypes: {
 		entity: React.PropTypes.object.isRequired
@@ -28,17 +21,20 @@ export default React.createClass({
 
 		let {entity} = this.props;
 
+		console.log('user/About');
+
 		if (!entity) {
 			return <Loading />;
 		}
 
 		return (
 			<ProfileBodyContainer className="profile-about-body">
-				<ul className="profile-cards">
-					{sections.map((s, index) => {
-						return ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );
-					})}
-				</ul>
+				<Router.Locations contextual>
+					<Router.Location path="/edit(/*)" entity={entity} handler={Edit} />
+					<Router.Location path="/" entity={entity} handler={View} />
+					<Router.NotFound handler={Redirect} location="/"/>
+				</Router.Locations>
+				
 				<Memberships entity={entity} preview/>
 			</ProfileBodyContainer>
 		);
