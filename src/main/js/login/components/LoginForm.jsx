@@ -26,7 +26,12 @@ import {updateWithNewUsername, login} from '../Actions';
 const UPDATE_DELAY = Symbol();
 const UPDATE_DELAY_TIME = 150;
 
-let t = scoped('LOGIN');
+const t = scoped('LOGIN');
+
+// if we have a confirmation message show the confirmation view, otherwise go directly to signup
+const signupLink = () => t(MESSAGE_SIGNUP_CONFIRMATION, {fallback: 'missing'}) === 'missing'
+							? '/signup/'
+							: '/signup/confirm';
 
 export default React.createClass({
 	displayName: 'LoginForm',
@@ -42,9 +47,8 @@ export default React.createClass({
 	},
 
 
-	signupLink () {
-		// if we have a confirmation message show the confirmation view, otherwise go directly to signup
-		return t(MESSAGE_SIGNUP_CONFIRMATION, {fallback: 'missing'}) === 'missing' ? '/signup/' : '/signup/confirm';
+	getInitialState () {
+		return {};
 	},
 
 
@@ -88,7 +92,7 @@ export default React.createClass({
 
 
 	render () {
-		let {blankPassword, busy, error} = this.state || {};
+		let {blankPassword, busy, error, username, password} = this.state || {};
 
 		let disabled = busy || blankPassword || !Store.getLoginLink();
 
@@ -98,7 +102,7 @@ export default React.createClass({
 					{busy ? ( <Loading/> ) : (
 						<div>
 							<div className="header">next thought</div>
-							{error && ( <div className="message">{this.formatError(error)}</div>)}
+							<Conditional condition={error} className="message">{this.formatError(error)}</Conditional>
 							<fieldset>
 								<div className="field-container" data-title="Username">
 									<input ref="username"
@@ -110,6 +114,7 @@ export default React.createClass({
 										tabIndex="1"
 										ariaLabel="Username"
 										auto=""
+										defaultValue={username}
 										onChange={this.updateUsername}/>
 								</div>
 								<div className="field-container" data-title="Password">
@@ -120,6 +125,7 @@ export default React.createClass({
 										placeholder="Password"
 										tabIndex="2"
 										ariaLabel="Password"
+										defaultValue={password}
 										onChange={this.updatePassword}/>
 								</div>
 
@@ -132,7 +138,7 @@ export default React.createClass({
 								<OAuthButtons />
 
 								<Conditional className="account-creation" condition={!!Store.getLink(LINK_ACCOUNT_CREATE)}>
-									<Link id="login:signup" href={this.signupLink()}>{t('signup.link')}</Link>
+									<Link id="login:signup" href={signupLink()}>{t('signup.link')}</Link>
 								</Conditional>
 							</fieldset>
 						</div>)}
@@ -159,7 +165,6 @@ export default React.createClass({
 		let {username, password} = React.findDOMNode(this.refs.form).elements;
 
 		this.setState({busy: true}, () => {
-
 			this.updateUsername()
 				.then(()=> login(username.value, password.value))
 				.catch(error => this.setState({busy: false, error}));
@@ -168,14 +173,24 @@ export default React.createClass({
 
 
 	updatePassword (e) {
-		let password = (e ? e.target : React.findDOMNode(this.refs.password)).value;
-		let empty = (!password || password === '');
-		this.setState({blankPassword: empty});
+		let password = (e ? e.target : React.findDOMNode(this.refs.password));
+		if (password) {
+			password = password.value;
+			let empty = (!password || password === '');
+			this.setState({blankPassword: empty, password});
+		}
 	},
 
 
 	updateUsername (e) {
-		let username = (e ? e.target : React.findDOMNode(this.refs.username)).value;
+		let username = (e ? e.target : React.findDOMNode(this.refs.username));
+
+		if (username) { //normal case, we have an element.
+			username = username.value; // flatten down to a string.
+
+		} else if (!e) { // submit case, no element, only state:
+			username = this.state.username;
+		}
 
 		clearTimeout(this[UPDATE_DELAY]);
 
@@ -184,6 +199,7 @@ export default React.createClass({
 			this[UPDATE_DELAY] = setTimeout(()=> {
 				clearTimeout(timeout);
 
+				this.setState({username});
 				this.updatePassword();
 
 				this.inflightUpdate = updateWithNewUsername(username)
