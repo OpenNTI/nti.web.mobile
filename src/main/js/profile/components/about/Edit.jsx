@@ -1,9 +1,12 @@
 import React from 'react';
 import Card from '../Card';
 import Editor from 'modeled-content/components/Editor';
+import RedirectToProfile from '../../mixins/RedirectToProfile';
 
 export default React.createClass({
 	displayName: 'Edit',
+
+	mixins: [RedirectToProfile],
 
 	propTypes: {
 		entity: React.PropTypes.object.isRequired
@@ -29,11 +32,12 @@ export default React.createClass({
 	},
 
 	valueChanged(name, value) {
-		let {newValues} = this.state;
-		let nv = Object.assign({}, newValues, { [name]: value });
-		console.debug(nv);
+		// set empty strings to null
+		let v = value && value.trim().length > 0 ? value : null;
+
+		let newValues = Object.assign({}, this.state.newValues, { [name]: v });
 		this.setState({
-			newValues: nv
+			newValues
 		});
 	},
 
@@ -41,7 +45,7 @@ export default React.createClass({
 		let {newValues} = this.state;
 		let {entity} = this.props;
 		entity.save(newValues)
-			.then(result => console.debug(result));
+			.then( () => this.redirectToProfile());
 	},
 
 	render () {
@@ -49,13 +53,40 @@ export default React.createClass({
 		let {entity} = this.props;
 
 		return (
-			<div>
+			<div className="profile-edit">
 				<ul className="profile-cards">
 					<Card className="about" title="About">
 						<Editor allowInsertImage={false} value={entity.about}
 							ref="about"
 							onChange={this.editorChange.bind(this,'about')}
 						/>
+						<div>
+							<label>Email</label>
+							<input defaultValue={entity.email}
+								ref="email"
+								onChange={this.onChange}
+								name="email"
+
+							/>
+						</div>
+						<div>
+							<label>Location</label>
+							<input defaultValue={entity.location}
+								ref="location"
+								onChange={this.onChange}
+								name="location"
+
+							/>
+						</div>
+						<div>
+							<label>Homepage</label>
+							<input defaultValue={entity.home_page}
+								ref="home_page"
+								onChange={this.onChange}
+								name="home_page"
+
+							/>
+						</div>
 						<div>
 							<label>Twitter</label>
 							<input defaultValue={entity.twitter}

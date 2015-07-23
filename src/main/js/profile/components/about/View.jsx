@@ -3,6 +3,7 @@ import React from 'react';
 import Card from '../Card';
 import Loading from 'common/components/TinyLoader';
 import Mixin from '../about/Mixin';
+import Link from 'common/components/ActiveLink';
 
 import {scoped} from 'common/locale';
 
@@ -29,11 +30,16 @@ export default React.createClass({
 		}
 
 		return (
-			<ul className="profile-cards">
-				{sections.map((s, index) => {
-					return ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );
-				})}
-			</ul>
+			<div className="profile-view">
+				<ul className="profile-cards">
+					{sections.map((s, index) => {
+						return ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );
+					})}
+				</ul>
+				<div className="controls buttons">
+					<Link href="/edit/" className="button">Edit</Link>
+				</div>
+			</div>
 		);
 	}
 });
