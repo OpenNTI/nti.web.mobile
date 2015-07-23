@@ -1,3 +1,13 @@
+%login-background {
+	background: url(../images/login/background.png) 0 0 repeat;
+}
+%login-header {
+	background-image: url(../images/login/header.png);
+}
+%login-oauth-image {
+	background-image: url(../images/login/oauth.png);
+}
+
 @keyframes bounceIn {
 	0% {opacity: 0;transform: translate3d(-50%, -50%, 0) scale(.3);}
 	50% {opacity: 1;transform: translate3d(-50%, -50%, 0) scale(1.05);}
@@ -16,7 +26,7 @@
 		top: 0; left: 0; right: 0; bottom: 0;
 	}
 
-	background: url(../images/login-background.png);
+	@extend %login-background;
 	min-height: 480px;
 
 	.message {
@@ -106,9 +116,9 @@
 	}
 
 	.oauth-login {
+		@extend %login-oauth-image;
 		background: {
 			color: none;
-			image: url(../images/login-oauth.png);
 			position: center 0;
 			size: 100%;
 			repeat: no-repeat;
@@ -211,9 +221,8 @@
 		@extend %login-header;
 		text-indent: -1000px;
 		background: {
-			position: center 0;
+			position: -10px 0;
 			repeat: no-repeat;
-			size: cover;
 		}
 		display: block;
 		position: relative;
