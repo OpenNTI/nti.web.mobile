@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Unknown from './Unknown';
-import ArrayWidget from './ArrayWidget';
 import StringWidget from './StringWidget';
 import ProfessionalPosition from './ProfessionalPosition';
 import EducationalExperience from './EducationalExperience';
@@ -11,7 +10,6 @@ import MembershipListItemGroup from './MembershipListItemGroup';
 const WIDGETS = [
 	Unknown,
 	StringWidget,
-	ArrayWidget,
 	EducationalExperience,
 	ProfessionalPosition,
 	MembershipListItemCommunity,
