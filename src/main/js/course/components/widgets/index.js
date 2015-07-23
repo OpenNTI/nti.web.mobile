@@ -8,6 +8,7 @@ import Videos from './Videos';
 import Card from './RelatedWorkRef';
 import Discussion from './Discussion';
 import QuestionSet from './QuestionSet';
+import SurveyReference from './SurveyReference';
 import Timeline from './Timeline';
 
 const WIDGETS = [
@@ -19,6 +20,7 @@ const WIDGETS = [
 	Videos,
 	Discussion,
 	QuestionSet,
+	SurveyReference,
 	Timeline
 ];
 
