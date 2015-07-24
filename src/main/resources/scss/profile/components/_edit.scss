@@ -9,5 +9,15 @@
 	input {
 		padding: .25em;
 		width: 100%;
+		-webkit-appearance: none;
+	}
+
+	.education-entry {
+		margin-bottom: 3rem;
+		.remove {
+			float: right;
+			font-size: 1.5rem;
+			color: $tertiary-grey;
+		}
 	}
 }

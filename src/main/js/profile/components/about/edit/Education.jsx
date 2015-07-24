@@ -27,8 +27,7 @@ export default React.createClass({
 		});
 	},
 
-
-	itemChanged(item, newValue) {
+	itemChanged(/* item, newValue */) {
 		if (this.props.onChange) {
 			this.props.onChange(this.props.items);
 		}
@@ -43,7 +42,7 @@ export default React.createClass({
 
 	removeEntry (index) {
 		this.state.items.splice(index, 1);
-		this.forceUpdate();
+		this.itemChanged();
 	},
 
 	render () {
@@ -52,8 +51,8 @@ export default React.createClass({
 			<div>
 				{(items || []).map((item, index) => {
 					return (
-						<div>
-							<div className="remove" onClick={this.removeEntry.bind(this, index)}>X</div>
+						<div className="education-entry">
+							<div className="remove icon-bold-x" onClick={this.removeEntry.bind(this, index)}></div>
 							<EducationItem item={item} key={`ed-item-${index}`} onChange={this.itemChanged.bind(this, item)} />
 						</div>
 					);
