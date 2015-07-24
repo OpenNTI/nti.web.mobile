@@ -24,7 +24,6 @@ export default React.createClass({
 	},
 
 	editorChange(ref, oldValue, newValue) {
-		console.debug(ref, newValue);
 		this.valueChanged(ref, newValue);
 	},
 
