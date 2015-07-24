@@ -60,7 +60,7 @@ export default React.createClass({
 						<label>Write something about yourself</label>
 						<Editor allowInsertImage={false} value={entity.about}
 							ref="about"
-							onChange={this.editorChange.bind(this,'about')}
+							onChange={this.editorChange.bind(this, 'about')}
 						/>
 						<div>
 							<label>Email</label>

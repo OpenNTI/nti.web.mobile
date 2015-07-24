@@ -16,7 +16,7 @@ export default React.createClass({
 	componentWillMount: function() {
 		this.setState({
 			item: this.props.item
-		})
+		});
 	},
 
 	componentWillReceiveProps: function(nextProps) {

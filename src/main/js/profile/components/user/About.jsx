@@ -34,7 +34,7 @@ export default React.createClass({
 					<Router.Location path="/" entity={entity} handler={View} />
 					<Router.NotFound handler={Redirect} location="/"/>
 				</Router.Locations>
-				
+
 				<Memberships entity={entity} preview/>
 			</ProfileBodyContainer>
 		);
