@@ -23,6 +23,23 @@ export default React.createClass({
 		};
 	},
 
+	componentWillMount: function() {
+		this.setUpEditObject()
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		this.setUpEditObject(nextProps);
+	},
+
+	setUpEditObject (props = this.props) {
+		if (props.entity) {
+			let editObject = this.props.entity.getData();
+			this.setState({
+				editObject
+			});	
+		}
+	},
+
 	editorChange(ref, oldValue, newValue) {
 		this.valueChanged(ref, newValue);
 	},
@@ -60,20 +77,20 @@ export default React.createClass({
 			return <Loading />;
 		}
 
-		let {entity} = this.props;
+		let {editObject} = this.state;
 
 		return (
 			<div className="profile-edit">
 				<ul className="profile-cards">
 					<Card className="about" title="About">
 						<label>Write something about yourself</label>
-						<Editor allowInsertImage={false} value={entity.about}
+						<Editor allowInsertImage={false} value={editObject.about}
 							ref="about"
 							onChange={this.editorChange.bind(this, 'about')}
 						/>
 						<div>
 							<label>Email</label>
-							<input defaultValue={entity.email}
+							<input defaultValue={editObject.email}
 								ref="email"
 								onChange={this.onChange}
 								name="email"
@@ -82,7 +99,7 @@ export default React.createClass({
 						</div>
 						<div>
 							<label>Location</label>
-							<input defaultValue={entity.location}
+							<input defaultValue={editObject.location}
 								ref="location"
 								onChange={this.onChange}
 								name="location"
@@ -91,7 +108,7 @@ export default React.createClass({
 						</div>
 						<div>
 							<label>Homepage</label>
-							<input defaultValue={entity.home_page}
+							<input defaultValue={editObject.home_page}
 								ref="home_page"
 								onChange={this.onChange}
 								name="home_page"
@@ -100,7 +117,7 @@ export default React.createClass({
 						</div>
 						<div>
 							<label>Twitter</label>
-							<input defaultValue={entity.twitter}
+							<input defaultValue={editObject.twitter}
 								ref="twitter"
 								onChange={this.onChange}
 								name="twitter"
@@ -109,7 +126,7 @@ export default React.createClass({
 						</div>
 						<div>
 							<label>Facebook</label>
-							<input defaultValue={entity.facebook}
+							<input defaultValue={editObject.facebook}
 								ref="facebook"
 								onChange={this.onChange}
 								name="facebook"
@@ -118,7 +135,7 @@ export default React.createClass({
 						</div>
 						<div>
 							<label>Google Plus</label>
-							<input defaultValue={entity.googlePlus}
+							<input defaultValue={editObject.googlePlus}
 								ref="googlePlus"
 								onChange={this.onChange}
 								name="googlePlus"
@@ -127,7 +144,7 @@ export default React.createClass({
 						</div>
 						<div>
 							<label>LinkedIn</label>
-							<input defaultValue={entity.linkedIn}
+							<input defaultValue={editObject.linkedIn}
 								ref="linkedIn"
 								onChange={this.onChange}
 								name="linkedIn"
@@ -136,13 +153,13 @@ export default React.createClass({
 						</div>
 					</Card>
 					<Card className="education" title="Education">
-						<Education items={entity.education} onChange={this.valueChanged.bind(this, 'education')} />
+						<Education items={editObject.education} onChange={this.valueChanged.bind(this, 'education')} />
 					</Card>
 					<Card className="positions" title="Positions">
-						<Positions items={entity.positions} onChange={this.valueChanged.bind(this, 'positions')} />
+						<Positions items={editObject.positions} onChange={this.valueChanged.bind(this, 'positions')} />
 					</Card>
 					<Card className="interests" title="Interests">
-						<Interests items={entity.interests} onChange={this.valueChanged.bind(this, 'interests')} />
+						<Interests items={editObject.interests} onChange={this.valueChanged.bind(this, 'interests')} />
 					</Card>
 				</ul>
 				<div className="controls buttons">
