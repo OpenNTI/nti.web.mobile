@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Conditional from 'common/components/Conditional';
 import ErrorWidget from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import BasePath from 'common/mixins/BasePath';
@@ -43,23 +44,20 @@ export default React.createClass({
 
 
 	render () {
-
-		if (this.state.loading) {
-			return (<div className="agreement-wrapper"><Loading /></div>);
-		}
-
-		if (this.state.error) {
-			return (<div className="agreement-wrapper"><ErrorWidget error={this.state.error} /></div>);
-		}
+		let {loading, error, content} = this.state;
 
 		return (
-				<div className="agreement-wrapper"><div className="agreement"
-					dangerouslySetInnerHTML={{__html: this.state.content || ''}} /></div>
-				// <iframe
-				// 	className="agreement"
+			<div className="agreement-wrapper">
 
-				// 	src={this.state.url}
-				// ></iframe>
+				{ loading ? (
+					<Loading />
+				) : error ? (
+					<ErrorWidget error={error} />
+				) : (
+					<Conditional condition={!loading && content} className="agreement" dangerouslySetInnerHTML={{__html: content}} />
+				)}
+
+			</div>
 		);
 	}
 
