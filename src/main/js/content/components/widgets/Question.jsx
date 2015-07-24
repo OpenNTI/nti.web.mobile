@@ -9,7 +9,7 @@ export default React.createClass({
 	mixins: [Mixin],
 
 	statics: {
-		itemType: /naquestion/i
+		itemType: /na(question|poll)/i
 	},
 
 

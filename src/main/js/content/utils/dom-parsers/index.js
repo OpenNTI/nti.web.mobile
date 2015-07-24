@@ -21,6 +21,7 @@ export default {
 	'object[type$=ntiaudio]': parseDomObject,
 
 	'object[type*=naquestion]': parseDomObject,
+	'object[type*=napoll]': parseDomObject,
 
 	'[itemprop*=nti-data-markup],[itemprop~=nti-slide-video]': parseFramedElement
 };
