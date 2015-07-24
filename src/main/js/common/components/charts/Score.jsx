@@ -14,7 +14,7 @@ export default React.createClass({
 		return {
 			title: '',
 			colors: ['#40b450', '#b8b8b8'],
-			pixelDensity: 2,
+			pixelDensity: (global.devicePixelRatio || 1) * 2,
 			score: 90
 		};
 	},

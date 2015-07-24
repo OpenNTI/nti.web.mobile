@@ -30,7 +30,7 @@ export default React.createClass({
 			store: null,
 			topMargin: 30,
 			bottomMargin: 10,
-			pixelDensity: 2
+			pixelDensity: (global.devicePixelRatio || 1) * 2
 		};
 	},
 

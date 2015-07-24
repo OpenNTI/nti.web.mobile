@@ -60,7 +60,7 @@ export default React.createClass( {
 		return {
 			grade: 90,
 			color: '#40b450',//#a5c959
-			pixelDensity: 2,
+			pixelDensity: (global.devicePixelRatio || 1) * 2,
 			width: 200,
 			height: 200
 		};
