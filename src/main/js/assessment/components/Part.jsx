@@ -191,7 +191,7 @@ export default React.createClass({
 
 	renderHint () {
 		let part = this.props.part || {};
-		let hint = (part.hints || [])[this.state.activeHint] || '';
+		let hint = ((part.hints || [])[this.state.activeHint] || {}).value || '';
 
 		return (
 			<div className="part-help hint">
