@@ -32,6 +32,15 @@
 				top: 50%;
 				transform: translateY(-50%);
 			}
+			input {
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				border: none;
+				padding-left: 1em;
+			}
 		}
 	}
 }
