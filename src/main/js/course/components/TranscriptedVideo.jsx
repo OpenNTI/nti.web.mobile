@@ -101,7 +101,7 @@ export default React.createClass({
 
 
 	componentWillReceiveProps (props) {
-		let {showDiscussions, videoId} = this.props;
+		let {videoId} = this.props;
 
 		if (props.videoId !== videoId) {
 			this.getDataIfNeeded(props);
@@ -109,9 +109,17 @@ export default React.createClass({
 	},
 
 
-	componentDidUpdate (prevProps) {
-		let {outlineId, VideoIndex, showDiscussions} = this.props;
-		let {video, currentTime} = this.state;
+	componentWillUpdate (nextProps) {
+		let {currentTime} = this.state;
+		if (!nextProps.showDiscussions && this.props.showDiscussions && currentTime) {
+			this.setState({returnTime: currentTime});
+		}
+	},
+
+
+	componentDidUpdate () {
+		let {outlineId, VideoIndex} = this.props;
+		let {video} = this.state;
 
 		let pageSource = video && VideoIndex.getPageSource(video);
 
@@ -121,10 +129,6 @@ export default React.createClass({
 
 		if (video) {
 			this.setPageSource(pageSource, video.getID());
-		}
-
-		if (!showDiscussions && prevProps.showDiscussions && currentTime) {
-			this.setState({returnTime: currentTime}); //eslint-disable-line react/no-did-update-set-state
 		}
 	},
 
