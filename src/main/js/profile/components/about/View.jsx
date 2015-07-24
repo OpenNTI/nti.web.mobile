@@ -29,6 +29,8 @@ export default React.createClass({
 			return <Loading />;
 		}
 
+		let canEdit = entity.hasLink('edit');
+
 		return (
 			<div className="profile-view">
 				<ul className="profile-cards">
@@ -36,9 +38,11 @@ export default React.createClass({
 						return ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );
 					})}
 				</ul>
-				<div className="controls buttons">
-					<Link href="/edit/" className="button">Edit</Link>
-				</div>
+				{canEdit && 
+					<div className="controls buttons">
+						<Link href="/edit/" className="button">Edit</Link>
+					</div>
+				}
 			</div>
 		);
 	}
