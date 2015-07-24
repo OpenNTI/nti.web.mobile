@@ -103,15 +103,15 @@ export default React.createClass({
 	componentWillReceiveProps (props) {
 		let {showDiscussions, videoId} = this.props;
 
-		if (props.videoId !== videoId || (!props.showDiscussions && props.showDiscussions !== showDiscussions)) {
+		if (props.videoId !== videoId) {
 			this.getDataIfNeeded(props);
 		}
 	},
 
 
-	componentDidUpdate () {
-		let {outlineId, VideoIndex} = this.props;
-		let {video} = this.state;
+	componentDidUpdate (prevProps) {
+		let {outlineId, VideoIndex, showDiscussions} = this.props;
+		let {video, currentTime} = this.state;
 
 		let pageSource = video && VideoIndex.getPageSource(video);
 
@@ -121,6 +121,10 @@ export default React.createClass({
 
 		if (video) {
 			this.setPageSource(pageSource, video.getID());
+		}
+
+		if (!showDiscussions && prevProps.showDiscussions && currentTime) {
+			this.setState({returnTime: currentTime}); //eslint-disable-line react/no-did-update-set-state
 		}
 	},
 
@@ -261,8 +265,15 @@ export default React.createClass({
 
 	onVideoTimeTick (event) {
 		let time = (event.target || {}).currentTime;
+		let {returnTime} = this.state;
+
 		if (this.isMounted()) {
-			this.setState({currentTime: time});
+			if (returnTime != null) {
+				this.onJumpTo(returnTime);
+				returnTime = null;
+			}
+
+			this.setState({currentTime: time, returnTime});
 		}
 	},
 
