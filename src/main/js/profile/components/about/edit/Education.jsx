@@ -1,6 +1,7 @@
 import React from 'react';
 import EducationItem from './EducationItem';
 import Mixin from './Mixin';
+import AddEntryButton from './AddEntryButton';
 
 const MimeType = 'application/vnd.nextthought.profile.educationalexperience';
 
@@ -26,7 +27,7 @@ export default React.createClass({
 					);
 				})}
 				<div className="controls buttons">
-					<button onClick={this.addEntry}>Add Entry</button>
+					<AddEntryButton onClick={this.addEntry} />
 				</div>
 			</div>
 
