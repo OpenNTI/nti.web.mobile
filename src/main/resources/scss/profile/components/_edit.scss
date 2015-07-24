@@ -10,9 +10,11 @@
 		padding: .25em;
 		width: 100%;
 		-webkit-appearance: none;
+		border: 1px solid $border-grey;
+		border-radius: 0;
 	}
 
-	.education-entry {
+	.entry {
 		margin-bottom: 3rem;
 		.remove {
 			float: right;

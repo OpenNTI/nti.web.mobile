@@ -4,6 +4,7 @@ import Editor from 'modeled-content/components/Editor';
 import RedirectToProfile from '../../mixins/RedirectToProfile';
 import Link from 'common/components/ActiveLink';
 import Education from './edit/Education';
+import Positions from './edit/Positions';
 
 export default React.createClass({
 	displayName: 'Edit',
@@ -129,7 +130,9 @@ export default React.createClass({
 					<Card className="education" title="Education">
 						<Education items={entity.education} onChange={this.valueChanged.bind(this, 'education')} />
 					</Card>
-					<Card className="positions" title="Positions">Positions</Card>
+					<Card className="positions" title="Positions">
+						<Positions items={entity.positions} onChange={this.valueChanged.bind(this, 'positions')} />
+					</Card>
 				</ul>
 				<div className="controls buttons">
 					<Link href="/" className="button">Cancel</Link>

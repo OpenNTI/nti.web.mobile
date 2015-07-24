@@ -1,11 +1,11 @@
 import React from 'react';
-import EducationItem from './EducationItem';
 import Mixin from './Mixin';
+import PositionItem from './PositionItem';
 
-const MimeType = 'application/vnd.nextthought.profile.educationalexperience';
+const MimeType = 'application/vnd.nextthought.profile.professionalposition';
 
 export default React.createClass({
-	displayName: 'Education:Edit',
+	displayName: 'Positions:Edit',
 
 	mixins: [Mixin],
 
@@ -21,7 +21,7 @@ export default React.createClass({
 					return (
 						<div className="entry">
 							<div className="remove icon-bold-x" onClick={this.removeEntry.bind(this, index)}></div>
-							<EducationItem item={item} key={`ed-item-${index}`} onChange={this.itemChanged.bind(this, item)} />
+							<PositionItem item={item} key={`position-item-${index}`} onChange={this.itemChanged.bind(this, item)} />
 						</div>
 					);
 				})}
