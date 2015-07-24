@@ -7,11 +7,13 @@ export default React.createClass({
 		title: React.PropTypes.string,
 		colors: React.PropTypes.arrayOf(React.PropTypes.string),
 		pixelDensity: React.PropTypes.number,
-		score: React.PropTypes.number
+		score: React.PropTypes.number,
+		inlinePercent: React.PropTypes.bool
 	},
 
 	getDefaultProps () {
 		return {
+			inlinePercent: true,
 			title: '',
 			colors: ['#40b450', '#b8b8b8'],
 			pixelDensity: (global.devicePixelRatio || 1) * 2,
@@ -21,16 +23,8 @@ export default React.createClass({
 
 
 	getInitialState () {
-		//FIXME: Re-write this:
-		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-		// Additional Note: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-
-		let score = parseInt(this.props.score, 10);
 		return {
-			series: [
-				{value: score, label: 'Score'},
-				{value: 100 - score, label: ''}
-			]
+			series: []
 		};
 	},
 
@@ -38,6 +32,23 @@ export default React.createClass({
 	getCanvas () {
 		return React.findDOMNode(this);
 	},
+
+
+	updateSeries (props = this.props) {
+		let score = Math.min(0, Math.max(100, parseInt(props.score, 10)));
+
+		this.setState({
+			score,
+			series: [
+				{value: score, label: 'Score'},
+				{value: 100 - score, label: ''}
+			]
+		});
+	},
+
+
+	componentWillMount () { this.updateSeries(); },
+	componentWillReceiveProps (nextProps) { this.updateSeries(nextProps); },
 
 
 	componentDidMount () {
@@ -72,9 +83,9 @@ export default React.createClass({
 
 
 	paint (ctx) {
-		let centerX = ctx.canvas.width / 2,
-			centerY = ctx.canvas.height / 2,
-			len = this.state.series.length, i = 0;
+		let centerX = ctx.canvas.width / 2;
+		let centerY = ctx.canvas.height / 2;
+		let {length} = this.state.series;
 
 		ctx.canvas.width += 0; //set the canvas dirty and make it clear on next draw.
 
@@ -91,7 +102,7 @@ export default React.createClass({
 			ctx.shadowOffsetY = 1;
 			*/
 
-			for (i; i < len; i++) {
+			for (let i = 0; i < length; i++) {
 				this.drawSegment(ctx, i);
 			}
 
@@ -108,19 +119,34 @@ export default React.createClass({
 	},
 
 
+	getRadius (ctx) {
+		let {width, height} = ctx.canvas;
+		let leg = Math.min(width, height) + this.getStrokeWidth();
+
+		return Math.ceil(leg / 2);
+	},
+
+
+	getStrokeWidth () {
+		let {pixelDensity} = this.props;
+		return 3 * pixelDensity;
+	},
+
+
 	drawSegment (ctx, i) {
-		let radius = Math.floor(ctx.canvas.width / 2),
-			series = this.state.series[i].value,
-			total = this.getTotal(),
+		let {series} = this.state;
+		let radius = this.getRadius(ctx);
+		let {value} = series[i];
+		let total = this.getTotal();
 
-			percent = series / total,
+		let percent = value / total;
 
-			startingAngle = percentToRadians(sumTo(this.state.series, i) / total),
+		let startingAngle = percentToRadians(sumTo(series, i) / total);
 
-			arcSize = percentToRadians(percent),
+		let arcSize = percentToRadians(percent);
 
-			endingAngle = startingAngle + arcSize,
-			endingRadius = radius * 0.75;
+		let endingAngle = startingAngle + arcSize;
+		let endingRadius = radius * 0.7;
 
 		ctx.save();
 
@@ -137,7 +163,7 @@ export default React.createClass({
 		ctx.fillStyle = this.props.colors[i % this.props.colors.length];
 		ctx.fill();
 
-		ctx.lineWidth = 5;
+		ctx.lineWidth = this.getStrokeWidth();
 		ctx.globalCompositeOperation = 'destination-out';
 		ctx.strokeStyle = '#000';
 		ctx.stroke();
@@ -147,33 +173,63 @@ export default React.createClass({
 
 
 	drawLabel (ctx) {
+		const draw = (text, f, ...xy) => {
+			ctx.save();
+			setFont(ctx, f);
+
+			//stroke out
+			ctx.save();
+			ctx.lineWidth = this.getStrokeWidth();
+			ctx.globalCompositeOperation = 'destination-out';
+			ctx.strokeText(text, ...xy);
+			ctx.fillText(text, ...xy);
+			ctx.restore();
+
+			ctx.fillText(text, ...xy);
+			ctx.restore();
+		};
+
+		const measureText = (text, f) => {
+			try {
+				ctx.save();
+				setFont(ctx, f);
+				return ctx.measureText(text);
+			} finally {
+				ctx.restore();
+			}
+		};
+
 		try {
-			let centerX = ctx.canvas.width / 2,
-				centerY = ctx.canvas.height / 2,
-				radius = Math.floor(ctx.canvas.width / 2) * 0.75,
-				textbox,
-				score = parseInt(this.props.score, 10),
-				font = {
-					size: Math.floor(radius),
-					weight: 'normal'
-				};
+			let {inlinePercent} = this.props;
+			let {score} = this.state;
+			let {width, height} = ctx.canvas;
+			let centerX = width / 2;
+			let centerY = height / 2;
+			let radius = this.getRadius(ctx) * 0.68;
+			let font = { size: Math.floor(radius), weight: '600' };
+			let percent = { size: font.size * 0.6, weight: '700' };
 
 			ctx.save();
 
+			ctx.setTransform(1, 0, 0, 1, centerX, centerY);
 			ctx.fillStyle = this.props.colors[score ? 0 : 1];
 			ctx.lineWidth = 0;
-			ctx.setTransform(1, 0, 0, 1, centerX, centerY);
-			setFont(ctx, font);
 
-			textbox = ctx.measureText(score);
+			if (inlinePercent) {
+				score = `${score}%`;
+			} else {
+				centerX -= (measureText('%', percent).width / 2);
+				ctx.setTransform(1, 0, 0, 1, centerX, centerY);
+			}
+
+			let textbox = measureText(score, font);
+			let xy = [-textbox.width / 2, font.size / 3];
 			ctx.globalAlpha = 0.8;
-			ctx.fillText(score, -textbox.width / 2, font.size / 3);
+			draw(score, font, ...xy);
 
-			if (score < 100) {
-				font.size /= 3;
-				font.weight = '700';
-				setFont(ctx, font);
-				ctx.fillText('%', textbox.width / 2, -font.size / 4);
+			if (!inlinePercent) {
+				xy = [textbox.width / 2, 0];
+				draw('%', percent, ...xy);
 			}
 		}
 		finally {
@@ -198,7 +254,8 @@ function setFont(context, font) {
 	context.font = [
 		font.style || 'normal',
 		font.variant || 'normal',
-		font.weight || 'normal', (font.size || 10) + 'px',
+		font.weight || 'normal',
+		(font.size || 10) + 'px',
 		font.family || '"Open Sans"'
 	].join(' ');
 }
