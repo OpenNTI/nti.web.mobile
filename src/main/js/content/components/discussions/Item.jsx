@@ -2,7 +2,6 @@ import React from 'react';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import Conditional from 'common/components/Conditional';
 import DisplayName from 'common/components/DisplayName';
 import DateTime from 'common/components/DateTime';
 
@@ -33,10 +32,10 @@ export default React.createClass({
 			<a className="discussion-item" href={id}>
 				{!item.placeholder && ( <DisplayName entity={creator}/> )}
 				<Panel className="snippet" body={preview} previewMode/>
-				<Conditional condition={!item.placeholder} className="footer">
+				<div className="footer">
 					<span>{t('comments', {count: replyCount})}</span>
 					<DateTime date={date} relative/>
-				</Conditional>
+				</div>
 			</a>
 		);
 	}
