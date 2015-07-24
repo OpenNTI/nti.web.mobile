@@ -22,4 +22,16 @@
 			color: $tertiary-grey;
 		}
 	}
+
+	.interests-edit {
+		.string-item {
+			position: relative;
+			.remove {
+				position: absolute;
+				right: .5em;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+		}
+	}
 }
