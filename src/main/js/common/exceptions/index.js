@@ -1,2 +1,3 @@
-exports.IllegalArgumentException = require('./IllegalArgumentException');
-exports.IllegalStateException = require('./IllegalStateException');
+import IllegalStateException from './IllegalStateException';
+
+export {IllegalStateException};
