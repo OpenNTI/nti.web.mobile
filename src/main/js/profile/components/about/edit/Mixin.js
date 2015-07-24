@@ -41,4 +41,4 @@ export default {
 		this.state.items.splice(index, 1);
 		this.itemChanged();
 	}
-}
+};
