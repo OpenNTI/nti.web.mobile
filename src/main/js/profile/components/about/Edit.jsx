@@ -5,6 +5,8 @@ import RedirectToProfile from '../../mixins/RedirectToProfile';
 import Link from 'common/components/ActiveLink';
 import Education from './edit/Education';
 import Positions from './edit/Positions';
+import Interests from './edit/Interests';
+import Loading from 'common/components/Loading';
 
 export default React.createClass({
 	displayName: 'Edit',
@@ -44,6 +46,9 @@ export default React.createClass({
 	},
 
 	save () {
+		this.setState({
+			busy: true
+		});
 		let {newValues} = this.state;
 		let {entity} = this.props;
 		entity.save(newValues)
@@ -51,6 +56,10 @@ export default React.createClass({
 	},
 
 	render () {
+
+		if (this.state.busy) {
+			return <Loading />;
+		}
 
 		let {entity} = this.props;
 
@@ -132,6 +141,9 @@ export default React.createClass({
 					</Card>
 					<Card className="positions" title="Positions">
 						<Positions items={entity.positions} onChange={this.valueChanged.bind(this, 'positions')} />
+					</Card>
+					<Card className="interests" title="Interests">
+						<Interests items={entity.interests} onChange={this.valueChanged.bind(this, 'interests')} />
 					</Card>
 				</ul>
 				<div className="controls buttons">
