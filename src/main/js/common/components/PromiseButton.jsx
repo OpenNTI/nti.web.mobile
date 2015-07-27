@@ -12,7 +12,7 @@ const FINISHED = 'finished';
 const FINISHED_ERROR = 'finished-error';
 
 const RESET_DELAY = 1000; //milliseconds
-const MIN_DELAY_BEFORE_FINISHING = 1000; //milliseconds
+const MIN_DELAY_BEFORE_FINISHING = 1000; // milliseconds
 
 function ensureDelayOf(delay, start) {
 	return (o) => {
@@ -33,7 +33,7 @@ export default React.createClass({
 		children: React.PropTypes.any,
 		className: React.PropTypes.string,
 
-		//The callback can return a promise if the work to be done will be async...
+		// The callback can return a promise if the work to be done will be async...
 		onClick: React.PropTypes.func
 	},
 
@@ -72,7 +72,7 @@ export default React.createClass({
 
 		let work = new Promise(done => {
 
-			//Ensure the react component has redrawn. (using setState's callback)
+			// Ensure the react component has redrawn. (using setState's callback)
 			this.setState({ status: PROCESSING }, () => {
 
 				let start = Date.now();
@@ -80,7 +80,7 @@ export default React.createClass({
 				// If the return value of onClick is not a promise, this will convert it,
 				// otherwize it will resolve with it transparently.
 				Promise.resolve(this.props.onClick.call(null, work))
-					// This helper function returns a function that when invoked ensires the
+					// This helper function returns a function that when invoked ensures the
 					// time passed has been at least the amount specified from the start (second arg)
 					// It will pass the promise's resolution on. (we aren't using that, but it
 					// was written so it could be moved to a utility.)
