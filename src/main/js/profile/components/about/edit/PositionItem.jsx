@@ -48,7 +48,7 @@ export default React.createClass({
 		return (
 			<div className="educational-experience">
 				<div>
-					<label>Company Name</label>
+					<label className="required">Company Name</label>
 					<input name="companyName" defaultValue={item.companyName} onChange={this.onChange} />
 				</div>
 				<div>
