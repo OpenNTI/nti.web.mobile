@@ -53,10 +53,16 @@ export default {
 	COURSE: course,
 
 	ASSESSMENT: {
-		checkit: 'Check It!',
 		submit: 'I\'m Finished!',
 		reset: 'Cancel',
-		tryagain: 'Try Again',
+
+		'naquestion-reset': 'Try Again',
+		'naquestion-submit': 'Check It!',
+		'naquestionfillintheblankwordbank-reset': 'Try Again',
+		'naquestionfillintheblankwordbank-submit': 'Check It!',
+		'napoll-reset': 'Submitted',
+		'napoll-submit': 'Submit',
+
 		unanswered: {
 			zero: 'All questions answered',
 			one: '%(count)s question unanswered',

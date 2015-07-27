@@ -78,9 +78,12 @@ export default React.createClass({
 			return;
 		}
 
+		let prefix = question.MimeType.replace(/application\/vnd\.nextthought\./, '');
+
 		let assessed = Store.getAssessedQuestion(question, question.getID());
 		let submitted = Store.isSubmitted(question);
-		let disabled = !Store.canSubmit(question) && !submitted;
+		let disabled = (!submitted && !Store.canSubmit(question))
+					|| ( submitted && !Store.canReset(question));
 
 		//correct, incorrect, blank
 		let correctness = assessed && assessed.isCorrect();
@@ -114,8 +117,8 @@ export default React.createClass({
 							this.onSubmit
 					}>{
 					submitted ?
-						t('tryagain') :
-						t('checkit')
+						t(`${prefix}-reset`) :
+						t(`${prefix}-submit`)
 					}</a>
 
 				{!busy ? null : <Loading/>}

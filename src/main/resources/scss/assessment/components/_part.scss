@@ -55,8 +55,8 @@
 	}
 
 	.question-submission {
-		float: right;
-		position: static;
+		// float: right;
+		position: relative;
 
 		.error {
 			bottom: -1rem;

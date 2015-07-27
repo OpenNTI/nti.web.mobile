@@ -393,10 +393,16 @@ class Store extends StorePrototype {
 	}
 
 
+	canReset (assessment) {
+		let s = this.getSubmissionData(assessment);
+		return !this.getBusyState(assessment) && s && s.canReset ? s.canReset() : true;
+	}
+
+
 	canSubmit (assessment) {
 		let s = this.getSubmissionData(assessment);
 		let admin = this.isAdministrative(assessment);
-		return !admin && s && s.canSubmit() && !this.getBusyState(assessment);
+		return !this.getBusyState(assessment) && !admin && s && s.canSubmit();
 	}
 
 
