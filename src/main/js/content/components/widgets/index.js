@@ -8,6 +8,7 @@ import MarkupFrame from './MarkupFrame';
 import Question from './Question';
 import Video from './Video';
 import VideoRoll from './roll/VideoRoll';
+import StorifyEmbed from './StorifyEmbed';
 
 const WIDGETS = [
 	Unknown,
@@ -16,7 +17,8 @@ const WIDGETS = [
 	MarkupFrame,
 	Question,
 	Video,
-	VideoRoll
+	VideoRoll,
+	StorifyEmbed
 ];
 
 export function getWidget(item, page, ownerProps) {
