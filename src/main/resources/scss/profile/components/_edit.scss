@@ -29,6 +29,15 @@
 		}
 	}
 
+	label {
+		&.required {
+			&::after {
+				content: ' *';
+				color: $primary-red;
+			}
+		}
+	}
+
 	.interests-edit {
 		.string-item {
 			position: relative;
