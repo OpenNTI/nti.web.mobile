@@ -20,6 +20,12 @@ export function isAssignment (assessment) {
 }
 
 
+export function isSurvey (assessment) {
+	let main = getMainSubmittable(assessment) || false;
+	return main && /survey/i.test(main.MimeType || main.Class);
+}
+
+
 export function updatePartsWithAssessedParts (part, assessed) {
 	let main = getMainSubmittable(part);
 	let questions = assessed.getQuestions ? assessed.getQuestions() : [assessed];

@@ -4,7 +4,7 @@ import AssignmentHeader from './HeaderAssignment';
 import ScoreboardHeader from './HeaderScoreboard';
 import UnsupportedPlaceholder from './UnsupportedPlaceholder';
 
-import {isAssignment, areAssessmentsSupported} from '../Utils';
+import {isAssignment, isSurvey, areAssessmentsSupported} from '../Utils';
 
 export default React.createClass({
 	displayName: 'SetHeader',
@@ -15,8 +15,11 @@ export default React.createClass({
 
 	render () {
 		let {assessment} = this.props;
-		let Component = isAssignment(assessment) ?
-						AssignmentHeader : ScoreboardHeader;
+		let Component = isAssignment(assessment)
+							? AssignmentHeader
+							: isSurvey(assessment)
+								? 'div'
+								: ScoreboardHeader;
 
 		if (!areAssessmentsSupported()) {
 			return (
