@@ -307,7 +307,7 @@ class Store extends StorePrototype {
 
 
 		return loadPreviousState(assessment)//eslint-disable-line no-use-before-define
-			.then(this[ApplySubmission].bind(this, assessment))
+			.then(submission => this[ApplySubmission](assessment, submission))
 
 			.catch(reason => {
 				if (reason && reason.statusCode !== 404) {
