@@ -26,6 +26,14 @@ export default React.createClass({
 	},
 
 
+	getInitialState () {
+		return {
+			source: null,
+			height: 0
+		};
+	},
+
+
 	componentWillMount () { this.setup(); },
 	componentWillReceiveProps (nextProps) { this.setup(nextProps); },
 	componentDidMount () { MESSAGES.add(this.onMessage); },
@@ -84,7 +92,7 @@ export default React.createClass({
 
 
 	render () {
-		let {source, height=0} = this.state;
+		let {source, height} = this.state;
 		return source && (
 			<iframe src={source}
 				width="100%"
