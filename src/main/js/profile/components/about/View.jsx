@@ -40,7 +40,7 @@ export default React.createClass({
 				</ul>
 				{canEdit && 
 					<div className="controls buttons">
-						<Link href="/edit/" className="button">Edit</Link>
+						<Link href="/edit/" className="button tiny">Edit Profile</Link>
 					</div>
 				}
 			</div>
