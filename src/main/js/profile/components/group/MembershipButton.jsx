@@ -28,7 +28,7 @@ export default React.createClass({
 
 	handleClick() {
 		this.props.entity.leave()
-			.then(() => this.redirectToProfile());
+			.then(() => this.redirectToProfile('memberships/'));
 	},
 
 	redirectToProfile() {

@@ -17,6 +17,7 @@
 
 			@media all and (min-width: 500px) {
 				flex-basis: calc(33% - 10px);
+				min-height: 2.4rem; // when editing, if the input falls on a new line we need this to maintain the height.
 			}
 		}
 	}
