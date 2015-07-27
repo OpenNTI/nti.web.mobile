@@ -35,7 +35,7 @@ export default React.createClass({
 
 
 	updateSeries (props = this.props) {
-		let score = Math.min(0, Math.max(100, parseInt(props.score, 10)));
+		let score = Math.max(0, Math.min(100, parseInt(props.score, 10)));
 
 		this.setState({
 			score,
