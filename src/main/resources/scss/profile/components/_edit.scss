@@ -49,4 +49,25 @@
 			}
 		}
 	}
+
+	.fixed-footer {
+		height: 4rem;
+		.the-fixed {
+			border: 1px solid $tertiary-grey;
+			border-width: 1px 0 0 0;
+			background: #f8f8f8;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+
+		.controls {
+			text-align: right;
+		}
+		.button, button {
+			margin: 0;
+		}
+	}
 }
+

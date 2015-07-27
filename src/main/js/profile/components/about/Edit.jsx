@@ -187,9 +187,13 @@ export default React.createClass({
 						<Interests items={editObject.interests} onChange={this.valueChanged.bind(this, 'interests')} />
 					</Card>
 				</ul>
-				<div className="controls buttons">
-					<Link href="/" className="button">Cancel</Link>
-					<button onClick={this.save}>Save</button>
+				<div className="fixed-footer">
+					<div className="the-fixed">
+						<div className="controls buttons">
+							<Link href="/" className="button tiny secondary">Cancel</Link>
+							<button className="tiny primary" onClick={this.save}>Save</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		);
