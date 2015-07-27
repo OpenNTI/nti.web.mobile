@@ -79,16 +79,16 @@ export default {
 	},
 
 
-	getAssessedPart () {
-		let item = this.props.item;
-		let question = Store.getAssessedQuestion(item, item.getQuestionId());
-
-		//If we have an AssessedQuestion, it has a property "parts" that is an array
-		let parts = (question && question.parts) || [];
-
-		//Get the question part or return undefined.
-		return parts[item.getPartIndex()];
-	},
+	// getAssessedPart () {
+	// 	let item = this.props.item;
+	// 	let question = Store.getAssessedQuestion(item, item.getQuestionId());
+	//
+	// 	//If we have an AssessedQuestion, it has a property "parts" that is an array
+	// 	let parts = (question && question.parts) || [];
+	//
+	// 	//Get the question part or return undefined.
+	// 	return parts[item.getPartIndex()];
+	// },
 
 
 	setValue (value) {
