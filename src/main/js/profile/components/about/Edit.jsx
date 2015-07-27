@@ -7,6 +7,11 @@ import Education from './edit/Education';
 import Positions from './edit/Positions';
 import Interests from './edit/Interests';
 import Loading from 'common/components/Loading';
+import {scoped} from 'common/locale';
+
+let t = scoped('ERROR_MESSAGES');
+
+const ERROR_REQUIRED_MISSING = 'RequiredMissing';
 
 export default React.createClass({
 	displayName: 'Edit',
@@ -19,7 +24,8 @@ export default React.createClass({
 
 	getInitialState: function() {
 		return {
-			newValues: {}
+			newValues: {},
+			error: null
 		};
 	},
 
@@ -68,7 +74,25 @@ export default React.createClass({
 		let {newValues} = this.state;
 		let {entity} = this.props;
 		entity.save(newValues)
-			.then( () => this.redirectToProfile());
+		.then(
+			() => {
+				this.redirectToProfile();
+			},
+			(reason) => {
+				this.setState({
+					error: reason,
+					busy: false
+				});
+			}
+		);
+	},
+
+	errorMessage(error) {
+		if (error.code === ERROR_REQUIRED_MISSING) {
+			let localizedFieldName = t(`FIELDNAMES.${error.field}`, {fallback: error.field});
+			return t('requiredField', {field: localizedFieldName});
+		}
+		return (error || {}).message || `An unrecognized error occurred: ${error.code}.`;
 	},
 
 	render () {
@@ -77,11 +101,12 @@ export default React.createClass({
 			return <Loading />;
 		}
 
-		let {editObject} = this.state;
+		let {editObject, error} = this.state;
 
 		return (
 			<div className="profile-edit">
 				<ul className="profile-cards">
+					{error && <Card className="error">{this.errorMessage(error)}</Card>}
 					<Card className="about" title="About">
 						<label>Write something about yourself</label>
 						<Editor allowInsertImage={false} value={editObject.about}

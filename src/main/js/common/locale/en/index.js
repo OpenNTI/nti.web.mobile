@@ -7,6 +7,7 @@
 import units from './partials/units';
 import course from './partials/course';
 import content from './partials/content';
+import errorMessages from './partials/error-messages';
 import forums from './partials/forums';
 import enrollment from './partials/enrollment';
 import library from './partials/library';
@@ -25,6 +26,8 @@ export default {
 	LOGIN: login,
 
 	ENROLLMENT: enrollment,
+
+	ERROR_MESSAGES: errorMessages,
 
 	LIBRARY: library,
 
