@@ -1,17 +1,4 @@
-input[type="text"],
-input[type="password"],
-input[type="date"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="month"],
-input[type="week"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="url"],
-input[type="color"],
+input[type]:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
 select,
 textarea {
 	border-color: $border-grey;
