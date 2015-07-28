@@ -30,7 +30,7 @@ export default React.createClass({
 	},
 
 	componentWillMount: function() {
-		this.setUpEditObject()
+		this.setUpEditObject();
 	},
 
 	componentWillReceiveProps: function(nextProps) {
@@ -40,9 +40,14 @@ export default React.createClass({
 	setUpEditObject (props = this.props) {
 		if (props.entity) {
 			let editObject = this.props.entity.getData();
+			for (let key of Object.keys(editObject)) {
+				if (editObject[key] == null) {
+					delete editObject[key];
+				}
+			}
 			this.setState({
 				editObject
-			});	
+			});
 		}
 	},
 
@@ -59,11 +64,15 @@ export default React.createClass({
 
 	valueChanged(name, value) {
 		// set empty strings to null
-		let v = value && Array.isArray(value) || value.trim().length > 0 ? value : null;
-		console.debug(name, value);
-		let newValues = Object.assign({}, this.state.newValues, { [name]: v });
-		this.setState({
-			newValues
+		let v = (value && (Array.isArray(value) || value.trim().length > 0)) ? value : null;
+		let {editObject, newValues} = this.state;
+
+		newValues = Object.assign({}, newValues, { [name]: v });
+		editObject = Object.assign({}, editObject, newValues);
+
+		console.time('Form Render Update');
+		this.setState({editObject, newValues}, () => {
+			console.timeEnd('Form Render Update');
 		});
 	},
 

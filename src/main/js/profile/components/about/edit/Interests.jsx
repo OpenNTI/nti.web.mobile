@@ -12,11 +12,14 @@ export default React.createClass({
 
 	maybeAddItem (event) {
 		let {value} = event.target;
-		let {items} = this.state;
+		let {items = []} = this.state;
 		value = value.trim();
+		items = items.slice();
 		if (value.length > 0 && items.indexOf(value) === -1) {
 			items.push(value);
-			this.itemChanged();
+
+			this.setState({items}, () => this.itemChanged());
+
 			event.target.value = '';
 			event.target.focus();
 		}

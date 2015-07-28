@@ -34,8 +34,12 @@ export default React.createClass({
 	},
 
 	valueChanged (field, newValue) {
-		let {item} = this.state;
-		item[field] = newValue;
+		let {item={}} = this.state;
+
+		item = Object.assign({}, item, {[field]: newValue});
+
+		this.setState({item});
+
 		if (this.props.onChange) {
 			this.props.onChange(item);
 		}

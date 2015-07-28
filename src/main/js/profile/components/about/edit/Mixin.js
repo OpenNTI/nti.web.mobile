@@ -26,19 +26,27 @@ export default {
 
 	itemChanged(/* item, newValue */) {
 		if (this.props.onChange) {
-			this.props.onChange(this.props.items);
+			this.props.onChange(this.state.items);
 		}
 	},
 
 	addEntry () {
-		this.state.items.push({
+		let {items} = this.state;
+		items = items.slice();
+		items.push({
 			MimeType: this.getMimeType()
 		});
-		this.forceUpdate();
+
+		this.setState({items});
 	},
 
 	removeEntry (index) {
-		this.state.items.splice(index, 1);
+		let {items} = this.state;
+		items = items.slice();
+
+		items.splice(index, 1);
+		this.setState({items});
+
 		this.itemChanged();
 	}
 };
