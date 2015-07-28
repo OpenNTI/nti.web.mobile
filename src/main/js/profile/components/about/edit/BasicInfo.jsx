@@ -54,6 +54,8 @@ export default React.createClass({
 	onChange (e) {
 		let {name, value} = e.target;
 
+		value = Editor.isEmpty(value) ? null : value;
+
 		this.setState({[name]: value});
 	},
 
