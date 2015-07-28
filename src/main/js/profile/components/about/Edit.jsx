@@ -115,7 +115,9 @@ export default React.createClass({
 						/>
 						<div>
 							<label>Email</label>
-							<input defaultValue={editObject.email}
+							<input
+								type="text"
+								defaultValue={editObject.email}
 								ref="email"
 								onChange={this.onChange}
 								name="email"
@@ -124,7 +126,9 @@ export default React.createClass({
 						</div>
 						<div>
 							<label>Location</label>
-							<input defaultValue={editObject.location}
+							<input
+								type="text"
+								defaultValue={editObject.location}
 								ref="location"
 								onChange={this.onChange}
 								name="location"
@@ -133,7 +137,9 @@ export default React.createClass({
 						</div>
 						<div>
 							<label>Homepage</label>
-							<input defaultValue={editObject.home_page}
+							<input
+								type="text"
+								defaultValue={editObject.home_page}
 								ref="home_page"
 								onChange={this.onChange}
 								name="home_page"
@@ -142,7 +148,9 @@ export default React.createClass({
 						</div>
 						<div>
 							<label>Twitter</label>
-							<input defaultValue={editObject.twitter}
+							<input
+								type="text"
+								defaultValue={editObject.twitter}
 								ref="twitter"
 								onChange={this.onChange}
 								name="twitter"
@@ -151,7 +159,9 @@ export default React.createClass({
 						</div>
 						<div>
 							<label>Facebook</label>
-							<input defaultValue={editObject.facebook}
+							<input
+								type="text"
+								defaultValue={editObject.facebook}
 								ref="facebook"
 								onChange={this.onChange}
 								name="facebook"
@@ -160,7 +170,9 @@ export default React.createClass({
 						</div>
 						<div>
 							<label>Google Plus</label>
-							<input defaultValue={editObject.googlePlus}
+							<input
+								type="text"
+								defaultValue={editObject.googlePlus}
 								ref="googlePlus"
 								onChange={this.onChange}
 								name="googlePlus"
@@ -169,7 +181,9 @@ export default React.createClass({
 						</div>
 						<div>
 							<label>LinkedIn</label>
-							<input defaultValue={editObject.linkedIn}
+							<input
+								type="text"
+								defaultValue={editObject.linkedIn}
 								ref="linkedIn"
 								onChange={this.onChange}
 								name="linkedIn"

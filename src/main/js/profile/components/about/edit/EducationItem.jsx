@@ -49,21 +49,26 @@ export default React.createClass({
 			<div className="educational-experience">
 				<div>
 					<label className="required">School</label>
-					<input name="school" defaultValue={item.school} onChange={this.onChange} />
+					<input
+						type="text"
+						name="school"
+						defaultValue={item.school}
+						className="required"
+						onChange={this.onChange} />
 				</div>
 				<div className="degree">
 					<div>
 						<label>Degree</label>
-						<input name="degree" defaultValue={item.degree} onChange={this.onChange} />
+						<input type="text" name="degree" defaultValue={item.degree} onChange={this.onChange} />
 					</div>
 					<div className="education-years">
 						<div>
 							<label>Start Year</label>
-							<input name="startYear" defaultValue={item.startYear} onChange={this.onChange} />
+							<input type="number" name="startYear" defaultValue={item.startYear} onChange={this.onChange} />
 						</div>
 						<div>
 							<label>End Year</label>
-							<input name="endYear" defaultValue={item.endYear} onChange={this.onChange} />
+							<input type="number" name="endYear" defaultValue={item.endYear} onChange={this.onChange} />
 						</div>
 					</div>
 				</div>
