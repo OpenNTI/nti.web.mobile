@@ -22,7 +22,15 @@ export default {
 		'twitter': 'Twitter',
 		'facebook': 'Facebook',
 		'googlePlus': 'Google Plus',
-		'linkedIn': 'LinkedIn'
+		'linkedIn': 'LinkedIn',
+
+		EVENT_ITEM: {
+			'school': 'School',
+			'degree': 'Degree',
+			'companyName': 'Company Name',
+			'title': 'Title'
+
+		}
 	},
 
 	ACTIVITY: {

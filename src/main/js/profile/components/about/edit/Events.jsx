@@ -1,21 +1,25 @@
 import React from 'react';
-import Mixin from './Mixin';
-import PositionItem from './PositionItem';
-import AddEntryButton from './AddEntryButton';
 
-const MimeType = 'application/vnd.nextthought.profile.professionalposition';
+import AddEntryButton from './AddEntryButton';
+import EventItem from './EventItem';
+import Mixin from './Mixin';
 
 export default React.createClass({
-	displayName: 'Positions:Edit',
+	displayName: 'Events:Edit',
 	mixins: [Mixin],
 
 	propTypes: {
 		items: React.PropTypes.array,
 
-		field: React.PropTypes.string.isRequired
+		field: React.PropTypes.string.isRequired,
+
+		mimeType: React.PropTypes.string.isRequired,
+
+		fieldNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
 	},
 
 	render () {
+		let {mimeType, fieldNames} = this.props;
 		let {items} = this.state || {};
 
 		return (
@@ -24,12 +28,12 @@ export default React.createClass({
 					return (
 						<div className="entry" key={`item-${index}`}>
 							<div className="remove icon-bold-x" onClick={this.removeEntry.bind(this, index)}/>
-							<PositionItem item={item} ref={`item-${index}`}/>
+							<EventItem item={item} ref={`item-${index}`} mimeType={mimeType} fieldNames={fieldNames}/>
 						</div>
 					);
 				})}
 				<div className="controls buttons">
-					<AddEntryButton onClick={this.addEntry.bind(this, MimeType)} />
+					<AddEntryButton onClick={this.addEntry} />
 				</div>
 			</div>
 

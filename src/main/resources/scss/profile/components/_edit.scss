@@ -1,10 +1,5 @@
 .profile-edit {
 
-	.profile-card.error {
-		border: 4px solid $primary-red;
-		color: $secondary-red;
-	}
-
 	label {
 		text-transform: uppercase;
 	    font-size: .625rem;
@@ -37,6 +32,22 @@
 			float: right;
 			font-size: 1.5rem;
 			color: $tertiary-grey;
+		}
+	}
+
+	.event-years {
+		display: flex;
+
+		& > div {
+			flex: 1 1 auto;
+			margin: 0 0.25rem;
+			&:last-child {
+				margin-right: 0;
+			}
+
+			&:first-child {
+				margin-left: 0;
+			}
 		}
 	}
 

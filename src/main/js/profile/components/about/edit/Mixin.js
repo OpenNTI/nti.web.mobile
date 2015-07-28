@@ -31,11 +31,11 @@ export default {
 	},
 
 
-	addEntry (MimeType) {
+	addEntry () {
 		let {items} = this.state || {};
 		items = items ? items.slice() : [];
 
-		items.push({MimeType});
+		items.push({});
 
 		this.setState({items});
 	},

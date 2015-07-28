@@ -6,8 +6,7 @@ import Conditional from 'common/components/Conditional';
 import Loading from 'common/components/Loading';
 
 import BasicInfo from './edit/BasicInfo';
-import Education from './edit/Education';
-import Positions from './edit/Positions';
+import Events from './edit/Events';
 import Interests from './edit/Interests';
 
 import Card from '../Card';
@@ -16,6 +15,9 @@ import RedirectToProfile from '../../mixins/RedirectToProfile';
 import {scoped} from 'common/locale';
 
 let t = scoped('ERROR_MESSAGES');
+
+const EDUCATION = 'application/vnd.nextthought.profile.educationalexperience';
+const PROFESSIONAL = 'application/vnd.nextthought.profile.professionalposition';
 
 const ERROR_REQUIRED_MISSING = 'RequiredMissing';
 
@@ -104,11 +106,11 @@ export default React.createClass({
 						</Card>
 
 						<Card className="education" title="Education">
-							<Education items={editObject.education} ref="education" field="education"/>
+							<Events items={editObject.education} ref="education" field="education" fieldNames={['school', 'degree']} mimeType={EDUCATION}/>
 						</Card>
 
 						<Card className="positions" title="Positions">
-							<Positions items={editObject.positions} ref="positions" field="positions"/>
+							<Events items={editObject.positions} ref="positions" field="positions" fieldNames={['companyName', 'title']} mimeType={PROFESSIONAL}/>
 						</Card>
 
 						<Card className="interests" title="Interests">

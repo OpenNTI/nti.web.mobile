@@ -1,11 +1,20 @@
 import React from 'react';
+
 import Editor from 'modeled-content/components/Editor';
+
+import {scoped} from 'common/locale';
+
+const t = scoped('PROFILE.EDIT.EVENT_ITEM');
 
 export default React.createClass({
 	displayName: 'EducationItem',
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired
+		item: React.PropTypes.object.isRequired,
+
+		fieldNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+
+		mimeType: React.PropTypes.string.isRequired
 	},
 
 
@@ -18,10 +27,10 @@ export default React.createClass({
 	},
 
 	setup (props = this.props) {
-		let {item} = props;
+		let {item, fieldNames} = props;
 		let state = {};
 
-		for(let field of ['school', 'degree', 'startYear', 'endYear', 'description']) {
+		for(let field of fieldNames.concat(['startYear', 'endYear', 'description'])) {
 			state[field] = item && item[field];
 		}
 
@@ -44,24 +53,25 @@ export default React.createClass({
 	},
 
 	render () {
-
-		let {school, degree, startYear, endYear, description} = this.state;
+		let {state = {}} = this;
+		let {startYear, endYear, description} = state;
+		let [requiredField, secondaryField] = this.props.fieldNames;
 
 		return (
-			<fieldset ref="form" className="educational-experience">
+			<fieldset ref="form" className="profile-event-body">
 				<div>
-					<label className="required">School</label>
-					<input type="text" name="school" className="required" required
-						value={school} onChange={this.onChange} />
+					<label className="required">{t(requiredField)}</label>
+					<input type="text" name={requiredField} className="required" required
+						value={state[requiredField]} onChange={this.onChange} />
 				</div>
 
-				<div className="degree">
+				<div className="secondary-line">
 					<div>
-						<label>Degree</label>
-						<input type="text" name="degree" value={degree} onChange={this.onChange} />
+						<label>{t(secondaryField)}</label>
+						<input type="text" name={secondaryField} value={state[secondaryField]} onChange={this.onChange} />
 					</div>
 
-					<div className="education-years">
+					<div className="event-years">
 						<div>
 							<label>Start Year</label>
 							<input type="number" name="startYear" value={startYear} onChange={this.onChange} />
@@ -82,9 +92,10 @@ export default React.createClass({
 
 
 	getValue () {
+		let {mimeType, item} = this.props;
 		let {state} = this;
 		let value = {};
-		let input = Object.assign({}, this.props.item);
+		let input = Object.assign({}, item);
 
 		for (let field of Object.keys(state)) {
 			let v = state[field];
@@ -96,7 +107,7 @@ export default React.createClass({
 		}
 
 		return Object.keys(value).length > 0
-			? Object.assign({}, input, value)
+			? Object.assign({MimeType: mimeType}, input, value)
 			: null;
 	}
 });
