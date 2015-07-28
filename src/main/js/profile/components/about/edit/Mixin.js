@@ -6,19 +6,19 @@ export default {
 		onChange: React.PropTypes.func
 	},
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			items: []
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount () {
 		this.setState({
 			items: this.props.items
 		});
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		this.setState({
 			items: nextProps.items
 		});

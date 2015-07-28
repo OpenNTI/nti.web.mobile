@@ -24,7 +24,7 @@ export default React.createClass({
 
 	render () {
 
-		let {items} = this.state;
+		let {items=[]} = this.state || {};
 
 		return (
 			<div className="interests-edit">
