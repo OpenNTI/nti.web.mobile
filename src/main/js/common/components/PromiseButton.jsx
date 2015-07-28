@@ -106,6 +106,7 @@ export default React.createClass({
 		let {children, className} = this.props;
 		let css = cx('promise-button', className, this.state.status);
 
+		// A dummy element used to size the container to match the default (first) state.
 		let sizer = React.renderToStaticMarkup(React.createElement('span', {}, children));
 
 		return (
