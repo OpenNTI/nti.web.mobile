@@ -7,9 +7,16 @@ export default React.createClass({
 		onClick: React.PropTypes.func.isRequired
 	},
 
+	onClick (e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		this.props.onClick.call();
+	},
+
 	render () {
 		return (
-			<button className="add-entry-button tiny" onClick={this.props.onClick}>Add Entry</button>
+			<button className="add-entry-button tiny" onClick={this.onClick}>Add Entry</button>
 		);
 	}
 });

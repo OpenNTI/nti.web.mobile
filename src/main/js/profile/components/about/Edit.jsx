@@ -1,12 +1,18 @@
 import React from 'react';
-import Card from '../Card';
-import Editor from 'modeled-content/components/Editor';
-import RedirectToProfile from '../../mixins/RedirectToProfile';
-import Link from 'common/components/ActiveLink';
+
+import {Link} from 'react-router-component';
+
+import Conditional from 'common/components/Conditional';
+import Loading from 'common/components/Loading';
+
+import BasicInfo from './edit/BasicInfo';
 import Education from './edit/Education';
 import Positions from './edit/Positions';
 import Interests from './edit/Interests';
-import Loading from 'common/components/Loading';
+
+import Card from '../Card';
+import RedirectToProfile from '../../mixins/RedirectToProfile';
+
 import {scoped} from 'common/locale';
 
 let t = scoped('ERROR_MESSAGES');
@@ -22,79 +28,53 @@ export default React.createClass({
 		entity: React.PropTypes.object.isRequired
 	},
 
-	getInitialState: function() {
-		return {
-			newValues: {},
-			error: null
-		};
+
+	getInitialState () {
+		return {};
 	},
 
-	componentWillMount: function() {
-		this.setUpEditObject();
+
+	componentWillMount () { this.setup(); },
+
+	componentWillReceiveProps (nextProps) {
+		if (this.props.entity !== nextProps.entity) {
+			this.setup(nextProps);
+		}
 	},
 
-	componentWillReceiveProps: function(nextProps) {
-		this.setUpEditObject(nextProps);
-	},
+	setup (props = this.props) {
+		let {entity} = props;
 
-	setUpEditObject (props = this.props) {
-		if (props.entity) {
-			let editObject = this.props.entity.getData();
+		if (entity) {
+			let editObject = entity.getData();
+
 			for (let key of Object.keys(editObject)) {
 				if (editObject[key] == null) {
 					delete editObject[key];
 				}
 			}
-			this.setState({
-				editObject
-			});
+
+			this.setState({editObject});
 		}
 	},
 
-	editorChange(ref, oldValue, newValue) {
-		this.valueChanged(ref, newValue);
-	},
-
-	onChange (event) {
-		let {target} = event;
-		let {name, value} = target;
-		this.valueChanged(name, value);
-
-	},
-
-	valueChanged(name, value) {
-		// set empty strings to null
-		let v = (value && (Array.isArray(value) || value.trim().length > 0)) ? value : null;
-		let {editObject, newValues} = this.state;
-
-		newValues = Object.assign({}, newValues, { [name]: v });
-		editObject = Object.assign({}, editObject, newValues);
-
-		console.time('Form Render Update');
-		this.setState({editObject, newValues}, () => {
-			console.timeEnd('Form Render Update');
-		});
-	},
 
 	save (e) {
 		e.preventDefault();
-		this.setState({
-			busy: true
-		});
-		let {newValues} = this.state;
-		let {entity} = this.props;
-		entity.save(newValues)
-		.then(
-			() => {
-				this.redirectToProfile();
-			},
-			(reason) => {
-				this.setState({
-					error: reason,
-					busy: false
-				});
+
+		let values = {};
+		let parts = Object.values(this.refs);
+		for (let part of parts) {
+			if (part.getValue) {
+				Object.assign(values, part.getValue());
 			}
-		);
+		}
+
+		this.setState({ busy: true }, () =>
+			this.props.entity.save(values)
+				.then(() => this.redirectToProfile())
+				.catch(error => this.setState({ error, busy: false })
+			));
 	},
 
 	errorMessage(error) {
@@ -105,122 +85,58 @@ export default React.createClass({
 		return (error || {}).message || `An unrecognized error occurred: ${error.code}.`;
 	},
 
+
+	dismissError () {
+		this.setState({error: void 0});
+	},
+
+
 	render () {
-
-		if (this.state.busy) {
-			return <Loading />;
-		}
-
-		let {editObject, error} = this.state;
+		let {busy, editObject, error} = this.state;
 
 		return (
 			<div className="profile-edit">
-				<form onSubmit={this.save}>
+				<form onSubmit={this.save} noValidate>
 					<ul className="profile-cards">
-						{error && <Card className="error">{this.errorMessage(error)}</Card>}
+
 						<Card className="about" title="About">
-							<label>Write something about yourself</label>
-							<Editor allowInsertImage={false} value={editObject.about}
-								ref="about"
-								onChange={this.editorChange.bind(this, 'about')}
-							/>
-							<div>
-								<label>Email</label>
-								<input
-									type="email"
-									defaultValue={editObject.email}
-									ref="email"
-									onChange={this.onChange}
-									name="email"
-
-								/>
-							</div>
-							<div>
-								<label>Location</label>
-								<input
-									type="text"
-									defaultValue={editObject.location}
-									ref="location"
-									onChange={this.onChange}
-									name="location"
-
-								/>
-							</div>
-							<div>
-								<label>Homepage</label>
-								<input
-									type="text"
-									defaultValue={editObject.home_page}
-									ref="home_page"
-									onChange={this.onChange}
-									name="home_page"
-
-								/>
-							</div>
-							<div>
-								<label>Twitter</label>
-								<input
-									type="text"
-									defaultValue={editObject.twitter}
-									ref="twitter"
-									onChange={this.onChange}
-									name="twitter"
-
-								/>
-							</div>
-							<div>
-								<label>Facebook</label>
-								<input
-									type="text"
-									defaultValue={editObject.facebook}
-									ref="facebook"
-									onChange={this.onChange}
-									name="facebook"
-
-								/>
-							</div>
-							<div>
-								<label>Google Plus</label>
-								<input
-									type="text"
-									defaultValue={editObject.googlePlus}
-									ref="googlePlus"
-									onChange={this.onChange}
-									name="googlePlus"
-
-								/>
-							</div>
-							<div>
-								<label>LinkedIn</label>
-								<input
-									type="text"
-									defaultValue={editObject.linkedIn}
-									ref="linkedIn"
-									onChange={this.onChange}
-									name="linkedIn"
-
-								/>
-							</div>
+							<BasicInfo item={editObject} ref="about"/>
 						</Card>
+
 						<Card className="education" title="Education">
-							<Education items={editObject.education} onChange={this.valueChanged.bind(this, 'education')} />
+							<Education items={editObject.education} ref="education" field="education"/>
 						</Card>
+
 						<Card className="positions" title="Positions">
-							<Positions items={editObject.positions} onChange={this.valueChanged.bind(this, 'positions')} />
+							<Positions items={editObject.positions} ref="positions" field="positions"/>
 						</Card>
+
 						<Card className="interests" title="Interests">
-							<Interests items={editObject.interests} onChange={this.valueChanged.bind(this, 'interests')} />
+							<Interests items={editObject.interests} ref="interests" field="interests"/>
 						</Card>
+
 					</ul>
+
 					<div className="fixed-footer">
 						<div className="the-fixed">
 							<div className="controls buttons">
-								<Link href="/" className="button tiny secondary">Cancel</Link>
+								{error && (
+									<div className="error">
+										<a href="#" onClick={this.dismissError}>x</a>
+										{this.errorMessage(error)}
+									</div>
+								)}
+
+								<Link href="/" className="button tiny link">Cancel</Link>
 								<button className="tiny primary">Save</button>
 							</div>
 						</div>
 					</div>
 				</form>
+
+				<Conditional condition={busy} className="busy">
+					<Loading />
+				</Conditional>
 			</div>
 		);
 	}

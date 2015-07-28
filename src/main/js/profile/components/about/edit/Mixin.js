@@ -2,51 +2,74 @@ import React from 'react';
 
 export default {
 	propTypes: {
-		items: React.PropTypes.array.isRequired,
-		onChange: React.PropTypes.func
+		items: React.PropTypes.array,
+		field: React.PropTypes.string
 	},
 
-	getInitialState () {
-		return {
-			items: []
-		};
+
+	componentDidMount () {
+		this.initItems();
 	},
 
-	componentWillMount () {
-		this.setState({
-			items: this.props.items
-		});
-	},
 
 	componentWillReceiveProps (nextProps) {
-		this.setState({
-			items: nextProps.items
-		});
-	},
-
-	itemChanged(/* item, newValue */) {
-		if (this.props.onChange) {
-			this.props.onChange(this.state.items);
+		if (nextProps.items !== this.props.items) {
+			this.initItems(nextProps);
 		}
 	},
 
-	addEntry () {
-		let {items} = this.state;
-		items = items.slice();
-		items.push({
-			MimeType: this.getMimeType()
-		});
+
+	initItems (props = this.props) {
+		let {items} = props;
+
+		if (items) {
+			//deep clone
+			items = items.map(x => JSON.parse(JSON.stringify(x)));
+		}
+
+		this.setState({items});
+	},
+
+
+	addEntry (MimeType) {
+		let {items} = this.state || {};
+		items = items ? items.slice() : [];
+
+		items.push({MimeType});
 
 		this.setState({items});
 	},
 
 	removeEntry (index) {
-		let {items} = this.state;
-		items = items.slice();
+		let {items} = this.state || {};
+		items = items ? items.slice() : [];
 
 		items.splice(index, 1);
 		this.setState({items});
+	},
 
-		this.itemChanged();
+
+	getValue () {
+		let {items} = this.state;
+		let value = [];
+
+		if (this.itemsArePrimitive) {
+			value = items || [];
+		}
+		else {
+			for (let item of Object.values(this.refs)) {
+				if (item.getValue) {
+					value.push(item.getValue());
+				}
+			}
+		}
+
+		value = value.filter(x => x);
+
+		if (value.length === 0) {
+			value = null;
+		}
+
+		return {[this.props.field]: value};
 	}
 };

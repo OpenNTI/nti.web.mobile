@@ -7,27 +7,29 @@ const MimeType = 'application/vnd.nextthought.profile.professionalposition';
 
 export default React.createClass({
 	displayName: 'Positions:Edit',
-
 	mixins: [Mixin],
 
-	getMimeType() {
-		return MimeType;
+	propTypes: {
+		items: React.PropTypes.array,
+
+		field: React.PropTypes.string.isRequired
 	},
 
 	render () {
-		let {items} = this.state;
+		let {items} = this.state || {};
+
 		return (
 			<div>
 				{(items || []).map((item, index) => {
 					return (
-						<div className="entry">
-							<div className="remove icon-bold-x" onClick={this.removeEntry.bind(this, index)}></div>
-							<PositionItem item={item} key={`position-item-${index}`} onChange={this.itemChanged.bind(this, item)} />
+						<div className="entry" key={`item-${index}`}>
+							<div className="remove icon-bold-x" onClick={this.removeEntry.bind(this, index)}/>
+							<PositionItem item={item} ref={`item-${index}`}/>
 						</div>
 					);
 				})}
 				<div className="controls buttons">
-					<AddEntryButton onClick={this.addEntry} />
+					<AddEntryButton onClick={this.addEntry.bind(this, MimeType)} />
 				</div>
 			</div>
 

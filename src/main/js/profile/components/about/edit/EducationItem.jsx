@@ -5,26 +5,32 @@ export default React.createClass({
 	displayName: 'EducationItem',
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired,
-		onChange: React.PropTypes.func
+		item: React.PropTypes.object.isRequired
 	},
 
-	editorChange (fieldName, oldValue, newValue) {
-		this.valueChanged(fieldName, newValue);
-	},
 
-	componentWillMount: function() {
-		this.setState({
-			item: this.props.item
-		});
-	},
+	componentWillMount () { this.setup(); },
 
-	componentWillReceiveProps: function(nextProps) {
+	ccomponentWillReceiveProps (nextProps) {
 		if (this.props.item !== nextProps.item) {
-			this.setState({
-				item: nextProps.item
-			});
+			this.setup(nextProps);
 		}
+	},
+
+	setup (props = this.props) {
+		let {item} = props;
+		let state = {};
+
+		for(let field of ['school', 'degree', 'startYear', 'endYear', 'description']) {
+			state[field] = item && item[field];
+		}
+
+		this.setState(state);
+	},
+
+
+	editorChange (_, newValue) {
+		this.valueChanged('description', newValue);
 	},
 
 	onChange (event) {
@@ -34,52 +40,63 @@ export default React.createClass({
 	},
 
 	valueChanged (field, newValue) {
-		let {item={}} = this.state;
-
-		item = Object.assign({}, item, {[field]: newValue});
-
-		this.setState({item});
-
-		if (this.props.onChange) {
-			this.props.onChange(item);
-		}
+		this.setState({[field]: newValue});
 	},
 
 	render () {
 
-		let {item} = this.props;
+		let {school, degree, startYear, endYear, description} = this.state;
 
 		return (
-			<div className="educational-experience">
+			<fieldset ref="form" className="educational-experience">
 				<div>
 					<label className="required">School</label>
-					<input
-						type="text"
-						name="school"
-						defaultValue={item.school}
-						className="required"
-						required
-						onChange={this.onChange} />
+					<input type="text" name="school" className="required" required
+						value={school} onChange={this.onChange} />
 				</div>
+
 				<div className="degree">
 					<div>
 						<label>Degree</label>
-						<input type="text" name="degree" defaultValue={item.degree} onChange={this.onChange} />
+						<input type="text" name="degree" value={degree} onChange={this.onChange} />
 					</div>
+
 					<div className="education-years">
 						<div>
 							<label>Start Year</label>
-							<input type="number" name="startYear" defaultValue={item.startYear} onChange={this.onChange} />
+							<input type="number" name="startYear" value={startYear} onChange={this.onChange} />
 						</div>
+
 						<div>
 							<label>End Year</label>
-							<input type="number" name="endYear" defaultValue={item.endYear} onChange={this.onChange} />
+							<input type="number" name="endYear" value={endYear} onChange={this.onChange} />
 						</div>
 					</div>
 				</div>
+
 				<label>Description</label>
-				<Editor className="description" value={item.description} onChange={this.editorChange.bind(this, 'description')} />
-			</div>
+				<Editor className="description" value={description} onChange={this.editorChange} />
+			</fieldset>
 		);
+	},
+
+
+	getValue () {
+		let {state} = this;
+		let value = {};
+		let input = Object.assign({}, this.props.item);
+
+		for (let field of Object.keys(state)) {
+			let v = state[field];
+			delete input[field];
+
+			if (v && !Editor.isEmpty(v)) {
+				value[field] = Array.isArray(v) ? v : v.trim ? v.trim() : v;
+			}
+		}
+
+		return Object.keys(value).length > 0
+			? Object.assign({}, input, value)
+			: null;
 	}
 });

@@ -14,6 +14,17 @@ export default {
 		}
 	},
 
+	EDIT: {
+		'about': 'Write something about yourself.',
+		'email': 'Email',
+		'home_page': 'Homepage',
+		'location': 'Location',
+		'twitter': 'Twitter',
+		'facebook': 'Facebook',
+		'googlePlus': 'Google Plus',
+		'linkedIn': 'LinkedIn'
+	},
+
 	ACTIVITY: {
 		TITLES: {
 			communityheadlinetopic: 'Topic',
