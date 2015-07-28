@@ -13,11 +13,7 @@
 	    margin-top: 0.5rem;
 	}
 	input {
-		padding: .25em;
 		width: 100%;
-		-webkit-appearance: none;
-		border: 1px solid $border-grey;
-		border-radius: 0;
 	}
 
 	.entry {
@@ -26,15 +22,6 @@
 			float: right;
 			font-size: 1.5rem;
 			color: $tertiary-grey;
-		}
-	}
-
-	label {
-		&.required {
-			&::after {
-				content: ' *';
-				color: $primary-red;
-			}
 		}
 	}
 
