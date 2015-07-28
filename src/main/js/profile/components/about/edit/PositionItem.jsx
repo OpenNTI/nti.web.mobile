@@ -73,7 +73,7 @@ export default React.createClass({
 				</div>
 
 				<label>Description</label>
-				<Editor className="description" value={description} onChange={this.editorChange} />
+				<Editor className="description" allowInsertImage={false} value={description} onChange={this.editorChange} />
 			</fieldset>
 		);
 	},
