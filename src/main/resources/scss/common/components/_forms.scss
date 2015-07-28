@@ -1,4 +1,4 @@
-input[type]:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
 select,
 textarea {
 	border-color: $border-grey;
