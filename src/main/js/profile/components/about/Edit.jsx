@@ -67,7 +67,8 @@ export default React.createClass({
 		});
 	},
 
-	save () {
+	save (e) {
+		e.preventDefault();
 		this.setState({
 			busy: true
 		});
@@ -105,110 +106,112 @@ export default React.createClass({
 
 		return (
 			<div className="profile-edit">
-				<ul className="profile-cards">
-					{error && <Card className="error">{this.errorMessage(error)}</Card>}
-					<Card className="about" title="About">
-						<label>Write something about yourself</label>
-						<Editor allowInsertImage={false} value={editObject.about}
-							ref="about"
-							onChange={this.editorChange.bind(this, 'about')}
-						/>
-						<div>
-							<label>Email</label>
-							<input
-								type="text"
-								defaultValue={editObject.email}
-								ref="email"
-								onChange={this.onChange}
-								name="email"
-
+				<form onSubmit={this.save}>
+					<ul className="profile-cards">
+						{error && <Card className="error">{this.errorMessage(error)}</Card>}
+						<Card className="about" title="About">
+							<label>Write something about yourself</label>
+							<Editor allowInsertImage={false} value={editObject.about}
+								ref="about"
+								onChange={this.editorChange.bind(this, 'about')}
 							/>
-						</div>
-						<div>
-							<label>Location</label>
-							<input
-								type="text"
-								defaultValue={editObject.location}
-								ref="location"
-								onChange={this.onChange}
-								name="location"
+							<div>
+								<label>Email</label>
+								<input
+									type="email"
+									defaultValue={editObject.email}
+									ref="email"
+									onChange={this.onChange}
+									name="email"
 
-							/>
-						</div>
-						<div>
-							<label>Homepage</label>
-							<input
-								type="text"
-								defaultValue={editObject.home_page}
-								ref="home_page"
-								onChange={this.onChange}
-								name="home_page"
+								/>
+							</div>
+							<div>
+								<label>Location</label>
+								<input
+									type="text"
+									defaultValue={editObject.location}
+									ref="location"
+									onChange={this.onChange}
+									name="location"
 
-							/>
-						</div>
-						<div>
-							<label>Twitter</label>
-							<input
-								type="text"
-								defaultValue={editObject.twitter}
-								ref="twitter"
-								onChange={this.onChange}
-								name="twitter"
+								/>
+							</div>
+							<div>
+								<label>Homepage</label>
+								<input
+									type="text"
+									defaultValue={editObject.home_page}
+									ref="home_page"
+									onChange={this.onChange}
+									name="home_page"
 
-							/>
-						</div>
-						<div>
-							<label>Facebook</label>
-							<input
-								type="text"
-								defaultValue={editObject.facebook}
-								ref="facebook"
-								onChange={this.onChange}
-								name="facebook"
+								/>
+							</div>
+							<div>
+								<label>Twitter</label>
+								<input
+									type="text"
+									defaultValue={editObject.twitter}
+									ref="twitter"
+									onChange={this.onChange}
+									name="twitter"
 
-							/>
-						</div>
-						<div>
-							<label>Google Plus</label>
-							<input
-								type="text"
-								defaultValue={editObject.googlePlus}
-								ref="googlePlus"
-								onChange={this.onChange}
-								name="googlePlus"
+								/>
+							</div>
+							<div>
+								<label>Facebook</label>
+								<input
+									type="text"
+									defaultValue={editObject.facebook}
+									ref="facebook"
+									onChange={this.onChange}
+									name="facebook"
 
-							/>
-						</div>
-						<div>
-							<label>LinkedIn</label>
-							<input
-								type="text"
-								defaultValue={editObject.linkedIn}
-								ref="linkedIn"
-								onChange={this.onChange}
-								name="linkedIn"
+								/>
+							</div>
+							<div>
+								<label>Google Plus</label>
+								<input
+									type="text"
+									defaultValue={editObject.googlePlus}
+									ref="googlePlus"
+									onChange={this.onChange}
+									name="googlePlus"
 
-							/>
-						</div>
-					</Card>
-					<Card className="education" title="Education">
-						<Education items={editObject.education} onChange={this.valueChanged.bind(this, 'education')} />
-					</Card>
-					<Card className="positions" title="Positions">
-						<Positions items={editObject.positions} onChange={this.valueChanged.bind(this, 'positions')} />
-					</Card>
-					<Card className="interests" title="Interests">
-						<Interests items={editObject.interests} onChange={this.valueChanged.bind(this, 'interests')} />
-					</Card>
-				</ul>
-				<div className="fixed-footer">
-					<div className="the-fixed">
-						<div className="controls buttons">
-							<Link href="/" className="button tiny secondary">Cancel</Link>
-							<button className="tiny primary" onClick={this.save}>Save</button>
+								/>
+							</div>
+							<div>
+								<label>LinkedIn</label>
+								<input
+									type="text"
+									defaultValue={editObject.linkedIn}
+									ref="linkedIn"
+									onChange={this.onChange}
+									name="linkedIn"
+
+								/>
+							</div>
+						</Card>
+						<Card className="education" title="Education">
+							<Education items={editObject.education} onChange={this.valueChanged.bind(this, 'education')} />
+						</Card>
+						<Card className="positions" title="Positions">
+							<Positions items={editObject.positions} onChange={this.valueChanged.bind(this, 'positions')} />
+						</Card>
+						<Card className="interests" title="Interests">
+							<Interests items={editObject.interests} onChange={this.valueChanged.bind(this, 'interests')} />
+						</Card>
+					</ul>
+					<div className="fixed-footer">
+						<div className="the-fixed">
+							<div className="controls buttons">
+								<Link href="/" className="button tiny secondary">Cancel</Link>
+								<button className="tiny primary">Save</button>
+							</div>
 						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 		);
 	}

@@ -54,6 +54,7 @@ export default React.createClass({
 						name="school"
 						defaultValue={item.school}
 						className="required"
+						required
 						onChange={this.onChange} />
 				</div>
 				<div className="degree">
