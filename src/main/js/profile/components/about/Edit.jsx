@@ -98,7 +98,7 @@ export default React.createClass({
 
 		return (
 			<div className="profile-edit">
-				<form onSubmit={this.save} noValidate>
+				<form onSubmit={this.save}>
 					<ul className="profile-cards">
 
 						<Card className="about" title="About">

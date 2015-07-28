@@ -56,6 +56,7 @@ export default React.createClass({
 		let {state = {}} = this;
 		let {startYear, endYear, description} = state;
 		let [requiredField, secondaryField] = this.props.fieldNames;
+		let maxYear = (new Date()).getFullYear();
 
 		return (
 			<fieldset ref="form" className="profile-event-body">
@@ -74,12 +75,12 @@ export default React.createClass({
 					<div className="event-years">
 						<div>
 							<label>Start Year</label>
-							<input type="number" name="startYear" value={startYear} onChange={this.onChange} />
+							<input type="number" name="startYear" min='1900' max={maxYear} value={startYear} onChange={this.onChange} />
 						</div>
 
 						<div>
 							<label>End Year</label>
-							<input type="number" name="endYear" value={endYear} onChange={this.onChange} />
+							<input type="number" name="endYear" min='1900' max={maxYear} value={endYear} onChange={this.onChange} />
 						</div>
 					</div>
 				</div>
