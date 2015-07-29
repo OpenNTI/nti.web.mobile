@@ -248,7 +248,7 @@ export default React.createClass({
 			<div>
 				<Transition transitionName="forums">
 					<ViewHeader type={TOPIC} />
-					{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline {...props} />}
+					{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline topic={topic} {...props} />}
 					<ActionLinks
 						item={topic}
 						canReply={true}
