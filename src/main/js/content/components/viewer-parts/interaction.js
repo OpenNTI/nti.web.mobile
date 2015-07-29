@@ -65,7 +65,14 @@ export default {
 
 			//let the capture clicks widget take us to a new place...
 			if (isNTIID(id)) {
-				anchor.setAttribute('href', this.makeHrefNewRoot(encodeForURI(id)));
+				let {pageSource} = this.state;
+				let ref = encodeForURI(id);
+
+				href = pageSource.contains(id)
+					? this.makeHref(ref) //the ID is in the pageSource... just page
+					: this.makeHrefNewRoot(ref); //ID is not in the pageSource, reroot.
+
+				anchor.setAttribute('href', href);
 			}
 
 			if (frag.length) {
