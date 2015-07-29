@@ -1,12 +1,15 @@
 import React from 'react';
 
 import {
+	environment,
 	Locations,
 	Location,
 	NotFound,
 	createURLPatternCompiler,
 	setCreateURLPatternCompilerFactory
 } from 'react-router-component';
+
+const ENVIRONMENT = environment.defaultEnvironment;
 
 const URLPatternCompilerFactory = createURLPatternCompiler;
 setCreateURLPatternCompilerFactory(() => {
@@ -43,7 +46,8 @@ const HANDLER_BY_NAME = {
 	Object: ObjectResolver
 };
 
-const sendGAEvent = 'Router:sendGAEvent';
+const SendGAEvent = 'Router:SendGAEvent';
+const SetPath = '_original:SetPath';
 
 import RouteMap from './routes';
 
@@ -57,6 +61,36 @@ export default React.createClass({
 		path: React.PropTypes.string
 	},
 
+	componentWillUnmount () {
+		//reset back to normal.
+		delete ENVIRONMENT.setPath;
+		delete ENVIRONMENT[SetPath];
+	},
+
+	componentDidMount () {
+		let {setPath} = ENVIRONMENT;
+
+		Object.assign(ENVIRONMENT, {
+			[SetPath]: setPath,
+			setPath: (...args) => {
+				let [, options = {}] = args;
+				let continueSetPath = () => ENVIRONMENT[SetPath](...args);
+
+				if (options.isPopState || !this.maybeBlockNavigation(continueSetPath)) {
+					continueSetPath();
+				}
+			}
+		});
+	},
+
+
+	maybeBlockNavigation (cb) {
+		if (global.test) {
+			global.test = cb;
+			return true;
+		}
+	},
+
 
 	onBeforeNavigation () {
 		let action = this.props.onBeforeNavigation;
@@ -65,7 +99,7 @@ export default React.createClass({
 		}
 	},
 
-	[sendGAEvent]() {
+	[SendGAEvent]() {
 		if (!global.ga) {
 			console.warn('Router requires ga to be available in global scope. Aborting attempt to send google analytics navigation event');
 			return;
@@ -84,7 +118,7 @@ export default React.createClass({
 			action();
 		}
 
-		this[sendGAEvent]();
+		this[SendGAEvent]();
 
 		// let {router} = this.refs;
 		// debugger;
@@ -94,10 +128,12 @@ export default React.createClass({
 
 	render () {
 		return React.createElement(Locations, {
-			ref: 'router',
-			path: this.props.path,
-			onBeforeNavigation: this.onBeforeNavigation,
-			onNavigation: this.onNavigation}, ...this.getRoutes());
+				ref: 'router',
+				path: this.props.path,
+				onBeforeNavigation: this.onBeforeNavigation,
+				onNavigation: this.onNavigation
+			},
+			...this.getRoutes());
 	},
 
 
