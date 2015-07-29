@@ -144,7 +144,7 @@ class Store extends StorePrototype {
 			return;
 		}
 
-		console.debug('Question Part Interacted: %o', action);
+		// console.debug('Question Part Interacted: %o', action);
 
 		let interactionTime = new Date();
 		let time = this.timers[key] || {};
