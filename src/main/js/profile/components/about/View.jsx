@@ -3,7 +3,7 @@ import React from 'react';
 import Card from '../Card';
 import Loading from 'common/components/TinyLoader';
 import Mixin from '../about/Mixin';
-import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
+
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 import Link from 'common/components/ActiveLink';
 
@@ -17,7 +17,7 @@ let sections = ['about', 'education', 'positions', 'interests'];
 export default React.createClass({
 	displayName: 'About:View',
 
-	mixins: [Mixin, ResourceLoaded, ProfileAnalytics],
+	mixins: [Mixin, ProfileAnalytics],
 
 	propTypes: {
 		entity: React.PropTypes.object.isRequired
@@ -46,7 +46,7 @@ export default React.createClass({
 						return ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );
 					})}
 				</ul>
-				{canEdit && 
+				{canEdit &&
 					<div className="controls buttons">
 						<Link href="/edit/" className="button tiny">Edit Profile</Link>
 					</div>

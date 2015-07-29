@@ -1,10 +1,12 @@
 import AnalyticsStore from 'analytics/Store';
-import {PROFILE_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
+import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
 
 const startAnalyticsEvent = 'Profile:startAnalyticsEvent';
 const getEntityId = 'Profile:getEntityId';
 
 export default {
+	mixins: [ResourceLoaded],
+
 	componentDidMount () {
 		this[startAnalyticsEvent](this.getAnalyticsMimeType());
 	},
@@ -31,10 +33,9 @@ export default {
 			h.length--; // don't include ourselves in the context
 		}
 		return Promise.resolve(h);
-	}	,
+	},
 
 	resumeAnalyticsEvents() {
 		this[startAnalyticsEvent]();
-	},
-
-}
+	}
+};

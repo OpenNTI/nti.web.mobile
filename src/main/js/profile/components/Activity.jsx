@@ -6,7 +6,6 @@ import EmptyList from 'common/components/EmptyList';
 
 import BasePathAware from 'common/mixins/BasePath';
 import HasItems from './activity/HasItems';
-import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
 import ProfileAnalytics from '../mixins/AnalyticsMixin';
 
 import Card from './Card';
@@ -18,7 +17,7 @@ import {PROFILE_ACTIVITY_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeT
 export default React.createClass({
 	displayName: 'Activity',
 
-	mixins: [HasItems, BasePathAware, ResourceLoaded, ProfileAnalytics],
+	mixins: [HasItems, BasePathAware, ProfileAnalytics],
 
 	propTypes: {
 		entity: React.PropTypes.object,
