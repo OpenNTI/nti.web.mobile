@@ -6,21 +6,28 @@ import EmptyList from 'common/components/EmptyList';
 
 import BasePathAware from 'common/mixins/BasePath';
 import HasItems from './activity/HasItems';
+import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
+import ProfileAnalytics from '../mixins/AnalyticsMixin';
 
 import Card from './Card';
 import Joined from './activity/Joined';
 import WriteSomething from './WriteSomething';
 
+import {PROFILE_ACTIVITY_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
 export default React.createClass({
 	displayName: 'Activity',
 
-	mixins: [HasItems, BasePathAware],
+	mixins: [HasItems, BasePathAware, ResourceLoaded, ProfileAnalytics],
 
 	propTypes: {
 		entity: React.PropTypes.object,
 
 		filterParams: React.PropTypes.object
+	},
+
+	getAnalyticsMimeType () {
+		return PROFILE_ACTIVITY_VIEWED;
 	},
 
 	getInitialState () {

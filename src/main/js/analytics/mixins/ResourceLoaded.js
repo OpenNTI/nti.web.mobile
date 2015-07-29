@@ -4,13 +4,19 @@ const AssessmentEvent = getModel('analytics.assessmentevent');
 const AssignmentEvent = getModel('analytics.assignmentevent');
 const ResourceEvent = getModel('analytics.resourceevent');
 const TopicViewedEvent = getModel('analytics.topicviewedevent');
+const ProfileViewedEvent = getModel('analytics.profileviewevent');
+const ProfileActivityViewedEvent = getModel('analytics.profileactivityviewevent');
+const ProfileMembershipViewedEvent = getModel('analytics.profilemembershipviewevent');
 
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import {
 	ASSIGNMENT_VIEWED,
 	RESOURCE_VIEWED,
 	SELFASSESSMENT_VIEWED,
-	TOPIC_VIEWED
+	TOPIC_VIEWED,
+	PROFILE_VIEWED,
+	PROFILE_ACTIVITY_VIEWED,
+	PROFILE_MEMBERSHIP_VIEWED
 } from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
 import {emitEventStarted, emitEventEnded} from '../Actions';
@@ -27,9 +33,11 @@ const typeMap = {
 	[ASSIGNMENT_VIEWED]: AssignmentEvent,
 	[SELFASSESSMENT_VIEWED]: AssessmentEvent,
 	[RESOURCE_VIEWED]: ResourceEvent,
-	[TOPIC_VIEWED]: TopicViewedEvent
+	[TOPIC_VIEWED]: TopicViewedEvent,
+	[PROFILE_VIEWED]: ProfileViewedEvent,
+	[PROFILE_ACTIVITY_VIEWED]: ProfileActivityViewedEvent,
+	[PROFILE_MEMBERSHIP_VIEWED]: ProfileMembershipViewedEvent
 };
-
 
 
 export default {

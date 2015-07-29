@@ -3,8 +3,14 @@ import React from 'react';
 import MembershipList from './MembershipList';
 import EmptyList from 'common/components/EmptyList';
 
+import ProfileAnalytics from '../../mixins/AnalyticsMixin';
+import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
+import {PROFILE_MEMBERSHIP_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
+
 export default React.createClass({
 	displayName: 'Memberships',
+
+	mixins: [ResourceLoaded, ProfileAnalytics],
 
 	propTypes: {
 		entity: React.PropTypes.shape({
@@ -12,6 +18,10 @@ export default React.createClass({
 		}).isRequired,
 
 		preview: React.PropTypes.bool
+	},
+
+	getAnalyticsMimeType () {
+		return PROFILE_MEMBERSHIP_VIEWED;
 	},
 
 	getInitialState () {
