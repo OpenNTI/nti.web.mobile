@@ -22,6 +22,7 @@ import Mixin from './Mixin';
 import StoreEvents from 'common/mixins/StoreEvents';
 import KeepItemInState from '../../mixins/KeepItemInState';
 import ToggleState from '../../mixins/ToggleState';
+import LuckyCharms from 'common/components/LuckyCharms';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
@@ -196,6 +197,7 @@ export default React.createClass({
 
 		return (
 			<div className={classes}>
+				<LuckyCharms item={item} />
 				{this.props.detailLink && <a href={href} className="threadlink"><span className="num-comments">{t('replies', {count: numComments})}</span><span className="arrow-right"/></a>}
 				<div className="post">
 					<Avatar entity={createdBy} />
