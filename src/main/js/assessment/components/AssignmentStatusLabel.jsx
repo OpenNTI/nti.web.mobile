@@ -1,6 +1,8 @@
 import React from 'react';
 import emptyFunction from 'react/lib/emptyFunction';
 
+import cx from 'classnames';
+
 import {getModel} from 'nti.lib.interfaces';
 
 import DateTime from 'common/components/DateTime';
@@ -213,11 +215,15 @@ export default React.createClass({
 
 		let date = this.getCompletedDateTime() || assignment.getDueDate();
 
-		let dueToday = (!complete && this.isDueToday()) ? 'due-today ' : '';
-		let overdue = this.isOverDue() ? (submittable ? 'overdue ' : 'late ') : '';
-		let overtime = submittable && this.isOverTime() ? 'overtime ' : '';
-
 		let text = complete ? (assignment.isNonSubmit() ? 'Graded' : 'Completed') : 'Due';
+
+		let infoClasses = cx('info-part', text.toLowerCase(), {
+			'non-submit': assignment.isNonSubmit(),
+			'due-today': !complete && this.isDueToday(),
+			'overdue': this.isOverDue() && submittable,
+			'late': this.isOverDue() && !assignment.isNonSubmit() && !submittable,
+			'overtime': submittable && this.isOverTime()
+		});
 
 		if (!date) {
 			return null;//no date? we have nothing to show
@@ -227,7 +233,7 @@ export default React.createClass({
 			<div className="assignment status-label-wrapper">
 				<h6 className="assignment status-label">
 					{assignment.isTimed && this.renderTimeInfo()}
-					<span className={'info-part ' + dueToday + overdue + overtime + text.toLowerCase()}>
+					<span className={infoClasses}>
 						<span className="state" onClick={this.onShowStatusDetail}>{text}</span>
 						<span className="over">
 							(
@@ -288,7 +294,7 @@ export default React.createClass({
 
 
 	renderTimeInfo () {
-		let baseCls = 'info-part time-limit ';
+		let baseCls = 'info-part time-limit';
 		let duration = this.getDuration();
 		let maxtime = this.getMaximumTimeAllowed();
 
@@ -296,7 +302,7 @@ export default React.createClass({
 
 		if (duration) {
 			return (
-				<span className={baseCls + (this.isOverTime() ? 'overtime' : 'ontime')}>{time}</span>
+				<span className={cx(baseCls, this.isOverTime() ? 'overtime' : 'ontime')}>{time}</span>
 			);
 		}
 
