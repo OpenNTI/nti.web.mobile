@@ -12,7 +12,7 @@ require('babel/register')({
 global.SERVER = true;
 
 var http = require('http');
-var proxiedHttp = require('proxywrap').proxy(http);
+var proxiedHttp = require('findhit-proxywrap').proxy(http);
 
 var express = require('express');
 var common = require('./lib/common');
