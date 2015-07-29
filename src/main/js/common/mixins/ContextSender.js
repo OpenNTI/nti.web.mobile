@@ -32,7 +32,7 @@ export default {
 		let children = this[Children] || {size: 0};
 		// console.debug('Wants to Notify', children.size, (this.constructor || {}).displayName);
 		if (children.size === 0) {
-			console.debug('Notify', (this.constructor || {}).displayName, this.isMounted());
+			// console.debug('Notify', (this.constructor || {}).displayName, this.isMounted());
 			let context = this[CONTEXT_DATA];
 			if (context) {
 				Actions.setPageSource(...context);
