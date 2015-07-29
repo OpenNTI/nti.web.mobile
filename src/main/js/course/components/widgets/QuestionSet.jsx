@@ -160,7 +160,7 @@ export default React.createClass( {
 
 		let score = state.score || 0;
 
-		let isLate = assignment && assignment.isLate(new Date());
+		let isLate = assignment && !assignment.isNonSubmit() && assignment.isLate(new Date());
 
 		let classList = cx('overview-naquestionset', {
 			networkerror: state.networkError,
