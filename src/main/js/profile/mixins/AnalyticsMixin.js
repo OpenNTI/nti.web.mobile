@@ -31,5 +31,10 @@ export default {
 			h.length--; // don't include ourselves in the context
 		}
 		return Promise.resolve(h);
-	}	
+	}	,
+
+	resumeAnalyticsEvents() {
+		this[startAnalyticsEvent]();
+	},
+
 }
