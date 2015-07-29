@@ -296,7 +296,12 @@ $indent: 0.9375rem;
 					line-height: 1rem;
 					font-weight: 600;
 				}
-				a {
+
+				.charms {
+					top: -1px;
+				}
+
+				.topic-link {
 					display: block;
 					padding: .5rem 0;
 					.title {
