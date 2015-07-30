@@ -93,8 +93,16 @@ module.exports = function(grunt) {
 
 		rename: {
 			'stage-dist': {
-				src: '<%= pkg.stage %>',
-				dest: '<%= pkg.dist %>'
+				files: [
+					{
+						src: '<%= pkg.stage %>/client',
+						dest: '<%= pkg.dist %>/client'
+					},
+					{
+						src: '<%= pkg.stage %>/server',
+						dest: '<%= pkg.dist %>/server'
+					}
+				]
 			},
 
 			'stage-widgets': {
@@ -108,7 +116,8 @@ module.exports = function(grunt) {
 				files: [{
 					dot: true,
 					src: [
-					'<%= pkg.dist %>'
+					'<%= pkg.dist %>/client/',
+					'<%= pkg.dist %>/server/'
 					]
 				}]
 			},
@@ -203,7 +212,8 @@ module.exports = function(grunt) {
 			'webpack:' + target,
 			'clean:' + target,
 			'rename:stage-' + target,
-			'symlink:link-' + target
+			'symlink:link-' + target,
+			'clean:stage'
 		];
 
 		if (env === PROD) {
