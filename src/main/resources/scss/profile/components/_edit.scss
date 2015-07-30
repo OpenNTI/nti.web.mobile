@@ -1,5 +1,11 @@
 .profile-edit {
 
+	.editor-pane.center {
+		& > div {
+			word-break: break-word;
+		}
+	}
+
 	label {
 		text-transform: uppercase;
 	    font-size: .625rem;
