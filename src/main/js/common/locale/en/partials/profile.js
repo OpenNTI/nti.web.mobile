@@ -23,6 +23,8 @@ export default {
 		'facebook': 'Facebook',
 		'googlePlus': 'Google Plus',
 		'linkedIn': 'LinkedIn',
+		'alias': 'Display Name',
+		'realname': 'Name',
 
 		EVENT_ITEM: {
 			'school': 'School',

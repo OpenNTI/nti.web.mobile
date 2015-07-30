@@ -68,6 +68,7 @@ export default React.createClass({
 
 	render () {
 		let {state} = this;
+		let {item} = this.props;
 
 		return (
 			<fieldset ref="form">
@@ -75,6 +76,18 @@ export default React.createClass({
 					<label>{t('about')}</label>
 					<Editor ref="about" allowInsertImage={false} value={state.about} onChange={this.onEditorChange}/>
 				</div>
+
+				<div key="name" className="read-only-field">
+					<label>{t('realname')}</label>
+					<div>{item.realname}</div>
+				</div>
+
+				{item.alias && 
+					<div key="displayname" className="read-only-field">
+						<label>{t('alias')}</label>
+						<div>{item.alias}</div>
+					</div>
+				}
 
 				{TEXT_FIELDS.map(name => (
 					<div key={name}>
