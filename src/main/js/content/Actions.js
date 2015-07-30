@@ -11,7 +11,7 @@ import {PAGE_LOADED, PAGE_FAILED, PACKAGE_NOT_FOUND} from './Constants';
 
 import {processContent} from './utils';
 
-import {getLibrary} from 'library/Api';
+import {load as getLibrary} from 'library/Actions';
 
 function dispatch(type, response) {
 	AppDispatcher.handleRequestAction({type, response});

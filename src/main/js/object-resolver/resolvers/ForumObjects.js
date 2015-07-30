@@ -5,7 +5,7 @@ let {Service} = CommonSymbols;
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import {getLibrary} from 'library/Api';
+import {load as getLibrary} from 'library/Actions';
 
 const isForum = RegExp.prototype.test.bind(/\.forums\./i);
 const isBlog = RegExp.prototype.test.bind(/blog/i);

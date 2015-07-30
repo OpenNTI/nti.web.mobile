@@ -1,6 +1,6 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
-import {getLibrary} from 'library/Api';
+import {load as getLibrary} from 'library/Actions';
 
 import {
 	SET_ACTIVE_COURSE,
