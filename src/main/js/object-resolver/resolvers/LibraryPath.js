@@ -28,6 +28,7 @@ const MIME_TYPES = {
 		return `/${encode(o.getID())}/`;
 	},
 
+	'assignmentref': 'relatedworkref',
 	'questionsetref': 'relatedworkref',
 	'relatedworkref': (o, prev, next) => {
 		let c = `/content/`;
