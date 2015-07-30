@@ -23,7 +23,7 @@ export default React.createClass({
 	render () {
 		let {item} = this.props;
 		let {body, creator, title, replyCount} = item;
-		let date = item.getLastModified();
+		let date = item.getCreatedTime();
 		let id = encodeForURI(item.getID());
 
 		let preview = item.placeholder ? ['[Deleted]'] : ((title && [title]) || body);
