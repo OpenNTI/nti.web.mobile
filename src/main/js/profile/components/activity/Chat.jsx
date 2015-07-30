@@ -29,24 +29,35 @@ export default React.createClass({
 	},
 
 
+	hideTranscript () {
+		this.setState({hideTranscript: true});
+	},
+
+
 	showTranscript () {
 		let {item} = this.props;
-		this.setState({loading: true}, () => {
-			item.getTranscript()
-				.then(transcript => this.setState({transcript, loading: false}));
-		});
+		let {transcript} = this.state;
+
+		if (!transcript) {
+			this.setState({loading: true}, () => {
+				item.getTranscript()
+					.then(x => this.setState({transcript: x, loading: false}));
+			});
+		} else {
+			this.setState({hideTranscript: false});
+		}
 	},
 
 
 	render () {
-		let {loading, transcript} = this.state;
+		let {loading, transcript, hideTranscript} = this.state;
 		let {item} = this.props;
 		let {contributorsWithoutOriginator, originator} = item;
 		let others = contributorsWithoutOriginator;
 
 		return (
-			<div className="chat avatar-heading" onClick={this.showTranscript}>
-				<Conditional condition={!loading && !transcript} className="wrap">
+			<div className="chat avatar-heading">
+				<Conditional condition={!loading && (!transcript || hideTranscript)} className="wrap" onClick={this.showTranscript}>
 					<h1><DisplayName entity={originator} usePronoun/> had a chat with {others.map(this.renderOthers)}</h1>
 					<ul className="meta">
 						<li><DateTime date={item.getCreatedTime()}/></li>
@@ -59,7 +70,7 @@ export default React.createClass({
 					<Loading />
 				</Conditional>
 
-				<Conditional condition={!loading && !!transcript} className="wrap">
+				<Conditional condition={!loading && !!transcript && !hideTranscript} className="wrap" onClick={this.hideTranscript}>
 					<Transcript transcript={transcript} />
 				</Conditional>
 
