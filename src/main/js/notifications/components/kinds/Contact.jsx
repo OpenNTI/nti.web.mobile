@@ -18,7 +18,7 @@ export default React.createClass({
 
 	render () {
 		let {change, username} = this.state;
-		let time = change && change.getLastModified();
+		let time = this.getEventTime(change);
 
 		return (
 			<li className="notification-item">
