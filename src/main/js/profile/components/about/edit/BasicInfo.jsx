@@ -68,7 +68,6 @@ export default React.createClass({
 
 	render () {
 		let {state} = this;
-		let {item} = this.props;
 
 		return (
 			<fieldset ref="form">
@@ -81,7 +80,6 @@ export default React.createClass({
 					<div key={name}>
 						<label>{t(name)}</label>
 						<input type={TYPE_OVERRIDE[name] || 'text'} name={name}
-							defaultValue={item[name]}
 							value={state[name]}
 							onChange={this.onChange}
 							/>
