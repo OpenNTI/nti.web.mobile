@@ -13,7 +13,7 @@ export default React.createClass({
 	render () {
 		let {item} = this.props;
 
-		if (!item.isTopLevel || item.placeholder) {
+		if (!item || !item.isTopLevel || item.placeholder) {
 			// console.warn('Item doesn\'t have isTopLevel method. bailing.');
 			return null;
 		}
