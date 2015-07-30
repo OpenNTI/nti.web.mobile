@@ -73,7 +73,7 @@ export default React.createClass({
 			<fieldset ref="form">
 				<div>
 					<label>{t('about')}</label>
-					<Editor ref="about" allowInsertImage={false} value={state.about} onChange={this.onEditorCange}/>
+					<Editor ref="about" allowInsertImage={false} value={state.about} onChange={this.onEditorChange}/>
 				</div>
 
 				{TEXT_FIELDS.map(name => (
