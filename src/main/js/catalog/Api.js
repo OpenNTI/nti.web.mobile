@@ -1,4 +1,4 @@
-import Catalog from 'nti.lib.interfaces/stores/Catalog';
+import {Catalog} from 'nti.lib.interfaces';
 
 import {getService} from 'common/utils';
 
