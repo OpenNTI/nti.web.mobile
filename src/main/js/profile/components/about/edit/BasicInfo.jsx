@@ -77,13 +77,13 @@ export default React.createClass({
 					<Editor ref="about" allowInsertImage={false} value={state.about} onChange={this.onEditorChange}/>
 				</div>
 
-				<div key="name" className="read-only-field">
+				<div className="read-only-field">
 					<label>{t('realname')}</label>
 					<div>{item.realname}</div>
 				</div>
 
-				{item.alias && 
-					<div key="displayname" className="read-only-field">
+				{item.alias &&
+					<div className="read-only-field">
 						<label>{t('alias')}</label>
 						<div>{item.alias}</div>
 					</div>
