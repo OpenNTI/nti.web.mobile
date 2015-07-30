@@ -26,7 +26,7 @@ const Panel = React.createClass({
 		let {replying} = this.state;
 		let {item} = this.props;
 		let {body, creator, placeholder} = item;
-		let date = item.getLastModified();
+		let date = item.getCreatedTime();
 
 		return (
 			<div className="discussion-reply">

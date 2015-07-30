@@ -43,7 +43,7 @@ export default React.createClass({
 		let {replying} = this.state;
 		let {item, lite} = this.props;
 		let {body, creator, title} = item;
-		let date = item.getLastModified();
+		let date = item.getCreatedTime();
 
 
 		return (
