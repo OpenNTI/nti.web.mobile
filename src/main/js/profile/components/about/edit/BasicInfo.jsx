@@ -2,7 +2,7 @@ import React from 'react';
 
 import cx from 'classnames';
 
-import Editor from 'modeled-content/components/Editor';
+import {Editor, Panel} from 'modeled-content';
 
 import {scoped} from 'common/locale';
 
@@ -24,6 +24,10 @@ const t = scoped('PROFILE.EDIT');
 
 function isReadOnly(schema, prop) {
 	return ((schema || {})[prop] || {}).readonly;
+}
+
+function isRequired(schema, prop) {
+	return ((schema || {})[prop] || {}).required;
 }
 
 export default React.createClass({
@@ -84,7 +88,15 @@ export default React.createClass({
 			<fieldset ref="form">
 				<div>
 					<label>{t('about')}</label>
-					<Editor ref="about" allowInsertImage={false} value={state.about} onChange={this.onEditorChange}/>
+					{isReadOnly(schema, 'about') ? (
+						<Panel body={state.about}/>
+					) : (
+						<Editor ref="about"
+							className={cx({required: isRequired(schema, 'about')})}
+							allowInsertImage={false}
+							value={state.about}
+							onChange={this.onEditorChange}/>
+					)}
 				</div>
 
 				{TEXT_FIELDS.map(name => (
@@ -96,6 +108,8 @@ export default React.createClass({
 							<input type={TYPE_OVERRIDE[name] || 'text'} name={name}
 								value={state[name]}
 								onChange={this.onChange}
+								className={cx({required: isRequired(schema, name)})}
+								required={isRequired(schema, name)}
 								/>
 						)}
 					</div>
