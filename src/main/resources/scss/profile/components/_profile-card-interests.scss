@@ -3,6 +3,9 @@
 		display: flex;
 		flex-wrap: wrap;
 		align-content: flex-start;
+		margin-left: -0.3125rem;
+		margin-right: -0.3125rem;
+
 		.string-item {
 			// flex-basis: 46%;
 			padding: .5em 1em;
