@@ -32,7 +32,7 @@ export default React.createClass({
 
 
 	getInitialState () {
-		return {};
+		return {loading: true};
 	},
 
 
@@ -47,17 +47,21 @@ export default React.createClass({
 	setup (props = this.props) {
 		let {entity} = props;
 
-		if (entity) {
-			let editObject = entity.getData();
-
-			for (let key of Object.keys(editObject)) {
-				if (editObject[key] == null) {
-					delete editObject[key];
-				}
-			}
-
-			this.setState({editObject});
+		if (!entity) {
+			return this.replaceState(this.getInitialState());
 		}
+
+		let editObject = entity.getData();
+		for (let key of Object.keys(editObject)) {
+			if (editObject[key] == null) {
+				delete editObject[key];
+			}
+		}
+
+		this.setState({loading: true});
+
+		entity.getProfileSchema()
+			.then(schema => this.setState({editObject, loading: false, schema}));
 	},
 
 
@@ -94,51 +98,56 @@ export default React.createClass({
 
 
 	render () {
-		let {busy, editObject, error} = this.state;
+		let {busy, editObject, error, schema, loading} = this.state;
 
 		return (
 			<div className="profile-edit">
-				<form onSubmit={this.save}>
-					<ul className="profile-cards">
+				{loading ? (
+					<Loading/>
+				) : (
+					<div>
+						<form onSubmit={this.save}>
+							<ul className="profile-cards">
 
-						<Card className="about" title="About">
-							<BasicInfo item={editObject} ref="about"/>
-						</Card>
+								<Card className="about" title="About">
+									<BasicInfo item={editObject} ref="about" schema={schema}/>
+								</Card>
 
-						<Card className="education" title="Education">
-							<Events items={editObject.education} ref="education" field="education" fieldNames={['school', 'degree']} mimeType={EDUCATION}/>
-						</Card>
+								<Card className="education" title="Education">
+									<Events schema={schema} items={editObject.education} ref="education" field="education" fieldNames={['school', 'degree']} mimeType={EDUCATION}/>
+								</Card>
 
-						<Card className="positions" title="Professional">
-							<Events items={editObject.positions} ref="positions" field="positions" fieldNames={['companyName', 'title']} mimeType={PROFESSIONAL}/>
-						</Card>
+								<Card className="positions" title="Professional">
+									<Events schema={schema} items={editObject.positions} ref="positions" field="positions" fieldNames={['companyName', 'title']} mimeType={PROFESSIONAL}/>
+								</Card>
 
-						<Card className="interests" title="Interests">
-							<Interests items={editObject.interests} ref="interests" field="interests"/>
-						</Card>
+								<Card className="interests" title="Interests">
+									<Interests schema={schema} items={editObject.interests} ref="interests" field="interests"/>
+								</Card>
 
-					</ul>
+							</ul>
 
-					<div className="fixed-footer">
-						<div className="the-fixed">
-							<div className="controls buttons">
-								{error && (
-									<div className="error">
-										<a href="#" onClick={this.dismissError}>x</a>
-										{this.errorMessage(error)}
+							<div className="fixed-footer">
+								<div className="the-fixed">
+									<div className="controls buttons">
+										{error && (
+											<div className="error">
+												<a href="#" onClick={this.dismissError}>x</a>
+												{this.errorMessage(error)}
+											</div>
+										)}
+
+										<Link href="/" className="button tiny link">Cancel</Link>
+										<button className="tiny primary">Save</button>
 									</div>
-								)}
-
-								<Link href="/" className="button tiny link">Cancel</Link>
-								<button className="tiny primary">Save</button>
+								</div>
 							</div>
-						</div>
+						</form>
+						<Conditional condition={busy} className="busy">
+							<Loading />
+						</Conditional>
 					</div>
-				</form>
-
-				<Conditional condition={busy} className="busy">
-					<Loading />
-				</Conditional>
+				)}
 			</div>
 		);
 	}

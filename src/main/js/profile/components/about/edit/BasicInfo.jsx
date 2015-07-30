@@ -1,5 +1,7 @@
 import React from 'react';
 
+import cx from 'classnames';
+
 import Editor from 'modeled-content/components/Editor';
 
 import {scoped} from 'common/locale';
@@ -7,6 +9,8 @@ import {scoped} from 'common/locale';
 const TYPE_OVERRIDE = {email: 'email'};
 
 const TEXT_FIELDS = [
+	'realname',
+	'alias',
 	'email',
 	'location',
 	'home_page',
@@ -18,11 +22,17 @@ const TEXT_FIELDS = [
 
 const t = scoped('PROFILE.EDIT');
 
+function isReadOnly(schema, prop) {
+	return ((schema || {})[prop] || {}).readonly;
+}
+
 export default React.createClass({
 	displayName: 'BasicInfo',
 
 	propTypes: {
-		item: React.PropTypes.object
+		item: React.PropTypes.object,
+
+		schema: React.PropTypes.object
 	},
 
 
@@ -68,7 +78,7 @@ export default React.createClass({
 
 	render () {
 		let {state} = this;
-		let {item} = this.props;
+		let {schema} = this.props;
 
 		return (
 			<fieldset ref="form">
@@ -77,25 +87,17 @@ export default React.createClass({
 					<Editor ref="about" allowInsertImage={false} value={state.about} onChange={this.onEditorChange}/>
 				</div>
 
-				<div className="read-only-field">
-					<label>{t('realname')}</label>
-					<div>{item.realname}</div>
-				</div>
-
-				{item.alias &&
-					<div className="read-only-field">
-						<label>{t('alias')}</label>
-						<div>{item.alias}</div>
-					</div>
-				}
-
 				{TEXT_FIELDS.map(name => (
-					<div key={name}>
+					<div key={name} className={cx({'read-only-field': isReadOnly(schema, name)})}>
 						<label>{t(name)}</label>
-						<input type={TYPE_OVERRIDE[name] || 'text'} name={name}
-							value={state[name]}
-							onChange={this.onChange}
-							/>
+						{isReadOnly(schema, name) ? (
+							<div>{state[name]}</div>
+						) : (
+							<input type={TYPE_OVERRIDE[name] || 'text'} name={name}
+								value={state[name]}
+								onChange={this.onChange}
+								/>
+						)}
 					</div>
 				))}
 
