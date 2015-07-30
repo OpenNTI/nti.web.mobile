@@ -109,7 +109,7 @@ export default React.createClass({
 							<Events items={editObject.education} ref="education" field="education" fieldNames={['school', 'degree']} mimeType={EDUCATION}/>
 						</Card>
 
-						<Card className="positions" title="Positions">
+						<Card className="positions" title="Professional">
 							<Events items={editObject.positions} ref="positions" field="positions" fieldNames={['companyName', 'title']} mimeType={PROFESSIONAL}/>
 						</Card>
 
