@@ -1,10 +1,14 @@
 import React from 'react';
-
+import cx from 'classnames';
 import Editor from 'modeled-content/components/Editor';
 
 import {scoped} from 'common/locale';
 
 const t = scoped('PROFILE.EDIT.EVENT_ITEM');
+
+function isRequired(schema, prop) {
+	return ((schema || {})[prop] || {}).required;
+}
 
 export default React.createClass({
 	displayName: 'EducationItem',
@@ -14,7 +18,9 @@ export default React.createClass({
 
 		fieldNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
 
-		mimeType: React.PropTypes.string.isRequired
+		mimeType: React.PropTypes.string.isRequired,
+
+		schema: React.PropTypes.object.isRequired
 	},
 
 
@@ -53,40 +59,58 @@ export default React.createClass({
 	},
 
 	render () {
+		let {schema} = this.props;
 		let {state = {}} = this;
 		let {startYear, endYear, description} = state;
-		let [requiredField, secondaryField] = this.props.fieldNames;
+		let [primaryField, secondaryField] = this.props.fieldNames;
 		let maxYear = (new Date()).getFullYear();
-
+		console.log(schema);
 		return (
 			<fieldset ref="form" className="profile-event-body">
 				<div>
-					<label className="required">{t(requiredField)}</label>
-					<input type="text" name={requiredField} className="required" required
-						value={state[requiredField]} onChange={this.onChange} />
+					<label>{t(primaryField)}</label>
+					<input type="text" name={primaryField}
+						className={cx({required: isRequired(schema, primaryField)})}
+						required={isRequired(schema, primaryField)}
+						value={state[primaryField]} onChange={this.onChange} />
 				</div>
 
 				<div className="secondary-line">
 					<div>
 						<label>{t(secondaryField)}</label>
-						<input type="text" name={secondaryField} value={state[secondaryField]} onChange={this.onChange} />
+						<input type="text" name={secondaryField}
+							className={cx({required: isRequired(schema, secondaryField)})}
+							required={isRequired(schema, secondaryField)}
+							value={state[secondaryField]} onChange={this.onChange} />
 					</div>
 
 					<div className="event-years">
 						<div>
 							<label>Start Year</label>
-							<input type="number" name="startYear" min='1900' max={maxYear} value={startYear} onChange={this.onChange} />
+							<input type="number" name="startYear"
+								className={cx({required: isRequired(schema, 'startYear')})}
+								required={isRequired(schema, 'startYear')}
+								min='1900' max={maxYear}
+								value={startYear} onChange={this.onChange}/>
 						</div>
 
 						<div>
 							<label>End Year</label>
-							<input type="number" name="endYear" min='1900' max={maxYear} value={endYear} onChange={this.onChange} />
+							<input type="number" name="endYear"
+								className={cx({required: isRequired(schema, 'endYear')})}
+								required={isRequired(schema, 'endYear')}
+								min='1900' max={maxYear}
+								value={endYear} onChange={this.onChange} />
 						</div>
 					</div>
 				</div>
 
 				<label>Description</label>
-				<Editor className="description" allowInsertImage={false} value={description} onChange={this.editorChange} />
+				<Editor className={cx('description', {required: isRequired(schema, 'startYear')})}
+					required={isRequired(schema, 'startYear')}
+					allowInsertImage={false}
+					value={description}
+					onChange={this.editorChange} />
 			</fieldset>
 		);
 	},

@@ -61,6 +61,22 @@ export default React.createClass({
 		this.setState({loading: true});
 
 		entity.getProfileSchema()
+			.then(schema => {
+				let {education, positions} = schema;
+
+				education.itemSchema = education.itemSchema || {
+					school: {required: true},
+					startYear: {required: true}
+				};
+
+				positions.itemSchema = positions.itemSchema || {
+					companyName: {required: true},
+					title: {required: true},
+					startYear: {required: true}
+				};
+
+				return schema;
+			})
 			.then(schema => this.setState({editObject, loading: false, schema}));
 	},
 

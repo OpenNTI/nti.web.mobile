@@ -13,14 +13,18 @@ export default React.createClass({
 
 		field: React.PropTypes.string.isRequired,
 
+		schema: React.PropTypes.object.isRequired,
+
 		mimeType: React.PropTypes.string.isRequired,
 
 		fieldNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
 	},
 
 	render () {
-		let {mimeType, fieldNames} = this.props;
+		let {mimeType, fieldNames, field, schema} = this.props;
 		let {items} = this.state || {};
+
+		let {itemSchema} = schema[field] || {};
 
 		return (
 			<div>
@@ -28,7 +32,7 @@ export default React.createClass({
 					return (
 						<div className="entry" key={`item-${index}`}>
 							<div className="remove icon-bold-x" onClick={this.removeEntry.bind(this, index)}/>
-							<EventItem item={item} ref={`item-${index}`} mimeType={mimeType} fieldNames={fieldNames}/>
+							<EventItem schema={itemSchema} item={item} ref={`item-${index}`} mimeType={mimeType} fieldNames={fieldNames}/>
 						</div>
 					);
 				})}
