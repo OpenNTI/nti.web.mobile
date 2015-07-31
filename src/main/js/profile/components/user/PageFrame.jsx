@@ -1,7 +1,5 @@
 import React from 'react';
 
-import LogoutButton from 'login/components/LogoutButton';
-
 import FollowButton from './FollowButton';
 // import EditButton from './EditButton';
 
@@ -43,7 +41,7 @@ export default React.createClass({
 						</ul>
 						<ul className="profile-top-controls-buttons">
 							<li>{me ? (
-								<LogoutButton/>
+								null
 							) : (
 								<FollowButton entity={entity} />
 							)}</li>

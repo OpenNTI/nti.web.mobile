@@ -8,7 +8,7 @@ import BasePathAware from '../mixins/BasePath';
 
 import {getAppUsername} from '../utils';
 import {encode} from '../utils/user';
-
+import {logout} from 'login/Actions';
 import {join} from 'path';
 
 /**
@@ -33,16 +33,19 @@ export default React.createClass({
 		let profile = join(base, 'profile', encode(entity));
 
 		return (
-			<a className="user-session" href={profile}>
+			<div className="user-session">
 				<Avatar entity={entity}/>
 				<div className="meta">
 					<DisplayName entity={entity}/>
-					<div>View Profile</div>
 				</div>
+				<ul className="links">
+					<li><a href={profile}>View Profile</a></li>
+					<li><a onClick={logout}>Log Out</a></li>
+				</ul>
 				<div className="actions">
 					{children}
 				</div>
-			</a>
+			</div>
 		);
 	}
 });
