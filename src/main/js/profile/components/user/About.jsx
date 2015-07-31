@@ -21,8 +21,6 @@ export default React.createClass({
 
 		let {entity} = this.props;
 
-		console.log('user/About');
-
 		if (!entity) {
 			return <Loading />;
 		}

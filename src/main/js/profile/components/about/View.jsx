@@ -31,8 +31,6 @@ export default React.createClass({
 
 		let {entity} = this.props;
 
-		console.log('components/about/View');
-
 		if (!entity) {
 			return <Loading />;
 		}
