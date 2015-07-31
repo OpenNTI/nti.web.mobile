@@ -18,7 +18,6 @@ import Store from '../Store';
 let Location = Router.Location;
 
 export default React.createClass({
-
 	displayName: 'ForumView',
 
 	mixins: [

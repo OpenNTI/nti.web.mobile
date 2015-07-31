@@ -19,7 +19,7 @@ const t = scoped('FORUMS');
  * For lists of Forums, this is the row item.
  */
 export default React.createClass({
-	displayName: 'ForumListItem',
+	displayName: 'list-items:ForumItem',
 	mixins: [
 		ForumMixin,
 		NavigatableMixin,

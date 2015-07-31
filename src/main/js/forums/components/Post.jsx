@@ -27,7 +27,7 @@ import {getObjects} from '../Api';
 const objectDeletedHandler = 'Post:objectDeletedHandler';
 
 export default React.createClass({
-	displayName: 'Post',
+	displayName: 'forums:Post',
 
 	mixins: [
 		NavigatableMixin,

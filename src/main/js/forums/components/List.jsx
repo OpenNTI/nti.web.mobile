@@ -12,7 +12,7 @@ import groupDeletedItems from '../utils/group-deleted-items';
 const t = scoped('FORUMS');
 
 export default React.createClass({
-	displayName: 'ForumItemList',
+	displayName: 'forums:List',
 
 	getDefaultProps () {
 		return {

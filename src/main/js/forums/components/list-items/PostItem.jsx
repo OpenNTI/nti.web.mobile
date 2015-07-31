@@ -33,8 +33,7 @@ const SHOW_REPLIES = 'showReplies';
 const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';
 
 export default React.createClass({
-
-	displayName: 'PostListItem',
+	displayName: 'list-items:PostItem',
 
 	mixins: [
 		NavigatableMixin,

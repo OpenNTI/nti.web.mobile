@@ -5,7 +5,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 const goToPage = 'PageControls:goToPage';
 
 export default React.createClass({
-	displayName: 'PageControls',
+	displayName: 'forums:PageControls',
 
 	mixins: [NavigatableMixin],
 

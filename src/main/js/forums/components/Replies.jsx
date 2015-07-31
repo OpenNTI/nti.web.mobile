@@ -16,7 +16,7 @@ const commentAddedHandler = 'Replies:commentAddedHandler';
 const objectDeletedHandler = 'Replies:objectDeletedHandler';
 
 export default React.createClass({
-	displayName: 'Replies',
+	displayName: 'forums:Replies',
 
 	mixins: [StoreEvents],
 

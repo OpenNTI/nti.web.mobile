@@ -8,7 +8,7 @@ import {scoped} from 'common/locale';
 const t = scoped('FORUMS');
 
 export default React.createClass({
-	displayName: 'DeletedItemGroup',
+	displayName: 'list-items:DeletedGroupItem',
 
 	mixins: [
 		Mixin

@@ -21,7 +21,7 @@ const t = scoped('FORUMS');
  * For lists of Topics, this is the row item.
  */
 export default React.createClass({
-	displayName: 'TopicListItem',
+	displayName: 'TopicItem',
 	mixins: [
 		Mixin,
 		StoreEvents,
