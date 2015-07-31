@@ -17,18 +17,20 @@ export default React.createClass({
 			body: React.PropTypes.array,
 			title: React.PropTypes.string,
 			getCreatedTime: React.PropTypes.func
-		})
+		}),
+
+		topic: React.PropTypes.object
 	},
 
 	render () {
-		let {item} = this.props;
+		let {item, topic} = this.props;
 		if (!item) {
 			return <Loading />;
 		}
 
 		return (
 			<div className="headline post">
-				<LuckyCharms item={this.props.topic} />
+				<LuckyCharms item={topic} />
 				<Avatar entity={item.creator}/>
 				<div className="wrap">
 					<h1>{item.title}</h1>
