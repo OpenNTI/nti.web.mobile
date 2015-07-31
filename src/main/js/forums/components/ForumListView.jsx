@@ -108,7 +108,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Transition transitionName="forums">
+				<Transition transitionName="fadeOutIn">
 					<nav className="forum">
 						<ul>
 							{

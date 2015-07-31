@@ -347,7 +347,7 @@ export default React.createClass({
 				<Recipient ref="Recipient" />
 
 				<div className="errors">
-					<ReactCSSTransitionGroup transitionName="messages">
+					<ReactCSSTransitionGroup transitionName="fadeOutIn">
 					{Object.keys(this.state.errors).map(ref => {
 						let err = this.state.errors[ref];
 						return (err.message ? <small key={ref} className='error'>{err.message}</small> : null);

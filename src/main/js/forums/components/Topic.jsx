@@ -246,7 +246,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Transition transitionName="forums">
+				<Transition transitionName="fadeOutIn">
 					<ViewHeader type={TOPIC} />
 					{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline topic={topic} {...props} />}
 					<ActionLinks

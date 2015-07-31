@@ -17,7 +17,7 @@ export default React.createClass({
 
 		return (
 			<div className='errors' key="errors">
-				<ReactCSSTransitionGroup transitionName="messages">
+				<ReactCSSTransitionGroup transitionName="fadeOutIn">
 					{Object.keys(this.props.errors).map(
 						function(ref) {
 							let err = this.props.errors[ref];

@@ -121,7 +121,7 @@ export default React.createClass({
 
 		return (
 			<CaptureClicks environment={Router.environment.hashEnvironment}>
-				<ReactCSSTransitionGroup transitionName="loginforms">
+				<ReactCSSTransitionGroup transitionName="fadeOutIn">
 					<Locations hash ref="router" onNavigation={this.onNavigation}>
 						<Location path="/confirm/*" handler={Confirm} purchasable={purchasable}/>
 						<Location path="/success/*" handler={Success} purchasable={purchasable} onDone={this.onDone} />

@@ -82,7 +82,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Transition transitionName="forums">
+				<Transition transitionName="fadeOutIn">
 					<ViewHeader type={FORUM} />
 					<section>
 						{this.createTopicLink()}

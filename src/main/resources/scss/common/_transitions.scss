@@ -1,59 +1,18 @@
-@mixin reactTransition($name) {
 
-	.#{$name}-enter {
-		opacity: 0.01;
-		transition: opacity .25s ease-in;
-	}
-
-	.#{$name}-enter.#{$name}-enter-active {
-		opacity: 1;
-	}
-
-	.#{$name}-leave {
-		opacity: 1;
-		transition: opacity .25s ease-in;
-	}
-
-	.#{$name}-leave.#{$name}-leave-active {
-		opacity: 0.01;
-	}
-
-	.#{$name} {
-		transition: opacity .25s ease-in;
-	}
-
-}
-
-@include reactTransition('button');
-@include reactTransition('messages');
-@include reactTransition('navdrawer');
-@include reactTransition('forums');
-
-
-.loginforms-enter {
+.fadeOutIn-enter {
 	opacity: 0.01;
 	transition: opacity .25s ease-out;
-	width:100%;
-	top: 0;
-	position: absolute;
 }
 
-.loginforms-enter.loginforms-enter-active {
+.fadeOutIn-enter.fadeOutIn-enter-active {
 	opacity: 1;
 }
 
-.loginforms-leave {
+.fadeOutIn-leave {
 	opacity: 1;
 	transition: opacity .25s ease-out;
-	width:100%;
-	top: 0;
-	position: absolute;
 }
 
-.loginforms-leave.loginforms-leave-active {
+.fadeOutIn-leave.fadeOutIn-leave-active {
 	opacity: 0.01;
-}
-
-.loginforms {
-	transition: opacity .25s ease-out;
 }

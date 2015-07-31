@@ -112,7 +112,7 @@ export default React.createClass({
 		let courseTitle = (this.props.purchasable || {}).title || '';
 
 		return (
-			<ReactCSSTransitionGroup transitionName="loginforms">
+			<ReactCSSTransitionGroup transitionName="fadeOutIn">
 				<Locations contextual
 					ref='router'>
 					<Location path="/confirm/"

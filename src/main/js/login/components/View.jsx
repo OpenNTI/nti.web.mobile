@@ -48,7 +48,7 @@ export default React.createClass({
 		}
 
 		return (
-			<ReactCSSTransitionGroup transitionName="loginforms">
+			<ReactCSSTransitionGroup transitionName="fadeOutIn">
 				<Locations contextual key={this.getPath()}>
 					<Location path="/pwreset/:username/:token" handler={PasswordResetForm}/>
 					<Location path="/forgot/:param" handler={ForgotForm}/>
