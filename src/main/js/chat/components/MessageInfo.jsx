@@ -10,16 +10,45 @@ import Body from 'modeled-content/components/Panel';
 
 import {getAppUsername} from 'common/utils';
 
-export default React.createClass({
+const MessageInfo = React.createClass({
 	displayName: 'MessageInfo',
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired
 	},
 
-	componentDidMount () {
-		console.log(this.props.item);
+
+	getInitialState () {
+		return {loading: true};
 	},
+
+	componentDidMount () {
+		this.loadReplies();
+	},
+
+
+	componentWillReceiveProps (nextProps) {
+		if (nextProps.item !== this.props.item) {
+			this.loadReplies(nextProps);
+		}
+	},
+
+
+	loadReplies (props = this.props) {
+		let {item} = props;
+
+		this.replaceState(this.getInitialState());
+
+		if (item) {
+			item.getReplies()
+				.catch(e => {
+					console.error(e);
+					return [];
+				})
+				.then(children => this.setState({loading: false, children}));
+		}
+	},
+
 
 	render () {
 		let {item} = this.props;
@@ -27,15 +56,29 @@ export default React.createClass({
 		let css = cx('chat-message-info', {me: item.creator === getAppUsername()});
 
 		return (
-			<div className={css}>
-				<Avatar entity={item.creator}/>
-				<DisplayName entity={item.creator}/>
-				<div className="message-body">
-					<Body body={item.body}/>
-					<div className="spacer"/>
+			<div>
+				<div className={css}>
+					<Avatar entity={item.creator}/>
+					<DisplayName entity={item.creator}/>
+					<div className="message-body">
+						<Body body={item.body}/>
+						<div className="spacer"/>
+					</div>
+					<DateTime date={item.getCreatedTime()} format="h:mm:ss a"/>
 				</div>
-				<DateTime date={item.getCreatedTime()} format="h:mm:ss a"/>
+				{this.renderChildren()}
 			</div>
 		);
+	},
+
+
+	renderChildren () {
+		let {children, loading} = this.state;
+
+		return loading ? null : children.map(c => (
+			<MessageInfo item={c} key={c.getID()} />
+		));
 	}
 });
+
+export default MessageInfo;
