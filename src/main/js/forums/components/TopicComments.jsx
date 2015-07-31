@@ -32,7 +32,7 @@ export default React.createClass({
 
 	propTypes: {
 		topicId: React.PropTypes.string,
-		currentPage: React.PropTypes.string
+		currentPage: React.PropTypes.number
 	},
 
 	componentDidMount () {

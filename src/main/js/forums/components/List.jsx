@@ -27,7 +27,7 @@ export default React.createClass({
 
 		emptyText: React.PropTypes.string,
 
-		groupDeleted: React.PropTypes.func,
+		groupDeleted: React.PropTypes.bool,
 
 		itemProps: React.PropTypes.object,
 

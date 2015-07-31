@@ -56,7 +56,7 @@ export default React.createClass({
 	propTypes: {
 		item: React.PropTypes.object,
 		asHeadline: React.PropTypes.bool,
-		detailLink: React.PropTypes.string
+		detailLink: React.PropTypes.bool
 	},
 
 	getInitialState () {
