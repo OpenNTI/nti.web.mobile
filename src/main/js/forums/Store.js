@@ -218,7 +218,7 @@ function saveComment(payload) {
 	let {postItem, newValue} = payload.action;
 	return postItem.save(newValue)
 		.then(result => {
-			store.commentSaved(result);
+			store.commentSaved(postItem);
 		});
 }
 
