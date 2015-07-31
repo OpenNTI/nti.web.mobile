@@ -336,7 +336,7 @@ class Store extends StorePrototype {
 
 		questions.forEach(q => {
 
-			let question = getQuestion(s, q.getID());
+			let question = getQuestion(s, q && q.getID());
 			if(!question) {
 				console.warn('Previous attempt question not found in current question set');
 				return;
