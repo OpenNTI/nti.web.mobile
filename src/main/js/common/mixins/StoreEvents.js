@@ -9,7 +9,7 @@ export default {
 
 	mixinAdditionalHandler (eventId, handlerId) {
 		if (!this.hasOwnProperty(handlerMapKey)) {
-			this[handlerMapKey] = Object.create(this[getHandlers]() || {});
+			this[handlerMapKey] = Object.create(this[getHandlers]({}) || {});
 		}
 
 		if (!eventId) {
@@ -63,9 +63,9 @@ function getName() {
 }
 
 
-function getKey(key) {
+function getKey(key, fallbackAndDontWarn) {
 	let componentName = getName.call(this);
-	return this[key] || console.warn('%s property not set in: %s', key, componentName);
+	return this[key] || fallbackAndDontWarn || console.error('%s property not set in: %s', key, componentName);
 }
 
 
