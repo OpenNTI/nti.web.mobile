@@ -1,6 +1,5 @@
 
 .user-session {
-	cursor: pointer;
 	display: block;
 	position: relative;
 	overflow: hidden;
@@ -47,6 +46,7 @@
 		margin: 0;
 		margin-bottom: -0.6875em;
 		li {
+			cursor: pointer;
 			flex: 1 1 50%;
 			text-align: center;
 			background: $primary-blue;
