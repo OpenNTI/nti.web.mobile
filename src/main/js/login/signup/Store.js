@@ -7,8 +7,6 @@ import * as Constants from './Constants';
 
 import {CHANGE_EVENT, ERROR_EVENT} from 'common/constants/Events';
 
-import fieldConfig from './configs/signup';
-
 let errors = [];
 
 const addError = 'signupStore:addError';
@@ -86,10 +84,6 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 
 	getPrivacyUrl () {
 		return 'https://docs.google.com/document/pub?id=1W9R8s1jIHWTp38gvacXOStsfmUz5TjyDYYy3CVJ2SmM';
-	},
-
-	getFormConfig () {
-		return Promise.resolve(fieldConfig);
 	}
 });
 
