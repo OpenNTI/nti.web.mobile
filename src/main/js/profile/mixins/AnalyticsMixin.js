@@ -12,9 +12,9 @@ export default {
 	},
 
 	componentWillUnmount () {
-		// let {entity} = this.props;
-		// AnalyticsStore.pushHistory(entity.getID());
-		this.resourceUnloaded();
+		if (!this.props.preview) {
+			this.resourceUnloaded();	
+		}
 	},
 
 	[getEntityId] () {
@@ -23,8 +23,9 @@ export default {
 	},
 
 	[startAnalyticsEvent] (mimeType) {
-		console.debug('Begin profile viewed event.');
-		this.resourceLoaded(this[getEntityId](), null, mimeType);
+		if (!this.props.preview) {
+			this.resourceLoaded(this[getEntityId](), null, mimeType);	
+		}
 	},
 
 	analyticsContext () {
