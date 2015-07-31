@@ -13,7 +13,7 @@ export default {
 
 	componentWillUnmount () {
 		if (!this.props.preview) {
-			this.resourceUnloaded();	
+			this.resourceUnloaded();
 		}
 	},
 
@@ -24,7 +24,7 @@ export default {
 
 	[startAnalyticsEvent] (mimeType) {
 		if (!this.props.preview) {
-			this.resourceLoaded(this[getEntityId](), null, mimeType);	
+			this.resourceLoaded(this[getEntityId](), null, mimeType);
 		}
 	},
 
