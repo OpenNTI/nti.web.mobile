@@ -54,7 +54,7 @@ export default React.createClass({
 				) : error ? (
 					<ErrorWidget error={error} />
 				) : (
-					<Conditional condition={!loading && content} className="agreement" dangerouslySetInnerHTML={{__html: content}} />
+					<Conditional condition={!loading && !!content} className="agreement" dangerouslySetInnerHTML={{__html: content}} />
 				)}
 
 			</div>
