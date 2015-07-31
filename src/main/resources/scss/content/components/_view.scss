@@ -2,6 +2,10 @@
 .content-view {
 	position: relative;
 
+	& > div > figure.loading {
+		position: fixed;
+	}
+
 	.fixed-footer {
 		min-height: 4rem;
 
