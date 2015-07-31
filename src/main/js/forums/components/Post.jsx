@@ -126,31 +126,33 @@ export default React.createClass({
 
 	render () {
 
+		let {busy, deleted, error} = this.state;
+
 		let item = this.getItem();
 
-		if (this.state.error) {
-			if (this.state.error.statusCode === 404) {
+		if (error) {
+			if (error.statusCode === 404) {
 				return <Notice>Not found.</Notice>;
 			}
 			else {
-				return <Err error={this.state.error} />;
+				return <Err error={error} />;
 			}
 		}
 
-		if (this.state.busy || !item) {
+		if (busy || !item) {
 			return <Loading />;
 		}
 
 		let topic = Store.getObject(this.props.topicId);
 
-		let P = (this.state.deleted || (this.getItem() || {}).Deleted) ?
-			<Notice>This item has been deleted.</Notice> :
-			<PostHeadline item={item} topic={topic} asHeadline={true} />;
-
 		return (
 			<div>
 				<ViewHeader type={POST} />
-				{P}
+				{(deleted || (this.getItem() || {}).Deleted) ? (
+					<Notice>This item has been deleted.</Notice>
+				) : (
+					<PostHeadline item={item} topic={topic} asHeadline={true} />
+				)}
 				<Replies key="replies" item={item}
 					listComponent={List}
 					childComponent={PostItem}
