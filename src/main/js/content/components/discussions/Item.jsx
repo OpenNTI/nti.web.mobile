@@ -22,7 +22,7 @@ export default React.createClass({
 
 	render () {
 		let {item} = this.props;
-		let {body, creator, title, replyCount} = item;
+		let {body, creator, title, replyCount = 0} = item;
 		let date = item.getCreatedTime();
 		let id = encodeForURI(item.getID());
 
