@@ -216,7 +216,7 @@ function addComment(topic, parent, comment) {
  */
 function saveComment(payload) {
 	let {postItem, newValue} = payload.action;
-	return postItem.setProperties(newValue)
+	return postItem.save(newValue)
 		.then(result => {
 			store.commentSaved(result);
 		});
