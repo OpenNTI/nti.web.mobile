@@ -101,28 +101,30 @@ export default React.createClass({
 	},
 
 	render () {
+		let {totalItemCount, loading} = this.state;
 
-		if (this.state.loading) {
-			return (
-				<TinyLoader />
-			);
-		}
 		let {item} = this.props;
 		// let topicCount = t('topicCount', { count: item.TopicCount });
 
 		return (
 			<div className="forum-item">
-				<a href={this.getHref()} className="blockLink">
-					<h3>
-						<span className="title">{item.title}</span>
-						<div className="meta">
-							<span className="see-all count" href={this.getHref()}>{t('topicCount', {count: this.state.totalItemCount})}</span>
-						</div>
-						<span className="arrow-right"/>
+				{loading ? (
+					<TinyLoader />
+				) : (
+					<div>
+						<a href={this.getHref()} className="blockLink">
+							<h3>
+								<span className="title">{item.title}</span>
+								<div className="meta">
+									<span className="see-all count" href={this.getHref()}>{t('topicCount', {count: totalItemCount})}</span>
+								</div>
+								<span className="arrow-right"/>
 
-					</h3>
-				</a>
-				{this.renderRecentActivity()}
+							</h3>
+						</a>
+						{this.renderRecentActivity()}
+					</div>
+				)}
 			</div>
 		);
 	}

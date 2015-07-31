@@ -1,17 +1,21 @@
 import React from 'react';
 import {Link} from 'react-router-component';
+
 import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
 
-import {getTopicContents} from '../Api';
 import Err from 'common/components/Error';
-import List from './List';
 import Loading from 'common/components/TinyLoader';
 import Notice from 'common/components/Notice';
-import Paging from '../mixins/Paging';
-import PageControls from './PageControls';
-import Store from '../Store';
 import StoreEvents from 'common/mixins/StoreEvents';
+
+import Paging from '../mixins/Paging';
+
+import List from './List';
+import PageControls from './PageControls';
+
+import {getTopicContents} from '../Api';
 import {COMMENT_ADDED} from '../Constants';
+import Store from '../Store';
 
 const loadData = 'TopicComments:load';
 const commentAdded = 'TopicComments:commentAdded';
@@ -100,32 +104,36 @@ export default React.createClass({
 	},
 
 	render () {
+		let {error, loading} = this.state;
+		let {topicId} = this.props;
 
-		if (this.state.loading) {
-			return <Loading />;
-		}
-
-		if (this.state.error) {
-			let {error} = this.state;
+		if (error) {
 			return (error || {}).statusCode === 404 ? <div><Notice>This topic could not be found.</Notice></div> : <Err error={error} />;
 		}
 
-		let topic = Store.getObject(this.props.topicId);
-		let container = Store.getObjectContents(this.props.topicId);
+		let topic = Store.getObject(topicId);
+		let container = Store.getObjectContents(topicId);
 		let pageInfo = this.pagingInfo();
 
 		// console.debug('pageInfo: %o', pageInfo);
 
 		return (
-			(container.Items || []).length > 0 &&
 			<div>
-				<section className="comments">
-					<Transition transitionName="forums">
-						<List className="forum-replies" container={container} {...this.props} itemProps={{topic: topic}} omitIfEmpty={true} />
-					</Transition>
-				</section>
-				{this.state[showJumpToLastPage] && this.jumpToLastPageMessage()}
-				<PageControls paging={pageInfo} />
+				{loading ? (
+					<Loading className="topic-comments"/>
+				) : (container.Items || []).length > 0 ? (
+					<div>
+						<section className="comments">
+							<Transition transitionName="fadeOutIn">
+								<List className="forum-replies" container={container} {...this.props} itemProps={{topic: topic}} omitIfEmpty={true} />
+							</Transition>
+						</section>
+						{this.state[showJumpToLastPage] && this.jumpToLastPageMessage()}
+						<PageControls paging={pageInfo} />
+					</div>
+				) :
+					null
+				}
 			</div>
 		);
 	}

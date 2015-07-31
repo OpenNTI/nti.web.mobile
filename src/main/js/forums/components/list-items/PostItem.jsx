@@ -149,7 +149,7 @@ export default React.createClass({
 		let edited = (Math.abs(modifiedOn - createdOn) > 0);
 
 		if (this.state.busy) {
-			return <Loading />;
+			return <Loading className="post-item"/>;
 		}
 
 		let linksClasses = {
