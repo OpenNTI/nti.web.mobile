@@ -12,7 +12,7 @@ import Button from 'common/forms/components/Button';
 import {scoped} from 'common/locale';
 
 const t = scoped('ENROLLMENT.GIFT.SUCCESS');
-const siteString = scoped('CONTACTINFO');
+const siteString = scoped('COURSE.CONTACTINFO');
 
 export default React.createClass({
 	displayName: 'GiftSuccess',
