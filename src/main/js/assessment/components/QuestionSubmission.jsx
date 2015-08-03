@@ -44,7 +44,11 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
-		clearAssessmentAnswers(this.props.question);
+		let {question} = this.props;
+
+		if (Store.canReset(question)) {
+			clearAssessmentAnswers(question);
+		}
 	},
 
 
@@ -96,9 +100,9 @@ export default React.createClass({
 		let wrapperClass = cx('question-submission', status.toLowerCase());
 
 		let buttonClass = cx('button', {
-			disabled,
-			caution: submitted && !correct,
-			hidden: submitted && correct
+			'disabled': disabled,
+			'caution': submitted && !correct,
+			'hidden': submitted && correct
 		});
 
 		return (
@@ -109,19 +113,9 @@ export default React.createClass({
 					</div>
 				)}
 
-				{disabled ? null : (
-					<a href="#"
-						className={buttonClass}
-						onClick={
-							submitted ?
-								this.onReset :
-								this.onSubmit
-						}>{
-						submitted ?
-							t(`${prefix}-reset`) :
-							t(`${prefix}-submit`)
-						}</a>
-				)}
+				<a href="#" className={buttonClass} onClick={submitted ? this.onReset : this.onSubmit}>
+					{t(`${prefix}-${submitted ? 'reset' : 'submit'}`)}
+				</a>
 
 				{!busy ? null : <Loading/>}
 			</div>
