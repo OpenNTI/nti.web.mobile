@@ -4,7 +4,7 @@ import dataserver from 'nti.lib.interfaces';
 import forceCurrentHost from 'nti.lib.interfaces/utils/forcehost';
 
 
-function exposeGlobaly (...fns) {
+function exposeGlobally (...fns) {
 
 	function wrap (fn) {
 		return (...args)=> {
@@ -132,7 +132,7 @@ export function getService () {
 }
 
 
-exposeGlobaly(getServer, getService);
+exposeGlobally(getServer, getService);
 
 
 export function installAnonymousService () {
