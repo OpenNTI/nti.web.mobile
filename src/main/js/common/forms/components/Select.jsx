@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import * as Actions from '../Actions';
 import Store from '../Store';
@@ -93,10 +91,14 @@ export default React.createClass({
 
 	renderOptions () {
 		let raw = this.state.options || this.props.options || [];
-		let options = raw.map(function(item) {
-			let option = this.makeOption(item);
-			return <option value={option.value} key={option.value}>{option.name}</option>;
-		}.bind(this));
+		let options = raw.map(item => {
+			let o = this.makeOption(item);
+			return React.createElement('option', Object.assign(o, {
+				children: o.name,
+				name: void 0,
+				key: o.value
+			}));
+		});
 
 		// include empty option
 		options.unshift(<option value="" key="blank"></option>);

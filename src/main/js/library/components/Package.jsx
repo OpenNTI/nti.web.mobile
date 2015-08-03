@@ -17,10 +17,12 @@ export default React.createClass({
 	itemChanged () { this.forceUpdate(); },
 
 	componentWillMount () {
-		this.getItem().addListener('change', this.itemChanged); },
+		this.getItem().addListener('change', this.itemChanged);
+	},
 
 	componentWillUnmount () {
-		this.getItem().removeListener('change', this.itemChanged); },
+		this.getItem().removeListener('change', this.itemChanged);
+	},
 
 
 	render () {

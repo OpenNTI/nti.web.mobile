@@ -19,7 +19,7 @@ const WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(
  *                            an Object used to render the Widget.
  * @returns {object} A packet of data, content, body, styles and widgets.
  */
-export function processContent(packet, strategies = DEFAULT_STRATEGIES) {
+export function processContent (packet, strategies = DEFAULT_STRATEGIES) {
 	let html = packet.content;
 	let parser = null;
 	if (typeof DOMParser !== 'undefined') {
@@ -72,13 +72,13 @@ export function processContent(packet, strategies = DEFAULT_STRATEGIES) {
  * @param {Node} elementFactory		A Dom object that has an implementation for 'createComment'.
  * @returns {object[]} An array of objects representing widgets.
  */
-export function parseWidgets(strategies, doc, elementFactory) {
+export function parseWidgets (strategies, doc, elementFactory) {
 
-	function makeMarker(id) {
+	function makeMarker (id) {
 		return elementFactory.createComment('nti:widget-marker[' + id + ']');
 	}
 
-	function flatten(list, array) {
+	function flatten (list, array) {
 		if (!Array.isArray(array)) {
 			array = [array];
 		}

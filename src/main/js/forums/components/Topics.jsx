@@ -50,16 +50,16 @@ export default React.createClass({
 		AnalyticsStore.pushHistory(decodeFromURI(this.props.forumId));
 	},
 
-	getForum() {
+	getForum () {
 		return Store.getForum(this.props.forumId);
 	},
 
-	canCreateTopic() {
+	canCreateTopic () {
 		let forum = this.getForum();
 		return !!(forum && forum.hasLink('add'));
 	},
 
-	createTopicLink() {
+	createTopicLink () {
 		if (!this.canCreateTopic()) {
 			return null;
 		}

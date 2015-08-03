@@ -13,7 +13,7 @@ const localeKeys = {
 };
 
 
-function headerTextForType(localeKey) {
+function headerTextForType (localeKey) {
 	let k = localeKeys[localeKey] || 'unknown';
 	let headerText = t(k, {fallback: ' '});
 	return headerText;
@@ -32,7 +32,7 @@ export default React.createClass({
 	},
 
 	statics: {
-		headerTextForType(localeKey) {
+		headerTextForType (localeKey) {
 			return headerTextForType(localeKey);
 		}
 	},

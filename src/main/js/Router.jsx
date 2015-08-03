@@ -99,7 +99,7 @@ export default React.createClass({
 		}
 	},
 
-	[SendGAEvent]() {
+	[SendGAEvent] () {
 		if (!global.ga) {
 			console.warn('Router requires ga to be available in global scope. Aborting attempt to send google analytics navigation event');
 			return;
@@ -138,7 +138,7 @@ export default React.createClass({
 
 
 	getRoutes () {
-		function lookupHandler(route) {
+		function lookupHandler (route) {
 			let view = HANDLER_BY_NAME[route.handler];
 			if (!view) {
 				route.disabled = true;

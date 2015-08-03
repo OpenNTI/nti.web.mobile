@@ -82,7 +82,7 @@ export default React.createClass({
 	},
 
 
-	resumeAnalyticsEvents() {
+	resumeAnalyticsEvents () {
 		this.signalResourceLoaded();
 	},
 

@@ -5,7 +5,7 @@ const deletedItemGroupType = 'application/vnd.nextthought.' + mimeTypes[DELETED_
 
 export default function (items) {
 
-	function getOrCreateDeletedItemGroup(itemsArr) {
+	function getOrCreateDeletedItemGroup (itemsArr) {
 		// if the last item in the array is already a deleted items group, use it.
 		if (itemsArr.length > 0 && (itemsArr[itemsArr.length - 1]).MimeType === deletedItemGroupType) {
 			return itemsArr[itemsArr.length - 1];

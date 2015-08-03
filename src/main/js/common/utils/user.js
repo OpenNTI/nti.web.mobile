@@ -20,7 +20,7 @@ export function getDebugUsernameString (entity) {
  *
  * @return {string} encoded username
  */
-export function encode(username) {
+export function encode (username) {
 	if (isFlag(FLAG)) {
 		username = new Buffer(SALT + username)
 			.toString('base64')

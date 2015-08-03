@@ -36,7 +36,7 @@ export function updateWithNewUsername (username) {
 }
 
 
-export function login(username, password) {
+export function login (username, password) {
 
 	let url = Store.getLoginLink();
 
@@ -46,7 +46,7 @@ export function login(username, password) {
 		);
 }
 
-export function logout() {
+export function logout () {
 	getService().then(s => {
 		let url = s.getLogoutURL('/mobile/login/');
 		location.replace(url);

@@ -7,7 +7,7 @@ import {getEventTarget} from 'nti.lib.dom';
 
 export const stop = e => { e.preventDefault(); e.stopPropagation(); };
 
-function getTouch(e, id) {
+function getTouch (e, id) {
 	return Array.from(e.targetTouches || [])
 		.find(i=>i.identifier === id);
 }

@@ -1,5 +1,4 @@
 /* global jQuery, Stripe */
-
 import React from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
@@ -52,7 +51,7 @@ export default React.createClass({
 		};
 	},
 
-	componentWillMount() {
+	componentWillMount () {
 		let fieldValues = Object.assign({}, Store.getPaymentFormData());
 
 		getAppUser()
@@ -107,32 +106,32 @@ export default React.createClass({
 
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.BILLING_INFO_REJECTED:
-				key = event.response.error.param;
+		case Constants.BILLING_INFO_REJECTED:
+			key = event.response.error.param;
 
-				if (/^exp_/i.test(key)) {
-					key = 'exp_';
-				}
+			if (/^exp_/i.test(key)) {
+				key = 'exp_';
+			}
 
-				errors[key] = event.response.error;
-				this.setState({
-					errors: errors,
-					busy: false
-				});
-				console.log(event);
-				break;
+			errors[key] = event.response.error;
+			this.setState({
+				errors: errors,
+				busy: false
+			});
+			console.log(event);
+			break;
 
-			case Constants.LOCK_SUBMIT:
-				this.setState({
-					submitEnabled: false
-				});
-				break;
+		case Constants.LOCK_SUBMIT:
+			this.setState({
+				submitEnabled: false
+			});
+			break;
 
-			case Constants.UNLOCK_SUBMIT:
-				this.setState({
-					submitEnabled: true
-				});
-				break;
+		case Constants.UNLOCK_SUBMIT:
+			this.setState({
+				submitEnabled: true
+			});
+			break;
 		}
 	},
 
@@ -236,7 +235,7 @@ export default React.createClass({
 	validate (fieldValues) {
 		let errors = {};
 
-		function markRequired(ref) {
+		function markRequired (ref) {
 			errors[ref] = {
 				// no message property because we don'tForm want the 'required' message
 				// repeated for every required field...
@@ -250,8 +249,8 @@ export default React.createClass({
 			};
 		}
 
-		fieldConfig.forEach(function(fieldset) {
-			fieldset.fields.forEach(function(field) {
+		fieldConfig.forEach(fieldset => {
+			fieldset.fields.forEach(field => {
 				let value = (fieldValues[field.ref] || '').trim();
 				if (value.length === 0) {
 					if (field.required) {

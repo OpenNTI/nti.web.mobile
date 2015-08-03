@@ -6,7 +6,7 @@ import {scoped} from 'common/locale';
 
 const t = scoped('FORUMS');
 
-function isValid(topicValue) {
+function isValid (topicValue) {
 	return topicValue.title.trim().length > 0 && (topicValue.body || []).length > 0;
 }
 

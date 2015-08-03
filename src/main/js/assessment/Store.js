@@ -170,7 +170,7 @@ class Store extends StorePrototype {
 	}
 
 
-	[SaveProgress](part, buffer = 1000) {
+	[SaveProgress] (part, buffer = 1000) {
 		let main = getMainSubmittable(part);
 		if (!main.postSavePoint) {
 			return;
@@ -471,7 +471,7 @@ class Store extends StorePrototype {
 	}
 
 
-	isWordBankEntryUsed(wordBankEntry) {
+	isWordBankEntryUsed (wordBankEntry) {
 		let {wid} = wordBankEntry;
 		let submission = this.getSubmissionData(wordBankEntry);
 		let question = wordBankEntry.parent('constructor', {test: x=>x === Question});

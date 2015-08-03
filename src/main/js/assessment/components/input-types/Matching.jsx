@@ -79,7 +79,7 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
-		function get(sel, attr) {
+		function get (sel, attr) {
 			let o = getEventTarget(e, `${sel}[${attr}]`);
 			o = o && o.getAttribute(attr);
 			//the double equals is intentional here.

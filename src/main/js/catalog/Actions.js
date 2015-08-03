@@ -30,6 +30,6 @@ export function redeemGift (purchasable, courseId, accessKey) {
 	AppDispatcher.handleRequestAction( {type: REDEEM_GIFT, payload: { purchasable, courseId, accessKey }});
 }
 
-function dispatch(type, collection) {
+function dispatch (type, collection) {
 	AppDispatcher.handleRequestAction({ type, response: collection });
 }

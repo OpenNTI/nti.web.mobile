@@ -29,7 +29,7 @@ export default React.createClass({
 		source: React.PropTypes.oneOfType([
 			React.PropTypes.string,
 			React.PropTypes.instanceOf(MediaSource)
-			]).isRequired,
+		]).isRequired,
 
 		autoPlay: React.PropTypes.bool,
 		deferred: React.PropTypes.bool

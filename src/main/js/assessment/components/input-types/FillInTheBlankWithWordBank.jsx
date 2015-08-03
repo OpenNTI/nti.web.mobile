@@ -39,21 +39,21 @@ export default React.createClass({
 	},
 
 
-	getDefaultProps() {
+	getDefaultProps () {
 		return {
 			onDrop: emptyFunction
 		};
 	},
 
 
-	getInitialState() {
+	getInitialState () {
 		return {
 			value: null
 		};
 	},
 
 
-	onDrop(drop) {
+	onDrop (drop) {
 		let value = Object.assign({}, this.state.value || {});
 		let data = drop || {}, movedFrom;
 		let {source, target} = data;
@@ -82,7 +82,7 @@ export default React.createClass({
 	},
 
 
-	onReset(dropId) {
+	onReset (dropId) {
 		let v = Object.assign({}, this.state.value || {});
 		delete v[dropId];
 
@@ -94,7 +94,7 @@ export default React.createClass({
 	},
 
 
-	componentWillMount() {
+	componentWillMount () {
 		this.setState({
 			PartLocalDNDToken: Mixin.getNewCombinationToken(
 				Mixin.getNewUniqueToken(),
@@ -104,7 +104,7 @@ export default React.createClass({
 	},
 
 
-	render() {
+	render () {
 		return (
 			<form className="fill-in-the-blank">
 				<Content
@@ -117,7 +117,7 @@ export default React.createClass({
 	},
 
 
-	renderInput(tag, props) {
+	renderInput (tag, props) {
 		let {name} = props;
 		return (
 			<DropTarget accepts={this.state.PartLocalDNDToken}
@@ -131,7 +131,7 @@ export default React.createClass({
 	},
 
 
-	renderWordBankEntry(input) {
+	renderWordBankEntry (input) {
 		let wid = (this.state.value || {})[input];
 		let {item} = this.props;
 		let entryItem = item.getWordBankEntry(wid);
@@ -156,7 +156,7 @@ export default React.createClass({
 	},
 
 
-	getValue() {
+	getValue () {
 		return this.state.value;
 	}
 });

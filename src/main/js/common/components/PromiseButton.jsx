@@ -14,7 +14,7 @@ const FINISHED_ERROR = 'finished-error';
 const RESET_DELAY = 1000; //milliseconds
 const MIN_DELAY_BEFORE_FINISHING = 1000; // milliseconds
 
-function ensureDelayOf(delay, start) {
+function ensureDelayOf (delay, start) {
 	return (o) => {
 		let timeFromStart = (Date.now() - start);
 		let remaining = delay - timeFromStart;
@@ -53,7 +53,7 @@ export default React.createClass({
 	},
 
 
-	reset() {
+	reset () {
 		this.setState(this.getInitialState());
 	},
 
@@ -64,7 +64,7 @@ export default React.createClass({
 	},
 
 
-	go(e) {
+	go (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();

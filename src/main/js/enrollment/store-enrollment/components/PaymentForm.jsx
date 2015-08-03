@@ -62,14 +62,14 @@ export default React.createClass({
 	onStoreChange (event) {
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case BILLING_INFO_REJECTED:
-				let errors = this.state.errors || {};
-				errors[event.response.error.param] = event.response.error;
-				this.setState({
-					errors: errors,
-					busy: false
-				});
-				console.log(event);
+		case BILLING_INFO_REJECTED:
+			let errors = this.state.errors || {};
+			errors[event.response.error.param] = event.response.error;
+			this.setState({
+				errors: errors,
+				busy: false
+			});
+			console.log(event);
 			break;
 		}
 	},

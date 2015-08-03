@@ -10,11 +10,18 @@ import {toAnalyticsPath} from 'analytics/utils';
 
 const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
+function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "newWatchEventFactory" callback'); } }
+
 export default React.createClass({
 	displayName: 'Video',
 
 
 	propTypes: {
+		context: deprecated,
+		courseId: deprecated,
+		transcript: deprecated,
+
+
 		/**
 		 * The Video source. Either a URL or a Video model.
 		 * @type {String/Video}
@@ -22,7 +29,7 @@ export default React.createClass({
 		src: React.PropTypes.oneOfType([
 			React.PropTypes.string,
 			React.PropTypes.instanceOf(getModel('video'))
-			]).isRequired,
+		]).isRequired,
 
 
 		/**
@@ -109,7 +116,7 @@ export default React.createClass({
 	},
 
 
-	newWatchVideoEvent(browserEvent) {
+	newWatchVideoEvent (browserEvent) {
 		let {newWatchEventFactory, src} = this.props;
 
 		if (!src.ntiid) {

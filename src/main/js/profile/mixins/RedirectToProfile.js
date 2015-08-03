@@ -8,7 +8,7 @@ export default {
 
 	mixins: [BasePath, Navigatable],
 
-	redirectToProfile(extraPath) {
+	redirectToProfile (extraPath) {
 		let link = profileLink();
 		let memberships = join(this.getBasePath(), link, extraPath || '');
 		this.navigateRoot(memberships);

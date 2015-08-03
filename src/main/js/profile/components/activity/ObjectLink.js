@@ -8,7 +8,7 @@ export default {
 
 	mixins: [BasePathAware],
 
-	objectLink(o) {
+	objectLink (o) {
 		if (!(o || {}).NTIID || exclude((o || {}).MimeType)) {
 			return null;
 		}
@@ -17,4 +17,3 @@ export default {
 	}
 
 };
-

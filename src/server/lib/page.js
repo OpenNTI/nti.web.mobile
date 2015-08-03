@@ -9,12 +9,12 @@ const isRootPath = /^\/(?!\/).*/;
 const basepathreplace = /(manifest|src|href)="(.*?)"/igm;
 const configValues = /<\[cfg\:([^\]]*)\]>/igm;
 
-function injectConfig(cfg, orginal, prop) {
+function injectConfig (cfg, orginal, prop) {
 	return cfg[prop] || 'MissingConfigValue';
 }
 
 
-export default function getPage(render) {
+export default function getPage (render) {
 	let Application;
 	let template;
 
@@ -50,7 +50,7 @@ export default function getPage(render) {
 
 
 
-	return function(basePath, req, scriptFilename, clientConfig) {
+	return function (basePath, req, scriptFilename, clientConfig) {
 		let u = url.parse(req.url);
 		let manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache"' : '<html';
 		let path = u.pathname;

@@ -22,7 +22,7 @@ import {attachToExpress as setupCompression} from './compress';
 const manifest = /\.appcache$/i;
 
 
-export function setupApplication(app, config) {
+export function setupApplication (app, config) {
 	let port = config.port = (config.port || 9000);
 	//config.silent = true;
 	let dsi = dataserver(config);
@@ -56,7 +56,7 @@ export function setupApplication(app, config) {
 		return void 0;
 	}
 
-	app.use('/errortest*', function() {
+	app.use('/errortest*', function () {
 		throw new Error('This is an error. Neato.');
 	});
 

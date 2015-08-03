@@ -68,7 +68,7 @@ class Store extends StorePrototype {
 			links: Object.assign({},
 				a.links || {},
 				b.links || {})
-			});
+		});
 	}
 
 

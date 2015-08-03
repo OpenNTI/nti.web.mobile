@@ -75,7 +75,7 @@ export default class ForumObjectPathResolver {
 	}
 
 
-	getPathPart(obj, i) {
+	getPathPart (obj, i) {
 		let id = encodeForURI(obj.getID());
 
 		if (isBoard(obj.MimeType) && i !== 0) {

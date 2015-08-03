@@ -54,7 +54,7 @@ export default React.createClass({
 	},
 
 
-	getValue() {
+	getValue () {
 		return this.refs.editor.getValue();
 	},
 

@@ -81,7 +81,7 @@ const MIME_TYPES = {
 };
 
 
-function getPathPart(targetObject, o, i, a) {
+function getPathPart (targetObject, o, i, a) {
 	if (o[IGNORE]) {
 		o = a[i + 1]; //once we ignore, we continue to ignore.
 		if (o) {

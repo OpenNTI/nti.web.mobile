@@ -4,7 +4,7 @@ import {EVENT_STARTED, EVENT_ENDED} from './Constants';
 import {getTypes} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
 
-export function emitEventStarted(event) {
+export function emitEventStarted (event) {
 	let types = getTypes();
 	let mType = (event || {}).MimeType;
 	if (!types[mType]) {
@@ -16,7 +16,7 @@ export function emitEventStarted(event) {
 	});
 }
 
-export function emitEventEnded(event) {
+export function emitEventEnded (event) {
 	AppDispatcher.handleViewAction({
 		type: EVENT_ENDED,
 		event: event

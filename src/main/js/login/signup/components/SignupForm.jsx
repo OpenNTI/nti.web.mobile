@@ -55,7 +55,7 @@ export default React.createClass({
 	},
 
 
-	getFields() {
+	getFields () {
 		return (React.findDOMNode(this.refs.form) || {}).elements;
 	},
 
@@ -143,7 +143,7 @@ export default React.createClass({
 		}
 	},
 
-	onChange(e) {
+	onChange (e) {
 		this.onBlur(e);
 	},
 

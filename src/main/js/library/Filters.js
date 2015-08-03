@@ -2,9 +2,9 @@ import {scoped} from 'common/locale';
 
 let getLabel = scoped('LIBRARY.CATEGORY');
 
-function courseSortComparatorFunc(a, b) {
+function courseSortComparatorFunc (a, b) {
 
-	function strComp(s1, s2) {
+	function strComp (s1, s2) {
 		return s1 < s2 ? -1 : s1 > s2 ? 1 : 0;
 	}
 

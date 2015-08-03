@@ -1,6 +1,6 @@
 /*eslint no-var: 0 strict: 0*/
 'use strict';
-function AppCache(cache, network, fallback, hash) {
+function AppCache (cache, network, fallback, hash) {
 	this.cache = cache;
 	this.network = network;
 	this.fallback = fallback;
@@ -9,15 +9,15 @@ function AppCache(cache, network, fallback, hash) {
 }
 
 
-AppCache.prototype.addAsset = function(asset) {
+AppCache.prototype.addAsset = function (asset) {
 	return this.assets.push(asset);
 };
 
-AppCache.prototype.size = function() {
+AppCache.prototype.size = function () {
 	return Buffer.byteLength(this.source(), 'utf8');
 };
 
-AppCache.prototype.getManifestBody = function() {
+AppCache.prototype.getManifestBody = function () {
 	var assets = this.assets || [],
 		cache = this.cache || [],
 		network = this.network || [],
@@ -33,25 +33,25 @@ AppCache.prototype.getManifestBody = function() {
 };
 
 
-AppCache.prototype.source = function() {
+AppCache.prototype.source = function () {
 	return 'CACHE MANIFEST\n# ' + this.hash + '\n\n' + this.getManifestBody();
 };
 
 
-function AppCachePlugin(options) {
+function AppCachePlugin (options) {
 	this.cache = options && options.cache;
 	this.network = (options && options.network) || ['*'];
 	this.fallback = options && options.fallback;
 }
 
 
-AppCachePlugin.prototype.apply = function(compiler) {
+AppCachePlugin.prototype.apply = function (compiler) {
 	var me = this;
 
-	return compiler.plugin('emit', function(work, callback) {
+	return compiler.plugin('emit', function (work, callback) {
 
 		try {
-			work.chunks.forEach(function(chunk) {
+			work.chunks.forEach(function (chunk) {
 				if (chunk.name === 'main') {
 					me.fallback.unshift('js/main.js ' + chunk.files[0]);
 				}
@@ -63,7 +63,7 @@ AppCachePlugin.prototype.apply = function(compiler) {
 				me.fallback,
 				work.hash);
 
-			Object.keys(work.assets).forEach(function(key) {
+			Object.keys(work.assets).forEach(function (key) {
 				if (/\.(gz)$/.test(key)) {
 					return;
 				}

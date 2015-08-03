@@ -39,15 +39,15 @@ const DIRECTIONS = {
 };
 
 
-function canDrag(x) {
-	return function() {
+function canDrag (x) {
+	return function () {
 		let {axis} = this.props;
 		return axis === 'both' || axis === x;
 	};
 }
 
 
-function getDragPoint(e) {
+function getDragPoint (e) {
 	e = (!e.touches ? e : e.touches[0]);
 	let {clientX, clientY} = e;
 	return {
@@ -57,7 +57,7 @@ function getDragPoint(e) {
 }
 
 
-function isDirection(dir, key, a, b) {
+function isDirection (dir, key, a, b) {
 	if (!a || !b) {
 		return null;
 	}

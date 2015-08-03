@@ -51,7 +51,7 @@ export default React.createClass({
 		console.debug(event);
 	},
 
-	deleteClicked() {
+	deleteClicked () {
 		areYouSure(t('FORUMS.deleteTopicPrompt')).then(() =>
 			this.props.item.delete());
 	},

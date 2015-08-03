@@ -199,7 +199,7 @@ let Dialog = React.createClass({
 export default Dialog;
 
 
-function dismiss(dialog) {
+function dismiss (dialog) {
 	dialog.props.onDismiss.call();
 	dialog.props.onDismiss = emptyFunction;//don't double call
 

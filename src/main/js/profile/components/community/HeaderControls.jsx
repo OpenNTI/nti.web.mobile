@@ -7,11 +7,11 @@ function hasOptions (entity) {
 	return entity.hasLink('hide');
 }
 
-function canLeave(entity) {
+function canLeave (entity) {
 	return entity.hasLink('leave');
 }
 
-function canJoin(entity) {
+function canJoin (entity) {
 	return entity.hasLink('join');
 }
 

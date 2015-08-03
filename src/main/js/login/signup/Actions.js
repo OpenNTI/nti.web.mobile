@@ -7,7 +7,7 @@ const bufferTime = 500;
 export default {
 
 
-	preflight: function preflight(data) {
+	preflight: function preflight (data) {
 		clearTimeout(preflight.buffer);
 		preflight.buffer = setTimeout(() => {
 			AppDispatcher.handleViewAction({

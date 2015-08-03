@@ -10,6 +10,6 @@ export default {
 };
 
 
-function dispatch(type, data) {
+function dispatch (type, data) {
 	AppDispatcher.handleRequestAction({type, data});
 }

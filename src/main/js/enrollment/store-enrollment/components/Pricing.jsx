@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {scoped} from 'common/locale';
 let t = scoped('ENROLLMENT.GIFT.PRICING');
@@ -40,7 +39,7 @@ export default React.createClass({
 		}
 	},
 
-	resetState(theprops = this.props) {
+	resetState (theprops = this.props) {
 		let pricing = this.getCouponPricing();
 		let state = {
 				currency: theprops.purchasable.currency,

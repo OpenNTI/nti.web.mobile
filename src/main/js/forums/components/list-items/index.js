@@ -15,7 +15,7 @@ const Types = [
 	DeletedGroupItem
 ];
 
-export default function(part, index, props) {
+export default function (part, index, props) {
 
 	let Item = Unknown;
 

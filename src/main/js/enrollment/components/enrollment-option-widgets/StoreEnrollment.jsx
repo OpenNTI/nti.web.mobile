@@ -33,7 +33,7 @@ export default React.createClass({
 		}
 	},
 
-	[getPurchasable](enrollmentOption) {
+	[getPurchasable] (enrollmentOption) {
 		return enrollmentOption.getPurchasable();
 	},
 

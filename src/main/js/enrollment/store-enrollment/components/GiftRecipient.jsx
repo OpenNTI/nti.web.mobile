@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {scoped} from 'common/locale';
 import isEmail from 'nti.lib.interfaces/utils/isemail';
@@ -51,7 +50,7 @@ export default React.createClass({
 			return result;
 		}
 
-		result = elements.reduce(function(agg, element) {
+		result = elements.reduce((agg, element) => {
 			if (element.name) {
 				if (element.type === 'checkbox') {
 					agg[element.name] = element.checked;

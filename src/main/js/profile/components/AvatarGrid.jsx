@@ -9,7 +9,7 @@ export default React.createClass({
 
 	propTypes: {
 		entities: React.PropTypes.shape({
-					map: React.PropTypes.func }).isRequired,
+			map: React.PropTypes.func }).isRequired,
 
 		classesFor: React.PropTypes.func
 	},

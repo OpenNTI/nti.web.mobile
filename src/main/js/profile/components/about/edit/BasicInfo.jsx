@@ -22,11 +22,11 @@ const TEXT_FIELDS = [
 
 const t = scoped('PROFILE.EDIT');
 
-function isReadOnly(schema, prop) {
+function isReadOnly (schema, prop) {
 	return ((schema || {})[prop] || {}).readonly;
 }
 
-function isRequired(schema, prop) {
+function isRequired (schema, prop) {
 	return ((schema || {})[prop] || {}).required;
 }
 
@@ -74,7 +74,7 @@ export default React.createClass({
 	},
 
 
-	onEditorChange(_, value) {
+	onEditorChange (_, value) {
 		let about = Editor.isEmpty(value) ? null : value;
 		this.setState({about});
 	},

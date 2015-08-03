@@ -52,8 +52,8 @@ export default React.createClass({
 			React.PropTypes.arrayOf(React.PropTypes.oneOfType([
 				React.PropTypes.string,
 				React.PropTypes.object
-				]))
-			]),
+			]))
+		]),
 
 
 		onBlur: React.PropTypes.func,

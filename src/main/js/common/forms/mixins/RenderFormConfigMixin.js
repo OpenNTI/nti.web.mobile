@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 import isFunction from 'nti.lib.interfaces/utils/isfunction';
@@ -77,7 +76,7 @@ export default {
 		if (field.type === 'radiogroup') {
 			let radioChange = this[radiochangehandler].bind(null, field);
 			let tmp = onChange;
-			onChange = tmp ? function(event) { tmp(event); radioChange(event); } : radioChange;
+			onChange = tmp ? function (event) { tmp(event); radioChange(event); } : radioChange;
 		}
 
 		let component = type === 'label' ?
@@ -154,7 +153,7 @@ export default {
 		return React.createElement.apply(null, args);
 	},
 
-    [focushandler](event) {
+	[focushandler] (event) {
 		let target = event.target.name;
 		let errors = this.state.errors || {};
 		if (errors[target]) {
@@ -166,14 +165,14 @@ export default {
 		}
 	},
 
-	[blurhandler](event) {
+	[blurhandler] (event) {
 		this.updateFieldValueState(event);
 		if (isFunction(this[Events.ON_BLUR])) {
 			this[Events.ON_BLUR](event);
 		}
 	},
 
-	[radiochangehandler](fieldConfig, event) {
+	[radiochangehandler] (fieldConfig, event) {
 		this.updateFieldValueState(event);
 		if(isFunction(this[Events.ON_CHANGE])) {
 			this[Events.ON_CHANGE](event);

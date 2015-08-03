@@ -21,7 +21,7 @@ const WIDGETS = [
 	StorifyEmbed
 ];
 
-export function getWidget(item, page, ownerProps) {
+export function getWidget (item, page, ownerProps) {
 	let Item = Unknown;
 
 	for (let Type of WIDGETS) {

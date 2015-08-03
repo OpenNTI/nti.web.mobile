@@ -1,4 +1,4 @@
-export default function(_, res, next) {
+export default function (_, res, next) {
 	res.setHeader('Cache-Control',	'private, no-cache, no-store, ' +
 									'must-revalidate, max-stale=0, ' +
 									'post-check=0, pre-check=0');

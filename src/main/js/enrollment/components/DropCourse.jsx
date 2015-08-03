@@ -39,7 +39,7 @@ export default React.createClass({
 		};
 	},
 
-	getContext() {
+	getContext () {
 		return Promise.resolve([
 			{
 				label: this.getCourseTitle(),

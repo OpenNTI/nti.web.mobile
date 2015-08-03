@@ -23,18 +23,18 @@ if (siteName && siteName !== 'unknown') {
 	//	.catch(error=>...);
 }
 
-export default function translate(...args) {
+export default function translate (...args) {
 	return counterpart(...args);
 }
 
-export function scoped(scope) {
+export function scoped (scope) {
 	return (key, options) => counterpart(key, Object.assign(options || {}, {scope}));
 }
 
-export function addChangeListener(fn) {
+export function addChangeListener (fn) {
 	counterpart.onLocaleChange(fn);
 }
 
-export function removeChangeListener(fn) {
+export function removeChangeListener (fn) {
 	counterpart.offLocaleChange(fn);
 }

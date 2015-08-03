@@ -115,7 +115,7 @@ export default React.createClass({
 		let out = [];
 		let toString = singular ? toUnitSingularString : toUnitString;
 
-		function maybeAdd(unit) {
+		function maybeAdd (unit) {
 			let u = d.get(unit);
 			if (u > 0 && (!accuracy || out.length < accuracy)) {
 				out.push(toString(unit, {count: u}));

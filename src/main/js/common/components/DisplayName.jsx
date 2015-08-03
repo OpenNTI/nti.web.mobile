@@ -8,7 +8,7 @@ import t from 'common/locale';
 
 import {getAppUsername} from 'common/utils';
 
-function deprecated(o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }
+function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }
 
 /**
  * This DisplayName component can use the full User instance if you have it.
@@ -69,7 +69,7 @@ export default React.createClass({
 	},
 
 
-	fillIn(props = this.props) {
+	fillIn (props = this.props) {
 		let appuser = getAppUsername();
 		let {usePronoun} = props;
 		let task = Date.now();

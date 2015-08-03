@@ -55,7 +55,7 @@ export function updatePartsWithAssessedParts (part, assessed) {
  * http://stackoverflow.com/questions/14701951/javascript-detect-android-native-browser
  * @return {Bool} true if it doesn't match
  */
-export function areAssessmentsSupported() {
+export function areAssessmentsSupported () {
 	let nua = navigator.userAgent;
 	let isAndroidNative =	/Mozilla\/5\.0/.test(nua) &&
 							/Android /.test(nua) &&

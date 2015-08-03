@@ -28,7 +28,7 @@ export default {
 		}
 	},
 
-	componentWillMount() {
+	componentWillMount () {
 		this[getStore] = getKey.bind(this, 'backingStore');
 		this[getHandlers] = getKey.bind(this, handlerMapKey);
 		this[onStoreChange] = onStoreChangeImpl.bind(this);
@@ -50,11 +50,11 @@ export default {
 };
 
 
-function makeSet(item) {
+function makeSet (item) {
 	return (!item || item instanceof Set) ? item : new Set([item]);
 }
 
-function getName() {
+function getName () {
 	try {
 		return this.constructor.displayName;
 	} catch (e) {
@@ -63,13 +63,13 @@ function getName() {
 }
 
 
-function getKey(key, fallbackAndDontWarn) {
+function getKey (key, fallbackAndDontWarn) {
 	let componentName = getName.call(this);
 	return this[key] || fallbackAndDontWarn || console.error('%s property not set in: %s', key, componentName);
 }
 
 
-function onStoreChangeImpl(event) {
+function onStoreChangeImpl (event) {
 	if (typeof event === 'string') {
 		console.error('Wrapping deprecated string event into object: %s', event);
 		event = {type: event};

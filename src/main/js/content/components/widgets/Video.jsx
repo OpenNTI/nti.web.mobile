@@ -69,7 +69,7 @@ export default React.createClass({
 	},
 
 
-	getVideoID(props) {
+	getVideoID (props) {
 		let item = (props || this.props).item;
 
 		return item.NTIID || (item.dataset || {}).ntiid;

@@ -220,7 +220,7 @@ export default React.createClass( {
 });
 
 
-function setFont(context, font) {
+function setFont (context, font) {
 	context.font = [
 		font.style || 'normal',
 		font.variant || 'normal',
@@ -229,7 +229,7 @@ function setFont(context, font) {
 	].join(' ');
 }
 
-function getGradeLetter(g) {
+function getGradeLetter (g) {
 	if (g >= 90) {
 		g = 'A';
 	} else if (g >= 80) {

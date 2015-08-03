@@ -53,24 +53,24 @@ export default {
 		if(action) {
 			switch(action.type) {
 			//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-				case LOAD_ENROLLMENT_STATUS:
-					if (action.courseId === entry.CourseNTIID) {
-						this.setState({
-							enrolled: action.result,
-							enrollmentStatusLoaded: true
-						});
-					}
+			case LOAD_ENROLLMENT_STATUS:
+				if (action.courseId === entry.CourseNTIID) {
+					this.setState({
+						enrolled: action.result,
+						enrollmentStatusLoaded: true
+					});
+				}
 				break;
-				case ENROLL_OPEN:
-					if(action.catalogId === entry.getID()) {
-						this.setState({
-							enrolled: event.result.success,
-							enrollmentStatusLoaded: true
-						});
-					}
+			case ENROLL_OPEN:
+				if(action.catalogId === entry.getID()) {
+					this.setState({
+						enrolled: event.result.success,
+						enrollmentStatusLoaded: true
+					});
+				}
 				break;
-				default:
-					console.debug('Saw unrecognized EnrollmentStore change event: %O', event);
+			default:
+				console.debug('Saw unrecognized EnrollmentStore change event: %O', event);
 			}
 		}
 	},
@@ -101,11 +101,12 @@ export default {
 
 
 	enrollmentOptions (catalogEntry, includeUnavailable) {
+		let result = [];
+
 		if (!catalogEntry) {
 			return result;
 		}
 
-		let result = [];
 
 		function showOption (op) {
 			return op && op.available && !op.enrolled;

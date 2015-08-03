@@ -35,7 +35,7 @@ export default React.createClass({
 	},
 
 
-	render() {
+	render () {
 		return (
 			<form ref="form" className="fill-in-the-blank">
 				<Content
@@ -48,7 +48,7 @@ export default React.createClass({
 	},
 
 
-	renderInput(tag, props) {
+	renderInput (tag, props) {
 		let {name, maxLength} = props;
 		let value = (this.state.value || {})[name];
 		let submitted = this.isSubmitted();

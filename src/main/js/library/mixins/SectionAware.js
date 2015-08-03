@@ -67,7 +67,7 @@ export default {
 	},
 
 
-	getAvailableSections() {
+	getAvailableSections () {
 		let names = this.getSectionNames();
 		let defaultAvailability = list => list.count > 0;
 		return names

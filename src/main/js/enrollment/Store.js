@@ -32,8 +32,8 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	loadEnrollmentStatus (courseId) {
-		return getService().then(function(service) {
-			service.getEnrollment().isEnrolled(courseId).then(function(result) {
+		return getService().then(service => {
+			service.getEnrollment().isEnrolled(courseId).then(result => {
 				enrollmentStatus[courseId] = result;
 				this.emitChange({
 					action: {
@@ -42,8 +42,8 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 						result: result
 					}
 				});
-			}.bind(this));
-		}.bind(this));
+			});
+		});
 	},
 
 	isEnrolled (courseId) {
@@ -59,31 +59,31 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 
 
 
-AppDispatcher.register(function(payload) {
+AppDispatcher.register(function (payload) {
 	let action = payload.action;
 	switch(action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		case Constants.ENROLL_OPEN:
-			Api.enrollOpen(action.catalogId)
-				.then(result => {
-					Store.flushEnrollmentStatus();
-					Store.emitChange({
-						action: action,
-						result: result
-					});
+	case Constants.ENROLL_OPEN:
+		Api.enrollOpen(action.catalogId)
+			.then(result => {
+				Store.flushEnrollmentStatus();
+				Store.emitChange({
+					action: action,
+					result: result
 				});
+			});
 		break;
-		case Constants.DROP_COURSE:
-			Api.dropCourse(action.courseId)
-				.catch(error=>Object.assign(new Error(error.responseText), error))
-				.then(result => {
-					Store.flushEnrollmentStatus();
-					Store.emitChange({ action, result });
-				});
+	case Constants.DROP_COURSE:
+		Api.dropCourse(action.courseId)
+			.catch(error=>Object.assign(new Error(error.responseText), error))
+			.then(result => {
+				Store.flushEnrollmentStatus();
+				Store.emitChange({ action, result });
+			});
 		break;
 
-		default:
-			return true;
+	default:
+		return true;
 	}
 	return true;
 });

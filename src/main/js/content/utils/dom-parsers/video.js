@@ -9,7 +9,7 @@ const Video = getModel('video');
 const SOURCE_QS = 'object[type$=videosource]';
 const VIDEO_QS = 'object .naqvideo, object .ntivideo';
 
-function fixType(o) {
+function fixType (o) {
 	o.MimeType = o.MimeType || o.type;
 	//TODO: delete o.type;
 }

@@ -15,7 +15,7 @@ export default React.createClass({
 		suffix: React.PropTypes.oneOfType([
 			React.PropTypes.string,
 			React.PropTypes.bool
-			]),
+		]),
 		showToday: React.PropTypes.bool,
 		todayText: React.PropTypes.string
 	},

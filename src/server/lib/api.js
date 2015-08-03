@@ -1,6 +1,6 @@
 import request from 'nti.lib.interfaces/utils/request';
 
-function throwError(msg) {
+function throwError (msg) {
 	throw new Error(msg);
 }
 

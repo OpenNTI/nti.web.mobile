@@ -38,7 +38,8 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		this.fillIn(this.props); },
+		this.fillIn(this.props);
+	},
 
 
 	componentWillUnmount () {

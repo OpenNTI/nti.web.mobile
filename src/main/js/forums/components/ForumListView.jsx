@@ -48,7 +48,7 @@ export default React.createClass({
 		[DISCUSSIONS_CHANGED]: discussionsChanged
 	},
 
-	[discussionsChanged](event) {
+	[discussionsChanged] (event) {
 		if(event.packageId === this[getContentPackageId]()) {
 			clearLoadingFlag(this);
 		}

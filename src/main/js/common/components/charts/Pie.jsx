@@ -152,7 +152,7 @@ export default React.createClass({
 });
 
 
-function sumTo(data, i) {
+function sumTo (data, i) {
 	let sum = 0, j = 0;
 	for (j; j < i; j++) {
 		sum += data[j].value;
@@ -160,4 +160,4 @@ function sumTo(data, i) {
 	return sum;
 }
 
-function percentToRadians(percent) { return ((percent * 360) * Math.PI) / 180; }
+function percentToRadians (percent) { return ((percent * 360) * Math.PI) / 180; }

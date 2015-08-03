@@ -7,7 +7,7 @@ var src;
 var stats = {assetsByChunkName: {}};
 var reason;
 
-module.exports.page = function() { return 'Imagine the UI.'; };
+module.exports.page = function () { return 'Imagine the UI.'; };
 
 try {
 	module.exports.page = require('page.generated')(true);

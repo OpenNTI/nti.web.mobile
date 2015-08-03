@@ -19,7 +19,7 @@ import {scoped} from 'common/locale';
 const t = scoped('ENROLLMENT');
 const tt = scoped('BUTTONS');
 
-function getLink(o, k) {
+function getLink (o, k) {
 	console.error('Object should be a model and then use the getLink method off of it. %o', o);
 	return getLinkFn(o, k);
 }
@@ -76,19 +76,19 @@ export default React.createClass({
 
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.ADMISSION_SUCCESS:
-				let payAndEnrollLink = getLink(event.response, Constants.PAY_AND_ENROLL);
-				this.setState({
-					admissionStatus: event.response.State,//what is event.response?
-					payAndEnrollLink: payAndEnrollLink
-				});
-				break;
+		case Constants.ADMISSION_SUCCESS:
+			let payAndEnrollLink = getLink(event.response, Constants.PAY_AND_ENROLL);
+			this.setState({
+				admissionStatus: event.response.State,//what is event.response?
+				payAndEnrollLink: payAndEnrollLink
+			});
+			break;
 
-			case Constants.RECEIVED_PAY_AND_ENROLL_LINK:
-				this.setState({
-					redirect: event.response.href
-				});
-				break;
+		case Constants.RECEIVED_PAY_AND_ENROLL_LINK:
+			this.setState({
+				redirect: event.response.href
+			});
+			break;
 		}
 	},
 
@@ -119,31 +119,31 @@ export default React.createClass({
 
 		switch((this.state.admissionStatus || '').toUpperCase()) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.ADMISSION_ADMITTED:
-				let enrollment = this.props.enrollment;
-				let link = this.state.payAndEnrollLink || getLink(enrollment, Constants.PAY_AND_ENROLL);
-				let crn = enrollment.NTI_CRN;
-				// ignore eslint on the following line because we know NTI_Term
-				// is not not camel cased; that's what we get from dataserver.
-				let term = this.props.enrollment.NTI_Term;
+		case Constants.ADMISSION_ADMITTED:
+			let enrollment = this.props.enrollment;
+			let link = this.state.payAndEnrollLink || getLink(enrollment, Constants.PAY_AND_ENROLL);
+			let crn = enrollment.NTI_CRN;
+			// ignore eslint on the following line because we know NTI_Term
+			// is not not camel cased; that's what we get from dataserver.
+			let term = this.props.enrollment.NTI_Term;
 
-				view = link ? (
-					<Payment paymentLink={link} ntiCrn={crn} ntiTerm={term}/>
-				) :
-					this.renderPanel('Unable to direct to payment site. Please try again later.', 'Go Back', 'error');
-				break;
+			view = link ? (
+				<Payment paymentLink={link} ntiCrn={crn} ntiTerm={term}/>
+			) :
+				this.renderPanel('Unable to direct to payment site. Please try again later.', 'Go Back', 'error');
+			break;
 
-			case Constants.ADMISSION_REJECTED:
-			case Constants.ADMISSION_NONE:
-				view = <FiveMinuteEnrollmentForm />;
-				break;
+		case Constants.ADMISSION_REJECTED:
+		case Constants.ADMISSION_NONE:
+			view = <FiveMinuteEnrollmentForm />;
+			break;
 
-			case Constants.ADMISSION_PENDING:
-				view = this.renderPanel(t('admissionPendingMessage'), tt('ok'));
-				break;
+		case Constants.ADMISSION_PENDING:
+			view = this.renderPanel(t('admissionPendingMessage'), tt('ok'));
+			break;
 
-			default:
-				view = <div className='error'>Unrecognized admission state: {this.state.admissionStatus}</div>;
+		default:
+			view = <div className='error'>Unrecognized admission state: {this.state.admissionStatus}</div>;
 		}
 
 		return view;

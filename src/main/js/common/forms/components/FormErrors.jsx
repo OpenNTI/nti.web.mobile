@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
@@ -12,21 +10,22 @@ export default React.createClass({
 	},
 
 	render () {
-
+		let {errors} = this.props;
 		let messages = new Set();
 
 		return (
 			<div className='errors' key="errors">
 				<ReactCSSTransitionGroup transitionName="fadeOutIn">
-					{Object.keys(this.props.errors).map(
-						function(ref) {
-							let err = this.props.errors[ref];
-							if (err.message && !messages.has(err.message)) {
-								messages.add(err.message);
-								return <small key={ref} className='error'>{err.message}</small>;
-							}
-							return null;
-						}.bind(this))}
+					{Object.keys(errors).map(ref => {
+						let error = errors[ref];
+
+						if (error.message && !messages.has(error.message)) {
+							messages.add(error.message);
+							return React.createElement('small', {key: ref, className: 'error'}, error.message);
+						}
+
+						return null;
+					})}
 				</ReactCSSTransitionGroup>
 			</div>
 		);

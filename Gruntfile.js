@@ -5,7 +5,7 @@ var path = require('path');
 var PROD = 'production';
 var DEV = 'development';
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 	// Let *load-grunt-tasks* require everything
 	require('load-grunt-tasks')(grunt);
 
@@ -116,8 +116,8 @@ module.exports = function(grunt) {
 				files: [{
 					dot: true,
 					src: [
-					'<%= pkg.dist %>/client/',
-					'<%= pkg.dist %>/server/'
+						'<%= pkg.dist %>/client/',
+						'<%= pkg.dist %>/server/'
 					]
 				}]
 			},
@@ -126,7 +126,7 @@ module.exports = function(grunt) {
 				files: [{
 					dot: true,
 					src: [
-					'<%= pkg.stage %>'
+						'<%= pkg.stage %>'
 					]
 				}]
 			},
@@ -136,7 +136,7 @@ module.exports = function(grunt) {
 				files: [{
 					dot: true,
 					src: [
-					'<%= pkg.dist %>/widgets/'
+						'<%= pkg.dist %>/widgets/'
 					]
 				}]
 			},
@@ -224,7 +224,7 @@ module.exports = function(grunt) {
 
 	});
 
-	grunt.registerTask('serve', function(target) {
+	grunt.registerTask('serve', function (target) {
 		if (target === 'dist') {
 			return grunt.task.run([
 				'build',

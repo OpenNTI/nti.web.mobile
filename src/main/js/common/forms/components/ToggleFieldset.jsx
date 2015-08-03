@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import isFunction from 'nti.lib.interfaces/utils/isfunction';
 
@@ -17,14 +15,14 @@ export default React.createClass({
 	},
 
 	getInitialState () {
-		//FIXME: Re-write this:
-		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-		// Additional Note: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
+		return {};
+	},
 
-		return {
+	componentWillMount () {
+		this.setState({
 			fieldset: this.props.field.fieldsetOff,
 			fieldValues: {}
-		};
+		});
 	},
 
 	[onToggle] (event) {
@@ -42,9 +40,8 @@ export default React.createClass({
 
 		let fieldset = this.state.fieldset;
 		let fields = (fieldset || {}).fields || [];
-		let displayFields = fields.map(function(field) {
-			return this.props.renderField(field, this.state.fieldValues);
-		}.bind(this));
+		let displayFields = fields.map(field =>
+			this.props.renderField(field, this.state.fieldValues));
 
 		// this.state.fieldset ? this.props.renderFieldset(this.props.translator, this.state.fieldValues, this.state.fieldset) : null;
 		let config = this.props.field;

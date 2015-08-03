@@ -36,7 +36,7 @@ export default {
 		return Promise.resolve(h);
 	},
 
-	resumeAnalyticsEvents() {
+	resumeAnalyticsEvents () {
 		this[startAnalyticsEvent]();
 	}
 };

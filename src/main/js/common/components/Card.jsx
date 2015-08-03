@@ -50,7 +50,7 @@ function isExternal (item) {
 	return /external/i.test(item.type) || !isNTIID(item.href);
 }
 
-function canSetState(cmp) {
+function canSetState (cmp) {
 	let can = false;
 
 	try { can = !cmp.shouldHaveDOM || !!React.findDOMNode(cmp); }
@@ -135,7 +135,7 @@ export default React.createClass({
 		commentCount: React.PropTypes.oneOfType([
 			React.PropTypes.number,
 			React.PropTypes.string
-			])
+		])
 	},
 
 

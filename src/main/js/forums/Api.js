@@ -14,7 +14,7 @@ export const DEFAULT_PAGING_PARAMS = {
 
 let promises = {};
 
-export function loadDiscussions(pkg) {
+export function loadDiscussions (pkg) {
 	if (!pkg) {
 		return Promise.reject('Package not specified.');
 	}

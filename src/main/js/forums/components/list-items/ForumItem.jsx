@@ -36,7 +36,7 @@ export default React.createClass({
 		topicsComponent: React.PropTypes.node
 	},
 
-	getInitialState() {
+	getInitialState () {
 		return {
 			loading: true,
 			showRecentActivity: false,

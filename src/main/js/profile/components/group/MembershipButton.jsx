@@ -19,19 +19,19 @@ export default React.createClass({
 		entity: React.PropTypes.object.isRequired
 	},
 
-	updateStatus(props=this.props) {
+	updateStatus (props=this.props) {
 		let {entity} = props;
 		this.setState({
 			isMember: entity.isMember
 		});
 	},
 
-	handleClick() {
+	handleClick () {
 		this.props.entity.leave()
 			.then(() => this.redirectToProfile('memberships/'));
 	},
 
-	redirectToProfile() {
+	redirectToProfile () {
 		let link = profileLink();
 		let memberships = join(this.getBasePath(), link, 'memberships/');
 		this.navigateRoot(memberships);

@@ -31,7 +31,7 @@ export default {
 	},
 
 
-	getItemFromStore() {
+	getItemFromStore () {
 		return this.getPropId && this.backingStore && this.backingStore.getObject && this.backingStore.getObject(this.getPropId());
 	},
 

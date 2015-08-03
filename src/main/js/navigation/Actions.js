@@ -16,6 +16,6 @@ export function setPageSource (pageSource, currentPage, context) {
 		dispatch(SET_PAGE_SOURCE, {pageSource, currentPage, context, path}));
 }
 
-function dispatch(key, data) {
+function dispatch (key, data) {
 	AppDispatcher.handleRequestAction({type: key, response: data});
 }

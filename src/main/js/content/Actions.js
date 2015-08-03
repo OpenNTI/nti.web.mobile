@@ -13,7 +13,7 @@ import {processContent} from './utils';
 
 import {load as getLibrary} from 'library/Actions';
 
-function dispatch(type, response) {
+function dispatch (type, response) {
 	AppDispatcher.handleRequestAction({type, response});
 }
 
@@ -91,7 +91,7 @@ export function getPageContent (pageInfo) {
 }
 
 
-function fetchResources(packet) {
+function fetchResources (packet) {
 	let page = packet.pageInfo;
 	let get = page.getResource.bind(page);
 	let requests = packet.styles.map(get);

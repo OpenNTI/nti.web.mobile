@@ -23,7 +23,7 @@ export default React.createClass({
 		};
 	},
 
-	getInitialState() {
+	getInitialState () {
 		return {
 			mounted: false
 		};

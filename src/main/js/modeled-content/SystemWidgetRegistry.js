@@ -10,13 +10,13 @@ export default {
 };
 
 
-function renderVideoWidget(_, props) {
+function renderVideoWidget (_, props) {
 	let {widget} = props;
 	return React.createElement(Video, {src: widget.embedURL, context: []});
 }
 
 
-function renderWhiteboardWidget(_, props) {
+function renderWhiteboardWidget (_, props) {
 	let {widget, id} = props;
 
 	props = {id, scene: widget};

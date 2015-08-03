@@ -39,7 +39,7 @@ class Store extends EventEmitter {
 * @param {string} linkRel link to fetch
 * @returns {Promise} response promise.
 */
-function fetchLink(linkRel) {
+function fetchLink (linkRel) {
 
 	let me = fetchLink;
 
@@ -75,27 +75,27 @@ Store.appDispatch = AppDispatcher.register(data => {
 
 	switch(action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		/**
-		* FETCH_LINK action is used to populate select options
-		* from remote sources, e.g. state and country lists in
-		* RelatedFormPanel.
-		*/
-		case Constants.FETCH_LINK:
-			let {payload} = action;
-			fetchLink(payload.link).then(
-				response =>
-					store.emitChange({ type: Constants.URL_RETRIEVED, action, response }),
-				reason => {
-					store.emitError({
-						url: payload.url,
-						reason: reason
-					});
-					Promise.reject(reason);
+	/**
+	* FETCH_LINK action is used to populate select options
+	* from remote sources, e.g. state and country lists in
+	* RelatedFormPanel.
+	*/
+	case Constants.FETCH_LINK:
+		let {payload} = action;
+		fetchLink(payload.link).then(
+			response =>
+				store.emitChange({ type: Constants.URL_RETRIEVED, action, response }),
+			reason => {
+				store.emitError({
+					url: payload.url,
+					reason: reason
 				});
-			break;
+				Promise.reject(reason);
+			});
+		break;
 
-		default:
-			return true;
+	default:
+		return true;
 	}
 	return true;
 });

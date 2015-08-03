@@ -13,7 +13,7 @@ import BasePathAware from 'common/mixins/BasePath';
 
 const t = scoped('LOGIN.oauth');
 
-function getServiceName(k) {
+function getServiceName (k) {
 	return k.split('.')[1].toLowerCase();
 }
 

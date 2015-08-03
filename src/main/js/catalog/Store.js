@@ -63,13 +63,13 @@ class Store extends StorePrototype {
 	}
 }
 
-function getEnrollmentService() {
-	return getService().then(function(service) {
+function getEnrollmentService () {
+	return getService().then(function (service) {
 		return service.getEnrollment();
 	});
 }
 
-function redeemGift(purchasable, courseId, accessKey) {
+function redeemGift (purchasable, courseId, accessKey) {
 	return getEnrollmentService().then(service =>
 		service.redeemGift(purchasable, courseId, accessKey));
 }
@@ -77,7 +77,7 @@ function redeemGift(purchasable, courseId, accessKey) {
 let store = new Store();
 
 
-Store.appDispatch = AppDispatcher.register(function(event) {
+Store.appDispatch = AppDispatcher.register(function (event) {
 	let action = event.action;
 
 	if(action.type === REDEEM_GIFT) {
@@ -86,22 +86,19 @@ Store.appDispatch = AppDispatcher.register(function(event) {
 			action.payload.courseId,
 			action.payload.accessKey)
 
-		.then(function(result) {
-			store.emitChange({
-				type: GIFT_CODE_REDEEMED,
-				action: action,
-				result: result
-			});
-		}, function(reason) {
+		.then(
+			result => store.emitChange({ type: GIFT_CODE_REDEEMED, action, result }),
 
-			let message = reason.Message;
+			reason => {
 
-			store.emitError({
-				type: INVALID_GIFT_CODE,
-				action: action,
-				reason: message
+				let message = reason.Message;
+
+				store.emitError({
+					type: INVALID_GIFT_CODE,
+					action: action,
+					reason: message
+				});
 			});
-		});
 	}
 	return true;
 });

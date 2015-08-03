@@ -8,7 +8,7 @@ const DEFAULT_GROUP = { entity: {avatarURL: BLANK_GROUP_AVATAR }};
 
 import cx from 'classnames';
 
-function deprecated(o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }
+function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }
 
 export default React.createClass({
 	displayName: 'Avatar',
@@ -52,9 +52,9 @@ export default React.createClass({
 	},
 
 
-	getColorClass(entity) {
+	getColorClass (entity) {
 
-		function hash(str) {
+		function hash (str) {
 			let h = 0, c;
 			if (str.length === 0) {
 				return h;
@@ -95,7 +95,7 @@ export default React.createClass({
 	},
 
 
-	fallback() {
+	fallback () {
 		return this.isGroup() ? BLANK_GROUP_AVATAR : BLANK_AVATAR;
 	},
 

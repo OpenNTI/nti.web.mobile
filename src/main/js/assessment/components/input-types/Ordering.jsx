@@ -204,7 +204,7 @@ export default React.createClass({
 
 		let seen = {};
 
-		function notSeen(x) {
+		function notSeen (x) {
 			let s = seen[x]; seen[x] = 1;
 			return !s;
 		}

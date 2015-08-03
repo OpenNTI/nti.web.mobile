@@ -6,7 +6,7 @@ import {scoped} from 'common/locale';
 
 const t = scoped('PROFILE.EDIT.EVENT_ITEM');
 
-function isRequired(schema, prop) {
+function isRequired (schema, prop) {
 	return ((schema || {})[prop] || {}).required;
 }
 

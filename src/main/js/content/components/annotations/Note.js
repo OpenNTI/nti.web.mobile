@@ -17,7 +17,7 @@ export default class Note extends Highlight {
 	}
 
 
-	shouldRender() {
+	shouldRender () {
 		if (this.getRecordField('style') !== 'suppressed') {
 			return super.shouldRender();
 		}

@@ -4,7 +4,7 @@ import webpackConfigFile from '../../../webpack/app.config';
 
 import logger from './logger';
 
-export function setupDeveloperMode(config) {
+export function setupDeveloperMode (config) {
 	let port = config.port;
 	let devPort = config['webpack-dev-server'] || (port + 1);
 

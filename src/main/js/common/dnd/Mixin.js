@@ -1,7 +1,7 @@
 import React from 'react';
 import {EventEmitter} from 'events';
 
-function emit(o, event, ...data) {
+function emit (o, event, ...data) {
 	let e = o.state.dndEventEmitter;
 	e.emit.apply(e, [event].concat(data));
 }

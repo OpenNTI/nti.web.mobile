@@ -1,7 +1,7 @@
 
 let injected = {};
 
-function exists(parent, key) {
+function exists (parent, key) {
 	let parts = key.split('.'),
 		part = parts.splice(0, 1)[0];
 

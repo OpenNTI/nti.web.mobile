@@ -45,7 +45,7 @@ class VisibilityMonitor extends EventEmitter {
 
 let mon = new VisibilityMonitor();
 
-function countView() {
+function countView () {
 	let hidden = document[propertyName];
 
 	// The page is in foreground and visible
@@ -56,7 +56,7 @@ function countView() {
 	mon.emit(CHANGE_EVENT, !hidden);
 }
 
-function setupPageVisibility() {
+function setupPageVisibility () {
 	if (prefix !== null && typeof document !== 'undefined') {
 		document.addEventListener(eventName, countView);
 		countView();

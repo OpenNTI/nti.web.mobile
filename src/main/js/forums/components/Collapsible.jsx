@@ -17,7 +17,7 @@ export default React.createClass({
 		};
 	},
 
-	[toggle]() {
+	[toggle] () {
 		this.setState({
 			collapsed: !this.state.collapsed
 		});

@@ -20,7 +20,7 @@ export default React.createClass({
 		this.load(nextProps);
 	},
 
-	load(props=this.props) {
+	load (props=this.props) {
 		let {item} = props;
 		if (item) {
 			getThumbnail(item)

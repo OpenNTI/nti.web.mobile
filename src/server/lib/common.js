@@ -81,7 +81,7 @@ export function loadConfig () {
 
 
 
-function override(dest, overrides) {
+function override (dest, overrides) {
 	for (let key in overrides) {
 		if(overrides[key]) {
 			dest[key] = overrides[key];
@@ -91,7 +91,7 @@ function override(dest, overrides) {
 }
 
 
-export function config() {
+export function config () {
 	let base = 'development';
 
 	let serverHost = opt['dataserver-host'];
@@ -139,18 +139,18 @@ export function clientConfig (username, context) {
 			'\n<script type="text/javascript">\n' +
 			'window.$AppConfig = ' + JSON.stringify(cfg) +
 			'\n</script>\n'
-		};
+	};
 }
 
 
-function dontUseMe() {
+function dontUseMe () {
 	throw new Error(
 		'Use the Service to make your requests. ' +
 		'The interface is not meant to be used directly ' +
 		'anymore. (So we can centrally manage request contexts.)');
 }
 
-function noServiceAndThereShouldBe() {
+function noServiceAndThereShouldBe () {
 	throw new Error('No Service.');
 }
 

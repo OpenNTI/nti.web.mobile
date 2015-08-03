@@ -1,5 +1,5 @@
 {
-	/*"extends": "eslint:recommended",*/
+	"extends": "eslint:recommended",
 	"parser": "babel-eslint",
 	"env": {
 		"node": true,
@@ -38,7 +38,6 @@
 	},
 
 	"rules": {
-		/*"arrays-bracket-spacing": [2, "never"],*/
 		"camelcase": [2, {"properties": "always"}],
 		"consistent-return": 0,
 		"curly": [2, "all"],
@@ -51,17 +50,16 @@
 		"no-console": 0,
 		"no-extend-native": 2,
 		"no-new": 2,
-		"no-shadow": [1, {"hoist": "never"}],
+		"no-shadow": [1, {"builtinGlobals": false, "hoist": "never"}],
 		"no-throw-literal": 2,
 		"no-underscore-dangle": 1,
 		"no-use-before-define": [2, "nofunc"],
 		"no-var": 2,
-		/*"object-curly-spacing": [2, "never"],*/
 		"quotes": [1, "single"],
 		"radix": 2,
 		"semi": 2,
 		"space-before-blocks": [1, "always"],
-		/*"space-before-function-paren": [1, {"anonymous": "always", "named": "always"}],*/
+		"space-before-function-paren": [1, {"anonymous": "always", "named": "always"}],
 		"space-infix-ops": [2, {"int32Hint": true}],
 		"space-unary-ops": [1, { "words": true, "nonwords": false }],
 		"strict": [2, "never"],

@@ -21,7 +21,7 @@ var logger = require('./lib/logger');
 var setupErrorHandler = require('./lib/error-handler');
 
 common.loadConfig()
-.then(function(config) {
+.then(function (config) {
 	logger.info('Build Source (revision): ', config.revision);
 
 	var protocol = config.protocol === 'proxy' ? proxiedHttp : http;
@@ -33,7 +33,7 @@ common.loadConfig()
 
 	var mobileapp = express();
 	mobileapp.use(config.basepath, app);//re-root the app to /mobile/
-	mobileapp.all('/', function(_, res) { res.redirect('/mobile/'); });
+	mobileapp.all('/', function (_, res) { res.redirect('/mobile/'); });
 
 	port = server.setupApplication(app, config);
 
@@ -41,13 +41,14 @@ common.loadConfig()
 	setupErrorHandler(app, config);
 
 	//Go!
-	protocol.createServer(mobileapp || app).listen(port, address, function() {
-		logger.info('Listening on port %d', port); });
+	protocol.createServer(mobileapp || app).listen(port, address, function () {
+		logger.info('Listening on port %d', port);
+	});
 
 }, function (error) {
 	logger.error('Failed to load config: ', error);
 })
-.catch(function(error) {
+.catch(function (error) {
 	logger.error('Failed to start: ', error);
 	process.kill();//just in case dev server is already up.
 });

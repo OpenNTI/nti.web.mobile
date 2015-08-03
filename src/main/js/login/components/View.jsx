@@ -26,7 +26,7 @@ export default React.createClass({
 	displayName: 'LoginView',
 	mixins: [BasePathAware, NavigatableMixin],
 
-	componentDidMount() {
+	componentDidMount () {
 		begin().then(()=> this.forceUpdate(), this.setError);
 	},
 
@@ -37,7 +37,7 @@ export default React.createClass({
 	},
 
 
-	render() {
+	render () {
 
 		if ((this.state || {}).error) {
 			return (<ErrorMessage error="Could not communicate with servers. Please try again later."/>);

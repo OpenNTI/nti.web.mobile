@@ -52,14 +52,14 @@ export default React.createClass({
 		}
 	},
 
-	getInitialState() {
+	getInitialState () {
 		return {
 			loading: true,
 			[showJumpToLastPage]: false
 		};
 	},
 
-	[commentAdded](/*event*/) {
+	[commentAdded] (/*event*/) {
 		this[loadData]()
 			.then(() => {
 				// if a comment was added and it's not on the current page
@@ -71,7 +71,7 @@ export default React.createClass({
 			});
 	},
 
-	[showCommentAddedMessage]() {
+	[showCommentAddedMessage] () {
 		this.setState({
 			[showJumpToLastPage]: true
 		});
@@ -98,7 +98,7 @@ export default React.createClass({
 			);
 	},
 
-	jumpToLastPageMessage() {
+	jumpToLastPageMessage () {
 		let lastPage = this.pagingInfo().numPages;
 		return <Notice className="small">Comment added. <Link className="link" href={'/?p=' + lastPage}>Jump to last page?</Link></Notice>;
 	},

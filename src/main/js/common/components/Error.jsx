@@ -14,7 +14,7 @@ export default React.createClass({
 	},
 
 
-	componentWillReceiveProps(props) {
+	componentWillReceiveProps (props) {
 		if (this.props.error !== props.error) {
 			this.log(props);
 		}

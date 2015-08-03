@@ -99,7 +99,7 @@ export default React.createClass({
 			));
 	},
 
-	errorMessage(error) {
+	errorMessage (error) {
 		if (error.code === ERROR_REQUIRED_MISSING) {
 			let localizedFieldName = t(`FIELDNAMES.${error.field}`, {fallback: error.field});
 			return t('requiredField', {field: localizedFieldName});

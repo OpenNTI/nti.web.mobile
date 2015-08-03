@@ -69,10 +69,10 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	getUserAgreement (basePath) {
-		return this.getUserAgreementUrl(basePath).then(function(url) {
+		return this.getUserAgreementUrl(basePath).then(url => {
 			//BAD: TODO: Fix to use get() from Service!
 			return getServer().get(url)
-				.catch(function(reason) {
+				.catch(reason => {
 					if (reason.responseJSON) {
 						reason = reason.responseJSON.message;
 					}
@@ -87,14 +87,14 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 	}
 });
 
-function fieldsMatch(value1, value2) {
+function fieldsMatch (value1, value2) {
 	if( !value1 && !value2) {
 		return true;
 	}
 	return value1 === value2;
 }
 
-function clientSidePreflight(fields) {
+function clientSidePreflight (fields) {
 	return new Promise((fulfill, reject) => {
 		if (!fieldsMatch(fields.password, fields.password2)) {
 			let error = {
@@ -109,7 +109,7 @@ function clientSidePreflight(fields) {
 	});
 }
 
-function serverSidePreflight(fields) {
+function serverSidePreflight (fields) {
 	return new Promise((fulfill, reject) => {
 		getServer().preflightAccountCreate(fields)
 			.then(
@@ -125,17 +125,17 @@ function serverSidePreflight(fields) {
 	});
 }
 
-function preflight(fields) {
+function preflight (fields) {
 	return clientSidePreflight(fields).then(serverSidePreflight);
 }
 
-function createAccount(fields) {
+function createAccount (fields) {
 
-	function success(result) {
+	function success (result) {
 		Store[accountCreated](result);
 	}
 
-	function fail(result) {
+	function fail (result) {
 		console.log('Account creation fail: %O', result);
 		if (Math.floor(result.statusCode / 100) === 4) {
 			console.debug(result);
@@ -152,7 +152,7 @@ function createAccount(fields) {
 
 }
 
-function preflightCreateAccount(fields) {
+function preflightCreateAccount (fields) {
 	preflight(fields)
 		.then(createAccount.bind(null, fields))
 		.catch(reason => console.debug(reason));
@@ -164,24 +164,24 @@ AppDispatcher.register(payload => {
 	switch (action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 
-		case Constants.PREFLIGHT:
-			preflight(action.fields);
+	case Constants.PREFLIGHT:
+		preflight(action.fields);
 		break;
 
-		case Constants.CREATE_ACCOUNT:
-			createAccount(action.fields);
+	case Constants.CREATE_ACCOUNT:
+		createAccount(action.fields);
 		break;
 
-		case Constants.PREFLIGHT_AND_CREATE_ACCOUNT:
-			preflightCreateAccount(action.fields);
+	case Constants.PREFLIGHT_AND_CREATE_ACCOUNT:
+		preflightCreateAccount(action.fields);
 		break;
 
-		case Constants.CLEAR_ERRORS:
-			Store[clearErrors]();
+	case Constants.CLEAR_ERRORS:
+		Store[clearErrors]();
 		break;
 
-		default:
-			return true;
+	default:
+		return true;
 	}
 
 	return true; // No errors. Needed by promise in Dispatcher.

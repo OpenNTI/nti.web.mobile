@@ -10,7 +10,7 @@ import fs from 'fs';
 
 export function attachToExpress (expressApp, assetPath) {
 
-	expressApp.all('*', function(req, res, next) {
+	expressApp.all('*', function (req, res, next) {
 		let ext = path.extname(Url.parse(req.url).pathname);
 		let gz = req.url + '.gz';
 

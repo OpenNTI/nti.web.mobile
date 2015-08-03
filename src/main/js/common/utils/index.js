@@ -19,7 +19,7 @@ function exposeGlobaly (...fns) {
 }
 
 
-function noConfig() {
+function noConfig () {
 	return typeof $AppConfig === 'undefined';
 }
 
@@ -52,7 +52,7 @@ export function getBasePath () {
 }
 
 
-export function getReturnURL() {
+export function getReturnURL () {
 	let loc = global.location || {};
 	return QueryString.parse(loc.search).return;
 }
@@ -97,7 +97,7 @@ export function discussionsConfig () {
  * @returns {Interface} the shared instance of the server interface.
  * NOTICE: This is for low-level (or anonymous/non-authenticated) work ONLY.
  */
-export function getServer() {
+export function getServer () {
 	if (noConfig()) {
 		console.error('utils:getServer() was called before config was defined.');
 	}
@@ -155,7 +155,7 @@ export function overrideAppUsername (str) {
 	$AppConfig.username = str;
 }
 
-export function overrideConfigAndForceCurrentHost() {
+export function overrideConfigAndForceCurrentHost () {
 	if (noConfig()) {
 		console.error('utils:overrideConfigAndForceCurrentHost() was called before config was defined.');
 	}

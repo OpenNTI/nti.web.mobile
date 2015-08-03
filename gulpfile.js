@@ -15,7 +15,7 @@ var eslint = require('gulp-eslint');
 
 pkgConfig.distSiteCSS = path.join(pkgConfig.dist, '/client/resources/css/sites/');
 
-gulp.task('css', function() {
+gulp.task('css', function () {
 	return gulp.src('src/main/resources/scss/app.scss')
 		.pipe(sourcemaps.init()) // init sourcemaps before invoking sass
 		.pipe(sass({ // compile scscc to css
@@ -27,29 +27,29 @@ gulp.task('css', function() {
 		.pipe(gulp.dest('src/main/resources/css'));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
 	return gulp.watch('src/main/resources/scss/**/*.scss', ['css']);
 });
 
-gulp.task('clean:dist', function(cb) {
+gulp.task('clean:dist', function (cb) {
 	if (pkgConfig && pkgConfig.dist) {
 		del([pkgConfig.stage], cb);
 	}
 });
 
-gulp.task('clean:stage', function(cb) {
+gulp.task('clean:stage', function (cb) {
 	if (pkgConfig && pkgConfig.stage) {
 		del([pkgConfig.stage], cb);
 	}
 });
 
-gulp.task('clean:maps', function(cb) {
+gulp.task('clean:maps', function (cb) {
 	if (pkgConfig && pkgConfig.dist) {
 		del([pkgConfig.dist + '/**/*.{map,map.gz}'], cb);
 	}
 });
 
-gulp.task('lint', function() {
+gulp.task('lint', function () {
 	return gulp.src([
 		pkgConfig.src + '/js/**/*.{js,jsx}',
 		pkgConfig.src + '/../server/**/*.js',
@@ -60,7 +60,7 @@ gulp.task('lint', function() {
 	.pipe(eslint.format());
 });
 
-gulp.task('symlink', function() {
+gulp.task('symlink', function () {
 	var ou = gulp.src(path.join(pkgConfig.distSiteCSS, 'platform.ou.edu'))
 		.pipe(symlink(path.join(pkgConfig.distSiteCSS, 'ou-alpha.nextthought.com')))
 		.pipe(symlink(path.join(pkgConfig.distSiteCSS, 'ou-test.nextthought.com')))
@@ -74,12 +74,12 @@ gulp.task('symlink', function() {
 	return merge(ou, osu);
 });
 
-gulp.task('rename', function() {
+gulp.task('rename', function () {
 	// this actually copies stage to dist; renaming a directory is proving harder than expected.
 	return gulp.src(pkgConfig.stage + '/**/*')
 		.pipe(gulp.dest(pkgConfig.dist));
 });
 
-gulp.task('copy:stage', function() {
+gulp.task('copy:stage', function () {
 	// TODO
 });

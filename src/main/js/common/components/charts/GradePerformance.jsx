@@ -210,7 +210,7 @@ export default React.createClass({
 
 		ctx.translate(0, t);
 
-		this.store.forEach(function(rec, x) {
+		this.store.forEach((rec, x) => {
 			let y = ((rec[property] || 0) / 100) * h;
 			ctx[x === 0 ? 'moveTo' : 'lineTo'](currentX, y);
 			currentX += pointDistance;

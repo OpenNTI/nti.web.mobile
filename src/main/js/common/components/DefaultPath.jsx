@@ -14,7 +14,7 @@ export default React.createClass({
 		defaultFilter: React.PropTypes.string
 	},
 
-	startRedirect() {
+	startRedirect () {
 		clearTimeout(this.pendingRedirect);
 		this.pendingRedirect = setTimeout(()=> this.performRedirect(), 1);
 	},

@@ -117,5 +117,5 @@ module.exports = function (config) {
 		reporters: ['mocha'],
 		captureTimeout: 60000,
 		singleRun: true
-});
+	});
 };

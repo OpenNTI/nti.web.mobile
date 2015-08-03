@@ -83,22 +83,22 @@ export default React.createClass({
 	onStoreChange (event) {
 		switch( (event || {}).type ) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case INVALID_GIFT_CODE:
-				this.setState({
-					busy: false,
-					errors: {
-						accessKey: {
-							message: event.reason
-						}
+		case INVALID_GIFT_CODE:
+			this.setState({
+				busy: false,
+				errors: {
+					accessKey: {
+						message: event.reason
 					}
-				});
+				}
+			});
 			break;
-			case GIFT_CODE_REDEEMED:
-				this.setState({
-					busy: false,
-					success: true,
-					errors: {}
-				});
+		case GIFT_CODE_REDEEMED:
+			this.setState({
+				busy: false,
+				success: true,
+				errors: {}
+			});
 			break;
 		}
 	},

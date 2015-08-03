@@ -4,7 +4,7 @@ function hyphenatedToCamel (s) {
 }
 
 
-function addValueFor(o, n, v) {
+function addValueFor (o, n, v) {
 	let re = addValueFor.re = (addValueFor.re || /^data([A-Z])/);
 	let fn = addValueFor.fn = (addValueFor.fn || ((_, a) => a.toLowerCase()));
 
@@ -19,7 +19,7 @@ function addValueFor(o, n, v) {
 }
 
 
-function getDirectChildNodes(el, tag) {
+function getDirectChildNodes (el, tag) {
 	tag = tag.toUpperCase();
 	return Array.from(el.childNodes).filter(node => node.nodeName.toUpperCase() === tag);
 }

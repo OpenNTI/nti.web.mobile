@@ -39,6 +39,6 @@ export function reportItem (item) {
 	dispatch(REPORT_ITEM, { item });
 }
 
-function dispatch(type, data) {
+function dispatch (type, data) {
 	AppDispatcher.handleRequestAction(Object.assign(data, {type}));
 }

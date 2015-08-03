@@ -6,9 +6,9 @@ export default class SharedExecution {
 		return task.skip || (task.parent && this.isInterrupted(task.parent));
 	}
 
-	static clear(t) { if(t) { t.skip = true; } }
+	static clear (t) { if(t) { t.skip = true; } }
 
-	static schedual(fn) {
+	static schedual (fn) {
 		let me = this.instance || (this.instance = new SharedExecution());
 
 		let task = {fn};

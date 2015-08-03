@@ -34,7 +34,7 @@ export default React.createClass({
 		keyFn: React.PropTypes.func
 	},
 
-	keyFor(item) {
+	keyFor (item) {
 		return item.getID ? item.getID() : hash(item);
 	},
 

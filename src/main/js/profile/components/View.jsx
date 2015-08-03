@@ -27,7 +27,7 @@ export default React.createClass({
 	},
 
 
-	updateEntity(props = this.props) {
+	updateEntity (props = this.props) {
 		this.setState({entity: null}, () =>
 			resolve(props, true)
 				.catch(()=> false)

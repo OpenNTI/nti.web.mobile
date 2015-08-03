@@ -18,7 +18,7 @@ export default {
 			React.PropTypes.shape(TYPE_SHAPE),
 			React.PropTypes.arrayOf(React.PropTypes.string),
 			React.PropTypes.arrayOf(React.PropTypes.shape(TYPE_SHAPE))
-			]).isRequired
+		]).isRequired
 	},
 
 

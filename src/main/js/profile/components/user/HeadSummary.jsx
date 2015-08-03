@@ -32,7 +32,7 @@ export default React.createClass({
 		}
 	},
 
-	setUser(props=this.props) {
+	setUser (props=this.props) {
 		resolve(props).then(user => this.setState({user}));
 	},
 

@@ -28,7 +28,7 @@ export default Object.assign({}, EventEmitter.prototype, {
 		return stripEmpty ? this.stripEmptyValues(vals) : vals;
 	},
 
-	stripEmptyValues(values) {
+	stripEmptyValues (values) {
 		return Object.keys(values || {}).reduce((previous, current) => {
 			if (typeof values[current] !== 'string' || values[current].trim().length > 0) {
 				previous[current] = values[current];
@@ -41,11 +41,11 @@ export default Object.assign({}, EventEmitter.prototype, {
 		this.fieldValues[name] = value;
 	},
 
-	preprocess(values) {
+	preprocess (values) {
 		return this.autopopulator && this.autopopulator.preprocess ? this.autopopulator.preprocess(values) : values;
 	},
 
-	autopopulatedValue(name) {
+	autopopulatedValue (name) {
 		return this.autopopulator ? this.autopopulator.valueFor(name) : undefined;
 	},
 

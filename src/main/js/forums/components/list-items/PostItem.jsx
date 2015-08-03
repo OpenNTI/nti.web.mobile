@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import classnames from 'classnames';
 import {mimeTypes, GOT_COMMENT_REPLIES, POST} from '../../Constants';
@@ -69,7 +67,7 @@ export default React.createClass({
 		};
 	},
 
-	getDefaultProps() {
+	getDefaultProps () {
 		return {
 			detailLink: true
 		};
@@ -110,21 +108,21 @@ export default React.createClass({
 		);
 	},
 
-	getActionClickHandlers() {
+	getActionClickHandlers () {
 		return {
 			[EDIT]: this.onEditClick,
 			[DELETE]: this.onDeleteComment
 		};
 	},
 
-	commentCompletion(event) {
+	commentCompletion (event) {
 		this.setState({
 			[SHOW_REPLIES]: true
 		});
 		this.hideForm(event);
 	},
 
-	onHideEditForm() {
+	onHideEditForm () {
 		this.setState({
 			editing: false
 		});

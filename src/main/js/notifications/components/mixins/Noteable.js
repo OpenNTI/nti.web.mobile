@@ -42,7 +42,7 @@ export default {
 };
 
 
-function getTime(o) {
+function getTime (o) {
 	let lm = o && o.getLastModified();
 	//Return the Last Modified, unless its not set
 	return o && !lm ? o.getCreatedTime() : lm;

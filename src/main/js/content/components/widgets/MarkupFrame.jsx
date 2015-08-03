@@ -29,7 +29,7 @@ export default React.createClass({
 	},
 
 
-	onZoom() {
+	onZoom () {
 		let {image} = this.refs;
 		image = React.findDOMNode(image);
 
@@ -41,7 +41,7 @@ export default React.createClass({
 	},
 
 
-	unZoom() {
+	unZoom () {
 		this.setState({
 			zoomed: false
 		});

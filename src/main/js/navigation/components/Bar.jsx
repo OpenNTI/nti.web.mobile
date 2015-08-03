@@ -105,7 +105,7 @@ export default React.createClass({
 	},
 
 
-	getChildForSide(side) {
+	getChildForSide (side) {
 		let {children} = this.props;
 
 		if (!Array.isArray(children)) {
@@ -187,7 +187,7 @@ export default React.createClass({
 		this.setState({menuOpen: s});
 	},
 
-	updateBodyClassForMenu(isOpen) {
+	updateBodyClassForMenu (isOpen) {
 		// video elements interfere with the menu interaction. adding a class to body
 		// when the menu is open allows us to use css to get the videos out of the way.
 		if (isOpen) {

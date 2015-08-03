@@ -13,7 +13,7 @@ class Store extends EventEmitter {
 
 export default new Store();
 
-function sendMessage() {
+function sendMessage () {
 	console.debug('faking a message send success');
 	return Promise.resolve('not implemented');
 }
@@ -21,12 +21,12 @@ function sendMessage() {
 AppDispatcher.register(payload => {
 	let {action} = payload;
 	switch(action.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		case Constants.SEND_MESSAGE:
-			sendMessage(payload).then(result => Store.emit({ type: Constants.MESSAGE_SENT, result}));
-			break;
-		default:
-			return true;
+	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
+	case Constants.SEND_MESSAGE:
+		sendMessage(payload).then(result => Store.emit({ type: Constants.MESSAGE_SENT, result}));
+		break;
+	default:
+		return true;
 	}
 	Store.emitChange();
 	return true;

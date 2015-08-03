@@ -36,10 +36,10 @@ export default class Annotation {
 	}
 
 
-	getRecord() { return this[RECORD]; }
+	getRecord () { return this[RECORD]; }
 
 
-	getRecordField(field) {
+	getRecordField (field) {
 		return this[RECORD][field];
 	}
 

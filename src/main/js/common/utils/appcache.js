@@ -12,7 +12,7 @@ const cacheStatusValues = [
 ];
 
 
-function logEvent(e) {
+function logEvent (e) {
 	let online, status, type, message;
 	online = (navigator.onLine) ? 'yes' : 'no';
 	status = cacheStatusValues[cache.status];

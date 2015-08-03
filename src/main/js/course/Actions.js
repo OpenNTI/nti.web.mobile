@@ -17,7 +17,7 @@ export function setCourse (courseId) {
 		return;
 	}
 
-	function buildResponse(o) {
+	function buildResponse (o) {
 		return {
 			taskId: courseId,
 			body: o
@@ -38,6 +38,6 @@ export function setCourse (courseId) {
 }
 
 
-function dispatch(key, data) {
+function dispatch (key, data) {
 	AppDispatcher.handleRequestAction({type: key, response: data});
 }
