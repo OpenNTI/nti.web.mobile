@@ -77,7 +77,7 @@ export default React.createClass({
 			}
 
 			if (next && next.individual) {
-				Store.setupAssessment(next);
+				Store.setupAssessment(next, true);
 			}
 		}
 	},
