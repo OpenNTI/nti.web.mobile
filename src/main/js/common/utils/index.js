@@ -52,10 +52,20 @@ export function getBasePath () {
 }
 
 
-export function getReturnURL () {
-	let loc = global.location || {};
-	return QueryString.parse(loc.search).return;
+export function getReturnURL (forceUpdate = false) {
+	let me = getReturnURL;
+
+	if (!me.value || forceUpdate) {
+		let loc = global.location || {};
+		loc = (QueryString.parse(loc.search) || {}).return;
+		if (loc) {
+			me.value = loc;
+		}
+	}
+
+	return me.value;
 }
+getReturnURL(); //capture the return on init.
 
 
 export function getServerURI () {
