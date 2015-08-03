@@ -180,6 +180,8 @@ export default React.createClass({
 			video = false;
 		}
 
+		video = false; //force the video to never render
+
 		let label = item.title || item.label;
 
 		return (
