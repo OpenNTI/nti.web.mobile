@@ -10,7 +10,7 @@ import {toAnalyticsPath} from 'analytics/utils';
 
 const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
-function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "newWatchEventFactory" callback'); } }
+function deprecated (o, k) { if (o[k]) { return new Error(`Deprecated prop: \`${k}\`, use \`newWatchEventFactory\` callback prop.`); } }
 
 export default React.createClass({
 	displayName: 'Video',
