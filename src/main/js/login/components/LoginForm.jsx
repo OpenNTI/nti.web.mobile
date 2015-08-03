@@ -138,7 +138,7 @@ export default React.createClass({
 								<OAuthButtons />
 
 								<Conditional className="account-creation" condition={!!Store.getLink(LINK_ACCOUNT_CREATE)}>
-									<Link id="login:signup" href={signupLink()}>{t('signup.link')}</Link>
+									<Link id="login:signup" href={signupLink() + location.search}>{t('signup.link')}</Link>
 								</Conditional>
 							</fieldset>
 						</div>)}
