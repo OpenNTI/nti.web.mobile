@@ -31,6 +31,10 @@ import Profile from 'profile/components/View';
 import NotFoundPage from 'notfound/components/View';
 import ObjectResolver from 'object-resolver/components/View';
 
+
+import NavStore from 'navigation/Store';
+import {areYouSure} from 'prompts';
+
 import BasePathAware from 'common/mixins/BasePath';
 
 const HANDLER_BY_NAME = {
@@ -85,8 +89,13 @@ export default React.createClass({
 
 
 	maybeBlockNavigation (cb) {
-		if (global.test) {
-			global.test = cb;
+		if (NavStore.getGuardMessage) {
+
+			areYouSure(NavStore.getGuardMessage(), 'Attention!', {
+				confirmButtonLabel: 'Leave',
+				cancelButtonLabel: 'Stay'})
+				.then(cb, ()=> {});
+
 			return true;
 		}
 	},
