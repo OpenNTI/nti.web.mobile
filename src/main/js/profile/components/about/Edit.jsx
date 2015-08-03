@@ -5,6 +5,8 @@ import {Link} from 'react-router-component';
 import Conditional from 'common/components/Conditional';
 import Loading from 'common/components/Loading';
 
+import NavigationGuard from 'navigation/components/NavigationGuard';
+
 import BasicInfo from './edit/BasicInfo';
 import Events from './edit/Events';
 import Interests from './edit/Interests';
@@ -94,7 +96,8 @@ export default React.createClass({
 
 		this.setState({ busy: true }, () =>
 			this.props.entity.save(values)
-				.then(() => this.redirectToProfile())
+				.then(() =>
+					this.setState({loading: true}, () => this.redirectToProfile()))
 				.catch(error => this.setState({ error, busy: false })
 			));
 	},
@@ -122,6 +125,7 @@ export default React.createClass({
 					<Loading/>
 				) : (
 					<div>
+						<NavigationGuard message="You are currently editing your profile. Would you like to leave without saving?"/>
 						<form onSubmit={this.save}>
 							<ul className="profile-cards">
 
