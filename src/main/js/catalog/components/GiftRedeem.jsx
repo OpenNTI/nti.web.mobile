@@ -12,6 +12,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 import {scoped} from 'common/locale';
+import Err from 'common/components/Error';
 
 import Store from '../Store';
 import {GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from '../Constants';
@@ -105,6 +106,11 @@ export default React.createClass({
 
 	getPurchasable () {
 		let entry = this.getCatalogEntry(decodeFromURI(this.props.entryId));
+		if (!entry) {
+			return this.setState({
+				error: 'Unable to find requested catalog entry.'
+			});
+		}
 		let options = entry.getEnrollmentOptions();
 		let option = options.getEnrollmentOptionForPurchase();
 
@@ -128,7 +134,11 @@ export default React.createClass({
 	},
 
 	render () {
-		let {busy, success, errors, accessKey=''} = this.state;
+		let {busy, success, error, errors, accessKey=''} = this.state;
+
+		if (error) {
+			return <Err error={error} />;
+		}
 
 		if (busy) {
 			return <Loading />;
