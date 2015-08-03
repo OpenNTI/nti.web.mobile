@@ -109,17 +109,19 @@ export default React.createClass({
 					</div>
 				)}
 
-				<a href={disabled ? '#' : null}
-					className={buttonClass}
-					onClick={
+				{disabled ? null : (
+					<a href="#"
+						className={buttonClass}
+						onClick={
+							submitted ?
+								this.onReset :
+								this.onSubmit
+						}>{
 						submitted ?
-							this.onReset :
-							this.onSubmit
-					}>{
-					submitted ?
-						t(`${prefix}-reset`) :
-						t(`${prefix}-submit`)
-					}</a>
+							t(`${prefix}-reset`) :
+							t(`${prefix}-submit`)
+						}</a>
+				)}
 
 				{!busy ? null : <Loading/>}
 			</div>
