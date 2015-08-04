@@ -53,7 +53,7 @@ export default class SharedExecution {
 					child.parent = task;
 				}
 			} catch(e) {
-				console.error(e);
+				console.error('SharedExecution: Task Error:', e);
 			}
 			task.run = true;
 		}
