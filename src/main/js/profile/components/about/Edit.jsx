@@ -135,7 +135,7 @@ export default React.createClass({
 							<ul className="profile-cards">
 
 								<Card className="about" title="About">
-									<BasicInfo item={editObject} ref="about" schema={schema}/>
+									<BasicInfo item={editObject} ref="about" schema={schema} error={error}/>
 								</Card>
 
 								<Card className="education" title="Education">

@@ -36,7 +36,9 @@ export default React.createClass({
 	propTypes: {
 		item: React.PropTypes.object,
 
-		schema: React.PropTypes.object
+		schema: React.PropTypes.object,
+
+		error: React.PropTypes.object
 	},
 
 
@@ -82,7 +84,7 @@ export default React.createClass({
 
 	render () {
 		let {state} = this;
-		let {schema} = this.props;
+		let {schema, error} = this.props;
 
 		return (
 			<fieldset ref="form">
@@ -108,7 +110,10 @@ export default React.createClass({
 							<input type={TYPE_OVERRIDE[name] || 'text'} name={name}
 								value={state[name]}
 								onChange={this.onChange}
-								className={cx({required: isRequired(schema, name)})}
+								className={cx({
+									'required': isRequired(schema, name),
+									'error': error && error.field === name
+								})}
 								required={isRequired(schema, name)}
 								/>
 						)}
