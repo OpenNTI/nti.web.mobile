@@ -8,4 +8,3 @@ export const LOGIN_STATE_CHANGED = 'login:state:changed';
 export const LOGIN_INIT_DATA = 'login:init:data';
 export const LOGIN_PONG = 'login:pong';
 export const LOGIN_SUCCESS = 'login:success';
-export const LOGGING_OUT = 'login:logging:out';

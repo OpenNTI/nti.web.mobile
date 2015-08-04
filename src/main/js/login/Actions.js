@@ -8,8 +8,7 @@ import {endSession as endAnalyticsSession} from 'analytics/Actions';
 import {
 	LOGIN_INIT_DATA,
 	LOGIN_PONG,
-	LOGIN_SUCCESS,
-	LOGGING_OUT
+	LOGIN_SUCCESS
 } from './Constants';
 
 
