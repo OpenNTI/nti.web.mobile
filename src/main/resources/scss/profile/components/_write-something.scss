@@ -1,15 +1,42 @@
 .card-write-something {
 	background: $tertiary-grey;
 	background: $quad-grey;
+
+	figure.error {
+		position: static;
+		margin-top: 0;
+	}
 }
 
 .write-something {
-	background: white;
 	& > label {
+		background: white;
 		border: 1px solid $border-grey;
-	    padding: .5em;
-	    border-radius: 3px;
-	    color: lightgray;
-	    font-style: italic;
+		padding: .5em;
+		border-radius: 3px;
+		color: lightgray;
+		font-style: italic;
+	}
+
+
+	.error-message {
+		color: $secondary-red;
+		border: 1px solid $secondary-red;
+		background: $primary-red;
+
+		display: block;
+		margin: 0 0 0.5rem;
+		border-radius: 0px;
+		padding: 0.25rem;
+		opacity: 1;
+
+		transition: all 0.4s;
+
+		&:empty {
+			opacity: 0;
+			height: 0;
+			margin: 0;
+			padding: 0;
+		}
 	}
 }

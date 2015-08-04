@@ -1,8 +1,10 @@
 import React from 'react';
-import Editor from 'modeled-content/components/Editor';
-import PostEditor from './PostEditor';
-import Loading from 'common/components/TinyLoader';
+
 import Err from 'common/components/Error';
+
+import Editor from 'modeled-content/components/Editor';
+
+import PostEditor from './PostEditor';
 
 export default React.createClass({
 	displayName: 'WriteSomething',
@@ -27,6 +29,7 @@ export default React.createClass({
 
 	hideEditor () {
 		this.setState({
+			error: void 0,
 			edit: false
 		});
 	},
@@ -45,42 +48,27 @@ export default React.createClass({
 			busy: true
 		});
 		store.postToActivity(value, title)
-		.then(result => {
-			console.log(result);
-			this.setState({
-				edit: false,
-				busy: false,
-				error: false
+			.then(() => this.setState({ edit: false, busy: false, error: false }))
+			.catch(error => {
+				this.setState({ error, busy: false });
 			});
-		},
-		reason => {
-			this.setState({
-				busy: false,
-				error: reason
-			});
-		});
 	},
 
 	render () {
 
 		let {busy, error} = this.state;
 
-		if (error) {
+		if (error && error.statusCode !== 422) {
 			return <Err error={error} />;
-		}
-
-		if (busy) {
-			return <Loading />;
 		}
 
 		return (
 			<div className="write-something">
-				{this.state.edit
-					?
-					<PostEditor ref='postEditor' onSubmit={this.onSubmit} onCancel={this.onCancel} />
-					:
+				{this.state.edit ? (
+					<PostEditor ref='postEditor' onSubmit={this.onSubmit} onCancel={this.onCancel} error={error} busy={busy}/>
+				) : (
 					<label onClick={this.showEditor}>Write something</label>
-				}
+				)}
 			</div>
 		);
 	}

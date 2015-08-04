@@ -1,7 +1,11 @@
 import React from 'react';
-import t from 'common/locale';
 import cx from 'classnames';
+
+import Busy from 'common/components/TinyLoader';
+
 import Editor from 'modeled-content/components/Editor';
+
+import t from 'common/locale';
 
 export default React.createClass({
 	displayName: 'PostEditor',
@@ -10,7 +14,10 @@ export default React.createClass({
 		onSubmit: React.PropTypes.func.isRequired,
 		onCancel: React.PropTypes.func.isRequired,
 		title: React.PropTypes.string,
-		value: React.PropTypes.any
+		value: React.PropTypes.any,
+
+		error: React.PropTypes.object,
+		busy: React.PropTypes.bool
 	},
 
 	getInitialState () {
@@ -47,14 +54,28 @@ export default React.createClass({
 	},
 
 	render () {
+		let {error, busy} = this.props;
 		let {value, title} = this.state;
-		let disabled = Editor.isEmpty(value) || Editor.isEmpty(title);
+		let disabled = busy || Editor.isEmpty(value) || Editor.isEmpty(title);
+
 		return (
 			<div className="editor">
-				<input type="text" ref="title" onChange={this.onTitleChange} defaultValue={this.props.title} />
-				<Editor ref="editor" onChange={this.onChange} onBlur={this.onChange} value={this.props.value}>
+				<div className="error-message">
+					{error ? t(`ERROR_MESSAGES.CODES.${error.code}`, error) : null}
+				</div>
+				<input type="text"
+					ref="title"
+					className={cx({'error': error && error.field === 'title'})}
+					onChange={this.onTitleChange}
+					defaultValue={this.props.title} />
+
+				<Editor ref="editor"
+					className={cx({'error': error && error.field === 'body'})}
+					onChange={this.onChange}
+					onBlur={this.onChange}
+					value={this.props.value}>
 					<button onClick={this.props.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
-					<button onClick={this.doSubmit} className={cx('save', {disabled})}>{t('BUTTONS.save')}</button>
+					<button onClick={this.doSubmit} className={cx('save', {disabled})}>{busy ? (<Busy/>) : t('BUTTONS.save')}</button>
 				</Editor>
 			</div>
 		);

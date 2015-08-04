@@ -3,5 +3,9 @@ export default {
 
 	FIELDNAMES: {
 		companyName: 'Company Name'
+	},
+
+	CODES: {
+		TooLong: 'The %(field)s was too long.'
 	}
 };
