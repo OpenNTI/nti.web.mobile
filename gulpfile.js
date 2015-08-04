@@ -18,7 +18,7 @@ pkgConfig.distSiteCSS = path.join(pkgConfig.dist, '/client/resources/css/sites/'
 gulp.task('css', function () {
 	return gulp.src('src/main/resources/scss/app.scss')
 		.pipe(sourcemaps.init()) // init sourcemaps before invoking sass
-		.pipe(sass({ // compile scscc to css
+		.pipe(sass({ // compile scss to css
 			includePaths: ['src/main/resources/vendor/foundation/scss/'],
 			outputStyle: 'compressed'
 		}).on('error', sass.logError))
