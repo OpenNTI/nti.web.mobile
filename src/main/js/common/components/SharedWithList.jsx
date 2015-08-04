@@ -27,7 +27,14 @@ export default React.createClass({
 		 */
 		short: React.PropTypes.bool,
 
-		item: React.PropTypes.object.isRequired
+		item: React.PropTypes.object.isRequired,
+
+		/**
+		 * The maximum number of entities to show before hidding the rest behind an ", and XX others." text.
+		 *
+		 * @type {number}
+		 */
+		limit: React.PropTypes.number
 	},
 
 
@@ -77,7 +84,7 @@ export default React.createClass({
 
 
 	render () {
-		let {short, item} = this.props;
+		let {short, limit, item} = this.props;
 		let {loading, users = [], others = 0} = this.state;
 		let {sharedWith = []} = item;
 
@@ -85,9 +92,16 @@ export default React.createClass({
 			return (<Loading/>);
 		}
 
-		if (short && users.length > 1) {
-			others += users.length - 1;
-			users = users.slice(0, 1);
+		if (typeof limit === 'number' && limit > 0) {
+			short = true;
+		}
+		else if (short) {
+			limit = 1;
+		}
+
+		if (short && users.length > limit) {
+			others += users.length - limit;
+			users = users.slice(0, limit);
 		}
 
 
