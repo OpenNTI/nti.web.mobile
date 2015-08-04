@@ -111,7 +111,12 @@ export default React.createClass({
 	},
 
 
-	dismissError () {
+	dismissError (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
 		this.setState({error: void 0});
 	},
 
