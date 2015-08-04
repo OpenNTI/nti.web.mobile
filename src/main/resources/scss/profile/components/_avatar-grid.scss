@@ -33,14 +33,23 @@
 	$avatarsize: 4.5rem;
 	.avatar-grid {
 		li {
-			flex: 1 1 215px;
+			$mgn: .25rem;
+			flex: 0 1 calc(100% - #{$mgn * 2});
+			min-width: 215px;
 			border: 2px solid #eee;
 			border-radius: 3px;
 
 			// white-space: nowrap;
-			margin: .25rem;
+			margin: $mgn;
 			background: $quad-grey;
 			padding: 0;
+
+			@media screen and (min-width: 545px) {
+				flex-basis: calc(50% - #{$mgn * 2})
+			}
+			@media screen and (min-width: 768px) {
+				flex-basis: calc(33% - #{$mgn * 2})
+			}
 
 			a {
 				display: block;
