@@ -178,11 +178,11 @@ function startTimer () {
 }
 
 let eventHandlers = {
-	[Constants.EVENT_STARTED]: function (action) {
+	[Constants.EVENT_STARTED] (action) {
 		console.log('Analytics Store received event: %s, %O', action.event.MimeType, action);
 		Store.enqueueEvents(action.event);
 	},
-	[Constants.RESUME_SESSION]: function (/* action */) {
+	[Constants.RESUME_SESSION] (/* action */) {
 		console.log('dispatching RESUME_SESSION');
 		Store.resumeSession();
 	}
