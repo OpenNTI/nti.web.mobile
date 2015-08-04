@@ -47,6 +47,17 @@
 
 .app-container { opacity: 1; } //unhides the UI once styles load.
 
+.missing-content {
+	margin: 2rem;
+
+	.catalog-entries {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.1);
+	}
+}
+
 body.dark {
 	background: #333;
 }

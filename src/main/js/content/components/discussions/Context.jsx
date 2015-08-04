@@ -4,6 +4,8 @@ import cx from 'classnames';
 
 import {getModel} from 'nti.lib.interfaces';
 
+import ContentAquirePrompt from 'catalog/components/ContentAquirePrompt';
+
 import Loading from 'common/components/TinyLoader';
 // import Err from 'common/components/Error';
 
@@ -15,7 +17,6 @@ import {getWidget} from '../widgets';
 import {getPageContent} from '../../Actions';
 import PageDescriptor from '../../PageDescriptor';
 
-import ContentAquirePrompt from './ContentAquirePrompt';
 
 const PageInfo = getModel('pageinfo');
 
