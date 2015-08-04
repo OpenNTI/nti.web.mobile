@@ -35,7 +35,7 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		this.setUpStore();
+		this.setupStore();
 	},
 
 
@@ -43,7 +43,7 @@ export default React.createClass({
 		let {entity, filterParams} = nextProps;
 
 		if(entity !== this.props.entity || filterParams !== nextProps.filterParams) {
-			this.setUpStore(nextProps);
+			this.setupStore(nextProps);
 		}
 	},
 
@@ -79,14 +79,14 @@ export default React.createClass({
 
 
 	profileStoreChange () {
-		this.setUpStore();
+		this.setupStore();
 		let {store} = this.state;
 		if (store) {
 			store.addListener('change', this.onStoreChange);
 		}
 	},
 
-	setUpStore (props = this.props) {
+	setupStore (props = this.props) {
 		let {entity, filterParams} = props;
 		let store = null;
 		if (entity) {
