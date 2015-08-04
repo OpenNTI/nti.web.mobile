@@ -6,6 +6,7 @@ import AvatarGrid from '../AvatarGrid';
 import ProfileLink from '../ProfileLink';
 import Loading from 'common/components/Loading';
 import ProfileBodyContainer from '../ProfileBodyContainer';
+import Button from 'common/forms/components/Button';
 
 export default React.createClass({
 	displayName: 'Community:Members',
@@ -83,6 +84,11 @@ export default React.createClass({
 		this.forceUpdate();
 	},
 
+	more () {
+		let {store} = this.state;
+		store.nextBatch();
+	},
+
 	render () {
 		let {store} = this.state;
 		if (!store || (store.loading && !store.length)) {
@@ -92,8 +98,12 @@ export default React.createClass({
 		return (
 			<ProfileBodyContainer className="members community-info">
 				<div>
-					<h2>Community Members ({store.length})</h2>
+					<h2>Community Members</h2>
 					<AvatarGrid entities={store} />
+					{ store.more && (store.loading
+						? <Loading/>
+						: <Button className="more" onClick={this.more}>More</Button>)
+					}
 				</div>
 			</ProfileBodyContainer>
 		);
