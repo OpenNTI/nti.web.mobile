@@ -7,7 +7,8 @@ import Store from './Store'; //ONLY READ from the store!!
 import {
 	LOGIN_INIT_DATA,
 	LOGIN_PONG,
-	LOGIN_SUCCESS
+	LOGIN_SUCCESS,
+	LOGGING_OUT
 } from './Constants';
 
 
@@ -47,6 +48,7 @@ export function login (username, password) {
 }
 
 export function logout () {
+	AppDispatcher.handleRequestAction({type: LOGGING_OUT});
 	getService().then(s => {
 		let url = s.getLogoutURL('/mobile/login/');
 		location.replace(url);

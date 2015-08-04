@@ -11,6 +11,7 @@ import {getModel} from 'nti.lib.interfaces';
 
 import {startIdleTimer} from './IdleTimer';
 import * as Constants from './Constants';
+import {LOGGING_OUT} from 'login/Constants';
 
 let localStorageKey = 'analytics_queue';
 
@@ -177,31 +178,26 @@ function startTimer () {
 	);
 }
 
+let eventHandlers = {
+	[Constants.EVENT_STARTED]: function(action) {
+		console.log('Analytics Store received event: %s, %O', action.event.MimeType, action);
+		Store.enqueueEvents(action.event);
+	},
+	[Constants.RESUME_SESSION]: function(action) {
+		console.log('dispatching RESUME_SESSION');
+		Store.resumeSession();
+	},
+	[LOGGING_OUT]: function(action) {
+		Store.endSession('Logging out.');
+	}
+};
+
 AppDispatcher.register(payload => {
 	let action = payload.action;
 
-	switch (action.type) {
-	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-
-	case Constants.EVENT_STARTED:
-		console.log('Analytics Store received event: %s, %O', action.event.MimeType, action);
-		Store.enqueueEvents(action.event);
-		break;
-
-	case Constants.EVENT_ENDED:
-		break;
-
-	// case Constants.END_SESSION:
-	//	endSession();
-	//	break;
-
-	case Constants.RESUME_SESSION:
-		console.log('dispatching RESUME_SESSION');
-		Store.resumeSession();
-		break;
-
-	default:
-		return true;
+	let handler = eventHandlers[action.type];
+	if (handler) {
+		handler(action);
 	}
 
 	return true; // No errors. Needed by promise in Dispatcher.
