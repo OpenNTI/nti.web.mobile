@@ -3,6 +3,7 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 import {getServer, getService} from 'common/utils';
 
 import Store from './Store'; //ONLY READ from the store!!
+import {endSession as endAnalyticsSession} from 'analytics/Actions';
 
 import {
 	LOGIN_INIT_DATA,
@@ -48,9 +49,9 @@ export function login (username, password) {
 }
 
 export function logout () {
-	AppDispatcher.handleRequestAction({type: LOGGING_OUT});
-	getService().then(s => {
+	endAnalyticsSession()
+	.then( () => getService().then(s => {
 		let url = s.getLogoutURL('/mobile/login/');
 		location.replace(url);
-	});
+	}));
 }

@@ -11,7 +11,6 @@ import {getModel} from 'nti.lib.interfaces';
 
 import {startIdleTimer} from './IdleTimer';
 import * as Constants from './Constants';
-import {LOGGING_OUT} from 'login/Constants';
 
 let localStorageKey = 'analytics_queue';
 
@@ -90,7 +89,7 @@ class AnalyticsStore extends TypedEventEmitter {
 				});
 			})
 		);
-		shutdown.then(startTimer);
+		return shutdown.then(startTimer);
 	}
 
 	resumeSession (/*reason='no reason specified'*/) {
@@ -186,9 +185,6 @@ let eventHandlers = {
 	[Constants.RESUME_SESSION]: function(action) {
 		console.log('dispatching RESUME_SESSION');
 		Store.resumeSession();
-	},
-	[LOGGING_OUT]: function(action) {
-		Store.endSession('Logging out.');
 	}
 };
 

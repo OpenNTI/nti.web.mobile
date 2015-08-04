@@ -1,6 +1,6 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EVENT_STARTED, EVENT_ENDED} from './Constants';
-
+import Store from './Store';
 import {getTypes} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
 
@@ -21,4 +21,8 @@ export function emitEventEnded (event) {
 		type: EVENT_ENDED,
 		event: event
 	});
+}
+
+export function endSession () {
+	return Store.endSession();
 }
