@@ -68,10 +68,14 @@ export default {
 	renderReplies () {
 		let {loading=true, error, children=[]} = this.state || {};
 
-		return loading ? (
-			<Loading />
-		) : error ? (
-			<Err error={error}/>
+		return (loading || error) ? (
+			<div className="coordinate-root">
+				{error ? (
+					<Err error={error}/>
+				) : (
+					<Loading />
+				)}
+			</div>
 		) : (
 			children.sort(ReplyComparator).map(x=>this.renderReply(x))
 		);
