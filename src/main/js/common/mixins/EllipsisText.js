@@ -27,7 +27,7 @@ function truncateText (el, measure) {
 			if (box.scrollHeight - (box.clientHeight || box.offsetHeight) >= 1) {
 				if (getText() !== '...') {
 					setTitleOnce();
-					setText(getText().replace(/(\.+)?$/, '...'));
+					setText(getText().replace(/[^\.](\.*)$/, '...'));
 					return SharedExecution.schedual(work);
 				}
 			}
