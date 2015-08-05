@@ -6,9 +6,14 @@ import {scoped} from 'common/locale';
 
 import ObjectLink from './ObjectLink';
 
-import {getBreadcrumb} from '../../Api';
-
 let t = scoped('PROFILE.ACTIVITY.TITLES');
+
+
+function getBreadcrumb (item) {
+	return (item || {}).getContextPath
+		? item.getContextPath()
+		: Promise.reject('item doesn\'t have a getContextPath method.');
+}
 
 
 export default React.createClass({
@@ -40,23 +45,25 @@ export default React.createClass({
 
 	loadBreadcrumb (item) {
 		getBreadcrumb(item)
-			.then(breadcrumb => {
-				this.setState({
-					breadcrumb: breadcrumb.length > 0 ? breadcrumb[0] : {
-						isError: true,
-						reason: 'breadcrumb has zero length'
-					}
-				});
+
+			.catch(error => {
+
+				if (error && error.statusCode === 403 && error.Items) {
+					return error.Items;
+				}
+
+				return Promise.reject(error);
 			})
-			.catch(reason => {
-				// console.error(reason);
+
+			.then(breadcrumb =>
 				this.setState({
-					breadcrumb: {
-						isError: true,
-						reason: reason
-					}
-				});
-			});
+					breadcrumb: breadcrumb.length > 0
+						? breadcrumb[0]
+						: { isError: true, reason: 'breadcrumb has zero length'}}))
+
+			.catch(reason =>
+				this.setState({
+					breadcrumb: { reason, isError: true } }));
 	},
 
 

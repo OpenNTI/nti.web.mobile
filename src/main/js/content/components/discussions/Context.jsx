@@ -56,7 +56,7 @@ export default React.createClass({
 
 	componentDidUpdate (_, state) {
 		let {error} = this.state;
-		if (error && error !== state.error) {
+		if (error && !is403(error) && error !== state.error) {
 			console.error(error);
 		}
 		this.focusApplicableRange();
