@@ -103,6 +103,9 @@ Mount pandora/Content at /Volumes/Content/
 
     http --timeout 1000000 -a admin@nextthought.com:temp001 POST http://localhost:8082/dataserver2/@@SyncAllLibraries
 
+## create a group
+use `nti_create_friendslist`
+
 ## create a community
 
     http -a carlos.sanchez@nextthought.com:carlos.sanchez POST http://localhost:8082/dataserver2/@@create.community username='Bleach' public=True joinable=True
@@ -118,7 +121,7 @@ Mount pandora/Content at /Volumes/Content/
 where toDataURI.sh is:
 
     #!/bin/bash
-    
+
     for filename in "$@";
     do
         mimetype=`file -b --mime-type "$filename"`
