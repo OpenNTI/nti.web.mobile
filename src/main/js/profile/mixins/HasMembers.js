@@ -1,7 +1,7 @@
 export default {
-	getMembers (entity) {
+	getMembers (entity, includeCreator=true) {
 		let entities = ((entity || {}).friends || []).slice();
-		if (entity.creator) {
+		if (includeCreator && entity.creator) {
 			entities.push(entity.creator);
 		}
 		return entities;

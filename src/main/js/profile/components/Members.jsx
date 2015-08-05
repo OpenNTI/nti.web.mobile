@@ -15,13 +15,19 @@ export default React.createClass({
 	render () {
 
 		let {entity} = this.props;
-		let entities = this.getMembers(entity);
+		let entities = this.getMembers(entity, false);
 
 		return (
 			<ProfileBodyContainer className="members">
 				<div>
-					<h2>Group Members</h2>
-					<AvatarGrid entities={entities} classesFor={classesFor.bind(null, entity.creator)} />
+					<div className="members-section administrators">
+						<h2>Administrators</h2>
+						<AvatarGrid entities={[entity.creator]} classesFor={classesFor.bind(null, entity.creator)} />
+					</div>
+					<div className="members-section">
+						<h2>Members</h2>
+						<AvatarGrid entities={entities} classesFor={classesFor.bind(null, entity.creator)} />
+					</div>
 				</div>
 			</ProfileBodyContainer>
 		);
