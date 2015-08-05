@@ -16,8 +16,8 @@ const TEXT_FIELDS = [
 	'home_page',
 	'facebook',
 	'linkedIn',
-	'googlePlus',
-	'twitter'
+	'twitter',
+	'googlePlus'
 ];
 
 const t = scoped('PROFILE.EDIT');

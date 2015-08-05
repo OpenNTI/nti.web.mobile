@@ -17,12 +17,12 @@ export default {
 	EDIT: {
 		'about': 'Write something about yourself.',
 		'email': 'Email',
-		'home_page': 'Homepage',
+		'home_page': 'Home page',
 		'location': 'Location',
-		'twitter': 'Twitter',
-		'facebook': 'Facebook',
-		'googlePlus': 'Google Plus',
-		'linkedIn': 'LinkedIn',
+		'twitter': 'Twitter Profile',
+		'facebook': 'Facebook Profile',
+		'googlePlus': 'Google+ Profile',
+		'linkedIn': 'LinkedIn Profile',
 		'alias': 'Display Name',
 		'realname': 'Name',
 
