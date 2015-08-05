@@ -17,7 +17,7 @@ export default React.createClass( {
 	mixins: [NavigatableMixin],
 
 	statics: {
-		mimeTest: /(surveyref)$/i,
+		mimeTest: /(survey|poll)ref$/i,
 		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		},
