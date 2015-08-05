@@ -2,7 +2,7 @@ export default {
 	getMembers (entity, includeCreator=true) {
 		let entities = ((entity || {}).friends || []).slice();
 		if (includeCreator && entity.creator) {
-			entities.push(entity.creator);
+			entities.unshift(entity.creator);
 		}
 		return entities;
 	}
