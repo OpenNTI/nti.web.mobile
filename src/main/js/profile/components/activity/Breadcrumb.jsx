@@ -67,10 +67,8 @@ export default React.createClass({
 	},
 
 
-	fallbackText (item) {
-		let mime = (item || {}).MimeType && item.MimeType.split('.').pop();
-		let text = mime && t(mime) || 'View';
-		return text;
+	fallbackText (/*item*/) {
+		return '';
 	},
 
 
