@@ -77,3 +77,9 @@
 .icon-info:before {
 	content: "\69";
 }
+.icon-poll:before {
+	content: "\e605";
+}
+.icon-survey:before {
+	content: "\e608";
+}
