@@ -52,6 +52,7 @@
 		&[href] {
 			color: $secondary-grey;
 			padding-right: 1em; // leave room for the chevron
+			position: relative; // reset coordinate-root for the chevron
 			&::after {
 				@extend %chevron-right;
 				position: absolute;
