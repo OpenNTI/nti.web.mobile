@@ -2,8 +2,6 @@ import React from 'react';
 import Detail from 'catalog/components/Detail';
 import EnrollButton from 'catalog/components/EnrollButton'; // drop course button
 
-import Support from './CourseSupport';
-
 import ContextSender from 'common/mixins/ContextSender';
 
 export default React.createClass({
@@ -25,7 +23,6 @@ export default React.createClass({
 		return (
 			<div>
 				<Detail {...this.props} entry={entry}/>
-				<Support entry={entry}/>
 				<EnrollButton catalogEntry={entry} dropOnly={true}/>
 			</div>
 		);
