@@ -2,11 +2,11 @@ import React from 'react';
 
 import Loading from 'common/components/TinyLoader';
 
-import {scoped} from 'common/locale';
+// import {scoped} from 'common/locale';
 
 import ObjectLink from './ObjectLink';
 
-let t = scoped('PROFILE.ACTIVITY.TITLES');
+// let t = scoped('PROFILE.ACTIVITY.TITLES');
 
 
 function getBreadcrumb (item) {
@@ -67,10 +67,8 @@ export default React.createClass({
 	},
 
 
-	fallbackText (item) {
-		let mime = (item || {}).MimeType && item.MimeType.split('.').pop();
-		let text = mime && t(mime) || 'View';
-		return text;
+	fallbackText (/*item*/) {
+		return '';
 	},
 
 

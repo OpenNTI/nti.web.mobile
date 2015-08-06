@@ -7,6 +7,17 @@ import Entry from './Entry';
 export default React.createClass({
 	displayName: 'ContentAquirePrompt',
 
+
+	statics: {
+
+		shouldPrompt (error) {
+			const has = x => x && x.length > 0;
+			return error.statusCode === 403 && has(error.Items);
+		}
+
+	},
+
+
 	propTypes: {
 		//The note or thing that points to content the user does not have access to.
 		relatedItem: React.PropTypes.object,
