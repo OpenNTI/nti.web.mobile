@@ -40,7 +40,7 @@
 			border-radius: 3px;
 
 			// white-space: nowrap;
-			margin: $mgn;
+			margin: $mgn ($mgn * 2) $mgn 0;
 			background: $quad-grey;
 			padding: 0;
 
