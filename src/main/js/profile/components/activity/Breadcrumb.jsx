@@ -2,11 +2,11 @@ import React from 'react';
 
 import Loading from 'common/components/TinyLoader';
 
-import {scoped} from 'common/locale';
+// import {scoped} from 'common/locale';
 
 import ObjectLink from './ObjectLink';
 
-let t = scoped('PROFILE.ACTIVITY.TITLES');
+// let t = scoped('PROFILE.ACTIVITY.TITLES');
 
 
 function getBreadcrumb (item) {
