@@ -1,10 +1,11 @@
-import Path from 'path';
+import BasePathAware from 'common/mixins/BasePath';
 
 const ROUTES = Symbol('Routes');
 
 const makeRoute = (path, extra) => ({props: Object.assign({ handler: 'div', path }, extra || {})});
 
 export default {
+	mixins: [BasePathAware],
 
 	getInitialState  () {
 		this.getRoutes().push(makeRoute('/:pageId(/)'));
@@ -37,7 +38,7 @@ export default {
 				.replace(/\/\/$/, '');
 		};
 
-		this.makeHrefNewRoot = root => Path.resolve(makeHref.call(this, '/'), `../${root}/`) + '/';
+		this.makeHrefNewRoot = root => `${this.getBasePath()}object/${root}/`;
 	},
 
 
