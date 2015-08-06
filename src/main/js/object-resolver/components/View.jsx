@@ -62,7 +62,7 @@ export default React.createClass({
 			.then(location => this.setState({location}))
 			.catch(error => {
 
-				if (error && error.statusCode === 403 && error.Items) {
+				if (ContentAquirePrompt.shouldPrompt(error)) {
 					return this.setState({prompt: error});
 				}
 
