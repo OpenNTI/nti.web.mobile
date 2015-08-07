@@ -178,13 +178,19 @@ export default React.createClass({
 	getActiveSection () {
 		let candidate;
 		let ref = ensureSlash(this.makeHref(this.getPath()));
-		let {availableSections = []} = this.props;
-		for(let x of availableSections) {
-			if (ref.indexOf(path.normalize(this.makeHref(x.href))) === 0) {
-				if (!candidate || candidate.href.length < x.href.length) {
-					candidate = x;
+
+		let {availableSections} = this.props;
+
+		if (availableSections) {
+
+			for(let x of availableSections) {
+				if (ref.indexOf(path.normalize(this.makeHref(x.href))) === 0) {
+					if (!candidate || candidate.href.length < x.href.length) {
+						candidate = x;
+					}
 				}
 			}
+
 		}
 
 		return candidate;
