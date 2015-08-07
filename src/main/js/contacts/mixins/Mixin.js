@@ -1,4 +1,7 @@
+import React from 'react';
 import Api from '../Api';
+import Loading from 'common/components/Loading';
+import Err from 'common/components/Error';
 
 export default {
 
@@ -25,10 +28,6 @@ export default {
 		}
 		else if (nextStore && nextStore !== store) {
 			nextStore.addListener('change', this.onStoreChange);
-
-			if (!nextStore.loading) {
-				console.log('Wut?');
-			}
 		}
 	},
 
@@ -48,8 +47,30 @@ export default {
 		.then(store => this.setState({
 			store
 		}));
+	},
+
+	render () {
+
+		let {error, store} = this.state;
+
+		if (error) {
+			return <Err error={error} />;
+		}
+
+		if (!store || store.loading) {
+			return <Loading />;
+		}
+
+		let items = [];
+		for(let item of store) {
+			items.push(<li key={item.Username}>{item.Username}</li>);
+		}
+
+		return (
+			<div >
+				<ul className={'contacts-list ' + this.props.listClassName}>{items}</ul>
+			</div>
+		);
 	}
-
-
 
 };
