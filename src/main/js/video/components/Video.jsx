@@ -1,6 +1,8 @@
 import React from 'react';
 import {getHandler} from '../services';
 
+import Fallback from '../services/html5';
+
 import emptyFunction from 'react/lib/emptyFunction';
 
 import {getModel} from 'nti.lib.interfaces';
@@ -225,7 +227,7 @@ export default React.createClass({
 
 	render () {
 		let video = this.props.src;
-		let Provider = getHandler(video) || 'div';
+		let Provider = getHandler(video) || Fallback;
 		let videoSource = video && (video.sources || {})[0];
 
 		return (
