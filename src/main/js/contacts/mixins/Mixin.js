@@ -32,6 +32,13 @@ export default {
 		}
 	},
 
+	componentWillUnmount () {
+		let {store} = this.state;
+		if (store) {
+			store.removeListener('change', this.onStoreChange);
+		}
+	},
+
 	onStoreChange () {
 		this.forceUpdate();
 	},
