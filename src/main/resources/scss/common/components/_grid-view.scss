@@ -29,7 +29,8 @@
 			background-color: #ccc;
 			position: static;
 			width: 100%;
-			height: 132px;
+			// height: 132px;
+			height: 73%;
 			background-size: cover;
 			@media #{$media-tab} {
 				height: 170px;
@@ -122,19 +123,23 @@
 	}
 }
 
-// .library-view.single-section {
-	// .library-collection {
 
-		// & > h5 {display: none;}
-		// & > ul {
-		// 	overflow: hidden;
-		// 	white-space: normal;
-		//
-		// 	& > li {
-		// 		margin: 0 0.625rem 0.625rem 0;
-		// 	}
-		// }
-	// }
+// .library-view.single-section {
+// 	.library-collection {
+// 		.library-item {width: 75%;}
+// 		& > h5 {display: none;}
+// 		& > ul {
+// 			overflow: visible;
+//
+// 			& > li{
+// 				display: block;
+// 				&:not(:first-of-type) {
+// 					margin-top: 1rem;
+// 					margin-left: 0;
+// 				}
+// 			}
+// 		}
+// 	}
 // }
 
 .cell {
