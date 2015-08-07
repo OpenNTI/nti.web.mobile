@@ -29,7 +29,7 @@ export default React.createClass({
 	render () {
 		let {question} = this.props;
 
-		let submitted = question.isSubmitted() || Store.isSubmitted(question);
+		let submitted = Store.isSubmitted(question);
 
 
 		return (
