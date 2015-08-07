@@ -1,0 +1,15 @@
+
+.overview-survey {
+	@extend .overview-naquestionset;
+
+	.icon {
+		font-family: icomoon;
+		font-size: 3.5rem;
+		color: $secondary-green;
+	}
+
+	.tally-box {
+		font-sze: 1.1rem;
+		font-weight: 600;
+	}
+}

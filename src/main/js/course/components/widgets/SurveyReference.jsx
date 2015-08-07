@@ -44,11 +44,12 @@ export default React.createClass( {
 
 		let href = path.join('content', encodeForURI(item['Target-NTIID'])) + '/';
 
-		let classList = cx('overview-naquestionset');
+		let classList = cx('overview-survey');
 
 		return (
 			<a className={classList} href={href}>
 				<div className="body">
+					<div className="icon icon-survey"/>
 					<div className="tally-box">
 						<div className="message">{label}</div>
 						<div className="tally">
