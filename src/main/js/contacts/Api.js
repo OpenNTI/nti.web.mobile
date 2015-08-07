@@ -9,12 +9,12 @@ const storeGetters = {
 
 function getContactsStore () {
 	return getService()
-	.then(service => service.getContacts());
+		.then(service => service.getContacts());
 }
 
 function getGroupsStore () {
 	return getService()
-	.then(service => service.getGroups());
+		.then(service => service.getGroups());
 }
 
 function getListsStore () {
