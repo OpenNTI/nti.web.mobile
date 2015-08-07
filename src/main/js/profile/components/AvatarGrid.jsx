@@ -1,8 +1,5 @@
 import React from 'react';
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
-
-import ProfileLink from './ProfileLink';
+import AvatarProfileLink from './AvatarProfileLink';
 
 export default React.createClass({
 	displayName: 'AvatarGrid',
@@ -23,13 +20,7 @@ export default React.createClass({
 					let css = classesFor ? classesFor(e) : null;
 					return (
 						<li key={'avatar' + i} className={css}>
-							<ProfileLink entity={e}>
-								<Avatar entity={e} />
-								<div className="body">
-									<DisplayName entity={e} />
-									<span className="location" dangerouslySetInnerHTML={{__html: e.location}}/>
-								</div>
-							</ProfileLink>
+							<AvatarProfileLink entity={e} />
 						</li>
 					);
 				})}

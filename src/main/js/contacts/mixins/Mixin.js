@@ -63,7 +63,7 @@ export default {
 
 		let items = [];
 		for(let item of store) {
-			items.push(<li key={item.Username}>{item.Username}</li>);
+			items.push(this.renderListItem(item));
 		}
 
 		return (

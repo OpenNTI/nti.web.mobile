@@ -11,5 +11,11 @@ export default React.createClass({
 		return {
 			listClassName: 'groups'
 		};
+	},
+
+	renderListItem (item) {
+		return (
+			<li key={item}>{item.displayName}</li>
+		);
 	}
 });

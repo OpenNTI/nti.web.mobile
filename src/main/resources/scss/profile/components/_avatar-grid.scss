@@ -29,7 +29,7 @@
 	}
 }
 
-.profile-body-main {
+%avatar-grid-container {
 	$avatarsize: 4.5rem;
 	.avatar-grid {
 		li {
@@ -101,6 +101,13 @@
 		}
 
 	}
+}
+
+.profile-body-main {
+	@extend %avatar-grid-container;
+}
+.contacts-page-content  {
+	@extend %avatar-grid-container;
 }
 
 .group-members-container {
