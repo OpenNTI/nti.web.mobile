@@ -1,6 +1,7 @@
 import React from 'react';
 
 import QuestionWidget from 'assessment/components/Question';
+import PollWidget from 'assessment/components/Poll';
 
 import Mixin from './Mixin';
 
@@ -47,8 +48,10 @@ export default React.createClass({
 		let {question} = this.state;
 		if (!question) { return null; }
 
-		return (
-			<QuestionWidget question={question}/>
+		let Widget = question.isPoll ? PollWidget : QuestionWidget;
+
+		return  (
+			<Widget question={question}/>
 		);
 	}
 });
