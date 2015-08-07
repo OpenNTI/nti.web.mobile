@@ -1,0 +1,8 @@
+.contacts-nav {
+	@extend %tabbed-nav;
+}
+.contacts-page {
+	header {
+		background: $primary-grey;
+	}
+}

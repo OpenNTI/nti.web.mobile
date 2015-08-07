@@ -1,0 +1,36 @@
+%tabbed-nav {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	list-style-type: none;
+	margin: 0;
+	font-size: 0.8rem;
+	font-weight: 600;
+	background-color: rgba(0,0,0,0.15);
+
+	& > li {
+		flex: 1 1 auto;
+		display: inline-block;
+		color: $tertiary-grey;
+		text-align: center;
+		text-transform: uppercase;
+		overflow: hidden;
+		a {
+			display: block;
+			padding: 0.5rem;
+			color: $tertiary-gray;
+			box-shadow: 1px 0 0 0 rgba(0,0,0,0.15);
+			overflow: hidden;
+			text-overflow: ellipsis;
+			position: relative;
+			white-space: nowrap;
+
+			&.active {
+				color: white;
+				background: $primary-blue;
+				box-shadow: 1px 0 0 0 $primary-blue;
+			}
+		}
+	}
+
+}

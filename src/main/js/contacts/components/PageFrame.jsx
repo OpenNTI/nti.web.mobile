@@ -1,5 +1,6 @@
 import React from 'react/addons';
 import ActiveLink from 'common/components/ActiveLink';
+import Page from 'common/components/Page';
 
 export default React.createClass({
 	displayName: 'Contacts:PageFrame',
@@ -13,16 +14,20 @@ export default React.createClass({
 		let Content = this.props.pageContent;
 
 		return (
-			<div className="contacts-page">
-				<ul className="contacts-nav">
-					<li><ActiveLink href="/users/">Users</ActiveLink></li>
-					<li><ActiveLink href="/groups/">Groups</ActiveLink></li>
-					<li><ActiveLink href="/lists/">DistributionLists</ActiveLink></li>
-				</ul>
-				<div className="contacts-page-content">
-					<Content {...this.props} />
+			<Page title="Contacts">
+				<div className="contacts-page">
+					<header>
+						<ul className="contacts-nav">
+							<li><ActiveLink href="/users/">Users</ActiveLink></li>
+							<li><ActiveLink href="/groups/">Groups</ActiveLink></li>
+							<li><ActiveLink href="/lists/">Distribution Lists</ActiveLink></li>
+						</ul>
+					</header>
+					<div className="contacts-page-content">
+						<Content {...this.props} />
+					</div>
 				</div>
-			</div>
+			</Page>
 		);
 	}
 });
