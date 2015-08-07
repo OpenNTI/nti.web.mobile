@@ -6,7 +6,6 @@ import cx from 'classnames';
 
 import buffer from 'nti.lib.interfaces/utils/function-buffer';
 
-import ActiveState from 'common/components/ActiveState';
 import Pager from 'common/components/Pager';
 
 import BasePathAware from 'common/mixins/BasePath';
@@ -167,14 +166,28 @@ export default React.createClass({
 			return;
 		}
 
-		let ref = ensureSlash(this.makeHref(this.getPath()));
 
-		let {label = 'Menu'} = availableSections.find(x=>
-			ref.indexOf(path.normalize(this.makeHref(x.href))) === 0) || {};
+		let {label = 'Menu'} = this.getActiveSection() || {};
 
 		return (
 			<a href="#" onClick={this.toggleMenu}><h1 className={css}>{label}</h1></a>
 		);
+	},
+
+
+	getActiveSection () {
+		let candidate;
+		let ref = ensureSlash(this.makeHref(this.getPath()));
+		let {availableSections} = this.props;
+		for(let x of availableSections) {
+			if (ref.indexOf(path.normalize(this.makeHref(x.href))) === 0) {
+				if (!candidate || candidate.href.length < x.href.length) {
+					candidate = x;
+				}
+			}
+		}
+
+		return candidate;
 	},
 
 
@@ -254,10 +267,12 @@ export default React.createClass({
 			key: 'menu'
 		};
 
+		let active = this.getActiveSection();
+
 		let sectionProps = x=> {
 			let title = x.label;
 			let href = path.normalize(this.makeHref(x.href));
-			return Object.assign({children: title}, x, {title, href});
+			return Object.assign({children: title}, x, {title, href, active: active === x});
 		};
 
 		if (!availableSections) {
@@ -268,7 +283,7 @@ export default React.createClass({
 
 		return menuOpen && React.createElement(Menu, props,
 				...sections.map(x=>
-					<ActiveState tag="li" hasChildren {...x}><a {...x}/></ActiveState>
+					<li {...x}><a {...x}/></li>
 				));
 	}
 
