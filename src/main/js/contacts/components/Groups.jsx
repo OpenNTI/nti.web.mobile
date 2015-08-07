@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import mixin from '../mixins/Mixin';
 import {GROUPS} from '../Constants';
-import Avatar from 'common/components/Avatar';
+import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 
 export default React.createClass({
 	displayName: 'Contacts:Groups',
@@ -18,8 +18,7 @@ export default React.createClass({
 		return (
 			<li key={item.displayName}>
 				<div>
-					<Avatar entity={item} />
-					{item.displayName}
+					<AvatarProfileLink entity={item} />
 				</div>
 			</li>
 		);
