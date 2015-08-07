@@ -225,10 +225,16 @@ export default React.createClass({
 	},
 
 
+	maybeOfferAnnotations (hasSelection) {
+		console.debug('Has selection?', hasSelection);
+		this.setState({hasSelection});
+	},
+
+
 	render () {
 		let pageId = this.getPageID();
 		let {contentPackage} = this.props;
-		let {annotations, error, loading, page, pageSource, selectedDiscussions, style, className = ''} = this.state;
+		let {annotations, error, hasSelection, loading, page, pageSource, selectedDiscussions, style, className = ''} = this.state;
 		let {discussions} = this.getPropsFromRoute();
 
 		if (loading) {
@@ -266,6 +272,7 @@ export default React.createClass({
 						<BodyContent id="NTIContent" ref="content"
 							className="nti-content-panel"
 							onClick={this.onContentClick}
+							onTouchEnd={this.maybeOfferAnnotations}
 							contentPackage={contentPackage}
 							pageId={pageId}
 							page={page}/>
@@ -279,6 +286,12 @@ export default React.createClass({
 						<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
 
 						{this.renderAssessmentSubmission()}
+
+						{hasSelection && (
+							<div style={{position: 'fixed', bottom: 0, left: 0, right: 0, background: 'black', color: 'white', padding: '1rem'}}>
+								Test: Selection remains when this shows up?
+							</div>
+						)}
 					</div>
 				)}
 			</div>

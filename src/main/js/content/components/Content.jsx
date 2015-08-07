@@ -18,13 +18,15 @@ export default React.createClass({
 	propTypes: {
 		page: React.PropTypes.object.isRequired,
 		pageId: React.PropTypes.string.isRequired,
-		onContentReady: React.PropTypes.func
+		onContentReady: React.PropTypes.func,
+		onTouchEnd: React.PropTypes.func
 	},
 
 
 	getDefaultProps () {
 		return {
-			onContentReady: () => {}
+			onContentReady: () => {},
+			onTouchEnd: hasSelection => console.debug('Touch ended, has selection?', hasSelection)
 		};
 	},
 
@@ -159,15 +161,26 @@ export default React.createClass({
 		let styles = (page && page.getPageStyles()) || [];
 
 		return (
-			<div>
+			<div onMouseUp={this.detectSelection} onTouchEnd={this.detectSelection}>
 				{styles.map((css, i) =>
 					<style scoped type="text/css" key={i} dangerouslySetInnerHTML={{__html: css}}/>
 				)}
-				<nti-content {...this.props} ref="content"
+				<nti-content {...this.props} onTouchEnd={void 0} ref="content"
 					data-ntiid={pageId}
 					data-page-ntiid={pageId}
 					dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>
 			</div>
 		);
+	},
+
+	detectSelection () {
+		const TICK = 500;
+		clearTimeout(this.selectionDetection);
+		this.selectionDetection = setTimeout(()=> {
+			let s = window.getSelection();
+			let hasSelection = s.type === 'Range' && s.getRangeAt(0);
+
+			this.props.onTouchEnd(hasSelection);
+		}, TICK);
 	}
 });
