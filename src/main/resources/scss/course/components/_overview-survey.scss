@@ -12,4 +12,25 @@
 		font-sze: 1.1rem;
 		font-weight: 600;
 	}
+
+	.stat {
+		display: inline;
+		margin: 0;
+
+		&:after {
+			color: $tertiary-grey;
+			@extend %middot;
+		}
+		&:last-of-type::after {
+			content: '';
+		}
+
+		&.submissions {
+			color: $tertiary-grey;
+		}
+
+		&.submitted {
+			color: $primary-blue;
+		}
+	}
 }

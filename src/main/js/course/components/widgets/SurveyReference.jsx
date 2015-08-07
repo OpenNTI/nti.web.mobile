@@ -12,6 +12,12 @@ import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const OutlineNode = getModel('courses.courseoutlinenode');
 
+
+function isSubmitted (item) {
+	return !!((item || {}).Links || []).find(x=> x.rel === 'History');
+}
+
+
 export default React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
 	mixins: [NavigatableMixin],
@@ -37,10 +43,15 @@ export default React.createClass( {
 	},
 
 
+
+
+
 	render () {
 		let {item} = this.props;
 		let questionCount = item['question-count'];
-		let {label} = item;
+		let {label = 'No Label', submissions} = item;
+
+		let submitted = isSubmitted(item);
 
 		let href = path.join('content', encodeForURI(item['Target-NTIID'])) + '/';
 
@@ -53,7 +64,11 @@ export default React.createClass( {
 					<div className="tally-box">
 						<div className="message">{label}</div>
 						<div className="tally">
-							<div className="stat questions">{questionCount} questions</div>
+							<div className="stat questions">
+								{`${questionCount} questions`}
+							</div>
+							<div className="stat submissions">{submissions} responses</div>
+							{submitted && ( <div className="stat submitted">Submitted!</div> )}
 						</div>
 					</div>
 				</div>

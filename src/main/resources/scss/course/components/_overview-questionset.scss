@@ -13,50 +13,49 @@
 	.body {
 		padding: 0.5rem;
 		overflow: none;
+	}
 
-		.icon {
-			float: left;
-			margin: 0.25rem;
-			margin-right: 0.6rem;
-			padding: 0;
+	.icon {
+		float: left;
+		margin: 0.25rem;
+		margin-right: 0.6rem;
+		padding: 0;
+	}
+
+	.tally-box {
+		font-family: "Open Sans", sans-serif;
+		font-style: italic;
+		padding: 0 0.5rem;
+	}
+
+	.stat {
+		display: inline-block;
+		font-weight: 600;
+		font-size: 0.75rem;
+		margin-right: 1rem;
+
+		&.questions {
+			color: $tertiary-grey;
 		}
 
-		.tally-box {
-			font-family: "Open Sans", sans-serif;
-			font-style: italic;
-			padding: 0 0.5rem;
+		&.due-date:not(.late) {
+			color: $tertiary-grey;
 		}
 
-		.tally {
-			.stat {
-				display: inline-block;
-				font-weight: 600;
-				font-size: 0.75rem;
-				margin-right: 1rem;
+		&.correct {
+			color: #94b61a;
+		}
 
-				&.questions {
-					color: #b8b8b8;
-				}
+		&.incorrect {
+			color: #e95a57;
+		}
 
-				&.due-date:not(.late) {
-					color: #b8b8b8;
-				}
-
-				&.correct {
-					color: #94b61a;
-				}
-
-				&.incorrect {
-					color: #e95a57;
-				}
-
-				&.late {
-					color: #e95a57;
-				}
-			}
-
+		&.late {
+			color: #e95a57;
 		}
 	}
+
+
 
 
 	.body:after {
