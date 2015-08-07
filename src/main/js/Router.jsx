@@ -20,6 +20,7 @@ setCreateURLPatternCompilerFactory(() => {
 
 //Main View Handlers
 import Catalog from 'catalog/components/View';
+import Contacts from 'contacts/components/View';
 import Content from 'content/components/View';
 import Course from 'course/components/View';
 import Enrollment from 'enrollment/components/View';
@@ -38,6 +39,7 @@ import BasePathAware from 'common/mixins/BasePath';
 
 const HANDLER_BY_NAME = {
 	Catalog,
+	Contacts,
 	Content,
 	Course,
 	Enrollment,
