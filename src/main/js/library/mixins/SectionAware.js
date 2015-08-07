@@ -10,6 +10,12 @@ const SECTION_NAMES = {
 };
 
 
+function swapFirstTwo (list) {
+	let [A, B, ...C] = list;
+	return [B, A, ...C];
+}
+
+
 const SECTION_PROPERTY_MAP = {
 	[SECTION_NAMES.admin]: 'administeredCourses',
 	[SECTION_NAMES.courses]: 'courses',
@@ -18,8 +24,8 @@ const SECTION_PROPERTY_MAP = {
 
 
 const SECTION_FILTERS_MAP = {
-	[SECTION_NAMES.admin]: Filters,
-	[SECTION_NAMES.courses]: Filters,
+	[SECTION_NAMES.admin]: swapFirstTwo(Filters),
+	[SECTION_NAMES.courses]: swapFirstTwo(Filters),
 	[SECTION_NAMES.books]: [{name: 'Books'}]
 };
 
