@@ -1,0 +1,55 @@
+.content-video,
+.overview-video {
+
+
+
+	.content-video-tap-area,
+	.overview-tap-area {
+		@extend %hardware-render;
+		position: absolute;
+		top: 0; left: 0; bottom: 0; right: 0;
+		background-color: $panel-background;
+		background-size: cover;
+		background-position: center center;
+
+		&.play:after {
+			@extend %icon-play;
+			content: '';
+			position: absolute;
+			background: {position: center center; repeat: no-repeat;}
+			top:0;
+			left:0;
+			bottom:0;
+			right:0;
+		}
+
+		.viewed {
+			position: absolute;
+			top: 0.3375rem; right: 0.3375rem;
+			background: $secondary-green;
+			color: #fff;
+
+			border-radius: 20px;
+			text-transform: uppercase;
+			line-height: 24px;
+			font: {
+				size: 0.6rem;
+				weight: 700;
+			}
+
+			padding: 0 12px 0 30px;
+			box-shadow: 0 0 1px 0 rgba(0,0,0,0.4);
+
+
+			&::before {
+				@extend %circle-white-check;
+				content: '';
+				position: absolute;
+				top: 2px;
+				left: 2px;
+				width: 20px;
+				height: 20px;
+			}
+		}
+	}
+}

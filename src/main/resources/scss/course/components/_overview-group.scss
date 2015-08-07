@@ -1,0 +1,27 @@
+.course-overview-group {
+	position: relative;
+	overflow: hidden;
+	border: none;
+	padding: 0 0.5rem;
+	margin: 1.125rem -0.5rem;
+	min-height: 8rem;
+
+	legend {
+		position: relative;
+		color: #fff;
+		margin-left: -0.5rem;
+		padding-left: 0.5rem;
+		padding-right: 0.3rem;
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		font-weight: 500;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0; left: 0; bottom: 0;
+			width: 0.3rem;
+			background: rgba(255, 255, 255, 0.3);
+		}
+	}
+}
