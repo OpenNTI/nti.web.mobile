@@ -9,16 +9,26 @@ export default React.createClass({
 		pageContent: React.PropTypes.any
 	},
 
-	render () {
 
+	componentWillMount () {
+		this.setState({menu: [
+			{label: 'Contacts', href: '/'},
+			{label: 'Groups', href: '/groups/'},
+			{label: 'Distribution Lists', href: '/lists/'}
+		]});
+	},
+
+
+	render () {
+		let {menu} = this.state || {};
 		let Content = this.props.pageContent;
 
 		return (
-			<Page title="Contacts">
+			<Page title="Contacts" availableSections={menu}>
 				<div className="contacts-page">
 					<header>
 						<ul className="contacts-nav">
-							<li><ActiveLink href="/users/">Users</ActiveLink></li>
+							<li><ActiveLink href="/users/">Contacts</ActiveLink></li>
 							<li><ActiveLink href="/groups/">Groups</ActiveLink></li>
 							<li><ActiveLink href="/lists/">Distribution Lists</ActiveLink></li>
 						</ul>
