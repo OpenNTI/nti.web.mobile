@@ -272,7 +272,7 @@ export default React.createClass({
 		let sectionProps = x=> {
 			let title = x.label;
 			let href = path.normalize(this.makeHref(x.href));
-			return Object.assign({children: title}, x, {title, href, active: active === x});
+			return Object.assign({children: title}, x, {title, href, className: cx(x.className, {active: active === x})});
 		};
 
 		if (!availableSections) {
