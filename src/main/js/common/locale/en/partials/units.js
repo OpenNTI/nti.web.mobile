@@ -55,5 +55,17 @@ export default {
 	messages: {
 		one: '%(count)s message',
 		other: '%(count)s messages'
+	},
+
+	questions: {
+		zero: 'No questions? This is probably a mistake.',
+		one: '%(count)s question',
+		other: '%(count)s questions'
+	},
+
+	submissions: {
+		zero: 'No responses yet.',
+		one: '%(count)s response',
+		other: '%(count)s responses'
 	}
 };

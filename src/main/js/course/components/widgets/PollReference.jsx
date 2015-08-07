@@ -1,5 +1,5 @@
-import React from 'react';
 import path from 'path';
+import React from 'react';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
@@ -21,7 +21,7 @@ export default React.createClass( {
 	mixins: [NavigatableMixin],
 
 	statics: {
-		mimeTest: /surveyref$/i,
+		mimeTest: /pollref$/i,
 		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		},
@@ -46,7 +46,6 @@ export default React.createClass( {
 
 	render () {
 		let {item} = this.props;
-		let questionCount = parseInt(item['question-count'], 10) || 0;
 		let {label = 'No Label', submissions = 0} = item;
 
 		let submitted = isSubmitted(item);
@@ -54,15 +53,12 @@ export default React.createClass( {
 		let href = path.join('content', encodeForURI(item['Target-NTIID'])) + '/';
 
 		return (
-			<a className="overview-survey" href={href}>
+			<a className="overview-survey poll" href={href}>
 				<div className="body">
-					<div className="icon icon-survey"/>
+					<div className="icon icon-poll"/>
 					<div className="tally-box">
 						<div className="message">{label}</div>
 						<div className="tally">
-							<div className="stat questions">
-								{t('UNITS.questions', {count: questionCount})}
-							</div>
 							<div className="stat submissions">{t('UNITS.submissions', {count: submissions})}</div>
 							{submitted && ( <div className="stat submitted">Submitted!</div> )}
 						</div>
