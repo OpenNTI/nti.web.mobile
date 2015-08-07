@@ -43,6 +43,7 @@
 			margin: $mgn ($mgn * 2) $mgn 0;
 			background: $quad-grey;
 			padding: 0;
+			position: relative;
 
 			@media screen and (min-width: 545px) {
 				flex-basis: calc(50% - #{$mgn * 2})
@@ -51,11 +52,10 @@
 				flex-basis: calc(33% - #{$mgn * 2})
 			}
 
-			a {
+			& > * {
 				display: block;
 				min-height: $avatarsize;
 				padding: 0 0 0 $avatarsize + .5rem;
-				position: relative;
 				overflow: hidden;
 			}
 
