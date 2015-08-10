@@ -1,4 +1,6 @@
 import React from 'react';
+import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+
 
 import {RouterMixin} from 'react-router-component';
 
@@ -33,6 +35,7 @@ import RouterLikeBehavior from './viewer-parts/mock-router';
 import GlossaryFeature from './viewer-parts/glossary';
 import Interactions from './viewer-parts/interaction';
 
+import AnnotationBar from './AnnotationBar';
 import BodyContent from './Content';
 import Gutter from './Gutter';
 import Discussions from './discussions';
@@ -234,7 +237,7 @@ export default React.createClass({
 	render () {
 		let pageId = this.getPageID();
 		let {contentPackage} = this.props;
-		let {annotations, error, hasSelection, loading, page, pageSource, selectedDiscussions, style, className = ''} = this.state;
+		let {annotations, error, loading, page, pageSource, selectedDiscussions, style, className = ''} = this.state;
 		let {discussions} = this.getPropsFromRoute();
 
 		if (loading) {
@@ -257,6 +260,7 @@ export default React.createClass({
 			//Annotations cannot resolve their anchors if the content ref is not present... so don't even try.
 			annotations = undefined;
 		}
+
 
 		return (
 			<div {...props}>
@@ -285,16 +289,39 @@ export default React.createClass({
 
 						<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
 
-						{this.renderAssessmentSubmission()}
-
-						{hasSelection && (
-							<div style={{position: 'fixed', bottom: 0, left: 0, right: 0, background: 'black', color: 'white', padding: '1rem'}}>
-								Test: Selection remains when this shows up?
-							</div>
-						)}
+						{this.renderDockedToolbar()}
 					</div>
 				)}
 			</div>
+		);
+	},
+
+
+	renderDockedToolbar () {
+		let {hasSelection} = this.state;
+		let annotation = hasSelection && ( <AnnotationBar/> );
+		let submission = this.renderAssessmentSubmission();
+
+		let key = annotation
+			? 'annotation'
+			: submission
+				? 'submission'
+				: 'none';
+
+		let content = annotation || submission;
+
+		return (
+			<TransitionGroup component="div"
+				className={`fixed-footer ${key}`}
+				transitionName="toast">
+
+				{content && (
+				<div className="the-fixed" key={key}>
+					{content}
+				</div>
+				)}
+
+			</TransitionGroup>
 		);
 	},
 

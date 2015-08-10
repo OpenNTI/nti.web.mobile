@@ -45,16 +45,10 @@ export default {
 			return null;
 		}
 
-		return (
-			React.createElement('div', {className: 'fixed-footer'},
-				React.createElement('div', {className: 'the-fixed'},
-					React.createElement(SetSubmissionWidget, {
-						assessment: quiz,
-						page: page
-					})
-				)
-			)
-		);
+		return React.createElement(SetSubmissionWidget, {
+			assessment: quiz,
+			page: page
+		});
 	},
 
 

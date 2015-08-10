@@ -7,7 +7,9 @@
 	}
 
 	.fixed-footer {
-		min-height: 4rem;
+		&:not(.none) {
+			min-height: 4rem;
+		}
 
 		& > .the-fixed {
 			border: 1px solid $tertiary-grey;
@@ -17,14 +19,25 @@
 			bottom: 0;
 			left: 0;
 			right: 0;
+
+			//Mask out the bleedthrough while animating in/out.
+			&[class*=toast] {
+				opacity: 0.01;
+
+				&::before {
+					content: '';
+					background: #f8f8f8;
+					position: absolute;
+					bottom: -5px;
+					left: 0;
+					right: 0;
+					height: 10px;
+				}
+			}
 		}
 	}
 
 	nti-content *:not(input):not(textarea) {
-		-webkit-user-select: text;
-		-moz-user-select: text;
-		-ms-user-select: text;
-		-o-user-select: text;
 		user-select: text;
 	}
 }

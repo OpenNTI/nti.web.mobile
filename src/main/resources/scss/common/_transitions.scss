@@ -1,9 +1,11 @@
 
+.fadeOutIn-appear,
 .fadeOutIn-enter {
 	opacity: 0.01;
 	transition: opacity .25s ease-out;
 }
 
+.fadeOutIn-appear.fadeOutIn-appear-active,
 .fadeOutIn-enter.fadeOutIn-enter-active {
 	opacity: 1;
 }
@@ -15,4 +17,61 @@
 
 .fadeOutIn-leave.fadeOutIn-leave-active {
 	opacity: 0.01;
+}
+
+
+
+.toast-enter,
+.toast-appear,
+.toast-leave {
+	animation-delay: 0s;
+	animation-duration: .4s;
+	animation-fill-mode: both;
+}
+
+.toast-appear-active,
+.toast-enter-active {
+	animation-name: clickIn;
+}
+
+.toast-leave-active {
+	animation-name: clickOut;
+}
+
+
+@keyframes clickIn {
+	0% {
+		transform: translate3d(0, 100%, 0);
+		opacity: 0.01;
+	}
+
+	60% {
+		opacity: 1;
+		transform: translate3d(0, -5px, 0);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes clickOut {
+	0% {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+	20% {
+		transform: translate3d(0, -10px, 0);
+	}
+
+	40%, 45% {
+		opacity: 1;
+		transform: translate3d(0, -5px, 0);
+	}
+
+	100% {
+		opacity: 0;
+		transform: translate3d(0, 100%, 0);
+	}
 }
