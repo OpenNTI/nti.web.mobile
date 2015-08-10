@@ -51,24 +51,55 @@ export default {
 	},
 
 	updateSearchQuery () {
-		let query = this.refs.search.getDOMNode().value;
+		let query = this.refs.search.getDOMNode().value.trim();
 		let {store} = this.state;
 
 		this.setState({
 			search: query,
-			searchLoading: true
+			searchLoading: query.length > 0,
+			searchResults: null,
+			searchError: null
 		});
 
 		if (store && store.search) {
-			store.search(query)
-				.then(results => {
-					// search results include communities and friends lists; we only want users
-					let users = results.filter((entity) => entity.isUser);
+			let search = store.search(query);
+			search.catch(reason=> {
+				if (typeof reason !== 'object' || reason.statusCode !== -1) {
 					this.setState({
-						searchResults: users,
-						searchLoading: false
+						searchError: reason
 					});
+				}
+			});
+			search.then(results => {
+				// search results include communities and friends lists; we only want users
+				let users = results.filter((entity) => entity.isUser);
+				this.setState({
+					searchResults: users,
+					searchLoading: false
 				});
+			});
+		}
+	},
+
+	searchResults () {
+		let {searchLoading, searchError, searchResults} = this.state;
+		if (searchError) {
+			return <Err error={searchError} />;
+		}
+		if (searchLoading) {
+			return <Loading/>;
+		}
+		if (searchResults) {
+			return (
+				<div>
+					<h2>Search Results ({searchResults.length})</h2>
+					<ul className="avatar-grid">
+					{
+						searchResults.map((entity) => this.renderListItem(entity))
+					}
+					</ul>
+				</div>
+			);
 		}
 	},
 
@@ -85,7 +116,7 @@ export default {
 		}
 
 		let items = [];
-		let {search, searchLoading, searchResults} = this.state;
+		let {search} = this.state;
 		for(let item of store) {
 			if(!store.entityMatchesQuery || store.entityMatchesQuery(item, search)) {
 				items.push(this.renderListItem(item));
@@ -95,18 +126,13 @@ export default {
 		return (
 			<div>
 				{this.hasSearch && <div><input type="search" className="search-field" ref="search" onChange={this.updateSearchQuery}/></div>}
-				<ul className={'contacts-list ' + this.props.listClassName}>{items}</ul>
-				{searchLoading && <Loading/>}
-				{searchResults &&
-					<div className="search-results">
-						<h2>Search Results</h2>
-						<ul className="avatar-grid">
-						{
-							searchResults.map((entity) => this.renderListItem(entity))
-						}
-						</ul>
-					</div>
-				}
+				<div>
+					<h2>Contacts ({items.length})</h2>
+					<ul className={'contacts-list ' + this.props.listClassName}>{items}</ul>
+				</div>
+				<div className="search-results">
+					{this.searchResults()}
+				</div>
 			</div>
 		);
 	}
