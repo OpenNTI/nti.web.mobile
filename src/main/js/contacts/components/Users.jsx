@@ -15,6 +15,7 @@ export default React.createClass({
 	},
 
 	hasSearch: true,
+	listName: 'Contacts',
 
 	renderListItem (item) {
 		return (

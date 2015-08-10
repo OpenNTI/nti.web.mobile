@@ -5,4 +5,19 @@
 	header {
 		background: $primary-grey;
 	}
+	.search-field {
+		position: relative;
+		.icon {
+			font-family: 'icomoon';
+			position: absolute;
+			top: .4em;
+			right: .4em;
+		}
+		.clear-search-icon::after {
+			content: 'x';
+		}
+		.search-icon::after {
+			content: '\e600';
+		}
+	}
 }

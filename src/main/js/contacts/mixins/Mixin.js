@@ -8,7 +8,7 @@ export default {
 	getInitialState () {
 		return {
 			store: null,
-			search: null
+			search: ''
 		};
 	},
 
@@ -50,8 +50,8 @@ export default {
 		}));
 	},
 
-	updateSearchQuery () {
-		let query = this.refs.search.getDOMNode().value.trim();
+	updateSearchQuery (event) {
+		let query = event ? event.target.value.trim() : '';
 		let {store} = this.state;
 
 		this.setState({
@@ -103,6 +103,10 @@ export default {
 		}
 	},
 
+	clearSearch () {
+		this.updateSearchQuery();
+	},
+
 	render () {
 
 		let {error, store} = this.state;
@@ -125,9 +129,14 @@ export default {
 
 		return (
 			<div>
-				{this.hasSearch && <div><input type="search" className="search-field" ref="search" onChange={this.updateSearchQuery}/></div>}
+				{this.hasSearch &&
+					<div className="search-field">
+						<input type="search" ref="search" onChange={this.updateSearchQuery} value={search} />
+						<div className={'icon ' + (search.length > 0 ? 'clear-search-icon' : 'search-icon')} onClick={this.clearSearch} />
+					</div>
+				}
 				<div>
-					<h2>Contacts ({items.length})</h2>
+					{this.listName && <h2>{this.listName} ({items.length})</h2>}
 					<ul className={'contacts-list ' + this.props.listClassName}>{items}</ul>
 				</div>
 				<div className="search-results">
