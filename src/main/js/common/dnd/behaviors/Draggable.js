@@ -79,9 +79,9 @@ export default {
 
 	propTypes: {
 		type: PropTypes.oneOfType([
-				PropTypes.string,
-				PropTypes.shape(TYPE_SHAPE)
-			]).isRequired,
+			PropTypes.string,
+			PropTypes.shape(TYPE_SHAPE)
+		]).isRequired,
 
 
 		restoreOnStop: PropTypes.bool,
@@ -267,14 +267,12 @@ export default {
 		// ourself is probably in our place)
 		if (this.isMounted()) {
 			this.setState(
-				Object.assign(
-				{
+				Object.assign({
 					dragging: false,
 					startX: 0,
 					startY: 0
 				},
-				this.props.restoreOnStop ?
-				{
+				this.props.restoreOnStop ? {
 					restoring: dragStopResultedInDrop,
 					x: 0,
 					y: 0

@@ -137,12 +137,12 @@ export default React.createClass({
 
 	render () {
 		return React.createElement(Locations, {
-				ref: 'router',
-				path: this.props.path,
-				onBeforeNavigation: this.onBeforeNavigation,
-				onNavigation: this.onNavigation
-			},
-			...this.getRoutes());
+			ref: 'router',
+			path: this.props.path,
+			onBeforeNavigation: this.onBeforeNavigation,
+			onNavigation: this.onNavigation
+		},
+		...this.getRoutes());
 	},
 
 

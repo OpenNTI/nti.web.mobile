@@ -42,12 +42,12 @@ export default React.createClass({
 	resetState (theprops = this.props) {
 		let pricing = this.getCouponPricing();
 		let state = {
-				currency: theprops.purchasable.currency,
-				currentPrice: theprops.purchasable.amount,
-				triedCoupon: false,
-				couponDiscount: false,
-				checkingCoupon: false
-			};
+			currency: theprops.purchasable.currency,
+			currentPrice: theprops.purchasable.amount,
+			triedCoupon: false,
+			couponDiscount: false,
+			checkingCoupon: false
+		};
 
 		if (theprops.locked) {
 			state.coupon = t('noCoupon');

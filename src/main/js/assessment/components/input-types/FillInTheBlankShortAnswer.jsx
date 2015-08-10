@@ -11,9 +11,9 @@ const hasValue = x => x && !isEmpty(x.value);
 
 const strategies = {
 	'input[type=blankfield]': x => ({
-			name: x.getAttribute('name'),
-			maxLength: x.getAttribute('maxlength')
-		})
+		name: x.getAttribute('name'),
+		maxLength: x.getAttribute('maxlength')
+	})
 };
 
 /**

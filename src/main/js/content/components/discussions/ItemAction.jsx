@@ -11,9 +11,9 @@ export default React.createClass({
 
 	propTypes: {
 		onClick: React.PropTypes.oneOfType([
-				React.PropTypes.bool,
-				React.PropTypes.func
-			]),
+			React.PropTypes.bool,
+			React.PropTypes.func
+		]),
 
 		criteria: React.PropTypes.any,
 

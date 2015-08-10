@@ -24,9 +24,9 @@ export default {
 		let id = this.getGlossaryId();
 		if (id) {
 			return GlossaryEntry({
-					entryid: id,
-					onClick: this.onDismissGlossary
-				});
+				entryid: id,
+				onClick: this.onDismissGlossary
+			});
 		}
 	}
 };

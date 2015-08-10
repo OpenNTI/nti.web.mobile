@@ -31,9 +31,9 @@ export default function select (item, index, props) {
 	}
 
 	return React.createElement(Item, Object.assign({}, props || {}, {
-			key: item.NTIID || ('profile-' + item.MimeType + '-' + index),
-			item: item,
-			index: index,
-			ref: Item.displayName + '-' + index
-		}));
+		key: item.NTIID || ('profile-' + item.MimeType + '-' + index),
+		item: item,
+		index: index,
+		ref: Item.displayName + '-' + index
+	}));
 }

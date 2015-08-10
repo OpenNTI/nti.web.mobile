@@ -7,8 +7,8 @@ export default React.createClass({
 		defaultValue: React.PropTypes.any,
 
 		field: React.PropTypes.shape({
-				label: React.PropTypes.string
-			}).isRequired,
+			label: React.PropTypes.string
+		}).isRequired,
 
 		options: React.PropTypes.arrayOf(
 				React.PropTypes.shape({

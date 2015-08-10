@@ -187,10 +187,10 @@ export default React.createClass({
 			.then(x => {
 				x.addListener('change', this.onStoreChanged);
 				this.setState({
-						store: x,
-						storeProvider: {getUserDataStore: ()=>x}
-					},
-					()=> this.onStoreChanged(x));
+					store: x,
+					storeProvider: {getUserDataStore: ()=>x}
+				},
+				()=> this.onStoreChanged(x));
 			});
 	},
 

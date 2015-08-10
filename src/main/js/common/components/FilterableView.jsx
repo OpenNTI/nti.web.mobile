@@ -43,8 +43,7 @@ export default React.createClass({
 		return selectedFilter ? {
 			filter: selectedFilter,
 			list: list.filter(selectedFilter.filter)
-		} :
-		{
+		} : {
 			filter: null,
 			list: list
 		};

@@ -81,11 +81,11 @@ export default React.createClass({
 			.then(x => {
 				let pageId = x.getID();
 				let context = React.createElement(Content, {
-						id: 'NTIContent',
-						page: x,
-						pageId,
-						onContentReady: () => this.findApplicableRange()
-					});
+					id: 'NTIContent',
+					page: x,
+					pageId,
+					onContentReady: () => this.findApplicableRange()
+				});
 
 				this.setState({loading: false, fragment: true, context, pageId});
 			});

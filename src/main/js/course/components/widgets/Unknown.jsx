@@ -5,8 +5,8 @@ export default React.createClass({
 
 	propTypes: {
 		item: React.PropTypes.shape({
-				MimeType: React.PropTypes.string
-			}).isRequired
+			MimeType: React.PropTypes.string
+		}).isRequired
 	},
 
 	render () {

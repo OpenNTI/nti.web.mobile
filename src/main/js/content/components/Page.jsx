@@ -31,9 +31,9 @@ export default React.createClass({
 		let menu = [];
 
 		let push = x => menu.push({
-				label: getLabel(x.toLowerCase()),
-				href: Sections[x]
-			});
+			label: getLabel(x.toLowerCase()),
+			href: Sections[x]
+		});
 
 
 		for(let s of Object.keys(Sections)) {
