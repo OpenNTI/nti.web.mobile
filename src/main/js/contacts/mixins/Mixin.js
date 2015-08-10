@@ -7,7 +7,8 @@ export default {
 
 	getInitialState () {
 		return {
-			store: null
+			store: null,
+			search: null
 		};
 	},
 
@@ -49,6 +50,28 @@ export default {
 		}));
 	},
 
+	updateSearchQuery () {
+		let query = this.refs.search.getDOMNode().value;
+		let {store} = this.state;
+
+		this.setState({
+			search: query,
+			searchLoading: true
+		});
+
+		if (store && store.search) {
+			store.search(query)
+				.then(results => {
+					// search results include communities and friends lists; we only want users
+					let users = results.filter((entity) => entity.isUser);
+					this.setState({
+						searchResults: users,
+						searchLoading: false
+					});
+				});
+		}
+	},
+
 	render () {
 
 		let {error, store} = this.state;
@@ -62,13 +85,30 @@ export default {
 		}
 
 		let items = [];
+		let {search, searchLoading, searchResults} = this.state;
 		for(let item of store) {
-			items.push(this.renderListItem(item));
+			if(!store.entityMatchesQuery || store.entityMatchesQuery(item, search)) {
+				items.push(this.renderListItem(item));
+			}
 		}
 
 		return (
-			<div >
+			<div>
+				{this.hasSearch && <div><input type="search" className="search-field" ref="search" onChange={this.updateSearchQuery}/></div>}
 				<ul className={'contacts-list ' + this.props.listClassName}>{items}</ul>
+				{searchLoading && <Loading/>}
+				{searchResults &&
+					<div className="search-results">
+						<h2>Search Results</h2>
+						<ul className="avatar-grid">
+						{
+							searchResults.map(entity => {
+								return <li>{this.renderListItem(entity)}</li>;
+							})
+						}
+						</ul>
+					</div>
+				}
 			</div>
 		);
 	}

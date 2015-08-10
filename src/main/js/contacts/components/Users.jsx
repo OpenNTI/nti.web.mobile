@@ -14,6 +14,8 @@ export default React.createClass({
 		};
 	},
 
+	hasSearch: true,
+
 	renderListItem (item) {
 		return (
 			<li key={'avatar' + item.Username}>
