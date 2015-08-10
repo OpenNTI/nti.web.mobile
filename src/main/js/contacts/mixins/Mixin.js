@@ -102,9 +102,7 @@ export default {
 						<h2>Search Results</h2>
 						<ul className="avatar-grid">
 						{
-							searchResults.map(entity => {
-								return <li>{this.renderListItem(entity)}</li>;
-							})
+							searchResults.map((entity) => this.renderListItem(entity))
 						}
 						</ul>
 					</div>
