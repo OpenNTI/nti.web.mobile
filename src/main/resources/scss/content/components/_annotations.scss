@@ -167,13 +167,17 @@
 .add.annotation.toolbar {
 	display: flex;
 	align-items: center;
+	padding-left: 0.5625rem;
 
 	.new-ugd {
-		margin: 0 0.5rem;
+		margin: 0.594rem .3125rem;
 		flex: 1 1 auto;
 		text-indent: -1000px;
 		overflow: hidden;
 		position: relative;
+		text-transform: none;
+		letter-spacing: normal;
+		outline: none;
 
 		&:last-child {
 			margin-right: 0;
@@ -183,14 +187,18 @@
 			flex: 0 1 auto;
 			padding: 0;
 			border-radius: 100%;
-			width: 2rem;
-			height: 2rem;
+			width: 1.875rem;
+			height: 1.875rem;
 			border: 0;
 			box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
 
-			&.yellow{background: #EDE619;}
-			&.green{background: #4CE67F;}
-			&.blue{background: #3FB3F6;}
+			&.yellow {background: #EDE619;}
+			&.green {background: #4CE67F;}
+			&.blue {background: #3FB3F6;}
+
+			&::after {
+				content: " " attr(data-color);
+			}
 		}
 
 		&.note {
@@ -200,9 +208,7 @@
 			background: none;
 			text-indent: 0;
 			color: $primary-grey;
-			text-transform: none;
 			font-family: $body-font-family;
-			letter-spacing: normal;
 			flex: 0 0 auto;
 			margin: 0;
 

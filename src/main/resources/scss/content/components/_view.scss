@@ -1,3 +1,10 @@
+%rounded-inset-border {
+	margin: 0 0.5rem;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	border-width: 1px 1px 0 1px;
+}
+
 
 .content-view {
 	position: relative;
@@ -11,10 +18,17 @@
 			min-height: 4rem;
 		}
 
+		&.annotation {
+			.the-fixed {
+				@extend %rounded-inset-border;
+			}
+		}
+
 		& > .the-fixed {
+			$background: #f8f8f8;
 			border: 1px solid $tertiary-grey;
 			border-width: 1px 0 0 0;
-			background: #f8f8f8;
+			background: $background;
 			position: fixed;
 			bottom: 0;
 			left: 0;
@@ -22,16 +36,21 @@
 
 			//Mask out the bleedthrough while animating in/out.
 			&[class*=toast] {
-				opacity: 0.01;
+				@extend %rounded-inset-border;
+				&:not([class*=leave]) {
+					opacity: 0.01;
+				}
 
 				&::before {
 					content: '';
-					background: #f8f8f8;
+					background: $background;
 					position: absolute;
-					bottom: -5px;
-					left: 0;
-					right: 0;
-					height: 10px;
+					bottom: -10px;
+					left: -1px;
+					right: -1px;
+					height: 20px;
+					border: 1px solid $tertiary-grey;
+					border-width: 0 1px;
 				}
 			}
 		}
