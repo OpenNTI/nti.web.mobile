@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import Loading from 'common/components/TinyLoader';
+// import Loading from 'common/components/TinyLoader';
 
 export default React.createClass({
 	displayName: 'FollowButton',
@@ -44,16 +44,14 @@ export default React.createClass({
 
 	render () {
 		let {following, loading} = this.state;
-		if (loading) {
-			return <Loading />;
-		}
 		let classes = cx({
 			'follow-widget': true,
 			'follow': !following,
-			'unfollow': following
+			'unfollow': following,
+			'loading': loading
 		});
 		return (
-			<div className={classes} onClick={this.toggleFollow} />
+			<div className={classes} onClick={loading ? null : this.toggleFollow} />
 		);
 	}
 });

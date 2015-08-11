@@ -1,6 +1,20 @@
 .contacts-nav {
 	@extend %tabbed-nav;
 }
+
+%spinner {
+	$size: 2em;
+	border: 2px solid rgba(0,0,0,.05);
+	border-top-color: rgba(0,0,0,.1);
+	border-right-color: rgba(0,0,0,.1);
+	border-radius: 50%;
+	width: $size;
+	height: $size;
+	line-height: 1;
+	animation: rotation .9s infinite linear;
+	margin-top: -$size/2; // the animation uses transform, which overwrites our translateY, so use margin to get vertical centering since we know the size
+}
+
 .contacts-page {
 	header {
 		background: $primary-grey;
@@ -21,11 +35,24 @@
 		}
 	}
 
+	.contacts-page-content {
+		background: white;
+		padding: 1rem;
+		h2 {
+			font-size: 1.5rem;
+			font-weight: 100;
+			font-family: 'Open Sans';
+		}
+	}
+
 	.follow-widget {
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
 		right: .5em;
+		width: 2rem;
+		height: 2rem;
+		line-height: 1;
 		&::after {
 			content: '\e608';
 			font-size: 2rem;
@@ -35,6 +62,13 @@
 		}
 		&.follow::after {
 			content: '\e601';
+		}
+
+		&.loading {
+			@extend %spinner;
+			&::after {
+				content:none;
+			}
 		}
 	}
 }

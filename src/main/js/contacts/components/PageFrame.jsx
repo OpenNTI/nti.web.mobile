@@ -25,7 +25,7 @@ export default React.createClass({
 
 		return (
 			<Page title="Contacts" availableSections={menu}>
-				<div className="contacts-page">
+				<div className="contacts-page gradient-bg">
 					<header>
 						<ul className="contacts-nav">
 							<li><ActiveLink href="/users/">Contacts</ActiveLink></li>
