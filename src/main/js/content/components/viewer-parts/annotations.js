@@ -133,8 +133,14 @@ export default {
 	}),
 
 
-
-	selectionToNewUGD (range) {
+	/**
+	 * All Notes and highlights have these fields in common.
+	 *
+	 * @param {Range} range DOM Range.
+	 *
+	 * @return {Object} The common applicable fields.
+	 */
+	selectionToCommonUGD (range) {
 		if (range && range.collapsed) {
 			throw new Error('Cannot create highlight from null or collapsed range');
 		}
