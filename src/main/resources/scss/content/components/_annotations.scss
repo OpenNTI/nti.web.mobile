@@ -184,13 +184,14 @@
 		}
 
 		&.highlight {
+			$color: rgba(0, 0, 0, 0.2);
 			flex: 0 1 auto;
 			padding: 0;
 			border-radius: 100%;
 			width: 1.875rem;
 			height: 1.875rem;
 			border: 0;
-			box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+			box-shadow: inset 0 0 0 1px $color;
 
 			&.yellow {background: #EDE619;}
 			&.green {background: #4CE67F;}
@@ -198,6 +199,24 @@
 
 			&::after {
 				content: " " attr(data-color);
+			}
+
+			&.selected {
+				box-shadow: inset 0 0 0 2px $color;
+				&::before {
+					content: '';
+					display: block;
+					width: 30%;
+					height: 60%;
+					border: solid $color;
+					border-width: 0 0.2rem 0.2rem 0;
+					position: absolute;
+					overflow: hidden;
+					left: 50%;
+					top: 50%;
+					margin-top: -0.9rem;
+					transform: translate3d(-50%, 20%, 0) rotate(45deg);
+				}
 			}
 		}
 
