@@ -1,6 +1,7 @@
 import buffer from 'nti.lib.interfaces/utils/function-buffer';
 
 import {createRangeDescriptionFromRange, preresolveLocatorInfo} from 'nti.lib.anchorjs';
+import {getEventTarget} from 'nti.lib.dom';
 
 import Highlight from '../annotations/Highlight';
 import Note from '../annotations/Note';
@@ -133,6 +134,27 @@ export default {
 	}),
 
 
+	maybeOfferAnnotations (eventMeta, selected) {
+		let highlight = getEventTarget(eventMeta, '.application-highlight');
+
+		if (!selected && highlight) {
+			selected = this.getAnnotationFromNode(highlight);
+		}
+
+		this.setState({selected});
+	},
+
+
+	getAnnotationFromNode (node) {
+		let {annotations = {}} = this.state;
+		for (let a of Object.values(annotations)) {
+			if (a && a.ownsNode(node)) {
+				return a;
+			}
+		}
+	},
+
+
 	/**
 	 * All Notes and highlights have these fields in common.
 	 *
@@ -141,8 +163,8 @@ export default {
 	 * @return {Object} The common applicable fields.
 	 */
 	selectionToCommonUGD (range) {
-		if (range && range.collapsed) {
-			throw new Error('Cannot create highlight from null or collapsed range');
+		if (!range || range.collapsed) {
+			throw new Error('Cannot create an annotation from null or collapsed ranges');
 		}
 
 		//generate the range description
@@ -153,5 +175,22 @@ export default {
 			selectedText: range.toString(),
 			ContainerId: container
 		};
+	},
+
+
+	createNote () {},
+
+
+	createHighlight (range, color) {
+		console.log(range, color);
+	},
+
+
+	updateHighlight (range, color) {
+		console.log(range, color);
+	},
+
+
+	removeHighlight () {
 	}
 };

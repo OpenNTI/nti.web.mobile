@@ -173,14 +173,18 @@ export default React.createClass({
 		);
 	},
 
-	detectSelection () {
+	detectSelection (e) {
+		let capture = {
+			srcElement: e.srcElement,
+			target: e.target
+		};
 		const TICK = 500;
 		clearTimeout(this.selectionDetection);
 		this.selectionDetection = setTimeout(()=> {
 			let s = window.getSelection();
-			let hasSelection = s.type === 'Range' && Boolean(s.getRangeAt(0));
+			let hasSelection = s.type === 'Range' && s.getRangeAt(0);
 
-			this.props.onTouchEnd(hasSelection);
+			this.props.onTouchEnd(capture, hasSelection);
 		}, TICK);
 	}
 });

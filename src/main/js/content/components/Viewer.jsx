@@ -228,11 +228,6 @@ export default React.createClass({
 	},
 
 
-	maybeOfferAnnotations (hasSelection) {
-		this.setState({hasSelection});
-	},
-
-
 	render () {
 		let pageId = this.getPageID();
 		let {contentPackage} = this.props;
@@ -297,8 +292,7 @@ export default React.createClass({
 
 
 	renderDockedToolbar () {
-		let {hasSelection} = this.state;
-		let annotation = hasSelection && ( <AnnotationBar/> );
+		let annotation = this.renderAnnotationToolbar();
 		let submission = this.renderAssessmentSubmission();
 
 		let key = annotation
@@ -321,6 +315,28 @@ export default React.createClass({
 				)}
 
 			</TransitionGroup>
+		);
+	},
+
+
+	renderAnnotationToolbar () {
+		let {selected} = this.state;
+		if (!selected) {
+			return null;
+		}
+
+		let isRange = selected instanceof Range;
+		let isHighlight = !isRange && !selected.isNote;
+
+		let props = {
+			item: isHighlight ? selected : void 0,
+			onNewDiscussion: (isRange || isHighlight) ? this.createNote : void 0,
+			onSetHighlight: isHighlight ? this.updateHighlight : isRange ? this.createHighlight : void 0,
+			onRemoveHighlight: isHighlight ? this.removeHighlight : void 0
+		};
+
+		return (
+			<AnnotationBar {...props}/>
 		);
 	},
 

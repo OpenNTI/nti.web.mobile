@@ -1,26 +1,69 @@
 import React from 'react';
+import cx from 'classnames';
+
+import C from 'common/components/Conditional';
 
 export default React.createClass({
 	displayName: 'AnnotationBar',
+
+	propTypes: {
+		item: React.PropTypes.object,
+
+		onNewDiscussion: React.PropTypes.func,
+		onSetHighlight: React.PropTypes.func,
+		onRemoveHighlight: React.PropTypes.func
+	},
+
 
 	getRange () {
 		return window.getSelection().getRangeAt(0);
 	},
 
-/*
-	{name: 'yellow', color: 'EDE619'},
-	{name: 'green', color: '4CE67F'},
-	{name: 'blue', color: '3FB3F6'}
-*/
+
+	onHighlight (e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		let c = e.target.getAttribute('data-color');
+		c = c && c.toLowerCase();
+
+		this.props.onSetHighlight(this.getRange(), c);
+	},
+
+
+	onUnHighlight (e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		this.props.onRemoveHighlight(this.getRange());
+	},
+
+
+	onNote (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		this.props.onNewDiscussion(this.getRange());
+	},
+
 
 	render () {
+		let {item, onNewDiscussion, onSetHighlight, onRemoveHighlight} = this.props;
+
+		if (item) {
+			item = item.highlightColorName;
+		}
+
+		let hightlighters = onSetHighlight && ['Yellow', 'Green', 'Blue'].map(x => (
+			<button key={x} data-color={x}
+				className={cx('ugd highlight', x.toLowerCase(), {'selected': item === x.toLowerCase()})}
+				onClick={this.onHighlight}>Highlight</button> ));
+
 		return (
 			<div className="add annotation toolbar">
-				<button className="new-ugd highlight yellow">Highlight Yellow</button>
-				<button className="new-ugd highlight green">Highlight Green</button>
-				<button className="new-ugd highlight blue">Highlight Blue</button>
-				<span className="spacer"/>
-				<button className="new-ugd note icon-discuss">Discuss</button>
+				{hightlighters}
+				<C tag="button" condition={onRemoveHighlight} className="ugd delete" onClick={this.onUnHighlight}>Remove Hightlight</C>
+				<C tag="span" condition={onNewDiscussion} className="spacer"/>
+				<C tag="button" condition={onNewDiscussion} className="ugd note icon-discuss" onClick={this.onNote}>Discuss</C>
 			</div>
 		);
 	}

@@ -169,7 +169,7 @@
 	align-items: center;
 	padding-left: 0.5625rem;
 
-	.new-ugd {
+	.ugd {
 		margin: 0.594rem .3125rem;
 		flex: 1 1 auto;
 		text-indent: -1000px;
@@ -181,6 +181,14 @@
 
 		&:last-child {
 			margin-right: 0;
+		}
+
+		&.delete {
+			flex: 0 1 auto;
+			border: 0;
+			padding: 0;
+			width: 1.875rem;
+			height: 1.875rem;
 		}
 
 		&.highlight {

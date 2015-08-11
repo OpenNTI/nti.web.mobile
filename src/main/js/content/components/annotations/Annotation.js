@@ -64,6 +64,12 @@ export default class Annotation {
 	}
 
 
+	ownsNode (node) {
+		let elements = this[RENDERED];
+		return elements && elements.indexOf(node) >= 0;
+	}
+
+
 	shouldRender () {}
 
 	render () {}
