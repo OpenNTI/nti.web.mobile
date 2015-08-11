@@ -1,6 +1,7 @@
 import React from 'react';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
+import FollowButton from 'common/components/FollowButton';
 
 import ProfileLink from './ProfileLink';
 
@@ -22,6 +23,7 @@ export default React.createClass({
 					<DisplayName entity={e} />
 					<span className="location" dangerouslySetInnerHTML={{__html: e.location}}/>
 				</div>
+				{e.follow && <FollowButton entity={e} />}
 			</ProfileLink>
 		);
 	}
