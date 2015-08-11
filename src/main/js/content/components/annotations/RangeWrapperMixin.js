@@ -18,9 +18,15 @@ function isInlineElement (node) {
 }
 
 function isWidget (node) {
-	return node.hasAttribute('data-reactid')
-		|| node.tagName.toUpperCase() === 'WIDGET';
+	return (node.hasAttribute && node.hasAttribute('data-reactid'))
+		|| (node.tagName || '').toUpperCase() === 'WIDGET';
 }
+
+
+function canWrapNode (node) {
+	return !isWidget(node);
+}
+
 
 function validToWrapEntireNode (node) {
 	if (DOM.isTextNode(node)) {
@@ -84,11 +90,13 @@ export default {
 		//Easy case, the node is completely surronded and valid, wrap the node
 		if (valid && (startToStart === AFTER || startToStart === SAME) && (endToEnd === BEFORE || endToEnd === SAME)) {
 
-			let newRange = doc.createRange();
+			if (canWrapNode(node)) {
+				let newRange = doc.createRange();
 
-			newRange.selectNode(node);
+				newRange.selectNode(node);
 
-			nodeList.push(this[wrap](newRange));
+				nodeList.push(this[wrap](newRange));
+			}
 		}
 
 		//If the node overlaps with the range in anyway we need to work on it's children
