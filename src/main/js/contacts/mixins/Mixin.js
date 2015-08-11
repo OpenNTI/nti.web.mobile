@@ -2,6 +2,9 @@ import React from 'react';
 import Api from '../Api';
 import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';
+import {scoped} from 'common/locale';
+
+let t = scoped('CONTACTS');
 
 export default {
 
@@ -92,7 +95,7 @@ export default {
 		if (searchResults) {
 			return (
 				<div>
-					<h2>Search Results ({searchResults.length})</h2>
+					<h2>Search Results</h2>
 					<ul className="avatar-grid">
 					{
 						searchResults.map((entity) => this.renderListItem(entity))
@@ -103,13 +106,24 @@ export default {
 		}
 	},
 
+	resultsSummary (items, searchResults) {
+		return searchResults && (
+			<div className="search-summary">
+				<div>
+					<div>Searching for {this.state.search}:</div>
+					<div>{t('filteredContacts', {count: items.length})}, {t('searchResults', {count: searchResults.length})}.</div>	
+				</div>
+			</div>
+		);
+	},
+
 	clearSearch () {
 		this.updateSearchQuery();
 	},
 
 	render () {
 
-		let {error, store} = this.state;
+		let {error, store, searchResults} = this.state;
 
 		if (error) {
 			return <Err error={error} />;
@@ -130,13 +144,18 @@ export default {
 		return (
 			<div>
 				{this.hasSearch &&
-					<div className="search-field">
-						<input type="search" ref="search" onChange={this.updateSearchQuery} value={search} />
-						<div className={'icon ' + (search.length > 0 ? 'clear-search-icon' : 'search-icon')} onClick={this.clearSearch} />
+					<div>
+						<div className="search-field">
+							<input type="search" ref="search" onChange={this.updateSearchQuery} value={search} />
+							<div className={'icon ' + (search.length > 0 ? 'clear-search-icon' : 'search-icon')} onClick={this.clearSearch} />
+						</div>
+						<div>
+							{this.resultsSummary(items, searchResults)}
+						</div>
 					</div>
 				}
 				<div>
-					{this.listName && <h2>{this.listName} ({items.length})</h2>}
+					{this.listName && <h2>{this.listName}</h2>}
 					<ul className={'contacts-list ' + this.props.listClassName}>{items}</ul>
 				</div>
 				<div className="search-results">

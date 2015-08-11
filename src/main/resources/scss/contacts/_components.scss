@@ -34,6 +34,12 @@
 			content: '\e600';
 		}
 	}
+	.search-summary {
+		font-size: .75rem;
+		font-weight: 700;
+		color: $secondary-grey;
+		color: $tertiary-grey;
+	}
 
 	.contacts-page-content {
 		background: white;
@@ -59,9 +65,11 @@
 			width: 2em;
 			height: 2em;
 			font-family: 'icomoon';
+			color: $primary-red;
 		}
 		&.follow::after {
 			content: '\e601';
+			color: $primary-green;
 		}
 
 		&.loading {

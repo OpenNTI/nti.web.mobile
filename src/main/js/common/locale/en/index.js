@@ -6,6 +6,7 @@
 
 import units from './partials/units';
 import course from './partials/course';
+import contacts from './partials/contacts';
 import content from './partials/content';
 import errorMessages from './partials/error-messages';
 import forums from './partials/forums';
@@ -22,6 +23,8 @@ export default {
 	FORUMS: forums,
 
 	COMING_SOON: soon,
+
+	CONTACTS: contacts,
 
 	LOGIN: login,
 
