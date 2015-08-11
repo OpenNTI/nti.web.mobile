@@ -35,7 +35,7 @@ export default React.createClass({
 		entity.follow()
 			.then(() => {
 				this.setState({
-					following: true,
+					following: entity.following,
 					loading: false
 				});
 			});
