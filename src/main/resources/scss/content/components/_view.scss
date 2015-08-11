@@ -37,7 +37,11 @@
 		}
 	}
 
-	nti-content *:not(input):not(textarea) {
+	nti-content {
 		user-select: text;
+
+		widget {
+			user-select: none;
+		}
 	}
 }

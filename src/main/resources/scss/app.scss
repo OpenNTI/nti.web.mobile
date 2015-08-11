@@ -77,9 +77,9 @@ body {
 	user-select: none;
 }
 
-[contenteditable] { //&, * {
+[contenteditable] {
 	user-select: text !important;
-} //}
+}
 
 .button, input[type=button], input[type=submit], input[type=reset], button {
 	@include input-typography;
