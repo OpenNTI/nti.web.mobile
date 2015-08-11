@@ -63,4 +63,14 @@
 			user-select: none;
 		}
 	}
+
+	widget.selected > *:first-child::after {
+		content: '';
+		background: rgba($primary-blue, 0.15);
+		position: absolute;
+		top: -1rem;
+		left: -1rem;
+		right: -1rem;
+		bottom: -1rem;
+	}
 }
