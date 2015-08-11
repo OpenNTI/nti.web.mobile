@@ -20,4 +20,21 @@
 			content: '\e600';
 		}
 	}
+
+	.follow-widget {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: .5em;
+		&::after {
+			content: '\e608';
+			font-size: 2rem;
+			width: 2em;
+			height: 2em;
+			font-family: 'icomoon';
+		}
+		&.follow::after {
+			content: '\e601';
+		}
+	}
 }

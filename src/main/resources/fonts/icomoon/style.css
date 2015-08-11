@@ -83,3 +83,6 @@
 .icon-survey:before {
 	content: "\e606";
 }
+.icon-remove-user:before {
+	content: "\e608";
+}

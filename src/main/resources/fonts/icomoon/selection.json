@@ -19,7 +19,7 @@
 				{}
 			],
 			"properties": {
-				"order": 1,
+				"order": 24,
 				"id": 28,
 				"prevSize": 32,
 				"code": 58880,
@@ -47,7 +47,7 @@
 				{}
 			],
 			"properties": {
-				"order": 2,
+				"order": 25,
 				"id": 18,
 				"prevSize": 32,
 				"code": 58881,
@@ -75,7 +75,7 @@
 				{}
 			],
 			"properties": {
-				"order": 3,
+				"order": 26,
 				"id": 19,
 				"prevSize": 32,
 				"code": 58882,
@@ -103,7 +103,7 @@
 				{}
 			],
 			"properties": {
-				"order": 4,
+				"order": 27,
 				"id": 20,
 				"prevSize": 32,
 				"code": 58883,
@@ -131,7 +131,7 @@
 				{}
 			],
 			"properties": {
-				"order": 5,
+				"order": 28,
 				"id": 21,
 				"prevSize": 32,
 				"code": 58884,
@@ -159,7 +159,7 @@
 				{}
 			],
 			"properties": {
-				"order": 6,
+				"order": 29,
 				"id": 23,
 				"prevSize": 32,
 				"code": 88,
@@ -187,7 +187,7 @@
 				{}
 			],
 			"properties": {
-				"order": 7,
+				"order": 30,
 				"id": 24,
 				"prevSize": 32,
 				"code": 120,
@@ -215,7 +215,7 @@
 				{}
 			],
 			"properties": {
-				"order": 8,
+				"order": 31,
 				"id": 25,
 				"prevSize": 32,
 				"code": 58887,
@@ -243,7 +243,7 @@
 				{}
 			],
 			"properties": {
-				"order": 9,
+				"order": 32,
 				"id": 26,
 				"prevSize": 32,
 				"code": 8730,
@@ -271,7 +271,7 @@
 				{}
 			],
 			"properties": {
-				"order": 10,
+				"order": 33,
 				"id": 27,
 				"prevSize": 32,
 				"code": 58889,
@@ -299,7 +299,7 @@
 				{}
 			],
 			"properties": {
-				"order": 11,
+				"order": 34,
 				"id": 11,
 				"prevSize": 32,
 				"code": 58890,
@@ -327,7 +327,7 @@
 				{}
 			],
 			"properties": {
-				"order": 12,
+				"order": 35,
 				"id": 12,
 				"prevSize": 32,
 				"code": 58891,
@@ -355,7 +355,7 @@
 				{}
 			],
 			"properties": {
-				"order": 13,
+				"order": 36,
 				"id": 13,
 				"prevSize": 32,
 				"code": 58892,
@@ -383,7 +383,7 @@
 				{}
 			],
 			"properties": {
-				"order": 14,
+				"order": 37,
 				"id": 14,
 				"prevSize": 32,
 				"code": 118,
@@ -411,7 +411,7 @@
 				{}
 			],
 			"properties": {
-				"order": 15,
+				"order": 38,
 				"id": 15,
 				"prevSize": 32,
 				"code": 60,
@@ -439,7 +439,7 @@
 				{}
 			],
 			"properties": {
-				"order": 16,
+				"order": 39,
 				"id": 16,
 				"prevSize": 32,
 				"code": 62,
@@ -467,7 +467,7 @@
 				{}
 			],
 			"properties": {
-				"order": 17,
+				"order": 40,
 				"id": 17,
 				"prevSize": 32,
 				"code": 94,
@@ -498,7 +498,7 @@
 				{}
 			],
 			"properties": {
-				"order": 18,
+				"order": 41,
 				"id": 10,
 				"prevSize": 32,
 				"code": 105,
@@ -533,7 +533,7 @@
 				{}
 			],
 			"properties": {
-				"order": 21,
+				"order": 42,
 				"id": 30,
 				"prevSize": 32,
 				"code": 58885,
@@ -582,7 +582,7 @@
 				{}
 			],
 			"properties": {
-				"order": 22,
+				"order": 43,
 				"id": 29,
 				"prevSize": 32,
 				"code": 58886,
@@ -591,6 +591,34 @@
 			"setIdx": 2,
 			"setId": 10,
 			"iconIdx": 19
+		},
+		{
+			"icon": {
+				"paths": [
+					"M884.7 771.7h-331.1v-82.7c0 0 331.1 0 331.1 0v82.7c0 0 0 0 0 0zM512.3 771.7h-372.7v-59.5c0 0-17-32.6 197.6-118.8 0 0 86.1-16.3 28.2-74.2-21.5-21.5-32.3-54-37.7-77-1.4 1.7-3 2.8-4.7 2.8-7.8 0-14.1-20-14.1-44.6s6.3-44.5 14.1-44.5v-89.2c0 0 0-74.2 98.8-74.2 9.8 0 19.2-0.1 28.2-0.3 9 0.1 18.4 0.3 28.2 0.3 98.8 0 98.8 74.2 98.8 74.2v89.2c7.8 0 14.1 20 14.1 44.5 0 24.6-6.3 44.6-14.1 44.6-1.7 0-3.3-1.1-4.7-2.8-5.4 23-16.2 55.5-37.7 77-57.9 57.9 28.2 74.2 28.2 74.2 28.4 11.5 52.5 21.9 73.4 31.4v22.7h-124.2l0.3 124.2z"
+				],
+				"attrs": [
+					{}
+				],
+				"isMulticolor": false,
+				"tags": [
+					"remove"
+				],
+				"grid": 0
+			},
+			"attrs": [
+				{}
+			],
+			"properties": {
+				"order": 44,
+				"id": 31,
+				"prevSize": 32,
+				"code": 58888,
+				"name": "remove-user"
+			},
+			"setIdx": 2,
+			"setId": 10,
+			"iconIdx": 20
 		}
 	],
 	"height": 1024,
