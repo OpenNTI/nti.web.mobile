@@ -178,7 +178,7 @@ export default React.createClass({
 		clearTimeout(this.selectionDetection);
 		this.selectionDetection = setTimeout(()=> {
 			let s = window.getSelection();
-			let hasSelection = s.type === 'Range' && s.getRangeAt(0);
+			let hasSelection = s.type === 'Range' && Boolean(s.getRangeAt(0));
 
 			this.props.onTouchEnd(hasSelection);
 		}, TICK);

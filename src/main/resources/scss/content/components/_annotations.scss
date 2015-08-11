@@ -161,3 +161,67 @@
 		}
 	}
 }
+
+
+
+.add.annotation.toolbar {
+	display: flex;
+	align-items: center;
+
+	.new-ugd {
+		margin: 0 0.5rem;
+		flex: 1 1 auto;
+		text-indent: -1000px;
+		overflow: hidden;
+		position: relative;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		&.highlight {
+			flex: 0 1 auto;
+			padding: 0;
+			border-radius: 100%;
+			width: 2rem;
+			height: 2rem;
+			border: 0;
+			box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+
+			&.yellow{background: #EDE619;}
+			&.green{background: #4CE67F;}
+			&.blue{background: #3FB3F6;}
+		}
+
+		&.note {
+			font-size: 0.8125rem;
+			font-weight: 700;
+			padding: 0.5625rem 1rem;
+			background: none;
+			text-indent: 0;
+			color: $primary-grey;
+			text-transform: none;
+			font-family: $body-font-family;
+			letter-spacing: normal;
+			flex: 0 0 auto;
+			margin: 0;
+
+			&::before {
+				font-family: 'icomoon';
+				font-size: 29px;
+				font-weight: normal;
+				vertical-align: middle;
+				position: relative;
+				left: -0.5px;//fix blur on 1x screens.
+			}
+		}
+
+	}
+
+	.spacer {
+		flex: 2 2 auto;
+		display: block;
+		border-right: 1px solid #ccc;
+		min-height: 2rem;
+	}
+}

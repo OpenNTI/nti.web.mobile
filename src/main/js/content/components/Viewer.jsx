@@ -229,7 +229,6 @@ export default React.createClass({
 
 
 	maybeOfferAnnotations (hasSelection) {
-		console.debug('Has selection?', hasSelection);
 		this.setState({hasSelection});
 	},
 

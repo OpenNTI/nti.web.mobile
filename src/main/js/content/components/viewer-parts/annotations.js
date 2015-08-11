@@ -1,6 +1,6 @@
 import buffer from 'nti.lib.interfaces/utils/function-buffer';
 
-import {preresolveLocatorInfo} from 'nti.lib.anchorjs';
+import {createRangeDescriptionFromRange, preresolveLocatorInfo} from 'nti.lib.anchorjs';
 
 import Highlight from '../annotations/Highlight';
 import Note from '../annotations/Note';
@@ -130,5 +130,22 @@ export default {
 		if (rendered > 0 || dead > 0 || newObjects > 0) {
 			this.setState({annotations});
 		}
-	})
+	}),
+
+
+
+	selectionToNewUGD (range) {
+		if (range && range.collapsed) {
+			throw new Error('Cannot create highlight from null or collapsed range');
+		}
+
+		//generate the range description
+		let {description, container} = createRangeDescriptionFromRange(range, this.getContentNode());
+
+		return {
+			applicableRange: description,
+			selectedText: range.toString(),
+			ContainerId: container
+		};
+	}
 };
