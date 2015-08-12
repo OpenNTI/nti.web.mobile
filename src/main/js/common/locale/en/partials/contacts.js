@@ -11,5 +11,6 @@ export default {
 		one: '%(count)s contact',
 		other: '%(count)s contacts'
 	},
-	deleteListPrompt: 'Delete this list?'
+	deleteListPrompt: 'Delete this list?',
+	unfollowPrompt: 'Remove this contact?'
 };

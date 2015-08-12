@@ -1,6 +1,10 @@
 import React from 'react';
 import cx from 'classnames';
-// import Loading from 'common/components/TinyLoader';
+import {areYouSure} from 'prompts';
+import {scoped} from 'common/locale';
+
+let t = scoped('CONTACTS');
+
 
 export default React.createClass({
 	displayName: 'FollowButton',
@@ -29,17 +33,19 @@ export default React.createClass({
 		e.stopPropagation();
 		let {entity} = this.props;
 
-		this.setState({
-			loading: true
-		});
-		entity.follow()
-			.then(() => {
-				this.setState({
-					following: entity.following,
-					loading: false
-				});
+		let p = this.state.following ? areYouSure(t('unfollowPrompt')) : Promise.resolve();
+		p.then(() => {
+			this.setState({
+				loading: true
 			});
-
+			entity.follow()
+				.then(() => {
+					this.setState({
+						following: entity.following,
+						loading: false
+					});
+				});
+		});
 	},
 
 	render () {
