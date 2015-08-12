@@ -9,7 +9,8 @@ export default React.createClass({
 	displayName: 'AvatarProfileLink',
 
 	propTypes: {
-		entity: React.PropTypes.any.isRequired
+		entity: React.PropTypes.any.isRequired,
+		children: React.PropTypes.any
 	},
 
 	render () {
@@ -22,6 +23,7 @@ export default React.createClass({
 				<div className="body">
 					<DisplayName entity={e} />
 					{e.location && <span className="location" dangerouslySetInnerHTML={{__html: e.location}}/>}
+					{this.props.children}
 				</div>
 				{e.follow && <FollowButton entity={e} />}
 			</ProfileLink>
