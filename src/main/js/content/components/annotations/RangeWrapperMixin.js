@@ -131,7 +131,6 @@ export default {
 
 
 	[wrap] (range) {
-		let style = this.getRecordField('style') || 'plain';
 		let {ownerDocument} = range.commonAncestorContainer;
 		let rangeString = range.toString();
 		let sc = range.startContainer;
@@ -151,9 +150,6 @@ export default {
 				span.style.display = s;
 			}
 		}
-
-		DOM.addClass(span, this.highlightCls);
-		DOM.addClass(span, style);
 
 		range.surroundContents(span);
 

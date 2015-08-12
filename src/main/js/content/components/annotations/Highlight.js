@@ -22,10 +22,15 @@ export default class Highlight extends Annotation {
 
 		mixin(this, RangeWrapperMixin);
 
-		let {highlightColorName} = this.getRecordField('presentationProperties') || {};
+		this.setupDomClassNames();
+	}
 
-		this.highlightCls = cx('application-highlight', {
-			[highlightColorName]: highlightColorName,
+
+	setupDomClassNames () {
+		let {highlightColorName} = this.getRecordField('presentationProperties') || {};
+		let style = this.getRecordField('style') || 'plain';
+
+		this.highlightCls = cx('application-highlight', highlightColorName, style, {
 			'shared-with-me': !this.isModifiable,
 			'colored': highlightColorName
 		});
@@ -36,6 +41,11 @@ export default class Highlight extends Annotation {
 	}
 
 
+	createNonAnchorableSpan () {
+		let span = super.createNonAnchorableSpan();
+		span.setAttribute('class', this.highlightCls);
+		return span;
+	}
 	buildRange () {
 		let doc = this.getDocument();
 		let range = doc && doc.createRange();
