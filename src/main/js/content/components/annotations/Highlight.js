@@ -17,6 +17,21 @@ export default class Highlight extends Annotation {
 	}
 
 
+	static createFrom (data, color) {
+
+		let base = {
+			MimeType: 'application/vnd.nextthought.highlight',
+			style: 'plain',
+			// sharedWith: [],
+			presentationProperties: {
+				highlightColorName: color
+			}
+		};
+
+		return Object.assign(base, data);
+	}
+
+
 	constructor (...args) {
 		super(...args);
 
