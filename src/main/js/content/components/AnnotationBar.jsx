@@ -3,6 +3,10 @@ import cx from 'classnames';
 
 import C from 'common/components/Conditional';
 
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+
+import {Link} from 'react-router-component';
+
 export default React.createClass({
 	displayName: 'AnnotationBar',
 
@@ -48,8 +52,12 @@ export default React.createClass({
 
 	render () {
 		let {item, onNewDiscussion, onSetHighlight, onRemoveHighlight} = this.props;
+		let discussionLink;
 
 		if (item) {
+			if (item.isNote) {
+				discussionLink = `/discussions/${encodeForURI(item.id)}/`;
+			}
 			item = item.highlightColorName;
 		}
 
@@ -62,8 +70,9 @@ export default React.createClass({
 			<div className="add annotation toolbar">
 				{hightlighters}
 				<C tag="button" condition={onRemoveHighlight} className="ugd delete" onClick={this.onUnHighlight}>Remove Hightlight</C>
-				<C tag="span" condition={onNewDiscussion} className="spacer"/>
+				<C tag="span" condition={onNewDiscussion || discussionLink} className="spacer"/>
 				<C tag="button" condition={onNewDiscussion} className="ugd note icon-discuss" onClick={this.onNote}>Discuss</C>
+				<C tag={Link} condition={discussionLink} href={discussionLink}>View Discussion</C>
 			</div>
 		);
 	}
