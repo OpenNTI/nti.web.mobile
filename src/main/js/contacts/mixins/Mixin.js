@@ -48,9 +48,7 @@ export default {
 
 	setUpStore () {
 		Api.getStore(this.storeType)
-		.then(store => this.setState({
-			store
-		}));
+			.then(store => this.setState({store}));
 	},
 
 	updateSearchQuery (event) {
@@ -111,7 +109,7 @@ export default {
 			<div className="search-summary">
 				<div>
 					<div>Searching for {this.state.search}:</div>
-					<div>{t('filteredContacts', {count: items.length})}, {t('searchResults', {count: searchResults.length})}.</div>	
+					<div>{t('filteredContacts', {count: items.length})}, {t('searchResults', {count: searchResults.length})}.</div>
 				</div>
 			</div>
 		);
