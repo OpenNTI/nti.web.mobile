@@ -5,6 +5,10 @@ import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import ListMeta from './ListMeta';
+import {areYouSure} from 'prompts';
+import {scoped} from 'common/locale';
+
+let t = scoped('CONTACTS');
 
 export default React.createClass({
 	displayName: 'Contacts:Groups',
@@ -41,15 +45,17 @@ export default React.createClass({
 	deleteList (item, event) {
 		event.stopPropagation();
 		event.preventDefault();
-		this.setState({
-			loading: true
-		});
-		item.delete()
-			.then(() => {
-				this.setState({
-					loading: false
-				});
+		areYouSure(t('deleteListPrompt')).then(() => {
+			this.setState({
+				loading: true
 			});
+			item.delete()
+				.then(() => {
+					this.setState({
+						loading: false
+					});
+				});
+		});
 	},
 
 	beforeList () {

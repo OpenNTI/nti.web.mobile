@@ -10,5 +10,6 @@ export default {
 	listMembers: {
 		one: '%(count)s contact',
 		other: '%(count)s contacts'
-	}
+	},
+	deleteListPrompt: 'Delete this list?'
 };
