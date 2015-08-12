@@ -1,5 +1,6 @@
 import {getService} from 'common/utils';
 import {USERS, GROUPS, LISTS} from './Constants';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const storeGetters = {
 	[USERS]: getContactsStore,
@@ -25,5 +26,14 @@ function getListsStore () {
 export default {
 	getStore (type) {
 		return storeGetters[type]();
+	},
+
+	getDistributionList (id) {
+		let listId = decodeFromURI(id);
+		return getListsStore()
+			.then(store => {
+				let lists = store.getLists();
+				return lists.find(list => decodeFromURI(list.getID()) === listId) || null;
+			});
 	}
 };

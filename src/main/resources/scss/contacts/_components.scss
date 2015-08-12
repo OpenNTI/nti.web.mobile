@@ -46,6 +46,7 @@
 		padding: 1rem;
 		h2 {
 			font-size: 1.5rem;
+			line-height: 1;
 			font-weight: 100;
 			font-family: 'Open Sans';
 		}
@@ -65,7 +66,7 @@
 			width: 2em;
 			height: 2em;
 			font-family: 'icomoon';
-			color: $primary-red;
+			color: $tertiary-grey;
 		}
 		&.follow::after {
 			content: '\e601';

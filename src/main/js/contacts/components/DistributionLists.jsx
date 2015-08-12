@@ -2,6 +2,7 @@ import React from 'react/addons';
 import mixin from '../mixins/Mixin';
 import {LISTS} from '../Constants';
 import Avatar from 'common/components/Avatar';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 export default React.createClass({
 	displayName: 'Contacts:Groups',
@@ -17,10 +18,13 @@ export default React.createClass({
 	renderListItem (item) {
 		return (
 			<li key={item.displayName}>
-				<div>
-					<Avatar entity={item} />
-					{item.displayName}
-				</div>
+				<a href={encodeForURI(item.getID())}>
+					<div>
+						<Avatar entity={item} />
+						{item.displayName}
+
+					</div>
+				</a>
 			</li>
 		);
 	}
