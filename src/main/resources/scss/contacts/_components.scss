@@ -1,5 +1,6 @@
 @import 'components/list-detail';
 @import 'components/list-creation-form';
+@import 'components/distribution-list-item';
 
 .contacts-nav {
 	@extend %tabbed-nav;

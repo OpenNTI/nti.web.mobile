@@ -2,12 +2,17 @@ import React from 'react/addons';
 import mixin from '../mixins/Mixin';
 import {LISTS} from '../Constants';
 import Avatar from 'common/components/Avatar';
+import DisplayName from 'common/components/DisplayName';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {scoped} from 'common/locale';
+
+let t = scoped('CONTACTS');
 
 export default React.createClass({
 	displayName: 'Contacts:Groups',
 	mixins: [mixin],
 	storeType: LISTS,
+	listName: 'Distribution Lists',
 
 	getDefaultProps () {
 		return {
@@ -35,6 +40,20 @@ export default React.createClass({
 			});
 	},
 
+	deleteList (item, event) {
+		event.stopPropagation();
+		event.preventDefault();
+		this.setState({
+			loading: true
+		});
+		item.delete()
+			.then(() => {
+				this.setState({
+					loading: false
+				});
+			});
+	},
+
 	beforeList () {
 		return this.creationField();
 	},
@@ -49,10 +68,11 @@ export default React.createClass({
 		return (
 			<li key={item.getID()}>
 				<a href={encodeForURI(item.getID())}>
-					<div>
-						<Avatar entity={item} />
-						{item.displayName}
-
+					<Avatar entity={item} />
+					<div className="body">
+						<DisplayName entity={item} />
+						<div className="meta member-count">{t('listMembers', {count: (item.friends || []).length})}</div>
+						{item.delete && <div className="delete" onClick={this.deleteList.bind(this, item)}></div>}
 					</div>
 				</a>
 			</li>

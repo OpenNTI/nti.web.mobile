@@ -7,6 +7,7 @@ export default React.createClass({
 	displayName: 'Contacts:Groups',
 	mixins: [mixin],
 	storeType: GROUPS,
+	listName: 'Groups',
 
 	getDefaultProps () {
 		return {

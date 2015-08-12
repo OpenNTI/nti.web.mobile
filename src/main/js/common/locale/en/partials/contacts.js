@@ -6,5 +6,9 @@ export default {
 	filteredContacts: {
 		one: '%(count)s contact',
 		other: '%(count)s contacts'
+	},
+	listMembers: {
+		one: '%(count)s contact',
+		other: '%(count)s contacts'
 	}
 };
