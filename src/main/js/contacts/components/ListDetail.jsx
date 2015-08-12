@@ -83,8 +83,10 @@ export default React.createClass({
 			// if (list.contains(c)) {continue;}
 			contactItems.push(
 				<li key={c.getID()} className={list.contains(c) ? 'list-member' : 'non-list-member'} onClick={this.toggleMembership.bind(this, c)}>
-					<Avatar entity={c} />
-					<DisplayName entity={c} />
+					<div>
+						<Avatar entity={c} />
+						<DisplayName entity={c} />
+					</div>
 				</li>
 			);
 		}
@@ -104,7 +106,7 @@ export default React.createClass({
 				</ul>
 				<h2>Contacts</h2>
 				*/}
-				<ul className="contacts-list">
+				<ul className="contacts-list avatar-grid">
 					{contactItems}
 				</ul>
 			</div>

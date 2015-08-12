@@ -119,9 +119,25 @@ export default {
 		this.updateSearchQuery();
 	},
 
+	searchField (items) {
+
+		let {search, searchResults} = this.state;
+
+		return this.hasSearch &&
+			(<div>
+				<div className="search-field">
+					<input type="search" ref="search" onChange={this.updateSearchQuery} value={search} />
+					<div className={'icon ' + (search.length > 0 ? 'clear-search-icon' : 'search-icon')} onClick={this.clearSearch} />
+				</div>
+				<div>
+					{this.resultsSummary(items, searchResults)}
+				</div>
+			</div>);
+	},
+
 	render () {
 
-		let {error, store, searchResults} = this.state;
+		let {error, search, store} = this.state;
 
 		if (error) {
 			return <Err error={error} />;
@@ -132,7 +148,6 @@ export default {
 		}
 
 		let items = [];
-		let {search} = this.state;
 		for(let item of store) {
 			if(!store.entityMatchesQuery || store.entityMatchesQuery(item, search)) {
 				items.push(this.renderListItem(item));
@@ -141,17 +156,7 @@ export default {
 
 		return (
 			<div>
-				{this.hasSearch &&
-					<div>
-						<div className="search-field">
-							<input type="search" ref="search" onChange={this.updateSearchQuery} value={search} />
-							<div className={'icon ' + (search.length > 0 ? 'clear-search-icon' : 'search-icon')} onClick={this.clearSearch} />
-						</div>
-						<div>
-							{this.resultsSummary(items, searchResults)}
-						</div>
-					</div>
-				}
+				{this.searchField(items)}
 				<div>
 					{this.listName && <h2>{this.listName}</h2>}
 					<ul className={'contacts-list ' + this.props.listClassName}>{items}</ul>
