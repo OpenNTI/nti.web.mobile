@@ -2,6 +2,8 @@ import React from 'react';
 import Api from '../Api';
 import Loading from 'common/components/Loading';
 import {USERS} from '../Constants';
+import Avatar from 'common/components/Avatar';
+import DisplayName from 'common/components/DisplayName';
 
 export default React.createClass({
 	displayName: 'ListDetail',
@@ -75,18 +77,33 @@ export default React.createClass({
 			return <div>List not loaded.</div>;
 		}
 
-		let members = list.friends || [];
+		// let members = list.friends || [];
 		let contactItems = [];
 		for(let c of contacts) {
-			contactItems.push(<li key={c.getID()} onClick={this.toggleMembership.bind(this,c)}>{c.displayName}</li>);
+			// if (list.contains(c)) {continue;}
+			contactItems.push(
+				<li key={c.getID()} className={list.contains(c) ? 'list-member' : 'non-list-member'} onClick={this.toggleMembership.bind(this, c)}>
+					<Avatar entity={c} />
+					<DisplayName entity={c} />
+				</li>
+			);
 		}
 
 		return (
 			<div className="list-detail">
 				<h1>{list.displayName}</h1>
+				{/*
+				<h2>List Members</h2>
 				<ul className="list-members">
-					{members.map(item => <li key={item.getID()}>{item.displayName}</li>)}
+					{members.map(item =>
+						<li key={item.getID()} onClick={this.toggleMembership.bind(this, item)}>
+							<Avatar entity={item} />
+							<DisplayName entity={item} />
+						</li>)
+					}
 				</ul>
+				*/}
+				<h2>Contacts</h2>
 				<ul className="contacts-list">
 					{contactItems}
 				</ul>
