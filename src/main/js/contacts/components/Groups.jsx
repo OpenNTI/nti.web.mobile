@@ -16,12 +16,42 @@ export default React.createClass({
 		};
 	},
 
+	addGroup () {
+		let {store} = this.state;
+		if (!store) {
+			return;
+		}
+		let name = this.refs.creationfield.getDOMNode().value.trim();
+		if(name.length === 0) {
+			return;
+		}
+		this.setState({
+			loading: true
+		});
+		store.createGroup(name)
+			.then(() => {
+				this.setState({
+					loading: false
+				});
+			});
+	},
+
+
+	beforeList () {
+		return this.creationField();
+	},
+
+	creationField () {
+		return (
+			<div className="list-creation-form"><input type="text" ref="creationfield" /><button className="tiny add-button" onClick={this.addGroup}>Add</button></div>
+		);
+	},
+
 	renderListItem (item) {
 		return (
 			<li key={item.displayName}>
 				<div>
-					<AvatarProfileLink entity={item} />
-					<ListMeta entity={item} />
+					<AvatarProfileLink entity={item}><ListMeta entity={item} /></AvatarProfileLink>
 				</div>
 			</li>
 		);
