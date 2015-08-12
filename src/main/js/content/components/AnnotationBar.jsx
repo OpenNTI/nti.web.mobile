@@ -32,7 +32,9 @@ export default React.createClass({
 	getRange () {
 		let range = void 0;
 		try {
-			range = window.getSelection().getRangeAt(0);
+			let sel = window.getSelection();
+			range = sel.getRangeAt(0);
+			sel.removeAllRanges();
 		}
 		catch (e) {} //eslint-disable-line
 
@@ -75,7 +77,7 @@ export default React.createClass({
 		e.stopPropagation();
 
 		if (this.isBusy()) { return; }
-		
+
 		this.props.onNewDiscussion(this.getRange());
 	},
 
@@ -98,6 +100,7 @@ export default React.createClass({
 					'selected': (item === x.toLowerCase() && !busy) || busy === x.toLowerCase(),
 					'busy': busy === x.toLowerCase()
 				})}
+				onTouchStart={this.onHighlight}
 				onClick={this.onHighlight}>Highlight</button> ));
 
 		return (
