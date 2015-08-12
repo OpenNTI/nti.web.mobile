@@ -19,8 +19,29 @@ export default React.createClass({
 	},
 
 
+	getInitialState () {
+		return {};
+	},
+
+
+	componentWillReceiveProps () {
+		this.replaceState(this.getInitialState());
+	},
+
+
 	getRange () {
-		return window.getSelection().getRangeAt(0);
+		let range = void 0;
+		try {
+			range = window.getSelection().getRangeAt(0);
+		}
+		catch (e) {} //eslint-disable-line
+
+		return range;
+	},
+
+
+	isBusy () {
+		return !!this.state.busy;
 	},
 
 
@@ -28,9 +49,12 @@ export default React.createClass({
 		e.preventDefault();
 		e.stopPropagation();
 
+		if (this.isBusy()) { return; }
+
 		let c = e.target.getAttribute('data-color');
 		c = c && c.toLowerCase();
 
+		this.setState({busy: c});
 		this.props.onSetHighlight(this.getRange(), c);
 	},
 
@@ -39,6 +63,9 @@ export default React.createClass({
 		e.preventDefault();
 		e.stopPropagation();
 
+		if (this.isBusy()) { return; }
+
+		this.setState({busy: 'delete'});
 		this.props.onRemoveHighlight(this.getRange());
 	},
 
@@ -46,11 +73,15 @@ export default React.createClass({
 	onNote (e) {
 		e.preventDefault();
 		e.stopPropagation();
+
+		if (this.isBusy()) { return; }
+		
 		this.props.onNewDiscussion(this.getRange());
 	},
 
 
 	render () {
+		let {busy} = this.state;
 		let {item, onNewDiscussion, onSetHighlight, onRemoveHighlight} = this.props;
 		let discussionLink;
 
@@ -63,13 +94,16 @@ export default React.createClass({
 
 		let hightlighters = onSetHighlight && ['Yellow', 'Green', 'Blue'].map(x => (
 			<button key={x} data-color={x}
-				className={cx('ugd highlight', x.toLowerCase(), {'selected': item === x.toLowerCase()})}
+				className={cx('ugd highlight', x.toLowerCase(), {
+					'selected': (item === x.toLowerCase() && !busy) || busy === x.toLowerCase(),
+					'busy': busy === x.toLowerCase()
+				})}
 				onClick={this.onHighlight}>Highlight</button> ));
 
 		return (
 			<div className="add annotation toolbar">
 				{hightlighters}
-				<C tag="button" condition={onRemoveHighlight} className="ugd delete" onClick={this.onUnHighlight}>Remove Hightlight</C>
+				<C tag="button" condition={onRemoveHighlight} className={cx('ugd delete', {'busy': busy === 'delete'})} onClick={this.onUnHighlight}>Remove Hightlight</C>
 				<C tag="span" condition={onNewDiscussion || discussionLink} className="spacer"/>
 				<C tag="button" condition={onNewDiscussion} className="ugd note icon-discuss" onClick={this.onNote}>Discuss</C>
 				<C tag={Link} condition={discussionLink} className="ugd note icon-discuss" href={discussionLink}>View Discussion</C>
