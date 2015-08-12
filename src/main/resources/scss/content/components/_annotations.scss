@@ -57,14 +57,14 @@
 
 		&.shared-with-me {
 			&,.math {
+			&, .math {
 				background: none;
 				color: $primary-grey;
 				border-bottom: 1px solid #9fd9fa;
 			}
 
-
-			.application-highlight {
-				&,.math {
+			& & {//the "& &" is intentional
+				&, .math {
 					border-bottom: none;
 				}
 			}
