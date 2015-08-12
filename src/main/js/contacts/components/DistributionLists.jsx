@@ -15,9 +15,39 @@ export default React.createClass({
 		};
 	},
 
+	addList () {
+		let {store} = this.state;
+		if (!store) {
+			return;
+		}
+		let listName = this.refs.newListName.getDOMNode().value.trim();
+		if(listName.length === 0) {
+			return;
+		}
+		this.setState({
+			loading: true
+		});
+		store.createList(listName)
+			.then(() => {
+				this.setState({
+					loading: false
+				});
+			});
+	},
+
+	beforeList () {
+		return this.creationField();
+	},
+
+	creationField () {
+		return (
+			<div className="list-creation-form"><input type="text" ref="newListName" /><button className="tiny add-button" onClick={this.addList}>Add</button></div>
+		);
+	},
+
 	renderListItem (item) {
 		return (
-			<li key={item.displayName}>
+			<li key={item.getID()}>
 				<a href={encodeForURI(item.getID())}>
 					<div>
 						<Avatar entity={item} />

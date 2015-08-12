@@ -21,6 +21,9 @@
 				color: $primary-green;
 			}
 		}
+		&.non-list-member {
+			opacity: .4;
+		}
 	}
 	.avatar {
 		width: $avatarsize;
