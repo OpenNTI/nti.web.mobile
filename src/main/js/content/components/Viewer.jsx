@@ -334,6 +334,8 @@ export default React.createClass({
 			return null;
 		}
 
+		if (selected.isNote) { return null; } //don't deal with notes for now.
+
 		let props = {
 			item: isRange ? None : selected,
 			onNewDiscussion: (isRange || isHighlight) ? this.createNote : None,
