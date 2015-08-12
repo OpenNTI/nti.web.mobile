@@ -4,9 +4,7 @@ import {LISTS} from '../Constants';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
-import {scoped} from 'common/locale';
-
-let t = scoped('CONTACTS');
+import ListMeta from './ListMeta';
 
 export default React.createClass({
 	displayName: 'Contacts:Groups',
@@ -71,7 +69,7 @@ export default React.createClass({
 					<Avatar entity={item} />
 					<div className="body">
 						<DisplayName entity={item} />
-						<div className="meta member-count">{t('listMembers', {count: (item.friends || []).length})}</div>
+						<ListMeta entity={item} />
 						{item.delete && <div className="delete" onClick={this.deleteList.bind(this, item)}></div>}
 					</div>
 				</a>
