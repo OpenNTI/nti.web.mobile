@@ -46,6 +46,42 @@ export default class Highlight extends Annotation {
 		span.setAttribute('class', this.highlightCls);
 		return span;
 	}
+
+
+	updateColor (newColor) {
+		let rec = this.getRecord();
+		let p = rec.presentationProperties;
+
+		p = p ? Object.create(p) : {};
+
+		p.highlightColorName = newColor;
+
+		return rec.save({presentationProperties: p})
+			.then(() => {
+				this.setupDomClassNames();
+				for (let el of this[RENDERED]) {
+					try {
+						el.setAttribute('class', this.highlightCls);
+					}
+					catch(e) { console.warn(e); }
+				}
+			});
+	}
+
+
+	remove () {
+		let nodes = this[RENDERED];
+		let rec = this.getRecord();
+		return rec.delete()
+			.then(() => {
+				delete this[RENDERED];
+				for (let el of nodes) {
+					this.unwrap(el);
+				}
+			});
+	}
+
+
 	buildRange () {
 		let doc = this.getDocument();
 		let range = doc && doc.createRange();

@@ -207,11 +207,25 @@ export default {
 	},
 
 
-	updateHighlight (range, color) {
-		console.log(range, color);
+	updateHighlight (_, color) {
+		let {selected} = this.state;
+		try {
+			selected.updateColor(color)
+				.then(()=> this.forceUpdate());
+		} catch (e) {
+			console.warn(e.stack || e.message || e);
+		}
 	},
 
 
 	removeHighlight () {
+		let {selected} = this.state;
+		try {
+			selected.remove()
+				.then(this.setState({selected: void 0}));
+		}
+		catch (e) {
+			console.warn(e.stack || e.message || e);
+		}
 	}
 };
