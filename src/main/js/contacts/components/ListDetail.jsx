@@ -102,8 +102,8 @@ export default React.createClass({
 						</li>)
 					}
 				</ul>
-				*/}
 				<h2>Contacts</h2>
+				*/}
 				<ul className="contacts-list">
 					{contactItems}
 				</ul>
