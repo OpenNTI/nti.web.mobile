@@ -51,11 +51,11 @@
 
 		overflow: hidden;
 
-		&:not(.shared-with-me) {
+		&.colored {
 			@include highlight-colors();
 		}
 
-		&.shared-with-me {
+		&:not(.colored) {
 			&, .math {
 				background: none;
 				color: $primary-grey;
