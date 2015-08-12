@@ -5,7 +5,7 @@ export default React.createClass({
 
 	propTypes: {
 		condition: React.PropTypes.bool,
-		tag: React.PropTypes.string
+		tag: React.PropTypes.any
 	},
 
 
