@@ -3,6 +3,8 @@ import mixin from '../mixins/Mixin';
 import Loading from 'common/components/Loading';
 import {USERS} from '../Constants';
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
+import Err from 'common/components/Error';
+
 import {scoped} from 'common/locale';
 
 let t = scoped('CONTACTS');
