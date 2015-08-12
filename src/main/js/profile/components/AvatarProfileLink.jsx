@@ -21,7 +21,7 @@ export default React.createClass({
 				<Avatar entity={e} />
 				<div className="body">
 					<DisplayName entity={e} />
-					<span className="location" dangerouslySetInnerHTML={{__html: e.location}}/>
+					{e.location && <span className="location" dangerouslySetInnerHTML={{__html: e.location}}/>}
 				</div>
 				{e.follow && <FollowButton entity={e} />}
 			</ProfileLink>
