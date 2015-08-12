@@ -1,7 +1,7 @@
 import buffer from 'nti.lib.interfaces/utils/function-buffer';
 
 import {createRangeDescriptionFromRange, preresolveLocatorInfo} from 'nti.lib.anchorjs';
-import {getEventTarget} from 'nti.lib.dom';
+import {getEventTarget, parent} from 'nti.lib.dom';
 
 import Highlight from '../annotations/Highlight';
 import Note from '../annotations/Note';
@@ -20,6 +20,9 @@ export function select (item) {
 
 	console.warn('Unhandled Item:', item);
 }
+
+
+const rotate = (a, ix) => a.slice(ix).concat(a.slice(0, ix));
 
 
 function getStore (o) {
@@ -135,10 +138,28 @@ export default {
 
 
 	maybeOfferAnnotations (eventMeta, selected) {
-		let highlight = getEventTarget(eventMeta, '.application-highlight');
+		if (!selected) {
+			let e = getEventTarget(eventMeta);
+			let highlights = [];
 
-		if (!selected && highlight) {
-			selected = this.getAnnotationFromNode(highlight);
+			let p;
+			while ((p = parent(e, '.application-highlight'))) {
+				let item = this.getAnnotationFromNode(p);
+				//ignore annotations you cannot control.
+				if (item.isModifiable) {
+					highlights.push(item);
+				}
+				e = p.parentNode;
+			}
+
+			if (highlights.length > 0) {
+				let index = highlights.indexOf(this.state.selected);
+				if (index !== -1) {
+					highlights = rotate(highlights, index + 1);
+				}
+			}
+
+			selected = highlights[0];
 		}
 
 		this.setState({selected});
