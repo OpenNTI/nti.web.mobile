@@ -320,6 +320,7 @@ export default React.createClass({
 
 
 	renderAnnotationToolbar () {
+		const None = void 0;
 		let {selected} = this.state;
 		if (!selected) {
 			return null;
@@ -328,11 +329,16 @@ export default React.createClass({
 		let isRange = selected instanceof Range;
 		let isHighlight = !isRange && !selected.isNote;
 
+		if (!isRange && !selected.isModifiable) {
+			console.debug('Selected annotation is not modifiable: %o', selected);
+			return null;
+		}
+
 		let props = {
-			item: isHighlight ? selected : void 0,
-			onNewDiscussion: (isRange || isHighlight) ? this.createNote : void 0,
-			onSetHighlight: isHighlight ? this.updateHighlight : isRange ? this.createHighlight : void 0,
-			onRemoveHighlight: isHighlight ? this.removeHighlight : void 0
+			item: isRange ? None : selected,
+			onNewDiscussion: (isRange || isHighlight) ? this.createNote : None,
+			onSetHighlight: isRange ? this.createHighlight : this.updateHighlight,
+			onRemoveHighlight: isHighlight ? this.removeHighlight : None
 		};
 
 		return (
