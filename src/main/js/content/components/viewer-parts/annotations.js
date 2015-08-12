@@ -152,7 +152,7 @@ export default {
 				e = p.parentNode;
 			}
 
-			if (highlights.length > 0) {
+			if (highlights.length > 1) {
 				let index = highlights.indexOf(this.state.selected);
 				if (index !== -1) {
 					highlights = rotate(highlights, index + 1);
