@@ -98,7 +98,7 @@ export default React.createClass({
 		return this.hasSearch &&
 			(<div>
 				<div className="search-field">
-					<input type="search" ref="search" onChange={this.updateSearchQuery} value={search} />
+					<input type="search" ref="search" onChange={this.updateSearchQuery} value={search} placeholder={t('searchFieldPlaceholder')} />
 					<div className={'icon ' + (search.length > 0 ? 'clear-search-icon' : 'search-icon')} onClick={this.clearSearch} />
 				</div>
 				<div>

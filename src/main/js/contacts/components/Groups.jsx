@@ -3,6 +3,9 @@ import mixin from '../mixins/Mixin';
 import {GROUPS} from '../Constants';
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 import ListMeta from './ListMeta';
+import {scoped} from 'common/locale';
+
+let t = scoped('CONTACTS');
 
 export default React.createClass({
 	displayName: 'Contacts:Groups',
@@ -43,7 +46,7 @@ export default React.createClass({
 
 	creationField () {
 		return (
-			<div className="list-creation-form"><input type="text" ref="creationfield" /><button className="tiny add-button" onClick={this.addGroup}>Add</button></div>
+			<div className="list-creation-form"><input type="text" ref="creationfield" placeholder={t('newGroupPlaceholder')}/><button className="tiny add-button" onClick={this.addGroup}>Add</button></div>
 		);
 	},
 
