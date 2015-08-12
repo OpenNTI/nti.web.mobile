@@ -72,7 +72,7 @@ export default React.createClass({
 				<C tag="button" condition={onRemoveHighlight} className="ugd delete" onClick={this.onUnHighlight}>Remove Hightlight</C>
 				<C tag="span" condition={onNewDiscussion || discussionLink} className="spacer"/>
 				<C tag="button" condition={onNewDiscussion} className="ugd note icon-discuss" onClick={this.onNote}>Discuss</C>
-				<C tag={Link} condition={discussionLink} href={discussionLink}>View Discussion</C>
+				<C tag={Link} condition={discussionLink} className="ugd note icon-discuss" href={discussionLink}>View Discussion</C>
 			</div>
 		);
 	}
