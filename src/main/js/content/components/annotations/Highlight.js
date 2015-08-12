@@ -26,7 +26,8 @@ export default class Highlight extends Annotation {
 
 		this.highlightCls = cx('application-highlight', {
 			[highlightColorName]: highlightColorName,
-			'shared-with-me': !this.isModifiable
+			'shared-with-me': !this.isModifiable,
+			'colored': highlightColorName
 		});
 
 		Object.assign(this, {
