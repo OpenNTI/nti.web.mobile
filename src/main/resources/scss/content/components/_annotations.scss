@@ -1,21 +1,6 @@
 
-@mixin highlight-tip {
-	position: relative;
-	top: 0;
 
-	vertical-align: baseline;
-	//vertical-align: initial;
-	display: inline-block;
-	width: 5px;
-	width: 0px;
-	overflow: hidden;
-	//line-height: 23px;
-	//height: 24px;
-	text-align: center;
-	padding: 0 0 0 4px;
-}
-
-@mixin highlight-colors($onParentSelector: true, $selector:'', $nibselector:null) {
+@mixin highlight-colors($onParentSelector: true, $selector:'') {
 	@each $item in $highlight-colors {
 		$name: nth($item,1);
 		$menu_color: nth($item,2);
@@ -38,12 +23,6 @@
 			&.highlight-mouse-over {
 				background-color: $hover_color;
 			}
-
-			@if($nibselector) {
-				#{$nibselector} {
-					border-top-color: $highlight_color;
-				}
-			}
 		}
 	}
 }
@@ -62,11 +41,6 @@
 		&::before, &::after { z-index: 1; color: #076da7 }
 	}
 
-	// &.highlight-mouse-over {
-	// 	& + li.part, & + li.exercise {
-	// 		&::before, &::after { color: #ffffff; }
-	// 	}
-	// }
 
 	&.plain {
 
@@ -75,13 +49,10 @@
 			z-index: 1;
 		}
 
-		// color: #076da7;
-		// background-color: #e1f4fe;
 		overflow: hidden;
 
 		&:not(.shared-with-me) {
 			@include highlight-colors();
-			// clip-path: polygon(5px 4px, 50% 7%, 100% 16%, 98% 93%, 50% 86%, 0% 91%);
 		}
 
 		&.shared-with-me {
@@ -92,70 +63,9 @@
 			}
 
 
-			// &.highlight-mouse-over {
-			// 	&,.math {
-			// 		color: #ffffff;
-			// 		background-color: $primary-blue;
-			// 	}
-			// }
-
 			.application-highlight.shared-with-me {
 				&,.math {
 					border-bottom: none;
-				}
-			}
-		}
-
-		// &.highlight-mouse-over{
-		// 	&,a {
-		// 		// color: #ffffff;
-		// 		// background-color: $primary-blue;
-		// 		.application-highlight {
-		// 			background-color: transparent;
-		// 		}
-		// 	}
-		//
-		// 	&.counter {
-		// 		background: transparent;
-		// 	}
-		// }
-
-		&.redaction {
-			&.redacted {
-				display: none;
-			}
-			background: #efefef;
-			color: $secondary-grey;
-			border-bottom: 0px;
-		}
-
-		&.counter {
-			color: $secondary-grey;
-			font-weight: bold;
-
-			background: transparent;
-
-			@include highlight-tip;
-
-			//this is adding a space between letters when the highlight ends in a word
-			padding-left: 0;
-
-			&.with-count {
-				overflow: hidden;
-				width: 30px;
-
-
-				&.highlight-mouse-over{
-					color: #ffffff;
-				}
-
-				span {
-					display: block;
-					text-align: center;
-					margin-left: 5px;
-					overflow: hidden;
-					// white-space: nowrap;
-					// text-overflow: ellipsis;
 				}
 			}
 		}
