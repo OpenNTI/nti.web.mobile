@@ -53,8 +53,8 @@ export default React.createClass({
 
 	render () {
 		let {purchaseAttempt} = this.state;
-		let {purchasable} = this.props;
-		let title = (purchasable || {}).title || 'the course';
+		let {giftDoneLink, onDone, purchasable} = this.props;
+		let {title = 'the course'} = purchasable || {};
 
 		let isGift = (purchaseAttempt || {}).redemptionCode;
 
@@ -68,8 +68,8 @@ export default React.createClass({
 					<GiftSuccess
 						purchasable={purchasable}
 						purchaseattempt={purchaseAttempt}
-						onDone={this.props.onDone}
-						doneLink={this.props.giftDoneLink} /> :
+						onDone={onDone}
+						doneLink={giftDoneLink} /> :
 					<EnrollmentSuccess courseTitle={title} />
 				}
 			</div>
