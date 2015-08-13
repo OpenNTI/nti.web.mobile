@@ -38,14 +38,12 @@ export default React.createClass({
 	},
 
 	render () {
-		let courseTitle = this.props.purchasable.title;
-		let purchaseAttempt = this.props.purchaseattempt;
+		let {purchasable, purchaseattempt, doneLink} = this.props;
+		let {title} = purchasable;
+		let {receiver, sender, redemptionCode, transactionID} = purchaseattempt || {};
+		let {VendorInfo} = purchasable || {};
 
-		let receiver = purchaseAttempt && purchaseAttempt.receiver;
-		let sender = purchaseAttempt && purchaseAttempt.creator;
-
-		let vendorInfo = this.props.purchasable && this.props.purchasable.VendorInfo;
-		let date = this.getDate(vendorInfo && vendorInfo.StartDate);
+		let date = this.getDate(VendorInfo && VendorInfo.StartDate);
 		let alert;
 		let infoKey;
 		let support = siteString('GIFTSUPPORT');
@@ -59,7 +57,7 @@ export default React.createClass({
 
 		return (
 			<div className="gift-success row">
-				<Pricing purchasable={this.props.purchasable} locked={true} />
+				<Pricing purchasable={purchasable} locked={true} />
 				<div className="medium-8 medium-centered columns panel">
 					<h3 className="header">{t('title')}</h3>
 					<LocalizedHTML className="gift" stringId={`ENROLLMENT.GIFT.SUCCESS.${infoKey}`} sender={sender} receiver={receiver} />
@@ -67,7 +65,7 @@ export default React.createClass({
 
 					<LocalizedHTML className="prompt"
 							stringId={`ENROLLMENT.GIFT.SUCCESS.${(date ? 'info' : 'infoNoDate')}`}
-							courseTitle={courseTitle}
+							courseTitle={title}
 							startDate={date}/>
 
 					<LocalizedHTML className="support"
@@ -76,11 +74,11 @@ export default React.createClass({
 
 					<div className="token">
 						<span className="label">{t('accessKey')}</span>
-						<input type="text" className="value" value={purchaseAttempt.redemptionCode} onChange={this.ignoreChange}/>
+						<input type="text" className="value" value={redemptionCode} onChange={this.ignoreChange}/>
 					</div>
 					<div className="token">
 						<span className="label">{t('transactionID')}</span>
-						<input type="text" className="value" value={purchaseAttempt.transactionID} onChange={this.ignoreChange} />
+						<input type="text" className="value" value={transactionID} onChange={this.ignoreChange} />
 					</div>
 				</div>
 				<div className="medium-8 medium-centered columns row actions">
