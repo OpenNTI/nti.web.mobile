@@ -10,7 +10,13 @@ export default React.createClass({
 	mixins: [NoteableMixin],
 
 	statics: {
-		noteableType: ['forums.communityheadlinetopic']
+		// /forums\.((.*)headlinetopic)$/i
+		noteableType: [
+			'forums.headlinetopic',
+			'forums.communityheadlinetopic',
+			'forums.contentheadlinetopic',
+			'forums.dflheadlinetopic'
+		]
 	},
 
 	render () {
