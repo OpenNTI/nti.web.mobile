@@ -1,6 +1,7 @@
 import React from 'react/addons';
-import ActiveLink from 'common/components/ActiveLink';
+import ActiveState from 'common/components/ActiveState';
 import Page from 'common/components/Page';
+import {Link} from 'react-router-component';
 
 export default React.createClass({
 	displayName: 'Contacts:PageFrame',
@@ -28,9 +29,9 @@ export default React.createClass({
 				<div className="contacts-page gradient-bg">
 					<header>
 						<ul className="contacts-nav">
-							<li><ActiveLink href="/users/">Contacts</ActiveLink></li>
-							<li><ActiveLink href="/groups/">Groups</ActiveLink></li>
-							<li><ActiveLink href="/lists/">Distribution Lists</ActiveLink></li>
+							<li><ActiveState tag={Link} href="/users/">Contacts</ActiveState></li>
+							<li><ActiveState tag={Link} href="/groups/">Groups</ActiveState></li>
+							<li><ActiveState tag={Link} href="/lists/" hasChildren>Distribution Lists</ActiveState></li>
 						</ul>
 					</header>
 					<div className="contacts-page-content">
