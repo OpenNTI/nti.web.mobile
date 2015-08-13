@@ -4,12 +4,13 @@ import {GROUPS} from '../Constants';
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 import ListMeta from './ListMeta';
 import {scoped} from 'common/locale';
+import ContextSender from 'common/mixins/ContextSender';
 
 let t = scoped('CONTACTS');
 
 export default React.createClass({
 	displayName: 'Contacts:Groups',
-	mixins: [mixin],
+	mixins: [mixin, ContextSender],
 	storeType: GROUPS,
 	listName: 'Groups',
 
@@ -17,6 +18,12 @@ export default React.createClass({
 		return {
 			listClassName: 'groups avatar-grid'
 		};
+	},
+
+	getContext () {
+		return Promise.resolve({
+			label: 'Groups'
+		});
 	},
 
 	addGroup () {

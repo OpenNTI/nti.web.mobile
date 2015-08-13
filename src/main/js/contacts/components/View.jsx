@@ -5,19 +5,27 @@ import Page from './PageFrame';
 
 import Groups from './Groups';
 import Users from './Users';
-import DistributionLists from './DistributionLists';
-import ListDetail from './ListDetail';
+import ListsView from './ListsView';
+import ContextContributor from 'common/mixins/ContextContributor';
+import BasePathAware from 'common/mixins/BasePath';
 
 const ROUTES = [
 	{path: '/users(/*)', handler: Users},
 	{path: '/groups(/*)', handler: Groups},
-	{path: '/lists(/:id)', handler: ListDetail},
-	{path: '/lists(/*)', handler: DistributionLists},
+	{path: '/lists(/:id)(/*)', handler: ListsView},
 	{} // default
 ];
 
 export default React.createClass({
 	displayName: 'Contacts:View',
+	mixins: [ContextContributor, BasePathAware],
+
+	getContext () {
+		return Promise.resolve({
+			href: this.getBasePath(),
+			label: 'Home'
+		});
+	},
 
 	render () {
 		return React.createElement(Router.Locations, {ref: 'router', contextual: true},

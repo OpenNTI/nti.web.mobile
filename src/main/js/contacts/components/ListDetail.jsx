@@ -4,10 +4,12 @@ import Loading from 'common/components/Loading';
 import {USERS} from '../Constants';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
+import ContextSender from 'common/mixins/ContextSender';
+import BasePath from 'common/mixins/BasePath';
 
 export default React.createClass({
 	displayName: 'ListDetail',
-
+	mixins: [ContextSender, BasePath],
 	propTypes: {
 		id: React.PropTypes.string.isRequired
 	},
@@ -40,6 +42,12 @@ export default React.createClass({
 		if (list) {
 			list.removeListener('change', this.onStoreChange);
 		}
+	},
+
+	getContext () {
+		return Promise.resolve({
+			label: 'List Details'
+		});
 	},
 
 	onStoreChange () {

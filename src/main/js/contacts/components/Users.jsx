@@ -4,6 +4,7 @@ import Loading from 'common/components/Loading';
 import {USERS} from '../Constants';
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 import Err from 'common/components/Error';
+import ContextSender from 'common/mixins/ContextSender';
 
 import {scoped} from 'common/locale';
 
@@ -11,7 +12,7 @@ let t = scoped('CONTACTS');
 
 export default React.createClass({
 	displayName: 'Contacts:Users',
-	mixins: [mixin],
+	mixins: [mixin, ContextSender],
 	storeType: USERS,
 
 	getDefaultProps () {
@@ -20,8 +21,13 @@ export default React.createClass({
 		};
 	},
 
-	hasSearch: true,
 	listName: 'Contacts',
+
+	getContext () {
+		return Promise.resolve({
+			label: 'Contacts'
+		});
+	},
 
 	updateSearchQuery (event) {
 		let query = event ? event.target.value.trim() : '';

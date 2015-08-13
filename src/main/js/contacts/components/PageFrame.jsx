@@ -21,11 +21,10 @@ export default React.createClass({
 
 
 	render () {
-		let {menu} = this.state || {};
 		let Content = this.props.pageContent;
 
 		return (
-			<Page title="Contacts" availableSections={menu}>
+			<Page title="Contacts">
 				<div className="contacts-page gradient-bg">
 					<header>
 						<ul className="contacts-nav">
