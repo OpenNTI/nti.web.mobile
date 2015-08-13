@@ -203,7 +203,11 @@ export default {
 
 
 	createHighlight (range, color) {
-		console.log(range, color);
+		let store = getStore(this.state);
+		let highlight = Highlight.createFrom(this.selectionToCommonUGD(range), color);
+
+		store.create(highlight)
+			.then(() => this.setState({selected: void 0}));
 	},
 
 

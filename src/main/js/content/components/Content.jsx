@@ -56,7 +56,7 @@ export default React.createClass({
 		//See if we need to re-mount/render our components...
 		let widgets = this.getPageWidgets();
 		let widgetCount = Object.keys(widgets).length;
-		shouldUpdate = shouldUpdate || widgetCount === 0;
+		shouldUpdate = shouldUpdate || (widgetCount === 0 && !this.state.prestine);
 
 		if (widgets && this.refs.content) {
 			// console.debug('Content View: Did Update... %o', widgets);
