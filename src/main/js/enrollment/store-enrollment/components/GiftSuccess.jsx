@@ -38,7 +38,7 @@ export default React.createClass({
 	},
 
 	render () {
-		let {purchasable, purchaseattempt, doneLink} = this.props;
+		let {purchasable, purchaseattempt, onDone, doneLink} = this.props;
 		let {title} = purchasable;
 		let {receiver, sender, redemptionCode, transactionID} = purchaseattempt || {};
 		let {VendorInfo} = purchasable || {};
@@ -53,6 +53,10 @@ export default React.createClass({
 		} else {
 			infoKey = 'toSender';
 			alert = t('alert');
+		}
+
+		if (typeof onDone !== 'function') {
+			onDone = void 0;
 		}
 
 		return (
@@ -86,7 +90,7 @@ export default React.createClass({
 						<Button onClick={this.onNewGift}>Purchase another Gift</Button>
 					</div>
 					<div className="small-12 medium-6 columns">
-						<Button href={this.props.doneLink}>I'm done</Button>
+						<Button onClick={onDone} href={doneLink}>I'm done</Button>
 					</div>
 				</div>
 			</div>
