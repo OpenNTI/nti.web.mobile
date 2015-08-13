@@ -48,8 +48,10 @@ export default React.createClass({
 
 
 	onHighlight (e) {
-		e.preventDefault();
-		e.stopPropagation();
+		if (e.type === 'click') {
+			e.preventDefault();
+			e.stopPropagation();
+		}
 
 		if (this.isBusy()) { return; }
 
