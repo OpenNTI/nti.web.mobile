@@ -6,7 +6,7 @@ import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
 import {scoped} from 'common/locale';
 
-const MISSING = '%%missing%%';
+const MISSING = '~~missing~~';
 
 const t = scoped('COURSE.CONTACTINFO');
 
