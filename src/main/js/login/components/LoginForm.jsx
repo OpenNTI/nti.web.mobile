@@ -70,10 +70,6 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.updateUsername();
-		let f = React.findDOMNode(this.refs.username);
-		if (f) {
-			f.focus();
-		}
 	},
 
 
