@@ -35,8 +35,16 @@
 		&.selected {
 			&::after {
 				background-color: rgba($primary-blue, 1);
-				box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.5),
-				inset 0 1px 1px 0px rgba(255, 255, 255, 0.6);
+				box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.5), inset 0 1px 1px 0px rgba(255, 255, 255, 0.6);
+			}
+		}
+		&.busy {
+			&::after {
+				content:'';
+				box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.5);
+				animation: rotation 0.9s infinite linear;
+				background: radial-gradient(5px 20px, white 21%, #b8b8b8 21%) white;
+				margin-top: -($iconsize/2); // the rotation overwrites our transform for vertical centering.
 			}
 		}
 		&.removable {
