@@ -90,7 +90,7 @@ export default React.createClass({
 	},
 
 	storeChanged (event) {
-		let errs;
+		let errors;
 		console.debug('SignupForm received Store change event: %O', event);
 		if (event.type === 'created') {
 			getServer().deleteTOS();
@@ -100,15 +100,18 @@ export default React.createClass({
 			return;
 		}
 
+		let enabled = this.isSubmitEnabled();
+
 		if (event.type === ERROR_EVENT) {
-			errs = indexArrayByKey(Store.getErrors(), 'field');
+			enabled = false;
+			errors = indexArrayByKey(Store.getErrors(), 'field');
 			// realname is a synthetic field; map its error messages to the last name field.
-			// if (errs['realname'] && !errs['lname']) {
+			// if (errors['realname'] && !errors['lname']) {
 			// 	errs['lname'] = errs['realname'];
 			// }
 		}
 
-		this.setState({busy: false, errors: errs});
+		this.setState({enabled, busy: false, errors});
 	},
 
 
