@@ -18,6 +18,9 @@ const MIME_TYPES = {
 	'courses.courseinstance': (o) => `/course/${encode(o.getID())}/`,
 	'courses.courseoutlinecontentnode': (o) => `/lessons/${encode(o.getID())}/`,
 	'community': (o) => `/profile/${encodeURIComponent(o.getID())}/activity/`,
+	'dynamicfriendslist': 'community',
+	'forums.dflboard': 'forums.communityboard',
+	'forums.dflforum': (o) => `/${encode(o.getID())}/`,
 	'forums.communityboard': () => '/discussions/',
 
 	'forums.communityforum': (o, prev) => {
@@ -26,11 +29,9 @@ const MIME_TYPES = {
 		}
 		return `/${encode(o.getID())}/`;
 	},
-
-	'forums.communityheadlinetopic': (o) => {
-		// console.debug(o);
-		return `/${encode(o.getID())}/`;
-	},
+	'forums.personalblog': () => `/activity/`,
+	'forums.dflheadlinetopic': 'forums.communityheadlinetopic',
+	'forums.communityheadlinetopic': (o) => `/${encode(o.getID())}/`,
 
 	'assignmentref': 'relatedworkref',
 	'questionsetref': 'relatedworkref',
@@ -69,6 +70,7 @@ const MIME_TYPES = {
 		return c;
 	},
 
+	'user': (o) => `profile/${encode(o.getID())}`,
 
 	'ntivideoref': (o, prev, next, target) => {
 		let c = `/videos/${encode(o.getID())}/`;
