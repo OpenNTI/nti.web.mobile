@@ -27,17 +27,21 @@ module.exports = Object.freeze([
 				ref: 'number', // this is the name expected by the stripe api and returned by Stripe.getToken().
 				placeholder: '1234 1234 1234 1234',
 				type: 'number',
+				autoComplete: 'cc-number',
 				required: true
 			},
 			{
 				ref: 'exp_', // this is the name expected by the stripe api and returned by Stripe.getToken().
 				placeholder: 'MM / YY',
+				autoComplete: 'cc-exp',
 				type: 'number',
 				required: true
+
 			},
 			{
 				ref: 'cvc', // this is the name expected by the stripe api and returned by Stripe.getToken().
 				placeholder: 'CVC',
+				autoComplete: 'off',
 				type: 'number',
 				required: true
 			}

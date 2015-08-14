@@ -99,7 +99,8 @@ export default {
 				renderField: this.renderField,
 				options: field.options || null,
 				translator: translator,
-				pattern: (field.type === 'number' && '[0-9]*') || null
+				pattern: (field.type === 'number' && '[0-9]*') || null,
+				autoComplete: field.autoComplete
 			});
 
 		let subfields = ((state.subfields || {})[field.ref] || []).map(
