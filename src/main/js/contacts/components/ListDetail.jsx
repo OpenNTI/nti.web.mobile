@@ -72,6 +72,7 @@ export default React.createClass({
 		let {list} = this.state;
 		let p = !list.contains(entity) ? list.add(entity) : list.remove(entity);
 		p.catch(reason => console.error(reason));
+		return p;
 	},
 
 	render () {
