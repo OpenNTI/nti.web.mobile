@@ -1,35 +1,6 @@
 .list-detail {
-	$avatarsize: 4.5rem;
 	ul {
 		list-style: none;
 		margin: 0;
-	}
-	li {
-		min-height: $avatarsize;
-		padding-left: $avatarsize + .5rem;
-		position: relative;
-		margin: .5em 0;
-		&.list-member {
-			&::after {
-				content: '\221a';
-				position: absolute;
-				right: .5em;
-				top: 50%;
-				transform: translateY(-50%);
-				font-size: 2rem;
-				font-family: 'icomoon';
-				color: $primary-green;
-			}
-		}
-		&.non-list-member {
-			opacity: .4;
-		}
-	}
-	.avatar {
-		width: $avatarsize;
-		height: $avatarsize;
-		position: absolute;
-		left: 0;
-		top: 0;
 	}
 }

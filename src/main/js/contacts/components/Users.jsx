@@ -101,8 +101,8 @@ export default React.createClass({
 
 		let {search, searchResults} = this.state;
 
-		return this.hasSearch &&
-			(<div>
+		return (
+			<div>
 				<div className="search-field">
 					<input type="search" ref="search" onChange={this.updateSearchQuery} value={search} placeholder={t('searchFieldPlaceholder')} />
 					<div className={'icon ' + (search.length > 0 ? 'clear-search-icon' : 'search-icon')} onClick={this.clearSearch} />
@@ -110,7 +110,8 @@ export default React.createClass({
 				<div>
 					{this.resultsSummary(items, searchResults)}
 				</div>
-			</div>);
+			</div>
+		);
 	},
 
 	beforeList (items) {

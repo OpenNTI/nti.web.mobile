@@ -6,6 +6,7 @@ import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 import ContextSender from 'common/mixins/ContextSender';
 import BasePath from 'common/mixins/BasePath';
+import SelectableEntity from './SelectableEntity';
 
 export default React.createClass({
 	displayName: 'ListDetail',
@@ -90,12 +91,12 @@ export default React.createClass({
 		for(let c of contacts) {
 			// if (list.contains(c)) {continue;}
 			contactItems.push(
-				<li key={c.getID()} className={list.contains(c) ? 'list-member' : 'non-list-member'} onClick={this.toggleMembership.bind(this, c)}>
-					<div>
-						<Avatar entity={c} />
-						<DisplayName entity={c} />
-					</div>
-				</li>
+				<SelectableEntity
+					key={c.getID()}
+					entity={c}
+					selected={list.contains(c)}
+					onChange={this.toggleMembership.bind(this, c)}
+				/>
 			);
 		}
 
@@ -114,7 +115,7 @@ export default React.createClass({
 				</ul>
 				<h2>Contacts</h2>
 				*/}
-				<ul className="contacts-list avatar-grid">
+				<ul className="contacts-list">
 					{contactItems}
 				</ul>
 			</div>
