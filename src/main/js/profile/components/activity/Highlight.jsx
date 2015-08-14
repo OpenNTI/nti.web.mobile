@@ -23,8 +23,11 @@ export default React.createClass({
 		}
 
 		let {presentationProperties} = item;
+		let colorName = (presentationProperties || {}).highlightColorName;
 
-		let css = cx('application-highlight', 'plain', (presentationProperties || {}).highlightColorName);
+		let css = cx('application-highlight', 'plain', colorName, {
+			'colored': colorName
+		});
 
 		return (
 			<div>
