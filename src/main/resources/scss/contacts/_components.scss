@@ -21,6 +21,10 @@
 }
 
 .contacts-page {
+	ul {
+		list-style: none;
+		margin: 0;
+	}
 	header {
 		background: $primary-grey;
 	}
