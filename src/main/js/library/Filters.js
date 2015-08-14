@@ -53,7 +53,7 @@ export default [
 				return start > Date.now();
 			}
 			catch(e) {
-				console.error(e);
+				console.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
 				return false;
 			}
 		},
@@ -72,7 +72,7 @@ export default [
 				return start < now && end > now;
 			}
 			catch(e) {
-				console.error(e);
+				console.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
 				return false;
 			}
 		},
@@ -87,7 +87,7 @@ export default [
 				return end < Date.now();
 			}
 			catch(e) {
-				console.error(e);
+				console.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
 				return false;
 			}
 		},
