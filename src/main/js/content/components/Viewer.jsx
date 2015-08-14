@@ -36,6 +36,7 @@ import GlossaryFeature from './viewer-parts/glossary';
 import Interactions from './viewer-parts/interaction';
 
 import AnnotationBar from './AnnotationBar';
+import NoteEditor from './NoteEditor';
 import BodyContent from './Content';
 import Gutter from './Gutter';
 import Discussions from './discussions';
@@ -294,14 +295,17 @@ export default React.createClass({
 	renderDockedToolbar () {
 		let annotation = this.renderAnnotationToolbar();
 		let submission = this.renderAssessmentSubmission();
+		let noteeditor = this.renderNoteEditor();
 
-		let key = annotation
-			? 'annotation'
-			: submission
-				? 'submission'
-				: 'none';
+		let key = noteeditor
+			? 'note-editor'
+			: annotation
+				? 'annotation'
+				: submission
+					? 'submission'
+					: 'none';
 
-		let content = annotation || submission;
+		let content = noteeditor || annotation || submission;
 
 		return (
 			<TransitionGroup component="div"
@@ -309,7 +313,7 @@ export default React.createClass({
 				transitionName="toast">
 
 				{content && (
-				<div className="the-fixed" key={key}>
+				<div className={`the-fixed ${key}`} key={key}>
 					{content}
 				</div>
 				)}
@@ -345,6 +349,20 @@ export default React.createClass({
 
 		return (
 			<AnnotationBar {...props}/>
+		);
+	},
+
+
+	renderNoteEditor () {
+		const cancel = ()=> this.setState({stagedNote: void 0});
+		let {stagedNote} = this.state;
+
+		if (!stagedNote) {
+			return null;
+		}
+
+		return (
+			<NoteEditor item={stagedNote} onCancel={cancel} onSave={this.saveNote}/>
 		);
 	},
 

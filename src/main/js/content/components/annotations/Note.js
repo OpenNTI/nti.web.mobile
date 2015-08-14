@@ -10,6 +10,18 @@ export default class Note extends Highlight {
 		return /note$/i.test(item.MimeType);
 	}
 
+	static createFrom (data) {
+
+		let base = {
+			MimeType: 'application/vnd.nextthought.note',
+			style: 'suppressed',
+			title: null,
+			body: null,
+			sharedWith: []
+		};
+
+		return Object.assign(base, data);
+	}
 
 	constructor (...args) {
 		super(...args);

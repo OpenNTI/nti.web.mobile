@@ -22,7 +22,6 @@ export default class Highlight extends Annotation {
 		let base = {
 			MimeType: 'application/vnd.nextthought.highlight',
 			style: 'plain',
-			// sharedWith: [],
 			presentationProperties: {
 				highlightColorName: color
 			}

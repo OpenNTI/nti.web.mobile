@@ -39,6 +39,26 @@
 }
 
 
+.swapping-modal {
+
+	&.toast-leave {
+		z-index: 3;
+		animation-delay: 0s;
+		animation-duration: .2s;
+		animation-fill-mode: both;
+	}
+
+	&.toast-leave-active {
+		animation-name: modalTweanUpoOut;
+	}
+}
+
+
+
+
+
+
+
 @keyframes clickIn {
 	0% {
 		transform: translate3d(0, 100%, 0);
@@ -73,5 +93,17 @@
 	100% {
 		opacity: 0;
 		transform: translate3d(0, 100%, 0);
+	}
+}
+
+@keyframes modalTweanUpoOut {
+	from {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+
+	to {
+		transform: translate3d(0, -80px, 0);
+		opacity: 0;
 	}
 }

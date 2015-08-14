@@ -199,14 +199,22 @@ export default {
 	},
 
 
-	createNote () {},
+	saveNote (data) {
+		return getStore(this.state).create(data)
+			.then(()=> this.setState({stagedNote: void 0}));
+	},
+
+
+	createNote (range) {
+		let note = Note.createFrom(this.selectionToCommonUGD(range));
+		this.setState({stagedNote: note, selected: void 0});
+	},
 
 
 	createHighlight (range, color) {
-		let store = getStore(this.state);
 		let highlight = Highlight.createFrom(this.selectionToCommonUGD(range), color);
 
-		store.create(highlight)
+		getStore(this.state).create(highlight)
 			.then(() => this.setState({selected: void 0}));
 	},
 

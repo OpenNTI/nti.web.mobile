@@ -1,4 +1,5 @@
 import React from 'react';
+import CSS from 'react/lib/CSSCore';
 import cx from 'classnames';
 
 import C from 'common/components/Conditional';
@@ -48,25 +49,21 @@ export default React.createClass({
 
 
 	onHighlight (e) {
-		if (e.type === 'click') {
-			e.preventDefault();
-			e.stopPropagation();
-		}
-
 		if (this.isBusy()) { return; }
+
+		let range = this.getRange();
+
+		if (!range) { return; }
 
 		let c = e.target.getAttribute('data-color');
 		c = c && c.toLowerCase();
 
 		this.setState({busy: c});
-		this.props.onSetHighlight(this.getRange(), c);
+		this.props.onSetHighlight(range, c);
 	},
 
 
-	onUnHighlight (e) {
-		e.preventDefault();
-		e.stopPropagation();
-
+	onUnHighlight () {
 		if (this.isBusy()) { return; }
 
 		this.setState({busy: 'delete'});
@@ -74,13 +71,20 @@ export default React.createClass({
 	},
 
 
-	onNote (e) {
-		e.preventDefault();
-		e.stopPropagation();
-
+	onNote () {
 		if (this.isBusy()) { return; }
 
-		this.props.onNewDiscussion(this.getRange());
+		let range = this.getRange();
+
+		if (!range) { return; }
+
+		//we want the exit-animation to be different for this action
+		// than the normal one, so we need an extra class.
+		let dom = React.findDOMNode(this);
+		CSS.addClass(dom.parentNode, 'swapping-modal');
+
+		this.setState({busy: 'note'});
+		this.props.onNewDiscussion(range);
 	},
 
 
@@ -105,13 +109,28 @@ export default React.createClass({
 				onTouchStart={this.onHighlight}
 				onClick={this.onHighlight}>Highlight</button> ));
 
+			// Why both onTouchStart and onClick? Because the selection is gone before onClick fires on
+			// iOS, and I believe all touch devices. So, where we get onTouchStart, treat that as the click,
+			// and fallback to onClick so we can read the selection before it goes away.
+
 		return (
 			<div className="add annotation toolbar">
 				{hightlighters}
-				<C tag="button" condition={onRemoveHighlight} className={cx('ugd delete', {'busy': busy === 'delete'})} onClick={this.onUnHighlight}>Remove Hightlight</C>
+
+				<C tag="button" condition={onRemoveHighlight}
+					className={cx('ugd delete', {'busy': busy === 'delete'})}
+					onClick={this.onUnHighlight}>Remove Hightlight</C>
+
 				<C tag="span" condition={onNewDiscussion || discussionLink} className="spacer"/>
-				<C tag="button" condition={onNewDiscussion} className="ugd note icon-discuss" onClick={this.onNote}>Discuss</C>
-				<C tag={Link} condition={discussionLink} className="ugd note icon-discuss" href={discussionLink}>View Discussion</C>
+
+				<C tag="button" condition={onNewDiscussion}
+					className="ugd note icon-discuss"
+					onTouchStart={this.onNote}
+					onClick={this.onNote}>Discuss</C>
+
+				<C tag={Link} condition={discussionLink}
+					className="ugd note icon-discuss"
+					href={discussionLink}>View Discussion</C>
 			</div>
 		);
 	}
