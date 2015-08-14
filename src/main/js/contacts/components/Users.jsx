@@ -2,12 +2,12 @@ import React from 'react/addons';
 import mixin from '../mixins/Mixin';
 import Loading from 'common/components/Loading';
 import {USERS} from '../Constants';
-import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 import Err from 'common/components/Error';
 import ContextSender from 'common/mixins/ContextSender';
 import SelectableEntity from './SelectableEntity';
 import {areYouSure} from 'prompts';
 import {scoped} from 'common/locale';
+import EmptyList from 'common/components/EmptyList';
 
 let t = scoped('CONTACTS');
 
@@ -73,11 +73,8 @@ export default React.createClass({
 			return (
 				<div>
 					<h2>Search Results</h2>
-					<ul>
-					{
-						searchResults.map((entity) => this.renderListItem(entity, false))
-					}
-					</ul>
+					{searchResults.length > 0 ? <ul>{searchResults.map((entity) => this.renderListItem(entity, false))}</ul> : <EmptyList type="contactssearch" />}
+
 				</div>
 			);
 		}

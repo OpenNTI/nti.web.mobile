@@ -52,7 +52,9 @@ export default {
 		'emptyList:videos': 'No videos.',
 		'emptyList:activity': 'No Activity.',
 		'emptyList:user-details': 'Empty Profile :(\nNo additional profile information available.',
-		'emptyList:memberships': 'No memberships'
+		'emptyList:memberships': 'No memberships',
+		'emptyList:contacts': 'No contacts found.',
+		'emptyList:contactssearch': 'No contacts found.'
 	},
 
 	CONTENT: content,
