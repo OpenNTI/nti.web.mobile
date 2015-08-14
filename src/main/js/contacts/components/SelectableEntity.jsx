@@ -41,6 +41,13 @@ export default React.createClass({
 				busy: false
 			});
 		});
+		p.catch(reason => {
+			console.error(reason);
+			this.setState({
+				busy: false,
+				error: reason
+			});
+		});
 	},
 
 	render () {
