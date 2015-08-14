@@ -13,7 +13,7 @@ export default React.createClass({
 	mixins: [Mixin],
 
 	statics: {
-		mimeType: /forums\.(.+)forumcomment/i
+		mimeType: /forums\.(.+)comment/i
 	},
 
 	propTypes: {
