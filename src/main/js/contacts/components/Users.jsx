@@ -75,7 +75,7 @@ export default React.createClass({
 					<h2>Search Results</h2>
 					<ul>
 					{
-						searchResults.map((entity) => this.renderListItem(entity))
+						searchResults.map((entity) => this.renderListItem(entity, false))
 					}
 					</ul>
 				</div>
@@ -144,13 +144,8 @@ export default React.createClass({
 		});
 	},
 
-	renderListItem (item) {
-		return <SelectableEntity key={'avatar' + item.Username} entity={item} selected={item.following} onChange={this.toggleFollow}/>;
-		// return (
-		// 	<li key={'avatar' + item.Username}>
-		// 		<AvatarProfileLink entity={item} />
-		// 	</li>
-		// );
+	renderListItem (item, removable=item.following) {
+		return <SelectableEntity key={'avatar' + item.Username} entity={item} selected={item.following} onChange={this.toggleFollow} removable={removable} />;
 	}
 
 });

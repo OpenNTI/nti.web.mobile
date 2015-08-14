@@ -13,12 +13,14 @@ export default React.createClass({
 		entity: React.PropTypes.object.isRequired,
 		selected: React.PropTypes.bool,
 		tag: React.PropTypes.string,
-		onChange: React.PropTypes.func
+		onChange: React.PropTypes.func,
+		removable: React.PropTypes.bool
 	},
 
 	getDefaultProps () {
 		return {
-			tag: 'li'
+			tag: 'li',
+			removable: false
 		};
 	},
 
@@ -40,11 +42,12 @@ export default React.createClass({
 	},
 
 	render () {
-		let {entity, selected, tag} = this.props;
+		let {entity, selected, tag, removable} = this.props;
 		let {busy} = this.state;
 		let classes = cx('select-button',{
 			'selected': selected,
-			'busy': busy
+			'busy': busy,
+			'removable': removable
 		});
 		let Element = tag;
 		return (

@@ -39,6 +39,12 @@
 				inset 0 1px 1px 0px rgba(255, 255, 255, 0.6);
 			}
 		}
+		&.removable {
+			&::after {
+				content: 'X';
+				background-color: $primary-red;
+			}
+		}
 	}
 
 	&:not(.selected) {
