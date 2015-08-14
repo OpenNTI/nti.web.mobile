@@ -36,9 +36,11 @@ export default React.createClass({
 		});
 		let {onChange, entity} = this.props;
 		let p = onChange && onChange(entity) || noclick;
-		p.then(this.setState({
-			busy: false
-		}));
+		p.then(() => {
+			this.setState({
+				busy: false
+			});
+		});
 	},
 
 	render () {
