@@ -5,7 +5,8 @@ import {USERS} from '../Constants';
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 import Err from 'common/components/Error';
 import ContextSender from 'common/mixins/ContextSender';
-
+import SelectableEntity from './SelectableEntity';
+import {areYouSure} from 'prompts';
 import {scoped} from 'common/locale';
 
 let t = scoped('CONTACTS');
@@ -17,7 +18,7 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			listClassName: 'users avatar-grid'
+			listClassName: 'users'
 		};
 	},
 
@@ -72,7 +73,7 @@ export default React.createClass({
 			return (
 				<div>
 					<h2>Search Results</h2>
-					<ul className="avatar-grid">
+					<ul>
 					{
 						searchResults.map((entity) => this.renderListItem(entity))
 					}
@@ -126,12 +127,30 @@ export default React.createClass({
 		);
 	},
 
+	toggleFollow (entity) {
+
+		let p = entity.following ? areYouSure(t('unfollowPrompt')) : Promise.resolve();
+		p.then(() => {
+			this.setState({
+				loading: true
+			});
+			entity.follow()
+				.then(() => {
+					this.setState({
+						following: entity.following,
+						loading: false
+					});
+				});
+		});
+	},
+
 	renderListItem (item) {
-		return (
-			<li key={'avatar' + item.Username}>
-				<AvatarProfileLink entity={item} />
-			</li>
-		);
+		return <SelectableEntity key={'avatar' + item.Username} entity={item} selected={item.following} onChange={this.toggleFollow}/>;
+		// return (
+		// 	<li key={'avatar' + item.Username}>
+		// 		<AvatarProfileLink entity={item} />
+		// 	</li>
+		// );
 	}
 
 });

@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
+import ProfileLink from 'profile/components/ProfileLink';
 
 const noclick = Promise.resolve();
 
@@ -41,18 +42,19 @@ export default React.createClass({
 	render () {
 		let {entity, selected, tag} = this.props;
 		let {busy} = this.state;
-		let classes = cx('selectable-entity', {
+		let classes = cx('select-button',{
 			'selected': selected,
 			'busy': busy
 		});
 		let Element = tag;
 		return (
-			<Element className={classes} onClick={this.onClick} {...this.props}>
-				<div>
+			<Element className='selectable-entity' {...this.props}>
+				<ProfileLink entity={entity}>
 					<Avatar entity={entity} />
 					<DisplayName entity={entity} />
 					<div className="association"></div>
-				</div>
+				</ProfileLink>
+				<div className={classes} onClick={this.onClick}></div>
 			</Element>
 		);
 	}
