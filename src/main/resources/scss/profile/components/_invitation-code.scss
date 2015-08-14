@@ -1,3 +1,8 @@
 .invitation-code {
 	user-select: auto;
+	float: right;
+	label {
+		font-weight: 600;
+		color: white;
+	}
 }
