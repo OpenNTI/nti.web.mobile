@@ -4,6 +4,7 @@ import DisplayName from 'common/components/DisplayName';
 
 import Subhead from './Subhead';
 import Description from './Description';
+import InvitationCode from './InvitationCode';
 
 export default React.createClass({
 	displayName: 'Group:Head',
@@ -12,6 +13,10 @@ export default React.createClass({
 		children: React.PropTypes.any,
 
 		entity: React.PropTypes.object
+	},
+
+	selectInvite () {
+		this.refs.inviteCode.getDOMNode().select();
 	},
 
 	render () {
@@ -23,6 +28,7 @@ export default React.createClass({
 					<div className="label">
 						<DisplayName entity={entity} />
 						<Subhead entity={entity} />
+						<InvitationCode entity={entity} />
 					</div>
 					<Description entity={entity} />
 				</div>
