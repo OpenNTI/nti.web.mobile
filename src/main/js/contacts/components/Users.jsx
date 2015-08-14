@@ -139,6 +139,7 @@ export default React.createClass({
 					});
 				});
 		});
+		return p;
 	},
 
 	renderListItem (item, removable=item.following) {
