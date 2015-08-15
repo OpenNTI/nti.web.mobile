@@ -189,12 +189,14 @@
 			font-size: 0.8125rem;
 			font-weight: 700;
 			padding: 0.5625rem 1rem;
-			background: none;
 			text-indent: 0;
-			color: $primary-grey;
 			font-family: $body-font-family;
 			flex: 0 0 auto;
 			margin: 0;
+			background: $primary-blue;
+			color: #fff;
+			border: 1px solid $primary-blue;
+			border-top-right-radius: 4px;
 
 			&::before {
 				font-family: 'icomoon';
@@ -210,8 +212,8 @@
 
 	.spacer {
 		flex: 2 2 auto;
-		display: block;
-		border-right: 1px solid #ccc;
-		min-height: 2rem;
+		// display: block;
+		// border-right: 1px solid #ccc;
+		// min-height: 2rem;
 	}
 }
