@@ -35,6 +35,8 @@ const MIME_TYPES = {
 
 	'assignmentref': 'relatedworkref',
 	'questionsetref': 'relatedworkref',
+	'pollref': 'relatedworkref',
+	'surveyref': 'relatedworkref',
 	'relatedworkref': (o, prev, next) => {
 		let c = `/content/`;
 
