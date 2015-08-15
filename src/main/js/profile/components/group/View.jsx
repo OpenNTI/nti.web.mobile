@@ -11,6 +11,8 @@ import Members from '../Members'; //This seems backwards. The Group-specific Mem
 import ForumView from '../ForumView';
 
 import Redirect from 'navigation/components/Redirect';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {join} from 'path';
 
 const ROUTES = [
 	{path: '/activity/discussions/:forumId(/*)', handler: ForumView },
@@ -33,11 +35,12 @@ export default React.createClass({
 
 	getContext () {
 		let path = this.getBasePath();
+		let href = join(path, 'profile', encodeForURI(this.props.entity.getID()), '/');
 		return Promise.resolve([
 			{
 				href: path, label: 'Home'
 			}, {
-				href: location.href,
+				href,
 				label: 'Profile'
 			}
 		]);
