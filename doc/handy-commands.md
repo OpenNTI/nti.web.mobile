@@ -132,3 +132,8 @@ where toDataURI.sh is:
 ## set about/description on a community
 
     echo '"This is the description"' | http --auth ray.hatfield@gmail.com:test1234 PUT http://ray.local:8082/dataserver2/Objects/tag:nextthought.com,2011-10:system-NamedEntity:Community-bleach/++fields++about
+
+
+## delete all survey responses:
+
+    http -a carlos.sanchez@nextthought.com:carlos.sanchez http://localhost:8082/dataserver2/@@ResetInquiry ntiid=tag:nextthought.com,2011-10:NTIAlpha-NAQ-NTI1000_TestCourse.naq.survey.survey_test entry=tag:nextthought.com,2011-10:NTI-CourseInfo-Alpha_NTI_1000
