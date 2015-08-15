@@ -11,7 +11,7 @@ import About from './About';
 import Achievements from './Achievements';
 
 import Activity from '../Activity';
-import BlogEntry from '../activity/BlogEntryDetail';
+import Thoughts from './Thoughts';
 import Memberships from '../about/Memberships';
 
 import Redirect from 'navigation/components/Redirect';
@@ -19,7 +19,7 @@ import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import {join} from 'path';
 
 const ROUTES = [
-	{path: '/thoughts/(:id)(/*)',	handler: BlogEntry },
+	{path: '/thoughts(/*)',			handler: Thoughts},
 	{path: '/activity(/)',			handler: Activity },
 	{path: '/achievements(/*)',		handler: Achievements },
 	{path: '/about(/*)',			handler: About },
