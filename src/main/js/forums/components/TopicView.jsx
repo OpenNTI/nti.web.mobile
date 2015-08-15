@@ -2,7 +2,7 @@ import React from 'react';
 
 import Store from '../Store';
 import {OBJECT_CONTENTS_CHANGED} from '../Constants';
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import Router from 'react-router-component';
 let {Location} = Router;
 
@@ -60,7 +60,7 @@ export default React.createClass({
 	// title bar back arrow
 	getContext () {
 		let topic = this.getTopic();
-		let href = this.makeHref('/' + this.props.topicId + '/');
+		let href = this.makeHref('/' + encodeForURI(this.props.topicId) + '/');
 		let label = topic && topic.headline ? topic.headline.title : 'Topic';
 
 		return Promise.resolve({
