@@ -65,12 +65,16 @@ export default {
 
 			//let the capture clicks widget take us to a new place...
 			if (isNTIID(id)) {
-				let {pageSource} = this.state;
+				let {pageSource, page} = this.state;
 				let ref = encodeForURI(id);
 
 				href = pageSource.contains(id)
 					? this.makeHref(ref) //the ID is in the pageSource... just page
-					: this.makeHrefNewRoot(ref); //ID is not in the pageSource, reroot.
+					//ID is not in the pageSource, reroot:
+					: page.getTableOfContents().getNode(id) != null
+						? this.makeHrefNewRoot(ref)
+						//ID is not in the current toc, resolve:
+						: this.makeObjectHref(ref);
 
 				anchor.setAttribute('href', href);
 			}
