@@ -39,7 +39,7 @@ export default React.createClass({
 			return <Loading />;
 		}
 		return (
-			<div className="profile-card forums-wrapper">
+			<div className="profile-forums forums-wrapper">
 				<ForumTopic topicId={item.getID()} />
 			</div>
 		);
