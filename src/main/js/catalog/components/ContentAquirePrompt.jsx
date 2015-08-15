@@ -58,10 +58,11 @@ export default React.createClass({
 
 	render () {
 		let {items = []} = this.state;
+		let {length} = items;
 
 		return (
 			<div className="grid-container">
-				{items.length === 1 ? (
+				{length === 1 ? (
 					<div>
 						<h3>You do not have access to this course.</h3>
 						<h5>Enroll now:</h5>
@@ -69,7 +70,7 @@ export default React.createClass({
 				) : (
 					<div>
 						<h3>You do not have access to this content.</h3>
-						<h4>Enroll in one of these courses to gain access:</h4>
+						{length > 0 && ( <h4>Enroll in one of these courses to gain access:</h4> )}
 					</div>
 				)}
 				<ul className="small-block-grid-1 catalog-entries">
