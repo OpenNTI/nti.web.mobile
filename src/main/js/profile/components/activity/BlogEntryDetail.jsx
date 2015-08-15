@@ -1,6 +1,7 @@
 import React from 'react';
 import Loading from 'common/components/Loading';
 import ForumTopic from 'forums/components/Topic';
+import TopicView from 'forums/components/TopicView';
 import {getObject} from 'forums/Api';
 
 export default React.createClass({
@@ -40,7 +41,7 @@ export default React.createClass({
 		}
 		return (
 			<div className="profile-forums forums-wrapper">
-				<ForumTopic topicId={item.getID()} />
+				<TopicView topicId={item.getID()} />
 			</div>
 		);
 	}
