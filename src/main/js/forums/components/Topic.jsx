@@ -51,9 +51,15 @@ export default React.createClass({
 
 
 	propTypes: {
-		topicId: React.PropTypes.string
+		topicId: React.PropTypes.string,
+		showComments: React.PropTypes.bool
 	},
 
+	getDefaultProps () {
+		return {
+			showComments: true
+		};
+	},
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
@@ -235,6 +241,8 @@ export default React.createClass({
 			onCancel: this.hideEditForm
 		};
 
+		let {showComments} = this.props;
+
 		return (
 			<div>
 				<Transition transitionName="fadeOutIn">
@@ -242,18 +250,22 @@ export default React.createClass({
 					{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline topic={topic} {...props} />}
 					<ActionLinks
 						item={topic}
-						canReply={true}
+						canReply={showComments}
 						numComments={numComments}
 						clickHandlers={this.actionClickHandlers()} />
 
-					<TopicComments topicId={this.getTopicId()} currentPage={this.currentPage()} />
+					{showComments && (
+						<div>
+							<TopicComments topicId={this.getTopicId()} currentPage={this.currentPage()} />
 
-					<CommentForm key="commentForm"
-							ref={COMMENT_FORM_ID}
-							id={COMMENT_FORM_ID}
-							onCompletion={this.hideCommentForm}
-							topic={topic}
-							parent={topic.parent()} />
+							<CommentForm key="commentForm"
+									ref={COMMENT_FORM_ID}
+									id={COMMENT_FORM_ID}
+									onCompletion={this.hideCommentForm}
+									topic={topic}
+									parent={topic.parent()} />
+						</div>
+					)}
 				</Transition>
 			</div>
 		);

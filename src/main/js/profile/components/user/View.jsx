@@ -11,15 +11,17 @@ import About from './About';
 import Achievements from './Achievements';
 
 import Activity from '../Activity';
+import BlogEntry from '../activity/BlogEntryDetail';
 import Memberships from '../about/Memberships';
 
 import Redirect from 'navigation/components/Redirect';
 
 const ROUTES = [
-	{path: '/activity(/*)',		handler: Activity },
-	{path: '/achievements(/*)',	handler: Achievements },
-	{path: '/about(/*)',		handler: About },
-	{path: '/memberships(/*)',	handler: Memberships },
+	{path: '/thoughts/(:id)(/*)',	handler: BlogEntry },
+	{path: '/activity(/)',			handler: Activity },
+	{path: '/achievements(/*)',		handler: Achievements },
+	{path: '/about(/*)',			handler: About },
+	{path: '/memberships(/*)',		handler: Memberships },
 	{}//default
 ];
 

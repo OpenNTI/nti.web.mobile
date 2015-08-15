@@ -29,7 +29,8 @@ const MIME_TYPES = {
 		}
 		return `/${encode(o.getID())}/`;
 	},
-	'forums.personalblog': () => `/activity/`,
+	'forums.personalblog': () => '/thoughts/',
+	'forums.personalblogentry': (o) => `/${encode(o.getID())}/`,
 	'forums.dflheadlinetopic': 'forums.communityheadlinetopic',
 	'forums.communityheadlinetopic': (o) => `/${encode(o.getID())}/`,
 
