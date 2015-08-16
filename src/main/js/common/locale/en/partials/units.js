@@ -71,7 +71,7 @@ export default {
 
 	others: {
 		zero: 'No Others',
-		one: '%(count) Other',
-		other: '%(count) Others'
+		one: '%(count)s Other',
+		other: '%(count)s Others'
 	}
 };
