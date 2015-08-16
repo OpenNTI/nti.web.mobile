@@ -7,12 +7,12 @@
 	border: 1px solid #e2e2e2;
 	border-radius: 5px;
 	box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.08);
-	color: #494949;
 	transition: opacity 0.5s ease-in;
 
 	.body {
 		padding: 0.5rem;
 		overflow: none;
+		color: $body-font-color;
 	}
 
 	.icon {
