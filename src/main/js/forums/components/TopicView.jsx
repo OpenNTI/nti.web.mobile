@@ -53,10 +53,6 @@ export default React.createClass({
 		};
 	},
 
-	getTopicId (props=this.props) {//this doesn't appear to be referenced?
-		return decodeFromURI(props.topicId);
-	},
-
 	// title bar back arrow
 	getContext () {
 		let topic = this.getTopic();
