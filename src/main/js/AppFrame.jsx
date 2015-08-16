@@ -5,6 +5,7 @@ import Session from 'common/components/Session';
 import Footer from 'common/components/Footer';
 
 import RouteAware from 'common/mixins/NavigatableMixin';
+import LockScroll from 'common/components/LockScroll';
 
 import Notifications from 'notifications/components/View';
 
@@ -58,14 +59,6 @@ export default React.createClass({
 	getOverlayState () { return (this.state || {}).overlay; },
 
 
-	componentDidUpdate () {
-		let viewport = document.getElementsByTagName('html')[0];
-		let action = (this.getOverlayState() == null) ? CSS.removeClass : CSS.addClass;
-
-		action(viewport, 'scroll-lock');
-	},
-
-
 	render () {
 		let height = {height: getViewportHeight()};
 		let state = this.getOverlayState() || '';
@@ -74,6 +67,7 @@ export default React.createClass({
 			<div className="app-container">
 				<Analytics />
 				<LibraryInvalidationListener />
+				{this.getOverlayState() != null && (<LockScroll/> )}
 
 				<div className={`off-canvas-wrap ${state}`} data-offcanvas>
 					<div className="inner-wrap">
