@@ -214,7 +214,18 @@ export default {
 
 
 	createNote (range) {
-		let note = Note.createFrom(this.selectionToCommonUGD(range));
+		let {selected} = this.state;
+		let c = range && !range.collapsed && this.selectionToCommonUGD(range);
+		if ((!range || range.collapsed) && selected) {
+			let {applicableRange, selectedText, ContainerId} = selected.getRecord();
+			c = {
+				applicableRange,
+				selectedText,
+				ContainerId
+			};
+		}
+
+		let note = Note.createFrom(c);
 		this.setState({stagedNote: note, selected: void 0});
 	},
 

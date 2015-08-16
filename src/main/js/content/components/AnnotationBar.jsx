@@ -76,7 +76,7 @@ export default React.createClass({
 
 		let range = this.getRange();
 
-		if (!range) { return; }
+		if (!range && !this.props.item) { return; }
 
 		//we want the exit-animation to be different for this action
 		// than the normal one, so we need an extra class.
