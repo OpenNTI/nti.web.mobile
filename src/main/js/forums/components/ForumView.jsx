@@ -87,7 +87,6 @@ export default React.createClass({
 					/>
 					<Location path="/:topicId/*"
 						handler={TopicView}
-						forum={forum}
 					/>
 				</Router.Locations>
 			</nav>
