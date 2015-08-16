@@ -162,7 +162,9 @@ export default {
 			selected = highlights[0];
 		}
 
-		this.setState({selected});
+		if (this.state.selected !== selected) {
+			this.setState({selected});
+		}
 	},
 
 

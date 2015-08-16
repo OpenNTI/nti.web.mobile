@@ -1,8 +1,14 @@
 import React from 'react';
 import {safeBoundingBoxForRange, isZeroRect} from 'common/utils/rects';
+import iOSversion from 'common/utils/ios-version';
 
 import {NOT_FOUND, HIDDEN, RETRY_AFTER_DOM_SETTLES} from './Annotation';
 import Highlight from './Highlight';
+
+function isBoundingClientRectBroken () {
+	let ios = iOSversion();
+	return ios && ios[0] < 8;
+}
 
 export default class Note extends Highlight {
 
@@ -66,6 +72,9 @@ export default class Note extends Highlight {
 			console.log('Hidden:', range, rect);
 		}
 
+		if (isBoundingClientRectBroken()) {
+			top - document.body.scrollTop;
+		}
 		return top;
 	}
 }
