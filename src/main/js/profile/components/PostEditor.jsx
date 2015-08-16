@@ -46,7 +46,7 @@ export default React.createClass({
 	doSubmit () {
 		let {onSubmit} = this.props;
 		let {title, value} = this.state;
-		title = this.refs.title.getDOMNode().value;
+		title = React.findDOMNode(this.refs.title).value;
 		value = this.refs.editor.getValue();
 		if (typeof onSubmit === 'function') {
 			onSubmit(title, value);
