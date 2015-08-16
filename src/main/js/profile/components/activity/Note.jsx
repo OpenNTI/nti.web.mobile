@@ -1,12 +1,14 @@
 import React from 'react';
 
+import RepliedTo from 'common/components/RepliedTo';
+
 import Detail from 'content/components/discussions/Detail';
+import Context from 'content/components/discussions/Context';
 
 import Mixin from './Mixin';
 
 import ContentIcon from './ContentIcon';
 import Breadcrumb from './Breadcrumb';
-import Context from 'content/components/discussions/Context';
 
 export default React.createClass({
 	displayName: 'Note',
@@ -33,7 +35,7 @@ export default React.createClass({
 				<div className="note heading">
 					<ContentIcon item={item} />
 					<Breadcrumb item={item} />
-					{item.isReply() ? null : ( <Context item={item}/> )}
+					{item.isReply() ? (<RepliedTo item={item}/>) : ( <Context item={item}/> )}
 				</div>
 				<Detail item={item} lite/>
 				{/*<Actions item={item}/> -- Comment count, [edit] [delete]*/}
