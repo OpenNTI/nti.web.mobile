@@ -6,8 +6,13 @@
 	span, address, a {
 		color: $primary-blue;
 
+		//TODO: move these connective articles into a localizable form
 		&:not(:last-child)::after {
 			content: ', ';
+		}
+
+		&:nth-last-child(2)::after {
+			content: ' and ';
 		}
 	}
 }
