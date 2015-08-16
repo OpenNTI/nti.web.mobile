@@ -2,7 +2,7 @@ import React from 'react';
 
 import Store from '../Store';
 import {OBJECT_CONTENTS_CHANGED} from '../Constants';
-import {decodeFromURI, encodeForURI, isNTIID} from 'nti.lib.interfaces/utils/ntiids';
+import {encodeForURI, isNTIID} from 'nti.lib.interfaces/utils/ntiids';
 import Router from 'react-router-component';
 let {Location} = Router;
 
