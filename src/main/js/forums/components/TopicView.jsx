@@ -71,10 +71,6 @@ export default React.createClass({
 		return this.getItem() || Store.getObject(this.props.topicId);
 	},
 
-	getPropId () {//this doesn't appear to be referenced?
-		return this.props.topicId;
-	},
-
 	render () {
 
 		if (this.state.error) {
