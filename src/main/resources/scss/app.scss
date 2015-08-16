@@ -33,10 +33,6 @@
 	font-size: 0.6875rem;
 }
 
-@mixin input-typography {
-	text-transform: uppercase;
-	letter-spacing:0.1em;
-}
 
 .hidden {
 	display: none;
@@ -47,6 +43,23 @@
 }
 
 .app-container { opacity: 1; } //unhides the UI once styles load.
+
+
+.error[data-error-message]::after {
+	content: attr(data-error-message);
+	position:absolute;
+	top: 0;
+	left: 1.5rem;
+	max-width: 86%;
+	background: $primary-red;
+	color: $secondary-red;
+	display: block;
+	padding: 0.25rem;
+	border: 1px solid $secondary-red;
+	font-size: 0.8rem;
+	font-weight: 600;
+	font-style: italic;
+}
 
 .missing-content {
 	margin: 2rem;
@@ -82,7 +95,7 @@ body {
 }
 
 .button, input[type=button], input[type=submit], input[type=reset], button {
-	@include input-typography;
+	text-transform: uppercase;
 }
 
 a.disabled {

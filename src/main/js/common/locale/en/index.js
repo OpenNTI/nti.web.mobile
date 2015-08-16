@@ -39,7 +39,8 @@ export default {
 	BUTTONS: {
 		ok: 'Okay',
 		cancel: 'Cancel',
-		save: 'Save'
+		save: 'Save',
+		post: 'Post'
 	},
 
 	LISTS: {

@@ -200,8 +200,14 @@ export default {
 
 
 	saveNote (data) {
-		return getStore(this.state).create(data)
-			.then(()=> this.setState({stagedNote: void 0}));
+		let result = getStore(this.state).create(data);
+
+
+		//Do not clear the stagedNode from state until
+		//after the UI has had an opportunity to draw a frame. (allow us to queue an animation)
+		result.then(()=> setTimeout(() => this.setState({stagedNote: void 0}), 1), () => {});
+
+		return result;
 	},
 
 

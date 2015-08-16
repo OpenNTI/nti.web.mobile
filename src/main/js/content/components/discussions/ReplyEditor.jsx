@@ -55,7 +55,8 @@ export default React.createClass({
 		e.stopPropagation();
 
 		let {item, onSubmitted} = this.props;
-		let {context, value} = this.state;
+		let {context} = this.state;
+		let value = this.refs.editor.getValue();
 
 		if (!item || !context || Editor.isEmpty(value)) {
 			return;

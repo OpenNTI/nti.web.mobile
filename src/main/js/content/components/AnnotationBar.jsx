@@ -117,18 +117,18 @@ export default React.createClass({
 			<div className="add annotation toolbar">
 				{hightlighters}
 
-				<C tag="button" condition={onRemoveHighlight}
+				<C tag="button" condition={!!onRemoveHighlight}
 					className={cx('ugd delete', {'busy': busy === 'delete'})}
 					onClick={this.onUnHighlight}>Remove Hightlight</C>
 
-				<C tag="span" condition={onNewDiscussion || discussionLink} className="spacer"/>
+				<C tag="span" condition={!!(onNewDiscussion || discussionLink)} className="spacer"/>
 
-				<C tag="button" condition={onNewDiscussion}
+				<C tag="button" condition={!!onNewDiscussion}
 					className="ugd note icon-discuss"
 					onTouchStart={this.onNote}
 					onClick={this.onNote}>Discuss</C>
 
-				<C tag={Link} condition={discussionLink}
+				<C tag={Link} condition={!!discussionLink}
 					className="ugd note icon-discuss"
 					href={discussionLink}>View Discussion</C>
 			</div>
