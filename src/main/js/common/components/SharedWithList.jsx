@@ -1,5 +1,6 @@
 import React from 'react';
 
+import t from '../locale';
 
 import DisplayName from './DisplayName';
 import Loading from './TinyLoader';
@@ -114,7 +115,7 @@ export default React.createClass({
 		let names = (state ? [state] : [])
 			.concat(users.map(x => <DisplayName entity={x}/> ))
 			//Only show " N Others" when there are more than 0 others, AND we have at least one resolved name.
-			.concat(others === 0 || users.length === 0 ? [] : (`${others} Others`));
+			.concat(others === 0 || users.length === 0 ? [] : t('UNITS.others', {count: others}));
 
 		return React.createElement('span', {className: 'shared-with-list'}, ...names);
 	}

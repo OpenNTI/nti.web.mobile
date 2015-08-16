@@ -67,5 +67,11 @@ export default {
 		zero: 'No responses yet.',
 		one: '%(count)s response',
 		other: '%(count)s responses'
+	},
+
+	others: {
+		zero: 'No Others',
+		one: '%(count) Other',
+		other: '%(count) Others'
 	}
 };
