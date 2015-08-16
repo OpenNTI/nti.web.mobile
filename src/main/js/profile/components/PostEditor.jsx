@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import Busy from 'common/components/TinyLoader';
 
-import Editor from 'modeled-content/components/Editor';
+import {Editor} from 'modeled-content';
 
 import t from 'common/locale';
 

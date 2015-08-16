@@ -1,5 +1,5 @@
 import React from 'react';
-import ModeledContent from 'modeled-content/components/Panel';
+import {Panel as ModeledContent} from 'modeled-content';
 import Breadcrumb from './Breadcrumb';
 import LuckyCharms from 'common/components/LuckyCharms';
 import Avatar from 'common/components/Avatar';

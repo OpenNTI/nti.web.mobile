@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import Editor from 'modeled-content/components/Editor';
+import {Editor} from 'modeled-content';
 
 import {scoped} from 'common/locale';
 

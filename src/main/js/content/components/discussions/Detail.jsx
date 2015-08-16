@@ -7,7 +7,7 @@ import DisplayName from 'common/components/DisplayName';
 import LuckyCharms from 'common/components/LuckyCharms';
 import SharedWithList from 'common/components/SharedWithList';
 
-import Body from 'modeled-content/components/Panel';
+import {Panel as Body} from 'modeled-content';
 
 // import {scoped} from 'common/locale';
 // const t = scoped('CONTENT.DISCUSSIONS');

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Err from 'common/components/Error';
 
-import Editor from 'modeled-content/components/Editor';
+import {Editor} from 'modeled-content';
 
 import PostEditor from './PostEditor';
 

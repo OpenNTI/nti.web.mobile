@@ -6,7 +6,7 @@ import Avatar from 'common/components/Avatar';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 
-import Body from 'modeled-content/components/Panel';
+import {Panel as Body} from 'modeled-content';
 
 import {getAppUsername} from 'common/utils';
 

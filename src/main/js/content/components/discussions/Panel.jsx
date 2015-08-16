@@ -6,7 +6,7 @@ import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 import LuckyCharms from 'common/components/LuckyCharms';
 
-import Body from 'modeled-content/components/Panel';
+import {Panel as Body} from 'modeled-content';
 
 import ItemActions from './ItemActions';
 import ReplyEditor from './ReplyEditor';

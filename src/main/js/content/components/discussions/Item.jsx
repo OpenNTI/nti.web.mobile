@@ -7,7 +7,7 @@ import DateTime from 'common/components/DateTime';
 
 import {scoped} from 'common/locale';
 
-import Panel from 'modeled-content/components/Panel';
+import {Panel} from 'modeled-content';
 
 
 const t = scoped('UNITS');
