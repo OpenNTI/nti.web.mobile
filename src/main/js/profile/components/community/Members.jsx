@@ -6,7 +6,7 @@ import AvatarGrid from '../AvatarGrid';
 import ProfileLink from '../ProfileLink';
 import Loading from 'common/components/Loading';
 import ProfileBodyContainer from '../ProfileBodyContainer';
-import Button from 'common/forms/components/Button';
+import PromiseButton from 'common/components/PromiseButton';
 
 export default React.createClass({
 	displayName: 'Community:Members',
@@ -86,7 +86,7 @@ export default React.createClass({
 
 	more () {
 		let {store} = this.state;
-		store.nextBatch();
+		return store.nextBatch();
 	},
 
 	render () {
@@ -100,10 +100,7 @@ export default React.createClass({
 				<div>
 					<h2>Community Members</h2>
 					<AvatarGrid entities={store} />
-					{ store.more && (store.loading
-						? <Loading/>
-						: <Button className="more" onClick={this.more}>More</Button>)
-					}
+					{ store.more && <PromiseButton className="more" onClick={this.more}>More</PromiseButton> }
 				</div>
 			</ProfileBodyContainer>
 		);
