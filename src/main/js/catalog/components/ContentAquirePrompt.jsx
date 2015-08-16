@@ -61,7 +61,7 @@ export default React.createClass({
 		let {length} = items;
 
 		return (
-			<div className="grid-container">
+			<div className="grid-container content-aquire-prompt">
 				{length === 1 ? (
 					<div>
 						<h3>You do not have access to this course.</h3>
