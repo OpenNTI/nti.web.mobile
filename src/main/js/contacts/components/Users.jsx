@@ -73,7 +73,7 @@ export default React.createClass({
 			return (
 				<div>
 					<h2>Search Results</h2>
-					{searchResults.length > 0 ? <ul>{searchResults.map((entity) => this.renderListItem(entity, false))}</ul> : <EmptyList type="contactssearch" />}
+					{searchResults.length > 0 ? <ul className="contacts-search-results">{searchResults.map((entity) => this.renderListItem(entity, false))}</ul> : <EmptyList type="contactssearch" />}
 
 				</div>
 			);
@@ -107,6 +107,7 @@ export default React.createClass({
 				</div>
 				<div>
 					{this.resultsSummary(items, searchResults)}
+					{this.searchResults()}
 				</div>
 			</div>
 		);
@@ -114,14 +115,6 @@ export default React.createClass({
 
 	beforeList (items) {
 		return this.searchField(items);
-	},
-
-	afterList () {
-		return (
-			<div className="search-results">
-				{this.searchResults()}
-			</div>
-		);
 	},
 
 	toggleFollow (entity) {
