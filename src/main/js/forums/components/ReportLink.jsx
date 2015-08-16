@@ -4,9 +4,11 @@ import {areYouSure} from 'prompts';
 
 import {reportItem} from '../Actions';
 
+import ItemChanges from 'common/mixins/ItemChanges';
 
 export default React.createClass({
 	displayName: 'ReportLink',
+	mixins: [ItemChanges],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired
