@@ -126,6 +126,6 @@ export default React.createClass({
 
 
 	getValue () {
-		return this.state;
+		return Object.assign({}, this.state, {about: this.refs.about.getValue()});
 	}
 });

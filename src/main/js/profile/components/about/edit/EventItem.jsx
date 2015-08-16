@@ -107,6 +107,7 @@ export default React.createClass({
 
 				<label>Description</label>
 				<Editor className={cx('description', {required: isRequired(schema, 'startYear')})}
+					ref="description"
 					required={isRequired(schema, 'startYear')}
 					allowInsertImage={false}
 					value={description}
@@ -121,6 +122,7 @@ export default React.createClass({
 		let {state} = this;
 		let value = {};
 		let input = Object.assign({}, item);
+		input.description = this.refs.description.getValue();
 
 		for (let field of Object.keys(state)) {
 			let v = state[field];
