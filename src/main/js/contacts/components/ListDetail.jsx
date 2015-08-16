@@ -2,8 +2,6 @@ import React from 'react';
 import Api from '../Api';
 import Loading from 'common/components/Loading';
 import {USERS} from '../Constants';
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
 import ContextSender from 'common/mixins/ContextSender';
 import BasePath from 'common/mixins/BasePath';
 import SelectableEntity from './SelectableEntity';
