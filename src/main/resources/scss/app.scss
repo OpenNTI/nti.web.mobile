@@ -98,8 +98,14 @@ body {
 	text-transform: uppercase;
 }
 
-a.disabled {
-	opacity:0.4;
+a {
+	&.disabled {
+		opacity:0.4;
+	}
+
+	&:hover, &:focus {
+		color: inherit;
+	}
 }
 
 .scroll-lock {
