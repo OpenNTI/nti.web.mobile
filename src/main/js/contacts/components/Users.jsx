@@ -127,11 +127,11 @@ export default React.createClass({
 	toggleFollow (entity) {
 
 		let p = entity.following ? areYouSure(t('unfollowPrompt')) : Promise.resolve();
-		p.then(() => {
+		p = p.then(() => {
 			this.setState({
 				loading: true
 			});
-			entity.follow()
+			return entity.follow()
 				.then(() => {
 					this.setState({
 						following: entity.following,
