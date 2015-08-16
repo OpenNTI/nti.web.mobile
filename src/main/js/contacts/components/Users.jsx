@@ -31,7 +31,7 @@ export default React.createClass({
 	},
 
 	updateSearchQuery (event) {
-		let query = event ? event.target.value.trim() : '';
+		let query = event ? event.target.value : '';
 		let {store} = this.state;
 
 		this.setState({
