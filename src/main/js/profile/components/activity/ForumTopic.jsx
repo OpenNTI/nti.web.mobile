@@ -17,7 +17,7 @@ export default React.createClass({
 	mixins: [Mixin, ObjectLink],
 
 	statics: {
-		mimeType: /forums\.((.+)headlinetopic|personalblogentry(post?))$/i
+		mimeType: /forums\.((.+)headlinetopic|personalblogentry(post)?)$/i
 	},
 
 	propTypes: {
