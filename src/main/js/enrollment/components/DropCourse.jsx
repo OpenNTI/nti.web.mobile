@@ -1,7 +1,5 @@
 import React from 'react';
 
-import path from 'path';
-
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import Loading from 'common/components/Loading';
@@ -29,7 +27,9 @@ export default React.createClass({
 
 	propTypes: {
 		courseId: React.PropTypes.string.isRequired,
-		entryId: React.PropTypes.string
+		entryId: React.PropTypes.string,
+
+		returnToCatalogRoot: React.PropTypes.any
 	},
 
 	getInitialState () {
@@ -40,14 +40,15 @@ export default React.createClass({
 	},
 
 	getContext () {
+		let {entryId, returnToCatalogRoot} = this.props;
+
 		return Promise.resolve([
 			{
 				label: this.getCourseTitle(),
-				href: path.normalize(this.makeHref('..'))
+				href: this.makeHref(returnToCatalogRoot ? '/' : `/item/${entryId}/`)
 			},
 			{
-				label: 'Drop',
-				href: path.normalize(this.makeHref(this.getPath()))
+				label: 'Drop'
 			}
 		]);
 	},

@@ -94,7 +94,7 @@ export default React.createClass({
 
 	render () {
 
-		let {entryId} = this.props;
+		let {enrollmentType} = this.props;
 		let courseId = this.getCourseId();
 
 		if (!this.state.catalogLoading && !courseId) {
@@ -103,10 +103,14 @@ export default React.createClass({
 			);
 		}
 
-		let Comp = HANDLERS[this.props.enrollmentType] || NotFound;
-		let enrollment = ENROLLMENT_SUFFIXES[this.props.enrollmentType] ? this.getEnrollmentOptionFor(ENROLLMENT_SUFFIXES[this.props.enrollmentType]) : null;
+		let Comp = HANDLERS[enrollmentType] || NotFound;
+		let type = ENROLLMENT_SUFFIXES[enrollmentType];
+		let enrollment = type
+			? this.getEnrollmentOptionFor(type)
+			: null;
+
 		return (
-			<Comp entryId={entryId}
+			<Comp {...this.props}
 				courseId={courseId}
 				enrollment={enrollment}
 			/>);
