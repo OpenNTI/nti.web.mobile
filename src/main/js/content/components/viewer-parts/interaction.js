@@ -39,7 +39,7 @@ export default {
 			let frag = parts[1] || '';
 
 			if (hasClass(anchor, 'ntiglossaryentry')) {
-				anchor.setAttribute('href', location.href + 'glossary/' + href.substr(1));
+				this.navigate('/glossary/' + href.substr(1));
 				return;
 			}
 
