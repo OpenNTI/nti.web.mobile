@@ -35,7 +35,7 @@
 .icon-add-image:before {
 	content: "\e603";
 }
-.icon-discuss:before {
+.icon-add-comment:before {
 	content: "\e604";
 }
 .icon-bold-x:before {
@@ -85,4 +85,10 @@
 }
 .icon-remove-user:before {
 	content: "\e608";
+}
+.icon-trash:before {
+	content: "\e60d";
+}
+.icon-pencil:before {
+	content: "\e60e";
 }

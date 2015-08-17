@@ -19,7 +19,7 @@
 				{}
 			],
 			"properties": {
-				"order": 24,
+				"order": 1,
 				"id": 28,
 				"prevSize": 32,
 				"code": 58880,
@@ -47,7 +47,7 @@
 				{}
 			],
 			"properties": {
-				"order": 25,
+				"order": 2,
 				"id": 18,
 				"prevSize": 32,
 				"code": 58881,
@@ -75,7 +75,7 @@
 				{}
 			],
 			"properties": {
-				"order": 26,
+				"order": 3,
 				"id": 19,
 				"prevSize": 32,
 				"code": 58882,
@@ -103,7 +103,7 @@
 				{}
 			],
 			"properties": {
-				"order": 27,
+				"order": 4,
 				"id": 20,
 				"prevSize": 32,
 				"code": 58883,
@@ -131,11 +131,11 @@
 				{}
 			],
 			"properties": {
-				"order": 28,
+				"order": 5,
 				"id": 21,
 				"prevSize": 32,
 				"code": 58884,
-				"name": "discuss"
+				"name": "add-comment"
 			},
 			"setIdx": 2,
 			"setId": 10,
@@ -159,7 +159,7 @@
 				{}
 			],
 			"properties": {
-				"order": 29,
+				"order": 6,
 				"id": 23,
 				"prevSize": 32,
 				"code": 88,
@@ -187,7 +187,7 @@
 				{}
 			],
 			"properties": {
-				"order": 30,
+				"order": 7,
 				"id": 24,
 				"prevSize": 32,
 				"code": 120,
@@ -215,7 +215,7 @@
 				{}
 			],
 			"properties": {
-				"order": 31,
+				"order": 8,
 				"id": 25,
 				"prevSize": 32,
 				"code": 58887,
@@ -243,7 +243,7 @@
 				{}
 			],
 			"properties": {
-				"order": 32,
+				"order": 9,
 				"id": 26,
 				"prevSize": 32,
 				"code": 8730,
@@ -271,7 +271,7 @@
 				{}
 			],
 			"properties": {
-				"order": 33,
+				"order": 10,
 				"id": 27,
 				"prevSize": 32,
 				"code": 58889,
@@ -299,7 +299,7 @@
 				{}
 			],
 			"properties": {
-				"order": 34,
+				"order": 11,
 				"id": 11,
 				"prevSize": 32,
 				"code": 58890,
@@ -327,7 +327,7 @@
 				{}
 			],
 			"properties": {
-				"order": 35,
+				"order": 12,
 				"id": 12,
 				"prevSize": 32,
 				"code": 58891,
@@ -355,7 +355,7 @@
 				{}
 			],
 			"properties": {
-				"order": 36,
+				"order": 13,
 				"id": 13,
 				"prevSize": 32,
 				"code": 58892,
@@ -383,7 +383,7 @@
 				{}
 			],
 			"properties": {
-				"order": 37,
+				"order": 14,
 				"id": 14,
 				"prevSize": 32,
 				"code": 118,
@@ -411,7 +411,7 @@
 				{}
 			],
 			"properties": {
-				"order": 38,
+				"order": 15,
 				"id": 15,
 				"prevSize": 32,
 				"code": 60,
@@ -439,7 +439,7 @@
 				{}
 			],
 			"properties": {
-				"order": 39,
+				"order": 16,
 				"id": 16,
 				"prevSize": 32,
 				"code": 62,
@@ -467,7 +467,7 @@
 				{}
 			],
 			"properties": {
-				"order": 40,
+				"order": 17,
 				"id": 17,
 				"prevSize": 32,
 				"code": 94,
@@ -498,7 +498,7 @@
 				{}
 			],
 			"properties": {
-				"order": 41,
+				"order": 18,
 				"id": 10,
 				"prevSize": 32,
 				"code": 105,
@@ -533,7 +533,7 @@
 				{}
 			],
 			"properties": {
-				"order": 42,
+				"order": 19,
 				"id": 30,
 				"prevSize": 32,
 				"code": 58885,
@@ -582,7 +582,7 @@
 				{}
 			],
 			"properties": {
-				"order": 43,
+				"order": 20,
 				"id": 29,
 				"prevSize": 32,
 				"code": 58886,
@@ -604,13 +604,13 @@
 				"tags": [
 					"remove"
 				],
-				"grid": 0
+				"grid": 16
 			},
 			"attrs": [
 				{}
 			],
 			"properties": {
-				"order": 44,
+				"order": 21,
 				"id": 31,
 				"prevSize": 32,
 				"code": 58888,
@@ -619,6 +619,55 @@
 			"setIdx": 2,
 			"setId": 10,
 			"iconIdx": 20
+		},
+		{
+			"icon": {
+				"paths": [
+					"M594.435 341.642v426.8h-384.119v-426.8h-42.679v-85.361h128.039v-85.361h213.398v85.361h128.039v85.361h-42.679zM381.035 683.079h42.679v-298.759h-42.679v298.759zM295.675 683.079h42.679v-298.759h-42.679v298.759zM466.395 213.602h-128.039v42.679h128.039v-42.679zM509.076 384.319h-42.681v298.759h42.681v-298.759z"
+				],
+				"attrs": [],
+				"isMulticolor": false,
+				"width": 805,
+				"grid": 16,
+				"tags": [
+					"ico_delete_trashcan"
+				]
+			},
+			"attrs": [],
+			"properties": {
+				"order": 22,
+				"id": 32,
+				"prevSize": 32,
+				"code": 58893,
+				"name": "trash"
+			},
+			"setIdx": 2,
+			"setId": 10,
+			"iconIdx": 21
+		},
+		{
+			"icon": {
+				"paths": [
+					"M874.048 303.68l-49.984 49.984-154.688-154.816 49.92-49.984c28.48-28.48 74.688-28.48 103.168 0l51.584 51.584c28.48 28.544 28.48 74.752 0 103.232zM770.88 406.912l-375.104 375.36-154.816-154.688 375.232-375.488 154.688 154.816zM304.832 838.784l-176.64 56.448 56.384-176.704c-0.768-16.128 4.48-31.808 14.336-45.504l151.424 151.36c-13.696 9.92-29.376 15.232-45.504 14.4z"
+				],
+				"attrs": [],
+				"isMulticolor": false,
+				"grid": 16,
+				"tags": [
+					"edit_redactions_white_12x12"
+				]
+			},
+			"attrs": [],
+			"properties": {
+				"order": 23,
+				"id": 33,
+				"prevSize": 32,
+				"code": 58894,
+				"name": "pencil"
+			},
+			"setIdx": 2,
+			"setId": 10,
+			"iconIdx": 22
 		}
 	],
 	"height": 1024,
