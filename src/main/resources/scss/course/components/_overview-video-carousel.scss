@@ -1,5 +1,6 @@
 .videos-carousel-container {
 	position: relative;
+	overflow: hidden;
 	@include viewportWidth(max-width, 100);
 	margin: 0.3rem -0.5rem;
 
