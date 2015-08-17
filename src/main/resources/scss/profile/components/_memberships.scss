@@ -87,7 +87,12 @@
 		.membership {
 			overflow: hidden;
 			margin: .25rem;
-			flex: 0 1 calc(50% - 0.5rem);
+			flex: 0 1 calc(100% - 0.5rem);
+
+			@media all and (min-width: 380px) {
+				flex: 0 1 calc(50% - 0.5rem);
+			}
+
 			@media all and (min-width: 600px) {
 				flex-basis: calc(33% - 0.5rem);
 			}
