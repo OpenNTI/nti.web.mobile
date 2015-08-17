@@ -31,7 +31,7 @@ export default React.createClass({
 		let entity = getAppUsername();
 
 		let profile = join(base, 'profile', encode(entity));
-		let contacts = join(base, 'contacts', '/');
+		// let contacts = join(base, 'contacts', '/');
 
 		return (
 			<div className="user-session">
@@ -41,7 +41,7 @@ export default React.createClass({
 				</div>
 				<ul className="links">
 					<li><a href={profile}>View Profile</a></li>
-					<li><a href={contacts}>Contacts</a></li>
+
 					<li><a onClick={logout}>Log Out</a></li>
 				</ul>
 				<div className="actions">
