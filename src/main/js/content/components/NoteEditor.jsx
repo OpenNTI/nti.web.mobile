@@ -2,10 +2,10 @@ import React from 'react';
 import CSS from 'react/lib/CSSCore';
 import cx from 'classnames';
 
+import {parent} from 'nti.lib.dom';
 import {Editor} from 'modeled-content';
 
 import Loading from 'common/components/Loading';
-import LockScroll from 'common/components/LockScroll';
 import ShareWith from 'common/components/ShareWith';
 
 import t from 'common/locale';
@@ -41,6 +41,24 @@ export default React.createClass({
 	},
 
 
+	getAnchorBlock () {
+		return parent(React.findDOMNode(this), '.fixed-footer');
+	},
+
+
+	componentWillUnmount () {
+		this.getAnchorBlock().style.height = null;
+	},
+
+	componentDidUpdate () {
+		let {offsetHeight} = React.findDOMNode(this);
+		let anchor = this.getAnchorBlock();
+
+		let fill = offsetHeight - anchor.offsetTop;
+		anchor.style.height = fill < 0 ? null : `${fill}px`;
+	},
+
+
 	render () {
 		let {error, busy, body, title} = this.state || {};
 
@@ -52,7 +70,7 @@ export default React.createClass({
 
 		return (
 			<div className={cx('note-editor-frame editor', {busy})}>
-				<LockScroll/>
+
 				<form onSubmit={x => x.preventDefault() && false}>
 					<ShareWith />
 

@@ -5,6 +5,9 @@
 	background: #fff;
 	position: relative;
 
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+
 	&.busy {
 		@extend %inline-loader;
 	}
@@ -31,6 +34,7 @@
 	@each $format in $formats {
 		button[data-format=#{$format}] {
 			@extend %icon-editor-#{$format};
+			.touch & {display: none;}
 		}
 		button[data-format=#{$format}]:active,
 		button[data-format=#{$format}]:focus,

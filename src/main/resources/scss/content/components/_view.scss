@@ -45,9 +45,10 @@
 
 
 		& > .the-fixed.note-editor {
+			position: absolute;
 			background: none;
 			border: 0;
-			top: 0;
+			top: -4rem;
 
 			&[class*=toast] {
 				margin: 0;
