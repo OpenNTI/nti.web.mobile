@@ -2,13 +2,20 @@ import React from 'react';
 import Api from '../Api';
 import Loading from 'common/components/Loading';
 import {USERS} from '../Constants';
+import {areYouSure} from 'prompts';
 import ContextSender from 'common/mixins/ContextSender';
 import BasePath from 'common/mixins/BasePath';
 import SelectableEntity from './SelectableEntity';
+import Page from 'common/components/Page';
+import GradientBackground from 'common/components/GradientBackground';
+import Navigatable from 'common/mixins/NavigatableMixin';
+import {scoped} from 'common/locale';
+
+let t = scoped('CONTACTS');
 
 export default React.createClass({
 	displayName: 'ListDetail',
-	mixins: [ContextSender, BasePath],
+	mixins: [ContextSender, BasePath, Navigatable],
 	propTypes: {
 		id: React.PropTypes.string.isRequired
 	},
@@ -73,6 +80,22 @@ export default React.createClass({
 		return p;
 	},
 
+	deleteList () {
+		let {list} = this.state;
+		areYouSure(t('deleteListPrompt')).then(() => {
+			this.setState({
+				loading: true
+			});
+			list.delete()
+				.then(() => {
+					this.setState({
+						loading: false
+					});
+					this.navigate('/lists/');
+				});
+		});
+	},
+
 	render () {
 
 		let {loading, list, contacts} = this.state;
@@ -100,24 +123,34 @@ export default React.createClass({
 		}
 
 		return (
-			<div className="list-detail">
-				<h1>{list.displayName}</h1>
-				{/*
-				<h2>List Members</h2>
-				<ul className="list-members">
-					{members.map(item =>
-						<li key={item.getID()} onClick={this.toggleMembership.bind(this, item)}>
-							<Avatar entity={item} />
-							<DisplayName entity={item} />
-						</li>)
-					}
-				</ul>
-				<h2>Contacts</h2>
-				*/}
-				<ul className="contacts-list">
-					{contactItems}
-				</ul>
-			</div>
+			<Page>
+				<GradientBackground>
+					<div className="distribution-list-detail">
+						<header className="item-detail-header">
+							<h1>{list.displayName}</h1>
+							<button className="delete-icon" onClick={this.deleteList}>Delete</button>
+							<button className="rename" onClick={this.rename} >Rename</button>
+						</header>
+						{/*
+						<h2>List Members</h2>
+						<ul className="list-members">
+							{members.map(item =>
+								<li key={item.getID()} onClick={this.toggleMembership.bind(this, item)}>
+									<Avatar entity={item} />
+									<DisplayName entity={item} />
+								</li>)
+							}
+						</ul>
+						<h2>Contacts</h2>
+						*/}
+						<div className="list-content">
+							<ul className="contacts-list">
+								{contactItems}
+							</ul>
+						</div>
+					</div>
+				</GradientBackground>
+			</Page>
 		);
 	}
 });

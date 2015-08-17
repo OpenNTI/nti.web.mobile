@@ -1,7 +1,9 @@
 @import 'components/list-creation-form';
 @import 'components/distribution-list-item';
+@import 'components/distribution-list-detail';
 @import 'components/selectable-entity';
 @import 'components/contacts-list';
+@import 'components/delete-button';
 
 .contacts-nav {
 	@extend %tabbed-nav;
