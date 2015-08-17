@@ -1,10 +1,11 @@
 import React from 'react';
 import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import cx from 'classnames';
 
+import {isFlag} from 'common/utils';
 
 import {RouterMixin} from 'react-router-component';
 
-import cx from 'classnames';
 
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
@@ -326,7 +327,7 @@ export default React.createClass({
 	renderAnnotationToolbar () {
 		const None = void 0;
 		let {selected} = this.state;
-		if (!selected) {
+		if (!selected || !isFlag('create-annotations')) {
 			return null;
 		}
 
