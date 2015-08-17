@@ -17,7 +17,7 @@ export default React.createClass({
 	mixins: [Mixin, ObjectLink],
 
 	statics: {
-		mimeType: /forums\.((.+)headlinetopic|personalblogentry)$/i
+		mimeType: /forums\.((.+)headlinetopic|personalblogentry(post?))$/i
 	},
 
 	propTypes: {
@@ -42,7 +42,7 @@ export default React.createClass({
 			busy: true
 		});
 		let {item} = this.props;
-		item.headline
+		(item.headline || item)
 			.save({title, body})
 			.then(() => this.setState(this.getInitialState()));
 	},
@@ -75,8 +75,8 @@ export default React.createClass({
 		if (this.state.editing) {
 			return (
 				<PostEditor
-					title={item.headline.title}
-					value={item.headline.body}
+					title={(item.headline || item).title}
+					value={(item.headline || item).body}
 					onCancel={this.toggleEdit}
 					onSubmit={this.onSave}
 				/>
@@ -88,7 +88,7 @@ export default React.createClass({
 				<Breadcrumb item={item} />
 				<div className="body">
 					<LuckyCharms item={item} />
-					<TopicHeadline item={item.headline} />
+					<TopicHeadline item={item.headline || item} />
 				</div>
 				<ActionLinks item={item} clickHandlers={handlers} />
 				{/*
