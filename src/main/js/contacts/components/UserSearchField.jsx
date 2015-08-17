@@ -71,6 +71,10 @@ export default React.createClass({
 		}
 	},
 
+	getSelections () {
+		return this.state.selectedUsers;
+	},
+
 	queryChanged (event) {
 		let query = event ? event.target.value : '';
 		let {store} = this.state;

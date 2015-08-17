@@ -112,6 +112,24 @@ export default React.createClass({
 		});
 	},
 
+	cancelSearch () {
+		this.setState({
+			adding: false
+		});
+	},
+
+	saveSearch () {
+		let selections = this.refs.searchField.getSelections();
+		let {list} = this.state;
+		list.add(...selections)
+			.then(() => {
+				this.setState({
+					adding: false
+				});
+				this.getList();
+			});
+	},
+
 	render () {
 
 		let {loading, list, members} = this.state;
@@ -150,9 +168,14 @@ export default React.createClass({
 							<button className="rename" onClick={this.rename} >Rename</button>
 						</header>
 						{this.state.adding ?
-							<UserSearchField onChange={this.searchSelectionChange} /> :
 							<div>
-								<div onClick={this.addPeople}>Add People</div>
+								<UserSearchField ref="searchField" />
+								<button onClick={this.cancelSearch}>Cancel</button>
+								<button onClick={this.saveSearch}>Save Selection</button>
+							</div>
+							:
+							<div>
+								<div className="add-people" onClick={this.addPeople}>Add People</div>
 								<div className="list-content">
 									<ul className={classes}>
 										{contactItems.length > 0 ? contactItems : <li><EmtpyList type="contacts" /></li> }
