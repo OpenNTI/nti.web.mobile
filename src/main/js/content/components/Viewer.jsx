@@ -233,7 +233,12 @@ export default React.createClass({
 	render () {
 		let pageId = this.getPageID();
 		let {contentPackage} = this.props;
-		let {annotations, error, loading, page, pageSource, selectedDiscussions, style, className = ''} = this.state;
+
+		let {
+			annotations, stagedNote, error, loading, page,
+			pageSource, selectedDiscussions, style, className = ''
+		} = this.state;
+
 		let {discussions} = this.getPropsFromRoute();
 
 		if (loading) {
@@ -253,20 +258,27 @@ export default React.createClass({
 		};
 
 		if (!this.refs.content) {
-			//Annotations cannot resolve their anchors if the content ref is not present... so don't even try.
+			//Annotations cannot resolve their anchors if the
+			//content ref is not present... so don't even try.
 			annotations = undefined;
 		}
 
 
 		return (
-			<div {...props}>
+			<TransitionGroup {...props} component="div"
+				transitionName="fadeOutIn"
+				transitionAppear>
 
 				{discussions ? (
 
-					<Discussions UserDataStoreProvider={page} filter={selectedDiscussions}/>
+					<Discussions key="discussions" UserDataStoreProvider={page} filter={selectedDiscussions}/>
+
+				) : stagedNote ? (
+
+					this.renderNoteEditor()
 
 				) : (
-					<div className="content-body">
+					<div className="content-body" key="content">
 						{this.renderAssessmentHeader()}
 
 						<BodyContent id="NTIContent" ref="content"
@@ -288,7 +300,8 @@ export default React.createClass({
 						{this.renderDockedToolbar()}
 					</div>
 				)}
-			</div>
+
+			</TransitionGroup>
 		);
 	},
 
@@ -296,22 +309,17 @@ export default React.createClass({
 	renderDockedToolbar () {
 		let annotation = this.renderAnnotationToolbar();
 		let submission = this.renderAssessmentSubmission();
-		let noteeditor = this.renderNoteEditor();
 
-		let key = noteeditor
-			? 'note-editor'
-			: annotation
-				? 'annotation'
-				: submission
-					? 'submission'
-					: 'none';
+		let key = annotation
+			? 'annotation'
+			: submission
+				? 'submission'
+				: 'none';
 
-		let content = noteeditor || annotation || submission;
+		let content = annotation || submission;
 
 		return (
-			<TransitionGroup component="div"
-				className={`fixed-footer ${key}`}
-				transitionName="toast">
+			<TransitionGroup component="div" transitionName="toast" className={`fixed-footer ${key}`} transitionAppear>
 
 				{content && (
 				<div className={`the-fixed ${key}`} key={key}>
@@ -363,7 +371,7 @@ export default React.createClass({
 		}
 
 		return (
-			<NoteEditor item={stagedNote} onCancel={cancel} onSave={this.saveNote}/>
+			<NoteEditor key="note-editor" item={stagedNote} onCancel={cancel} onSave={this.saveNote}/>
 		);
 	},
 
