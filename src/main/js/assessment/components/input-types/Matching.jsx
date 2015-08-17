@@ -3,7 +3,7 @@ import InputType from './Mixin';
 
 import Content from '../Content';
 
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {getEventTarget} from 'nti.lib.dom';
 import {Mixin, Draggable, DropTarget} from 'common/dnd';
 
 //let isEmpty from 'nti.lib.interfaces/utils/isempty';
