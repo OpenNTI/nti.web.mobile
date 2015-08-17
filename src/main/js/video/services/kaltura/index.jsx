@@ -7,7 +7,7 @@ import url from 'url';
 import {getModel} from 'nti.lib.interfaces';
 let MediaSource = getModel('mediasource');
 
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {getEventTarget} from 'nti.lib.dom';
 
 import Loading from 'common/components/Loading';
 import {EventHandlers} from '../../Constants';

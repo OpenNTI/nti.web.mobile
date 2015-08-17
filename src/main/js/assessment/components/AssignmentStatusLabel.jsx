@@ -9,7 +9,7 @@ import DateTime from 'common/components/DateTime';
 
 import {scoped} from 'common/locale';
 
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {getEventTarget} from 'nti.lib.dom';
 
 import moment from 'moment';
 

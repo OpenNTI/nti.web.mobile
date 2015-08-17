@@ -1,8 +1,6 @@
 import React from 'react';
 
-import hasClass from 'nti.lib.dom/lib/hasclass';
-import matches from 'nti.lib.dom/lib/matches';
-import parent from 'nti.lib.dom/lib/parent';
+import {hasClass, matches, parent} from 'nti.lib.dom';
 
 import InsertImageButton from './InsertImageButton';
 import Editor, {FormatButton, ToolbarRegions} from 'react-editor-component';

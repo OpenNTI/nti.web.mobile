@@ -3,7 +3,7 @@ import React from 'react';
 import {getModel} from 'nti.lib.interfaces';
 let MediaSource = getModel('mediasource');
 
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {getEventTarget} from 'nti.lib.dom';
 
 import {EventHandlers} from '../../Constants';
 

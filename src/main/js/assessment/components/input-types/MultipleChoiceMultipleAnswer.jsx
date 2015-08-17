@@ -1,7 +1,7 @@
 import React from 'react';
 import Mixin from './Mixin';
 
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {getEventTarget} from 'nti.lib.dom';
 
 import toArray from 'nti.lib.interfaces/utils/toarray';
 import isTruthy from 'nti.lib.interfaces/utils/identity';
