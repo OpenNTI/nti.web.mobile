@@ -14,7 +14,8 @@ export default React.createClass({
 		selected: React.PropTypes.bool,
 		tag: React.PropTypes.string,
 		onChange: React.PropTypes.func,
-		removable: React.PropTypes.bool
+		removable: React.PropTypes.bool,
+		children: React.PropTypes.any
 	},
 
 	getDefaultProps () {
@@ -67,6 +68,7 @@ export default React.createClass({
 					<div className="association"></div>
 				</ProfileLink>
 				<div className={classes} onClick={this.onClick}></div>
+				{this.props.children}
 			</Element>
 		);
 	}

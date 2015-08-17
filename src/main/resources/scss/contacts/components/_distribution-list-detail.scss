@@ -19,5 +19,8 @@
 	.list-content {
 		background: white;
 		padding: 0 1rem;
+		&.empty {
+			padding: 1rem;
+		}
 	}
 }

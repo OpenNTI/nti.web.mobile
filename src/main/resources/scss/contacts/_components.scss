@@ -4,6 +4,7 @@
 @import 'components/selectable-entity';
 @import 'components/contacts-list';
 @import 'components/delete-button';
+@import 'components/user-search-field';
 
 .contacts-nav {
 	@extend %tabbed-nav;

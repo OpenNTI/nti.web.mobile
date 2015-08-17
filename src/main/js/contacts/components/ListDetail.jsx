@@ -10,6 +10,9 @@ import Page from 'common/components/Page';
 import GradientBackground from 'common/components/GradientBackground';
 import Navigatable from 'common/mixins/NavigatableMixin';
 import {scoped} from 'common/locale';
+import EmtpyList from 'common/components/EmptyList';
+import cx from 'classnames';
+import UserSearchField from './UserSearchField';
 
 let t = scoped('CONTACTS');
 
@@ -23,7 +26,8 @@ export default React.createClass({
 	getInitialState () {
 		return {
 			list: null,
-			loading: true
+			loading: true,
+			adding: false
 		};
 	},
 
@@ -67,10 +71,16 @@ export default React.createClass({
 		]).then((results) => {
 			this.setState({
 				list: results[0],
+				members: (results[0] || {}).friends || [],
 				contacts: results[1],
 				loading: false
 			});
 		});
+	},
+
+	searchSelectionChange (user) {
+		this.toggleMembership(user)
+		.then(this.getList);
 	},
 
 	toggleMembership (entity) {
@@ -96,9 +106,15 @@ export default React.createClass({
 		});
 	},
 
+	addPeople () {
+		this.setState({
+			adding: true
+		});
+	},
+
 	render () {
 
-		let {loading, list, contacts} = this.state;
+		let {loading, list, members} = this.state;
 
 		if (loading) {
 			return <Loading />;
@@ -110,7 +126,7 @@ export default React.createClass({
 
 		// let members = list.friends || [];
 		let contactItems = [];
-		for(let c of contacts) {
+		for(let c of members) {
 			// if (list.contains(c)) {continue;}
 			contactItems.push(
 				<SelectableEntity
@@ -118,9 +134,11 @@ export default React.createClass({
 					entity={c}
 					selected={list.contains(c)}
 					onChange={this.toggleMembership.bind(this, c)}
-				/>
+				><div onClick={this.toggleMembership.bind(this, c)}>{list.contains(c) ? 'Remove' : 'Undo'}</div></SelectableEntity>
 			);
 		}
+
+		let classes = cx('list-content', {'empty': contactItems.length === 0});
 
 		return (
 			<Page>
@@ -131,23 +149,17 @@ export default React.createClass({
 							<button className="delete-icon" onClick={this.deleteList}>Delete</button>
 							<button className="rename" onClick={this.rename} >Rename</button>
 						</header>
-						{/*
-						<h2>List Members</h2>
-						<ul className="list-members">
-							{members.map(item =>
-								<li key={item.getID()} onClick={this.toggleMembership.bind(this, item)}>
-									<Avatar entity={item} />
-									<DisplayName entity={item} />
-								</li>)
-							}
-						</ul>
-						<h2>Contacts</h2>
-						*/}
-						<div className="list-content">
-							<ul className="contacts-list">
-								{contactItems}
-							</ul>
-						</div>
+						{this.state.adding ?
+							<UserSearchField onChange={this.searchSelectionChange} /> :
+							<div>
+								<div onClick={this.addPeople}>Add People</div>
+								<div className="list-content">
+									<ul className={classes}>
+										{contactItems.length > 0 ? contactItems : <li><EmtpyList type="contacts" /></li> }
+									</ul>
+								</div>
+							</div>
+						}
 					</div>
 				</GradientBackground>
 			</Page>
