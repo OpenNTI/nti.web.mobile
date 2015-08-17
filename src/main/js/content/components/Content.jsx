@@ -49,6 +49,13 @@ export default React.createClass({
 	},
 
 
+	componentWillReceiveProps (nextProps) {
+		if (getComparable(nextProps) !== getComparable(this.props)) {
+			this.cleanupWidgets();
+		}
+	},
+
+
 	onContentMaybeReady (shouldUpdate) {
 		if (this.updatingPrestine) {
 			return;
@@ -91,8 +98,13 @@ export default React.createClass({
 		for(let id of Object.keys(widgets)) {
 			let el = document.getElementById(id);
 			if (el) {
-				React.unmountComponentAtNode(el);
+				if (!React.unmountComponentAtNode(el)) {
+					console.warn('Widget was not unmounted: %s', id);
+				}
 				el.removeAttribute('mounted');
+			}
+			else {
+				console.warn('Widget not found: %s', id);
 			}
 		}
 	},
