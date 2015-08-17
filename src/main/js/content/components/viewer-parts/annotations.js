@@ -51,12 +51,18 @@ export default {
 	},
 
 	componentWillUpdate (_, nextState) {
+		let {annotations} = this.state;
 		let store = getStore(this.state);
 		let nextStore = getStore(nextState);
+
 		if (store && store !== nextStore) {
 			store.removeListener('change', this.onUserDataChange);
+			for (let i of Object.keys(annotations)) {
+				delete annotations[i];
+			}
 		}
-		else if (nextStore && nextStore !== store) {
+
+		if (nextStore && nextStore !== store) {
 			nextStore.addListener('change', this.onUserDataChange);
 		}
 	},
