@@ -102,6 +102,9 @@
 			}
 		}
 
+		&.remove-animation {
+			animation: none;
+		}
 	}
 
 	.notice {

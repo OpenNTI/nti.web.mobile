@@ -82,7 +82,7 @@ export default React.createClass({
 
 		return (
 			<div className="login-wrapper">
-				<form ref="form" className="login-form" onSubmit={this.handleSubmit}>
+				<form ref="form" className={cx('login-form', {'remove-animation': success})} onSubmit={this.handleSubmit}>
 					<div className="header">next thought</div>
 					<Conditional condition={!busy && !success}>
 						<Conditional condition={!!error} className="message">{error}</Conditional>
