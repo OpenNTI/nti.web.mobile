@@ -69,7 +69,7 @@ export default React.createClass({
 		Api.getDistributionList(this.props.id)
 		.then((result) => {
 			let {originalMembers} = this.state;
-			let members = (!updateOriginal && originalMembers) || (result || {}).friends.slice() || [];
+			let members = (!updateOriginal && originalMembers) || (result.friends || []).slice();
 			this.setState({
 				list: result,
 				originalMembers: members,
