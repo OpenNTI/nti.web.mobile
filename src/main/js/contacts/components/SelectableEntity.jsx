@@ -38,16 +38,20 @@ export default React.createClass({
 		let {onChange, entity} = this.props;
 		let p = onChange && onChange(entity) || noclick;
 		p.then(() => {
-			this.setState({
-				busy: false
-			});
+			if (this.isMounted() ) {
+				this.setState({
+					busy: false
+				});	
+			}
 		});
 		p.catch(reason => {
 			console.error(reason);
-			this.setState({
-				busy: false,
-				error: reason
-			});
+			if (this.isMounted()) {
+				this.setState({
+					busy: false,
+					error: reason
+				});
+			}
 		});
 	},
 
