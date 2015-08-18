@@ -41,7 +41,7 @@ export default React.createClass({
 			if (this.isMounted() ) {
 				this.setState({
 					busy: false
-				});	
+				});
 			}
 		});
 		p.catch(reason => {
@@ -66,11 +66,11 @@ export default React.createClass({
 		let Element = tag;
 		return (
 			<Element className='selectable-entity' {...this.props}>
-				<ProfileLink entity={entity}>
+				<div>
 					<Avatar entity={entity} />
 					<DisplayName entity={entity} />
 					<div className="association"></div>
-				</ProfileLink>
+				</div>
 				<div className={classes} onClick={this.onClick}></div>
 				{this.props.children}
 			</Element>
