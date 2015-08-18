@@ -2,7 +2,6 @@ import React from 'react';
 import cx from 'classnames';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import ProfileLink from 'profile/components/ProfileLink';
 
 const noclick = Promise.resolve();
 
