@@ -64,13 +64,13 @@ export default React.createClass({
 		});
 		let Element = tag;
 		return (
-			<Element className='selectable-entity' {...this.props}>
+			<Element className='selectable-entity' {...this.props} onClick={this.onClick}>
 				<div>
 					<Avatar entity={entity} />
 					<DisplayName entity={entity} />
 					<div className="association"></div>
 				</div>
-				<div className={classes} onClick={this.onClick}></div>
+				<div className={classes}></div>
 				{this.props.children}
 			</Element>
 		);
