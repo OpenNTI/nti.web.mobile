@@ -2,19 +2,28 @@ import React from 'react';
 import SelectableEntity from './SelectableEntity';
 import Api from '../Api';
 import {USERS} from '../Constants';
-import EmptyList from 'common/components/EmptyList';
+// import EmptyList from 'common/components/EmptyList';
+import cx from 'classnames';
 
 export default React.createClass({
 	displayName: 'UserSearchField',
 
 	propTypes: {
-		onChange: React.PropTypes.func
+		onChange: React.PropTypes.func,
+		selected: React.PropTypes.array
+	},
+
+	getDefaultProps () {
+		return {
+			selected: []
+		};
 	},
 
 	getInitialState () {
 		return {
 			selectedUsers: [],
-			searchResults: []
+			searchResults: [],
+			contactsResults: []
 		};
 	},
 
@@ -104,18 +113,47 @@ export default React.createClass({
 			});
 			search.then(results => {
 				// search results include communities and friends lists; we only want users
+				let contacts = [];
+				for(let user of store) {
+					if (store.entityMatchesQuery(user, query)) {
+						contacts.push(user);
+					}
+				}
 				let users = results.filter((entity) => entity.isUser);
 				this.setState({
 					searchResults: users,
-					searchLoading: false
+					searchLoading: false,
+					contactsResults: contacts
 				});
 			});
 		}
 	},
 
+	renderResults (heading, results, classes) {
+		let classnames = cx('contact-list search-results', classes);
+		let {selectedUsers} = this.state;
+		return (
+			<section>
+				<h1>{heading}</h1>
+				<ul className={classnames}>
+					{results.length > 0 ?
+						results.map(entity =>
+							<SelectableEntity
+								key={'selectable-' + entity.getID()}
+								entity={entity}
+								selected={listContainsEntity(selectedUsers, entity) || listContainsEntity(this.props.selected, entity)}
+								onChange={this.selectionChange.bind(this, entity)}
+							/>)
+						: <li>No results</li>
+					}
+				</ul>
+			</section>
+		);
+	},
+
 	render () {
 
-		let {selectedUsers, searchResults} = this.state;
+		let {selectedUsers, searchResults, contactsResults} = this.state;
 
 		return (
 			<div className="user-search">
@@ -123,19 +161,16 @@ export default React.createClass({
 					{selectedUsers.map(user => <li key={'selected-' + user.getID()} className="selected-item">{user.displayName}</li>)}
 					<li className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} /></li>
 				</ul>
-				<ul className="search-results">
-					{searchResults.length > 0 ?
-						searchResults.map(entity =>
-							<SelectableEntity
-								key={'selectable-' + entity.getID()}
-								entity={entity}
-								selected={selectedUsers.findIndex((user) => user.getID() === entity.getID()) > -1}
-								onChange={this.selectionChange.bind(this, entity)}
-							/>)
-						: <EmptyList type="contacts" />
-					}
+				<ul className="output-list">
+					<li>{this.renderResults('Contacts', contactsResults, 'contacts' )}</li>
+					<li>{this.renderResults('Others', searchResults)}</li>
 				</ul>
 			</div>
 		);
 	}
 });
+
+
+function listContainsEntity (list, entity) {
+	return (list || []).findIndex((user) => user.getID && user.getID() === entity.getID()) > -1;
+}

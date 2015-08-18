@@ -1,7 +1,7 @@
 import React from 'react';
 import Api from '../Api';
 import Loading from 'common/components/Loading';
-import {USERS} from '../Constants';
+// import {USERS} from '../Constants';
 import {areYouSure} from 'prompts';
 import ContextSender from 'common/mixins/ContextSender';
 import BasePath from 'common/mixins/BasePath';
@@ -65,14 +65,14 @@ export default React.createClass({
 	},
 
 	getList () {
-		Promise.all([
-			Api.getDistributionList(this.props.id),
-			Api.getStore(USERS)
-		]).then((results) => {
+		Api.getDistributionList(this.props.id)
+		.then((result) => {
+			// use the members list from state if we already have it to prevent
+			// removed members from disappearing.
+			let members = this.state.members || (result || {}).friends || [];
 			this.setState({
-				list: results[0],
-				members: (results[0] || {}).friends || [],
-				contacts: results[1],
+				list: result,
+				members,
 				loading: false
 			});
 		});
@@ -134,7 +134,7 @@ export default React.createClass({
 
 	render () {
 
-		let {loading, list, members} = this.state;
+		let {loading, list} = this.state;
 
 		if (loading) {
 			return <Loading />;
@@ -146,7 +146,7 @@ export default React.createClass({
 
 		// let members = list.friends || [];
 		let contactItems = [];
-		for(let c of members) {
+		for(let c of list) {
 			// if (list.contains(c)) {continue;}
 			contactItems.push(
 				<SelectableEntity
@@ -154,11 +154,13 @@ export default React.createClass({
 					entity={c}
 					selected={list.contains(c)}
 					onChange={this.toggleMembership.bind(this, c)}
-				><div onClick={this.toggleMembership.bind(this, c)}>{list.contains(c) ? 'Remove' : 'Undo'}</div></SelectableEntity>
+				>
+					{/* <div onClick={this.toggleMembership.bind(this, c)}>{list.contains(c) ? 'Remove' : 'Undo'}</div> */}
+				</SelectableEntity>
 			);
 		}
 
-		let classes = cx('list-content', {'empty': contactItems.length === 0});
+		let classes = cx('contact-list list-content', {'empty': contactItems.length === 0});
 
 		return (
 			<Page>
@@ -170,15 +172,17 @@ export default React.createClass({
 							<button className="rename" onClick={this.rename} >Rename</button>
 						</header>
 						{this.state.adding ?
-							<div>
-								<UserSearchField ref="searchField" />
-								<button onClick={this.cancelSearch}>Cancel</button>
-								<button onClick={this.saveSearch}>Save Selection</button>
+							<div className="list-user-search">
+								<UserSearchField ref="searchField" selected={list.friends} />
+								<div className="buttons">
+									<button onClick={this.cancelSearch}>Cancel</button>
+									<button onClick={this.saveSearch}>Save Selection</button>
+								</div>
 							</div>
 							:
 							<div>
 								<div className="add-people" onClick={this.addPeople}>Add People</div>
-								<div className="list-content">
+								<div className="list-content-wrapper">
 									<ul className={classes}>
 										{contactItems.length > 0 ? contactItems : <li><EmtpyList type="contacts" /></li> }
 									</ul>

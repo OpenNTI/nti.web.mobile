@@ -1,12 +1,13 @@
 .selectable-entity {
-	$avatarsize: 3.5rem;
-	$iconsize: 1.5rem;
+	$avatarsize: 2.5rem;
+	$iconsize: 1rem;
 	min-height: $avatarsize;
-	padding: 2rem $iconsize;
+	padding: .5rem $iconsize;
     padding-left: $avatarsize + .5rem;
     position: relative;
-	box-shadow: 0 -1px rgba(0,0,0,0.1); // top border
     margin: 0;
+	margin-bottom: .25rem;
+	color: $primary-grey;
 	a {
 		color: $body-font-color;
 	}
@@ -62,7 +63,6 @@
 	.avatar {
 		width: $avatarsize;
 		height: $avatarsize;
-		border-radius: 50%;
 		position: absolute;
 		left: 0;
 		top: 50%;

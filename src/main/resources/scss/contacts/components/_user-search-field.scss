@@ -4,6 +4,9 @@
 		background: white;
 		display: flex;
 		flex-wrap: wrap;
+		.input-field {
+			flex: 1 1 auto;
+		}
 		.selected-item {
 			background: $primary-blue;
 			font-size: .6875rem;
@@ -24,7 +27,16 @@
 			flex: 1 1 auto;
 		}
 	}
-	.search-results {
-		background: white;
+	.output-list {
+		h1 {
+			background: $quad-grey;
+		    font-size: .75rem;
+		    font-family: 'Open Sans';
+		    font-weight: 700;
+		    text-transform: uppercase;
+		    padding: 0.5rem;
+		    line-height: 1;
+		    margin: 0;
+		}
 	}
 }
