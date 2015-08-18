@@ -69,7 +69,7 @@ export default React.createClass({
 		}
 		this.setState({
 			selectedUsers
-		});
+		}, () => this.focus());
 		if (onChange) {
 			onChange(user);
 		}
