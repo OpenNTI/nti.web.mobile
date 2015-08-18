@@ -162,8 +162,8 @@ export default React.createClass({
 							<div className="list-user-search">
 								<UserSearchField ref="searchField" selected={list.friends} />
 								<div className="buttons">
-									<button onClick={this.cancelSearch}>Cancel</button>
-									<button onClick={this.saveSearch}>Save Selection</button>
+									<button className="secondary button tiny" onClick={this.cancelSearch}>Cancel</button>
+									<button className="primary button tiny" onClick={this.saveSearch}>Save Selection</button>
 								</div>
 							</div>
 							:

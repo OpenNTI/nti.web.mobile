@@ -1,4 +1,6 @@
 .distribution-list-detail {
+	display: flex;
+	flex-direction: column;
 	.item-detail-header {
 		position: relative;
 		background: $primary-gray;
@@ -33,6 +35,14 @@
 	}
 	ul.contact-list {
 		padding: .5rem;
+	}
+
+	.buttons {
+		text-align: right;
+		background: $quad-grey;
+		button {
+			margin: 0;
+		}
 	}
 
 }
