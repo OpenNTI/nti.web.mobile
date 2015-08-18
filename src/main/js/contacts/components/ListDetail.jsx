@@ -27,7 +27,8 @@ export default React.createClass({
 		return {
 			list: null,
 			loading: true,
-			adding: false
+			adding: false,
+			originalMembers: null
 		};
 	},
 
@@ -64,15 +65,14 @@ export default React.createClass({
 		this.forceUpdate();
 	},
 
-	getList () {
+	getList (updateOriginal = false) {
 		Api.getDistributionList(this.props.id)
 		.then((result) => {
-			// use the members list from state if we already have it to prevent
-			// removed members from disappearing.
-			let members = this.state.members || (result || {}).friends || [];
+			let {originalMembers} = this.state;
+			let members = (!updateOriginal && originalMembers) || (result || {}).friends.slice() || [];
 			this.setState({
 				list: result,
-				members,
+				originalMembers: members,
 				loading: false
 			});
 		});
@@ -123,13 +123,13 @@ export default React.createClass({
 				this.setState({
 					adding: false
 				});
-				this.getList();
+				this.getList(true);
 			});
 	},
 
 	render () {
 
-		let {loading, list} = this.state;
+		let {loading, list, originalMembers} = this.state;
 
 		if (loading) {
 			return <Loading />;
@@ -140,20 +140,15 @@ export default React.createClass({
 		}
 
 		// let members = list.friends || [];
-		let contactItems = [];
-		for(let c of list) {
-			// if (list.contains(c)) {continue;}
-			contactItems.push(
-				<SelectableEntity
-					key={c.getID()}
-					entity={c}
-					selected={list.contains(c)}
-					onChange={this.toggleMembership.bind(this, c)}
-				>
-					{/* <div onClick={this.toggleMembership.bind(this, c)}>{list.contains(c) ? 'Remove' : 'Undo'}</div> */}
-				</SelectableEntity>
-			);
-		}
+		let contactItems = originalMembers.map((c) =>
+			<SelectableEntity
+				key={c.getID()}
+				entity={c}
+				selected={list.contains(c)}
+				onChange={this.toggleMembership.bind(this, c)}>
+				{/* <div onClick={this.toggleMembership.bind(this, c)}>{list.contains(c) ? 'Remove' : 'Undo'}</div> */}
+			</SelectableEntity>
+		);
 
 		let classes = cx('contact-list list-content', {'empty': contactItems.length === 0});
 
