@@ -2,6 +2,7 @@ import React from 'react';
 import SelectableEntity from './SelectableEntity';
 import Api from '../Api';
 import {USERS} from '../Constants';
+import EmptyList from 'common/components/EmptyList';
 
 export default React.createClass({
 	displayName: 'UserSearchField',
@@ -60,9 +61,11 @@ export default React.createClass({
 	selectionChange (user) {
 		let {selectedUsers} = this.state;
 		let {onChange} = this.props;
+		let userId = user.getID();
 		selectedUsers = selectedUsers.slice(0);
-		if (selectedUsers.indexOf(user) > -1) {
-			selectedUsers.splice(selectedUsers.indexOf(user),1);
+		let index = selectedUsers.findIndex((item) => item.getID() === userId);
+		if ( index > -1) {
+			selectedUsers.splice(index, 1);
 		}
 		else {
 			selectedUsers.push(user);
@@ -117,11 +120,20 @@ export default React.createClass({
 		return (
 			<div className="user-search">
 				<ul className="input-list">
-					{selectedUsers.map(user => <li className="selected-item">{user.displayName}</li>)}
+					{selectedUsers.map(user => <li key={'selected-' + user.getID()} className="selected-item">{user.displayName}</li>)}
 					<li className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} /></li>
 				</ul>
 				<ul className="search-results">
-					{searchResults.map(entity => <SelectableEntity entity={entity} selected={selectedUsers.indexOf(entity) > -1} onChange={this.selectionChange} />)}
+					{searchResults.length > 0 ?
+						searchResults.map(entity =>
+							<SelectableEntity
+								key={'selectable-' + entity.getID()}
+								entity={entity}
+								selected={selectedUsers.findIndex((user) => user.getID() === entity.getID()) > -1}
+								onChange={this.selectionChange.bind(this, entity)}
+							/>)
+						: <EmptyList type="contacts" />
+					}
 				</ul>
 			</div>
 		);
