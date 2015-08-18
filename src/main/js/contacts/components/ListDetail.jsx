@@ -93,9 +93,6 @@ export default React.createClass({
 			});
 			list.delete()
 				.then(() => {
-					this.setState({
-						loading: false
-					});
 					this.navigate('/lists/');
 				});
 		});
