@@ -195,6 +195,10 @@ section.right-small {
 	background: #fff;
 	z-index: 1002;
 
+	.hide-nav & {
+		display: none;
+	}
+
 	.nav-menu-open & {
 		top: 0; left: 0; right: 0;
 		border-radius: 0 0 1px 1px;//iOS hack to show box-shadow
