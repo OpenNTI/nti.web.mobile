@@ -181,7 +181,10 @@ export default React.createClass({
 							</div>
 							:
 							<div>
-								<div className="add-people" onClick={this.addPeople}>Add People</div>
+								<div className="add-people" onClick={this.addPeople}>
+									<i className="icon-add-user" />
+									<span>Add People</span>
+								</div>
 								<div className="list-content-wrapper">
 									<ul className={classes}>
 										{contactItems.length > 0 ? contactItems : <li><EmtpyList type="contacts" /></li> }
