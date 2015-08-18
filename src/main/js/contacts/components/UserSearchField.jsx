@@ -144,7 +144,7 @@ export default React.createClass({
 								selected={listContainsEntity(selectedUsers, entity) || listContainsEntity(this.props.selected, entity)}
 								onChange={this.selectionChange.bind(this, entity)}
 							/>)
-						: <li>No results</li>
+						: <li className="no-results">No results</li>
 					}
 				</ul>
 			</section>
