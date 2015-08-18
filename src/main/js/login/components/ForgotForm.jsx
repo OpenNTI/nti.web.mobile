@@ -29,7 +29,7 @@ export default React.createClass({
 		}
 
 		for (let key of Object.keys(fields)) {
-			fields[key] = fields[key].value;
+			fields[key] = fields[key].value.trim();
 		}
 
 		return fields;
