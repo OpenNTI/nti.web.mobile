@@ -2,8 +2,8 @@ import React from 'react';
 import SelectableEntity from './SelectableEntity';
 import Api from '../Api';
 import {USERS} from '../Constants';
-// import EmptyList from 'common/components/EmptyList';
 import cx from 'classnames';
+import Loading from 'common/components/TinyLoader';
 
 export default React.createClass({
 	displayName: 'UserSearchField',
@@ -153,7 +153,7 @@ export default React.createClass({
 
 	render () {
 
-		let {selectedUsers, searchResults, contactsResults} = this.state;
+		let {selectedUsers, searchResults, contactsResults, searchLoading} = this.state;
 
 		return (
 			<div className="user-search">
@@ -161,10 +161,17 @@ export default React.createClass({
 					{selectedUsers.map(user => <li key={'selected-' + user.getID()} className="selected-item">{user.displayName}</li>)}
 					<li className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} /></li>
 				</ul>
-				<ul className="output-list">
-					<li>{this.renderResults('Contacts', contactsResults, 'contacts' )}</li>
-					<li>{this.renderResults('Others', searchResults)}</li>
-				</ul>
+
+					{searchLoading
+						? <div className="output-list"><Loading/></div>
+						: (
+							<ul className="output-list">
+								<li>{this.renderResults('Contacts', contactsResults, 'contacts' )}</li>
+								<li>{this.renderResults('Others', searchResults)}</li>
+							</ul>
+						)
+					}
+
 			</div>
 		);
 	}
