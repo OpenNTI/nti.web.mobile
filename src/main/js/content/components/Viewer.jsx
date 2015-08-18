@@ -61,7 +61,9 @@ export default React.createClass({
 		rootId: React.PropTypes.string,
 		pageId: React.PropTypes.string,
 		contentPackage: React.PropTypes.object,
-		onPageLoaded: React.PropTypes.func
+		onPageLoaded: React.PropTypes.func,
+
+		className: React.PropTypes.string
 	},
 
 	backingStore: Store,
@@ -232,11 +234,11 @@ export default React.createClass({
 
 	render () {
 		let pageId = this.getPageID();
-		let {contentPackage} = this.props;
+		let {contentPackage, className} = this.props;
 
 		let {
 			annotations, stagedNote, error, loading, page,
-			pageSource, selectedDiscussions, style, className = ''
+			pageSource, selectedDiscussions, style
 		} = this.state;
 
 		let {discussions} = this.getPropsFromRoute();
