@@ -78,11 +78,6 @@ export default React.createClass({
 		});
 	},
 
-	searchSelectionChange (user) {
-		this.toggleMembership(user)
-		.then(this.getList);
-	},
-
 	toggleMembership (entity) {
 		let {list} = this.state;
 		let p = !list.contains(entity) ? list.add(entity) : list.remove(entity);
