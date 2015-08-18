@@ -255,7 +255,9 @@ export default React.createClass({
 		}
 
 		let props = {
-			className: cx('content-view', className.split(/\s+/)),
+			className: cx('content-view', className, {
+				'note-editor-open': !!stagedNote
+			}),
 			style
 		};
 
