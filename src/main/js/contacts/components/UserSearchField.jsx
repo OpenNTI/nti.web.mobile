@@ -53,6 +53,10 @@ export default React.createClass({
 			.then(store => this.setState({store}));
 	},
 
+	focus () {
+		this.refs.query.getDOMNode().focus();
+	},
+
 	selectionChange (user) {
 		let {selectedUsers} = this.state;
 		let {onChange} = this.props;

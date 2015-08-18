@@ -109,6 +109,8 @@ export default React.createClass({
 	addPeople () {
 		this.setState({
 			adding: true
+		}, () => {
+			this.refs.searchField.focus();
 		});
 	},
 
