@@ -270,8 +270,7 @@ export default React.createClass({
 
 		return (
 			<TransitionGroup {...props} component="div"
-				transitionName="fadeOutIn"
-				transitionAppear>
+				transitionName="fadeOutIn">
 
 				{discussions ? (
 
