@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
+import Loading from 'common/components/TinyLoader';
 
 const noclick = Promise.resolve();
 
@@ -89,6 +90,7 @@ export default React.createClass({
 					<div className="association"></div>
 				</div>
 				<div className={classes}>{this.label(selected)}</div>
+				{busy && <Loading />}
 				{this.props.children}
 			</Element>
 		);

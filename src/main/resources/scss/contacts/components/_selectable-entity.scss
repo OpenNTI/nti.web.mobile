@@ -28,6 +28,13 @@
 		}
 	}
 
+	.tinyloader {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
 	.select-button {
 		&::after {
 			content: '\221a';
