@@ -88,7 +88,7 @@ export default React.createClass({
 					:
 					<div>
 						<button className="delete-icon" onClick={this.deleteList}>Delete</button>
-						<button className="rename" onClick={this.toggleRename} >Rename</button>
+						<button className="rename" onClick={this.toggleRename} ><i className="icon-pencil"/> Rename</button>
 					</div>
 				}
 			</header>
