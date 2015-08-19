@@ -18,9 +18,9 @@
       "resolved": "https://registry.npmjs.org/babel-core/-/babel-core-5.8.22.tgz"
     },
     "babel-eslint": {
-      "version": "4.0.8",
+      "version": "4.0.10",
       "from": "babel-eslint@>=2.0.2",
-      "resolved": "https://registry.npmjs.org/babel-eslint/-/babel-eslint-4.0.8.tgz"
+      "resolved": "https://registry.npmjs.org/babel-eslint/-/babel-eslint-4.0.10.tgz"
     },
     "babel-loader": {
       "version": "5.3.2",
@@ -73,9 +73,9 @@
       "resolved": "https://registry.npmjs.org/del/-/del-1.2.1.tgz"
     },
     "eslint": {
-      "version": "1.1.0",
+      "version": "1.2.0",
       "from": "eslint@>=0.21.0",
-      "resolved": "https://registry.npmjs.org/eslint/-/eslint-1.1.0.tgz"
+      "resolved": "https://registry.npmjs.org/eslint/-/eslint-1.2.0.tgz"
     },
     "eslint-plugin-react": {
       "version": "3.2.3",
@@ -113,9 +113,9 @@
       "resolved": "https://registry.npmjs.org/fixedqueue/-/fixedqueue-0.0.1.tgz"
     },
     "flux": {
-      "version": "2.0.3",
+      "version": "2.1.1",
       "from": "flux@^2.0.1",
-      "resolved": "https://registry.npmjs.org/flux/-/flux-2.0.3.tgz"
+      "resolved": "https://registry.npmjs.org/flux/-/flux-2.1.1.tgz"
     },
     "format-price": {
       "version": "0.0.2",
@@ -315,7 +315,7 @@
     "nti.lib.interfaces": {
       "version": "0.0.0",
       "from": "nti.lib.interfaces@git+https://repos.nextthought.com/git/nti.lib.interfaces",
-      "resolved": "git+https://repos.nextthought.com/git/nti.lib.interfaces#2f752f8f8cd1cb2d47c960b1756e21c5ae9806e7"
+      "resolved": "git+https://repos.nextthought.com/git/nti.lib.interfaces#2456c32e2f85e829e4820b166e870e07c082a8f4"
     },
     "nti.lib.ranges": {
       "version": "1.0.5",
