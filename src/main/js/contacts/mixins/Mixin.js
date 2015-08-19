@@ -28,7 +28,7 @@ export default {
 		if (store && store !== nextStore) {
 			store.removeListener('change', this.onStoreChange);
 		}
-		else if (nextStore && nextStore !== store) {
+		if (nextStore && nextStore !== store) {
 			nextStore.addListener('change', this.onStoreChange);
 		}
 	},
