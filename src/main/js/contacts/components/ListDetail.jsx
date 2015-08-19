@@ -13,6 +13,11 @@ import UserSearchField from './UserSearchField';
 import ItemDetailHeader from './ItemDetailHeader';
 import Err from 'common/components/Error';
 
+const labels = {
+	selected: 'Remove',
+	unselected: 'Undo'
+};
+
 export default React.createClass({
 	displayName: 'ListDetail',
 	mixins: [ContextSender, BasePath],
@@ -137,6 +142,7 @@ export default React.createClass({
 				key={c.getID()}
 				entity={c}
 				selected={list.contains(c)}
+				labels={labels}
 				onChange={this.toggleMembership.bind(this, c)}>
 				{/* <div onClick={this.toggleMembership.bind(this, c)}>{list.contains(c) ? 'Remove' : 'Undo'}</div> */}
 			</SelectableEntity>

@@ -14,7 +14,8 @@ export default React.createClass({
 		tag: React.PropTypes.string,
 		onChange: React.PropTypes.func,
 		removable: React.PropTypes.bool,
-		children: React.PropTypes.any
+		children: React.PropTypes.any,
+		labels: React.PropTypes.object // e.g. {selected: 'Remove', unselected: 'Undo'}
 	},
 
 	getDefaultProps () {
@@ -54,10 +55,17 @@ export default React.createClass({
 		});
 	},
 
+	label (selected) {
+		let labels = this.props.labels || {};
+		return selected ? labels.selected : labels.unselected;
+	},
+
 	render () {
-		let {entity, selected, tag, removable} = this.props;
+		let {entity, selected, tag, removable, labels} = this.props;
 		let {busy} = this.state;
-		let classes = cx('select-button',{
+		let classes = cx({
+			'select-button': !labels,
+			'state-label': labels,
 			'selected': selected,
 			'busy': busy,
 			'removable': removable
@@ -67,6 +75,12 @@ export default React.createClass({
 			'unselected': !selected
 		});
 		let Element = tag;
+
+		// labels: {
+		// 	selected: 'Remove'
+		// 	unselected: 'Undo'
+		// }
+
 		return (
 			<Element className={wrapperClasses} {...this.props} onClick={this.onClick}>
 				<div>
@@ -74,7 +88,7 @@ export default React.createClass({
 					<DisplayName entity={entity} />
 					<div className="association"></div>
 				</div>
-				<div className={classes}></div>
+				<div className={classes}>{this.label(selected)}</div>
 				{this.props.children}
 			</Element>
 		);
