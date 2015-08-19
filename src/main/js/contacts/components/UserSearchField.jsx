@@ -21,14 +21,17 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
+			search: '',
 			selectedUsers: [],
 			searchResults: [],
-			contactsResults: []
+			contactsResults: [],
+			suggestedContacts: []
 		};
 	},
 
 	componentDidMount () {
 		this.setUpStore();
+		this.getSuggestedContacts();
 	},
 
 	componentWillReceiveProps () {
@@ -61,6 +64,13 @@ export default React.createClass({
 	setUpStore () {
 		Api.getStore(USERS)
 			.then(store => this.setState({store}));
+	},
+
+	getSuggestedContacts () {
+		Api.getSuggestedContacts()
+			.then(results => this.setState({
+				suggestedContacts: results.Items || []
+			}));
 	},
 
 	focus () {
@@ -151,9 +161,31 @@ export default React.createClass({
 		);
 	},
 
+	results () {
+		let {searchResults, contactsResults, suggestedContacts, searchLoading, search} = this.state;
+		let children = [];
+		if (searchLoading) {
+			children.push(<Loading/>);
+		}
+		else if (search.length === 0) {
+			children.push(this.renderResults('Suggested Contacts', suggestedContacts));
+		}
+		else {
+			children = children.concat(
+				this.renderResults('Contacts', contactsResults, 'contacts' ),
+				this.renderResults('Others', searchResults)
+			);
+		}
+		return (
+			<ul className="output-list">
+				{children.map(child => <li>{child}</li>)}
+			</ul>
+		);
+	},
+
 	render () {
 
-		let {selectedUsers, searchResults, contactsResults, searchLoading} = this.state;
+		let {selectedUsers} = this.state;
 
 		return (
 			<div className="user-search">
@@ -161,17 +193,7 @@ export default React.createClass({
 					{selectedUsers.map(user => <li key={'selected-' + user.getID()} className="selected-item">{user.displayName}</li>)}
 					<li className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} /></li>
 				</ul>
-
-					{searchLoading
-						? <div className="output-list"><Loading/></div>
-						: (
-							<ul className="output-list">
-								<li>{this.renderResults('Contacts', contactsResults, 'contacts' )}</li>
-								<li>{this.renderResults('Others', searchResults)}</li>
-							</ul>
-						)
-					}
-
+				{this.results()}
 			</div>
 		);
 	}
