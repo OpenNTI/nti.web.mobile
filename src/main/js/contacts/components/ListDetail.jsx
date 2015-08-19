@@ -2,23 +2,20 @@ import React from 'react';
 import Api from '../Api';
 import Loading from 'common/components/Loading';
 // import {USERS} from '../Constants';
-import {areYouSure} from 'prompts';
 import ContextSender from 'common/mixins/ContextSender';
 import BasePath from 'common/mixins/BasePath';
 import SelectableEntity from './SelectableEntity';
 import Page from 'common/components/Page';
 import GradientBackground from 'common/components/GradientBackground';
-import Navigatable from 'common/mixins/NavigatableMixin';
-import {scoped} from 'common/locale';
 import EmtpyList from 'common/components/EmptyList';
 import cx from 'classnames';
 import UserSearchField from './UserSearchField';
-
-let t = scoped('CONTACTS');
+import ListDetailHeader from './ListDetailHeader';
+import Err from 'common/components/Error';
 
 export default React.createClass({
 	displayName: 'ListDetail',
-	mixins: [ContextSender, BasePath, Navigatable],
+	mixins: [ContextSender, BasePath],
 	propTypes: {
 		id: React.PropTypes.string.isRequired
 	},
@@ -68,6 +65,13 @@ export default React.createClass({
 	getList (updateOriginal = false) {
 		Api.getDistributionList(this.props.id)
 		.then((result) => {
+			if (!result) {
+				return this.setState({
+					error: new Error('Unable to load list'),
+					list: null,
+					loading: false
+				});
+			}
 			let {originalMembers} = this.state;
 			let members = (!updateOriginal && originalMembers) || (result.friends || []).slice();
 			this.setState({
@@ -83,19 +87,6 @@ export default React.createClass({
 		let p = !list.contains(entity) ? list.add(entity) : list.remove(entity);
 		p.catch(reason => console.error(reason));
 		return p;
-	},
-
-	deleteList () {
-		let {list} = this.state;
-		areYouSure(t('deleteListPrompt')).then(() => {
-			this.setState({
-				loading: true
-			});
-			list.delete()
-				.then(() => {
-					this.navigate('/lists/');
-				});
-		});
 	},
 
 	addPeople () {
@@ -124,9 +115,19 @@ export default React.createClass({
 			});
 	},
 
+	rename () {
+		this.setState({
+			renaming: true
+		});
+	},
+
 	render () {
 
-		let {loading, list, originalMembers} = this.state;
+		let {loading, error, list, originalMembers} = this.state;
+
+		if (error) {
+			return <Err error={error} />;
+		}
 
 		if (loading) {
 			return <Loading />;
@@ -153,17 +154,13 @@ export default React.createClass({
 			<Page>
 				<GradientBackground>
 					<div className="distribution-list-detail">
-						<header className="item-detail-header">
-							<h1>{list.displayName}</h1>
-							<button className="delete-icon" onClick={this.deleteList}>Delete</button>
-							<button className="rename" onClick={this.rename} >Rename</button>
-						</header>
+						<ListDetailHeader list={list} />
 						{this.state.adding ?
 							<div className="list-user-search">
 								<UserSearchField ref="searchField" selected={list.friends} />
 								<div className="buttons">
 									<button className="secondary button tiny" onClick={this.cancelSearch}>Cancel</button>
-									<button className="primary button tiny" onClick={this.saveSearch}>Save Selection</button>
+									<button className="primary button tiny" onClick={this.saveSearch}>Add Selected</button>
 								</div>
 							</div>
 							:
