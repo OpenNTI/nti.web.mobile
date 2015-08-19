@@ -79,7 +79,7 @@ export function getServerURI () {
 export function getSiteName () {
 	//This can only return a value on the client, on the server it currently returns `undefined`.
 	if (typeof $AppConfig !== 'undefined') {
-		return $AppConfig.siteName || location.hostname;
+		return $AppConfig.siteName || (global.location || {}).hostname || 'default';
 	}
 }
 
