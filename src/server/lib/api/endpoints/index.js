@@ -1,9 +1,13 @@
 import HealthCheck from './health-check';
 import UserAgreement from './user-agreement';
 
+import UGDContextData from './ugd/context-data';
+
 let HANDLERS = [
 	HealthCheck,
-	UserAgreement
+	UserAgreement,
+
+	UGDContextData
 ];
 
 export default function registerEndPoints (api, config, dataserver) {
