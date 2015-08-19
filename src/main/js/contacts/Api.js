@@ -31,7 +31,7 @@ export default {
 
 	getSuggestedContacts () {
 		return getAppUser()
-			.then(user => user.fetchLink('SuggestedContacts'));
+			.then(user => user.fetchLinkParsed('SuggestedContacts'));
 	},
 
 	getDistributionList (id) {
