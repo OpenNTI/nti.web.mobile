@@ -34,9 +34,11 @@ export default React.createClass({
 		return (
 			<div className={`activity discussion-${item.isReply() ? 'reply' : 'detail'}`}>
 				<div className="note heading">
-					{!isFlag('disable-context-in-activity') && ( <ContentIcon item={item} /> )}
+					<ContentIcon item={item} />
 					<Breadcrumb item={item} />
-					{item.isReply() ? (<RepliedTo item={item}/>) : ( <Context item={item}/> )}
+					{item.isReply()
+						? (<RepliedTo item={item}/>)
+						: isFlag('disable-context-in-activity') !== true && ( <Context item={item}/> )}
 				</div>
 				<Detail item={item} lite/>
 				{/*<Actions item={item}/> -- Comment count, [edit] [delete]*/}
