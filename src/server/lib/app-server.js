@@ -7,7 +7,7 @@ import waitFor from 'nti.lib.interfaces/utils/waitfor';
 import dataserver, {CommonSymbols} from 'nti.lib.interfaces';
 let {Pending} = CommonSymbols;
 
-import api from './api';
+import {registerEndPoints} from './api';
 import cacheBuster from './no-cache';
 import {clientConfig, nodeConfigAsClientConfig} from './common';
 import generated from './generated';
@@ -77,14 +77,12 @@ export function setupApplication (app, config) {
 
 	app.use(cacheBuster);
 
-	api.registerAnonymousEndPoints(app, config);
+	registerEndPoints(app, config);
 
 	app.use(/^\/login/i, session.anonymousMiddleware.bind(session));
 
 	//Session manager...
 	app.use(/^(?!\/(login|resources)).*/i, session.middleware.bind(session));
-
-	api.registerAuthenticationRequiredEndPoints(app, config);
 
 	//HTML Renderer...
 	app.get('*', (req, res)=> {
