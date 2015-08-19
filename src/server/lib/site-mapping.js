@@ -9,7 +9,8 @@ const map = {
 	'okstate-test.nextthought.com': 'okstate.nextthought.com',
 	'learnonline.okstate.edu': 'okstate.nextthought.com',
 	'symmys.nextthought.com': 'symmys.nextthought.com',
-	'symmys-alpha.nextthought.com': 'symmys.nextthought.com'
+	'symmys-alpha.nextthought.com': 'symmys.nextthought.com',
+	'lab.symmys.com': 'symmys.nextthought.com'
 };
 
 const unknown = 'unknown';
