@@ -5,8 +5,15 @@ export function registerEndPoints (app, config, dataserver) {
 	let api = express();
 	app.use(/^\/api/i, api);
 
+	function getService (req) {
+		return req.ntiService
+			? Promise.resolve(req.ntiService)
+			: dataserver.getServiceDocument(req)
+				.then(service => req.ntiService = service);
+	}
+
 	api.param('ntiid', (req, res, next, id) => {
-		dataserver.getServiceDocument(req)
+		getService(req)
 			.then(service => service.getParsedObject(id))
 			.then(ob => {
 				req.ntiidObject = ob;
