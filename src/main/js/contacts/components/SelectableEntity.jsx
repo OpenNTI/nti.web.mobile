@@ -62,9 +62,13 @@ export default React.createClass({
 			'busy': busy,
 			'removable': removable
 		});
+		let wrapperClasses = cx('selectable-entity', {
+			'selected': selected,
+			'unselected': !selected
+		});
 		let Element = tag;
 		return (
-			<Element className='selectable-entity' {...this.props} onClick={this.onClick}>
+			<Element className={wrapperClasses} {...this.props} onClick={this.onClick}>
 				<div>
 					<Avatar entity={entity} />
 					<DisplayName entity={entity} />
