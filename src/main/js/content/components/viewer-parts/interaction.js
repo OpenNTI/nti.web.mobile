@@ -120,6 +120,14 @@ export default {
 			if (id) {
 				console.debug('Scrolling to %s...', id);
 				this.scrollToTarget(id);
+				try {
+					//SOOoooo dirty! This is removing the fragment from the address bar:
+					history.replaceState(
+						history.state,
+						document.title,
+						location.pathname);
+				}
+				catch (e) {} //eslint-disable-line
 			}
 		}, 500);
 	}
