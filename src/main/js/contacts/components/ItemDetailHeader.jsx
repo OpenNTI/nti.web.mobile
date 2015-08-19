@@ -48,6 +48,12 @@ export default React.createClass({
 	toggleRename () {
 		this.setState({
 			renaming: !this.state.renaming
+		}, () => {
+			if(this.refs.newName) {
+				let n = this.refs.newName.getDOMNode();
+				this.refs.newName.getDOMNode().focus();
+				n.selectionStart = n.selectionEnd = n.value.length;
+			}
 		});
 	},
 
