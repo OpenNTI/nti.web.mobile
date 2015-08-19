@@ -12,6 +12,7 @@ import cx from 'classnames';
 import UserSearchField from './UserSearchField';
 import ItemDetailHeader from './ItemDetailHeader';
 import Err from 'common/components/Error';
+import {join} from 'path';
 
 const labels = {
 	selected: 'Remove',
@@ -58,9 +59,15 @@ export default React.createClass({
 	},
 
 	getContext () {
-		return Promise.resolve({
-			label: 'List Details'
-		});
+		return Promise.resolve([
+			{
+				href: join(this.getBasePath(), 'contacts', 'lists', '/'),
+				label: 'Distribution Lists'
+			},
+			{
+				label: 'List Details'
+			}
+		]);
 	},
 
 	onStoreChange () {
