@@ -88,7 +88,11 @@ export function isFlag (flagName) {
 	if (noConfig()) {
 		console.error('utils:isFlag() was called before config was defined.');
 	}
-	let flags = $AppConfig.flags || {};
+	let site = getSiteName();
+	let {flags = {}} = $AppConfig;
+
+	flags = Object.assign({}, flags, flags[site] || {});
+
 	return !!flags[flagName];
 }
 
