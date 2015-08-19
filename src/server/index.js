@@ -22,6 +22,7 @@ var setupErrorHandler = require('./lib/error-handler');
 
 common.loadConfig()
 .then(function (config) {
+	common.showFlags(config);
 	logger.info('Build Source (revision): ', config.revision);
 
 	var protocol = config.protocol === 'proxy' ? proxiedHttp : http;

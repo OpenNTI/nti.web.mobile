@@ -91,6 +91,27 @@ function override (dest, overrides) {
 }
 
 
+export function showFlags (config) {
+	if (!config.flags) {
+		logger.info('No flags configured.');
+		return;
+	}
+
+	for (let flag of Object.keys(config.flags)) {
+		let	value = config.flags[flag];
+
+		if (typeof value === 'object') {
+			for (let siteFlag of Object.keys(value)) {
+				logger.info('Resolved Flag: (%s) %s =', flag, siteFlag, value[siteFlag]);
+			}
+			continue;
+		}
+
+		logger.info('Resolved Flag: (Global) %s =', flag, value);
+	}
+}
+
+
 export function config () {
 	let base = 'development';
 
@@ -104,6 +125,13 @@ export function config () {
 			port: opt.p || env.port,
 			revision: gitRevision
 		});
+
+
+	if (env[process.env.NODE_ENV] != null) {
+		logger.info(`In ${process.env.NODE_ENV} mode`);
+	} else {
+		logger.error('In default "development" mode. Consider seting NODE_ENV="production"');
+	}
 
 	if (serverHost || serverPort) {
 		let server = url.parse(c.server);
