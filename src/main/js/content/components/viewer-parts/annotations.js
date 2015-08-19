@@ -57,8 +57,10 @@ export default {
 
 		if (store && store !== nextStore) {
 			store.removeListener('change', this.onUserDataChange);
-			for (let i of Object.keys(annotations)) {
-				delete annotations[i];
+			if (annotations) {
+				for (let i of Object.keys(annotations)) {
+					delete annotations[i];
+				}
 			}
 		}
 
