@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {isFlag} from 'common/utils';
 import RepliedTo from 'common/components/RepliedTo';
 
 import Detail from 'content/components/discussions/Detail';
@@ -33,7 +34,7 @@ export default React.createClass({
 		return (
 			<div className={`activity discussion-${item.isReply() ? 'reply' : 'detail'}`}>
 				<div className="note heading">
-					<ContentIcon item={item} />
+					{!isFlag('disable-context-in-activity') && ( <ContentIcon item={item} /> )}
 					<Breadcrumb item={item} />
 					{item.isReply() ? (<RepliedTo item={item}/>) : ( <Context item={item}/> )}
 				</div>
