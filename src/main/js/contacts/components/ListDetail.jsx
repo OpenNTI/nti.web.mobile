@@ -10,7 +10,7 @@ import GradientBackground from 'common/components/GradientBackground';
 import EmtpyList from 'common/components/EmptyList';
 import cx from 'classnames';
 import UserSearchField from './UserSearchField';
-import ListDetailHeader from './ListDetailHeader';
+import ItemDetailHeader from './ItemDetailHeader';
 import Err from 'common/components/Error';
 
 export default React.createClass({
@@ -115,12 +115,6 @@ export default React.createClass({
 			});
 	},
 
-	rename () {
-		this.setState({
-			renaming: true
-		});
-	},
-
 	render () {
 
 		let {loading, error, list, originalMembers} = this.state;
@@ -154,7 +148,7 @@ export default React.createClass({
 			<Page>
 				<GradientBackground>
 					<div className="distribution-list-detail">
-						<ListDetailHeader list={list} />
+						<ItemDetailHeader list={list} />
 						{this.state.adding ?
 							<div className="list-user-search">
 								<UserSearchField ref="searchField" selected={list.friends} />

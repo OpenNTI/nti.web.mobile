@@ -1,18 +1,6 @@
 .distribution-list-detail {
 	display: flex;
 	flex-direction: column;
-	.item-detail-header {
-		position: relative;
-		background: $primary-gray;
-		color: white;
-		padding: 1rem;
-		min-height: 9.5rem;
-		h1, h2, h3, h4, h5, h6 {
-			color: white;
-			font-size: 1.5rem;
-			font-weight: 600;
-		}
-	}
 
 	ul {
 		list-style: none;

@@ -5,6 +5,7 @@
 @import 'components/contacts-list';
 @import 'components/delete-button';
 @import 'components/user-search-field';
+@import 'components/item-detail-header';
 
 .contacts-nav {
 	@extend %tabbed-nav;
