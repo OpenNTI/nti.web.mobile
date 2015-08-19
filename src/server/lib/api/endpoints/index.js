@@ -6,10 +6,10 @@ let HANDLERS = [
 	UserAgreement
 ];
 
-export default function registerEndPoints (api, config) {
+export default function registerEndPoints (api, config, dataserver) {
 
 	for (let handler of HANDLERS) {
-		handler(api, config);
+		handler(api, config, dataserver);
 	}
 
 }

@@ -77,7 +77,7 @@ export function setupApplication (app, config) {
 
 	app.use(cacheBuster);
 
-	registerEndPoints(app, config);
+	registerEndPoints(app, config, dsi.interface);
 
 	app.use(/^\/login/i, session.anonymousMiddleware.bind(session));
 
