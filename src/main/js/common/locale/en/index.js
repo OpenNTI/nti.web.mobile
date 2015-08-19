@@ -49,6 +49,7 @@ export default {
 		'emptyList:discussions': 'No discussions.',
 		'emptyList:lesson-overview': 'Empty Overview :(\nThis lesson is missing content.',
 		'emptyList:library-admin': 'No Administered Courses.',
+		'emptyList:library-books': 'You don\'t have any books.',
 		'emptyList:library-courses': 'You don\'t have any courses yet.',
 		'emptyList:videos': 'No videos.',
 		'emptyList:activity': 'No Activity.',
