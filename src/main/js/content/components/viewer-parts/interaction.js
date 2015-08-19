@@ -39,7 +39,7 @@ export default {
 			let frag = parts[1] || '';
 
 			if (hasClass(anchor, 'ntiglossaryentry')) {
-				anchor.setAttribute('href', location.href + 'glossary/' + href.substr(1));
+				this.navigate('/glossary/' + href.substr(1));
 				return;
 			}
 
@@ -120,6 +120,14 @@ export default {
 			if (id) {
 				console.debug('Scrolling to %s...', id);
 				this.scrollToTarget(id);
+				try {
+					//SOOoooo dirty! This is removing the fragment from the address bar:
+					history.replaceState(
+						history.state,
+						document.title,
+						location.pathname);
+				}
+				catch (e) {} //eslint-disable-line
 			}
 		}, 500);
 	}

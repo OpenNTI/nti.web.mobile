@@ -86,3 +86,18 @@
 .icon-remove-user:before {
 	content: "\e608";
 }
+.icon-trash:before {
+	content: "\e60d";
+}
+.icon-pencil:before {
+	content: "\e60e";
+}
+.icon-more:before {
+	content: "\e60f";
+}
+.icon-flag:before {
+	content: "\e610";
+}
+.icon-reply:before {
+	content: "\e611";
+}

@@ -157,7 +157,7 @@ export default class Highlight extends Annotation {
 
 		if (!range) {
 			if (!hadRange) {
-				console.error('bad range', this);
+				console.error('bad range', this.getRecord().toJSON());
 			}
 
 			return null;

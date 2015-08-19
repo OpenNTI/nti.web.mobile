@@ -2,11 +2,12 @@ import React from 'react/addons';
 
 
 import Avatar from './Avatar';
+import C from './Conditional';
 import DisplayName from './DisplayName';
 
 import BasePathAware from '../mixins/BasePath';
 
-import {getAppUsername} from '../utils';
+import {getAppUsername, isFlag} from '../utils';
 import {encode} from '../utils/user';
 import {logout} from 'login/Actions';
 import {join} from 'path';
@@ -31,7 +32,7 @@ export default React.createClass({
 		let entity = getAppUsername();
 
 		let profile = join(base, 'profile', encode(entity));
-		// let contacts = join(base, 'contacts', '/');
+		let contacts = join(base, 'contacts', '/');
 
 		return (
 			<div className="user-session">
@@ -41,7 +42,7 @@ export default React.createClass({
 				</div>
 				<ul className="links">
 					<li><a href={profile}>View Profile</a></li>
-
+					<C condition={isFlag('contacts')} tag="li"><a href={contacts}>Contacts</a></C>
 					<li><a onClick={logout}>Log Out</a></li>
 				</ul>
 				<div className="actions">

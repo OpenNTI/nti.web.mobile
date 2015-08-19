@@ -79,7 +79,7 @@ export function getServerURI () {
 export function getSiteName () {
 	//This can only return a value on the client, on the server it currently returns `undefined`.
 	if (typeof $AppConfig !== 'undefined') {
-		return $AppConfig.siteName || location.hostname;
+		return $AppConfig.siteName || (global.location || {}).hostname || 'default';
 	}
 }
 
@@ -88,7 +88,11 @@ export function isFlag (flagName) {
 	if (noConfig()) {
 		console.error('utils:isFlag() was called before config was defined.');
 	}
-	let flags = $AppConfig.flags || {};
+	let site = getSiteName();
+	let {flags = {}} = $AppConfig;
+
+	flags = Object.assign({}, flags, flags[site] || {});
+
 	return !!flags[flagName];
 }
 

@@ -162,7 +162,7 @@ export default React.createClass({
 
 		this.setState({busy: true}, () => {
 			this.updateUsername()
-				.then(()=> login(username.value, password.value))
+				.then(()=> login(username.value.trim(), password.value))
 				.catch(error => this.setState({busy: false, error}));
 		});
 	},
@@ -182,7 +182,7 @@ export default React.createClass({
 		let username = (e ? e.target : React.findDOMNode(this.refs.username));
 
 		if (username) { //normal case, we have an element.
-			username = username.value; // flatten down to a string.
+			username = username.value.trim(); // flatten down to a string.
 
 		} else if (!e) { // submit case, no element, only state:
 			username = this.state.username;

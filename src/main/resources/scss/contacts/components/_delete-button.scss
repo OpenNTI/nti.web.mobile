@@ -1,0 +1,44 @@
+// general delete icon button
+button.delete-icon {
+	outline: none !important;
+	width: 3rem;
+	height: 2.5rem;
+	padding: 0;
+	background-color: $primary-red;
+	border-radius: .25rem;
+	color: transparent;
+	position: relative;
+	&::after {
+		content: '\e60d';
+		font-family: 'icomoon';
+		width: 100%;
+		height: 100%;
+		font-size: 1.7rem;
+		position: absolute;
+		top: 0;
+		left: 0;
+		color: white;
+		line-height: 1.5;
+	}
+}
+
+.distribution-list-detail {
+
+	button {
+		// specifically under the distribution list detail.
+		&.delete-icon {
+			position: absolute;
+			top: 1rem;
+			right: 1rem;
+		}
+
+		&.rename {
+			background: none;
+			font-size: .75rem;
+			letter-spacing: .1em;
+			padding: 0;
+		}
+	}
+
+
+}

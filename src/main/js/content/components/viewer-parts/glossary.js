@@ -17,7 +17,7 @@ export default {
 	onDismissGlossary (evt) {
 		evt.preventDefault();
 		let pid = encodeForURI(this.getPageID());
-		this.navigate(`/${pid}/`);
+		this.navigate(pid);
 	},
 
 

@@ -57,7 +57,7 @@ const CatalogBody = React.createClass({
 				/>
 				<Location
 					ref="enroll"
-					path="/enroll/:enrollmentType/:entryId(/*)"
+					path="/enroll/:enrollmentType/:entryId(/:returnToCatalogRoot)(/*)"
 					handler={Enrollment}
 				/>
 				<Location

@@ -50,7 +50,7 @@ export default class Note extends Highlight {
 				return RETRY_AFTER_DOM_SETTLES;
 			}
 
-			console.log('Not Found:', this.getRecord(), range);
+			console.log('Not Found:', this.getRecord().toJSON(), range);
 			return NOT_FOUND;
 		}
 

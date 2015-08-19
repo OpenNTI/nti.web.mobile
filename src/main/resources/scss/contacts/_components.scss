@@ -1,7 +1,11 @@
 @import 'components/list-creation-form';
 @import 'components/distribution-list-item';
 @import 'components/selectable-entity';
+@import 'components/distribution-list-detail';
 @import 'components/contacts-list';
+@import 'components/delete-button';
+@import 'components/user-search-field';
+@import 'components/item-detail-header';
 
 .contacts-nav {
 	@extend %tabbed-nav;

@@ -33,7 +33,7 @@ export default React.createClass({
 
 		let Tag = isReported ? 'span' : 'a';
 
-		let classNames = cx('fi-flag', {
+		let classNames = cx('icon-flag', {
 			flagged: isReported
 		});
 

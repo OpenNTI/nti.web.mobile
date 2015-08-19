@@ -2,7 +2,6 @@ import React from 'react';
 import cx from 'classnames';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import ProfileLink from 'profile/components/ProfileLink';
 
 const noclick = Promise.resolve();
 
@@ -14,7 +13,8 @@ export default React.createClass({
 		selected: React.PropTypes.bool,
 		tag: React.PropTypes.string,
 		onChange: React.PropTypes.func,
-		removable: React.PropTypes.bool
+		removable: React.PropTypes.bool,
+		children: React.PropTypes.any
 	},
 
 	getDefaultProps () {
@@ -37,16 +37,20 @@ export default React.createClass({
 		let {onChange, entity} = this.props;
 		let p = onChange && onChange(entity) || noclick;
 		p.then(() => {
-			this.setState({
-				busy: false
-			});
+			if (this.isMounted() ) {
+				this.setState({
+					busy: false
+				});
+			}
 		});
 		p.catch(reason => {
 			console.error(reason);
-			this.setState({
-				busy: false,
-				error: reason
-			});
+			if (this.isMounted()) {
+				this.setState({
+					busy: false,
+					error: reason
+				});
+			}
 		});
 	},
 
@@ -58,15 +62,20 @@ export default React.createClass({
 			'busy': busy,
 			'removable': removable
 		});
+		let wrapperClasses = cx('selectable-entity', {
+			'selected': selected,
+			'unselected': !selected
+		});
 		let Element = tag;
 		return (
-			<Element className='selectable-entity' {...this.props}>
-				<ProfileLink entity={entity}>
+			<Element className={wrapperClasses} {...this.props} onClick={this.onClick}>
+				<div>
 					<Avatar entity={entity} />
 					<DisplayName entity={entity} />
 					<div className="association"></div>
-				</ProfileLink>
-				<div className={classes} onClick={this.onClick}></div>
+				</div>
+				<div className={classes}></div>
+				{this.props.children}
 			</Element>
 		);
 	}

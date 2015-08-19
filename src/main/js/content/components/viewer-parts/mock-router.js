@@ -39,6 +39,12 @@ export default {
 				.replace(/\/\/$/, '');
 		};
 
+		this.navigate = (route, ...args) => {
+			let target = this.makeHref(route);
+			console.log('Input: %s\nResolved: %s\n\n', route, target);
+			return this.getEnvironment().setPath(target, ...args);
+		};
+
 		this.makeHrefNewRoot = root => Path.resolve(makeHref.call(this, '/'), `../${root}/`) + '/';
 		this.makeObjectHref = root => `${this.getBasePath()}object/${root}/`;
 	},

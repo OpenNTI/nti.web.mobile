@@ -68,7 +68,7 @@ export default React.createClass({
 	getDropHref () {
 		let item = this.getItem();
 		let courseId = encodeForURI(item.getID());
-		return `${this.getBaseEnrollHref()}drop/${courseId}/`;
+		return `${this.getBaseEnrollHref()}drop/${courseId}/z`;
 	},
 
 

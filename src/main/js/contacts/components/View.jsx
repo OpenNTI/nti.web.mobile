@@ -6,13 +6,15 @@ import Page from './PageFrame';
 import Groups from './Groups';
 import Users from './Users';
 import ListsView from './ListsView';
+import ListDetail from './ListDetail';
 import ContextContributor from 'common/mixins/ContextContributor';
 import BasePathAware from 'common/mixins/BasePath';
 
 const ROUTES = [
-	{path: '/users(/*)', handler: Users},
-	{path: '/groups(/*)', handler: Groups},
-	{path: '/lists(/:id)(/*)', handler: ListsView},
+	{path: '/users(/*)', handler: Page, pageContent: Users},
+	{path: '/groups(/*)', handler: Page, pageContent: Groups},
+	{path: '/lists/:id(/*)', handler: ListDetail},
+	{path: '/lists(/*)', handler: Page, pageContent: ListsView},
 	{} // default
 ];
 
@@ -31,7 +33,7 @@ export default React.createClass({
 		return React.createElement(Router.Locations, {ref: 'router', contextual: true},
 						...ROUTES.map(route =>
 							route.path
-							? <Router.Location {...route} handler={Page} pageContent={route.handler} />
+							? <Router.Location {...route} />
 						: <Router.NotFound handler={Redirect} location="/users/" />));
 	}
 });

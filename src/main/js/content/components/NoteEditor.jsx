@@ -5,7 +5,8 @@ import cx from 'classnames';
 import {Editor} from 'modeled-content';
 
 import Loading from 'common/components/Loading';
-import LockScroll from 'common/components/LockScroll';
+import HideNavigation from 'common/components/HideNavigation';
+
 import ShareWith from 'common/components/ShareWith';
 
 import t from 'common/locale';
@@ -52,7 +53,8 @@ export default React.createClass({
 
 		return (
 			<div className={cx('note-editor-frame editor', {busy})}>
-				<LockScroll/>
+				<HideNavigation/>
+
 				<form onSubmit={x => x.preventDefault() && false}>
 					<ShareWith />
 

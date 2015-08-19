@@ -1,10 +1,17 @@
 import React from 'react';
 import Api from '../Api';
 import Loading from 'common/components/Loading';
-import {USERS} from '../Constants';
+// import {USERS} from '../Constants';
 import ContextSender from 'common/mixins/ContextSender';
 import BasePath from 'common/mixins/BasePath';
 import SelectableEntity from './SelectableEntity';
+import Page from 'common/components/Page';
+import GradientBackground from 'common/components/GradientBackground';
+import EmtpyList from 'common/components/EmptyList';
+import cx from 'classnames';
+import UserSearchField from './UserSearchField';
+import ItemDetailHeader from './ItemDetailHeader';
+import Err from 'common/components/Error';
 
 export default React.createClass({
 	displayName: 'ListDetail',
@@ -16,7 +23,9 @@ export default React.createClass({
 	getInitialState () {
 		return {
 			list: null,
-			loading: true
+			loading: true,
+			adding: false,
+			originalMembers: null
 		};
 	},
 
@@ -53,14 +62,21 @@ export default React.createClass({
 		this.forceUpdate();
 	},
 
-	getList () {
-		Promise.all([
-			Api.getDistributionList(this.props.id),
-			Api.getStore(USERS)
-		]).then((results) => {
+	getList (updateOriginal = false) {
+		Api.getDistributionList(this.props.id)
+		.then((result) => {
+			if (!result) {
+				return this.setState({
+					error: new Error('Unable to load list'),
+					list: null,
+					loading: false
+				});
+			}
+			let {originalMembers} = this.state;
+			let members = (!updateOriginal && originalMembers) || (result.friends || []).slice();
 			this.setState({
-				list: results[0],
-				contacts: results[1],
+				list: result,
+				originalMembers: members,
 				loading: false
 			});
 		});
@@ -73,9 +89,39 @@ export default React.createClass({
 		return p;
 	},
 
+	addPeople () {
+		this.setState({
+			adding: true
+		}, () => {
+			this.refs.searchField.focus();
+		});
+	},
+
+	cancelSearch () {
+		this.setState({
+			adding: false
+		});
+	},
+
+	saveSearch () {
+		let selections = this.refs.searchField.getSelections();
+		let {list} = this.state;
+		list.add(...selections)
+			.then(() => {
+				this.setState({
+					adding: false
+				});
+				this.getList(true);
+			});
+	},
+
 	render () {
 
-		let {loading, list, contacts} = this.state;
+		let {loading, error, list, originalMembers} = this.state;
+
+		if (error) {
+			return <Err error={error} />;
+		}
 
 		if (loading) {
 			return <Loading />;
@@ -86,38 +132,47 @@ export default React.createClass({
 		}
 
 		// let members = list.friends || [];
-		let contactItems = [];
-		for(let c of contacts) {
-			// if (list.contains(c)) {continue;}
-			contactItems.push(
-				<SelectableEntity
-					key={c.getID()}
-					entity={c}
-					selected={list.contains(c)}
-					onChange={this.toggleMembership.bind(this, c)}
-				/>
-			);
-		}
+		let contactItems = originalMembers.map((c) =>
+			<SelectableEntity
+				key={c.getID()}
+				entity={c}
+				selected={list.contains(c)}
+				onChange={this.toggleMembership.bind(this, c)}>
+				{/* <div onClick={this.toggleMembership.bind(this, c)}>{list.contains(c) ? 'Remove' : 'Undo'}</div> */}
+			</SelectableEntity>
+		);
+
+		let classes = cx('contact-list list-content', {'empty': contactItems.length === 0});
 
 		return (
-			<div className="list-detail">
-				<h1>{list.displayName}</h1>
-				{/*
-				<h2>List Members</h2>
-				<ul className="list-members">
-					{members.map(item =>
-						<li key={item.getID()} onClick={this.toggleMembership.bind(this, item)}>
-							<Avatar entity={item} />
-							<DisplayName entity={item} />
-						</li>)
-					}
-				</ul>
-				<h2>Contacts</h2>
-				*/}
-				<ul className="contacts-list">
-					{contactItems}
-				</ul>
-			</div>
+			<Page>
+				<GradientBackground>
+					<div className="distribution-list-detail">
+						<ItemDetailHeader list={list} />
+						{this.state.adding ?
+							<div className="list-user-search">
+								<UserSearchField ref="searchField" selected={list.friends} />
+								<div className="buttons">
+									<button className="secondary button tiny" onClick={this.cancelSearch}>Cancel</button>
+									<button className="primary button tiny" onClick={this.saveSearch}>Add Selected</button>
+								</div>
+							</div>
+							:
+							<div>
+								<div className="add-people" onClick={this.addPeople}>
+									<i className="icon-add-user" />
+									<span>Add People</span>
+								</div>
+								<div className="list-content-wrapper">
+									<ul className={classes}>
+										{contactItems.length > 0 ? contactItems : <li><EmtpyList type="contacts" /></li> }
+									</ul>
+								</div>
+							</div>
+						}
+					</div>
+				</GradientBackground>
+			</Page>
 		);
 	}
 });
