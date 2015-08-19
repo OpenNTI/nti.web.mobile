@@ -70,7 +70,7 @@ export default React.createClass({
 	getSuggestedContacts () {
 		Api.getSuggestedContacts()
 			.then(results => this.setState({
-				suggestedContacts: results.Items || []
+				suggestedContacts: results || []
 			}));
 	},
 
