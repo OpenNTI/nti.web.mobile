@@ -42,8 +42,10 @@ export default React.createClass({
 
 
 	componentWillMount () {
-		this.mixinAdditionalHandler(GIFT_CODE_REDEEMED, () => this.setState({busy: false, success: true, errors: {}}));
-		this.mixinAdditionalHandler(INVALID_GIFT_CODE, (e) => this.setState({busy: false, errors: {accessKey: {message: e.reason }}}));
+		this.registerStoreEventHandlers({
+			[GIFT_CODE_REDEEMED]: () => this.setState({busy: false, success: true, errors: {}}),
+			[INVALID_GIFT_CODE]: (e) => this.setState({busy: false, errors: {accessKey: {message: e.reason }}})
+		});
 
 		this.setState({
 			accessKey: this.props.code || ''
