@@ -5,6 +5,9 @@ import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 import ListMeta from './ListMeta';
 import {scoped} from 'common/locale';
 import ContextSender from 'common/mixins/ContextSender';
+import Err from 'common/components/Error';
+import Loading from 'common/components/Loading';
+import EmptyList from 'common/components/EmptyList';
 
 let t = scoped('CONTACTS');
 
@@ -13,12 +16,6 @@ export default React.createClass({
 	mixins: [mixin, ContextSender],
 	storeType: GROUPS,
 	listName: 'Groups',
-
-	getDefaultProps () {
-		return {
-			listClassName: 'groups avatar-grid'
-		};
-	},
 
 	getContext () {
 		return Promise.resolve({
@@ -64,6 +61,37 @@ export default React.createClass({
 					<AvatarProfileLink entity={item}><ListMeta entity={item} /></AvatarProfileLink>
 				</div>
 			</li>
+		);
+	},
+
+	render () {
+
+		let {error, search, store} = this.state;
+
+		if (error) {
+			return <Err error={error} />;
+		}
+
+		if (!store || store.loading) {
+			return <Loading />;
+		}
+
+		let items = [];
+		for(let item of store) {
+			if(!store.entityMatchesQuery || store.entityMatchesQuery(item, search)) {
+				items.push(this.renderListItem(item));
+			}
+		}
+
+		return (
+			<div>
+				{this.beforeList && this.beforeList(items)}
+				<div>
+					{this.listName && <h2>{this.listName}</h2>}
+					{items.length > 0 ? <ul className={'contacts-list groups avatar-grid'}>{items}</ul> : <EmptyList type="contacts" />}
+				</div>
+				{this.afterList && this.afterList()}
+			</div>
 		);
 	}
 });

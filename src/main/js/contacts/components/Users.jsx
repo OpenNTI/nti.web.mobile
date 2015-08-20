@@ -8,6 +8,7 @@ import SelectableEntity from './SelectableEntity';
 import {areYouSure} from 'prompts';
 import {scoped} from 'common/locale';
 import EmptyList from 'common/components/EmptyList';
+import UserSearchField from './UserSearchField';
 
 let t = scoped('CONTACTS');
 
@@ -15,12 +16,6 @@ export default React.createClass({
 	displayName: 'Contacts:Users',
 	mixins: [mixin, ContextSender],
 	storeType: USERS,
-
-	getDefaultProps () {
-		return {
-			listClassName: 'users'
-		};
-	},
 
 	listName: 'Contacts',
 
@@ -97,6 +92,8 @@ export default React.createClass({
 
 	searchField (items) {
 
+		return <UserSearchField />;
+
 		let {search, searchResults} = this.state;
 
 		return (
@@ -137,6 +134,37 @@ export default React.createClass({
 
 	renderListItem (item, removable=item.following) {
 		return <SelectableEntity key={'avatar' + item.Username} entity={item} selected={item.following} onChange={this.toggleFollow} removable={removable} />;
+	},
+
+	render () {
+
+		let {error, search, store} = this.state;
+
+		if (error) {
+			return <Err error={error} />;
+		}
+
+		if (!store || store.loading) {
+			return <Loading />;
+		}
+
+		let items = [];
+		for(let item of store) {
+			if(!store.entityMatchesQuery || store.entityMatchesQuery(item, search)) {
+				items.push(this.renderListItem(item));
+			}
+		}
+
+		return (
+			<div>
+				{this.beforeList && this.beforeList(items)}
+				<div>
+					{this.listName && <h2>{this.listName}</h2>}
+					{items.length > 0 ? <ul className={'contacts-list users'}>{items}</ul> : <EmptyList type="contacts" />}
+				</div>
+				{this.afterList && this.afterList()}
+			</div>
+		);
 	}
 
 });
