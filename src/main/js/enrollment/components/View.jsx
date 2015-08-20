@@ -1,7 +1,5 @@
 import React from 'react';
 
-import path from 'path';
-
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import BasePathAware from 'common/mixins/BasePath';
@@ -85,12 +83,10 @@ export default React.createClass({
 	},
 
 
-	getContext () {
-		let {router} = this.refs;
-		let href = router && path.normalize(router.makeHref('../'));
-
-		return Promise.resolve([{ label: this.getCourseTitle(), href }]);
-	},
+	// getContext () {
+	//
+	// 	return Promise.resolve([{ label: this.getCourseTitle(), href }]);
+	// },
 
 	render () {
 

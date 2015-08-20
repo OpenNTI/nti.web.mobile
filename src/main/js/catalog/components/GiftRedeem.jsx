@@ -55,9 +55,10 @@ export default React.createClass({
 
 	getContext () {
 		let {entryId} = this.props;
+		let {title} = this.getPurchasable();
 		return [
 			{
-				label: 'Course',
+				label: title,
 				href: this.makeHref(`/item/${entryId}/`)
 			},
 			{
@@ -115,8 +116,7 @@ export default React.createClass({
 		}
 
 		if (success) {
-			let {Title} = this.getPurchasable();
-			return (<EnrollmentSuccess courseTitle={Title} />);
+			return (<EnrollmentSuccess courseTitle={this.getPurchasable().title} />);
 		}
 
 		let title = t('formTitle');
