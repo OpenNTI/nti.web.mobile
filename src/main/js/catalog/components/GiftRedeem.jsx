@@ -2,7 +2,6 @@ import React from 'react';
 
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import CatalogAccessor from '../mixins/CatalogAccessor';
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
 import Loading from 'common/components/Loading';
@@ -10,13 +9,14 @@ import Loading from 'common/components/Loading';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
+import CatalogAccessor from '../mixins/CatalogAccessor';
+
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 import {scoped} from 'common/locale';
 import Err from 'common/components/Error';
 
-import Store from '../Store';
 import {GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from '../Constants';
-import {RENDERED_FORM_EVENT_HANDLERS as Events} from 'common/forms/Constants';
+
 import {redeemGift} from '../Actions';
 
 const t = scoped('ENROLLMENT.GIFT.REDEEM');
@@ -42,19 +42,12 @@ export default React.createClass({
 
 
 	componentWillMount () {
+		this.mixinAdditionalHandler(GIFT_CODE_REDEEMED, () => this.setState({busy: false, success: true, errors: {}}));
+		this.mixinAdditionalHandler(INVALID_GIFT_CODE, (e) => this.setState({busy: false, errors: {accessKey: {message: e.reason }}}));
+
 		this.setState({
 			accessKey: this.props.code || ''
 		});
-	},
-
-
-	componentDidMount () {
-		Store.addChangeListener(this.onStoreChange);
-	},
-
-
-	componentWillUnmount () {
-		Store.removeChangeListener(this.onStoreChange);
 	},
 
 
@@ -81,29 +74,6 @@ export default React.createClass({
 	},
 
 
-	onStoreChange (event) {
-		switch( (event || {}).type ) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		case INVALID_GIFT_CODE:
-			this.setState({
-				busy: false,
-				errors: {
-					accessKey: {
-						message: event.reason
-					}
-				}
-			});
-			break;
-		case GIFT_CODE_REDEEMED:
-			this.setState({
-				busy: false,
-				success: true,
-				errors: {}
-			});
-			break;
-		}
-	},
-
 	getPurchasable () {
 		let entry = this.getCatalogEntry(decodeFromURI(this.props.entryId));
 		if (!entry) {
@@ -117,6 +87,7 @@ export default React.createClass({
 		return option && option.getPurchasableForGifting();
 	},
 
+
 	handleSubmit (event) {
 		event.preventDefault();
 		this.setState({
@@ -129,12 +100,9 @@ export default React.createClass({
 			this.state.accessKey);
 	},
 
-	[Events.ON_CHANGE] (event) {
-		this.updateFieldValueState(event);
-	},
 
 	render () {
-		let {busy, success, error, errors, accessKey=''} = this.state;
+		let {busy, success, error, errors, accessKey = ''} = this.state;
 
 		if (error) {
 			return <Err error={error} />;
