@@ -5,6 +5,7 @@ import cx from 'classnames';
 import {Editor} from 'modeled-content';
 
 import Loading from 'common/components/Loading';
+import DarkMode from 'common/components/DarkMode';
 import HideNavigation from 'common/components/HideNavigation';
 
 import ShareWith from 'common/components/ShareWith';
@@ -21,14 +22,9 @@ export default React.createClass({
 		onSave: React.PropTypes.func
 	},
 
-	onChange (e) {
-		let {value, name} = e.target;
-		this.setState({[name]: value, error: void 0});
-	},
 
-
-	onBodyChanged (_, value) {
-		this.setState({body: value, error: void 0});
+	detectContent () {
+		//set save button enabled or disabled.
 	},
 
 
@@ -43,9 +39,7 @@ export default React.createClass({
 
 
 	render () {
-		let {error, busy, body, title} = this.state || {};
-
-		let disabled = Editor.isEmpty(body);
+		let {error, busy, disabled} = this.state || {};
 
 		if (error) {
 			error = error.message || 'There was an errror saving';
@@ -53,19 +47,18 @@ export default React.createClass({
 
 		return (
 			<div className={cx('note-editor-frame editor', {busy})}>
+				<DarkMode/>
 				<HideNavigation/>
 
 				<form onSubmit={x => x.preventDefault() && false}>
 					<ShareWith />
 
 					<div className={cx('title', {error})} data-error-message={error}>
-						<input type="text" name="title"
-							placeholder="Title"
-							value={title}
-							onChange={this.onChange} />
+						<input type="text" name="title" ref="title" placeholder="Title"
+							onChange={this.detectContent} />
 					</div>
 
-					<Editor ref="body" value={body} onChange={this.onBodyChanged} onBlur={this.onBodyChange}>
+					<Editor ref="body" onChange={this.detectContent} onBlur={this.detectContent}>
 						<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
 						<button onClick={this.onSubmit} className={cx('save icon-discuss', {disabled})}>{t('BUTTONS.post')}</button>
 					</Editor>
@@ -89,12 +82,12 @@ export default React.createClass({
 	onSubmit () {
 		let item = this.getItemData();
 		let {onSave} = this.props;
-		let {title} = this.state || {};
-		let {body} = this.refs;
+		let {body, title} = this.refs;
 
 		let dom = React.findDOMNode(this);
-
 		CSS.addClass(dom.parentNode, 'saving');
+
+		title = title.value;
 
 		let data = Object.assign({}, item, {
 			title: Editor.isEmpty(title) ? null : title.trim(),
