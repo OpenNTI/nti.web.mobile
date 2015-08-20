@@ -22,6 +22,12 @@ const SECTION_PROPERTY_MAP = {
 	[SECTION_NAMES.books]: ['bundles', 'packages']
 };
 
+const SECTION_PRESCIENCE = {
+	[SECTION_NAMES.admin]: 0,
+	[SECTION_NAMES.courses]: 1,
+	[SECTION_NAMES.books]: 2
+};
+
 
 const SECTION_FILTERS_MAP = {
 	[SECTION_NAMES.admin]: swapFirstTwo(Filters),
@@ -60,15 +66,8 @@ export default {
 				if (!this.getLibrary()) {
 					console.warn('Early!!!');
 				}
-				let admin = this.getListForSection(SECTION_NAMES.admin);
-				let courses = this.getListForSection(SECTION_NAMES.courses);
-					//if there are admin courses, default there...
-				return admin.length
-					? SECTION_NAMES.admin
-					: courses.length
-						? SECTION_NAMES.courses
-						// if user doesn't have any courses default to books.
-						: SECTION_NAMES.books;
+
+				return this.getAvailableSections()[0].label;
 			});
 	},
 
@@ -78,6 +77,7 @@ export default {
 		let defaultAvailability = list => list.count > 0;
 		return names
 			.map(x=>({key: x, label: SECTION_NAMES[x], count: this.getListForSection(x).length}))
+			.sort((a, b) => SECTION_PRESCIENCE[a.key] - SECTION_PRESCIENCE[b.key])
 			.filter(x=> (AVAILABLILITY[x.key] || defaultAvailability)(x, this.getLibrary()));
 	},
 
