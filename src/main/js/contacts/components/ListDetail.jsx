@@ -150,7 +150,7 @@ export default React.createClass({
 				entity={c}
 				selected={list.contains(c)}
 				labels={labels}
-				onChange={this.toggleMembership.bind(this, c)}>
+				onChange={this.toggleMembership}>
 				{/* <div onClick={this.toggleMembership.bind(this, c)}>{list.contains(c) ? 'Remove' : 'Undo'}</div> */}
 			</SelectableEntity>
 		);
