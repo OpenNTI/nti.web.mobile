@@ -40,8 +40,9 @@ export default React.createClass({
 
 
 	render () {
-		let {scope} = this.props;
+		let {scope, item} = this.props;
 		let {error, busy, disabled} = this.state || {};
+		let {sharedWith} = item;
 
 		if (error) {
 			error = error.message || 'There was an errror saving';
@@ -53,7 +54,7 @@ export default React.createClass({
 				<HideNavigation/>
 
 				<form onSubmit={x => x.preventDefault() && false}>
-					<ShareWith scope={scope}/>
+					<ShareWith scope={scope} defaultValue={sharedWith}/>
 
 					<div className={cx('title', {error})} data-error-message={error}>
 						<input type="text" name="title" ref="title" placeholder="Title"
