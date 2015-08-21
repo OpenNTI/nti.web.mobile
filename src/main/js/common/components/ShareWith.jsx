@@ -40,6 +40,7 @@ export default React.createClass({
 	setup (props = this.props) {
 		const stillValid = () => props[KEY] === this.props[KEY];
 		const empty = () => null;
+		const {scope} = props;
 
 		let value = props.defaultValue;
 
@@ -48,38 +49,25 @@ export default React.createClass({
 		this.setState({value, selection});
 
 		getService()
-			.then(service => ({
-				communities: service.getCommunities(),
-				groups: service.getGroups(),
-				lists: service.getLists(),
-				contacts: service.getContacts()
+			.then(service => [
+				service.getCommunities(),
+				service.getGroups(),
+				service.getLists(),
+				service.getContacts()
+			])
 
-			}))
-			.then(o => Promise.all(
-				[
-					o.communities.waitForPending(),
-					o.groups.waitForPending(),
-					o.lists.waitForPending(),
-					o.contacts.waitForPending()
-				]).then(()=> o))
+			.then(stores => Promise.all(stores.map(store=> store.waitForPending()))
+							.then(()=> stores))
 
-			.then(o => Promise.all([
-				props.scope.getSharingSuggestions().catch(empty),
-				o.communities,
-				o.groups,
-				o.lists,
-				o.contacts
-			]))
+			.then(stores => Promise.all([scope.getSharingSuggestions().catch(empty), ...stores]))
+
 			.then(all => {
-				let [suggestions, communities, groups, lists, contacts] = all;
+				let [suggestions, ...stores] = all;
 
 				if (stillValid()) {
 					let filter = x => !suggestions.find(o => x.getID() === o.getID());
 
-					communities = Array.from(communities).filter(filter);
-					groups = Array.from(groups).filter(filter);
-					lists = Array.from(lists).filter(filter);
-					contacts = Array.from(contacts).filter(filter);
+					let [communities, groups, lists, contacts] = stores.map(s => Array.from(s).filter(filter));
 
 					this.setState({suggestions, communities, groups, lists, contacts});
 				}
@@ -106,7 +94,7 @@ export default React.createClass({
 
 
 	onSelectionChange (entity) {
-		let {selection} = this.state;
+		let {state: {selection}} = this;
 		let result = selection.isSelected(entity)
 			? selection.remove(entity)
 			: selection.add(entity);
@@ -118,12 +106,12 @@ export default React.createClass({
 
 
 	render () {
-		let {focused, search, selection, suggestions, communities} = this.state;
+		let {state: {focused, search, selection, suggestions, communities}} = this;
 		return (
 			<div>
 
 				<div className="share-with-entry" onClick={this.onFocus}>
-					{selection.getItems().map(e => (<ShareTarget key={e} entity={e}/>))}
+					{selection.getItems().map(e => (<ShareTarget key={e.getID()} entity={e}/>))}
 					<span className="input-field">
 						<input type="text" value={search} onBlur={this.onInputBlur} onFocus={this.onInputFocus} onChange={this.onInputChange} ref="search"/>
 					</span>
