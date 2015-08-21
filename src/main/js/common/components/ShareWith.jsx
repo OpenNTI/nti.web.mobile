@@ -47,8 +47,6 @@ export default React.createClass({
 		props.scope.getSharingSuggestions()
 			.then(suggestions => {
 				if (stillValid()) {
-
-
 					this.setState({suggestions});
 				}
 			});
@@ -73,13 +71,25 @@ export default React.createClass({
 	},
 
 
+	onSelectionChange (entity) {
+		let {selection} = this.state;
+		let result = selection.isSelected(entity)
+			? selection.remove(entity)
+			: selection.add(entity);
+
+		if (result) {
+			this.forceUpdate();
+		}
+	},
+
+
 	render () {
-		let {value = [], focused, search, selection, suggestions} = this.state;
+		let {focused, search, selection, suggestions} = this.state;
 		return (
 			<div>
 
 				<div className="share-with-entry" onClick={this.onFocus}>
-					{value.map(e => (<ShareTarget key={e} entity={e}/>))}
+					{selection.getItems().map(e => (<ShareTarget key={e} entity={e}/>))}
 					<span className="input-field">
 						<input type="text" value={search} onBlur={this.onInputBlur} onFocus={this.onInputFocus} onChange={this.onInputChange} ref="search"/>
 					</span>
@@ -89,7 +99,7 @@ export default React.createClass({
 					null
 				) : (
 					<div className="suggestions">
-						<SelectableEntities entities={suggestions} selection={selection}/>
+						<SelectableEntities entities={suggestions} selection={selection} onChange={this.onSelectionChange}/>
 					</div>
 				)}
 			</div>

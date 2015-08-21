@@ -33,7 +33,7 @@ export default class ListSelection extends EventEmitter {
 		let list = this[Selected];
 
 		for (let object of objects) {
-			let i = list.indexOf(object);
+			let i = list.findIndex(o => o.getID() === object.getID());
 			if (i >= 0) {
 				//don't use splice... treat the array as immutable.
 				list = list.slice(0,i).concat(list.slice(i + 1));
