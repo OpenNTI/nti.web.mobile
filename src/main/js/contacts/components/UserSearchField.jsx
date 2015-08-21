@@ -4,6 +4,7 @@ import Api from '../Api';
 import {USERS} from '../Constants';
 import cx from 'classnames';
 import Loading from 'common/components/TinyLoader';
+import listContainsEntity from '../list-contains-entity';
 
 export default React.createClass({
 	displayName: 'UserSearchField',
@@ -195,12 +196,11 @@ export default React.createClass({
 					<li className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} /></li>
 				</ul>
 				{this.results()}
+				<div className="buttons">
+					<button className="secondary button tiny" onClick={this.props.onCancel}>Cancel</button>
+					<button className="primary button tiny" onClick={this.props.onSave}>Add Selected</button>
+				</div>
 			</div>
 		);
 	}
 });
-
-
-function listContainsEntity (list, entity) {
-	return (list || []).findIndex((user) => user.getID && user.getID() === entity.getID()) > -1;
-}

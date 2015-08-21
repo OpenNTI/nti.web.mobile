@@ -45,3 +45,12 @@
 		}
 	}
 }
+
+.add-people {
+	background: white;
+	color: $primary-blue;
+	padding: 1rem;
+	span {
+		margin-left: .25em; // space between icon and text
+	}
+}

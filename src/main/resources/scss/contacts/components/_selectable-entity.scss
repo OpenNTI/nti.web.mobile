@@ -88,4 +88,22 @@
 		top: 50%;
 		transform: translateY(-50%);
 	}
+
+	transition: background-color .25s ease-out;
+	&.unselected {
+		background: #fff2cb;
+		box-shadow: inset 0 1px 2px 0 rgba(0,0,0,.1);
+		.username {
+			position: relative;
+			&::after {
+				content: '';
+				height: 2px;
+				background: rgba(0,0,0,.4);
+				position: absolute;
+				top: 50%;
+				left: 0;
+				width: 100%;
+			}
+		}
+	}
 }
