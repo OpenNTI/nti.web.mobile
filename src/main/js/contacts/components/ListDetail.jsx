@@ -6,7 +6,6 @@ import BasePath from 'common/mixins/BasePath';
 import SelectableEntities from './SelectableEntities';
 import Page from 'common/components/Page';
 import GradientBackground from 'common/components/GradientBackground';
-import cx from 'classnames';
 import UserSearchField from './UserSearchField';
 import ItemDetailHeader from './ItemDetailHeader';
 import Err from 'common/components/Error';

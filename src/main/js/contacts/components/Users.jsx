@@ -5,10 +5,7 @@ import {USERS} from '../Constants';
 import Err from 'common/components/Error';
 import ContextSender from 'common/mixins/ContextSender';
 import SelectableEntities from './SelectableEntities';
-import {scoped} from 'common/locale';
 import UserSearchField from './UserSearchField';
-
-let t = scoped('CONTACTS');
 
 export default React.createClass({
 	displayName: 'Contacts:Users',
