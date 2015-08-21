@@ -17,7 +17,7 @@ export default React.createClass({
 	displayName: 'Contacts:Groups',
 	mixins: [mixin],
 	storeType: LISTS,
-	listName: 'Distribution Lists',
+	// listName: 'Distribution Lists',
 
 	addList () {
 		let {store} = this.state;
@@ -103,7 +103,6 @@ export default React.createClass({
 			<div>
 				{this.beforeList && this.beforeList(items)}
 				<div>
-					{this.listName && <h2>{this.listName}</h2>}
 					{items.length > 0 ? <ul className={'contacts-list lists avatar-grid'}>{items}</ul> : <EmptyList type="contacts" />}
 				</div>
 				{this.afterList && this.afterList()}
