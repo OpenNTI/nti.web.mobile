@@ -1,8 +1,9 @@
 import React from 'react';
 
-import DisplayName from './DisplayName';
+import ShareTarget from './TokenEntity';
 
 const KEY = 'defaultValue';
+
 
 export default React.createClass({
 	displayName: 'ShareWith',
@@ -44,12 +45,46 @@ export default React.createClass({
 			});
 	},
 
+	onFocus () {
+		this.setState({focused: true});
+	},
+
+	onInputBlur () {
+		this.setState({focused: true, inputFocused: false});
+	},
+	onInputFocus () {
+		this.setState({focused: true, inputFocused: true});
+	},
+	onInputChange () {
+		let {search} = this.refs;
+
+		search = search && (React.findDOMNode(search).value || '').trim();
+
+		this.setState({search});
+	},
+
 
 	render () {
-		let {value = []} = this.state;
+		let {value = [], focused, search} = this.state;
 		return (
 			<div>
-				{value.map(e => (<DisplayName key={e} entity={e}/>))}
+
+				<div className="share-with-entry" onClick={this.onFocus}>
+					{value.map(e => (<ShareTarget key={e} entity={e}/>))}
+					<span className="input-field">
+						<input type="text" value={search} onBlur={this.onInputBlur} onFocus={this.onInputFocus} onChange={this.onInputChange} ref="search"/>
+					</span>
+				</div>
+
+				{!focused ? null : (
+
+					<div className="suggestions">
+
+
+
+					</div>
+
+				)}
 			</div>
 		);
 	}

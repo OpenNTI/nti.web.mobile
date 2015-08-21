@@ -1,0 +1,43 @@
+.share-with-entry {
+	display: flex;
+	margin: 0.3125rem -0.3125rem;
+
+	.token {
+		flex: 0 0 auto;
+	}
+
+	.input-field {
+		flex: 1 1 auto;
+		display: flex;
+
+		input {
+			flex: 1 1 auto;
+			padding: 0;
+			margin: 0;
+			border: 0;
+			background: transparent;
+			height: auto;
+			font-weight: 700;
+			font-size: 0.75rem;
+			line-height: 2rem;
+		}
+	}
+
+	& > * {
+		margin: 0.3125rem;
+	}
+}
+
+
+
+.token {
+	line-height: 2rem;
+	border-radius: 2rem;
+	padding: 0 1.25rem;
+	display: inline-block;
+	color: white;
+	background: $primary-blue;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 0.75rem;
+}
