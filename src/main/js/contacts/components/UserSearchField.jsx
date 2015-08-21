@@ -1,10 +1,10 @@
 import React from 'react';
-import SelectableEntity from './SelectableEntity';
+import SelectableEntity from 'common/components/SelectableEntity';
 import Api from '../Api';
 import {USERS} from '../Constants';
 import cx from 'classnames';
 import Loading from 'common/components/TinyLoader';
-import listContainsEntity from '../list-contains-entity';
+import listContainsEntity from 'common/utils/list-contains-entity';
 
 export default React.createClass({
 	displayName: 'UserSearchField',

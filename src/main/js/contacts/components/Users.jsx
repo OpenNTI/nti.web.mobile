@@ -4,7 +4,7 @@ import Loading from 'common/components/Loading';
 import {USERS} from '../Constants';
 import Err from 'common/components/Error';
 import ContextSender from 'common/mixins/ContextSender';
-import SelectableEntities from './SelectableEntities';
+import SelectableEntities from 'common/components/SelectableEntities';
 import UserSearchField from './UserSearchField';
 import AddPeopleButton from './AddPeopleButton';
 

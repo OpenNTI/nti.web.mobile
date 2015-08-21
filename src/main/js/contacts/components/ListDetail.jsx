@@ -3,7 +3,7 @@ import Api from '../Api';
 import Loading from 'common/components/Loading';
 import ContextSender from 'common/mixins/ContextSender';
 import BasePath from 'common/mixins/BasePath';
-import SelectableEntities from './SelectableEntities';
+import SelectableEntities from 'common/components/SelectableEntities';
 import Page from 'common/components/Page';
 import GradientBackground from 'common/components/GradientBackground';
 import UserSearchField from './UserSearchField';

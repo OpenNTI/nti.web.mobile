@@ -1,6 +1,6 @@
 import React from 'react';
 import SelectableEntity from './SelectableEntity';
-import listContainsEntity from '../list-contains-entity';
+import listContainsEntity from '../utils/list-contains-entity';
 
 const labels = {
 	selected: 'Remove',
