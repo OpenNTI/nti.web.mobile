@@ -22,7 +22,7 @@ export default React.createClass({
 
 	rememberOriginalList (props = this.props) {
 		this.setState({
-			original: props.entities.slice()
+			original: (props.entities || []).slice()
 		});
 	},
 
@@ -35,7 +35,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<SelectableEntities  {...this.props} selection={this.state.selection} entities={this.state.original} />
+			<SelectableEntities {...this.props} selection={this.state.selection} entities={this.state.original} />
 		);
 	}
 });
