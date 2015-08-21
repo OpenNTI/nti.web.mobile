@@ -153,9 +153,7 @@ export default React.createClass({
 										<i className="icon-add-user" />
 										<span>Add People</span>
 									</div>
-									<div className="list-content-wrapper">
-										<SelectableEntities entities={list.friends} onChange={this.toggleMembership} />
-									</div>
+									<SelectableEntities entities={list.friends} onChange={this.toggleMembership} />
 								</div>
 							}
 						</div>

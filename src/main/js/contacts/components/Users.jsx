@@ -92,9 +92,7 @@ export default React.createClass({
 							<i className="icon-add-user" />
 							<span>Add People</span>
 						</div>
-						<div className="list-content-wrapper">
-							<SelectableEntities entities={items} onChange={this.toggleFollow} />
-						</div>
+						<SelectableEntities entities={items} onChange={this.toggleFollow} />
 					</div>
 				}
 			</div>
