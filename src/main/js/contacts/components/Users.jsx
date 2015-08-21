@@ -28,7 +28,6 @@ export default React.createClass({
 		return entity.follow()
 			.then(() => {
 				this.setState({
-					following: entity.following,
 					loading: false
 				});
 			});
