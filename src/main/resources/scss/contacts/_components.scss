@@ -54,17 +54,6 @@
 		margin-bottom: 2rem;
 	}
 
-	.contacts-page-content {
-		background: white;
-		padding: 1rem;
-		h2 {
-			font-size: 1.5rem;
-			line-height: 1;
-			font-weight: 100;
-			font-family: 'Open Sans';
-		}
-	}
-
 	.follow-widget {
 		position: absolute;
 		top: 50%;
@@ -92,5 +81,16 @@
 				content:none;
 			}
 		}
+	}
+}
+
+.contacts-page-content {
+	background: white;
+	padding: 1rem;
+	h2 {
+		font-size: 1.5rem;
+		line-height: 1;
+		font-weight: 100;
+		font-family: 'Open Sans';
 	}
 }

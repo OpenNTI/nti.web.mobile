@@ -122,7 +122,7 @@ export default React.createClass({
 
 	render () {
 
-		let {loading, error, list, originalMembers} = this.state;
+		let {loading, error, list} = this.state;
 
 		if (error) {
 			return <Err error={error} />;
@@ -136,32 +136,32 @@ export default React.createClass({
 			return <div>List not loaded.</div>;
 		}
 
-		let classes = cx('contact-list list-content', {'empty': originalMembers.length === 0});
-
 		return (
 			<Page>
 				<GradientBackground>
 					<div className="distribution-list-detail">
 						<ItemDetailHeader list={list} />
-						{this.state.adding ?
-							<div className="list-user-search">
-								<UserSearchField ref="searchField"
-									selected={list.friends}
-									onCancel={this.cancelSearch}
-									onSave={this.saveSearch}
-								/>
-							</div>
-							:
-							<div>
-								<div className="add-people" onClick={this.addPeople}>
-									<i className="icon-add-user" />
-									<span>Add People</span>
+						<div className="contacts-page-content">
+							{this.state.adding ?
+								<div className="list-user-search">
+									<UserSearchField ref="searchField"
+										selected={list.friends}
+										onCancel={this.cancelSearch}
+										onSave={this.saveSearch}
+									/>
 								</div>
-								<div className="list-content-wrapper">
-									<SelectableEntities className={classes} entities={list.friends} onChange={this.toggleMembership} />
+								:
+								<div>
+									<div className="add-people" onClick={this.addPeople}>
+										<i className="icon-add-user" />
+										<span>Add People</span>
+									</div>
+									<div className="list-content-wrapper">
+										<SelectableEntities entities={list.friends} onChange={this.toggleMembership} />
+									</div>
 								</div>
-							</div>
-						}
+							}
+						</div>
 					</div>
 				</GradientBackground>
 			</Page>
