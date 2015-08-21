@@ -57,9 +57,17 @@ export default React.createClass({
 	},
 
 	label (selected) {
-		let labels = this.props.labels || {};
+		let {labels = {}} = this.props;
 		return selected ? labels.selected : labels.unselected;
 	},
+
+	association (entity) {
+		let {generalName, displayName, displayType} = entity;
+		let type = generalName ? displayName : entity.isUser ? null : displayType;
+
+		return type; // || entity.association;
+	},
+
 
 	render () {
 		let {entity, selected, tag, removable, labels} = this.props;
@@ -86,8 +94,8 @@ export default React.createClass({
 			<Element className={wrapperClasses} {...this.props} onClick={this.onClick}>
 				<div>
 					<Avatar entity={entity} />
-					<DisplayName entity={entity} />
-					<div className="association"></div>
+					<DisplayName entity={entity} useGeneralName/>
+					<div className="association">{this.association(entity)}</div>
 				</div>
 				<div className={classes}>{this.label(selected)}</div>
 				{busy && <Loading />}
