@@ -1,54 +1,36 @@
 import React from 'react';
 import SelectableEntity from './SelectableEntity';
-import listContainsEntity from '../utils/list-contains-entity';
 
-const labels = {
-	selected: 'Remove',
-	unselected: 'Undo'
-};
+import SelectionModel from '../utils/ListSelectionModel';
 
 export default React.createClass({
 	displayName: 'SelectableEntities',
 
 	propTypes: {
+		selection: React.PropTypes.instanceOf(SelectionModel).isRequired,
+
 		entities: React.PropTypes.any,
-		onChange: React.PropTypes.func.isRequired
-	},
 
-	getInitialState () {
-		return {
-			originalList: []
-		};
-	},
+		onChange: React.PropTypes.func,
 
-	componentWillMount () {
-		this.rememberList();
-	},
-
-	rememberList (props = this.props) {
-		let {entities} = props;
-		this.setState({
-			originalList: (entities || []).slice()
-		});
+		labels: React.PropTypes.object
 	},
 
 	onChange (entity) {
-		return Promise.resolve(this.props.onChange(entity));
+		let {onChange = ()=> {}} = this.props;
+		return Promise.resolve(onChange(entity));
 	},
 
 	render () {
-
-
-		let {entities} = this.props;
-		let {originalList} = this.state;
+		let {entities, labels, selection} = this.props;
 
 		return (
 			<ul className="selectable-entities" {...this.props}>
-				{originalList.map(entity =>
+				{entities.map(entity =>
 					<SelectableEntity
 						key={entity.getID()}
 						entity={entity}
-						selected={listContainsEntity(entities, entity)}
+						selected={selection.isSelected(entity)}
 						labels={labels}
 						onChange={this.onChange.bind(this, entity)}
 					/>

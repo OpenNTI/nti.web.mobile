@@ -1,6 +1,9 @@
 import React from 'react';
 
 import ShareTarget from './TokenEntity';
+import SelectableEntities from './SelectableEntities';
+
+import ListSelection from '../utils/ListSelectionModel';
 
 const KEY = 'defaultValue';
 
@@ -35,11 +38,17 @@ export default React.createClass({
 	setup (props = this.props) {
 		const stillValid = () => props[KEY] === this.props[KEY];
 
-		this.setState({value: props.defaultValue});
+		let value = props.defaultValue;
+
+		let selection = new ListSelection(value);
+
+		this.setState({value, selection});
 
 		props.scope.getSharingSuggestions()
 			.then(suggestions => {
 				if (stillValid()) {
+
+
 					this.setState({suggestions});
 				}
 			});
@@ -65,7 +74,7 @@ export default React.createClass({
 
 
 	render () {
-		let {value = [], focused, search} = this.state;
+		let {value = [], focused, search, selection, suggestions} = this.state;
 		return (
 			<div>
 
@@ -76,14 +85,12 @@ export default React.createClass({
 					</span>
 				</div>
 
-				{!focused ? null : (
-
+				{!focused ? null : !suggestions ? (
+					null
+				) : (
 					<div className="suggestions">
-
-
-
+						<SelectableEntities entities={suggestions} selection={selection}/>
 					</div>
-
 				)}
 			</div>
 		);
