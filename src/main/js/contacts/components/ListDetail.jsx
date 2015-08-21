@@ -10,6 +10,7 @@ import UserSearchField from './UserSearchField';
 import ItemDetailHeader from './ItemDetailHeader';
 import Err from 'common/components/Error';
 import {join} from 'path';
+import AddPeopleButton from './AddPeopleButton';
 
 export default React.createClass({
 	displayName: 'ListDetail',
@@ -149,10 +150,7 @@ export default React.createClass({
 								/>
 								:
 								<div>
-									<div className="add-people" onClick={this.addPeople}>
-										<i className="icon-add-user" />
-										<span>Add People</span>
-									</div>
+									<AddPeopleButton onClick={this.addPeople} />
 									<SelectableEntities entities={list.friends} onChange={this.toggleMembership} />
 								</div>
 							}

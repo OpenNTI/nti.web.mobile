@@ -6,6 +6,7 @@ import Err from 'common/components/Error';
 import ContextSender from 'common/mixins/ContextSender';
 import SelectableEntities from './SelectableEntities';
 import UserSearchField from './UserSearchField';
+import AddPeopleButton from './AddPeopleButton';
 
 export default React.createClass({
 	displayName: 'Contacts:Users',
@@ -88,10 +89,7 @@ export default React.createClass({
 					</div>
 					:
 					<div>
-						<div className="add-people" onClick={this.addPeople}>
-							<i className="icon-add-user" />
-							<span>Add People</span>
-						</div>
+						<AddPeopleButton onClick={this.addPeople} />
 						<SelectableEntities entities={items} onChange={this.toggleFollow} />
 					</div>
 				}
