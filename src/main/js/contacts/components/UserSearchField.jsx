@@ -185,7 +185,7 @@ export default React.createClass({
 		}
 		return (
 			<ul className="output-list">
-				{children.map(child => <li>{child}</li>)}
+				{children.map(child => <li key={child}>{child}</li>)}
 			</ul>
 		);
 	},
@@ -202,7 +202,7 @@ export default React.createClass({
 			<div className="user-search">
 				<ul className="input-list">
 					{selectedUsers.map(user => <li key={'selected-' + user.getID()} className="selected-item">{user.displayName}</li>)}
-					<li className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} placeholder="Search" /></li>
+					<li key="input-field" className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} placeholder="Search" /></li>
 				</ul>
 				{this.results()}
 				<div className="buttons">
