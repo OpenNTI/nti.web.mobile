@@ -41,7 +41,15 @@ export default React.createClass({
 		 *
 		 * @type {boolean}
 		 */
-		usePronoun: React.PropTypes.bool
+		usePronoun: React.PropTypes.bool,
+
+		/**
+		 * Sharing Scopes (entity objects) are given GeneralNames by the suggestion provider.
+		 * This flag will instruct the widget to use that designation instead of the displayName.
+		 *
+		 * @type {boolean}
+		 */
+		useGeneralName: React.PropTypes.bool
 	},
 
 
@@ -87,7 +95,9 @@ export default React.createClass({
 						? 'You'
 						: entity.displayName;
 
-					set({ displayName });
+					let { generalName } = entity;
+
+					set({ displayName, generalName });
 				},
 				()=> set({ failed: true, displayName: 'Unknown' })
 			));
@@ -96,18 +106,21 @@ export default React.createClass({
 
 
 	render () {
-		let {className, entity, localeKey, tag} = this.props;
-		let {displayName} = this.state;
+		let {className, entity, localeKey, tag, useGeneralName} = this.props;
+		let {displayName, generalName} = this.state;
 		let Tag = tag || (localeKey ? 'address' : 'span');
+
+		let name = (useGeneralName && generalName) || displayName;
 
 		let props = Object.assign({
 			className: cx('username', className),
-			children: displayName,
+			children: name,
 			'data-for': getDebugUsernameString(entity)
 		}, this.props);
 
+
 		if (localeKey) {
-			let name = React.renderToStaticMarkup(<a rel="author" className="username">{displayName}</a>);
+			name = React.renderToStaticMarkup(<a rel="author" className="username">{name}</a>);
 
 			Object.assign(props, {
 				children: void 0,
