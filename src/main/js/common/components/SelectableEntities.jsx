@@ -26,7 +26,7 @@ export default React.createClass({
 
 		return (
 			<ul className="selectable-entities" {...this.props}>
-				{entities.map(entity =>
+				{Array.from(entities).map(entity =>
 					<SelectableEntity
 						key={entity.getID()}
 						entity={entity}
