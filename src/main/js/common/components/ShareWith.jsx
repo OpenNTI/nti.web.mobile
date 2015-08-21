@@ -5,6 +5,8 @@ import SelectableEntities from './SelectableEntities';
 
 import ListSelection from '../utils/ListSelectionModel';
 
+import {getService} from '../utils';
+
 const KEY = 'defaultValue';
 
 
@@ -37,6 +39,7 @@ export default React.createClass({
 
 	setup (props = this.props) {
 		const stillValid = () => props[KEY] === this.props[KEY];
+		const empty = () => null;
 
 		let value = props.defaultValue;
 
@@ -44,10 +47,41 @@ export default React.createClass({
 
 		this.setState({value, selection});
 
-		props.scope.getSharingSuggestions()
-			.then(suggestions => {
+		getService()
+			.then(service => ({
+				communities: service.getCommunities(),
+				groups: service.getGroups(),
+				lists: service.getLists(),
+				contacts: service.getContacts()
+
+			}))
+			.then(o => Promise.all(
+				[
+					o.communities.waitForPending(),
+					o.groups.waitForPending(),
+					o.lists.waitForPending(),
+					o.contacts.waitForPending()
+				]).then(()=> o))
+
+			.then(o => Promise.all([
+				props.scope.getSharingSuggestions().catch(empty),
+				o.communities,
+				o.groups,
+				o.lists,
+				o.contacts
+			]))
+			.then(all => {
+				let [suggestions, communities, groups, lists, contacts] = all;
+
 				if (stillValid()) {
-					this.setState({suggestions});
+					let filter = x => !suggestions.find(o => x.getID() === o.getID());
+
+					communities = Array.from(communities).filter(filter);
+					groups = Array.from(groups).filter(filter);
+					lists = Array.from(lists).filter(filter);
+					contacts = Array.from(contacts).filter(filter);
+
+					this.setState({suggestions, communities, groups, lists, contacts});
 				}
 			});
 	},
@@ -84,7 +118,7 @@ export default React.createClass({
 
 
 	render () {
-		let {focused, search, selection, suggestions} = this.state;
+		let {focused, search, selection, suggestions, communities} = this.state;
 		return (
 			<div>
 
@@ -100,6 +134,7 @@ export default React.createClass({
 				) : (
 					<div className="suggestions">
 						<SelectableEntities entities={suggestions} selection={selection} onChange={this.onSelectionChange}/>
+						<SelectableEntities entities={communities} selection={selection} onChange={this.onSelectionChange}/>
 					</div>
 				)}
 			</div>
