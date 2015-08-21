@@ -142,13 +142,11 @@ export default React.createClass({
 						<ItemDetailHeader list={list} />
 						<div className="contacts-page-content">
 							{this.state.adding ?
-								<div className="list-user-search">
-									<UserSearchField ref="searchField"
-										selected={list.friends}
-										onCancel={this.cancelSearch}
-										onSave={this.saveSearch}
-									/>
-								</div>
+								<UserSearchField ref="searchField"
+									selected={list.friends}
+									onCancel={this.cancelSearch}
+									onSave={this.saveSearch}
+								/>
 								:
 								<div>
 									<div className="add-people" onClick={this.addPeople}>
