@@ -83,6 +83,7 @@ export default React.createClass({
 					<div className="list-user-search">
 						<UserSearchField
 							ref="searchField"
+							excludeContacts
 							selected={items}
 							onCancel={this.cancelSearch}
 							onSave={this.saveSearch}

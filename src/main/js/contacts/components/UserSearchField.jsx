@@ -11,7 +11,10 @@ export default React.createClass({
 
 	propTypes: {
 		onChange: React.PropTypes.func,
-		selected: React.PropTypes.array
+		selected: React.PropTypes.array,
+		onSave: React.PropTypes.func.isRequired,
+		onCancel: React.PropTypes.func.isRequired,
+		excludeContacts: React.PropTypes.any
 	},
 
 	getDefaultProps () {
@@ -173,10 +176,10 @@ export default React.createClass({
 			children.push(this.renderResults('Suggested Contacts', suggestedContacts));
 		}
 		else {
-			children = children.concat(
-				this.renderResults('Contacts', contactsResults, 'contacts' ),
-				this.renderResults('Others', searchResults)
-			);
+			if (this.props.excludeContacts === undefined) {
+				children.push(this.renderResults('Contacts', contactsResults, 'contacts' ));
+			}
+			children.push(this.renderResults('Others', searchResults));
 		}
 		return (
 			<ul className="output-list">
