@@ -374,7 +374,11 @@ export default React.createClass({
 		}
 
 		return (
-			<NoteEditor key="note-editor" item={stagedNote} onCancel={cancel} onSave={this.saveNote}/>
+			<NoteEditor key="note-editor"
+				scope={this.props.contentPackage}
+				item={stagedNote}
+				onCancel={cancel}
+				onSave={this.saveNote}/>
 		);
 	},
 

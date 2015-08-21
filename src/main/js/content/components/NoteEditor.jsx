@@ -17,6 +17,7 @@ export default React.createClass({
 
 	propTypes: {
 		item: React.PropTypes.object,
+		scope: React.PropTypes.object,
 
 		onCancel: React.PropTypes.func,
 		onSave: React.PropTypes.func
@@ -39,6 +40,7 @@ export default React.createClass({
 
 
 	render () {
+		let {scope} = this.props;
 		let {error, busy, disabled} = this.state || {};
 
 		if (error) {
@@ -51,7 +53,7 @@ export default React.createClass({
 				<HideNavigation/>
 
 				<form onSubmit={x => x.preventDefault() && false}>
-					<ShareWith />
+					<ShareWith scope={scope}/>
 
 					<div className={cx('title', {error})} data-error-message={error}>
 						<input type="text" name="title" ref="title" placeholder="Title"
