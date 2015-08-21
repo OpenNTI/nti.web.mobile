@@ -173,13 +173,15 @@ export default React.createClass({
 			children.push(<Loading/>);
 		}
 		else if (search.length === 0) {
-			children.push(this.renderResults('Suggested Contacts', suggestedContacts));
+			if(suggestedContacts.length > 0) {
+				children.push(this.renderResults('Suggested Contacts', suggestedContacts));
+			}
 		}
 		else {
 			if (this.props.excludeContacts === undefined) {
 				children.push(this.renderResults('Contacts', contactsResults, 'contacts' ));
 			}
-			children.push(this.renderResults('Others', searchResults));
+			children.push(this.renderResults('Search Results', searchResults));
 		}
 		return (
 			<ul className="output-list">
@@ -196,7 +198,7 @@ export default React.createClass({
 			<div className="user-search">
 				<ul className="input-list">
 					{selectedUsers.map(user => <li key={'selected-' + user.getID()} className="selected-item">{user.displayName}</li>)}
-					<li className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} /></li>
+					<li className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} placeholder="Search" /></li>
 				</ul>
 				{this.results()}
 				<div className="buttons">
