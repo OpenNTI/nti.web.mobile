@@ -101,7 +101,7 @@ export default React.createClass({
 
 		try {
 			let widget = getWidget(object, undefined, props);
-			let {type={}} = widget || {};
+			let {type = {}} = widget || {};
 
 			let context;
 			try {

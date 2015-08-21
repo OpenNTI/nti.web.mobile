@@ -47,7 +47,7 @@ export function loadDiscussions (pkg) {
 
 
 // convenience method that just adds params to the getObjectContents call.
-export function getTopicContents (topicId, batchStart=0, batchSize=50) {
+export function getTopicContents (topicId, batchStart = 0, batchSize = 50) {
 	return getPagedContents(topicId, batchStart, batchSize);
 }
 
@@ -55,7 +55,7 @@ export function getForumContents (forumId, batchStart, batchSize) {
 	return getPagedContents(forumId, batchStart, batchSize);
 }
 
-export function getPagedContents (ntiid, batchStart=0, batchSize=DEFAULT_BATCH_SIZE) {
+export function getPagedContents (ntiid, batchStart = 0, batchSize = DEFAULT_BATCH_SIZE) {
 	let params = Object.assign(
 		{},
 		DEFAULT_PAGING_PARAMS,

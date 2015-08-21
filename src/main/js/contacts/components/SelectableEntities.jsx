@@ -25,7 +25,7 @@ export default React.createClass({
 		this.rememberList();
 	},
 
-	rememberList (props=this.props) {
+	rememberList (props = this.props) {
 		let {entities} = props;
 		this.setState({
 			originalList: (entities || []).slice()

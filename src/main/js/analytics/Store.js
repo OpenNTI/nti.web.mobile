@@ -55,7 +55,7 @@ class AnalyticsStore extends TypedEventEmitter {
 		}
 	}
 
-	[HaltActiveEvents] (events=queue) {
+	[HaltActiveEvents] (events = queue) {
 		if (!events) {
 			return Promise.resolve([]);
 		}

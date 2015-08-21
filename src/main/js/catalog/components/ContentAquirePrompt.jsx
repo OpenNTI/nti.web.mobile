@@ -45,7 +45,7 @@ export default React.createClass({
 
 
 	resolve (props = this.props) {
-		let {data={Items:[]}} = props;
+		let {data = {Items:[]}} = props;
 		let items = data.Items.reduce((a, x) => a.concat(x), []);
 
 		getService()

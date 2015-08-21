@@ -1,5 +1,5 @@
 export default {
-	getMembers (entity, includeCreator=true) {
+	getMembers (entity, includeCreator = true) {
 		let entities = ((entity || {}).friends || []).slice();
 		if (includeCreator && entity.creator) {
 			entities.unshift(entity.creator);
