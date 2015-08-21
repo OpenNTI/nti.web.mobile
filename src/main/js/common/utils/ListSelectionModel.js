@@ -1,21 +1,32 @@
+import {EventEmitter} from 'events';
 
 const Selected = Symbol();
 
-export default class ListSelection {
+export default class ListSelection extends EventEmitter {
 
 	constructor (initialSelection = []) {
+		super();
 		this[Selected] = initialSelection.slice();
 	}
 
 
 	isSelected (object) {
-		return this[Selected].indexOf(object) >= 0;
+		return this[Selected].findIndex(o => o.getID() === object.getID()) >= 0;
 	}
 
 	add (...objects) {
 		let list = this[Selected];
-		//don't use push, treat the array as immutable
-		this[Selected] = [...list, ...objects];
+		for (let obj of objects) {
+			if (this.isSelected(obj)) { continue; }
+			//don't use push, treat the array as immutable
+			list = [...list, obj];
+		}
+
+		if (this[Selected] !== list) {
+			this[Selected] = list;
+			this.emit('change');
+			return true;
+		}
 	}
 
 	remove (...objects) {
@@ -29,7 +40,11 @@ export default class ListSelection {
 			}
 		}
 
-		this[Selected] = list;
+		if (this[Selected] !== list) {
+			this[Selected] = list;
+			this.emit('change');
+			return true;
+		}
 	}
 
 
