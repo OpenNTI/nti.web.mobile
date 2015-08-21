@@ -3,7 +3,7 @@ import Api from '../Api';
 import Loading from 'common/components/Loading';
 import ContextSender from 'common/mixins/ContextSender';
 import BasePath from 'common/mixins/BasePath';
-import SelectableEntities from 'common/components/SelectableEntities';
+import Selectables from './Selectables';
 import Page from 'common/components/Page';
 import GradientBackground from 'common/components/GradientBackground';
 import UserSearchField from './UserSearchField';
@@ -151,7 +151,7 @@ export default React.createClass({
 								:
 								<div>
 									<AddPeopleButton onClick={this.addPeople} />
-									<SelectableEntities entities={list.friends} onChange={this.toggleMembership} />
+									<Selectables entities={(list.friends || []).slice()} onChange={this.toggleMembership} />
 								</div>
 							}
 						</div>
