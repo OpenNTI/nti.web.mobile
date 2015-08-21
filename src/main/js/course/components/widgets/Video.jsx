@@ -82,7 +82,7 @@ export default React.createClass({
 	},
 
 
-	getID (props= this.props) {
+	getID (props = this.props) {
 		let {NTIID, ntiid} = props.item;
 		return NTIID || ntiid;
 	},

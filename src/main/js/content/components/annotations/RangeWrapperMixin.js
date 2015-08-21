@@ -88,7 +88,9 @@ export default {
 		let valid = validToWrapEntireNode(node);
 
 		//Easy case, the node is completely surronded and valid, wrap the node
-		if (valid && (startToStart === AFTER || startToStart === SAME) && (endToEnd === BEFORE || endToEnd === SAME)) {
+		if (valid
+			&& (startToStart === AFTER || startToStart === SAME)
+			&& (endToEnd === BEFORE || endToEnd === SAME)) {
 
 			if (canWrapNode(node)) {
 				let newRange = doc.createRange();
@@ -107,22 +109,22 @@ export default {
 			}
 
 			if (node.childNodes.length === 0) {
-				let newRange = doc.createRange();
+				let newRange;
 
 				if (startToStart === BEFORE && (endToEnd === BEFORE || endToEnd === SAME)) {
+					newRange = doc.createRange();
 					newRange.setStart(range.startContainer, range.startOffset);
 					newRange.setEndAfter(node);
-					range = newRange;
 				}
 				else if (endToEnd === AFTER && (startToStart === AFTER || startToStart === SAME)) {
+					newRange = doc.createRange();
 					newRange.setStartBefore(node);
 					newRange.setEnd(range.endContainer, range.endOffset);
-					range = newRange;
 				}
 
 
-				if (startToEnd !== BEFORE && endToStart !== AFTER) {
-					nodeList.push(this[wrap](range));
+				if (newRange && startToEnd !== BEFORE && endToStart !== AFTER) {
+					nodeList.push(this[wrap](newRange));
 				}
 			}
 		}
@@ -151,7 +153,11 @@ export default {
 			}
 		}
 
-		range.surroundContents(span);
+		try {
+			range.surroundContents(span);
+		} catch (e) {
+			console.warn(e.stack || e.message || e);
+		}
 
 		if (!span.firstChild) {
 			DOM.removeNode(span);

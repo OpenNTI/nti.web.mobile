@@ -4,23 +4,14 @@ import Loading from 'common/components/Loading';
 import {USERS} from '../Constants';
 import Err from 'common/components/Error';
 import ContextSender from 'common/mixins/ContextSender';
-import SelectableEntity from './SelectableEntity';
-import {areYouSure} from 'prompts';
-import {scoped} from 'common/locale';
-import EmptyList from 'common/components/EmptyList';
-
-let t = scoped('CONTACTS');
+import SelectableEntities from 'common/components/SelectableEntities';
+import UserSearchField from './UserSearchField';
+import AddPeopleButton from './AddPeopleButton';
 
 export default React.createClass({
 	displayName: 'Contacts:Users',
 	mixins: [mixin, ContextSender],
 	storeType: USERS,
-
-	getDefaultProps () {
-		return {
-			listClassName: 'users'
-		};
-	},
 
 	listName: 'Contacts',
 
@@ -30,113 +21,80 @@ export default React.createClass({
 		});
 	},
 
-	updateSearchQuery (event) {
-		let query = event ? event.target.value : '';
-		let {store} = this.state;
-
+	toggleFollow (entity) {
 		this.setState({
-			search: query,
-			searchLoading: query.length > 0,
-			searchResults: null,
-			searchError: null
+			loading: true
 		});
-
-		if (store && store.search) {
-			let search = store.search(query);
-			search.catch(reason=> {
-				if (typeof reason !== 'object' || reason.statusCode !== -1) {
-					this.setState({
-						searchError: reason
-					});
-				}
-			});
-			search.then(results => {
-				// search results include communities and friends lists; we only want users
-				let users = results.filter((entity) => entity.isUser);
+		return entity.follow()
+			.then(() => {
 				this.setState({
-					searchResults: users,
-					searchLoading: false
+					loading: false
 				});
 			});
-		}
 	},
 
-	searchResults () {
-		let {searchLoading, searchError, searchResults} = this.state;
-		if (searchError) {
-			return <Err error={searchError} />;
-		}
-		if (searchLoading) {
-			return <Loading/>;
-		}
-		if (searchResults) {
-			return (
-				<div>
-					<h2>Search Results</h2>
-					{searchResults.length > 0 ? <ul className="contacts-search-results">{searchResults.map((entity) => this.renderListItem(entity, false))}</ul> : <EmptyList type="contactssearch" />}
-
-				</div>
-			);
-		}
+	addPeople () {
+		this.setState({
+			adding: true
+		}, () => {
+			this.refs.searchField.focus();
+		});
 	},
 
-	resultsSummary (items, searchResults) {
-		return searchResults && (
-			<div className="search-summary">
-				<div>
-					<div>Searching for {this.state.search}:</div>
-					<div>{t('filteredContacts', {count: items.length})}, {t('searchResults', {count: searchResults.length})}.</div>
-				</div>
-			</div>
-		);
+	cancelSearch () {
+		this.setState({
+			adding: false
+		});
 	},
 
-	clearSearch () {
-		this.updateSearchQuery();
+	saveSearch () {
+		let selections = this.refs.searchField.getSelections();
+		let {store} = this.state;
+		store.addContact(selections)
+			.then(() => {
+				this.setState({
+					adding: false
+				});
+			});
 	},
 
-	searchField (items) {
+	render () {
 
-		let {search, searchResults} = this.state;
+		let {error, store} = this.state;
 
+		if (error) {
+			return <Err error={error} />;
+		}
+
+		if (!store || store.loading) {
+			return <Loading />;
+		}
+
+		let items = [];
+		for(let item of store) {
+			items.push(item);
+		}
 		return (
 			<div>
-				<div className="search-field">
-					<input type="search" ref="search" onChange={this.updateSearchQuery} value={search} placeholder={t('searchFieldPlaceholder')} />
-					<div className={'icon ' + (search.length > 0 ? 'clear-search-icon' : 'search-icon')} onClick={this.clearSearch} />
-				</div>
-				<div>
-					{this.resultsSummary(items, searchResults)}
-					{this.searchResults()}
-				</div>
+				{this.state.adding ?
+					<div className="list-user-search">
+						<UserSearchField
+							ref="searchField"
+							excludeContacts
+							selected={items}
+							onCancel={this.cancelSearch}
+							onSave={this.saveSearch}
+						/>
+					</div>
+					:
+					<div>
+						<AddPeopleButton onClick={this.addPeople} />
+						<SelectableEntities entities={items} onChange={this.toggleFollow} />
+					</div>
+				}
 			</div>
 		);
-	},
 
-	beforeList (items) {
-		return this.searchField(items);
-	},
-
-	toggleFollow (entity) {
-
-		let p = entity.following ? areYouSure(t('unfollowPrompt')) : Promise.resolve();
-		p = p.then(() => {
-			this.setState({
-				loading: true
-			});
-			return entity.follow()
-				.then(() => {
-					this.setState({
-						following: entity.following,
-						loading: false
-					});
-				});
-		});
-		return p;
-	},
-
-	renderListItem (item, removable=item.following) {
-		return <SelectableEntity key={'avatar' + item.Username} entity={item} selected={item.following} onChange={this.toggleFollow} removable={removable} />;
 	}
 
 });

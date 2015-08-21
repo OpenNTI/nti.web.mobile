@@ -6,7 +6,7 @@ require('babel/register')({
 	//but...
 
 	// only if filenames match this regex...
-	only: /(?!.*node_modules)(nti.lib.interfaces|react-editor-component|server\/lib)/
+	only: /(?!.*node_modules)(nti.lib|react-editor-component|server\/lib)/
 });
 
 global.SERVER = true;
@@ -22,6 +22,7 @@ var setupErrorHandler = require('./lib/error-handler');
 
 common.loadConfig()
 .then(function (config) {
+	common.showFlags(config);
 	logger.info('Build Source (revision): ', config.revision);
 
 	var protocol = config.protocol === 'proxy' ? proxiedHttp : http;

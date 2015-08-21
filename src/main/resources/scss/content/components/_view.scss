@@ -6,11 +6,16 @@
 }
 
 
+
 .content-view {
 	position: relative;
 
 	& > div > figure.loading {
 		position: fixed;
+	}
+
+	.content-body {
+		background: #fff;
 	}
 
 	.fixed-footer {

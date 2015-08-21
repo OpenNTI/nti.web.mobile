@@ -71,9 +71,12 @@
 		box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.1);
 	}
 }
-
+body {
+	transition: background-color 0.4s;
+	background-color: #fff;
+}
 body.dark {
-	background: #333;
+	background-color: #333;
 }
 
 

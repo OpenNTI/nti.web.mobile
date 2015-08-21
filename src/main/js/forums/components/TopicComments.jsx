@@ -77,7 +77,7 @@ export default React.createClass({
 		});
 	},
 
-	[loadData] (topicId=this.props.topicId) {
+	[loadData] (topicId = this.props.topicId) {
 		return getTopicContents(topicId, this.batchStart(), this.getPageSize())
 			.then(
 				result => {

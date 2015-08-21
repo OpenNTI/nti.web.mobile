@@ -67,7 +67,7 @@ export default React.createClass({
 	fill (item) {
 		this.setState({loading: true});
 
-		let {sharedWith=[]} = item;
+		let {sharedWith = []} = item;
 		let pending = sharedWith
 			.filter(x => x && x !== EVERYONE)
 			.map(entity=> resolve({entity}).catch(()=> null));

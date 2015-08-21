@@ -1,7 +1,8 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
-
+import {getService} from 'common/utils';
 import {getCatalog} from './Api';
-import {LOAD_CATALOG, LOADED_CATALOG, REDEEM_GIFT} from './Constants';
+
+import {LOAD_CATALOG, LOADED_CATALOG, GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from './Constants';
 
 
 export function reload () {
@@ -26,8 +27,13 @@ export function load (force = false) {
 	return load.result;
 }
 
+
 export function redeemGift (purchasable, courseId, accessKey) {
-	AppDispatcher.handleRequestAction( {type: REDEEM_GIFT, payload: { purchasable, courseId, accessKey }});
+	getService().then(service => service.getEnrollment())
+		.then(service => service.redeemGift(purchasable, courseId, accessKey))
+		.then(
+			result => dispatch(GIFT_CODE_REDEEMED, result),
+			reason => dispatch(INVALID_GIFT_CODE, reason.Message));
 }
 
 function dispatch (type, collection) {

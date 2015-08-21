@@ -143,11 +143,11 @@ export default React.createClass({
 		}
 	},
 
-	getTopicId (props=this.props) {
+	getTopicId (props = this.props) {
 		return decodeFromURI(props.topicId);
 	},
 
-	loadData (topicId=this.props.topicId) {
+	loadData (topicId = this.props.topicId) {
 		return getTopicContents(topicId, this.batchStart(), this.getPageSize())
 			.then(
 				result => {

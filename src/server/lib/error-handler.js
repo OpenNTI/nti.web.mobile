@@ -69,7 +69,7 @@ export default function setupErrorHandler (express, config) {
 	});
 }
 
-function preprocess (templateStr, data={}) {
+function preprocess (templateStr, data = {}) {
 	// {
 	// 	err={},
 	// 	errorid,

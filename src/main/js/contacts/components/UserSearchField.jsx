@@ -1,16 +1,20 @@
 import React from 'react';
-import SelectableEntity from './SelectableEntity';
+import SelectableEntity from 'common/components/SelectableEntity';
 import Api from '../Api';
 import {USERS} from '../Constants';
 import cx from 'classnames';
 import Loading from 'common/components/TinyLoader';
+import listContainsEntity from 'common/utils/list-contains-entity';
 
 export default React.createClass({
 	displayName: 'UserSearchField',
 
 	propTypes: {
 		onChange: React.PropTypes.func,
-		selected: React.PropTypes.array
+		selected: React.PropTypes.array,
+		onSave: React.PropTypes.func.isRequired,
+		onCancel: React.PropTypes.func.isRequired,
+		excludeContacts: React.PropTypes.any
 	},
 
 	getDefaultProps () {
@@ -21,14 +25,17 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
+			search: '',
 			selectedUsers: [],
 			searchResults: [],
-			contactsResults: []
+			contactsResults: [],
+			suggestedContacts: []
 		};
 	},
 
 	componentDidMount () {
 		this.setUpStore();
+		this.getSuggestedContacts();
 	},
 
 	componentWillReceiveProps () {
@@ -42,7 +49,8 @@ export default React.createClass({
 		if (store && store !== nextStore) {
 			store.removeListener('change', this.onStoreChange);
 		}
-		else if (nextStore && nextStore !== store) {
+
+		if (nextStore && nextStore !== store) {
 			nextStore.addListener('change', this.onStoreChange);
 		}
 	},
@@ -61,6 +69,13 @@ export default React.createClass({
 	setUpStore () {
 		Api.getStore(USERS)
 			.then(store => this.setState({store}));
+	},
+
+	getSuggestedContacts () {
+		Api.getSuggestedContacts()
+			.then(results => this.setState({
+				suggestedContacts: results || []
+			}));
 	},
 
 	focus () {
@@ -151,33 +166,50 @@ export default React.createClass({
 		);
 	},
 
+	results () {
+		let {searchResults, contactsResults, suggestedContacts, searchLoading, search} = this.state;
+		let children = [];
+		if (searchLoading) {
+			children.push(<Loading/>);
+		}
+		else if (search.length === 0) {
+			if(suggestedContacts.length > 0) {
+				children.push(this.renderResults('Suggested Contacts', suggestedContacts));
+			}
+		}
+		else {
+			if (this.props.excludeContacts === undefined) {
+				children.push(this.renderResults('Contacts', contactsResults, 'contacts' ));
+			}
+			children.push(this.renderResults('Search Results', searchResults));
+		}
+		return (
+			<ul className="output-list">
+				{children.map(child => <li key={child}>{child}</li>)}
+			</ul>
+		);
+	},
+
 	render () {
 
-		let {selectedUsers, searchResults, contactsResults, searchLoading} = this.state;
+		let {selectedUsers} = this.state;
+
+		let saveButtonClasses = cx('primary tiny button', {
+			'disabled': selectedUsers.length === 0
+		});
 
 		return (
 			<div className="user-search">
 				<ul className="input-list">
 					{selectedUsers.map(user => <li key={'selected-' + user.getID()} className="selected-item">{user.displayName}</li>)}
-					<li className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} /></li>
+					<li key="input-field" className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} placeholder="Search" /></li>
 				</ul>
-
-					{searchLoading
-						? <div className="output-list"><Loading/></div>
-						: (
-							<ul className="output-list">
-								<li>{this.renderResults('Contacts', contactsResults, 'contacts' )}</li>
-								<li>{this.renderResults('Others', searchResults)}</li>
-							</ul>
-						)
-					}
-
+				{this.results()}
+				<div className="buttons">
+					<button className="secondary button tiny" onClick={this.props.onCancel}>Cancel</button>
+					<button className={saveButtonClasses} onClick={this.props.onSave}>Add Selected</button>
+				</div>
 			</div>
 		);
 	}
 });
-
-
-function listContainsEntity (list, entity) {
-	return (list || []).findIndex((user) => user.getID && user.getID() === entity.getID()) > -1;
-}

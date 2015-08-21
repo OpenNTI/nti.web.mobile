@@ -66,7 +66,7 @@ export default {
 
 
 	renderReplies () {
-		let {loading=true, error, children=[]} = this.state || {};
+		let {loading = true, error, children = []} = this.state || {};
 
 		return (loading || error) ? (
 			<div className="coordinate-root">

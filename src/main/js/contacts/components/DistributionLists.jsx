@@ -7,6 +7,9 @@ import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import ListMeta from './ListMeta';
 import {areYouSure} from 'prompts';
 import {scoped} from 'common/locale';
+import Err from 'common/components/Error';
+import Loading from 'common/components/Loading';
+import EmptyList from 'common/components/EmptyList';
 
 let t = scoped('CONTACTS');
 
@@ -14,13 +17,7 @@ export default React.createClass({
 	displayName: 'Contacts:Groups',
 	mixins: [mixin],
 	storeType: LISTS,
-	listName: 'Distribution Lists',
-
-	getDefaultProps () {
-		return {
-			listClassName: 'lists avatar-grid'
-		};
-	},
+	// listName: 'Distribution Lists',
 
 	addList () {
 		let {store} = this.state;
@@ -80,6 +77,36 @@ export default React.createClass({
 					</div>
 				</a>
 			</li>
+		);
+	},
+
+	render () {
+
+		let {error, search, store} = this.state;
+
+		if (error) {
+			return <Err error={error} />;
+		}
+
+		if (!store || store.loading) {
+			return <Loading />;
+		}
+
+		let items = [];
+		for(let item of store) {
+			if(!store.entityMatchesQuery || store.entityMatchesQuery(item, search)) {
+				items.push(this.renderListItem(item));
+			}
+		}
+
+		return (
+			<div>
+				{this.beforeList && this.beforeList(items)}
+				<div>
+					{items.length > 0 ? <ul className={'contacts-list lists avatar-grid'}>{items}</ul> : <EmptyList type="contacts" />}
+				</div>
+				{this.afterList && this.afterList()}
+			</div>
 		);
 	}
 

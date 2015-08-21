@@ -26,36 +26,27 @@ export default class PageDescriptor {
 	}
 
 
-	getID () { return this.ntiid; }
-
-
-	getTitle () {
-		let toc = this.tableOfContents;
-		let node = toc && toc.getNode(this.ntiid);
-		return node && node.get('label');
+	getAssessmentQuestion (questionId) {
+		return this.pageInfo.getAssessmentQuestion(questionId);
 	}
-
-
-	getPageSource (id) { return this.tableOfContents.getPageSource(id); }
-
-
-	getTableOfContents () { return this.tableOfContents; }
 
 
 	getBodyParts () { return this.content.parsed; }
 
 
+	getID () { return this.ntiid; }
+
+
+	getPageSource (id) { return this.tableOfContents.getPageSource(id); }
+
+
 	getPageStyles () { return this.styles; }
 
 
-	getUserDataStore () {
-		return this[UserData];
+	getSharingPreferences () {
+		return this.pageInfo.getSharingPreferences();
 	}
 
-
-	getAssessmentQuestion (questionId) {
-		return this.pageInfo.getAssessmentQuestion(questionId);
-	}
 
 	//This should only ever return Assignment, QuestionSet or falsy.
 	//Individual Question submission is handled within the scope of
@@ -69,5 +60,20 @@ export default class PageDescriptor {
 					v);
 
 		return items.reduce(search,	null);
+	}
+
+
+	getTableOfContents () { return this.tableOfContents; }
+
+
+	getTitle () {
+		let toc = this.tableOfContents;
+		let node = toc && toc.getNode(this.ntiid);
+		return node && node.get('label');
+	}
+
+
+	getUserDataStore () {
+		return this[UserData];
 	}
 }

@@ -7,7 +7,7 @@ const handlerMapKey = 'backingStoreEventHandlers';
 
 export default {
 
-	mixinAdditionalHandler (eventId, handlerId) {
+	registerStoreEventHandler (eventId, handlerId) {
 		if (!this.hasOwnProperty(handlerMapKey)) {
 			this[handlerMapKey] = Object.create(this[getHandlers]({}) || {});
 		}
@@ -27,6 +27,17 @@ export default {
 			map[eventId] = handlerId;
 		}
 	},
+
+
+	registerStoreEventHandlers (eventIdToHandlerMap) {
+		let eventIds = Object.getOwnPropertyNames(eventIdToHandlerMap)
+			.concat(Object.getOwnPropertySymbols(eventIdToHandlerMap));
+
+		for (let eventId of eventIds) {
+			this.registerStoreEventHandler(eventId, eventIdToHandlerMap[eventId]);
+		}
+	},
+
 
 	componentWillMount () {
 		this[getStore] = getKey.bind(this, 'backingStore');

@@ -81,7 +81,7 @@ class Store extends StorePrototype {
 		this.emitChange({ type: Constants.OBJECT_LOADED, ntiid, object });
 	}
 
-	setObjectContents (objectId, contents, params={}) {
+	setObjectContents (objectId, contents, params = {}) {
 		let key = this[keyForContents](objectId, params);
 		this.objectContents[key] = contents;
 		this.emitChange({ type: Constants.OBJECT_CONTENTS_CHANGED, objectId });
@@ -118,7 +118,7 @@ class Store extends StorePrototype {
 		return this.objects[this[keyForObject](objectId)];
 	}
 
-	getObjectContents (objectId, params={}) {
+	getObjectContents (objectId, params = {}) {
 		let key = this[keyForContents](objectId, params);
 		return this.objectContents[key];
 	}
@@ -146,7 +146,7 @@ class Store extends StorePrototype {
 		this.emitError({ type: Constants.TOPIC_CREATION_ERROR, data });
 	}
 
-	[keyForContents] (objectId, params={}) {
+	[keyForContents] (objectId, params = {}) {
 		return [decodeFromURI(objectId), hash(params), 'contents'].join(':');
 	}
 

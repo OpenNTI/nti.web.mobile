@@ -17,13 +17,6 @@ export const LOAD_CATALOG = 'catalog:LOAD';
  */
 export const LOADED_CATALOG = 'catalog:LOADED';
 
-/**
-*
-* @event REDEEM_GIFT
-* @type Symbol
-* @final
-*/
-export const REDEEM_GIFT = getConst('gift:Redeem');
 
 /**
 *
@@ -40,4 +33,3 @@ export const GIFT_CODE_REDEEMED = getConst('gift:Code Redeemed');
 * @final
 */
 export const INVALID_GIFT_CODE = getConst('gift:Code Invalid');
-

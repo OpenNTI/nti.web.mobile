@@ -27,9 +27,7 @@ export default React.createClass({
 
 	propTypes: {
 		courseId: React.PropTypes.string.isRequired,
-		entryId: React.PropTypes.string,
-
-		returnToCatalogRoot: React.PropTypes.any
+		entryId: React.PropTypes.string
 	},
 
 	getInitialState () {
@@ -40,13 +38,7 @@ export default React.createClass({
 	},
 
 	getContext () {
-		let {entryId, returnToCatalogRoot} = this.props;
-
 		return Promise.resolve([
-			{
-				label: this.getCourseTitle(),
-				href: this.makeHref(returnToCatalogRoot ? '/' : `/item/${entryId}/`)
-			},
 			{
 				label: 'Drop'
 			}

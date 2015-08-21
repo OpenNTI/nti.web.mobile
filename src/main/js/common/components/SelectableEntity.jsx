@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
+import Loading from 'common/components/TinyLoader';
 
 const noclick = Promise.resolve();
 
@@ -14,7 +15,8 @@ export default React.createClass({
 		tag: React.PropTypes.string,
 		onChange: React.PropTypes.func,
 		removable: React.PropTypes.bool,
-		children: React.PropTypes.any
+		children: React.PropTypes.any,
+		labels: React.PropTypes.object // e.g. {selected: 'Remove', unselected: 'Undo'}
 	},
 
 	getDefaultProps () {
@@ -54,10 +56,25 @@ export default React.createClass({
 		});
 	},
 
+	label (selected) {
+		let {labels = {}} = this.props;
+		return selected ? labels.selected : labels.unselected;
+	},
+
+	association (entity) {
+		let {generalName, displayName, displayType} = entity;
+		let type = generalName ? displayName : entity.isUser ? null : displayType;
+
+		return type; // || entity.association;
+	},
+
+
 	render () {
-		let {entity, selected, tag, removable} = this.props;
+		let {entity, selected, tag, removable, labels} = this.props;
 		let {busy} = this.state;
-		let classes = cx('select-button',{
+		let classes = cx({
+			'select-button': !labels,
+			'state-label': labels,
 			'selected': selected,
 			'busy': busy,
 			'removable': removable
@@ -67,14 +84,21 @@ export default React.createClass({
 			'unselected': !selected
 		});
 		let Element = tag;
+
+		// labels: {
+		// 	selected: 'Remove'
+		// 	unselected: 'Undo'
+		// }
+
 		return (
 			<Element className={wrapperClasses} {...this.props} onClick={this.onClick}>
 				<div>
 					<Avatar entity={entity} />
-					<DisplayName entity={entity} />
-					<div className="association"></div>
+					<DisplayName entity={entity} useGeneralName/>
+					<div className="association">{this.association(entity)}</div>
 				</div>
-				<div className={classes}></div>
+				<div className={classes}>{this.label(selected)}</div>
+				{busy && <Loading />}
 				{this.props.children}
 			</Element>
 		);

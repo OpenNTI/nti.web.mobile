@@ -31,7 +31,7 @@ export default React.createClass({
 	},
 
 
-	getPurchasable (forGifting=false) {
+	getPurchasable (forGifting = false) {
 		let {enrollment} = this.props;
 
 		return forGifting ?

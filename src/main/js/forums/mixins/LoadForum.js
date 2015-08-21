@@ -10,11 +10,11 @@ const loadData = 'LoadForum:loadData';
 
 export default {
 	componentWillMount () {
-		if (!this.mixinAdditionalHandler) {
-			console.warn('this.mixinAdditionalHandler is undefined. (Forgot to include the StoreEvents mixin?)');
+		if (!this.registerStoreEventHandler) {
+			console.warn('this.registerStoreEventHandler is undefined. (Forgot to include the StoreEvents mixin?)');
 			return;
 		}
-		this.mixinAdditionalHandler(OBJECT_CONTENTS_CHANGED, objectContentsChangedHandler);
+		this.registerStoreEventHandler(OBJECT_CONTENTS_CHANGED, objectContentsChangedHandler);
 		this[loadData](this.props.forumId);
 	},
 

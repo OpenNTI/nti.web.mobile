@@ -63,7 +63,7 @@ export default React.createClass({
 		});
 	},
 
-	constrainOffsets (offset=this.state.translate) {
+	constrainOffsets (offset = this.state.translate) {
 		let containerRect = React.findDOMNode(this.refs.container).getBoundingClientRect();
 		let imgRect = React.findDOMNode(this.refs.img).getBoundingClientRect();
 		let widthDiff = imgRect.width - containerRect.width;

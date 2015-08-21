@@ -6,46 +6,16 @@
 		list-style: none;
 		margin: 0;
 	}
-	.add-people {
-		background: white;
-		color: $primary-blue;
-		padding: 1rem;
-		span {
-			margin-left: .25em; // space between icon and text
-		}
-	}
+
 	.list-content {
 		background: white;
 		padding: 0 1rem;
 		&.empty {
 			padding: 1rem;
 		}
-		.selectable-entity.unselected {
-			background: #fff2cb;
-			.username {
-				position: relative;
-				&::after {
-					content: '';
-					height: 2px;
-					background: rgba(0,0,0,.4);
-					position: absolute;
-					top: 50%;
-					left: 0;
-					width: 100%;
-				}
-			}
-		}
 	}
 	ul.contact-list {
 		padding: .5rem;
-	}
-
-	.buttons {
-		text-align: right;
-		background: $quad-grey;
-		button {
-			margin: 0;
-		}
 	}
 
 }

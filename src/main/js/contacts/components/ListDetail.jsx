@@ -1,17 +1,16 @@
 import React from 'react';
 import Api from '../Api';
 import Loading from 'common/components/Loading';
-// import {USERS} from '../Constants';
 import ContextSender from 'common/mixins/ContextSender';
 import BasePath from 'common/mixins/BasePath';
-import SelectableEntity from './SelectableEntity';
+import SelectableEntities from 'common/components/SelectableEntities';
 import Page from 'common/components/Page';
 import GradientBackground from 'common/components/GradientBackground';
-import EmtpyList from 'common/components/EmptyList';
-import cx from 'classnames';
 import UserSearchField from './UserSearchField';
 import ItemDetailHeader from './ItemDetailHeader';
 import Err from 'common/components/Error';
+import {join} from 'path';
+import AddPeopleButton from './AddPeopleButton';
 
 export default React.createClass({
 	displayName: 'ListDetail',
@@ -53,9 +52,15 @@ export default React.createClass({
 	},
 
 	getContext () {
-		return Promise.resolve({
-			label: 'List Details'
-		});
+		return Promise.resolve([
+			{
+				href: join(this.getBasePath(), 'contacts', 'lists', '/'),
+				label: 'Distribution Lists'
+			},
+			{
+				label: 'List Details'
+			}
+		]);
 	},
 
 	onStoreChange () {
@@ -117,7 +122,7 @@ export default React.createClass({
 
 	render () {
 
-		let {loading, error, list, originalMembers} = this.state;
+		let {loading, error, list} = this.state;
 
 		if (error) {
 			return <Err error={error} />;
@@ -131,45 +136,25 @@ export default React.createClass({
 			return <div>List not loaded.</div>;
 		}
 
-		// let members = list.friends || [];
-		let contactItems = originalMembers.map((c) =>
-			<SelectableEntity
-				key={c.getID()}
-				entity={c}
-				selected={list.contains(c)}
-				onChange={this.toggleMembership.bind(this, c)}>
-				{/* <div onClick={this.toggleMembership.bind(this, c)}>{list.contains(c) ? 'Remove' : 'Undo'}</div> */}
-			</SelectableEntity>
-		);
-
-		let classes = cx('contact-list list-content', {'empty': contactItems.length === 0});
-
 		return (
 			<Page>
 				<GradientBackground>
 					<div className="distribution-list-detail">
 						<ItemDetailHeader list={list} />
-						{this.state.adding ?
-							<div className="list-user-search">
-								<UserSearchField ref="searchField" selected={list.friends} />
-								<div className="buttons">
-									<button className="secondary button tiny" onClick={this.cancelSearch}>Cancel</button>
-									<button className="primary button tiny" onClick={this.saveSearch}>Add Selected</button>
+						<div className="contacts-page-content">
+							{this.state.adding ?
+								<UserSearchField ref="searchField"
+									selected={list.friends}
+									onCancel={this.cancelSearch}
+									onSave={this.saveSearch}
+								/>
+								:
+								<div>
+									<AddPeopleButton onClick={this.addPeople} />
+									<SelectableEntities entities={list.friends} onChange={this.toggleMembership} />
 								</div>
-							</div>
-							:
-							<div>
-								<div className="add-people" onClick={this.addPeople}>
-									<i className="icon-add-user" />
-									<span>Add People</span>
-								</div>
-								<div className="list-content-wrapper">
-									<ul className={classes}>
-										{contactItems.length > 0 ? contactItems : <li><EmtpyList type="contacts" /></li> }
-									</ul>
-								</div>
-							</div>
-						}
+							}
+						</div>
 					</div>
 				</GradientBackground>
 			</Page>

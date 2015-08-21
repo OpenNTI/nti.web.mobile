@@ -15,6 +15,26 @@
 		font-family: 'Open Sans Condensed';
 		font-weight: 700;
 	}
+	.state-label {
+		position: absolute;
+		right: 1rem;
+		top: 50%;
+		transform: translateY(-50%);
+		font-size: .75rem;
+		font-weight: 600;
+		color: rgba(0,0,0,.6);
+		&.selected {
+			color: $primary-blue;
+		}
+	}
+
+	.tinyloader {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
 	.select-button {
 		&::after {
 			content: '\221a';
@@ -67,5 +87,28 @@
 		left: 0;
 		top: 50%;
 		transform: translateY(-50%);
+	}
+}
+
+.selectable-entities {
+	background-color: white;
+	.selectable-entity {
+		transition: background-color .25s ease-out;
+		&.unselected {
+			background: #fff2cb;
+			box-shadow: inset 0 1px 2px 0 rgba(0,0,0,.1);
+			.username {
+				position: relative;
+				&::after {
+					content: '';
+					height: 2px;
+					background: rgba(0,0,0,.4);
+					position: absolute;
+					top: 50%;
+					left: 0;
+					width: 100%;
+				}
+			}
+		}
 	}
 }
