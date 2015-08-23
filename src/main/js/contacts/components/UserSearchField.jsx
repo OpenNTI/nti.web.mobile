@@ -185,7 +185,7 @@ export default React.createClass({
 		}
 		return (
 			<ul className="output-list">
-				{children.map(child => <li key={child}>{child}</li>)}
+				{children.map((child, index) => <li key={index}>{child}</li>)}
 			</ul>
 		);
 	},

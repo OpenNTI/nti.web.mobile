@@ -5,6 +5,8 @@ import SelectableEntities from './SelectableEntities';
 
 import ListSelection from '../utils/ListSelectionModel';
 
+import {getService} from '../utils';
+
 const KEY = 'defaultValue';
 
 
@@ -37,6 +39,8 @@ export default React.createClass({
 
 	setup (props = this.props) {
 		const stillValid = () => props[KEY] === this.props[KEY];
+		const empty = () => null;
+		const {scope} = props;
 
 		let value = props.defaultValue;
 
@@ -44,10 +48,28 @@ export default React.createClass({
 
 		this.setState({value, selection});
 
-		props.scope.getSharingSuggestions()
-			.then(suggestions => {
+		getService()
+			.then(service => [
+				service.getCommunities(),
+				service.getGroups(),
+				service.getLists(),
+				service.getContacts()
+			])
+
+			.then(stores => Promise.all(stores.map(store=> store.waitForPending()))
+							.then(()=> stores))
+
+			.then(stores => Promise.all([scope.getSharingSuggestions().catch(empty), ...stores]))
+
+			.then(all => {
+				let [suggestions, ...stores] = all;
+
 				if (stillValid()) {
-					this.setState({suggestions});
+					let filter = x => !suggestions.find(o => x.getID() === o.getID());
+
+					let [communities, groups, lists, contacts] = stores.map(s => Array.from(s).filter(filter));
+
+					this.setState({suggestions, communities, groups, lists, contacts});
 				}
 			});
 	},
@@ -72,7 +94,7 @@ export default React.createClass({
 
 
 	onSelectionChange (entity) {
-		let {selection} = this.state;
+		let {state: {selection}} = this;
 		let result = selection.isSelected(entity)
 			? selection.remove(entity)
 			: selection.add(entity);
@@ -84,12 +106,12 @@ export default React.createClass({
 
 
 	render () {
-		let {focused, search, selection, suggestions} = this.state;
+		let {state: {focused, search, selection, suggestions, communities}} = this;
 		return (
 			<div>
 
 				<div className="share-with-entry" onClick={this.onFocus}>
-					{selection.getItems().map(e => (<ShareTarget key={e} entity={e}/>))}
+					{selection.getItems().map(e => (<ShareTarget key={e.getID()} entity={e}/>))}
 					<span className="input-field">
 						<input type="text" value={search} onBlur={this.onInputBlur} onFocus={this.onInputFocus} onChange={this.onInputChange} ref="search"/>
 					</span>
@@ -100,6 +122,7 @@ export default React.createClass({
 				) : (
 					<div className="suggestions">
 						<SelectableEntities entities={suggestions} selection={selection} onChange={this.onSelectionChange}/>
+						<SelectableEntities entities={communities} selection={selection} onChange={this.onSelectionChange}/>
 					</div>
 				)}
 			</div>

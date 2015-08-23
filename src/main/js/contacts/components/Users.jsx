@@ -4,7 +4,7 @@ import Loading from 'common/components/Loading';
 import {USERS} from '../Constants';
 import Err from 'common/components/Error';
 import ContextSender from 'common/mixins/ContextSender';
-import SelectableEntities from 'common/components/SelectableEntities';
+import Selectables from './Selectables';
 import UserSearchField from './UserSearchField';
 import AddPeopleButton from './AddPeopleButton';
 
@@ -89,7 +89,7 @@ export default React.createClass({
 					:
 					<div>
 						<AddPeopleButton onClick={this.addPeople} />
-						<SelectableEntities entities={items} onChange={this.toggleFollow} />
+						<Selectables entities={items} onChange={this.toggleFollow} labels={{selected: 'Remove', unselected: 'Undo'}} />
 					</div>
 				}
 			</div>
