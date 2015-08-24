@@ -24,12 +24,17 @@ export default {
 		let change = this.props.item;
 		let item = change.Item || change;
 		let username = item.creator || item.Creator;
+		let url;
 
-		let id = item.getID();
+		try {
+			let id = item.getID();
 
-		id = isNTIID(id) ? encodeForURI(id) : encodeURIComponent(id);
+			id = isNTIID(id) ? encodeForURI(id) : encodeURIComponent(id);
 
-		let url = `${this.getBasePath()}object/${id}/`;
+			url = `${this.getBasePath()}object/${id}/`;
+		} catch(e) {
+			console.warn('Notable has no url: ', item);
+		}
 
 		this.setState({ username, change, item, url });
 	},
