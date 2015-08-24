@@ -70,8 +70,8 @@ export default React.createClass({
 
 
 	render () {
-		let {entity, selected, tag, removable, labels} = this.props;
-		let {busy} = this.state;
+		const {props: {children, entity, selected, tag, removable, labels}, state: {busy}} = this;
+
 		let classes = cx({
 			'select-button': !labels,
 			'state-label': labels,
@@ -92,14 +92,14 @@ export default React.createClass({
 
 		return (
 			<Element className={wrapperClasses} {...this.props} onClick={this.onClick}>
-				<div>
+				<div className="avatar-spacer">
 					<Avatar entity={entity} />
 					<DisplayName entity={entity} useGeneralName/>
 					<div className="association">{this.association(entity)}</div>
 				</div>
 				<div className={classes}>{this.label(selected)}</div>
 				{busy && <Loading />}
-				{this.props.children}
+				{children}
 			</Element>
 		);
 	}
