@@ -1,5 +1,6 @@
 import React from 'react';
-
+import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import cx from 'classnames';
 import ShareTarget from './TokenEntity';
 import SelectableEntities from './SelectableEntities';
 
@@ -9,6 +10,7 @@ import {getService} from '../utils';
 
 const KEY = 'defaultValue';
 
+const EVENTS = ['focus', 'focusin', 'click', 'touchstart'];
 
 export default React.createClass({
 	displayName: 'ShareWith',
@@ -30,9 +32,23 @@ export default React.createClass({
 	},
 
 
+	componentDidMount () {
+		for(let e of EVENTS) {
+			document.body.addEventListener(e, this.maybeCloseDrawer, e === 'focus');
+		}
+	},
+
+
 	componentWillReceiveProps (nextProps) {
 		if (nextProps[KEY] !== this.props[KEY]) {
 			this.setup(nextProps);
+		}
+	},
+
+
+	componentWillUnmount () {
+		for(let e of EVENTS) {
+			document.body.removeEventListener(e, this.maybeCloseDrawer, e === 'focus');
 		}
 	},
 
@@ -65,14 +81,30 @@ export default React.createClass({
 				let [suggestions, ...stores] = all;
 
 				if (stillValid()) {
-					let filter = x => !suggestions.find(o => x.getID() === o.getID());
+					const filter = x => !suggestions.find(o => x.getID() === o.getID());
+					const toArray = o => {
+						let a = o ? Array.from(o).filter(filter) : [];
+						return a.length ? a : null;
+					};
 
-					let [communities, groups, lists, contacts] = stores.map(s => Array.from(s).filter(filter));
+					let [communities, groups, lists, contacts] = stores.map(s => toArray(s));
 
-					this.setState({suggestions, communities, groups, lists, contacts});
+					this.setState({suggestionGroups: {suggestions, communities, groups, lists, contacts}});
 				}
 			});
 	},
+
+
+	maybeCloseDrawer (e) {
+		if (!this.state.focused || !this.isMounted()) {
+			return;
+		}
+
+		if (!React.findDOMNode(this).contains(e.target)) {
+			this.setState({focused: false});
+		}
+	},
+
 
 	onFocus () {
 		this.setState({focused: true});
@@ -108,9 +140,17 @@ export default React.createClass({
 
 
 	render () {
-		let {state: {focused, search, selection, suggestions, communities}} = this;
+		let {state: {focused, inputFocused, search, selection, suggestionGroups = {}}} = this;
+
+		let groupings = Object.keys(suggestionGroups)
+							.filter(x => suggestionGroups[x])
+							.map(k => ({
+								label: k,
+								list: suggestionGroups[k]
+							}));
+
 		return (
-			<div>
+			<div className={cx('share-with', {'active': focused})}>
 
 				<div className="share-with-entry" onClick={this.onFocus}>
 					{selection.getItems().map(e => (<ShareTarget key={e.getID()} entity={e}/>))}
@@ -119,14 +159,23 @@ export default React.createClass({
 					</span>
 				</div>
 
-				{!focused ? null : !suggestions ? (
+				<TransitionGroup className="suggestions" component="div" transitionName="scroll">
+				{!focused ? null : !groupings.length ? (
 					null
 				) : (
-					<div className="suggestions">
-						<SelectableEntities entities={suggestions} selection={selection} onChange={this.onSelectionChange}/>
-						<SelectableEntities entities={communities} selection={selection} onChange={this.onSelectionChange}/>
+
+					<div key="suggestions" className={cx('scroller', 'visible', {'restrict': inputFocused})}>
+					{groupings.map(o =>
+
+						<div className="suggestion-group" key={o.label}>
+							<h3>{o.label}</h3>
+							<SelectableEntities entities={o.list} selection={selection} onChange={this.onSelectionChange}/>
+						</div>
+
+					)}
 					</div>
 				)}
+				</TransitionGroup>
 			</div>
 		);
 	}
