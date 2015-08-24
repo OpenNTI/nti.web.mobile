@@ -38,8 +38,8 @@ export default React.createClass({
 
 
 	setup (props = this.props) {
-		const stillValid = () => props[KEY] === this.props[KEY];
-		const empty = () => null;
+		const stillValid = () => this.isMounted() && props[KEY] === this.props[KEY];
+		const error = e => { console.error('Error getting suggestions: ', e.stack || e.message || e); return null; };
 		const {scope} = props;
 
 		let value = props.defaultValue;
@@ -59,7 +59,7 @@ export default React.createClass({
 			.then(stores => Promise.all(stores.map(store=> store.waitForPending()))
 							.then(()=> stores))
 
-			.then(stores => Promise.all([scope.getSharingSuggestions().catch(empty), ...stores]))
+			.then(stores => Promise.all([scope.getSharingSuggestions().catch(error), ...stores]))
 
 			.then(all => {
 				let [suggestions, ...stores] = all;
@@ -81,9 +81,11 @@ export default React.createClass({
 	onInputBlur () {
 		this.setState({focused: true, inputFocused: false});
 	},
+
 	onInputFocus () {
 		this.setState({focused: true, inputFocused: true});
 	},
+
 	onInputChange () {
 		let {search} = this.refs;
 
