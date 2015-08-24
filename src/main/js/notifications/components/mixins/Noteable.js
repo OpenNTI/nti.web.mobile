@@ -48,7 +48,12 @@ export default {
 
 
 function getTime (o) {
-	let lm = o && o.getLastModified();
-	//Return the Last Modified, unless its not set
-	return o && !lm ? o.getCreatedTime() : lm;
+	try {
+		let lm = o && o.getLastModified();
+		//Return the Last Modified, unless its not set
+		return o && !lm ? o.getCreatedTime() : lm;
+	} catch	(e) {
+		console.warn('No Date for object:', o);
+		return new Date(0);
+	}
 }
