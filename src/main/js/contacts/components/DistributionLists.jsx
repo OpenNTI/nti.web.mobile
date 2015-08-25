@@ -56,16 +56,6 @@ export default React.createClass({
 		});
 	},
 
-	beforeList () {
-		return this.creationField();
-	},
-
-	creationField () {
-		return (
-			<div className="list-creation-form"><input type="text" ref="newListName" placeholder={t('newListPlaceholder')} /><button className="tiny add-button" onClick={this.addList}>Add</button></div>
-		);
-	},
-
 	renderListItem (item) {
 		return (
 			<li key={item.getID()}>
@@ -102,7 +92,6 @@ export default React.createClass({
 
 		return (
 			<div>
-				{this.beforeList && this.beforeList(items)}
 				<Link href="/lists/new/">Create new list</Link>
 				<div>
 					{items.length > 0 ? <ul className={'contacts-list lists avatar-grid'}>{items}</ul> : <EmptyList type="contacts" />}
