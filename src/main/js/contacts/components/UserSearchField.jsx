@@ -147,12 +147,16 @@ export default React.createClass({
 	renderResults (heading, results, classes) {
 		let classnames = cx('contact-list search-results', classes);
 		let {selectedUsers} = this.state;
+
+		// filter out already-selected users
+		let filtered = results.filter((user) => !listContainsEntity(this.props.selected, user));
+
 		return (
 			<section>
 				<h1>{heading}</h1>
 				<ul className={classnames}>
-					{results.length > 0 ?
-						results.map(entity =>
+					{filtered.length > 0 ?
+						filtered.map(entity =>
 							<SelectableEntity
 								key={'selectable-' + entity.getID()}
 								entity={entity}
