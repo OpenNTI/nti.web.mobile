@@ -50,7 +50,7 @@ export default React.createClass({
 
 	creationField () {
 		return (
-			<div className="list-creation-form"><input type="text" ref="creationfield" placeholder={t('newGroupPlaceholder')}/><button className="tiny add-button" onClick={this.addGroup}>Add</button></div>
+			<div className="inline-creation-form"><input type="text" ref="creationfield" placeholder={t('newGroupPlaceholder')}/><button className="tiny add-button" onClick={this.addGroup}>Add</button></div>
 		);
 	},
 
