@@ -35,22 +35,7 @@
 			overflow-x: hidden;
 			overflow-y: scroll;
 
-			transition: max-height 0.3s linear, height 0.3s linear;
 			@extend %scroller-heights;
-
-			&.scroll-enter {
-				max-height: 0;
-				&.scroll-enter-active {
-					@extend %scroller-heights;
-				}
-			}
-
-			&.scroll-leave {
-				@extend %scroller-heights;
-				&.scroll-leave-active {
-					max-height: 0;
-				}
-			}
 		}
 
 		h3 {

@@ -1,5 +1,4 @@
 import React from 'react';
-import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import cx from 'classnames';
 import ShareTarget from './TokenEntity';
 import SelectableEntities from './SelectableEntities';
@@ -159,7 +158,7 @@ export default React.createClass({
 					</span>
 				</div>
 
-				<TransitionGroup className="suggestions" component="div" transitionName="scroll">
+				<div className="suggestions">
 				{!focused ? null : !groupings.length ? (
 					null
 				) : (
@@ -173,9 +172,10 @@ export default React.createClass({
 						</div>
 
 					)}
+
 					</div>
 				)}
-				</TransitionGroup>
+			</div>
 			</div>
 		);
 	}
