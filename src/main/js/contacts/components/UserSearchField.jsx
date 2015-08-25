@@ -14,12 +14,14 @@ export default React.createClass({
 		selected: React.PropTypes.array,
 		onSave: React.PropTypes.func.isRequired,
 		onCancel: React.PropTypes.func.isRequired,
-		excludeContacts: React.PropTypes.any
+		excludeContacts: React.PropTypes.any,
+		saveButtonText: React.PropTypes.string
 	},
 
 	getDefaultProps () {
 		return {
-			selected: []
+			selected: [],
+			saveButtonText: 'Add Selected'
 		};
 	},
 
@@ -211,7 +213,7 @@ export default React.createClass({
 				{this.results()}
 				<div className="buttons">
 					<button className="secondary button tiny" onClick={this.props.onCancel}>Cancel</button>
-					<button className={saveButtonClasses} onClick={this.props.onSave}>Add Selected</button>
+					<button className={saveButtonClasses} onClick={this.props.onSave}>{this.props.saveButtonText}</button>
 				</div>
 			</div>
 		);

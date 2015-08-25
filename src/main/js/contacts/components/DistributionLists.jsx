@@ -10,6 +10,7 @@ import {scoped} from 'common/locale';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import EmptyList from 'common/components/EmptyList';
+import {Link} from 'react-router-component';
 
 let t = scoped('CONTACTS');
 
@@ -102,6 +103,7 @@ export default React.createClass({
 		return (
 			<div>
 				{this.beforeList && this.beforeList(items)}
+				<Link href="/lists/new/">Create new list</Link>
 				<div>
 					{items.length > 0 ? <ul className={'contacts-list lists avatar-grid'}>{items}</ul> : <EmptyList type="contacts" />}
 				</div>

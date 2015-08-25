@@ -1,0 +1,25 @@
+#create-list {
+	padding: 1rem;
+	background: white;
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	input[type=text],
+	input:not([type]) {
+		width: 100%;
+		border: none;
+		box-shadow: 0 1px $tertiary-grey;
+		padding: .5em 0;
+		&::placeholder {
+			font-style: italic;
+		}
+	}
+
+	.user-search {
+		.output-list {
+			min-height: 10rem;
+		}
+	}
+}
