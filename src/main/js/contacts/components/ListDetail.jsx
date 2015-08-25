@@ -151,7 +151,11 @@ export default React.createClass({
 								:
 								<div>
 									<AddPeopleButton onClick={this.addPeople} />
-									<Selectables entities={(list.friends || []).slice()} onChange={this.toggleMembership} labels={{selected: 'Remove', unselected: 'Undo'}}/>
+									<Selectables
+										entities={(list.friends || []).slice()}
+										onChange={this.toggleMembership}
+										labels={{selected: 'Remove', unselected: 'Undo'}}
+									/>
 								</div>
 							}
 						</div>
