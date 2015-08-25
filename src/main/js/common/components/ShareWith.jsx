@@ -155,8 +155,32 @@ export default React.createClass({
 	},
 
 
+	onTokenTap (e) {
+		this.setState({pendingRemove: e});
+	},
+
+
+	onKeyPressHandleDelete (e) {
+		let {state: {selection, pendingRemove}} = this;
+
+		if (e.target.value === '' && (e.keyCode === 8 || e.keyCode === 46)) {
+			if (pendingRemove) {
+				selection.remove(pendingRemove);
+				pendingRemove = void 0;
+			} else {
+				let s = selection.getItems();
+				pendingRemove = s[s.length - 1];
+			}
+
+			this.setState({pendingRemove});
+		} else if (pendingRemove) {
+			this.setState({pendingRemove: void 0});
+		}
+	},
+
+
 	render () {
-		let {state: {focused, inputFocused, search, selection, suggestionGroups = {}}} = this;
+		let {state: {focused, inputFocused, pendingRemove, search, selection, suggestionGroups = {}}} = this;
 
 		let groupings = Object.keys(suggestionGroups)
 							.filter(x => suggestionGroups[x])
@@ -171,12 +195,17 @@ export default React.createClass({
 			<div className={cx('share-with', {'active': focused})}>
 
 				<div className="share-with-entry" onClick={this.onFocus}>
-					{selection.getItems().map(e => (<ShareTarget key={e.getID()} entity={e}/>))}
+					{selection.getItems().map(e =>
+						<ShareTarget key={e.getID()} entity={e}
+							selected={pendingRemove === e}
+							onClick={()=>this.onTokenTap(e)}/>
+					)}
 					<span className="input-field">
 						<input type="text" ref="search" value={search} placeholder={placeholder}
 							onBlur={this.onInputBlur}
 							onFocus={this.onInputFocus}
 							onChange={this.onInputChange}
+							onKeyDown={this.onKeyPressHandleDelete}
 							/>
 					</span>
 				</div>
