@@ -6,7 +6,7 @@ require('babel/register')({
 	//but...
 
 	// only if filenames match this regex...
-	only: /(?!.*node_modules)(nti.lib|react-editor-component|server\/lib)/
+	only: /(?!.*node_modules)(nti.lib|react-editor-component|server\/lib|server\/schema)/
 });
 
 global.SERVER = true;

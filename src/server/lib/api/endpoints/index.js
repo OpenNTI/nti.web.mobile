@@ -1,11 +1,13 @@
 import HealthCheck from './health-check';
 import UserAgreement from './user-agreement';
+import GraphQL from './graphql';
 
 import UGDContextData from './ugd/context-data';
 
 let HANDLERS = [
 	HealthCheck,
 	UserAgreement,
+	GraphQL,
 
 	UGDContextData
 ];
