@@ -16,7 +16,7 @@ export default React.createClass({
 	},
 
 	selectInvite () {
-		this.refs.inviteCode.getDOMNode().select();
+		React.findDOMNode(this.refs.inviteCode).select();
 	},
 
 	render () {

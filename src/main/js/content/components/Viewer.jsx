@@ -118,7 +118,7 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		//The getDOMNode() will always be the loading dom at his point...
+		//The DOM Node will always be the loading dom at his point...
 		//we wait for the re-render of the actual data in componentDidUpdate()
 		this.getDataIfNeeded(this.props);
 	},
