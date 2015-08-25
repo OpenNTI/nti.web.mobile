@@ -6,7 +6,13 @@ export default class ListSelection extends EventEmitter {
 
 	constructor (initialSelection = []) {
 		super();
-		this[Selected] = initialSelection.slice();
+		this[Selected] = [];
+		this.add(...initialSelection);
+	}
+
+
+	get empty () {
+		return this[Selected].length === 0;
 	}
 
 
