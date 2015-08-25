@@ -1,7 +1,7 @@
 %scroller-heights {
 	max-height: 75vh;
 	&.restrict {
-		max-height: 25vh;
+		max-height: 30vh;
 	}
 }
 
@@ -39,6 +39,7 @@
 		}
 
 		h3 {
+			font-family: $body-font-family;
 			font-size: 0.75rem;
 			font-weight: 700;
 			text-transform: uppercase;

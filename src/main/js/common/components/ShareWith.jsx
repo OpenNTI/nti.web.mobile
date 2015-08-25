@@ -110,6 +110,19 @@ export default React.createClass({
 	},
 
 	onInputBlur () {
+		//this.setState({focused: true, inputFocused: false});
+	},
+
+	onSuggestionScroll () {
+		const {refs: {scroller, search}} = this;
+		if (search) {
+			React.findDOMNode(search).blur();
+		}
+
+		if (scroller) {
+			React.findDOMNode(scroller).focus();
+		}
+
 		this.setState({focused: true, inputFocused: false});
 	},
 
@@ -173,12 +186,19 @@ export default React.createClass({
 					null
 				) : (
 
-					<div key="suggestions" className={cx('scroller', 'visible', {'restrict': inputFocused})}>
+					<div key="suggestions" ref="scroller"
+						onTouchStart={this.onSuggestionScroll}
+						onScroll={this.onSuggestionScroll}
+						className={cx('scroller', 'visible', {'restrict': inputFocused})}>
+
 					{groupings.map(o =>
 
 						<div className="suggestion-group" key={o.label}>
 							<h3>{o.label}</h3>
-							<SelectableEntities entities={o.list} selection={selection} onChange={this.onSelectionChange}/>
+							<SelectableEntities entities={o.list}
+								selection={selection}
+								onChange={this.onSelectionChange}
+								/>
 						</div>
 
 					)}
