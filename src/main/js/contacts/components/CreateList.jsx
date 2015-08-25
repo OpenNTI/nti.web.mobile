@@ -13,6 +13,10 @@ export default React.createClass({
 	mixins: [mixin, Navigatable],
 	storeType: LISTS,
 
+	componentDidMount () {
+		this.refs.newListName.getDOMNode().focus();
+	},
+
 	onSave () {
 		let {store} = this.state;
 		if (!store) {
@@ -51,7 +55,12 @@ export default React.createClass({
 				<GradientBackground>
 					<div id="create-list">
 						<div><input ref="newListName" type="text" placeholder="Title"/></div>
-						<UserSearchField ref="userSearchField" onCancel={this.onCancel} onSave={this.onSave} saveButtonText='Create List' />
+						<UserSearchField
+							ref="userSearchField"
+							onCancel={this.onCancel}
+							onSave={this.onSave}
+							placeholder="Add people to list"
+							saveButtonText='Create List' />
 					</div>
 				</GradientBackground>
 			</Page>

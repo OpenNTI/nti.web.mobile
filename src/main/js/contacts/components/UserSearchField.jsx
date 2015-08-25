@@ -15,13 +15,15 @@ export default React.createClass({
 		onSave: React.PropTypes.func.isRequired,
 		onCancel: React.PropTypes.func.isRequired,
 		excludeContacts: React.PropTypes.any,
-		saveButtonText: React.PropTypes.string
+		saveButtonText: React.PropTypes.string,
+		placeholder: React.PropTypes.string
 	},
 
 	getDefaultProps () {
 		return {
 			selected: [],
-			saveButtonText: 'Add Selected'
+			saveButtonText: 'Add Selected',
+			placholder: 'Search'
 		};
 	},
 
@@ -208,7 +210,7 @@ export default React.createClass({
 			<div className="user-search">
 				<ul className="input-list">
 					{selectedUsers.map(user => <li key={'selected-' + user.getID()} className="selected-item">{user.displayName}</li>)}
-					<li key="input-field" className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} placeholder="Search" /></li>
+					<li key="input-field" className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} placeholder={this.props.placeholder} /></li>
 				</ul>
 				{this.results()}
 				<div className="buttons">

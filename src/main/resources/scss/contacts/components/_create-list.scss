@@ -18,6 +18,10 @@
 	}
 
 	.user-search {
+		.input-list {
+			box-shadow: 0 1px #b8b8b8;
+			margin-bottom: 1px;
+		}
 		.output-list {
 			min-height: 10rem;
 		}
