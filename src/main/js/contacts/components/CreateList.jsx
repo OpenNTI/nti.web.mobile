@@ -14,7 +14,7 @@ export default React.createClass({
 	storeType: LISTS,
 
 	componentDidMount () {
-		this.refs.newListName.getDOMNode().focus();
+		React.findDOMNode(this.refs.newListName).focus();
 	},
 
 	onSave () {
