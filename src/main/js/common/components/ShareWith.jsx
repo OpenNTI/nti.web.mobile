@@ -122,6 +122,10 @@ export default React.createClass({
 
 		search = search && (React.findDOMNode(search).value || '').trim();
 
+		if (!search || search === '') {
+			search = void 0;
+		}
+
 		this.setState({search});
 	},
 
@@ -148,13 +152,19 @@ export default React.createClass({
 								list: suggestionGroups[k]
 							}));
 
+		let placeholder = selection.empty ? 'Share with' : null;
+
 		return (
 			<div className={cx('share-with', {'active': focused})}>
 
 				<div className="share-with-entry" onClick={this.onFocus}>
 					{selection.getItems().map(e => (<ShareTarget key={e.getID()} entity={e}/>))}
 					<span className="input-field">
-						<input type="text" value={search} onBlur={this.onInputBlur} onFocus={this.onInputFocus} onChange={this.onInputChange} ref="search"/>
+						<input type="text" ref="search" value={search} placeholder={placeholder}
+							onBlur={this.onInputBlur}
+							onFocus={this.onInputFocus}
+							onChange={this.onInputChange}
+							/>
 					</span>
 				</div>
 
