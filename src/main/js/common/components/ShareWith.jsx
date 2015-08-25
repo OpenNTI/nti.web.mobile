@@ -206,7 +206,7 @@ export default React.createClass({
 							selected={pendingRemove === e}
 							onClick={()=>this.onTokenTap(e)}/>
 					)}
-					<span className="input-field">
+					<span className="input-field" data-value={search}>
 						<input type="text" ref="search" value={search} placeholder={placeholder}
 							onBlur={this.onInputBlur}
 							onFocus={this.onInputFocus}
