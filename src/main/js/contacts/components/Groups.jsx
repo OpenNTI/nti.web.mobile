@@ -24,17 +24,18 @@ export default React.createClass({
 	},
 
 	addGroup () {
-		let {store} = this.state;
+		const {refs: {creationfield}, state: {store}} = this;
 		if (!store) {
 			return;
 		}
-		let name = this.refs.creationfield.getDOMNode().value.trim();
+
+		let name = React.findDOMNode(creationfield).value.trim();
 		if(name.length === 0) {
 			return;
 		}
-		this.setState({
-			loading: true
-		});
+
+		this.setState({ loading: true });
+
 		store.createGroup(name)
 			.then(() => {
 				this.setState({

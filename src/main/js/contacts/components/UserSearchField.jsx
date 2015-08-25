@@ -83,7 +83,7 @@ export default React.createClass({
 	},
 
 	focus () {
-		this.refs.query.getDOMNode().focus();
+		React.findDOMNode(this.refs.query).focus();
 	},
 
 	selectionChange (user) {

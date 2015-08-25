@@ -21,17 +21,18 @@ export default React.createClass({
 	// listName: 'Distribution Lists',
 
 	addList () {
-		let {store} = this.state;
+		const {refs: {newListName}, state: {store}} = this;
 		if (!store) {
 			return;
 		}
-		let listName = this.refs.newListName.getDOMNode().value.trim();
+
+		let listName = React.findDOMNode(newListName).value.trim();
 		if(listName.length === 0) {
 			return;
 		}
-		this.setState({
-			loading: true
-		});
+
+		this.setState({ loading: true });
+
 		store.createList(listName)
 			.then(() => {
 				this.setState({

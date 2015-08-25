@@ -18,19 +18,22 @@ export default React.createClass({
 	},
 
 	onSave () {
-		let {store} = this.state;
+		const {refs: {newListName, userSearchField}, state: {store}} = this;
+
 		if (!store) {
 			console.error('No store?');
 			return;
 		}
-		let listName = this.refs.newListName.getDOMNode().value.trim();
+
+		let listName = React.findDOMNode(newListName).value.trim();
 		if(listName.length === 0) {
 			return;
 		}
-		this.setState({
-			loading: true
-		});
-		let entities = this.refs.userSearchField.getSelections();
+
+		this.setState({ loading: true });
+
+		let entities = userSearchField.getSelections();
+
 		store.createList(listName, entities)
 			.then(() => {
 				this.navigateToLists();
