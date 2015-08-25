@@ -45,9 +45,9 @@
 				}
 			}
 
-			&.scroll-exit {
+			&.scroll-leave {
 				@extend %scroller-heights;
-				&.scroll-exit-active {
+				&.scroll-leave-active {
 					max-height: 0;
 				}
 			}
