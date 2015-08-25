@@ -39,6 +39,20 @@ export default React.createClass({
 	},
 
 
+	ensureVisible () {
+		let el = React.findDOMNode(this);
+		let margin = parseInt(getComputedStyle(el)['margin-top'], 10);
+
+		let top = 0;
+		while(el) {
+			top += el.offsetTop;
+			el = el.offsetParent;
+		}
+
+		window.scrollTo(0, top - margin + 1);
+	},
+
+
 	render () {
 		let {scope, item} = this.props;
 		let {error, busy, disabled} = this.state || {};
@@ -58,6 +72,7 @@ export default React.createClass({
 
 					<div className={cx('title', {error})} data-error-message={error}>
 						<input type="text" name="title" ref="title" placeholder="Title"
+							onFocus={this.ensureVisible}
 							onChange={this.detectContent} />
 					</div>
 
