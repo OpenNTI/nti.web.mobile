@@ -156,6 +156,12 @@ export default React.createClass({
 
 
 	onTokenTap (e) {
+		let {state: {pendingRemove}} = this;
+
+		if (pendingRemove === e) {
+			e = void 0;
+		}
+
 		this.setState({pendingRemove: e});
 	},
 
