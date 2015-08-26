@@ -245,7 +245,11 @@ export default React.createClass({
 
 					<div className="search-results">
 						<h3>Search Results:</h3>
-						<UserSearch search={search} selection={selection} />
+						<UserSearch
+							search={search}
+							selection={selection}
+							onChange={this.onSelectionChange}
+							/>
 					</div>
 
 				) : (
