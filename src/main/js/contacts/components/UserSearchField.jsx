@@ -16,14 +16,14 @@ export default React.createClass({
 		onCancel: React.PropTypes.func.isRequired,
 		excludeContacts: React.PropTypes.any,
 		saveButtonText: React.PropTypes.string,
-		placeholder: React.PropTypes.string
+		placeholder: React.PropTypes.string,
+		saveDisabled: React.PropTypes.bool
 	},
 
 	getDefaultProps () {
 		return {
 			selected: [],
 			saveButtonText: 'Add Selected',
-			placholder: 'Search'
 			placeholder: 'Search'
 		};
 	},
@@ -204,7 +204,7 @@ export default React.createClass({
 		let {selectedUsers} = this.state;
 
 		let saveButtonClasses = cx('primary tiny button', {
-			'disabled': selectedUsers.length === 0
+			'disabled': selectedUsers.length === 0 || this.props.saveDisabled
 		});
 
 		return (

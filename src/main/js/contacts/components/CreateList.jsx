@@ -13,8 +13,13 @@ export default React.createClass({
 	mixins: [mixin, Navigatable],
 	storeType: LISTS,
 
+	getInitialState () {
+		return {
+			validTitle: false
+		};
+	},
+
 	componentDidMount () {
-		React.findDOMNode(this.refs.newListName).focus();
 		// React.findDOMNode(this.refs.newListName).focus();
 	},
 
@@ -49,6 +54,13 @@ export default React.createClass({
 		this.navigate('/lists/');
 	},
 
+	validateTitle () {
+		let listNameField = React.findDOMNode(this.refs.newListName);
+		this.setState({
+			validTitle: listNameField && listNameField.value.trim().length > 0
+		});
+	},
+
 	render () {
 
 		if (this.state.loading) {
@@ -58,11 +70,12 @@ export default React.createClass({
 			<Page title="Create List">
 				<GradientBackground>
 					<div id="create-list">
-						<div><input ref="newListName" type="text" placeholder="Title"/></div>
+						<div><input ref="newListName" type="text" placeholder="Title" onChange={this.validateTitle}/></div>
 						<UserSearchField
 							ref="userSearchField"
 							onCancel={this.onCancel}
 							onSave={this.onSave}
+							saveDisabled={!this.state.validTitle}
 							placeholder="Add people to list"
 							saveButtonText='Create List' />
 					</div>
