@@ -41,6 +41,8 @@
 		font-weight: 600;
 		color: rgba(0,0,0,.6);
 		margin-right: .5rem;
+		flex: 1 1 auto;
+		text-align: right;
 		&.selected {
 			color: $primary-blue;
 		}
