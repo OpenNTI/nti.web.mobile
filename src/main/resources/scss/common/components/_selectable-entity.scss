@@ -10,11 +10,15 @@
 	margin: 0;
 	color: $primary-grey;
 
+	display: flex;
+	align-items: center;
+
 	.avatar-spacer {
 		position: relative;
 		padding: .5rem $iconsize .5rem 1rem;
 		padding-left: $avatarsize + .5rem;
 		min-height: $avatarsize;
+		flex: 1 1 auto;
 	}
 
 	a {
@@ -33,13 +37,10 @@
 	}
 
 	.state-label {
-		position: absolute;
-		right: 1rem;
-		top: 50%;
-		transform: translateY(-50%);
 		font-size: .75rem;
 		font-weight: 600;
 		color: rgba(0,0,0,.6);
+		margin-right: .5rem;
 		&.selected {
 			color: $primary-blue;
 		}

@@ -89,7 +89,12 @@ export default React.createClass({
 					:
 					<div>
 						<AddPeopleButton onClick={this.addPeople} />
-						<Selectables entities={items} onChange={this.toggleFollow} labels={{selected: 'Remove', unselected: 'Undo'}} />
+						<Selectables
+							linkToProfile
+							entities={items}
+							onChange={this.toggleFollow}
+							labels={{selected: 'Remove', unselected: 'Undo'}}
+						/>
 					</div>
 				}
 			</div>

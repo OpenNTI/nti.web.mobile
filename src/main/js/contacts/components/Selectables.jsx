@@ -6,7 +6,8 @@ export default React.createClass({
 	displayName: 'Selectables',
 
 	propTypes: {
-		entities: React.PropTypes.array.isRequired
+		entities: React.PropTypes.array.isRequired,
+		linkToProfile: React.PropTypes.any
 	},
 
 	componentWillMount () {
