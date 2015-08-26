@@ -68,7 +68,7 @@ export default React.createClass({
 				<HideNavigation/>
 
 				<form onSubmit={x => x.preventDefault() && false}>
-					<ShareWith scope={scope} defaultValue={sharedWith}/>
+					<ShareWith scope={scope} defaultValue={sharedWith} ref="shareWith"/>
 
 					<div className={cx('title', {error})} data-error-message={error}>
 						<input type="text" name="title" ref="title" placeholder="Title"
@@ -99,18 +99,17 @@ export default React.createClass({
 
 	onSubmit () {
 		let item = this.getItemData();
-		let {onSave} = this.props;
-		let {body, title} = this.refs;
 
-		let dom = React.findDOMNode(this);
-		CSS.addClass(dom.parentNode, 'saving');
+		let {props: {onSave}, refs: {body, shareWith, title}} = this;
 
-		title = title.value;
+		CSS.addClass(React.findDOMNode(this).parentNode, 'saving');
+
+		title = React.findDOMNode(title).value;
 
 		let data = Object.assign({}, item, {
 			title: Editor.isEmpty(title) ? null : title.trim(),
 			body: body.getValue(),
-			sharedWith: []
+			sharedWith: shareWith.getValue()
 		});
 
 		this.setState({busy: true},

@@ -281,5 +281,11 @@ export default React.createClass({
 				)}
 			</div>
 		);
+	},
+
+
+	getValue () {
+		let {state: {selection}} = this;
+		return selection.getItems().map(o => o.getID());
 	}
 });
