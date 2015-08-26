@@ -2,6 +2,9 @@ import React from 'react';
 import cx from 'classnames';
 import ShareTarget from './TokenEntity';
 import SelectableEntities from './SelectableEntities';
+import UserSearch from './UserSearch';
+
+import Loading from './TinyLoader';
 
 import ListSelection from '../utils/ListSelectionModel';
 
@@ -105,18 +108,36 @@ export default React.createClass({
 	},
 
 
+	focusSearch () {
+		let search = this.getSearchBoxEl();
+		if (search) {
+			search.focus();
+		}
+	},
+
+
+	getSearchBoxEl () {
+		let {refs: {search}} = this;
+		return search && React.findDOMNode(search);
+	},
+
+
 	onFocus () {
 		this.setState({focused: true});
+		this.focusSearch();
 	},
+
 
 	onInputBlur () {
 		//this.setState({focused: true, inputFocused: false});
 	},
 
+
 	onSuggestionScroll () {
-		const {refs: {scroller, search}} = this;
+		const {refs: {scroller}} = this;
+		const search = this.getSearchBoxEl();
 		if (search) {
-			React.findDOMNode(search).blur();
+			search.blur();
 		}
 
 		if (scroller) {
@@ -126,14 +147,15 @@ export default React.createClass({
 		this.setState({focused: true, inputFocused: false});
 	},
 
+
 	onInputFocus () {
 		this.setState({focused: true, inputFocused: true});
 	},
 
-	onInputChange () {
-		let {search} = this.refs;
 
-		search = search && (React.findDOMNode(search).value || '').trim();
+	onInputChange () {
+		let search = this.getSearchBoxEl();
+		search = search && (search.value || '').trim();
 
 		if (!search || search === '') {
 			search = void 0;
@@ -148,6 +170,8 @@ export default React.createClass({
 		let result = selection.isSelected(entity)
 			? selection.remove(entity)
 			: selection.add(entity);
+
+		// this.focusSearch();
 
 		if (result) {
 			this.forceUpdate();
@@ -186,9 +210,9 @@ export default React.createClass({
 
 
 	render () {
-		let {state: {focused, inputFocused, pendingRemove, search, selection, suggestionGroups = {}}} = this;
-
-		let groupings = Object.keys(suggestionGroups)
+		let {state: {focused, inputFocused, pendingRemove, search, selection, suggestionGroups}} = this;
+		const loading = !suggestionGroups;
+		let groupings = Object.keys(suggestionGroups || {})
 							.filter(x => suggestionGroups[x])
 							.map(k => ({
 								label: k,
@@ -196,6 +220,7 @@ export default React.createClass({
 							}));
 
 		let placeholder = selection.empty ? 'Share with' : null;
+
 
 		return (
 			<div className={cx('share-with', {'active': focused})}>
@@ -216,31 +241,40 @@ export default React.createClass({
 					</span>
 				</div>
 
-				<div className="suggestions">
-				{!focused ? null : !groupings.length ? (
-					null
+				{search ? (
+
+					<div className="search-results">
+						<h3>Search Results:</h3>
+						<UserSearch search={search} selection={selection} />
+					</div>
+
 				) : (
+					<div className="suggestions">
+					{!focused ? null : loading ? (
+						<Loading />
+					) : (
 
-					<div key="suggestions" ref="scroller"
-						onTouchStart={this.onSuggestionScroll}
-						onScroll={this.onSuggestionScroll}
-						className={cx('scroller', 'visible', {'restrict': inputFocused})}>
+						<div ref="scroller"
+							onTouchStart={this.onSuggestionScroll}
+							onScroll={this.onSuggestionScroll}
+							className={cx('scroller', 'visible', {'restrict': inputFocused})}>
 
-					{groupings.map(o =>
+						{groupings.map(o =>
 
-						<div className="suggestion-group" key={o.label}>
-							<h3>{o.label}</h3>
-							<SelectableEntities entities={o.list}
-								selection={selection}
-								onChange={this.onSelectionChange}
-								/>
+							<div className="suggestion-group" key={o.label}>
+								<h3>{o.label}</h3>
+								<SelectableEntities entities={o.list}
+									selection={selection}
+									onChange={this.onSelectionChange}
+									/>
+							</div>
+
+						)}
+
 						</div>
-
 					)}
-
 					</div>
 				)}
-			</div>
 			</div>
 		);
 	}

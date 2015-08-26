@@ -10,6 +10,19 @@
 		border-bottom-color: transparent !important;
 	}
 
+	h3 {
+		font-family: $body-font-family;
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		background: #ebebeb;
+		color: $secondary-grey;
+		padding: 0.3125rem 1rem;
+		margin :0;
+		border-bottom: 1px solid #dedede;
+	}
+
+	.search-results,
 	.suggestions {
 		position: relative;
 		margin: 0 -0.625rem;
@@ -37,40 +50,26 @@
 
 			@extend %scroller-heights;
 		}
+	}
 
-		h3 {
+	.suggestion-group li {
+		padding: 0.625rem 0 0.625rem 1rem;
+		border-bottom: 1px solid #dedede;
+	}
+
+	.selectable-entity {
+		background: #f2f2f2;
+		.avatar-spacer {
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+
+		.username {
+			color: $primary-blue;
 			font-family: $body-font-family;
-			font-size: 0.75rem;
 			font-weight: 700;
+			font-size: 0.75rem;
 			text-transform: uppercase;
-			background: #ebebeb;
-			color: $secondary-grey;
-			padding: 0.3125rem 1rem;
-			margin :0;
-			border-bottom: 1px solid #dedede;
-		}
-
-		.suggestion-group li {
-			padding: 0.625rem 0 0.625rem 1rem;
-			border-bottom: 1px solid #dedede;
-		}
-
-		.selectable-entity {
-			background: #f2f2f2;
-			.avatar-spacer {
-				padding-top: 0;
-				padding-bottom: 0;
-			}
-
-			.username {
-				color: $primary-blue;
-				font-family: $body-font-family;
-				font-weight: 700;
-				font-size: 0.75rem;
-				text-transform: uppercase;
-			}
-
-			.association {}
 		}
 	}
 }
