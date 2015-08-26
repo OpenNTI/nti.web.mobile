@@ -3,6 +3,7 @@ import React from 'react';
 import Err from './Error';
 import Loading from './TinyLoader';
 import SelectableEntity from './SelectableEntity';
+import Empty from './EmptyList';
 
 import {getService} from '../utils';
 import SelectionModel from '../utils/ListSelectionModel';
@@ -13,7 +14,7 @@ export default React.createClass({
 	propTypes: {
 		onChange: React.PropTypes.func,
 
-		search: React.PropTypes.string,
+		query: React.PropTypes.string,
 
 		selection: React.PropTypes.instanceOf(SelectionModel)
 	},
@@ -25,22 +26,22 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		const {props: {search}} = this;
-		this.search(search);
+		const {props: {query}} = this;
+		this.search(query);
 	},
 
 	componentWillReceiveProps (nextProps) {
-		const {props: {search}} = this;
-		const {search: newSearch} = nextProps;
+		const {props: {query}} = this;
+		const {query: newQuery} = nextProps;
 
-		if (newSearch !== search) {
-			this.search(newSearch);
+		if (newQuery !== query) {
+			this.search(newQuery);
 		}
 	},
 
 
 	search (query) {
-		const stillValid = () => this.isMounted() && query === this.props.search;
+		const stillValid = () => this.isMounted() && query === this.props.query;
 
 		this.setState({error: void 0, results: void 0}, ()=>
 			getService()
@@ -73,8 +74,16 @@ export default React.createClass({
 		}
 
 		return (
-			<div>
-				{!results ? ( <Loading/> ) : results.map(o =>
+			<div className="entity-search">
+				{!results ? (
+
+					<Loading/>
+
+				) : results.length === 0 ? (
+
+					<Empty type="entity-search"/>
+
+				) : results.map(o =>
 
 					<SelectableEntity
 						key={o.getID()}

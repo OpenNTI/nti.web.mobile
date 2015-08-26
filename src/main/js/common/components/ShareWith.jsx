@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import ShareTarget from './TokenEntity';
 import SelectableEntities from './SelectableEntities';
-import UserSearch from './UserSearch';
+import Search from './EntitySearch';
 
 import Loading from './TinyLoader';
 
@@ -245,8 +245,8 @@ export default React.createClass({
 
 					<div className="search-results">
 						<h3>Search Results:</h3>
-						<UserSearch
-							search={search}
+						<Search
+							query={search}
 							selection={selection}
 							onChange={this.onSelectionChange}
 							/>
