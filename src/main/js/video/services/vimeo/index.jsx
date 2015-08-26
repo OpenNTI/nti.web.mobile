@@ -65,7 +65,8 @@ let Source = React.createClass({
 
 
 	buildURL (props, id = this.state.id) {
-		let mediaSource = props.source;
+		const {source: mediaSource, autoPlay} = props;
+
 		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source;
 
 		if (Array.isArray(videoId)) {
@@ -80,7 +81,7 @@ let Source = React.createClass({
 			api: 1,
 			player_id: id,//eslint-disable-line camelcase
 			//autopause: 0, //we handle this for other videos, but its nice we only have to do this for cross-provider videos.
-			autoplay: 0,
+			autoplay: autoPlay ? 1 : 0,
 			badge: 0,
 			byline: 0,
 			loop: 0,
@@ -118,8 +119,9 @@ let Source = React.createClass({
 			return;
 		}
 
+		console.debug('Vimeo Event: %s: %o', event, data.data || data);
+
 		data = data.data;
-		console.debug('Vimeo Event: %s: %o', event, data);
 
 		if (event === 'error') {
 			if (data.code === 'play') {
@@ -136,6 +138,7 @@ let Source = React.createClass({
 			this.postMessage('addEventListener', 'finish');	//ended
 			this.postMessage('addEventListener', 'seek');	//seeked
 			this.postMessage('addEventListener', 'playProgress'); //timeupdate
+			// this.flushQueue();
 		}
 
 		if(mappedEvent && handlerName) {
@@ -189,7 +192,9 @@ let Source = React.createClass({
 
 
 	play () {
+		//ready?
 		this.postMessage('play');
+		//else queue.
 	},
 
 
