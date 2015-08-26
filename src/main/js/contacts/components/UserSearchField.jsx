@@ -24,6 +24,7 @@ export default React.createClass({
 			selected: [],
 			saveButtonText: 'Add Selected',
 			placholder: 'Search'
+			placeholder: 'Search'
 		};
 	},
 
