@@ -22,6 +22,10 @@ export default React.createClass({
 		});
 	},
 
+	componentWillMount () {
+		this.undos = {};
+	},
+
 	toggleFollow (entity) {
 		this.setState({
 			loading: true
