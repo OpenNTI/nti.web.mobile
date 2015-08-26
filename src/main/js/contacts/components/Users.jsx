@@ -14,6 +14,7 @@ export default React.createClass({
 	storeType: USERS,
 
 	listName: 'Contacts',
+	undos: {},
 
 	getContext () {
 		return Promise.resolve({
@@ -25,12 +26,35 @@ export default React.createClass({
 		this.setState({
 			loading: true
 		});
-		return entity.follow()
+		let p = entity.following ? this.removeContact(entity) : this.addContact(entity);
+		return p
 			.then(() => {
 				this.setState({
 					loading: false
 				});
 			});
+	},
+
+	removeContact (entity) {
+		let {store} = this.state;
+		return store.removeContact(entity)
+			.then(result => {
+				if (result.undo) {
+					this.undos[entity.getID()] = result.undo;
+				}
+			});
+	},
+
+	addContact (entity) {
+		let undo = this.undos[entity.getID()];
+		if (undo) {
+			return undo().then(() => delete this.undos[entity.getID()]);
+		}
+		else {
+			console.warn('No undo?');
+			let {store} = this.state;
+			return store.addContact(entity);
+		}
 	},
 
 	addPeople () {
