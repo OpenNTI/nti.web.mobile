@@ -106,4 +106,6 @@ if (sscss) {
 
 OrientationHandler.init(app);
 
-global.onbeforeunload = () => app.setState({mask: 'Reloading...'});
+global.onbeforeunload = () => {
+	app.setState({mask: 'Reloading...'});
+};
