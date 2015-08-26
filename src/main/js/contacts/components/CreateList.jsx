@@ -15,6 +15,7 @@ export default React.createClass({
 
 	componentDidMount () {
 		React.findDOMNode(this.refs.newListName).focus();
+		// React.findDOMNode(this.refs.newListName).focus();
 	},
 
 	onSave () {
