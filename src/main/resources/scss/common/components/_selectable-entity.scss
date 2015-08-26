@@ -15,8 +15,7 @@
 
 	.avatar-spacer {
 		position: relative;
-		padding: .5rem $iconsize .5rem 1rem;
-		padding-left: $avatarsize + .5rem;
+		padding: .5rem .5rem .5rem ($avatarsize + .5rem);
 		min-height: $avatarsize;
 		flex: 1 1 auto;
 	}
@@ -56,18 +55,19 @@
 	}
 
 	.select-button {
+		min-width: $iconsize + .5rem;
 		&::after {
 			content: '\221a';
 			color: white;
-			border: 1px solid #979797;
-			box-shadow: inset 0 1px 1px 0 rgba(0,0,0,0.3);
+			border: 0.0625rem solid #979797;
+			box-shadow: inset 0 0.0625rem 0.0625rem 0 rgba(0,0,0,0.3);
 			border-radius: 50%;
 			width: $iconsize;
 			height: $iconsize;
 			line-height: 1.3;
 			text-indent: 0.13rem;
 			position: absolute;
-			right: .5em;
+			right: .5rem;
 			top: 50%;
 			transform: translateY(-50%);
 			font-size: 1rem;
@@ -78,8 +78,8 @@
 		&.selected {
 			&::after {
 				background: $primary-blue;
-				border: 1px solid #3687B6;
-				box-shadow: inset 0 1px 1px 0 rgba(#fff, 0.5);
+				border: 0.0625rem solid #3687B6;
+				box-shadow: inset 0 0.0625rem 0.0625rem 0 rgba(#fff, 0.5);
 			}
 		}
 		&.busy {
