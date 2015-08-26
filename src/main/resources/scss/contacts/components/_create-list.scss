@@ -1,4 +1,9 @@
 #create-list {
+
+	animation-name: fadeInUp;
+	animation-duration: .25s;
+	animation-timing-function: ease-out;
+
 	padding: 1rem;
 	background: white;
 	ul {
