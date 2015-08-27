@@ -18,6 +18,10 @@
 		padding: .5rem .5rem .5rem ($avatarsize + .5rem);
 		min-height: $avatarsize;
 		flex: 1 1 auto;
+
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	a {
