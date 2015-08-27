@@ -100,6 +100,7 @@
     "react": "^0.13.1",
     "react-editor-component": "NextThought/react-editor-component",
     "react-router-component": "^0.26.0",
+    "react-swipe-to-reveal-options": "^0.1.6",
     "request": "^2.53.0",
     "response-time": "^2.2.0",
     "sass-loader": "^2.0.0",
