@@ -108,7 +108,17 @@ export default React.createClass({
 	},
 
 	getSelections () {
-		return this.state.selectedUsers;
+		return this.state.selectedUsers.slice();
+	},
+
+	onKeyDown (e) {
+		// on backspace in an empty field remove the last selected user
+		if (e.target.value === '' && (e.keyCode === 8 || e.keyCode === 46)) {
+			let selectedUsers = this.getSelections();
+			if (selectedUsers.length > 0) {
+				return this.selectionChange(selectedUsers[selectedUsers.length - 1]);
+			}
+		}
 	},
 
 	queryChanged (event) {
@@ -211,7 +221,15 @@ export default React.createClass({
 			<div className="user-search">
 				<ul className="input-list">
 					{selectedUsers.map(user => <li key={'selected-' + user.getID()} className="selected-item">{user.displayName}</li>)}
-					<li key="input-field" className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} placeholder={this.props.placeholder} /></li>
+					<li key="input-field" className="input-field">
+						<input type="text"
+							className="search-input"
+							ref="query"
+							onChange={this.queryChanged}
+							onKeyDown={this.onKeyDown}
+							placeholder={this.props.placeholder}
+						/>
+					</li>
 				</ul>
 				{this.results()}
 				<div className="buttons">
