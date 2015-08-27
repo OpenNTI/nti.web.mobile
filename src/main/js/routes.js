@@ -22,15 +22,15 @@
  *
  */
 export default [
-	{handler: 'Object',		path: 'object/:objectId(/*)'},
-	{handler: 'Login',		path: 'login/*'},
-	{handler: 'Catalog',	path: 'catalog/*'},
-	{handler: 'Contacts',	path: 'contacts/*'},
-	{handler: 'Content',	path: 'content/:contentId/*'},
-	{handler: 'Course',		path: 'course/:course/*'},
-	{handler: 'Enrollment',	path: 'enroll/:course/*'},
-	// {handler: 'Forums',		path: 'forums/*'},
-	{handler: 'Library',	path: 'library/*',				navIndex: 0},
-	{handler: 'Profile',	path: 'profile/:entityId(/*)'},
-	{handler: 'Home',		path: ''}
+	{handler: 'Object',		path: '/object/:objectId(/*)'},
+	{handler: 'Login',		path: '/login/*'},
+	{handler: 'Catalog',	path: '/catalog/*'},
+	{handler: 'Contacts',	path: '/contacts/*'},
+	{handler: 'Content',	path: '/content/:contentId/*'},
+	{handler: 'Course',		path: '/course/:course/*'},
+	{handler: 'Enrollment',	path: '/enroll/:course/*'},
+	// {handler: 'Forums',		path: '/forums/*'},
+	{handler: 'Library',	path: '/library(/*)'},
+	{handler: 'Profile',	path: '/profile/:entityId(/*)'},
+	{handler: 'Home',		path: '/'}
 ];

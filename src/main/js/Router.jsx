@@ -159,7 +159,7 @@ export default React.createClass({
 		let basePath = this.getBasePath();
 		let routes = RouteMap.filter(x=>!x.disabled).map(r=>
 			React.createElement(Location, {
-				path: basePath + r.path,
+				path: (basePath + r.path).replace(/\/\//g, '/'),
 				handler: lookupHandler(r)
 			}));
 
