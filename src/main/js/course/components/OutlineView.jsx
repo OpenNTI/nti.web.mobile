@@ -8,7 +8,7 @@ import ContextSender from 'common/mixins/ContextSender';
 import Loading from 'common/components/Loading';
 
 import isEmpty from 'nti.lib.interfaces/utils/isempty';
-import CourseLinker from 'library/components/CourseContentLinkMixin';
+import CourseLinker from 'library/mixins/CourseContentLinkMixin';
 
 
 export default React.createClass({

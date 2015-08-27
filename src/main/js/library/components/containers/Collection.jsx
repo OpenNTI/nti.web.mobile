@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Package from './Package';
-import Bundle from './Bundle';
-import Course from './Course';
+import Package from '../items/Package';
+import Bundle from '../items/Bundle';
+import Course from '../items/Course';
 
 
 export default React.createClass({

@@ -1,6 +1,6 @@
 import React from 'react';
-import CourseLinker from './CourseContentLinkMixin';
-import CourseContentLink from './CourseContentLink';
+import CourseLinker from '../../mixins/CourseContentLinkMixin';
+import CourseContentLink from '../CourseContentLink';
 
 import COURSE_SECTIONS from 'course/Sections';
 
