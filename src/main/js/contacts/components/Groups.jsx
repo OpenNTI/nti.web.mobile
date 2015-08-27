@@ -57,7 +57,7 @@ export default React.createClass({
 
 	renderListItem (item) {
 		return (
-			<li key={item.displayName}>
+			<li key={item.getID()}>
 				<div>
 					<AvatarProfileLink entity={item}><ListMeta entity={item} /></AvatarProfileLink>
 				</div>
