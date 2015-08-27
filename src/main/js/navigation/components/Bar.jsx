@@ -157,10 +157,6 @@ export default React.createClass({
 
 	getMenu () {
 		let {availableSections} = this.props;
-		let css = cx({
-			'title': true,
-			'menu': true
-		});
 
 		if (!availableSections) {
 			return;
@@ -170,7 +166,9 @@ export default React.createClass({
 		let {label = 'Menu'} = this.getActiveSection() || {};
 
 		return (
-			<a href="#" onClick={this.toggleMenu}><h1 className={css}>{label}</h1></a>
+			<a href="#" onClick={this.toggleMenu} className="menu">
+				<h1 className="title">{label}</h1>
+			</a>
 		);
 	},
 

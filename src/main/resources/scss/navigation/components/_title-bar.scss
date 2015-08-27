@@ -58,39 +58,42 @@ section.right-small {
 		max-width: calc(50% - 50px);//fit pager
 	}
 
-	.title {
+	.menu{
+		overflow: visible;
 		display: inline-block;
 		max-width: 50%;//fall back
+		position: relative;
+
+		&::after {
+
+			$size: .75rem;
+
+			backface-visibility: hidden;
+			transition: transform $duration $enter-timing;
+			// content: '';
+			@extend %chevron-down;
+			.nav-menu-open & {
+				transform: rotate3d(0,0,1,180deg);
+			}
+			position: absolute;
+			width: $size;
+			height: $size;
+			font-size: $size;
+			top: 50%;
+			line-height: 1;
+			right: -1rem;
+			top: 50%;
+			margin-top: -$size/2;
+		}
+	}
+
+	.title {
+		display: block;
 		overflow: hidden;
 		position: relative;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		color: $primary-grey;
-
-		&.menu{
-			overflow: visible;
-			&::after {
-
-				$size: .75rem;
-
-				backface-visibility: hidden;
-				transition: transform $duration $enter-timing;
-				// content: '';
-				@extend %chevron-down;
-				.nav-menu-open & {
-					transform: rotate3d(0,0,1,180deg);
-				}
-				position: absolute;
-				width: $size;
-				height: $size;
-				font-size: $size;
-				top: 50%;
-				line-height: 1;
-				right: -1rem;
-				top: 50%;
-				margin-top: -$size/2;
-			}
-		}
 
 		&.branding {
 			display: inline-block;
