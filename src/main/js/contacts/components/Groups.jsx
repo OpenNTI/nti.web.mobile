@@ -55,11 +55,19 @@ export default React.createClass({
 		);
 	},
 
+	deleteGroup (group) {
+		return group.delete()
+		.catch(reason => {
+			console.error(reason);
+		});
+	},
+
 	renderListItem (item) {
 		return (
 			<li key={item.getID()}>
 				<div>
 					<AvatarProfileLink entity={item}><ListMeta entity={item} /></AvatarProfileLink>
+					{item.delete && (!item.friends || item.friends.length === 0) && <div className="delete" onClick={this.deleteGroup.bind(this, item)}></div>}
 				</div>
 			</li>
 		);
