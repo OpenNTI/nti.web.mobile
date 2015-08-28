@@ -1,0 +1,24 @@
+
+.library-page-title-area {
+	display: flex;
+	align-items: center;
+	margin: 0.625rem;
+	margin-bottom: 1rem;
+
+	.button.add {
+		padding: .3125rem 1rem;
+		border-radius: 5px;
+		background: $secondary-green;
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: none;
+		margin: 0;
+	}
+}
+
+h1.library-section-title {
+	flex: 1 1 auto;
+	color: $tertiary-grey;
+	font: normal normal 1.25rem $body-font-family;
+	margin: 0;
+}

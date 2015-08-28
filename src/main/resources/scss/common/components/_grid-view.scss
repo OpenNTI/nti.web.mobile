@@ -77,71 +77,6 @@
 	margin: 0 0.625rem;
 }
 
-.library-collection {
-	margin: 0 0.625rem;
-	padding-top: 2rem;
-
-	h5 {
-		color: #fff;
-		text-transform: capitalize;
-		font-weight: 600;
-		font-size: 0.8rem;
-		font-family: $body-font-family;
-
-		label {
-			display: inline;
-			color: $secondary-grey;
-			margin: 0.5em;
-			font-size: 1em;
-			font-weight: inherit;
-			line-height: inherit;
-		}
-	}
-
-	ul {
-		list-style-type: none;
-	}
-
-	& > ul {
-		@extend %touch-scroll;
-		display: block;
-		white-space: nowrap;
-		overflow: {
-			x: auto;
-			y: hidden;
-		}
-		margin: -1rem 0 0.25rem -0.625rem;
-		padding: 1rem 0 1rem 0.625rem;
-
-		& > li {
-			display: inline-block;
-			vertical-align: top;
-			&:not(:first-of-type) {
-				margin-left: 0.625rem;
-			}
-		}
-	}
-}
-
-
-// .library-view.single-section {
-// 	.library-collection {
-// 		.library-item {width: 75%;}
-// 		& > h5 {display: none;}
-// 		& > ul {
-// 			overflow: visible;
-//
-// 			& > li{
-// 				display: block;
-// 				&:not(:first-of-type) {
-// 					margin-top: 1rem;
-// 					margin-left: 0;
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-
 .cell {
 	display: inline-block;
 }
@@ -211,7 +146,7 @@ li.catalog-item {
 		padding: 0.25rem 0.5rem;
 		text-transform: uppercase;
 		font-weight: 700;
-		font-size: 0.8rem;
+		font-size: 0.75rem;
 		border-radius: 3px;
 		margin: 0 0.2rem;
 		position: absolute;
@@ -269,7 +204,7 @@ li.catalog-item {
 
 	h5 {
 		display: inline;
-		font-size: 0.8rem;
+		font-size: 0.75rem;
 		font-weight: 600;
 		text-transform: uppercase;
 		color: $tertiary-grey;
