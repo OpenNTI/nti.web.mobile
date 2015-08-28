@@ -1,9 +1,6 @@
 import React from 'react';
 
-import Package from '../items/Package';
-import Bundle from '../items/Bundle';
-import Course from '../items/Course';
-
+import getItem from '../items';
 
 export default React.createClass({
 	displayName: 'Library:Collection',
@@ -16,7 +13,8 @@ export default React.createClass({
 	},
 
 	render () {
-		let {omittitle, list, title, subtitle} = this.props;
+		const {props: {omittitle, list, title, subtitle}} = this;
+
 		return (
 			<div className="library-collection">
 				{omittitle ? null :
@@ -24,13 +22,8 @@ export default React.createClass({
 
 				<ul>
 				{list.map(item => {
-					let Item = item.isBundle ?
-							Bundle :
-							item.isCourse ?
-								Course :
-								Package;
-
-					return (
+					let Item = getItem(item);
+					return Item && (
 						<li key={item.NTIID || item.href}>
 							<Item item={item}/>
 						</li>

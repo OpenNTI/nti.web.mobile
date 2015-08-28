@@ -1,11 +1,19 @@
 import React from 'react';
 
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import BasePathAware from 'common/mixins/BasePath';
+
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+
 
 export default React.createClass({
 	displayName: 'Bundle',
 	mixins: [BasePathAware],
+
+	statics: {
+		handles (item) {
+			return item.isBundle;
+		}
+	},
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired

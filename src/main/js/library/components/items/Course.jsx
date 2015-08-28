@@ -11,6 +11,12 @@ export default React.createClass({
 	displayName: 'Course',
 	mixins: [CourseLinker],
 
+	statics: {
+		handles (item) {
+			return item.isCourse;
+		}
+	},
+
 	propTypes: {
 		item: React.PropTypes.object.isRequired
 	},
