@@ -54,8 +54,11 @@ export default {
 		let filters = SECTION_FILTERS_MAP[section];
 		let items = this.getListForSection(section) || [];
 
+		let cap = x => x ? (x[0].toUpperCase() + x.slice(1)) : 'Unknown';
+
 		let getBin = o => ({
 			name: o.name,
+			['is' + cap(o.path)]: true,
 			items: (o.filter ? items.filter(o.filter) : items).sort(o.sort || (()=>0))
 		});
 
