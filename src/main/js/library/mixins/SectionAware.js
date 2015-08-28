@@ -15,7 +15,10 @@ const SECTION_PROPERTY_MAP = {
 const SECTION_FILTERS_MAP = {
 	[SECTION_NAMES.admin]: Filters,
 	[SECTION_NAMES.courses]: Filters,
-	[SECTION_NAMES.books]: [{name: 'Books'}]
+	[SECTION_NAMES.books]: [{
+		// name: 'Books',
+		sort: (a, b) => ((a || {}).title || '').localeCompare((b || {}).title)
+	}]
 };
 
 
