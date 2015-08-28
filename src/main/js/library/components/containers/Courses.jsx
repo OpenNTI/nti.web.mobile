@@ -11,11 +11,13 @@ export default React.createClass({
 
 	render () {
 		const {props: {admin}} = this;
-
 		let section = admin ? 'admin' : 'courses';
+		let courses = this.getBinnedData(section);
+
+		let items = courses.reduce((a, o) => a.concat(o.items), []); //join into one list
 
 		return (
-			<Container section={section} items={[]}/>
+			<Container section={section} items={items}/>
 		);
 	}
 });
