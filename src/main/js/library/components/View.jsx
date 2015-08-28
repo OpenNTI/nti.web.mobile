@@ -8,12 +8,12 @@ import Loading from 'common/components/Loading';
 import Root from './Root';
 import Section from './Section';
 
-import SectionMixin from '../mixins/SectionAware';
+import Library from '../mixins/LibraryAccessor';
 import BasePath from 'common/mixins/BasePath';
 
 export default React.createClass({
 	displayName: 'Library:View',
-	mixins: [BasePath, SectionMixin],
+	mixins: [BasePath, Library],
 
 	getInitialState () {
 		return {};
