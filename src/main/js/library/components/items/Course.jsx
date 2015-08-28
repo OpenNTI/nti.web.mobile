@@ -1,6 +1,6 @@
 import React from 'react';
-import CourseLinker from './CourseContentLinkMixin';
-import CourseContentLink from './CourseContentLink';
+import CourseLinker from '../../mixins/CourseContentLink';
+import CourseContentLink from '../CourseContentLink';
 
 import COURSE_SECTIONS from 'course/Sections';
 
@@ -10,6 +10,12 @@ import E from 'common/components/Ellipsed';
 export default React.createClass({
 	displayName: 'Course',
 	mixins: [CourseLinker],
+
+	statics: {
+		handles (item) {
+			return item.isCourse;
+		}
+	},
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired

@@ -4,11 +4,15 @@ let getLabel = scoped('LIBRARY.CATEGORY');
 
 function courseSortComparatorFunc (a, b) {
 
-	function strComp (s1, s2) {
-		return s1 < s2 ? -1 : s1 > s2 ? 1 : 0;
-	}
+	// function strComp (s1, s2) {
+	// 	return (s1 || '').localeCompare(s2);
+	// }
+	//
+	// return strComp((a || {}).ProviderUniqueID, (b || {}).ProviderUniqueID)
+	// 	|| strComp((a || {}).title, (b || {}).title);
 
-	return strComp((a || {}).ProviderUniqueID, (b || {}).ProviderUniqueID) || strComp((a || {}).title, (b || {}).title);
+	//reverse cronological (put newest on the front)
+	return b.getCreatedTime() - a.getCreatedTime();
 }
 
 

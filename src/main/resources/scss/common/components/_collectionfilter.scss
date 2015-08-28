@@ -7,8 +7,8 @@
 	.button {
 		background-color: white;
 		color: $primary-color;
-		padding-right:.8rem;
-		padding-left:.8rem;
+		padding-right:.75rem;
+		padding-left:.75rem;
 		.count {
 			@include count-badge();
 		}
