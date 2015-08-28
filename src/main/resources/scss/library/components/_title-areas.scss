@@ -1,24 +1,49 @@
 
+.library-section-heading,
 .library-page-title-area {
 	display: flex;
 	align-items: center;
 	margin: 0.625rem;
 	margin-bottom: 1rem;
 
-	.button.add {
-		padding: .3125rem 1rem;
-		border-radius: 5px;
-		background: $secondary-green;
-		font-size: 0.75rem;
-		font-weight: 700;
-		text-transform: none;
-		margin: 0;
+	.spacer {
+		flex: 10 1 auto;
 	}
 }
 
-h1.library-section-title {
+.button.library-add {
+	padding: .3125rem 1rem;
+	border-radius: 5px;
+	background: $secondary-green;
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-transform: none;
+	margin: 0;
+}
+
+.library-section-title {
 	flex: 1 1 auto;
 	color: $tertiary-grey;
 	font: normal normal 1.25rem $body-font-family;
 	margin: 0;
+}
+
+a.library-section-title {
+	&, &:active, &:focus, &:hover, &:visited {
+		color: #fff;
+	}
+	flex: 0 0 auto;
+	font-size: 1rem;
+	display: inline-block;
+	position: relative;
+
+	&::after {
+		@extend %chevron-right;
+		position: absolute;
+		font-size: inherit;
+		right: -1.1rem;
+		top: 50%;
+		color: white;
+		transform: translateY(-50%);
+	}
 }

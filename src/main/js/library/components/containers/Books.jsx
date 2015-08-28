@@ -1,11 +1,13 @@
 import React from 'react';
 
+import Container from './Container';
+
 export default React.createClass({
 	displayName: 'Books',
 
 	render () {
 		return (
-			<div />
+			<Container section="books" items={[]}/>
 		);
 	}
 });

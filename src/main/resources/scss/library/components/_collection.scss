@@ -61,3 +61,77 @@
 // 		}
 // 	}
 // }
+
+
+
+
+.library-item {
+	$media-tab: screen and (min-width: 600px);
+
+	width: 180px;
+	position: relative;
+	overflow: visible;
+
+	transform: translate3d(0,0,0);
+	box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.8);
+	border-radius: 1px;//iOS won't render the shadow w/o this :/
+
+	@media #{$media-tab} {
+		width: 232px;
+	}
+
+	& > a {
+		@extend %content-card;
+
+
+		&::after {
+			content: none;
+		}
+
+		img {
+			background-color: #ccc;
+			position: static;
+			width: 100%;
+			// height: 132px;
+			height: 73%;
+			background-size: cover;
+			@media #{$media-tab} {
+				height: 170px;
+			}
+		}
+
+		label {
+			position: static;
+			background: #fff;
+			overflow: hidden;
+			height: 5.4rem;
+
+			h3, address {
+				white-space: normal;
+			}
+
+			h3 {
+				color: $primary-grey;
+				font-weight: 300;
+				font-size: 1rem;
+				max-height: 3rem;
+			}
+		}
+	}
+
+	ul {
+		margin: 0;
+		@extend %outline;
+
+		&.sections {
+			border-top: 1px solid $border-grey;
+			background: #fff;
+			li {
+				// padding-bottom: 0;
+				& > div {
+					// padding: 0;
+				}
+			}
+		}
+	}
+}

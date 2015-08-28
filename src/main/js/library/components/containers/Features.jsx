@@ -4,8 +4,6 @@ export default React.createClass({
 	displayName: 'Features',
 
 	render () {
-		return (
-			<div />
-		);
+		return null;
 	}
 });

@@ -51,6 +51,7 @@ export default {
 		'emptyList:library-admin': 'No Administered Courses.',
 		'emptyList:library-books': 'You don\'t have any books.',
 		'emptyList:library-courses': 'You don\'t have any courses yet.',
+		'emptyList:library-community': 'You are\'t in any communities yet.',
 		'emptyList:videos': 'No videos.',
 		'emptyList:activity': 'No Activity.',
 		'emptyList:user-details': 'Empty Profile :(\nNo additional profile information available.',

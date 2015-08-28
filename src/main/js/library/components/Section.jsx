@@ -47,7 +47,7 @@ export default React.createClass({
 				{bins && bins.length > 0
 					? React.createElement('div', props, ...bins.map(b=>
 						<Collection title={b.name} subtitle={b.label} list={b.items}/>))
-					: ( <EmptyList type={'library-' + section}/> )}
+					: ( <EmptyList type={`library-${section}`}/> )}
 			</div>
 		);
 	}

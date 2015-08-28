@@ -2,24 +2,29 @@ import React from 'react';
 
 import getItem from '../items';
 
+const isEmpty = s => s == null || s === '';
+
 export default React.createClass({
 	displayName: 'Library:Collection',
 
 	propTypes: {
-		omittitle: React.PropTypes.bool,
 		list: React.PropTypes.array,
+
 		title: React.PropTypes.string,
-		subtitle: React.PropTypes.string
+		subtitle: React.PropTypes.string,
+
+		children: React.PropTypes.any
 	},
 
 	render () {
-		const {props: {omittitle, list, title, subtitle}} = this;
+		const {props: {children, list, title, subtitle}} = this;
+
+		let titleRow = isEmpty(title) ? null : ( <h5>{title}<label>{subtitle}</label></h5> );
 
 		return (
 			<div className="library-collection">
-				{omittitle ? null :
-					<h5>{title}<label>{subtitle}</label></h5>}
-
+				{titleRow}
+				{children}
 				<ul>
 				{list.map(item => {
 					let Item = getItem(item);

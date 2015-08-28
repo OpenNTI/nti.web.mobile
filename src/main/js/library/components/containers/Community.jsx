@@ -1,11 +1,15 @@
 import React from 'react';
 
+import Container from './Container';
+
+
 export default React.createClass({
 	displayName: 'Community',
 
 	render () {
+
 		return (
-			<div />
+			<Container section="community" items={[]}/>
 		);
 	}
 });
