@@ -1,5 +1,5 @@
 import React from 'react';
-import SelectableEntities from 'common/components/SelectableEntities';
+// import SelectableEntities from 'common/components/SelectableEntities';
 import SelectionModel from 'common/utils/ListSelectionModel';
 import SwipeEntity from './SwipeEntity';
 
