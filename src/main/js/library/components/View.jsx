@@ -29,6 +29,7 @@ export default React.createClass({
 					<Loading />
 				) : (
 					<Locations contextual>
+						<Location path="/community(/*)" handler={Root} />
 						<Location path="/:section(/*)" handler={Section} />
 
 						<DefaultRoute handler={Root}/>
