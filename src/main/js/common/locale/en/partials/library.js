@@ -1,6 +1,6 @@
 export default {
 	SECTIONS: {
-		admin: 'Admin',
+		admin: 'Administered Courses',
 		courses: 'Courses',
 		books: 'Books'
 	},

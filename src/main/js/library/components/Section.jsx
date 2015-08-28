@@ -39,7 +39,7 @@ export default React.createClass({
 					<Link href="/" position="left" className="return-to">Back</Link>
 				</NavigationBar>
 
-				<div className="page-title-area">
+				<div className="library-page-title-area">
 					<SectionTitle section={section}/>
 					<AddButton section={section}/>
 				</div>
