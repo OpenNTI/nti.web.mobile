@@ -7,7 +7,6 @@ import NavigationBar from 'navigation/components/Bar';
 
 import EmptyList from 'common/components/EmptyList';
 
-import BasePath from 'common/mixins/BasePath';
 import SectionMixin from '../mixins/SectionAware';
 
 
@@ -18,7 +17,7 @@ import AddButton from './AddButton';
 
 export default React.createClass({
 	displayName: 'Section',
-	mixins: [BasePath, SectionMixin],
+	mixins: [SectionMixin],
 
 	propTypes: {
 		section: React.PropTypes.string.isRequired
