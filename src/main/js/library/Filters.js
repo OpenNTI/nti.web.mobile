@@ -1,5 +1,9 @@
 import {scoped} from 'common/locale';
 
+export const CURRENT = 'current';
+export const UPCOMING = 'upcoming';
+export const ARCHIVED = 'archived';
+
 let getLabel = scoped('LIBRARY.CATEGORY');
 
 function courseSortComparatorFunc (a, b) {
@@ -52,8 +56,8 @@ export default [
 		get path () { throw new Error('Use .kind instead'); },
 		get filter () { throw new Error('Use .test instead'); },
 
-		name: getLabel('upcoming'),
-		kind: 'upcoming',
+		name: getLabel(UPCOMING),
+		kind: UPCOMING,
 
 		test: item => {
 			try {
@@ -72,8 +76,8 @@ export default [
 		get path () { throw new Error('Use .kind instead'); },
 		get filter () { throw new Error('Use .test instead'); },
 
-		name: getLabel('current'),
-		kind: 'current',
+		name: getLabel(CURRENT),
+		kind: CURRENT,
 		test: item => {
 			try {
 				let now = Date.now();
@@ -93,8 +97,8 @@ export default [
 		get path () { throw new Error('Use .kind instead'); },
 		get filter () { throw new Error('Use .test instead'); },
 
-		name: getLabel('archived'),
-		kind: 'archived',
+		name: getLabel(ARCHIVED),
+		kind: ARCHIVED,
 		test: item => {
 			try {
 				let end = item.getEndDate();
