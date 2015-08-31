@@ -26,7 +26,7 @@ export default React.createClass({
 
 		localeKey: React.PropTypes.string,
 
-		tag: React.PropTypes.string,
+		tag: React.PropTypes.any,
 
 		entity: React.PropTypes.oneOfType([
 			React.PropTypes.object,
@@ -106,17 +106,20 @@ export default React.createClass({
 
 
 	render () {
-		let {className, entity, localeKey, tag, useGeneralName} = this.props;
-		let {displayName, generalName} = this.state;
-		let Tag = tag || (localeKey ? 'address' : 'span');
+		let {
+			props: {className, entity, localeKey, tag, useGeneralName},
+			state: {displayName, generalName}
+		} = this;
 
+		let Tag = tag || (localeKey ? 'address' : 'span');
 		let name = (useGeneralName && generalName) || displayName;
 
-		let props = Object.assign({
+		let props = Object.assign({}, this.props, {
 			className: cx('username', className),
 			children: name,
-			'data-for': getDebugUsernameString(entity)
-		}, this.props);
+			'data-for': getDebugUsernameString(entity),
+			tag: void 0
+		});
 
 
 		if (localeKey) {
