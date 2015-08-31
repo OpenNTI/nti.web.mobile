@@ -6,6 +6,7 @@ import COURSE_SECTIONS from 'course/Sections';
 
 import ActiveState from 'common/components/ActiveState';
 import E from 'common/components/Ellipsed';
+import Badge from '../Badge';
 
 export default React.createClass({
 	displayName: 'Course',
@@ -141,6 +142,7 @@ export default React.createClass({
 			<div className="library-item course">
 				<CourseContentLink courseId={courseId} section={defaultSection}>
 					<img src={icon}/>
+					<Badge item={item}/>
 					<label>
 						<h5>{label}</h5>
 						<E tag="h3">{title}</E>

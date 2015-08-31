@@ -1,0 +1,56 @@
+.badge {
+	position: absolute;
+	top: 0.625rem;
+	height: 1.6875rem;
+	color: white;
+	text-transform: uppercase;
+	font: normal 600 0.625rem/3 $body-font-family;
+	padding: 0 0.4375rem;
+
+	&.archived {
+		display: block;
+		// left: 0.625rem;
+		left: 0.3125rem;
+		background: rgba(0,0,0,0.6);
+		border-radius: 4px;
+		position: absolute;
+		padding-left: 1.5625rem;
+
+		&::after {
+			content: '';
+			overflow: hidden;
+			position: absolute;
+			top: 50%;
+			left: 0.4375rem;
+			right: auto;
+			transform: translateY(-50%);
+			height: 0.8125rem;
+			width: 0.875rem;
+			background: {
+				image: url(../images/icons/placeholder-for-svg-version-archived.png);
+				size: contain;
+				repeat: no-repeat;
+				position: center;
+			}
+		}
+	}
+
+
+	&.upcoming {
+		left: 0;
+		background: rgba($primary-blue,0.95);
+		letter-spacing: 0.06em;
+		display: block;
+
+		&::after {
+			content: '';
+			position: absolute;
+			right: -0.3125rem;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 0 0 1.6875rem 0.3125rem;
+			border-color: transparent transparent transparent rgba($primary-blue,0.95);
+		}
+	}
+}
