@@ -58,8 +58,8 @@ export default {
 
 		let getBin = o => ({
 			name: o.name,
-			['is' + cap(o.path)]: true,
-			items: (o.filter ? items.filter(o.filter) : items).sort(o.sort || (()=>0))
+			['is' + cap(o.kind)]: true,
+			items: (o.test ? items.filter(o.test) : items).sort(o.sort || (()=>0))
 		});
 
 		if (filters) {

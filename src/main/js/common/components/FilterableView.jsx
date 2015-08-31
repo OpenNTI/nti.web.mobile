@@ -42,7 +42,7 @@ export default React.createClass({
 		let selectedFilter = this.props.filters[fname];
 		return selectedFilter ? {
 			filter: selectedFilter,
-			list: list.filter(selectedFilter.filter)
+			list: list.filter(selectedFilter.test)
 		} : {
 			filter: null,
 			list: list

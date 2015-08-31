@@ -95,7 +95,7 @@ export default React.createClass({
 
 		let routes = Object.keys(filters).map(filtername => {
 			let filter = filters[filtername];
-			let filterpath = filter.path || filtername.toLowerCase();
+			let filterpath = filter.kind || filtername.toLowerCase();
 			return (
 				<Location
 					key={filterpath}

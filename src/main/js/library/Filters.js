@@ -49,9 +49,13 @@ function splitBySemester (list) {
 
 export default [
 	{
+		get path () { throw new Error('Use .kind instead'); },
+		get filter () { throw new Error('Use .test instead'); },
+
 		name: getLabel('upcoming'),
-		path: 'upcoming',
-		filter: item => {
+		kind: 'upcoming',
+
+		test: item => {
 			try {
 				let start = item.getStartDate();
 				return start > Date.now();
@@ -65,9 +69,12 @@ export default [
 		split: splitBySemester
 	},
 	{
+		get path () { throw new Error('Use .kind instead'); },
+		get filter () { throw new Error('Use .test instead'); },
+
 		name: getLabel('current'),
-		path: 'current',
-		filter: item => {
+		kind: 'current',
+		test: item => {
 			try {
 				let now = Date.now();
 				let start = item.getStartDate();
@@ -83,9 +90,12 @@ export default [
 		sort: courseSortComparatorFunc
 	},
 	{
+		get path () { throw new Error('Use .kind instead'); },
+		get filter () { throw new Error('Use .test instead'); },
+
 		name: getLabel('archived'),
-		path: 'archived',
-		filter: item => {
+		kind: 'archived',
+		test: item => {
 			try {
 				let end = item.getEndDate();
 				return end < Date.now();
