@@ -66,7 +66,7 @@ export default {
 			filters.forEach(f=> {
 				let b = getBin(f);
 				if (f.split) {
-					f.split(b.items).forEach(x=>bins.push(Object.assign(x, {name: f.name})));
+					f.split(b.items).forEach(x=>bins.push(Object.assign({}, b, x, {name: f.name})));
 				} else {
 					bins.push(b);
 				}
