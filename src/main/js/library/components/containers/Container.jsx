@@ -21,7 +21,7 @@ export default React.createClass({
 		(!AddButton.canSectionBeAddedTo(section)  ? (
 			null
 		) : (
-			<div>
+			<div className="library-collection">
 				<Heading section={section}/>
 				<EmptyList type={`library-${section}`}/>
 			</div>
