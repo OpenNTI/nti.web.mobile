@@ -17,6 +17,12 @@ function truncateText (el, measure) {
 		setTitleOnce = () => {};
 	};
 
+	//if the element only has text nodes as children querySelector will return null.
+	if (el.querySelector('*')) {
+		console.error('EllipsisText is not safe on markup. Terminating.');
+		return;
+	}
+
 	return SharedExecution.schedual(() => {
 		let box = el;
 		if (measure === 'parent') {
