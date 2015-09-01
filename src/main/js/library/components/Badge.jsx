@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import DateTime from 'common/components/DateTime';
 
-import Filters, {ARCHIVED, CURRENT, UPCOMING} from '../Filters';
+import Filters, {ARCHIVED, UPCOMING} from '../Filters';
 
 export default React.createClass({
 	displayName: 'Badge',
