@@ -44,7 +44,7 @@ export default React.createClass({
 		if (this.props.defaultFilter) {
 			let dfp = this.props.defaultFilter;
 			let df = (typeof dfp === 'string') ? this.findFilter(dfp) : dfp;
-			return (df || {}).path;
+			return (df || {}).kind;
 		}
 
 		let {filters = [], list} = this.props;
@@ -52,7 +52,7 @@ export default React.createClass({
 
 		filters.some(filter => {
 			if (list.filter(filter.filter).length > 0) {
-				result = filter.path || filter.name.toLowerCase();
+				result = filter.kind || filter.name.toLowerCase();
 				return true;
 			}
 			return false;
