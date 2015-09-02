@@ -66,7 +66,7 @@ export default React.createClass({
 		let {filters = []} = this.props;
 		let p = this.getPath() || '';
 
-		let inSet = ()=> filters.reduce((x, f)=> x || (f.path === p), null);
+		let inSet = ()=> filters.reduce((x, f)=> x || (f.kind === p), null);
 
 
 		return /^.?null$/i.test(p) || !inSet(p);
