@@ -5,8 +5,11 @@
 	background: #fff;
 	position: relative;
 
-	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
+	overflow: {
+		x: hidden;
+		y: auto;
+	}
 
 	&.busy {
 		@extend %inline-loader;

@@ -46,7 +46,7 @@
 		.scroller {
 			@extend %touch-scroll;
 			overflow-x: hidden;
-			overflow-y: scroll;
+			overflow-y: auto;
 
 			@extend %scroller-heights;
 		}
