@@ -24,6 +24,7 @@
 
 	& > ul {
 		@extend %touch-scroll;
+		@extend %scroll-style;
 		display: block;
 		white-space: nowrap;
 		overflow: {
