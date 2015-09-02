@@ -6,8 +6,12 @@
 }
 
 .stro-container {
-  width: 300%;
-  margin-left: -100% ;
+	// we're not using the left controls and under iOS 7 safari
+	// shows a sliver of the right controls when we use 33.3333% widths.
+	// getting rid of the left controls lets us use integers (50% width instead of 33.3333)
+  // width: 300%;
+  // margin-left: -100%;
+  width: 200%;
   position: relative;
 }
 
@@ -20,9 +24,17 @@
 .stro-right {
   position: relative;
   display: inline-block;
-  width: 33.33333333%;
+  width: 50%;
   height: 2.5rem;
   vertical-align: top;
+}
+
+.stro-left {
+	// we're not using the left controls and under iOS 7 safari
+	// shows a sliver of the right controls when we use 33.3333% widths.
+	// getting rid of the left controls lets us use integers (50% width instead of 33.3333)
+	width: 0;
+	overflow:hidden;
 }
 
 .stro-button {
