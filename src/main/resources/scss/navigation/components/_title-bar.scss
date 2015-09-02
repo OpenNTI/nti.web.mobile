@@ -80,37 +80,34 @@ nav.nav-bar {
 	}
 
  	section {
-		flex: 0 0 auto;
+		flex: 1 1 2.8125rem;
 		height: 2.8125rem;
 		line-height: 2.8125rem;
-		&:not(.middle){
-			z-index: 10;
-		}
+		white-space: nowrap;
 
 		&:first-child {
-			flex: 0 1 33%;
+			text-align: left;
+		}
+
+		&:last-child {
+			text-align: right;
 		}
 
 		&.middle {
-			flex: 3 1 auto;
+			flex: 1 1 auto;
 			position: static;
 			-webkit-backface-visibility: hidden;
 			background: transparent;
 			height: 2.8125rem;
 			line-height: 2.8125rem;
 			color: $primary-grey;
+			text-align: center;
 
-			& > a {
-				position: absolute !important;
-				transform: translateX(-50%);
-				top: 0;
-				left: 50%;
-			}
 
 			.menu{
 				overflow: visible;
 				display: inline-block;
-				max-width: calc(100% - 1rem);
+				max-width: calc(100% - 1rem);//% total screen width
 				position: relative;
 
 				&::after {
