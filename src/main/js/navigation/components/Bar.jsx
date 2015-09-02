@@ -246,15 +246,13 @@ export default React.createClass({
 	renderBar () {
 		let {pageSource, currentPage, context} = this.state;
 
-		let middle = cx('middle tab-bar-section', {
-			'has-pager': pageSource
-		});
-
 		return (
-			<nav className="tab-bar">
-				<section className="left-small">{this.getLeft()}</section>
-				<section className={middle}>{this.getCenter()}</section>
-				<section className="right-small">
+			<nav className="nav-bar">
+				<section>{this.getLeft()}</section>
+				<section className={cx('middle', {'has-pager': pageSource})}>
+					{this.getCenter()}
+				</section>
+				<section>
 					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}/>}
 					{this.getRight()}
 				</section>

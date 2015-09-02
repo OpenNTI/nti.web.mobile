@@ -6,6 +6,19 @@ $leave-timing: cubic-bezier(0.55, 0, 0.55, 0.2);
 // $ease-out-cubic: cubic-bezier(0.215, 0.610, 0.355, 1.000);
 
 
+%back-button {
+	display: inline-block;
+	position: relative;
+	height: 2.8125rem;
+	line-height: 2.8125rem;
+	font-weight: 400;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
+	// @include viewportWidth(max-width, 35);
+}
+
 
 a.toolbar-button-left {
 	padding: 0 0.5rem;
@@ -37,87 +50,103 @@ a.right-off-canvas-toggle {
 }
 
 .dark {
-	.tab-bar {
+	.nav-bar {
 		background: #525252;
 	}
 
-	.tab-bar,
-	.tab-bar-section .title,
-	.tab-bar a[href], {
+	.nav-bar,
+	.nav-bar .title,
+	.nav-bar a[href], {
 		color: #fff;
 	}
 }
 
-section.right-small {
-	width: auto;
-}
 
-.tab-bar-section {
-
-	&.has-pager .title {
-		max-width: calc(50% - 50px);//fit pager
-	}
-
-	.menu{
-		overflow: visible;
-		display: inline-block;
-		max-width: 50%;//fall back
-		position: relative;
-
-		&::after {
-
-			$size: .75rem;
-
-			backface-visibility: hidden;
-			transition: transform $duration $enter-timing;
-			// content: '';
-			@extend %chevron-down;
-			.nav-menu-open & {
-				transform: rotate3d(0,0,1,180deg);
-			}
-			position: absolute;
-			width: $size;
-			height: $size;
-			font-size: $size;
-			top: 50%;
-			line-height: 1;
-			right: -1rem;
-			top: 50%;
-			margin-top: -$size/2;
-		}
-	}
-
-	.title {
-		display: block;
-		overflow: hidden;
-		position: relative;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		color: $primary-grey;
-	}
-}
-
-%back-button {
-	display: inline-block;
+nav.nav-bar {
 	position: relative;
-	height: 2.8125rem;
-	line-height: 2.8125rem;
-	font-weight: 400;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-
-	@include viewportWidth(max-width, 35);
-}
-
-
-.tab-bar {
+	display: flex;
 	background: #fff;
 	z-index: 1002;
 
 	.hide-nav & {
 		display: none;
 	}
+
+	h1 {
+		font-size: 1.125rem;
+		font-weight: bold;
+		line-height: 2.8125rem;
+		margin: 0;
+	}
+
+ 	section {
+		flex: 0 0 auto;
+		height: 2.8125rem;
+		line-height: 2.8125rem;
+		&:not(.middle){
+			z-index: 10;
+		}
+
+		&:first-child {
+			flex: 0 1 33%;
+		}
+
+		&.middle {
+			flex: 3 1 auto;
+			position: static;
+			-webkit-backface-visibility: hidden;
+			background: transparent;
+			height: 2.8125rem;
+			line-height: 2.8125rem;
+			color: $primary-grey;
+
+			& > a {
+				position: absolute !important;
+				transform: translateX(-50%);
+				top: 0;
+				left: 50%;
+			}
+
+			.menu{
+				overflow: visible;
+				display: inline-block;
+				max-width: calc(100% - 1rem);
+				position: relative;
+
+				&::after {
+
+					$size: .75rem;
+
+					backface-visibility: hidden;
+					transition: transform $duration $enter-timing;
+					// content: '';
+					@extend %chevron-down;
+					.nav-menu-open & {
+						transform: rotate3d(0,0,1,180deg);
+					}
+					position: absolute;
+					width: $size;
+					height: $size;
+					font-size: $size;
+					top: 50%;
+					line-height: 1;
+					right: -1rem;
+					top: 50%;
+					margin-top: -$size/2;
+				}
+			}
+
+			.title {
+				display: block;
+				overflow: hidden;
+				position: relative;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				color: $primary-grey;
+			}
+		}
+	}
+
 
 	.nav-menu-open & {
 		top: 0; left: 0; right: 0;
@@ -129,27 +158,8 @@ section.right-small {
 		}
 	}
 
-	section:not(.tab-bar-section){
-		z-index: 10;
-	}
-
-	.add {
-		@extend %back-button;
-		padding-left: 0.625rem;
-
-		&::before {
-			content: "+";
-			font-weight: 500;
-			font-size: 1.5rem;
-			margin-right: 0.3rem;
-			vertical-align: top;
-		}
-	}
-
 	.return-to {
 		@extend %back-button;
-		// padding-left: 1.875rem;
-
 
 		&::before {
 			@extend %chevron-left;
@@ -159,6 +169,8 @@ section.right-small {
 		}
 	}
 }
+
+
 
 .title-bar-menu {
 	backface-visibility: hidden;
@@ -234,8 +246,6 @@ section.right-small {
 		}
 	}
 }
-
-
 
 
 .nav-menu-mask {
