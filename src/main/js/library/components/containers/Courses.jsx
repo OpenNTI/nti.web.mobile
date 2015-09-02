@@ -16,7 +16,7 @@ export default React.createClass({
 	render () {
 		const {props: {admin}} = this;
 		let section = admin ? 'admin' : 'courses';
-		let courses = this.getBinnedData(section);
+		let allcourses = this.getBinnedData(section);
 
 		//The output should be (per Design™):
 		// Groups: Current For-Credit, Current Open and Archived. (Upcoming is omitted)
@@ -31,7 +31,11 @@ export default React.createClass({
 		// order and their items are in order too)  So, the only thing to do is drop the upcoming bins.
 		// Then, split Current into "For-Credit" and "Open" groups.
 
-		courses = courses.filter(o => !o.isUpcoming); //ignore upcoming
+		let courses = allcourses.filter(o => !o.isUpcoming); //ignore upcoming
+		//unless thats all there is...
+		if (courses.length === 0) {
+			courses = allcourses;
+		}
 
 		for (let bin of courses) {
 			//Current courses were asked to be grouped into "ForCredit" and "Open"
