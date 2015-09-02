@@ -48,7 +48,7 @@ export default React.createClass({
 		}
 
 		let {filters = [], list} = this.props;
-		let result = filters.length > 0 ? filters[0].path : null;
+		let result = filters.length > 0 ? filters[0].kind : null;
 
 		filters.some(filter => {
 			if (list.filter(filter.filter).length > 0) {
