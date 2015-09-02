@@ -51,7 +51,7 @@ export default React.createClass({
 		let result = filters.length > 0 ? filters[0].kind : null;
 
 		filters.some(filter => {
-			if (list.filter(filter.filter).length > 0) {
+			if (list.filter(filter.test).length > 0) {
 				result = filter.kind || filter.name.toLowerCase();
 				return true;
 			}
