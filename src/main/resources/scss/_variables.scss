@@ -65,8 +65,10 @@ $tabs-navigation-font-color: $primary-grey;
 
 $anchor-font-color-hover: $primary-blue;
 
-%title-bar-logo {
-	background-image: url(../images/icons/logo.png);
+
+%detail-link {
+	text-transform: uppercase;
+	font-size: 0.6875rem;
 }
 
 %svg-icon-mask {

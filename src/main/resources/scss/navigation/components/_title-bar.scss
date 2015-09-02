@@ -94,28 +94,6 @@ section.right-small {
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		color: $primary-grey;
-
-		&.branding {
-			display: inline-block;
-			width: 32px;
-			text-indent: -100rem;
-
-			&::after {
-				@extend %title-bar-logo;
-				content: '';
-				width: 32px;
-				height: 32px;
-				background: {
-					color: transparent;
-					position: center center;
-					size: contain;
-				}
-				position: absolute;
-				margin-top: -50%;
-				top: 50%;
-				left: 0;
-			}
-		}
 	}
 }
 
