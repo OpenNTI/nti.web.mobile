@@ -1,16 +1,1 @@
-.tab-bar-section .branding {
-	width: 100px;
 
-	&::after {
-		content: '';
-		width: 50px;
-		height: 32px;
-		background: transparent url(../../../images/sites/okstate.nextthought.com/o-state.png) center center no-repeat;
-		background-size: contain;
-		position: absolute;
-		margin-top: -16px;
-		margin-left: -25px;
-		top: 50%;
-		left: 50%;
-	}
-}
