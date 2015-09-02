@@ -52,7 +52,7 @@ export default React.createClass({
 	getContext () {
 		return Promise.resolve([
 			{
-				label: 'Community Information',
+				label: 'Information',
 				href: this.getBasePath() + ProfileLink.makeHref(this.props.entity) + 'info/'
 			}
 		]);
