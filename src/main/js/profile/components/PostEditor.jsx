@@ -1,11 +1,14 @@
 import React from 'react';
 import cx from 'classnames';
 
+import ShareWith from 'common/components/ShareWith';
 import Busy from 'common/components/TinyLoader';
 
 import {Editor} from 'modeled-content';
 
 import t from 'common/locale';
+
+const PUBLISH = {publish: true};
 
 export default React.createClass({
 	displayName: 'PostEditor',
@@ -17,7 +20,9 @@ export default React.createClass({
 		value: React.PropTypes.any,
 
 		error: React.PropTypes.object,
-		busy: React.PropTypes.bool
+		busy: React.PropTypes.bool,
+
+		showSharing: React.PropTypes.bool
 	},
 
 	getInitialState () {
@@ -44,17 +49,32 @@ export default React.createClass({
 	},
 
 	doSubmit () {
-		let {onSubmit} = this.props;
-		let {title, value} = this.state;
-		title = React.findDOMNode(this.refs.title).value;
-		value = this.refs.editor.getValue();
+		const {props: {onSubmit}, refs: {title, editor, sharing}} = this;
+		let titleValue = React.findDOMNode(title).value;
+		let body = editor.getValue();
+
+		let shareWith = sharing && sharing.getValue();
+
+
 		if (typeof onSubmit === 'function') {
-			onSubmit(title, value);
+			onSubmit(titleValue, body, shareWith);
 		}
 	},
 
+
+	getSharingSuggestions () {
+		return Promise.resolve([{
+			MimeType: 'application/vnd.nextthought.community',
+			publish: true,
+			displayName: 'Public',
+			displayType: 'Community',
+			getID: () => PUBLISH
+		}]);
+	},
+
+
 	render () {
-		let {error, busy} = this.props;
+		let {error, busy, showSharing} = this.props;
 		let {value, title} = this.state;
 		let disabled = busy || Editor.isEmpty(value) || Editor.isEmpty(title);
 
@@ -63,6 +83,11 @@ export default React.createClass({
 				<div className="error-message">
 					{error ? t(`ERROR_MESSAGES.CODES.${error.code}`, error) : null}
 				</div>
+
+				{showSharing && (
+					<ShareWith ref="sharing" scope={this} />
+				)}
+
 				<input type="text"
 					ref="title"
 					className={cx({'error': error && error.field === 'title'})}

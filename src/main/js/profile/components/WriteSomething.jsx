@@ -38,7 +38,7 @@ export default React.createClass({
 		this.hideEditor();
 	},
 
-	onSubmit (title, value) {
+	onSubmit (title, value, shareWith) {
 
 		if (Editor.isEmpty(value) || Editor.isEmpty(title)) {
 			return;
@@ -47,7 +47,7 @@ export default React.createClass({
 		this.setState({
 			busy: true
 		});
-		store.postToActivity(value, title)
+		store.postToActivity(value, title, shareWith)
 			.then(() => this.setState({ edit: false, busy: false, error: false }))
 			.catch(error => {
 				this.setState({ error, busy: false });
