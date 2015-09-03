@@ -30,6 +30,7 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
+			assignments: null,
 			loading: true,
 			error: false,
 			data: null
@@ -102,10 +103,19 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
+		const {course} = props;
 		this.setState(this.getInitialState());
 		try {
+			Promise.all([
+				course.getOutlineNode(this.getOutlineID(props)),
+				course.getAssignments()
+			])
+				.then(results => {
+					let [node, assignments] = results;
+					this.setState({assignments});
+					return node;
+				})
 
-			props.course.getOutlineNode(this.getOutlineID(props))
 				.then(this.getOutlineNodeContents)
 				.catch(this.onError);
 
