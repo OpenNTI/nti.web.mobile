@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'common/components/ActiveLink';
 
 export default React.createClass({
 	displayName: 'Tabs',
@@ -6,9 +7,9 @@ export default React.createClass({
 	render () {
 		return (
 			<ul>
-				<li>Assignments</li>
-				<li>Grades &amp; Performance</li>
-				<li>Activity &amp; Notifications</li>
+				<li><Link href="/assignments/">Assignments</Link></li>
+				<li><Link href="/assignments/performance/">Grades &amp; Performance</Link></li>
+				<li><Link href="/assignments/activity/">Activity &amp; Notifications</Link></li>
 			</ul>
 		);
 	}

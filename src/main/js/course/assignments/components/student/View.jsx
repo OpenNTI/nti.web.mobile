@@ -17,11 +17,12 @@ export default React.createClass({
 	displayName: 'Assignments:Students:View',
 
 	propTypes: {
-		course: React.PropTypes.object.isRequired
+		course: React.PropTypes.object.isRequired,
+		assignments: React.PropTypes.object.isRequired
 	},
 
 	render () {
-		let {course} = this.props;
+		let {course, assignments} = this.props;
 
 		return (
 			<div>
@@ -31,14 +32,10 @@ export default React.createClass({
 					React.createElement(Router.Locations, {contextual: true},
 						...ROUTES.map(route=>
 							route.path ?
-							React.createElement(Router.Location, Object.assign({course, contentPackage: course}, route)) :
+							React.createElement(Router.Location, Object.assign({course, assignments}, route)) :
 							React.createElement(Router.NotFound, {handler: Redirect, location: '/'})
 						))
 				}
-
-		container
-					navbar
-					content
 			</div>
 		);
 	}
