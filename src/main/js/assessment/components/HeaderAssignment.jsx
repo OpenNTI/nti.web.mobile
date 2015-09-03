@@ -6,6 +6,7 @@ import AssignmentStatusLabel from './AssignmentStatusLabel';
 import Grade from './Grade';
 
 import TimedPlaceholder from './TimedPlaceholder';
+import TimeLockedPlaceholder from './TimeLockedPlaceholder';
 
 import isEmpty from 'nti.lib.interfaces/utils/isempty';
 
@@ -50,6 +51,13 @@ export default React.createClass({
 		if (assignment.IsTimedAssignment /*&& !assignment.isStarted()*/) {
 			return (
 				<TimedPlaceholder assignment={assignment}/>
+			);
+		}
+
+		const NOW = new Date();
+		if (assignment.getAvailableForSubmissionBeginning() > NOW) {
+			return (
+				<TimeLockedPlaceholder assignment={assignment}/>
 			);
 		}
 
