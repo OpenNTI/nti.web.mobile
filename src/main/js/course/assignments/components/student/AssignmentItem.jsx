@@ -1,4 +1,5 @@
 import React from 'react';
+import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 
 export default React.createClass({
 	displayName: 'AssignmentItem',
@@ -10,7 +11,10 @@ export default React.createClass({
 	render () {
 		let {assignment} = this.props;
 		return (
-			<div>{assignment.title}</div>
+			<div>
+				{assignment.title}
+				<AssignmentStatusLabel assignment={assignment} />
+			</div>
 		);
 	}
 });
