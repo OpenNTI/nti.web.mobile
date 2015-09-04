@@ -17,9 +17,13 @@
 		padding: 1rem;
 		h1, h2 {
 			font-size: 1.5rem;
-			margin-top: 1.5rem;
 		}
 	}
+
+	.assignment-group {
+		margin-bottom: 1.5rem;
+	}
+
 	.assignment-item {
 		position: relative;
 		padding-left: 2rem;
@@ -35,6 +39,30 @@
 		}
 		&.complete::after {
 			color: $primary-green;
+		}
+	}
+	.select-box {
+		z-index: 999;
+		ul {
+			width: 100%;
+			font-weight: 600;
+			background: $quad-grey;
+			li {
+				line-height: 2.35rem;
+				padding-left: 0.5rem;
+			}
+		}
+		&.open {
+			& > ul {
+				box-shadow: 1px 2px 2px 0 rgba(0,0,0,0.1);
+			}
+			.selected {
+				background: $primary-blue;
+				color: white;
+				&::after {
+					color: white;
+				}
+			}
 		}
 	}
 }
