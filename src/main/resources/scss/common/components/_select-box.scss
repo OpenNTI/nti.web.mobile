@@ -1,0 +1,7 @@
+.select-box {
+	position: relative;
+	& > ul {
+		position: absolute;
+		background: white;
+	}
+}

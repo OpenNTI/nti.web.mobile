@@ -26,7 +26,6 @@ export default React.createClass({
 
 		return (
 			<div>
-				(student)
 				<Tabs />
 				{
 					React.createElement(Router.Locations, {contextual: true},

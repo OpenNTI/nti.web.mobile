@@ -54,21 +54,25 @@ export default React.createClass({
 		let {isOpen, selectedOption} = this.state;
 
 		let classes = cx('select-box', {'open': isOpen});
-		let Tag = 'ul';
+		let Tag = 'div';
 
 		if (isOpen) {
 			return (
 				<Tag className={classes}>
+					<ul>
 					<li onClick={this.close}>{selectedOption.label}</li>
 					{this.props.options.filter(item => item !== selectedOption).map((option, index) =>
 						<li key={index} onClick={this.onClick.bind(this, option.value || option.label)}>{option.label}</li>
 					)}
+					</ul>
 				</Tag>
 			);
 		}
 		return (
 			<Tag className={classes}>
-				<li onClick={this.open}>{selectedOption.label}</li>
+				<ul>
+					<li onClick={this.open}>{selectedOption.label}</li>
+				</ul>
 			</Tag>
 		);
 	}

@@ -5,8 +5,12 @@
 	}
 	.search-sort-bar {
 		display: flex;
+		background: $quad-grey;
 		& > * {
 			flex: 1 1 50%;
+		}
+		input {
+			margin: 0;
 		}
 	}
 	.assignments-list {
