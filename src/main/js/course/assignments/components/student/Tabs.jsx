@@ -6,7 +6,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<ul>
+			<ul {...this.props}>
 				<li><Link href="/assignments/">Assignments</Link></li>
 				<li><Link href="/assignments/performance/">Grades &amp; Performance</Link></li>
 				<li><Link href="/assignments/activity/">Activity &amp; Notifications</Link></li>

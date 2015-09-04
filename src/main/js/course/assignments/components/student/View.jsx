@@ -26,7 +26,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Tabs />
+				<Tabs className="assignments-nav" />
 				{
 					React.createElement(Router.Locations, {contextual: true},
 						...ROUTES.map(route=>
