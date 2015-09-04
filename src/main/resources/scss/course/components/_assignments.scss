@@ -15,5 +15,26 @@
 	}
 	.assignments-list {
 		padding: 1rem;
+		h1, h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+	}
+	.assignment-item {
+		position: relative;
+		padding-left: 2rem;
+		&::after {
+			content: '√';
+			font-family: 'icomoon';
+			font-size: 1.5rem;
+			position: absolute;
+			top: 50%;
+			left: 0;
+			transform: translate3d(0,-50%,0);
+			color: rgba(0,0,0,.1);
+		}
+		&.complete::after {
+			color: $primary-green;
+		}
 	}
 }
