@@ -125,7 +125,7 @@ export default React.createClass({
 
 		return (
 			<ul className="profile-cards activity">
-				{canPost && <Card key="editor" className="card-write-something"><WriteSomething store={store}/></Card> }
+				{canPost && <Card key="editor" className="card-write-something"><WriteSomething entity={entity} store={store}/></Card> }
 				{store.length === 0 && !entity.isUser && <Card key='emptyList'><EmptyList type="activity"/></Card>}
 				{store.map((a, index) => {
 

@@ -10,6 +10,7 @@ export default React.createClass({
 	displayName: 'WriteSomething',
 
 	propTypes: {
+		entity: React.PropTypes.object.isRequired,
 		store: React.PropTypes.shape({
 			postToActivity: React.PropTypes.func
 		}).isRequired
@@ -55,8 +56,7 @@ export default React.createClass({
 	},
 
 	render () {
-
-		let {busy, error} = this.state;
+		const {state: {busy, error}, props: {entity}} = this;
 
 		if (error && error.statusCode !== 422) {
 			return <Err error={error} />;
@@ -65,7 +65,12 @@ export default React.createClass({
 		return (
 			<div className="write-something">
 				{this.state.edit ? (
-					<PostEditor ref='postEditor' onSubmit={this.onSubmit} onCancel={this.onCancel} error={error} busy={busy}/>
+					<PostEditor ref='postEditor'
+						showSharing={!!entity.isUser}
+						onSubmit={this.onSubmit}
+						onCancel={this.onCancel}
+						error={error}
+						busy={busy}/>
 				) : (
 					<label onClick={this.showEditor}>Write something</label>
 				)}
