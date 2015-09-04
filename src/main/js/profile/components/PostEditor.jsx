@@ -53,7 +53,7 @@ export default React.createClass({
 		let titleValue = React.findDOMNode(title).value;
 		let body = editor.getValue();
 
-		let shareWith = sharing && sharing.getValue();
+		let shareWith = sharing && sharing.getValue(o => o.NTIID);
 
 
 		if (typeof onSubmit === 'function') {
@@ -68,6 +68,7 @@ export default React.createClass({
 			publish: true,
 			displayName: 'Public',
 			displayType: 'Community',
+			NTIID: PUBLISH,
 			getID: () => PUBLISH
 		}]);
 	},
