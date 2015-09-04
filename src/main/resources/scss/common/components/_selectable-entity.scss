@@ -109,7 +109,8 @@
 		// opacity: .4;
 	}
 
-	.avatar {
+	//we need specificity here... 
+	.avatar-spacer .avatar {
 		width: $avatarsize;
 		height: $avatarsize;
 		position: absolute;
