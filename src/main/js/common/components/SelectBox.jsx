@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 
 export default React.createClass({
 	displayName: 'SelectBox',
@@ -16,8 +17,8 @@ export default React.createClass({
 	},
 
 	componentWillMount () {
-		let {value} = this.props;
-		this.setSelected(value);
+		let {value, options} = this.props;
+		this.setSelected(value || options[0].value);
 	},
 
 	setSelected (value) {
@@ -52,17 +53,23 @@ export default React.createClass({
 
 		let {isOpen, selectedOption} = this.state;
 
+		let classes = cx('select-box', {'open': isOpen});
+		let Tag = 'ul';
+
 		if (isOpen) {
 			return (
-				<ul className="select-box">
-					{this.props.options.map((option, index) => <li key={index} onClick={this.onClick.bind(this, option.value || option.label)}>{option.label}</li>)}
-				</ul>
+				<Tag className={classes}>
+					<li onClick={this.close}>{selectedOption.label}</li>
+					{this.props.options.filter(item => item !== selectedOption).map((option, index) =>
+						<li key={index} onClick={this.onClick.bind(this, option.value || option.label)}>{option.label}</li>
+					)}
+				</Tag>
 			);
 		}
 		return (
-			<ul className="select-box">
+			<Tag className={classes}>
 				<li onClick={this.open}>{selectedOption.label}</li>
-			</ul>
+			</Tag>
 		);
 	}
 });

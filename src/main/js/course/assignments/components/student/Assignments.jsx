@@ -28,16 +28,16 @@ export default React.createClass({
 	},
 
 
-	onSortChange (event) {
+	onSortChange (value) {
 		this.setState({
-			sortby: event.target.value
+			sortBy: value
 		});
 	},
 
 	render () {
 		const {props: {course, assignments}, state: {sortOptions, sortBy}} = this;
 		return (
-			<div>
+			<div className="assignments-view">
 				<div className="search-sort-bar">
 					<SelectBox options={sortOptions} onChange={this.onSortChange} />
 					<input type="search" placeholder="Search Assignments" />
