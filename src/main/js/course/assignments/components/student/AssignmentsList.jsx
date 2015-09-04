@@ -26,11 +26,11 @@ export default React.createClass({
 	},
 
 	getAssignments (props = this.props) {
-		let {assignments, sort} = props;
+		let {assignments, sort, search} = props;
 		this.setState({
 			loading: true
 		}, () => {
-			assignments.getAssignmentsBy(sort)
+			assignments.getAssignmentsBy(sort, search)
 				.then(sorted => this.setState({sorted, loading: false}));
 		});
 	},

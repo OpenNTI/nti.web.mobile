@@ -34,15 +34,21 @@ export default React.createClass({
 		});
 	},
 
+	onSearchChange (event) {
+		this.setState({
+			search: event.target.value
+		});
+	},
+
 	render () {
-		const {props: {course, assignments}, state: {sortOptions, sortBy}} = this;
+		const {props: {course, assignments}, state: {sortOptions, sortBy, search}} = this;
 		return (
 			<div className="assignments-view">
 				<div className="search-sort-bar">
 					<SelectBox options={sortOptions} onChange={this.onSortChange} />
-					<input type="search" placeholder="Search Assignments" />
+					<input type="search" placeholder="Search Assignments" onChange={this.onSearchChange} />
 				</div>
-				<AssignmentsList sort={sortBy} course={course} assignments={assignments} />
+				<AssignmentsList sort={sortBy} search={search} course={course} assignments={assignments} />
 			</div>
 		);
 	}
