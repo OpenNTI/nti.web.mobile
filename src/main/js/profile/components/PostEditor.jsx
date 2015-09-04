@@ -48,7 +48,22 @@ export default React.createClass({
 		this.setState({value});
 	},
 
-	doSubmit () {
+	onCancel (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		this.props.onCancel(e);
+	},
+
+
+	doSubmit (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
 		const {props: {onSubmit}, refs: {title, editor, sharing}} = this;
 		let titleValue = React.findDOMNode(title).value;
 		let body = editor.getValue();
@@ -81,7 +96,7 @@ export default React.createClass({
 
 		return (
 			<div className="note-editor-frame editor">
-				<form onSubmit={()=> false}>
+				<form onSubmit={x => x.preventDefault() && false}>
 				<div className="error-message">
 					{error ? t(`ERROR_MESSAGES.CODES.${error.code}`, error) : null}
 				</div>
@@ -103,7 +118,7 @@ export default React.createClass({
 					onChange={this.onChange}
 					onBlur={this.onChange}
 					value={this.props.value}>
-					<button onClick={this.props.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
+					<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
 					<button onClick={this.doSubmit} className={cx('save', {disabled})}>{busy ? (<Busy/>) : t('BUTTONS.save')}</button>
 				</Editor>
 				</form>
