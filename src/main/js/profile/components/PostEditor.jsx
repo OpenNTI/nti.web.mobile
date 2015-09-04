@@ -79,7 +79,8 @@ export default React.createClass({
 		let disabled = busy || Editor.isEmpty(value) || Editor.isEmpty(title);
 
 		return (
-			<div className="editor">
+			<div className="note-editor-frame editor">
+				<form>
 				<div className="error-message">
 					{error ? t(`ERROR_MESSAGES.CODES.${error.code}`, error) : null}
 				</div>
@@ -88,11 +89,13 @@ export default React.createClass({
 					<ShareWith ref="sharing" scope={this} />
 				)}
 
-				<input type="text"
-					ref="title"
-					className={cx({'error': error && error.field === 'title'})}
-					onChange={this.onTitleChange}
-					defaultValue={this.props.title} />
+				<div className="title">
+					<input type="text"
+						ref="title" placeholder="Title"
+						className={cx({'error': error && error.field === 'title'})}
+						onChange={this.onTitleChange}
+						defaultValue={this.props.title} />
+				</div>
 
 				<Editor ref="editor"
 					className={cx({'error': error && error.field === 'body'})}
@@ -102,6 +105,7 @@ export default React.createClass({
 					<button onClick={this.props.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
 					<button onClick={this.doSubmit} className={cx('save', {disabled})}>{busy ? (<Busy/>) : t('BUTTONS.save')}</button>
 				</Editor>
+				</form>
 			</div>
 		);
 	}
