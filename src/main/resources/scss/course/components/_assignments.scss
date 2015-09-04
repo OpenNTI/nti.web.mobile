@@ -1,0 +1,15 @@
+.assignments-view {
+	ul {
+		list-style:none;
+		margin: 0;
+	}
+	.search-sort-bar {
+		display: flex;
+		& > * {
+			flex: 1 1 50%;
+		}
+	}
+	.assignments-list {
+		padding: 1rem;
+	}
+}
