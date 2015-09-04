@@ -81,7 +81,7 @@ export default React.createClass({
 
 		return (
 			<div className="note-editor-frame editor">
-				<form>
+				<form onSubmit={()=> false}>
 				<div className="error-message">
 					{error ? t(`ERROR_MESSAGES.CODES.${error.code}`, error) : null}
 				</div>
