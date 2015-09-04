@@ -49,6 +49,10 @@ export default React.createClass({
 		});
 	},
 
+	toggle () {
+		this.state.isOpen ? this.close() : this.open();
+	},
+
 	render () {
 
 		let {isOpen, selectedOption} = this.state;
@@ -56,11 +60,13 @@ export default React.createClass({
 		let classes = cx('select-box', {'open': isOpen});
 		let Tag = 'div';
 
+		let selectedItem = <li className="selected" onClick={this.toggle}>{selectedOption.label}</li>;
+
 		if (isOpen) {
 			return (
 				<Tag className={classes}>
 					<ul>
-					<li onClick={this.close}>{selectedOption.label}</li>
+					{selectedItem}
 					{this.props.options.filter(item => item !== selectedOption).map((option, index) =>
 						<li key={index} onClick={this.onClick.bind(this, option.value || option.label)}>{option.label}</li>
 					)}
@@ -71,7 +77,7 @@ export default React.createClass({
 		return (
 			<Tag className={classes}>
 				<ul>
-					<li onClick={this.open}>{selectedOption.label}</li>
+					{selectedItem}
 				</ul>
 			</Tag>
 		);
