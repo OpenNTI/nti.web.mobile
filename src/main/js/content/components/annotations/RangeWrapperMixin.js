@@ -108,8 +108,8 @@ export default {
 				nodeList.push(...this.wrapRange(i, range));
 			}
 
-			if (node.childNodes.length === 0) {
-				let newRange;
+			if (DOM.isTextNode(node) || node.childNodes.length === 0) {
+				let newRange = range;
 
 				if (startToStart === BEFORE && (endToEnd === BEFORE || endToEnd === SAME)) {
 					newRange = doc.createRange();
@@ -156,7 +156,14 @@ export default {
 		try {
 			range.surroundContents(span);
 		} catch (e) {
-			console.warn(e.stack || e.message || e);
+			//InvalidStateError (trying to suround a range that spans to many branches)
+			let known = e.code === 11 || e.name === 'InvalidStateError';
+
+			//Its hard and costly to predict this, so we will just ignore it when it occurs and continue.
+
+			if (!known) {
+				console.warn(e.stack || e.message || e);
+			}
 		}
 
 		if (!span.firstChild) {
