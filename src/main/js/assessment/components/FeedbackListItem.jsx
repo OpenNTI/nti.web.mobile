@@ -58,7 +58,7 @@ export default React.createClass({
 				<div className="wrap">
 					<div className="meta">
 						<DisplayName entity={createdBy} className="name"/>
-						<DateTime date={createdOn} relative={true}/>
+						<DateTime date={createdOn} relative/>
 					</div>
 					{editing ?
 						<Editor value={item.body} onSubmit={this.onEdit} onCancel={this.onToggleEditor}/>

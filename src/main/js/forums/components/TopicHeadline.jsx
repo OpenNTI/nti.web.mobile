@@ -35,7 +35,7 @@ export default React.createClass({
 				<div className="wrap">
 					<h1>{item.title}</h1>
 					<div className="meta">
-						<DisplayName entity={item.creator}/>{" · "}<DateTime date={item.getCreatedTime()} relative={true}/>
+						<DisplayName entity={item.creator}/>{" · "}<DateTime date={item.getCreatedTime()} relative/>
 					</div>
 				</div>
 				<ModeledContentPanel body={item.body} />

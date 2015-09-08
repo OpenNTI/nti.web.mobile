@@ -151,13 +151,13 @@ export default React.createClass({
 				{(deleted || (this.getItem() || {}).Deleted) ? (
 					<Notice>This item has been deleted.</Notice>
 				) : (
-					<PostHeadline item={item} topic={topic} asHeadline={true} />
+					<PostHeadline item={item} topic={topic} asHeadline />
 				)}
 				<Replies key="replies" item={item}
 					listComponent={List}
 					childComponent={PostItem}
 					topic={topic}
-					display={true}
+					display
 					className='visible' />
 				{topic &&
 					<CommentForm key="commentForm"
