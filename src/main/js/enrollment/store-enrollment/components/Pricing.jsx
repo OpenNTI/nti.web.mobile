@@ -160,6 +160,7 @@ export default React.createClass({
 
 
 	render () {
+		const {props: {locked}} = this;
 		let type = 'Lifelong Learner';
 		let vendorInfo = this.props.purchasable.VendorInfo;
 		let startDate = vendorInfo && vendorInfo.StartDate;
@@ -172,7 +173,7 @@ export default React.createClass({
 		let couponLabel = t('coupon');
 		let couponLabelCls = '';
 
-		if (this.props.locked) {
+		if (locked) {
 			couponLabelCls = '';
 			couponLabel = t('lockedCoupon');
 		} else if (this.state.checkingCoupon) {
@@ -236,7 +237,7 @@ export default React.createClass({
 							<div className="cell coupon">
 								<span className={'label ' + couponLabelCls}>{couponLabel}</span>
 								<input type="text"
-									ref="coupon" name="coupon"
+									ref="coupon" name="coupon" disabled={locked}
 									placeholder={t('couponPlaceholder')}
 									onChange={this.onCouponChanged}
 									value={this.state.coupon}/>
