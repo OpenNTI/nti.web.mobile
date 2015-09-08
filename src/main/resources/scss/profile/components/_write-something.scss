@@ -19,6 +19,13 @@
 	}
 
 
+	& > .note-editor-frame {
+		border: 0;
+		// border-radius: 3px;
+		margin: -0.625rem;
+	}
+
+
 	.error-message {
 		color: $secondary-red;
 		border: 1px solid $secondary-red;

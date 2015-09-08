@@ -284,8 +284,8 @@ export default React.createClass({
 	},
 
 
-	getValue () {
+	getValue (valueTransformer = o => o.getID()) {
 		let {state: {selection}} = this;
-		return selection.getItems().map(o => o.getID());
+		return selection.getItems().map(valueTransformer);
 	}
 });
