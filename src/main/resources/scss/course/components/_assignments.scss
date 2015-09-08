@@ -70,6 +70,7 @@
 }
 
 .performance {
+	margin: 1rem;
 	font-size: .75rem;
 	@media (min-width:600px) {
 		font-size: 1rem;
@@ -80,6 +81,7 @@
 		display: table-row;
 		& > * {
 			display: table-cell;
+			padding-bottom: 1em;
 		}
 		text-align: center;
 		.assignment-title {
