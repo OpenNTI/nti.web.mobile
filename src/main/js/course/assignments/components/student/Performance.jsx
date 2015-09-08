@@ -76,7 +76,6 @@ export default React.createClass({
 		let {sortOn} = this.state;
 		let items = assignments.getAssignments();
 		items.sort((a, b) => compare(a, b, sortOn.slice()));
-		let primarySort = sortOn.length > 0 ? sortOn[0] : 'title';
 
 		return (
 			<div className="performance">
