@@ -57,8 +57,20 @@ export default React.createClass({
 
 	setup (props = this.props) {
 		const stillValid = () => this.isMounted() && props[KEY] === this.props[KEY];
-		const error = e => { console.error('Error getting suggestions: ', e.stack || e.message || e); return null; };
 		const {scope} = props;
+
+		function getSuggestions () {
+			try {
+				return scope.getSharingSuggestions()
+					.catch(e => {
+						console.error('Error getting suggestions: ', e.stack || e.message || e);
+						return []; 
+					});
+			}
+			catch (e) {
+				return Promise.fulfill([]);
+			}
+		}
 
 		let value = props.defaultValue;
 
@@ -77,7 +89,7 @@ export default React.createClass({
 			.then(stores => Promise.all(stores.map(store=> store.waitForPending()))
 							.then(()=> stores))
 
-			.then(stores => Promise.all([scope.getSharingSuggestions().catch(error), ...stores]))
+			.then(stores => Promise.all([getSuggestions(), ...stores]))
 
 			.then(all => {
 				let [suggestions, ...stores] = all;
