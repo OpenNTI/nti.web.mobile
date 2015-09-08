@@ -5,10 +5,12 @@ import Tabs from './Tabs';
 import Performance from './Performance';
 import Activity from './Activity';
 import Assignments from './Assignments';
+import Content from './Content';
 
 const ROUTES = [
 	{path: '/performance(/*)', handler: Performance},
 	{path: '/activity(/*)', handler: Activity},
+	{path: '/:rootId(/*)', handler: Content},
 	{path: '/', handler: Assignments},
 	{}//not found
 ];
@@ -31,8 +33,12 @@ export default React.createClass({
 					React.createElement(Router.Locations, {contextual: true},
 						...ROUTES.map(route=>
 							route.path ?
-							React.createElement(Router.Location, Object.assign({course, assignments}, route)) :
-							React.createElement(Router.NotFound, {handler: Redirect, location: '/'})
+							<Router.Location {...route}
+								contentPackage={course}
+								course={course}
+								assignments={assignments}
+							/>
+							: React.createElement(Router.NotFound, {handler: Redirect, location: '/'})
 						))
 				}
 			</div>

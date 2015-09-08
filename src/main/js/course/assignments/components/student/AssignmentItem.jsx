@@ -1,6 +1,7 @@
 import React from 'react';
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 import cx from 'classnames';
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 export default React.createClass({
 	displayName: 'AssignmentItem',
@@ -15,10 +16,10 @@ export default React.createClass({
 			complete: assignment.hasLink('History')
 		});
 		return (
-			<div className={classes}>
+			<a className={classes} href={`./${encodeForURI(assignment.getID())}/`}>
 				{assignment.title}
 				<AssignmentStatusLabel assignment={assignment} />
-			</div>
+			</a>
 		);
 	}
 });

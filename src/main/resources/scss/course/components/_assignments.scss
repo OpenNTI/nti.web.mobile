@@ -25,6 +25,8 @@
 	}
 
 	.assignment-item {
+		display: block;
+		color: inherit;
 		position: relative;
 		padding-left: 2rem;
 		&::after {
