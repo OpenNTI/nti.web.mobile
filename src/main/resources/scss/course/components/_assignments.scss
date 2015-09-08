@@ -74,24 +74,51 @@
 	@media (min-width:600px) {
 		font-size: 1rem;
 	}
+	$cellpadding: .5em;
 	.performance-item,
 	.performance-headings {
 		display: table-row;
-		text-align: center;
 		& > * {
 			display: table-cell;
-			padding: .5rem;
 		}
+		text-align: center;
 		.assignment-title {
 			text-align: left;
+			padding-left: 0;
+		}
+		.sorted {
+			font-weight: 700;
 		}
 	}
 	.performance-headings {
 		font-size: .5rem;
     	text-transform: uppercase;
     	font-weight: 700;
+		& > * {
+			padding: $cellpadding ($cellpadding * 3) ;
+		}
 		.sorted {
+			$bordersize: .5em;
+			position: relative;
 			font-weight: 900;
+			$arrowcolor: $body-font-color;
+			&::after {
+				content: '';
+				width: 0;
+				height: 0;
+				border: $bordersize solid transparent;
+				position: absolute;
+				margin-left: 0.25rem;
+			}
+			&.desc::after {
+				bottom: ($bordersize + $cellpadding)/2;
+				top: auto;
+				border-top-color: $arrowcolor;;
+			}
+			&.asc::after {
+				border-bottom-color: $arrowcolor;
+				top: auto;
+			}
 		}
 	}
 }

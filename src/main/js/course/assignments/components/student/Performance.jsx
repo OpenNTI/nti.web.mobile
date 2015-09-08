@@ -45,6 +45,7 @@ export default React.createClass({
 	getInitialState () {
 		return {
 			sortOn: ['title'],
+			sortDesc: false,
 			assignments: []
 		};
 	},
@@ -66,26 +67,38 @@ export default React.createClass({
 	},
 
 	sortOn (cols) {
+		let {sortOn, sortDesc} = this.state;
+		if(cols[0] === sortOn[0]) {
+			sortDesc = !sortDesc;
+		}
 		this.setState({
-			sortOn: cols
+			sortOn: cols,
+			sortDesc
 		});
 	},
 
 	render () {
 		let {assignments} = this.props;
-		let {sortOn} = this.state;
+		let {sortOn, sortDesc} = this.state;
 		let items = assignments.getAssignments();
 		items.sort((a, b) => compare(a, b, sortOn.slice()));
-
+		if(sortDesc) {
+			items.reverse();
+		}
 		return (
 			<div className="performance">
 				<div className="performance-headings">
 					{columns.map(col => {
-						let classes = cx(col.className, {'sorted': sortOn[0] === col.sortOn[0]});
+						let sorted = sortOn[0] === col.sortOn[0];
+						let classes = cx(col.className, {
+							sorted,
+							'desc': sorted && sortDesc,
+							'asc': sorted && !sortDesc
+						});
 						return <div className={classes} onClick={this.sortOn.bind(this, col.sortOn)}>{col.label}</div>;
 					})}
 				</div>
-				{items.map(assignment => <PerformanceItem key={assignment.getID()} assignment={assignment} />)}
+				{items.map(assignment => <PerformanceItem key={assignment.getID()} assignment={assignment} sortedOn={sortOn[0]} />)}
 			</div>
 		);
 	}
