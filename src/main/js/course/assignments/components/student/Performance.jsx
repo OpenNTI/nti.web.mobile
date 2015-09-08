@@ -1,5 +1,39 @@
 import React from 'react';
 import PerformanceItem from './PerformanceItem';
+import cx from 'classnames';
+
+const columns = [
+	{
+		className: 'assignment-title',
+		label: 'Assignment',
+		sortOn: ['title', 'available_for_submission_ending']
+
+	},
+	{
+		className: 'assigned',
+		label: 'Assigned',
+		sortOn: ['available_for_submission_beginning','available_for_submission_ending']
+
+	},
+	{
+		className: 'due',
+		label: 'Due',
+		sortOn: ['available_for_submission_ending','available_for_submission_beginning']
+
+	},
+	{
+		className: 'completed',
+		label: 'Completed',
+		sortOn: ['completed', 'title']
+
+	},
+	{
+		className: 'score',
+		label: 'Score',
+		sortOn: ['score', 'available_for_submission_ending']
+
+	}
+];
 
 export default React.createClass({
 	displayName: 'Performance',
@@ -10,17 +44,9 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
-			sortedOn: null,
+			sortOn: ['title'],
 			assignments: []
 		};
-	},
-
-	componentDidMount () {
-		this.getAssignments();
-	},
-
-	componentWillReceiveProps (nextProps) {
-		this.getAssignments(nextProps);
 	},
 
 	getAssignments (props = this.props) {
@@ -30,33 +56,44 @@ export default React.createClass({
 		});
 	},
 
-	sort (property, secondary) {
+	sort () {
 		let assignments = this.state.assignments.slice();
-		assignments.sort((a, b) => compare(a, b, property, secondary));
+
 		this.setState({
 			assignments
 		});
 
 	},
 
+	sortOn (cols) {
+		this.setState({
+			sortOn: cols
+		});
+	},
+
 	render () {
-		let {assignments} = this.state;
+		let {assignments} = this.props;
+		let {sortOn} = this.state;
+		let items = assignments.getAssignments();
+		items.sort((a, b) => compare(a, b, sortOn.slice()));
+		let primarySort = sortOn.length > 0 ? sortOn[0] : 'title';
+
 		return (
 			<div className="performance">
 				<div className="performance-headings">
-					<div onClick={this.sort.bind(this, 'title', 'available_for_submission_ending')} className="assignment-title">Assignment</div>
-					<div onClick={this.sort.bind(this, 'available_for_submission_beginning','available_for_submission_ending')} className="assigned">Assigned</div>
-					<div onClick={this.sort.bind(this, 'available_for_submission_ending','available_for_submission_beginning')} className="due">Due</div>
-					<div onClick={this.sort.bind(this, 'completed', 'title')} className="completed">Completed</div>
-					<div onClick={this.sort.bind(this, 'score', 'available_for_submission_ending')} className="score">Score</div>
+					{columns.map(col => {
+						let classes = cx(col.className, {'sorted': sortOn[0] === col.sortOn[0]});
+						return <div className={classes} onClick={this.sortOn.bind(this, col.sortOn)}>{col.label}</div>;
+					})}
 				</div>
-				{assignments.map(assignment => <PerformanceItem key={assignment.getID()} assignment={assignment} />)}
+				{items.map(assignment => <PerformanceItem key={assignment.getID()} assignment={assignment} />)}
 			</div>
 		);
 	}
 });
 
-function compare (a, b, property, secondary) {
+function compare (a, b, props) {
+	let property = props.shift();
 	if (property === 'completed') {
 		if(a.hasLink('History') && !b.hasLink('History')) {
 			return -1;
@@ -64,8 +101,8 @@ function compare (a, b, property, secondary) {
 		if(b.hasLink('History') && !a.hasLink('History')) {
 			return 1;
 		}
-		if(secondary) {
-			return compare(a, b, secondary);
+		if(props.length > 0) {
+			return compare(a, b, props);
 		}
 		return 0;
 	}
@@ -75,8 +112,8 @@ function compare (a, b, property, secondary) {
 	if( a[property] < b[property] ) {
 		return -1;
 	}
-	if(secondary) {
-		return compare(a, b, secondary);
+	if(props.length > 0) {
+		return compare(a, b, props);
 	}
 	return 0;
 }
