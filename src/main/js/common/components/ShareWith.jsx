@@ -65,7 +65,8 @@ export default React.createClass({
 					.catch(e => {
 						console.error('Error getting suggestions: ', e.stack || e.message || e);
 						return null;
-					});
+					})
+					.then(v => (v && v.length > 0) ? v : null);
 			}
 			catch (e) {
 				return Promise.resolve(null);
