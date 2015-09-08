@@ -64,11 +64,11 @@ export default React.createClass({
 				return scope.getSharingSuggestions()
 					.catch(e => {
 						console.error('Error getting suggestions: ', e.stack || e.message || e);
-						return []; 
+						return [];
 					});
 			}
 			catch (e) {
-				return Promise.fulfill([]);
+				return Promise.resolve([]);
 			}
 		}
 
