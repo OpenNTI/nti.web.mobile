@@ -240,7 +240,7 @@ export default React.createClass({
 
 				<div className="share-with-entry" onClick={this.onFocus}>
 					{selection.getItems().map(e =>
-						<ShareTarget key={e.getID()} entity={e}
+						<ShareTarget key={e.getID ? e.getID() : e} entity={e}
 							selected={pendingRemove === e}
 							onClick={()=>this.onTokenTap(e)}/>
 					)}
@@ -297,7 +297,7 @@ export default React.createClass({
 	},
 
 
-	getValue (valueTransformer = o => o.getID()) {
+	getValue (valueTransformer = o => typeof o === 'object' ? o.getID() : o) {
 		let {state: {selection}} = this;
 		return selection.getItems().map(valueTransformer);
 	}
