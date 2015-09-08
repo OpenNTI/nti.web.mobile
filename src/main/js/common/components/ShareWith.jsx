@@ -64,11 +64,11 @@ export default React.createClass({
 				return scope.getSharingSuggestions()
 					.catch(e => {
 						console.error('Error getting suggestions: ', e.stack || e.message || e);
-						return [];
+						return null;
 					});
 			}
 			catch (e) {
-				return Promise.resolve([]);
+				return Promise.resolve(null);
 			}
 		}
 
@@ -95,7 +95,7 @@ export default React.createClass({
 				let [suggestions, ...stores] = all;
 
 				if (stillValid()) {
-					const filter = x => !suggestions.find(o => x.getID() === o.getID());
+					const filter = x => !suggestions ? x : x && !suggestions.find(o => x.getID() === o.getID());
 					const toArray = o => {
 						let a = o ? Array.from(o).filter(filter) : [];
 						return a.length ? a : null;
