@@ -16,7 +16,7 @@ export default React.createClass({
 		};
 	},
 
-	componentWillMount () {
+	componentDidMount () {
 		this.getData();
 	},
 
