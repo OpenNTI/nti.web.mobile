@@ -68,3 +68,27 @@
 		}
 	}
 }
+
+.performance {
+	font-size: .75rem;
+	@media (min-width:600px) {
+		font-size: 1rem;
+	}
+	.performance-item,
+	.performance-headings {
+		display: table-row;
+		text-align: center;
+		& > * {
+			display: table-cell;
+			padding: .5rem;
+		}
+		.assignment-title {
+			text-align: left;
+		}
+	}
+	.performance-headings {
+		font-size: .5rem;
+    	text-transform: uppercase;
+    	font-weight: 700;
+	}
+}
