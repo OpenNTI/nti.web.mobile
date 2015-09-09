@@ -33,10 +33,12 @@ export default React.createClass({
 			Items: item.items
 		};
 
+		let referenced = item.items.some(comment => comment.ReferencedByCount > 0);
+
 		return (
 			<div className="deleteditemgroup">
 				<Avatar />
-				<Collapsible title={t('deletedItemsMessage', {count: numItems})}>
+				<Collapsible triangle={numItems > 1 || referenced} title={t('deletedItemsMessage', {count: numItems})}>
 					<List container={container} groupDeleted={false} />
 				</Collapsible>
 			</div>
