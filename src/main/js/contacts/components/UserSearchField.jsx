@@ -213,7 +213,7 @@ export default React.createClass({
 
 		let {selectedUsers} = this.state;
 
-		let saveButtonClasses = cx('primary tiny button', {
+		let saveButtonClasses = cx('primary button', {
 			'disabled': selectedUsers.length === 0 || this.props.saveDisabled
 		});
 
@@ -232,9 +232,11 @@ export default React.createClass({
 					</li>
 				</ul>
 				{this.results()}
-				<div className="buttons">
-					<button className="secondary button tiny" onClick={this.props.onCancel}>Cancel</button>
-					<button className={saveButtonClasses} onClick={this.props.onSave}>{this.props.saveButtonText}</button>
+				<div className="button-spacer">
+					<div className="buttons">
+						<button className="secondary button" onClick={this.props.onCancel}>Cancel</button>
+						<button className={saveButtonClasses} onClick={this.props.onSave}>{this.props.saveButtonText}</button>
+					</div>
 				</div>
 			</div>
 		);
