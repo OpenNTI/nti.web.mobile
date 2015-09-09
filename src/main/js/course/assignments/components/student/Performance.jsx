@@ -106,22 +106,12 @@ export default React.createClass({
 
 function compare (a, b, props) {
 	let property = props.shift();
-	if (property === 'completed') {
-		if(a.hasLink('History') && !b.hasLink('History')) {
-			return -1;
-		}
-		if(b.hasLink('History') && !a.hasLink('History')) {
-			return 1;
-		}
-		if(props.length > 0) {
-			return compare(a, b, props);
-		}
-		return 0;
-	}
-	if( a[property] > b[property] ) {
+	let propA = property === 'completed' ? a.hasLink('History') : a[property];
+	let propB = property === 'completed' ? b.hasLink('History') : b[property];
+	if( propA > propB ) {
 		return 1;
 	}
-	if( a[property] < b[property] ) {
+	if( propA < propB ) {
 		return -1;
 	}
 	if(props.length > 0) {
