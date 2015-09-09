@@ -254,7 +254,7 @@ export default React.createClass({
 					</span>
 				</div>
 
-				{search ? (
+				{focused && search ? (
 
 					<div className="search-results">
 						<h3>Search Results:</h3>
