@@ -40,8 +40,8 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
-			sortOn: ['title'],
-			sortDesc: false,
+			sortOn: ['available_for_submission_ending'],
+			sortDesc: true,
 			assignments: []
 		};
 	},
