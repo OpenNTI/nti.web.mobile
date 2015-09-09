@@ -16,12 +16,16 @@ export default React.createClass({
 
 		query: React.PropTypes.string,
 
-		selection: React.PropTypes.instanceOf(SelectionModel)
+		selection: React.PropTypes.instanceOf(SelectionModel),
+
+		pageSize: React.PropTypes.number
 	},
 
 
 	getInitialState () {
-		return {};
+		return {
+			page: 1
+		};
 	},
 
 
@@ -43,7 +47,7 @@ export default React.createClass({
 	search (query) {
 		const stillValid = () => this.isMounted() && query === this.props.query;
 
-		this.setState({error: void 0, results: void 0}, ()=>
+		this.setState({error: void 0, results: void 0, page: 1}, ()=>
 			getService()
 				.then(s => s.getContacts().search(query))
 				.catch(er => (er.statusCode !== -1) ? Promise.reject(er) : [])
@@ -66,8 +70,23 @@ export default React.createClass({
 	},
 
 
+	showMore (e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		let {state: {page}} = this;
+
+		page++;
+
+		this.setState({page});
+	},
+
+
 	render () {
-		let {props: {selection}, state: {results, error}} = this;
+		let {props: {selection, pageSize = 10}, state: {results, error, page}} = this;
+
+		const limit = (_, i) => i < (page * pageSize);
+		const hasMore = () => results && (results.length > page * pageSize);
 
 		if (error) {
 			return ( <Err error={error}/> );
@@ -83,7 +102,7 @@ export default React.createClass({
 
 					<Empty type="entity-search"/>
 
-				) : results.map(o =>
+				) : results.filter(limit).map(o =>
 
 					<SelectableEntity
 						key={o.getID()}
@@ -91,6 +110,12 @@ export default React.createClass({
 						selected={selection.isSelected(o)}
 						onChange={this.onSelectionChange.bind(this, o)}
 						/>
+
+				)}
+
+				{!hasMore() ? null : (
+
+					<a href="#" className="button" onClick={this.showMore}>More</a>
 
 				)}
 			</div>
