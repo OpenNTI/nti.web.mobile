@@ -28,7 +28,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Tabs className="assignments-nav" />
+				<Tabs className="assignments-nav button-group filters" />
 				{
 					React.createElement(Router.Locations, {contextual: true},
 						...ROUTES.map(route=>

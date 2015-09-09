@@ -13,32 +13,30 @@
 			@include count-badge();
 		}
 	}
-	.active {
-		.button {
-			position:relative;
-			$opacity: .1;
-			$color: black;
-			&:before { //underline
-				content: '';
-				border-bottom: 1px solid $color;
-				position: absolute;
-				width: 80%;
-				margin-left:10%;
-				bottom: 3px;
-				opacity: $opacity;
-				left: 0;
-			}
-			&:after { //arrow
-				$arrowsize:1em;
-				content:'';
-				border:($arrowsize/2) solid transparent;
-				position:absolute;
-				bottom:4px;
-				left:50%;
-				margin-left:-($arrowsize/2);
-				border-bottom-color:$color;
-				opacity: $opacity;
-			}
+	.active .button, .active.button {
+		position:relative;
+		$opacity: .1;
+		$color: black;
+		&:before { //underline
+			content: '';
+			border-bottom: 1px solid $color;
+			position: absolute;
+			width: 80%;
+			margin-left:10%;
+			bottom: 3px;
+			opacity: $opacity;
+			left: 0;
+		}
+		&:after { //arrow
+			$arrowsize:1em;
+			content:'';
+			border:($arrowsize/2) solid transparent;
+			position:absolute;
+			bottom:4px;
+			left:50%;
+			margin-left:-($arrowsize/2);
+			border-bottom-color:$color;
+			opacity: $opacity;
 		}
 	}
 }
