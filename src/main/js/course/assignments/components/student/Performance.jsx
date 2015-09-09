@@ -12,26 +12,22 @@ const columns = [
 	{
 		className: 'assigned',
 		label: 'Assigned',
-		sortOn: ['available_for_submission_beginning','available_for_submission_ending']
-
+		sortOn: ['available_for_submission_beginning','available_for_submission_ending', 'title']
 	},
 	{
 		className: 'due',
 		label: 'Due',
-		sortOn: ['available_for_submission_ending','available_for_submission_beginning']
-
+		sortOn: ['available_for_submission_ending','available_for_submission_beginning', 'title']
 	},
 	{
 		className: 'completed',
 		label: 'Completed',
 		sortOn: ['completed', 'title']
-
 	},
 	{
 		className: 'score',
 		label: 'Score',
 		sortOn: ['score', 'available_for_submission_ending']
-
 	}
 ];
 
@@ -104,10 +100,16 @@ export default React.createClass({
 	}
 });
 
+const getProp = {
+	'completed': (a) => a.hasLink('History'),
+	'available_for_submission_ending': (a) => a.available_for_submission_ending && Date.parse(a.available_for_submission_ending),
+	'available_for_submission_beginning': (a) => a.available_for_submission_beginning && Date.parse(a.available_for_submission_beginning)
+};
+
 function compare (a, b, props) {
 	let property = props.shift();
-	let propA = property === 'completed' ? a.hasLink('History') : a[property];
-	let propB = property === 'completed' ? b.hasLink('History') : b[property];
+	let propA = getProp[property] ? getProp[property](a) : a[property];
+	let propB = getProp[property] ? getProp[property](b) : b[property];
 	if( propA > propB ) {
 		return 1;
 	}
