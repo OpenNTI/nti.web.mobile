@@ -14,6 +14,8 @@ const KEY = 'defaultValue';
 
 const EVENTS = ['focus', 'focusin', 'click', 'touchstart'];
 
+const trim = x => typeof x === 'string' ? x.trim() : x;
+
 export default React.createClass({
 	displayName: 'ShareWith',
 
@@ -167,8 +169,7 @@ export default React.createClass({
 
 
 	onInputChange () {
-		let search = this.getSearchBoxEl();
-		search = search && (search.value || '').trim();
+		let search = (this.getSearchBoxEl() || {}).value;
 
 		if (!search || search === '') {
 			search = void 0;
@@ -259,7 +260,7 @@ export default React.createClass({
 					<div className="search-results">
 						<h3>Search Results:</h3>
 						<Search
-							query={search}
+							query={trim(search)}
 							selection={selection}
 							onChange={this.onSelectionChange}
 							/>
