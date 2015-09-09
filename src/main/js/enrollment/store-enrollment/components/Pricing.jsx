@@ -237,7 +237,8 @@ export default React.createClass({
 							<div className="cell coupon">
 								<span className={'label ' + couponLabelCls}>{couponLabel}</span>
 								<input type="text"
-									ref="coupon" name="coupon" disabled={locked}
+									ref="coupon" name="coupon"
+									disabled={locked} readOnly={locked}
 									placeholder={t('couponPlaceholder')}
 									onChange={this.onCouponChanged}
 									value={this.state.coupon}/>
