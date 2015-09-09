@@ -107,7 +107,7 @@ export default React.createClass({
 		title = React.findDOMNode(title).value;
 
 		let data = Object.assign({}, item, {
-			title: Editor.isEmpty(title) ? null : title.trim(),
+			title: Editor.isEmpty(title) ? void 0 : title.trim(),
 			body: body.getValue(),
 			sharedWith: shareWith.getValue()
 		});
