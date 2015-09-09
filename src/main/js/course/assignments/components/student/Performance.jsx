@@ -5,7 +5,7 @@ import cx from 'classnames';
 const columns = [
 	{
 		className: 'assignment-title',
-		label: 'Assignment',
+		label: 'Assignment Name',
 		sortOn: ['title', 'available_for_submission_ending']
 
 	},
