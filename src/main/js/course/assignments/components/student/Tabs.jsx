@@ -1,5 +1,6 @@
 import React from 'react';
-import Link from 'common/components/ActiveLink';
+import ActiveState from 'common/components/ActiveState';
+import {Link} from 'react-router-component';
 
 export default React.createClass({
 	displayName: 'Tabs',
@@ -7,9 +8,9 @@ export default React.createClass({
 	render () {
 		return (
 			<ul {...this.props}>
-				<li><Link className="tiny button" href="/assignments/">Assignments</Link></li>
-				<li><Link className="tiny button" href="/assignments/performance/">Grades &amp; Performance</Link></li>
-				<li><Link className="tiny button" href="/assignments/activity/">Activity &amp; Notifications</Link></li>
+				<li><ActiveState className="tiny button" tag={Link} href="/assignments/">Assignments</ActiveState></li>
+				<li><ActiveState className="tiny button" tag={Link} href="/assignments/performance/">Grades &amp; Performance</ActiveState></li>
+				<li><ActiveState className="tiny button" tag={Link} href="/assignments/activity/">Activity &amp; Notifications</ActiveState></li>
 			</ul>
 		);
 	}
