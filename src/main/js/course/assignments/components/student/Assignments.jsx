@@ -1,6 +1,6 @@
 import React from 'react';
 import AssignmentsList from './AssignmentsList';
-import SelectBox from 'common/components/SelectBox';
+import SortBox from './SortBox';
 
 
 export default React.createClass({
@@ -15,19 +15,6 @@ export default React.createClass({
 		return {};
 	},
 
-	componentWillMount () {
-		const {props: {assignments: {ORDER_BY_COMPLETION, ORDER_BY_DUE_DATE, ORDER_BY_LESSON}}} = this;
-
-		const sortOptions = [
-			{ label: 'By Due Date', value: ORDER_BY_DUE_DATE},
-			{ label: 'By Lesson', value: ORDER_BY_LESSON},
-			{ label: 'By Completion', value: ORDER_BY_COMPLETION}
-		];
-
-		this.setState({sortOptions, sortBy: ORDER_BY_DUE_DATE});
-	},
-
-
 	onSortChange (value) {
 		this.setState({
 			sortBy: value
@@ -41,11 +28,11 @@ export default React.createClass({
 	},
 
 	render () {
-		const {props: {course, assignments}, state: {sortOptions, sortBy, search}} = this;
+		const {props: {course, assignments}, state: {sortBy, search}} = this;
 		return (
 			<div className="assignments-view">
 				<div className="search-sort-bar">
-					<SelectBox options={sortOptions} onChange={this.onSortChange} />
+					<SortBox assignments={assignments} onChange={this.onSortChange} />
 					<input type="search" placeholder="Search Assignments" onChange={this.onSearchChange} />
 				</div>
 				<AssignmentsList sort={sortBy} search={search} course={course} assignments={assignments} />
