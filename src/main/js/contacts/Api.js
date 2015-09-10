@@ -4,42 +4,23 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import {getAppUser} from 'common/utils';
 
 const storeGetters = {
-	[USERS]: getContactsStore,
-	[GROUPS]: getGroupsStore,
-	[LISTS]: getListsStore
+	[USERS]: ()=> getService().then(service => service.getContacts()),
+	[GROUPS]: ()=> getService().then(service => service.getGroups()),
+	[LISTS]: ()=> getService().then(service => service.getLists())
 };
 
-function getContactsStore () {
-	return getService()
-		.then(service => service.getContacts());
+
+export function getStore (type) {
+	return storeGetters[type]();
 }
 
-function getGroupsStore () {
-	return getService()
-		.then(service => service.getGroups());
+export function getSuggestedContacts () {
+	return getAppUser()
+		.then(user => user.fetchLinkParsed('SuggestedContacts'));
 }
 
-function getListsStore () {
-	return getService()
-		.then(service => service.getLists());
+export function getDistributionList (id) {
+	const listId = decodeFromURI(id);
+	return getStore(LISTS).then(store =>
+			store.getLists().find(list => decodeFromURI(list.getID()) === listId) || null);
 }
-
-export default {
-	getStore (type) {
-		return storeGetters[type]();
-	},
-
-	getSuggestedContacts () {
-		return getAppUser()
-			.then(user => user.fetchLinkParsed('SuggestedContacts'));
-	},
-
-	getDistributionList (id) {
-		let listId = decodeFromURI(id);
-		return getListsStore()
-			.then(store => {
-				let lists = store.getLists();
-				return lists.find(list => decodeFromURI(list.getID()) === listId) || null;
-			});
-	}
-};

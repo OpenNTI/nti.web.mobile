@@ -1,5 +1,5 @@
 import React from 'react';
-import Api from '../Api';
+import {getDistributionList} from '../Api';
 import Loading from 'common/components/Loading';
 import ContextSender from 'common/mixins/ContextSender';
 import BasePath from 'common/mixins/BasePath';
@@ -67,8 +67,7 @@ export default React.createClass({
 	},
 
 	getList (updateOriginal = false) {
-		Api.getDistributionList(this.props.id)
-		.then((result) => {
+		getDistributionList(this.props.id).then((result) => {
 			if (!result) {
 				return this.setState({
 					error: new Error('Unable to load list'),

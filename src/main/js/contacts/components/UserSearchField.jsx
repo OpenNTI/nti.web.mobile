@@ -1,6 +1,6 @@
 import React from 'react';
 import SelectableEntity from 'common/components/SelectableEntity';
-import Api from '../Api';
+import {getStore, getSuggestedContacts} from '../Api';
 import {USERS} from '../Constants';
 import cx from 'classnames';
 import Loading from 'common/components/TinyLoader';
@@ -72,15 +72,13 @@ export default React.createClass({
 	},
 
 	setUpStore () {
-		Api.getStore(USERS)
+		getStore(USERS)
 			.then(store => this.setState({store}));
 	},
 
 	getSuggestedContacts () {
-		Api.getSuggestedContacts()
-			.then(results => this.setState({
-				suggestedContacts: results || []
-			}));
+		getSuggestedContacts()
+			.then(results => this.setState({suggestedContacts: results || []}));
 	},
 
 	focus () {
