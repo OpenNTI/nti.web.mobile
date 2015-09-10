@@ -97,6 +97,7 @@
 		font-size: .5rem;
     	text-transform: uppercase;
     	font-weight: 700;
+		color: $tertiary-grey;
 		& > * {
 			padding: $cellpadding ($cellpadding * 3) ;
 		}
@@ -104,7 +105,7 @@
 			$bordersize: .5em;
 			position: relative;
 			font-weight: 900;
-			$arrowcolor: $body-font-color;
+			$arrowcolor: $tertiary-grey;
 			&::after {
 				content: '';
 				width: 0;
