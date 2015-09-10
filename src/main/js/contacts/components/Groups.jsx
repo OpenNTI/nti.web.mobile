@@ -97,7 +97,7 @@ export default React.createClass({
 				{this.beforeList && this.beforeList(items)}
 				<div>
 					{this.listName && <h2>{this.listName}</h2>}
-					{items.length > 0 ? <ul className={'contacts-list groups avatar-grid'}>{items}</ul> : <EmptyList type="contacts" />}
+					{items.length > 0 ? <ul className={'contacts-list groups avatar-grid'}>{items}</ul> : <EmptyList type="dynamicfriendslists" />}
 				</div>
 				{this.afterList && this.afterList()}
 			</div>
