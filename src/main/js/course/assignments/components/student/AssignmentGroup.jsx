@@ -26,6 +26,6 @@ export default React.createClass({
 });
 
 
-function isDate(d) {
+function isDate (d) {
 	return !!(d || {}).toDateString;
 }
