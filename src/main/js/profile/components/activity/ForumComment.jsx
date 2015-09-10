@@ -35,7 +35,7 @@ export default React.createClass({
 					<div className="wrap">
 						<Avatar entity={item.creator} /> <DisplayName entity={item.creator} /> commented on this discussion.
 						<div className="meta">
-							<DateTime date={item.getCreatedTime()} relative={true}/>
+							<DateTime date={item.getCreatedTime()} relative/>
 						</div>
 					</div>
 					<ModeledContent body={item.body} />

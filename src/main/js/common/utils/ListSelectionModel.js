@@ -2,6 +2,8 @@ import {EventEmitter} from 'events';
 
 const Selected = Symbol();
 
+const getID = o => typeof o === 'object' ? o.getID() : o;
+
 export default class ListSelection extends EventEmitter {
 
 	constructor (initialSelection = []) {
@@ -17,7 +19,7 @@ export default class ListSelection extends EventEmitter {
 
 
 	isSelected (object) {
-		return this[Selected].findIndex(o => o.getID() === object.getID()) >= 0;
+		return this[Selected].findIndex(o => getID(o) === getID(object)) >= 0;
 	}
 
 	add (...objects) {
@@ -39,7 +41,7 @@ export default class ListSelection extends EventEmitter {
 		let list = this[Selected];
 
 		for (let object of objects) {
-			let i = list.findIndex(o => o.getID() === object.getID());
+			let i = list.findIndex(o => getID(o) === getID(object));
 			if (i >= 0) {
 				//don't use splice... treat the array as immutable.
 				list = list.slice(0,i).concat(list.slice(i + 1));

@@ -61,8 +61,8 @@ export default React.createClass({
 				<small>{t('enrollmentNotRefundable')}</small>
 				{this.props.isGiftable &&
 					<ul className="small-block-grid-2">
-						<li><Giftable fullWidth={true} href={giftHref} /></li>
-						<li><RedeemButton fullWidth={true} catalogId={this.props.entryId} /></li>
+						<li><Giftable fullWidth href={giftHref} /></li>
+						<li><RedeemButton fullWidth catalogId={this.props.entryId} /></li>
 					</ul>
 				}
 			</PanelButton>

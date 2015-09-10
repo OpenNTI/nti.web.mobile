@@ -14,6 +14,8 @@ const KEY = 'defaultValue';
 
 const EVENTS = ['focus', 'focusin', 'click', 'touchstart'];
 
+const trim = x => typeof x === 'string' ? x.trim() : x;
+
 export default React.createClass({
 	displayName: 'ShareWith',
 
@@ -57,8 +59,21 @@ export default React.createClass({
 
 	setup (props = this.props) {
 		const stillValid = () => this.isMounted() && props[KEY] === this.props[KEY];
-		const error = e => { console.error('Error getting suggestions: ', e.stack || e.message || e); return null; };
 		const {scope} = props;
+
+		function getSuggestions () {
+			try {
+				return scope.getSharingSuggestions()
+					.catch(e => {
+						console.error('Error getting suggestions: ', e.stack || e.message || e);
+						return null;
+					})
+					.then(v => (v && v.length > 0) ? v : null);
+			}
+			catch (e) {
+				return Promise.resolve(null);
+			}
+		}
 
 		let value = props.defaultValue;
 
@@ -77,13 +92,13 @@ export default React.createClass({
 			.then(stores => Promise.all(stores.map(store=> store.waitForPending()))
 							.then(()=> stores))
 
-			.then(stores => Promise.all([scope.getSharingSuggestions().catch(error), ...stores]))
+			.then(stores => Promise.all([getSuggestions(), ...stores]))
 
 			.then(all => {
 				let [suggestions, ...stores] = all;
 
 				if (stillValid()) {
-					const filter = x => !suggestions.find(o => x.getID() === o.getID());
+					const filter = x => !suggestions ? x : x && !suggestions.find(o => x.getID() === o.getID());
 					const toArray = o => {
 						let a = o ? Array.from(o).filter(filter) : [];
 						return a.length ? a : null;
@@ -154,8 +169,7 @@ export default React.createClass({
 
 
 	onInputChange () {
-		let search = this.getSearchBoxEl();
-		search = search && (search.value || '').trim();
+		let search = (this.getSearchBoxEl() || {}).value;
 
 		if (!search || search === '') {
 			search = void 0;
@@ -227,7 +241,7 @@ export default React.createClass({
 
 				<div className="share-with-entry" onClick={this.onFocus}>
 					{selection.getItems().map(e =>
-						<ShareTarget key={e.getID()} entity={e}
+						<ShareTarget key={e.getID ? e.getID() : e} entity={e}
 							selected={pendingRemove === e}
 							onClick={()=>this.onTokenTap(e)}/>
 					)}
@@ -241,12 +255,12 @@ export default React.createClass({
 					</span>
 				</div>
 
-				{search ? (
+				{focused && search ? (
 
 					<div className="search-results">
 						<h3>Search Results:</h3>
 						<Search
-							query={search}
+							query={trim(search)}
 							selection={selection}
 							onChange={this.onSelectionChange}
 							/>
@@ -284,7 +298,7 @@ export default React.createClass({
 	},
 
 
-	getValue (valueTransformer = o => o.getID()) {
+	getValue (valueTransformer = o => typeof o === 'object' ? o.getID() : o) {
 		let {state: {selection}} = this;
 		return selection.getItems().map(valueTransformer);
 	}

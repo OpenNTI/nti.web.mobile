@@ -25,25 +25,22 @@
 	}
 
 	.avatar, .grade, .badge {
+		background: {
+			size: contain;
+			repeat: no-repeat;
+			position: center center;
+		}
+		padding: 0;
 		display: inline-block;
 		position: relative;
 		float: left;
-	}
-
-	.badge {
-		width: 28px;
-		height: 28px;
-
-		background: {
-			size: contain;
-			position: center center;
-		}
+		width: 2rem;
+		height: 2rem;
 	}
 
 	.grade {
+		background-size: initial;
 		@extend %icon-assignment-ontime-small;
-		height: 28px;
-		width: 28px;
 	}
 
 	.creator{

@@ -201,7 +201,7 @@ export default React.createClass({
 					<div className="wrap">
 						<div className="meta">
 							<DisplayName entity={createdBy} className="name"/>
-							<DateTime date={createdOn} relative={true}/>
+							<DateTime date={createdOn} relative/>
 						</div>
 						<div className="message">
 							<ModeledContentPanel body={message} />
