@@ -51,7 +51,10 @@ export default React.createClass({
 
 	creationField () {
 		return (
-			<div className="inline-creation-form"><input type="text" ref="creationfield" placeholder={t('newGroupPlaceholder')}/><button className="tiny add-button" onClick={this.addGroup}>Add</button></div>
+			<div className="inline-creation-form">
+				<input type="text" ref="creationfield" placeholder={t('newGroupPlaceholder')}/>
+				<button className="tiny add-button" onClick={this.addGroup}>Add</button>
+			</div>
 		);
 	},
 
@@ -66,8 +69,12 @@ export default React.createClass({
 		return (
 			<li key={item.getID()}>
 				<div>
-					<AvatarProfileLink entity={item}><ListMeta entity={item} /></AvatarProfileLink>
-					{item.delete && (!item.friends || item.friends.length === 0) && <div className="delete" onClick={this.deleteGroup.bind(this, item)}></div>}
+					<AvatarProfileLink entity={item}>
+						<ListMeta entity={item} />
+					</AvatarProfileLink>
+					{item.delete && (!item.friends || item.friends.length === 0) && (
+						<div className="delete" onClick={this.deleteGroup.bind(this, item)}/>
+					)}
 				</div>
 			</li>
 		);
@@ -97,7 +104,11 @@ export default React.createClass({
 				{this.beforeList && this.beforeList(items)}
 				<div>
 					{this.listName && <h2>{this.listName}</h2>}
-					{items.length > 0 ? <ul className={'contacts-list groups avatar-grid'}>{items}</ul> : <EmptyList type="dynamicfriendslists" />}
+					{items.length > 0 ? (
+						<ul className={'contacts-list groups avatar-grid'}>{items}</ul>
+					) : (
+						<EmptyList type="dynamicfriendslists" />
+					)}
 				</div>
 				{this.afterList && this.afterList()}
 			</div>
