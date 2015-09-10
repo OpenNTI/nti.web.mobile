@@ -22,7 +22,9 @@ export default React.createClass({
 	propTypes: {
 		defaultValue: React.PropTypes.array,
 
-		scope: React.PropTypes.object
+		scope: React.PropTypes.object,
+
+		onBlur: React.PropTypes.func
 	},
 
 
@@ -118,7 +120,7 @@ export default React.createClass({
 		}
 
 		if (!React.findDOMNode(this).contains(e.target)) {
-			this.setState({focused: false});
+			this.setState({focused: false}, this.props.onBlur);
 		}
 	},
 

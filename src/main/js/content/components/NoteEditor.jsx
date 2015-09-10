@@ -68,7 +68,7 @@ export default React.createClass({
 				<HideNavigation/>
 
 				<form onSubmit={x => x.preventDefault() && false}>
-					<ShareWith scope={scope} defaultValue={sharedWith} ref="shareWith"/>
+					<ShareWith scope={scope} defaultValue={sharedWith} ref="shareWith" onBlur={this.ensureVisible}/>
 
 					<div className={cx('title', {error})} data-error-message={error}>
 						<input type="text" name="title" ref="title" placeholder="Title"
