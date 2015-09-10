@@ -2,9 +2,13 @@ import React from 'react';
 import Student from './student/View';
 import Instructor from './instructor/View';
 import Loading from 'common/components/Loading';
+import Navigatable from 'common/mixins/NavigatableMixin';
+import ContextSender from 'common/mixins/ContextSender';
 
 export default React.createClass({
 	displayName: 'Assignments:View',
+
+	mixins: [Navigatable, ContextSender],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired
@@ -22,6 +26,15 @@ export default React.createClass({
 
 	componentWillReceiveProps (nextProps) {
 		this.getData(nextProps);
+	},
+
+	getContext () {
+		let href = this.getNavigable().makeHref('/assignments/');
+
+		return Promise.resolve({
+			label: 'Assignments',
+			href
+		});
 	},
 
 	getData (props = this.props) {
