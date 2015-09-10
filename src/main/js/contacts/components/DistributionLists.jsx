@@ -95,7 +95,7 @@ export default React.createClass({
 			<div>
 				<Link href="/lists/new/" className="button tiny create-button">Create new list</Link>
 				<div>
-					{items.length > 0 ? <ul className={'contacts-list lists avatar-grid'}>{items}</ul> : <EmptyList type="contacts" />}
+					{items.length > 0 ? <ul className={'contacts-list lists avatar-grid'}>{items}</ul> : <EmptyList type="friendslists" />}
 				</div>
 				{this.afterList && this.afterList()}
 			</div>
