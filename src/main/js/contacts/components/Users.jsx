@@ -1,12 +1,17 @@
 import React from 'react/addons';
-import mixin from '../mixins/Mixin';
-import Loading from 'common/components/Loading';
-import {USERS} from '../Constants';
-import Err from 'common/components/Error';
+
 import ContextSender from 'common/mixins/ContextSender';
+import C from 'common/components/Conditional';
+import EmptyList from 'common/components/EmptyList';
+import Loading from 'common/components/Loading';
+import Err from 'common/components/Error';
+
 import Selectables from './Selectables';
 import UserSearchField from './UserSearchField';
 import AddPeopleButton from './AddPeopleButton';
+
+import mixin from '../mixins/Mixin';
+import {USERS} from '../Constants';
 
 export default React.createClass({
 	displayName: 'Contacts:Users',
@@ -88,7 +93,7 @@ export default React.createClass({
 
 	render () {
 
-		let {error, store} = this.state;
+		const {state: {adding, error, store}} = this;
 
 		if (error) {
 			return <Err error={error} />;
@@ -102,7 +107,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				{this.state.adding ?
+				{adding ? (
 					<div className="list-user-search">
 						<UserSearchField
 							ref="searchField"
@@ -112,9 +117,10 @@ export default React.createClass({
 							onSave={this.saveSearch}
 						/>
 					</div>
-					:
+				) : (
 					<div>
 						<AddPeopleButton onClick={this.addPeople} />
+						<C condition={items.length === 0} tag={EmptyList} type="contacts" />
 						<Selectables
 							linkToProfile
 							entities={items}
@@ -122,7 +128,7 @@ export default React.createClass({
 							labels={{selected: 'Remove', unselected: 'Undo'}}
 						/>
 					</div>
-				}
+				)}
 			</div>
 		);
 
