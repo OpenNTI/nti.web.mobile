@@ -8,6 +8,7 @@ export default React.createClass({
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
 		sort: React.PropTypes.any,
+		search: React.PropTypes.string,
 		assignments: React.PropTypes.object.isRequired
 	},
 
