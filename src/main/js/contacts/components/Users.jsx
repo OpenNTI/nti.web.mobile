@@ -98,10 +98,8 @@ export default React.createClass({
 			return <Loading />;
 		}
 
-		let items = [];
-		for(let item of store) {
-			items.push(item);
-		}
+		let items = Array.from(store);
+
 		return (
 			<div>
 				{this.state.adding ?
