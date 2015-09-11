@@ -93,6 +93,10 @@ nav.nav-bar {
 			text-align: right;
 		}
 
+		&:empty {
+			display: none;
+		}
+
 		&.middle {
 			flex: 1 1 auto;
 			position: static;

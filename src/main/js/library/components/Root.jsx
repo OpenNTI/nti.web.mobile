@@ -14,7 +14,7 @@ export default React.createClass({
 		return (
 			<div>
 				<NavigationBar>
-					<div position="left" className="branding">[Branding]</div>
+					<section position="left" className="branding">Logo</section>
 				</NavigationBar>
 
 				<Features/>

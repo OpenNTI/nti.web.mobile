@@ -35,7 +35,9 @@ export default React.createClass({
 		return (
 			<div>
 				<NavigationBar>
-					<Link href="/" position="left" className="return-to">Back</Link>
+					<section position="left">
+						<Link href="/" className="return-to">Back</Link>
+					</section>
 				</NavigationBar>
 
 				<div className="library-page-title-area">

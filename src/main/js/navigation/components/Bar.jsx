@@ -120,7 +120,7 @@ export default React.createClass({
 	getLeft () {
 		let {returnTo} = this.state || {};
 		if (returnTo) {
-			return <ReturnTo {...returnTo}/>;
+			return <section><ReturnTo {...returnTo}/></section>;
 		}
 
 		return this.getChildForSide('left');
@@ -147,11 +147,11 @@ export default React.createClass({
 		let title = (current || {}).label || this.props.title;
 
 		return this.getChildForSide('center') ||
-			this.getMenu() || (
+			this.getMenu() || title ? (
 
 			<a href={this.getBasePath()}>
 				<h1 className={css}>{title}</h1></a>
-		);
+		) : null;
 	},
 
 
@@ -248,7 +248,7 @@ export default React.createClass({
 
 		return (
 			<nav className="nav-bar">
-				<section>{this.getLeft()}</section>
+				{this.getLeft()}
 				<section className={cx('middle', {'has-pager': pageSource})}>
 					{this.getCenter()}
 				</section>
