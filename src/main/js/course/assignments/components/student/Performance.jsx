@@ -84,14 +84,14 @@ export default React.createClass({
 		return (
 			<div className="performance">
 				<div className="performance-headings">
-					{columns.map(col => {
+					{columns.map((col, index) => {
 						let sorted = sortOn[0] === col.sortOn[0];
 						let classes = cx(col.className, {
 							sorted,
 							'desc': sorted && sortDesc,
 							'asc': sorted && !sortDesc
 						});
-						return <div className={classes} onClick={this.sortOn.bind(this, col.sortOn)}>{col.label}</div>;
+						return <div key={index} className={classes} onClick={this.sortOn.bind(this, col.sortOn)}>{col.label}</div>;
 					})}
 				</div>
 				{items.map(assignment => <PerformanceItem key={assignment.getID()} assignment={assignment} sortedOn={sortOn[0]} />)}
@@ -102,8 +102,8 @@ export default React.createClass({
 
 const getProp = {
 	'completed': (a) => a.hasLink('History'),
-	'available_for_submission_ending': (a) => a.available_for_submission_ending && Date.parse(a.available_for_submission_ending),
-	'available_for_submission_beginning': (a) => a.available_for_submission_beginning && Date.parse(a.available_for_submission_beginning)
+	'available_for_submission_ending': (a) => a.getDueDate && a.getDueDate(),
+	'available_for_submission_beginning': (a) => a.getAssignedDate && a.getAssignedDate()
 };
 
 function compare (a, b, props) {
