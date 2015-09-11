@@ -22,6 +22,18 @@
 
 	.assignment-group {
 		margin-bottom: 1.5rem;
+		&.admin > h2 {
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			.column-heading {
+				font-family: $body-font-family;
+				font-size: .5rem;
+		    	text-transform: uppercase;
+		    	font-weight: 700;
+				color: $tertiary-grey;
+			}
+		}
 	}
 
 	.assignment-item {

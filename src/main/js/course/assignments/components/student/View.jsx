@@ -3,9 +3,9 @@ import Router from 'react-router-component';
 import Redirect from 'navigation/components/Redirect';
 import Tabs from '../Tabs';
 import Performance from './Performance';
-import Activity from './Activity';
-import Assignments from './Assignments';
-import Content from './Content';
+import Activity from '../Activity';
+import Assignments from '../Assignments';
+import Content from '../Content';
 
 const ROUTES = [
 	{path: '/performance(/*)', handler: Performance},
@@ -24,6 +24,7 @@ export default React.createClass({
 	},
 
 	render () {
+
 		let {course, assignments} = this.props;
 
 		return (
@@ -31,7 +32,7 @@ export default React.createClass({
 				<Tabs className="assignments-nav button-group filters" />
 				{
 					React.createElement(Router.Locations, {contextual: true},
-						...ROUTES.map(route=>
+						...ROUTES.map(route =>
 							route.path ?
 							<Router.Location {...route}
 								contentPackage={course}

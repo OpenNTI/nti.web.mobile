@@ -1,6 +1,6 @@
 import React from 'react';
 import AssignmentsList from './AssignmentsList';
-import SortBox from './SortBox';
+import SearchSortBar from './SearchSortBar';
 
 
 export default React.createClass({
@@ -31,10 +31,7 @@ export default React.createClass({
 		const {props: {course, assignments}, state: {sortBy, search}} = this;
 		return (
 			<div className="assignments-view">
-				<div className="search-sort-bar">
-					<SortBox assignments={assignments} onChange={this.onSortChange} />
-					<input type="search" placeholder="Search Assignments" onChange={this.onSearchChange} />
-				</div>
+				<SearchSortBar assignments={assignments} onSortChange={this.onSortChange} onSearchChange={this.onSearchChange} />
 				<AssignmentsList sort={sortBy} search={search} course={course} assignments={assignments} />
 			</div>
 		);
