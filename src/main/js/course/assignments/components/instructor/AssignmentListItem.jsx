@@ -14,8 +14,10 @@ export default React.createClass({
 
 	render () {
 		let {assignment, course} = this.props;
+		let late = assignment && !assignment.isNonSubmit() && assignment.isLate(new Date());
 		let classes = cx('assignment-item', {
-			complete: assignment.hasLink('History')
+			complete: assignment.hasLink('History'),
+			late
 		});
 		return (
 			<a className={classes} href={`./${encodeForURI(assignment.getID())}/`}>

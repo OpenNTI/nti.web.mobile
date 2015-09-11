@@ -22,16 +22,34 @@
 
 	.assignment-group {
 		margin-bottom: 1.5rem;
-		&.admin > h2 {
-			display: flex;
-			justify-content: space-between;
-			align-items: baseline;
-			.column-heading {
-				font-family: $body-font-family;
-				font-size: .5rem;
-		    	text-transform: uppercase;
-		    	font-weight: 700;
-				color: $tertiary-grey;
+		&.admin {
+			& > h2 {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				.column-heading {
+					font-family: $body-font-family;
+					font-size: .5rem;
+			    	text-transform: uppercase;
+			    	font-weight: 700;
+					color: $tertiary-grey;
+				}
+			}
+		}
+		.assignment-item {
+			$iconsize: 28px;
+			padding-left: 2.4rem;
+			&::after {
+				content: '';
+				@extend %icon-assignment-due;
+				width: $iconsize;
+				height: $iconsize;
+				margin-right:1em;
+			}
+			&.late {
+				&::after {
+					@extend %icon-assignment-late;
+				}
 			}
 		}
 	}
