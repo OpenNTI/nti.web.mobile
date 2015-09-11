@@ -1,5 +1,6 @@
 import React from 'react';
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
+import CompletionRatio from './CompletionRatio';
 import cx from 'classnames';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
@@ -7,18 +8,22 @@ export default React.createClass({
 	displayName: 'AssignmentItem',
 
 	propTypes: {
-		assignment: React.PropTypes.object.isRequired
+		assignment: React.PropTypes.object.isRequired,
+		course: React.PropTypes.object.isRequired
 	},
 
 	render () {
-		let {assignment} = this.props;
+		let {assignment, course} = this.props;
 		let classes = cx('assignment-item', {
 			complete: assignment.hasLink('History')
 		});
 		return (
 			<a className={classes} href={`./${encodeForURI(assignment.getID())}/`}>
-				{assignment.title}
-				<AssignmentStatusLabel assignment={assignment} />
+				<div>
+					{assignment.title}
+					<AssignmentStatusLabel assignment={assignment} />
+				</div>
+				<CompletionRatio course={course} assignment={assignment} />
 			</a>
 		);
 	}

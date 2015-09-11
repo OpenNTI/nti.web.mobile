@@ -37,10 +37,13 @@
 	}
 
 	.assignment-item {
-		display: block;
+		display: flex;
+		justify-content: space-between;
 		color: inherit;
 		position: relative;
 		padding-left: 2rem;
+		font-size: .875rem;
+		margin-bottom: 1em;
 		&::after {
 			content: '√';
 			font-family: 'icomoon';
@@ -53,6 +56,10 @@
 		}
 		&.complete::after {
 			color: $primary-green;
+		}
+		.completion-ratio {
+			min-width: 3em;
+			text-align: right;
 		}
 	}
 	.select-box {
