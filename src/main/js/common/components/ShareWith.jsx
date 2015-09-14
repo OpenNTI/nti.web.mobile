@@ -150,7 +150,7 @@ export default React.createClass({
 	},
 
 
-	onSuggestionScroll () {
+	onListScroll () {
 		const {refs: {scroller}} = this;
 		const search = this.getSearchBoxEl();
 		if (search) {
@@ -260,12 +260,18 @@ export default React.createClass({
 				{focused && search ? (
 
 					<div className="search-results">
-						<h3>Search Results:</h3>
-						<Search allowAny
-							query={trim(search)}
-							selection={selection}
-							onChange={this.onSelectionChange}
-							/>
+						<div ref="scroller"
+							onTouchStart={this.onListScroll}
+							onScroll={this.onListScroll}
+							className={cx('scroller', 'visible', {'restrict': inputFocused})}>
+							
+							<h3>Search Results:</h3>
+							<Search allowAny
+								query={trim(search)}
+								selection={selection}
+								onChange={this.onSelectionChange}
+								/>
+						</div>
 					</div>
 
 				) : (
@@ -275,8 +281,8 @@ export default React.createClass({
 					) : (
 
 						<div ref="scroller"
-							onTouchStart={this.onSuggestionScroll}
-							onScroll={this.onSuggestionScroll}
+							onTouchStart={this.onListScroll}
+							onScroll={this.onListScroll}
 							className={cx('scroller', 'visible', {'restrict': inputFocused})}>
 
 						{groupings.map(o =>
