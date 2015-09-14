@@ -147,22 +147,6 @@ module.exports = function (grunt) {
 			maps: ['<%= pkg.dist %>/**/*.map', '<%= pkg.dist %>/**/*.map.gz']
 		},
 
-		sass: {
-			options: {
-				sourceMap: true,
-				outputStyle: 'compressed',
-				includePaths: ['src/main/resources/vendor/foundation/scss']
-			},
-			dist: {
-				files: {
-					'src/main/resources/css/errorpage.css': 'src/main/resources/scss/errorpage.scss',
-					'src/main/resources/css/app.css': 'src/main/resources/scss/app.scss'
-				}
-			},
-
-			widgets: {}
-		},
-
 		eslint: {
 			// options: {
 			// 	quiet: true
@@ -208,7 +192,6 @@ module.exports = function (grunt) {
 
 		var buildSteps = [
 			'clean:stage',
-			'sass:' + target,
 			'copy:stage-' + target,
 			'webpack:site', //build site-specific styles.
 			'webpack:' + target,
@@ -235,7 +218,6 @@ module.exports = function (grunt) {
 		}
 
 		grunt.task.run([
-			'sass',
 			'eslint',
 			'execute:dev'
 		]);
