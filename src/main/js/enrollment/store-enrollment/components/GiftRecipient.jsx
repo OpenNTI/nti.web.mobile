@@ -1,7 +1,6 @@
 import React from 'react';
 import {scoped} from 'common/locale';
 import isEmail from 'nti.lib.interfaces/utils/isemail';
-import toArray from 'nti.lib.interfaces/utils/toarray';
 
 import Store from '../Store';
 
@@ -44,7 +43,7 @@ export default React.createClass({
 
 	getData () {
 		let result = {},
-			elements = toArray(React.findDOMNode(this.refs.form).elements) || [];
+			elements = Array.from(this.refs.form.elements) || [];
 
 		if (!this.state.enabled) {
 			return result;
@@ -81,7 +80,6 @@ export default React.createClass({
 	isEmpty () {
 		let {email} = this.refs;
 
-		email = email && email.isMounted() && React.findDOMNode(email);
 		email = email && email.value;
 		email = email || '';
 
@@ -90,9 +88,8 @@ export default React.createClass({
 
 
 	isValid () {
-		let email = this.refs.email;
+		let {email} = this.refs;
 
-		email = email && email.isMounted() && React.findDOMNode(email);
 		email = email && email.value;
 		email = email || '';
 

@@ -4,6 +4,7 @@ import url from 'url';
 import Path from 'path';
 import fs from 'fs';
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 const isRootPath = /^\/(?!\/).*/;
 const basepathreplace = /(manifest|src|href)="(.*?)"/igm;
@@ -69,7 +70,7 @@ export default function getPage (render) {
 					basePath
 				});
 
-				html = React.renderToString(app);
+				html = ReactDOMServer.renderToString(app);
 			}
 			finally {
 				delete global.$AppConfig;

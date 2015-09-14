@@ -3,7 +3,7 @@ import {getHandler} from '../services';
 
 import Fallback from '../services/html5';
 
-import emptyFunction from 'react/lib/emptyFunction';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import {getModel} from 'nti.lib.interfaces';
 

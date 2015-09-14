@@ -101,7 +101,7 @@ export default React.createClass({
 
 	more () {
 		let {store} = this.state;
-		// let el = React.findDOMNode(this.refs.end);
+		// let el = this.refs.end;
 		// if (el) {
 		// 	el = el.previousSibling;
 		// }

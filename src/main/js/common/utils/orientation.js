@@ -1,4 +1,4 @@
-import CSS from 'react/lib/CSSCore';
+import CSS from 'fbjs/lib/CSSCore';
 
 function handler (component) {
 	let {body} = document;

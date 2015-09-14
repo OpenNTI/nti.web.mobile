@@ -115,12 +115,14 @@ export default React.createClass({
 
 
 	maybeCloseDrawer (e) {
-		if (!this.state.focused || !this.isMounted()) {
+		const {state: {focused}, refs: {el}, props: {onBlur}} = this;
+
+		if (!focused || !this.isMounted()) {
 			return;
 		}
 
-		if (!React.findDOMNode(this).contains(e.target)) {
-			this.setState({focused: false}, this.props.onBlur);
+		if (!el.contains(e.target)) {
+			this.setState({focused: false}, onBlur);
 		}
 	},
 
@@ -135,7 +137,7 @@ export default React.createClass({
 
 	getSearchBoxEl () {
 		let {refs: {search}} = this;
-		return search && React.findDOMNode(search);
+		return search;
 	},
 
 
@@ -158,7 +160,7 @@ export default React.createClass({
 		}
 
 		if (scroller) {
-			React.findDOMNode(scroller).focus();
+			scroller.focus();
 		}
 
 		this.setState({focused: true, inputFocused: false});
@@ -239,7 +241,7 @@ export default React.createClass({
 
 
 		return (
-			<div className={cx('share-with', {'active': focused})}>
+			<div ref="el" className={cx('share-with', {'active': focused})}>
 
 				<div className="share-with-entry" onClick={this.onFocus}>
 					{selection.getItems().map(e =>

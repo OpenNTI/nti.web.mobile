@@ -24,7 +24,7 @@ External Links:
 import path from 'path';
 import React from 'react';
 import Url from 'url';
-import emptyFunction from 'react/lib/emptyFunction';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import {toAnalyticsPath} from 'analytics/utils';
 
@@ -53,7 +53,7 @@ function isExternal (item) {
 function canSetState (cmp) {
 	let can = false;
 
-	try { can = !cmp.shouldHaveDOM || !!React.findDOMNode(cmp); }
+	try { can = !cmp.shouldHaveDOM || !!cmp.refs.anchor; }
 	catch (e) {} //eslint-disable-line
 
 	return can;
@@ -286,9 +286,9 @@ export default React.createClass({
 
 
 	onClickDiscussion (e) {
-		if (this.props.disableLink) { return; }
-		let anchor = React.findDOMNode(this);
-		let {item, externalSlug = 'external'} = this.props;
+		const {refs: {anchor}, props: {disableLink, item, externalSlug = 'external'}} = this;
+
+		if (disableLink) { return; }
 		let subRef = e.target.getAttribute('href');
 
 		this.ignoreClick = true;
@@ -329,7 +329,7 @@ export default React.createClass({
 		return (
 			<a className={`content-link related-work-ref ${extra}`}
 				href={href} target={external ? '_blank' : null}
-				onClick={this.onClick}>
+				onClick={this.onClick} ref="anchor">
 
 				{!icon ? null :
 					<div className="icon" style={{backgroundImage: `url(${icon})`}}>

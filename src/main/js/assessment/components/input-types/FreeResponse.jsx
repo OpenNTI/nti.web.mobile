@@ -1,7 +1,7 @@
 import React from 'react';
 import Mixin from './Mixin';
 
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 
 /**
  * This input type represents Free Response
@@ -35,8 +35,7 @@ export default React.createClass({
 
 
 	getValue () {
-		let {input} = this.refs;
-		let {value} = (input && React.findDOMNode(input)) || {};
+		const {input: value} = this.refs || {};
 
 		return isEmpty(value) ? null : value;
 	}

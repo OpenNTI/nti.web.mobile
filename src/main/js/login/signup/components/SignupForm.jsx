@@ -56,7 +56,7 @@ export default React.createClass({
 
 
 	getFields () {
-		return (React.findDOMNode(this.refs.form) || {}).elements;
+		return (this.refs.form || {}).elements;
 	},
 
 

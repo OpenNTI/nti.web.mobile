@@ -1,6 +1,8 @@
-import guid from 'nti.lib.interfaces/utils/guid';
+import uuid from 'node-uuid';
 
 let ORIGIN;
+
+const guid = ()=> uuid.v4();
 
 export default class Point {
 	/**

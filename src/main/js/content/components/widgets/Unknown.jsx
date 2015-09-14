@@ -12,7 +12,7 @@ export default React.createClass({
 		if (typeof document === 'undefined') { return; }
 
 		let {type} = this.props.item;
-		let dom = React.findDOMNode(this);
+		const {refs: {el: dom}} = this;
 
 		if (dom) {
 			dom.appendChild(
@@ -22,7 +22,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<error className="unsupported-content">
+			<error className="unsupported-content" ref="el">
 				<span>{t('COMING_SOON.singular', {subject: 'This content'})}</span>
 			</error>
 		);

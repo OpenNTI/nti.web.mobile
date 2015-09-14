@@ -12,7 +12,7 @@ import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 

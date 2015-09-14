@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 import {scoped} from 'common/locale';
 
 import OpenEnrolledMessage from './OpenEnrolledMessage';

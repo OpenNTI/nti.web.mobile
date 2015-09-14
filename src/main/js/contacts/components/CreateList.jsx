@@ -20,7 +20,7 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		// React.findDOMNode(this.refs.newListName).focus();
+		// this.refs.newListName.focus();
 	},
 
 	onSave () {
@@ -31,7 +31,7 @@ export default React.createClass({
 			return;
 		}
 
-		let listName = React.findDOMNode(newListName).value.trim();
+		let listName = newListName.value.trim();
 		if(listName.length === 0) {
 			return;
 		}
@@ -55,9 +55,12 @@ export default React.createClass({
 	},
 
 	validateTitle () {
-		let listNameField = React.findDOMNode(this.refs.newListName);
+		const {refs: {newListName}} = this;
+
+		let {value} = newListName || {};
+
 		this.setState({
-			validTitle: listNameField && listNameField.value.trim().length > 0
+			validTitle: value && value.trim().length > 0
 		});
 	},
 

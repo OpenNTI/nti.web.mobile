@@ -1,5 +1,5 @@
 import React from 'react';
-import emptyFunction from 'react/lib/emptyFunction';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 export default React.createClass({
 	displayName: 'Transcript',

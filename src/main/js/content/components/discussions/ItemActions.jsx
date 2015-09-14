@@ -57,10 +57,9 @@ export default React.createClass({
 
 
 	componentDidUpdate () {
-		let node = React.findDOMNode(this);
-		node = node && node.querySelector('ul');
-		if (node) {
-			node.focus();
+		const {refs: {list}} = this;
+		if (list) {
+			list.focus();
 		}
 	},
 
@@ -80,7 +79,7 @@ export default React.createClass({
 					<Action name="share" item={item} criteria={CanShare(capabilities, item)}/>
 					<span className={cx('options', {open: moreOptionsOpen})}>
 						<a className="action more-options" href="#" onClick={this.toggleMenu}/>
-						<ul onBlur={this.hideMenu} tabIndex={moreOptionsOpen ? -1 : 0}>
+						<ul ref="list" onBlur={this.hideMenu} tabIndex={moreOptionsOpen ? -1 : 0}>
 							<Action name="edit" item={item} criteria={CanEdit(capabilities, item)} inList/>
 							<Action name={flag} item={item} criteria={CanFlag(capabilities, item)} inList onClick={this.onFlag}/>
 							<Action name="delete" item={item} criteria={CanDelete(capabilities, item)} inList/>

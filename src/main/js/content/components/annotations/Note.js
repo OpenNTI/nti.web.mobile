@@ -1,4 +1,4 @@
-import React from 'react';
+import ReactDOM from 'react-dom';
 import {safeBoundingBoxForRange, isZeroRect} from 'common/utils/rects';
 import iOSversion from 'common/utils/ios-version';
 
@@ -65,7 +65,7 @@ export default class Note extends Highlight {
 		let top = (has && rect.top) || HIDDEN;
 
 		if (has) {
-			let reader = React.findDOMNode(this.reader);
+			let reader = ReactDOM.findDOMNode(this.reader);
 			top -= reader ? reader.getBoundingClientRect().top : 0;
 		}
 		else {

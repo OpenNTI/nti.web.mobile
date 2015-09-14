@@ -1,5 +1,5 @@
 import React from 'react';
-import invariant from 'react/lib/invariant';
+import invariant from 'invariant';
 
 import NavigatableMixin from '../mixins/NavigatableMixin';
 
@@ -93,7 +93,7 @@ export default React.createClass({
 
 
 	componentDidUpdate () {
-		let dom = React.findDOMNode(this);
+		const {refs: {el: dom}} = this;
 		if (dom) {
 			for (let a of dom.querySelectorAll('a[href=""]')) {
 				a.removeAttribute('href');
@@ -123,8 +123,12 @@ export default React.createClass({
 
 
 	render () {
-		let prev = this.props.prev || this.state.prev || {};
-		let next = this.props.next || this.state.next || {};
+		const {state} = this;
+		let {props: {
+			position,
+			prev = state.prev || {},
+			next = state.next || {}
+		}} = this;
 
 		if (!prev.href && !next.href) {
 			return null;
@@ -136,19 +140,15 @@ export default React.createClass({
 		next = getProps(next);
 		prev = getProps(prev);
 
-		if (this.props.position === 'bottom') {
-			return (
-				<ul className="bottompager">
-					<li><a {...prev} className="button secondary tiny radius">Back</a></li>
-					<li className="counts">{this.state.total > 1 && this.makeCounts() }</li>
-					<li><a {...next} className="button secondary tiny radius">Next</a></li>
-				</ul>
-			);
-		}
-
-		return (
-			<div className="pager">
-				{this.state.total > 1 && this.makeCounts() }
+		return (position === 'bottom') ? (
+			<ul className="bottompager" ref="el">
+				<li><a {...prev} className="button secondary tiny radius">Back</a></li>
+				<li className="counts">{state.total > 1 && this.makeCounts() }</li>
+				<li><a {...next} className="button secondary tiny radius">Next</a></li>
+			</ul>
+		) : (
+			<div className="pager" ref="el">
+				{state.total > 1 && this.makeCounts() }
 				<a className="prev" {...prev}/>
 				<a className="next" {...next}/>
 			</div>

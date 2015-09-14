@@ -5,6 +5,7 @@ import {
 } from 'vtt.js';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import {getModel} from 'nti.lib.interfaces';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
@@ -55,7 +56,7 @@ class Annotation {
 		}
 
 
-		root = React.findDOMNode(root);
+		root = ReactDOM.findDOMNode(root);
 		let {scrollTop} = document.body;
 
 		let cue = start && root.querySelector(`[data-start-time="${start}"]`);

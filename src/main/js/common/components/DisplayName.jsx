@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 import cx from 'classnames';
 
@@ -123,7 +124,7 @@ export default React.createClass({
 
 
 		if (localeKey) {
-			name = React.renderToStaticMarkup(<a rel="author" className="username">{name}</a>);
+			name = ReactDOMServer.renderToStaticMarkup(<a rel="author" className="username">{name}</a>);
 
 			Object.assign(props, {
 				children: void 0,

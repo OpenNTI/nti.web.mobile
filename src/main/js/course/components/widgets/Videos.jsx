@@ -46,8 +46,8 @@ export default React.createClass({
 
 
 	componentDidUpdate () {
-		let {offsetWidth} = this.state;
-		let v = React.findDOMNode(this.refs.v);
+		const {refs: {v}, state: {offsetWidth}} = this;
+
 		let renderedOffsetWidth = v && v.offsetWidth;
 		if (offsetWidth !== renderedOffsetWidth) {
 			this.setState({offsetWidth: renderedOffsetWidth});//eslint-disable-line react/no-did-update-set-state
@@ -140,7 +140,6 @@ export default React.createClass({
 		let pixelOffset = 0;
 
 		if (videos) {
-			videos = React.findDOMNode(videos);
 			pixelOffset = active * -videos.offsetWidth;
 		}
 

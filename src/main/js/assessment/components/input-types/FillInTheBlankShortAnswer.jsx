@@ -4,8 +4,7 @@ import InputType from './Mixin';
 
 import Content from '../Content';
 
-import toArray from 'nti.lib.interfaces/utils/toarray';
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 
 const hasValue = x => x && !isEmpty(x.value);
 
@@ -65,11 +64,9 @@ export default React.createClass({
 		let {form} = this.refs;
 		if (!form || !this.isMounted()) { return; }
 
-		form = React.findDOMNode(form);
-
 		let values = null;
 
-		toArray(form.elements).forEach(x => {
+		Array.from(form.elements).forEach(x => {
 			if (hasValue(x)) {
 				values = values || {};
 				values[x.name] = x.value;

@@ -68,7 +68,7 @@ export default React.createClass( {
 
 
 	componentDidMount () {
-		let canvas = React.findDOMNode(this);
+		const {refs: {canvas}} = this;
 		let context = canvas.getContext('2d');
 
 		context.imageSmoothingEnabled = true;
@@ -78,8 +78,7 @@ export default React.createClass( {
 
 
 	componentDidUpdate () {
-		let context = React.findDOMNode(this).getContext('2d');
-		this.paint(context);
+		this.paint(this.refs.canvas.getContext('2d'));
 	},
 
 
@@ -93,7 +92,7 @@ export default React.createClass( {
 		};
 
 		return (
-			<canvas {...this.props} className="grade" style={style} width={width} height={height} />
+			<canvas ref="canvas" {...this.props} className="grade" style={style} width={width} height={height} />
 		);
 	},
 

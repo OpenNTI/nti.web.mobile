@@ -158,7 +158,7 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
-		let {username, password} = React.findDOMNode(this.refs.form).elements;
+		let {username, password} = this.refs.form.elements;
 
 		this.setState({busy: true}, () => {
 			this.updateUsername()
@@ -169,7 +169,7 @@ export default React.createClass({
 
 
 	updatePassword (e) {
-		let password = (e ? e.target : React.findDOMNode(this.refs.password));
+		let password = (e ? e.target : this.refs.password);
 		if (password) {
 			password = password.value;
 			let empty = (!password || password === '');
@@ -179,7 +179,7 @@ export default React.createClass({
 
 
 	updateUsername (e) {
-		let username = (e ? e.target : React.findDOMNode(this.refs.username));
+		let username = (e ? e.target : this.refs.username);
 
 		if (username) { //normal case, we have an element.
 			username = username.value.trim(); // flatten down to a string.

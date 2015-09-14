@@ -2,7 +2,7 @@ import React from 'react';
 
 import cx from 'classnames';
 
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 
 import Mixin from './Mixin';
 
@@ -30,9 +30,7 @@ export default React.createClass({
 
 
 	onZoom () {
-		let {image} = this.refs;
-		image = React.findDOMNode(image);
-
+		let {refs: {image}} = this;
 		if(image && image.src) {
 			this.setState({
 				zoomed: true
@@ -49,7 +47,7 @@ export default React.createClass({
 
 
 	onLoad () {
-		let i = React.findDOMNode(this.refs.image);
+		const {refs: {image: i}} = this;
 		if (i) {
 			let w = i.naturalWidth || i.width;
 			if (w > i.offsetWidth) {//image width vs on-screen width

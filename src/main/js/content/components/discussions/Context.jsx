@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 import cx from 'classnames';
 
@@ -105,7 +106,7 @@ export default React.createClass({
 
 			let context;
 			try {
-				context = type.interactiveInContext ? widget : React.renderToStaticMarkup(widget);
+				context = type.interactiveInContext ? widget : ReactDOMServer.renderToStaticMarkup(widget);
 			} catch(e) {
 				console.warn('Oops', e.stack || e.message || e);
 			}
@@ -131,7 +132,7 @@ export default React.createClass({
 		let {item} = this.props;
 		let {found, fragment, pageId} = this.state;
 
-		let root = React.findDOMNode(this);
+		const {refs: {root}} = this;
 		if (!root || found || !fragment) {
 			return !!found;
 		}
@@ -171,7 +172,7 @@ export default React.createClass({
 
 
 	focusApplicableRange () {
-		let node = React.findDOMNode(this);
+		let {refs: {root: node}} = this;
 		if (node) {
 			let focus = node.querySelector('.fucus-context-here');
 
@@ -207,7 +208,7 @@ export default React.createClass({
 					: ( null )
 				)
 				: (typeof context === 'string')
-					? ( <div {...props} dangerouslySetInnerHTML={{__html: context}}/> )
+					? ( <div ref="root" {...props} dangerouslySetInnerHTML={{__html: context}}/> )
 					: (
 						<div {...props}>
 						{

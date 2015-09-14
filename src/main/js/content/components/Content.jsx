@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import {declareCustomElement} from 'common/utils/dom';
 import {getEventTarget} from 'nti.lib.dom';
@@ -76,7 +77,7 @@ export default React.createClass({
 					// console.debug('Content View: Mounting Widget...');
 					try {
 						shouldUpdate = true;
-						w = React.render(w, el);
+						w = ReactDOM.render(w, el);
 						el.setAttribute('mounted', 'true');
 					} catch (e) {
 						console.error('A content widget blew up while rendering: %s', e.stack || e.message || e);
@@ -137,7 +138,7 @@ export default React.createClass({
 
 
 	getCurrent () {
-		return React.findDOMNode(this.refs.content);
+		return this.refs.content;
 	},
 
 

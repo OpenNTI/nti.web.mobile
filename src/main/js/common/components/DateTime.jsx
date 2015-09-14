@@ -1,6 +1,6 @@
 import React from 'react';
-import emptyFunction from 'react/lib/emptyFunction';
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import emptyFunction from 'fbjs/lib/emptyFunction';
+import isEmpty from 'fbjs/lib/isEmpty';
 import moment from 'moment';
 
 export default React.createClass({

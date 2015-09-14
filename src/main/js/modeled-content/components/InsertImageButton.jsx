@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 import WhiteboardRenderer from 'nti.lib.whiteboardjs/lib/Canvas';
 
@@ -51,7 +52,7 @@ export default React.createClass({
 			.getThumbnail(scene, false)
 				.then(thumbnail=> {
 
-					let markup = React.renderToStaticMarkup(
+					let markup = ReactDOMServer.renderToStaticMarkup(
 						React.createElement(WhiteboardIcon, {
 							thumbnail,
 							scene

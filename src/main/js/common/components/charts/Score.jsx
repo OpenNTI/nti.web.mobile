@@ -30,7 +30,7 @@ export default React.createClass({
 
 
 	getCanvas () {
-		return React.findDOMNode(this);
+		return this.refs.canvas;
 	},
 
 
@@ -77,7 +77,7 @@ export default React.createClass({
 		};
 
 		return (
-			<canvas style={style} width={width} height={height} />
+			<canvas ref="canvas" style={style} width={width} height={height} />
 		);
 	},
 

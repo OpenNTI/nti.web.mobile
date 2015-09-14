@@ -5,7 +5,7 @@
 
 import QueryString from 'query-string';
 import {getService} from 'common/utils';
-import {thatReturnsArgument as is} from 'react/lib/emptyFunction';
+import {thatReturnsArgument as is} from 'fbjs/lib/emptyFunction';
 
 const test = RegExp.prototype.test;
 const isHLS = test.bind(/ip(hone|ad)new/i);

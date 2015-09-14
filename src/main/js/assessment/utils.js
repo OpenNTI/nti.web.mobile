@@ -1,4 +1,4 @@
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 
 
 export function getMainSubmittable (assessment) {

@@ -71,7 +71,7 @@ export default React.createClass({
 
 	updateKey () {
 		let {key} = this.refs;
-		let {value} = (key && React.findDOMNode(key)) || {};
+		let {value} = key || {};
 
 		this.setState({accessKey: value});
 	},

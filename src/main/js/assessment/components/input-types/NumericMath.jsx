@@ -1,7 +1,7 @@
 import React from 'react';
 import Mixin from './Mixin';
 
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 
 const isValid = /^[0-9\-\/\\,\.\*¼-¾]*$/;
 
@@ -31,8 +31,8 @@ export default React.createClass({
 
 
 	getValue () {
-		let {input} = this.refs;
-		let {value} = (input && React.findDOMNode(input)) || {};
+		const {input} = this.refs;
+		const {value} = input || {};
 
 		return isEmpty(value) ? null :
 				!isValid.test(value) ?

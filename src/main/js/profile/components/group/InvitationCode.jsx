@@ -19,9 +19,8 @@ export default React.createClass({
 		const selection = window.getSelection();
 		const range = document.createRange();
 
+		range.selectNodeContents(this.refs.code);
 		selection.removeAllRanges();
-
-		range.selectNodeContents(React.findDOMNode(this.refs.code));
 		selection.addRange(range);
 	},
 

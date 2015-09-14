@@ -210,7 +210,7 @@ export default {
 					format = formatters[i];
 
 					if (isFunction(format)) {
-						format(React.findDOMNode(ref));
+						format(ref);
 					}
 				}
 			}

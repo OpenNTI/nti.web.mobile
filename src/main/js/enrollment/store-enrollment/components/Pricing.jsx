@@ -146,9 +146,7 @@ export default React.createClass({
 			return this.setState({ coupon: this.state.coupon });
 		}
 
-		let couponRef = this.refs.coupon,
-			couponEl = couponRef && couponRef.isMounted() && React.findDOMNode(couponRef),
-			coupon = couponEl && couponEl.value;
+		let coupon = (this.refs.coupon || {}).value;
 
 		this.setState({
 			coupon: coupon,

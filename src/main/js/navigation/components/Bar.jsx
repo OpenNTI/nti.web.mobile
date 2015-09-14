@@ -242,7 +242,7 @@ export default React.createClass({
 
 		return (
 			<div className={css}>
-				<Transition transitionName="nav-menu">
+				<Transition transitionName="nav-menu" transitionEnterTimeout={350} transitionLeaveTimeout={350}>
 					{menuOpen && <a href="#" className="nav-menu-mask" onClick={this.closeMenu} key="mask"/>}
 					{this.renderMenu()}
 				</Transition>

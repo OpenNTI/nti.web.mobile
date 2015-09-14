@@ -26,7 +26,7 @@ export default React.createClass({
 
 	clearFilter () {
 		this.setState({filter: undefined}, ()=> {
-			let target = React.findDOMNode(this.refs.filter);
+			const {refs: {fitlter: target}} = this;
 			target.focus();
 			this.updateFilter({target: {value: ''}});
 		});

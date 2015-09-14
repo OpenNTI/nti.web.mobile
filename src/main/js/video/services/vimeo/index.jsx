@@ -5,7 +5,7 @@ import MESSAGES from 'common/utils/WindowMessageListener';
 
 import {EventHandlers} from '../../Constants';
 
-import guid from 'nti.lib.interfaces/utils/guid';
+import uuid from 'node-uuid';
 import QueryString from 'query-string';
 
 const VIMEO_EVENTS_TO_HTML5 = {
@@ -43,7 +43,7 @@ let Source = React.createClass({
 
 
 	componentWillMount () {
-		let id = guid();
+		let id = uuid.v4();
 		this.setState({id});
 		this.updateURL(this.props, id);
 	},
@@ -103,7 +103,7 @@ let Source = React.createClass({
 
 
 	getPlayerContext () {
-		let iframe = React.findDOMNode(this);
+		const {refs: {iframe}} = this;
 		return iframe && (iframe.contentWindow || window.frames[iframe.name]);
 	},
 
@@ -185,7 +185,7 @@ let Source = React.createClass({
 		});
 
 		return (
-			<iframe {...props} src={this.state.playerURL}
+			<iframe ref="iframe" {...props} src={this.state.playerURL}
 				frameBorder="0" seemless allowFullScreen allowTransparency />
 		);
 	},

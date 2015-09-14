@@ -1,5 +1,5 @@
 import React from 'react';
-import emptyFunction from 'react/lib/emptyFunction';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 import {Draggable} from 'common/dnd';
 
 import Content from './Content';

@@ -1,5 +1,5 @@
 import React from 'react';
-import CSS from 'react/lib/CSSCore';
+import CSS from 'fbjs/lib/CSSCore';
 
 export default React.createClass({
 	displayName: 'HideNavigation',

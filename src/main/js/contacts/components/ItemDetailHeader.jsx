@@ -51,9 +51,8 @@ export default React.createClass({
 			renaming: !renaming
 		}, () => {
 			if(newName) {
-				let n = React.findDOMNode(newName);
-				n.focus();
-				n.selectionStart = n.selectionEnd = n.value.length;
+				newName.focus();
+				(n => n.selectionStart = n.selectionEnd = n.value.length)(newName);
 			}
 		});
 	},
@@ -61,7 +60,7 @@ export default React.createClass({
 	saveRename () {
 		const {props: {list}, refs: {newName}} = this;
 
-		let alias = React.findDOMNode(newName).value.trim();
+		let alias = newName.value.trim();
 
 		console.log(alias);
 

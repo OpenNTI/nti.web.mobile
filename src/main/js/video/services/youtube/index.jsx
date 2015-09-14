@@ -1,5 +1,5 @@
 import React from 'react';
-import invariant from 'react/lib/invariant';
+import invariant from 'invariant';
 
 import {EventHandlers} from '../../Constants';
 
@@ -8,8 +8,8 @@ import MESSAGES from 'common/utils/WindowMessageListener';
 
 import QueryString from 'query-string';
 
-import guid from 'nti.lib.interfaces/utils/guid';
 import Task from 'nti.lib.interfaces/utils/task';
+import uuid from 'node-uuid';
 
 const YOU_TUBE = 'https://www.youtube.com';
 
@@ -62,7 +62,7 @@ let Source = React.createClass({
 
 
 	getInitialState () {
-		return {id: guid(), scope: YOU_TUBE, playerState: -1};
+		return {id: uuid.v4(), scope: YOU_TUBE, playerState: -1};
 	},
 
 
@@ -146,9 +146,6 @@ let Source = React.createClass({
 
 	getPlayerContext () {
 		let {iframe} = this.refs;
-		if (iframe) {
-			iframe = React.findDOMNode(iframe);
-		}
 		return iframe && (iframe.contentWindow || window.frames[iframe.name]);
 	},
 

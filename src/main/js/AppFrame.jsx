@@ -1,5 +1,5 @@
 import React from 'react';
-import CSS from 'react/lib/CSSCore';
+import CSS from 'fbjs/lib/CSSCore';
 
 import Session from 'common/components/Session';
 import Footer from 'common/components/Footer';
@@ -50,7 +50,7 @@ export default React.createClass({
 	},
 
 
-	componentDidUnmount () {
+	componentWillUnmount () {
 		removeEventListener('hashchange', this.onNavChange, false);
 		removeEventListener('popstate', this.onNavChange, false);
 	},
@@ -111,7 +111,7 @@ export default React.createClass({
 			this.waitForCloseAnimation = setTimeout(() => {
 
 				//get a reference to the dom node.
-				let el = React.findDOMNode(this.refs.rightMenu);
+				let el = this.refs.rightMenu;
 				CSS.addClass(el, 'kill-transitions');
 				setTimeout(()=> CSS.removeClass(el, 'kill-transitions'), 17/*one frame*/);
 			}, 550);

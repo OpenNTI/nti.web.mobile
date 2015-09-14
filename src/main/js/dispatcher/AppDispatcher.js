@@ -1,5 +1,5 @@
 import {Dispatcher} from 'flux';
-import invariant from 'react/lib/invariant';
+import invariant from 'invariant';
 
 class AppDispatcher extends Dispatcher {
 

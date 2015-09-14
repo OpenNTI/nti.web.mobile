@@ -1,5 +1,5 @@
 import React from 'react';
-import CSS from 'react/lib/CSSCore';
+import CSS from 'fbjs/lib/CSSCore';
 import cx from 'classnames';
 
 import {Editor} from 'modeled-content';
@@ -40,7 +40,7 @@ export default React.createClass({
 
 
 	ensureVisible () {
-		let el = React.findDOMNode(this);
+		let {refs: {el}} = this;
 		let margin = parseInt(getComputedStyle(el)['margin-top'], 10);
 
 		let top = 0;
@@ -63,7 +63,7 @@ export default React.createClass({
 		}
 
 		return (
-			<div className={cx('note-editor-frame editor', {busy})}>
+			<div ref="el" className={cx('note-editor-frame editor', {busy})}>
 				<DarkMode/>
 				<HideNavigation/>
 
@@ -89,7 +89,7 @@ export default React.createClass({
 
 	onCancel (e) {
 		let {onCancel} = this.props;
-		let dom = React.findDOMNode(this);
+		const {refs: {el: dom}} = this;
 
 		CSS.removeClass(dom.parentNode, 'saving');
 
@@ -100,11 +100,11 @@ export default React.createClass({
 	onSubmit () {
 		let item = this.getItemData();
 
-		let {props: {onSave}, refs: {body, shareWith, title}} = this;
+		let {props: {onSave}, refs: {body, shareWith, title, el: {parentNode}}} = this;
 
-		CSS.addClass(React.findDOMNode(this).parentNode, 'saving');
+		CSS.addClass(parentNode, 'saving');
 
-		title = React.findDOMNode(title).value;
+		title = title.value;
 
 		let data = Object.assign({}, item, {
 			title: Editor.isEmpty(title) ? void 0 : title.trim(),

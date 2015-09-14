@@ -39,7 +39,7 @@ export default React.createClass({
 
 
 	getFieldValues () {
-		let {password, password2} = (React.findDOMNode(this.refs.form) || {}).elements || {};
+		let {password, password2} = (this.refs.form || {}).elements || {};
 
 		let fields = {password, password2};
 

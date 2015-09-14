@@ -20,7 +20,7 @@ export default React.createClass({
 
 
 	getFieldValues () {
-		let {email, username} = (React.findDOMNode(this.refs.form) || {}).elements || {};
+		let {email, username} = (this.refs.form || {}).elements || {};
 
 		let fields = {email};
 

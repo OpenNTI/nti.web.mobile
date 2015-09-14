@@ -3,6 +3,8 @@
  * along side the components/units they will be testing.
  */
 import React from 'react';
+import ReactDOM from 'react-dom';
+
 import Button from 'common/forms/components/Button';
 
 describe('FooBar', ()=> {
@@ -13,7 +15,7 @@ describe('FooBar', ()=> {
 		container.id = 'content';
 		document.body.appendChild(container);
 
-		component = React.render(
+		component = ReactDOM.render(
 			React.createElement(Button, {href: '#'}, 'Test'),
 			container
 		);
@@ -22,7 +24,7 @@ describe('FooBar', ()=> {
 
 	it('should create a new instance of Button', ()=> {
 		expect(component).toBeDefined();
-		expect(React.findDOMNode(component).textContent).toBe('Test');
+		expect(ReactDOM.findDOMNode(component).textContent).toBe('Test');
 	});
 
 

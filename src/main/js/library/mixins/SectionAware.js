@@ -1,8 +1,8 @@
-import keyMirror from 'react/lib/keyMirror';
 import Filters from '../Filters';
 import LibraryAccessor from './LibraryAccessor';
 
-const SECTION_NAMES = keyMirror({ admin: null, courses: null, books: null });
+//the keys and values must match.
+const SECTION_NAMES = { admin: 'admin', courses: 'courses', books: 'books' };
 
 
 const SECTION_PROPERTY_MAP = {

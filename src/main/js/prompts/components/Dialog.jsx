@@ -1,5 +1,6 @@
 import React from 'react';
-import emptyFunction from 'react/lib/emptyFunction';
+import ReactDOM from 'react-dom';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 let Dialog = React.createClass({
 	displayName: 'Dialog',
@@ -25,7 +26,7 @@ let Dialog = React.createClass({
 			}
 
 			try {
-				this.active = React.render(
+				this.active = ReactDOM.render(
 					React.createElement(Dialog, props),
 					this.getMountPoint());
 			}
@@ -111,9 +112,11 @@ let Dialog = React.createClass({
 	componentDidUpdate () {
 		let focusNode;
 		if (this.isMounted()) {
-			focusNode = this.refs.confirm || this.refs.cancel || this;
+			const {refs} = this;
 
-			React.findDOMNode(focusNode).focus();
+			focusNode = refs.confirm || refs.cancel || refs.frame;
+
+			focusNode.focus();
 		}
 	},
 
@@ -129,7 +132,7 @@ let Dialog = React.createClass({
 		title = title || 'Alert'; //TODO: localize the default
 
 		return (
-			<div className={`modal dialog mask ${state}`} onKeyDown={this.handleEscapeKey}>
+			<div ref="frame" className={`modal dialog mask ${state}`} onKeyDown={this.handleEscapeKey}>
 
 				<div className={`dialog window ${state}`}>
 					{this.renderDismissControl()}

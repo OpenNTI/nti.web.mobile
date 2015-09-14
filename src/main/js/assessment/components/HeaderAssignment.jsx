@@ -8,7 +8,7 @@ import Grade from './Grade';
 import TimedPlaceholder from './TimedPlaceholder';
 import TimeLockedPlaceholder from './TimeLockedPlaceholder';
 
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 
 export default React.createClass({
 	displayName: 'HeaderAssignment',

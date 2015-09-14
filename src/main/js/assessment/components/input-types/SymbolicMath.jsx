@@ -1,7 +1,7 @@
 import React from 'react';
 import Mixin from './Mixin';
 
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 
 /**
 * This input type represents Symbolic Math
@@ -30,9 +30,8 @@ export default React.createClass({
 
 
 	getValue () {
-		let ref = this.refs.input;
-		let input = ref && React.findDOMNode(ref);
-		let value = input && input.value;
+		const {input} = this.refs;
+		const {value} = input || {};
 
 		return isEmpty(value) ? null : value;
 	}

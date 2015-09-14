@@ -1,5 +1,5 @@
 import fs from 'fs';
-import guid from 'nti.lib.interfaces/utils/guid';
+import uuid from 'node-uuid';
 import logger from './logger';
 import path from 'path';
 
@@ -36,7 +36,7 @@ export default function setupErrorHandler (express, config) {
 			err = err.stack;
 		}
 
-		let errorid = guid();
+		let errorid = uuid.v4();
 		logger.error(errorid, err);
 
 		let body;

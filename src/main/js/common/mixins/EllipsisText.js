@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import setTextContent from 'react/lib/setTextContent';
 
 import SharedExecution from '../utils/SharedExecution';
@@ -57,12 +58,12 @@ export default {
 
 	componentDidMount () {
 		SharedExecution.clear(this.tt);
-		this.tt = truncateText(React.findDOMNode(this), this.props.measureOverflow);
+		this.tt = truncateText(ReactDOM.findDOMNode(this), this.props.measureOverflow);
 	},
 
 
 	componentDidUpdate () {
 		SharedExecution.clear(this.tt);
-		this.tt = truncateText(React.findDOMNode(this), this.props.measureOverflow);
+		this.tt = truncateText(ReactDOM.findDOMNode(this), this.props.measureOverflow);
 	}
 };

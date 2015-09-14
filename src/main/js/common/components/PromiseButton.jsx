@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 import cx from 'classnames';
 
@@ -107,7 +108,7 @@ export default React.createClass({
 		let css = cx('promise-button', className, this.state.status);
 
 		// A dummy element used to size the container to match the default (first) state.
-		let sizer = React.renderToStaticMarkup(React.createElement('span', {}, children));
+		let sizer = ReactDOMServer.renderToStaticMarkup(React.createElement('span', {}, children));
 
 		return (
 			<button className={css} onClick={this.go}>

@@ -15,9 +15,6 @@ export default React.createClass({
 		entity: React.PropTypes.object
 	},
 
-	selectInvite () {
-		React.findDOMNode(this.refs.inviteCode).select();
-	},
 
 	render () {
 		let {children, entity} = this.props;

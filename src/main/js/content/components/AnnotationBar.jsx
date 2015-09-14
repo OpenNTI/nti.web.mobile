@@ -1,5 +1,5 @@
 import React from 'react';
-import CSS from 'react/lib/CSSCore';
+import CSS from 'fbjs/lib/CSSCore';
 import cx from 'classnames';
 
 import C from 'common/components/Conditional';
@@ -80,7 +80,7 @@ export default React.createClass({
 
 		//we want the exit-animation to be different for this action
 		// than the normal one, so we need an extra class.
-		let dom = React.findDOMNode(this);
+		const {refs: {el: dom}} = this;
 		CSS.addClass(dom.parentNode, 'swapping-modal');
 
 		this.setState({busy: 'note'});
@@ -114,7 +114,7 @@ export default React.createClass({
 			// and fallback to onClick so we can read the selection before it goes away.
 
 		return (
-			<div className="add annotation toolbar">
+			<div className="add annotation toolbar" ref="el">
 				{hightlighters}
 
 				<C tag="button" condition={!!onRemoveHighlight}

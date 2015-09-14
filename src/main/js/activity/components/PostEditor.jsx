@@ -65,7 +65,7 @@ export default React.createClass({
 		}
 
 		const {props: {onSubmit}, refs: {title, editor, sharing}} = this;
-		let titleValue = React.findDOMNode(title).value;
+		let {value: titleValue} = title;
 		let body = editor.getValue();
 
 		let shareWith = sharing && sharing.getValue(o => o.NTIID);

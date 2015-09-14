@@ -33,7 +33,7 @@ export default React.createClass({
 			return;
 		}
 
-		let listName = React.findDOMNode(newListName).value.trim();
+		let listName = newListName.value.trim();
 		if(listName.length === 0) {
 			return;
 		}

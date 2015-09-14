@@ -9,31 +9,28 @@ require('script!../resources/vendor/modernizr/modernizr.js');//injects a <script
 import FastClick from 'fastclick';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 // import Relay from 'react-relay';
 
-import EventPluginHub from 'react/lib/EventPluginHub';
-import ResponderEventPlugin from 'common/thirdparty/ResponderEventPlugin';
-import TapEventPlugin from 'common/thirdparty/TapEventPlugin';
+// import EventPluginHub from 'react/lib/EventPluginHub';
+// import ResponderEventPlugin from 'common/thirdparty/ResponderEventPlugin';
+// import TapEventPlugin from 'common/thirdparty/TapEventPlugin';
 
 import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'common/utils';
 import OrientationHandler from 'common/utils/orientation';
-//import emptyFunction from 'react/lib/emptyFunction';
-//import preventOverscroll from 'common/thirdparty/prevent-overscroll';
 
 
 overrideConfigAndForceCurrentHost();
 console.debug('Client is using host: %s', getServerURI());
 
 
-EventPluginHub.injection.injectEventPluginsByName({
-	ResponderEventPlugin: ResponderEventPlugin,
-	TapEventPlugin: TapEventPlugin
-});
+// EventPluginHub.injection.injectEventPluginsByName({
+// 	ResponderEventPlugin: ResponderEventPlugin,
+// 	TapEventPlugin: TapEventPlugin
+// });
 
 
 FastClick.attach(document.body);
-
-React.initializeTouchEvents(true);
 
 
 // preventOverscroll(document.body);
@@ -52,7 +49,7 @@ let basePath = (global.$AppConfig || {}).basepath || '/';
 
 import AppView from './AppView';
 
-let app = React.render(
+let app = ReactDOM.render(
 	React.createElement(AppView, {basePath}),
 	document.getElementById('content')
 );
@@ -92,17 +89,6 @@ LoginStore.addChangeListener(evt => {
 //After bundle CSS is injected, lets move this back down so it overrides the bundle.
 let site = document.getElementById('site-override-styles');
 if (site) { site.parentNode.appendChild(site); }
-
-let sscss = document.getElementById('server-side-style');
-
-//Lets free some memory... the server sends styles to the initial page view looks
-//correct while the bundle downloads/loads...once loaded and in place, we want to
-//remove the styles the server injected, in favor of the client's bundled styles
-//(probably 100% identical, but we can't cut it out of the bundle...so lets just
-//remove this form the dom and free up memory)... It's served its purpose.
-if (sscss) {
-	sscss.parentNode.removeChild(sscss);
-}
 
 OrientationHandler.init(app);
 

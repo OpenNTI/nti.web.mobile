@@ -31,7 +31,7 @@ export default React.createClass({
 			return;
 		}
 
-		let name = React.findDOMNode(creationfield).value.trim();
+		let name = creationfield.value.trim();
 		if(name.length === 0) {
 			return;
 		}

@@ -1,6 +1,4 @@
-import emptyFunction from 'react/lib/emptyFunction';
-
-import hasValue from 'nti.lib.interfaces/utils/object-has-value';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import {getModel} from 'nti.lib.interfaces';
 
@@ -55,6 +53,12 @@ function getQuestion (thing, part) {
 			thing
 		);
 }
+
+
+function hasValue (obj, v) {
+	return obj && Object.values(obj).indexOf(v) > -1;
+}
+
 
 class Store extends StorePrototype {
 

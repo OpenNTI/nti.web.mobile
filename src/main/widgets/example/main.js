@@ -6,6 +6,7 @@ require('script!../../resources/vendor/modernizr/modernizr.js');
 /*bootstrap junk end*/
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import FastClick from 'fastclick';
 
@@ -21,7 +22,7 @@ overrideConfigAndForceCurrentHost();
 React.initializeTouchEvents(true);
 
 const WidgetView = React.createFactory(Widget);
-React.render(
+ReactDOM.render(
 	WidgetView(),
 	document.getElementById('content')
 );
