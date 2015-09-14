@@ -87,7 +87,6 @@
     "nti.lib.whiteboardjs": "git+https://repos.nextthought.com/git/nti.lib.whiteboardjs",
     "null-loader": "^0.1.0",
     "numeral": "^1.5.3",
-    "object-assign": ">=4.0.0",
     "object-hash": ">=0.9.0",
     "query-string": "^2.0.0",
     "react": "^0.14.0",
