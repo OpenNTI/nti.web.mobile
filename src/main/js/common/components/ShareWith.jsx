@@ -261,7 +261,7 @@ export default React.createClass({
 
 					<div className="search-results">
 						<h3>Search Results:</h3>
-						<Search
+						<Search allowAny
 							query={trim(search)}
 							selection={selection}
 							onChange={this.onSelectionChange}

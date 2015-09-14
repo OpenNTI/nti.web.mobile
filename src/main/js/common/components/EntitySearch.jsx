@@ -12,6 +12,8 @@ export default React.createClass({
 	displayName: 'UserSearch',
 
 	propTypes: {
+		allowAny: React.PropTypes.bool,
+
 		onChange: React.PropTypes.func,
 
 		query: React.PropTypes.string,
@@ -45,11 +47,12 @@ export default React.createClass({
 
 
 	search (query) {
+		const {props: {allowAny}} = this;
 		const stillValid = () => this.isMounted() && query === this.props.query;
 
 		this.setState({error: void 0, results: void 0, page: 1}, ()=>
 			getService()
-				.then(s => s.getContacts().search(query))
+				.then(s => s.getContacts().search(query, allowAny))
 				.catch(er => (er.statusCode !== -1) ? Promise.reject(er) : [])
 				.then(results => {
 					if (!stillValid()) {
