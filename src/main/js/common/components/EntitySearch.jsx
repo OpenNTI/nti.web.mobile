@@ -91,12 +91,14 @@ export default React.createClass({
 		const limit = (_, i) => i < (page * pageSize);
 		const hasMore = () => results && (results.length > page * pageSize);
 
+		let Tag = !results || results.length === 0 ? 'div' : 'ul';
+
 		if (error) {
 			return ( <Err error={error}/> );
 		}
 
 		return (
-			<div className="entity-search">
+			<Tag className="entity-search">
 				{!results ? (
 
 					<Loading/>
@@ -121,7 +123,7 @@ export default React.createClass({
 					<a href="#" className="button" onClick={this.showMore}>More</a>
 
 				)}
-			</div>
+			</Tag>
 		);
 	}
 });
