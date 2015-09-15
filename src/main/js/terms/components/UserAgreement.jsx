@@ -1,12 +1,12 @@
 import React from 'react';
 
+import {getService} from 'common/utils';
+
 import Conditional from 'common/components/Conditional';
 import ErrorWidget from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import BasePath from 'common/mixins/BasePath';
-// import preventOverscroll from 'common/thirdparty/prevent-overscroll';
 
-import Store from '../Store';
 
 export default React.createClass({
 	displayName: 'UserAgreement',
@@ -21,8 +21,22 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		Store.getUserAgreement(this.getBasePath())
+		this.getUserAgreement(this.getBasePath())
 			.then(this.setContent, this.setError);
+	},
+
+
+	getUserAgreement (basePath) {
+		let url = basePath + 'api/user-agreement/';
+
+		return getService()
+			.then(service => service.get(url))
+			.catch(reason => {
+				if (reason.responseJSON) {
+					reason = reason.responseJSON.message;
+				}
+				return Promise.reject(reason);
+			});
 	},
 
 
@@ -39,7 +53,6 @@ export default React.createClass({
 			content: result.body,
 			loading: false
 		});
-		// preventOverscroll(React.findDOMNode(this).querySelector('.agreement'));
 	},
 
 
