@@ -108,7 +108,7 @@
 }
 
 .performance {
-	margin: 1rem;
+	margin: 1rem 0;
 	font-size: .75rem;
 	@media (min-width:600px) {
 		font-size: 1rem;
@@ -139,6 +139,12 @@
 		& > * {
 			padding: $cellpadding ($cellpadding * 3);
 			white-space: nowrap;
+		}
+		.completed {
+			font-family: 'icomoon';
+			&.sorted::after {
+				margin-left: 0;
+			}
 		}
 		.sorted {
 			$bordersize: .5em;

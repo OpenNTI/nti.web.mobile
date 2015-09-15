@@ -4,6 +4,11 @@ import cx from 'classnames';
 
 const columns = [
 	{
+		className: 'completed',
+		label: '√',
+		sortOn: ['completed', 'title']
+	},
+	{
 		className: 'assignment-title',
 		label: 'Assignment Name',
 		sortOn: ['title', 'available_for_submission_ending']
@@ -18,11 +23,6 @@ const columns = [
 		className: 'due',
 		label: 'Due',
 		sortOn: ['available_for_submission_ending','available_for_submission_beginning', 'title']
-	},
-	{
-		className: 'completed',
-		label: 'Completed',
-		sortOn: ['completed', 'title']
 	},
 	{
 		className: 'score',
