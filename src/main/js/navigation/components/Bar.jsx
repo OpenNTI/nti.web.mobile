@@ -147,13 +147,13 @@ export default React.createClass({
 		let title = (current || {}).label || this.props.title;
 
 		return this.getChildForSide('center') ||
-			this.getMenu() || title ? (
+			this.getMenu() || (title ? (
 
 			<a href={this.getBasePath()}>
 				<h1 className={css}>{title}</h1>
 			</a>
 
-		) : null;
+		) : null);
 	},
 
 
