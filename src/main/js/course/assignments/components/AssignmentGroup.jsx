@@ -2,6 +2,7 @@ import React from 'react';
 import AssignmentItem from './AssignmentItem';
 import DateTime from 'common/components/DateTime';
 import cx from 'classnames';
+import EmptyList from 'common/components/EmptyList';
 
 export default React.createClass({
 	displayName: 'AssignmentGroup',
@@ -25,7 +26,12 @@ export default React.createClass({
 					{course.isAdministrative && <span className="column-heading">Completion</span>}
 				</h2>
 				<ul>
-					{group.items.map(assignment => <li key={assignment.getID()}><AssignmentItem assignment={assignment} course={course} /></li>)}
+					{
+						group.items.length > 0
+							? group.items.map(assignment => <li key={assignment.getID()}><AssignmentItem assignment={assignment} course={course} /></li>)
+							: <EmptyList type='assignments'/>
+
+					}
 				</ul>
 			</div>
 		);
