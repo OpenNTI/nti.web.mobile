@@ -6,6 +6,9 @@
 		position: fixed;
 		top: 0;
 		left: 0;
+
+		max-width: auto;
+
 		@include viewportWidth(min-width, 100);
 		@include viewportHeight(min-height, 100);
 		opacity: .8;
