@@ -16,9 +16,19 @@ class ServeUserAgreement {
 	}
 
 	handle (req, res) {
-		const SERVER_CONTEXT = req;
+		let SERVER_CONTEXT = req;
 		this.server.get('logon.ping', SERVER_CONTEXT)
-			.then(pong => getLink(pong, TOS_NOT_ACCEPTED) || this.url)
+			.then(pong => getLink(pong, TOS_NOT_ACCEPTED))
+
+			//If there is a @NamedLink we have to pass request context,
+			//if its an external link like docs.google... blank out context.
+			.then(url => {
+				if (!url) {
+					SERVER_CONTEXT = {};
+					url = this.url;
+				}
+				return url;
+			})
 
 			.then(url => url || Promise.reject(new Error('No user-agreement url set')))
 
