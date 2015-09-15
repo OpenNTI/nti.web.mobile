@@ -24,7 +24,7 @@ export default React.createClass({
 		this.setState({busy: true});
 
 		getAppUser()
-			// .then(u => u.acceptTermsOfService())
+			.then(u => u.acceptTermsOfService())
 			.catch(e => console.error(e.stack || e.message || e))
 			.then(()=> location.replace(getReturnURL()));
 	},
