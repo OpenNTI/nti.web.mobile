@@ -10,7 +10,7 @@ export default React.createClass({
 			<ul {...this.props}>
 				<li><ActiveState className="tiny button" tag={Link} href="/">Assignments</ActiveState></li>
 				<li><ActiveState className="tiny button" tag={Link} href="/performance/">Grades &amp; Performance</ActiveState></li>
-				<li><ActiveState className="tiny button" tag={Link} href="/activity/">Activity &amp; Notifications</ActiveState></li>
+				<li><ActiveState className="tiny button" tag={Link} href="/activity/">Activity</ActiveState></li>
 			</ul>
 		);
 	}
