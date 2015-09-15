@@ -1,52 +1,73 @@
-import request from 'nti.lib.interfaces/utils/request';
+import getLink from 'nti.lib.interfaces/utils/getlink';
+import {TOS_NOT_ACCEPTED} from 'nti.lib.interfaces/constants';
 
-const BODY_REGEX = /<body[^>]*>(.*)<\/body/i;
+const tagPattern = tag => new RegExp('<' + tag + '[^>]*>([\\s\\S]*?)</' + tag + '>', 'ig');
+const BODY_REGEX = /<body[^>]*>([\s\S]*)<\/body/i;//no g
 const SHOULD_REDIRECT = RegExp.prototype.test.bind(/\/view/);
 
+
 class ServeUserAgreement {
-	constructor (config) {
-		this.url = config['user-agreement'];
+	constructor (config, server) {
+		Object.assign(this, {
+			host: config.server,
+			server,
+			url: config['user-agreement']
+		});
 	}
 
 	handle (req, res) {
+		const SERVER_CONTEXT = req;
+		this.server.get('logon.ping', SERVER_CONTEXT)
+			.then(pong => getLink(pong, TOS_NOT_ACCEPTED) || this.url)
 
-		let {url} = this;
-		if (!url) {
-			throw new Error('No user-agreement url set');
-		}
+			.then(url => url || Promise.reject(new Error('No user-agreement url set')))
 
-		if (SHOULD_REDIRECT(req.url)) {
-			res.redirect(url);
-			return;
-		}
+			.then(url => {
+
+				if (SHOULD_REDIRECT(req.url)) {
+					res.redirect(url);
+					return;
+				}
+
+				return this.server.get(url, SERVER_CONTEXT).then(raw => {
+
+					let filtered = raw
+							.replace(tagPattern('script'), '')
+							.replace(tagPattern('style'), '');
 
 
-		request(url, (error, r, response)=> {
-			const STYLES_REGEX = /<style[^>]*>(.*)<\/style/ig;
-			let body = BODY_REGEX.exec(response);
-			let styles = [];
-			let m;
+					let body = BODY_REGEX.exec(filtered);//don't reuse stylePattern (its been consumed)
+					let styles = [];
+					let m;
 
-			while ((m = STYLES_REGEX.exec(response))) {
-				styles.push(m[1]);
-			}
+					let stylePattern = tagPattern('style');
+					while ((m = stylePattern.exec(raw))) {
+						styles.push(m[1]);
+					}
 
-			let data = {
-				status: r.statusCode,
-				html: response,
-				body: body && body[1],
-				styles: styles.join('\n\n')
-			};
+					let data = {
+						// html: response,
+						body: body && body[1],
+						styles: styles.join('\n\n')
+					};
 
-			res.status(data.status);
-			res.json(data);
-			res.end();
-		});
+					res.status(raw.statusCode || 200);
+					res.json(data);
+					res.end();
+				});
+
+			})
+
+			.catch(e => {
+				res.status(500);
+				res.json({body: e.stack || e.message || e});
+				res.end();
+			});
 	}
 }
 
 
-export default function register (api, config) {
-	let handler = new ServeUserAgreement(config);
+export default function register (api, config, server) {
+	let handler = new ServeUserAgreement(config, server);
 	api.get(/^\/user-agreement/, (req, res) => handler.handle(req, res));
 }
