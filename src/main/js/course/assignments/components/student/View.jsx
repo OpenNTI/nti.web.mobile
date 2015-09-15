@@ -1,17 +1,17 @@
 import React from 'react';
 import Router from 'react-router-component';
 import Redirect from 'navigation/components/Redirect';
-import Tabs from '../Tabs';
 import Performance from './Performance';
 import Activity from '../Activity';
 import Assignments from '../Assignments';
 import Content from '../Content';
+import PageFrame from '../PageFrame';
 
 const ROUTES = [
-	{path: '/performance(/*)', handler: Performance},
-	{path: '/activity(/*)', handler: Activity},
+	{path: '/performance(/*)', handler: PageFrame, pageContent: Performance},
+	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
 	{path: '/:rootId(/*)', handler: Content},
-	{path: '/', handler: Assignments},
+	{path: '/', handler: PageFrame, pageContent: Assignments},
 	{}//not found
 ];
 
@@ -29,7 +29,6 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Tabs className="assignments-nav button-group filters" />
 				{
 					React.createElement(Router.Locations, {contextual: true},
 						...ROUTES.map(route =>

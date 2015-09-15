@@ -8,9 +8,9 @@ export default React.createClass({
 	render () {
 		return (
 			<ul {...this.props}>
-				<li><ActiveState className="tiny button" tag={Link} href="/assignments/">Assignments</ActiveState></li>
-				<li><ActiveState className="tiny button" tag={Link} href="/assignments/performance/">Grades &amp; Performance</ActiveState></li>
-				<li><ActiveState className="tiny button" tag={Link} href="/assignments/activity/">Activity &amp; Notifications</ActiveState></li>
+				<li><ActiveState className="tiny button" tag={Link} href="/">Assignments</ActiveState></li>
+				<li><ActiveState className="tiny button" tag={Link} href="/performance/">Grades &amp; Performance</ActiveState></li>
+				<li><ActiveState className="tiny button" tag={Link} href="/activity/">Activity &amp; Notifications</ActiveState></li>
 			</ul>
 		);
 	}
