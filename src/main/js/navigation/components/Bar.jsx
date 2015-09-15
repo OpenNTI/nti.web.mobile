@@ -150,7 +150,9 @@ export default React.createClass({
 			this.getMenu() || title ? (
 
 			<a href={this.getBasePath()}>
-				<h1 className={css}>{title}</h1></a>
+				<h1 className={css}>{title}</h1>
+			</a>
+
 		) : null;
 	},
 
