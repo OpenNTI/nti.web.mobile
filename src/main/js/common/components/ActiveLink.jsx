@@ -18,6 +18,10 @@ export default React.createClass({
 		children: React.PropTypes.any
 	},
 
+	componentWillMount () {
+		console.warn('ActiveLink component is deprecated. Use ActiveState instead.');
+	},
+
 	isActive () {
 		let {href} = this.props;
 		let path = this.getPath();

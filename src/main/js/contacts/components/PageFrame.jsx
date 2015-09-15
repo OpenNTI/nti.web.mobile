@@ -1,7 +1,5 @@
 import React from 'react/addons';
-import ActiveState from 'common/components/ActiveState';
 import Page from 'common/components/Page';
-import {Link} from 'react-router-component';
 
 export default React.createClass({
 	displayName: 'Contacts:PageFrame',
@@ -21,18 +19,12 @@ export default React.createClass({
 
 
 	render () {
-		let Content = this.props.pageContent;
+		const {props: {pageContent: Content}, state: {menu}} = this;
+
 
 		return (
-			<Page title="Contacts">
-				<div className="contacts-page gradient-bg">
-					<header>
-						<ul className="contacts-nav">
-							<li><ActiveState tag={Link} href="/users/">Contacts</ActiveState></li>
-							<li><ActiveState tag={Link} href="/groups/">Groups</ActiveState></li>
-							<li><ActiveState tag={Link} href="/lists/" hasChildren>Distribution Lists</ActiveState></li>
-						</ul>
-					</header>
+			<Page title="Contacts" availableSections={menu}>
+				<div className="contacts-page">
 					<div className="contacts-page-content">
 						<Content {...this.props} />
 					</div>

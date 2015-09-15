@@ -33,12 +33,12 @@ export default React.createClass( {
 			return this.mimeTest.test(item.MimeType);
 		},
 
-		canRender  (item, node) {
-			let render = true;
+		canRender  (item, node, collection) {
+			let render = !!collection;
 			let id = item['Target-NTIID'];
 
-			if (assignmentType.test(item.MimeType) || node.isAssignment(id)) {
-				render = Boolean(node && node.getAssignment(id));
+			if (collection && (assignmentType.test(item.MimeType) || collection.isAssignment(id, node.getID()))) {
+				render = Boolean(collection.getAssignment(id, node.getID()));
 			}
 
 			return render;
@@ -48,7 +48,8 @@ export default React.createClass( {
 
 	propTypes: {
 		item: React.PropTypes.object,
-		node: React.PropTypes.instanceOf(OutlineNode)
+		node: React.PropTypes.instanceOf(OutlineNode),
+		assessmentCollection: React.PropTypes.object
 	},
 
 
@@ -68,9 +69,9 @@ export default React.createClass( {
 
 
 	fillInData (service) {
-		let {item} = this.props;
+		let {node, item, assessmentCollection} = this.props;
 		let ntiid = item['Target-NTIID'];
-		let assignment = this.props.node.getAssignment(ntiid);
+		let assignment = assessmentCollection.getAssignment(ntiid, node.getID());
 		let isAssignment = assignment || assignmentType.test(item.MimeType);
 
 		this.setState({assignment: assignment, loading: true});

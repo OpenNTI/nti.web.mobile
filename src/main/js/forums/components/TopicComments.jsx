@@ -125,7 +125,7 @@ export default React.createClass({
 					<div>
 						<section className="comments">
 							<Transition transitionName="fadeOutIn">
-								<List className="forum-replies" container={container} {...this.props} itemProps={{topic: topic}} omitIfEmpty={true} />
+								<List className="forum-replies" container={container} {...this.props} itemProps={{topic: topic}} omitIfEmpty />
 							</Transition>
 						</section>
 						{this.state[showJumpToLastPage] && this.jumpToLastPageMessage()}

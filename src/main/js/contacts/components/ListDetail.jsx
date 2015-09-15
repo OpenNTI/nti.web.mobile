@@ -1,11 +1,10 @@
 import React from 'react';
-import Api from '../Api';
+import {getDistributionList} from '../Api';
 import Loading from 'common/components/Loading';
 import ContextSender from 'common/mixins/ContextSender';
 import BasePath from 'common/mixins/BasePath';
 import Selectables from './Selectables';
 import Page from 'common/components/Page';
-import GradientBackground from 'common/components/GradientBackground';
 import UserSearchField from './UserSearchField';
 import ItemDetailHeader from './ItemDetailHeader';
 import Err from 'common/components/Error';
@@ -68,8 +67,7 @@ export default React.createClass({
 	},
 
 	getList (updateOriginal = false) {
-		Api.getDistributionList(this.props.id)
-		.then((result) => {
+		getDistributionList(this.props.id).then((result) => {
 			if (!result) {
 				return this.setState({
 					error: new Error('Unable to load list'),
@@ -138,25 +136,27 @@ export default React.createClass({
 
 		return (
 			<Page>
-				<GradientBackground>
-					<div className="distribution-list-detail">
-						<ItemDetailHeader list={list} />
-						<div className="contacts-page-content">
-							{this.state.adding ?
-								<UserSearchField ref="searchField"
-									selected={list.friends}
-									onCancel={this.cancelSearch}
-									onSave={this.saveSearch}
+				<div className="distribution-list-detail">
+					<ItemDetailHeader list={list} />
+					<div className="contacts-page-content">
+						{this.state.adding ?
+							<UserSearchField ref="searchField"
+								selected={list.friends}
+								onCancel={this.cancelSearch}
+								onSave={this.saveSearch}
+							/>
+							:
+							<div>
+								<AddPeopleButton onClick={this.addPeople} />
+								<Selectables
+									entities={(list.friends || []).slice()}
+									onChange={this.toggleMembership}
+									labels={{selected: 'Remove', unselected: 'Undo'}}
 								/>
-								:
-								<div>
-									<AddPeopleButton onClick={this.addPeople} />
-									<Selectables entities={(list.friends || []).slice()} onChange={this.toggleMembership} />
-								</div>
-							}
-						</div>
+							</div>
+						}
 					</div>
-				</GradientBackground>
+				</div>
 			</Page>
 		);
 	}

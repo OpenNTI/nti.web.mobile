@@ -24,6 +24,7 @@ import {LESSONS} from '../Sections';
 import CourseInfo from './CourseInfo';
 import Discussions from 'forums/components/View';
 import Lessons from './Lessons';
+import Activity from './Activity';
 import Media from './Media';
 
 import {setCourse} from '../Actions';
@@ -35,6 +36,7 @@ const ROUTES = [
 	{path: '/lessons(/*)', handler: Page, pageContent: Lessons},
 	{path: '/discussions(/*)', handler: Page, pageContent: Discussions},
 	{path: '/info', handler: Page, pageContent: CourseInfo},
+	{path: '/activity(/*)', handler: Page, pageContent: Activity},
 	{}//not found
 ];
 

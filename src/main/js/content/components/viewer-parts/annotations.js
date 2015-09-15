@@ -239,6 +239,8 @@ export default {
 
 		this.setState({selected: void 0});
 
+		window.scrollTo(0,0);
+
 		page.getSharingPreferences()
 			.then(preferences => contentPackage.getDefaultShareWithValue(preferences))
 			.then(sharedWith => {

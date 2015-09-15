@@ -46,31 +46,32 @@ export default React.createClass({
 	},
 
 	toggleRename () {
+		const {refs: {newName}, state: {renaming}} = this;
 		this.setState({
-			renaming: !this.state.renaming
+			renaming: !renaming
 		}, () => {
-			if(this.refs.newName) {
-				let n = this.refs.newName.getDOMNode();
-				this.refs.newName.getDOMNode().focus();
+			if(newName) {
+				let n = React.findDOMNode(newName);
+				n.focus();
 				n.selectionStart = n.selectionEnd = n.value.length;
 			}
 		});
 	},
 
 	saveRename () {
-		let newName = this.refs.newName.getDOMNode().value;
-		let {list} = this.props;
-		console.log(newName);
-		let saveName = list.save({
-			alias: newName
-		});
-		saveName.then(this.toggleRename);
+		const {props: {list}, refs: {newName}} = this;
+
+		let alias = React.findDOMNode(newName).value.trim();
+
+		console.log(alias);
+
+		list.save({alias})
+			.then(this.toggleRename);
 	},
 
 	render () {
 
-		let {list} = this.props;
-		let {renaming, saveDisabled} = this.state;
+		const {props: {list}, state: {renaming, saveDisabled}} = this;
 
 		let saveRenameClasses = cx('primary tiny button', {
 			'disabled': saveDisabled

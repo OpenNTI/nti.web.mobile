@@ -1,12 +1,17 @@
 import React from 'react/addons';
-import mixin from '../mixins/Mixin';
-import Loading from 'common/components/Loading';
-import {USERS} from '../Constants';
-import Err from 'common/components/Error';
+
 import ContextSender from 'common/mixins/ContextSender';
+import C from 'common/components/Conditional';
+import EmptyList from 'common/components/EmptyList';
+import Loading from 'common/components/Loading';
+import Err from 'common/components/Error';
+
 import Selectables from './Selectables';
 import UserSearchField from './UserSearchField';
 import AddPeopleButton from './AddPeopleButton';
+
+import mixin from '../mixins/Mixin';
+import {USERS} from '../Constants';
 
 export default React.createClass({
 	displayName: 'Contacts:Users',
@@ -14,6 +19,7 @@ export default React.createClass({
 	storeType: USERS,
 
 	listName: 'Contacts',
+	undos: {},
 
 	getContext () {
 		return Promise.resolve({
@@ -21,16 +27,43 @@ export default React.createClass({
 		});
 	},
 
+	componentWillMount () {
+		this.undos = {};
+	},
+
 	toggleFollow (entity) {
 		this.setState({
 			loading: true
 		});
-		return entity.follow()
+		let p = entity.following ? this.removeContact(entity) : this.addContact(entity);
+		return p
 			.then(() => {
 				this.setState({
 					loading: false
 				});
 			});
+	},
+
+	removeContact (entity) {
+		let {store} = this.state;
+		return store.removeContact(entity)
+			.then(result => {
+				if (result.undo) {
+					this.undos[entity.getID()] = result.undo;
+				}
+			});
+	},
+
+	addContact (entity) {
+		let undo = this.undos[entity.getID()];
+		if (undo) {
+			return undo().then(() => delete this.undos[entity.getID()]);
+		}
+		else {
+			console.warn('No undo?');
+			let {store} = this.state;
+			return store.addContact(entity);
+		}
 	},
 
 	addPeople () {
@@ -60,7 +93,7 @@ export default React.createClass({
 
 	render () {
 
-		let {error, store} = this.state;
+		const {state: {adding, error, store}} = this;
 
 		if (error) {
 			return <Err error={error} />;
@@ -70,13 +103,11 @@ export default React.createClass({
 			return <Loading />;
 		}
 
-		let items = [];
-		for(let item of store) {
-			items.push(item);
-		}
+		let items = Array.from(store);
+
 		return (
 			<div>
-				{this.state.adding ?
+				{adding ? (
 					<div className="list-user-search">
 						<UserSearchField
 							ref="searchField"
@@ -86,12 +117,18 @@ export default React.createClass({
 							onSave={this.saveSearch}
 						/>
 					</div>
-					:
+				) : (
 					<div>
 						<AddPeopleButton onClick={this.addPeople} />
-						<Selectables entities={items} onChange={this.toggleFollow} labels={{selected: 'Remove', unselected: 'Undo'}} />
+						<C condition={items.length === 0} tag={EmptyList} type="contacts" />
+						<Selectables
+							linkToProfile
+							entities={items}
+							onChange={this.toggleFollow}
+							labels={{selected: 'Remove', unselected: 'Undo'}}
+						/>
 					</div>
-				}
+				)}
 			</div>
 		);
 

@@ -65,6 +65,6 @@ export default React.createClass({
 			return null;
 		}
 
-		return <WordBankEntry entry={entry} className="dropped" locked={true}/>;
+		return <WordBankEntry entry={entry} className="dropped" locked/>;
 	}
 });

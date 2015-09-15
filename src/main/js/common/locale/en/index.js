@@ -51,12 +51,16 @@ export default {
 		'emptyList:library-admin': 'No Administered Courses.',
 		'emptyList:library-books': 'You don\'t have any books.',
 		'emptyList:library-courses': 'You don\'t have any courses yet.',
+		'emptyList:library-community': 'You are\'t in any communities yet.',
 		'emptyList:videos': 'No videos.',
 		'emptyList:activity': 'No Activity.',
 		'emptyList:user-details': 'Empty Profile :(\nNo additional profile information available.',
 		'emptyList:memberships': 'No memberships',
-		'emptyList:contacts': 'No contacts found.',
-		'emptyList:contactssearch': 'No contacts found.'
+		'emptyList:friendslists': 'No Lists.',
+		'emptyList:dynamicfriendslists': 'No Groups.',
+		'emptyList:contacts': 'No contacts.',
+		'emptyList:contactssearch': 'No contacts found.',
+		'emptyList:entity-search': 'No one found'
 	},
 
 	CONTENT: content,

@@ -39,6 +39,20 @@ export default React.createClass({
 	},
 
 
+	ensureVisible () {
+		let el = React.findDOMNode(this);
+		let margin = parseInt(getComputedStyle(el)['margin-top'], 10);
+
+		let top = 0;
+		while(el) {
+			top += el.offsetTop;
+			el = el.offsetParent;
+		}
+
+		window.scrollTo(0, top - margin + 1);
+	},
+
+
 	render () {
 		let {scope, item} = this.props;
 		let {error, busy, disabled} = this.state || {};
@@ -54,10 +68,11 @@ export default React.createClass({
 				<HideNavigation/>
 
 				<form onSubmit={x => x.preventDefault() && false}>
-					<ShareWith scope={scope} defaultValue={sharedWith}/>
+					<ShareWith scope={scope} defaultValue={sharedWith} ref="shareWith" onBlur={this.ensureVisible}/>
 
 					<div className={cx('title', {error})} data-error-message={error}>
 						<input type="text" name="title" ref="title" placeholder="Title"
+							onFocus={this.ensureVisible}
 							onChange={this.detectContent} />
 					</div>
 
@@ -84,18 +99,17 @@ export default React.createClass({
 
 	onSubmit () {
 		let item = this.getItemData();
-		let {onSave} = this.props;
-		let {body, title} = this.refs;
 
-		let dom = React.findDOMNode(this);
-		CSS.addClass(dom.parentNode, 'saving');
+		let {props: {onSave}, refs: {body, shareWith, title}} = this;
 
-		title = title.value;
+		CSS.addClass(React.findDOMNode(this).parentNode, 'saving');
+
+		title = React.findDOMNode(title).value;
 
 		let data = Object.assign({}, item, {
-			title: Editor.isEmpty(title) ? null : title.trim(),
+			title: Editor.isEmpty(title) ? void 0 : title.trim(),
 			body: body.getValue(),
-			sharedWith: []
+			sharedWith: shareWith.getValue()
 		});
 
 		this.setState({busy: true},

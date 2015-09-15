@@ -61,7 +61,7 @@ export default React.createClass({
 
 		return (
 			<div className="gift-success row">
-				<Pricing purchasable={purchasable} locked={true} />
+				<Pricing purchasable={purchasable} locked />
 				<div className="medium-8 medium-centered columns panel">
 					<h3 className="header">{t('title')}</h3>
 					<LocalizedHTML className="gift" stringId={`ENROLLMENT.GIFT.SUCCESS.${infoKey}`} sender={sender} receiver={receiver} />

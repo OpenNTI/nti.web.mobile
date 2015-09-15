@@ -1,0 +1,21 @@
+
+.entity-search {
+	margin: 0;
+	min-height: 2.5rem;
+
+	.tinyloader {
+		margin-top: 1rem;
+	}
+
+	.button {
+		display: block;
+		background: none;
+		color: $primary-blue;
+		text-transform: uppercase;
+		letter-spacing: 0;
+		padding: 1rem;
+		margin: 0;
+		font-size: 0.625rem;
+		font-weight: 600;
+	}
+}

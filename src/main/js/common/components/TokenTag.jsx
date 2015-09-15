@@ -18,7 +18,7 @@ export default React.createClass({
 		let {className, selected, name, value} = this.props;
 
 		return (
-			<div data-value={value} className={cx('token', className, {selected})} {...this.props}>
+			<div data-value={value} className={cx('token pill', className, {selected})} {...this.props}>
 				{name || value}
 			</div>
 		);

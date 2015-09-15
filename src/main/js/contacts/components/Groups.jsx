@@ -24,17 +24,18 @@ export default React.createClass({
 	},
 
 	addGroup () {
-		let {store} = this.state;
+		const {refs: {creationfield}, state: {store}} = this;
 		if (!store) {
 			return;
 		}
-		let name = this.refs.creationfield.getDOMNode().value.trim();
+
+		let name = React.findDOMNode(creationfield).value.trim();
 		if(name.length === 0) {
 			return;
 		}
-		this.setState({
-			loading: true
-		});
+
+		this.setState({ loading: true });
+
 		store.createGroup(name)
 			.then(() => {
 				this.setState({
@@ -50,15 +51,30 @@ export default React.createClass({
 
 	creationField () {
 		return (
-			<div className="list-creation-form"><input type="text" ref="creationfield" placeholder={t('newGroupPlaceholder')}/><button className="tiny add-button" onClick={this.addGroup}>Add</button></div>
+			<div className="inline-creation-form">
+				<input type="text" ref="creationfield" placeholder={t('newGroupPlaceholder')}/>
+				<button className="tiny add-button" onClick={this.addGroup}>Add</button>
+			</div>
 		);
+	},
+
+	deleteGroup (group) {
+		return group.delete()
+		.catch(reason => {
+			console.error(reason);
+		});
 	},
 
 	renderListItem (item) {
 		return (
-			<li key={item.displayName}>
+			<li key={item.getID()}>
 				<div>
-					<AvatarProfileLink entity={item}><ListMeta entity={item} /></AvatarProfileLink>
+					<AvatarProfileLink entity={item}>
+						<ListMeta entity={item} />
+					</AvatarProfileLink>
+					{item.delete && (!item.friends || item.friends.length === 0) && (
+						<div className="delete" onClick={this.deleteGroup.bind(this, item)}/>
+					)}
 				</div>
 			</li>
 		);
@@ -88,7 +104,11 @@ export default React.createClass({
 				{this.beforeList && this.beforeList(items)}
 				<div>
 					{this.listName && <h2>{this.listName}</h2>}
-					{items.length > 0 ? <ul className={'contacts-list groups avatar-grid'}>{items}</ul> : <EmptyList type="contacts" />}
+					{items.length > 0 ? (
+						<ul className={'contacts-list groups avatar-grid'}>{items}</ul>
+					) : (
+						<EmptyList type="dynamicfriendslists" />
+					)}
 				</div>
 				{this.afterList && this.afterList()}
 			</div>

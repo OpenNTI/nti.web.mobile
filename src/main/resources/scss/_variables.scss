@@ -17,15 +17,6 @@ $tertiary-grey: #b8b8b8;
 $tertiary-grey-alt: #d1d1d1;
 $quad-grey: #f8f8f8;//f9f9f9
 
-// alias greys to grays because i can
-// never remember which spelling we use
-$primary-gray: $primary-grey;
-$secondary-gray: $secondary-grey;
-$secondary-gray-alt: $secondary-grey-alt;
-$tertiary-gray: $tertiary-grey;
-$tertiary-gray-alt: $tertiary-grey-alt;
-$quad-gray: $quad-grey;
-
 $disabled-button-border: #d0d0d0;
 $disabled-button-background: rgba(184,184,184,0.5);
 $disabled-button-color: rgba(255,255,255,0.7);
@@ -74,8 +65,29 @@ $tabs-navigation-font-color: $primary-grey;
 
 $anchor-font-color-hover: $primary-blue;
 
-%title-bar-logo {
-	background-image: url(../images/icons/logo.png);
+%scroll-style {
+	html:not(.touch) &::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+		// &:window-inactive {
+		// 	display: none;
+		// }
+
+		&-track {
+			border-radius: 8px;
+			background: rgba(255,255,255,0.1);
+		}
+
+		&-thumb {
+			border-radius: 4px;
+			background: rgba(0,0,0,0.2);
+		}
+	}
+}
+
+%detail-link {
+	text-transform: uppercase;
+	font-size: 0.6875rem;
 }
 
 %svg-icon-mask {

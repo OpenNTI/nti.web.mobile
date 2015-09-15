@@ -120,7 +120,7 @@ export default React.createClass({
 	getLeft () {
 		let {returnTo} = this.state || {};
 		if (returnTo) {
-			return <ReturnTo {...returnTo}/>;
+			return <section><ReturnTo {...returnTo}/></section>;
 		}
 
 		return this.getChildForSide('left');
@@ -147,20 +147,18 @@ export default React.createClass({
 		let title = (current || {}).label || this.props.title;
 
 		return this.getChildForSide('center') ||
-			this.getMenu() || (
+			this.getMenu() || (title ? (
 
 			<a href={this.getBasePath()}>
-				<h1 className={css}>{title}</h1></a>
-		);
+				<h1 className={css}>{title}</h1>
+			</a>
+
+		) : null);
 	},
 
 
 	getMenu () {
 		let {availableSections} = this.props;
-		let css = cx({
-			'title': true,
-			'menu': true
-		});
 
 		if (!availableSections) {
 			return;
@@ -170,7 +168,9 @@ export default React.createClass({
 		let {label = 'Menu'} = this.getActiveSection() || {};
 
 		return (
-			<a href="#" onClick={this.toggleMenu}><h1 className={css}>{label}</h1></a>
+			<a href="#" onClick={this.toggleMenu} className="menu">
+				<h1 className="title">{label}</h1>
+			</a>
 		);
 	},
 
@@ -248,15 +248,13 @@ export default React.createClass({
 	renderBar () {
 		let {pageSource, currentPage, context} = this.state;
 
-		let middle = cx('middle tab-bar-section', {
-			'has-pager': pageSource
-		});
-
 		return (
-			<nav className="tab-bar">
-				<section className="left-small">{this.getLeft()}</section>
-				<section className={middle}>{this.getCenter()}</section>
-				<section className="right-small">
+			<nav className="nav-bar">
+				{this.getLeft()}
+				<section className={cx('middle', {'has-pager': pageSource})}>
+					{this.getCenter()}
+				</section>
+				<section>
 					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}/>}
 					{this.getRight()}
 				</section>

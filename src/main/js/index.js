@@ -9,6 +9,7 @@ require('script!../resources/vendor/modernizr/modernizr.js');//injects a <script
 import FastClick from 'fastclick';
 
 import React from 'react';
+// import Relay from 'react-relay';
 
 import EventPluginHub from 'react/lib/EventPluginHub';
 import ResponderEventPlugin from 'common/thirdparty/ResponderEventPlugin';
@@ -44,10 +45,15 @@ React.initializeTouchEvents(true);
 
 let basePath = (global.$AppConfig || {}).basepath || '/';
 
+// Relay.injectNetworkLayer(
+// 	new Relay.DefaultNetworkLayer(path.join(basePath, '/api/graphql'))
+// );
+
+
 import AppView from './AppView';
 
 let app = React.render(
-	React.createElement(AppView, {basePath: basePath}),
+	React.createElement(AppView, {basePath}),
 	document.getElementById('content')
 );
 
@@ -100,4 +106,6 @@ if (sscss) {
 
 OrientationHandler.init(app);
 
-global.onbeforeunload = () => app.setState({mask: 'Reloading...'});
+global.onbeforeunload = () => {
+	app.setState({mask: 'Reloading...'});
+};

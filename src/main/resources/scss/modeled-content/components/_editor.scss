@@ -5,8 +5,11 @@
 	background: #fff;
 	position: relative;
 
-	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
+	overflow: {
+		x: hidden;
+		y: auto;
+	}
 
 	&.busy {
 		@extend %inline-loader;
@@ -102,7 +105,7 @@
 
 			&.cancel {
 				font-weight: 400;
-				font-size: 0.8rem;
+				font-size: 0.75rem;
 				text-decoration: underline;
 				background: none !important;
 				border: 0;

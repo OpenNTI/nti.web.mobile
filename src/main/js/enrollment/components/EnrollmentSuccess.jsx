@@ -14,7 +14,7 @@ export default React.createClass({
 		let basePath = this.getBasePath();
 		let {courseTitle} = this.props;
 		let verbiage = 'Go to my courses';
-		let href = basePath + 'library/';
+		let href = basePath + 'library/courses/';
 
 		return (
 			<div className="enrollment-success">

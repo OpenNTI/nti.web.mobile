@@ -1,6 +1,6 @@
 import React from 'react';
 import SelectableEntity from 'common/components/SelectableEntity';
-import Api from '../Api';
+import {getStore, getSuggestedContacts} from '../Api';
 import {USERS} from '../Constants';
 import cx from 'classnames';
 import Loading from 'common/components/TinyLoader';
@@ -14,12 +14,17 @@ export default React.createClass({
 		selected: React.PropTypes.array,
 		onSave: React.PropTypes.func.isRequired,
 		onCancel: React.PropTypes.func.isRequired,
-		excludeContacts: React.PropTypes.any
+		excludeContacts: React.PropTypes.any,
+		saveButtonText: React.PropTypes.string,
+		placeholder: React.PropTypes.string,
+		saveDisabled: React.PropTypes.bool
 	},
 
 	getDefaultProps () {
 		return {
-			selected: []
+			selected: [],
+			saveButtonText: 'Add Selected',
+			placeholder: 'Search'
 		};
 	},
 
@@ -67,19 +72,17 @@ export default React.createClass({
 	},
 
 	setUpStore () {
-		Api.getStore(USERS)
+		getStore(USERS)
 			.then(store => this.setState({store}));
 	},
 
 	getSuggestedContacts () {
-		Api.getSuggestedContacts()
-			.then(results => this.setState({
-				suggestedContacts: results || []
-			}));
+		getSuggestedContacts()
+			.then(results => this.setState({suggestedContacts: results || []}));
 	},
 
 	focus () {
-		this.refs.query.getDOMNode().focus();
+		React.findDOMNode(this.refs.query).focus();
 	},
 
 	selectionChange (user) {
@@ -96,14 +99,24 @@ export default React.createClass({
 		}
 		this.setState({
 			selectedUsers
-		}, () => this.focus());
+		});
 		if (onChange) {
 			onChange(user);
 		}
 	},
 
 	getSelections () {
-		return this.state.selectedUsers;
+		return this.state.selectedUsers.slice();
+	},
+
+	onKeyDown (e) {
+		// on backspace in an empty field remove the last selected user
+		if (e.target.value === '' && (e.keyCode === 8 || e.keyCode === 46)) {
+			let selectedUsers = this.getSelections();
+			if (selectedUsers.length > 0) {
+				return this.selectionChange(selectedUsers[selectedUsers.length - 1]);
+			}
+		}
 	},
 
 	queryChanged (event) {
@@ -147,12 +160,16 @@ export default React.createClass({
 	renderResults (heading, results, classes) {
 		let classnames = cx('contact-list search-results', classes);
 		let {selectedUsers} = this.state;
+
+		// filter out already-selected users
+		let filtered = results.filter((user) => !listContainsEntity(this.props.selected, user));
+
 		return (
 			<section>
 				<h1>{heading}</h1>
 				<ul className={classnames}>
-					{results.length > 0 ?
-						results.map(entity =>
+					{filtered.length > 0 ?
+						filtered.map(entity =>
 							<SelectableEntity
 								key={'selectable-' + entity.getID()}
 								entity={entity}
@@ -194,20 +211,30 @@ export default React.createClass({
 
 		let {selectedUsers} = this.state;
 
-		let saveButtonClasses = cx('primary tiny button', {
-			'disabled': selectedUsers.length === 0
+		let saveButtonClasses = cx('primary button', {
+			'disabled': selectedUsers.length === 0 || this.props.saveDisabled
 		});
 
 		return (
 			<div className="user-search">
 				<ul className="input-list">
 					{selectedUsers.map(user => <li key={'selected-' + user.getID()} className="selected-item">{user.displayName}</li>)}
-					<li key="input-field" className="input-field"><input type="text" className="search-input" ref="query" onChange={this.queryChanged} placeholder="Search" /></li>
+					<li key="input-field" className="input-field">
+						<input type="text"
+							className="search-input"
+							ref="query"
+							onChange={this.queryChanged}
+							onKeyDown={this.onKeyDown}
+							placeholder={this.props.placeholder}
+						/>
+					</li>
 				</ul>
 				{this.results()}
-				<div className="buttons">
-					<button className="secondary button tiny" onClick={this.props.onCancel}>Cancel</button>
-					<button className={saveButtonClasses} onClick={this.props.onSave}>Add Selected</button>
+				<div className="button-spacer">
+					<div className="buttons">
+						<button className="secondary button" onClick={this.props.onCancel}>Cancel</button>
+						<button className={saveButtonClasses} onClick={this.props.onSave}>{this.props.saveButtonText}</button>
+					</div>
 				</div>
 			</div>
 		);

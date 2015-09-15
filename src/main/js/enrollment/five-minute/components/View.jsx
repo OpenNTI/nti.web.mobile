@@ -7,7 +7,7 @@ import PanelButton from 'common/components/PanelButton';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import CourseContentLink from 'library/components/CourseContentLinkMixin';
+import CourseContentLink from 'library/mixins/CourseContentLink';
 
 import PaymentComplete from './PaymentComplete';
 import ConcurrentSent from './ConcurrentSent';

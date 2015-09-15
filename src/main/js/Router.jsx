@@ -30,6 +30,7 @@ import Login from 'login/components/View';
 import Profile from 'profile/components/View';
 import NotFoundPage from 'notfound/components/View';
 import ObjectResolver from 'object-resolver/components/View';
+import Terms from 'terms/components/View';
 
 
 import NavStore from 'navigation/Store';
@@ -47,7 +48,8 @@ const HANDLER_BY_NAME = {
 	Library,
 	Login,
 	Profile,
-	Object: ObjectResolver
+	Object: ObjectResolver,
+	Terms
 };
 
 const SendGAEvent = 'Router:SendGAEvent';
@@ -159,7 +161,7 @@ export default React.createClass({
 		let basePath = this.getBasePath();
 		let routes = RouteMap.filter(x=>!x.disabled).map(r=>
 			React.createElement(Location, {
-				path: basePath + r.path,
+				path: (basePath + r.path).replace(/\/\//g, '/'),
 				handler: lookupHandler(r)
 			}));
 

@@ -85,7 +85,7 @@ export default React.createClass({
 						<div className="activity">
 							<div className="newest">
 								<DisplayName entity={item.NewestDescendant.creator} />
-								<span>{this.renderVerbForPost(item.NewestDescendant)} <DateTime relative={true} date={replyTime}/></span>
+								<span>{this.renderVerbForPost(item.NewestDescendant)} <DateTime relative date={replyTime}/></span>
 							</div>
 							{this.renderReplies(item)}
 							{this.renderLikes(item)}

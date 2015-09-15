@@ -7,12 +7,14 @@ import Groups from './Groups';
 import Users from './Users';
 import ListsView from './ListsView';
 import ListDetail from './ListDetail';
+import CreateList from './CreateList';
 import ContextContributor from 'common/mixins/ContextContributor';
 import BasePathAware from 'common/mixins/BasePath';
 
 const ROUTES = [
 	{path: '/users(/*)', handler: Page, pageContent: Users},
 	{path: '/groups(/*)', handler: Page, pageContent: Groups},
+	{path: '/lists/new(/*)', handler: CreateList},
 	{path: '/lists/:id(/*)', handler: ListDetail},
 	{path: '/lists(/*)', handler: Page, pageContent: ListsView},
 	{} // default

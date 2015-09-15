@@ -1,0 +1,26 @@
+.agreement-wrapper {
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 1rem;
+
+	.error {
+		position: static;
+	}
+
+	.agreement {
+		margin: 0;
+		padding: 1rem 0.635rem;
+
+		word-wrap: break-word;
+
+		@extend %touch-scroll;
+		// position: absolute;
+		// left: 0; top: 0;
+		overflow-y: auto;
+
+		width:100%;
+		max-width: 100%;
+
+		h1, h2, h3, h4, h5, h6 {font-weight: bolder;}
+	}
+}

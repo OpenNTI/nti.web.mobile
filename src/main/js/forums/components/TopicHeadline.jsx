@@ -23,19 +23,19 @@ export default React.createClass({
 	},
 
 	render () {
-		let {item, topic} = this.props;
+		let {item} = this.props;
 		if (!item) {
 			return <Loading />;
 		}
 
 		return (
 			<div className="headline post">
-				<LuckyCharms item={topic} />
+				<LuckyCharms item={item} />
 				<Avatar entity={item.creator}/>
 				<div className="wrap">
 					<h1>{item.title}</h1>
 					<div className="meta">
-						<DisplayName entity={item.creator}/>{" · "}<DateTime date={item.getCreatedTime()} relative={true}/>
+						<DisplayName entity={item.creator}/>{" · "}<DateTime date={item.getCreatedTime()} relative/>
 					</div>
 				</div>
 				<ModeledContentPanel body={item.body} />

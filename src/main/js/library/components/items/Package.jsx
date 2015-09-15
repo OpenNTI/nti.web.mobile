@@ -3,9 +3,18 @@ import React from 'react';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import BasePathAware from 'common/mixins/BasePath';
 
+import {getModel} from 'nti.lib.interfaces';
+const PackageClass = getModel('ContentPackage');
+
 export default React.createClass({
 	displayName: 'Package',
 	mixins: [BasePathAware],
+
+	statics: {
+		handles (item) {
+			return item instanceof PackageClass;
+		}
+	},
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired

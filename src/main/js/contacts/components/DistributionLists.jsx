@@ -10,6 +10,7 @@ import {scoped} from 'common/locale';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import EmptyList from 'common/components/EmptyList';
+import {Link} from 'react-router-component';
 
 let t = scoped('CONTACTS');
 
@@ -20,17 +21,18 @@ export default React.createClass({
 	// listName: 'Distribution Lists',
 
 	addList () {
-		let {store} = this.state;
+		const {refs: {newListName}, state: {store}} = this;
 		if (!store) {
 			return;
 		}
-		let listName = this.refs.newListName.getDOMNode().value.trim();
+
+		let listName = React.findDOMNode(newListName).value.trim();
 		if(listName.length === 0) {
 			return;
 		}
-		this.setState({
-			loading: true
-		});
+
+		this.setState({ loading: true });
+
 		store.createList(listName)
 			.then(() => {
 				this.setState({
@@ -53,16 +55,6 @@ export default React.createClass({
 					});
 				});
 		});
-	},
-
-	beforeList () {
-		return this.creationField();
-	},
-
-	creationField () {
-		return (
-			<div className="list-creation-form"><input type="text" ref="newListName" placeholder={t('newListPlaceholder')} /><button className="tiny add-button" onClick={this.addList}>Add</button></div>
-		);
 	},
 
 	renderListItem (item) {
@@ -101,9 +93,9 @@ export default React.createClass({
 
 		return (
 			<div>
-				{this.beforeList && this.beforeList(items)}
+				<Link href="/lists/new/" className="button tiny create-button">Create new list</Link>
 				<div>
-					{items.length > 0 ? <ul className={'contacts-list lists avatar-grid'}>{items}</ul> : <EmptyList type="contacts" />}
+					{items.length > 0 ? <ul className={'contacts-list lists avatar-grid'}>{items}</ul> : <EmptyList type="friendslists" />}
 				</div>
 				{this.afterList && this.afterList()}
 			</div>

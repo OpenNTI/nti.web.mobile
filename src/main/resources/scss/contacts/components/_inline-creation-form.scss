@@ -1,10 +1,13 @@
 .contacts-page {
-	.list-creation-form {
+	.inline-creation-form {
 		position: relative;
 		.add-button {
 			position: absolute;
 			top: 0;
 			right: 0;
+		}
+		input {
+			padding-right: 4.5rem;
 		}
 	}
 }

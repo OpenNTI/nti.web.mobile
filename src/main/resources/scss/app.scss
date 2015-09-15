@@ -6,6 +6,8 @@
 @import "normalize";
 @import "foundation";
 
+@import "base-brand";
+
 @import "common/transitions";
 @import "common/animations";
 @import "common/components";
@@ -19,20 +21,14 @@
 @import "course/components";
 @import "enrollment/components";
 @import "forums/components";
+@import "library/components";
 @import "login/components";
 @import "modeled-content/components";
 @import "navigation/components";
 @import "notifications/components";
 @import "profile/components";
 @import "prompts/components";
-
-
-
-%detail-link {
-	text-transform: uppercase;
-	font-size: 0.6875rem;
-}
-
+@import "terms/components";
 
 .hidden {
 	display: none;
@@ -56,7 +52,7 @@
 	display: block;
 	padding: 0.25rem;
 	border: 1px solid $secondary-red;
-	font-size: 0.8rem;
+	font-size: 0.75rem;
 	font-weight: 600;
 	font-style: italic;
 }

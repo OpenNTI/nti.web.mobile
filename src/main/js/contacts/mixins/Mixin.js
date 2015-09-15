@@ -1,4 +1,4 @@
-import Api from '../Api';
+import {getStore} from '../Api';
 
 export default {
 
@@ -41,7 +41,7 @@ export default {
 	},
 
 	setUpStore () {
-		Api.getStore(this.storeType)
+		getStore(this.storeType)
 			.then(store => this.setState({store}));
 	}
 

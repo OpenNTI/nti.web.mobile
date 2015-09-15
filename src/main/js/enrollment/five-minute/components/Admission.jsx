@@ -112,7 +112,7 @@ export default React.createClass({
 		}
 
 		if (this.state.redirect) {
-			return <Redirect location={this.state.redirect} force={true} />;
+			return <Redirect location={this.state.redirect} force />;
 		}
 
 		let view;

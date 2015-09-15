@@ -15,7 +15,7 @@ export default React.createClass({
 		let {className, entity, selected} = this.props;
 
 		return (
-			<div className={cx('token', className, {selected})} {...this.props}>
+			<div className={cx('token pill', className, {selected})} {...this.props}>
 				<DisplayName entity={entity}/>
 			</div>
 		);

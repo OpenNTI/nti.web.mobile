@@ -2,8 +2,6 @@ import React from 'react';
 import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import cx from 'classnames';
 
-import {isFlag} from 'common/utils';
-
 import {RouterMixin} from 'react-router-component';
 
 
@@ -118,7 +116,7 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		//The getDOMNode() will always be the loading dom at his point...
+		//The DOM Node will always be the loading dom at his point...
 		//we wait for the re-render of the actual data in componentDidUpdate()
 		this.getDataIfNeeded(this.props);
 	},
@@ -338,7 +336,7 @@ export default React.createClass({
 	renderAnnotationToolbar () {
 		const None = void 0;
 		let {selected} = this.state;
-		if (!selected || !isFlag('create-annotations')) {
+		if (!selected) {
 			return null;
 		}
 

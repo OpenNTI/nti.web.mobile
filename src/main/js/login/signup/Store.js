@@ -60,28 +60,6 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 		});
 	},
 
-	getUserAgreementUrl (basePath) {
-		if (!basePath) {
-			throw new Error('basePath is required.');
-		}
-		// return Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
-		return Promise.resolve( basePath + 'api/user-agreement/');
-	},
-
-	getUserAgreement (basePath) {
-		return this.getUserAgreementUrl(basePath).then(url => {
-			//BAD: TODO: Fix to use get() from Service!
-			return getServer().get(url)
-				.catch(reason => {
-					if (reason.responseJSON) {
-						reason = reason.responseJSON.message;
-					}
-					return Promise.reject(reason);
-				});
-		});
-		// Promise.resolve('https://docs.google.com/document/pub?id=1rM40we-bbPNvq8xivEKhkoLE7wmIETmO4kerCYmtISM&embedded=true');
-	},
-
 	getPrivacyUrl () {
 		return 'https://docs.google.com/document/pub?id=1W9R8s1jIHWTp38gvacXOStsfmUz5TjyDYYy3CVJ2SmM';
 	}
