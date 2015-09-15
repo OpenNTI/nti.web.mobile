@@ -69,9 +69,9 @@ export default React.createClass({
 	render () {
 		let {mask} = this.state;
 		let {path} = this.props;
-		let isLoginView = /\/login/i.test(path || location.href);
+		let isGated = /\/(login|tos)/i.test(path || location.href);
 
-		let Wrapper = isLoginView ? 'div' : AppContainer;
+		let Wrapper = isGated ? 'div' : AppContainer;
 
 		if (mask) {
 			return <Loading message={typeof mask === 'string' ? mask : void 0}/>;

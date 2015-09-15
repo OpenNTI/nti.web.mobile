@@ -30,6 +30,7 @@ import Login from 'login/components/View';
 import Profile from 'profile/components/View';
 import NotFoundPage from 'notfound/components/View';
 import ObjectResolver from 'object-resolver/components/View';
+import Terms from 'terms/components/View';
 
 
 import NavStore from 'navigation/Store';
@@ -47,7 +48,8 @@ const HANDLER_BY_NAME = {
 	Library,
 	Login,
 	Profile,
-	Object: ObjectResolver
+	Object: ObjectResolver,
+	Terms
 };
 
 const SendGAEvent = 'Router:SendGAEvent';
