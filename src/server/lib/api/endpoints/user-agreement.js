@@ -22,12 +22,20 @@ class ServeUserAgreement {
 
 
 		request(url, (error, r, response)=> {
+			const STYLES_REGEX = /<style[^>]*>(.*)<\/style/ig;
 			let body = BODY_REGEX.exec(response);
+			let styles = [];
+			let m;
+
+			while ((m = STYLES_REGEX.exec(response))) {
+				styles.push(m[1]);
+			}
 
 			let data = {
 				status: r.statusCode,
 				html: response,
-				body: body && body[1]
+				body: body && body[1],
+				styles: styles.join('\n\n')
 			};
 
 			res.status(data.status);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {getService} from 'common/utils';
+import {getServer} from 'common/utils';
 
 import Conditional from 'common/components/Conditional';
 import ErrorWidget from 'common/components/Error';
@@ -15,8 +15,7 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
-			loading: true,
-			url: null
+			loading: true
 		};
 	},
 
@@ -29,8 +28,7 @@ export default React.createClass({
 	getUserAgreement (basePath) {
 		let url = basePath + 'api/user-agreement/';
 
-		return getService()
-			.then(service => service.get(url))
+		return getServer().get(url)
 			.catch(reason => {
 				if (reason.responseJSON) {
 					reason = reason.responseJSON.message;
@@ -49,15 +47,21 @@ export default React.createClass({
 
 
 	setContent (result) {
-		this.setState({
-			content: result.body,
-			loading: false
-		});
+		let {styles, body: content} = result;
+
+		styles = styles || '';
+
+		//do not import other sheets.
+		styles = styles.replace(/@import[^;]*;/g, '');
+		//do not allow margin rules:
+		styles = styles.replace(/(margin)([^\:]*):([^;]*);/g, '');
+
+		this.setState({ styles, content, loading: false });
 	},
 
 
 	render () {
-		let {loading, error, content} = this.state;
+		let {loading, error, content, styles} = this.state;
 
 		return (
 			<div className="agreement-wrapper">
@@ -67,7 +71,10 @@ export default React.createClass({
 				) : error ? (
 					<ErrorWidget error={error} />
 				) : (
-					<Conditional condition={!loading && !!content} className="agreement" dangerouslySetInnerHTML={{__html: content}} />
+					<Conditional condition={!loading && !!content} className="agreement">
+						<style type="text/css" scoped dangerouslySetInnerHTML={{__html: styles}}/>
+						<div dangerouslySetInnerHTML={{__html: content}}/>
+					</Conditional>
 				)}
 
 			</div>
