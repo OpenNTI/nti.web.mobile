@@ -82,7 +82,7 @@ export function setupApplication (app, config) {
 	app.use(/^\/login/i, session.anonymousMiddleware.bind(session));
 
 	//Session manager...
-	app.use(/^(?!\/(login|resources)).*/i, session.middleware.bind(session));
+	app.use(/^(?!\/(api|login|resources)).*/i, session.middleware.bind(session));
 
 	//HTML Renderer...
 	app.get('*', (req, res)=> {

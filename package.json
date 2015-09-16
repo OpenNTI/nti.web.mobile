@@ -50,7 +50,7 @@
     "format-price": "0.0.2",
     "git-rev-sync": "^1.0.0",
     "graphql": "^0.4.2",
-    "graphql-relay": "^0.3.1",
+    "graphql-relay": "^0.3.2",
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-copy": "^0.8.0",

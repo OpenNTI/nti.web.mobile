@@ -1,60 +1,102 @@
 import {
-	GraphQLBoolean,
+	// GraphQLBoolean,
+	// GraphQLFloat,
+	// GraphQLID,
+	// GraphQLInt,
+	// GraphQLList,
+	// GraphQLNonNull,
 	GraphQLObjectType,
-	GraphQLSchema
+	GraphQLSchema,
+	// GraphQLString,
 } from 'graphql';
 
-/*
 import {
-	connectionArgs,
-	connectionDefinitions,
-	connectionFromArray,
+	// connectionArgs,
+	// connectionDefinitions,
+	// connectionFromArray,
 	fromGlobalId,
 	globalIdField,
-	mutationWithClientMutationId,
+	// mutationWithClientMutationId,
 	nodeDefinitions,
 } from 'graphql-relay';
-*/
 
-/*
-const {nodeInterface, nodeField} = nodeDefinitions(
+// Import methods that your schema can use to interact with your database
+// import {} from './database';
+
+/**
+ * We get the node interface and field from the Relay library.
+ *
+ * The first method defines the way we resolve an ID to its object.
+ * The second defines the way we resolve an object to its GraphQL type.
+ */
+let {nodeInterface, nodeField} = nodeDefinitions(
 	(globalId) => {
-		var {type, id} = fromGlobalId(globalId);
-		if (type === 'User') {
-			return getUser(id);
-		} else if (type === 'Widget') {
-			return getWidget(id);
-		} else {
-			return null;
-		}
+		let {type, id} = fromGlobalId(globalId);
+		console.log(type, id);
+		return null;
 	},
 	(obj) => {
-		if (obj instanceof User) {
-			return userType;
-		} else if (obj instanceof Widget) {
-			return widgetType;
-		} else {
-			return null;
-		}
+		console.log(obj);
+		return null;
 	}
-);*/
+);
 
-const queryType = new GraphQLObjectType({
+/**
+ * Define your own types here
+ */
+
+let userType = new GraphQLObjectType({
+	name: 'User',
+	description: 'A person who uses our app',
+	fields: () => ({
+		id: globalIdField('User')
+	}),
+	interfaces: [nodeInterface]
+});
+
+
+/**
+ * Define your own connection types here
+ */
+// let {connectionType: widgetConnection} =
+// 	connectionDefinitions({name: 'Widget', nodeType: widgetType});
+
+
+
+/**
+ * This is the type that will be the root of our query,
+ * and the entry point into our schema.
+ */
+let queryType = new GraphQLObjectType({
 	name: 'Query',
 	fields: () => ({
-		//node: nodeField,
-		// Add root fields here
-
-		meh: {
-			type: GraphQLBoolean,
-			description: 'Dummy Field',
-			resolve: () => true
+		node: nodeField,
+		// Add your own root fields here
+		viewer: {
+			type: userType,
+			resolve: () => null
 		}
 	})
 });
 
+/**
+ * This is the type that will be the root of our mutations,
+ * and the entry point into performing writes in our schema.
+ *//*
+let mutationType = new GraphQLObjectType({
+	name: 'Mutation',
+	fields: () => ({
+		// Add your own mutations here
+	})
+});
+*/
 
-
-export default new GraphQLSchema({
+/**
+ * Finally, we construct our schema (whose starting query type is the query
+ * type we defined above) and export it.
+ */
+export let Schema = new GraphQLSchema({
 	query: queryType
+	// Uncomment the following after adding some mutation fields:
+	// mutation: mutationType
 });
