@@ -4,6 +4,9 @@ doc/yuidoc
 dist
 stage
 node_modules
+src/main/querybrowser/etc
+src/main/querybrowser/lib
+src/main/querybrowser/graphiql
 src/main/resources/css
 src/main/resources/vendor
 env.json
