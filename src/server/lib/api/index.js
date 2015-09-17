@@ -12,6 +12,10 @@ export function registerEndPoints (app, config, dataserver) {
 				.then(service => req.ntiService = service);
 	}
 
+	//Make Service resolving middleware available on the api router for sub routers to install
+	//We cannot just install it here, because some API endpoints should work anonymously.
+	api.ServiceMiddleWare = (req, res, next) => getService(req).then(() => next(), next);
+
 	api.param('ntiid', (req, res, next, id) => {
 		getService(req)
 			.then(service => service.getParsedObject(id))
