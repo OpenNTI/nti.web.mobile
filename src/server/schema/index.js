@@ -7,7 +7,7 @@ import {
 	// GraphQLNonNull,
 	GraphQLObjectType,
 	GraphQLSchema,
-	// GraphQLString,
+	GraphQLString
 } from 'graphql';
 
 import {
@@ -49,7 +49,8 @@ let userType = new GraphQLObjectType({
 	name: 'User',
 	description: 'A person who uses our app',
 	fields: () => ({
-		id: globalIdField('User')
+		id: globalIdField('User'),
+		displayName: {type: GraphQLString}
 	}),
 	interfaces: [nodeInterface]
 });
@@ -72,9 +73,16 @@ let queryType = new GraphQLObjectType({
 	fields: () => ({
 		node: nodeField,
 		// Add your own root fields here
-		viewer: {
+
+		user: {
 			type: userType,
-			resolve: () => null
+			args: {
+				id: globalIdField('User')
+			},
+			resolve: (_, args) => {
+				let {request: context} = _;
+				return context.ntiService.resolveEntity(args.id);
+			}
 		}
 	})
 });
