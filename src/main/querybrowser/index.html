@@ -73,6 +73,7 @@
 		function graphQLFetcher(graphQLParams) {
 			return fetch(window.location.origin + '/mobile/api/graphql', {
 				method: 'post',
+				credentials: 'same-origin',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(graphQLParams),
 			}).then(function (response) {
