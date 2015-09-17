@@ -123,6 +123,15 @@ export default React.createClass({
 		let query = event ? event.target.value : '';
 		let {store} = this.state;
 
+		let existing = this.state.search;
+
+		// If the value didn't change don't do anything.
+		// In Chrome on Android change events sometimes fire on blur(?)
+		// and trigger this method unnecessarily.
+		if(existing === query) {
+			return;
+		}
+
 		this.setState({
 			search: query,
 			searchLoading: query.length > 0,
