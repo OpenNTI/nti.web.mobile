@@ -45,12 +45,15 @@ let {nodeInterface, nodeField} = nodeDefinitions(
  * Define your own types here
  */
 
-let userType = new GraphQLObjectType({
-	name: 'User',
+let entityType = new GraphQLObjectType({
+	name: 'Entity',
 	description: 'A person who uses our app',
 	fields: () => ({
 		id: globalIdField('User'),
-		displayName: {type: GraphQLString}
+		displayName: { type: GraphQLString },
+		displayType: { type: GraphQLString },
+		initials: { type: GraphQLString },
+		avatar: { type: GraphQLString }
 	}),
 	interfaces: [nodeInterface]
 });
@@ -75,9 +78,9 @@ let queryType = new GraphQLObjectType({
 		// Add your own root fields here
 
 		user: {
-			type: userType,
+			type: entityType,
 			args: {
-				id: globalIdField('User')
+				id: globalIdField('Entity')
 			},
 			resolve: (_, args) => {
 				let {request: context} = _;
