@@ -6,6 +6,6 @@ export default function register (api, config) {
 	api.use(/^\/graphql/, graphQLHTTP(request => ({
 		schema: Schema,
 		pretty: true,
-		rootValue: {config, request}
+		rootValue: {service: request.ntiService, config, request}
 	})));
 }

@@ -83,8 +83,7 @@ let queryType = new GraphQLObjectType({
 				id: globalIdField('Entity')
 			},
 			resolve: (_, args) => {
-				let {request: context} = _;
-				return context.ntiService.resolveEntity(args.id);
+				return _.service.resolveEntity(args.id);
 			}
 		}
 	})
