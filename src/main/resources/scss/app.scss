@@ -94,10 +94,6 @@ body {
 	user-select: text !important;
 }
 
-.button, input[type=button], input[type=submit], input[type=reset], button {
-	text-transform: uppercase;
-}
-
 a {
 	&.disabled {
 		opacity:0.4;
