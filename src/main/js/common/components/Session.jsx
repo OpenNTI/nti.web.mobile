@@ -3,6 +3,7 @@ import React from 'react/addons';
 
 import Avatar from './Avatar';
 import DisplayName from './DisplayName';
+import Impersonate from './Impersonate';
 
 import BasePathAware from '../mixins/BasePath';
 
@@ -39,14 +40,15 @@ export default React.createClass({
 				<div className="meta">
 					<DisplayName entity={entity}/>
 				</div>
+				<div className="actions">
+					<Impersonate/>
+					{children}
+				</div>
 				<ul className="links">
 					<li><a href={profile}>View Profile</a></li>
 					<li><a href={contacts}>Contacts</a></li>
 					<li><a onClick={logout}>Log Out</a></li>
 				</ul>
-				<div className="actions">
-					{children}
-				</div>
 			</div>
 		);
 	}

@@ -31,8 +31,25 @@
 	}
 
 	.meta, .actions {
-		margin: 0.625rem;
+		margin: 0.3125rem;
 		margin-left: 25%;
+
+	}
+
+	.impersonate {
+		display: block;
+		position: absolute; top: 0; right: 0;
+		font-size: inherit;
+		text-transform: none;
+		line-height: 2;
+		padding: 0.5rem;
+		border: 0.0625rem solid $border-blue;
+		border-radius: 5px;
+		margin: 0.3125rem;
+	}
+
+	.actions {
+		font-size: 0.75rem;
 	}
 
 	.meta {
@@ -44,7 +61,7 @@
 		display: flex;
 		clear: both;
 		margin: 0;
-		margin-bottom: -0.6875em;
+		margin-bottom: 0.125rem;
 		li {
 			cursor: pointer;
 			flex: 1 1 50%;
