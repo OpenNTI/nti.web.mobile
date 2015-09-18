@@ -40,6 +40,12 @@ import BodyContent from './Content';
 import Gutter from './Gutter';
 import Discussions from './discussions';
 
+
+function getAssessment (state) {
+	let {page} = state;
+	return page && page.getSubmittableAssessment();
+}
+
 export default React.createClass({
 	displayName: 'content:Viewer',
 	mixins: [
@@ -71,8 +77,7 @@ export default React.createClass({
 
 
 	signalResourceLoaded () {
-		let {page} = this.state;
-		let quiz = page && page.getSubmittableAssessment();
+		let quiz = getAssessment(this.state);
 		let mime = quiz ? (isAssignment(quiz) ? ASSIGNMENT_VIEWED : SELFASSESSMENT_VIEWED) : RESOURCE_VIEWED;
 
 		let args = [
@@ -336,7 +341,7 @@ export default React.createClass({
 	renderAnnotationToolbar () {
 		const None = void 0;
 		let {selected} = this.state;
-		if (!selected) {
+		if (!selected || isAssignment(getAssessment(this.state))) {
 			return null;
 		}
 
