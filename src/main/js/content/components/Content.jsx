@@ -19,14 +19,14 @@ export default React.createClass({
 		page: React.PropTypes.object.isRequired,
 		pageId: React.PropTypes.string.isRequired,
 		onContentReady: React.PropTypes.func,
-		onTouchEnd: React.PropTypes.func
+		onUserSelectionChange: React.PropTypes.func
 	},
 
 
 	getDefaultProps () {
 		return {
 			onContentReady: () => {},
-			onTouchEnd: hasSelection => console.debug('Touch ended, has selection?', hasSelection)
+			onUserSelectionChange: hasSelection => console.debug('Touch ended, has selection?', hasSelection)
 		};
 	},
 
@@ -177,7 +177,7 @@ export default React.createClass({
 				{styles.map((css, i) =>
 					<style scoped type="text/css" key={i} dangerouslySetInnerHTML={{__html: css}}/>
 				)}
-				<nti-content {...this.props} onTouchEnd={void 0} ref="content"
+				<nti-content {...this.props} ref="content"
 					data-ntiid={pageId}
 					data-page-ntiid={pageId}
 					dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>
@@ -196,7 +196,7 @@ export default React.createClass({
 			let s = window.getSelection();
 			let hasSelection = s.type === 'Range' && s.getRangeAt(0);
 
-			this.props.onTouchEnd(capture, hasSelection);
+			this.props.onUserSelectionChange(capture, hasSelection);
 		}, TICK);
 	}
 });

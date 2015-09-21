@@ -285,7 +285,7 @@ export default React.createClass({
 						<BodyContent id="NTIContent" ref="content"
 							className="nti-content-panel"
 							onClick={this.onContentClick}
-							onTouchEnd={this.maybeOfferAnnotations}
+							onUserSelectionChange={this.maybeOfferAnnotations}
 							contentPackage={contentPackage}
 							pageId={pageId}
 							page={page}/>
