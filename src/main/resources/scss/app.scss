@@ -86,8 +86,11 @@ html { text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
 address {font-style: normal;}
 
 body {
-	-webkit-touch-callout: none;
 	user-select: none;
+}
+
+img {
+	-webkit-touch-callout: none;
 }
 
 [contenteditable] {
