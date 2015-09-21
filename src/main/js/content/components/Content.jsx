@@ -190,11 +190,18 @@ export default React.createClass({
 			srcElement: e.srcElement,
 			target: e.target
 		};
-		const TICK = 500;
+
+		const TICK = 20;
+
 		clearTimeout(this.selectionDetection);
+
 		this.selectionDetection = setTimeout(()=> {
 			let s = window.getSelection();
-			let hasSelection = s.type === 'Range' && s.getRangeAt(0);
+			let hasSelection = s && !s.isCollapsed && s.type === 'Range' && s.getRangeAt(0);
+
+			if (!hasSelection && s) {
+				setTimeout(()=> s.removeAllRanges(), TICK);
+			}
 
 			this.props.onUserSelectionChange(capture, hasSelection);
 		}, TICK);
