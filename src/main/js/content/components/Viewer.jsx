@@ -286,7 +286,7 @@ export default React.createClass({
 							onClick={this.onContentClick}
 							onUserSelectionChange={this.maybeOfferAnnotations}
 							contentPackage={contentPackage}
-							pageId={page.getCanonicalPageID()}
+							pageId={page.getCanonicalID()}
 							page={page}/>
 
 						{this.renderAssessmentFeedback()}
