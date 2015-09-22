@@ -17,7 +17,7 @@ import {
 	fromGlobalId,
 	globalIdField,
 	// mutationWithClientMutationId,
-	nodeDefinitions,
+	nodeDefinitions
 } from 'graphql-relay';
 
 // Import methods that your schema can use to interact with your database
