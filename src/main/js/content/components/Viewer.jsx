@@ -231,7 +231,6 @@ export default React.createClass({
 
 
 	render () {
-		let pageId = this.getPageID();
 		let {contentPackage, className} = this.props;
 
 		let {
@@ -287,7 +286,7 @@ export default React.createClass({
 							onClick={this.onContentClick}
 							onUserSelectionChange={this.maybeOfferAnnotations}
 							contentPackage={contentPackage}
-							pageId={pageId}
+							pageId={page.getCanonicalPageID()}
 							page={page}/>
 
 						{this.renderAssessmentFeedback()}
