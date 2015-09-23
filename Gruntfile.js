@@ -38,6 +38,18 @@ module.exports = function (grunt) {
 			}
 		},
 
+
+		run: {
+			'update-schema': {
+				cmd: 'npm',
+				args: [
+					'run-script',
+					'update-schema'
+				]
+			}
+		},
+
+
 		karma: {
 			unit: {
 				configFile: 'karma.conf.js'
@@ -193,6 +205,7 @@ module.exports = function (grunt) {
 		var buildSteps = [
 			'clean:stage',
 			'copy:stage-' + target,
+			'run:update-schema',
 			'webpack:site', //build site-specific styles.
 			'webpack:' + target,
 			'clean:' + target,
@@ -212,12 +225,14 @@ module.exports = function (grunt) {
 	grunt.registerTask('serve', function (target) {
 		if (target === 'dist') {
 			return grunt.task.run([
+				'run:update-schema',
 				'build',
 				'execute:dist'
 			]);
 		}
 
 		grunt.task.run([
+			'run:update-schema',
 			'eslint',
 			'execute:dev'
 		]);

@@ -3,6 +3,7 @@ doc/jsdoc
 doc/yuidoc
 dist
 stage
+data
 node_modules
 src/main/querybrowser/etc
 src/main/querybrowser/lib
