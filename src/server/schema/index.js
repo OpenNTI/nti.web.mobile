@@ -11,9 +11,9 @@ import {
 } from 'graphql';
 
 import {
-	// connectionArgs,
-	// connectionDefinitions,
-	// connectionFromArray,
+	connectionArgs,
+	connectionDefinitions,
+	connectionFromArray,
 	fromGlobalId,
 	globalIdField,
 	// mutationWithClientMutationId,
@@ -32,11 +32,11 @@ import {
 let {nodeInterface, nodeField} = nodeDefinitions(
 	(globalId) => {
 		let {type, id} = fromGlobalId(globalId);
-		console.log(type, id);
+		console.log('A:::', type, id);
 		return null;
 	},
 	(obj) => {
-		console.log(obj);
+		console.log('B:::', obj);
 		return null;
 	}
 );
@@ -47,7 +47,7 @@ let {nodeInterface, nodeField} = nodeDefinitions(
 
 let entityType = new GraphQLObjectType({
 	name: 'Entity',
-	description: 'A person who uses our app',
+	description: 'Entity in the system (User-like)',
 	fields: () => ({
 		id: globalIdField('User'),
 		displayName: { type: GraphQLString },
@@ -58,12 +58,29 @@ let entityType = new GraphQLObjectType({
 	interfaces: [nodeInterface]
 });
 
+let {connectionType: entityConnection} = connectionDefinitions({name: 'Entity', nodeType: entityType});
 
-/**
- * Define your own connection types here
- */
-// let {connectionType: widgetConnection} =
-// 	connectionDefinitions({name: 'Widget', nodeType: widgetType});
+let entitySearchType = new GraphQLObjectType({
+	name: 'EntitySearch',
+	description: 'List entities that match',
+	fields: () => ({
+		items: {
+			type: entityConnection,
+			args: {
+				...connectionArgs,
+				search: {
+					type: GraphQLString
+				}
+			},
+			// type: new GraphQLList(entityType),
+			description: 'Entity results',
+			resolve: (_, args) =>{
+				return _.service.getContacts().search(args.search, true)
+					.then(x => connectionFromArray(x, args));
+			}
+		}
+	})
+});
 
 
 
@@ -82,9 +99,14 @@ let queryType = new GraphQLObjectType({
 			args: {
 				id: globalIdField('Entity')
 			},
-			resolve: (_, args) => {
-				return _.service.resolveEntity(args.id);
-			}
+			resolve: (_, args) =>
+				_.service.resolveEntity(args.id)
+		},
+
+
+		entitySearch: {
+			type: entitySearchType,
+			resolve: x => x //forward the rootValue down
 		}
 	})
 });
