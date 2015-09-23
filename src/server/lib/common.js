@@ -34,6 +34,11 @@ let opt = require('yargs')
 				'dataserver-port': {
 					desc: 'Override DataServer port (this trumps the config)'
 				},
+				'webpack': {
+					desc: 'Prefix with "no-" to force the dev-server off.',
+					type: 'boolean',
+					default: true
+				},
 				'config': {
 					demand: true,
 					default: '../config/env.json',
@@ -119,7 +124,7 @@ export function config () {
 	let serverPort = opt['dataserver-port'];
 
 	let c = override(
-		Object.assign({}, env[base], env[process.env.NODE_ENV] || {}), {
+		Object.assign({webpack: opt.webpack}, env[base], env[process.env.NODE_ENV] || {}), {
 			protocol: opt.protocol,
 			address: opt.l,
 			port: opt.p || env.port,

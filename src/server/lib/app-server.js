@@ -29,7 +29,7 @@ export function setupApplication (app, config) {
 	let session = dsi.session;
 	let datacache = dsi.datacache;
 
-	let {basepath} = config;
+	let {basepath, webpack} = config;
 
 	let entryPoint = generated.entryPoint;
 	let assetPath = path.join(__dirname, '../..', entryPoint ? 'client' : 'main');
@@ -45,13 +45,14 @@ export function setupApplication (app, config) {
 
 	redirects.register(app, config);
 
-	if (entryPoint == null) {//only start the dev server if entryPoint is null or undefined. if its false, skip.
+	if (entryPoint == null && webpack) {
+		//only start the dev server if entryPoint is null or undefined. if its false, skip.
 		devmode = setupDeveloperMode(config);
 		entryPoint = devmode.entry;
 		page = pageSource();
 		app.use(devmode.middleware);//serve in-memory compiled sources/assets
 	}
-	else if (entryPoint === false) {
+	else if (entryPoint === false && webpack) {
 		logger.error('Not in dev mode, preventing dev server from starting. Shutting down.');
 		return void 0;
 	}
