@@ -1,11 +1,11 @@
 .assignments-view {
-	$background-grey: #fbfbfb;
-
 	ul {
 		list-style:none;
 		margin: 0;
 	}
 	.search-sort-bar {
+		$background-grey: #fbfbfb;
+		$input-padding: 1.5rem;
 		display: flex;
 		background: $background-grey;
 		box-shadow: 0 -1px 0 0 darken($background-grey, 3.9%), 0 1px 0 0 darken($background-grey, 3.9%);
@@ -17,6 +17,31 @@
 			box-shadow: inset 1px 0 0 0 #f1f1f1;
 			background: none;
 			border: none;
+			padding: $input-padding $input-padding/2;
+		}
+		.select-box {
+			z-index: 999;
+			ul {
+				width: 100%;
+				font-weight: 600;
+				background: $background-grey;
+				li {
+					line-height: $input-padding * 2;
+					padding-left: 0.5rem;
+				}
+			}
+			&.open {
+				& > ul {
+					box-shadow: 1px 2px 2px 0 rgba(0,0,0,0.1);
+				}
+				.selected {
+					background: $primary-blue;
+					color: white;
+					&::after {
+						color: white;
+					}
+				}
+			}
 		}
 	}
 	.assignments-list {
@@ -27,7 +52,11 @@
 	}
 
 	.assignment-group {
-		margin-bottom: 1.5rem;
+		$vertical-spacing: 1.5rem;
+		padding-bottom: $vertical-spacing/2;
+		margin: 0 -1rem #{$vertical-spacing/2} -1rem;
+		padding: 0 1rem #{$vertical-spacing/2} 1rem;
+		box-shadow: 0 1px 0 $quad-grey;
 		&.admin {
 			& > h2 {
 				display: flex;
@@ -87,30 +116,7 @@
 			text-align: right;
 		}
 	}
-	.select-box {
-		z-index: 999;
-		ul {
-			width: 100%;
-			font-weight: 600;
-			background: $background-grey;
-			li {
-				line-height: 2.35rem;
-				padding-left: 0.5rem;
-			}
-		}
-		&.open {
-			& > ul {
-				box-shadow: 1px 2px 2px 0 rgba(0,0,0,0.1);
-			}
-			.selected {
-				background: $primary-blue;
-				color: white;
-				&::after {
-					color: white;
-				}
-			}
-		}
-	}
+
 }
 
 .performance {
