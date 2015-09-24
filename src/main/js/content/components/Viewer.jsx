@@ -59,6 +59,7 @@ export default React.createClass({
 		rootId: React.PropTypes.string,
 		pageId: React.PropTypes.string,
 		contentPackage: React.PropTypes.object,
+		pageSource: React.PropTypes.object, //used to specify a custom pager
 		onPageLoaded: React.PropTypes.func,
 
 		className: React.PropTypes.string
@@ -171,15 +172,19 @@ export default React.createClass({
 	onStoreChange () {
 		let id = this.getPageID();
 		let page = Store.getPageDescriptor(id);
-		let pageSource, pageTitle, error;
-		let {onPageLoaded} = this.props;
+		let pageTitle, error;
+		let {pageSource, onPageLoaded} = this.props;
 
 		if (!page) { //the event was not for this component.
 			return;
 		}
 
+
+
 		if (page instanceof PageDescriptor) {
-			pageSource = page.getPageSource(this.getRootID());
+			if (!pageSource) {
+				pageSource = page.getPageSource(this.getRootID());
+			}
 			pageTitle = page.getTitle();
 		} else {
 			error = page;
