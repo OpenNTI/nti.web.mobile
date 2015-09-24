@@ -17,7 +17,7 @@ export default React.createClass({
 		return (
 			<div className="search-sort-bar">
 				<SortBox assignments={assignments} onChange={onSortChange} />
-				<input type="search" placeholder="Search Assignments" onChange={onSearchChange} />
+				<input className="search" type="search" placeholder="Search Assignments" onChange={onSearchChange} />
 			</div>
 		);
 	}
