@@ -86,16 +86,15 @@ html { text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
 address {font-style: normal;}
 
 body {
-	-webkit-touch-callout: none;
 	user-select: none;
+}
+
+img {
+	-webkit-touch-callout: none;
 }
 
 [contenteditable] {
 	user-select: text !important;
-}
-
-.button, input[type=button], input[type=submit], input[type=reset], button {
-	text-transform: uppercase;
 }
 
 a {

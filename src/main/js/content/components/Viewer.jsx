@@ -236,7 +236,6 @@ export default React.createClass({
 
 
 	render () {
-		let pageId = this.getPageID();
 		let {contentPackage, className} = this.props;
 
 		let {
@@ -290,9 +289,9 @@ export default React.createClass({
 						<BodyContent id="NTIContent" ref="content"
 							className="nti-content-panel"
 							onClick={this.onContentClick}
-							onTouchEnd={this.maybeOfferAnnotations}
+							onUserSelectionChange={this.maybeOfferAnnotations}
 							contentPackage={contentPackage}
-							pageId={pageId}
+							pageId={page.getCanonicalID()}
 							page={page}/>
 
 						{this.renderAssessmentFeedback()}

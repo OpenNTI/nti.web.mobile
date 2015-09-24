@@ -20,6 +20,13 @@ var server = require('./lib/app-server');
 var logger = require('./lib/logger');
 var setupErrorHandler = require('./lib/error-handler');
 
+function contextualize (root, app) {
+	var contextWapper = express();
+	contextWapper.use(root, app);
+	contextWapper.all('/', function (_, res) { res.redirect(root); });
+	return contextWapper;
+}
+
 common.loadConfig()
 	.then(function (config) {
 		common.showFlags(config);
@@ -32,17 +39,20 @@ common.loadConfig()
 		//WWW Server
 		var app = express();
 
-		var mobileapp = express();
-		mobileapp.use(config.basepath, app);//re-root the app to /mobile/
-		mobileapp.all('/', function (_, res) { res.redirect('/mobile/'); });
-
 		port = server.setupApplication(app, config);
 
 		//Errors
 		setupErrorHandler(app, config);
 
+		//re-root the app to /mobile/
+		if (config.basepath && config.basepath !== '') {
+			app = contextualize(config.basepath, app);
+		}
+
+		app.set('trust proxy', 1); // trust first proxy
+
 		//Go!
-		protocol.createServer(mobileapp || app).listen(port, address, function () {
+		protocol.createServer(app).listen(port, address, function () {
 			logger.info('Listening on port %d', port);
 		});
 

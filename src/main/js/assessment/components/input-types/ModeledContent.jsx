@@ -1,8 +1,6 @@
 import React from 'react';
 import Mixin from './Mixin';
 
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
-
 import {Panel, Editor} from 'modeled-content';
 
 /**
@@ -57,11 +55,11 @@ export default React.createClass({
 		let ref = this.refs.input;
 		let value = ref && ref.getValue();
 
-		if (Array.isArray(value) && isEmpty(value.join(''))) {
+		if (Array.isArray(value) && Editor.isEmpty(value.join(''))) {
 			return null;
 		}
 
-		return isEmpty(value) ? null : {
+		return Editor.isEmpty(value) ? null : {
 			MimeType: 'application/vnd.nextthought.assessment.modeledcontentresponse',
 			value: value
 		};

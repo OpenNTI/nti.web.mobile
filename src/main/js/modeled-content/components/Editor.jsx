@@ -112,7 +112,8 @@ export default React.createClass({
 		d.innerHTML = markup;
 		let script = d.querySelector('script[type$=json]');
 
-		let result = script ? JSON.parse(script.textContent) : markup;
+		//Returning a truthy value means we handled it.
+		let result = script ? JSON.parse(script.textContent) : void 0;
 
 		return result;
 	},

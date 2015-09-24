@@ -37,6 +37,13 @@ export default class PageDescriptor {
 	getID () { return this.ntiid; }
 
 
+	getCanonicalID () { //Asking for a PageInfo on Assessment items (questions
+		// and sets redirect to the containing page... so the requested ID will
+		//  not match the actual ID)  This allows us to get the "Real ID".
+		return this.pageInfo.getID();
+	}
+
+
 	getPageSource (id) { return this.tableOfContents.getPageSource(id); }
 
 

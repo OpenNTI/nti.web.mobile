@@ -17,7 +17,8 @@
   "stage": "./stage",
   "public_root": "/mobile/",
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "update-schema": "babel-node ./src/server/schema/update.js"
   },
   "main": "./src/server/index.js",
   "bin": {
@@ -29,6 +30,7 @@
     "babel-core": ">=5.6.6",
     "babel-eslint": ">=2.0.2",
     "babel-loader": ">=5.2.0",
+    "babel-relay-plugin": "^0.2.5",
     "babel-runtime": ">=5.6.6",
     "classnames": "^2.0.0",
     "compressible": "^2.0.1",
@@ -50,7 +52,7 @@
     "format-price": "0.0.2",
     "git-rev-sync": "^1.0.0",
     "graphql": "^0.4.2",
-    "graphql-relay": "^0.3.1",
+    "graphql-relay": "^0.3.2",
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-copy": "^0.8.0",
@@ -59,6 +61,7 @@
     "grunt-execute": "^0.2.2",
     "grunt-karma": "^0.12.0",
     "grunt-rename": "^0.1.4",
+    "grunt-run": "^0.5.1",
     "grunt-sass": "^1.0.0",
     "grunt-webpack": "^1.0.8",
     "html-loader": "^0.3.0",
