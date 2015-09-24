@@ -6,7 +6,7 @@ export default React.createClass({
 	displayName: 'Analytics',
 
 	componentDidMount () {
-		window.addEventListener('beforeunload', Store.endSession.bind(Store));
+		window.addEventListener('beforeunload', ()=> void Store.endSession());
 		pagevis.addChangeListener(visible => {
 			Store[visible ? 'resumeSession' : 'endSession']('page vis change');
 		});
