@@ -6,7 +6,7 @@ import {
 const registry = [];
 
 
-export function registerType (type, isType = ()=> false, getObject = ()=>null) {
+export function registerType (type, isType = ()=> false, getObject = (id, svc)=> svc.getParsedObject(id)) {
 	registry.push({type, isType, getObject});
 }
 
