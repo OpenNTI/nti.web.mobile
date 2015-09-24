@@ -46,7 +46,7 @@ export default React.createClass({
 
 		return (
 			<ul className="assignments-list">
-				{sorted.map((group, index) => <li key={index}><AssignmentGroup group={group} course={this.props.course} /></li>)}
+				{sorted.items.map((group, index) => <li key={index}><AssignmentGroup group={group} course={this.props.course} /></li>)}
 			</ul>
 		);
 	}
