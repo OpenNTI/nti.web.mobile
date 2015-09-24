@@ -170,7 +170,7 @@ module.exports = Object.freeze([
 			},
 			{
 				ref: 'social_security_number',
-				type: 'number',
+				type: 'ssn',
 				label: t('social_security_number'),
 				helptext: t('ssn_helptext')
 			},

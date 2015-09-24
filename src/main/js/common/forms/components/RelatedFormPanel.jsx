@@ -7,6 +7,7 @@ import FieldValuesStore from '../FieldValuesStore';
 
 import RadioGroup from './RadioGroup';
 import ToggleFieldset from './ToggleFieldset';
+import SocialSecurityNumberField from './SocialSecurityNumberField';
 import Select from 'common/forms/components/Select';
 import Checkbox from 'common/forms/components/Checkbox';
 
@@ -178,6 +179,11 @@ let RelatedFormPanel = React.createClass({
 			input = RadioGroup;
 			props.onChange = this.radioChanged;
 			RelatedConfigsStash.concat(this.getRelatedConfigs(field));
+			break;
+
+
+		case 'ssn':
+			input = SocialSecurityNumberField;
 			break;
 
 		case 'checkbox':
