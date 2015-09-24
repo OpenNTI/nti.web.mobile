@@ -7,14 +7,13 @@ export default React.createClass({
 
 	componentDidMount () {
 		window.addEventListener('beforeunload', ()=> void Store.endSession());
-		pagevis.addChangeListener(visible => {
-			Store[visible ? 'resumeSession' : 'endSession']('page vis change');
-		});
+		pagevis.addChangeListener(visible =>
+			void Store[visible ? 'resumeSession' : 'endSession']('page vis change'));
 		Store.init();
 	},
 
 	render () {
-		// return <div className="button tiny" onClick={Store.endSession.bind(Store)}>Halt</div>;
+		// return <div className="button tiny" onClick={()=> void Store.endSession()}>Halt</div>;
 		return null;
 	}
 
