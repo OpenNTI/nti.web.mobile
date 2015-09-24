@@ -1,20 +1,22 @@
 .assignments-view {
+	$background-grey: #fbfbfb;
+	$alt-grey: darken($background-grey, 3.9%); // #f1f1f1
 	ul {
 		list-style:none;
 		margin: 0;
 	}
 	.search-sort-bar {
-		$background-grey: #fbfbfb;
+
 		$input-padding: 1.5rem;
 		display: flex;
 		background: $background-grey;
-		box-shadow: 0 -1px 0 0 darken($background-grey, 3.9%), 0 1px 0 0 darken($background-grey, 3.9%);
+		box-shadow: 0 -1px 0 0 $alt-grey, 0 1px 0 0 $alt-grey;
 		& > * {
 			flex: 1 1 50%;
 		}
 		input.search {
 			margin: 0;
-			box-shadow: inset 1px 0 0 0 #f1f1f1;
+			box-shadow: inset 1px 0 0 0 $alt-grey;
 			background: none;
 			border: none;
 			padding: $input-padding $input-padding/2;
@@ -56,7 +58,7 @@
 		padding-bottom: $vertical-spacing/2;
 		margin: 0 -1rem #{$vertical-spacing/2} -1rem;
 		padding: 0 1rem #{$vertical-spacing/2} 1rem;
-		box-shadow: 0 1px 0 $quad-grey;
+		box-shadow: 0 1px 0 $alt-grey;
 		&.admin {
 			& > h2 {
 				display: flex;
