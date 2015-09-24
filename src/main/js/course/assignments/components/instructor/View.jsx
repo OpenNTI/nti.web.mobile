@@ -1,7 +1,6 @@
 import React from 'react';
 import Router from 'react-router-component';
 import Redirect from 'navigation/components/Redirect';
-import Tabs from '../Tabs';
 import Performance from './Performance';
 import Activity from '../Activity';
 import Assignments from '../Assignments';
