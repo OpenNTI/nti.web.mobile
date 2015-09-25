@@ -13,11 +13,39 @@ export default React.createClass({
 		sortedOn: React.PropTypes.string
 	},
 
+	getInitialState () {
+		return {
+			score: ''
+		};
+	},
+
+	componentWillMount () {
+		this.loadScore(this.props.assignment);
+	},
+
+	loadScore (assignment) {
+		if (!assignment) { return; }
+
+		assignment.getHistory(true)
+			.then(history => {
+				if(history) {
+					this.setState({
+						score: history.getGradeValue()
+					});
+				}
+			})
+			.catch(reason => {
+				if(typeof reason === 'object') {
+					console.error(reason);
+				}
+			});
+	},
+
 	render () {
 
 		let {assignment, sortedOn} = this.props;
 		let completed = assignment.hasLink('History');
-		let score = '';
+		let {score} = this.state;
 
 		let completedClasses = cx('completed', {
 			'yes': completed,
