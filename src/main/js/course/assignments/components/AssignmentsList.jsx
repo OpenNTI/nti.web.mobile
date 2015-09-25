@@ -1,6 +1,7 @@
 import React from 'react';
 import Loading from 'common/components/Loading';
 import AssignmentGroup from './AssignmentGroup';
+import SearchSortStore from '../SearchSortStore';
 
 export default React.createClass({
 	displayName: 'AssignmentsList',
@@ -14,7 +15,6 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
-			loading: true
 		};
 	},
 
@@ -23,30 +23,36 @@ export default React.createClass({
 	},
 
 	componentWillReceiveProps (nextProps) {
-		this.getAssignments(nextProps);
+		if(this.props.sort !== nextProps.sort || this.props.search !== nextProps.search) {
+			this.getAssignments(nextProps);
+		}
 	},
 
 	getAssignments (props = this.props) {
-		let {assignments, sort, search} = props;
+		let {assignments, sort = assignments.ORDER_BY_DUE_DATE, search} = props;
 		this.setState({
 			loading: true
-		}, () => {
-			assignments.getAssignmentsBy(sort, search)
-				.then(sorted => this.setState({sorted, loading: false}));
 		});
+		assignments.getAssignmentsBy(sort, search)
+			.then(sorted => {
+				SearchSortStore.assignmentsList = sorted;
+				this.setState({
+					loading: false
+				});
+			});
 	},
 
 	render () {
 
-		let {loading, sorted} = this.state;
-
-		if(loading) {
+		let {loading} = this.state;
+		let {assignmentsList} = SearchSortStore;
+		if(loading || !assignmentsList) {
 			return <Loading />;
 		}
 
 		return (
 			<ul className="assignments-list">
-				{sorted.items.map((group, index) => <li key={index}><AssignmentGroup group={group} course={this.props.course} /></li>)}
+				{assignmentsList.items.map((group, index) => <li key={index}><AssignmentGroup group={group} course={this.props.course} /></li>)}
 			</ul>
 		);
 	}

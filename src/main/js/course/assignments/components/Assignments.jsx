@@ -1,38 +1,37 @@
 import React from 'react';
 import AssignmentsList from './AssignmentsList';
 import SearchSortBar from './SearchSortBar';
-
+import SearchSortStore from '../SearchSortStore';
+import Content from './Content';
 
 export default React.createClass({
 	displayName: 'Assignments',
 
 	propTypes: {
 		assignments: React.PropTypes.object.isRequired,
-		course: React.PropTypes.object.isRequired
+		course: React.PropTypes.object.isRequired,
+		rootId: React.PropTypes.string // assignmentId, present when viewing an individual assignment
 	},
 
-	getInitialState () {
-		return {};
+	componentDidMount () {
+		SearchSortStore.addChangeListener(this.onStoreChanged);
 	},
 
-	onSortChange (value) {
-		this.setState({
-			sortBy: value
-		});
+	componentWillUnmount () {
+		SearchSortStore.removeChangeListener(this.onStoreChanged);
 	},
 
-	onSearchChange (event) {
-		this.setState({
-			search: event.target.value
-		});
+	onStoreChanged () {
+		this.forceUpdate();
 	},
 
 	render () {
-		const {props: {course, assignments}, state: {sortBy, search}} = this;
-		return (
+		const {course, assignments, rootId} = this.props;
+		const {search, sort, assignmentsList} = SearchSortStore;
+		return rootId ? <Content {...this.props} pageSource={(assignmentsList || {}).pageSource} /> : (
 			<div className="assignments-view">
-				<SearchSortBar assignments={assignments} onSortChange={this.onSortChange} onSearchChange={this.onSearchChange} />
-				<AssignmentsList sort={sortBy} search={search} course={course} assignments={assignments} />
+				<SearchSortBar assignments={assignments} />
+				<AssignmentsList sort={sort} search={search} course={course} assignments={assignments} />
 			</div>
 		);
 	}

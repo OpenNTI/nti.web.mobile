@@ -4,14 +4,12 @@ import Redirect from 'navigation/components/Redirect';
 import Performance from './Performance';
 import Activity from '../Activity';
 import Assignments from '../Assignments';
-import Content from '../Content';
 import PageFrame from '../PageFrame';
 
 const ROUTES = [
 	{path: '/performance(/*)', handler: PageFrame, pageContent: Performance},
 	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
-	{path: '/:rootId(/*)', handler: Content},
-	{path: '/', handler: PageFrame, pageContent: Assignments},
+	{path: '/(:rootId)(/*)', handler: Assignments},
 	{}//not found
 ];
 

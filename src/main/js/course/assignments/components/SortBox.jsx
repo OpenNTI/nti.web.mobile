@@ -6,6 +6,7 @@ export default React.createClass({
 
 	propTypes: {
 		assignments: React.PropTypes.object.isRequired,
+		value: React.PropTypes.any,
 		onChange: React.PropTypes.func.isRequired
 	},
 
@@ -18,15 +19,15 @@ export default React.createClass({
 			{ label: 'By Completion', value: ORDER_BY_COMPLETION}
 		];
 
-		this.setState({sortOptions, sortBy: ORDER_BY_DUE_DATE});
+		this.setState({sortOptions, sortBy: this.props.value || ORDER_BY_DUE_DATE});
 	},
 
 	render () {
 
-		let {sortOptions} = this.state;
+		let {sortOptions, sortBy} = this.state;
 
 		return (
-			<SelectBox options={sortOptions} onChange={this.props.onChange} />
+			<SelectBox options={sortOptions} onChange={this.props.onChange} value={sortBy} />
 		);
 	}
 });

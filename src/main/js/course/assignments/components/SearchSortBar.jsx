@@ -1,23 +1,34 @@
 import React from 'react';
 import SortBox from './SortBox';
+import SearchSortStore from '../SearchSortStore';
 
 export default React.createClass({
 	displayName: 'SearchSortBar',
 
 	propTypes: {
-		assignments: React.PropTypes.object.isRequired,
-		onSortChange: React.PropTypes.func,
-		onSearchChange: React.PropTypes.func
+		assignments: React.PropTypes.object.isRequired
+	},
+
+	onSortChange (value) {
+		SearchSortStore.sort = value;
+	},
+
+	onSearchChange (event) {
+		SearchSortStore.search = event.target.value;
 	},
 
 	render () {
 
-		let {assignments, onSortChange, onSearchChange} = this.props;
+		let {assignments} = this.props;
 
 		return (
 			<div className="search-sort-bar">
-				<SortBox assignments={assignments} onChange={onSortChange} />
-				<input className="search" type="search" placeholder="Search Assignments" onChange={onSearchChange} />
+				<SortBox assignments={assignments} onChange={this.onSortChange} value={SearchSortStore.sort}/>
+				<input className="search"
+					type="search"
+					placeholder="Search Assignments"
+					onChange={this.onSearchChange}
+					defaultValue={SearchSortStore.search} />
 			</div>
 		);
 	}
