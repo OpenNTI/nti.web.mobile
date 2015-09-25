@@ -19,7 +19,7 @@ export default React.createClass({
 			{ label: 'By Completion', value: ORDER_BY_COMPLETION}
 		];
 
-		this.setState({sortOptions, sortBy: this.props.value || ORDER_BY_DUE_DATE});
+		this.setState({sortOptions, sortBy: this.props.value || ORDER_BY_LESSON});
 	},
 
 	render () {
