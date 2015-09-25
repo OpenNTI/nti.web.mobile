@@ -46,11 +46,6 @@ export default React.createClass({
 		};
 	},
 
-	getAssignments (props = this.props) {
-		let a = props.assignments.getAssignments();
-		this.setState({
-			assignments: a
-		});
 	},
 
 	sort () {
