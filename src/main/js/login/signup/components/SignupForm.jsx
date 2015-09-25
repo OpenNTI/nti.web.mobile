@@ -14,7 +14,7 @@ import {getServer, getReturnURL} from 'common/utils';
 
 import indexArrayByKey from 'nti.lib.interfaces/utils/array-index-by-key';
 
-import UserAgreement from './UserAgreement';
+import UserAgreement from 'terms/components/UserAgreement';
 
 import Store from '../Store';
 import Actions from '../Actions';

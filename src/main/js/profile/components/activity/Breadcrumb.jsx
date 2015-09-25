@@ -76,7 +76,7 @@ export default React.createClass({
 		const prop = 'getPresentationProperties';
 		function getTitle (x) {
 			x = ((x || {})[prop] ? x[prop]() : x) || {};
-			return x.title || x.Title;
+			return x.title || x.Title || x.displayName;
 		}
 
 		return breadcrumb

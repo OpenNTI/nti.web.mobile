@@ -56,7 +56,9 @@ export default {
 		'emptyList:activity': 'No Activity.',
 		'emptyList:user-details': 'Empty Profile :(\nNo additional profile information available.',
 		'emptyList:memberships': 'No memberships',
-		'emptyList:contacts': 'No contacts found.',
+		'emptyList:friendslists': 'No Lists.',
+		'emptyList:dynamicfriendslists': 'No Groups.',
+		'emptyList:contacts': 'No contacts.',
 		'emptyList:contactssearch': 'No contacts found.',
 		'emptyList:entity-search': 'No one found',
 		'emptyList:assignments': 'None'

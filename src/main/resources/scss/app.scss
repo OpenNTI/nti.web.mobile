@@ -6,6 +6,8 @@
 @import "normalize";
 @import "foundation";
 
+@import "base-brand";
+
 @import "common/transitions";
 @import "common/animations";
 @import "common/components";
@@ -26,6 +28,7 @@
 @import "notifications/components";
 @import "profile/components";
 @import "prompts/components";
+@import "terms/components";
 
 .hidden {
 	display: none;
@@ -83,16 +86,15 @@ html { text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
 address {font-style: normal;}
 
 body {
-	-webkit-touch-callout: none;
 	user-select: none;
+}
+
+img {
+	-webkit-touch-callout: none;
 }
 
 [contenteditable] {
 	user-select: text !important;
-}
-
-.button, input[type=button], input[type=submit], input[type=reset], button {
-	text-transform: uppercase;
 }
 
 a {

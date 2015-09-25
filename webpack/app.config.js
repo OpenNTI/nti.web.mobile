@@ -4,7 +4,7 @@
 var NodeModulesThatNeedCompiling = [
 	'react-editor-component',
 	'nti\\..+'
-	];
+];
 
 var webpack = require('webpack');
 
@@ -18,23 +18,27 @@ var gitRevision = require('../src/server/lib/git-revision');
 var scssIncludes =
 	'includePaths[]=' + (path.resolve(__dirname, '../src/main/resources/vendor/foundation/scss'));
 
-var root = path.join(__dirname, '..', 'src', 'main', 'js');
-var modules = path.join(__dirname, '..', 'node_modules');
+var root = path.resolve(__dirname, '..', 'src', 'main', 'js');
+var modules = path.resolve(__dirname, '..', 'node_modules');
 
 var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
 
 var commonLoaders = [
 	{ test: /\.json$/, loader: 'json' },
 	{ test: /\.js(x?)$/,
-		loader: 'babel?optional[]=runtime',
-		exclude: excludeNodeModulesExceptOurs
+		loader: 'babel',
+		exclude: excludeNodeModulesExceptOurs,
+		query: {
+			optional: ['runtime'],
+			plugins: [path.resolve(__dirname, 'plugins/relay')]
+		}
 	},
 
 	{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
 
 	{ test: appFontName, loader: 'url' },
 	{
-		test: function(s) {
+		test: function (s) {
 			if (/woff$/.test(s)) {
 				return !appFontName.test(s);
 			}
@@ -70,7 +74,7 @@ function isOurModule (s) {
 }
 
 
-function excludeNodeModulesExceptOurs(s) {
+function excludeNodeModulesExceptOurs (s) {
 	if (/(node_modules|resources\/vendor)/.test(s)) {
 		return !isOurModule(s);
 	}

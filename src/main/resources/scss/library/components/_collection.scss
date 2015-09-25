@@ -92,7 +92,7 @@
 
 
 .library-item {
-	$media-tab: screen and (min-width: 600px);
+	$media-tab: "screen and (min-width: 600px)";
 
 	width: 170px;
 	position: relative;

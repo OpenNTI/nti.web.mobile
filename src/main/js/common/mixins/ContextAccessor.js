@@ -1,9 +1,12 @@
 import React from 'react';
+import wait from 'nti.lib.interfaces/utils/wait';
 
 const GetContext = 'context:provider:get-local';
 
 export const ContextParent = 'context:provider:parent';
 export const ContextResolver = 'context:provider:resolver';
+
+const RESOLVING = Symbol('resolvingContext');
 
 export default {
 
@@ -21,19 +24,28 @@ export default {
 
 
 	resolveContext () {
-		let getParentContext = this.context[ContextResolver];
-		let getContext = this[GetContext];
+		let work = () => {
+			let getParentContext = this.context[ContextResolver];
+			let getContext = this[GetContext];
 
-		if (getParentContext) {
-			return Promise.all([
-				getParentContext(),
-				getContext()]).then(x => {
-					let [parent, ours] = x;
+			return !getParentContext
+				? getContext()
+				: Promise.all([
+					getParentContext(),
+					getContext()
+				]).then(x => x.reduce((a, b) => a.concat(b), []));
+		};
 
-					return [].concat(parent).concat(ours);
-				});
+		if (!this[RESOLVING]) {
+			this[RESOLVING] = work();
+
+			this[RESOLVING]
+				// .then(x => console.log(x.map(i=>i.label)))
+				.catch(()=>{})//prevent errors from stoping cleanup.
+				.then(()=> wait(1000)//1 second
+					.then(()=> delete this[RESOLVING]));
 		}
 
-		return getContext();
+		return this[RESOLVING];
 	}
 };

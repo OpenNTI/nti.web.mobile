@@ -6,6 +6,7 @@ import cx from 'classnames';
 
 import buffer from 'nti.lib.interfaces/utils/function-buffer';
 
+import C from 'common/components/Conditional';
 import Pager from 'common/components/Pager';
 
 import BasePathAware from 'common/mixins/BasePath';
@@ -60,7 +61,7 @@ export default React.createClass({
 			let o = NavStore.getData();
 			if (this.isMounted()) {
 				// console.debug('Set Context: %o', o);
-				this.setState(o);
+				this.setState(Object.assign({resolving: true}, o));
 				this.fillIn(o);
 			}
 		})
@@ -70,6 +71,7 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
+			resolving: true,
 			menuOpen: false
 		};
 	},
@@ -95,12 +97,14 @@ export default React.createClass({
 			resolve = getContext();
 		}
 
-		resolve.then(x=>
-			//console.debug('Context Path: %o', x) ||
+		resolve.then(x=> {
+			// console.debug('Context Path: %o', x);
 			this.setState({
 				current: x && x[x.length - 1],
-				returnTo: x && x[x.length - 2]
-			}));
+				returnTo: x && x[x.length - 2],
+				resolving: false
+			});
+		});
 	},
 
 
@@ -120,7 +124,7 @@ export default React.createClass({
 	getLeft () {
 		let {returnTo} = this.state || {};
 		if (returnTo) {
-			return <ReturnTo {...returnTo}/>;
+			return <section><ReturnTo {...returnTo}/></section>;
 		}
 
 		return this.getChildForSide('left');
@@ -147,11 +151,13 @@ export default React.createClass({
 		let title = (current || {}).label || this.props.title;
 
 		return this.getChildForSide('center') ||
-			this.getMenu() || (
+			this.getMenu() || (title ? (
 
 			<a href={this.getBasePath()}>
-				<h1 className={css}>{title}</h1></a>
-		);
+				<h1 className={css}>{title}</h1>
+			</a>
+
+		) : null);
 	},
 
 
@@ -204,6 +210,7 @@ export default React.createClass({
 		this.setState({menuOpen: s});
 	},
 
+
 	updateBodyClassForMenu (isOpen) {
 		// video elements interfere with the menu interaction. adding a class to body
 		// when the menu is open allows us to use css to get the videos out of the way.
@@ -215,6 +222,7 @@ export default React.createClass({
 		}
 	},
 
+
 	closeMenu (e) {
 		if (e) {
 			e.preventDefault();
@@ -223,6 +231,7 @@ export default React.createClass({
 		this.updateBodyClassForMenu(false);
 		this.setState({menuOpen: false});
 	},
+
 
 	render () {
 		let {menuOpen} = this.state;
@@ -244,14 +253,14 @@ export default React.createClass({
 
 
 	renderBar () {
-		let {pageSource, currentPage, context} = this.state;
+		let {pageSource, currentPage, context, resolving} = this.state;
 
 		return (
 			<nav className="nav-bar">
-				<section>{this.getLeft()}</section>
-				<section className={cx('middle', {'has-pager': pageSource})}>
+				{this.getLeft()}
+				<C condition={!resolving} tag="section" className={cx('middle', {'has-pager': pageSource})}>
 					{this.getCenter()}
-				</section>
+				</C>
 				<section>
 					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}/>}
 					{this.getRight()}

@@ -1,6 +1,6 @@
 import React from 'react';
 import Router from 'react-router-component';
-import BlogEntry from '../activity/BlogEntryDetail';
+import BlogEntry from './BlogEntryDetail';
 import NotFoundPage from 'notfound/components/View';
 
 const ROUTES = [

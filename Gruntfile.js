@@ -1,6 +1,7 @@
 /*eslint no-var: 0 strict: 0*/
 'use strict';
 var path = require('path');
+var sites = require('./sites.json');
 
 var PROD = 'production';
 var DEV = 'development';
@@ -15,6 +16,7 @@ module.exports = function (grunt) {
 	process.env.NODE_ENV = env;
 
 	pkgConfig.distSiteCSS = path.join(pkgConfig.dist, '/client/resources/css/sites/');
+	pkgConfig.stageSiteCSS = path.join(pkgConfig.stage, '/client/resources/css/sites/');
 
 	grunt.initConfig({
 
@@ -22,6 +24,7 @@ module.exports = function (grunt) {
 
 		webpack: {
 			dist: require('./webpack/app.config.dist'),
+			site: require('./webpack/site-styles.config'),
 			widgets: require('./webpack/widgets.config')
 		},
 
@@ -34,6 +37,18 @@ module.exports = function (grunt) {
 				src: '<%= pkg.dist %>/server/index.js'
 			}
 		},
+
+
+		run: {
+			'update-schema': {
+				cmd: 'npm',
+				args: [
+					'run-script',
+					'update-schema'
+				]
+			}
+		},
+
 
 		karma: {
 			unit: {
@@ -144,24 +159,6 @@ module.exports = function (grunt) {
 			maps: ['<%= pkg.dist %>/**/*.map', '<%= pkg.dist %>/**/*.map.gz']
 		},
 
-		sass: {
-			options: {
-				sourceMap: true,
-				outputStyle: 'compressed',
-				includePaths: ['src/main/resources/vendor/foundation/scss']
-			},
-			dist: {
-				files: {
-					'src/main/resources/css/errorpage.css': 'src/main/resources/scss/errorpage.scss',
-					'src/main/resources/css/app.css': 'src/main/resources/scss/app.scss',
-					'src/main/resources/css/sites/platform.ou.edu/site.css': 'src/main/resources/scss/sites/platform.ou.edu/site.scss',
-					'src/main/resources/css/sites/okstate.nextthought.com/site.css': 'src/main/resources/scss/sites/okstate.nextthought.com/site.scss'
-				}
-			},
-
-			widgets: {}
-		},
-
 		eslint: {
 			// options: {
 			// 	quiet: true
@@ -178,15 +175,15 @@ module.exports = function (grunt) {
 
 		symlink: {
 			'link-dist': {
-				files: [
-					{src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-alpha.nextthought.com'},
-					{src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-test.nextthought.com'},
-					{src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/janux.ou.edu'},
-
-					{src: '<%= pkg.distSiteCSS %>/okstate.nextthought.com', dest: '<%= pkg.distSiteCSS %>/okstate-alpha.nextthought.com'},
-					{src: '<%= pkg.distSiteCSS %>/okstate.nextthought.com', dest: '<%= pkg.distSiteCSS %>/okstate-test.nextthought.com'},
-					{src: '<%= pkg.distSiteCSS %>/okstate.nextthought.com', dest: '<%= pkg.distSiteCSS %>/learnonline.okstate.edu'}
-				]
+				files: Object.keys(sites)
+					.map(function (alias) {
+						var site = sites[alias];
+						return site === alias
+							? null
+							: {src: '<%= pkg.distSiteCSS %>/' + site, dest: '<%= pkg.distSiteCSS %>/' + alias};
+					})
+					//remove null elements from the array
+					.filter(function (x) { return x; })
 			},
 
 			'link-widgets': {
@@ -207,8 +204,9 @@ module.exports = function (grunt) {
 
 		var buildSteps = [
 			'clean:stage',
-			'sass:' + target,
 			'copy:stage-' + target,
+			'run:update-schema',
+			'webpack:site', //build site-specific styles.
 			'webpack:' + target,
 			'clean:' + target,
 			'rename:stage-' + target,
@@ -227,13 +225,14 @@ module.exports = function (grunt) {
 	grunt.registerTask('serve', function (target) {
 		if (target === 'dist') {
 			return grunt.task.run([
+				'run:update-schema',
 				'build',
 				'execute:dist'
 			]);
 		}
 
 		grunt.task.run([
-			'sass',
+			'run:update-schema',
 			'eslint',
 			'execute:dev'
 		]);

@@ -1,6 +1,6 @@
 import React from 'react';
 import SelectableEntity from 'common/components/SelectableEntity';
-import Api from '../Api';
+import {getStore, getSuggestedContacts} from '../Api';
 import {USERS} from '../Constants';
 import cx from 'classnames';
 import Loading from 'common/components/TinyLoader';
@@ -72,15 +72,13 @@ export default React.createClass({
 	},
 
 	setUpStore () {
-		Api.getStore(USERS)
+		getStore(USERS)
 			.then(store => this.setState({store}));
 	},
 
 	getSuggestedContacts () {
-		Api.getSuggestedContacts()
-			.then(results => this.setState({
-				suggestedContacts: results || []
-			}));
+		getSuggestedContacts()
+			.then(results => this.setState({suggestedContacts: results || []}));
 	},
 
 	focus () {
@@ -124,6 +122,15 @@ export default React.createClass({
 	queryChanged (event) {
 		let query = event ? event.target.value : '';
 		let {store} = this.state;
+
+		let existing = this.state.search;
+
+		// If the value didn't change don't do anything.
+		// In Chrome on Android change events sometimes fire on blur(?)
+		// and trigger this method unnecessarily.
+		if(existing === query) {
+			return;
+		}
 
 		this.setState({
 			search: query,
@@ -213,7 +220,7 @@ export default React.createClass({
 
 		let {selectedUsers} = this.state;
 
-		let saveButtonClasses = cx('primary tiny button', {
+		let saveButtonClasses = cx('primary button', {
 			'disabled': selectedUsers.length === 0 || this.props.saveDisabled
 		});
 
@@ -232,9 +239,11 @@ export default React.createClass({
 					</li>
 				</ul>
 				{this.results()}
-				<div className="buttons">
-					<button className="secondary button tiny" onClick={this.props.onCancel}>Cancel</button>
-					<button className={saveButtonClasses} onClick={this.props.onSave}>{this.props.saveButtonText}</button>
+				<div className="button-spacer">
+					<div className="buttons">
+						<button className="secondary button" onClick={this.props.onCancel}>Cancel</button>
+						<button className={saveButtonClasses} onClick={this.props.onSave}>{this.props.saveButtonText}</button>
+					</div>
 				</div>
 			</div>
 		);
