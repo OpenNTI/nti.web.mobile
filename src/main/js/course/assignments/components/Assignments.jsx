@@ -1,8 +1,8 @@
 import React from 'react';
-import AssignmentsList from './AssignmentsList';
-import SearchSortBar from './SearchSortBar';
 import SearchSortStore from '../SearchSortStore';
 import Content from './Content';
+import PageFrame from './PageFrame';
+import AssignmentsListView from './AssignmentsListView';
 
 export default React.createClass({
 	displayName: 'Assignments',
@@ -26,13 +26,10 @@ export default React.createClass({
 	},
 
 	render () {
-		const {course, assignments, rootId} = this.props;
-		const {search, sort, assignmentsList} = SearchSortStore;
-		return rootId ? <Content {...this.props} pageSource={(assignmentsList || {}).pageSource} /> : (
-			<div className="assignments-view">
-				<SearchSortBar assignments={assignments} />
-				<AssignmentsList sort={sort} search={search} course={course} assignments={assignments} />
-			</div>
-		);
+		const {rootId} = this.props;
+		const {assignmentsList} = SearchSortStore;
+		return rootId
+			? <Content {...this.props} pageSource={(assignmentsList || {}).pageSource} />
+			: <PageFrame pageContent={AssignmentsListView} {...this.props} />;
 	}
 });
