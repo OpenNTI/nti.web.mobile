@@ -4,12 +4,13 @@ import React from 'react';
 
 import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import ContentViewer from 'content/components/Viewer';
 
 export default React.createClass({
 	displayName: 'Content',
-	mixins: [BasePathAware, ContextContributor],
+	mixins: [BasePathAware, ContextContributor, NavigatableMixin],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
@@ -32,7 +33,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<ContentViewer {...this.props} />
+			<ContentViewer {...this.props} explicitContext={this}/>
 		);
 	}
 });

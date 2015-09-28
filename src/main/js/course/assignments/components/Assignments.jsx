@@ -3,9 +3,12 @@ import SearchSortStore from '../SearchSortStore';
 import Content from './Content';
 import PageFrame from './PageFrame';
 import AssignmentsListView from './AssignmentsListView';
+import ContextContributor from 'common/mixins/ContextContributor';
 
 export default React.createClass({
 	displayName: 'Assignments',
+
+	mixins: [ContextContributor],
 
 	propTypes: {
 		assignments: React.PropTypes.object.isRequired,

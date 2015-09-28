@@ -3,9 +3,19 @@ import PerformanceListView from './PerformanceListView';
 import PageFrame from '../PageFrame';
 import Content from '../Content';
 import SearchSortStore from '../../SearchSortStore';
+import ContextSender from 'common/mixins/ContextSender';
 
 export default React.createClass({
 	displayName: 'Performance',
+
+	mixins: [ContextSender],
+
+	getContext () {
+		return Promise.resolve({
+			label: 'Performance',
+			href: '../'
+		});
+	},
 
 	propTypes: {
 		assignments: React.PropTypes.object.isRequired,
