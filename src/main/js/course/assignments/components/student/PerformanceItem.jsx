@@ -54,6 +54,8 @@ export default React.createClass({
 			'sorted': sortedOn === 'completed'
 		});
 
+		score = score && Math.round(score * 100) / 100;
+
 		return (
 			<div className="performance-item">
 				<div className={completedClasses}></div>
@@ -66,7 +68,7 @@ export default React.createClass({
 				<div className={cx('due', {'sorted': sortedOn === 'available_for_submission_ending'})}>
 					<DateTime format={DATE_FORMAT} date={assignment.available_for_submission_ending} />
 				</div>
-				<div className={cx('score', {'sorted': sortedOn === 'score'})}>{Math.round(score * 100) / 100}</div>
+				<div className={cx('score', {'sorted': sortedOn === 'score'})}>{score}</div>
 			</div>
 		);
 	}
