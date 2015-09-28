@@ -7,7 +7,8 @@ import Assignments from '../Assignments';
 import PageFrame from '../PageFrame';
 
 const ROUTES = [
-	{path: '/performance(/*)', handler: PageFrame, pageContent: Performance},
+	{path: '/performance/:rootId(/*)', handler: Performance},
+	{path: '/performance(/*)', handler: Performance},
 	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
 	{path: '/(:rootId)(/*)', handler: Assignments},
 	{}//not found
