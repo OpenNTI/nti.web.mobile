@@ -87,13 +87,8 @@ export default React.createClass({
 	},
 
 	render () {
-		let {assignments} = this.props;
+		let {assignmentsList} = SearchSortStore;
 		let {sortOn, sortDesc} = this.state;
-		let items = assignments.getAssignments();
-		items.sort((a, b) => compare(a, b, sortOn.slice()));
-		if(sortDesc) {
-			items.reverse();
-		}
 		return (
 			<div className="performance">
 				<div className="performance-headings">
@@ -107,7 +102,7 @@ export default React.createClass({
 						return <div key={index} className={classes} onClick={this.sortOn.bind(this, col.sortOn)}>{col.label}</div>;
 					})}
 				</div>
-				{items.map(assignment => <PerformanceItem key={assignment.getID()} assignment={assignment} sortedOn={sortOn[0]} />)}
+				{assignmentsList.items.map(assignment => <PerformanceItem key={assignment.getID()} assignment={assignment} sortedOn={sortOn[0]} />)}
 			</div>
 		);
 	}
