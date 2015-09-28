@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';
@@ -15,20 +15,20 @@ export default React.createClass({
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
 
-		outlineId: React.PropTypes.string.isRequired
+		outlineId: React.PropTypes.string.isRequired,
+
+		rootId: React.PropTypes.string.isRequired
 	},
 
-	// getContext () {
-	// 	let {outlineId, course} = this.props;
-	// 	let id = decodeFromURI(outlineId);
-	// 	return course.getOutlineNode(id).then(node=>({
-	// 		ntiid: node.getID(),
-	// 		label: node.label,
-	// 		// ref: node.ref,
-	// 		scope: node,//for UGD
-	// 		href: this.getBasePath() + node.href
-	// 	}));
-	// },
+
+	getContext () {
+		const {rootId} = this.props;
+		return Promise.resolve({
+			label: 'Assignment',//This is good enough
+			ntiid: decodeFromURI(rootId),
+			href: this.makeHref(rootId)
+		});
+	},
 
 
 	render () {
