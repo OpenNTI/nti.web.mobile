@@ -29,7 +29,7 @@ export default React.createClass({
 	},
 
 	getContext () {
-		let href = this.getNavigable().makeHref('/assignments/');
+		let href = this.makeHref('/assignments/');
 
 		return Promise.resolve({
 			label: 'Assignments',
