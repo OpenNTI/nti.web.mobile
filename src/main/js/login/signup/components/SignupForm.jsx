@@ -193,10 +193,10 @@ export default React.createClass({
 
 					<UserAgreement />
 
-					<div className='errors'>
+					<div className="errors">
 						<ReactCSSTransitionGroup transitionName="fadeOutIn">
 							{Object.keys(errors).map(ref =>
-								<small key={ref} className='error'>{errors[ref].message}</small>
+								<small key={ref} className="error">{errors[ref].message}</small>
 							)}
 						</ReactCSSTransitionGroup>
 					</div>

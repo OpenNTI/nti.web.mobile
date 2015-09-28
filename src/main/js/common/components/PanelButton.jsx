@@ -49,7 +49,7 @@ export default React.createClass({
 	render () {
 		return (
 			<div {...this.props}>
-				<div className='panel-button'>
+				<div className="panel-button">
 					{this.props.children}
 					{this.renderButton()}
 				</div>

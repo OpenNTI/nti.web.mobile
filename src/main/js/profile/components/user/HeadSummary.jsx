@@ -59,7 +59,7 @@ export default React.createClass({
 				</div>
 				<ul className="profile-head-summary-attrs">
 					{education && (
-						<li className='education'>
+						<li className="education">
 							{[education.degree, education.school].filter(x=>x).join(' at ')}
 						</li>
 					)}

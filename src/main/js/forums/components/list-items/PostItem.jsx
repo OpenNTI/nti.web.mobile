@@ -156,7 +156,7 @@ export default React.createClass({
 
 		let links = (
 			<ActionLinks
-				key='actionlinks'
+				key="actionlinks"
 				item={item}
 				numComments={numComments}
 				canReply={this.props.asHeadline}

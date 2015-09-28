@@ -48,8 +48,8 @@ export default React.createClass({
 		let buttons = <OkCancelButtons onOk={this.props.onSubmit} onCancel={this.props.onCancel} okEnabled={this.state.canSubmit} okText={t('editorOkButton')} />;
 		return (
 			<PanelButton className="comment-form" button={buttons}>
-				<div><input ref='title' defaultValue={title} placeholder={t('topicTitlePlaceholder')} onChange={this.onEditorChange} /></div>
-				<div><Editor ref='editor' value={body} onChange={this.onEditorChange} /></div>
+				<div><input ref="title" defaultValue={title} placeholder={t('topicTitlePlaceholder')} onChange={this.onEditorChange} /></div>
+				<div><Editor ref="editor" value={body} onChange={this.onEditorChange} /></div>
 			</PanelButton>
 		);
 	}

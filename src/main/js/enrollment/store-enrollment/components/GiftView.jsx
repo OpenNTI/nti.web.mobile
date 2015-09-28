@@ -349,7 +349,7 @@ export default React.createClass({
 					<ReactCSSTransitionGroup transitionName="fadeOutIn">
 					{Object.keys(this.state.errors).map(ref => {
 						let err = this.state.errors[ref];
-						return (err.message ? <small key={ref} className='error'>{err.message}</small> : null);
+						return (err.message ? <small key={ref} className="error">{err.message}</small> : null);
 					})}
 					</ReactCSSTransitionGroup>
 				</div>

@@ -77,7 +77,7 @@ export default React.createClass({
 							onSave={this.onSave}
 							saveDisabled={!this.state.validTitle}
 							placeholder="Add people to list"
-							saveButtonText='Create List' />
+							saveButtonText="Create List" />
 					</div>
 				</GradientBackground>
 			</Page>
