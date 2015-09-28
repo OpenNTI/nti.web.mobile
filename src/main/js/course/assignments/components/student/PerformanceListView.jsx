@@ -1,6 +1,8 @@
 import React from 'react';
 import PerformanceItem from './PerformanceItem';
 import cx from 'classnames';
+import SearchSortStore from '../../SearchSortStore';
+import ListBackedPageSource from 'nti.lib.interfaces/models/ListBackedPageSource';
 
 const columns = [
 	{
@@ -48,6 +50,7 @@ export default React.createClass({
 
 	componentWillMount () {
 		this.loadHistory();
+		this.sortOn(this.state.sortOn);
 	},
 
 	loadHistory ({assignments} = this.props) {
@@ -71,6 +74,16 @@ export default React.createClass({
 			sortOn: cols,
 			sortDesc
 		});
+		let {assignments} = this.props;
+		let items = assignments.getAssignments();
+		items.sort((a, b) => compare(a, b, sortOn.slice()));
+		if(sortDesc) {
+			items.reverse();
+		}
+		SearchSortStore.assignmentsList = {
+			items: items,
+			pageSource: new ListBackedPageSource(items)
+		};
 	},
 
 	render () {
