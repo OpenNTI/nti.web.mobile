@@ -2,7 +2,7 @@ import React from 'react';
 import PerformanceItem from './PerformanceItem';
 import cx from 'classnames';
 import SearchSortStore from '../../SearchSortStore';
-import ListBackedPageSource from 'nti.lib.interfaces/models/ListBackedPageSource';
+import PageSource from 'nti.lib.interfaces/models/ListBackedPageSource';
 
 const columns = [
 	{
@@ -80,7 +80,7 @@ export default React.createClass({
 		}
 		SearchSortStore.assignmentsList = {
 			items: items,
-			pageSource: new ListBackedPageSource(items)
+			pageSource: new PageSource(items, 'performance')
 		};
 	},
 
