@@ -25,7 +25,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<input ref="input" type="text" pattern="\d*" onKeyUp={this.onKeyUp} />
+			<input ref="input" type="tel" pattern="\d*" onKeyUp={this.onKeyUp} />
 		);
 	}
 });

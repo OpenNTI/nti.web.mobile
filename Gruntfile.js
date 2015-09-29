@@ -164,11 +164,11 @@ module.exports = function (grunt) {
 			// 	quiet: true
 			// },
 			target: [
-				'<%= pkg.src %>/js/**/*.js',
-				'<%= pkg.src %>/js/**/*.jsx',
-				'<%= pkg.src %>/../server/**/*.js',
-				'<%= pkg.src %>/../test/**/*.js',
-				'<%= pkg.src %>/../webpack-plugins/**/*.js',
+				'src/main/js/**/*.js',
+				'src/main/js/**/*.jsx',
+				'src/server/**/*.js',
+				'src/test/**/*.js',
+				'webpack/**/*.js',
 				'*.js'
 			]
 		},

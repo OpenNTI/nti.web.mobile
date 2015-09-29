@@ -6,7 +6,7 @@ export default React.createClass({
 	render () {
 		return (
 			<div className="nav-up">
-				<a href="../"><span className='arrow-left'/></a>
+				<a href="../"><span className="arrow-left"/></a>
 			</div>
 		);
 	}

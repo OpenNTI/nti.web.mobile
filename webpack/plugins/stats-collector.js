@@ -5,8 +5,8 @@ var fs = require('fs');
 
 module.exports = exports = function (dirname) {
 
-	return function StatsCollector(/*compiler*/) {
-		this.plugin('done', function(stats) {
+	return function StatsCollector (/*compiler*/) {
+		this.plugin('done', function (stats) {
 			var p = path.join(dirname, 'stage', 'server');
 			var file = path.join(p, 'stats.generated.json');
 			try {

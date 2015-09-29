@@ -87,7 +87,7 @@ export default React.createClass({
 
 		return (
 			<Router.Locations contextual>
-				<Location path='/'
+				<Location path="/"
 					handler={Topic}
 					topic={topic}
 					page={currentPage}

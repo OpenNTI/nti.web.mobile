@@ -64,7 +64,7 @@ export default React.createClass({
 		return (
 			<div>
 				<StoreEnrollmentRoutes
-					ref='router'
+					ref="router"
 					entryId={entryId}
 					purchasable={purchasable}
 					courseId={courseId}

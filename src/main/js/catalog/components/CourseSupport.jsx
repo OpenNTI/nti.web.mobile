@@ -48,7 +48,7 @@ export default React.createClass({
 				<div className="row support">
 					<div className="small-12 columns">
 						<img src={BLANK_IMAGE} alt="Support"/>
-						<div className='meta'>
+						<div className="meta">
 							<div className="label">Tech Support</div>
 							<Conditional condition={t('phone', f) !== MISSING} className="item phone">
 								{t('phone')}

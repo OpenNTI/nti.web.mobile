@@ -90,7 +90,7 @@ export default React.createClass({
 							<input type="number" name="startYear"
 								className={cx({required: isRequired(schema, 'startYear')})}
 								required={isRequired(schema, 'startYear')}
-								min='1900' max={maxYear}
+								min="1900" max={maxYear}
 								value={startYear} onChange={this.onChange}/>
 						</div>
 
@@ -99,7 +99,7 @@ export default React.createClass({
 							<input type="number" name="endYear"
 								className={cx({required: isRequired(schema, 'endYear')})}
 								required={isRequired(schema, 'endYear')}
-								min='1900' max={maxYear}
+								min="1900" max={maxYear}
 								value={endYear} onChange={this.onChange} />
 						</div>
 					</div>

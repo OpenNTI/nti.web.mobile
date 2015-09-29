@@ -13,12 +13,12 @@ var baseConfig = require('./app.config')[0];
 var scssIncludes =
 	'includePaths[]=' + (path.resolve(__dirname, '../src/main/resources/vendor/foundation/scss'));
 
-function getWidgets() {
+function getWidgets () {
 	var widgetPath = path.join(__dirname, '..', 'src', 'main', 'widgets');
 
 	var o = {};
 
-	fs.readdirSync(widgetPath).forEach(function(file) {
+	fs.readdirSync(widgetPath).forEach(function (file) {
 		if (file === 'example') {return; } //skip the example
 
 		var dir = path.join(widgetPath, file);
@@ -34,13 +34,13 @@ function getWidgets() {
 }
 
 
-function css(o) {
+function css (o) {
 	var test = o.test;
 	return test && !(typeof test === 'function' ? test('foo.css') : test.test('foo.css'));
 }
 
 
-function includeWidgets() {
+function includeWidgets () {
 	var w = getWidgets();
 	var v;
 	var o = [];

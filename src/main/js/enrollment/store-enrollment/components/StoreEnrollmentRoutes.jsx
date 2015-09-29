@@ -114,7 +114,7 @@ export default React.createClass({
 		return (
 			<ReactCSSTransitionGroup transitionName="fadeOutIn">
 				<Locations contextual
-					ref='router'>
+					ref="router">
 					<Location path="/confirm/"
 						handler={PaymentConfirm}
 						{...this.props}
