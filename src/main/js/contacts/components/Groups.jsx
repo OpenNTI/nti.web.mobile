@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import mixin from '../mixins/Mixin';
 import {GROUPS} from '../Constants';
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';

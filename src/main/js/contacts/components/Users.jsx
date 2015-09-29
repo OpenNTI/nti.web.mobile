@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 import ContextSender from 'common/mixins/ContextSender';
 import C from 'common/components/Conditional';
