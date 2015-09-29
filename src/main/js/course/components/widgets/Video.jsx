@@ -105,7 +105,7 @@ export default React.createClass({
 			course.getVideoIndex()
 				.then(videoIndex => {
 					let v = videoIndex.get(id);
-					return v.getPoster()
+					return (v ? v.getPoster() : Promise.resolve(null))
 						.then(poster=> {
 							this.setState({loading: false, poster, video: v});
 						});

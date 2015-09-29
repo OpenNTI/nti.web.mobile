@@ -65,7 +65,7 @@ export default React.createClass({
 		return (
 			<div className="write-something">
 				{this.state.edit ? (
-					<PostEditor ref='postEditor'
+					<PostEditor ref="postEditor"
 						showSharing={!!entity.isUser}
 						onSubmit={this.onSubmit}
 						onCancel={this.onCancel}

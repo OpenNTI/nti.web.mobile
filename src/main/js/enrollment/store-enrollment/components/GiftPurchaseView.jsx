@@ -25,7 +25,7 @@ export default React.createClass({
 		return (
 			<StoreEnrollmentRoutes
 				{...this.props}
-				ref='router'
+				ref="router"
 				purchasable={purchasable}
 				defaultHandler={GiftView}
 			/>

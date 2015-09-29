@@ -158,10 +158,10 @@ export default React.createClass({
 					childComponent={PostItem}
 					topic={topic}
 					display
-					className='visible' />
+					className="visible" />
 				{topic &&
 					<CommentForm key="commentForm"
-						ref='commentForm'
+						ref="commentForm"
 						id={COMMENT_FORM_ID}
 						onCancel={this.hideForm}
 						onCompletion={this.commentCompletion}

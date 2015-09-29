@@ -119,10 +119,10 @@ export default React.createClass({
 		let value = (this.props.editItem || {}).body;
 
 		return (
-			<PanelButton className="comment-form" linkText='Submit' button={buttons} id={this.props.id}>
+			<PanelButton className="comment-form" linkText="Submit" button={buttons} id={this.props.id}>
 				{this.state.error && <Notice className="err">{this.state.error.message || 'An error occurred.'}</Notice>}
 				<div className="comment-form-heading">{t('addComment')}</div>
-				<Editor ref='editor'
+				<Editor ref="editor"
 					onChange={this.onBodyChange}
 					value={value} />
 			</PanelButton>

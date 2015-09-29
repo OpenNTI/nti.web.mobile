@@ -143,7 +143,7 @@ export default React.createClass({
 			break;
 
 		default:
-			view = <div className='error'>Unrecognized admission state: {this.state.admissionStatus}</div>;
+			view = <div className="error">Unrecognized admission state: {this.state.admissionStatus}</div>;
 		}
 
 		return view;

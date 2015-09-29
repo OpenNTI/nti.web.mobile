@@ -23,7 +23,7 @@ if (!Array.isArray(cfg)) {
 	cfg = [cfg];
 }
 
-cfg.forEach(function(o) { e.push(assign({}, o)); });
+cfg.forEach(function (o) { e.push(assign({}, o)); });
 
 
 e[0].plugins.unshift(
@@ -46,7 +46,7 @@ e[0].plugins.unshift(
 );
 
 
-e.forEach(function(x) {
+e.forEach(function (x) {
 	x.stats = true;
 	x.debug = false;
 

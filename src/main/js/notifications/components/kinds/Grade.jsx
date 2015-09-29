@@ -25,7 +25,7 @@ export default React.createClass({
 		let assignmentName = item.AssignmentName || 'an assignment';
 		return (
 			<li className="notification-item">
-				<div className='grade'/>
+				<div className="grade"/>
 				<div className="wrap">
 					Grade received for {assignmentName}{courseName}
 					<DateTime date={this.getEventTime()} relative />

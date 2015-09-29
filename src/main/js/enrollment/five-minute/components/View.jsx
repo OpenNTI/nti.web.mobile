@@ -64,7 +64,7 @@ export default React.createClass({
 			let href = this.courseHref(this.props.courseId);
 
 			return (
-				<PanelButton href={href} linkText='Proceed to the course'>
+				<PanelButton href={href} linkText="Proceed to the course">
 					You are enrolled.
 				</PanelButton>
 			);
