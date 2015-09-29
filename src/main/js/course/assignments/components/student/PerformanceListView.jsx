@@ -74,7 +74,7 @@ export default React.createClass({
 		});
 		let {assignments} = this.props;
 		let items = assignments.getAssignments();
-		items.sort((a, b) => compare(a, b, sortOn.slice()));
+		items.sort((a, b) => compare(a, b, cols.slice()));
 		if(sortDesc) {
 			items.reverse();
 		}
