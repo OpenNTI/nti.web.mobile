@@ -26,7 +26,7 @@ export default React.createClass({
 	loadScore (assignment) {
 		if (!assignment) { return; }
 
-		assignment.getHistory(true)
+		assignment.loadHistory(true)
 			.then(history => {
 				if(history) {
 					this.setState({
