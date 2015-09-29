@@ -54,8 +54,6 @@ export default React.createClass({
 			'sorted': sortedOn === 'completed'
 		});
 
-		score = score && Math.round(score * 100) / 100;
-
 		return (
 			<div className="performance-item">
 				<div className={completedClasses}></div>
