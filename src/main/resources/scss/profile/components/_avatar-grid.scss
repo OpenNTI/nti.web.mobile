@@ -39,6 +39,8 @@
 			box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
 			width: 0; // without this long display names won't shrink enough horizontally
 
+			overflow: hidden; // for when we have swipe-to-reveal controls.
+
 			// white-space: nowrap;
 			margin: $mgn ($mgn * 2) $mgn 0;
 			background: $quad-grey;
@@ -57,9 +59,20 @@
 				min-height: $avatarsize;
 				padding: 0 0 0 $avatarsize + .5rem;
 				overflow: hidden;
+				max-width: calc(100% - .5rem);
 			}
 
-
+			// swipe to reveal delete button for groups
+			& > .stro-container {
+				padding: 0;
+				max-width: inherit;
+				.stro-content {
+					padding-left: $avatarsize + .5rem;
+				}
+				.stro-right {
+					min-height: $avatarsize;
+				}
+			}
 
 			.avatar {
 				margin: 0;
@@ -76,11 +89,6 @@
 					left: $avatarsize - $badgesize - .1rem;
 					top: $avatarsize - $badgesize;
 				}
-			}
-
-			& > * {
-				overflow: hidden;
-				max-width: calc(100% - .5rem);
 			}
 
 			.body {
