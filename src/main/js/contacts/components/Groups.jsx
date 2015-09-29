@@ -8,6 +8,8 @@ import ContextSender from 'common/mixins/ContextSender';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import EmptyList from 'common/components/EmptyList';
+import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
+import cx from 'classnames';
 
 let t = scoped('CONTACTS');
 
@@ -66,16 +68,30 @@ export default React.createClass({
 	},
 
 	renderListItem (item) {
+
+		let rightOptions = [
+			{
+				label: 'Delete',
+				class: cx('tiny button caution', {
+					'disabled': !(item.delete && (!item.friends || item.friends.length === 0))
+				})
+			}
+		];
+
 		return (
-			<li key={item.getID()}>
-				<div>
+			<li className="has-swipe-controls" key={item.getID()}>
+				<SwipeToRevealOptions
+					rightOptions={rightOptions}
+					callActionWhenSwipingFarRight={false}
+					onRightClick={this.deleteGroup.bind(null,item)}
+				>
 					<AvatarProfileLink entity={item}>
 						<ListMeta entity={item} />
 					</AvatarProfileLink>
-					{item.delete && (!item.friends || item.friends.length === 0) && (
+					{/*{item.delete && (!item.friends || item.friends.length === 0) && (
 						<div className="delete" onClick={this.deleteGroup.bind(this, item)}/>
-					)}
-				</div>
+					)}*/}
+				</SwipeToRevealOptions>
 			</li>
 		);
 	},
