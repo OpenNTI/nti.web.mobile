@@ -11,6 +11,8 @@ import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import EmptyList from 'common/components/EmptyList';
 import {Link} from 'react-router-component';
+import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
+import cx from 'classnames';
 
 let t = scoped('CONTACTS');
 
@@ -42,32 +44,51 @@ export default React.createClass({
 	},
 
 	deleteList (item, event) {
-		event.stopPropagation();
-		event.preventDefault();
-		areYouSure(t('deleteListPrompt')).then(() => {
-			this.setState({
-				loading: true
-			});
-			item.delete()
-				.then(() => {
-					this.setState({
-						loading: false
-					});
+		if(event && event.stopPropagation) {
+			event.stopPropagation();
+			event.preventDefault();
+		}
+		// areYouSure(t('deleteListPrompt')).then(() => {
+		// 	this.setState({
+		// 		loading: true
+		// 	});
+		item.delete()
+			.then(() => {
+				this.setState({
+					loading: false
 				});
-		});
+			});
+		// });
 	},
 
 	renderListItem (item) {
+
+
+		let rightOptions = [
+			{
+				label: 'Delete',
+				class: cx('tiny button caution', {
+					'disabled': !item.delete
+				})
+			}
+		];
+
 		return (
-			<li key={item.getID()}>
-				<a href={encodeForURI(item.getID())}>
-					<Avatar entity={item} />
-					<div className="body">
-						<DisplayName entity={item} />
-						<ListMeta entity={item} />
-						{item.delete && <div className="delete" onClick={this.deleteList.bind(this, item)}></div>}
-					</div>
-				</a>
+			<li className="has-swipe-controls" key={item.getID()}>
+				<SwipeToRevealOptions
+					rightOptions={rightOptions}
+					callActionWhenSwipingFarRight={false}
+					onRightClick={this.deleteList.bind(null,item)}
+				>
+					<a href={encodeForURI(item.getID())}>
+						<Avatar entity={item} />
+						<div className="body">
+							<DisplayName entity={item} />
+							<ListMeta entity={item} />
+							{/*{item.delete && <div className="delete" onClick={this.deleteList.bind(this, item)}></div>}*/}
+						</div>
+					</a>
+				</SwipeToRevealOptions>
 			</li>
 		);
 	},
