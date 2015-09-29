@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import mixin from '../mixins/Mixin';
 import {LISTS} from '../Constants';
 import Avatar from 'common/components/Avatar';
