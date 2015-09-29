@@ -5,8 +5,8 @@ import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import ListMeta from './ListMeta';
-import {areYouSure} from 'prompts';
-import {scoped} from 'common/locale';
+
+
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import EmptyList from 'common/components/EmptyList';
@@ -14,7 +14,6 @@ import {Link} from 'react-router-component';
 import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
 import cx from 'classnames';
 
-let t = scoped('CONTACTS');
 
 export default React.createClass({
 	displayName: 'Contacts:Groups',
