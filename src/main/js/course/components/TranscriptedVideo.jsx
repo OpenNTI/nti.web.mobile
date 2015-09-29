@@ -156,11 +156,17 @@ export default React.createClass({
 
 		try {
 
-			let {VideoIndex, videoId} = props;
-			let video = VideoIndex.get(decodeFromURI(videoId));
+			const {VideoIndex, videoId} = props;
+			const decodedId = decodeFromURI(videoId);
+			let video = VideoIndex.get(decodedId);
 
 			this.resolveContext()
 				.then(context => this.setState({ context }));
+
+			if (!video) {
+				console.error('How do we get a video id ("%s") and not find it in the index?: ', decodedId, VideoIndex);
+				return this.setState({error: 'No Video'});
+			}
 
 			let transcript = this.loadTranscript(video);
 			let notes = this.loadDiscussions(video);
