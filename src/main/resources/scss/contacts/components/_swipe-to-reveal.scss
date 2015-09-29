@@ -44,6 +44,9 @@
   &.caution {
 	  background: $primary-red;
   }
+  &.disabled {
+	  background: $secondary-grey;
+  }
 }
 
 .stro-button span {
