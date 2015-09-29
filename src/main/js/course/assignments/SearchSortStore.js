@@ -3,6 +3,7 @@ import {SEARCH_CHANGE, SORT_CHANGE} from './Constants';
 
 const search = Symbol('search');
 const sort = Symbol('sort');
+const history = Symbol('history');
 const assignmentsList = Symbol('assignmentsList');
 
 
@@ -21,6 +22,14 @@ class SearchSortStore extends StorePrototype {
 	set assignmentsList (list) {
 		this[assignmentsList] = list;
 		this.emitChange();
+	}
+
+	set history (value) {
+		this[history] = value;
+	}
+
+	get history () {
+		return this[history];
 	}
 
 	get assignmentsList () {

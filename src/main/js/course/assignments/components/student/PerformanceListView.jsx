@@ -59,9 +59,7 @@ export default React.createClass({
 		}
 		assignments.getHistory()
 			.then(history => {
-				this.setState({
-					history
-				});
+				SearchSortStore.history = history;
 			});
 	},
 
@@ -111,7 +109,15 @@ export default React.createClass({
 const getProp = {
 	'completed': (a) => a.hasLink('History'),
 	'available_for_submission_ending': (a) => a.getDueDate && a.getDueDate(),
-	'available_for_submission_beginning': (a) => a.getAssignedDate && a.getAssignedDate()
+	'available_for_submission_beginning': (a) => a.getAssignedDate && a.getAssignedDate(),
+	'score': (a) => {
+		let {history} = SearchSortStore;
+		if (!history) {
+			return '';
+		}
+		let itemHistory = history.getItem(a.getID());
+		return itemHistory && itemHistory.getGradeValue() || null;
+	}
 };
 
 function compare (a, b, props) {
