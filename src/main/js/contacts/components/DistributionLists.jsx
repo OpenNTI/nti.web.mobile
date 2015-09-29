@@ -1,18 +1,24 @@
+//node modules imports (react is always first), react components second, others after.
 import React from 'react';
-import mixin from '../mixins/Mixin';
-import {LISTS} from '../Constants';
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
-import ListMeta from './ListMeta';
-
-
-import Err from 'common/components/Error';
-import Loading from 'common/components/Loading';
-import EmptyList from 'common/components/EmptyList';
 import {Link} from 'react-router-component';
 import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
 import cx from 'classnames';
+
+//nti modules imports
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+
+//intra-app module imports (ordered LocalName)
+import Avatar from 'common/components/Avatar';
+import DisplayName from 'common/components/DisplayName';
+import EmptyList from 'common/components/EmptyList';
+import Err from 'common/components/Error';
+import Loading from 'common/components/Loading';
+
+//local-relative modules (grouped by depth)
+import mixin from '../mixins/Mixin';
+import {LISTS} from '../Constants';
+
+import ListMeta from './ListMeta';
 
 
 export default React.createClass({
