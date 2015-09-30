@@ -140,29 +140,29 @@ export default React.createClass({
 		});
 
 		if (store && store.search) {
-			let search = store.search(query);
-			search.catch(reason=> {
-				if (typeof reason !== 'object' || reason.statusCode !== -1) {
-					this.setState({
-						searchError: reason
-					});
-				}
-			});
-			search.then(results => {
-				// search results include communities and friends lists; we only want users
-				let contacts = [];
-				for(let user of store) {
-					if (store.entityMatchesQuery(user, query)) {
-						contacts.push(user);
+			store.search(query)
+				.then(results => {
+					// search results include communities and friends lists; we only want users
+					let contacts = [];
+					for(let user of store) {
+						if (store.entityMatchesQuery(user, query)) {
+							contacts.push(user);
+						}
 					}
-				}
-				let users = results.filter((entity) => entity.isUser);
-				this.setState({
-					searchResults: users,
-					searchLoading: false,
-					contactsResults: contacts
+					let users = results.filter((entity) => entity.isUser);
+					this.setState({
+						searchResults: users,
+						searchLoading: false,
+						contactsResults: contacts
+					});
+				})
+				.catch(reason=> {
+					if (typeof reason !== 'object' || reason.statusCode !== -1) {
+						this.setState({
+							searchError: reason
+						});
+					}
 				});
-			});
 		}
 	},
 
