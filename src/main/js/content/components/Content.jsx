@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {declareCustomElement} from 'common/utils/dom';
+import {getEventTarget} from 'nti.lib.dom';
 
 import {getWidget} from './widgets';
 
@@ -190,6 +191,10 @@ export default React.createClass({
 			srcElement: e.srcElement,
 			target: e.target
 		};
+
+		if( getEventTarget(e, 'input') || getEventTarget(e, '[contenteditable]') ) {
+			return;
+		}
 
 		const TICK = 20;
 
