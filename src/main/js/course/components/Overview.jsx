@@ -108,7 +108,7 @@ export default React.createClass({
 		try {
 			Promise.all([
 				course.getOutlineNode(this.getOutlineID(props)),
-				course.getAssignments()
+				course.getAssignments().catch(()=> null)
 			])
 				.then(results => {
 					let [node, assignments] = results;

@@ -55,7 +55,7 @@ export default React.createClass({
 		return (
 			<div className="course-activity">
 				<Banner contentPackage={contentPackage} />
-				<ul>{store && store.map((bucket, index) => <ActivityBucket key={`bucket-${index}`} bucket={bucket} />)}</ul>
+				<ul className="activity-buckets">{store && store.map((bucket, index) => <ActivityBucket key={`bucket-${index}`} bucket={bucket} />)}</ul>
 			</div>
 		);
 	}
