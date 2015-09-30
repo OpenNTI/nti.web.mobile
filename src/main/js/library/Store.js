@@ -27,6 +27,12 @@ class Store extends StorePrototype {
 
 
 	getData () { return this[data]; }
+
+
+	hasCatalog () {
+		let lib = this.getData();
+		return lib ? lib.hasCatalog() : false;
+	}
 }
 
 export default new Store();

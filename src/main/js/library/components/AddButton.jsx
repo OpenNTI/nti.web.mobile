@@ -2,6 +2,8 @@ import React from 'react';
 
 import BasePathAware from 'common/mixins/BasePath';
 
+import Store from '../Store';
+
 export default React.createClass({
 	displayName: 'AddButton',
 	mixins: [BasePathAware],
@@ -10,9 +12,9 @@ export default React.createClass({
 		canSectionBeAddedTo (section) {
 			//When we have multiple paths to add content,
 			//we will use this widget to direct them there.
-			//
-			//For now, don't render unless the section is Course
-			return /course/.test(section);
+
+			return Store.hasCatalog(section)	//right now, this returns true no matter what section...
+				&& /course/.test(section);		// so, we need to add this extra check.
 		}
 	},
 
