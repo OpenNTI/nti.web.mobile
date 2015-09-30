@@ -28,8 +28,12 @@ export default React.createClass({
 				<ul>
 					{
 						group.items.length > 0
-							? group.items.map(assignment => <li key={assignment.getID()}><AssignmentItem assignment={assignment} course={course} /></li>)
-							: <EmptyList type='assignments'/>
+							? group.items.map(assignment => (
+								<li key={assignment.getID()}>
+									<AssignmentItem assignment={assignment} course={course} />
+								</li>
+							))
+							: <EmptyList type="assignments"/>
 
 					}
 				</ul>
