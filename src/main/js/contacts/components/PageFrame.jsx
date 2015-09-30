@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import Page from 'common/components/Page';
 
 export default React.createClass({

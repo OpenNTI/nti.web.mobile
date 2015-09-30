@@ -106,6 +106,7 @@ export default React.createClass({
 	onSelect (e) {
 		let editor = this.getEditor();
 		let {files} = e.target;
+		const logError = er => console.log(er.stack || er.message || er);
 
 		if (!files || files.length === 0) { return; }
 
@@ -120,9 +121,12 @@ export default React.createClass({
 
 		let run = Promise.resolve();
 		for(let i = 0, len = files.length; i < len; i++) {
-			run = run.then(getNext(files[i], (len - 1) === i));
+			run = run
+				.catch(logError)
+				.then(getNext(files[i], (len - 1) === i));
 		}
 
-		run.then(()=>editor.clearBusy());
+		run.catch(logError)
+			.then(()=>editor.clearBusy());
 	}
 });

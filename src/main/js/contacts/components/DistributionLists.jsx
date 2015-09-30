@@ -1,18 +1,25 @@
-import React from 'react/addons';
-import mixin from '../mixins/Mixin';
-import {LISTS} from '../Constants';
+//node modules imports (react is always first), react components second, others after.
+import React from 'react';
+import {Link} from 'react-router-component';
+import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
+import cx from 'classnames';
+
+//nti modules imports
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+
+//intra-app module imports (ordered LocalName)
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
-import ListMeta from './ListMeta';
-import {areYouSure} from 'prompts';
-import {scoped} from 'common/locale';
+import EmptyList from 'common/components/EmptyList';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
-import EmptyList from 'common/components/EmptyList';
-import {Link} from 'react-router-component';
 
-let t = scoped('CONTACTS');
+//local-relative modules (grouped by depth)
+import mixin from '../mixins/Mixin';
+import {LISTS} from '../Constants';
+
+import ListMeta from './ListMeta';
+
 
 export default React.createClass({
 	displayName: 'Contacts:Groups',
@@ -42,32 +49,51 @@ export default React.createClass({
 	},
 
 	deleteList (item, event) {
-		event.stopPropagation();
-		event.preventDefault();
-		areYouSure(t('deleteListPrompt')).then(() => {
-			this.setState({
-				loading: true
-			});
-			item.delete()
-				.then(() => {
-					this.setState({
-						loading: false
-					});
+		if(event && event.stopPropagation) {
+			event.stopPropagation();
+			event.preventDefault();
+		}
+		// areYouSure(t('deleteListPrompt')).then(() => {
+		// 	this.setState({
+		// 		loading: true
+		// 	});
+		item.delete()
+			.then(() => {
+				this.setState({
+					loading: false
 				});
-		});
+			});
+		// });
 	},
 
 	renderListItem (item) {
+
+
+		let rightOptions = [
+			{
+				label: 'Delete',
+				class: cx('tiny button caution', {
+					'disabled': !item.delete
+				})
+			}
+		];
+
 		return (
-			<li key={item.getID()}>
-				<a href={encodeForURI(item.getID())}>
-					<Avatar entity={item} />
-					<div className="body">
-						<DisplayName entity={item} />
-						<ListMeta entity={item} />
-						{item.delete && <div className="delete" onClick={this.deleteList.bind(this, item)}></div>}
-					</div>
-				</a>
+			<li className="has-swipe-controls" key={item.getID()}>
+				<SwipeToRevealOptions
+					rightOptions={rightOptions}
+					callActionWhenSwipingFarRight={false}
+					onRightClick={this.deleteList.bind(null,item)}
+				>
+					<a href={encodeForURI(item.getID())}>
+						<Avatar entity={item} />
+						<div className="body">
+							<DisplayName entity={item} />
+							<ListMeta entity={item} />
+							{/*{item.delete && <div className="delete" onClick={this.deleteList.bind(this, item)}></div>}*/}
+						</div>
+					</a>
+				</SwipeToRevealOptions>
 			</li>
 		);
 	},

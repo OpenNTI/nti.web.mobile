@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 import Avatar from 'common/components/Avatar';
 import HeadSummary from './HeadSummary';
