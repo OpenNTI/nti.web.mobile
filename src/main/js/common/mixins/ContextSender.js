@@ -74,7 +74,8 @@ export default {
 
 	setPageSource (pageSource, currentPage) {
 		let children = this[Children] || {size: 0};
-		let context = [pageSource, currentPage, this];
+		let {explicitContext} = this.props || {};
+		let context = [pageSource, currentPage, explicitContext || this];
 		this[CONTEXT_DATA] = context;
 		if (children.size === 0) {
 			Actions.setPageSource(...context);

@@ -60,7 +60,8 @@ export default {
 		'emptyList:dynamicfriendslists': 'No Groups.',
 		'emptyList:contacts': 'No contacts.',
 		'emptyList:contactssearch': 'No contacts found.',
-		'emptyList:entity-search': 'No one found'
+		'emptyList:entity-search': 'No one found',
+		'emptyList:assignments': 'None'
 	},
 
 	CONTENT: content,

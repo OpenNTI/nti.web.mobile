@@ -29,14 +29,14 @@ export default React.createClass({
 		pageSource: React.PropTypes.object,
 
 		/**
-		 * An object that has at least to properties: href, title
+		 * An object that has at least two properties: href, title
 		 *	This prop represents the forward link.
 		 * @type {PageSourceItem}
 		 */
 		next: React.PropTypes.object,
 
 		/**
-		 * An object that has at least to properties: href, title
+		 * An object that has at least two properties: href, title
 		 * 	This prop represents the backward link.
 		 * @type {PageSourceItem}
 		 */
