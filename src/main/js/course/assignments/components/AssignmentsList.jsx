@@ -1,7 +1,10 @@
 import React from 'react';
+
 import Loading from 'common/components/Loading';
-import AssignmentGroup from './AssignmentGroup';
+
 import SearchSortStore from '../SearchSortStore';
+
+import AssignmentGroup from './AssignmentGroup';
 
 export default React.createClass({
 	displayName: 'AssignmentsList',
@@ -30,15 +33,15 @@ export default React.createClass({
 
 	getAssignments (props = this.props) {
 		let {assignments, sort = assignments.ORDER_BY_DUE_DATE, search} = props;
+
 		this.setState({
 			loading: true
 		});
+
 		assignments.getAssignmentsBy(sort, search)
 			.then(sorted => {
 				SearchSortStore.assignmentsList = sorted;
-				this.setState({
-					loading: false
-				});
+				this.setState({ loading: false });
 			});
 	},
 
@@ -46,13 +49,18 @@ export default React.createClass({
 
 		let {loading} = this.state;
 		let {assignmentsList} = SearchSortStore;
+
 		if(loading || !assignmentsList) {
 			return <Loading />;
 		}
 
 		return (
 			<ul className="assignments-list">
-				{assignmentsList.items.map((group, index) => <li key={index}><AssignmentGroup group={group} course={this.props.course} /></li>)}
+				{assignmentsList.items.map((group, index) => (
+					<li key={index}>
+						<AssignmentGroup group={group} course={this.props.course} />
+					</li>
+				))}
 			</ul>
 		);
 	}

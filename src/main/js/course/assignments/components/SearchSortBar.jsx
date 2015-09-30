@@ -1,6 +1,8 @@
 import React from 'react';
-import SortBox from './SortBox';
+
 import SearchSortStore from '../SearchSortStore';
+
+import SortBox from './SortBox';
 
 export default React.createClass({
 	displayName: 'SearchSortBar',

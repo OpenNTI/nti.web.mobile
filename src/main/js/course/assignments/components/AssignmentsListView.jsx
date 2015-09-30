@@ -1,7 +1,9 @@
 import React from 'react';
-import SearchSortBar from './SearchSortBar';
+
 import SearchSortStore from '../SearchSortStore';
+
 import AssignmentsList from './AssignmentsList';
+import SearchSortBar from './SearchSortBar';
 
 export default React.createClass({
 	displayName: 'AssignmentsListView',

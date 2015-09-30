@@ -1,14 +1,18 @@
 import React from 'react';
+
+import ContextContributor from 'common/mixins/ContextContributor';
+import StoreEvents from 'common/mixins/StoreEvents';
+
 import SearchSortStore from '../SearchSortStore';
+
+import AssignmentsListView from './AssignmentsListView';
 import Content from './Content';
 import PageFrame from './PageFrame';
-import AssignmentsListView from './AssignmentsListView';
-import ContextContributor from 'common/mixins/ContextContributor';
 
 export default React.createClass({
 	displayName: 'Assignments',
 
-	mixins: [ContextContributor],
+	mixins: [ContextContributor, StoreEvents],
 
 	propTypes: {
 		assignments: React.PropTypes.object.isRequired,
@@ -16,15 +20,13 @@ export default React.createClass({
 		rootId: React.PropTypes.string // assignmentId, present when viewing an individual assignment
 	},
 
-	componentDidMount () {
-		SearchSortStore.addChangeListener(this.onStoreChanged);
+	backingStore: SearchSortStore,
+	backingStoreEventHandlers: {
+		default: 'synchronizeFromStore'
 	},
 
-	componentWillUnmount () {
-		SearchSortStore.removeChangeListener(this.onStoreChanged);
-	},
 
-	onStoreChanged () {
+	synchronizeFromStore () {
 		this.forceUpdate();
 	},
 

@@ -1,14 +1,19 @@
 import React from 'react';
-import PerformanceListView from './PerformanceListView';
+
+import ContextSender from 'common/mixins/ContextSender';
+// import StoreEvents from 'common/mixins/StoreEvents';
+
+import SearchSortStore from '../../SearchSortStore';
+
 import PageFrame from '../PageFrame';
 import Content from '../Content';
-import SearchSortStore from '../../SearchSortStore';
-import ContextSender from 'common/mixins/ContextSender';
+
+import PerformanceListView from './PerformanceListView';
 
 export default React.createClass({
 	displayName: 'Performance',
 
-	mixins: [ContextSender],
+	mixins: [ContextSender/*, StoreEvents*/],
 
 	getContext () {
 		return Promise.resolve({
@@ -21,6 +26,16 @@ export default React.createClass({
 		assignments: React.PropTypes.object.isRequired,
 		rootId: React.PropTypes.string // assignmentId, present when viewing an individual assignment
 	},
+
+	// backingStore: SearchSortStore,
+	// backingStoreEventHandlers: {
+	// 	default: 'synchronizeFromStore'
+	// },
+	//
+	//
+	// synchronizeFromStore () {
+	// 	this.forceUpdate();
+	// },
 
 	render () {
 

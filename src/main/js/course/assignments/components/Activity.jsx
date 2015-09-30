@@ -1,7 +1,10 @@
 import React from 'react';
+
 import Loading from 'common/components/Loading';
-import AssignmentActivityItem from './AssignmentActivityItem';
+
 import SearchSortStore from '../SearchSortStore';
+
+import AssignmentActivityItem from './AssignmentActivityItem';
 
 export default React.createClass({
 	displayName: 'Activity',
@@ -10,38 +13,28 @@ export default React.createClass({
 		assignments: React.PropTypes.object.isRequired
 	},
 
-	getInitialState () {
-		return {
-		};
-	},
 
 	componentDidMount () {
 		this.setUp();
 	},
 
 	componentWillReceiveProps (nextProps) {
-		let {assignments} = nextProps;
+		const {assignments} = nextProps;
 		if(assignments !== this.props.assignments) {
 			this.setUp(nextProps);
 		}
 	},
 
 	componentWillUnmount () {
-		let {history} = SearchSortStore;
+		const {history} = SearchSortStore;
 		if(history && history.markSeen) {
 			history.markSeen();
 		}
 	},
 
 	setUp (props = this.props) {
-		let {assignments} = props;
-		assignments.getActivity()
-			.then(activity => {
-				console.debug(activity);
-				this.setState({
-					activity
-				});
-			});
+		props.assignments.getActivity()
+			.then(activity => this.setState({ activity }));
 	},
 
 	onStoreChange () {
@@ -50,7 +43,7 @@ export default React.createClass({
 
 	render () {
 
-		let {activity} = this.state;
+		const {activity} = this.state || {};
 
 		if (!activity) {
 			return <Loading />;
@@ -59,7 +52,9 @@ export default React.createClass({
 		return (
 			<div>
 				<div className="assignments-activity">
-					{activity.map((event, index) => <AssignmentActivityItem key={`activity-item-${index}`} event={event} />)}
+					{activity.map((event, index) =>
+						<AssignmentActivityItem key={`activity-item-${index}`} event={event} />
+					)}
 				</div>
 			</div>
 

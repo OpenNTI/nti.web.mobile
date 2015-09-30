@@ -1,8 +1,11 @@
 import React from 'react';
-import PerformanceItem from './PerformanceItem';
 import cx from 'classnames';
-import SearchSortStore from '../../SearchSortStore';
+
 import PageSource from 'nti.lib.interfaces/models/ListBackedPageSource';
+
+import SearchSortStore from '../../SearchSortStore';
+
+import PerformanceItem from './PerformanceItem';
 
 const columns = [
 	{
@@ -58,9 +61,7 @@ export default React.createClass({
 			return Promise.reject('No assignments.getHistory?');
 		}
 		assignments.getHistory()
-			.then(history => {
-				SearchSortStore.history = history;
-			});
+			.then(history => Object.assign(SearchSortStore, {history}));
 	},
 
 	sortOn (cols) {
@@ -75,9 +76,11 @@ export default React.createClass({
 		let {assignments} = this.props;
 		let items = assignments.getAssignments();
 		items.sort((a, b) => compare(a, b, cols.slice()));
+
 		if(sortDesc) {
 			items.reverse();
 		}
+
 		SearchSortStore.assignmentsList = {
 			items: items,
 			pageSource: new PageSource(items, 'performance')
