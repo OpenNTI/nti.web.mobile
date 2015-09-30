@@ -185,3 +185,36 @@
 		}
 	}
 }
+
+.assignments-activity {
+	padding: 0 .25rem;
+	font-size: .75rem;
+	@media (min-width:600px) {
+		font-size: 1rem;
+	}
+	.item {
+		padding: 0.75em 0 .75em 1em;
+		&.unread {
+			position: relative;
+			font-weight: 600;
+			&::before {
+				content: '•';
+				color: $primary-blue;
+				position: absolute;
+				left: .25em;
+			}
+		}
+		& > * {
+			padding-right: .25rem;
+		}
+		time {
+			float: right;
+			color: $tertiary-grey;
+		}
+		&::after {
+			content: '';
+			display: table;
+			clear: both;
+		}
+	}
+}

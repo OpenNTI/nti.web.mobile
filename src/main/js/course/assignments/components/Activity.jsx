@@ -1,6 +1,6 @@
 import React from 'react';
 import Loading from 'common/components/Loading';
-import ActivityBucket from 'course/components/ActivityBucket';
+import AssignmentActivityItem from './AssignmentActivityItem';
 
 export default React.createClass({
 	displayName: 'Activity',
@@ -52,10 +52,14 @@ export default React.createClass({
 	},
 
 	setUp (props = this.props) {
-		let {course} = props;
-		this.setState({
-			stream: course.getActivity()
-		});
+		let {assignments} = props;
+		assignments.getActivity()
+			.then(activity => {
+				console.debug(activity);
+				this.setState({
+					activity
+				});
+			});
 	},
 
 	onStoreChange () {
@@ -64,16 +68,16 @@ export default React.createClass({
 
 	render () {
 
-		let {stream} = this.state;
+		let {activity} = this.state;
 
-		if (!stream || stream.loading) {
+		if (!activity) {
 			return <Loading />;
 		}
 
 		return (
 			<div>
 				<div className="assignments-activity">
-					{stream && stream.map((bucket, index) => <ActivityBucket key={`bucket-${index}`} bucket={bucket} />)}
+					{activity.map((event, index) => <AssignmentActivityItem key={`activity-item-${index}`} event={event} />)}
 				</div>
 			</div>
 

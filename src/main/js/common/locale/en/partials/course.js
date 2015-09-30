@@ -1,3 +1,4 @@
+import activity from './assignments-activity';
 
 export default {
 	INFO: {
@@ -24,5 +25,9 @@ export default {
 		lessons: 'Lessons',
 		info: 'Course Info',
 		videos: 'Videos'
+	},
+
+	ASSIGNMENTS: {
+		ACTIVITY: activity
 	}
 };
