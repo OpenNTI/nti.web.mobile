@@ -199,6 +199,14 @@ let Source = React.createClass({
 	onMessage (event) {
 		let data = JSON.parse(event.data);
 		let eventName = (data && data.event) || '';
+
+		if (Array.isArray(eventName)) {
+			if (eventName.length !== 1) {
+				console.warn('Unexpected Data!!', data);
+			}
+			eventName = eventName[0];
+		}
+
 		let handlerName = 'handle' + eventName.charAt(0).toUpperCase() + eventName.substr(1);
 		let implemented = !!this[handlerName];
 
@@ -230,7 +238,7 @@ let Source = React.createClass({
 	},
 
 
-	postMessage (method, params) {
+	postMessage (method, ...params) {
 		let context = this.getPlayerContext(), data;
 		if (!context) {
 			console.warn(this.state.id, ' No Player Context!');
