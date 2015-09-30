@@ -29,7 +29,7 @@ export default React.createClass({
 
 		return (
 			<div className={cx('item', {unread})}>
-				<DateTime date={date} showToday format={format}/>
+				<DateTime date={date} format={format}/>
 				<span className="type">{t(type)}</span>
 				<a href={href}><span className="assignment-name">{title}</span></a>
 				<If condition={suffix}>
