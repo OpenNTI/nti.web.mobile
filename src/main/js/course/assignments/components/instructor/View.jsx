@@ -1,19 +1,20 @@
 import React from 'react';
-import Router from 'react-router-component';
-import Redirect from 'navigation/components/Redirect';
-import Performance from './Performance';
-import Activity from '../Activity';
-import Assignments from '../Assignments';
-import Content from '../Content';
-import PageFrame from '../PageFrame';
+// import Router from 'react-router-component';
+// import Redirect from 'navigation/components/Redirect';
+// import Performance from './Performance';
+// import Activity from '../Activity';
+// import Assignments from '../Assignments';
+// import Content from '../Content';
+// import PageFrame from '../PageFrame';
+import Notice from 'common/components/Notice';
 
-const ROUTES = [
-	{path: '/performance(/*)', handler: PageFrame, pageContent: Performance},
-	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
-	{path: '/:rootId(/*)', handler: Content},
-	{path: '/', handler: PageFrame, pageContent: Assignments},
-	{}//not found
-];
+// const ROUTES = [
+// 	{path: '/performance(/*)', handler: PageFrame, pageContent: Performance},
+// 	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
+// 	{path: '/:rootId(/*)', handler: Content},
+// 	{path: '/', handler: PageFrame, pageContent: Assignments},
+// 	{}//not found
+// ];
 
 export default React.createClass({
 	displayName: 'Assignments:Instructor:View',
@@ -25,23 +26,25 @@ export default React.createClass({
 
 	render () {
 
-		let {course, assignments} = this.props;
+		return <Notice>Coming Soon</Notice>;
 
-		return (
-			<div>
-				{
-					React.createElement(Router.Locations, {contextual: true},
-						...ROUTES.map(route =>
-							route.path ?
-							<Router.Location {...route}
-								contentPackage={course}
-								course={course}
-								assignments={assignments}
-							/>
-							: React.createElement(Router.NotFound, {handler: Redirect, location: '/'})
-						))
-				}
-			</div>
-		);
+		// let {course, assignments} = this.props;
+		//
+		// return (
+		// 	<div>
+		// 		{
+		// 			React.createElement(Router.Locations, {contextual: true},
+		// 				...ROUTES.map(route =>
+		// 					route.path ?
+		// 					<Router.Location {...route}
+		// 						contentPackage={course}
+		// 						course={course}
+		// 						assignments={assignments}
+		// 					/>
+		// 					: React.createElement(Router.NotFound, {handler: Redirect, location: '/'})
+		// 				))
+		// 		}
+		// 	</div>
+		// );
 	}
 });
