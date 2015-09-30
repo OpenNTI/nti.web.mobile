@@ -1,12 +1,13 @@
 import React from 'react';
 import Loading from 'common/components/Loading';
 import AssignmentActivityItem from './AssignmentActivityItem';
+import SearchSortStore from '../SearchSortStore';
 
 export default React.createClass({
 	displayName: 'Activity',
 
 	propTypes: {
-		course: React.PropTypes.object.isRequired
+		assignments: React.PropTypes.object.isRequired
 	},
 
 	getInitialState () {
@@ -19,35 +20,16 @@ export default React.createClass({
 	},
 
 	componentWillReceiveProps (nextProps) {
-		let {course, filterParams} = nextProps;
-
-		if(course !== this.props.course || filterParams !== nextProps.filterParams) {
+		let {assignments} = nextProps;
+		if(assignments !== this.props.assignments) {
 			this.setUp(nextProps);
 		}
 	},
 
 	componentWillUnmount () {
-		let {stream} = this.state;
-		if (stream) {
-			stream.removeListener('change', this.onStoreChange);
-		}
-	},
-
-
-	componentWillUpdate (_, nextState) {
-		let {stream} = this.state;
-		let nextStream = nextState.stream;
-
-		if (stream && stream !== nextStream) {
-			stream.removeListener('change', this.onStoreChange);
-		}
-
-		if (nextStream && nextStream !== stream) {
-			nextStream.addListener('change', this.onStoreChange);
-
-			if (!nextStream.loading) {
-				console.log('Wut?');
-			}
+		let {history} = SearchSortStore;
+		if(history && history.markSeen) {
+			history.markSeen();
 		}
 	},
 
