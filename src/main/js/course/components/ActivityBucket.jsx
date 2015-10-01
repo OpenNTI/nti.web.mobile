@@ -1,6 +1,7 @@
 import React from 'react';
 import hasItems from 'profile/components/activity/HasItems';
 import Card from 'profile/components/Card';
+import DateTime from 'common/components/DateTime';
 
 export default React.createClass({
 	displayName: 'Course:ActivityBucket',
@@ -14,6 +15,7 @@ export default React.createClass({
 		let {bucket} = this.props;
 		return (
 			<Card>
+				<div><DateTime date={bucket.start}/> - <DateTime date={bucket.end} /></div>
 				{this.renderItems(bucket)}
 			</Card>
 		);
