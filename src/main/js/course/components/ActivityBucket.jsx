@@ -14,7 +14,7 @@ export default React.createClass({
 		let {bucket} = this.props;
 		return (
 			<Card>
-				{this.renderItems(bucket.Items)}
+				{this.renderItems(bucket)}
 			</Card>
 		);
 	}
