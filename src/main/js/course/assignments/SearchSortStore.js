@@ -1,5 +1,5 @@
 import StorePrototype from 'common/StorePrototype';
-import {SEARCH_CHANGE, SORT_CHANGE} from './Constants';
+import {LIST_CHANGE, SEARCH_CHANGE, SORT_CHANGE} from './Constants';
 
 const search = Symbol('search');
 const sort = Symbol('sort');
@@ -21,7 +21,7 @@ class SearchSortStore extends StorePrototype {
 
 	set assignmentsList (list) {
 		this[assignmentsList] = list;
-		this.emitChange();
+		this.emitChange({type: LIST_CHANGE});
 	}
 
 	set history (value) {
