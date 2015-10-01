@@ -21,7 +21,7 @@ var scssIncludes =
 var root = path.resolve(__dirname, '..', 'src', 'main', 'js');
 var modules = path.resolve(__dirname, '..', 'node_modules');
 
-var appFontName = /OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-.*woff/i;
+var appFontName = /(icomoon|(OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-)).*woff/i;
 
 var commonLoaders = [
 	{ test: /\.json$/, loader: 'json' },
