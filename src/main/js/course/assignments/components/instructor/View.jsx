@@ -4,14 +4,14 @@ import React from 'react';
 // import Performance from './Performance';
 // import Activity from '../Activity';
 // import Assignments from '../Assignments';
-// import Content from '../Content';
+// import Assignment from '../AssignmentViewer';
 // import PageFrame from '../PageFrame';
 import Notice from 'common/components/Notice';
 
 // const ROUTES = [
 // 	{path: '/performance(/*)', handler: PageFrame, pageContent: Performance},
 // 	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
-// 	{path: '/:rootId(/*)', handler: Content},
+// 	{path: '/:rootId(/*)', handler: Assignment},
 // 	{path: '/', handler: PageFrame, pageContent: Assignments},
 // 	{}//not found
 // ];

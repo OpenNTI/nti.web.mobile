@@ -6,7 +6,7 @@ import StoreEvents from 'common/mixins/StoreEvents';
 import SearchSortStore from '../SearchSortStore';
 
 import AssignmentsListView from './AssignmentsListView';
-import Content from './Content';
+import Assignment from './AssignmentViewer';
 import PageFrame from './PageFrame';
 
 export default React.createClass({
@@ -34,7 +34,7 @@ export default React.createClass({
 		const {rootId} = this.props;
 		const {assignmentsList} = SearchSortStore;
 		return rootId
-			? <Content {...this.props} pageSource={(assignmentsList || {}).pageSource} />
+			? <Assignment {...this.props} pageSource={(assignmentsList || {}).pageSource} />
 			: <PageFrame pageContent={AssignmentsListView} {...this.props} />;
 	}
 });

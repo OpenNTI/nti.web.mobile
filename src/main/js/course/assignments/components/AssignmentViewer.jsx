@@ -9,13 +9,11 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import ContentViewer from 'content/components/Viewer';
 
 export default React.createClass({
-	displayName: 'Content',
+	displayName: 'AssignmentViewer',
 	mixins: [BasePathAware, ContextContributor, NavigatableMixin],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
-
-		outlineId: React.PropTypes.string.isRequired,
 
 		rootId: React.PropTypes.string.isRequired
 	},
