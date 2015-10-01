@@ -1,6 +1,7 @@
 import React from 'react';
 import Banner from 'common/components/Banner';
 import ActivityBucket from './ActivityBucket';
+import ScrollTrigger from 'common/components/ScrollTrigger';
 
 export default React.createClass({
 	displayName: 'Course:Activity',
@@ -49,6 +50,13 @@ export default React.createClass({
 		this.setState({store});
 	},
 
+	loadMore () {
+		let {store} = this.state;
+		if ((store || {}).hasMore) {
+			store.nextBatch();
+		}
+	},
+
 	render () {
 		let contentPackage = this.props.course;
 		let {store} = this.state;
@@ -56,6 +64,7 @@ export default React.createClass({
 			<div className="course-activity">
 				<Banner contentPackage={contentPackage} />
 				<ul className="activity-buckets">{store && store.map((bucket, index) => <ActivityBucket key={`bucket-${index}`} bucket={bucket} />)}</ul>
+				<ScrollTrigger onEnterView={this.loadMore} />
 			</div>
 		);
 	}
