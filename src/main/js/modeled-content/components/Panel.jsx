@@ -19,7 +19,7 @@ export default React.createClass({
 	displayName: 'ModeledBodyContent',
 
 	propTypes: {
-		body: React.PropTypes.array.isRequired,
+		body: React.PropTypes.array,
 
 		previewMode: React.PropTypes.bool,
 		previewLength: React.PropTypes.number,
