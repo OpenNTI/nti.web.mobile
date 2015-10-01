@@ -18,7 +18,6 @@ import Page from './Page';
 
 import {LESSONS} from '../Sections';
 
-//import Activity
 import Assignments from '../assignments/components/View';
 //import Reports
 import CourseInfo from './CourseInfo';
