@@ -2,6 +2,8 @@ import React from 'react';
 import Banner from 'common/components/Banner';
 import ActivityBucket from './ActivityBucket';
 import ScrollTrigger from 'common/components/ScrollTrigger';
+import Loading from 'common/components/Loading';
+import GradientBackground from 'common/components/GradientBackground';
 
 export default React.createClass({
 	displayName: 'Course:Activity',
@@ -61,11 +63,14 @@ export default React.createClass({
 		let contentPackage = this.props.course;
 		let {store} = this.state;
 		return (
-			<div className="course-activity">
-				<Banner contentPackage={contentPackage} />
-				<ul className="activity-buckets">{store && store.map((bucket, index) => <ActivityBucket key={`bucket-${index}`} bucket={bucket} />)}</ul>
-				<ScrollTrigger onEnterView={this.loadMore} />
-			</div>
+			<GradientBackground>
+				<div className="course-activity">
+					<Banner contentPackage={contentPackage} />
+					<ul className="activity-buckets">{store && store.map((bucket, index) => <ActivityBucket key={`bucket-${index}`} bucket={bucket} />)}</ul>
+					<ScrollTrigger onEnterView={this.loadMore} />
+					{store && store.loading && <Loading />}
+				</div>
+			</GradientBackground>
 		);
 	}
 });
