@@ -7,11 +7,13 @@ export default {
 	mixins: [BasePathAware],
 
 	objectLink (o) {
-		if (!(o || {}).NTIID) {
-			return null;
-		}
-		let href = path.join(this.getBasePath(), 'object', encodeForURI(o.NTIID)) + '/';
+		let oid = objectId(o);
+		let href = path.join(this.getBasePath(), 'object', encodeForURI(oid)) + '/';
 		return href;
 	}
 
 };
+
+function objectId (o) {
+	return (o || {}).getID ? o.getID() : (o || {}).NTIID;
+}

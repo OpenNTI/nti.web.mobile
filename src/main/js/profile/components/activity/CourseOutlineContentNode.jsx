@@ -1,11 +1,12 @@
 import React from 'react';
 import DateTime from 'common/components/DateTime';
 
+import ObjectLink from './ObjectLink';
 import Mixin from './Mixin';
 
 export default React.createClass({
 	displayName: 'CourseOutlineContentNode',
-	mixins: [Mixin],
+	mixins: [Mixin, ObjectLink],
 
 	statics: {
 		mimeType: /courseoutlinecontentnode/i
@@ -22,11 +23,15 @@ export default React.createClass({
 			return null;
 		}
 
+		let href = this.objectLink(item);
+
 		return (
 			<div className="outline-node">
-				<div className="path">Lessons</div>
-				<div className="title">{item.title}</div>
-				<div className="footer"><DateTime date={item.getAvailableBeginning()} /></div>
+				<a href={href}>
+					<div className="path">Lessons</div>
+					<div className="title">{item.title}</div>
+					<div className="footer"><DateTime date={item.getAvailableBeginning()} /></div>
+				</a>
 			</div>
 		);
 	}

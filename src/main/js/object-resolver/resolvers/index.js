@@ -1,9 +1,11 @@
+import Assignments from './Assignments';
 import CourseObjects from './CourseObjects';
 import Entities from './Entities';
 import LibraryPath from './LibraryPath';
 import ContentPages from './RandomContentPages';
 
 const handlers = [
+	Assignments,
 	CourseObjects,
 	Entities,
 	LibraryPath,

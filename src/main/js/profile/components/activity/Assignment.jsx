@@ -1,11 +1,13 @@
 import React from 'react';
+
 import DateTime from 'common/components/DateTime';
 
+import ObjectLink from './ObjectLink';
 import Mixin from './Mixin';
 
 export default React.createClass({
 	displayName: 'Assignment',
-	mixins: [Mixin],
+	mixins: [Mixin, ObjectLink],
 
 	statics: {
 		mimeType: /assessment\.assignment/i
@@ -22,11 +24,15 @@ export default React.createClass({
 			return null;
 		}
 
+		let href = this.objectLink(item);
+
 		return (
 			<div className="assignment">
-				<div className="path">Lessons</div>
-				<div className="title">{item.title}</div>
-				<div className="footer"><DateTime date={item.getAvailableForSubmissionBeginning()} /></div>
+				<a href={href}>
+					<div className="path">Lessons</div>
+					<div className="title">{item.title}</div>
+					<div className="footer"><DateTime date={item.getAvailableForSubmissionBeginning()} /></div>
+				</a>
 			</div>
 		);
 	}
