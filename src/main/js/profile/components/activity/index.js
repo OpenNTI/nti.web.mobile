@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Unknown from './Unknown';
+import Assignment from './Assignment';
+import CourseOutlineContentNode from './CourseOutlineContentNode';
 import ForumComment from './ForumComment';
 import ForumTopic from './ForumTopic';
 import Highlight from './Highlight';
@@ -11,6 +13,8 @@ import Chat from './Chat';
 
 const KINDS = [
 	Unknown,
+	Assignment,
+	CourseOutlineContentNode,
 	ForumComment,
 	ForumTopic,
 	HighlightContainer,
@@ -31,7 +35,7 @@ export default function select (item, index) {
 
 	return React.createElement(Item, {
 		ref: 'input',
-		key: 'profile-activity-' + item.OID,
+		key: 'profile-activity-' + (index || item.OID),
 		index, item
 	});
 }
