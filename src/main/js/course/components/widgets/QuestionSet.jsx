@@ -23,6 +23,9 @@ const assignmentType = /assignment/i;
 
 const OutlineNode = getModel('courses.courseoutlinenode');
 
+const getID = o => o.getID ? o.getID() : (o['Target-NTIID'] || o['NTIID']);
+const getQuestionCount = o => o.getQuestionCount ? o.getQuestionCount() : o['question-count'];
+
 export default React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
 	mixins: [NavigatableMixin],
@@ -35,7 +38,7 @@ export default React.createClass( {
 
 		canRender  (item, node, collection) {
 			let render = !!collection;
-			let id = item['Target-NTIID'];
+			let id = getID(item);
 
 			if (collection && (assignmentType.test(item.MimeType) || collection.isAssignment(id, node.getID()))) {
 				render = Boolean(collection.getAssignment(id, node.getID()));
@@ -70,7 +73,7 @@ export default React.createClass( {
 
 	fillInData (service) {
 		let {node, item, assessmentCollection} = this.props;
-		let ntiid = item['Target-NTIID'];
+		let ntiid = getID(item);
 		let assignment = assessmentCollection.getAssignment(ntiid, node.getID());
 		let isAssignment = assignment || assignmentType.test(item.MimeType);
 
@@ -141,7 +144,7 @@ export default React.createClass( {
 
 
 	setQuizHref () {
-		let ntiid = this.props.item['Target-NTIID'];
+		let ntiid = getID(this.props.item);
 		let link = path.join('content', encodeForURI(ntiid)) + '/';
 		this.setState({href: this.makeHref(link, true)});
 	},
@@ -150,8 +153,8 @@ export default React.createClass( {
 	render () {
 		let state = this.state;
 		let item = this.props.item;
-		let questionCount = item['question-count'];
-		let label = item.label;
+		let questionCount = getQuestionCount(item);
+		let label = item.label || item.title;
 
 		//let latestAttempt = state.latestAttempt;
 		let assignment = state.assignment;
