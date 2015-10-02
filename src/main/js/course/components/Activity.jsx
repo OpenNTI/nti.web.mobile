@@ -63,7 +63,7 @@ export default React.createClass({
 		let contentPackage = this.props.course;
 		let {store} = this.state;
 		return (
-			<GradientBackground>
+			<GradientBackground imgUrl={contentPackage.getPresentationProperties().background}>
 				<div className="course-activity">
 					<Banner contentPackage={contentPackage} />
 					<ul className="activity-buckets">{store && store.map((bucket, index) => <ActivityBucket key={`bucket-${index}`} bucket={bucket} />)}</ul>
