@@ -1,4 +1,54 @@
 .activity-buckets {
 	margin: 0;
 	list-style-type: none;
+	.profile-card {
+		background: transparent;
+		& > * {
+			background: white;
+			padding: .625rem;
+			margin: 1rem -.625rem;
+			border-radius: 3px;
+		}
+		.header {
+			background: transparent;
+			color: white;
+			padding: 0;
+			margin: 0 -.625rem;
+		}
+		.outline-node {
+			background-color: transparent;
+			color: white;
+			background-image: linear-gradient(125deg, rgba(76,143,219,0.6) 0%, #53baf6 100%);
+			box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.5),inset 0px -43px 0px 0px rgba(24,82,116,0.5);
+			.path {
+				color: #bbe5fd;
+			}
+			.footer {
+				color: #7accf7;
+			}
+		}
+		.assignment {
+			background-color: transparent;
+			color: white;
+			background-image: linear-gradient(125deg, rgba(221,62,81,0.6) 0%, #fa675c 100%);
+    		box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.5),inset 0px -43px 0px 0px rgba(103,27,34,0.5);
+			.path {
+				color: #ffbea7;
+			}
+			.footer {
+				color: #cb8b7e;
+			}
+		}
+		.path {
+			font: normal 600 0.65em/1.3em "Open Sans",sans-serif;
+			text-transform: uppercase;
+		}
+		.title {
+			font: italic 500 1.5em/1.4em "Open Sans",sans-serif;
+			height: 4.2em;
+		}
+		.footer {
+			text-align: center;
+		}
+	}
 }

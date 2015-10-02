@@ -8,15 +8,17 @@ export default React.createClass({
 		children: React.PropTypes.any
 	},
 
+	getInitialState () {
+		return {};
+	},
+
 	inView () {
 		return isElementInViewport(React.findDOMNode(this));
 	},
 
 	componentDidMount () {
 		window.addEventListener('scroll', this.onScroll);
-		if (this.inView()) {
-			this.onEnterView();
-		}
+		this.checkInView();
 	},
 
 	componentWillUnmount () {

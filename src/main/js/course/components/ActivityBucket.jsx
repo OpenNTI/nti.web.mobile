@@ -15,7 +15,7 @@ export default React.createClass({
 		let {bucket} = this.props;
 		return (
 			<Card>
-				<div><DateTime date={bucket.start}/> - <DateTime date={bucket.end} /></div>
+				<div className="header"><DateTime date={bucket.start}/> - <DateTime date={bucket.end} /></div>
 				{this.renderItems(bucket)}
 			</Card>
 		);

@@ -1,5 +1,5 @@
 import React from 'react';
-import Breadcrumb from './Breadcrumb';
+import DateTime from 'common/components/DateTime';
 
 import Mixin from './Mixin';
 
@@ -24,10 +24,9 @@ export default React.createClass({
 
 		return (
 			<div className="outline-node">
-				<Breadcrumb item={item} />
-				<div className="body">
-					(Outline Node)
-				</div>
+				<div className="path">Lessons</div>
+				<div className="title">{item.title}</div>
+				<div className="footer"><DateTime date={item.getAvailableBeginning()} /></div>
 			</div>
 		);
 	}
