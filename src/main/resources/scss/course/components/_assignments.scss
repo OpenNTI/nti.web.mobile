@@ -79,14 +79,14 @@
 				padding-left: 2.4rem;
 				&::after {
 					content: '';
-					@extend %icon-assignment-due;
+					@extend %icon-assignment-due-small;
 					width: $iconsize;
 					height: $iconsize;
 					margin-right:1em;
 				}
 				&.late {
 					&::after {
-						@extend %icon-assignment-late;
+						@extend %icon-assignment-late-small;
 					}
 				}
 			}
