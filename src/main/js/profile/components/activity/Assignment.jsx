@@ -1,10 +1,12 @@
 import React from 'react';
+import cx from 'classnames';
 
 import DateTime from 'common/components/DateTime';
 import {scoped} from 'common/locale';
 
 import ObjectLink from './ObjectLink';
 import Mixin from './Mixin';
+
 
 
 let t = scoped('UNITS');
@@ -30,8 +32,12 @@ export default React.createClass({
 
 		let href = this.objectLink(item);
 
+		let classes = cx('assignment', {
+			overdue: item.isLate(new Date()) && !item.hasSubmission
+		});
+
 		return (
-			<div className="assignment">
+			<div className={classes}>
 				<a href={href}>
 					<div className="path">Assignments</div>
 					<div className="title">{item.title}</div>
