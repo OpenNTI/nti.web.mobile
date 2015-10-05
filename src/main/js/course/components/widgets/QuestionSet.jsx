@@ -92,7 +92,7 @@ export default React.createClass( {
 
 			this.setQuizHref();
 		} else {
-			this.setQuizHref(); //TODO: build the assignment href
+			this.setAssignmentHref();
 
 			work = loadPreviousState(assignment)
 				.then(this.setAssignmentHistory)
@@ -140,6 +140,15 @@ export default React.createClass( {
 			latestAttempt: null,
 			completed: false
 		});
+	},
+
+
+	setAssignmentHref () {
+		let ntiid = getID(this.props.item);
+		// The '..' in the path tells "buildHref" to go up to the
+		// parent router instead of our immediate parent router.
+		let link = path.join('..', 'assignments', encodeForURI(ntiid)) + '/';
+		this.setState({href: this.buildHref(link, true)});
 	},
 
 
