@@ -18,16 +18,23 @@ export default React.createClass({
 
 	render () {
 
-		let {assignment, history} = this.props;
-		let completed = !!history;
-		let graded = !!(history && history.getGradeValue());
+		const {assignment, history, dateFormat} = this.props;
+		const completed = !!history;
+		const graded = !!(history && history.getGradeValue());
 
 		return (
 			<div className="footer">
 				{completed
 					? graded ? 'Graded' : 'Completed'
-					: <div>Due&nbsp;<DateTime date={assignment.getAvailableForSubmissionEnding()} format={this.props.dateFormat}/></div>
-				}
+					: (
+						<div>
+							{'Due '}
+							<DateTime
+								date={assignment.getDueDate()}
+								format={dateFormat}
+								/>
+						</div>
+				)}
 			</div>
 		);
 	}
