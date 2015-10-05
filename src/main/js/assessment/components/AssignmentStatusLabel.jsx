@@ -24,7 +24,9 @@ export default React.createClass({
 
 	propTypes: {
 		assignment: React.PropTypes.instanceOf(Assignment),
-		historyItem: React.PropTypes.instanceOf(HistoryItem)
+		historyItem: React.PropTypes.instanceOf(HistoryItem),
+
+		showTimeWithDate: React.PropTypes.bool
 	},
 
 	getInitialState () {
@@ -208,22 +210,27 @@ export default React.createClass({
 
 
 	render () {
-		let assignment = this.props.assignment;
-		let complete = this.isSubmitted();
+		const {props: {showTimeWithDate, assignment}} = this;
 
-		let submittable = assignment.canBeSubmitted();
+		const complete = this.isSubmitted();
 
-		let date = this.getCompletedDateTime() || assignment.getDueDate();
+		const submittable = assignment.canBeSubmitted();
 
-		let text = complete ? (assignment.isNonSubmit() ? 'Graded' : 'Completed') : 'Due';
+		const date = this.getCompletedDateTime() || assignment.getDueDate();
 
-		let infoClasses = cx('info-part', text.toLowerCase(), {
+		const text = complete ? (assignment.isNonSubmit() ? 'Graded' : 'Completed') : 'Due';
+
+		const infoClasses = cx('info-part', text.toLowerCase(), {
 			'non-submit': assignment.isNonSubmit(),
 			'due-today': !complete && this.isDueToday(),
 			'overdue': this.isOverDue() && submittable,
 			'late': this.isOverDue() && !assignment.isNonSubmit() && !submittable,
 			'overtime': submittable && this.isOverTime()
 		});
+
+		const dateFormat = showTimeWithDate
+			? 'dddd, MMMM D h:mm A z'
+			: 'dddd, MMMM D';
 
 		if (!date) {
 			return null;//no date? we have nothing to show
@@ -245,7 +252,7 @@ export default React.createClass({
 							onClick={this.onShowStatusDetail}
 							date={date}
 							showToday={!complete/*only show today if we aren't submitted*/}
-							format="dddd, MMMM D"
+							format={dateFormat}
 							todayText="Today!"/>
 						{this.isExcused() && (
 							<span className="excused">Excused Grade</span>

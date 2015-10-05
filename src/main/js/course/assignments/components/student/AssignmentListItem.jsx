@@ -18,7 +18,7 @@ export default React.createClass({
 		return (
 			<a className={classes} href={`./${encodeForURI(assignment.getID())}/`}>
 				{assignment.title}
-				<AssignmentStatusLabel assignment={assignment} />
+				<AssignmentStatusLabel assignment={assignment} showTimeWithDate/>
 			</a>
 		);
 	}

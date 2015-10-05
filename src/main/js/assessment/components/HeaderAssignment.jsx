@@ -77,7 +77,7 @@ export default React.createClass({
 			<div className={'header assessment assignment ' + state}>
 				<div className="meta">
 					<h4>{assignment.title}</h4>
-					<AssignmentStatusLabel assignment={assignment} historyItem={item}/>
+					<AssignmentStatusLabel assignment={assignment} historyItem={item} showTimeWithDate/>
 				</div>
 
 				{isEmpty(grade) ? null : (
