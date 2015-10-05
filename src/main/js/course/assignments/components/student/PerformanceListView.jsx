@@ -46,7 +46,7 @@ export default React.createClass({
 	getInitialState () {
 		return {
 			sortOn: ['due'],
-			sortDesc: true,
+			sortDesc: false,
 			assignments: []
 		};
 	},
