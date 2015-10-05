@@ -36,45 +36,52 @@ export default React.createClass({
 	},
 
 
+	isAssigned () {
+		const now = new Date();
+		const {props: {assignment: a}} = this;
+		return a.getAssignedDate() <= now;
+	},
+
+
 	isOverDue () {
-		let date = this.getCompletedDateTime() || new Date();
-		let a = this.props.assignment;
+		const date = this.getCompletedDateTime() || new Date();
+		const a = this.props.assignment;
 		return a.isLate(date);
 	},
 
 
 	isOverTime () {
-		let a = this.props.assignment;
+		const {props: {assignment: a}} = this;
 		return Boolean(a.isOverTime && a.isOverTime());
 	},
 
 
 	isDueToday () {
-		let a = this.props.assignment;
+		const {props: {assignment: a}} = this;
 		return moment(a.getDueDate()).isSame(new Date(), 'day');
 	},
 
 
 	isSubmitted () {
-		return this.props.historyItem && this.props.historyItem.isSubmitted();
+		const {props: {historyItem}} = this;
+		return historyItem && historyItem.isSubmitted();
 	},
 
 
 	isExcused () {
-		let i = this.props.historyItem;
+		const {props: {historyItem: i}} = this;
 		return i && i.isGradeExcused && i.isGradeExcused();
 	},
 
 
 	getCompletedDateTime () {
-		let i = this.props.historyItem;
-
+		const {props: {historyItem: i}} = this;
 		return i && i.isSubmitted() && i.getCreatedTime();
 	},
 
 
 	getDuration () {
-		let a = this.props.assignment;
+		const {props: {assignment: a}} = this;
 		return a.getDuration && a.getDuration();
 	},
 
@@ -213,19 +220,25 @@ export default React.createClass({
 		const {props: {showTimeWithDate, assignment}} = this;
 
 		const complete = this.isSubmitted();
+		const available =  this.isAssigned();
 
 		const submittable = assignment.canBeSubmitted();
 
 		const date = this.getCompletedDateTime() || assignment.getDueDate();
 
-		const text = complete ? (assignment.isNonSubmit() ? 'Graded' : 'Completed') : 'Due';
+		const text = complete
+			? (assignment.isNonSubmit() ? 'Graded' : 'Completed')
+			: available
+				? 'Due'
+				: 'Available on';
 
 		const infoClasses = cx('info-part', text.toLowerCase(), {
 			'non-submit': assignment.isNonSubmit(),
 			'due-today': !complete && this.isDueToday(),
 			'overdue': this.isOverDue() && submittable,
 			'late': this.isOverDue() && !assignment.isNonSubmit() && !submittable,
-			'overtime': submittable && this.isOverTime()
+			'overtime': submittable && this.isOverTime(),
+			'not-available': !available
 		});
 
 		const dateFormat = showTimeWithDate

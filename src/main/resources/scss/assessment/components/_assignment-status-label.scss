@@ -13,6 +13,10 @@
 			display: block;
 		}
 
+		&.not-available {
+			color: $tertiary-grey;
+		}
+
 		@media screen and (min-width: 365px) {
 			&.time-limit {
 				display: inline;
