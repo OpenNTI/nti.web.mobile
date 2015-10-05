@@ -45,6 +45,9 @@ export default {
 		};
 	},
 
+	componentWillMount () {
+		this.setValue(Store.getPartValue(this.props.item));
+	},
 
 
 	componentDidMount () {
