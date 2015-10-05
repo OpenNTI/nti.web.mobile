@@ -58,7 +58,7 @@ export default {
 
 		}).filter(x=>x);
 
-		if (toReturn.length === 0) {
+		if (!toReturn || toReturn.length === 0) {
 			throw new IllegalStateException('No Items to render');
 		}
 
