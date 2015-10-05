@@ -55,7 +55,7 @@ export default React.createClass({
 		}
 
 		const NOW = new Date();
-		if (assignment.getAvailableForSubmissionBeginning() > NOW) {
+		if (assignment.getAssignedDate() > NOW) {
 			return (
 				<TimeLockedPlaceholder assignment={assignment}/>
 			);
