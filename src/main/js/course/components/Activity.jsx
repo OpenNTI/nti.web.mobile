@@ -1,12 +1,18 @@
 import React from 'react';
+
 import Banner from 'common/components/Banner';
-import ActivityBucket from './ActivityBucket';
 import ScrollTrigger from 'common/components/ScrollTrigger';
 import Loading from 'common/components/Loading';
 import GradientBackground from 'common/components/GradientBackground';
 
+import ActivityBucket from './ActivityBucket';
+
+import ContextParent from '../mixins/AssignmentHistoryContextParent';
+
 export default React.createClass({
 	displayName: 'Course:Activity',
+
+	mixins: [ContextParent],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired

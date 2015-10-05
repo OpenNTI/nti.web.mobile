@@ -13,7 +13,14 @@ export default React.createClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.any.isRequired
+		item: React.PropTypes.any.isRequired,
+		dateFormat: React.PropTypes.string
+	},
+
+	getDefaultProps () {
+		return {
+			dateFormat: 'dddd, MMMM D'
+		};
 	},
 
 	render () {
@@ -30,7 +37,7 @@ export default React.createClass({
 				<a href={href}>
 					<div className="path">Lessons</div>
 					<div className="title">{item.title}</div>
-					<div className="footer"><DateTime date={item.getAvailableBeginning()} /></div>
+					<div className="footer"><DateTime date={item.getAvailableBeginning()} format={this.props.dateFormat}/></div>
 				</a>
 			</div>
 		);

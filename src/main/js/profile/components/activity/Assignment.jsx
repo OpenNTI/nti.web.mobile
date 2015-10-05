@@ -1,19 +1,19 @@
 import React from 'react';
 import cx from 'classnames';
 
-import DateTime from 'common/components/DateTime';
 import {scoped} from 'common/locale';
+
+import Footer from './AssignmentFooter';
 
 import ObjectLink from './ObjectLink';
 import Mixin from './Mixin';
-
-
+import AssignmentHistoryContextChild from 'course/mixins/AssignmentHistoryContextChild';
 
 let t = scoped('UNITS');
 
 export default React.createClass({
 	displayName: 'Assignment',
-	mixins: [Mixin, ObjectLink],
+	mixins: [Mixin, ObjectLink, AssignmentHistoryContextChild],
 
 	statics: {
 		mimeType: /assessment\.assignment/i
@@ -29,6 +29,8 @@ export default React.createClass({
 		if (!item) {
 			return null;
 		}
+		let {assignmentsHistory} = this.context;
+		let history = assignmentsHistory.getItem(item.getID());
 
 		let href = this.objectLink(item);
 
@@ -42,7 +44,7 @@ export default React.createClass({
 					<div className="path">Assignments</div>
 					<div className="title">{item.title}</div>
 					<div className="bullets">{t('questions', {count: item.getQuestionCount()})}</div>
-					<div className="footer"><DateTime date={item.getAvailableForSubmissionBeginning()} /></div>
+					<Footer assignment={item} history={history} />
 				</a>
 			</div>
 		);
