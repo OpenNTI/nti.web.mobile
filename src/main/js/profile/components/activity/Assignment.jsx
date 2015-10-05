@@ -7,7 +7,7 @@ import ObjectLink from './ObjectLink';
 import Mixin from './Mixin';
 
 
-let t = scoped('UNITS')
+let t = scoped('UNITS');
 
 export default React.createClass({
 	displayName: 'Assignment',
