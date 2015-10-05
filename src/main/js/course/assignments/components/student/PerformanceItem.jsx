@@ -60,11 +60,11 @@ export default React.createClass({
 				<a href={`./${encodeForURI(assignment.getID())}/`}>
 					<div className={cx('assignment-title', {'sorted': sortedOn === 'title'})}>{assignment.title}</div>
 				</a>
-				<div className={cx('assigned', {'sorted': sortedOn === 'available_for_submission_beginning'})}>
-					<DateTime format={DATE_FORMAT} date={assignment.available_for_submission_beginning} />
+				<div className={cx('assigned', {'sorted': sortedOn === 'assigned'})}>
+					<DateTime format={DATE_FORMAT} date={assignment.getAssignedDate()} />
 				</div>
-				<div className={cx('due', {'sorted': sortedOn === 'available_for_submission_ending'})}>
-					<DateTime format={DATE_FORMAT} date={assignment.available_for_submission_ending} />
+				<div className={cx('due', {'sorted': sortedOn === 'due'})}>
+					<DateTime format={DATE_FORMAT} date={assignment.getDueDate()} />
 				</div>
 				<div className={cx('score', {'sorted': sortedOn === 'score'})}>{score}</div>
 			</div>

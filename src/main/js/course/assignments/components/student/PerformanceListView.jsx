@@ -16,23 +16,23 @@ const columns = [
 	{
 		className: 'assignment-title',
 		label: 'Assignment Name',
-		sortOn: ['title', 'available_for_submission_ending']
+		sortOn: ['title', 'due']
 
 	},
 	{
 		className: 'assigned',
 		label: 'Assigned',
-		sortOn: ['available_for_submission_beginning','available_for_submission_ending', 'title']
+		sortOn: ['assigned','due', 'title']
 	},
 	{
 		className: 'due',
 		label: 'Due',
-		sortOn: ['available_for_submission_ending','available_for_submission_beginning', 'title']
+		sortOn: ['due','assigned', 'title']
 	},
 	{
 		className: 'score',
 		label: 'Score',
-		sortOn: ['score', 'available_for_submission_ending']
+		sortOn: ['score', 'due']
 	}
 ];
 
@@ -45,7 +45,7 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
-			sortOn: ['available_for_submission_ending'],
+			sortOn: ['due'],
 			sortDesc: true,
 			assignments: []
 		};
@@ -111,8 +111,8 @@ export default React.createClass({
 
 const getSortProp = {
 	'completed': (a) => a.hasLink('History'),
-	'available_for_submission_ending': (a) => a.getDueDate && a.getDueDate(),
-	'available_for_submission_beginning': (a) => a.getAssignedDate && a.getAssignedDate(),
+	'due': (a) => a.getDueDate && a.getDueDate(),
+	'assigned': (a) => a.getAssignedDate && a.getAssignedDate(),
 	'score': (a) => {
 		let {history} = SearchSortStore;
 		if (!history) {
