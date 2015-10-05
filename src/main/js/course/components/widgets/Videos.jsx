@@ -10,7 +10,7 @@ export default React.createClass({
 	mixins: [WidgetsMixin],
 
 	statics: {
-		mimeTest: /^application\/vnd\.nextthought\.ntivideoset/i,
+		mimeTest: /ntivideoset/i,
 		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		}

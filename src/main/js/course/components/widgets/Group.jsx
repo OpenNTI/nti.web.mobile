@@ -20,7 +20,7 @@ export default React.createClass({
 	},
 
 	statics: {
-		mimeTest: /^application\/vnd\.nextthought\.nticourseoverviewgroup/i,
+		mimeTest: /nticourseoverviewgroup/i,
 		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		}
