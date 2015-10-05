@@ -119,7 +119,8 @@ const getProp = {
 			return '';
 		}
 		let itemHistory = history.getItem(a.getID());
-		return itemHistory && itemHistory.getGradeValue() || null;
+		let grade = itemHistory && itemHistory.getGradeValue() || null;
+		return parseFloat(grade) || grade;
 	}
 };
 
