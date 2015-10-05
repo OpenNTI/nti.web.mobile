@@ -29,10 +29,10 @@ export default React.createClass({
 		this.checkInView();
 	},
 
-	checkInView () {
+	checkInView (force) {
 		let {inView} = this.state;
 		let newInView = this.inView();
-		if (inView !== newInView) {
+		if (force || (inView !== newInView)) {
 			let handler = newInView ? this.onEnterView : this.onLeaveView;
 			handler();
 		}
