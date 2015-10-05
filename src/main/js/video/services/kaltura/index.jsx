@@ -87,7 +87,12 @@ export default React.createClass({
 			partnerId = parsed.host;
 			entryId = /\/(.*)\/$/.exec(parsed.path)[1];
 		} else if (data) {
-			parsed = ((data.source || [])[0] || '').split(':');
+			let {source = ''} = data;
+			if (Array.isArray(source)) {
+				source = source[0];
+			}
+
+			parsed = (source || '').split(':');
 			partnerId = parsed[0];
 			entryId = parsed[1];
 		}
