@@ -148,14 +148,14 @@ export default React.createClass( {
 		// The '..' in the path tells "buildHref" to go up to the
 		// parent router instead of our immediate parent router.
 		let link = path.join('..', 'assignments', encodeForURI(ntiid)) + '/';
-		this.setState({href: this.buildHref(link, true)});
+		this.setState({href: this.buildHref(link)});
 	},
 
 
 	setQuizHref () {
 		let ntiid = getID(this.props.item);
-		let link = path.join('content', encodeForURI(ntiid)) + '/';
-		this.setState({href: this.makeHref(link, true)});
+		let link = path.join(this.getPath(), 'content', encodeForURI(ntiid)) + '/';
+		this.setState({href: this.buildHref(link)});
 	},
 
 
