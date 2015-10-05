@@ -109,25 +109,25 @@ export default React.createClass({
 	}
 });
 
-const getProp = {
+const getSortProp = {
 	'completed': (a) => a.hasLink('History'),
 	'available_for_submission_ending': (a) => a.getDueDate && a.getDueDate(),
 	'available_for_submission_beginning': (a) => a.getAssignedDate && a.getAssignedDate(),
 	'score': (a) => {
 		let {history} = SearchSortStore;
 		if (!history) {
-			return '';
+			return -2;
 		}
 		let itemHistory = history.getItem(a.getID());
-		let grade = itemHistory && itemHistory.getGradeValue() || null;
-		return parseFloat(grade) || grade;
+		let grade = itemHistory && itemHistory.getGradeValue() || -1;
+		return parseFloat(grade, 10) || grade;
 	}
 };
 
 function compare (a, b, props) {
 	let property = props.shift();
-	let propA = getProp[property] ? getProp[property](a) : a[property];
-	let propB = getProp[property] ? getProp[property](b) : b[property];
+	let propA = getSortProp[property] ? getSortProp[property](a) : a[property];
+	let propB = getSortProp[property] ? getSortProp[property](b) : b[property];
 	if( propA > propB ) {
 		return 1;
 	}
