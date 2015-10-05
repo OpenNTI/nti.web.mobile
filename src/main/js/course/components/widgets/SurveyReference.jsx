@@ -41,7 +41,9 @@ export default React.createClass( {
 	},
 
 
-
+	componentDidMount () {
+		this.props.item.fetchLinkParsed('Aggregated').catch(()=>{});
+	},
 
 
 	render () {

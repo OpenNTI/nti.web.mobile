@@ -1,12 +1,18 @@
 import React from 'react';
 import cx from 'classnames';
-import DateTime from 'common/components/DateTime';
+
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+
+import DateTime from 'common/components/DateTime';
+import DisplayName from 'common/components/DisplayName';
 import If from 'common/components/Conditional';
+
 import {scoped} from 'common/locale';
+
 import {join} from 'path';
 
-const t = scoped('COURSE.ASSIGNMENTS.ACTIVITY');
+const scope = 'COURSE.ASSIGNMENTS.ACTIVITY';
+const t = scoped(scope);
 
 export default React.createClass({
 	displayName: 'ActivityItem',
@@ -17,8 +23,9 @@ export default React.createClass({
 
 	render () {
 		const {event} = this.props;
-		const {date, title, type, suffix, unread, assignment} = event;
+		const {date, title, type, suffix, unread, user, assignment} = event;
 		const today = new Date((new Date()).setHours(0, 0, 0, 0));
+		const hasName = type === 'they-feedback';
 
 		let format = 'MMM D'; // "Jan 2" ... Short month, Day of month without zero padding
 		if (date > today) {
@@ -30,7 +37,11 @@ export default React.createClass({
 		return (
 			<div className={cx('item', {unread})}>
 				<DateTime date={date} format={format}/>
-				<span className="type">{t(type)}</span>
+				{hasName ? (
+					<DisplayName entity={user} usePronoun localeKey={`${scope}.${type}`}/>
+				) : (
+					<span className="type">{t(type)}</span>
+				)}
 				<a href={href}><span className="assignment-name">{title}</span></a>
 				<If condition={suffix}>
 					<span className="label suffix">{suffix}</span>
