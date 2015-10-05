@@ -31,7 +31,7 @@ export default React.createClass( {
 	mixins: [NavigatableMixin],
 
 	statics: {
-		mimeTest: /(naquestionset|naquestionbank|assignment)$/i,
+		mimeTest: /(questionset|questionbank|assignment)/i,
 		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		},
