@@ -6,13 +6,17 @@ import Loading from 'common/components/Loading';
 import GradientBackground from 'common/components/GradientBackground';
 
 import ActivityBucket from './ActivityBucket';
+import {ACTIVITY} from '../Sections';
 
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import ContextSender from 'common/mixins/ContextSender';
 import ContextParent from '../mixins/AssignmentHistoryContextParent';
+
 
 export default React.createClass({
 	displayName: 'Course:Activity',
 
-	mixins: [ContextParent],
+	mixins: [ContextSender, NavigatableMixin, ContextParent],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired
@@ -46,6 +50,20 @@ export default React.createClass({
 
 	componentDidUpdate () {
 		this.refs.scrollTrigger.checkInView(true);
+	},
+
+	getContext () {
+		let {course} = this.props;
+		let {title} = course.getPresentationProperties();
+
+		let href = this.makeHref(ACTIVITY);
+		let ntiid = course.getID();
+
+		return Promise.resolve({
+			label: title,
+			ntiid,
+			href
+		});
 	},
 
 	onStoreChange () {
