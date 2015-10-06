@@ -1,8 +1,12 @@
 import React from 'react';
-import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
-import CompletionRatio from './CompletionRatio';
 import cx from 'classnames';
+
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {HISTORY_LINK} from 'nti.lib.interfaces/models/assessment/Constants';
+
+import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
+
+import CompletionRatio from './CompletionRatio';
 
 export default React.createClass({
 	displayName: 'AssignmentItem',
@@ -16,7 +20,7 @@ export default React.createClass({
 		let {assignment, course} = this.props;
 		let late = assignment && !assignment.isNonSubmit() && assignment.isLate(new Date());
 		let classes = cx('assignment-item', {
-			complete: assignment.hasLink('History'),
+			complete: assignment.hasLink(HISTORY_LINK),
 			late
 		});
 		return (

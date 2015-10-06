@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
+import {HISTORY_LINK} from 'nti.lib.interfaces/models/assessment/Constants';
 import PageSource from 'nti.lib.interfaces/models/ListBackedPageSource';
 
 import SearchSortStore from '../../SearchSortStore';
@@ -110,7 +111,7 @@ export default React.createClass({
 });
 
 const getSortProp = {
-	'completed': (a) => a.hasLink('History'),
+	'completed': (a) => a.hasLink(HISTORY_LINK),
 	'due': (a) => a.getDueDate && a.getDueDate(),
 	'assigned': (a) => a.getAssignedDate && a.getAssignedDate(),
 	'score': (a) => {

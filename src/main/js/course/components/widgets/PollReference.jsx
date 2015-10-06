@@ -6,13 +6,14 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import t from 'common/locale';
 
 import {getModel} from 'nti.lib.interfaces';
+import {HISTORY_LINK} from 'nti.lib.interfaces/models/assessment/Constants';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 const OutlineNode = getModel('courses.courseoutlinenode');
 
 
 function isSubmitted (item) {
-	return !!((item || {}).Links || []).find(x=> x.rel === 'History');
+	return !!((item || {}).Links || []).find(x=> x.rel === HISTORY_LINK);
 }
 
 

@@ -1,7 +1,10 @@
 import React from 'react';
-import DateTime from 'common/components/DateTime';
 import cx from 'classnames';
+
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {HISTORY_LINK} from 'nti.lib.interfaces/models/assessment/Constants';
+
+import DateTime from 'common/components/DateTime';
 
 const DATE_FORMAT = 'MM/DD';
 
@@ -44,7 +47,7 @@ export default React.createClass({
 	render () {
 
 		let {assignment, sortedOn} = this.props;
-		let completed = assignment.hasLink('History');
+		let completed = assignment.hasLink(HISTORY_LINK);
 		let {score} = this.state;
 
 		let completedClasses = cx('completed', {
