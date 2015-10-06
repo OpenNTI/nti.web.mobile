@@ -1,7 +1,10 @@
 import React from 'react';
-import hasItems from 'profile/components/activity/HasItems';
-import Card from 'profile/components/Card';
+
 import DateTime from 'common/components/DateTime';
+import hasItems from 'common/components/activity/HasItems';
+
+import Card from 'profile/components/Card';
+
 
 const startDateFormat = 'MMMM D';
 

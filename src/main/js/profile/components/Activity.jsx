@@ -3,13 +3,14 @@ import React from 'react';
 import Loading from 'common/components/TinyLoader';
 import Button from 'common/forms/components/Button';
 import EmptyList from 'common/components/EmptyList';
+import HasItems from 'common/components/activity/HasItems';
+import Joined from 'common/components/activity/Joined';
 
 import BasePathAware from 'common/mixins/BasePath';
-import HasItems from './activity/HasItems';
 import ProfileAnalytics from '../mixins/AnalyticsMixin';
 
 import Card from './Card';
-import Joined from './activity/Joined';
+
 import WriteSomething from './WriteSomething';
 
 import {PROFILE_ACTIVITY_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';

@@ -1,10 +1,10 @@
 import React from 'react';
 
 import Err from 'common/components/Error';
+import PostEditor from 'common/components/PostEditor';
 
 import {Editor} from 'modeled-content';
 
-import PostEditor from './PostEditor';
 
 export default React.createClass({
 	displayName: 'WriteSomething',

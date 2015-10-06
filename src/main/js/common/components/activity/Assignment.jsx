@@ -20,7 +20,8 @@ export default React.createClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.any.isRequired
+		item: React.PropTypes.any.isRequired,
+		className: React.PropTypes.any
 	},
 
 	render () {
