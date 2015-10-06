@@ -1,9 +1,14 @@
+.course-activity {
+	max-width: 800px;
+	margin: auto;
+}
+
 .activity-buckets {
 	margin: 0;
 	list-style-type: none;
 	.profile-card {
 		background: transparent;
-		& > * {
+		.bucketed-items > * {
 			background: white;
 			padding: .625rem;
 			margin: 1rem -.625rem;

@@ -34,7 +34,7 @@ export default React.createClass({
 
 		let href = this.objectLink(item);
 
-		let classes = cx('assignment', {
+		let classes = cx('assignment', this.props.className, {
 			overdue: item.isLate(new Date()) && !item.hasSubmission
 		});
 

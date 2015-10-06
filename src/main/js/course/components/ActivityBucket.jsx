@@ -19,7 +19,7 @@ export default React.createClass({
 		return (
 			<Card>
 				<div className="header"><DateTime date={bucket.start} format={startDateFormat} /> - <DateTime date={bucket.end} format={endDateFormat} /></div>
-				{this.renderItems(bucket)}
+				<div className="bucketed-items">{this.renderItems(bucket, {className: 'bucketed-item'})}</div>
 			</Card>
 		);
 	}

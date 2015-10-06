@@ -23,7 +23,7 @@ const KINDS = [
 	Chat
 ];
 
-export default function select (item, index) {
+export default function select (item, index, props = {}) {
 	let Item = Unknown;
 
 	for (let Type of KINDS) {
@@ -33,9 +33,11 @@ export default function select (item, index) {
 		}
 	}
 
-	return React.createElement(Item, {
+	Object.assign(props, {
 		ref: 'input',
 		key: 'profile-activity-' + (index || item.OID),
 		index, item
 	});
+
+	return React.createElement(Item, props);
 }
