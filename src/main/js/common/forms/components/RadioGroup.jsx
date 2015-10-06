@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 
 export default React.createClass({
 	displayName: 'RadioGroup',
@@ -17,6 +18,8 @@ export default React.createClass({
 				})),
 
 		name: React.PropTypes.string,
+
+		className: React.PropTypes.string,
 
 		value: React.PropTypes.any
 	},
@@ -40,9 +43,14 @@ export default React.createClass({
 	},
 
 	render () {
+
+		const {field, className} = this.props;
+
+		let classes = cx('radiogroup', className);
+
 		return (
-			<div className="radiogroup">
-				<p>{this.props.field.label}</p>
+			<div className={classes}>
+				<p>{field.label}</p>
 				{this.renderOptions()}
 			</div>
 		);

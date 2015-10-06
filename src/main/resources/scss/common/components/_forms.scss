@@ -24,7 +24,6 @@ textarea {
 	}
 }
 
-
 input.error,
 textarea.error,
 select.error {
@@ -46,6 +45,20 @@ select.error {
 	label {
 		input {
 			margin-right: .5rem;
+		}
+	}
+	&.required > p {
+		box-shadow: inset 4px 0 0 0 $border-grey;
+		padding-left: 1rem;
+	}
+	&.error {
+		& > p {
+			border-color: $border-red;
+			box-shadow: inset 4px 0 0 0 $primary-red !important;
+			padding-left: 1rem;
+		}
+		label {
+			color: inherit;
 		}
 	}
 }
