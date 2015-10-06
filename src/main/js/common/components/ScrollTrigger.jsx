@@ -39,14 +39,12 @@ export default React.createClass({
 	},
 
 	onLeaveView () {
-		console.debug('leave view');
 		this.setState({
 			inView: false
 		});
 	},
 
 	onEnterView () {
-		console.debug('enter view');
 		if (typeof this.props.onEnterView === 'function') {
 			this.props.onEnterView();
 		}
