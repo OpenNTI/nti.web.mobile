@@ -38,10 +38,15 @@ export default React.createClass({
 			overdue: item.isLate(new Date()) && !item.hasSubmission
 		});
 
+		let path = ['Assignments'];
+		if( item.outlineNode ) {
+			path.push(item.outlineNode.title);
+		}
+
 		return (
 			<div className={classes}>
 				<a href={href}>
-					<div className="path">Assignments</div>
+					<div className="path">{path.join(' / ')}</div>
 					<div className="title">{item.title}</div>
 					<div className="bullets">{t('questions', {count: item.getQuestionCount()})}</div>
 					<Footer assignment={item} history={history} />
