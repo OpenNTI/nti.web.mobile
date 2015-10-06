@@ -18,7 +18,7 @@ export default React.createClass({
 		let endDateFormat = bucket.start.getMonth() === bucket.end.getMonth() ? 'D' : startDateFormat;
 		return (
 			<Card>
-				<div className="header"><DateTime date={bucket.start} format={startDateFormat} /> — <DateTime date={bucket.end} format={endDateFormat} /></div>
+				<div className="header"><DateTime date={bucket.start} format={startDateFormat} /> - <DateTime date={bucket.end} format={endDateFormat} /></div>
 				{this.renderItems(bucket)}
 			</Card>
 		);
