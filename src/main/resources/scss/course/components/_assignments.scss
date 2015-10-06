@@ -207,6 +207,7 @@
 		& > * {
 			padding-right: .25rem;
 		}
+		address { display: inline; }
 		time {
 			float: right;
 			color: $tertiary-grey;
