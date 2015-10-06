@@ -1,5 +1,6 @@
-import selectWidget from './';
 import ensureIterable from 'nti.lib.interfaces/utils/ensure-iterable';
+
+import selectWidget from './components/widgets';
 
 export default {
 

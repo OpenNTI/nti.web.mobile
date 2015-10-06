@@ -1,7 +1,8 @@
 import React from 'react';
 
+import ItemsMixin from 'activity/RenderItemsMixin';
+
 import DateTime from 'common/components/DateTime';
-import hasItems from 'common/components/activity/HasItems';
 
 import Card from 'profile/components/Card';
 
@@ -10,7 +11,7 @@ const startDateFormat = 'MMMM D';
 
 export default React.createClass({
 	displayName: 'Course:ActivityBucket',
-	mixins: [hasItems],
+	mixins: [ItemsMixin],
 	propTypes: {
 		bucket: React.PropTypes.object.isRequired
 	},

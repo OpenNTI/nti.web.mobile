@@ -3,8 +3,9 @@ import React from 'react';
 import Loading from 'common/components/TinyLoader';
 import Button from 'common/forms/components/Button';
 import EmptyList from 'common/components/EmptyList';
-import HasItems from 'common/components/activity/HasItems';
-import Joined from 'common/components/activity/Joined';
+
+import ItemsMixin from 'activity/RenderItemsMixin';
+import Joined from 'activity/components/widgets/Joined';
 
 import BasePathAware from 'common/mixins/BasePath';
 import ProfileAnalytics from '../mixins/AnalyticsMixin';
@@ -18,7 +19,7 @@ import {PROFILE_ACTIVITY_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeT
 export default React.createClass({
 	displayName: 'Activity',
 
-	mixins: [HasItems, BasePathAware, ProfileAnalytics],
+	mixins: [ItemsMixin, BasePathAware, ProfileAnalytics],
 
 	propTypes: {
 		entity: React.PropTypes.object,

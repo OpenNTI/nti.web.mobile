@@ -1,7 +1,8 @@
 import React from 'react';
 
+import PostEditor from 'activity/components/PostEditor';
+
 import Err from 'common/components/Error';
-import PostEditor from 'common/components/PostEditor';
 
 import {Editor} from 'modeled-content';
 
