@@ -95,6 +95,18 @@ $anchor-font-color-hover: $primary-blue;
 	background-color: $secondary-grey;
 }
 
+%icon-font {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
 %chevron {
 	font-family: 'icomoon';
 	content: '<';

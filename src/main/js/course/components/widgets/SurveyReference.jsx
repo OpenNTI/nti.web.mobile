@@ -65,7 +65,10 @@ export default React.createClass( {
 							{submitted && ( <div className="stat submitted">Submitted!</div> )}
 							{report && (
 								<div className="stat submitted">
-									<Link href={report} target="_blank">Report</Link>
+									<Link href={report} target="_blank">
+										View Report
+										<span className="icon-report"/>
+									</Link>
 								</div>
 							)}
 						</div>

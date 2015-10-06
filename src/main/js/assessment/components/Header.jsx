@@ -2,6 +2,7 @@ import React from 'react';
 
 import AssignmentHeader from './HeaderAssignment';
 import ScoreboardHeader from './HeaderScoreboard';
+import SurveyHeader from './HeaderSurvey';
 import UnsupportedPlaceholder from './UnsupportedPlaceholder';
 
 import {isAssignment, isSurvey, areAssessmentsSupported} from '../Utils';
@@ -18,7 +19,7 @@ export default React.createClass({
 		let Component = isAssignment(assessment)
 							? AssignmentHeader
 							: isSurvey(assessment)
-								? 'div'
+								? SurveyHeader
 								: ScoreboardHeader;
 
 		if (!areAssessmentsSupported()) {

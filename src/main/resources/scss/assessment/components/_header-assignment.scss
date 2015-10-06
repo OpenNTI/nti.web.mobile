@@ -5,10 +5,12 @@
 	padding: 0;
 	padding-left: 50px;
 	padding-left: calc(0.625rem + 40px);
+	min-height: calc(2rem + 40px);
 
 	background: $panel-background;
 	border: 0 solid #dddddd;
 	border-width: 1px 0;
+	display: flex;
 
 	// top: -1.25rem;
 
@@ -59,6 +61,14 @@
 		line-height: 1.6;
 	}
 
+	.meta,
+	.grade-container {
+		margin: 0.625rem 0;
+		padding: 0 0.625rem;
+	}
+
+	.meta { flex: 1 1 auto; }
+	.grade-container { flex: 0 0 auto; }
 
 	.grade {
 		font-size: 0.875rem;
@@ -68,23 +78,5 @@
 
 	.late {
 		color: $primary-red;
-	}
-
-
-	& {
-		display: flex;
-		.meta,
-		.grade-container {
-			margin: 0.625rem 0;
-			padding: 0 0.625rem;
-		}
-
-		.meta {
-			flex: 1 1 auto;
-		}
-
-		.grade-container {
-			flex: 0 0 auto;
-		}
 	}
 }
