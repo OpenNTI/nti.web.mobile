@@ -1,6 +1,7 @@
 import React from 'react';
 import path from 'path';
 
+import Link from 'common/components/NestableLink';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import t from 'common/locale';
@@ -64,8 +65,8 @@ export default React.createClass( {
 							{submitted && ( <div className="stat submitted">Submitted!</div> )}
 							{report && (
 								<div className="stat submitted">
-									<a href={report} target="_blank">Report</a>
-								</div> 
+									<Link href={report} target="_blank">Report</Link>
+								</div>
 							)}
 						</div>
 					</div>
