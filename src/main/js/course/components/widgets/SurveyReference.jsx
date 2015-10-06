@@ -7,13 +7,9 @@ import t from 'common/locale';
 
 import {getModel} from 'nti.lib.interfaces';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {AGGREGATED_LINK, REPORT_LINK} from 'nti.lib.interfaces/models/assessment/survey/Constants';
 
 const OutlineNode = getModel('courses.courseoutlinenode');
-
-
-function isSubmitted (item) {
-	return !!((item || {}).Links || []).find(x=> x.rel === 'History');
-}
 
 
 export default React.createClass( {
@@ -42,16 +38,15 @@ export default React.createClass( {
 
 
 	componentDidMount () {
-		this.props.item.fetchLinkParsed('Aggregated').catch(()=>{});
+		this.props.item.fetchLinkParsed(AGGREGATED_LINK).catch(()=>{});
 	},
 
 
 	render () {
-		let {item} = this.props;
-		let questionCount = parseInt(item['question-count'], 10) || 0;
-		let {label = 'No Label', submissions = 0} = item;
-
-		let submitted = isSubmitted(item);
+		const {item} = this.props;
+		const questionCount = item.getQuestionCount();
+		const report = item.getLink(REPORT_LINK);
+		const {isSubmitted: submitted, label = 'No Label', submissions = 0} = item;
 
 		let href = path.join('content', encodeForURI(item['Target-NTIID'])) + '/';
 
@@ -67,6 +62,11 @@ export default React.createClass( {
 							</div>
 							<div className="stat submissions">{t('UNITS.submissions', {count: submissions})}</div>
 							{submitted && ( <div className="stat submitted">Submitted!</div> )}
+							{report && (
+								<div className="stat submitted">
+									<a href={report} target="_blank">Report</a>
+								</div> 
+							)}
 						</div>
 					</div>
 				</div>
