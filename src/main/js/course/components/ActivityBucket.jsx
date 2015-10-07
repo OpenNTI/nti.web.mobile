@@ -140,12 +140,14 @@ export default React.createClass({
 		return (
 			<Card>
 				<div className="header"><DateTime date={bucket.start} format={startDateFormat} /> - <DateTime date={bucket.end} format={endDateFormat} /></div>
-				{columns.map((col, index) => (
-					<div key={`col-${index}`} className="col">
-						{col.map((items, idx) => <div key={`item-${idx}`} className="bucketed-items">{this.renderItems(items)}</div>)}
-					</div>
-				) )}
-				{/*<div className="bucketed-items">{this.renderItems(bucket, {className: 'bucketed-item'})}</div>*/}
+				<div className="activity-columns">
+					{columns.map((col, index) => (
+						<div key={`col-${index}`} className="col">
+							{col.map((items, idx) => <div key={`item-${idx}`} className="bucketed-items">{this.renderItems(items)}</div>)}
+						</div>
+					) )}
+					{/*<div className="bucketed-items">{this.renderItems(bucket, {className: 'bucketed-item'})}</div>*/}
+				</div>
 			</Card>
 		);
 	}

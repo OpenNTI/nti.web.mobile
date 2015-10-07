@@ -6,13 +6,22 @@
 .activity-buckets {
 	margin: 0;
 	list-style-type: none;
+
+	.activity-columns {
+		display: flex;
+		& > * {
+			flex: 1 1 350px;
+		}
+	}
+
 	.profile-card {
 		background: transparent;
+		padding: 0;
 		.bucketed-items {
 			& > * {
 				background: white;
 				padding: .625rem;
-				margin: 1rem -.625rem;
+				margin: 1rem .5rem;
 				border-radius: 3px;
 			}
 		}
@@ -20,7 +29,7 @@
 			background: transparent;
 			color: white;
 			padding: 0;
-			margin: 0 -.625rem;
+			margin: 0 .5rem;
 			text-transform: uppercase;
 		}
 		.outline-node {
