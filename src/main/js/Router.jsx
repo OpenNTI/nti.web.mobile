@@ -4,19 +4,10 @@ import {
 	environment,
 	Locations,
 	Location,
-	NotFound,
-	createURLPatternCompiler,
-	setCreateURLPatternCompilerFactory
+	NotFound
 } from 'react-router-component';
 
 const ENVIRONMENT = environment.defaultEnvironment;
-
-const URLPatternCompilerFactory = createURLPatternCompiler;
-setCreateURLPatternCompilerFactory(() => {
-	let compiler = URLPatternCompilerFactory();
-	compiler.segmentValueCharset = 'a-zA-Z0-9-_ %.:()';
-	return compiler;
-});
 
 //Main View Handlers
 import Catalog from 'catalog/components/View';
@@ -142,7 +133,8 @@ export default React.createClass({
 			ref: 'router',
 			path: this.props.path,
 			onBeforeNavigation: this.onBeforeNavigation,
-			onNavigation: this.onNavigation
+			onNavigation: this.onNavigation,
+			urlPatternOptions: {segmentValueCharset: 'a-zA-Z0-9-_ %.:()'}
 		},
 		...this.getRoutes());
 	},
