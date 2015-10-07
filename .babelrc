@@ -1,6 +1,0 @@
-{
-	"optional": ["runtime"],
-	"plugins": [
-		"./webpack/plugins/relay"
-	]
-}

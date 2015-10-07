@@ -51,7 +51,8 @@ var commonLoaders = [
 function getCodeLoaderConfig (test, loader) {
 	return {
 		test: test,
-		loader: (loader ? loader + '!' : '') + 'babel',
+		loader: (loader ? loader + '!' : '')
+			+ 'babel?optional[]=runtime&plugins[]=' + path.resolve(__dirname, 'plugins/relay'),
 		exclude: excludeNodeModulesExceptOurs
 	};
 }
