@@ -83,7 +83,7 @@ export default React.createClass({
 
 
 	isGroup () {
-		return /\.(friendslist|community)/i.test((this.state.entity || {}).MimeType);
+		return /\..*(friendslist|community)/i.test((this.state.entity || {}).MimeType);
 	},
 
 
