@@ -277,7 +277,10 @@ export default React.createClass({
 
 		return (
 			<TransitionGroup {...props} component="div"
-				transitionName="fadeOutIn">
+				transitionName="fadeOutIn"
+				transitionEnterTimeout={300}
+				transitionLeaveTimeout={300}
+				>
 
 				{discussions ? (
 
@@ -329,7 +332,12 @@ export default React.createClass({
 		let content = annotation || submission;
 
 		return (
-			<TransitionGroup component="div" transitionName="toast" className={`fixed-footer ${key}`} transitionAppear>
+			<TransitionGroup component="div"
+				transitionName="toast" className={`fixed-footer ${key}`}
+				transitionAppearTimeout={500}
+				transitionEnterTimeout={500}
+				transitionLeaveTimeout={500}
+				transitionAppear>
 
 				{content && (
 				<div className={`the-fixed ${key}`} key={key}>

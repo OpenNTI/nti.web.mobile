@@ -103,7 +103,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Transition transitionName="savepoint">
+				<Transition transitionName="savepoint" transitionEnterTimeout={700} transitionLeaveTimeout={1000}>
 					{savePoint && this.renderSavePointNotice()}
 				</Transition>
 				<div className={'set-submission ' + status}>
