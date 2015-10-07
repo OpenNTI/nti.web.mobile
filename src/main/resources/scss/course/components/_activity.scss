@@ -1,5 +1,5 @@
 .course-activity {
-	max-width: 800px;
+	max-width: 1024px;
 	margin: auto;
 }
 
@@ -8,11 +8,13 @@
 	list-style-type: none;
 	.profile-card {
 		background: transparent;
-		.bucketed-items > * {
-			background: white;
-			padding: .625rem;
-			margin: 1rem -.625rem;
-			border-radius: 3px;
+		.bucketed-items {
+			& > * {
+				background: white;
+				padding: .625rem;
+				margin: 1rem -.625rem;
+				border-radius: 3px;
+			}
 		}
 		.header {
 			background: transparent;
