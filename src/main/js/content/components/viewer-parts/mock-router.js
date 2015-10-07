@@ -77,7 +77,7 @@ export default {
 	 * @returns {Array} Route Objects
 	 */
 	getRoutes () {
-		if (!this[ROUTES]) { this[ROUTES] = []; }
+		if (!this[ROUTES]) { this[ROUTES] = [makeRoute('/')]; }
 		return this[ROUTES];
 	},
 
