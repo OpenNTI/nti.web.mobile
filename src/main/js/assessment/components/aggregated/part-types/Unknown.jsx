@@ -1,13 +1,12 @@
 import React from 'react';
 
 export default React.createClass({
-	displayName: 'AggregatedMultipleChoice',
+	displayName: 'Unknown',
 
 	render () {
+		console.warn('Unknown: ', this.props);
 		return (
-			<div>
-				Async!
-			</div>
+			<div>Unknown</div>
 		);
 	}
 });
