@@ -12,5 +12,6 @@
 		@include viewportWidth(min-width, 100);
 		@include viewportHeight(min-height, 100);
 		opacity: .8;
+		z-index: -1;
 	}
 }
