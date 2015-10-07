@@ -6,6 +6,7 @@ import {AGGREGATED_LINK} from 'nti.lib.interfaces/models/assessment/survey/Const
 import StoreEvents from 'common/mixins/StoreEvents';
 
 import Question from './Question';
+import Aggregated from './aggregated/Aggregated.async';
 
 import Store from '../Store';
 import { getMainSubmittable } from '../Utils';
@@ -31,16 +32,17 @@ export default React.createClass({
 
 
 	render () {
-		const {props: {question}} = this;
+		const {props} = this;
+		const {question} = props;
 		const submitted = Store.isSubmitted(question);
 		const showAggregation = getMainSubmittable(question).hasLink(AGGREGATED_LINK);
 
 		return (
 			<div className={cx('poll-wrapper', {'submitted': submitted})}>
 				{showAggregation ? (
-					<div>Yo!</div>
+					<Aggregated {...props}/>
 				) : (
-				<Question {...this.props}/>
+				<Question {...props}/>
 				)}
 			</div>
 		);

@@ -24,16 +24,10 @@ var modules = path.resolve(__dirname, '..', 'node_modules');
 var appFontName = /(icomoon|(OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-)).*woff/i;
 
 var commonLoaders = [
-	{ test: /\.json$/, loader: 'json' },
-	{ test: /\.js(x?)$/,
-		loader: 'babel',
-		exclude: excludeNodeModulesExceptOurs,
-		query: {
-			optional: ['runtime'],
-			plugins: [path.resolve(__dirname, 'plugins/relay')]
-		}
-	},
+	getCodeLoaderConfig(/\.async\.jsx$/i, 'react-proxy'),
+	getCodeLoaderConfig(/\.js(x?)$/i),
 
+	{ test: /\.json$/, loader: 'json' },
 	{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
 
 	{ test: appFontName, loader: 'url' },
@@ -52,6 +46,15 @@ var commonLoaders = [
 	}
 
 ];
+
+
+function getCodeLoaderConfig (test, loader) {
+	return {
+		test: test,
+		loader: (loader ? loader + '!' : '') + 'babel',
+		exclude: excludeNodeModulesExceptOurs
+	};
+}
 
 
 function isOurModule (s) {
