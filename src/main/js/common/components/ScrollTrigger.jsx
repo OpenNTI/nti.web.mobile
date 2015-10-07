@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 export default React.createClass({
 	displayName: 'ScrollTrigger',
@@ -13,7 +14,7 @@ export default React.createClass({
 	},
 
 	inView () {
-		return isElementInViewport(React.findDOMNode(this));
+		return isElementInViewport(ReactDOM.findDOMNode(this));
 	},
 
 	componentDidMount () {
