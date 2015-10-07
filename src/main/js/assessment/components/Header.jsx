@@ -5,7 +5,7 @@ import ScoreboardHeader from './HeaderScoreboard';
 import SurveyHeader from './HeaderSurvey';
 import UnsupportedPlaceholder from './UnsupportedPlaceholder';
 
-import {isAssignment, isSurvey, areAssessmentsSupported} from '../Utils';
+import {isAssignment, isSurvey, areAssessmentsSupported} from '../utils';
 
 export default React.createClass({
 	displayName: 'SetHeader',

@@ -9,7 +9,7 @@ import Question from './Question';
 import Aggregated from './aggregated/Aggregated.async';
 
 import Store from '../Store';
-import { getMainSubmittable } from '../Utils';
+import { getMainSubmittable } from '../utils';
 
 
 export default React.createClass({

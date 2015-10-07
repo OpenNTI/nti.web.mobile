@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Store from 'assessment/Store';
-import {areAssessmentsSupported, isAssignment} from 'assessment/Utils';
+import {areAssessmentsSupported, isAssignment} from 'assessment/utils';
 import FeedbackWidget from 'assessment/components/Feedback';
 import SetHeaderWidget from 'assessment/components/Header';
 import SetSubmissionWidget from 'assessment/components/Submission';

@@ -7,7 +7,7 @@ import {scoped} from 'common/locale';
 const t = scoped('ASSESSMENT');
 
 import Store from '../Store';
-import {areAssessmentsSupported} from '../Utils';
+import {areAssessmentsSupported} from '../utils';
 import {submit, clearAssessmentAnswers} from '../Actions';
 
 const STATUS_MAP = {

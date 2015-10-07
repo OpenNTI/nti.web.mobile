@@ -20,7 +20,7 @@ import {
 	isAssignment,
 	getMainSubmittable,
 	updatePartsWithAssessedParts
-} from './Utils';
+} from './utils';
 
 import StorePrototype from 'common/StorePrototype';
 

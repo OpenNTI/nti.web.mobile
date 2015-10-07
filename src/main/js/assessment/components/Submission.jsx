@@ -7,7 +7,7 @@ const t = scoped('ASSESSMENT');
 import Loading from 'common/components/Loading';
 
 import Store from '../Store';
-import {areAssessmentsSupported} from '../Utils';
+import {areAssessmentsSupported} from '../utils';
 import {resetAssessment, submit} from '../Actions';
 import {
 	BUSY_SAVEPOINT,
