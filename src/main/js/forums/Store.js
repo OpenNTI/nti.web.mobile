@@ -271,8 +271,8 @@ function getObjectContents (ntiid, params) {
 
 
 function reportItem (item) {
-	return item.flag().then((result) => {
-		store.setObject(result.getID(), result);
+	return item.flag().then(() => {
+		store.setObject(item.getID(), item);
 		store.emitChange({
 			type: Constants.ITEM_REPORTED,
 			item: item
