@@ -19,7 +19,7 @@ const KINDS = [
 	Ordering
 ];
 
-export function renderWidget (item, index) {
+export function renderWidget (item, index, questionPart) {
 	let Item = Unknown;
 
 	for (let Type of KINDS) {
@@ -32,6 +32,6 @@ export function renderWidget (item, index) {
 	return React.createElement(Item, {
 		ref: 'input',
 		key: 'aggregated-type-' + index,
-		index, item
+		index, item, questionPart
 	});
 }

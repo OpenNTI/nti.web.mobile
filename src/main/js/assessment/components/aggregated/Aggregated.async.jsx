@@ -35,14 +35,14 @@ export default React.createClass({
 
 
 	render () {
-		const {state: {loading, data}} = this;
+		const {props: {question}, state: {loading, data}} = this;
 
 		return loading ? (
 			<Loading/>
 		) : !data ? (
 			<div className="missing">No Data</div>
 		) : (
-			<div>{data.parts.map(renderWidget)}</div>
+			<div>{data.parts.map((x, i) => renderWidget(x, i, question.getPart(i)))}</div>
 		);
 	}
 });
