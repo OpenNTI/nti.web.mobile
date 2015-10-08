@@ -1,5 +1,9 @@
 import React from 'react';
 
+const noHistory = {
+	getItem: () => null
+};
+
 export default {
 
 	childContextTypes: {
@@ -19,7 +23,7 @@ export default {
 	loadAssignmentHistory () {
 		let {course} = this.props;
 		course.getAssignments()
-			.then(assignments => assignments.getHistory())
+			.then(assignments => assignments.getHistory ? assignments.getHistory() : noHistory)
 			.then(assignmentsHistory => {
 				this.setState({
 					assignmentsHistory
