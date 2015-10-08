@@ -1,3 +1,4 @@
+import React from 'react';
 const typeCleaned = Symbol();
 
 export default {
@@ -29,5 +30,20 @@ export default {
 				.toLowerCase();
 			return (this.partType.indexOf(type) !== -1);
 		}
+	},
+
+
+	propTypes: {
+		item: React.PropTypes.object,
+
+		questionPart: React.PropTypes.object
+	},
+
+
+	componentWillMount () {
+		const {props: {item, questionPart: part}} = this;
+		const results = item.getResults(part);
+		console.debug(results);
+		this.setState({ results });
 	}
 };
