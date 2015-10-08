@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {AGGREGATED_LINK} from 'nti.lib.interfaces/models/assessment/survey/Constants';
+import {AGGREGATED_LINK, REPORT_LINK} from 'nti.lib.interfaces/models/assessment/survey/Constants';
 
 import StoreEvents from 'common/mixins/StoreEvents';
 
@@ -34,8 +34,10 @@ export default React.createClass({
 	render () {
 		const {props} = this;
 		const {question} = props;
+		const survey = getMainSubmittable(question);
+
 		const submitted = Store.isSubmitted(question);
-		const showAggregation = getMainSubmittable(question).hasLink(AGGREGATED_LINK);
+		const showAggregation = (submitted || survey.hasLink(REPORT_LINK)) && survey.hasLink(AGGREGATED_LINK);
 
 		return (
 			<div className={cx('poll-wrapper', {'submitted': submitted})}>
