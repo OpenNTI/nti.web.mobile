@@ -3,6 +3,27 @@
 	margin: auto;
 }
 
+.forum-comment {
+	.wrap {
+		position: relative;
+		padding-left: 4rem;
+		font-size: .75rem;
+		min-height: 4rem;
+		margin-top: 1rem;
+		.avatar {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		time {
+			color: $tertiary-grey;
+		}
+		.username {
+			font-weight: 600;
+		}
+	}
+}
+
 .activity-buckets {
 	margin: 0;
 	list-style-type: none;
