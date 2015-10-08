@@ -9,7 +9,7 @@ export default React.createClass({
 	mixins: [Mixin, ObjectLink],
 
 	statics: {
-		mimeType: /courseoutlinecontentnode/i
+		mimeType: /courseoutlinecontentnode|courseoutlinecalendarnode/i
 	},
 
 	propTypes: {
