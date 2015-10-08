@@ -57,7 +57,8 @@ let Dialog = React.createClass({
 
 	getInitialState () {
 		return {
-			dismissing: false
+			dismissing: false,
+			dismissCalled: false
 		};
 	},
 
@@ -204,9 +205,7 @@ export default Dialog;
 
 function dismiss (dialog) {
 	dialog.props.onDismiss.call();
-	dialog.props.onDismiss = emptyFunction;//don't double call
-
-	dialog.setState({dismissing: true});
+	dialog.setState({dismissing: true, dismissCalled: true});
 
 	//Wait for animation before we remove it.
 	setTimeout(
