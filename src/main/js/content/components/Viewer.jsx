@@ -245,7 +245,7 @@ export default React.createClass({
 
 		let {
 			annotations, stagedNote, error, loading, page,
-			pageSource, selectedDiscussions, style
+			selectedDiscussions, style
 		} = this.state;
 
 		let {discussions} = this.getPropsFromRoute();
@@ -306,7 +306,7 @@ export default React.createClass({
 
 						{this.renderGlossaryEntry()}
 
-						<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
+						{this.renderBottomPager()}
 
 						<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
 
@@ -316,6 +316,12 @@ export default React.createClass({
 
 			</TransitionGroup>
 		);
+	},
+
+	renderBottomPager () {
+		return isAssignment(getAssessment(this.state))
+			? null
+			: <Pager position="bottom" pageSource={this.state.pageSource} current={this.getPageID()}/>;
 	},
 
 
