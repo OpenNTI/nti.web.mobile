@@ -14,36 +14,44 @@ export default React.createClass({
 		]
 	},
 
+	propTypes: {
+		item: React.PropTypes.object,
+		questionPart: React.PropTypes.object
+	},
+
 	render () {
+		const {props: {item, questionPart}} = this;
+
+		console.log(item.Results, questionPart);
 
 		let data = [
 			{
-				label: 'somethingA',
+				label: 'fieldA',
 				values: [
-					{x: 'SomethingA', y: 10},
-					{x: 'SomethingB', y: 4},
-					{x: 'SomethingC', y: 3}
+					{x: 'CategoryA', y: 10},
+					{x: 'CategoryB', y: 4},
+					{x: 'CategoryC', y: 3}
 				]
 			},
 			{
-				label: 'somethingB',
+				label: 'fieldB',
 				values: [
-					{x: 'SomethingA', y: 6},
-					{x: 'SomethingB', y: 8},
-					{x: 'SomethingC', y: 5}
+					{x: 'CategoryA', y: 6},
+					{x: 'CategoryB', y: 8},
+					{x: 'CategoryC', y: 5}
 				]
 			},
 			{
-				label: 'somethingC',
+				label: 'fieldC',
 				values: [
-					{x: 'SomethingA', y: 6},
-					{x: 'SomethingB', y: 8},
-					{x: 'SomethingC', y: 5}
+					{x: 'CategoryA', y: 6},
+					{x: 'CategoryB', y: 8},
+					{x: 'CategoryC', y: 5}
 				]
 			}
 		];
 
-		const tooltip = (x, y0, y/*, total*/) => y.toString();
+		const tooltip = (x, y0, y/*, total*/) => x + y0 + (y.toString());
 
 
 
