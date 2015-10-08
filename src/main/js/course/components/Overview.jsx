@@ -79,7 +79,7 @@ export default React.createClass({
 
 			node.getContent()
 				.then(data=>
-					this.setState({
+					this.isMounted() && this.setState({
 						node, data,
 						loading: false,
 						error: false
@@ -94,11 +94,13 @@ export default React.createClass({
 
 	onError (error) {
 		console.error('Error loading Overview: ', error.stack || error.message || error);
-		this.setState({
-			error,
-			loading: false,
-			data: null
-		});
+		if (this.isMounted()) {
+			this.setState({
+				error,
+				loading: false,
+				data: null
+			});
+		}
 	},
 
 
