@@ -32,6 +32,10 @@
 			margin: 0 .5rem;
 			text-transform: uppercase;
 		}
+		.modeled-content {
+			max-height: 300px;
+			overflow: hidden;
+		}
 		.outline-node {
 			background-color: transparent;
 			color: white;
