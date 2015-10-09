@@ -41,7 +41,7 @@ export default React.createClass({
 	},
 
 
-	componentDidMount () { this.synchronizeFromStore(); },
+	componentWillMount () { this.synchronizeFromStore(); },
 	componentWillReceiveProps () { this.synchronizeFromStore();	},
 
 
