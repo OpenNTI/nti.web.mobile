@@ -1,5 +1,6 @@
 import React from 'react';
 
+import BarChart from './charts/BarChart';
 import CommonParts from './CommonParts';
 
 export default React.createClass({
@@ -13,9 +14,11 @@ export default React.createClass({
 	},
 
 	render () {
+		const {state: {results}} = this;
+
 		return (
 			<div>
-				MultipleChoiceMultipleAnswer
+				<BarChart data={results}/>
 			</div>
 		);
 	}

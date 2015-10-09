@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {BarChart} from 'react-d3-components';
-
+import BarChart from './charts/BarChart';
 import CommonParts from './CommonParts';
 
 export default React.createClass({
@@ -15,9 +14,11 @@ export default React.createClass({
 	},
 
 	render () {
+		const {state: {results}} = this;
+
 		return (
 			<div>
-				Matching
+				<BarChart data={results}/>
 			</div>
 		);
 	}

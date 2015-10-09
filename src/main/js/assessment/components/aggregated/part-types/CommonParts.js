@@ -40,10 +40,15 @@ export default {
 	},
 
 
+	getInitialState () {
+		return {};
+	},
+
+
 	componentWillMount () {
 		const {props: {item, questionPart: part}} = this;
 		const results = item.getResults(part);
-		console.debug(results);
+		// console.debug(results);
 		this.setState({ results });
 	}
 };
