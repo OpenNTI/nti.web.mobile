@@ -22,11 +22,11 @@ export default React.createClass({
 							{t(MESSAGE_SIGNUP_CONFIRMATION)}
 						</div>
 
-						<Link id="signup:confirm:no" href="/" className="return-link fi-arrow-left"> Return to Login</Link>
+						<Link id="signup:confirm:no" href="/" className="return-link"><i className="icon-chevron-left"/> Return to Login</Link>
 
 						<div className="account-creation">
 							<Link id="signup:confirm:yes" href="/signup/">
-								<span>{t('signup.link')}</span> <i className="fi-arrow-right" />
+								<span>{t('signup.link')}</span>
 							</Link>
 						</div>
 					</fieldset>
