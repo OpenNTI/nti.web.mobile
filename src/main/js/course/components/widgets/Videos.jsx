@@ -280,8 +280,8 @@ export default React.createClass({
 		return (
 			<div className="videos-carousel-container">
 				{this.renderCarousel()}
-				<button className="prev fi-arrow-left" onClick={this.onPrev} title="Prevous Video"/>
-				<button className="next fi-arrow-right" onClick={this.onNext} title="Next Video"/>
+				<button className="prev icon-chevron-left" onClick={this.onPrev} title="Prevous Video"/>
+				<button className="next icon-chevron-right" onClick={this.onNext} title="Next Video"/>
 				<ul className="videos-carousel-dots">
 					{this.renderDots()}
 				</ul>
