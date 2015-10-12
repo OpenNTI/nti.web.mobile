@@ -12,7 +12,8 @@ export default React.createClass({
 
 	statics: {
 		partType: [
-			'Ordering'
+			'Ordering',
+			'Matching'
 		]
 	},
 
@@ -29,7 +30,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Toggle options={['Table', 'Bar Chart']} active={show} onToggle={this.onToggle}/>
+				<Toggle options={['Table', 'Bar Chart']} active={show || 'Bar Chart'} onToggle={this.onToggle}/>
 
 				<Chart data={results}/>
 			</div>

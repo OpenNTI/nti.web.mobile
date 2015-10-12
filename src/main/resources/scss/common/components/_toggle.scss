@@ -1,0 +1,42 @@
+
+.toggle-group-container {
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+
+	.toggle-group {
+		margin: 0;
+		list-style: none;
+		flex: 0 1 25%;
+		min-width: 12rem;
+		display: flex;
+		align-items: stretch;
+		border: 0px solid rgba(0,0,0,0);
+		border-radius: 3px;
+		box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.1);
+		overflow: hidden;
+	}
+
+	.toggle-option {
+		display: flex;
+		align-items: stretch;
+		flex: 1 1 50%;
+		a {
+			text-align: center;
+			flex: 1 1 auto;
+			color: $primary-grey;
+			font-size: 0.9rem;
+			padding: 0.5rem 0.625rem;
+			font-weight: normal;
+			white-space: nowrap;
+		}
+
+		&.active {
+			a {
+				color: #fff;
+				font-weight: 600;
+				background: #2878b4;//rgb(40, 120, 180);
+			}
+		}
+	}
+}

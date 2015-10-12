@@ -22,16 +22,18 @@ export default React.createClass({
 	render () {
 		const {props: {active, options, children}} = this;
 		return (
-			<ul className="toggle">
-				{options.map(option =>
+			<div className="toggle-group-container">
+				<ul className="toggle-group">
+					{options.map(option =>
 
-					<li key={option} className={cx({'active': option === active})}>
-						<a href="#" data-option={option} onClick={this.onToggle}>{option}</a></li>
+						<li key={option} className={cx('toggle-option', {'active': option === active})}>
+							<a href="#" data-option={option} onClick={this.onToggle}>{option}</a></li>
 
-				)}
+					)}
 
-				{children}
-			</ul>
+					{children}
+				</ul>
+			</div>
 		);
 	}
 });

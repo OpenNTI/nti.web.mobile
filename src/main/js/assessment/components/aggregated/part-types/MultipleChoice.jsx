@@ -9,7 +9,8 @@ export default React.createClass({
 
 	statics: {
 		partType: [
-			'MultipleChoice'
+			'MultipleChoice',
+			'MultipleChoiceMultipleAnswer'
 		]
 	},
 
