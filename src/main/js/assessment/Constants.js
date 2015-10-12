@@ -1,4 +1,5 @@
 export const INTERACTED = 'assessment:Interacted';
+export const TOGGLE_AGGREGATED_VIEW = 'assessment:Toggle Aggregation View';
 
 export const CLEAR = 'assessment:Clear';
 export const ERROR = 'assessment:Error';

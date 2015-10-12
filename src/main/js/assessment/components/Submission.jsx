@@ -95,7 +95,7 @@ export default React.createClass({
 		let error = Store.getError(assessment);
 		let savePoint = busy === BUSY_SAVEPOINT;
 
-		if (admin || Store.isSubmitted(assessment) || !areAssessmentsSupported()) {
+		if (admin || Store.isSubmitted(assessment) || !areAssessmentsSupported() || Store.aggregationViewState(assessment)) {
 			return null;
 		}
 

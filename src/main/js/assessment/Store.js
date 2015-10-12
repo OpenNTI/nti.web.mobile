@@ -12,7 +12,8 @@ import {
 	RESET,
 	INTERACTED,
 	CLEAR,
-	ERROR
+	ERROR,
+	TOGGLE_AGGREGATED_VIEW
 } from './Constants';
 import {
 	isAssignment,
@@ -30,6 +31,7 @@ let Question = getModel('question');
 // const data = Symbol('data');
 const ApplySubmission = Symbol('apply:Submission');
 const GetAssessmentKey = Symbol('get:AssessmentKey');
+const OnAggregationToggle = Symbol('Toggle Aggregation');
 const OnClear = Symbol('on:Clear');
 const OnInteracted = Symbol('on:Interacted');
 const OnReset = Symbol('on:Submit:Reset');
@@ -70,7 +72,8 @@ class Store extends StorePrototype {
 			[SUBMIT_END]: OnSubmitEnd,
 			[CLEAR]: OnClear,
 			[RESET]: OnReset,
-			[INTERACTED]: OnInteracted
+			[INTERACTED]: OnInteracted,
+			[TOGGLE_AGGREGATED_VIEW]: OnAggregationToggle
 		});
 
 		this.assignmentHistoryItems = {};
@@ -78,6 +81,16 @@ class Store extends StorePrototype {
 		this.data = {};
 		this.busy = {};
 		this.timers = { start: new Date(), lastQuestionInteraction: null };
+	}
+
+
+	[OnAggregationToggle] (payload) {
+		let {assessment} = payload.action;
+
+		const state = this.aggregationViewState(assessment);
+		this.aggregationViewState(assessment, !state, true);
+
+		this.emitChange({type: SYNC});
 	}
 
 
@@ -273,6 +286,7 @@ class Store extends StorePrototype {
 	teardownAssessment (assessment) {
 		let m = this[GetAssessmentKey](assessment);
 		if (m) {
+			delete this.this.aggregateView;
 			delete this.assignmentHistoryItems[m];
 			delete this.assessed[m];
 			delete this.timers[m];//TODO: iterate and clearTimeout/clearInterval each.
@@ -489,6 +503,30 @@ class Store extends StorePrototype {
 		}
 
 		return maybe;
+	}
+
+
+	aggregationViewState (assessment, defaultValue, forceUpdate) {
+		const key = this[GetAssessmentKey](assessment);
+		const survey = getMainSubmittable(assessment);
+		if (!survey.hasAggregationData) {
+			return false;
+		}
+
+		if (!this.aggregateView) {
+			this.aggregateView = {};
+		}
+
+		if (!(key in this.aggregateView) || forceUpdate) {
+			if (defaultValue == null) {
+				defaultValue = this.isSubmitted(assessment) || survey.hasReport;
+			}
+
+			//this should just return the defaultValue... but to "toggle" correctly we need an initial value.
+			this.aggregateView[key] = defaultValue;
+		}
+
+		return this.aggregateView[key];
 	}
 }
 
