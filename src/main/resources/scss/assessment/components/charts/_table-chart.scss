@@ -3,6 +3,7 @@
 	padding: 0;
 	width: calc(100% - 1.25rem);
 	border: 1px solid $border-grey;
+	background: #fff;
 
 	tr {
 		border-bottom: 1px solid $border-grey;
@@ -34,5 +35,5 @@
 
 	.rank-first { color: $primary-green; }
 	.rank-second { color: $primary-grey; }
-	.rank-none { color: $secondary-grey; }
+	.rank-none { color: $tertiary-grey; opacity: 0.9;}
 }

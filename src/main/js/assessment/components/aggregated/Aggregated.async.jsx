@@ -2,6 +2,8 @@ import React from 'react';
 
 import Loading from 'common/components/TinyLoader';
 
+import Content from '../Content';
+
 import {renderWidget} from './part-types';
 
 export default React.createClass({
@@ -42,7 +44,18 @@ export default React.createClass({
 		) : !data ? (
 			<div className="missing">No Data</div>
 		) : (
-			<div>{data.parts.map((x, i) => renderWidget(x, i, question.getPart(i)))}</div>
+			<div className="question" data-ntiid={question.getID()} type={question.MimeType}>
+				<Content className="question-content" content={question.content}/>
+				{data.parts.map((x, i) => {
+					let part = question.getPart(i);
+					return (
+						<div className="question-part" key={i}>
+							<Content className="part-content" content={part.content}/>
+							{renderWidget(x, i, part)}
+						</div>
+					);
+				})}
+			</div>
 		);
 	}
 });
