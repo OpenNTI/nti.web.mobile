@@ -23,14 +23,14 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-search:before {
+	content: "\e801";
+}
 .icon-report:before {
 	content: "\e800";
 }
 .icon-alert:before {
 	content: "\f101";
-}
-.icon-search:before {
-	content: "\e600";
 }
 .icon-add-user:before {
 	content: "\e601";
