@@ -6,7 +6,7 @@ module.exports = {
 	UsernamePlaceholder: 'Username',
 	signup: {
 		submit: 'Create Account',
-		link: 'Create an Account.'
+		link: 'Create an Account'
 	},
 	oauth: {
 		facebook: 'Log in with Facebook',

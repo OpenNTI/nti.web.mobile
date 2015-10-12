@@ -26,7 +26,7 @@ export default React.createClass({
 
 						<div className="account-creation">
 							<Link id="signup:confirm:yes" href="/signup/">
-								<span>Create an Account</span> <i className="fi-arrow-right" />
+								<span>{t('signup.link')}</span> <i className="fi-arrow-right" />
 							</Link>
 						</div>
 					</fieldset>
