@@ -62,9 +62,9 @@ export default React.createClass({
 						{/*<h6>...some thankfull sounding words here...</h6>*/}
 					</If>
 				</div>
-				<If condition={!!report} className="links">
-					<a href="#" onClick={this.toggleAggregatedView}>{results}</a>
-					<a href={report} target="_blank"><span className="icon-report"/>View Report</a>
+				<If condition={!!report || survey.hasAggregationData} className="links">
+					<If condition={survey.hasAggregationData} tag="a" href="#" onClick={this.toggleAggregatedView}>{results}</If>
+					<If condition={!!report} tag="a" href={report} target="_blank"><span className="icon-report"/>View Report</If>
 				</If>
 			</div>
 		);

@@ -37,4 +37,27 @@
 	.toggle-option a {
 		background: #fbfbfb;
 	}
+
+	& + .links {
+		line-height: 0;
+		margin-left: 1rem;
+		max-width: 50%;
+		position: relative;
+		top: -3.8rem;
+
+		&.showing-results {
+			top: -1rem;
+		}
+
+		a {
+			font-size: 0.8rem;
+			text-align: right;
+			span.icon-report {margin-right: 0.5em;}
+
+			white-space: nowrap;
+			&:not(:last-child) {
+				margin-right: 0.5em;
+			}
+		}
+	}
 }
