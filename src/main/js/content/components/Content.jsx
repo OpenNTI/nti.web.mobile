@@ -11,7 +11,7 @@ function getComparable (o) {
 }
 
 declareCustomElement('error');
-declareCustomElement('nti-content');
+declareCustomElement('nti:content');
 declareCustomElement('widget');
 
 export default React.createClass({
@@ -179,10 +179,25 @@ export default React.createClass({
 				{styles.map((css, i) =>
 					<style scoped type="text/css" key={i} dangerouslySetInnerHTML={{__html: css}}/>
 				)}
-				<nti-content {...this.props} ref="content"
-					data-ntiid={pageId}
-					data-page-ntiid={pageId}
-					dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}/>
+				{
+				// <nti:content ref="content"
+				// 	id="NTIContent"
+				// 	className="nti-content-panel"
+				// 	data-ntiid={pageId}
+				// 	data-page-ntiid={pageId}
+				// 	dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}
+				// 	/>
+				//
+				// 	Since the above JSX blows up because of the "namespace", do it w/o JSX:
+					React.createElement('nti:content', {
+						id: 'NTIContent',
+						ref: 'content',
+						className: 'nti-content-panel',
+						'data-ntiid': pageId,
+						'data-page-ntiid': pageId,
+						dangerouslySetInnerHTML: {__html: body.map(this.buildBody).join('')}
+					})
+				}
 			</div>
 		);
 	},

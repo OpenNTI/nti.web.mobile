@@ -294,8 +294,7 @@ export default React.createClass({
 					<div className="content-body" key="content">
 						{this.renderAssessmentHeader()}
 
-						<BodyContent id="NTIContent" ref="content"
-							className="nti-content-panel"
+						<BodyContent ref="content"
 							onClick={this.onContentClick}
 							onUserSelectionChange={this.maybeOfferAnnotations}
 							contentPackage={contentPackage}

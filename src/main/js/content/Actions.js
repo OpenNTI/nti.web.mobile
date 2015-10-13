@@ -101,7 +101,7 @@ function fetchResources (packet) {
 		// 	console.log(reason);
 		// })
 		.then(styles => {
-			packet.styles = styles.map(css => css.replace(/#NTIContent/g, 'nti-content'));
+			packet.styles = styles.map(css => css.replace(/#NTIContent/g, 'nti\\:content'));
 			return packet;
 		});
 }

@@ -82,7 +82,6 @@ export default React.createClass({
 			.then(x => {
 				let pageId = x.getID();
 				let context = React.createElement(Content, {
-					id: 'NTIContent',
 					page: x,
 					pageId,
 					onContentReady: () => this.findApplicableRange()
