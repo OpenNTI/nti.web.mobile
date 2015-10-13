@@ -1,6 +1,6 @@
 /* global jQuery, Stripe */
 import React from 'react';
-import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import isEmail from 'nti.lib.interfaces/utils/isemail';
 

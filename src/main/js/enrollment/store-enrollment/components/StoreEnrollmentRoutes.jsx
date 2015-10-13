@@ -1,6 +1,6 @@
 import React from 'react';
 import path from 'path';
-import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Router from 'react-router-component';
 let {Locations, Location, NotFound} = Router;

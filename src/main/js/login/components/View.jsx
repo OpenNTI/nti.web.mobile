@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import {NavigatableMixin, Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
 

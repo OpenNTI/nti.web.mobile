@@ -1,5 +1,5 @@
 import React from 'react';
-import Transition from 'react/lib/ReactCSSTransitionGroup';
+import Transition from 'react-addons-css-transition-group';
 
 import {scoped} from 'common/locale';
 const t = scoped('ASSESSMENT');
