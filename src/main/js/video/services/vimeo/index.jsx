@@ -22,12 +22,26 @@ let Source = React.createClass({
 
 	statics: {
 		getId (url) {
-			let regExp = /https?:\/\/(?:(www|player)\.)?vimeo.com\/(?:(channels|video)\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?)/i,
-				match = url.match(regExp);
-			if (match && match[5]) {
-				return match[5];
-			}
-			return null;
+			/*
+			https://vimeo.com/11111111
+			http://vimeo.com/11111111
+			https://www.vimeo.com/11111111
+			http://www.vimeo.com/11111111
+			https://vimeo.com/channels/11111111
+			http://vimeo.com/channels/11111111
+			https://vimeo.com/channels/mychannel/11111111
+			http://vimeo.com/channels/yourchannel/11111111
+			https://vimeo.com/groups/name/videos/11111111
+			http://vimeo.com/groups/name/videos/11111111
+			https://vimeo.com/album/2222222/video/11111111
+			http://vimeo.com/album/2222222/video/11111111
+			https://vimeo.com/11111111?param=test
+			http://vimeo.com/11111111?param=test
+			https://player.vimeo.com/video/11111111
+			 */
+			const regExp = /https?:\/\/(?:(?:www|player)\.)?vimeo.com\/(?:(?:channels|video)\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?|#)/i;
+			const [/*albumId*/, id] = url.match(regExp) || [];
+			return id || null;
 		}
 	},
 
