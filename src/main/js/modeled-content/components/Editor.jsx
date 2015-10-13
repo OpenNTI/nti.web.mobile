@@ -66,7 +66,7 @@ export default React.createClass({
 	getDefaultProps () {
 		return {
 			allowInsertImage: true,
-			allowInsertVideo: true
+			allowInsertVideo: false
 		};
 	},
 
