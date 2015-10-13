@@ -44,6 +44,7 @@ let Source = React.createClass({
 	displayName: 'YouTube-Video',
 
 	statics: {
+		service: 'youtube',
 		getId (url) {
 			let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&\?]*).*/,
 				match = url.match(regExp);

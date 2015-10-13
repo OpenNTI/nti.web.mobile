@@ -21,6 +21,7 @@ let Source = React.createClass({
 
 
 	statics: {
+		service: 'vimeo',
 		getId (url) {
 			/*
 			https://vimeo.com/11111111

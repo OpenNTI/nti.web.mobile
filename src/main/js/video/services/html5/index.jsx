@@ -11,6 +11,10 @@ import {EventHandlers} from '../../Constants';
 export default React.createClass({
 	displayName: 'HTML5Video',
 
+	statics: {
+		service: 'html5'
+	},
+
 	propTypes: {
 		/**
 		 * Either a URL string or a source descriptor object.

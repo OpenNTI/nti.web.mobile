@@ -20,6 +20,10 @@ import {EventHandlers} from '../../Constants';
 export default React.createClass({
 	displayName: 'KalturaVideo',
 
+	statics: {
+		service: 'kaltura'
+	},
+
 	propTypes: {
 		/**
 		 * Either a URL string or a source descriptor object.
