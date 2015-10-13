@@ -27,9 +27,11 @@ export default React.createClass({
 			['rank-' + rank]: rank
 		});
 
+		const percentString = (percent || 0).toFixed(2);
+
 		return (
 			<td className={cls} data-count={count} data-for={label}>
-				{percent}
+				{percentString}
 			</td>
 		);
 	}

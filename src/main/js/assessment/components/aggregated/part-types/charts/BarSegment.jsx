@@ -50,10 +50,12 @@ export default React.createClass({
 			return null;
 		}
 
+		const percentString = (percent || 0).toFixed(2);
+
 		return (
 			<div className="bar-tool-tip">
 				<span>{label}</span>
-				<div>{count} of {total} ({percent}%)</div>
+				<div>{count} of {total} ({percentString}%)</div>
 			</div>
 		);
 	}
