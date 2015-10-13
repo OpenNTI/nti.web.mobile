@@ -22,10 +22,10 @@ let Source = React.createClass({
 
 	statics: {
 		getId (url) {
-			let regExp = /^.*vimeo(\:\/\/|\.com\/)(.+)/i,
+			let regExp = /https?:\/\/(?:(www|player)\.)?vimeo.com\/(?:(channels|video)\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?)/i,
 				match = url.match(regExp);
-			if (match && match[2]) {
-				return match[2];
+			if (match && match[5]) {
+				return match[5];
 			}
 			return null;
 		}
