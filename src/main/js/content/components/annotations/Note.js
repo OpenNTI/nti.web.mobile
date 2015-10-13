@@ -58,7 +58,14 @@ export default class Note extends Highlight {
 
 		if (!has) {
 			let e = range.startContainer;
-			rect = e && e.getBoundingClientRect();
+			if (e) {
+				if (!e.getBoundingClientRect) {
+					let tempRange = document.createRange();
+					tempRange.selectNode(e);
+					e = tempRange;
+				}
+				rect = e.getBoundingClientRect();
+			}
 			has = !isZeroRect(rect);
 		}
 
