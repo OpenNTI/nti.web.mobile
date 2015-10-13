@@ -59,7 +59,7 @@ export default {
 		props = Object.assign({contextual: true}, props || this.props);
 
 		let {match} = this.getRouterState(props);
-		let p = match && (match.getHandler() || match.match);
+		let p = match && Object.assign({}, (match.route || {}).props, match.match);
 		if (p && p.props) {
 			p = p.props;
 		}
