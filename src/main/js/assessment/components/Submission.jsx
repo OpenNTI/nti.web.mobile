@@ -7,7 +7,7 @@ const t = scoped('ASSESSMENT');
 import Loading from 'common/components/Loading';
 
 import Store from '../Store';
-import {areAssessmentsSupported} from '../utils';
+import {areAssessmentsSupported, getMainSubmittable} from '../utils';
 import {resetAssessment, submit} from '../Actions';
 import {
 	BUSY_SAVEPOINT,
@@ -17,6 +17,7 @@ import {
 
 import {areYouSure} from 'prompts';
 
+const isNoSubmit = submittable => submittable.isNonSubmit && submittable.isNonSubmit();
 
 export default React.createClass({
 	displayName: 'SetSubmission',
@@ -94,8 +95,9 @@ export default React.createClass({
 		let busy = Store.getBusyState(assessment);
 		let error = Store.getError(assessment);
 		let savePoint = busy === BUSY_SAVEPOINT;
+		let mainSubmittable = getMainSubmittable(assessment);
 
-		if (admin || Store.isSubmitted(assessment) || !areAssessmentsSupported() || Store.aggregationViewState(assessment)) {
+		if (admin || Store.isSubmitted(assessment) || !areAssessmentsSupported() || Store.aggregationViewState(assessment) || isNoSubmit(mainSubmittable)) {
 			return null;
 		}
 
