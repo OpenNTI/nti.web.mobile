@@ -156,15 +156,19 @@ export function config () {
 export function clientConfig (username, context) {
 	//unsafe to send to client raw... lets reduce it to essentials
 	let unsafe = config();
+	let site = getSite(context[SiteName]);
 	let cfg = {
 		analytics: unsafe.analytics,
 		basepath: unsafe.basepath,
 		discussions: unsafe.discussions,
 		flags: unsafe.flags,
 		server: unsafe.server,
-		siteName: getSite(context[SiteName]),
+		siteName: site.name,
+		siteTitle: site.title,
 		username: username
 	};
+
+	unsafe.siteTitle = site.title;
 
 	return {
 		config: unsafe,//used only on server
