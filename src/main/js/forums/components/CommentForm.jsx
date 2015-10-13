@@ -124,7 +124,9 @@ export default React.createClass({
 				<div className="comment-form-heading">{t('addComment')}</div>
 				<Editor ref="editor"
 					onChange={this.onBodyChange}
-					value={value} />
+					value={value}
+					allowInsertVideo
+					/>
 			</PanelButton>
 		);
 	}

@@ -49,7 +49,7 @@ export default React.createClass({
 		return (
 			<PanelButton className="comment-form" button={buttons}>
 				<div><input ref="title" defaultValue={title} placeholder={t('topicTitlePlaceholder')} onChange={this.onEditorChange} /></div>
-				<div><Editor ref="editor" value={body} onChange={this.onEditorChange} /></div>
+				<div><Editor ref="editor" value={body} onChange={this.onEditorChange} allowInsertVideo/></div>
 			</PanelButton>
 		);
 	}
