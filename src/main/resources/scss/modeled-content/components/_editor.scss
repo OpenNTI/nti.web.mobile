@@ -1,4 +1,5 @@
 @import "whiteboard-icon";
+@import "video-icon";
 
 .modeled.editor {
 	border: 1px solid $border-grey;
@@ -43,6 +44,56 @@
 		button[data-format=#{$format}]:focus,
 		&.format-#{$format} button[data-format=#{$format}] {
 			@extend %icon-editor-#{$format}-active;
+		}
+	}
+
+	.insert-video {
+		@extend %icon-editor-video;
+		position: static !important;
+		overflow: visible !important;
+
+		.dialog {
+			text-indent: initial;
+			text-align: left;
+			position: absolute;
+			background: $panel-background;
+
+			top: 0; left: 0; right: 0; bottom: 0;
+
+			// top: 50%;
+			// left: 50%;
+			// width: 100%;
+			// max-width: 75vw;
+			// transform: translate(-50%, -50%);
+
+			padding: 1rem;
+			// border: 1px solid $border-grey;
+			border-radius: 3px;
+			// box-shadow: 1px 2px 3px 0 rgba(0,0,0, 0.2);
+			font-size: 0.875rem;
+			input {
+				font-size: 0.875rem;
+				font-weight: normal;
+				margin: 0;
+			}
+
+			.button {
+				text-transform: none;
+				font-weight: 600;
+				font-size: 0.875rem;
+				line-height: 2.5rem;
+				padding: 0 1.25rem;
+				margin: 0;
+				vertical-align: middle;
+				text-align: center;
+				min-width: 90px;
+
+				&.link {
+					background: none;
+					color: $primary-grey;
+					text-decoration: underline;
+				}
+			}
 		}
 	}
 

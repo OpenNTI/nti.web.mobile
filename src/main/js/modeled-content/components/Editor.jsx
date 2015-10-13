@@ -3,6 +3,7 @@ import React from 'react';
 import {hasClass, matches, parent} from 'nti.lib.dom';
 
 import InsertImageButton from './InsertImageButton';
+import InsertVideoButton from './InsertVideoButton';
 import Editor, {FormatButton, ToolbarRegions} from 'react-editor-component';
 
 const {SOUTH} = ToolbarRegions;
@@ -37,6 +38,7 @@ export default React.createClass({
 		children: React.PropTypes.any,
 
 		allowInsertImage: React.PropTypes.bool,
+		allowInsertVideo: React.PropTypes.bool,
 
 		/**
 		 * The raw or parsed modeled content body.
@@ -63,7 +65,8 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			allowInsertImage: true
+			allowInsertImage: true,
+			allowInsertVideo: true
 		};
 	},
 
@@ -146,7 +149,7 @@ export default React.createClass({
 
 	render () {
 		//TODO: parse/build value sent to the RTE from the modeled body.
-		let {value, allowInsertImage, children} = this.props;
+		let {value, allowInsertImage, allowInsertVideo, children} = this.props;
 
 		if (Array.isArray(value)) {
 			value = value.join('\n').replace(/<(\/?)(body|html)>/ig, '');
@@ -166,6 +169,10 @@ export default React.createClass({
 
 				{!allowInsertImage ? null : (
 					<InsertImageButton region={SOUTH}/>
+				)}
+
+				{!allowInsertVideo ? null : (
+					<InsertVideoButton region={SOUTH}/>
 				)}
 
 				<div className="right-south" region={SOUTH}>
