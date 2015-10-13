@@ -21,17 +21,17 @@ export default React.createClass({
 
 
 	render () {
-		const {props: {count, percent, rank, label}} = this;
+		const {props: {count, rank, label}} = this;
 
 		const cls = cx({
 			['rank-' + rank]: rank
 		});
 
-		const percentString = (percent || 0).toFixed(2);
+		// const percentString = (percent || 0).toFixed(2);
 
 		return (
 			<td className={cls} data-count={count} data-for={label}>
-				{percentString}
+				{/*percentString*/count}
 			</td>
 		);
 	}
