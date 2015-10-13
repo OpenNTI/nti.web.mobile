@@ -4,7 +4,7 @@ import {Link} from 'react-router-component';
 
 import AnalyticsStore from 'analytics/Store';
 
-import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
+import Transition from 'react-addons-css-transition-group';
 
 import Loading from 'common/components/Loading';
 
@@ -82,7 +82,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Transition transitionName="fadeOutIn">
+				<Transition transitionName="fadeOutIn" transitionAppear>
 					<ViewHeader type={FORUM} />
 					<section>
 						{this.createTopicLink()}

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-component';
 
-import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
+import Transition from 'react-addons-css-transition-group';
 
 import Err from 'common/components/Error';
 import Loading from 'common/components/TinyLoader';
@@ -124,7 +124,7 @@ export default React.createClass({
 				) : (container.Items || []).length > 0 ? (
 					<div>
 						<section className="comments">
-							<Transition transitionName="fadeOutIn">
+							<Transition transitionName="fadeOutIn" transitionAppear>
 								<List className="forum-replies" container={container} {...this.props} itemProps={{topic: topic}} omitIfEmpty />
 							</Transition>
 						</section>

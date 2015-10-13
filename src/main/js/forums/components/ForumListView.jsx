@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
+import Transition from 'react-addons-css-transition-group';
 
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
@@ -108,7 +108,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Transition transitionName="fadeOutIn">
+				<Transition transitionName="fadeOutIn" transitionAppear>
 					<nav className="forum">
 						<ul>
 							{

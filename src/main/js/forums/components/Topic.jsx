@@ -1,5 +1,5 @@
 import React from 'react';
-import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
+import Transition from 'react-addons-css-transition-group';
 
 import AnalyticsStore from 'analytics/Store';
 
@@ -245,7 +245,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Transition transitionName="fadeOutIn">
+				<Transition transitionName="fadeOutIn" transitionAppear>
 					<ViewHeader type={TOPIC} />
 					{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline topic={topic} {...props} />}
 					<ActionLinks
