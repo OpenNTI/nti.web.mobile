@@ -47,6 +47,8 @@ export default React.createClass({
 		const results = showAggregation ? 'Hide Results' : 'Show Results';
 		const report = question.getLink(REPORT_LINK);
 
+		const showLinks = question.hasAggregationData || question.hasReport;
+
 		return (
 			<div className={cx('poll-wrapper', {'submitted': submitted})}>
 				{showAggregation ? (
@@ -54,7 +56,7 @@ export default React.createClass({
 				) : (
 					<Question {...props}/>
 				)}
-				<If condition={question.hasAggregationData || question.hasReport} className={cx('links', {'showing-results': showAggregation})}>
+				<If condition={showLinks} className={cx('links', {'showing-results': showAggregation})}>
 					<If condition={question.hasAggregationData} tag="a" href="#" onClick={this.toggleAggregatedView}>{results}</If>
 					<If condition={question.hasReport} tag="a" href={report} target="_blank"><span className="icon-report"/>View Report</If>
 				</If>
