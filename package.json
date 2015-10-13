@@ -94,7 +94,6 @@
     "query-string": "^2.0.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "react-d3-components": "^0.5.2",
     "react-editor-component": "NextThought/react-editor-component",
     "react-proxy-loader": "^0.3.4",
     "react-router-component": "^0.27.1",
