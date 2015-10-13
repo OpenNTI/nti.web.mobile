@@ -58,7 +58,7 @@ export default {
 	},
 
 	questions: {
-		zero: 'No questions? This is probably a mistake.',
+		zero: '',
 		one: '%(count)s question',
 		other: '%(count)s questions'
 	},
