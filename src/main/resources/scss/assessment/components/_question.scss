@@ -57,10 +57,10 @@
 		margin-left: 1rem;
 		max-width: 50%;
 		position: relative;
-		top: -3.8rem;
+		top: 0;
 
-		&.submitted {
-			top: 0;
+		&.individual {
+			top: -3.8rem;
 		}
 
 		&.showing-results {

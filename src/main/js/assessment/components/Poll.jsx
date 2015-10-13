@@ -56,7 +56,7 @@ export default React.createClass({
 				) : (
 					<Question {...props}/>
 				)}
-				<If condition={showLinks} className={cx('links', {'showing-results': showAggregation, submitted})}>
+				<If condition={showLinks} className={cx('links', {'showing-results': showAggregation, 'individual': question.individual})}>
 					<If condition={question.hasAggregationData} tag="a" href="#" onClick={this.toggleAggregatedView}>{results}</If>
 					<If condition={question.hasReport} tag="a" href={report} target="_blank"><span className="icon-report"/>View Report</If>
 				</If>
