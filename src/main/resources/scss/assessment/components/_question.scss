@@ -38,12 +38,30 @@
 		background: #fbfbfb;
 	}
 
+	.error {
+		position: relative;
+		pre {
+			max-height: 13rem;
+		}
+	}
+
+	&.missing-data {
+		margin: 2rem;
+		border: 0;
+		color: $primary-red;
+		font-weight: bold;
+	}
+
 	& + .links {
 		line-height: 0;
 		margin-left: 1rem;
 		max-width: 50%;
 		position: relative;
 		top: -3.8rem;
+
+		&.submitted {
+			top: 0;
+		}
 
 		&.showing-results {
 			top: -1rem;

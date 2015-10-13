@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Error from 'common/components/Error';
 import Loading from 'common/components/TinyLoader';
 
 import Content from '../Content';
@@ -32,17 +33,20 @@ export default React.createClass({
 		this.setState({loading: true});
 
 		item.getAggregated()
-			.then(data => this.setState({loading: false, data}));
+			.then(data => this.setState({loading: false, data}))
+			.catch(error => this.setState({loading: false, error}));
 	},
 
 
 	render () {
-		const {props: {question}, state: {loading, data}} = this;
+		const {props: {question}, state: {loading, data, error}} = this;
 
 		return loading ? (
 			<Loading/>
+		) : error ? (
+			<div className="question error"><Error error={error}/></div>
 		) : !data ? (
-			<div className="missing">No Data</div>
+			<div className="question missing-data">No Data</div>
 		) : (
 			<div className="question" data-ntiid={question.getID()} type={question.MimeType}>
 				<Content className="question-content" content={question.content}/>
