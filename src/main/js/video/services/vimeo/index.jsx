@@ -22,7 +22,7 @@ let Source = React.createClass({
 
 	statics: {
 		service: 'vimeo',
-		getId (url) {
+		getID (url) {
 			/*
 			https://vimeo.com/11111111
 			http://vimeo.com/11111111
@@ -41,7 +41,7 @@ let Source = React.createClass({
 			https://player.vimeo.com/video/11111111
 			 */
 			const regExp = /https?:\/\/(?:(?:www|player)\.)?vimeo.com\/(?:(?:channels|video)\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?|#)/i;
-			const [/*albumId*/, id] = url.match(regExp) || [];
+			const [/*matchedURL*/, /*albumId*/, id] = url.match(regExp) || [];
 			return id || null;
 		}
 	},
@@ -82,7 +82,7 @@ let Source = React.createClass({
 	buildURL (props, id = this.state.id) {
 		const {source: mediaSource, autoPlay} = props;
 
-		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source;
+		let videoId = typeof mediaSource === 'string' ? Source.getID(mediaSource) : mediaSource.source;
 
 		if (Array.isArray(videoId)) {
 			videoId = videoId[0];

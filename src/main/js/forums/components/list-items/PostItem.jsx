@@ -11,7 +11,7 @@ import Loading from 'common/components/TinyLoader';
 
 import {Panel as ModeledContentPanel} from 'modeled-content';
 
-import Video from 'video/components/Placeholder';
+import {Placeholder as Video} from 'video';
 
 import CommentForm from '../CommentForm';
 import ActionLinks from '../ActionLinks';

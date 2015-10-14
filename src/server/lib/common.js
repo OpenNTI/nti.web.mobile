@@ -162,10 +162,11 @@ export function clientConfig (username, context) {
 		basepath: unsafe.basepath,
 		discussions: unsafe.discussions,
 		flags: unsafe.flags,
+		keys: unsafe.keys,
 		server: unsafe.server,
 		siteName: site.name,
 		siteTitle: site.title,
-		username: username
+		username
 	};
 
 	unsafe.siteTitle = site.title;

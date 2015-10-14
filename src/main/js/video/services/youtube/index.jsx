@@ -45,7 +45,7 @@ let Source = React.createClass({
 
 	statics: {
 		service: 'youtube',
-		getId (url) {
+		getID (url) {
 			let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&\?]*).*/,
 				match = url.match(regExp);
 			if (match && match[2].length === 11) {
@@ -117,7 +117,7 @@ let Source = React.createClass({
 
 	buildURL (props) {
 		let mediaSource = props.source;
-		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source;
+		let videoId = typeof mediaSource === 'string' ? Source.getID(mediaSource) : mediaSource.source;
 
 		if (Array.isArray(videoId)) {
 			videoId = videoId[0];
