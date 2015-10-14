@@ -178,7 +178,7 @@ module.exports = function (grunt) {
 				files: Object.keys(sites)
 					.map(function (alias) {
 						var site = sites[alias];
-						return site === alias
+						return typeof site === 'object'
 							? null
 							: {src: '<%= pkg.distSiteCSS %>/' + site, dest: '<%= pkg.distSiteCSS %>/' + alias};
 					})
