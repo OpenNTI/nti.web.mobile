@@ -189,14 +189,14 @@ export default React.createClass({
 				// 	/>
 				//
 				// 	Since the above JSX blows up because of the "namespace", do it w/o JSX:
-					React.createElement('nti:content', {
+					React.createElement('nti:content', Object.assign({}, this.props, {
 						id: 'NTIContent',
 						ref: 'content',
 						className: 'nti-content-panel',
 						'data-ntiid': pageId,
 						'data-page-ntiid': pageId,
 						dangerouslySetInnerHTML: {__html: body.map(this.buildBody).join('')}
-					})
+					}))
 				}
 			</div>
 		);
