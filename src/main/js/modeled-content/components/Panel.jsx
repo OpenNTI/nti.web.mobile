@@ -25,6 +25,7 @@ export default React.createClass({
 		previewLength: React.PropTypes.number,
 
 		strategies: React.PropTypes.object,
+		widgets: React.PropTypes.object,
 		renderCustomWidget: React.PropTypes.func
 	},
 
@@ -137,7 +138,7 @@ export default React.createClass({
 
 
 	renderWidget (tagName, props, children) {
-		let {renderCustomWidget} = this.props;
+		let {renderCustomWidget, widgets} = this.props;
 		let f = renderCustomWidget || React.createElement;
 		props = props || {};//ensure we have an object.
 
@@ -147,8 +148,10 @@ export default React.createClass({
 
 		props = Object.assign({}, props, {widget});
 
-		if (widget && SYSTEM_WIDGETS[widget.MimeType]) {
-			f = SYSTEM_WIDGETS[widget.MimeType];
+		widgets = Object.assign({}, SYSTEM_WIDGETS, widgets);
+
+		if (widget && widgets[widget.MimeType]) {
+			f = widgets[widget.MimeType];
 		}
 
 

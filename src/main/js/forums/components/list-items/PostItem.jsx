@@ -7,9 +7,12 @@ import Store from '../../Store';
 import Avatar from 'common/components/Avatar';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
+import Loading from 'common/components/TinyLoader';
+
 import {Panel as ModeledContentPanel} from 'modeled-content';
 
-import Loading from 'common/components/TinyLoader';
+import Video from 'video/components/Placeholder';
+
 import CommentForm from '../CommentForm';
 import ActionLinks from '../ActionLinks';
 
@@ -29,6 +32,14 @@ const t = require('common/locale').scoped('FORUMS');
 const SHOW_REPLIES = 'showReplies';
 
 const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';
+
+const widgets = {
+	['application/vnd.nextthought.embeddedvideo'] (_, props) {
+		let {widget} = props;
+		return React.createElement(Video, {src: widget.embedURL});
+	}
+};
+
 
 export default React.createClass({
 	displayName: 'list-items:PostItem',
@@ -204,7 +215,7 @@ export default React.createClass({
 							<DateTime date={createdOn} relative/>
 						</div>
 						<div className="message">
-							<ModeledContentPanel body={message} />
+							<ModeledContentPanel body={message} widgets={widgets}/>
 							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 						</div>
 						{links}
