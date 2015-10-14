@@ -107,6 +107,11 @@ export function discussionsConfig () {
 }
 
 
+export function externalLibraries () {
+	return $AppConfig['external-libraries'];
+}
+
+
 /**
  * @returns {Interface} the shared instance of the server interface.
  * NOTICE: This is for low-level (or anonymous/non-authenticated) work ONLY.
@@ -168,6 +173,7 @@ export function overrideAppUsername (str) {
 	}
 	$AppConfig.username = str;
 }
+
 
 export function overrideConfigAndForceCurrentHost () {
 	if (noConfig()) {

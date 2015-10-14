@@ -78,9 +78,12 @@ export default React.createClass({
 
 	componentDidMount () {
 
-		this.injectScript('https://code.jquery.com/jquery-2.1.3.min.js', 'jQuery')
-			.then(() => this.injectScript('https://js.stripe.com/v2/', 'Stripe'))
-			.then(() => this.injectScript('https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.3.2/jquery.payment.min.js', 'jQuery.payment'))
+		this.injectExternalLibrary('jquery.payment')
+			// stripe is listed as a dependency of jquery.payment, it will be automatically included...
+			// This line is to document that we also want Stripe. (it will reuse the already-in-flight
+			// request for stripe)
+			.then(() => this.injectExternalLibrary('stripe'))
+
 			.then(()=> clearLoadingFlag(this))
 			.catch(this.onError);
 

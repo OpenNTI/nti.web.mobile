@@ -155,24 +155,31 @@ export function config () {
 
 export function clientConfig (username, context) {
 	//unsafe to send to client raw... lets reduce it to essentials
-	let unsafe = config();
-	let site = getSite(context[SiteName]);
-	let cfg = {
-		analytics: unsafe.analytics,
-		basepath: unsafe.basepath,
-		discussions: unsafe.discussions,
-		flags: unsafe.flags,
-		keys: unsafe.keys,
-		server: unsafe.server,
+	const base = config();
+	const site = getSite(context[SiteName]);
+	const cfg = Object.assign({}, base, {
 		siteName: site.name,
 		siteTitle: site.title,
 		username
-	};
+	});
 
-	unsafe.siteTitle = site.title;
+	const blacklist = [/webpack.*/i, 'port', 'protocol', 'address'];
+
+	for (let blocked of blacklist) {
+		if (typeof blocked === 'string') {
+			delete cfg[blocked];
+		} else {
+			for(let prop of Object.keys(cfg)) {
+				if (blocked.test(prop)) {
+					delete cfg[prop];
+				}
+			}
+		}
+	}
+
 
 	return {
-		config: unsafe,//used only on server
+		config: Object.assign({siteTitle: site.title}, base),//used only on server
 		html:
 			'\n<script type="text/javascript">\n' +
 			'window.$AppConfig = ' + JSON.stringify(cfg) +
