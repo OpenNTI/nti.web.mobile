@@ -14,10 +14,12 @@ const MAX_WIDTH = 1024;
 const WEIGHT = Symbol('weight');
 
 const weights = {
-	'application/vnd.nextthought.communityheadlinetopic': 3,
-	'application/vnd.nextthought.forums.generalforumcomment': 2,
+	'application/vnd.nextthought.communityheadlinetopic': 2,
+	'application/vnd.nextthought.forums.generalforumcomment': 1,
 	'application/vnd.nextthought.courses.courseoutlinecontentnode': 1,
-	'application/vnd.nextthought.assessment.assignment': 2
+	'application/vnd.nextthought.assessment.assignment': 1,
+	'application/vnd.nextthought.courses.courseoutlinecalendarnode': 1,
+	'application/vnd.nextthought.note': 3
 };
 
 class ActivityColumn {
@@ -37,7 +39,12 @@ class ActivityColumn {
 	}
 
 	weightFor (item) {
-		return weights[item.MimeType] || 1;
+		let w = weights[item.MimeType];
+		if (!w) {
+			console.warn(`No weight for MimeType: ${item.MimeType}`);
+			w = 1;
+		}
+		return w;
 	}
 
 	[Symbol.iterator] () {
