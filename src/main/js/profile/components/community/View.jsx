@@ -10,7 +10,7 @@ import Info from './Info';
 
 import Activity from '../Activity';
 import Members from './Members';
-import ProfileLink from '../ProfileLink';
+import {profileHref} from '../../mixins/ProfileLink';
 import ForumView from '../ForumView';
 
 import Redirect from 'navigation/components/Redirect';
@@ -46,7 +46,7 @@ export default React.createClass({
 			{
 				href: path, label: 'Home'
 			}, {
-				href: path + ProfileLink.makeHref(entity),
+				href: path + profileHref(entity),
 				label: 'Community'
 			}
 		]);

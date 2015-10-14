@@ -1,26 +1,10 @@
 import React from 'react';
 
-import {Link} from 'react-router-component';
-
-import {encode} from 'common/utils/user';
-
-import BasePathAware from 'common/mixins/BasePath';
-
-import {getAppUsername} from 'common/utils';
-
-
-export function makeHref (id = getAppUsername()) {
-	id = id && id.getID ? id.getID() : id;
-	return (`profile/${encode(id)}/`).replace(/\/\//g, '/');
-}
+import ProfileLink from '../mixins/ProfileLink';
 
 export default React.createClass({
 	displayName: 'ProfileLink',
-	mixins: [BasePathAware],
-
-	statics: {
-		makeHref
-	},
+	mixins: [ProfileLink],
 
 	propTypes: {
 		entity: React.PropTypes.oneOfType([
@@ -37,17 +21,12 @@ export default React.createClass({
 		}
 
 		let props = Object.assign({}, this.props, {
-			//This href, you will notice, has the getBasePath... this is because
-			//the router seems to not know its own root. :/ The global flag make
-			//the link use the root router to generate the link, and to
-			//call #navigate() ... so we have to bake in the base path.
-			href: `${this.getBasePath()}${makeHref(entity)}`,
-			global: true
+			onClick: this.navigateToProfile.bind(this, entity),
+			className: 'profile-link'
 		});
 
-
 		return (
-			<Link {...props}/>
+			<span {...props}/>
 		);
 	}
 });

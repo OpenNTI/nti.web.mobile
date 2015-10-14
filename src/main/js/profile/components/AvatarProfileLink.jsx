@@ -19,9 +19,9 @@ export default React.createClass({
 
 		return (
 			<ProfileLink entity={e}>
-				<Avatar entity={e} />
+				<Avatar entity={e} suppressProfileLink />
 				<div className="body">
-					<DisplayName entity={e} />
+					<DisplayName entity={e} suppressProfileLink />
 					{e.location && <span className="location" dangerouslySetInnerHTML={{__html: e.location}}/>}
 					{this.props.children}
 				</div>

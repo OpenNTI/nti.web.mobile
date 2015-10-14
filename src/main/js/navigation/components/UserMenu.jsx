@@ -27,6 +27,6 @@ export default React.createClass({
 			href: '#'
 		};
 
-		return <a {...props}><Avatar entity={getAppUsername()} /></a>;
+		return <a {...props}><Avatar entity={getAppUsername()} suppressProfileLink/></a>;
 	}
 });

@@ -6,7 +6,7 @@ import {Link} from 'react-router-component';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 
-import ProfileLink from '../ProfileLink';
+import {profileHref} from '../../mixins/ProfileLink';
 
 import Members from './Members';
 
@@ -53,7 +53,7 @@ export default React.createClass({
 		return Promise.resolve([
 			{
 				label: 'Information',
-				href: this.getBasePath() + ProfileLink.makeHref(this.props.entity) + 'info/'
+				href: this.getBasePath() + profileHref(this.props.entity) + 'info/'
 			}
 		]);
 	},

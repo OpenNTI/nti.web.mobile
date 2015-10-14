@@ -8,6 +8,7 @@ import {resolve, getDebugUsernameString} from '../utils/user';
 import t from 'common/locale';
 
 import {getAppUsername} from 'common/utils';
+import ProfileLink from 'profile/mixins/ProfileLink';
 
 function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }
 
@@ -21,6 +22,8 @@ function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "enti
  */
 export default React.createClass({
 	displayName: 'DisplayName',
+
+	mixins: [ProfileLink],
 
 	propTypes: {
 		className: React.PropTypes.string,
@@ -36,6 +39,8 @@ export default React.createClass({
 
 		username: deprecated,
 		user: deprecated,
+
+		suppressProfileLink: React.PropTypes.bool,
 
 		/**
 		 * Specifies to substitute your name with "You".
@@ -56,7 +61,8 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			onResolve: () => {}
+			onResolve: () => {},
+			suppressProfileLink: false
 		};
 	},
 
@@ -119,7 +125,8 @@ export default React.createClass({
 			className: cx('username', className),
 			children: name,
 			'data-for': getDebugUsernameString(entity),
-			tag: void 0
+			tag: void 0,
+			onClick: this.props.suppressProfileLink ? null : this.navigateToProfile.bind(this, this.props.entity)
 		});
 
 

@@ -2,6 +2,7 @@ import React from 'react';
 import {BLANK_AVATAR, BLANK_GROUP_AVATAR} from '../constants/DataURIs';
 
 import {resolve, getDebugUsernameString} from '../utils/user';
+import ProfileLink from 'profile/mixins/ProfileLink';
 
 const DEFAULT = { entity: {avatarURL: BLANK_AVATAR }};
 const DEFAULT_GROUP = { entity: {avatarURL: BLANK_GROUP_AVATAR }};
@@ -13,6 +14,10 @@ function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "enti
 export default React.createClass({
 	displayName: 'Avatar',
 
+
+	mixins: [ProfileLink],
+
+
 	propTypes: {
 		entity: React.PropTypes.oneOfType([
 			React.PropTypes.object,
@@ -22,7 +27,15 @@ export default React.createClass({
 		username: deprecated,
 		user: deprecated,
 
+		suppressProfileLink: React.PropTypes.bool,
 		className: React.PropTypes.string
+	},
+
+
+	getDefaultProps () {
+		return {
+			suppressProfileLink: false
+		};
 	},
 
 
@@ -112,7 +125,8 @@ export default React.createClass({
 		let props = Object.assign({}, this.props, {
 			'data-for': getDebugUsernameString(entity),
 			alt: 'Avatar for ' + displayName,
-			className: css
+			className: css,
+			onClick: this.props.suppressProfileLink ? null : this.navigateToProfile.bind(this, this.props.entity)
 		});
 
 		return avatarURL ? (

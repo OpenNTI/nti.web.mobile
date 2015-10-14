@@ -3,7 +3,7 @@ import React from 'react';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 import AvatarGrid from '../AvatarGrid';
-import ProfileLink from '../ProfileLink';
+import {profileHref} from '../../mixins/ProfileLink';
 import Loading from 'common/components/Loading';
 import ProfileBodyContainer from '../ProfileBodyContainer';
 import PromiseButton from 'common/components/PromiseButton';
@@ -25,7 +25,7 @@ export default React.createClass({
 
 	getContext () {
 		let {entity, nested} = this.props;
-		let base = this.getBasePath() + ProfileLink.makeHref(entity);
+		let base = this.getBasePath() + profileHref(entity);
 
 		return Promise.resolve([
 			{
