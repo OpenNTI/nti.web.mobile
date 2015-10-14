@@ -82,7 +82,7 @@ export default React.createClass({
 					<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref="image" onLoad={this.onLoad}/>
 					{!zoomable ? null : (
 						<a title="Zoom"
-						className="zoom fi-magnifying-glass"
+						className="zoom icon-search"
 						data-non-anchorable="true"
 						onClick={this.onZoom} />
 					)}
