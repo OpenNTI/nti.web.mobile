@@ -30,7 +30,7 @@
     "babel-core": ">=5.6.6",
     "babel-eslint": ">=2.0.2",
     "babel-loader": ">=5.2.0",
-    "babel-relay-plugin": "^0.2.5",
+    "babel-relay-plugin": ">=0.3.0",
     "babel-runtime": ">=5.6.6",
     "classnames": "^2.0.0",
     "compressible": "^2.0.1",
