@@ -65,6 +65,8 @@ export default {
 
 
 	navigateRoot (path, navigation, cb) {
-		return this.getNavigable().getEnvironment().setPath(path, navigation, cb);
+		const nav = this.getNavigable();
+		const env = nav.getEnvironment ? nav.getEnvironment() : nav;
+		return env.setPath(path, navigation, cb);
 	}
 };
