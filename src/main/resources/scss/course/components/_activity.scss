@@ -112,5 +112,9 @@
 				margin: 0;
 			}
 		}
+		.context.scoped {
+			max-height: 15rem;
+			overflow: hidden;
+		}
 	}
 }
