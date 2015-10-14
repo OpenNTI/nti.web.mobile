@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import cx from 'classnames';
 
 import {ToolMixin, Constants} from 'react-editor-component';
 
@@ -40,24 +41,37 @@ export default React.createClass({
 		}
 	},
 
+
+	testURL () {
+		const {refs: {input}} = this;
+		const {value} = input || {};
+
+		const handler = getHandler(value);
+		this.setState({canSubmit: !!handler});
+	},
+
+
 	render () {
-		const {state: {prompt}} = this;
+		const {state: {prompt, canSubmit}} = this;
 
 		return (
 			<div className="button insert-video" onClick={this.prompt}>
 				Insert Video
 				{!prompt ? null : (
 					<div className="dialog" onClick={this.focus}>
-						<input type="url" placeholder="Video URL" ref="input"/>
+						<input type="url" placeholder="Video URL" ref="input" onChange={this.testURL}/>
 						<div className="buttons">
 							<a className="button link" onClick={this.closePrompt}>Cancel</a>
-							<a className="button commit" onClick={this.insert}>Insert</a>
+							<a className={cx('button commit', {disabled: !canSubmit})} onClick={this.insert}>Insert</a>
 						</div>
 					</div>
 				)}
 			</div>
 		);
 	},
+
+
+
 
 
 	closePrompt (e) {
@@ -110,7 +124,7 @@ export default React.createClass({
 		};
 
 		if (!handler) {
-			input.value = '';
+			// input.value = '';
 			console.warn('Bad Video URL');
 			return;
 		}
