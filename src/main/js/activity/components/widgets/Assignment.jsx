@@ -48,7 +48,7 @@ export default React.createClass({
 			<div className={classes}>
 				<a href={href}>
 					<div className="path">{path.join(' / ')}</div>
-					<div className="title">{item.title}</div>
+					<div className="card-title">{item.title}</div>
 					<div className="bullets">{t('questions', {count: item.getQuestionCount()})}</div>
 					<Footer assignment={item} history={history} />
 				</a>
