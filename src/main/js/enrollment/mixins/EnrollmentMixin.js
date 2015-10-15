@@ -147,7 +147,7 @@ export default {
 			}
 		}
 
-		return [NoOptions(null, [])];
+		return [React.createElement(NoOptions)];
 	},
 
 
