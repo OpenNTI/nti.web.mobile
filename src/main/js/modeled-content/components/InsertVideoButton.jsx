@@ -26,10 +26,16 @@ export default React.createClass({
 	},
 
 	componentDidUpdate () {
-		this.focus();
+		this.focusInput();
 	},
 
-	focus (e) {
+
+	onDialogFocus (e) {
+		e.stopPropagation();
+	},
+
+
+	focusInput (e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -58,7 +64,7 @@ export default React.createClass({
 			<div className="button insert-video" onClick={this.prompt}>
 				Insert Video
 				{!prompt ? null : (
-					<div className="dialog" onClick={this.focus}>
+					<div className="dialog" onClick={this.focusInput} onFocus={this.onDialogFocus}>
 						<input type="url" placeholder="Video URL" ref="input" onChange={this.testURL}/>
 						<div className="buttons">
 							<a className="button link" onClick={this.closePrompt}>Cancel</a>
