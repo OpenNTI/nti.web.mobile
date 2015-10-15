@@ -1,5 +1,5 @@
 export default {
-	ACTIVITY: 'activity/',
+	// ACTIVITY: 'activity/',
 	ASSIGNMENTS: 'assignments/',
 	DISCUSSIONS: 'discussions/',
 	LESSONS: 'lessons/',
