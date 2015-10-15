@@ -16,6 +16,8 @@ const VIMEO_EVENTS_TO_HTML5 = {
 	playProgress: 'timeupdate'
 };
 
+const VIMEO_URL_PARTS = /(?:https?:)\/\/(?:(?:www|player)\.)?vimeo.com\/(?:(?:channels|video)\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?|#)/i;
+
 let Source = React.createClass({
 	displayName: 'Vimeo-Video',
 
@@ -23,25 +25,8 @@ let Source = React.createClass({
 	statics: {
 		service: 'vimeo',
 		getID (url) {
-			/*
-			https://vimeo.com/11111111
-			http://vimeo.com/11111111
-			https://www.vimeo.com/11111111
-			http://www.vimeo.com/11111111
-			https://vimeo.com/channels/11111111
-			http://vimeo.com/channels/11111111
-			https://vimeo.com/channels/mychannel/11111111
-			http://vimeo.com/channels/yourchannel/11111111
-			https://vimeo.com/groups/name/videos/11111111
-			http://vimeo.com/groups/name/videos/11111111
-			https://vimeo.com/album/2222222/video/11111111
-			http://vimeo.com/album/2222222/video/11111111
-			https://vimeo.com/11111111?param=test
-			http://vimeo.com/11111111?param=test
-			https://player.vimeo.com/video/11111111
-			 */
-			const regExp = /https?:\/\/(?:(?:www|player)\.)?vimeo.com\/(?:(?:channels|video)\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?|#)/i;
-			const [/*matchedURL*/, /*albumId*/, id] = url.match(regExp) || [];
+			/** @see test */
+			const [/*matchedURL*/, /*albumId*/, id] = url.match(VIMEO_URL_PARTS) || [];
 			return id || null;
 		}
 	},
