@@ -28,6 +28,11 @@ let Source = React.createClass({
 			/** @see test */
 			const [/*matchedURL*/, /*albumId*/, id] = url.match(VIMEO_URL_PARTS) || [];
 			return id || null;
+		},
+
+		getCanonicalURL (url) {
+			const id = this.getID(url);
+			return `https://www.vimeo.com/${id}`;
 		}
 	},
 

@@ -52,6 +52,11 @@ let Source = React.createClass({
 				return match[2];
 			}
 			return null;
+		},
+
+		getCanonicalURL (url) {
+			const id = this.getID(url);
+			return `${YOU_TUBE}/embed/${id}`;
 		}
 	},
 

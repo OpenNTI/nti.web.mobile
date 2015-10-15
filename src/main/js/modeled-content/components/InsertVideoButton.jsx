@@ -125,7 +125,7 @@ export default React.createClass({
 
 		const data = handler && {
 			MimeType: 'application/vnd.nextthought.embeddedvideo',
-			embedURL: value,
+			embedURL: handler.getCanonicalURL ? handler.getCanonicalURL(value) : value,
 			type: handler.service
 		};
 
