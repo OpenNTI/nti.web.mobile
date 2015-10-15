@@ -55,7 +55,7 @@ export default {
 			return Promise.reject(`Library ${id} should have an expression for "definesSymbol"`);
 		}
 
-		return Promise.all(requires.map(dep => this.injectExternalLibrary(dep)))
+		return Promise.all(requires.map(dep => this.ensureExternalLibrary(dep)))
 			.then(() => {
 				this.injectStyles(stylesheets, id);
 				return this.injectScript(url, definesSymbol, invokeDefinedSymbol);
