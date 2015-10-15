@@ -95,7 +95,7 @@ export default {
 	scrollToTarget (id) {
 		let scrollToEl = document.getElementById(id) || document.getElementsByName(id)[0];
 		if (scrollToEl) {
-			let fn = scrollToEl.scrollIntoViewIfNeeded || scrollToEl.scrollIntoView;
+			let fn = /* scrollToEl.scrollIntoViewIfNeeded || */ scrollToEl.scrollIntoView;
 			if (fn) {
 				fn.call(scrollToEl, true);
 			} else {
