@@ -15,7 +15,7 @@ import FormErrors from 'common/forms/components/FormErrors';
 import Loading from 'common/components/Loading';
 import {clearLoadingFlag} from 'common/utils/react-state';
 
-import ScriptInjector from 'common/mixins/ScriptInjectorMixin';
+import ExternalLibraryManager from 'common/mixins/ExternalLibraryManager';
 
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
@@ -29,7 +29,7 @@ const t2 = scoped('ENROLLMENT');
 
 export default React.createClass({
 	displayName: 'PaymentForm',
-	mixins: [RenderFormConfigMixin, ScriptInjector, FormattedPriceMixin],
+	mixins: [RenderFormConfigMixin, ExternalLibraryManager, FormattedPriceMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired
@@ -50,7 +50,7 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		this.injectScript('https://js.stripe.com/v2/', 'Stripe')
+		this.ensureExternalLibrary('stripe')
 			.then(() => clearLoadingFlag(this));
 		Store.addChangeListener(this.onStoreChange);
 	},

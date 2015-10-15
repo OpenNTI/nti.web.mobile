@@ -40,7 +40,7 @@ function createElement (document, tag, props) {
 
 export default {
 
-	injectExternalLibrary (id) {
+	ensureExternalLibrary (id) {
 		const config = externalLibraries();
 
 		const lib = config[id] || {};

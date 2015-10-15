@@ -22,7 +22,7 @@ import RenderFormConfigMixin from 'common/forms/mixins/RenderFormConfigMixin';
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 import FormPanel from 'common/forms/components/FormPanel';
 import Localized from 'common/components/LocalizedHTML';
-import ScriptInjector from 'common/mixins/ScriptInjectorMixin';
+import ExternalLibraryManager from 'common/mixins/ExternalLibraryManager';
 import Err from 'common/components/Error';
 
 import Store from '../Store';
@@ -36,7 +36,7 @@ let agreementURL = '/mobile/api/user-agreement/view';
 export default React.createClass({
 	displayName: 'GiftView',
 
-	mixins: [RenderFormConfigMixin, ScriptInjector, FormattedPriceMixin],
+	mixins: [RenderFormConfigMixin, ExternalLibraryManager, FormattedPriceMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired
@@ -78,11 +78,11 @@ export default React.createClass({
 
 	componentDidMount () {
 
-		this.injectExternalLibrary('jquery.payment')
+		this.ensureExternalLibrary('jquery.payment')
 			// stripe is listed as a dependency of jquery.payment, it will be automatically included...
 			// This line is to document that we also want Stripe. (it will reuse the already-in-flight
 			// request for stripe)
-			.then(() => this.injectExternalLibrary('stripe'))
+			.then(() => this.ensureExternalLibrary('stripe'))
 
 			.then(()=> clearLoadingFlag(this))
 			.catch(this.onError);
