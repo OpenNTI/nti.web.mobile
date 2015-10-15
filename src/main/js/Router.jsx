@@ -10,11 +10,11 @@ import {
 const ENVIRONMENT = environment.defaultEnvironment;
 
 //Main View Handlers
-import Catalog from 'catalog/components/View';
+import Catalog from 'catalog/components/View.async';
 import Contacts from 'contacts/components/View';
 import Content from 'content/components/View';
 import Course from 'course/components/View';
-import Enrollment from 'enrollment/components/View';
+import Enrollment from 'enrollment/components/View.async';
 import Home from 'home/components/View';
 import Library from 'library/components/View';
 import Login from 'login/components/View';

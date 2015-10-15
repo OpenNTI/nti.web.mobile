@@ -13,7 +13,7 @@ import BasePathAware from 'common/mixins/BasePath';
 import Loading from 'common/components/Loading';
 import Page from 'common/components/Page';
 
-import Enrollment from 'enrollment/components/View';
+import Enrollment from 'enrollment/components/View.async';
 import PaymentComplete from 'enrollment/five-minute/components/PaymentComplete';
 import Enroll from 'enrollment/components/Enroll';
 import GiftPurchaseView from 'enrollment/store-enrollment/components/GiftPurchaseView';
