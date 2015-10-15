@@ -212,6 +212,7 @@ export default React.createClass({
 			return;
 		}
 
+		console.debug('Selection Detection triggered by: ', e.type);
 		const TICK = 20;
 
 		clearTimeout(this.selectionDetection);
@@ -220,6 +221,7 @@ export default React.createClass({
 			let s = window.getSelection();
 			let hasSelection = s && !s.isCollapsed && s.type === 'Range' && s.getRangeAt(0);
 
+			console.debug('Selection Detection Running...');
 			if (!hasSelection && s) {
 				setTimeout(()=> s.removeAllRanges(), TICK);
 			}
