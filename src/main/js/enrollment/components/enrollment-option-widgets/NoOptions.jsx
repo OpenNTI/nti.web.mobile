@@ -1,5 +1,5 @@
 import React from 'react';
-import PanelButton from 'common/components/PanelButton';
+import Notice from 'common/components/Notice';
 import t from 'common/locale';
 
 export default React.createClass({
@@ -8,9 +8,12 @@ export default React.createClass({
 
 	render () {
 		return (
-			<PanelButton href="../" linkText={t('BUTTONS.ok')}>
-				This course is not currently available for enrollment.
-			</PanelButton>
+			<div>
+				<Notice>This course is not currently available for enrollment.</Notice>
+				<div className="text-center">
+					<a href="../" className="button tiny">{t('BUTTONS.ok')}</a>
+				</div>
+			</div>
 		);
 	}
 
