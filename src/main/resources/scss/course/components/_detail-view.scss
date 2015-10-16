@@ -58,6 +58,10 @@
 				margin: 0.5rem 0;
 				font-size: 1rem;
 			}
+
+			.link a:not(:link) {
+				color: $primary-grey;
+			}
 		}
 	}
 
