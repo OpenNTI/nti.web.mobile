@@ -100,8 +100,8 @@ export default React.createClass({
 		return (
 			<Element className={wrapperClasses} {...this.props} onClick={profileLinks ? null : this.onClick}>
 				<Tag className="avatar-spacer" entity={entity}>
-					<Avatar entity={entity} />
-					<DisplayName entity={entity} useGeneralName/>
+					<Avatar entity={entity} suppressProfileLink/>
+					<DisplayName entity={entity} useGeneralName suppressProfileLink/>
 					<div className="association">{this.association(entity)}</div>
 				</Tag>
 				<div onClick={profileLinks ? this.onClick : null} className={classes}>{this.label(selected)}</div>

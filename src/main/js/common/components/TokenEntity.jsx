@@ -16,7 +16,7 @@ export default React.createClass({
 
 		return (
 			<div className={cx('token pill', className, {selected})} {...this.props}>
-				<DisplayName entity={entity}/>
+				<DisplayName entity={entity} suppressProfileLink/>
 			</div>
 		);
 	}

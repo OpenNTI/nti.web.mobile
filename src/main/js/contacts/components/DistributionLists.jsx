@@ -86,9 +86,9 @@ export default React.createClass({
 					onRightClick={this.deleteList.bind(null,item)}
 				>
 					<a href={encodeForURI(item.getID())}>
-						<Avatar entity={item} />
+						<Avatar entity={item} suppressProfileLink/>
 						<div className="body">
-							<DisplayName entity={item} />
+							<DisplayName entity={item} suppressProfileLink/>
 							<ListMeta entity={item} />
 							{/*{item.delete && <div className="delete" onClick={this.deleteList.bind(this, item)}></div>}*/}
 						</div>

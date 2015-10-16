@@ -51,8 +51,8 @@ export default React.createClass({
 			>
 				<ProfileLink entity={entity}>
 					<div className="avatar-spacer" entity={entity}>
-						<Avatar entity={entity} />
-						<DisplayName entity={entity} useGeneralName/>
+						<Avatar entity={entity} suppressProfileLink/>
+						<DisplayName entity={entity} useGeneralName suppressProfileLink/>
 						<div className="association">{this.association(entity)}</div>
 					</div>
 				</ProfileLink>
