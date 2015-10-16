@@ -24,7 +24,6 @@ var modules = path.resolve(__dirname, '..', 'node_modules');
 var appFontName = /(icomoon|(OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-)).*woff/i;
 
 var commonLoaders = [
-	getCodeLoaderConfig(/\.async\.jsx$/i, 'react-proxy'),
 	getCodeLoaderConfig(/\.js(x?)$/i),
 
 	{ test: /\.json$/, loader: 'json' },
@@ -124,15 +123,19 @@ exports = module.exports = [
 		},
 
 		module: {
-			loaders: commonLoaders.concat([
-				{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
-					'style-loader',
-					(global.distribution
-						? 'css?-minimize!autoprefixer!sass?'
-						: 'css?sourceMap!autoprefixer!sass?sourceMap&'
-					) + scssIncludes )
-				}
-			])
+			loaders: [
+				getCodeLoaderConfig(/\.async\.jsx$/i, 'react-proxy')
+			]
+				.concat(commonLoaders)
+				.concat([
+					{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
+						'style-loader',
+						(global.distribution
+							? 'css?-minimize!autoprefixer!sass?'
+							: 'css?sourceMap!autoprefixer!sass?sourceMap&'
+						) + scssIncludes )
+					}
+				])
 		},
 
 
