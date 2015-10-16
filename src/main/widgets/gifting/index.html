@@ -88,10 +88,27 @@
 		/./.test(' '); //workaround bug of intl.js in FF.
 		console.debug = function() {};
 
+		//TODO: build this config and inject it at deployment time.
 		window.$AppConfig = {
 			basepath: location.pathname,
 			server: location.protocol + '//' + location.host + '/dataserver2/',
-			siteName: 'platform.ou.edu'
+			siteName: 'platform.ou.edu',
+			"external-libraries": {
+				"jquery": {
+					"url": "https://code.jquery.com/jquery-2.1.3.min.js",
+					"definesSymbol": "jQuery.noConflict",
+					"invokeDefinedSymbol": true
+				},
+				"jquery.payment": {
+					"requires": ["jquery", "stripe"],
+					"url": "https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.3.2/jquery.payment.min.js",
+					"definesSymbol": "jQuery.payment"
+				},
+				"stripe": {
+					"url": "https://js.stripe.com/v2/",
+					"definesSymbol": "Stripe"
+				}
+			}
 		};
 
 		(function() {
