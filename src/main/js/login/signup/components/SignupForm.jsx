@@ -93,10 +93,12 @@ export default React.createClass({
 		let errors;
 		console.debug('SignupForm received Store change event: %O', event);
 		if (event.type === 'created') {
-			getServer().deleteTOS();
-			let returnPath = getReturnURL();
-			let path = returnPath || this.props.basePath;
-			window.location.replace(path);
+			getServer().deleteTOS()
+				.then(() => {
+					let returnPath = getReturnURL();
+					let path = returnPath || this.props.basePath;
+					window.location.replace(path);
+				});
 			return;
 		}
 
