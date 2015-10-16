@@ -1,0 +1,76 @@
+
+.question-part .symbolic-math {
+	position: relative;
+
+	& > .debug {
+		top: -4rem; left: 0; right: 0; width: 100%;
+		position: absolute;
+		border-width: 1px;
+		display: none;
+	}
+
+	.input {
+		border: 2px solid #ccc;
+		display: block;
+		position: relative;
+		// padding: 0;
+		font: normal normal 1rem $body-font-family;
+		padding: 0.75rem 0.5rem 0.3125rem !important;
+
+		& > span {
+			border: none;
+
+
+			&[data-label]::after{
+				font-style: italic !important;
+				color: $tertiary-grey;
+				content: attr(data-label);
+				margin: 0.3em;
+			}
+		}
+	}
+
+	.mathquill-editable,
+	.mathquill-rendered-math {
+		color: $primary-grey;
+		border-color: $primary-grey;
+
+		&.hasCursor,
+		& .hasCursor {
+			box-shadow: none;
+		}
+	}
+
+	.mathquill-rendered-math sup, .mathquill-rendered-math sub {
+		overflow: hidden; //if this is omitted, the expression may not remain in the bounds of the box.
+	}
+
+	.mathsymbol {
+		position: relative;
+		display: inline-block;
+		width: 2.25rem;
+		height: 2.25rem;
+		// box-shadow: 0 0 0 1px black;
+		overflow: hidden;
+
+		$symbol-list: sqrt square parens approx pi leq geq neq;
+		@each $symbol in $symbol-list {
+			&.#{$symbol}::after {
+				content: url(../images/icons/symbolic-math-input/#{$symbol}.png);
+			}
+		}
+
+		&::after {
+			position: absolute;
+			top: 50%; left: 50%;
+			transform: translate(-50%, -50%);
+			line-height: 0;
+			display: block;
+		}
+
+	}
+
+	.shortcuts {
+		margin-bottom: 1rem;
+	}
+}
