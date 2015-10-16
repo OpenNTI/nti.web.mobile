@@ -228,7 +228,7 @@ export default React.createClass({
 			<div className="user-search">
 				<ul className="input-list">
 					{selectedUsers.map(user => <li key={'selected-' + user.getID()} className="selected-item">{user.displayName}</li>)}
-					<li key="input-field" className="input-field search">
+					<li key="input-field" className="input-field">
 						<input type="text"
 							className="search-input"
 							ref="query"

@@ -8,7 +8,7 @@ import t from 'common/locale';
 
 import {getModel} from 'nti.lib.interfaces';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
-import {AGGREGATED_LINK, REPORT_LINK} from 'nti.lib.interfaces/models/assessment/survey/Constants';
+import {REPORT_LINK} from 'nti.lib.interfaces/models/assessment/survey/Constants';
 
 const OutlineNode = getModel('courses.courseoutlinenode');
 
@@ -35,11 +35,6 @@ export default React.createClass( {
 	propTypes: {
 		item: React.PropTypes.object,
 		node: React.PropTypes.instanceOf(OutlineNode)
-	},
-
-
-	componentDidMount () {
-		this.props.item.fetchLinkParsed(AGGREGATED_LINK).catch(()=>{});
 	},
 
 

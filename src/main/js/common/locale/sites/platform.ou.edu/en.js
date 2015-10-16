@@ -9,7 +9,10 @@ export default {
 
 	COURSE: {
 		CONTACTINFO: {
-			phone: '(405) 325-HELP',
+			LINK0: {
+				label: '(405) 325-HELP',
+				link: null
+			},
 			LINK1: {
 				label: 'janux@ou.edu',
 				link: 'mailto:janux@ou.edu'
