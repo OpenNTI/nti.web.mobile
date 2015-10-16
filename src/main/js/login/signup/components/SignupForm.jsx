@@ -5,6 +5,8 @@ import cx from 'classnames';
 
 import {NavigatableMixin} from 'react-router-component';
 
+import BasePathAware from 'common/mixins/BasePath';
+import StoreEvents from 'common/mixins/StoreEvents';
 import {scoped} from 'common/locale';
 let t = scoped('LOGIN.CREATE_ACCOUNT');
 
@@ -31,14 +33,16 @@ const FIELDS = [
 
 
 export default React.createClass({
-
 	displayName: 'SignupForm',
-
-	mixins: [NavigatableMixin],
+	mixins: [StoreEvents, NavigatableMixin, BasePathAware],
 
 	propTypes: {
-		privacyUrl: React.PropTypes.string,
-		basePath: React.PropTypes.string
+		privacyUrl: React.PropTypes.string
+	},
+
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		default: 'storeChanged'
 	},
 
 	getDefaultProps () {
@@ -93,12 +97,10 @@ export default React.createClass({
 		let errors;
 		console.debug('SignupForm received Store change event: %O', event);
 		if (event.type === 'created') {
+			const returnPath = getReturnURL();
+			const path = returnPath || this.getBasePath();
 			getServer().deleteTOS()
-				.then(() => {
-					let returnPath = getReturnURL();
-					let path = returnPath || this.props.basePath;
-					window.location.replace(path);
-				});
+				.then(() => { window.location.replace(path); });
 			return;
 		}
 
@@ -114,16 +116,6 @@ export default React.createClass({
 		}
 
 		this.setState({enabled, busy: false, errors});
-	},
-
-
-	componentDidMount () {
-		Store.addChangeListener(this.storeChanged);
-	},
-
-
-	componentWillUnmount () {
-		Store.removeChangeListener(this.storeChanged);
 	},
 
 
