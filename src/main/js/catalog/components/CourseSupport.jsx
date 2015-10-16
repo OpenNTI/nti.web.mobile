@@ -10,17 +10,7 @@ const MISSING = '~~missing~~';
 
 const t = scoped('COURSE.CONTACTINFO');
 
-/*
-phone: '(405) 325-HELP',
-LINK1: {
-	label: 'janux@ou.edu',
-	link: 'mailto:janux@ou.edu'
-},
-LINK2: {
-	label: 'Service Centers',
-	link: 'http://www.ou.edu/content/ouit/help/personal.html'
-},
- */
+const f = {fallback: MISSING};
 
 export default React.createClass({
 	displayName: 'CourseSupport',
@@ -31,9 +21,8 @@ export default React.createClass({
 
 
 	shouldRender () {
-		let f = {fallback: MISSING};
 		return [
-			t('phone', f) !== MISSING,
+			t('LINK0.label', f) !== MISSING,
 			t('LINK1.label', f) !== MISSING,
 			t('LINK2.label', f) !== MISSING
 		].some(x => x);
@@ -41,7 +30,6 @@ export default React.createClass({
 
 
 	render () {
-		let f = {fallback: MISSING};
 		return (
 			<Conditional condition={this.shouldRender()} className="course-detail-view">
 
@@ -50,21 +38,29 @@ export default React.createClass({
 						<img src={BLANK_IMAGE} alt="Support"/>
 						<div className="meta">
 							<div className="label">Tech Support</div>
-							<Conditional condition={t('phone', f) !== MISSING} className="item phone">
-								{t('phone')}
-							</Conditional>
-							<Conditional condition={t('LINK1.label', f) !== MISSING} className="item link">
-								<a href={t('LINK1.link')}>{t('LINK1.label')}</a>
-							</Conditional>
-							<Conditional condition={t('LINK2.label', f) !== MISSING} className="item link">
-								<a href={t('LINK2.link')}>{t('LINK2.label')}</a>
-							</Conditional>
+							{[0,1,2].map(x => this.renderLink(x))}
 						</div>
 					</div>
 				</div>
 				<div className="footer"/>
-
 			</Conditional>
+		);
+	},
+
+	renderLink (index) {
+		const label = t(`LINK${index}.label`, f);
+		const link = t(`LINK${index}.link`, f);
+
+		if (label === MISSING) {
+			return;
+		}
+
+		let ref = link === MISSING ? void 0 : link;
+
+		return (
+			<div className="item link">
+				<a href={ref}>{label}</a>
+			</div>
 		);
 	}
 });
