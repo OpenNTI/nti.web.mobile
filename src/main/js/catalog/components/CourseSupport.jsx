@@ -59,7 +59,7 @@ export default React.createClass({
 
 		return (
 			<div className="item link">
-				<a href={ref}>{label}</a>
+				<a href={ref} target="_blank">{label}</a>
 			</div>
 		);
 	}
