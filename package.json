@@ -97,6 +97,7 @@
     "react-dom": "^0.14.0",
     "react-editor-component": "NextThought/react-editor-component",
     "react-proxy-loader": "^0.3.4",
+    "react-relay": "^0.4.0",
     "react-router-component": "^0.27.1",
     "react-swipe-to-reveal-options": "^0.1.6",
     "request": "^2.53.0",

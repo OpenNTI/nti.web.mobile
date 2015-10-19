@@ -14,9 +14,10 @@ if (site) { site.parentNode.appendChild(site); }
 import FastClick from 'fastclick';
 FastClick.attach(document.body);
 
+import path from 'path';
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import Relay from 'react-relay';
+import Relay from 'react-relay';
 
 import OrientationHandler from 'common/utils/orientation';
 import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'common/utils';
@@ -26,6 +27,8 @@ console.debug('Client is using host: %s', getServerURI());
 
 const basePath = (global.$AppConfig || {}).basepath || '/';
 
+Relay.injectNetworkLayer(
+	new Relay.DefaultNetworkLayer(path.join(basePath, '/api/graphql')));
 
 
 import AppView from './AppView';
