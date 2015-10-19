@@ -110,7 +110,11 @@ export default React.createClass({
 										/>
 								</nav>
 
-								<TransitionGroup transitionName="community-menu" className="coordinate-root">
+								<TransitionGroup className="coordinate-root"
+									transitionName="community-menu"
+									transitionEnterTimeout={500}
+									transitionLeaveTimeout={500}
+									>
 									{body}
 								</TransitionGroup>
 							</div>

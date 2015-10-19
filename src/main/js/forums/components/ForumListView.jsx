@@ -108,7 +108,12 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Transition transitionName="fadeOutIn" transitionAppear>
+				<Transition transitionName="fadeOutIn"
+					transitionAppear 
+					transitionAppearTimeout={500}
+					transitionEnterTimeout={500}
+					transitionLeaveTimeout={500}
+				>
 					<nav className="forum">
 						<ul>
 							{
