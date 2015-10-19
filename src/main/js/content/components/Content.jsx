@@ -5,6 +5,7 @@ import {declareCustomElement} from 'common/utils/dom';
 import {getEventTarget} from 'nti.lib.dom';
 
 import {getWidget} from './widgets';
+import isTouchDevice from 'nti.lib.interfaces/utils/is-touch-device';
 
 function getComparable (o) {
 	return o && o.page;
@@ -174,8 +175,12 @@ export default React.createClass({
 		let body = page.getBodyParts();
 		let styles = (page && page.getPageStyles()) || [];
 
+		let props = {
+			[isTouchDevice ? 'onTouchEnd' : 'onMouseUp']: this.detectSelection
+		};
+
 		return (
-			<div onMouseUp={this.detectSelection} onTouchEnd={this.detectSelection}>
+			<div {...props}>
 				{styles.map((css, i) =>
 					<style scoped type="text/css" key={i} dangerouslySetInnerHTML={{__html: css}}/>
 				)}
@@ -212,21 +217,12 @@ export default React.createClass({
 			return;
 		}
 
-		console.debug('Selection Detection triggered by: ', e.type);
-		const TICK = 20;
+		let s = window.getSelection();
+		let range = s && !s.isCollapsed && s.type === 'Range' && s.getRangeAt(0);
 
-		clearTimeout(this.selectionDetection);
+		console.debug('Selection Detection Running...', s, range);
 
-		this.selectionDetection = setTimeout(()=> {
-			let s = window.getSelection();
-			let hasSelection = s && !s.isCollapsed && s.type === 'Range' && s.getRangeAt(0);
+		this.props.onUserSelectionChange(capture, range);
 
-			console.debug('Selection Detection Running...');
-			if (!hasSelection && s) {
-				setTimeout(()=> s.removeAllRanges(), TICK);
-			}
-
-			this.props.onUserSelectionChange(capture, hasSelection);
-		}, TICK);
 	}
 });
