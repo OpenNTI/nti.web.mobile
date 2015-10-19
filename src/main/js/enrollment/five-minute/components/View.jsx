@@ -7,7 +7,7 @@ import PanelButton from 'common/components/PanelButton';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import CourseContentLink from 'library/components/CourseContentLinkMixin';
+import CourseContentLink from 'library/mixins/CourseContentLink';
 
 import PaymentComplete from './PaymentComplete';
 import ConcurrentSent from './ConcurrentSent';
@@ -64,7 +64,7 @@ export default React.createClass({
 			let href = this.courseHref(this.props.courseId);
 
 			return (
-				<PanelButton href={href} linkText='Proceed to the course'>
+				<PanelButton href={href} linkText="Proceed to the course">
 					You are enrolled.
 				</PanelButton>
 			);

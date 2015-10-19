@@ -1,5 +1,5 @@
 import fs from 'fs';
-import guid from 'nti.lib.interfaces/utils/guid';
+import uuid from 'node-uuid';
 import logger from './logger';
 import path from 'path';
 
@@ -8,7 +8,7 @@ const basepathreplace = /(manifest|src|href)="(.*?)"/igm;
 const isRootPath = /^\/(?!\/).*/;
 
 
-export default function setupErrorHandler(express, config) {
+export default function setupErrorHandler (express, config) {
 	const basePath = express.mountpath || '/';
 	const appConfig = config;
 
@@ -25,7 +25,7 @@ export default function setupErrorHandler(express, config) {
 
 	// We need the signature to be 4 args long
 	// for express to treat it as a error handler
-	express.use(function(err, req, res, next) { // eslint-disable-line no-unused-vars
+	express.use(function (err, req, res, next) { // eslint-disable-line no-unused-vars
 		if (!err) {
 			err = 'Unknown Error';
 		}
@@ -36,7 +36,7 @@ export default function setupErrorHandler(express, config) {
 			err = err.stack;
 		}
 
-		let errorid = guid();
+		let errorid = uuid.v4();
 		logger.error(errorid, err);
 
 		let body;
@@ -69,7 +69,7 @@ export default function setupErrorHandler(express, config) {
 	});
 }
 
-function preprocess(templateStr, data={}) {
+function preprocess (templateStr, data = {}) {
 	// {
 	// 	err={},
 	// 	errorid,

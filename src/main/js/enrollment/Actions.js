@@ -9,6 +9,6 @@ export function dropCourse (courseId) {
 	dispatch(DROP_COURSE, { courseId });
 }
 
-function dispatch(type, data) {
+function dispatch (type, data) {
 	AppDispatcher.handleRequestAction(Object.assign(data, {type}));
 }

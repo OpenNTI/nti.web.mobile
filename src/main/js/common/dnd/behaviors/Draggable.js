@@ -1,10 +1,11 @@
 //heavily inspired by: https://github.com/mzabriskie/react-draggable
 
-import React, {PropTypes} from 'react';
+import {PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import Base, {TYPE_SHAPE} from './Base';
 
 import {PointerEvents} from 'nti.lib.interfaces/utils/is-touch-device';
-import emptyFunction from 'react/lib/emptyFunction';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 
 import {
@@ -39,15 +40,15 @@ const DIRECTIONS = {
 };
 
 
-function canDrag(x) {
-	return function() {
+function canDrag (x) {
+	return function () {
 		let {axis} = this.props;
 		return axis === 'both' || axis === x;
 	};
 }
 
 
-function getDragPoint(e) {
+function getDragPoint (e) {
 	e = (!e.touches ? e : e.touches[0]);
 	let {clientX, clientY} = e;
 	return {
@@ -57,7 +58,7 @@ function getDragPoint(e) {
 }
 
 
-function isDirection(dir, key, a, b) {
+function isDirection (dir, key, a, b) {
 	if (!a || !b) {
 		return null;
 	}
@@ -79,9 +80,9 @@ export default {
 
 	propTypes: {
 		type: PropTypes.oneOfType([
-				PropTypes.string,
-				PropTypes.shape(TYPE_SHAPE)
-			]).isRequired,
+			PropTypes.string,
+			PropTypes.shape(TYPE_SHAPE)
+		]).isRequired,
 
 
 		restoreOnStop: PropTypes.bool,
@@ -178,7 +179,7 @@ export default {
 
 
 	componentDidMount () {
-		this.scrollParent = getScrollParent(React.findDOMNode(this));
+		this.scrollParent = getScrollParent(ReactDOM.findDOMNode(this));
 	},
 
 
@@ -208,7 +209,7 @@ export default {
 
 
 	handleDragStart (e) {
-		let node = React.findDOMNode(this);
+		let node = ReactDOM.findDOMNode(this);
 		let dragPoint = getDragPoint(e);
 		let onDragStart = this.context.onDragStart || emptyFunction;
 		let {handle, cancel} = this.props;
@@ -267,14 +268,12 @@ export default {
 		// ourself is probably in our place)
 		if (this.isMounted()) {
 			this.setState(
-				Object.assign(
-				{
+				Object.assign({
 					dragging: false,
 					startX: 0,
 					startY: 0
 				},
-				this.props.restoreOnStop ?
-				{
+				this.props.restoreOnStop ? {
 					restoring: dragStopResultedInDrop,
 					x: 0,
 					y: 0

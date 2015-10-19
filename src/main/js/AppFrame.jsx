@@ -1,14 +1,14 @@
 import React from 'react';
-import CSS from 'react/lib/CSSCore';
+import CSS from 'fbjs/lib/CSSCore';
 
 import Session from 'common/components/Session';
 import Footer from 'common/components/Footer';
 
 import RouteAware from 'common/mixins/NavigatableMixin';
+import LockScroll from 'common/components/LockScroll';
 
 import Notifications from 'notifications/components/View';
 
-import {getAppUsername} from 'common/utils';
 import {getHeight as getViewportHeight} from 'common/utils/viewport';
 
 // import preventOverscroll from 'common/thirdparty/prevent-overscroll';
@@ -50,7 +50,7 @@ export default React.createClass({
 	},
 
 
-	componentDidUnmount () {
+	componentWillUnmount () {
 		removeEventListener('hashchange', this.onNavChange, false);
 		removeEventListener('popstate', this.onNavChange, false);
 	},
@@ -59,29 +59,21 @@ export default React.createClass({
 	getOverlayState () { return (this.state || {}).overlay; },
 
 
-	componentDidUpdate () {
-		let viewport = document.getElementsByTagName('html')[0];
-		let action = (this.getOverlayState() == null) ? CSS.removeClass : CSS.addClass;
-
-		action(viewport, 'scroll-lock');
-	},
-
-
 	render () {
 		let height = {height: getViewportHeight()};
 		let state = this.getOverlayState() || '';
-		let username = getAppUsername();
 
 		return (
 			<div className="app-container">
 				<Analytics />
 				<LibraryInvalidationListener />
+				{this.getOverlayState() != null && (<LockScroll/> )}
 
 				<div className={`off-canvas-wrap ${state}`} data-offcanvas>
 					<div className="inner-wrap">
 
 						<aside className="right-off-canvas-menu" style={height} ref="rightMenu">
-							<Session username={username}/>
+							<Session />
 							<Notifications/>
 						</aside>
 
@@ -119,21 +111,9 @@ export default React.createClass({
 			this.waitForCloseAnimation = setTimeout(() => {
 
 				//get a reference to the dom node.
-				let el = React.findDOMNode(this.refs.rightMenu);
-				// resolve the rects around it and its parentNode.
-				let A = el && el.parentNode.getBoundingClientRect();
-				let B = el && el.getBoundingClientRect();
-
-				//The drawer's left edge will be at the parent's right edge...
-				//so if the drawer is stuck, it will not equal.
-				if (B && B.left !== A.right) {
-					//The only way to force a browser to recalculate its CSS layout,
-					//is to alter a style property that effects its measurments...
-					el.style.display = 'none';
-					//Let the style apply, so clear it on the next event pump...
-					setTimeout(()=> el.style.display = '', 0);
-				}
-
+				let el = this.refs.rightMenu;
+				CSS.addClass(el, 'kill-transitions');
+				setTimeout(()=> CSS.removeClass(el, 'kill-transitions'), 17/*one frame*/);
 			}, 550);
 
 

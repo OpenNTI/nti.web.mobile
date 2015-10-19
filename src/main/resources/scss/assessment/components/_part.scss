@@ -6,6 +6,7 @@
 @import "input-ordering";
 @import "input-unknown";
 @import "input-modeled-content";
+@import "input-symbolic-math";
 
 .question-part {
 
@@ -55,8 +56,8 @@
 	}
 
 	.question-submission {
-		float: right;
-		position: static;
+		// float: right;
+		position: relative;
 
 		.error {
 			bottom: -1rem;

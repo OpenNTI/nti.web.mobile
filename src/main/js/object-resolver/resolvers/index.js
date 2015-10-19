@@ -1,9 +1,15 @@
+import Assignments from './Assignments';
 import CourseObjects from './CourseObjects';
-import ForumObjects from './ForumObjects';
+import Entities from './Entities';
+import LibraryPath from './LibraryPath';
+import ContentPages from './RandomContentPages';
 
 const handlers = [
+	Assignments,
 	CourseObjects,
-	ForumObjects
+	Entities,
+	LibraryPath,
+	ContentPages
 ];
 
 

@@ -1,6 +1,8 @@
 import React from 'react';
-import {scoped} from 'common/locale';
+
 import {Link} from 'react-router-component';
+
+import {scoped} from 'common/locale';
 
 let t = scoped('LOGIN');
 
@@ -8,13 +10,21 @@ export default React.createClass({
 	displayName: 'RecoveryLinks',
 
 	render () {
+		let username = {
+			id: 'login:forgot:username',
+			href: '/forgot/username',
+			children: t('forgot.username')
+		};
 
-		let cssClasses = 'tiny button small-12 columns';
+		let password = {
+			id: 'login:forgot:password',
+			href: '/forgot/password',
+			children: t('forgot.password')
+		};
 
 		return (
-			<div>
-				<Link id="login:forgot:username" className={cssClasses} href="/forgot/username">{t('forgot.username')}</Link>
-				<Link id="login:forgot:password" className={cssClasses} href="/forgot/password">{t('forgot.password')}</Link>
+			<div className="recovery-links">
+				I forgot my	<Link {...username}/> or <Link {...password}/>.
 			</div>
 		);
 	}

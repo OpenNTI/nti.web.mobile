@@ -1,0 +1,79 @@
+.videos-carousel-container {
+	position: relative;
+	overflow: hidden;
+	// @include viewportWidth(max-width, 100);
+	margin: 0.3rem -0.5rem;
+
+	.prev, .next {
+		background: rgba(0,0,0,0);
+		position: absolute;
+		overflow: hidden;
+		line-height: 2;
+		height: 2rem;
+		bottom: 0;
+		margin: 0;
+		padding: 0;
+		&:focus {
+			outline: 0;
+			&::before {
+				outline: 5px auto $primary-color;
+			}
+		}
+
+		&::before {
+			content: ' ';//override the icon
+			width: 50%;
+			width: 50vw;
+		}
+	}
+	.prev { left: 0; }
+	.next {	right: 0; }
+
+
+}
+
+.videos-carousel, .videos-carousel-dots {
+	margin: 0;
+	list-style-type: none;
+	li {
+		display: inline-block;
+	}
+}
+
+.videos-carousel {
+	@extend %hardware-render;
+	//overflow: hidden;
+	position: relative;
+	white-space: nowrap;
+	width: 100%;
+
+	&:focus {
+		outline: 0;
+	}
+
+	.flex-video {
+		margin: 0;
+		display: inline-block;
+		width: 100%;
+	}
+}
+
+.videos-carousel-dots {
+	text-align: center;
+	white-space: nowrap;
+
+	a {
+		display: block;
+		width: 0.75rem;
+		height: 0.75rem;
+		background: $secondary-color;
+		border-radius: 100%;
+		&.active {
+			background: $primary-color;
+		}
+	}
+
+	li {
+		margin: 0 .5rem;
+	}
+}

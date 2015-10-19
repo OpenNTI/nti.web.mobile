@@ -27,23 +27,23 @@ const FlushLocalStorage = Symbol('FlushLocalStorage');
 
 class AnalyticsStore extends TypedEventEmitter {
 
-	init() {
+	init () {
 		startTimer();
 		startIdleTimer(this.endSession.bind(this, 'idle timer'), this.resumeSession.bind(this, 'idle/activity'));
 		this[ProcessLocalStorage]();
 	}
 
-	pushHistory(item) {
+	pushHistory (item) {
 		if (contextHistory[contextHistory.length - 1] !== item ) { // omit duplicate entries
 			contextHistory.enqueue(item);
 		}
 	}
 
-	getHistory() {
+	getHistory () {
 		return contextHistory.slice(0);
 	}
 
-	enqueueEvents(analyticsEvent) {
+	enqueueEvents (analyticsEvent) {
 		let events = ensureArray(analyticsEvent);
 		events.forEach(e => queue.push(e));
 		try {
@@ -55,7 +55,7 @@ class AnalyticsStore extends TypedEventEmitter {
 		}
 	}
 
-	[HaltActiveEvents](events=queue) {
+	[HaltActiveEvents] (events = queue) {
 		if (!events) {
 			return Promise.resolve([]);
 		}
@@ -78,7 +78,7 @@ class AnalyticsStore extends TypedEventEmitter {
 		});
 	}
 
-	endSession(/*reason='no reason specified'*/) {
+	endSession (/*reason='no reason specified'*/) {
 		// console.debug('Ending analytics session. (%s)', reason);
 		clearTimeout(timeoutId);
 		let haltEvents = this[HaltActiveEvents]();
@@ -89,19 +89,19 @@ class AnalyticsStore extends TypedEventEmitter {
 				});
 			})
 		);
-		shutdown.then(startTimer);
+		return shutdown.then(startTimer);
 	}
 
-	resumeSession(/*reason='no reason specified'*/) {
+	resumeSession (/*reason='no reason specified'*/) {
 		// console.debug('Resume analytics session. (%s)', reason);
 		this.emit(CHANGE_EVENT, {type: Constants.RESUME_SESSION});
 	}
 
-	[FlushLocalStorage]() {
+	[FlushLocalStorage] () {
 		window.localStorage.removeItem(localStorageKey);
 	}
 
-	[ProcessLocalStorage]() {
+	[ProcessLocalStorage] () {
 		// console.debug('processing local storage');
 		try {
 			let q = JSON.parse(window.localStorage.getItem(localStorageKey));
@@ -116,7 +116,7 @@ class AnalyticsStore extends TypedEventEmitter {
 		}
 	}
 
-	[ProcessQueue]() {
+	[ProcessQueue] () {
 		if (queue.length === 0) {
 			return Promise.resolve('No events in the queue.');
 		}
@@ -166,10 +166,10 @@ class AnalyticsStore extends TypedEventEmitter {
 let Store = new AnalyticsStore();
 
 // for submitting analytics events/flushing the queue.
-function startTimer() {
+function startTimer () {
 	clearTimeout(timeoutId);
 	timeoutId = setTimeout(
-		function() {
+		function () {
 			// process the queue and start the timer again.
 			Store[ProcessQueue]().then(startTimer);
 		},
@@ -177,31 +177,23 @@ function startTimer() {
 	);
 }
 
+let eventHandlers = {
+	[Constants.EVENT_STARTED] (action) {
+		console.log('Analytics Store received event: %s, %O', action.event.MimeType, action);
+		Store.enqueueEvents(action.event);
+	},
+	[Constants.RESUME_SESSION] (/* action */) {
+		console.log('dispatching RESUME_SESSION');
+		Store.resumeSession();
+	}
+};
+
 AppDispatcher.register(payload => {
 	let action = payload.action;
 
-	switch (action.type) {
-	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-
-		case Constants.EVENT_STARTED:
-			console.log('Analytics Store received event: %s, %O', action.event.MimeType, action);
-			Store.enqueueEvents(action.event);
-		break;
-
-		case Constants.EVENT_ENDED:
-		break;
-
-		// case Constants.END_SESSION:
-		// 	endSession();
-		// break;
-
-		case Constants.RESUME_SESSION:
-			console.log('dispatching RESUME_SESSION');
-			Store.resumeSession();
-		break;
-
-		default:
-			return true;
+	let handler = eventHandlers[action.type];
+	if (handler) {
+		handler(action);
 	}
 
 	return true; // No errors. Needed by promise in Dispatcher.

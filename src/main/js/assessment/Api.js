@@ -1,5 +1,5 @@
 import ReadOnlyStore from './Store';
-import {getMainSubmittable, isAssignment} from './Utils';
+import {getMainSubmittable, isAssignment} from './utils';
 
 let isHistoryItem = RegExp.prototype.test.bind(/AssignmentHistoryItem/i);
 

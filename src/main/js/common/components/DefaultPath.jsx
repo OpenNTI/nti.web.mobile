@@ -14,7 +14,7 @@ export default React.createClass({
 		defaultFilter: React.PropTypes.string
 	},
 
-	startRedirect() {
+	startRedirect () {
 		clearTimeout(this.pendingRedirect);
 		this.pendingRedirect = setTimeout(()=> this.performRedirect(), 1);
 	},
@@ -44,15 +44,15 @@ export default React.createClass({
 		if (this.props.defaultFilter) {
 			let dfp = this.props.defaultFilter;
 			let df = (typeof dfp === 'string') ? this.findFilter(dfp) : dfp;
-			return (df || {}).path;
+			return (df || {}).kind;
 		}
 
 		let {filters = [], list} = this.props;
-		let result = filters.length > 0 ? filters[0].path : null;
+		let result = filters.length > 0 ? filters[0].kind : null;
 
 		filters.some(filter => {
-			if (list.filter(filter.filter).length > 0) {
-				result = filter.path || filter.name.toLowerCase();
+			if (list.filter(filter.test).length > 0) {
+				result = filter.kind || filter.name.toLowerCase();
 				return true;
 			}
 			return false;
@@ -66,7 +66,7 @@ export default React.createClass({
 		let {filters = []} = this.props;
 		let p = this.getPath() || '';
 
-		let inSet = ()=> filters.reduce((x, f)=> x || (f.path === p), null);
+		let inSet = ()=> filters.reduce((x, f)=> x || (f.kind === p), null);
 
 
 		return /^.?null$/i.test(p) || !inSet(p);

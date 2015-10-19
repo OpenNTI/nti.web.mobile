@@ -12,7 +12,7 @@ export default React.createClass({
 		className: React.PropTypes.string,
 		hasChildren: React.PropTypes.bool,
 		href: React.PropTypes.string,
-		tag: React.PropTypes.string
+		tag: React.PropTypes.any
 	},
 
 
@@ -25,8 +25,11 @@ export default React.createClass({
 
 
 	isActive () {
-		let current = this.makeHref(this.getPath());
-		let {href, hasChildren} = this.props;
+		let current = this.getPath();
+		let {href, hasChildren, tag} = this.props;
+		if(typeof tag === 'string') {
+			current = this.makeHref(current);
+		}
 		if (hasChildren && current) {
 			return current.indexOf(href) === 0;
 		}

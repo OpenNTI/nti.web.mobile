@@ -5,7 +5,7 @@
 
 import QueryString from 'query-string';
 import {getService} from 'common/utils';
-import {thatReturnsArgument as is} from 'react/lib/emptyFunction';
+import {thatReturnsArgument as is} from 'fbjs/lib/emptyFunction';
 
 const test = RegExp.prototype.test;
 const isHLS = test.bind(/ip(hone|ad)new/i);
@@ -15,7 +15,7 @@ const isWebM = test.bind(/webm|matroska/i);
 const isMP4 = test.bind(/mp4/i);
 const is3gp = test.bind(/3gp/i);
 
-function kalturaSig(str) {
+function kalturaSig (str) {
 	let hash = 0;
 	if (str.length === 0) { return hash; }
 	for (let i = 0; i < str.length; i++) {
@@ -29,7 +29,7 @@ function kalturaSig(str) {
 }
 
 
-function parseResult( result ) { // API result
+function parseResult ( result ) { // API result
 
 	let protocol = location.protocol.substr(0, location.protocol.length - 1);
 	// Set the service url based on protocol type
@@ -120,7 +120,7 @@ function parseResult( result ) { // API result
 }
 
 
-export default function getSources(settings) {
+export default function getSources (settings) {
 
 	let param = {
 		service: 'multirequest',

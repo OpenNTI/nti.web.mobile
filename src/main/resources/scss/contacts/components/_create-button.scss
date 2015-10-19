@@ -1,0 +1,8 @@
+.create-button {
+	&, &:active, &:focus, &:hover, &:visited {
+		background-color: $secondary-green;
+	}
+	border-radius: 3px;
+	letter-spacing: 1px;
+	font-weight: 700;
+}

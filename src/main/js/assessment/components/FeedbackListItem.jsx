@@ -1,5 +1,5 @@
 import React from 'react';
-import emptyFunction from 'react/lib/emptyFunction';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import Avatar from 'common/components/Avatar';
 import DateTime from 'common/components/DateTime';
@@ -54,11 +54,11 @@ export default React.createClass({
 
 		return (
 			<div className="feedback item">
-				<Avatar username={createdBy} className="avatar"/>
+				<Avatar entity={createdBy} className="avatar"/>
 				<div className="wrap">
 					<div className="meta">
-						<DisplayName username={createdBy} className="name"/>
-						<DateTime date={createdOn} relative={true}/>
+						<DisplayName entity={createdBy} className="name"/>
+						<DateTime date={createdOn} relative/>
 					</div>
 					{editing ?
 						<Editor value={item.body} onSubmit={this.onEdit} onCancel={this.onToggleEditor}/>

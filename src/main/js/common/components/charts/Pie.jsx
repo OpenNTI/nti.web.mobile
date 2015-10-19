@@ -14,7 +14,7 @@ export default React.createClass({
 		return {
 			title: '',
 			colors: ['#40b450', /*'#b8b8b8',*/ '#3fb3f6', '#F35252'],
-			pixelDensity: 2,
+			pixelDensity: (global.devicePixelRatio || 1) * 2,
 			series: [
 				{value: 12, label: 'foo'},
 				{value: 30, label: 'bar'},
@@ -25,7 +25,7 @@ export default React.createClass({
 
 
 	getCanvas () {
-		return React.findDOMNode(this.refs.canvas);
+		return this.refs.canvas;
 	},
 
 
@@ -152,7 +152,7 @@ export default React.createClass({
 });
 
 
-function sumTo(data, i) {
+function sumTo (data, i) {
 	let sum = 0, j = 0;
 	for (j; j < i; j++) {
 		sum += data[j].value;
@@ -160,4 +160,4 @@ function sumTo(data, i) {
 	return sum;
 }
 
-function percentToRadians(percent) { return ((percent * 360) * Math.PI) / 180; }
+function percentToRadians (percent) { return ((percent * 360) * Math.PI) / 180; }

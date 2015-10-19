@@ -59,6 +59,12 @@ body.nav-menu-open {
 	}
 }
 
+.video-placeholder {
+	@extend %icon-editor-content-video;
+	background-repeat: no-repeat;
+	display: block;
+	height: 3rem;
+}
 
 .video-wrap {
 	position: relative;

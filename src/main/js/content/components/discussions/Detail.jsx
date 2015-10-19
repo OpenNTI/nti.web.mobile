@@ -1,18 +1,13 @@
 import React from 'react';
 
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
-
 import Avatar from 'common/components/Avatar';
-import ContextSender from 'common/mixins/ContextSender';
+import Conditional from 'common/components/Conditional';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 import LuckyCharms from 'common/components/LuckyCharms';
 import SharedWithList from 'common/components/SharedWithList';
 
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
-
-
-import Body from 'modeled-content/components/Panel';
+import {Panel as Body} from 'modeled-content';
 
 // import {scoped} from 'common/locale';
 // const t = scoped('CONTENT.DISCUSSIONS');
@@ -27,71 +22,61 @@ import NotePanelBehavior from './NotePanelBehavior';
 export default React.createClass({
 	displayName: 'content:discussions:Detail',
 	mixins: [
-		ContextSender,
-		NavigatableMixin,
 		NotePanelBehavior
 	],
 
 	propTypes: {
 		pageSource: React.PropTypes.object,
 
-		item: React.PropTypes.object
-	},
+		item: React.PropTypes.object,
 
-
-	componentDidMount () { this.updatePageSource(); },
-	componentWillReceiveProps (props) { this.updatePageSource(props); },
-
-	updatePageSource (props = this.props) {
-		let {pageSource, item} = props;
-		this.setPageSource(pageSource, item.getID());
-	},
-
-
-	getContext () {
-		let {item} = this.props;
-
-		return Promise.resolve({
-			label: item.title || 'Note',
-			href: this.makeHref(encodeForURI(item.getID()))
-		});
+		/**
+		 * Turns off alot of things for activity views.
+		 *
+		 * @type {bool}
+		 */
+		lite: React.PropTypes.bool
 	},
 
 
 	render () {
 		let {replying} = this.state;
-		let {item} = this.props;
+		let {item, lite} = this.props;
 		let {body, creator, title} = item;
-		let date = item.getLastModified();
+		let date = item.getCreatedTime();
 
 
 		return (
-			<div className="discussion-detail">
+			<div className={`discussion-${item.isReply() ? 'reply' : 'detail'}`}>
 				<div className="root">
-					<div className="author-info">
-						<Avatar username={creator}/>
+					<Conditional condition={!item.placeholder} className="author-info">
+						<Avatar entity={creator}/>
 						<div className="meta">
 							<LuckyCharms item={item}/>
 							<h1 className="title">{title}</h1>
 							<div className="name-wrapper">
-								<DisplayName username={creator} localeKey="CONTENT.DISCUSSIONS.postedBy"/>
+								<DisplayName entity={creator} localeKey={lite ? void 0 : 'CONTENT.DISCUSSIONS.postedBy'}/>
 								<DateTime date={date} relative/>
 								<SharedWithList item={item}/>
 							</div>
 						</div>
-					</div>
+					</Conditional>
 
-					<Context item={item}/>
+					{!lite && ( <Context item={item}/> )}
 
-					<Body body={body}/>
+					{!item.placeholder && ( <Body body={body}/> )}
 
-					{replying ? (
-						<ReplyEditor item={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
-					) : (
-						<ItemActions item={item} isTopLevel onReply={this.showReplyEditor}/>
+					{!lite && !item.placeholder && (
+						replying ? (
+							<ReplyEditor item={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
+						) : (
+							<ItemActions item={item} isTopLevel onReply={this.showReplyEditor}/>
+						)
 					)}
+
+
 				</div>
-				{this.renderReplies()}
+				{!lite && this.renderReplies()}
 			</div>
 		);
 	},

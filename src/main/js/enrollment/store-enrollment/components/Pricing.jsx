@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {scoped} from 'common/locale';
 let t = scoped('ENROLLMENT.GIFT.PRICING');
@@ -40,15 +39,15 @@ export default React.createClass({
 		}
 	},
 
-	resetState(theprops = this.props) {
+	resetState (theprops = this.props) {
 		let pricing = this.getCouponPricing();
 		let state = {
-				currency: theprops.purchasable.currency,
-				currentPrice: theprops.purchasable.amount,
-				triedCoupon: false,
-				couponDiscount: false,
-				checkingCoupon: false
-			};
+			currency: theprops.purchasable.currency,
+			currentPrice: theprops.purchasable.amount,
+			triedCoupon: false,
+			couponDiscount: false,
+			checkingCoupon: false
+		};
 
 		if (theprops.locked) {
 			state.coupon = t('noCoupon');
@@ -147,9 +146,7 @@ export default React.createClass({
 			return this.setState({ coupon: this.state.coupon });
 		}
 
-		let couponRef = this.refs.coupon,
-			couponEl = couponRef && couponRef.isMounted() && React.findDOMNode(couponRef),
-			coupon = couponEl && couponEl.value;
+		let coupon = (this.refs.coupon || {}).value;
 
 		this.setState({
 			coupon: coupon,
@@ -161,6 +158,7 @@ export default React.createClass({
 
 
 	render () {
+		const {props: {locked}} = this;
 		let type = 'Lifelong Learner';
 		let vendorInfo = this.props.purchasable.VendorInfo;
 		let startDate = vendorInfo && vendorInfo.StartDate;
@@ -173,7 +171,7 @@ export default React.createClass({
 		let couponLabel = t('coupon');
 		let couponLabelCls = '';
 
-		if (this.props.locked) {
+		if (locked) {
 			couponLabelCls = '';
 			couponLabel = t('lockedCoupon');
 		} else if (this.state.checkingCoupon) {
@@ -238,6 +236,7 @@ export default React.createClass({
 								<span className={'label ' + couponLabelCls}>{couponLabel}</span>
 								<input type="text"
 									ref="coupon" name="coupon"
+									disabled={locked} readOnly={locked}
 									placeholder={t('couponPlaceholder')}
 									onChange={this.onCouponChanged}
 									value={this.state.coupon}/>

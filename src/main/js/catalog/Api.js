@@ -1,10 +1,10 @@
-import Catalog from 'nti.lib.interfaces/stores/Catalog';
+import {Catalog} from 'nti.lib.interfaces';
 
 import {getService} from 'common/utils';
 
 let catalog;
 
-export function getCatalog(reload) {
+export function getCatalog (reload) {
 
 	if (!catalog || reload) {
 		catalog = getService()

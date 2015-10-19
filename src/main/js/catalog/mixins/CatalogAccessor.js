@@ -8,7 +8,7 @@ export default {
 
 	backingStore: CatalogStore,
 	backingStoreEventHandlers: {
-		default: function () {
+		default () {
 			let catalog = this.getCatalog();
 			this.setState({catalog, catalogLoading: CatalogStore.loading});
 		}

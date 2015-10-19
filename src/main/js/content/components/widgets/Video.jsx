@@ -12,6 +12,17 @@ import {Component as Video} from 'video';
 import Mixin from './Mixin';
 
 
+function getVideo (object, index) {
+	let {NTIID = object.ntiid} = object;
+
+	if (object.getID) {
+		return object;
+	}
+
+	return NTIID ? index.get(NTIID) : index.videoFrom(object);
+}
+
+
 export default React.createClass({
 	displayName: 'NTIVideo',
 	mixins: [Mixin, ContextAccessor],
@@ -24,7 +35,11 @@ export default React.createClass({
 	propTypes: {
 		item: React.PropTypes.object,
 
-		contentPackage: React.PropTypes.object
+		contentPackage: React.PropTypes.object,
+
+		onFocus: React.PropTypes.func,
+
+		tag: React.PropTypes.any
 	},
 
 
@@ -58,7 +73,7 @@ export default React.createClass({
 	},
 
 
-	getVideoID(props) {
+	getVideoID (props) {
 		let item = (props || this.props).item;
 
 		return item.NTIID || (item.dataset || {}).ntiid;
@@ -67,14 +82,12 @@ export default React.createClass({
 
 	fillInVideo  (props) {
 		try {
-			let {video} = this.state;
-			let {contentPackage, item} = props;
+			const {state: {video}} = this;
+			const {contentPackage, item} = props;
 
 			if (video && item.NTIID === video.getID()) {
 				return;
 			}
-
-			let NTIID = this.getVideoID();
 
 			this.setState({loading: true});
 
@@ -82,9 +95,10 @@ export default React.createClass({
 			this.resolveContext()
 				.then(context=>this.setState({context}))
 
-				.then(()=> (typeof item.getPoster === 'function')
-						? item
-						: contentPackage.getVideoIndex().then(x=> x.get(NTIID)))
+				.then(() => getVideo(item))
+				.catch(() => contentPackage && contentPackage.getVideoIndex()
+					.catch(() => null)
+					.then(index => getVideo(item, index)))
 
 				.then(v => {
 					v.getPoster()
@@ -112,10 +126,14 @@ export default React.createClass({
 		e.preventDefault();
 		e.stopPropagation();
 
-		let {video} = this.refs;
-		if (video) {
-			video.play();
-		}
+		this.setState({requestPlay: true}, () => {
+
+			let {refs: {video}} = this;
+			if (video) {
+				video.play();
+			}
+
+		});
 	},
 
 
@@ -142,13 +160,14 @@ export default React.createClass({
 
 
 	render () {
-		let {props} = this;
-		let {item} = props;
-		let {loading, playing, poster, video} = this.state;
+		const {
+			props: {item, tag = 'div', onFocus},
+			state: {loading, playing, poster, video, requestPlay}
+		} = this;
 
 		let label = item.label || item.title;
 
-		let Tag = props.tag || 'div';
+		let Tag = tag || 'div';
 
 		let viewed = false;
 		let progress = item[Progress];
@@ -156,21 +175,22 @@ export default React.createClass({
 			viewed = true;
 		}
 
-		poster = poster && {backgroundImage: `url(${poster})`};
+		let posterRule = poster && {backgroundImage: `url(${poster})`};
 
 		return (
-			<Tag className="content-video video-wrap flex-video widescreen">
-				{!video ? null :
+			<Tag className="content-video video-wrap flex-video widescreen" data-ntiid={this.getVideoID()}>
+				{!video || !requestPlay ? null :
 					<Video ref="video" src={video}
 						onEnded={this.onStop}
 						onPlaying={this.onPlay}
 						context={this.state.context}
+						autoPlay={requestPlay}
 						deferred />
 				}
 
-				{playing ? null :
-					<LoadingMask style={poster} loading={loading}
-						tag="a" onFocus={props.onFocus} onClick={this.onPosterClicked}
+				{requestPlay || playing ? null :
+					<LoadingMask style={posterRule} loading={loading}
+						tag="a" onFocus={onFocus} onClick={this.onPosterClicked}
 						className="content-video-tap-area" href="#">
 
 						{viewed && <div className="viewed">Viewed</div>}

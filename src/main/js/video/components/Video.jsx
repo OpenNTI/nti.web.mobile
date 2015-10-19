@@ -1,7 +1,9 @@
 import React from 'react';
 import {getHandler} from '../services';
 
-import emptyFunction from 'react/lib/emptyFunction';
+import Fallback from '../services/html5';
+
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import {getModel} from 'nti.lib.interfaces';
 
@@ -10,11 +12,18 @@ import {toAnalyticsPath} from 'analytics/utils';
 
 const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
+function deprecated (o, k) { if (o[k]) { return new Error(`Deprecated prop: \`${k}\`, use \`newWatchEventFactory\` callback prop.`); } }
+
 export default React.createClass({
 	displayName: 'Video',
 
 
 	propTypes: {
+		context: deprecated,
+		courseId: deprecated,
+		transcript: deprecated,
+
+
 		/**
 		 * The Video source. Either a URL or a Video model.
 		 * @type {String/Video}
@@ -22,7 +31,7 @@ export default React.createClass({
 		src: React.PropTypes.oneOfType([
 			React.PropTypes.string,
 			React.PropTypes.instanceOf(getModel('video'))
-			]).isRequired,
+		]).isRequired,
 
 
 		/**
@@ -109,7 +118,7 @@ export default React.createClass({
 	},
 
 
-	newWatchVideoEvent(browserEvent) {
+	newWatchVideoEvent (browserEvent) {
 		let {newWatchEventFactory, src} = this.props;
 
 		if (!src.ntiid) {
@@ -218,7 +227,7 @@ export default React.createClass({
 
 	render () {
 		let video = this.props.src;
-		let Provider = getHandler(video) || 'div';
+		let Provider = getHandler(video) || Fallback;
 		let videoSource = video && (video.sources || {})[0];
 
 		return (

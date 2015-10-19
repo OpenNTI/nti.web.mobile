@@ -15,7 +15,7 @@ import FormErrors from 'common/forms/components/FormErrors';
 import Loading from 'common/components/Loading';
 import {clearLoadingFlag} from 'common/utils/react-state';
 
-import ScriptInjector from 'common/mixins/ScriptInjectorMixin';
+import ExternalLibraryManager from 'common/mixins/ExternalLibraryManager';
 
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
@@ -29,7 +29,7 @@ const t2 = scoped('ENROLLMENT');
 
 export default React.createClass({
 	displayName: 'PaymentForm',
-	mixins: [RenderFormConfigMixin, ScriptInjector, FormattedPriceMixin],
+	mixins: [RenderFormConfigMixin, ExternalLibraryManager, FormattedPriceMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired
@@ -50,7 +50,7 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		this.injectScript('https://js.stripe.com/v2/', 'Stripe')
+		this.ensureExternalLibrary('stripe')
 			.then(() => clearLoadingFlag(this));
 		Store.addChangeListener(this.onStoreChange);
 	},
@@ -62,14 +62,14 @@ export default React.createClass({
 	onStoreChange (event) {
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case BILLING_INFO_REJECTED:
-				let errors = this.state.errors || {};
-				errors[event.response.error.param] = event.response.error;
-				this.setState({
-					errors: errors,
-					busy: false
-				});
-				console.log(event);
+		case BILLING_INFO_REJECTED:
+			let errors = this.state.errors || {};
+			errors[event.response.error.param] = event.response.error;
+			this.setState({
+				errors: errors,
+				busy: false
+			});
+			console.log(event);
 			break;
 		}
 	},

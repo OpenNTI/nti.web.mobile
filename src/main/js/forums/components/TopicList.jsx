@@ -1,5 +1,3 @@
-
-
 import List from './List';
 import PageControls from './PageControls';
 import Paging from '../mixins/Paging';
@@ -13,15 +11,15 @@ export default React.createClass({
 
 	mixins: [Paging],
 
-	componentDidMount: function() {
+	componentDidMount () {
 		this.setItemContentsState();
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		this.setItemContentsState(nextProps);
 	},
 
-	setItemContentsState(props = this.props) {
+	setItemContentsState (props = this.props) {
 		if (props.container) {
 			// paging mixin expects to find list info in state.itemContents
 			this.setState({
@@ -30,7 +28,7 @@ export default React.createClass({
 		}
 	},
 
-	render: function() {
+	render () {
 		let emptyText = t('emptyTopicList');
 
 		let pageInfo = this.pagingInfo();

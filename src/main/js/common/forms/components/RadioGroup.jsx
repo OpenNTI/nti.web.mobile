@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 
 export default React.createClass({
 	displayName: 'RadioGroup',
@@ -7,8 +8,8 @@ export default React.createClass({
 		defaultValue: React.PropTypes.any,
 
 		field: React.PropTypes.shape({
-				label: React.PropTypes.string
-			}).isRequired,
+			label: React.PropTypes.string
+		}).isRequired,
 
 		options: React.PropTypes.arrayOf(
 				React.PropTypes.shape({
@@ -17,6 +18,8 @@ export default React.createClass({
 				})),
 
 		name: React.PropTypes.string,
+
+		className: React.PropTypes.string,
 
 		value: React.PropTypes.any
 	},
@@ -39,10 +42,15 @@ export default React.createClass({
 		});
 	},
 
-	render: function() {
+	render () {
+
+		const {field, className} = this.props;
+
+		let classes = cx('radiogroup', className);
+
 		return (
-			<div className="radiogroup">
-				<p>{this.props.field.label}</p>
+			<div className={classes}>
+				<p>{field.label}</p>
 				{this.renderOptions()}
 			</div>
 		);

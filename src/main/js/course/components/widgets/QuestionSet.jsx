@@ -23,22 +23,25 @@ const assignmentType = /assignment/i;
 
 const OutlineNode = getModel('courses.courseoutlinenode');
 
+const getID = o => o.getID ? o.getID() : (o['Target-NTIID'] || o['NTIID']);
+const getQuestionCount = o => o.getQuestionCount ? o.getQuestionCount() : o['question-count'];
+
 export default React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
 	mixins: [NavigatableMixin],
 
 	statics: {
-		mimeTest: /(naquestionset|naquestionbank|assignment)$/i,
+		mimeTest: /(questionset|questionbank|assignment)/i,
 		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		},
 
-		canRender  (item, node) {
-			let render = true;
-			let id = item['Target-NTIID'];
+		canRender  (item, node, collection) {
+			let render = !!collection;
+			let id = getID(item);
 
-			if (assignmentType.test(item.MimeType) || node.isAssignment(id)) {
-				render = Boolean(node && node.getAssignment(id));
+			if (collection && (assignmentType.test(item.MimeType) || collection.isAssignment(id, node.getID()))) {
+				render = Boolean(collection.getAssignment(id, node.getID()));
 			}
 
 			return render;
@@ -48,7 +51,8 @@ export default React.createClass( {
 
 	propTypes: {
 		item: React.PropTypes.object,
-		node: React.PropTypes.instanceOf(OutlineNode)
+		node: React.PropTypes.instanceOf(OutlineNode),
+		assessmentCollection: React.PropTypes.object
 	},
 
 
@@ -68,9 +72,9 @@ export default React.createClass( {
 
 
 	fillInData (service) {
-		let {item} = this.props;
-		let ntiid = item['Target-NTIID'];
-		let assignment = this.props.node.getAssignment(ntiid);
+		let {node, item, assessmentCollection} = this.props;
+		let ntiid = getID(item);
+		let assignment = assessmentCollection.getAssignment(ntiid, node.getID());
 		let isAssignment = assignment || assignmentType.test(item.MimeType);
 
 		this.setState({assignment: assignment, loading: true});
@@ -88,7 +92,7 @@ export default React.createClass( {
 
 			this.setQuizHref();
 		} else {
-			this.setQuizHref(); //TODO: build the assignment href
+			this.setAssignmentHref();
 
 			work = loadPreviousState(assignment)
 				.then(this.setAssignmentHistory)
@@ -139,18 +143,27 @@ export default React.createClass( {
 	},
 
 
+	setAssignmentHref () {
+		let ntiid = getID(this.props.item);
+		// The '..' in the path tells "buildHref" to go up to the
+		// parent router instead of our immediate parent router.
+		let link = path.join('..', 'assignments', encodeForURI(ntiid)) + '/';
+		this.setState({href: this.buildHref(link)});
+	},
+
+
 	setQuizHref () {
-		let ntiid = this.props.item['Target-NTIID'];
-		let link = path.join('content', encodeForURI(ntiid)) + '/';
-		this.setState({href: this.makeHref(link, true)});
+		let ntiid = getID(this.props.item);
+		let link = path.join(this.getPath(), 'content', encodeForURI(ntiid)) + '/';
+		this.setState({href: this.buildHref(link)});
 	},
 
 
 	render () {
 		let state = this.state;
 		let item = this.props.item;
-		let questionCount = item['question-count'];
-		let label = item.label;
+		let questionCount = getQuestionCount(item);
+		let label = item.label || item.title;
 
 		//let latestAttempt = state.latestAttempt;
 		let assignment = state.assignment;
@@ -160,7 +173,7 @@ export default React.createClass( {
 
 		let score = state.score || 0;
 
-		let isLate = assignment && assignment.isLate(new Date());
+		let isLate = assignment && !assignment.isNonSubmit() && assignment.isLate(new Date());
 
 		let classList = cx('overview-naquestionset', {
 			networkerror: state.networkError,

@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 import {scoped} from 'common/locale';
 
 import OpenEnrolledMessage from './OpenEnrolledMessage';
@@ -31,6 +31,8 @@ export default React.createClass({
 			prerequisites = [t('NoPrerequisites')];
 		}
 
+		let weeks = Math.floor(moment.duration(entry.Duration).asWeeks());
+
 		return (
 			<div>
 				<div className="row">
@@ -54,26 +56,32 @@ export default React.createClass({
 										{(prerequisites || []).map((x, i) => (<div key={x.id || i}>{x.title}</div>))}
 									</td>
 								</tr>
-								<tr>
-									<td>Hours</td>
-									<td>
-										{!isEmpty(entry.Credit) ?
-											<CreditHours credit={entry.Credit} entry={entry.getID()} /> : null}
-										<EnrollmentMessage/>
-									</td>
-								</tr>
+								{EnrollmentMessage !== 'div' || !isEmpty(entry.Credit) ? (
+									<tr>
+										<td>{t('CreditHours')}</td>
+										<td>
+											{!isEmpty(entry.Credit) ?
+												<CreditHours credit={entry.Credit} entry={entry.getID()} /> : null}
+											<EnrollmentMessage/>
+										</td>
+									</tr>
+								) : (
+									<tr/>
+								)}
 								<tr>
 									<td>{t('StartDate')}</td>
 									<td>{moment(entry.StartDate).format('LL')}</td>
 								</tr>
+								{weeks > 0 && (
 								<tr>
 									<td>{t('Duration')}</td>
 									<td>
-										{Math.floor(moment.duration(entry.Duration).asWeeks())} {t('DurationUnits')}
+										{weeks} {t('DurationUnits')}
 									</td>
 								</tr>
+								)}
 								<tr>
-									<td>{t('Days')}</td>
+									<td>{t('DaysAndTimes')}</td>
 									<td>
 										{isEmpty(entry.Schedule && entry.Schedule.days) ?
 											<FullyOnline/> :

@@ -1,8 +1,9 @@
 import React from 'react';
+import TransitionGroup from 'react-addons-css-transition-group';
+import cx from 'classnames';
 
 import {RouterMixin} from 'react-router-component';
 
-import cx from 'classnames';
 
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
@@ -13,6 +14,8 @@ import StoreEvents from 'common/mixins/StoreEvents';
 import ContextSender from 'common/mixins/ContextSender';
 
 import Pager from 'common/components/Pager';
+
+import ContentAquirePrompt from 'catalog/components/ContentAquirePrompt';
 
 import Store from '../Store';
 import {loadPage, resolveNewContext} from '../Actions';
@@ -31,9 +34,17 @@ import RouterLikeBehavior from './viewer-parts/mock-router';
 import GlossaryFeature from './viewer-parts/glossary';
 import Interactions from './viewer-parts/interaction';
 
+import AnnotationBar from './AnnotationBar';
+import NoteEditor from './NoteEditor';
 import BodyContent from './Content';
 import Gutter from './Gutter';
 import Discussions from './discussions';
+
+
+function getAssessment (state) {
+	let {page} = state;
+	return page && page.getSubmittableAssessment();
+}
 
 export default React.createClass({
 	displayName: 'content:Viewer',
@@ -54,7 +65,10 @@ export default React.createClass({
 		rootId: React.PropTypes.string,
 		pageId: React.PropTypes.string,
 		contentPackage: React.PropTypes.object,
-		onPageLoaded: React.PropTypes.func
+		pageSource: React.PropTypes.object, //used to specify a custom pager
+		onPageLoaded: React.PropTypes.func,
+
+		className: React.PropTypes.string
 	},
 
 	backingStore: Store,
@@ -64,8 +78,7 @@ export default React.createClass({
 
 
 	signalResourceLoaded () {
-		let {page} = this.state;
-		let quiz = page && page.getSubmittableAssessment();
+		let quiz = getAssessment(this.state);
 		let mime = quiz ? (isAssignment(quiz) ? ASSIGNMENT_VIEWED : SELFASSESSMENT_VIEWED) : RESOURCE_VIEWED;
 
 		let args = [
@@ -82,7 +95,7 @@ export default React.createClass({
 	},
 
 
-	resumeAnalyticsEvents() {
+	resumeAnalyticsEvents () {
 		this.signalResourceLoaded();
 	},
 
@@ -109,7 +122,7 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		//The getDOMNode() will always be the loading dom at his point...
+		//The DOM Node will always be the loading dom at his point...
 		//we wait for the re-render of the actual data in componentDidUpdate()
 		this.getDataIfNeeded(this.props);
 	},
@@ -164,15 +177,19 @@ export default React.createClass({
 	onStoreChange () {
 		let id = this.getPageID();
 		let page = Store.getPageDescriptor(id);
-		let pageSource, pageTitle, error;
-		let {onPageLoaded} = this.props;
+		let pageTitle, error;
+		let {pageSource, onPageLoaded} = this.props;
 
 		if (!page) { //the event was not for this component.
 			return;
 		}
 
+
+
 		if (page instanceof PageDescriptor) {
-			pageSource = page.getPageSource(this.getRootID());
+			if (!pageSource) {
+				pageSource = page.getPageSource(this.getRootID());
+			}
 			pageTitle = page.getTitle();
 		} else {
 			error = page;
@@ -224,58 +241,164 @@ export default React.createClass({
 
 
 	render () {
-		let pageId = this.getPageID();
-		let {contentPackage} = this.props;
-		let {annotations, error, loading, page, pageSource, selectedDiscussions, style, className = ''} = this.state;
+		let {contentPackage, className} = this.props;
+
+		let {
+			annotations, stagedNote, error, loading, page,
+			selectedDiscussions, style
+		} = this.state;
+
 		let {discussions} = this.getPropsFromRoute();
 
 		if (loading) {
 			return (<Loading/>);
 		}
 		else if (error) {
-			return (<Err error={error}/>);
+			if (ContentAquirePrompt.shouldPrompt(error)) {
+				return ( <ContentAquirePrompt data={error}/> );
+			}
+
+			return ( <Err error={error}/> );
 		}
 
 		let props = {
-			className: cx('content-view', className.split(/\s+/)),
+			className: cx('content-view', className, {
+				'note-editor-open': !!stagedNote
+			}),
 			style
 		};
 
 		if (!this.refs.content) {
-			//Annotations cannot resolve their anchors if the content ref is not present... so don't even try.
+			//Annotations cannot resolve their anchors if the
+			//content ref is not present... so don't even try.
 			annotations = undefined;
 		}
 
+
 		return (
-			<div {...props}>
+			<TransitionGroup {...props} component="div"
+				transitionName="fadeOutIn"
+				transitionEnterTimeout={300}
+				transitionLeaveTimeout={300}
+				>
 
 				{discussions ? (
 
-					<Discussions UserDataStoreProvider={page} filter={selectedDiscussions}/>
+					<Discussions key="discussions" UserDataStoreProvider={page} filter={selectedDiscussions}/>
+
+				) : stagedNote ? (
+
+					this.renderNoteEditor()
 
 				) : (
-					<div className="content-body">
+					<div className="content-body" key="content">
 						{this.renderAssessmentHeader()}
 
-						<BodyContent id="NTIContent" ref="content"
-							className="nti-content-panel"
+						<BodyContent ref="content"
 							onClick={this.onContentClick}
+							onUserSelectionChange={this.maybeOfferAnnotations}
 							contentPackage={contentPackage}
-							pageId={pageId}
+							pageId={page.getCanonicalID()}
 							page={page}/>
 
 						{this.renderAssessmentFeedback()}
 
 						{this.renderGlossaryEntry()}
 
-						<Pager position="bottom" pageSource={pageSource} current={this.getPageID()}/>
+						{this.renderBottomPager()}
 
 						<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
 
-						{this.renderAssessmentSubmission()}
+						{this.renderDockedToolbar()}
 					</div>
 				)}
-			</div>
+
+			</TransitionGroup>
+		);
+	},
+
+	renderBottomPager () {
+		return isAssignment(getAssessment(this.state))
+			? null
+			: <Pager position="bottom" pageSource={this.state.pageSource} current={this.getPageID()}/>;
+	},
+
+
+	renderDockedToolbar () {
+		let annotation = this.renderAnnotationToolbar();
+		let submission = this.renderAssessmentSubmission();
+
+		let key = annotation
+			? 'annotation'
+			: submission
+				? 'submission'
+				: 'none';
+
+		let content = annotation || submission;
+
+		return (
+			<TransitionGroup component="div"
+				transitionName="toast" className={`fixed-footer ${key}`}
+				transitionAppearTimeout={500}
+				transitionEnterTimeout={500}
+				transitionLeaveTimeout={500}
+				transitionAppear>
+
+				{content && (
+				<div className={`the-fixed ${key}`} key={key}>
+					{content}
+				</div>
+				)}
+
+			</TransitionGroup>
+		);
+	},
+
+
+	renderAnnotationToolbar () {
+		const None = void 0;
+		let {selected} = this.state;
+		if (!selected || isAssignment(getAssessment(this.state))) {
+			return null;
+		}
+
+		let isRange = selected instanceof Range;
+		let isHighlight = !isRange && !selected.isNote;
+
+		if (!isRange && !selected.isModifiable) {
+			console.debug('Selected annotation is not modifiable: %o', selected);
+			return null;
+		}
+
+		if (selected.isNote) { return null; } //don't deal with notes for now.
+
+		let props = {
+			item: isRange ? None : selected,
+			onNewDiscussion: (isRange || isHighlight) ? this.createNote : None,
+			onSetHighlight: isRange ? this.createHighlight : isHighlight ? this.updateHighlight : None,
+			onRemoveHighlight: isHighlight ? this.removeHighlight : None
+		};
+
+		return (
+			<AnnotationBar {...props}/>
+		);
+	},
+
+
+	renderNoteEditor () {
+		const cancel = ()=> this.setState({stagedNote: void 0});
+		let {stagedNote} = this.state;
+
+		if (!stagedNote) {
+			return null;
+		}
+
+		return (
+			<NoteEditor key="note-editor"
+				scope={this.props.contentPackage}
+				item={stagedNote}
+				onCancel={cancel}
+				onSave={this.saveNote}/>
 		);
 	},
 

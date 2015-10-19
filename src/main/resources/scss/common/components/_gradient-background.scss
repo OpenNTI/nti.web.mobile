@@ -1,3 +1,17 @@
 .gradient-bg {
-	background: linear-gradient(to bottom, $primary-grey, $tertiary-grey);
+	background: linear-gradient(to bottom, makeTransparentColor($secondary-grey), makeTransparentColor($tertiary-grey));
+	padding: 0.625rem;
+	min-height: calc(100vh - 2.8125rem);
+	.gradient-bg-img {
+		position: fixed;
+		top: 0;
+		left: 0;
+
+		max-width: auto;
+
+		@include viewportWidth(min-width, 100);
+		@include viewportHeight(min-height, 100);
+		opacity: .8;
+		z-index: -1;
+	}
 }

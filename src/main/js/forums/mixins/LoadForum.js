@@ -1,4 +1,4 @@
-import Api from '../Api';
+import {getForumContents} from '../Api';
 import Store from '../Store';
 import {OBJECT_CONTENTS_CHANGED} from '../Constants';
 
@@ -10,11 +10,11 @@ const loadData = 'LoadForum:loadData';
 
 export default {
 	componentWillMount () {
-		if (!this.mixinAdditionalHandler) {
-			console.warn('this.mixinAdditionalHandler is undefined. (Forgot to include the StoreEvents mixin?)');
+		if (!this.registerStoreEventHandler) {
+			console.warn('this.registerStoreEventHandler is undefined. (Forgot to include the StoreEvents mixin?)');
 			return;
 		}
-		this.mixinAdditionalHandler(OBJECT_CONTENTS_CHANGED, objectContentsChangedHandler);
+		this.registerStoreEventHandler(OBJECT_CONTENTS_CHANGED, objectContentsChangedHandler);
 		this[loadData](this.props.forumId);
 	},
 
@@ -38,14 +38,15 @@ export default {
 	},
 
 	[loadData] (forumId) {
-		Api.getForumContents(forumId, paging.batchStart(), paging.getPageSize())
-		.then(result => {
-			Store.setObject(forumId, result.object);
-			Store.setObjectContents(forumId, result.contents, result.params);
-		},
-		reason => {
-			Store.setObject(forumId, reason);
-			Store.setObjectContents(forumId, reason);
-		});
+		getForumContents(forumId, paging.batchStart(), paging.getPageSize())
+			.then(
+				result => {
+					Store.setObject(forumId, result.object);
+					Store.setObjectContents(forumId, result.contents, result.params);
+				},
+				reason => {
+					Store.setObject(forumId, reason);
+					Store.setObjectContents(forumId, reason);
+				});
 	}
 };

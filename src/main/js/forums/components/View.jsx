@@ -20,7 +20,7 @@ export default React.createClass({
 
 	// title bar back arrow
 	getContext () {
-		let href = this.getNavigable().makeHref('/d/');
+		let href = this.getNavigable().makeHref('/discussions/');
 
 		return Promise.resolve({
 			label: 'Discussions',

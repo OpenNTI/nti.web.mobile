@@ -41,10 +41,8 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 
 	priceItem (purchasable) {
 		return getStripeInterface()
-			.then(function(stripe) {
-				return stripe.getPricing(purchasable);
-			})
-			.then(function(pricedItem) {
+			.then(stripe => stripe.getPricing(purchasable))
+			.then(pricedItem => {
 				Store.emitChange({
 					type: Constants.PRICED_ITEM_RECEIVED,
 					pricedItem: pricedItem
@@ -105,7 +103,7 @@ export default Store;
 // Store modules (the entire JS file) should only contain the synchronous data set/get/emit-event code.
 
 
-function getStripeInterface() {
+function getStripeInterface () {
 	let me = getStripeInterface;
 
 	if (!me.promise) {
@@ -116,13 +114,15 @@ function getStripeInterface() {
 	return me.promise;
 }
 
-function pullData(data) {
+function pullData (data) {
 	let result = {};
 
 	let copy = x => {
 		if (data.hasOwnProperty(x)) {
 			result[x] = data[x];
-		}};
+		}
+	};
+
 	let pull = x => {
 		copy(x);
 		delete data[x];
@@ -144,7 +144,7 @@ function pullData(data) {
 	giftInfo = data.from && Object.keys(result).length ? result : null;
 }
 
-function verifyBillingInfo(data) {
+function verifyBillingInfo (data) {
 
 	stripeToken = null; // reset
 	pricing = null;
@@ -168,12 +168,14 @@ function verifyBillingInfo(data) {
 				response: result.response
 			});
 		})
-		.catch(function(reason) {
+		.catch(reason => {
+			//FIXME: Are we intending that the verifyBillingInfo promise never reject??
+			//If not, this catch needs to return a rejected promise.
 			console.error('verifyBillingInfo failed. %O', reason);
 		});
 }
 
-function submitPayment(formData) {
+function submitPayment (formData) {
 	paymentResult = null;
 
 	return getStripeInterface()
@@ -197,7 +199,7 @@ function submitPayment(formData) {
 		reason => Store.emitError({ type: Constants.POLLING_ERROR, reason }));
 }
 
-function priceWithCoupon(data) {
+function priceWithCoupon (data) {
 	if (!couponTimeout) {
 		Store.emitChange({
 			type: Constants.LOCK_SUBMIT
@@ -238,47 +240,47 @@ function priceWithCoupon(data) {
 }
 
 
-Store.appDispatch = AppDispatcher.register(function(data) {
+Store.appDispatch = AppDispatcher.register(function (data) {
 	let action = data.action;
 
 	switch(action.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		case Constants.EDIT:
-			Store.emitChange({
-				type: action.type,
-				mode: action.payload.mode
-			});
-			break;
+	case Constants.EDIT:
+		Store.emitChange({
+			type: action.type,
+			mode: action.payload.mode
+		});
+		break;
 
-		case Constants.RESET:
-			Store.clear();
-			Store.emitChange({
-				type: action.type,
-				options: (action.payload || {}).options
-			});
-			break;
+	case Constants.RESET:
+		Store.clear();
+		Store.emitChange({
+			type: action.type,
+			options: (action.payload || {}).options
+		});
+		break;
 
-		case Constants.UPDATE_COUPON:
-			priceWithCoupon(action.payload);
-			break;
+	case Constants.UPDATE_COUPON:
+		priceWithCoupon(action.payload);
+		break;
 
-		case Constants.VERIFY_BILLING_INFO:
-			verifyBillingInfo(action.payload);
-			break;
+	case Constants.VERIFY_BILLING_INFO:
+		verifyBillingInfo(action.payload);
+		break;
 
-		case Constants.SUBMIT_STRIPE_PAYMENT:
-			submitPayment(action.payload.formData);
-			break;
+	case Constants.SUBMIT_STRIPE_PAYMENT:
+		submitPayment(action.payload.formData);
+		break;
 
-		case Constants.GIFT_PURCHASE_DONE:
-			Store.clear();
-			Store.emitChange({
-				type: action.type
-			});
-			break;
+	case Constants.GIFT_PURCHASE_DONE:
+		Store.clear();
+		Store.emitChange({
+			type: action.type
+		});
+		break;
 
-		default:
-			return true;
+	default:
+		return true;
 	}
 	return true;
 });

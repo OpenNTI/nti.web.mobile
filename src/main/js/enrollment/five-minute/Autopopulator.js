@@ -7,7 +7,7 @@ let valuesMap = {
 
 export default class Autopopulator {
 
-	constructor() {
+	constructor () {
 		try {
 			getService().then(service => {
 				service.getAppUser().then(user => {
@@ -21,19 +21,19 @@ export default class Autopopulator {
 		}
 	}
 
-	valueFor(fieldName) {
+	valueFor (fieldName) {
 		return valuesMap[fieldName] || (typeof this[fieldName] === 'function' ? this[fieldName]() : undefined);
 	}
 
-	['okResident']() { // the second time we ask if you're an oklahoma resident it should be pre-filled with the answer you gave the first time.
+	['okResident'] () { // the second time we ask if you're an oklahoma resident it should be pre-filled with the answer you gave the first time.
 		return FieldValuesStore.getValue('oklahoma_resident');
 	}
 
-	['high_school_graduate']() { // if you're still attending high school you're probably not a high school graduate.
+	['high_school_graduate'] () { // if you're still attending high school you're probably not a high school graduate.
 		return FieldValuesStore.getValue('attending-highschool') === 'Y' ? 'N' : undefined;
 	}
 
-	preprocess(values) {
+	preprocess (values) {
 		// let okhs = 'ok-highschool-student';
 		// if (values[okhs] === undefined) {
 		// 	let hs = values.is_currently_attending_highschool === 'Y';

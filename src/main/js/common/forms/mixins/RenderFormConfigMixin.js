@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 import isFunction from 'nti.lib.interfaces/utils/isfunction';
@@ -46,7 +45,7 @@ export default {
 	 *
 	 * @return {ReactElement} The Rendered Field
 	 */
-	renderField: function(translator, values, field) {
+	renderField (translator, values, field) {
 
 		let state = this.state;
 		let err = (state.errors || {})[field.ref];
@@ -77,7 +76,7 @@ export default {
 		if (field.type === 'radiogroup') {
 			let radioChange = this[radiochangehandler].bind(null, field);
 			let tmp = onChange;
-			onChange = tmp ? function(event) { tmp(event); radioChange(event); } : radioChange;
+			onChange = tmp ? function (event) { tmp(event); radioChange(event); } : radioChange;
 		}
 
 		let component = type === 'label' ?
@@ -100,7 +99,8 @@ export default {
 				renderField: this.renderField,
 				options: field.options || null,
 				translator: translator,
-				pattern: (field.type === 'number' && '[0-9]*') || null
+				pattern: (field.type === 'number' && '[0-9]*') || null,
+				autoComplete: field.autoComplete
 			});
 
 		let subfields = ((state.subfields || {})[field.ref] || []).map(
@@ -129,7 +129,7 @@ export default {
 		);
 	},
 
-	renderFieldset: function(translator, values, fieldset, index) {
+	renderFieldset (translator, values, fieldset, index) {
 
 		let fieldRenderFn = this.renderField.bind(null, translator, values);
 
@@ -144,7 +144,7 @@ export default {
 		);
 	},
 
-	renderFormConfig: function(config, values, translator) {
+	renderFormConfig (config, values, translator) {
 		this[stashedTranslator] = translator; // stash for rendering related sub-forms later
 		let args = ['div', {className: 'form-render'}].concat(
 			config.map(
@@ -154,7 +154,7 @@ export default {
 		return React.createElement.apply(null, args);
 	},
 
-    [focushandler](event) {
+	[focushandler] (event) {
 		let target = event.target.name;
 		let errors = this.state.errors || {};
 		if (errors[target]) {
@@ -166,21 +166,21 @@ export default {
 		}
 	},
 
-	[blurhandler](event) {
+	[blurhandler] (event) {
 		this.updateFieldValueState(event);
 		if (isFunction(this[Events.ON_BLUR])) {
 			this[Events.ON_BLUR](event);
 		}
 	},
 
-	[radiochangehandler](fieldConfig, event) {
+	[radiochangehandler] (fieldConfig, event) {
 		this.updateFieldValueState(event);
 		if(isFunction(this[Events.ON_CHANGE])) {
 			this[Events.ON_CHANGE](event);
 		}
 	},
 
-	updateFieldValueState: function(event) {
+	updateFieldValueState (event) {
 		let target = event.target;
 		let field = target.name;
 		let value = target.value;
@@ -194,7 +194,7 @@ export default {
 		}
 	},
 
-	addFormatters: function() {
+	addFormatters () {
 		let i;
 		let ref;
 		let format;
@@ -210,7 +210,7 @@ export default {
 					format = formatters[i];
 
 					if (isFunction(format)) {
-						format(React.findDOMNode(ref));
+						format(ref);
 					}
 				}
 			}

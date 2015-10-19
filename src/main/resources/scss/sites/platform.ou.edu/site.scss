@@ -1,16 +1,3 @@
-.tab-bar-section .branding {
-	width: 148px;
-
-	&::after {
-		content: '';
-		width: 74px;
-		height: 19px;
-		background: transparent url(../../../images/sites/platform.ou.edu/ou_janux.png) center center no-repeat;
-		background-size: contain;
-		position: absolute;
-		margin-top: -10px;
-		margin-left: -37px;
-		top: 50%;
-		left: 50%;
-	}
+#content nav .branding {
+	background-image: url(./brand.png);
 }

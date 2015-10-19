@@ -1,5 +1,7 @@
 import React from 'react';
 
+import cx from 'classnames';
+
 export default React.createClass({
 	displayName: 'Profile:Card',
 
@@ -10,12 +12,11 @@ export default React.createClass({
 	},
 
 	render () {
+		let {children, className, title} = this.props;
 		return (
-			<li className={'profile-card ' + this.props.className}>
-				{this.props.title && <h1>{this.props.title}</h1>}
-				<div>
-					{this.props.children}
-				</div>
+			<li className={cx('profile-card', className)}>
+				{title && <h1>{title}</h1>}
+				{children}
 			</li>
 		);
 	}

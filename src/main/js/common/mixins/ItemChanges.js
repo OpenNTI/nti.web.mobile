@@ -1,26 +1,34 @@
-import React from 'react';
+// import React from 'react';
 
-function getItem (o, p) {
+function getItem (o, p, ...r) {
 	if (o.getItem) {
-		return o.getItem(p);
+		return o.getItem(p, ...r);
 	}
 	return p.item;
 }
 
 export default {
-	propTypes: {
-		item: React.PropTypes.object.isRequired
-	},
+	// propTypes: {
+	// 	item: React.PropTypes.object.isRequired
+	// },
 
 
 	componentDidMount () {
-		this.listen(getItem(this, this.props));
+		this.listen(getItem(this, this.props, this.state, this.context));
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		this.stopListening(getItem(this, this.props));
-		this.listen(getItem(this, nextProps));
+	componentWillReceiveProps (...next) {
+		let prev = [this.props, this.state, this.context];
+		this.stopListening(getItem(this, ...prev));
+		this.listen(getItem(this, ...next));
+	},
+
+
+	componentDidUpdate (...prev) {
+		let next = [this.props, this.state, this.context];
+		this.stopListening(getItem(this, ...prev));
+		this.listen(getItem(this, ...next));
 	},
 
 
@@ -30,12 +38,16 @@ export default {
 
 
 	listen (item) {
-		item.addListener('changed', this.itemChanged);
+		if (item) {
+			item.addListener('change', this.itemChanged);
+		}
 	},
 
 
 	stopListening (item) {
-		item.removeListener('changed', this.itemChanged);
+		if (item) {
+			item.removeListener('change', this.itemChanged);
+		}
 	},
 
 

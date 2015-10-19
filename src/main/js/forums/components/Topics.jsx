@@ -4,7 +4,7 @@ import {Link} from 'react-router-component';
 
 import AnalyticsStore from 'analytics/Store';
 
-import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
+import Transition from 'react-addons-css-transition-group';
 
 import Loading from 'common/components/Loading';
 
@@ -40,33 +40,33 @@ export default React.createClass({
 
 	backingStore: Store,
 
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			loading: true
 		};
 	},
 
-	componentWillUnmount: function() {
+	componentWillUnmount () {
 		AnalyticsStore.pushHistory(decodeFromURI(this.props.forumId));
 	},
 
-	getForum() {
+	getForum () {
 		return Store.getForum(this.props.forumId);
 	},
 
-	canCreateTopic() {
+	canCreateTopic () {
 		let forum = this.getForum();
 		return !!(forum && forum.hasLink('add'));
 	},
 
-	createTopicLink() {
+	createTopicLink () {
 		if (!this.canCreateTopic()) {
 			return null;
 		}
 		return <Link className="action-link create-topic" href="/newtopic/">{t('createTopic')}</Link>;
 	},
 
-	render: function() {
+	render () {
 
 		if (this.state.loading) {
 			return <Loading />;
@@ -82,7 +82,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Transition transitionName="forums">
+				<Transition transitionName="fadeOutIn" transitionAppear>
 					<ViewHeader type={FORUM} />
 					<section>
 						{this.createTopicLink()}

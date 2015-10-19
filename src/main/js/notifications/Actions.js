@@ -23,6 +23,6 @@ export function loadMore (notifications) {
 }
 
 
-function dispatch(type, response) {
+function dispatch (type, response) {
 	AppDispatcher.handleRequestAction({type, response});
 }

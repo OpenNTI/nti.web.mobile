@@ -13,7 +13,7 @@ export default React.createClass({
 		entryId: React.PropTypes.string.isRequired
 	},
 
-	getPurchasable() {
+	getPurchasable () {
 		let entry = this.getCatalogEntry(decodeFromURI(this.props.entryId));
 		let options = entry.getEnrollmentOptions();
 		let option = options.getEnrollmentOptionForPurchase();
@@ -25,7 +25,7 @@ export default React.createClass({
 		return (
 			<StoreEnrollmentRoutes
 				{...this.props}
-				ref='router'
+				ref="router"
 				purchasable={purchasable}
 				defaultHandler={GiftView}
 			/>

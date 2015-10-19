@@ -2,7 +2,10 @@ import StorePrototype from 'common/StorePrototype';
 
 import {
 	SET_CONTEXT,
-	SET_PAGE_SOURCE
+	SET_PAGE_SOURCE,
+
+	CLEAR_NAV_GUARDED,
+	SET_NAV_GUARDED
 } from './Constants';
 
 const SetData = Symbol('Set Data');
@@ -15,8 +18,26 @@ class Store extends StorePrototype {
 		super();
 		this.registerHandlers({
 			[SET_CONTEXT]: SetData,
-			[SET_PAGE_SOURCE]: SetData
+			[SET_PAGE_SOURCE]: SetData,
+
+			[CLEAR_NAV_GUARDED]: CLEAR_NAV_GUARDED,
+			[SET_NAV_GUARDED]: SET_NAV_GUARDED
 		});
+	}
+
+
+	[CLEAR_NAV_GUARDED] () {
+		delete this.getGuardMessage;
+	}
+
+
+	[SET_NAV_GUARDED] (payload) {
+		let {response} = payload.action;
+		if (typeof response !== 'function') {
+			throw new Error('Expected a function.');
+		}
+
+		this.getGuardMessage = response;
 	}
 
 

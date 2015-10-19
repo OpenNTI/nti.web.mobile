@@ -12,7 +12,7 @@ import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
 
@@ -48,13 +48,14 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		this.fillIn(this.props); },
+		this.fillIn(this.props);
+	},
 
 
 	componentWillUnmount () {
 		let item = this.getItem();
 		if (item) {
-			item.removeListener('changed', this.itemChanged);
+			item.removeListener('change', this.itemChanged);
 		}
 	},
 
@@ -63,7 +64,7 @@ export default React.createClass({
 		let item = this.getItem();
 		if (nextProps.item !== item) {
 			if (item) {
-				item.removeListener('changed', this.itemChanged);
+				item.removeListener('change', this.itemChanged);
 			}
 			this.fillIn(nextProps);
 		}
@@ -86,7 +87,7 @@ export default React.createClass({
 		let resolve = item ? item.getTablesOfContents() : Promise.reject();
 
 		if (item) {
-			item.addListener('changed', this.itemChanged);
+			item.addListener('change', this.itemChanged);
 		}
 
 		resolve.then(data => this.setState({loading: false, data}));

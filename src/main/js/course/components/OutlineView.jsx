@@ -7,8 +7,8 @@ import ContextSender from 'common/mixins/ContextSender';
 //import NavigationAware from 'common/mixins/NavigationAware';
 import Loading from 'common/components/Loading';
 
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
-import CourseLinker from 'library/components/CourseContentLinkMixin';
+import isEmpty from 'fbjs/lib/isEmpty';
+import CourseLinker from 'library/mixins/CourseContentLink';
 
 
 export default React.createClass({
@@ -38,13 +38,14 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		this.fillIn(this.props); },
+		this.fillIn(this.props);
+	},
 
 
 	componentWillUnmount () {
 		let {item} = this.props;
 		if (item) {
-			item.removeListener('changed', this.itemChanged);
+			item.removeListener('change', this.itemChanged);
 		}
 	},
 
@@ -53,7 +54,7 @@ export default React.createClass({
 		let {item} = this.props;
 		if (nextProps.item !== item) {
 			if (item) {
-				item.removeListener('changed', this.itemChanged);
+				item.removeListener('change', this.itemChanged);
 			}
 			this.fillIn(nextProps);
 		}
@@ -75,7 +76,7 @@ export default React.createClass({
 		let resolvingOutline = item ? item.getOutline() : Promise.reject();
 
 		if (item) {
-			item.addListener('changed', this.itemChanged);
+			item.addListener('change', this.itemChanged);
 		}
 
 		let depthMap = ['h1', 'div'];

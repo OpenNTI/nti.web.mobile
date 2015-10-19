@@ -5,6 +5,7 @@ import {
 } from 'vtt.js';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import {getModel} from 'nti.lib.interfaces';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
@@ -24,6 +25,8 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import {Component as Video} from 'video';
 
 import Transcript from './Transcript';
+
+import {NOT_FOUND, RETRY_AFTER_DOM_SETTLES} from 'content/components/annotations/Annotation';
 
 const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
@@ -46,12 +49,14 @@ class Annotation {
 
 		root = root.refs.transcript;
 
-		if (!root || !root.isMounted()) {
-			return -1;
+		if (!root) {
+			return RETRY_AFTER_DOM_SETTLES;
+		} else if (!root.isMounted()) {
+			return NOT_FOUND;
 		}
 
 
-		root = React.findDOMNode(root);
+		root = ReactDOM.findDOMNode(root);
 		let {scrollTop} = document.body;
 
 		let cue = start && root.querySelector(`[data-start-time="${start}"]`);
@@ -67,6 +72,8 @@ export default React.createClass({
 	mixins: [ContextSender, NavigatableMixin],
 
 	propTypes: {
+		VideoIndex: React.PropTypes.object.isRequired,
+		outlineId: React.PropTypes.string,
 		videoId: React.PropTypes.string,
 		course: React.PropTypes.object,
 
@@ -95,18 +102,27 @@ export default React.createClass({
 
 
 	componentWillReceiveProps (props) {
-		let {showDiscussions, videoId} = this.props;
+		let {videoId} = this.props;
 
-		if (props.videoId !== videoId || (!props.showDiscussions && props.showDiscussions !== showDiscussions)) {
+		if (props.videoId !== videoId) {
 			this.getDataIfNeeded(props);
 		}
 	},
 
 
+	componentWillUpdate (nextProps) {
+		let {currentTime} = this.state;
+		if (!nextProps.showDiscussions && this.props.showDiscussions && currentTime) {
+			this.setState({returnTime: currentTime});
+		}
+	},
+
+
 	componentDidUpdate () {
-		let {outlineId} = this.props;
+		let {outlineId, VideoIndex} = this.props;
 		let {video} = this.state;
-		let pageSource = video && video.getPageSource();
+
+		let pageSource = video && VideoIndex.getPageSource(video);
 
 		if (outlineId && pageSource) {
 			pageSource = pageSource.scoped(decodeFromURI(outlineId));
@@ -141,11 +157,17 @@ export default React.createClass({
 
 		try {
 
-			let {VideoIndex, videoId, outlineId} = props;
-			let video = VideoIndex.get(decodeFromURI(videoId));
+			const {VideoIndex, videoId} = props;
+			const decodedId = decodeFromURI(videoId);
+			let video = VideoIndex.get(decodedId);
 
 			this.resolveContext()
 				.then(context => this.setState({ context }));
+
+			if (!video) {
+				console.error('How do we get a video id ("%s") and not find it in the index?: ', decodedId, VideoIndex);
+				return this.setState({error: 'No Video'});
+			}
 
 			let transcript = this.loadTranscript(video);
 			let notes = this.loadDiscussions(video);
@@ -172,10 +194,10 @@ export default React.createClass({
 			.then(x => {
 				x.addListener('change', this.onStoreChanged);
 				this.setState({
-						store: x,
-						storeProvider: {getUserDataStore: ()=>x}
-					},
-					()=> this.onStoreChanged(x));
+					store: x,
+					storeProvider: {getUserDataStore: ()=>x}
+				},
+				()=> this.onStoreChanged(x));
 			});
 	},
 
@@ -254,8 +276,15 @@ export default React.createClass({
 
 	onVideoTimeTick (event) {
 		let time = (event.target || {}).currentTime;
+		let {returnTime} = this.state;
+
 		if (this.isMounted()) {
-			this.setState({currentTime: time});
+			if (returnTime != null) {
+				this.onJumpTo(returnTime);
+				returnTime = null;
+			}
+
+			this.setState({currentTime: time, returnTime});
 		}
 	},
 

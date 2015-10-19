@@ -9,7 +9,8 @@ import {
 	RESET,
 	CLEAR,
 	SUBMIT_BEGIN,
-	SUBMIT_END
+	SUBMIT_END,
+	TOGGLE_AGGREGATED_VIEW
 } from './Constants';
 
 
@@ -40,4 +41,9 @@ export function submit (assessment) {
 	performSubmit(assessment)
 		.then(response =>
 			AppDispatcher.handleRequestAction({type: SUBMIT_END, assessment, response}));
+}
+
+
+export function toggleAggregatedView (assessment) {
+	AppDispatcher.handleViewAction({type: TOGGLE_AGGREGATED_VIEW, assessment});
 }

@@ -12,7 +12,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import NotFound from 'notfound/components/View';
 
-import Detail from './Detail';
+import View from './View';
 import Item from './Item';
 
 const Note = getModel('note');
@@ -44,7 +44,7 @@ export default React.createClass({
 
 
 	getInitialState () {
-		return {};
+		return {loading: true};
 	},
 
 
@@ -67,7 +67,7 @@ export default React.createClass({
 	updateStore (props, mounting) {
 		let store = this.getStore();
 		let nextStore = this.getStore(props);
-		this.setState({loading: true});
+
 
 		if (store && store !== nextStore) {
 			store.removeListener('change', this.onUserDataChange);
@@ -80,6 +80,8 @@ export default React.createClass({
 
 			if (!nextStore.loading) {
 				this.onUserDataChange(nextStore, props);
+			} else {
+				this.setState({loading: true});
 			}
 		}
 	},
@@ -125,7 +127,7 @@ export default React.createClass({
 
 		return itemId ? (
 			item
-			? ( <Detail item={item} pageSource={pageSource}/> )
+			? ( <View item={item} pageSource={pageSource}/> )
 			: loading
 				? ( <Loading/> )
 				: ( <NotFound/> )

@@ -1,13 +1,11 @@
-import React from 'react';
-
-import CSS from 'react/lib/CSSCore';
+import CSS from 'fbjs/lib/CSSCore';
 import ReactTransitionEvents from 'react/lib/ReactTransitionEvents';
 
 import {getEventTarget} from 'nti.lib.dom';
 
 export const stop = e => { e.preventDefault(); e.stopPropagation(); };
 
-function getTouch(e, id) {
+function getTouch (e, id) {
 	return Array.from(e.targetTouches || [])
 		.find(i=>i.identifier === id);
 }
@@ -27,7 +25,7 @@ export default {
 		let ref = 'thumbnail' + current;
 
 		if (last !== current) {
-			let node = React.findDOMNode(this.refs[ref]);
+			let node = this.refs[ref];
 			if (node) {
 				//subtract the width to keep it centered when it can be.
 				node.parentNode.scrollLeft = (node.offsetLeft - node.offsetWidth);
@@ -69,8 +67,7 @@ export default {
 		let index = this.getActiveIndex();
 		let next = index + n;
 
-		let stage = React.findDOMNode(this.refs.stage);
-		let current = React.findDOMNode(this.refs.current);
+		let {refs: {stage, current}} = this;
 
 		if (next >= 0 && next < total) {
 			index = next;
@@ -121,8 +118,7 @@ export default {
 
 			e.stopPropagation();
 
-			let {stage} = this.refs;
-			stage = React.findDOMNode(stage);
+			const {refs: {stage}} = this;
 
 			// console.debug('Touch Start...');
 

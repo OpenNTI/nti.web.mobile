@@ -24,7 +24,7 @@ External Links:
 import path from 'path';
 import React from 'react';
 import Url from 'url';
-import emptyFunction from 'react/lib/emptyFunction';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import {toAnalyticsPath} from 'analytics/utils';
 
@@ -48,6 +48,15 @@ let {Progress} = CommonSymbols;
 
 function isExternal (item) {
 	return /external/i.test(item.type) || !isNTIID(item.href);
+}
+
+function canSetState (cmp) {
+	let can = false;
+
+	try { can = !cmp.shouldHaveDOM || !!cmp.refs.anchor; }
+	catch (e) {} //eslint-disable-line
+
+	return can;
 }
 
 export default React.createClass({
@@ -126,7 +135,7 @@ export default React.createClass({
 		commentCount: React.PropTypes.oneOfType([
 			React.PropTypes.number,
 			React.PropTypes.string
-			])
+		])
 	},
 
 
@@ -151,19 +160,17 @@ export default React.createClass({
 	},
 
 
-	componentWillMount () {
+	componentDidMount () {
+		this.shouldHaveDOM = true;
 		this.resolveIcon(this.props);
 		this.resolveHref(this.props);
 	},
 
 
 	componentWillReceiveProps (props) {
-		let {icon, item} = this.props;
-		if (icon !== props.icon) {
-			this.resolveIcon(props);
-		}
-
+		let {item} = this.props;
 		if(item !== props.item) {
+			this.resolveIcon(props);
 			this.resolveHref(props);
 		}
 	},
@@ -180,24 +187,31 @@ export default React.createClass({
 		let {contentPackage, item} = props;
 		let {href} = item;
 
+		let setState = (...args) => {
+			try {
+				if (canSetState(this)) {
+					this.setState(...args);
+				}
+			}
+			catch (e) { console.warn(e.message || e); }
+		};
+
 		if (isNTIID(href)) {
-			this.setState({href: this.getInternalHref(href, props.slug)});
+			setState({href: this.getInternalHref(href, props.slug)});
 			return;
 		}
 
 
 		let u = Url.parse(href);
 
-		if (u && (u.host || u.path[0] === '/')) {
-			this.setState({href});
+		if (u && (u.host || (u.path && u.path[0] === '/'))) {
+			setState({href: props.resolveUrlHook(href)});
 		}
 		else if (contentPackage) {
-			this.setState({href: null });
-			contentPackage.resolveContentURL(href)
-				.then(url=> props.resolveUrlHook(url))
-				.then(url=> {
-					this.setState({ href: url });
-				});
+			setState({href: null }, ()=>
+				contentPackage.resolveContentURL(href)
+					.then(url=> props.resolveUrlHook(url))
+					.then(url=> { setState({ href: url }); }));
 		}
 	},
 
@@ -215,7 +229,14 @@ export default React.createClass({
 		})
 			.catch(()=> contentPackage.resolveContentURL(props.item.icon))
 			.catch(()=> null)
-			.then(icon =>this.setState({iconResolved: true, icon}));
+			.then(icon => {
+				try {
+					if (canSetState(this)) {
+						this.setState({iconResolved: true, icon});
+					}
+				}
+				catch (e) { console.warn(e.message || e); }
+			});
 	},
 
 
@@ -265,9 +286,9 @@ export default React.createClass({
 
 
 	onClickDiscussion (e) {
-		if (this.props.disableLink) { return; }
-		let anchor = React.findDOMNode(this);
-		let {item, externalSlug = 'external'} = this.props;
+		const {refs: {anchor}, props: {disableLink, item, externalSlug = 'external'}} = this;
+
+		if (disableLink) { return; }
 		let subRef = e.target.getAttribute('href');
 
 		this.ignoreClick = true;
@@ -308,7 +329,7 @@ export default React.createClass({
 		return (
 			<a className={`content-link related-work-ref ${extra}`}
 				href={href} target={external ? '_blank' : null}
-				onClick={this.onClick}>
+				onClick={this.onClick} ref="anchor">
 
 				{!icon ? null :
 					<div className="icon" style={{backgroundImage: `url(${icon})`}}>

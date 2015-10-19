@@ -1,10 +1,10 @@
 import webpack from 'webpack';
 import WebpackServer from 'webpack-dev-server';
-import webpackConfigFile from '../../../webpack.config';
+import webpackConfigFile from '../../../webpack/app.config';
 
 import logger from './logger';
 
-export function setupDeveloperMode(config) {
+export function setupDeveloperMode (config) {
 	let port = config.port;
 	let devPort = config['webpack-dev-server'] || (port + 1);
 
@@ -22,7 +22,9 @@ export function setupDeveloperMode(config) {
 		noInfo: false,
 		quiet: false,
 		lazy: false,
-		watchDelay: 5000,
+		watchOptions: {
+			aggregateTimeout: 5000
+		},
 		publicPath: '/',
 
 		stats: {

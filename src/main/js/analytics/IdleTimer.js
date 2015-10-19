@@ -10,7 +10,7 @@ let idleTimeMs;
 let suspensionEventTypes = new Set([WATCH_VIDEO]);
 
 // end/resume analytics sesssion when user is idle/becomes active.
-export function startIdleTimer(idleFn, activeFn) {
+export function startIdleTimer (idleFn, activeFn) {
 	if (idleTimeMs == null) {
 		let analytics = analyticsConfig();
 		idleTimeMs = (analytics.idleTimeoutSeconds || 1800) * 1000;//default to 30min
@@ -23,12 +23,12 @@ export function startIdleTimer(idleFn, activeFn) {
 }
 
 let handlers = {
-	[EVENT_STARTED](action) {
+	[EVENT_STARTED] (action) {
 		if (suspensionEventTypes.has((action.event || {}).MimeType)) {
 			timer.stop();
 		}
 	},
-	[EVENT_ENDED](action) {
+	[EVENT_ENDED] (action) {
 		if (suspensionEventTypes.has((action.event || {}).MimeType)) {
 			timer.start();
 		}

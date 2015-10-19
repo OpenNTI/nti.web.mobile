@@ -2,7 +2,7 @@ import {mimeTypes, FORUM} from '../Constants';
 
 // walks a binned discussions hierarchy looking for forum objects
 // and returns a map of forumId to forum
-export default function indexForums(input, result) {
+export default function indexForums (input, result) {
 	result = result || {};
 	if (Array.isArray(input)) {
 		input.forEach(item => {

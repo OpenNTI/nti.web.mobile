@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import classnames from 'classnames';
 import {mimeTypes, GOT_COMMENT_REPLIES, POST} from '../../Constants';
@@ -9,9 +7,12 @@ import Store from '../../Store';
 import Avatar from 'common/components/Avatar';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
+import Loading from 'common/components/TinyLoader';
+
 import {Panel as ModeledContentPanel} from 'modeled-content';
 
-import Loading from 'common/components/TinyLoader';
+import {Placeholder as Video} from 'video';
+
 import CommentForm from '../CommentForm';
 import ActionLinks from '../ActionLinks';
 
@@ -22,6 +23,7 @@ import Mixin from './Mixin';
 import StoreEvents from 'common/mixins/StoreEvents';
 import KeepItemInState from '../../mixins/KeepItemInState';
 import ToggleState from '../../mixins/ToggleState';
+import LuckyCharms from 'common/components/LuckyCharms';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
@@ -31,9 +33,16 @@ const SHOW_REPLIES = 'showReplies';
 
 const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';
 
-export default React.createClass({
+const widgets = {
+	['application/vnd.nextthought.embeddedvideo'] (_, props) {
+		let {widget} = props;
+		return React.createElement(Video, {src: widget.embedURL});
+	}
+};
 
-	displayName: 'PostListItem',
+
+export default React.createClass({
+	displayName: 'list-items:PostItem',
 
 	mixins: [
 		NavigatableMixin,
@@ -56,7 +65,7 @@ export default React.createClass({
 	propTypes: {
 		item: React.PropTypes.object,
 		asHeadline: React.PropTypes.bool,
-		detailLink: React.PropTypes.string
+		detailLink: React.PropTypes.bool
 	},
 
 	getInitialState () {
@@ -69,7 +78,7 @@ export default React.createClass({
 		};
 	},
 
-	getDefaultProps() {
+	getDefaultProps () {
 		return {
 			detailLink: true
 		};
@@ -110,21 +119,21 @@ export default React.createClass({
 		);
 	},
 
-	getActionClickHandlers() {
+	getActionClickHandlers () {
 		return {
 			[EDIT]: this.onEditClick,
 			[DELETE]: this.onDeleteComment
 		};
 	},
 
-	commentCompletion(event) {
+	commentCompletion (event) {
 		this.setState({
 			[SHOW_REPLIES]: true
 		});
 		this.hideForm(event);
 	},
 
-	onHideEditForm() {
+	onHideEditForm () {
 		this.setState({
 			editing: false
 		});
@@ -149,7 +158,7 @@ export default React.createClass({
 		let edited = (Math.abs(modifiedOn - createdOn) > 0);
 
 		if (this.state.busy) {
-			return <Loading />;
+			return <Loading className="post-item"/>;
 		}
 
 		let linksClasses = {
@@ -158,7 +167,7 @@ export default React.createClass({
 
 		let links = (
 			<ActionLinks
-				key='actionlinks'
+				key="actionlinks"
 				item={item}
 				numComments={numComments}
 				canReply={this.props.asHeadline}
@@ -196,16 +205,17 @@ export default React.createClass({
 
 		return (
 			<div className={classes}>
+				<LuckyCharms item={item} />
 				{this.props.detailLink && <a href={href} className="threadlink"><span className="num-comments">{t('replies', {count: numComments})}</span><span className="arrow-right"/></a>}
 				<div className="post">
-					<Avatar username={createdBy} />
+					<Avatar entity={createdBy} />
 					<div className="wrap">
 						<div className="meta">
-							<DisplayName username={createdBy} className="name"/>
-							<DateTime date={createdOn} relative={true}/>
+							<DisplayName entity={createdBy} className="name"/>
+							<DateTime date={createdOn} relative/>
 						</div>
 						<div className="message">
-							<ModeledContentPanel body={message} />
+							<ModeledContentPanel body={message} widgets={widgets}/>
 							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 						</div>
 						{links}

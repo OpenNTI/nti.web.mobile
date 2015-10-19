@@ -1,9 +1,10 @@
 /* global $AppConfig */
+import QueryString from 'query-string';
 import dataserver from 'nti.lib.interfaces';
 import forceCurrentHost from 'nti.lib.interfaces/utils/forcehost';
 
 
-function exposeGlobaly (...fns) {
+function exposeGlobally (...fns) {
 
 	function wrap (fn) {
 		return (...args)=> {
@@ -18,7 +19,7 @@ function exposeGlobaly (...fns) {
 }
 
 
-function noConfig() {
+function noConfig () {
 	return typeof $AppConfig === 'undefined';
 }
 
@@ -51,6 +52,22 @@ export function getBasePath () {
 }
 
 
+export function getReturnURL (forceUpdate = false) {
+	let me = getReturnURL;
+
+	if (!me.value || forceUpdate) {
+		let loc = global.location || {};
+		loc = (QueryString.parse(loc.search) || {}).return;
+		if (loc) {
+			me.value = loc;
+		}
+	}
+
+	return me.value;
+}
+getReturnURL(); //capture the return on init.
+
+
 export function getServerURI () {
 	if (noConfig()) {
 		console.error('utils:getServerURI() was called before config was defined.');
@@ -62,7 +79,7 @@ export function getServerURI () {
 export function getSiteName () {
 	//This can only return a value on the client, on the server it currently returns `undefined`.
 	if (typeof $AppConfig !== 'undefined') {
-		return $AppConfig.siteName || location.hostname;
+		return $AppConfig.siteName || (global.location || {}).hostname || 'default';
 	}
 }
 
@@ -71,7 +88,11 @@ export function isFlag (flagName) {
 	if (noConfig()) {
 		console.error('utils:isFlag() was called before config was defined.');
 	}
-	let flags = $AppConfig.flags || {};
+	let site = getSiteName();
+	let {flags = {}} = $AppConfig;
+
+	flags = Object.assign({}, flags, flags[site] || {});
+
 	return !!flags[flagName];
 }
 
@@ -86,11 +107,16 @@ export function discussionsConfig () {
 }
 
 
+export function externalLibraries () {
+	return $AppConfig['external-libraries'];
+}
+
+
 /**
  * @returns {Interface} the shared instance of the server interface.
  * NOTICE: This is for low-level (or anonymous/non-authenticated) work ONLY.
  */
-export function getServer() {
+export function getServer () {
 	if (noConfig()) {
 		console.error('utils:getServer() was called before config was defined.');
 	}
@@ -125,7 +151,7 @@ export function getService () {
 }
 
 
-exposeGlobaly(getServer, getService);
+exposeGlobally(getServer, getService);
 
 
 export function installAnonymousService () {
@@ -148,7 +174,8 @@ export function overrideAppUsername (str) {
 	$AppConfig.username = str;
 }
 
-export function overrideConfigAndForceCurrentHost() {
+
+export function overrideConfigAndForceCurrentHost () {
 	if (noConfig()) {
 		console.error('utils:overrideConfigAndForceCurrentHost() was called before config was defined.');
 	}

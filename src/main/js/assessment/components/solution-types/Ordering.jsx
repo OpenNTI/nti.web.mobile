@@ -3,8 +3,6 @@ import Mixin from './Mixin';
 
 import Content from '../Content';
 
-import toArray from 'nti.lib.interfaces/utils/toarray';
-
 /**
  * This solution type represents Ordering
  */
@@ -29,7 +27,7 @@ export default React.createClass({
 		let solution = (this.state.solution || {}).value;
 		let ex = this.state.explanation || '';
 
-		solution = solution && toArray(Object.assign({length: values.length}, solution));
+		solution = solution && Array.from(Object.assign({length: values.length}, solution));
 
 		return (
 			<div className="ordered solutions">

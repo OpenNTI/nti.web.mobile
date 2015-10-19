@@ -1,0 +1,157 @@
+
+
+.overview-naquestionset {
+	display: block;
+	margin-top: 0.5rem;
+	background: #fcfcfc;
+	border: 1px solid #e2e2e2;
+	border-radius: 5px;
+	box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.08);
+	transition: opacity 0.5s ease-in;
+
+	.body {
+		padding: 0.5rem;
+		overflow: none;
+		color: $body-font-color;
+	}
+
+	.icon {
+		float: left;
+		margin: 0.25rem;
+		margin-right: 0.6rem;
+		padding: 0;
+	}
+
+	.tally-box {
+		font-family: "Open Sans", sans-serif;
+		font-style: italic;
+		padding: 0 0.5rem;
+	}
+
+	.stat {
+		display: inline-block;
+		font-weight: 600;
+		font-size: 0.75rem;
+		margin-right: 1rem;
+
+		&.questions {
+			color: $tertiary-grey;
+		}
+
+		&.due-date:not(.late) {
+			color: $tertiary-grey;
+		}
+
+		&.correct {
+			color: #94b61a;
+		}
+
+		&.incorrect {
+			color: #e95a57;
+		}
+
+		&.late {
+			color: #e95a57;
+		}
+	}
+
+
+
+
+	.body:after {
+		content: " ";
+		display: block;
+		height: 0;
+		clear: both;
+	}
+
+	&.disabled .body {
+		@extend a.disabled;
+		@extend %not-available;
+	}
+
+	&.loading {
+		@extend a.disabled;
+		.body {
+			@extend %not-available;
+			&:after {
+				content: 'Loading...';
+			}
+		}
+	}
+
+
+	&.networkerror {
+		opacity: 0.5;
+		.body {
+			@extend %not-available;
+			&:after {
+				content: 'Network error.';
+			}
+		}
+	}
+
+
+	&.assessment {
+		&.completed {
+			.stat.questions {
+				display: none;
+			}
+		}
+
+		&:not(.completed) {
+			.stat:not(.questions) {
+				display: none;
+			}
+		}
+	}
+
+	&.assignment {
+
+		&.submitted {
+			.icon {
+				@extend %icon-assignment-ontime;
+				background-repeat: no-repeat;
+				width: 40px;
+				height: 40px;
+			}
+		}
+
+		.excused {display:none !important;}
+
+		&.late {
+			.icon {
+				@extend %icon-assignment-late;
+				background-repeat: no-repeat;
+				width: 40px;
+				height: 40px;
+			}
+
+			.stat:not(.late) {
+				display: none;
+			}
+		}
+
+		&:not(.late) {
+			.icon {
+				@extend %icon-assignment-due;
+				background-repeat: no-repeat;
+				width: 40px;
+				height: 40px;
+			}
+			.stat.late {
+				display: none;
+			}
+		}
+
+		.assignment.status-label {
+			font-weight: 600;
+			font-size: 0.75rem;
+			margin-right: 1rem;
+			text-transform: none;
+			margin-right: 1rem;
+		}
+
+	}
+
+}

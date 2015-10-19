@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
 import {isPointWithIn} from '../../utils/dom';
 import Base, {TYPE_SHAPE} from './Base';
@@ -18,7 +19,7 @@ export default {
 			React.PropTypes.shape(TYPE_SHAPE),
 			React.PropTypes.arrayOf(React.PropTypes.string),
 			React.PropTypes.arrayOf(React.PropTypes.shape(TYPE_SHAPE))
-			]).isRequired
+		]).isRequired
 	},
 
 
@@ -106,7 +107,7 @@ export default {
 		let {x, y} = dragData;
 		if (!this.isMounted() || !this.context.currentDragItem) { return; }
 
-		if (isPointWithIn(React.findDOMNode(this), x, y)) {
+		if (isPointWithIn(ReactDOM.findDOMNode(this), x, y)) {
 			if (!this.state.over) {
 				this[onDragEnteredDropTarget]();
 			}

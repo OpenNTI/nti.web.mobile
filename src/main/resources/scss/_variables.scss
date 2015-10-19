@@ -17,15 +17,6 @@ $tertiary-grey: #b8b8b8;
 $tertiary-grey-alt: #d1d1d1;
 $quad-grey: #f8f8f8;//f9f9f9
 
-// alias greys to grays because i can
-// never remember which spelling we use
-$primary-gray: $primary-grey;
-$secondary-gray: $secondary-grey;
-$secondary-gray-alt: $secondary-grey-alt;
-$tertiary-gray: $tertiary-grey;
-$tertiary-gray-alt: $tertiary-grey-alt;
-$quad-gray: $quad-grey;
-
 $disabled-button-border: #d0d0d0;
 $disabled-button-background: rgba(184,184,184,0.5);
 $disabled-button-color: rgba(255,255,255,0.7);
@@ -72,18 +63,120 @@ $table-head-font-color: $primary-grey;
 $table-row-font-color: $primary-grey;
 $tabs-navigation-font-color: $primary-grey;
 
-%chevron-left {background-image: url(../images/svg/chevron-left.svg);}
-%chevron-left-white {background-image: url(../images/svg/chevron-left-white.svg);}
-%chevron-right {background-image: url(../images/svg/chevron-right.svg);}
-%chevron-right-white {background-image: url(../images/svg/chevron-right-white.svg);}
-%chevron-up {background-image: url(../images/svg/chevron-up.svg);}
-%chevron-up-white {background-image: url(../images/svg/chevron-up-white.svg);}
-%chevron-down {background-image: url(../images/svg/chevron-down.svg);}
-%chevron-down-white {background-image: url(../images/svg/chevron-down-white.svg);}
+$anchor-font-color-hover: $primary-blue;
 
-%profile-education {background-image: url('../images/svg/profile-education.svg');}
-%profile-location {background-image: url('../images/svg/profile-location.svg');}
-%profile-professional {background-image: url('../images/svg/profile-professional.svg');}
+%scroll-style {
+	html:not(.touch) &::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+		// &:window-inactive {
+		// 	display: none;
+		// }
+
+		&-track {
+			border-radius: 8px;
+			background: rgba(255,255,255,0.1);
+		}
+
+		&-thumb {
+			border-radius: 4px;
+			background: rgba(0,0,0,0.2);
+		}
+	}
+}
+
+%detail-link {
+	text-transform: uppercase;
+	font-size: 0.6875rem;
+}
+
+%svg-icon-mask {
+	mask-size: 100% 100%;
+	background-color: $secondary-grey;
+}
+
+%icon-font {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+%chevron {
+	font-family: 'icomoon';
+	content: '<';
+	color: $primary-blue;
+	font-size: 1.5em;
+	vertical-align: middle;
+}
+
+%chevron-left {
+	@extend %chevron;
+	position: relative;
+	top: -1px;
+}
+
+%chevron-left-white {
+	@extend %chevron-left;
+	color: white;
+}
+
+%chevron-right {
+	@extend %chevron;
+	content: '>';
+}
+
+%chevron-right-white {
+	@extend %chevron-right;
+	color: white;
+}
+
+%chevron-up {
+	@extend %chevron;
+	content: '^';
+}
+
+%chevron-up-white {
+	@extend %chevron-up;
+	color: white;
+}
+
+%chevron-down {
+	@extend %chevron;
+	content: 'v';
+}
+
+%chevron-down-white {
+	@extend %chevron-down;
+	color: white;
+}
+
+%profile-education {
+	@extend %svg-icon-mask;
+	mask-image: url(../images/svg/profile-education.svg);
+
+}
+%profile-location {
+	@extend %svg-icon-mask;
+	mask-image: url(../images/svg/profile-location.svg);
+}
+%profile-professional {
+	@extend %svg-icon-mask;
+	mask-image: url(../images/svg/profile-professional.svg);
+}
+
+%profile-card-chat-icon { background-image: url(../images/icons/chat-32-blue.png); }
+%profile-social-twitter { background-image: url(../images/icons/social/twitter.png); }
+%profile-social-facebook { background-image: url(../images/icons/social/facebook.png); }
+%profile-social-googleplus { background-image: url(../images/icons/social/google.png); }
+%profile-social-linkedin { background-image: url(../images/icons/social/linkedin.png); }
+
+%avatar-admin-badge { background-image: url(../images/icons/admin_badge.png); }
 
 %checkbox-image {background-image: url(../images/icons/checkbox-14.png);}
 %checkbox-image-active {background-image: url(../images/icons/checkbox-14_active.png);}
@@ -108,7 +201,9 @@ $tabs-navigation-font-color: $primary-grey;
 %icon-reply-arrow {background-image: url(../images/icons/reply-arrow.png);}
 
 %icon-assignment-due {background-image: url(../images/icons/assignment_due.png);}
+%icon-assignment-due-small {background-image: url(../images/icons/assignment_due_small.png);}
 %icon-assignment-late {background-image: url(../images/icons/assignment_late.png);}
+%icon-assignment-late-small {background-image: url(../images/icons/assignment_late_small.png);}
 %icon-assignment-ontime {background-image: url(../images/icons/assignment_ontime.png);}
 %icon-assignment-ontime-small {background-image: url(../images/icons/assignment_ontime_small.png);}
 %icon-assignment-timed {background-image: url(../images/icons/assignment-timed.png);}
@@ -121,8 +216,12 @@ $tabs-navigation-font-color: $primary-grey;
 
 %icon-broken-whiteboard {background-image: url(../images/icons/whiteboard_error_loading_image.png);}
 
+%icon-close { background-image: url(../images/icons/close.png); }
+
 %icon-editor-image {background-image: url(../images/icons/editor/image.png);}
 %icon-editor-image-active {background-image: url(../images/icons/editor/image_active.png);}
+%icon-editor-video {background-image: url(../images/icons/editor/video.png);}
+%icon-editor-video-active {background-image: url(../images/icons/editor/video_active.png);}
 
 %icon-editor-bold {background-image: url(../images/icons/editor/bold.png);}
 %icon-editor-bold-active {background-image: url(../images/icons/editor/bold_active.png);}
@@ -130,6 +229,9 @@ $tabs-navigation-font-color: $primary-grey;
 %icon-editor-italic-active {background-image: url(../images/icons/editor/italic_active.png);}
 %icon-editor-underline {background-image: url(../images/icons/editor/underline.png);}
 %icon-editor-underline-active {background-image: url(../images/icons/editor/underline_active.png);}
+
+%icon-editor-content-object {background-image: url(../images/icons/filetype-unknown.png);}
+%icon-editor-content-video {background-image: url(../images/icons/filetype-video.png);}
 
 %icon-edit-14 {background-image: url(../images/icons/editor/image-edit-14.png);}
 %icon-search-18 {background-image: url(../images/icons/search-18.png);}
@@ -159,6 +261,7 @@ $tabs-navigation-font-color: $primary-grey;
 %icon-action-share {background-image: url(../images/icons/actions/share.png);}
 %icon-action-delete {background-image: url(../images/icons/actions/trash-can.png);}
 
+
 %middot-before {
 	&::before {
 		content: '\00B7';
@@ -173,6 +276,13 @@ $tabs-navigation-font-color: $primary-grey;
 	}
 }
 
+%middot {
+	text-decoration: none;
+	position: static;
+	content: '\00B7';
+	padding: 0 0.5em;
+	background: none;
+}
 
 %hardware-render {
 	backface-visibility: hidden;
@@ -183,6 +293,15 @@ $tabs-navigation-font-color: $primary-grey;
 	backface-visibility: hidden;
 	-webkit-overflow-scrolling: touch;
 	-ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+
+.kill-transitions {
+	transition: none !important;
+}
+
+.coordinate-root {
+	position: relative;
 }
 
 
@@ -199,12 +318,7 @@ $tabs-navigation-font-color: $primary-grey;
   transform: translate3d(0,-50%, 0);
 }
 
-
-@mixin viewportWidth($rule, $value) {
-	$w: $value;
-	#{$rule}: #{$w}vw;
-	$factor: $w/100;
-
+@mixin viewports($rule, $factor) { // used by viewportWidth and viewportHeight, below.
 	//iOS 7 fix:
 	// iPad with portrait orientation.
 	@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait){
@@ -236,4 +350,19 @@ $tabs-navigation-font-color: $primary-grey;
 		#{$rule}: #{568*$factor}px;
 	}
 	//iPhone 6's never had iOS7 on them.
+}
+
+@mixin viewportWidth($rule, $value) {
+	$w: $value;
+	#{$rule}: #{$w}vw;
+	$factor: $w/100;
+	@include viewports($rule, $factor)
+}
+
+
+@mixin viewportHeight($rule, $value) {
+	$h: $value;
+	#{$rule}: #{$h}vh;
+	$factor: $h/100;
+	@include viewports($rule, $factor)
 }

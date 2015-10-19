@@ -6,7 +6,7 @@ import {scoped} from 'common/locale';
 
 const t = scoped('FORUMS');
 
-function isValid(topicValue) {
+function isValid (topicValue) {
 	return topicValue.title.trim().length > 0 && (topicValue.body || []).length > 0;
 }
 
@@ -27,12 +27,12 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		React.findDOMNode(this.refs.title).focus();
+		this.refs.title.focus();
 	},
 
 	getValue () {
 		return {
-			title: React.findDOMNode(this.refs.title).value,
+			title: this.refs.title.value,
 			body: this.refs.editor.getValue()
 		};
 	},
@@ -48,8 +48,8 @@ export default React.createClass({
 		let buttons = <OkCancelButtons onOk={this.props.onSubmit} onCancel={this.props.onCancel} okEnabled={this.state.canSubmit} okText={t('editorOkButton')} />;
 		return (
 			<PanelButton className="comment-form" button={buttons}>
-				<div><input ref='title' defaultValue={title} placeholder={t('topicTitlePlaceholder')} onChange={this.onEditorChange} /></div>
-				<div><Editor ref='editor' value={body} onChange={this.onEditorChange} /></div>
+				<div><input ref="title" defaultValue={title} placeholder={t('topicTitlePlaceholder')} onChange={this.onEditorChange} /></div>
+				<div><Editor ref="editor" value={body} onChange={this.onEditorChange} allowInsertVideo/></div>
 			</PanelButton>
 		);
 	}

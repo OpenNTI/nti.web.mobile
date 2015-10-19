@@ -1,6 +1,6 @@
 import React from 'react';
 import path from 'path';
-import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Router from 'react-router-component';
 let {Locations, Location, NotFound} = Router;
@@ -47,7 +47,7 @@ export default React.createClass({
 		]);
 	},
 
-	nav() {
+	nav () {
 		this.refs.router.navigate(...arguments);
 	},
 
@@ -63,44 +63,44 @@ export default React.createClass({
 		let router = this.refs.router;
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.PRICED_ITEM_RECEIVED:
-				this.setState({
-					loading: false,
-					pricedItem: event.pricedItem
-				});
-				break;
+		case Constants.PRICED_ITEM_RECEIVED:
+			this.setState({
+				loading: false,
+				pricedItem: event.pricedItem
+			});
+			break;
 
-			case Constants.GIFT_PURCHASE_DONE:
-				router.navigate('/', {replace: true});
-				break;
+		case Constants.GIFT_PURCHASE_DONE:
+			router.navigate('/', {replace: true});
+			break;
 
-			case Constants.EDIT:
-				router.navigate('/' + event.mode);
-				break;
+		case Constants.EDIT:
+			router.navigate('/' + event.mode);
+			break;
 
-			case Constants.RESET:
-				router.navigate('/', {replace: true});
-				break;
+		case Constants.RESET:
+			router.navigate('/', {replace: true});
+			break;
 
-			case Constants.BILLING_INFO_VERIFIED:
-				router.navigate('confirm/');
-				break;
+		case Constants.BILLING_INFO_VERIFIED:
+			router.navigate('confirm/');
+			break;
 
-			case Constants.STRIPE_PAYMENT_SUCCESS:
+		case Constants.STRIPE_PAYMENT_SUCCESS:
 
-				if ((Store.getPaymentResult() || {}).redemptionCode) {
-					router.navigate('success/');
-				} else {
-					// the catalog entry we're rooted under may not exist when the catalog reloads
-					// so the success message lives under the root catalog router.
-					this.nav('./success/');
-				}
-				break;
+			if ((Store.getPaymentResult() || {}).redemptionCode) {
+				router.navigate('success/');
+			} else {
+				// the catalog entry we're rooted under may not exist when the catalog reloads
+				// so the success message lives under the root catalog router.
+				this.nav('./success/');
+			}
+			break;
 
-			case Constants.STRIPE_PAYMENT_FAILURE:
-			case Constants.POLLING_ERROR:
-				router.navigate('error/');
-				break;
+		case Constants.STRIPE_PAYMENT_FAILURE:
+		case Constants.POLLING_ERROR:
+			router.navigate('error/');
+			break;
 
 		}
 	},
@@ -112,9 +112,9 @@ export default React.createClass({
 		let courseTitle = (this.props.purchasable || {}).title || '';
 
 		return (
-			<ReactCSSTransitionGroup transitionName="loginforms">
+			<ReactCSSTransitionGroup transitionName="fadeOutIn">
 				<Locations contextual
-					ref='router'>
+					ref="router">
 					<Location path="/confirm/"
 						handler={PaymentConfirm}
 						{...this.props}

@@ -1,9 +1,7 @@
 import React from 'react';
 import Point from '../Point';
 
-function pointFromTouch(t) {
-	return new Point(t.pageX, t.pageY, t.identifier);
-}
+const pointFromTouch = t => new Point(t.pageX, t.pageY, t.identifier);
 
 let activeTouches = {};
 
@@ -42,7 +40,7 @@ export default React.createClass({
 		}
 	},
 
-	handleMultitouchMove(touches) {
+	handleMultitouchMove (touches) {
 
 		let t1 = pointFromTouch(touches[0]);
 		let t2 = pointFromTouch(touches[1]);
@@ -65,9 +63,11 @@ export default React.createClass({
 		});
 	},
 
-	constrainOffsets(offset=this.state.translate) {
-		let containerRect = React.findDOMNode(this.refs.container).getBoundingClientRect();
-		let imgRect = React.findDOMNode(this.refs.img).getBoundingClientRect();
+	constrainOffsets (offset = this.state.translate) {
+		const {refs: {container, img}} = this;
+		let containerRect = container.getBoundingClientRect();
+		let imgRect = img.getBoundingClientRect();
+
 		let widthDiff = imgRect.width - containerRect.width;
 		let maxPanX = widthDiff > 0 ? widthDiff / 2 : 0;
 
@@ -105,9 +105,12 @@ export default React.createClass({
 			let t = touches[i];
 			delete activeTouches[t.identifier];
 		}
+
+		const {state: {scale, translate}} = this;
+
 		this.setState({
-			startScale: this.state.scale || 1.0,
-			startOffset: this.state.translate || Point.ORIGIN
+			startScale: scale || 1.0,
+			startOffset: translate || Point.ORIGIN
 		});
 	},
 

@@ -8,16 +8,23 @@ export default React.createClass({
 
 	propTypes: {
 		title: React.PropTypes.string.isRequired,
-		children: React.PropTypes.any
+		children: React.PropTypes.any,
+		triangle: React.PropTypes.bool
 	},
 
-	getInitialState: function() {
+	getDefaultProps () {
+		return {
+			triangle: true
+		};
+	},
+
+	getInitialState () {
 		return {
 			collapsed: true
 		};
 	},
 
-	[toggle]() {
+	[toggle] () {
 		this.setState({
 			collapsed: !this.state.collapsed
 		});
@@ -34,7 +41,7 @@ export default React.createClass({
 		let titleClasses = cx({
 			'collapsible-title': true,
 			'open': !this.state.collapsed,
-			'disclosure-triangle': true
+			'disclosure-triangle': this.props.triangle
 		});
 
 		return (

@@ -18,7 +18,6 @@ import Store from '../Store';
 let Location = Router.Location;
 
 export default React.createClass({
-
 	displayName: 'ForumView',
 
 	mixins: [
@@ -88,7 +87,6 @@ export default React.createClass({
 					/>
 					<Location path="/:topicId/*"
 						handler={TopicView}
-						forum={forum}
 					/>
 				</Router.Locations>
 			</nav>

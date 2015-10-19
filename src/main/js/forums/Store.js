@@ -3,8 +3,7 @@ import StorePrototype from 'common/StorePrototype';
 import * as Constants from './Constants';
 import indexForums from './utils/index-forums';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
-import Api from './Api';
-import {defaultPagingParams} from './Api';
+import {getObject, DEFAULT_PAGING_PARAMS} from './Api';
 
 import hash from 'object-hash';
 
@@ -12,7 +11,7 @@ const keyForObject = 'ForumStore:keyForObject';
 const keyForContents = 'ForumStore:keyForContents';
 
 class Store extends StorePrototype {
-	constructor() {
+	constructor () {
 		super();
 		this.setMaxListeners(0);
 
@@ -24,6 +23,16 @@ class Store extends StorePrototype {
 			packageId: undefined
 		});
 
+		//FIXME: Stores respond to Action's results and store. period.
+		// Actions should not be hollow shells that dispatch commands.
+		// Actions should do the heavy lifting and calling the Api,
+		// and dispatching finalized data for the store to apply
+		// synchronously.
+		//
+		// No method, nor function within the entire FILE of a Store
+		//  should have any "Action"-like behavior. Nor should there
+		//  ever be Action/Api imports in a Store.
+		//  The Store is the File. Not the Export.
 		this.registerHandlers({
 			[Constants.GET_COMMENT_REPLIES] (payload) {
 				getCommentReplies(payload.action.comment);
@@ -59,62 +68,62 @@ class Store extends StorePrototype {
 		});
 	}
 
-	setDiscussions(packageId, data) {
+	setDiscussions (packageId, data) {
 		this.setPackageId(packageId);
 		this.discussions[packageId] = dataOrError(data);
 		this.forums = Object.assign(this.forums || {}, indexForums(this.discussions));
 		this.emitChange({ type: Constants.DISCUSSIONS_CHANGED, packageId });
 	}
 
-	setObject(ntiid, object) {
+	setObject (ntiid, object) {
 		let key = this[keyForObject](ntiid);
 		this.objects[key] = object;
 		this.emitChange({ type: Constants.OBJECT_LOADED, ntiid, object });
 	}
 
-	setObjectContents(objectId, contents, params={}) {
+	setObjectContents (objectId, contents, params = {}) {
 		let key = this[keyForContents](objectId, params);
 		this.objectContents[key] = contents;
 		this.emitChange({ type: Constants.OBJECT_CONTENTS_CHANGED, objectId });
 	}
 
-	setPackageId(packageId) {
+	setPackageId (packageId) {
 		this.packageId = packageId;
 	}
 
-	getPackageId() {
+	getPackageId () {
 		return this.packageId;
 	}
 
-	getDiscussions(forPackageId) {
+	getDiscussions (forPackageId) {
 		return this.discussions[forPackageId];
 	}
 
-	getForum(forumId) {
+	getForum (forumId) {
 		return this.forums[decodeFromURI(forumId)] || this.getObject(forumId);
 	}
 
-	getForumContents(forumId, batchStart, batchSize) {
+	getForumContents (forumId, batchStart, batchSize) {
 		return this.getObjectContents(
 			forumId,
 			Object.assign(
 				{},
-				defaultPagingParams,
+				DEFAULT_PAGING_PARAMS,
 				{batchStart, batchSize}
 			)
 		);
 	}
 
-	getObject(objectId) {
+	getObject (objectId) {
 		return this.objects[this[keyForObject](objectId)];
 	}
 
-	getObjectContents(objectId, params={}) {
+	getObjectContents (objectId, params = {}) {
 		let key = this[keyForContents](objectId, params);
 		return this.objectContents[key];
 	}
 
-	deleteObject(object) {
+	deleteObject (object) {
 		let objectId = object && object.getID ? object.getID() : object;
 		delete this.objects[this[keyForObject](objectId)];
 		this.emitChange({ type: Constants.OBJECT_DELETED, objectId, object });
@@ -137,18 +146,18 @@ class Store extends StorePrototype {
 		this.emitError({ type: Constants.TOPIC_CREATION_ERROR, data });
 	}
 
-	[keyForContents](objectId, params={}) {
+	[keyForContents] (objectId, params = {}) {
 		return [decodeFromURI(objectId), hash(params), 'contents'].join(':');
 	}
 
-	[keyForObject](objectId) {
+	[keyForObject] (objectId) {
 		return [decodeFromURI(objectId), 'object'].join(':');
 	}
 }
 
 // convenience method for creating an error object
 // for failed fetch attempts
-function dataOrError(data) {
+function dataOrError (data) {
 	if (data && data instanceof Error) {
 		return {
 			error: data,
@@ -160,7 +169,7 @@ function dataOrError(data) {
 
 const store = new Store();
 
-function getCommentReplies(comment) {
+function getCommentReplies (comment) {
 	if(!comment || !comment.getReplies) {
 		console.warn('Can\'t get replies from %O', comment);
 		return;
@@ -174,26 +183,25 @@ function getCommentReplies(comment) {
 	});
 }
 
-function addComment(topic, parent, comment) {
+function addComment (topic, parent, comment) {
 	return topic.addComment(comment, parent)
-	.then(
-		result => {
-			// getObjectContents()
-			store.commentAdded({
-				topic: topic,
-				parent: parent,
-				result: result
-			});
-		},
-		reason => {
-			console.error(reason);
-			store.commentError({
-				topic: topic,
-				parent: parent,
-				reason: reason
-			});
-		}
-	);
+		.then(
+			result => {
+				store.commentAdded({
+					topic: topic,
+					parent: parent,
+					result: result
+				});
+			},
+			reason => {
+				console.error(reason);
+				store.commentError({
+					topic: topic,
+					parent: parent,
+					reason: reason
+				});
+			}
+		);
 }
 
 /**
@@ -206,72 +214,65 @@ function addComment(topic, parent, comment) {
  *	}
  * @return {Promise} A promise fulfilling with no value.
  */
-function saveComment(payload) {
+function saveComment (payload) {
 	let {postItem, newValue} = payload.action;
-	return postItem.setProperties(newValue)
-	.then(result => {
-		store.commentSaved(result);
-	});
+	return postItem.save(newValue)
+		.then(() =>
+			store.commentSaved(postItem));
 }
 
-function createTopic(forum, topic) {
+function createTopic (forum, topic) {
 	return forum.createTopic(topic)
-	.then(
-		result => {
-			store.emitChange({
-				type: Constants.TOPIC_CREATED,
-				topic: result,
-				forum: forum
-			});
-			getObjectContents(forum.getID());
-		},
-		reason => {
-			store.topicCreationError({
-				forum: forum,
-				topic: topic,
-				reason: reason
-			});
-		}
-	);
+		.then(
+			result => {
+				store.emitChange({
+					type: Constants.TOPIC_CREATED,
+					topic: result,
+					forum: forum
+				});
+				getObjectContents(forum.getID());
+			},
+			reason => {
+				store.topicCreationError({
+					forum: forum,
+					topic: topic,
+					reason: reason
+				});
+			}
+		);
 }
 
-function deleteTopic(topic) {
+function deleteTopic (topic) {
 	return deleteObject(topic).then(() => {
 		console.log('Reloading forum contents in response to topic deletion.');
 		getObjectContents(topic.ContainerId);
 	});
 }
 
-function deleteObject(o) {
-	return Api.deleteObject(o).then(() => {
-		store.deleteObject(o);
-	});
+function deleteObject (o) {
+	return o.delete().then(() =>
+		store.deleteObject(o));
 }
 
-function deleteComment(comment) {
+function deleteComment (comment) {
 	return deleteObject(comment);
 }
 
-function getObjectContents(ntiid, params) {
-	return getObject(ntiid).then(object => {
-		return object.getContents(params).then(contents => {
-			store.setObjectContents(ntiid, contents);
-		});
-	});
-}
-
-function getObject(ntiid) {
-	return Api.getObject(ntiid).then(
-		object => {
+function getObjectContents (ntiid, params) {
+	return getObject(ntiid)
+		.then(object => {
 			store.setObject(ntiid, object);
 			return object;
-		});
+		})
+		.then(object => object.getContents(params))
+		.then(contents =>
+			store.setObjectContents(ntiid, contents));
 }
 
-function reportItem(item) {
-	return Api.reportItem(item)
-	.then((result) => {
-		store.setObject(result.getID(), result);
+
+function reportItem (item) {
+	return item.flag().then(() => {
+		store.setObject(item.getID(), item);
 		store.emitChange({
 			type: Constants.ITEM_REPORTED,
 			item: item

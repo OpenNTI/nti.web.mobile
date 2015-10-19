@@ -3,10 +3,10 @@
 	background: rgba(255,255,255,.95);
 	z-index: 9999;
 	top: 0;
-	left: 0; 
+	left: 0;
 	bottom: 0;
 	right: 0;
-	overflow:scroll;
+	overflow: auto;
 
 	.zoomable-img {
 		position: absolute;
@@ -21,10 +21,15 @@
 	}
 
 	.zoomable-close {
+		@extend %icon-close;
 		position: absolute;
 		top: .5rem;
 		right: .5rem;
-		background: url('../images/icons/close.png') no-repeat center white;
+		background: {
+			repeat: no-repeat;
+			position: center;
+			color: white;
+		}
 		padding: 0;
 		width: 50px;
 		height: 50px;

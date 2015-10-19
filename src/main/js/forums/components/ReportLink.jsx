@@ -4,9 +4,11 @@ import {areYouSure} from 'prompts';
 
 import {reportItem} from '../Actions';
 
+import ItemChanges from 'common/mixins/ItemChanges';
 
 export default React.createClass({
 	displayName: 'ReportLink',
+	mixins: [ItemChanges],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired
@@ -31,7 +33,7 @@ export default React.createClass({
 
 		let Tag = isReported ? 'span' : 'a';
 
-		let classNames = cx('fi-flag', {
+		let classNames = cx('icon-flag', {
 			flagged: isReported
 		});
 

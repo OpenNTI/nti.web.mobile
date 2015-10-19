@@ -38,7 +38,7 @@ const Store = Object.assign({}, EventEmitter.prototype, {
 });
 
 
-function getFiveMinuteService() {
+function getFiveMinuteService () {
 	let me = getFiveMinuteService;
 	if (!me.promise) {
 		me.promise = getService().then(service =>
@@ -48,7 +48,7 @@ function getFiveMinuteService() {
 }
 
 
-function preflightAndSubmit(action) {
+function preflightAndSubmit (action) {
 
 	let input = action.payload.data;
 
@@ -76,15 +76,15 @@ function preflightAndSubmit(action) {
 		);
 }
 
-function preflight(data) {
+function preflight (data) {
 	return getFiveMinuteService().then(service => service.preflight(data));
 }
 
-function requestAdmission(data) {
+function requestAdmission (data) {
 	return getFiveMinuteService().then(service => service.requestAdmission(data));
 }
 
-function requestConcurrentEnrollment(action) {
+function requestConcurrentEnrollment (action) {
 	let requestEnrollment = getFiveMinuteService().then(service => service.requestConcurrentEnrollment(action));
 
 	requestEnrollment.then(
@@ -93,7 +93,7 @@ function requestConcurrentEnrollment(action) {
 	);
 }
 
-function externalPayment(action) {
+function externalPayment (action) {
 	let data = action.payload.data;
 
 	if (!data.ntiCrn || !data.ntiTerm || !data.returnUrl) {
@@ -115,7 +115,7 @@ function externalPayment(action) {
 	);
 }
 
-function getExternalPaymentUrl(link, ntiCrn, ntiTerm, returnUrl) {
+function getExternalPaymentUrl (link, ntiCrn, ntiTerm, returnUrl) {
 	return getFiveMinuteService().then(service =>
 		service.getPayAndEnroll(link, ntiCrn, ntiTerm, returnUrl));
 }
@@ -125,20 +125,20 @@ Store.appDispatch = AppDispatcher.register(data => {
 
 	switch(action.type) {
 	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		case Constants.REQUEST_CONCURRENT_ENROLLMENT:
-			requestConcurrentEnrollment(action.payload.data);
-			break;
+	case Constants.REQUEST_CONCURRENT_ENROLLMENT:
+		requestConcurrentEnrollment(action.payload.data);
+		break;
 
-		case Constants.PREFLIGHT_AND_SUBMIT:
-			preflightAndSubmit(action);
-			break;
+	case Constants.PREFLIGHT_AND_SUBMIT:
+		preflightAndSubmit(action);
+		break;
 
-		case Constants.DO_EXTERNAL_PAYMENT:
-			externalPayment(action);
-			break;
+	case Constants.DO_EXTERNAL_PAYMENT:
+		externalPayment(action);
+		break;
 
-		default:
-			return true;
+	default:
+		return true;
 	}
 	return true;
 });

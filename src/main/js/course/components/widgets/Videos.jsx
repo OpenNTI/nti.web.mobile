@@ -10,7 +10,7 @@ export default React.createClass({
 	mixins: [WidgetsMixin],
 
 	statics: {
-		mimeTest: /^application\/vnd\.nextthought\.ntivideoset/i,
+		mimeTest: /ntivideoset/i,
 		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		}
@@ -46,8 +46,8 @@ export default React.createClass({
 
 
 	componentDidUpdate () {
-		let {offsetWidth} = this.state;
-		let v = React.findDOMNode(this.refs.v);
+		const {refs: {v}, state: {offsetWidth}} = this;
+
 		let renderedOffsetWidth = v && v.offsetWidth;
 		if (offsetWidth !== renderedOffsetWidth) {
 			this.setState({offsetWidth: renderedOffsetWidth});//eslint-disable-line react/no-did-update-set-state
@@ -140,7 +140,6 @@ export default React.createClass({
 		let pixelOffset = 0;
 
 		if (videos) {
-			videos = React.findDOMNode(videos);
 			pixelOffset = active * -videos.offsetWidth;
 		}
 
@@ -281,8 +280,8 @@ export default React.createClass({
 		return (
 			<div className="videos-carousel-container">
 				{this.renderCarousel()}
-				<button className="prev fi-arrow-left" onClick={this.onPrev} title="Prevous Video"/>
-				<button className="next fi-arrow-right" onClick={this.onNext} title="Next Video"/>
+				<button className="prev icon-chevron-left" onClick={this.onPrev} title="Prevous Video"/>
+				<button className="next icon-chevron-right" onClick={this.onNext} title="Next Video"/>
 				<ul className="videos-carousel-dots">
 					{this.renderDots()}
 				</ul>

@@ -1,14 +1,22 @@
 import {scoped} from 'common/locale';
 
+export const CURRENT = 'current';
+export const UPCOMING = 'upcoming';
+export const ARCHIVED = 'archived';
+
 let getLabel = scoped('LIBRARY.CATEGORY');
 
-function courseSortComparatorFunc(a, b) {
+function courseSortComparatorFunc (a, b) {
 
-	function strComp(s1, s2) {
-		return s1 < s2 ? -1 : s1 > s2 ? 1 : 0;
-	}
+	// function strComp (s1, s2) {
+	// 	return (s1 || '').localeCompare(s2);
+	// }
+	//
+	// return strComp((a || {}).ProviderUniqueID, (b || {}).ProviderUniqueID)
+	// 	|| strComp((a || {}).title, (b || {}).title);
 
-	return strComp((a || {}).ProviderUniqueID, (b || {}).ProviderUniqueID) || strComp((a || {}).title, (b || {}).title);
+	//reverse cronological (put newest on the front)
+	return b.getCreatedTime() - a.getCreatedTime();
 }
 
 
@@ -45,15 +53,19 @@ function splitBySemester (list) {
 
 export default [
 	{
-		name: getLabel('upcoming'),
-		path: 'upcoming',
-		filter: item => {
+		get path () { throw new Error('Use .kind instead'); },
+		get filter () { throw new Error('Use .test instead'); },
+
+		name: getLabel(UPCOMING),
+		kind: UPCOMING,
+
+		test: item => {
 			try {
 				let start = item.getStartDate();
 				return start > Date.now();
 			}
 			catch(e) {
-				console.error(e);
+				console.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
 				return false;
 			}
 		},
@@ -61,9 +73,12 @@ export default [
 		split: splitBySemester
 	},
 	{
-		name: getLabel('current'),
-		path: 'current',
-		filter: item => {
+		get path () { throw new Error('Use .kind instead'); },
+		get filter () { throw new Error('Use .test instead'); },
+
+		name: getLabel(CURRENT),
+		kind: CURRENT,
+		test: item => {
 			try {
 				let now = Date.now();
 				let start = item.getStartDate();
@@ -72,22 +87,25 @@ export default [
 				return start < now && end > now;
 			}
 			catch(e) {
-				console.error(e);
+				console.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
 				return false;
 			}
 		},
 		sort: courseSortComparatorFunc
 	},
 	{
-		name: getLabel('archived'),
-		path: 'archived',
-		filter: item => {
+		get path () { throw new Error('Use .kind instead'); },
+		get filter () { throw new Error('Use .test instead'); },
+
+		name: getLabel(ARCHIVED),
+		kind: ARCHIVED,
+		test: item => {
 			try {
 				let end = item.getEndDate();
 				return end < Date.now();
 			}
 			catch(e) {
-				console.error(e);
+				console.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
 				return false;
 			}
 		},

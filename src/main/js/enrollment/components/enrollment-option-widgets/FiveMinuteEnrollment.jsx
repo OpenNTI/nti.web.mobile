@@ -17,7 +17,11 @@ export default React.createClass({
 	mixins: [BasePathAware],
 
 	propTypes: {
-		entryId: React.PropTypes.string.isRequired
+		entryId: React.PropTypes.string.isRequired,
+
+		// catalogEntry is only used by this component to check EndDate to see if the course is archived. We shouldn't
+		// have to do this because available/enabled should be false. We're awaiting a server change for that.
+		catalogEntry: React.PropTypes.object.isRequired
 	},
 
 	statics: {
@@ -46,6 +50,11 @@ export default React.createClass({
 
 
 	updateDetails (props) {
+		if (isArchived(props.catalogEntry)) {
+			return this.setState({
+				archived: true
+			});
+		}
 		let {enrollmentOption} = props;
 		this.setState({loading: true});
 
@@ -60,8 +69,14 @@ export default React.createClass({
 
 	render () {
 		let {entryId} = this.props;
-		let {error, loading, ContactInformation, Course} = this.state;
+		let {error, loading, archived, Course} = this.state;
 		let href = this.getBasePath() + 'catalog/enroll/apply/' + entryId + '/';
+		let count = Course && Course.SeatAvailable;
+
+		if (archived) {
+			console.info('Omitting five minute enrollment option; course is archived.');
+			return null;
+		}
 
 		let props = {
 			href,
@@ -83,11 +98,17 @@ export default React.createClass({
 
 				{error ? (
 					<small className="error">{error.Message}</small>
-				) : (
-					<small>{t('fiveMinuteEnrollmentSeatAvailable', {count: Course.SeatAvailable})}</small>
-				)}
+				) : count < 10 ? (
+					<small>{t('fiveMinuteEnrollmentSeatAvailable', {count})}</small>
+				) :
+					null
+				}
 			</PanelButton>
 		);
 	}
 
 });
+
+function isArchived (catalogEntry) {
+	return new Date(catalogEntry.EndDate) < Date.now();
+}

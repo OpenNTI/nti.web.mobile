@@ -47,7 +47,7 @@ export default React.createClass({
 
 	giftButton () {
 		if (this.hasGiftableEnrollmentOption(this.getEntry())) {
-			return <Giftable catalogId={this.getEntryID()} fullWidth={true} />;
+			return <Giftable catalogId={this.getEntryID()} fullWidth />;
 		}
 		return null;
 	},
@@ -56,7 +56,7 @@ export default React.createClass({
 	redeemButton () {
 		let catalogId = this.getEntryID();
 		if (this.hasGiftableEnrollmentOption(this.getEntry()) && !this.isEnrolled(this.getCourseId())) {
-			return <RedeemButton catalogId={catalogId} fullWidth={true} />;
+			return <RedeemButton catalogId={catalogId} fullWidth />;
 		}
 		return null;
 	},

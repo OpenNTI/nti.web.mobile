@@ -1,13 +1,12 @@
 /*eslint no-var: 0 strict: 0*/
 'use strict';
 var path = require('path');
-
-var distWebPack = require('./webpack.dist.config.js');
+var sites = require('./sites.json');
 
 var PROD = 'production';
 var DEV = 'development';
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 	// Let *load-grunt-tasks* require everything
 	require('load-grunt-tasks')(grunt);
 
@@ -16,29 +15,17 @@ module.exports = function(grunt) {
 	var env = /prod/i.test(grunt.option('environment')) ? PROD : DEV;
 	process.env.NODE_ENV = env;
 
-	var buildSteps = [
-		'clean:stage',
-		'sass',
-		'copy:stage',
-		'webpack:dist',
-		'clean:dist',
-		'rename:StageToDist',
-		'symlink'
-	];
-
-	if (env === PROD) {
-		distWebPack.forEach(function(e) { e.devtool = 'hidden-source-map'; });
-		buildSteps.push('clean:maps');
-	}
-
 	pkgConfig.distSiteCSS = path.join(pkgConfig.dist, '/client/resources/css/sites/');
+	pkgConfig.stageSiteCSS = path.join(pkgConfig.stage, '/client/resources/css/sites/');
 
 	grunt.initConfig({
 
 		pkg: pkgConfig,
 
 		webpack: {
-			dist: distWebPack
+			dist: require('./webpack/app.config.dist'),
+			site: require('./webpack/site-styles.config'),
+			widgets: require('./webpack/widgets.config')
 		},
 
 		execute: {
@@ -51,6 +38,18 @@ module.exports = function(grunt) {
 			}
 		},
 
+
+		run: {
+			'update-schema': {
+				cmd: 'npm',
+				args: [
+					'run-script',
+					'update-schema'
+				]
+			}
+		},
+
+
 		karma: {
 			unit: {
 				configFile: 'karma.conf.js'
@@ -58,7 +57,7 @@ module.exports = function(grunt) {
 		},
 
 		copy: {
-			stage: {
+			'stage-dist': {
 				files: [
 				// includes files within path
 					{
@@ -84,14 +83,6 @@ module.exports = function(grunt) {
 					},
 					{
 						// flatten: true,
-						cwd: '<%= pkg.src %>/widgets/',
-						expand: true,
-						filter: 'isFile',
-						src: ['**/*.html'],
-						dest: '<%= pkg.stage %>/widgets/'
-					},
-					{
-						// flatten: true,
 						cwd: '<%= pkg.src %>/../server/',
 						expand: true,
 						filter: 'isFile',
@@ -99,13 +90,39 @@ module.exports = function(grunt) {
 						dest: '<%= pkg.stage %>/server/'
 					}
 				]
+			},
+
+			'stage-widgets': {
+				files: [
+					{
+						// flatten: true,
+						cwd: '<%= pkg.src %>/widgets/',
+						expand: true,
+						filter: 'isFile',
+						src: ['**/*.html'],
+						dest: '<%= pkg.stage %>/'
+					}
+				]
 			}
 		},
 
 		rename: {
-			StageToDist: {
+			'stage-dist': {
+				files: [
+					{
+						src: '<%= pkg.stage %>/client',
+						dest: '<%= pkg.dist %>/client'
+					},
+					{
+						src: '<%= pkg.stage %>/server',
+						dest: '<%= pkg.dist %>/server'
+					}
+				]
+			},
+
+			'stage-widgets': {
 				src: '<%= pkg.stage %>',
-				dest: '<%= pkg.dist %>'
+				dest: '<%= pkg.dist %>/widgets'
 			}
 		},
 
@@ -114,7 +131,8 @@ module.exports = function(grunt) {
 				files: [{
 					dot: true,
 					src: [
-					'<%= pkg.dist %>'
+						'<%= pkg.dist %>/client/',
+						'<%= pkg.dist %>/server/'
 					]
 				}]
 			},
@@ -123,7 +141,17 @@ module.exports = function(grunt) {
 				files: [{
 					dot: true,
 					src: [
-					'<%= pkg.stage %>'
+						'<%= pkg.stage %>'
+					]
+				}]
+			},
+
+
+			widgets: {
+				files: [{
+					dot: true,
+					src: [
+						'<%= pkg.dist %>/widgets/'
 					]
 				}]
 			},
@@ -131,48 +159,35 @@ module.exports = function(grunt) {
 			maps: ['<%= pkg.dist %>/**/*.map', '<%= pkg.dist %>/**/*.map.gz']
 		},
 
-		sass: {
-			options: {
-				sourceMap: true,
-				outputStyle: 'compressed',
-				includePaths: ['src/main/resources/vendor/foundation/scss']
-			},
-			dist: {
-				files: {
-					'src/main/resources/css/errorpage.css': 'src/main/resources/scss/errorpage.scss',
-					'src/main/resources/css/app.css': 'src/main/resources/scss/app.scss',
-					'src/main/resources/css/sites/platform.ou.edu/site.css': 'src/main/resources/scss/sites/platform.ou.edu/site.scss',
-					'src/main/resources/css/sites/okstate.nextthought.com/site.css': 'src/main/resources/scss/sites/okstate.nextthought.com/site.scss'
-				}
-			}
-		},
-
-
 		eslint: {
 			// options: {
 			// 	quiet: true
 			// },
 			target: [
-				'<%= pkg.src %>/js/**/*.js',
-				'<%= pkg.src %>/js/**/*.jsx',
-				'<%= pkg.src %>/../server/**/*.js',
-				'<%= pkg.src %>/../test/**/*.js',
-				'<%= pkg.src %>/../webpack-plugins/**/*.js',
+				'src/main/js/**/*.js',
+				'src/main/js/**/*.jsx',
+				'src/server/**/*.js',
+				'src/test/**/*.js',
+				'webpack/**/*.js',
 				'*.js'
 			]
 		},
 
 		symlink: {
-			SiteCSSDirectories: {
-				files: [
-					{src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-alpha.nextthought.com'},
-					{src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/ou-test.nextthought.com'},
-					{src: '<%= pkg.distSiteCSS %>/platform.ou.edu', dest: '<%= pkg.distSiteCSS %>/janux.ou.edu'},
+			'link-dist': {
+				files: Object.keys(sites)
+					.map(function (alias) {
+						var site = sites[alias];
+						return typeof site === 'object'
+							? null
+							: {src: '<%= pkg.distSiteCSS %>/' + site, dest: '<%= pkg.distSiteCSS %>/' + alias};
+					})
+					//remove null elements from the array
+					.filter(function (x) { return x; })
+			},
 
-					{src: '<%= pkg.distSiteCSS %>/okstate.nextthought.com', dest: '<%= pkg.distSiteCSS %>/okstate-alpha.nextthought.com'},
-					{src: '<%= pkg.distSiteCSS %>/okstate.nextthought.com', dest: '<%= pkg.distSiteCSS %>/okstate-test.nextthought.com'},
-					{src: '<%= pkg.distSiteCSS %>/okstate.nextthought.com', dest: '<%= pkg.distSiteCSS %>/learnonline.okstate.edu'}
-				]
+			'link-widgets': {
+				files: []
 			}
 		}
 	});
@@ -182,19 +197,42 @@ module.exports = function(grunt) {
 	grunt.registerTask('docs', ['react', 'jsdoc']);
 	grunt.registerTask('lint', ['eslint']);
 	grunt.registerTask('test', ['karma']);
-	grunt.registerTask('build', buildSteps);
 	grunt.registerTask('default', ['serve']);
 
-	grunt.registerTask('serve', function(target) {
+	grunt.registerTask('build', function (target) {
+		target = target || 'dist';
+
+		var buildSteps = [
+			'clean:stage',
+			'copy:stage-' + target,
+			'run:update-schema',
+			'webpack:site', //build site-specific styles.
+			'webpack:' + target,
+			'clean:' + target,
+			'rename:stage-' + target,
+			'symlink:link-' + target,
+			'clean:stage'
+		];
+
+		if (env === PROD) {
+			buildSteps.push('clean:maps');
+		}
+
+		return grunt.task.run(buildSteps);
+
+	});
+
+	grunt.registerTask('serve', function (target) {
 		if (target === 'dist') {
 			return grunt.task.run([
+				'run:update-schema',
 				'build',
 				'execute:dist'
 			]);
 		}
 
 		grunt.task.run([
-			'sass',
+			'run:update-schema',
 			'eslint',
 			'execute:dev'
 		]);

@@ -19,14 +19,14 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			onChange: function() {}
+			onChange () {}
 		};
 	},
 
 
 	clearFilter () {
 		this.setState({filter: undefined}, ()=> {
-			let target = React.findDOMNode(this.refs.filter);
+			const {refs: {fitlter: target}} = this;
 			target.focus();
 			this.updateFilter({target: {value: ''}});
 		});

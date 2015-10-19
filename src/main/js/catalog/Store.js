@@ -1,9 +1,7 @@
-import AppDispatcher from 'dispatcher/AppDispatcher';
-
-import {LOAD_CATALOG, LOADED_CATALOG, GIFT_CODE_REDEEMED, REDEEM_GIFT, INVALID_GIFT_CODE} from './Constants';
+import {LOAD_CATALOG, LOADED_CATALOG, GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from './Constants';
 
 import StorePrototype from 'common/StorePrototype';
-import {getService} from 'common/utils';
+
 
 const data = Symbol('data');
 const SetLoading = Symbol('set:loading');
@@ -15,7 +13,9 @@ class Store extends StorePrototype {
 		super();
 		this.registerHandlers({
 			[LOAD_CATALOG]: SetLoading,
-			[LOADED_CATALOG]: SetData
+			[LOADED_CATALOG]: SetData,
+			[GIFT_CODE_REDEEMED]: () => this.emitChange({type: GIFT_CODE_REDEEMED}),
+			[INVALID_GIFT_CODE]: payload => this.emitChange({type: INVALID_GIFT_CODE, reason: payload.action.response})
 		});
 	}
 
@@ -63,47 +63,4 @@ class Store extends StorePrototype {
 	}
 }
 
-function getEnrollmentService() {
-	return getService().then(function(service) {
-		return service.getEnrollment();
-	});
-}
-
-function redeemGift(purchasable, courseId, accessKey) {
-	return getEnrollmentService().then(service =>
-		service.redeemGift(purchasable, courseId, accessKey));
-}
-
-let store = new Store();
-
-
-Store.appDispatch = AppDispatcher.register(function(event) {
-	let action = event.action;
-
-	if(action.type === REDEEM_GIFT) {
-		redeemGift(
-			action.payload.purchasable,
-			action.payload.courseId,
-			action.payload.accessKey)
-
-		.then(function(result) {
-			store.emitChange({
-				type: GIFT_CODE_REDEEMED,
-				action: action,
-				result: result
-			});
-		}, function(reason) {
-
-			let message = reason.Message;
-
-			store.emitError({
-				type: INVALID_GIFT_CODE,
-				action: action,
-				reason: message
-			});
-		});
-	}
-	return true;
-});
-
-export default store;
+export default new Store();

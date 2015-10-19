@@ -1,5 +1,5 @@
 import React from 'react';
-import emptyFunction from 'react/lib/emptyFunction';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 //See http://jsfiddle.net/jsg2021/6yfw8/ for a demo
 export default React.createClass({
@@ -30,7 +30,7 @@ export default React.createClass({
 			store: null,
 			topMargin: 30,
 			bottomMargin: 10,
-			pixelDensity: 2
+			pixelDensity: (global.devicePixelRatio || 1) * 2
 		};
 	},
 
@@ -44,7 +44,7 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		let canvas = React.findDOMNode(this);
+		const {refs: {canvas}} = this;
 		let context = canvas.getContext('2d');
 
 		canvas.width = this.props.width * this.props.pixelDensity;
@@ -103,7 +103,7 @@ export default React.createClass({
 		};
 
 		return (
-			<canvas {...this.props} className="grade" style={style} width={width} height={height} />
+			<canvas ref="canvas" {...this.props} className="grade" style={style} width={width} height={height} />
 		);
 	},
 
@@ -210,7 +210,7 @@ export default React.createClass({
 
 		ctx.translate(0, t);
 
-		this.store.forEach(function(rec, x) {
+		this.store.forEach((rec, x) => {
 			let y = ((rec[property] || 0) / 100) * h;
 			ctx[x === 0 ? 'moveTo' : 'lineTo'](currentX, y);
 			currentX += pointDistance;

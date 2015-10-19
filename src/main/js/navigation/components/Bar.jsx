@@ -1,12 +1,12 @@
 import React from 'react';
-import Transition from 'react/lib/ReactCSSTransitionGroup';
+import Transition from 'react-addons-css-transition-group';
 
 import path from 'path';
 import cx from 'classnames';
 
 import buffer from 'nti.lib.interfaces/utils/function-buffer';
 
-import ActiveState from 'common/components/ActiveState';
+import C from 'common/components/Conditional';
 import Pager from 'common/components/Pager';
 
 import BasePathAware from 'common/mixins/BasePath';
@@ -61,7 +61,7 @@ export default React.createClass({
 			let o = NavStore.getData();
 			if (this.isMounted()) {
 				// console.debug('Set Context: %o', o);
-				this.setState(o);
+				this.setState(Object.assign({resolving: true}, o));
 				this.fillIn(o);
 			}
 		})
@@ -71,6 +71,7 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
+			resolving: true,
 			menuOpen: false
 		};
 	},
@@ -96,16 +97,18 @@ export default React.createClass({
 			resolve = getContext();
 		}
 
-		resolve.then(x=>
-			//console.debug('Context Path: %o', x) ||
+		resolve.then(x=> {
+			// console.debug('Context Path: %o', x);
 			this.setState({
 				current: x && x[x.length - 1],
-				returnTo: x && x[x.length - 2]
-			}));
+				returnTo: x && x[x.length - 2],
+				resolving: false
+			});
+		});
 	},
 
 
-	getChildForSide(side) {
+	getChildForSide (side) {
 		let {children} = this.props;
 
 		if (!Array.isArray(children)) {
@@ -121,7 +124,7 @@ export default React.createClass({
 	getLeft () {
 		let {returnTo} = this.state || {};
 		if (returnTo) {
-			return <ReturnTo {...returnTo}/>;
+			return <section><ReturnTo {...returnTo}/></section>;
 		}
 
 		return this.getChildForSide('left');
@@ -148,33 +151,53 @@ export default React.createClass({
 		let title = (current || {}).label || this.props.title;
 
 		return this.getChildForSide('center') ||
-			this.getMenu() || (
+			this.getMenu() || (title ? (
 
 			<a href={this.getBasePath()}>
-				<h1 className={css}>{title}</h1></a>
-		);
+				<h1 className={css}>{title}</h1>
+			</a>
+
+		) : null);
 	},
 
 
 	getMenu () {
 		let {availableSections} = this.props;
-		let css = cx({
-			'title': true,
-			'menu': true
-		});
 
 		if (!availableSections) {
 			return;
 		}
 
-		let ref = ensureSlash(this.makeHref(this.getPath()));
 
-		let {label = 'Menu'} = availableSections.find(x=>
-			ref.indexOf(path.normalize(this.makeHref(x.href))) === 0) || {};
+		let {label = 'Menu'} = this.getActiveSection() || {};
 
 		return (
-			<a href="#" onClick={this.toggleMenu}><h1 className={css}>{label}</h1></a>
+			<a href="#" onClick={this.toggleMenu} className="menu">
+				<h1 className="title">{label}</h1>
+			</a>
 		);
+	},
+
+
+	getActiveSection () {
+		let candidate;
+		let ref = ensureSlash(this.makeHref(this.getPath()));
+
+		let {availableSections} = this.props;
+
+		if (availableSections) {
+
+			for(let x of availableSections) {
+				if (ref.indexOf(path.normalize(this.makeHref(x.href))) === 0) {
+					if (!candidate || candidate.href.length < x.href.length) {
+						candidate = x;
+					}
+				}
+			}
+
+		}
+
+		return candidate;
 	},
 
 
@@ -187,7 +210,8 @@ export default React.createClass({
 		this.setState({menuOpen: s});
 	},
 
-	updateBodyClassForMenu(isOpen) {
+
+	updateBodyClassForMenu (isOpen) {
 		// video elements interfere with the menu interaction. adding a class to body
 		// when the menu is open allows us to use css to get the videos out of the way.
 		if (isOpen) {
@@ -198,6 +222,7 @@ export default React.createClass({
 		}
 	},
 
+
 	closeMenu (e) {
 		if (e) {
 			e.preventDefault();
@@ -206,6 +231,7 @@ export default React.createClass({
 		this.updateBodyClassForMenu(false);
 		this.setState({menuOpen: false});
 	},
+
 
 	render () {
 		let {menuOpen} = this.state;
@@ -216,7 +242,7 @@ export default React.createClass({
 
 		return (
 			<div className={css}>
-				<Transition transitionName="nav-menu">
+				<Transition transitionName="nav-menu" transitionEnterTimeout={350} transitionLeaveTimeout={350}>
 					{menuOpen && <a href="#" className="nav-menu-mask" onClick={this.closeMenu} key="mask"/>}
 					{this.renderMenu()}
 				</Transition>
@@ -227,17 +253,15 @@ export default React.createClass({
 
 
 	renderBar () {
-		let {pageSource, currentPage, context} = this.state;
-
-		let middle = cx('middle tab-bar-section', {
-			'has-pager': pageSource
-		});
+		let {pageSource, currentPage, context, resolving} = this.state;
 
 		return (
-			<nav className="tab-bar">
-				<section className="left-small">{this.getLeft()}</section>
-				<section className={middle}>{this.getCenter()}</section>
-				<section className="right-small">
+			<nav className="nav-bar">
+				{this.getLeft()}
+				<C condition={!resolving} tag="section" className={cx('middle', {'has-pager': pageSource})}>
+					{this.getCenter()}
+				</C>
+				<section>
 					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}/>}
 					{this.getRight()}
 				</section>
@@ -254,10 +278,12 @@ export default React.createClass({
 			key: 'menu'
 		};
 
+		let active = this.getActiveSection();
+
 		let sectionProps = x=> {
 			let title = x.label;
 			let href = path.normalize(this.makeHref(x.href));
-			return Object.assign({children: title}, x, {title, href});
+			return Object.assign({children: title}, x, {title, href, className: cx(x.className, {active: active === x})});
 		};
 
 		if (!availableSections) {
@@ -268,7 +294,7 @@ export default React.createClass({
 
 		return menuOpen && React.createElement(Menu, props,
 				...sections.map(x=>
-					<ActiveState tag="li" hasChildren {...x}><a {...x}/></ActiveState>
+					<li {...x}><a {...x}/></li>
 				));
 	}
 

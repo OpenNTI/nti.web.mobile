@@ -1,18 +1,16 @@
 import logger from './logger';
 
-const map = {
-	'ou-alpha.nextthought.com': 'platform.ou.edu',
-	'ou-test.nextthought.com': 'platform.ou.edu',
-	'janux.ou.edu': 'platform.ou.edu',
-	'okstate-alpha.nextthought.com': 'okstate.nextthought.com',
-	'okstate-test.nextthought.com': 'okstate.nextthought.com',
-	'learnonline.okstate.edu': 'okstate.nextthought.com'
-};
+const map = require('../../../sites.json');
 
-const unknown = 'unknown';
+const unknown = {name: 'default', title: 'nextthought'};
 
-export default function getSite(site) {
+export default function getSite (site) {
 	let s = map[site] || unknown;
+
+	if (typeof s === 'string') {
+		return getSite(s);
+	}
+
 	if (s === unknown) {
 		logger.error('No site-mapping entry found for %s.', site);
 	}

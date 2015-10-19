@@ -1,7 +1,7 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import * as Constants from './Constants';
 
-function dispatch(type, payload) {
+function dispatch (type, payload) {
 	AppDispatcher.handleRequestAction({type, payload});
 }
 

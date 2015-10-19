@@ -11,9 +11,9 @@ export default React.createClass({
 
 	propTypes: {
 		onClick: React.PropTypes.oneOfType([
-				React.PropTypes.bool,
-				React.PropTypes.func
-			]),
+			React.PropTypes.bool,
+			React.PropTypes.func
+		]),
 
 		criteria: React.PropTypes.any,
 
@@ -21,7 +21,9 @@ export default React.createClass({
 
 		name: React.PropTypes.string,
 
-		inList: React.PropTypes.bool
+		inList: React.PropTypes.bool,
+
+		className: React.PropTypes.string
 	},
 
 
@@ -41,7 +43,7 @@ export default React.createClass({
 
 
 	render () {
-		let {criteria, inList, item, name} = this.props;
+		let {criteria, inList, item} = this.props;
 
 		if (criteria === false || (typeof criteria === 'function' && criteria(item) === false)) {
 			return null;

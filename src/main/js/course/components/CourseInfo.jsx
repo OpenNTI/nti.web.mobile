@@ -23,7 +23,7 @@ export default React.createClass({
 		return (
 			<div>
 				<Detail {...this.props} entry={entry}/>
-				<EnrollButton catalogEntry={entry} dropOnly={true}/>
+				<EnrollButton catalogEntry={entry} dropOnly/>
 			</div>
 		);
 	}

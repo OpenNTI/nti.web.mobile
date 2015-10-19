@@ -1,0 +1,27 @@
+.profile-card.interests {
+	& > div {
+		display: flex;
+		flex-wrap: wrap;
+		align-content: flex-start;
+		margin-left: -0.3125rem;
+		margin-right: -0.3125rem;
+
+		.string-item {
+			// flex-basis: 46%;
+			padding: .5em 1em;
+			background: $quad-grey;
+			box-shadow: 0 0 0 0.0625rem $tertiary-grey;
+			font-weight: bold;
+			// overflow: hidden;
+			text-overflow: ellipsis;
+			text-align: left;
+			margin: 0.3125rem;
+			flex: 0 1 calc(50% - 0.625rem);
+			min-height: 2.4rem; // when editing, if the input falls on a new line we need this to maintain the height.
+
+			@media all and (min-width: 500px) {
+				flex-basis: calc(33% - 0.625rem);
+			}
+		}
+	}
+}

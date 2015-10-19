@@ -1,8 +1,7 @@
 import {replaceNode, parent} from 'nti.lib.dom';
 
-import guid from 'nti.lib.interfaces/utils/guid';
+import uuid from 'node-uuid';
 import indexArrayByKey from 'nti.lib.interfaces/utils/array-index-by-key';
-import toArray from 'nti.lib.interfaces/utils/toarray';
 
 import DEFAULT_STRATEGIES from './dom-parsers';
 
@@ -19,7 +18,7 @@ const WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(
  *                            an Object used to render the Widget.
  * @returns {object} A packet of data, content, body, styles and widgets.
  */
-export function processContent(packet, strategies = DEFAULT_STRATEGIES) {
+export function processContent (packet, strategies = DEFAULT_STRATEGIES) {
 	let html = packet.content;
 	let parser = null;
 	if (typeof DOMParser !== 'undefined') {
@@ -41,7 +40,7 @@ export function processContent(packet, strategies = DEFAULT_STRATEGIES) {
 	}
 
 	let body = doc.getElementsByTagName('body')[0];
-	let styles = toArray(doc.querySelectorAll('link[rel=stylesheet]'))
+	let styles = Array.from(doc.querySelectorAll('link[rel=stylesheet]'))
 					.map(i=>i.getAttribute('href'));
 
 	let widgets = indexArrayByKey(parseWidgets(strategies, doc, elementFactory), 'guid');
@@ -72,13 +71,13 @@ export function processContent(packet, strategies = DEFAULT_STRATEGIES) {
  * @param {Node} elementFactory		A Dom object that has an implementation for 'createComment'.
  * @returns {object[]} An array of objects representing widgets.
  */
-export function parseWidgets(strategies, doc, elementFactory) {
+export function parseWidgets (strategies, doc, elementFactory) {
 
-	function makeMarker(id) {
+	function makeMarker (id) {
 		return elementFactory.createComment('nti:widget-marker[' + id + ']');
 	}
 
-	function flatten(list, array) {
+	function flatten (list, array) {
 		if (!Array.isArray(array)) {
 			array = [array];
 		}
@@ -91,7 +90,7 @@ export function parseWidgets(strategies, doc, elementFactory) {
 	let selectors = Object.keys(strategies);
 
 	return selectors
-		.map(selector=> toArray(doc.querySelectorAll(selector))
+		.map(selector=> Array.from(doc.querySelectorAll(selector))
 			//do not process nested objects
 			.filter(el => selectors.every(x=> !parent(el.parentNode, x)))
 			.map(el => {
@@ -100,7 +99,7 @@ export function parseWidgets(strategies, doc, elementFactory) {
 				let result = strategies[selector](el) || {element: el};
 
 				if (!id) {
-					el.setAttribute('id', (id = guid()));
+					el.setAttribute('id', (id = uuid.v4()));
 				}
 
 				replaceNode(el, makeMarker(id));

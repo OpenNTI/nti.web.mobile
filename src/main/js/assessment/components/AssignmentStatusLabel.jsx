@@ -1,5 +1,7 @@
 import React from 'react';
-import emptyFunction from 'react/lib/emptyFunction';
+import emptyFunction from 'fbjs/lib/emptyFunction';
+
+import cx from 'classnames';
 
 import {getModel} from 'nti.lib.interfaces';
 
@@ -7,7 +9,7 @@ import DateTime from 'common/components/DateTime';
 
 import {scoped} from 'common/locale';
 
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {getEventTarget} from 'nti.lib.dom';
 
 import moment from 'moment';
 
@@ -22,7 +24,9 @@ export default React.createClass({
 
 	propTypes: {
 		assignment: React.PropTypes.instanceOf(Assignment),
-		historyItem: React.PropTypes.instanceOf(HistoryItem)
+		historyItem: React.PropTypes.instanceOf(HistoryItem),
+
+		showTimeWithDate: React.PropTypes.bool
 	},
 
 	getInitialState () {
@@ -32,45 +36,52 @@ export default React.createClass({
 	},
 
 
+	isAssigned () {
+		const now = new Date();
+		const {props: {assignment: a}} = this;
+		return a.getAssignedDate() <= now;
+	},
+
+
 	isOverDue () {
-		let date = this.getCompletedDateTime() || new Date();
-		let a = this.props.assignment;
+		const date = this.getCompletedDateTime() || new Date();
+		const a = this.props.assignment;
 		return a.isLate(date);
 	},
 
 
 	isOverTime () {
-		let a = this.props.assignment;
+		const {props: {assignment: a}} = this;
 		return Boolean(a.isOverTime && a.isOverTime());
 	},
 
 
 	isDueToday () {
-		let a = this.props.assignment;
+		const {props: {assignment: a}} = this;
 		return moment(a.getDueDate()).isSame(new Date(), 'day');
 	},
 
 
 	isSubmitted () {
-		return this.props.historyItem && this.props.historyItem.isSubmitted();
+		const {props: {historyItem}} = this;
+		return historyItem && historyItem.isSubmitted();
 	},
 
 
 	isExcused () {
-		let i = this.props.historyItem;
+		const {props: {historyItem: i}} = this;
 		return i && i.isGradeExcused && i.isGradeExcused();
 	},
 
 
 	getCompletedDateTime () {
-		let i = this.props.historyItem;
-
+		const {props: {historyItem: i}} = this;
 		return i && i.isSubmitted() && i.getCreatedTime();
 	},
 
 
 	getDuration () {
-		let a = this.props.assignment;
+		const {props: {assignment: a}} = this;
 		return a.getDuration && a.getDuration();
 	},
 
@@ -113,7 +124,7 @@ export default React.createClass({
 		let out = [];
 		let toString = singular ? toUnitSingularString : toUnitString;
 
-		function maybeAdd(unit) {
+		function maybeAdd (unit) {
 			let u = d.get(unit);
 			if (u > 0 && (!accuracy || out.length < accuracy)) {
 				out.push(toString(unit, {count: u}));
@@ -206,18 +217,33 @@ export default React.createClass({
 
 
 	render () {
-		let assignment = this.props.assignment;
-		let complete = this.isSubmitted();
+		const {props: {showTimeWithDate, assignment}} = this;
 
-		let submittable = assignment.canBeSubmitted();
+		const complete = this.isSubmitted();
+		const available =  this.isAssigned();
 
-		let date = this.getCompletedDateTime() || assignment.getDueDate();
+		const submittable = assignment.canBeSubmitted();
 
-		let dueToday = (!complete && this.isDueToday()) ? 'due-today ' : '';
-		let overdue = this.isOverDue() ? (submittable ? 'overdue ' : 'late ') : '';
-		let overtime = submittable && this.isOverTime() ? 'overtime ' : '';
+		const date = this.getCompletedDateTime() || assignment.getDueDate();
 
-		let text = complete ? (assignment.isNonSubmit() ? 'Graded' : 'Completed') : 'Due';
+		const text = complete
+			? (assignment.isNonSubmit() ? 'Graded' : 'Completed')
+			: available
+				? 'Due'
+				: 'Available on';
+
+		const infoClasses = cx('info-part', text.toLowerCase(), {
+			'non-submit': assignment.isNonSubmit(),
+			'due-today': !complete && this.isDueToday(),
+			'overdue': this.isOverDue() && submittable,
+			'late': this.isOverDue() && !assignment.isNonSubmit() && !submittable,
+			'overtime': submittable && this.isOverTime(),
+			'not-available': !available
+		});
+
+		const dateFormat = showTimeWithDate
+			? 'dddd, MMMM D h:mm A z'
+			: 'dddd, MMMM D';
 
 		if (!date) {
 			return null;//no date? we have nothing to show
@@ -227,7 +253,7 @@ export default React.createClass({
 			<div className="assignment status-label-wrapper">
 				<h6 className="assignment status-label">
 					{assignment.isTimed && this.renderTimeInfo()}
-					<span className={'info-part ' + dueToday + overdue + overtime + text.toLowerCase()}>
+					<span className={infoClasses}>
 						<span className="state" onClick={this.onShowStatusDetail}>{text}</span>
 						<span className="over">
 							(
@@ -239,7 +265,7 @@ export default React.createClass({
 							onClick={this.onShowStatusDetail}
 							date={date}
 							showToday={!complete/*only show today if we aren't submitted*/}
-							format="dddd, MMMM D"
+							format={dateFormat}
 							todayText="Today!"/>
 						{this.isExcused() && (
 							<span className="excused">Excused Grade</span>
@@ -288,7 +314,7 @@ export default React.createClass({
 
 
 	renderTimeInfo () {
-		let baseCls = 'info-part time-limit ';
+		let baseCls = 'info-part time-limit';
 		let duration = this.getDuration();
 		let maxtime = this.getMaximumTimeAllowed();
 
@@ -296,7 +322,7 @@ export default React.createClass({
 
 		if (duration) {
 			return (
-				<span className={baseCls + (this.isOverTime() ? 'overtime' : 'ontime')}>{time}</span>
+				<span className={cx(baseCls, this.isOverTime() ? 'overtime' : 'ontime')}>{time}</span>
 			);
 		}
 

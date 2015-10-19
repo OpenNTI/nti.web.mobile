@@ -1,0 +1,146 @@
+%scroller-heights {
+	max-height: 70vh;
+	&.restrict {
+		max-height: 30vh;
+	}
+}
+
+.share-with {
+	&.active {
+		border-bottom-color: transparent !important;
+	}
+
+	h3 {
+		font-family: $body-font-family;
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		background: #ebebeb;
+		color: $secondary-grey;
+		padding: 0.3125rem 1rem;
+		margin :0;
+		border-bottom: 1px solid #dedede;
+	}
+
+	.search-results,
+	.suggestions {
+		position: relative;
+		margin: 0 -0.625rem;
+		overflow: hidden;
+
+		&::before, &::after {
+			content: '';
+			z-index: 10;
+			position: absolute;
+			left: 0; right: 0; top: 0;
+			height: 10px;
+			box-shadow: inset 0 10px 5px -10px rgba(0,0,0,0.5);
+		}
+
+		&::after {
+			top: auto;
+			bottom: 0;
+			box-shadow: inset 0 -10px 5px -10px rgba(0,0,0,0.5);
+		}
+
+		.scroller {
+			@extend %touch-scroll;
+			overflow-x: hidden;
+			overflow-y: auto;
+
+			@extend %scroller-heights;
+		}
+	}
+
+	.suggestion-group li {
+		padding: 0.625rem 0 0.625rem 1rem;
+		border-bottom: 1px solid #dedede;
+	}
+
+	.selectable-entity {
+		background: #f2f2f2;
+		.avatar-spacer {
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+
+		.username {
+			color: $primary-blue;
+			font-family: $body-font-family;
+			font-weight: 700;
+			font-size: 0.75rem;
+			text-transform: uppercase;
+		}
+	}
+}
+
+.share-with-entry {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0.3125rem -0.3125rem;
+
+	.token {
+		flex: 0 0.5 auto;
+	}
+
+	.input-field {
+		flex: 1 1 1px;
+		// display: flex;
+		position: relative;
+		max-width: 100%;
+		overflow: hidden;
+		min-height: 2rem;
+
+		&::before {
+			content: attr(data-value);
+			visibility: hidden;
+		}
+
+		&[data-value] {
+			flex-basis: auto;
+		}
+
+		input {
+			@extend %hardware-render;
+			position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+
+			// flex: 1 1 1px;
+			padding: 0;
+			margin: 0;
+			border: 0;
+			background: transparent;
+			height: auto;
+			font-weight: 700;
+			font-size: 0.75rem;
+			line-height: 2rem;
+			// border: 1px solid;
+		}
+	}
+
+	& > * {
+		margin: 0.3125rem;
+	}
+}
+
+
+
+.token.pill {
+	line-height: 2rem;
+	border-radius: 2rem;
+	padding: 0 1.25rem;
+	display: inline-block;
+	color: white;
+	background: $primary-blue;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 0.75rem;
+
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+
+	&.selected {
+		background: #3493C9;
+		color: rgba(white, 0.55);
+	}
+}

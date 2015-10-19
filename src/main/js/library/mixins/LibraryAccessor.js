@@ -8,7 +8,7 @@ export default {
 
 	backingStore: LibraryStore,
 	backingStoreEventHandlers: {
-		default: function () {
+		default () {
 			if (this.isMounted()) {
 				this.forceUpdate();
 			}

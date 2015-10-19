@@ -23,9 +23,9 @@ export default React.createClass({
 		let assignmentName = item.AssignmentName || 'an assignment';
 		return (
 			<li className="notification-item">
-				<Avatar username={this.state.username} width="32" height="32"/>
+				<Avatar entity={this.state.username} width="32" height="32"/>
 				<div className="wrap">
-					<DisplayName username={this.state.username}/>
+					<DisplayName entity={this.state.username}/>
 						{' posted feedback on ' + assignmentName}
 					<DateTime date={this.getEventTime()} relative/>
 				</div>

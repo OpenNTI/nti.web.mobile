@@ -12,7 +12,7 @@ import Button from 'common/forms/components/Button';
 import {scoped} from 'common/locale';
 
 const t = scoped('ENROLLMENT.GIFT.SUCCESS');
-const siteString = scoped('CONTACTINFO');
+const siteString = scoped('COURSE.CONTACTINFO');
 
 export default React.createClass({
 	displayName: 'GiftSuccess',
@@ -38,14 +38,12 @@ export default React.createClass({
 	},
 
 	render () {
-		let courseTitle = this.props.purchasable.title;
-		let purchaseAttempt = this.props.purchaseattempt;
+		let {purchasable, purchaseattempt, onDone, doneLink} = this.props;
+		let {title} = purchasable;
+		let {receiver, sender, redemptionCode, transactionID} = purchaseattempt || {};
+		let {VendorInfo} = purchasable || {};
 
-		let receiver = purchaseAttempt && purchaseAttempt.receiver;
-		let sender = purchaseAttempt && purchaseAttempt.creator;
-
-		let vendorInfo = this.props.purchasable && this.props.purchasable.VendorInfo;
-		let date = this.getDate(vendorInfo && vendorInfo.StartDate);
+		let date = this.getDate(VendorInfo && VendorInfo.StartDate);
 		let alert;
 		let infoKey;
 		let support = siteString('GIFTSUPPORT');
@@ -57,9 +55,13 @@ export default React.createClass({
 			alert = t('alert');
 		}
 
+		if (typeof onDone !== 'function') {
+			onDone = void 0;
+		}
+
 		return (
 			<div className="gift-success row">
-				<Pricing purchasable={this.props.purchasable} locked={true} />
+				<Pricing purchasable={purchasable} locked />
 				<div className="medium-8 medium-centered columns panel">
 					<h3 className="header">{t('title')}</h3>
 					<LocalizedHTML className="gift" stringId={`ENROLLMENT.GIFT.SUCCESS.${infoKey}`} sender={sender} receiver={receiver} />
@@ -67,7 +69,7 @@ export default React.createClass({
 
 					<LocalizedHTML className="prompt"
 							stringId={`ENROLLMENT.GIFT.SUCCESS.${(date ? 'info' : 'infoNoDate')}`}
-							courseTitle={courseTitle}
+							courseTitle={title}
 							startDate={date}/>
 
 					<LocalizedHTML className="support"
@@ -76,11 +78,11 @@ export default React.createClass({
 
 					<div className="token">
 						<span className="label">{t('accessKey')}</span>
-						<input type="text" className="value" value={purchaseAttempt.redemptionCode} onChange={this.ignoreChange}/>
+						<input type="text" className="value" value={redemptionCode} onChange={this.ignoreChange}/>
 					</div>
 					<div className="token">
 						<span className="label">{t('transactionID')}</span>
-						<input type="text" className="value" value={purchaseAttempt.transactionID} onChange={this.ignoreChange} />
+						<input type="text" className="value" value={transactionID} onChange={this.ignoreChange} />
 					</div>
 				</div>
 				<div className="medium-8 medium-centered columns row actions">
@@ -88,7 +90,7 @@ export default React.createClass({
 						<Button onClick={this.onNewGift}>Purchase another Gift</Button>
 					</div>
 					<div className="small-12 medium-6 columns">
-						<Button href={this.props.doneLink}>I'm done</Button>
+						<Button onClick={onDone} href={doneLink}>I'm done</Button>
 					</div>
 				</div>
 			</div>

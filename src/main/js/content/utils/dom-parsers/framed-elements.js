@@ -2,7 +2,7 @@ import parseDomObject from './object';
 import getImagesFromDom from './image';
 import getVideosFromDom from './video';
 
-export default function parseFramedElement(el) {
+export default function parseFramedElement (el) {
 	//This should always be a <span><img/></span> construct:
 	// <span itemprop="nti-data-markup(enabled|disabled)">
 	// 	<img crossorigin="anonymous"

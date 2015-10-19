@@ -1,0 +1,27 @@
+.profile-card.generalforumcomment,
+.profile-card.personalblogcomment {
+	.charms {
+		float: right;
+		position: relative;
+		margin-top: -1rem;
+	}
+
+	.wrap {
+		position: relative;
+		padding-left: 3rem;
+		min-height: 4rem;
+		.avatar {
+			width: 2.5rem;
+			height: 2.5rem;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		time {
+			color: $tertiary-grey;
+			font-size: .7rem;
+			text-transform: uppercase;
+
+		}
+	}
+}

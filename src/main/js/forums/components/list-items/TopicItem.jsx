@@ -13,13 +13,15 @@ import Mixin from './Mixin';
 import KeepItemInState from '../../mixins/KeepItemInState';
 import StoreEvents from 'common/mixins/StoreEvents';
 import {scoped} from 'common/locale';
+import LuckyCharms from 'common/components/LuckyCharms';
+
 const t = scoped('FORUMS');
 
 /**
  * For lists of Topics, this is the row item.
  */
 export default React.createClass({
-	displayName: 'TopicListItem',
+	displayName: 'TopicItem',
 	mixins: [
 		Mixin,
 		StoreEvents,
@@ -71,24 +73,27 @@ export default React.createClass({
 		let item = this.getItem();
 		let replyTime = item.NewestDescendant.getCreatedTime();
 		return (
-			<Link className="topic-link" href={this.getHref(item)}>
-				<Avatar username={item.creator} />
-				<div className="wrap">
-					<div>
-						<div className="attribution"><DisplayName username={item.creator} /></div>
-						<span className="title">{item.title}</span>
-					</div>
-					<div className="activity">
-						<div className="newest">
-							<DisplayName username={item.NewestDescendant.creator} />
-							<span>{this.renderVerbForPost(item.NewestDescendant)} <DateTime relative={true} date={replyTime}/></span>
+			<div className="topic-link-wrapper">
+				<LuckyCharms item={item} />
+				<Link className="topic-link" href={this.getHref(item)}>
+					<Avatar entity={item.creator} />
+					<div className="wrap">
+						<div>
+							<div className="attribution"><DisplayName entity={item.creator} /></div>
+							<span className="title">{item.title}</span>
 						</div>
-						{this.renderReplies(item)}
-						{this.renderLikes(item)}
+						<div className="activity">
+							<div className="newest">
+								<DisplayName entity={item.NewestDescendant.creator} />
+								<span>{this.renderVerbForPost(item.NewestDescendant)} <DateTime relative date={replyTime}/></span>
+							</div>
+							{this.renderReplies(item)}
+							{this.renderLikes(item)}
+						</div>
+						<div><span className="arrow-right" /></div>
 					</div>
-					<div><span className="arrow-right" /></div>
-				</div>
-			</Link>
+				</Link>
+			</div>
 		);
 	}
 });

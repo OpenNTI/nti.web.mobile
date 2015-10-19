@@ -1,5 +1,5 @@
 import React from 'react';
-import CSS from 'react/lib/CSSCore';
+import CSS from 'fbjs/lib/CSSCore';
 
 const getViewport = ()=> document.getElementsByTagName('html')[0];
 

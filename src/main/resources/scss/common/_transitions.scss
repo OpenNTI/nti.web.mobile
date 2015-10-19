@@ -1,67 +1,109 @@
-@mixin reactTransition($name) {
 
-	.#{$name}-enter {
-		opacity: 0.01;
-		transition: opacity .25s ease-in;
+.fadeOutIn-appear,
+.fadeOutIn-enter {
+	opacity: 0.01;
+	transition: opacity .25s ease-out;
+}
+
+.fadeOutIn-appear.fadeOutIn-appear-active,
+.fadeOutIn-enter.fadeOutIn-enter-active {
+	opacity: 1;
+}
+
+.fadeOutIn-leave {
+	opacity: 1;
+	transition: opacity .25s ease-out;
+}
+
+.fadeOutIn-leave.fadeOutIn-leave-active {
+	opacity: 0.01;
+}
+
+
+
+.toast-enter,
+.toast-appear,
+.toast-leave {
+	animation-delay: 0s;
+	animation-duration: .4s;
+	animation-fill-mode: both;
+}
+
+.toast-appear-active,
+.toast-enter-active {
+	animation-name: clickIn;
+}
+
+.toast-leave-active {
+	animation-name: clickOut;
+}
+
+
+.swapping-modal {
+
+	&.toast-leave {
+		z-index: 3;
+		animation-delay: 0s;
+		animation-duration: .2s;
+		animation-fill-mode: both;
 	}
 
-	.#{$name}-enter.#{$name}-enter-active {
+	&.toast-leave-active {
+		animation-name: modalTweanUpoOut;
+	}
+}
+
+
+
+
+
+
+
+@keyframes clickIn {
+	0% {
+		transform: translate3d(0, 100%, 0);
+		opacity: 0.01;
+	}
+
+	60% {
+		opacity: 1;
+		transform: translate3d(0, -5px, 0);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes clickOut {
+	0% {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+	20% {
+		transform: translate3d(0, -10px, 0);
+	}
+
+	40%, 45% {
+		opacity: 1;
+		transform: translate3d(0, -5px, 0);
+	}
+
+	100% {
+		opacity: 0;
+		transform: translate3d(0, 100%, 0);
+	}
+}
+
+@keyframes modalTweanUpoOut {
+	from {
+		transform: translate3d(0, 0, 0);
 		opacity: 1;
 	}
 
-	.#{$name}-leave {
-		opacity: 1;
-		transition: opacity .25s ease-in;
+	to {
+		transform: translate3d(0, -80px, 0);
+		opacity: 0;
 	}
-
-	.#{$name}-leave.#{$name}-leave-active {
-		opacity: 0.01;
-	}
-
-	.#{$name} {
-		transition: opacity .25s ease-in;
-	}
-
-}
-
-@include reactTransition('button');
-@include reactTransition('messages');
-@include reactTransition('navdrawer');
-@include reactTransition('forums');
-
-
-.loginforms-enter {
-	opacity: 0.01;
-	transition: transform .25s ease-out, opacity .25s ease-out;
-	width:100%;
-	top: 0;
-	position: absolute;
-	transform: translate3d(0,-1rem,0);
-}
-
-.loginforms-enter.loginforms-enter-active {
-	opacity: 1;
-	transform: translate3d(0,0,0);
-}
-
-.loginforms-leave {
-	opacity: 1;
-	transition: transform .25s ease-out, opacity .25s ease-out;
-	width:100%;
-	top: 0;
-	position: absolute;
-	transform: translate3d(0,0,0);
-}
-
-.loginforms-leave.loginforms-leave-active {
-	opacity: 0.01;
-	transform: translate3d(0,1rem,0);
-}
-
-.loginforms {
-	transition: transform .25s ease-out, opacity .25s ease-out;
-}
-
-.loginformswrapper {
-	position: relative;
 }

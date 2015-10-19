@@ -5,6 +5,8 @@ import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 import DateTime from 'common/components/DateTime';
 
+import ProfileLink from 'profile/components/ProfileLink';
+
 export default React.createClass({
 	displayName: 'ForumCommentType',
 	mixins: [NoteableMixin],
@@ -15,16 +17,19 @@ export default React.createClass({
 
 
 	render () {
-		let time = this.state.change && this.state.change.getLastModified();
+		let {change, username} = this.state;
+		let time = this.getEventTime(change);
 
 		return (
 			<li className="notification-item">
-				<Avatar username={this.state.username} width="32" height="32"/>
-				<div className="wrap">
-					<DisplayName username={this.state.username}/>
-						{" added you as a contact."}
-					<DateTime date={time} relative/>
-				</div>
+				<ProfileLink entity={username}>
+					<Avatar entity={username} width="32" height="32"/>
+					<div className="wrap">
+						<DisplayName entity={username}/>
+							{" added you as a contact."}
+						<DateTime date={time} relative/>
+					</div>
+				</ProfileLink>
 			</li>
 		);
 	}

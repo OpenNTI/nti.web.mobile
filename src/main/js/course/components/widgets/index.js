@@ -8,6 +8,8 @@ import Videos from './Videos';
 import Card from './RelatedWorkRef';
 import Discussion from './Discussion';
 import QuestionSet from './QuestionSet';
+import PollReference from './PollReference';
+import SurveyReference from './SurveyReference';
 import Timeline from './Timeline';
 
 const WIDGETS = [
@@ -19,17 +21,19 @@ const WIDGETS = [
 	Videos,
 	Discussion,
 	QuestionSet,
+	PollReference,
+	SurveyReference,
 	Timeline
 ];
 
-export function select (item, index, list, props, node) {
+export function select (item, index, list, props, node, assessmentCollection) {
 	let Item = Unknown;
 	let render = true;
 
 	for (let Type of WIDGETS) {
 		if (Type !== Unknown && Type.handles && Type.handles(item)) {
 			Item = Type;
-			render = (!Type.canRender || Type.canRender(item, node));
+			render = (!Type.canRender || Type.canRender(item, node, assessmentCollection));
 			break;
 		}
 	}
@@ -39,7 +43,8 @@ export function select (item, index, list, props, node) {
 			key: item.NTIID || ('overview-' + item.MimeType + '-' + index),
 			item: item,
 			index: index,
-			ref: Item.displayName + '-' + index
+			ref: Item.displayName + '-' + index,
+			assessmentCollection
 		}));
 }
 

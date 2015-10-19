@@ -15,15 +15,19 @@ export default React.createClass({
 	},
 
 	render () {
+		let {username, url} = this.state;
 		let thestring = ' commented on a discussion.';
+
 		return (
 			<li className="notification-item">
-				<Avatar username={this.state.username} width="32" height="32"/>
-				<div className="wrap">
-					<DisplayName username={this.state.username}/>
-						{thestring}
-					<DateTime date={this.getEventTime()} relative/>
-				</div>
+				<a href={url}>
+					<Avatar entity={username} width="32" height="32"/>
+					<div className="wrap">
+						<DisplayName entity={username}/>
+							{thestring}
+						<DateTime date={this.getEventTime()} relative/>
+					</div>
+				</a>
 			</li>
 		);
 	}

@@ -1,0 +1,20 @@
+.select-box {
+	position: relative;
+	& > ul {
+		position: absolute;
+		background: white;
+		li:first-child {
+			position: relative;
+			padding-right: 1em;
+			&::after {
+				@extend %chevron-down;
+				position: absolute;
+				top: 50%;
+				right: .5em;
+				font-size: 1em;
+				transform: translate3d(0,-50%,0);
+				color: $tertiary-grey;
+			}
+		}
+	}
+}

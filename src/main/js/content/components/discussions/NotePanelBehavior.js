@@ -37,7 +37,10 @@ export default {
 
 
 	updateData (props = this.props, setLoading = true) {
-		let {item} = props;
+		let {item, lite} = props;
+		if (lite) {
+			return;
+		}
 
 		let t = setTimeout(()=> this.setState({loading: setLoading}), 100);
 		item.getReplies()
@@ -63,12 +66,16 @@ export default {
 
 
 	renderReplies () {
-		let {loading=true, error, children=[]} = this.state || {};
+		let {loading = true, error, children = []} = this.state || {};
 
-		return loading ? (
-			<Loading />
-		) : error ? (
-			<Err error={error}/>
+		return (loading || error) ? (
+			<div className="coordinate-root">
+				{error ? (
+					<Err error={error}/>
+				) : (
+					<Loading />
+				)}
+			</div>
 		) : (
 			children.sort(ReplyComparator).map(x=>this.renderReply(x))
 		);

@@ -1,6 +1,5 @@
 
 .user-session {
-	cursor: pointer;
 	display: block;
 	position: relative;
 	overflow: hidden;
@@ -9,6 +8,7 @@
 
 	.avatar {
 		width: 23%;
+		height: 23%;
 		float: left;
 	}
 
@@ -28,21 +28,52 @@
 		text-overflow: ellipsis;
 		position: relative;
 		display: inline-block;
-
-		&[data-for]::after {
-			color: $secondary-grey;
-			content: ' (' attr(data-for) ')';
-			white-space: nowrap;
-			text-overflow: ellipsis;
-		}
 	}
 
 	.meta, .actions {
-		margin: 0.625rem;
+		margin: 0.3125rem;
 		margin-left: 25%;
+
+	}
+
+	.impersonate {
+		display: block;
+		position: absolute; top: 0; right: 0;
+		font-size: inherit;
+		text-transform: none;
+		line-height: 2;
+		padding: 0.5rem;
+		border: 0.0625rem solid $border-blue;
+		border-radius: 5px;
+		margin: 0.3125rem;
+	}
+
+	.actions {
+		font-size: 0.75rem;
 	}
 
 	.meta {
 		margin-top: 1rem;
+	}
+
+	.links {
+		list-style: none;
+		display: flex;
+		clear: both;
+		margin: 0;
+		margin-bottom: 0.125rem;
+		li {
+			cursor: pointer;
+			flex: 1 1 50%;
+			text-align: center;
+			background: $primary-blue;
+			line-height: 3em;
+			font-size: .875rem;
+			box-shadow: 0 0 0 2px white;
+			a {
+				color: white;
+				display: block;
+			}
+		}
 	}
 }

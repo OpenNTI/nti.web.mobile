@@ -45,6 +45,13 @@ $indent: 0.9375rem;
 	}
 }
 
+.icon-flag {
+	padding-right: 1rem;
+	&.flagged {
+		color: $primary-red;
+	}
+}
+
 .forums-wrapper {
 	@include grid-column(12);
 	padding-bottom:1rem;
@@ -83,13 +90,6 @@ $indent: 0.9375rem;
 			width: 100%;
 			margin-bottom: 1rem;
 			border-radius: 0;
-		}
-	}
-
-	.fi-flag {
-		padding-right: 1rem;
-		&.flagged {
-			color: $primary-red;
 		}
 	}
 
@@ -133,7 +133,8 @@ $indent: 0.9375rem;
 			float: right;
 			padding-right: 1.5rem;
 			position: relative;
-			line-height: 1.8rem;
+			line-height: 1.75rem;
+			margin-top: 1rem;
 		}
 
 		.replies {
@@ -150,6 +151,9 @@ $indent: 0.9375rem;
 				margin-left: 0;
 			}
 			padding: .6875rem 0;
+			.threadlink {
+				margin-top: 0;
+			}
 		}
 	}
 
@@ -296,7 +300,12 @@ $indent: 0.9375rem;
 					line-height: 1rem;
 					font-weight: 600;
 				}
-				a {
+
+				.charms {
+					top: -1px;
+				}
+
+				.topic-link {
 					display: block;
 					padding: .5rem 0;
 					.title {

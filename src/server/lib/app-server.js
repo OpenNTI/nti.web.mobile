@@ -7,7 +7,7 @@ import waitFor from 'nti.lib.interfaces/utils/waitfor';
 import dataserver, {CommonSymbols} from 'nti.lib.interfaces';
 let {Pending} = CommonSymbols;
 
-import api from './api';
+import {registerEndPoints} from './api';
 import cacheBuster from './no-cache';
 import {clientConfig, nodeConfigAsClientConfig} from './common';
 import generated from './generated';
@@ -22,14 +22,14 @@ import {attachToExpress as setupCompression} from './compress';
 const manifest = /\.appcache$/i;
 
 
-export function setupApplication(app, config) {
+export function setupApplication (app, config) {
 	let port = config.port = (config.port || 9000);
 	//config.silent = true;
 	let dsi = dataserver(config);
 	let session = dsi.session;
 	let datacache = dsi.datacache;
 
-	let {basepath} = config;
+	let {basepath, webpack} = config;
 
 	let entryPoint = generated.entryPoint;
 	let assetPath = path.join(__dirname, '../..', entryPoint ? 'client' : 'main');
@@ -45,18 +45,19 @@ export function setupApplication(app, config) {
 
 	redirects.register(app, config);
 
-	if (entryPoint == null) {//only start the dev server if entryPoint is null or undefined. if its false, skip.
+	if (entryPoint == null && webpack) {
+		//only start the dev server if entryPoint is null or undefined. if its false, skip.
 		devmode = setupDeveloperMode(config);
 		entryPoint = devmode.entry;
 		page = pageSource();
 		app.use(devmode.middleware);//serve in-memory compiled sources/assets
 	}
-	else if (entryPoint === false) {
+	else if (entryPoint === false && webpack) {
 		logger.error('Not in dev mode, preventing dev server from starting. Shutting down.');
 		return void 0;
 	}
 
-	app.use('/errortest*', function() {
+	app.use('/errortest*', function () {
 		throw new Error('This is an error. Neato.');
 	});
 
@@ -77,14 +78,12 @@ export function setupApplication(app, config) {
 
 	app.use(cacheBuster);
 
-	api.registerAnonymousEndPoints(app, config);
+	registerEndPoints(app, config, dsi.interface);
 
 	app.use(/^\/login/i, session.anonymousMiddleware.bind(session));
 
 	//Session manager...
-	app.use(/^(?!\/(login|resources)).*/i, session.middleware.bind(session));
-
-	api.registerAuthenticationRequiredEndPoints(app, config);
+	app.use(/^(?!\/(api|login|resources)).*/i, session.middleware.bind(session));
 
 	//HTML Renderer...
 	app.get('*', (req, res)=> {

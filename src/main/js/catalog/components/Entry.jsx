@@ -45,8 +45,8 @@ export default React.createClass({
 	getItem () { return this.props.item; },
 	itemChanged () {this.forceUpdate(); },
 
-	componentWillMount () { this.getItem().addListener('changed', this.itemChanged); },
-	componentWillUnmount () { this.getItem().removeListener('changed', this.itemChanged); },
+	componentWillMount () { this.getItem().addListener('change', this.itemChanged); },
+	componentWillUnmount () { this.getItem().removeListener('change', this.itemChanged); },
 
 	getDetailHref () {
 		let item = this.getItem();

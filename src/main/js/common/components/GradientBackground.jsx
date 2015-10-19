@@ -6,13 +6,18 @@ export default React.createClass({
 	displayName: 'GradientBackground',
 
 	propTypes: {
-		className: React.PropTypes.any
+		className: React.PropTypes.any,
+		imgUrl: React.PropTypes.string,
+		children: React.PropTypes.any
 	},
 
 	render () {
-		let {className} = this.props;
+		let {className, imgUrl, children} = this.props;
 		return (
-			<div {...this.props} className={cx('gradient-bg', className)}/>
+			<div {...this.props} className={cx('gradient-bg', className)}>
+				{imgUrl && <img src={imgUrl} className="gradient-bg-img"/>}
+				{children}
+			</div>
 		);
 	}
 });

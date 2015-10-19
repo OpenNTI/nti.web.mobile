@@ -61,7 +61,7 @@ export default React.createClass({
 		e.preventDefault();
 		e.stopPropagation();
 
-		let {value} = this.state;
+		let value = this.refs.editor.getValue();
 
 		if (Editor.isEmpty(value)) {
 			return;

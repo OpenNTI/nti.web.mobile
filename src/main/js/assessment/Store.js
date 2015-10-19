@@ -1,6 +1,4 @@
-import emptyFunction from 'react/lib/emptyFunction';
-
-import hasValue from 'nti.lib.interfaces/utils/object-has-value';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import {getModel} from 'nti.lib.interfaces';
 
@@ -8,20 +6,20 @@ import {
 	BUSY_LOADING,
 	BUSY_SUBMITTING,
 	BUSY_SAVEPOINT,
-	BUSY_SUBMITTING,
 	SYNC,
 	SUBMIT_BEGIN,
 	SUBMIT_END,
 	RESET,
 	INTERACTED,
 	CLEAR,
-	ERROR
+	ERROR,
+	TOGGLE_AGGREGATED_VIEW
 } from './Constants';
 import {
 	isAssignment,
 	getMainSubmittable,
 	updatePartsWithAssessedParts
-} from './Utils';
+} from './utils';
 
 import StorePrototype from 'common/StorePrototype';
 
@@ -33,6 +31,7 @@ let Question = getModel('question');
 // const data = Symbol('data');
 const ApplySubmission = Symbol('apply:Submission');
 const GetAssessmentKey = Symbol('get:AssessmentKey');
+const OnAggregationToggle = Symbol('Toggle Aggregation');
 const OnClear = Symbol('on:Clear');
 const OnInteracted = Symbol('on:Interacted');
 const OnReset = Symbol('on:Submit:Reset');
@@ -57,6 +56,12 @@ function getQuestion (thing, part) {
 		);
 }
 
+
+function hasValue (obj, v) {
+	return obj && Object.values(obj).indexOf(v) > -1;
+}
+
+
 class Store extends StorePrototype {
 
 	constructor () {
@@ -67,7 +72,8 @@ class Store extends StorePrototype {
 			[SUBMIT_END]: OnSubmitEnd,
 			[CLEAR]: OnClear,
 			[RESET]: OnReset,
-			[INTERACTED]: OnInteracted
+			[INTERACTED]: OnInteracted,
+			[TOGGLE_AGGREGATED_VIEW]: OnAggregationToggle
 		});
 
 		this.assignmentHistoryItems = {};
@@ -75,6 +81,16 @@ class Store extends StorePrototype {
 		this.data = {};
 		this.busy = {};
 		this.timers = { start: new Date(), lastQuestionInteraction: null };
+	}
+
+
+	[OnAggregationToggle] (payload) {
+		let {assessment} = payload.action;
+
+		const state = this.aggregationViewState(assessment);
+		this.aggregationViewState(assessment, !state, true);
+
+		this.emitChange({type: SYNC});
 	}
 
 
@@ -145,7 +161,7 @@ class Store extends StorePrototype {
 			return;
 		}
 
-		console.debug('Question Part Interacted: %o', action);
+		// console.debug('Question Part Interacted: %o', action);
 
 		let interactionTime = new Date();
 		let time = this.timers[key] || {};
@@ -171,7 +187,7 @@ class Store extends StorePrototype {
 	}
 
 
-	[SaveProgress](part, buffer = 1000) {
+	[SaveProgress] (part, buffer = 1000) {
 		let main = getMainSubmittable(part);
 		if (!main.postSavePoint) {
 			return;
@@ -270,6 +286,7 @@ class Store extends StorePrototype {
 	teardownAssessment (assessment) {
 		let m = this[GetAssessmentKey](assessment);
 		if (m) {
+			delete this.this.aggregateView;
 			delete this.assignmentHistoryItems[m];
 			delete this.assessed[m];
 			delete this.timers[m];//TODO: iterate and clearTimeout/clearInterval each.
@@ -308,7 +325,7 @@ class Store extends StorePrototype {
 
 
 		return loadPreviousState(assessment)//eslint-disable-line no-use-before-define
-			.then(this[ApplySubmission].bind(this, assessment))
+			.then(submission => this[ApplySubmission](assessment, submission))
 
 			.catch(reason => {
 				if (reason && reason.statusCode !== 404) {
@@ -337,7 +354,7 @@ class Store extends StorePrototype {
 
 		questions.forEach(q => {
 
-			let question = getQuestion(s, q.getID());
+			let question = getQuestion(s, q && q.getID());
 			if(!question) {
 				console.warn('Previous attempt question not found in current question set');
 				return;
@@ -394,10 +411,16 @@ class Store extends StorePrototype {
 	}
 
 
+	canReset (assessment) {
+		let s = this.getSubmissionData(assessment);
+		return !this.getBusyState(assessment) && s && s.canReset ? s.canReset() : true;
+	}
+
+
 	canSubmit (assessment) {
 		let s = this.getSubmissionData(assessment);
 		let admin = this.isAdministrative(assessment);
-		return !admin && s && s.canSubmit() && !this.getBusyState(assessment);
+		return !this.getBusyState(assessment) && !admin && s && s.canSubmit();
 	}
 
 
@@ -466,7 +489,7 @@ class Store extends StorePrototype {
 	}
 
 
-	isWordBankEntryUsed(wordBankEntry) {
+	isWordBankEntryUsed (wordBankEntry) {
 		let {wid} = wordBankEntry;
 		let submission = this.getSubmissionData(wordBankEntry);
 		let question = wordBankEntry.parent('constructor', {test: x=>x === Question});
@@ -480,6 +503,30 @@ class Store extends StorePrototype {
 		}
 
 		return maybe;
+	}
+
+
+	aggregationViewState (assessment, defaultValue, forceUpdate) {
+		const key = this[GetAssessmentKey](assessment);
+		const survey = getMainSubmittable(assessment);
+		if (!survey.hasAggregationData) {
+			return false;
+		}
+
+		if (!this.aggregateView) {
+			this.aggregateView = {};
+		}
+
+		if (!(key in this.aggregateView) || forceUpdate) {
+			if (defaultValue == null) {
+				defaultValue = this.isSubmitted(assessment) || survey.hasReport;
+			}
+
+			//this should just return the defaultValue... but to "toggle" correctly we need an initial value.
+			this.aggregateView[key] = defaultValue;
+		}
+
+		return this.aggregateView[key];
 	}
 }
 

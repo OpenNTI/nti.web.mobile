@@ -1,0 +1,106 @@
+@import 'components/distribution-list-item';
+@import 'components/distribution-list-detail';
+@import 'components/contacts-list';
+@import 'components/create-button';
+@import 'components/create-list';
+@import 'components/delete-button';
+@import 'components/inline-creation-form';
+@import 'components/user-search-field';
+@import 'components/item-detail-header';
+@import 'components/swipe-to-reveal';
+
+.contacts-nav {
+	@extend %tabbed-nav;
+}
+
+%spinner {
+	$size: 2em;
+	border: 2px solid rgba(0,0,0,.05);
+	border-top-color: rgba(0,0,0,.1);
+	border-right-color: rgba(0,0,0,.1);
+	border-radius: 50%;
+	width: $size;
+	height: $size;
+	line-height: 1;
+	animation: rotation .9s infinite linear;
+	margin-top: -$size/2; // the animation uses transform, which overwrites our translateY, so use margin to get vertical centering since we know the size
+}
+
+.contacts-page {
+	ul {
+		list-style: none;
+		margin: 0;
+	}
+	header {
+		background: $primary-grey;
+	}
+
+	.search-summary {
+		font-size: .75rem;
+		font-weight: 700;
+		color: $tertiary-grey;
+		margin-bottom: 2rem;
+	}
+
+	.follow-widget {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: .5em;
+		width: 2rem;
+		height: 2rem;
+		line-height: 1;
+		&::after {
+			content: 'X';
+			font-size: 2rem;
+			width: 2em;
+			height: 2em;
+			font-family: 'icomoon';
+			color: $tertiary-grey;
+		}
+		&.follow::after {
+			content: '\e601'; // add user icon
+			color: $primary-green;
+		}
+
+		&.loading {
+			@extend %spinner;
+			&::after {
+				content:none;
+			}
+		}
+	}
+}
+
+.contacts-page-content {
+	padding: 1rem 0.625rem;
+	h2 {
+		font-size: 1.5rem;
+		line-height: 1;
+		font-weight: 100;
+		font-family: 'Open Sans';
+	}
+	.selectable-entities {
+		background-color: white;
+		.selectable-entity {
+			margin-bottom: .25rem;
+			transition: background-color .25s ease-out;
+			&.unselected {
+				background: #fff2cb;
+				box-shadow: inset 0 1px 2px 0 rgba(0,0,0,.1);
+				.username {
+					position: relative;
+					&::after {
+						content: '';
+						height: 2px;
+						background: rgba(0,0,0,.4);
+						position: absolute;
+						top: 50%;
+						left: 0;
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}

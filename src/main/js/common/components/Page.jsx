@@ -6,7 +6,8 @@ export default React.createClass({
 	displayName: 'Page',
 
 	propTypes: {
-		pageContent: React.PropTypes.any
+		pageContent: React.PropTypes.any,
+		children: React.PropTypes.any
 	},
 
 

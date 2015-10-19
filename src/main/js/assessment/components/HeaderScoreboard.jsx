@@ -3,7 +3,7 @@ import React from 'react';
 import Score from 'common/components/charts/Score';
 import DateTime from 'common/components/DateTime';
 
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {getEventTarget} from 'nti.lib.dom';
 
 import Store from '../Store';
 import {clearAssessmentAnswers} from '../Actions';

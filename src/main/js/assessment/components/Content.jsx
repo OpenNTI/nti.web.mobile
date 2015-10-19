@@ -1,13 +1,10 @@
 import React from 'react';
-import emptyFunction from 'react/lib/emptyFunction';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import {processContent} from 'content/utils';
 
 import isFunction from 'nti.lib.interfaces/utils/isfunction';
 import htmlToReact from 'nti.lib.interfaces/utils/html-to-react';
-
-import hash from 'object-hash';
-
 
 /**
  * Common component to render question and part content alike.
@@ -20,36 +17,34 @@ export default React.createClass({
 	displayName: 'Content',
 
 	propTypes: {
+		content: React.PropTypes.string.isRequired,
+
 		renderCustomWidget: React.PropTypes.func
 	},
 
 
 	getInitialState () {
-		return {
-			propHash: null
-		};
+		return {};
 	},
 
 
 	componentWillMount () { this.buildContent(this.props); },
 
 
-	componentWillReceiveProps (props) { this.buildContent(props); },
+	componentWillReceiveProps (props) {
+		if (props.content !== this.props.content) {
+			this.buildContent(props);
+		}
+	},
 
 
 	buildContent (props) {
 		let {content, strategies} = props;
-		let packet = hash(props);
+
 		let widgets;
-		let h = hash(props);
-
-		if (this.state.propHash === h) {
-			return;
-		}
-
 
 		if (strategies) {
-			packet = processContent({content: content}, strategies);
+			let packet = processContent({content}, strategies);
 			widgets = packet.widgets;
 
 			content = packet.body.map(part=>
@@ -60,7 +55,6 @@ export default React.createClass({
 		}
 
 		this.setState({
-			propHash: h,
 			content: content,
 			widgets: widgets
 		});

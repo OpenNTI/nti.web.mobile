@@ -11,9 +11,9 @@ import {PAGE_LOADED, PAGE_FAILED, PACKAGE_NOT_FOUND} from './Constants';
 
 import {processContent} from './utils';
 
-import {getLibrary} from 'library/Api';
+import {load as getLibrary} from 'library/Actions';
 
-function dispatch(type, response) {
+function dispatch (type, response) {
 	AppDispatcher.handleRequestAction({type, response});
 }
 
@@ -91,7 +91,7 @@ export function getPageContent (pageInfo) {
 }
 
 
-function fetchResources(packet) {
+function fetchResources (packet) {
 	let page = packet.pageInfo;
 	let get = page.getResource.bind(page);
 	let requests = packet.styles.map(get);
@@ -101,7 +101,7 @@ function fetchResources(packet) {
 		// 	console.log(reason);
 		// })
 		.then(styles => {
-			packet.styles = styles.map(css => css.replace(/#NTIContent/g, 'nti-content'));
+			packet.styles = styles.map(css => css.replace(/#NTIContent/g, 'nti\\:content'));
 			return packet;
 		});
 }

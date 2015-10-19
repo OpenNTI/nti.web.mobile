@@ -1,4 +1,3 @@
-@import "../input-vars";
 
 .question {
 	margin: 2rem 0 2rem;
@@ -33,5 +32,50 @@
 
 	.question-content:not(:empty) {
 		margin: 1rem 0;
+	}
+
+	.toggle-option a {
+		background: #fbfbfb;
+	}
+
+	.error {
+		position: relative;
+		pre {
+			max-height: 13rem;
+		}
+	}
+
+	&.missing-data {
+		margin: 2rem;
+		border: 0;
+		color: $primary-red;
+		font-weight: bold;
+	}
+
+	& + .links {
+		line-height: 0;
+		margin-left: 1rem;
+		max-width: 50%;
+		position: relative;
+		top: 0;
+
+		&.individual {
+			top: -3.8rem;
+		}
+
+		&.showing-results {
+			top: -1rem;
+		}
+
+		a {
+			font-size: 0.8rem;
+			text-align: right;
+			span.icon-report {margin-right: 0.5em;}
+
+			white-space: nowrap;
+			&:not(:last-child) {
+				margin-right: 0.5em;
+			}
+		}
 	}
 }

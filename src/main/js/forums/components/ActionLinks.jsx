@@ -32,7 +32,7 @@ export default React.createClass({
 	},
 
 
-	handleClick(event) {
+	handleClick (event) {
 		console.debug(event);
 	},
 

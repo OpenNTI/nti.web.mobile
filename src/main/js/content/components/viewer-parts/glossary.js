@@ -1,3 +1,4 @@
+import React from 'react';
 import GlossaryEntry from '../GlossaryEntry';
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
@@ -16,17 +17,17 @@ export default {
 	onDismissGlossary (evt) {
 		evt.preventDefault();
 		let pid = encodeForURI(this.getPageID());
-		this.navigate(`/${pid}/`);
+		this.navigate(pid);
 	},
 
 
 	renderGlossaryEntry () {
 		let id = this.getGlossaryId();
 		if (id) {
-			return GlossaryEntry({
-					entryid: id,
-					onClick: this.onDismissGlossary
-				});
+			return React.createElement(GlossaryEntry, {
+				entryid: id,
+				onClick: this.onDismissGlossary
+			});
 		}
 	}
 };

@@ -31,7 +31,7 @@ export default React.createClass({
 	},
 
 
-	getPurchasable (forGifting=false) {
+	getPurchasable (forGifting = false) {
 		let {enrollment} = this.props;
 
 		return forGifting ?
@@ -64,7 +64,7 @@ export default React.createClass({
 		return (
 			<div>
 				<StoreEnrollmentRoutes
-					ref='router'
+					ref="router"
 					entryId={entryId}
 					purchasable={purchasable}
 					courseId={courseId}

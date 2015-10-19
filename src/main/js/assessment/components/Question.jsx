@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
+import StoreEvents from 'common/mixins/StoreEvents';
 import {isFlag} from 'common/utils';
 import {Mixin as DragDropOrchestrator} from 'common/dnd';
 
@@ -20,10 +21,22 @@ const STATUS_MAP = {
 
 export default React.createClass({
 	displayName: 'Question',
-	mixins: [DragDropOrchestrator],
+	mixins: [DragDropOrchestrator, StoreEvents],
 
 	propTypes: {
 		question: React.PropTypes.object.isRequired
+	},
+
+
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		default: 'synchronizeFromStore'
+	},
+
+	synchronizeFromStore () {
+		if (this.isMounted()) {
+			this.forceUpdate();
+		}
 	},
 
 
@@ -39,13 +52,6 @@ export default React.createClass({
 	},
 
 
-	onStoreChange () {
-		//trigger a reload/redraw
-		this.forceUpdate();
-	},
-
-
-
 	componentWillMount () {
 		this.setState({
 			QuestionUniqueDNDToken: this.getNewUniqueToken()
@@ -54,13 +60,7 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		Store.addChangeListener(this.onStoreChange);
 		this.maybeSetupSubmission(null, this.props.question);
-	},
-
-
-	componentWillUnmount () {
-		Store.removeChangeListener(this.onStoreChange);
 	},
 
 
@@ -77,7 +77,7 @@ export default React.createClass({
 			}
 
 			if (next && next.individual) {
-				Store.setupAssessment(next);
+				Store.setupAssessment(next, true);
 			}
 		}
 	},

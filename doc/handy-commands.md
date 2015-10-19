@@ -75,6 +75,9 @@ And `CHEM4970.csv` is a file with the forum content:
 ### educational experience
     echo '[{"MimeType":"application/vnd.nextthought.profile.educationalexperience", "school":"University of Wherever", "degree":"Masters in Study Hall", "startYear": "1991", "endYear":"1998", "description":"Description of studies"}]' | http -a ray.hatfield@gmail.com:test1234 PUT http://localhost:8082/dataserver2/users/ray.hatfield%40gmail.com/++fields++education
 
+### profile/about
+    echo '"This is the new about"' | http --auth ray.hatfield@gmail.com:test1234 PUT http://ray.local:8082/dataserver2/users/ray.hatfield%40gmail.com/++fields++about
+
 ## sync/update library
 
 If you haven't already:
@@ -99,3 +102,38 @@ Mount pandora/Content at /Volumes/Content/
 ## synclibraries
 
     http --timeout 1000000 -a admin@nextthought.com:temp001 POST http://localhost:8082/dataserver2/@@SyncAllLibraries
+
+## create a group
+use `nti_create_friendslist`
+
+## create a community
+
+    http -a carlos.sanchez@nextthought.com:carlos.sanchez POST http://localhost:8082/dataserver2/@@create.community username='Bleach' public=True joinable=True
+
+## join a community
+
+    http -a carlos.sanchez@nextthought.com:carlos.sanchez POST http://localhost:8082/dataserver2/users/Bleach/join
+
+## set background image on a community
+
+    echo \"`./toDataURI.sh "/Users/ray/Desktop/gypsy.jpg"`\" | http --auth ray.hatfield@gmail.com:test1234 PUT http://ray.local:8082/dataserver2/Objects/tag:nextthought.com,2011-10:system-NamedEntity:Community-ou.nextthought.com/++fields++backgroundURL
+
+where toDataURI.sh is:
+
+    #!/bin/bash
+
+    for filename in "$@";
+    do
+        mimetype=`file -b --mime-type "$filename"`
+        encoded=`base64 "$filename"`
+        echo "data:$mimetype;base64,$encoded"
+    done
+
+## set about/description on a community
+
+    echo '"This is the description"' | http --auth ray.hatfield@gmail.com:test1234 PUT http://ray.local:8082/dataserver2/Objects/tag:nextthought.com,2011-10:system-NamedEntity:Community-bleach/++fields++about
+
+
+## delete all survey responses:
+
+    http -a carlos.sanchez@nextthought.com:carlos.sanchez http://localhost:8082/dataserver2/@@ResetInquiry ntiid=tag:nextthought.com,2011-10:NTIAlpha-NAQ-NTI1000_TestCourse.naq.survey.survey_test entry=tag:nextthought.com,2011-10:NTI-CourseInfo-Alpha_NTI_1000

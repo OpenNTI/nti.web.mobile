@@ -1,0 +1,221 @@
+.assignments-view {
+	$background-grey: #fbfbfb;
+	$alt-grey: darken($background-grey, 3.9%); // #f1f1f1
+	ul {
+		list-style:none;
+		margin: 0;
+	}
+	.search-sort-bar {
+
+		$input-padding: 1.5rem;
+		display: flex;
+		background: $background-grey;
+		box-shadow: 0 -1px 0 0 $alt-grey, 0 1px 0 0 $alt-grey;
+		& > * {
+			flex: 1 1 50%;
+		}
+		input.search {
+			margin: 0;
+			box-shadow: inset 1px 0 0 0 $alt-grey;
+			background: none;
+			border: none;
+			padding: $input-padding $input-padding/2;
+		}
+		.select-box {
+			z-index: 999;
+			ul {
+				width: 100%;
+				font-weight: 600;
+				background: $background-grey;
+				li {
+					line-height: $input-padding * 2;
+					padding-left: 0.5rem;
+				}
+			}
+			&.open {
+				& > ul {
+					box-shadow: 1px 2px 2px 0 rgba(0,0,0,0.1);
+				}
+				.selected {
+					background: $primary-blue;
+					color: white;
+					&::after {
+						color: white;
+					}
+				}
+			}
+		}
+	}
+	.assignments-list {
+		padding: 1rem;
+		h1, h2 {
+			font-size: 1.5rem;
+		}
+	}
+
+	.assignment-group {
+		$vertical-spacing: 1.5rem;
+		padding-bottom: $vertical-spacing/2;
+		margin: 0 -1rem #{$vertical-spacing/2} -1rem;
+		padding: 0 1rem #{$vertical-spacing/2} 1rem;
+		box-shadow: 0 1px 0 $alt-grey;
+		&.admin {
+			& > h2 {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				.column-heading {
+					font-family: $body-font-family;
+					font-size: .5rem;
+			    	text-transform: uppercase;
+			    	font-weight: 700;
+					color: $tertiary-grey;
+				}
+			}
+			.assignment-item {
+				display: flex;
+				justify-content: space-between;
+				$iconsize: 28px;
+				padding-left: 2.4rem;
+				&::after {
+					content: '';
+					@extend %icon-assignment-due-small;
+					width: $iconsize;
+					height: $iconsize;
+					margin-right:1em;
+				}
+				&.late {
+					&::after {
+						@extend %icon-assignment-late-small;
+					}
+				}
+			}
+		}
+	}
+
+	.assignment-item {
+		display: block;
+		color: inherit;
+		position: relative;
+		padding-left: 2rem;
+		font-size: .875rem;
+		margin-bottom: 1em;
+		&::after {
+			content: '√';
+			font-family: 'icomoon';
+			font-size: 1.5rem;
+			position: absolute;
+			top: 50%;
+			left: 0;
+			transform: translate3d(0,-50%,0);
+			color: rgba(0,0,0,.1);
+		}
+		&.complete::after {
+			color: $primary-green;
+		}
+		.completion-ratio {
+			min-width: 3em;
+			text-align: right;
+		}
+	}
+
+}
+
+.performance {
+	margin: 1rem 0;
+	font-size: .75rem;
+	@media (min-width:600px) {
+		font-size: 1rem;
+	}
+	$cellpadding: .5em;
+	.performance-item,
+	.performance-headings {
+		display: table-row;
+		& > * {
+			display: table-cell;
+			padding-bottom: 1em;
+		}
+		text-align: center;
+		.assignment-title {
+			text-align: left;
+			padding-left: 0;
+			font-weight: 600;
+		}
+		.sorted {
+			font-weight: 700;
+		}
+	}
+	.performance-headings {
+		font-size: .5rem;
+    	text-transform: uppercase;
+    	font-weight: 700;
+		color: $tertiary-grey;
+		& > * {
+			padding: $cellpadding ($cellpadding * 3);
+			white-space: nowrap;
+		}
+		.completed {
+			font-family: 'icomoon';
+			&.sorted::after {
+				margin-left: 0;
+			}
+		}
+		.sorted {
+			$bordersize: .5em;
+			position: relative;
+			font-weight: 900;
+			$arrowcolor: $tertiary-grey;
+			&::after {
+				content: '';
+				width: 0;
+				height: 0;
+				border: $bordersize solid transparent;
+				position: absolute;
+				margin-left: 0.25rem;
+			}
+			&.desc::after {
+				bottom: ($bordersize + $cellpadding)/2;
+				top: auto;
+				border-top-color: $arrowcolor;;
+			}
+			&.asc::after {
+				border-bottom-color: $arrowcolor;
+				top: auto;
+			}
+		}
+	}
+}
+
+.assignments-activity {
+	padding: 0 .25rem;
+	font-size: .75rem;
+	@media (min-width:600px) {
+		font-size: 1rem;
+	}
+	.item {
+		padding: 0.75em 0 .75em 1em;
+		&.unread {
+			position: relative;
+			font-weight: 600;
+			&::before {
+				content: '•';
+				color: $primary-blue;
+				position: absolute;
+				left: .25em;
+			}
+		}
+		& > * {
+			padding-right: .25rem;
+		}
+		address { display: inline; }
+		time {
+			float: right;
+			color: $tertiary-grey;
+		}
+		&::after {
+			content: '';
+			display: table;
+			clear: both;
+		}
+	}
+}

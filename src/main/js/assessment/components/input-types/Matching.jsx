@@ -3,10 +3,10 @@ import InputType from './Mixin';
 
 import Content from '../Content';
 
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {getEventTarget} from 'nti.lib.dom';
 import {Mixin, Draggable, DropTarget} from 'common/dnd';
 
-//let isEmpty from 'nti.lib.interfaces/utils/isempty';
+//let isEmpty from 'fbjs/lib/isEmpty';
 
 const SetValueRaw = 'matching:SetValueRaw';
 
@@ -79,7 +79,7 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
-		function get(sel, attr) {
+		function get (sel, attr) {
 			let o = getEventTarget(e, `${sel}[${attr}]`);
 			o = o && o.getAttribute(attr);
 			//the double equals is intentional here.

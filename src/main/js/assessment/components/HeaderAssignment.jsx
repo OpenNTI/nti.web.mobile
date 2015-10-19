@@ -6,8 +6,9 @@ import AssignmentStatusLabel from './AssignmentStatusLabel';
 import Grade from './Grade';
 
 import TimedPlaceholder from './TimedPlaceholder';
+import TimeLockedPlaceholder from './TimeLockedPlaceholder';
 
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 
 export default React.createClass({
 	displayName: 'HeaderAssignment',
@@ -53,6 +54,13 @@ export default React.createClass({
 			);
 		}
 
+		const NOW = new Date();
+		if (assignment.getAssignedDate() > NOW) {
+			return (
+				<TimeLockedPlaceholder assignment={assignment}/>
+			);
+		}
+
 		let nonSubmit = assignment.isNonSubmit();
 
 		if (!item && !nonSubmit) {
@@ -69,7 +77,7 @@ export default React.createClass({
 			<div className={'header assessment assignment ' + state}>
 				<div className="meta">
 					<h4>{assignment.title}</h4>
-					<AssignmentStatusLabel assignment={assignment} historyItem={item}/>
+					<AssignmentStatusLabel assignment={assignment} historyItem={item} showTimeWithDate/>
 				</div>
 
 				{isEmpty(grade) ? null : (

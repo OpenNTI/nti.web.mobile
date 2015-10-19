@@ -1,15 +1,26 @@
 import React from 'react';
 
+import StoreEvents from 'common/mixins/StoreEvents';
+
 import QuestionWidget from 'assessment/components/Question';
+import PollWidget from 'assessment/components/Poll';
+
+import Store from 'assessment/Store';
+import {SYNC} from 'assessment/Constants';
 
 import Mixin from './Mixin';
 
 export default React.createClass({
 	displayName: 'NAQuestion',
-	mixins: [Mixin],
+	mixins: [Mixin, StoreEvents],
+
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		[SYNC]: 'synchronizeFromStore'
+	},
 
 	statics: {
-		itemType: /naquestion/i
+		itemType: /na(question|poll)/i
 	},
 
 
@@ -30,7 +41,11 @@ export default React.createClass({
 	},
 
 
-	componentWillMount () {
+	componentWillMount () { this.synchronizeFromStore(); },
+	componentWillReceiveProps () { this.synchronizeFromStore();	},
+
+
+	synchronizeFromStore () {
 		let {item, page, record} = this.props;
 
 		let question = record;
@@ -47,8 +62,10 @@ export default React.createClass({
 		let {question} = this.state;
 		if (!question) { return null; }
 
-		return (
-			<QuestionWidget question={question}/>
+		let Widget = question.isPoll ? PollWidget : QuestionWidget;
+
+		return  (
+			<Widget question={question}/>
 		);
 	}
 });

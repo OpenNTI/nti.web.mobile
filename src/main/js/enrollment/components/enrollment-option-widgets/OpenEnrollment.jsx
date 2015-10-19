@@ -2,6 +2,7 @@ import React from 'react';
 
 import PanelButton from 'common/components/PanelButton';
 import {scoped} from 'common/locale';
+import Loading from 'common/components/Loading';
 
 import {enrollOpen} from '../../Actions';
 
@@ -14,6 +15,12 @@ export default React.createClass({
 		catalogEntry: React.PropTypes.object.isRequired
 	},
 
+	getInitialState () {
+		return {
+			busy: false
+		};
+	},
+
 	statics: {
 		re: /openenrollmentoption/i,
 		handles (option) {
@@ -23,10 +30,18 @@ export default React.createClass({
 
 	enroll (event) {
 		event.preventDefault();
+		this.setState({
+			busy: true
+		});
 		enrollOpen(this.props.catalogEntry.getID());
 	},
 
 	render () {
+
+		if (this.state.busy) {
+			return <Loading />;
+		}
+
 		return (
 			<PanelButton onClick={this.enroll} linkText={t('OpenEnrollment')}>
 				<h2>Enroll for Free</h2>

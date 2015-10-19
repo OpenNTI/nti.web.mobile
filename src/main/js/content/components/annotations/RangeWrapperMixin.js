@@ -18,9 +18,15 @@ function isInlineElement (node) {
 }
 
 function isWidget (node) {
-	return node.hasAttribute('data-reactid')
-		|| node.tagName.toUpperCase() === 'WIDGET';
+	return (node.hasAttribute && node.hasAttribute('data-reactid'))
+		|| (node.tagName || '').toUpperCase() === 'WIDGET';
 }
+
+
+function canWrapNode (node) {
+	return !isWidget(node);
+}
+
 
 function validToWrapEntireNode (node) {
 	if (DOM.isTextNode(node)) {
@@ -82,13 +88,17 @@ export default {
 		let valid = validToWrapEntireNode(node);
 
 		//Easy case, the node is completely surronded and valid, wrap the node
-		if (valid && (startToStart === AFTER || startToStart === SAME) && (endToEnd === BEFORE || endToEnd === SAME)) {
+		if (valid
+			&& (startToStart === AFTER || startToStart === SAME)
+			&& (endToEnd === BEFORE || endToEnd === SAME)) {
 
-			let newRange = doc.createRange();
+			if (canWrapNode(node)) {
+				let newRange = doc.createRange();
 
-			newRange.selectNode(node);
+				newRange.selectNode(node);
 
-			nodeList.push(this[wrap](newRange));
+				nodeList.push(this[wrap](newRange));
+			}
 		}
 
 		//If the node overlaps with the range in anyway we need to work on it's children
@@ -98,23 +108,23 @@ export default {
 				nodeList.push(...this.wrapRange(i, range));
 			}
 
-			if (node.childNodes.length === 0) {
-				let newRange = doc.createRange();
+			if (DOM.isTextNode(node) || node.childNodes.length === 0) {
+				let newRange = range;
 
 				if (startToStart === BEFORE && (endToEnd === BEFORE || endToEnd === SAME)) {
+					newRange = doc.createRange();
 					newRange.setStart(range.startContainer, range.startOffset);
 					newRange.setEndAfter(node);
-					range = newRange;
 				}
 				else if (endToEnd === AFTER && (startToStart === AFTER || startToStart === SAME)) {
+					newRange = doc.createRange();
 					newRange.setStartBefore(node);
 					newRange.setEnd(range.endContainer, range.endOffset);
-					range = newRange;
 				}
 
 
-				if (startToEnd !== BEFORE && endToStart !== AFTER) {
-					nodeList.push(this[wrap](range));
+				if (newRange && startToEnd !== BEFORE && endToStart !== AFTER) {
+					nodeList.push(this[wrap](newRange));
 				}
 			}
 		}
@@ -123,7 +133,6 @@ export default {
 
 
 	[wrap] (range) {
-		let style = this.getRecordField('style') || 'plain';
 		let {ownerDocument} = range.commonAncestorContainer;
 		let rangeString = range.toString();
 		let sc = range.startContainer;
@@ -144,10 +153,18 @@ export default {
 			}
 		}
 
-		DOM.addClass(span, this.highlightCls);
-		DOM.addClass(span, style);
+		try {
+			range.surroundContents(span);
+		} catch (e) {
+			//InvalidStateError (trying to suround a range that spans to many branches)
+			let known = e.code === 11 || e.name === 'InvalidStateError';
 
-		range.surroundContents(span);
+			//Its hard and costly to predict this, so we will just ignore it when it occurs and continue.
+
+			if (!known) {
+				console.warn(e.stack || e.message || e);
+			}
+		}
 
 		if (!span.firstChild) {
 			DOM.removeNode(span);

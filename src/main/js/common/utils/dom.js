@@ -3,7 +3,7 @@ import {getElementRect} from './rects';
 import between from 'nti.lib.interfaces/utils/between';
 
 
-export function declareCustomElement(name) {
+export function declareCustomElement (name) {
 	if (typeof document !== 'undefined') {
 		document.createElement(name);
 	}
@@ -139,7 +139,7 @@ export function scrollParent (el) {
 	let allowsOverflow = /(auto|scroll)/;
 	let viewport = el.ownerDocument || document;
 
-	function overflowed(parent) {
+	function overflowed (parent) {
 		if (excludeStaticParent && css(parent, 'position' ) === 'static') {
 			return false;
 		}
@@ -326,7 +326,7 @@ function pickUnsanitaryElements (root, cleanAttributes) {
  * @return {void}
  * @private
  */
-function removeNodeRecursively(el) {
+function removeNodeRecursively (el) {
 	let pn = el && el.parentNode;
 	if (!pn) { return; }
 	pn.removeChild(el);

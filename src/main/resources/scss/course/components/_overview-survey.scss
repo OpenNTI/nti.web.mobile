@@ -1,0 +1,42 @@
+
+.overview-survey {
+	@extend .overview-naquestionset;
+
+	.icon {
+		font-family: icomoon;
+		font-size: 3rem;
+		color: $secondary-green;
+	}
+
+	.tally-box {
+		font-sze: 1.1rem;
+		font-weight: 600;
+	}
+
+	.stat {
+		display: inline;
+		margin: 0;
+
+		&:after {
+			color: $tertiary-grey;
+			padding: 0 0.25em;
+			@extend %middot;
+		}
+		&:last-of-type::after {
+			content: '';
+		}
+
+		&.submissions {
+			color: $tertiary-grey;
+		}
+
+		&.submitted {
+			color: $primary-blue;
+		}
+
+		.icon-report {
+			margin-left: 0.5em;
+			margin-right: 0.5em;
+		}
+	}
+}

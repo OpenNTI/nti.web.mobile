@@ -12,6 +12,10 @@ let getLabel = scoped('CONTENT.SECTIONS');
 export default React.createClass({
 	displayName: 'course:Page',
 
+	propTypes: {
+		children: React.PropTypes.any
+	},
+
 	componentWillMount () {
 		this.setup();
 	},
@@ -27,9 +31,9 @@ export default React.createClass({
 		let menu = [];
 
 		let push = x => menu.push({
-				label: getLabel(x.toLowerCase()),
-				href: Sections[x]
-			});
+			label: getLabel(x.toLowerCase()),
+			href: Sections[x]
+		});
 
 
 		for(let s of Object.keys(Sections)) {

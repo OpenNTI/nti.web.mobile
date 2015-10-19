@@ -92,6 +92,7 @@ module.exports = Object.freeze([
 			{
 				ref: 'gender',
 				type: 'radiogroup',
+				required: true,
 				label: t('genderPrompt'),
 				options: [
 					{
@@ -170,12 +171,14 @@ module.exports = Object.freeze([
 			},
 			{
 				ref: 'social_security_number',
+				type: 'ssn',
 				label: t('social_security_number'),
 				helptext: t('ssn_helptext')
 			},
 			{
 				ref: 'citizen',
 				type: 'radiogroup',
+				required: true,
 				label: t('citizen'),
 				options: [
 					{
@@ -252,12 +255,14 @@ module.exports = Object.freeze([
 			{
 				ref: 'high_school_graduate',
 				type: 'radiogroup',
+				required: true,
 				label: t('hsGraduate'),
 				options: yesNoOptions
 			},
 			{
 				ref: 'attendedOU',
 				type: 'radiogroup',
+				required: true,
 				label: t('attendedOU'),
 				options: [
 					{
@@ -283,6 +288,7 @@ module.exports = Object.freeze([
 				ref: 'attended_other_institution',
 				label: t('attendedAnotherUniversity'),
 				type: 'radiogroup',
+				required: true,
 				options: [
 					{
 						label: 'Yes',

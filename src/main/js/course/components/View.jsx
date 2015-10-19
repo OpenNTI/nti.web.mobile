@@ -18,12 +18,12 @@ import Page from './Page';
 
 import {LESSONS} from '../Sections';
 
-//import Activity
-//import Assignments
+import Assignments from '../assignments/components/View';
 //import Reports
 import CourseInfo from './CourseInfo';
 import Discussions from 'forums/components/View';
 import Lessons from './Lessons';
+import Activity from './Activity';
 import Media from './Media';
 
 import {setCourse} from '../Actions';
@@ -35,6 +35,8 @@ const ROUTES = [
 	{path: '/lessons(/*)', handler: Page, pageContent: Lessons},
 	{path: '/discussions(/*)', handler: Page, pageContent: Discussions},
 	{path: '/info', handler: Page, pageContent: CourseInfo},
+	{path: '/activity(/*)', handler: Page, pageContent: Activity},
+	{path: '/assignments(/*)', handler: Page, pageContent: Assignments},
 	{}//not found
 ];
 

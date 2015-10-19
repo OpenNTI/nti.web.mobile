@@ -7,7 +7,7 @@ import {scoped} from 'common/locale';
 const t = scoped('ASSESSMENT');
 
 import Store from '../Store';
-import {areAssessmentsSupported} from '../Utils';
+import {areAssessmentsSupported} from '../utils';
 import {submit, clearAssessmentAnswers} from '../Actions';
 
 const STATUS_MAP = {
@@ -44,7 +44,11 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
-		clearAssessmentAnswers(this.props.question);
+		let {question} = this.props;
+
+		if (Store.canReset(question)) {
+			clearAssessmentAnswers(question);
+		}
 	},
 
 
@@ -78,9 +82,12 @@ export default React.createClass({
 			return;
 		}
 
+		let prefix = question.MimeType.replace(/application\/vnd\.nextthought\./, '');
+
 		let assessed = Store.getAssessedQuestion(question, question.getID());
 		let submitted = Store.isSubmitted(question);
-		let disabled = !Store.canSubmit(question) && !submitted;
+		let disabled = (!submitted && !Store.canSubmit(question))
+					|| ( submitted && !Store.canReset(question));
 
 		//correct, incorrect, blank
 		let correctness = assessed && assessed.isCorrect();
@@ -93,9 +100,9 @@ export default React.createClass({
 		let wrapperClass = cx('question-submission', status.toLowerCase());
 
 		let buttonClass = cx('button', {
-			disabled,
-			caution: submitted && !correct,
-			hidden: submitted && correct
+			'disabled': disabled,
+			'caution': submitted && !correct,
+			'hidden': submitted && correct
 		});
 
 		return (
@@ -106,17 +113,9 @@ export default React.createClass({
 					</div>
 				)}
 
-				<a href={disabled ? '#' : null}
-					className={buttonClass}
-					onClick={
-						submitted ?
-							this.onReset :
-							this.onSubmit
-					}>{
-					submitted ?
-						t('tryagain') :
-						t('checkit')
-					}</a>
+				<a href="#" className={buttonClass} onClick={submitted ? this.onReset : this.onSubmit}>
+					{t(`${prefix}-${submitted ? 'reset' : 'submit'}`)}
+				</a>
 
 				{!busy ? null : <Loading/>}
 			</div>

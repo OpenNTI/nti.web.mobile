@@ -17,21 +17,82 @@ export default class Highlight extends Annotation {
 	}
 
 
+	static createFrom (data, color) {
+
+		let base = {
+			MimeType: 'application/vnd.nextthought.highlight',
+			style: 'plain',
+			presentationProperties: {
+				highlightColorName: color
+			}
+		};
+
+		return Object.assign(base, data);
+	}
+
+
 	constructor (...args) {
 		super(...args);
 
 		mixin(this, RangeWrapperMixin);
 
-		let {highlightColorName} = this.getRecordField('presentationProperties') || {};
+		this.setupDomClassNames();
+	}
 
-		this.highlightCls = cx('application-highlight', {
-			[highlightColorName]: highlightColorName,
-			'shared-with-me': !this.isModifiable
+
+	setupDomClassNames () {
+		let {highlightColorName} = this.getRecordField('presentationProperties') || {};
+		let style = this.getRecordField('style') || 'plain';
+
+		this.highlightCls = cx('application-highlight', highlightColorName, style, {
+			'shared-with-me': !this.isModifiable,
+			'colored': highlightColorName
 		});
 
 		Object.assign(this, {
 			highlightColorName
 		});
+	}
+
+
+	createNonAnchorableSpan () {
+		let span = super.createNonAnchorableSpan();
+		span.setAttribute('class', this.highlightCls);
+		return span;
+	}
+
+
+	updateColor (newColor) {
+		let rec = this.getRecord();
+		let p = rec.presentationProperties;
+
+		p = p ? Object.create(p) : {};
+
+		p.highlightColorName = newColor;
+
+		return rec.save({presentationProperties: p})
+			.then(() => {
+				this.setupDomClassNames();
+				for (let el of this[RENDERED]) {
+					try {
+						el.setAttribute('class', this.highlightCls);
+					}
+					catch(e) { console.warn(e); }
+				}
+			});
+	}
+
+
+	remove () {
+		let nodes = this[RENDERED];
+		let rec = this.getRecord();
+		return rec.delete()
+			.then(() => {
+				delete this[RENDERED];
+				for (let el of nodes) {
+					this.unwrap(el);
+				}
+			});
 	}
 
 
@@ -96,7 +157,7 @@ export default class Highlight extends Annotation {
 
 		if (!range) {
 			if (!hadRange) {
-				console.error('bad range', this);
+				console.error('bad range', this.getRecord().toJSON());
 			}
 
 			return null;

@@ -1,3 +1,4 @@
+import React from 'react';
 import {IllegalStateException} from 'common/exceptions';
 
 /**
@@ -21,9 +22,25 @@ import {select} from './index';
 
 export default {
 
+	contextTypes: {
+		assignments: React.PropTypes.object
+	},
+
+	childContextTypes: {
+		assignments: React.PropTypes.object
+	},
+
+	getChildContext () {
+		let {assignments} = this.state || {};
+		return {assignments};
+	},
+
 	renderItems (items, props) {
 		let s = this.state || {};
 		let p = this.props || {};
+
+		let assignments = this.context.assignments || s.assignments;
+
 		let node = s.node || p.node || (props && props.node);
 		let status = node && node.parent('isEnrollment').getStatus();
 
@@ -35,13 +52,13 @@ export default {
 				use = null;
 			}
 
-			use = use && select(item, i, list, itemProps, node);
+			use = use && select(item, i, list, itemProps, node, assignments);
 
 			return use;
 
 		}).filter(x=>x);
 
-		if (toReturn.length === 0) {
+		if (!toReturn || toReturn.length === 0) {
 			throw new IllegalStateException('No Items to render');
 		}
 

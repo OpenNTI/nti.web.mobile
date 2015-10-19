@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default React.createClass({
-	displayName: 'Unknown',
+	displayName: 'list-items:Unknown',
 
 	propTypes: {
 		item: React.PropTypes.object

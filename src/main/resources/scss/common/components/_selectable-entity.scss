@@ -1,0 +1,121 @@
+.selectable-entities {
+	list-style: none;
+	margin: 0;
+}
+
+.selectable-entity {
+	$avatarsize: 2.5rem;
+	$iconsize: 1.375rem;
+	position: relative;
+	margin: 0;
+	color: $primary-grey;
+
+	display: flex;
+	align-items: center;
+
+	.avatar-spacer {
+		position: relative;
+		padding: .5rem .5rem .5rem ($avatarsize + .5rem);
+		min-height: $avatarsize;
+		flex: 1 1 auto;
+
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	a {
+		color: $body-font-color;
+	}
+
+	.username {
+		font-family: $header-font-family;
+		font-weight: 700;
+	}
+
+	.association {
+		font-size: 0.625rem;
+		font-weight: 400;
+		color: $primary-grey;
+	}
+
+	.state-label {
+		font-size: .75rem;
+		font-weight: 600;
+		color: rgba(0,0,0,.6);
+		margin-right: .5rem;
+		flex: 1 1 auto;
+		text-align: right;
+		&.selected {
+			color: $primary-blue;
+		}
+	}
+
+	.tinyloader {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.select-button {
+		min-width: $iconsize + .5rem;
+		&::after {
+			content: '\221a';
+			color: white;
+			border: 0.0625rem solid #979797;
+			box-shadow: inset 0 0.0625rem 0.0625rem 0 rgba(0,0,0,0.3);
+			border-radius: 50%;
+			width: $iconsize;
+			height: $iconsize;
+			line-height: 1.3;
+			text-indent: 0.13rem;
+			position: absolute;
+			right: .5rem;
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 1rem;
+			font-family: 'icomoon';
+			background-color:#fff;
+			transition: background-color .5s;
+		}
+		&.selected {
+			&::after {
+				background: $primary-blue;
+				border: 0.0625rem solid #3687B6;
+				box-shadow: inset 0 0.0625rem 0.0625rem 0 rgba(#fff, 0.5);
+			}
+		}
+		&.busy {
+			&::after {
+				$border: rgba(#3687B6, 0.8);
+				color: transparent; //changing 'content' breaks transitions on iOS but we want it to be empty.
+				box-shadow: none;
+				animation: rotation 0.9s infinite linear;
+				border-color: $border;
+				background: radial-gradient(5px 20px, $border 21%, rgba($primary-blue, 0.4) 21%) white;
+				margin-top: -($iconsize/2); // the rotation overwrites our transform for vertical centering.
+			}
+		}
+		&.removable {
+			&::after {
+				content: 'X';
+				background-color: $primary-red;
+			}
+		}
+	}
+
+	&:not(.selected) {
+		// opacity: .4;
+	}
+
+	//we need specificity here... 
+	.avatar-spacer .avatar {
+		width: $avatarsize;
+		height: $avatarsize;
+		position: absolute;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}

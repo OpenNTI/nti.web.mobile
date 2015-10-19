@@ -36,10 +36,10 @@ export default class Annotation {
 	}
 
 
-	getRecord() { return this[RECORD]; }
+	getRecord () { return this[RECORD]; }
 
 
-	getRecordField(field) {
+	getRecordField (field) {
 		return this[RECORD][field];
 	}
 
@@ -61,6 +61,12 @@ export default class Annotation {
 
 	resolveVerticalLocation () {
 		return HIDDEN;
+	}
+
+
+	ownsNode (node) {
+		let elements = this[RENDERED];
+		return elements && elements.indexOf(node) >= 0;
 	}
 
 

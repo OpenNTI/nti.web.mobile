@@ -8,7 +8,8 @@ export default React.createClass({
 	mixins: [DragBehavior],
 
 	propTypes: {
-		children: React.PropTypes.element.isRequired
+		children: React.PropTypes.element.isRequired,
+		className: React.PropTypes.string
 	},
 
 

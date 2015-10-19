@@ -4,7 +4,11 @@ import path from 'path';
 
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
+import ContentAquirePrompt from 'catalog/components/ContentAquirePrompt';
+
 import Loading from 'common/components/Loading';
+
+import NotFound from 'notfound/components/View';
 
 import BasePathAware from 'common/mixins/BasePath';
 
@@ -13,6 +17,8 @@ import Redirect from 'navigation/components/Redirect';
 import {getService} from 'common/utils';
 
 import {resolve} from '../resolvers';
+
+
 
 export default React.createClass({
 	displayName: 'ObjectResolver',
@@ -47,21 +53,38 @@ export default React.createClass({
 
 		getService()
 			.then(s=> s.getParsedObject(id))
+			.then(o=> {
+				this.setState({object: o});
+				return o;
+			})
 			.then(resolve)
 			.then(p=> path.join(this.getBasePath(), p))
 			.then(location => this.setState({location}))
-			// .catch(error => {
-			// 	console.error('Could not resolve: %o', error);
-			// 	this.setState({error});
-			// });
-			.catch(location => console.debug('Resolved: %o', location));
+			.catch(error => {
+
+				if (ContentAquirePrompt.shouldPrompt(error)) {
+					return this.setState({prompt: error});
+				}
+
+				return Promise.reject(error);
+			})
+			.catch(error => {
+				console.error('Could not resolve: %o', error);
+				this.setState({error});
+			});
 	},
 
 
 	render () {
-		let {location} = this.state;
+		let {location, error, prompt, object} = this.state;
 		return location ? (
 			<Redirect location={location}/>
+		) : error ? (
+			<NotFound/>
+		) : prompt ? (
+			<div className="missing-content">
+				<ContentAquirePrompt data={prompt} relatedItem={object}/>
+			</div>
 		) : (
 			<Loading />
 		);

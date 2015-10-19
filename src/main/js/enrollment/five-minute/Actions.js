@@ -20,6 +20,6 @@ export default {
 	}
 };
 
-function dispatch(type, payload) {
+function dispatch (type, payload) {
 	AppDispatcher.handleRequestAction({type, payload});
 }

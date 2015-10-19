@@ -8,13 +8,13 @@ export default React.createClass({
 		field: React.PropTypes.object.isRequired
 	},
 
-	render: function() {
+	render () {
 		let config = this.props.field || {};
 		return (
 			<label>
 				<input {...this.props}/>
 				{config.htmlLabel ?
-					<span className='htmlLabel' dangerouslySetInnerHTML={{__html: config.label || ''}} />
+					<span className="htmlLabel" dangerouslySetInnerHTML={{__html: config.label || ''}} />
 					:
 					<span>{config.label}</span>
 				}

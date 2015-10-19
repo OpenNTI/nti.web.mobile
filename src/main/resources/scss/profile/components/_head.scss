@@ -3,31 +3,66 @@
 	// margin: 1rem 0.625rem;
 	background: $primary-grey;
 	color: white;
+	position: relative;
+	margin-bottom: .25rem;
 
-	.user {
-		display: flex;
-		position: relative;
-		overflow: hidden;
+	.username {
+		font-size: $h3-font-size;
+	}
 
-		.profile-avatar-container {
-			flex: 1 1 120px;
-		}
-
-		img, svg {
-			
-		}
-
-		.label {
-			background: none;
-			display: block;
-			font: normal 600 1.1rem/2 $header-font-family;
+	.group {
+		background: #373a43;
+		padding: 2rem;
+		.description {
+			$lineheight: 1.5em;
+			font-size: .75rem;
+			line-height: $lineheight; // probably already
+			max-height: $lineheight * 3; // 3 lines
 			overflow: hidden;
-			text-align: left;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			padding: 0;
+			color: $tertiary-grey;
+		}
+		.label {
+			line-height: 1.5em;
+			margin-bottom: 1rem;
+		}
+		.group-subhead {
+			font-size: .75rem;
+			font-weight: 700;
+			font-family: $body-font-family;
+		}
+		.group-subhead-icon {
+
 		}
 	}
+
+	position: relative;
+	overflow: hidden;
+
+	.profile-avatar-container {
+		max-width: 3rem;
+		min-width: 3rem;
+		width: 3rem;
+		height: 3rem;
+		float: left;
+		margin: 0.5rem;
+	}
+
+	.profile-head-summary {
+	}
+
+	img, svg {}
+
+	.label {
+		background: none;
+		display: block;
+		font: normal 600 1.1rem/2 $header-font-family;
+		overflow: hidden;
+		text-align: left;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		padding: 0;
+	}
+
 
 	.actions {
 		margin: 0;
@@ -35,46 +70,59 @@
 	}
 }
 
+
+
 .profile-head-summary {
-	@include grid-column(8, $last-column: true);
-	.username {
-		font-size: $h3-font-size;
-	}
+	padding: 0 0.625rem;
+	// @include grid-column(8, $last-column: true);
+
+
 	.profile-head-summary-attrs {
+		clear: both;
 		font-size: .6875rem;
 		list-style-type: none;
-		margin-left: 0;	
+		margin-left: 0;
 		li {
 			$icon-color: $secondary-grey;
 			$icon-size: 1.5em;
 			line-height: $icon-size * 1.5;
-			padding-left: $icon-size * 1.5;
 			position: relative;
+
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+
 			&::before {
-				position: absolute;
-				content: ' ';
-				top: 10%;
-				left: 0;
-				width: $icon-size;
-				height: $icon-size;
-				mask-size: 100% 100%;
+				font-family: 'icomoon';
+				color: $icon-color;
+				padding-right: .4em;
+				position: relative;
+				top: 0.1em;
+				line-height: 0;
+				font-size: 1.5em;
 			}
 			&.education {
 				&::before {
-					background-color: $icon-color;
-					mask-image: url('../images/svg/profile-education.svg');
+					content: '\e60a';
 				}
 			}
 			&.affiliation {
 				&::before {
-					background-color: $icon-color;
-					mask-image: url('../images/svg/profile-professional.svg');
+					content: '\e60c';
 				}
 			}
 			&.location {
 				&::before {
-					background-color: $icon-color;
-					mask-image: url('../images/svg/profile-location.svg');
+					content: '\e60b';
+				}
+
+				& > * {
+					&:last-child::after {
+						content: none;
+					}
+					&::after {
+						@extend %middot;
+					}
 				}
 			}
 		}
@@ -82,27 +130,76 @@
 }
 
 .profile-nav {
-	display: flex;
-	list-style-type: none;
-	margin: 0;
-	font-size: .6875rem;
-	.profile-nav-item {
-		width: 100%;
-		background: $primary-grey;
+	@extend %tabbed-nav;
+}
+
+.group {
+	.profile-nav {
+		background-color: rgba(0,0,0,0.35);
+	}
+}
+
+.profile .empty-list.user-details {
+	margin: 0.25rem 0;
+	&, h1 {
+		font-family: $body-font-family;
 		color: $tertiary-grey;
-		text-align: center;
-		text-transform: uppercase;
-		a {
-			display: inline-block;
-			width: 100%;
-			padding: 1rem 0;
-			color: $tertiary-gray;
-			&.active {
-				font-weight: bold;
-				color: white;
-				background: $primary-blue;
+	}
+}
+
+@media screen and (min-width: 500px) {
+	.profile-head {
+		.user {
+			display: flex;
+
+			.profile-avatar-container {
+				$size: 180px;
+				float: none;
+				margin: 0;
+				max-width: $size;
+				width: $size;
+				height: $size;
+				flex: 0 0.5 $size;
+			}
+
+			.profile-head-summary {
+				flex: 1 1 auto;
+			}
+		}
+
+		.profile-head-summary-attrs {
+			margin: 0;
+			li {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 		}
 	}
-	
+
+	.user-profile {
+		.profile-nav {
+			position: absolute;
+			bottom: 0;
+			left: 184px;
+			right: 0;
+		}
+
+	}
+
+	.profile-nav {
+		flex-wrap: nowrap;
+
+		.profile-nav-item {
+			flex: 0 1 auto !important;
+
+			a {
+				padding: 0.5rem 1rem;
+			}
+		}
+	}
+
+	.profile-head-summary {
+		margin-bottom: 2.5rem;
+	}
 }

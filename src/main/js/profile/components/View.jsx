@@ -1,120 +1,73 @@
-import React from 'react/addons';
+import React from 'react';
 
-import Router from 'react-router-component';
+import {getModel} from 'nti.lib.interfaces';
 
 import Loading from 'common/components/Loading';
 
-import BasePathAware from 'common/mixins/BasePath';
-import ContextSender from 'common/mixins/ContextSender';
+import NotFound from 'notfound/components/View';
 
-import Page from './Page';
-import Activity from './Activity';
-import Achievements from './Achievements';
-import About from './About';
+import CommunityView from './community/View';
+import GroupView from './group/View';
+import UserView from './user/View';
 
-import Redirect from 'navigation/components/Redirect';
+import {resolve} from 'common/utils/user';
 
-import resolveUser from 'common/utils/resolve-user';
-
-const ROUTES = [
-	{path: '/activity(/*)',		handler: Activity },
-	{path: '/achievements(/*)',	handler: Achievements },
-	{path: '/about(/*)',		handler: About },
-	{}//default
-];
+const Community = getModel('community');
+const User = getModel('user');
 
 export default React.createClass({
 	displayName: 'profile:View',
-	mixins: [BasePathAware, ContextSender],
 
 	propTypes: {
-		username: React.PropTypes.string.isRequired
+		entityId: React.PropTypes.string.isRequired
 	},
 
 	getInitialState () {
 		return {};
 	},
 
-	getContext (/*props*/) {
-		let path = this.getBasePath();
-		return Promise.resolve([
-			{
-				href: path, label: 'Home'
-			}, {
-				href: location.href,
-				label: 'Profile'
-			}
-		]);
+
+	updateEntity (props = this.props) {
+		this.setState({entity: null}, () =>
+			resolve(props, true)
+				.catch(()=> false)
+				.then(entity => {
+					console.debug('Entity: ', entity);
+					this.setState({entity});
+				}));
 	},
 
-	setUser(u) {
-		this.setState({
-			user: u
-		});
+
+	componentWillReceiveProps (nextProps) {
+		if (nextProps.entityId !== this.props.entityId) {
+			this.updateEntity(nextProps);
+		}
 	},
 
-	updateUser(props = this.props) {
-		resolveUser(props).then(u => {
-			console.debug('User: ', u);
-			this.setUser(u);
-		});
-	},
-
-	componentWillReceiveProps: function(nextProps) {
-		this.updateUser(nextProps);
-	},
 
 	componentDidMount () {
-		this.updateUser();
-
-		/*
-		alias
-		firstName
-		displayName
-		lastName
-		realname
-		email
-
-		birthdate
-
-		avatarURL
-		backgroundURL
-
-		affiliation
-		description
-		education
-		home_page
-		interests
-		location
-		positions
-		role
-
-		facebook
-		googlePlus
-		linkedIn
-		twitter
-		 */
+		this.updateEntity();
 	},
 
+
 	render () {
-		let {username} = this.props;
-		let {user} = this.state;
+		let {entity} = this.state;
 
-		username = decodeURIComponent(username);
 
-		if (!user) {
+		if (entity == null) {
 			return ( <Loading /> );
 		}
 
-		return React.createElement(Router.Locations, {ref: 'router', contextual: true},
-			...ROUTES.map(route=>
-				route.path ?
-				<Router.Location {...route}
-					handler={Page} pageContent={route.handler}
-					user={user}
-					username={username}
-					/> :
-				<Router.NotFound handler={Redirect} location="/about/"/>
-			));
+		if (entity === false) {
+			return ( <NotFound/> );
+		}
+
+		return entity instanceof Community ? (
+			<CommunityView entity={entity}/>
+		) : entity instanceof User ? (
+			<UserView entity={entity}/>
+		) : (
+			<GroupView entity={entity}/>
+		);
 	}
 });

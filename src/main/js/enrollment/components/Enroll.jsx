@@ -1,7 +1,5 @@
 import React from 'react';
 
-import path from 'path';
-
 import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';
 import ContextSender from 'common/mixins/ContextSender';
@@ -22,8 +20,7 @@ export default React.createClass({
 	getContext () {
 		return Promise.resolve([
 			{
-				label: 'Enroll',
-				href: path.normalize(this.makeHref(this.getPath()))
+				label: 'Enroll'
 			}
 		]);
 	},

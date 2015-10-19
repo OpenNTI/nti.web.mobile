@@ -1,0 +1,12 @@
+
+.follow-button {
+	&, &:hover {
+		background-color: $secondary-green;
+	}
+}
+
+.unfollow-button {
+	&, &:hover {
+		background-color: $primary-red;
+	}
+}

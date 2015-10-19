@@ -1,6 +1,7 @@
 import buffer from 'nti.lib.interfaces/utils/function-buffer';
 
-import {preresolveLocatorInfo} from 'nti.lib.anchorjs';
+import {createRangeDescriptionFromRange, preresolveLocatorInfo} from 'nti.lib.anchorjs';
+import {getEventTarget, parent} from 'nti.lib.dom';
 
 import Highlight from '../annotations/Highlight';
 import Note from '../annotations/Note';
@@ -21,6 +22,9 @@ export function select (item) {
 }
 
 
+const rotate = (a, ix) => a.slice(ix).concat(a.slice(0, ix));
+
+
 function getStore (o) {
 	let {page} = o;
 	return page && page.getUserDataStore();
@@ -39,14 +43,28 @@ export default {
 		return content && content.getPristine();
 	},
 
-
-	componentWillUpdate (_, nextState) {
+	componentWillUnmount () {
 		let store = getStore(this.state);
-		let nextStore = getStore(nextState);
-		if (store && store !== nextStore) {
+		if (store) {
 			store.removeListener('change', this.onUserDataChange);
 		}
-		else if (nextStore && nextStore !== store) {
+	},
+
+	componentWillUpdate (_, nextState) {
+		let {annotations} = this.state;
+		let store = getStore(this.state);
+		let nextStore = getStore(nextState);
+
+		if (store && store !== nextStore) {
+			store.removeListener('change', this.onUserDataChange);
+			if (annotations) {
+				for (let i of Object.keys(annotations)) {
+					delete annotations[i];
+				}
+			}
+		}
+
+		if (nextStore && nextStore !== store) {
 			nextStore.addListener('change', this.onUserDataChange);
 		}
 	},
@@ -130,5 +148,142 @@ export default {
 		if (rendered > 0 || dead > 0 || newObjects > 0) {
 			this.setState({annotations});
 		}
-	})
+	}),
+
+
+	maybeOfferAnnotations (eventMeta, selected) {
+		if (!selected) {
+			let e = getEventTarget(eventMeta);
+			let highlights = [];
+
+			let p;
+			while ((p = parent(e, '.application-highlight'))) {
+				let item = this.getAnnotationFromNode(p);
+				//ignore annotations you cannot control.
+				if (item.isModifiable) {
+					highlights.push(item);
+				}
+				e = p.parentNode;
+			}
+
+			if (highlights.length > 1) {
+				let index = highlights.indexOf(this.state.selected);
+				if (index !== -1) {
+					highlights = rotate(highlights, index + 1);
+				}
+			}
+
+			selected = highlights[0];
+		}
+
+		if (this.state.selected !== selected) {
+			this.setState({selected});
+		}
+	},
+
+
+	getAnnotationFromNode (node) {
+		let {annotations = {}} = this.state;
+		for (let a of Object.values(annotations)) {
+			if (a && a.ownsNode(node)) {
+				return a;
+			}
+		}
+	},
+
+
+	/**
+	 * All Notes and highlights have these fields in common.
+	 *
+	 * @param {Range} range DOM Range.
+	 *
+	 * @return {Object} The common applicable fields.
+	 */
+	selectionToCommonUGD (range) {
+		if (!range || range.collapsed) {
+			throw new Error('Cannot create an annotation from null or collapsed ranges');
+		}
+
+		//generate the range description
+		let {description, container} = createRangeDescriptionFromRange(range, this.getContentNode());
+
+		return {
+			applicableRange: description,
+			selectedText: range.toString(),
+			ContainerId: container
+		};
+	},
+
+
+	saveNote (data) {
+		let result = getStore(this.state).create(data);
+
+
+		//Do not clear the stagedNode from state until
+		//after the UI has had an opportunity to draw a frame. (allow us to queue an animation)
+		result.then(()=> setTimeout(() => this.setState({stagedNote: void 0}), 1), () => {});
+
+		return result;
+	},
+
+
+	createNote (range) {
+		let {contentPackage} = this.props;
+		let {selected, page} = this.state;
+
+		let hasRange = range && !range.collapsed;
+
+		let c = hasRange && this.selectionToCommonUGD(range);
+		if (!c && selected) {
+			let {applicableRange, selectedText, ContainerId} = selected.getRecord();
+			c = {
+				applicableRange,
+				selectedText,
+				ContainerId
+			};
+		}
+
+		this.setState({selected: void 0});
+
+		window.scrollTo(0,0);
+
+		page.getSharingPreferences()
+			.then(preferences => contentPackage.getDefaultShareWithValue(preferences))
+			.then(sharedWith => {
+				Object.assign(c, {sharedWith});
+				return Note.createFrom(c);
+			})
+			.then(note => this.setState({stagedNote: note}));
+	},
+
+
+	createHighlight (range, color) {
+		let highlight = Highlight.createFrom(this.selectionToCommonUGD(range), color);
+
+		getStore(this.state).create(highlight)
+			.then(() => this.setState({selected: void 0}));
+	},
+
+
+	updateHighlight (_, color) {
+		let {selected} = this.state;
+		try {
+			selected.updateColor(color)
+				.then(()=> this.forceUpdate());
+		} catch (e) {
+			console.warn(e.stack || e.message || e);
+		}
+	},
+
+
+	removeHighlight () {
+		let {selected} = this.state;
+		try {
+			selected.remove()
+				.then(this.setState({selected: void 0}));
+		}
+		catch (e) {
+			console.warn(e.stack || e.message || e);
+		}
+	}
 };

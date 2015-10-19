@@ -6,11 +6,11 @@ const objectLoadedHandler = 'KeepItemInState:objectLoadedHandler';
 export default {
 
 	componentWillMount () {
-		if (!this.mixinAdditionalHandler) {
-			console.warn('this.mixinAdditionalHandler is undefined. (Forgot to include the StoreEvents mixin?)');
+		if (!this.registerStoreEventHandler) {
+			console.warn('this.registerStoreEventHandler is undefined. (Forgot to include the StoreEvents mixin?)');
 			return;
 		}
-		this.mixinAdditionalHandler(OBJECT_LOADED, objectLoadedHandler);
+		this.registerStoreEventHandler(OBJECT_LOADED, objectLoadedHandler);
 	},
 
 	componentWillReceiveProps (nextProps) {
@@ -31,7 +31,7 @@ export default {
 	},
 
 
-	getItemFromStore() {
+	getItemFromStore () {
 		return this.getPropId && this.backingStore && this.backingStore.getObject && this.backingStore.getObject(this.getPropId());
 	},
 

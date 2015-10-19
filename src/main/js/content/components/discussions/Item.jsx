@@ -7,7 +7,7 @@ import DateTime from 'common/components/DateTime';
 
 import {scoped} from 'common/locale';
 
-import Panel from 'modeled-content/components/Panel';
+import {Panel} from 'modeled-content';
 
 
 const t = scoped('UNITS');
@@ -22,15 +22,15 @@ export default React.createClass({
 
 	render () {
 		let {item} = this.props;
-		let {body, creator, title, replyCount} = item;
-		let date = item.getLastModified();
+		let {body, creator, title, replyCount = 0} = item;
+		let date = item.getCreatedTime();
 		let id = encodeForURI(item.getID());
 
-		let preview = (title && [title]) || body;
+		let preview = item.placeholder ? ['[Deleted]'] : ((title && [title]) || body);
 
 		return (
 			<a className="discussion-item" href={id}>
-				<DisplayName username={creator}/>
+				{!item.placeholder && ( <DisplayName entity={creator}/> )}
 				<Panel className="snippet" body={preview} previewMode/>
 				<div className="footer">
 					<span>{t('comments', {count: replyCount})}</span>

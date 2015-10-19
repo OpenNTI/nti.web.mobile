@@ -1,7 +1,5 @@
 import React from 'react';
 
-import path from 'path';
-
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import Loading from 'common/components/Loading';
@@ -39,15 +37,10 @@ export default React.createClass({
 		};
 	},
 
-	getContext() {
+	getContext () {
 		return Promise.resolve([
 			{
-				label: this.getCourseTitle(),
-				href: path.normalize(this.makeHref('..'))
-			},
-			{
-				label: 'Drop',
-				href: path.normalize(this.makeHref(this.getPath()))
+				label: 'Drop'
 			}
 		]);
 	},

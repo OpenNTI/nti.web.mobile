@@ -11,7 +11,7 @@ const FORMAT_RANKS = {
 const getRank = o=> FORMAT_RANKS[o.type] || 0;
 
 
-export default function(list, targetQuality) {
+export default function (list, targetQuality) {
 	let chosen = [];
 	let types = {};
 
@@ -40,7 +40,7 @@ const findMin = (prop) => (m, s) => Math.min(m, s[prop]);
 //const findMax = (prop) => (m,s) => Math.max(m,s[prop]);
 
 
-function pickBestFromScreenSize(list) {
+function pickBestFromScreenSize (list) {
 	if (list.length === 1) { return list[0]; }
 
 	let screenWidth = getScreenWidth();
@@ -77,7 +77,7 @@ function pickBestFromScreenSize(list) {
 
 
 
-function pickBestMatchFrom(list, target) {
+function pickBestMatchFrom (list, target) {
 	if (!target) {
 		return pickBestFromScreenSize(list);
 	}

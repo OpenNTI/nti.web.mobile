@@ -1,0 +1,21 @@
+.distribution-list-detail {
+	display: flex;
+	flex-direction: column;
+
+	ul {
+		list-style: none;
+		margin: 0;
+	}
+
+	.list-content {
+		background: white;
+		padding: 0 1rem;
+		&.empty {
+			padding: 1rem;
+		}
+	}
+	ul.contact-list {
+		padding: .5rem;
+	}
+
+}

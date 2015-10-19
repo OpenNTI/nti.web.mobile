@@ -42,9 +42,8 @@ export default React.createClass({
 		let selectedFilter = this.props.filters[fname];
 		return selectedFilter ? {
 			filter: selectedFilter,
-			list: list.filter(selectedFilter.filter)
-		} :
-		{
+			list: list.filter(selectedFilter.test)
+		} : {
 			filter: null,
 			list: list
 		};
@@ -59,7 +58,7 @@ export default React.createClass({
 				<FilterBar {...this.props}/>
 				{list.length === 0 ? <NoMatches /> : null}
 				<div>
-					{React.cloneElement(this.props.listcomp, {list, filter, omittitle: true})}
+					{React.cloneElement(this.props.listcomp, {list, filter})}
 				</div>
 			</div>
 		);

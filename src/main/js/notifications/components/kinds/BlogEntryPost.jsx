@@ -17,9 +17,9 @@ export default React.createClass({
 		let thestring = ' commented on a discussion.';
 		return (
 			<li className="notification-item">
-				<Avatar username={this.state.username} width="32" height="32"/>
+				<Avatar entity={this.state.username} width="32" height="32"/>
 				<div className="wrap">
-					<DisplayName username={this.state.username}/>
+					<DisplayName entity={this.state.username}/>
 						{thestring}
 					<DateTime date={this.getEventTime()} relative/>
 				</div>

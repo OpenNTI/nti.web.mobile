@@ -14,7 +14,7 @@ export default {
 
 };
 
-function dispatch(key, data) {
+function dispatch (key, data) {
 	let action = {
 		type: key,
 		payload: data

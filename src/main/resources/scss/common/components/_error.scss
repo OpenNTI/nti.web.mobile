@@ -48,10 +48,11 @@ figure.error {
 widget error {
 	display: block;
 	margin: 2rem auto;
-	padding: 1rem;
+	padding: 1rem 1rem 1rem 4rem;
 	max-width: 90%;
 	min-width: 80vw;
 	text-align: left;
+	line-height: 1.5;
 	background: $primary-red;
 	border: 2px solid $secondary-red;
 	border-radius: 3px;
@@ -59,10 +60,14 @@ widget error {
 	animation: fadeIn 0.5s ease-in 1s 1 normal both;
 
 	& > span:first-of-type::before {
-		display: inline-block;
+		position: absolute;
+		left: -3.25rem;
+		top: -0.75rem;
+
+		display: block;
 		content: "\f101";
 		font: {
-			family: "foundation-icons";
+			family: "icomoon";
 			style: normal;
 			size: 3rem;
 			weight: normal;
@@ -73,6 +78,11 @@ widget error {
 		line-height: 1;
 		-webkit-font-smoothing: antialiased;
 		text-decoration: none;
-		margin: 0 1rem 0 0;
+		// margin: 0 1rem 0 0;
+	}
+
+	&.unsupported-content {
+		background: $panel-background;
+		border-color: $border-grey;
 	}
 }

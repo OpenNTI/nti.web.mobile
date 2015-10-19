@@ -48,22 +48,22 @@ export default React.createClass({
 	onStoreChanged (event) {
 		switch (event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case TOPIC_CREATED:
-				this.setState({
-					busy: false
-				});
-				let topicId = event.topic.getID();
-				let path = encodeForURI(topicId);
-				this.navigate('/' + path + '/', {replace: true});
-				break;
+		case TOPIC_CREATED:
+			this.setState({
+				busy: false
+			});
+			let topicId = event.topic.getID();
+			let path = encodeForURI(topicId);
+			this.navigate('/' + path + '/', {replace: true});
+			break;
 
-			case TOPIC_CREATION_ERROR:
-				this.setState({
-					busy: false,
-					error: event.data.reason,
-					item: event.data.topic
-				});
-				break;
+		case TOPIC_CREATION_ERROR:
+			this.setState({
+				busy: false,
+				error: event.data.reason,
+				item: event.data.topic
+			});
+			break;
 		}
 	},
 
@@ -72,7 +72,7 @@ export default React.createClass({
 		return !!(forum && forum.hasLink('add'));
 	},
 
-	createTopic() {
+	createTopic () {
 		let value = this.refs.editor.getValue();
 		this.setState({
 			busy: true,

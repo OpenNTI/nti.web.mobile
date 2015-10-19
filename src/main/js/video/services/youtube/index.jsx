@@ -1,5 +1,5 @@
 import React from 'react';
-import invariant from 'react/lib/invariant';
+import invariant from 'invariant';
 
 import {EventHandlers} from '../../Constants';
 
@@ -8,8 +8,8 @@ import MESSAGES from 'common/utils/WindowMessageListener';
 
 import QueryString from 'query-string';
 
-import guid from 'nti.lib.interfaces/utils/guid';
 import Task from 'nti.lib.interfaces/utils/task';
+import uuid from 'node-uuid';
 
 const YOU_TUBE = 'https://www.youtube.com';
 
@@ -44,13 +44,19 @@ let Source = React.createClass({
 	displayName: 'YouTube-Video',
 
 	statics: {
-		getId (url) {
+		service: 'youtube',
+		getID (url) {
 			let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&\?]*).*/,
 				match = url.match(regExp);
 			if (match && match[2].length === 11) {
 				return match[2];
 			}
 			return null;
+		},
+
+		getCanonicalURL (url) {
+			const id = this.getID(url);
+			return `${YOU_TUBE}/embed/${id}`;
 		}
 	},
 
@@ -62,7 +68,7 @@ let Source = React.createClass({
 
 
 	getInitialState () {
-		return {id: guid(), scope: YOU_TUBE, playerState: -1};
+		return {id: uuid.v4(), scope: YOU_TUBE, playerState: -1};
 	},
 
 
@@ -116,7 +122,7 @@ let Source = React.createClass({
 
 	buildURL (props) {
 		let mediaSource = props.source;
-		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source;
+		let videoId = typeof mediaSource === 'string' ? Source.getID(mediaSource) : mediaSource.source;
 
 		if (Array.isArray(videoId)) {
 			videoId = videoId[0];
@@ -146,9 +152,6 @@ let Source = React.createClass({
 
 	getPlayerContext () {
 		let {iframe} = this.refs;
-		if (iframe) {
-			iframe = React.findDOMNode(iframe);
-		}
 		return iframe && (iframe.contentWindow || window.frames[iframe.name]);
 	},
 
@@ -156,6 +159,11 @@ let Source = React.createClass({
 	render () {
 		let {autoPlay, id} = this.state;
 		let {source, deferred} = this.props;
+
+		if (!id) {
+			console.error('No ID');
+			return;
+		}
 
 		if (!source) {
 			return (<ErrorWidget error="No source"/>);
@@ -194,6 +202,14 @@ let Source = React.createClass({
 	onMessage (event) {
 		let data = JSON.parse(event.data);
 		let eventName = (data && data.event) || '';
+
+		if (Array.isArray(eventName)) {
+			if (eventName.length !== 1) {
+				console.warn('Unexpected Data!!', data);
+			}
+			eventName = eventName[0];
+		}
+
 		let handlerName = 'handle' + eventName.charAt(0).toUpperCase() + eventName.substr(1);
 		let implemented = !!this[handlerName];
 
@@ -225,7 +241,7 @@ let Source = React.createClass({
 	},
 
 
-	postMessage (method, params) {
+	postMessage (method, ...params) {
 		let context = this.getPlayerContext(), data;
 		if (!context) {
 			console.warn(this.state.id, ' No Player Context!');

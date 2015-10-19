@@ -2,7 +2,7 @@ import React from 'react';
 
 import cx from 'classnames';
 
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 
 import Mixin from './Mixin';
 
@@ -29,10 +29,8 @@ export default React.createClass({
 	},
 
 
-	onZoom() {
-		let {image} = this.refs;
-		image = React.findDOMNode(image);
-
+	onZoom () {
+		let {refs: {image}} = this;
 		if(image && image.src) {
 			this.setState({
 				zoomed: true
@@ -41,7 +39,7 @@ export default React.createClass({
 	},
 
 
-	unZoom() {
+	unZoom () {
 		this.setState({
 			zoomed: false
 		});
@@ -49,7 +47,7 @@ export default React.createClass({
 
 
 	onLoad () {
-		let i = React.findDOMNode(this.refs.image);
+		const {refs: {image: i}} = this;
 		if (i) {
 			let w = i.naturalWidth || i.width;
 			if (w > i.offsetWidth) {//image width vs on-screen width
@@ -84,7 +82,7 @@ export default React.createClass({
 					<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref="image" onLoad={this.onLoad}/>
 					{!zoomable ? null : (
 						<a title="Zoom"
-						className="zoom fi-magnifying-glass"
+						className="zoom icon-search"
 						data-non-anchorable="true"
 						onClick={this.onZoom} />
 					)}

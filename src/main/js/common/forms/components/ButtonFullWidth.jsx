@@ -8,7 +8,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<Button {...this.props} className='column'/>
+			<Button {...this.props} className="column"/>
 		);
 	}
 

@@ -22,12 +22,12 @@ import List from './List';
 
 import {OBJECT_DELETED, POST, COMMENT_FORM_ID} from '../Constants';
 import Store from '../Store';
-import Api from '../Api';
+import {getObjects} from '../Api';
 
 const objectDeletedHandler = 'Post:objectDeletedHandler';
 
 export default React.createClass({
-	displayName: 'Post',
+	displayName: 'forums:Post',
 
 	mixins: [
 		NavigatableMixin,
@@ -81,8 +81,7 @@ export default React.createClass({
 	doLoad (thePostId) {
 		let postId = decodeFromURI(thePostId || this.getItemId());
 		let topicId = decodeFromURI(this.props.topicId);
-		Api.getObjects([postId, topicId])
-		.then(
+		getObjects([postId, topicId]).then(
 			result => {
 				result.forEach(object => {
 					Store.setObject(object.getID(), object);
@@ -127,40 +126,42 @@ export default React.createClass({
 
 	render () {
 
+		let {busy, deleted, error} = this.state;
+
 		let item = this.getItem();
 
-		if (this.state.error) {
-			if (this.state.error.statusCode === 404) {
+		if (error) {
+			if (error.statusCode === 404) {
 				return <Notice>Not found.</Notice>;
 			}
 			else {
-				return <Err error={this.state.error} />;
+				return <Err error={error} />;
 			}
 		}
 
-		if (this.state.busy || !item) {
+		if (busy || !item) {
 			return <Loading />;
 		}
 
 		let topic = Store.getObject(this.props.topicId);
 
-		let P = (this.state.deleted || (this.getItem() || {}).Deleted) ?
-			<Notice>This item has been deleted.</Notice> :
-			<PostHeadline item={item} topic={topic} asHeadline={true} />;
-
 		return (
 			<div>
 				<ViewHeader type={POST} />
-				{P}
+				{(deleted || (this.getItem() || {}).Deleted) ? (
+					<Notice>This item has been deleted.</Notice>
+				) : (
+					<PostHeadline item={item} topic={topic} asHeadline />
+				)}
 				<Replies key="replies" item={item}
 					listComponent={List}
 					childComponent={PostItem}
 					topic={topic}
-					display={true}
-					className='visible' />
+					display
+					className="visible" />
 				{topic &&
 					<CommentForm key="commentForm"
-						ref='commentForm'
+						ref="commentForm"
 						id={COMMENT_FORM_ID}
 						onCancel={this.hideForm}
 						onCompletion={this.commentCompletion}

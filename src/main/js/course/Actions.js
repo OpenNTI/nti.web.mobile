@@ -1,6 +1,6 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
-import {getLibrary} from 'library/Api';
+import {load as getLibrary} from 'library/Actions';
 
 import {
 	SET_ACTIVE_COURSE,
@@ -17,7 +17,7 @@ export function setCourse (courseId) {
 		return;
 	}
 
-	function buildResponse(o) {
+	function buildResponse (o) {
 		return {
 			taskId: courseId,
 			body: o
@@ -38,6 +38,6 @@ export function setCourse (courseId) {
 }
 
 
-function dispatch(key, data) {
+function dispatch (key, data) {
 	AppDispatcher.handleRequestAction({type: key, response: data});
 }

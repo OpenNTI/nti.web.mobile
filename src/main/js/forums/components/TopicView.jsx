@@ -2,7 +2,7 @@ import React from 'react';
 
 import Store from '../Store';
 import {OBJECT_CONTENTS_CHANGED} from '../Constants';
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {encodeForURI, isNTIID} from 'nti.lib.interfaces/utils/ntiids';
 import Router from 'react-router-component';
 let {Location} = Router;
 
@@ -53,14 +53,11 @@ export default React.createClass({
 		};
 	},
 
-	getTopicId(props=this.props) {//this doesn't appear to be referenced?
-		return decodeFromURI(props.topicId);
-	},
-
 	// title bar back arrow
 	getContext () {
 		let topic = this.getTopic();
-		let href = this.makeHref('/' + this.props.topicId + '/');
+		let {topicId} = this.props;
+		let href = this.makeHref('/' + (isNTIID(topicId) ? encodeForURI(topicId) : topicId) + '/');
 		let label = topic && topic.headline ? topic.headline.title : 'Topic';
 
 		return Promise.resolve({
@@ -72,10 +69,6 @@ export default React.createClass({
 
 	getTopic () {
 		return this.getItem() || Store.getObject(this.props.topicId);
-	},
-
-	getPropId () {//this doesn't appear to be referenced?
-		return this.props.topicId;
 	},
 
 	render () {
@@ -94,7 +87,7 @@ export default React.createClass({
 
 		return (
 			<Router.Locations contextual>
-				<Location path='/'
+				<Location path="/"
 					handler={Topic}
 					topic={topic}
 					page={currentPage}

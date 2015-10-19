@@ -4,7 +4,7 @@ import Router from 'react-router-component';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import Loading from 'common/components/Loading';
-import ErrorWidget from 'common/components/Error';
+import EmptyList from 'common/components/EmptyList';
 
 import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';
@@ -95,10 +95,13 @@ export default React.createClass({
 
 
 	render () {
-		if (this.state.loading) { return (<Loading/>); }
-		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>); }
+		let {loading, error, VideoIndex} = this.state;
 
-		let {VideoIndex} = this.state;
+		if (loading) { return ( <Loading/> ); }
+		if (error) {
+			return ( <EmptyList type="videos"/> );
+		}
+
 		let props = Object.assign({}, this.props, { VideoIndex });
 
 		return (

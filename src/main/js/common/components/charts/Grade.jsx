@@ -60,7 +60,7 @@ export default React.createClass( {
 		return {
 			grade: 90,
 			color: '#40b450',//#a5c959
-			pixelDensity: 2,
+			pixelDensity: (global.devicePixelRatio || 1) * 2,
 			width: 200,
 			height: 200
 		};
@@ -68,7 +68,7 @@ export default React.createClass( {
 
 
 	componentDidMount () {
-		let canvas = React.findDOMNode(this);
+		const {refs: {canvas}} = this;
 		let context = canvas.getContext('2d');
 
 		context.imageSmoothingEnabled = true;
@@ -78,8 +78,7 @@ export default React.createClass( {
 
 
 	componentDidUpdate () {
-		let context = React.findDOMNode(this).getContext('2d');
-		this.paint(context);
+		this.paint(this.refs.canvas.getContext('2d'));
 	},
 
 
@@ -93,7 +92,7 @@ export default React.createClass( {
 		};
 
 		return (
-			<canvas {...this.props} className="grade" style={style} width={width} height={height} />
+			<canvas ref="canvas" {...this.props} className="grade" style={style} width={width} height={height} />
 		);
 	},
 
@@ -220,7 +219,7 @@ export default React.createClass( {
 });
 
 
-function setFont(context, font) {
+function setFont (context, font) {
 	context.font = [
 		font.style || 'normal',
 		font.variant || 'normal',
@@ -229,7 +228,7 @@ function setFont(context, font) {
 	].join(' ');
 }
 
-function getGradeLetter(g) {
+function getGradeLetter (g) {
 	if (g >= 90) {
 		g = 'A';
 	} else if (g >= 80) {

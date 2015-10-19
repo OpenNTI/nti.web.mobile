@@ -1,6 +1,11 @@
 .headline.post, .headline.postitem {
-	margin-top: 1rem;
+	$topmargin: 1rem;
+	margin-top: $topmargin;
 	position: relative;
+
+	.charms {
+		transform: translateY(-$topmargin);
+	}
 
 	.avatar {
 		width: 60px;
@@ -13,7 +18,7 @@
 
 	.wrap {
 		margin: 0 0 1rem 4.375rem;//5rem;
-		font-size: 0.8rem;
+		font-size: 0.75rem;
 
 		.meta{padding: 0;}
 

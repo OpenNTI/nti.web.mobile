@@ -7,6 +7,7 @@ import FieldValuesStore from '../FieldValuesStore';
 
 import RadioGroup from './RadioGroup';
 import ToggleFieldset from './ToggleFieldset';
+import SocialSecurityNumberField from './SocialSecurityNumberField';
 import Select from 'common/forms/components/Select';
 import Checkbox from 'common/forms/components/Checkbox';
 
@@ -163,46 +164,51 @@ let RelatedFormPanel = React.createClass({
 		let input;
 		switch(field.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case 'textarea':
-				input = 'textarea';
-				break;
+		case 'textarea':
+			input = 'textarea';
+			break;
 
-			case 'select':
-				input = Select;
-				if (field.optionsLink) {
-					props.optionsLink = field.optionsLink;
-				}
-				break;
+		case 'select':
+			input = Select;
+			if (field.optionsLink) {
+				props.optionsLink = field.optionsLink;
+			}
+			break;
 
-			case 'radiogroup':
-				input = RadioGroup;
-				props.onChange = this.radioChanged;
-				RelatedConfigsStash.concat(this.getRelatedConfigs(field));
-				break;
+		case 'radiogroup':
+			input = RadioGroup;
+			props.onChange = this.radioChanged;
+			RelatedConfigsStash.concat(this.getRelatedConfigs(field));
+			break;
 
-			case 'checkbox':
-				input = Checkbox;
-				Object.assign(props, {
-					onChange: this.checkboxChanged,
-					value: field.value,
-					checked: (FieldValuesStore.getValue(ref) === field.value)
-				});
-				break;
 
-			case 'toggleFieldset':
-				input = ToggleFieldset;
-				break;
+		case 'ssn':
+			input = SocialSecurityNumberField;
+			break;
 
-			case 'number':
-				Object.assign(props, {
-					pattern: '[0-9]*',
-					inputmode: 'numeric'
-				});
-				input = 'input';
-				break;
+		case 'checkbox':
+			input = Checkbox;
+			Object.assign(props, {
+				onChange: this.checkboxChanged,
+				value: field.value,
+				checked: (FieldValuesStore.getValue(ref) === field.value)
+			});
+			break;
 
-			default:
-				input = 'input';
+		case 'toggleFieldset':
+			input = ToggleFieldset;
+			break;
+
+		case 'number':
+			Object.assign(props, {
+				pattern: '[0-9]*',
+				inputmode: 'numeric'
+			});
+			input = 'input';
+			break;
+
+		default:
+			input = 'input';
 		}
 
 		if (typeof field.helptext === 'string' && field.helptext.trim().length > 0) {
@@ -280,17 +286,17 @@ let RelatedFormPanel = React.createClass({
 				config.config.forEach(conf => {
 					switch(conf.type) {
 					//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-						case Constants.FORM_CONFIG:
-							related.push(this[renderFormConfig](conf.content, values));
-							break;
-						case Constants.MESSAGE:
-							related.push(<PanelNoButton key={hash(conf)}><LocalizedHTML stringId={conf.content} /></PanelNoButton>);
-							break;
-						case Constants.SUBFIELDS:
-							// inline subfields will be rendered with the field itself;
-							break;
-						default:
-							console.warn('Unrecognized related config type: %O', config);
+					case Constants.FORM_CONFIG:
+						related.push(this[renderFormConfig](conf.content, values));
+						break;
+					case Constants.MESSAGE:
+						related.push(<PanelNoButton key={hash(conf)}><LocalizedHTML stringId={conf.content} /></PanelNoButton>);
+						break;
+					case Constants.SUBFIELDS:
+						// inline subfields will be rendered with the field itself;
+						break;
+					default:
+						console.warn('Unrecognized related config type: %O', config);
 					}
 				});
 			}

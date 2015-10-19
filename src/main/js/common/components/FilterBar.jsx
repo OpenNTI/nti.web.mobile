@@ -14,8 +14,9 @@ export default React.createClass({
 
 
 	getItemCount (filter) {
-		if(filter && this.props.list.filter) {
-			return this.props.list.filter(filter.filter).length;
+		const {props: {list}} = this;
+		if(filter && list.filter) {
+			return list.filter(filter.test).length;
 		}
 		return 0;
 	},
@@ -31,7 +32,7 @@ export default React.createClass({
 
 
 	renderFilterBar  () {
-		let filters = this.props.filters || [];
+		let {props: {filters = []}} = this;
 		return filters.length === 0 ? null : (
 			<ul className="button-group filters">
 				{filters.map(this.renderFilterLink)}
@@ -41,15 +42,15 @@ export default React.createClass({
 
 
 	renderFilterLink (filter) {
-		let {name, path} = filter;
+		let {name, kind} = filter;
 
-		let propsFilter = this.props.filter;
+		const {props: {filter: propsFilter}} = this;
 
-		let isActive = propsFilter.path === filter.path || propsFilter.name === filter.name; // this.props.filtername.toLowerCase() === name.toLowerCase();
+		let isActive = propsFilter.kind === filter.kind || propsFilter.name === filter.name; // this.props.filtername.toLowerCase() === name.toLowerCase();
 
 		return (
 			<li key={name} className={isActive ? 'active' : null}>
-				<Link className="tiny button" href={`/${path}`}>
+				<Link className="tiny button" href={`/${kind}`}>
 					<span className="filtername">{name}</span>
 					{' '/*preserves the space between spans*/}
 					<span className="count">{this.getItemCount(filter)}</span>

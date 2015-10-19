@@ -1,5 +1,5 @@
 import React from 'react';
-import isEmpty from 'nti.lib.interfaces/utils/isempty';
+import isEmpty from 'fbjs/lib/isEmpty';
 
 export default React.createClass({
 	displayName: 'Loading',
@@ -8,7 +8,9 @@ export default React.createClass({
 		maskScreen: React.PropTypes.bool,
 		loading: React.PropTypes.bool,
 		message: React.PropTypes.string,
-		tag: React.PropTypes.string
+		tag: React.PropTypes.string,
+
+		children: React.PropTypes.any
 	},
 
 

@@ -1,0 +1,39 @@
+.table-chart {
+	margin: 1rem 0.625rem;
+	padding: 0;
+	width: calc(100% - 1.25rem);
+	border: 1px solid $border-grey;
+	background: #fff;
+
+	tr {
+		border-bottom: 1px solid $border-grey;
+	}
+
+	thead, tbody {
+		background: none;
+		tr {
+			th, td {
+				font-weight: normal;
+				font-size: 0.875rem;
+
+				&:not(:first-child) {
+					text-align: center;
+				}
+
+				&:first-child {
+					width: 25%;
+				}
+			}
+		}
+	}
+
+	.rank-none,
+	.rank-first,
+	.rank-second {
+		font-size: 1rem;
+	}
+
+	.rank-first { color: $primary-green; }
+	.rank-second { color: $primary-grey; }
+	.rank-none { color: $tertiary-grey; opacity: 0.9;}
+}

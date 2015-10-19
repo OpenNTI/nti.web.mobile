@@ -1,12 +1,35 @@
+$avatarcolors: 
+	#5E35B1 
+	#3949AB 
+	#1E88E5 
+	#039BE5 
+	#00ACC1 
+	#00897B 
+	#43A047 
+	#7CB342 
+	#C0CA33 
+	#FDD835 
+	#FFB300 
+	#FB8C00 
+	#F4511E
+;
+
 svg.avatar {
 	background: $tertiary-grey;
-	border-radius: 5px;
-
+	// border-radius: 5px;
 	text {
+		fill: white;
 		font-weight: 700;
 		font-size: 10pt;
 		font-family: Tahoma, Arial, Sans-Serif;
 		text-transform: uppercase;
 		-webkit-font-smoothing: subpixel-antialiased;
 	}
+	@for $i from 1 through length($avatarcolors) {
+		$color: nth($avatarcolors, $i);
+		&.avatar-color-#{$i} {
+			background: $color;
+		}
+	}
+
 }

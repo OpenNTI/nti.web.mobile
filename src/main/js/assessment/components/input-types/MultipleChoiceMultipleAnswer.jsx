@@ -1,10 +1,11 @@
 import React from 'react';
 import Mixin from './Mixin';
 
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {getEventTarget} from 'nti.lib.dom';
 
-import toArray from 'nti.lib.interfaces/utils/toarray';
-import isTruthy from 'nti.lib.interfaces/utils/identity';
+import emptyFunction from 'fbjs/lib/emptyFunction';
+
+const isTruthy = emptyFunction.thatReturnsArgument;
 
 const valueIfChecked = i => i.checked && i.value;
 
@@ -82,9 +83,8 @@ export default React.createClass({
 
 
 	getValue () {
-		let ref = this.refs.form;
-		let form = ref && React.findDOMNode(ref);
-		let inputs = form && toArray(form.elements);
+		const {form} = this.refs;
+		let inputs = form && Array.from(form.elements);
 		let values = form && inputs
 							.map(valueIfChecked)
 							.filter(isTruthy)

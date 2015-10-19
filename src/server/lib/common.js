@@ -34,6 +34,11 @@ let opt = require('yargs')
 				'dataserver-port': {
 					desc: 'Override DataServer port (this trumps the config)'
 				},
+				'webpack': {
+					desc: 'Prefix with "no-" to force the dev-server off.',
+					type: 'boolean',
+					default: true
+				},
 				'config': {
 					demand: true,
 					default: '../config/env.json',
@@ -81,7 +86,7 @@ export function loadConfig () {
 
 
 
-function override(dest, overrides) {
+function override (dest, overrides) {
 	for (let key in overrides) {
 		if(overrides[key]) {
 			dest[key] = overrides[key];
@@ -91,19 +96,47 @@ function override(dest, overrides) {
 }
 
 
-export function config() {
+export function showFlags (config) {
+	if (!config.flags) {
+		logger.info('No flags configured.');
+		return;
+	}
+
+	for (let flag of Object.keys(config.flags)) {
+		let	value = config.flags[flag];
+
+		if (typeof value === 'object') {
+			for (let siteFlag of Object.keys(value)) {
+				logger.info('Resolved Flag: (%s) %s =', flag, siteFlag, value[siteFlag]);
+			}
+			continue;
+		}
+
+		logger.info('Resolved Flag: (Global) %s =', flag, value);
+	}
+}
+
+
+export function config () {
 	let base = 'development';
 
 	let serverHost = opt['dataserver-host'];
 	let serverPort = opt['dataserver-port'];
 
 	let c = override(
-		Object.assign({}, env[base], env[process.env.NODE_ENV] || {}), {
+		Object.assign({webpack: opt.webpack}, env[base], env[process.env.NODE_ENV] || {}), {
 			protocol: opt.protocol,
 			address: opt.l,
 			port: opt.p || env.port,
 			revision: gitRevision
 		});
+
+
+	if (env[process.env.NODE_ENV] != null) {
+		logger.info(`In ${process.env.NODE_ENV} mode`);
+	} else {
+		logger.error('In default "development" mode. Consider seting NODE_ENV="production"');
+	}
 
 	if (serverHost || serverPort) {
 		let server = url.parse(c.server);
@@ -122,35 +155,47 @@ export function config() {
 
 export function clientConfig (username, context) {
 	//unsafe to send to client raw... lets reduce it to essentials
-	let unsafe = config();
-	let cfg = {
-		analytics: unsafe.analytics,
-		basepath: unsafe.basepath,
-		discussions: unsafe.discussions,
-		flags: unsafe.flags,
-		server: unsafe.server,
-		siteName: getSite(context[SiteName]),
-		username: username
-	};
+	const base = config();
+	const site = getSite(context[SiteName]);
+	const cfg = Object.assign({}, base, {
+		siteName: site.name,
+		siteTitle: site.title,
+		username
+	});
+
+	const blacklist = [/webpack.*/i, 'port', 'protocol', 'address'];
+
+	for (let blocked of blacklist) {
+		if (typeof blocked === 'string') {
+			delete cfg[blocked];
+		} else {
+			for(let prop of Object.keys(cfg)) {
+				if (blocked.test(prop)) {
+					delete cfg[prop];
+				}
+			}
+		}
+	}
+
 
 	return {
-		config: unsafe,//used only on server
+		config: Object.assign({siteTitle: site.title}, base),//used only on server
 		html:
 			'\n<script type="text/javascript">\n' +
 			'window.$AppConfig = ' + JSON.stringify(cfg) +
 			'\n</script>\n'
-		};
+	};
 }
 
 
-function dontUseMe() {
+function dontUseMe () {
 	throw new Error(
 		'Use the Service to make your requests. ' +
 		'The interface is not meant to be used directly ' +
 		'anymore. (So we can centrally manage request contexts.)');
 }
 
-function noServiceAndThereShouldBe() {
+function noServiceAndThereShouldBe () {
 	throw new Error('No Service.');
 }
 

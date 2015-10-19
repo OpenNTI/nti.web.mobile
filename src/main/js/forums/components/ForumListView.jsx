@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Transition from 'common/thirdparty/ReactCSSTransitionWrapper';
+import Transition from 'react-addons-css-transition-group';
 
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
@@ -15,7 +15,7 @@ import {clearLoadingFlag} from 'common/utils/react-state';
 import keyFor from '../utils/key-for-item';
 
 import Store from '../Store';
-import Api from '../Api';
+import {loadDiscussions} from '../Api';
 import {DISCUSSIONS_CHANGED} from '../Constants';
 
 import ForumBin from './widgets/ForumBin';
@@ -48,7 +48,7 @@ export default React.createClass({
 		[DISCUSSIONS_CHANGED]: discussionsChanged
 	},
 
-	[discussionsChanged](event) {
+	[discussionsChanged] (event) {
 		if(event.packageId === this[getContentPackageId]()) {
 			clearLoadingFlag(this);
 		}
@@ -71,7 +71,7 @@ export default React.createClass({
 
 	load () {
 		let contentPackage = this[getContentPackage]();
-		Api.loadDiscussions(contentPackage)
+		loadDiscussions(contentPackage)
 			.then(
 				result => {
 					Store.setDiscussions(contentPackage.getID(), result);
@@ -108,7 +108,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Transition transitionName="forums">
+				<Transition transitionName="fadeOutIn" transitionAppear>
 					<nav className="forum">
 						<ul>
 							{

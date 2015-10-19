@@ -73,9 +73,9 @@ export default React.createClass({
 		}
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case ADMISSION_SUCCESS:
+		case ADMISSION_SUCCESS:
 
-				break;
+			break;
 		}
 		console.group('fiveminute store event');
 		console.debug(event);
@@ -86,15 +86,15 @@ export default React.createClass({
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 
-			case FormConstants.FIELD_VALUE_CHANGE:
-				if (event.fieldName === 'signature' || event.fieldName === 'contactme') {
-					this.forceUpdate();
-				}
-				break;
+		case FormConstants.FIELD_VALUE_CHANGE:
+			if (event.fieldName === 'signature' || event.fieldName === 'contactme') {
+				this.forceUpdate();
+			}
+			break;
 
-			case FormConstants.AVAILABLE_FIELDS_CHANGED:
-				this.pruneErrors(event.fields);
-				break;
+		case FormConstants.AVAILABLE_FIELDS_CHANGED:
+			this.pruneErrors(event.fields);
+			break;
 		}
 	},
 
@@ -105,9 +105,7 @@ export default React.createClass({
 
 	removeError (ref) {
 		let errors = this.state.errors;
-		let error = errors.find(function(entry) {
-			return entry.field === ref;
-		});
+		let error = errors.find(entry => entry.field === ref);
 		let index = errors.indexOf(error);
 		if (index > -1) {
 			let newErrs = update(errors, {$splice: [[index, 1]]}); // errors.splice(index, 1);
@@ -123,7 +121,7 @@ export default React.createClass({
 		let errs = this.state.errors;
 		let newErrs = [];
 		let anyRemoved = false;
-		errs.forEach(function(err) {
+		errs.forEach(err => {
 			if (visibleFieldRefs.has(err.field)) {
 				newErrs.push(err);
 			} else {
@@ -185,9 +183,7 @@ export default React.createClass({
 
 		let title = t('admissionTitle');
 		let errors = this.state.errors;
-		let errorRefs = new Set(errors.map(function(err) {
-			return err.field;
-		}));
+		let errorRefs = new Set(errors.map(err => err.field));
 
 		return (
 			<div className="fiveminuteform">

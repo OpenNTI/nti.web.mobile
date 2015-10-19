@@ -9,7 +9,7 @@ const vimeoRe = /vimeo/i;
 const youtubeRe = /youtu(\.?)be/i;
 
 
-export function getUrl(data) {
+export function getUrl (data) {
 	let src = data && data.sources[0];
 	let url = src && Url.parse(src.source[0]);
 
@@ -35,7 +35,7 @@ const serviceMap = {
 // let getYouTubeId = youtube.getId;
 
 
-export function getHandler(src) {
+export function getHandler (src) {
 	let url = (typeof src === 'string') ? Url.parse(src) : getUrl(src);
 	let service = ((src.sources || [])[0] || {}).service;
 

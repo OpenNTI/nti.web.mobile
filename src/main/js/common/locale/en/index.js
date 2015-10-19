@@ -6,7 +6,9 @@
 
 import units from './partials/units';
 import course from './partials/course';
+import contacts from './partials/contacts';
 import content from './partials/content';
+import errorMessages from './partials/error-messages';
 import forums from './partials/forums';
 import enrollment from './partials/enrollment';
 import library from './partials/library';
@@ -15,9 +17,6 @@ import soon from './partials/coming-soon';
 import profile from './partials/profile';
 
 export default {
-	GLOBAL: {
-		siteName: 'next thought'
-	},
 
 	UNITS: units,
 
@@ -25,9 +24,13 @@ export default {
 
 	COMING_SOON: soon,
 
+	CONTACTS: contacts,
+
 	LOGIN: login,
 
 	ENROLLMENT: enrollment,
+
+	ERROR_MESSAGES: errorMessages,
 
 	LIBRARY: library,
 
@@ -36,7 +39,8 @@ export default {
 	BUTTONS: {
 		ok: 'Okay',
 		cancel: 'Cancel',
-		save: 'Save'
+		save: 'Save',
+		post: 'Post'
 	},
 
 	LISTS: {
@@ -45,18 +49,35 @@ export default {
 		'emptyList:discussions': 'No discussions.',
 		'emptyList:lesson-overview': 'Empty Overview :(\nThis lesson is missing content.',
 		'emptyList:library-admin': 'No Administered Courses.',
-		'emptyList:library-courses': 'You don\'t have any courses yet...',
-		'emptyList:videos': 'No videos.'
+		'emptyList:library-books': 'You don\'t have any books.',
+		'emptyList:library-courses': 'You don\'t have any courses yet.',
+		'emptyList:library-community': 'You are\'t in any communities yet.',
+		'emptyList:videos': 'No videos.',
+		'emptyList:activity': 'No Activity.',
+		'emptyList:user-details': 'Empty Profile :(\nNo additional profile information available.',
+		'emptyList:memberships': 'No memberships',
+		'emptyList:friendslists': 'No Lists.',
+		'emptyList:dynamicfriendslists': 'No Groups.',
+		'emptyList:contacts': 'No contacts.',
+		'emptyList:contactssearch': 'No contacts found.',
+		'emptyList:entity-search': 'No one found',
+		'emptyList:assignments': 'None'
 	},
 
 	CONTENT: content,
 	COURSE: course,
 
 	ASSESSMENT: {
-		checkit: 'Check It!',
 		submit: 'I\'m Finished!',
 		reset: 'Cancel',
-		tryagain: 'Try Again',
+
+		'naquestion-reset': 'Try Again',
+		'naquestion-submit': 'Check It!',
+		'naquestionfillintheblankwordbank-reset': 'Try Again',
+		'naquestionfillintheblankwordbank-submit': 'Check It!',
+		'napoll-reset': 'Submitted',
+		'napoll-submit': 'Submit',
+
 		unanswered: {
 			zero: 'All questions answered',
 			one: '%(count)s question unanswered',

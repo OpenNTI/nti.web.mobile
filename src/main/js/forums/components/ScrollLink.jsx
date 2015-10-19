@@ -10,7 +10,7 @@ export default React.createClass({
 	},
 
 
-	onClick(event) {
+	onClick (event) {
 		event.preventDefault();
 		event.stopPropagation();
 		let node = document.getElementById(this.props.componentId);

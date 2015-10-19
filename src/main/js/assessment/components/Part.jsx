@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
+import StoreEvents from 'common/mixins/StoreEvents';
+
 import Content from './Content';
 import WordBank from './WordBank';
 
@@ -13,10 +15,10 @@ import {
 import {getInputWidget} from './input-types';
 import {getSolutionWidget} from './solution-types';
 
-const onStoreChange = 'Part: Store Change Handler';
 
 export default React.createClass({
 	displayName: 'Part',
+	mixins: [StoreEvents],
 
 	propTypes: {
 		index: React.PropTypes.number.isRequired,
@@ -27,6 +29,12 @@ export default React.createClass({
 	},
 
 
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		default: 'synchronizeFromStore'
+	},
+
+
 	getInitialState () {
 		return {
 			helpVisible: false,
@@ -34,29 +42,21 @@ export default React.createClass({
 		};
 	},
 
-	[onStoreChange] () {
+
+	synchronizeFromStore () {
 		let {part} = this.props;
-		if (this.isMounted() && this.state.helpVisible && !Store.isSubmitted(part)) {
-			this.onCloseHelp();
+		if (this.isMounted()) {
+			if (this.state.helpVisible && !Store.isSubmitted(part)) {
+				this.onCloseHelp();
+			}
+			this.forceUpdate();
 		}
-		this.forceUpdate();
-	},
-
-
-	componentDidMount () {
-		Store.addChangeListener(this[onStoreChange]);
-	},
-
-
-
-	componentWillUnmount () {
-		Store.removeChangeListener(this[onStoreChange]);
 	},
 
 
 	componentDidUpdate (prevProps, prevState) {
 		if (this.state.helpVisible !== prevState.helpVisible && this.isMounted()) {
-			let node = React.findDOMNode(this.refs.container);
+			const {refs: {container: node}} = this;
 			if (node.getBoundingClientRect().top < 0) {
 				node.scrollIntoView();
 			}
@@ -191,7 +191,7 @@ export default React.createClass({
 
 	renderHint () {
 		let part = this.props.part || {};
-		let hint = (part.hints || [])[this.state.activeHint] || '';
+		let hint = ((part.hints || [])[this.state.activeHint] || {}).value || '';
 
 		return (
 			<div className="part-help hint">

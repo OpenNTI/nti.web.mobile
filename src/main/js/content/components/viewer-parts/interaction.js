@@ -39,7 +39,7 @@ export default {
 			let frag = parts[1] || '';
 
 			if (hasClass(anchor, 'ntiglossaryentry')) {
-				anchor.setAttribute('href', location.href + 'glossary/' + href.substr(1));
+				this.navigate('/glossary/' + href.substr(1));
 				return;
 			}
 
@@ -65,7 +65,18 @@ export default {
 
 			//let the capture clicks widget take us to a new place...
 			if (isNTIID(id)) {
-				anchor.setAttribute('href', this.makeHrefNewRoot(encodeForURI(id)));
+				let {pageSource, page} = this.state;
+				let ref = encodeForURI(id);
+
+				href = pageSource.contains(id)
+					? this.makeHref(ref) //the ID is in the pageSource... just page
+					//ID is not in the pageSource, reroot:
+					: page.getTableOfContents().getNode(id) != null
+						? this.makeHrefNewRoot(ref)
+						//ID is not in the current toc, resolve:
+						: this.makeObjectHref(ref);
+
+				anchor.setAttribute('href', href);
 			}
 
 			if (frag.length) {
@@ -84,7 +95,7 @@ export default {
 	scrollToTarget (id) {
 		let scrollToEl = document.getElementById(id) || document.getElementsByName(id)[0];
 		if (scrollToEl) {
-			let fn = scrollToEl.scrollIntoViewIfNeeded || scrollToEl.scrollIntoView;
+			let fn = /* scrollToEl.scrollIntoViewIfNeeded || */ scrollToEl.scrollIntoView;
 			if (fn) {
 				fn.call(scrollToEl, true);
 			} else {
@@ -109,6 +120,14 @@ export default {
 			if (id) {
 				console.debug('Scrolling to %s...', id);
 				this.scrollToTarget(id);
+				try {
+					//SOOoooo dirty! This is removing the fragment from the address bar:
+					history.replaceState(
+						history.state,
+						document.title,
+						location.pathname);
+				}
+				catch (e) {} //eslint-disable-line
 			}
 		}, 500);
 	}

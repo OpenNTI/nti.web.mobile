@@ -1,5 +1,27 @@
+@import "components/action-links";
+@import "components/avatar-grid";
+@import "components/community-head";
+@import "components/community-info";
+@import "components/edit";
+@import "components/forum-comment";
+@import "components/forum-view";
 @import "components/head";
+@import "components/invitation-code";
+@import "components/memberships";
+@import "components/membership-buttons";
 @import "components/profile-cards";
+@import "components/members";
+@import "components/profile-body-container";
+@import "components/profile-card-interests";
+@import "components/profile-card-note";
+@import "components/social-links";
+@import "components/topic";
+@import "components/write-something";
+
+
+.gradient-bg.group {
+	background: #505560;
+}
 
 .profile {
 	min-height: 100vh;
@@ -9,22 +31,29 @@
 	& > * {
 		max-width: 800px;
 		margin-left: auto;
-		margin-right: auto; 
+		margin-right: auto;
 	}
 }
 
 .profile-top-controls {
 	display: flex;
 	justify-content: space-between;
-	align-items: baseline;
+	align-items: center;
+	min-height: 2rem;
 	color: $tertiary-grey;
 	& > ul {
 		list-style-type: none;
 		margin: 0;
 		white-space: nowrap;
+		flex: 0 1 auto;
+		display: flex;
 	}
 	li {
 		display: inline-block;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		flex: 0 0 auto;
+		overflow: hidden;
 	}
 }
 
@@ -38,24 +67,38 @@
 			content: '›';
 			padding: 0 .5em;
 		}
-		&:last-child::after {
-			content:'';
+		&:last-child {
+			flex: 1 1 auto;
+			&::after {
+				content: none;
+			}
 		}
 	}
 }
 
 .profile-top-controls-buttons {
-	.button {
+	flex: 0 0 auto;
+	ul {
+		margin: 0;
+	}
+
+	button, .button {
 		margin: 0.75rem;
-	    margin-left: 0;
-	    padding: 0.5rem 1.5rem;
-	    text-transform: none;
-	    border-radius: 3px;
-	    font-weight: 700;
-	    font-size: .75rem;
-	    background-color: $secondary-green;
-	    letter-spacing: 0;
-	    // box-shadow: 0 0 1px 0 #554459, inset 0 0 0 1px #42b653;
-	    // border: 1px solid #4b9156;	
-	}   
+		margin-right: 0;
+		padding: 0.5rem 1.5rem;
+		text-transform: none;
+		border-radius: 3px;
+		font-weight: 700;
+		font-size: .75rem;
+		letter-spacing: 0;
+		// box-shadow: 0 0 1px 0 #554459, inset 0 0 0 1px #42b653;
+		// border: 1px solid #4b9156;
+	}
+
+	.group-leave-button {
+		background-color: #eee;
+	    color: #333;
+	    font-weight:600;
+	    padding: .5rem 1rem;
+	}
 }

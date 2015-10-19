@@ -93,9 +93,7 @@ export default React.createClass({
 	},
 
 	[shouldAllowUpdates] () {
-		let ref = this.refs.subscribeToUpdates;
-		let el = ref && ref.isMounted() && React.findDOMNode(ref);
-
+		let el = this.refs.subscribeToUpdates;
 		return el && el.checked;
 	},
 
@@ -133,7 +131,7 @@ export default React.createClass({
 
 		return (
 			<div className="payment-confirm">
-				<Pricing purchasable={purchasable} locked={true} />
+				<Pricing purchasable={purchasable} locked />
 				<PanelButton className="medium-8 medium-centered columns" buttonClick={this[submitPayment]} linkText="Submit Payment">
 					<h3>{t('header')}</h3>
 					<p>{t('review')}</p>

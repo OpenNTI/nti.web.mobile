@@ -1,0 +1,120 @@
+.course-activity {
+	max-width: 1024px;
+	margin: auto;
+}
+
+.forum-comment {
+	.wrap {
+		position: relative;
+		padding-left: 4rem;
+		font-size: .75rem;
+		min-height: 4rem;
+		margin-top: 1rem;
+		.avatar {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		time {
+			color: $tertiary-grey;
+		}
+		.username {
+			font-weight: 600;
+		}
+	}
+}
+
+.activity-buckets {
+	margin: 0;
+	list-style-type: none;
+
+	.activity-columns {
+		display: flex;
+		& > * {
+			flex: 1 1 350px;
+		}
+	}
+
+	.profile-card {
+		background: transparent;
+		padding: 0;
+		.bucketed-items {
+			& > * {
+				background: white;
+				padding: .625rem;
+				margin: 1rem .5rem;
+				border-radius: 3px;
+			}
+		}
+		.header {
+			background: transparent;
+			color: white;
+			padding: 0;
+			margin: 0 .5rem;
+			text-transform: uppercase;
+		}
+		.modeled-content {
+			max-height: 300px;
+			overflow: hidden;
+		}
+		.outline-node {
+			background-color: transparent;
+			color: white;
+			background-image: linear-gradient(125deg, #53baf6, rgba(76,143,219,0.6));
+			box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.5),inset 0px -43px 0px 0px rgba(24,82,116,0.5);
+			.path {
+				color: #bbe5fd;
+			}
+			.footer {
+				color: #7accf7;
+			}
+		}
+		.assignment {
+			background-color: transparent;
+			color: white;
+			background-image: linear-gradient(125deg, #49d0ac, rgba(60,206,220,0.6));
+			box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.25),inset 0px -43px 0px 0px rgba(30,60,64,0.5);
+			.path {
+				color: #9bf2de;
+			}
+			.bullets {
+				color: #9bf2de;
+			}
+			.footer {
+				color: #70bcb1;
+			}
+			&.overdue {
+				background-image: linear-gradient(125deg, #fa675c, rgba(221,62,81,0.6));
+				box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.5),inset 0px -43px 0px 0px rgba(103,27,34,0.5);
+				.path, .bullets {
+					color: #ffbea7;
+				}
+				.footer {
+					color: #cb8b7e;
+				}
+			}
+		}
+		.path {
+			font: normal 600 0.65rem/1.3em "Open Sans",sans-serif;
+			text-transform: uppercase;
+		}
+		.card-title {
+			font: italic 500 1.5em/1.4em "Open Sans",sans-serif;
+			height: 4.2em;
+			color: white;
+		}
+		.bullets {
+			color: white;
+		}
+		.footer {
+			text-align: center;
+			& > * {
+				margin: 0;
+			}
+		}
+		.context.scoped {
+			max-height: 15rem;
+			overflow: hidden;
+		}
+	}
+}

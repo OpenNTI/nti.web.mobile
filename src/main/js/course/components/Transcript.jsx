@@ -1,5 +1,5 @@
 import React from 'react';
-import emptyFunction from 'react/lib/emptyFunction';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 export default React.createClass({
 	displayName: 'Transcript',
@@ -43,16 +43,14 @@ export default React.createClass({
 		//There is HTML escaped text in the cue, so we have to
 		// use: "dangerouslySetInnerHTML={{__html: ''}}"
 		return [
-			divider,
-			(
-				<a href="#"
-					data-start-time={cue.startTime.toFixed(3)}
-					data-end-time={cue.endTime.toFixed(3)}
-					className={active}
-					onClick={this.onJumpToCue}
-					dangerouslySetInnerHTML={{__html: cue.text}}/>
-			)
-		];
+			divider, (
+			<a href="#"
+				data-start-time={cue.startTime.toFixed(3)}
+				data-end-time={cue.endTime.toFixed(3)}
+				className={active}
+				onClick={this.onJumpToCue}
+				dangerouslySetInnerHTML={{__html: cue.text}}/>
+		)];
 	},
 
 

@@ -82,7 +82,7 @@ export default React.createClass({
 	},
 
 
-	getID (props= this.props) {
+	getID (props = this.props) {
 		let {NTIID, ntiid} = props.item;
 		return NTIID || ntiid;
 	},
@@ -105,7 +105,7 @@ export default React.createClass({
 			course.getVideoIndex()
 				.then(videoIndex => {
 					let v = videoIndex.get(id);
-					return v.getPoster()
+					return (v ? v.getPoster() : Promise.resolve(null))
 						.then(poster=> {
 							this.setState({loading: false, poster, video: v});
 						});
@@ -179,6 +179,8 @@ export default React.createClass({
 			playing = true;
 			video = false;
 		}
+
+		video = false; //force the video to never render
 
 		let label = item.title || item.label;
 

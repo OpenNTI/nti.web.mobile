@@ -1,11 +1,12 @@
 import React from 'react';
 
 import Avatar from 'common/components/Avatar';
+import Conditional from 'common/components/Conditional';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 import LuckyCharms from 'common/components/LuckyCharms';
 
-import Body from 'modeled-content/components/Panel';
+import {Panel as Body} from 'modeled-content';
 
 import ItemActions from './ItemActions';
 import ReplyEditor from './ReplyEditor';
@@ -25,7 +26,7 @@ const Panel = React.createClass({
 		let {replying} = this.state;
 		let {item} = this.props;
 		let {body, creator, placeholder} = item;
-		let date = item.getLastModified();
+		let date = item.getCreatedTime();
 
 		return (
 			<div className="discussion-reply">
@@ -34,13 +35,13 @@ const Panel = React.createClass({
 				) : (
 					<div className="body">
 						<LuckyCharms item={item}/>
-						<div className="author-info">
-							<Avatar username={creator}/>
+						<Conditional condition={!item.placeholder} className="author-info">
+							<Avatar entity={creator}/>
 							<div className="meta">
-								<DisplayName username={creator}/>
+								<DisplayName entity={creator}/>
 								<div className="name-wrapper"/>
 							</div>
-						</div>
+						</Conditional>
 
 						<Body body={body}/>
 
@@ -49,10 +50,10 @@ const Panel = React.createClass({
 								<ReplyEditor item={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
 							</div>
 						) : (
-							<div className="footer">
+							<Conditional condition={!item.placeholder} className="footer">
 								<DateTime date={date} relative/>
 								<ItemActions item={item} isTopLevel onReply={this.showReplyEditor}/>
-							</div>
+							</Conditional>
 						)}
 					</div>
 				)}

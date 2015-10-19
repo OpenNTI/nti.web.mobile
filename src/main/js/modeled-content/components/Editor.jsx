@@ -1,10 +1,9 @@
 import React from 'react';
 
-import hasClass from 'nti.lib.dom/lib/hasclass';
-import matches from 'nti.lib.dom/lib/matches';
-import parent from 'nti.lib.dom/lib/parent';
+import {hasClass, matches, parent} from 'nti.lib.dom';
 
 import InsertImageButton from './InsertImageButton';
+import InsertVideoButton from './InsertVideoButton';
 import Editor, {FormatButton, ToolbarRegions} from 'react-editor-component';
 
 const {SOUTH} = ToolbarRegions;
@@ -39,6 +38,7 @@ export default React.createClass({
 		children: React.PropTypes.any,
 
 		allowInsertImage: React.PropTypes.bool,
+		allowInsertVideo: React.PropTypes.bool,
 
 		/**
 		 * The raw or parsed modeled content body.
@@ -52,8 +52,8 @@ export default React.createClass({
 			React.PropTypes.arrayOf(React.PropTypes.oneOfType([
 				React.PropTypes.string,
 				React.PropTypes.object
-				]))
-			]),
+			]))
+		]),
 
 
 		onBlur: React.PropTypes.func,
@@ -65,7 +65,8 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			allowInsertImage: true
+			allowInsertImage: true,
+			allowInsertVideo: false
 		};
 	},
 
@@ -114,7 +115,8 @@ export default React.createClass({
 		d.innerHTML = markup;
 		let script = d.querySelector('script[type$=json]');
 
-		let result = script ? JSON.parse(script.textContent) : markup;
+		//Returning a truthy value means we handled it.
+		let result = script ? JSON.parse(script.textContent) : void 0;
 
 		return result;
 	},
@@ -147,7 +149,7 @@ export default React.createClass({
 
 	render () {
 		//TODO: parse/build value sent to the RTE from the modeled body.
-		let {value, allowInsertImage, children} = this.props;
+		let {value, allowInsertImage, allowInsertVideo, children} = this.props;
 
 		if (Array.isArray(value)) {
 			value = value.join('\n').replace(/<(\/?)(body|html)>/ig, '');
@@ -167,6 +169,10 @@ export default React.createClass({
 
 				{!allowInsertImage ? null : (
 					<InsertImageButton region={SOUTH}/>
+				)}
+
+				{!allowInsertVideo ? null : (
+					<InsertVideoButton region={SOUTH}/>
 				)}
 
 				<div className="right-south" region={SOUTH}>

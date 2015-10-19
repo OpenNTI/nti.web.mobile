@@ -1,4 +1,9 @@
+import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import BasePathAware from 'common/mixins/BasePath';
+
 export default {
+	mixins: [BasePathAware],
+
 	statics: {
 		handles (item) {
 			let change = item;
@@ -19,18 +24,36 @@ export default {
 		let change = this.props.item;
 		let item = change.Item || change;
 		let username = item.creator || item.Creator;
-		this.setState({ username, change, item });
+		let url;
+
+		try {
+			let id = item.getID();
+
+			id = isNTIID(id) ? encodeForURI(id) : encodeURIComponent(id);
+
+			url = `${this.getBasePath()}object/${id}/`;
+		} catch(e) {
+			console.warn('Notable has no url: ', item);
+		}
+
+		this.setState({ username, change, item, url });
 	},
 
-	getEventTime () {
-		let item = this.state.item;
-		let change = this.state.change;
-
-		return (getTime(item) || getTime(change)) * 1000;
+	getEventTime (other) {
+		let {item, change} = this.state;
+		//Get the time from the item, if not found, use the change.
+		return getTime(other) || getTime(item) || getTime(change);
 	}
 };
 
 
-function getTime(o) {
-	return o.CreatedTime || o['Last Modified'];
+function getTime (o) {
+	try {
+		let lm = o && o.getLastModified();
+		//Return the Last Modified, unless its not set
+		return o && !lm ? o.getCreatedTime() : lm;
+	} catch	(e) {
+		console.warn('No Date for object:', o);
+		return new Date(0);
+	}
 }

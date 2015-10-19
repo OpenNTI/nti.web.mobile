@@ -4,7 +4,7 @@ import {discussionsConfig} from 'common/utils';
 let pageSize;
 
 export default {
-	currentPage() {
+	currentPage () {
 		let loc = global.location || {};
 		let cp = parseInt(QueryString.parse(loc.search).p || 1, 10);
 		return cp;
@@ -17,19 +17,19 @@ export default {
 		return pageSize;
 	},
 
-	batchStart() {
+	batchStart () {
 		return this.getPageSize() * (this.currentPage() - 1);
 	},
 
-	numPages() {
+	numPages () {
 		return Math.ceil((((this.state || {}).itemContents || {}).FilteredTotalItemCount || 0) / this.getPageSize());
 	},
 
-	hasNextPage() {
+	hasNextPage () {
 		return this.numPages() > (this.currentPage());
 	},
 
-	pagingInfo() {
+	pagingInfo () {
 		return {
 			currentPage: this.currentPage,
 			pageSize: this.getPageSize(),

@@ -5,7 +5,7 @@ import MESSAGES from 'common/utils/WindowMessageListener';
 
 import {EventHandlers} from '../../Constants';
 
-import guid from 'nti.lib.interfaces/utils/guid';
+import uuid from 'node-uuid';
 import QueryString from 'query-string';
 
 const VIMEO_EVENTS_TO_HTML5 = {
@@ -16,18 +16,23 @@ const VIMEO_EVENTS_TO_HTML5 = {
 	playProgress: 'timeupdate'
 };
 
+const VIMEO_URL_PARTS = /(?:https?:)\/\/(?:(?:www|player)\.)?vimeo.com\/(?:(?:channels|video)\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?|#)/i;
+
 let Source = React.createClass({
 	displayName: 'Vimeo-Video',
 
 
 	statics: {
-		getId (url) {
-			let regExp = /^.*vimeo(\:\/\/|\.com\/)(.+)/i,
-				match = url.match(regExp);
-			if (match && match[2]) {
-				return match[2];
-			}
-			return null;
+		service: 'vimeo',
+		getID (url) {
+			/** @see test */
+			const [/*matchedURL*/, /*albumId*/, id] = url.match(VIMEO_URL_PARTS) || [];
+			return id || null;
+		},
+
+		getCanonicalURL (url) {
+			const id = this.getID(url);
+			return `https://www.vimeo.com/${id}`;
 		}
 	},
 
@@ -43,12 +48,13 @@ let Source = React.createClass({
 
 
 	componentWillMount () {
-		this.setState({id: guid()});
+		let id = uuid.v4();
+		this.setState({id});
+		this.updateURL(this.props, id);
 	},
 
 
 	componentDidMount () {
-		this.updateURL(this.props);
 		MESSAGES.add(this.onMessage);
 	},
 
@@ -63,19 +69,24 @@ let Source = React.createClass({
 	},
 
 
-	buildURL (props) {
-		let mediaSource = props.source;
-		let videoId = typeof mediaSource === 'string' ? Source.getId(mediaSource) : mediaSource.source;
+	buildURL (props, id = this.state.id) {
+		const {source: mediaSource, autoPlay} = props;
+
+		let videoId = typeof mediaSource === 'string' ? Source.getID(mediaSource) : mediaSource.source;
 
 		if (Array.isArray(videoId)) {
 			videoId = videoId[0];
 		}
 
+		if (!id) {
+			console.error('Player ID missing');
+		}
+
 		let args = {
 			api: 1,
-			player_id: this.state.id,//eslint-disable-line camelcase
+			player_id: id,//eslint-disable-line camelcase
 			//autopause: 0, //we handle this for other videos, but its nice we only have to do this for cross-provider videos.
-			autoplay: 0,
+			autoplay: autoPlay ? 1 : 0,
 			badge: 0,
 			byline: 0,
 			loop: 0,
@@ -83,12 +94,12 @@ let Source = React.createClass({
 			title: 0
 		};
 
-		return location.protocol + '//player.vimeo.com/video/' + videoId + '?' + QueryString.stringify(args);
+		return 'https://player.vimeo.com/video/' + videoId + '?' + QueryString.stringify(args);
 	},
 
 
-	updateURL (props) {
-		let url = this.buildURL(props);
+	updateURL (props, id) {
+		let url = this.buildURL(props, id);
 		this.setState({
 			scope: url.split('?')[0],
 			playerURL: url
@@ -97,7 +108,7 @@ let Source = React.createClass({
 
 
 	getPlayerContext () {
-		let iframe = React.findDOMNode(this);
+		const {refs: {iframe}} = this;
 		return iframe && (iframe.contentWindow || window.frames[iframe.name]);
 	},
 
@@ -113,8 +124,9 @@ let Source = React.createClass({
 			return;
 		}
 
+		console.debug('Vimeo Event: %s: %o', event, data.data || data);
+
 		data = data.data;
-		console.debug('Vimeo Event: %s: %o', event, data);
 
 		if (event === 'error') {
 			if (data.code === 'play') {
@@ -131,6 +143,7 @@ let Source = React.createClass({
 			this.postMessage('addEventListener', 'finish');	//ended
 			this.postMessage('addEventListener', 'seek');	//seeked
 			this.postMessage('addEventListener', 'playProgress'); //timeupdate
+			// this.flushQueue();
 		}
 
 		if(mappedEvent && handlerName) {
@@ -177,14 +190,16 @@ let Source = React.createClass({
 		});
 
 		return (
-			<iframe {...props} src={this.state.playerURL}
+			<iframe ref="iframe" {...props} src={this.state.playerURL}
 				frameBorder="0" seemless allowFullScreen allowTransparency />
 		);
 	},
 
 
 	play () {
+		//ready?
 		this.postMessage('play');
+		//else queue.
 	},
 
 

@@ -3,7 +3,7 @@ import React from 'react';
 import PostItem from './list-items/PostItem';
 
 export default React.createClass({
-	displayName: 'PostHeadline',
+	displayName: 'forums:PostHeadline',
 
 	render () {
 		return (

@@ -10,21 +10,29 @@ export default React.createClass({
 	mixins: [NoteableMixin],
 
 	statics: {
-		noteableType: ['forums.communityheadlinetopic']
+		// /forums\.((.*)headlinetopic)$/i
+		noteableType: [
+			'forums.headlinetopic',
+			'forums.communityheadlinetopic',
+			'forums.contentheadlinetopic',
+			'forums.dflheadlinetopic'
+		]
 	},
 
 	render () {
-		let {item, username} = this.state;
-		let date = item.getLastModified();
+		let {item, username, url} = this.state;
+		let date = this.getEventTime(item.headline);
 
 		return (
 			<li className="notification-item">
-				<Avatar username={username} width="32" height="32"/>
-				<div className="wrap">
-					<DisplayName username={username}/>
-						{` created a discussion: ${item.title}`}
-					<DateTime date={date} relative/>
-				</div>
+				<a href={url}>
+					<Avatar entity={username} width="32" height="32"/>
+					<div className="wrap">
+						<DisplayName entity={username}/>
+							{` created a discussion: ${item.title}`}
+						<DateTime date={date} relative/>
+					</div>
+				</a>
 			</li>
 		);
 	}

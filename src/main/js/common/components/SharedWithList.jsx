@@ -1,10 +1,11 @@
 import React from 'react';
 
+import t from '../locale';
 
 import DisplayName from './DisplayName';
 import Loading from './TinyLoader';
 
-import resolve from '../utils/resolve-user';
+import {resolve} from '../utils/user';
 
 const isEmpty = x => !Array.isArray(x) || x.length === 0;
 
@@ -27,7 +28,14 @@ export default React.createClass({
 		 */
 		short: React.PropTypes.bool,
 
-		item: React.PropTypes.object.isRequired
+		item: React.PropTypes.object.isRequired,
+
+		/**
+		 * The maximum number of entities to show before hidding the rest behind an ", and XX others." text.
+		 *
+		 * @type {number}
+		 */
+		limit: React.PropTypes.number
 	},
 
 
@@ -59,10 +67,10 @@ export default React.createClass({
 	fill (item) {
 		this.setState({loading: true});
 
-		let {sharedWith=[]} = item;
+		let {sharedWith = []} = item;
 		let pending = sharedWith
 			.filter(x => x && x !== EVERYONE)
-			.map(username=> resolve(this, {username}).catch(()=>null));
+			.map(entity=> resolve({entity}).catch(()=> null));
 
 
 		Promise.all(pending)
@@ -77,7 +85,7 @@ export default React.createClass({
 
 
 	render () {
-		let {short, item} = this.props;
+		let {short, limit, item} = this.props;
 		let {loading, users = [], others = 0} = this.state;
 		let {sharedWith = []} = item;
 
@@ -85,9 +93,16 @@ export default React.createClass({
 			return (<Loading/>);
 		}
 
-		if (short && users.length > 1) {
-			others += users.length - 1;
-			users = users.slice(0, 1);
+		if (typeof limit === 'number' && limit > 0) {
+			short = true;
+		}
+		else if (short) {
+			limit = 1;
+		}
+
+		if (short && users.length > limit) {
+			others += users.length - limit;
+			users = users.slice(0, limit);
 		}
 
 
@@ -98,9 +113,9 @@ export default React.createClass({
 				'Only Me';
 
 		let names = (state ? [state] : [])
-			.concat(users.map(x => <DisplayName user={x}/> ))
+			.concat(users.map(x => <DisplayName entity={x}/> ))
 			//Only show " N Others" when there are more than 0 others, AND we have at least one resolved name.
-			.concat(others === 0 || users.length === 0 ? [] : (`${others} Others`));
+			.concat(others === 0 || users.length === 0 ? [] : t('UNITS.others', {count: others}));
 
 		return React.createElement('span', {className: 'shared-with-list'}, ...names);
 	}

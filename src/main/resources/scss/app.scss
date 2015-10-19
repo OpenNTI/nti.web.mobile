@@ -1,9 +1,12 @@
+@import "functions";
 @import "fonts";
 
 @import "settings";
 @import "variables"; // we override some foundation settings so this has to come between settings and foundation.
 @import "normalize";
 @import "foundation";
+
+@import "base-brand";
 
 @import "common/transitions";
 @import "common/animations";
@@ -12,28 +15,20 @@
 @import "coming-soon-to-mobile";
 
 @import "assessment/components";
+@import "chat/components";
+@import "contacts/components";
 @import "content/components";
 @import "course/components";
 @import "enrollment/components";
 @import "forums/components";
+@import "library/components";
 @import "login/components";
 @import "modeled-content/components";
 @import "navigation/components";
 @import "notifications/components";
 @import "profile/components";
 @import "prompts/components";
-
-
-
-%detail-link {
-	text-transform: uppercase;
-	font-size: 0.6875rem;
-}
-
-@mixin input-typography {
-	text-transform: uppercase;
-	letter-spacing:0.1em;
-}
+@import "terms/components";
 
 .hidden {
 	display: none;
@@ -43,8 +38,42 @@
 	opacity: 0.2;
 }
 
-body.dark {
-	background: #333;
+.app-container { opacity: 1; } //unhides the UI once styles load.
+
+
+.error[data-error-message]::after {
+	content: attr(data-error-message);
+	position:absolute;
+	top: 0;
+	left: 1.5rem;
+	max-width: 86%;
+	background: $primary-red;
+	color: $secondary-red;
+	display: block;
+	padding: 0.25rem;
+	border: 1px solid $secondary-red;
+	font-size: 0.75rem;
+	font-weight: 600;
+	font-style: italic;
+}
+
+.missing-content {
+	margin: 2rem;
+
+	.catalog-entries {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.1);
+	}
+}
+body {
+	//iOS8 fails to fully transition from light to dark on body when the content of the page is not full or overflowing.
+	//So we're not going to transition this value. :(
+	// transition: background 0.4s ease-out 0.01s;
+	&.dark {
+		background: #333 !important;
+	}
 }
 
 
@@ -57,20 +86,21 @@ html { text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
 address {font-style: normal;}
 
 body {
-	-webkit-touch-callout: none;
 	user-select: none;
 }
 
-[contenteditable] { //&, * {
-	user-select: text !important;
-} //}
-
-.button, input[type=button], input[type=submit], input[type=reset], button {
-	@include input-typography;
+img {
+	-webkit-touch-callout: none;
 }
 
-a.disabled {
-	opacity:0.4;
+[contenteditable] {
+	user-select: text !important;
+}
+
+a {
+	&.disabled {
+		opacity:0.4;
+	}
 }
 
 .scroll-lock {

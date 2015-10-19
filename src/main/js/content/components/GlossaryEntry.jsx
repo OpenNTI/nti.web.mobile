@@ -9,9 +9,9 @@ export default React.createClass({
 
 	componentDidMount () {
 		let entryEl = document.getElementById(this.props.entryid);
-		console.debug('didmount, %O', entryEl);
+		// console.debug('didmount, %O', entryEl);
 		if (entryEl) {
-			React.findDOMNode(this.refs.content).innerHTML = entryEl.innerHTML;
+			this.refs.content.innerHTML = entryEl.innerHTML;
 		}
 	},
 

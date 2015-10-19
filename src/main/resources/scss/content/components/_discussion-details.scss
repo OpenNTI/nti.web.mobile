@@ -1,4 +1,3 @@
-
 .author-info {
 	position: relative;
 	overflow: hidden;
@@ -23,15 +22,25 @@
 		font-size: 0.875rem;
 	}
 
+	.title {
+		.profile-card & {
+			padding-top: 1rem;
+		}
+	}
+
 	.name-wrapper {
 		position: relative;
 
+		.profile-card & {
+			font-size: 0.75rem;
+
+			& > .username::after {
+				@extend %middot;
+			}
+		}
+
 		time::after {
-			text-decoration: none;
-			position: static;
-			content: '\00B7';
-			padding: 0 0.5em;
-			background: none;
+			@extend %middot;
 		}
 
 		.tinyloader {
@@ -58,6 +67,12 @@
 	border-top: 1px solid $border-grey;
 	position: relative;
 	padding: 0 0.75rem;
+
+	.modeled-content {
+		.profile-card & {
+			padding: 1rem 0;
+		}
+	}
 
 	.meta {
 		h1.title {
@@ -104,6 +119,10 @@
 				bottom: 0;
 				background: linear-gradient(to bottom, rgba(255, 252, 242, 0) 0%, rgba(255, 252, 242, 0.88) 60%, rgb(255, 252, 242) 72%, rgb(255, 252, 242) 100%);
 			}
+
+			a {
+				pointer-events: none;
+			}
 		}
 
 		widget {
@@ -133,6 +152,10 @@
 		& > .related-work-ref {
 			margin: 0; border: 0;
 			cursor: default;
+		}
+
+		.content-video {
+			margin-bottom: 0;
 		}
 
 		.question {

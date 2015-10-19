@@ -1,11 +1,14 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 import cx from 'classnames';
 
 import {getModel} from 'nti.lib.interfaces';
 
+import ContentAquirePrompt from 'catalog/components/ContentAquirePrompt';
+
 import Loading from 'common/components/TinyLoader';
-import Err from 'common/components/Error';
+// import Err from 'common/components/Error';
 
 import Content from '../Content';
 
@@ -15,7 +18,6 @@ import {getWidget} from '../widgets';
 import {getPageContent} from '../../Actions';
 import PageDescriptor from '../../PageDescriptor';
 
-import ContentAquirePrompt from './ContentAquirePrompt';
 
 const PageInfo = getModel('pageinfo');
 
@@ -53,13 +55,17 @@ export default React.createClass({
 	},
 
 
-	componentDidUpdate () {
+	componentDidUpdate (_, state) {
+		let {error} = this.state;
+		if (error && !is403(error) && error !== state.error) {
+			console.error(error);
+		}
 		this.focusApplicableRange();
 	},
 
 
 	updateContext (item) {
-		this.setState({error: null, found: false, loading: true});
+		this.setState({error: null, found: false, loading: true, scoped: false, fragment: false});
 
 		item.getContextData()
 			.then(x => x instanceof PageInfo ?
@@ -76,11 +82,10 @@ export default React.createClass({
 			.then(x => {
 				let pageId = x.getID();
 				let context = React.createElement(Content, {
-						id: 'NTIContent',
-						page: x,
-						pageId,
-						onContentReady: () => this.findApplicableRange()
-					});
+					page: x,
+					pageId,
+					onContentReady: () => this.findApplicableRange()
+				});
 
 				this.setState({loading: false, fragment: true, context, pageId});
 			});
@@ -96,12 +101,20 @@ export default React.createClass({
 
 		try {
 			let widget = getWidget(object, undefined, props);
-			let {type={}} = widget || {};
+			let {type = {}} = widget || {};
+
+			let context;
+			try {
+				context = type.interactiveInContext ? widget : ReactDOMServer.renderToStaticMarkup(widget);
+			} catch(e) {
+				console.warn('Oops', e.stack || e.message || e);
+			}
+
 			this.setState({
 				loading: false,
 				fragment: false,
 				scoped: true,
-				context: type.interactiveInContext ? widget : React.renderToStaticMarkup(widget)
+				context
 			});
 		} catch (error) {
 			this.setState({
@@ -118,7 +131,7 @@ export default React.createClass({
 		let {item} = this.props;
 		let {found, fragment, pageId} = this.state;
 
-		let root = React.findDOMNode(this);
+		const {refs: {root}} = this;
 		if (!root || found || !fragment) {
 			return !!found;
 		}
@@ -158,14 +171,14 @@ export default React.createClass({
 
 
 	focusApplicableRange () {
-		let node = React.findDOMNode(this);
+		let {refs: {root: node}} = this;
 		if (node) {
 			let focus = node.querySelector('.fucus-context-here');
 
 			node = node.firstChild;//this is what scrolls.
 
 			if (focus && node.scrollHeight > node.offsetHeight) {
-				console.log('TODO: ensure focus node', focus, 'is positioned into view.');
+				// console.log('TODO: ensure focus node', focus, 'is positioned into view.');
 				let r = focus.getBoundingClientRect();
 				let r2 = node.getBoundingClientRect();
 				let approxOneLineHeight = 16;
@@ -191,10 +204,10 @@ export default React.createClass({
 			: error
 				? (is403(error)
 					? ( <ContentAquirePrompt {...props} relatedItem={item} data={error}/> )
-					: ( <div {...props}><Err error={error}/></div> )
+					: ( null )
 				)
 				: (typeof context === 'string')
-					? ( <div {...props} dangerouslySetInnerHTML={{__html: context}}/> )
+					? ( <div ref="root" {...props} dangerouslySetInnerHTML={{__html: context}}/> )
 					: (
 						<div {...props}>
 						{

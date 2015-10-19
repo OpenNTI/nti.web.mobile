@@ -1,3 +1,4 @@
+import BasePathAware from 'common/mixins/BasePath';
 import Path from 'path';
 
 const ROUTES = Symbol('Routes');
@@ -5,6 +6,7 @@ const ROUTES = Symbol('Routes');
 const makeRoute = (path, extra) => ({props: Object.assign({ handler: 'div', path }, extra || {})});
 
 export default {
+	mixins: [BasePathAware],
 
 	getInitialState  () {
 		this.getRoutes().push(makeRoute('/:pageId(/)'));
@@ -37,7 +39,14 @@ export default {
 				.replace(/\/\/$/, '');
 		};
 
+		this.navigate = (route, ...args) => {
+			let target = this.makeHref(route);
+			console.log('Input: %s\nResolved: %s\n\n', route, target);
+			return this.getEnvironment().setPath(target, ...args);
+		};
+
 		this.makeHrefNewRoot = root => Path.resolve(makeHref.call(this, '/'), `../${root}/`) + '/';
+		this.makeObjectHref = root => `${this.getBasePath()}object/${root}/`;
 	},
 
 
@@ -50,7 +59,7 @@ export default {
 		props = Object.assign({contextual: true}, props || this.props);
 
 		let {match} = this.getRouterState(props);
-		let p = match && (match.getHandler() || match.match);
+		let p = match && Object.assign({}, (match.route || {}).props, match.match);
 		if (p && p.props) {
 			p = p.props;
 		}
@@ -68,7 +77,7 @@ export default {
 	 * @returns {Array} Route Objects
 	 */
 	getRoutes () {
-		if (!this[ROUTES]) { this[ROUTES] = []; }
+		if (!this[ROUTES]) { this[ROUTES] = [makeRoute('/')]; }
 		return this[ROUTES];
 	},
 

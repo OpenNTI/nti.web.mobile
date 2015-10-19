@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Store from 'assessment/Store';
-import {areAssessmentsSupported, isAssignment} from 'assessment/Utils';
+import {areAssessmentsSupported, isAssignment} from 'assessment/utils';
 import FeedbackWidget from 'assessment/components/Feedback';
 import SetHeaderWidget from 'assessment/components/Header';
 import SetSubmissionWidget from 'assessment/components/Submission';
@@ -45,16 +45,10 @@ export default {
 			return null;
 		}
 
-		return (
-			React.createElement('div', {className: 'fixed-footer'},
-				React.createElement('div', {className: 'the-fixed'},
-					React.createElement(SetSubmissionWidget, {
-						assessment: quiz,
-						page: page
-					})
-				)
-			)
-		);
+		return React.createElement(SetSubmissionWidget, {
+			assessment: quiz,
+			page: page
+		});
 	},
 
 
