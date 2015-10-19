@@ -1,5 +1,6 @@
 import { GraphQLObjectType } from 'graphql';
 import {rootQueries as entitieQueries} from './entities';
+import {rootQueries as gradebookQueries} from './course-gradebook';
 import {nodeField} from './interface';
 
 export default new GraphQLObjectType({
@@ -7,6 +8,7 @@ export default new GraphQLObjectType({
 	fields: () =>
 		Object.assign(
 			{node: nodeField},
-			entitieQueries
+			entitieQueries,
+			gradebookQueries
 			)
 });
