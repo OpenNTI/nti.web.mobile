@@ -291,24 +291,24 @@ export default React.createClass({
 					this.renderNoteEditor()
 
 				) : (
-					<div className="content-body" key="content">
+					<div key="content">
 						{this.renderAssessmentHeader()}
+						<div className="content-body">
+							<BodyContent ref="content"
+								onClick={this.onContentClick}
+								onUserSelectionChange={this.maybeOfferAnnotations}
+								contentPackage={contentPackage}
+								pageId={page.getCanonicalID()}
+								page={page}/>
 
-						<BodyContent ref="content"
-							onClick={this.onContentClick}
-							onUserSelectionChange={this.maybeOfferAnnotations}
-							contentPackage={contentPackage}
-							pageId={page.getCanonicalID()}
-							page={page}/>
+							{this.renderAssessmentFeedback()}
 
-						{this.renderAssessmentFeedback()}
+							{this.renderGlossaryEntry()}
 
-						{this.renderGlossaryEntry()}
+							{this.renderBottomPager()}
 
-						{this.renderBottomPager()}
-
-						<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
-
+							<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
+						</div>
 						{this.renderDockedToolbar()}
 					</div>
 				)}
