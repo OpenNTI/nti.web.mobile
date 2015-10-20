@@ -251,9 +251,12 @@ export default {
 
 
 	createHighlight (range, color) {
-		let highlight = Highlight.createFrom(this.selectionToCommonUGD(range), color);
+		new Promise((resolve, reject) => {
+			let highlight = Highlight.createFrom(this.selectionToCommonUGD(range), color);
 
-		getStore(this.state).create(highlight)
+			getStore(this.state).create(highlight).then(resolve, reject);
+		})
+			.catch(e => console.warn(e.stack || e.message || e))
 			.then(() => this.setState({selected: void 0}));
 	},
 
