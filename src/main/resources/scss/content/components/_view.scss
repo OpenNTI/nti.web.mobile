@@ -9,6 +9,8 @@
 
 .content-view {
 	position: relative;
+	max-width: 700px;
+	margin: 0 auto;
 
 	& > div > figure.loading {
 		position: fixed;
