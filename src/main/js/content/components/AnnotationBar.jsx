@@ -31,15 +31,18 @@ export default React.createClass({
 
 
 	getRange () {
-		let range = void 0;
 		try {
-			let sel = window.getSelection();
-			range = sel.getRangeAt(0);
-			sel.removeAllRanges();
+			const selection = window.getSelection();
+			const {item, range} = this.props;
+			
+			return item ? item.getRange() :
+				selection.rangeCount > 0
+					? selection.getRangeAt(0)
+					: range;
 		}
-		catch (e) {} //eslint-disable-line
-
-		return range;
+		catch (e) {
+			console.error(e.stack || e.message || e);
+		}
 	},
 
 
