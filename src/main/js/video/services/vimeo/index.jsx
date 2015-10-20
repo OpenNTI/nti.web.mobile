@@ -129,13 +129,10 @@ let Source = React.createClass({
 		data = data.data;
 
 		if (event === 'error') {
-			if (data.code === 'play') {
-				//Make the view just hide the poster so the viewer can tap the embeded player's play button.
-				mappedEvent = 'playing';
-				handlerName = EventHandlers.playing;
-			} else {
-				alert(`Vimeo Error: ${data.code}: ${data.message}`);//eslint-disable-line no-alert
-			}
+			//console.warn(`Vimeo Error: ${data.code}: ${data.message}`);
+			//Make the view just hide the poster so the viewer can tap the embeded player's play button.
+			mappedEvent = 'playing';
+			handlerName = EventHandlers.playing;
 		}
 		else if (event === 'ready') {
 			this.postMessage('addEventListener', 'play');	//playing
