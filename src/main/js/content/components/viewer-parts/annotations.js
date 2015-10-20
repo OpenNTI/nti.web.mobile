@@ -222,15 +222,14 @@ export default {
 
 
 	createNote (range) {
-		let {contentPackage} = this.props;
-		let {selected, page} = this.state;
+		const {contentPackage} = this.props;
+		const {selected, page} = this.state;
+		const hasRange = range && !range.collapsed;
 
-		let hasRange = range && !range.collapsed;
-
-		let c = hasRange && this.selectionToCommonUGD(range);
-		if (!c && selected) {
+		let properties = hasRange && this.selectionToCommonUGD(range);
+		if (!properties && selected) {
 			let {applicableRange, selectedText, ContainerId} = selected.getRecord();
-			c = {
+			properties = {
 				applicableRange,
 				selectedText,
 				ContainerId
@@ -244,8 +243,8 @@ export default {
 		page.getSharingPreferences()
 			.then(preferences => contentPackage.getDefaultShareWithValue(preferences))
 			.then(sharedWith => {
-				Object.assign(c, {sharedWith});
-				return Note.createFrom(c);
+				Object.assign(properties, {sharedWith});
+				return Note.createFrom(properties);
 			})
 			.then(note => this.setState({stagedNote: note}));
 	},
