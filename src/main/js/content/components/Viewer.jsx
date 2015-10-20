@@ -374,6 +374,7 @@ export default React.createClass({
 
 		let props = {
 			item: isRange ? None : selected,
+			range: isRange ? selected : None,
 			onNewDiscussion: (isRange || isHighlight) ? this.createNote : None,
 			onSetHighlight: isRange ? this.createHighlight : isHighlight ? this.updateHighlight : None,
 			onRemoveHighlight: isHighlight ? this.removeHighlight : None

@@ -13,7 +13,7 @@ export default React.createClass({
 
 	propTypes: {
 		item: React.PropTypes.object,
-
+		range: React.PropTypes.object,
 		onNewDiscussion: React.PropTypes.func,
 		onSetHighlight: React.PropTypes.func,
 		onRemoveHighlight: React.PropTypes.func
