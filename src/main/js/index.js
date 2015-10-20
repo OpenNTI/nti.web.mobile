@@ -11,9 +11,6 @@ import 'script!../resources/vendor/modernizr/modernizr.js';//injects a <script> 
 let site = document.getElementById('site-override-styles');
 if (site) { site.parentNode.appendChild(site); }
 
-import FastClick from 'fastclick';
-FastClick.attach(document.body);
-
 import path from 'path';
 import React from 'react';
 import ReactDOM from 'react-dom';
