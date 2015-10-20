@@ -74,6 +74,7 @@
 
 		widget {
 			user-select: none;
+			& + .caption { display: none; }
 		}
 	}
 
