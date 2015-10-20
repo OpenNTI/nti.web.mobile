@@ -98,11 +98,6 @@ img {
 }
 
 a {
-	color: inherit; //fix foundation assuming all anchors are "links"
-	&[href], &:link {
-		color: $anchor-font-color;
-	}
-
 	&.disabled {
 		opacity:0.4;
 	}

@@ -78,6 +78,13 @@
 			user-select: none;
 			& + .caption { display: none; }
 		}
+
+		a {
+			color: inherit; //fix foundation assuming all anchors are "links"
+			&[href], &:link {
+				color: $anchor-font-color;
+			}
+		}
 	}
 
 	widget.selected > *:first-child::after {
