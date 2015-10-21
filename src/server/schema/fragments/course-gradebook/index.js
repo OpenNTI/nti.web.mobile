@@ -1,5 +1,5 @@
 import {
-	GraphQLBoolean,
+	// GraphQLBoolean,
 	// GraphQLFloat,
 	// GraphQLID,
 	GraphQLInt,
@@ -16,6 +16,7 @@ import {
 	globalIdField
 } from 'graphql-relay';
 
+import GraphQLTimeStamp from '../common-types/TimeStamp';
 
 import {registerType, nodeInterface} from '../interface';
 
@@ -28,22 +29,28 @@ export const gradebookByAssignmentRowType = new GraphQLObjectType({
 		id: globalIdField('User', x => x.Username),
 
 		user: {
-			type: EntityType,
-			resolve: x => x.User
+			type: EntityType//,
+			// resolve: x => x.User
 		},
 
 		username: {
-			type: GraphQLString,
-			resolve: x => x.Username
+			type: GraphQLString//,
+			// resolve: x => x.username
 		},
+
 		completed: {
-			type: GraphQLBoolean
+			type: GraphQLTimeStamp//,
+			// resolve: x => x.completed ...the field name lines up with the property name.
 		},
+
 		grade: {
-			type: GraphQLString
+			type: GraphQLString//,
+			// resolve: x => x.grade ...the field name lines up with the property name.
 		},
-		feedback: {
-			type: GraphQLString
+
+		feedbackCount: {
+			type: GraphQLInt//,
+			// resolve: x => x.feedbackCount
 		}
 	}),
 	interfaces: [nodeInterface]
@@ -119,7 +126,8 @@ export const rootQueries = {
 				const {filter, search, page = 0, pageSize = 50} = args;
 				const batchStart = (page * pageSize);
 
-				return o.fetchLinkParsed('GradeBookByAssignment', { filter, search, batchSize: pageSize, batchStart })
+				return o.fetchLink('GradeBookByAssignment', { filter, search, batchSize: pageSize, batchStart })
+					.then(raw => x.service.getParsedObject(raw)) //when GradeBookByAssignmentSummary has a mimeType this step won't be necessary.
 					.then(shell => ({
 						search,
 						filter,
