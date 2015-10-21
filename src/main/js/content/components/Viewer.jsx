@@ -141,7 +141,11 @@ export default React.createClass({
 
 	componentDidUpdate () {
 		let {pageSource, currentPage} = this.state;
-		this.setPageSource(pageSource, currentPage);
+		//We transition between discussions, NoteEditor and content...
+		//those transitions delay "componentWillUnmount" which is one of the
+		//places where context book-keeping is performed... wait for it to occur.
+		setTimeout(() =>
+			this.setPageSource(pageSource, currentPage), TRANSITION_TIMEOUT);
 	},
 
 
