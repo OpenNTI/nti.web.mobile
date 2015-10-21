@@ -72,20 +72,20 @@ export const gradebookByAssignmentType = new GraphQLObjectType({
 			resolve: x => x.shell.ItemCount
 		},
 		filter: {
-			type: GraphQLString,
-			resolve: x => x.filter
+			type: GraphQLString//,
+			// resolve: x => x.filter
 		},
 		search: {
-			type: GraphQLString,
-			resolve: x => x.search
+			type: GraphQLString//,
+			// resolve: x => x.search
 		},
 		page: {
-			type: GraphQLInt,
-			resolve: x => x.page
+			type: GraphQLInt//,
+			// resolve: x => x.page
 		},
 		pageSize: {
-			type: GraphQLInt,
-			resolve: x => x.pageSize
+			type: GraphQLInt//,
+			// resolve: x => x.pageSize
 		},
 		items: {
 			type: gradebookByAssignmentRowConnection,
