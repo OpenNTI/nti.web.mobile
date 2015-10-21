@@ -40,6 +40,7 @@ import BodyContent from './Content';
 import Gutter from './Gutter';
 import Discussions from './discussions';
 
+const TRANSITION_TIMEOUT = 300;
 
 function getAssessment (state) {
 	let {page} = state;
@@ -278,8 +279,8 @@ export default React.createClass({
 		return (
 			<TransitionGroup {...props} component="div"
 				transitionName="fadeOutIn"
-				transitionEnterTimeout={300}
-				transitionLeaveTimeout={300}
+				transitionEnterTimeout={TRANSITION_TIMEOUT}
+				transitionLeaveTimeout={TRANSITION_TIMEOUT}
 				>
 
 				{discussions ? (
