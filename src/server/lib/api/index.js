@@ -29,7 +29,7 @@ export function registerEndPoints (app, config, dataserver) {
 	endpoints(api, config, dataserver);
 
 	api.use((err, req, res, next) => {//eslint-disable-line no-unused-vars
-		console.error('API Error:\n\n%s', err.stack);
+		console.error('API Error:\n\n%s\n\n', err.stack || err.body || JSON.stringify(err));
 		res.status(500).json({stack: err.stack, message: err.message});
 		res.end();
 	});
