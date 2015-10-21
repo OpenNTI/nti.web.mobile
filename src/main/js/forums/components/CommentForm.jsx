@@ -3,7 +3,6 @@ import {Editor} from 'modeled-content';
 
 import Notice from 'common/components/Notice';
 import OkCancelButtons from 'common/components/OkCancelButtons';
-import PanelButton from 'common/components/PanelButton';
 import Loading from 'common/components/TinyLoader';
 
 import StoreEvents from 'common/mixins/StoreEvents';
