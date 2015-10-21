@@ -1,3 +1,5 @@
+require('babel/polyfill');//applies hooks into global
+
 (function () {
 	/*eslint no-var: 0*/
 	var Ap = Array.prototype;
