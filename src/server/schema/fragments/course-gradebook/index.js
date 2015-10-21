@@ -94,7 +94,7 @@ export const gradebookByAssignmentType = new GraphQLObjectType({
 			},
 			description: 'Self descriptive :P',
 			resolve (_, args) {
-				return connectionFromArray(_.shell.Items, args);
+				return connectionFromArray(_.shell.Items || [], args);
 			}
 		}
 	})
