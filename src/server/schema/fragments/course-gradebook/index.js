@@ -22,6 +22,23 @@ import {registerType, nodeInterface} from '../interface';
 
 import {entityType as EntityType} from '../entities';
 
+export const gradebookGradeType = new GraphQLObjectType({
+	name: 'gradebookGrade',
+	description: 'An assignment Grade',
+	fields: () => ({
+		id: globalIdField('Grade', x => x && x.getID()),
+
+		value: {
+			type: GraphQLString
+		},
+
+		letter: {
+			type: GraphQLString
+		}
+	}),
+	interfaces: [nodeInterface]
+});
+
 export const gradebookByAssignmentRowType = new GraphQLObjectType({
 	name: 'gradebookByAssignmentRow',
 	description: 'A row item for the gradebook for a given assignment.',
@@ -44,7 +61,7 @@ export const gradebookByAssignmentRowType = new GraphQLObjectType({
 		},
 
 		grade: {
-			type: GraphQLString//,
+			type: gradebookGradeType//,
 			// resolve: x => x.grade ...the field name lines up with the property name.
 		},
 
