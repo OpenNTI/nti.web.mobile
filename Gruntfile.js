@@ -51,8 +51,16 @@ module.exports = function (grunt) {
 
 
 		karma: {
-			unit: {
+			options: {
 				configFile: 'karma.conf.js'
+			},
+			unit: {
+
+			},
+			dev: {
+				reporters: 'dots',
+				singleRun: false,
+				autoWatch: true
 			}
 		},
 
@@ -196,7 +204,12 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('docs', ['react', 'jsdoc']);
 	grunt.registerTask('lint', ['eslint']);
-	grunt.registerTask('test', ['karma']);
+	grunt.registerTask('test', function (target) {
+		var t = target || 'continuous';
+		return grunt.task.run([
+			'karma:' + t
+		]);
+	});
 	grunt.registerTask('default', ['serve']);
 
 	grunt.registerTask('build', function (target) {
