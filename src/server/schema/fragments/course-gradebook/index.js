@@ -16,7 +16,7 @@ import {
 	globalIdField
 } from 'graphql-relay';
 
-import GraphQLTimeStamp from '../common-types/TimeStamp';
+import GraphQLTimeStamp from '../../common-types/TimeStamp';
 
 import {registerType, nodeInterface} from '../interface';
 
