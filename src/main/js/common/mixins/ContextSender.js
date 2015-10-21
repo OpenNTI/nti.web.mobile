@@ -30,9 +30,9 @@ export default {
 
 	[notify] () {
 		let children = this[Children] || {size: 0};
-		// console.debug('Wants to Notify', children.size, (this.constructor || {}).displayName);
-		if (children.size === 0) {
-			// console.debug('Notify', (this.constructor || {}).displayName, this.isMounted());
+		// console.debug('Wants to Notify', children.size, this.constructor.displayName);
+		if (children.size === 0 && this.isMounted()) {
+			// console.debug('Notify', this.constructor.displayName, this.isMounted());
 			let context = this[CONTEXT_DATA];
 			if (context) {
 				Actions.setPageSource(...context);
@@ -59,8 +59,10 @@ export default {
 	},
 
 
-	// componentWillReceiveProps () { this[notify](); },
-	componentDidUpdate () { this[notify](); },
+	componentDidUpdate () {
+		// console.debug('DidUp', this.constructor.displayName);
+		this[notify]();
+	},
 
 
 	componentWillUnmount () {
@@ -69,6 +71,7 @@ export default {
 			parent[UnregisterChild](this);
 		}
 		delete this[CONTEXT_DATA];
+		// console.debug('WillUnMount', this.constructor.displayName);
 	},
 
 
