@@ -54,7 +54,10 @@ module.exports = function (grunt) {
 			options: {
 				configFile: 'karma.conf.js'
 			},
-			continuous: {},
+			continuous: {
+				reporters: ['dots', 'junit'],
+				singleRun: true
+			},
 			unit: {},
 			dev: {
 				reporters: 'dots',
@@ -204,7 +207,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('docs', ['react', 'jsdoc']);
 	grunt.registerTask('lint', ['eslint']);
 	grunt.registerTask('test', function (target) {
-		var t = target || 'continuous';
+		var t = target || 'unit';
 		return grunt.task.run([
 			'karma:' + t
 		]);
