@@ -1,5 +1,5 @@
 
-fdescribe('Content Viewer', ()=> {
+describe('Content Viewer', ()=> {
 
 	describe('Router Behavior', () => {
 
