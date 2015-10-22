@@ -101,7 +101,7 @@ export default React.createClass({
 		for(let id of Object.keys(widgets)) {
 			let el = document.getElementById(id);
 			if (el) {
-				if (!React.unmountComponentAtNode(el)) {
+				if (!ReactDOM.unmountComponentAtNode(el)) {
 					console.warn('Widget was not unmounted: %s', id);
 				}
 				el.removeAttribute('mounted');
