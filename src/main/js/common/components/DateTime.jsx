@@ -30,7 +30,7 @@ export default React.createClass({
 			prefix: undefined,
 			suffix: undefined,
 			showToday: false,
-			todayText: 'Today'
+			todayText: undefined
 		};
 	},
 
@@ -64,13 +64,16 @@ export default React.createClass({
 			m.isSame = emptyFunction;//will return falsy
 		}
 
+		const suffixExplicitlySuppressed = suffix === false;
+		const hasCustomSuffix = !isEmpty(suffix);
+		const omitSuffix = suffixExplicitlySuppressed || hasCustomSuffix;
 
 		let text = relative || relativeTo ?
-					m.fromNow(isEmpty(suffix)) :
+					m.fromNow(omitSuffix) :
 					m.format(format);
 
-		if (showToday && m.isSame(new Date(), 'day')) {
-			text = todayText;
+		if ((showToday || !isEmpty(todayText)) && m.isSame(new Date(), 'day')) {
+			text = todayText || 'Today';
 		}
 
 		text = (prefix || '') + text + (suffix || '');
