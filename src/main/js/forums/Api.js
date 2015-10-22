@@ -5,8 +5,8 @@ import {getService} from 'common/utils';
 const DEFAULT_BATCH_SIZE = 20;
 
 export const DEFAULT_PAGING_PARAMS = {
-	sortOn: 'CreatedTime',
-	sortOrder: 'ascending',
+	sortOn: 'NewestDescendantCreatedTime',
+	sortOrder: 'descending',
 	filter: 'TopLevel',
 	batchStart: 0,
 	batchSize: DEFAULT_BATCH_SIZE
