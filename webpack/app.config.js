@@ -21,7 +21,7 @@ var scssIncludes =
 var root = path.resolve(__dirname, '..', 'src', 'main', 'js');
 var modules = path.resolve(__dirname, '..', 'node_modules');
 
-var appFontName = /(icomoon|(OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-)).*woff/i;
+var appFontName = /((icomoon.*(woff|ttf))|(OpenSans.*woff))/i;
 
 var commonLoaders = [
 	getCodeLoaderConfig(/\.js(x?)$/i),
