@@ -90,7 +90,7 @@ module.exports = function (config) {
 
 		exclude: [],
 		port: 8090,
-		logLevel: config.LOG_INFO,
+		logLevel: config.LOG_WARN,
 		colors: true,
 		autoWatch: false,
 		// Start these browsers, currently available:
