@@ -111,5 +111,8 @@
     "webpack-dev-server": "^1.8.2",
     "yargs": "^3.11.0",
     "zpad": "^0.5.0"
+  },
+  "devDependencies": {
+    "karma-junit-reporter": "^0.3.8"
   }
 }
