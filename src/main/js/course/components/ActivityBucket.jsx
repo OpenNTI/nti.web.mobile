@@ -6,6 +6,8 @@ import DateTime from 'common/components/DateTime';
 
 import Card from 'profile/components/Card';
 
+import selectWidgetOverride from './activity-widget-overrides';
+
 
 const startDateFormat = 'MMMM D';
 const MIN_COL_WIDTH = 250;
@@ -138,6 +140,12 @@ export default React.createClass({
 			});
 		}
 	},
+
+
+	selectWidget (item, index, props) {
+		return selectWidgetOverride(item, index, props);
+	},
+
 
 	render () {
 
