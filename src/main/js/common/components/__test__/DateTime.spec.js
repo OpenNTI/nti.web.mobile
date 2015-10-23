@@ -95,17 +95,21 @@ describe('DateTime', () => {
 
 
 	it('Base Cases: date, alternate format', () => {
+
+		const format = '[year:] YYYY';
+
 		const A = ReactDOM.render(
-			React.createElement(DateTime, {date, format: '[year:] YYYY'}),
+			React.createElement(DateTime, {date, format}),
 			newNode
 		);
 
 		const B = ReactDOM.render(
-			React.createElement(DateTime, {date, format: '[year:] YYYY'}),
+			React.createElement(DateTime, {date, format}),
 			container
 		);
 
 		expect(getText(A)).toMatch(/year: \d{4}/);
+		expect(getText(B)).toMatch(/year: \d{4}/);
 	});
 
 	it('Base Cases: relative date, no suffix', () => {
