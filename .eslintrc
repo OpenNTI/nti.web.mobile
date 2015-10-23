@@ -68,9 +68,9 @@
 		"wrap-iife": [2, "outside"],
 		"valid-jsdoc": 1,
 
-		"jsx-quotes": [1, "prefer-double"], 
+		"jsx-quotes": [1, "prefer-double"],
 
-		"react/display-name": 1,
+		"react/display-name": [1, { "acceptTranspilerName": true }],
 		"react/jsx-boolean-value": 1,
 		"react/jsx-no-undef": 1,
 		"react/jsx-sort-props": 0,
