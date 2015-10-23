@@ -43,15 +43,15 @@ describe('DateTime', () => {
 
 
 	it('Base Cases: date, relative to now', () => {
-		const date = moment().subtract(1, 'days');
+		const yesterday = moment().subtract(1, 'days');
 
 		const A = ReactDOM.render(
-			React.createElement(DateTime, {date, relative: true}),
+			React.createElement(DateTime, {date: yesterday, relative: true}),
 			newNode
 		);
 
 		const B = ReactDOM.render(
-			React.createElement(DateTime, {date, relative: true}),
+			React.createElement(DateTime, {date: yesterday, relative: true}),
 			container
 		);
 
@@ -113,15 +113,15 @@ describe('DateTime', () => {
 	});
 
 	it('Base Cases: relative date, no suffix', () => {
-		const date = moment().subtract(1, 'days');
+		const yesterday = moment().subtract(1, 'days');
 
 		const A = ReactDOM.render(
-			React.createElement(DateTime, {date, relative: true, suffix: false}),
+			React.createElement(DateTime, {date: yesterday, relative: true, suffix: false}),
 			newNode
 		);
 
 		const B = ReactDOM.render(
-			React.createElement(DateTime, {date, relative: true, suffix: false}),
+			React.createElement(DateTime, {date: yesterday, relative: true, suffix: false}),
 			container
 		);
 
@@ -130,15 +130,15 @@ describe('DateTime', () => {
 	});
 
 	it('Base Cases: relative date, custom suffix', () => {
-		const date = moment().subtract(1, 'days');
+		const yesterday = moment().subtract(1, 'days');
 
 		const A = ReactDOM.render(
-			React.createElement(DateTime, {date, relative: true, suffix: ' bananas'}),
+			React.createElement(DateTime, {date: yesterday, relative: true, suffix: ' bananas'}),
 			newNode
 		);
 
 		const B = ReactDOM.render(
-			React.createElement(DateTime, {date, relative: true, suffix: ' bananas'}),
+			React.createElement(DateTime, {date: yesterday, relative: true, suffix: ' bananas'}),
 			container
 		);
 
@@ -147,15 +147,15 @@ describe('DateTime', () => {
 	});
 
 	it('Base Cases: date, prefix', () => {
-		const date = moment().subtract(1, 'days');
+		const yesterday = moment().subtract(1, 'days');
 
 		const A = ReactDOM.render(
-			React.createElement(DateTime, {date, prefix: 'toast '}),
+			React.createElement(DateTime, {date: yesterday, prefix: 'toast '}),
 			newNode
 		);
 
 		const B = ReactDOM.render(
-			React.createElement(DateTime, {date, prefix: 'toast '}),
+			React.createElement(DateTime, {date: yesterday, prefix: 'toast '}),
 			container
 		);
 
@@ -165,15 +165,15 @@ describe('DateTime', () => {
 	});
 
 	it('Base Cases: date, showToday', () => {
-		const date = new Date();
+		const now = new Date();
 
 		const A = ReactDOM.render(
-			React.createElement(DateTime, {date, showToday: true}),
+			React.createElement(DateTime, {date: now, showToday: true}),
 			newNode
 		);
 
 		const B = ReactDOM.render(
-			React.createElement(DateTime, {date, showToday: true}),
+			React.createElement(DateTime, {date: now, showToday: true}),
 			container
 		);
 
@@ -182,16 +182,16 @@ describe('DateTime', () => {
 	});
 
 	it('Base Cases: date, showToday, custom message', () => {
-		const date = new Date();
+		const now = new Date();
 		const todayText = 'coffee';
 
 		const A = ReactDOM.render(
-			React.createElement(DateTime, {date, showToday: true, todayText}),
+			React.createElement(DateTime, {date: now, showToday: true, todayText}),
 			newNode
 		);
 
 		const B = ReactDOM.render(
-			React.createElement(DateTime, {date, showToday: true, todayText}),
+			React.createElement(DateTime, {date: now, showToday: true, todayText}),
 			container
 		);
 
