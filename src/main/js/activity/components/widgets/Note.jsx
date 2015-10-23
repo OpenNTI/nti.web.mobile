@@ -6,17 +6,17 @@ import RepliedTo from 'common/components/RepliedTo';
 import Detail from 'content/components/discussions/Detail';
 import Context from 'content/components/discussions/Context';
 
-import Mixin from './Mixin';
-
 import ContentIcon from './ContentIcon';
 import Breadcrumb from './Breadcrumb';
 
 export default React.createClass({
 	displayName: 'Note',
-	mixins: [Mixin],
 
 	statics: {
-		mimeType: /note$/i
+		handles (item) {
+			const {MimeType = ''} = item;
+			return /note$/i.test(MimeType) && !item.isReply();
+		}
 	},
 
 	propTypes: {
