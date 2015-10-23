@@ -57,10 +57,10 @@ class Queue {
 const GOV = new Queue();
 
 export default React.createClass({
-	displayName: 'ContentIcon',
+	displayName: 'content:Icon',
 
 	propTypes: {
-		src: React.PropTypes.string.isRequired
+		src: React.PropTypes.string
 	},
 
 	getInitialState () {
