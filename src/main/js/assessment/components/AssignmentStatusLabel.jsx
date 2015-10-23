@@ -224,7 +224,7 @@ export default React.createClass({
 
 		const submittable = assignment.canBeSubmitted();
 
-		const date = this.getCompletedDateTime() || assignment.getDueDate();
+		const date = this.getCompletedDateTime() || (available ? assignment.getDueDate() : assignment.getAvailableForSubmissionBeginning());
 
 		const text = complete
 			? (assignment.isNonSubmit() ? 'Graded' : 'Completed')
