@@ -4,7 +4,8 @@ var path = require('path');
 var webpack = require('webpack');
 var getCodeLoaderConfig = require('./webpack/getCodeLoaderConfig');
 
-var root = path.join(__dirname, 'src', 'main', 'js');
+var root = path.resolve(__dirname, 'src', 'main', 'js');
+var modules = path.resolve(__dirname, 'node_modules');
 
 var stat = {
 	version: false,
@@ -52,7 +53,7 @@ module.exports = function (config) {
 			},
 
 			resolve: {
-				root: root,
+				root: [root, modules],
 				extensions: ['', '.jsx', '.js', '.css', '.scss', '.html']
 			},
 
