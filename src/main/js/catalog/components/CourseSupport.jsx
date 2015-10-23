@@ -58,7 +58,7 @@ export default React.createClass({
 		let ref = link === MISSING ? void 0 : link;
 
 		return (
-			<div className="item link">
+			<div className="item link" key={index}>
 				<a href={ref} target="_blank">{label}</a>
 			</div>
 		);
