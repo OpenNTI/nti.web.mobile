@@ -202,14 +202,15 @@ describe('DateTime', () => {
 
 	it('todayText turns on showToday', () => {
 		const todayText = 'coffee';
+		const now = new Date();
 
 		const A = ReactDOM.render(
-			React.createElement(DateTime, {date, todayText}),
+			React.createElement(DateTime, {date: now, todayText}),
 			newNode
 		);
 
 		const B = ReactDOM.render(
-			React.createElement(DateTime, {date, todayText}),
+			React.createElement(DateTime, {date: now, todayText}),
 			container
 		);
 
