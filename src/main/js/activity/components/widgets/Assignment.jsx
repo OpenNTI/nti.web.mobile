@@ -30,8 +30,8 @@ export default React.createClass({
 		if (!item) {
 			return null;
 		}
-		let {assignmentsHistory} = this.context;
-		let history = assignmentsHistory.getItem(item.getID());
+
+		let history = this.getAssignmentHistoryItem(item.getID());
 
 		let href = this.objectLink(item);
 
