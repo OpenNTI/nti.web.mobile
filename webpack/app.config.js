@@ -144,6 +144,7 @@ exports = module.exports = [
 				getCodeLoaderConfig(/\.js(x?)$/i),
 				{ test: /\.json$/, loader: 'json' },
 				{ test: /\.html$/, loader: 'html?attrs=link:href' },
+				{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url' },
 				{ test: /\.(s?)css$/, loader: 'null' }
 			]
 		}
