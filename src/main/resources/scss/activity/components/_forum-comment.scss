@@ -1,5 +1,5 @@
-.activity-item.generalforumcomment,
-.activity-item.personalblogcomment {
+.activity-item .forum-comment {
+
 	.charms {
 		float: right;
 		position: relative;
@@ -8,8 +8,11 @@
 
 	.wrap {
 		position: relative;
+		// padding-left: 4rem;
 		padding-left: 3rem;
+		font-size: .75rem;
 		min-height: 4rem;
+		// margin-top: 1rem;
 		.avatar {
 			width: 2.5rem;
 			height: 2.5rem;
@@ -22,6 +25,9 @@
 			font-size: .7rem;
 			text-transform: uppercase;
 
+		}
+		.username {
+			font-weight: 600;
 		}
 	}
 }
