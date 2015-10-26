@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import ContentAcquirePrompt from 'catalog/components/ContentAquirePrompt';
+import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import ObjectLink from '../mixins/ObjectLink';
 
