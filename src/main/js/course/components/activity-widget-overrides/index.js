@@ -1,16 +1,19 @@
 import React from 'react';
 
+import DoNotRender from './DoNotRender';
 import Assignment from './Assignment';
 import Lesson from './Lesson';
 import ForumItem from './ForumItem';
 import Note from './Note';
 
 const KINDS = [
+	DoNotRender,
 	Assignment,
 	ForumItem,
 	Lesson,
 	Note
 ];
+
 
 export default function select (item, index, props = {}) {
 	let clazz;

@@ -23,7 +23,7 @@
 	}
 
 	.title {
-		.profile-card & {
+		.activity-item & {
 			padding-top: 1rem;
 		}
 	}
@@ -31,7 +31,7 @@
 	.name-wrapper {
 		position: relative;
 
-		.profile-card & {
+		.activity-item & {
 			font-size: 0.75rem;
 
 			& > .username::after {
@@ -69,7 +69,7 @@
 	padding: 0 0.75rem;
 
 	.modeled-content {
-		.profile-card & {
+		.activity-item & {
 			padding: 1rem 0;
 		}
 	}
