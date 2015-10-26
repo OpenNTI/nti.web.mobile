@@ -1,0 +1,47 @@
+a.breadcrumb {
+	display: block;
+}
+
+.breadcrumb-list {
+	-webkit-font-smoothing: auto;
+	list-style-type: none;
+	margin: 0 0.625rem;
+	color: $tertiary-grey;
+	text-transform: uppercase;
+	font-size: 0.5rem;
+	font-weight: 400;
+	display: flex;
+	flex-wrap: wrap;
+
+	.crumb {
+		position: relative;
+		display: inline-block;
+		flex: 1 1 1%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		&:not(:first-child):not(.last)::before,
+		&.next-to-last::after {
+			content: '/';
+			padding: 0 0.3em;
+		}
+
+		&.next-to-last::after {
+			position: absolute;
+			right: -2px;
+			top: 0;
+		}
+
+		&:first-child {
+			flex: 0 1 auto;
+		}
+
+		&.last {
+			flex: 0 0 100%;
+			display: block;
+			color: $primary-blue;
+		}
+	}
+}

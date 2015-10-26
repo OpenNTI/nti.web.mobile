@@ -72,6 +72,7 @@ export default React.createClass({
 	crumbText (breadcrumb) {
 		const prop = 'getPresentationProperties';
 		const last = breadcrumb.length - 1;
+		const nextToLast = breadcrumb.length - 2;
 		function getTitle (x) {
 			x = ((x || {})[prop] ? x[prop]() : x) || {};
 			return x.title || x.Title || x.displayName;
@@ -80,7 +81,9 @@ export default React.createClass({
 		return breadcrumb
 			.map( (current, index) => {
 				let title = getTitle(current);
-				return title ? <li key={index} className={cx('crumb', {last: index === last})}>{title}</li> : null;
+				return !title ? null : (
+					<li key={index} className={cx('crumb', {'next-to-last': index === nextToLast, 'last': index === last})}>{title}</li>
+				);
 			})
 
 			.filter(x => x); // filter out nulls
@@ -88,8 +91,8 @@ export default React.createClass({
 
 
 	render () {
-		let {state: {breadcrumb}, props: {item}} = this.state;
-		let href = this.objectLink(item);
+		const {state: {breadcrumb}, props: {item}} = this;
+		const href = this.objectLink(item);
 
 		if (!breadcrumb) {
 			return (
