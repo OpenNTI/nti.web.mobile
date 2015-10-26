@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import ContentAquirePrompt from 'catalog/components/ContentAquirePrompt';
+import ContentAcquirePrompt from 'catalog/components/ContentAquirePrompt';
 
 import ObjectLink from '../mixins/ObjectLink';
 
@@ -137,7 +137,7 @@ export default React.createClass({
 
 		if (showPrompt && isError && reason.statusCode === 403) {
 			return (
-				<ContentAquirePrompt relatedItem={item} data={reason}/>
+				<ContentAcquirePrompt relatedItem={item} data={reason}/>
 			);
 		}
 
