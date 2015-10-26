@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Breadcrumb from 'common/components/BreadcrumbPath';
-import RepliedTo from 'common/components/RepliedTo';
 import {isFlag} from 'common/utils';
 
 import Detail from 'content/components/discussions/Detail';
@@ -15,7 +14,7 @@ export default React.createClass({
 	statics: {
 		handles (item) {
 			const {MimeType = ''} = item;
-			return /note$/i.test(MimeType) && !item.isReply();
+			return /note$/i.test(MimeType);
 		}
 	},
 
@@ -35,9 +34,9 @@ export default React.createClass({
 			<div className={`activity discussion-${item.isReply() ? 'reply' : 'detail'}`}>
 				<div className="note heading">
 					<ContentIcon item={item} />
-					<Breadcrumb item={item} />
+					<Breadcrumb item={item} showPrompt={item.isReply()}/>
 					{item.isReply()
-						? (<RepliedTo item={item}/>)
+						? null
 						: isFlag('disable-context-in-activity') !== true && ( <Context item={item}/> )}
 				</div>
 				<Detail item={item} lite/>

@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
+import ContentAquirePrompt from 'catalog/components/ContentAquirePrompt';
+
 import ObjectLink from '../mixins/ObjectLink';
 
 import Loading from './TinyLoader';
@@ -28,7 +30,15 @@ export default React.createClass({
 		 *
 		 * @type {array}
 		 */
-		breadcrumb: React.PropTypes.array
+		breadcrumb: React.PropTypes.array,
+
+
+		/**
+		 * If specified, show the content-aquire-prompt on 403 instead of showing just the course name.
+		 *
+		 * @type {boolean}
+		 */
+		showPrompt: React.PropTypes.bool
 	},
 
 
@@ -52,7 +62,7 @@ export default React.createClass({
 
 
 	loadBreadcrumb (props = this.props) {
-		const {item, breadcrumb} = props;
+		const {item, breadcrumb, showPrompt} = props;
 
 		if (breadcrumb) {
 			return this.setState({breadcrumb});
@@ -62,8 +72,10 @@ export default React.createClass({
 
 			.catch(error => {
 
-				if (error && error.statusCode === 403 && error.Items) {
-					return error.Items;
+				if (error && error.statusCode === 403) {
+					if (!showPrompt && error.Items) {
+						return [error.Items];
+					}
 				}
 
 				return Promise.reject(error);
@@ -81,8 +93,9 @@ export default React.createClass({
 	},
 
 
-	fallbackText (/*item*/) {
-		return '';
+	fallbackText (item, error) {
+		console.error(item, error);
+		return 'Error';
 	},
 
 
@@ -97,9 +110,12 @@ export default React.createClass({
 
 		return breadcrumb
 			.map( (current, index) => {
-				let title = getTitle(current);
+				const title = getTitle(current);
+				const css = cx('crumb', {'next-to-last': index === nextToLast, 'last': index === last});
 				return !title ? null : (
-					<li key={index} className={cx('crumb', {'next-to-last': index === nextToLast, 'last': index === last})}>{title}</li>
+					<li key={index} className={css}>
+						<span>{title}</span>
+					</li>
 				);
 			})
 
@@ -108,12 +124,20 @@ export default React.createClass({
 
 
 	render () {
-		const {state: {breadcrumb}, props: {item}} = this;
+		const {state: {breadcrumb}, props: {item, showPrompt}} = this;
 		const href = this.objectLink(item);
 
 		if (!breadcrumb) {
 			return (
 				<Loading/>
+			);
+		}
+
+		const {reason = {}, isError} = breadcrumb;
+
+		if (showPrompt && isError && reason.statusCode === 403) {
+			return (
+				<ContentAquirePrompt relatedItem={item} data={reason}/>
 			);
 		}
 
@@ -123,7 +147,7 @@ export default React.createClass({
 					<ul className="breadcrumb-list">
 						{breadcrumb.isError ? (
 
-							<li>{this.fallbackText(item)}</li>
+							<li>{this.fallbackText(item, breadcrumb)}</li>
 
 						) : (
 

@@ -82,9 +82,7 @@ export default React.createClass({
 		) : error ? (
 			<NotFound/>
 		) : prompt ? (
-			<div className="missing-content">
-				<ContentAquirePrompt data={prompt} relatedItem={object}/>
-			</div>
+			<ContentAquirePrompt data={prompt} relatedItem={object}/>
 		) : (
 			<Loading />
 		);

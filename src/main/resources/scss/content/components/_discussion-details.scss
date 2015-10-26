@@ -28,6 +28,20 @@
 		}
 	}
 
+	time {
+		color: $tertiary-grey;
+		text-transform: uppercase;
+		font-weight: 600;
+		font-size: 0.625rem;
+	}
+
+	.reply-name-wrapper {
+		position: relative;
+		.activity-item & {
+			font-size: 0.75rem;
+		}
+	}
+
 	.name-wrapper {
 		position: relative;
 
@@ -246,6 +260,7 @@
 		position: relative;
 
 		time {
+			text-transform: uppercase;
 			vertical-align: middle;
 			color: $tertiary-grey;
 			float: right;

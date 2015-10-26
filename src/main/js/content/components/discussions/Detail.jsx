@@ -5,6 +5,7 @@ import Conditional from 'common/components/Conditional';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 import LuckyCharms from 'common/components/LuckyCharms';
+import RepliedTo from 'common/components/RepliedTo';
 import SharedWithList from 'common/components/SharedWithList';
 
 import {Panel as Body} from 'modeled-content';
@@ -40,25 +41,32 @@ export default React.createClass({
 
 
 	render () {
-		let {replying} = this.state;
-		let {item, lite} = this.props;
-		let {body, creator, title} = item;
-		let date = item.getCreatedTime();
+		const {state: {replying}, props: {item, lite}} = this;
+		const {body, creator, title} = item;
+		const date = item.getCreatedTime();
+		const isReply = item.isReply();
 
 
 		return (
-			<div className={`discussion-${item.isReply() ? 'reply' : 'detail'}`}>
+			<div className={`discussion-${isReply ? 'reply' : 'detail'}`}>
 				<div className="root">
 					<Conditional condition={!item.placeholder} className="author-info">
 						<Avatar entity={creator}/>
 						<div className="meta">
 							<LuckyCharms item={item}/>
-							<h1 className="title">{title}</h1>
-							<div className="name-wrapper">
-								<DisplayName entity={creator} localeKey={lite ? void 0 : 'CONTENT.DISCUSSIONS.postedBy'}/>
-								<DateTime date={date} relative/>
-								<SharedWithList item={item}/>
-							</div>
+							{isReply ? null : ( <h1 className="title">{title}</h1> )}
+							{isReply ? (
+								<div className="reply-name-wrapper">
+									<RepliedTo item={item}/>
+									<DateTime date={date} relative/>
+								</div>
+							) : (
+								<div className="name-wrapper">
+									<DisplayName entity={creator} localeKey={lite ? void 0 : 'CONTENT.DISCUSSIONS.postedBy'}/>
+									<DateTime date={date} relative/>
+									<SharedWithList item={item}/>
+								</div>
+							)}
 						</div>
 					</Conditional>
 

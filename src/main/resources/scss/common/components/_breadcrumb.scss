@@ -15,30 +15,33 @@ a.breadcrumb {
 
 	.crumb {
 		position: relative;
-		display: inline-block;
-		flex: 0 1 auto;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+		display: inline-flex;
+		flex-wrap: nowrap;
 
-		&:not(:first-child):not(.last)::before,
-		&.next-to-last::after {
+		&:not(.last)::after {
+			flex: 0 0 auto;
 			content: '/';
 			padding: 0 0.3em;
 		}
 
-		&.next-to-last{
-			padding-right: 0.5rem;
-			&::after {
-				position: absolute;
-				right: 0;
-				top: 0;
-			}
+		&, span {
+			flex: 0 1 auto;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 
+		// &.next-to-last{
+		// 	padding-right: 0.5rem;
+		// 	&::after {
+		// 		position: absolute;
+		// 		right: 0;
+		// 		top: 0;
+		// 	}
+		// }
+
 		&:first-child {
-			flex: 0 0.5 auto;
+			flex: 0 1 auto;
 		}
 
 		&.last {

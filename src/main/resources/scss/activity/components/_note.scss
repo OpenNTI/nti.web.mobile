@@ -64,6 +64,10 @@
 				margin-left: -9px;
 			}
 		}
+
+		.discussion-detail {
+			padding: 0;
+		}
 	}
 
 	nti\:content {
@@ -76,8 +80,8 @@
 		border: none;
 		margin: 0;
 
-		.content-aquire-prompt {
-			margin-left: -65px;
+		.missing-content {
+			margin: 1rem 0;
 		}
 
 		.breadcrumb {
@@ -106,7 +110,7 @@
 
 		.charms {top: 0;}
 		.author-info {
-			.avatar { margin: 1rem 0 0 0.25rem; }
+			.avatar { margin: 0.5rem 0 0 0.25rem; }
 			.title {
 				padding-top: 0.5rem;
 				margin: 0;
@@ -116,6 +120,7 @@
 			margin: {
 				top: 0.5rem;
 				bottom: 0.5rem;
+				left: 0;
 			}
 		}
 	}

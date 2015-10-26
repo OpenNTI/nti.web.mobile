@@ -61,7 +61,7 @@ export default React.createClass({
 		let {length} = items;
 
 		return (
-			<div className="grid-container content-aquire-prompt">
+			<div className="missing-content content-aquire-prompt">
 				{length === 1 ? (
 					<div>
 						<h3>You do not have access to this course.</h3>
@@ -73,7 +73,7 @@ export default React.createClass({
 						{length > 0 && ( <h4>Enroll in one of these courses to gain access:</h4> )}
 					</div>
 				)}
-				<ul className="small-block-grid-1 catalog-entries">
+				<ul className="catalog-entries">
 					{items.map(x => (
 						<Entry item={x} key={x.getID()}/>
 					))}

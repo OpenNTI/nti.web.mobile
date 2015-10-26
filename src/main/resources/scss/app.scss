@@ -67,7 +67,12 @@
 		padding: 0;
 		box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.1);
 	}
+
+	.catalog-item .action {
+		right: 1rem;
+	}
 }
+
 body {
 	//iOS8 fails to fully transition from light to dark on body when the content of the page is not full or overflowing.
 	//So we're not going to transition this value. :(
