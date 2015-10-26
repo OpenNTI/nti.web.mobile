@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import {getModel} from 'nti.lib.interfaces';
 
-import ContentAquirePrompt from 'catalog/components/ContentAquirePrompt';
+import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import Loading from 'common/components/TinyLoader';
 // import Err from 'common/components/Error';
@@ -203,7 +203,7 @@ export default React.createClass({
 			? ( <div {...props}><Loading/></div> )
 			: error
 				? (is403(error)
-					? ( <ContentAquirePrompt {...props} relatedItem={item} data={error}/> )
+					? ( <ContentAcquirePrompt {...props} relatedItem={item} data={error}/> )
 					: ( null )
 				)
 				: (typeof context === 'string')

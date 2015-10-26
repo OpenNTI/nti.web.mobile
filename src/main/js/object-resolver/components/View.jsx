@@ -4,7 +4,7 @@ import path from 'path';
 
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import ContentAquirePrompt from 'catalog/components/ContentAquirePrompt';
+import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import Loading from 'common/components/Loading';
 
@@ -62,7 +62,7 @@ export default React.createClass({
 			.then(location => this.setState({location}))
 			.catch(error => {
 
-				if (ContentAquirePrompt.shouldPrompt(error)) {
+				if (ContentAcquirePrompt.shouldPrompt(error)) {
 					return this.setState({prompt: error});
 				}
 
@@ -82,7 +82,7 @@ export default React.createClass({
 		) : error ? (
 			<NotFound/>
 		) : prompt ? (
-			<ContentAquirePrompt data={prompt} relatedItem={object}/>
+			<ContentAcquirePrompt data={prompt} relatedItem={object}/>
 		) : (
 			<Loading />
 		);

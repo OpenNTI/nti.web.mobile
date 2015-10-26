@@ -5,7 +5,7 @@ import {getService} from 'common/utils';
 import Entry from './Entry';
 
 export default React.createClass({
-	displayName: 'ContentAquirePrompt',
+	displayName: 'ContentAcquirePrompt',
 
 
 	statics: {

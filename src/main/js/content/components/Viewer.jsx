@@ -15,7 +15,7 @@ import ContextSender from 'common/mixins/ContextSender';
 
 import Pager from 'common/components/Pager';
 
-import ContentAquirePrompt from 'catalog/components/ContentAquirePrompt';
+import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import Store from '../Store';
 import {loadPage, resolveNewContext} from '../Actions';
@@ -259,8 +259,8 @@ export default React.createClass({
 			return (<Loading/>);
 		}
 		else if (error) {
-			if (ContentAquirePrompt.shouldPrompt(error)) {
-				return ( <ContentAquirePrompt data={error}/> );
+			if (ContentAcquirePrompt.shouldPrompt(error)) {
+				return ( <ContentAcquirePrompt data={error}/> );
 			}
 
 			return ( <Err error={error}/> );
