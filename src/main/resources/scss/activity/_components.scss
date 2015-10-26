@@ -1,3 +1,4 @@
+@import "action-links";
 @import "components/chat";
 @import "components/forum-comment";
 @import "components/forum-post";
@@ -86,7 +87,7 @@ ul.activity {
 
 	.body {
 		position: relative;
-		padding: 1rem 0;
+		padding: 1rem 0 0;
 	}
 
 	.footer {
