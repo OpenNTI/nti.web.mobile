@@ -17,7 +17,18 @@ export default React.createClass({
 	mixins: [ObjectLink],
 
 	propTypes: {
-		item: React.PropTypes.any.isRequired
+		item: React.PropTypes.any.isRequired,
+
+		/**
+		 * Force the breadcrumb to be whatever you want with this
+		 * prop preventing it from loading it from the LibraryPath call.
+		 *
+		 * You can pass an array of strings (display) or
+		 * objects with `title`, `Title` or `displayName` properties.
+		 *
+		 * @type {array}
+		 */
+		breadcrumb: React.PropTypes.array
 	},
 
 
@@ -29,18 +40,24 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		this.loadBreadcrumb(this.props.item);
+		this.loadBreadcrumb();
 	},
 
 
 	componentWillReceiveProps (nextProps) {
 		if (this.props.item !== nextProps.item) {
-			this.loadBreadcrumb(nextProps.item);
+			this.loadBreadcrumb(nextProps);
 		}
 	},
 
 
-	loadBreadcrumb (item) {
+	loadBreadcrumb (props = this.props) {
+		const {item, breadcrumb} = props;
+
+		if (breadcrumb) {
+			return this.setState({breadcrumb});
+		}
+
 		getBreadcrumb(item)
 
 			.catch(error => {
@@ -52,10 +69,10 @@ export default React.createClass({
 				return Promise.reject(error);
 			})
 
-			.then(breadcrumb =>
+			.then(data =>
 				this.setState({
-					breadcrumb: breadcrumb.length > 0
-						? breadcrumb[0]
+					breadcrumb: data.length > 0
+						? data[0]
 						: { isError: true, reason: 'breadcrumb has zero length'}}))
 
 			.catch(reason =>
@@ -74,7 +91,7 @@ export default React.createClass({
 		const last = breadcrumb.length - 1;
 		const nextToLast = breadcrumb.length - 2;
 		function getTitle (x) {
-			x = ((x || {})[prop] ? x[prop]() : x) || {};
+			x = ((x || {})[prop] ? x[prop]() : x) || {title: typeof x === 'string' ? x : void x};
 			return x.title || x.Title || x.displayName;
 		}
 
