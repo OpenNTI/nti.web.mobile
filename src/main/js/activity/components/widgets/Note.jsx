@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {isFlag} from 'common/utils';
+import Breadcrumb from 'common/components/BreadcrumbPath';
 import RepliedTo from 'common/components/RepliedTo';
+import {isFlag} from 'common/utils';
 
 import Detail from 'content/components/discussions/Detail';
 import Context from 'content/components/discussions/Context';
 
 import ContentIcon from './ContentIcon';
-import Breadcrumb from './Breadcrumb';
 
 export default React.createClass({
 	displayName: 'Note',

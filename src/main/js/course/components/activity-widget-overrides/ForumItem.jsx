@@ -1,17 +1,18 @@
 import React from 'react';
 
 export default React.createClass({
-	displayName: 'course:activity:Note',
+	displayName: 'ForumItem',
 
 	statics: {
 		handles (item) {
-			return /note$/i.test(item.MimeType);
+			const {MimeType = ''} = item;
+			return /topic$/i.test(MimeType);
 		}
 	},
 
 	render () {
 		return (
-			<div>Course Activity Note</div>
+			<div />
 		);
 	}
 });

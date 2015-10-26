@@ -1,8 +1,9 @@
 import React from 'react';
-import Mixin from './Mixin';
-import HighlightGroup from './HighlightGroup';
 import DisplayName from 'common/components/DisplayName';
 import DateTime from 'common/components/DateTime';
+
+import HighlightGroup from './HighlightGroup';
+import Mixin from './Mixin';
 
 export default React.createClass({
 	displayName: 'HighlightContainer',

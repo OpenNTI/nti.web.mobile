@@ -1,7 +1,7 @@
 import React from 'react';
+import cx from 'classnames';
 
 import Mixin from './Mixin';
-import cx from 'classnames';
 
 export default React.createClass({
 	displayName: 'Highlight',

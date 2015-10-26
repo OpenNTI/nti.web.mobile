@@ -1,6 +1,8 @@
-import BasePathAware from 'common/mixins/BasePath';
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import path from 'path';
+
+import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+
+import BasePathAware from './BasePath';
 
 export default {
 

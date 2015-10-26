@@ -1,13 +1,9 @@
 import React from 'react';
+import cx from 'classnames';
 
-import Loading from 'common/components/TinyLoader';
+import ObjectLink from '../mixins/ObjectLink';
 
-// import {scoped} from 'common/locale';
-
-import ObjectLink from './ObjectLink';
-
-// let t = scoped('PROFILE.ACTIVITY.TITLES');
-
+import Loading from './TinyLoader';
 
 function getBreadcrumb (item) {
 	return (item || {}).getContextPath
@@ -18,12 +14,12 @@ function getBreadcrumb (item) {
 
 export default React.createClass({
 	displayName: 'Breadcrumb',
+	mixins: [ObjectLink],
 
 	propTypes: {
 		item: React.PropTypes.any.isRequired
 	},
 
-	mixins: [ObjectLink],
 
 	getInitialState () {
 		return {
@@ -35,6 +31,7 @@ export default React.createClass({
 	componentDidMount () {
 		this.loadBreadcrumb(this.props.item);
 	},
+
 
 	componentWillReceiveProps (nextProps) {
 		if (this.props.item !== nextProps.item) {
@@ -74,6 +71,7 @@ export default React.createClass({
 
 	crumbText (breadcrumb) {
 		const prop = 'getPresentationProperties';
+		const last = breadcrumb.length - 1;
 		function getTitle (x) {
 			x = ((x || {})[prop] ? x[prop]() : x) || {};
 			return x.title || x.Title || x.displayName;
@@ -82,7 +80,7 @@ export default React.createClass({
 		return breadcrumb
 			.map( (current, index) => {
 				let title = getTitle(current);
-				return title ? <li key={index} className="crumb">{title}</li> : null;
+				return title ? <li key={index} className={cx('crumb', {last: index === last})}>{title}</li> : null;
 			})
 
 			.filter(x => x); // filter out nulls
@@ -90,17 +88,22 @@ export default React.createClass({
 
 
 	render () {
-		let {breadcrumb} = this.state;
-		let bc = <Loading />;
-		let href = this.objectLink(this.props.item);
+		let {state: {breadcrumb}, props: {item}} = this.state;
+		let href = this.objectLink(item);
 
-		if (breadcrumb) {
-			bc = (
+		if (!breadcrumb) {
+			return (
+				<Loading/>
+			);
+		}
+
+		return (
+			<div>
 				<a href={href} className="breadcrumb">
 					<ul className="breadcrumb-list">
 						{breadcrumb.isError ? (
 
-							<li>{this.fallbackText(this.props.item)}</li>
+							<li>{this.fallbackText(item)}</li>
 
 						) : (
 
@@ -109,12 +112,7 @@ export default React.createClass({
 						)}
 					</ul>
 				</a>
-			);
-		}
-
-
-		return (
-			<div>{bc}</div>
+			</div>
 		);
 	}
 });

@@ -1,8 +1,14 @@
 import React from 'react';
 
+import Assignment from './Assignment';
+import Lesson from './Lesson';
+import ForumItem from './ForumItem';
 import Note from './Note';
 
 const KINDS = [
+	Assignment,
+	ForumItem,
+	Lesson,
 	Note
 ];
 

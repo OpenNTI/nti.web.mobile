@@ -1,7 +1,8 @@
 import React from 'react';
-import DisplayName from 'common/components/DisplayName';
-import DateTime from 'common/components/DateTime';
+
 import Avatar from 'common/components/Avatar';
+import DateTime from 'common/components/DateTime';
+import DisplayName from 'common/components/DisplayName';
 
 export default React.createClass({
 	displayName: 'Joined',

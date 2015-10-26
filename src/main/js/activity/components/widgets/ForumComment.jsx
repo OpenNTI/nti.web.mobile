@@ -1,10 +1,12 @@
 import React from 'react';
+
 import {Panel as ModeledContent} from 'modeled-content';
-import Breadcrumb from './Breadcrumb';
-import LuckyCharms from 'common/components/LuckyCharms';
+
 import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
+import Breadcrumb from 'common/components/BreadcrumbPath';
 import DateTime from 'common/components/DateTime';
+import DisplayName from 'common/components/DisplayName';
+import LuckyCharms from 'common/components/LuckyCharms';
 
 import Mixin from './Mixin';
 

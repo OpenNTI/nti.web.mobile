@@ -1,15 +1,16 @@
 import React from 'react';
-import DateTime from 'common/components/DateTime';
 
-import ObjectLink from './ObjectLink';
-import Mixin from './Mixin';
+import DateTime from 'common/components/DateTime';
+import ObjectLink from 'common/mixins/ObjectLink';
 
 export default React.createClass({
 	displayName: 'CourseOutlineContentNode',
-	mixins: [Mixin, ObjectLink],
+	mixins: [ObjectLink],
 
 	statics: {
-		mimeType: /courseoutlinecontentnode|courseoutlinecalendarnode/i
+		handles (item) {
+			return /courseoutline(content|calendar)node/i.test(item.MimeType);
+		}
 	},
 
 	propTypes: {

@@ -1,14 +1,17 @@
 import React from 'react';
-import TopicHeadline from 'forums/components/TopicHeadline';
-import Breadcrumb from './Breadcrumb';
-// import ReportLink from 'forums/components/ReportLink';
-import ActionLinks, {ActionLinkConstants} from 'forums/components/ActionLinks';
-import ObjectLink from './ObjectLink';
-import LuckyCharms from 'common/components/LuckyCharms';
-import PostEditor from '../PostEditor';
-import Loading from 'common/components/TinyLoader';
-import {areYouSure} from 'prompts';
+
 import t from 'common/locale';
+import ObjectLink from 'common/mixins/ObjectLink';
+import LuckyCharms from 'common/components/LuckyCharms';
+import Loading from 'common/components/TinyLoader';
+import Breadcrumb from 'common/components/BreadcrumbPath';
+
+import TopicHeadline from 'forums/components/TopicHeadline';
+import ActionLinks, {ActionLinkConstants} from 'forums/components/ActionLinks';
+
+import {areYouSure} from 'prompts';
+
+import PostEditor from '../PostEditor';
 
 import Mixin from './Mixin';
 

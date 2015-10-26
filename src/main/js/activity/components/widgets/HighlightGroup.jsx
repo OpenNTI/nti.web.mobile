@@ -1,7 +1,9 @@
 import React from 'react';
-import Highlight from './Highlight';
-import Breadcrumb from './Breadcrumb';
+
+import Breadcrumb from 'common/components/BreadcrumbPath';
+
 import ContentIcon from './ContentIcon';
+import Highlight from './Highlight';
 
 export default React.createClass({
 	displayName: 'HighlightGroup',
