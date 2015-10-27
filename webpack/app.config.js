@@ -7,8 +7,6 @@ var path = require('path');
 
 var root = path.resolve(__dirname, '..', 'src', 'main', 'js');
 var modules = path.resolve(__dirname, '..', 'node_modules');
-var scssIncludes =
-	'includePaths[]=' + (path.resolve(__dirname, '../src/main/resources/vendor/foundation/scss'));
 
 var getCodeLoaderConfig = require('./getCodeLoaderConfig');
 var gitRevision = require('../src/server/lib/git-revision');
@@ -80,8 +78,8 @@ exports = module.exports = [
 					'style-loader',
 					(global.distribution
 						? 'css?-minimize!autoprefixer!sass?'
-						: 'css?sourceMap!autoprefixer!sass?sourceMap&'
-					) + scssIncludes )
+						: 'css?sourceMap!autoprefixer!sass?sourceMap'
+					))
 				}
 			]
 		},

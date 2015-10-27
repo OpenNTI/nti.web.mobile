@@ -57,7 +57,7 @@ for (var k in w) {
 				{ test: /\.(ico|gif|png|jpg|svg|woff|eot|ttf)$/, loader: 'url?limit=100000&name=[hash]-[name].[ext]&mimeType=image/[ext]' },
 				{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
 					'style-loader',
-					'css?-minimize!autoprefixer!sass?')
+					'css?-minimize!autoprefixer!sass')
 				}
 			]
 		},

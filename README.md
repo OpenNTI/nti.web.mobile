@@ -12,7 +12,6 @@ You'll need to have the following items installed before continuing.
           echo v0.10.38 > ~/.nvmrc
           ```
   * [Grunt](http://gruntjs.com): Run `npm install -g grunt-cli`
-  * [Bower](http://bower.io): Run `npm install -g bower`
   * [Karma](http://karma-runner.github.io): Run `npm install -g karma-cli`
 
 Optional:
@@ -25,7 +24,7 @@ Optional:
 ```bash
 git clone ssh://repos.nextthought.com/nti.web.mobile
 cd nti.web.mobile
-npm install && bower install
+npm install
 ```
 
 While you're working on this project, run:

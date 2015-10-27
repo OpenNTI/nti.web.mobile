@@ -1,23 +1,27 @@
 import 'babel/polyfill';//applies hooks into global
 
-//TODO: find a way to get rid of this dirty import. All deps should come
-// from node_modules, so switch to this in the future:
-//  https://www.npmjs.com/package/modernizr
-// Its not a simple swap...otherwise I would have done that.
-import 'script!../resources/vendor/modernizr/modernizr.js';//injects a <script> into the html
-
-//After bundle CSS is injected, lets move this back down so it overrides the bundle.
-// This is the Browser's entry point, we can assume the existence of "document".
-let site = document.getElementById('site-override-styles');
-if (site) { site.parentNode.appendChild(site); }
-
 import path from 'path';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Relay from 'react-relay';
+import CSS from 'fbjs/lib/CSSCore';
 
+import isTouch from 'nti.lib.interfaces/utils/is-touch-device';
 import OrientationHandler from 'common/utils/orientation';
 import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'common/utils';
+
+import AppView from './AppView';
+
+const RootNode = document.querySelector('html');
+CSS.removeClass(RootNode, 'no-js');
+CSS.addClass(RootNode, 'js');
+CSS.addClass(RootNode, isTouch ? 'touch' : 'no-touch');
+
+//After bundle CSS is injected, lets move this back down so it overrides the bundle.
+// This is the Browser's entry point, we can assume the existence of "document".
+const siteCSS = document.getElementById('site-override-styles');
+if (siteCSS) { siteCSS.parentNode.appendChild(siteCSS); }
+
 overrideConfigAndForceCurrentHost();
 
 console.debug('Client is using host: %s', getServerURI());
@@ -27,8 +31,6 @@ const basePath = (global.$AppConfig || {}).basepath || '/';
 Relay.injectNetworkLayer(
 	new Relay.DefaultNetworkLayer(path.join(basePath, '/api/graphql')));
 
-
-import AppView from './AppView';
 
 const APP = ReactDOM.render(
 	React.createElement(AppView, {

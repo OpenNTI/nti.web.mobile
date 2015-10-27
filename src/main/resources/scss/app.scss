@@ -3,8 +3,8 @@
 
 @import "settings";
 @import "variables"; // we override some foundation settings so this has to come between settings and foundation.
-@import "normalize";
-@import "foundation";
+@import "~normalize.css";
+@import "~foundation-sites/scss/foundation";
 
 @import "base-brand";
 
