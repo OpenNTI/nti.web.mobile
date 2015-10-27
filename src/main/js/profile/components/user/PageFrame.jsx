@@ -1,9 +1,9 @@
 import React from 'react';
-
+import {Link} from 'react-router-component';
 import FollowButton from './FollowButton';
 // import EditButton from './EditButton';
 
-import ActiveLink from 'common/components/ActiveLink';
+import ActiveState from 'common/components/ActiveState';
 import DisplayName from 'common/components/DisplayName';
 import Gradient from 'common/components/GradientBackground';
 
@@ -50,9 +50,9 @@ export default React.createClass({
 					<div className="profile">
 						<Head {...this.props}>
 							<ul className="profile-nav">
-								<li className="profile-nav-item"><ActiveLink href="/about/">About</ActiveLink></li>
-								<li className="profile-nav-item"><ActiveLink href="/activity/">Activity</ActiveLink></li>
-								<li className="profile-nav-item"><ActiveLink href="/memberships/">Memberships</ActiveLink></li>
+								<li className="profile-nav-item"><ActiveState hasChildren tag={Link} href="/about/">About</ActiveState></li>
+								<li className="profile-nav-item"><ActiveState tag={Link} href="/activity/">Activity</ActiveState></li>
+								<li className="profile-nav-item"><ActiveState tag={Link} href="/memberships/">Memberships</ActiveState></li>
 								{/*<li className="profile-nav-item"><ActiveLink href="/achievements/">Achievements</ActiveLink></li>*/}
 							</ul>
 						</Head>
