@@ -6,10 +6,14 @@ You'll need to have the following items installed before continuing.
 
   * [Node.js](http://nodejs.org):
     * Use [nvm](https://github.com/creationix/nvm) to install NodeJS.
-        * `nvm install v0.10.38`
+        * `nvm install v0.12.7`
         * Setup default node:
           ```bash
-          echo v0.10.38 > ~/.nvmrc
+          echo v0.12.7 > ~/.nvmrc
+          ```
+          or
+          ```
+          nvm alias default 0.12.7
           ```
   * [Grunt](http://gruntjs.com): Run `npm install -g grunt-cli`
   * [Karma](http://karma-runner.github.io): Run `npm install -g karma-cli`
@@ -92,13 +96,40 @@ npm link {dependency-name}
 
 | dependency-name        | repository:source                                        |
 |------------------------|----------------------------------------------------------|
-| nti.lib.interfaces     | ssh://repos.nextthought.com/nti.lib.interfaces           |
 | nti.lib.anchors        | ssh://repos.nextthought.com/nti.lib.anchorjs             |
 | nti.lib.dom            | ssh://repos.nextthought.com/nti.lib.domjs                |
+| nti.lib.interfaces     | ssh://repos.nextthought.com/nti.lib.interfaces           |
+| nti.lib.ranges         | ssh://repos.nextthought.com/nti.lib.ranges               |
+| nti.lib.whiteboardjs   | ssh://repos.nextthought.com/nti.lib.whiteboardjs         |
 | react-editor-component | git@github.com:NextThought/react-editor-component.git    |
 
 
 --
 
-### Sublime Text Snippets
-If you're using Sublime Text you can install the [NextThought snippets package](https://github.com/themaxx/nt-sublime-snippets) via package control.
+### Text Editor
+
+[Atom](https://atom.io/) is the main editor editor used. Built on open web tech, for web tech :)
+
+You can use the package manger either in app on on the command line with `apm` (like `npm`)
+
+#### These packages are a **must**:
+ * `linter` - shows errors in files as you type/save.
+ * `linter-eslint` - linter plugin to run eslint on files.
+
+#### These are helpfull:
+ * `project-quick-open` - quickly open/switch to projects.
+ * `merge-conflicts` - a merge conflict ui
+ * `docblockr` - auto formats jsdoc comment blocks. as well as sippets.
+ * `autocomplete-modules` - adds autocomplete suggestions your resolvable packages.
+ * `git-plus` - an awesome git command pallet (branch, checkout/revert, commit, push, pull, etc)
+ * `git-history` - search git history and show the diff.
+ * `language-gitignore` - makes commit messages colored
+ * `react` - Adds code snippets and syntax coloring for JSX.
+
+#### These are fun:
+ * `autocomplete-emojis` - self explanatory
+ * `file-icons` - makes file icons code-type specific.
+
+[Sublime Text](http://www.sublimetext.com/) is another text editor available. As well as [TextMate](http://macromates.com/download).
+
+As long as you can have a LIVE eslint plugin with your editor, you should be good to go. If you prefer an editor that can't do that, you need to run `grunt lint` pretty regularly.
