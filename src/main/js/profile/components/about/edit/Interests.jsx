@@ -15,7 +15,7 @@ export default React.createClass({
 	},
 
 	handleKeyDown (e) {
-		if (e.which === COMMA) {
+		if (e.keyCode === COMMA) {
 			e.preventDefault();
 			e.stopPropagation();
 			this.maybeAddItem(e);
