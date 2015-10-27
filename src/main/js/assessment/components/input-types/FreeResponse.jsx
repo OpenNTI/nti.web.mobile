@@ -35,7 +35,7 @@ export default React.createClass({
 
 
 	getValue () {
-		const {input: value} = this.refs || {};
+		const {input: {value}} = this.refs || {};
 
 		return isEmpty(value) ? null : value;
 	}
