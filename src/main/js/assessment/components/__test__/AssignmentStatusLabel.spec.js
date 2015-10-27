@@ -40,10 +40,11 @@ fdescribe('AssignmentStatusLabel', () => {
 			container
 		);
 
-		expect(getText(A)).toEqual('Due(OvertimeOverdue)Friday, August 28');
-		expect(getText(B)).toEqual('Due(OvertimeOverdue)Friday, August 28');
+		expect(getText(A)).toEqual('Due(Overdue)Friday, August 28');
+		expect(getText(B)).toEqual('Due(Overdue)Friday, August 28');
 
 	});
+
 
 	it('should contain an .info-part child element with an \'overdue\' class', () => {
 		const A = ReactDOM.render(
@@ -61,6 +62,23 @@ fdescribe('AssignmentStatusLabel', () => {
 
 		infoPart = ReactDOM.findDOMNode(B).querySelector('.info-part');
 		expect(infoPart.classList.contains('overdue')).toBe(true);
+
+	});
+
+
+	it('Base Cases: should show time with date', () => {
+		const A = ReactDOM.render(
+			React.createElement(AssignmentStatusLabel, {assignment, showTimeWithDate: true}),
+			newNode
+		);
+
+		const B = ReactDOM.render(
+			React.createElement(AssignmentStatusLabel, {assignment, showTimeWithDate: true}),
+			container
+		);
+
+		expect(getText(A).trim()).toEqual('Due(Overdue)Friday, August 28 11:59 PM');
+		expect(getText(B).trim()).toEqual('Due(Overdue)Friday, August 28 11:59 PM');
 
 	});
 
