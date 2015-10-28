@@ -3,7 +3,7 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import {getService} from 'common/utils';
 
 const DEFAULT_BATCH_SIZE = 20;
-const DEFAULT_SORT_ORDER = 'descending'
+const DEFAULT_SORT_ORDER = 'descending';
 
 export const DEFAULT_PAGING_PARAMS = {
 	sortOn: 'NewestDescendantCreatedTime',
