@@ -7,7 +7,16 @@
 	display: inline-block;
 }
 
-
+.catalog {
+	max-width: 500px;
+	margin: 0 auto;
+	 h3 {
+		 margin-left: -0.625rem; // headings flush with the items
+	 }
+	 .grid-container {
+		 margin-bottom: .625rem;
+	 }
+}
 
 .catalog-item,
 .thumbnail-grid-item {
