@@ -68,7 +68,7 @@ export default React.createClass({
 				<div className="grid-container" key={s.label}>
 					<h3>{s.label}</h3>
 					<ul className={'small-block-grid-1'}>
-						{s.items.map(o=><Item key={o.NTIID} item={o}/>)}
+						{s.items.map(o=><Item key={o.getID()} item={o}/>)}
 					</ul>
 				</div>
 			)}
