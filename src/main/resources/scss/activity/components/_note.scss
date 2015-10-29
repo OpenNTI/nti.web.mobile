@@ -27,9 +27,8 @@
 }
 
 .activity-item.note {
-	padding: 0;
 
-	& > .discussion-detail,
+	.note-wrapper > .discussion-detail,
 	& > .discussion-reply {
 		border: 0;
 		position: relative;

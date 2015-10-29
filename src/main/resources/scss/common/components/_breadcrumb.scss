@@ -60,8 +60,13 @@ a.breadcrumb {
 		border-bottom: 1px solid #f0f0f0;
 		background: white;
 		border-radius: 3px 3px 0 0;
+		position: relative;
+		z-index: 999; // to get the shadow to overlay the bookmark lucky charm
 	}
 	.charms {
 		top: 3px;
+	}
+	.author-info .charms {
+		top: 0;
 	}
 }
