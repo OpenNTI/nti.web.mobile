@@ -53,9 +53,6 @@ function splitBySemester (list) {
 
 export default [
 	{
-		get path () { throw new Error('Use .kind instead'); },
-		get filter () { throw new Error('Use .test instead'); },
-
 		name: getLabel(UPCOMING),
 		kind: UPCOMING,
 
@@ -73,9 +70,6 @@ export default [
 		split: splitBySemester
 	},
 	{
-		get path () { throw new Error('Use .kind instead'); },
-		get filter () { throw new Error('Use .test instead'); },
-
 		name: getLabel(CURRENT),
 		kind: CURRENT,
 		test: item => {
@@ -94,9 +88,6 @@ export default [
 		sort: courseSortComparatorFunc
 	},
 	{
-		get path () { throw new Error('Use .kind instead'); },
-		get filter () { throw new Error('Use .test instead'); },
-
 		name: getLabel(ARCHIVED),
 		kind: ARCHIVED,
 		test: item => {
