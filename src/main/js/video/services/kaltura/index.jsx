@@ -246,6 +246,10 @@ export default React.createClass({
 
 	doPlay (e) {
 		let isAnchor = e && getEventTarget(e, 'a');
+		let {video} = this.refs;
+		if (!video || !video.paused) {
+			return;
+		}
 
 		if (isAnchor) {
 			e.preventDefault();
