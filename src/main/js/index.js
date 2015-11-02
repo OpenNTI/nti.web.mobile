@@ -22,6 +22,13 @@ CSS.addClass(RootNode, isTouch ? 'touch' : 'no-touch');
 const siteCSS = document.getElementById('site-override-styles');
 if (siteCSS) { siteCSS.parentNode.appendChild(siteCSS); }
 
+//temp until we design a better way:
+if (window.top !== window) {
+	window.top.location.href = location.href;
+	//If the frame busting code is blocked, tell them embedding is not supported.
+	location.replace('iframe.html');
+}
+
 overrideConfigAndForceCurrentHost();
 
 console.debug('Client is using host: %s', getServerURI());
