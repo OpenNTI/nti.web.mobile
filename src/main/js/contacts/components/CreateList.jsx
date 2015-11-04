@@ -1,16 +1,20 @@
 import React from 'react';
-import UserSearchField from './UserSearchField';
-import mixin from '../mixins/Mixin';
-import Navigatable from 'common/mixins/NavigatableMixin';
-import {LISTS} from '../Constants';
+
 import Loading from 'common/components/Loading';
-import GradientBackground from 'common/components/GradientBackground';
 import Page from 'common/components/Page';
+
+import Navigatable from 'common/mixins/NavigatableMixin';
+import ContextSender from 'common/mixins/ContextSender';
+
+import ContactsCommon from '../mixins/Mixin';
+import {LISTS} from '../Constants';
+
+import UserSearchField from './UserSearchField';
 
 export default React.createClass({
 	displayName: 'CreateList',
+	mixins: [ContextSender, ContactsCommon, Navigatable],
 
-	mixins: [mixin, Navigatable],
 	storeType: LISTS,
 
 	getInitialState () {
@@ -19,9 +23,6 @@ export default React.createClass({
 		};
 	},
 
-	componentDidMount () {
-		// this.refs.newListName.focus();
-	},
 
 	onSave () {
 		const {refs: {newListName, userSearchField}, state: {store}} = this;
@@ -46,13 +47,11 @@ export default React.createClass({
 			});
 	},
 
-	onCancel () {
-		this.navigateToLists();
-	},
 
 	navigateToLists () {
 		this.navigate('/lists/');
 	},
+
 
 	validateTitle () {
 		const {refs: {newListName}} = this;
@@ -64,6 +63,20 @@ export default React.createClass({
 		});
 	},
 
+
+	getContext () {
+		return [
+			{
+				label: 'Lists',
+				href: this.makeHref('/lists/')
+			},
+			{
+				label: 'Creact List'
+			}
+		];
+	},
+
+
 	render () {
 
 		if (this.state.loading) {
@@ -71,18 +84,16 @@ export default React.createClass({
 		}
 		return (
 			<Page title="Create List">
-				<GradientBackground>
-					<div id="create-list">
-						<div><input ref="newListName" type="text" placeholder="Title" onChange={this.validateTitle}/></div>
-						<UserSearchField
-							ref="userSearchField"
-							onCancel={this.onCancel}
-							onSave={this.onSave}
-							saveDisabled={!this.state.validTitle}
-							placeholder="Add people to list"
-							saveButtonText="Create List" />
-					</div>
-				</GradientBackground>
+				<div id="create-list">
+					<div><input ref="newListName" type="text" placeholder="Title" onChange={this.validateTitle}/></div>
+					<UserSearchField
+						ref="userSearchField"
+						onCancel={this.navigateToLists}
+						onSave={this.onSave}
+						saveDisabled={!this.state.validTitle}
+						placeholder="Add people to list"
+						saveButtonText="Create List" />
+				</div>
 			</Page>
 		);
 	}
