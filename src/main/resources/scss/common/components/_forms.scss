@@ -22,6 +22,11 @@ textarea {
 	&:focus {
 		border-color: $border-blue !important;
 	}
+
+	&[readonly] {
+		background: none;
+		color: $tertiary-grey;
+	}
 }
 
 input.error,
