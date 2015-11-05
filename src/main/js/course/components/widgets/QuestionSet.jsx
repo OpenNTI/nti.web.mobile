@@ -13,7 +13,7 @@ import Score from 'common/components/charts/Score';
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 import {loadPreviousState} from 'assessment/Api';
 
-import {getService} from 'common/utils';
+import {getService, isFlag} from 'common/utils';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
@@ -92,7 +92,12 @@ export default React.createClass( {
 
 			this.setQuizHref();
 		} else {
-			this.setAssignmentHref();
+			if(isFlag('course-assignments')) {
+				this.setAssignmentHref();
+			}
+			else {
+				this.setQuizHref();
+			}
 
 			work = loadPreviousState(assignment)
 				.then(this.setAssignmentHistory)
