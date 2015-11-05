@@ -154,4 +154,15 @@
 	& > .head {
 		@extend %content-header;
 	}
+
+	.calendar-card {
+		position: absolute;
+		top: 50%;
+		left: 0.5rem;
+		transform: translateY(-50%) scale(0.7);
+
+		&  + a {
+			margin-left: 1.5rem;
+		}
+	}
 }
