@@ -16,12 +16,16 @@ export default React.createClass({
 		let verbiage = 'Go to my courses';
 		let href = basePath + 'library/courses/';
 
+		console.log(this.props);
+		const thankYouURL = null;
+
 		return (
 			<div className="enrollment-success">
 				<figure className="notice">
 					<div>You are enrolled{courseTitle ? ' in ' + courseTitle : ''}.</div>
 				</figure>
 
+				{!thankYouURL ? null : (<iframe src={thankYouURL} className="thankyou" frameBorder="0"/>)}
 
 				<a className="button tiny" href={href}>{verbiage}</a>
 			</div>
