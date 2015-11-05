@@ -59,9 +59,12 @@ export default React.createClass({
 			onDone = void 0;
 		}
 
+		const {VendorThankYouPage: {thankYouURL} = {}} = purchaseattempt;
+
 		return (
 			<div className="gift-success row">
 				<Pricing purchasable={purchasable} locked />
+				{!thankYouURL ? null : (<iframe src={thankYouURL} className="thankyou" frameBorder="0"/>)}
 				<div className="medium-8 medium-centered columns panel">
 					<h3 className="header">{t('title')}</h3>
 					<LocalizedHTML className="gift" stringId={`ENROLLMENT.GIFT.SUCCESS.${infoKey}`} sender={sender} receiver={receiver} />
