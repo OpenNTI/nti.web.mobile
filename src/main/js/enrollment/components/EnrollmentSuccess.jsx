@@ -7,6 +7,10 @@ import LibraryAccessor from 'library/mixins/LibraryAccessor';
 
 import ThankYou from './ThankYou';
 
+function getLastEnrolledCourseTitle (library) {
+	return (library.getLastEnrolledCourse() || {}).title;
+}
+
 export default React.createClass({
 	displayName: 'EnrollmentSuccess',
 	//The LibraryAccessor mixin gives us the 'getLibrary' method.
@@ -21,16 +25,19 @@ export default React.createClass({
 
 		const verbiage = 'Go to my courses';
 		const href = this.getBasePath() + 'library/courses/';
+		const library = this.getLibrary();
 
 		//If the library is loading, or reloading this will be true.
-		if (loading) {
+		if (loading || !library) {
 			return ( <Loading/> );
 		}
+
+		const label = courseTitle || getLastEnrolledCourseTitle(library);
 
 		return (
 			<div className="enrollment-success">
 				<figure className="notice">
-					<div>You are enrolled{courseTitle ? ' in ' + courseTitle : ''}.</div>
+					<div>You are enrolled{label ? ' in ' + label : ''}.</div>
 				</figure>
 
 				<ThankYou/>

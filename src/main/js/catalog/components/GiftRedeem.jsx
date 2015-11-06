@@ -11,7 +11,6 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
-import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 import {scoped} from 'common/locale';
 import Err from 'common/components/Error';
 
@@ -35,15 +34,14 @@ export default React.createClass({
 		return {
 			accessKey: '',
 			errors: {},
-			busy: false,
-			success: false
+			busy: false
 		};
 	},
 
 
 	componentWillMount () {
 		this.registerStoreEventHandlers({
-			[GIFT_CODE_REDEEMED]: () => this.setState({busy: false, success: true, errors: {}}),
+			[GIFT_CODE_REDEEMED]: () => this.navigate('/enrollment/success/'),
 			[INVALID_GIFT_CODE]: (e) => this.setState({busy: false, errors: {accessKey: {message: e.reason }}})
 		});
 
@@ -60,7 +58,15 @@ export default React.createClass({
 
 
 	getContext () {
-		const {props: {entryId}, state: {purchasable: {title} = {}}} = this;
+		const {props: {entryId}, state: {purchasable}} = this;
+		const {title} = purchasable || {};
+
+		if (!purchasable) {
+			return [
+				{label: 'Catalog', href: this.makeHref('/')}
+			];
+		}
+
 		return [
 			{
 				label: title,
@@ -108,7 +114,7 @@ export default React.createClass({
 
 
 	render () {
-		let {purchasable = {}, busy, success, error, errors, accessKey = ''} = this.state;
+		let {busy, error, errors, accessKey = ''} = this.state;
 
 		if (error) {
 			return <Err error={error} />;
@@ -116,10 +122,6 @@ export default React.createClass({
 
 		if (busy) {
 			return <Loading />;
-		}
-
-		if (success) {
-			return (<EnrollmentSuccess courseTitle={purchasable.title} />);
 		}
 
 		let title = t('formTitle');

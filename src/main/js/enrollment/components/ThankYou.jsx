@@ -25,8 +25,10 @@ export default React.createClass({
 			return ( <Loading/> );
 		}
 
-		return thankYouURL && (
+		return thankYouURL ? (
 			<iframe src={thankYouURL} className="thankyou" frameBorder="0"/>
+		) : (
+			<noscript/>
 		);
 	}
 });
