@@ -13,9 +13,26 @@ import Detail from 'catalog/components/Detail';
 
 import ThankYou from '../../components/ThankYou';
 
+
+const Wrapper = React.createClass({
+	mixins: [LibraryAccessor],
+
+	render () {
+		//If the library is loading, or reloading this will be true.
+		if (this.state.loading) {
+			return ( <Loading/> );
+		}
+
+		return (
+			<div {...this.props}/>
+		);
+	}
+});
+
+
 export default React.createClass({
 	displayName: 'PaymentComplete',
-	mixins: [BasePathAware, CatalogAccessor, LibraryAccessor],
+	mixins: [BasePathAware, CatalogAccessor],
 
 	getInitialState () {
 		return {};
@@ -56,12 +73,7 @@ export default React.createClass({
 		let buttonCls = 'button tiny';
 		let library = this.getBasePath() + 'library/';
 
-		const {props: {enrollment}, state: {loading, paymentState}} = this;
-
-		//If the library is loading, or reloading this will be true.
-		if (loading) {
-			return ( <Loading/> );
-		}
+		const {props: {enrollment}, state: {paymentState}} = this;
 
 		if (!paymentState) {
 
@@ -78,7 +90,7 @@ export default React.createClass({
 		}
 
 		return (
-			<div className={cls}>
+			<Wrapper className={cls}>
 
 				<figure className="notice">
 					<div>{message}</div>
@@ -90,7 +102,7 @@ export default React.createClass({
 
 				{entry && ( <Detail entry={entry}/> )}
 
-			</div>
+			</Wrapper>
 		);
 	}
 
