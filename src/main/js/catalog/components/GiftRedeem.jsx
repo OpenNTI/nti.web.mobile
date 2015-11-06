@@ -50,12 +50,17 @@ export default React.createClass({
 		this.setState({
 			accessKey: this.props.code || ''
 		});
+		this.resolvePurchasable();
+	},
+
+
+	componentWillReceiveProps (nextProps) {
+		this.resolvePurchasable(nextProps);
 	},
 
 
 	getContext () {
-		let {entryId} = this.props;
-		let {title} = this.getPurchasable();
+		const {props: {entryId}, state: {purchasable: {title} = {}}} = this;
 		return [
 			{
 				label: title,
@@ -70,42 +75,40 @@ export default React.createClass({
 
 
 	updateKey () {
-		let {key} = this.refs;
-		let {value} = key || {};
-
+		const {refs: {key: {value} = {}}} = this;
 		this.setState({accessKey: value});
 	},
 
 
-	getPurchasable () {
-		let entry = this.getCatalogEntry(decodeFromURI(this.props.entryId));
+	resolvePurchasable (props = this.props) {
+		let entry = this.getCatalogEntry(decodeFromURI(props.entryId));
+
 		if (!entry) {
-			return this.setState({
-				error: 'Unable to find requested catalog entry.'
-			});
+			return this.setState({error: 'Unable to find requested catalog entry.'});
 		}
+
 		let options = entry.getEnrollmentOptions();
 		let option = options.getEnrollmentOptionForPurchase();
 
-		return option && option.getPurchasableForGifting();
+		const purchasable = option && option.getPurchasableForGifting();
+		this.setState({purchasable});
 	},
 
 
 	handleSubmit (event) {
+		const {purchasable} = this.state;
 		event.preventDefault();
-		this.setState({
-			busy: true
-		});
+		this.setState({ busy: true });
 
 		redeemGift(
-			this.getPurchasable(),
+			purchasable,
 			decodeFromURI(this.props.entryId),
 			this.state.accessKey);
 	},
 
 
 	render () {
-		let {busy, success, error, errors, accessKey = ''} = this.state;
+		let {purchasable = {}, busy, success, error, errors, accessKey = ''} = this.state;
 
 		if (error) {
 			return <Err error={error} />;
@@ -116,7 +119,7 @@ export default React.createClass({
 		}
 
 		if (success) {
-			return (<EnrollmentSuccess courseTitle={this.getPurchasable().title} />);
+			return (<EnrollmentSuccess courseTitle={purchasable.title} />);
 		}
 
 		let title = t('formTitle');
