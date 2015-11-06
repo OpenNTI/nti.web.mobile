@@ -48,6 +48,7 @@ export default React.createClass({
 		}
 
 		this.setState({menu});
+
 	},
 
 

@@ -84,8 +84,11 @@ export default {
 	preresolveLocators (store) {
 		let descriptions = [], containers = [];
 		for (let i of store) {
-			descriptions.push(i.applicableRange);
-			containers.push(i.ContainerId);
+			let {applicableRange} = i;
+			if (applicableRange) {
+				descriptions.push(applicableRange);
+				containers.push(i.ContainerId);
+			}
 		}
 
 		preresolveLocatorInfo(
@@ -109,8 +112,11 @@ export default {
 		this.preresolveLocators(store);
 
 		for (let i of store) {
+			let {applicableRange} = i;
 			let id = i.getID();
 			let annotation = annotations[id];
+
+			if (!applicableRange) { continue; }
 
 			deadIDs.delete(id);
 
