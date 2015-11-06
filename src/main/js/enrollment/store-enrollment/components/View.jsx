@@ -62,17 +62,14 @@ export default React.createClass({
 		let {courseId, entryId} = this.props;
 
 		return (
-			<div>
-				<StoreEnrollmentRoutes
-					ref="router"
-					entryId={entryId}
-					purchasable={purchasable}
-					courseId={courseId}
-					isGift={isGift}
-					defaultHandler={Form}
-					/>
-			</div>
-
+			<StoreEnrollmentRoutes
+				ref="router"
+				entryId={entryId}
+				purchasable={purchasable}
+				courseId={courseId}
+				isGift={isGift}
+				defaultHandler={Form}
+				/>
 		);
 	}
 

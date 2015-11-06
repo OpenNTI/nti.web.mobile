@@ -1,9 +1,11 @@
 import React from 'react';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {getModel} from 'nti.lib.interfaces';
+
 import BasePathAware from 'common/mixins/BasePath';
 
-import {getModel} from 'nti.lib.interfaces';
+import Icon from './Icon';
 const PackageClass = getModel('ContentPackage');
 
 export default React.createClass({
@@ -42,7 +44,7 @@ export default React.createClass({
 		return (
 			<div className="library-item package">
 				<a href={this.getBasePath() + 'content/' + id + '/'}>
-					<img src={icon}/>
+					<Icon src={icon}/>
 					<label>
 						<h3>{title}</h3>
 						<address className="author">{author}</address>

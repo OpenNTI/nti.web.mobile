@@ -1,6 +1,7 @@
 import React from 'react';
-import ButtonPlain from 'common/forms/components/Button';
-import ButtonFullWidth from 'common/forms/components/ButtonFullWidth';
+import cx from 'classnames';
+
+import Button from 'common/forms/components/Button';
 import BasePathAware from 'common/mixins/BasePath';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
@@ -13,26 +14,20 @@ export default React.createClass({
 	mixins: [BasePathAware],
 
 	propTypes: {
+		className: React.PropTypes.string,
 		catalogId: React.PropTypes.string,
-		href: React.PropTypes.string,
-
-		fullWidth: React.PropTypes.bool
+		href: React.PropTypes.string
 	},
 
 	getUrlForEntry () {
-		let href = `${this.getBasePath()}catalog/gift/purchase/${encodeForURI(this.props.catalogId)}/`;
-		return href;
+		return `${this.getBasePath()}catalog/gift/purchase/${encodeForURI(this.props.catalogId)}/`;
 	},
 
 	render () {
-
-		let href = this.props.href || this.getUrlForEntry();
-		let Button = this.props.fullWidth ? ButtonFullWidth : ButtonPlain;
+		const {props: {className, href = this.getUrlForEntry()}} = this;
 
 		return (
-			<div>
-				<Button className="giftable" href={href}>{t('giveThisAsGift')}</Button>
-			</div>
+			<Button className={cx('giftable', className)} href={href}>{t('giveThisAsGift')}</Button>
 		);
 	}
 

@@ -2,21 +2,23 @@ import React from 'react';
 import cx from 'classnames';
 
 import {scoped} from 'common/locale';
+import ObjectLink from 'common/mixins/ObjectLink';
+import Ellipsed from 'common/components/Ellipsed';
 
 import Footer from './AssignmentFooter';
 
-import ObjectLink from './ObjectLink';
-import Mixin from './Mixin';
-import AssignmentHistoryContextChild from 'course/mixins/AssignmentHistoryContextChild';
+import AssignmentHistoryContextChild from '../../mixins/AssignmentHistoryContextChild';
 
 let t = scoped('UNITS');
 
 export default React.createClass({
 	displayName: 'Assignment',
-	mixins: [Mixin, ObjectLink, AssignmentHistoryContextChild],
+	mixins: [ObjectLink, AssignmentHistoryContextChild],
 
 	statics: {
-		mimeType: /assessment\.assignment/i
+		handles (item) {
+			return /assessment\.assignment/i.test(item.MimeType);
+		}
 	},
 
 	propTypes: {
@@ -30,8 +32,8 @@ export default React.createClass({
 		if (!item) {
 			return null;
 		}
-		let {assignmentsHistory} = this.context;
-		let history = assignmentsHistory.getItem(item.getID());
+
+		let history = this.getAssignmentHistoryItem(item.getID());
 
 		let href = this.objectLink(item);
 
@@ -48,7 +50,7 @@ export default React.createClass({
 			<div className={classes}>
 				<a href={href}>
 					<div className="path">{path.join(' / ')}</div>
-					<div className="card-title">{item.title}</div>
+					<Ellipsed className="card-title">{item.title}</Ellipsed>
 					<div className="bullets">{t('questions', {count: item.getQuestionCount()})}</div>
 					<Footer assignment={item} history={history} />
 				</a>

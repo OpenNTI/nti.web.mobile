@@ -2,6 +2,7 @@ import React from 'react';
 
 import ActiveState from 'common/components/ActiveState';
 import E from 'common/components/Ellipsed';
+import DateTime from 'common/components/DateTime';
 
 import ContextSender from 'common/mixins/ContextSender';
 //import NavigationAware from 'common/mixins/NavigationAware';
@@ -9,6 +10,19 @@ import Loading from 'common/components/Loading';
 
 import isEmpty from 'fbjs/lib/isEmpty';
 import CourseLinker from 'library/mixins/CourseContentLink';
+
+function CalendarCard (props) {
+	const {date} = props;
+
+	return !date ? (
+		<div/> 
+	) : (
+		<div className="calendar-card">
+			<DateTime date={date} className="month" format="MMM"/>
+			<DateTime date={date} className="day" format="DD"/>
+		</div>
+	);
+}
 
 
 export default React.createClass({
@@ -145,21 +159,21 @@ export default React.createClass({
 		}
 
 		return React.createElement('ul', {}, ...list.map(item => {
-			let {href, depth, title} = item;
+			const {href: link, depth, title} = item;
+			const tag = depthMap[depth - 1] || 'div';
+			const date = item.getAvailableBeginning();
+			const href = link ? (prefix + link) : null;
 
-			let tag = depthMap[depth - 1] || 'div';
-
-			if (href) {
-				href = prefix + href;
-			}
-
-			let props = {
+			const props = {
 				href, title, children: title
 			};
 
 			return (
 				<li>
-					<ActiveState hasChildren href={href} tag={tag}><E tag="a" {...props}/></ActiveState>
+					<ActiveState hasChildren href={href} tag={tag}>
+						<CalendarCard date={date}/>
+						<E tag="a" {...props}/>
+					</ActiveState>
 					{renderTree(item.contents)}
 				</li>
 			);

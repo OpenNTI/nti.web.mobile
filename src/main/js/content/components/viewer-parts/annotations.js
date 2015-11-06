@@ -228,15 +228,14 @@ export default {
 
 
 	createNote (range) {
-		let {contentPackage} = this.props;
-		let {selected, page} = this.state;
+		const {contentPackage} = this.props;
+		const {selected, page} = this.state;
+		const hasRange = range && !range.collapsed;
 
-		let hasRange = range && !range.collapsed;
-
-		let c = hasRange && this.selectionToCommonUGD(range);
-		if (!c && selected) {
+		let properties = hasRange && this.selectionToCommonUGD(range);
+		if (!properties && selected) {
 			let {applicableRange, selectedText, ContainerId} = selected.getRecord();
-			c = {
+			properties = {
 				applicableRange,
 				selectedText,
 				ContainerId
@@ -250,17 +249,20 @@ export default {
 		page.getSharingPreferences()
 			.then(preferences => contentPackage.getDefaultShareWithValue(preferences))
 			.then(sharedWith => {
-				Object.assign(c, {sharedWith});
-				return Note.createFrom(c);
+				Object.assign(properties, {sharedWith});
+				return Note.createFrom(properties);
 			})
 			.then(note => this.setState({stagedNote: note}));
 	},
 
 
 	createHighlight (range, color) {
-		let highlight = Highlight.createFrom(this.selectionToCommonUGD(range), color);
+		new Promise((resolve, reject) => {
+			let highlight = Highlight.createFrom(this.selectionToCommonUGD(range), color);
 
-		getStore(this.state).create(highlight)
+			getStore(this.state).create(highlight).then(resolve, reject);
+		})
+			.catch(e => console.warn(e.stack || e.message || e))
 			.then(() => this.setState({selected: void 0}));
 	},
 

@@ -1,88 +1,17 @@
 /*eslint no-var: 0 strict: 0*/
 'use strict';
 
-var NodeModulesThatNeedCompiling = [
-	'react-editor-component',
-	'nti\\..+'
-];
-
 var webpack = require('webpack');
-
-
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
 var path = require('path');
-
-var gitRevision = require('../src/server/lib/git-revision');
-
-var scssIncludes =
-	'includePaths[]=' + (path.resolve(__dirname, '../src/main/resources/vendor/foundation/scss'));
 
 var root = path.resolve(__dirname, '..', 'src', 'main', 'js');
 var modules = path.resolve(__dirname, '..', 'node_modules');
 
-var appFontName = /(icomoon|(OpenSans.*\-(Cond(Bold|Light)|Regular|Bold)\-)).*woff/i;
+var getCodeLoaderConfig = require('./getCodeLoaderConfig');
+var gitRevision = require('../src/server/lib/git-revision');
 
-var commonLoaders = [
-	getCodeLoaderConfig(/\.js(x?)$/i),
-
-	{ test: /\.json$/, loader: 'json' },
-	{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
-
-	{ test: appFontName, loader: 'url' },
-	{
-		test: function (s) {
-			if (/woff$/.test(s)) {
-				return !appFontName.test(s);
-			}
-
-			return /\.(eot|ttf)$/.test(s);
-		},
-		loader: 'file',
-		query: {
-			name: 'resources/fonts/[name].[ext]'
-		}
-	}
-
-];
-
-
-function getCodeLoaderConfig (test, loader) {
-	return {
-		test: test,
-		loader: (loader ? loader + '!' : '')
-			+ 'babel?optional[]=runtime&plugins[]=' + path.resolve(__dirname, 'plugins/relay'),
-		exclude: excludeNodeModulesExceptOurs
-	};
-}
-
-
-function isOurModule (s) {
-	var ourprojects = NodeModulesThatNeedCompiling.join('|');
-	var ours = new RegExp(ourprojects);
-
-	var dir = path.resolve(__dirname, '..');
-
-	if(s.indexOf(dir) === 0) {
-		s = s.substr(dir.length);
-	}
-
-	if (ours.test(s)) {
-		//ignore node_modules in our libraries
-		s = s.split(new RegExp('(' + ourprojects + ')/node_modules')).pop();
-		//still ours?
-		return ours.test(s);
-	}
-	return false;
-}
-
-
-function excludeNodeModulesExceptOurs (s) {
-	if (/(node_modules|resources\/vendor)/.test(s)) {
-		return !isOurModule(s);
-	}
-	return false;
-}
+var appFontName = /((icomoon.*(woff))|(OpenSans.*woff))/i;
 
 
 exports = module.exports = [
@@ -124,18 +53,35 @@ exports = module.exports = [
 
 		module: {
 			loaders: [
-				getCodeLoaderConfig(/\.async\.jsx$/i, 'react-proxy')
-			]
-				.concat(commonLoaders)
-				.concat([
-					{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
-						'style-loader',
-						(global.distribution
-							? 'css?-minimize!autoprefixer!sass?'
-							: 'css?sourceMap!autoprefixer!sass?sourceMap&'
-						) + scssIncludes )
+				getCodeLoaderConfig(/\.async\.jsx$/i, 'react-proxy'),
+				getCodeLoaderConfig(/\.js(x?)$/i),
+
+				{ test: /\.json$/, loader: 'json' },
+				{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
+
+				{ test: appFontName, loader: 'url' },
+				{
+					test: function (s) {
+						if (/woff$/.test(s)) {
+							return !appFontName.test(s);
+						}
+
+						return /\.(eot|ttf)$/.test(s);
+					},
+					loader: 'file',
+					query: {
+						name: 'resources/fonts/[name].[ext]'
 					}
-				])
+				},
+
+				{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
+					'style-loader',
+					(global.distribution
+						? 'css?-minimize!autoprefixer!sass?'
+						: 'css?sourceMap!autoprefixer!sass?sourceMap'
+					))
+				}
+			]
 		},
 
 
@@ -192,10 +138,13 @@ exports = module.exports = [
 		],
 
 		module: {
-			loaders: commonLoaders.concat([
+			loaders: [
+				getCodeLoaderConfig(/\.js(x?)$/i),
+				{ test: /\.json$/, loader: 'json' },
 				{ test: /\.html$/, loader: 'html?attrs=link:href' },
+				{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url' },
 				{ test: /\.(s?)css$/, loader: 'null' }
-			])
+			]
 		}
 	}
 ];

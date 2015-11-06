@@ -15,7 +15,7 @@ import ContextSender from 'common/mixins/ContextSender';
 
 import Pager from 'common/components/Pager';
 
-import ContentAquirePrompt from 'catalog/components/ContentAquirePrompt';
+import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import Store from '../Store';
 import {loadPage, resolveNewContext} from '../Actions';
@@ -40,6 +40,7 @@ import BodyContent from './Content';
 import Gutter from './Gutter';
 import Discussions from './discussions';
 
+const TRANSITION_TIMEOUT = 300;
 
 function getAssessment (state) {
 	let {page} = state;
@@ -140,7 +141,11 @@ export default React.createClass({
 
 	componentDidUpdate () {
 		let {pageSource, currentPage} = this.state;
-		this.setPageSource(pageSource, currentPage);
+		//We transition between discussions, NoteEditor and content...
+		//those transitions delay "componentWillUnmount" which is one of the
+		//places where context book-keeping is performed... wait for it to occur.
+		setTimeout(() =>
+			this.setPageSource(pageSource, currentPage), TRANSITION_TIMEOUT);
 	},
 
 
@@ -254,8 +259,8 @@ export default React.createClass({
 			return (<Loading/>);
 		}
 		else if (error) {
-			if (ContentAquirePrompt.shouldPrompt(error)) {
-				return ( <ContentAquirePrompt data={error}/> );
+			if (ContentAcquirePrompt.shouldPrompt(error)) {
+				return ( <ContentAcquirePrompt data={error}/> );
 			}
 
 			return ( <Err error={error}/> );
@@ -278,8 +283,8 @@ export default React.createClass({
 		return (
 			<TransitionGroup {...props} component="div"
 				transitionName="fadeOutIn"
-				transitionEnterTimeout={300}
-				transitionLeaveTimeout={300}
+				transitionEnterTimeout={TRANSITION_TIMEOUT}
+				transitionLeaveTimeout={TRANSITION_TIMEOUT}
 				>
 
 				{discussions ? (
@@ -291,24 +296,24 @@ export default React.createClass({
 					this.renderNoteEditor()
 
 				) : (
-					<div className="content-body" key="content">
+					<div key="content">
 						{this.renderAssessmentHeader()}
+						<div className="content-body">
+							<BodyContent ref="content"
+								onClick={this.onContentClick}
+								onUserSelectionChange={this.maybeOfferAnnotations}
+								contentPackage={contentPackage}
+								pageId={page.getCanonicalID()}
+								page={page}/>
 
-						<BodyContent ref="content"
-							onClick={this.onContentClick}
-							onUserSelectionChange={this.maybeOfferAnnotations}
-							contentPackage={contentPackage}
-							pageId={page.getCanonicalID()}
-							page={page}/>
+							{this.renderAssessmentFeedback()}
 
-						{this.renderAssessmentFeedback()}
+							{this.renderGlossaryEntry()}
 
-						{this.renderGlossaryEntry()}
+							{this.renderBottomPager()}
 
-						{this.renderBottomPager()}
-
-						<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
-
+							<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
+						</div>
 						{this.renderDockedToolbar()}
 					</div>
 				)}
@@ -374,6 +379,7 @@ export default React.createClass({
 
 		let props = {
 			item: isRange ? None : selected,
+			range: isRange ? selected : None,
 			onNewDiscussion: (isRange || isHighlight) ? this.createNote : None,
 			onSetHighlight: isRange ? this.createHighlight : isHighlight ? this.updateHighlight : None,
 			onRemoveHighlight: isHighlight ? this.removeHighlight : None

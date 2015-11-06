@@ -9,12 +9,15 @@
 
 .content-view {
 	position: relative;
+	max-width: 700px;
+	margin: 0 auto;
 
 	& > div > figure.loading {
 		position: fixed;
 	}
 
 	.content-body {
+		position: relative;
 		background: #fff;
 	}
 
@@ -73,6 +76,14 @@
 
 		widget {
 			user-select: none;
+			& + .caption { display: none; }
+		}
+
+		a {
+			color: inherit; //fix foundation assuming all anchors are "links"
+			&[href], &:link {
+				color: $anchor-font-color;
+			}
 		}
 	}
 

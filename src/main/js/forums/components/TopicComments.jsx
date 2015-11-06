@@ -124,7 +124,12 @@ export default React.createClass({
 				) : (container.Items || []).length > 0 ? (
 					<div>
 						<section className="comments">
-							<Transition transitionName="fadeOutIn" transitionAppear>
+							<Transition transitionName="fadeOutIn"
+								transitionAppear
+								transitionAppearTimeout={500}
+								transitionEnterTimeout={500}
+								transitionLeaveTimeout={500}
+							>
 								<List className="forum-replies" container={container} {...this.props} itemProps={{topic: topic}} omitIfEmpty />
 							</Transition>
 						</section>

@@ -1,5 +1,4 @@
 import React from 'react';
-import Mixin from './Mixin';
 
 import Conditional from 'common/components/Conditional';
 import DisplayName from 'common/components/DisplayName';
@@ -10,6 +9,8 @@ import Transcript from 'chat/components/Transcript';
 
 import {scoped} from 'common/locale';
 let t = scoped('UNITS');
+
+import Mixin from './Mixin';
 
 export default React.createClass({
 	displayName: 'Chat Card',

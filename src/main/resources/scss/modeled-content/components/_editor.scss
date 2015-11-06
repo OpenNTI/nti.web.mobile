@@ -57,6 +57,7 @@
 			text-align: left;
 			position: absolute;
 			background: $panel-background;
+			z-index: 999;
 
 			top: 0; left: 0; right: 0; bottom: 0;
 
@@ -77,23 +78,27 @@
 				margin: 0;
 			}
 
-			.button {
-				text-transform: none;
-				font-weight: 600;
-				font-size: 0.875rem;
-				line-height: 2.5rem;
-				padding: 0 1.25rem;
-				margin: 0;
-				vertical-align: middle;
-				text-align: center;
-				min-width: 90px;
-
-				&.link {
-					background: none;
-					color: $primary-grey;
-					text-decoration: underline;
-				}
+			.buttons {
+				text-align: right;
 			}
+		}
+	}
+
+	.button {
+		text-transform: none;
+		font-weight: 600;
+		font-size: 0.875rem;
+		line-height: 2.5rem;
+		padding: 0 1.25rem;
+		margin: 0;
+		vertical-align: middle;
+		text-align: center;
+		min-width: 90px;
+
+		&.link {
+			background: none;
+			color: $primary-grey;
+			text-decoration: underline;
 		}
 	}
 
@@ -187,6 +192,7 @@
 			width: 1.875rem;
 			height: 2.375rem;
 			vertical-align: bottom;
+			min-width: inherit;
 
 			background: {
 				color: $panel-background;

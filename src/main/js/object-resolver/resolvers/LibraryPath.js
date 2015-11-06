@@ -5,7 +5,7 @@ import {encodeForURI as encode} from 'nti.lib.interfaces/utils/ntiids';
 
 import {join} from 'path';
 
-import {makeHref as profileLink} from 'profile/components/ProfileLink';
+import {profileHref} from 'profile/mixins/ProfileLink';
 
 const IGNORE = Symbol();
 
@@ -75,7 +75,7 @@ const MIME_TYPES = {
 		return c;
 	},
 
-	'user': profileLink,
+	'user': profileHref,
 
 	'ntivideoref': (o, prev, next, target) => {
 		let c = `/videos/${encode(o.getID())}/`;

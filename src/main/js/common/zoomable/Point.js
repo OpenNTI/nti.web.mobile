@@ -2,8 +2,6 @@ import uuid from 'node-uuid';
 
 let ORIGIN;
 
-const guid = ()=> uuid.v4();
-
 export default class Point {
 	/**
 	* Creates a new Point
@@ -12,10 +10,10 @@ export default class Point {
 	* @param {number} y - the y coordinate
 	* @param {string} [id=guid] - the ID for this point; defaults to a guid.
 	*/
-	constructor (x, y, id = undefined) {
+	constructor (x, y, id = uuid.v4()) {
 		this.x = x;
 		this.y = y;
-		this.id = id != null ? id : guid();
+		this.id = id;
 	}
 
 	static get ORIGIN () {
@@ -72,7 +70,7 @@ export default class Point {
 	}
 
 	toString () {
-		return `Point: (${this.x}, ${this.y})`;
+		return `Point ${this.id}: (${this.x}, ${this.y})`;
 	}
 
 }

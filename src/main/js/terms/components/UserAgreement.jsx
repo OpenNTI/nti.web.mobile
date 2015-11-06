@@ -7,6 +7,7 @@ import ErrorWidget from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import BasePath from 'common/mixins/BasePath';
 
+const raw = x => ({__html: x});
 
 export default React.createClass({
 	displayName: 'UserAgreement',
@@ -29,39 +30,35 @@ export default React.createClass({
 		let url = basePath + 'api/user-agreement/';
 
 		return getServer().get(url)
-			.catch(reason => {
-				if (reason.responseJSON) {
-					reason = reason.responseJSON.message;
-				}
-				return Promise.reject(reason);
-			});
+			.catch(er =>
+				Promise.reject(er.responseJSON ? er.responseJSON.message : er));
 	},
 
 
-	setError  (reason) {
+	setError (error) {
+		this.setState({ error, loading: false });
+	},
+
+
+	setContent (result) {
+		const {body, styles = ''} = result;
+
+		const alteredStyles = styles
+			//do not import other sheets.
+			.replace(/@import[^;]*;/g, '')
+			//do not allow margin rules:
+			.replace(/(margin)([^\:]*):([^;]*);/g, '');
+
 		this.setState({
-			error: reason,
+			styles: alteredStyles,
+			content: body,
 			loading: false
 		});
 	},
 
 
-	setContent (result) {
-		let {styles, body: content} = result;
-
-		styles = styles || '';
-
-		//do not import other sheets.
-		styles = styles.replace(/@import[^;]*;/g, '');
-		//do not allow margin rules:
-		styles = styles.replace(/(margin)([^\:]*):([^;]*);/g, '');
-
-		this.setState({ styles, content, loading: false });
-	},
-
-
 	render () {
-		let {loading, error, content, styles} = this.state;
+		const {state: {loading, error, content, styles}} = this;
 
 		return (
 			<div className="agreement-wrapper">
@@ -72,8 +69,8 @@ export default React.createClass({
 					<ErrorWidget error={error} />
 				) : (
 					<Conditional condition={!loading && !!content} className="agreement">
-						<style type="text/css" scoped dangerouslySetInnerHTML={{__html: styles}}/>
-						<div dangerouslySetInnerHTML={{__html: content}}/>
+						<style type="text/css" scoped dangerouslySetInnerHTML={raw(styles)}/>
+						<div dangerouslySetInnerHTML={raw(content)}/>
 					</Conditional>
 				)}
 

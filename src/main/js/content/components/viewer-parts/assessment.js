@@ -19,7 +19,7 @@ export default {
 
 		return React.createElement(SetHeaderWidget, {
 			assessment: quiz,
-			page: page
+			page
 		});
 	},
 
@@ -33,7 +33,7 @@ export default {
 
 		return React.createElement(FeedbackWidget, {
 			assessment: quiz,
-			page: page
+			page
 		});
 	},
 
@@ -47,7 +47,7 @@ export default {
 
 		return React.createElement(SetSubmissionWidget, {
 			assessment: quiz,
-			page: page
+			page
 		});
 	},
 

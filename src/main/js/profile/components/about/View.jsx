@@ -1,15 +1,15 @@
 import React from 'react';
+import {Link} from 'react-router-component';
+import {PROFILE_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
-import Card from '../Card';
 import Loading from 'common/components/TinyLoader';
-import Mixin from '../about/Mixin';
-
-import ProfileAnalytics from '../../mixins/AnalyticsMixin';
-import Link from 'common/components/ActiveLink';
-
+import ActiveState from 'common/components/ActiveState';
 import {scoped} from 'common/locale';
 
-import {PROFILE_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
+import ProfileAnalytics from '../../mixins/AnalyticsMixin';
+import Card from '../Card';
+import Mixin from '../about/Mixin';
+
 const t = scoped('PROFILE.ABOUT.SECTIONTITLES');
 
 let sections = ['about', 'education', 'positions', 'interests'];
@@ -46,7 +46,7 @@ export default React.createClass({
 				</ul>
 				{canEdit &&
 					<div className="controls buttons">
-						<Link href="/edit/" className="button tiny">Edit Profile</Link>
+						<ActiveState tag={Link} href="/edit/" className="button tiny">Edit Profile</ActiveState>
 					</div>
 				}
 			</div>

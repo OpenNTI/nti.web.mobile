@@ -23,15 +23,29 @@
 	}
 
 	.title {
-		.profile-card & {
+		.activity-item & {
 			padding-top: 1rem;
+		}
+	}
+
+	time {
+		color: $tertiary-grey;
+		text-transform: uppercase;
+		font-weight: 600;
+		font-size: 0.625rem;
+	}
+
+	.reply-name-wrapper {
+		position: relative;
+		.activity-item & {
+			font-size: 0.75rem;
 		}
 	}
 
 	.name-wrapper {
 		position: relative;
 
-		.profile-card & {
+		.activity-item & {
 			font-size: 0.75rem;
 
 			& > .username::after {
@@ -69,7 +83,7 @@
 	padding: 0 0.75rem;
 
 	.modeled-content {
-		.profile-card & {
+		.activity-item & {
 			padding: 1rem 0;
 		}
 	}
@@ -246,6 +260,7 @@
 		position: relative;
 
 		time {
+			text-transform: uppercase;
 			vertical-align: middle;
 			color: $tertiary-grey;
 			float: right;

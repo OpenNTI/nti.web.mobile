@@ -1,14 +1,8 @@
-doc/src
-doc/jsdoc
-doc/yuidoc
 dist
 stage
 data
-node_modules
 src/main/querybrowser/etc
 src/main/querybrowser/lib
 src/main/querybrowser/graphiql
 src/main/resources/css
-src/main/resources/vendor
 env.json
-.update.sh

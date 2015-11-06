@@ -1,0 +1,108 @@
+@import "action-links";
+@import "components/chat";
+@import "components/forum-comment";
+@import "components/forum-post";
+@import "components/note";
+
+ul.activity {
+	list-style-type: none;
+	margin: 0;
+}
+
+.activity .activity-item {
+	&, & > div {
+		border-radius: 3px;
+	}
+}
+
+
+.activity-item {
+
+	$item-padding: .625rem;
+	position: relative;
+	background: white;
+	padding: $item-padding;
+	padding-left: 0.75rem;
+
+	margin: 0.3125rem 0;
+	font-size: .875rem;
+	word-break: break-word;
+	background: #fbfbfb;
+
+
+	.avatar {
+		width: 3.5rem;
+		height: 3.5rem;
+	}
+
+	.avatar-heading {
+		position: relative;
+		& > .avatar {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.wrap {
+			margin: 0 0 1rem 4.375rem;
+			min-height: 2.5rem;
+			h1 {
+				margin-bottom: 0;
+			}
+			.meta {
+				font-size: .75rem;
+			}
+		}
+	}
+
+
+	h1 {
+		font-family: $body-font-family;
+		font-size: 1.25rem;
+		color: $secondary-grey;
+		word-wrap: break-word;
+	}
+
+	& > h1 {
+		border-bottom: 0.0625rem solid $quad-grey;
+		padding: .2em 0;
+	}
+
+
+	.breadcrumb {
+		border-bottom: 1px solid $quad-grey;
+		padding-left: 0;
+		padding-bottom: $item-padding / 2;
+		margin: #{-($item-padding / 2)} #{-$item-padding} 0;
+	}
+
+	.heading {
+		border-bottom: 1px solid $quad-grey;
+		display: block;
+		padding-bottom: 1rem;
+		margin: 0 0 1rem 0;
+	}
+
+	.highlight-group {
+		@extend %ugd-header;
+	}
+
+	.body {
+		position: relative;
+		padding: 1rem 0 0;
+	}
+
+	.footer {
+		margin-top: 1rem;
+		& > * {
+			display: inline-block;
+			margin-right: 1rem;
+		}
+	}
+
+	a.more.button {
+		display: block;
+		border-radius: 3px;
+		margin: -$item-padding;
+		margin-left: -0.75rem;
+	}
+}

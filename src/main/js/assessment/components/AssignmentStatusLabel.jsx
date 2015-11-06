@@ -224,7 +224,7 @@ export default React.createClass({
 
 		const submittable = assignment.canBeSubmitted();
 
-		const date = this.getCompletedDateTime() || assignment.getDueDate();
+		const date = this.getCompletedDateTime() || (available ? assignment.getDueDate() : assignment.getAvailableForSubmissionBeginning());
 
 		const text = complete
 			? (assignment.isNonSubmit() ? 'Graded' : 'Completed')
@@ -232,12 +232,15 @@ export default React.createClass({
 				? 'Due'
 				: 'Available on';
 
+		const showOverdue = this.isOverDue() && submittable;
+		const showOvertime = this.isOverTime() && submittable;
+
 		const infoClasses = cx('info-part', text.toLowerCase(), {
 			'non-submit': assignment.isNonSubmit(),
 			'due-today': !complete && this.isDueToday(),
-			'overdue': this.isOverDue() && submittable,
+			'overdue': showOverdue,
 			'late': this.isOverDue() && !assignment.isNonSubmit() && !submittable,
-			'overtime': submittable && this.isOverTime(),
+			'overtime': showOvertime,
 			'not-available': !available
 		});
 
@@ -257,8 +260,8 @@ export default React.createClass({
 						<span className="state" onClick={this.onShowStatusDetail}>{text}</span>
 						<span className="over">
 							(
-							<span className="overtime" onClick={this.onShowOvertimeDetail}>Overtime</span>
-							<span className="overdue" onClick={this.onShowOverdueDetail}>Overdue</span>
+							{showOvertime && <span className="overtime" onClick={this.onShowOvertimeDetail}>Overtime</span>}
+							{showOverdue && <span className="overdue" onClick={this.onShowOverdueDetail}>Overdue</span>}
 							)
 						</span>
 						<DateTime

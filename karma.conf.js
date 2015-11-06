@@ -2,10 +2,10 @@
 'use strict';
 var path = require('path');
 var webpack = require('webpack');
+var getCodeLoaderConfig = require('./webpack/getCodeLoaderConfig');
 
-var scssIncludes = 'includePaths[]=' + (path.resolve(__dirname, 'src/main/resources/vendor/foundation/scss'));
-
-var root = path.join(__dirname, 'src', 'main', 'js');
+var root = path.resolve(__dirname, 'src', 'main', 'js');
+var modules = path.resolve(__dirname, 'node_modules');
 
 var stat = {
 	version: false,
@@ -53,7 +53,7 @@ module.exports = function (config) {
 			},
 
 			resolve: {
-				root: root,
+				root: [root, modules],
 				extensions: ['', '.jsx', '.js', '.css', '.scss', '.html']
 			},
 
@@ -65,18 +65,9 @@ module.exports = function (config) {
 
 			module: {
 				loaders: [
-					{ test: /\.js(x)?$/, loader: 'babel' },
+					getCodeLoaderConfig(/\.js(x)?$/),
 					{ test: /\.json$/, loader: 'json' },
-					{ test: /\.ico$/, loader: 'url' },
-					{ test: /\.gif$/, loader: 'url' },
-					{ test: /\.png$/, loader: 'url' },
-					{ test: /\.jpg$/, loader: 'url' },
-					{ test: /\.eot$/, loader: 'url' },
-					{ test: /\.ttf$/, loader: 'url' },
-					{ test: /\.woff$/, loader: 'url' },
-					{ test: /\.html$/, loader: 'html' },
-					{ test: /\.css$/, loader: 'style!css' },
-					{ test: /\.scss$/, loader: 'style!css!sass?' + scssIncludes }
+					{ test: /\.(html?|sass|s?css|ico|gif|png|jpg|eot|ttf|woff)$/, loader: 'null' }
 				]
 			}
 		},
@@ -100,7 +91,7 @@ module.exports = function (config) {
 
 		exclude: [],
 		port: 8090,
-		logLevel: config.LOG_INFO,
+		logLevel: config.LOG_WARN,
 		colors: true,
 		autoWatch: false,
 		// Start these browsers, currently available:

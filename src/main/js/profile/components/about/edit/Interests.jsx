@@ -1,6 +1,8 @@
 import React from 'react';
 import Mixin from './Mixin';
 
+const COMMA = 188;
+
 export default React.createClass({
 	displayName: 'Interests:Edit',
 	itemsArePrimitive: true,
@@ -12,6 +14,13 @@ export default React.createClass({
 		field: React.PropTypes.string
 	},
 
+	handleKeyDown (e) {
+		if (e.keyCode === COMMA) {
+			e.preventDefault();
+			e.stopPropagation();
+			this.maybeAddItem(e);
+		}
+	},
 
 	maybeAddItem (e) {
 		let {target} = e;
@@ -46,7 +55,7 @@ export default React.createClass({
 				))}
 
 				<div className="string-item input">
-					<input onBlur={this.maybeAddItem}/>
+					<input onBlur={this.maybeAddItem} onKeyDown={this.handleKeyDown}/>
 				</div>
 			</div>
 		);

@@ -2,6 +2,8 @@ import React from 'react';
 
 import {getService} from 'common/utils';
 
+const getID = (x) => x && x.getID && x.getID();
+
 function getThumbnail (item) {
 
 	const getIcon = x => (x.getPresentationProperties
@@ -45,7 +47,11 @@ export default React.createClass({
 	},
 
 	componentWillReceiveProps (nextProps) {
-		this.load(nextProps);
+		let {item} = this.props;
+		let {item: nextItem} = nextProps;
+		if(getID(item) !== getID(nextItem)) {
+			this.load(nextProps);
+		}
 	},
 
 	load (props = this.props) {

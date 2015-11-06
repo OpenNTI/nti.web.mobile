@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 
 import Loading from 'common/components/TinyLoader';
 import Button from 'common/forms/components/Button';
@@ -9,8 +10,6 @@ import Joined from 'activity/components/widgets/Joined';
 
 import BasePathAware from 'common/mixins/BasePath';
 import ProfileAnalytics from '../mixins/AnalyticsMixin';
-
-import Card from './Card';
 
 import WriteSomething from './WriteSomething';
 
@@ -126,9 +125,9 @@ export default React.createClass({
 		let canPost = !!store.postToActivity;
 
 		return (
-			<ul className="profile-cards activity">
-				{canPost && <Card key="editor" className="card-write-something"><WriteSomething entity={entity} store={store}/></Card> }
-				{store.length === 0 && !entity.isUser && <Card key="emptyList"><EmptyList type="activity"/></Card>}
+			<ul className="activity">
+				{canPost && <li key="editor" className="activity-item card-write-something"><WriteSomething entity={entity} store={store}/></li> }
+				{store.length === 0 && !entity.isUser && <li key="activity-item emptyList"><EmptyList type="activity"/></li>}
 				{store.map((a, index) => {
 
 					// // localize the last segment of the mime type for the card title.
@@ -136,14 +135,14 @@ export default React.createClass({
 					// let title = t(mime);
 
 					return (
-						<Card key={`${a.NTIID}:${index}`} className={mime}>
+						<li key={`${a.NTIID}:${index}`} className={cx('activity-item', mime)}>
 							{this.renderItems(a)}
-						</Card>
+						</li>
 					);
 				})}
 
 				{(entity.isUser || store.more) && (
-				<Card ref="end" key="theend" className="end">
+				<li ref="end" key="theend" className="activity-item end">
 					{store.more
 						? store.loading
 							? ( <Loading/> )
@@ -151,7 +150,7 @@ export default React.createClass({
 						: (
 						<Joined entity={entity} />
 					)}
-				</Card>
+				</li>
 				)}
 			</ul>
 		);

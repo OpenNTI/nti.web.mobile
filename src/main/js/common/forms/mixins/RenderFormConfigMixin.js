@@ -205,7 +205,7 @@ export default {
 				if (formatters.hasOwnProperty(i)) {
 					ref = this.refs[i];
 
-					if (!ref || !ref.isMounted()) { continue; }
+					if (!ref) { continue; }
 
 					format = formatters[i];
 

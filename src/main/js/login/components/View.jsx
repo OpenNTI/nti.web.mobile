@@ -48,7 +48,7 @@ export default React.createClass({
 		}
 
 		return (
-			<ReactCSSTransitionGroup transitionName="fadeOutIn">
+			<ReactCSSTransitionGroup transitionName="fadeOutIn" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
 				<Locations contextual key={this.getPath()}>
 					<Location path="/pwreset/:username/:token" handler={PasswordResetForm}/>
 					<Location path="/forgot/:param" handler={ForgotForm}/>

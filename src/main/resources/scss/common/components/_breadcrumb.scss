@@ -1,0 +1,72 @@
+a.breadcrumb {
+	display: block;
+}
+
+.breadcrumb-list {
+	-webkit-font-smoothing: auto;
+	list-style-type: none;
+	margin: 0 0.625rem;
+	color: $tertiary-grey;
+	text-transform: uppercase;
+	font-size: 0.5rem;
+	font-weight: 400;
+	display: flex;
+	flex-wrap: wrap;
+
+	.crumb {
+		position: relative;
+		display: inline-flex;
+		flex-wrap: nowrap;
+
+		&:not(.last)::after {
+			flex: 0 0 auto;
+			content: '/';
+			padding: 0 0.3em;
+		}
+
+		&, span {
+			flex: 0 1 auto;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		// &.next-to-last{
+		// 	padding-right: 0.5rem;
+		// 	&::after {
+		// 		position: absolute;
+		// 		right: 0;
+		// 		top: 0;
+		// 	}
+		// }
+
+		&:first-child {
+			flex: 0 1 auto;
+		}
+
+		&.last {
+			flex: 0 0 100%;
+			display: block;
+			color: $primary-blue;
+		}
+	}
+}
+
+.activity-item {
+	.breadcrumb-list {
+		margin: -0.625rem 0;
+		padding: .625rem;
+		box-shadow: 0 1px 4px 0px rgba(30,30,30,0.05);
+		border-bottom: 1px solid #f0f0f0;
+		background: white;
+		border-radius: 3px 3px 0 0;
+		position: relative;
+		z-index: 999; // to get the shadow to overlay the bookmark lucky charm
+	}
+	.charms {
+		top: 3px;
+	}
+	.author-info .charms {
+		top: 0;
+	}
+}

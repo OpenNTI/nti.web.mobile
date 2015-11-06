@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import {getModel} from 'nti.lib.interfaces';
 
-import ContentAquirePrompt from 'catalog/components/ContentAquirePrompt';
+import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import Loading from 'common/components/TinyLoader';
 // import Err from 'common/components/Error';
@@ -84,7 +84,7 @@ export default React.createClass({
 				let context = React.createElement(Content, {
 					page: x,
 					pageId,
-					onContentReady: () => this.findApplicableRange()
+					onContentReady: () => this.setState({contextReady: true})
 				});
 
 				this.setState({loading: false, fragment: true, context, pageId});
@@ -129,10 +129,10 @@ export default React.createClass({
 
 	findApplicableRange () {
 		let {item} = this.props;
-		let {found, fragment, pageId} = this.state;
+		let {found, fragment, pageId, contextReady} = this.state;
 
 		const {refs: {root}} = this;
-		if (!root || found || !fragment) {
+		if (!root || found || !fragment || !contextReady) {
 			return !!found;
 		}
 
@@ -172,7 +172,9 @@ export default React.createClass({
 
 	focusApplicableRange () {
 		let {refs: {root: node}} = this;
-		if (node) {
+		if (node && this.findApplicableRange()) {
+
+
 			let focus = node.querySelector('.fucus-context-here');
 
 			node = node.firstChild;//this is what scrolls.
@@ -203,13 +205,13 @@ export default React.createClass({
 			? ( <div {...props}><Loading/></div> )
 			: error
 				? (is403(error)
-					? ( <ContentAquirePrompt {...props} relatedItem={item} data={error}/> )
+					? ( <ContentAcquirePrompt {...props} relatedItem={item} data={error}/> )
 					: ( null )
 				)
 				: (typeof context === 'string')
 					? ( <div ref="root" {...props} dangerouslySetInnerHTML={{__html: context}}/> )
 					: (
-						<div {...props}>
+						<div ref="root" {...props}>
 						{
 							React.createElement(context.type,
 								Object.assign({}, context.props, {ref: 'widget'}))

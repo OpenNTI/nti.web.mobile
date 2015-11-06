@@ -1,22 +1,21 @@
 import React from 'react';
 
+import Breadcrumb from 'common/components/BreadcrumbPath';
 import {isFlag} from 'common/utils';
-import RepliedTo from 'common/components/RepliedTo';
 
 import Detail from 'content/components/discussions/Detail';
 import Context from 'content/components/discussions/Context';
 
-import Mixin from './Mixin';
-
 import ContentIcon from './ContentIcon';
-import Breadcrumb from './Breadcrumb';
 
 export default React.createClass({
 	displayName: 'Note',
-	mixins: [Mixin],
 
 	statics: {
-		mimeType: /note$/i
+		handles (item) {
+			const {MimeType = ''} = item;
+			return /note$/i.test(MimeType);
+		}
 	},
 
 	propTypes: {
@@ -32,18 +31,20 @@ export default React.createClass({
 		}
 
 		return (
-			<div className={`activity discussion-${item.isReply() ? 'reply' : 'detail'}`}>
-				<div className="note heading">
-					<ContentIcon item={item} />
-					<Breadcrumb item={item} />
-					{item.isReply()
-						? (<RepliedTo item={item}/>)
-						: isFlag('disable-context-in-activity') !== true && ( <Context item={item}/> )}
+			<div className="note-wrapper">
+				<Breadcrumb item={item} showPrompt={item.isReply()}/>
+				<div className={`activity discussion-${item.isReply() ? 'reply' : 'detail'}`}>
+					<div className="note heading">
+						<ContentIcon item={item} />
+
+						{item.isReply()
+							? null
+							: isFlag('disable-context-in-activity') !== true && ( <Context item={item}/> )}
+					</div>
+					<Detail item={item} lite/>
+					{/*<Actions item={item}/> -- Comment count, [edit] [delete]*/}
 				</div>
-				<Detail item={item} lite/>
-				{/*<Actions item={item}/> -- Comment count, [edit] [delete]*/}
 			</div>
 		);
-
 	}
 });

@@ -3,7 +3,6 @@ import {Editor} from 'modeled-content';
 
 import Notice from 'common/components/Notice';
 import OkCancelButtons from 'common/components/OkCancelButtons';
-import PanelButton from 'common/components/PanelButton';
 import Loading from 'common/components/TinyLoader';
 
 import StoreEvents from 'common/mixins/StoreEvents';
@@ -108,26 +107,26 @@ export default React.createClass({
 		}
 
 		let savefunc = this.props.editItem ? this.onSave.bind(this, this.props.editItem) : this.onAddComment;
-		let buttons = (
-			<OkCancelButtons
-				onOk={savefunc}
-				okEnabled={this.state.canSubmit}
-				onCancel={this.props.onCancel}
-				okText={t('editorOkButton')} />
-		);
+
 
 		let value = (this.props.editItem || {}).body;
 
 		return (
-			<PanelButton className="comment-form" linkText="Submit" button={buttons} id={this.props.id}>
+			<div className="comment-form" id={this.props.id}>
 				{this.state.error && <Notice className="err">{this.state.error.message || 'An error occurred.'}</Notice>}
 				<div className="comment-form-heading">{t('addComment')}</div>
 				<Editor ref="editor"
 					onChange={this.onBodyChange}
 					value={value}
 					allowInsertVideo
-					/>
-			</PanelButton>
+					>
+					<OkCancelButtons
+						onOk={savefunc}
+						okEnabled={this.state.canSubmit}
+						onCancel={this.props.onCancel}
+						okText={t('editorOkButton')} />
+				</Editor>
+			</div>
 		);
 	}
 

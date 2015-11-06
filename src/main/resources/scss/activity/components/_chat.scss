@@ -1,0 +1,27 @@
+.activity-item {
+	.chat {
+		&.avatar-heading {
+			$avatarsize: 60px;
+			$iconsize: 32px;
+			$position: ($avatarsize - $iconsize)/2; // center in the 60x60 avatar space
+			@extend %profile-card-chat-icon;
+			background: {
+				position: $position $position;
+				repeat: no-repeat;
+			}
+		}
+		ul.meta {
+			margin: 0;
+			list-style-type: none;
+			li {
+				display: inline-block;
+				margin-right: 1em;
+			}
+		}
+
+		.chat-transcript {
+			margin: 0 0.625rem 0 -0.3125rem;
+		}
+
+	}
+}

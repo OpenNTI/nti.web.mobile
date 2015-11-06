@@ -43,9 +43,6 @@ var gitRevision = require('../src/server/lib/git-revision');
 
 var baseConfig = require('./app.config')[0];
 
-var scssIncludes =
-	'includePaths[]=' + (path.resolve(__dirname, '../src/main/resources/vendor/foundation/scss'));
-
 function getWidgets () {
 	var widgetPath = path.join(__dirname, '..', 'src', 'main', 'widgets');
 
@@ -113,7 +110,7 @@ function includeWidgets () {
 
 			module: {
 				loaders: baseConfig.module.loaders.filter(css).concat([
-					{ test: /\.(s?)css$/, loader: 'style!css?-minimize!autoprefixer!sass?' + scssIncludes }
+					{ test: /\.(s?)css$/, loader: 'style!css?-minimize!autoprefixer!sass' }
 				])
 			}
 

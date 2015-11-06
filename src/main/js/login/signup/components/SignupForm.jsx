@@ -167,7 +167,11 @@ export default React.createClass({
 
 		return (
 			<div className="row">
-				<form ref="form" autoComplete="off" className="create-account-form medium-6 medium-centered columns" onSubmit={this.handleSubmit}>
+				<form ref="form"
+					className="create-account-form medium-6 medium-centered columns"
+					autoComplete="off"
+					onSubmit={this.handleSubmit}
+					>
 
 					<fieldset>
 						<legend>Create Account</legend>
@@ -188,7 +192,9 @@ export default React.createClass({
 					<UserAgreement />
 
 					<div className="errors">
-						<ReactCSSTransitionGroup transitionName="fadeOutIn">
+						<ReactCSSTransitionGroup transitionName="fadeOutIn" 
+							transitionEnterTimeout={500}
+							transitionLeaveTimeout={500}>
 							{Object.keys(errors).map(ref =>
 								<small key={ref} className="error">{errors[ref].message}</small>
 							)}

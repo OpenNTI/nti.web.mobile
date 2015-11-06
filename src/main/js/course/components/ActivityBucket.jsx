@@ -4,21 +4,21 @@ import ItemsMixin from 'activity/RenderItemsMixin';
 
 import DateTime from 'common/components/DateTime';
 
-import Card from 'profile/components/Card';
+import selectWidgetOverride from './activity-widget-overrides';
 
 
 const startDateFormat = 'MMMM D';
-const MIN_COL_WIDTH = 250;
+const MIN_COL_WIDTH = 260;
 const MAX_WIDTH = 1024;
 
 const WEIGHT = Symbol('weight');
 
 const weights = {
-	'application/vnd.nextthought.communityheadlinetopic': 2,
-	'application/vnd.nextthought.forums.generalforumcomment': 1,
+	'application/vnd.nextthought.communityheadlinetopic': 3,
+	'application/vnd.nextthought.forums.generalforumcomment': 0,
 	'application/vnd.nextthought.courses.courseoutlinecontentnode': 1,
-	'application/vnd.nextthought.assessment.assignment': 1,
 	'application/vnd.nextthought.courses.courseoutlinecalendarnode': 1,
+	'application/vnd.nextthought.assessment.assignment': 1,
 	'application/vnd.nextthought.note': 3
 };
 
@@ -40,7 +40,7 @@ class ActivityColumn {
 
 	weightFor (item) {
 		let w = weights[item.MimeType];
-		if (!w) {
+		if (w == null) {
 			console.warn(`No weight for MimeType: ${item.MimeType}`);
 			w = 1;
 		}
@@ -139,13 +139,19 @@ export default React.createClass({
 		}
 	},
 
+
+	selectWidget (item, index, props) {
+		return selectWidgetOverride(item, index, props);
+	},
+
+
 	render () {
 
 		let {bucket} = this.props;
 		let {columns} = this.state;
 		let endDateFormat = bucket.start.getMonth() === bucket.end.getMonth() ? 'D' : startDateFormat;
 		return (
-			<Card>
+			<li className="activity-item">
 				<div className="header"><DateTime date={bucket.start} format={startDateFormat} /> - <DateTime date={bucket.end} format={endDateFormat} /></div>
 				<div className="activity-columns">
 					{columns.map((col, index) => (
@@ -155,7 +161,7 @@ export default React.createClass({
 					) )}
 					{/*<div className="bucketed-items">{this.renderItems(bucket, {className: 'bucketed-item'})}</div>*/}
 				</div>
-			</Card>
+			</li>
 		);
 	}
 });

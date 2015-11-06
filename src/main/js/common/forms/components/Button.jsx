@@ -1,9 +1,6 @@
 import React from 'react';
+import cx from 'classnames';
 
-/**
- * React Button component
- * @class Button
- */
 export default React.createClass({
 	displayName: 'Button',
 
@@ -37,11 +34,8 @@ export default React.createClass({
 
 
 	render () {
-
-		let css = `button tiny ${this.props.className}`;
-		if(!this.props.enabled) {
-			css = `disabled ${css}`;
-		}
+		const {className, enabled} = this.props;
+		const css = cx('button tiny', className, {disabled: !enabled});
 
 		return (
 			<a {...this.props} onClick={this.onClick} className={css}/>

@@ -13,7 +13,7 @@ let Dialog = React.createClass({
 		},
 
 		clear () {
-			let res = React.unmountComponentAtNode(this.getMountPoint());
+			let res = ReactDOM.unmountComponentAtNode(this.getMountPoint());
 			if (res) {//only clear active if React unmounted the component at the mount point.
 				this.active = null;
 			}

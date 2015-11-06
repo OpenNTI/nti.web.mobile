@@ -1,13 +1,22 @@
-import ensureIterable from 'nti.lib.interfaces/utils/ensure-iterable';
-
 import selectWidget from './components/widgets';
 
 export default {
 
 	renderItems (items, props) {
-		let widgets = ensureIterable(items).map((item, index) => {
-			return selectWidget(item, index, props);
+
+		const o = !items
+			? null
+			: items.map
+				? items : [items];
+
+		return o && o.map((item, index) => {
+			let out;
+
+			if (this.selectWidget) {
+				out = this.selectWidget(item, index, props);
+			}
+
+			return out || selectWidget(item, index, props);
 		});
-		return widgets;
 	}
 };

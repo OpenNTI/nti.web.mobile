@@ -98,7 +98,7 @@ export default React.createClass({
 					{busy ? ( <Loading/> ) : (
 						<div>
 							<div className="header">next thought</div>
-							<Conditional condition={error} className="message">{this.formatError(error)}</Conditional>
+							<Conditional condition={!!error} className="message">{this.formatError(error)}</Conditional>
 							<fieldset>
 								<div className="field-container" data-title="Username">
 									<input ref="username"

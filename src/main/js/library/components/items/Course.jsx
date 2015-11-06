@@ -1,12 +1,16 @@
 import React from 'react';
-import CourseLinker from '../../mixins/CourseContentLink';
-import CourseContentLink from '../CourseContentLink';
-
-import COURSE_SECTIONS from 'course/Sections';
 
 import ActiveState from 'common/components/ActiveState';
 import E from 'common/components/Ellipsed';
+
+import COURSE_SECTIONS from 'course/Sections';
+
+import CourseLinker from '../../mixins/CourseContentLink';
+
+import CourseContentLink from '../CourseContentLink';
 import Badge from '../Badge';
+
+import Icon from './Icon';
 
 export default React.createClass({
 	displayName: 'Course',
@@ -141,7 +145,7 @@ export default React.createClass({
 		return (
 			<div className="library-item course">
 				<CourseContentLink courseId={courseId} section={defaultSection}>
-					<img src={icon}/>
+					<Icon src={icon}/>
 					<Badge item={item}/>
 					<label>
 						<h5>{label}</h5>

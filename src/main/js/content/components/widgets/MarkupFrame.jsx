@@ -69,7 +69,7 @@ export default React.createClass({
 		let bare = noDetails && !markable && !isSlide;
 
 		//force zoom if the image has been scaled down and only if the frame will show.
-		if (!bare && this.state.forceZoomable) {
+		if (this.state.forceZoomable) {
 			zoomable = true;
 		}
 

@@ -1,75 +1,77 @@
-require('babel/polyfill');//applies hooks into global
+import 'babel/polyfill';//applies hooks into global
 
-//TODO: find a way to get rid of this dirty import. All deps should come
-// from node_modules, so switch to this in the future:
-//  https://www.npmjs.com/package/modernizr
-// Its not a simple swap...otherwise I would have done that.
-require('script!../resources/vendor/modernizr/modernizr.js');//injects a <script> into the html
-
-import FastClick from 'fastclick';
-
+import path from 'path';
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import Relay from 'react-relay';
+import Relay from 'react-relay';
+import CSS from 'fbjs/lib/CSSCore';
 
-// import EventPluginHub from 'react/lib/EventPluginHub';
-// import ResponderEventPlugin from 'common/thirdparty/ResponderEventPlugin';
-// import TapEventPlugin from 'common/thirdparty/TapEventPlugin';
-
-import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'common/utils';
+import isTouch from 'nti.lib.interfaces/utils/is-touch-device';
 import OrientationHandler from 'common/utils/orientation';
-
-
-overrideConfigAndForceCurrentHost();
-console.debug('Client is using host: %s', getServerURI());
-
-
-// EventPluginHub.injection.injectEventPluginsByName({
-// 	ResponderEventPlugin: ResponderEventPlugin,
-// 	TapEventPlugin: TapEventPlugin
-// });
-
-
-FastClick.attach(document.body);
-
-
-// preventOverscroll(document.body);
-
-
-// if (("standalone" in navigator) && !navigator.standalone){
-// 	//Suggest Bookmarking to the home screen...
-// }
-
-let basePath = (global.$AppConfig || {}).basepath || '/';
-
-// Relay.injectNetworkLayer(
-// 	new Relay.DefaultNetworkLayer(path.join(basePath, '/api/graphql'))
-// );
-
+import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'common/utils';
 
 import AppView from './AppView';
 
-let app = ReactDOM.render(
-	React.createElement(AppView, {basePath}),
+const RootNode = document.querySelector('html');
+CSS.removeClass(RootNode, 'no-js');
+CSS.addClass(RootNode, 'js');
+CSS.addClass(RootNode, isTouch ? 'touch' : 'no-touch');
+
+//After bundle CSS is injected, lets move this back down so it overrides the bundle.
+// This is the Browser's entry point, we can assume the existence of "document".
+const siteCSS = document.getElementById('site-override-styles');
+if (siteCSS) { siteCSS.parentNode.appendChild(siteCSS); }
+
+//temp until we design a better way:
+if (window.top !== window) {
+	window.top.location.href = location.href;
+	//If the frame busting code is blocked, tell them embedding is not supported.
+	location.replace('iframe.html');
+}
+
+overrideConfigAndForceCurrentHost();
+
+console.debug('Client is using host: %s', getServerURI());
+
+const basePath = (global.$AppConfig || {}).basepath || '/';
+
+Relay.injectNetworkLayer(
+	new Relay.DefaultNetworkLayer(path.join(basePath, '/api/graphql')));
+
+
+const APP = ReactDOM.render(
+	React.createElement(AppView, {
+		basePath,
+		canRunStandalone: ('standalone' in navigator),
+		isRunningStandalone: ('standalone' in navigator) && navigator.standalone
+	}),
 	document.getElementById('content')
 );
+
+OrientationHandler.init(APP);
+global.onbeforeunload = () => APP.setState({mask: 'Reloading...'});
+
+
+
+
+
 
 
 /**
  * Login Store State Change listener.
- * This is only responsible for reloading the app on the home url once logged in.
+ * This is only responsible for reloading the APP on the home url once logged in.
  * The node service is responsible for enforcing auth-required pages.
  */
 import {LOGIN_STATE_CHANGED} from 'login/Constants';
 import LoginStore from 'login/Store';
 
 LoginStore.addChangeListener(evt => {
-	let returnURL = getReturnURL();
+	const RETURN_URL = getReturnURL();
 
 	if (evt && evt.type === LOGIN_STATE_CHANGED) {
 		if (LoginStore.isLoggedIn) {
-			//app.navigate(returnURL || basePath, {replace:true});
-			location.replace(returnURL || basePath);
+			//APP.navigate(RETURN_URL || basePath, {replace:true});
+			location.replace(RETURN_URL || basePath);
 		}
 
 		//Future idea: if we ever broadcast a login state changed event and
@@ -80,18 +82,7 @@ LoginStore.addChangeListener(evt => {
 		//I currently have a better idea for this, so this block will
 		//probably just go unused.
 		else {
-			app.navigate(basePath + 'login/', {replace: true});
+			APP.navigate(basePath + 'login/', {replace: true});
 		}
 	}
 });
-
-
-//After bundle CSS is injected, lets move this back down so it overrides the bundle.
-let site = document.getElementById('site-override-styles');
-if (site) { site.parentNode.appendChild(site); }
-
-OrientationHandler.init(app);
-
-global.onbeforeunload = () => {
-	app.setState({mask: 'Reloading...'});
-};

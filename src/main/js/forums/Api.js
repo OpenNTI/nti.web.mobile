@@ -3,10 +3,11 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import {getService} from 'common/utils';
 
 const DEFAULT_BATCH_SIZE = 20;
+const DEFAULT_SORT_ORDER = 'descending';
 
 export const DEFAULT_PAGING_PARAMS = {
-	sortOn: 'CreatedTime',
-	sortOrder: 'ascending',
+	sortOn: 'NewestDescendantCreatedTime',
+	sortOrder: DEFAULT_SORT_ORDER,
 	filter: 'TopLevel',
 	batchStart: 0,
 	batchSize: DEFAULT_BATCH_SIZE
@@ -48,18 +49,21 @@ export function loadDiscussions (pkg) {
 
 // convenience method that just adds params to the getObjectContents call.
 export function getTopicContents (topicId, batchStart = 0, batchSize = 50) {
-	return getPagedContents(topicId, batchStart, batchSize);
+	return getPagedContents(topicId, batchStart, batchSize, 'ascending');
 }
 
 export function getForumContents (forumId, batchStart, batchSize) {
 	return getPagedContents(forumId, batchStart, batchSize);
 }
 
-export function getPagedContents (ntiid, batchStart = 0, batchSize = DEFAULT_BATCH_SIZE) {
+export function getPagedContents (ntiid,
+									batchStart = 0,
+									batchSize = DEFAULT_BATCH_SIZE,
+									sortOrder = DEFAULT_SORT_ORDER) {
 	let params = Object.assign(
 		{},
 		DEFAULT_PAGING_PARAMS,
-		{batchStart, batchSize}
+		{batchStart, batchSize, sortOrder}
 	);
 	return getObjectContents(ntiid, params);
 }
