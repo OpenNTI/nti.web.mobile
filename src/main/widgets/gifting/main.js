@@ -6,7 +6,6 @@ import '../../resources/scss/app.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import QueryString from 'query-string';
-import FastClick from 'fastclick';
 import isTouch from 'nti.lib.interfaces/utils/is-touch-device';
 
 const RootNode = document.querySelector('html');
@@ -18,7 +17,6 @@ import {overrideConfigAndForceCurrentHost, installAnonymousService} from 'common
 
 import Widget from './widget';
 
-FastClick.attach(document.body);
 overrideConfigAndForceCurrentHost();//ensures we talk back to our current host instead of anything else.
 installAnonymousService();//fakes a service doc.
 
