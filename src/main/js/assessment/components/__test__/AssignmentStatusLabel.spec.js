@@ -12,7 +12,7 @@ const assignment = MockAssignment({
 	'available_for_submission_ending': '2015-08-29T04:59:59Z'
 });
 
-fdescribe('AssignmentStatusLabel', () => {
+describe('AssignmentStatusLabel', () => {
 	let container = document.createElement('div');
 	let newNode;
 

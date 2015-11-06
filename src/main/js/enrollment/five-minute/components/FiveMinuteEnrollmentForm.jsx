@@ -1,7 +1,7 @@
 import React from 'react';
 import update from 'react/lib/update';
 
-import ButtonFullWidth from 'common/forms/components/ButtonFullWidth';
+import Button from 'common/forms/components/Button';
 import FieldRender from 'common/forms/mixins/RenderFormConfigMixin';
 import FieldValuesStore from 'common/forms/FieldValuesStore';
 import * as FormConstants from 'common/forms/Constants';
@@ -200,7 +200,11 @@ export default React.createClass({
 							errorFieldRefs={errorRefs}
 							translator={t} />
 						<FormErrors errors={errors} />
-						<ButtonFullWidth enabled={this.submitEnabled()} onClick={this.handleSubmit}>{t('submit')}</ButtonFullWidth>
+						<Button className="columns"
+							enabled={this.submitEnabled()}
+							onClick={this.handleSubmit}>
+							{t('submit')}
+						</Button>
 					</div>
 				</div>
 			</div>

@@ -43,6 +43,10 @@ export default React.createClass({
 			menu = menu.filter(x=>x.href !== Sections.DISCUSSIONS);
 		}
 
+		if (!course.shouldShowAssignments()) {
+			menu = menu.filter(x => x.href !== Sections.ASSIGNMENTS);
+		}
+
 		this.setState({menu});
 	},
 

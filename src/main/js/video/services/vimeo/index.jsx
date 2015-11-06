@@ -17,6 +17,7 @@ const VIMEO_EVENTS_TO_HTML5 = {
 };
 
 const VIMEO_URL_PARTS = /(?:https?:)?\/\/(?:(?:www|player)\.)?vimeo.com\/(?:(?:channels|video)\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?|#)/i;
+const VIMEO_PROTOCOL_PARTS = /vimeo:\/\/(\d+\/)?(\d+)/i;
 
 let Source = React.createClass({
 	displayName: 'Vimeo-Video',
@@ -26,7 +27,11 @@ let Source = React.createClass({
 		service: 'vimeo',
 		getID (url) {
 			/** @see test */
-			const [/*matchedURL*/, /*albumId*/, id] = url.match(VIMEO_URL_PARTS) || [];
+
+			const getFromCustomProtocol = x => x.match(VIMEO_PROTOCOL_PARTS);
+			const getFromURL = x => x.match(VIMEO_URL_PARTS);
+
+			const [/*matchedURL*/, /*albumId*/, id] = getFromCustomProtocol(url) || getFromURL(url) || [];
 			return id || null;
 		},
 
@@ -114,7 +119,8 @@ let Source = React.createClass({
 
 
 	onMessage (event) {
-		let data = JSON.parse(event.data);
+		const getData = x => typeof x === 'string' ? JSON.parse(x) : x;
+		let data = getData(event.data);
 		let mappedEvent = VIMEO_EVENTS_TO_HTML5[data.event];
 		let handlerName = EventHandlers[mappedEvent];
 

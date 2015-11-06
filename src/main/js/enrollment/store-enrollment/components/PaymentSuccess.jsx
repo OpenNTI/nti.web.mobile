@@ -62,17 +62,14 @@ export default React.createClass({
 			return <ErrorWidget error="No data"/>;
 		}
 
-		return (
-			<div>
-				{isGift ?
-					<GiftSuccess
-						purchasable={purchasable}
-						purchaseattempt={purchaseAttempt}
-						onDone={onDone}
-						doneLink={giftDoneLink} /> :
-					<EnrollmentSuccess courseTitle={title} />
-				}
-			</div>
+		return isGift ? (
+			<GiftSuccess
+				purchasable={purchasable}
+				purchaseattempt={purchaseAttempt}
+				onDone={onDone}
+				doneLink={giftDoneLink} />
+		) : (
+			<EnrollmentSuccess courseTitle={title} />
 		);
 	}
 

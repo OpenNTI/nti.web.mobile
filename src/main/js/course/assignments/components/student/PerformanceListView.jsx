@@ -62,7 +62,16 @@ export default React.createClass({
 			return Promise.reject('No assignments.getHistory?');
 		}
 		assignments.getHistory()
-			.then(history => Object.assign(SearchSortStore, {history}));
+			.then(history => {
+				console.log(history);
+
+				Object.assign(SearchSortStore, {history});
+				this.forceUpdate();
+			},
+			e => {
+
+				console.log(e);
+			});
 	},
 
 	sortOn (cols) {
@@ -89,8 +98,11 @@ export default React.createClass({
 	},
 
 	render () {
-		let {assignmentsList} = SearchSortStore;
+		let {assignmentsList, history} = SearchSortStore;
 		let {sortOn, sortDesc} = this.state;
+
+		const getHistory = x => history && history.getItem(x.getID());
+
 		return (
 			<div className="performance">
 				<div className="performance-headings">
@@ -104,7 +116,7 @@ export default React.createClass({
 						return <div key={index} className={classes} onClick={this.sortOn.bind(this, col.sortOn)}>{col.label}</div>;
 					})}
 				</div>
-				{assignmentsList.items.map(assignment => <PerformanceItem key={assignment.getID()} assignment={assignment} sortedOn={sortOn[0]} />)}
+				{assignmentsList.items.map(assignment => <PerformanceItem key={assignment.getID()} assignment={assignment} history={getHistory(assignment)} sortedOn={sortOn[0]} />)}
 			</div>
 		);
 	}

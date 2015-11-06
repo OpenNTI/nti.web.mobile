@@ -8,6 +8,20 @@
 	}
 
 	.actions {
+		margin: auto;
+		width: 80%;
+		/* 	display: flex; */
+		a {
+			margin: 1rem;
+			/* 	flex: 1 1 auto; */
+			/* 	order: 1; */
+
+			& + a {
+				/* 	order: 0; */
+			}
+		}
+
+
 		.button {
 			display: block;
 		}

@@ -59,10 +59,13 @@ export default React.createClass({
 			onDone = void 0;
 		}
 
+		const {VendorThankYouPage: {thankYouURL} = {}} = purchaseattempt;
+
 		return (
 			<div className="gift-success row">
 				<Pricing purchasable={purchasable} locked />
-				<div className="medium-8 medium-centered columns panel">
+				{!thankYouURL ? null : (<iframe src={thankYouURL} className="thankyou" frameBorder="0"/>)}
+				<div className="panel">
 					<h3 className="header">{t('title')}</h3>
 					<LocalizedHTML className="gift" stringId={`ENROLLMENT.GIFT.SUCCESS.${infoKey}`} sender={sender} receiver={receiver} />
 					<p className="alert">{alert}</p>
@@ -85,13 +88,9 @@ export default React.createClass({
 						<input type="text" className="value" value={transactionID} onChange={this.ignoreChange} />
 					</div>
 				</div>
-				<div className="medium-8 medium-centered columns row actions">
-					<div className="small-12 medium-6 columns">
-						<Button onClick={this.onNewGift}>Purchase another Gift</Button>
-					</div>
-					<div className="small-12 medium-6 columns">
-						<Button onClick={onDone} href={doneLink}>I'm done</Button>
-					</div>
+				<div className="actions">
+					<Button onClick={this.onNewGift}>Purchase another Gift</Button>
+					<Button onClick={onDone} href={doneLink}>I'm done</Button>
 				</div>
 			</div>
 		);
