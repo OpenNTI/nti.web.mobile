@@ -20,8 +20,6 @@ import Widget from './widget';
 //ensures we talk back to our current host instead of anything else.
 overrideConfigAndForceCurrentHost();
 
-React.initializeTouchEvents(true);
-
 const WidgetView = React.createFactory(Widget);
 ReactDOM.render(
 	WidgetView(),

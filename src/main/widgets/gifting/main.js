@@ -14,13 +14,12 @@ CSS.addClass(RootNode, 'js');
 CSS.addClass(RootNode, isTouch ? 'touch' : 'no-touch');
 
 import {overrideConfigAndForceCurrentHost, installAnonymousService} from 'common/utils';
-
 import Widget from './widget';
+
 
 overrideConfigAndForceCurrentHost();//ensures we talk back to our current host instead of anything else.
 installAnonymousService();//fakes a service doc.
 
-React.initializeTouchEvents(true);
 const props = QueryString.parse(global.location.search);
 
 
