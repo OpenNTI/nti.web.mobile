@@ -118,18 +118,21 @@ export default React.createClass({
 	},
 
 
-	componentDidUpdate () {
+	componentDidUpdate (_, prevState) {
 		let {outlineId, VideoIndex} = this.props;
 		let {video} = this.state;
 
-		let pageSource = video && VideoIndex.getPageSource(video);
+		if (video !== prevState.video) {
+			console.debug('Updating Pager...');
+			let pageSource = video && VideoIndex.getPageSource(video);
 
-		if (outlineId && pageSource) {
-			pageSource = pageSource.scoped(decodeFromURI(outlineId));
-		}
+			if (outlineId && pageSource) {
+				pageSource = pageSource.scoped(decodeFromURI(outlineId));
+			}
 
-		if (video) {
-			this.setPageSource(pageSource, video.getID());
+			if (video) {
+				this.setPageSource(pageSource, video.getID());
+			}
 		}
 	},
 
