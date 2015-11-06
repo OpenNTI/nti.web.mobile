@@ -7,7 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import QueryString from 'query-string';
 import isTouch from 'nti.lib.interfaces/utils/is-touch-device';
-
+import CSS from 'fbjs/lib/CSSCore';
 const RootNode = document.querySelector('html');
 CSS.removeClass(RootNode, 'no-js');
 CSS.addClass(RootNode, 'js');
