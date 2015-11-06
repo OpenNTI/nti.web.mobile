@@ -60,7 +60,15 @@ export default React.createClass({
 
 
 	getContext () {
-		const {props: {entryId}, state: {purchasable: {title} = {}}} = this;
+		const {props: {entryId}, state: {purchasable}} = this;
+		const {title} = purchasable || {};
+
+		if (!purchasable) {
+			return [
+				{label: 'Catalog', href: this.makeHref('/')}
+			];
+		}
+
 		return [
 			{
 				label: title,
