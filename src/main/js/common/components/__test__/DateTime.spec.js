@@ -147,7 +147,7 @@ describe('DateTime', () => {
 	});
 
 	it('Base Cases: date, prefix', () => {
-		const yesterday = moment().subtract(1, 'days');
+		const yesterday = moment(date).subtract(1, 'days');
 
 		const A = ReactDOM.render(
 			React.createElement(DateTime, {date: yesterday, prefix: 'toast '}),
