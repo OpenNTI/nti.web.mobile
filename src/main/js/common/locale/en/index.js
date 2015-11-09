@@ -61,7 +61,7 @@ export default {
 		'emptyList:contacts': 'No contacts.',
 		'emptyList:contactssearch': 'No contacts found.',
 		'emptyList:entity-search': 'No one found',
-		'emptyList:assignments': 'None'
+		'emptyList:assignments': 'No assignments currently available.'
 	},
 
 	CONTENT: content,

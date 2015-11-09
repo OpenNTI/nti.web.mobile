@@ -1,10 +1,14 @@
 import React from 'react';
 
 import Loading from 'common/components/Loading';
+import Notice from 'common/components/Notice';
+import {scoped} from 'common/locale';
 
 import SearchSortStore from '../SearchSortStore';
 
 import AssignmentGroup from './AssignmentGroup';
+
+let t = scoped('LISTS');
 
 export default React.createClass({
 	displayName: 'AssignmentsList',
@@ -52,6 +56,10 @@ export default React.createClass({
 
 		if(loading || !assignmentsList) {
 			return <Loading />;
+		}
+
+		if(assignmentsList.items.length === 0) {
+			return <Notice>{t('emptyList:assignments')}</Notice>;
 		}
 
 		return (
