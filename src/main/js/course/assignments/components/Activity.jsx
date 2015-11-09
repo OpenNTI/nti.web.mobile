@@ -1,10 +1,14 @@
 import React from 'react';
 
 import Loading from 'common/components/Loading';
+import Notice from 'common/components/Notice';
+import {scoped} from 'common/locale';
 
 import SearchSortStore from '../SearchSortStore';
 
 import AssignmentActivityItem from './AssignmentActivityItem';
+
+let t = scoped('LISTS');
 
 export default React.createClass({
 	displayName: 'Activity',
@@ -47,6 +51,10 @@ export default React.createClass({
 
 		if (!activity) {
 			return <Loading />;
+		}
+
+		if (activity.length === 0) {
+			return <Notice>{t('emptyList:activity')}</Notice>;
 		}
 
 		return (
