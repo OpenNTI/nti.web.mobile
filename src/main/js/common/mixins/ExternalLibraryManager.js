@@ -41,6 +41,10 @@ function createElement (document, tag, props) {
 export default {
 
 	ensureExternalLibrary (id) {
+		if (Array.isArray(id)) {
+			return Promise.all(id.map(x => this.ensureExternalLibrary(x)));
+		}
+
 		const config = externalLibraries();
 
 		const lib = config[id] || {};

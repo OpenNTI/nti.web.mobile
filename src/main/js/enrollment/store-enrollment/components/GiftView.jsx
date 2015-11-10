@@ -78,12 +78,10 @@ export default React.createClass({
 
 	componentDidMount () {
 
-		this.ensureExternalLibrary('jquery.payment')
-			// stripe is listed as a dependency of jquery.payment, it will be automatically included...
-			// This line is to document that we also want Stripe. (it will reuse the already-in-flight
-			// request for stripe)
-			.then(() => this.ensureExternalLibrary('stripe'))
-
+		// stripe is listed as a dependency of jquery.payment, it will be automatically included...
+		// This line is to document that we also want Stripe. (it will reuse the already-in-flight
+		// request for stripe)
+		this.ensureExternalLibrary(['jquery.payment', 'stripe'])
 			.then(()=> clearLoadingFlag(this))
 			.catch(this.onError);
 

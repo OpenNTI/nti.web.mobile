@@ -49,16 +49,20 @@ export default React.createClass({
 		};
 	},
 
+
 	componentDidMount () {
-		this.ensureExternalLibrary('stripe')
-			.then(() => {
-				clearLoadingFlag(this);
-			});
-		this.ensureExternalLibrary('jquery.payment')
-			.then(() => {
-				jQuery('input[name=number]').payment('formatCardNumber');
-			});
+		this.ensureExternalLibrary(['jquery.payment', 'stripe'])
+			.then(() => clearLoadingFlag(this));
+
 		Store.addChangeListener(this.onStoreChange);
+	},
+
+
+	componentDidUpdate (_, prevState) {
+		const {loading} = this.state;
+		if (loading !== prevState.loading && typeof jQuery !== 'undefined') {
+			jQuery('input[name=number]').payment('formatCardNumber');
+		}
 	},
 
 	componentWillUnmount () {
