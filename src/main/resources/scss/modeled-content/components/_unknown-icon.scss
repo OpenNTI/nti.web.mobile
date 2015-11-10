@@ -1,8 +1,7 @@
-.body-divider.video {
-	cursor: pointer;
+.body-divider.unknown {
 
-	.video-icon {
-		@extend %icon-editor-content-video;
+	.unknown-icon {
+		@extend %icon-editor-content-object;
 		width: 35px;
 		height: 42px;
 		background-repeat: no-repeat;

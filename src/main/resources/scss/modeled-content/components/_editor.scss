@@ -1,5 +1,13 @@
 @import "whiteboard-icon";
 @import "video-icon";
+@import "unknown-icon";
+
+.body-divider {
+	display: block;
+
+	position: relative;
+	overflow: hidden;
+}
 
 .modeled.editor {
 	border: 1px solid $border-grey;
