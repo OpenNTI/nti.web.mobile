@@ -34,13 +34,12 @@ export default React.createClass({
 			<div className="note-wrapper">
 				<Breadcrumb item={item} showPrompt={item.isReply()}/>
 				<div className={`activity discussion-${item.isReply() ? 'reply' : 'detail'}`}>
-					<div className="note heading">
-						<ContentIcon item={item} />
-
-						{item.isReply()
-							? null
-							: isFlag('disable-context-in-activity') !== true && ( <Context item={item}/> )}
-					</div>
+					{item.isReply() ? null : (
+						<div className="note heading">
+							<ContentIcon item={item} />
+							{isFlag('disable-context-in-activity') !== true && ( <Context item={item}/> )}
+						</div>
+					)}
 					<Detail item={item} lite/>
 					{/*<Actions item={item}/> -- Comment count, [edit] [delete]*/}
 				</div>

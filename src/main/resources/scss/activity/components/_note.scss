@@ -33,6 +33,8 @@
 		border: 0;
 		position: relative;
 		padding: 1rem 0.75rem 0 !important;
+		margin-left: -0.625rem;
+		margin-right: -0.625rem;
 	}
 
 	.discussion-detail {
@@ -65,7 +67,8 @@
 		}
 
 		.discussion-detail {
-			padding: 0;
+			padding: 0 0.625rem;
+			margin: 0 -0.625rem;
 		}
 	}
 
@@ -101,10 +104,11 @@
 
 
 	.discussion-reply {
-		padding-top: 0;
+		box-shadow: none;
+		border-top: none;
 
-		.note.heading {
-			padding-bottom: 0;
+		& > .discussion-reply {
+			padding-top: 0;
 		}
 
 		.charms {top: 0;}
