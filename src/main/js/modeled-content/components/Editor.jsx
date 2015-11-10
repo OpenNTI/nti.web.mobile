@@ -6,9 +6,20 @@ import InsertImageButton from './InsertImageButton';
 import InsertVideoButton from './InsertVideoButton';
 import Editor, {FormatButton, ToolbarRegions} from 'react-editor-component';
 
+import selectRenderer from './editor-parts';
+
 const {SOUTH} = ToolbarRegions;
 
 const WHITESPACE_ENTITIES_AND_TAGS = /((<[^>]+>)|&nbsp;|[\s\r\n])+/ig;
+
+function renderPart (data) {
+	if (typeof data === 'string') {
+		return data;
+	}
+
+	const Renderer = selectRenderer(data);
+	return Renderer.renderIcon(data).then(markup => `\u200B${markup}\u200B`);
+}
 
 export default React.createClass({
 	displayName: 'ModeledBodyContentEditor',
@@ -63,6 +74,11 @@ export default React.createClass({
 	},
 
 
+	getInitialState () {
+		return {};
+	},
+
+
 	getDefaultProps () {
 		return {
 			allowInsertImage: true,
@@ -86,26 +102,39 @@ export default React.createClass({
 	},
 
 
-	onPrepareValueChunk (markup/*, node*/) {
-		/*
-		if (div.is('.object-part')) {
-			html = '';
-			dom = Ext.getDom(div);
+	componentWillMount () {
+		this.setupValue();
+	},
+
+
+	componentWillReceiveProps (nextProps) {
+		if (this.props.value !== nextProps.value) {
+			this.setupValue(nextProps);
 		}
-		else {
-			div = div.down('.object-part');
-			if (div) {
-				html = '';
-				dom = Ext.getDom(div);
-			}
+	},
+
+
+	setupValue (props = this.props) {
+		const {value} = props;
+		if (!value) {
+			return this.setState({value});
 		}
 
-		if (!html && Ext.fly(dom).hasCls('object-part')) {
-			tmp = document.createElement('div');
-			tmp.appendChild(dom);
-			html = tmp.innerHTML || '';
+		let res = value;
+		if (!Array.isArray(res)) {
+			res = [res];
 		}
-		*/
+
+		Promise.all(res.map(renderPart))
+			.then(result => {
+				this.setState({
+					value: result.join('\n').replace(/<(\/?)(body|html)>/ig, '')
+				});
+			});
+	},
+
+
+	onPrepareValueChunk (markup) {
 		return markup;
 	},
 
@@ -113,10 +142,33 @@ export default React.createClass({
 	onPartValueParse (markup) {
 		let d = document.createElement('div');
 		d.innerHTML = markup;
-		let script = d.querySelector('script[type$=json]');
 
-		//Returning a truthy value means we handled it.
-		let result = script ? JSON.parse(script.textContent) : void 0;
+		let scripts = Array.from(d.querySelectorAll('script[type$=json]'));
+		const {length: numberFound} = scripts;
+
+		if (numberFound === 0) {
+			//return 'undefined' so the caller knows we didn't do anything.
+			return void 0;
+		}
+
+		for (let index = 0; index < numberFound; index++) {
+			let script = scripts[index];
+			scripts[index] = JSON.parse(script.textContent);
+
+			while (script.parentNode !== d) {
+				script = script.parentNode;
+			}
+
+			let placeHolder = document.createElement('placeholder');
+
+			d.insertBefore(placeHolder, script);
+			d.removeChild(script);
+		}
+
+		scripts = scripts.reverse();
+
+		let result = d.innerHTML.split(/<(placeholder)[^>]*>(?:<\/placeholder>)?/i)
+			.map(x => x === 'placeholder' ? scripts.pop() : x.replace(/\u200B|\u2060/ig, ''));
 
 		return result;
 	},
@@ -148,12 +200,7 @@ export default React.createClass({
 
 
 	render () {
-		//TODO: parse/build value sent to the RTE from the modeled body.
-		let {value, allowInsertImage, allowInsertVideo, children} = this.props;
-
-		if (Array.isArray(value)) {
-			value = value.join('\n').replace(/<(\/?)(body|html)>/ig, '');
-		}
+		const {props: {allowInsertImage, allowInsertVideo, children}, state: {value}} = this;
 
 		return (
 			<Editor className="modeled content editor" value={value}
