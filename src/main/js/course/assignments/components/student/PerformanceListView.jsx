@@ -4,10 +4,7 @@ import cx from 'classnames';
 import {HISTORY_LINK} from 'nti.lib.interfaces/models/assessment/Constants';
 import PageSource from 'nti.lib.interfaces/models/ListBackedPageSource';
 
-import Notice from 'common/components/Notice';
-import {scoped} from 'common/locale';
-
-let t = scoped('LISTS');
+import EmptyList from 'common/components/EmptyList';
 
 import SearchSortStore from '../../SearchSortStore';
 
@@ -109,7 +106,7 @@ export default React.createClass({
 		const getHistory = x => history && history.getItem(x.getID());
 
 		if(assignmentsList.items.length === 0) {
-			return <Notice>{t('emptyList:assignments')}</Notice>;
+			return <EmptyList type="assignments"/>;
 		}
 
 		return (
