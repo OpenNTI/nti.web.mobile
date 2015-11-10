@@ -1,6 +1,6 @@
 // tell eslint that Stripe is declared elsewhere
 /* global Stripe */
-
+/* global jQuery */
 // we're naming fields to line up with the stripe api which uses lowercase
 // with underscores (e.g. exp_month vs. expMonth) so don't enforce camel case
 // in this file.
@@ -51,7 +51,13 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.ensureExternalLibrary('stripe')
-			.then(() => clearLoadingFlag(this));
+			.then(() => {
+				clearLoadingFlag(this);
+			});
+		this.ensureExternalLibrary('jquery.payment')
+			.then(() => {
+				jQuery('input[name=number]').payment('formatCardNumber');
+			});
 		Store.addChangeListener(this.onStoreChange);
 	},
 
