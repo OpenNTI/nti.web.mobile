@@ -10,16 +10,19 @@ export function profileHref (id = getAppUsername()) {
 }
 
 export default {
-
 	mixins: [BasePathAware, Navigatable],
+
+	profileHref (entity = this.props.entity) {
+		return `${this.getBasePath()}${profileHref(entity)}`;
+	},
 
 	navigateToProfile (entity = this.props.entity) {
 		if (!entity) {
 			console.warn('No entity provided for ProfileLink. Ignoring.');
 			return;
 		}
-		let href = `${this.getBasePath()}${profileHref(entity)}`;
-		this.navigateRoot(href);
+
+		this.navigateRoot(this.profileHref(entity));
 	}
 
 };

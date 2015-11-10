@@ -1,12 +1,11 @@
 import React from 'react';
-
 import Router from 'react-router-component';
 
-import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 
-import Page from './PageFrame';
+import Redirect from 'navigation/components/Redirect';
 
+import Page from './PageFrame';
 import About from './About';
 import Achievements from './Achievements';
 
@@ -14,9 +13,7 @@ import Activity from '../Activity';
 import Thoughts from './Thoughts';
 import Memberships from '../about/Memberships';
 
-import Redirect from 'navigation/components/Redirect';
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
-import {join} from 'path';
+import ProfileLink from '../../mixins/ProfileLink';
 
 const ROUTES = [
 	{path: '/thoughts(/*)',			handler: Thoughts},
@@ -29,7 +26,7 @@ const ROUTES = [
 
 export default React.createClass({
 	displayName: 'profile:View',
-	mixins: [BasePathAware, ContextSender],
+	mixins: [ProfileLink, ContextSender],
 
 	propTypes: {
 		entity: React.PropTypes.object.isRequired
@@ -40,8 +37,8 @@ export default React.createClass({
 	},
 
 	getContext () {
-		let path = this.getBasePath();
-		let href = join(path, 'profile', encodeForURI(this.props.entity.getID()), '/');
+		const path = this.getBasePath();
+		const href = this.profileHref();
 		return Promise.resolve([
 			{
 				href: path, label: 'Home'
