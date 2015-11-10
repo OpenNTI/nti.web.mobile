@@ -41,7 +41,7 @@ export default React.createClass({
 
 	componentWillMount () {
 		this.registerStoreEventHandlers({
-			[GIFT_CODE_REDEEMED]: () => this.navigate('/enrollment/success/'),
+			[GIFT_CODE_REDEEMED]: () => this.navigate('/enrollment/success/', {replace: true}),
 			[INVALID_GIFT_CODE]: (e) => this.setState({busy: false, errors: {accessKey: {message: e.reason }}})
 		});
 
@@ -90,7 +90,9 @@ export default React.createClass({
 		let entry = this.getCatalogEntry(decodeFromURI(props.entryId));
 
 		if (!entry) {
-			return this.setState({error: 'Unable to find requested catalog entry.'});
+			console.error('Unable to find requested catalog entry, redirect to route root.');
+			this.navigate('/', {replace: true});
+			return;
 		}
 
 		let options = entry.getEnrollmentOptions();
