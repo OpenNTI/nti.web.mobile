@@ -126,17 +126,6 @@ export default React.createClass({
 		return Object.keys(errors).length === 0;
 	},
 
-	//XXX: not referenced?
-	inputBlurred (/*event*/) {
-		let errs = this.state.errors;
-		if(Object.keys(errs).length === 1 && errs.hasOwnProperty('required')) {
-			this.setState({
-				errors: {}
-			});
-		}
-	},
-
-
 	handleSubmit (event) {
 		event.preventDefault();
 
