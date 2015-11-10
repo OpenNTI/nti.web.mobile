@@ -10,12 +10,16 @@
 .catalog {
 	max-width: 500px;
 	margin: 0 auto;
-	 h3 {
-		 margin-left: -0.625rem; // headings flush with the items
-	 }
-	 .grid-container {
-		 margin-bottom: .625rem;
-	 }
+
+	@media screen and (min-width: 500px) {
+		h3 {
+			margin-left: -0.625rem; // headings flush with the items
+		}
+	}
+
+	.grid-container {
+		margin-bottom: .625rem;
+	}
 }
 
 .catalog-item,
