@@ -1,6 +1,6 @@
 module.exports = Object.freeze([
 	{
-		title: 'Billing Info',
+		title: 'Credit Card',
 		fields: [
 			{
 				ref: 'name',
@@ -31,7 +31,12 @@ module.exports = Object.freeze([
 				type: 'number',
 				placeholder: 'CVC',
 				required: true
-			},
+			}
+		]
+	},
+	{
+		title: 'Billing Address',
+		fields: [
 			{
 				ref: 'address_line1', // this is the name expected by the stripe api and returned by Stripe.getToken().
 				type: 'text',
