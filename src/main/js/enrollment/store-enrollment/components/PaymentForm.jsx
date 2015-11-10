@@ -35,20 +35,14 @@ export default React.createClass({
 		purchasable: React.PropTypes.object.isRequired
 	},
 
-	getInitialState () {
-		//FIXME: Re-write this:
-		// See: http://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html
-		// Additional Note: On Mount and Recieve Props fill state (this is ment to be called one per CLASS lifetime not Instance lifetime)
-
+	componentWillMount () {
 		let formData = Store.getPaymentFormData();
-
-		return {
+		this.setState({
 			loading: true,
 			fieldValues: formData,
 			errors: {}
-		};
+		});
 	},
-
 
 	componentDidMount () {
 		this.ensureExternalLibrary(['jquery.payment', 'stripe'])
