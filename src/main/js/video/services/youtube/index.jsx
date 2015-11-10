@@ -200,7 +200,9 @@ let Source = React.createClass({
 
 
 	onMessage (event) {
-		let data = JSON.parse(event.data);
+		const getData = x => typeof x === 'string' ? JSON.parse(x) : x;
+		let data = getData(event.data);
+
 		let eventName = (data && data.event) || '';
 
 		if (Array.isArray(eventName)) {
