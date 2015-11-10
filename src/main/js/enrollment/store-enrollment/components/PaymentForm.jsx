@@ -179,7 +179,7 @@ export default React.createClass({
 		let fields = this.renderFormConfig(fieldConfig, state.fieldValues, t);
 
 		return (
-			<FormPanel onSubmit={this.handleSubmit} title={title} subhead={subhead}>
+			<FormPanel onSubmit={this.handleSubmit} title={title} subhead={subhead} className="payment-form">
 				{fields}
 				<FormErrors errors={state.errors} />
 				<input type="submit"

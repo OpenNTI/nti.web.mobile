@@ -16,7 +16,8 @@ export default React.createClass({
 		onSubmit: React.PropTypes.func,
 		styled: React.PropTypes.bool,
 		subhead: React.PropTypes.string,
-		title: React.PropTypes.string
+		title: React.PropTypes.string,
+		className: React.PropTypes.string
 	},
 
 	getDefaultProps () {
@@ -43,6 +44,9 @@ export default React.createClass({
 			cssClasses.push('busy');
 		}
 
+		if(this.props.className) {
+			cssClasses.push(this.props.className);
+		}
 
 		return (
 			<div className={cssClasses.join(' ')}>
