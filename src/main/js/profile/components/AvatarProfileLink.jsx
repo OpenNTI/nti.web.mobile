@@ -18,7 +18,7 @@ export default React.createClass({
 		let e = this.props.entity;
 
 		return (
-			<ProfileLink entity={e}>
+			<ProfileLink className="profile-link" entity={e}>
 				<Avatar entity={e} suppressProfileLink />
 				<div className="body">
 					<DisplayName entity={e} suppressProfileLink />

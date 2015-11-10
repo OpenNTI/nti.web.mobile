@@ -13,7 +13,7 @@
 		}
 		&.group-admin {
 			position: relative;
-			a::after {
+			.profile-link::after {
 				@extend %avatar-admin-badge;
 				$badgesize: 1rem;
 				content: '';
