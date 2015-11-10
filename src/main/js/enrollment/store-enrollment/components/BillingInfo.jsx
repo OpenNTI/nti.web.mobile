@@ -31,6 +31,9 @@ export default React.createClass({
 		let card = this.props.card,
 			city = card.address_city ? card.address_city + ',' : '';
 
+		// join city, state, and zip with spaces, filtering missing items to omit leading spaces
+		const cityStateZip = [city, card.address_state, card.address_zip].filter(x=>!!x).join(' ');
+
 		return (
 			<div>
 				<fieldset>
@@ -59,13 +62,7 @@ export default React.createClass({
 
 					<div className="field">{card.address_line1}</div>
 					<div className="field">{card.address_line2}</div>
-					<div className="city field">
-						<span>{city}</span>
-						<span> </span>
-						<span>{card.address_state}</span>
-						<span> </span>
-						<span>{card.address_zip}</span>
-					</div>
+					<div className="city field">{cityStateZip}</div>
 					<div className="field">{card.address_country}</div>
 				</fieldset>
 			</div>
