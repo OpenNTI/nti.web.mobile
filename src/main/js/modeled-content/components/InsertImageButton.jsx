@@ -1,7 +1,4 @@
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-
-import WhiteboardRenderer from 'nti.lib.whiteboardjs/lib/Canvas';
 
 import {createFromImage, URL} from 'nti.lib.whiteboardjs/lib/utils';
 
@@ -48,35 +45,28 @@ export default React.createClass({
 	insertWhiteboard (scene, last) {
 		let editor = this.getEditor();
 
-		WhiteboardRenderer
-			.getThumbnail(scene, false)
-				.then(thumbnail=> {
+		WhiteboardIcon.renderIcon(scene)
+			.then(markup => {
 
-					let markup = ReactDOMServer.renderToStaticMarkup(
-						React.createElement(WhiteboardIcon, {
-							thumbnail,
-							scene
-						}));
+				let node = editor.insertAtSelection(markup);
+				if (node) {
+					let s = document.getSelection();
+					s.selectAllChildren(node);
+					s.collapseToEnd();
 
-					let node = editor.insertAtSelection(markup);
-					if (node) {
-						let s = document.getSelection();
-						s.selectAllChildren(node);
-						s.collapseToEnd();
-
-						if (last) {
-							setTimeout(()=> node.scrollIntoView(), 500);
-						} else {
-							node.scrollIntoView();
-						}
+					if (last) {
+						setTimeout(()=> node.scrollIntoView(), 500);
+					} else {
+						node.scrollIntoView();
 					}
+				}
 
-				})
-				.catch(e=> {
-					e = JSON.stringify(e);
-					console.error(e);
-					alert(e);//eslint-disable-line
-				});
+			})
+			.catch(e=> {
+				e = JSON.stringify(e);
+				console.error(e);
+				alert(e);//eslint-disable-line
+			});
 	},
 
 

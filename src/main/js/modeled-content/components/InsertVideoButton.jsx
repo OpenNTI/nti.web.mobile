@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 import cx from 'classnames';
 
 import {ToolMixin, Constants} from 'react-editor-component';
@@ -136,18 +135,18 @@ export default React.createClass({
 		}
 
 
-		const markup = ReactDOMServer.renderToStaticMarkup(
-			React.createElement(VideoIcon, { data }));
+		VideoIcon.renderIcon(data)
+			.then(markup => {
+				const node = editor.insertAtSelection(markup);
 
-		const node = editor.insertAtSelection(markup);
+				this.closePrompt();
+				if (node) {
+					let s = document.getSelection();
+					s.selectAllChildren(node);
+					s.collapseToEnd();
 
-		this.closePrompt();
-		if (node) {
-			let s = document.getSelection();
-			s.selectAllChildren(node);
-			s.collapseToEnd();
-
-			setTimeout(()=> node.scrollIntoView(), 500);
-		}
+					setTimeout(()=> node.scrollIntoView(), 500);
+				}
+			});
 	}
 });

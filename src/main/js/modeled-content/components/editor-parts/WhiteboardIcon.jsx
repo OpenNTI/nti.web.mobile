@@ -1,7 +1,25 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
-export default React.createClass({
+import WhiteboardRenderer from 'nti.lib.whiteboardjs/lib/Canvas';
+
+const WhiteboardThumbnail = React.createClass({
 	displayName: 'WhiteboardThumbnail',
+
+	statics: {
+
+		handles (data) {
+			return data && data.MimeType === 'application/vnd.nextthought.canvas';
+		},
+
+		renderIcon (scene) {
+			return WhiteboardRenderer
+						.getThumbnail(scene, false)
+							.then(thumbnail=> ReactDOMServer.renderToStaticMarkup(
+									React.createElement(WhiteboardThumbnail, { thumbnail, scene })));
+		}
+
+	},
 
 	propTypes: {
 		thumbnail: React.PropTypes.string.isRequired,
@@ -29,3 +47,5 @@ export default React.createClass({
 		);
 	}
 });
+
+export default WhiteboardThumbnail;

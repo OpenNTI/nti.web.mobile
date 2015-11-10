@@ -1,7 +1,22 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
-export default React.createClass({
+const VideoThumbnail = React.createClass({
 	displayName: 'VideoThumbnail',
+
+	statics: {
+
+		handles (data) {
+			return data && data.MimeType === 'application/vnd.nextthought.embeddedvideo';
+		},
+
+		renderIcon (data) {
+			return Promise.resolve(
+				ReactDOMServer.renderToStaticMarkup(
+					React.createElement(VideoThumbnail, { data })));
+		}
+
+	},
 
 	propTypes: {
 		data: React.PropTypes.object.isRequired
@@ -27,3 +42,5 @@ export default React.createClass({
 		);
 	}
 });
+
+export default VideoThumbnail;
