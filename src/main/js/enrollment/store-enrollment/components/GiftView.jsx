@@ -59,10 +59,10 @@ export default React.createClass({
 
 
 	componentWillMount () {
-		let initialValues = Object.assign({}, Store.getPaymentFormData());
+		let defaultValues = Object.assign({}, Store.getPaymentFormData());
 
 		getAppUser().then(u => {
-			let {initialValues: current = {}} = this.state;
+			let {defaultValues: current = {}} = this.state;
 			let o = {};
 
 			if (u && !current.from) {
@@ -74,12 +74,12 @@ export default React.createClass({
 			}
 
 			if (Object.keys(o).length) {
-				initialValues = Object.assign(o, initialValues);
-				this.setState({ initialValues });
+				defaultValues = Object.assign(o, defaultValues);
+				this.setState({ defaultValues });
 			}
 		});
 
-		this.setState({ initialValues });
+		this.setState({ defaultValues });
 	},
 
 
@@ -130,7 +130,7 @@ export default React.createClass({
 	getValues  () {
 		let i, v;
 		const {refs} = this;
-		const result = Object.assign({}, this.state.initialValues);
+		const result = Object.assign({}, this.state.defaultValues);
 
 		for (i in refs) {
 			if (!refs.hasOwnProperty(i)) { continue; }
@@ -198,7 +198,7 @@ export default React.createClass({
 
 
 	render () {
-		const {props: {purchasable}, state: {agreed, error, errors, initialValues, loading, submitEnabled}} = this;
+		const {props: {purchasable}, state: {agreed, error, errors, defaultValues, loading, submitEnabled}} = this;
 		let enabled = (agreed && submitEnabled);
 		let submitCls = enabled ? '' : 'disabled';
 
@@ -215,9 +215,9 @@ export default React.createClass({
 				<Pricing ref="Pricing" purchasable={purchasable} />
 
 				<FormPanel title={tGift('PAYMENT.title')} subhead={tGift('PAYMENT.sub')} styled={false}>
-					<From ref="from" initialValues={initialValues} />
-					<CreditCardForm ref="card" initialValues={initialValues} className="payment-fields"/>
-					<BillingAddressForm ref="billing" initialValues={initialValues} className="payment-fields"/>
+					<From ref="from" defaultValues={defaultValues} />
+					<CreditCardForm ref="card" defaultValues={defaultValues} className="payment-fields"/>
+					<BillingAddressForm ref="billing" defaultValues={defaultValues} className="payment-fields"/>
 				</FormPanel>
 
 				<Header />

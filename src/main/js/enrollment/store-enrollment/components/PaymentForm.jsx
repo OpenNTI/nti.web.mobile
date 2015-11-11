@@ -103,7 +103,7 @@ export default React.createClass({
 	},
 
 	render () {
-		const {props: {purchasable: purch}, state: {busy, errors, fieldValues, loading}} = this;
+		const {props: {purchasable: purch}, state: {busy, errors, defaultValues, loading}} = this;
 
 		if(loading) {
 			return ( <Loading /> );
@@ -116,8 +116,8 @@ export default React.createClass({
 
 		return (
 			<FormPanel onSubmit={this.handleSubmit} title={title} subhead={subhead} className="payment-form">
-				<CreditCardForm initialValues={fieldValues} ref="card"/>
-				<BillingAddress initialValues={fieldValues} ref="billing"/>
+				<CreditCardForm defaultValues={defaultValues} ref="card"/>
+				<BillingAddress defaultValues={defaultValues} ref="billing"/>
 				{errors && ( <FormErrors errors={errors} /> )}
 				{busy ? (
 					<Loading/>

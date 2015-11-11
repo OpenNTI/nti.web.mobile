@@ -13,7 +13,7 @@ export default React.createClass({
 
 	propTypes: {
 		className: React.PropTypes.string,
-		initialValues: React.PropTypes.object,
+		defaultValues: React.PropTypes.object,
 		onChange: React.PropTypes.func
 	},
 
@@ -83,7 +83,7 @@ export default React.createClass({
 
 
 	render () {
-		const {state: {errors}, props: {className, initialValues}} = this;
+		const {state: {errors}, props: {className, defaultValues}} = this;
 		return (
 			<fieldset className={cx('gift-from', className)}>
 				<div className="fromLabel">{t('fromLabel')}</div>
@@ -92,7 +92,7 @@ export default React.createClass({
 						ref="from"
 						placeholder={t('from')}
 						className={cx('required', {error: errors.from})}
-						defaultValue={initialValues.from}
+						defaultValue={defaultValues.from}
 						type="email"
 						onChange={this.onChange}
 						onFocus={this.onFieldEventClearError}

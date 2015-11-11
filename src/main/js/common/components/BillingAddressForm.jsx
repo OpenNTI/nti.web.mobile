@@ -15,14 +15,14 @@ export default React.createClass({
 	propTypes: {
 		className: React.PropTypes.string,
 		required: React.PropTypes.object,
-		initialValues: React.PropTypes.object,
+		defaultValues: React.PropTypes.object,
 		onChange: React.PropTypes.func
 	},
 
 
 	getDefaultProps () {
 		return {
-			initialValues: {},
+			defaultValues: {},
 			required: {line1: true, country: true}
 		};
 	},
@@ -100,7 +100,7 @@ export default React.createClass({
 
 
 	render () {
-		const {props: {className, initialValues, required}, state: {errors = {}}} = this;
+		const {props: {className, defaultValues, required}, state: {errors = {}}} = this;
 
 		return (
 			<fieldset className={cx('billing-address-form', className)}>
@@ -112,7 +112,7 @@ export default React.createClass({
 							placeholder={t(`address_${field}`)}
 							className={cx({required: required[field], error: errors[field]})}
 							type="text"
-							defaultValue={initialValues[`address_${field}`]}
+							defaultValue={defaultValues[`address_${field}`]}
 							onFocus={this.onFieldEventClearError}
 							onChange={this.onChange}
 							/>

@@ -19,7 +19,7 @@ export default React.createClass({
 	propTypes: {
 		className: React.PropTypes.string,
 		onChange: React.PropTypes.func,
-		initialValues: React.PropTypes.object
+		defaultValues: React.PropTypes.object
 	},
 
 
@@ -144,7 +144,7 @@ export default React.createClass({
 	},
 
 	render () {
-		const {props: {className, initialValues = {}}, state: {loading, errors = {}}} = this;
+		const {props: {className, defaultValues = {}}, state: {loading, errors = {}}} = this;
 
 		const secondLineError = errors.number || errors.exp || errors.cvc;
 
@@ -160,7 +160,7 @@ export default React.createClass({
 						placeholder={t('name')}
 						className={cx('required', {error: errors.name})}
 						type="text"
-						defaultValue={initialValues.name}
+						defaultValue={defaultValues.name}
 						onFocus={this.onFieldEventClearError}
 						onChange={this.onChange}
 						/>
