@@ -24,7 +24,7 @@ import Store from '../Store';
 import {verifyBillingInfo} from '../Actions';
 import {BILLING_INFO_REJECTED} from '../Constants';
 
-const t2 = scoped('ENROLLMENT');
+const t = scoped('ENROLLMENT');
 
 export default React.createClass({
 	displayName: 'PaymentForm',
@@ -53,14 +53,23 @@ export default React.createClass({
 
 
 	onBillingRejected (event) {
+		const errors = Object.assign({}, this.state.errors || {});
 		const {response} = event;
-		let {errors = {}} = this.state;
-		let {error} = response;
+		const {error} = response;
 
 		errors[error.param] = error;
 
-		this.setState({ errors, busy: false });
 		console.log(event);
+
+		for (let ref of Object.values(this.refs)) {
+			if (ref.delegateError && ref.delegateError(errors)) {
+				return this.setState({busy: false, errors: {
+					general: {message: t('invalidForm')}
+				}});
+			}
+		}
+
+		this.setState({ errors, busy: false });
 	},
 
 
@@ -112,7 +121,7 @@ export default React.createClass({
 		const price = this.getFormattedPrice(purch.currency, purch.amount);
 		const title = purch.name || null;
 
-		let subhead = t2('enrollAsLifelongLearnerWithPrice', {price: price});
+		let subhead = t('enrollAsLifelongLearnerWithPrice', {price: price});
 
 		return (
 			<FormPanel onSubmit={this.handleSubmit} title={title} subhead={subhead} className="payment-form">
