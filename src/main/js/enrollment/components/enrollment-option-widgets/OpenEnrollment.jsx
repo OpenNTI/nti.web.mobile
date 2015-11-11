@@ -30,9 +30,10 @@ export default React.createClass({
 
 	enroll (event) {
 		event.preventDefault();
-		this.setState({
-			busy: true
-		});
+		event.stopPropagation();
+
+		this.setState({ busy: true });
+
 		enrollOpen(this.props.catalogEntry.getID());
 	},
 
