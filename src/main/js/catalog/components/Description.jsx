@@ -38,7 +38,7 @@ export default React.createClass({
 				<div className="row">
 					<div className="cell small-12 columns">{entry.Description}</div>
 				</div>
-				<div className="row">
+				<div className="row course-details">
 					<div className="cell small-12 columns">
 						<table className="small-12">
 							<tbody>

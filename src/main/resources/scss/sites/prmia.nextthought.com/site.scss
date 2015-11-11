@@ -4,8 +4,12 @@
 
 .payment-confirm {
 	.pricing-info {
-		.title {
-			visibility: hidden;
-		}
+		display: none;
+	}
+}
+
+.course-detail-view {
+	.course-details {
+		display: none;
 	}
 }

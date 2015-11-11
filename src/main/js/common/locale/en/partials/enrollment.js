@@ -200,6 +200,7 @@ export default {
 	enrollAsLifelongLearnerWithPrice: 'Enroll as a Lifelong Learner: %(price)s',
 
 	storeEnrollmentTitle: 'Enroll as a Lifelong Learner',
+	storeEnrollmentGainAccess: 'Gain complete access to interact with all course content, including lectures, course materials, quizzes, and discussions once the class is in session.',
 
 	fiveMinuteEnrollmentTitle: 'Enroll for Credit',
 	fiveMinuteNotAvailableOnMobile: 'Please visit from a desktop to enroll for credit. Coming soon to mobile.',

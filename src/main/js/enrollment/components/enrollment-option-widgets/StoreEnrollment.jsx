@@ -54,9 +54,7 @@ export default React.createClass({
 		return (
 			<PanelButton href={href} linkText={t('enrollAsLifelongLearner')}>
 				<h2>{t('storeEnrollmentTitle')}</h2>
-				<p>Gain complete access to interact with all course content,
-				including lectures, course materials, quizzes,
-				and discussions once the class is in session.</p>
+				<p>{t('storeEnrollmentGainAccess')}</p>
 				<p className="price">{formattedPrice}</p>
 				<small>{t('enrollmentNotRefundable')}</small>
 				{this.props.isGiftable &&
