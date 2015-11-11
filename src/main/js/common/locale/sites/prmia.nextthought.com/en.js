@@ -3,6 +3,10 @@ export default {
 		enrollAsLifelongLearner: 'Buy now',
 		enrollAsLifelongLearnerWithPrice: 'Buy now: %(price)s',
 		storeEnrollmentTitle: 'Purchase',
-		storeEnrollmentGainAccess: 'Gain complete access to interact with all course content, including lectures, course materials, quizzes, and discussions.'
+		storeEnrollmentGainAccess: 'Gain complete access to interact with all course content, including lectures, course materials, quizzes, and discussions.',
+
+		BUTTONS: {
+			enrollButtonLabel: 'Purchase'
+		}
 	}
 };

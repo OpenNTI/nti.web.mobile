@@ -5,11 +5,13 @@ import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import Loading from 'common/components/LoadingInline';
 import Button from 'common/forms/components/Button';
 import BasePathAware from 'common/mixins/BasePath';
+import {scoped} from 'common/locale';
 
 import EnrollmentOptions from 'enrollment/mixins/EnrollmentMixin';
 import Giftable from 'enrollment/components/enrollment-option-widgets/Giftable';
 import RedeemButton from 'enrollment/components/enrollment-option-widgets/RedeemButton';
 
+let t = scoped('ENROLLMENT');
 
 
 /**
@@ -45,7 +47,7 @@ export default React.createClass({
 
 		if (!enrolled && !dropOnly && this.enrollmentOptions(this.getEntry()).length > 0) {
 			return (
-				<Button href={`${base}catalog/item/${entry}/enrollment/`} className="columns">Enroll</Button>
+				<Button href={`${base}catalog/item/${entry}/enrollment/`} className="columns">{t('BUTTONS.enrollButtonLabel')}</Button>
 			);
 		}
 

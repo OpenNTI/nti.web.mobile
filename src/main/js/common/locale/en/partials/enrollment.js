@@ -7,7 +7,8 @@ export default {
 		viewCourse: 'View Course',
 		viewCatalog: 'View Catalog',
 		giveThisAsGift: 'Give this as a gift',
-		redeemGift: 'Redeem a gift'
+		redeemGift: 'Redeem a gift',
+		enrollButtonLabel: 'Enroll'
 	},
 
 
