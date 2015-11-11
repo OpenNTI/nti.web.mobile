@@ -37,12 +37,13 @@ export default React.createClass( {
 		},
 
 		canRender  (item, node, collection) {
-			let render = !!collection;
-			let id = getID(item);
+			//Collection will be null when there are no assignments.
+			const id = getID(item);
+			const isAssignment = assignmentType.test(item.MimeType) || (collection && collection.isAssignment(id, node.getID()));
 
-			if (collection && (assignmentType.test(item.MimeType) || collection.isAssignment(id, node.getID()))) {
-				render = Boolean(collection.getAssignment(id, node.getID()));
-			}
+			const render = isAssignment
+				? Boolean(collection && collection.getAssignment(id, node.getID()))
+				: true; // Quizes always render.
 
 			return render;
 		}
