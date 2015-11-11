@@ -4,6 +4,10 @@
 	margin-bottom: 2rem;
 	padding: 0 0.625rem;
 
+	.form-panel & {
+		padding: 0;
+	}
+
 	.title {
 		.sub {
 			text-transform: uppercase;
