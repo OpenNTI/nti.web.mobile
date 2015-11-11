@@ -22,7 +22,7 @@ import StoreEvents from 'common/mixins/StoreEvents';
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
 import Store from '../Store';
-import * as Actions from '../Actions';
+import {verifyBillingInfo} from '../Actions';
 import {BILLING_INFO_REJECTED, LOCK_SUBMIT, UNLOCK_SUBMIT} from '../Constants';
 
 import Header from './GiftViewHeader';
@@ -163,7 +163,7 @@ export default React.createClass({
 		let stripeKey = this.props.purchasable.getStripeConnectKey().PublicKey;
 
 		if (this.validate() && this.state.agreed) {
-			Actions.verifyBillingInfo(stripeKey, this.getValues());
+			verifyBillingInfo(stripeKey, this.getValues());
 		}
 	},
 
