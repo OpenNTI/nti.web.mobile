@@ -20,14 +20,11 @@ export default React.createClass({
 		onDone: React.PropTypes.func
 	},
 
-
 	getInitialState () {
 		return {
 			purchaseAttempt: null
 		};
 	},
-
-
 
 	componentWillMount () {
 		this.setState({
@@ -35,13 +32,15 @@ export default React.createClass({
 		});
 	},
 
+	componentWillUnmount () {
+		resetProcess();
+	},
 
 	componentDidMount () {
 		if (!this.state.purchaseAttempt) {
 			resetProcess();
 		}
 	},
-
 
 	_courseLink () {
 		return (

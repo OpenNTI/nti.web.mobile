@@ -25,6 +25,10 @@ export default React.createClass({
 		onDone: React.PropTypes.func
 	},
 
+	componentWillUnmount () {
+		resetProcess();
+	},
+
 	onNewGift () {
 		resetProcess({
 			gift: true

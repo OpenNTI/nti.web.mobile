@@ -185,9 +185,9 @@ function submitPayment (formData) {
 				Constants.STRIPE_PAYMENT_SUCCESS :
 				Constants.STRIPE_PAYMENT_FAILURE;
 
-			if (type === Constants.STRIPE_PAYMENT_SUCCESS) {
-				Store.clear();
-			}
+			// if (type === Constants.STRIPE_PAYMENT_SUCCESS) {
+			// 	Store.clear();
+			// }
 
 			paymentResult = result;
 
