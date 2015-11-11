@@ -6,18 +6,18 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import Loading from 'common/components/Loading';
 import EmptyList from 'common/components/EmptyList';
 
-import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import CourseLinker from 'library/mixins/CourseContentLink';
 
 import TranscriptedVideo from './TranscriptedVideo';
 import VideoGrid from './VideoGrid';
 
-import {VIDEOS} from '../Sections';
+import {LESSONS, VIDEOS} from '../Sections';
 
 export default React.createClass({
 	displayName: 'MediaView',
-	mixins: [BasePathAware, NavigatableMixin, ContextContributor],
+	mixins: [CourseLinker, NavigatableMixin, ContextContributor],
 
 	propTypes: {
 		outlineId: React.PropTypes.string,
@@ -81,7 +81,7 @@ export default React.createClass({
 				label: node.label,
 				// ref: node.ref,
 				scope: node,//for UGD
-				href: this.getBasePath() + node.href
+				href: this.courseHref(course.getID(), LESSONS) + node.ref + '/'
 			}));
 		}
 

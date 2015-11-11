@@ -2,14 +2,15 @@ import React from 'react';
 
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';
-
 import ContentViewer from 'content/components/Viewer';
+import CourseLinker from 'library/mixins/CourseContentLink';
+
+import {LESSONS} from '../Sections';
 
 export default React.createClass({
 	displayName: 'Content',
-	mixins: [BasePathAware, ContextContributor],
+	mixins: [CourseLinker, ContextContributor],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
@@ -25,7 +26,7 @@ export default React.createClass({
 			label: node.label,
 			// ref: node.ref,
 			scope: node,//for UGD
-			href: this.getBasePath() + node.href
+			href: this.courseHref(course.getID(), LESSONS) + node.ref + '/'
 		}));
 	},
 

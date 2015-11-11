@@ -7,19 +7,21 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import Card from 'common/components/Card';
 import Loading from 'common/components/Loading';
 
-import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {getService} from 'common/utils';
 
 import Discussions from 'content/components/discussions';
+import CourseLinker from 'library/mixins/CourseContentLink';
+
+import {LESSONS} from '../Sections';
 
 const RelatedWorkReference = getModel('relatedworkref');
 
 export default React.createClass({
 	displayName: 'ExternalContent',
-	mixins: [BasePathAware, ContextContributor, NavigatableMixin],
+	mixins: [CourseLinker, ContextContributor, NavigatableMixin],
 
 	propTypes: {
 		contentPackage: React.PropTypes.object.isRequired,
@@ -40,7 +42,7 @@ export default React.createClass({
 			ntiid: node.getID(),
 			label: node.label,
 			// ref: node.ref,
-			href: this.getBasePath() + node.href
+			href: this.courseHref(course.getID(), LESSONS) + node.ref + '/'
 		}));
 
 	},
