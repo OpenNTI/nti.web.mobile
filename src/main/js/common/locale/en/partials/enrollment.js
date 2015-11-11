@@ -200,6 +200,7 @@ export default {
 	enrollAsLifelongLearner: 'Enroll as a Lifelong Learner',
 	enrollAsLifelongLearnerWithPrice: 'Enroll as a Lifelong Learner: %(price)s',
 
+	enrollTitle: 'Enroll',
 	storeEnrollmentTitle: 'Enroll as a Lifelong Learner',
 	storeEnrollmentGainAccess: 'Gain complete access to interact with all course content, including lectures, course materials, quizzes, and discussions once the class is in session.',
 
