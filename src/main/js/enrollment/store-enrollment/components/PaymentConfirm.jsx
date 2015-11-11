@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ErrorWidget from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import Localized from 'common/components/LocalizedHTML';
 import PanelButton from 'common/components/PanelButton';
@@ -30,23 +29,28 @@ export default React.createClass({
 
 	componentWillMount () {
 		try {
+			const stripeToken = Store.getStripeToken();
+			if (!stripeToken) {
+				this.reset();
+			}
+
 			this.setState({
-				stripeToken: Store.getStripeToken(),
+				stripeToken,
 				pricing: Store.getPricing(),
 				giftInfo: Store.getGiftInfo()
 			});
+
 		}
 		catch(e) {
-			this.setState({ error: true });
+			this.reset();
 		}
 	},
 
 
-	componentDidMount () {
-		if (!this.state.stripeToken) {
-			resetProcess({ gift: (Store.getGiftInfo() !== null) });
-		}
+	reset () {
+		resetProcess({ gift: (Store.getGiftInfo() !== null) });
 	},
+
 
 	getInitialState () {
 		return {
@@ -100,16 +104,12 @@ export default React.createClass({
 	},
 
 	render () {
-		const {props: {purchasable}, state: {busy, error, stripeToken, giftInfo}} = this;
+		const {props: {purchasable}, state: {busy, stripeToken, giftInfo}} = this;
 		const {VendorInfo: {AllowVendorUpdates} = {}} = purchasable || {};
 		const isGift = giftInfo !== null;
 		const edit = isGift ? 'gift/' : '';
 
-		if (error || !stripeToken) {
-			return ( <ErrorWidget error="No data."/> );
-		}
-
-		if (busy) {
+		if (busy || !stripeToken) {
 			return ( <Loading /> );
 		}
 
