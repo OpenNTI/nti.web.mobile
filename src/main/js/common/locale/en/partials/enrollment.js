@@ -216,7 +216,8 @@ export default {
 	concurrentThanksHead: 'Thank you for your interest in concurrent enrollment.',
 	concurrentThanksBody: 'We\'ve received your contact information and a Concurrent Enrollment Counselor will ' +
 		'be contacting you shortly. In the meantime, please feel free to explore the <a href="http://www.ou.edu/concurrent/admission.html">Concurrent Enrollment website</a> ' +
-		'to learn more about the process.'
+		'to learn more about the process.',
 
+	agreeToTerms: 'I have read and agree to the <a href="%(url)s" target="_blank">licensing terms</a>'
 
 };

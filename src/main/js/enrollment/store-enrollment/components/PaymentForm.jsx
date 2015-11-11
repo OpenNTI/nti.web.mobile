@@ -21,6 +21,8 @@ import ExternalLibraryManager from 'common/mixins/ExternalLibraryManager';
 import StoreEvents from 'common/mixins/StoreEvents';
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
+import TermsCheckbox from './TermsCheckbox';
+
 import Store from '../Store';
 import {verifyBillingInfo} from '../Actions';
 import {BILLING_INFO_REJECTED} from '../Constants';
@@ -132,6 +134,12 @@ export default React.createClass({
 		verifyBillingInfo(stripeKey, this.getValues());
 	},
 
+	termsCheckboxChange (isChecked) {
+		this.setState({
+			submitEnabled: isChecked
+		});
+	},
+
 	render () {
 		const {props: {purchasable: purch}, state: {busy, errors, defaultValues, loading}} = this;
 
@@ -143,17 +151,20 @@ export default React.createClass({
 		const title = purch.name || null;
 
 		let subhead = t('enrollAsLifelongLearnerWithPrice', {price: price});
+		let disabled = !this.state.submitEnabled;
 
 		return (
 			<FormPanel onSubmit={this.handleSubmit} title={title} subhead={subhead} className="payment-form">
 				<CreditCardForm defaultValues={defaultValues} ref="card"/>
 				<BillingAddress defaultValues={defaultValues} ref="billing"/>
+				<TermsCheckbox onChange={this.termsCheckboxChange}/>
 				{errors && ( <FormErrors errors={errors} /> )}
 				{busy ? (
 					<Loading/>
 				) : (
 					<input type="submit"
 						id="storeenroll:submit"
+						disabled={disabled}
 						className="small-12 columns tiny button radius"
 						value="Continue" />
 				)}

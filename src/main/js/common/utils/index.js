@@ -83,6 +83,10 @@ export function getSiteName () {
 	}
 }
 
+export function getUserAgreementURI () {
+	return $AppConfig['user-agreement'];
+}
+
 
 export function isFlag (flagName) {
 	if (noConfig()) {
