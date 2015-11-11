@@ -133,6 +133,14 @@ label:not(.css3unsupported) {
 	}
 }
 
+
+.form-panel {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0.625rem;
+	max-width: 500px;
+}
+
 .form-render {
 	clear: both;
 	.panel-button {

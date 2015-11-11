@@ -1,6 +1,6 @@
-
-
 import React from 'react';
+import cx from 'classnames';
+
 import RenderField from '../mixins/RenderFormConfigMixin';
 
 export default React.createClass({
@@ -11,51 +11,36 @@ export default React.createClass({
 
 	propTypes: {
 		busy: React.PropTypes.bool,
-		children: React.PropTypes.any,
 		noValidate: React.PropTypes.bool,
 		onSubmit: React.PropTypes.func,
-		styled: React.PropTypes.bool,
+
 		subhead: React.PropTypes.string,
 		title: React.PropTypes.string,
+
+		children: React.PropTypes.any,
 		className: React.PropTypes.string
 	},
 
 	getDefaultProps () {
 		return {
 			noValidate: true,
-			styled: true,
 			subhead: null,
 			title: null
 		};
 	},
 
 	render () {
-		let cssClasses = [];
-		let formClasses = '';
-		let headingClasses = '';
-
-		if (this.props.styled) {
-			headingClasses = 'column';
-			formClasses = 'medium-6 medium-centered columns';
-			cssClasses = ['row'];
-		}
-
-		if(this.props.busy) {
-			cssClasses.push('busy');
-		}
-
-		if(this.props.className) {
-			cssClasses.push(this.props.className);
-		}
+		const {props: {children, className, busy, onSubmit, noValidate}} = this;
+		const cssClasses = cx('form-panel', className, { busy });
 
 		return (
-			<div className={cssClasses.join(' ')}>
-				<form className={formClasses} onSubmit={this.props.onSubmit} noValidate={this.props.noValidate}>
-					<div className={headingClasses}>
+			<div className={cssClasses}>
+				<form onSubmit={onSubmit} noValidate={noValidate}>
+					<div className="form-heading">
 						{this.props.title && (<h2>{this.props.title}</h2>)}
 						{this.props.subhead && (<p>{this.props.subhead}</p>)}
 					</div>
-					{this.props.children}
+					{children}
 				</form>
 			</div>
 		);
