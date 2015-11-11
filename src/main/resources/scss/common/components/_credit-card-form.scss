@@ -1,0 +1,22 @@
+fieldset.credit-card-form {
+	@extend %form-fieldset;
+
+	.number, .exp, .cvc {
+		display: block;
+		float: left;
+	}
+
+	.exp,
+	.cvc {
+		margin-left: 2%;
+		width: 23%;
+	}
+
+	.cvc {
+		width: 18%;
+	}
+
+	.number {
+		width: 55%;
+	}
+}

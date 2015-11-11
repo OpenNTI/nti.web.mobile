@@ -1,3 +1,18 @@
+.gift-from {
+	@extend %form-fieldset;
+
+	div.from {
+		width: 42.32%;
+		min-width: 230px;
+	}
+
+	div.fromLabel {
+		margin: -1rem 0 0.5rem;
+		color: $tertiary-grey;
+		font-style: italic;
+	}
+}
+
 .gift.enrollment {
 	$pad: 0.9375rem;
 	margin: 0.5rem 1rem;
@@ -30,34 +45,6 @@
 			font-size: 1rem;
 			color: $primary-grey;
 		}
-
-
-		div.from {
-			width: 42.32%;
-			min-width: 230px;
-		}
-
-		div.fromLabel {
-			margin: -1rem 0 0.5rem;
-
-			label {
-				color: $tertiary-grey;
-				font-style: italic;
-			}
-		}
-
-		div.number { float: left; width: 55%; }
-		div.exp_,
-		div.cvc {
-			float: left;
-			margin-left: 2%;
-			width: 23%;
-		}
-
-		div.cvc {
-			width: 18%;
-		}
-
 	}
 
 	.agreement {

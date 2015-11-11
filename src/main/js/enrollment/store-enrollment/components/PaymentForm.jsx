@@ -1,130 +1,92 @@
 // tell eslint that Stripe is declared elsewhere
-/* global Stripe */
-/* global jQuery */
 // we're naming fields to line up with the stripe api which uses lowercase
 // with underscores (e.g. exp_month vs. expMonth) so don't enforce camel case
 // in this file.
 
 import React from 'react';
-import RenderFormConfigMixin from 'common/forms/mixins/RenderFormConfigMixin';
 import {scoped} from 'common/locale';
 
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
 
 import Loading from 'common/components/Loading';
+
 import {clearLoadingFlag} from 'common/utils/react-state';
 
-import ExternalLibraryManager from 'common/mixins/ExternalLibraryManager';
+import CreditCardForm from 'common/components/CreditCardForm';
+import BillingAddress from 'common/components/BillingAddressForm';
 
+import ExternalLibraryManager from 'common/mixins/ExternalLibraryManager';
+import StoreEvents from 'common/mixins/StoreEvents';
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
 import Store from '../Store';
 import {verifyBillingInfo} from '../Actions';
 import {BILLING_INFO_REJECTED} from '../Constants';
-import fieldConfig from '../configs/PaymentForm';
 
-const t = scoped('ENROLLMENT.forms.storeenrollment');
 const t2 = scoped('ENROLLMENT');
 
 export default React.createClass({
 	displayName: 'PaymentForm',
-	mixins: [RenderFormConfigMixin, ExternalLibraryManager, FormattedPriceMixin],
+	mixins: [StoreEvents, FormattedPriceMixin, ExternalLibraryManager],
+
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		[BILLING_INFO_REJECTED]: 'onBillingRejected'
+	},
 
 	propTypes: {
 		purchasable: React.PropTypes.object.isRequired
 	},
 
+
 	componentWillMount () {
-		let formData = Store.getPaymentFormData();
-		this.setState({
-			loading: true,
-			fieldValues: formData,
-			errors: {}
-		});
+		this.setState({ loading: true });
 	},
+
 
 	componentDidMount () {
-		this.ensureExternalLibrary(['jquery.payment', 'stripe'])
-			.then(() => clearLoadingFlag(this));
-
-		Store.addChangeListener(this.onStoreChange);
+		//we don't use this, but we want to put up a splash "loading" for the library at a
+		//higher level than the component that uses it.
+		this.ensureExternalLibrary(['jquery.payment']).then(() => clearLoadingFlag(this));
 	},
 
 
-	componentDidUpdate (_, prevState) {
-		const {loading} = this.state;
-		if (loading !== prevState.loading && typeof jQuery !== 'undefined') {
-			jQuery('input[name=number]').payment('formatCardNumber');
-		}
+	onBillingRejected (event) {
+		const {response} = event;
+		let {errors = {}} = this.state;
+		let {error} = response;
+
+		errors[error.param] = error;
+
+		this.setState({ errors, busy: false });
+		console.log(event);
 	},
 
-	componentWillUnmount () {
-		Store.removeChangeListener(this.onStoreChange);
+
+	getValues () {
+		let {card, billing} = this.refs;
+		return Object.assign({}, card.getValue(), billing.getValue());
 	},
 
-	onStoreChange (event) {
-		switch(event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		case BILLING_INFO_REJECTED:
-			let errors = this.state.errors || {};
-			errors[event.response.error.param] = event.response.error;
-			this.setState({
-				errors: errors,
-				busy: false
-			});
-			console.log(event);
-			break;
-		}
-	},
 
 	validate () {
-		let errors = {};
-		let fieldValues = this.state.fieldValues || {};
-		fieldConfig.forEach(fieldset => {
-			fieldset.fields.forEach(field => {
-				if (field.required) {
-					let value = (fieldValues[field.ref] || '');
-					if (value.trim().length === 0) {
-						errors[field.ref] = {
-							// no message property because we don't want the 'required' message
-							// repeated for every required field...
+		const errors = {};
 
-							// ...but we still want an entry for this ref so the field gets flagged
-							// as invalid.
-							error: t2('requiredField')
-						};
-						errors.required = {
-							message: t2('incompleteForm')
-						};
-					}
-				}
-			});
-		});
+		let {card, billing} = this.refs;
 
-		let number = (this.state.fieldValues.number || '');
-		if(number.trim().length > 0 && !Stripe.card.validateCardNumber(number)) {
-			errors.number = {message: t2('invalidCardNumber')};
+		if (!card.validate()) {
+			errors.card = {message: 'Please correct the errors above.'};
 		}
 
-		let cvc = (this.state.fieldValues.cvc || '');
-		if(cvc.trim().length > 0 && !Stripe.card.validateCVC(cvc)) {
-			errors.cvc = {message: t2('invalidCVC')};
+		if (!billing.validate()) {
+			errors.billing = {message: 'Please correct the errors above.'};
 		}
 
-		let mon = (this.state.fieldValues.exp_month || '');
-		let year = (this.state.fieldValues.exp_year || '');
-		if([mon, year].join('').trim().length > 0 && !Stripe.card.validateExpiry(mon, year)) {
-			errors.exp_month = {message: t2('invalidExpiration')}; // eslint-disable-line camelcase
-			// no message property because we don't want the error message repeated
-			errors.exp_year = {error: t2('invalidExpiration')}; // eslint-disable-line camelcase
-		}
-
-		this.setState({
-			errors: errors
-		});
+		this.setState({ errors });
 		return Object.keys(errors).length === 0;
 	},
+
 
 	handleSubmit (event) {
 		event.preventDefault();
@@ -133,43 +95,38 @@ export default React.createClass({
 			return;
 		}
 
-		this.setState({
-			busy: true
-		});
+		this.setState({ busy: true });
 
 		let stripeKey = this.props.purchasable.getStripeConnectKey().PublicKey;
-		verifyBillingInfo(stripeKey, this.state.fieldValues);
+
+		verifyBillingInfo(stripeKey, this.getValues());
 	},
 
 	render () {
+		const {props: {purchasable: purch}, state: {busy, errors, fieldValues, loading}} = this;
 
-		if(this.state.loading) {
-			return <Loading />;
+		if(loading) {
+			return ( <Loading /> );
 		}
 
-		let purch = this.props.purchasable;
-		let price = this.getFormattedPrice(purch.currency, purch.amount);
-		let title = purch.name || null;
-		let state = this.state;
-		let cssClasses = ['row'];
-
-		if(this.state.busy) {
-			cssClasses.push('busy');
-		}
+		const price = this.getFormattedPrice(purch.currency, purch.amount);
+		const title = purch.name || null;
 
 		let subhead = t2('enrollAsLifelongLearnerWithPrice', {price: price});
 
-		let fields = this.renderFormConfig(fieldConfig, state.fieldValues, t);
-
 		return (
 			<FormPanel onSubmit={this.handleSubmit} title={title} subhead={subhead} className="payment-form">
-				{fields}
-				<FormErrors errors={state.errors} />
-				<input type="submit"
-					key="submit"
-					id="storeenroll:submit"
-					className="small-12 columns tiny button radius"
-					value="Continue" />
+				<CreditCardForm initialValues={fieldValues} ref="card"/>
+				<BillingAddress initialValues={fieldValues} ref="billing"/>
+				{errors && ( <FormErrors errors={errors} /> )}
+				{busy ? (
+					<Loading/>
+				) : (
+					<input type="submit"
+						id="storeenroll:submit"
+						className="small-12 columns tiny button radius"
+						value="Continue" />
+				)}
 			</FormPanel>
 		);
 	}
