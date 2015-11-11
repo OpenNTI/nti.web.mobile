@@ -134,14 +134,12 @@ export default React.createClass({
 		verifyBillingInfo(stripeKey, this.getValues());
 	},
 
-	termsCheckboxChange (isChecked) {
-		this.setState({
-			submitEnabled: isChecked
-		});
+	termsCheckboxChange (termsChecked) {
+		this.setState({ termsChecked });
 	},
 
 	render () {
-		const {props: {purchasable: purch}, state: {busy, errors, defaultValues, loading}} = this;
+		const {props: {purchasable: purch}, state: {busy, errors, defaultValues, loading, termsChecked}} = this;
 
 		if(loading) {
 			return ( <Loading /> );
@@ -150,8 +148,7 @@ export default React.createClass({
 		const price = this.getFormattedPrice(purch.currency, purch.amount);
 		const title = purch.name || null;
 
-		let subhead = t('enrollAsLifelongLearnerWithPrice', {price: price});
-		let disabled = !this.state.submitEnabled;
+		const subhead = t('enrollAsLifelongLearnerWithPrice', {price: price});
 
 		return (
 			<FormPanel onSubmit={this.handleSubmit} title={title} subhead={subhead} className="payment-form">
@@ -164,7 +161,7 @@ export default React.createClass({
 				) : (
 					<input type="submit"
 						id="storeenroll:submit"
-						disabled={disabled}
+						disabled={!termsChecked}
 						className="small-12 columns tiny button radius"
 						value="Continue" />
 				)}
