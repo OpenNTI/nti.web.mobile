@@ -10,20 +10,13 @@ import GiftInfo from './GiftInfo';
 import Pricing from './Pricing';
 
 import Store from '../Store';
-import * as Actions from '../Actions';
+import {resetProcess, submitPayment} from '../Actions';
 
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
 import {scoped} from 'common/locale';
 let t = scoped('ENROLLMENT.CONFIRMATION');
 
-const getCouponPricing = 'PaymentConfirm:getCouponPricing';
-const getStripeToken = 'PaymentConfirm:getStripeToken';
-const getPricing = 'PaymentConfirm:getPricing';
-const getGiftInfo = 'PaymentConfirm:getGiftInfo';
-const shouldAllowUpdates = 'PaymentConfirm:shouldAllowUpdates';
-const getPrice = 'PaymentConfirm:getPrice';
-const submitPayment = 'PaymentConfirm:submitPayment';
 
 export default React.createClass({
 
@@ -44,18 +37,14 @@ export default React.createClass({
 			});
 		}
 		catch(e) {
-			this.setState({
-				error: true
-			});
+			this.setState({ error: true });
 		}
 	},
 
 
 	componentDidMount () {
 		if (!this.state.stripeToken) {
-			Actions.resetProcess({
-				gift: (Store.getGiftInfo() !== null)
-			});
+			resetProcess({ gift: (Store.getGiftInfo() !== null) });
 		}
 	},
 
@@ -68,48 +57,46 @@ export default React.createClass({
 		};
 	},
 
-	[getStripeToken] () {
+	getStripeToken () {
 		return this.state.stripeToken;
 	},
 
-	[getCouponPricing] () {
+	getCouponPricing () {
 		return Store.getCouponPricing();
 	},
 
-	[getPricing] () {
+	getPricing () {
 		return this.state.pricing;
 	},
 
-	[getGiftInfo] () {
+	getGiftInfo () {
 		return this.state.giftInfo;
 	},
 
-	[getPrice] () {
-		let pricing = this[getCouponPricing]();
+	getPrice () {
+		let pricing = this.getCouponPricing();
 		let {purchasable} = this.props;
 		let price = pricing ? pricing.price : purchasable.amount;
 
 		return this.getFormattedPrice(purchasable.currency, price);
 	},
 
-	[shouldAllowUpdates] () {
+	shouldAllowUpdates () {
 		let el = this.refs.subscribeToUpdates;
 		return el && el.checked;
 	},
 
-	[submitPayment] (event) {
+	submitPayment (event) {
 		event.preventDefault();
-		this.setState({
-			busy: true
-		});
-		let payload = {
-			stripeToken: this[getStripeToken](),
+		this.setState({ busy: true });
+
+		submitPayment({
+			stripeToken: this.getStripeToken(),
 			purchasable: this.props.purchasable,
-			pricing: this[getPricing](),
-			giftInfo: this[getGiftInfo](),
-			allowVendorUpdates: this[shouldAllowUpdates]()
-		};
-		Actions.submitPayment(payload);
+			pricing: this.getPricing(),
+			giftInfo: this.getGiftInfo(),
+			allowVendorUpdates: this.shouldAllowUpdates()
+		});
 	},
 
 	render () {
@@ -119,19 +106,19 @@ export default React.createClass({
 		const edit = isGift ? 'gift/' : '';
 
 		if (error || !stripeToken) {
-			return <ErrorWidget error="No data"/>;
+			return ( <ErrorWidget error="No data."/> );
 		}
 
 		if (busy) {
-			return <Loading />;
+			return ( <Loading /> );
 		}
 
-		const price = this[getPrice]();
+		const price = this.getPrice();
 
 		return (
 			<div className="payment-confirm">
 				<Pricing purchasable={purchasable} locked />
-				<PanelButton className="medium-8 medium-centered columns" buttonClick={this[submitPayment]} linkText="Submit Payment">
+				<PanelButton className="medium-8 medium-centered columns" buttonClick={this.submitPayment} linkText="Submit Payment">
 					<h3>{t('header')}</h3>
 					<p>{t('review')}</p>
 					<p>{t('salesFinal')}</p>
