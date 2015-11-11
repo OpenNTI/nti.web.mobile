@@ -11,6 +11,7 @@ import FormErrors from 'common/forms/components/FormErrors';
 
 import Loading from 'common/components/Loading';
 
+import {getAppUser} from 'common/utils';
 import {clearLoadingFlag} from 'common/utils/react-state';
 
 import CreditCardForm from 'common/components/CreditCardForm';
@@ -41,7 +42,27 @@ export default React.createClass({
 
 
 	componentWillMount () {
-		this.setState({ loading: true });
+		let defaultValues = Object.assign({}, Store.getPaymentFormData());
+
+		getAppUser().then(u => {
+			let {defaultValues: current = {}} = this.state;
+			let o = {};
+
+			if (u && !current.from) {
+				o.from = u.email;
+			}
+
+			if (u && !current.name) {
+				o.name = u.realname;
+			}
+
+			if (Object.keys(o).length) {
+				defaultValues = Object.assign(o, defaultValues);
+				this.setState({ defaultValues });
+			}
+		});
+
+		this.setState({  loading: true, defaultValues });
 	},
 
 
