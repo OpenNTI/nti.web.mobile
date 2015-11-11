@@ -184,6 +184,7 @@ export default {
 
 	admissionPendingMessage: 'Your application has been received. An admissions counselor will contact you soon.',
 	incompleteForm: 'Please complete all required fields.',
+	invalidForm: 'Please correct the errors above.',
 	requiredField: 'Field is required.',
 
 	invalidExpiration: 'Expiration is invalid.',

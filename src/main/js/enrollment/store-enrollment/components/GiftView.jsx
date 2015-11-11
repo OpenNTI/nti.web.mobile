@@ -101,15 +101,19 @@ export default React.createClass({
 		const {error} = response;
 		let {param: key} = error || {};
 
-		if (/^exp_/i.test(key)) {
-			key = 'exp_';
-		}
-
 		errors[key] = error;
 
-		this.setState({ errors, busy: false });
-
 		console.log(event);
+
+		for (let ref of Object.values(this.refs)) {
+			if (ref.delegateError && ref.delegateError(errors)) {
+				return this.setState({busy: false, errors: {
+					general: {message: t('invalidForm')}
+				}});
+			}
+		}
+
+		this.setState({ errors, busy: false });
 	},
 
 
@@ -169,15 +173,15 @@ export default React.createClass({
 		const {recipient, from, card, billing} = this.refs;
 
 		if (!card.validate(false)) {
-			errors.card = {message: 'Please correct the errors above.'};
+			errors.card = {message: t('invalidForm')};
 		}
 
 		if (!billing.validate()) {
-			errors.billing = {message: 'Please correct the errors above.'};
+			errors.billing = {message: t('invalidForm')};
 		}
 
 		if (!from.validate()) {
-			errors.from = {message: 'Please correct the errors above.'};
+			errors.from = {message: t('invalidForm')};
 		}
 
 		if (!recipient.isValid()) {

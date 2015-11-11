@@ -67,6 +67,24 @@ export default React.createClass({
 	},
 
 
+	delegateError (err) {
+		let fields = {
+			name: 'name',
+			number: 'number',
+			cvc: 'cvc',
+			exp: 'exp',
+			exp_month: 'exp', exp_year: 'exp' // eslint-disable-line camelcase
+		};
+
+		for (let key of Object.keys(err)) {
+			if (key in fields) {
+				this.setState({errors: {[fields[key]]: err[key]}});
+				return true;
+			}
+		}
+	},
+
+
 	validate (ignoreEmpty = true) {
 		const {name, number, cvc, exp_month: mon, exp_year: year} = this.getValue(); // eslint-disable-line camelcase
 		const errors = {};

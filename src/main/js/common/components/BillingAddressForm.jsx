@@ -66,6 +66,16 @@ export default React.createClass({
 	},
 
 
+	delegateError (err) {
+		for (let key of Object.keys(err)) {
+			if (FIELDS.includes(key.replace(/^address_/i, ''))) {
+				this.setState({errors: {[key]: err[key]}});
+				return true;
+			}
+		}
+	},
+
+
 	onChange (e) {
 		this.onFieldEventClearError(e);
 		let {onChange} = this.props;
@@ -102,7 +112,7 @@ export default React.createClass({
 							placeholder={t(`address_${field}`)}
 							className={cx({required: required[field], error: errors[field]})}
 							type="text"
-							defaultValue={initialValues[field]}
+							defaultValue={initialValues[`address_${field}`]}
 							onFocus={this.onFieldEventClearError}
 							onChange={this.onChange}
 							/>
