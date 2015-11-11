@@ -54,7 +54,7 @@ export default React.createClass({
 		this.refs.router.navigate(...arguments);
 	},
 
-	componentDidMount () {
+	componentWillMount () {
 		Store.addChangeListener(this.storeChange);
 	},
 
@@ -63,7 +63,13 @@ export default React.createClass({
 	},
 
 	storeChange (event) {
-		let router = this.refs.router;
+		const {router} = this.refs;
+
+		if (!router) {
+			console.warn('Router not present yet... will retry in a few.');
+			return setTimeout(()=> this.storeChange(event), 100);
+		}
+
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 		case Constants.PRICED_ITEM_RECEIVED:
@@ -78,7 +84,7 @@ export default React.createClass({
 			break;
 
 		case Constants.EDIT:
-			router.navigate('/' + (event.mode || ''));
+			router.navigate('/' + (event.mode || ''), {replace: true});
 			break;
 
 		case Constants.RESET:
@@ -92,17 +98,17 @@ export default React.createClass({
 		case Constants.STRIPE_PAYMENT_SUCCESS:
 
 			if ((Store.getPaymentResult() || {}).redemptionCode) {
-				router.navigate('success/');
+				router.navigate('success/', {replace: true});
 			} else {
 				// the catalog entry we're rooted under may not exist when the catalog reloads
 				// so the success message lives under the root catalog router.
-				this.nav('./success/');
+				this.nav('./success/', {replace: true});
 			}
 			break;
 
 		case Constants.STRIPE_PAYMENT_FAILURE:
 		case Constants.POLLING_ERROR:
-			router.navigate('error/');
+			router.navigate('error/', {replace: true});
 			break;
 
 		}
