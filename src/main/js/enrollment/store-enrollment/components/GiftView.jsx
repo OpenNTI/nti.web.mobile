@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {scoped} from 'common/locale';
-import {getAppUser} from 'common/utils';
+import {getAppUser, getUserAgreementURI} from 'common/utils';
 import {clearLoadingFlag} from 'common/utils/react-state';
 
 let t = scoped('ENROLLMENT');
@@ -29,8 +29,6 @@ import Header from './GiftViewHeader';
 import From from './GiftViewFrom';
 import Recipient from './GiftRecipient';
 import Pricing from './Pricing';
-
-let agreementURL = '/mobile/api/user-agreement/view';
 
 export default React.createClass({
 	displayName: 'GiftView',
@@ -228,7 +226,7 @@ export default React.createClass({
 				<div className="agreement">
 					<label>
 						<input type="checkbox" name="agree" checked={agreed} onChange={this.onAgreementCheckedChange}/>
-						<Localized tag="span" stringId="ENROLLMENT.GIFT.agreeToTerms" url={agreementURL} />
+						<Localized tag="span" stringId="ENROLLMENT.GIFT.agreeToTerms" url={getUserAgreementURI()} />
 					</label>
 				</div>
 

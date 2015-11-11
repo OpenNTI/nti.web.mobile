@@ -84,7 +84,7 @@ export function getSiteName () {
 }
 
 export function getUserAgreementURI () {
-	return $AppConfig['user-agreement'];
+	return `${$AppConfig.basepath}/api/user-agreement/view`;
 }
 
 
