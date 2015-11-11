@@ -14,6 +14,9 @@ import BasePath from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
+import {scoped} from 'common/locale';
+
+let t = scoped('ENROLLMENT');
 /**
 * Used by both store-enrollment/components/View and store-enrollment/components/GiftPurchaseView.
 */
@@ -42,7 +45,7 @@ export default React.createClass({
 				href: this.makeHref(path.join('item', this.props.entryId, 'enrollment'))
 			},
 			{
-				label: 'Lifelong Learner'
+				label: t('storeEnrollmentTitle')
 			}
 		]);
 	},

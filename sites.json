@@ -24,6 +24,13 @@
 
 	"alpha.nextthought.com": {
 		"name": "alpha.nextthought.com",
-		"title": "Aplha"
+		"title": "Alpha"
+	},
+
+	"prmia-alpha.nextthought.com": "prmia.nextthought.com",
+	"prmia-test.nextthought.com": "prmia.nextthought.com",
+	"prmia.nextthought.com": {
+		"name": "prmia.nextthought.com",
+		"title": "PRMIA"
 	}
 }
