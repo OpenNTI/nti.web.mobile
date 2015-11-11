@@ -109,6 +109,8 @@
 /* min-width 641px, medium screens */
 @media only screen and (min-width: 40.063em) {
 	.payment-confirm {
-		margin: 1rem 1rem;
+		margin: 1rem auto;
+		max-width: 750px;
+		padding: 0 1rem;
 	}
 }

@@ -120,7 +120,9 @@
 /* min-width 641px, medium screens */
 @media only screen and (min-width: 40.063em) {
 	.gift-success{
-		margin: 1rem 0rem;
+		margin: 1rem auto;
+		padding: 0 1rem;
+		max-width: 750px;
 
 		h3 {
 			padding-left: 0;

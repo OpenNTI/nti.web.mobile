@@ -188,7 +188,7 @@ export default React.createClass({
 		}
 
 		return (
-			<div className="pricing-info">
+			<div className="pricing-info row">
 				<div className="title">
 					<span className="sub">{t('subType')}</span>
 					<span className="main">{type}</span>
