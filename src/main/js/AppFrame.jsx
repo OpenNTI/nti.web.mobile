@@ -109,11 +109,12 @@ export default React.createClass({
 			clearTimeout(this.waitForCloseAnimation);
 			//We don't want to just kick the drawer off screen... wait for its animation to finish. (if it will)
 			this.waitForCloseAnimation = setTimeout(() => {
-
 				//get a reference to the dom node.
-				let el = this.refs.rightMenu;
-				CSS.addClass(el, 'kill-transitions');
-				setTimeout(()=> CSS.removeClass(el, 'kill-transitions'), 17/*one frame*/);
+				const {rightMenu: el} = this.refs;
+				if (el) {
+					CSS.addClass(el, 'kill-transitions');
+					setTimeout(()=> CSS.removeClass(el, 'kill-transitions'), 17/*one frame*/);
+				}
 			}, 550);
 
 
