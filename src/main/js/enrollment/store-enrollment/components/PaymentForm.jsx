@@ -157,8 +157,8 @@ export default React.createClass({
 			<FormPanel onSubmit={this.handleSubmit} title={title} subhead={subhead} className="payment-form">
 				<CreditCardForm defaultValues={defaultValues} ref="card"/>
 				<BillingAddress defaultValues={defaultValues} ref="billing"/>
-				<TermsCheckbox onChange={this.termsCheckboxChange}/>
 				{errors && ( <FormErrors errors={errors} /> )}
+				<TermsCheckbox onChange={this.termsCheckboxChange}/>
 				{busy ? (
 					<Loading/>
 				) : (
