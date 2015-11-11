@@ -22,6 +22,7 @@ import StoreEvents from 'common/mixins/StoreEvents';
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
 import TermsCheckbox from './TermsCheckbox';
+import Pricing from './Pricing';
 
 import Store from '../Store';
 import {verifyBillingInfo} from '../Actions';
@@ -152,6 +153,7 @@ export default React.createClass({
 
 		return (
 			<FormPanel onSubmit={this.handleSubmit} title={title} subhead={subhead} className="payment-form">
+				<Pricing purchasable={purch} />
 				<CreditCardForm defaultValues={defaultValues} ref="card"/>
 				<BillingAddress defaultValues={defaultValues} ref="billing"/>
 				{errors && ( <FormErrors errors={errors} /> )}
