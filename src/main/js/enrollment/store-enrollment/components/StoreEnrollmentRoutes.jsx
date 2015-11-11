@@ -78,7 +78,7 @@ export default React.createClass({
 			break;
 
 		case Constants.EDIT:
-			router.navigate('/' + event.mode);
+			router.navigate('/' + (event.mode || ''));
 			break;
 
 		case Constants.RESET:
