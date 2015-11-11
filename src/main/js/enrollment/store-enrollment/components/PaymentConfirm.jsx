@@ -113,21 +113,20 @@ export default React.createClass({
 	},
 
 	render () {
+		const {props: {purchasable}, state: {busy, error, stripeToken, giftInfo}} = this;
+		const {VendorInfo: {AllowVendorUpdates} = {}} = purchasable || {};
+		const isGift = giftInfo !== null;
+		const edit = isGift ? 'gift/' : '';
 
-		if (this.state.error || !this.state.stripeToken) {
+		if (error || !stripeToken) {
 			return <ErrorWidget error="No data"/>;
 		}
 
-		if (this.state.busy) {
+		if (busy) {
 			return <Loading />;
 		}
 
-		let purchasable = this.props.purchasable;
-
-		let price = this[getPrice]();
-		let edit = this.state.giftInfo && 'gift/';
-		let allowVendorUpdates = purchasable.VendorInfo.AllowVendorUpdates;
-		let isGift = this.state.giftInfo !== null;
+		const price = this[getPrice]();
 
 		return (
 			<div className="payment-confirm">
@@ -136,11 +135,11 @@ export default React.createClass({
 					<h3>{t('header')}</h3>
 					<p>{t('review')}</p>
 					<p>{t('salesFinal')}</p>
-					<GiftInfo info={this.state.giftInfo} edit={edit} />
-					<BillingInfo card={this.state.stripeToken.card} edit={edit} />
+					<GiftInfo info={giftInfo} edit={edit} />
+					<BillingInfo card={stripeToken.card} edit={edit} />
 					<p>Clicking submit will charge your card {price}{isGift ? '' : ' and enroll you in the course'}.</p>
 
-					{!allowVendorUpdates ? '' :
+					{!AllowVendorUpdates ? '' :
 						<div className="subscribe">
 							<label>
 								<input type="checkbox" ref="subscribeToUpdates" name="subscribe" />
