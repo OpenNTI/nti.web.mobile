@@ -10,12 +10,13 @@ import Loading from 'common/components/Loading';
 
 import isEmpty from 'fbjs/lib/isEmpty';
 import CourseLinker from 'library/mixins/CourseContentLink';
+import {LESSONS} from '../Sections';
 
 function CalendarCard (props) {
 	const {date} = props;
 
 	return !date ? (
-		<div/> 
+		<div/>
 	) : (
 		<div className="calendar-card">
 			<DateTime date={date} className="month" format="MMM"/>
@@ -95,7 +96,7 @@ export default React.createClass({
 
 		let depthMap = ['h1', 'div'];
 
-		let prefix = this.getBasePath();
+		let prefix = this.courseHref(item.getID(), LESSONS);
 
 		resolvingOutline.then(outline => {
 
@@ -159,10 +160,10 @@ export default React.createClass({
 		}
 
 		return React.createElement('ul', {}, ...list.map(item => {
-			const {href: link, depth, title} = item;
+			const {ref: link, depth, title} = item;
 			const tag = depthMap[depth - 1] || 'div';
 			const date = item.getAvailableBeginning();
-			const href = link ? (prefix + link) : null;
+			const href = link ? (prefix + link + '/') : null;
 
 			const props = {
 				href, title, children: title
