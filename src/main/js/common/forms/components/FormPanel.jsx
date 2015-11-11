@@ -1,13 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
-import RenderField from '../mixins/RenderFormConfigMixin';
-
 export default React.createClass({
-
 	displayName: 'FormPanel',
-
-	mixins: [RenderField],
 
 	propTypes: {
 		busy: React.PropTypes.bool,
@@ -30,15 +25,15 @@ export default React.createClass({
 	},
 
 	render () {
-		const {props: {children, className, busy, onSubmit, noValidate}} = this;
+		const {props: {children, className, busy, onSubmit, noValidate, title, subhead}} = this;
 		const cssClasses = cx('form-panel', className, { busy });
 
 		return (
 			<div className={cssClasses}>
 				<form onSubmit={onSubmit} noValidate={noValidate}>
 					<div className="form-heading">
-						{this.props.title && (<h2>{this.props.title}</h2>)}
-						{this.props.subhead && (<p>{this.props.subhead}</p>)}
+						{title && (<h2>{title}</h2>)}
+						{subhead && (<p>{subhead}</p>)}
 					</div>
 					{children}
 				</form>
