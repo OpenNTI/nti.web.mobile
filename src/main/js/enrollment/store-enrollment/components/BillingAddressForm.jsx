@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {scoped} from '../locale';
+import {scoped} from 'common/locale';
 
 //These strings should probably move into a more generic place in the strings.
 const t = scoped('ENROLLMENT.forms.storeenrollment');
@@ -54,7 +54,7 @@ export default React.createClass({
 		for (let field of Object.keys(required)) {
 			let {value = ''} = refs[field] || {};
 			if (required[field] && value.length === 0) {
-				errors[field] = {message: t2('incompleteForm')};
+				errors[field] = {message: t2('requiredField')};
 			}
 		}
 

@@ -2,6 +2,10 @@
 	margin: 0 0.625rem;
 }
 
+.recipient-info {
+	@extend %form-fieldset;
+}
+
 .gift-info {
 	$pad: 0.9375rem;
 	$gift-border: #d5f2da;
@@ -61,15 +65,16 @@
 
 		.line {
 			display: flex;
-			input, div.box {
+			input, div.box, & > span {
+				position: relative;
 				margin: 0 0.4rem 0 0;
 				&:last-child {
 					margin: 0;
 				}
 			}
 
-			input {
-				flex: 1 1 auto;
+			& > input, & > span {
+				flex: 1 1 33.33%;
 			}
 
 			div.box {

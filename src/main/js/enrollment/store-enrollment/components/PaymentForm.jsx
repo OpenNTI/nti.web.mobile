@@ -14,13 +14,13 @@ import Loading from 'common/components/Loading';
 import {getAppUser} from 'common/utils';
 import {clearLoadingFlag} from 'common/utils/react-state';
 
-import CreditCardForm from 'common/components/CreditCardForm';
-import BillingAddress from 'common/components/BillingAddressForm';
 
 import ExternalLibraryManager from 'common/mixins/ExternalLibraryManager';
 import StoreEvents from 'common/mixins/StoreEvents';
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
+import BillingAddress from './BillingAddressForm';
+import CreditCardForm from './CreditCardForm';
 import TermsCheckbox from './TermsCheckbox';
 import Pricing from './Pricing';
 
@@ -108,12 +108,18 @@ export default React.createClass({
 
 		let {card, billing} = this.refs;
 
-		if (!card.validate()) {
-			errors.card = {message: 'Please correct the errors above.'};
+		//We let each composit field to validate itself...and show errors on
+		//their own fields. We just want to report that there were errors to
+		//correct at the bottom. That is way each of these assign to the same
+		//key on "errors". (the key name is irrelevant)
+
+
+		if (!card.validate(false)) {
+			errors.sub = {message: 'Please correct the errors above.'};
 		}
 
 		if (!billing.validate()) {
-			errors.billing = {message: 'Please correct the errors above.'};
+			errors.sub = {message: 'Please correct the errors above.'};
 		}
 
 		this.setState({ errors });
@@ -136,6 +142,7 @@ export default React.createClass({
 	},
 
 	termsCheckboxChange (termsChecked) {
+		this.validate();
 		this.setState({ termsChecked });
 	},
 

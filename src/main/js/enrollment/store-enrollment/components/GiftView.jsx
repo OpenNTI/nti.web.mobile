@@ -10,8 +10,6 @@ let tGift = scoped('ENROLLMENT.GIFT');
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import Localized from 'common/components/LocalizedHTML';
-import CreditCardForm from 'common/components/CreditCardForm';
-import BillingAddressForm from 'common/components/BillingAddressForm';
 
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
@@ -25,6 +23,9 @@ import Store from '../Store';
 import {verifyBillingInfo} from '../Actions';
 import {BILLING_INFO_REJECTED, LOCK_SUBMIT, UNLOCK_SUBMIT} from '../Constants';
 
+
+import CreditCardForm from './CreditCardForm';
+import BillingAddressForm from './BillingAddressForm';
 import Header from './GiftViewHeader';
 import From from './GiftViewFrom';
 import Recipient from './GiftRecipient';
@@ -170,23 +171,25 @@ export default React.createClass({
 		const errors = {};
 		const {recipient, from, card, billing} = this.refs;
 
+		//We let each composit field to validate itself...and show errors on
+		//their own fields. We just want to report that there were errors to
+		//correct at the bottom. That is way each of these assign to the same
+		//key on "errors". (the key name is irrelevant)
+
 		if (!card.validate(false)) {
-			errors.card = {message: t('invalidForm')};
+			errors.sub = {message: t('invalidForm')};
 		}
 
 		if (!billing.validate()) {
-			errors.billing = {message: t('invalidForm')};
+			errors.sub = {message: t('invalidForm')};
 		}
 
 		if (!from.validate()) {
-			errors.from = {message: t('invalidForm')};
+			errors.sub = {message: t('invalidForm')};
 		}
 
-		if (!recipient.isValid()) {
-			errors.required = { message: t('incompleteForm') };
-			errors.recipient = recipient.isEmpty()
-				? {error: t('requiredField')}
-				: {message: t('invalidRecipient')};
+		if (!recipient.validate()) {
+			errors.sub = {message: t('invalidForm')};
 		}
 
 		this.setState({ errors });

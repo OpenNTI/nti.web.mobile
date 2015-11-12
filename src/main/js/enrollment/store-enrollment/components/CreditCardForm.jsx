@@ -2,11 +2,11 @@
 import React from 'react';
 import cx from 'classnames';
 
-import Loading from './TinyLoader';
+import Loading from 'common/components/TinyLoader';
 
-import ExternalLibraryManager from '../mixins/ExternalLibraryManager';
-import {clearLoadingFlag} from '../utils/react-state';
-import {scoped} from '../locale';
+import ExternalLibraryManager from 'common/mixins/ExternalLibraryManager';
+import {clearLoadingFlag} from 'common/utils/react-state';
+import {scoped} from 'common/locale';
 
 //These strings should probably move into a more generic place in the strings.
 const t = scoped('ENROLLMENT.forms.storeenrollment');
@@ -91,7 +91,7 @@ export default React.createClass({
 		const hasValue = x => (x || '').length > 0 || !ignoreEmpty;
 
 		if(name.length === 0) {
-			errors.name = {message: t2('incompleteForm')};
+			errors.name = {message: t2('requiredField')};
 		}
 
 		if(hasValue(number) && !Stripe.card.validateCardNumber(number)) {

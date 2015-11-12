@@ -187,5 +187,7 @@ label:not(.css3unsupported) {
 		color: $secondary-red;
 		border: 1px solid $secondary-red;
 		padding: 0 0.25rem;
+		display: block;
+		margin: 0;
 	}
 }
