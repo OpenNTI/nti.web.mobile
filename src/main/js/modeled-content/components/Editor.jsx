@@ -128,7 +128,7 @@ export default React.createClass({
 		this.pendingSetup = Promise.all(res.map(renderPart))
 			.then(result => {
 				this.setState({
-					value: result.join('\n').replace(/<(\/?)(body|html)>/ig, '')
+					value: result.join('').replace(/<(\/?)(body|html)>/ig, '')
 				});
 			});
 	},
