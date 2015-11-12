@@ -125,7 +125,7 @@ export default React.createClass({
 			res = [res];
 		}
 
-		Promise.all(res.map(renderPart))
+		this.pendingSetup = Promise.all(res.map(renderPart))
 			.then(result => {
 				this.setState({
 					value: result.join('\n').replace(/<(\/?)(body|html)>/ig, '')
