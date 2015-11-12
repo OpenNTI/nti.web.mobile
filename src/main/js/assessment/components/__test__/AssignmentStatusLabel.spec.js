@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import moment from 'moment-timezone';
+import jstz from 'jstimezonedetect';
+
 import AssignmentStatusLabel from '../AssignmentStatusLabel';
 import MockAssignment from './MockAssignment';
 
@@ -12,7 +15,13 @@ const assignment = MockAssignment({
 	'available_for_submission_ending': '2015-08-29T04:59:59Z'
 });
 
+
+const EXPECTED_DAY_FORMAT = 'dddd, MMMM D';
+const EXPECTED_DAYTIME_FORMAT = 'dddd, MMMM D h:mm A z';
+
 describe('AssignmentStatusLabel', () => {
+	const tz = jstz.determine().name();
+
 	let container = document.createElement('div');
 	let newNode;
 
@@ -30,6 +39,9 @@ describe('AssignmentStatusLabel', () => {
 
 
 	it('Base Cases: overdue', () => {
+		const due = moment(assignment.getDueDate()).tz(tz).format(EXPECTED_DAY_FORMAT);
+		const value = `Due(Overdue)${due}`;
+
 		const A = ReactDOM.render(
 			React.createElement(AssignmentStatusLabel, {assignment}),
 			newNode
@@ -40,8 +52,8 @@ describe('AssignmentStatusLabel', () => {
 			container
 		);
 
-		expect(getText(A)).toEqual('Due(Overdue)Friday, August 28');
-		expect(getText(B)).toEqual('Due(Overdue)Friday, August 28');
+		expect(getText(A)).toEqual(value);
+		expect(getText(B)).toEqual(value);
 
 	});
 
@@ -67,6 +79,9 @@ describe('AssignmentStatusLabel', () => {
 
 
 	it('Base Cases: should show time with date', () => {
+		const due = moment(assignment.getDueDate()).tz(tz).format(EXPECTED_DAYTIME_FORMAT);
+		const value = `Due(Overdue)${due}`;
+
 		const A = ReactDOM.render(
 			React.createElement(AssignmentStatusLabel, {assignment, showTimeWithDate: true}),
 			newNode
@@ -77,8 +92,8 @@ describe('AssignmentStatusLabel', () => {
 			container
 		);
 
-		expect(getText(A).trim()).toEqual('Due(Overdue)Friday, August 28 11:59 PM');
-		expect(getText(B).trim()).toEqual('Due(Overdue)Friday, August 28 11:59 PM');
+		expect(getText(A).trim()).toEqual(value);
+		expect(getText(B).trim()).toEqual(value);
 
 	});
 
