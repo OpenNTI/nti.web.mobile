@@ -37,6 +37,11 @@ describe('AssignmentStatusLabel', () => {
 		document.body.removeChild(newNode);
 	});
 
+	afterAll(()=> {
+		ReactDOM.unmountComponentAtNode(container);
+		document.body.removeChild(container);
+	});
+
 
 	it('Base Cases: overdue', () => {
 		const due = moment(assignment.getDueDate()).tz(tz).format(EXPECTED_DAY_FORMAT);

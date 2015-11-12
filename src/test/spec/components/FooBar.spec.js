@@ -8,10 +8,11 @@ import ReactDOM from 'react-dom';
 import Button from 'common/forms/components/Button';
 
 describe('FooBar', ()=> {
+	let container;
 	let component;
 
 	beforeEach(()=> {
-		let container = document.createElement('div');
+		container = document.createElement('div');
 		container.id = 'content';
 		document.body.appendChild(container);
 
@@ -20,6 +21,11 @@ describe('FooBar', ()=> {
 			container
 		);
 
+	});
+
+	afterEach(()=> {
+		ReactDOM.unmountComponentAtNode(container);
+		document.body.removeChild(container);
 	});
 
 	it('should create a new instance of Button', ()=> {

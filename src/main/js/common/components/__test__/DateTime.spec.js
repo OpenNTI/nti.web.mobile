@@ -26,6 +26,11 @@ describe('DateTime', () => {
 		document.body.removeChild(newNode);
 	});
 
+	afterAll(()=> {
+		ReactDOM.unmountComponentAtNode(container);
+		document.body.removeChild(container);
+	});
+
 	it('Base Cases: date only', () => {
 		const A = ReactDOM.render(
 			React.createElement(DateTime, {date}),
