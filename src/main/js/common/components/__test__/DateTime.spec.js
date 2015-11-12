@@ -218,7 +218,7 @@ describe('DateTime', () => {
 		expect(getText(B)).toEqual(todayText);
 	});
 
-	it('supports timezone abbrivations', () => {
+	it('supports timezone abbreviation', () => {
 		const now = new Date();
 
 		const A = ReactDOM.render(
