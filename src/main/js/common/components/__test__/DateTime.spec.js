@@ -231,8 +231,8 @@ describe('DateTime', () => {
 			container
 		);
 
-		expect(getText(A)).toMatch(/[A-Z]+/i);
-		expect(getText(B)).toMatch(/[A-Z]+/i);
+		expect(getText(A)).toMatch(/[A-Z]{2,}/i);
+		expect(getText(B)).toMatch(/[A-Z]{2,}/i);
 	});
 
 });
