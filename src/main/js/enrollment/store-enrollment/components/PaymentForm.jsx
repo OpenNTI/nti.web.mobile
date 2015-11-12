@@ -17,7 +17,6 @@ import {clearLoadingFlag} from 'common/utils/react-state';
 
 import ExternalLibraryManager from 'common/mixins/ExternalLibraryManager';
 import StoreEvents from 'common/mixins/StoreEvents';
-import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
 import BillingAddress from './BillingAddressForm';
 import CreditCardForm from './CreditCardForm';
@@ -32,7 +31,7 @@ const t = scoped('ENROLLMENT');
 
 export default React.createClass({
 	displayName: 'PaymentForm',
-	mixins: [StoreEvents, FormattedPriceMixin, ExternalLibraryManager],
+	mixins: [StoreEvents, ExternalLibraryManager],
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
@@ -153,13 +152,10 @@ export default React.createClass({
 			return ( <Loading /> );
 		}
 
-		const price = this.getFormattedPrice(purch.currency, purch.amount);
 		const title = purch.name || null;
 
-		const subhead = t('enrollAsLifelongLearnerWithPrice', {price: price});
-
 		return (
-			<FormPanel onSubmit={this.handleSubmit} title={title} subhead={subhead} className="payment-form">
+			<FormPanel onSubmit={this.handleSubmit} title={title} className="payment-form">
 				<Pricing purchasable={purch} />
 				<CreditCardForm defaultValues={defaultValues} ref="card"/>
 				<BillingAddress defaultValues={defaultValues} ref="billing"/>
