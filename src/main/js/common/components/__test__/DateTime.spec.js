@@ -218,4 +218,21 @@ describe('DateTime', () => {
 		expect(getText(B)).toEqual(todayText);
 	});
 
+	it('supports timezone abbrivations', () => {
+		const now = new Date();
+
+		const A = ReactDOM.render(
+			React.createElement(DateTime, {date: now, format: 'z'}),
+			newNode
+		);
+
+		const B = ReactDOM.render(
+			React.createElement(DateTime, {date: now, format: 'z'}),
+			container
+		);
+
+		expect(getText(A)).toMatch(/[A-Z]+/i);
+		expect(getText(B)).toMatch(/[A-Z]+/i);
+	});
+
 });
