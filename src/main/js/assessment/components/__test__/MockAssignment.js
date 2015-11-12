@@ -1,3 +1,6 @@
+import {getModel} from 'nti.lib.interfaces';
+
+const Assignment = getModel('assessment.assignment');
 
 export default function MockAssignment (props = {}) {
 
@@ -17,7 +20,7 @@ export default function MockAssignment (props = {}) {
 		getAssignedDate () { return new Date(this.available_for_submission_beginning); }
 	};
 
-	return Object.assign({}, proto, props);
+	return Object.assign(Object.create(Assignment.prototype), proto, props);
 }
 
 // {
