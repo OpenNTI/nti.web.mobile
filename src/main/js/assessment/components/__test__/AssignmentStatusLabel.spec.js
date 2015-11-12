@@ -58,26 +58,6 @@ describe('AssignmentStatusLabel', () => {
 	});
 
 
-	it('should contain an .info-part child element with an \'overdue\' class', () => {
-		const A = ReactDOM.render(
-			React.createElement(AssignmentStatusLabel, {assignment}),
-			newNode
-		);
-
-		const B = ReactDOM.render(
-			React.createElement(AssignmentStatusLabel, {assignment}),
-			container
-		);
-
-		let infoPart = ReactDOM.findDOMNode(A).querySelector('.info-part');
-		expect(infoPart.classList.contains('overdue')).toBe(true);
-
-		infoPart = ReactDOM.findDOMNode(B).querySelector('.info-part');
-		expect(infoPart.classList.contains('overdue')).toBe(true);
-
-	});
-
-
 	it('Base Cases: should show time with date', () => {
 		const due = moment(assignment.getDueDate()).tz(tz).format(EXPECTED_DAYTIME_FORMAT);
 		const value = `Due(Overdue)${due}`;
@@ -97,4 +77,24 @@ describe('AssignmentStatusLabel', () => {
 
 	});
 
+
+
+	it('should contain an .info-part child element with an \'overdue\' class', () => {
+		const A = ReactDOM.render(
+			React.createElement(AssignmentStatusLabel, {assignment}),
+			newNode
+		);
+
+		const B = ReactDOM.render(
+			React.createElement(AssignmentStatusLabel, {assignment}),
+			container
+		);
+
+		let infoPart = ReactDOM.findDOMNode(A).querySelector('.info-part');
+		expect(infoPart.classList.contains('overdue')).toBe(true);
+
+		infoPart = ReactDOM.findDOMNode(B).querySelector('.info-part');
+		expect(infoPart.classList.contains('overdue')).toBe(true);
+
+	});
 });
