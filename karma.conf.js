@@ -93,15 +93,8 @@ module.exports = function (config) {
 		logLevel: config.LOG_WARN,
 		colors: true,
 		autoWatch: false,
-		// Start these browsers, currently available:
-		// - Chrome
-		// - ChromeCanary
-		// - Firefox
-		// - Opera
-		// - Safari (only Mac)
-		// - PhantomJS
-		// - IE (only Windows)
 		browsers: ['PhantomJS'],
+		// browsers: ['Chrome'], //to use, you will need: `npm install karma-chrome-launcher`
 
 		// other possible values: 'dots', 'progress', 'junit', 'html', 'coverage'
 		reporters: ['mocha'],
