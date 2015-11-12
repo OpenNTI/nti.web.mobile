@@ -90,7 +90,7 @@ export default React.createClass({
 		}
 
 		const handler = handlers[event.type];
-		handler && handler(event);
+		handler && handler();
 
 	},
 
