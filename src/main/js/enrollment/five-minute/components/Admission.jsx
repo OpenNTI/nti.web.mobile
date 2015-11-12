@@ -68,30 +68,31 @@ export default React.createClass({
 
 	onStoreChange (event) {
 
+		const handlers = {
+			[Constants.ADMISSION_SUCCESS]: () => {
+				let payAndEnrollLink = getLink(event.response, Constants.PAY_AND_ENROLL);
+				this.setState({
+					admissionStatus: event.response.State,//what is event.response?
+					payAndEnrollLink: payAndEnrollLink
+				});
+			},
+			[Constants.RECEIVED_PAY_AND_ENROLL_LINK]: () => {
+				this.setState({
+					redirect: event.response.href
+				});
+			}
+		};
+
 		if (event.isError) {
 			this.setState({
 				loading: false
 			});
 		}
 
-		switch(event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		case Constants.ADMISSION_SUCCESS:
-			let payAndEnrollLink = getLink(event.response, Constants.PAY_AND_ENROLL);
-			this.setState({
-				admissionStatus: event.response.State,//what is event.response?
-				payAndEnrollLink: payAndEnrollLink
-			});
-			break;
+		const handler = handlers[event.type];
+		handler && handler(event);
 
-		case Constants.RECEIVED_PAY_AND_ENROLL_LINK:
-			this.setState({
-				redirect: event.response.href
-			});
-			break;
-		}
 	},
-
 
 	componentDidUpdate (prevProps, prevState) {
 		if (this.state.admissionStatus !== prevState.admissionStatus) {

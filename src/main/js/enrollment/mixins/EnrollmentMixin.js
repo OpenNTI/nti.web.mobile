@@ -48,33 +48,41 @@ export default {
 	},
 
 	storeChange (event) {
+
 		let action = (event || {}).action;
-		let entry = this.getEntry();
-		if(action) {
-			switch(action.type) {
-			//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case LOAD_ENROLLMENT_STATUS:
+
+		const handlers = {
+			[LOAD_ENROLLMENT_STATUS]: () => {
+				const entry = this.getEntry();
 				if (action.courseId === entry.CourseNTIID) {
 					this.setState({
 						enrolled: action.result,
 						enrollmentStatusLoaded: true
 					});
 				}
-				break;
-			case ENROLL_OPEN:
+			},
+
+			[ENROLL_OPEN]: () => {
+				const entry = this.getEntry();
 				if(action.catalogId === entry.getID()) {
 					this.setState({
 						enrolled: event.result.success,
 						enrollmentStatusLoaded: true
 					});
 				}
-				break;
-			default:
+			}
+		};
+
+		if(action) {
+			let handler = handlers[action.type];
+			if (handler) {
+				handler();
+			}
+			else {
 				console.debug('Saw unrecognized EnrollmentStore change event: %O', event);
 			}
 		}
 	},
-
 
 	isEnrolled (courseId) {
 		return EnrollmentStore.isEnrolled(courseId);
