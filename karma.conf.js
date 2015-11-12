@@ -31,6 +31,7 @@ module.exports = function (config) {
 	config.set({
 		basePath: '',
 		frameworks: ['jasmine'],
+		// plugins: [require('karma-webpack')],
 		files: [
 			'src/test/helpers/**/*.js',
 			'src/**/*.spec.js'
@@ -58,9 +59,7 @@ module.exports = function (config) {
 			},
 
 			plugins: [
-				new webpack.DefinePlugin({
-					SERVER: false
-				})
+				new webpack.DefinePlugin({SERVER: false})
 			],
 
 			module: {
@@ -71,10 +70,9 @@ module.exports = function (config) {
 				]
 			}
 		},
-		webpackServer: {
-			quiet: true,
-			stats: stat
-		},
+
+		webpackMiddleware: { noInfo: true },
+		webpackServer: { quiet: true },
 
 		//coverageReporter: { type: 'html', dir: 'reports/coverage/' },
 
@@ -102,7 +100,7 @@ module.exports = function (config) {
 		// - Safari (only Mac)
 		// - PhantomJS
 		// - IE (only Windows)
-		browsers: ['PhantomJS'],
+		browsers: ['Chrome'],
 
 		// other possible values: 'dots', 'progress', 'junit', 'html', 'coverage'
 		reporters: ['mocha'],
