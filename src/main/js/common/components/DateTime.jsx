@@ -1,7 +1,9 @@
 import React from 'react';
 import emptyFunction from 'fbjs/lib/emptyFunction';
 import isEmpty from 'fbjs/lib/isEmpty';
-import moment from 'moment';
+import moment from 'moment-timezone';
+
+import jstz from 'jstimezonedetect';
 
 export default React.createClass({
 	displayName: 'DateTime',
@@ -35,23 +37,33 @@ export default React.createClass({
 	},
 
 
+	componentWillMount () {
+		this.setState({tz: jstz.determine().name()});
+	},
+
+
 	render () {
-		const {props: {
-			date,
-			format,
-			prefix,
-			suffix,
-			showToday,
-			relativeTo,
-			relative,
-			todayText
-		}} = this;
+		const {
+			props: {
+				date,
+				format,
+				prefix,
+				suffix,
+				showToday,
+				relativeTo,
+				relative,
+				todayText
+			},
+			state: {
+				tz
+			}
+		} = this;
 
 		if (date == null) {
 			return null;
 		}
 
-		let m = moment(date);
+		let m = moment(date).tz(tz);
 
 		if (relativeTo) {
 			m = moment.duration(m.diff(relativeTo));
