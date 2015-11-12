@@ -49,6 +49,7 @@ module.exports = function (config) {
 			stats: stat,
 
 			node: {
+				crypto: 'empty',
 				net: 'empty',
 				tls: 'empty'
 			},
