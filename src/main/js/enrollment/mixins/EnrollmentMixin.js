@@ -12,9 +12,10 @@ import NoOptions from '../components/enrollment-option-widgets/NoOptions';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-export default {
-	mixins: [NavigatableMixin],
+import GiftableUtils from './GiftableUtils';
 
+export default {
+	mixins: [NavigatableMixin, GiftableUtils],
 
 	getInitialState () {
 		return {
@@ -41,7 +42,6 @@ export default {
 			EnrollmentStore.loadEnrollmentStatus(entry.CourseNTIID);
 		}
 	},
-
 
 	componentWillUnmount () {
 		EnrollmentStore.removeChangeListener(this.storeChange);
@@ -84,11 +84,6 @@ export default {
 		}
 	},
 
-	isEnrolled (courseId) {
-		return EnrollmentStore.isEnrolled(courseId);
-	},
-
-
 	canDrop (catalogEntry) {
 		// we currently only support dropping open enrollment within the app.
 
@@ -96,39 +91,6 @@ export default {
 
 		return o.enrolled;
 	},
-
-
-	isGiftable (option) {
-		return !!(option.getPurchasableForGifting && option.getPurchasableForGifting());
-	},
-
-
-	hasGiftableEnrollmentOption (catalogEntry) {
-		return this.enrollmentOptions(catalogEntry, true).some(this.isGiftable);
-	},
-
-
-	enrollmentOptions (catalogEntry, includeUnavailable) {
-		let result = [];
-
-		if (!catalogEntry) {
-			return result;
-		}
-
-
-		function showOption (op) {
-			return op && op.available && !op.enrolled;
-		}
-
-		for (let option of catalogEntry.getEnrollmentOptions()) {
-			if(includeUnavailable || showOption(option)) {
-				result.push(option);
-			}
-		}
-
-		return result;
-	},
-
 
 	enrollmentWidgets () {
 		let catalogEntry = this.getEntry();
@@ -158,7 +120,6 @@ export default {
 		return [React.createElement(NoOptions)];
 	},
 
-
 	getEntry () {
 		if (this.state.entry) {
 			return this.state.entry;
@@ -173,12 +134,10 @@ export default {
 		return entry;
 	},
 
-
 	getCourseId () {
 		let entry = this.getEntry() || {};
 		return entry.CourseNTIID;
 	},
-
 
 	getDataIfNeeded () {
 		this.setState({ entry: this.getEntry() });

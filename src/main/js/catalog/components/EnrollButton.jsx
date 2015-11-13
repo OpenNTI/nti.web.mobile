@@ -8,8 +8,7 @@ import BasePathAware from 'common/mixins/BasePath';
 import {scoped} from 'common/locale';
 
 import EnrollmentOptions from 'enrollment/mixins/EnrollmentMixin';
-import Giftable from 'enrollment/components/enrollment-option-widgets/Giftable';
-import RedeemButton from 'enrollment/components/enrollment-option-widgets/RedeemButton';
+import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
 
 let t = scoped('ENROLLMENT');
 
@@ -54,29 +53,14 @@ export default React.createClass({
 		return null;
 	},
 
-
-	giftButton () {
-		if (this.hasGiftableEnrollmentOption(this.getEntry())) {
-			return <Giftable catalogId={this.getEntryID()} className="columns" />;
-		}
-		return null;
+	giftButtons () {
+		return <GiftOptions catalogEntry={this.getEntry()} />;
 	},
-
-
-	redeemButton () {
-		let catalogId = this.getEntryID();
-		if (this.hasGiftableEnrollmentOption(this.getEntry()) && !this.isEnrolled(this.getCourseId())) {
-			return <RedeemButton catalogId={catalogId} className="columns"/>;
-		}
-		return null;
-	},
-
 
 	getButtons () {
 		return [
 			this.dropOrEnrollButton(),
-			this.giftButton(),
-			this.redeemButton()
+			this.giftButtons()
 		].filter(item => item !== null);
 	},
 

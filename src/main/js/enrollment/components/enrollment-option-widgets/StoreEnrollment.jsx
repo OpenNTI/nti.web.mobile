@@ -7,8 +7,7 @@ import {scoped} from 'common/locale';
 
 import FormattedPriceMixin from '../../mixins/FormattedPriceMixin';
 import BasePathAware from 'common/mixins/BasePath';
-import Giftable from './Giftable';
-import RedeemButton from './RedeemButton';
+import GiftOptions from './GiftOptions';
 
 const t = scoped('ENROLLMENT');
 const getPurchasable = 'StoreEnrollment:getPurchasable';
@@ -48,7 +47,6 @@ export default React.createClass({
 
 		let basePath = this.getBasePath();
 		let href = basePath + 'catalog/enroll/purchase/' + this.props.entryId + '/';
-		let giftHref = basePath + 'catalog/gift/purchase/' + this.props.entryId + '/';
 
 		return (
 			<div>
@@ -63,12 +61,7 @@ export default React.createClass({
 				</div>
 
 				{this.props.isGiftable &&
-					<div className="gift-options-wrapper">
-						<ul className="gift-options">
-							<li><Giftable href={giftHref} /></li>
-							<li><RedeemButton catalogId={this.props.entryId} /></li>
-						</ul>
-					</div>
+					<GiftOptions catalogEntry={this.props.catalogEntry} />
 				}
 			</div>
 		);
