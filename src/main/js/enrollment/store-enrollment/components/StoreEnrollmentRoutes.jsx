@@ -1,6 +1,5 @@
 import React from 'react';
 import path from 'path';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Router from 'react-router-component';
 let {Locations, Location, NotFound} = Router;
@@ -18,8 +17,8 @@ import {scoped} from 'common/locale';
 
 let t = scoped('ENROLLMENT');
 /**
-* Used by both store-enrollment/components/View and store-enrollment/components/GiftPurchaseView.
-*/
+ * Used by both store-enrollment/components/View and store-enrollment/components/GiftPurchaseView.
+ */
 export default React.createClass({
 	displayName: 'StoreEnrollmentRoutes',
 
@@ -121,28 +120,25 @@ export default React.createClass({
 		let courseTitle = (this.props.purchasable || {}).title || '';
 
 		return (
-			<ReactCSSTransitionGroup transitionName="fadeOutIn" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
-				<Locations contextual
-					ref="router">
-					<Location path="/confirm/"
-						handler={PaymentConfirm}
-						{...this.props}
-						/>
-					<Location path="/success/"
-						handler={PaymentSuccess}
-						{...this.props}
-						giftDoneLink={giftDoneLink}
-						/>
-					<Location path="/error/"
-						handler={PaymentError}
-						courseTitle={courseTitle}
-						{...this.props}
-						/>
-					<NotFound handler={this.props.defaultHandler}
-						{...this.props}
-						/>
-				</Locations>
-			</ReactCSSTransitionGroup>
+			<Locations contextual ref="router">
+				<Location path="/confirm/"
+					handler={PaymentConfirm}
+					{...this.props}
+					/>
+				<Location path="/success/"
+					handler={PaymentSuccess}
+					{...this.props}
+					giftDoneLink={giftDoneLink}
+					/>
+				<Location path="/error/"
+					handler={PaymentError}
+					courseTitle={courseTitle}
+					{...this.props}
+					/>
+				<NotFound handler={this.props.defaultHandler}
+					{...this.props}
+					/>
+			</Locations>
 		);
 	}
 });
