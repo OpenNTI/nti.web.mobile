@@ -98,8 +98,8 @@ export default React.createClass({
 
 
 	getValues () {
-		let {card, billing} = this.refs;
-		return Object.assign({}, card.getValue(), billing.getValue());
+		let {pricing, card, billing} = this.refs;
+		return Object.assign({}, card.getValue(), billing.getValue(), pricing.getData());
 	},
 
 
@@ -157,7 +157,7 @@ export default React.createClass({
 
 		return (
 			<FormPanel onSubmit={this.handleSubmit} title={title} className="payment-form">
-				<Pricing purchasable={purch} />
+				<Pricing ref="pricing" purchasable={purch} />
 				<CreditCardForm defaultValues={defaultValues} ref="card"/>
 				<BillingAddress defaultValues={defaultValues} ref="billing"/>
 				{errors && ( <FormErrors errors={errors} /> )}
