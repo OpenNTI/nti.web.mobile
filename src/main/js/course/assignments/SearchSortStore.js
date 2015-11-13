@@ -44,6 +44,11 @@ class SearchSortStore extends StorePrototype {
 		return this[sort];
 	}
 
+	clear () {
+		delete this[search];
+		delete this[sort];
+	}
+
 }
 
 export default new SearchSortStore();

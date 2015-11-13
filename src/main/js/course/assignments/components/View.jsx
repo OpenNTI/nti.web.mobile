@@ -4,6 +4,7 @@ import Instructor from './instructor/View';
 import Loading from 'common/components/Loading';
 import Navigatable from 'common/mixins/NavigatableMixin';
 import ContextSender from 'common/mixins/ContextSender';
+import SearchSortStore from '../SearchSortStore';
 
 export default React.createClass({
 	displayName: 'Assignments:View',
@@ -26,6 +27,10 @@ export default React.createClass({
 
 	componentWillReceiveProps (nextProps) {
 		this.getData(nextProps);
+	},
+
+	componentWillUnmount () {
+		SearchSortStore.clear();
 	},
 
 	getContext () {
