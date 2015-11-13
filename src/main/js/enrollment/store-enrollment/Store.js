@@ -1,14 +1,11 @@
-import StripeInterface from 'nti.lib.interfaces/interface/Stripe';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 
+import * as Api from './Api';
 import * as Constants from './Constants';
 import {CHANGE_EVENT} from 'common/constants/Events';
 
-import {getService} from 'common/utils';
 
-
-//FIXME: Never put mutable variables in module global scope.
 let stripeToken; // store the result of a Stripe.getToken() call
 let pricing;
 let giftInfo;
@@ -17,7 +14,7 @@ let paymentResult;
 let couponTimeout;
 let couponPricing;
 
-//FIXME: Make this a true class that extends StorePrototype
+
 let Store = Object.assign({}, EventEmitter.prototype, {
 	displayName: 'store-enrollment.Store',
 
@@ -40,8 +37,7 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	priceItem (purchasable) {
-		return getStripeInterface()
-			.then(stripe => stripe.getPricing(purchasable))
+		return Api.getPricing(purchasable)
 			.then(pricedItem => {
 				Store.emitChange({
 					type: Constants.PRICED_ITEM_RECEIVED,
@@ -99,20 +95,7 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 
 export default Store;
 
-//TODO: Move all this code that is directly invoked by a "dispatched action" into the action and the result be what is dispatched
-// Store modules (the entire JS file) should only contain the synchronous data set/get/emit-event code.
 
-
-function getStripeInterface () {
-	let me = getStripeInterface;
-
-	if (!me.promise) {
-		me.promise = getService().then(service =>
-				StripeInterface.fromService(service));
-	}
-
-	return me.promise;
-}
 
 function pullData (data) {
 	let result = {};
@@ -151,8 +134,7 @@ function verifyBillingInfo (data) {
 	giftInfo = null;
 	paymentFormData = data.formData;
 
-	return getStripeInterface()
-		.then(stripe => stripe.getToken(data.stripePublicKey, data.formData))
+	return Api.getToken(data.stripePublicKey, data.formData)
 		.then(result => {
 			let eventType = result.status === 200 ?
 				Constants.BILLING_INFO_VERIFIED :
@@ -178,8 +160,7 @@ function verifyBillingInfo (data) {
 function submitPayment (formData) {
 	paymentResult = null;
 
-	return getStripeInterface()
-		.then(stripe => stripe.submitPayment(formData))
+	return Api.submitPayment(formData)
 		.then(result => {
 			let type = (result || {}).state === 'Success' ?
 				Constants.STRIPE_PAYMENT_SUCCESS :
@@ -211,8 +192,7 @@ function priceWithCoupon (data) {
 	couponTimeout = setTimeout(() => {
 		couponPricing = null;
 
-		return getStripeInterface()
-			.then(stripe => stripe.getCouponPricing(data.purchasable, data.coupon))
+		return Api.getCouponPricing(data.purchasable, data.coupon)
 			.then(result => {
 				couponPricing = result;
 
