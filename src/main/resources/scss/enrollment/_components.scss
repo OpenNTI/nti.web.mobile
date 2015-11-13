@@ -3,8 +3,9 @@
 @import "components/gift-info";
 @import "components/gift-success";
 @import "components/gift-form";
-
 @import "components/payment-confirm";
+@import "components/store-enrollment";
+
 
 .enrollment-panels {
 	@include grid-column(12);
