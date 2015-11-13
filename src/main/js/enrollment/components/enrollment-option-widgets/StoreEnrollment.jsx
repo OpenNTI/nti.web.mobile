@@ -1,6 +1,5 @@
 import React from 'react';
 
-import PanelButton from 'common/components/PanelButton';
 import PanelNoButton from 'common/components/PanelNoButton';
 import Err from 'common/components/Error';
 
