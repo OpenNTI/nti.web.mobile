@@ -272,13 +272,6 @@ Store.appDispatch = AppDispatcher.register(function (data) {
 		submitPayment(action.payload.formData);
 		break;
 
-	case Constants.GIFT_PURCHASE_DONE:
-		Store.clear();
-		Store.emitChange({
-			type: action.type
-		});
-		break;
-
 	default:
 		return true;
 	}

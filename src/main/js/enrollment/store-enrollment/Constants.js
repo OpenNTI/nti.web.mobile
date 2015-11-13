@@ -9,7 +9,6 @@ export const UNLOCK_SUBMIT = getConst('submit:Unlock');
 export const UPDATE_COUPON = getConst('coupon:Update');
 export const VALID_COUPON = getConst('coupon:Valid');
 export const INVALID_COUPON = getConst('coupon:Invalid');
-export const GIFT_PURCHASE_DONE = getConst('gift:purchase:Done');
 export const PRICE_ITEM_ACTION = getConst('priced item:Action');
 export const PRICED_ITEM_RECEIVED = getConst('priced item:Received');
 export const PRICED_ITEM_ERROR = getConst('priced item:Error');
