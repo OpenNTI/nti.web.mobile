@@ -119,9 +119,11 @@ export default React.createClass({
 		status = status && (forCredit.test(status) ? FOR_CREDIT : OPEN);
 
 		for(let opt of item.getEnrollmentOptions()) {
-			droppable = droppable || droppableMime.test(opt.MimeType);
 			available = available || Boolean(opt.available);
 			enrolled = enrolled || Boolean(opt.enrolled);
+			if (Boolean(opt.enrolled)) { //only check droppable if we're enrolled in this way.
+				droppable = droppable || droppableMime.test(opt.MimeType);
+			}
 		}
 
 		return {enrolled, droppable, available, status};
