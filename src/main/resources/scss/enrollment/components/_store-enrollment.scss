@@ -27,7 +27,24 @@
 
 .gift-options-wrapper {
 	.gift-options {
+		$border-color: rgba(0,0,0,.1);
 		list-style-type: none;
 		margin: 0;
+		box-shadow: 0 0 0 1px $border-color;
+		& > * {
+			padding: .625rem 1rem;
+			position: relative;
+			&:last-child {
+				border-top: 1px solid $border-color;
+			}
+			&:after {
+				@extend %chevron-right;
+				color: $tertiary-grey;
+				position: absolute;
+				right: .625rem;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+		}
 	}
 }
