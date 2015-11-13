@@ -1,0 +1,33 @@
+.store-enrollment {
+	padding: 1.5rem 0;
+	.title {
+		float: left;
+		line-height: .4;
+	}
+	.price {
+		float: right;
+		color: $secondary-green;
+	}
+	.description {
+		clear: both;
+		margin-bottom: 0;
+	}
+	.actions {
+		margin-top: 2rem;
+		background: $secondary-green;
+		text-align: center;
+		a {
+			color: white;
+			text-decoration: none;
+			display: block;
+			padding: .5rem 0;
+		}
+	}
+}
+
+.gift-options-wrapper {
+	.gift-options {
+		list-style-type: none;
+		margin: 0;
+	}
+}

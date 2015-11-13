@@ -1,7 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
 
-import Button from 'common/forms/components/Button';
 import BasePathAware from 'common/mixins/BasePath';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
@@ -27,7 +26,7 @@ export default React.createClass({
 		const {props: {className, href = this.urlForEntry()}} = this;
 
 		return (
-			<Button className={cx('redeem-button', className)} href={href}>{t('redeemGift')}</Button>
+			<a className={cx('redeem-button', className)} href={href}>{t('redeemGift')}</a>
 		);
 	}
 

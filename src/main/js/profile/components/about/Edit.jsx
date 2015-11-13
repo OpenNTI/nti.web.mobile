@@ -162,8 +162,8 @@ export default React.createClass({
 											</div>
 										)}
 
-										<Link href="/" className="button tiny link">Cancel</Link>
-										<button className="tiny primary">Save</button>
+										<Link href="/" className="button link">Cancel</Link>
+										<button className="primary">Save</button>
 									</div>
 								</div>
 							</div>

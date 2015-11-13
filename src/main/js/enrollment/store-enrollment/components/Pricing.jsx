@@ -196,7 +196,7 @@ export default React.createClass({
 				<div className="info">
 					<div className="row">
 
-						<div className="small-6 medium-4 columns">
+						<div className="dates small-6 medium-4 columns">
 							{startDate && (
 								<div className="cell">
 									<span className="label">{t('begins')}</span>
@@ -212,19 +212,19 @@ export default React.createClass({
 						</div>
 
 
-						<div className="small-6 medium-4 columns">
-							<div className="cell">
+						<div className="credits-and-refunds small-6 medium-4 columns">
+							<div className="credits cell">
 								<span className="label">{t('hours')}</span>
 								<span className="value">{creditHours}</span>
 							</div>
-							<div className="cell">
+							<div className="refunds cell">
 								<span className="label">{t('refunds')}</span>
 								<span className="value red">{refund}</span>
 							</div>
 						</div>
 
 
-						<div className="small-12 medium-4 columns">
+						<div className="price-and-coupon small-12 medium-4 columns">
 							<div className="cell total">
 								<span className="label">{t('total')}</span>
 								<span className="value">

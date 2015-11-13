@@ -1,6 +1,5 @@
 import React from 'react';
 
-import PanelButton from 'common/components/PanelButton';
 import PanelNoButton from 'common/components/PanelNoButton';
 import Err from 'common/components/Error';
 
@@ -52,18 +51,26 @@ export default React.createClass({
 		let giftHref = basePath + 'catalog/gift/purchase/' + this.props.entryId + '/';
 
 		return (
-			<PanelButton href={href} linkText={t('enrollAsLifelongLearner')}>
-				<h2>{t('storeEnrollmentTitle')}</h2>
-				<p>{t('storeEnrollmentGainAccess')}</p>
-				<p className="price">{formattedPrice}</p>
-				<small>{t('enrollmentNotRefundable')}</small>
+			<div>
+				<div className="store-enrollment">
+					<h2 className="title">{t('storeEnrollmentTitle')}</h2>
+					<p className="price">{formattedPrice}</p>
+					<p className="description">{t('storeEnrollmentGainAccess')}</p>
+					<small>{t('enrollmentNotRefundable')}</small>
+					<div className="actions">
+						<a href={href}>{t('enrollAsLifelongLearner')}</a>
+					</div>
+				</div>
+
 				{this.props.isGiftable &&
-					<ul className="small-block-grid-2">
-						<li><Giftable href={giftHref} className="columns"/></li>
-						<li><RedeemButton catalogId={this.props.entryId} className="columns"/></li>
-					</ul>
+					<div className="gift-options-wrapper">
+						<ul className="gift-options">
+							<li><Giftable href={giftHref} /></li>
+							<li><RedeemButton catalogId={this.props.entryId} /></li>
+						</ul>
+					</div>
 				}
-			</PanelButton>
+			</div>
 		);
 	}
 

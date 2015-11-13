@@ -5,6 +5,8 @@ import getLinkFn from 'nti.lib.interfaces/utils/getlink';
 import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';
 
+import StoreEvents from 'common/mixins/StoreEvents';
+
 import Redirect from 'navigation/components/Redirect';
 
 import FiveMinuteEnrollmentForm from './FiveMinuteEnrollmentForm';
@@ -12,7 +14,15 @@ import FiveMinuteEnrollmentForm from './FiveMinuteEnrollmentForm';
 import Payment from './Payment';
 
 import Store from '../Store';
-import * as Constants from '../Constants';
+import {
+	ADMISSION_ADMITTED,
+	ADMISSION_NONE,
+	ADMISSION_PENDING,
+	ADMISSION_REJECTED,
+	ADMISSION_SUCCESS,
+	PAY_AND_ENROLL,
+	RECEIVED_PAY_AND_ENROLL_LINK
+} from '../Constants';
 
 import {scoped} from 'common/locale';
 
@@ -26,10 +36,37 @@ function getLink (o, k) {
 
 export default React.createClass({
 	displayName: 'Admission',
+	mixins: [StoreEvents],
+
+	backingStore: Store,
+	backingStoreEventHandlers: {
+
+		[ADMISSION_SUCCESS] (event) {
+			const {response} = event;
+			const payAndEnrollLink = getLink(response, PAY_AND_ENROLL);
+			this.setState({
+				admissionStatus: response.State,//what is event.response?
+				payAndEnrollLink
+			});
+		},
+
+		[RECEIVED_PAY_AND_ENROLL_LINK] (event) {
+			//this seems dirty... we should invoke the "redirect" outside of state...
+			//the "navigation" should probably happen in the Action that dispatched this.
+			this.setState({ redirect: event.response.href });
+		},
+
+		default (e) {
+			if (e.isError) {
+				this.setState({ loading: false });
+			}
+		}
+	},
 
 	propTypes: {
 		enrollment: React.PropTypes.object
 	},
+
 
 	getInitialState () {
 		return {
@@ -38,24 +75,17 @@ export default React.createClass({
 		};
 	},
 
+
 	componentDidMount () {
 		this.getAdmissionStatus();
-
-		Store.addChangeListener(this.onStoreChange);
-	},
-
-	componentWillUnmount () {
-		Store.removeChangeListener(this.onStoreChange);
 	},
 
 
 	getAdmissionStatus () {
 		Store.getAdmissionStatus()
-
 			.then(
-
 				status=> this.setState({
-					admissionStatus: status ? status.toUpperCase() : Constants.ADMISSION_NONE,
+					admissionStatus: status ? status.toUpperCase() : ADMISSION_NONE,
 					loading: false
 				}),
 
@@ -66,33 +96,6 @@ export default React.createClass({
 			);
 	},
 
-	onStoreChange (event) {
-
-		const handlers = {
-			[Constants.ADMISSION_SUCCESS]: () => {
-				let payAndEnrollLink = getLink(event.response, Constants.PAY_AND_ENROLL);
-				this.setState({
-					admissionStatus: event.response.State,//what is event.response?
-					payAndEnrollLink: payAndEnrollLink
-				});
-			},
-			[Constants.RECEIVED_PAY_AND_ENROLL_LINK]: () => {
-				this.setState({
-					redirect: event.response.href
-				});
-			}
-		};
-
-		if (event.isError) {
-			this.setState({
-				loading: false
-			});
-		}
-
-		const handler = handlers[event.type];
-		handler && handler();
-
-	},
 
 	componentDidUpdate (prevProps, prevState) {
 		if (this.state.admissionStatus !== prevState.admissionStatus) {
@@ -102,31 +105,45 @@ export default React.createClass({
 
 
 	render () {
-		//TODO: Rewrite into a router (memory env) or some other "select" style to split this into smaller, clearer render methods/components.
+		//TODO: Rewrite into a router (memory env) or some other
+		//"select" style to split this into smaller, clearer render methods/components.
 
-		if (this.state.error) {
+		const {
+			props: {
+				enrollment
+			},
+			state: {
+				error,
+				loading,
+				redirect,
+				admissionStatus,
+				payAndEnrollLink
+			}
+		} = this;
+
+		if (error) {
 			return <Err error="There was a problem on the backend. Please try again later."/>;
 		}
 
-		if (this.state.loading) {
+		if (loading) {
 			return <Loading />;
 		}
 
-		if (this.state.redirect) {
-			return <Redirect location={this.state.redirect} force />;
+		if (redirect) {
+			//See comment above on the RECEIVED_PAY_AND_ENROLL_LINK handler
+			return <Redirect location={redirect} force />;
 		}
 
 		let view;
 
-		switch((this.state.admissionStatus || '').toUpperCase()) {
+		switch((admissionStatus || '').toUpperCase()) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		case Constants.ADMISSION_ADMITTED:
-			let enrollment = this.props.enrollment;
-			let link = this.state.payAndEnrollLink || getLink(enrollment, Constants.PAY_AND_ENROLL);
+		case ADMISSION_ADMITTED:
+			let link = payAndEnrollLink || getLink(enrollment, PAY_AND_ENROLL);
 			let crn = enrollment.NTI_CRN;
 			// ignore eslint on the following line because we know NTI_Term
-			// is not not camel cased; that's what we get from dataserver.
-			let term = this.props.enrollment.NTI_Term;
+			// is not not camelCased; that's what we get from dataserver.
+			let term = enrollment.NTI_Term;
 
 			view = link ? (
 				<Payment paymentLink={link} ntiCrn={crn} ntiTerm={term}/>
@@ -134,17 +151,17 @@ export default React.createClass({
 				this.renderPanel('Unable to direct to payment site. Please try again later.', 'Go Back', 'error');
 			break;
 
-		case Constants.ADMISSION_REJECTED:
-		case Constants.ADMISSION_NONE:
+		case ADMISSION_REJECTED:
+		case ADMISSION_NONE:
 			view = <FiveMinuteEnrollmentForm />;
 			break;
 
-		case Constants.ADMISSION_PENDING:
+		case ADMISSION_PENDING:
 			view = this.renderPanel(t('admissionPendingMessage'), tt('ok'));
 			break;
 
 		default:
-			view = <div className="error">Unrecognized admission state: {this.state.admissionStatus}</div>;
+			view = <div className="error">Unrecognized admission state: {admissionStatus}</div>;
 		}
 
 		return view;
