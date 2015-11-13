@@ -10,6 +10,7 @@ import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
 
 import Loading from 'common/components/Loading';
+import LoadingInline from 'common/components/TinyLoader';
 
 import {getAppUser} from 'common/utils';
 import {clearLoadingFlag} from 'common/utils/react-state';
@@ -162,7 +163,7 @@ export default React.createClass({
 				{errors && ( <FormErrors errors={errors} /> )}
 				<TermsCheckbox onChange={this.termsCheckboxChange}/>
 				{busy ? (
-					<Loading/>
+					<div><LoadingInline/></div>
 				) : (
 					<input type="submit"
 						id="storeenroll:submit"
