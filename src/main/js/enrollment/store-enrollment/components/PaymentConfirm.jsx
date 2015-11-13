@@ -109,34 +109,34 @@ export default React.createClass({
 		const isGift = giftInfo !== null;
 		const edit = isGift ? 'gift/' : '';
 
-		if (busy || !stripeToken) {
-			return ( <Loading /> );
-		}
-
-		const price = this.getPrice();
-
 		return (
 			<div className="payment-confirm">
-				<Pricing purchasable={purchasable} locked />
-				<PanelButton buttonClick={this.submitPayment} linkText="Submit Payment">
-					<h3>{t('header')}</h3>
-					<p>{t('review')}</p>
-					<p>{t('salesFinal')}</p>
-					<GiftInfo info={giftInfo} edit={edit} />
-					<BillingInfo card={stripeToken.card} edit={edit} />
-					<p>Clicking submit will charge your card {price}{isGift ? '' : ' and enroll you in the course'}.</p>
+				{(busy || !stripeToken) ? (
+					<Loading/>
+				) : (
+					<div>
+						<Pricing purchasable={purchasable} locked />
+						<PanelButton buttonClick={this.submitPayment} linkText="Submit Payment">
+							<h3>{t('header')}</h3>
+							<p>{t('review')}</p>
+							<p>{t('salesFinal')}</p>
+							<GiftInfo info={giftInfo} edit={edit} />
+							<BillingInfo card={stripeToken.card} edit={edit} />
+							<p>Clicking submit will charge your card {this.getPrice()}{isGift ? '' : ' and enroll you in the course'}.</p>
 
-					{!AllowVendorUpdates ? '' :
-						<div className="subscribe">
-							<label>
-								<input type="checkbox" ref="subscribeToUpdates" name="subscribe" />
-								<Localized tag="span" stringId="ENROLLMENT.SUBSCRIBE.label" />
-								<Localized tag="p" stringId="ENROLLMENT.SUBSCRIBE.legal" />
-							</label>
-						</div>
-					}
+							{!AllowVendorUpdates ? '' :
+								<div className="subscribe">
+									<label>
+										<input type="checkbox" ref="subscribeToUpdates" name="subscribe" />
+										<Localized tag="span" stringId="ENROLLMENT.SUBSCRIBE.label" />
+										<Localized tag="p" stringId="ENROLLMENT.SUBSCRIBE.legal" />
+									</label>
+								</div>
+							}
 
-				</PanelButton>
+						</PanelButton>
+					</div>
+				)}
 			</div>
 		);
 	}
