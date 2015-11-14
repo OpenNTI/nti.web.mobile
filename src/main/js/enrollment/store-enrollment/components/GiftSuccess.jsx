@@ -66,7 +66,7 @@ export default React.createClass({
 		const {VendorThankYouPage: {thankYouURL} = {}} = purchaseattempt;
 
 		return (
-			<div className="gift-success row">
+			<div className="gift-success">
 				<Pricing purchasable={purchasable} locked />
 				{!thankYouURL ? null : (<iframe src={thankYouURL} className="thankyou" frameBorder="0"/>)}
 				<div className="panel">
