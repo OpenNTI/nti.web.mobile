@@ -36,7 +36,7 @@ export default React.createClass({
 
 			this.setState({
 				stripeToken,
-				pricing: Store.getPricing(),
+				couponInfo: Store.getCouponInfo(),
 				giftInfo: Store.getGiftInfo()
 			});
 
@@ -55,35 +55,21 @@ export default React.createClass({
 	getInitialState () {
 		return {
 			stripeToken: null,
-			pricing: null,
+			couponInfo: null,
 			giftInfo: null,
 			busy: false
 		};
 	},
 
-	getStripeToken () {
-		return this.state.stripeToken;
-	},
-
-	getCouponPricing () {
-		return Store.getCouponPricing();
-	},
-
-	getPricing () {
-		return this.state.pricing;
-	},
-
-	getGiftInfo () {
-		return this.state.giftInfo;
-	},
 
 	getPrice () {
-		let pricing = this.getCouponPricing();
-		let {purchasable} = this.props;
-		let price = pricing ? pricing.price : purchasable.amount;
+		const {purchasable} = this.props;
+		const pricing = Store.getCouponPricing();
+		const price = pricing ? pricing.price : purchasable.amount;
 
 		return this.getFormattedPrice(purchasable.currency, price);
 	},
+
 
 	shouldAllowUpdates () {
 		let el = this.refs.subscribeToUpdates;
@@ -92,13 +78,14 @@ export default React.createClass({
 
 	submitPayment (event) {
 		event.preventDefault();
+
+		const {state: {couponInfo, giftInfo, stripeToken}} = this;
+
 		this.setState({ busy: true });
 
 		submitPayment({
-			stripeToken: this.getStripeToken(),
 			purchasable: this.props.purchasable,
-			pricing: this.getPricing(),
-			giftInfo: this.getGiftInfo(),
+			stripeToken, couponInfo, giftInfo,
 			allowVendorUpdates: this.shouldAllowUpdates()
 		});
 	},

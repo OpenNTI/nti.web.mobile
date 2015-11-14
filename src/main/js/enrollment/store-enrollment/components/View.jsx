@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {priceItem} from '../Actions';
 import Store from '../Store';
 
 import StoreEnrollmentRoutes from './StoreEnrollmentRoutes';
@@ -41,7 +42,7 @@ export default React.createClass({
 
 	componentWillMount () {
 		let purchasable = this.getPurchasable();
-		Store.priceItem(purchasable).then(
+		priceItem(purchasable).then(
 			pricedItem => this.setState({ loading: false, pricedItem }),
 			error => this.setState({ loading: false, error })
 		);

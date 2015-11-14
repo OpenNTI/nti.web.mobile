@@ -78,10 +78,6 @@ export default React.createClass({
 			});
 			break;
 
-		case Constants.GIFT_PURCHASE_DONE:
-			router.navigate('/', {replace: true});
-			break;
-
 		case Constants.EDIT:
 			router.navigate('/' + (event.mode || ''), {replace: true});
 			break;

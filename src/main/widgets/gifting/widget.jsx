@@ -10,6 +10,7 @@ import Loading from 'common/components/Loading';
 import ErrorComponent from 'common/components/Error';
 
 import * as Constants from 'enrollment/store-enrollment/Constants';
+import {priceItem} from 'enrollment/store-enrollment/Actions';
 import Store from 'enrollment/store-enrollment/Store';
 
 import Form from 'enrollment/store-enrollment/components/GiftView';
@@ -51,7 +52,7 @@ export default React.createClass({
 				this.setState({purchasable: x});
 				return x;
 			})
-			.then(Store.priceItem.bind(Store))
+			.then(priceItem)
 			.then(pricedItem =>
 				this.setState({ loading: false, pricedItem }))
 			.catch(error =>
@@ -67,32 +68,32 @@ export default React.createClass({
 
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-			case Constants.PRICED_ITEM_RECEIVED:
-				this.setState({
-					loading: false,
-					pricedItem: event.pricedItem
-				});
-				break;
+		case Constants.PRICED_ITEM_RECEIVED:
+			this.setState({
+				loading: false,
+				pricedItem: event.pricedItem
+			});
+			break;
 
-			case Constants.EDIT:
-				router.navigate('/');
-				break;
+		case Constants.EDIT:
+			router.navigate('/');
+			break;
 
-			case Constants.RESET:
-				router.navigate('/', {replace: true});
-				break;
+		case Constants.RESET:
+			router.navigate('/', {replace: true});
+			break;
 
-			case Constants.BILLING_INFO_VERIFIED:
-				router.navigate('/confirm/');
-				break;
+		case Constants.BILLING_INFO_VERIFIED:
+			router.navigate('/confirm/');
+			break;
 
-			case Constants.STRIPE_PAYMENT_SUCCESS:
-				router.navigate('/success/');
-				break;
+		case Constants.STRIPE_PAYMENT_SUCCESS:
+			router.navigate('/success/');
+			break;
 
-			case Constants.STRIPE_PAYMENT_FAILURE:
-				router.navigate('/error/');
-				break;
+		case Constants.STRIPE_PAYMENT_FAILURE:
+			router.navigate('/error/');
+			break;
 		}
 	},
 
