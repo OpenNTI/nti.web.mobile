@@ -38,11 +38,14 @@ export function getCouponPricing (purchasable, coupon) {
 
 
 export function getToken (stripePublicKey, data) {
-	return new Promise(fulfill => {
+	return new Promise((fulfill, reject) => {
 		Stripe.setPublishableKey(stripePublicKey);
 		Stripe.card.createToken(data, (status, response) => {
-			//if (response.error) {return reject(response.error);}
-			fulfill({ status, response });
+			if (response.error) {
+				reject({status, response});
+			} else {
+				fulfill({ status, response });
+			}
 		});
 	});
 }
