@@ -89,11 +89,6 @@ export function getUserAgreementURI () {
 
 
 export function isFlag (flagName) {
-	return !!flagValue(flagName);
-}
-
-
-export function flagValue (flagName) {
 	if (noConfig()) {
 		console.error('utils:isFlag() was called before config was defined.');
 	}
@@ -102,7 +97,7 @@ export function flagValue (flagName) {
 
 	flags = Object.assign({}, flags, flags[site] || {});
 
-	return flags[flagName];
+	return !!flags[flagName];
 }
 
 
