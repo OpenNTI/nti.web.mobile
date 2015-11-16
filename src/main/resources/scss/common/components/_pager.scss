@@ -50,11 +50,11 @@
 }
 
 .bottompager {
-	@include grid-row();
+	@include grid-row(); //TODO: restyle without foundation mixins & grid system.
 	list-style-type: none;
 	display: inline-block;
 	li {
-		@include grid-column($columns: 4);
+		@include grid-column($columns: 4); //TODO: restyle without foundation mixins & grid system.
 		float: none;
 		display: inline-block;
 		a {
@@ -64,7 +64,7 @@
 			}
 		}
 		&.counts {
-			@include grid-column($columns: 4, $collapse: true);
+			@include grid-column($columns: 4, $collapse: true); //TODO: restyle without foundation mixins & grid system.
 			float: none;
 			text-align: center;
 			white-space: nowrap;

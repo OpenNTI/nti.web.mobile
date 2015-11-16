@@ -5,12 +5,12 @@ figure {
 
 	&.info {
 		@extend %isPanel;
-		@include panel($bg: transparentize($primary-blue, 0.9));
+		@include panel($bg: transparentize($primary-blue, 0.9)); //TODO: restyle without foundation.
 	}
 
 	&.caution {
 		@extend %isPanel;
-		@include panel($bg: transparentize($primary-red, 0.9));
+		@include panel($bg: transparentize($primary-red, 0.9)); //TODO: restyle without foundation.
 	}
 }
 

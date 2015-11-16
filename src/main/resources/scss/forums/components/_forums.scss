@@ -10,7 +10,7 @@ a.blockLink {
 $indent: 0.9375rem;
 
 .page-controls {
-	@include block-grid(3);
+	@include block-grid(3); //TODO: restyle without foundation mixins & grid system.
 	position: relative;
 	font-size:.875rem;
 	.item {
@@ -53,7 +53,7 @@ $indent: 0.9375rem;
 }
 
 .forums-wrapper {
-	@include grid-column(12);
+	@include grid-column(12); //TODO: restyle without foundation mixins & grid system.
 	padding-bottom:1rem;
 	position: relative; // Error component is position: absolute; we want it to appear in the content area if it has to appear at all.
 	min-height: 10em; // loading widget is vertically centered. don't want it overlapping the heading.
@@ -332,7 +332,7 @@ $indent: 0.9375rem;
 	}
 
 	.nav-up {
-		@include grid-row();
+		@include grid-row(); //TODO: restyle without foundation mixins & grid system.
 		a {
 			display:block;
 			padding: $panel-padding;
@@ -365,6 +365,6 @@ $indent: 0.9375rem;
 }
 
 .forum-board-group {
-	@include grid-row();
+	@include grid-row(); //TODO: restyle without foundation mixins & grid system.
 	margin-top: $panel-margin-bottom;
 }
