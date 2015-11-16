@@ -1,16 +1,6 @@
-import Assignments from './Assignments';
-import CourseObjects from './CourseObjects';
-import Entities from './Entities';
-import LibraryPath from './LibraryPath';
-import ContentPages from './RandomContentPages';
-
-const handlers = [
-	Assignments,
-	CourseObjects,
-	Entities,
-	LibraryPath,
-	ContentPages
-];
+ //`require.context` is a little WebPack magic :) --- dynamicly require all files here
+const req = require.context('./', false, /^((?!index).)*\.js$/);
+const handlers = req.keys().map(req);
 
 
 export function getHandler (o) {

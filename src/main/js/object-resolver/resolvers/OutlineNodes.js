@@ -6,7 +6,8 @@ const isAssignment = RegExp.prototype.test.bind(/\.courseoutlinecontentnode/i);
 
 export default class OutlineNodesResolver {
 
-	static handles (o) {
+	//Prefixed with x to prevent it from being called. See ./index.js
+	static xhandles (o) {
 		let {MimeType} = o || {};
 		return isAssignment(MimeType);
 	}

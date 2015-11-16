@@ -15,7 +15,8 @@ const isCommunity = RegExp.prototype.test.bind(/community$/);
 
 export default class ForumObjectPathResolver {
 
-	static handles (o) {
+	//Prefixed with x to prevent it from being called. See ./index.js
+	static xhandles (o) {
 		let {MimeType} = o || {};
 		return isForum(MimeType) && !isBlog(MimeType);
 	}
