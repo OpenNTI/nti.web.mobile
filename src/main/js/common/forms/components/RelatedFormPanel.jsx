@@ -11,7 +11,7 @@ import SocialSecurityNumberField from './SocialSecurityNumberField';
 import Select from 'common/forms/components/Select';
 import Checkbox from 'common/forms/components/Checkbox';
 
-import PanelNoButton from 'common/components/PanelNoButton';
+import Notice from 'common/components/Notice';
 import LocalizedHTML from 'common/components/LocalizedHTML';
 
 import hash from 'object-hash';
@@ -290,7 +290,7 @@ let RelatedFormPanel = React.createClass({
 						related.push(this[renderFormConfig](conf.content, values));
 						break;
 					case Constants.MESSAGE:
-						related.push(<PanelNoButton key={hash(conf)}><LocalizedHTML stringId={conf.content} /></PanelNoButton>);
+						related.push(<Notice key={conf.content}><LocalizedHTML stringId={conf.content} /></Notice>);
 						break;
 					case Constants.SUBFIELDS:
 						// inline subfields will be rendered with the field itself;

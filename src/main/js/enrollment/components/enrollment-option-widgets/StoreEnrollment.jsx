@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PanelNoButton from 'common/components/PanelNoButton';
+import Notice from 'common/components/Notice';
 import Err from 'common/components/Error';
 
 import {scoped} from 'common/locale';
@@ -40,7 +40,7 @@ export default React.createClass({
 		let purchasable = this[getPurchasable](this.props.enrollmentOption);
 
 		if (!purchasable || !purchasable.currency || !purchasable.amount) {
-			return <PanelNoButton><Err error="Pricing information is unavailable." /></PanelNoButton>;
+			return <Notice><Err error="Pricing information is unavailable." /></Notice>;
 		}
 
 		let formattedPrice = this.getFormattedPrice(purchasable.currency, purchasable.amount);
