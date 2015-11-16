@@ -2,10 +2,9 @@ import {isFlag} from 'common/utils';
 
 const SECTIONS = Object.assign({},
 	isFlag('course-activity') ? {ACTIVITY: 'activity/'} : {},
-	isFlag('disable-course-assignments') ? {} : {ASSIGNMENTS: 'assignments/'},
 	{
 		// ACTIVITY: 'activity/',
-		// ASSIGNMENTS: 'assignments/',
+		ASSIGNMENTS: 'assignments/',
 		DISCUSSIONS: 'discussions/',
 		LESSONS: 'lessons/',
 		INFO: 'info',

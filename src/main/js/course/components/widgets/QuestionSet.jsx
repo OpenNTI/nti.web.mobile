@@ -93,12 +93,7 @@ export default React.createClass( {
 
 			this.setQuizHref();
 		} else {
-			if(isFlag('course-assignments')) {
-				this.setAssignmentHref();
-			}
-			else {
-				this.setQuizHref();
-			}
+			this.setAssignmentHref();
 
 			work = loadPreviousState(assignment)
 				.then(this.setAssignmentHistory)
