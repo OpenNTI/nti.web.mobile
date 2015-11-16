@@ -5,6 +5,7 @@ import Performance from './Performance';
 import Activity from '../Activity';
 import Assignments from '../Assignments';
 import PageFrame from '../PageFrame';
+import SearchSortStore from '../../SearchSortStore';
 
 const ROUTES = [
 	{path: '/performance/:rootId(/*)', handler: Performance},
@@ -20,6 +21,24 @@ export default React.createClass({
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
 		assignments: React.PropTypes.object.isRequired
+	},
+
+	componentWillMount () {
+		this.loadHistory();
+	},
+
+	loadHistory ({assignments} = this.props) {
+		if(!assignments || !assignments.getHistory) {
+			return Promise.reject('No assignments.getHistory?');
+		}
+		assignments.getHistory()
+			.then(history => {
+				console.log(history);
+				Object.assign(SearchSortStore, {history});
+			},
+			e => {
+				console.log(e);
+			});
 	},
 
 	render () {

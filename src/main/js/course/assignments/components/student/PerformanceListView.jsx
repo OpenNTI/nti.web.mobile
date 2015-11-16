@@ -5,6 +5,7 @@ import {HISTORY_LINK} from 'nti.lib.interfaces/models/assessment/Constants';
 import PageSource from 'nti.lib.interfaces/models/ListBackedPageSource';
 
 import EmptyList from 'common/components/EmptyList';
+import StoreEvents from 'common/mixins/StoreEvents';
 
 import SearchSortStore from '../../SearchSortStore';
 
@@ -42,6 +43,16 @@ const columns = [
 export default React.createClass({
 	displayName: 'PerformanceListView',
 
+	mixins: [StoreEvents],
+
+	backingStore: SearchSortStore,
+
+	backingStoreEventHandlers: {
+		default () {
+			this.forceUpdate();
+		}
+	},
+
 	propTypes: {
 		assignments: React.PropTypes.object.isRequired
 	},
@@ -55,25 +66,7 @@ export default React.createClass({
 	},
 
 	componentWillMount () {
-		this.loadHistory();
 		this.sortOn(this.state.sortOn);
-	},
-
-	loadHistory ({assignments} = this.props) {
-		if(!assignments || !assignments.getHistory) {
-			return Promise.reject('No assignments.getHistory?');
-		}
-		assignments.getHistory()
-			.then(history => {
-				console.log(history);
-
-				Object.assign(SearchSortStore, {history});
-				this.forceUpdate();
-			},
-			e => {
-
-				console.log(e);
-			});
 	},
 
 	sortOn (cols) {

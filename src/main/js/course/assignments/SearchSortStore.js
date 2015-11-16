@@ -26,6 +26,7 @@ class SearchSortStore extends StorePrototype {
 
 	set history (value) {
 		this[history] = value;
+		this.emitChange({type: LIST_CHANGE});
 	}
 
 	get history () {
