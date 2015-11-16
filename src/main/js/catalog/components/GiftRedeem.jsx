@@ -25,7 +25,6 @@ export default React.createClass({
 	mixins: [CatalogAccessor, ContextSender, NavigatableMixin],
 
 	propTypes: {
-		purchasable: React.PropTypes.object.isRequired,
 		entryId: React.PropTypes.string.isRequired,
 		code: React.PropTypes.string
 	},
