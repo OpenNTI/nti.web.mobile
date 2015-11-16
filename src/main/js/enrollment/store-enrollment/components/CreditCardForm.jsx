@@ -12,6 +12,8 @@ import {scoped} from 'common/locale';
 const t = scoped('ENROLLMENT.forms.storeenrollment');
 const t2 = scoped('ENROLLMENT');
 
+const EXP_PATTERN = /\d+ \/ \d+/;
+
 export default React.createClass({
 	displayName: 'CreditCardForm',
 	mixins: [ExternalLibraryManager],
@@ -152,6 +154,11 @@ export default React.createClass({
 			return ( <Loading/> );
 		}
 
+		let expDefaultValue = `${defaultValues.exp_month} / ${defaultValues.exp_year}`;
+		if (!EXP_PATTERN.test(expDefaultValue)) {
+			expDefaultValue = void 0;
+		}
+
 		return (
 			<fieldset className={cx('credit-card-form', className)}>
 				<legend>Credit Card</legend>
@@ -185,6 +192,7 @@ export default React.createClass({
 							type="text"
 							pattern="[0-9]*"
 							autoComplete="cc-exp"
+							defaultValue={expDefaultValue}
 							onFocus={this.onFieldEventClearError}
 							onChange={this.onChange}
 							/>
