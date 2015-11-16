@@ -75,6 +75,7 @@
 		user-select: text;
 
 		widget {
+			text-indent: initial;
 			user-select: none;
 			& + .caption { display: none; }
 		}
