@@ -31,6 +31,20 @@
 @import "prompts/components";
 @import "terms/components";
 
+
+@media print {
+
+	body > * {display: none;}
+	body::before {
+		display: block;
+		text-align: center;
+		font-size: 3rem;
+		content: 'Printing not supported';
+	}
+
+}
+
+
 .hidden {
 	display: none;
 }
