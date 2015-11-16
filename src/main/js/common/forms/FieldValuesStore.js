@@ -98,7 +98,8 @@ export default Object.assign({}, EventEmitter.prototype, {
 		this.emitChange({
 			type: Constants.FIELD_VALUE_CHANGE,
 			fieldName: name,
-			fieldValue: value
+			fieldValue: value,
+			target
 		});
 
 		// if (isFunction(this.props.onFieldValuesChange)) {
