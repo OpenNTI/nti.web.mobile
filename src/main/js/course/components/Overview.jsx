@@ -45,7 +45,7 @@ export default React.createClass({
 
 		return course.getOutlineNode(id).then(node=>({
 			label: node.title,
-			ntiid: node.getID(),
+			ntiid: node.getContentId(),
 			ref: node.ref,
 			scope: node,//for UGD
 			href
