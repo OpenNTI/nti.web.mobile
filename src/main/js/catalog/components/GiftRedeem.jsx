@@ -134,26 +134,28 @@ export default React.createClass({
 
 		return (
 			<FormPanel title={title} onSubmit={this.handleSubmit}>
-				<fieldset>
-					<legend>Redeem</legend>
-					<div>
-						<input name="accessKey" ref="key"
-							placeholder={t('accessKey')}
-							className="required"
-							type="text"
-							value={accessKey}
-							onChange={this.updateKey}
-							required/>
-					</div>
-				</fieldset>
+
+				<div className="access-code">
+					<input name="accessKey" ref="key"
+						placeholder={t('accessKey')}
+						className="required"
+						type="text"
+						value={accessKey}
+						onChange={this.updateKey}
+						required/>
+				</div>
+
 
 				<FormErrors errors={errors} />
-				<input type="submit"
-					key="submit"
-					disabled={disabled}
-					id="redeem:submit"
-					className="small-12 columns tiny button radius"
-					value={buttonLabel} />
+
+				<div className="button-row">
+					<input type="submit"
+						key="submit"
+						disabled={disabled}
+						id="redeem:submit"
+						className="button"
+						value={buttonLabel} />
+				</div>
 			</FormPanel>
 
 		);

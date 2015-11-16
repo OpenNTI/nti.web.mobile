@@ -74,7 +74,6 @@
 
 	.button-row {
 		margin: 0 (-($pad - 0.625rem)) 2rem;
-		text-align: right;
 		a {
 			padding: 0.7rem 2rem 0.7625rem;
 			color: $secondary-grey;
@@ -95,6 +94,12 @@
 			}
 		}
 	}
+}
+
+
+.access-code {
+	margin: 3rem 0 0;
+	& > input {margin: 0;}
 }
 
 /* min-width 641px, medium screens */
