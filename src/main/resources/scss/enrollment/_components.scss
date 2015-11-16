@@ -8,10 +8,10 @@
 
 
 .enrollment-panels {
-	// @include grid-column(12);
+	padding: {left: 0.9375rem; right: 0.9375rem;}
+
 	& > * {
 		.panel-button {
-			// @include grid-row();
 			padding: 1rem;
 			margin: 1rem 0;
 		}
