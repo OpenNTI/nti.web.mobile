@@ -1,8 +1,8 @@
-import {isFlag} from 'common/utils';
+import {isFlag, flagValue} from 'common/utils';
 
 const SECTIONS = Object.assign({},
 	isFlag('course-activity') ? {ACTIVITY: 'activity/'} : {},
-	isFlag('course-assignments') ? {ASSIGNMENTS: 'assignments/'} : {},
+	flagValue('course-assignments') !== false ? {ASSIGNMENTS: 'assignments/'} : {},
 	{
 		// ACTIVITY: 'activity/',
 		// ASSIGNMENTS: 'assignments/',
