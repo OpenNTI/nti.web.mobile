@@ -204,7 +204,7 @@ let RelatedFormPanel = React.createClass({
 		case 'number':
 			Object.assign(props, {
 				pattern: '[0-9]*',
-				inputmode: 'numeric'
+				inputMode: 'numeric'
 			});
 			input = 'input';
 			break;
