@@ -13,7 +13,7 @@ import Score from 'common/components/charts/Score';
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 import {loadPreviousState} from 'assessment/Api';
 
-import {getService, isFlag} from 'common/utils';
+import {getService} from 'common/utils';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
