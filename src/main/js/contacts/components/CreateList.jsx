@@ -71,7 +71,7 @@ export default React.createClass({
 				href: this.makeHref('/lists/')
 			},
 			{
-				label: 'Creact List'
+				label: 'Create List'
 			}
 		];
 	},
