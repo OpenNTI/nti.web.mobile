@@ -33,8 +33,11 @@
 		margin: 0;
 		box-shadow: 0 0 0 1px $border-color;
 		& > * {
-			padding: .625rem 1rem;
 			position: relative;
+			a {
+				display: block;
+				padding: .625rem 1rem;
+			}
 			border-top: 1px solid $border-color;
 			&:first-child {
 				border-top: none;
