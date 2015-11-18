@@ -39,8 +39,7 @@ function excludeNodeModulesExceptOurs (s) {
 module.exports = exports = function getCodeLoaderConfig (test, loader) {
 	return {
 		test: test,
-		loader: (loader ? loader + '!' : '')
-			+ 'babel?optional[]=runtime&plugins[]=' + path.resolve(__dirname, 'plugins/relay'),
+		loader: (loader ? loader + '!' : '') + 'babel',
 		exclude: excludeNodeModulesExceptOurs
 	};
 };

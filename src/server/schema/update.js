@@ -1,4 +1,4 @@
-#!/usr/bin/env babel-node --optional es7.asyncFunctions
+#!/usr/bin/env babel-node
 
 //Sniped from facebook's relay-starter-kit
 
