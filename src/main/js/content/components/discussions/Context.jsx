@@ -163,9 +163,10 @@ export default React.createClass({
 			node.removeAttribute('id');
 		}
 
-
-		this.setState({found});
-
+		if (range) {
+			this.setState({found});
+		}
+		
 		return !!found;
 	},
 
