@@ -16,6 +16,8 @@
 .gift.enrollment {
 	$pad: 0.9375rem;
 	margin: 0.5rem 1rem;
+	max-width: 750px;
+
 	h1, h2, h3, h4, h5 {
 		color: $tertiary-grey;
 		font-family: $body-font-family;
@@ -106,7 +108,6 @@
 @media only screen and (min-width: 40.063em) {
 	.gift.enrollment {
 		margin: 1rem auto;
-		max-width: 750px;
 
 		fieldset {
 			&.payment-fields {
