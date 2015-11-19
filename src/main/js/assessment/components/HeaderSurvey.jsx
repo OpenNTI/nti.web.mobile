@@ -43,7 +43,7 @@ export default React.createClass({
 		let survey = this.props.assessment;
 		const report = survey.getLink(REPORT_LINK);
 		const submitted = Store.isSubmitted(survey);
-		const show = submitted || report || survey.hasLink(AGGREGATED_LINK);
+		const show = submitted || report || survey.hasAggregationData;
 
 		if (!show) {
 			return null;
