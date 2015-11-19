@@ -149,7 +149,7 @@ export default React.createClass({
 		let range = renderable.getRange();
 		if (range) {
 			let s = document.createElement('span');
-			s.setAttribute('class', 'fucus-context-here');
+			s.setAttribute('class', 'focus-context-here');
 			range.insertNode(s);
 			found = renderable;
 		} else {
@@ -175,7 +175,7 @@ export default React.createClass({
 		if (node && this.findApplicableRange()) {
 
 
-			let focus = node.querySelector('.fucus-context-here');
+			let focus = node.querySelector('.focus-context-here');
 
 			node = node.firstChild;//this is what scrolls.
 
