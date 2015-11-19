@@ -96,6 +96,10 @@ body {
 	}
 }
 
+html, body {
+	width: 100%;
+	overflow-x: hidden;
+}
 
 //http://stackoverflow.com/a/2711132
 html { text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
