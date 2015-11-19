@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {REPORT_LINK} from 'nti.lib.interfaces/models/assessment/survey/Constants';
+import {AGGREGATED_LINK, REPORT_LINK} from 'nti.lib.interfaces/models/assessment/survey/Constants';
 
 import If from 'common/components/Conditional';
 import StoreEvents from 'common/mixins/StoreEvents';
@@ -43,7 +43,7 @@ export default React.createClass({
 		let survey = this.props.assessment;
 		const report = survey.getLink(REPORT_LINK);
 		const submitted = Store.isSubmitted(survey);
-		const show = submitted || report;
+		const show = submitted || report || survey.hasLink(AGGREGATED_LINK);
 
 		if (!show) {
 			return null;
