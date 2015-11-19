@@ -90,7 +90,7 @@
     "react": "^0.14.0",
     "react-addons-css-transition-group": "^0.14.0",
     "react-dom": "^0.14.0",
-    "react-editor-component": "NextThought/react-editor-component",
+    "react-editor-component": "NextThought/react-editor-component#v0.2.5",
     "react-proxy-loader": "^0.3.4",
     "react-relay": "^0.4.0",
     "react-router-component": "^0.27.1",
