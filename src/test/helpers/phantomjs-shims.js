@@ -1,4 +1,4 @@
-require('babel/polyfill');//applies hooks into global
+require('babel-polyfill');//applies hooks into global
 
 (function () {
 	/*eslint no-var: 0*/
