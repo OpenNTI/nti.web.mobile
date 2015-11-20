@@ -13,21 +13,22 @@ var gitRevision = require('../src/server/lib/git-revision');
 
 var appFontName = /((icomoon.*(woff))|(OpenSans.*woff))/i;
 
+var pkg = require('../package.json');
 
 exports = module.exports = [
 	{
 		name: 'browser',
 		output: {
-			path: '<%= pkg.stage %>/client/',
+			path: pkg.stage + '/client/',
 			filename: 'js/[hash].js',
 			chunkFilename: 'js/[hash]-[id].js',
-			publicPath: '<%= pkg.public_root %>'
+			publicPath: pkg.publicRoot
 		},
 
 		cache: true,
 		devtool: 'source-map',
 
-		entry: '<%= pkg.src %>/js/index.js',
+		entry: pkg.src + '/js/index.js',
 
 		target: 'web',
 		stats: {
@@ -103,13 +104,13 @@ exports = module.exports = [
 	{
 		// The configuration for the server-side rendering
 		name: 'server-side rendering',
-		entry: '<%= pkg.src %>/../server/lib/page.js',
+		entry: pkg.src + '/../server/lib/page.js',
 		target: 'node',
 		output: {
-			path: '<%= pkg.stage %>/server/node_modules/page.generated/',
+			path: pkg.stage + '/server/node_modules/page.generated/',
 			filename: 'index.js',
 			chunkFilename: 'chunk-[id].js',
-			publicPath: '<%= pkg.public_root %>',
+			publicPath: pkg.publicRoot,
 			library: 'page.generated',
 			libraryTarget: 'commonjs2'
 		},

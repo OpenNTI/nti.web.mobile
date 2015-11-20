@@ -79,7 +79,24 @@ e[0].plugins.unshift(
 
 
 e.forEach(function (x) {
-	x.stats = true;
+	x.stats = {
+		version: false,
+		hash: false,
+		timings: false,
+		assets: false,
+		chunks: false,
+		chunkModules: false,
+		chunkOrigins: false,
+		modules: false,
+		cached: false,
+		cachedAssets: false,
+		showChildren: false,
+		source: false,
+
+		colors: true,
+		reasons: true,
+		errorDetails: true
+	};
 	x.debug = false;
 
 	if (x.target === 'web') {

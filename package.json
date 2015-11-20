@@ -15,7 +15,7 @@
   ],
   "dist": "./dist",
   "stage": "./stage",
-  "public_root": "/mobile/",
+  "publicRoot": "/mobile/",
   "scripts": {
     "test": "grunt test",
     "update-schema": "babel-node ./src/server/schema/update.js"
