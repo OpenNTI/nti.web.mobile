@@ -1,3 +1,1 @@
-# browsers we support; used by autoprefixer to determine which css prefixes to add/remove.
-
-Last 2 versions
+> 1%, last 2 versions
