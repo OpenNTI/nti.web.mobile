@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {AGGREGATED_LINK, REPORT_LINK} from 'nti.lib.interfaces/models/assessment/survey/Constants';
+import {REPORT_LINK} from 'nti.lib.interfaces/models/assessment/survey/Constants';
 
 import If from 'common/components/Conditional';
 import StoreEvents from 'common/mixins/StoreEvents';
