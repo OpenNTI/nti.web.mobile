@@ -83,7 +83,7 @@ function includeWidgets () {
 			name: 'Widget: ' + k,
 
 			output: {
-				path: pkg.stage + '/' + k + '/',
+				path: pkg.stage + '/widgets/' + k + '/',
 				filename: 'main.js',
 				chunkFilename: '[id].chunk.js'
 			},
