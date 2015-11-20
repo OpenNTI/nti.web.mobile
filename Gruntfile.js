@@ -79,13 +79,6 @@ module.exports = function (grunt) {
 						filter: 'isFile'
 					},
 					{
-						cwd: '<%= pkg.src %>/resources/css/sites/',
-						expand: true,
-						filter: 'isFile',
-						src: ['**'],
-						dest: '<%= pkg.stage %>/client/resources/css/sites/'
-					},
-					{
 						cwd: '<%= pkg.src %>/resources/images/',
 						expand: true,
 						filter: 'isFile',
