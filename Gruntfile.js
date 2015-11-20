@@ -241,14 +241,12 @@ module.exports = function (grunt) {
 	grunt.registerTask('serve', function (target) {
 		if (target === 'dist') {
 			return grunt.task.run([
-				'run:update-schema',
 				'build',
 				'execute:dist'
 			]);
 		}
 
 		grunt.task.run([
-			'run:update-schema',
 			'eslint',
 			'execute:dev'
 		]);
