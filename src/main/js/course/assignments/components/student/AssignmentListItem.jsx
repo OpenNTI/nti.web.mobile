@@ -22,7 +22,9 @@ export default React.createClass({
 	backingStore: SearchSortStore,
 	backingStoreEventHandlers: {
 		default () {
-			this.forceUpdate();
+			if(this.isMounted()) {
+				this.forceUpdate();
+			}
 		}
 	},
 
