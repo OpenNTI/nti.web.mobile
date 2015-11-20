@@ -1,12 +1,12 @@
 /*eslint no-var: 0 strict: 0*/
 'use strict';
-require('babel/register')({
+require('babel-core/register')({
 	ignore: false,//parse node_modules too
 
 	//but...
 
 	// only if filenames match this regex...
-	only: /(?!.*node_modules)(nti.lib|react-editor-component|server\/lib|server\/schema)/
+	only: /(nti.lib|react-editor-component|server\/lib|server\/schema)[^\/]*\/((?!node_modules\/).+)/
 });
 
 global.SERVER = true;
@@ -17,8 +17,9 @@ var proxiedHttp = require('findhit-proxywrap').proxy(http);
 var express = require('express');
 var common = require('./lib/common');
 var server = require('./lib/app-server');
-var logger = require('./lib/logger');
-var setupErrorHandler = require('./lib/error-handler');
+
+var logger = require('./lib/logger').default;
+var setupErrorHandler = require('./lib/error-handler').default;
 
 function contextualize (root, app) {
 	var contextWapper = express();

@@ -1,4 +1,4 @@
-import 'babel/polyfill';//applies hooks into global
+import 'babel-polyfill';//applies hooks into global
 
 import path from 'path';
 import React from 'react';

@@ -1,5 +1,5 @@
 /*bootstrap junk begin*/
-import 'babel/polyfill';
+import 'babel-polyfill';
 import '../../resources/scss/app.scss';
 /*bootstrap junk end*/
 
