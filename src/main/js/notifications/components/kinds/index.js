@@ -2,8 +2,8 @@ import React from 'react';
 
 //`require.context` is a little WebPack magic :)
 const req = require.context('./', false, /.jsx$/);
-const Unknown = req('./Unknown.jsx');
-const KINDS = req.keys().map(req);
+const {default: Unknown} = req('./Unknown.jsx');
+const KINDS = req.keys().map(m => req(m).default);
 
 export function getNotificationItem (item, index) {
 	let Item = Unknown;

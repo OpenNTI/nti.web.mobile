@@ -1,11 +1,9 @@
-/*eslint no-var: 0 strict: 0*/
-'use strict';
-var logger = require('./logger');
+import logger from './logger';
 
-var ServerRender = true;
-var src;
-var stats = {assetsByChunkName: {}};
-var reason;
+let ServerRender = true;
+let src;
+let stats = {assetsByChunkName: {}};
+let reason;
 
 module.exports.page = function () { return 'Imagine the UI.'; };
 

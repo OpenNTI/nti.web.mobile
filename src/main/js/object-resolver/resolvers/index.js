@@ -1,6 +1,6 @@
  //`require.context` is a little WebPack magic :) --- dynamicly require all files here
 const req = require.context('./', false, /^((?!index).)*\.js$/);
-const handlers = req.keys().map(req);
+const handlers = req.keys().map(m => req(m).default);
 
 
 export function getHandler (o) {

@@ -94,7 +94,7 @@
     "react-addons-css-transition-group": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-editor-component": "NextThought/react-editor-component",
-    "react-proxy-loader": "^0.3.4",
+    "react-proxy-loader": "jsg2021/react-proxy-loader#fix-es6-default-export-interop",
     "react-relay": "^0.4.0",
     "react-router-component": "^0.27.1",
     "react-swipe-to-reveal-options": "^0.1.6",
