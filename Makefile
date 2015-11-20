@@ -17,6 +17,8 @@ SRC=./src/
 SCHEMA=./data/
 IMAGES=resources/images/
 
+CC=webpack --progress --cache --bail --config
+
 export NODE_ENV="production"
 
 all: build-all
@@ -43,13 +45,13 @@ compile-app: stage clean-stage-app $(STAGE)server
 	@(cd $(SRC)main; rsync -R *.* ../../$(STAGE)client)
 	@(cd $(SRC)main; rsync -R $(IMAGES)*.* ../../$(STAGE)client)
 ##compile
-	@webpack --config ./webpack/app.config.dist.js --progress --cache --bail
+	@$(CC) ./webpack/app.config.dist.js
 ##compile static site css
-	@webpack --config ./webpack/site-styles.config.js --progress --cache --bail
+	@$(CC) ./webpack/site-styles.config.js
 
 compile-widgets: $(STAGE) clean-stage-widgets
 	@(cd src/main; rsync -R widgets/**/*.html ../../stage/)
-	@webpack --config ./webpack/widgets.config.js --progress --cache --bail
+	@$(CC) ./webpack/widgets.config.js
 
 
 $(STAGE)server:
@@ -57,16 +59,15 @@ $(STAGE)server:
 	@cp -r $(SRC)server $(STAGE)server
 
 stage:
-	@mkdir -p stage/client
-	@mkdir -p stage/server
-
+	@mkdir -p $(STAGE)client
+	@mkdir -p $(STAGE)server
 
 clean-stage-app:
-	@rm -rf stage/client
-	@rm -rf stage/server
+	@rm -rf $(STAGE)client
+	@rm -rf $(STAGE)server
 
 clean-stage-widgets:
-	@rm -rf stage/widgets
+	@rm -rf $(STAGE)widgets
 
 clean:
-	@rm -rf stage dist data
+	@rm -rf $(STAGE) $(DIST) $(SCHEMA)
