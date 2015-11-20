@@ -6,6 +6,11 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var fs = require('fs');
 var path = require('path');
 
+var pkg = require('../package.json');
+
+var distSiteCSS = path.join(pkg.dist, '/client/resources/css/sites');
+var stageSiteCSS = path.join(pkg.stage, '/client/resources/css/sites');
+
 function getSites () {
 	var sitePath = path.join(__dirname, '..', 'src', 'main', 'resources', 'scss', 'sites');
 
@@ -38,15 +43,34 @@ for (var k in w) {
 		name: 'Site: ' + k,
 
 		output: {
-			path: '<%= pkg.stageSiteCSS %>/' + k + '/',
+			path: stageSiteCSS + '/' + k + '/',
 			filename: '[hash]',
 			chunkFilename: '[hash]-[id].js',
-			publicPath: '<%= pkg.distSiteCSS %>'
+			publicPath: distSiteCSS
 		},
 
 		devtool: 'none',
 
 		entry: w[k],
+
+		noInfo: true,
+		stats: {
+			version: false,
+			hash: false,
+			// timings: false,
+			// assets: false,
+			// chunks: false,
+			// chunkModules: false,
+			// chunkOrigins: false,
+			// modules: false,
+			// cached: false,
+			// cachedAssets: false,
+			children: false,
+			// colors: true,
+			// source: false,
+			// reasons: false,
+			errorDetails: true
+		},
 
 		resolve: {
 			extensions: ['', '.js', '.css', '.scss']

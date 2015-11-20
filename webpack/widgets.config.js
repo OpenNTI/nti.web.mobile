@@ -41,6 +41,7 @@ var CompressionPlugin = require('compression-webpack-plugin');
 
 var gitRevision = require('../src/server/lib/git-revision');
 
+var pkg = require('../package.json');
 var baseConfig = require('./app.config')[0];
 
 function getWidgets () {
@@ -82,7 +83,7 @@ function includeWidgets () {
 			name: 'Widget: ' + k,
 
 			output: {
-				path: '<%= pkg.stage %>/' + k + '/',
+				path: pkg.stage + '/' + k + '/',
 				filename: 'main.js',
 				chunkFilename: '[id].chunk.js'
 			},
@@ -100,7 +101,10 @@ function includeWidgets () {
 						'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 					}
 				}),
-				new webpack.optimize.UglifyJsPlugin({ test: /\.js(x?)($|\?)/i }),
+				new webpack.optimize.UglifyJsPlugin({
+					test: /\.js(x?)($|\?)/i,
+					compress: { warnings: false }
+				}),
 				new CompressionPlugin({
 					asset: '{file}.gz',
 					algorithm: 'gzip',
