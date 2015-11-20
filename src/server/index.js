@@ -1,13 +1,6 @@
 /*eslint no-var: 0 strict: 0*/
 'use strict';
-require('babel-core/register')({
-	ignore: false,//parse node_modules too
-
-	//but...
-
-	// only if filenames match this regex...
-	only: /(nti.lib|react-editor-component|server\/lib|server\/schema)[^\/]*\/((?!node_modules\/).+)/
-});
+require('./lib/babel-hook');
 
 global.SERVER = true;
 
