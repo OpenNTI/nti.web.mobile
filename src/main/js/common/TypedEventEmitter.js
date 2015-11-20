@@ -14,6 +14,7 @@ export default class TypedEventEmitter extends EventEmitter {
 
 	constructor () {
 		super();
+		this.setMaxListeners(100);
 	}
 
 
