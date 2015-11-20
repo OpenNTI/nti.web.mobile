@@ -91,6 +91,7 @@ export function getUserAgreementURI () {
 export function isFlag (flagName) {
 	if (noConfig()) {
 		console.error('utils:isFlag() was called before config was defined.');
+		return false;
 	}
 	let site = getSiteName();
 	let {flags = {}} = $AppConfig;
