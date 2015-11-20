@@ -122,6 +122,7 @@ nav.nav-bar {
 				display: inline-block;
 				max-width: calc(100% - 1rem);//% total screen width
 				position: relative;
+				margin-right: 1rem; // leave room for the chevron
 
 				&::after {
 
