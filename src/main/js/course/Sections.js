@@ -1,14 +1,6 @@
-import {isFlag} from 'common/utils';
-
-const SECTIONS = Object.assign({},
-	isFlag('course-activity') ? {ACTIVITY: 'activity/'} : {},
-	{
-		// ACTIVITY: 'activity/',
-		ASSIGNMENTS: 'assignments/',
-		DISCUSSIONS: 'discussions/',
-		LESSONS: 'lessons/',
-		INFO: 'info',
-		VIDEOS: 'videos/'
-	});
-
-export default SECTIONS;
+export const ACTIVITY = 'activity/';
+export const ASSIGNMENTS = 'assignments/';
+export const DISCUSSIONS = 'discussions/';
+export const LESSONS = 'lessons/';
+export const INFO = 'info';
+export const VIDEOS = 'videos/';

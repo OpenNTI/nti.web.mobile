@@ -1,10 +1,11 @@
 import React from 'react';
 
 import {scoped} from 'common/locale';
+import {isFlag} from 'common/utils';
 
 import Page from 'common/components/Page';
 
-import Sections from '../Sections';
+import * as Sections from '../Sections';
 
 let getLabel = scoped('COURSE.SECTIONS');
 
@@ -45,6 +46,10 @@ export default React.createClass({
 
 		if (!course.shouldShowAssignments()) {
 			menu = menu.filter(x => x.href !== Sections.ASSIGNMENTS);
+		}
+
+		if (!isFlag('course-activity')) {
+			menu = menu.filter(x => x.href !== Sections.ACTIVITY);
 		}
 
 		this.setState({menu});

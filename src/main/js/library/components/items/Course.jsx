@@ -3,7 +3,7 @@ import React from 'react';
 import ActiveState from 'common/components/ActiveState';
 import E from 'common/components/Ellipsed';
 
-import COURSE_SECTIONS from 'course/Sections';
+import * as COURSE_SECTIONS from 'course/Sections';
 
 import CourseLinker from '../../mixins/CourseContentLink';
 

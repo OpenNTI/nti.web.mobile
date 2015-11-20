@@ -4,7 +4,7 @@ import {scoped} from 'common/locale';
 
 import Page from 'common/components/Page';
 
-import Sections from '../Sections';
+import * as Sections from '../Sections';
 
 let getLabel = scoped('CONTENT.SECTIONS');
 

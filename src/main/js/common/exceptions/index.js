@@ -1,3 +1,3 @@
-import IllegalStateException from './IllegalStateException';
+import IllegalStateExceptionClass from './IllegalStateException';
 
-export {IllegalStateException};
+export const IllegalStateException = IllegalStateExceptionClass;

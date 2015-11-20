@@ -30,8 +30,13 @@ export default React.createClass({
 
 		// let routes = this.context.router.props.children.map(x=>x.props.path || 'default');
 		// console.debug('Redirecting to %s, routes: %o', loc, routes);
-		console.debug('Redirecting to %s', loc);
-		this.navigate(loc, {replace: true});
+		if (loc) {
+			console.debug('Redirecting to %s', loc);
+			this.navigate(loc, {replace: true});
+		}
+		else {
+			console.error('Can\'t redirect to undefined.');
+		}
 	},
 
 

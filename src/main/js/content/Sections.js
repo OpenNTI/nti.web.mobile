@@ -1,7 +1,5 @@
-export default {
-	// ACTIVITY: 'activity',
-	DISCUSSIONS: 'd/',
-	INDEX: 'o/'
-	// INFO: 'info',
-	// VIDEOS: 'v/'
-};
+// export const ACTIVITY ='activity';
+export const DISCUSSIONS = 'd/';
+export const INDEX = 'o/';
+// export const INFO ='info';
+// export const VIDEOS ='v/';
