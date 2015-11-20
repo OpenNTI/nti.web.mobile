@@ -53,7 +53,8 @@ exports = module.exports = [
 
 		module: {
 			loaders: [
-				getCodeLoaderConfig(/\.async\.jsx$/i, 'react-proxy'),
+				{ test: /\.async\.jsx$/i, loader: 'react-proxy'},
+
 				getCodeLoaderConfig(/\.js(x?)$/i),
 
 				{ test: /\.json$/, loader: 'json' },
