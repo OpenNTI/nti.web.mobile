@@ -3,12 +3,13 @@
 
 import fs from 'fs';
 import path from 'path';
-import { Schema } from './';
+// import { Schema } from './';
 import { graphql }  from 'graphql';
 import { introspectionQuery, printSchema } from 'graphql/utilities';
 
 const PATH = path.resolve(__dirname, '../../../data/');
 
+process.exit();
 
 if (!fs.existsSync(PATH)) {
 	console.log('Making directory: ', PATH);
