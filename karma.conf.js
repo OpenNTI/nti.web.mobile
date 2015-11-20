@@ -104,17 +104,17 @@ module.exports = function (config) {
 			],
 
 			module: {
-				// preLoaders: [
-				// 	{
-				// 		test: /\.jsx?$/,
-				// 		loader: 'isparta-instrumenter',
-				// 		exclude: [
-				// 			/node_modules/,
-				// 			/__test__/,
-				// 			/test\//
-				// 		]
-				// 	}
-				// ],
+				preLoaders: [
+					{
+						test: /\.jsx?$/,
+						loader: 'isparta-instrumenter',
+						exclude: [
+							/node_modules/,
+							/__test__/,
+							/test\//
+						]
+					}
+				],
 				loaders: [
 					getCodeLoaderConfig(/\.jsx?$/),//TODO: make nti.libs compile on install. so we can simply declare babel, excluding node_modules.
 					{ test: /\.json$/, loader: 'json' },
