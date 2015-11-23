@@ -20,7 +20,7 @@ function exposeGlobally (...fns) {
 
 
 function noConfig () {
-	return typeof $AppConfig === 'undefined';
+	return typeof global.$AppConfig === 'undefined';
 }
 
 
