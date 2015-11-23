@@ -28,27 +28,6 @@ module.exports = function (grunt) {
 			widgets: require('./webpack/widgets.config')
 		},
 
-		execute: {
-			dev: {
-				src: '<%= pkg.src %>/../server/index.js'
-			},
-			dist: {
-
-				src: '<%= pkg.dist %>/server/index.js'
-			}
-		},
-
-
-		run: {
-			'update-schema': {
-				cmd: 'npm',
-				args: [
-					'run-script',
-					'update-schema'
-				]
-			}
-		},
-
 
 		karma: {
 			options: {
@@ -66,6 +45,7 @@ module.exports = function (grunt) {
 				autoWatch: true
 			}
 		},
+
 
 		copy: {
 			'stage-dist': {
@@ -110,6 +90,7 @@ module.exports = function (grunt) {
 			}
 		},
 
+
 		rename: {
 			'stage-dist': {
 				files: [
@@ -129,6 +110,7 @@ module.exports = function (grunt) {
 				dest: '<%= pkg.dist %>/widgets'
 			}
 		},
+
 
 		clean: {
 			dist: {
@@ -163,19 +145,6 @@ module.exports = function (grunt) {
 			maps: ['<%= pkg.dist %>/**/*.map', '<%= pkg.dist %>/**/*.map.gz']
 		},
 
-		eslint: {
-			// options: {
-			// 	quiet: true
-			// },
-			target: [
-				'src/main/js/**/*.js',
-				'src/main/js/**/*.jsx',
-				'src/server/**/*.js',
-				'src/test/**/*.js',
-				'webpack/**/*.js',
-				'*.js'
-			]
-		},
 
 		symlink: {
 			'link-dist': {
@@ -197,16 +166,12 @@ module.exports = function (grunt) {
 	});
 
 
-
-	grunt.registerTask('docs', ['react', 'jsdoc']);
-	grunt.registerTask('lint', ['eslint']);
 	grunt.registerTask('test', function (target) {
 		var t = target || 'unit';
 		return grunt.task.run([
 			'karma:' + t
 		]);
 	});
-	grunt.registerTask('default', ['serve']);
 
 	grunt.registerTask('build', function (target) {
 		target = target || 'dist';
@@ -229,19 +194,5 @@ module.exports = function (grunt) {
 
 		return grunt.task.run(buildSteps);
 
-	});
-
-	grunt.registerTask('serve', function (target) {
-		if (target === 'dist') {
-			return grunt.task.run([
-				'build',
-				'execute:dist'
-			]);
-		}
-
-		grunt.task.run([
-			'eslint',
-			'execute:dev'
-		]);
 	});
 };

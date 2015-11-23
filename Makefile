@@ -10,6 +10,7 @@
 .PHONY: clean-stage-app
 .PHONY: clean-stage-widgets
 .PHONY: clean
+.PHONY: check
 
 
 DIST=./dist/
@@ -26,6 +27,9 @@ export NODE_ENV="production"
 setup:
 	@rm -r node_modules
 	@npm install
+
+check:
+	@eslint --ext .js,.jsx .
 
 all: build-all
 

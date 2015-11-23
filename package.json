@@ -17,8 +17,9 @@
   "stage": "./stage",
   "publicRoot": "/mobile/",
   "scripts": {
-    "test": "grunt test",
-    "update-schema": "babel-node ./src/server/schema/update.js"
+    "test": "karma start --single-run --reporters dots,html,junit,coverage",
+    "start": "make check && node .",
+    "build": "make"
   },
   "main": "./src/server/index.js",
   "bin": {
@@ -61,10 +62,7 @@
     "grunt-contrib-clean": "^0.7.0",
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-symlink": "^0.3.0",
-    "grunt-eslint": ">=13.0.0",
-    "grunt-execute": "^0.2.2",
     "grunt-rename": "^0.1.4",
-    "grunt-run": "^0.5.1",
     "grunt-sass": "^1.0.0",
     "grunt-webpack": "^1.0.8",
     "html-loader": "^0.3.0",
