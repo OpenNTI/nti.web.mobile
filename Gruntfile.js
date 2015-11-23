@@ -214,7 +214,7 @@ module.exports = function (grunt) {
 		var buildSteps = [
 			'clean:stage',
 			'copy:stage-' + target,
-			'run:update-schema',
+			// 'run:update-schema',
 			'webpack:site', //build site-specific styles.
 			'webpack:' + target,
 			'clean:' + target,
