@@ -21,7 +21,7 @@ export default function getPage (render) {
 
 	if (render) {
 		try {
-			Application = require('../../main/js/AppView');
+			Application = require('../../main/js/AppView').default;
 		} catch (e) {
 			logger.error('No Server-side Rendering (Because: %s)',
 				/Cannot find module '\.\.\/main\/js\/AppView'/.test(e.message || e) ?
