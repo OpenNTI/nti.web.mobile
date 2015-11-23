@@ -78,32 +78,27 @@ export default React.createClass({
 			return null;
 		}
 
-		let props = {
-			href,
-			linkText: t('fiveMinuteEnrollmentButton')
-		};
-
 		if (loading) {
 			return ( <Loading/> );
 		}
 
-		if (error) {
-			props.button = (<div/>);
-		}
+		const actions = error ? null : <div className="actions"><a href={href}>{t('fiveMinuteEnrollmentButton')}</a></div>;
 
 		return (
-			<PanelButton {...props}>
-				<h2>{t('fiveMinuteEnrollmentTitle')}</h2>
-				<p>{t('fiveMinuteEnrollmentDescription')}</p>
-
-				{error ? (
-					<small className="error">{error.Message}</small>
-				) : count < 10 ? (
-					<small>{t('fiveMinuteEnrollmentSeatAvailable', {count})}</small>
-				) :
-					null
-				}
-			</PanelButton>
+			<div>
+				<div className="enrollment five-minute">
+					<h2 className="title">{t('fiveMinuteEnrollmentTitle')}</h2>
+					<p className="description">{t('fiveMinuteEnrollmentDescription')}</p>
+					{error ? (
+						<small className="error">{error.Message}</small>
+					) : count < 10 ? (
+						<small>{t('fiveMinuteEnrollmentSeatAvailable', {count})}</small>
+					) :
+						null
+					}
+					{actions}
+				</div>
+			</div>
 		);
 	}
 

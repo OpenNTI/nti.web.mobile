@@ -50,7 +50,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<div className="store-enrollment">
+				<div className="enrollment store-enrollment">
 					<h2 className="title">{t('storeEnrollmentTitle')}</h2>
 					<p className="price">{formattedPrice}</p>
 					<p className="description">{t('storeEnrollmentGainAccess')}</p>
