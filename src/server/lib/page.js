@@ -30,17 +30,19 @@ export default function getPage (render) {
 	}
 
 
+
+	//For Node... (dev)
 	try {
-		//For WebPack... (production)
-		template = require('../../main/page');//can't specify the extention otherwise Node will load it, we only want WebPack to find it.
-	} catch (e) {
-		//For Node... (dev)
-		try {
-			template = fs.readFileSync(Path.resolve(__dirname, '../../main/page.html'), 'utf8');
-		} catch (er) {
-			logger.error('%s', er.stack || er.message || er);
-			template = 'Could not load page template.';
+		let cwd = process.cwd();
+		let file = Path.resolve(cwd, 'dist/client/page.html'); //production
+		if (!fs.existsSync(file)) {
+			file = Path.resolve(cwd, 'src/main/page.html'); //dev
 		}
+
+		template = fs.readFileSync(file, 'utf8');
+	} catch (er) {
+		logger.error('%s', er.stack || er.message || er);
+		template = 'Could not load page template.';
 	}
 
 	template = template.replace(
