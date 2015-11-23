@@ -39,14 +39,14 @@ build-all: build-app build-widgets
 ## will silently fail if stage is not empty.
 	@rm -d $(STAGE) &> /dev/null || true
 
-build-app: compile-app
+build-app: compile-app clean-dist-app
 	@mkdir -p $(DIST)
-	@mv $(STAGE)client $(DIST)client
-	@mv $(STAGE)server $(DIST)server
+	@mv -f $(STAGE)client $(DIST)client
+	@mv -f $(STAGE)server $(DIST)server
 
-build-widgets: compile-widgets
+build-widgets: compile-widgets clean-dist-widgets
 	@mkdir -p $(DIST)
-	@mv $(STAGE)widgets $(DIST)widgets
+	@mv -f $(STAGE)widgets $(DIST)widgets
 
 build-schema:
 	@babel-node ./src/server/schema/update.js
@@ -74,9 +74,18 @@ stage:
 	@mkdir -p $(STAGE)client
 	@mkdir -p $(STAGE)server
 
+
+clean-dist-app:
+	@rm -rf $(DIST)client
+	@rm -rf $(DIST)server
+
 clean-stage-app:
 	@rm -rf $(STAGE)client
 	@rm -rf $(STAGE)server
+
+
+clean-dist-widgets:
+	@rm -rf $(DIST)widgets
 
 clean-stage-widgets:
 	@rm -rf $(STAGE)widgets
