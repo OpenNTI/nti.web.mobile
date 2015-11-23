@@ -8,7 +8,7 @@ let reason;
 module.exports.page = function () { return 'Imagine the UI.'; };
 
 try {
-	module.exports.page = require('page.generated')(true);
+	module.exports.page = require('page.generated').default(true);
 } catch(e) {
 	reason = e.stack || e.message;
 	ServerRender = false;
