@@ -23,15 +23,17 @@ CC=webpack --progress --cache --bail --config
 
 export NODE_ENV="production"
 
+all: build-all
+
 
 setup:
 	@rm -r node_modules
 	@npm install
 
+
 check:
 	@eslint --ext .js,.jsx .
 
-all: build-all
 
 build-all: build-app build-widgets
 ## will silently fail if stage is not empty.
