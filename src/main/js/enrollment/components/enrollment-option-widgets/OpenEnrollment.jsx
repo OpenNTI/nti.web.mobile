@@ -44,10 +44,15 @@ export default React.createClass({
 		}
 
 		return (
-			<PanelButton onClick={this.enroll} linkText={t('OpenEnrollment')}>
-				<h2>Enroll for Free</h2>
-				<p>Get complete access to interact with all course content, including lectures, course materials, quizzes, and discussions once class is in session.</p>
-			</PanelButton>
+			<div>
+				<div className="enrollment open-enrollment">
+					<h2 className="title">Enroll for Free</h2>
+					<p className="description">Get complete access to interact with all course content, including lectures, course materials, quizzes, and discussions once class is in session.</p>
+					<div className="actions">
+						<a onClick={this.enroll}>{t('OpenEnrollment')}</a>
+					</div>
+				</div>
+			</div>
 		);
 	}
 
