@@ -17,8 +17,8 @@ export default React.createClass({
 	},
 
 
-	componentWillMount () {
-		getAppUser().then(user => this.setState({user}));
+	componentDidMount () {
+		getAppUser().then(user => this.setState({user})); //eslint-disable-line
 	},
 
 
