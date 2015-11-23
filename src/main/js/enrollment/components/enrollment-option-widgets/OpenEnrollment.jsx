@@ -1,6 +1,5 @@
 import React from 'react';
 
-import PanelButton from 'common/components/PanelButton';
 import {scoped} from 'common/locale';
 import Loading from 'common/components/Loading';
 
