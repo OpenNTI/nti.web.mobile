@@ -1,9 +1,9 @@
 #!/usr/bin/env babel-node
 //Sniped from facebook's relay-starter-kit
-
+/*
 import fs from 'fs';
 import path from 'path';
-// import { Schema } from './';
+import { Schema } from './';
 import { graphql }  from 'graphql';
 import { introspectionQuery, printSchema } from 'graphql/utilities';
 
@@ -38,3 +38,4 @@ fs.writeFileSync(
 	path.join(PATH, 'schema.graphql'),
 	printSchema(Schema)
 );
+*/
