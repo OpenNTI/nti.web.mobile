@@ -23,7 +23,7 @@ const siteCSS = document.getElementById('site-override-styles');
 if (siteCSS) { siteCSS.parentNode.appendChild(siteCSS); }
 
 //temp until we design a better way:
-if (window.top !== window) {
+if (typeof window !== 'undefined' && window.top !== window) {
 	window.top.location.href = location.href;
 	//If the frame busting code is blocked, tell them embedding is not supported.
 	location.replace('iframe.html');
