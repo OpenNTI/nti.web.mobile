@@ -34,12 +34,30 @@ npm install
 While you're working on this project, run:
 
 ```bash
-grunt
+npm start
+```
+
+##### Building:
+```bash
+$ make
+```
+
+##### Running Tests:
+```bash
+#for continuous integration (calls karma with extra reports, see package.json)
+$ npm test
+
+# for dev (single run, basic report)
+$ karma start
+
+# for dev (watch mode)
+$ karma start --auto-watch --no-single-run --reporters dots
 ```
 
 ***Please read:*** `doc/source control workflow.md`, it outlines how this project is worked on.
 
---
+
+---
 
 ### Recommended
 
@@ -59,7 +77,7 @@ I can't make this change centrally. It must be made per-clone.  This explains wh
 It basically simplifies your interactions. so you can simply `git pull` to get updated code, instead of `git pull -r` or `git fetch && git rebase... ` etc. With out this change, a `git pull` will make a merge bubble, and thats just ugly.
 
 
---
+---
 
 ### Git Pre-Commit Hook:
 
@@ -75,7 +93,7 @@ cp ./pre-commit.sample .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
 ```
 
---
+---
 
 ## Working on dependent projects:
 
@@ -104,7 +122,7 @@ npm link {dependency-name}
 | react-editor-component | git@github.com:NextThought/react-editor-component.git    |
 
 
---
+---
 
 ### Text Editor
 
