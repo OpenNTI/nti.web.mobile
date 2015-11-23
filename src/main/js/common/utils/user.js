@@ -10,7 +10,11 @@ export function getDebugUsernameString (entity) {
 		return void 0;
 	}
 
-	return (typeof entity === 'string' ? entity : entity.Username) || 'Unknown';
+	const type = typeof entity;
+
+	return (type === 'string' && entity)
+		|| (type === 'object' && entity.Username) 
+		|| 'Unknown';
 }
 
 /**
