@@ -27,7 +27,7 @@ all: build-all
 
 
 setup:
-	@rm -r node_modules
+	@rm -rf node_modules
 	@npm install
 
 
