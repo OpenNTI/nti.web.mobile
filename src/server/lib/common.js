@@ -179,7 +179,7 @@ export function clientConfig (username, context) {
 
 
 	return {
-		config: Object.assign({siteTitle: site.title}, base),//used only on server
+		config: Object.assign({}, base, cfg),//used only on server
 		html:
 			'\n<script type="text/javascript">\n' +
 			'window.$AppConfig = ' + JSON.stringify(cfg) +
