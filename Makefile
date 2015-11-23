@@ -6,6 +6,7 @@
 .PHONY: compile-app
 .PHONY: compile-widgets
 .PHONY: stage
+.PHONY: setup
 .PHONY: clean-stage-app
 .PHONY: clean-stage-widgets
 .PHONY: clean
@@ -20,6 +21,11 @@ IMAGES=resources/images/
 CC=webpack --progress --cache --bail --config
 
 export NODE_ENV="production"
+
+
+setup:
+	@rm -r node_modules
+	@npm install
 
 all: build-all
 
