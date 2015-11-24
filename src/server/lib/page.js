@@ -14,6 +14,13 @@ function injectConfig (cfg, orginal, prop) {
 	return cfg[prop] || 'MissingConfigValue';
 }
 
+function isFile (file) {
+	try {
+		return fs.statSync(file).isFile();
+	} catch (e) {
+		return false;
+	}
+}
 
 export default function getPage (render) {
 	let Application;
@@ -33,10 +40,17 @@ export default function getPage (render) {
 
 	//For Node... (dev)
 	try {
-		let cwd = process.cwd();
-		let file = Path.resolve(cwd, 'dist/client/page.html'); //production
-		if (!fs.existsSync(file)) {
-			file = Path.resolve(cwd, 'src/main/page.html'); //dev
+		let cwd = process.argv[1];
+		if (isFile(cwd)) {
+			cwd = Path.dirname(cwd);
+		}
+
+		let file = Path.resolve(cwd, '../client/page.html'); //production
+		if (!isFile(file)) {
+			file = Path.resolve(cwd, '../main/page.html'); //dev
+			if (!isFile(file)) {
+				file = Path.resolve(cwd, 'src/main/page.html'); //dev (node .)
+			}
 		}
 
 		template = fs.readFileSync(file, 'utf8');
