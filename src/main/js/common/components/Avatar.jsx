@@ -43,7 +43,7 @@ export default React.createClass({
 		return {};
 	},
 
-	componentWillMount () { this.fillIn(); },
+	componentDidMount () { this.fillIn(); },
 	componentWillReceiveProps (nextProps) {
 		if (this.props.entity !== nextProps.entity) {
 			this.fillIn(nextProps);
