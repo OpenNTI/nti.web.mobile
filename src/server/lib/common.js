@@ -153,6 +153,17 @@ export function config () {
 	return c;
 }
 
+function dontUseMe () {
+	throw new Error(
+		'Use the Service to make your requests. ' +
+		'The interface is not meant to be used directly ' +
+		'anymore. (So we can centrally manage request contexts.)');
+}
+
+function noServiceAndThereShouldBe () {
+	throw new Error('No Service.');
+}
+
 export function clientConfig (username, context) {
 	//unsafe to send to client raw... lets reduce it to essentials
 	const base = config();
@@ -179,7 +190,11 @@ export function clientConfig (username, context) {
 
 
 	return {
-		config: Object.assign({}, base, cfg),//used only on server
+		//used only on server
+		config: Object.assign({}, cfg, {
+			nodeInterface: dontUseMe,
+			nodeService: context[ServiceStash] || noServiceAndThereShouldBe
+		}),
 		html:
 			'\n<script type="text/javascript">\n' +
 			'window.$AppConfig = ' + JSON.stringify(cfg) +
@@ -187,25 +202,13 @@ export function clientConfig (username, context) {
 	};
 }
 
-
-function dontUseMe () {
-	throw new Error(
-		'Use the Service to make your requests. ' +
-		'The interface is not meant to be used directly ' +
-		'anymore. (So we can centrally manage request contexts.)');
-}
-
-function noServiceAndThereShouldBe () {
-	throw new Error('No Service.');
-}
-
 export function nodeConfigAsClientConfig (cfg, context) {
 	return {
 		html: '',
 		config: Object.assign({}, cfg, {
 			username: context.username,
-			nodeInterface: dontUseMe,
 			siteName: getSite(context[SiteName]),
+			nodeInterface: dontUseMe,
 			nodeService: context[ServiceStash] || noServiceAndThereShouldBe
 		})
 	};
