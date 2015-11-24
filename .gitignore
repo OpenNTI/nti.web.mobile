@@ -1,6 +1,7 @@
 dist
 stage
 data
+node_modules
 src/main/querybrowser/etc
 src/main/querybrowser/lib
 src/main/querybrowser/graphiql
