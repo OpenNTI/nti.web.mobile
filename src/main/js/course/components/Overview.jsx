@@ -43,13 +43,18 @@ export default React.createClass({
 		let href = this.makeHref(outlineId);
 		let id = this.getOutlineID();
 
-		return course.getOutlineNode(id).then(node=>({
-			label: node.title,
-			ntiid: node.getContentId(),
-			ref: node.ref,
-			scope: node,//for UGD
-			href
-		}));
+		return course.getOutlineNode(id)
+			.then(node=>({
+				label: node.title,
+				ntiid: id,
+				ref: node.ref,
+				scope: node,//for UGD
+				href
+			}),
+			//error
+			() => {
+				console.warn('Could not find outline node: %s in course: ', id, course.getID());
+			});
 	},
 
 

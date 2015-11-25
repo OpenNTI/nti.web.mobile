@@ -38,12 +38,17 @@ export default React.createClass({
 		let {outlineId, course} = this.props;
 
 		let id = decodeFromURI(outlineId);
-		return course.getOutlineNode(id).then(node=>({
-			ntiid: node.getID(),
-			label: node.label,
-			// ref: node.ref,
-			href: this.courseHref(course.getID(), LESSONS) + node.ref + '/'
-		}));
+		return course.getOutlineNode(id)
+			.then(node=>({
+				ntiid: id,
+				label: node.label,
+				// ref: node.ref,
+				href: this.courseHref(course.getID(), LESSONS) + node.ref + '/'
+			}),
+			//error
+			() => {
+				console.warn('Could not find outline node: %s in course: ', id, course.getID());
+			});
 
 	},
 
