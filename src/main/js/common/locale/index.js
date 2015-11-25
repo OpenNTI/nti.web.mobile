@@ -10,7 +10,8 @@ const locale = counterpart.getLocale();
 if (siteName && siteName !== 'unknown') {
 	console.debug('Site Locale: %s.%s', siteName, locale);
 
-	let onceLoaded = translation => {
+	let onceLoaded = moduleExports => {
+		let {default: translation} = moduleExports;
 		counterpart.registerTranslations(locale, translation);
 		counterpart.emit('localechange', locale, locale);
 	};
