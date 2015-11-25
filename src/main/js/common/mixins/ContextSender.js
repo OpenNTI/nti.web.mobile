@@ -1,6 +1,11 @@
+import logger from 'debug';
+
 import Contributor, {ContextParent} from './ContextContributor';
 
 import * as Actions from 'navigation/Actions';
+
+const debug = logger('ContextSender:debug');
+const warn = logger('ContextSender:warn');
 
 const RegisterChild = 'context:child:register';
 const UnregisterChild = 'context:child:unregister';
@@ -30,9 +35,9 @@ export default {
 
 	[notify] () {
 		let children = this[Children] || {size: 0};
-		// console.debug('Wants to Notify', children.size, this.constructor.displayName);
+		debug('Wants to Notify', children.size, this.constructor.displayName);
 		if (children.size === 0 && this.isMounted()) {
-			// console.debug('Notify', this.constructor.displayName, this.isMounted());
+			debug('Notify', this.constructor.displayName, this.isMounted());
 			let context = this[CONTEXT_DATA];
 			if (context) {
 				Actions.setPageSource(...context);
@@ -46,7 +51,7 @@ export default {
 	componentDidMount () {
 		if (!this.getContext) {
 			this.getContext = ()=> Promise.resolve([]);
-			//console.warn('Missing getContext implementation, adding empty no-op to %s', this.constructor.displayName);
+			warn('Missing getContext implementation, adding empty no-op to %s', this.constructor.displayName);
 		}
 
 		let parent = this.context[ContextParent];
@@ -60,7 +65,7 @@ export default {
 
 
 	componentDidUpdate () {
-		// console.debug('DidUp', this.constructor.displayName);
+		debug('DidUp', this.constructor.displayName);
 		this[notify]();
 	},
 
@@ -71,7 +76,7 @@ export default {
 			parent[UnregisterChild](this);
 		}
 		delete this[CONTEXT_DATA];
-		// console.debug('WillUnMount', this.constructor.displayName);
+		debug('WillUnMount', this.constructor.displayName);
 	},
 
 
