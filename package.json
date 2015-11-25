@@ -4,6 +4,10 @@
   "description": "NextThought web application",
   "author": "NextThought",
   "private": true,
+  "engines": {
+      "node": ">=5.0.0"
+      "npm": ">=3.3.0"
+  },
   "repository": {
     "type": "git",
     "url": "ssh://repos.nextthought.com/nti.web.mobile"
