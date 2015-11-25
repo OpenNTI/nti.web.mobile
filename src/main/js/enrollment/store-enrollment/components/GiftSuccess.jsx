@@ -40,13 +40,18 @@ export default React.createClass({
 	},
 
 	render () {
-		const {purchasable, purchaseattempt, onDone, doneLink} = this.props;
+		const {purchasable, purchaseattempt, doneLink} = this.props;
 		const {title} = purchasable;
 		const {receiver, sender, redemptionCode, transactionID} = purchaseattempt || {};
 		const {VendorInfo: {StartDate} = {}} = purchasable || {};
 
 		const date = DateTime.format(StartDate);
 		const support = siteString('GIFTSUPPORT');
+
+		let {onDone} = this.props;
+		if (typeof onDone !== 'function') {
+			onDone = void 0;
+		}
 
 		let alert;
 		let infoKey;
@@ -58,9 +63,6 @@ export default React.createClass({
 			alert = t('alert');
 		}
 
-		if (typeof onDone !== 'function') {
-			onDone = void 0;
-		}
 
 		const {VendorThankYouPage: {thankYouURL} = {}} = purchaseattempt;
 
