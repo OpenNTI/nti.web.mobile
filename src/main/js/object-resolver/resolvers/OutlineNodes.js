@@ -32,7 +32,7 @@ export default class OutlineNodesResolver {
 				'course',
 				encodeForURI(path[0][0].getID()),
 				'lessons',
-				encodeForURI(this.node.getID()),
+				encodeForURI(this.node.getContentId()),
 				'/'
 			);
 		});

@@ -18,7 +18,7 @@ const MIME_TYPES = {
 	'contentpackagebundle': 'contentpackage',
 
 	'courses.courseinstance': (o) => `/course/${encode(o.getID())}/`,
-	'courses.courseoutlinecontentnode': (o) => `/lessons/${encode(o.getID())}/`,
+	'courses.courseoutlinecontentnode': (o) => `/lessons/${encode(o.getContentId())}/`,
 	'community': (o) => `/profile/${encodeURIComponent(o.getID())}/activity/`,
 	'dynamicfriendslist': 'community',
 	'forums.dflboard': 'forums.communityboard',
