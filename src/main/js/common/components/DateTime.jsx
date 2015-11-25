@@ -8,6 +8,13 @@ import jstz from 'jstimezonedetect';
 export default React.createClass({
 	displayName: 'DateTime',
 
+	statics: {
+		format (date, pattern = 'LL') {
+			const tz = jstz.determine().name();
+			return date && moment(new Date(date)).tz(tz).format(pattern);
+		}
+	},
+
 	propTypes: {
 		date: React.PropTypes.any,//Date
 		relativeTo: React.PropTypes.any,//Date

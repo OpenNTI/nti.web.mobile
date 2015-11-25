@@ -1,8 +1,7 @@
 import React from 'react';
 
-import DateMixin from 'enrollment/mixins/Dates';
-
 import LocalizedHTML from 'common/components/LocalizedHTML';
+import DateTime from 'common/components/DateTime';
 
 import Pricing from './Pricing';
 import {resetProcess} from '../Actions';
@@ -16,7 +15,6 @@ const siteString = scoped('COURSE.CONTACTINFO');
 
 export default React.createClass({
 	displayName: 'GiftSuccess',
-	mixins: [DateMixin],
 
 	propTypes: {
 		purchasable: React.PropTypes.object,
@@ -42,15 +40,16 @@ export default React.createClass({
 	},
 
 	render () {
-		let {purchasable, purchaseattempt, onDone, doneLink} = this.props;
-		let {title} = purchasable;
-		let {receiver, sender, redemptionCode, transactionID} = purchaseattempt || {};
-		let {VendorInfo} = purchasable || {};
+		const {purchasable, purchaseattempt, onDone, doneLink} = this.props;
+		const {title} = purchasable;
+		const {receiver, sender, redemptionCode, transactionID} = purchaseattempt || {};
+		const {VendorInfo: {StartDate} = {}} = purchasable || {};
 
-		let date = this.getDate(VendorInfo && VendorInfo.StartDate);
+		const date = DateTime.format(StartDate);
+		const support = siteString('GIFTSUPPORT');
+
 		let alert;
 		let infoKey;
-		let support = siteString('GIFTSUPPORT');
 
 		if (receiver) {
 			infoKey = 'toRecipient';
