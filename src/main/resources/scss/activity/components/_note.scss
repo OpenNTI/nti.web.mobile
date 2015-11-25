@@ -82,6 +82,10 @@
 		border: none;
 		margin: 0;
 
+		img + .missing-content {
+			margin-left: 3.5rem;
+		}
+
 		.missing-content {
 			margin: 1rem 0;
 		}
