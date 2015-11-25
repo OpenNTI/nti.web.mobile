@@ -57,7 +57,7 @@ export default React.createClass({
 
 		resolve(props)
 			.catch(e => console.warn(e) || DEFAULT)
-			.then(x => this.setState({
+			.then(x => this.isMounted() && this.setState({
 				entity: x,
 				color: this.getColorClass(x),
 				loading: false
