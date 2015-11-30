@@ -8,7 +8,7 @@ import {
 
 export function preflightAndSubmit (data) {
 	dispatch(PREFLIGHT_AND_SUBMIT, { data });
-},
+}
 
 export function requestConcurrentEnrollment (data) {
 	dispatch(REQUEST_CONCURRENT_ENROLLMENT, { data });
