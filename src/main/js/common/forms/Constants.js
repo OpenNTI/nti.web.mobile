@@ -9,7 +9,7 @@ export const FIELD_VALUES_REMOVED = 'forms:Field Value Removed';
 export const AVAILABLE_FIELDS_CHANGED = 'forms:Available Fields Changed';
 
 /**
-	Constants for users of the RenderFormConfix mixin to declare event handlers, as in:
+	Constants for users of the RenderFormConfig mixin to declare event handlers, as in:
 	[ON_CHANGE] (event) { ... }
 	[ON_BLUR] (event) { ... }
 	[ON_FOCUS] (event) { ... }
