@@ -15,6 +15,11 @@ function renderVideoWidget (_, props) {
 	return React.createElement(Video, {src: widget.embedURL, context: []});
 }
 
+renderVideoWidget.propTypes = {
+	widget: React.propTypes.object.isRequired
+};
+
+
 
 function renderWhiteboardWidget (_, props) {
 	let {widget, id} = props;
@@ -23,3 +28,8 @@ function renderWhiteboardWidget (_, props) {
 
 	return React.createElement(Whiteboard, props);
 }
+
+renderWhiteboardWidget.propTypes = {
+	id: React.propTypes.string.isRequired,
+	widget: React.propTypes.object.isRequired
+};

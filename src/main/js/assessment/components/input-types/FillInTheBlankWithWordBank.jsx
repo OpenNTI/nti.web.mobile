@@ -118,7 +118,7 @@ export default React.createClass({
 
 
 	renderInput (tag, props) {
-		let {name} = props;
+		let {name} = props; //eslint-disable-line react/prop-types
 		return (
 			<DropTarget accepts={this.state.PartLocalDNDToken}
 				tag="span" onDrop={this.onDrop}

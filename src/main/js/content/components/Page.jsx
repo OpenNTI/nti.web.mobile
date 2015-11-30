@@ -13,6 +13,7 @@ export default React.createClass({
 	displayName: 'course:Page',
 
 	propTypes: {
+		contentPackage: React.PropTypes.object.isRequired,
 		children: React.PropTypes.any
 	},
 

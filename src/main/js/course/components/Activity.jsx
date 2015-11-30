@@ -19,6 +19,7 @@ export default React.createClass({
 	mixins: [ContextSender, NavigatableMixin, ContextParent],
 
 	propTypes: {
+		filterParams: React.PropTypes.object,
 		course: React.PropTypes.object.isRequired
 	},
 

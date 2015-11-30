@@ -14,6 +14,7 @@ export default React.createClass({
 	mixins: [CatalogAccessor, ContextSender],
 
 	propTypes: {
+		filter: React.PropTypes.object,
 		list: React.PropTypes.oneOfType([
 			React.PropTypes.array,
 			React.PropTypes.shape({

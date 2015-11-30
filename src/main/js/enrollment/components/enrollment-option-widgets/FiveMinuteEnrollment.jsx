@@ -20,7 +20,9 @@ export default React.createClass({
 
 		// catalogEntry is only used by this component to check EndDate to see if the course is archived. We shouldn't
 		// have to do this because available/enabled should be false. We're awaiting a server change for that.
-		catalogEntry: React.PropTypes.object.isRequired
+		catalogEntry: React.PropTypes.object.isRequired,
+
+		enrollmentOption: React.PropTypes.object.isRequired //Model with a 'fetchLink' method
 	},
 
 	statics: {

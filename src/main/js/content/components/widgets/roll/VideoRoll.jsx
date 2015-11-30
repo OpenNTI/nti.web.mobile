@@ -33,6 +33,7 @@ export default React.createClass({
 	},
 
 	propTypes: {
+		contentPackage: React.PropTypes.object.isRequired,
 		item: React.PropTypes.object
 	},
 

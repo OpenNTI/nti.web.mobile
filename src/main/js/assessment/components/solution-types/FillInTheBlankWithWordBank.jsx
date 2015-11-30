@@ -44,7 +44,7 @@ export default React.createClass({
 
 
 	renderInput (tag, props) {
-		let {name} = props;
+		let {name} = props;//eslint-disable-line react/prop-types
 		return (
 			<span className="drop target">
 				<span className="match blank dropzone" data-dnd>

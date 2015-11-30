@@ -40,6 +40,10 @@ export default React.createClass({
 		}
 	},
 
+	propTypes: {
+		item: React.PropTypes.object.isRequired
+	},
+
 
 	render () {
 		let {props} = this;

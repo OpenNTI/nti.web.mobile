@@ -35,7 +35,7 @@ const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';
 
 const widgets = {
 	['application/vnd.nextthought.embeddedvideo'] (_, props) {
-		let {widget} = props;
+		let {widget} = props; //eslint-disable-line react/prop-types
 		return React.createElement(Video, {src: widget.embedURL});
 	}
 };

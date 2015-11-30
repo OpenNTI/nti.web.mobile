@@ -19,7 +19,9 @@ export default React.createClass({
 	propTypes: {
 		content: React.PropTypes.string.isRequired,
 
-		renderCustomWidget: React.PropTypes.func
+		renderCustomWidget: React.PropTypes.func,
+
+		strategies: React.PropTypes.object
 	},
 
 
@@ -77,10 +79,11 @@ export default React.createClass({
 	renderWidget (tagName, props, children) {
 		props = props || {};//ensure we have an object.
 
-		//TODO: Is it known internally? Renderit directly.
-		let {id} = props;
+		let {id} = props; //eslint-disable-line react/prop-types
 		let {widgets} = this.state;
 		let {renderCustomWidget} = this.props;
+
+		//TODO: Is it known internally? Renderit directly.
 
 		let widget = (widgets || {})[id] || {};
 

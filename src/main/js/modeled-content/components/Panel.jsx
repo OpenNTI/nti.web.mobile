@@ -143,7 +143,7 @@ export default React.createClass({
 		props = props || {};//ensure we have an object.
 
 		//TODO: Is it known internally? Render it directly.
-		let {id} = props;
+		let {id} = props;//eslint-disable-line react/prop-types
 		let widget = (this.state.widgets || {})[id] || {};
 
 		props = Object.assign({}, props, {widget});

@@ -43,7 +43,8 @@ let Source = React.createClass({
 
 
 	propTypes: {
-		source: React.PropTypes.any.isRequired
+		source: React.PropTypes.any.isRequired,
+		autoPlay: React.PropTypes.bool
 	},
 
 
