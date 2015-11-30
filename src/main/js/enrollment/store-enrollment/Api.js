@@ -52,7 +52,7 @@ export function getToken (stripePublicKey, data) {
 
 
 export function submitPayment (data) {
-	let {stripeToken, purchasable, pricing, giftInfo} = data;
+	let {stripeToken, purchasable, couponInfo, giftInfo} = data;
 
 	let linkRel = giftInfo ? 'gift_stripe_payment' : 'post_stripe_payment';
 	let pollUrl = giftInfo ? '/dataserver2/store/get_gift_purchase_attempt' : '/dataserver2/store/get_purchase_attempt';
@@ -69,13 +69,13 @@ export function submitPayment (data) {
 		payload = Object.assign(payload, giftInfo);
 	}
 
-	if (pricing) {
-		if (pricing.coupon != null) {
-			payload.coupon = pricing.coupon;
+	if (couponInfo) {
+		if (couponInfo.coupon != null) {
+			payload.coupon = couponInfo.coupon;
 		}
 
-		if (pricing.expected_price != null) {
-			payload.expectedAmount = pricing.expected_price;
+		if (couponInfo.expected_price != null) {
+			payload.expectedAmount = couponInfo.expected_price;
 		}
 	}
 
