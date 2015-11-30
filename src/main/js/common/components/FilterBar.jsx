@@ -23,7 +23,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<div className="grid-container">
+			<div>
 				<h2>{this.props.title}</h2>
 				{this.renderFilterBar()}
 			</div>
@@ -34,7 +34,7 @@ export default React.createClass({
 	renderFilterBar  () {
 		let {props: {filters = []}} = this;
 		return filters.length === 0 ? null : (
-			<ul className="button-group filters">
+			<ul className="filter-bar">
 				{filters.map(this.renderFilterLink)}
 			</ul>
 		);
@@ -50,7 +50,7 @@ export default React.createClass({
 
 		return (
 			<li key={name} className={isActive ? 'active' : null}>
-				<Link className="tiny button" href={`/${kind}`}>
+				<Link href={`/${kind}`}>
 					<span className="filtername">{name}</span>
 					{' '/*preserves the space between spans*/}
 					<span className="count">{this.getItemCount(filter)}</span>

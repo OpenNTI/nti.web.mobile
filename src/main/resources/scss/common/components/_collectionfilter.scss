@@ -1,53 +1,41 @@
 
-.button-group.filters {
-	text-align:center;
-	li {
-		float: none;
-	}
-	.button {
-		background-color: white;
-		color: $primary-color;
-		padding-right:.75rem;
-		padding-left:.75rem;
+.filter-bar {
+	list-style: none;
+	margin: 0 -5000px 1rem;
+	padding-left: 5000px;
+	background: #efefef;
+    box-shadow: inset 0 0 0 1px #e3e3e3;
+	font-size: .875rem;
+	font-weight: 600;
+
+	& > * {
+		float: left;
+		padding: .5rem 1rem;
+		text-transform: uppercase;
+		box-shadow: 1px 0 0 0 #e3e3e3;
+		&.active {
+			background: $primary-color;
+			a {
+				color: white;
+			}
+		}
+		a {
+			color: $secondary-grey;
+		}
 		.count {
-			@include count-badge();
+			display: none;
 		}
 	}
-	.active .button, .active.button {
-		position:relative;
-		$opacity: .1;
-		$color: black;
-		&:before { //underline
-			content: '';
-			border-bottom: 1px solid $color;
-			position: absolute;
-			width: 80%;
-			margin-left:10%;
-			bottom: 3px;
-			opacity: $opacity;
-			left: 0;
-		}
-		&:after { //arrow
-			$arrowsize:1em;
-			content:'';
-			border:($arrowsize/2) solid transparent;
-			position:absolute;
-			bottom:4px;
-			left:50%;
-			margin-left:-($arrowsize/2);
-			border-bottom-color:$color;
-			opacity: $opacity;
-		}
+
+	&::after {
+		content: '';
+		display: table;
+		clear: both;
 	}
 }
 
-
 @media (max-width: 365px) {
-	.button-group.filters {
-		.button {
-			.count {
-				display: none; // hide the count to prevent wrapping.
-			}
-		}
+	.filter-bar {
+		font-size: .6875rem;
 	}
 }
