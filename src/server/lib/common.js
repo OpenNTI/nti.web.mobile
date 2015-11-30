@@ -135,7 +135,7 @@ export function config () {
 	if (env[process.env.NODE_ENV] != null) {
 		logger.info(`In ${process.env.NODE_ENV} mode`);
 	} else {
-		logger.error('In default "development" mode. Consider seting NODE_ENV="production"');
+		logger.error('In default "development" mode. Consider setting NODE_ENV="production"');
 	}
 
 	if (serverHost || serverPort) {
