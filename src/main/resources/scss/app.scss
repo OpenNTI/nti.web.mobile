@@ -97,6 +97,7 @@ body {
 }
 
 html, body {
+	height: auto;
 	width: 100%;
 	overflow-x: hidden;
 }
@@ -129,6 +130,7 @@ a {
 
 .scroll-lock {
 	&, & > body {
+		height: 100%;
 		overflow: hidden !important;
 	}
 }
