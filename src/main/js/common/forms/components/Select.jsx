@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Actions from '../Actions';
+import {loadSelectOptionsFromUserLinkRel} from '../Actions';
 import Store from '../Store';
 import * as Constants from '../Constants';
 import Loading from 'common/components/LoadingInline';
@@ -62,7 +62,7 @@ export default React.createClass({
 	loadOptions () {
 		let link = this.props.optionsLink || {};
 		if (link.type === 'rel' && link.rel) {
-			Actions.loadSelectOptionsFromUserLinkRel(link.rel);
+			loadSelectOptionsFromUserLinkRel(link.rel);
 		}
 		else {
 			throw new Error(

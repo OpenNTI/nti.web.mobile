@@ -14,7 +14,7 @@ import {scoped} from 'common/locale';
 import _formConfig from '../configs/FiveMinuteEnrollmentForm';
 import Autopopulator from '../Autopopulator';
 
-import Actions from '../Actions';
+import {requestConcurrentEnrollment, preflightAndSubmit} from '../Actions';
 import Store from '../Store';
 
 import {
@@ -143,10 +143,10 @@ export default React.createClass({
 				busy: true
 			});
 			if (fields[IS_CONCURRENT_FORM]) {
-				Actions.requestConcurrentEnrollment(fields);
+				requestConcurrentEnrollment(fields);
 			}
 			else {
-				Actions.preflightAndSubmit(fields);
+				preflightAndSubmit(fields);
 			}
 		}
 	},

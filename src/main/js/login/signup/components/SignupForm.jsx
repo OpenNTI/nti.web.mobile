@@ -19,7 +19,7 @@ import indexArrayByKey from 'nti.lib.interfaces/utils/array-index-by-key';
 import UserAgreement from 'terms/components/UserAgreement';
 
 import Store from '../Store';
-import Actions from '../Actions';
+import {clearErrors, preflightAndCreateAccount} from '../Actions';
 
 
 const FIELDS = [
@@ -88,8 +88,8 @@ export default React.createClass({
 
 		this.setState({ busy: true });
 
-		Actions.clearErrors();
-		Actions.preflightAndCreateAccount({fields});
+		clearErrors();
+		preflightAndCreateAccount({fields});
 		return false;
 	},
 
@@ -192,7 +192,7 @@ export default React.createClass({
 					<UserAgreement />
 
 					<div className="errors">
-						<ReactCSSTransitionGroup transitionName="fadeOutIn" 
+						<ReactCSSTransitionGroup transitionName="fadeOutIn"
 							transitionEnterTimeout={500}
 							transitionLeaveTimeout={500}>
 							{Object.keys(errors).map(ref =>

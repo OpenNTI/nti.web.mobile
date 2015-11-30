@@ -3,38 +3,37 @@ import * as Constants from './Constants';
 
 const bufferTime = 500;
 
+//TODO: Move the "work" into these actions! The "store" should have
+// NO "executable/actionable" code...just data organizational code.
 
-export default {
-
-
-	preflight: function preflight (data) {
-		clearTimeout(preflight.buffer);
-		preflight.buffer = setTimeout(() => {
-			AppDispatcher.handleViewAction({
-				type: Constants.PREFLIGHT,
-				fields: (data && data.fields)
-			});
-		}, bufferTime);
-	},
-
-	preflightAndCreateAccount (data) {
+//Unreferenced?
+export function preflight (data) {
+	clearTimeout(preflight.buffer);
+	preflight.buffer = setTimeout(() => {
 		AppDispatcher.handleViewAction({
-			type: Constants.PREFLIGHT_AND_CREATE_ACCOUNT,
+			type: Constants.PREFLIGHT,
 			fields: (data && data.fields)
 		});
-	},
+	}, bufferTime);
+}
 
-	createAccount (data) {
-		AppDispatcher.handleViewAction({
-			type: Constants.CREATE_ACCOUNT,
-			fields: (data && data.fields)
-		});
-	},
+export function preflightAndCreateAccount (data) {
+	AppDispatcher.handleViewAction({
+		type: Constants.PREFLIGHT_AND_CREATE_ACCOUNT,
+		fields: (data && data.fields)
+	});
+}
 
-	clearErrors () {
-		AppDispatcher.handleViewAction({
-			type: Constants.CLEAR_ERRORS
-		});
-	}
+//Unreferenced?
+export function createAccount (data) {
+	AppDispatcher.handleViewAction({
+		type: Constants.CREATE_ACCOUNT,
+		fields: (data && data.fields)
+	});
+}
 
-};
+export function clearErrors () {
+	AppDispatcher.handleViewAction({
+		type: Constants.CLEAR_ERRORS
+	});
+}

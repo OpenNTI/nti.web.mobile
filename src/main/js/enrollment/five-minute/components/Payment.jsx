@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {scoped} from 'common/locale';
-import Actions from '../Actions';
+import {doExternalPayment} from '../Actions';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
@@ -53,7 +53,7 @@ export default React.createClass({
 		let returnUrl = this.buildHref('../enroll/apply/paymentcomplete/');
 		console.log('UPay return URL: %s', returnUrl);
 
-		Actions.doExternalPayment({
+		doExternalPayment({
 			link: this.props.paymentLink,
 			ntiCrn: this.props.ntiCrn,
 			ntiTerm: this.props.ntiTerm,
