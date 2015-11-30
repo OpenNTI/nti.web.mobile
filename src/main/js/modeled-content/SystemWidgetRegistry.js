@@ -16,7 +16,7 @@ function renderVideoWidget (_, props) {
 }
 
 renderVideoWidget.propTypes = {
-	widget: React.propTypes.object.isRequired
+	widget: React.PropTypes.object.isRequired
 };
 
 
@@ -30,6 +30,6 @@ function renderWhiteboardWidget (_, props) {
 }
 
 renderWhiteboardWidget.propTypes = {
-	id: React.propTypes.string.isRequired,
-	widget: React.propTypes.object.isRequired
+	id: React.PropTypes.string.isRequired,
+	widget: React.PropTypes.object.isRequired
 };
