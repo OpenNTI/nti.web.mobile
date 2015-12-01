@@ -1,19 +1,24 @@
 
-.button-group.filters {
+.filters {
 	text-align:center;
+	list-style: none;
+	margin: .75rem 0 1.25rem 0;
+	font-size: .6875rem;
 	li {
 		float: none;
+		display: inline-block;
 	}
-	.button {
+	a {
 		background-color: white;
 		color: $primary-color;
 		padding-right:.75rem;
 		padding-left:.75rem;
+		padding-bottom: .75rem;
 		.count {
 			@include count-badge();
 		}
 	}
-	.active .button, .active.button {
+	.active {
 		position:relative;
 		$opacity: .1;
 		$color: black;

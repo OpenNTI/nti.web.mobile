@@ -13,8 +13,8 @@ export default React.createClass({
 		let Content = this.props.pageContent;
 
 		return (
-			<div>
-				<Tabs className="assignments-nav button-group filters" />
+			<div className="assignments-page-frame">
+				<Tabs className="assignments-nav filters" />
 				<Content {...this.props} />
 			</div>
 		);
