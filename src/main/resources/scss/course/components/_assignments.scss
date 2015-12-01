@@ -223,6 +223,7 @@
 @media (min-width: 1000px) {
 	.assignments-page-frame {
 		display: flex;
+		min-height: 100vh;
 		.assignments-view {
 			flex: 1 1 auto;
 		}
