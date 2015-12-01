@@ -1,4 +1,47 @@
 
+.button-group.filters {
+	text-align:center;
+	li {
+		float: none;
+	}
+	.button {
+		background-color: white;
+		color: $primary-color;
+		padding-right:.75rem;
+		padding-left:.75rem;
+		.count {
+			@include count-badge();
+		}
+	}
+	.active .button, .active.button {
+		position:relative;
+		$opacity: .1;
+		$color: black;
+		&:before { //underline
+			content: '';
+			border-bottom: 1px solid $color;
+			position: absolute;
+			width: 80%;
+			margin-left:10%;
+			bottom: 3px;
+			opacity: $opacity;
+			left: 0;
+		}
+		&:after { //arrow
+			$arrowsize:1em;
+			content:'';
+			border:($arrowsize/2) solid transparent;
+			position:absolute;
+			bottom:4px;
+			left:50%;
+			margin-left:-($arrowsize/2);
+			border-bottom-color:$color;
+			opacity: $opacity;
+		}
+	}
+}
+
+
 .filter-bar {
 	list-style: none;
 	margin: 0 -5000px 1rem;
@@ -38,4 +81,13 @@
 	.filter-bar {
 		font-size: .6875rem;
 	}
+
+	.button-group.filters {
+		.button {
+			.count {
+				display: none; // hide the count to prevent wrapping.
+			}
+		}
+	}
+
 }
