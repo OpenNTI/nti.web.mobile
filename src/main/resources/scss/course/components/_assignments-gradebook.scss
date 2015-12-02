@@ -1,0 +1,18 @@
+.gradebook-table {
+	width: 100%;
+	thead {
+		background: none;
+		.column-heading {
+			font-size: .625rem;
+			color: $tertiary-grey;
+			text-transform: uppercase;
+		}
+	}
+	.avatar {
+		width: 32px;
+		height: 32px;
+		vertical-align: middle;
+		margin-right: .5em;
+	}
+
+}

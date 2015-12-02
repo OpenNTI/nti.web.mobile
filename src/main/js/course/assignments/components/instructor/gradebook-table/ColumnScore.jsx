@@ -1,18 +1,22 @@
 import React from 'react';
 
 export default React.createClass({
-	displayName: 'GradebookListItem',
+	displayName: 'GradebookColumnScore',
+
+	statics: {
+		label () {
+			return 'Score';
+		}
+	},
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired // UserGradeBookSummary object
 	},
 
+
 	render () {
-
-		const {item} = this.props;
-
 		return (
-			<li>{item.Username}</li>
+			<div>(score)</div>
 		);
 	}
 });
