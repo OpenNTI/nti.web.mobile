@@ -15,13 +15,13 @@ export default React.createClass({
 
 	row (item) {
 		return (
-			<tr key={item.username}>
+			<div className="gradebook-row" key={item.username}>
 				{COLUMNS.map(Col =>
-					<td className={Col.className} key={Col.label()}>
+					<div className={Col.className} key={Col.label()}>
 						<Col item={item}/>
-					</td>
+					</div>
 				)}
-			</tr>
+			</div>
 		);
 	},
 
@@ -30,18 +30,14 @@ export default React.createClass({
 		const {items} = this.props;
 
 		return (
-			<table className="gradebook-table">
-				<thead>
-					<tr>
-						{COLUMNS.map(Col =>
-							<th key={Col.label()}><div className="column-heading">{Col.label()}</div></th>
-						)}
-					</tr>
-				</thead>
-				<tbody>
-					{items.map((item) => this.row(item))}
-				</tbody>
-			</table>
+			<div className="gradebook">
+				<div className="gradebook-row headings">
+					{COLUMNS.map(Col =>
+						<div key={Col.label()} className="column-heading">{Col.label()}</div>
+					)}
+				</div>
+				{items.map((item) => this.row(item))}
+			</div>
 
 		);
 	}
