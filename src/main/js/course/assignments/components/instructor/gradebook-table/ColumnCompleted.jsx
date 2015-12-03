@@ -9,7 +9,8 @@ export default React.createClass({
 		label () {
 			return 'Completed';
 		},
-		className: 'col-completed'
+		className: 'col-completed',
+		sort: 'dateSubmitted'
 	},
 
 	propTypes: {

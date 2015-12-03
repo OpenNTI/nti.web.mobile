@@ -10,7 +10,8 @@ export default React.createClass({
 		label () {
 			return 'Student';
 		},
-		className: 'col-student'
+		className: 'col-student',
+		sort: 'LastName'
 	},
 
 	propTypes: {

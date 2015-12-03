@@ -6,7 +6,8 @@ export default React.createClass({
 	statics: {
 		label () {
 			return 'Score';
-		}
+		},
+		sort: 'Grade'
 	},
 
 	propTypes: {
