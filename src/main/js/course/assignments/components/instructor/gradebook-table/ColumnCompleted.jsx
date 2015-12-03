@@ -21,7 +21,9 @@ export default React.createClass({
 	render () {
 		const {props: {item: {HistoryItemSummary}}} = this;
 		return (
-			<div><DateTime date={HistoryItemSummary.getSubmissionCreatedTime()} format="MM/DD" /></div>
+			<div>
+				{HistoryItemSummary && <DateTime date={HistoryItemSummary.getSubmissionCreatedTime()} format="MM/DD" />}
+			</div>
 		);
 	}
 });
