@@ -24,8 +24,8 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Avatar entity={item.user} />
-				<DisplayName entity={item.user} />
+				<Avatar entity={item.user} suppressProfileLink />
+				<DisplayName entity={item.user} suppressProfileLink />
 			</div>
 		);
 	}
