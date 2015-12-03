@@ -18,7 +18,7 @@ export function setFilter (filter) {
 }
 
 export function load (assignment) {
-	assignment.fetchLinkParsed('GradeBookByAssignment', {filter: Store.filter, sortOn: Store.sort})
+	assignment.fetchLinkParsed('GradeBookByAssignment', {filter: Store.filter, sortOn: Store.sort, sortOrder: Store.sortOrder})
 		.then(gradebookByAssignment => {
 			dispatch(GRADEBOOK_BY_ASSIGNMENT_LOADED, {gradebook: gradebookByAssignment});
 		});
