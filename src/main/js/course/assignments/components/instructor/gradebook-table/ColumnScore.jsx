@@ -16,8 +16,11 @@ export default React.createClass({
 
 
 	render () {
+		const {props: {item: {HistoryItemSummary}}} = this;
 		return (
-			<div>(score)</div>
+			<div>{
+					HistoryItemSummary && <div>{HistoryItemSummary.grade.value}</div>
+				}</div>
 		);
 	}
 });
