@@ -1,6 +1,9 @@
 import React from 'react';
+import cx from 'classnames';
 
+import {SORT_ASC, SORT_DESC} from '../../GradebookConstants';
 import {setSort} from '../../GradebookActions';
+import Store from '../../GradebookStore';
 
 import Student from './gradebook-table/ColumnStudent';
 import Completed from './gradebook-table/ColumnCompleted';
@@ -34,13 +37,33 @@ export default React.createClass({
 	render () {
 
 		const {items} = this.props;
+		const {sort, sortOrder} = Store;
 
 		return (
 			<div className="gradebook">
 				<div className="gradebook-row headings">
-					{COLUMNS.map(Col =>
-						<div key={Col.label()} onClick={this.setSort.bind(this, Col.sort)} className="column-heading">{Col.label()}</div>
-					)}
+					{
+						COLUMNS.map(Col => {
+							const isSortCol = (sort === Col.sort);
+							const classes = cx(
+								'heading',
+								{
+									'sorted': isSortCol,
+									'asc': isSortCol && sortOrder === SORT_ASC,
+									'desc': isSortCol && sortOrder === SORT_DESC
+								}
+							);
+							return (
+								<div
+									key={Col.label()}
+									onClick={this.setSort.bind(this, Col.sort)}
+									className={cx('column-heading', Col.className)}>
+										<span className={classes}>{Col.label()}</span>
+										<span className="sort-arrow" />
+								</div>
+							);
+						})
+					}
 				</div>
 				{items.map((item) => this.row(item))}
 			</div>

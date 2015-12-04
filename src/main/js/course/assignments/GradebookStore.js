@@ -45,8 +45,12 @@ class Store extends StorePrototype {
 	}
 
 	[SetFilter] (payload) {
-		this[filter] = payload.action.data.filter;
-		this[Clear]();
+		const current = this.filter;
+		const value = payload.action.data.filter;
+		if (current !== value) {
+			this[filter] = value;
+			this[Clear]();
+		}
 		// this.emitChange({type: FILTER_CHANGED});
 	}
 
@@ -84,7 +88,7 @@ class Store extends StorePrototype {
 	}
 
 	get sort () {
-		return this[sort];
+		return this[sort] || 'LastName';
 	}
 
 	get sortOrder () {

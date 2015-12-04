@@ -1,20 +1,23 @@
 import React from 'react';
 
-import {setFilter} from '../../GradebookActions';
+import FilterMenu from './FilterMenu';
 
 export default React.createClass({
 	displayName: 'instructor:AssignmentHeader',
 
-	setFilter (value) {
-		setFilter(value);
+	propTypes: {
+		assignment: React.PropTypes.object.isRequired
 	},
 
 	render () {
+
+		const {assignment} = this.props;
+
 		return (
-			<ul>
-				<li onClick={this.setFilter.bind(this, 'Open')}>Open</li>
-				<li onClick={this.setFilter.bind(this, 'ForCredit')}>Enrolled</li>
-			</ul>
+			<div className="gradebook-assignment-header">
+				<div className="gradebook-assignment-title">{assignment.title}</div>
+				<FilterMenu />
+			</div>
 		);
 	}
 });

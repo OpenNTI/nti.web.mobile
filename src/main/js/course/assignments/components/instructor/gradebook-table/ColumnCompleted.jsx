@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 
 import DateTime from 'common/components/DateTime';
 
@@ -20,9 +21,13 @@ export default React.createClass({
 
 	render () {
 		const {props: {item: {HistoryItemSummary}}} = this;
+		const completedTime = HistoryItemSummary && HistoryItemSummary.getSubmissionCreatedTime();
+		const classes = cx({
+			'complete': !!completedTime
+		});
 		return (
-			<div>
-				{HistoryItemSummary && <DateTime date={HistoryItemSummary.getSubmissionCreatedTime()} format="MM/DD" />}
+			<div className={classes}>
+				{completedTime && <DateTime date={completedTime} format="MM/DD" />}
 			</div>
 		);
 	}

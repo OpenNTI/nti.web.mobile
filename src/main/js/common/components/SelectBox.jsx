@@ -7,7 +7,8 @@ export default React.createClass({
 	propTypes: {
 		options: React.PropTypes.array.isRequired,
 		value: React.PropTypes.any,
-		onChange: React.PropTypes.func
+		onChange: React.PropTypes.func,
+		className: React.PropTypes.string
 	},
 
 	getInitialState () {
@@ -57,10 +58,10 @@ export default React.createClass({
 
 		let {isOpen, selectedOption} = this.state;
 
-		let classes = cx('select-box', {'open': isOpen});
+		let classes = cx('select-box', this.props.className, {'open': isOpen});
 		let Tag = 'div';
 
-		let selectedItem = <li className="selected" onClick={this.toggle}>{selectedOption.label}</li>;
+		let selectedItem = <li className="selected" onClick={this.toggle}><span className="option-label">{selectedOption.label}</span></li>;
 
 		if (isOpen) {
 			return (
@@ -68,7 +69,7 @@ export default React.createClass({
 					<ul>
 					{selectedItem}
 					{this.props.options.filter(item => item !== selectedOption).map((option, index) =>
-						<li key={index} onClick={this.onClick.bind(this, option.value || option.label)}>{option.label}</li>
+						<li key={index} onClick={this.onClick.bind(this, option.value || option.label)}><span className="option-label">{option.label}</span></li>
 					)}
 					</ul>
 				</Tag>

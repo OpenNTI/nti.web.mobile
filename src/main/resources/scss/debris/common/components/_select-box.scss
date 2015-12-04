@@ -1,11 +1,16 @@
 .select-box {
 	position: relative;
-	& > ul {
-		position: absolute;
+	z-index: 999;
+	&.open > ul {
 		background: white;
+	}
+	& > ul {
+		margin: 0;
+		list-style: none;
+		position: absolute;
 		li:first-child {
 			position: relative;
-			padding-right: 1em;
+			padding-right: 2em;
 			&::after {
 				@extend %chevron-down;
 				position: absolute;

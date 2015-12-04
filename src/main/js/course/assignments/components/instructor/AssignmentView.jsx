@@ -47,6 +47,7 @@ export default React.createClass({
 	load (props = this.props) {
 		const {assignments, rootId} = props;
 		const assignment = assignments.getAssignment(decodeFromURI(rootId));
+		this.setState({assignment});
 		GradebookActions.load(assignment);
 	},
 
@@ -57,10 +58,11 @@ export default React.createClass({
 		}
 
 		const {gradeBookByAssignment} = GradebookStore;
+		const {assignment} = this.state;
 
 		return (
 			<div>
-				<AssignmentHeader />
+				<AssignmentHeader assignment={assignment} />
 				<GradebookTable items={gradeBookByAssignment.Items || []} />
 			</div>
 		);
