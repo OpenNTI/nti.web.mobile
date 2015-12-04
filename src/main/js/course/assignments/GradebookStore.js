@@ -1,5 +1,6 @@
 import {
 	FILTER_CHANGED,
+	GRADEBOOK_BY_ASSIGNMENT_LOAD_BEGIN,
 	GRADEBOOK_BY_ASSIGNMENT_LOADED,
 	GRADEBOOK_BY_ASSIGNMENT_UNLOADED,
 	SEARCH_CHANGED,
@@ -11,6 +12,7 @@ import {
 import StorePrototype from 'common/StorePrototype';
 
 const Clear = Symbol('unset:gradeBookByAssignment');
+const Flush = Symbol('flush');
 const SetFilter = Symbol('set:filter');
 const SetGradebook = Symbol('set:gradebook');
 const SetSearch = Symbol('set:search');
@@ -28,6 +30,7 @@ class Store extends StorePrototype {
 	constructor () {
 		super();
 		this.registerHandlers({
+			[GRADEBOOK_BY_ASSIGNMENT_LOAD_BEGIN]: Flush,
 			[GRADEBOOK_BY_ASSIGNMENT_LOADED]: SetGradebook,
 			[FILTER_CHANGED]: SetFilter,
 			[SEARCH_CHANGED]: SetSearch,
@@ -39,9 +42,16 @@ class Store extends StorePrototype {
 		return !!this[gradeBookByAssignment];
 	}
 
-	[Clear] () {
+	// same as Clear but doesn't emit a change event
+	[Flush] () {
+		this[Clear](false);
+	}
+
+	[Clear] (emitChange = true) {
 		delete this[gradeBookByAssignment];
-		this.emitChange({type: GRADEBOOK_BY_ASSIGNMENT_UNLOADED});
+		if(emitChange) {
+			this.emitChange({type: GRADEBOOK_BY_ASSIGNMENT_UNLOADED});
+		}
 	}
 
 	[SetFilter] (payload) {
