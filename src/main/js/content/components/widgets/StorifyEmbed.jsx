@@ -76,6 +76,7 @@ export default React.createClass({
 
 
 			// Storify's "Source Name" value is the owner and the story id...
+			// {"method":"resize","value":4147,"sourceName":"storify-using-the-storify-chrome-extension"}
 			// those are the first two path components.
 			sourceName = url.pathname.split('/').slice(0, 2).join('-');
 
