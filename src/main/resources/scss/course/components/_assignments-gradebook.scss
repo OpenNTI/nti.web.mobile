@@ -3,6 +3,7 @@
 	border-bottom: 1px solid #ddd;
 	padding: 1rem 0;
 	position: relative;
+	z-index: 99; // so the shadow isn't clipped by the table that follows
 	&::after {
 		content: '';
 		box-shadow: 0 -5px 15px 5px rgba(0,0,0,0.2);
@@ -53,8 +54,13 @@
 			padding: .5em 0;
 			border-top: 1px solid $quad-grey;
 			border-bottom: 1px solid $quad-grey;
-			$arrowsize: .5em; // sort arrow size
+			.heading {
+				display: inline-block;
+				overflow: hidden;
+				vertical-align: middle;
+			}
 			&.sorted {
+				$arrowsize: .5em; // sort arrow size
 				position: relative;
 				.sort-arrow {
 					margin-left: .25em;
@@ -79,6 +85,15 @@
 			}
 		}
 		.col-completed {
+			.heading {
+				color: transparent;
+				width: 1em;
+				&::before {
+					content: '√';
+					font-family: 'icomoon';
+					color: $tertiary-grey;
+				}
+			}
 			.complete {
 				position: relative;
 				width: 1.5rem;
