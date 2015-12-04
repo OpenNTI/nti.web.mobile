@@ -1,7 +1,13 @@
+.assignment-gradebook-wrapper {
+	max-width: 500px;
+	margin: 0 auto;
+}
+
 .gradebook-assignment-header {
+	margin: 0 -1000px;
+	padding: 1rem 1000px;
 	background: $quad-grey;
 	border-bottom: 1px solid #ddd;
-	padding: 1rem 0;
 	position: relative;
 	z-index: 99; // so the shadow isn't clipped by the table that follows
 	&::after {
@@ -37,6 +43,7 @@
 		font-size: .875rem;
 		& > * {
 			display: table-cell;
+			white-space: nowrap;
 			.avatar {
 				width: 32px;
 				height: 32px;
@@ -112,6 +119,15 @@
 					transform: translate3d(0,-50%,0);
 					color: rgba(0,0,0,.1);
 				}
+			}
+		}
+		.col-score {
+			width: 4em;
+			input {
+				display: inline;
+				width: 3em;
+				height: 2em;
+				margin: 0;
 			}
 		}
 	}

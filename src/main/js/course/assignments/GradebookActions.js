@@ -17,6 +17,10 @@ export function setFilter (filter) {
 	dispatch(FILTER_CHANGED, {filter});
 }
 
+export function setGrade (assignment, grade) {
+	console.deubg('setGrade', assignment, grade);
+}
+
 export function load (assignment) {
 	assignment.fetchLinkParsed('GradeBookByAssignment', {filter: Store.filter, sortOn: Store.sort, sortOrder: Store.sortOrder})
 		.then(gradebookByAssignment => {
