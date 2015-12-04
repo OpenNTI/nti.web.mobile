@@ -59,13 +59,6 @@ export default function getPage (render) {
 		template = 'Could not load page template.';
 	}
 
-	template = template.replace(
-		/<!--css:site-styles-->/,
-		//This path has to be the same depth as the mapped
-		'<link href="/resources/css/sites/current/site.css" ' +
-		'rel="stylesheet" type="text/css" id="site-override-styles"/>');
-
-
 
 	return function (basePath, req, scriptFilename, clientConfig) {
 		let u = url.parse(req.url);
