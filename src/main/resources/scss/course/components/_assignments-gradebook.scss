@@ -53,11 +53,11 @@
 			padding: .5em 0;
 			border-top: 1px solid $quad-grey;
 			border-bottom: 1px solid $quad-grey;
-			.heading {
-				$arrowsize: .5em; // sort arrow size
-				padding-right: $arrowsize * 2; // leave room for the sort arrow
-				&.sorted {
-					position: relative;
+			$arrowsize: .5em; // sort arrow size
+			&.sorted {
+				position: relative;
+				.sort-arrow {
+					margin-left: .25em;
 					&::after { // sort arrow
 						content: '';
 						width: 0;
@@ -65,16 +65,16 @@
 						border: $arrowsize solid transparent;
 						position: absolute;
 						top: 50%;
-						right: -$arrowsize/2;
+						// right: -$arrowsize/2;
 					}
-					&.asc::after {
-						border-bottom-color: inherit;
-						transform: translateY(-($arrowsize * 1.5));
-					}
-					&.desc::after {
-						border-top-color: inherit;
-						transform: translateY(-($arrowsize * .5));
-					}
+				}
+				&.asc .sort-arrow::after {
+					border-bottom-color: inherit;
+					transform: translateY(-($arrowsize * 1.5));
+				}
+				&.desc .sort-arrow::after {
+					border-top-color: inherit;
+					transform: translateY(-($arrowsize * .5));
 				}
 			}
 		}

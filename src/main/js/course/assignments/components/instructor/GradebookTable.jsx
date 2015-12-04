@@ -46,7 +46,8 @@ export default React.createClass({
 						COLUMNS.map(Col => {
 							const isSortCol = (sort === Col.sort);
 							const classes = cx(
-								'heading',
+								'column-heading',
+								Col.className,
 								{
 									'sorted': isSortCol,
 									'asc': isSortCol && sortOrder === SORT_ASC,
@@ -57,8 +58,8 @@ export default React.createClass({
 								<div
 									key={Col.label()}
 									onClick={this.setSort.bind(this, Col.sort)}
-									className={cx('column-heading', Col.className)}>
-										<span className={classes}>{Col.label()}</span>
+									className={classes}>
+										<span className="heading">{Col.label()}</span>
 										<span className="sort-arrow" />
 								</div>
 							);
