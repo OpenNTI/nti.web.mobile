@@ -90,7 +90,7 @@ export default React.createClass({
 		e.stopPropagation();
 
 		this.setState({splash: null});
-	}
+	},
 
 
 	render () {
