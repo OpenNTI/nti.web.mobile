@@ -2,7 +2,7 @@ import React from 'react';
 
 import Unknown from './Unknown';
 
-//`require.context` is a little WebPack magic :) --- dynamicly require all files the match the pattern /Icon.js(x?)$/
+//`require.context` is a little WebPack magic :) --- dynamicly require all files the match the pattern /.jsx$/
 const req = require.context('./', true, /.jsx$/);
 const WIDGETS = req.keys().map(m => req(m).default);
 
