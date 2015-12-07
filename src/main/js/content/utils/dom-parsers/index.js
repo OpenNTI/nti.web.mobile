@@ -23,7 +23,7 @@ export default {
 	'object[type*=naquestion]': parseDomObject,
 	'object[type*=napoll]': parseDomObject,
 
-	'object[type*=storify]': parseDomObject,
+	'object[type*=embeded\\2e widget]': parseDomObject,
 
 	'[itemprop*=nti-data-markup],[itemprop~=nti-slide-video]': parseFramedElement
 };

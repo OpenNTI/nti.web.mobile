@@ -2,24 +2,9 @@ import React from 'react';
 
 import Unknown from './Unknown';
 
-import Card from './Card';
-import ImageRoll from './roll/ImageRoll';
-import MarkupFrame from './MarkupFrame';
-import Question from './Question';
-import Video from './Video';
-import VideoRoll from './roll/VideoRoll';
-import StorifyEmbed from './StorifyEmbed';
-
-const WIDGETS = [
-	Unknown,
-	Card,
-	ImageRoll,
-	MarkupFrame,
-	Question,
-	Video,
-	VideoRoll,
-	StorifyEmbed
-];
+//`require.context` is a little WebPack magic :) --- dynamicly require all files the match the pattern /Icon.js(x?)$/
+const req = require.context('./', true, /.jsx$/);
+const WIDGETS = req.keys().map(m => req(m).default);
 
 export function getWidget (item, page, ownerProps) {
 	let Item = Unknown;
