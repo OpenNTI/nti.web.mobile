@@ -22,6 +22,14 @@ export function setGrade (assignment, grade) {
 	console.deubg('setGrade', assignment, grade);
 }
 
+export function excuseGrade () {
+	console.debug('excuse grade action not yet implemented');
+}
+
+export function resetAssignment () {
+	console.debug('reset assignment action not yet implemented');
+}
+
 export function load (assignment) {
 	dispatch(GRADEBOOK_BY_ASSIGNMENT_LOAD_BEGIN);
 	assignment.fetchLinkParsed('GradeBookByAssignment', {filter: Store.filter, sortOn: Store.sort, sortOrder: Store.sortOrder})

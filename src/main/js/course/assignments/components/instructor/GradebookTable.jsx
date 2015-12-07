@@ -9,8 +9,9 @@ import Student from './gradebook-table/ColumnStudent';
 import Completed from './gradebook-table/ColumnCompleted';
 import Score from './gradebook-table/ColumnScore';
 import Feedback from './gradebook-table/ColumnFeedback';
+import Actions from './gradebook-table/ColumnActions';
 
-const COLUMNS = [Student, Completed, Score, Feedback];
+const COLUMNS = [Student, Completed, Score, Feedback, Actions];
 
 export default React.createClass({
 	displayName: 'GradebookTable',
