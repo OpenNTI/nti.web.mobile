@@ -57,11 +57,13 @@ export default React.createClass({
 	render () {
 
 		const filterValue = Store.filter;
-		const selected = OPTIONS.find(option => option.value === filterValue);
+		const selectedOption = OPTIONS.find(option => option.value === filterValue);
+		const search = Store.search || '';
+		const menuLabel = search.length > 0 ? `Search ${selectedOption.label}: ${search}` : selectedOption.label;
 
 		return (
 			<div className="filter-menu-wrapper">
-				<div className="menu-label" onClick={this.showMenu}>{selected.label}</div>
+				<div className="menu-label" onClick={this.showMenu}>{menuLabel} <span className="count">({Store.count})</span></div>
 				{this.state.open && (
 					<TransitionGroup
 						transitionName="fadeOutIn"
@@ -72,7 +74,7 @@ export default React.createClass({
 					>
 						<ul key="filter-menu" className="filter-menu">
 							<li key="title" className="title">Display</li>
-							{OPTIONS.map(option => <li key={option.value} className={option === selected ? 'selected' : ''} onClick={this.optionClicked.bind(this, option)}>{option.label}</li>)}
+							{OPTIONS.map(option => <li key={option.value} className={option === selectedOption ? 'selected' : ''} onClick={this.optionClicked.bind(this, option)}>{option.label}</li>)}
 							<li key="search" className="search-item"><input defaultValue={Store.search} type="search" onChange={this.searchChanged} placeholder="Search Students"/></li>
 						</ul>
 					</TransitionGroup>

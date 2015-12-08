@@ -97,6 +97,11 @@ class Store extends StorePrototype {
 		return this[gradeBookByAssignment];
 	}
 
+	get count () {
+		let items = (this.gradeBookByAssignment || {}).Items || [];
+		return items.length;
+	}
+
 	get search () {
 		return this[search];
 	}
