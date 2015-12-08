@@ -1,5 +1,7 @@
 import React from 'react';
 
+import GradeBox from '../GradeBox';
+
 export default React.createClass({
 	displayName: 'GradebookColumnScore',
 
@@ -12,37 +14,21 @@ export default React.createClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired // UserGradeBookSummary object
-	},
-
-	onFocus (e) {
-		e.target.select();
-	},
-
-	onBlur (e) {
-		const {value} = e.target;
-		const existingValue = this.gradeValue();
-		if (existingValue !== value) {
-			this.gradeChanged(value);
-		}
-	},
-
-	gradeChanged (newValue) {
-		console.debug('grade changed', newValue);
-	},
-
-	gradeValue () {
-		const {props: {item: {HistoryItemSummary}}} = this;
-		return HistoryItemSummary && HistoryItemSummary.grade.value;
+		item: React.PropTypes.object.isRequired, // UserGradeBookSummary object
+		assignmentId: React.PropTypes.string.isRequired
 	},
 
 	render () {
+
+		const {props: {item: {HistoryItemSummary}}} = this;
+		const grade = HistoryItemSummary && HistoryItemSummary.grade.value;
+
 		return (
 			<div>
-				<input
-					defaultValue={this.gradeValue()}
-					onBlur={this.onBlur}
-					onFocus={this.onFocus}
+				<GradeBox
+					initialValue={grade}
+					assignmentId={this.props.assignmentId}
+					userId={this.props.item.user.getID()}
 				/>
 			</div>
 		);
