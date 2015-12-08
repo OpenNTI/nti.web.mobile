@@ -30,7 +30,7 @@ export default React.createClass({
 			<div className="gradebook-row" key={item.username}>
 				{COLUMNS.map(Col =>
 					<div className={Col.className} key={Col.label()}>
-						<Col item={item} assignment={this.props.assignment} />
+						<Col item={item} assignment={this.props.assignment} assignmentId={this.props.assignment.getID()}/>
 					</div>
 				)}
 			</div>

@@ -34,7 +34,7 @@ export default React.createClass({
 	render () {
 		return (
 			<div className="assignment-view-student">
-				<Header userId={this.props.userId} />
+				<Header {...this.props} />
 				<ContentViewer {...this.props} explicitContext={this}/>
 			</div>
 		);

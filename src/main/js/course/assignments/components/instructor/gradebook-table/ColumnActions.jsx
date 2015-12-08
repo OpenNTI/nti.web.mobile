@@ -25,7 +25,7 @@ export default React.createClass({
 		}
 
 		return (
-			<ActionsMenu {...this.props} />
+			<ActionsMenu {...this.props} userId={item.user.getID()} />
 		);
 	}
 });
