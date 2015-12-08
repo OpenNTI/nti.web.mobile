@@ -228,6 +228,7 @@
 			flex: 1 1 auto;
 		}
 		.assignments-nav {
+			z-index: 999;
 			box-shadow: inset -1px 0 0 #efefef;
 			flex: 0 1 250px;
 			font-size: .875rem;
@@ -255,6 +256,11 @@
 					content: none;
 				}
 			}
+		}
+		.assignment-gradebook-wrapper {
+			max-width: auto;
+			width: 90%;
+			margin: 0 1rem;
 		}
 	}
 }
