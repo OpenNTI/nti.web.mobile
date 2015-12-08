@@ -1,5 +1,5 @@
 import {getElementRect} from './rects';
-
+import scrollParent from 'scrollparent';
 import between from 'nti.lib.interfaces/utils/between';
 
 
@@ -49,9 +49,12 @@ export function scrollElementBy (el, x, y) {
 
 
 export function getScrollPosition (el) {
-	if (el.scrollTop == null) {
-		el = document.body;
+	const overflow = /auto|scroll/i;
+	const isScroller = e => e.scrollHeight > e.offsetHeight && overflow.test(getStyle(e, 'overflow', 'overflow-x', 'overflow-y').join(''));
+	if (!isScroller(el)) {
+		el = scrollParent(el);
 	}
+
 	return {
 		top: el.scrollTop,
 		left: el.scrollLeft
@@ -103,22 +106,9 @@ export function filterNodeList (nodeList, filter) {
 }
 
 
-export function parentElements (el) {
-	let parents = [], p;
-
-	while(el) {
-		el = p = el.parentNode;
-		if(p && p.nodeType === 1/*Node.ELEMENT_NODE*/) {
-			parents.push(p);
-		}
-	}
-
-	return parents;
-}
-
-
-export function getStyle (el, property) {
-	let getStyles = x => {
+export function getStyle (el, ...properties) {
+	const {length} = properties;
+	const getStyles = x => {
 		// IE throws on elements created in popups
 		// FF meanwhile throws on frame elements (see jQuery source)
 		if ( x.ownerDocument.defaultView.opener ) {
@@ -127,35 +117,16 @@ export function getStyle (el, property) {
 		return global.getComputedStyle( x, null );
 	};
 
-	let styles = getStyles(el);
+	const styles = getStyles(el);
+	const values = styles
+					? properties.map(property => styles[property])
+					: [];
 
-	return styles && styles[property];
-}
-
-
-export function scrollParent (el) {
-	//Inspired by jQuery#scrollParent
-	let position = getStyle(el, 'position' );
-	let excludeStaticParent = position === 'absolute';
-	let css = getStyle.bind(this);
-	let allowsOverflow = /(auto|scroll)/;
-	let viewport = el.ownerDocument || document;
-
-	function overflowed (parent) {
-		if (excludeStaticParent && css(parent, 'position' ) === 'static') {
-			return false;
-		}
-
-		return allowsOverflow.test(
-			css(parent, 'overflow' ) +
-			css(parent, 'overflow-y' ) +
-			css(parent, 'overflow-x' )
-		);
-	}
-
-	let scrollingEl = position !== 'fixed' && parentElements(el).filter(overflowed);
-
-	return (!scrollingEl || !scrollingEl.length) ? viewport : scrollingEl[0];
+	return length === 1
+		? values[0]
+		: length === 0
+			? styles
+			: values;
 }
 
 

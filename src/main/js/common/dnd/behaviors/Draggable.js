@@ -6,14 +6,13 @@ import Base, {TYPE_SHAPE} from './Base';
 
 import {PointerEvents} from 'nti.lib.interfaces/utils/is-touch-device';
 import emptyFunction from 'fbjs/lib/emptyFunction';
-
+import getScrollParent from 'scrollparent';
 
 import {
 	isMultiTouch,
 	addEventListener as _addEventListener,
 	removeEventListener as _removeEventListener,
 	scrollElementBy,
-	scrollParent as getScrollParent,
 	getScrollPosition
 } from '../../utils/dom';
 
