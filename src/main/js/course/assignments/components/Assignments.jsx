@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+
 import ContextContributor from 'common/mixins/ContextContributor';
 import StoreEvents from 'common/mixins/StoreEvents';
 
@@ -25,6 +27,14 @@ export default React.createClass({
 		default: 'synchronizeFromStore'
 	},
 
+	getContext () {
+		const {rootId} = this.props;
+		return Promise.resolve({
+			label: 'Assignments',
+			ntiid: decodeFromURI(rootId),
+			href: this.makeHref(rootId)
+		});
+	},
 
 	synchronizeFromStore () {
 		this.forceUpdate();

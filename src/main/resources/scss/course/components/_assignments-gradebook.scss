@@ -3,9 +3,10 @@
 	margin: 0 auto;
 }
 
-.gradebook-assignment-header {
-	margin: 0 -1000px;
-	padding: .625rem 1000px;
+$headermargin: 1000px;
+%gradebook-header {
+	margin: 0 #{-$headermargin};
+	padding: .625rem $headermargin;
 	background: $quad-grey;
 	border-bottom: 1px solid #ddd;
 	position: relative;
@@ -22,9 +23,45 @@
 		background: #dddddd;
 		border-radius: 40em / 10px;
 	}
+}
+
+.assignment-view-student {
+
+	max-width: 700px;
+	margin: 0 auto;
+
+	.assignment-header {
+		@extend %gradebook-header;
+		padding: 0 $headermargin;
+		.profile-link {
+			.avatar {
+				width: 64px;
+				height: 64px;
+				vertical-align: middle;
+				margin-right: .5rem;
+			}
+			.body {
+				display: inline-block;
+			}
+		}
+		.controls {
+			float: right;
+		}
+	}
+}
+
+.gradebook-assignment-header {
+	@extend %gradebook-header;
 
 	.gradebook-assignment-title {
 		margin-bottom: .625rem;
+	}
+
+	.avatar {
+		width: 32px;
+		height: 32px;
+		vertical-align: middle;
+		margin-right: .5rem;
 	}
 
 	$metafontsize: .625rem;
@@ -201,28 +238,29 @@
 				margin: 0;
 			}
 		}
-		.col-actions {
-			.actions-menu {
-				position: relative;
-				&::after {
-					@extend %chevron-down;
-					font-size: .625rem;
-				}
-				ul {
-					position: absolute;
-					z-index: 999;
-					background: white;
-					list-style: none;
-					right: 0;
-					top: 1rem;
-					font-size: .875rem;
-					border: 1px solid #dcdcdc;
-					box-shadow: 3px 3px 3px -3px rgba(0,0,0,0.3);
-					li {
-						padding: .25em .5em;
-					}
-				}
-			}
+	}
+}
+
+.gradebook-actions-menu {
+	position: relative;
+	display: inline-block;
+	&::after {
+		@extend %chevron-down;
+		font-size: .625rem;
+	}
+	ul {
+		position: absolute;
+		z-index: 999;
+		background: white;
+		list-style: none;
+		right: 0;
+		top: 1rem;
+		font-size: .875rem;
+		border: 1px solid #dcdcdc;
+		box-shadow: 3px 3px 3px -3px rgba(0,0,0,0.3);
+		li {
+			padding: .25em .5em;
+			white-space: nowrap;
 		}
 	}
 }

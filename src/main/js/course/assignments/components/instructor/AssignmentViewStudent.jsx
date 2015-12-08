@@ -8,13 +8,15 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import ContentViewer from 'content/components/Viewer';
 
+import Header from './AssignmentViewStudentHeader';
+
 export default React.createClass({
 	displayName: 'AssignmentViewStudent',
 	mixins: [BasePathAware, ContextContributor, NavigatableMixin],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
-
+		userId: React.PropTypes.string.isRequired,
 		rootId: React.PropTypes.string.isRequired
 	},
 
@@ -22,7 +24,7 @@ export default React.createClass({
 	getContext () {
 		const {rootId} = this.props;
 		return Promise.resolve({
-			label: 'Assignment',//This is good enough
+			label: 'Assignment',
 			ntiid: decodeFromURI(rootId),
 			href: this.makeHref(rootId)
 		});
@@ -31,7 +33,10 @@ export default React.createClass({
 
 	render () {
 		return (
-			<ContentViewer {...this.props} explicitContext={this}/>
+			<div className="assignment-view-student">
+				<Header userId={this.props.userId} />
+				<ContentViewer {...this.props} explicitContext={this}/>
+			</div>
 		);
 	}
 });
