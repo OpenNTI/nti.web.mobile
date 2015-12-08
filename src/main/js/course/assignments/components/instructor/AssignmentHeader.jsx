@@ -18,8 +18,11 @@ export default React.createClass({
 		return (
 			<div className="gradebook-assignment-header">
 				<div className="gradebook-assignment-title">{assignment.title}</div>
-				<DateTime date={assignment.getDueDate()}/>
-				<FilterMenu />
+				<div className="meta">
+					<DateTime date={assignment.getDueDate()}/>
+					<FilterMenu />
+				</div>
+				<div className="extras">View Assignment</div>
 			</div>
 		);
 	}

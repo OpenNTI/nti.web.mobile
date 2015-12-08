@@ -1,6 +1,5 @@
 import React from 'react';
-
-import SelectBox from 'common/components/SelectBox';
+import TransitionGroup from 'react-addons-css-transition-group';
 
 import {setFilter} from '../../GradebookActions';
 import Store from '../../GradebookStore';
@@ -13,13 +12,58 @@ const OPTIONS = [
 export default React.createClass({
 	displayName: 'FilterMenu',
 
+	getInitialState () {
+		return {
+			open: false
+		};
+	},
+
+	optionClicked (option) {
+		this.setFilter(option.value);
+		this.hideMenu();
+	},
+
 	setFilter (value) {
 		setFilter(value);
 	},
 
+	showMenu () {
+		this.setState({
+			open: true
+		});
+	},
+
+	hideMenu () {
+		this.setState({
+			open: false
+		});
+	},
+
 	render () {
+
+		const filterValue = Store.filter;
+		const selected = OPTIONS.find(option => option.value === filterValue);
+
 		return (
-			<SelectBox className="filter-menu" options={OPTIONS} value={Store.filter} onChange={this.setFilter} />
+			<div className="filter-menu-wrapper">
+				<div className="menu-label" onClick={this.showMenu}>{selected.label}</div>
+				{this.state.open && (
+					<TransitionGroup
+						transitionName="fadeOutIn"
+						transitionAppear={true}
+						transitionAppearTimeout={500}
+						transitionEnterTimeout={500}
+						transitionLeaveTimeout={500}
+					>
+						<ul key="filter-menu" className="filter-menu">
+							<li key="title" className="title">Display</li>
+							{OPTIONS.map(option => <li key={option.value} className={option === selected ? 'selected' : ''} onClick={this.optionClicked.bind(this, option)}>{option.label}</li>)}
+							<li key="search" className="search-item"><input type="search" /></li>
+						</ul>
+					</TransitionGroup>
+				)}
+			</div>
+
 		);
 	}
 });

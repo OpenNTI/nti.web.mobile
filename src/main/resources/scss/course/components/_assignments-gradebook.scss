@@ -10,7 +10,7 @@
 	border-bottom: 1px solid #ddd;
 	position: relative;
 	z-index: 99; // so the shadow isn't clipped by the table that follows
-	&::after {
+	&::after { // shadow
 		content: '';
 		box-shadow: 0 -5px 15px 5px rgba(0,0,0,0.2);
 		position: absolute;
@@ -22,15 +22,70 @@
 		background: #dddddd;
 		border-radius: 40em / 10px;
 	}
-	.filter-menu {
-		$fontsize: .625rem;
-		min-height: $fontsize;
-		list-style: none;
-		margin: 0;
-		ul {
-			font-size: $fontsize;
-			text-transform: uppercase;
-			font-weight: 600;
+
+	$metafontsize: .6875rem;
+
+	.meta {
+		font-size: $metafontsize;
+		color: $primary-color;
+		text-transform: uppercase;
+		font-weight: 600;
+		& > * {
+			display: inline-block;
+			margin-right: .5em;
+		}
+	}
+	.filter-menu-wrapper {
+		position: relative;
+		.menu-label {
+			position: relative;
+			&::after {
+				@extend %chevron-down;
+				font-size: $metafontsize;
+				position: relative;
+				left: .25em;
+				font-weight: normal;
+			}
+		}
+		.filter-menu {
+			$padding: .5rem;
+			position: absolute;
+			top: -(1.5rem + $padding);
+			left: -$padding;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			background: white;
+			z-index: 999;
+			border: 1px solid #dcdcdc;
+			box-shadow: 3px 3px 3px -3px rgba(0,0,0,0.3);
+			min-width: 200px;
+			li {
+				white-space: nowrap;
+				color: $secondary-grey;
+				text-transform: none;
+				font-weight: 600;
+				font-size: .9rem;
+				padding: .25rem $padding;
+				&.title {
+					color: $tertiary-grey;
+					text-transform: uppercase;
+					font-size: .625rem;
+					padding-top: .625rem;
+					font-weight: 700;
+				}
+				&.search-item {
+					background: $quad-grey;
+					padding: .5rem $padding;
+				}
+				input {
+					margin: 0;
+				}
+				&.selected {
+					background: $primary-color;
+					color: white;
+				}
+			}
 		}
 	}
 }
