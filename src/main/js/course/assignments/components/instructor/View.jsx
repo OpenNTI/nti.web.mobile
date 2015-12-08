@@ -14,8 +14,8 @@ import AssignmentViewStudent from './AssignmentViewStudent';
 const ROUTES = [
 	{path: '/performance(/*)', handler: PageFrame, pageContent: Performance},
 	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
-	{path: '/:rootId(/*)', handler: AssignmentView},
 	{path: '/:rootId/:userId(/*)', handler: PageFrame, pageContent: AssignmentViewStudent},
+	{path: '/:rootId(/*)', handler: PageFrame, pageContent: AssignmentView},
 	{path: '/', handler: Assignments},
 	{}//not found
 ];
