@@ -22,7 +22,8 @@ export default React.createClass({
 
 
 	propTypes: {
-		item: React.PropTypes.object
+		item: React.PropTypes.object,
+		contentPackage: React.PropTypes.object
 	},
 
 
@@ -63,7 +64,7 @@ export default React.createClass({
 
 	setup (props = this.props) {
 
-		let {item = {}} = props;
+		const {contentPackage, item = {}} = props;
 		const {
 			defer,
 			height = 0,
@@ -81,7 +82,12 @@ export default React.createClass({
 
 		const sourceName = uid || q[this.getIdKey()] || NO_SOURCE_ID;
 
-		this.setState({sourceName, source, height, splash, defer});
+		const splashResolve = splash
+			? contentPackage.resolveContentURL(splash).catch(()=> null)
+			: Promise.resolve(splash);
+
+		splashResolve.then(url =>
+			this.setState({sourceName, source, height, splash: url, defer}));
 	},
 
 
@@ -96,7 +102,7 @@ export default React.createClass({
 	render () {
 		const {state: {source, height, splash, defer}} = this;
 
-		const skip = splash && defer !== false;
+		const skip = !source || (splash && defer !== false);
 
 		return source && (
 			<div className="embeded-widget" style={{height}}>
