@@ -70,9 +70,15 @@ export default {
 	},
 
 
-	componentDidUpdate () {
-		let store = getStore(this.state);
+	componentDidUpdate (_, prevState) {
+		const store = getStore(this.state);
 		this.renderAnnotations(store);
+
+		const {stagedNote} = this.state;
+
+		if (!stagedNote && prevState.scrollPosition && prevState.stagedNote) {
+			this.scrollToPosition(prevState.scrollPosition);
+		}
 	},
 
 
@@ -221,7 +227,7 @@ export default {
 
 		//Do not clear the stagedNode from state until
 		//after the UI has had an opportunity to draw a frame. (allow us to queue an animation)
-		result.then(()=> setTimeout(() => this.setState({stagedNote: void 0}), 1), () => {});
+		result.then(()=> setTimeout(() => this.setState({scrollPosition: void 0, stagedNote: void 0}), 1), () => {});
 
 		return result;
 	},
@@ -242,7 +248,7 @@ export default {
 			};
 		}
 
-		this.setState({selected: void 0});
+		this.setState({selected: void 0, scrollPosition: this.getScrollPosition()});
 
 		window.scrollTo(0,0);
 

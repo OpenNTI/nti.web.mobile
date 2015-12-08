@@ -1,6 +1,10 @@
-import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import ReactDOM from 'react-dom';
+import scrollParent from 'scrollparent';
 
+import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 import {hasClass, getEventTarget} from 'nti.lib.dom';
+
+import {getScrollPosition} from 'common/utils/dom';
 
 const SCROLL = Symbol('Scroll-To-Target-Delay');
 
@@ -89,6 +93,18 @@ export default {
 	getScrollTargetIdFromHash () {
 		let {hash} = location;
 		return hash && decodeURIComponent(hash.substr(1));
+	},
+
+
+	getScrollPosition () {
+		return getScrollPosition(ReactDOM.findDOMNode(this));
+	},
+
+
+	scrollToPosition (pos) {
+		const scroller = scrollParent(ReactDOM.findDOMNode(this));
+		const {left: scrollLeft = 0, top: scrollTop = 0} = pos;
+		Object.assign(scroller, { scrollTop, scrollLeft });
 	},
 
 
