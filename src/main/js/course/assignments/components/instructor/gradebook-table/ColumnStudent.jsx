@@ -23,10 +23,10 @@ export default React.createClass({
 		const {item} = this.props;
 
 		return (
-			<div>
+			<a href={`./${encodeURIComponent(item.username)}/`}>
 				<Avatar entity={item.user} suppressProfileLink />
 				<DisplayName entity={item.user} suppressProfileLink />
-			</div>
+			</a>
 		);
 	}
 });

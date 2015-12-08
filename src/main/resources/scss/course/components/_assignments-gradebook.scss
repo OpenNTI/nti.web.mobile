@@ -179,6 +179,14 @@
 					transform: translate3d(0,-50%,0);
 					color: $primary-green;
 				}
+				&.late::before {
+					color: $primary-red;
+				}
+			}
+		}
+		.col-student {
+			a {
+				color: inherit;
 			}
 		}
 		.col-score {
