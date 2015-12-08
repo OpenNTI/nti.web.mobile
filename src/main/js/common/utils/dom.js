@@ -40,6 +40,8 @@ export function scrollElementBy (el, x, y) {
 
 	if (el.scrollBy) {
 		return el.scrollBy(x, y);
+	} else if (el !== document.body && el !== document.body.parentNode && el !== window) {
+		console.warn('scrollElementBy cannot scroll: ', el);
 	}
 
 	return window.scrollBy(x, y);
