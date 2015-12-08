@@ -1,12 +1,12 @@
 import React from 'react';
 import TransitionGroup from 'react-addons-css-transition-group';
 
-import {setFilter} from '../../GradebookActions';
+import {setFilter, setSearch} from '../../GradebookActions';
 import Store from '../../GradebookStore';
 
 const OPTIONS = [
-	{label: 'Open Students', value: 'Open'},
-	{label: 'Enrolled Students', value: 'ForCredit'}
+	{label: 'Enrolled Students', value: 'ForCredit'},
+	{label: 'Open Students', value: 'Open'}
 ];
 
 export default React.createClass({
@@ -21,6 +21,21 @@ export default React.createClass({
 	optionClicked (option) {
 		this.setFilter(option.value);
 		this.hideMenu();
+	},
+
+	searchChanged (event) {
+		let {searchTimeout} = this.state;
+		if (searchTimeout) {
+			clearTimeout(searchTimeout);
+		}
+		searchTimeout = setTimeout(this.setSearch.bind(this, event.target.value), 1000);
+		this.setState({
+			searchTimeout
+		});
+	},
+
+	setSearch (value) {
+		setSearch(value);
 	},
 
 	setFilter (value) {
@@ -58,7 +73,7 @@ export default React.createClass({
 						<ul key="filter-menu" className="filter-menu">
 							<li key="title" className="title">Display</li>
 							{OPTIONS.map(option => <li key={option.value} className={option === selected ? 'selected' : ''} onClick={this.optionClicked.bind(this, option)}>{option.label}</li>)}
-							<li key="search" className="search-item"><input type="search" /></li>
+							<li key="search" className="search-item"><input defaultValue={Store.search} type="search" onChange={this.searchChanged} placeholder="Search Students"/></li>
 						</ul>
 					</TransitionGroup>
 				)}

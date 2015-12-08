@@ -97,6 +97,10 @@ class Store extends StorePrototype {
 		return this[gradeBookByAssignment];
 	}
 
+	get search () {
+		return this[search];
+	}
+
 	get sort () {
 		return this[sort] || 'LastName';
 	}

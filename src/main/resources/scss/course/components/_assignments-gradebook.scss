@@ -5,7 +5,7 @@
 
 .gradebook-assignment-header {
 	margin: 0 -1000px;
-	padding: 1rem 1000px;
+	padding: .625rem 1000px;
 	background: $quad-grey;
 	border-bottom: 1px solid #ddd;
 	position: relative;
@@ -23,13 +23,18 @@
 		border-radius: 40em / 10px;
 	}
 
-	$metafontsize: .6875rem;
+	.gradebook-assignment-title {
+		margin-bottom: .625rem;
+	}
 
-	.meta {
+	$metafontsize: .625rem;
+
+	.meta, .extras {
 		font-size: $metafontsize;
 		color: $primary-color;
 		text-transform: uppercase;
 		font-weight: 600;
+		line-height: 1.2rem;
 		& > * {
 			display: inline-block;
 			margin-right: .5em;
