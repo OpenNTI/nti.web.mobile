@@ -20,35 +20,15 @@ const ACTIONS = [
 export default React.createClass({
 	displayName: 'instructor:ActionsMenu',
 
+	propTypes: {
+		assignmentId: React.PropTypes.string.isRequired,
+		userId: React.PropTypes.string.isRequired
+	},
+
 	getInitialState () {
 		return {
 			open: false
 		};
-	},
-
-	componentDidMount () {
-		document.body.addEventListener('click', this.bodyClick);
-	},
-
-	componentWillUnmount () {
-		document.body.removeEventListener('click', this.bodyClick);
-	},
-
-	bodyClick (event) {
-		if(!this.state.open) {
-			return;
-		}
-		let {target} = event;
-		const node = ReactDOM.findDOMNode(this);
-
-		// ignore if the click is inside the menu
-		while(target) {
-			if(target === node) {
-				return;
-			}
-			target = target.parentElement;
-		}
-		this.closeMenu();
 	},
 
 	resetAssignment () {
@@ -74,7 +54,7 @@ export default React.createClass({
 			this[action.handler]();
 		}
 		else if (typeof action.handler === 'function') {
-			action.handler(this.props.item);
+			action.handler(this.props.assignmentId, this.props.userId);
 		}
 		else {
 			console.warn('Unable to execute action %O', action);
