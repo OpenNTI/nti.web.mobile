@@ -23,16 +23,16 @@ export function setSearch (search) {
 	dispatch(SEARCH_CHANGED, {search});
 }
 
-export function setGrade (assignment, grade) {
-	console.deubg('setGrade', assignment, grade);
+export function setGrade (assignmentId, userId, grade) {
+	console.debug('setGrade not yet implemented', assignmentId, userId, grade);
 }
 
-export function excuseGrade () {
-	console.debug('excuse grade action not yet implemented');
+export function excuseGrade (assignmentId, userId) {
+	console.debug('excuse grade action not yet implemented', assignmentId, userId);
 }
 
-export function resetAssignment () {
-	console.debug('reset assignment action not yet implemented');
+export function resetAssignment (assignmentId, userId) {
+	console.debug('reset assignment action not yet implemented', assignmentId, userId);
 }
 
 export function load (assignment) {
