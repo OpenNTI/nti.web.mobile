@@ -16,6 +16,11 @@ export default {
 
 };
 
-function objectId (o) {
-	return (o || {}).getID ? o.getID() : (o || {}).NTIID;
+function objectId (object) {
+	const o = (object || {});
+	return o.getContentId
+		? o.getContentId()
+		: o.getID
+			? o.getID()
+			: o.NTIID;
 }
