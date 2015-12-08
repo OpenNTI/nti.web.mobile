@@ -17,7 +17,8 @@ export default React.createClass({
 	displayName: 'GradebookTable',
 
 	propTypes: {
-		items: React.PropTypes.any.isRequired // iterable of UserGradeBookSummary objects
+		items: React.PropTypes.any.isRequired, // iterable of UserGradeBookSummary objects
+		assignment: React.PropTypes.object.isRequired
 	},
 
 	setSort (sort) {
@@ -29,7 +30,7 @@ export default React.createClass({
 			<div className="gradebook-row" key={item.username}>
 				{COLUMNS.map(Col =>
 					<div className={Col.className} key={Col.label()}>
-						<Col item={item}/>
+						<Col item={item} assignment={this.props.assignment} />
 					</div>
 				)}
 			</div>

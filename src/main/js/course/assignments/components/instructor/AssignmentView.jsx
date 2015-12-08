@@ -63,7 +63,7 @@ export default React.createClass({
 		return (
 			<div className="assignment-gradebook-wrapper">
 				<AssignmentHeader assignment={assignment} />
-				<GradebookTable items={gradeBookByAssignment.Items || []} />
+				<GradebookTable assignment={assignment} items={gradeBookByAssignment.Items || []} />
 			</div>
 		);
 	}

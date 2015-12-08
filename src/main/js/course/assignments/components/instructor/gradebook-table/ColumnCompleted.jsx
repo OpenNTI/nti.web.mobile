@@ -15,15 +15,16 @@ export default React.createClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired // UserGradeBookSummary object
+		item: React.PropTypes.object.isRequired, // UserGradeBookSummary object
+		assignment: React.PropTypes.object.isRequired
 	},
 
-
 	render () {
-		const {props: {item: {HistoryItemSummary}}} = this;
+		const {props: {item: {HistoryItemSummary}, assignment}} = this;
 		const completedTime = HistoryItemSummary && HistoryItemSummary.getSubmissionCreatedTime();
 		const classes = cx({
-			'complete': !!completedTime
+			'complete': !!completedTime,
+			'late': completedTime && completedTime > assignment.getDueDate()
 		});
 		return (
 			<div className={classes}>
