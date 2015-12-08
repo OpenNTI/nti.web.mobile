@@ -1,5 +1,5 @@
 .embeded-widget {
-	margin: 1rem 0 1.5rem; 
+	margin: 1rem 0 1.5rem;
 	padding: 0;
 	position: relative;
 	min-height: 100px;
@@ -16,6 +16,7 @@
 		position: absolute;
 		top: 0; left: 0;
 		right: 0; bottom: 0;
+		cursor: pointer;
 		background: {
 			size: cover;
 			position: center;
