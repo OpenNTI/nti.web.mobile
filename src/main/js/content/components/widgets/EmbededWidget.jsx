@@ -1,5 +1,7 @@
 import React from 'react';
 
+import logger from 'debug';
+
 import './EmbededWidget.scss';
 
 import Url from 'url';
@@ -8,6 +10,8 @@ import QueryString from 'query-string';
 import MESSAGES from 'common/utils/WindowMessageListener';
 
 import Mixin from './Mixin';
+
+const debug = logger('content:widgets:EmbededWidget:debug');
 
 const NO_SOURCE_ID = 'No source id specified!';
 
@@ -52,7 +56,7 @@ export default React.createClass({
 		const {state: {sourceName}} = this;
 
 		if (sourceName === NO_SOURCE_ID || sourceName !== id) {
-			console.debug(`Ignoring event, ${sourceName} != ${id} %o`, e.data);
+			debug(`Ignoring event, ${sourceName} != ${id} %o`, e.data);
 			return;
 		}
 
@@ -117,7 +121,9 @@ export default React.createClass({
 						width="100%"
 						height={height}
 						frameBorder="no"
+						scrolling="no"
 						allowTransparency="true"
+						seamless
 						/>
 				)}
 			</div>
