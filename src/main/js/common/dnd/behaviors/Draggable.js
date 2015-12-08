@@ -18,6 +18,7 @@ import {
 } from '../../utils/dom';
 
 import {getElementRect} from '../../utils/rects';
+import {getHeight as getViewportHeight} from '../../utils/viewport';
 
 import {matches} from 'nti.lib.dom';
 
@@ -194,6 +195,7 @@ export default {
 
 	[addListeners] () {
 		_addEventListener(this.scrollParent, 'scroll', this.handleScroll);
+		_addEventListener(global, 'scroll', this.handleScroll);
 		_addEventListener(global, eventFor.move, this.handleDrag);
 		_addEventListener(global, eventFor.end, this.handleDragEnd);
 		_addEventListener(global, eventFor.abort, this.handleDragEnd);
@@ -202,6 +204,7 @@ export default {
 
 	[removeListeners] () {
 		_removeEventListener(this.scrollParent, 'scroll', this.handleScroll);
+		_removeEventListener(global, 'scroll', this.handleScroll);
 		_removeEventListener(global, eventFor.move, this.handleDrag);
 		_removeEventListener(global, eventFor.end, this.handleDragEnd);
 		_removeEventListener(global, eventFor.abort, this.handleDragEnd);
@@ -337,13 +340,16 @@ export default {
 
 	maybeScrollParent (point, lastPoint) {
 		let y, x;
-		let region = 50;
-		let {scrollParent} = this;
-		let boundingRect = getElementRect(scrollParent);
+		const region = 50;
+		const {scrollParent} = this;
+		const boundingRect = getElementRect(scrollParent);
+		const viewportBottom = getViewportHeight();
 
-		let top = (point.y - boundingRect.top) < region && isDirection(-1, 'y', point, lastPoint);
-		let bottom = (boundingRect.bottom - point.y) < region && isDirection(1, 'y', point, lastPoint);
+		const topBoundry = Math.max(0, boundingRect.top);
+		const bottomBoundry = Math.min(viewportBottom, boundingRect.bottom);
 
+		const top = (point.y - topBoundry) < region && isDirection(-1, 'y', point, lastPoint);
+		const bottom = (bottomBoundry - point.y) < region && isDirection(1, 'y', point, lastPoint);
 
 		// scroll: Vertical
 		if (top || bottom) {
@@ -356,7 +362,14 @@ export default {
 		// }
 
 		if (x || y) {
+
+			if (topBoundry === 0 || bottomBoundry === viewportBottom) {
+				scrollBy(0, y);
+				y = 0;
+			}
+
 			scrollElementBy(scrollParent, x, y);
+
 		}
 	},
 
