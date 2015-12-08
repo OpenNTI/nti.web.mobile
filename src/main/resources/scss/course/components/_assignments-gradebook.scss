@@ -179,8 +179,11 @@
 					transform: translate3d(0,-50%,0);
 					color: $primary-green;
 				}
-				&.late::before {
+				&.late {
 					color: $primary-red;
+					&::before {
+						color: $primary-red;
+					}
 				}
 			}
 		}
