@@ -248,9 +248,21 @@ $headermargin: 1000px;
 		@extend %chevron-down;
 		font-size: .625rem;
 	}
+
+	&.open::before { // click mask: block click events outside the menu
+	    content: '';
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    background: rgba(0,0,0,0.001);
+	    z-index: 2000;
+	}
+
 	ul {
 		position: absolute;
-		z-index: 999;
+		z-index: 9999;
 		background: white;
 		list-style: none;
 		right: 0;
