@@ -3,6 +3,7 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 import Store from './GradebookStore';
 
 import {
+	BATCH_SIZE_CHANGED,
 	PAGE_CHANGED,
 	SORT_CHANGED,
 	SEARCH_CHANGED,
@@ -11,6 +12,10 @@ import {
 	GRADEBOOK_BY_ASSIGNMENT_LOADED
 } from './GradebookConstants';
 
+
+export function setBatchSize (size) {
+	dispatch(BATCH_SIZE_CHANGED, {size});
+}
 
 export function setSort (sort) {
 	dispatch(SORT_CHANGED, {sort});

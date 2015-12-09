@@ -92,8 +92,9 @@ class Store extends StorePrototype {
 	}
 
 	[SetBatchSize] (payload) {
-		const value = payload.action.data.batchSize;
+		const value = payload.action.data.size;
 		this[batchSize] = value;
+		this[page] = 1;
 		this[Clear]();
 	}
 

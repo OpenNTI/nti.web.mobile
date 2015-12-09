@@ -7,6 +7,7 @@ import {setPage} from '../../GradebookActions';
 
 import FilterMenu from './FilterMenu';
 import PageControls from './PageControls';
+import OptionsMenu from './OptionsMenu';
 
 export default React.createClass({
 	displayName: 'instructor:AssignmentHeader',
@@ -25,6 +26,7 @@ export default React.createClass({
 
 		return (
 			<div className="gradebook-assignment-header">
+				<OptionsMenu />
 				<PageControls
 					currentPage={Store.page}
 					pageSize={Store.batchSize}
