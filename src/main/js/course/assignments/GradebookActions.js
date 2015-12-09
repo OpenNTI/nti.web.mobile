@@ -3,6 +3,7 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 import Store from './GradebookStore';
 
 import {
+	PAGE_CHANGED,
 	SORT_CHANGED,
 	SEARCH_CHANGED,
 	FILTER_CHANGED,
@@ -13,6 +14,10 @@ import {
 
 export function setSort (sort) {
 	dispatch(SORT_CHANGED, {sort});
+}
+
+export function setPage (page) {
+	dispatch(PAGE_CHANGED, {page});
 }
 
 export function setFilter (filter) {

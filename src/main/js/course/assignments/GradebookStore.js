@@ -122,6 +122,10 @@ class Store extends StorePrototype {
 		return items.length;
 	}
 
+	get total () {
+		return this.gradeBookByAssignment ? this.gradeBookByAssignment.TotalItemCount : 0;
+	}
+
 	get filter () {
 		return this[filter] || 'Open';
 	}
