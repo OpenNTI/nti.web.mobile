@@ -4,6 +4,8 @@ export const GRADEBOOK_BY_ASSIGNMENT_LOADED = Symbol('gradebook:GRADEBOOK_BY_ASS
 export const GRADEBOOK_BY_ASSIGNMENT_UNLOADED = Symbol('gradebook:GRADEBOOK_BY_ASSIGNMENT_UNLOADED');
 export const SEARCH_CHANGED = Symbol('gradebook:SEARCH_CHANGED');
 export const SORT_CHANGED = Symbol('gradebook:SORT_CHANGED');
+export const PAGE_CHANGED = Symbol('gradebook:PAGE_CHANGED');
+export const BATCH_SIZE_CHANGED = Symbol('gradebook:BATCH_SIZE_CHANGED');
 
 export const SORT_ASC = 'ascending';
 export const SORT_DESC = 'descending';

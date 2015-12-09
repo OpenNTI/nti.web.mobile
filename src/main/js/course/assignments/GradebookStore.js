@@ -3,6 +3,8 @@ import {
 	GRADEBOOK_BY_ASSIGNMENT_LOAD_BEGIN,
 	GRADEBOOK_BY_ASSIGNMENT_LOADED,
 	GRADEBOOK_BY_ASSIGNMENT_UNLOADED,
+	PAGE_CHANGED,
+	BATCH_SIZE_CHANGED,
 	SEARCH_CHANGED,
 	SORT_CHANGED,
 	SORT_ASC,
@@ -15,11 +17,15 @@ const Clear = Symbol('unset:gradeBookByAssignment');
 const Flush = Symbol('flush');
 const SetFilter = Symbol('set:filter');
 const SetGradebook = Symbol('set:gradebook');
+const SetPage = Symbol('set:page');
+const SetBatchSize = Symbol('set:batchSize');
 const SetSearch = Symbol('set:search');
 const SetSort = Symbol('set:sort');
 const ReverseSortOrder = Symbol('reverseSortOrder');
 
 const filter = Symbol('filter');
+const page = Symbol('page');
+const batchSize = Symbol('batchSize');
 const sort = Symbol('sort');
 const sortOrder = Symbol('sortOrder');
 const search = Symbol('search');
@@ -34,7 +40,9 @@ class Store extends StorePrototype {
 			[GRADEBOOK_BY_ASSIGNMENT_LOADED]: SetGradebook,
 			[FILTER_CHANGED]: SetFilter,
 			[SEARCH_CHANGED]: SetSearch,
-			[SORT_CHANGED]: SetSort
+			[SORT_CHANGED]: SetSort,
+			[BATCH_SIZE_CHANGED]: SetBatchSize,
+			[PAGE_CHANGED]: SetPage
 		});
 	}
 
@@ -83,10 +91,35 @@ class Store extends StorePrototype {
 		this[sortOrder] = this.sortOrder === SORT_ASC ? SORT_DESC : SORT_ASC;
 	}
 
+	[SetBatchSize] (payload) {
+		const value = payload.action.data.batchSize;
+		this[batchSize] = value;
+		this[Clear]();
+	}
+
+	[SetPage] (payload) {
+		const value = payload.action.data.page;
+		this[page] = value;
+		this[Clear]();
+	}
+
 	[SetSearch] (payload) {
 		this[search] = payload.action.data.search;
 		this[Clear]();
 		// this.emitChange({type: SEARCH_CHANGED});
+	}
+
+	get batchSize () {
+		return this[batchSize] || 50;
+	}
+
+	get batchStart () {
+		return (this.page - 1) * this.batchSize;
+	}
+
+	get count () {
+		let items = (this.gradeBookByAssignment || {}).Items || [];
+		return items.length;
 	}
 
 	get filter () {
@@ -97,9 +130,8 @@ class Store extends StorePrototype {
 		return this[gradeBookByAssignment];
 	}
 
-	get count () {
-		let items = (this.gradeBookByAssignment || {}).Items || [];
-		return items.length;
+	get page () {
+		return this[page] || 1;
 	}
 
 	get search () {
