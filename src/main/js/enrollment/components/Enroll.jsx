@@ -43,14 +43,14 @@ export default React.createClass({
 			return <EnrollmentSuccess courseTitle={this.getCourseTitle()}/>;
 		}
 
-		let thumb = (this.getEntry() || {}).thumb;
-		let title = this.getCourseTitle();
+		const {icon} = this.getEntry() || {};
+		const title = this.getCourseTitle();
 
 		return (
 			<div className="enrollment-options">
-				{thumb && (
+				{icon && (
 					<div className="content-banner">
-						<img src={thumb} />
+						<img src={icon} />
 						<label>
 							<h3>{title}</h3>
 						</label>
