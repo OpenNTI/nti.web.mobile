@@ -37,7 +37,17 @@ export function resetAssignment (assignmentId, userId) {
 
 export function load (assignment) {
 	dispatch(GRADEBOOK_BY_ASSIGNMENT_LOAD_BEGIN);
-	assignment.fetchLinkParsed('GradeBookByAssignment', {filter: Store.filter, sortOn: Store.sort, sortOrder: Store.sortOrder, search: Store.search})
+
+	const params = {
+		filter: Store.filter,
+		sortOn: Store.sort,
+		sortOrder: Store.sortOrder,
+		batchStart: Store.batchStart,
+		batchSize: Store.batchSize,
+		search: Store.search
+	};
+
+	assignment.fetchLinkParsed('GradeBookByAssignment', params)
 		.then(gradebookByAssignment => {
 			dispatch(GRADEBOOK_BY_ASSIGNMENT_LOADED, {gradebook: gradebookByAssignment});
 		});
