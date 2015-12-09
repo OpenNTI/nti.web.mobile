@@ -1,4 +1,13 @@
 .options-menu-wrapper {
+	.icon-gear-menu {
+		font-size: 1.5rem;
+	    display: inline-block;
+	    background: white;
+	    padding: 0.28em .4em;
+	    border: 1px solid #dcdcdc;
+		border-radius: 3px;
+		color: $tertiary-grey;
+	}
 	&.open::before {
 		@extend %menu-click-mask;
 	}
