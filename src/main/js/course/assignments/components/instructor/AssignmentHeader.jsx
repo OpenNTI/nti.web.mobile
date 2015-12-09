@@ -17,6 +17,7 @@ export default React.createClass({
 
 		return (
 			<div className="gradebook-assignment-header">
+				<PageControls summary={this.props.summary} />
 				<div className="gradebook-assignment-title">{assignment.title}</div>
 				<div className="meta">
 					<DateTime date={assignment.getDueDate()}/>
