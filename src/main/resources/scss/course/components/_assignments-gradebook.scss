@@ -118,44 +118,7 @@
 			@extend %menu-click-mask;
 		}
 		.filter-menu {
-			@include menu-shadow;
-			$padding: .5rem;
-			position: absolute;
-			top: -(1.5rem + $padding);
-			left: -$padding;
-			list-style: none;
-			margin: 0;
-			padding: 0;
-			background: white;
-			z-index: 9999;
-			border: 1px solid #dcdcdc;
-			min-width: 200px;
-			li {
-				white-space: nowrap;
-				color: $secondary-grey;
-				text-transform: none;
-				font-weight: 600;
-				font-size: .9rem;
-				padding: .25rem $padding;
-				&.title {
-					color: $tertiary-grey;
-					text-transform: uppercase;
-					font-size: .625rem;
-					padding-top: .625rem;
-					font-weight: 700;
-				}
-				&.search-item {
-					background: $quad-grey;
-					padding: .5rem $padding;
-				}
-				input {
-					margin: 0;
-				}
-				&.selected {
-					background: $primary-color;
-					color: white;
-				}
-			}
+			@extend %panel-menu;
 		}
 	}
 }

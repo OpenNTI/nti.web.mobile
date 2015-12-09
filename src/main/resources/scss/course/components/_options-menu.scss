@@ -1,3 +1,14 @@
-.options-menu {
+.options-menu-wrapper {
+	&.open::before {
+		@extend %menu-click-mask;
+	}
 	float: right;
+	margin-left: 1rem;
+	position: relative;
+	.options-menu {
+		@extend %panel-menu;
+		right: 0;
+		left: auto;
+		top: 100%;
+	}
 }

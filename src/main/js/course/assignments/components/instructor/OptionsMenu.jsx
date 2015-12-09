@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
+import Store from '../../GradebookStore';
 import {setBatchSize} from '../../GradebookActions';
 
 export default React.createClass({
@@ -25,17 +26,18 @@ export default React.createClass({
 	render () {
 
 		const {open} = this.state;
-		const classes = cx('options-menu', {open});
+		const classes = cx('options-menu-wrapper', {open});
+
+		const values = [50, 75, 100];
 
 		return (
 			<div className={classes} onClick={this.toggleMenu}>
 				<i className="icon-hamburger-menu" />
 				{open && (
-					<ul>
+					<ul className="options-menu">
 						<li key="title" className="title">Display</li>
-						<li onClick={this.setNumItems.bind(this, 1)} key="50-items">50 Items</li>
-						<li onClick={this.setNumItems.bind(this, 2)} key="75-items">75 Items</li>
-						<li onClick={this.setNumItems.bind(this, 3)} key="100-items">100 Items</li>
+						{values.map(value => <li className={Store.batchSize === value ? 'selected' : ''} onClick={this.setNumItems.bind(this, value)} key={value}>{`${value} students per page`}</li> )}
+						<li>Hide Avatars</li>
 					</ul>
 				)}
 			</div>
