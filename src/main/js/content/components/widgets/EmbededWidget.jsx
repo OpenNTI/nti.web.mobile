@@ -2,8 +2,6 @@ import React from 'react';
 
 import logger from 'debug';
 
-import './EmbededWidget.scss';
-
 import Url from 'url';
 import QueryString from 'query-string';
 
