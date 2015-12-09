@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
+import MenuTransitionGroup from './MenuTransitionGroup';
+
 export default React.createClass({
 	displayName: 'PageControls',
 
@@ -60,7 +62,7 @@ export default React.createClass({
 		return (
 			<div className={wrapperclasses} onClick={this.toggleMenu}>
 				<div className="menu-label">{itemContent(currentPage, true)}</div>
-				{open && <ul className={classes}>{items}</ul>}
+				{open && <MenuTransitionGroup><ul className={classes}>{items}</ul></MenuTransitionGroup>}
 			</div>
 		);
 	}

@@ -1,9 +1,10 @@
 import React from 'react';
-import TransitionGroup from 'react-addons-css-transition-group';
 import cx from 'classnames';
 
 import {setFilter, setSearch} from '../../GradebookActions';
 import Store from '../../GradebookStore';
+
+import MenuTransitionGroup from './MenuTransitionGroup';
 
 const OPTIONS = [
 	{label: 'Enrolled Students', value: 'ForCredit'},
@@ -79,19 +80,13 @@ export default React.createClass({
 			<div className={wrapperClasses} onClick={this.toggleMenu}>
 				<div className="menu-label">{menuLabel} <span className="count">({Store.count})</span></div>
 				{this.state.open && (
-					<TransitionGroup
-						transitionName="fadeOutIn"
-						transitionAppear
-						transitionAppearTimeout={500}
-						transitionEnterTimeout={500}
-						transitionLeaveTimeout={500}
-					>
+					<MenuTransitionGroup>
 						<ul key="filter-menu" className="filter-menu">
 							<li key="title" className="title">Display</li>
 							{OPTIONS.map(option => <li key={option.value} className={option === selectedOption ? 'selected' : ''} onClick={this.optionClicked.bind(this, option)}>{option.label}</li>)}
 							<li key="search" className="search-item" onClick={killEvent}><input defaultValue={Store.search} type="search" onChange={this.searchChanged} placeholder="Search Students"/></li>
 						</ul>
-					</TransitionGroup>
+					</MenuTransitionGroup>
 				)}
 			</div>
 

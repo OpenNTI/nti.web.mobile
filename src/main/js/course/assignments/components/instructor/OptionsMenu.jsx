@@ -4,6 +4,8 @@ import cx from 'classnames';
 import Store from '../../GradebookStore';
 import {setBatchSize} from '../../GradebookActions';
 
+import MenuTransitionGroup from './MenuTransitionGroup';
+
 export default React.createClass({
 	displayName: 'OptionsMenu',
 
@@ -34,11 +36,13 @@ export default React.createClass({
 			<div className={classes} onClick={this.toggleMenu}>
 				<i className="icon-hamburger-menu" />
 				{open && (
-					<ul className="options-menu">
-						<li key="title" className="title">Display</li>
-						{values.map(value => <li className={Store.batchSize === value ? 'selected' : ''} onClick={this.setNumItems.bind(this, value)} key={value}>{`${value} students per page`}</li> )}
-						<li>Hide Avatars</li>
-					</ul>
+					<MenuTransitionGroup>
+						<ul className="options-menu">
+							<li key="title" className="title">Display</li>
+							{values.map(value => <li className={Store.batchSize === value ? 'selected' : ''} onClick={this.setNumItems.bind(this, value)} key={value}>{`${value} students per page`}</li> )}
+							<li>Hide Avatars</li>
+						</ul>
+					</MenuTransitionGroup>
 				)}
 			</div>
 		);
