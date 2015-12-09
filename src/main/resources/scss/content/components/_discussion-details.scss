@@ -77,6 +77,86 @@
 
 }
 
+.discussion-context {
+	overflow: hidden;
+	position: relative;
+	margin: 1.25rem 0;
+
+	background: #fff;
+	box-shadow: 0 .0625rem .1875rem 0 rgba(0,0,0,0.2);
+
+	clear: both;
+
+	&:not(.scoped) > div{
+		padding: 0 1.25rem;
+		max-height: 15rem;
+		overflow-x: hidden;
+		overflow-y: hidden;
+	}
+
+	&.fragment {
+		background: #fffcf2;
+
+		&::before, &::after {
+			position: absolute;
+			content: '';
+			left: 0; right: 0;
+			top: 0;
+			height: 1.5rem;
+			z-index: 10;
+			background: linear-gradient(to top, rgba(255, 252, 242, 0) 0%, rgba(255, 252, 242, 0.88) 60%, rgb(255, 252, 242) 72%, rgb(255, 252, 242) 100%);
+		}
+
+		&::after {
+			top: initial;
+			bottom: 0;
+			background: linear-gradient(to bottom, rgba(255, 252, 242, 0) 0%, rgba(255, 252, 242, 0.88) 60%, rgb(255, 252, 242) 72%, rgb(255, 252, 242) 100%);
+		}
+
+		a {
+			pointer-events: none;
+		}
+	}
+
+	widget {
+		pointer-events: none;
+		.zoom {display: none;}
+	}
+
+	figure.error {
+		position: relative;
+	}
+
+	& > .question {
+		margin: 1.25rem;
+		border: none;
+
+		&::before {
+			content: '';
+			clear: both;
+			display: table;
+		}
+
+		.question-title {
+			padding: 0;
+		}
+	}
+
+	& > .related-work-ref {
+		margin: 0; border: 0;
+		cursor: default;
+	}
+
+	.content-video {
+		margin-bottom: 0;
+	}
+
+	.question {
+		pointer-events: none;
+		.question-submission {display: none;}
+	}
+}
+
 .discussion-detail {
 	border-top: 1px solid $border-grey;
 	position: relative;

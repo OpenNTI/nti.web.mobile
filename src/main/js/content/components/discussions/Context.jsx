@@ -166,7 +166,7 @@ export default React.createClass({
 		if (range) {
 			this.setState({found});
 		}
-		
+
 		return !!found;
 	},
 
@@ -198,7 +198,7 @@ export default React.createClass({
 
 	render () {
 		let {error, loading, scoped, fragment, context} = this.state;
-		let className = cx('context', {scoped, fragment});
+		let className = cx('discussion-context', {scoped, fragment});
 		let {item} = this.props;
 		let props = {className};
 
