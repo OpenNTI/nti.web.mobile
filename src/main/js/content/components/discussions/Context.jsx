@@ -31,7 +31,8 @@ export default React.createClass({
 	displayName: 'Context',
 
 	propTypes: {
-		item: React.PropTypes.object
+		item: React.PropTypes.object,
+		className: React.PropTypes.string
 	},
 
 
@@ -198,8 +199,8 @@ export default React.createClass({
 
 	render () {
 		let {error, loading, scoped, fragment, context} = this.state;
-		let className = cx('discussion-context', {scoped, fragment});
-		let {item} = this.props;
+		let {item, className: cls} = this.props;
+		let className = cx('discussion-context', cls, {scoped, fragment});
 		let props = {className};
 
 		return loading

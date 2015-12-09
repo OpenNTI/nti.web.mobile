@@ -34,6 +34,20 @@ export default React.createClass({
 
 
 		/**
+		 * Alter the breadcrumb prop to prefix and potentilly
+		 * replace N parts of the LibraryPath call.
+		 *
+		 * If specified, and not negative, the breadcrumb will be prefixed
+		 * onto the LibraryPath using:
+		 *
+		 * 		[...breadcrumb, ...slice(splicePaths)]
+		 *
+		 * @type {number}
+		 */
+		splicePaths: React.PropTypes.number,
+
+
+		/**
 		 * If specified, show the content-aquire-prompt on 403 instead of showing just the course name.
 		 *
 		 * @type {boolean}
@@ -62,9 +76,15 @@ export default React.createClass({
 
 
 	loadBreadcrumb (props = this.props) {
-		const {item, breadcrumb, showPrompt} = props;
+		const {item, breadcrumb, splicePaths, showPrompt} = props;
 
-		if (breadcrumb) {
+		const hasSplice = splicePaths != null && breadcrumb != null
+				&& isFinite(splicePaths)
+				&& splicePaths >= 0;
+
+		const splice = n => breadcrumb.concat(n.slice(splicePaths));
+
+		if (breadcrumb && !hasSplice) {
 			return this.setState({breadcrumb});
 		}
 
@@ -84,7 +104,7 @@ export default React.createClass({
 			.then(data =>
 				this.setState({
 					breadcrumb: data.length > 0
-						? data[0]
+						? (hasSplice ? splice(data[0]) : data[0])
 						: { isError: true, reason: 'breadcrumb has zero length'}}))
 
 			.catch(reason =>
@@ -104,7 +124,17 @@ export default React.createClass({
 		const last = breadcrumb.length - 1;
 		const nextToLast = breadcrumb.length - 2;
 		function getTitle (x) {
-			x = ((x || {})[prop] ? x[prop]() : x) || {title: typeof x === 'string' ? x : void x};
+			const t = typeof x === 'string';
+			const fallback = {title: t ? x : void x};
+
+			x = (
+				(x || {})[prop]
+					? x[prop]()
+					: t
+						? fallback
+						: x
+				) || fallback;
+
 			return x.title || x.Title || x.displayName;
 		}
 
