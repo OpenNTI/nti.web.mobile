@@ -35,7 +35,7 @@ export default React.createClass({
 		const {open} = this.state;
 
 		// compute the start item for the given page number
-		const start = (pageNum) => (pageSize * (pageNum - 1)) + 1;
+		const start = (pageNum) => total === 0 ? 0 : (pageSize * (pageNum - 1)) + 1;
 
 		// compute the end item for the given page number
 		const end = (pageNum) => Math.min(pageSize * pageNum, total);
