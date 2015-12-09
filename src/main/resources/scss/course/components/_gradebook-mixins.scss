@@ -1,0 +1,36 @@
+$headermargin: 1000px;
+%gradebook-header {
+	margin: 0 #{-$headermargin};
+	padding: .625rem $headermargin;
+	background: $quad-grey;
+	border-bottom: 1px solid #ddd;
+	position: relative;
+	z-index: 99; // so the shadow isn't clipped by the table that follows
+	&::after { // shadow
+		content: '';
+		box-shadow: 0 -5px 15px 5px rgba(0,0,0,0.2);
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		height: 100px;
+		clip: rect(100px, auto, 150px, auto);
+		background: #dddddd;
+		border-radius: 40em / 10px;
+	}
+}
+
+%menu-click-mask { // click mask: intercept click events outside the menu
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.001);
+	z-index: 2000;
+}
+
+@mixin menu-shadow {
+	box-shadow: 3px 3px 3px -3px rgba(0,0,0,0.3);
+}

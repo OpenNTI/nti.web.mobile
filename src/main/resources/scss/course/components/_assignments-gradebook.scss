@@ -1,39 +1,8 @@
+@import "gradebook-mixins";
+
 .assignment-gradebook-wrapper {
 	max-width: 500px;
 	margin: 0 auto;
-}
-
-$headermargin: 1000px;
-%gradebook-header {
-	margin: 0 #{-$headermargin};
-	padding: .625rem $headermargin;
-	background: $quad-grey;
-	border-bottom: 1px solid #ddd;
-	position: relative;
-	z-index: 99; // so the shadow isn't clipped by the table that follows
-	&::after { // shadow
-		content: '';
-		box-shadow: 0 -5px 15px 5px rgba(0,0,0,0.2);
-		position: absolute;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		height: 100px;
-		clip: rect(100px, auto, 150px, auto);
-		background: #dddddd;
-		border-radius: 40em / 10px;
-	}
-}
-
-%menu-click-mask { // click mask: intercept click events outside the menu
-	content: '';
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: rgba(0,0,0,0.001);
-	z-index: 2000;
 }
 
 .assignment-view-student {
@@ -77,6 +46,9 @@ $headermargin: 1000px;
 		font-size: .875rem;
 		border: 1px solid #dcdcdc;
 		border-radius: 3px;
+		&.open::before {
+			@extend %menu-click-mask;
+		}
 		.menu-label {
 			&::after {
 				@extend %chevron-down;
@@ -89,6 +61,7 @@ $headermargin: 1000px;
 			}
 		}
 		.page-menu {
+			@include menu-shadow;
 			list-style: none;
 			position: absolute;
 			left: 0;
@@ -97,8 +70,7 @@ $headermargin: 1000px;
 			width: 100%;
 			background: white;
 			font-size: .875rem;
-			z-index: 999;
-			box-shadow: 3px 3px 3px -3px rgba(0,0,0,0.3);
+			z-index: 9999;
 			border: 1px solid #dcdcdc;
 			li {
 				padding: .5rem .6rem;
@@ -106,9 +78,6 @@ $headermargin: 1000px;
 					background: $primary-color;
 					color: white;
 				}
-			}
-			&.open::before {
-				@extend %menu-click-mask;
 			}
 		}
 	}
@@ -149,6 +118,7 @@ $headermargin: 1000px;
 			@extend %menu-click-mask;
 		}
 		.filter-menu {
+			@include menu-shadow;
 			$padding: .5rem;
 			position: absolute;
 			top: -(1.5rem + $padding);
@@ -159,7 +129,6 @@ $headermargin: 1000px;
 			background: white;
 			z-index: 9999;
 			border: 1px solid #dcdcdc;
-			box-shadow: 3px 3px 3px -3px rgba(0,0,0,0.3);
 			min-width: 200px;
 			li {
 				white-space: nowrap;
@@ -314,6 +283,7 @@ $headermargin: 1000px;
 	}
 
 	ul {
+		@include menu-shadow;
 		position: absolute;
 		z-index: 9999;
 		background: white;
@@ -322,7 +292,6 @@ $headermargin: 1000px;
 		top: 1rem;
 		font-size: .875rem;
 		border: 1px solid #dcdcdc;
-		box-shadow: 3px 3px 3px -3px rgba(0,0,0,0.3);
 		li {
 			padding: .25em .5em;
 			white-space: nowrap;

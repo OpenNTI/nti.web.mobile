@@ -54,11 +54,11 @@ export default React.createClass({
 				items.push(<li className={classes} key={`page-${i}`} onClick={this.setPage.bind(this, i)}>{itemContent(i)}</li>);
 			}
 		}
-
+		const wrapperclasses = cx('gradebook-page-controls', {open});
 		const classes = cx('page-menu', {open});
 
 		return (
-			<div className="gradebook-page-controls" onClick={this.toggleMenu}>
+			<div className={wrapperclasses} onClick={this.toggleMenu}>
 				<div className="menu-label">{itemContent(currentPage, true)}</div>
 				{open && <ul className={classes}>{items}</ul>}
 			</div>
