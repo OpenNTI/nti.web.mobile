@@ -9,19 +9,24 @@ export default React.createClass({
 		 * @type {object} Any model that implements getPresentationProperties()
 		 */
 		contentPackage: React.PropTypes.shape({
-			getPresentationProperties: React.PropTypes.func }).isRequired
+			getPresentationProperties: React.PropTypes.func }).isRequired,
+
+		preferBackground: React.PropTypes.bool
 	},
 
 	render () {
-		let {contentPackage} = this.props;
+		const {contentPackage, preferBackground} = this.props;
 		if (!contentPackage) {
 			console.warn('contentPackage prop is required. skipping render.');
 			return null;
 		}
-		let p = contentPackage.getPresentationProperties();
+		const p = contentPackage.getPresentationProperties();
+
+		const icon = preferBackground ? (p.background || p.icon) : p.icon;
+
 		return (
 			<div className="content-banner">
-				<img src={p.background || p.icon || BLANK_IMAGE} />
+				<img src={icon || BLANK_IMAGE} />
 				<label>
 					<h3>{p.title}</h3>
 					<h5>{p.label}</h5>
