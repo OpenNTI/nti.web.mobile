@@ -1,0 +1,34 @@
+@import "~normalize.css";
+
+
+//http://stackoverflow.com/a/2711132
+html { text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
+* {
+	-webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+}
+
+address {font-style: normal;}
+
+body {
+	user-select: none;
+}
+
+html, body {
+	height: auto;
+	width: 100%;
+	overflow-x: hidden;
+}
+
+img {
+	-webkit-touch-callout: none;
+}
+
+[contenteditable] {
+	user-select: text !important;
+}
+
+time[datetime~=Invalid] {
+	color: red!important;
+	border: 2px dashed red !important;
+	animation: fadeIn 0.6s ease-in-out 0s infinite alternate both;
+}

@@ -5,7 +5,7 @@ import {getModel} from 'nti.lib.interfaces';
 
 import BasePathAware from 'common/mixins/BasePath';
 
-import Icon from './Icon';
+import Icon from './shared/Icon';
 const PackageClass = getModel('ContentPackage');
 
 export default React.createClass({

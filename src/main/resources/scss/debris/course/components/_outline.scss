@@ -74,7 +74,7 @@
 	}
 
 	.active {
-		background: #3fb3f6;
+		background: $primary-blue;
 		box-shadow: inset 3px 0 0 0 #107eed;
 		a[href] {
 			color: #ffffff;

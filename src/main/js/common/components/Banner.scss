@@ -1,4 +1,7 @@
-%content-card {
+@import 'utils/variables';
+
+.content-banner {
+	height: 132px;
 	position: relative;
 	overflow: hidden;
 	display: block;
@@ -14,8 +17,8 @@
 	img {
 		width: 100%;
 		position: absolute;
-		top: 0;
-		left: 0;
+		bottom: 0;
+		left: 0; right: 0;
 	}
 
 	label {
@@ -58,10 +61,4 @@
 			color: $primary-blue;
 		}
 	}
-}
-
-
-.content-banner {
-	@extend %content-card;
-	height: 132px;
 }

@@ -1,0 +1,84 @@
+
+.hidden {
+	display: none;
+}
+
+.faded {
+	opacity: 0.2;
+}
+
+
+.kill-transitions {
+	transition: none !important;
+}
+
+a.disabled {
+	opacity:0.4;
+}
+
+//iOS8 fails to fully transition from light to dark on body when the content
+//of the page is not full or overflowing. So we're not going to transition
+//this value. :(
+//
+//transition: background 0.4s ease-out 0.01s;
+body.dark {
+	background: #333 !important;
+}
+
+.scroll-lock {
+	&, & > body {
+		height: 100%;
+		overflow: hidden !important;
+	}
+}
+
+.animate {
+	transition: all .3s ease-out;
+}
+
+.sadface {
+	font-size: 5rem;
+	transform: rotate3d(0,0,1,90deg);
+	display: inline-block;
+	background: lightblue;
+	border-radius: 100%;
+	line-height: 1;
+	width: 6rem;
+	height: 6rem;
+	text-indent: 1.6rem;
+}
+
+.coordinate-root {
+	position: relative;
+}
+
+.error[data-error-message]::after {
+	content: attr(data-error-message);
+	position:absolute;
+	top: 0;
+	left: 1.5rem;
+	max-width: 86%;
+	background: $primary-red;
+	color: $secondary-red;
+	display: block;
+	padding: 0.25rem;
+	border: 1px solid $secondary-red;
+	font-size: 0.75rem;
+	font-weight: 600;
+	font-style: italic;
+}
+
+
+a.with-arrow[href] {
+	position: relative;
+	padding-right: 1em; // leave room for the chevron
+
+	&::after {
+		@extend %chevron-right;
+		position: absolute;
+		font-size: inherit;
+		right: .5em;
+		top: 50%;
+		transform: translateY(-44%); // 50% pulls it up a bit too high relative to the text.
+	}
+}

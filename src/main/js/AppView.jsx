@@ -12,9 +12,6 @@ import Navigatable from 'common/mixins/NavigatableMixin';
 
 import AppContainer from './AppFrame';
 
-//webpack magic
-import '../resources/scss/app.scss';
-
 export default React.createClass({
 	displayName: 'App',
 	mixins: [Navigatable],

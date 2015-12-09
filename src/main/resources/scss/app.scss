@@ -1,159 +1,39 @@
-@import "functions";
-@import "fonts";
+@import
+	"utils/variables",
+	"utils/functions",
+	"utils/mixins",
+	"utils/placeholders";
 
-@import "settings";
-@import "variables"; // we override some foundation settings so this has to come between settings and foundation.
-@import "~normalize.css";
+@import
+	"base/reset",
+	"base/brand",
+	"base/fonts",
+	"base/print-blocker",
+	"base/utility-classes";
+
 @import "~foundation-sites/scss/foundation";
 
-@import "base-brand";
 
-@import "common/transitions";
-@import "common/animations";
-@import "common/components";
+//TODO: Move all the following rules (defined in these partials)
+// next to the components(jsx files) that they style
 
-@import "coming-soon-to-mobile";
-
-@import "activity/components";
-@import "assessment/components";
-@import "chat/components";
-@import "contacts/components";
-@import "content/components";
-@import "course/components";
-@import "enrollment/components";
-@import "forums/components";
-@import "library/components";
-@import "login/components";
-@import "modeled-content/components";
-@import "navigation/components";
-@import "notifications/components";
-@import "profile/components";
-@import "prompts/components";
-@import "terms/components";
-
-
-@media print {
-
-	body > * {display: none;}
-	body::before {
-		display: block;
-		text-align: center;
-		font-size: 3rem;
-		content: 'Printing not supported';
-	}
-
-}
-
-
-.hidden {
-	display: none;
-}
-
-.faded {
-	opacity: 0.2;
-}
-
-.app-container { opacity: 1; } //unhides the UI once styles load.
-
-
-.error[data-error-message]::after {
-	content: attr(data-error-message);
-	position:absolute;
-	top: 0;
-	left: 1.5rem;
-	max-width: 86%;
-	background: $primary-red;
-	color: $secondary-red;
-	display: block;
-	padding: 0.25rem;
-	border: 1px solid $secondary-red;
-	font-size: 0.75rem;
-	font-weight: 600;
-	font-style: italic;
-}
-
-.missing-content {
-	margin: 2rem;
-
-	.catalog-entries {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.1);
-	}
-
-	.catalog-item .action {
-		right: 1rem;
-	}
-}
-
-body {
-	//iOS8 fails to fully transition from light to dark on body when the content of the page is not full or overflowing.
-	//So we're not going to transition this value. :(
-	// transition: background 0.4s ease-out 0.01s;
-	&.dark {
-		background: #333 !important;
-	}
-}
-
-html, body {
-	height: auto;
-	width: 100%;
-	overflow-x: hidden;
-}
-
-//http://stackoverflow.com/a/2711132
-html { text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
-* {
-	-webkit-tap-highlight-color: rgba(0,0,0,0) !important;
-}
-
-address {font-style: normal;}
-
-body {
-	user-select: none;
-}
-
-img {
-	-webkit-touch-callout: none;
-}
-
-[contenteditable] {
-	user-select: text !important;
-}
-
-a {
-	&.disabled {
-		opacity:0.4;
-	}
-}
-
-.scroll-lock {
-	&, & > body {
-		height: 100%;
-		overflow: hidden !important;
-	}
-}
-
-.animate {
-	transition: all .3s ease-out;
-}
-
-.sadface {
-	font-size: 5rem;
-	transform: rotate3d(0,0,1,90deg);
-	display: inline-block;
-	background: lightblue;
-	border-radius: 100%;
-	line-height: 1;
-	width: 6rem;
-	height: 6rem;
-	text-indent: 1.6rem;
-}
-
-
-time[datetime~=Invalid] {
-	color: red!important;
-	border: 2px dashed red !important;
-	animation: fadeIn 0.6s ease-in-out 0s infinite alternate both;
-}
+@import
+	"debris/common/transitions",
+	"debris/common/animations",
+	"debris/common/components",
+	"debris/activity/components",
+	"debris/assessment/components",
+	"debris/chat/components",
+	"debris/contacts/components",
+	"debris/content/components",
+	"debris/course/components",
+	"debris/enrollment/components",
+	"debris/forums/components",
+	"debris/library/components",
+	"debris/login/components",
+	"debris/modeled-content/components",
+	"debris/navigation/components",
+	"debris/notifications/components",
+	"debris/profile/components",
+	"debris/prompts/components",
+	"debris/terms/components";

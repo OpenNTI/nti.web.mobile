@@ -4,7 +4,7 @@ import BasePathAware from 'common/mixins/BasePath';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
-import Icon from './Icon';
+import Icon from './shared/Icon';
 
 export default React.createClass({
 	displayName: 'Bundle',

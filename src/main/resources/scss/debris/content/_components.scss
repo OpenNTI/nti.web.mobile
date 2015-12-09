@@ -1,4 +1,19 @@
-%coming-soon {
+@import "components/annotations";
+@import "components/breadcrumb";
+@import "components/client-content-overrides";
+@import "components/content-header";
+@import "components/discussions";
+@import "components/discussion-details";
+@import "components/discussion-item-actions";
+@import "components/gutter";
+@import "components/glossaryentry";
+@import "components/markupframe";
+@import "components/media-rolls";
+@import "components/note-editor";
+@import "components/table-of-contents";
+@import "components/view";
+
+widget:empty {
 	display: inline-block;
 	padding: 3rem;
 	border: 1px solid $panel-border-color;
@@ -10,10 +25,6 @@
 		content: 'Coming soon to mobile';
 		color: $panel-border-color;
 	}
-}
-
-widget:empty {
-	@extend %coming-soon;
 }
 
 

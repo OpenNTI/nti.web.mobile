@@ -6,6 +6,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 
 var root = path.resolve(__dirname, '..', 'src', 'main', 'js');
+var sassRoot = path.resolve(__dirname, '..', 'src', 'main', 'resources', 'scss');
 var modules = path.resolve(__dirname, '..', 'node_modules');
 
 var getCodeLoaderConfig = require('./getCodeLoaderConfig');
@@ -55,7 +56,7 @@ exports = module.exports = [
 		module: {
 			preLoaders: [
 				{
-					test: /\.jsx$/,
+					test: /src.main.js.+jsx?$/,
 					loader: 'baggage?[file].scss'
 				}
 			],
@@ -85,11 +86,17 @@ exports = module.exports = [
 				{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
 					'style-loader',
 					(global.distribution
-						? 'css?-minimize!autoprefixer!sass?'
-						: 'css?sourceMap!autoprefixer!sass?sourceMap'
+						? 'css?-minimize!autoprefixer!sass'
+						: 'css?sourceMap!autoprefixer!sass'
 					))
 				}
 			]
+		},
+
+
+		sassLoader: {
+			sourceMap: true,
+			includePaths: [sassRoot]
 		},
 
 

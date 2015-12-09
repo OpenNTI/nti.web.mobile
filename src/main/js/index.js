@@ -11,6 +11,8 @@ import OrientationHandler from 'common/utils/orientation';
 import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'common/utils';
 
 import AppView from './AppView';
+//webpack magic
+import '../resources/scss/app.scss';
 
 const RootNode = document.querySelector('html');
 CSS.removeClass(RootNode, 'no-js');

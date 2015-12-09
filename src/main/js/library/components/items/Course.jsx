@@ -10,7 +10,7 @@ import CourseLinker from '../../mixins/CourseContentLink';
 import CourseContentLink from '../CourseContentLink';
 import Badge from '../Badge';
 
-import Icon from './Icon';
+import Icon from './shared/Icon';
 
 export default React.createClass({
 	displayName: 'Course',
@@ -168,7 +168,7 @@ export default React.createClass({
 			<ul className="sections">
 			{sections.map(x=>
 				<li key={x.title}>
-					<ActiveState {...x} tag="div"><a {...x}>{x.title}</a></ActiveState>
+					<ActiveState {...x} tag="div"><a {...x} className="with-arrow">{x.title}</a></ActiveState>
 				</li>
 			)}
 			</ul>
