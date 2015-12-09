@@ -107,6 +107,9 @@ $headermargin: 1000px;
 					color: white;
 				}
 			}
+			&.open::before {
+				@extend %menu-click-mask;
+			}
 		}
 	}
 
