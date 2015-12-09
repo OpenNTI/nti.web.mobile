@@ -25,6 +25,17 @@ $headermargin: 1000px;
 	}
 }
 
+%menu-click-mask { // click mask: block click events outside the menu
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.001);
+	z-index: 2000;
+}
+
 .assignment-view-student {
 
 	max-width: 700px;
@@ -89,6 +100,9 @@ $headermargin: 1000px;
 				font-weight: normal;
 			}
 		}
+		&.open::before {
+			@extend %menu-click-mask;
+		}
 		.filter-menu {
 			$padding: .5rem;
 			position: absolute;
@@ -98,7 +112,7 @@ $headermargin: 1000px;
 			margin: 0;
 			padding: 0;
 			background: white;
-			z-index: 999;
+			z-index: 9999;
 			border: 1px solid #dcdcdc;
 			box-shadow: 3px 3px 3px -3px rgba(0,0,0,0.3);
 			min-width: 200px;
@@ -249,15 +263,8 @@ $headermargin: 1000px;
 		font-size: .625rem;
 	}
 
-	&.open::before { // click mask: block click events outside the menu
-	    content: '';
-	    position: fixed;
-	    top: 0;
-	    left: 0;
-	    right: 0;
-	    bottom: 0;
-	    background: rgba(0,0,0,0.001);
-	    z-index: 2000;
+	&.open::before {
+	    @extend %menu-click-mask;
 	}
 
 	ul {

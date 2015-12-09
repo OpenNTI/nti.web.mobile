@@ -1,5 +1,6 @@
 import React from 'react';
 import TransitionGroup from 'react-addons-css-transition-group';
+import cx from 'classnames';
 
 import {setFilter, setSearch} from '../../GradebookActions';
 import Store from '../../GradebookStore';
@@ -8,6 +9,11 @@ const OPTIONS = [
 	{label: 'Enrolled Students', value: 'ForCredit'},
 	{label: 'Open Students', value: 'Open'}
 ];
+
+const killEvent = (e) => {
+	e.stopPropagation();
+	e.preventDefault();
+};
 
 export default React.createClass({
 	displayName: 'FilterMenu',
@@ -54,6 +60,12 @@ export default React.createClass({
 		});
 	},
 
+	toggleMenu () {
+		this.setState({
+			open: !this.state.open
+		});
+	},
+
 	render () {
 
 		const filterValue = Store.filter;
@@ -61,13 +73,15 @@ export default React.createClass({
 		const search = Store.search || '';
 		const menuLabel = search.length > 0 ? `Search ${selectedOption.label}: ${search}` : selectedOption.label;
 
+		const wrapperClasses = cx('filter-menu-wrapper', {'open': this.state.open});
+
 		return (
-			<div className="filter-menu-wrapper">
-				<div className="menu-label" onClick={this.showMenu}>{menuLabel} <span className="count">({Store.count})</span></div>
+			<div className={wrapperClasses} onClick={this.toggleMenu}>
+				<div className="menu-label">{menuLabel} <span className="count">({Store.count})</span></div>
 				{this.state.open && (
 					<TransitionGroup
 						transitionName="fadeOutIn"
-						transitionAppear={true}
+						transitionAppear
 						transitionAppearTimeout={500}
 						transitionEnterTimeout={500}
 						transitionLeaveTimeout={500}
@@ -75,7 +89,7 @@ export default React.createClass({
 						<ul key="filter-menu" className="filter-menu">
 							<li key="title" className="title">Display</li>
 							{OPTIONS.map(option => <li key={option.value} className={option === selectedOption ? 'selected' : ''} onClick={this.optionClicked.bind(this, option)}>{option.label}</li>)}
-							<li key="search" className="search-item"><input defaultValue={Store.search} type="search" onChange={this.searchChanged} placeholder="Search Students"/></li>
+							<li key="search" className="search-item" onClick={killEvent}><input defaultValue={Store.search} type="search" onChange={this.searchChanged} placeholder="Search Students"/></li>
 						</ul>
 					</TransitionGroup>
 				)}
