@@ -6,6 +6,8 @@ import {areYouSure} from 'prompts';
 
 import {resetAssignment, excuseGrade} from '../../GradebookActions';
 
+import MenuTransitionGroup from './MenuTransitionGroup';
+
 const ACTIONS = [
 	{
 		label: 'Reset Assignment',
@@ -75,9 +77,11 @@ export default React.createClass({
 			<div onClick={this.toggleMenu} className={classes}>
 				<i className="icon-hamburger-menu" />
 				{open &&
-					<ul>
-						{ACTIONS.map(action => <li key={action.label} onClick={this.performAction.bind(this, action)}>{action.label}</li>)}
-					</ul>
+					<MenuTransitionGroup>
+						<ul>
+							{ACTIONS.map(action => <li key={action.label} onClick={this.performAction.bind(this, action)}>{action.label}</li>)}
+						</ul>
+					</MenuTransitionGroup>
 				}
 			</div>
 		);
