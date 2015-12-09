@@ -73,7 +73,21 @@ $headermargin: 1000px;
 		position: relative;
 		width: 150px;
 		background: white;
-		padding: .25em .5em;
+		padding: .5rem .6rem;
+		font-size: .875rem;
+		border: 1px solid #dcdcdc;
+		border-radius: 3px;
+		.menu-label {
+			&::after {
+				@extend %chevron-down;
+				color: $tertiary-grey;
+				font-size: 1em;
+				position: absolute;
+				right: .6rem;
+				top: 50%;
+				transform: translateY(-45%);
+			}
+		}
 		.page-menu {
 			list-style: none;
 			position: absolute;
@@ -82,8 +96,12 @@ $headermargin: 1000px;
 			margin: 0;
 			width: 100%;
 			background: white;
+			font-size: .875rem;
+			z-index: 999;
+			box-shadow: 3px 3px 3px -3px rgba(0,0,0,0.3);
+			border: 1px solid #dcdcdc;
 			li {
-				padding: .25em .5em;
+				padding: .5rem .6rem;
 				&.selected {
 					background: $primary-color;
 					color: white;
