@@ -14,6 +14,7 @@
 		@extend %gradebook-header;
 		padding: 0 $headermargin;
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: space-between;
 		.profile-link {
 			.avatar {
@@ -33,6 +34,7 @@
 		.controls {
 			display: flex;
 			align-items: center;
+			margin-bottom: 1rem;
 			& > * {
 				margin: 0 .25rem;
 			}
