@@ -7,7 +7,7 @@ import Loading from 'common/components/TinyLoader';
 import Breadcrumb from 'common/components/BreadcrumbPath';
 
 import TopicHeadline from 'forums/components/TopicHeadline';
-import ActionLinks, {ActionLinkConstants} from 'forums/components/ActionLinks';
+import ActionsComp from 'forums/components/Actions';
 
 import {areYouSure} from 'prompts';
 
@@ -65,11 +65,6 @@ export default React.createClass({
 			return <Loading />;
 		}
 
-		let handlers = {
-			[ActionLinkConstants.EDIT]: this.toggleEdit,
-			[ActionLinkConstants.DELETE]: this.deleteClicked
-		};
-
 		let {item} = this.props;
 		if (!item) {
 			return null;
@@ -93,13 +88,7 @@ export default React.createClass({
 					<LuckyCharms item={item} />
 					<TopicHeadline item={item.headline || item} />
 				</div>
-				<ActionLinks item={item} clickHandlers={handlers} />
-				{/*
-				<div className="footer">
-					<a href={this.objectLink(item)} className="postCount">{t('replies', {count: item.PostCount})}</a>
-					<ReportLink item={item} />
-				</div>
-				*/}
+				<ActionsComp item={item} onDelete={this.deleteClicked} onEdit={this.toggleEdit} />
 			</div>
 		);
 

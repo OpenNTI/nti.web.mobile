@@ -12,8 +12,7 @@ import Notice from 'common/components/Notice';
 
 import {areYouSure} from 'prompts';
 
-import ActionLinks from './ActionLinks';
-import {ActionLinkConstants} from './ActionLinks';
+import ActionsComp from './Actions';
 import CommentForm from './CommentForm';
 import TopicComments from './TopicComments';
 import TopicEditor from './TopicEditor';
@@ -195,13 +194,6 @@ export default React.createClass({
 		return this.props.topicId;
 	},
 
-	actionClickHandlers () {
-		return {
-			[ActionLinkConstants.EDIT]: this.editTopic,
-			[ActionLinkConstants.DELETE]: this.deleteTopic
-		};
-	},
-
 	saveEdit () {
 		let val = this.refs.headline.getValue();
 		Actions.saveComment(this.getTopic().headline, val);
@@ -229,9 +221,6 @@ export default React.createClass({
 		}
 
 		let topic = this.getTopic();
-		let topicContents = Store.getObjectContents(this.props.topicId);
-		let numComments = topicContents.TotalItemCount;
-
 
 		let props = {
 			ref: 'headline',
@@ -253,11 +242,12 @@ export default React.createClass({
 				>
 					<ViewHeader type={TOPIC} />
 					{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline topic={topic} {...props} />}
-					<ActionLinks
+					<ActionsComp
 						item={topic}
 						canReply={showComments}
-						numComments={numComments}
-						clickHandlers={this.actionClickHandlers()} />
+						onEdit={this.editTopic}
+						onDelete={this.deleteTopic}
+						/>
 
 					{showComments && (
 						<div>
