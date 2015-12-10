@@ -6,6 +6,8 @@ import Loading from 'common/components/Loading';
 import StoreEvents from 'common/mixins/StoreEvents';
 import ContextSender from 'common/mixins/ContextSender';
 
+import ShowAvatars from './mixins/ShowAvatarsContainer';
+
 import {GRADEBOOK_BY_ASSIGNMENT_UNLOADED} from '../../GradebookConstants';
 import GradebookStore from '../../GradebookStore';
 import * as GradebookActions from '../../GradebookActions';
@@ -16,7 +18,7 @@ import GradebookTable from './GradebookTable';
 export default React.createClass({
 	displayName: 'instructor:AssignmentView',
 
-	mixins: [ContextSender, StoreEvents],
+	mixins: [ShowAvatars, ContextSender, StoreEvents],
 
 	propTypes: {
 		assignments: React.PropTypes.object.isRequired,

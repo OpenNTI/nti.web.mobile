@@ -4,10 +4,13 @@ import cx from 'classnames';
 import Store from '../../GradebookStore';
 import {setBatchSize} from '../../GradebookActions';
 
+import ShowAvatars from './mixins/ShowAvatarsChild';
 import MenuTransitionGroup from './MenuTransitionGroup';
 
 export default React.createClass({
 	displayName: 'OptionsMenu',
+
+	mixins: [ShowAvatars],
 
 	getInitialState () {
 		return {
@@ -25,6 +28,12 @@ export default React.createClass({
 		setBatchSize(num);
 	},
 
+	toggleAvatars (event) {
+		console.log('avatar change', event);
+		event.stopPropagation();
+		this.setShowAvatars(!this.getShowAvatars());
+	},
+
 	render () {
 
 		const {open} = this.state;
@@ -40,7 +49,7 @@ export default React.createClass({
 						<ul className="options-menu">
 							<li key="title" className="title">Display</li>
 							{values.map(value => <li className={Store.batchSize === value ? 'selected' : ''} onClick={this.setNumItems.bind(this, value)} key={value}>{`${value} students per page`}</li> )}
-							<li>Hide Avatars</li>
+							<li onClick={this.toggleAvatars}><input type="checkbox" checked={this.getShowAvatars()} /> Show Avatars</li>
 						</ul>
 					</MenuTransitionGroup>
 				)}

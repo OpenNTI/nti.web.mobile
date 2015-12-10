@@ -3,8 +3,12 @@ import React from 'react';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 
+import ShowAvatars from '../mixins/ShowAvatarsChild';
+
 export default React.createClass({
 	displayName: 'GradebookColumnStudent',
+
+	mixins: [ShowAvatars],
 
 	statics: {
 		label () {
@@ -21,10 +25,10 @@ export default React.createClass({
 	render () {
 
 		const {item} = this.props;
-
+		const showAvatars = this.getShowAvatars();
 		return (
 			<a href={`./${encodeURIComponent(item.username)}/`}>
-				<Avatar entity={item.user} suppressProfileLink />
+				{showAvatars && (<Avatar entity={item.user} suppressProfileLink />)}
 				<DisplayName entity={item.user} suppressProfileLink />
 			</a>
 		);
