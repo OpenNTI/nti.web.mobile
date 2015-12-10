@@ -13,19 +13,53 @@
 	.assignment-header {
 		@extend %gradebook-header;
 		padding: 0 $headermargin;
+		display: flex;
+		justify-content: space-between;
 		.profile-link {
 			.avatar {
-				width: 64px;
-				height: 64px;
+				width: 96px;
+				height: 96px;
 				vertical-align: middle;
 				margin-right: .5rem;
+			}
+			.username {
+				font-weight: 700;
+				text-transform: uppercase;
 			}
 			.body {
 				display: inline-block;
 			}
 		}
 		.controls {
-			float: right;
+			display: flex;
+			align-items: center;
+			& > * {
+				margin: 0 .25rem;
+			}
+			.assignment-status {
+				font-size: .625rem;
+				text-transform: uppercase;
+				position: relative;
+				top: .5rem;
+			}
+			.grade {
+				text-align: center;
+				.label {
+					background: none;
+					text-transform: uppercase;
+					font-weight: 700;
+					color: $tertiary-grey;
+					font-size: .625rem;
+				}
+				.grade-box {
+					margin: 0 auto;
+					width: 7rem;
+				}
+			}
+			.gradebook-actions-menu {
+				position: relative;
+				top: .8rem;
+			}
 		}
 	}
 }
@@ -222,7 +256,7 @@
 		}
 		.col-score {
 			width: 4em;
-			input {
+			.grade-box {
 				display: inline;
 				width: 3em;
 				height: 2em;

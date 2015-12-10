@@ -4,6 +4,7 @@ import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 
 import ActionsMenu from './ActionsMenu';
 import GradeBox from './GradeBox';
+import Status from './AssignmentStatus';
 
 export default React.createClass({
 	displayName: 'instructor:AssignmentViewStudentHeader',
@@ -26,7 +27,11 @@ export default React.createClass({
 			<div className="assignment-header">
 				<AvatarProfileLink entity={userId} />
 				<div className="controls">
-					<GradeBox {...props} />
+					<Status />
+					<div className="grade">
+						<div className="label">Assignment Grade</div>
+						<GradeBox {...props} />
+					</div>
 					<ActionsMenu {...props} />
 				</div>
 			</div>
