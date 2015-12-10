@@ -5,8 +5,8 @@ export default React.createClass({
 
 	statics: {
 		handles (item) {
-			const {MimeType = ''} = item;
-			return /topic$/i.test(MimeType);
+			// const {MimeType = ''} = item;
+			// return /topic$/i.test(MimeType);
 		}
 	},
 

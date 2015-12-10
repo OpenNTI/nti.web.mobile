@@ -1,23 +1,20 @@
 import React from 'react';
 
 import t from 'common/locale';
-import ObjectLink from 'common/mixins/ObjectLink';
-import LuckyCharms from 'common/components/LuckyCharms';
-import Loading from 'common/components/TinyLoader';
+
 import Breadcrumb from 'common/components/BreadcrumbPath';
+import LuckyCharms from 'common/components/LuckyCharms';
 
 import TopicHeadline from 'forums/components/TopicHeadline';
 import ActionsComp from 'forums/components/Actions';
 
 import {areYouSure} from 'prompts';
 
-import PostEditor from '../PostEditor';
-
 import Mixin from './Mixin';
 
 export default React.createClass({
 	displayName: 'ForumTopic',
-	mixins: [Mixin, ObjectLink],
+	mixins: [Mixin],
 
 	statics: {
 		mimeType: /forums\.((.+)headlinetopic|personalblogentry(post)?)$/i
@@ -27,59 +24,22 @@ export default React.createClass({
 		item: React.PropTypes.any.isRequired
 	},
 
-	getInitialState () {
-		return {
-			editing: false,
-			busy: false
-		};
+
+	componentWillMount () {
+		console.log(this.props.item);
 	},
 
-	toggleEdit () {
-		this.setState({
-			editing: !this.state.editing
-		});
+
+	onDelete () {
+		const {props: {item}} = this;
+
+		areYouSure(t('FORUMS.deleteTopicPrompt'))
+			.then(() => item.delete());
 	},
 
-	onSave (title, body) {
-		this.setState({
-			busy: true
-		});
-		let {item} = this.props;
-		(item.headline || item)
-			.save({title, body})
-			.then(() => this.setState(this.getInitialState()));
-	},
-
-	storeChange (event) {
-		console.debug(event);
-	},
-
-	deleteClicked () {
-		areYouSure(t('FORUMS.deleteTopicPrompt')).then(() =>
-			this.props.item.delete());
-	},
 
 	render () {
-
-		if (this.state.busy) {
-			return <Loading />;
-		}
-
-		let {item} = this.props;
-		if (!item) {
-			return null;
-		}
-
-		if (this.state.editing) {
-			return (
-				<PostEditor
-					title={(item.headline || item).title}
-					value={(item.headline || item).body}
-					onCancel={this.toggleEdit}
-					onSubmit={this.onSave}
-				/>
-			);
-		}
+		const {props: {item}} = this;
 
 		return (
 			<div>
@@ -88,7 +48,7 @@ export default React.createClass({
 					<LuckyCharms item={item} />
 					<TopicHeadline item={item.headline || item} />
 				</div>
-				<ActionsComp item={item} onDelete={this.deleteClicked} onEdit={this.toggleEdit} />
+				<ActionsComp item={item} onDelete={this.onDelete} />
 			</div>
 		);
 

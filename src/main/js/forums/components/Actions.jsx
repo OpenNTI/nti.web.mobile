@@ -29,22 +29,16 @@ export default React.createClass({
 	},
 
 
-	getDefaultProps () {
-		const def = () => { console.error('No Handler passed'); };
-		return {
-			onDelete: def,
-			onEdit: def
-		};
-	},
-
 	render () {
 		const {props: {item, canReply, onEdit, onDelete}} = this;
 
-		let canEdit = isFlag('canEditForumPost') && item.hasLink('edit');
-		let canDelete = item.hasLink('edit');
-		let canReport = item.hasLink('flag') || item.hasLink('flag.metoo');
+		const canEdit = isFlag('canEditForumPost') && item.hasLink('edit');
+		const canDelete = item.hasLink('edit');
+		const canReport = item.hasLink('flag') || item.hasLink('flag.metoo');
 
-		canReply = !item.Deleted && canReply;
+		if (item.Deleted) {
+			return null;
+		}
 
 		return (
 			<ul key="control-links" className="action-links">
@@ -53,11 +47,11 @@ export default React.createClass({
 						<ScrollLink componentId={COMMENT_FORM_ID}>{t('addComment')}</ScrollLink>
 					</li>
 				}
-				{canEdit &&
+				{canEdit && onEdit &&
 					<li key="edit-link">
 						<a onClick={onEdit}>{t('editComment')}</a>
 					</li>}
-				{canDelete &&
+				{canDelete && onDelete &&
 					<li key="delete-link">
 						<a onClick={onDelete}>{t('deleteComment')}</a>
 					</li>}

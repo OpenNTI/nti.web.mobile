@@ -31,13 +31,15 @@ export default React.createClass({
 		}
 
 		return (
-			<div className="note-wrapper">
+			<div className="activity-note">
 				<Breadcrumb item={item} showPrompt={item.isReply()}/>
-				<div className={`activity discussion-${item.isReply() ? 'reply' : 'detail'}`}>
+				<div className={`activity ${item.isReply() ? 'reply' : 'detail'}`}>
 					{item.isReply() ? null : (
-						<div className="note heading">
+						<div className="ugd note heading">
 							<ContentIcon item={item} />
-							{isFlag('disable-context-in-activity') !== true && ( <Context item={item}/> )}
+							{isFlag('disable-context-in-activity') !== true && (
+								<Context item={item} className="activity"/>
+							)}
 						</div>
 					)}
 					<Detail item={item} lite/>
