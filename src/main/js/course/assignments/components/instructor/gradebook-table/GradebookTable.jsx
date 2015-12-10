@@ -1,15 +1,15 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {SORT_ASC, SORT_DESC} from '../../GradebookConstants';
-import {setSort} from '../../GradebookActions';
-import Store from '../../GradebookStore';
+import {SORT_ASC, SORT_DESC} from '../../../GradebookConstants';
+import {setSort} from '../../../GradebookActions';
+import Store from '../../../GradebookStore';
 
-import Student from './gradebook-table/ColumnStudent';
-import Completed from './gradebook-table/ColumnCompleted';
-import Score from './gradebook-table/ColumnScore';
-import Feedback from './gradebook-table/ColumnFeedback';
-import Actions from './gradebook-table/ColumnActions';
+import Student from './ColumnStudent';
+import Completed from './ColumnCompleted';
+import Score from './ColumnScore';
+import Feedback from './ColumnFeedback';
+import Actions from './ColumnActions';
 
 const COLUMNS = [Student, Completed, Score, Feedback, Actions];
 

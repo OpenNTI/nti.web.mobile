@@ -14,7 +14,7 @@ import GradebookStore from '../../GradebookStore';
 import * as GradebookActions from '../../GradebookActions';
 
 import AssignmentHeader from './AssignmentHeader';
-import GradebookTable from './GradebookTable';
+import GradebookTable from './gradebook-table/GradebookTable';
 
 export default React.createClass({
 	displayName: 'instructor:AssignmentView',
