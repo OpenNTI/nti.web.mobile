@@ -2,6 +2,7 @@ import React from 'react';
 
 import ActiveState from 'common/components/ActiveState';
 import E from 'common/components/Ellipsed';
+import Banner from 'common/components/Banner';
 import DateTime from 'common/components/DateTime';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -57,42 +58,18 @@ export default React.createClass({
 	},
 
 
-	componentWillUnmount () {
-		let {item} = this.props;
-		if (item) {
-			item.removeListener('change', this.itemChanged);
-		}
-	},
-
-
 	componentWillReceiveProps (nextProps) {
 		let {item} = this.props;
 		if (nextProps.item !== item) {
-			if (item) {
-				item.removeListener('change', this.itemChanged);
-			}
 			this.fillIn(nextProps);
 		}
 	},
 
 
-	itemChanged () {
-		let {item} = this.props;
-		let presentation = item ? item.getPresentationProperties() : {};
-		let {icon, background, title, label} = presentation;
-		this.setState({ icon, background, title, label });
-	},
-
-
 	fillIn (props) {
-		this.itemChanged();
 		this.setState({loading: true});
 		let {item} = props;
 		let resolvingOutline = item ? item.getOutline() : Promise.reject();
-
-		if (item) {
-			item.addListener('change', this.itemChanged);
-		}
 
 		let depthMap = ['h1', 'div'];
 
@@ -123,7 +100,7 @@ export default React.createClass({
 
 
 	render () {
-		let {outline, loading, icon, background, label, title} = this.state;
+		const {props: {item}, state: {outline, loading}} = this;
 
 		if (loading) {
 			return (<Loading/>);
@@ -131,14 +108,9 @@ export default React.createClass({
 
 		return (
 			<div className={this.props.className}>
-				<div className="head">
-					<img src={background || icon}/>
-					<label>
-						<h3>{title}</h3>
-						<h5>{label}</h5>
-					</label>
+				<Banner item={item} className="head">
 					<div className="branding"/>
-				</div>
+				</Banner>
 
 				{this.props.children}
 

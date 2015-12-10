@@ -94,7 +94,7 @@ export default React.createClass({
 		return (
 			<GradientBackground imgUrl={contentPackage.getPresentationProperties().background}>
 				<div className="course-activity">
-					<Banner contentPackage={contentPackage} />
+					<Banner item={contentPackage} />
 					<ul className="activity-buckets">{store && store.map((bucket, index) => <ActivityBucket key={`bucket-${index}`} bucket={bucket} />)}</ul>
 					<ScrollTrigger ref="scrollTrigger" onEnterView={this.loadMore} />
 					{store && store.loading && <Loading />}

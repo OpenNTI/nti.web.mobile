@@ -6,10 +6,6 @@
 		opacity: 0.3;
 	}
 
-	& > .head {
-		@extend %content-header;
-	}
-
 	li a[href] {
 		color: $primary-grey;
 	}
