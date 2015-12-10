@@ -1,8 +1,6 @@
 import React from 'react';
 
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
-
-import ContextContributor from 'common/mixins/ContextContributor';
+import ContextSender from 'common/mixins/ContextSender';
 import StoreEvents from 'common/mixins/StoreEvents';
 
 import SearchSortStore from '../SearchSortStore';
@@ -14,7 +12,7 @@ import PageFrame from './PageFrame';
 export default React.createClass({
 	displayName: 'Assignments',
 
-	mixins: [ContextContributor, StoreEvents],
+	mixins: [ContextSender, StoreEvents],
 
 	propTypes: {
 		assignments: React.PropTypes.object.isRequired,
@@ -28,11 +26,9 @@ export default React.createClass({
 	},
 
 	getContext () {
-		const {rootId} = this.props;
 		return Promise.resolve({
 			label: 'Assignments',
-			ntiid: decodeFromURI(rootId),
-			href: this.makeHref(rootId)
+			href: this.makeHref('/')
 		});
 	},
 

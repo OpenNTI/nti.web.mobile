@@ -4,6 +4,7 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import Loading from 'common/components/Loading';
 import StoreEvents from 'common/mixins/StoreEvents';
+import ContextSender from 'common/mixins/ContextSender';
 
 import {GRADEBOOK_BY_ASSIGNMENT_UNLOADED} from '../../GradebookConstants';
 import GradebookStore from '../../GradebookStore';
@@ -15,7 +16,7 @@ import GradebookTable from './GradebookTable';
 export default React.createClass({
 	displayName: 'instructor:AssignmentView',
 
-	mixins: [StoreEvents],
+	mixins: [ContextSender, StoreEvents],
 
 	propTypes: {
 		assignments: React.PropTypes.object.isRequired,
@@ -26,6 +27,12 @@ export default React.createClass({
 	backingStoreEventHandlers: {
 		[GRADEBOOK_BY_ASSIGNMENT_UNLOADED]: 'reload',
 		default: 'synchronizeFromStore'
+	},
+
+	getContext () {
+		return Promise.resolve({
+			label: 'Assignment'
+		});
 	},
 
 	componentWillMount () {
