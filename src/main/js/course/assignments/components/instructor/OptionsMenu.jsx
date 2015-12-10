@@ -29,8 +29,7 @@ export default React.createClass({
 	},
 
 	toggleAvatars (event) {
-		console.log('avatar change', event);
-		event.stopPropagation();
+		event.stopPropagation(); // leave the menu open
 		this.setShowAvatars(!this.getShowAvatars());
 	},
 
