@@ -48,7 +48,7 @@ export default React.createClass({
 						<ul className="options-menu">
 							<li key="title" className="title">Display</li>
 							{values.map(value => <li className={Store.batchSize === value ? 'selected' : ''} onClick={this.setNumItems.bind(this, value)} key={value}>{`${value} students per page`}</li> )}
-							<li onClick={this.toggleAvatars}><input type="checkbox" checked={this.getShowAvatars()} /> Show Avatars</li>
+							<li onClick={this.toggleAvatars}><input type="checkbox" onChange={this.toggleAvatars} checked={this.getShowAvatars()} /> Show Avatars</li>
 						</ul>
 					</MenuTransitionGroup>
 				)}
