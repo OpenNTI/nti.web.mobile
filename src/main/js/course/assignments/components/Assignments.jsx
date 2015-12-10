@@ -2,6 +2,7 @@ import React from 'react';
 
 import ContextSender from 'common/mixins/ContextSender';
 import StoreEvents from 'common/mixins/StoreEvents';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import SearchSortStore from '../SearchSortStore';
 
@@ -12,7 +13,7 @@ import PageFrame from './PageFrame';
 export default React.createClass({
 	displayName: 'Assignments',
 
-	mixins: [ContextSender, StoreEvents],
+	mixins: [ContextSender, NavigatableMixin, StoreEvents],
 
 	propTypes: {
 		assignments: React.PropTypes.object.isRequired,
