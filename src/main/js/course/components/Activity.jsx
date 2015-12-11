@@ -49,9 +49,6 @@ export default React.createClass({
 		}
 	},
 
-	componentDidUpdate () {
-		this.refs.scrollTrigger.checkInView(true);
-	},
 
 	getContext () {
 		let {course} = this.props;
@@ -96,7 +93,7 @@ export default React.createClass({
 				<div className="course-activity">
 					<Banner item={contentPackage} />
 					<ul className="activity-buckets">{store && store.map((bucket, index) => <ActivityBucket key={`bucket-${index}`} bucket={bucket} />)}</ul>
-					<ScrollTrigger ref="scrollTrigger" onEnterView={this.loadMore} />
+					<ScrollTrigger onEnterView={this.loadMore} />
 					{store && store.loading && <Loading />}
 				</div>
 			</GradientBackground>
