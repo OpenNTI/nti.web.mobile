@@ -1,50 +1,54 @@
+$background-grey: #fbfbfb;
+$alt-grey: darken($background-grey, 3.9%); // #f1f1f1
+
+.search-sort-bar {
+	$input-padding: 1.5rem;
+	display: flex;
+	height: 3.1rem;
+	background: $background-grey;
+	box-shadow: 0 -1px 0 0 $alt-grey, 0 1px 0 0 $alt-grey;
+	& > * {
+		flex: 1 1 50%;
+	}
+	input.search {
+		margin: 0;
+		box-shadow: inset 1px 0 0 0 $alt-grey !important;
+		background: none;
+		border: none !important;
+		padding: $input-padding $input-padding/2;
+	}
+	.select-box {
+		z-index: 999;
+		ul {
+			width: 100%;
+			font-weight: 600;
+			background: $background-grey;
+			white-space: nowrap;
+			li {
+				line-height: $input-padding * 2;
+				padding-left: 0.5rem;
+			}
+		}
+		&.open {
+			& > ul {
+				box-shadow: 1px 2px 2px 0 rgba(0,0,0,0.1);
+			}
+			.selected {
+				background: $primary-blue;
+				color: white;
+				&::after {
+					color: white;
+				}
+			}
+		}
+	}
+}
+
 .assignments-view {
-	$background-grey: #fbfbfb;
-	$alt-grey: darken($background-grey, 3.9%); // #f1f1f1
+
 	ul {
 		list-style:none;
 		margin: 0;
-	}
-	.search-sort-bar {
-
-		$input-padding: 1.5rem;
-		display: flex;
-		background: $background-grey;
-		box-shadow: 0 -1px 0 0 $alt-grey, 0 1px 0 0 $alt-grey;
-		& > * {
-			flex: 1 1 50%;
-		}
-		input.search {
-			margin: 0;
-			box-shadow: inset 1px 0 0 0 $alt-grey;
-			background: none;
-			border: none;
-			padding: $input-padding $input-padding/2;
-		}
-		.select-box {
-			z-index: 999;
-			ul {
-				width: 100%;
-				font-weight: 600;
-				background: $background-grey;
-				li {
-					line-height: $input-padding * 2;
-					padding-left: 0.5rem;
-				}
-			}
-			&.open {
-				& > ul {
-					box-shadow: 1px 2px 2px 0 rgba(0,0,0,0.1);
-				}
-				.selected {
-					background: $primary-blue;
-					color: white;
-					&::after {
-						color: white;
-					}
-				}
-			}
-		}
 	}
 	.assignments-list {
 		padding: 1rem;

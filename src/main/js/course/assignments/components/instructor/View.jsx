@@ -7,7 +7,7 @@ import Activity from '../Activity';
 import Assignments from '../Assignments';
 import PageFrame from '../PageFrame';
 
-import Performance from './Performance';
+import Performance from './performance/View';
 import AssignmentView from './AssignmentView';
 import AssignmentViewStudent from './AssignmentViewStudent';
 
