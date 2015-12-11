@@ -98,7 +98,15 @@ export default React.createClass({
 	displayName: 'Course:ActivityBucket',
 	mixins: [ItemsMixin],
 	propTypes: {
-		bucket: React.PropTypes.object.isRequired
+		bucket: function (props, propName) {
+			const p = props[propName];
+			const isEndDate = p.end instanceof Date;
+			const isStartDate = p.start instanceof Date;
+			const isIterable = typeof p[Symbol.iterator] === 'function';
+			if (!isEndDate || !isStartDate || !isIterable) {
+				throw new Error('Not a Bucket');
+			}
+		}
 	},
 
 	getInitialState () {
