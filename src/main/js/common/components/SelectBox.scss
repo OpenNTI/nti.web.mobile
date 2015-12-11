@@ -4,11 +4,11 @@
 %menuitem {
 	line-height: 3em;
 	padding-left: .5em;
+	white-space: nowrap;
 }
 
 .select-box {
 	position: relative;
-	z-index: 9999;
 	&.open {
 		& > ul {
 			background: white;
@@ -26,7 +26,7 @@
 		margin: 0;
 		list-style: none;
 		position: absolute;
-		width: 100%;
+		min-width: 100%;
 		font-weight: 600;
 		background: #fbfbfb;
 		white-space: nowrap;
