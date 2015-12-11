@@ -20,6 +20,22 @@ IMAGES=resources/images/
 
 CC=webpack --progress --cache --bail --config
 
+define link-site-styles
+	node -e "\
+		var fs = require('fs'); \
+		var sites = require('../sites.json'); \
+		var base = require('path').resolve('./client/resources/css/sites/'); \
+		Object.keys(sites).forEach(alias => { \
+			if(typeof sites[alias] === 'string') { \
+				var src = base + sites[alias]; \
+				var dest = base + alias; \
+				try{ fs.symlinkSync(src, dest, 'dir'); } \
+				catch (e) { console.warn(e.message); } \
+			}\
+		});\
+		"
+endef
+
 export NODE_ENV="production"
 
 all: build-all
@@ -42,6 +58,7 @@ build-app: compile-app clean-dist-app
 	@mkdir -p $(DIST)
 	@mv -f $(STAGE)client $(DIST)client
 	@mv -f $(STAGE)server $(DIST)server
+	@(cd $(DIST) && $(call link-site-styles))
 
 build-widgets: compile-widgets clean-dist-widgets
 	@mkdir -p $(DIST)
