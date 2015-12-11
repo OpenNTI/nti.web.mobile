@@ -21,7 +21,7 @@ export default React.createClass({
 		let entry = course && course.CatalogEntry;
 
 		return (
-			<div>
+			<div className="course-info">
 				<Detail {...this.props} entry={entry}/>
 				<EnrollButton catalogEntry={entry} dropOnly/>
 			</div>

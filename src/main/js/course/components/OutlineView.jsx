@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 
 import ActiveState from 'common/components/ActiveState';
 import E from 'common/components/Ellipsed';
@@ -100,14 +101,14 @@ export default React.createClass({
 
 
 	render () {
-		const {props: {item}, state: {outline, loading}} = this;
+		const {props: {className, item}, state: {outline, loading}} = this;
 
 		if (loading) {
 			return (<Loading/>);
 		}
 
 		return (
-			<div className={this.props.className}>
+			<div className={cx('outline-view', className)}>
 				<Banner item={item} className="head">
 					<div className="branding"/>
 				</Banner>

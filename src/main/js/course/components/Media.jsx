@@ -110,7 +110,7 @@ export default React.createClass({
 		let props = Object.assign({}, this.props, { VideoIndex });
 
 		return (
-			<Router.Locations contextual>
+			<Router.Locations className="media-view" contextual>
 				<Router.Location path="/:videoId/discussions(/*)" handler={TranscriptedVideo} {...props} showDiscussions/>
 				<Router.Location path="/:videoId(/*)" handler={TranscriptedVideo} {...props}/>
 				<Router.Location path="/(*)" handler={VideoGrid} {...props}/>

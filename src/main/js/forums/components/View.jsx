@@ -31,7 +31,7 @@ export default React.createClass({
 	render () {
 		let {contentPackage} = this.props;
 		return (
-			<div>
+			<div className="forum-view">
 				<Banner item={contentPackage} />
 				<div className="forums-wrapper">
 					<Router.Locations contextual>
