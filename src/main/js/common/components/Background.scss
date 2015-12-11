@@ -1,0 +1,15 @@
+@import 'utils/variables';
+
+.background-cmp {
+	&.no-image {
+		min-height: calc(100vh - 2.8125rem);
+		background: $secondary-grey;
+	}
+}
+
+body.content-background {
+	background-size: cover !important;
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+	background-attachment: fixed;
+}

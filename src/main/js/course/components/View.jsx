@@ -7,6 +7,7 @@ import NotFound from 'notfound/components/View';
 
 import Redirect from 'navigation/components/Redirect';
 
+import Background from 'common/components/Background';
 import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
 
@@ -67,7 +68,9 @@ export default React.createClass({
 	componentDidMount () { this.getDataIfNeeded(this.props); },
 
 
-	componentWillUnmount () { setCourse(null); /*clear left nav*/ },
+	componentWillUnmount () {
+		setCourse(null);
+	},
 
 
 	componentWillReceiveProps (nextProps) {
@@ -92,8 +95,8 @@ export default React.createClass({
 
 
 	render () {
-		let course = this.getCourse();
-		let entry = course && course.CatalogEntry;
+		const course = this.getCourse();
+		const entry = course && course.CatalogEntry;
 
 		if (this.state.loading) {
 			return (<Loading/>);
@@ -101,10 +104,20 @@ export default React.createClass({
 
 		if ((course && course.error) || !entry) {
 			return !course || course.notFound ?
-				(<NotFound/>) :
-				(<ErrorWidget error={course.error}/>);
+			(<NotFound/>) :
+			(<ErrorWidget error={course.error}/>);
 		}
 
+		return (
+			<Background imgUrl={course.getPresentationProperties().background}>
+				{this.renderContent()}
+			</Background>
+		);
+	},
+
+
+	renderContent () {
+		const course = this.getCourse();
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route=>
 				route.path ?

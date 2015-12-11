@@ -3,7 +3,7 @@ import React from 'react';
 import GroupControls from './Controls';
 
 import ActiveLink from 'common/components/ActiveLink';
-import Gradient from 'common/components/GradientBackground';
+import Background from 'common/components/Background';
 import Page from 'common/components/Page';
 import Breadcrumb from './Breadcrumb';
 
@@ -27,7 +27,7 @@ export default React.createClass({
 
 		return (
 			<Page title="Group">
-				<Gradient className="profile-wrapper group">
+				<Background className="profile-wrapper group" imgUrl={entity.backgroundURL}>
 					<div className="profile-top-controls">
 						<Breadcrumb entity={entity} />
 						<ul className="profile-top-controls-buttons">
@@ -44,7 +44,7 @@ export default React.createClass({
 						</Head>
 						<Content {...this.props}/>
 					</div>
-				</Gradient>
+				</Background>
 			</Page>
 		);
 	}
