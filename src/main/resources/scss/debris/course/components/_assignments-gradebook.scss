@@ -66,56 +66,56 @@
 	}
 }
 
+.gradebook-page-controls {
+	float: right;
+	position: relative;
+	width: 150px;
+	background: white;
+	padding: .5rem .6rem;
+	font-size: .875rem;
+	border: 1px solid #dcdcdc;
+	border-radius: 3px;
+	&.open::before {
+		@extend %menu-click-mask;
+	}
+	.menu-label {
+		&::after {
+			@extend %chevron-down;
+			color: $tertiary-grey;
+			font-size: 1em;
+			position: absolute;
+			right: .6rem;
+			top: 50%;
+			transform: translateY(-45%);
+		}
+	}
+	.page-menu {
+		@include menu-shadow;
+		list-style: none;
+		position: absolute;
+		left: 0;
+		top: 100%;
+		margin: 0;
+		width: 100%;
+		background: white;
+		font-size: .875rem;
+		z-index: 9999;
+		border: 1px solid #dcdcdc;
+		li {
+			padding: .5rem .6rem;
+			&.selected {
+				background: $primary-color;
+				color: white;
+			}
+		}
+	}
+}
+
 .gradebook-assignment-header {
 	@extend %gradebook-header;
 
 	.gradebook-assignment-title {
 		margin-bottom: .625rem;
-	}
-
-	.gradebook-page-controls {
-		float: right;
-		position: relative;
-		width: 150px;
-		background: white;
-		padding: .5rem .6rem;
-		font-size: .875rem;
-		border: 1px solid #dcdcdc;
-		border-radius: 3px;
-		&.open::before {
-			@extend %menu-click-mask;
-		}
-		.menu-label {
-			&::after {
-				@extend %chevron-down;
-				color: $tertiary-grey;
-				font-size: 1em;
-				position: absolute;
-				right: .6rem;
-				top: 50%;
-				transform: translateY(-45%);
-			}
-		}
-		.page-menu {
-			@include menu-shadow;
-			list-style: none;
-			position: absolute;
-			left: 0;
-			top: 100%;
-			margin: 0;
-			width: 100%;
-			background: white;
-			font-size: .875rem;
-			z-index: 9999;
-			border: 1px solid #dcdcdc;
-			li {
-				padding: .5rem .6rem;
-				&.selected {
-					background: $primary-color;
-					color: white;
-				}
-			}
-		}
 	}
 
 	.avatar {
