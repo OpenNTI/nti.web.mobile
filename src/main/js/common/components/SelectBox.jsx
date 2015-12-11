@@ -59,28 +59,22 @@ export default React.createClass({
 		let {isOpen, selectedOption} = this.state;
 
 		let classes = cx('select-box', this.props.className, {'open': isOpen});
-		let Tag = 'div';
 
-		let selectedItem = <li className="selected" onClick={this.toggle}><span className="option-label">{selectedOption.label}</span></li>;
+		const optionLabel = (text) => <span className="option-label">{text}</span>;
+		// let selectedItem = <li className="selected" onClick={this.toggle}><span className="option-label">{selectedOption.label}</span></li>;
 
-		if (isOpen) {
-			return (
-				<Tag className={classes}>
-					<ul>
-					{selectedItem}
-					{this.props.options.filter(item => item !== selectedOption).map((option, index) =>
-						<li key={index} onClick={this.onClick.bind(this, option.value || option.label)}><span className="option-label">{option.label}</span></li>
-					)}
-					</ul>
-				</Tag>
-			);
-		}
 		return (
-			<Tag className={classes}>
-				<ul>
-					{selectedItem}
-				</ul>
-			</Tag>
+			<div className={classes}>
+				<div className="menu-label selected" onClick={this.toggle}>{optionLabel(selectedOption.label)}</div>
+				{isOpen && (
+					<ul>
+						{this.props.options.filter(item => item !== selectedOption).map((option, index) =>
+							<li key={index} onClick={this.onClick.bind(this, option.value || option.label)}>{optionLabel(option.label)}</li>
+						)}
+					</ul>
+				)}
+			</div>
 		);
+
 	}
 });

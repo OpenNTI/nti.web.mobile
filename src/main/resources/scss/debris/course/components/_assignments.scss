@@ -17,31 +17,6 @@ $alt-grey: darken($background-grey, 3.9%); // #f1f1f1
 		border: none !important;
 		padding: $input-padding $input-padding/2;
 	}
-	.select-box {
-		z-index: 999;
-		ul {
-			width: 100%;
-			font-weight: 600;
-			background: $background-grey;
-			white-space: nowrap;
-			li {
-				line-height: $input-padding * 2;
-				padding-left: 0.5rem;
-			}
-		}
-		&.open {
-			& > ul {
-				box-shadow: 1px 2px 2px 0 rgba(0,0,0,0.1);
-			}
-			.selected {
-				background: $primary-blue;
-				color: white;
-				&::after {
-					color: white;
-				}
-			}
-		}
-	}
 }
 
 .assignments-view {

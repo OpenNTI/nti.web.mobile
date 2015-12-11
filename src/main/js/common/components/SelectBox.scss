@@ -1,0 +1,52 @@
+@import 'utils/variables';
+@import 'utils/placeholders';
+
+%menuitem {
+	line-height: 3em;
+	padding-left: .5em;
+}
+
+.select-box {
+	position: relative;
+	z-index: 9999;
+	&.open {
+		& > ul {
+			background: white;
+			box-shadow: 1px 2px 2px 0 rgba(0,0,0,0.1);
+		}
+		.selected {
+			background: $primary-blue;
+			color: white;
+			&::after {
+				color: white;
+			}
+		}
+	}
+	ul {
+		margin: 0;
+		list-style: none;
+		position: absolute;
+		width: 100%;
+		font-weight: 600;
+		background: #fbfbfb;
+		white-space: nowrap;
+		z-index: 9999;
+		li {
+			@extend %menuitem;
+		}
+	}
+	.menu-label {
+		@extend %menuitem;
+		position: relative;
+		padding-right: 2em;
+		&::after {
+			@extend %chevron-down;
+			position: absolute;
+			top: 50%;
+			right: .5em;
+			font-size: 1em;
+			transform: translate3d(0,-50%,0);
+			color: $tertiary-grey;
+		}
+	}
+}
