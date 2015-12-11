@@ -1,28 +1,15 @@
 import React from 'react';
 
 import Unknown from './Unknown';
-import ForumComment from './ForumComment';
-import ForumTopic from './ForumTopic';
-import Highlight from './Highlight';
-import HighlightContainer from './HighlightContainer';
-import Note from './Note';
-import Chat from './Chat';
 
-
-const KINDS = [
-	Unknown,
-	ForumComment,
-	ForumTopic,
-	HighlightContainer,
-	Highlight,
-	Note,
-	Chat
-];
+//`require.context` is a little WebPack magic :) --- dynamicly require all files the match the pattern /.jsx$/
+const req = require.context('./', true, /.jsx$/);
+const WIDGETS = req.keys().map(m => req(m).default);
 
 export default function select (item, index, props = {}) {
 	let Item = Unknown;
 
-	for (let Type of KINDS) {
+	for (let Type of WIDGETS) {
 		if (Type !== Unknown && Type.handles && Type.handles(item)) {
 			Item = Type;
 			break;

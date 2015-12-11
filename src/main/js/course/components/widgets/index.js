@@ -1,30 +1,10 @@
 import React from 'react';
 
 import Unknown from './Unknown';
-import Topic from './Topic';
-import Group from './Group';
-import Video from './Video';
-import Videos from './Videos';
-import Card from './RelatedWorkRef';
-import Discussion from './Discussion';
-import QuestionSet from './QuestionSet';
-import PollReference from './PollReference';
-import SurveyReference from './SurveyReference';
-import Timeline from './Timeline';
 
-const WIDGETS = [
-	Unknown, //Unknown for future items.
-	Topic,
-	Card,
-	Group,
-	Video,
-	Videos,
-	Discussion,
-	QuestionSet,
-	PollReference,
-	SurveyReference,
-	Timeline
-];
+//`require.context` is a little WebPack magic :) --- dynamicly require all files the match the pattern /.jsx$/
+const req = require.context('./', true, /.jsx$/);
+const WIDGETS = req.keys().map(m => req(m).default);
 
 export function select (item, index, list, props, node, assessmentCollection) {
 	let Item = Unknown;
