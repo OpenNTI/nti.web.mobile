@@ -1,17 +1,16 @@
-.PHONY: all
-.PHONY: build-all
-.PHONY: build-app
-.PHONY: build-widgets
-.PHONY: build-schema
-.PHONY: compile-app
-.PHONY: compile-widgets
-.PHONY: stage
-.PHONY: setup
-.PHONY: clean-stage-app
-.PHONY: clean-stage-widgets
-.PHONY: clean
-.PHONY: check
-
+.PHONY: all \
+	build-all \
+	build-app \
+	build-widgets \
+	build-schema \
+	compile-app \
+	compile-widgets \
+	stage setup \
+	clean-stage-app \
+	clean-stage-widgets \
+	clean-maps \
+	clean \
+	check
 
 DIST=./dist/
 STAGE=./stage/
@@ -89,6 +88,10 @@ clean-dist-widgets:
 
 clean-stage-widgets:
 	@rm -rf $(STAGE)widgets
+
+clean-maps:
+	@find ./dist/client -name "*.map" -type f -delete
+	@find ./dist/client -name "*.map.gz" -type f -delete
 
 clean:
 	@rm -rf $(STAGE) $(DIST) $(SCHEMA)
