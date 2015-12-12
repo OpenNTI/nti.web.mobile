@@ -19,10 +19,6 @@
 	}
 }
 
-%detail-link {
-	text-transform: uppercase;
-	font-size: 0.6875rem;
-}
 
 %svg-icon-mask {
 	mask-size: 100% 100%;
@@ -198,15 +194,13 @@
 
 %middot-before {
 	&::before {
-		content: '\00B7';
-		margin: 0.5em;
+		@extend %middot;
 	}
 }
 
 %middot-after {
 	&::after {
-		content: '\00B7';
-		margin: 0.5em;
+		@extend %middot;
 	}
 }
 
