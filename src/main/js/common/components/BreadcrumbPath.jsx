@@ -5,7 +5,6 @@ import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import ObjectLink from '../mixins/ObjectLink';
 
-import Loading from './TinyLoader';
 
 function getBreadcrumb (item) {
 	return (item || {}).getContextPath
@@ -158,9 +157,7 @@ export default React.createClass({
 		const href = this.objectLink(item);
 
 		if (!breadcrumb) {
-			return (
-				<Loading/>
-			);
+			return this.renderPlaceholder();
 		}
 
 		const {reason = {}, isError} = breadcrumb;
@@ -184,6 +181,32 @@ export default React.createClass({
 							this.crumbText(breadcrumb)
 
 						)}
+					</ul>
+				</a>
+			</div>
+		);
+	},
+
+
+	renderPlaceholder () {
+		const {props: {item}} = this;
+		const href = this.objectLink(item);
+		const num = () => Math.round(Math.random() * 100);
+		const width = (x) => ({width: (Math.max(num() % x, 15)) + '%'});
+		const peices = Array.from({length: Math.max(num() % 5, 1)});
+
+		const segment = (_, index, a) => (
+			<li key={index} style={width(35)} className={cx('crumb', { 'next-to-last': index === (a.length - 1) })}>
+				<span/>
+			</li>
+		);
+
+		return (
+			<div>
+				<a href={href} className="breadcrumb placeholder">
+					<ul className="breadcrumb-list">
+						{peices.map(segment)}
+						<li className="crumb last"><span style={width(55)}/></li>
 					</ul>
 				</a>
 			</div>
