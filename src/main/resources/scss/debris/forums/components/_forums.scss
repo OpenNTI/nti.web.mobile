@@ -92,29 +92,12 @@ $indent: 0.9375rem;
 		margin: 0;
 	}
 
-	ul.action-links {
-		& > li {
-			font-size: 0.6875rem;
-			display: inline-block;
-
-			@extend %middot-after;
-			&:last-child::after {
-				content: none;
-			}
-		}
-	}
-
-	.action-link {
-		font-size: 0.6875rem;
+	.create-topic {
+		position: relative;
+		display: block;
+		text-align: right;
 		padding: 0.5rem 0;
-		display: inline-block;
-		&.create-topic {
-			position: relative;
-			display: block;
-			text-align: right;
-			padding: 0.5rem 0;
-			padding-right: 0;
-		}
+		padding-right: 0;
 	}
 
 	.postitem {

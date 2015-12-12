@@ -1,3 +1,4 @@
+@import "links";
 
 .hidden {
 	display: none;
@@ -12,7 +13,7 @@
 	transition: none !important;
 }
 
-a.disabled {
+.disabled {
 	opacity:0.4;
 }
 
@@ -21,7 +22,7 @@ a.disabled {
 //this value. :(
 //
 //transition: background 0.4s ease-out 0.01s;
-body.dark {
+.dark {
 	background: #333 !important;
 }
 
@@ -66,19 +67,4 @@ body.dark {
 	font-size: 0.75rem;
 	font-weight: 600;
 	font-style: italic;
-}
-
-
-a.with-arrow[href] {
-	position: relative;
-	padding-right: 1em; // leave room for the chevron
-
-	&::after {
-		@extend %chevron-right;
-		position: absolute;
-		font-size: inherit;
-		right: .5em;
-		top: 50%;
-		transform: translateY(-44%); // 50% pulls it up a bit too high relative to the text.
-	}
 }
