@@ -94,14 +94,18 @@ $indent: 0.9375rem;
 
 	ul.action-links {
 		& > li {
-			@extend %detail-link;
+			font-size: 0.6875rem;
 			display: inline-block;
-			margin-right: 1rem;
+
+			@extend %middot-after;
+			&:last-child::after {
+				content: none;
+			}
 		}
 	}
 
 	.action-link {
-		@extend %detail-link;
+		font-size: 0.6875rem;
 		padding: 0.5rem 0;
 		display: inline-block;
 		&.create-topic {
@@ -137,9 +141,6 @@ $indent: 0.9375rem;
 
 		&.deleted {
 
-			& > .modeled-content {
-				text-transform: uppercase;
-			}
 			.wrap {
 				color: $tertiary-grey;
 				margin-left: 0;
