@@ -1,11 +1,13 @@
 import React from 'react';
 
 import Avatar from 'common/components/Avatar';
+import Breadcrumb from 'common/components/BreadcrumbPath';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
-import Breadcrumb from 'common/components/BreadcrumbPath';
-import LuckyCharms from 'common/components/LuckyCharms';
+import GotoItem from 'common/components/GotoItem';
 import Report from 'common/components/Report';
+
+import t from 'common/locale';
 
 import TopicHeadline from 'forums/components/TopicHeadline';
 // import ActionsComp from 'forums/components/Actions';
@@ -13,6 +15,7 @@ import TopicHeadline from 'forums/components/TopicHeadline';
 import {Panel as ModeledContentPanel} from 'modeled-content';
 
 import AddComment from './AddComment';
+
 
 const PREFIX = [];
 
@@ -38,11 +41,13 @@ export default React.createClass({
 		return (
 			<div className="course-forum-activity">
 				<Breadcrumb item={item} breadcrumb={PREFIX} splicePaths={1}/>
-				<div className="body">
-					<LuckyCharms item={item} />
-					<TopicHeadline item={item.headline || item} />
-				</div>
-				<div>Read More · 3 Comments</div>
+				<TopicHeadline item={item} />
+
+				<ul className="action-links">
+					<li className="action-link"><GotoItem item={item}>{t('ACTIVITY.goto')}</GotoItem></li>
+					<li className="">{t('UNITS.comments', {count: item.PostCount})}</li>
+				</ul>
+
 				<div className="replies">
 					{item.NewestDescendant && (
 						<Comment item={item.NewestDescendant}/>
@@ -65,7 +70,10 @@ function Comment (props) {
 				<DisplayName entity={item.creator}/>{" · "}<DateTime date={item.getCreatedTime()} relative/>
 			</div>
 			<ModeledContentPanel body={item.body} />
-			Reply · <Report item={item}/>
+			<ul className="action-links">
+				<li className="action-link"><GotoItem item={item}>{t('DISCUSSIONS.ACTIONS.reply')}</GotoItem></li>
+				<li className="action-link"><Report item={item}/></li>
+			</ul>
 		</div>
 	);
 }
