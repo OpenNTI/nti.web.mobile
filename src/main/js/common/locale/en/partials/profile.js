@@ -33,15 +33,5 @@ export default {
 			'title': 'Title'
 
 		}
-	},
-
-	ACTIVITY: {
-		TITLES: {
-			communityheadlinetopic: 'Topic',
-			generalforumcomment: 'Forum Comment',
-			highlight: 'Highlight',
-			note: 'Note',
-			personalblogentry: 'Personal Blog Entry'
-		}
 	}
 };

@@ -1,11 +1,11 @@
-import activity from './assignments-activity';
+import ACTIVITY from './assignments-activity';
 
 
 export default {
 	CONTACTINFO: {
 		LINK0: {
 			label: 'Support',
-			link: 'mailto:support@nextthought.com' 
+			link: 'mailto:support@nextthought.com'
 		},
 		LINK1: {
 			label: 'Info',
@@ -44,6 +44,6 @@ export default {
 	},
 
 	ASSIGNMENTS: {
-		ACTIVITY: activity
+		ACTIVITY
 	}
 };
