@@ -18,7 +18,7 @@ export default function select (item, index, props = {}) {
 
 	Object.assign(props, {
 		ref: 'input',
-		key: 'profile-activity-' + (index || item.OID),
+		key: 'activity-' + (index || item.OID),
 		index, item
 	});
 
