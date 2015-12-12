@@ -84,7 +84,9 @@ export default React.createClass({
 	},
 
 	onLeaveView () {
-		this.setState({ inView: false });
+		if (this.isMounted()) {
+			this.setState({ inView: false });
+		}
 	},
 
 	onEnterView () {
@@ -94,7 +96,9 @@ export default React.createClass({
 			onEnterView();
 		}
 
-		this.setState({ inView: true });
+		if (this.isMounted()) {
+			this.setState({ inView: true });
+		}
 	},
 
 	render () {
