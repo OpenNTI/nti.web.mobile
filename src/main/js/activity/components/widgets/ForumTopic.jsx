@@ -3,7 +3,6 @@ import React from 'react';
 import t from 'common/locale';
 
 import Breadcrumb from 'common/components/BreadcrumbPath';
-import LuckyCharms from 'common/components/LuckyCharms';
 
 import TopicHeadline from 'forums/components/TopicHeadline';
 import ActionsComp from 'forums/components/Actions';
@@ -44,10 +43,7 @@ export default React.createClass({
 		return (
 			<div>
 				<Breadcrumb item={item} />
-				<div className="body">
-					<LuckyCharms item={item} />
-					<TopicHeadline item={item.headline || item} />
-				</div>
+				<TopicHeadline item={item} />
 				<ActionsComp item={item} onDelete={this.onDelete} />
 			</div>
 		);
