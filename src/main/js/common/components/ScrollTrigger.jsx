@@ -109,12 +109,7 @@ export default React.createClass({
 });
 
 function isElementInView (el) {
-	let scroller = window;
-	try {
-		scroller = scrollParent(el);
-	} catch (e) {
-		debugger;
-	}
+	let scroller = scrollParent(el);
 	const rect = el.getBoundingClientRect();
 	const {top, left} = scroller.getBoundingClientRect ? scroller.getBoundingClientRect() : {top: 0, left: 0};
 
