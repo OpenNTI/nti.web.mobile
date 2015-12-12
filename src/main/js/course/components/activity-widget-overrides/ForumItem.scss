@@ -1,0 +1,47 @@
+@import "utils/variables";
+
+.course-forum-activity {
+	.avatar {
+		width: 2.5rem;
+		height: 2.5rem;
+		+ .wrap {
+			margin-left: 3rem;
+		}
+	}
+
+	.replies {
+		background: #dcdcdc;
+		border-top: 1px solid $border-grey;
+		margin: 0 -0.625rem;
+		padding: 0.625rem;
+		padding-left: 1rem;
+	}
+
+	.post.comment {
+		position: relative;
+		padding-left: 2.5rem;
+
+		.avatar{
+			position: absolute;
+			top: 0; left: 0;
+			width: 2rem;
+			height: 2rem;
+		}
+
+		.username {
+			font-weight: bold;
+		}
+
+		time {
+			color: $secondary-grey;
+		}
+
+		.meta {
+			font-size: 0.75rem;
+		}
+
+		.modeled-content {
+			font-size: 1rem;
+		}
+	}
+}
