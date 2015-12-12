@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import {scoped} from 'common/locale';
 
-const t = scoped('CONTENT.DISCUSSIONS.ACTIONS');
+const t = scoped('DISCUSSIONS.ACTIONS');
 
 export default React.createClass({
 	displayName: 'Action',

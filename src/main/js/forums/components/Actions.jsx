@@ -3,7 +3,7 @@ import React from 'react';
 import {isFlag} from 'common/utils';
 import {scoped} from 'common/locale';
 
-import ReportLink from './ReportLink';
+import Report from 'common/components/Report';
 import ScrollLink from './ScrollLink';
 
 import {COMMENT_FORM_ID} from '../Constants';
@@ -57,7 +57,7 @@ export default React.createClass({
 					</li>}
 				{canReport &&
 					<li key="report-link">
-						<ReportLink item={item} />
+						<Report item={item} />
 					</li>}
 			</ul>
 		);

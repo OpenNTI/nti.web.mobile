@@ -45,12 +45,6 @@ $indent: 0.9375rem;
 	}
 }
 
-.icon-flag {
-	padding-right: 1rem;
-	&.flagged {
-		color: $primary-red;
-	}
-}
 
 .forums-wrapper {
 	@include grid-column(12); //TODO: restyle without foundation mixins & grid system.

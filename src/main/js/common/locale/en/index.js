@@ -21,6 +21,19 @@ export default {
 
 	UNITS,
 
+	DISCUSSIONS: {
+		ACTIONS: {
+			reply: 'Reply',
+			share: 'Share',
+			edit: 'Edit',
+			flag: 'Report',
+			flagged: 'Reported',
+			delete: 'Delete'
+		},
+		postedBy: 'Posted by %(name)s',
+		viewComments: 'View Comments'
+	},
+
 	ACTIVITY,
 
 	FORUMS,
