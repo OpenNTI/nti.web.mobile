@@ -4,6 +4,8 @@ import Breadcrumb from 'common/components/BreadcrumbPath';
 import Context from 'content/components/discussions/Context';
 import Detail from 'content/components/discussions/Detail';
 
+import AddComment from './AddComment';
+
 const PREFIX = ['Lessons'];
 
 export default React.createClass({
@@ -29,6 +31,7 @@ export default React.createClass({
 				<Context item={item} className="activity"/>
 				<Detail item={item} lite/>
 				{/*<Actions item={item}/> -- Comment count, [edit] [delete]*/}
+				<AddComment item={item}/>
 			</div>
 		);
 	}
