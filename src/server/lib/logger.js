@@ -2,7 +2,9 @@ import morgan from 'morgan';
 import responseTime from 'response-time';
 import cookieParser from 'cookie-parser';
 
-import logger from 'nti.lib.interfaces/logger';
+import Logger from 'nti.lib.interfaces/logger';
+
+const logger = Logger.get('NodeService');
 
 export default Object.assign(morgan, {
 
