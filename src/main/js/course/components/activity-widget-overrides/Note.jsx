@@ -1,6 +1,10 @@
 import React from 'react';
 
 import Breadcrumb from 'common/components/BreadcrumbPath';
+import GotoItem from 'common/components/GotoItem';
+
+import t from 'common/locale';
+
 import Context from 'content/components/discussions/Context';
 import Detail from 'content/components/discussions/Detail';
 
@@ -30,7 +34,12 @@ export default React.createClass({
 				<Breadcrumb item={item} breadcrumb={PREFIX} splicePaths={1}/>
 				<Context item={item} className="activity"/>
 				<Detail item={item} lite/>
-				{/*<Actions item={item}/> -- Comment count, [edit] [delete]*/}
+
+				<ul className="action-links">
+					<li className="action-link"><GotoItem item={item}>{t('ACTIVITY.goto')}</GotoItem></li>
+					<li className="">{t('UNITS.comments', {count: item.replyCount})}</li>
+				</ul>
+
 				<AddComment item={item}/>
 			</div>
 		);
