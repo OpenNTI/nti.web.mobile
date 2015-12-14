@@ -65,7 +65,11 @@ export default function setupErrorHandler (express, config) {
 			body = 'Couldn\'t populate error template.';
 		}
 
-		res.status(err.statusCode || 500).send(body);
+		try {
+			res.status(err.statusCode || 500).send(body);
+		} catch (e) {
+			//socket closed... oh well.
+		}
 	});
 }
 

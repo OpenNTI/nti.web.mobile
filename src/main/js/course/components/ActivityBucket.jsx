@@ -98,7 +98,15 @@ export default React.createClass({
 	displayName: 'Course:ActivityBucket',
 	mixins: [ItemsMixin],
 	propTypes: {
-		bucket: React.PropTypes.object.isRequired
+		bucket: function (props, propName) {
+			const p = props[propName];
+			const isEndDate = p.end instanceof Date;
+			const isStartDate = p.start instanceof Date;
+			const isIterable = typeof p[Symbol.iterator] === 'function';
+			if (!isEndDate || !isStartDate || !isIterable) {
+				throw new Error('Not a Bucket');
+			}
+		}
 	},
 
 	getInitialState () {
@@ -151,7 +159,7 @@ export default React.createClass({
 		let {columns} = this.state;
 		let endDateFormat = bucket.start.getMonth() === bucket.end.getMonth() ? 'D' : startDateFormat;
 		return (
-			<li className="activity-item">
+			<li className="activity-bucket activity-item">
 				<div className="header"><DateTime date={bucket.start} format={startDateFormat} /> - <DateTime date={bucket.end} format={endDateFormat} /></div>
 				<div className="activity-columns">
 					{columns.map((col, index) => (
@@ -159,7 +167,6 @@ export default React.createClass({
 							{col.map((items, idx) => <div key={`item-${idx}`} className="bucketed-items">{this.renderItems(items)}</div>)}
 						</div>
 					) )}
-					{/*<div className="bucketed-items">{this.renderItems(bucket, {className: 'bucketed-item'})}</div>*/}
 				</div>
 			</li>
 		);

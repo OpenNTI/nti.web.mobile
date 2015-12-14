@@ -6,10 +6,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var fs = require('fs');
 var path = require('path');
 
-var pkg = require('../package.json');
-
-var distSiteCSS = path.join(pkg.dist, '/client/resources/css/sites');
-var stageSiteCSS = path.join(pkg.stage, '/client/resources/css/sites');
+var distSiteCSS = './dist/client/resources/css/sites';
+var stageSiteCSS = './stage/client/resources/css/sites';
 
 function getSites () {
 	var sitePath = path.join(__dirname, '..', 'src', 'main', 'resources', 'scss', 'sites');

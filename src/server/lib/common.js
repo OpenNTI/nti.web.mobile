@@ -107,12 +107,12 @@ export function showFlags (config) {
 
 		if (typeof value === 'object') {
 			for (let siteFlag of Object.keys(value)) {
-				logger.info('Resolved Flag: (%s) %s =', flag, siteFlag, value[siteFlag]);
+				logger.info('Resolved Flag: (%s) %s = %s', flag, siteFlag, value[siteFlag]);
 			}
 			continue;
 		}
 
-		logger.info('Resolved Flag: (Global) %s =', flag, value);
+		logger.info('Resolved Flag: (Global) %s = %s', flag, value);
 	}
 }
 

@@ -11,7 +11,7 @@ import SharedWithList from 'common/components/SharedWithList';
 import {Panel as Body} from 'modeled-content';
 
 // import {scoped} from 'common/locale';
-// const t = scoped('CONTENT.DISCUSSIONS');
+// const t = scoped('DISCUSSIONS');
 
 import Context from './Context';
 import ItemActions from './ItemActions';
@@ -62,7 +62,7 @@ export default React.createClass({
 								</div>
 							) : (
 								<div className="name-wrapper">
-									<DisplayName entity={creator} localeKey={lite ? void 0 : 'CONTENT.DISCUSSIONS.postedBy'}/>
+									<DisplayName entity={creator} localeKey={lite ? void 0 : 'DISCUSSIONS.postedBy'}/>
 									<DateTime date={date} relative/>
 									<SharedWithList item={item}/>
 								</div>

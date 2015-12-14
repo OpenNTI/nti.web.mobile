@@ -150,11 +150,6 @@
 		@extend %icon-topic;
 	}
 
-
-	& > .head {
-		@extend %content-header;
-	}
-
 	.calendar-card {
 		position: absolute;
 		top: 50%;

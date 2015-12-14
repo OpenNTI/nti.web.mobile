@@ -1,5 +1,24 @@
 import React from 'react';
 
+import Avatar from 'common/components/Avatar';
+import Breadcrumb from 'common/components/BreadcrumbPath';
+import DateTime from 'common/components/DateTime';
+import DisplayName from 'common/components/DisplayName';
+import GotoItem from 'common/components/GotoItem';
+import Report from 'common/components/Report';
+
+import t from 'common/locale';
+
+import TopicHeadline from 'forums/components/TopicHeadline';
+// import ActionsComp from 'forums/components/Actions';
+
+import {Panel as ModeledContentPanel} from 'modeled-content';
+
+import AddComment from './AddComment';
+
+
+const PREFIX = [];
+
 export default React.createClass({
 	displayName: 'ForumItem',
 
@@ -10,9 +29,52 @@ export default React.createClass({
 		}
 	},
 
+
+	propTypes: {
+		item: React.PropTypes.any.isRequired
+	},
+
+
 	render () {
+		const {props: {item}} = this;
+
 		return (
-			<div>ForumItem</div>
+			<div className="course-forum-activity">
+				<Breadcrumb item={item} breadcrumb={PREFIX} splicePaths={1}/>
+				<TopicHeadline item={item} />
+
+				<ul className="action-links">
+					<li className="action-link"><GotoItem item={item}>{t('ACTIVITY.goto')}</GotoItem></li>
+					<li className="">{t('UNITS.comments', {count: item.PostCount})}</li>
+				</ul>
+
+				<div className="replies">
+					{item.NewestDescendant && (
+						<Comment item={item.NewestDescendant}/>
+					)}
+				</div>
+				<AddComment item={item}/>
+			</div>
 		);
+
 	}
 });
+
+
+function Comment (props) {
+	const {item} = props;
+	return (
+		<div className="post comment">
+			<Avatar entity={item.creator}/>
+			<div className="meta">
+				<DisplayName entity={item.creator}/>{" · "}<DateTime date={item.getCreatedTime()} relative/>
+			</div>
+			<ModeledContentPanel body={item.body} />
+			<ul className="action-links">
+				<li className="action-link"><GotoItem item={item}>{t('DISCUSSIONS.ACTIONS.reply')}</GotoItem></li>
+				<li className="action-link"><Report item={item}/></li>
+			</ul>
+		</div>
+	);
+}
+Comment.propTypes = {item: React.PropTypes.object};

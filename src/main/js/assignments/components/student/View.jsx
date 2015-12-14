@@ -8,9 +8,8 @@ import PageFrame from '../PageFrame';
 import SearchSortStore from '../../SearchSortStore';
 
 const ROUTES = [
-	{path: '/performance/:rootId(/*)', handler: Performance},
-	{path: '/performance(/*)', handler: Performance},
 	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
+	{path: '/performance/(:rootId)(/*)', handler: Performance},
 	{path: '/(:rootId)(/*)', handler: Assignments},
 	{}//not found
 ];
@@ -42,24 +41,16 @@ export default React.createClass({
 	},
 
 	render () {
+		const {course, assignments} = this.props;
 
-		let {course, assignments} = this.props;
-
-		return (
-			<div>
-				{
-					React.createElement(Router.Locations, {contextual: true},
-						...ROUTES.map(route =>
-							route.path ?
-							<Router.Location {...route}
-								contentPackage={course}
-								course={course}
-								assignments={assignments}
-							/>
-							: React.createElement(Router.NotFound, {handler: Redirect, location: '/'})
-						))
-				}
-			</div>
-		);
+		return React.createElement(Router.Locations, {contextual: true, ...this.props},
+			...ROUTES.map(route =>
+				route.path ?
+				<Router.Location {...route}
+					course={course}
+					assignments={assignments}
+				/>
+				: React.createElement(Router.NotFound, {handler: Redirect, location: '/'})
+			));
 	}
 });

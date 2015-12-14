@@ -4,15 +4,14 @@
 	"utils/mixins",
 	"utils/placeholders";
 
+@import "~foundation-sites/scss/foundation";
+
 @import
 	"base/reset",
 	"base/brand",
 	"base/fonts",
 	"base/print-blocker",
 	"base/utility-classes";
-
-@import "~foundation-sites/scss/foundation";
-
 
 //TODO: Move all the following rules (defined in these partials)
 // next to the components(jsx files) that they style

@@ -95,8 +95,9 @@ export default React.createClass({
 
 
 	onSelect (e) {
-		let editor = this.getEditor();
-		let {files} = e.target;
+		const editor = this.getEditor();
+		const {target: {files}} = e;
+
 		const logError = er => console.log(er.stack || er.message || er);
 
 		if (!files || files.length === 0) { return; }
@@ -111,13 +112,19 @@ export default React.createClass({
 		editor.markBusy();
 
 		let run = Promise.resolve();
-		for(let i = 0, len = files.length; i < len; i++) {
+		const fileList = Array.from(files);
+		for(let i = 0, len = fileList.length; i < len; i++) {
 			run = run
 				.catch(logError)
-				.then(getNext(files[i], (len - 1) === i));
+				.then(getNext(fileList[i], (len - 1) === i));
 		}
 
 		run.catch(logError)
 			.then(()=>editor.clearBusy());
+
+		//These three lines allow the same file to be selected over and over again.
+		e.target.value = null;
+		e.preventDefault();
+		e.stopPropagation();
 	}
 });

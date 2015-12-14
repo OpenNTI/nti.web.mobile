@@ -1,0 +1,14 @@
+.course-info {
+	background: #fff;
+
+	&::after,
+	&::before {
+		content: '';
+		display: table;
+		margin: 0;
+		padding: 0;
+		position: relative;
+		overflow: hidden;
+		clear: both;
+	}
+}

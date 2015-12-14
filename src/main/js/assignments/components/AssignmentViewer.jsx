@@ -30,8 +30,9 @@ export default React.createClass({
 
 
 	render () {
+		const {course} = this.props;
 		return (
-			<ContentViewer {...this.props} explicitContext={this}/>
+			<ContentViewer {...this.props} contentPackage={course} explicitContext={this}/>
 		);
 	}
 });

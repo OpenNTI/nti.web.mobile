@@ -9,7 +9,7 @@ import Invite from './Invite';
 
 import ContextSender from 'common/mixins/ContextSender';
 
-import Gradient from 'common/components/GradientBackground';
+import Background from 'common/components/Background';
 import Link from 'common/components/ActiveLink';
 import Loading from 'common/components/Loading';
 import Page from 'common/components/Page';
@@ -91,7 +91,7 @@ export default React.createClass({
 
 		return (
 			<Page title="Community">
-				<Gradient className="community profile-wrapper" imgUrl={entity.backgroundURL}>
+				<Background className="community profile-wrapper" imgUrl={entity.backgroundURL}>
 
 				{removePageWrapping
 					? ( <Content {...this.props}/> )
@@ -121,7 +121,7 @@ export default React.createClass({
 						</div>
 					)}
 
-				</Gradient>
+				</Background>
 			</Page>
 		);
 	},

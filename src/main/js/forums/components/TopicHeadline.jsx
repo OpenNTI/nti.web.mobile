@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 
 import Avatar from 'common/components/Avatar';
 import DateTime from 'common/components/DateTime';
@@ -12,6 +13,8 @@ export default React.createClass({
 	displayName: 'TopicHeadline',
 
 	propTypes: {
+		className: React.PropTypes.string,
+
 		item: React.PropTypes.shape({
 			creator: React.PropTypes.string,
 			body: React.PropTypes.array,
@@ -23,22 +26,24 @@ export default React.createClass({
 	},
 
 	render () {
-		let {item} = this.props;
+		const {className, item} = this.props;
 		if (!item) {
 			return <Loading />;
 		}
 
+		const post = item.headline || item;
+
 		return (
-			<div className="headline post">
+			<div className={cx('headline post', className)}>
 				<LuckyCharms item={item} />
-				<Avatar entity={item.creator}/>
+				<Avatar entity={post.creator}/>
 				<div className="wrap">
-					<h1>{item.title}</h1>
+					<h1>{post.title}</h1>
 					<div className="meta">
-						<DisplayName entity={item.creator}/>{" · "}<DateTime date={item.getCreatedTime()} relative/>
+						<DisplayName entity={post.creator}/>{" · "}<DateTime date={post.getCreatedTime()} relative/>
 					</div>
 				</div>
-				<ModeledContentPanel body={item.body} />
+				<ModeledContentPanel body={post.body} />
 			</div>
 		);
 	}

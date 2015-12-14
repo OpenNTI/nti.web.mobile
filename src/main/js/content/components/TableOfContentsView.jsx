@@ -3,6 +3,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import ActiveState from 'common/components/ActiveState';
+import Banner from 'common/components/Banner';
 import E from 'common/components/Ellipsed';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
@@ -52,43 +53,19 @@ export default React.createClass({
 	},
 
 
-	componentWillUnmount () {
-		let item = this.getItem();
-		if (item) {
-			item.removeListener('change', this.itemChanged);
-		}
-	},
-
-
 	componentWillReceiveProps (nextProps) {
 		let item = this.getItem();
 		if (nextProps.item !== item) {
-			if (item) {
-				item.removeListener('change', this.itemChanged);
-			}
 			this.fillIn(nextProps);
 		}
 	},
 
 
-	itemChanged () {
-		let item = this.getItem();
-		let presentation = item ? item.getPresentationProperties() : {};
-		let {icon, background, title, label} = presentation;
-		this.setState({ icon, background, title, label });
-	},
-
-
 	fillIn (props) {
-		this.itemChanged();
 		this.setState({loading: true});
 		let item = this.getItem(props);
 
 		let resolve = item ? item.getTablesOfContents() : Promise.reject();
-
-		if (item) {
-			item.addListener('change', this.itemChanged);
-		}
 
 		resolve.then(data => this.setState({loading: false, data}));
 	},
@@ -100,7 +77,7 @@ export default React.createClass({
 
 
 	render () {
-		let {data, loading, icon, background, label, title} = this.state;
+		let {data, loading} = this.state;
 
 		if (loading) {
 			return (<Loading/>);
@@ -108,14 +85,9 @@ export default React.createClass({
 
 		return (
 			<div className="table-of-contents">
-				<div className="head">
-					<img src={background || icon}/>
-					<label>
-						<h3>{title}</h3>
-						<h5>{label}</h5>
-					</label>
+				<Banner item={this.getItem()} className="head">
 					<div className="branding"/>
-				</div>
+				</Banner>
 
 				<Search onChange={this.updateFilter}/>
 

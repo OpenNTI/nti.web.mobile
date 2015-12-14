@@ -4,37 +4,53 @@
 	forms(and their states one, other, zero etc) are camelCased. {@see UNITS block}.
 */
 
-import units from './partials/units';
-import course from './partials/course';
-import contacts from './partials/contacts';
-import content from './partials/content';
-import errorMessages from './partials/error-messages';
-import forums from './partials/forums';
-import enrollment from './partials/enrollment';
-import library from './partials/library';
-import login from './partials/login';
-import soon from './partials/coming-soon';
-import profile from './partials/profile';
+import UNITS from './partials/units';
+import ACTIVITY from './partials/activity';
+import COURSE from './partials/course';
+import CONTACTS from './partials/contacts';
+import CONTENT from './partials/content';
+import ERROR_MESSAGES from './partials/error-messages';
+import FORUMS from './partials/forums';
+import ENROLLMENT from './partials/enrollment';
+import LIBRARY from './partials/library';
+import LOGIN from './partials/login';
+import COMING_SOON from './partials/coming-soon';
+import PROFILE from './partials/profile';
 
 export default {
 
-	UNITS: units,
+	UNITS,
 
-	FORUMS: forums,
+	DISCUSSIONS: {
+		ACTIONS: {
+			reply: 'Reply',
+			share: 'Share',
+			edit: 'Edit',
+			flag: 'Report',
+			flagged: 'Reported',
+			delete: 'Delete'
+		},
+		postedBy: 'Posted by %(name)s',
+		viewComments: 'View Comments'
+	},
 
-	COMING_SOON: soon,
+	ACTIVITY,
 
-	CONTACTS: contacts,
+	FORUMS,
 
-	LOGIN: login,
+	COMING_SOON,
 
-	ENROLLMENT: enrollment,
+	CONTACTS,
 
-	ERROR_MESSAGES: errorMessages,
+	LOGIN,
 
-	LIBRARY: library,
+	ENROLLMENT,
 
-	PROFILE: profile,
+	ERROR_MESSAGES,
+
+	LIBRARY,
+
+	PROFILE,
 
 	BUTTONS: {
 		ok: 'Okay',
@@ -64,8 +80,8 @@ export default {
 		'emptyList:assignments': 'No assignments currently available.'
 	},
 
-	CONTENT: content,
-	COURSE: course,
+	CONTENT,
+	COURSE,
 
 	ASSESSMENT: {
 		submit: 'I\'m Finished!',

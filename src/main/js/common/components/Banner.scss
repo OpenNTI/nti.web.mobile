@@ -1,7 +1,6 @@
-@import 'utils/variables';
+@import "utils/variables";
 
 .content-banner {
-	height: 132px;
 	position: relative;
 	overflow: hidden;
 	display: block;
@@ -10,14 +9,14 @@
 		content: '';
 		display: block;
 		//make the height not jump while loading the avatar
-		// padding-top: 73.3%;//for full aspect ratio of library card icons.
-		padding-top: 60%;
+		// padding-top: 73.2758621%;
+		padding-top: 40%;
 	}
 
 	img {
 		width: 100%;
 		position: absolute;
-		bottom: 0;
+		bottom: -50%;
 		left: 0; right: 0;
 	}
 

@@ -15,9 +15,12 @@
 @import "components/topic";
 @import "components/write-something";
 
+.profile-wrapper {
+	padding: 0.625rem;
 
-.gradient-bg.group {
-	background: #505560;
+	&.group {
+		background: #505560;
+	}
 }
 
 .profile {

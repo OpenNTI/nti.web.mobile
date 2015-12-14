@@ -14,7 +14,8 @@ body {
 }
 
 html, body {
-	height: auto;
+	@extend %touch-scroll;
+	// height: auto; <-- will make window what scrolls, instead of <body>.
 	width: 100%;
 	overflow-x: hidden;
 }

@@ -1,17 +1,16 @@
-.PHONY: all
-.PHONY: build-all
-.PHONY: build-app
-.PHONY: build-widgets
-.PHONY: build-schema
-.PHONY: compile-app
-.PHONY: compile-widgets
-.PHONY: stage
-.PHONY: setup
-.PHONY: clean-stage-app
-.PHONY: clean-stage-widgets
-.PHONY: clean
-.PHONY: check
-
+.PHONY: all \
+	build-all \
+	build-app \
+	build-widgets \
+	build-schema \
+	compile-app \
+	compile-widgets \
+	stage setup \
+	clean-stage-app \
+	clean-stage-widgets \
+	clean-maps \
+	clean \
+	check
 
 DIST=./dist/
 STAGE=./stage/
@@ -20,6 +19,22 @@ SCHEMA=./data/
 IMAGES=resources/images/
 
 CC=webpack --progress --cache --bail --config
+
+define link-site-styles
+	node -e "\
+		var fs = require('fs'); \
+		var sites = require('../sites.json'); \
+		var base = require('path').resolve('./client/resources/css/sites/'); \
+		Object.keys(sites).forEach(alias => { \
+			if(typeof sites[alias] === 'string') { \
+				var src = base + sites[alias]; \
+				var dest = base + alias; \
+				try{ fs.symlinkSync(src, dest, 'dir'); } \
+				catch (e) { console.warn(e.message); } \
+			}\
+		});\
+		"
+endef
 
 export NODE_ENV="production"
 
@@ -43,6 +58,7 @@ build-app: compile-app clean-dist-app
 	@mkdir -p $(DIST)
 	@mv -f $(STAGE)client $(DIST)client
 	@mv -f $(STAGE)server $(DIST)server
+	@(cd $(DIST) && $(call link-site-styles))
 
 build-widgets: compile-widgets clean-dist-widgets
 	@mkdir -p $(DIST)
@@ -89,6 +105,10 @@ clean-dist-widgets:
 
 clean-stage-widgets:
 	@rm -rf $(STAGE)widgets
+
+clean-maps:
+	@find ./dist/client -name "*.map" -type f -delete
+	@find ./dist/client -name "*.map.gz" -type f -delete
 
 clean:
 	@rm -rf $(STAGE) $(DIST) $(SCHEMA)

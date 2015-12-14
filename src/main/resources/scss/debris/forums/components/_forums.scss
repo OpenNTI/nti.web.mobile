@@ -45,12 +45,6 @@ $indent: 0.9375rem;
 	}
 }
 
-.icon-flag {
-	padding-right: 1rem;
-	&.flagged {
-		color: $primary-red;
-	}
-}
 
 .forums-wrapper {
 	@include grid-column(12); //TODO: restyle without foundation mixins & grid system.
@@ -98,25 +92,12 @@ $indent: 0.9375rem;
 		margin: 0;
 	}
 
-	ul.action-links {
-		& > li {
-			@extend %detail-link;
-			display: inline-block;
-			margin-right: 1rem;
-		}
-	}
-
-	.action-link {
-		@extend %detail-link;
+	.create-topic {
+		position: relative;
+		display: block;
+		text-align: right;
 		padding: 0.5rem 0;
-		display: inline-block;
-		&.create-topic {
-			position: relative;
-			display: block;
-			text-align: right;
-			padding: 0.5rem 0;
-			padding-right: 0;
-		}
+		padding-right: 0;
 	}
 
 	.postitem {
@@ -128,7 +109,7 @@ $indent: 0.9375rem;
 			display: block;
 			min-height: 1rem;
 			font-size: .75rem;
-			color: #b8b8b8;
+			color: $tertiary-grey;
 			white-space: nowrap;
 			float: right;
 			padding-right: 1.5rem;
@@ -143,9 +124,6 @@ $indent: 0.9375rem;
 
 		&.deleted {
 
-			& > .modeled-content {
-				text-transform: uppercase;
-			}
 			.wrap {
 				color: $tertiary-grey;
 				margin-left: 0;

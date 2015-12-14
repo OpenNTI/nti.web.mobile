@@ -3,7 +3,6 @@ import React from 'react';
 import Banner from 'common/components/Banner';
 import ScrollTrigger from 'common/components/ScrollTrigger';
 import Loading from 'common/components/Loading';
-import GradientBackground from 'common/components/GradientBackground';
 
 import ActivityBucket from './ActivityBucket';
 import {ACTIVITY} from '../Sections';
@@ -49,9 +48,6 @@ export default React.createClass({
 		}
 	},
 
-	componentDidUpdate () {
-		this.refs.scrollTrigger.checkInView(true);
-	},
 
 	getContext () {
 		let {course} = this.props;
@@ -92,14 +88,12 @@ export default React.createClass({
 		let contentPackage = this.props.course;
 		let {store} = this.state;
 		return (
-			<GradientBackground imgUrl={contentPackage.getPresentationProperties().background}>
-				<div className="course-activity">
-					<Banner contentPackage={contentPackage} />
-					<ul className="activity-buckets">{store && store.map((bucket, index) => <ActivityBucket key={`bucket-${index}`} bucket={bucket} />)}</ul>
-					<ScrollTrigger ref="scrollTrigger" onEnterView={this.loadMore} />
-					{store && store.loading && <Loading />}
-				</div>
-			</GradientBackground>
+			<div className="course-activity">
+				<Banner item={contentPackage} />
+				<ul className="activity-buckets">{store && store.map((bucket, index) => <ActivityBucket key={`bucket-${index}`} bucket={bucket} />)}</ul>
+				<ScrollTrigger onEnterView={this.loadMore} />
+				{store && store.loading && <Loading />}
+			</div>
 		);
 	}
 });

@@ -1,9 +1,9 @@
-@import 'overview-group';
-@import 'overview-discussion';
-@import 'overview-questionset';
-@import 'overview-survey';
-@import 'overview-video-carousel';
-@import 'overview-video';
+@import "overview-group";
+@import "overview-discussion";
+@import "overview-questionset";
+@import "overview-survey";
+@import "overview-video-carousel";
+@import "overview-video";
 
 %not-available {
 	position: relative;
@@ -13,7 +13,7 @@
 		position: absolute;
 		width: $width;
 		margin: 0 1rem;
-		font-size: .7rem;
+		font-size: .6875rem;
 		color: white;
 		background: rgba(0,0,0,.8);
 		top: 50%;

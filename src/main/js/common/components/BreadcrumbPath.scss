@@ -1,5 +1,31 @@
-a.breadcrumb {
+@import 'utils/variables';
+
+.breadcrumb {
+	padding-bottom: 0;
+	margin: 0;
 	display: block;
+
+	&.placeholder {
+		.crumb {
+			span {
+				display: inline-block;
+				width: 100%;
+				height: 0.75rem;
+				background: $tertiary-grey;
+				opacity: 0.5;
+				// border-radius: 5px;
+				text-indent: -1000px;
+				overflow: hidden;
+				line-height: 0;
+
+				&::before {content: 'WWWWWW';}
+			}
+
+			&.last span {
+				background: $primary-blue;
+			}
+		}
+	}
 }
 
 .breadcrumb-list {
@@ -7,6 +33,8 @@ a.breadcrumb {
 	list-style-type: none;
 	margin: 0 0.625rem;
 	color: $tertiary-grey;
+	background: white;
+	position: relative;
 	text-transform: uppercase;
 	font-size: 0.5rem;
 	font-weight: 400;
@@ -49,24 +77,5 @@ a.breadcrumb {
 			display: block;
 			color: $primary-blue;
 		}
-	}
-}
-
-.activity-item {
-	.breadcrumb-list {
-		margin: -0.625rem 0;
-		padding: .625rem;
-		box-shadow: 0 1px 4px 0px rgba(30,30,30,0.05);
-		border-bottom: 1px solid #f0f0f0;
-		background: white;
-		border-radius: 3px 3px 0 0;
-		position: relative;
-		z-index: 999; // to get the shadow to overlay the bookmark lucky charm
-	}
-	.charms {
-		top: 3px;
-	}
-	.author-info .charms {
-		top: 0;
 	}
 }

@@ -14,7 +14,7 @@ import {Panel as ModeledContentPanel} from 'modeled-content';
 import {Placeholder as Video} from 'video';
 
 import CommentForm from '../CommentForm';
-import ActionLinks from '../ActionLinks';
+import ActionsComp from '../Actions';
 
 import {areYouSure} from 'prompts';
 
@@ -27,7 +27,6 @@ import LuckyCharms from 'common/components/LuckyCharms';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
-let {EDIT, DELETE} = ActionLinks;
 const t = require('common/locale').scoped('FORUMS');
 const SHOW_REPLIES = 'showReplies';
 
@@ -119,12 +118,6 @@ export default React.createClass({
 		);
 	},
 
-	getActionClickHandlers () {
-		return {
-			[EDIT]: this.onEditClick,
-			[DELETE]: this.onDeleteComment
-		};
-	},
 
 	commentCompletion (event) {
 		this.setState({
@@ -161,19 +154,6 @@ export default React.createClass({
 			return <Loading className="post-item"/>;
 		}
 
-		let linksClasses = {
-			replies: []
-		};
-
-		let links = (
-			<ActionLinks
-				key="actionlinks"
-				item={item}
-				numComments={numComments}
-				canReply={this.props.asHeadline}
-				cssClasses={linksClasses}
-				clickHandlers={this.getActionClickHandlers()} />
-		);
 
 		if (item.Deleted) {
 			return (
@@ -218,7 +198,12 @@ export default React.createClass({
 							<ModeledContentPanel body={message} widgets={widgets}/>
 							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 						</div>
-						{links}
+						<ActionsComp
+							item={item}
+							canReply={this.props.asHeadline}
+							onEdit={this.onEditClick}
+							onDelete={this.onDeleteComment}
+							/>
 					</div>
 				</div>
 			</div>

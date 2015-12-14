@@ -66,6 +66,6 @@ export default React.createClass({
 		}
 
 		let Comp = course.isAdministrative ? Instructor : Student;
-		return <Comp {...this.props} assignments={assignments} />;
+		return <Comp className="assignments-view" {...this.props} assignments={assignments} />;
 	}
 });

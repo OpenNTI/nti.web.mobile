@@ -1,8 +1,25 @@
-@import "action-links";
 @import "components/chat";
 @import "components/forum-comment";
 @import "components/forum-post";
-@import "components/note";
+
+.ugd.heading {
+	$iconsize: 2.75rem;
+	position: relative;
+	// padding-left: $iconsize + 15px;
+	margin-bottom: 2rem;
+
+	& > img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: $iconsize;
+
+		& + div {
+			min-height: $iconsize;
+			margin-left: $iconsize + 0.5625rem;
+		}
+	}
+}
 
 ul.activity {
 	list-style-type: none;
@@ -67,6 +84,22 @@ ul.activity {
 		padding: .2em 0;
 	}
 
+	.charms {
+		top: 3px;
+	}
+
+	.author-info .charms {
+		top: 0;
+	}
+
+	.breadcrumb-list {
+		margin: -0.625rem 0;
+		padding: 0.1875rem .625rem;
+		box-shadow: 0 1px 4px 0px rgba(30,30,30,0.05);
+		border-bottom: 1px solid #f0f0f0;
+		border-radius: 3px 3px 0 0;
+		z-index: 999; // to get the shadow to overlay the bookmark lucky charm
+	}
 
 	.breadcrumb {
 		border-bottom: 1px solid $quad-grey;
@@ -83,7 +116,7 @@ ul.activity {
 	}
 
 	.highlight-group {
-		@extend %ugd-header;
+		@extend .ugd.heading;
 	}
 
 	.body {

@@ -1,0 +1,20 @@
+@import "utils/variables";
+
+.add-comment {
+	background: #dcdcdc;
+	border-radius: 0 0 3px 3px;
+	overflow: hidden;
+	position: relative;
+	margin: -0.625rem;
+	margin-top: 0;
+
+	.placeholder {
+		display: block;
+		margin: .375rem;
+		padding: .125rem 0.625rem;
+		background: #fff;
+		color: $tertiary-grey;
+		font-style: italic;
+		border-radius: 3px;
+	}
+}

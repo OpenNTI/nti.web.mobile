@@ -55,7 +55,7 @@ export default React.createClass({
 		}
 
 		if (typeof commentCount !== 'number') {
-			commentCount = t('CONTENT.DISCUSSIONS.viewComments');
+			commentCount = t('DISCUSSIONS.viewComments');
 		}
 
 		return (

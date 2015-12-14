@@ -5,7 +5,7 @@ import FollowButton from './FollowButton';
 
 import ActiveState from 'common/components/ActiveState';
 import DisplayName from 'common/components/DisplayName';
-import Gradient from 'common/components/GradientBackground';
+import Background from 'common/components/Background';
 
 import Page from 'common/components/Page';
 
@@ -33,7 +33,7 @@ export default React.createClass({
 
 		return (
 			<Page title="Profile">
-				<Gradient className="profile-wrapper">
+				<Background className="profile-wrapper" imgUrl={entity.backgroundURL}>
 					<div className="profile-top-controls">
 						<ul className="profile-top-controls-breadcrumb">
 							<li>People</li>
@@ -58,7 +58,7 @@ export default React.createClass({
 						</Head>
 						<Content {...this.props}/>
 					</div>
-				</Gradient>
+				</Background>
 			</Page>
 		);
 	}
