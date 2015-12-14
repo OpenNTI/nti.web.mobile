@@ -1,10 +1,9 @@
 import React from 'react';
-import cx from 'classnames';
 
-import {SORT_ASC, SORT_DESC} from '../../../GradebookConstants';
 import {setSort} from '../../../GradebookActions';
 import Store from '../../../GradebookStore';
 
+import Table from './Table';
 import Student from './ColumnStudent';
 import Completed from './ColumnCompleted';
 import Score from './ColumnScore';
@@ -25,53 +24,20 @@ export default React.createClass({
 		setSort(sort);
 	},
 
-	row (item) {
-		return (
-			<div className="gradebook-row" key={item.username}>
-				{COLUMNS.map(Col =>
-					<div className={Col.className} key={Col.label()}>
-						<Col item={item} assignment={this.props.assignment} assignmentId={this.props.assignment.getID()}/>
-					</div>
-				)}
-			</div>
-		);
-	},
-
 	render () {
 
-		const {items} = this.props;
+		const {items, assignment} = this.props;
 		const {sort, sortOrder} = Store;
 
 		return (
-			<div className="gradebook">
-				<div className="gradebook-row headings">
-					{
-						COLUMNS.map(Col => {
-							const isSortCol = (sort === Col.sort);
-							const classes = cx(
-								'column-heading',
-								Col.className,
-								{
-									'sorted': isSortCol,
-									'asc': isSortCol && sortOrder === SORT_ASC,
-									'desc': isSortCol && sortOrder === SORT_DESC
-								}
-							);
-							return (
-								<div
-									key={Col.label()}
-									onClick={this.setSort.bind(this, Col.sort)}
-									className={classes}>
-										<span className="heading">{Col.label()}</span>
-										<span className="sort-arrow" />
-								</div>
-							);
-						})
-					}
-				</div>
-				{items.map((item) => this.row(item))}
-			</div>
-
+			<Table items={items}
+				sort={sort}
+				sortOrder={sortOrder}
+				onSortChange={this.setSort}
+				columns={COLUMNS}
+				assignment={assignment}
+				assignmentId={assignment.getID()}
+			/>
 		);
 	}
 });
