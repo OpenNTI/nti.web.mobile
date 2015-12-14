@@ -2,10 +2,8 @@ global.SERVER = true;
 
 import express from 'express';
 import path from 'path';
-//import fs from 'fs';
-import waitFor from 'nti.lib.interfaces/utils/waitfor';
-import dataserver, {CommonSymbols} from 'nti.lib.interfaces';
-let {Pending} = CommonSymbols;
+
+import dataserver from 'nti.lib.interfaces';
 
 import {registerEndPoints} from './api';
 import cacheBuster from './no-cache';
@@ -99,17 +97,23 @@ export function setupApplication (app, config) {
 			res.status(404);
 		}
 
-		waitFor(req[Pending], 60000)
-			.then(()=> {
+		const prefetch = req.waitForPending ?
+				req.waitForPending(5 * 60000/* 5 minutes*/) :
+				Promise.resolve();
+
+
+		prefetch.then(
+			()=> {
 				let configForClient = clientConfig(req.username, req);
 				configForClient.html += datacache.getForContext(req).serialize();
 				//Final render
 				logger.info('Flushing Render to client: %s %s', req.url, req.username);
 				res.end(page(basepath, req, entryPoint, configForClient));
-			})
-			.catch(e=> {
-				logger.error(e.stack || e.message || e);
-				res.end(e);
+			},
+
+			error => {
+				logger.error(error.stack || error.message || error);
+				res.end(error);
 			});
 	});
 
