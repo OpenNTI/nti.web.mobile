@@ -8,10 +8,12 @@ import Assignments from '../shared/Assignments';
 import PageFrame from '../shared/PageFrame';
 
 import Performance from './performance/View';
+import PerformanceViewStudent from './performance/Student.jsx'
 import AssignmentView from './AssignmentView';
 import AssignmentViewStudent from './AssignmentViewStudent';
 
 const ROUTES = [
+	{path: '/performance/:userId(/*)', handler: PageFrame, pageContent: PerformanceViewStudent},
 	{path: '/performance(/*)', handler: PageFrame, pageContent: Performance},
 	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
 	{path: '/:rootId/:userId(/*)', handler: PageFrame, pageContent: AssignmentViewStudent},
