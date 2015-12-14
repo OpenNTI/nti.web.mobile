@@ -2,8 +2,8 @@ $background-grey: #fbfbfb;
 $alt-grey: darken($background-grey, 3.9%); // #f1f1f1
 
 .search-sort-bar {
-	$input-padding: 1.5rem;
 	display: flex;
+	align-items: center;
 	height: 3.1rem;
 	background: $background-grey;
 	box-shadow: 0 -1px 0 0 $alt-grey, 0 1px 0 0 $alt-grey;
@@ -15,7 +15,7 @@ $alt-grey: darken($background-grey, 3.9%); // #f1f1f1
 		box-shadow: inset 1px 0 0 0 $alt-grey !important;
 		background: none;
 		border: none !important;
-		padding: $input-padding $input-padding/2;
+		padding: .4rem .75rem;
 	}
 }
 
