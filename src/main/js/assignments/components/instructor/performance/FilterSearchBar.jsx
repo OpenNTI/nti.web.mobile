@@ -21,7 +21,7 @@ export default React.createClass({
 	},
 
 	propTypes: {
-		assignments: React.PropTypes.object.isRequired
+		summary: React.PropTypes.object.isRequired // GradeBookSummary object
 	},
 
 	synchronizeFromStore () {
@@ -33,8 +33,9 @@ export default React.createClass({
 	},
 
 	onEnrollmentChange (value) {
+		const {summary} = this.props;
 		console.debug(value);
-		Actions.setEnrollmentType(value);
+		summary.setFilter(value);
 	},
 
 	onCategoryChange (value) {

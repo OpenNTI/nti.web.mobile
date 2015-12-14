@@ -1,6 +1,7 @@
 import React from 'react';
 
 import FilterSearchBar from './FilterSearchBar';
+import SummaryTable from './SummaryTable';
 
 export default React.createClass({
 	displayName: 'Performance',
@@ -12,10 +13,12 @@ export default React.createClass({
 	render () {
 
 		const {assignments} = this.props;
+		const summary = assignments.getSummary();
 
 		return (
 			<div className="performance-view">
-				<FilterSearchBar assignments={assignments} />
+				<FilterSearchBar summary={summary} />
+				<SummaryTable summary={summary} />
 			</div>
 		);
 	}
