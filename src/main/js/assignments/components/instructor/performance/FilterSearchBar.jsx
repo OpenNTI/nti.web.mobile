@@ -44,18 +44,19 @@ export default React.createClass({
 	},
 
 	onPageChange (value)  {
-		Actions.setPage(value);
+		const {summary} = this.props;
+		summary.setPage(value);
 	},
 
 	render () {
 
 		return (
 			<div>
-				<div className="search-sort-bar">
-					<EnrollmentSelect onChange={this.onEnrollmentChange} />
-					<ItemCategorySelect onChange={this.onCategoryChange}/>
-				</div>
 				<div className="gradebook-assignment-header">
+					<div className="search-sort-bar">
+						<EnrollmentSelect onChange={this.onEnrollmentChange} />
+						<ItemCategorySelect onChange={this.onCategoryChange}/>
+					</div>
 					<div className="search-sort-bar">
 						<PageControls currentPage={Store.page} pageSize={10} total={100} onChange={this.onPageChange}/>
 						<input className="search"
