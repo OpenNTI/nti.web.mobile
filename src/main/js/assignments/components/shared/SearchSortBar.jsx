@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SearchSortStore from '../SearchSortStore';
+import SearchSortStore from '../../SearchSortStore';
 
 import SortBox from './SortBox';
 

@@ -2,9 +2,9 @@ import React from 'react';
 import Router from 'react-router-component';
 import Redirect from 'navigation/components/Redirect';
 import Performance from './Performance';
-import Activity from '../Activity';
-import Assignments from '../Assignments';
-import PageFrame from '../PageFrame';
+import Activity from '../shared/Activity';
+import Assignments from '../shared/Assignments';
+import PageFrame from '../shared/PageFrame';
 import SearchSortStore from '../../SearchSortStore';
 
 const ROUTES = [

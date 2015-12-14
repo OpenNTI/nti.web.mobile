@@ -5,8 +5,8 @@ import ContextSender from 'common/mixins/ContextSender';
 
 import SearchSortStore from '../../SearchSortStore';
 
-import PageFrame from '../PageFrame';
-import Assignment from '../AssignmentViewer';
+import PageFrame from '../shared/PageFrame';
+import Assignment from '../shared/AssignmentViewer';
 
 import PerformanceListView from './PerformanceListView';
 

@@ -4,7 +4,7 @@ import ContextSender from 'common/mixins/ContextSender';
 import StoreEvents from 'common/mixins/StoreEvents';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import SearchSortStore from '../SearchSortStore';
+import SearchSortStore from '../../SearchSortStore';
 
 import AssignmentsListView from './AssignmentsListView';
 import Assignment from './AssignmentViewer';

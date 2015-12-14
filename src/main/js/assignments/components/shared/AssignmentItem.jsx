@@ -1,7 +1,7 @@
 import React from 'react';
 
-import StudentAssignmentItem from './student/AssignmentListItem';
-import InstructorAssignmentItem from './instructor/AssignmentListItem';
+import StudentAssignmentItem from '../student/AssignmentListItem';
+import InstructorAssignmentItem from '../instructor/AssignmentListItem';
 
 
 export default React.createClass({

@@ -3,7 +3,7 @@ import React from 'react';
 import Loading from 'common/components/Loading';
 import EmptyList from 'common/components/EmptyList';
 
-import SearchSortStore from '../SearchSortStore';
+import SearchSortStore from '../../SearchSortStore';
 
 import AssignmentGroup from './AssignmentGroup';
 
