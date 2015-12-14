@@ -5,7 +5,7 @@ import cx from 'classnames';
 const CONTEXT_KEY = 'content-background';
 
 export default React.createClass({
-	displayName: 'GradientBackground',
+	displayName: 'Background',
 
 	propTypes: {
 		className: PropTypes.any,
