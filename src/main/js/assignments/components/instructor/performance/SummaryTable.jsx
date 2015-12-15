@@ -4,7 +4,7 @@ import Loading from 'common/components/Loading';
 
 import Table from '../gradebook-table/Table';
 import ColumnStudent from '../gradebook-table/ColumnStudent';
-import ColumnScore from '../gradebook-table/ColumnScore';
+import ColumnGrade from '../gradebook-table/ColumnGrade';
 
 import ShowAvatars from '../mixins/ShowAvatarsContainer';
 
@@ -39,7 +39,7 @@ export default React.createClass({
 
 	render () {
 		const {summary} = this.props;
-		const columns = [ColumnStudent, ColumnScore];
+		const columns = [ColumnStudent, ColumnGrade];
 
 		if (summary.loading) {
 			return <Loading />;
