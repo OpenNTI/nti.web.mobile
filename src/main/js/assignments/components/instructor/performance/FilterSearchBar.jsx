@@ -2,6 +2,7 @@ import React from 'react';
 
 import PageControls from '../PageControls';
 
+import BufferedInput from './BufferedInput';
 import EnrollmentSelect from './EnrollmentSelect';
 import CategorySelect from './CategorySelect';
 
@@ -51,11 +52,13 @@ export default React.createClass({
 							total={summary.getTotal()}
 							onChange={this.onPageChange}
 						/>
-						<input className="search"
-							type="search"
-							placeholder="Search Students"
-							onChange={this.onSearchChange}
-							defaultValue={summary.getSearch()} />
+					<BufferedInput
+						className="search"
+						type="search"
+						placeholder="Search Students"
+						onChange={this.onSearchChange}
+						delayMs={2000}
+						defaultValue={summary.getSearch()} />
 					</div>
 				</div>
 			</div>
