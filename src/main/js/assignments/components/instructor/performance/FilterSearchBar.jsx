@@ -1,31 +1,15 @@
 import React from 'react';
 
-import StoreEvents from 'common/mixins/StoreEvents';
-
-import Store from '../../../PerformanceStore';
-import * as Actions from '../../../PerformanceActions';
-
 import PageControls from '../PageControls';
 
 import EnrollmentSelect from './EnrollmentSelect';
-import ItemCategorySelect from './ItemCategorySelect';
+import CategorySelect from './CategorySelect';
 
 export default React.createClass({
 	displayName: 'SearchSortBar',
 
-	mixins: [StoreEvents],
-
-	backingStore: Store,
-	backingStoreEventHandlers: {
-		default: 'synchronizeFromStore'
-	},
-
 	propTypes: {
 		summary: React.PropTypes.object.isRequired // GradeBookSummary object
-	},
-
-	synchronizeFromStore () {
-		this.forceUpdate();
 	},
 
 	onSearchChange (event) {
@@ -36,7 +20,7 @@ export default React.createClass({
 	onEnrollmentChange (value) {
 		const {summary} = this.props;
 		console.debug(value);
-		summary.setTypeFilter(value);
+		summary.setScopeFilter(value);
 	},
 
 	onCategoryChange (value) {
@@ -57,16 +41,21 @@ export default React.createClass({
 			<div>
 				<div className="gradebook-assignment-header">
 					<div className="search-sort-bar">
-						<EnrollmentSelect onChange={this.onEnrollmentChange} value={summary.typeFilter} />
-						<ItemCategorySelect onChange={this.onCategoryChange} value={summary.categoryFilter}/>
+						<EnrollmentSelect onChange={this.onEnrollmentChange} value={summary.scopeFilter} />
+						<CategorySelect onChange={this.onCategoryChange} value={summary.categoryFilter}/>
 					</div>
 					<div className="search-sort-bar">
-						<PageControls currentPage={Store.page} pageSize={10} total={100} onChange={this.onPageChange}/>
+						<PageControls
+							currentPage={summary.getCurrentPage()}
+							pageSize={summary.getPageSize()}
+							total={summary.getTotal()}
+							onChange={this.onPageChange}
+						/>
 						<input className="search"
 							type="search"
 							placeholder="Search Students"
 							onChange={this.onSearchChange}
-							defaultValue={Store.search} />
+							defaultValue={summary.getSearch()} />
 					</div>
 				</div>
 			</div>

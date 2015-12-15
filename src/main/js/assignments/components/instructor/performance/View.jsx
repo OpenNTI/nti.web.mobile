@@ -10,6 +10,22 @@ export default React.createClass({
 		assignments: React.PropTypes.object.isRequired
 	},
 
+	componentWillMount () {
+		const {assignments} = this.props;
+		const summary = assignments.getSummary();
+		summary.addListener('change', this.onStoreChange);
+	},
+
+	componentWillUnmount () {
+		const {assignments} = this.props;
+		const summary = assignments.getSummary();
+		summary.removeListener('change', this.onStoreChange);
+	},
+
+	onStoreChange () {
+		this.forceUpdate();
+	},
+
 	render () {
 
 		const {assignments} = this.props;
