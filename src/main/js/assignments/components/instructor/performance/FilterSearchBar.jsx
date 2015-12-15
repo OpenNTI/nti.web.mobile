@@ -29,18 +29,19 @@ export default React.createClass({
 	},
 
 	onSearchChange (event) {
-		Actions.setSearch(event.target.value);
+		const {summary} = this.props;
+		summary.setSearch(event.target.value);
 	},
 
 	onEnrollmentChange (value) {
 		const {summary} = this.props;
 		console.debug(value);
-		summary.setFilter(value);
+		summary.setTypeFilter(value);
 	},
 
 	onCategoryChange (value) {
-		console.debug(value);
-		Actions.setCategory(value);
+		const {summary} = this.props;
+		summary.setCategoryFilter(value);
 	},
 
 	onPageChange (value)  {
@@ -50,12 +51,14 @@ export default React.createClass({
 
 	render () {
 
+		const {summary} = this.props;
+
 		return (
 			<div>
 				<div className="gradebook-assignment-header">
 					<div className="search-sort-bar">
-						<EnrollmentSelect onChange={this.onEnrollmentChange} />
-						<ItemCategorySelect onChange={this.onCategoryChange}/>
+						<EnrollmentSelect onChange={this.onEnrollmentChange} value={summary.typeFilter} />
+						<ItemCategorySelect onChange={this.onCategoryChange} value={summary.categoryFilter}/>
 					</div>
 					<div className="search-sort-bar">
 						<PageControls currentPage={Store.page} pageSize={10} total={100} onChange={this.onPageChange}/>
