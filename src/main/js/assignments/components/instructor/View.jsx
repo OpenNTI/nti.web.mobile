@@ -8,7 +8,7 @@ import Assignments from '../shared/Assignments';
 import PageFrame from '../shared/PageFrame';
 
 import Performance from './performance/View';
-import PerformanceViewStudent from './performance/Student.jsx'
+import PerformanceViewStudent from './performance/Student.jsx';
 import AssignmentView from './AssignmentView';
 import AssignmentViewStudent from './AssignmentViewStudent';
 
