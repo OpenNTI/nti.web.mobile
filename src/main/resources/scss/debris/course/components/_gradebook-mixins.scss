@@ -68,6 +68,7 @@ $headermargin: 1000px;
 		}
 		input {
 			margin: 0;
+			box-sizing: border-box;
 		}
 		&.selected {
 			background: $primary-color;
