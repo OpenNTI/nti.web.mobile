@@ -32,20 +32,22 @@ export default React.createClass({
 	},
 
 	onSort (sort) {
+		const reverse = (dir) => dir === 'ascending' ? 'descending' : 'ascending';
 		const {summary} = this.props;
-		console.debug('sort!', sort);
-		summary.setSort(sort);
+		const currentSort = summary.getSort();
+		const direction = currentSort.sortOn === sort ? reverse(currentSort.sortOrder) : 'ascending';
+		summary.setSort(sort, direction);
 	},
 
 	render () {
 		const {summary} = this.props;
 		const columns = [ColumnStudent, ColumnGrade];
-
+		const {sortOn, sortOrder} = summary.getSort();
 		if (summary.loading) {
 			return <Loading />;
 		}
 		return (
-			<Table columns={columns} items={summary && summary.items} onSortChange={this.onSort} />
+			<Table columns={columns} items={summary && summary.items} onSortChange={this.onSort} sort={sortOn} sortOrder={sortOrder} />
 		);
 	}
 });
