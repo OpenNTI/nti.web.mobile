@@ -19,7 +19,8 @@ export default React.createClass({
 	},
 
 	onChange (e) {
-		if (!this.props.onChange) {
+		const {onChange} = this.props;
+		if (!onChange) {
 			return;
 		}
 		let {searchTimeout} = this.state;
@@ -27,7 +28,8 @@ export default React.createClass({
 		if (searchTimeout) {
 			clearTimeout(searchTimeout);
 		}
-		searchTimeout = setTimeout(this.props.onChange.bind(undefined, e), delayMs);
+
+		searchTimeout = setTimeout(function () {onChange(e);}, delayMs);
 		this.setState({
 			searchTimeout
 		});

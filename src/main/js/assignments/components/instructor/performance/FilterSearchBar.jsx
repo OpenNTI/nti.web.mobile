@@ -2,7 +2,7 @@ import React from 'react';
 
 import PageControls from '../PageControls';
 
-import BufferedInput from './BufferedInput';
+import BufferedInput from 'common/components/BufferedInput';
 import EnrollmentSelect from './EnrollmentSelect';
 import CategorySelect from './CategorySelect';
 
