@@ -8,31 +8,22 @@ export default React.createClass({
 		delayMs: React.PropTypes.number
 	},
 
-	getDefaultProps () {
-		return {
-			delayMs: 0
-		};
-	},
-
-	getInitialState () {
-		return {};
-	},
 
 	onChange (e) {
-		const {onChange} = this.props;
+		const {delayMs = 0, onChange} = this.props;
 		if (!onChange) {
 			return;
 		}
-		let {searchTimeout} = this.state;
-		let {delayMs} = this.props;
-		if (searchTimeout) {
-			clearTimeout(searchTimeout);
+
+		let {inputBufferDelayTimer} = this;
+		if (inputBufferDelayTimer) {
+			clearTimeout(inputBufferDelayTimer);
 		}
 
-		searchTimeout = setTimeout(function () {onChange(e);}, delayMs);
-		this.setState({
-			searchTimeout
-		});
+		//TODO: capture a shallow clone of the event's properties like key, keyCode, type, name, target etc.
+		//The reason is that the event object will likely have dirty data after the event execution occurs.
+		//(either from object reuse, or weakreferences that get cleaned.)
+		this.inputBufferDelayTimer = setTimeout(() => onChange(e), delayMs);
 	},
 
 	render () {
