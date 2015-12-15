@@ -6,5 +6,10 @@
 		font-weight: 600;
 		color: $tertiary-grey;
 		text-transform: uppercase;
+
+		&.ungraded,
+		&.overdue {
+			color: $primary-red;
+		}
 	}
 }

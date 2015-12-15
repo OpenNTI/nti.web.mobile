@@ -188,6 +188,7 @@
 			&.sorted {
 				$arrowsize: .5em; // sort arrow size
 				position: relative;
+				color: black;
 				.sort-arrow {
 					margin-left: .25em;
 					&::after { // sort arrow
