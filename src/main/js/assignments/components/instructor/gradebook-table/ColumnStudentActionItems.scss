@@ -1,0 +1,10 @@
+@import 'utils/variables';
+
+.col-student {
+	.actionable {
+		font-size: .625rem;
+		font-weight: 600;
+		color: $tertiary-grey;
+		text-transform: uppercase;
+	}
+}

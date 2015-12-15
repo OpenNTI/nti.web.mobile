@@ -3,7 +3,7 @@ import React from 'react';
 import Loading from 'common/components/Loading';
 
 import Table from '../gradebook-table/Table';
-import ColumnStudent from '../gradebook-table/ColumnStudent';
+import ColumnStudentActionItems from '../gradebook-table/ColumnStudentActionItems';
 import ColumnGrade from '../gradebook-table/ColumnGrade';
 
 import ShowAvatars from '../mixins/ShowAvatarsContainer';
@@ -41,7 +41,7 @@ export default React.createClass({
 
 	render () {
 		const {summary} = this.props;
-		const columns = [ColumnStudent, ColumnGrade];
+		const columns = [ColumnStudentActionItems, ColumnGrade];
 		const {sortOn, sortOrder} = summary.getSort();
 		if (summary.loading) {
 			return <Loading />;

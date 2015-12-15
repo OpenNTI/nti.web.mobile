@@ -168,12 +168,7 @@
 		& > * {
 			display: table-cell;
 			white-space: nowrap;
-			.avatar {
-				width: 32px;
-				height: 32px;
-				vertical-align: middle;
-				margin-right: .5em;
-			}
+			vertical-align: middle;
 		}
 		&.headings {
 			font-size: .625rem;
@@ -249,11 +244,6 @@
 						color: $primary-red;
 					}
 				}
-			}
-		}
-		.col-student {
-			a {
-				color: inherit;
 			}
 		}
 		.col-score {

@@ -1,0 +1,12 @@
+.student-link {
+	color: inherit;
+	display: flex;
+	align-items: center;
+	position: relative;
+	.avatar {
+		width: 2.5rem;
+		height: 2.5rem;
+		vertical-align: middle;
+		margin-right: .5em;
+	}
+}

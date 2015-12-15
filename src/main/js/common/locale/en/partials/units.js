@@ -47,6 +47,12 @@ export default {
 		other: '%(count)s Milliseconds'
 	},
 
+	assignments: {
+		zero: 'No assignments',
+		one: '%(count)s assignment',
+		other: '%(count)s assignments'
+	},
+
 	comments: {
 		one: '%(count)s Comment',
 		other: '%(count)s Comments'
