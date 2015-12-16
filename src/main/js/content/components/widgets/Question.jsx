@@ -46,12 +46,12 @@ export default React.createClass({
 
 
 	synchronizeFromStore () {
-		let {item, page, record} = this.props;
+		let {item, record} = this.props;
 
 		let question = record;
 
 		if (!question) {
-			question = page.getAssessmentQuestion(item.ntiid);
+			question = Store.getAssessmentQuestion(item.ntiid);
 		}
 
 		this.setState({ question });

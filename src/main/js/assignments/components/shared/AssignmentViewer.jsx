@@ -6,6 +6,9 @@ import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
+import Err from 'common/components/Error';
+import Loading from 'common/components/Loading';
+
 import ContentViewer from 'content/components/Viewer';
 
 export default React.createClass({
@@ -13,9 +16,19 @@ export default React.createClass({
 	mixins: [BasePathAware, ContextContributor, NavigatableMixin],
 
 	propTypes: {
+		assignments: React.PropTypes.object.isRequired,
+
+		explicitContext: React.PropTypes.object,
+
 		course: React.PropTypes.object.isRequired,
 
-		rootId: React.PropTypes.string.isRequired
+		rootId: React.PropTypes.string.isRequired,
+		userId: React.PropTypes.string
+	},
+
+
+	getInitialState () {
+		return {loading: true};
 	},
 
 
@@ -28,11 +41,32 @@ export default React.createClass({
 		});
 	},
 
+	componentWillMount () {
+		const {assignments, rootId, userId} = this.props;
+		const assignment = assignments.getAssignment(decodeFromURI(rootId));
+
+		this.setState({assignment});
+
+		assignments.getHistoryItem(rootId, userId)
+			.then(history => ({history}), error => ({error}))
+			.then(state => this.setState({loading: false, ...state}));
+	},
+
 
 	render () {
-		const {course} = this.props;
-		return (
-			<ContentViewer {...this.props} contentPackage={course} explicitContext={this}/>
+		const {props: {course, explicitContext}, state: {assignment, error, history, loading}} = this;
+
+		return error ? (
+			<Err error={error}/>
+		) : loading ? (
+			<Loading />
+		) : (
+			<ContentViewer {...this.props}
+				assessment={assignment}
+				assessmentHistory={history}
+				contentPackage={course}
+				explicitContext={explicitContext || this}
+				/>
 		);
 	}
 });

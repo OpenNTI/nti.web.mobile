@@ -10,9 +10,57 @@ export {isAssignment};
 
 export default {
 
+	propTypes: {
+		assessment: React.PropTypes.object,
+		assessmentHistory: React.PropTypes.object
+	},
+
+
+	componentWillMount () {
+		if(this.getAssessment()) {
+			this.setupAssessment();
+		}
+	},
+
+
+	componentWillUpdate (nextProps, nextState) {
+		const prev = this.getAssessment(this.props, this.state);
+		const next = this.getAssessment(nextProps, nextState);
+
+
+		if ((next && next.getID()) !== (prev && prev.getID())) {
+			Store.teardownAssessment(prev);
+			this.setupAssessment(nextProps, nextState);
+		}
+	},
+
+
+	setupAssessment (props = this.props, state = this.state) {
+		const assess = this.getAssessment(props, state);
+		const {contentPackage} = props;
+
+		//To be administrative, the content package must be decendent to an
+		//CourseInstanceAdministrativeRole, AND the assessment has to be an
+		//Assignment. (Self-Assessments are presently defined as not being
+		// administered.)
+		const admin = Boolean(contentPackage &&
+					contentPackage.parent('isAdministrative') &&
+					assess && isAssignment(assess));
+
+		Store.setupAssessment(assess, true, admin);
+	},
+
+
+	getAssessment (props = this.props, state = this.state) {
+		const {assessment} = props;
+		const {page} = state || {};
+		return assessment || (page && page.getSubmittableAssessment());
+	},
+
+
 	renderAssessmentHeader () {
-		let {page} = this.state;
-		let quiz = page && page.getSubmittableAssessment();
+		const {state: {page}} = this;
+		let quiz = this.getAssessment();
 		if (!page || !quiz) {
 			return null;
 		}
@@ -25,8 +73,8 @@ export default {
 
 
 	renderAssessmentFeedback () {
-		let {page} = this.state;
-		let quiz = page && page.getSubmittableAssessment();
+		const {state: {page}} = this;
+		const quiz = this.getAssessment();
 		if (!page || !quiz) {
 			return null;
 		}
@@ -39,8 +87,8 @@ export default {
 
 
 	renderAssessmentSubmission () {
-		let {page} = this.state;
-		let quiz = page && page.getSubmittableAssessment();
+		const {page} = this.state;
+		const quiz = this.getAssessment();
 		if (!page || !quiz || quiz.IsTimedAssignment || !areAssessmentsSupported()) {
 			return null;
 		}
@@ -49,31 +97,5 @@ export default {
 			assessment: quiz,
 			page
 		});
-	},
-
-
-	componentWillUpdate (nextProps, nextState) {
-		let prevPage = this.state.page;
-		let nextPage = nextState && nextState.page;
-
-		let prev = prevPage && prevPage.getSubmittableAssessment();
-		let next = nextPage && nextPage.getSubmittableAssessment();
-
-
-		if ((next && next.getID()) !== (prev && prev.getID())) {
-			let {contentPackage} = nextProps;
-			//To be administrative, the content package must be decendent to an
-			//CourseInstanceAdministrativeRole, AND the assessment has to be an
-			//Assignment. (Self-Assessments are presently defined as not being
-			// administered.)
-			let admin = Boolean(contentPackage &&
-						contentPackage.parent('isAdministrative') &&
-						next && isAssignment(next));
-
-			Store.teardownAssessment(prev);
-			Store.setupAssessment(next, true, admin);
-		}
 	}
-
-
 };

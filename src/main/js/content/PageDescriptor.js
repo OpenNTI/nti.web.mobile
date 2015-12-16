@@ -26,11 +26,6 @@ export default class PageDescriptor {
 	}
 
 
-	getAssessmentQuestion (questionId) {
-		return this.pageInfo.getAssessmentQuestion(questionId);
-	}
-
-
 	getBodyParts () { return this.content.parsed; }
 
 

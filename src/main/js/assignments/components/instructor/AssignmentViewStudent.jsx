@@ -7,7 +7,7 @@ import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import ContentViewer from 'content/components/Viewer';
+import ContentViewer from '../shared/AssignmentViewer';
 
 import Header from './AssignmentViewStudentHeader';
 
