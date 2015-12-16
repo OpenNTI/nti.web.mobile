@@ -39,8 +39,10 @@ export default React.createClass({
 	},
 
 	render () {
+		const {items} = this.props;
+		const sort = items.getSort();
 		return (
-			<Table {...this.props} columns={COLUMNS} onSortChange={this.sortChange} />
+			<Table {...this.props} columns={COLUMNS} sort={sort.sortOn} sortOrder={sort.sortOrder} onSortChange={this.sortChange} />
 		);
 	}
 });

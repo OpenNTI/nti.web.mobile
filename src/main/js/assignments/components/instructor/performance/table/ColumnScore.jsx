@@ -10,7 +10,7 @@ export default React.createClass({
 			return 'Score';
 		},
 		className: 'col-score',
-		sort: 'Grade'
+		sort: 'grade'
 	},
 
 	propTypes: {

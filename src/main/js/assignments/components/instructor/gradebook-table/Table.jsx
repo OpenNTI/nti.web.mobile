@@ -24,7 +24,7 @@ export default React.createClass({
 	row (item) {
 		const {columns} = this.props;
 		return (
-			<div className="gradebook-row" key={item.username || item.title}>
+			<div className="gradebook-row" key={item.title || item.username}>
 				{columns.map(Col =>
 					<div className={Col.className} key={Col.label()}>
 						<Col item={item} {...this.props}/>

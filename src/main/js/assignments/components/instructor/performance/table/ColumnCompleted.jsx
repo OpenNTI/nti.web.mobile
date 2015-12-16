@@ -11,7 +11,7 @@ export default React.createClass({
 			return 'Completed';
 		},
 		className: 'col-completed',
-		sort: 'dateSubmitted'
+		sort: 'completed'
 	},
 
 	propTypes: {
