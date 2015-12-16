@@ -31,11 +31,14 @@ export default React.createClass({
 	},
 
 	sortChange (sort) {
-		console.debug(sort);
+		const reverse = (dir) => dir === 'ascending' ? 'descending' : 'ascending';
+		const {items} = this.props;
+		const currentSort = items.getSort();
+		const direction = currentSort.sortOn === sort ? reverse(currentSort.sortOrder) : 'ascending';
+		items.setSort(sort, direction);
 	},
 
 	render () {
-
 		return (
 			<Table {...this.props} columns={COLUMNS} onSortChange={this.sortChange} />
 		);
