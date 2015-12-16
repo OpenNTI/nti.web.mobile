@@ -12,7 +12,9 @@ export default React.createClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired // UserGradeBookSummary object
+		item: React.PropTypes.shape({
+			grade: React.PropTypes.object
+		}).isRequired
 	},
 
 	render () {
