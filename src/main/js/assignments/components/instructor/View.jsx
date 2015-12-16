@@ -17,8 +17,8 @@ const ROUTES = [
 	{path: '/performance/:userId(/*)', handler: PageFrame, pageContent: PerformanceViewStudent},
 	{path: '/performance(/*)', handler: PageFrame, pageContent: Performance},
 	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
-	{path: '/:rootId/:userId(/*)', handler: PageFrame, pageContent: AssignmentViewStudent},
-	{path: '/:rootId(/*)', handler: PageFrame, pageContent: AssignmentView},
+	{path: '/:rootId/students/:userId(/*)', handler: PageFrame, pageContent: AssignmentViewStudent},
+	{path: '/:rootId/students(/*)', handler: PageFrame, pageContent: AssignmentView},
 	{path: '/', handler: Assignments},
 	{}//not found
 ];

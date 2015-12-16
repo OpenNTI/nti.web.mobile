@@ -24,7 +24,7 @@ export default React.createClass({
 			late
 		});
 		return (
-			<a className={classes} href={`./${encodeForURI(assignment.getID())}/`}>
+			<a className={classes} href={`./${encodeForURI(assignment.getID())}/students/`}>
 				<div>
 					{assignment.title}
 					<AssignmentStatusLabel assignment={assignment} />
