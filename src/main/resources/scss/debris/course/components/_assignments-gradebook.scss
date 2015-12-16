@@ -162,6 +162,7 @@
 .gradebook {
 	width: 100%;
 	display: table;
+	table-layout: fixed;
 	.gradebook-row {
 		display: table-row;
 		font-size: .875rem;

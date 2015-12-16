@@ -30,7 +30,9 @@ export default React.createClass({
 		const {sort, sortOrder} = Store;
 
 		return (
-			<Table items={items}
+			<Table
+				id="gradebook-table"
+				items={items}
 				sort={sort}
 				sortOrder={sortOrder}
 				onSortChange={this.setSort}

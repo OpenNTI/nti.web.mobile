@@ -47,7 +47,7 @@ export default React.createClass({
 			return <Loading />;
 		}
 		return (
-			<Table columns={columns} items={summary && summary.items} onSortChange={this.onSort} sort={sortOn} sortOrder={sortOrder} />
+			<Table id="summary-table" columns={columns} items={summary && summary.items} onSortChange={this.onSort} sort={sortOn} sortOrder={sortOrder} />
 		);
 	}
 });

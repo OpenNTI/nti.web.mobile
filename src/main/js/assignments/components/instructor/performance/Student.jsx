@@ -1,7 +1,7 @@
 import React from 'react';
 
 import StudentHeader from './StudentHeader';
-import StudentAssignmentsTable from './StudentAssignmentsTable';
+import StudentAssignmentsTable from './table/StudentAssignmentsTable';
 
 export default React.createClass({
 	displayName: 'Performance:Student',

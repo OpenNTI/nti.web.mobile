@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Table from '../gradebook-table/Table';
+import Table from '../../gradebook-table/Table';
 
-import ColumnAssignment from './table/ColumnAssignment';
-import ColumnCompleted from './table/ColumnCompleted';
-import ColumnScore from './table/ColumnScore';
-import ColumnFeedback from './table/ColumnFeedback';
+import ColumnAssignment from './ColumnAssignment';
+import ColumnCompleted from './ColumnCompleted';
+import ColumnScore from './ColumnScore';
+import ColumnFeedback from './ColumnFeedback';
 
 const COLUMNS = [ColumnAssignment, ColumnCompleted, ColumnScore, ColumnFeedback];
 
@@ -42,7 +42,7 @@ export default React.createClass({
 		const {items} = this.props;
 		const sort = items.getSort();
 		return (
-			<Table {...this.props} columns={COLUMNS} sort={sort.sortOn} sortOrder={sort.sortOrder} onSortChange={this.sortChange} />
+			<Table id="student-assignments-table" {...this.props} columns={COLUMNS} sort={sort.sortOn} sortOrder={sort.sortOrder} onSortChange={this.sortChange} />
 		);
 	}
 });

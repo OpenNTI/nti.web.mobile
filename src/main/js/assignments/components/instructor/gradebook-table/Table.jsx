@@ -39,7 +39,7 @@ export default React.createClass({
 		const {columns, items, sort, sortOrder} = this.props;
 
 		return (
-			<div className="gradebook">
+			<div className="gradebook" {...this.props}>
 				<div className="gradebook-row headings">
 					{
 						columns.map(Col => {

@@ -1,0 +1,12 @@
+#gradebook-table {
+	.column-heading {
+		width: 55px;
+		&.col-completed,
+		&.col-actions {
+			width: 40px;
+		}
+		&.col-student {
+			width: auto;
+		}
+	}
+}
