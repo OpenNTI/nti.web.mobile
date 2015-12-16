@@ -310,7 +310,7 @@ class Store extends StorePrototype {
 	}
 
 
-	setupAssessment (assessment, loadProgress, administrative) {
+	setupAssessment (assessment, progress, administrative) {
 		let main = getMainSubmittable(assessment);
 		if (!main) {
 			return;
@@ -331,16 +331,19 @@ class Store extends StorePrototype {
 			lastQuestionInteraction: null
 		};
 
-		if (!loadProgress || administrative) {
+		if (!progress) {
 			return Promise.resolve();
 		}
+
 
 		this.markBusy(assessment, BUSY_LOADING);
 		this.emitChange({type: BUSY_LOADING});
 
+		const load = typeof progress === 'object'
+						? Promise.resolve(progress)
+						: loadPreviousState(assessment); //eslint-disable-line no-use-before-define
 
-
-		return loadPreviousState(assessment)//eslint-disable-line no-use-before-define
+		return load
 			.then(submission => this[ApplySubmission](assessment, submission))
 
 			.catch(reason => {

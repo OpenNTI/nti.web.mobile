@@ -37,7 +37,7 @@ export default {
 
 	setupAssessment (props = this.props, state = this.state) {
 		const assess = this.getAssessment(props, state);
-		const {contentPackage} = props;
+		const {contentPackage, assessmentHistory = true} = props;
 
 		//To be administrative, the content package must be decendent to an
 		//CourseInstanceAdministrativeRole, AND the assessment has to be an
@@ -47,7 +47,7 @@ export default {
 					contentPackage.parent('isAdministrative') &&
 					assess && isAssignment(assess));
 
-		Store.setupAssessment(assess, true, admin);
+		Store.setupAssessment(assess, assessmentHistory, admin);
 	},
 
 

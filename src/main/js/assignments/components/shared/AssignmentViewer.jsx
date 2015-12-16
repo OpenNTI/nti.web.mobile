@@ -43,11 +43,12 @@ export default React.createClass({
 
 	componentWillMount () {
 		const {assignments, rootId, userId} = this.props;
-		const assignment = assignments.getAssignment(decodeFromURI(rootId));
+		const id = decodeFromURI(rootId);
+		const assignment = assignments.getAssignment(id);
 
 		this.setState({assignment});
 
-		assignments.getHistoryItem(rootId, userId)
+		assignments.getHistoryItem(id, userId)
 			.then(history => ({history}), error => ({error}))
 			.then(state => this.setState({loading: false, ...state}));
 	},
