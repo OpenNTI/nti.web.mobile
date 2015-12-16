@@ -1,0 +1,43 @@
+import React from 'react';
+
+import Table from '../gradebook-table/Table';
+
+import ColumnAssignment from './table/ColumnAssignment';
+import ColumnCompleted from './table/ColumnCompleted';
+import ColumnScore from './table/ColumnScore';
+import ColumnFeedback from './table/ColumnFeedback';
+
+const COLUMNS = [ColumnAssignment, ColumnCompleted, ColumnScore, ColumnFeedback];
+
+export default React.createClass({
+	displayName: 'StudentAssignmentsTable',
+
+	propTypes: {
+		items: React.PropTypes.any.isRequired
+	},
+
+	componentWillMount () {
+		const {items} = this.props;
+		items.addListener('change', this.itemsChange);
+	},
+
+	componentWillUnmount () {
+		const {items} = this.props;
+		items.removeListener('change', this.itemsChange);
+	},
+
+	itemsChange () {
+		this.forceUpdate();
+	},
+
+	sortChange (sort) {
+		console.debug(sort);
+	},
+
+	render () {
+
+		return (
+			<Table {...this.props} columns={COLUMNS} onSortChange={this.sortChange} />
+		);
+	}
+});

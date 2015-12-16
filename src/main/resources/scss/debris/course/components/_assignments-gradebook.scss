@@ -6,62 +6,62 @@
 }
 
 .assignment-view-student {
-
 	max-width: 700px;
 	margin: 0 auto;
+}
 
-	.assignment-header {
-		@extend %gradebook-header;
-		padding: 0 $headermargin;
+.assignment-header,
+.student-header {
+	@extend %gradebook-header;
+	padding: 0 $headermargin;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	.profile-link {
+		.avatar {
+			width: 96px;
+			height: 96px;
+			vertical-align: middle;
+			margin-right: .5rem;
+		}
+		.username {
+			font-weight: 700;
+			text-transform: uppercase;
+		}
+		.body {
+			display: inline-block;
+		}
+	}
+	.controls {
 		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		.profile-link {
-			.avatar {
-				width: 96px;
-				height: 96px;
-				vertical-align: middle;
-				margin-right: .5rem;
-			}
-			.username {
-				font-weight: 700;
+		align-items: center;
+		margin-bottom: 1rem;
+		& > * {
+			margin: 0 .25rem;
+		}
+		.assignment-status {
+			font-size: .625rem;
+			text-transform: uppercase;
+			position: relative;
+			top: .5rem;
+		}
+		.grade {
+			text-align: center;
+			.label {
+				background: none;
 				text-transform: uppercase;
+				font-weight: 700;
+				color: $tertiary-grey;
+				font-size: .625rem;
 			}
-			.body {
-				display: inline-block;
+			.grade-box {
+				margin: 0 auto;
+				width: 7rem;
 			}
 		}
-		.controls {
-			display: flex;
-			align-items: center;
-			margin-bottom: 1rem;
-			& > * {
-				margin: 0 .25rem;
-			}
-			.assignment-status {
-				font-size: .625rem;
-				text-transform: uppercase;
-				position: relative;
-				top: .5rem;
-			}
-			.grade {
-				text-align: center;
-				.label {
-					background: none;
-					text-transform: uppercase;
-					font-weight: 700;
-					color: $tertiary-grey;
-					font-size: .625rem;
-				}
-				.grade-box {
-					margin: 0 auto;
-					width: 7rem;
-				}
-			}
-			.gradebook-actions-menu {
-				position: relative;
-				top: .8rem;
-			}
+		.gradebook-actions-menu {
+			position: relative;
+			top: .8rem;
 		}
 	}
 }
