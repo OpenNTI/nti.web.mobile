@@ -38,7 +38,7 @@ export default React.createClass({
 					<DateTime date={assignment.getDueDate()}/>
 					<FilterMenu />
 				</div>
-				<div className="extras">View Assignment</div>
+				<div className="extras"><a href="../">View Assignment</a></div>
 			</div>
 		);
 	}

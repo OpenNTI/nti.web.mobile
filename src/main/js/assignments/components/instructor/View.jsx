@@ -5,11 +5,13 @@ import Redirect from 'navigation/components/Redirect';
 
 import Activity from '../shared/Activity';
 import Assignments from '../shared/Assignments';
+import AssignmentViewer from '../shared/AssignmentViewer';
 import PageFrame from '../shared/PageFrame';
 
 import Performance from './performance/View';
 import PerformanceViewStudent from './performance/Student.jsx';
 import AssignmentView from './AssignmentView';
+
 import AssignmentViewStudent from './AssignmentViewStudent';
 
 const ROUTES = [
@@ -19,6 +21,7 @@ const ROUTES = [
 	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
 	{path: '/:rootId/students/:userId(/*)', handler: PageFrame, pageContent: AssignmentViewStudent},
 	{path: '/:rootId/students(/*)', handler: PageFrame, pageContent: AssignmentView},
+	{path: '/:rootId(/*)', handler: PageFrame, pageContent: AssignmentViewer},
 	{path: '/', handler: Assignments},
 	{}//not found
 ];
