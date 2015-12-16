@@ -13,6 +13,7 @@ import AssignmentView from './AssignmentView';
 import AssignmentViewStudent from './AssignmentViewStudent';
 
 const ROUTES = [
+	{path: '/performance/:userId/:rootId(/*)', handler: PageFrame, pageContent: AssignmentViewStudent},
 	{path: '/performance/:userId(/*)', handler: PageFrame, pageContent: PerformanceViewStudent},
 	{path: '/performance(/*)', handler: PageFrame, pageContent: Performance},
 	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
