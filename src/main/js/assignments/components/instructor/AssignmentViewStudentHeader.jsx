@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 
 import ActionsMenu from './ActionsMenu';
@@ -11,12 +13,28 @@ export default React.createClass({
 
 	propTypes: {
 		userId: React.PropTypes.any.isRequired,
-		rootId: React.PropTypes.string.isRequired
+		rootId: React.PropTypes.string.isRequired,
+		assignments: React.PropTypes.object.isRequired
+	},
+
+	getInitialState () {
+		return {};
+	},
+
+	componentDidMount () {
+		const {rootId, userId, assignments} = this.props;
+		const assignment = assignments.getAssignment(decodeFromURI(rootId));
+		assignments.getHistoryItem(assignment.getID(), userId)
+		.then(history => this.setState({ //eslint-disable-line
+			history,
+			assignment
+		}));
 	},
 
 	render () {
 
 		const {userId, rootId} = this.props;
+		const {history, assignment} = this.state;
 
 		const props = {
 			assignmentId: rootId,
@@ -26,14 +44,16 @@ export default React.createClass({
 		return (
 			<div className="assignment-header">
 				<AvatarProfileLink entity={userId} />
-				<div className="controls">
-					<Status />
-					<div className="grade">
-						<div className="label">Assignment Grade</div>
-						<GradeBox {...props} />
+				{assignment && (
+					<div className="controls">
+						<Status history={history} assignment={assignment} />
+						<div className="grade">
+							<div className="label">Assignment Grade</div>
+							<GradeBox {...props} />
+						</div>
+						<ActionsMenu {...props} />
 					</div>
-					<ActionsMenu {...props} />
-				</div>
+				)}
 			</div>
 		);
 	}
