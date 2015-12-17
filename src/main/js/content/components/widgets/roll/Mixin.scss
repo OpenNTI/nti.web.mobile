@@ -1,3 +1,6 @@
+@import "utils/variables";
+@import "utils/placeholders";
+
 %transition-image {
 	transition: transform .25s ease-out;
 }
@@ -49,14 +52,14 @@
 		padding: 0;
 		border: 0;
 		opacity: 0.75;
+		width: 3rem;
+		height: auto;
 		background: {
 			// color: initial;
 			color: rgba(0,0,0,0.2);
 			size: 3rem;
 			repeat: no-repeat;
 		}
-		width: 3rem;
-		height: auto;
 
 		&:focus {
 			outline: none;

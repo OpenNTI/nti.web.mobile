@@ -1,0 +1,88 @@
+@import "utils/variables";
+@import "utils/placeholders";
+
+.discussion-reply {
+	box-shadow: inset 0 1px 0 0 #ffffff;
+	border-top: 1px solid #f2f2f2;
+	padding: 1rem 0 0.5rem 0;
+	position: relative;
+
+	.charms {
+		top: -1rem;
+	}
+
+	.discussion-reply {
+		.placeholder,
+		.body {
+			margin-left: 2rem;
+		}
+	}
+
+	.placeholder, .body {
+		margin-left: 1rem;
+	}
+
+	.placeholder {
+		color: $tertiary-grey;
+		padding-bottom: 1rem;
+		font: {
+			size: 0.875rem;
+			style: italic;
+		}
+	}
+
+	.body {
+		position: relative;
+
+		&::before {
+			@extend %icon-font;
+			content: $icon-reply;
+			position: absolute;
+			top: 0.5rem;
+			left: -0.625rem;
+			font-size: 10px;
+			color: $secondary-grey;
+		}
+	}
+
+	.author-info {
+		.avatar {
+			margin: 0 0 0 4px;
+			border-radius: 2px;
+			width: 2rem;
+			height: 2rem;
+		}
+
+		.username {
+			color: $primary-blue;
+		}
+	}
+
+	.modeled-content,
+	.meta {
+		margin-left: 3rem;
+	}
+
+	.meta {
+		margin-top: 0.3125rem;
+	}
+
+	.footer {
+		position: relative;
+
+		time {
+			text-transform: uppercase;
+			vertical-align: middle;
+			color: $tertiary-grey;
+			float: right;
+			font: {
+				size: 0.625rem;
+				style: italic;
+			}
+		}
+	}
+
+	.modeled-content {
+		clear: both;
+	}
+}

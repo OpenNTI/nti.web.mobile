@@ -6,6 +6,13 @@ import {scoped} from 'common/locale';
 
 const t = scoped('DISCUSSIONS.ACTIONS');
 
+const ICON_MAP = {
+	'delete': 'trash',
+	'flag.metoo': 'flag'
+};
+
+const getIconClass = x => (x = ICON_MAP[x] || x, `icon-${x}`);
+
 export default React.createClass({
 	displayName: 'Action',
 
@@ -17,13 +24,13 @@ export default React.createClass({
 
 		criteria: React.PropTypes.any,
 
-		item: React.PropTypes.object,
-
 		name: React.PropTypes.string,
 
 		inList: React.PropTypes.bool,
 
-		className: React.PropTypes.string
+		className: React.PropTypes.string,
+
+		iconOnly: React.PropTypes.bool
 	},
 
 
@@ -43,9 +50,9 @@ export default React.createClass({
 
 
 	render () {
-		let {criteria, inList, item} = this.props;
+		let {criteria, inList} = this.props;
 
-		if (criteria === false || (typeof criteria === 'function' && criteria(item) === false)) {
+		if (criteria === false) {
 			return null;
 		}
 
@@ -55,10 +62,13 @@ export default React.createClass({
 
 
 	renderButton () {
-		let {className, name} = this.props;
-		let css = cx('action', name, className);
+		let {className, name, iconOnly} = this.props;
+		let css = cx('discussion-item-action', name, className, {'icon-only': iconOnly});
 		return (
-			<a className={css} href="#" onClick={this.onClick}>{t(name)}</a>
+			<a className={css} href="#" onClick={this.onClick}>
+				<i className={getIconClass(name)}/>
+				{iconOnly ? null : t(name)}
+			</a>
 		);
 	}
 });

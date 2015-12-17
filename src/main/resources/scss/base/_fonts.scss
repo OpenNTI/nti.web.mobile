@@ -7,3 +7,8 @@
 @import "../fonts/symbola/index.css";
 
 @import "../fonts/icomoon/style.css";
+
+i[class^="icon-"], i[class*=" icon-"] {
+	vertical-align: middle;
+	font-size: 32px;
+}

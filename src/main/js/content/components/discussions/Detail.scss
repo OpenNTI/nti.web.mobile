@@ -1,0 +1,35 @@
+@import "utils/variables";
+
+.discussion-detail {
+	border-top: 1px solid $border-grey;
+	position: relative;
+	padding: 0 0.75rem;
+	background: #fff;
+
+	// .content-view & {}
+
+	.modeled-content {
+		.activity-item & {
+			padding: 1rem 0;
+		}
+	}
+
+	.meta {
+		h1.title {
+			margin: 0;
+			&:empty::after {
+				content: '(empty)';
+				visibility: hidden;
+			}
+		}
+	}
+
+	.whiteboard {
+		max-width: 200px;
+		margin: 0.1875rem;
+		margin-bottom: 0.5rem;
+		border: 1px solid $tertiary-grey-alt;
+		box-shadow: 0.125rem 0.1875rem 0.0625rem 0 rgba(0,0,0,0.13);
+		border-radius: 1px;//iOS fix for box-shadow
+	}
+}

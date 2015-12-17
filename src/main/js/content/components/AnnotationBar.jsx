@@ -34,7 +34,7 @@ export default React.createClass({
 		try {
 			const selection = window.getSelection();
 			const {item, range} = this.props;
-			
+
 			return item ? item.getRange() :
 				selection.rangeCount > 0
 					? selection.getRangeAt(0)
@@ -127,9 +127,9 @@ export default React.createClass({
 				<C tag="span" condition={!!(onNewDiscussion || discussionLink)} className="spacer"/>
 
 				<C tag="button" condition={!!onNewDiscussion}
-					className="ugd note icon-discuss"
+					className="ugd note"
 					onTouchStart={this.onNote}
-					onClick={this.onNote}>Discuss</C>
+					onClick={this.onNote}><i className="icon-discuss"/>Discuss</C>
 
 				<C tag={Link} condition={!!discussionLink}
 					className="ugd note icon-discuss"

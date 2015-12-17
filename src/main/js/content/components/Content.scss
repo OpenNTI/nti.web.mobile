@@ -1,6 +1,26 @@
+@import "utils/variables";
+
 nti\:content, widget {
 	display: block;
 }
+
+nti\:content {
+	user-select: text;
+
+	widget {
+		text-indent: initial;
+		user-select: none;
+		& + .caption { display: none; }
+	}
+
+	a {
+		color: inherit; //fix foundation assuming all anchors are "links"
+		&[href], &:link {
+			color: $primary-blue;
+		}
+	}
+}
+
 
 .nti-content-panel {
 	-webkit-font-smoothing: antialiased;

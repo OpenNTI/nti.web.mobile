@@ -78,7 +78,7 @@ export default React.createClass({
 
 					<Editor ref="body" onChange={this.detectContent} onBlur={this.detectContent}>
 						<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
-						<button onClick={this.onSubmit} className={cx('save icon-discuss', {disabled})}>{t('BUTTONS.post')}</button>
+						<button onClick={this.onSubmit} className={cx('save', {disabled})}><i className="icon-discuss"/>{t('BUTTONS.post')}</button>
 					</Editor>
 				</form>
 				{busy ? ( <Loading message="Saving..."/> ) : null}
