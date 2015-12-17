@@ -4,8 +4,6 @@ import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import Loading from 'common/components/Loading';
 import StoreEvents from 'common/mixins/StoreEvents';
-import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import ShowAvatars from './mixins/ShowAvatarsContainer';
 
@@ -19,7 +17,7 @@ import GradebookTable from './gradebook-table/GradebookTable';
 export default React.createClass({
 	displayName: 'instructor:AssignmentView',
 
-	mixins: [ShowAvatars, ContextSender, NavigatableMixin, StoreEvents],
+	mixins: [ShowAvatars, StoreEvents],
 
 	propTypes: {
 		assignments: React.PropTypes.object.isRequired,
@@ -30,15 +28,6 @@ export default React.createClass({
 	backingStoreEventHandlers: {
 		[GRADEBOOK_BY_ASSIGNMENT_UNLOADED]: 'reload',
 		default: 'synchronizeFromStore'
-	},
-
-	getContext () {
-		const {rootId} = this.props;
-		return Promise.resolve({
-			label: 'Assignment!',
-			ntiid: decodeFromURI(rootId),
-			href: this.makeHref(rootId) + '/'
-		});
 	},
 
 	componentWillMount () {
