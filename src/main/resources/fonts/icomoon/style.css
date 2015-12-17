@@ -23,8 +23,8 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-search:before {
-	content: "\e801";
+.icon-gear-menu:before {
+	content: "\e900";
 }
 .icon-report:before {
 	content: "\e800";
@@ -107,3 +107,7 @@
 .icon-reply:before {
 	content: "\e611";
 }
+.icon-search:before {
+	content: "\e801";
+}
+
