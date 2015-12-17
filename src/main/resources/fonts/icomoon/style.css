@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('fonts/icomoon.eot?99egxu');
-	src:url('fonts/icomoon.eot?99egxu#iefix') format('embedded-opentype'),
-		url('fonts/icomoon.ttf?99egxu') format('truetype'),
-		url('fonts/icomoon.woff?99egxu') format('woff'),
-		url('fonts/icomoon.svg?99egxu#icomoon') format('svg');
+	src:url('fonts/icomoon.eot');
+	src:url('fonts/icomoon.eot#iefix') format('embedded-opentype'),
+		url('fonts/icomoon.ttf') format('truetype'),
+		url('fonts/icomoon.woff') format('woff'),
+		url('fonts/icomoon.svg#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -108,4 +108,3 @@
 .icon-search:before {
 	content: "\e801";
 }
-
