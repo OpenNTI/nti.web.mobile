@@ -41,6 +41,8 @@ export default React.createClass({
 			userId
 		};
 
+		const gradeValue = history && history.Grade && history.Grade.value;
+
 		return (
 			<div className="assignment-header">
 				<AvatarProfileLink entity={userId} />
@@ -49,7 +51,7 @@ export default React.createClass({
 						<Status history={history} assignment={assignment} />
 						<div className="grade">
 							<div className="label">Assignment Grade</div>
-							<GradeBox {...props} />
+							<GradeBox {...props} initialValue={gradeValue} />
 						</div>
 						<ActionsMenu {...props} />
 					</div>

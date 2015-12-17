@@ -1,0 +1,12 @@
+@import 'utils/variables';
+
+.assignment-status {
+	text-align: right;
+	font-weight: 600;
+	&.late {
+		color: $primary-red;
+	}
+	.is-excused {
+		color: $primary-red;
+	}
+}
