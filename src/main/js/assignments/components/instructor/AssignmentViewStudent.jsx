@@ -28,7 +28,7 @@ export default React.createClass({
 			{
 				label: 'Assignment',
 				ntiid: decodeFromURI(rootId),
-				href: this.makeHref(join(rootId, '/'))
+				href: this.makeHref(join(rootId, '/students/'))
 			},
 			{
 				label: decodeURIComponent(userId),
