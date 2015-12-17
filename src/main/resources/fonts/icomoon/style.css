@@ -1,16 +1,17 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('fonts/icomoon.eot');
-	src:url('fonts/icomoon.eot#iefix') format('embedded-opentype'),
-		url('fonts/icomoon.ttf') format('truetype'),
-		url('fonts/icomoon.woff') format('woff'),
-		url('fonts/icomoon.svg#icomoon') format('svg');
+	src:url('fonts/icomoon.eot?99egxu');
+	src:url('fonts/icomoon.eot?99egxu#iefix') format('embedded-opentype'),
+		url('fonts/icomoon.ttf?99egxu') format('truetype'),
+		url('fonts/icomoon.woff?99egxu') format('woff'),
+		url('fonts/icomoon.svg?99egxu#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
-	font-family: 'icomoon';
+    /* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icomoon' !important;
 	speak: none;
 	font-style: normal;
 	font-weight: normal;
@@ -32,9 +33,6 @@
 .icon-alert:before {
 	content: "\f101";
 }
-.icon-add-user:before {
-	content: "\e601";
-}
 .icon-share:before {
 	content: "\e602";
 }
@@ -50,13 +48,10 @@
 .icon-light-x:before {
 	content: "\78";
 }
-.icon-hamburger-menu:before {
-	content: "\e607";
-}
 .icon-check:before {
 	content: "\221a";
 }
-.icon-userburger:before {
+.icon-user-list:before {
 	content: "\e609";
 }
 .icon-education:before {
@@ -92,13 +87,16 @@
 .icon-remove-user:before {
 	content: "\e608";
 }
+.icon-add-user:before {
+	content: "\e601";
+}
 .icon-trash:before {
 	content: "\e60d";
 }
-.icon-pencil:before {
+.icon-edit:before {
 	content: "\e60e";
 }
-.icon-more:before {
+.icon-more-options:before {
 	content: "\e60f";
 }
 .icon-flag:before {

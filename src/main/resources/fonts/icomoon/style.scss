@@ -2,11 +2,11 @@
 
 @font-face {
 	font-family: 'icomoon';
-	src:url('fonts/icomoon.eot?x4mmhv');
-	src:url('fonts/icomoon.eot?x4mmhv#iefix') format('embedded-opentype'),
-		url('fonts/icomoon.ttf?x4mmhv') format('truetype'),
-		url('fonts/icomoon.woff?x4mmhv') format('woff'),
-		url('fonts/icomoon.svg?x4mmhv#icomoon') format('svg');
+	src:url('fonts/icomoon.eot?99egxu');
+	src:url('fonts/icomoon.eot?99egxu#iefix') format('embedded-opentype'),
+		url('fonts/icomoon.ttf?99egxu') format('truetype'),
+		url('fonts/icomoon.woff?99egxu') format('woff'),
+		url('fonts/icomoon.svg?99egxu#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -41,11 +41,6 @@
 		content: $icon-alert;
 	}
 }
-.icon-add-user {
-	&:before {
-		content: $icon-add-user;
-	}
-}
 .icon-share {
 	&:before {
 		content: $icon-share;
@@ -71,19 +66,14 @@
 		content: $icon-light-x;
 	}
 }
-.icon-hamburger-menu {
-	&:before {
-		content: $icon-hamburger-menu;
-	}
-}
 .icon-check {
 	&:before {
 		content: $icon-check;
 	}
 }
-.icon-userburger {
+.icon-user-list {
 	&:before {
-		content: $icon-userburger;
+		content: $icon-user-list;
 	}
 }
 .icon-education {
@@ -141,19 +131,24 @@
 		content: $icon-remove-user;
 	}
 }
+.icon-add-user {
+	&:before {
+		content: $icon-add-user;
+	}
+}
 .icon-trash {
 	&:before {
 		content: $icon-trash;
 	}
 }
-.icon-pencil {
+.icon-edit {
 	&:before {
-		content: $icon-pencil;
+		content: $icon-edit;
 	}
 }
-.icon-more {
+.icon-more-options {
 	&:before {
-		content: $icon-more;
+		content: $icon-more-options;
 	}
 }
 .icon-flag {
