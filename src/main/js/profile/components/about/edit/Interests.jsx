@@ -2,6 +2,7 @@ import React from 'react';
 import Mixin from './Mixin';
 
 const COMMA = 188;
+const RETURN = 13;
 
 export default React.createClass({
 	displayName: 'Interests:Edit',
@@ -15,7 +16,7 @@ export default React.createClass({
 	},
 
 	handleKeyDown (e) {
-		if (e.keyCode === COMMA) {
+		if (e.keyCode === COMMA || e.keyCode === RETURN) {
 			e.preventDefault();
 			e.stopPropagation();
 			this.maybeAddItem(e);
