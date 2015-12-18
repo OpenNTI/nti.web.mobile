@@ -14,6 +14,8 @@ import AssignmentView from './AssignmentView';
 
 import AssignmentViewStudent from './AssignmentViewStudent';
 
+import AssignmentListItem from './AssignmentListItem';
+
 const ROUTES = [
 	{path: '/performance/:userId/:rootId(/*)', handler: PageFrame, pageContent: AssignmentViewStudent},
 	{path: '/performance/:userId(/*)', handler: PageFrame, pageContent: PerformanceViewStudent},
@@ -32,6 +34,14 @@ export default React.createClass({
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
 		assignments: React.PropTypes.object.isRequired
+	},
+
+	childContextTypes: {
+		AssignmentListItem: React.PropTypes.object
+	},
+
+	getChildContext () {
+		return {AssignmentListItem};
 	},
 
 	render () {

@@ -7,6 +7,8 @@ import Assignments from '../shared/Assignments';
 import PageFrame from '../shared/PageFrame';
 import SearchSortStore from '../../SearchSortStore';
 
+import AssignmentListItem from './AssignmentListItem';
+
 const ROUTES = [
 	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
 	{path: '/performance/(:rootId)(/*)', handler: Performance},
@@ -20,6 +22,14 @@ export default React.createClass({
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
 		assignments: React.PropTypes.object.isRequired
+	},
+
+	childContextTypes: {
+		AssignmentListItem: React.PropTypes.object
+	},
+
+	getChildContext () {
+		return {AssignmentListItem};
 	},
 
 	componentWillMount () {

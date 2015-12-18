@@ -1,5 +1,5 @@
 import React from 'react';
-import AssignmentItem from './AssignmentItem';
+
 import DateTime from 'common/components/DateTime';
 import cx from 'classnames';
 import EmptyList from 'common/components/EmptyList';
@@ -12,10 +12,14 @@ export default React.createClass({
 		group: React.PropTypes.object.isRequired
 	},
 
-	render () {
+	contextTypes: {
+		AssignmentListItem: React.PropTypes.object.isRequired
+	},
 
-		let {group, course} = this.props;
-		let classes = cx( 'assignment-group', {
+
+	render () {
+		const {context: {AssignmentListItem: Item}, props: {group, course}} = this;
+		const classes = cx( 'assignment-group', {
 			'admin': course.isAdministrative
 		});
 
@@ -30,7 +34,7 @@ export default React.createClass({
 						group.items.length > 0
 							? group.items.map(assignment => (
 								<li key={assignment.getID()}>
-									<AssignmentItem assignment={assignment} course={course} />
+									<Item assignment={assignment} course={course} />
 								</li>
 							))
 							: <EmptyList type="assignments"/>
