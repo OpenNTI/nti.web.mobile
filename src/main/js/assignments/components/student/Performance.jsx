@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ContextSender from 'common/mixins/ContextSender';
-// import StoreEvents from 'common/mixins/StoreEvents';
 
 import SearchSortStore from '../../SearchSortStore';
 
@@ -13,7 +12,7 @@ import PerformanceListView from './PerformanceListView';
 export default React.createClass({
 	displayName: 'Performance',
 
-	mixins: [ContextSender/*, StoreEvents*/],
+	mixins: [ContextSender],
 
 	getContext () {
 		return Promise.resolve({
@@ -27,15 +26,7 @@ export default React.createClass({
 		rootId: React.PropTypes.string // assignmentId, present when viewing an individual assignment
 	},
 
-	// backingStore: SearchSortStore,
-	// backingStoreEventHandlers: {
-	// 	default: 'synchronizeFromStore'
-	// },
-	//
-	//
-	// synchronizeFromStore () {
-	// 	this.forceUpdate();
-	// },
+
 
 	render () {
 

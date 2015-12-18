@@ -2,48 +2,32 @@ import React from 'react';
 import cx from 'classnames';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
-import {HISTORY_LINK} from 'nti.lib.interfaces/models/assessment/Constants';
 
 import DateTime from 'common/components/DateTime';
+
+import ItemChanges from 'common/mixins/ItemChanges';
 
 const DATE_FORMAT = 'MM/DD';
 
 export default React.createClass({
 	displayName: 'PerformanceItem',
+	mixins: [ItemChanges],
 
 	propTypes: {
-		assignment: React.PropTypes.object.isRequired,
-		history: React.PropTypes.object,
+		item: React.PropTypes.object.isRequired,
 		sortedOn: React.PropTypes.string
 	},
 
+
 	getInitialState () {
-		return {
-			score: ''
-		};
+		return {};
 	},
 
-	componentWillMount () {
-		this.loadScore();
-	},
-
-	componentWillReceiveProps (nextProps) {
-		this.loadScore(nextProps);
-	},
-
-	loadScore (props = this.props) {
-		const {history} = props;
-		if(history) {
-			this.setState({
-				score: history.getGradeValue()
-			});
-		}
-	},
 
 	render () {
 
-		const {props: {assignment, sortedOn}, state: {score}} = this;
-		const completed = assignment.hasLink(HISTORY_LINK);
+		const {props: {item, sortedOn}} = this;
+		const {completed, grade} = item;
 
 		const completedClasses = cx('completed', {
 			'yes': completed,
@@ -52,17 +36,19 @@ export default React.createClass({
 			'sorted': sortedOn === 'completed'
 		});
 
+		const score = grade && grade.value;
+
 		return (
 			<div className="performance-item">
 				<div className={completedClasses}></div>
-				<a href={`./${encodeForURI(assignment.getID())}/`}>
-					<div className={cx('assignment-title', {'sorted': sortedOn === 'title'})}>{assignment.title}</div>
+				<a href={`./${encodeForURI(item.assignmentId)}/`}>
+					<div className={cx('assignment-title', {'sorted': sortedOn === 'title'})}>{item.title}</div>
 				</a>
 				<div className={cx('assigned', {'sorted': sortedOn === 'assigned'})}>
-					<DateTime format={DATE_FORMAT} date={assignment.getAssignedDate()} />
+					<DateTime format={DATE_FORMAT} date={item.assignedDate} />
 				</div>
 				<div className={cx('due', {'sorted': sortedOn === 'due'})}>
-					<DateTime format={DATE_FORMAT} date={assignment.getDueDate()} />
+					<DateTime format={DATE_FORMAT} date={item.dueDate} />
 				</div>
 				<div className={cx('score', {'sorted': sortedOn === 'score'})}>{score}</div>
 			</div>

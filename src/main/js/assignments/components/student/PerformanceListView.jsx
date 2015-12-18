@@ -1,13 +1,11 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {HISTORY_LINK} from 'nti.lib.interfaces/models/assessment/Constants';
-import PageSource from 'nti.lib.interfaces/models/ListBackedPageSource';
+import {SortOrder} from 'nti.lib.interfaces/constants';
 
 import EmptyList from 'common/components/EmptyList';
-import StoreEvents from 'common/mixins/StoreEvents';
 
-import SearchSortStore from '../../SearchSortStore';
+import ItemChanges from 'common/mixins/ItemChanges';
 
 import PerformanceItem from './PerformanceItem';
 
@@ -15,90 +13,65 @@ const columns = [
 	{
 		className: 'completed',
 		label: '√',
-		sortOn: ['completed', 'title']
+		sortOn: 'completed'
 	},
 	{
 		className: 'assignment-title',
 		label: 'Assignment Name',
-		sortOn: ['title', 'due']
-
+		sortOn: 'title'
 	},
 	{
 		className: 'assigned',
 		label: 'Assigned',
-		sortOn: ['assigned','due', 'title']
+		sortOn: 'assignedDate'
 	},
 	{
 		className: 'due',
 		label: 'Due',
-		sortOn: ['due','assigned', 'title']
+		sortOn: 'dueDate'
 	},
 	{
 		className: 'score',
 		label: 'Score',
-		sortOn: ['score', 'due']
+		sortOn: 'grade'
 	}
 ];
 
 export default React.createClass({
 	displayName: 'PerformanceListView',
-
-	mixins: [StoreEvents],
-
-	backingStore: SearchSortStore,
-
-	backingStoreEventHandlers: {
-		default () {
-			this.forceUpdate();
-		}
-	},
+	mixins: [ItemChanges],
 
 	propTypes: {
 		assignments: React.PropTypes.object.isRequired
 	},
 
-	getInitialState () {
-		return {
-			sortOn: ['due'],
-			sortDesc: false,
-			assignments: []
-		};
-	},
-
 	componentWillMount () {
-		this.sortOn(this.state.sortOn);
+		const {props: {assignments}} = this;
+		this.setState({ summary: assignments.getStudentSummary() });
 	},
 
-	sortOn (cols) {
-		let {sortOn, sortDesc} = this.state;
-		if(cols[0] === sortOn[0]) {
-			sortDesc = !sortDesc;
-		}
-		this.setState({
-			sortOn: cols,
-			sortDesc
-		});
-		let {assignments} = this.props;
-		let items = assignments.getAssignments();
-		items.sort((a, b) => compare(a, b, cols.slice()));
 
-		if(sortDesc) {
-			items.reverse();
-		}
-
-		SearchSortStore.assignmentsList = {
-			items: items,
-			pageSource: new PageSource(items, 'performance')
-		};
+	getItem () { //getItem is for the mixin
+		return this.state.summary;
 	},
+
+
+	changSort (column) {
+		const {ASC, DESC} = SortOrder;
+		const {state: {summary}} = this;
+		const {sortOn, sortOrder} = summary.getSort();
+
+		const direction = (sortOn !== column || sortOrder === DESC) ? ASC : DESC;
+
+		summary.setSort(column, direction);
+	},
+
 
 	render () {
-		let {assignmentsList, history} = SearchSortStore;
-		let {sortOn, sortDesc} = this.state;
+		const {props: {assignments}, state: {summary}} = this;
+		const {sortOn, sortOrder} = summary.getSort();
 
-		const getHistory = x => history && history.getItem(x.getID());
-
-		if(assignmentsList.items.length === 0) {
+		if(assignments.length === 0) {
 			return <EmptyList type="assignments"/>;
 		}
 
@@ -106,48 +79,21 @@ export default React.createClass({
 			<div className="performance">
 				<div className="performance-headings">
 					{columns.map((col, index) => {
-						let sorted = sortOn[0] === col.sortOn[0];
-						let classes = cx(col.className, {
+						const sorted = sortOn === col.sortOn;
+						const classes = cx(col.className, {
 							sorted,
-							'desc': sorted && sortDesc,
-							'asc': sorted && !sortDesc
+							'desc': sorted && sortOrder === SortOrder.DESC,
+							'asc': sorted && sortOrder === SortOrder.ASC
 						});
-						return <div key={index} className={classes} onClick={this.sortOn.bind(this, col.sortOn)}>{col.label}</div>;
+						return (
+							<div key={index} className={classes} onClick={()=>this.changSort(col.sortOn)}>
+								{col.label}
+							</div>
+						);
 					})}
 				</div>
-				{assignmentsList.items.map(assignment => <PerformanceItem key={assignment.getID()} assignment={assignment} history={getHistory(assignment)} sortedOn={sortOn[0]} />)}
+				{summary.map(item => <PerformanceItem key={item.assignmentId} item={item} sortedOn={sortOn} />)}
 			</div>
 		);
 	}
 });
-
-const getSortProp = {
-	'completed': (a) => a.hasLink(HISTORY_LINK),
-	'due': (a) => a.getDueDate && a.getDueDate(),
-	'assigned': (a) => a.getAssignedDate && a.getAssignedDate(),
-	'score': (a) => {
-		let {history} = SearchSortStore;
-		if (!history) {
-			return -2;
-		}
-		let itemHistory = history.getItem(a.getID());
-		let grade = itemHistory && itemHistory.getGradeValue() || -1;
-		return parseFloat(grade, 10) || grade;
-	}
-};
-
-function compare (a, b, props) {
-	let property = props.shift();
-	let propA = getSortProp[property] ? getSortProp[property](a) : a[property];
-	let propB = getSortProp[property] ? getSortProp[property](b) : b[property];
-	if( propA > propB ) {
-		return 1;
-	}
-	if( propA < propB ) {
-		return -1;
-	}
-	if(props.length > 0) {
-		return compare(a, b, props);
-	}
-	return 0;
-}
