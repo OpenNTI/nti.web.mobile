@@ -297,8 +297,8 @@ export default React.createClass({
 
 				) : (
 					<div key="content">
-						{this.renderAssessmentHeader()}
 						<div className="content-body">
+							{this.renderAssessmentHeader()}
 							<BodyContent ref="content"
 								onClick={this.onContentClick}
 								onUserSelectionChange={this.maybeOfferAnnotations}
