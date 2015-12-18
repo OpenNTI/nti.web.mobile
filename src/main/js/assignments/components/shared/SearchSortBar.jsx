@@ -1,5 +1,7 @@
 import React from 'react';
 
+import BufferedInput from 'common/components/BufferedInput';
+
 import SearchSortStore from '../../SearchSortStore';
 
 import SortBox from './SortBox';
@@ -26,7 +28,7 @@ export default React.createClass({
 		return (
 			<div className="search-sort-bar">
 				<SortBox assignments={assignments} onChange={this.onSortChange} value={SearchSortStore.sort}/>
-				<input className="search"
+				<BufferedInput className="search" delay={2000}
 					type="search"
 					placeholder="Search Assignments"
 					onChange={this.onSearchChange}

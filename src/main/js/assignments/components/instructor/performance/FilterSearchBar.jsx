@@ -57,7 +57,7 @@ export default React.createClass({
 						type="search"
 						placeholder="Search Students"
 						onChange={this.onSearchChange}
-						delayMs={2000}
+						delay={2000}
 						defaultValue={summary.getSearch()} />
 					</div>
 				</div>

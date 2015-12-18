@@ -5,12 +5,12 @@ export default React.createClass({
 
 	propTypes: {
 		onChange: React.PropTypes.func,
-		delayMs: React.PropTypes.number
+		delay: React.PropTypes.number
 	},
 
 
 	onChange (e) {
-		const {delayMs = 0, onChange} = this.props;
+		const {delay = 0, onChange} = this.props;
 		if (!onChange) {
 			return;
 		}
@@ -23,7 +23,7 @@ export default React.createClass({
 		//TODO: capture a shallow clone of the event's properties like key, keyCode, type, name, target etc.
 		//The reason is that the event object will likely have dirty data after the event execution occurs.
 		//(either from object reuse, or weakreferences that get cleaned.)
-		this.inputBufferDelayTimer = setTimeout(() => onChange(e), delayMs);
+		this.inputBufferDelayTimer = setTimeout(() => onChange(e), delay);
 	},
 
 	render () {
