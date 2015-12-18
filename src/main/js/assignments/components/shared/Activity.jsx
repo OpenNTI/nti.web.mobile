@@ -3,8 +3,6 @@ import React from 'react';
 import Loading from 'common/components/Loading';
 import EmptyList from 'common/components/EmptyList';
 
-import SearchSortStore from '../../SearchSortStore';
-
 import AssignmentActivityItem from './AssignmentActivityItem';
 
 export default React.createClass({
@@ -27,9 +25,9 @@ export default React.createClass({
 	},
 
 	componentWillUnmount () {
-		const {history} = SearchSortStore;
-		if(history && history.markSeen) {
-			history.markSeen();
+		const {activity} = this.state;
+		if(activity && activity.markSeen) {
+			activity.markSeen();
 		}
 	},
 
