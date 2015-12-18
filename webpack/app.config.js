@@ -15,7 +15,7 @@ var modules = path.resolve(__dirname, '..', 'node_modules');
 var getCodeLoaderConfig = require('./getCodeLoaderConfig');
 var gitRevision = require('../src/server/lib/git-revision');
 
-var appFontName = /((icomoon.*(woff))|(OpenSans.*woff))/i;
+var appFontName = /(icomoon.*|(OpenSans.*woff))/i;
 
 exports = module.exports = [
 	{
@@ -71,12 +71,8 @@ exports = module.exports = [
 
 				{ test: appFontName, loader: 'url' },
 				{
-					test: function (s) {
-						if (/woff$/.test(s)) {
-							return !appFontName.test(s);
-						}
-
-						return /\.(eot|ttf)$/.test(s);
+					test (s) {
+						return !appFontName.test(s) && /\.(eot|ttf|woff)$/.test(s);
 					},
 					loader: 'file',
 					query: {

@@ -1,12 +1,10 @@
-@import "../fonts/droid-serif/index.css";
-
-@import "../fonts/open-sans/index.css";
-@import "../fonts/open-sans-condensed/index.css";
-
-@import "../fonts/stix/index.css";
-@import "../fonts/symbola/index.css";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic,700,700italic);
 
 @import "../fonts/icomoon/style.css";
+@import "../fonts/stix/index.css";
+@import "../fonts/symbola/index.css";
 
 i[class^="icon-"], i[class*=" icon-"] {
 	vertical-align: middle;
