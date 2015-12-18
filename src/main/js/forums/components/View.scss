@@ -1,6 +1,10 @@
 .forum-view {
 	background: #fff;
+	max-width: 700px;
+	margin: 0 auto;
+}
 
+.forum-view, .forums-wrapper {
 	&::after,
 	&::before {
 		content: '';

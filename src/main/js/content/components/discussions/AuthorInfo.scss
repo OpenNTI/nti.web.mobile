@@ -1,0 +1,81 @@
+@import "utils/variables";
+@import "utils/placeholders";
+
+.author-info {
+	position: relative;
+	overflow: hidden;
+
+	.charms {
+		position: relative;
+		float: right;
+	}
+
+	.avatar {
+		float: left;
+		width: 3.75rem;
+		height: 3.75rem;
+		border-radius: 6px;
+		margin-top: 0.625rem;
+	}
+
+	.meta {
+		// margin-top: 0;
+		// position: relative;
+		margin-left: 4.375rem;
+		font-size: 0.875rem;
+	}
+
+	.title {
+		.activity-item & {
+			padding-top: 1rem;
+		}
+	}
+
+	time {
+		color: $tertiary-grey;
+		text-transform: uppercase;
+		font-weight: 600;
+		font-size: 0.625rem;
+	}
+
+	.reply-name-wrapper {
+		position: relative;
+		.activity-item & {
+			font-size: 0.75rem;
+		}
+	}
+
+	.name-wrapper {
+		position: relative;
+
+		.activity-item & {
+			font-size: 0.75rem;
+
+			& > .username::after {
+				@extend %middot;
+			}
+		}
+
+		time::after {
+			@extend %middot;
+		}
+
+		.tinyloader {
+			display: inline-block;
+			vertical-align: bottom;
+		}
+	}
+
+	address {display: inline;}
+
+	a[rel=author] {
+		margin-right: 0.3125rem;
+		display: inline-block;
+		max-width: 12.5rem;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		vertical-align: bottom;
+	}
+
+}

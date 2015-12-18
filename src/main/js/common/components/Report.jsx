@@ -45,7 +45,7 @@ export default React.createClass({
 
 		return (
 			<a className={cx(className, { flagged: isReported })} onClick={this.onClick}>
-				{icon && ( <span className="icon-flag"/> )}
+				{icon && ( <i className="icon-flag"/> )}
 				{label && t(isReported ? 'flagged' : 'flag')}
 			</a>
 		);

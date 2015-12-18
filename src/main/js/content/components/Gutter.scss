@@ -1,3 +1,5 @@
+@import "utils/variables";
+
 .gutter {
 	position: absolute;
 	top: 0;
@@ -10,14 +12,15 @@
 	//Debug End
 
 	.bin {
+		$offset: -0.65rem;
 		position: absolute;
 		left: 0;
 		color: $primary-blue;
 		background: rgba(255,255,255,0.7);
 		font-size: 0.75rem;
-		padding: 0.4rem 4rem 0.4rem 0.5rem;
+		padding: 0.4rem (-$offset) 0.4rem 0.5rem;
 		border-radius: 3px;
-		transform: translate3d(-0.65rem, -0.35rem, 0);
+		transform: translate3d($offset, -0.35rem, 0);
 		//Debugging:
 		/*border: 1px solid;*/
 

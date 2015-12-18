@@ -39,10 +39,7 @@ export default React.createClass({
 	},
 
 
-	toggleMenu (e) {
-		e.preventDefault();
-		e.stopPropagation();
-
+	toggleMenu () {
 		let {moreOptionsOpen} = this.state || {};
 
 		let newState = !moreOptionsOpen;
@@ -75,14 +72,14 @@ export default React.createClass({
 		return showMenu ? (
 
 				<div className="discussion-item-actions">
-					<Action name="reply" item={item} criteria={CanReply(capabilities, item)} onClick={this.onReply}/>
-					<Action name="share" item={item} criteria={CanShare(capabilities, item)}/>
+					<Action name="reply" criteria={CanReply(capabilities, item)} onClick={this.onReply}/>
+					<Action name="share" criteria={CanShare(capabilities, item)}/>
 					<span className={cx('options', {open: moreOptionsOpen})}>
-						<a className="action more-options" href="#" onClick={this.toggleMenu}/>
+						<Action name="more-options" onClick={this.toggleMenu} iconOnly/>
 						<ul ref="list" onBlur={this.hideMenu} tabIndex={moreOptionsOpen ? -1 : 0}>
-							<Action name="edit" item={item} criteria={CanEdit(capabilities, item)} inList/>
-							<Action name={flag} item={item} criteria={CanFlag(capabilities, item)} inList onClick={this.onFlag}/>
-							<Action name="delete" item={item} criteria={CanDelete(capabilities, item)} inList/>
+							<Action name="edit" criteria={CanEdit(capabilities, item)} inList/>
+							<Action name={flag} criteria={CanFlag(capabilities, item)} inList onClick={this.onFlag}/>
+							<Action name="delete" criteria={CanDelete(capabilities, item)} inList/>
 						</ul>
 					</span>
 				</div>

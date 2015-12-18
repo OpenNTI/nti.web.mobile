@@ -10,7 +10,8 @@
 }
 
 [class^="icon-"], [class*=" icon-"] {
-	font-family: 'icomoon';
+    /* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icomoon' !important;
 	speak: none;
 	font-style: normal;
 	font-weight: normal;
@@ -23,17 +24,14 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-search:before {
-	content: "\e801";
+.icon-gear-menu:before {
+	content: "\e900";
 }
 .icon-report:before {
 	content: "\e800";
 }
 .icon-alert:before {
 	content: "\f101";
-}
-.icon-add-user:before {
-	content: "\e601";
 }
 .icon-share:before {
 	content: "\e602";
@@ -50,13 +48,10 @@
 .icon-light-x:before {
 	content: "\78";
 }
-.icon-hamburger-menu:before {
-	content: "\e607";
-}
 .icon-check:before {
 	content: "\221a";
 }
-.icon-userburger:before {
+.icon-user-list:before {
 	content: "\e609";
 }
 .icon-education:before {
@@ -92,13 +87,16 @@
 .icon-remove-user:before {
 	content: "\e608";
 }
+.icon-add-user:before {
+	content: "\e601";
+}
 .icon-trash:before {
 	content: "\e60d";
 }
-.icon-pencil:before {
+.icon-edit:before {
 	content: "\e60e";
 }
-.icon-more:before {
+.icon-more-options:before {
 	content: "\e60f";
 }
 .icon-flag:before {
@@ -106,4 +104,7 @@
 }
 .icon-reply:before {
 	content: "\e611";
+}
+.icon-search:before {
+	content: "\e801";
 }

@@ -1,0 +1,221 @@
+@import "utils/variables";
+@import "utils/placeholders";
+
+%outline {
+	max-width: 500px;
+	margin: 0 auto;
+
+	ul {
+		position: relative;
+		&, ul {
+			list-style: none;
+			margin-left: 0;
+		}
+	}
+
+	li label {
+		padding: 0 3em;
+		
+		line-height: 3.5em;
+
+		color: #a1a1a1;
+		box-shadow: inset 0 -1px 0 0 #eaeaea;
+		z-index: 2;
+		position: relative;
+
+		font: {
+			style: normal;
+			weight: 600;
+			size: 0.9em;
+			family: $body-font-family;
+		}
+
+		&::after {
+			//@extend %icon-topic; doesn't work, direct extend. (see bottom of file)
+			content: '';
+			position: absolute;
+			left: 18px;
+			top: 50%;
+			margin-top: -10px;
+			height: 20px;
+			width: 18px;
+		}
+	}
+
+	li ul {margin-left: 0;}
+
+	li, h1, h3 {
+		position: relative; // to get the chevron on the anchor below to line up.
+		overflow: hidden; // to get the margins to be contained within.
+	}
+
+	li a {
+		display: block;
+		overflow: hidden;
+		// text-overflow: ellipsis;
+		// white-space: nowrap;
+		max-height: 4em;
+		color: $tertiary-grey;
+		&[href] {
+			color: $secondary-grey;
+			padding-right: 1em; // leave room for the chevron
+
+			&::after {
+				@extend %chevron-right;
+				position: absolute;
+				font-size: inherit;
+				right: .5em;
+				top: 50%;
+				transform: translateY(-44%); // 50% pulls it up a bit too high relative to the text.
+			}
+		}
+	}
+
+	.over {
+		background: #f0f0f0;
+		box-shadow: inset 3px 0 0 0 #cfcfcf;
+	}
+
+	.active {
+		background: $primary-blue;
+		box-shadow: inset 3px 0 0 0 #107eed;
+		a[href] {
+			color: #ffffff;
+			font-weight: 600;
+		}
+	}
+
+	li:first-of-type {
+		& > h1 {
+			margin: 0;
+		}
+		& > h3 {
+			margin-top: 0;
+		}
+	}
+
+	li:not(:first-of-type) > h1::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		height: 0.167em;
+		background: #e7e8ed;
+		box-shadow: inset 0 -1px 0 0 #dddddd;
+	}
+
+	li > h1 {
+		margin: 1.875rem 0 0;
+		color: $secondary-grey;
+		position: relative;
+		text-transform: none;
+		padding: 0.8125rem 0.42em 0.5625rem;
+		font: {
+			style: normal;
+			weight: 100;
+			size: 1.5em;
+		}
+	}
+
+	li > h3 {
+		text-transform: uppercase;
+		padding: 0.3125rem 1.25rem 0.25rem;
+		background: #f4f4f4 !important;
+		font-weight: 600;
+		box-shadow: inset 0 1px 0 0 #efefef, inset 0 -1px 0 0 #efefef;
+		margin-bottom: 0.5em;
+		margin-top: 3.5em;
+		color: $secondary-grey;
+		font: {
+			style: normal;
+			weight: 400;
+			size: 0.6em;
+			family: $body-font-family;
+		}
+	}
+
+	li > div {
+		margin: 0.5625rem 0.3125rem 0.5rem 1.25rem;
+		font: {
+			style: normal;
+			weight: 400;
+			size: 0.9rem;
+		}
+	}
+}
+
+
+.table-of-contents {
+	@extend %outline;
+
+	.single-root {display: none;}
+	.filtered-out {
+		opacity: 0.3;
+	}
+
+	li a[href] {
+		color: $primary-grey;
+	}
+
+	.hit {
+		background-color: #FCFF13;
+		box-shadow: inset 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+	}
+
+	.contents {
+		.part {
+			&::before {content: none !important;}
+
+			text-transform: none;
+			font-weight: 300 !important;
+			-webkit-font-smoothing: auto;
+
+			&:not(.no-children) {
+				background: #fafafa;
+				border: {
+					style: solid;
+					color: #f2f2f2;
+					width: 0 0 1px 0;
+				}
+			}
+
+			// font: 100 normal 1.5em/2 'Open Sans Condensed';
+			// z-index: 1;
+
+			// &:hover,
+			// &.over {
+			// 	box-shadow: none;
+			// }
+			// &.selected {
+			// 	background: #3fb3f6;
+			// 	.label {
+			// 		font-weight: 100;
+			// 	}
+			// }
+		}
+
+		.chapter {
+			font-weight: 700;
+			background: none !important;
+			box-shadow: none;
+			font-size: 0.7em;
+			margin-top: 1rem;
+		}
+
+		.section, .subsection, .subsubsection {
+			text-transform: none;
+			padding-left: 2rem;
+			font-size: 0.7em;
+			padding-top: 0;
+		}
+
+		.subsection {
+			padding-left: 3rem;
+		}
+
+		.subsubsection {
+			padding-left: 4rem;
+		}
+	}
+}

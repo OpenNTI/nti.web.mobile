@@ -156,9 +156,12 @@
 				float: none;
 				margin: 0;
 				max-width: $size;
-				width: $size;
 				height: $size;
 				flex: 0 0.5 $size;
+				svg {
+					width: 100%;
+					height: auto;
+				}
 			}
 
 			.profile-head-summary {
