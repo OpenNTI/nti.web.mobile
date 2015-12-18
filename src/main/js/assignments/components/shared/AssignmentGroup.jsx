@@ -13,7 +13,7 @@ export default React.createClass({
 	},
 
 	contextTypes: {
-		AssignmentListItem: React.PropTypes.object.isRequired
+		AssignmentListItem: React.PropTypes.func.isRequired
 	},
 
 

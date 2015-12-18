@@ -25,7 +25,7 @@ export default React.createClass({
 	},
 
 	childContextTypes: {
-		AssignmentListItem: React.PropTypes.object
+		AssignmentListItem: React.PropTypes.func
 	},
 
 	getChildContext () {
