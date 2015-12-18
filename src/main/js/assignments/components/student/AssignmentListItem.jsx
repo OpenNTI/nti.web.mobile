@@ -2,7 +2,6 @@ import React from 'react';
 import cx from 'classnames';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
-// import {HISTORY_LINK} from 'nti.lib.interfaces/models/assessment/Constants';
 
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 

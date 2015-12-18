@@ -47,9 +47,8 @@ export default React.createClass({
 	},
 
 	render () {
-
-		let {loading} = this.state;
-		let {assignmentsList} = SearchSortStore;
+		const {props: {course}, state: {loading}} = this;
+		const {assignmentsList} = SearchSortStore;
 
 		if(loading || !assignmentsList) {
 			return <Loading />;
@@ -63,7 +62,7 @@ export default React.createClass({
 			<ul className="assignments-list">
 				{assignmentsList.items.map((group, index) => (
 					<li key={index}>
-						<AssignmentGroup group={group} course={this.props.course} />
+						<AssignmentGroup group={group} course={course} />
 					</li>
 				))}
 			</ul>
