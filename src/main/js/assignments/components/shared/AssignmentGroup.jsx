@@ -8,6 +8,7 @@ export default React.createClass({
 	displayName: 'AssignmentGroup',
 
 	propTypes: {
+		assignments: React.PropTypes.object.isRequired,
 		course: React.PropTypes.object.isRequired,
 		group: React.PropTypes.object.isRequired
 	},
@@ -18,7 +19,7 @@ export default React.createClass({
 
 
 	render () {
-		const {context: {AssignmentListItem: Item}, props: {group, course}} = this;
+		const {context: {AssignmentListItem: Item}, props: {assignments, course, group}} = this;
 		const classes = cx( 'assignment-group', {
 			'admin': course.isAdministrative
 		});
@@ -34,7 +35,7 @@ export default React.createClass({
 						group.items.length > 0
 							? group.items.map(assignment => (
 								<li key={assignment.getID()}>
-									<Item assignment={assignment} course={course} />
+									<Item assignment={assignment} assignments={assignments} course={course} />
 								</li>
 							))
 							: <EmptyList type="assignments"/>

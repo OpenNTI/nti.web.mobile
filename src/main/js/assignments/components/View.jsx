@@ -4,7 +4,6 @@ import Instructor from './instructor/View';
 import Loading from 'common/components/Loading';
 import Navigatable from 'common/mixins/NavigatableMixin';
 import ContextSender from 'common/mixins/ContextSender';
-import SearchSortStore from '../SearchSortStore';
 
 export default React.createClass({
 	displayName: 'Assignments:View',
@@ -29,31 +28,19 @@ export default React.createClass({
 		this.getData(nextProps);
 	},
 
-	componentWillUnmount () {
-		SearchSortStore.clear();
-	},
-
 	getContext () {
 		let href = this.makeHref('/assignments/');
 
-		return Promise.resolve({
-			label: 'Assignments',
-			href
-		});
+		return Promise.resolve({ href, label: 'Assignments' });
 	},
 
 	getData (props = this.props) {
-		this.setState({
-			loading: true
-		}, () => {
-			let {course} = props;
-			let p = course.getAssignments();
-			p.then(assignments => {
-				this.setState({
-					assignments,
-					loading: false
-				});
+		this.setState({ loading: true }, () => {
+
+			props.course.getAssignments().then(assignments => {
+				this.setState({ assignments, loading: false });
 			});
+
 		});
 	},
 
@@ -62,10 +49,10 @@ export default React.createClass({
 		let {loading, assignments} = this.state;
 
 		if(loading) {
-			return <Loading />;
+			return ( <Loading /> );
 		}
 
 		let Comp = course.isAdministrative ? Instructor : Student;
-		return <Comp {...this.props} assignments={assignments} />;
+		return ( <Comp {...this.props} assignments={assignments} /> );
 	}
 });

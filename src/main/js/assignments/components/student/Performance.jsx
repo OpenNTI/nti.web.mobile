@@ -2,8 +2,6 @@ import React from 'react';
 
 import ContextSender from 'common/mixins/ContextSender';
 
-import SearchSortStore from '../../SearchSortStore';
-
 import PageFrame from '../shared/PageFrame';
 import Assignment from '../shared/AssignmentViewer';
 
@@ -30,10 +28,10 @@ export default React.createClass({
 
 	render () {
 
-		const {rootId} = this.props;
-		const {assignmentsList} = SearchSortStore;
+		const {rootId, assignments} = this.props;
+
 		return rootId
-			? <Assignment {...this.props} pageSource={(assignmentsList || {}).pageSource} />
+			? <Assignment {...this.props} pageSource={assignments.getStudentSummary().getPageSource()} />
 			: <PageFrame pageContent={PerformanceListView} {...this.props} />;
 	}
 });

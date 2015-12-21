@@ -3,33 +3,43 @@ import cx from 'classnames';
 
 import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
 
+import ItemChanges from 'common/mixins/ItemChanges';
+
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
-
-import StoreEvents from 'common/mixins/StoreEvents';
-
-import SearchSortStore from '../../SearchSortStore';
-
-const getHistory = (x, h) => h && h.getItem(x.getID());
 
 export default React.createClass({
 	displayName: 'AssignmentItem',
-	mixins: [StoreEvents],
+	mixins: [ItemChanges],
+
 	propTypes: {
-		assignment: React.PropTypes.object.isRequired
+		assignment: React.PropTypes.object.isRequired,
+		assignments: React.PropTypes.object.isRequired
 	},
 
-	backingStore: SearchSortStore,
-	backingStoreEventHandlers: {
-		default () {
-			if(this.isMounted()) {
-				this.forceUpdate();
-			}
-		}
+	getInitialState () {
+		return {};
 	},
+
+	getItem (props = this.props) {
+		return props.assignment;
+	},
+
+
+	componentWillMount () {
+		this.onItemChanged();
+	},
+
+
+	onItemChanged () {
+		const {assignments, assignment} = this.props;
+
+		assignments.getHistoryItem(assignment.getID())
+			.then(history => this.isMounted() && this.setState({history}));
+	},
+
 
 	render () {
-		let {assignment} = this.props;
-		const history = getHistory(assignment, SearchSortStore.history);
+		const {props: {assignment}, state: {history}} = this;
 
 		return (
 			<a className={cx('assignment-item', { complete: !!history })} href={`./${encodeForURI(assignment.getID())}/`}>

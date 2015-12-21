@@ -3,12 +3,12 @@ import React from 'react';
 import Loading from 'common/components/Loading';
 import EmptyList from 'common/components/EmptyList';
 
-import SearchSortStore from '../../SearchSortStore';
-
 import AssignmentGroup from './AssignmentGroup';
+import AssignmentsAccessor from './AssignmentsAccessor';
 
 export default React.createClass({
 	displayName: 'AssignmentsList',
+	mixins: [AssignmentsAccessor],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
@@ -18,51 +18,27 @@ export default React.createClass({
 	},
 
 	getInitialState () {
-		return {
-		};
-	},
-
-	componentWillMount () {
-		this.getAssignments();
-	},
-
-	componentWillReceiveProps (nextProps) {
-		if(this.props.sort !== nextProps.sort || this.props.search !== nextProps.search) {
-			this.getAssignments(nextProps);
-		}
-	},
-
-	getAssignments (props = this.props) {
-		let {assignments, sort = assignments.ORDER_BY_DUE_DATE, search} = props;
-
-		this.setState({
-			loading: true
-		});
-
-		assignments.getAssignmentsBy(sort, search)
-			.then(sorted => {
-				SearchSortStore.assignmentsList = sorted;
-				this.setState({ loading: false });
-			});
+		return {};
 	},
 
 	render () {
-		const {props: {course}, state: {loading}} = this;
-		const {assignmentsList} = SearchSortStore;
+		const {props: {assignments, course}} = this;
 
-		if(loading || !assignmentsList) {
+		const store = this.getAssignments();
+
+		if(!store || store.loading) {
 			return <Loading />;
 		}
 
-		if(assignmentsList.items.length === 0) {
+		if(store.length === 0) {
 			return <EmptyList type="assignments" />;
 		}
 
 		return (
 			<ul className="assignments-list">
-				{assignmentsList.items.map((group, index) => (
+				{store.map((group, index) => (
 					<li key={index}>
-						<AssignmentGroup group={group} course={course} />
+						<AssignmentGroup group={group} course={course} assignments={assignments} />
 					</li>
 				))}
 			</ul>
