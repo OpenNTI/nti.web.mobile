@@ -1,3 +1,5 @@
+@import 'utils/mixins';
+
 .discussion-context {
 	overflow: hidden;
 	position: relative;
@@ -52,11 +54,7 @@
 		margin: 1.25rem;
 		border: none;
 
-		&::before {
-			content: '';
-			clear: both;
-			display: table;
-		}
+		@include clearfix;
 
 		.question-title {
 			padding: 0;

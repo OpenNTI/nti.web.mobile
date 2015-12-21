@@ -4,6 +4,19 @@
 // 	filter: blur(8px);
 // }
 
+// We use this to do clear floats
+@mixin clearfix {
+	&:before, &:after {
+		clear: both;
+		content: " ";
+		display: table;
+		margin: 0;
+		overflow: hidden;
+		padding: 0;
+		position: relative;
+	}
+}
+
 
 @mixin vertical-align {
 	position: relative;
