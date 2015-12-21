@@ -10,7 +10,7 @@ export default React.createClass({
 	mixins: [WidgetsMixin],
 
 	statics: {
-		mimeTest: /ntivideoset/i,
+		mimeTest: /(videoset|videoroll)/i,
 		handles (item) {
 			return this.mimeTest.test(item.MimeType);
 		}
