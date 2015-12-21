@@ -14,8 +14,10 @@ export default React.createClass({
 
 		return (
 			<div className="assignments-page-frame">
-				<Tabs className="assignments-nav filters" />
-				<Content {...this.props} />
+				<Tabs />
+				<div className="content-area">
+					<Content {...this.props} />
+				</div>
 			</div>
 		);
 	}

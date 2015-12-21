@@ -7,7 +7,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<ul {...this.props}>
+			<ul className="assignments-nav filters">
 				<li><ActiveState tag={Link} href="/">Assignments</ActiveState></li>
 				<li><ActiveState tag={Link} href="/performance/">Grades &amp; Performance</ActiveState></li>
 				<li><ActiveState tag={Link} href="/activity/">Activity</ActiveState></li>

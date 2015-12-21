@@ -12,6 +12,9 @@ export default React.createClass({
 		assignments: React.PropTypes.object.isRequired
 	},
 
+	getInitialState () {
+		return {};
+	},
 
 	componentDidMount () {
 		this.setUp();
@@ -42,7 +45,7 @@ export default React.createClass({
 
 	render () {
 
-		const {activity} = this.state || {};
+		const {activity} = this.state;
 
 		if (!activity) {
 			return <Loading />;
@@ -53,14 +56,11 @@ export default React.createClass({
 		}
 
 		return (
-			<div>
-				<div className="assignments-activity">
-					{activity.map((event, index) =>
-						<AssignmentActivityItem key={`activity-item-${index}`} event={event} />
-					)}
-				</div>
+			<div className="assignments-activity">
+				{activity.map((event, index) =>
+					<AssignmentActivityItem key={`activity-item-${index}`} event={event} />
+				)}
 			</div>
-
 		);
 	}
 });

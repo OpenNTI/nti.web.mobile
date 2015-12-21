@@ -1,0 +1,25 @@
+@import 'utils/variables';
+
+.assignment-item {
+	display: block;
+	color: inherit;
+	position: relative;
+	padding-left: 2rem;
+	font-size: .875rem;
+	margin-bottom: 1em;
+
+	&::after {
+		content: '√';
+		font-family: 'icomoon';
+		font-size: 1.5rem;
+		position: absolute;
+		top: 50%;
+		left: 0;
+		transform: translate3d(0,-50%,0);
+		color: rgba(0,0,0,.1);
+	}
+
+	&.complete::after {
+		color: $primary-green;
+	}
+}
