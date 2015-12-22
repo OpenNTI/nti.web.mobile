@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {setSort} from '../../../GradebookActions';
-import Store from '../../../GradebookStore';
+import Accessor from '../mixins/AssignmentSummaryAccessor';
 
 import Table from './Table';
 import Student from './ColumnStudent';
@@ -14,26 +13,23 @@ const COLUMNS = [Student, Completed, Score, Feedback, Actions];
 
 export default React.createClass({
 	displayName: 'GradebookTable',
-
-	propTypes: {
-		items: React.PropTypes.any.isRequired, // iterable of UserGradeBookSummary objects
-		assignment: React.PropTypes.object.isRequired
-	},
+	mixins: [Accessor],
 
 	setSort (sort) {
-		setSort(sort);
+		this.getStore().setSort(sort);
 	},
 
 	render () {
+		const assignment = this.getAssignment();
+		const store = this.getStore();
 
-		const {items, assignment} = this.props;
-		const {sort, sortOrder} = Store;
+		const {sortOn, sortOrder} = store;
 
 		return (
 			<Table
 				id="gradebook-table"
-				items={items}
-				sort={sort}
+				items={store}
+				sort={sortOn}
 				sortOrder={sortOrder}
 				onSortChange={this.setSort}
 				columns={COLUMNS}

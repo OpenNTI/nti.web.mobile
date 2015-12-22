@@ -1,10 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {setFilter, setSearch} from '../../GradebookActions';
-import Store from '../../GradebookStore';
-
 import MenuTransitionGroup from './MenuTransitionGroup';
+import Accessor from './mixins/AssignmentSummaryAccessor';
 
 const OPTIONS = [
 	{label: 'Enrolled Students', value: 'ForCredit'},
@@ -18,6 +16,7 @@ const killEvent = (e) => {
 
 export default React.createClass({
 	displayName: 'FilterMenu',
+	mixins: [Accessor],
 
 	getInitialState () {
 		return {
@@ -42,11 +41,11 @@ export default React.createClass({
 	},
 
 	setSearch (value) {
-		setSearch(value);
+		this.getStore().setSearch(value);
 	},
 
 	setFilter (value) {
-		setFilter(value);
+		this.getStore().setFilter(value);
 	},
 
 	showMenu () {
@@ -68,26 +67,40 @@ export default React.createClass({
 	},
 
 	render () {
-
-		const filterValue = Store.filter;
+		const Store = this.getStore();
+		const filterValue = Store.getFilter();
 		const selectedOption = OPTIONS.find(option => option.value === filterValue);
-		const search = Store.search || '';
+		const search = Store.getSearch() || '';
 		const menuLabel = search.length > 0 ? `Search ${selectedOption.label}: ${search}` : selectedOption.label;
 
-		const wrapperClasses = cx('filter-menu-wrapper', {'open': this.state.open});
+		const {state: {open}} = this;
+
+		const wrapperClasses = cx('filter-menu-wrapper', {open});
 
 		return (
 			<div className={wrapperClasses} onClick={this.toggleMenu}>
-				<div className="menu-label">{menuLabel} <span className="count">({Store.count})</span></div>
-				{this.state.open && (
-					<MenuTransitionGroup>
-						<ul key="filter-menu" className="filter-menu">
-							<li key="title" className="title">Display</li>
-							{OPTIONS.map(option => <li key={option.value} className={option === selectedOption ? 'selected' : ''} onClick={this.optionClicked.bind(this, option)}>{option.label}</li>)}
-							<li key="search" className="search-item" onClick={killEvent}><input defaultValue={Store.search} type="search" onChange={this.searchChanged} placeholder="Search Students"/></li>
-						</ul>
-					</MenuTransitionGroup>
-				)}
+				<div className="menu-label">{menuLabel} <span className="count">({Store.getTotal()})</span></div>
+				<MenuTransitionGroup>
+					{open && (
+							<ul key="filter-menu" className="filter-menu">
+								<li key="title" className="title">Display</li>
+								{OPTIONS.map(option => (
+									<li key={option.value}
+										className={cx({'selected': option === selectedOption})}
+										onClick={()=> this.optionClicked(option)}>
+										{option.label}
+									</li>
+								))}
+								<li key="search" className="search-item" onClick={killEvent}>
+									<input type="search"
+										defaultValue={search}
+										onChange={this.searchChanged}
+										placeholder="Search Students"
+										/>
+								</li>
+							</ul>
+					)}
+				</MenuTransitionGroup>
 			</div>
 
 		);

@@ -1,7 +1,5 @@
 import React from 'react';
 
-import {setGrade} from '../../GradebookActions';
-
 export default React.createClass({
 	displayName: 'GradeBox',
 
@@ -23,7 +21,7 @@ export default React.createClass({
 	},
 
 	gradeChanged (newValue) {
-		setGrade(this.props.assignmentId, this.props.userId, newValue);
+		console.log('Set Grade: %s %s %s', this.props.assignmentId, this.props.userId, newValue);
 	},
 
 	render () {

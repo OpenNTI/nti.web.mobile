@@ -1,16 +1,15 @@
 import React from 'react';
 import cx from 'classnames';
 
-import Store from '../../GradebookStore';
-import {setBatchSize} from '../../GradebookActions';
-
+import Accessor from './mixins/AssignmentSummaryAccessor';
 import ShowAvatars from './mixins/ShowAvatarsChild';
+
 import MenuTransitionGroup from './MenuTransitionGroup';
 
 export default React.createClass({
 	displayName: 'OptionsMenu',
 
-	mixins: [ShowAvatars],
+	mixins: [Accessor, ShowAvatars],
 
 	getInitialState () {
 		return {
@@ -19,14 +18,15 @@ export default React.createClass({
 	},
 
 	toggleMenu () {
-		this.setState({
-			open: !this.state.open
-		});
+		const {open} = this.state;
+		this.setState({ open: !open });
 	},
 
-	setNumItems (num) {
-		setBatchSize(num);
+
+	setPageSize (num) {
+		this.getStore().setPageSize(num);
 	},
+
 
 	toggleAvatars (event) {
 		event.stopPropagation(); // leave the menu open
@@ -34,7 +34,7 @@ export default React.createClass({
 	},
 
 	render () {
-
+		const Store = this.getStore();
 		const {open} = this.state;
 		const classes = cx('options-menu-wrapper', {open});
 
@@ -43,15 +43,24 @@ export default React.createClass({
 		return (
 			<div className={classes} onClick={this.toggleMenu}>
 				<i className="icon-gear-menu" />
-				{open && (
-					<MenuTransitionGroup>
-						<ul className="options-menu">
-							<li key="title" className="title">Display</li>
-							{values.map(value => <li className={Store.batchSize === value ? 'selected' : ''} onClick={this.setNumItems.bind(this, value)} key={value}>{`${value} students per page`}</li> )}
-							<li onClick={this.toggleAvatars}><input type="checkbox" onChange={this.toggleAvatars} checked={this.getShowAvatars()} /> Show Avatars</li>
-						</ul>
-					</MenuTransitionGroup>
-				)}
+				<MenuTransitionGroup>
+					{open && (
+							<ul className="options-menu">
+								<li key="title" className="title">Display</li>
+								{values.map(value => (
+									<li key={value}
+										className={cx({'selected': Store.getPageSize() === value})}
+										onClick={() => this.setPageSize(value)}
+										>
+										{`${value} students per page`}
+									</li>
+								))}
+								<li onClick={this.toggleAvatars}>
+									<input type="checkbox" onChange={this.toggleAvatars} checked={this.getShowAvatars()} /> Show Avatars
+								</li>
+							</ul>
+					)}
+				</MenuTransitionGroup>
 			</div>
 		);
 	}

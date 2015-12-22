@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {SORT_ASC, SORT_DESC} from '../../../GradebookConstants';
+import {SortOrder} from 'nti.lib.interfaces/constants';
 
 export default React.createClass({
 	displayName: 'gradebook:Table',
@@ -49,14 +49,14 @@ export default React.createClass({
 								Col.className,
 								{
 									'sorted': isSortCol,
-									'asc': isSortCol && sortOrder === SORT_ASC,
-									'desc': isSortCol && sortOrder === SORT_DESC
+									'asc': isSortCol && sortOrder === SortOrder.ASC,
+									'desc': isSortCol && sortOrder === SortOrder.DESC
 								}
 							);
 							return (
 								<div
 									key={Col.label()}
-									onClick={this.setSort.bind(this, Col.sort)}
+									onClick={()=> this.setSort(Col.sort)}
 									className={classes}>
 										<span className="heading">{Col.label()}</span>
 										<span className="sort-arrow" />

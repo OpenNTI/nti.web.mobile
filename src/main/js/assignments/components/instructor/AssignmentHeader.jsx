@@ -2,8 +2,7 @@ import React from 'react';
 
 import DateTime from 'common/components/DateTime';
 
-import Store from '../../GradebookStore';
-import {setPage} from '../../GradebookActions';
+import Accessor from './mixins/AssignmentSummaryAccessor';
 
 import FilterMenu from './FilterMenu';
 import PageControls from './PageControls';
@@ -11,32 +10,29 @@ import OptionsMenu from './OptionsMenu';
 
 export default React.createClass({
 	displayName: 'instructor:AssignmentHeader',
-
-	propTypes: {
-		assignment: React.PropTypes.object.isRequired
-	},
+	mixins: [Accessor],
 
 	setPage (page) {
-		setPage(page);
+		this.getStore().loadPage(page);
 	},
 
 	render () {
-
-		const {assignment} = this.props;
+		const assignment = this.getAssignment();
+		const Store = this.getStore();
 
 		return (
 			<div className="gradebook-assignment-header">
-				<OptionsMenu />
+				<OptionsMenu {...this.props}/>
 				<PageControls
-					currentPage={Store.page}
-					pageSize={Store.batchSize}
-					total={Store.total}
+					currentPage={Store.getCurrentPage()}
+					pageSize={Store.getPageSize()}
+					total={Store.getTotal()}
 					onChange={this.setPage}
 				/>
 				<div className="gradebook-assignment-title">{assignment.title}</div>
 				<div className="meta">
 					<DateTime date={assignment.getDueDate()}/>
-					<FilterMenu />
+					<FilterMenu {...this.props}/>
 				</div>
 				<div className="extras"><a href="../">View Assignment</a></div>
 			</div>
