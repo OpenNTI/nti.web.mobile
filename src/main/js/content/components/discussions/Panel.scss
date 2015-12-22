@@ -1,3 +1,4 @@
+@import "utils/mixins";
 @import "utils/variables";
 @import "utils/placeholders";
 
@@ -84,5 +85,6 @@
 
 	.modeled-content {
 		clear: both;
+		@include clearfix;
 	}
 }

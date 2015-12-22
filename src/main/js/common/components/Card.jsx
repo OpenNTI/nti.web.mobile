@@ -24,6 +24,7 @@ External Links:
 import path from 'path';
 import React from 'react';
 import Url from 'url';
+import cx from 'classnames';
 import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import {toAnalyticsPath} from 'analytics/utils';
@@ -305,42 +306,35 @@ export default React.createClass({
 
 
 	render () {
-		let {state} = this;
-		let {item, commentCount, disableLink} = this.props;
-		let external = this.isExternal();
-		let extern = external ? 'external' : '';
-		let seen = this.isSeen() ? 'seen' : '';
-		let {href, icon} = state;
+		const {state: {href, icon}, props: {item, commentCount, disableLink}} = this;
 
-		if (seen && !icon) {
-			icon = BLANK_IMAGE;
-		}
+		const external = this.isExternal();
+		const seen = this.isSeen();
 
-		let extra = `${extern} ${seen}`;
+		const classes = { external, seen };
 
-		if (disableLink) {
-			href = null;
-		}
+		const iconSrc = (seen && !icon) ? BLANK_IMAGE : icon;
+		const ref = disableLink ? null : href;
 
-		let {label, title, desc, description, creator} = item;
-		label = label || title;
-		desc = description || desc;
+		const {label, title, desc, description, byline, creator} = item;
+
+		const by = 'byline' in item ? byline : creator;
 
 		return (
-			<a className={`content-link related-work-ref ${extra}`}
-				href={href} target={external ? '_blank' : null}
+			<a className={cx('content-link', 'related-work-ref', classes)}
+				href={ref} target={external ? '_blank' : null}
 				onClick={this.onClick} ref="anchor">
 
-				{!icon ? null :
-					<div className="icon" style={{backgroundImage: `url(${icon})`}}>
+				{!iconSrc ? null :
+					<div className="icon" style={{backgroundImage: `url(${iconSrc})`}}>
 						{external && <div/>}
 					</div>
 				}
 
-				<h5 dangerouslySetInnerHTML={{__html: label}}/>
+				<h5 dangerouslySetInnerHTML={{__html: label || title}}/>
 				<hr className="break hide-for-medium-up"/>
-				<div className="label" dangerouslySetInnerHTML={creator ? {__html: 'By ' + creator} : null /*TODO: localize*/}/>
-				<div className="description" dangerouslySetInnerHTML={{__html: desc}}/>
+				<div className="label" dangerouslySetInnerHTML={{__html: 'By ' + by}/*TODO: localize*/}/>
+				<div className="description" dangerouslySetInnerHTML={{__html: description || desc}}/>
 				<div className="comment-count" href="/discussions/" onClick={this.onClickDiscussion}>
 					{commentCount == null
 						? null

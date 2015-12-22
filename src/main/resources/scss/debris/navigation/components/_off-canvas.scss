@@ -26,6 +26,7 @@ aside[class*=off-canvas-menu] {
 	position: absolute;
 	height: 100%;
 	height: 100vh;
+	max-width: 280px;
 
 	.button-box {
 		position: relative;

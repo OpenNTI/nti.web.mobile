@@ -58,11 +58,8 @@
 
 
 
-	.body:after {
-		content: " ";
-		display: block;
-		height: 0;
-		clear: both;
+	.body {
+		@include clearfix;
 	}
 
 	&.disabled .body {

@@ -1,3 +1,5 @@
+@import 'utils/mixins';
+
 .forum-view {
 	background: #fff;
 	max-width: 700px;
@@ -5,14 +7,5 @@
 }
 
 .forum-view, .forums-wrapper {
-	&::after,
-	&::before {
-		content: '';
-		display: table;
-		margin: 0;
-		padding: 0;
-		position: relative;
-		overflow: hidden;
-		clear: both;
-	}
+	@include clearfix;
 }

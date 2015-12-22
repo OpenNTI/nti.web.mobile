@@ -1,3 +1,6 @@
 .profile-forums {
 	padding-top: 0.625rem;
+	background: #fff;
+
+	@include clearfix;
 }

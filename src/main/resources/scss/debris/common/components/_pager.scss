@@ -50,12 +50,18 @@
 }
 
 .bottompager {
-	@include grid-row(); //TODO: restyle without foundation mixins & grid system.
+	margin: 0 auto;
+	max-width: 62.5rem;
+	width: 100%;
+	@include clearfix();
+
 	list-style-type: none;
 	display: inline-block;
 	li {
-		@include grid-column($columns: 4); //TODO: restyle without foundation mixins & grid system.
-		float: none;
+		padding-left: 0.9375rem;
+		padding-right: 0.9375rem;
+		width: 33.3333333%;
+
 		display: inline-block;
 		a {
 			width: 100%;
@@ -64,8 +70,10 @@
 			}
 		}
 		&.counts {
-			@include grid-column($columns: 4, $collapse: true); //TODO: restyle without foundation mixins & grid system.
-			float: none;
+			padding-left: 0;
+			padding-right: 0;
+			width: 33.3333333%;
+
 			text-align: center;
 			white-space: nowrap;
 			font-size: .6875rem;
