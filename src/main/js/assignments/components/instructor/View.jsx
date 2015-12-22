@@ -5,26 +5,26 @@ import Redirect from 'navigation/components/Redirect';
 
 import Activity from '../shared/Activity';
 import Assignments from '../shared/Assignments';
-import AssignmentViewer from '../shared/AssignmentViewer';
+
 import PageFrame from '../shared/PageFrame';
 
 import Performance from './performance/View';
 import PerformanceViewStudent from './performance/Student.jsx';
 import AssignmentView from './AssignmentView';
 
-import AssignmentViewStudent from './AssignmentViewStudent';
+import AssignmentViewForStudent from './AssignmentViewForStudent';
+import AssignmentViewForStudentPerf from './performance/AssignmentViewForStudent';
 
 import AssignmentListItem from './AssignmentListItem';
 
 const ROUTES = [
-	{path: '/performance/:userId/:rootId(/*)', handler: PageFrame, pageContent: AssignmentViewStudent},
+	{path: '/performance/:userId/:rootId(/*)', handler: PageFrame, pageContent: AssignmentViewForStudentPerf},
 	{path: '/performance/:userId(/*)', handler: PageFrame, pageContent: PerformanceViewStudent},
 	{path: '/performance(/*)', handler: PageFrame, pageContent: Performance},
 	{path: '/activity(/*)', handler: PageFrame, pageContent: Activity},
-	{path: '/:rootId/students/:userId(/*)', handler: PageFrame, pageContent: AssignmentViewStudent},
+	{path: '/:rootId/students/:userId(/*)', handler: PageFrame, pageContent: AssignmentViewForStudent},
 	{path: '/:rootId/students(/*)', handler: PageFrame, pageContent: AssignmentView},
-	{path: '/:rootId(/*)', handler: PageFrame, pageContent: AssignmentViewer},
-	{path: '/', handler: Assignments},
+	{path: '/(:rootId)(/*)', handler: Assignments},
 	{}//not found
 ];
 

@@ -4,7 +4,7 @@ import {join} from 'path';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 
 import BasePathAware from 'common/mixins/BasePath';
-import ContextSender from 'common/mixins/ContextContributor';
+import ContextMixin from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import ContentViewer from '../shared/AssignmentViewer';
@@ -13,7 +13,7 @@ import Header from './AssignmentViewStudentHeader';
 
 export default React.createClass({
 	displayName: 'AssignmentViewStudent',
-	mixins: [BasePathAware, ContextSender, NavigatableMixin],
+	mixins: [BasePathAware, ContextMixin, NavigatableMixin],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,
@@ -24,18 +24,11 @@ export default React.createClass({
 
 	getContext () {
 		const {rootId, userId} = this.props;
-		return [
-			{
-				label: 'Assignment',
-				ntiid: decodeFromURI(rootId),
-				href: this.makeHref(join(rootId, '/students/'))
-			},
-			{
-				label: decodeURIComponent(userId),
-				ntiid: decodeFromURI(rootId),
-				href: this.makeHref(join(rootId, userId, '/'))
-			}
-		];
+		return {
+			label: decodeURIComponent(userId),
+			ntiid: decodeFromURI(rootId),
+			href: this.makeHref(join(rootId, userId, '/'))
+		};
 	},
 
 

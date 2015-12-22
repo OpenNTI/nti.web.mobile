@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ContextSender from 'common/mixins/ContextSender';
+import Navigatable from 'common/mixins/NavigatableMixin';
 
 import PageFrame from '../shared/PageFrame';
 import Assignment from '../shared/AssignmentViewer';
@@ -10,12 +11,12 @@ import PerformanceListView from './PerformanceListView';
 export default React.createClass({
 	displayName: 'Performance',
 
-	mixins: [ContextSender],
+	mixins: [ContextSender, Navigatable],
 
 	getContext () {
 		return Promise.resolve({
 			label: 'Performance',
-			href: '../'
+			href: this.makeHref('/performance/')
 		});
 	},
 

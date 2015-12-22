@@ -3,12 +3,12 @@ import Student from './student/View';
 import Instructor from './instructor/View';
 import Loading from 'common/components/Loading';
 import Navigatable from 'common/mixins/NavigatableMixin';
-import ContextSender from 'common/mixins/ContextSender';
+import ContextContributor from 'common/mixins/ContextContributor';
 
 export default React.createClass({
 	displayName: 'Assignments:View',
 
-	mixins: [Navigatable, ContextSender],
+	mixins: [Navigatable, ContextContributor],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired
