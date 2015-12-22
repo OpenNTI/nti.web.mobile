@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ActiveState from 'common/components/ActiveState';
 import E from 'common/components/Ellipsed';
 
 import * as COURSE_SECTIONS from 'course/Sections';
@@ -168,7 +167,7 @@ export default React.createClass({
 			<ul className="sections">
 			{sections.map(x=>
 				<li key={x.title}>
-					<ActiveState {...x} tag="div"><a {...x} className="with-arrow">{x.title}</a></ActiveState>
+					<div {...x}><a {...x} className="with-arrow">{x.title}</a></div>
 				</li>
 			)}
 			</ul>

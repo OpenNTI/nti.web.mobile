@@ -126,7 +126,7 @@ export default React.createClass({
 
 	renderTree (list) {
 		let renderTree = this.renderTree;
-		let {depthMap, prefix} = this.state;
+		let {depthMap} = this.state;
 
 		if (isEmpty(list)) {
 			return null;
@@ -136,7 +136,7 @@ export default React.createClass({
 			const {ref: link, depth, title} = item;
 			const tag = depthMap[depth - 1] || 'div';
 			const date = item.getAvailableBeginning();
-			const href = link ? (prefix + link + '/') : null;
+			const href = link ? (link + '/') : null;
 
 			const props = {
 				href, title, children: title
