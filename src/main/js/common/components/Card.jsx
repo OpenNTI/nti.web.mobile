@@ -318,9 +318,7 @@ export default React.createClass({
 		}
 
 
-		if (disableLink) {
-			href = null;
-		}
+		const ref = disableLink ? null : href;
 
 		const {label, title, desc, description, byline, creator} = item;
 
@@ -328,7 +326,7 @@ export default React.createClass({
 
 		return (
 			<a className={cx('content-link', 'related-work-ref', classes)}
-				href={href} target={external ? '_blank' : null}
+				href={ref} target={external ? '_blank' : null}
 				onClick={this.onClick} ref="anchor">
 
 				{!icon ? null :
