@@ -313,11 +313,7 @@ export default React.createClass({
 
 		const classes = { external, seen };
 
-		if (seen && !icon) {
-			icon = BLANK_IMAGE;
-		}
-
-
+		const iconSrc = (seen && !icon) ? BLANK_IMAGE : icon;
 		const ref = disableLink ? null : href;
 
 		const {label, title, desc, description, byline, creator} = item;
@@ -329,8 +325,8 @@ export default React.createClass({
 				href={ref} target={external ? '_blank' : null}
 				onClick={this.onClick} ref="anchor">
 
-				{!icon ? null :
-					<div className="icon" style={{backgroundImage: `url(${icon})`}}>
+				{!iconSrc ? null :
+					<div className="icon" style={{backgroundImage: `url(${iconSrc})`}}>
 						{external && <div/>}
 					</div>
 				}
