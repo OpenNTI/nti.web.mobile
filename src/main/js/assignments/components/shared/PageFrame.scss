@@ -1,3 +1,4 @@
+@import 'utils/mixins';
 @import 'utils/variables';
 
 .assignments-page-frame {
@@ -14,16 +15,7 @@
 	> .content-area {
 		background: #fff;
 
-		&::after,
-		&::before {
-			content: '';
-			display: table;
-			margin: 0;
-			padding: 0;
-			position: relative;
-			overflow: hidden;
-			clear: both;
-		}
+		@include clearfix;
 	}
 }
 
