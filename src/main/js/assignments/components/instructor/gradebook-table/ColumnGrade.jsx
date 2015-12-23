@@ -22,7 +22,7 @@ export default React.createClass({
 		const {props: {item: {grade}}} = this;
 
 		return (
-			<div className="grade">{grade}</div>
+			<div className="grade">{!!grade}</div>
 		);
 	}
 });
