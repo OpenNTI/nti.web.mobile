@@ -42,7 +42,7 @@ class Queue {
 					go();
 				}
 				else if (!inList) {
-					abort();
+					abort('aborted');
 				}
 				else {
 					setTimeout(check, interval);
@@ -83,7 +83,8 @@ export default React.createClass({
 						this.setState({icon: src});
 					}
 				})
-				.catch(()=> console.log('Huh?'));
+				.catch((e)=> e !== 'aborted'
+							&& console.log('Huh?', e && e.stack || e.message || e));
 		}
 	},
 

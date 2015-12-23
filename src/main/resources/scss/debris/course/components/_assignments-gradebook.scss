@@ -1,19 +1,87 @@
-@import "gradebook-mixins";
 
-.assignment-gradebook-wrapper {
-	max-width: 500px;
-	margin: 0 auto;
+%gradebook-header {
+	margin: 0;
+	padding: .625rem;
+	background: $quad-grey;
+	border-bottom: 1px solid #ddd;
+	position: relative;
+	z-index: 99; // so the shadow isn't clipped by the table that follows
+	&::after { // shadow
+		content: '';
+		box-shadow: 0 -5px 15px 5px rgba(0,0,0,0.2);
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		height: 100px;
+		clip: rect(100px, auto, 150px, auto);
+		background: #dddddd;
+		border-radius: 40em / 10px;
+	}
 }
 
-.assignment-view-student {
-	max-width: 700px;
-	margin: 0 auto;
+%menu-click-mask { // click mask: intercept click events outside the menu
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.001);
+	z-index: 2000;
 }
+
+@mixin menu-shadow {
+	box-shadow: 3px 3px 3px -3px rgba(0,0,0,0.3);
+}
+
+%panel-menu {
+	@include menu-shadow;
+	$padding: .5rem;
+	position: absolute;
+	top: -(1.5rem + $padding);
+	left: -$padding;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	background: white;
+	z-index: 9999;
+	border: 1px solid #dcdcdc;
+	min-width: 200px;
+	li {
+		white-space: nowrap;
+		color: $secondary-grey;
+		text-transform: none;
+		font-weight: 600;
+		font-size: .9rem;
+		padding: .25rem $padding;
+		&.title {
+			color: $tertiary-grey;
+			text-transform: uppercase;
+			font-size: .625rem;
+			padding-top: .625rem;
+			font-weight: 700;
+		}
+		&.search-item {
+			background: $quad-grey;
+			padding: .5rem $padding;
+		}
+		input {
+			margin: 0;
+			box-sizing: border-box;
+		}
+		&.selected {
+			background: $primary-color;
+			color: white;
+		}
+	}
+}
+
 
 .assignment-header,
 .student-header {
 	@extend %gradebook-header;
-	padding: 0 $headermargin;
+	// padding: 0 $headermargin;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
@@ -170,6 +238,12 @@
 			display: table-cell;
 			white-space: nowrap;
 			vertical-align: middle;
+			&:first-child {
+				padding-left: 0.625rem;
+			}
+			&:last-child {
+				padding-right: 0.625rem;
+			}
 		}
 		&.headings {
 			font-size: .625rem;
@@ -178,7 +252,8 @@
 			font-weight: 700;
 		}
 		.column-heading {
-			padding: .5em 0;
+			padding-top: .5em;
+			padding-bottom: .5em;
 			border-top: 1px solid $quad-grey;
 			border-bottom: 1px solid $quad-grey;
 			.heading {

@@ -7,11 +7,6 @@
 	margin: auto;
 	background: #fff;
 
-	.assignments-nav {
-		margin: 0;
-		padding-top: .75rem;
-	}
-
 	> .content-area {
 		background: #fff;
 
@@ -20,7 +15,7 @@
 }
 
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
 	.assignments-page-frame {
 		background: none;
 		margin-top: 2rem;
@@ -34,41 +29,6 @@
 		.assignments-nav {
 			flex: 0 0 250px;
 			z-index: 999;
-
-			background: $quad-grey;
-			box-shadow: inset -1px 0 0 #efefef;
-			font-size: .875rem;
-			text-align: left;
-			margin: 0 .3125rem 0 0;
-
-
-			& > li {
-				display: block;
-				a {
-					padding: .625em 1em;
-					color: $secondary-grey;
-					margin: 0;
-					background: none;
-				}
-			}
-			.active {
-				background: $primary-color;
-				box-shadow: inset 3px 0 0 0 darken($primary-color, 20%);
-				color: white;
-				font-weight: 700;
-				&::before {
-					content: none;
-				}
-				&::after {
-					content: none;
-				}
-			}
-		}
-
-		.assignment-gradebook-wrapper {
-			max-width: inherit;
-			width: 90%;
-			margin: 0 1rem;
 		}
 	}
 }

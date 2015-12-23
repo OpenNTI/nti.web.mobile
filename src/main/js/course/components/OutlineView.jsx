@@ -2,9 +2,10 @@ import React from 'react';
 import cx from 'classnames';
 
 import ActiveState from 'common/components/ActiveState';
-import E from 'common/components/Ellipsed';
 import Banner from 'common/components/Banner';
-import DateTime from 'common/components/DateTime';
+import CalendarCard from 'common/components/CalendarCard';
+import E from 'common/components/Ellipsed';
+import Header from 'common/components/TopicHeader';
 
 import ContextSender from 'common/mixins/ContextSender';
 //import NavigationAware from 'common/mixins/NavigationAware';
@@ -13,19 +14,6 @@ import Loading from 'common/components/Loading';
 import isEmpty from 'fbjs/lib/isEmpty';
 import CourseLinker from 'library/mixins/CourseContentLink';
 import {LESSONS} from '../Sections';
-
-function CalendarCard (props) {
-	const {date} = props;
-
-	return !date ? (
-		<div/>
-	) : (
-		<div className="calendar-card">
-			<DateTime date={date} className="month" format="MMM"/>
-			<DateTime date={date} className="day" format="DD"/>
-		</div>
-	);
-}
 
 
 export default React.createClass({
@@ -115,8 +103,8 @@ export default React.createClass({
 
 				{this.props.children}
 
+				<Header>Outline</Header>
 				<ul className="outline">
-					<li><label>Outline</label></li>
 					<li>{this.renderTree(outline.contents)}</li>
 				</ul>
 			</div>

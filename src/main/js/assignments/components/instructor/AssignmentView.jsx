@@ -44,7 +44,7 @@ export default React.createClass({
 
 
 		return (
-			<div className="assignment-gradebook-wrapper">
+			<div>
 				<AssignmentHeader {...props} />
 				<GradebookTable {...props} />
 			</div>
