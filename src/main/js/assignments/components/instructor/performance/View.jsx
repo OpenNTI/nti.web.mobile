@@ -6,25 +6,18 @@ import Navigatable from 'common/mixins/NavigatableMixin';
 import FilterSearchBar from './FilterSearchBar';
 import SummaryTable from './SummaryTable';
 
+import AssignmentsAccessor from '../../../mixins/AssignmentCollectionAccessor';
+
 export default React.createClass({
 	displayName: 'Performance',
-	mixins: [ContextSender, Navigatable],
+	mixins: [AssignmentsAccessor, ContextSender, Navigatable],
 
-	propTypes: {
-		assignments: React.PropTypes.object.isRequired
-	},
 
-	componentWillMount () {
-		const {assignments} = this.props;
+	componentReceivedAssignments (assignments = this.getAssignments()) {
 		const summary = assignments.getSummary();
-		summary.addListener('change', this.onStoreChange);
+		this.setState({summary});
 	},
 
-	componentWillUnmount () {
-		const {assignments} = this.props;
-		const summary = assignments.getSummary();
-		summary.removeListener('change', this.onStoreChange);
-	},
 
 	getContext () {
 		return {
@@ -33,15 +26,9 @@ export default React.createClass({
 		};
 	},
 
-	onStoreChange () {
-		this.forceUpdate();
-	},
 
 	render () {
-
-		const {assignments} = this.props;
-		const summary = assignments.getSummary();
-
+		const {summary} = this.state;
 		return (
 			<div className="performance-view">
 				<FilterSearchBar summary={summary} />

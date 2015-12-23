@@ -16,7 +16,6 @@ export default React.createClass({
 	mixins: [BasePathAware, ContextMixin, NavigatableMixin],
 
 	propTypes: {
-		course: React.PropTypes.object.isRequired,
 		userId: React.PropTypes.string.isRequired,
 		rootId: React.PropTypes.string.isRequired
 	},

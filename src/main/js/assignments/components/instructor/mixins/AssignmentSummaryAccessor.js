@@ -3,17 +3,17 @@ import {PropTypes} from 'react';
 import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
 import ItemChanges from 'common/mixins/ItemChanges';
 
+import AssignmentsAccessor from '../../../mixins/AssignmentCollectionAccessor';
+
 const getAssignmentID = props => props.assignmentId
 	|| ((!props.assignment || typeof props.assignment === 'string') ? props.assignment : props.assignment.getID())
 	|| decodeFromURI(props.rootId);
 
 
 export default {
-	mixins: [ItemChanges],
+	mixins: [AssignmentsAccessor ,ItemChanges],
 
 	propTypes: {
-		assignments: PropTypes.object.isRequired,
-
 		//At least one of these props must be given:
 		assignment: PropTypes.object,
 		assignmentId: PropTypes.string,
@@ -24,13 +24,13 @@ export default {
 
 	getItem (props = this.props) {
 		const id = getAssignmentID(props);
-		return id && props.assignments.getAssignmentSummary(id);
+		return id && this.getAssignments().getAssignmentSummary(id);
 	},
 
 
 	getAssignment (props = this.props) {
-		const {assignment, assignments} = props;
-		return assignment || assignments.getAssignment(getAssignmentID(props));
+		const {assignment} = props;
+		return assignment || this.getAssignments().getAssignment(getAssignmentID(props));
 	},
 
 

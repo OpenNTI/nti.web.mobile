@@ -17,7 +17,6 @@ export default React.createClass({
 	mixins: [Accessor, ContextSender, Navigatable, ShowAvatars],
 
 	propTypes: {
-		assignments: React.PropTypes.object.isRequired,
 		rootId: React.PropTypes.string.isRequired
 	},
 
@@ -34,9 +33,9 @@ export default React.createClass({
 
 
 	render () {
-		const assignment = this.getAssignment();
 		const Store = this.getStore();
-		const props = { assignment, ...this.props };
+
+		const props = { assignment: this.getAssignment() };
 
 		if(!Store || Store.loading) {
 			return <Loading />;

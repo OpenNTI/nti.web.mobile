@@ -7,13 +7,14 @@ import ItemChanges from 'common/mixins/ItemChanges';
 
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+
 export default React.createClass({
 	displayName: 'AssignmentItem',
-	mixins: [ItemChanges],
+	mixins: [AssignmentsAccessor, ItemChanges],
 
 	propTypes: {
-		assignment: React.PropTypes.object.isRequired,
-		assignments: React.PropTypes.object.isRequired
+		assignment: React.PropTypes.object.isRequired
 	},
 
 	getInitialState () {
@@ -31,9 +32,9 @@ export default React.createClass({
 
 
 	onItemChanged () {
-		const {assignments, assignment} = this.props;
+		const {assignment} = this.props;
 
-		assignments.getHistoryItem(assignment.getID())
+		this.getAssignments().getHistoryItem(assignment.getID())
 			.then(history => this.isMounted() && this.setState({history}));
 	},
 

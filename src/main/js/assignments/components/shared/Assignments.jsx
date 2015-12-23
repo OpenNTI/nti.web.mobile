@@ -6,23 +6,26 @@ import AssignmentsListView from './AssignmentsListView';
 import Assignment from './AssignmentViewer';
 import PageFrame from './PageFrame';
 
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+
 export default React.createClass({
 	displayName: 'Assignments',
-
-	mixins: [ContextSender],
+	mixins: [AssignmentsAccessor, ContextSender],
 
 	propTypes: {
-		assignments: React.PropTypes.object.isRequired,
-		course: React.PropTypes.object.isRequired,
 		rootId: React.PropTypes.string // assignmentId, present when viewing an individual assignment
+	},
+
+	componentWillMount () {
+		this.setState({store: this.getAssignments().getGrouppedStore()});
 	},
 
 
 	render () {
-		const {assignments, rootId} = this.props;
+		const {props: {rootId}, state: {store}} = this;
 
 		return rootId
-			? <Assignment {...this.props} pageSource={assignments.getGrouppedStore().pageSource} />
+			? <Assignment {...this.props} pageSource={store.pageSource} />
 			: <PageFrame pageContent={AssignmentsListView} {...this.props} />;
 	}
 });

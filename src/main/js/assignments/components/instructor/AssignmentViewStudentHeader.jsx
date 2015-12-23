@@ -8,13 +8,15 @@ import ActionsMenu from './ActionsMenu';
 import GradeBox from './GradeBox';
 import Status from './AssignmentStatus';
 
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+
 export default React.createClass({
 	displayName: 'instructor:AssignmentViewStudentHeader',
+	mixins: [AssignmentsAccessor],
 
 	propTypes: {
 		userId: React.PropTypes.any.isRequired,
-		rootId: React.PropTypes.string.isRequired,
-		assignments: React.PropTypes.object.isRequired
+		rootId: React.PropTypes.string.isRequired
 	},
 
 	getInitialState () {
@@ -22,10 +24,11 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		const {rootId, userId, assignments} = this.props;
-		const assignment = assignments.getAssignment(decodeFromURI(rootId));
+		const {rootId, userId} = this.props;
+		const collection = this.getAssignments();
+		const assignment = collection.getAssignment(decodeFromURI(rootId));
 
-		assignments.getHistoryItem(assignment.getID(), userId)
+		collection.getHistoryItem(assignment.getID(), userId)
 			.then(history => this.setState({history, assignment})); //eslint-disable-line
 	},
 

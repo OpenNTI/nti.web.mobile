@@ -9,6 +9,8 @@ import ItemChanges from 'common/mixins/ItemChanges';
 
 import PerformanceItem from './PerformanceItem';
 
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+
 const columns = [
 	{
 		className: 'completed',
@@ -39,15 +41,10 @@ const columns = [
 
 export default React.createClass({
 	displayName: 'PerformanceListView',
-	mixins: [ItemChanges],
-
-	propTypes: {
-		assignments: React.PropTypes.object.isRequired
-	},
+	mixins: [AssignmentsAccessor, ItemChanges],
 
 	componentWillMount () {
-		const {props: {assignments}} = this;
-		this.setState({ summary: assignments.getStudentSummary() });
+		this.setState({ summary: this.getAssignments().getStudentSummary() });
 	},
 
 
@@ -68,10 +65,10 @@ export default React.createClass({
 
 
 	render () {
-		const {props: {assignments}, state: {summary}} = this;
+		const {state: {summary}} = this;
 		const {sortOn, sortOrder} = summary.getSort();
 
-		if(assignments.length === 0) {
+		if(summary.length === 0) {
 			return <EmptyList type="assignments"/>;
 		}
 

@@ -26,13 +26,11 @@ export default React.createClass({
 
 		let actions = [];
 		if(item.overdue > 0) {
-			const assignments = t('assignments', {count: item.overdue});
-			actions.push(`${assignments} overdue`);
+			actions.push(`${t('assignments', {count: item.overdue})} overdue`);
 		}
 
 		if(item.ungraded > 0) {
-			const assignments = t('assignments', {count: item.overdue});
-			actions.push(`${assignments} ungraded`);
+			actions.push(`${t('assignments', {count: item.overdue})} ungraded`);
 		}
 
 		if (actions.length === 0) {

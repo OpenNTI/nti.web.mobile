@@ -6,12 +6,14 @@ import Navigatable from 'common/mixins/NavigatableMixin';
 import PageFrame from '../shared/PageFrame';
 import Assignment from '../shared/AssignmentViewer';
 
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+
 import PerformanceListView from './PerformanceListView';
 
 export default React.createClass({
 	displayName: 'Performance',
 
-	mixins: [ContextSender, Navigatable],
+	mixins: [AssignmentsAccessor, ContextSender, Navigatable],
 
 	getContext () {
 		return Promise.resolve({
@@ -21,18 +23,20 @@ export default React.createClass({
 	},
 
 	propTypes: {
-		assignments: React.PropTypes.object.isRequired,
 		rootId: React.PropTypes.string // assignmentId, present when viewing an individual assignment
 	},
 
 
+	componentWillMount () {
+		this.setState({summary: this.getAssignments().getStudentSummary()});
+	},
+
 
 	render () {
-
-		const {rootId, assignments} = this.props;
+		const {props: {rootId}, state: {summary}} = this;
 
 		return rootId
-			? <Assignment {...this.props} pageSource={assignments.getStudentSummary().getPageSource()} />
+			? <Assignment {...this.props} pageSource={summary.getPageSource()} />
 			: <PageFrame pageContent={PerformanceListView} {...this.props} />;
 	}
 });

@@ -6,12 +6,13 @@ import Navigatable from 'common/mixins/NavigatableMixin';
 import StudentHeader from './StudentHeader';
 import StudentAssignmentsTable from './table/StudentAssignmentsTable';
 
+import AssignmentsAccessor from '../../../mixins/AssignmentCollectionAccessor';
+
 export default React.createClass({
 	displayName: 'Performance:Student',
-	mixins: [ContextSender, Navigatable],
+	mixins: [AssignmentsAccessor, ContextSender, Navigatable],
 
 	propTypes: {
-		assignments: React.PropTypes.object.isRequired,
 		userId: React.PropTypes.string
 	},
 
@@ -28,13 +29,13 @@ export default React.createClass({
 
 	render () {
 
-		const {assignments, userId} = this.props;
-		const summary = assignments.getStudentSummary(userId);
+		const {userId} = this.props;
+		const summary = this.getAssignments().getStudentSummary(userId);
 
 		return (
 			<div>
 				<StudentHeader userId={userId} />
-				<StudentAssignmentsTable items={summary || []} />
+				<StudentAssignmentsTable  userId={userId} items={summary || []} />
 			</div>
 		);
 	}

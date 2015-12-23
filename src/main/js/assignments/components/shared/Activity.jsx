@@ -5,27 +5,16 @@ import EmptyList from 'common/components/EmptyList';
 
 import AssignmentActivityItem from './AssignmentActivityItem';
 
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+
 export default React.createClass({
 	displayName: 'Activity',
-
-	propTypes: {
-		assignments: React.PropTypes.object.isRequired
-	},
+	mixins: [AssignmentsAccessor],
 
 	getInitialState () {
 		return {};
 	},
 
-	componentDidMount () {
-		this.setUp();
-	},
-
-	componentWillReceiveProps (nextProps) {
-		const {assignments} = nextProps;
-		if(assignments !== this.props.assignments) {
-			this.setUp(nextProps);
-		}
-	},
 
 	componentWillUnmount () {
 		const {activity} = this.state;
@@ -34,14 +23,11 @@ export default React.createClass({
 		}
 	},
 
-	setUp (props = this.props) {
-		props.assignments.getActivity()
+	componentReceivedAssignments (assignments = this.getAssignments()) {
+		assignments.getActivity()
 			.then(activity => this.setState({ activity }));
 	},
 
-	onStoreChange () {
-		this.forceUpdate();
-	},
 
 	render () {
 

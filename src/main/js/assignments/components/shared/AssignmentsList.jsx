@@ -4,17 +4,15 @@ import Loading from 'common/components/Loading';
 import EmptyList from 'common/components/EmptyList';
 
 import AssignmentGroup from './AssignmentGroup';
-import AssignmentsAccessor from './AssignmentsAccessor';
+import StoreAccessor from '../../mixins/AssignmentsListViewStoreAccessor';
 
 export default React.createClass({
 	displayName: 'AssignmentsList',
-	mixins: [AssignmentsAccessor],
+	mixins: [StoreAccessor],
 
 	propTypes: {
-		course: React.PropTypes.object.isRequired,
 		sort: React.PropTypes.any,
-		search: React.PropTypes.string,
-		assignments: React.PropTypes.object.isRequired
+		search: React.PropTypes.string
 	},
 
 	getInitialState () {
@@ -22,9 +20,7 @@ export default React.createClass({
 	},
 
 	render () {
-		const {props: {assignments, course}} = this;
-
-		const store = this.getAssignments();
+		const store = this.getStore();
 
 		if(!store || store.loading) {
 			return <Loading />;
@@ -38,7 +34,7 @@ export default React.createClass({
 			<ul className="assignments-list">
 				{store.map((group, index) => (
 					<li key={index}>
-						<AssignmentGroup group={group} course={course} assignments={assignments} />
+						<AssignmentGroup group={group}/>
 					</li>
 				))}
 			</ul>

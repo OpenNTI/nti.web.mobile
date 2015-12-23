@@ -5,10 +5,12 @@ import Loading from 'common/components/Loading';
 import Navigatable from 'common/mixins/NavigatableMixin';
 import ContextContributor from 'common/mixins/ContextContributor';
 
+import AssignmentsHolder from '../mixins/AssignmentCollectionHolder';
+
 export default React.createClass({
 	displayName: 'Assignments:View',
 
-	mixins: [Navigatable, ContextContributor],
+	mixins: [AssignmentsHolder, Navigatable, ContextContributor],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired

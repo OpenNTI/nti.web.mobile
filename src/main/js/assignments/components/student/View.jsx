@@ -18,11 +18,6 @@ const ROUTES = [
 export default React.createClass({
 	displayName: 'Assignments:Students:View',
 
-	propTypes: {
-		course: React.PropTypes.object.isRequired,
-		assignments: React.PropTypes.object.isRequired
-	},
-
 	childContextTypes: {
 		AssignmentListItem: React.PropTypes.func
 	},
@@ -32,12 +27,10 @@ export default React.createClass({
 	},
 
 	render () {
-		const {course, assignments} = this.props;
-
 		return React.createElement(Router.Locations, {contextual: true, ...this.props},
 			...ROUTES.map(route =>
 				route.path
-					? React.createElement(Router.Location, {course, assignments, ...route})
+					? React.createElement(Router.Location, route)
 					: React.createElement(Router.NotFound, {handler: Redirect, location: '/'})
 			));
 	}

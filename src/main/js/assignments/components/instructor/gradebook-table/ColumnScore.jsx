@@ -21,12 +21,12 @@ export default React.createClass({
 	render () {
 
 		const {props: {item: {HistoryItemSummary}}} = this;
-		const grade = HistoryItemSummary && HistoryItemSummary.grade.value;
+		const {grade} = HistoryItemSummary || {};
 
 		return (
 			<div>
 				<GradeBox
-					initialValue={grade}
+					grade={grade}
 					assignmentId={this.props.assignmentId}
 					userId={this.props.item.user.getID()}
 				/>

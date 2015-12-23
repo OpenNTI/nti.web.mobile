@@ -2,17 +2,14 @@ import React from 'react';
 
 import BufferedInput from 'common/components/BufferedInput';
 
-import AssignmentsAccessor from './AssignmentsAccessor';
+import StoreAccessor from '../../mixins/AssignmentsListViewStoreAccessor';
 
 import SortBox from './SortBox';
 
 export default React.createClass({
 	displayName: 'SearchSortBar',
-	mixins: [AssignmentsAccessor],
+	mixins: [StoreAccessor],
 
-	propTypes: {
-		assignments: React.PropTypes.object.isRequired
-	},
 
 	onOrderChange (order) {
 		const store = this.getAssignments();
@@ -33,12 +30,11 @@ export default React.createClass({
 
 
 	render () {
-		const {props: {assignments}} = this;
-		const store = this.getAssignments();
+		const store = this.getStore();
 
 		return (
 			<div className="search-sort-bar">
-				<SortBox assignments={assignments} onChange={this.onOrderChange} value={store.order}/>
+				<SortBox onChange={this.onOrderChange} value={store.order}/>
 				<BufferedInput className="search" delay={2000}
 					type="search"
 					placeholder="Search Assignments"

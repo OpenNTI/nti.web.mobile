@@ -11,16 +11,14 @@ import Loading from 'common/components/Loading';
 
 import ContentViewer from 'content/components/Viewer';
 
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+
 export default React.createClass({
 	displayName: 'AssignmentViewer',
-	mixins: [BasePathAware, ContextContributor, NavigatableMixin],
+	mixins: [AssignmentsAccessor, BasePathAware, ContextContributor, NavigatableMixin],
 
 	propTypes: {
-		assignments: React.PropTypes.object.isRequired,
-
 		explicitContext: React.PropTypes.object,
-
-		course: React.PropTypes.object.isRequired,
 
 		rootId: React.PropTypes.string.isRequired,
 		userId: React.PropTypes.string
@@ -42,20 +40,21 @@ export default React.createClass({
 	},
 
 	componentWillMount () {
-		const {assignments, rootId, userId} = this.props;
+		const {rootId, userId} = this.props;
 		const id = decodeFromURI(rootId);
-		const assignment = assignments.getAssignment(id);
+		const collection = this.getAssignments();
+		const assignment = collection.getAssignment(id);
 
 		this.setState({assignment});
 
-		assignments.getHistoryItem(id, userId)
+		collection.getHistoryItem(id, userId)
 			.then(history => ({history}), error => ({error}))
 			.then(state => this.setState({loading: false, ...state}));
 	},
 
 
 	render () {
-		const {props: {course, explicitContext}, state: {assignment, error, history, loading}} = this;
+		const {props: {explicitContext}, state: {assignment, error, history, loading}} = this;
 
 		return error ? (
 			<Err error={error}/>
@@ -65,7 +64,8 @@ export default React.createClass({
 			<ContentViewer {...this.props}
 				assessment={assignment}
 				assessmentHistory={history}
-				contentPackage={course}
+				contentPackage={this.getCourse()}
+				course={this.getCourse()}
 				explicitContext={explicitContext || this}
 				/>
 		);

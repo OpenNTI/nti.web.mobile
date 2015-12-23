@@ -1,17 +1,19 @@
 import React from 'react';
 import SelectBox from 'common/components/SelectBox';
 
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+
 export default React.createClass({
 	displayName: 'SortBox',
+	mixins: [AssignmentsAccessor],
 
 	propTypes: {
-		assignments: React.PropTypes.object.isRequired,
 		value: React.PropTypes.any,
 		onChange: React.PropTypes.func.isRequired
 	},
 
 	componentWillMount () {
-		const {props: {assignments: {ORDER_BY_COMPLETION, ORDER_BY_DUE_DATE, ORDER_BY_LESSON}}} = this;
+		const {ORDER_BY_COMPLETION, ORDER_BY_DUE_DATE, ORDER_BY_LESSON} = this.getAssignments();
 
 		const sortOptions = [
 			{ label: 'By Due Date', value: ORDER_BY_DUE_DATE},
