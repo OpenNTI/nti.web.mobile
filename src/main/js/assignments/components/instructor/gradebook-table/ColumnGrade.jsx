@@ -27,7 +27,7 @@ export default React.createClass({
 
 		return (
 			<div className="grade">
-				<GradeBox assignmentId={assignmentId} grade={grade} userId={userId}/>
+				{grade && ( <GradeBox assignmentId={assignmentId} grade={grade} userId={userId}/> )}
 			</div>
 		);
 	}
