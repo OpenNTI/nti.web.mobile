@@ -12,7 +12,7 @@ export default React.createClass({
 
 
 	onOrderChange (order) {
-		const store = this.getAssignments();
+		const store = this.getStore();
 		if (store) {
 			store.setOrder(order);
 		}
@@ -20,7 +20,7 @@ export default React.createClass({
 
 
 	onSearchChange (event) {
-		const store = this.getAssignments();
+		const store = this.getStore();
 		const {target: {value: search}} = event;
 
 		if (store) {

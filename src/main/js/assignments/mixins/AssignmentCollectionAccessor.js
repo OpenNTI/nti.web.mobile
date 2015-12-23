@@ -23,8 +23,8 @@ export default {
 	},
 
 	componentWillReceiveProps (_,__, context) {
-		const {assignments} = context;
-		if (this.componentReceivedAssignments && assignments !== this.context.assignments) {
+		const {assignments} = context || {};
+		if (this.componentReceivedAssignments && assignments !== (this.context || {}).assignments) {
 			this.componentReceivedAssignments(assignments);
 		}
 	}
