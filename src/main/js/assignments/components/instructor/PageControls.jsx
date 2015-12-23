@@ -13,6 +13,12 @@ export default React.createClass({
 		onChange: React.PropTypes.func
 	},
 
+	getDefaultProps () {
+		return {
+			onChange () {}
+		};
+	},
+
 	getInitialState () {
 		return {
 			open: false
@@ -26,7 +32,7 @@ export default React.createClass({
 	},
 
 	setPage (pageNum) {
-		if (pageNum !== this.props.currentPage && typeof this.props.onChange === 'function') {
+		if (pageNum !== this.props.currentPage) {
 			this.props.onChange(pageNum);
 		}
 	},
@@ -47,22 +53,29 @@ export default React.createClass({
 			<span>{start(pageNum)} - {end(pageNum)} {includeTotal && `of ${total}`}</span>
 		);
 
-		const numPages = total / pageSize;
+		const item = page => (
+			<li className={cx({'selected': page === currentPage})}
+				key={`page-${page}`}
+				onClick={() => this.setPage(page)}>
+				{itemContent(page)}
+			</li>
+		);
 
-		let items = [];
-		if(open) {
-			for(let i = 1; i < numPages + 1; i++) {
-				const classes = cx({'selected': i === this.props.currentPage});
-				items.push(<li className={classes} key={`page-${i}`} onClick={this.setPage.bind(this, i)}>{itemContent(i)}</li>);
-			}
-		}
+		const numPages = Math.ceil(total / pageSize);
+
 		const wrapperclasses = cx('gradebook-page-controls', {open});
 		const classes = cx('page-menu', {open});
 
 		return (
 			<div className={wrapperclasses} onClick={this.toggleMenu}>
 				<div className="menu-label">{itemContent(currentPage, true)}</div>
-				{open && <MenuTransitionGroup><ul className={classes}>{items}</ul></MenuTransitionGroup>}
+				<MenuTransitionGroup>
+				{open && (
+					<ul className={classes} key="pager">
+						{Array.from({length: numPages}).map((_, i) => item(i + 1))}
+					</ul>
+				)}
+				</MenuTransitionGroup>
 			</div>
 		);
 	}
