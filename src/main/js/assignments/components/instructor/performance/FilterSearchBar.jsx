@@ -1,37 +1,39 @@
 import React from 'react';
 
+import BufferedInput from 'common/components/BufferedInput';
+import ItemChanges from 'common/mixins/ItemChanges';
+
 import PageControls from '../PageControls';
 
-import BufferedInput from 'common/components/BufferedInput';
 import EnrollmentSelect from './EnrollmentSelect';
 import CategorySelect from './CategorySelect';
 
 export default React.createClass({
 	displayName: 'SearchSortBar',
+	mixins: [ItemChanges],
 
 	propTypes: {
 		summary: React.PropTypes.object.isRequired // GradeBookSummary object
 	},
 
+
+	getItem () { return this.props.summary; },
+
+
 	onSearchChange (event) {
-		const {summary} = this.props;
-		summary.setSearch(event.target.value);
+		this.getItem().setSearch(event.target.value);
 	},
 
 	onEnrollmentChange (value) {
-		const {summary} = this.props;
-		console.debug(value);
-		summary.setScopeFilter(value);
+		this.getItem().setScopeFilter(value);
 	},
 
 	onCategoryChange (value) {
-		const {summary} = this.props;
-		summary.setCategoryFilter(value);
+		this.getItem().setCategoryFilter(value);
 	},
 
 	onPageChange (value)  {
-		const {summary} = this.props;
-		summary.loadPage(value);
+		this.getItem().loadPage(value);
 	},
 
 	render () {
