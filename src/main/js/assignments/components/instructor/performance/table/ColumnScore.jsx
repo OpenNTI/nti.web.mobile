@@ -22,15 +22,10 @@ export default React.createClass({
 
 		const {item, userId} = this.props;
 		const {grade, assignmentId} = item;
-		const value = grade && grade.value;
 
 		return (
 			<div>
-				<GradeBox
-					initialValue={value}
-					assignmentId={assignmentId}
-					userId={userId}
-				/>
+				<GradeBox assignmentId={assignmentId} userId={userId} grade={grade} />
 			</div>
 		);
 	}

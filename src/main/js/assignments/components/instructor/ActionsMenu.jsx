@@ -44,16 +44,12 @@ export default React.createClass({
 
 
 	toggleMenu () {
-		this.setState({
-			open: !this.state.open
-		});
+		this.setState({open: !this.state.open});
 	},
 
 
 	closeMenu () {
-		this.setState({
-			open: false
-		});
+		this.setState({open: false});
 	},
 
 
@@ -70,15 +66,11 @@ export default React.createClass({
 		}
 	},
 
+
 	render () {
 
 		const {open} = this.state;
-		const classes = cx(
-			'gradebook-actions-menu',
-			{
-				open
-			}
-		);
+		const classes = cx('gradebook-actions-menu', { open });
 
 		return (
 			<div onClick={this.toggleMenu} className={classes}>

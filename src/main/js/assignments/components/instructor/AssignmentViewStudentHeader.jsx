@@ -24,11 +24,9 @@ export default React.createClass({
 	componentDidMount () {
 		const {rootId, userId, assignments} = this.props;
 		const assignment = assignments.getAssignment(decodeFromURI(rootId));
+
 		assignments.getHistoryItem(assignment.getID(), userId)
-		.then(history => this.setState({ //eslint-disable-line
-			history,
-			assignment
-		}));
+			.then(history => this.setState({history, assignment})); //eslint-disable-line
 	},
 
 	render () {
@@ -41,7 +39,7 @@ export default React.createClass({
 			userId
 		};
 
-		const gradeValue = history && history.Grade && history.Grade.value;
+		const grade = history && history.Grade;
 
 		return (
 			<div className="assignment-header">
@@ -51,7 +49,7 @@ export default React.createClass({
 						<Status history={history} assignment={assignment} />
 						<div className="grade">
 							<div className="label">Assignment Grade</div>
-							<GradeBox {...props} initialValue={gradeValue} />
+							<GradeBox {...props} grade={grade} />
 						</div>
 						<ActionsMenu {...props} />
 					</div>

@@ -4,7 +4,7 @@ export default React.createClass({
 	displayName: 'GradeBox',
 
 	propTypes: {
-		initialValue: React.PropTypes.string,
+		grade: React.PropTypes.object,
 		assignmentId: React.PropTypes.string.isRequired,
 		userId: React.PropTypes.string.isRequired
 	},
@@ -15,7 +15,8 @@ export default React.createClass({
 
 	onBlur (e) {
 		const {value} = e.target;
-		if (this.props.initialValue !== value) {
+		const {grade} = this.props;
+		if (!grade || grade.value !== value) {
 			this.gradeChanged(value);
 		}
 	},
@@ -25,9 +26,10 @@ export default React.createClass({
 	},
 
 	render () {
+		const {props: {grade: {value} = {}}} = this;
 		return (
 			<input className="grade-box"
-					defaultValue={this.props.initialValue}
+					defaultValue={value}
 					onBlur={this.onBlur}
 					onFocus={this.onFocus}
 				/>

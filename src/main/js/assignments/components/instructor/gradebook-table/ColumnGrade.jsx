@@ -1,5 +1,7 @@
 import React from 'react';
 
+import GradeBox from '../GradeBox';
+
 export default React.createClass({
 	displayName: 'GradebookColumnGrade',
 
@@ -19,10 +21,14 @@ export default React.createClass({
 
 	render () {
 
-		const {props: {item: {grade}}} = this;
+		const {props: {item: {assignmentId, grade, user}}} = this;
+
+		const userId = user && user.getID();
 
 		return (
-			<div className="grade">{!!grade}</div>
+			<div className="grade">
+				<GradeBox assignmentId={assignmentId} grade={grade} userId={userId}/>
+			</div>
 		);
 	}
 });

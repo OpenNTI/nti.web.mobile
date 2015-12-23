@@ -17,14 +17,14 @@ export default React.createClass({
 	},
 
 	render () {
-		const {item} = this.props;
+		const {children, item} = this.props;
 		const showAvatars = this.getShowAvatars();
 		return (
 			<a className="student-link" href={`./${encodeURIComponent(item.username)}/`}>
 				{showAvatars && (<Avatar entity={item.user} suppressProfileLink />)}
 				<div className="wrapper">
 					<DisplayName entity={item.user} suppressProfileLink />
-					{this.props.children}
+					{children}
 				</div>
 			</a>
 		);
