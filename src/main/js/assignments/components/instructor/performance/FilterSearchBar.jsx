@@ -31,7 +31,7 @@ export default React.createClass({
 
 	onPageChange (value)  {
 		const {summary} = this.props;
-		summary.setPage(value);
+		summary.loadPage(value);
 	},
 
 	render () {
