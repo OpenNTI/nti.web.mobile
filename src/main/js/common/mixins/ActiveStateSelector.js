@@ -122,7 +122,7 @@ export const child = {
 
 	getActiveState () {
 		const {href, hasChildren} = this.props;
-		const absolute = href.indexOf(this.getBasePath()) === 0;
+		const absolute = href && href.indexOf(this.getBasePath()) === 0;
 		const current = absolute ? this.makeHref(this.getPath()) : this.getPath();
 
 		if (hasChildren && current) {
