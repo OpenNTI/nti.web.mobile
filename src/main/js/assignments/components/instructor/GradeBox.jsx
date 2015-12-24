@@ -29,6 +29,12 @@ export default React.createClass({
 		}
 	},
 
+	componentWillReceiveProps (nextProps) {
+		if (!this.props.grade && nextProps.grade) {
+			console.log('Got new Grade!', nextProps.grade.value);
+		}
+	},
+
 	gradeChanged (newValue) {
 		const {assignmentId, userId, grade} = this.props;
 		const collection = this.getAssignments();
