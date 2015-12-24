@@ -20,7 +20,7 @@ export default React.createClass({
 		const {children, item} = this.props;
 		const showAvatars = this.getShowAvatars();
 		return (
-			<a className="student-link" href={`./${encodeURIComponent(item.username)}/`}>
+			<a className="student-link" href={`./${encodeURIComponent(item.user.getID())}/`}>
 				{showAvatars && (<Avatar entity={item.user} suppressProfileLink />)}
 				<div className="wrapper">
 					<DisplayName entity={item.user} suppressProfileLink />
