@@ -21,9 +21,10 @@ export default React.createClass({
 	},
 
 	onBlur (e) {
-		const {value} = e.target;
-		const grade = this.getItem();
-		if (!grade || grade.value !== value) {
+		const value = e.target.value.trim();
+		const grade = this.getItem() || {value: ''};
+
+		if (grade.value !== value) {
 			this.gradeChanged(value);
 		}
 	},
