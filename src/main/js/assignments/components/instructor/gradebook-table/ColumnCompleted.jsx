@@ -20,8 +20,8 @@ export default React.createClass({
 	},
 
 	render () {
-		const {props: {item: {HistoryItemSummary}, assignment}} = this;
-		const completedTime = HistoryItemSummary && HistoryItemSummary.getSubmissionCreatedTime();
+		const {props: {item: {completed: completedTime}, assignment}} = this;
+
 		const classes = cx({
 			'complete': !!completedTime,
 			'late': completedTime && completedTime > assignment.getDueDate()

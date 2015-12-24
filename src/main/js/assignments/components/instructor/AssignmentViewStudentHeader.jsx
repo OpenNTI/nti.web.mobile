@@ -36,13 +36,13 @@ export default React.createClass({
 
 		const {userId, rootId} = this.props;
 		const {history, assignment} = this.state;
+		const {grade} = history || {};
 
 		const props = {
 			assignmentId: rootId,
 			userId
 		};
 
-		const grade = history && history.Grade;
 
 		return (
 			<div className="assignment-header">
