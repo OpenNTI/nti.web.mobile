@@ -29,7 +29,15 @@ export default React.createClass({
 	},
 
 	gradeChanged (newValue) {
-		console.log('Set Grade: %s %s %s', this.props.assignmentId, this.props.userId, newValue);
+		const {assignmentId, userId, grade} = this.props;
+		const collection = this.getAssignments();
+
+
+		collection.setGrade(grade || assignmentId, userId, newValue)
+			.then(
+				( ) => console.log('Success'),
+				(e) => console.error( e ? (e.stack || e.message || e) : 'Error')
+			);
 	},
 
 	render () {
