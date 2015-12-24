@@ -1,0 +1,42 @@
+@import 'utils/variables';
+$alt-grey: darken($panel-background, 3.9%); // #f1f1f1
+
+.assignment-group {
+	$vertical-spacing: 1.5rem;
+	padding-bottom: $vertical-spacing/2;
+	margin: 0 -1rem #{$vertical-spacing/2} -1rem;
+	padding: 0 1rem #{$vertical-spacing/2} 1rem;
+	box-shadow: 0 1px 0 $alt-grey;
+	&.admin {
+		& > h2 {
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			.column-heading {
+				font-family: $body-font-family;
+				font-size: .5rem;
+				text-transform: uppercase;
+				font-weight: 700;
+				color: $tertiary-grey;
+			}
+		}
+		.assignment-item {
+			display: flex;
+			justify-content: space-between;
+			$iconsize: 28px;
+			padding-left: 2.4rem;
+			&::after {
+				content: '';
+				@extend %icon-assignment-due-small;
+				width: $iconsize;
+				height: $iconsize;
+				margin-right:1em;
+			}
+			&.late {
+				&::after {
+					@extend %icon-assignment-late-small;
+				}
+			}
+		}
+	}
+}

@@ -1,7 +1,129 @@
 @import 'utils/mixins';
+@import 'utils/variables';
 
-.outline-view {
+.course-outline {
 	background: #fff;
+	max-width: 500px;
+	margin: 0 auto;
 
 	@include clearfix;
+
+	ul {
+		position: relative;
+		&, ul {
+			list-style: none;
+			margin-left: 0;
+		}
+	}
+
+	li ul {margin-left: 0;}
+
+	li, h1, h3 {
+		position: relative; // to get the chevron on the anchor below to line up.
+		overflow: hidden; // to get the margins to be contained within.
+	}
+
+	li a {
+		display: block;
+		overflow: hidden;
+		// text-overflow: ellipsis;
+		// white-space: nowrap;
+		max-height: 4em;
+		color: $tertiary-grey;
+		&[href] {
+			color: $secondary-grey;
+			padding-right: 1em; // leave room for the chevron
+
+			&::after {
+				@extend %chevron-right;
+				position: absolute;
+				font-size: inherit;
+				right: .5em;
+				top: 50%;
+				transform: translateY(-44%); // 50% pulls it up a bit too high relative to the text.
+			}
+		}
+	}
+
+	.over {
+		background: #f0f0f0;
+		box-shadow: inset 3px 0 0 0 #cfcfcf;
+	}
+
+	.active {
+		background: $primary-blue;
+		box-shadow: inset 3px 0 0 0 #107eed;
+		a[href] {
+			color: #ffffff;
+			font-weight: 600;
+		}
+	}
+
+	li:first-of-type {
+		& > h1 {
+			margin: 0;
+		}
+		& > h3 {
+			margin-top: 0;
+		}
+	}
+
+	li:not(:first-of-type) > h1::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		height: 0.167em;
+		background: #e7e8ed;
+		box-shadow: inset 0 -1px 0 0 #dddddd;
+	}
+
+	li > h1 {
+		margin: 1.875rem 0 0;
+		color: $secondary-grey;
+		position: relative;
+
+		font-style: normal;
+		font-weight: 100;
+		font-size: 1.5em;
+
+		text-transform: none;
+		padding: 0.8125rem 0.42em 0.5625rem;
+	}
+
+	li > h3 {
+		text-transform: uppercase;
+
+		font-style: normal;
+		font-weight: 400;
+		font-size: 0.6em;
+		font-family: $body-font-family;
+
+		padding: 0.3125rem 1.25rem 0.25rem;
+		background: #f4f4f4 !important;
+		font-weight: 600;
+		box-shadow: inset 0 1px 0 0 #efefef, inset 0 -1px 0 0 #efefef;
+		margin-bottom: 0.5em;
+		margin-top: 3.5em;
+		color: $secondary-grey;
+	}
+
+	li > div {
+		font-style: normal;
+		font-weight: 400;
+		font-size: 0.9rem;
+		margin: 0.5625rem 0.3125rem 0.5rem 1.25rem;
+	}
+
+	.calendar-card {
+		position: absolute;
+		top: 50%;
+		left: 0.5rem;
+		transform: translateY(-50%) scale(0.7);
+
+		&  + a {
+			margin-left: 1.5rem;
+		}
+	}
 }

@@ -7,7 +7,8 @@ export default React.createClass({
 	propTypes: {
 		options: React.PropTypes.array.isRequired,
 		value: React.PropTypes.any,
-		onChange: React.PropTypes.func
+		onChange: React.PropTypes.func,
+		className: React.PropTypes.string
 	},
 
 	getInitialState () {
@@ -18,16 +19,17 @@ export default React.createClass({
 
 	componentWillMount () {
 		let {value, options} = this.props;
-		this.setSelected(value || options[0].value);
+		this.setSelected(value || options[0].value, true);
 	},
 
-	setSelected (value) {
+	setSelected (value, silent) {
 		let {options, onChange} = this.props;
 		let selectedOption = value ? options.find(option => option.value === value) : options[0];
 		this.setState({
 			selectedOption
 		});
-		if(onChange) {
+
+		if(!silent && onChange) {
 			onChange(value);
 		}
 	},
@@ -57,29 +59,23 @@ export default React.createClass({
 
 		let {isOpen, selectedOption} = this.state;
 
-		let classes = cx('select-box', {'open': isOpen});
-		let Tag = 'div';
+		let classes = cx('select-box', this.props.className, {'open': isOpen});
 
-		let selectedItem = <li className="selected" onClick={this.toggle}>{selectedOption.label}</li>;
+		const optionLabel = (text) => <span className="option-label">{text}</span>;
+		// let selectedItem = <li className="selected" onClick={this.toggle}><span className="option-label">{selectedOption.label}</span></li>;
 
-		if (isOpen) {
-			return (
-				<Tag className={classes}>
-					<ul>
-					{selectedItem}
-					{this.props.options.filter(item => item !== selectedOption).map((option, index) =>
-						<li key={index} onClick={this.onClick.bind(this, option.value || option.label)}>{option.label}</li>
-					)}
-					</ul>
-				</Tag>
-			);
-		}
 		return (
-			<Tag className={classes}>
-				<ul>
-					{selectedItem}
-				</ul>
-			</Tag>
+			<div className={classes}>
+				<div className="menu-label selected" onClick={this.toggle}>{optionLabel(selectedOption.label)}</div>
+				{isOpen && (
+					<ul>
+						{this.props.options.filter(item => item !== selectedOption).map((option, index) =>
+							<li key={index} onClick={this.onClick.bind(this, option.value || option.label)}>{optionLabel(option.label)}</li>
+						)}
+					</ul>
+				)}
+			</div>
 		);
+
 	}
 });

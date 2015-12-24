@@ -19,7 +19,7 @@ import Page from './Page';
 
 import {LESSONS} from '../Sections';
 
-import Assignments from '../assignments/components/View';
+import Assignments from 'assignments/components/View';
 //import Reports
 import CourseInfo from './CourseInfo';
 import Discussions from 'forums/components/View';

@@ -1,0 +1,10 @@
+#student-assignments-table {
+	.column-heading {
+		width: 55px;
+	}
+	.col-assignment {
+		width: auto;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}

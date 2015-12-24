@@ -47,6 +47,7 @@ export default React.createClass({
 	render () {
 		let assignment = this.props.assessment;
 		let item = Store.getAssignmentHistoryItem(assignment);
+		let admin = Store.isAdministrative(assignment);
 
 		if (assignment.IsTimedAssignment /*&& !assignment.isStarted()*/) {
 			return (
@@ -63,7 +64,7 @@ export default React.createClass({
 
 		let nonSubmit = assignment.isNonSubmit();
 
-		if (!item && !nonSubmit) {
+		if (admin || !item && !nonSubmit) {
 			return null;
 		}
 

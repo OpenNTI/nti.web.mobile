@@ -78,6 +78,7 @@ class Store extends StorePrototype {
 
 		this.assignmentHistoryItems = {};
 		this.assessed = {};
+		this.active = {};
 		this.data = {};
 		this.busy = {};
 		this.timers = { start: new Date(), lastQuestionInteraction: null };
@@ -283,10 +284,24 @@ class Store extends StorePrototype {
 	}
 
 
+	getAssessmentQuestion (questionId) {
+		function find (found, item) {
+			return found || (
+				//Find in Assignments/QuestionSets
+				(item.getQuestion && item.getQuestion(questionId)) ||
+				//or find the top-level question:
+				(item.getID() === questionId && item)
+			);
+		}
+		return Object.values(this.active).reduce(find, null);
+	}
+
+
 	teardownAssessment (assessment) {
 		let m = this[GetAssessmentKey](assessment);
 		if (m) {
-			delete this.this.aggregateView;
+			delete this.aggregateView;
+			delete this.active[m];
 			delete this.assignmentHistoryItems[m];
 			delete this.assessed[m];
 			delete this.timers[m];//TODO: iterate and clearTimeout/clearInterval each.
@@ -295,13 +310,14 @@ class Store extends StorePrototype {
 	}
 
 
-	setupAssessment (assessment, loadProgress, administrative) {
+	setupAssessment (assessment, progress, administrative) {
 		let main = getMainSubmittable(assessment);
 		if (!main) {
 			return;
 		}
 		console.debug('New Assessment: %o', main);
 
+		this.active[main.getID()] = main;
 		this.assessed[main.getID()] = null;
 
 		let data = main.getSubmission();
@@ -315,16 +331,19 @@ class Store extends StorePrototype {
 			lastQuestionInteraction: null
 		};
 
-		if (!loadProgress || administrative) {
+		if (!progress) {
 			return Promise.resolve();
 		}
+
 
 		this.markBusy(assessment, BUSY_LOADING);
 		this.emitChange({type: BUSY_LOADING});
 
+		const load = typeof progress === 'object'
+						? Promise.resolve(progress)
+						: loadPreviousState(assessment); //eslint-disable-line no-use-before-define
 
-
-		return loadPreviousState(assessment)//eslint-disable-line no-use-before-define
+		return load
 			.then(submission => this[ApplySubmission](assessment, submission))
 
 			.catch(reason => {

@@ -1,0 +1,366 @@
+
+%gradebook-header {
+	margin: 0;
+	padding: .625rem;
+	background: $quad-grey;
+	border-bottom: 1px solid #ddd;
+	position: relative;
+	z-index: 99; // so the shadow isn't clipped by the table that follows
+	&::after { // shadow
+		content: '';
+		box-shadow: 0 -5px 15px 5px rgba(0,0,0,0.2);
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		height: 100px;
+		clip: rect(100px, auto, 150px, auto);
+		background: #dddddd;
+		border-radius: 40em / 10px;
+	}
+}
+
+%menu-click-mask { // click mask: intercept click events outside the menu
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.001);
+	z-index: 2000;
+}
+
+@mixin menu-shadow {
+	box-shadow: 3px 3px 3px -3px rgba(0,0,0,0.3);
+}
+
+%panel-menu {
+	@include menu-shadow;
+	$padding: .5rem;
+	position: absolute;
+	top: -(1.5rem + $padding);
+	left: -$padding;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	background: white;
+	z-index: 9999;
+	border: 1px solid #dcdcdc;
+	min-width: 200px;
+	li {
+		white-space: nowrap;
+		color: $secondary-grey;
+		text-transform: none;
+		font-weight: 600;
+		font-size: .9rem;
+		padding: .25rem $padding;
+		&.title {
+			color: $tertiary-grey;
+			text-transform: uppercase;
+			font-size: .625rem;
+			padding-top: .625rem;
+			font-weight: 700;
+		}
+		&.search-item {
+			background: $quad-grey;
+			padding: .5rem $padding;
+		}
+		input {
+			margin: 0;
+			box-sizing: border-box;
+		}
+		&.selected {
+			background: $primary-color;
+			color: white;
+		}
+	}
+}
+
+
+.assignment-header,
+.student-header {
+	@extend %gradebook-header;
+	// padding: 0 $headermargin;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	.profile-link {
+		.avatar {
+			width: 96px;
+			height: 96px;
+			vertical-align: middle;
+			margin-right: .5rem;
+		}
+		.username {
+			font-weight: 700;
+			text-transform: uppercase;
+		}
+		.body {
+			display: inline-block;
+		}
+	}
+	.controls {
+		display: flex;
+		align-items: center;
+		margin-bottom: 1rem;
+		& > * {
+			margin: 0 .25rem;
+		}
+		.assignment-status {
+			font-size: .625rem;
+			text-transform: uppercase;
+			position: relative;
+			top: .5rem;
+		}
+		.grade {
+			text-align: center;
+			.label {
+				background: none;
+				text-transform: uppercase;
+				font-weight: 700;
+				color: $tertiary-grey;
+				font-size: .625rem;
+			}
+			.grade-box {
+				margin: 0 auto;
+				width: 7rem;
+			}
+		}
+		.gradebook-actions-menu {
+			position: relative;
+			top: .8rem;
+		}
+	}
+}
+
+.gradebook-page-controls {
+	float: right;
+	position: relative;
+	width: 150px;
+	background: white;
+	padding: .5rem .6rem;
+	font-size: .875rem;
+	border: 1px solid #dcdcdc;
+	border-radius: 3px;
+	&.open::before {
+		@extend %menu-click-mask;
+	}
+	.menu-label {
+		&::after {
+			@extend %chevron-down;
+			color: $tertiary-grey;
+			font-size: 1em;
+			position: absolute;
+			right: .6rem;
+			top: 50%;
+			transform: translateY(-45%);
+		}
+	}
+	.page-menu {
+		@include menu-shadow;
+		list-style: none;
+		position: absolute;
+		left: 0;
+		top: 100%;
+		margin: 0;
+		width: 100%;
+		background: white;
+		font-size: .875rem;
+		z-index: 9999;
+		border: 1px solid #dcdcdc;
+		li {
+			padding: .5rem .6rem;
+			&.selected {
+				background: $primary-color;
+				color: white;
+			}
+		}
+	}
+}
+
+.gradebook-assignment-header {
+	@extend %gradebook-header;
+
+	.gradebook-assignment-title {
+		margin-bottom: .625rem;
+	}
+
+	.avatar {
+		width: 32px;
+		height: 32px;
+		vertical-align: middle;
+		margin-right: .5rem;
+	}
+
+	$metafontsize: .625rem;
+
+	.meta, .extras {
+		font-size: $metafontsize;
+		color: $primary-color;
+		text-transform: uppercase;
+		font-weight: 600;
+		line-height: 1.2rem;
+		& > * {
+			display: inline-block;
+			margin-right: .5em;
+		}
+	}
+	.filter-menu-wrapper {
+		position: relative;
+		.menu-label {
+			position: relative;
+			&::after {
+				@extend %chevron-down;
+				font-size: $metafontsize;
+				position: relative;
+				left: .25em;
+				font-weight: normal;
+			}
+		}
+		&.open::before {
+			@extend %menu-click-mask;
+		}
+		.filter-menu {
+			@extend %panel-menu;
+		}
+	}
+}
+
+.gradebook {
+	width: 100%;
+	display: table;
+	table-layout: fixed;
+	.gradebook-row {
+		display: table-row;
+		font-size: .875rem;
+		& > * {
+			display: table-cell;
+			white-space: nowrap;
+			vertical-align: middle;
+			&:first-child {
+				padding-left: 0.625rem;
+			}
+			&:last-child {
+				padding-right: 0.625rem;
+			}
+		}
+		&.headings {
+			font-size: .625rem;
+			color: $tertiary-grey;
+			text-transform: uppercase;
+			font-weight: 700;
+		}
+		.column-heading {
+			padding-top: .5em;
+			padding-bottom: .5em;
+			border-top: 1px solid $quad-grey;
+			border-bottom: 1px solid $quad-grey;
+			.heading {
+				display: inline-block;
+				overflow: hidden;
+				vertical-align: middle;
+			}
+			&.sorted {
+				$arrowsize: .5em; // sort arrow size
+				position: relative;
+				color: $body-font-color;
+				.sort-arrow {
+					margin-left: .25em;
+					&::after { // sort arrow
+						content: '';
+						width: 0;
+						height: 0;
+						border: $arrowsize solid transparent;
+						position: absolute;
+						top: 50%;
+						// right: -$arrowsize/2;
+					}
+				}
+				&.asc .sort-arrow::after {
+					border-bottom-color: inherit;
+					transform: translateY(-($arrowsize * 1.5));
+				}
+				&.desc .sort-arrow::after {
+					border-top-color: inherit;
+					transform: translateY(-($arrowsize * .5));
+				}
+			}
+		}
+		.col-completed {
+			.heading {
+				color: transparent;
+				width: 1em;
+				&::before {
+					content: '√';
+					font-family: 'icomoon';
+					color: $tertiary-grey;
+				}
+			}
+			.complete {
+				position: relative;
+				width: 1.5rem;
+				overflow: hidden;
+				time {
+					text-indent: 999px;
+					display: block;
+				}
+				&::before {
+					content: '√';
+					font-family: 'icomoon';
+					font-size: 1.5rem;
+					position: absolute;
+					top: 50%;
+					left: 0;
+					transform: translate3d(0,-50%,0);
+					color: $primary-green;
+				}
+				&.late {
+					color: $primary-red;
+					&::before {
+						color: $primary-red;
+					}
+				}
+			}
+		}
+		.col-score {
+			width: 4em;
+			.grade-box {
+				display: inline;
+				width: 3em;
+				height: 2em;
+				margin: 0;
+			}
+		}
+	}
+}
+
+.gradebook-actions-menu {
+	position: relative;
+	display: inline-block;
+	.icon-hamburger-menu {
+		font-size: 1.5rem;
+		color: $secondary-grey;
+		line-height: 0;
+	}
+
+	&.open::before {
+	    @extend %menu-click-mask;
+	}
+
+	ul {
+		@include menu-shadow;
+		position: absolute;
+		z-index: 9999;
+		background: white;
+		list-style: none;
+		right: 0;
+		top: 1rem;
+		font-size: .875rem;
+		border: 1px solid #dcdcdc;
+		li {
+			padding: .25em .5em;
+			white-space: nowrap;
+		}
+	}
+}

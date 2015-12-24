@@ -15,9 +15,7 @@ var statsCollector = require('./plugins/stats-collector');
 
 var e = [];
 
-global.distribution = true;
 var cfg = require('./app.config.js');
-delete global.distribution;
 
 if (!Array.isArray(cfg)) {
 	cfg = [cfg];
@@ -68,11 +66,17 @@ e.forEach(function (x) {
 	x.debug = false;
 
 	if (x.target === 'web') {
+
+		if (process.env.NODE_ENV === 'production') {
+			x.plugins.push(
+				new webpack.optimize.UglifyJsPlugin({
+					test: /\.js(x?)($|\?)/i,
+					compress: { warnings: false }
+				})
+			);
+		}
+
 		x.plugins.push(
-			new webpack.optimize.UglifyJsPlugin({
-				test: /\.js(x?)($|\?)/i,
-				compress: { warnings: false }
-			}),
 			new CompressionPlugin({
 				asset: '{file}.gz',
 				algorithm: 'gzip',

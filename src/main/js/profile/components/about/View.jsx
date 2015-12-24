@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-component';
 import {PROFILE_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
 
 import Loading from 'common/components/TinyLoader';
@@ -46,7 +45,7 @@ export default React.createClass({
 				</ul>
 				{canEdit &&
 					<div className="controls buttons">
-						<ActiveState tag={Link} href="/edit/" className="button tiny">Edit Profile</ActiveState>
+						<ActiveState tag="a" href="/edit/" className="button tiny">Edit Profile</ActiveState>
 					</div>
 				}
 			</div>

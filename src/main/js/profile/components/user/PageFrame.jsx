@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-component';
 import FollowButton from './FollowButton';
 // import EditButton from './EditButton';
 
@@ -50,9 +49,9 @@ export default React.createClass({
 					<div className="profile">
 						<Head {...this.props}>
 							<ul className="profile-nav">
-								<li className="profile-nav-item"><ActiveState hasChildren tag={Link} href="/about/">About</ActiveState></li>
-								<li className="profile-nav-item"><ActiveState tag={Link} href="/activity/">Activity</ActiveState></li>
-								<li className="profile-nav-item"><ActiveState tag={Link} href="/memberships/">Memberships</ActiveState></li>
+								<li className="profile-nav-item"><ActiveState hasChildren tag="a" href="/about/">About</ActiveState></li>
+								<li className="profile-nav-item"><ActiveState tag="a" href="/activity/">Activity</ActiveState></li>
+								<li className="profile-nav-item"><ActiveState tag="a" href="/memberships/">Memberships</ActiveState></li>
 								{/*<li className="profile-nav-item"><ActiveLink href="/achievements/">Achievements</ActiveLink></li>*/}
 							</ul>
 						</Head>

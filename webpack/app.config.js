@@ -82,7 +82,7 @@ exports = module.exports = [
 
 				{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
 					'style-loader',
-					(global.distribution
+					(process.env.NODE_ENV === 'production'
 						? 'css?sourceMap&-minimize!autoprefixer!sass'
 						: 'css?sourceMap!autoprefixer!sass'
 					))
@@ -105,10 +105,7 @@ exports = module.exports = [
 				'build_source': gitRevision,
 				'process.env': {
 					// This has effect on the react lib size
-					'NODE_ENV': JSON.stringify(global.distribution
-						? 'production'
-						: (process.env.NODE_ENV || 'development')
-					)
+					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 				}
 			}),
 			new ExtractTextPlugin('resources/styles.css', {allChunks: true})

@@ -42,11 +42,6 @@ import Discussions from './discussions';
 
 const TRANSITION_TIMEOUT = 300;
 
-function getAssessment (state) {
-	let {page} = state;
-	return page && page.getSubmittableAssessment();
-}
-
 export default React.createClass({
 	displayName: 'content:Viewer',
 	mixins: [
@@ -79,7 +74,7 @@ export default React.createClass({
 
 
 	signalResourceLoaded () {
-		let quiz = getAssessment(this.state);
+		let quiz = this.getAssessment();
 		let mime = quiz ? (isAssignment(quiz) ? ASSIGNMENT_VIEWED : SELFASSESSMENT_VIEWED) : RESOURCE_VIEWED;
 
 		let args = [
@@ -323,7 +318,7 @@ export default React.createClass({
 	},
 
 	renderBottomPager () {
-		return isAssignment(getAssessment(this.state))
+		return isAssignment(this.getAssessment())
 			? null
 			: <Pager position="bottom" pageSource={this.state.pageSource} current={this.getPageID()}/>;
 	},
@@ -363,7 +358,7 @@ export default React.createClass({
 	renderAnnotationToolbar () {
 		const None = void 0;
 		let {selected} = this.state;
-		if (!selected || isAssignment(getAssessment(this.state))) {
+		if (!selected || isAssignment(this.getAssessment())) {
 			return null;
 		}
 

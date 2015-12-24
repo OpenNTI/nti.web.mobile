@@ -1,0 +1,34 @@
+@import 'utils/mixins';
+@import 'utils/variables';
+
+.assignments-page-frame {
+	max-width: 1024px;
+	min-height: 100vh;
+	margin: auto;
+	background: #fff;
+
+	> .content-area {
+		background: #fff;
+
+		@include clearfix;
+	}
+}
+
+
+@media (min-width: 769px) {
+	.assignments-page-frame {
+		background: none;
+		margin-top: 2rem;
+		display: flex;
+
+		> .content-area {
+			flex: 1 1 auto;
+			position: relative;
+		}
+
+		.assignments-nav {
+			flex: 0 0 250px;
+			z-index: 999;
+		}
+	}
+}
