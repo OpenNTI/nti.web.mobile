@@ -1,9 +1,8 @@
 {
   "name": "webapp-instance",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha",
   "description": "NextThought web application",
-  "author": "NextThought",
-  "private": true,
+  "author": "nextthought",
   "engines": {
     "node": ">=5.0.0",
     "npm": ">=3.3.0"
@@ -13,7 +12,7 @@
     "url": "ssh://repos.nextthought.com/nti.web.mobile"
   },
   "files": [
-    "./dist"
+    "dist"
   ],
   "scripts": {
     "test": "karma start --single-run --reporters dots,html,junit,coverage",
@@ -22,7 +21,7 @@
   },
   "main": "./dist/server/index.js",
   "bin": {
-    "webapp-instance": "./src/server/index.js"
+    "webapp-instance": "./dist/server/index.js"
   },
   "dependencies": {
     "autoprefixer-loader": "^3.0.0",
