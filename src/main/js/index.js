@@ -1,9 +1,8 @@
 import 'babel-polyfill';//applies hooks into global
 
-import path from 'path';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Relay from 'react-relay';
+
 import CSS from 'fbjs/lib/CSSCore';
 
 import isTouch from 'nti.lib.interfaces/utils/is-touch-device';
@@ -36,9 +35,6 @@ overrideConfigAndForceCurrentHost();
 console.debug('Client is using host: %s', getServerURI());
 
 const basePath = (global.$AppConfig || {}).basepath || '/';
-
-Relay.injectNetworkLayer(
-	new Relay.DefaultNetworkLayer(path.join(basePath, '/api/graphql')));
 
 
 const APP = ReactDOM.render(

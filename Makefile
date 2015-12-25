@@ -2,7 +2,6 @@
 	build-all \
 	build-app \
 	build-widgets \
-	build-schema \
 	compile-app \
 	compile-widgets \
 	stage setup \
@@ -15,7 +14,6 @@
 DIST=./dist/
 STAGE=./stage/
 SRC=./src/
-SCHEMA=./data/
 IMAGES=resources/images/
 
 CC=webpack --progress --cache --bail --config
@@ -64,10 +62,6 @@ build-widgets: compile-widgets clean-dist-widgets
 	@mkdir -p $(DIST)
 	@mv -f $(STAGE)widgets $(DIST)widgets
 
-build-schema:
-	@babel-node ./src/server/schema/update.js
-
-
 compile-app: stage clean-stage-app $(STAGE)server
 ## copy static assets
 	@(cd $(SRC)main; rsync -R *.* ../../$(STAGE)client)
@@ -111,4 +105,4 @@ clean-maps:
 	@find ./dist/client -name "*.map.gz" -type f -delete
 
 clean:
-	@rm -rf $(STAGE) $(DIST) $(SCHEMA)
+	@rm -rf $(STAGE) $(DIST)

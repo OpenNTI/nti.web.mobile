@@ -4,5 +4,5 @@ require('babel-core/register')({
 	//but...
 
 	// only if filenames match this regex...
-	only: /(nti.lib|react-editor-component|server\/lib|server\/schema)[^\/]*\/((?!node_modules\/).+)/
+	only: /(nti.lib|react-editor-component|server\/lib)[^\/]*\/((?!node_modules\/).+)/
 });
