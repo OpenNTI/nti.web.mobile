@@ -5,7 +5,7 @@ import {declareCustomElement} from 'common/utils/dom';
 import {getEventTarget} from 'nti.lib.dom';
 
 import {getWidget} from './widgets';
-import isTouchDevice from 'nti.lib.interfaces/utils/is-touch-device';
+import isTouchDevice from 'nti.lib.interfaces/lib/utils/is-touch-device';
 
 function getComparable (o) {
 	return o && o.page;

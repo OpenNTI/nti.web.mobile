@@ -12,7 +12,6 @@ var root = path.resolve(__dirname, '..', 'src', 'main', 'js');
 var sassRoot = path.resolve(__dirname, '..', 'src', 'main', 'resources', 'scss');
 var modules = path.resolve(__dirname, '..', 'node_modules');
 
-var getCodeLoaderConfig = require('./getCodeLoaderConfig');
 var gitRevision = require('../src/server/lib/git-revision');
 
 var appFontName = /(icomoon.*|(OpenSans.*woff))/i;
@@ -62,9 +61,9 @@ exports = module.exports = [
 				}
 			],
 			loaders: [
-				{ test: /\.async\.jsx$/i, loader: 'react-proxy'},
+				{ test: /\.async\.jsx$/i, loader: 'react-proxy' },
 
-				getCodeLoaderConfig(/\.js(x?)$/i),
+				{ test: /\.js(x?)$/i, loader: 'babel', exclude: /node_modules/ },
 
 				{ test: /\.json$/, loader: 'json' },
 				{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
@@ -151,7 +150,7 @@ exports = module.exports = [
 
 		module: {
 			loaders: [
-				getCodeLoaderConfig(/\.js(x?)$/i),
+				{ test: /\.js(x?)$/i, loader: 'babel', exclude: /node_modules/ },
 				{ test: /\.json$/, loader: 'json' },
 				{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url' },
 				{ test: /\.(s?)css$/, loader: 'null' }

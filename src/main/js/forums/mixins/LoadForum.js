@@ -2,7 +2,7 @@ import {getForumContents} from '../Api';
 import Store from '../Store';
 import {OBJECT_CONTENTS_CHANGED} from '../Constants';
 
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 import paging from './Paging';
 
 const objectContentsChangedHandler = 'LoadForum:objectContentsChangedHandler';

@@ -1,6 +1,6 @@
 import React from 'react';
 import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 import GiftView from './GiftView';
 import StoreEnrollmentRoutes from './StoreEnrollmentRoutes';
 

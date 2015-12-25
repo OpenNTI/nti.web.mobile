@@ -1,7 +1,7 @@
 import React from 'react';
 import Mixin from './Mixin';
 
-import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
+import ensureArray from 'nti.lib.interfaces/lib/utils/ensure-array';
 
 /**
  * This solution type represents Muliple Choice (with multiple answers--aka Checkboxes)

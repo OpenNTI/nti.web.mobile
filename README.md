@@ -114,7 +114,7 @@ npm link {dependency-name}
 
 | dependency-name        | repository:source                                        |
 |------------------------|----------------------------------------------------------|
-| nti.lib.anchors        | ssh://repos.nextthought.com/nti.lib.anchorjs             |
+| nti.lib.anchorjs       | ssh://repos.nextthought.com/nti.lib.anchorjs             |
 | nti.lib.dom            | ssh://repos.nextthought.com/nti.lib.domjs                |
 | nti.lib.interfaces     | ssh://repos.nextthought.com/nti.lib.interfaces           |
 | nti.lib.ranges         | ssh://repos.nextthought.com/nti.lib.ranges               |

@@ -4,7 +4,7 @@ import Transition from 'react-addons-css-transition-group';
 import path from 'path';
 import cx from 'classnames';
 
-import buffer from 'nti.lib.interfaces/utils/function-buffer';
+import buffer from 'nti.lib.interfaces/lib/utils/function-buffer';
 
 import C from 'common/components/Conditional';
 import Pager from 'common/components/Pager';

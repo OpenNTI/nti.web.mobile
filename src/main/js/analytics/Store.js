@@ -6,7 +6,7 @@ import TypedEventEmitter from 'common/TypedEventEmitter';
 import {CHANGE_EVENT} from 'common/constants/Events';
 import {getService}from 'common/utils';
 
-import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
+import ensureArray from 'nti.lib.interfaces/lib/utils/ensure-array';
 import {getModel} from 'nti.lib.interfaces';
 
 import {startIdleTimer} from './IdleTimer';

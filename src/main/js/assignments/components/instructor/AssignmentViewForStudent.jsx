@@ -1,7 +1,7 @@
 import React from 'react';
 import {join} from 'path';
 
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 
 import ContextMixin from 'common/mixins/ContextContributor';
 import Navigatable from 'common/mixins/NavigatableMixin';

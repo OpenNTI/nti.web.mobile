@@ -3,7 +3,7 @@ import {join} from 'path';
 import {CommonSymbols} from 'nti.lib.interfaces';
 let {Service} = CommonSymbols;
 
-import {encodeForURI as encode} from 'nti.lib.interfaces/utils/ntiids';
+import {encodeForURI as encode} from 'nti.lib.interfaces/lib/utils/ntiids';
 
 import LibraryPath, {isPageInfo} from './LibraryPath';
 

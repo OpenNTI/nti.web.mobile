@@ -2,7 +2,7 @@ import React from 'react';
 
 import isEmpty from 'fbjs/lib/isEmpty';
 
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {getEventTarget} from 'nti.lib.dom';
 
 import Loading from 'common/components/TinyLoader';
 import Error from 'common/components/Error';
@@ -130,7 +130,7 @@ export default React.createClass({
 
 		const latex = symbol.getAttribute('data-latex');
 
-		
+
 		jQuery(input).mathquill('cmd', latex);
 		console.debug('Wrote: ' + latex);
 

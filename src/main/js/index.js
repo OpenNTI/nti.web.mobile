@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import CSS from 'fbjs/lib/CSSCore';
 
-import isTouch from 'nti.lib.interfaces/utils/is-touch-device';
+import isTouch from 'nti.lib.interfaces/lib/utils/is-touch-device';
 import OrientationHandler from 'common/utils/orientation';
 import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'common/utils';
 

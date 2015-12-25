@@ -4,7 +4,7 @@ import If from 'common/components/Conditional';
 
 import TableCell from './TableCell';
 
-import unique from 'nti.lib.interfaces/utils/array-unique';
+import unique from 'nti.lib.interfaces/lib/utils/array-unique';
 
 const RANK = ['first', 'second'];
 

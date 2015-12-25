@@ -5,7 +5,7 @@ import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
 import cx from 'classnames';
 
 //nti modules imports
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 
 //intra-app module imports (ordered LocalName)
 import Avatar from 'common/components/Avatar';

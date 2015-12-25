@@ -2,7 +2,7 @@ import React from 'react';
 
 import BasePathAware from 'common/mixins/BasePath';
 
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 
 import Icon from './shared/Icon';
 

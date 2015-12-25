@@ -1,4 +1,4 @@
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 import logger from './logger';
 import path from 'path';
 

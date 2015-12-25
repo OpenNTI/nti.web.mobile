@@ -1,7 +1,7 @@
 import React from 'react';
 import {join} from 'path';
 
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 
 import BasePathAware from 'common/mixins/BasePath';
 import ContextMixin from 'common/mixins/ContextContributor';

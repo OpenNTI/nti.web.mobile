@@ -8,7 +8,7 @@ import MESSAGES from 'common/utils/WindowMessageListener';
 
 import QueryString from 'query-string';
 
-import Task from 'nti.lib.interfaces/utils/task';
+import Task from 'nti.lib.interfaces/lib/utils/task';
 import uuid from 'node-uuid';
 
 const YOU_TUBE = 'https://www.youtube.com';

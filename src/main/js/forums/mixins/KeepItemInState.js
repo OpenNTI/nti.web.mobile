@@ -1,5 +1,5 @@
 import {OBJECT_LOADED} from '../Constants';
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 
 const objectLoadedHandler = 'KeepItemInState:objectLoadedHandler';
 

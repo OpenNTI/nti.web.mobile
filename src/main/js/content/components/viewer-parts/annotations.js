@@ -1,4 +1,4 @@
-import buffer from 'nti.lib.interfaces/utils/function-buffer';
+import buffer from 'nti.lib.interfaces/lib/utils/function-buffer';
 
 import {createRangeDescriptionFromRange, preresolveLocatorInfo} from 'nti.lib.anchorjs';
 import {getEventTarget, parent} from 'nti.lib.dom';

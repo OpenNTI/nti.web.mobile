@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import {ToolMixin, Constants} from 'react-editor-component';
 
-import getEventTarget from 'nti.lib.dom/lib/geteventtarget';
+import {getEventTarget} from 'nti.lib.dom';
 
 import {getHandler} from 'video/services';
 

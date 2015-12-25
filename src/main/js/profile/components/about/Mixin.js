@@ -1,5 +1,5 @@
 import selectWidget from './widgets/';
-import ensureArray from 'nti.lib.interfaces/utils/ensure-array';
+import ensureArray from 'nti.lib.interfaces/lib/utils/ensure-array';
 
 export default {
 	renderItems (items, props) {

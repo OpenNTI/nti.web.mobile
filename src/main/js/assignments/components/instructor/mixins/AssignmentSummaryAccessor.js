@@ -1,6 +1,6 @@
 import {PropTypes} from 'react';
 
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 import ItemChanges from 'common/mixins/ItemChanges';
 
 import AssignmentsAccessor from '../../../mixins/AssignmentCollectionAccessor';

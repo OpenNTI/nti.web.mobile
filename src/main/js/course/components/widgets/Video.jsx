@@ -7,7 +7,7 @@ import BasePathAware from 'common/mixins/BasePath';
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
 import {Component as Video} from 'video';
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 import {CommonSymbols} from 'nti.lib.interfaces';
 let {Progress} = CommonSymbols;
 

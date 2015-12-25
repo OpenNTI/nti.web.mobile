@@ -2,7 +2,7 @@ import React from 'react';
 
 import QueryString from 'query-string';
 
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 
 import BasePathAware from 'common/mixins/BasePath';
 

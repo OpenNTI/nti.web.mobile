@@ -25,7 +25,7 @@ import KeepItemInState from '../../mixins/KeepItemInState';
 import ToggleState from '../../mixins/ToggleState';
 import LuckyCharms from 'common/components/LuckyCharms';
 
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 
 const t = require('common/locale').scoped('FORUMS');
 const SHOW_REPLIES = 'showReplies';

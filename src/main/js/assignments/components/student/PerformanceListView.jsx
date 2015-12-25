@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {SortOrder} from 'nti.lib.interfaces/constants';
+import {SortOrder} from 'nti.lib.interfaces';
 
 import EmptyList from 'common/components/EmptyList';
 

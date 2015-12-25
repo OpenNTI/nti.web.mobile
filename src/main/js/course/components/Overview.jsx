@@ -1,4 +1,4 @@
-import {decodeFromURI} from 'nti.lib.interfaces/utils/ntiids';
+import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 import React from 'react';
 
 import DateTime from 'common/components/DateTime';

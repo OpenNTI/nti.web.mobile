@@ -1,7 +1,7 @@
 /* global $AppConfig */
 import QueryString from 'query-string';
 import dataserver from 'nti.lib.interfaces';
-import forceCurrentHost from 'nti.lib.interfaces/utils/forcehost';
+import forceCurrentHost from 'nti.lib.interfaces/lib/utils/forcehost';
 
 
 function exposeGlobally (...fns) {

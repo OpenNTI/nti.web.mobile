@@ -1,5 +1,5 @@
 import React from 'react';
-import {PROFILE_VIEWED} from 'nti.lib.interfaces/models/analytics/MimeTypes';
+import {PROFILE_VIEWED} from 'nti.lib.interfaces/lib/models/analytics/MimeTypes';
 
 import Loading from 'common/components/TinyLoader';
 import ActiveState from 'common/components/ActiveState';

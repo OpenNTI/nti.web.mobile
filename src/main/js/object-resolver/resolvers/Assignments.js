@@ -1,6 +1,6 @@
 import {join} from 'path';
 
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 
 const isAssignment = RegExp.prototype.test.bind(/\.assignment/i);
 

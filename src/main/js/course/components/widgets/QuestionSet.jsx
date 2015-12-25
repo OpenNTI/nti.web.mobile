@@ -15,7 +15,7 @@ import {loadPreviousState} from 'assessment/Api';
 
 import {getService} from 'common/utils';
 
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 
 const SUBMITTED_QUIZ = 'application/vnd.nextthought.assessment.assessedquestionset';
 

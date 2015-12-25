@@ -3,8 +3,8 @@ import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import {processContent} from 'content/utils';
 
-import isFunction from 'nti.lib.interfaces/utils/isfunction';
-import htmlToReact from 'nti.lib.interfaces/utils/html-to-react';
+import isFunction from 'nti.lib.interfaces/lib/utils/isfunction';
+import htmlToReact from 'nti.lib.interfaces/lib/utils/html-to-react';
 
 /**
  * Common component to render question and part content alike.

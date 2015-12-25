@@ -36,8 +36,8 @@ import {scoped} from '../locale';
 
 import {BLANK_IMAGE} from '../constants/DataURIs';
 
-import ExternalResourceEvent from 'nti.lib.interfaces/models/analytics/ExternalResourceEvent';
-import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import ExternalResourceEvent from 'nti.lib.interfaces/lib/models/analytics/ExternalResourceEvent';
+import {isNTIID, encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 import {CommonSymbols} from 'nti.lib.interfaces';
 
 import {emitEventStarted} from 'analytics/Actions';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 
 import Loading from 'common/components/LoadingInline';
 import Button from 'common/forms/components/Button';

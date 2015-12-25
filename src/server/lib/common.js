@@ -5,8 +5,7 @@ import request from 'request';
 import getSite from './site-mapping';
 import logger from './logger';
 import gitRevision from './git-revision';
-import {CommonSymbols} from 'nti.lib.interfaces';
-let {SiteName, ServiceStash} = CommonSymbols;
+import {SiteName, ServiceStash} from 'nti.lib.interfaces';
 
 let env = null; //until this loads, calling config() should blow up.
 

@@ -3,7 +3,7 @@ import cx from 'classnames';
 import * as Anchors from 'nti.lib.anchorjs';
 import * as RangeUtils from 'nti.lib.ranges';
 
-import mixin from 'nti.lib.interfaces/utils/mixin';
+import mixin from 'nti.lib.interfaces/lib/utils/mixin';
 
 import Annotation, {RENDERED} from './Annotation';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import {scoped} from 'common/locale';
-import isEmail from 'nti.lib.interfaces/utils/isemail';
+import isEmail from 'nti.lib.interfaces/lib/utils/isemail';
 
 import Store from '../Store';
 

@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import scrollParent from 'scrollparent';
 
-import {isNTIID, encodeForURI} from 'nti.lib.interfaces/utils/ntiids';
+import {isNTIID, encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
 import {hasClass, getEventTarget} from 'nti.lib.dom';
 
 import {getScrollPosition} from 'common/utils/dom';
