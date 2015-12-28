@@ -41,7 +41,7 @@ export default React.createClass({
 				<div className="swipers selectable-entities">
 				{
 					this.state.original.map(entity => {
-						return <SwipeEntity {...this.props} selection={this.state.selection} entity={entity} />;
+						return <SwipeEntity key={entity.getID()} {...this.props} selection={this.state.selection} entity={entity} />;
 					})
 				}
 				</div>
