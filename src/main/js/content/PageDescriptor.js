@@ -1,5 +1,4 @@
-import {CommonSymbols} from 'nti-lib-interfaces';
-let {Service} = CommonSymbols;
+import {Service} from 'nti-lib-interfaces';
 
 const UserData = Symbol('UserData');
 

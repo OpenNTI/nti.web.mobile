@@ -3,8 +3,6 @@
 var path = require('path');
 var webpack = require('webpack');
 
-var getCodeLoaderConfig = require('./webpack/getCodeLoaderConfig');
-
 var root = path.resolve(__dirname, 'src', 'main', 'js');
 var modules = path.resolve(__dirname, 'node_modules');
 
@@ -116,7 +114,7 @@ module.exports = function (config) {
 					}
 				],
 				loaders: [
-					getCodeLoaderConfig(/\.jsx?$/),//TODO: make nti.libs compile on install. so we can simply declare babel, excluding node_modules.
+					{ test: /\.js(x?)$/i, loader: 'babel', exclude: /node_modules/ },
 					{ test: /\.json$/, loader: 'json' },
 					{ test: /\.(html?|sass|s?css|ico|gif|png|jpg|eot|ttf|woff)$/, loader: 'null' }
 				]

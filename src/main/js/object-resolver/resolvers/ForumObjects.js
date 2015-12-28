@@ -1,7 +1,6 @@
 import path from 'path';
 
-import {CommonSymbols} from 'nti-lib-interfaces';
-let {Service} = CommonSymbols;
+import {Service} from 'nti-lib-interfaces';
 
 import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 

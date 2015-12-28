@@ -23,8 +23,7 @@ External Links:
 */
 import React from 'react';
 
-import {CommonSymbols} from 'nti-lib-interfaces';
-let {Summary} = CommonSymbols;
+import {Summary} from 'nti-lib-interfaces';
 
 import Card from 'common/components/Card';
 

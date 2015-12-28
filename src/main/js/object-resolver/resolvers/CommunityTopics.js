@@ -1,9 +1,7 @@
-import {CommonSymbols} from 'nti-lib-interfaces';
+import {Service} from 'nti-lib-interfaces';
 import {resolve} from 'common/utils/user';
 import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 import {join} from 'path';
-
-let {Service} = CommonSymbols;
 
 const isCommunityTopic = RegExp.prototype.test.bind(/communityheadlinetopic/);
 const isCommunity = RegExp.prototype.test.bind(/community$/);

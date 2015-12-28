@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {CommonSymbols} from 'nti-lib-interfaces';
-let {Progress} = CommonSymbols;
+import {Progress} from 'nti-lib-interfaces';
 
 import LoadingMask from 'common/components/Loading';
 
