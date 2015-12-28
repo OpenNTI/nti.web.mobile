@@ -28,19 +28,15 @@ export default React.createClass({
 		let {entity, selection} = this.props;
 		let selected = selection.isSelected(entity);
 
-		let rightOptions = [
-			{
+		const rightOptions = [];
+		if(entity.isModifiable) {
+			rightOptions.push({
 				label: selected ? 'Remove' : 'Undo',
 				class: cx('tiny button', {'caution': selected})
-			}
-		];
+			});
+		}
 
-		let classes = cx('selectable-entity',
-			{
-				'selected': selected,
-				'unselected': !selected
-			}
-		);
+		const classes = cx('selectable-entity', { selected, 'unselected': !selected});
 
 		return (
 			<SwipeToRevealOptions key={entity.getID()}

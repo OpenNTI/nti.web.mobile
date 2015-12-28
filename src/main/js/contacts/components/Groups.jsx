@@ -69,14 +69,15 @@ export default React.createClass({
 
 	renderListItem (item) {
 
-		let rightOptions = [
-			{
+		const rightOptions = [];
+		if(item.isModifiable) {
+			rightOptions.push({
 				label: 'Delete',
 				class: cx('tiny button caution', {
 					'disabled': !(item.delete && (!item.friends || item.friends.length === 0))
 				})
-			}
-		];
+			});
+		}
 
 		return (
 			<li className="has-swipe-controls" key={item.getID()}>
