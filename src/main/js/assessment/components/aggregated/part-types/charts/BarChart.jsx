@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Color from 'nti.lib.whiteboardjs/lib/Color';
+import Color from 'nti-lib-whiteboardjs/lib/Color';
 
 import Bar from './Bar';
 import Legend from './Legend';

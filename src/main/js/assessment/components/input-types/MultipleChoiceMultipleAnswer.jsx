@@ -1,7 +1,7 @@
 import React from 'react';
 import Mixin from './Mixin';
 
-import {getEventTarget} from 'nti.lib.dom';
+import {getEventTarget} from 'nti-lib-dom';
 
 import emptyFunction from 'fbjs/lib/emptyFunction';
 

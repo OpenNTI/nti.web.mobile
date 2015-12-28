@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {createFromImage, URL} from 'nti.lib.whiteboardjs/lib/utils';
+import {createFromImage, URL} from 'nti-lib-whiteboardjs/lib/utils';
 
 import {ToolMixin, Constants} from 'react-editor-component';
 

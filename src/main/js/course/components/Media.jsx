@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from 'react-router-component';
 
-import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 import Loading from 'common/components/Loading';
 import EmptyList from 'common/components/EmptyList';

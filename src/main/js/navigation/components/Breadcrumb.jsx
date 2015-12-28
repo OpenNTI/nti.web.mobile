@@ -1,6 +1,6 @@
 import React from 'react';
 
-import buffer from 'nti.lib.interfaces/lib/utils/function-buffer';
+import buffer from 'nti-lib-interfaces/lib/utils/function-buffer';
 
 import ActiveState from 'common/components/ActiveState';
 

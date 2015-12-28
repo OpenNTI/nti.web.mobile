@@ -1,7 +1,7 @@
-import {replaceNode, parent} from 'nti.lib.dom';
+import {replaceNode, parent} from 'nti-lib-dom';
 
 import uuid from 'node-uuid';
-import indexArrayByKey from 'nti.lib.interfaces/lib/utils/array-index-by-key';
+import indexArrayByKey from 'nti-lib-interfaces/lib/utils/array-index-by-key';
 
 import DEFAULT_STRATEGIES from './dom-parsers';
 

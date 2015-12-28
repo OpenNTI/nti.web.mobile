@@ -5,7 +5,7 @@ import EmptyList from 'common/components/EmptyList';
 
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 
-import {PROFILE_MEMBERSHIP_VIEWED} from 'nti.lib.interfaces/lib/models/analytics/MimeTypes';
+import {PROFILE_MEMBERSHIP_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 
 export default React.createClass({
 	displayName: 'Memberships',

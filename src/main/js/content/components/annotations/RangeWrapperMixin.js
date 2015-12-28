@@ -1,5 +1,5 @@
-import * as DOM from 'nti.lib.dom';
-import * as RangeUtils from 'nti.lib.ranges';
+import * as DOM from 'nti-lib-dom';
+import * as RangeUtils from 'nti-lib-ranges';
 
 const wrap = 'content:RangeWrapperMixin:wrap';
 

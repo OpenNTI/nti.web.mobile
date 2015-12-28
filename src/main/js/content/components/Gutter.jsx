@@ -4,7 +4,7 @@ import cx from 'classnames';
 import hash from 'object-hash';
 import {join} from 'path';
 
-import {getEventTarget} from 'nti.lib.dom';
+import {getEventTarget} from 'nti-lib-dom';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 

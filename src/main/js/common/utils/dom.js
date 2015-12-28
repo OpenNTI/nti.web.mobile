@@ -1,6 +1,6 @@
 import {getElementRect} from './rects';
 import scrollParent from 'scrollparent';
-import between from 'nti.lib.interfaces/lib/utils/between';
+import between from 'nti-lib-interfaces/lib/utils/between';
 
 
 export function declareCustomElement (name) {

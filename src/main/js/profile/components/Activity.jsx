@@ -13,7 +13,7 @@ import ProfileAnalytics from '../mixins/AnalyticsMixin';
 
 import WriteSomething from './WriteSomething';
 
-import {PROFILE_ACTIVITY_VIEWED} from 'nti.lib.interfaces/lib/models/analytics/MimeTypes';
+import {PROFILE_ACTIVITY_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 
 export default React.createClass({
 	displayName: 'Activity',

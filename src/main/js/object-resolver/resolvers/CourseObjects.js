@@ -1,7 +1,7 @@
-// import {CommonSymbols} from 'nti.lib.interfaces';
+// import {CommonSymbols} from 'nti-lib-interfaces';
 // let {Service} = CommonSymbols;
 
-import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 const isCourse = RegExp.prototype.test.bind(/\.courseinstance/i);
 

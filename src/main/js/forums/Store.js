@@ -2,7 +2,7 @@ import StorePrototype from 'common/StorePrototype';
 
 import * as Constants from './Constants';
 import indexForums from './utils/index-forums';
-import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 import {getObject, DEFAULT_PAGING_PARAMS} from './Api';
 
 import hash from 'object-hash';

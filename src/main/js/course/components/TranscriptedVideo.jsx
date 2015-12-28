@@ -7,8 +7,8 @@ import {
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {getModel} from 'nti.lib.interfaces';
-import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {getModel} from 'nti-lib-interfaces';
+import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 import {toAnalyticsPath} from 'analytics/utils';
 

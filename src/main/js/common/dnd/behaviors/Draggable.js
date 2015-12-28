@@ -4,7 +4,7 @@ import {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Base, {TYPE_SHAPE} from './Base';
 
-import {PointerEvents} from 'nti.lib.interfaces/lib/utils/is-touch-device';
+import {PointerEvents} from 'nti-lib-interfaces/lib/utils/is-touch-device';
 import emptyFunction from 'fbjs/lib/emptyFunction';
 import getScrollParent from 'scrollparent';
 
@@ -19,7 +19,7 @@ import {
 import {getElementRect} from '../../utils/rects';
 import {getHeight as getViewportHeight} from '../../utils/viewport';
 
-import {matches} from 'nti.lib.dom';
+import {matches} from 'nti-lib-dom';
 
 const addListeners = 'dnd:behaviours:draggable:addListeners';
 const removeListeners = 'dnd:behaviours:draggable:removeListeners';

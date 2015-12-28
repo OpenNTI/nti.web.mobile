@@ -1,6 +1,6 @@
 import React from 'react';
 
-import isFunction from 'nti.lib.interfaces/lib/utils/isfunction';
+import isFunction from 'nti-lib-interfaces/lib/utils/isfunction';
 import radiogroup from 'common/forms/components/RadioGroup';
 import Select from 'common/forms/components/Select';
 import Checkbox from 'common/forms/components/Checkbox';

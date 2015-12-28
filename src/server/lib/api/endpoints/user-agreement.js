@@ -1,5 +1,5 @@
-import getLink from 'nti.lib.interfaces/lib/utils/getlink';
-import {TOS_NOT_ACCEPTED} from 'nti.lib.interfaces';
+import getLink from 'nti-lib-interfaces/lib/utils/getlink';
+import {TOS_NOT_ACCEPTED} from 'nti-lib-interfaces';
 
 const tagPattern = tag => new RegExp('<' + tag + '[^>]*>([\\s\\S]*?)</' + tag + '>', 'ig');
 const BODY_REGEX = /<body[^>]*>([\s\S]*)<\/body/i;//no g

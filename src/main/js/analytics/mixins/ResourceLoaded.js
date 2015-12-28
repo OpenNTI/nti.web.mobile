@@ -1,4 +1,4 @@
-import {getModel} from 'nti.lib.interfaces';
+import {getModel} from 'nti-lib-interfaces';
 
 const AssessmentEvent = getModel('analytics.assessmentevent');
 const AssignmentEvent = getModel('analytics.assignmentevent');
@@ -8,7 +8,7 @@ const ProfileViewedEvent = getModel('analytics.profileviewevent');
 const ProfileActivityViewedEvent = getModel('analytics.profileactivityviewevent');
 const ProfileMembershipViewedEvent = getModel('analytics.profilemembershipviewevent');
 
-import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 import {
 	ASSIGNMENT_VIEWED,
 	RESOURCE_VIEWED,
@@ -17,7 +17,7 @@ import {
 	PROFILE_VIEWED,
 	PROFILE_ACTIVITY_VIEWED,
 	PROFILE_MEMBERSHIP_VIEWED
-} from 'nti.lib.interfaces/lib/models/analytics/MimeTypes';
+} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 
 import {emitEventStarted, emitEventEnded} from '../Actions';
 import AnalyticsStore from '../Store';

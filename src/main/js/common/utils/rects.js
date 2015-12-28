@@ -1,4 +1,4 @@
-import {isTextNode} from 'nti.lib.dom';
+import {isTextNode} from 'nti-lib-dom';
 import {getWidth as getViewportWidth, getHeight as getViewportHeight} from './viewport';
 
 export function getElementRect (el) {

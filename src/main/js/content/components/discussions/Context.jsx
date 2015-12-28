@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 
 import cx from 'classnames';
 
-import {getModel} from 'nti.lib.interfaces';
+import {getModel} from 'nti-lib-interfaces';
 
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 

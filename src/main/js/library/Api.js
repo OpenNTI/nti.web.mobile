@@ -1,4 +1,4 @@
-import {Library} from 'nti.lib.interfaces';
+import {Library} from 'nti-lib-interfaces';
 
 import {getService} from 'common/utils';
 

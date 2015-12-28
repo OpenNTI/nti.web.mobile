@@ -1,6 +1,6 @@
 import React from 'react';
 
-import getLinkFn from 'nti.lib.interfaces/lib/utils/getlink';
+import getLinkFn from 'nti-lib-interfaces/lib/utils/getlink';
 
 import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';

@@ -4,7 +4,7 @@ import React from 'react';
 
 import cx from 'classnames';
 
-import {getModel} from 'nti.lib.interfaces';
+import {getModel} from 'nti-lib-interfaces';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 // import DateTime from 'common/components/DateTime';
@@ -15,7 +15,7 @@ import {loadPreviousState} from 'assessment/Api';
 
 import {getService} from 'common/utils';
 
-import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 const SUBMITTED_QUIZ = 'application/vnd.nextthought.assessment.assessedquestionset';
 

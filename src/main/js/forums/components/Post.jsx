@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {decodeFromURI, encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {decodeFromURI, encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 import Loading from 'common/components/Loading';
 import Notice from 'common/components/Notice';

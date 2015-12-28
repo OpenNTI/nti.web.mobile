@@ -4,7 +4,7 @@ import nullRender from 'fbjs/lib/emptyFunction';
 import {getHTMLSnippet, filterContent, processContent} from 'content/utils';
 
 import uuid from 'node-uuid';
-import htmlToReactRenderer from 'nti.lib.interfaces/lib/utils/html-to-react';
+import htmlToReactRenderer from 'nti-lib-interfaces/lib/utils/html-to-react';
 
 import hash from 'object-hash';
 

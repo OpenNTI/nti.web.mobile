@@ -1,4 +1,4 @@
-import {Notifications} from 'nti.lib.interfaces';
+import {Notifications} from 'nti-lib-interfaces';
 
 import {getService} from 'common/utils';
 

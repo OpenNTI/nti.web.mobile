@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PageSource from 'nti.lib.interfaces/lib/models/ListBackedPageSource';
+import PageSource from 'nti-lib-interfaces/lib/models/ListBackedPageSource';
 
 import ContextSender from 'common/mixins/ContextSender';
 

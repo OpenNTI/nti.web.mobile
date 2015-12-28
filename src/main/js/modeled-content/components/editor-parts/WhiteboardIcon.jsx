@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
-import WhiteboardRenderer from 'nti.lib.whiteboardjs/lib/Canvas';
+import WhiteboardRenderer from 'nti-lib-whiteboardjs/lib/Canvas';
 
 const WhiteboardThumbnail = React.createClass({
 	displayName: 'WhiteboardThumbnail',

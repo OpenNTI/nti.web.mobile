@@ -1,4 +1,4 @@
-import {isNTIID, encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {isNTIID, encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 import BasePathAware from 'common/mixins/BasePath';
 
 export default {

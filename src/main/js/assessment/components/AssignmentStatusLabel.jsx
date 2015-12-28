@@ -3,13 +3,13 @@ import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import cx from 'classnames';
 
-import {getModel} from 'nti.lib.interfaces';
+import {getModel} from 'nti-lib-interfaces';
 
 import DateTime from 'common/components/DateTime';
 
 import {scoped} from 'common/locale';
 
-import {getEventTarget} from 'nti.lib.dom';
+import {getEventTarget} from 'nti-lib-dom';
 
 import moment from 'moment';
 

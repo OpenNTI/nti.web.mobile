@@ -2,7 +2,7 @@ import React from 'react';
 
 import isEmpty from 'fbjs/lib/isEmpty';
 
-import {getEventTarget} from 'nti.lib.dom';
+import {getEventTarget} from 'nti-lib-dom';
 
 import Loading from 'common/components/TinyLoader';
 import Error from 'common/components/Error';

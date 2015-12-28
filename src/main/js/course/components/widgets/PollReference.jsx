@@ -5,9 +5,9 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import t from 'common/locale';
 
-import {getModel} from 'nti.lib.interfaces';
-import {HISTORY_LINK} from 'nti.lib.interfaces/lib/models/assessment/Constants';
-import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {getModel} from 'nti-lib-interfaces';
+import {HISTORY_LINK} from 'nti-lib-interfaces/lib/models/assessment/Constants';
+import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 const OutlineNode = getModel('courses.courseoutlinenode');
 

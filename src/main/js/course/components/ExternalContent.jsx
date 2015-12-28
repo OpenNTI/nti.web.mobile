@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {getModel} from 'nti.lib.interfaces';
+import {getModel} from 'nti-lib-interfaces';
 
-import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 import Card from 'common/components/Card';
 import Loading from 'common/components/Loading';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import path from 'path';
 
-import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 

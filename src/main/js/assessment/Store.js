@@ -1,6 +1,6 @@
 import emptyFunction from 'fbjs/lib/emptyFunction';
 
-import {getModel} from 'nti.lib.interfaces';
+import {getModel} from 'nti-lib-interfaces';
 
 import {
 	BUSY_LOADING,

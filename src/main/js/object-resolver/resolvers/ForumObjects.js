@@ -1,9 +1,9 @@
 import path from 'path';
 
-import {CommonSymbols} from 'nti.lib.interfaces';
+import {CommonSymbols} from 'nti-lib-interfaces';
 let {Service} = CommonSymbols;
 
-import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 import {load as getLibrary} from 'library/Actions';
 

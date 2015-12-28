@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {hasClass, matches, parent} from 'nti.lib.dom';
+import {hasClass, matches, parent} from 'nti-lib-dom';
 
 import InsertImageButton from './InsertImageButton';
 import InsertVideoButton from './InsertVideoButton';

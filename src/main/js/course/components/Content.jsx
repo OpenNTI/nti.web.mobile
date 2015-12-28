@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 import ContextContributor from 'common/mixins/ContextContributor';
 import ContentViewer from 'content/components/Viewer';

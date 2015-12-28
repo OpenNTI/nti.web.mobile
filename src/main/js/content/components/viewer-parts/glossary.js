@@ -1,6 +1,6 @@
 import React from 'react';
 import GlossaryEntry from '../GlossaryEntry';
-import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 export default {
 

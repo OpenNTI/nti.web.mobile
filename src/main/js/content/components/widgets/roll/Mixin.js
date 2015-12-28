@@ -1,7 +1,7 @@
 import CSS from 'fbjs/lib/CSSCore';
 import ReactTransitionEvents from 'react/lib/ReactTransitionEvents';
 
-import {getEventTarget} from 'nti.lib.dom';
+import {getEventTarget} from 'nti-lib-dom';
 
 export const stop = e => { e.preventDefault(); e.stopPropagation(); };
 

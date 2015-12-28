@@ -1,7 +1,7 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EVENT_STARTED, EVENT_ENDED} from './Constants';
 import Store from './Store';
-import {getTypes} from 'nti.lib.interfaces/lib/models/analytics/MimeTypes';
+import {getTypes} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 
 
 export function emitEventStarted (event) {

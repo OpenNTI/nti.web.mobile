@@ -5,7 +5,7 @@ import cx from 'classnames';
 import {RouterMixin} from 'react-router-component';
 
 
-import {decodeFromURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';
@@ -25,7 +25,7 @@ import {
 	ASSIGNMENT_VIEWED,
 	RESOURCE_VIEWED,
 	SELFASSESSMENT_VIEWED
-} from 'nti.lib.interfaces/lib/models/analytics/MimeTypes';
+} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 
 import AnalyticsBehavior from 'analytics/mixins/ResourceLoaded';
 import AnnotationFeature from './viewer-parts/annotations';

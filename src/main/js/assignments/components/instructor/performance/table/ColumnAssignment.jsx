@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {encodeForURI} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 export default React.createClass({
 	displayName: 'GradebookColumnAssignment',

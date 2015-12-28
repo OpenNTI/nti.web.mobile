@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {getModel} from 'nti.lib.interfaces';
+import {getModel} from 'nti-lib-interfaces';
 
 import Loading from 'common/components/Loading';
 

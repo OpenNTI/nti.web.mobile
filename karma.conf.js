@@ -42,7 +42,7 @@ module.exports = function (config) {
 		junitReporter: {
 			outputDir: 'reports/test-results/',
 			outputFile: 'index.xml',
-			suite: 'nti.lib.interfaces',
+			suite: 'nti-web-mobile',
 			useBrowserName: false
 		},
 

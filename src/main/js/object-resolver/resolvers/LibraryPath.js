@@ -1,7 +1,7 @@
-// import {CommonSymbols} from 'nti.lib.interfaces';
+// import {CommonSymbols} from 'nti-lib-interfaces';
 // let {Service} = CommonSymbols;
 
-import {encodeForURI as encode} from 'nti.lib.interfaces/lib/utils/ntiids';
+import {encodeForURI as encode} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 import {join} from 'path';
 

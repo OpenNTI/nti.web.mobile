@@ -1,4 +1,4 @@
-import {getModel} from 'nti.lib.interfaces';
+import {getModel} from 'nti-lib-interfaces';
 
 const Assignment = getModel('assessment.assignment');
 

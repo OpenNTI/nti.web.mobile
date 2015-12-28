@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {getModel} from 'nti.lib.interfaces';
+import {getModel} from 'nti-lib-interfaces';
 
 import If from 'common/components/Conditional';
 import {getService} from 'common/utils';

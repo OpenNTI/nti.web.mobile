@@ -1,4 +1,4 @@
-import request from 'nti.lib.interfaces/lib/utils/request';
+import request from 'nti-lib-interfaces/lib/utils/request';
 
 export default function register (api, config) {
 	let {server} = config;

@@ -3,7 +3,7 @@ global.SERVER = true;
 import express from 'express';
 import path from 'path';
 
-import dataserver from 'nti.lib.interfaces';
+import dataserver from 'nti-lib-interfaces';
 
 import {registerEndPoints} from './api';
 import cacheBuster from './no-cache';

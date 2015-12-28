@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {SortOrder} from 'nti.lib.interfaces';
+import {SortOrder} from 'nti-lib-interfaces';
 
 export default React.createClass({
 	displayName: 'gradebook:Table',

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ensureArray from 'nti.lib.interfaces/lib/utils/ensure-array';
+import ensureArray from 'nti-lib-interfaces/lib/utils/ensure-array';
 
 import Loader from 'common/components/TinyLoader';
 import SocialLinks from './SocialLinks';

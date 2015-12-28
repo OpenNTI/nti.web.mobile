@@ -1,5 +1,5 @@
 
-import escape from 'nti.lib.interfaces/lib/utils/regexp-escape';
+import escape from 'nti-lib-interfaces/lib/utils/regexp-escape';
 
 function toRegExpStr (s) {
 	return escape(s.replace(/^application\/vnd\.nextthought\./, ''));

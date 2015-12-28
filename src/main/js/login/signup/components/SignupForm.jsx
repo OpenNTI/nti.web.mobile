@@ -14,7 +14,7 @@ import {ERROR_EVENT} from 'common/constants/Events';
 
 import {getServer, getReturnURL} from 'common/utils';
 
-import indexArrayByKey from 'nti.lib.interfaces/lib/utils/array-index-by-key';
+import indexArrayByKey from 'nti-lib-interfaces/lib/utils/array-index-by-key';
 
 import UserAgreement from 'terms/components/UserAgreement';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import isFunction from 'nti.lib.interfaces/lib/utils/isfunction';
+import isFunction from 'nti-lib-interfaces/lib/utils/isfunction';
 
 const onToggle = 'ToggleFieldset:onToggle';
 
