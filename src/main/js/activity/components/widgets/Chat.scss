@@ -1,4 +1,4 @@
-@import 'utils/placeholders';
+@import "utils/variables";
 
 .activity-item {
 	.chat {
@@ -6,8 +6,9 @@
 			$avatarsize: 60px;
 			$iconsize: 32px;
 			$position: ($avatarsize - $iconsize)/2; // center in the 60x60 avatar space
-			@extend %profile-card-chat-icon;
+
 			background: {
+				image: url(./assets/chat-32-blue.png);
 				position: $position $position;
 				repeat: no-repeat;
 			}
