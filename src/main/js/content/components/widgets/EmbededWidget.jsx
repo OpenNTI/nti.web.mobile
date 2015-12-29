@@ -84,12 +84,17 @@ export default React.createClass({
 
 		const sourceName = uid || q[this.getIdKey()] || NO_SOURCE_ID;
 
+		if (q[this.getIdKey()] !== sourceName) {
+			q[this.getIdKey()] = encodeURIComponent(sourceName);
+			src.search = QueryString.stringify(q);
+		}
+
 		const splashResolve = splash
 			? contentPackage.resolveContentURL(splash).catch(()=> null)
 			: Promise.resolve(splash);
 
 		splashResolve.then(url =>
-			this.setState({sourceName, source, height, splash: url, defer}));
+			this.setState({sourceName, source: src.format(), height, splash: url, defer}));
 	},
 
 
