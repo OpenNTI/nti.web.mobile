@@ -74,7 +74,7 @@ export default React.createClass({
 
 		return (
 			<div onClick={this.toggleMenu} className={classes}>
-				<i className="icon-hamburger-menu" />
+				<i className="icon-more-options" />
 				{open &&
 					<MenuTransitionGroup>
 						<ul>
