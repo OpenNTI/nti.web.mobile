@@ -26,8 +26,8 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		Store.addChangeListener(this.onChange);
 		this.getDataIfNeeded(this.props);
+		Store.addChangeListener(this.onChange);
 	},
 
 
@@ -50,12 +50,8 @@ export default React.createClass({
 
 		entry = loading ? null : entry;
 
-		this.setPageSource(Store.getPageSource(), entryId);
-
-		this.setState({
-			loading: loading,
-			entry: entry
-		});
+		this.setState({ loading, entry },
+			() => this.setPageSource(Store.getPageSource(), entryId));
 	},
 
 
