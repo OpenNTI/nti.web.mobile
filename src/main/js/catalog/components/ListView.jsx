@@ -55,7 +55,7 @@ export default React.createClass({
 		}
 
 		this.setState({sections});
-		this.setPageSourceData(new PageSource(list));
+		this.setPageSourceData(new PageSource(sections.reduce((a, s)=> a.concat(s.items), [])));
 	},
 
 
