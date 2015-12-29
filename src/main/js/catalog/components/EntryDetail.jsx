@@ -5,7 +5,6 @@ import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 import NotFound from 'notfound/components/View';
 import Loading from 'common/components/Loading';
 
-import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigationAware from 'common/mixins/NavigationAware';
 
@@ -17,11 +16,10 @@ import EnrollButton from './EnrollButton';
 
 export default React.createClass({
 	displayName: 'EntryDetail',
-	mixins: [BasePathAware, ContextSender, NavigationAware],
+	mixins: [ContextSender, NavigationAware],
 
 	propTypes: {
-		entryId: React.PropTypes.string,
-		entry: React.PropTypes.object
+		entryId: React.PropTypes.string
 	},
 
 	getInitialState () { return { loading: true }; },
@@ -39,16 +37,16 @@ export default React.createClass({
 
 
 	componentWillReceiveProps (nextProps) {
-		if (nextProps.entryId !== this.props.entryId || nextProps.entry !== this.props.entry) {
+		if (nextProps.entryId !== this.props.entryId) {
 			this.getDataIfNeeded(nextProps);
 		}
 	},
 
 
 	getDataIfNeeded (props) {
-		let entryId = decodeFromURI(props.entryId);
-		let entry = props.entry || Store.getEntry(entryId);
-		let loading = entry && entry.loading;
+		const entryId = decodeFromURI(props.entryId);
+		let entry = Store.getEntry(entryId);
+		let loading = !entry || entry.loading;
 
 		entry = loading ? null : entry;
 
@@ -67,22 +65,20 @@ export default React.createClass({
 
 
 	getContext () {
-		let ref = 'item/' + ref;
-		let href = this.getNavigable().makeHref(ref);
+		const {entryId} = this.props;
+		const ntiid = decodeFromURI(entryId);
+		const href = this.makeHref(entryId);
 
-		let {entryId, entry} = this.props;
-		let id = decodeFromURI(entryId);
+		const entry = Store.getEntry(ntiid);
 
-		entry = entry || Store.getEntry(id);
+		const label = (entry || {}).Title;
 
-		let label = (entry || {}).Title;
-
-		return Promise.resolve({
-			ntiid: id,
+		return {
+			ref: entryId,
+			ntiid,
 			label,
-			href,
-			ref
-		});
+			href
+		};
 
 	},
 
