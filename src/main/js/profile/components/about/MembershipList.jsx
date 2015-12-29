@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-component';
 
+import EmptyList from 'common/components/EmptyList';
+
 import Mixin from './Mixin';
 
 export default React.createClass({
@@ -19,10 +21,6 @@ export default React.createClass({
 
 		let {title, preview, list = []} = this.props;
 
-		if (list.length === 0) {
-			return null;
-		}
-
 		if (preview) {
 			list = list.slice(0, 5);
 		}
@@ -30,9 +28,7 @@ export default React.createClass({
 		return (
 			<div className="memberships">
 				<h3>{title}</h3>
-				<ul>
-					{this.renderItems(list)}
-				</ul>
+				{list.length > 0 ? <ul>{this.renderItems(list)}</ul> : <EmptyList type={title.toLowerCase()} />}
 				{preview && ( <Link href="/memberships/" className="more">Show More</Link> )}
 			</div>
 		);

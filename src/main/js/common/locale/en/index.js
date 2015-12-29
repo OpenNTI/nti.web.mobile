@@ -72,6 +72,8 @@ export default {
 		'emptyList:activity': 'No Activity.',
 		'emptyList:user-details': 'Empty Profile :(\nNo additional profile information available.',
 		'emptyList:memberships': 'No memberships',
+		'emptyList:communities': 'No communities',
+		'emptyList:groups': 'No groups',
 		'emptyList:friendslists': 'No Lists.',
 		'emptyList:dynamicfriendslists': 'No Groups.',
 		'emptyList:contacts': 'No contacts.',

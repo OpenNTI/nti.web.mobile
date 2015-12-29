@@ -97,11 +97,14 @@ export default React.createClass({
 		let {groups = [], communities = []} = this.state;
 		let {preview} = this.props;
 
+		if(communities.length + groups.length === 0) {
+			return <EmptyList type="memberships" />;
+		}
+
 		return (
 			<div className="profile-memberships">
 				<MembershipList list={communities} title="Communities" preview={preview}/>
 				<MembershipList list={groups} title="Groups" preview={preview}/>
-				{communities.length + groups.length === 0 && <EmptyList type="memberships" />}
 			</div>
 		);
 	}
