@@ -39,6 +39,8 @@
 		@extend %menuitem;
 		position: relative;
 		padding-right: 2em;
+		overflow: hidden;
+		text-overflow: ellipsis;
 		&::after {
 			@extend %chevron-down;
 			position: absolute;
