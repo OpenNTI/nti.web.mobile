@@ -22,6 +22,11 @@ export default React.createClass({
 		this.setSelected(value || options[0].value, true);
 	},
 
+	componentWillReceiveProps (nextProps) {
+		let {value, options} = nextProps;
+		this.setSelected(value || options[0].value, true);
+	},
+
 	setSelected (value, silent) {
 		let {options, onChange} = this.props;
 		let selectedOption = value ? options.find(option => option.value === value) : options[0];

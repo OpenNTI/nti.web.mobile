@@ -14,13 +14,9 @@ export default React.createClass({
 		onChange: React.PropTypes.func.isRequired
 	},
 
-	componentWillMount () {
-		this.setState({filter: this.props.value || 'Open'});
-	},
-
 	render () {
 
-		let {filter} = this.state;
+		let filter = this.props.value || 'Open';
 
 		return (
 			<SelectBox options={OPTIONS} onChange={this.props.onChange} value={filter} />
