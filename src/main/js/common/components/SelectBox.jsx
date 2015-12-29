@@ -19,17 +19,17 @@ export default React.createClass({
 
 	componentWillMount () {
 		let {value, options} = this.props;
-		this.setSelected(value || options[0].value, true);
+		this.setSelected(value || options[0].value);
 	},
 
-	setSelected (value, silent) {
+	setSelected (value) {
 		let {options, onChange} = this.props;
 		let selectedOption = value ? options.find(option => option.value === value) : options[0];
 		this.setState({
 			selectedOption
 		});
 
-		if(!silent && onChange) {
+		if(onChange) {
 			onChange(value);
 		}
 	},
