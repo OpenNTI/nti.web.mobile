@@ -20,12 +20,12 @@ export default React.createClass({
 	render () {
 
 		const {item} = this.props;
-		if(!item.HistoryItemSummary || !item.HistoryItemSummary.grade) {
+		if(!item.grade) {
 			return null;
 		}
 
 		return (
-			<ActionsMenu {...this.props} userId={item.user.getID()} />
+			<ActionsMenu {...this.props} userId={item.username} />
 		);
 	}
 });
