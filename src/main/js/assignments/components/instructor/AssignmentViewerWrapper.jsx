@@ -32,10 +32,16 @@ export default React.createClass({
 
 
 	render () {
+		const assignmentId = decodeFromURI(this.props.rootId);
 		return (
 			<div className="assignment-view-student">
-				<Header {...this.props} />
-				<ContentViewer {...this.props} explicitContext={this}/>
+				<Header {...this.props}
+					assignmentId={assignmentId}
+					/>
+				<ContentViewer {...this.props}
+					assignmentId={assignmentId}
+					explicitContext={this}
+					/>
 			</div>
 		);
 	}

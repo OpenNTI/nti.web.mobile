@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {PropType as NTIID} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 
@@ -16,7 +16,7 @@ export default React.createClass({
 
 	propTypes: {
 		userId: React.PropTypes.any.isRequired,
-		rootId: React.PropTypes.string.isRequired
+		assignmentId: NTIID
 	},
 
 	getInitialState () {
@@ -24,9 +24,9 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		const {rootId, userId} = this.props;
+		const {assignmentId, userId} = this.props;
 		const collection = this.getAssignments();
-		const assignment = collection.getAssignment(decodeFromURI(rootId));
+		const assignment = collection.getAssignment(assignmentId);
 
 		collection.getHistoryItem(assignment.getID(), userId)
 			.then(history => this.setState({history, assignment})); //eslint-disable-line
@@ -34,14 +34,11 @@ export default React.createClass({
 
 	render () {
 
-		const {userId, rootId} = this.props;
+		const {userId, assignmentId} = this.props;
 		const {history, assignment} = this.state;
 		const {grade} = history || {};
 
-		const props = {
-			assignmentId: rootId,
-			userId
-		};
+		const props = { assignmentId, userId };
 
 
 		return (

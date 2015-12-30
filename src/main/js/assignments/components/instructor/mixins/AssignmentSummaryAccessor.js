@@ -11,7 +11,7 @@ const getAssignmentID = props => props.assignmentId
 
 
 export default {
-	mixins: [AssignmentsAccessor ,ItemChanges],
+	mixins: [AssignmentsAccessor, ItemChanges],
 
 	propTypes: {
 		//At least one of these props must be given:

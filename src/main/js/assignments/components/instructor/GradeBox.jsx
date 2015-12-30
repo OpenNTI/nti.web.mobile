@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {PropType as NTIID} from 'nti-lib-interfaces/lib/utils/ntiids';
+
 import ItemChanges from 'common/mixins/ItemChanges';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
@@ -10,8 +12,10 @@ export default React.createClass({
 
 	propTypes: {
 		grade: React.PropTypes.object,
-		assignmentId: React.PropTypes.string.isRequired,
-		userId: React.PropTypes.string.isRequired
+
+		userId: React.PropTypes.string.isRequired,
+
+		assignmentId: NTIID
 	},
 
 	getItem (props = this.props) { return props.grade; },

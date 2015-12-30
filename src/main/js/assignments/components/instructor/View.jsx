@@ -17,8 +17,6 @@ import AssignmentViewForStudentPerf from './performance/AssignmentViewForStudent
 
 import AssignmentListItem from './AssignmentListItem';
 
-//XXX: FIXME: If a route uses a URL encoded NTIID, do not pass it down encoded.
-// The view that is directly responsible for the route should decode the ID and pass it down decoded!
 const ROUTES = [
 	{path: '/performance/:userId/:rootId(/*)', handler: PageFrame, pageContent: AssignmentViewForStudentPerf},
 	{path: '/performance/:userId(/*)', handler: PageFrame, pageContent: PerformanceViewStudent},
