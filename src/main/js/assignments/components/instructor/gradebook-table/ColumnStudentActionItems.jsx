@@ -42,9 +42,11 @@ export default React.createClass({
 			'overdue': item.overdue > 0
 		});
 
+		const content = actions.join(',<br/> ');
+
 		return (
 			<StudentLink item={item}>
-				<div className={classes}>{actions.join(', ')}</div>
+				<div className={classes} dangerouslySetInnerHTML={{__html: content }} />
 			</StudentLink>
 		);
 	}
