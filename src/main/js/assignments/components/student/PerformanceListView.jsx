@@ -53,7 +53,7 @@ export default React.createClass({
 	},
 
 
-	changSort (column) {
+	changeSort (column) {
 		const {ASC, DESC} = SortOrder;
 		const {state: {summary}} = this;
 		const {sortOn, sortOrder} = summary.getSort();
@@ -83,7 +83,7 @@ export default React.createClass({
 							'asc': sorted && sortOrder === SortOrder.ASC
 						});
 						return (
-							<div key={index} className={classes} onClick={()=>this.changSort(col.sortOn)}>
+							<div key={index} className={classes} onClick={()=>this.changeSort(col.sortOn)}>
 								{col.label}
 							</div>
 						);
