@@ -15,16 +15,8 @@ export function isMultiTouch (e) {
 }
 
 
-export function isPointWithIn (el, ...point) {
-	let rect,
-		{x, y} = point[0];
-
-	if (point.length > 1) {
-		x = point[0];
-		y = point[1];
-	}
-
-	rect = getElementRect(el);
+export function isPointWithIn (el, x, y) {
+	let rect = getElementRect(el);
 
 	return (
 		between(x, rect.left, rect.right) &&
