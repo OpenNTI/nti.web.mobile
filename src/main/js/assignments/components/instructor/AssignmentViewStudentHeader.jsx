@@ -70,7 +70,7 @@ export default React.createClass({
 		const {history, assignment} = this.state;
 		const {grade} = history || {};
 
-		const props = { assignmentId, userId };
+		const props = { assignmentId, userId, item: history };
 
 
 		return (

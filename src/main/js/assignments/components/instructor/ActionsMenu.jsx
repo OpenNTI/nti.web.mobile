@@ -2,8 +2,6 @@ import React from 'react';
 
 import cx from 'classnames';
 
-import {PropType as NTIID} from 'nti-lib-interfaces/lib/utils/ntiids';
-
 import ItemChanges from 'common/mixins/ItemChanges';
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
@@ -17,9 +15,16 @@ export default React.createClass({
 	mixins: [AssignmentsAccessor, ItemChanges],
 
 	propTypes: {
-		assignmentId: NTIID,
 		userId: React.PropTypes.string.isRequired,
 
+		/**
+		 * 	needs to be a summary item or an object that conforms
+		 * 	to the SummaryItem interface eg:
+		 *
+		 * 		.assignmentId
+		 * 		.username
+		 * 		.grade
+		 */
 		item: React.PropTypes.object.isRequired
 	},
 
@@ -27,6 +32,12 @@ export default React.createClass({
 		return {
 			open: false
 		};
+	},
+
+
+	getAssignmentId () {
+		const {item} = this.props;
+		return item.assignmentId;
 	},
 
 
@@ -44,13 +55,13 @@ export default React.createClass({
 
 	resetAssignment () {
 		this.closeMenu();
+		const {item, userId} = this.props;
 
 		const reset = () => {
-			const {assignmentId, userId} = this.props;
-			return this.getAssignments().resetAssignment(assignmentId, userId);
+			return this.getAssignments().resetAssignment(this.getAssignmentId(), userId);
 		};
 
-		const msg = !this.getItem().isCreatedByAppUser
+		const msg = !item.isCreatedByAppUser
 			? 'This will reset this assignment for this student. It is not recoverable.\nFeedback and work will be deleted.'
 			: 'This will reset the assignment. All work will be deleted and is not recoverable.';
 
@@ -77,9 +88,9 @@ export default React.createClass({
 		const {open} = this.state;
 		const classes = cx('gradebook-actions-menu', { open });
 
-		const excuseAction = grade.isExcused() ? 'Unexcuse Grade' : 'Excuse Grade';
+		const excuseAction = grade && grade.isExcused() ? 'Unexcuse Grade' : 'Excuse Grade';
 
-		return (
+		return !grade ? null : (
 			<div onClick={this.toggleMenu} className={classes}>
 				<i className="icon-more-options" />
 				{open &&
