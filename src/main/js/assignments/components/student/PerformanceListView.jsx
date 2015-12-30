@@ -7,6 +7,7 @@ import EmptyList from 'common/components/EmptyList';
 
 import ItemChanges from 'common/mixins/ItemChanges';
 
+import PerformanceHeader from './PerformanceHeader';
 import PerformanceItem from './PerformanceItem';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
@@ -67,6 +68,7 @@ export default React.createClass({
 	render () {
 		const {state: {summary}} = this;
 		const {sortOn, sortOrder} = summary.getSort();
+		const assignments = this.getAssignments();
 
 		if(summary.length === 0) {
 			return <EmptyList type="assignments"/>;
@@ -74,6 +76,7 @@ export default React.createClass({
 
 		return (
 			<div className="performance">
+				<PerformanceHeader assignments={assignments}/>
 				<div className="performance-headings">
 					{columns.map((col, index) => {
 						const sorted = sortOn === col.sortOn;
