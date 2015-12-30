@@ -23,8 +23,40 @@ export default React.createClass({
 		return {};
 	},
 
-	componentDidMount () {
-		const {assignmentId, userId} = this.props;
+	componentWillReceiveProps (nextProps) {
+		this.setup(nextProps);
+	},
+
+	componentReceivedAssignments (collection) {
+		function newGrade (assignmentIdWithNewGrade) {
+			if (assignmentIdWithNewGrade === this.props.assignmentId) {
+				this.setup();
+			}
+		}
+
+		collection.on('new-grade', newGrade);
+
+		if (this.unsubcribe) {
+			this.unsubcribe();
+		}
+
+		this.unsubcribe = () => {
+			delete this.unsubcribe;
+			collection.removeListener('new-grade', newGrade);
+		};
+
+		this.setup();
+	},
+
+	componentWillUnmount () {
+		if (this.unsubcribe) {
+			this.unsubcribe();
+		}
+	},
+
+	setup (props = this.props) {
+		const {assignmentId, userId} = props;
+
 		const collection = this.getAssignments();
 		const assignment = collection.getAssignment(assignmentId);
 
