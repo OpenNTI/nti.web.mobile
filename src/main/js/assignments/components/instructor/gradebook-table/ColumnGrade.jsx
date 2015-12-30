@@ -1,9 +1,12 @@
 import React from 'react';
 
+import Accessor from '../../../mixins/AssignmentCollectionAccessor';
+
 import GradeBox from '../GradeBox';
 
 export default React.createClass({
 	displayName: 'GradebookColumnGrade',
+	mixins: [Accessor],
 
 	statics: {
 		label () {
@@ -24,10 +27,11 @@ export default React.createClass({
 		const {props: {item: {grade, user}}} = this;
 
 		const userId = user && user.getID();
+		const finalGradeId = this.getAssignments().getFinalGradeAssignmentId();
 
 		return (
 			<div className="grade">
-				{grade && ( <GradeBox assignmentId={grade.AssignmentId} grade={grade} userId={userId}/> )}
+				{finalGradeId && ( <GradeBox assignmentId={finalGradeId} grade={grade} userId={userId}/> )}
 			</div>
 		);
 	}
