@@ -1,4 +1,5 @@
 import React from 'react';
+import {SortOrder} from 'nti-lib-interfaces';
 
 import Table from '../../gradebook-table/Table';
 
@@ -31,10 +32,9 @@ export default React.createClass({
 	},
 
 	sortChange (sort) {
-		const reverse = (dir) => dir === 'ascending' ? 'descending' : 'ascending';
 		const {items} = this.props;
-		const currentSort = items.getSort();
-		const direction = currentSort.sortOn === sort ? reverse(currentSort.sortOrder) : 'ascending';
+		const current = items.getSort();
+		const direction = current.sortOn === sort ? SortOrder.reverse(current.sortOrder) : SortOrder.ASC;
 		items.setSort(sort, direction);
 	},
 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {SortOrder} from 'nti-lib-interfaces';
+
 import Accessor from '../mixins/AssignmentSummaryAccessor';
 
 import Table from './Table';
@@ -16,14 +18,18 @@ export default React.createClass({
 	mixins: [Accessor],
 
 	setSort (sort) {
-		this.getStore().setSort(sort);
+		const store = this.getStore();
+		const current = store.getSort();
+		const direction = current.sortOn === sort ? SortOrder.reverse(current.sortOrder) : SortOrder.ASC;
+
+		store.setSort(sort, direction);
 	},
 
 	render () {
 		const assignment = this.getAssignment();
 		const store = this.getStore();
 
-		const {sortOn, sortOrder} = store;
+		const {sortOn, sortOrder} = store.getSort();
 
 		return (
 			<Table
