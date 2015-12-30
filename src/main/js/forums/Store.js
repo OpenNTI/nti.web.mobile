@@ -13,7 +13,7 @@ const keyForContents = 'ForumStore:keyForContents';
 class Store extends StorePrototype {
 	constructor () {
 		super();
-		this.setMaxListeners(0);
+		this.setMaxListeners(100);
 
 		Object.assign(this, {
 			discussions: {},
