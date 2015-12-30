@@ -30,7 +30,7 @@ export default React.createClass({
 		}
 
 		if(item.ungraded > 0) {
-			actions.push(`${t('assignments', {count: item.overdue})} ungraded`);
+			actions.push(`${t('assignments', {count: item.ungraded})} ungraded`);
 		}
 
 		if (actions.length === 0) {
