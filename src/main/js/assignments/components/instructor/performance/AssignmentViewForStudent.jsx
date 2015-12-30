@@ -18,7 +18,7 @@ export default React.createClass({
 		const {userId} = this.props;
 		return {
 			label: 'Assignments',
-			href: this.makeHref(join('performance', userId))
+			href: this.makeHref(join('performance', userId, '/') )
 		};
 	},
 
