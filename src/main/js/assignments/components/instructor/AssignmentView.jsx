@@ -37,15 +37,10 @@ export default React.createClass({
 
 		const props = { assignment: this.getAssignment() };
 
-		if(!Store || Store.loading) {
-			return <Loading />;
-		}
-
-
 		return (
 			<div>
 				<AssignmentHeader {...props} />
-				<GradebookTable {...props} />
+				{!Store || Store.loading ? <Loading /> : <GradebookTable {...props} />}
 			</div>
 		);
 	}

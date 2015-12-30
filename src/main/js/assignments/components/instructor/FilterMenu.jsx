@@ -69,7 +69,7 @@ export default React.createClass({
 	render () {
 		const Store = this.getStore();
 		const filterValue = Store.getFilter();
-		const selectedOption = OPTIONS.find(option => option.value === filterValue);
+		const selectedOption = OPTIONS.find(option => option.value === filterValue) || OPTIONS[0];
 		const search = Store.getSearch() || '';
 		const menuLabel = search.length > 0 ? `Search ${selectedOption.label}: ${search}` : selectedOption.label;
 
