@@ -30,9 +30,13 @@ export default React.createClass({
 	},
 
 
+	getHistoryItem (props = this.props) {
+		return props.item.HistoryItemSummary;
+	},
+
+
 	getItem (props = this.props) {
-		const {item} = props;
-		const {grade} = item.HistoryItemSummary || {};
+		const {grade} = this.getHistoryItem(props) || {};
 
 		return grade;
 	},
@@ -46,13 +50,22 @@ export default React.createClass({
 
 	resetAssignment () {
 		this.closeMenu();
+		const history = this.getHistoryItem();
 
 		const reset = () => {
-
+			const {assignmentId, userId} = this.props;
+			return this.getAssignments().resetAssignment(assignmentId, userId);
 		};
 
+		const msg = !history.isCreatedByAppUser
+			? 'This will reset this assignment for this student. It is not recoverable.\nFeedback and work will be deleted.'
+			: 'This will reset the assignment. All work will be deleted and is not recoverable.';
 
-		areYouSure('Reset this assignment?').then(reset);
+		areYouSure(msg)
+			.then(reset)
+			.then(
+				()=> console.log('Assignment Reset'),
+				e => console.error('Could not reset', e.stack || e.message || e));
 	},
 
 

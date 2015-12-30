@@ -2,13 +2,14 @@ import React from 'react';
 import {SortOrder} from 'nti-lib-interfaces';
 
 import Table from '../../gradebook-table/Table';
+import ColumnActions from '../../gradebook-table/ColumnActions';
 
 import ColumnAssignment from './ColumnAssignment';
 import ColumnCompleted from './ColumnCompleted';
 import ColumnScore from './ColumnScore';
 import ColumnFeedback from './ColumnFeedback';
 
-const COLUMNS = [ColumnAssignment, ColumnCompleted, ColumnScore, ColumnFeedback];
+const COLUMNS = [ColumnAssignment, ColumnCompleted, ColumnScore, ColumnFeedback, ColumnActions];
 
 export default React.createClass({
 	displayName: 'StudentAssignmentsTable',
