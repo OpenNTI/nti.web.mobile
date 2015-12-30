@@ -2,27 +2,25 @@ import React from 'react';
 
 import cx from 'classnames';
 
+import {PropType as NTIID} from 'nti-lib-interfaces/lib/utils/ntiids';
+
+import ItemChanges from 'common/mixins/ItemChanges';
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+
 import {areYouSure} from 'prompts';
 
 import MenuTransitionGroup from './MenuTransitionGroup';
 
-const ACTIONS = [
-	{
-		label: 'Reset Assignment',
-		handler: 'resetAssignment'
-	},
-	{
-		label: 'Excuse Grade',
-		handler: 'excuse'
-	}
-];
 
 export default React.createClass({
 	displayName: 'instructor:ActionsMenu',
+	mixins: [AssignmentsAccessor, ItemChanges],
 
 	propTypes: {
-		assignmentId: React.PropTypes.string.isRequired,
-		userId: React.PropTypes.string.isRequired
+		assignmentId: NTIID,
+		userId: React.PropTypes.string.isRequired,
+
+		item: React.PropTypes.object.isRequired
 	},
 
 	getInitialState () {
@@ -32,14 +30,29 @@ export default React.createClass({
 	},
 
 
-	excuse () {
+	getItem (props = this.props) {
+		const {item} = props;
+		const {grade} = item.HistoryItemSummary || {};
 
+		return grade;
+	},
+
+
+	excuse () {
+		this.closeMenu();
+		this.getItem().excuseGrade();
 	},
 
 
 	resetAssignment () {
-		areYouSure('Reset this assignment?');
-			// .then(() => resetAssignment());
+		this.closeMenu();
+
+		const reset = () => {
+
+		};
+
+
+		areYouSure('Reset this assignment?').then(reset);
 	},
 
 
@@ -53,24 +66,12 @@ export default React.createClass({
 	},
 
 
-	performAction (action) {
-		this.closeMenu();
-		if (typeof this[action.handler] === 'function') {
-			this[action.handler]();
-		}
-		else if (typeof action.handler === 'function') {
-			action.handler(this.props.assignmentId, this.props.userId);
-		}
-		else {
-			console.warn('Unable to execute action %O', action);
-		}
-	},
-
-
 	render () {
-
+		const grade = this.getItem();
 		const {open} = this.state;
 		const classes = cx('gradebook-actions-menu', { open });
+
+		const excuseAction = grade.isExcused() ? 'Unexcuse Grade' : 'Excuse Grade';
 
 		return (
 			<div onClick={this.toggleMenu} className={classes}>
@@ -78,7 +79,8 @@ export default React.createClass({
 				{open &&
 					<MenuTransitionGroup>
 						<ul>
-							{ACTIONS.map(action => <li key={action.label} onClick={this.performAction.bind(this, action)}>{action.label}</li>)}
+							<li onClick={this.resetAssignment}>Reset Assignment</li>
+							<li onClick={this.excuse}>{excuseAction}</li>
 						</ul>
 					</MenuTransitionGroup>
 				}
