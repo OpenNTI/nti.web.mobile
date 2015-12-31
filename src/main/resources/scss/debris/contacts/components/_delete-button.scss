@@ -27,6 +27,7 @@ button.delete-icon {
 	button {
 		// specifically under the distribution list detail.
 		&.delete-icon {
+			@extend %hardware-render;
 			position: absolute;
 			top: 1rem;
 			right: 1rem;
