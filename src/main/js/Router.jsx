@@ -14,7 +14,7 @@ import Catalog from 'catalog/components/View.async';
 import Contacts from 'contacts/components/View';
 import Content from 'content/components/View';
 import Course from 'course/components/View';
-import Enrollment from 'enrollment/components/View.async';
+import Enrollment from 'enrollment/components/View';
 import Home from 'home/components/View';
 import Library from 'library/components/View';
 import Login from 'login/components/View';
