@@ -29,7 +29,7 @@ export default React.createClass({
 
 	render () {
 
-		const {userId} = this.props;
+		const userId = decodeURIComponent(this.props.userId);
 		const summary = this.getAssignments().getStudentSummary(userId);
 
 		return (

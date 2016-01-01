@@ -32,13 +32,18 @@ export default React.createClass({
 
 
 	render () {
-		const assignmentId = decodeFromURI(this.props.rootId);
+		const {rootId, userId} = this.props;
+		const assignmentId = decodeFromURI(rootId);
+		const user = decodeURIComponent(userId);
+
 		return (
 			<div className="assignment-view-student">
 				<Header {...this.props}
+					userId={user}
 					assignmentId={assignmentId}
 					/>
 				<ContentViewer {...this.props}
+					userId={user}
 					assignmentId={assignmentId}
 					explicitContext={this}
 					/>

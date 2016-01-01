@@ -11,7 +11,7 @@ export default React.createClass({
 
 	propTypes: {
 		item: React.PropTypes.shape({
-			user: React.PropTypes.object
+			username: React.PropTypes.string
 		}).isRequired,
 		children: React.PropTypes.any
 	},
@@ -20,7 +20,7 @@ export default React.createClass({
 		const {children, item} = this.props;
 		const showAvatars = this.getShowAvatars();
 		return (
-			<a className="student-link" href={`./${encodeURIComponent(item.user.getID())}/`}>
+			<a className="student-link" href={`./${encodeURIComponent(item.username)}/`}>
 				{showAvatars && (<Avatar entity={item.user} suppressProfileLink />)}
 				<div className="wrapper">
 					<DisplayName entity={item.user} suppressProfileLink />
