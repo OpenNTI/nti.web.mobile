@@ -59,12 +59,12 @@ export default React.createClass({
 
 	backingStore: NavStore,
 	backingStoreEventHandlers: {
-		default: buffer(20, function () {
+		default: buffer(100, function () {
 			let o = NavStore.getData();
 			if (this.isMounted()) {
 				logger.debug('Set Context: %o', o);
-				this.setState(Object.assign({resolving: true}, o));
-				this.fillIn(o);
+				this.setState(Object.assign({resolving: true}, o),
+					()=> this.fillIn(o));
 			}
 		})
 	},
@@ -87,35 +87,16 @@ export default React.createClass({
 	},
 
 
-	fillIn (state) {
-		let {context} = state || this.state;
-		let nc = context || {};
+	fillIn (state = this.state) {
+		const {path: contextPath = []} = state;
+		const [current, returnTo] = contextPath.slice().reverse();
 
-		let resolve = Promise.resolve();
-
-		let getContext = nc.resolveContext || nc.getContext;
-
-		if (getContext) {
-			resolve = getContext();
-		}
-
-		this.inflightResolve = resolve;
-
-		resolve.then(x=> {
-			if (this.inflightResolve !== resolve) {
-				logger.debug('Late resolve: %s', x.map(a=>a.label).join(', '));
-				return;
-			}
-
-			logger.debug('Context Path: %s %o', x.map(a=>a.label).join(', '), x);
-			this.setState({
-				current: x && x[x.length - 1],
-				returnTo: x && x[x.length - 2],
-				resolving: false
-			});
-		})
-		.catch(()=> {})
-		.then(()=> delete this.inflightResolve);
+		logger.debug('Context Path: %s', contextPath.map(a=>a.label).join(', '));
+		this.setState({
+			current,
+			returnTo,
+			resolving: false
+		});
 	},
 
 

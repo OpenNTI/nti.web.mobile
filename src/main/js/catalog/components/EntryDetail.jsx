@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {Logger} from 'nti-lib-interfaces';
 import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 import NotFound from 'notfound/components/View';
@@ -13,6 +14,7 @@ import Store from '../Store';
 import Detail from './Detail';
 import EnrollButton from './EnrollButton';
 
+const logger = Logger.get('catalog:EntryDetail');
 
 export default React.createClass({
 	displayName: 'EntryDetail',
@@ -50,7 +52,7 @@ export default React.createClass({
 
 		entry = loading ? null : entry;
 
-		this.setState({ loading, entry });
+		this.replaceState({ loading, entry });
 
 		this.setPageSource(Store.getPageSource(), entryId);
 	},
@@ -61,7 +63,7 @@ export default React.createClass({
 	},
 
 	componentDidUpdate () {
-		console.log(this.props.entryId);
+		logger.debug('DidUp', this.props.entryId);
 	},
 
 	getContext () {
@@ -71,7 +73,7 @@ export default React.createClass({
 			const started = new Date();
 			const step = () => {
 				const {entryId} = this.props;
-				console.log(entryId);
+				logger.debug('getContext',entryId);
 				const ntiid = decodeFromURI(entryId);
 				const href = this.makeHref(entryId);
 				const {entry} = this.state;

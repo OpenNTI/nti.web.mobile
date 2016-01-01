@@ -10,11 +10,8 @@ import {
 } from './Constants';
 
 export const setContext = buffer(17, function setContext (context) {
-	// let s = Date.now();
-	context.resolveContext().then(path => {
-		// console.debug('Timed: %dms', (Date.now() - s));
-		dispatch(SET_CONTEXT, {context, path});
-	});
+	context.resolveContext().then(path =>
+		dispatch(SET_CONTEXT, {context, path}));
 });
 
 
