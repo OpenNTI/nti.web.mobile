@@ -4,6 +4,7 @@ import Transition from 'react-addons-css-transition-group';
 import path from 'path';
 import cx from 'classnames';
 
+import {Logger} from 'nti-lib-interfaces';
 import buffer from 'nti-lib-interfaces/lib/utils/function-buffer';
 
 import C from 'common/components/Conditional';
@@ -19,6 +20,7 @@ import ReturnTo from './ReturnTo';
 
 import NavStore from '../Store';
 
+const logger = Logger.get('NavigationBar');
 const menuOpenBodyClass = 'nav-menu-open';
 
 function ensureSlash (str) {
@@ -60,7 +62,7 @@ export default React.createClass({
 		default: buffer(10, function () {
 			let o = NavStore.getData();
 			if (this.isMounted()) {
-				// console.debug('Set Context: %o', o);
+				logger.debug('Set Context: %o', o);
 				this.setState(Object.assign({resolving: true}, o));
 				this.fillIn(o);
 			}
@@ -97,14 +99,23 @@ export default React.createClass({
 			resolve = getContext();
 		}
 
+		this.inflightResolve = resolve;
+
 		resolve.then(x=> {
-			// console.debug('Context Path: %o', x);
+			if (this.inflightResolve !== resolve) {
+				logger.debug('Late resolve: %s', x.map(a=>a.label).join(', '));
+				return;
+			}
+
+			logger.debug('Context Path: %s %o', x.map(a=>a.label).join(', '), x);
 			this.setState({
 				current: x && x[x.length - 1],
 				returnTo: x && x[x.length - 2],
 				resolving: false
 			});
-		});
+		})
+		.catch(()=> {})
+		.then(()=> delete this.inflightResolve);
 	},
 
 
