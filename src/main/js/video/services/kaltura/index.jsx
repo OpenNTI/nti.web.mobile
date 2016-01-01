@@ -101,12 +101,14 @@ export default React.createClass({
 			entryId = parsed[1];
 		}
 
-		this.setState({
-			partnerId: partnerId
+		this.setState({entryId, partnerId}, () => {
+			getSources({ entryId, partnerId })
+			.then(sources => {
+				if(this.state.entryId === entryId) {
+					this.setSources(sources);
+				}
+			});
 		});
-
-		getSources({ entryId: entryId, partnerId: partnerId })
-			.then(this.setSources);
 	},
 
 
