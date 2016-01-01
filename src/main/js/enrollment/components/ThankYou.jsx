@@ -17,7 +17,7 @@ export default React.createClass({
 		//component is mounted/rendered, then the getLastEnrolledCourse will
 		//return the WRONG value.
 
-		const {VendorThankYouPage: {thankYouURL} = {}} = library.getLastEnrolledCourse();
+		const {VendorThankYouPage: {thankYouURL} = {}} = library.getLastEnrolledCourse() || {};
 
 
 		//If the library is loading, or reloading this will be true.
