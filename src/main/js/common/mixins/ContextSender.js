@@ -1,11 +1,10 @@
-import logger from 'debug';
-
 import Contributor, {ContextParent} from './ContextContributor';
 
 import * as Actions from 'navigation/Actions';
 
-const debug = logger('ContextSender:debug');
-const warn = logger('ContextSender:warn');
+import {Logger} from 'nti-lib-interfaces';
+
+const logger = Logger.get('ContextSender');
 
 const RegisterChild = 'context:child:register';
 const UnregisterChild = 'context:child:unregister';
@@ -35,9 +34,9 @@ export default {
 
 	[notify] () {
 		let children = this[Children] || {size: 0};
-		debug('Wants to Notify', children.size, this.constructor.displayName);
+		logger.debug('Wants to Notify %d %s', children.size, this.constructor.displayName);
 		if (children.size === 0 && this.isMounted()) {
-			debug('Notify', this.constructor.displayName, this.isMounted());
+			logger.debug('Notify %s %s', this.constructor.displayName, this.isMounted());
 			let context = this[CONTEXT_DATA];
 			if (context) {
 				Actions.setPageSource(...context);
@@ -51,7 +50,7 @@ export default {
 	componentDidMount () {
 		if (!this.getContext) {
 			this.getContext = ()=> Promise.resolve([]);
-			warn('Missing getContext implementation, adding empty no-op to %s', this.constructor.displayName);
+			logger.warn('Missing getContext implementation, adding empty no-op to %s', this.constructor.displayName);
 		}
 
 		let parent = this.context[ContextParent];
@@ -65,7 +64,7 @@ export default {
 
 
 	componentDidUpdate () {
-		debug('DidUp', this.constructor.displayName);
+		logger.debug('DidUp %s', this.constructor.displayName);
 		this[notify]();
 	},
 
@@ -76,7 +75,7 @@ export default {
 			parent[UnregisterChild](this);
 		}
 		delete this[CONTEXT_DATA];
-		debug('WillUnMount', this.constructor.displayName);
+		logger.debug('WillUnMount', this.constructor.displayName);
 	},
 
 
