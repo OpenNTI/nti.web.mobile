@@ -1,5 +1,5 @@
 import React from 'react';
-import wait from 'nti-lib-interfaces/lib/utils/wait';
+// import wait from 'nti-lib-interfaces/lib/utils/wait';
 
 const GetContext = 'context:provider:get-local';
 
@@ -42,7 +42,7 @@ export default {
 			this[RESOLVING]
 				// .then(x => console.log(x.map(i=>i.label)))
 				.catch(()=>{})//prevent errors from stoping cleanup.
-				.then(()=> wait(1000))//1 second
+				// .then(()=> wait(1000))//1 second
 				.then(()=> delete this[RESOLVING]);
 		}
 
