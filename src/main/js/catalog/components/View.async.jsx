@@ -7,7 +7,7 @@ import EntryDetail from './EntryDetail';
 
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
-import ContextSender from 'common/mixins/ContextSender';
+import ContextMixin from 'common/mixins/ContextContributor';
 import BasePathAware from 'common/mixins/BasePath';
 
 import Loading from 'common/components/Loading';
@@ -23,7 +23,7 @@ import GiftRedeem from './GiftRedeem';
 
 const CatalogBody = React.createClass({
 	displayName: 'CatalogBody',
-	mixins: [BasePathAware, ContextSender],
+	mixins: [BasePathAware, ContextMixin],
 
 
 	propTypes: {
