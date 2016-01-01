@@ -50,8 +50,9 @@ export default React.createClass({
 
 		entry = loading ? null : entry;
 
-		this.setState({ loading, entry },
-			() => this.setPageSource(Store.getPageSource(), entryId));
+		this.setState({ loading, entry });
+
+		this.setPageSource(Store.getPageSource(), entryId);
 	},
 
 
@@ -59,22 +60,35 @@ export default React.createClass({
 		return this.getNavigable().makeHref('item/' + ref);
 	},
 
+	componentDidUpdate () {
+		console.log(this.props.entryId);
+	},
 
 	getContext () {
-		const {entryId} = this.props;
-		const ntiid = decodeFromURI(entryId);
-		const href = this.makeHref(entryId);
+		const MAX_WAIT = 30000;//30 seconds
 
-		const entry = Store.getEntry(ntiid);
+		return new Promise((resolve, reject) => {
+			const started = new Date();
+			const step = () => {
+				const {entryId} = this.props;
+				console.log(entryId);
+				const ntiid = decodeFromURI(entryId);
+				const href = this.makeHref(entryId);
+				const {entry} = this.state;
+				const label = (entry || {}).Title;
+				if (!entry) {
+					if (new Date() - started > MAX_WAIT) {
+						return reject('Timeout');
+					}
 
-		const label = (entry || {}).Title;
+					return setTimeout(step, 100);
+				}
 
-		return {
-			ref: entryId,
-			ntiid,
-			label,
-			href
-		};
+				resolve({ ref: ntiid, ntiid, label, href });
+			};
+
+			step();
+		});
 
 	},
 

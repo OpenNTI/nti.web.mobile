@@ -59,7 +59,7 @@ export default React.createClass({
 
 	backingStore: NavStore,
 	backingStoreEventHandlers: {
-		default: buffer(10, function () {
+		default: buffer(20, function () {
 			let o = NavStore.getData();
 			if (this.isMounted()) {
 				logger.debug('Set Context: %o', o);

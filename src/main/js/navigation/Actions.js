@@ -1,3 +1,4 @@
+import buffer from 'nti-lib-interfaces/lib/utils/function-buffer';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
 import {
@@ -8,19 +9,19 @@ import {
 	SET_NAV_GUARDED
 } from './Constants';
 
-export function setContext (context) {
+export const setContext = buffer(17, function setContext (context) {
 	// let s = Date.now();
 	context.resolveContext().then(path => {
 		// console.debug('Timed: %dms', (Date.now() - s));
 		dispatch(SET_CONTEXT, {context, path});
 	});
-}
+});
 
 
-export function setPageSource (pageSource, currentPage, context) {
+export const setPageSource = buffer(17, function setPageSource (pageSource, currentPage, context) {
 	context.resolveContext().then(path=>
 		dispatch(SET_PAGE_SOURCE, {pageSource, currentPage, context, path}));
-}
+});
 
 
 export function activateNavigationGuard (getMessageCallback) {
