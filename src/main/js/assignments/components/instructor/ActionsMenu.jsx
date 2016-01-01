@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {PropType as NTIID} from 'nti-lib-interfaces/lib/utils/ntiids';
+
 import cx from 'classnames';
 
 import ItemChanges from 'common/mixins/ItemChanges';
@@ -16,6 +18,8 @@ export default React.createClass({
 
 	propTypes: {
 		userId: React.PropTypes.string.isRequired,
+
+		assignmentId: NTIID, //when the row item does not specify the assignment... #smh
 
 		/**
 		 * 	needs to be a summary item or an object that conforms
@@ -36,8 +40,8 @@ export default React.createClass({
 
 
 	getAssignmentId () {
-		const {item} = this.props;
-		return item.assignmentId;
+		const {item, assignmentId} = this.props;
+		return item.assignmentId || assignmentId;
 	},
 
 
