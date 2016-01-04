@@ -17,7 +17,7 @@ export default React.createClass({
 	},
 
 	componentWillMount () {
-		this.setState({store: this.getAssignments().getGrouppedStore()});
+		this.setState({store: this.getAssignments().getGroupedStore()});
 	},
 
 
