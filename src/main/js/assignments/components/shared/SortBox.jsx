@@ -24,6 +24,12 @@ export default React.createClass({
 		this.setState({sortOptions, sortBy: this.props.value || ORDER_BY_LESSON});
 	},
 
+	componentWillReceiveProps (nextProps) {
+		if (nextProps.value) {
+			this.setState({sortBy: nextProps.value});
+		}
+	},
+
 	render () {
 
 		let {sortOptions, sortBy} = this.state;
