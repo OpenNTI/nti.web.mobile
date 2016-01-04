@@ -7,6 +7,8 @@ import AssignmentActivityItem from './AssignmentActivityItem';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
+import Notice from 'common/components/Notice';
+
 export default React.createClass({
 	displayName: 'Activity',
 	mixins: [AssignmentsAccessor],
@@ -25,13 +27,18 @@ export default React.createClass({
 
 	componentReceivedAssignments (assignments = this.getAssignments()) {
 		assignments.getActivity()
+			.catch(error => this.setState({ error }))
 			.then(activity => this.setState({ activity }));
 	},
 
 
 	render () {
 
-		const {activity} = this.state;
+		const {error, activity} = this.state;
+
+		if (error === 'Not Implemented') {
+			return <Notice >Coming Soon</Notice>;
+		}
 
 		if (!activity) {
 			return <Loading />;
