@@ -21,9 +21,7 @@ export default React.createClass({
 	},
 
 	componentWillReceiveProps (nextProps) {
-		if (nextProps.value) {
-			this.setState({filter: nextProps.value});
-		}
+		this.setState({filter: nextProps.value || 'all'});
 	},
 
 	render () {
