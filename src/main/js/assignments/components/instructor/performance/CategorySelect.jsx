@@ -20,6 +20,12 @@ export default React.createClass({
 		this.setState({filter: this.props.value || 'all'});
 	},
 
+	componentWillReceiveProps (nextProps) {
+		if (nextProps.value) {
+			this.setState({filter: nextProps.value});
+		}
+	},
+
 	render () {
 
 		let {filter} = this.state;
