@@ -1,14 +1,23 @@
 import React from 'react';
 import cx from 'classnames';
 
+import ItemChanges from 'common/mixins/ItemChanges';
+
 import DateTime from 'common/components/DateTime';
 
 export default React.createClass({
 	displayName: 'AssignmentStatus',
 
+	mixins: [ItemChanges],
+
 	propTypes: {
 		assignment: React.PropTypes.object.isRequired,
 		history: React.PropTypes.object
+	},
+
+	getItem () {
+		const {history = {}} = this.props;
+		return history.grade;
 	},
 
 	render () {
