@@ -1,0 +1,7 @@
+.grade-box {
+	opacity: 1;
+	transition: opactity 0.3s;
+	&.busy {
+		opacity: 0.4;
+	}
+}

@@ -78,7 +78,7 @@ export default React.createClass({
 		this.setState({value});
 
 		clearTimeout(this.timerGradeChanging);
-		this.timerGradeChanging = setTimeout(()=> this.maybeSetGrade(value), 500);
+		this.timerGradeChanging = setTimeout(()=> this.maybeSetGrade(value), 1000);
 	},
 
 
