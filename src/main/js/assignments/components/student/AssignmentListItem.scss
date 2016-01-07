@@ -2,11 +2,14 @@
 
 .assignment-item {
 	display: block;
-	color: inherit;
 	position: relative;
 	padding-left: 2rem;
 	font-size: .875rem;
 	margin-bottom: 1em;
+
+	&, &:focus, &:hover {
+		color: inherit;
+	}
 
 	&::after {
 		content: '√';
