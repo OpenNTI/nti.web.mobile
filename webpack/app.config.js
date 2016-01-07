@@ -14,8 +14,6 @@ var modules = path.resolve(__dirname, '..', 'node_modules');
 
 var gitRevision = require('../src/server/lib/git-revision');
 
-var appFontName = /(icomoon.*|(OpenSans.*woff))/i;
-
 exports = module.exports = [
 	{
 		name: 'browser',
@@ -66,25 +64,14 @@ exports = module.exports = [
 				{ test: /\.js(x?)$/i, loader: 'babel', exclude: /node_modules/ },
 
 				{ test: /\.json$/, loader: 'json' },
-				{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url?limit=100000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
+				{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url?limit=10000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
 
-				{ test: appFontName, loader: 'url' },
-				{
-					test (s) {
-						return !appFontName.test(s) && /\.(eot|ttf|woff)$/.test(s);
-					},
-					loader: 'file',
-					query: {
-						name: 'resources/fonts/[name].[ext]'
-					}
-				},
+				{ test: /\.(eot|ttf|woff)$/, loader: 'file?name=resources/fonts/[name].[ext]' },
 
 				{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
 					'style-loader',
-					(process.env.NODE_ENV === 'production'
-						? 'css?sourceMap&-minimize!autoprefixer!sass'
-						: 'css?sourceMap!autoprefixer!sass'
-					))
+					'css?sourceMap&-minimize!autoprefixer!resolve-url!sass?sourceMap'
+					)
 				}
 			]
 		},

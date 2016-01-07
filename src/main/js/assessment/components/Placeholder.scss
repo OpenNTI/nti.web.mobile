@@ -1,3 +1,6 @@
+@import "utils/variables";
+@import "utils/placeholders";
+
 .assignment-placeholder {
 	font-size: 1rem;
 	margin-left: 0.75rem;
@@ -30,7 +33,7 @@
 		top: 40%;
 		left: 50%;
 		box-shadow: 0 0 5em 0 rgba(0, 0, 0, 0.5);
-		transform: translate3D(-50%, -50%, 0);
+		transform: translate3d(-50%, -50%, 0);
 
 
 		.icon {

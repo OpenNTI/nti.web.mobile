@@ -6,6 +6,8 @@ const t = scoped('ASSESSMENT');
 
 import Loading from 'common/components/Loading';
 
+import Saving from './Saving';
+
 import Store from '../Store';
 import {areAssessmentsSupported, getMainSubmittable} from '../utils';
 import {resetAssessment, submit} from '../Actions';
@@ -106,7 +108,9 @@ export default React.createClass({
 		return (
 			<div>
 				<Transition transitionName="savepoint" transitionEnterTimeout={700} transitionLeaveTimeout={1000}>
-					{savePoint && this.renderSavePointNotice()}
+					{savePoint && (
+						<Saving key="savepoint"/>
+					)}
 				</Transition>
 				<div className={'set-submission ' + status}>
 					{!error ? null : (
@@ -121,13 +125,6 @@ export default React.createClass({
 
 				{!busy ? null : <Loading message="Please Wait" maskScreen/>}
 			</div>
-		);
-	},
-
-
-	renderSavePointNotice () {
-		return (
-			<div className="saving-progress" key="savepoint">Saving Progress</div>
 		);
 	}
 });

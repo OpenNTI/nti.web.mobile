@@ -1,3 +1,5 @@
+@import "utils/variables";
+@import "utils/placeholders";
 
 .feedback.container {
 	padding-bottom: 2rem;
@@ -67,6 +69,8 @@
 }
 
 .feedback.editor{
+	position: relative;
+
 	&.busy {
 		.editor {
 			visibility: hidden;
@@ -81,8 +85,6 @@
 	.toolbar {
 		line-height: 2.45rem;
 	}
-
-	position: relative;
 }
 
 
