@@ -11,65 +11,72 @@ import EmptyList from 'common/components/EmptyList';
 //some notes: http://stackoverflow.com/questions/20870448/reactjs-modeling-bi-directional-infinite-scrolling
 //I want to turn this into a buffered list.
 
-export default React.createClass({
-	displayName: 'VideoGrid',
-	mixins: [NavigatableMixin, ContextSender],
+const VideoCell = React.createClass({
+	mixins: [NavigatableMixin],
 
 	propTypes: {
-		VideoIndex: React.PropTypes.object
+		item: React.PropTypes.object
 	},
-
 
 	getInitialState () {
-		return {
-			icons: {}
-		};
+		return {};
 	},
 
 
-	getContext () { return Promise.resolve([]); },
+	componentDidMount () { this.fillIn(); },
 
 
-	componentDidMount () {
-		this.fillInIcons(this.props);
-	},
-
-
-	componentWillUnmount () {},
-
-
-	componentWillReceiveProps (nextProps) {
-		if (this.props.VideoIndex !== nextProps.VideoIndex) {
-			this.fillInIcons(nextProps);
+	componentWillUpdate (nextProps) {
+		if (this.props.item !== nextProps.item) {
+			this.fillIn(nextProps);
 		}
 	},
 
 
-	fillInIcons (props) {
-		let icons = {};
-		let {VideoIndex} = props || {};
+	fillIn (props = this.props) {
+		let {item} = props || {};
 
 		function fallback (x) {
 			let s = x && ((x.sources || [])[0] || {});
 			return s.thumbnail || s.poster;
 		}
 
-		if (VideoIndex) {
-			VideoIndex.map(v=>
-				v.getThumbnail()
-					.then(
-						i=> icons[v.ntiid] = i,
-						()=> icons[v.ntiid] = fallback(v)
-					)
-					.then(()=>this.setState({icons}))
-				);
-		}
+		item.getThumbnail()
+			.catch(()=> fallback(item))
+			.then(poster => this.setState({poster}));
 	},
 
 
 	render () {
-		let {VideoIndex} = this.props;
-		let {icons} = this.state;
+		const {state: {poster}, props: {item}} = this;
+		const style = poster && { backgroundImage: `url(${poster})` };
+		const thumbnail = cx('thumbnail', {resolving: !poster});
+		const link = this.makeHref(encodeForURI(item.ntiid)) + '/';
+
+		return (
+			<li className="thumbnail-grid-item">
+				<a title="Play" href={link}>
+					<div className={thumbnail} style={style}/>
+					<h3>{item.title}</h3>
+				</a>
+			</li>
+		);
+	}
+});
+
+
+export default React.createClass({
+	displayName: 'VideoGrid',
+	mixins: [ContextSender],
+
+	propTypes: {
+		VideoIndex: React.PropTypes.object
+	},
+
+	getContext () { return Promise.resolve([]); },
+
+	render () {
+		const {VideoIndex} = this.props;
 
 		if(!VideoIndex || VideoIndex.length === 0) {
 			return <EmptyList type="videos"/>;
@@ -77,24 +84,9 @@ export default React.createClass({
 
 		return (
 			<ul className="small-block-grid-1 medium-block-grid-2">
-				{VideoIndex.map((v, i) => {
-					let poster = icons[v.ntiid];
-
-					let style = poster && { backgroundImage: `url(${poster})` };
-
-					let thumbnail = cx('thumbnail', {resolving: !poster});
-
-					let link = this.makeHref(encodeForURI(v.ntiid)) + '/';
-
-					return (
-						<li className="thumbnail-grid-item" key={v.ntiid + '-' + i}>
-							<a title="Play" href={link}>
-								<div className={thumbnail} style={style}/>
-								<h3>{v.title}</h3>
-							</a>
-						</li>
-					);
-				})}
+				{VideoIndex.map((v) => (
+					<VideoCell index={VideoIndex} item={v} key={v.ntiid}/>
+				))}
 			</ul>
 		);
 	}
