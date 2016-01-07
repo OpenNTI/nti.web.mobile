@@ -56,7 +56,7 @@ export default React.createClass({
 		}
 
 		const NOW = new Date();
-		if (assignment.getAssignedDate() > NOW) {
+		if (!admin && assignment.getAssignedDate() > NOW) {
 			return (
 				<TimeLockedPlaceholder assignment={assignment}/>
 			);
