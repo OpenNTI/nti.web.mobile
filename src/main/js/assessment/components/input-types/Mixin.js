@@ -46,7 +46,12 @@ export default {
 	},
 
 	componentWillMount () {
-		this.setValue(Store.getPartValue(this.props.item));
+		let defaultValue = void 0;
+		if (this.getDefaultValue) {
+			defaultValue = this.getDefaultValue();
+		}
+
+		this.setValue(Store.getPartValue(this.props.item) || defaultValue);
 	},
 
 

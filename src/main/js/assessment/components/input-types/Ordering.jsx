@@ -22,8 +22,7 @@ export default React.createClass({
 
 
 	propTypes: {
-		item: React.PropTypes.object,
-		value: React.PropTypes.any
+		item: React.PropTypes.object
 	},
 
 
@@ -42,8 +41,7 @@ export default React.createClass({
 
 	componentWillMount () {
 		this.setState({
-			PartLocalDNDToken: this.getNewUniqueToken(),
-			value: this.props.value || this.getDefaultValue()
+			PartLocalDNDToken: this.getNewUniqueToken()
 		});
 	},
 
