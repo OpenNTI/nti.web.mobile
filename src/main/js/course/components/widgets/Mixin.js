@@ -45,10 +45,10 @@ export default {
 		let status = node && node.parent('isEnrollment').getStatus();
 
 		let toReturn = items && items.map((item, i, list) => {
-			let use = true;
+			let use = !!item;
 			let itemProps = Object.assign({}, props, p, {node: node});
 
-			if (node && !node.hasVisibility(item, status)) {
+			if (use && node && !node.hasVisibility(item, status)) {
 				use = null;
 			}
 
