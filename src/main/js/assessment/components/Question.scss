@@ -31,6 +31,10 @@
 	&.correct .question-title .status{ color: $correct; }
 	&.incorrect .question-title .status{ color: $incorrect; }
 
+	&.not-assessed.administrative {
+		opacity: 0.4;
+	}
+
 	.question-content:not(:empty) {
 		margin: 1rem 0;
 	}

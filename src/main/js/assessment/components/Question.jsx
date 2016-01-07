@@ -102,7 +102,8 @@ export default React.createClass({
 		}
 
 		let css = cx('question', status.toLowerCase(), {
-			administrative: admin
+			administrative: admin,
+			'not-assessed': !a
 		});
 
 		return (
