@@ -1,8 +1,12 @@
 .student-link {
-	color: inherit;
 	display: flex;
 	align-items: center;
 	position: relative;
+
+	&, &:focus, &:hover {
+		color: inherit;
+	}
+
 	.avatar {
 		flex: 0 0 auto;
 		width: 2.5rem;
