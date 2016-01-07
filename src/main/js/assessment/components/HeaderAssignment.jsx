@@ -49,7 +49,7 @@ export default React.createClass({
 		let item = Store.getAssignmentHistoryItem(assignment);
 		let admin = Store.isAdministrative(assignment);
 
-		if (assignment.IsTimedAssignment /*&& !assignment.isStarted()*/) {
+		if (!admin && assignment.IsTimedAssignment /*&& !assignment.isStarted()*/) {
 			return (
 				<TimedPlaceholder assignment={assignment}/>
 			);
