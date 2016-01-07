@@ -3,7 +3,6 @@ import Contributor, {ContextParent} from './ContextContributor';
 import * as Actions from 'navigation/Actions';
 
 import {Logger} from 'nti-lib-interfaces';
-import buffer from 'nti-lib-interfaces/lib/utils/function-buffer';
 
 const logger = Logger.get('ContextSender');
 
@@ -33,7 +32,7 @@ export default {
 	},
 
 
-	[notify]: buffer(17, function () {
+	[notify]: function () {
 		let children = this[Children] || {size: 0};
 		logger.debug('Wants to Notify %d %s', children.size, this.constructor.displayName);
 		if (children.size === 0 && this.isMounted()) {
@@ -45,7 +44,7 @@ export default {
 				Actions.setContext(this);
 			}
 		}
-	}),
+	},
 
 
 	componentDidMount () {
