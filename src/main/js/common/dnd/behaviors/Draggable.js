@@ -362,10 +362,9 @@ export default {
 
 		if (x || y) {
 
-			if (topBoundry === 0 || bottomBoundry === viewportBottom) {
-				scrollBy(0, y);
-				y = 0;
-			}
+			//TODO: implement nested scroll-zones
+			// if (scrollParentIsAtLimit and parent can scroll) {
+			// }
 
 			scrollElementBy(scrollParent, x, y);
 

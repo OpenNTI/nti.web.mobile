@@ -32,8 +32,10 @@ export function scrollElementBy (el, x, y) {
 
 	if (el.scrollBy) {
 		return el.scrollBy(x, y);
-	} else if (el !== document.body && el !== document.body.parentNode && el !== window) {
-		console.warn('scrollElementBy cannot scroll: ', el);
+	} else if ('scrollTop' in el) {
+		el.scrollTop += y;
+		el.scrollLeft += x;
+		return;
 	}
 
 	return window.scrollBy(x, y);
@@ -42,7 +44,10 @@ export function scrollElementBy (el, x, y) {
 
 export function getScrollPosition (el) {
 	const overflow = /auto|scroll/i;
-	const isScroller = e => e.scrollHeight > e.offsetHeight && overflow.test(getStyle(e, 'overflow', 'overflow-x', 'overflow-y').join(''));
+	const isScroller = e =>
+				(e.scrollHeight > e.offsetHeight && overflow.test(getStyle(e, 'overflow', 'overflow-x', 'overflow-y').join(''))) ||
+				(e.tagName === 'BODY' && e.scrollHeight === e.offsetHeight);
+
 	if (!isScroller(el)) {
 		el = scrollParent(el);
 	}

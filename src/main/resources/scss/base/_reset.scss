@@ -11,11 +11,11 @@ address {font-style: normal;}
 
 body {
 	user-select: none;
+	height: auto;
 }
 
 html, body {
 	@extend %touch-scroll;
-	// height: auto; <-- will make window what scrolls, instead of <body>.
 	width: 100%;
 	overflow-x: hidden;
 }
