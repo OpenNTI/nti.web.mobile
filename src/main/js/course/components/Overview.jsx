@@ -7,8 +7,6 @@ import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
 import EmptyList from 'common/components/EmptyList';
 
-import {IllegalStateException} from 'common/exceptions';
-
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
@@ -145,20 +143,18 @@ export default React.createClass({
 		if (error) { return (<ErrorWidget error={error}/>); }
 
 		let title = (data || {}).title || '';
-		let items = (data || {}).Items || [];
+		let items = (data || {}).Items;
 
 		try {
 			return (
 				<div className="course-overview row">
 					<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
 					<h1 dangerouslySetInnerHTML={{__html: title}}/>
-					{this.renderItems(items, {node: node})}
+					{items && this.renderItems(items, {node})}
 				</div>
 			);
 		} catch (e) {
-			if (!(e instanceof IllegalStateException)) {
-				return (<ErrorWidget error={e}/>);
-			}
+			return (<ErrorWidget error={e}/>);
 		}
 
 		return (
