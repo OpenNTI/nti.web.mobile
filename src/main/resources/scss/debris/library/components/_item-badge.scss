@@ -2,10 +2,10 @@
 	position: absolute;
 	// top: 0.625rem;
 	top: 0.3125rem;
-	height: 1.6875rem;
+	height: 1.5625rem;
 	color: white;
 	text-transform: uppercase;
-	font: normal 600 0.625rem/3 $body-font-family;
+	font: normal 700 0.625rem/2.5 $body-font-family;
 	padding: 0 0.4375rem;
 
 	&.archived {
@@ -24,7 +24,7 @@
 			top: 50%;
 			left: 0.4375rem;
 			right: auto;
-			transform: translateY(-50%);
+			transform: translate3d(0, -50%, 0);
 			height: 0.8125rem;
 			width: 0.875rem;
 			background: {
