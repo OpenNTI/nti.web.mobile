@@ -12,12 +12,13 @@ address {font-style: normal;}
 body {
 	user-select: none;
 	height: auto;
+	min-height: 100%;
+	overflow-x: hidden;
 }
 
 html, body {
 	@extend %touch-scroll;
 	width: 100%;
-	overflow-x: hidden;
 }
 
 img {
