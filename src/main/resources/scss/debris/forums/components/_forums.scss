@@ -105,7 +105,7 @@ $indent: 0.9375rem;
 	}
 
 	.postitem {
-		@extend %attributed-content-item;
+		@extend .attributed-content-item;
 		padding-left: 0;
 		padding-right: 0;
 
@@ -268,7 +268,7 @@ $indent: 0.9375rem;
 			margin-left: -$indent;
 			margin-right: -$indent;
 			li {
-				@extend %attributed-content-item;
+				@extend .attributed-content-item;
 				padding:0 0 0 $indent;
 				border:1px solid transparent;
 				border-bottom-color: $panel-border-color;

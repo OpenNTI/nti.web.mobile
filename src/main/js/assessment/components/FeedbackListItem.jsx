@@ -53,7 +53,7 @@ export default React.createClass({
 		}
 
 		return (
-			<div className="feedback item">
+			<div className="feedback item attributed-content-item">
 				<Avatar entity={createdBy} className="avatar"/>
 				<div className="wrap">
 					<div className="meta">

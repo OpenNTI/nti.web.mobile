@@ -97,7 +97,6 @@
 
 
 .feedback.item {
-	@extend %attributed-content-item;
 
 	html:not(.touch) & {
 		.footer {
