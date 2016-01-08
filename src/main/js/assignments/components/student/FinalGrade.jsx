@@ -20,7 +20,7 @@ export default React.createClass({
 		});
 
 		if (!grade) {
-			return <span className={classes}>'Not yet entered'</span>;
+			return <span className={classes}>Not yet entered</span>;
 		}
 
 		return (
