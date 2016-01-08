@@ -61,9 +61,9 @@
 		}
 	}
 
-	& > .related-work-ref {
+	& > .content-link.related-work-ref {
 		margin: 0; border: 0;
-		cursor: default;
+		// cursor: default;
 	}
 
 	.content-video {

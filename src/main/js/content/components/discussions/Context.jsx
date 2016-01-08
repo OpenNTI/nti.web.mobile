@@ -31,6 +31,7 @@ export default React.createClass({
 	displayName: 'Context',
 
 	propTypes: {
+		contentPackage: React.PropTypes.object,
 		item: React.PropTypes.object,
 		className: React.PropTypes.string
 	},
@@ -94,10 +95,11 @@ export default React.createClass({
 
 
 	setWidgetContainerContext (_, object) {
-		let {item} = this.props;
+		let {item, contentPackage} = this.props;
 		let props = {
 			record: object,
-			applicableRange: item.applicableRange
+			applicableRange: item.applicableRange,
+			contentPackage
 		};
 
 		try {

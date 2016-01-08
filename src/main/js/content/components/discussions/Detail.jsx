@@ -22,6 +22,7 @@ export default React.createClass({
 	],
 
 	propTypes: {
+		contentPackage: React.PropTypes.object,
 		pageSource: React.PropTypes.object,
 
 		item: React.PropTypes.object,
@@ -36,7 +37,7 @@ export default React.createClass({
 
 
 	render () {
-		const {state: {replying}, props: {item, lite}} = this;
+		const {state: {replying}, props: {contentPackage, item, lite}} = this;
 		const {body} = item;
 		const isReply = item.isReply();
 
@@ -46,7 +47,7 @@ export default React.createClass({
 				<div className="root">
 					<Conditional condition={!item.placeholder} tag={AuthorInfo} item={item} lite={lite} />
 
-					{!lite && ( <Context item={item}/> )}
+					{!lite && ( <Context item={item} contentPackage={contentPackage}/> )}
 
 					{!item.placeholder && ( <Body body={body}/> )}
 

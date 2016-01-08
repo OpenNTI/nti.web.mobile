@@ -305,7 +305,7 @@ export default React.createClass({
 
 
 	render () {
-		const {state: {href, icon}, props: {item, commentCount, disableLink}} = this;
+		const {state: {href, icon}, props: {item, contentPackage, commentCount, disableLink}} = this;
 
 		const external = this.isExternal();
 		const seen = this.isSeen();
@@ -313,7 +313,7 @@ export default React.createClass({
 		const classes = { external, seen };
 
 		const iconSrc = (seen && !icon) ? BLANK_IMAGE : icon;
-		const ref = disableLink ? null : href;
+		const ref = disableLink || !contentPackage ? null : href;
 
 		const {label, title, desc, description, byline, creator} = item;
 

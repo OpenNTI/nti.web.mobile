@@ -121,8 +121,8 @@ export default React.createClass({
 
 		return (
 			<div>
-				<Discussions UserDataStoreProvider={storeProvider}>
-					{relatedWorkRef && ( <Card item={relatedWorkRef} contentPackage={contentPackage} disableLink/> )}
+				<Discussions UserDataStoreProvider={storeProvider} contentPackage={contentPackage} >
+					{relatedWorkRef && ( <Card item={relatedWorkRef} contentPackage={contentPackage} /> )}
 				</Discussions>
 			</div>
 		);

@@ -127,7 +127,7 @@ export default React.createClass({
 
 		return itemId ? (
 			item
-			? ( <View item={item} pageSource={pageSource}/> )
+			? ( <View item={item} pageSource={pageSource} {...props}/> )
 			: loading
 				? ( <Loading/> )
 				: ( <NotFound/> )

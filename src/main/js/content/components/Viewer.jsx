@@ -284,7 +284,11 @@ export default React.createClass({
 
 				{discussions ? (
 
-					<Discussions key="discussions" UserDataStoreProvider={page} filter={selectedDiscussions}/>
+					<Discussions key="discussions"
+						UserDataStoreProvider={page}
+						contentPackage={contentPackage}
+						filter={selectedDiscussions}
+						/>
 
 				) : stagedNote ? (
 
