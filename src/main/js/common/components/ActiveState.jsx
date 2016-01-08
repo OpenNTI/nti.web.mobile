@@ -11,7 +11,12 @@ export default React.createClass({
 	propTypes: {
 		activeClassName: React.PropTypes.string,
 		className: React.PropTypes.string,
-		hasChildren: React.PropTypes.bool,
+		hasChildren: React.PropTypes.oneOfType([
+			React.PropTypes.bool,
+			React.PropTypes.shape({
+				test: React.PropTypes.func.isRequired
+			})
+		]),
 		href: React.PropTypes.string,
 		link: React.PropTypes.bool, //force onClick handler for non-'a' tags
 		tag: React.PropTypes.any

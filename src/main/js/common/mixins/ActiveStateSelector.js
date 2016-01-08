@@ -94,7 +94,14 @@ export const child = {
 	},
 
 	propTypes: {
-		href: React.PropTypes.string.isRequired
+		href: React.PropTypes.string.isRequired,
+
+		hasChildren: React.PropTypes.oneOfType([
+			React.PropTypes.bool,
+			React.PropTypes.shape({
+				test: React.PropTypes.func.isRequired
+			})
+		])
 	},
 
 
@@ -126,6 +133,9 @@ export const child = {
 		const current = absolute ? this.makeHref(this.getPath()) : this.getPath();
 
 		if (hasChildren && current) {
+			if (hasChildren.test) {
+				return hasChildren.test(current);
+			}
 			return current.indexOf(href) === 0;
 		}
 
