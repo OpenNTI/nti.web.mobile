@@ -115,6 +115,9 @@ ul.activity {
 
 	.highlight-group {
 		@extend .ugd.heading;
+		& > img + div {
+			margin-left: 3.625rem;
+		}
 	}
 
 	.body {
