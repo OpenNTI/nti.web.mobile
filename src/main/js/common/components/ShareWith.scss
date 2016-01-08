@@ -1,3 +1,6 @@
+@import "utils/variables";
+@import "utils/placeholders";
+
 %scroller-heights {
 	max-height: 70vh;
 	&.restrict {
