@@ -1,7 +1,15 @@
 import React from 'react';
 import Router from 'react-router-component';
-import BlogEntry from './BlogEntryDetail';
+import {join} from 'path';
+
+import ContextSender from 'common/mixins/ContextSender';
+
 import NotFoundPage from 'notfound/components/View';
+
+import ProfileLink from '../../mixins/ProfileLink';
+
+import BlogEntry from './BlogEntryDetail';
+
 
 const ROUTES = [
 	{path: '/(:id)(/*)', handler: BlogEntry },
@@ -10,6 +18,15 @@ const ROUTES = [
 
 export default React.createClass({
 	displayName: 'Thoughts',
+	mixins: [ContextSender, ProfileLink],
+
+
+	getContext () {
+		return {
+			href: join(this.profileHref(), 'activity/'),
+			label: 'Activity'
+		};
+	},
 
 	render () {
 		return React.createElement(Router.Locations, {ref: 'router', contextual: true},

@@ -50,7 +50,7 @@ export default React.createClass({
 						<Head {...this.props}>
 							<ul className="profile-nav">
 								<li className="profile-nav-item"><ActiveState hasChildren tag="a" href="/about/">About</ActiveState></li>
-								<li className="profile-nav-item"><ActiveState tag="a" href="/activity/">Activity</ActiveState></li>
+								<li className="profile-nav-item"><ActiveState tag="a" href="/activity/" hasChildren={/^\/(activity|thoughts)/i}>Activity</ActiveState></li>
 								<li className="profile-nav-item"><ActiveState tag="a" href="/memberships/">Memberships</ActiveState></li>
 								{/*<li className="profile-nav-item"><ActiveLink href="/achievements/">Achievements</ActiveLink></li>*/}
 							</ul>
