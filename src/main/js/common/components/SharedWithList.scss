@@ -1,4 +1,7 @@
+@import "utils/variables";
+
 .shared-with-list {
+	pointer-events: none; //NTI-59 - Some communities shouldn't be navigable. They aren't marked so this list drops the ability to link to the entity profiles.
 
 	& > span {cursor: default;}
 	address, a { cursor: pointer; }

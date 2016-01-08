@@ -27,16 +27,6 @@
 @import "components/search";
 @import "components/share-with-entry";
 @import "components/selectable-entity";
-@import "components/shared-with-list";
 @import "components/toggle";
 @import "components/video";
 @import "components/zoomable";
-
-
-%interaction-disabled {
-	&, * {
-		pointer-events: none;
-		cursor: default !important;
-	}
-	opacity: 0.6
-}

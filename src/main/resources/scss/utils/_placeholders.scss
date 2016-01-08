@@ -216,6 +216,15 @@
 }
 
 
+%interaction-disabled {
+	opacity: 0.6;
+	&, * {
+		pointer-events: none;
+		cursor: default !important;
+	}
+}
+
+
 %submission-error {
 	position: absolute;
 	bottom: 3rem;
