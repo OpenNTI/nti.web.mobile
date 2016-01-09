@@ -1,5 +1,5 @@
 import React from 'react';
-import Mixin from './Mixin';
+import Mixin, {stopEvent} from './Mixin';
 
 import {Panel, Editor} from 'modeled-content';
 
@@ -25,7 +25,7 @@ export default React.createClass({
 		value = this.unwrapValue(value);
 
 		return (
-			<form className="modeled content">
+			<form className="modeled content" onSubmit={stopEvent}>
 				{submitted && (<Panel body={value}/>)}
 				{!submitted && (<Editor ref="input" value={value}
 					onChange={this.handleInteraction}

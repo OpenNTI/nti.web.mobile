@@ -1,5 +1,5 @@
 import React from 'react';
-import Mixin from './Mixin';
+import Mixin, {stopEvent} from './Mixin';
 
 import {getEventTarget} from 'nti-lib-dom';
 
@@ -36,7 +36,7 @@ export default React.createClass({
 		let solution = submitted && this.getSolution();
 
 		return (
-			<form className="multiple-choice" ref="form">
+			<form className="multiple-choice" ref="form" onSubmit={stopEvent}>
 				{choices.map((x, i) => {
 					return this.renderChoice(x, i, solution);
 				})}

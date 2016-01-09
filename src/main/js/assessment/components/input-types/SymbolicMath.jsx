@@ -9,7 +9,7 @@ import Error from 'common/components/Error';
 import ExternalLibraryManager from 'common/mixins/ExternalLibraryManager';
 import {clearLoadingFlag, setError} from 'common/utils/react-state';
 
-import Mixin from './Mixin';
+import Mixin, {stopEvent} from './Mixin';
 
 
 function stop (e) {
@@ -152,7 +152,7 @@ export default React.createClass({
 
 
 		return (
-			<form className="symbolic-math" onKeyUp={this.onKeyUp} onPaste={block}>
+			<form className="symbolic-math" onKeyUp={this.onKeyUp} onPaste={block} onSubmit={stopEvent}>
 				<div className="input" onClick={this.focusInput}>
 					<span ref="input" data-label={item.answerLabel}/>
 				</div>

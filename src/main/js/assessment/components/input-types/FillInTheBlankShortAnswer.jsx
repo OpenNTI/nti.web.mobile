@@ -1,6 +1,6 @@
 import React from 'react';
 
-import InputType from './Mixin';
+import InputType, {stopEvent} from './Mixin';
 
 import Content from '../Content';
 
@@ -36,7 +36,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<form ref="form" className="fill-in-the-blank">
+			<form ref="form" className="fill-in-the-blank" onSubmit={stopEvent}>
 				<Content
 					content={this.props.item.input}
 					strategies={strategies}

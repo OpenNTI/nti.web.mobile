@@ -1,7 +1,8 @@
 import React from 'react';
-import Mixin from './Mixin';
+import Mixin, {stopEvent} from './Mixin';
 
 import isEmpty from 'fbjs/lib/isEmpty';
+
 
 /**
  * This input type represents Free Response
@@ -21,7 +22,7 @@ export default React.createClass({
 		const {state: {value}} = this;
 
 		return (
-			<form className="free-response">
+			<form className="free-response" onSubmit={stopEvent}>
 				<input ref="input" value={value} onChange={this.handleInteraction} onBlur={this.onBlur} readOnly={this.isSubmitted()}/>
 			</form>
 		);

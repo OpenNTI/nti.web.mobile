@@ -7,6 +7,8 @@ const inputTypeCleaned = Symbol();
 
 const onStoreChange = 'input-types:mixin:OnStoreChange';
 
+export const stopEvent = e => (e.preventDefault(), e.stopPropagation());
+
 export default {
 
 	statics: {

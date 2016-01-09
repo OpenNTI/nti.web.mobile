@@ -1,5 +1,5 @@
 import React from 'react';
-import InputType from './Mixin';
+import InputType, {stopEvent} from './Mixin';
 
 import Content from '../Content';
 
@@ -113,7 +113,7 @@ export default React.createClass({
 		let solution = submitted && this.getSolution();
 
 		return (
-			<form className="ordering">
+			<form className="ordering" onSubmit={stopEvent}>
 				{dropTargets.map((x, i)=>
 					this.renderDropTarget(x, i, solution)
 				)}

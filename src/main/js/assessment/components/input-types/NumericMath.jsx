@@ -1,5 +1,5 @@
 import React from 'react';
-import Mixin from './Mixin';
+import Mixin, {stopEvent} from './Mixin';
 
 import isEmpty from 'fbjs/lib/isEmpty';
 
@@ -23,7 +23,7 @@ export default React.createClass({
 		let submitted = this.isSubmitted();
 
 		return (
-			<form className="free-response">
+			<form className="free-response" onSubmit={stopEvent}>
 				<input ref="input" value={value} onChange={this.handleInteraction} readOnly={submitted}/>
 			</form>
 		);

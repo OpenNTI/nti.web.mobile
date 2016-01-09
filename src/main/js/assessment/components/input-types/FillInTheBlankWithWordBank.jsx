@@ -1,7 +1,7 @@
 import React from 'react';
 import emptyFunction from 'fbjs/lib/emptyFunction';
 
-import InputType from './Mixin';
+import InputType, {stopEvent} from './Mixin';
 
 import Content from '../Content';
 import Store from '../../Store';
@@ -106,7 +106,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<form className="fill-in-the-blank">
+			<form className="fill-in-the-blank" onSubmit={stopEvent}>
 				<Content
 					content={this.props.item.input}
 					strategies={strategies}

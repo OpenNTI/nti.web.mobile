@@ -1,5 +1,5 @@
 import React from 'react';
-import InputType from './Mixin';
+import InputType, {stopEvent} from './Mixin';
 
 import Content from '../Content';
 
@@ -121,7 +121,7 @@ export default React.createClass({
 					)}
 				</div>
 
-				<form className="box">
+				<form className="box" onSubmit={stopEvent}>
 					{dropTargets.map((x, i)=>
 						this.renderDropTarget(x, i, solution)
 					)}
