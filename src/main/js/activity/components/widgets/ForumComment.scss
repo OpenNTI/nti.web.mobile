@@ -10,11 +10,9 @@
 
 	.wrap {
 		position: relative;
-		// padding-left: 4rem;
-		padding-left: 3rem;
 		font-size: .75rem;
 		min-height: 4rem;
-		// margin-top: 1rem;
+
 		.avatar {
 			width: 2.5rem;
 			height: 2.5rem;
@@ -31,5 +29,10 @@
 		.username {
 			font-weight: 600;
 		}
+	}
+
+	.wrap,
+	.modeled-content {
+		padding-left: 3rem;
 	}
 }

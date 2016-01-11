@@ -8,6 +8,8 @@ import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 import LuckyCharms from 'common/components/LuckyCharms';
 
+import {getService} from 'common/utils';
+
 import Mixin from './Mixin';
 
 export default React.createClass({
@@ -15,27 +17,63 @@ export default React.createClass({
 	mixins: [Mixin],
 
 	statics: {
-		mimeType: /forums\.(.+)forumcomment/i
+		mimeType: /forums\.personalblogcomment/i
 	},
+
 
 	propTypes: {
 		item: React.PropTypes.any.isRequired
 	},
 
-	render () {
 
+	getInitialState () {
+		return {};
+	},
+
+
+	componentWillMount () {
+		this.getTitle();
+	},
+
+
+	componentWillReceiveProps (nextProps) {
 		let {item} = this.props;
+
+		if ((item || {}).containerId !== (nextProps.item || {}).containerId) {
+			this.getTitle(nextProps);
+		}
+	},
+
+
+	getTitle (props = this.props) {
+		this.setState({title: ''});
+
+		const {containerId} = props.item;
+
+		getService()
+			.then(service => service.getObject(containerId))
+			.then(post => post.title)
+			.then(title => this.setState({title}));
+
+	},
+
+
+	render () {
+		const {props: {item}, state: {title}} = this;
+
 		if (!item) {
 			return null;
 		}
 
+		const {creator} = item;
+
 		return (
-			<div className="forum-comment">
+			<div className="blog forum-comment">
 				<Breadcrumb item={item} />
 				<div className="body">
 					<LuckyCharms item={item} />
 					<div className="wrap">
-						<Avatar entity={item.creator} /> <DisplayName entity={item.creator} /> commented on this discussion.
+						<Avatar entity={creator} /> <DisplayName entity={creator} /> commented on the thought: <span className="title">{title}</span>
 						<div className="meta">
 							<DateTime date={item.getCreatedTime()} relative/>
 						</div>
