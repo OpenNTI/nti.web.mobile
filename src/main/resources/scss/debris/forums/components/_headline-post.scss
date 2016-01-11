@@ -1,10 +1,11 @@
 .headline.post, .headline.postitem {
-	$topmargin: 2rem;
-	margin-top: $topmargin;
+	margin-top: 1rem;
 	position: relative;
 
 	.charms {
-		transform: translateY(-$topmargin);
+		float: right;
+		position: relative;
+		top: -0.8rem;
 	}
 
 	.avatar {
@@ -17,12 +18,17 @@
 	}
 
 	.wrap {
-		margin: 0 0 1rem 4.375rem;//5rem;
+		margin: 0 0 2rem 4.375rem;//5rem;
 		font-size: 0.75rem;
 
-		.meta{padding: 0;}
+		.meta{
+			padding: 0;
+		}
 
-		h1 {margin-bottom:0;}
+		h1 {
+			font-family: $body-font-family;
+			margin-bottom:0;
+		}
 
 		time {
 			color: $tertiary-grey;
