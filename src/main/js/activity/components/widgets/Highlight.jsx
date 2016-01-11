@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
+import Ellipsed from 'common/components/Ellipsed';
+
 import Mixin from './Mixin';
 
 export default React.createClass({
@@ -32,7 +34,10 @@ export default React.createClass({
 		return (
 			<div>
 				<div className="body">
-					<span className={css} dangerouslySetInnerHTML={{__html: item.selectedText}}/>
+					<Ellipsed tag="span"
+						className={css}
+						measureOverflow="parent"
+						dangerouslySetInnerHTML={{__html: Ellipsed.trim(item.selectedText, 200, true)}}/>
 				</div>
 			</div>
 		);

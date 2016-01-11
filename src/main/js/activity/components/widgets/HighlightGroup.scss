@@ -1,0 +1,22 @@
+.highlight-group {
+	$iconsize: 2.75rem;
+	position: relative;
+	margin-bottom: 2rem;
+
+	& > img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: $iconsize;
+
+		& + div {
+			min-height: $iconsize;
+			margin-left: 3.625rem;
+		}
+	}
+
+	.body {
+		max-height: 6rem;
+		overflow: hidden;
+	}
+}

@@ -1,10 +1,14 @@
 import React from 'react';
 
-import ellipsis from '../mixins/EllipsisText';
+import ellipsis, {trim} from '../mixins/EllipsisText';
 
 export default React.createClass({
 	displayName: 'ellipsis',
 	mixins: [ellipsis],
+
+	statics: {
+		trim
+	},
 
 	propTypes: {
 		tag: React.PropTypes.string

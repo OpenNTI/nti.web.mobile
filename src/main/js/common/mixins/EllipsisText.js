@@ -5,6 +5,27 @@ import setTextContent from 'react/lib/setTextContent';
 import SharedExecution from '../utils/SharedExecution';
 
 
+export function trim (value, len, word) {
+	if (value && value.length > len) {
+		if (word) {
+			const vs = value.substr(0, len - 2);
+			const index = Math.max(
+					vs.lastIndexOf(' '),
+					vs.lastIndexOf('.'),
+					vs.lastIndexOf('!'),
+					vs.lastIndexOf('?')
+				);
+
+			if (index !== -1 && index >= (len - 15)) {
+				return vs.substr(0, index) + '...';
+			}
+		}
+		return value.substr(0, len - 3) + '...';
+	}
+
+	return value;
+}
+
 
 
 function truncateText (el, measure) {
@@ -12,6 +33,7 @@ function truncateText (el, measure) {
 
 	let getText = () => el[textProperty];
 	let setText = text => setTextContent(el, text);
+
 
 	let setTitleOnce = () => {
 		el.setAttribute('title', getText());
@@ -24,23 +46,26 @@ function truncateText (el, measure) {
 		return;
 	}
 
-	return SharedExecution.schedual(() => {
-		let box = el;
-		if (measure === 'parent') {
-			box = el.parentNode;
-		}
 
-		function work () {
-			if (box.scrollHeight - (box.clientHeight || box.offsetHeight) >= 1) {
+	return SharedExecution.schedual(() => {
+		const box = (measure === 'parent') ? el.parentNode : el;
+		const tooBig = () => box.scrollHeight - (box.clientHeight || box.offsetHeight) >= 1;
+
+
+		function trim () {
+			if (tooBig()) {
 				if (getText() !== '...') {
 					setTitleOnce();
+
 					setText(getText().replace(/[^\.](\.*)$/, '...'));
-					return SharedExecution.schedual(work);
+
+					return SharedExecution.schedual(trim);
 				}
 			}
 		}
 
-		return work();
+
+		return trim();
 	});
 }
 

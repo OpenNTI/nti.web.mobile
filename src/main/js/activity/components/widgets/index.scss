@@ -113,12 +113,7 @@ ul.activity {
 		margin: 0 0 1rem 0;
 	}
 
-	.highlight-group {
-		@extend .ugd.heading;
-		& > img + div {
-			margin-left: 3.625rem;
-		}
-	}
+	
 
 	.body {
 		position: relative;
