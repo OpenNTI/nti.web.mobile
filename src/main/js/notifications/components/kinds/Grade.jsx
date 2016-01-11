@@ -7,7 +7,7 @@ import DisplayName from 'common/components/DisplayName';
 import NoteableMixin from '../mixins/Noteable';
 
 export default React.createClass({
-	displayName: 'ForumCommentType',
+	displayName: 'Grade',
 	mixins: [NoteableMixin],
 
 	statics: {
@@ -28,9 +28,9 @@ export default React.createClass({
 
 		return (
 			<li className="notification-item">
-				<Avatar entity={creator} width="32" height="32"/>
+				<Avatar entity={creator} width="32" height="32" suppressProfileLink/>
 				<div className="wrap">
-					<DisplayName entity={creator} /> graded {AssignmentName}{CourseName ? ` in ${CourseName}` : ''}
+					<DisplayName entity={creator} suppressProfileLink/> graded {AssignmentName}{CourseName ? ` in ${CourseName}` : ''}
 					<DateTime date={this.getEventTime()} relative />
 				</div>
 			</li>
