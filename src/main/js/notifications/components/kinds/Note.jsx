@@ -4,6 +4,14 @@ import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 import DateTime from 'common/components/DateTime';
 
+function trunc (txt, len) {
+	if (txt.length <= len) {
+		return txt;
+	}
+
+	return txt.substr(0, Math.max(0, len - 3)) + '...';
+}
+
 export default React.createClass({
 	displayName: 'ForumCommentType',
 	mixins: [NoteableMixin],
@@ -41,7 +49,9 @@ export default React.createClass({
 
 			node.innerHTML = body;
 
-			this.setState({preview: node.textContent});
+			const preview = trunc(node.textContent, 140);
+
+			this.setState({preview});
 		} catch (e) {
 			console.error(e.stack);
 		}
