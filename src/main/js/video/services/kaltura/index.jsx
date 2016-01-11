@@ -4,9 +4,6 @@ import selectSources from './SelectSources';
 
 import url from 'url';
 
-import {getModel} from 'nti-lib-interfaces';
-let MediaSource = getModel('mediasource');
-
 import {getEventTarget} from 'nti-lib-dom';
 
 import Loading from 'common/components/Loading';
@@ -30,10 +27,7 @@ export default React.createClass({
 		 *
 		 * @type {String/MediaSource}
 		 */
-		source: React.PropTypes.oneOfType([
-			React.PropTypes.string,
-			React.PropTypes.instanceOf(MediaSource)
-		]).isRequired,
+		source: React.PropTypes.any.isRequired,
 
 		autoPlay: React.PropTypes.bool,
 		deferred: React.PropTypes.bool
@@ -249,7 +243,7 @@ export default React.createClass({
 	doPlay (e) {
 		let isAnchor = e && getEventTarget(e, 'a');
 		let {video} = this.refs;
-		if (!video || !video.paused) {
+		if (!video || video.paused) {
 			return;
 		}
 

@@ -4,7 +4,6 @@
  */
 
 import QueryString from 'query-string';
-import {getService} from 'common/utils';
 import {thatReturnsArgument as is} from 'fbjs/lib/emptyFunction';
 
 const test = RegExp.prototype.test;
@@ -157,7 +156,7 @@ export default function getSources (settings) {
 
 	let url = 'https://cdnapisec.kaltura.com/api_v3/index.php?service=multirequest&' + QueryString.stringify(param);
 
-	return getService()
-		.then(srv=> srv.get({url, headers: null}))
+	return fetch(url)
+		.then(x => x.json())
 		.then(parseResult);
 }

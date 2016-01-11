@@ -1,5 +1,4 @@
 import React from 'react';
-import ErrorWidget from 'common/components/Error';
 
 import MESSAGES from 'common/utils/WindowMessageListener';
 
@@ -54,7 +53,7 @@ let Source = React.createClass({
 
 
 	componentWillMount () {
-		let id = uuid.v4();
+		const id = uuid.v4();
 		this.setState({id});
 		this.updateURL(this.props, id);
 	},
@@ -88,7 +87,7 @@ let Source = React.createClass({
 			console.error('Player ID missing');
 		}
 
-		let args = {
+		const args = {
 			api: 1,
 			player_id: id,//eslint-disable-line camelcase
 			//autopause: 0, //we handle this for other videos, but its nice we only have to do this for cross-provider videos.
@@ -105,7 +104,7 @@ let Source = React.createClass({
 
 
 	updateURL (props, id) {
-		let url = this.buildURL(props, id);
+		const url = this.buildURL(props, id);
 		this.setState({
 			scope: url.split('?')[0],
 			playerURL: url
@@ -183,7 +182,7 @@ let Source = React.createClass({
 
 	render () {
 		if (!this.state.playerURL) {
-			return (<ErrorWidget error="No source"/>);
+			return (<div>No source</div>);
 		}
 
 		let {id} = this.state;

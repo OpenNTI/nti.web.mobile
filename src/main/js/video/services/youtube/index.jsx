@@ -3,7 +3,6 @@ import invariant from 'invariant';
 
 import {EventHandlers} from '../../Constants';
 
-import ErrorWidget from 'common/components/Error';
 import MESSAGES from 'common/utils/WindowMessageListener';
 
 import QueryString from 'query-string';
@@ -98,9 +97,9 @@ let Source = React.createClass({
 
 
 	componentDidUpdate (prevProps, prevState) {
-		let state = this.state;
-		let initTask = state.initTask;
-		let prevInitTask = prevState.initTask;
+		const {state} = this;
+		const {initTask} = state;
+		const prevInitTask = prevState.initTask;
 
 		invariant(
 			(initTask && (initTask === prevInitTask || !prevInitTask)),
@@ -121,14 +120,14 @@ let Source = React.createClass({
 
 
 	buildURL (props) {
-		let mediaSource = props.source;
-		let videoId = typeof mediaSource === 'string' ? Source.getID(mediaSource) : mediaSource.source;
+		const unwrap = x => Array.isArray(x) ? x[0] : x;
+		const {deferred, source: mediaSource} = props;
 
-		if (Array.isArray(videoId)) {
-			videoId = videoId[0];
-		}
+		const videoId = typeof mediaSource === 'string'
+			? Source.getID(mediaSource)
+			: unwrap(mediaSource.source);
 
-		let args = {
+		const args = {
 			enablejsapi: 1,
 			html5: 1,
 			modestbranding: 1,
@@ -137,7 +136,7 @@ let Source = React.createClass({
 			rel: 0,
 			showinfo: 0,
 			playsinline: 1,
-			autoplay: (props.autoPlay || (this.state.autoPlay && props.deferred)) ? 1 : 0,
+			autoplay: (props.autoPlay || (this.state.autoPlay && deferred)) ? 1 : 0,
 			origin: location.protocol + '//' + location.host
 		};
 
@@ -151,14 +150,14 @@ let Source = React.createClass({
 
 
 	getPlayerContext () {
-		let {iframe} = this.refs;
+		const {iframe} = this.refs;
 		return iframe && (iframe.contentWindow || window.frames[iframe.name]);
 	},
 
 
 	render () {
-		let {autoPlay, id} = this.state;
-		let {source, deferred} = this.props;
+		const {autoPlay, id} = this.state;
+		const {source, deferred} = this.props;
 
 		if (!id) {
 			console.error('No ID');
@@ -166,17 +165,17 @@ let Source = React.createClass({
 		}
 
 		if (!source) {
-			return (<ErrorWidget error="No source"/>);
+			return (<div>No source</div>);
 		}
 
-		let props = Object.assign({}, props, {
+		const props = Object.assign({}, props, {
 			name: id,
 			deferred: null,
 			frameBorder: 0,
 			ref: 'iframe'
 		});
 
-		let render = !deferred || autoPlay;
+		const render = !deferred || autoPlay;
 
 		return !render ? null : (
 			<iframe {...props} src={this.state.playerURL} allowFullScreen allowTransparency />
@@ -200,25 +199,25 @@ let Source = React.createClass({
 
 
 	onMessage (event) {
-		const getData = x => typeof x === 'string' ? JSON.parse(x) : x;
-		let data = getData(event.data);
-
-		let eventName = (data && data.event) || '';
-
-		if (Array.isArray(eventName)) {
-			if (eventName.length !== 1) {
-				console.warn('Unexpected Data!!', data);
+		const unwrap = x => {
+			if (Array.isArray(x)) {
+				if (x.length !== 1) {
+					console.warn('Unexpected Data!!', x);
+				}
+				return x[0];
 			}
-			eventName = eventName[0];
-		}
+			return x;
+		};
 
-		let handlerName = 'handle' + eventName.charAt(0).toUpperCase() + eventName.substr(1);
-		let implemented = !!this[handlerName];
+		const data = JSON.parse(event.data);
+		const eventName = unwrap(data && data.event) || '';
+		const handlerName = 'handle' + eventName.charAt(0).toUpperCase() + eventName.substr(1);
+		const implemented = !!this[handlerName];
 
 		//event.source === this.getPlayerContext()
 
-		let originMismatch = event.origin !== this.state.scope;
-		let idMismatch = data.id !== this.state.id;
+		const originMismatch = event.origin !== this.state.scope;
+		const idMismatch = data.id !== this.state.id;
 
 		if (originMismatch || idMismatch) {
 
@@ -244,13 +243,13 @@ let Source = React.createClass({
 
 
 	postMessage (method, ...params) {
-		let context = this.getPlayerContext(), data;
+		const context = this.getPlayerContext();
 		if (!context) {
 			console.warn(this.state.id, ' No Player Context!');
 			return;
 		}
 
-		data = method ?
+		const data = method ?
 			{
 				event: 'command',
 				func: method,
@@ -290,7 +289,7 @@ let Source = React.createClass({
 			this.setState({playerState: state});
 		}
 
-		let event = YT_STATE_TO_EVENTS[state];
+		const event = YT_STATE_TO_EVENTS[state];
 		if (event) {
 			this.fireEvent(event);
 		}
