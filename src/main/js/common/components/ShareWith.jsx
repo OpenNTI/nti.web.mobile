@@ -179,6 +179,7 @@ export default React.createClass({
 			search = void 0;
 		}
 
+		this.onInputFocus();
 		this.setState({search});
 	},
 
@@ -266,7 +267,7 @@ export default React.createClass({
 							onTouchStart={this.onListScroll}
 							onScroll={this.onListScroll}
 							className={cx('scroller', 'visible', {'restrict': inputFocused})}>
-							
+
 							<h3>Search Results:</h3>
 							<Search allowAny
 								query={trim(search)}
