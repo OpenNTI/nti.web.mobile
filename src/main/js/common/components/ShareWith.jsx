@@ -56,6 +56,8 @@ export default React.createClass({
 		for(let e of EVENTS) {
 			document.body.removeEventListener(e, this.maybeCloseDrawer, e === 'focus');
 		}
+
+		this.setState({focused: false});
 	},
 
 
@@ -115,14 +117,26 @@ export default React.createClass({
 
 
 	maybeCloseDrawer (e) {
-		const {state: {focused}, refs: {el}, props: {onBlur}} = this;
+		const {state: {focused}, refs: {el, entry}, props: {onBlur}} = this;
 
-		if (!focused || !this.isMounted()) {
+		if (!focused || !el) {
 			return;
 		}
 
 		if (!el.contains(e.target)) {
-			this.setState({focused: false}, onBlur);
+			clearTimeout(this.maybeCloseDrawerTimout);
+			this.maybeCloseDrawerTimout = setTimeout(()=> {
+
+				let dy = el.offsetHeight - entry.offsetHeight;
+
+				this.setState({focused: false}, onBlur);
+
+				//When this is used on a desktop environment and the
+				//list is "out of flow"/positioned... don't assume
+				//inline-mobile-styles.
+				scrollBy(0, -dy);
+
+			}, 500);
 		}
 	},
 
@@ -163,11 +177,13 @@ export default React.createClass({
 			scroller.focus();
 		}
 
+		clearTimeout(this.maybeCloseDrawerTimout);
 		this.setState({focused: true, inputFocused: false});
 	},
 
 
 	onInputFocus () {
+		clearTimeout(this.maybeCloseDrawerTimout);
 		this.setState({focused: true, inputFocused: true});
 	},
 
@@ -244,7 +260,7 @@ export default React.createClass({
 		return (
 			<div ref="el" className={cx('share-with', {'active': focused})}>
 
-				<div className="share-with-entry" onClick={this.onFocus}>
+				<div ref="entry" className="share-with-entry" onClick={this.onFocus}>
 					{selection.getItems().map(e =>
 						<ShareTarget key={e.getID ? e.getID() : e} entity={e}
 							selected={pendingRemove === e}
