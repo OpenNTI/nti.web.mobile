@@ -7,6 +7,19 @@ export default React.createClass({
 	displayName: 'NotFound',
 	mixins: [BasePathAware],
 
+
+	propTypes: {
+		code: React.PropTypes.number,
+		message: React.PropTypes.string
+	},
+
+	getDefaultProps () {
+		return {
+			code: 404,
+			message: 'That page was not found.'
+		};
+	},
+
 	onBack (e) {
 		e.preventDefault();
 		e.stopPropagation();
@@ -23,6 +36,8 @@ export default React.createClass({
 		let home = this.getBasePath();
 		let {length = 1} = global.history || {};
 
+		const {code, message} = this.props;
+
 		return (
 			<div title="Not Found">
 				<div className="grid-container">
@@ -30,8 +45,9 @@ export default React.createClass({
 					<div className="row">
 						<div className="small-10 small-centered columns">
 							<div className="sadface">:(</div>
-							<h2>Error (404)</h2>
-							<p>That page was not found.</p>
+
+							<h2>Error ({code})</h2>
+							<p>{message}</p>
 
 							{length > 1 && (
 								<span>

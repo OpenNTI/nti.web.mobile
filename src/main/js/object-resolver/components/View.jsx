@@ -66,6 +66,10 @@ export default React.createClass({
 					return this.setState({prompt: error});
 				}
 
+				if (error.statusCode === 403) {
+					return this.setState({forbid: error});
+				}
+
 				return Promise.reject(error);
 			})
 			.catch(error => {
@@ -76,9 +80,11 @@ export default React.createClass({
 
 
 	render () {
-		let {location, error, prompt, object} = this.state;
+		let {location, error, forbid, prompt, object} = this.state;
 		return location ? (
 			<Redirect location={location}/>
+		) : forbid ? (
+			<NotFound code={403} message="You do not have access to this content."/>
 		) : error ? (
 			<NotFound/>
 		) : prompt ? (
