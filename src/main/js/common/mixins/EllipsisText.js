@@ -52,20 +52,20 @@ function truncateText (el, measure) {
 		const tooBig = () => box.scrollHeight - (box.clientHeight || box.offsetHeight) >= 1;
 
 
-		function trim () {
+		function trimStep () {
 			if (tooBig()) {
 				if (getText() !== '...') {
 					setTitleOnce();
 
 					setText(getText().replace(/[^\.](\.*)$/, '...'));
 
-					return SharedExecution.schedual(trim);
+					return SharedExecution.schedual(trimStep);
 				}
 			}
 		}
 
 
-		return trim();
+		return trimStep();
 	});
 }
 
