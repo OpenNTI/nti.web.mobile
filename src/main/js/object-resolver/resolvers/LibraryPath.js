@@ -76,6 +76,7 @@ const MIME_TYPES = {
 
 	'user': profileHref,
 
+	'ntivideo': 'ntivideoref',
 	'ntivideoref': (o, prev, next, target) => {
 		let c = `/videos/${encode(o.getID())}/`;
 		if(next && /pageinfo$/i.test(next.MimeType)) {
