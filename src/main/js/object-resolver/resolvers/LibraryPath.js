@@ -76,6 +76,8 @@ const MIME_TYPES = {
 
 	'user': profileHref,
 
+	'ntislidedeck': () => '',
+
 	'ntivideo': 'ntivideoref',
 	'ntivideoref': (o, prev, next, target) => {
 		let c = `/videos/${encode(o.getID())}/`;
