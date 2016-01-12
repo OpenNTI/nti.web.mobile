@@ -86,20 +86,21 @@ export default React.createClass({
 	},
 
 	selectionChange (user) {
-		let {selectedUsers} = this.state;
-		let {onChange} = this.props;
-		let userId = user.getID();
-		selectedUsers = selectedUsers.slice(0);
-		let index = selectedUsers.findIndex((item) => item.getID() === userId);
+		const {props: {onChange}, state: {selectedUsers}} = this;
+
+		const userId = user.getID();
+		const newSelection = selectedUsers.slice(0);
+		const index = newSelection.findIndex((item) => item.getID() === userId);
+
 		if ( index > -1) {
-			selectedUsers.splice(index, 1);
+			newSelection.splice(index, 1);
 		}
 		else {
-			selectedUsers.push(user);
+			newSelection.push(user);
 		}
-		this.setState({
-			selectedUsers
-		});
+
+		this.setState({ selectedUsers: newSelection });
+
 		if (onChange) {
 			onChange(user);
 		}
@@ -167,11 +168,11 @@ export default React.createClass({
 	},
 
 	renderResults (heading, results, classes) {
-		let classnames = cx('contact-list search-results', classes);
-		let {selectedUsers} = this.state;
+		const classnames = cx('contact-list search-results', classes);
+		const {props: {selected}, state: {selectedUsers}} = this;
 
 		// filter out already-selected users
-		let filtered = results.filter((user) => !listContainsEntity(this.props.selected, user));
+		const filtered = results.filter((user) => !listContainsEntity(selected, user));
 
 		return (
 			<section>
@@ -182,7 +183,7 @@ export default React.createClass({
 							<SelectableEntity
 								key={'selectable-' + entity.getID()}
 								entity={entity}
-								selected={listContainsEntity(selectedUsers, entity) || listContainsEntity(this.props.selected, entity)}
+								selected={listContainsEntity(selectedUsers, entity) || listContainsEntity(selected, entity)}
 								onChange={this.selectionChange.bind(this, entity)}
 							/>)
 						: <li className="no-results">No results</li>
@@ -217,11 +218,13 @@ export default React.createClass({
 	},
 
 	render () {
+		const {props, state: {selectedUsers = []}} = this;
+		const {onCancel, onSave, placeholder, saveButtonText, saveDisabled} = props;
 
-		let {selectedUsers} = this.state;
-
-		let saveButtonClasses = cx('primary button', {
-			'disabled': selectedUsers.length === 0 || this.props.saveDisabled
+		const saveButtonClasses = cx('primary button', {
+			'disabled': 'saveDisabled' in props
+							? saveDisabled
+							: (selectedUsers.length === 0)
 		});
 
 		return (
@@ -234,15 +237,15 @@ export default React.createClass({
 							ref="query"
 							onChange={this.queryChanged}
 							onKeyDown={this.onKeyDown}
-							placeholder={this.props.placeholder}
+							placeholder={placeholder}
 						/>
 					</li>
 				</ul>
 				{this.results()}
 				<div className="button-spacer">
 					<div className="buttons">
-						<button className="secondary button" onClick={this.props.onCancel}>Cancel</button>
-						<button className={saveButtonClasses} onClick={this.props.onSave}>{this.props.saveButtonText}</button>
+						<button className="secondary button" onClick={onCancel}>Cancel</button>
+						<button className={saveButtonClasses} onClick={onSave}>{saveButtonText}</button>
 					</div>
 				</div>
 			</div>
