@@ -49,7 +49,7 @@ export function loadDiscussions (pkg) {
 
 // convenience method that just adds params to the getObjectContents call.
 export function getTopicContents (topicId, batchStart = 0, batchSize = 50) {
-	return getPagedContents(topicId, batchStart, batchSize, 'ascending');
+	return getPagedContents(topicId, batchStart, batchSize, 'ascending', 'CreatedTime');
 }
 
 export function getForumContents (forumId, batchStart, batchSize) {
@@ -59,11 +59,12 @@ export function getForumContents (forumId, batchStart, batchSize) {
 export function getPagedContents (ntiid,
 									batchStart = 0,
 									batchSize = DEFAULT_BATCH_SIZE,
-									sortOrder = DEFAULT_SORT_ORDER) {
+									sortOrder = DEFAULT_SORT_ORDER,
+									sortOn = DEFAULT_PAGING_PARAMS.sortOn) {
 	let params = Object.assign(
 		{},
 		DEFAULT_PAGING_PARAMS,
-		{batchStart, batchSize, sortOrder}
+		{batchStart, batchSize, sortOrder, sortOn}
 	);
 	return getObjectContents(ntiid, params);
 }
