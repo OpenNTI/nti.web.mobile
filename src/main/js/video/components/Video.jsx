@@ -1,7 +1,6 @@
 import React from 'react';
-import {getHandler} from '../services';
 
-import Fallback from '../services/html5';
+import Video from 'nti-web-video';
 
 import emptyFunction from 'fbjs/lib/emptyFunction';
 
@@ -15,7 +14,7 @@ const WatchVideoEvent = getModel('analytics.watchvideoevent');
 function deprecated (o, k) { if (o[k]) { return new Error(`Deprecated prop: \`${k}\`, use \`newWatchEventFactory\` callback prop.`); } }
 
 export default React.createClass({
-	displayName: 'Video',
+	displayName: 'VideoWrapper',
 
 
 	propTypes: {
@@ -226,22 +225,19 @@ export default React.createClass({
 
 
 	render () {
-		let video = this.props.src;
-		let Provider = getHandler(video) || Fallback;
-		let videoSource = video && (video.sources || {})[0];
+		const {src: video} = this.props;
+		const videoSource = video && (video.sources || {})[0];
 
 		return (
-			<div className={'flex-video widescreen ' + Provider.displayName}>
-				<Provider {...this.props}
-					ref="activeVideo"
-					source={videoSource || video}
-					onTimeUpdate={this.onTimeUpdate}
-					onSeeked={this.onSeeked}
-					onPlaying={this.onPlaying}
-					onPause={this.onPause}
-					onEnded={this.onEnded}
-					/>
-			</div>
+			<Video {...this.props}
+				ref="activeVideo"
+				source={videoSource || video}
+				onTimeUpdate={this.onTimeUpdate}
+				onSeeked={this.onSeeked}
+				onPlaying={this.onPlaying}
+				onPause={this.onPause}
+				onEnded={this.onEnded}
+				/>
 		);
 	}
 });

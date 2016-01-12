@@ -76,6 +76,7 @@
     "nti-lib-interfaces": "^1.0.0",
     "nti-lib-ranges": "^1.0.0",
     "nti-lib-whiteboardjs": "^1.0.0",
+    "nti-web-video": "^1.0.0",
     "null-loader": "^0.1.0",
     "numeral": "^1.5.3",
     "object-hash": "^0.9.0",

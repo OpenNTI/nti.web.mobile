@@ -5,7 +5,7 @@ import {ToolMixin, Constants} from 'react-editor-component';
 
 import {getEventTarget} from 'nti-lib-dom';
 
-import {getHandler} from 'video/services';
+import {getHandler} from 'nti-web-video';
 
 import VideoIcon from './editor-parts/VideoIcon';
 

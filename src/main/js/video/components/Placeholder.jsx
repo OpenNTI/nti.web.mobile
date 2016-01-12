@@ -7,7 +7,7 @@ import {getService} from 'common/utils';
 
 import Video from './Video';
 
-import {getHandler} from '../services';
+import {getHandler} from 'nti-web-video';
 
 const Source = getModel('mediasource');
 

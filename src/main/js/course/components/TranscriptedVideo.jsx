@@ -293,7 +293,10 @@ export default React.createClass({
 
 
 	onJumpTo  (time) {
-		this.refs.video.setCurrentTime(parseFloat(time));
+		const {video} = this.refs;
+		if (video) {
+			video.setCurrentTime(parseFloat(time));
+		}
 	},
 
 
