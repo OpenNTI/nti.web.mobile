@@ -4,7 +4,7 @@ import Transition from 'react-addons-css-transition-group';
 import path from 'path';
 import cx from 'classnames';
 
-import {Logger} from 'nti-lib-interfaces';
+import Logger from 'nti-util-logger';
 import buffer from 'nti-lib-interfaces/lib/utils/function-buffer';
 
 import C from 'common/components/Conditional';

@@ -2,7 +2,7 @@ import Contributor, {ContextParent} from './ContextContributor';
 
 import * as Actions from 'navigation/Actions';
 
-import {Logger} from 'nti-lib-interfaces';
+import Logger from 'nti-util-logger';
 
 const logger = Logger.get('ContextSender');
 

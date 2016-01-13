@@ -11,7 +11,7 @@ var express = require('express');
 var common = require('./lib/common');
 var server = require('./lib/app-server');
 
-var logger = require('./lib/logger').default;
+var logger = require('nti-util-logger').default;
 var setupErrorHandler = require('./lib/error-handler').default;
 
 function contextualize (root, app) {
