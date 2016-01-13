@@ -37,6 +37,9 @@ $alt-grey: darken($panel-background, 3.9%); // #f1f1f1
 					@extend %icon-assignment-late-small;
 				}
 			}
+			& > * {
+				flex: 1 1 auto;
+			}
 		}
 	}
 }
