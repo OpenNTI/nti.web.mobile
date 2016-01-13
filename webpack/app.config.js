@@ -87,15 +87,16 @@ exports = module.exports = [
 			new webpack.optimize.DedupePlugin(),
 			new webpack.optimize.OccurenceOrderPlugin(),
 			new webpack.DefinePlugin({
-				SERVER: false,
-				'build_source': gitRevision,
+				'SERVER': false,
+				'BUILD_SOURCE': gitRevision,
+				'process.browser': true,
 				'process.env': {
 					// This has effect on the react lib size
 					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 				}
 			}),
 			new webpack.ProvidePlugin({
-				'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+				// 'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
 			}),
 			new ExtractTextPlugin('resources/styles.css', {allChunks: true})
 		]
@@ -119,8 +120,9 @@ exports = module.exports = [
 		},
 		plugins: [
 			new webpack.DefinePlugin({
-				SERVER: true,
-				'build_source': gitRevision,
+				'SERVER': true,
+				'BUILD_SOURCE': gitRevision,
+				'process.browser': false,
 				'process.env': {
 					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
 				}

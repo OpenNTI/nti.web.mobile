@@ -60,7 +60,7 @@ function includeWidgets () {
 				new webpack.optimize.OccurenceOrderPlugin(),
 				new webpack.DefinePlugin({
 					SERVER: false,
-					'build_source': gitRevision,
+					'BUILD_SOURCE': gitRevision,
 					'process.env': {
 						// This has effect on the react lib size
 						'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')

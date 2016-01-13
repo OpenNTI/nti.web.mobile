@@ -1,3 +1,4 @@
+/*globals BUILD_SOURCE*/
 import logger from './logger';
 
 import url from 'url';
@@ -11,6 +12,9 @@ const basepathreplace = /(manifest|src|href)="(.*?)"/igm;
 const configValues = /<\[cfg\:([^\]]*)\]>/igm;
 
 function injectConfig (cfg, orginal, prop) {
+	if (prop === 'revision' && typeof BUILD_SOURCE !== 'undefined') {
+		return BUILD_SOURCE;
+	}
 	return cfg[prop] || 'MissingConfigValue';
 }
 
