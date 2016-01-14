@@ -48,12 +48,10 @@ export default {
 	},
 
 	componentWillMount () {
-		let defaultValue = void 0;
-		if (this.getDefaultValue) {
-			defaultValue = this.getDefaultValue();
-		}
+		const storeValue = Store.getPartValue(this.props.item);
+		const defaultValue = (this.getDefaultValue && storeValue === void 0) ? this.getDefaultValue() : void 0;
 
-		this.setValue(Store.getPartValue(this.props.item) || defaultValue);
+		this.setValue(typeof storeValue === 'undefined' ? defaultValue : storeValue);
 	},
 
 
