@@ -12,8 +12,12 @@ const basepathreplace = /(manifest|src|href)="(.*?)"/igm;
 const configValues = /<\[cfg\:([^\]]*)\]>/igm;
 
 function injectConfig (cfg, orginal, prop) {
-	if (prop === 'revision') {
-		return BUILD_SOURCE;
+	try {
+		if (prop === 'revision') {
+			return BUILD_SOURCE;
+		}
+	} catch (e) {
+		//empty
 	}
 	return cfg[prop] || 'MissingConfigValue';
 }
