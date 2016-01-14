@@ -225,13 +225,9 @@ export default React.createClass({
 
 
 	render () {
-		const {src: video} = this.props;
-		const videoSource = video && (video.sources || {})[0];
-
 		return (
 			<Video {...this.props}
 				ref="activeVideo"
-				source={videoSource || video}
 				onTimeUpdate={this.onTimeUpdate}
 				onSeeked={this.onSeeked}
 				onPlaying={this.onPlaying}
