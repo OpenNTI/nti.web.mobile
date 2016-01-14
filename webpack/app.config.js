@@ -12,7 +12,7 @@ var root = path.resolve(__dirname, '..', 'src', 'main', 'js');
 var sassRoot = path.resolve(__dirname, '..', 'src', 'main', 'resources', 'scss');
 var modules = path.resolve(__dirname, '..', 'node_modules');
 
-var gitRevision = require('../src/server/lib/git-revision');
+var gitRevision = JSON.stringify(require('../src/server/lib/git-revision'));
 
 exports = module.exports = [
 	{
