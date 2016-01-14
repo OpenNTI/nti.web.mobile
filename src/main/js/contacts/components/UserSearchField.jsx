@@ -169,7 +169,7 @@ export default React.createClass({
 
 	renderResults (heading, results, classes) {
 		const classnames = cx('contact-list search-results', classes);
-		const {props: {selected}, state: {selectedUsers}} = this;
+		const {props: {selected}, state: {selectedUsers, search}} = this;
 
 		// filter out already-selected users
 		const filtered = results.filter((user) => !listContainsEntity(selected, user));
@@ -186,7 +186,7 @@ export default React.createClass({
 								selected={listContainsEntity(selectedUsers, entity) || listContainsEntity(selected, entity)}
 								onChange={this.selectionChange.bind(this, entity)}
 							/>)
-						: <li className="no-results">No results</li>
+						: <li className="no-results">{search.length > 2 ? 'No results' : 'Search too broad'}</li>
 					}
 				</ul>
 			</section>
