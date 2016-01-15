@@ -1,14 +1,15 @@
 import webpack from 'webpack';
-import WebpackServer from 'webpack-dev-server';
 import webpackConfigFile from '../../../webpack/app.config';
 
 import logger from './logger';
 
 export function setupDeveloperMode (config) {
-	let port = config.port;
+	const WebpackServer = require('webpack-dev-server');
+
+	const {port} = config;
 	let devPort = config['webpack-dev-server'] || (port + 1);
 
-	let webpackConfig = Object.assign({}, webpackConfigFile[0]);
+	const webpackConfig = Object.assign({}, webpackConfigFile[0]);
 
 	webpackConfig.output.path = '/';
 	webpackConfig.output.publicPath = '/mobile/';
