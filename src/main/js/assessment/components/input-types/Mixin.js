@@ -77,6 +77,12 @@ export default {
 	},
 
 
+	isAssessed () {
+		const {item} = this.props;
+		return !!Store.getAssessedQuestion(item, item.parent().getID());
+	},
+
+
 	isSubmitted () {
 		const {item} = this.props;
 		return Store.isSubmitted(item) || Store.isAdministrative(item);

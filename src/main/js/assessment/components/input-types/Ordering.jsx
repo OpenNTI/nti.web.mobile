@@ -109,8 +109,7 @@ export default React.createClass({
 
 	render () {
 		let dropTargets = this.props.item.labels || [];
-		let submitted = this.isSubmitted();
-		let solution = submitted && this.getSolution();
+		let solution = this.isAssessed() && this.getSolution();
 
 		return (
 			<form className="ordering" onSubmit={stopEvent}>
