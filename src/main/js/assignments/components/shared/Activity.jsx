@@ -20,6 +20,10 @@ export default React.createClass({
 
 	componentWillUnmount () {
 		const {activity} = this.state;
+		if (this.unsubscribe) {
+			this.unsubscribe();
+		}
+
 		if(activity && activity.markSeen) {
 			activity.markSeen();
 		}
@@ -32,6 +36,25 @@ export default React.createClass({
 	},
 
 
+	componentDidUpdate (_, prevState) {
+		const {activity} = this.state;
+
+		const changed = () => this.forceUpdate();
+
+		if (prevState.activity !== activity) {
+
+			if (this.unsubscribe) {
+				this.unsubscribe();
+			}
+
+			if (activity && activity.addListener) {
+				activity.addListener('change', changed);
+				this.unsubscribe = ()=> activity.removeListener('change', changed);
+			}
+		}
+	},
+
+
 	render () {
 
 		const {error, activity} = this.state;
@@ -40,7 +63,7 @@ export default React.createClass({
 			return <Notice >Coming Soon</Notice>;
 		}
 
-		if (!activity) {
+		if (!activity || activity.loading) {
 			return <Loading />;
 		}
 
