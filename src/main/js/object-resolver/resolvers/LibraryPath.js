@@ -16,6 +16,7 @@ const MIME_TYPES = {
 	'contentpackage': (o) => `/content/${encode(o.getID())}/o/`,
 	'contentpackagebundle': 'contentpackage',
 
+	'courses.legacycommunitybasedcourseinstance': 'courses.courseinstance',
 	'courses.courseinstance': (o) => `/course/${encode(o.getID())}/`,
 	'courses.courseoutlinecontentnode': (o) => `/lessons/${encode(o.getContentId())}/`,
 	'community': (o) => `/profile/${encodeURIComponent(o.getID())}/activity/`,
