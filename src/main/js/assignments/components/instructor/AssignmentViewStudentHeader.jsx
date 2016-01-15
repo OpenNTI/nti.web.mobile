@@ -44,6 +44,7 @@ export default React.createClass({
 		this.unsubcribe = () => {
 			delete this.unsubcribe;
 			collection.removeListener('new-grade', changed);
+			collection.removeListener('reset-grade', changed);
 		};
 
 		this.setup();

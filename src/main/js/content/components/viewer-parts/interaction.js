@@ -43,7 +43,10 @@ export default {
 			let frag = parts[1] || '';
 
 			if (hasClass(anchor, 'ntiglossaryentry')) {
-				this.navigate('/glossary/' + href.substr(1));
+				e.preventDefault();
+				this.setState({
+					glossaryId: href.substr(1)
+				});
 				return;
 			}
 
