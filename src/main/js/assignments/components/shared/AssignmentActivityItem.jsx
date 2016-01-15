@@ -47,7 +47,7 @@ export default React.createClass({
 				{hasName(type) ? (
 					<DisplayName entity={user} usePronoun localeKey={`${scope}.${type}`}/>
 				) : (
-					<span className="type">{t(type, {user})}</span>
+					<span className="type">{t(type)}</span>
 				)}
 				<a href={href}><span className="assignment-name">{title}</span></a>
 				<If condition={suffix}>
