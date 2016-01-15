@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Logger from 'nti-util-logger';
+
 import StoreEvents from 'common/mixins/StoreEvents';
 
 import QuestionWidget from 'assessment/components/Question';
@@ -9,6 +11,8 @@ import Store from 'assessment/Store';
 import {SYNC} from 'assessment/Constants';
 
 import Mixin from './Mixin';
+
+const logger = Logger.get('assessment:NAQuestionWidget');
 
 export default React.createClass({
 	displayName: 'NAQuestion',
@@ -46,12 +50,19 @@ export default React.createClass({
 
 
 	synchronizeFromStore () {
-		let {item, record} = this.props;
+		let {item, page, record} = this.props;
 
 		let question = record;
 
 		if (!question) {
 			question = Store.getAssessmentQuestion(item.ntiid);
+			if (!question) {
+				question = page.getAssessmentQuestion(item.ntiid);
+				if (question && !question.individual) {
+					logger.error('A Question was found in PageInfo but not in Store and it declares that its not standalone!!!');
+					question = null;
+				}
+			}
 		}
 
 		this.setState({ question });
