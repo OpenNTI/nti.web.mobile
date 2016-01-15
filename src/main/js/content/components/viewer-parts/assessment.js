@@ -27,8 +27,10 @@ export default {
 		const prev = this.getAssessment(this.props, this.state);
 		const next = this.getAssessment(nextProps, nextState);
 
+		const assessmentChanged = (next && next.getID()) !== (prev && prev.getID());
+		const historyChanged = nextProps.assessmentHistory !== this.props.assessmentHistory;
 
-		if ((next && next.getID()) !== (prev && prev.getID())) {
+		if (assessmentChanged || historyChanged) {
 			Store.teardownAssessment(prev);
 			this.setupAssessment(nextProps, nextState);
 		}

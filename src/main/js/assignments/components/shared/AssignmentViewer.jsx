@@ -39,7 +39,7 @@ export default React.createClass({
 		});
 	},
 
-	componentWillMount () {
+	setup () {
 		const {rootId, userId} = this.props;
 		const id = decodeFromURI(rootId);
 		const collection = this.getAssignments();
@@ -50,6 +50,34 @@ export default React.createClass({
 		collection.getHistoryItem(id, userId)
 			.then(history => ({history}), error => ({error}))
 			.then(state => this.setState({loading: false, ...state}));
+
+	},
+
+	componentWillUnmount () {
+		if (this.unsubcribe) {
+			this.unsubcribe();
+		}
+	},
+
+	componentReceivedAssignments (collection) {
+		const changed = (assignmentId) => {
+			if (assignmentId === decodeFromURI(this.props.rootId)) {
+				this.setup();
+			}
+		};
+
+		collection.on('reset-grade', changed);
+
+		if (this.unsubcribe) {
+			this.unsubcribe();
+		}
+
+		this.unsubcribe = () => {
+			delete this.unsubcribe;
+			collection.removeListener('reset-grade', changed);
+		};
+
+		this.setup();
 	},
 
 
