@@ -80,7 +80,7 @@
 				color: $red;
 			}
 			//Yellow=Archive
-			&.zip, &.gz, &.tar, &.z, &.7z, &.rar, &.jpeg {
+			&.zip, &.gz, &.tar, &.z, &.\7z, &.rar, &.jpeg {
 				color: $yellow;
 			}
 		}
