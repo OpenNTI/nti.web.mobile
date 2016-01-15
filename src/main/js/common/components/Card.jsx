@@ -170,6 +170,7 @@ export default React.createClass({
 	componentWillReceiveProps (props) {
 		let {item} = this.props;
 		if(item !== props.item) {
+			this.replaceState({});
 			this.resolveIcon(props);
 			this.resolveHref(props);
 		}
@@ -227,7 +228,8 @@ export default React.createClass({
 			}
 			bail();
 		})
-			.catch(()=> contentPackage.resolveContentURL(props.item.icon))
+			.catch(()=> item.icon ? contentPackage.resolveContentURL(item.icon) : Promise.reject())
+			.catch(()=> this.resolveIconFallback(item))
 			.catch(()=> null)
 			.then(icon => {
 				try {
@@ -237,6 +239,16 @@ export default React.createClass({
 				}
 				catch (e) { console.warn(e.message || e); }
 			});
+	},
+
+
+	resolveIconFallback (item) {
+		const ext = item.getFileExtentionFor();
+		const iconCls = cx('fallback', ext, {unknown: ext === 'bin'});
+		const iconLabel = ext && !/^(www|bin)$/i.test(ext) ? ext : null;
+
+		this.setState({iconCls, iconLabel});
+		return BLANK_IMAGE;
 	},
 
 
@@ -305,7 +317,7 @@ export default React.createClass({
 
 
 	render () {
-		const {state: {href, icon}, props: {item, contentPackage, commentCount, disableLink}} = this;
+		const {state: {href, icon, iconCls, iconLabel}, props: {item, contentPackage, commentCount, disableLink}} = this;
 
 		const external = this.isExternal();
 		const seen = this.isSeen();
@@ -325,8 +337,9 @@ export default React.createClass({
 				onClick={this.onClick} ref="anchor">
 
 				{!iconSrc ? null :
-					<div className="icon" style={{backgroundImage: `url(${iconSrc})`}}>
-						{external && <div/>}
+					<div className={cx('icon', iconCls)} style={{backgroundImage: `url(${iconSrc})`}}>
+						{external && <div className="external"/>}
+						{iconLabel && (<label>{iconLabel}</label>)}
 					</div>
 				}
 

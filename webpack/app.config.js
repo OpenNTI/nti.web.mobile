@@ -21,7 +21,9 @@ exports = module.exports = [
 			path: outPath + 'client/',
 			filename: 'js/[hash].js',
 			chunkFilename: 'js/[hash]-[id].js',
-			publicPath: publicPath
+			publicPath: publicPath//,
+			// devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
+			// devtoolFallbackModuleFilenameTemplate: 'webpack:///[absolute-resourcePath]?[hash]'
 		},
 
 		cache: true,
@@ -56,7 +58,8 @@ exports = module.exports = [
 				{
 					test: /src.main.js.+jsx?$/,
 					loader: 'baggage?[file].scss'
-				}
+				},
+				{ test: /\.jsx?$/, loader: 'source-map-loader' }
 			],
 			loaders: [
 				{ test: /\.async\.jsx$/i, loader: 'react-proxy' },
