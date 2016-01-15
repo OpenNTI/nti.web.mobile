@@ -51,7 +51,7 @@ export default React.createClass( {
 
 		let submitted = isSubmitted(item);
 
-		let href = path.join('content', encodeForURI(item['Target-NTIID'])) + '/';
+		let href = path.join('content', encodeForURI(item.target || item['Target-NTIID'])) + '/';
 
 		return (
 			<a className="overview-survey poll" href={href}>
