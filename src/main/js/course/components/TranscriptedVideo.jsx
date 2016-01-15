@@ -331,7 +331,7 @@ export default React.createClass({
 						src={video}
 						onTimeUpdate={this.onVideoTimeTick}
 						newWatchEventFactory={this.onNewWatchEventFactory}
-						autoPlay/>
+						/>
 				)}
 				<div className="transcript">
 					{error ? (
