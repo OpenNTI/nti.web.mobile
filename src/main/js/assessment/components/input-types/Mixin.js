@@ -78,7 +78,8 @@ export default {
 
 
 	isSubmitted () {
-		return Store.isSubmitted(this.props.item);
+		const {item} = this.props;
+		return Store.isSubmitted(item) || Store.isAdministrative(item);
 	},
 
 
