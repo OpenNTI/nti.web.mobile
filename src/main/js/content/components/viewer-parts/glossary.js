@@ -1,23 +1,17 @@
 import React from 'react';
 import GlossaryEntry from '../GlossaryEntry';
-import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 export default {
 
-	getInitialState () {
-		this.registerContentViewerSubRoute('/glossary/:glossaryId');
-	},
-
-
 	getGlossaryId () {
-		return this.getPropsFromRoute({}).glossaryId;
+		return this.state.glossaryId;
 	},
 
 
-	onDismissGlossary (evt) {
-		evt.preventDefault();
-		let pid = encodeForURI(this.getPageID());
-		this.navigate(pid);
+	onDismissGlossary () {
+		this.setState({
+			glossaryId: null
+		});
 	},
 
 
