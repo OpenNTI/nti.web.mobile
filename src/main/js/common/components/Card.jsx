@@ -272,7 +272,7 @@ export default React.createClass({
 		}
 
 		let {contentPackage, item, onClick} = this.props;
-		let resourceId = item.NTIID;
+		let resourceId = item.NTIID || item.ntiid; //Cards built from DOM have lowercase.
 		let contentId = contentPackage.getID();//this can be a CourseInstance, ContentBundle, or ContentPackage
 
 		if (onClick) {
