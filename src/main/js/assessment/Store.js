@@ -355,7 +355,7 @@ class Store extends StorePrototype {
 			})
 
 			.then(type => {
-				type = type || BUSY_LOADING;
+				type = type || SYNC;
 				this.clearBusy(assessment);
 				this.emitChange({type});
 			});
