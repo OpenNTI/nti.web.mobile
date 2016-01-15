@@ -28,13 +28,14 @@ export default React.createClass({
 	},
 
 	componentReceivedAssignments (collection) {
-		function newGrade (assignmentIdWithNewGrade) {
+		const changed = (assignmentIdWithNewGrade) => {
 			if (assignmentIdWithNewGrade === this.props.assignmentId) {
 				this.setup();
 			}
-		}
+		};
 
-		collection.on('new-grade', newGrade);
+		collection.on('new-grade', changed);
+		collection.on('reset-grade', changed);
 
 		if (this.unsubcribe) {
 			this.unsubcribe();
@@ -42,7 +43,7 @@ export default React.createClass({
 
 		this.unsubcribe = () => {
 			delete this.unsubcribe;
-			collection.removeListener('new-grade', newGrade);
+			collection.removeListener('new-grade', changed);
 		};
 
 		this.setup();

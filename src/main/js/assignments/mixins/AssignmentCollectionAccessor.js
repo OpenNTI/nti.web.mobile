@@ -24,7 +24,7 @@ export default {
 
 	componentWillReceiveProps (_,__, context) {
 		const {assignments} = context || {};
-		if (this.componentReceivedAssignments && assignments !== (this.context || {}).assignments) {
+		if (assignments && this.componentReceivedAssignments && assignments !== (this.context || {}).assignments) {
 			this.componentReceivedAssignments(assignments);
 		}
 	}
