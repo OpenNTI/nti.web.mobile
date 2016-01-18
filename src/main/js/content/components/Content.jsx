@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import {declareCustomElement} from 'common/utils/dom';
 import {getEventTarget} from 'nti-lib-dom';
+import Logger from 'nti-util-logger';
 
 import {getWidget} from './widgets';
 import isTouchDevice from 'nti-lib-interfaces/lib/utils/is-touch-device';
@@ -14,6 +15,8 @@ function getComparable (o) {
 declareCustomElement('error');
 declareCustomElement('nti:content');
 declareCustomElement('widget');
+
+const logger = Logger.get('content:viewer:body')
 
 export default React.createClass({
 	displayName: 'content:Viewer:BodyContent',
@@ -29,7 +32,7 @@ export default React.createClass({
 	getDefaultProps () {
 		return {
 			onContentReady: () => {},
-			onUserSelectionChange: hasSelection => console.debug('Touch ended, has selection?', hasSelection)
+			onUserSelectionChange: hasSelection => logger.debug('Touch ended, has selection?', hasSelection)
 		};
 	},
 
@@ -69,19 +72,19 @@ export default React.createClass({
 		shouldUpdate = shouldUpdate || (widgetCount === 0 && !this.state.prestine);
 
 		if (widgets && this.refs.content) {
-			// console.debug('Content View: Did Update... %o', widgets);
+			// logger.debug('Content View: Did Update... %o', widgets);
 
 			for(let id of Object.keys(widgets)) {
 				let el = document.getElementById(id);
 				let w = widgets[id];
 				if (el && !el.hasAttribute('mounted')) {
-					// console.debug('Content View: Mounting Widget...');
+					// logger.debug('Content View: Mounting Widget...');
 					try {
 						shouldUpdate = true;
 						w = ReactDOM.render(w, el);
 						el.setAttribute('mounted', 'true');
 					} catch (e) {
-						console.error('A content widget blew up while rendering: %s', e.stack || e.message || e);
+						logger.error('A content widget blew up while rendering: %s', e.stack || e.message || e);
 					}
 				}
 			}
@@ -102,12 +105,12 @@ export default React.createClass({
 			let el = document.getElementById(id);
 			if (el) {
 				if (!ReactDOM.unmountComponentAtNode(el)) {
-					console.warn('Widget was not unmounted: %s', id);
+					logger.warn('Widget was not unmounted: %s', id);
 				}
 				el.removeAttribute('mounted');
 			}
 			else {
-				console.warn('Widget not found: %s', id);
+				logger.warn('Widget not found: %s', id);
 			}
 		}
 	},
@@ -116,7 +119,7 @@ export default React.createClass({
 	createWidget (widgetData) {
 		let widgets = this.getPageWidgets();
 		if (!widgets[widgetData.guid]) {
-			// console.debug('Content View: Creating widget for %s', widgetData.guid);
+			// logger.debug('Content View: Creating widget for %s', widgetData.guid);
 			widgets[widgetData.guid] = getWidget(
 				widgetData,
 				this.props.page,
@@ -130,7 +133,7 @@ export default React.createClass({
 		let {pageId} = this.props;
 
 		if (pageWidgets && !pageWidgets[pageId]) {
-			//console.debug('Content View: Creating bin for PageWidgets for %s', pageId);
+			//logger.debug('Content View: Creating bin for PageWidgets for %s', pageId);
 			pageWidgets[pageId] = {};
 		}
 
@@ -153,7 +156,7 @@ export default React.createClass({
 		let prestine = current && current.cloneNode(true);
 		this.updatingPrestine = true;
 		this.setState({prestine}, () => delete this.updatingPrestine);
-		// console.debug('Updated Prestine', prestine);
+		// logger.debug('Updated Prestine', prestine);
 	},
 
 
@@ -220,7 +223,7 @@ export default React.createClass({
 		let s = window.getSelection();
 		let range = s && !s.isCollapsed && s.type === 'Range' && s.getRangeAt(0);
 
-		console.debug('Selection Detection Running...', s, range);
+		logger.debug('Selection Detection Running...', s, range);
 
 		this.props.onUserSelectionChange(capture, range);
 
