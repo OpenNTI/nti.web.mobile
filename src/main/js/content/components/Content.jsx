@@ -49,6 +49,11 @@ export default React.createClass({
 	},
 
 
+	componentWillUnmount () {
+		this.cleanupWidgets();
+	},
+
+
 	componentDidUpdate (prevProps) {
 		let shouldUpdate = getComparable(prevProps) !== getComparable(this.props);
 		this.onContentMaybeReady(shouldUpdate);
