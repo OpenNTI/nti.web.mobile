@@ -1,10 +1,12 @@
 import React from 'react';
 
+import scrollparent from 'scrollparent';
+
 import {Progress} from 'nti-lib-interfaces';
 
 import LoadingMask from 'common/components/Loading';
-
 import ContextAccessor from 'common/mixins/ContextAccessor';
+import {getScreenHeight} from 'common/utils/viewport';
 
 import {Component as Video} from 'video';
 
@@ -12,7 +14,7 @@ import Mixin from './Mixin';
 
 
 function getVideo (object, index) {
-	let {NTIID = object.ntiid} = object;
+	const {NTIID = object.ntiid} = object;
 
 	if (object.getID) {
 		return object;
@@ -20,6 +22,18 @@ function getVideo (object, index) {
 
 	return NTIID ? index.get(NTIID) : index.videoFrom(object);
 }
+
+
+function listen (context, action) {
+	const p = scrollparent(context.refs.el);
+	p[action]('scroll', context.maybeRenderVideo, false);
+	if (p !== global) {
+		global[action]('scroll', context.maybeRenderVideo, false);
+	}
+}
+
+
+const inView = y => y >= 0 && y <= getScreenHeight();
 
 
 export default React.createClass({
@@ -42,8 +56,6 @@ export default React.createClass({
 	},
 
 
-
-
 	getInitialState () {
 		return { loading: false, error: false, video: false };
 	},
@@ -63,6 +75,13 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.fillInVideo(this.props);
+		listen(this, 'addEventListener');
+		this.maybeRenderVideo();
+	},
+
+
+	componentWillUnmount () {
+		listen(this, 'removeEventListener');
 	},
 
 
@@ -73,7 +92,7 @@ export default React.createClass({
 
 
 	getVideoID (props) {
-		let item = (props || this.props).item;
+		const item = (props || this.props).item;
 
 		return item.NTIID || (item.dataset || {}).ntiid;
 	},
@@ -127,7 +146,7 @@ export default React.createClass({
 
 		this.setState({requestPlay: true}, () => {
 
-			let {refs: {video}} = this;
+			const {refs: {video}} = this;
 			if (video) {
 				video.play();
 			}
@@ -137,7 +156,7 @@ export default React.createClass({
 
 
 	stop () {
-		let {video} = this.refs;
+		const {video} = this.refs;
 		if (video) {
 			video.stop();
 		}
@@ -145,15 +164,27 @@ export default React.createClass({
 
 
 	onStop () {
-		if (this.isMounted()) {
+		if (this.refs.video) {
 			this.setState({playing: false});
 		}
 	},
 
 
 	onPlay  () {
-		if (this.isMounted()) {
+		if (this.refs.video) {
 			this.setState({playing: true});
+		}
+	},
+
+
+	maybeRenderVideo () {
+		const {refs: {el}, state: {requestPlay}} = this;
+		if (!el || requestPlay) { return; }
+
+		const {top, bottom} = el.getBoundingClientRect();
+
+		if ([top, bottom].some(inView)) {
+			this.setState({requestPlay: true});
 		}
 	},
 
@@ -164,30 +195,27 @@ export default React.createClass({
 			state: {loading, playing, poster, video, requestPlay}
 		} = this;
 
-		let label = item.label || item.title;
+		const label = item.label || item.title;
 
-		let Tag = tag || 'div';
+		const Tag = tag || 'div';
 
-		let viewed = false;
-		let progress = item[Progress];
-		if (progress && progress.hasProgress()) {
-			viewed = true;
-		}
+		const progress = item[Progress];
+		const viewed = (progress && progress.hasProgress());
 
-		let posterRule = poster && {backgroundImage: `url(${poster})`};
+		const posterRule = poster && {backgroundImage: `url(${poster})`};
 
 		return (
-			<Tag className="content-video video-wrap flex-video widescreen" data-ntiid={this.getVideoID()}>
+			<Tag ref="el" className="content-video video-wrap flex-video widescreen" data-ntiid={this.getVideoID()}>
 				{!video || !requestPlay ? null :
 					<Video ref="video" src={video}
 						onEnded={this.onStop}
+						onPaused={this.onStop}
 						onPlaying={this.onPlay}
 						context={this.state.context}
-						autoPlay={requestPlay}
-						deferred />
+						/>
 				}
 
-				{requestPlay || playing ? null :
+				{playing ? null :
 					<LoadingMask style={posterRule} loading={loading}
 						tag="a" onFocus={onFocus} onClick={this.onPosterClicked}
 						className="content-video-tap-area" href="#">
@@ -204,5 +232,5 @@ export default React.createClass({
 				}
 			</Tag>
 		);
-	}//controls autobuffer autoplay loop
+	}
 });
