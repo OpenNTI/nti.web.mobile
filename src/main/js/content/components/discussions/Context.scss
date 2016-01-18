@@ -50,6 +50,11 @@
 		position: relative;
 	}
 
+	.poll-wrapper .links{
+		display: none;
+	}
+
+	& > .poll-wrapper .question,
 	& > .question {
 		margin: 1.25rem;
 		border: none;
