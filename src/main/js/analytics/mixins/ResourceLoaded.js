@@ -1,3 +1,4 @@
+import Logger from 'nti-util-logger';
 import {getModel} from 'nti-lib-interfaces';
 
 const AssessmentEvent = getModel('analytics.assessmentevent');
@@ -25,6 +26,8 @@ import {RESUME_SESSION} from '../Constants';
 import {toAnalyticsPath} from '../utils';
 
 export const onStoreChange = 'ResourceLoaded:onStoreChange';
+
+const logger = Logger.get('mixin:resourceLoaded');
 
 // keep track of the view start event so we can push analytics including duration
 const CURRENT_EVENT = Symbol('CurrentEvent');
@@ -56,7 +59,7 @@ export default {
 				this.resumeAnalyticsEvents();
 			}
 			else {
-				console.warn('Components using ResourceLoaded mixin should implement resumeAnalyticsEvents. (Check %s)', this.constructor.displayName);
+				logger.warn('Components using ResourceLoaded mixin should implement resumeAnalyticsEvents. (Check %s)', this.constructor.displayName);
 			}
 		}
 	},

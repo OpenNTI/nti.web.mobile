@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
 
 import ContextContributor from 'common/mixins/ContextContributor';
@@ -7,6 +8,8 @@ import ContentViewer from 'content/components/Viewer';
 import CourseLinker from 'library/mixins/CourseContentLink';
 
 import {LESSONS} from '../Sections';
+
+const logger = Logger.get('course:content');
 
 export default React.createClass({
 	displayName: 'Content',
@@ -31,7 +34,7 @@ export default React.createClass({
 			}),
 			//error
 			() => {
-				console.warn('Could not find outline node: %s in course: ', id, course.getID());
+				logger.warn('Could not find outline node: %s in course: ', id, course.getID());
 			});
 	},
 

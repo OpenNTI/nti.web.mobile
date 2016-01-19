@@ -16,7 +16,7 @@ declareCustomElement('error');
 declareCustomElement('nti:content');
 declareCustomElement('widget');
 
-const logger = Logger.get('content:viewer:body')
+const logger = Logger.get('content:viewer:body');
 
 export default React.createClass({
 	displayName: 'content:Viewer:BodyContent',

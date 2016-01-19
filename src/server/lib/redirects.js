@@ -80,7 +80,7 @@ export default {
 		 */
 
 
-		console.log('\n\n\nTesting %s\n\n\n', query);
+		logger.debug('\n\n\nTesting %s\n\n\n', query);
 		let object = /(?:(?:object|ntiid)\/)+([^\/]*)\/?(.*)/;
 		let match = decodeURIComponent(query).match(object);
 

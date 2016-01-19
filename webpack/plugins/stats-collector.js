@@ -1,4 +1,4 @@
-/*eslint no-var: 0 strict: 0*/
+/*eslint no-var: 0 strict: 0, no-console: 0*/
 'use strict';
 var path = require('path');
 var fs = require('fs');

@@ -24,11 +24,6 @@ export default React.createClass({
 	},
 
 
-	componentWillMount () {
-		console.log(this.props.item);
-	},
-
-
 	onDelete () {
 		const {props: {item}} = this;
 
