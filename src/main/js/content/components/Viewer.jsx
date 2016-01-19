@@ -298,20 +298,22 @@ export default React.createClass({
 					<div key="content">
 						<div className="content-body">
 							{this.renderAssessmentHeader()}
-							<BodyContent ref="content"
-								onClick={this.onContentClick}
-								onUserSelectionChange={this.maybeOfferAnnotations}
-								contentPackage={contentPackage}
-								pageId={page.getCanonicalID()}
-								page={page}/>
+							<div className="coordinate-root">	
+								<BodyContent ref="content"
+									onClick={this.onContentClick}
+									onUserSelectionChange={this.maybeOfferAnnotations}
+									contentPackage={contentPackage}
+									pageId={page.getCanonicalID()}
+									page={page}/>
 
-							{this.renderAssessmentFeedback()}
+								{this.renderAssessmentFeedback()}
 
-							{this.renderGlossaryEntry()}
+								{this.renderGlossaryEntry()}
 
-							{this.renderBottomPager()}
+								{this.renderBottomPager()}
 
-							<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
+								<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
+							</div>
 						</div>
 						{this.renderDockedToolbar()}
 					</div>
