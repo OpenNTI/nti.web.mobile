@@ -12,6 +12,34 @@ import SYSTEM_WIDGETS from '../SystemWidgetRegistry';
 
 let SYSTEM_WIDGET_STRATEGIES = {};
 
+
+function getPacket (content, strategies, previewMode, maxPreviewLength) {
+	let packet;
+	if (typeof content === 'string') {
+		packet = processContent({
+			content: previewMode
+						? getHTMLSnippet(filterContent(content), maxPreviewLength)
+						: content
+		},
+			strategies
+		);
+	}
+	else {
+		const key = uuid.v4();
+		const o = {[key]: Object.assign({}, content, { id: key })};
+
+		packet = {
+			widgets: o,
+			body: [{
+				guid: key,
+				type: o[key].MimeType
+			}]
+		};
+	}
+
+	return Promise.resolve(packet);
+}
+
 /**
  * Component to render Modeled Body Content
  */
@@ -50,70 +78,75 @@ export default React.createClass({
 
 
 	buildContent (props) {
-		let {body, strategies, previewLength, previewMode} = props;
-		let h = hash(props);
-		let widgets = {};
+		const {body, strategies: propStrategies, previewLength, previewMode} = props;
+		const h = hash(props);
+		const widgets = {};
+
 		let letterCount = 0;
+
 		if (this.state.propHash === h) {
 			return;
 		}
 
-		strategies = Object.assign({}, SYSTEM_WIDGET_STRATEGIES, strategies);
+		const strategies = Object.assign({}, SYSTEM_WIDGET_STRATEGIES, propStrategies);
 
-		body = (body || []).map(content=> {
+		function process (content) {
 			if (previewMode && previewLength <= letterCount) {
 				return nullRender;
 			}
 
-			let packet;
-			if (typeof content === 'string') {
-				if (previewMode) {
-					content = filterContent(content);
-					content = getHTMLSnippet(content, previewLength - letterCount);
+			return getPacket(content, strategies, previewMode, previewLength - letterCount)
+				.then(packet => {
+
+					if (previewMode) {
+						letterCount += packet.body
+										.map(x=> typeof x !== 'string' ? 0 :
+											x
+											.replace(/<[^>]*>/g, ' ')//replace all markup with spaces.
+											.replace(/\s+/g, ' ') //replace all spanning whitespaces with a single space.
+											.length
+										)
+										.reduce((sum, x)=> sum + x);
+					}
+
+					Object.assign(widgets, packet.widgets);
+
+					let processed = packet.body.map(
+						part => (typeof part !== 'string') ?
+							`<widget id="${part.guid}" data-type="${part.type}"></widget>` : part);
+
+					return htmlToReactRenderer(
+						processed.join(''),
+						(n, a) => isWidget(n, a, packet.widgets));
+				});
+		}
+
+
+
+		new Promise((finish, error) => {
+			const {length} = body;
+			const processed = new Array(length);
+
+			function loop (x) {
+				if (x >= length) {
+					return finish(processed);
 				}
-				packet = processContent({content}, strategies);
-			}
-			else {
-				let key = uuid.v4();
-				let o = {[key]: Object.assign({}, content, { id: key })};
 
-				packet = {
-					widgets: o,
-					body: [{
-						guid: key,
-						type: o[key].MimeType
-					}]
-				};
+				process(body[x])
+					.then(c => processed[x] = c)
+					.then(() => loop(x + 1))
+					.catch(error);
 			}
 
-			if (previewMode) {
-				letterCount += packet.body
-								.map(x=> typeof x !== 'string' ? 0 :
-									x
-									.replace(/<[^>]*>/g, ' ')//replace all markup with spaces.
-									.replace(/\s+/g, ' ') //replace all spanning whitespaces with a single space.
-									.length
-								)
-								.reduce((sum, x)=> sum + x);
-			}
-
-			Object.assign(widgets, packet.widgets);
-
-			let processed = packet.body.map(
-				part => (typeof part !== 'string') ?
-					`<widget id="${part.guid}" data-type="${part.type}"></widget>` : part);
-
-			return htmlToReactRenderer(
-				processed.join(''),
-				(n, a) => isWidget(n, a, packet.widgets));
-		});
-
-
-		this.setState({
-			propHash: h,
-			body: body,
-			widgets: widgets
-		});
+			loop(0);
+		})
+			.then(processed => {
+				this.setState({
+					propHash: h,
+					body: processed,
+					widgets: widgets
+				});
+			});
 	},
 
 

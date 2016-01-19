@@ -8,6 +8,15 @@ import DEFAULT_STRATEGIES from './dom-parsers';
 const MARKER_REGEX = /nti:widget-marker\[([^\]\>]+)\]/i;
 const WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(?:[^\]>]*)-->/ig;
 
+const DOCUMENT_NODE = 9;// Node.DOCUMENT_NODE
+
+function getContent (raw) {
+	const start = /<(!DOCTYPE|html)/i.exec(raw);
+	//Some content pages have invalid text before the beginning of the document. This will strip it.
+	return (start && start.index > 0)
+		? raw.substr(start.index) : raw;
+}
+
 
 /**
  * Take HTML content and parse it into parts that we can render widgets into it.
@@ -19,46 +28,62 @@ const WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(
  * @returns {object} A packet of data, content, body, styles and widgets.
  */
 export function processContent (packet, strategies = DEFAULT_STRATEGIES) {
-	let html = packet.content;
-	let parser = null;
-	if (typeof DOMParser !== 'undefined') {
-		parser = new DOMParser();
+	const parser = (typeof DOMParser !== 'undefined') && new DOMParser();
+	const html = getContent(packet.content);
+
+	function process (doc) {
+		let elementFactory = doc.nodeType === DOCUMENT_NODE ? doc : document;
+		let body = doc.getElementsByTagName('body')[0];
+		let styles = Array.from(doc.querySelectorAll('link[rel=stylesheet]'))
+						.map(i=>i.getAttribute('href'));
+
+		let widgets = indexArrayByKey(parseWidgets(strategies, doc, elementFactory), 'guid');
+
+		let bodyParts = body.innerHTML.split(WIDGET_MARKER_REGEX).map(part => {
+			let m = part.match(MARKER_REGEX);
+			if (m && m[1]) {
+				return widgets[m[1]];
+			}
+			return part;
+		});
+
+		return Object.assign(packet, {
+			content: body.innerHTML,
+			body: bodyParts,
+			styles: styles,
+			widgets: widgets
+		});
 	}
 
-	//Some content pages have invalid text before the beginning of the document. This will strip it.
-	let start = /<(!DOCTYPE|html)/i.exec(html);
-	if (start && start.index > 0) {
-		html = html.substr(start.index);
-	}
 
-
-	let doc = parser && parser.parseFromString(html, 'text/html');
-	let elementFactory = doc || document;
-	if (!doc) {
-		doc = document.createElement('html');
-		doc.innerHTML = html;
-	}
-
-	let body = doc.getElementsByTagName('body')[0];
-	let styles = Array.from(doc.querySelectorAll('link[rel=stylesheet]'))
-					.map(i=>i.getAttribute('href'));
-
-	let widgets = indexArrayByKey(parseWidgets(strategies, doc, elementFactory), 'guid');
-
-	let bodyParts = body.innerHTML.split(WIDGET_MARKER_REGEX).map(part => {
-		let m = part.match(MARKER_REGEX);
-		if (m && m[1]) {
-			return widgets[m[1]];
+	return new Promise((ready, fail) => {
+		let tick = 0;
+		let doc = parser && parser.parseFromString(html, 'text/html');
+		if (!doc) {
+			doc = document.createElement('html');
+			doc.innerHTML = html;
 		}
-		return part;
-	});
 
-	return Object.assign(packet, {
-		content: body.innerHTML,
-		body: bodyParts,
-		styles: styles,
-		widgets: widgets
-	});
+		if (!('readyState' in doc)) {
+			doc.readyState = 'interactive';
+		}
+
+		function check () {
+			if (doc.readyState !== 'loading') {
+				return ready(doc);
+			}
+
+			//30sec
+			if (tick++ > 3000) {
+				return fail ('Parse Timeout');
+			}
+
+			setTimeout(check, 10);
+		}
+
+		check();
+	})
+		.then(process);
 }
 
 /**

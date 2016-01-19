@@ -41,25 +41,28 @@ export default React.createClass({
 
 
 	buildContent (props) {
-		let {content, strategies} = props;
+		const {content, strategies} = props;
 
-		let widgets;
+		let work = Promise.resolve({content, widgets: void 0});
 
 		if (strategies) {
-			let packet = processContent({content}, strategies);
-			widgets = packet.widgets;
+			work = processContent({content}, strategies)
+				.then(packet => {
+					const {widgets, body} = packet;
+					const markup = body.map(part=>
 
-			content = packet.body.map(part=>
-				(typeof part === 'string') ? part : `<widget id="${part.guid}">--x--</widget>`
-			).join('');
+						(typeof part === 'string')
+							? part
+							: `<widget id="${part.guid}">--x--</widget>`
 
-			content = htmlToReact(content, (n, a)=>isWidget(n, a, widgets));
+					).join('');
+
+					return {widgets, content: htmlToReact(markup, (n, a)=>isWidget(n, a, widgets))};
+				})
+				.catch(()=> ({content, widgets: void 0}));
 		}
 
-		this.setState({
-			content: content,
-			widgets: widgets
-		});
+		work.then(state => this.setState(state));
 	},
 
 
