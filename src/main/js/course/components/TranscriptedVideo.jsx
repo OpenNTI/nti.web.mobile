@@ -286,8 +286,12 @@ export default React.createClass({
 				this.onJumpTo(returnTime);
 				returnTime = null;
 			}
-
-			this.setState({currentTime: time, returnTime});
+			if (!this.bookkeeping || this.bookkeeping.time < time) {
+				this.setState({currentTime: time, returnTime});
+			}
+			if (this.bookkeeping && this.bookkeeping.expires < Date.now()) {
+				delete this.bookkeeping;
+			}
 		}
 	},
 
@@ -296,6 +300,10 @@ export default React.createClass({
 		const {video} = this.refs;
 		if (video) {
 			video.setCurrentTime(parseFloat(time));
+			this.bookkeeping = {
+				time,
+				expires: Date.now() + 5000
+			};
 		}
 	},
 
