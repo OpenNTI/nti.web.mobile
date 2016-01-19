@@ -1,4 +1,5 @@
 import React from 'react';
+import Logger from 'nti-util-logger';
 
 import {
 	DROP_COURSE,
@@ -19,7 +20,9 @@ import CatalogStore from 'catalog/Store';
 
 import {reload as reloadLibrary} from '../Actions';
 import {reload as reloadCatalog} from 'catalog/Actions';
+import {reload as reloadNotifications} from 'notifications/Actions';
 
+const logger = Logger.get('InvalidationListener');
 
 const INVALIDATION_EVENTS = {
 	[DROP_COURSE]: true,
@@ -40,15 +43,16 @@ function flush (event) {
 	let act = INVALIDATION_EVENTS[type];
 
 	if (!act) {
-		// console.debug('InvalidationListener: ignoring non-invalidation event: %o', event);
+		logger.debug('ignoring non-invalidation event: %o', event);
 		return;
 	}
 
-	console.log('InvalidationListener: reloading library and catalog in response to event: %s %O', type, event);
+	logger.debug('reloading library and catalog in response to event: %s %o', type, event);
 	// [Data] go down the hoooOOolle...
 	// https://www.youtube.com/watch?v=pTsem5E6EeY#t=144
 	reloadLibrary();
 	reloadCatalog();
+	reloadNotifications();
 }
 
 

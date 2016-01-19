@@ -2,8 +2,8 @@ import {Notifications} from 'nti-lib-interfaces';
 
 import {getService} from 'common/utils';
 
-export function load () {
+export function load (reload) {
 	return getService()
 		.then(service =>
-			Notifications.load(service));
+			Notifications.load(service, reload));
 }
