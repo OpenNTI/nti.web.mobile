@@ -27,7 +27,7 @@ export default React.createClass({
 		let items = store ? Array.from(store) : [];
 
 		return (
-			<Container section="community" items={items}/>
+			<Container section="communities" items={items}/>
 		);
 	}
 });

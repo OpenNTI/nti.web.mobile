@@ -2,7 +2,7 @@ import React from 'react';
 
 import NavigationBar from 'navigation/components/Bar';
 
-import Community from './containers/Community';
+import Communities from './containers/Communities';
 import Courses from './containers/Courses';
 import Books from './containers/Books';
 import Features from './containers/Features';
@@ -19,7 +19,7 @@ export default React.createClass({
 
 				<Features/>
 
-				<Community/>
+				<Communities/>
 
 				<Courses/>
 

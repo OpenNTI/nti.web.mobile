@@ -7,6 +7,7 @@ import Loading from 'common/components/Loading';
 
 import Root from './Root';
 import Section from './Section';
+import SectionCommunities from './SectionCommunities';
 
 import Library from '../mixins/LibraryAccessor';
 import BasePath from 'common/mixins/BasePath';
@@ -29,7 +30,7 @@ export default React.createClass({
 					<Loading />
 				) : (
 					<Locations contextual>
-						<Location path="/community(/*)" handler={Root} />
+						<Location path="/communities(/*)" handler={SectionCommunities} />
 						<Location path="/:section(/*)" handler={Section} />
 
 						<DefaultRoute handler={Root}/>

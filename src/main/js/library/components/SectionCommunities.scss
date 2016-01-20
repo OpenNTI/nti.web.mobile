@@ -1,0 +1,14 @@
+.library-view.communities {
+	.library-collection > ul {
+		white-space: normal;
+		overflow: auto;
+		overflow-x: auto;
+		overflow-y: auto;
+		margin: 0;
+		padding: 0;
+		margin-left: -0.625rem;
+		li {
+			margin-left: 0.625rem;
+		}
+	}
+}

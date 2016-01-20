@@ -18,7 +18,7 @@ export default React.createClass({
 		const {props: {section, items}} = this;
 
 		return !items || items.length === 0 ?
-		(!AddButton.canSectionBeAddedTo(section)  ? (
+		(!AddButton.canSectionBeAddedTo(section) ? (
 			null
 		) : (
 			<div className="library-collection">
