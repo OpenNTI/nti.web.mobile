@@ -300,6 +300,9 @@ export default React.createClass({
 		const {video} = this.refs;
 		if (video) {
 			video.setCurrentTime(parseFloat(time));
+			// the video may not jump to exactly the time we specify.
+			// do a bit of bookkeeping to prevent the transcript highlight
+			// from jumping around.
 			this.bookkeeping = {
 				time,
 				expires: Date.now() + 5000
