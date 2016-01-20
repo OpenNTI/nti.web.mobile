@@ -2,7 +2,7 @@ export default {
 	SECTIONS: {
 		admin: 'Administered Courses',
 		courses: 'Courses',
-		community: 'Community',
+		community: 'Communities',
 		books: 'Books'
 	},
 
