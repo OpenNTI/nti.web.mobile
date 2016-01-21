@@ -29,7 +29,8 @@ export default React.createClass({
 		let selected = selection.isSelected(entity);
 
 		const rightOptions = [];
-		if(entity.isModifiable) {
+		//no user will be "modifiable" by another... so...
+		if(/*entity.isModifiable*/ entity) {
 			rightOptions.push({
 				label: selected ? 'Remove' : 'Undo',
 				class: cx('tiny button', {'caution': selected})
