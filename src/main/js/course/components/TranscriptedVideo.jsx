@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom';
 
 import {getModel} from 'nti-lib-interfaces';
 import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import Logger from 'nti-util-logger';
 
 import {toAnalyticsPath} from 'analytics/utils';
 
@@ -27,6 +28,8 @@ import {Component as Video} from 'video';
 import Transcript from './Transcript';
 
 import {NOT_FOUND, RETRY_AFTER_DOM_SETTLES} from 'content/components/annotations/Annotation';
+
+const logger = Logger.get('course:transcripted-video');
 
 const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
@@ -123,7 +126,7 @@ export default React.createClass({
 		let {video} = this.state;
 
 		if (video !== prevState.video) {
-			console.debug('Updating Pager...');
+			logger.debug('Updating Pager...');
 			let pageSource = video && VideoIndex.getPageSource(video);
 
 			if (outlineId && pageSource) {
@@ -168,7 +171,7 @@ export default React.createClass({
 				.then(context => this.setState({ context }));
 
 			if (!video) {
-				console.error('How do we get a video id ("%s") and not find it in the index?: ', decodedId, VideoIndex);
+				logger.error('How do we get a video id ("%s") and not find it in the index?: ', decodedId, VideoIndex);
 				return this.setState({error: 'No Video'});
 			}
 
