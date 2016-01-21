@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Logger from 'nti-util-logger';
-import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-ntiids';
 
 import NotFound from 'notfound/components/View';
 import Loading from 'common/components/Loading';

@@ -1,4 +1,4 @@
-import {parseNTIID} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {parseNTIID} from 'nti-lib-ntiids';
 
 import {getService} from 'common/utils';
 

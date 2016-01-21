@@ -1,6 +1,6 @@
 import {getService} from 'common/utils';
 import {USERS, GROUPS, LISTS} from './Constants';
-import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-ntiids';
 import {getAppUser} from 'common/utils';
 
 const storeGetters = {

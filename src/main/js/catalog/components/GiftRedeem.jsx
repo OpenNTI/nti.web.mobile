@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-ntiids';
 
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';

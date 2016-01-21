@@ -13,7 +13,7 @@ import {scoped} from 'common/locale';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import StoreEvents from 'common/mixins/StoreEvents';
 
-import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-ntiids';
 
 import paging from '../mixins/Paging';
 import LoadForum from '../mixins/LoadForum';

@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import C from 'common/components/Conditional';
 
-import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {encodeForURI} from 'nti-lib-ntiids';
 
 import {Link} from 'react-router-component';
 

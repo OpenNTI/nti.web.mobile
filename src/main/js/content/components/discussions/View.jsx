@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {encodeForURI} from 'nti-lib-ntiids';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';

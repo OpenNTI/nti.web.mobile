@@ -1,7 +1,7 @@
 import path from 'path';
 import React from 'react';
 
-import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {encodeForURI} from 'nti-lib-ntiids';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import ResourceLoaded from 'analytics/mixins/ResourceLoaded';

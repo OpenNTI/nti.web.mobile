@@ -2,7 +2,7 @@ import React from 'react';
 
 import {getModel} from 'nti-lib-interfaces';
 import PageSource from 'nti-lib-interfaces/lib/models/ListBackedPageSource';
-import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-ntiids';
 
 import Empty from 'common/components/EmptyList';
 import Loading from 'common/components/Loading';

@@ -9,7 +9,7 @@ const ProfileViewedEvent = getModel('analytics.profileviewevent');
 const ProfileActivityViewedEvent = getModel('analytics.profileactivityviewevent');
 const ProfileMembershipViewedEvent = getModel('analytics.profilemembershipviewevent');
 
-import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-ntiids';
 import {
 	ASSIGNMENT_VIEWED,
 	RESOURCE_VIEWED,

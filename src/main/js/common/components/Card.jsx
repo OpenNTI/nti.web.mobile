@@ -37,7 +37,7 @@ import {scoped} from '../locale';
 import {BLANK_IMAGE} from '../constants/DataURIs';
 
 import ExternalResourceEvent from 'nti-lib-interfaces/lib/models/analytics/ExternalResourceEvent';
-import {isNTIID, encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
 import {Progress} from 'nti-lib-interfaces';
 
 import {emitEventStarted} from 'analytics/Actions';

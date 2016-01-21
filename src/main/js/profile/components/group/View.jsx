@@ -11,7 +11,7 @@ import Members from '../Members'; //This seems backwards. The Group-specific Mem
 import ForumView from '../ForumView';
 
 import Redirect from 'navigation/components/Redirect';
-import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {encodeForURI} from 'nti-lib-ntiids';
 import {join} from 'path';
 
 const ROUTES = [

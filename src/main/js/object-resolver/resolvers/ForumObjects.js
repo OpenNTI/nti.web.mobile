@@ -2,7 +2,7 @@ import path from 'path';
 
 import {Service} from 'nti-lib-interfaces';
 
-import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {encodeForURI} from 'nti-lib-ntiids';
 
 import {load as getLibrary} from 'library/Actions';
 

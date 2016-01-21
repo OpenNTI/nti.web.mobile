@@ -8,7 +8,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {getModel} from 'nti-lib-interfaces';
-import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
 import {toAnalyticsPath} from 'analytics/utils';

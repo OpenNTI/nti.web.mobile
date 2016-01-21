@@ -4,7 +4,7 @@ import Transition from 'react-addons-css-transition-group';
 import AnalyticsStore from 'analytics/Store';
 
 import {TOPIC_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
-import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-ntiids';
 
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';

@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {PropType as NTIID} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {PropType as NTIID} from 'nti-lib-ntiids';
 
 import ItemChanges from 'common/mixins/ItemChanges';
 

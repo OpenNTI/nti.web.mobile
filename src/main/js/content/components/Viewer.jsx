@@ -5,7 +5,7 @@ import cx from 'classnames';
 import {RouterMixin} from 'react-router-component';
 
 
-import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-ntiids';
 
 import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';

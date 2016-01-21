@@ -14,7 +14,7 @@ import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import isEmpty from 'fbjs/lib/isEmpty';
-import {encodeForURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {encodeForURI} from 'nti-lib-ntiids';
 
 
 const TYPE_TAG_MAP = {

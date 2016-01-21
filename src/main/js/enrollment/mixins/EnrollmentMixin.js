@@ -3,7 +3,7 @@ import React from 'react';
 import EnrollmentStore from '../Store';
 import CatalogStore from 'catalog/Store';
 
-import {decodeFromURI} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {decodeFromURI} from 'nti-lib-ntiids';
 
 import {LOAD_ENROLLMENT_STATUS, ENROLL_OPEN} from '../Constants';
 

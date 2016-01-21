@@ -1,6 +1,6 @@
 // import {Service} from 'nti-lib-interfaces';
 
-import {encodeForURI as encode} from 'nti-lib-interfaces/lib/utils/ntiids';
+import {encodeForURI as encode} from 'nti-lib-ntiids';
 
 import {join} from 'path';
 
