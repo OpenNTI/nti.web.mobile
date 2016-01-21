@@ -88,7 +88,7 @@
     "react-editor-component": "^1.0.0",
     "react-proxy-loader": "^0.3.4",
     "react-router-component": "^0.29.0",
-    "react-swipe-to-reveal-options": "^0.3.1",
+    "react-swipe-to-reveal-options": "jsg2021/react-swipe-to-reveal-options#patch-1",
     "request": "^2.53.0",
     "resolve-url-loader": "^1.4.3",
     "response-time": "^2.2.0",
