@@ -62,6 +62,9 @@ export default React.createClass({
 				.catch(()=> ({content, widgets: void 0}));
 		}
 
+		//This isn't a complete fix, and I'm concerned it may create a problem for
+		//content that processes faster than the initial render.  If this setState
+		//callback is called before componentDidMount is run, this will not set the state.
 		work.then(state => this.refs.el && this.setState(state));
 	},
 
