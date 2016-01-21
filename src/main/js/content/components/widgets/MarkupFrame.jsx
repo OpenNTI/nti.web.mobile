@@ -2,7 +2,7 @@ import React from 'react';
 
 import cx from 'classnames';
 
-import isEmpty from 'fbjs/lib/isEmpty';
+import isEmpty from 'isempty';
 
 import Mixin from './Mixin';
 

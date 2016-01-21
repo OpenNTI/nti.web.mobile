@@ -11,7 +11,7 @@ import ContextSender from 'common/mixins/ContextSender';
 //import NavigationAware from 'common/mixins/NavigationAware';
 import Loading from 'common/components/Loading';
 
-import isEmpty from 'fbjs/lib/isEmpty';
+import isEmpty from 'isempty';
 import CourseLinker from 'library/mixins/CourseContentLink';
 import {LESSONS} from '../Sections';
 

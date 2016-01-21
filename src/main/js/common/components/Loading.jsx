@@ -1,5 +1,5 @@
 import React from 'react';
-import isEmpty from 'fbjs/lib/isEmpty';
+import isEmpty from 'isempty';
 
 export default React.createClass({
 	displayName: 'Loading',

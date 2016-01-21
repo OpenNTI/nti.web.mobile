@@ -1,6 +1,6 @@
 import React from 'react';
 import emptyFunction from 'fbjs/lib/emptyFunction';
-import isEmpty from 'fbjs/lib/isEmpty';
+import isEmpty from 'isempty';
 import moment from 'moment-timezone';
 
 import jstz from 'jstimezonedetect';

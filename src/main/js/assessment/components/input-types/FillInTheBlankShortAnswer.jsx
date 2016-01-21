@@ -4,7 +4,7 @@ import InputType, {stopEvent} from './Mixin';
 
 import Content from '../Content';
 
-import isEmpty from 'fbjs/lib/isEmpty';
+import isEmpty from 'isempty';
 
 const hasValue = x => x && !isEmpty(x.value);
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import isEmpty from 'fbjs/lib/isEmpty';
+import isEmpty from 'isempty';
 
 import {getEventTarget} from 'nti-lib-dom';
 

@@ -1,4 +1,4 @@
-import isEmpty from 'fbjs/lib/isEmpty';
+import isEmpty from 'isempty';
 
 
 export function getMainSubmittable (assessment) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Mixin, {stopEvent} from './Mixin';
 
-import isEmpty from 'fbjs/lib/isEmpty';
+import isEmpty from 'isempty';
 
 const isValid = /^[0-9\-\/\\,\.\*¼-¾]*$/;
 

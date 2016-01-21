@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import isEmpty from 'fbjs/lib/isEmpty';
+import isEmpty from 'isempty';
 import {scoped} from 'common/locale';
 
 import OpenEnrolledMessage from './OpenEnrolledMessage';
