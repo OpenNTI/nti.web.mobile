@@ -90,7 +90,6 @@ export default React.createClass({
 			}
 		},
 		[COMMENT_SAVED] (event) {
-			console.debug(event.data);
 			if (event.data) {
 				this.setState({
 					editing: false
@@ -108,7 +107,6 @@ export default React.createClass({
 
 	startAnalyticsEvent () {
 		let {topicId} = this.props;
-		console.debug('Begin topic viewed event.');
 		this.resourceLoaded(topicId, Store.getPackageId(), TOPIC_VIEWED);
 	},
 

@@ -23,12 +23,6 @@ export default React.createClass({
 		onEdit: React.PropTypes.func
 	},
 
-
-	handleClick (event) {
-		console.debug(event);
-	},
-
-
 	render () {
 		const {props: {item, canReply, onEdit, onDelete}} = this;
 
