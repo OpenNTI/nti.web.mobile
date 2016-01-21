@@ -4,9 +4,6 @@ import {Link} from 'react-router-component';
 import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
 import cx from 'classnames';
 
-//nti modules imports
-import {encodeForURI} from 'nti-lib-ntiids';
-
 //intra-app module imports (ordered LocalName)
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
@@ -85,7 +82,7 @@ export default React.createClass({
 					callActionWhenSwipingFarRight={false}
 					onRightClick={this.deleteList.bind(null,item)}
 				>
-					<a href={encodeForURI(item.getID())}>
+					<a href={encodeURIComponent(item.getID())}>
 						<Avatar entity={item} suppressProfileLink/>
 						<div className="body">
 							<DisplayName entity={item} suppressProfileLink/>
