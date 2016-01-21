@@ -62,7 +62,7 @@ exports = module.exports = [
 				{ test: /\.jsx?$/, loader: 'source-map-loader' }
 			],
 			loaders: [
-				{ test: /\.async\.jsx$/i, loader: 'react-proxy' },
+				{ test: /\.async\.jsx$/i, loader: 'react-proxy!exports?exports.default' },
 
 				{ test: /\.js(x?)$/i, loader: 'babel', exclude: /node_modules/ },
 
