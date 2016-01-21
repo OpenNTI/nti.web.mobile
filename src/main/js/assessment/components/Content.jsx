@@ -62,12 +62,12 @@ export default React.createClass({
 				.catch(()=> ({content, widgets: void 0}));
 		}
 
-		work.then(state => this.setState(state));
+		work.then(state => this.refs.el && this.setState(state));
 	},
 
 
 	render () {
-		let props = Object.assign({}, this.props, {content: undefined});
+		let props = Object.assign({}, this.props, {ref: 'el', content: undefined});
 		let dynamicRender = emptyFunction;
 		if (isFunction(this.state.content)) {
 			dynamicRender = this.state.content;
