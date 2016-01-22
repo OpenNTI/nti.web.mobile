@@ -38,8 +38,11 @@ import {BLANK_IMAGE} from '../constants/DataURIs';
 import ExternalResourceEvent from 'nti-lib-interfaces/lib/models/analytics/ExternalResourceEvent';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
 import {Progress} from 'nti-lib-interfaces';
+import Logger from 'nti-util-logger';
 
 import {emitEventStarted} from 'analytics/Actions';
+
+const logger = Logger.get('common:components:card');
 
 const t = scoped('UNITS');
 
@@ -193,7 +196,7 @@ export default React.createClass({
 					this.setState(...args);
 				}
 			}
-			catch (e) { console.warn(e.message || e); }
+			catch (e) { logger.warn(e.message || e); }
 		};
 
 		if (isNTIID(href)) {
@@ -236,7 +239,7 @@ export default React.createClass({
 						this.setState({iconResolved: true, icon});
 					}
 				}
-				catch (e) { console.warn(e.message || e); }
+				catch (e) { logger.warn(e.message || e); }
 			});
 	},
 
