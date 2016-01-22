@@ -25,7 +25,6 @@ import path from 'path';
 import React from 'react';
 import Url from 'url';
 import cx from 'classnames';
-import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import {toAnalyticsPath} from 'analytics/utils';
 
@@ -149,7 +148,7 @@ export default React.createClass({
 	getDefaultProps () {
 		return {
 			internalOverride: false,
-			resolveUrlHook: emptyFunction.thatReturnsArgument
+			resolveUrlHook: x => x
 		};
 	},
 
