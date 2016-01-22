@@ -262,7 +262,7 @@ export default React.createClass({
 
 
 	onClick (e) {
-		if (this.props.disableLink) {
+		if (this.props.disableLink || (!this.state.href && this.isExternal())) {
 			e.preventDefault();
 			e.stopPropagation();
 			return;
