@@ -25,11 +25,12 @@ function getContent (raw) {
  * @param {Object} strategies An object where the keys are the CSS selectors for widgets, and
  *                            the values are functions to transform that selected element into
  *                            an Object used to render the Widget.
- * @returns {object} A packet of data, content, body, styles and widgets.
+ * @returns {object} A packet of data, content, body, styles and widgets. MAY return a promise that fulfills with said object.
  */
 export function processContent (packet, strategies = DEFAULT_STRATEGIES) {
 	const parser = (typeof DOMParser !== 'undefined') && new DOMParser();
 	const html = getContent(packet.content);
+	const isReady = doc => doc.readyState !== 'loading';
 
 	function process (doc) {
 		let elementFactory = doc.nodeType === DOCUMENT_NODE ? doc : document;
@@ -55,9 +56,7 @@ export function processContent (packet, strategies = DEFAULT_STRATEGIES) {
 		});
 	}
 
-
-	return new Promise((ready, fail) => {
-		let tick = 0;
+	function parse () {
 		let doc = parser && parser.parseFromString(html, 'text/html');
 		if (!doc) {
 			doc = document.createElement('html');
@@ -68,22 +67,42 @@ export function processContent (packet, strategies = DEFAULT_STRATEGIES) {
 			doc.readyState = 'interactive';
 		}
 
-		function check () {
-			if (doc.readyState !== 'loading') {
-				return ready(doc);
+		return doc;
+	}
+
+	function wait (doc) {
+		return new Promise((ready, fail) => {
+			let tick = 0;
+
+			function check () {
+				if (isReady(doc)) {
+					return ready(doc);
+				}
+
+				//30sec
+				if (tick++ > 3000) {
+					return fail ('Parse Timeout');
+				}
+
+				setTimeout(check, 10);
 			}
 
-			//30sec
-			if (tick++ > 3000) {
-				return fail ('Parse Timeout');
-			}
+			check();
+		})
+			.then(process);
+	}
 
-			setTimeout(check, 10);
+	try {
+		const doc = parse();
+		if (isReady(doc)) {
+			return process(doc);
 		}
 
-		check();
-	})
-		.then(process);
+		return wait(doc);
+
+	} catch (e) {
+		return Promise.reject(e);
+	}
 }
 
 /**

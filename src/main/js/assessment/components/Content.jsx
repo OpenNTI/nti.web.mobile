@@ -43,29 +43,40 @@ export default React.createClass({
 	buildContent (props) {
 		const {content, strategies} = props;
 
-		let work = Promise.resolve({content, widgets: void 0});
+		//We're back to the original bug.. HOWEVER, processContent
+		//will LIKELY return synchronously 100% of the time for
+		//this components use case
+		const finish = state => this.setState(state);
+
+		let work = {content, widgets: void 0};
 
 		if (strategies) {
-			work = processContent({content}, strategies)
-				.then(packet => {
-					const {widgets, body} = packet;
-					const markup = body.map(part=>
-
-						(typeof part === 'string')
-							? part
-							: `<widget id="${part.guid}">--x--</widget>`
-
+			const postProcess = packet => {
+				const {widgets, body} = packet;
+				const markup = body.map(part=>
+					(typeof part === 'string')
+						? part
+						: `<widget id="${part.guid}">--x--</widget>`
 					).join('');
 
-					return {widgets, content: htmlToReact(markup, (n, a)=>isWidget(n, a, widgets))};
-				})
-				.catch(()=> ({content, widgets: void 0}));
+				return {widgets, content: htmlToReact(markup, (n, a)=>isWidget(n, a, widgets))};
+			};
+
+			work = processContent({content}, strategies);
+
+			if (work && work.then) {
+				work = work.then(postProcess)
+					.catch(()=> ({content, widgets: void 0}));
+			} else {
+				work = postProcess(work);
+			}
 		}
 
-		//This isn't a complete fix, and I'm concerned it may create a problem for
-		//content that processes faster than the initial render.  If this setState
-		//callback is called before componentDidMount is run, this will not set the state.
-		work.then(state => this.refs.el && this.setState(state));
+		if (work && work.then) {
+			work.then(finish);
+		} else {
+			finish(work);
+		}
 	},
 
 
