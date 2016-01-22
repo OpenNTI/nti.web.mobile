@@ -203,13 +203,13 @@ export default React.createClass({
 		}
 
 
-		let u = Url.parse(href);
+		let u = href && Url.parse(href);
 
 		if (u && (u.host || (u.path && u.path[0] === '/'))) {
 			setState({href: props.resolveUrlHook(href)});
 		}
 		else if (contentPackage) {
-			setState({href: null }, ()=>
+			setState({href: null }, ()=> href &&
 				contentPackage.resolveContentURL(href)
 					.then(url=> props.resolveUrlHook(url))
 					.then(url=> { setState({ href: url }); }));
