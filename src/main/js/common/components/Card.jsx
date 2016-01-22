@@ -157,7 +157,7 @@ export default React.createClass({
 
 
 	isExternal (props = this.props) {
-		let {item, internalOverride} = props || {};
+		const {item, internalOverride} = props || {};
 		return isExternal(item) && !internalOverride;
 	},
 
@@ -170,7 +170,7 @@ export default React.createClass({
 
 
 	componentWillReceiveProps (props) {
-		let {item} = this.props;
+		const {item} = this.props;
 		if(item !== props.item) {
 			this.replaceState({});
 			this.resolveIcon(props);
@@ -187,10 +187,10 @@ export default React.createClass({
 
 
 	resolveHref (props) {
-		let {contentPackage, item} = props;
-		let {href} = item;
+		const {contentPackage, item} = props;
+		const {href} = item;
 
-		let setState = (...args) => {
+		const setState = (...args) => {
 			try {
 				if (canSetState(this)) {
 					this.setState(...args);
@@ -205,7 +205,7 @@ export default React.createClass({
 		}
 
 
-		let u = href && Url.parse(href);
+		const u = href && Url.parse(href);
 
 		if (u && (u.host || (u.path && u.path[0] === '/'))) {
 			setState({href: props.resolveUrlHook(href)});
@@ -220,11 +220,11 @@ export default React.createClass({
 
 
 	resolveIcon (props) {
-		let {contentPackage, item = {}} = props;
+		const {contentPackage, item = {}} = props;
 
 		new Promise((done, bail) => {
-			let {icon = ''} = item;
-			let u = Url.parse(icon);
+			const {icon = ''} = item;
+			const u = Url.parse(icon);
 			if (u && (u.host || u.path[0] === '/')) {
 				done(icon);
 			}
@@ -255,8 +255,8 @@ export default React.createClass({
 
 
 	isSeen () {
-		let {item} = this.props;
-		let progress = item[Progress];
+		const {item} = this.props;
+		const progress = item[Progress];
 		return item[Seen] || (progress && progress.hasProgress());
 	},
 
@@ -273,9 +273,9 @@ export default React.createClass({
 			return;
 		}
 
-		let {contentPackage, item, onClick} = this.props;
-		let resourceId = item.NTIID || item.ntiid; //Cards built from DOM have lowercase.
-		let contentId = contentPackage.getID();//this can be a CourseInstance, ContentBundle, or ContentPackage
+		const {contentPackage, item, onClick} = this.props;
+		const resourceId = item.NTIID || item.ntiid; //Cards built from DOM have lowercase.
+		const contentId = contentPackage.getID();//this can be a CourseInstance, ContentBundle, or ContentPackage
 
 		if (onClick) {
 			onClick(e);
@@ -287,7 +287,7 @@ export default React.createClass({
 
 		if (this.isExternal()) {
 			this.resolveContext().then(context => {
-				let viewEvent = new ExternalResourceEvent(
+				const viewEvent = new ExternalResourceEvent(
 					resourceId,
 					contentId,
 					toAnalyticsPath(context, resourceId)
@@ -303,7 +303,7 @@ export default React.createClass({
 		const {refs: {anchor}, props: {disableLink, item, externalSlug = 'external'}} = this;
 
 		if (disableLink) { return; }
-		let subRef = e.target.getAttribute('href');
+		const subRef = e.target.getAttribute('href');
 
 		this.ignoreClick = true;
 
@@ -312,7 +312,7 @@ export default React.createClass({
 			anchor.setAttribute('href', this.getInternalHref(item.NTIID, externalSlug));
 		}
 
-		let href = path.join(anchor.getAttribute('href'), subRef);
+		const href = path.join(anchor.getAttribute('href'), subRef);
 
 		anchor.setAttribute('href', href);
 	},
