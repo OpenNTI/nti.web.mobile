@@ -3800,8 +3800,8 @@
     },
     "react-proxy-loader": {
       "version": "0.3.4",
-      "from": "jsg2021/react-proxy-loader#fix-es6-default-export-interop",
-      "resolved": "git://github.com/jsg2021/react-proxy-loader.git#e2dd3e82289072148abe4606d2341650d8a0396f"
+      "from": "react-proxy-loader@0.3.4",
+      "resolved": "https://registry.npmjs.org/react-proxy-loader/-/react-proxy-loader-0.3.4.tgz"
     },
     "react-router-component": {
       "version": "0.27.2",
