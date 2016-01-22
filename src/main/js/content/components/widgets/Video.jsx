@@ -20,7 +20,7 @@ function getVideo (object, index) {
 		return object;
 	}
 
-	return NTIID ? index.get(NTIID) : index.videoFrom(object);
+	return NTIID ? index.get(NTIID) : index.mediaFrom(object);
 }
 
 
