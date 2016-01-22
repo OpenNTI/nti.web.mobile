@@ -2,6 +2,7 @@ import React from 'react';
 import Router from 'react-router-component';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
+import Logger from 'nti-util-logger';
 
 import Loading from 'common/components/Loading';
 import EmptyList from 'common/components/EmptyList';
@@ -14,6 +15,8 @@ import TranscriptedVideo from './TranscriptedVideo';
 import VideoGrid from './VideoGrid';
 
 import {LESSONS, VIDEOS} from '../Sections';
+
+const logger = Logger.get('course:components:Media');
 
 export default React.createClass({
 	displayName: 'MediaView',
@@ -58,12 +61,8 @@ export default React.createClass({
 	getDataIfNeeded (props) {
 		this.setState(this.getInitialState());
 		try {
-			props.course.getVideoIndex()
-				.then(VideoIndex =>
-					this.setState({
-						loading: false,
-						VideoIndex
-					}))
+			props.course.getMediaIndex()
+				.then(MediaIndex => this.setState({ loading: false, MediaIndex }))
 				.catch(this.onError);
 		} catch (e) {
 			this.onError(e);
@@ -86,7 +85,7 @@ export default React.createClass({
 				}),
 				//error
 				() => {
-					console.warn('Could not find outline node: %s in course: ', id, course.getID());
+					logger.warn('Could not find outline node: %s in course: ', id, course.getID());
 				});
 		}
 
@@ -100,14 +99,14 @@ export default React.createClass({
 
 
 	render () {
-		let {loading, error, VideoIndex} = this.state;
+		let {loading, error, MediaIndex} = this.state;
 
 		if (loading) { return ( <Loading/> ); }
 		if (error) {
 			return ( <EmptyList type="videos"/> );
 		}
 
-		let props = Object.assign({}, this.props, { VideoIndex });
+		let props = Object.assign({}, this.props, { MediaIndex });
 
 		return (
 			<Router.Locations className="media-view" contextual>

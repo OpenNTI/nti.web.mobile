@@ -70,22 +70,22 @@ export default React.createClass({
 	mixins: [ContextSender],
 
 	propTypes: {
-		VideoIndex: React.PropTypes.object
+		MediaIndex: React.PropTypes.object
 	},
 
 	getContext () { return Promise.resolve([]); },
 
 	render () {
-		const {VideoIndex} = this.props;
+		const {MediaIndex} = this.props;
 
-		if(!VideoIndex || VideoIndex.length === 0) {
+		if(!MediaIndex || MediaIndex.length === 0) {
 			return <EmptyList type="videos"/>;
 		}
 
 		return (
 			<ul className="small-block-grid-1 medium-block-grid-2">
-				{VideoIndex.map((v) => (
-					<VideoCell index={VideoIndex} item={v} key={v.ntiid}/>
+				{MediaIndex.filter(x => x.isVideo).map((v) => (
+					<VideoCell index={MediaIndex} item={v} key={v.ntiid}/>
 				))}
 			</ul>
 		);

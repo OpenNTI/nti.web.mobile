@@ -75,7 +75,7 @@ export default React.createClass({
 	mixins: [ContextSender, NavigatableMixin],
 
 	propTypes: {
-		VideoIndex: React.PropTypes.object.isRequired,
+		MediaIndex: React.PropTypes.object.isRequired,
 		outlineId: React.PropTypes.string,
 		videoId: React.PropTypes.string,
 		course: React.PropTypes.object,
@@ -122,12 +122,12 @@ export default React.createClass({
 
 
 	componentDidUpdate (_, prevState) {
-		let {outlineId, VideoIndex} = this.props;
+		let {outlineId, MediaIndex} = this.props;
 		let {video} = this.state;
 
 		if (video !== prevState.video) {
 			logger.debug('Updating Pager...');
-			let pageSource = video && VideoIndex.getPageSource(video);
+			let pageSource = video && MediaIndex.filter(x => x.isVideo).getPageSource(video);
 
 			if (outlineId && pageSource) {
 				pageSource = pageSource.scoped(decodeFromURI(outlineId));
@@ -163,15 +163,15 @@ export default React.createClass({
 
 		try {
 
-			const {VideoIndex, videoId} = props;
+			const {MediaIndex, videoId} = props;
 			const decodedId = decodeFromURI(videoId);
-			let video = VideoIndex.get(decodedId);
+			let video = MediaIndex.get(decodedId);
 
 			this.resolveContext()
 				.then(context => this.setState({ context }));
 
 			if (!video) {
-				logger.error('How do we get a video id ("%s") and not find it in the index?: ', decodedId, VideoIndex);
+				logger.error('How do we get a video id ("%s") and not find it in the index?: ', decodedId, MediaIndex);
 				return this.setState({error: 'No Video'});
 			}
 
