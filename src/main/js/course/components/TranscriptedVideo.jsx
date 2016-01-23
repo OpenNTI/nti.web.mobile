@@ -159,7 +159,7 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		this.setState(this.getInitialState());
+		this.replaceState(this.getInitialState());
 
 		try {
 
@@ -177,9 +177,10 @@ export default React.createClass({
 
 			let transcript = this.loadTranscript(video);
 			let notes = this.loadDiscussions(video);
+			let slides = this.loadSlides(video, props);
 
-			Promise.all([ notes, transcript ])
-				.then(this.setState({loading: false}))
+			Promise.all([ notes, transcript, slides ])
+				.then(() => this.setState({loading: false}))
 				.catch(this.onError);
 
 		} catch (e) {
@@ -211,12 +212,13 @@ export default React.createClass({
 	loadTranscript (video) {
 		return video.getTranscript('en')
 			.then(vtt => {
-				let parser = new WebVTT.Parser(global, WebVTT.StringDecoder()),
-					cues = [], regions = [];
+				const parser = new WebVTT.Parser(global, WebVTT.StringDecoder());
+				const cues = [];
+				const regions = [];
 
-				parser.oncue = cue=> cues.push(cue);
-				parser.onregion = region=> regions.push(region);
-				parser.onparsingerror = e=> { throw e; };
+				parser.oncue = cue => cues.push(cue);
+				parser.onregion = region => regions.push(region);
+				parser.onparsingerror = e => { throw e; };
 
 				if (!global.VTTCue) {
 					global.VTTCue = VTTCue;
@@ -229,12 +231,7 @@ export default React.createClass({
 					delete global.VTTCue;
 				}
 
-				this.setState({
-					cues,
-					regions,
-					video
-				});
-
+				this.setState({ cues, regions, video });
 			})
 			.catch(reason=> {
 				if (reason === video.NO_TRANSCRIPT ||
@@ -243,8 +240,37 @@ export default React.createClass({
 					return;
 				}
 				return Promise.reject(reason);
-
 			});
+	},
+
+
+	loadSlides (video, props) {
+		const {outlineId : encodedId, MediaIndex} = props;
+		const {slidedecks} = video;
+		const outlineId = encodedId && decodeFromURI(encodedId);
+
+		if (!slidedecks || !slidedecks.length) {
+			return;
+		}
+
+		let index = MediaIndex;
+		if (outlineId) {
+			index = index.scoped(outlineId);
+		}
+
+		const decks = slidedecks.filter(x => index.get(x));
+		if (!decks.length) {
+			logger.warn('Referenced slidedecks do not exist in scope. %o %o', video, index);
+			return;
+		}
+		if (decks.length > 1) {
+			logger.warn('Multiple slidedecks for video: %o %o', video.getID(), decks.join(', '));
+		}
+
+		//The webapp is currently letting the "last" slidedeck win... so lets pick from the end of the list.
+		const deck = index.get(decks.pop());
+
+		this.setState({ slides: deck.Slides });
 	},
 
 
@@ -319,9 +345,17 @@ export default React.createClass({
 	},
 
 
+	redrawGutter () {
+		const {gutter} = this.refs;
+		if (gutter) {
+			gutter.handleResize();
+		}
+	},
+
+
 	render () {
 		let {showDiscussions, videoId} = this.props;
-		let {annotations, storeProvider, selectedDiscussions, error, video, cues, regions, currentTime, loading} = this.state;
+		let {annotations, storeProvider, selectedDiscussions, error, video, cues, regions, slides, currentTime, loading} = this.state;
 
 		loading = loading || !video;
 
@@ -354,12 +388,15 @@ export default React.createClass({
 						</div>
 					) : (
 						<Transcript ref="transcript"
+							onSlideLoaded={this.redrawGutter}
 							onJumpTo={this.onJumpTo}
 							currentTime={currentTime}
 							regions={regions}
-							cues={cues}/>
+							cues={cues}
+							slides={slides}
+							/>
 					)}
-					<Gutter items={annotations} selectFilter={this.setDiscussionFilter} prefix={videoId}/>
+					<Gutter ref="gutter" items={annotations} selectFilter={this.setDiscussionFilter} prefix={videoId}/>
 				</div>
 
 			</div>
