@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {isFlag} from 'common/utils';
 import {scoped} from 'common/locale';
 
 import Report from 'common/components/Report';
@@ -26,7 +25,7 @@ export default React.createClass({
 	render () {
 		const {props: {item, canReply, onEdit, onDelete}} = this;
 
-		const canEdit = isFlag('canEditForumPost') && item.hasLink('edit');
+		const canEdit = item.hasLink('edit');
 		const canDelete = item.hasLink('edit');
 		const canReport = item.hasLink('flag') || item.hasLink('flag.metoo');
 
