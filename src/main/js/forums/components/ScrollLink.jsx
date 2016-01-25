@@ -19,6 +19,7 @@ export default React.createClass({
 			let input = node.querySelector('input, textarea, [contenteditable]');
 			if (input) {
 				input.focus();
+				input.scrollIntoView(true);
 			}
 		}
 	},
