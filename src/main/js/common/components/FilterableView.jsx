@@ -1,8 +1,11 @@
 import React from 'react';
+import Logger from 'nti-util-logger';
 
 import FilterBar from './FilterBar';
 import NoMatches from './NoMatches';
 
+
+const logger = Logger.get('common:components:filterable-view');
 
 export default React.createClass({
 	displayName: 'FilterableView',
@@ -22,7 +25,7 @@ export default React.createClass({
 	filter (list) {
 
 		if (!(list && list.filter)) {
-			console.error('List should be an array (or at least have a \'filter\' method. Returning an empty array. Received: %O', list);
+			logger.error('List should be an array (or at least have a \'filter\' method. Returning an empty array. Received: %O', list);
 			return [];
 		}
 
