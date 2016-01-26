@@ -1,4 +1,4 @@
-export default function passesFilter (item, query) {
+export default function passesFilter (query, item) {
 	if (!query || query.trim().length === 0) {
 		return true;
 	}
