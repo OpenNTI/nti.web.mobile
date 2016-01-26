@@ -39,7 +39,7 @@ export default React.createClass({
 	},
 
 	componentWillMount () {
-		let item = Store.getObject(this.getItemId());
+		let item = Store.getForumItem(this.getItemId());
 		if (item) {
 			this.setState({
 				item: item

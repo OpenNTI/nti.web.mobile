@@ -1,16 +1,18 @@
-import {OBJECT_LOADED} from '../Constants';
+import {ITEM_LOADED} from '../Constants';
 import {decodeFromURI} from 'nti-lib-ntiids';
+import Logger from 'nti-util-logger';
 
-const objectLoadedHandler = 'KeepItemInState:objectLoadedHandler';
+const LoadedHandler = 'KeepItemInState:LoadedHandler';
+const logger = Logger.get('forums:mixins:KeepItemInState');
 
 export default {
 
 	componentWillMount () {
 		if (!this.registerStoreEventHandler) {
-			console.warn('this.registerStoreEventHandler is undefined. (Forgot to include the StoreEvents mixin?)');
+			logger.warn('this.registerStoreEventHandler is undefined. (Forgot to include the StoreEvents mixin?)');
 			return;
 		}
-		this.registerStoreEventHandler(OBJECT_LOADED, objectLoadedHandler);
+		this.registerStoreEventHandler(ITEM_LOADED, LoadedHandler);
 	},
 
 	componentWillReceiveProps (nextProps) {
@@ -21,18 +23,18 @@ export default {
 	},
 
 
-	[objectLoadedHandler] (event) {
-		let {object} = event;
-		if (object && object.getID && object.getID() === this.getItemId()) {
+	[LoadedHandler] (event) {
+		let {item} = event;
+		if (item && item.getID && item.getID() === this.getItemId()) {
 			this.setState({
-				item: object
+				item: item
 			});
 		}
 	},
 
 
 	getItemFromStore () {
-		return this.getPropId && this.backingStore && this.backingStore.getObject && this.backingStore.getObject(this.getPropId());
+		return this.getPropId && this.backingStore && this.backingStore.getForumItem && this.backingStore.getForumItem(this.getPropId());
 	},
 
 

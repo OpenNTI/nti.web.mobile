@@ -20,11 +20,10 @@ import Replies from './Replies';
 import CommentForm from './CommentForm';
 import List from './List';
 
-import {OBJECT_DELETED, POST, COMMENT_FORM_ID} from '../Constants';
+import {ITEM_DELETED, POST, COMMENT_FORM_ID} from '../Constants';
 import Store from '../Store';
-import {getObjects} from '../Api';
+import {getForumItems} from '../Api';
 
-const objectDeletedHandler = 'Post:objectDeletedHandler';
 
 export default React.createClass({
 	displayName: 'forums:Post',
@@ -43,11 +42,11 @@ export default React.createClass({
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[OBJECT_DELETED]: objectDeletedHandler
+		[ITEM_DELETED]: 'onDeleted'
 	},
 
-	[objectDeletedHandler] (event) {
-		if (event.objectId === this.getItemId()) {
+	onDeleted (event) {
+		if (event.itemId === this.getItemId()) {
 			this.setState({
 				deleted: true,
 				busy: false
@@ -81,10 +80,10 @@ export default React.createClass({
 	doLoad (thePostId) {
 		let postId = decodeFromURI(thePostId || this.getItemId());
 		let topicId = decodeFromURI(this.props.topicId);
-		getObjects([postId, topicId]).then(
+		getForumItems([postId, topicId]).then(
 			result => {
-				result.forEach(object => {
-					Store.setObject(object.getID(), object);
+				result.forEach(item => {
+					Store.setForumItem(item.getID(), item);
 				});
 				this.setState({
 					item: result[0],
@@ -143,7 +142,7 @@ export default React.createClass({
 			return <Loading />;
 		}
 
-		let topic = Store.getObject(this.props.topicId);
+		let topic = Store.getForumItem(this.props.topicId);
 
 		return (
 			<div>

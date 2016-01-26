@@ -7,13 +7,10 @@ import Store from '../Store';
 import {
 	GOT_COMMENT_REPLIES,
 	COMMENT_ADDED,
-	OBJECT_DELETED
+	ITEM_DELETED
 } from '../Constants';
 
 
-const gotCommentRepliesHandler = 'Replies:gotCommentRepliesHandler';
-const commentAddedHandler = 'Replies:commentAddedHandler';
-const objectDeletedHandler = 'Replies:objectDeletedHandler';
 
 export default React.createClass({
 	displayName: 'forums:Replies',
@@ -31,12 +28,12 @@ export default React.createClass({
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[GOT_COMMENT_REPLIES]: gotCommentRepliesHandler,
-		[COMMENT_ADDED]: commentAddedHandler,
-		[OBJECT_DELETED]: objectDeletedHandler
+		[GOT_COMMENT_REPLIES]: 'onReceivedCommentReplies',
+		[COMMENT_ADDED]: 'onCommentAdded',
+		[ITEM_DELETED]: 'onDeleted'
 	},
 
-	[gotCommentRepliesHandler] (event) {
+	onReceivedCommentReplies (event) {
 		let {item} = this.props;
 		if(event.comment === item) {
 			let itemId = item.getID();
@@ -46,7 +43,7 @@ export default React.createClass({
 		}
 	},
 
-	[commentAddedHandler] (event) {
+	onCommentAdded (event) {
 		let {item} = this.props;
 		let {parent, result} = event.data;
 		if (parent === item || result.inReplyTo === item.getID()) {
@@ -54,7 +51,7 @@ export default React.createClass({
 		}
 	},
 
-	[objectDeletedHandler] (event) {
+	onDeleted (event) {
 		let {item} = this.props;
 		let eventItem = event.object || event.item;
 		let parent = eventItem && eventItem.parent();
@@ -87,7 +84,7 @@ export default React.createClass({
 		let {item} = this.props;
 		// if (!item || (item.ReferencedByCount === 0 && !reload)) {
 		if (!item) {
-			console.debug('not reloading replies.');
+			// console.debug('not reloading replies.');
 			return;
 		}
 		Actions.getCommentReplies(item);

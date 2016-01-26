@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Store from '../Store';
-import {OBJECT_CONTENTS_CHANGED} from '../Constants';
+import {ITEM_CONTENTS_CHANGED} from '../Constants';
 import {encodeForURI, isNTIID} from 'nti-lib-ntiids';
 import Router from 'react-router-component';
 let {Location} = Router;
@@ -37,8 +37,8 @@ export default React.createClass({
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[OBJECT_CONTENTS_CHANGED] (event) {
-			if (event.objectId === this.props.topicId) {
+		[ITEM_CONTENTS_CHANGED] (event) {
+			if (event.itemId === this.props.topicId) {
 				this.setState({
 					loading: false
 				});
@@ -68,7 +68,7 @@ export default React.createClass({
 	},
 
 	getTopic () {
-		return this.getItem() || Store.getObject(this.props.topicId);
+		return this.getItem() || Store.getForumItem(this.props.topicId);
 	},
 
 	render () {

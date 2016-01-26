@@ -81,10 +81,10 @@ export default React.createClass({
 		return getTopicContents(topicId, this.batchStart(), this.getPageSize())
 			.then(
 				result => {
-					Store.setObject(topicId, result.object);
-					Store.setObjectContents(topicId, result.contents);
+					Store.setForumItem(topicId, result.item);
+					Store.setForumItemContents(topicId, result.contents);
 					this.setState({
-						item: result.object,
+						item: result.item,
 						itemContents: result.contents,
 						loading: false
 					});
@@ -111,8 +111,8 @@ export default React.createClass({
 			return (error || {}).statusCode === 404 ? <div><Notice>This topic could not be found.</Notice></div> : <Err error={error} />;
 		}
 
-		let topic = Store.getObject(topicId);
-		let container = Store.getObjectContents(topicId);
+		let topic = Store.getForumItem(topicId);
+		let container = Store.getForumItemContents(topicId);
 		let pageInfo = this.pagingInfo();
 
 		// console.debug('pageInfo: %o', pageInfo);

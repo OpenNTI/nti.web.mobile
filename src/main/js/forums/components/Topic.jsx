@@ -21,7 +21,7 @@ import ViewHeader from './widgets/ViewHeader';
 
 import * as Actions from '../Actions';
 import {getTopicContents} from '../Api';
-import {OBJECT_CONTENTS_CHANGED, COMMENT_ADDED, OBJECT_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID} from '../Constants';
+import {ITEM_CONTENTS_CHANGED, COMMENT_ADDED, ITEM_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID} from '../Constants';
 import Store from '../Store';
 
 // mixins
@@ -62,8 +62,8 @@ export default React.createClass({
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[OBJECT_CONTENTS_CHANGED] (event) {
-			if (event.objectId === this.props.topicId) {
+		[ITEM_CONTENTS_CHANGED] (event) {
+			if (event.itemId === this.props.topicId) {
 				this.setState({
 					loading: false
 				});
@@ -76,11 +76,11 @@ export default React.createClass({
 				this.loadData(topicId);
 			}
 		},
-		[OBJECT_DELETED] (event) {
+		[ITEM_DELETED] (event) {
 			let {topicId} = this.props;
 			let fullTopicId = decodeFromURI(topicId);
-			let o = event.object;
-			if (!o.inReplyTo && event.object.ContainerId === fullTopicId) {
+			let o = event.item;
+			if (!o.inReplyTo && event.item.ContainerId === fullTopicId) {
 				this.loadData(this.props.topicId);
 			}
 			if (o.getID && o.getID() === fullTopicId) {
@@ -148,10 +148,10 @@ export default React.createClass({
 		return getTopicContents(topicId, this.batchStart(), this.getPageSize())
 			.then(
 				result => {
-					Store.setObject(topicId, result.object);
-					Store.setObjectContents(topicId, result.contents);
+					Store.setForumItem(topicId, result.item);
+					Store.setForumItemContents(topicId, result.contents);
 					this.setState({
-						item: result.object,
+						item: result.item,
 						itemContents: result.contents
 					});
 				},
@@ -185,7 +185,7 @@ export default React.createClass({
 	},
 
 	getTopic () {
-		return this.getItem() || Store.getObject(this.props.topicId);
+		return this.getItem() || Store.getForumItem(this.props.topicId);
 	},
 
 	getPropId () {

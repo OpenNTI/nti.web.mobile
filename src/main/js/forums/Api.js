@@ -47,7 +47,7 @@ export function loadDiscussions (pkg) {
 }
 
 
-// convenience method that just adds params to the getObjectContents call.
+// convenience method that just adds params to the getForumItemContents call.
 export function getTopicContents (topicId, batchStart = 0, batchSize = 50) {
 	return getPagedContents(topicId, batchStart, batchSize, 'ascending', 'CreatedTime');
 }
@@ -66,19 +66,19 @@ export function getPagedContents (ntiid,
 		DEFAULT_PAGING_PARAMS,
 		{batchStart, batchSize, sortOrder, sortOn}
 	);
-	return getObjectContents(ntiid, params);
+	return getForumItemContents(ntiid, params);
 }
 
 
-export function getObjectContents (ntiid, params) {
-	return getObject(ntiid).then(object =>
-		object.getContents(params).then(contents => ({ object, contents, params})));
+export function getForumItemContents (ntiid, params) {
+	return getForumItem(ntiid).then(item =>
+		item.getContents(params).then(contents => ({ item, contents, params})));
 }
 
-export function getObject (ntiid) {
+export function getForumItem (ntiid) {
 	return getService().then(s => s.getParsedObject(decodeFromURI(ntiid)));
 }
 
-export function getObjects (ntiids) {
+export function getForumItems (ntiids) {
 	return getService().then(s => s.getParsedObjects(ntiids.map(decodeFromURI)));
 }
