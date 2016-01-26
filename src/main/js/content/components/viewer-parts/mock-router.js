@@ -1,9 +1,13 @@
+import Logger from 'nti-util-logger';
+
 import BasePathAware from 'common/mixins/BasePath';
 import Path from 'path';
 
 const ROUTES = Symbol('Routes');
 
 const makeRoute = (path, extra) => ({props: Object.assign({ handler: 'div', path }, extra || {})});
+
+const logger = Logger.get('content:viewer-parts:router');
 
 export default {
 	mixins: [BasePathAware],
@@ -41,7 +45,7 @@ export default {
 
 		this.navigate = (route, ...args) => {
 			let target = this.makeHref(route);
-			console.log('Input: %s\nResolved: %s\n\n', route, target);
+			logger.debug('Input: %s\nResolved: %s\n\n', route, target);
 			return this.getEnvironment().setPath(target, ...args);
 		};
 
@@ -52,6 +56,11 @@ export default {
 
 	getDefaultProps  () {
 		return { contextual: true };
+	},
+
+
+	getChildProps () {
+		return {};
 	},
 
 
