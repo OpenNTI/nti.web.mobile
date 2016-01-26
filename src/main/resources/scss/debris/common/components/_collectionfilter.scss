@@ -49,46 +49,7 @@
 }
 
 
-.filter-bar {
-	list-style: none;
-	margin: 0 -5000px 1rem;
-	padding-left: 5000px;
-	background: #efefef;
-    box-shadow: inset 0 0 0 1px #e3e3e3;
-	font-size: .875rem;
-	font-weight: 600;
-
-	& > * {
-		float: left;
-		padding: .5rem 1rem;
-		text-transform: uppercase;
-		box-shadow: 1px 0 0 0 #e3e3e3;
-		&.active {
-			background: $primary-color;
-			a {
-				color: white;
-			}
-		}
-		a {
-			color: $secondary-grey;
-		}
-		.count {
-			display: none;
-		}
-	}
-
-	&::after {
-		content: '';
-		display: table;
-		clear: both;
-	}
-}
-
 @media (max-width: 365px) {
-	.filter-bar {
-		font-size: .6875rem;
-	}
-
 	.button-group.filters {
 		.button {
 			.count {
@@ -96,5 +57,4 @@
 			}
 		}
 	}
-
 }
