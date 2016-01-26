@@ -6,6 +6,8 @@ import ContextSender from 'common/mixins/ContextSender';
 
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
+import passesFilter from '../catalog-list-search';
+
 import Item from './Entry';
 
 export default React.createClass({
@@ -58,18 +60,25 @@ export default React.createClass({
 		this.setPageSourceData(new PageSource(sections.reduce((a, s)=> a.concat(s.items), [])));
 	},
 
+	onSearchChange () {
+		const search = this.refs.search.value;
+		this.setState({
+			search
+		});
+	},
 
 	render () {
 
-		let {sections} = this.state;
+		let {sections, search} = this.state;
 
 		return (
 			<div>
+				<div className="search"><input type="text" ref="search" onChange={this.onSearchChange} /></div>
 			{sections.map(s=>
 				<div className="grid-container" key={s.label}>
 					<h3>{s.label}</h3>
 					<ul className={'small-block-grid-1'}>
-						{s.items.map(o=><Item key={o.getID()} item={o}/>)}
+						{s.items.map(o => passesFilter(o, search) && <Item key={o.getID()} item={o}/>)}
 					</ul>
 				</div>
 			)}
