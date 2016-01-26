@@ -1,4 +1,5 @@
 // import {Service} from 'nti-lib-interfaces';
+import Logger from 'nti-util-logger';
 
 import {encodeForURI as encode} from 'nti-lib-ntiids';
 
@@ -6,11 +7,16 @@ import {join} from 'path';
 
 import {profileHref} from 'profile/mixins/ProfileLink';
 
+const logger = Logger.get('object:resolvers:LibraryPath');
+
 const IGNORE = Symbol();
 
 export const isPageInfo = o => typeof o !== 'string'
 								? o && isPageInfo(o.MimeType || o.mimeType || o.Class)
 								: /pageinfo$/i.test(o);
+
+
+const getTarget = x => x.target || x[Object.keys(x).filter(k => /target\-ntiid/i.test(k))[0]];
 
 const MIME_TYPES = {
 	'contentpackage': (o) => `/content/${encode(o.getID())}/o/`,
@@ -50,10 +56,12 @@ const MIME_TYPES = {
 			}
 		}
 		else if (!next || !isPageInfo(next.MimeType)) {
-			console.error('Unexpected Path sequence. Internal RelatedWorkReferences should be followed by a pageInfo');
+			logger.error('Unexpected Path sequence. Internal RelatedWorkReferences should be followed by a pageInfo');
 		}
 		else if (next && next.getID() !== o.target) {
-			c += `${encode(o.target)}/`;
+			let id = getTarget(o);
+
+			c += `${encode(id)}/`;
 		}
 
 		return c;
@@ -134,7 +142,7 @@ export default class LibraryPathResolver {
 		}
 
 		if (!p) {
-			console.error(o);
+			logger.error(o);
 			return 'Unknown Path Component';
 		}
 
