@@ -2,6 +2,7 @@ import React from 'react';
 import {parseHTML} from 'content/utils';
 import {getService} from 'common/utils';
 import Loading from 'common/components/Loading';
+import Error from 'common/components/Error';
 
 export default React.createClass({
 	displayName: 'PopUp',
@@ -35,6 +36,7 @@ export default React.createClass({
 		let {source} = props;
 		getService()
 			.then(service => service.get(source))
+			.catch(error => this.setState({error}))
 			.then(result => {
 				const body = this.getBody(result);
 				this.setState({
@@ -46,14 +48,14 @@ export default React.createClass({
 
 	render () {
 
-		const {loading, html} = this.state;
-
+		const {loading, html, error} = this.state;
 		return (
 			<div className="popup" {...this.props}>
 				<div onClick={this.props.onClose} className="close"><i className="icon-light-x" /></div>
-				{loading ?
-					<Loading /> :
-					<div className="content" dangerouslySetInnerHTML={{__html: html}} />
+				{error ? <Error error={error} /> :
+					loading ?
+						<Loading /> :
+							<div className="content" dangerouslySetInnerHTML={{__html: html}} />
 				}
 			</div>
 		);
