@@ -49,6 +49,15 @@ export default {
 				});
 				return;
 			}
+			else if(anchor.dataset && anchor.dataset.presentation === 'popup') {
+				e.preventDefault();
+				this.setState({
+					popup: {
+						download: anchor.href,
+						source: anchor.dataset.sourceWrapped
+					}
+				});
+			}
 
 			let isFragmentRef = href.charAt(0) === '#' || (frag.length && id === this.getPageID());
 

@@ -1,0 +1,41 @@
+@import 'utils/variables';
+
+.popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: white;
+	z-index: 9999;
+	padding: 3rem 1rem 1rem;
+	.close {
+		position: absolute;
+		top: .5rem;
+		right: .5rem;
+		color: $tertiary-grey;
+		cursor: pointer;
+	}
+	.content {
+		height: 100%;
+		h3 {
+			font-family: monospace;
+			font-weight: 100;
+			font-size: 1.17em;
+		}
+		.page-contents {
+			display: flex;
+			height: 100%;
+			flex-direction: column;
+		}
+		pre {
+			flex: 1 1 auto;
+    		font: normal normal 1em/1 monospace;
+    		background: #f9f9f9;
+    		border: 1px solid #ddd;
+    		padding: 18px 20px;
+    		margin: 0;
+    		overflow: auto;
+		}
+	}
+}

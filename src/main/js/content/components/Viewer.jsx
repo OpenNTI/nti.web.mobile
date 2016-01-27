@@ -33,6 +33,7 @@ import AssessmentFeature, {isAssignment} from './viewer-parts/assessment';
 import RouterLikeBehavior from './viewer-parts/mock-router';
 import GlossaryFeature from './viewer-parts/glossary';
 import Interactions from './viewer-parts/interaction';
+import PopUpFeature from './viewer-parts/popup';
 
 import AnnotationBar from './AnnotationBar';
 import NoteEditor from './NoteEditor';
@@ -51,6 +52,7 @@ export default React.createClass({
 		ContextSender,
 		GlossaryFeature,
 		Interactions,
+		PopUpFeature,
 		RouterLikeBehavior,
 		RouterMixin,
 		StoreEvents
@@ -298,7 +300,7 @@ export default React.createClass({
 					<div key="content">
 						<div className="content-body">
 							{this.renderAssessmentHeader()}
-							<div className="coordinate-root">	
+							<div className="coordinate-root">
 								<BodyContent ref="content"
 									onClick={this.onContentClick}
 									onUserSelectionChange={this.maybeOfferAnnotations}
@@ -309,6 +311,8 @@ export default React.createClass({
 								{this.renderAssessmentFeedback()}
 
 								{this.renderGlossaryEntry()}
+
+								{this.renderPopUp()}
 
 								{this.renderBottomPager()}
 
