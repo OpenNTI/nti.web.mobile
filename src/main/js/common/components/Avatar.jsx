@@ -22,7 +22,7 @@ export default React.createClass({
 		entity: React.PropTypes.oneOfType([
 			React.PropTypes.object,
 			React.PropTypes.string
-		]).isRequired,
+		]),
 
 		username: deprecated,
 		user: deprecated,
