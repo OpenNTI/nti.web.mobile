@@ -152,12 +152,15 @@ export default React.createClass({
 				) : (
 					<PostHeadline item={item} topic={topic} asHeadline />
 				)}
-				<Replies key="replies" item={item}
-					listComponent={List}
-					childComponent={PostItem}
-					topic={topic}
-					display
-					className="visible" />
+				{topic &&
+					<Replies key="replies" item={item}
+						listComponent={List}
+						childComponent={PostItem}
+						topic={topic}
+						display
+						className="visible"
+						/>
+				}
 				{topic &&
 					<CommentForm key="commentForm"
 						ref="commentForm"
@@ -166,7 +169,7 @@ export default React.createClass({
 						onCompletion={this.commentCompletion}
 						topic={topic}
 						parent={item}
-					/>
+						/>
 				}
 			</div>
 		);
