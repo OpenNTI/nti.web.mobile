@@ -10,6 +10,8 @@ const WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(
 
 const DOCUMENT_NODE = 9;// Node.DOCUMENT_NODE
 
+const isReady = doc => doc.readyState !== 'loading';
+
 function getContent (raw) {
 	const start = /<(!DOCTYPE|html)/i.exec(raw);
 	//Some content pages have invalid text before the beginning of the document. This will strip it.
@@ -17,6 +19,23 @@ function getContent (raw) {
 		? raw.substr(start.index) : raw;
 }
 
+export function parseHTML (htmlString) {
+	const html = getContent(htmlString);
+	const parser = (typeof DOMParser !== 'undefined') && new DOMParser();
+
+	let doc = parser && parser.parseFromString(html, 'text/html');
+
+	if (!doc) {
+		doc = document.createElement('html');
+		doc.innerHTML = html;
+	}
+
+	if (!('readyState' in doc)) {
+		doc.readyState = 'interactive';
+	}
+
+	return doc;
+}
 
 /**
  * Take HTML content and parse it into parts that we can render widgets into it.
@@ -28,9 +47,6 @@ function getContent (raw) {
  * @returns {object} A packet of data, content, body, styles and widgets. MAY return a promise that fulfills with said object.
  */
 export function processContent (packet, strategies = DEFAULT_STRATEGIES) {
-	const parser = (typeof DOMParser !== 'undefined') && new DOMParser();
-	const html = getContent(packet.content);
-	const isReady = doc => doc.readyState !== 'loading';
 
 	function process (doc) {
 		let elementFactory = doc.nodeType === DOCUMENT_NODE ? doc : document;
@@ -56,19 +72,6 @@ export function processContent (packet, strategies = DEFAULT_STRATEGIES) {
 		});
 	}
 
-	function parse () {
-		let doc = parser && parser.parseFromString(html, 'text/html');
-		if (!doc) {
-			doc = document.createElement('html');
-			doc.innerHTML = html;
-		}
-
-		if (!('readyState' in doc)) {
-			doc.readyState = 'interactive';
-		}
-
-		return doc;
-	}
 
 	function wait (doc) {
 		return new Promise((ready, fail) => {
@@ -93,7 +96,7 @@ export function processContent (packet, strategies = DEFAULT_STRATEGIES) {
 	}
 
 	try {
-		const doc = parse();
+		const doc = parseHTML(packet.content);
 		if (isReady(doc)) {
 			return process(doc);
 		}
