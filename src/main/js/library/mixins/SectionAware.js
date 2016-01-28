@@ -1,5 +1,8 @@
+import Logger from 'nti-util-logger';
 import Filters from '../Filters';
 import LibraryAccessor from './LibraryAccessor';
+
+const logger = Logger.get('library:mixins:SectionAware');
 
 //the keys and values must match.
 const SECTION_NAMES = { admin: 'admin', courses: 'courses', books: 'books' };
@@ -34,7 +37,7 @@ export default {
 		}
 
 		if (!properties) {
-			console.error('Unknown section; returning empty array.');
+			logger.error('Unknown section; returning empty array.');
 			return [];
 		}
 

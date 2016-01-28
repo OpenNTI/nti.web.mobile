@@ -1,4 +1,7 @@
 import React from 'react';
+import Logger from 'nti-util-logger';
+
+const logger = Logger.get('library:components:items:shared:Icon');
 
 class Queue {
 	constructor (maxConcurrent = 4, interval = 200) {
@@ -14,7 +17,7 @@ class Queue {
 		if (index > -1) {//move to the end.
 			this.list.splice(index, 1);
 
-			console.debug('repeat?');
+			logger.debug('repeat?');
 		}
 		this.list.push(o);
 	}
@@ -84,7 +87,7 @@ export default React.createClass({
 					}
 				})
 				.catch((e)=> e !== 'aborted'
-							&& console.log('Huh?', e && e.stack || e.message || e));
+							&& logger.warn('Huh?', e && e.stack || e.message || e));
 		}
 	},
 

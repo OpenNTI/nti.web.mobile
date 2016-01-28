@@ -31,7 +31,6 @@ export function updateWithNewUsername (username) {
 			return links ? {links} : Promise.reject(reason);
 		})
 		.then(data => {
-			console.log(data);
 			AppDispatcher.handleRequestAction({type: LOGIN_PONG, data, username});
 		});
 }

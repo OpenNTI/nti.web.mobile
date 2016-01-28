@@ -1,9 +1,9 @@
-
-
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import {NavigatableMixin, Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
+
+import Logger from 'nti-util-logger';
 
 import BasePathAware from 'common/mixins/BasePath';
 
@@ -19,7 +19,7 @@ import SignupConfirm from './SignupConfirm';
 import {begin} from '../Actions';
 import Store from '../Store';
 
-
+const logger = Logger.get('login:components:View');
 
 
 export default React.createClass({
@@ -32,7 +32,7 @@ export default React.createClass({
 
 
 	setError (error) {
-		console.error(error);
+		logger.error(error);
 		this.setState({error});
 	},
 

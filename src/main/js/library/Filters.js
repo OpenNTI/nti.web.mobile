@@ -1,8 +1,11 @@
+import Logger from 'nti-util-logger';
 import {scoped} from 'common/locale';
 
 export const CURRENT = 'current';
 export const UPCOMING = 'upcoming';
 export const ARCHIVED = 'archived';
+
+const logger = Logger.get('library:Filters');
 
 let getLabel = scoped('LIBRARY.CATEGORY');
 
@@ -38,7 +41,7 @@ function splitBySemester (list) {
 			add(start, bin, item);
 
 		} catch (e) {
-			console.error(e);
+			logger.error(e);
 		}
 	});
 
@@ -62,7 +65,7 @@ export default [
 				return start > Date.now();
 			}
 			catch(e) {
-				console.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
+				logger.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
 				return false;
 			}
 		},
@@ -81,7 +84,7 @@ export default [
 				return start < now && end > now;
 			}
 			catch(e) {
-				console.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
+				logger.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
 				return false;
 			}
 		},
@@ -96,7 +99,7 @@ export default [
 				return end < Date.now();
 			}
 			catch(e) {
-				console.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
+				logger.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
 				return false;
 			}
 		},

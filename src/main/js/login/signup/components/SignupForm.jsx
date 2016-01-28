@@ -95,7 +95,6 @@ export default React.createClass({
 
 	storeChanged (event) {
 		let errors;
-		console.debug('SignupForm received Store change event: %O', event);
 		if (event.type === 'created') {
 			const returnPath = getReturnURL();
 			const path = returnPath || this.getBasePath();

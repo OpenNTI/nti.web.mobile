@@ -1,3 +1,4 @@
+import Logger from 'nti-util-logger';
 import {
 	LINK_LOGIN_CONTINUE,
 	LINK_LOGIN_PASSWORD,
@@ -9,6 +10,8 @@ import {
 } from './Constants';
 
 import StorePrototype from 'common/StorePrototype';
+
+const logger = Logger.get('login:Store');
 
 const data = Symbol('data');
 const pong = Symbol('pong');
@@ -86,7 +89,7 @@ class Store extends StorePrototype {
 		for (let k of Object.keys(links)) {
 			if((/logon\.ldap\./).test(k)) {
 				url = links[k];
-				console.debug('Found rel: "%s", using.', k);
+				logger.debug('Found rel: "%s", using.', k);
 				break;
 			}
 		}

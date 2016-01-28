@@ -1,3 +1,5 @@
+import Logger from 'nti-util-logger';
+
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 
@@ -9,6 +11,8 @@ import {CHANGE_EVENT, ERROR_EVENT} from 'common/constants/Events';
 
 let errors = [];
 
+const logger = Logger.get('login:signup:Store');
+
 const addError = 'signupStore:addError';
 const clearErrors = 'signupStore:clearErrors';
 const accountCreated = 'signupStore:accountCreated';
@@ -16,13 +20,11 @@ const accountCreated = 'signupStore:accountCreated';
 let Store = Object.assign({}, EventEmitter.prototype, {
 
 	emitChange (evt) {
-		console.log('Store: emitting change');
 		this.emit(CHANGE_EVENT, evt);
 	},
 
 
 	addChangeListener (callback) {
-		console.log('Store: adding change listener');
 		this.on(CHANGE_EVENT, callback);
 	},
 
@@ -93,7 +95,7 @@ function serverSidePreflight (fields) {
 			.then(
 				result => { fulfill(result); },
 				result => {
-					console.debug('Store received preflight result: %O', result);
+					logger.debug('Store received preflight result: %O', result);
 					Store[clearErrors]();
 					if (result.statusCode === 422 || result.statusCode === 409) {
 						Store[addError](result);
@@ -114,9 +116,9 @@ function createAccount (fields) {
 	}
 
 	function fail (result) {
-		console.log('Account creation fail: %O', result);
-		if (Math.floor(result.statusCode / 100) === 4) {
-			console.debug(result);
+		logger.debug('Account creation fail: %o', result);
+		if (Math.floor(result.statusCode / 100) === 4) { //checking the status code is 4xx?
+			logger.debug(result);
 			let res = JSON.parse(result.response);
 			Store[addError]({
 				field: res.field,
@@ -133,7 +135,7 @@ function createAccount (fields) {
 function preflightCreateAccount (fields) {
 	preflight(fields)
 		.then(createAccount.bind(null, fields))
-		.catch(reason => console.debug(reason));
+		.catch(reason => logger.debug(reason));
 }
 
 AppDispatcher.register(payload => {

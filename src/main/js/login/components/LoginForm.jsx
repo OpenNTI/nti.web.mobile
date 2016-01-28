@@ -3,6 +3,8 @@ import QueryString from 'query-string';
 
 import {Link} from 'react-router-component';
 
+import Logger from 'nti-util-logger';
+
 import Conditional from 'common/components/Conditional';
 import Loading from 'common/components/Loading';
 
@@ -22,6 +24,8 @@ import {
 import Store from '../Store';
 
 import {updateWithNewUsername, login} from '../Actions';
+
+const logger = Logger.get('login:components:LoginForm');
 
 const UPDATE_DELAY = Symbol();
 const UPDATE_DELAY_TIME = 150;
@@ -53,7 +57,7 @@ export default React.createClass({
 
 
 	setError (error) {
-		console.error(error);
+		logger.error(error);
 		this.setState({error});
 	},
 
@@ -80,7 +84,7 @@ export default React.createClass({
 
 		if (message === 'missing' && error != null) {
 			message = 'Unknown error';
-			console.error('Unknown error: %o', error);
+			logger.error('Unknown error: %o', error);
 		}
 
 		return message;
