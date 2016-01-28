@@ -3,6 +3,7 @@ import React from 'react';
 import path from 'path';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
+import Logger from 'nti-util-logger';
 
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
@@ -18,7 +19,7 @@ import {getService} from 'common/utils';
 
 import {resolve} from '../resolvers';
 
-
+const logger = Logger.get('object-resolver:components:View');
 
 export default React.createClass({
 	displayName: 'ObjectResolver',
@@ -49,7 +50,7 @@ export default React.createClass({
 
 	resolveObject (id) {
 		id = decodeFromURI(id);
-		console.debug('Looking up object: %s', id);
+		logger.debug('Looking up object: %s', id);
 
 		getService()
 			.then(s=> s.getParsedObject(id))
@@ -73,7 +74,7 @@ export default React.createClass({
 				return Promise.reject(error);
 			})
 			.catch(error => {
-				console.error('Could not resolve: %o', error);
+				logger.error('Could not resolve: %o', error);
 				this.setState({error});
 			});
 	},

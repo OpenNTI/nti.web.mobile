@@ -1,9 +1,13 @@
 import React from 'react';
 import cx from 'classnames';
 
+import Logger from 'nti-util-logger';
+
 import {getAppUser, getReturnURL} from 'common/utils';
 
 import UserAgreement from './UserAgreement';
+
+const logger = Logger.get('terms:components:View');
 
 export default React.createClass({
 	displayName: 'TermsOfServiceAcceptence',
@@ -25,7 +29,7 @@ export default React.createClass({
 
 		getAppUser()
 			.then(u => u.acceptTermsOfService())
-			.catch(e => console.error(e.stack || e.message || e))
+			.catch(e => logger.error(e.stack || e.message || e))
 			.then(()=> location.replace(getReturnURL()));
 	},
 

@@ -9,6 +9,8 @@ import {
 
 const ENVIRONMENT = environment.defaultEnvironment;
 
+import Logger from 'nti-util-logger';
+
 //Main View Handlers
 import Catalog from 'catalog/components/View.async';
 import Contacts from 'contacts/components/View';
@@ -29,6 +31,10 @@ import {areYouSure} from 'prompts';
 
 import BasePathAware from 'common/mixins/BasePath';
 
+import RouteMap from './routes';
+
+const logger = Logger.get('root:router');
+
 const HANDLER_BY_NAME = {
 	Catalog,
 	Contacts,
@@ -46,7 +52,7 @@ const HANDLER_BY_NAME = {
 const SendGAEvent = 'Router:SendGAEvent';
 const SetPath = '_original:SetPath';
 
-import RouteMap from './routes';
+
 
 export default React.createClass({
 	displayName: 'Router',
@@ -103,7 +109,7 @@ export default React.createClass({
 
 	[SendGAEvent] () {
 		if (!global.ga) {
-			console.warn('Router requires ga to be available in global scope. Aborting attempt to send google analytics navigation event');
+			logger.warn('Router requires ga to be available in global scope. Aborting attempt to send google analytics navigation event');
 			return;
 		}
 		global.ga('set', 'page', global.location.pathname);
@@ -145,7 +151,7 @@ export default React.createClass({
 			let view = HANDLER_BY_NAME[route.handler];
 			if (!view) {
 				route.disabled = true;
-				console.error('Handler not defined for %s: %o', route.path, route);
+				logger.error('Handler not defined for %s: %o', route.path, route);
 			}
 			return view;
 		}

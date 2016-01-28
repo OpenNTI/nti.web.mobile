@@ -1,8 +1,13 @@
 import React from 'react';
+
+import Logger from 'nti-util-logger';
+
 import NoteableMixin from '../mixins/Noteable';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 import DateTime from 'common/components/DateTime';
+
+const logger = Logger.get('notifications:kinds:Note');
 
 function trunc (txt, len) {
 	if (txt.length <= len) {
@@ -53,7 +58,7 @@ export default React.createClass({
 
 			this.setState({preview});
 		} catch (e) {
-			console.error(e.stack);
+			logger.error(e.stack);
 		}
 	},
 

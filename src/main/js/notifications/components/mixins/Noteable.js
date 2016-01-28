@@ -1,5 +1,8 @@
+import Logger from 'nti-util-logger';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
 import BasePathAware from 'common/mixins/BasePath';
+
+const logger = Logger.get('notifications:mixin');
 
 export default {
 	mixins: [BasePathAware],
@@ -33,7 +36,7 @@ export default {
 
 			url = `${this.getBasePath()}object/${id}/`;
 		} catch(e) {
-			console.warn('Notable has no url: ', item);
+			logger.warn('Notable has no url: ', item);
 		}
 
 		this.setState({ username, change, item, url });
@@ -53,7 +56,7 @@ function getTime (o) {
 		//Return the Last Modified, unless its not set
 		return o && !lm ? o.getCreatedTime() : lm;
 	} catch	(e) {
-		console.warn('No Date for object:', o);
+		logger.warn('No Date for object:', o);
 		return new Date(0);
 	}
 }

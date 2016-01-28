@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Logger from 'nti-util-logger';
 import {createFromImage, URL} from 'nti-lib-whiteboardjs/lib/utils';
 
 import {ToolMixin, Constants} from 'react-editor-component';
@@ -7,6 +7,8 @@ import {ToolMixin, Constants} from 'react-editor-component';
 import WhiteboardIcon from './editor-parts/WhiteboardIcon';
 
 import iOSversion from 'common/utils/ios-version';
+
+const logger = Logger.get('modeled-content:components:InsertImageButton');
 
 export default React.createClass({
 	displayName: 'InsertImageButton',
@@ -64,14 +66,14 @@ export default React.createClass({
 			})
 			.catch(e=> {
 				e = JSON.stringify(e);
-				console.error(e);
+				logger.error(e);
 				alert(e);//eslint-disable-line
 			});
 	},
 
 
 	onError () {
-		console.debug('Oops...');
+		logger.debug('Oops...');
 	},
 
 
@@ -98,7 +100,7 @@ export default React.createClass({
 		const editor = this.getEditor();
 		const {target: {files}} = e;
 
-		const logError = er => console.log(er.stack || er.message || er);
+		const logError = er => logger.log(er.stack || er.message || er);
 
 		if (!files || files.length === 0) { return; }
 

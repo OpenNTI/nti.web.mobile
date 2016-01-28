@@ -18,7 +18,6 @@ export default React.createClass({
 	},
 
 	onBlur () {
-		console.debug('post update for editable');
 	},
 
 	render () {

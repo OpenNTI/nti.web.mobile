@@ -64,7 +64,7 @@ export default React.createClass({
 		let {startYear, endYear, description} = state;
 		let [primaryField, secondaryField] = this.props.fieldNames;
 		let maxYear = (new Date()).getFullYear();
-		console.log(schema);
+
 		return (
 			<fieldset ref="form" className="profile-event-body">
 				<div>

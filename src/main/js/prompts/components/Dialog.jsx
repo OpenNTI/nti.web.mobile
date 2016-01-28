@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import emptyFunction from 'fbjs/lib/emptyFunction';
+import Logger from 'nti-util-logger';
+
+const logger = Logger.get('prompts:components:Dialog');
+const emptyFunction = () => {};
 
 let Dialog = React.createClass({
 	displayName: 'Dialog',
@@ -31,7 +34,7 @@ let Dialog = React.createClass({
 					this.getMountPoint());
 			}
 			catch (e) {
-				console.error(e.stack || e.message || e);
+				logger.error(e.stack || e.message || e);
 			}
 
 		}
@@ -211,7 +214,7 @@ function dismiss (dialog) {
 	setTimeout(
 		()=> {
 			if (!Dialog.clear() && dialog.isMounted()) {
-				console.warn('React did not unmount %o', dialog);
+				logger.warn('React did not unmount %o', dialog);
 			}
 		},
 		500//animation delay (0.5s)

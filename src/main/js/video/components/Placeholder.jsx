@@ -1,14 +1,15 @@
 import React from 'react';
 
+import Logger from 'nti-util-logger';
 import {getModel} from 'nti-lib-interfaces';
+import {getHandler} from 'nti-web-video';
 
 import If from 'common/components/Conditional';
 import {getService} from 'common/utils';
 
 import Video from './Video';
 
-import {getHandler} from 'nti-web-video';
-
+const logger = Logger.get('video:components:VideoPlaceholder');
 const Source = getModel('mediasource');
 
 
@@ -53,7 +54,7 @@ export default React.createClass({
 				const [poster, title] = data;
 				this.setState({poster, title});
 			})
-			.catch(error => console.error('Could not resolve video poster/title', error))
+			.catch(error => logger.error('Could not resolve video poster/title', error))
 			.then(()=> this.setState({loading: false}));
 	},
 

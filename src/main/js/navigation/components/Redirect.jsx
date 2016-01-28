@@ -1,6 +1,9 @@
 import React from 'react';
 import Router from 'react-router-component';
+import Logger from 'nti-util-logger';
 import Loading from 'common/components/Loading';
+
+const logger = Logger.get('navigation:components:Redirect');
 
 export default React.createClass({
 	displayName: 'Redirect',
@@ -17,7 +20,7 @@ export default React.createClass({
 		let currentFragment = location && location.hash;
 
 		if (props.force) {
-			console.debug('Forceful redirect to: %s', loc);
+			logger.debug('Forceful redirect to: %s', loc);
 			return location.replace(loc);
 		}
 
@@ -29,13 +32,13 @@ export default React.createClass({
 
 
 		// let routes = this.context.router.props.children.map(x=>x.props.path || 'default');
-		// console.debug('Redirecting to %s, routes: %o', loc, routes);
+		// logger.debug('Redirecting to %s, routes: %o', loc, routes);
 		if (loc) {
-			console.debug('Redirecting to %s', loc);
+			logger.debug('Redirecting to %s', loc);
 			this.navigate(loc, {replace: true});
 		}
 		else {
-			console.error('Can\'t redirect to undefined.');
+			logger.error('Can\'t redirect to undefined.');
 		}
 	},
 

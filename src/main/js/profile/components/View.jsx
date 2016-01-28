@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {getModel} from 'nti-lib-interfaces';
+import Logger from 'nti-util-logger';
 
 import Loading from 'common/components/Loading';
 
@@ -14,6 +15,8 @@ import {resolve} from 'common/utils/user';
 
 const Community = getModel('community');
 const User = getModel('user');
+
+const logger = Logger.get('profile:components:View');
 
 export default React.createClass({
 	displayName: 'profile:View',
@@ -32,7 +35,7 @@ export default React.createClass({
 			resolve(props, true)
 				.catch(()=> false)
 				.then(entity => {
-					console.debug('Entity: ', entity);
+					logger.debug('Resolved entity: %o', entity);
 					this.setState({entity});
 				}));
 	},

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Video from 'nti-web-video';
+import Logger from 'nti-util-logger';
 
 import emptyFunction from 'fbjs/lib/emptyFunction';
 
@@ -9,6 +10,7 @@ import {getModel} from 'nti-lib-interfaces';
 import {emitEventStarted, emitEventEnded} from 'analytics/Actions';
 import {toAnalyticsPath} from 'analytics/utils';
 
+const logger = Logger.get('video:component:VideoWrapper');
 const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
 function deprecated (o, k) { if (o[k]) { return new Error(`Deprecated prop: \`${k}\`, use \`newWatchEventFactory\` callback prop.`); } }
@@ -97,7 +99,7 @@ export default React.createClass({
 	recordPlaybackStarted (event) {
 		if (this.state.playStartEvent) {
 			// this can be triggered by a tap on the transcript, which jumps the video to that location.
-			console.warn('We already have a playStartEvent. How did we get another one without a ' +
+			logger.warn('We already have a playStartEvent. How did we get another one without a ' +
 						'pause/stop/seek/end in between?');
 			let e = this.state.playStartEvent;
 			e.finish();
@@ -121,7 +123,7 @@ export default React.createClass({
 		let {newWatchEventFactory, src} = this.props;
 
 		if (!src.ntiid) {
-			console.warn('No ntiid. Skipping WatchVideoEvent instantiation.');
+			logger.warn('No ntiid. Skipping WatchVideoEvent instantiation.');
 			return null;
 		}
 
@@ -135,7 +137,7 @@ export default React.createClass({
 		//the Context, courseId, transcript etc are all not universally relevant
 
 		if (process.env.NODE_ENV !== 'production') {
-			console.error('TODO: Move the rest of this method to be passed as an event factory');
+			logger.error('TODO: Move the rest of this method to be passed as an event factory');
 		}
 
 		//XXX: Do not fix this line of lint by adding these props to this elements PropTypes, nor making eslint ignore.
@@ -159,7 +161,7 @@ export default React.createClass({
 	recordPlaybackStopped (event) {
 		let {playStartEvent} = this.state;
 		if (!playStartEvent) {
-			console.warn('We don\'t have a playStartEvent. Dropping playbackStopped event on the floor.');
+			logger.warn('We don\'t have a playStartEvent. Dropping playbackStopped event on the floor.');
 			return;
 		}
 

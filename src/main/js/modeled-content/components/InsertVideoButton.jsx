@@ -4,10 +4,12 @@ import cx from 'classnames';
 import {ToolMixin, Constants} from 'react-editor-component';
 
 import {getEventTarget} from 'nti-lib-dom';
-
+import Logger from 'nti-util-logger';
 import {getHandler} from 'nti-web-video';
 
 import VideoIcon from './editor-parts/VideoIcon';
+
+const logger = Logger.get('modeled-content:components:InsertVideoButton');
 
 export default React.createClass({
 	displayName: 'InsertVideoButton',
@@ -130,7 +132,7 @@ export default React.createClass({
 
 		if (!handler) {
 			// input.value = '';
-			console.warn('Bad Video URL');
+			logger.warn('Bad Video URL');
 			return;
 		}
 

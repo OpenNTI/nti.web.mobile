@@ -64,7 +64,7 @@ export default React.createClass({
 			nextStore.addListener('change', this.onStoreChange);
 
 			if (!nextStore.loading) {
-				console.log('Wut?');
+				// console.log('Wut?');
 			}
 		}
 	},
