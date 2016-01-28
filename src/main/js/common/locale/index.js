@@ -8,7 +8,7 @@ const siteName = getSiteName();
 const locale = counterpart.getLocale();
 
 if (siteName && siteName !== 'unknown') {
-	console.debug('Site Locale: %s.%s', siteName, locale);
+	console.debug('Site Locale: %s.%s', siteName, locale); //eslint-disable-line
 
 	let onceLoaded = moduleExports => {
 		let {default: translation} = moduleExports;

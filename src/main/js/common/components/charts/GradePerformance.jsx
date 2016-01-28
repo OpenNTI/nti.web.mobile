@@ -199,7 +199,6 @@ export default React.createClass({
 	drawLine (ctx, property) {
 		if (!this.store || !this.store.length) {
 			this.stopAnimation();
-			console.warn('No data for chart:', this.id);
 			return;
 		}
 

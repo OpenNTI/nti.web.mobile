@@ -1,5 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
+
+import Logger from 'nti-util-logger';
+
 import ShareTarget from './TokenEntity';
 import SelectableEntities from './SelectableEntities';
 import Search from './EntitySearch';
@@ -9,6 +12,8 @@ import Loading from './TinyLoader';
 import ListSelection from '../utils/ListSelectionModel';
 
 import {getService} from '../utils';
+
+const logger = Logger.get('common:components:ShareWith');
 
 const KEY = 'defaultValue';
 
@@ -69,7 +74,7 @@ export default React.createClass({
 			try {
 				return scope.getSharingSuggestions()
 					.catch(e => {
-						console.error('Error getting suggestions: ', e.stack || e.message || e);
+						logger.error('Error getting suggestions: ', e.stack || e.message || e);
 						return null;
 					})
 					.then(v => (v && v.length > 0) ? v : null);

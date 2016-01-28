@@ -1,5 +1,8 @@
+import Logger from 'nti-util-logger';
 import {isTextNode} from 'nti-lib-dom';
 import {getWidth as getViewportWidth, getHeight as getViewportHeight} from './viewport';
+
+const logger = Logger.get('common:utils:rects');
 
 export function getElementRect (el) {
 	let rect, w, h;
@@ -48,18 +51,18 @@ export function safeBoundingBoxForRange (range) {
 
 	try {
 		if (rect && !collapsed && isZeroRect(rect) && range.toString() === '' && !isTextNode(startContainer)) {
-			console.log('No rect information...attempting to get selected node rect instead');
+			logger.debug('No rect information...attempting to get selected node rect instead');
 			let node = startContainer.childNodes[startOffset];
 			rect = node.getBoundingClientRect();
 		}
 		else if (rect && !collapsed && isZeroRect(rect)) {
 			if (startContainer === endContainer && startContainer.nodeType !== Node.TEXT_NODE) {
 				if (startOffset + 1 === endOffset) {
-					console.debug('No rect information... the range contains just one node, use that instead.');
+					logger.debug('No rect information... the range contains just one node, use that instead.');
 					rect = startContainer.childNodes[startOffset].getBoundingClientRect();
 				}
 				else if (startOffset === 0 && endOffset === endContainer.childNodes.length) {
-					console.debug('No rect information... the range contains all all contents of the object/doc, use the startContainer.');
+					logger.debug('No rect information... the range contains all all contents of the object/doc, use the startContainer.');
 					rect = startContainer.getBoundingClientRect();
 				}
 			}
@@ -71,7 +74,7 @@ export function safeBoundingBoxForRange (range) {
 		}
 	}
 	catch (er) {
-		console.warn(er.stack || er.message || er);
+		logger.warn(er.stack || er.message || er);
 	}
 
 	return rect;

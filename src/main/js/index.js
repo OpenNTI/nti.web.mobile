@@ -5,8 +5,6 @@ import ReactDOM from 'react-dom';
 
 import CSS from 'fbjs/lib/CSSCore';
 
-import Logger from 'nti-util-logger';
-
 import isTouch from 'nti-lib-interfaces/lib/utils/is-touch-device';
 import OrientationHandler from 'common/utils/orientation';
 import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'common/utils';
@@ -15,7 +13,7 @@ import AppView from './AppView';
 //webpack magic
 import '../resources/scss/app.scss';
 
-const logger = Logger.get('index');
+
 
 const RootNode = document.querySelector('html');
 CSS.removeClass(RootNode, 'no-js');
@@ -36,7 +34,7 @@ if (typeof window !== 'undefined' && window.top !== window) {
 
 overrideConfigAndForceCurrentHost();
 
-logger.debug('Client is using host: %s', getServerURI());
+console.debug('Client is using host: %s', getServerURI()); //eslint-disable-line
 
 const basePath = (global.$AppConfig || {}).basepath || '/';
 

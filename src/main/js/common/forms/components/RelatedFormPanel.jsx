@@ -298,7 +298,7 @@ let RelatedFormPanel = React.createClass({
 						// inline subfields will be rendered with the field itself;
 						break;
 					default:
-						console.warn('Unrecognized related config type: %O', config);
+						console.warn('Unrecognized related config type: %O', config); //eslint-disable-line no-console
 					}
 				});
 			}

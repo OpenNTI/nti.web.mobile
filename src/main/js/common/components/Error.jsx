@@ -1,4 +1,7 @@
 import React from 'react';
+import Logger from 'nti-util-logger';
+
+const logger = Logger.get('common:components:Error');
 
 const isHTML = /<html|<([a-z]+)[^>]*>(.+)<\/\1>/i;
 
@@ -23,7 +26,7 @@ export default React.createClass({
 
 	log (props = this.props) {
 		let {error} = props;
-		console.error(error.stack
+		logger.error(error.stack
 					|| error.message
 					|| error.responseText
 					|| error);

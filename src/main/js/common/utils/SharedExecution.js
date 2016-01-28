@@ -1,3 +1,5 @@
+import Logger from 'nti-util-logger';
+const logger = Logger.get('SharedExecution');
 /**
  * Goal: Group dom reads/writes into single passes.
  */
@@ -53,7 +55,7 @@ export default class SharedExecution {
 					child.parent = task;
 				}
 			} catch(e) {
-				console.error('SharedExecution: Task Error:', e);
+				logger.error('SharedExecution: Task Error:', e);
 			}
 			task.run = true;
 		}
@@ -71,7 +73,7 @@ export default class SharedExecution {
 
 	detectLeaks (...args) {
 		clearTimeout(this.leakWarning);
-		this.leakWarning = setTimeout(() => console.debug(...args), 20);
+		this.leakWarning = setTimeout(() => logger.debug(...args), 20);
 	}
 
 	noLeaks () {

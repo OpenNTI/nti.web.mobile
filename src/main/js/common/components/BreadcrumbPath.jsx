@@ -1,10 +1,13 @@
 import React from 'react';
 import cx from 'classnames';
 
+import Logger from 'nti-util-logger';
+
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import ObjectLink from '../mixins/ObjectLink';
 
+const logger = Logger.get('common:components:BreadcrumbPath');
 
 function getBreadcrumb (item) {
 	return (item || {}).getContextPath
@@ -113,8 +116,8 @@ export default React.createClass({
 
 
 	fallbackText (item, error) {
-		console.error(item, error);
-		return 'Error';
+		logger.error('%o Error: %o', item, error);
+		return '';
 	},
 
 

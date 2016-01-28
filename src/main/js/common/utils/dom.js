@@ -1,7 +1,10 @@
+import Logger from 'nti-util-logger';
+
 import {getElementRect} from './rects';
 import scrollParent from 'scrollparent';
 import between from 'nti-lib-interfaces/lib/utils/between';
 
+const logger = Logger.get('common:utils:dom');
 
 export function declareCustomElement (name) {
 	if (typeof document !== 'undefined') {
@@ -169,7 +172,7 @@ export function retargetAnchorsWithExternalRefs (markup, baseUrl) {
  * @returns {string} html
  */
 export function sanitizeExternalContentForInput (html) {
-	console.debug('Sanitizing html...', html);
+	logger.debug('Sanitizing html...', html);
 	//html = html.trim().replace(/[\n\r]+/g, ' ');
 
 	let offScreenBuffer = document.createElement('div'),

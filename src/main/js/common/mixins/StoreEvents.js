@@ -1,3 +1,6 @@
+import Logger from 'nti-util-logger';
+
+const logger = Logger.get('common:mixins:StoreEvents');
 
 const getHandlers = Symbol('HandlersGetter');
 const getStore = Symbol('StoreGetter');
@@ -13,7 +16,7 @@ export default {
 		}
 
 		if (!eventId) {
-			console.error('eventId is %O. Are you using an undefined constant?', eventId);
+			logger.error('eventId is %o. Are you using an undefined constant?', eventId);
 		}
 
 		let map = this[getHandlers]();
@@ -76,31 +79,31 @@ function getName () {
 
 function getKey (key, fallbackAndDontWarn) {
 	let componentName = getName.call(this);
-	return this[key] || fallbackAndDontWarn || console.error('%s property not set in: %s', key, componentName);
+	return this[key] || fallbackAndDontWarn || logger.error('%s property not set in: %s', key, componentName);
 }
 
 
 function onStoreChangeImpl (event) {
 	if (typeof event === 'string') {
-		console.error('Wrapping deprecated string event into object: %s', event);
+		logger.error('Wrapping deprecated string event into object: %s', event);
 		event = {type: event};
 	}
 
 	if (!event || event.type == null) {
-		console.error('Bad Event: %o', event);
+		logger.error('Bad Event: %o', event);
 		return;
 	}
 	let componentName = getName.call(this);
 	let handlers = this[getHandlers]() || {};
 	let handlerSet = makeSet(handlers[event.type] || handlers.default);
 	if (!handlerSet) {
-		// console.debug('Event %s does not have a handler in component: %s', event.type, componentName);
+		// logger.debug('Event %s does not have a handler in component: %s', event.type, componentName);
 		return;
 	}
 	for (let handler of handlerSet) {
 		if (typeof handler !== 'function') {
 			if (!this[handler]) {
-				console.debug('Event Handler %s does not exist in component: %s', handler, componentName);
+				logger.debug('Event Handler %s does not exist in component: %s', handler, componentName);
 				return;
 			}
 			handler = this[handler];

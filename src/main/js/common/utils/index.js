@@ -1,14 +1,16 @@
 /* global $AppConfig */
+import Logger from 'nti-util-logger';
 import QueryString from 'query-string';
 import dataserver from 'nti-lib-interfaces';
 import forceCurrentHost from 'nti-lib-interfaces/lib/utils/forcehost';
 
+const logger = Logger.get('common:utils');
 
 function exposeGlobally (...fns) {
 
 	function wrap (fn) {
 		return (...args)=> {
-			console.error(`[DEBUG API ACCESSED (${fn.name})]: This message should only be seen when invoking this method on the REPL.`);
+			logger.error(`[DEBUG API ACCESSED (${fn.name})]: This message should only be seen when invoking this method on the REPL.`);
 			return fn(...args);
 		};
 	}
@@ -26,7 +28,7 @@ function noConfig () {
 
 export function getAppUsername () {
 	if (noConfig()) {
-		console.error('utils:getAppUsername() was called before config was defined.');
+		logger.error('utils:getAppUsername() was called before config was defined.');
 	}
 	return $AppConfig.username;
 }
@@ -44,9 +46,9 @@ export function getAppUserCommunities (excludeGroups) {
 
 export function getBasePath () {
 	if (noConfig()) {
-		console.error('utils:getBasePath() was called before config was defined.');
+		logger.error('utils:getBasePath() was called before config was defined.');
 	} else {
-		console.error('[DEPRECATED] utils:getBasePath() is replaced with the BasePath Mixin');
+		logger.error('[DEPRECATED] utils:getBasePath() is replaced with the BasePath Mixin');
 	}
 	return $AppConfig.basepath;
 }
@@ -70,7 +72,7 @@ getReturnURL(); //capture the return on init.
 
 export function getServerURI () {
 	if (noConfig()) {
-		console.error('utils:getServerURI() was called before config was defined.');
+		logger.error('utils:getServerURI() was called before config was defined.');
 	}
 	return $AppConfig.server;
 }
@@ -90,7 +92,7 @@ export function getUserAgreementURI () {
 
 export function isFlag (flagName) {
 	if (noConfig()) {
-		console.error('utils:isFlag() was called before config was defined.');
+		logger.error('utils:isFlag() was called before config was defined.');
 		return false;
 	}
 	let site = getSiteName();
@@ -123,7 +125,7 @@ export function externalLibraries () {
  */
 export function getServer () {
 	if (noConfig()) {
-		console.error('utils:getServer() was called before config was defined.');
+		logger.error('utils:getServer() was called before config was defined.');
 	}
 	let fn = getServer;
 
@@ -148,7 +150,7 @@ export function getServer () {
  */
 export function getService () {
 	if (noConfig()) {
-		console.error('utils:getService() was called before config was defined.');
+		logger.error('utils:getService() was called before config was defined.');
 	}
 	return $AppConfig.nodeService ?
 		Promise.resolve($AppConfig.nodeService) :
@@ -174,7 +176,7 @@ export function installAnonymousService () {
 
 export function overrideAppUsername (str) {
 	if (noConfig()) {
-		console.error('utils:overrideAppUsername() was called before config was defined.');
+		logger.error('utils:overrideAppUsername() was called before config was defined.');
 	}
 	$AppConfig.username = str;
 }
@@ -182,7 +184,7 @@ export function overrideAppUsername (str) {
 
 export function overrideConfigAndForceCurrentHost () {
 	if (noConfig()) {
-		console.error('utils:overrideConfigAndForceCurrentHost() was called before config was defined.');
+		logger.error('utils:overrideConfigAndForceCurrentHost() was called before config was defined.');
 	}
 	$AppConfig.server = forceCurrentHost($AppConfig.server);
 }

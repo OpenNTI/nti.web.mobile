@@ -48,7 +48,6 @@ function fetchLink (linkRel) {
 	}
 
 	if (me.promises[linkRel]) {
-		console.debug('returning cached fetchLink promise for %s', linkRel);
 		return me.promises[linkRel];
 	}
 
@@ -60,7 +59,6 @@ function fetchLink (linkRel) {
 
 	let promise = getHref.then(href => servicePromise.then(service=>service.get(href)));
 
-	console.debug('caching resolved fetchLink promise for %s', linkRel);
 	me.promises[linkRel] = promise;
 
 	promise.catch((/*reason*/)=> delete me.promises[linkRel]);

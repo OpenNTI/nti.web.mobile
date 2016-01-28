@@ -24,7 +24,6 @@ export default React.createClass({
 	render () {
 		const {children, className, item, preferBackground} = this.props;
 		if (!item) {
-			console.warn('contentPackage prop is required. skipping render.');
 			return null;
 		}
 		const p = item.getPresentationProperties();

@@ -1,4 +1,8 @@
+import Logger from 'nti-util-logger';
+
 import {externalLibraries} from 'common/utils';
+
+const logger = Logger.get('ExternalLibrariesManager');
 
 const injected = {};
 
@@ -17,7 +21,7 @@ function getSymbol (scope, expression) {
 		if (!leafExists) {
 			prop = path[0];
 		}
-		console.warn(`"${expression}" did not evaluate to a value. Last property tried: ${prop}`);
+		logger.warn(`"${expression}" did not evaluate to a value. Last property tried: ${prop}`);
 		return false;
 	}
 

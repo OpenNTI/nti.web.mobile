@@ -1,6 +1,8 @@
+import Logger from 'nti-util-logger';
 import VisibilityMonitor from './pagevis';
 
-let cache = global.applicationCache;
+const logger = Logger.get('common:utils:appcache');
+const cache = global.applicationCache;
 
 const cacheStatusValues = [
 	'uncached',		//0
@@ -13,17 +15,15 @@ const cacheStatusValues = [
 
 
 function logEvent (e) {
-	let online, status, type, message;
-	online = (navigator.onLine) ? 'yes' : 'no';
-	status = cacheStatusValues[cache.status];
-	type = e.type;
-	message = 'online: ' + online;
-	message += ', event: ' + type;
-	message += ', status: ' + status;
-	if (type === 'error' && navigator.onLine) {
+	const online = (navigator.onLine) ? 'yes' : 'no';
+	const status = cacheStatusValues[cache.status];
+
+	let message = `online: ${online}, event: ${e.type}, status: ${status}`;
+	if (e.type === 'error' && navigator.onLine) {
 		message += ' (missing or syntax error in manifest?)';
 	}
-	console.debug(message);
+
+	logger.debug(message);
 }
 
 
@@ -40,7 +40,7 @@ if (cache) {
 	cache.addEventListener('updateready',
 		() => {
 			cache.swapCache();
-			console.debug('swap cache has been called');
+			logger.debug('swap cache has been called');
 		},
 		false
 	);
@@ -52,11 +52,11 @@ if (cache) {
 
 		try {
 			if(cache && cache.status) {
-				console.debug('Updating AppCache... current status: %s', cacheStatusValues[cache.status]);
+				logger.debug('Updating AppCache... current status: %s', cacheStatusValues[cache.status]);
 				cache.update();
 			}
 		} catch (e) {
-			console.warn(e.stack || e.message || e);
+			logger.warn(e.stack || e.message || e);
 		}
 	});
 }

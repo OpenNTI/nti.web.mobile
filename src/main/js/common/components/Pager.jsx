@@ -6,7 +6,7 @@ import NavigatableMixin from '../mixins/NavigatableMixin';
 function buildHref (page, props, scope) {
 	let ctx = props.navigatableContext;
 	if (ctx && !ctx.makeHref) {
-		console.warn('navigatableContext missing "makeHref" method');
+		console.warn('navigatableContext missing "makeHref" method'); //eslint-disable-line no-console
 	}
 	if (!ctx || !ctx.makeHref) {
 		ctx = scope;

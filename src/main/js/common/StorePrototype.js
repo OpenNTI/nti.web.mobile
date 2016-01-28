@@ -1,5 +1,8 @@
+import Logger from 'nti-util-logger';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import TypedEventEmitter from './TypedEventEmitter';
+
+const logger = Logger.get('common:store:prototype');
 
 const RegisteredCallbackID = Symbol('Registered Dispatcher Callback ID');
 const Handlers = Symbol('Handler Map');
@@ -35,7 +38,7 @@ export default class StorePrototype extends TypedEventEmitter {
 			if (typeof handlerKey !== 'function') {
 				handler = this[handlerKey];
 				if (!handler || typeof handler !== 'function') {
-					console.warn('The key (%s) registered to handle dispatched events of type %s does not point to a function: %s', handlerKey, type);
+					logger.warn('The key (%s) registered to handle dispatched events of type %s does not point to a function: %s', handlerKey, type);
 				}
 			} else {
 				handler = handlerKey;
@@ -48,13 +51,13 @@ export default class StorePrototype extends TypedEventEmitter {
 	handleDispatch (payload) {
 		let {action} = payload;
 		if (!action) {
-			console.error('Dispatched payload does not have an action. %o', payload);
+			logger.error('Dispatched payload does not have an action. %o', payload);
 			return;
 		}
 
 		let {type} = action;
 		if (!type) {
-			console.error('Dispatched action does not have a type: %o', payload);
+			logger.error('Dispatched action does not have a type: %o', payload);
 			return;
 		}
 

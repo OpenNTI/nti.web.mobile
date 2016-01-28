@@ -27,7 +27,7 @@ export default {
 		let {size} = set;
 		set.delete(child);
 		if (size === set.size) {
-			console.error('Did not remove anything.');
+			logger.error('Did not remove anything.');
 		}
 	},
 

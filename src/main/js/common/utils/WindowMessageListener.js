@@ -1,3 +1,7 @@
+import Logger from 'nti-util-logger';
+
+const logger = Logger.get('WindowMessageListener');
+
 export class WindowMessageListener {
 
 	constructor () {
@@ -11,7 +15,7 @@ export class WindowMessageListener {
 			try {
 				fn(event);
 			} catch (e) {
-				console.error(e.stack || e.message || e);
+				logger.error(e.stack || e.message || e);
 			}
 		});
 	}

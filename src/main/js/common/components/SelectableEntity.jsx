@@ -35,27 +35,13 @@ export default React.createClass({
 	},
 
 	onClick () {
-		this.setState({
-			busy: true
-		});
-		let {onChange, entity} = this.props;
-		let p = onChange && onChange(entity) || noclick;
-		p.then(() => {
-			if (this.isMounted() ) {
-				this.setState({
-					busy: false
-				});
-			}
-		});
-		p.catch(reason => {
-			console.error(reason);
-			if (this.isMounted()) {
-				this.setState({
-					busy: false,
-					error: reason
-				});
-			}
-		});
+		this.setState({ busy: true });
+
+		const {onChange, entity} = this.props;
+
+		(onChange ? onChange(entity) : noclick)
+			.catch(error => this.setState({ error }))
+			.then(() => this.setState({ busy: false }));
 	},
 
 	label (selected) {

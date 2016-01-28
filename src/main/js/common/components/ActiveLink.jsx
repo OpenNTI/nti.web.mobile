@@ -19,7 +19,7 @@ export default React.createClass({
 	},
 
 	componentWillMount () {
-		console.warn('ActiveLink component is deprecated. Use ActiveState instead.');
+		console.warn('ActiveLink component is deprecated. Use ActiveState instead.'); //eslint-disable-line no-console
 	},
 
 	isActive () {
@@ -29,7 +29,7 @@ export default React.createClass({
 			path = this.context.router.getMatch().matchedPath;
 			return path === href;
 		} catch (e) {
-			console.warn('Strange', e.stack || e.message || e);
+			//don't care
 		}
 
 		return path.indexOf(href) === 0;

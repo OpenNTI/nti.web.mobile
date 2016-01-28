@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import ensureArray from 'nti-lib-interfaces/lib/utils/ensure-array';
+
 import {isPointWithIn} from '../../utils/dom';
 import Base, {TYPE_SHAPE} from './Base';
 
@@ -67,7 +69,7 @@ export default {
 			mon.on('drop', this[onDragDrop]);
 
 		} else {
-			console.error('DND: Missing cordination context');
+			console.error('DND: Missing cordination context'); //eslint-disable-line
 		}
 	},
 

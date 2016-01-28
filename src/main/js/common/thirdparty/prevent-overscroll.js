@@ -3,7 +3,7 @@ let attached = false;
 const isScroller = Symbol();
 
 export default function (el) {
-	if (!el) { console.error('No element given!'); return; }
+	if (!el) { return; }
 	el.addEventListener('touchstart', function () {
 		let top = el.scrollTop,
 			totalScroll = el.scrollHeight,

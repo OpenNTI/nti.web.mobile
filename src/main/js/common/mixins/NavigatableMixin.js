@@ -17,7 +17,7 @@ export default {
 
 		if (includeCurrentRoute) {
 			let route = (n.getMatch() || {}).matchedPath || '';
-			console.error('FIXME: If there is a subrouter active, move the component requesting this down into the sub-router');
+			console.error('FIXME: If there is a subrouter active, move the component requesting this down into the sub-router');//eslint-disable-line
 
 			path = join(route, path);
 		}
