@@ -83,7 +83,7 @@ export default React.createClass({
 
 		errors[error.param] = error;
 
-		console.log(event);
+		// console.log(event);
 
 		for (let ref of Object.values(this.refs)) {
 			if (ref.delegateError && ref.delegateError(errors)) {

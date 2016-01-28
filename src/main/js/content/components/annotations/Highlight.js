@@ -1,5 +1,6 @@
 import cx from 'classnames';
 
+import Logger from 'nti-util-logger';
 import * as Anchors from 'nti-lib-anchorjs';
 import * as RangeUtils from 'nti-lib-ranges';
 
@@ -9,6 +10,7 @@ import Annotation, {RENDERED} from './Annotation';
 
 import RangeWrapperMixin from './RangeWrapperMixin';
 
+const logger = Logger.get('content:components:annotations:Highlight');
 const RANGE = Symbol('cached range');
 
 export default class Highlight extends Annotation {
@@ -77,7 +79,7 @@ export default class Highlight extends Annotation {
 					try {
 						el.setAttribute('class', this.highlightCls);
 					}
-					catch(e) { console.warn(e); }
+					catch(e) { logger.warn(e); }
 				}
 			});
 	}
@@ -111,7 +113,7 @@ export default class Highlight extends Annotation {
 				range.setEndAfter(b);
 			}
 			catch (e) {
-				console.error(e.stack || e.message || e);
+				logger.error('Error building range: %o', e.stack || e.message || e);
 			}
 		}
 
@@ -157,13 +159,13 @@ export default class Highlight extends Annotation {
 
 		if (!range) {
 			if (!hadRange) {
-				console.error('bad range', this.getRecord().toJSON());
+				logger.error('bad range', this.getRecord().toJSON());
 			}
 
 			return null;
 		}
 
-		//console.log(this.id,': ',(this.getRecordField('body')||[]).join('|'), ': got range from description:', range, range.toString());
+		//logger.log(this.id,': ',(this.getRecordField('body')||[]).join('|'), ': got range from description:', range, range.toString());
 		Anchors.expandRangeToIncludeImmutableBlocks(range);
 
 		this[RANGE] = range;

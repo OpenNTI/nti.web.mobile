@@ -1,5 +1,7 @@
 import isEmpty from 'isempty';
+import Logger from 'nti-util-logger';
 
+const logger = Logger.get('assessment:utils');
 
 export function getMainSubmittable (assessment) {
 	let p;
@@ -37,7 +39,7 @@ export function updatePartsWithAssessedParts (part, assessed) {
 						(main.getID() === q.getID() ? main : null);
 
 		if (!question || q.parts.length !== question.parts.length) {
-			console.error('We have an assessed value, but no where to put it. (Question is missing or has the wrong number of parts)');
+			logger.error('We have an assessed value, but no where to put it. (Question is missing or has the wrong number of parts)');
 			return;
 		}
 

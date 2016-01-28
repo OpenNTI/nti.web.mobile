@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
+import Logger from 'nti-util-logger';
+
 import ActiveState from 'common/components/ActiveState';
 import Banner from 'common/components/Banner';
 import CalendarCard from 'common/components/CalendarCard';
@@ -15,6 +17,7 @@ import isEmpty from 'isempty';
 import CourseLinker from 'library/mixins/CourseContentLink';
 import {LESSONS} from '../Sections';
 
+const logger = Logger.get('course:components:OutlineView');
 
 export default React.createClass({
 	displayName: 'CourseOutlineView',
@@ -77,7 +80,7 @@ export default React.createClass({
 				prefix
 			});
 		}, error => {
-			console.error(error);
+			logger.error('There was an error resolving the outline: %o', error);
 			this.setState({
 				depthMap,
 				loading: false,

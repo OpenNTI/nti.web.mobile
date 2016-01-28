@@ -6,11 +6,14 @@ import TypedEventEmitter from 'common/TypedEventEmitter';
 import {CHANGE_EVENT} from 'common/constants/Events';
 import {getService}from 'common/utils';
 
-import ensureArray from 'nti-lib-interfaces/lib/utils/ensure-array';
 import {getModel} from 'nti-lib-interfaces';
+import ensureArray from 'nti-lib-interfaces/lib/utils/ensure-array';
+import Logger from 'nti-util-logger';
 
 import {startIdleTimer} from './IdleTimer';
 import * as Constants from './Constants';
+
+const logger = Logger.get('analytics:store');
 
 let localStorageKey = 'analytics_queue';
 
@@ -51,7 +54,7 @@ class AnalyticsStore extends TypedEventEmitter {
 		}
 		catch (e) {
 			// no local storage? that's fine.
-			console.warn('localStorage.setItem failed. (No local storage?)', e);
+			logger.warn('localStorage.setItem failed. (No local storage?)', e);
 		}
 	}
 
@@ -62,7 +65,7 @@ class AnalyticsStore extends TypedEventEmitter {
 		return new Promise(resolve => {
 			let halted = events.reduce((result, event) => {
 				if (!event.MimeType) {
-					console.error('Analytics event with no MimeType in localStorage? %o', event);
+					logger.error('Analytics event with no MimeType in localStorage? %o', event);
 					return result;
 				}
 				if (!event.finished) {
@@ -79,7 +82,7 @@ class AnalyticsStore extends TypedEventEmitter {
 	}
 
 	endSession (/*reason='no reason specified'*/) {
-		// console.debug('Ending analytics session. (%s)', reason);
+		// logger.debug('Ending analytics session. (%s)', reason);
 		clearTimeout(timeoutId);
 		let haltEvents = this[HaltActiveEvents]();
 		let shutdown = haltEvents.then(
@@ -93,7 +96,7 @@ class AnalyticsStore extends TypedEventEmitter {
 	}
 
 	resumeSession (/*reason='no reason specified'*/) {
-		// console.debug('Resume analytics session. (%s)', reason);
+		// logger.debug('Resume analytics session. (%s)', reason);
 		this.emit(CHANGE_EVENT, {type: Constants.RESUME_SESSION});
 	}
 
@@ -102,17 +105,17 @@ class AnalyticsStore extends TypedEventEmitter {
 	}
 
 	[ProcessLocalStorage] () {
-		// console.debug('processing local storage');
+		// logger.debug('processing local storage');
 		try {
 			let q = JSON.parse(window.localStorage.getItem(localStorageKey));
-			// console.debug('localStorage events: %o', q);
+			// logger.debug('localStorage events: %o', q);
 			this[HaltActiveEvents](q).then(events => {
 				this.enqueueEvents(events);
 				this[ProcessQueue]();
 			});
 		}
 		catch(e) {
-			console.debug(e);
+			logger.debug('Error processing local storage: %o', e.stack || e.message || e);
 		}
 	}
 
@@ -143,18 +146,18 @@ class AnalyticsStore extends TypedEventEmitter {
 		return getService()
 			.then(service => service.postAnalytics(items.map(item => item.getData())))
 			.then(response => {
-				console.log('%i of %i analytics events accepted.', response.EventCount, items.length);
+				logger.debug('%i of %i analytics events accepted.', response.EventCount, items.length);
 				this[FlushLocalStorage]();
 				return response;
 			})
 			.catch(r => {
 				if (r.statusCode === 501) {
-					console.log('Dropping analytics: ', r.message);
+					logger.warn('Dropping analytics: ', r.message);
 					this[FlushLocalStorage]();
 					return;
 				}
 
-				console.warn(r);
+				logger.warn('Trouble sending analytics data: %o', r);
 				// put items back in the queue
 				queue.push.apply(queue, items);
 			});
@@ -179,11 +182,11 @@ function startTimer () {
 
 let eventHandlers = {
 	[Constants.EVENT_STARTED] (action) {
-		console.log('Analytics Store received event: %s, %O', action.event.MimeType, action);
+		logger.debug('Analytics Store received event: %s, %O', action.event.MimeType, action);
 		Store.enqueueEvents(action.event);
 	},
 	[Constants.RESUME_SESSION] (/* action */) {
-		console.log('dispatching RESUME_SESSION');
+		logger.debug('dispatching RESUME_SESSION');
 		Store.resumeSession();
 	}
 };

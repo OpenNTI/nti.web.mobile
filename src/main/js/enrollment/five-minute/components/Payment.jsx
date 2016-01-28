@@ -1,13 +1,18 @@
 import React from 'react';
 
-import {scoped} from 'common/locale';
-import {doExternalPayment} from '../Actions';
+import Logger from 'nti-util-logger';
+
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
+
+import {scoped} from 'common/locale';
+
+import {doExternalPayment} from '../Actions';
 import Store from '../Store';
 import {PAY_AND_ENROLL_ERROR} from '../Constants';
 
+const logger = Logger.get('enrollment:five-minute:components:Payment');
 const t = scoped('ENROLLMENT');
 
 export default React.createClass({
@@ -51,7 +56,7 @@ export default React.createClass({
 		});
 
 		let returnUrl = this.buildHref('../enroll/apply/paymentcomplete/');
-		console.log('UPay return URL: %s', returnUrl);
+		logger.log('UPay return URL: %s', returnUrl);
 
 		doExternalPayment({
 			link: this.props.paymentLink,

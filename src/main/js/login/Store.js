@@ -11,7 +11,7 @@ import {
 
 import StorePrototype from 'common/StorePrototype';
 
-const logger = Logger.get('login:Store');
+const logger = Logger.get('login:store');
 
 const data = Symbol('data');
 const pong = Symbol('pong');

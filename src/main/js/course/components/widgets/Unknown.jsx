@@ -15,8 +15,6 @@ export default React.createClass({
 		let type = (item.MimeType || 'Unknown')
 			.replace('application/vnd.nextthought.', '');
 
-		console.debug('Unhandled Overview Item: %o', item);
-
 		return (<div>Unknown Type: {type}</div>);
 	}
 });

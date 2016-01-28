@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-
 import cx from 'classnames';
 
+import Logger from 'nti-util-logger';
 import {getModel} from 'nti-lib-interfaces';
 
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
@@ -18,6 +18,7 @@ import {getWidget} from '../widgets';
 import {getPageContent} from '../../Actions';
 import PageDescriptor from '../../PageDescriptor';
 
+const logger = Logger.get('content:components:discussions:Context');
 
 const PageInfo = getModel('pageinfo');
 
@@ -60,7 +61,7 @@ export default React.createClass({
 	componentDidUpdate (_, state) {
 		let {error} = this.state;
 		if (error && !is403(error) && error !== state.error) {
-			console.error(error);
+			logger.error(error);
 		}
 		this.focusApplicableRange();
 	},
@@ -110,7 +111,7 @@ export default React.createClass({
 			try {
 				context = type.interactiveInContext ? widget : ReactDOMServer.renderToStaticMarkup(widget);
 			} catch(e) {
-				console.warn('Oops', e.stack || e.message || e);
+				logger.warn('Oops', e.stack || e.message || e);
 			}
 
 			this.setState({
@@ -156,7 +157,7 @@ export default React.createClass({
 			range.insertNode(s);
 			found = renderable;
 		} else {
-			console.warn('Could not insert focus node');
+			logger.warn('Could not insert focus node');
 		}
 
 		let node = root.querySelector('#NTIContent');
@@ -184,7 +185,7 @@ export default React.createClass({
 			node = node.firstChild;//this is what scrolls.
 
 			if (focus && node.scrollHeight > node.offsetHeight) {
-				// console.log('TODO: ensure focus node', focus, 'is positioned into view.');
+				// logger.log('TODO: ensure focus node', focus, 'is positioned into view.');
 				let r = focus.getBoundingClientRect();
 				let r2 = node.getBoundingClientRect();
 				let approxOneLineHeight = 16;

@@ -1,3 +1,4 @@
+import Logger from 'nti-util-logger';
 import buffer from 'nti-lib-interfaces/lib/utils/function-buffer';
 
 import {createRangeDescriptionFromRange, preresolveLocatorInfo} from 'nti-lib-anchorjs';
@@ -6,19 +7,20 @@ import {getEventTarget, parent} from 'nti-lib-dom';
 import Highlight from '../annotations/Highlight';
 import Note from '../annotations/Note';
 
+const logger = Logger.get('content:components:viewer-parts:annotations');
 const ANNOTATION_TYPES = [Highlight, Note];
 
 export function select (item) {
 	for (let type of ANNOTATION_TYPES) {
 		if (!type.handles) {
-			console.warn('Annotation missing handles static method: ', type);
+			logger.warn('Annotation missing "handles" static method: ', type);
 		}
 		else if (type.handles(item)) {
 			return type;
 		}
 	}
 
-	console.warn('Unhandled Item:', item);
+	logger.warn('Unhandled Item:', item);
 }
 
 
@@ -108,7 +110,7 @@ export default {
 
 	renderAnnotations: buffer(50, function (store) {
 		if (!store || !this.getContentNode()) { return; }
-		console.debug('Render Pass');
+		logger.debug('Render Pass');
 
 		let newObjects = 0, skipped = 0, dead = 0, rendered = 0;
 		let {annotations = {}} = this.state;
@@ -149,7 +151,7 @@ export default {
 			delete annotations[i];
 		}
 
-		console.debug('Render Complete: rendered: %s, new: %s, skipped: %s, removed: %s', rendered, newObjects, skipped, dead);
+		logger.debug('Render Complete: rendered: %s, new: %s, skipped: %s, removed: %s', rendered, newObjects, skipped, dead);
 
 		if (rendered > 0 || dead > 0 || newObjects > 0) {
 			this.setState({annotations});
@@ -268,7 +270,7 @@ export default {
 
 			getStore(this.state).create(highlight).then(resolve, reject);
 		})
-			.catch(e => console.warn(e.stack || e.message || e))
+			.catch(e => logger.warn(e.stack || e.message || e))
 			.then(() => this.setState({selected: void 0}));
 	},
 
@@ -279,7 +281,7 @@ export default {
 			selected.updateColor(color)
 				.then(()=> this.forceUpdate());
 		} catch (e) {
-			console.warn(e.stack || e.message || e);
+			logger.warn(e.stack || e.message || e);
 		}
 	},
 
@@ -291,7 +293,7 @@ export default {
 				.then(this.setState({selected: void 0}));
 		}
 		catch (e) {
-			console.warn(e.stack || e.message || e);
+			logger.warn(e.stack || e.message || e);
 		}
 	}
 };

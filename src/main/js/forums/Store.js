@@ -1,3 +1,5 @@
+import Logger from 'nti-util-logger';
+
 import StorePrototype from 'common/StorePrototype';
 
 import * as Constants from './Constants';
@@ -6,6 +8,8 @@ import {decodeFromURI} from 'nti-lib-ntiids';
 import {getForumItem, DEFAULT_PAGING_PARAMS} from './Api';
 
 import hash from 'object-hash';
+
+const logger = Logger.get('forums:store');
 
 const keyForItem = 'ForumStore:keyForItem';
 const keyForContents = 'ForumStore:keyForContents';
@@ -170,7 +174,7 @@ const store = new Store();
 
 function getCommentReplies (comment) {
 	if(!comment || !comment.getReplies) {
-		console.warn('Can\'t get replies from %O', comment);
+		logger.warn('Can\'t get replies from %O', comment);
 		return;
 	}
 	comment.getReplies().then(replies => {
@@ -193,7 +197,7 @@ function addComment (topic, parent, comment) {
 				});
 			},
 			reason => {
-				console.error(reason);
+				logger.error(reason);
 				store.commentError({
 					topic: topic,
 					parent: parent,
@@ -243,7 +247,7 @@ function createTopic (forum, topic) {
 
 function deleteTopic (topic) {
 	return deleteForumItem(topic).then(() => {
-		console.log('Reloading forum contents in response to topic deletion.');
+		logger.log('Reloading forum contents in response to topic deletion.');
 		getForumItemContents(topic.ContainerId);
 	});
 }

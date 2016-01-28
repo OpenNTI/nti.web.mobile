@@ -1,7 +1,11 @@
+import Logger from 'nti-util-logger';
+
 import OpenEnrollment from './OpenEnrollment';
 import StoreEnrollment from './StoreEnrollment';
 import FiveMinuteEnrollment from './FiveMinuteEnrollment';
 // import UnrecognizedEnrollmentType from './UnrecognizedEnrollmentType';
+
+const logger = Logger.get('enrollment:components:enrollment-option-widgets');
 
 const Widgets = [
 	OpenEnrollment,
@@ -17,7 +21,7 @@ export function getWidget (enrollmentOption) {
 	}, null);
 
 	if (!widget) {
-		console.warn('No enrollment widget found for option: %O', enrollmentOption);
+		logger.warn('No enrollment widget found for option: %O', enrollmentOption);
 	}
 
 	return widget || null;

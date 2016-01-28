@@ -28,7 +28,6 @@ export default React.createClass({
 		const {refs: {newListName, userSearchField}, state: {store}} = this;
 
 		if (!store) {
-			console.error('No store?');
 			return;
 		}
 

@@ -2,10 +2,13 @@ import React from 'react';
 import cx from 'classnames';
 
 import {PropType as NTIID} from 'nti-lib-ntiids';
+import Logger from 'nti-util-logger';
 
 import ItemChanges from 'common/mixins/ItemChanges';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+
+const logger = Logger.get('assignment:components:instructor:GradeBox');
 
 export default React.createClass({
 	displayName: 'GradeBox',
@@ -30,7 +33,7 @@ export default React.createClass({
 		const {grade: oldGrade} = this.props;
 
 		if (!oldGrade && newGrade) {
-			console.log('Got new Grade!', nextProps.grade.value);
+			logger.debug('Got new Grade!', nextProps.grade.value);
 		}
 
 		if (oldGrade !== newGrade) {
@@ -83,7 +86,7 @@ export default React.createClass({
 
 
 	onKeyDown (e) {
-		console.log(e.key);
+		logger.debug(e.key);
 	},
 
 
@@ -99,8 +102,8 @@ export default React.createClass({
 		this.setState({busy: true});
 		collection.setGrade(grade || assignmentId, userId, newValue)
 			.then(
-				( ) => console.log('Success'),
-				(e) => console.error( e ? (e.stack || e.message || e) : 'Error')
+				( ) => logger.debug('Success'),
+				(e) => logger.error( e ? (e.stack || e.message || e) : 'Error')
 			)
 			.then(()=> this.setState({busy: false}));
 	},

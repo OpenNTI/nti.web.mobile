@@ -1,6 +1,8 @@
 import React from 'react';
 import update from 'react/lib/update';
 
+import Logger from 'nti-util-logger';
+
 import Button from 'common/forms/components/Button';
 import FieldRender from 'common/forms/mixins/RenderFormConfigMixin';
 import FieldValuesStore from 'common/forms/FieldValuesStore';
@@ -22,6 +24,7 @@ import {
 	IS_CONCURRENT_FORM
 } from '../Constants';
 
+const logger = Logger.get('enrollment:five-minute:components:FiveMinuteEnrollmentForm');
 const t = scoped('ENROLLMENT.forms.fiveminute');
 
 let ROOT_FORM_REF = 'rootForm';
@@ -77,9 +80,8 @@ export default React.createClass({
 
 			break;
 		}
-		console.group('fiveminute store event');
-		console.debug(event);
-		console.groupEnd();
+
+		logger.debug('fiveminute store event: %o', event);
 	},
 
 	fieldValuesStoreChange (event) {
@@ -109,7 +111,6 @@ export default React.createClass({
 		let index = errors.indexOf(error);
 		if (index > -1) {
 			let newErrs = update(errors, {$splice: [[index, 1]]}); // errors.splice(index, 1);
-			console.debug('remove error %s', error.field);
 			this.setState({
 				errors: newErrs
 			});

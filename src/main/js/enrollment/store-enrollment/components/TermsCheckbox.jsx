@@ -22,7 +22,6 @@ export default React.createClass({
 	render () {
 		const url = getUserAgreementURI();
 		if (!url) {
-			console.error('No user agreement url available. Omitting checkbox');
 			return null;
 		}
 

@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import {RouterMixin} from 'react-router-component';
 
-
+import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
 import Loading from 'common/components/Loading';
@@ -40,6 +40,8 @@ import NoteEditor from './NoteEditor';
 import BodyContent from './Content';
 import Gutter from './Gutter';
 import Discussions from './discussions';
+
+const logger = Logger.get('content:components:Viewer');
 
 const TRANSITION_TIMEOUT = 300;
 
@@ -229,7 +231,7 @@ export default React.createClass({
 		let test = p => p.containsPackage ? p.containsPackage(packageId) : fallback(p);
 
 		if (!test(contentPackage)) {
-			console.debug('Cross-Referenced... need to redirect to a new context that contains: %s', packageId);
+			logger.debug('Cross-Referenced... need to redirect to a new context that contains: %s', packageId);
 			return resolveNewContext(pageInfo);
 		}
 
@@ -376,7 +378,7 @@ export default React.createClass({
 		let isHighlight = !isRange && !selected.isNote;
 
 		if (!isRange && !selected.isModifiable) {
-			console.debug('Selected annotation is not modifiable: %o', selected);
+			logger.debug('Selected annotation is not modifiable: %o', selected);
 			return null;
 		}
 

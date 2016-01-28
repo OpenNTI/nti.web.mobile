@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
+import Logger from 'nti-util-logger';
 
 import Loading from 'common/components/Loading';
 
@@ -18,7 +19,7 @@ import DropOpen from './drop-widgets/DropOpen';
 import DropStore from './drop-widgets/DropStore';
 import DropFive from './drop-widgets/DropFive';
 
-
+const logger = Logger.get('enrollment:components:DropCourse');
 const t = scoped('ENROLLMENT.BUTTONS');
 
 export default React.createClass({
@@ -100,12 +101,14 @@ export default React.createClass({
 
 		for (let option of entry.getEnrollmentOptions()) {
 			let {MimeType} = option;
+			let Widget = widgetMap[MimeType];
+
 			if (option.enrolled) {
-				let Widget = widgetMap[MimeType];
-				if(!Widget) {
-					console.warn('Enrolled in an unrecognized/supported enrollment option? %O', option);
+				if (Widget) {
+					result.push(<Widget {...this.props} courseTitle={this.getCourseTitle()} key={MimeType} />);
+				} else {
+					logger.warn('Enrolled in an unrecognized/supported enrollment option? %O', option);
 				}
-				result.push(<Widget {...this.props} courseTitle={this.getCourseTitle()} key={MimeType} />);
 			}
 		}
 

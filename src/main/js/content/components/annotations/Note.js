@@ -1,8 +1,12 @@
+import Logger from 'nti-util-logger';
+
 import {safeBoundingBoxForRange, isZeroRect} from 'common/utils/rects';
 import iOSversion from 'common/utils/ios-version';
 
 import {NOT_FOUND, HIDDEN, RETRY_AFTER_DOM_SETTLES} from './Annotation';
 import Highlight from './Highlight';
+
+const logger = Logger.get('content:components:annotations:Note');
 
 function isBoundingClientRectBroken () {
 	let ios = iOSversion();
@@ -49,7 +53,7 @@ export default class Note extends Highlight {
 				return RETRY_AFTER_DOM_SETTLES;
 			}
 
-			console.log('Not Found:', this.getRecord().toJSON(), range);
+			logger.debug('Not Found:', this.getRecord().toJSON(), range);
 			return NOT_FOUND;
 		}
 
@@ -75,7 +79,7 @@ export default class Note extends Highlight {
 			top -= node ? node.getBoundingClientRect().top : 0;
 		}
 		else {
-			console.log('Hidden:', range, rect);
+			logger.debug('Hidden:', range, rect);
 		}
 
 		if (isBoundingClientRectBroken()) {

@@ -1,15 +1,22 @@
 import React from 'react';
-import {getDistributionList} from '../Api';
-import Loading from 'common/components/Loading';
-import ContextSender from 'common/mixins/ContextSender';
-import BasePath from 'common/mixins/BasePath';
-import Selectables from './Selectables';
-import Page from 'common/components/Page';
-import UserSearchField from './UserSearchField';
-import ItemDetailHeader from './ItemDetailHeader';
-import Err from 'common/components/Error';
 import {join} from 'path';
+
+import Logger from 'nti-util-logger';
+
+import BasePath from 'common/mixins/BasePath';
+import ContextSender from 'common/mixins/ContextSender';
+import Err from 'common/components/Error';
+import Loading from 'common/components/Loading';
+import Page from 'common/components/Page';
+
 import AddPeopleButton from './AddPeopleButton';
+import ItemDetailHeader from './ItemDetailHeader';
+import Selectables from './Selectables';
+import UserSearchField from './UserSearchField';
+
+import {getDistributionList} from '../Api';
+
+const logger = Logger.get('contacts:components:ListDetail');
 
 export default React.createClass({
 	displayName: 'ListDetail',
@@ -88,7 +95,9 @@ export default React.createClass({
 	toggleMembership (entity) {
 		let {list} = this.state;
 		let p = !list.contains(entity) ? list.add(entity) : list.remove(entity);
-		p.catch(reason => console.error(reason));
+
+		p.catch(reason => logger.error('There was a problem toggling membership on entity: reason: %o entity: %o', reason, entity));
+
 		return p;
 	},
 

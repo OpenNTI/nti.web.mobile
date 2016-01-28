@@ -1,3 +1,4 @@
+import Logger from 'nti-util-logger';
 import {parseNTIID} from 'nti-lib-ntiids';
 
 import {getService} from 'common/utils';
@@ -12,6 +13,8 @@ import {PAGE_LOADED, PAGE_FAILED, PACKAGE_NOT_FOUND} from './Constants';
 import {processContent} from './utils';
 
 import {load as getLibrary} from 'library/Actions';
+
+const logger = Logger.get('content:actions');
 
 function dispatch (type, response) {
 	AppDispatcher.handleRequestAction({type, response});
@@ -45,7 +48,7 @@ export function loadPage (ntiid) {
 				// get the pageInfo for an assessment id and the server
 				// returns the pageInfo that the assessment is on...
 				// so lets silence this error for that case.
-				console.warn('PageInfo ID missmatch! %s != %s %o', ntiid, pageInfo.getID());
+				logger.warn('PageInfo ID missmatch! %s != %s %o', ntiid, pageInfo.getID());
 			}
 
 			let p = lib.getPackage(pageInfo.getPackageID());
@@ -98,7 +101,7 @@ function fetchResources (packet) {
 
 	return Promise.all(requests)
 		// .catch(reason=>{
-		// 	console.log(reason);
+		// 	logger.log(reason);
 		// })
 		.then(styles => {
 			packet.styles = styles.map(css => css.replace(/#NTIContent/g, 'nti\\:content'));
@@ -113,7 +116,7 @@ export function resolveNewContext (pageInfo) {
 		.catch(x => {
 			let code = x && x.statusCode;
 			if (code === 501 || code === 422) {
-				console.log('Ignored condition. Either the link did not exist, or has not been adapted to be generic.');
+				logger.log('Ignored condition. Either the link did not exist, or has not been adapted to be generic.');
 				return;//ignore error. do not do anything. (let the caller continue.)
 			}
 

@@ -62,8 +62,6 @@ export default React.createClass({
 
 		let alias = newName.value.trim();
 
-		console.log(alias);
-
 		list.save({alias})
 			.then(this.toggleRename);
 	},

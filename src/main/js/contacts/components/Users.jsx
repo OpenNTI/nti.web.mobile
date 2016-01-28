@@ -60,7 +60,6 @@ export default React.createClass({
 			return undo().then(() => delete this.undos[entity.getID()]);
 		}
 		else {
-			console.warn('No undo?');
 			let {store} = this.state;
 			return store.addContact(entity);
 		}

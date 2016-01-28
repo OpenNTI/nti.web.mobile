@@ -4,6 +4,7 @@ import EnrollmentStore from '../Store';
 import CatalogStore from 'catalog/Store';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
+import Logger from 'nti-util-logger';
 
 import {LOAD_ENROLLMENT_STATUS, ENROLL_OPEN} from '../Constants';
 
@@ -13,6 +14,8 @@ import NoOptions from '../components/enrollment-option-widgets/NoOptions';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import GiftableUtils from './GiftableUtils';
+
+const logger = Logger.get('enrollment:mixnis:EnrollmentMixin');
 
 export default {
 	mixins: [NavigatableMixin, GiftableUtils],
@@ -79,7 +82,7 @@ export default {
 				handler();
 			}
 			else {
-				console.debug('Saw unrecognized EnrollmentStore change event: %O', event);
+				logger.debug('Unrecognized EnrollmentStore change event: %o', event);
 			}
 		}
 	},

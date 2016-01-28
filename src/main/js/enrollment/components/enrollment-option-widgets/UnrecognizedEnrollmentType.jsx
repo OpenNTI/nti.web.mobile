@@ -1,4 +1,7 @@
 import React from 'react';
+import Logger from 'nti-util-logger';
+
+const logger = Logger.get('enrollment:components:enrollment-option-widgets:UnrecogzniedEnrollmentType');
 
 export default React.createClass({
 	displayName: 'UnrecogzniedEnrollmentType',
@@ -8,8 +11,11 @@ export default React.createClass({
 		enrollmentOption: React.PropTypes.object.isRequired
 	},
 
+	componentWillMount () {
+		logger.warn('UnrecogzniedEnrollmentType: %s %o', this.props.enrollmentOption.key, this.props.enrollmentOption);
+	},
+
 	render () {
-		console.warn('Not rendering UnrecogzniedEnrollmentType: %s %O', this.props.enrollmentOption.key, this.props.enrollmentOption);
 		return null;
 	}
 

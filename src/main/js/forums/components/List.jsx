@@ -48,7 +48,7 @@ export default React.createClass({
 		} = this.props;
 
 		if (!container || !container.Items) {
-			console.error('List component requires a container prop.');
+			// console.error('List component requires a container prop.');
 			return null;
 		}
 

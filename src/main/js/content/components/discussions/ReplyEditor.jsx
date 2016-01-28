@@ -1,14 +1,15 @@
 import React from 'react';
-
 import cx from 'classnames';
+
+import Logger from 'nti-util-logger';
+
+import Loading from 'common/components/Loading';
+import ContextAccessor from 'common/mixins/ContextAccessor';
+import t from 'common/locale';
 
 import {Editor} from 'modeled-content';
 
-import Loading from 'common/components/Loading';
-
-import t from 'common/locale';
-
-import ContextAccessor from 'common/mixins/ContextAccessor';
+const logger = Logger.get('content:components:discussions:ReplyEditor');
 
 export default React.createClass({
 	displayName: 'ReplyEditor',
@@ -70,7 +71,7 @@ export default React.createClass({
 			.then(()=> onSubmitted())
 			.catch(er=> {
 				//is there a message to display?
-				console.error(er);
+				logger.error(er);
 			})
 			.then(()=> this.isMounted() && this.setState({busy: false}));
 

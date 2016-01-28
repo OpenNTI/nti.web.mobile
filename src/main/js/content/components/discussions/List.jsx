@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Logger from 'nti-util-logger';
 import {getModel} from 'nti-lib-interfaces';
 import PageSource from 'nti-lib-interfaces/lib/models/ListBackedPageSource';
 import {decodeFromURI} from 'nti-lib-ntiids';
@@ -15,6 +16,7 @@ import NotFound from 'notfound/components/View';
 import View from './View';
 import Item from './Item';
 
+const logger = Logger.get('content:components:discussions:List');
 const Note = getModel('note');
 
 export default React.createClass({
@@ -94,7 +96,7 @@ export default React.createClass({
 			items = [];
 			item = itemId && store.get(decodeFromURI(itemId));
 			if (!item && itemId) {
-				console.error(store, itemId, decodeFromURI(itemId));
+				logger.error('Store: %o\nitemId prop: %s\ndecoded itemId: %s', store, itemId, decodeFromURI(itemId));
 			}
 
 			for (let x of store) {

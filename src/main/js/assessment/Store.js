@@ -1,6 +1,6 @@
 import emptyFunction from 'fbjs/lib/emptyFunction';
-
 import {getModel} from 'nti-lib-interfaces';
+import Logger from 'nti-util-logger';
 
 import {
 	BUSY_LOADING,
@@ -23,6 +23,7 @@ import {
 
 import StorePrototype from 'common/StorePrototype';
 
+const logger = Logger.get('assessment:store');
 
 let AssignmentHistoryItem = getModel('assessment.assignmenthistoryitem');
 let Question = getModel('question');
@@ -162,7 +163,7 @@ class Store extends StorePrototype {
 			return;
 		}
 
-		// console.debug('Question Part Interacted: %o', action);
+		// logger.debug('Question Part Interacted: %o', action);
 
 		let interactionTime = new Date();
 		let time = this.timers[key] || {};
@@ -315,7 +316,7 @@ class Store extends StorePrototype {
 		if (!main) {
 			return;
 		}
-		console.debug('New Assessment: %o', main);
+		logger.debug('New Assessment: %o', main);
 
 		this.active[main.getID()] = main;
 		this.assessed[main.getID()] = null;
@@ -348,7 +349,7 @@ class Store extends StorePrototype {
 
 			.catch(reason => {
 				if (reason && reason.statusCode !== 404) {
-					console.error('Could not load previous state: %o', reason);
+					logger.error('Could not load previous state: %o', reason);
 				}
 
 				return void undefined;
@@ -375,7 +376,7 @@ class Store extends StorePrototype {
 
 			let question = getQuestion(s, q && q.getID());
 			if(!question) {
-				console.warn('Previous attempt question not found in current question set');
+				logger.warn('Previous attempt question not found in current question set');
 				return;
 			}
 

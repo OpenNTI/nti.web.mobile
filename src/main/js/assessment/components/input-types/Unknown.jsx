@@ -9,7 +9,6 @@ export default React.createClass({
 	},
 
 	render () {
-		console.debug('Input Type Missing: %s', this.props.item.MimeType);
 		return (
 			<div className="unknown part">
 

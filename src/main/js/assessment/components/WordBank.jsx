@@ -23,7 +23,6 @@ export default React.createClass({
 
 		let {entries} = record;
 		if (!entries) {
-			console.warn('Bad Entries property from WordBank record');
 			return null;
 		}
 

@@ -1,7 +1,9 @@
 import CSS from 'fbjs/lib/CSSCore';
 import ReactTransitionEvents from 'react/lib/ReactTransitionEvents';
-
+import Logger from 'nti-util-logger';
 import {getEventTarget} from 'nti-lib-dom';
+
+const logger = Logger.get('content:components:widgets:roll:Mixin');
 
 export const stop = e => { e.preventDefault(); e.stopPropagation(); };
 
@@ -120,7 +122,7 @@ export default {
 
 			const {refs: {stage}} = this;
 
-			// console.debug('Touch Start...');
+			// logger.debug('Touch Start...');
 
 			this.setState({
 				touch: {
@@ -139,7 +141,7 @@ export default {
 			});
 		}
 		else {
-			console.debug('Ignored Touch Start...');
+			logger.debug('Ignored Touch Start...');
 		}
 	},
 
@@ -152,7 +154,7 @@ export default {
 		let {sliding, pixelOffset, startPixelOffset, targetWidth} = data;
 
 		if (!data) {
-			console.debug('No touch data...ignoring.');
+			logger.debug('No touch data...ignoring.');
 			return;
 		}
 
@@ -180,7 +182,7 @@ export default {
 
 				startPixelOffset = pixelOffset;
 
-				// console.debug('Touch move tripped...');
+				// logger.debug('Touch move tripped...');
 			}
 
 			if (sliding === 2) {
@@ -218,7 +220,7 @@ export default {
 			fn = (Math.abs(pixelOffset - startPixelOffset) / targetWidth) < 0.35 ? 'onStay' ://elastic
 				pixelOffset < startPixelOffset ? 'onNext' : 'onPrev';
 
-			//console.debug('Touch End, result: %s', fn || 'stay');
+			//logger.debug('Touch End, result: %s', fn || 'stay');
 
 			this.setState({touchEnd: {pixelOffset, targetWidth}}, ()=> this[fn] && this[fn]());
 		}
@@ -227,7 +229,7 @@ export default {
 		if (endedTouch || e.targetTouches.length === 0) {
 			this.setState({ touch: void 0 });
 		} else {
-			console.debug('Not my touch', touch.id, e.targetTouches);
+			logger.debug('Not my touch', touch.id, e.targetTouches);
 		}
 
 	}

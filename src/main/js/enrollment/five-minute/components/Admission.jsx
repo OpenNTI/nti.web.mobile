@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Logger from 'nti-util-logger';
 import getLinkFn from 'nti-lib-interfaces/lib/utils/getlink';
 
 import Loading from 'common/components/Loading';
@@ -26,11 +27,12 @@ import {
 
 import {scoped} from 'common/locale';
 
+const logger = Logger.get('enrollment:five-minute:components:Admission');
 const t = scoped('ENROLLMENT');
 const tt = scoped('BUTTONS');
 
 function getLink (o, k) {
-	console.error('Object should be a model and then use the getLink method off of it. %o', o);
+	logger.error('Object should be a model and then use the getLink method off of it. %o', o);
 	return getLinkFn(o, k);
 }
 
@@ -90,7 +92,7 @@ export default React.createClass({
 				}),
 
 				error => {
-					console.error('unable to fetch admission status:', error);
+					logger.error('unable to fetch admission status:', error);
 					this.setState({ loading: false, error });
 				}
 			);

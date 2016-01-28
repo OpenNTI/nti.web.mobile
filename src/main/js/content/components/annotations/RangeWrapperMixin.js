@@ -1,5 +1,8 @@
 import * as DOM from 'nti-lib-dom';
 import * as RangeUtils from 'nti-lib-ranges';
+import Logger from 'nti-util-logger';
+
+const logger = Logger.get('content:components:annotations:RangeWrapperMixin');
 
 const wrap = 'content:RangeWrapperMixin:wrap';
 
@@ -162,7 +165,7 @@ export default {
 			//Its hard and costly to predict this, so we will just ignore it when it occurs and continue.
 
 			if (!known) {
-				console.warn(e.stack || e.message || e);
+				logger.warn(e.stack || e.message || e);
 			}
 		}
 

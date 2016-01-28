@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {getModel} from 'nti-lib-interfaces';
-
+import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
 import Card from 'common/components/Card';
@@ -16,6 +16,8 @@ import Discussions from 'content/components/discussions';
 import CourseLinker from 'library/mixins/CourseContentLink';
 
 import {LESSONS} from '../Sections';
+
+const logger = Logger.get('course:components:ExternalContent');
 
 const RelatedWorkReference = getModel('relatedworkref');
 
@@ -47,7 +49,7 @@ export default React.createClass({
 			}),
 			//error
 			() => {
-				console.warn('Could not find outline node: %s in course: ', id, course.getID());
+				logger.warn('Could not find outline node: %s in course: %s', id, course.getID());
 			});
 
 	},

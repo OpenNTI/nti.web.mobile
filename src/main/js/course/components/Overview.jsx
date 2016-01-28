@@ -1,3 +1,4 @@
+import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import React from 'react';
 
@@ -16,6 +17,8 @@ import AnalyticsStore from 'analytics/Store';
 // this mixin from outside of the `widgets` package. If this comment
 // strikes you odd, see the comment block with the `./widgets/Mixin.js`
 import {Mixin} from './widgets';
+
+const logger = Logger.get('course:components:Overview');
 
 export default React.createClass({
 	displayName: 'CourseOverview',
@@ -51,7 +54,7 @@ export default React.createClass({
 			}),
 			//error
 			() => {
-				console.warn('Could not find outline node: %s in course: ', id, course.getID());
+				logger.warn('Could not find outline node: %s in course: %s', id, course.getID());
 			});
 	},
 
@@ -96,7 +99,7 @@ export default React.createClass({
 
 
 	onError (error) {
-		console.error('Error loading Overview: ', error.stack || error.message || error);
+		logger.error('Error loading Overview: ', error.stack || error.message || error);
 		if (this.isMounted()) {
 			this.setState({
 				error,

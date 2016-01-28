@@ -65,7 +65,6 @@ export default React.createClass({
 		const {router} = this.refs;
 
 		if (!router && this.isMounted()) {
-			console.warn('Router not present yet... will retry in a few.');
 			return setTimeout(()=> this.storeChange(event), 100);
 		}
 

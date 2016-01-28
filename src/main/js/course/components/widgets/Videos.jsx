@@ -1,9 +1,13 @@
 import React from 'react';
 
+import Logger from 'nti-util-logger';
+
 import WidgetsMixin from './Mixin';
 
 import ErrorWidget from 'common/components/Error';
 import Loading from 'common/components/Loading';
+
+const logger = Logger.get('course:components:widgets:Videos');
 
 export default React.createClass({
 	displayName: 'CourseOverviewVideos',
@@ -145,7 +149,7 @@ export default React.createClass({
 
 		if (!this.state.touch) {
 			e.stopPropagation();
-			console.debug('Touch Start...');
+			logger.debug('Touch Start...');
 			this.setState({
 				offsetWidth: videos.offsetWidth,
 				touch: {
@@ -172,7 +176,7 @@ export default React.createClass({
 		let find = (t, i) =>t || (i.identifier === state.touch.id && i);
 
 		if (!data) {
-			console.debug('No touch data...ignoring.');
+			logger.debug('No touch data...ignoring.');
 			return;
 		}
 
@@ -197,7 +201,7 @@ export default React.createClass({
 			if (sliding === 1 && delta) {
 				sliding = 2;
 				startPixelOffset = pixelOffset;
-				console.debug('Touch move tripped...');
+				logger.debug('Touch move tripped...');
 			}
 
 			if (sliding === 2) {
@@ -208,7 +212,7 @@ export default React.createClass({
 
 				pixelOffset = startPixelOffset + (delta / touchPixelRatio);
 
-				// console.debug('Touch move... %d %d %d', startPixelOffset, pixelOffset, delta);
+				// logger.debug('Touch move... %d %d %d', startPixelOffset, pixelOffset, delta);
 				this.setState({
 					touch: Object.assign(state.touch, {
 						delta: delta,
@@ -241,7 +245,7 @@ export default React.createClass({
 			fn = (Math.abs(pixelOffset - startPixelOffset) / touch.dom.offsetWidth) < 0.35 ? null ://elastic
 				pixelOffset < startPixelOffset ? 'onNext' : 'onPrev';
 
-			console.debug('Touch End, result: %s', fn || 'stay');
+			logger.debug('Touch End, result: %s', fn || 'stay');
 
 			if(fn) {
 				this[fn]();
@@ -253,7 +257,7 @@ export default React.createClass({
 		if (endedTouch || e.targetTouches.length === 0) {
 			this.setState({ touch: null	});
 		} else {
-			console.debug('Not my touch', touch.id, e.targetTouches);
+			logger.debug('Not my touch', touch.id, e.targetTouches);
 		}
 	},
 

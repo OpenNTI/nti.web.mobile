@@ -40,7 +40,7 @@ export default React.createClass({
 	render () {
 		let headerText = headerTextForType(this.props.type);
 		if ((headerText || '').trim().length === 0 ) {
-			console.warn('No view-header entry in locale/forums for type: %s', this.props.type);
+			// console.warn('No view-header entry in locale/forums for type: %s', this.props.type);
 			return null;
 		}
 		return (

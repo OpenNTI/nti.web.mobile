@@ -41,8 +41,7 @@ export default React.createClass({
 	setList (props) {
 		let {filter, list} = props;
 
-		if (!list.map) {
-			console.warn('this.props.list doesn\'t have a map function? %O', this.props.list);
+		if (!list || !list.map) {
 			return null;
 		}
 

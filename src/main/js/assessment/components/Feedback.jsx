@@ -1,13 +1,20 @@
 import React from 'react';
-import {submitFeedback, deleteFeedbackItem, updateFeedbackItem} from '../Api';
-import Store from '../Store';
+
+import Logger from 'nti-util-logger';
+
 import {scoped} from 'common/locale';
 import StoreEvents from 'common/mixins/StoreEvents';
+
+import {submitFeedback, deleteFeedbackItem, updateFeedbackItem} from '../Api';
+import Store from '../Store';
 
 import FeedbackList from './FeedbackList';
 import FeedbackEntry from './FeedbackEntry';
 
+const logger = Logger.get('assessment:components:Feedback');
 const t = scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
+
+const logError = error=>logger.warn(error.message || error);
 
 export default React.createClass({
 	displayName: 'Feedback',
@@ -54,18 +61,18 @@ export default React.createClass({
 
 	onSubmit (feedbackBody) {
 		return submitFeedback(this.props.assessment, feedbackBody)
-			.then(()=>this.forceUpdate(), error=>console.warn(error.message || error));
+			.then(()=>this.forceUpdate(), logError);
 	},
 
 
 	onEditItem (item, newValue) {
 		return updateFeedbackItem(this.props.assessment, item, newValue)
-			.then(()=>this.forceUpdate(), error=>console.warn(error.message || error));
+			.then(()=>this.forceUpdate(), logError);
 	},
 
 
 	onDeleteItem (item) {
 		return deleteFeedbackItem(this.props.assessment, item)
-			.then(()=>this.forceUpdate(), error=>console.warn(error.message || error));
+			.then(()=>this.forceUpdate(), logError);
 	}
 });

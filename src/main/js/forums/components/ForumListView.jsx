@@ -2,6 +2,8 @@ import React from 'react';
 
 import Transition from 'react-addons-css-transition-group';
 
+import Logger from 'nti-util-logger';
+
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 
@@ -20,6 +22,7 @@ import {DISCUSSIONS_CHANGED} from '../Constants';
 
 import ForumBin from './widgets/ForumBin';
 
+const logger = Logger.get('forums:components:ForumListView');
 
 const t = scoped('FORUMS.groupTitles');
 const discussionsChanged = 'ForumListView:discussionsChangedHandler';
@@ -78,7 +81,7 @@ export default React.createClass({
 					Store.setPackageId(contentPackage.getID());
 				},
 				error => {
-					console.error('Failed to load discussions', error);
+					logger.error('Failed to load discussions', error);
 					this.setState({ error });
 				});
 	},
@@ -109,7 +112,7 @@ export default React.createClass({
 		return (
 			<div>
 				<Transition transitionName="fadeOutIn"
-					transitionAppear 
+					transitionAppear
 					transitionAppearTimeout={500}
 					transitionEnterTimeout={500}
 					transitionLeaveTimeout={500}

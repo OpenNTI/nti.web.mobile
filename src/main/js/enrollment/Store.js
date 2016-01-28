@@ -1,5 +1,3 @@
-
-
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 
@@ -50,7 +48,6 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 		if (enrollmentStatus.hasOwnProperty(courseId)) {
 			return enrollmentStatus[courseId];
 		}
-		console.error('Enrollment status unknown. Maybe call loadEnrollmentStatus first.');
 		return false;
 	}
 

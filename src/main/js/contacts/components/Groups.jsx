@@ -1,17 +1,24 @@
 import React from 'react';
-import mixin from '../mixins/Mixin';
-import {GROUPS} from '../Constants';
-import AvatarProfileLink from 'profile/components/AvatarProfileLink';
-import ListMeta from './ListMeta';
+import cx from 'classnames';
+import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
+
+import Logger from 'nti-util-logger';
+
 import {scoped} from 'common/locale';
 import ContextSender from 'common/mixins/ContextSender';
+import EmptyList from 'common/components/EmptyList';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
-import EmptyList from 'common/components/EmptyList';
-import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
-import cx from 'classnames';
 
-let t = scoped('CONTACTS');
+import AvatarProfileLink from 'profile/components/AvatarProfileLink';
+
+import mixin from '../mixins/Mixin';
+import {GROUPS} from '../Constants';
+
+import ListMeta from './ListMeta';
+
+const logger = Logger.get('contacts:components:Groups');
+const t = scoped('CONTACTS');
 
 export default React.createClass({
 	displayName: 'Contacts:Groups',
@@ -62,9 +69,12 @@ export default React.createClass({
 
 	deleteGroup (group) {
 		return group.delete()
-		.catch(reason => {
-			console.error(reason);
-		});
+			.catch(reason => {
+				logger.error('There was an error while trying to delete a group: error: %o, group: %o', reason, group);
+
+				//Continue the error.
+				return Promise.reject(reason);
+			});
 	},
 
 	renderListItem (item) {
@@ -84,7 +94,7 @@ export default React.createClass({
 				<SwipeToRevealOptions
 					rightOptions={rightOptions}
 					callActionWhenSwipingFarRight={false}
-					onRightClick={this.deleteGroup.bind(null,item)}
+					onRightClick={() => this.deleteGroup(item)}
 				>
 					<AvatarProfileLink entity={item}>
 						<ListMeta entity={item} />

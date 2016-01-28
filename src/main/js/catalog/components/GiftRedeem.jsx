@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
+import Logger from 'nti-util-logger';
 
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
@@ -18,6 +19,7 @@ import {GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from '../Constants';
 
 import {redeemGift} from '../Actions';
 
+const logger = Logger.get('catalog:components:GiftRedeem');
 const t = scoped('ENROLLMENT.GIFT.REDEEM');
 
 export default React.createClass({
@@ -89,7 +91,7 @@ export default React.createClass({
 		let entry = this.getCatalogEntry(decodeFromURI(props.entryId));
 
 		if (!entry) {
-			console.error('Unable to find requested catalog entry, redirect to route root.');
+			logger.error('Unable to find requested catalog entry, redirect to route root.');
 			this.navigate('/', {replace: true});
 			return;
 		}

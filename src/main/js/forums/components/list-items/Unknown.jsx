@@ -8,7 +8,6 @@ export default React.createClass({
 	},
 
 	render () {
-		console.debug(this.props.item);
 		return (
 			<div>
 				{this.props.item.MimeType}

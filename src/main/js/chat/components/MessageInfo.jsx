@@ -1,6 +1,7 @@
 import React from 'react';
-
 import cx from 'classnames';
+
+import Logger from 'nti-util-logger';
 
 import Avatar from 'common/components/Avatar';
 import DateTime from 'common/components/DateTime';
@@ -9,6 +10,8 @@ import DisplayName from 'common/components/DisplayName';
 import {Panel as Body} from 'modeled-content';
 
 import {getAppUsername} from 'common/utils';
+
+const logger = Logger.get('chat:components:MessageInfo');
 
 const MessageInfo = React.createClass({
 	displayName: 'MessageInfo',
@@ -42,7 +45,7 @@ const MessageInfo = React.createClass({
 		if (item) {
 			item.getReplies()
 				.catch(e => {
-					console.error(e);
+					logger.error('There was a problem getting replies. reason: %o', e);
 					return [];
 				})
 				.then(children => this.setState({loading: false, children}));

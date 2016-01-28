@@ -1,4 +1,5 @@
 import React from 'react';
+import Logger from 'nti-util-logger';
 
 import ItemsMixin from 'activity/RenderItemsMixin';
 
@@ -6,6 +7,7 @@ import DateTime from 'common/components/DateTime';
 
 import selectWidgetOverride from './activity-widget-overrides';
 
+const logger = Logger.get('course:components:ActivityBucket');
 
 const startDateFormat = 'MMMM D';
 const MIN_COL_WIDTH = 260;
@@ -41,7 +43,7 @@ class ActivityColumn {
 	weightFor (item) {
 		let w = weights[item.MimeType];
 		if (w == null) {
-			console.warn(`No weight for MimeType: ${item.MimeType}`);
+			logger.warn(`No weight for MimeType: ${item.MimeType}`);
 			w = 1;
 		}
 		return w;

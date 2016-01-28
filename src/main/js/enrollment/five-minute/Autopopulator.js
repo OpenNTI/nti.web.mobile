@@ -8,17 +8,13 @@ let valuesMap = {
 export default class Autopopulator {
 
 	constructor () {
-		try {
-			getService().then(service => {
-				service.getAppUser().then(user => {
-					valuesMap.first_name = user.NonI18NFirstName;
-					valuesMap.last_name = user.NonI18NLastName;
-					valuesMap.email = user.email;
-				});
+		getService().then(service => {
+			service.getAppUser().then(user => {
+				valuesMap.first_name = user.NonI18NFirstName;
+				valuesMap.last_name = user.NonI18NLastName;
+				valuesMap.email = user.email;
 			});
-		} catch (e) {
-			console.error(e.stack || e.message || e);
-		}
+		});
 	}
 
 	valueFor (fieldName) {

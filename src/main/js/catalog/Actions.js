@@ -1,9 +1,13 @@
+import Logger from 'nti-util-logger';
+
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {getService} from 'common/utils';
+
 import {getCatalog} from './Api';
 
 import {LOAD_CATALOG, LOADED_CATALOG, GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from './Constants';
 
+const logger = Logger.get('catalog:actions');
 
 export function reload () {
 	return load(true);
@@ -19,7 +23,7 @@ export function load (force = false) {
 			.then(catalog =>
 				dispatch(LOADED_CATALOG, catalog))
 			.catch(e => {
-				console.log('loadCatalog failed. %O', e);
+				logger.error('loadCatalog failed. %O', e);
 				return Promise.reject(e);
 			});
 	}

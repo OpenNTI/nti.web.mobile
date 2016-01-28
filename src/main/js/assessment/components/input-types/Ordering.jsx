@@ -1,9 +1,14 @@
 import React from 'react';
-import InputType, {stopEvent} from './Mixin';
+
+import Logger from 'nti-util-logger';
+
+import {Mixin, Draggable, DropTarget} from 'common/dnd';
 
 import Content from '../Content';
 
-import {Mixin, Draggable, DropTarget} from 'common/dnd';
+import InputType, {stopEvent} from './Mixin';
+
+const logger = Logger.get('assessment:components:input-types:Ordering');
 
 const SetValueRaw = 'ordering:SetValueRaw';
 
@@ -72,17 +77,17 @@ export default React.createClass({
 		}
 
 		if (target == null || source == null) {
-			console.error('Missing target and/or source');
+			logger.error('Missing target and/or source');
 			throw new Error('Illegal State, there must be BOTH a source and a target');
 		}
 
 		swapFrom = valueArray.indexOf(source);
 		if (swapFrom < 0) {
-			console.error('Nothing to swap');
+			logger.error('Nothing to swap');
 			throw new Error('Illegal State!');
 		}
 
-		console.debug(`Drop: %s (%s)
+		logger.debug(`Drop: %s (%s)
 		onto %s (%s),
 		swappingWith: %s (%s)`,
 
@@ -146,7 +151,7 @@ export default React.createClass({
 		let sourceIndex = value[targetIndex];
 
 		if (!value || sourceIndex < 0 || sourceIndex == null) {
-			console.warn('THIS SHOULD NOT HAPPEN', value);
+			logger.warn('THIS SHOULD NOT HAPPEN', value);
 			return null;
 		}
 
@@ -207,10 +212,10 @@ export default React.createClass({
 		}
 
 		if (array.filter(x=> x != null && notSeen(x)).length !== length) {
-			console.warn('Something went wrong. Preventing bad value from persisting. Here is the bad value:', value);
+			logger.warn('Something went wrong. Preventing bad value from persisting. Here is the bad value:', value);
 			return;
 		}
-		console.debug('Setting state: %o', value);
+		logger.debug('Setting state: %o', value);
 		this.setState({value: value}, this.handleInteraction);
 	},
 

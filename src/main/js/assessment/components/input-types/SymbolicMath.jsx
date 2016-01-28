@@ -3,6 +3,7 @@ import React from 'react';
 import isEmpty from 'isempty';
 
 import {getEventTarget} from 'nti-lib-dom';
+import Logger from 'nti-util-logger';
 
 import Loading from 'common/components/TinyLoader';
 import Error from 'common/components/Error';
@@ -11,6 +12,7 @@ import {clearLoadingFlag, setError} from 'common/utils/react-state';
 
 import Mixin, {stopEvent} from './Mixin';
 
+const logger = Logger.get('assessment:components:input-types:SymbolicMath');
 
 function stop (e) {
 	e.stopPropagation();
@@ -30,12 +32,12 @@ function transformToMathquillInput (latex) {
 	//particular issue with a small change in mathquills
 	//symbol.js and cursor.js but for now this seems
 	//safest and fastest
-	//console.log('Sanitizing raw value', latex);
+	logger.debug('Sanitizing raw value', latex);
 
 	latex = latex && latex.trim()
 		.replace(/\s/g, '\\space ')
 		.replace(/\\[;:,]/g, '\\space ');
-	//console.log('Sanitized value is ', latex);
+	logger.debug('Sanitized value is ', latex);
 
 	//OK so the old version of mathquil doesn't like space
 	//so lets fact it out with quad, things will have huge
@@ -45,14 +47,14 @@ function transformToMathquillInput (latex) {
 }
 
 function sanitizeMathquillOutput (v) {
-	//console.log('Got raw value', v);
+	logger.debug('Got raw value', v);
 	v = v && v.trim()
 	//	.replace(/\\quad/g, '\\space')
 		.replace(/\\[;:,]/g, '\\space ')
 		.replace(/\\space /g, ' ')
 		.replace(/\s+/g, ' ');
 
-	//console.log('Got clean value', v);
+	logger.debug('Got clean value', v);
 
 	return v;
 }
@@ -123,7 +125,7 @@ export default React.createClass({
 		const {jQuery} = global;
 		const {input} = this.refs;
 		const symbol = getEventTarget(e, '.mathsymbol');
-		console.trace('click!');
+		logger.trace('click!');
 		if (!symbol || this.isSubmitted()) {
 			return;
 		}
@@ -132,7 +134,7 @@ export default React.createClass({
 
 
 		jQuery(input).mathquill('cmd', latex);
-		console.debug('Wrote: ' + latex);
+		logger.debug('Wrote: ' + latex);
 
 		this.focusInput();
 		this.handleInteraction();
@@ -174,7 +176,7 @@ export default React.createClass({
 
 	processValue (value) {
 		const latex = transformToMathquillInput(value);
-		console.log('Setting value to ', latex);
+		logger.debug('Setting value to ', latex);
 		return latex;
 	},
 

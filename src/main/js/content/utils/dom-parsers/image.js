@@ -1,4 +1,7 @@
+import Logger from 'nti-util-logger';
 import parseDomObject from './object';
+
+const logger = Logger.get('content:utils:dom-parsers:image');
 
 const SIZE_MAP = {
 	oversize: -2,
@@ -17,6 +20,7 @@ const srcPropertyDescription = {
 		return sizes[size < 0 ? 0 : size];
 	}
 };
+
 
 
 export default function getImagesFromDom (contentElement) {
@@ -72,7 +76,7 @@ export default function getImagesFromDom (contentElement) {
 
 		//Validate the prefix...
 		if (!/\/$/.test(prefix) || src !== (prefix + current)) {
-			console.warn('The content prefix does not meet expectations.', prefix, current, src);
+			logger.warn('The content prefix does not meet expectations. prefix: "%s", current: "%s", src: "%s"', prefix, current, src);
 		}
 
 		//Apply the prefix to size sources (so they can just be used a la: new Image().src = source)

@@ -4,9 +4,12 @@ import cx from 'classnames';
 
 import C from 'common/components/Conditional';
 
+import Logger from 'nti-util-logger';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {Link} from 'react-router-component';
+
+const logger = Logger.get('content:components:AnnotationBar');
 
 export default React.createClass({
 	displayName: 'AnnotationBar',
@@ -41,7 +44,7 @@ export default React.createClass({
 					: range;
 		}
 		catch (e) {
-			console.error(e.stack || e.message || e);
+			logger.error('Error getting range: %o', e.stack || e.message || e);
 		}
 	},
 

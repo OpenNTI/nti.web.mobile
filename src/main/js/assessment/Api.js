@@ -1,7 +1,11 @@
+import Logger from 'nti-util-logger';
+
 import ReadOnlyStore from './Store';
 import {getMainSubmittable, isAssignment} from './utils';
 
-let isHistoryItem = RegExp.prototype.test.bind(/AssignmentHistoryItem/i);
+const logger = Logger.get('assessment:api');
+
+const isHistoryItem = RegExp.prototype.test.bind(/AssignmentHistoryItem/i);
 
 export function loadPreviousState (assessment) {
 	let main = getMainSubmittable(assessment);
@@ -41,7 +45,7 @@ export function submit (assessment) {
 		})
 		.catch(reason => {
 			//force this to always fulfill.
-			console.error('There was an error submitting the assessment: %o', reason.message || reason);
+			logger.error('There was an error submitting the assessment: %o', reason.message || reason);
 			return reason;
 		});
 }

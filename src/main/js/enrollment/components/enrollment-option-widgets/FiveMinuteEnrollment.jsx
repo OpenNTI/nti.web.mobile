@@ -1,4 +1,5 @@
 import React from 'react';
+import Logger from 'nti-util-logger';
 
 import Loading from 'common/components/LoadingInline';
 
@@ -6,6 +7,7 @@ import {scoped} from 'common/locale';
 
 import BasePathAware from 'common/mixins/BasePath';
 
+const logger = Logger.get('enrollment:components:enrollment-option-widgets:FiveMinuteEnrollment');
 const t = scoped('ENROLLMENT');
 
 const DETAILS = 'fmaep.course.details';
@@ -75,7 +77,7 @@ export default React.createClass({
 		let count = Course && Course.SeatAvailable;
 
 		if (archived) {
-			console.info('Omitting five minute enrollment option; course is archived.');
+			logger.debug('Omitting five minute enrollment option; course is archived.');
 			return null;
 		}
 

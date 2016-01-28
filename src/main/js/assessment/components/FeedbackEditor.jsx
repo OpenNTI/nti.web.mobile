@@ -1,12 +1,15 @@
 import React from 'react';
-
 import cx from 'classnames';
+
+import Logger from 'nti-util-logger';
 
 import {Editor} from 'modeled-content';
 
 import Loading from 'common/components/Loading';
 
 import t from 'common/locale';
+
+const logger = Logger.get('assessment:components:FeedbackEditor');
 
 export default React.createClass({
 	displayName: 'FeedbackEditor',
@@ -70,7 +73,7 @@ export default React.createClass({
 		this.setState({busy: true});
 		let thenable = this.props.onSubmit(value);
 		if (!thenable) {
-			console.error('onSubmit callback did not return a thenable, this component will never leave the busy state.');
+			logger.error('onSubmit callback did not return a thenable, this component will never leave the busy state.');
 			return;
 		}
 

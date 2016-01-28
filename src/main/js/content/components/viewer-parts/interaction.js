@@ -1,11 +1,13 @@
 import ReactDOM from 'react-dom';
 import scrollParent from 'scrollparent';
 
+import Logger from 'nti-util-logger';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
 import {hasClass, getEventTarget} from 'nti-lib-dom';
 
 import {getScrollPosition} from 'common/utils/dom';
 
+const logger = Logger.get('content:components:viewer-parts:interaction');
 const SCROLL = Symbol('Scroll-To-Target-Delay');
 
 export default {
@@ -73,7 +75,7 @@ export default {
 				e.preventDefault();
 				id = decodeURIComponent(frag);
 				if (!this.scrollToTarget(id)) {
-					console.warn('Link (%s) refers to an element not found by normal means on the page.', href);
+					logger.warn('Link (%s) refers to an element not found by normal means on the page.', href);
 				}
 				return;
 			}
@@ -95,9 +97,9 @@ export default {
 				anchor.setAttribute('href', href);
 			}
 
-			if (frag.length) {
-				console.warn('TODO: implement navigating to a fragment on a new page.');
-			}
+			// if (frag.length) {
+			// 	logger.warn('TODO: implement navigating to a fragment on a new page.');
+			// }
 		}
 	},
 
@@ -127,7 +129,7 @@ export default {
 			if (fn) {
 				fn.call(scrollToEl, true);
 			} else {
-				console.warn('No function to scroll... pollyfill time');
+				logger.warn('No function to scroll... pollyfill time');
 			}
 			return true;
 		}
@@ -146,7 +148,7 @@ export default {
 		this[SCROLL] = setTimeout(()=> {
 			let id = this.getScrollTargetIdFromHash();
 			if (id) {
-				console.debug('Scrolling to %s...', id);
+				logger.debug('Scrolling to %s...', id);
 				this.scrollToTarget(id);
 				try {
 					//SOOoooo dirty! This is removing the fragment from the address bar:

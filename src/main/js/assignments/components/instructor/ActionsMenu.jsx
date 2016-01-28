@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {PropType as NTIID} from 'nti-lib-ntiids';
+import Logger from 'nti-util-logger';
 
 import cx from 'classnames';
 
@@ -11,6 +12,7 @@ import {areYouSure} from 'prompts';
 
 import MenuTransitionGroup from './MenuTransitionGroup';
 
+const logger = Logger.get('assignment:components:instructor:ActionsMenu');
 
 export default React.createClass({
 	displayName: 'instructor:ActionsMenu',
@@ -72,8 +74,8 @@ export default React.createClass({
 		areYouSure(msg)
 			.then(reset)
 			.then(
-				()=> console.log('Assignment Reset'),
-				e => console.error('Could not reset', e.stack || e.message || e));
+				()=> logger.log('Assignment Reset'),
+				e => logger.error('Could not reset', e.stack || e.message || e));
 	},
 
 

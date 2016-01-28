@@ -11,7 +11,7 @@ import {CHANGE_EVENT, ERROR_EVENT} from 'common/constants/Events';
 
 let errors = [];
 
-const logger = Logger.get('login:signup:Store');
+const logger = Logger.get('login:signup:store');
 
 const addError = 'signupStore:addError';
 const clearErrors = 'signupStore:clearErrors';
