@@ -24,7 +24,7 @@ function contextualize (root, app) {
 common.loadConfig()
 	.then(function (config) {
 		common.showFlags(config);
-		logger.info('Build Source (revision): ', config.revision);
+		logger.info('Source (revision): %s', config.revision);
 
 		var protocol = config.protocol === 'proxy' ? proxiedHttp : http;
 		var address = config.address || '0.0.0.0';

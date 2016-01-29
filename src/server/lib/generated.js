@@ -8,7 +8,10 @@ let reason;
 module.exports.page = function () { return 'Imagine the UI.'; };
 
 try {
-	module.exports.page = require('page.generated').default(true);
+	const {default: getPage, revision} = require('page.generated');
+	module.exports.page =  getPage(true);
+
+	logger.info('Build (revision): %s', revision);
 } catch(e) {
 	reason = e.stack || e.message;
 	ServerRender = false;
@@ -32,7 +35,7 @@ try {
 	if (ServerRender) {
 		module.exports.entryPoint = false;
 
-		logger.error('%s\tServer UI rendering: cannot load webpack`s compile info: %s',
+		logger.error('Server UI rendering: cannot load webpack`s compile info: %s',
 			e.stack || e.message || e);
 	}
 }
@@ -48,6 +51,6 @@ try {
 		module.exports.entryPoint = src;
 	}
 } catch (e) {
-	logger.error('%s\tCould not resolve the entryPoint script name: %s',
+	logger.error('Could not resolve the entryPoint script name: %s',
 		e.stack || e.message || e);
 }

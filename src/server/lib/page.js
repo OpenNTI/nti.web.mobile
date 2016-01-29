@@ -11,6 +11,8 @@ const isRootPath = /^\/(?!\/).*/;
 const basepathreplace = /(manifest|src|href)="(.*?)"/igm;
 const configValues = /<\[cfg\:([^\]]*)\]>/igm;
 
+export const revision = typeof BUILD_SOURCE === 'undefined' ? 'nah' : BUILD_SOURCE;
+
 function injectConfig (cfg, orginal, prop) {
 	try {
 		if (prop === 'revision') {
