@@ -1,0 +1,10 @@
+.assessment-content-component {
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	img[style*="height"] {
+		height: auto !important;
+	}
+}

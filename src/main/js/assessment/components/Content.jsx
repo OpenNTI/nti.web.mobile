@@ -1,5 +1,6 @@
 import React from 'react';
 import emptyFunction from 'fbjs/lib/emptyFunction';
+import cx from 'classnames';
 
 import {processContent} from 'content/utils';
 
@@ -17,6 +18,8 @@ export default React.createClass({
 	displayName: 'Content',
 
 	propTypes: {
+		className: React.PropTypes.string,
+
 		content: React.PropTypes.string.isRequired,
 
 		renderCustomWidget: React.PropTypes.func,
@@ -81,7 +84,10 @@ export default React.createClass({
 
 
 	render () {
-		let props = Object.assign({}, this.props, {ref: 'el', content: undefined});
+		let className = cx('assessment-content-component', this.props.className);
+
+		let props = Object.assign({}, this.props, {className, ref: 'el', content: undefined});
+
 		let dynamicRender = emptyFunction;
 		if (isFunction(this.state.content)) {
 			dynamicRender = this.state.content;
