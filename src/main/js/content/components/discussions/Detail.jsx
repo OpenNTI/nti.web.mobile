@@ -23,7 +23,6 @@ export default React.createClass({
 
 	propTypes: {
 		contentPackage: React.PropTypes.object,
-		pageSource: React.PropTypes.object,
 
 		item: React.PropTypes.object,
 
