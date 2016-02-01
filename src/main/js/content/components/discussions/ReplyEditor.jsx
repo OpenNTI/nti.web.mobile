@@ -33,10 +33,17 @@ export default React.createClass({
 
 
 	componentWillMount () {
+		const {value} = this.props;
 		this.resolveContext().then(context => this.setState({context}));
-		this.setState({
-			value: this.props.value || null
-		});
+		this.setState({ value });
+	},
+
+
+	componentWillReceiveProps (nextProps) {
+		const {value} = nextProps;
+		if (this.props.value !== value) {
+			this.setState({ value });
+		}
 	},
 
 
