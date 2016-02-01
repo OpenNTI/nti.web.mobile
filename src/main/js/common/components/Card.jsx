@@ -35,12 +35,14 @@ import {scoped} from '../locale';
 
 import {BLANK_IMAGE} from '../constants/DataURIs';
 
-import ExternalResourceEvent from 'nti-lib-interfaces/lib/models/analytics/ExternalResourceEvent';
+import {getModel} from 'nti-lib-interfaces';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
 import {Progress} from 'nti-lib-interfaces';
 import Logger from 'nti-util-logger';
 
 import {emitEventStarted} from 'analytics/Actions';
+
+const ExternalResourceEvent = getModel('analytics.externalresourceevent');
 
 const logger = Logger.get('common:components:card');
 
