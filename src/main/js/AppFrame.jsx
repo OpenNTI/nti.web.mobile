@@ -72,10 +72,12 @@ export default React.createClass({
 				<div className={`off-canvas-wrap ${state}`} data-offcanvas>
 					<div className="inner-wrap">
 
-						<aside className="right-off-canvas-menu" style={height} ref="rightMenu">
-							<Session />
-							<Notifications/>
-						</aside>
+
+							<aside className="right-off-canvas-menu" style={height} ref="rightMenu">
+								{this.getOverlayState() != null && ( <Session /> )}
+								{this.getOverlayState() != null && ( <Notifications/> )}
+							</aside>
+
 
 						<section className="main-section">
 							{this.renderView()}

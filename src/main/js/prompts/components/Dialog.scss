@@ -1,3 +1,27 @@
+@import "utils/variables";
+@import "utils/placeholders";
+
+
+#modals > *  {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 9999999;
+}
+
+.modal.mask {
+	background-color: rgba(0,0,0,0);
+	transition: background-color .35s ease-in;
+
+	&.showing {
+		background-color: rgb(100,100,100);
+		background-color: rgba(0,0,0,0.6);
+	}
+}
+
+
 .dialog.window {
 	padding-top: 30px;
 	width: 400px; //prefered width
