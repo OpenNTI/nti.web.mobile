@@ -4,6 +4,7 @@ import cx from 'classnames';
 import Loading from 'common/components/TinyLoader';
 import Button from 'common/forms/components/Button';
 import EmptyList from 'common/components/EmptyList';
+import ScrollTrigger from 'common/components/ScrollTrigger';
 
 import ItemsMixin from 'activity/RenderItemsMixin';
 import Joined from 'activity/components/widgets/Joined';
@@ -105,13 +106,15 @@ export default React.createClass({
 		// 	el = el.previousSibling;
 		// }
 
-		store.nextBatch();
-			// .then(()=> {
-			// 	el = el && el.nextSibling;
-			// 	if (el) {
-			// 		el.scrollIntoView(true);
-			// 	}
-			// });
+		if (!store.loading) {
+			store.nextBatch();
+				// .then(()=> {
+				// 	el = el && el.nextSibling;
+				// 	if (el) {
+				// 		el.scrollIntoView(true);
+				// 	}
+				// });
+		}
 	},
 
 	render () {
@@ -152,6 +155,8 @@ export default React.createClass({
 					)}
 				</li>
 				)}
+
+				<li><ScrollTrigger onEnterView={this.more}/></li>
 			</ul>
 		);
 	}

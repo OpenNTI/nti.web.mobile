@@ -39,7 +39,7 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.subscribeScroll();
-		this.checkInView();
+		this.schedualCheck();
 	},
 
 
@@ -49,13 +49,18 @@ export default React.createClass({
 		}
 
 
-		clearTimeout(this.schedual);
-		this.schedual = setTimeout(()=> this.checkInView(true), 17);
+		this.schedualCheck();
 	},
 
 
 	componentWillUnmount () {
 		this.unsubscribeScroll();
+	},
+
+
+	schedualCheck () {
+		clearTimeout(this.schedual);
+		this.schedual = setTimeout(()=> this.checkInView(true), 20);
 	},
 
 
@@ -109,8 +114,13 @@ export default React.createClass({
 });
 
 function isElementInView (el) {
-	let scroller = scrollParent(el);
 	const rect = el.getBoundingClientRect();
+
+	let scroller = scrollParent(el);
+	if (scroller.tagName === 'BODY') {
+		scroller = {};
+	}
+
 	const {top, left} = scroller.getBoundingClientRect ? scroller.getBoundingClientRect() : {top: 0, left: 0};
 
 	const viewportY = top;
