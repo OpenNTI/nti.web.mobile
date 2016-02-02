@@ -32,6 +32,19 @@ export default React.createClass({
 	},
 
 
+	componentWillMount () {
+		const SECOND_AGO = 1000;
+		const store = this.getStore();
+		const {loading = true, loaded} = store || {};
+
+		const lastLoad = Date.now() - loaded;
+
+		if (!loading &&  lastLoad > SECOND_AGO) {
+			store.reloadPage(); //Just in case something changed.
+		}
+	},
+
+
 	render () {
 		const Store = this.getStore();
 
