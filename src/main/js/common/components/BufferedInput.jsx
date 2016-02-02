@@ -1,5 +1,16 @@
 import React from 'react';
 
+function pluck (fromObject, ...keys) {
+	let o = {};
+	for (let key of keys) {
+		let v = fromObject[key];
+		if (v != null) {
+			o[key] = v;
+		}
+	}
+	return o;
+}
+
 export default React.createClass({
 	displayName: 'BufferedInput',
 
@@ -20,10 +31,15 @@ export default React.createClass({
 			clearTimeout(inputBufferDelayTimer);
 		}
 
-		//TODO: capture a shallow clone of the event's properties like key, keyCode, type, name, target etc.
+		//capture a shallow clone of the event's properties like key, keyCode, type, name, target etc.
 		//The reason is that the event object will likely have dirty data after the event execution occurs.
 		//(either from object reuse, or weakreferences that get cleaned.)
-		this.inputBufferDelayTimer = setTimeout(() => onChange(e), delay);
+		const eventClone = Object.assign(
+			Object.create(e),
+			pluck(e, 'key', 'keyCode', 'type', 'name', 'target')
+		);
+
+		this.inputBufferDelayTimer = setTimeout(() => onChange(eventClone), delay);
 	},
 
 	render () {
