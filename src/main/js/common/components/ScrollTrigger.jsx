@@ -39,7 +39,7 @@ export default React.createClass({
 
 	componentDidMount () {
 		this.subscribeScroll();
-		this.schedualCheck();
+		this.schedualCheck(true);
 	},
 
 
@@ -58,9 +58,9 @@ export default React.createClass({
 	},
 
 
-	schedualCheck () {
+	schedualCheck (force) {
 		clearTimeout(this.schedual);
-		this.schedual = setTimeout(()=> this.checkInView(true), 20);
+		this.schedual = setTimeout(()=> this.checkInView(force), 20);
 	},
 
 

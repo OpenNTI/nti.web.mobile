@@ -118,20 +118,21 @@ export default React.createClass({
 	},
 
 	render () {
-		let {store} = this.state;
-		let {entity} = this.props;
+		const {store} = this.state;
+		const {entity} = this.props;
+		const loading = !store || (store.loading && !store.length);
 
-		if (!store || (store.loading && !store.length)) {
+		if (!store) {
 			return ( <Loading /> );
 		}
 
-		let canPost = !!store.postToActivity;
+		const canPost = !!store.postToActivity;
 
 		return (
 			<ul className="activity">
 				{canPost && <li key="editor" className="activity-item card-write-something"><WriteSomething entity={entity} store={store}/></li> }
-				{store.length === 0 && !entity.isUser && <li key="activity-item emptyList"><EmptyList type="activity"/></li>}
-				{store.map((a, index) => {
+				{!loading && store.length === 0 && !entity.isUser && <li key="activity-item emptyList"><EmptyList type="activity"/></li>}
+				{!loading && store.map((a, index) => {
 
 					// // localize the last segment of the mime type for the card title.
 					let mime = a.MimeType.split('.').pop();
@@ -143,6 +144,10 @@ export default React.createClass({
 						</li>
 					);
 				})}
+
+				{loading && (
+					<Loading/>
+				)}
 
 				{(entity.isUser || store.more) && (
 				<li ref="end" key="theend" className="activity-item end">
