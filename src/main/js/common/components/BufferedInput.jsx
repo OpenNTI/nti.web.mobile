@@ -36,7 +36,11 @@ export default React.createClass({
 		//(either from object reuse, or weakreferences that get cleaned.)
 		const eventClone = Object.assign(
 			Object.create(e),
-			pluck(e, 'key', 'keyCode', 'type', 'name', 'target')
+			pluck(e, 'key', 'keyCode', 'type', 'name', 'target'),
+			{
+				preventDefault: () => {},
+				stopPropagation: () => {}
+			}
 		);
 
 		this.inputBufferDelayTimer = setTimeout(() => onChange(eventClone), delay);
