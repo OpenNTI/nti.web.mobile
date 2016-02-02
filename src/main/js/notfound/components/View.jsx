@@ -39,7 +39,7 @@ export default React.createClass({
 		const {code, message} = this.props;
 
 		return (
-			<div title="Not Found">
+			<div className="not-found" title="Not Found">
 				<div className="grid-container">
 					<hr/>
 					<div className="row">
