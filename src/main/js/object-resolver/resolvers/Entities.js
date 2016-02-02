@@ -1,5 +1,5 @@
 
-import {makeHref} from 'profile/components/ProfileLink';
+import {profileHref} from 'profile/mixins/ProfileLink';
 
 export default class EntityPathResolver {
 
@@ -18,6 +18,6 @@ export default class EntityPathResolver {
 	}
 
 	getPath () {
-		return Promise.resolve(makeHref(this.entity));
+		return Promise.resolve(profileHref(this.entity));
 	}
 }
