@@ -149,7 +149,7 @@ export default React.createClass({
 					<Loading/>
 				)}
 
-				{(entity.isUser || store.more) && (
+				{!loading && (entity.isUser || store.more) && (
 				<li ref="end" key="theend" className="activity-item end">
 					{store.more
 						? store.loading
