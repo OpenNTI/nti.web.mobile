@@ -6,6 +6,9 @@ import {getScreenWidth, getScreenHeight} from '../utils/viewport';
 
 const EMPTY = ()=>{};
 
+const shouldBeWindow = el => el.tagName === 'BODY' && el.clientHeight <= el.scrollHeight;
+const getScrollParent = el => (x => shouldBeWindow(x) ? global : x)(scrollParent(el));
+
 export default React.createClass({
 	displayName: 'ScrollTrigger',
 
@@ -16,9 +19,8 @@ export default React.createClass({
 
 
 	subscribeScroll () {
-		const scroller = scrollParent(this.refs.self);
+		const scroller = getScrollParent(this.refs.self);
 		const unsub = () => (scroller.removeEventListener('scroll', this.onScroll), this.unsubscribeScroll = EMPTY);
-
 		unsub.dom = scroller;
 
 		if (this.unsubscribeScroll) {
@@ -32,7 +34,7 @@ export default React.createClass({
 
 
 	scrollerChanged () {
-		let scroller = scrollParent(this.refs.self);
+		const scroller = getScrollParent(this.refs.self);
 		return scroller !== (this.unsubscribeScroll || {}).dom;
 	},
 
@@ -115,12 +117,7 @@ export default React.createClass({
 
 function isElementInView (el) {
 	const rect = el.getBoundingClientRect();
-
-	let scroller = scrollParent(el);
-	if (scroller.tagName === 'BODY') {
-		scroller = {};
-	}
-
+	const scroller = getScrollParent(el);
 	const {top, left} = scroller.getBoundingClientRect ? scroller.getBoundingClientRect() : {top: 0, left: 0};
 
 	const viewportY = top;
