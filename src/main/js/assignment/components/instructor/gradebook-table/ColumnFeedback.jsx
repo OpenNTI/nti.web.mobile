@@ -17,10 +17,10 @@ export default React.createClass({
 
 	render () {
 
-		const {props: {item: {HistoryItemSummary}}} = this;
+		const {props: {item: {HistoryItemSummary: item}}} = this;
 
 		return (
-			<div>{HistoryItemSummary && HistoryItemSummary.FeedbackCount > 0 && HistoryItemSummary.FeedbackCount}</div>
+			<div>{item && item.feedbackCount > 0 && item.feedbackCount}</div>
 		);
 	}
 });
