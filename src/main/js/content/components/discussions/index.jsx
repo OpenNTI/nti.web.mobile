@@ -121,7 +121,7 @@ export default React.createClass({
 		) : (
 			<Locations contextual ref="router">
 				<Location path="/:itemId/:commentId/edit(/*)" handler={View} {...props} edit/>
-				<Location path="/:itemId/:commentId(/*)" handler={View} {...props} edit/>
+				<Location path="/:itemId/:commentId(/*)" handler={View} {...props}/>
 
 				<Location path="/:itemId/edit(/*)" handler={View} {...props} edit/>
 				<Location path="/:itemId(/*)" handler={View} {...props}/>
