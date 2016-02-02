@@ -5,8 +5,6 @@ import DisplayName from 'common/components/DisplayName';
 import Loading from 'common/components/TinyLoader';
 import ProfileLink from 'profile/components/ProfileLink';
 
-const noclick = Promise.resolve();
-
 export default React.createClass({
 	displayName: 'SelectableEntity',
 
@@ -39,7 +37,7 @@ export default React.createClass({
 
 		const {onChange, entity} = this.props;
 
-		(onChange ? onChange(entity) : noclick)
+		Promise.resolve(onChange && onChange(entity))
 			.catch(error => this.setState({ error }))
 			.then(() => this.setState({ busy: false }));
 	},
