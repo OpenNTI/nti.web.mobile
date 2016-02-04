@@ -1,10 +1,15 @@
 import React from 'react';
 
+import {encodeForURI} from 'nti-lib-ntiids';
+
 import Avatar from 'common/components/Avatar';
 import Conditional from 'common/components/Conditional';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 import LuckyCharms from 'common/components/LuckyCharms';
+
+import {scoped} from 'common/locale';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {Panel as Body} from 'modeled-content';
 
@@ -13,20 +18,30 @@ import ReplyEditor from './ReplyEditor';
 
 import NotePanelBehavior from './NotePanelBehavior';
 
+const t = scoped('UNITS');
+
 const Panel = React.createClass({
 	displayName: 'content:discussions:Panel',
-	mixins: [NotePanelBehavior],
+	mixins: [
+		NavigatableMixin,
+		NotePanelBehavior
+	],
 
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired
 	},
 
+	getHref () {
+		const {item} = this.props;
+		return this.makeHref(`/${encodeForURI(item.getID())}`);
+	},
+
 	render () {
-		let {replying} = this.state;
-		let {item} = this.props;
-		let {body, creator, placeholder} = item;
-		let date = item.getCreatedTime();
+		const {replying} = this.state;
+		const {item} = this.props;
+		const {body, creator, placeholder, replyCount = 0} = item;
+		const date = item.getCreatedTime();
 
 		return (
 			<div className="discussion-reply">

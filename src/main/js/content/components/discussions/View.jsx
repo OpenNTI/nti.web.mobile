@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {Locations, Location, NotFound as Default} from 'react-router-component';
+
 import {decodeFromURI} from 'nti-lib-ntiids';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -7,7 +9,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import NotFound from 'notfound/components/View';
 
-
+import ViewComment from './ViewComment';
 import Detail from './Detail';
 
 export default React.createClass({
@@ -63,7 +65,11 @@ export default React.createClass({
 		return !item ? (
 			<NotFound/>
 		) : (
-			<Detail item={item} {...this.props}/>
+			<Locations contextual>
+				<Location path="/:commentId/edit(/*)" handler={ViewComment} root={item} {...this.props} edit/>
+				<Location path="/:commentId(/*)" handler={ViewComment} root={item} {...this.props}/>
+				<Default handler={Detail} item={item} {...this.props}/>
+			</Locations>
 		);
 	}
 });
