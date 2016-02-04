@@ -84,7 +84,9 @@ export default React.createClass({
 		return !item ? (
 			<Loading/>
 		) : (
-			<Panel item={item} />
+			<div className="comment-view">
+				<Panel item={item} rooted/>
+			</div>
 		);
 	}
 });

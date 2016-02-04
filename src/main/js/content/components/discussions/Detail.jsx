@@ -54,7 +54,7 @@ export default React.createClass({
 						replying ? (
 							<ReplyEditor item={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
 						) : (
-							<ItemActions item={item} isTopLevel onReply={this.showReplyEditor}/>
+							<ItemActions item={item} onReply={this.showReplyEditor}/>
 						)
 					)}
 

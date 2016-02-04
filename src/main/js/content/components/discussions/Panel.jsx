@@ -29,7 +29,9 @@ const Panel = React.createClass({
 
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired
+		item: React.PropTypes.object.isRequired,
+
+		rooted: React.PropTypes.bool
 	},
 
 	getHref () {
@@ -38,8 +40,7 @@ const Panel = React.createClass({
 	},
 
 	render () {
-		const {replying} = this.state;
-		const {item} = this.props;
+		const {state: {replying}, props: {item, rooted}} = this;
 		const {body, creator, placeholder, replyCount = 0} = item;
 		const date = item.getCreatedTime();
 
@@ -67,7 +68,8 @@ const Panel = React.createClass({
 						) : (
 							<Conditional condition={!item.placeholder} className="footer">
 								<DateTime date={date} relative/>
-								<ItemActions item={item} isTopLevel onReply={this.showReplyEditor}/>
+								{!rooted && ( <a className="comment-link" href={this.getHref()}>{t('comments', {count: replyCount})}</a> )}
+								<ItemActions item={item} onReply={this.showReplyEditor}/>
 							</Conditional>
 						)}
 					</div>
