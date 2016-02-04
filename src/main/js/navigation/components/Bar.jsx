@@ -91,7 +91,7 @@ export default React.createClass({
 		const {path: contextPath = []} = state;
 		const [current, returnTo] = contextPath.slice().reverse();
 
-		logger.debug('Context Path: %s', contextPath.map(a=>a.label).join(', '));
+		logger.debug('Context Path: %s', contextPath.map(a=> a ? a.label : void 0).join(', '));
 		this.setState({
 			current,
 			returnTo,
