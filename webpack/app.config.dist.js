@@ -78,9 +78,7 @@ e.forEach(function (x) {
 
 		x.plugins.push(
 			new CompressionPlugin({
-				asset: '{file}.gz',
-				algorithm: 'gzip',
-				regExp: /$/
+				algorithm: 'gzip'
 			})
 		);
 	}
