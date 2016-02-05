@@ -36,6 +36,10 @@ li.discussion-item-action {
 			left: 50%;
 			transform: translate3d(-50%,-50%,0);
 		}
+
+		&.icon-more-options::before {
+			font-size: 1.5rem;
+		}
 	}
 
 	&.icon-only,

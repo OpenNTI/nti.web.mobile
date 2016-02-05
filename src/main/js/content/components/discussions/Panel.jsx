@@ -39,6 +39,13 @@ const Panel = React.createClass({
 		return this.makeHref(`/${encodeForURI(item.getID())}`);
 	},
 
+
+	onEdit () {
+		const {item} = this.props;
+		this.navigate(`/${encodeForURI(item.getID())}/edit`);
+	},
+
+
 	render () {
 		const {state: {replying}, props: {item, rooted}} = this;
 		const {body, creator, placeholder, replyCount = 0} = item;
@@ -69,7 +76,7 @@ const Panel = React.createClass({
 							<Conditional condition={!item.placeholder} className="footer">
 								<DateTime date={date} relative/>
 								{!rooted && ( <a className="comment-link" href={this.getHref()}>{t('comments', {count: replyCount})}</a> )}
-								<ItemActions item={item} onReply={this.showReplyEditor}/>
+								<ItemActions item={item} onReply={this.showReplyEditor} onEdit={this.onEdit}/>
 							</Conditional>
 						)}
 					</div>

@@ -11,25 +11,46 @@ import Action from './ItemAction';
 
 const CLOSE_MENU_DELAY = 30000; //30 seconds
 
-const CanReply = caps => caps && caps.canShare;
-const CanShare = () => false; //implement
-const CanEdit = () => false; //implement
+const CanDelete = (_, item) => item.hasLink('edit');
+const CanEdit = (_, item) => item.hasLink('edit');
 const CanFlag = (_, item) => item.hasLink('flag') || item.hasLink('flag.metoo');
-const CanDelete = () => false; //implement
+const CanReply = caps => caps && caps.canShare;
+const CanShare = (caps, item) =>
+					CanEdit(caps, item)
+					&& item.isTopLevel
+					&& (caps && caps.canShare)
+					&& false; //disable for now
 
 export default React.createClass({
 	displayName: 'ItemActions',
 	mixins: [ItemChanges],
 
 	propTypes: {
-		item: React.PropTypes.object,
+		item: React.PropTypes.object.isRequired,
 
-		onReply: React.PropTypes.func.isRequired
+		onDelete: React.PropTypes.func,
+		onEdit: React.PropTypes.func.isRequired,
+		onFlag: React.PropTypes.func,
+		onReply: React.PropTypes.func.isRequired//,
+		// onShare: React.PropTypes.func.isRequired
+	},
+
+
+	getInitialState () {
+		return {};
 	},
 
 
 	componentWillMount () {
 		getService().then(s => this.setState({capabilities: s.capabilities}));
+	},
+
+
+	componentDidUpdate () {
+		const {refs: {list}} = this;
+		if (list) {
+			list.focus();
+		}
 	},
 
 
@@ -53,33 +74,24 @@ export default React.createClass({
 	},
 
 
-	componentDidUpdate () {
-		const {refs: {list}} = this;
-		if (list) {
-			list.focus();
-		}
-	},
-
-
 	render () {
-		let {item} = this.props;
-		let {moreOptionsOpen, capabilities} = this.state || {};
+		const {props: {item}, state: {moreOptionsOpen, capabilities}} = this;
 
-		let flag = item.hasLink('flag.metoo') ? 'flagged' : 'flag';
+		const flag = item.hasLink('flag.metoo') ? 'flagged' : 'flag';
 
-		let showMenu = [CanReply, CanShare, CanEdit, CanDelete].some(x => x(capabilities, item));
+		const showMenu = [CanReply, CanShare, CanEdit, CanDelete].some(x => x(capabilities, item));
 
 		return showMenu ? (
 
 				<div className="discussion-item-actions">
 					<Action name="reply" criteria={CanReply(capabilities, item)} onClick={this.onReply}/>
-					<Action name="share" criteria={CanShare(capabilities, item)}/>
+					<Action name="share" criteria={CanShare(capabilities, item)} onClick={this.onShare}/>
 					<span className={cx('options', {open: moreOptionsOpen})}>
 						<Action name="more-options" onClick={this.toggleMenu} iconOnly/>
 						<ul ref="list" onBlur={this.hideMenu} tabIndex={moreOptionsOpen ? -1 : 0}>
-							<Action name="edit" criteria={CanEdit(capabilities, item)} inList/>
+							<Action name="edit" criteria={CanEdit(capabilities, item)} inList onClick={this.onEdit}/>
 							<Action name={flag} criteria={CanFlag(capabilities, item)} inList onClick={this.onFlag}/>
-							<Action name="delete" criteria={CanDelete(capabilities, item)} inList/>
+							<Action name="delete" criteria={CanDelete(capabilities, item)} inList onClick={this.onDelete}/>
 						</ul>
 					</span>
 				</div>
@@ -92,16 +104,48 @@ export default React.createClass({
 	},
 
 
+	onDelete () {
+		const {onDelete, item} = this.props;
+
+		if (onDelete) {
+			onDelete(item);
+			return;
+		}
+
+		item.delete();
+	},
+
+
+	onEdit () {
+		const {onEdit, item} = this.props;
+		onEdit(item);
+	},
+
+
 	onFlag () {
+		const {onFlag, item} = this.props;
+
+		if (onFlag) {
+			onFlag(item);
+			return;
+		}
+
 		areYouSure('This action cannot be undone.', 'Report content as inappropriate?')
 			.then(
-				() => this.props.item.flag(),
+				() => item.flag(),
 				()=> {}
 				);
 	},
 
 
 	onReply () {
-		this.props.onReply();
+		const {onReply, item} = this.props;
+		onReply(item);
+	},
+
+
+	onShare () {
+		// const {onShare, item} = this.props;
+		// onShare(item);
 	}
 });

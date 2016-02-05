@@ -19,7 +19,9 @@ export default React.createClass({
 
 	propTypes: {
 		root: React.PropTypes.object.isRequired,
-		commentId: React.PropTypes.string.isRequired
+		commentId: React.PropTypes.string.isRequired,
+
+		edit: React.PropTypes.bool
 	},
 
 
@@ -74,8 +76,7 @@ export default React.createClass({
 
 
 	render () {
-
-		const {error, item} = this.state;
+		const {props:{edit}, state: {error, item}} = this;
 
 		if (error) {
 			return ( <Err error={error}/> );
@@ -85,7 +86,11 @@ export default React.createClass({
 			<Loading/>
 		) : (
 			<div className="comment-view">
-				<Panel item={item} rooted/>
+				{edit ? (
+					<div>edit!</div>
+				) : (
+					<Panel item={item} rooted/>
+				)}
 			</div>
 		);
 	}

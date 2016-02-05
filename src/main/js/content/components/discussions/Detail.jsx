@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Conditional from 'common/components/Conditional';
+import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {Panel as Body} from 'modeled-content';
 
@@ -18,6 +19,7 @@ import NotePanelBehavior from './NotePanelBehavior';
 export default React.createClass({
 	displayName: 'content:discussions:Detail',
 	mixins: [
+		NavigatableMixin,
 		NotePanelBehavior
 	],
 
@@ -32,6 +34,11 @@ export default React.createClass({
 		 * @type {bool}
 		 */
 		lite: React.PropTypes.bool
+	},
+
+
+	onEdit () {
+		this.navigate('/edit');
 	},
 
 
@@ -54,7 +61,7 @@ export default React.createClass({
 						replying ? (
 							<ReplyEditor item={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
 						) : (
-							<ItemActions item={item} onReply={this.showReplyEditor}/>
+							<ItemActions item={item} onReply={this.showReplyEditor} onEdit={this.onEdit}/>
 						)
 					)}
 

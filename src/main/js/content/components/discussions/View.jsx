@@ -22,7 +22,9 @@ export default React.createClass({
 	propTypes: {
 		pageSource: React.PropTypes.object,
 		store: React.PropTypes.object.isRequired,
-		itemId: React.PropTypes.string.isRequired
+		itemId: React.PropTypes.string.isRequired,
+
+		edit: React.PropTypes.bool
 	},
 
 
@@ -60,10 +62,12 @@ export default React.createClass({
 
 
 	render () {
-		const {state: {item}} = this;
+		const {props: {edit}, state: {item}} = this;
 
 		return !item ? (
 			<NotFound/>
+		) : edit ? (
+			<div>edit!</div>
 		) : (
 			<Locations contextual>
 				<Location path="/:commentId/edit(/*)" handler={ViewComment} root={item} {...this.props} edit/>
