@@ -59,7 +59,7 @@ exports = module.exports = [
 					test: /src.main.js.+jsx?$/,
 					loader: 'baggage?[file].scss'
 				},
-				{ test: /\.jsx?$/, loader: 'source-map-loader' }
+				{ test: /\.js(x?)$/, loader: 'source-map' }
 			],
 			loaders: [
 				{ test: /\.async\.jsx$/i, loader: 'react-proxy!exports?exports.default' },
@@ -139,7 +139,8 @@ exports = module.exports = [
 				fs: true,
 				net: true,
 				tls: true,
-				request: true
+				request: true,
+				'nti-lib-interfaces': true
 			}
 		],
 
