@@ -22,6 +22,11 @@ export default Object.assign(morgan, {
 
 	error () {
 		logger.error(...arguments);
+	},
+
+
+	debug () {
+		logger.debug(...arguments);
 	}
 
 });
