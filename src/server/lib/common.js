@@ -10,7 +10,7 @@ import {SiteName, ServiceStash} from 'nti-lib-interfaces';
 let env = null; //until this loads, calling config() should blow up.
 
 //Use native node require() for optimist since it defines a 'default' property on the exports.
-let opt = require('yargs')
+const opt = require('yargs')
 		.usage('WebApp Instance')
 			.options({
 				'l': {
@@ -130,11 +130,13 @@ export function config () {
 			revision: gitRevision
 		});
 
-
-	if (env[process.env.NODE_ENV] != null) {
-		logger.info(`In ${process.env.NODE_ENV} mode`);
-	} else {
-		logger.error('In default "development" mode. Consider setting NODE_ENV="production"');
+	if (!config.printed) {
+		config.printed = true;
+		if (env[process.env.NODE_ENV] != null) {
+			logger.info(`In ${process.env.NODE_ENV} mode`);
+		} else {
+			logger.warn('In default "development" mode. Consider setting NODE_ENV="production"');
+		}
 	}
 
 	if (serverHost || serverPort) {

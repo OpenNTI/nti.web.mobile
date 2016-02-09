@@ -12,7 +12,7 @@ export default function getSite (site) {
 	}
 
 	if (s === unknown) {
-		logger.error('No site-mapping entry found for %s.', site);
+		logger.warn('No site-mapping entry found for %s.', site);
 	}
 	return s;
 }
