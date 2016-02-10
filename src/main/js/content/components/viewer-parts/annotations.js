@@ -191,7 +191,7 @@ export default {
 
 
 	getAnnotationFromNode (node) {
-		let {annotations = {}} = this.state;
+		const {annotations = {}} = this.state;
 		for (let a of Object.values(annotations)) {
 			if (a && a.ownsNode(node)) {
 				return a;
@@ -213,18 +213,19 @@ export default {
 		}
 
 		//generate the range description
-		let {description, container} = createRangeDescriptionFromRange(range, this.getContentNode());
+		const {description: applicableRange, container: ContainerId} = createRangeDescriptionFromRange(range, this.getContentNode());
 
 		return {
-			applicableRange: description,
-			selectedText: range.toString(),
-			ContainerId: container
+			ContainerId,
+			applicableRange,
+			selectedText: range.toString()
 		};
 	},
 
 
-	saveNote (data) {
-		let result = getStore(this.state).create(data);
+	saveNote (item, data) {
+		const itemData = item && item.getData ? item.getData() : item;
+		const result = getStore(this.state).create(Object.assign({}, itemData, data));
 
 
 		//Do not clear the stagedNode from state until

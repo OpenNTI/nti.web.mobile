@@ -29,16 +29,6 @@ export default React.createClass({
 	},
 
 
-	getItemData () {
-		let {item} = this.props;
-		if (item.getData) {
-			item = item.getData();
-		}
-
-		return item;
-	},
-
-
 	ensureVisible () {
 		let {refs: {el}} = this;
 		let margin = parseInt(getComputedStyle(el)['margin-top'], 10);
@@ -88,7 +78,7 @@ export default React.createClass({
 
 
 	onCancel (e) {
-		let {onCancel} = this.props;
+		const {onCancel} = this.props;
 		const {refs: {el: dom}} = this;
 
 		CSS.removeClass(dom.parentNode, 'saving');
@@ -98,22 +88,18 @@ export default React.createClass({
 
 
 	onSubmit () {
-		let item = this.getItemData();
-
-		let {props: {onSave}, refs: {body, shareWith, title, el: {parentNode}}} = this;
+		const {props: {item, onSave}, refs: {body, shareWith, title: {value: title}, el: {parentNode}}} = this;
 
 		CSS.addClass(parentNode, 'saving');
 
-		title = title.value;
-
-		let data = Object.assign({}, item, {
+		const data = {
 			title: Editor.isEmpty(title) ? void 0 : title.trim(),
 			body: body.getValue(),
 			sharedWith: shareWith.getValue()
-		});
+		};
 
 		this.setState({busy: true},
-			()=> onSave(data)
+			()=> onSave(item, data)
 				.then(() => this.setState({busy: false}))
 				.catch(error => this.setState({busy: false, error})));
 	}
