@@ -61,6 +61,11 @@ export default React.createClass({
 
 
 	onCancel (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
 		const {onCancel} = this.props;
 
 		onCancel(e);
