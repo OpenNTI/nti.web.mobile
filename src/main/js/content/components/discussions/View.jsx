@@ -9,6 +9,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import NotFound from 'notfound/components/View';
 
+import Edit from './EditNote';
 import ViewComment from './ViewComment';
 import Detail from './Detail';
 
@@ -67,7 +68,7 @@ export default React.createClass({
 		return !item ? (
 			<NotFound/>
 		) : edit ? (
-			<div>edit!</div>
+			<Edit item={item} {...this.props}/>
 		) : (
 			<Locations contextual>
 				<Location path="/:commentId/edit(/*)" handler={ViewComment} root={item} {...this.props} edit/>

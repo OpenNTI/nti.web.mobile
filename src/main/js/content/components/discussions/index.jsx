@@ -41,8 +41,8 @@ export default React.createClass({
 			getUserDataStore: React.PropTypes.func
 		}),
 
+		contentPackage: React.PropTypes.object,
 		filter: React.PropTypes.arrayOf(React.PropTypes.string)
-
 	},
 
 
