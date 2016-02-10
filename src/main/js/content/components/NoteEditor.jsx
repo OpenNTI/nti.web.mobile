@@ -1,19 +1,12 @@
 import React from 'react';
 import CSS from 'fbjs/lib/CSSCore';
-import cx from 'classnames';
 
-import {Editor} from 'modeled-content';
-
-import Loading from 'common/components/Loading';
 import DarkMode from 'common/components/DarkMode';
-import HideNavigation from 'common/components/HideNavigation';
 
-import ShareWith from 'common/components/ShareWith';
-
-import t from 'common/locale';
+import Editor from './discussions/NoteEditor';
 
 export default React.createClass({
-	displayName: 'NoteEditor',
+	displayName: 'content:NoteEditor',
 
 	propTypes: {
 		item: React.PropTypes.object,
@@ -24,13 +17,8 @@ export default React.createClass({
 	},
 
 
-	detectContent () {
-		//set save button enabled or disabled.
-	},
-
-
 	ensureVisible () {
-		let {refs: {el}} = this;
+		let {refs: {editor: el}} = this;
 		let margin = parseInt(getComputedStyle(el)['margin-top'], 10);
 
 		let top = 0;
@@ -43,64 +31,27 @@ export default React.createClass({
 	},
 
 
-	render () {
-		let {scope, item} = this.props;
-		let {error, busy, disabled} = this.state || {};
-		let {sharedWith} = item;
+	onCancel () {
+		const {props: {onCancel}, refs: {el: {parentNode}}} = this;
 
-		if (error) {
-			error = error.message || 'There was an errror saving';
-		}
+		CSS.removeClass(parentNode, 'saving');
 
-		return (
-			<div ref="el" className={cx('note-editor-frame editor', {busy})}>
-				<DarkMode/>
-				<HideNavigation/>
-
-				<form onSubmit={x => x.preventDefault() && false}>
-					<ShareWith scope={scope} defaultValue={sharedWith} ref="shareWith" onBlur={this.ensureVisible}/>
-
-					<div className={cx('title', {error})} data-error-message={error}>
-						<input type="text" name="title" ref="title" placeholder="Title"
-							onFocus={this.ensureVisible}
-							onChange={this.detectContent} />
-					</div>
-
-					<Editor ref="body" onChange={this.detectContent} onBlur={this.detectContent}>
-						<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
-						<button onClick={this.onSubmit} className={cx('save', {disabled})}><i className="icon-discuss"/>{t('BUTTONS.post')}</button>
-					</Editor>
-				</form>
-				{busy ? ( <Loading message="Saving..."/> ) : null}
-			</div>
-		);
-	},
-
-
-	onCancel (e) {
-		const {onCancel} = this.props;
-		const {refs: {el: dom}} = this;
-
-		CSS.removeClass(dom.parentNode, 'saving');
-
-		onCancel(e);
+		onCancel();
 	},
 
 
 	onSubmit () {
-		const {props: {item, onSave}, refs: {body, shareWith, title: {value: title}, el: {parentNode}}} = this;
-
+		const {refs: {el: {parentNode}}} = this;
 		CSS.addClass(parentNode, 'saving');
+	},
 
-		const data = {
-			title: Editor.isEmpty(title) ? void 0 : title.trim(),
-			body: body.getValue(),
-			sharedWith: shareWith.getValue()
-		};
 
-		this.setState({busy: true},
-			()=> onSave(item, data)
-				.then(() => this.setState({busy: false}))
-				.catch(error => this.setState({busy: false, error})));
+	render () {
+		return (
+			<div ref="el">
+				<DarkMode/>
+				<Editor ref="editor" {...this.props} onCancel={this.onCancel} onSubmit={this.onSubmit}/>
+			</div>
+		);
 	}
 });
