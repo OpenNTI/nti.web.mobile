@@ -5,10 +5,10 @@ import {encodeForURI} from 'nti-lib-ntiids';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import Editor from './NoteEditor';
+import ReplyEditor from './ReplyEditor';
 
 export default React.createClass({
-	displayName: 'TopLevelNoteEditView',
+	displayName: 'NoteCommentEditView',
 	mixins: [
 		ContextSender,
 		NavigatableMixin
@@ -40,20 +40,15 @@ export default React.createClass({
 	},
 
 
-	onSave (item, data) {
-		return item.save(data)
-			.then(()=> this.returnToView());
+	onSubmitted () {
+		this.returnToView();
 	},
 
 
 	render () {
-		const {props: {item, contentPackage}} = this;
+		const {props: {item}} = this;
 		return (
-			<Editor item={item}
-				scope={contentPackage}
-				onCancel={this.onCancel}
-				onSave={this.onSave}
-				/>
+			<ReplyEditor item={item} value={item.body} onCancel={this.onCancel} onSubmitted={this.onSubmitted}/>
 		);
 	}
 });

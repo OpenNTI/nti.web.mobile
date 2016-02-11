@@ -8,6 +8,7 @@ import Loading from 'common/components/Loading';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
+import Edit from './EditComment';
 import Panel from './Panel';
 
 export default React.createClass({
@@ -87,7 +88,7 @@ export default React.createClass({
 		) : (
 			<div className="comment-view">
 				{edit ? (
-					<div>edit!</div>
+					<Edit item={item} {...this.props}/>
 				) : (
 					<Panel item={item} rooted/>
 				)}

@@ -70,7 +70,7 @@ const Panel = React.createClass({
 
 						{replying ? (
 							<div className="footer">
-								<ReplyEditor item={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
+								<ReplyEditor replyTo={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
 							</div>
 						) : (
 							<Conditional condition={!item.placeholder} className="footer">

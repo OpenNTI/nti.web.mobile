@@ -10,6 +10,7 @@ import t from 'common/locale';
 import {Editor} from 'modeled-content';
 
 const logger = Logger.get('content:components:discussions:ReplyEditor');
+const getBody = x => Array.isArray(x) ? x : [x];
 
 export default React.createClass({
 	displayName: 'ReplyEditor',
@@ -18,6 +19,7 @@ export default React.createClass({
 
 	propTypes: {
 		item: React.PropTypes.object,
+		replyTo: React.PropTypes.object,
 
 		value: React.PropTypes.array,
 
@@ -62,19 +64,24 @@ export default React.createClass({
 		e.preventDefault();
 		e.stopPropagation();
 
-		let {item, onSubmitted} = this.props;
-		let {context} = this.state;
-		let value = this.refs.editor.getValue();
+		const {item, replyTo, onSubmitted} = this.props;
+		const {context} = this.state;
+		const body = getBody(this.refs.editor.getValue());
 
-		if (!item || !context || Editor.isEmpty(value)) {
+		if ((!replyTo && !item) || !context || Editor.isEmpty(body)) {
 			return;
 		}
 
-		let scopes = context.map(x=> x.scope).filter(x=> x);
-
 		this.setState({busy: true});
 
-		item.postReply(value, scopes)
+		const pendingSave = replyTo ?
+			//save new reply
+			replyTo.postReply(body, context.map(x=> x.scope).filter(x=> x)) :
+			//or save changes to existing reply
+			item.save({body});
+
+
+		pendingSave
 			.then(()=> onSubmitted())
 			.catch(er=> {
 				//is there a message to display?
