@@ -44,8 +44,10 @@ export default React.createClass({
 
 		return (
 			<a className={cx('assignment-item', { complete: !!history })} href={`./${encodeForURI(assignment.getID())}/`}>
-				{assignment.title}
-				<AssignmentStatusLabel assignment={assignment} historyItem={history} showTimeWithDate/>
+				<div>
+					{assignment.title}
+					<AssignmentStatusLabel assignment={assignment} historyItem={history} showTimeWithDate/>
+				</div>
 			</a>
 		);
 	}
