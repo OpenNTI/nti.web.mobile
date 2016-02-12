@@ -15,13 +15,13 @@ export default React.createClass({
 	},
 
 	contextTypes: {
+		isAdmin: React.PropTypes.bool,
 		AssignmentListItem: React.PropTypes.func.isRequired
 	},
 
 
 	render () {
-		const admin = this.getCourse().isAdministrative;
-		const {context: {AssignmentListItem: Item}, props: {group}} = this;
+		const {context: {isAdmin: admin, AssignmentListItem: Item}, props: {group}} = this;
 		const classes = cx( 'assignment-group', {admin});
 
 		return (

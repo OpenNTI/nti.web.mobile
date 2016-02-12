@@ -37,11 +37,12 @@ export default React.createClass({
 	displayName: 'Assignments:Instructor:View',
 
 	childContextTypes: {
+		isAdmin: React.PropTypes.bool,
 		AssignmentListItem: React.PropTypes.func
 	},
 
 	getChildContext () {
-		return {AssignmentListItem};
+		return {isAdmin: true, AssignmentListItem};
 	},
 
 	render () {
