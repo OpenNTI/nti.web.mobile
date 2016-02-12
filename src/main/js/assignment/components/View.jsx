@@ -54,7 +54,7 @@ export default React.createClass({
 			return ( <Loading /> );
 		}
 
-		let Comp = course.isAdministrative ? Instructor : Student;
+		let Comp = course.isAdministrative && course.GradeBook ? Instructor : Student;
 		return ( <Comp {...this.props} assignments={assignments} /> );
 	}
 });
