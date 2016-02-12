@@ -33,7 +33,7 @@ export default React.createClass({
 
 	componentReceivedAssignments (assignments = this.getAssignments()) {
 		assignments.getActivity()
-			.catch(error => this.setState({ error }))
+			.catch(error => (this.setState({ error }), []))
 			.then(activity => this.setState({ activity }));
 	},
 
