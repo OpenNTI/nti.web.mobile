@@ -6,7 +6,7 @@ import {getEventTarget} from 'nti-lib-dom';
 import Logger from 'nti-util-logger';
 
 import {getWidget} from './widgets';
-import isTouchDevice from 'nti-lib-interfaces/lib/utils/is-touch-device';
+import isTouchDevice from 'nti-util-detection-touch';
 
 function getComparable (o) {
 	return o && o.page;

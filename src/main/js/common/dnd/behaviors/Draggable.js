@@ -4,7 +4,7 @@ import {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Base, {TYPE_SHAPE} from './Base';
 
-import {PointerEvents} from 'nti-lib-interfaces/lib/utils/is-touch-device';
+import {PointerEvents} from 'nti-util-detection-touch';
 import emptyFunction from 'fbjs/lib/emptyFunction';
 import getScrollParent from 'scrollparent';
 

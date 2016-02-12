@@ -6,7 +6,7 @@ import '../../resources/scss/app.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import isTouch from 'nti-lib-interfaces/lib/utils/is-touch-device';
+import isTouch from 'nti-util-detection-touch';
 import CSS from 'fbjs/lib/CSSCore';
 const RootNode = document.querySelector('html');
 CSS.removeClass(RootNode, 'no-js');

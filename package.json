@@ -76,6 +76,7 @@
     "nti-lib-ntiids": "^1.0.0",
     "nti-lib-ranges": "^1.0.0",
     "nti-lib-whiteboardjs": "^1.0.0",
+    "nti-util-detection-touch": "^1.0.0",
     "nti-util-logger": "^1.0.0",
     "nti-web-video": "^1.0.0",
     "null-loader": "^0.1.0",
