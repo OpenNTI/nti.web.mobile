@@ -39,7 +39,7 @@ export default React.createClass({
 
 		const lastLoad = Date.now() - loaded;
 
-		if (!loading &&  lastLoad > SECOND_AGO) {
+		if (!loading &&  lastLoad > SECOND_AGO && store.reloadPage) {
 			store.reloadPage(); //Just in case something changed.
 		}
 	},
