@@ -59,7 +59,7 @@ export default React.createClass({
 
 					{!lite && !item.placeholder && (
 						replying ? (
-							<ReplyEditor item={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
+							<ReplyEditor item={item} replyTo={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
 						) : (
 							<ItemActions item={item} onReply={this.showReplyEditor} onEdit={this.onEdit}/>
 						)
