@@ -61,7 +61,8 @@
 .videos-carousel-dots {
 	text-align: center;
 	white-space: nowrap;
-
+	max-width: 100vw;
+	
 	a {
 		display: block;
 		width: 0.75rem;
