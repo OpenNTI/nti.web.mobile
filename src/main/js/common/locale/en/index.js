@@ -107,6 +107,9 @@ export default {
 				title: 'Feedback',
 				description: 'The comments below will only be visible to you and your instructor.',
 				entryPlaceholder: 'Add a comment'
+			},
+			GROUP_LABELS: {
+				'Unknown': 'Other Assignments'
 			}
 		}
 	}
