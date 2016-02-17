@@ -39,6 +39,10 @@
 		box-shadow: 0 0 5em 0 rgba(0, 0, 0, 0.5);
 		transform: translate3d(-50%, -50%, 0);
 
+		.buttons {
+			@extend %dialog-buttons;
+		}
+
 
 		.icon {
 			@extend %icon-assignment-timed;
