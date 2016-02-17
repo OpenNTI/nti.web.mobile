@@ -29,20 +29,32 @@ export default React.createClass({
 		default: 'synchronizeFromStore'
 	},
 
+
+	getInitialState () {
+		return {};
+	},
+
+
 	componentDidMount () { this.synchronizeFromStore(); },
 	componentWillReceiveProps () { this.synchronizeFromStore();	},
 
 
 	synchronizeFromStore () {
-		this.forceUpdate();
+		const {assessment} = this.props;
+		let feedback = Promise.resolve(null);
+
+		if (Store.isSubmitted(assessment)) {
+			feedback = Store.getAssignmentFeedback(assessment);
+		}
+
+		feedback.then(f => this.setState({feedback: f}));
 	},
 
 
 	render () {
-		let {assessment} = this.props;
-		let feedback = Store.getAssignmentFeedback(assessment);
+		const {state: {feedback}} = this;
 
-		if (!Store.isSubmitted(assessment) || !feedback) {
+		if (!feedback) {
 			return null;
 		}
 

@@ -52,35 +52,41 @@ export function submit (assessment) {
 
 
 export function submitFeedback (assessment, feedbackBody) {
-	let feedback = ReadOnlyStore.getAssignmentFeedback(assessment);
+	return ReadOnlyStore.getAssignmentFeedback(assessment)
+		.then(feedback => {
 
-	if (!feedback) {
-		return Promise.reject('No Feedback object');
-	}
+			if (!feedback) {
+				return Promise.reject('No Feedback object');
+			}
 
-	return feedback.addPost(feedbackBody)
-		.then(()=>feedback.refresh());
+			return feedback.addPost(feedbackBody)
+				.then(()=>feedback.refresh());
+		});
 }
 
 
 export function deleteFeedbackItem (assessment, feedbackItem) {
-	let feedback = ReadOnlyStore.getAssignmentFeedback(assessment);
+	return ReadOnlyStore.getAssignmentFeedback(assessment)
+		.then(feedback => {
 
-	if (!feedback) {
-		return Promise.reject('No Feedback object');
-	}
+			if (!feedback) {
+				return Promise.reject('No Feedback object');
+			}
 
-	return feedbackItem.delete()
-		.then(()=>feedback.refresh());
+			return feedbackItem.delete()
+				.then(()=>feedback.refresh());
+		});
 }
 
 export function updateFeedbackItem (assessment, feedbackItem, feedbackBody) {
-	let feedback = ReadOnlyStore.getAssignmentFeedback(assessment);
+	return ReadOnlyStore.getAssignmentFeedback(assessment)
+		.then(feedback => {
 
-	if (!feedback) {
-		return Promise.reject('No Feedback object');
-	}
+			if (!feedback) {
+				return Promise.reject('No Feedback object');
+			}
 
-	return feedbackItem.editBody(feedbackBody)
-		.then(()=>feedback.refresh());
+			return feedbackItem.editBody(feedbackBody)
+				.then(()=>feedback.refresh());
+		});
 }

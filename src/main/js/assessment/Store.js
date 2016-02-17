@@ -258,8 +258,11 @@ class Store extends StorePrototype {
 
 
 	getAssignmentFeedback (assessment) {
-		let item = this.getAssignmentHistoryItem(assessment);
-		return item && item.Feedback;
+		const item = this.getAssignmentHistoryItem(assessment);
+		if (item && !item.Feedback) {
+			return item.refresh().then(()=> item.Feedback);
+		}
+		return Promise.resolve(item && item.Feedback);
 	}
 
 
