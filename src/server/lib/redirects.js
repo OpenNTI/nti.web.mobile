@@ -38,6 +38,7 @@ export default {
 				}
 			}
 
+			return res.redirect(this.basepath);
 		});
 	},
 
