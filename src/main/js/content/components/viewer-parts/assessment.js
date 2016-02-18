@@ -41,13 +41,15 @@ export default {
 		const assess = this.getAssessment(props, state);
 		const {contentPackage, assessmentHistory = true} = props;
 
-		//To be administrative, the content package must be decendent to an
-		//CourseInstanceAdministrativeRole, AND the assessment has to be an
-		//Assignment. (Self-Assessments are presently defined as not being
-		// administered.)
-		const admin = Boolean(contentPackage &&
-					contentPackage.parent('isAdministrative') &&
-					assess && isAssignment(assess));
+		// To be administrative, the content package must be decendent to
+		// an CourseInstanceAdministrativeRole AND its for an Instructor,
+		// AND the assessment has to be an Assignment. (Self-Assessments
+		// are presently defined as not being administered.)
+		const role = contentPackage && contentPackage.parent('isAdministrative');
+		const admin = Boolean(
+						role && role.isInstructor &&
+						assess && isAssignment(assess)
+					);
 
 		Store.setupAssessment(assess, assessmentHistory, admin);
 	},
