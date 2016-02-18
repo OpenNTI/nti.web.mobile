@@ -10,10 +10,6 @@ export default React.createClass({
 	displayName: 'Tabs',
 	mixins: [Accessor, ActiveStateSelector],
 
-	propTypes: {
-		course: React.PropTypes.object.isRequired
-	},
-
 	render () {
 		const course = this.getCourse();
 
