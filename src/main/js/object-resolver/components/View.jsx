@@ -21,6 +21,10 @@ import {resolve} from '../resolvers';
 
 const logger = Logger.get('object-resolver:components:View');
 
+
+const filter = o => (o && o.MimeType === 'application/vnd.nextthought.change' && o.Item) ? o.Item : o;
+
+
 export default React.createClass({
 	displayName: 'ObjectResolver',
 	mixins: [BasePathAware],
@@ -55,7 +59,7 @@ export default React.createClass({
 		getService()
 			.then(s=> s.getParsedObject(id))
 			.then(o=> {
-				this.setState({object: o});
+				this.setState({object: filter(o)});
 				return o;
 			})
 			.then(resolve)
