@@ -51,9 +51,9 @@ export default React.createClass({
 				{
 					React.createElement(Router.Locations, {contextual: true},
 						...ROUTES.map(route =>
-							route.path ?
-							<Router.Location {...route} />
-							: React.createElement(Router.NotFound, {handler: Redirect, location: '/'})
+							route.path
+								? React.createElement(Router.Location, route)
+								: React.createElement(Router.NotFound, {handler: Redirect, location: '/'})
 						))
 				}
 			</div>
