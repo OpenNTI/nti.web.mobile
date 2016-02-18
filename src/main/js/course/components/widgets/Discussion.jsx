@@ -1,9 +1,11 @@
 import path from 'path';
 import React from 'react';
+import cx from 'classnames';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {getService} from 'common/utils';
+import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import LoadingMask from 'common/components/Loading';
@@ -64,7 +66,7 @@ export default React.createClass({
 		}
 
 		props.course.resolveContentURL(props.item.icon)
-			.then(icon=> this.setState({iconResolved: true, icon}));
+			.then(icon=> this.setState({icon}));
 	},
 
 
@@ -136,17 +138,17 @@ export default React.createClass({
 
 
 	render () {
-		let {props} = this;
-		let {item} = props;
-		let title = item.title || this.state.title || 'Discussion';
+		const {props: {item}, state: {icon}} = this;
 
-		let disabled = this.state.disabled ? 'unavailable' : '';
+		const title = item.title || this.state.title || 'Discussion';
+
+		const disabled = this.state.disabled ? 'unavailable' : '';
 
 		return (
 			<LoadingMask loading={this.state.loading}
 				tag="a" href={this.state.href}
 				className={'overview-discussion ' + disabled}>
-				<img src={this.state.icon}></img>
+				<img src={icon || BLANK_IMAGE} className={cx({'default': !icon})}></img>
 				<div className="wrap">
 					<div className="title">{title}</div>
 					<div className="comments">{this.state.count + this.state.commentType}</div>
