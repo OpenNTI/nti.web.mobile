@@ -215,7 +215,7 @@ export default React.createClass({
 						/>
 				}
 
-				{playing ? null :
+				{(playing || requestPlay) ? null :
 					<LoadingMask style={posterRule} loading={loading}
 						tag="a" onFocus={onFocus} onClick={this.onPosterClicked}
 						className="content-video-tap-area" href="#">
