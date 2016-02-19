@@ -5,6 +5,8 @@ import LoadingInline from 'common/components/TinyLoader';
 import EmptyList from 'common/components/EmptyList';
 import ScrollTrigger from 'common/components/ScrollTrigger';
 
+import ContextSender from 'common/mixins/ContextSender';
+
 import AssignmentActivityItem from './AssignmentActivityItem';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
@@ -13,7 +15,7 @@ import Notice from 'common/components/Notice';
 
 export default React.createClass({
 	displayName: 'Activity',
-	mixins: [AssignmentsAccessor],
+	mixins: [AssignmentsAccessor, ContextSender],
 
 	getInitialState () {
 		return {};
