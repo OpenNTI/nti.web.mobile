@@ -19,16 +19,19 @@ export default React.createClass({
 
 
 	render () {
-		let item = this.props.item;
-		let assignmentName = item.AssignmentName || 'an assignment';
+		const {props: {item}, state: {url}} = this;
+		const assignmentName = item.AssignmentName || 'an assignment';
+
 		return (
 			<li className="notification-item">
-				<Avatar entity={this.state.username} width="32" height="32"/>
-				<div className="wrap">
-					<DisplayName entity={this.state.username}/>
-						{' posted feedback on ' + assignmentName}
-					<DateTime date={this.getEventTime()} relative/>
-				</div>
+				<a href={url}>
+					<Avatar entity={this.state.username} width="32" height="32"/>
+					<div className="wrap">
+						<DisplayName entity={this.state.username}/>
+							{' posted feedback on ' + assignmentName}
+						<DateTime date={this.getEventTime()} relative/>
+					</div>
+				</a>
 			</li>
 		);
 	}

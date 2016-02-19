@@ -24,15 +24,17 @@ export default React.createClass({
 
 
 	render () {
-		const {item: {Item: {creator, CourseName, AssignmentName = 'an assignment'}}} = this.props;
+		const {state: {url}, props: {item: {Item: {creator, CourseName, AssignmentName = 'an assignment'}}}} = this;
 
 		return (
 			<li className="notification-item">
-				<Avatar entity={creator} width="32" height="32" suppressProfileLink/>
-				<div className="wrap">
-					<DisplayName entity={creator} suppressProfileLink/> graded {AssignmentName}{CourseName ? ` in ${CourseName}` : ''}
-					<DateTime date={this.getEventTime()} relative />
-				</div>
+				<a href={url}>
+					<Avatar entity={creator} width="32" height="32" suppressProfileLink/>
+					<div className="wrap">
+						<DisplayName entity={creator} suppressProfileLink/> graded {AssignmentName}{CourseName ? ` in ${CourseName}` : ''}
+						<DateTime date={this.getEventTime()} relative />
+					</div>
+				</a>
 			</li>
 		);
 	}
