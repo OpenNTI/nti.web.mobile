@@ -50,7 +50,7 @@ export default React.createClass({
 
 
 	testURL () {
-		const {refs: {input}} = this;
+		const {input} = this;
 		const {value} = input || {};
 
 		const handler = getHandler(value);
@@ -112,7 +112,7 @@ export default React.createClass({
 		}
 
 
-		const {state: {selection}, refs: {input}} = this;
+		const {state: {selection}, input} = this;
 		const {value} = input || {};
 		const editor = this.getEditor();
 

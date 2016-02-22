@@ -41,7 +41,7 @@ export default React.createClass({
 
 
 	onSubmit () {
-		const {refs: {el: {parentNode}}} = this;
+		const {el: {parentNode}} = this;
 		CSS.addClass(parentNode, 'saving');
 	},
 

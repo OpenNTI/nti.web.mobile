@@ -130,13 +130,13 @@ export default React.createClass({
 
 	getValues  () {
 		let i, v;
-		const {refs} = this;
+		const {elements} = this;
 		const result = Object.assign({}, this.state.defaultValues);
 
-		for (i in refs) {
-			if (!refs.hasOwnProperty(i)) { continue; }
+		for (i in elements) {
+			if (!elements.hasOwnProperty(i) || !elements[i]) { continue; }
 
-			v = refs[i];
+			v = elements[i];
 
 			if (v.getData) {
 

@@ -139,7 +139,7 @@ export default {
 
 
 	maybeScrollToFragment () {
-		let {content} = this.refs;
+		let {content} = this;
 		if (!content || !content.isMounted()) {
 			return;
 		}

@@ -128,7 +128,7 @@ export default React.createClass({
 
 		this[SendGAEvent]();
 
-		// let {router} = this.refs;
+
 		// debugger;
 		// We can get the title and set it here.
 	},

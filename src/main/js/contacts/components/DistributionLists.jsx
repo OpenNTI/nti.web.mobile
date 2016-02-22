@@ -19,31 +19,9 @@ import ListMeta from './ListMeta';
 
 
 export default React.createClass({
-	displayName: 'Contacts:Groups',
+	displayName: 'Contacts:Lists',
 	mixins: [mixin],
 	storeType: LISTS,
-	// listName: 'Distribution Lists',
-
-	addList () {
-		const {refs: {newListName}, state: {store}} = this;
-		if (!store) {
-			return;
-		}
-
-		let listName = newListName.value.trim();
-		if(listName.length === 0) {
-			return;
-		}
-
-		this.setState({ loading: true });
-
-		store.createList(listName)
-			.then(() => {
-				this.setState({
-					loading: false
-				});
-			});
-	},
 
 	deleteList (item, event) {
 		if(event && event.stopPropagation) {

@@ -109,12 +109,12 @@ export default class ForumObjectPathResolver {
 							Discussions = {}
 						} = course.CourseInstance;
 
-						let refs = [
+						let hrefs = [
 							ParentDiscussions.href,
 							Discussions.href
 						];
 
-						return refs.indexOf(href) >= 0;
+						return hrefs.indexOf(href) >= 0;
 					}) || Promise.reject('No Course found'));
 					// .catch(()=> {
 					//

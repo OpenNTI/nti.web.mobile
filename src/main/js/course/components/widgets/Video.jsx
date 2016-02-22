@@ -117,7 +117,7 @@ export default React.createClass({
 
 
 	onPlayClicked (/*e*/) {
-		/*let {video} = this.refs;
+		/*let {video} = this;
 		if (video) {
 			e.preventDefault();
 			e.stopPropagation();

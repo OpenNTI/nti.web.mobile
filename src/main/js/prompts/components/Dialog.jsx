@@ -116,9 +116,8 @@ let Dialog = React.createClass({
 	componentDidUpdate () {
 		let focusNode;
 		if (this.isMounted()) {
-			const {refs} = this;
 
-			focusNode = refs.confirm || refs.cancel || refs.frame;
+			focusNode = this.confirm || this.cancel || this.frame;
 
 			focusNode.focus();
 		}

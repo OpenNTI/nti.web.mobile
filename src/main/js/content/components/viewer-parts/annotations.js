@@ -36,12 +36,12 @@ function getStore (o) {
 export default {
 
 	getContentNode () {
-		let {content} = this.refs;
+		let {content} = this;
 		return content && content.getCurrent();
 	},
 
 	getContentNodeClean () {
-		let {content} = this.refs;
+		let {content} = this;
 		return content && content.getPristine();
 	},
 
