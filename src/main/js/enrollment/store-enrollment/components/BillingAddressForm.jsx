@@ -19,6 +19,10 @@ export default React.createClass({
 		onChange: React.PropTypes.func
 	},
 
+	componentWillMount () {
+		this.elements = {};
+	},
+
 
 	getDefaultProps () {
 		return {
@@ -40,7 +44,7 @@ export default React.createClass({
 		const values = {};
 
 		for (let field of FIELDS) {
-			let node = this.refs[field];
+			let node = this.elements[field];
 			values[node.name] = getValue(node);
 		}
 
@@ -50,9 +54,9 @@ export default React.createClass({
 
 	validate () {
 		const errors = {};
-		const {props: {required}, refs} = this;
+		const {props: {required}, elements} = this;
 		for (let field of Object.keys(required)) {
-			let {value = ''} = refs[field] || {};
+			let {value = ''} = elements[field] || {};
 			if (required[field] && value.length === 0) {
 				errors[field] = {message: t2('requiredField')};
 			}
@@ -108,7 +112,7 @@ export default React.createClass({
 				{FIELDS.map(field => (
 					<div className={`address_${field}`} key={field}>
 						<input name={`address_${field}`}
-							ref={field}
+							ref={x => this.elememts[field] = x}
 							placeholder={t(`address_${field}`)}
 							className={cx({required: required[field], error: errors[field]})}
 							type="text"

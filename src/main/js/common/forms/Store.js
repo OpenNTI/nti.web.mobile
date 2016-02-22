@@ -78,7 +78,7 @@ Store.appDispatch = AppDispatcher.register(data => {
 	* from remote sources, e.g. state and country lists in
 	* RelatedFormPanel.
 	*/
-	case Constants.FETCH_LINK:
+	case Constants.FETCH_LINK: {
 		let {payload} = action;
 		fetchLink(payload.link).then(
 			response =>
@@ -91,6 +91,7 @@ Store.appDispatch = AppDispatcher.register(data => {
 				Promise.reject(reason);
 			});
 		break;
+	}
 
 	default:
 		return true;

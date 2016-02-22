@@ -47,7 +47,7 @@ const MIME_TYPES = {
 	'pollref': 'relatedworkref',
 	'surveyref': 'relatedworkref',
 	'relatedworkref': (o, prev, next) => {
-		let c = `/content/`;
+		let c = '/content/';
 
 		if (o.isExternal) {
 			c = `/external-content/${encode(o.getID())}`;

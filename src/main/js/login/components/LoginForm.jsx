@@ -92,20 +92,20 @@ export default React.createClass({
 
 
 	render () {
-		let {blankPassword, busy, error, username, password} = this.state || {};
+		const {blankPassword, busy, error, username, password} = this.state || {};
 
-		let disabled = busy || blankPassword || !Store.getLoginLink();
+		const disabled = busy || blankPassword || !Store.getLoginLink();
 
 		return (
 			<div className="login-wrapper">
-				<form ref="form" className="login-form" onSubmit={this.handleSubmit} noValidate>
+				<form ref={el => this.form = el} className="login-form" onSubmit={this.handleSubmit} noValidate>
 					{busy ? ( <Loading/> ) : (
 						<div>
 							<div className="header">next thought</div>
 							<Conditional condition={!!error} className="message">{this.formatError(error)}</Conditional>
 							<fieldset>
 								<div className="field-container" data-title="Username">
-									<input ref="username"
+									<input ref={el => this.username = el}
 										name="username"
 										type="text"
 										placeholder="Username"
@@ -118,7 +118,7 @@ export default React.createClass({
 										onChange={this.updateUsername}/>
 								</div>
 								<div className="field-container" data-title="Password">
-									<input ref="password"
+									<input ref={el => this.password = el}
 										name="password"
 										type="password"
 										autoComplete="off"
@@ -157,7 +157,7 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
-		let {username, password} = this.refs.form.elements;
+		let {username, password} = this.form.elements;
 
 		this.setState({busy: true}, () => {
 			this.updateUsername()
@@ -168,7 +168,7 @@ export default React.createClass({
 
 
 	updatePassword (e) {
-		let password = (e ? e.target : this.refs.password);
+		let password = (e ? e.target : this.password);
 		if (password) {
 			password = password.value;
 			let empty = (!password || password === '');
@@ -178,7 +178,7 @@ export default React.createClass({
 
 
 	updateUsername (e) {
-		let username = (e ? e.target : this.refs.username);
+		let username = (e ? e.target : this.username);
 
 		if (username) { //normal case, we have an element.
 			username = username.value.trim(); // flatten down to a string.

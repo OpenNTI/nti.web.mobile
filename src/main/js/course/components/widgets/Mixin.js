@@ -52,7 +52,7 @@ export default {
 				use = null;
 			}
 
-			use = use && select(item, i, list, itemProps, node, assignments);
+			use = use && select.call(this, item, i, list, itemProps, node, assignments);
 
 			return use;
 

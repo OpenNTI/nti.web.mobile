@@ -44,7 +44,7 @@ export default React.createClass({
 	},
 
 	onChange () {
-		let value = this.refs.editor.getValue();
+		let value = this.editor.getValue();
 		this.setState({value});
 	},
 
@@ -64,7 +64,7 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
-		const {props: {onSubmit}, refs: {title, editor, sharing}} = this;
+		const {props: {onSubmit}, title, editor, sharing} = this;
 		let {value: titleValue} = title;
 		let body = editor.getValue();
 
@@ -102,18 +102,18 @@ export default React.createClass({
 				</div>
 
 				{showSharing && (
-					<ShareWith ref="sharing" scope={this} />
+					<ShareWith ref={x => this.sharing = x} scope={this} />
 				)}
 
 				<div className="title">
 					<input type="text"
-						ref="title" placeholder="Title"
+						ref={x => this.title = x} placeholder="Title"
 						className={cx({'error': error && error.field === 'title'})}
 						onChange={this.onTitleChange}
 						defaultValue={this.props.title} />
 				</div>
 
-				<Editor ref="editor"
+				<Editor ref={x => this.editor = x}
 					className={cx({'error': error && error.field === 'body'})}
 					onChange={this.onChange}
 					onBlur={this.onChange}

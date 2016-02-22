@@ -136,7 +136,7 @@ let Dialog = React.createClass({
 		title = title || 'Alert'; //TODO: localize the default
 
 		return (
-			<div ref="frame" className={`modal dialog mask ${state}`} onKeyDown={this.handleEscapeKey}>
+			<div ref={el => this.frame = el} className={`modal dialog mask ${state}`} onKeyDown={this.handleEscapeKey}>
 
 				<div className={`dialog window ${state}`}>
 					{this.renderDismissControl()}
@@ -166,7 +166,7 @@ let Dialog = React.createClass({
 		}
 
 		return (
-			<a ref="cancel" className={`cancel button ${cancelButtonClass}`} href="#cancel" onClick={this.dismiss}>
+			<a ref={el => this.cancel = el} className={`cancel button ${cancelButtonClass}`} href="#cancel" onClick={this.dismiss}>
 				{cancelButtonLabel}
 			</a>
 		);
@@ -184,7 +184,7 @@ let Dialog = React.createClass({
 		}
 
 		return (
-			<a ref="confirm" className={`confirm button ${confirmButtonClass}`} href="#confirm" onClick={this.confirmClicked}>
+			<a ref={el => this.confirm = el} className={`confirm button ${confirmButtonClass}`} href="#confirm" onClick={this.confirmClicked}>
 				{confirmButtonLabel}
 			</a>
 		);

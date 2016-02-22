@@ -1,5 +1,3 @@
-
-
 module.exports = {
 	login: 'Sign In',
 	PasswordPlaceholder: 'Password',

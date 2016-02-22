@@ -23,7 +23,7 @@ export default React.createClass({
 
 		return (
 			<form className="free-response" onSubmit={stopEvent}>
-				<input ref="input" value={value} onChange={this.handleInteraction} onBlur={this.onBlur} readOnly={this.isSubmitted()}/>
+				<input ref={x => this.input = x} value={value} onChange={this.handleInteraction} onBlur={this.onBlur} readOnly={this.isSubmitted()}/>
 			</form>
 		);
 	},
@@ -35,7 +35,7 @@ export default React.createClass({
 
 
 	getValue () {
-		const {refs: {input = {}}} = this;
+		const {input = {}} = this;
 		const {value} = input;
 
 		return isEmpty(value) ? null : value;

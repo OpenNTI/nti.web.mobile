@@ -54,7 +54,7 @@ export default React.createClass({
 
 
 	getValue () {
-		return this.refs.editor.getValue();
+		return this.editor.getValue();
 	},
 
 
@@ -97,7 +97,6 @@ export default React.createClass({
 	},
 
 	render () {
-
 		if (this.state.busy) {
 			return <Loading />;
 		}
@@ -115,7 +114,7 @@ export default React.createClass({
 			<div className="comment-form" id={this.props.id}>
 				{this.state.error && <Notice className="err">{this.state.error.message || 'An error occurred.'}</Notice>}
 				<div className="comment-form-heading">{t('addComment')}</div>
-				<Editor ref="editor"
+				<Editor ref={x => this.editor = x}
 					onChange={this.onBodyChange}
 					value={value}
 					allowInsertVideo

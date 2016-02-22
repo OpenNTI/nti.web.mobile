@@ -48,7 +48,7 @@ export default React.createClass({
 	onStoreChanged (event) {
 		switch (event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		case TOPIC_CREATED:
+		case TOPIC_CREATED: {
 			this.setState({
 				busy: false
 			});
@@ -56,14 +56,16 @@ export default React.createClass({
 			let path = encodeForURI(topicId);
 			this.navigate('/' + path + '/', {replace: true});
 			break;
+		}
 
-		case TOPIC_CREATION_ERROR:
+		case TOPIC_CREATION_ERROR: {
 			this.setState({
 				busy: false,
 				error: event.data.reason,
 				item: event.data.topic
 			});
 			break;
+		}
 		}
 	},
 
@@ -73,7 +75,7 @@ export default React.createClass({
 	},
 
 	createTopic () {
-		let value = this.refs.editor.getValue();
+		let value = this.editor.getValue();
 		this.setState({
 			busy: true,
 			value: value
@@ -100,7 +102,7 @@ export default React.createClass({
 			<div>
 				<Breadcrumb />
 				{this.state.error && <div className="alert-box radius">{this.state.error.message || 'An error occurred.'}</div>}
-				<TopicEditor ref="editor" onSubmit={this.createTopic} onCancel={this.onCancel} item={this.state.item} />
+				<TopicEditor ref={x => this.editor = x} onSubmit={this.createTopic} onCancel={this.onCancel} item={this.state.item} />
 			</div>
 		);
 	}

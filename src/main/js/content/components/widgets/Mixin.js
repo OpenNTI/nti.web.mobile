@@ -1,4 +1,3 @@
-
 import escape from 'nti-lib-interfaces/lib/utils/regexp-escape';
 
 function toRegExpStr (s) {

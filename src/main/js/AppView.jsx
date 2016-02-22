@@ -48,7 +48,7 @@ export default React.createClass({
 
 
 	onBeforeNavigation () {
-		let {frame} = this.refs;
+		let {frame} = this;
 		if (frame && frame.onCloseMenus) {
 			frame.onCloseMenus();
 		}
@@ -74,7 +74,7 @@ export default React.createClass({
 
 		return (
 			<CaptureClicks>
-				<Wrapper ref="frame">
+				<Wrapper ref={x => this.frame = x}>
 					<Router path={path} onBeforeNavigation={this.onBeforeNavigation}/>
 				</Wrapper>
 			</CaptureClicks>

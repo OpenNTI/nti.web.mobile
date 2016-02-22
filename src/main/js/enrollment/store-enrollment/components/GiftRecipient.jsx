@@ -25,6 +25,8 @@ export default React.createClass({
 
 
 	componentWillMount () {
+		this.elements = {};
+
 		const prevState = Store.getGiftInfo();
 
 		if (prevState) {
@@ -45,7 +47,7 @@ export default React.createClass({
 
 
 	getData () {
-		const {state: {enabled}, refs: {form}} = this;
+		const {state: {enabled}, elements: {form}} = this;
 		const elements = Array.from(form.elements) || [];
 		let result = {};
 
@@ -82,13 +84,13 @@ export default React.createClass({
 
 
 	isEmpty () {
-		const {refs: {email: {value = ''} = {}}} = this;
+		const {elements: {email: {value = ''} = {}}} = this;
 		return value.trim().length === 0;
 	},
 
 
 	validate () {
-		const {state: {enabled}, refs: {email: {value = ''} = {}}} = this;
+		const {state: {enabled}, elements: {email: {value = ''} = {}}} = this;
 		const valid = !enabled || isEmail(value);
 
 		this.setState({valid});
@@ -143,7 +145,7 @@ export default React.createClass({
 
 		return (
 			<div className={css}>
-				<form ref="form" className="">
+				<form ref={x => this.elements.form = x} className="">
 					<fieldset className="recipient-info">
 						<label>
 							<input name="enable_recipient"
@@ -177,7 +179,7 @@ export default React.createClass({
 									className={requiredIfEnabled}
 									value={receiver}
 									type="email"
-									ref="email"
+									ref={x => this.elements.email = x}
 									/>
 								{!valid && (
 									<span className="error message">

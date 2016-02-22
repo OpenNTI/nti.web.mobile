@@ -140,7 +140,7 @@ export default React.createClass({
 
 		switch((admissionStatus || '').toUpperCase()) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		case ADMISSION_ADMITTED:
+		case ADMISSION_ADMITTED: {
 			let link = payAndEnrollLink || getLink(enrollment, PAY_AND_ENROLL);
 			let crn = enrollment.NTI_CRN;
 			// ignore eslint on the following line because we know NTI_Term
@@ -152,7 +152,7 @@ export default React.createClass({
 			) :
 				this.renderPanel('Unable to direct to payment site. Please try again later.', 'Go Back', 'error');
 			break;
-
+		}
 		case ADMISSION_REJECTED:
 		case ADMISSION_NONE:
 			view = <FiveMinuteEnrollmentForm />;

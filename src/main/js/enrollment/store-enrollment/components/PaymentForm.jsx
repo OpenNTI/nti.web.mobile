@@ -85,8 +85,8 @@ export default React.createClass({
 
 		// console.log(event);
 
-		for (let ref of Object.values(this.refs)) {
-			if (ref.delegateError && ref.delegateError(errors)) {
+		for (let ref of [this.pricing, this.card, this.billing]) {
+			if (ref && ref.delegateError && ref.delegateError(errors)) {
 				return this.setState({busy: false, errors: {
 					general: {message: t('invalidForm')}
 				}});
@@ -98,7 +98,7 @@ export default React.createClass({
 
 
 	getValues () {
-		let {pricing, card, billing} = this.refs;
+		const {pricing, card, billing} = this;
 		return Object.assign({}, card.getValue(), billing.getValue(), pricing.getData());
 	},
 
@@ -106,7 +106,7 @@ export default React.createClass({
 	validate () {
 		const errors = {};
 
-		let {card, billing} = this.refs;
+		const {card, billing} = this;
 
 		//We let each composit field to validate itself...and show errors on
 		//their own fields. We just want to report that there were errors to
@@ -157,9 +157,9 @@ export default React.createClass({
 
 		return (
 			<FormPanel onSubmit={this.handleSubmit} title={title} className="payment-form">
-				<Pricing ref="pricing" purchasable={purch} />
-				<CreditCardForm defaultValues={defaultValues} ref="card"/>
-				<BillingAddress defaultValues={defaultValues} ref="billing"/>
+				<Pricing ref={x => this.pricing = x} purchasable={purch} />
+				<CreditCardForm defaultValues={defaultValues} ref={x => this.card = x}/>
+				<BillingAddress defaultValues={defaultValues} ref={x => this.billing = x}/>
 				{errors && ( <FormErrors errors={errors} /> )}
 				<TermsCheckbox onChange={this.termsCheckboxChange}/>
 				{busy ? (

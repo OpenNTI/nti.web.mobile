@@ -56,7 +56,7 @@ export default React.createClass({
 
 	componentDidUpdate (prevProps, prevState) {
 		if (this.state.helpVisible !== prevState.helpVisible && this.isMounted()) {
-			const {refs: {container: node}} = this;
+			const {container: node} = this;
 			if (node.getBoundingClientRect().top < 0) {
 				node.scrollIntoView();
 			}
@@ -118,7 +118,7 @@ export default React.createClass({
 				{wordbank && (
 					<WordBank record={wordbank} disabled={viewerIsAdministrative}/>
 				)}
-				<div ref="container">
+				<div ref={x => this.container = x}>
 					<div className={css}>
 						{getInputWidget(part, index)}
 					</div>

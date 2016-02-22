@@ -93,7 +93,7 @@ export default React.createClass({
 
 	componentDidUpdate () {
 		const {jQuery} = global;
-		const {refs: {input}} = this;
+		const {input} = this;
 		const hasQuill = !!((jQuery || {}).fn || {}).mathquill;
 		const submitted = this.isSubmitted();
 
@@ -108,7 +108,7 @@ export default React.createClass({
 
 	focusInput () {
 		const {jQuery} = global;
-		const {input} = this.refs;
+		const {input} = this;
 
 		jQuery(input).find('textarea').focus();
 	},
@@ -123,7 +123,7 @@ export default React.createClass({
 	insertSymbol (e) {
 		block(e);
 		const {jQuery} = global;
-		const {input} = this.refs;
+		const {input} = this;
 		const symbol = getEventTarget(e, '.mathsymbol');
 		logger.trace('click!');
 		if (!symbol || this.isSubmitted()) {
@@ -156,7 +156,7 @@ export default React.createClass({
 		return (
 			<form className="symbolic-math" onKeyUp={this.onKeyUp} onPaste={block} onSubmit={stopEvent}>
 				<div className="input" onClick={this.focusInput}>
-					<span ref="input" data-label={item.answerLabel}/>
+					<span ref={x => this.input = x} data-label={item.answerLabel}/>
 				</div>
 				<div className="shortcuts" onClick={this.insertSymbol}>
 					<a href="#" className="mathsymbol sqrt" data-latex="\surd" title="Insert square root"/>
@@ -183,7 +183,7 @@ export default React.createClass({
 
 	getValue () {
 		const {jQuery} = global;
-		const {input} = this.refs;
+		const {input} = this;
 		const jQe = jQuery(input);
 		//jQe.mouseup();
 		const value = sanitizeMathquillOutput(jQe.mathquill('latex'));

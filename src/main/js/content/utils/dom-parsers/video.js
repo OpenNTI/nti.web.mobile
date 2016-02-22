@@ -27,8 +27,6 @@ export function getVideosFromDom (contentElement) {
 }
 
 
-
-
 export default function parseVideo (contentElement) {
 	let o = parseDomObject(contentElement),
 		s = o.sources = [];

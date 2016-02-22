@@ -23,7 +23,7 @@ export function select (item, index, list, props, node, assessmentCollection) {
 			key: item.NTIID || ('overview-' + item.MimeType + '-' + index),
 			item: item,
 			index: index,
-			ref: Item.displayName + '-' + index,
+			ref: x => this['container-item-' + Item.displayName + '-' + index] = x,
 			assessmentCollection
 		}));
 }

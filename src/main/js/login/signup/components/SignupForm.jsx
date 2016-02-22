@@ -60,7 +60,7 @@ export default React.createClass({
 
 
 	getFields () {
-		return (this.refs.form || {}).elements;
+		return (this.form || {}).elements;
 	},
 
 
@@ -162,11 +162,11 @@ export default React.createClass({
 
 
 	render () {
-		let {enabled, errors} = this.state;
+		const {enabled, errors} = this.state;
 
 		return (
 			<div className="row">
-				<form ref="form"
+				<form ref={el => this.form = el}
 					className="create-account-form medium-6 medium-centered columns"
 					autoComplete="off"
 					onSubmit={this.handleSubmit}

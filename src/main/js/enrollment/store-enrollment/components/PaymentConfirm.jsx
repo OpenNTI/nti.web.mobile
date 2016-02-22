@@ -72,7 +72,7 @@ export default React.createClass({
 
 
 	shouldAllowUpdates () {
-		let el = this.refs.subscribeToUpdates;
+		let el = this.subscribeToUpdates;
 		return el && el.checked;
 	},
 
@@ -114,7 +114,7 @@ export default React.createClass({
 							{!AllowVendorUpdates ? '' :
 								<div className="subscribe">
 									<label>
-										<input type="checkbox" ref="subscribeToUpdates" name="subscribe" />
+										<input type="checkbox" ref={x => this.subscribeToUpdates = x} name="subscribe" />
 										<Localized tag="span" stringId="ENROLLMENT.SUBSCRIBE.label" />
 										<Localized tag="p" stringId="ENROLLMENT.SUBSCRIBE.legal" />
 									</label>

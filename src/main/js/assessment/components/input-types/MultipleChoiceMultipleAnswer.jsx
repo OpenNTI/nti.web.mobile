@@ -33,7 +33,7 @@ export default React.createClass({
 		let solution = submitted && this.getSolution();
 
 		return (
-			<form className="multiple-choice multiple-answer" ref="form" onSubmit={stopEvent}>
+			<form className="multiple-choice multiple-answer" ref={x => this.form = x} onSubmit={stopEvent}>
 				{choices.map((x, i)=> this.renderChoice(x, i, solution))}
 			</form>
 		);
@@ -71,7 +71,7 @@ export default React.createClass({
 
 		return (
 			<label className={'choice ' + correct} key={ref} onClick={this.onClick}>
-				<input type="checkbox" ref={ref} checked={checked} value={index} onChange={this.handleInteraction}/>
+				<input type="checkbox" checked={checked} value={index} onChange={this.handleInteraction}/>
 				<div>
 					<span className="numeral">{numeral}.</span>
 					<span className="choice-content" dangerouslySetInnerHTML={{__html: choice}}/>
@@ -82,7 +82,7 @@ export default React.createClass({
 
 
 	getValue () {
-		const {form} = this.refs;
+		const {form} = this;
 		let inputs = form && Array.from(form.elements);
 		let values = form && inputs
 							.map(valueIfChecked)

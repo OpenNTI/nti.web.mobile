@@ -127,7 +127,7 @@ export default React.createClass({
 
 
 	stop () {
-		let {video} = this.refs;
+		let {video} = this;
 		if (video) {
 			video.stop();
 		}
@@ -189,7 +189,7 @@ export default React.createClass({
 					<Err error={error}/>
 				)}
 				{(!video || !renderVideoFully) ? null :
-					<Video ref="video" src={this.state.video}
+					<Video ref={x => this.video = x} src={this.state.video}
 						onEnded={this.onStop}
 						onPlaying={this.onPlay}
 						context={this.state.context}

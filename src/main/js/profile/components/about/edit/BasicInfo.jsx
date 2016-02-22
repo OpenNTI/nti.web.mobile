@@ -83,17 +83,16 @@ export default React.createClass({
 
 
 	render () {
-		let {state} = this;
-		let {schema, error} = this.props;
+		const {state, props: {schema, error}} = this;
 
 		return (
-			<fieldset ref="form">
+			<fieldset>
 				<div>
 					<label>{t('about')}</label>
 					{isReadOnly(schema, 'about') ? (
 						<Panel body={state.about}/>
 					) : (
-						<Editor ref="about"
+						<Editor ref={c => this.about = c}
 							className={cx({required: isRequired(schema, 'about')})}
 							allowInsertImage={false}
 							value={state.about}
@@ -126,6 +125,6 @@ export default React.createClass({
 
 
 	getValue () {
-		return Object.assign({}, this.state, {about: this.refs.about.getValue()});
+		return Object.assign({}, this.state, {about: this.about.getValue()});
 	}
 });

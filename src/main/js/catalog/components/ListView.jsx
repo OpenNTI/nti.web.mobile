@@ -60,7 +60,7 @@ export default React.createClass({
 	},
 
 	onSearchChange () {
-		const search = this.refs.search.value;
+		const search = this.search.value;
 		this.setState({
 			search
 		});
@@ -72,7 +72,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<div className="search"><input type="text" ref="search" onChange={this.onSearchChange} /></div>
+				<div className="search"><input type="text" ref={x => this.search = x} onChange={this.onSearchChange} /></div>
 			{sections.map(s=>
 			{
 				const list = s.items.filter(passesFilter.bind(null, search));

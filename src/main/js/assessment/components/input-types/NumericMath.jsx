@@ -24,14 +24,14 @@ export default React.createClass({
 
 		return (
 			<form className="free-response" onSubmit={stopEvent}>
-				<input ref="input" value={value} onChange={this.handleInteraction} readOnly={submitted}/>
+				<input ref={x => this.input = x} value={value} onChange={this.handleInteraction} readOnly={submitted}/>
 			</form>
 		);
 	},
 
 
 	getValue () {
-		const {input} = this.refs;
+		const {input} = this;
 		const {value} = input || {};
 
 		return isEmpty(value) ? null :

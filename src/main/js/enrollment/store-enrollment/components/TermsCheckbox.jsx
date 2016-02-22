@@ -14,7 +14,7 @@ export default React.createClass({
 
 	onChange () {
 		if(this.props.onChange) {
-			const checked = this.refs.checkbox.checked;
+			const checked = this.checkbox.checked;
 			this.props.onChange(checked);
 		}
 	},
@@ -29,7 +29,7 @@ export default React.createClass({
 		return (
 			<div className="terms-checkbox">
 				<label className="terms-label">
-					<input type="checkbox" ref="checkbox" onChange={this.onChange} />
+					<input type="checkbox" ref={x => this.checkbox = x} onChange={this.onChange} />
 					<span dangerouslySetInnerHTML={{__html: html}} />
 				</label>
 			</div>

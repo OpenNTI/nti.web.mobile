@@ -272,7 +272,7 @@ export default React.createClass({
 			style
 		};
 
-		if (!this.refs.content) {
+		if (!this.content) {
 			//Annotations cannot resolve their anchors if the
 			//content ref is not present... so don't even try.
 			annotations = undefined;
@@ -303,7 +303,7 @@ export default React.createClass({
 						<div className="content-body">
 							{this.renderAssessmentHeader()}
 							<div className="coordinate-root">
-								<BodyContent ref="content"
+								<BodyContent ref={x => this.content = x}
 									onClick={this.onContentClick}
 									onUserSelectionChange={this.maybeOfferAnnotations}
 									contentPackage={contentPackage}

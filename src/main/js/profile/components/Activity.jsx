@@ -101,19 +101,9 @@ export default React.createClass({
 
 	more () {
 		let {store} = this.state;
-		// let el = this.refs.end;
-		// if (el) {
-		// 	el = el.previousSibling;
-		// }
 
 		if (!store.loading) {
 			store.nextBatch();
-				// .then(()=> {
-				// 	el = el && el.nextSibling;
-				// 	if (el) {
-				// 		el.scrollIntoView(true);
-				// 	}
-				// });
 		}
 	},
 
@@ -150,7 +140,7 @@ export default React.createClass({
 				)}
 
 				{!loading && (entity.isUser || store.more) && (
-				<li ref="end" key="theend" className="activity-item end">
+				<li key="theend" className="activity-item end">
 					{store.more
 						? store.loading
 							? ( <Loading/> )

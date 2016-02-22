@@ -98,7 +98,7 @@ export default React.createClass({
 	 * this will do its best to handle them.
 	 */
 	getValue () {
-		return this.refs.editor.getValue();
+		return this.editor.getValue();
 	},
 
 
@@ -209,7 +209,7 @@ export default React.createClass({
 				onPartValueParseCallback={this.onPartValueParse}
 				onChange={this.props.onChange}
 				onBlur={this.props.onBlur}
-				ref="editor">
+				ref={c => this.editor = c}>
 				<FormatButton format="bold" region={SOUTH}/>
 				<FormatButton format="italic" region={SOUTH}/>
 				<FormatButton format="underline" region={SOUTH}/>

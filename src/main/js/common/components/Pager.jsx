@@ -93,7 +93,7 @@ export default React.createClass({
 
 
 	componentDidUpdate () {
-		const {refs: {el: dom}} = this;
+		const {el: dom} = this;
 		if (dom) {
 			for (let a of dom.querySelectorAll('a[href=""]')) {
 				a.removeAttribute('href');
@@ -141,13 +141,13 @@ export default React.createClass({
 		prev = getProps(prev);
 
 		return (position === 'bottom') ? (
-			<ul className="bottompager" ref="el">
+			<ul className="bottompager" ref={x => this.el = x}>
 				<li><a {...prev} className="button secondary tiny radius">Back</a></li>
 				<li className="counts">{state.total > 1 && this.makeCounts() }</li>
 				<li><a {...next} className="button secondary tiny radius">Next</a></li>
 			</ul>
 		) : (
-			<div className="pager" ref="el">
+			<div className="pager" ref={x => this.el = x}>
 				{state.total > 1 && this.makeCounts() }
 				<a className="prev" {...prev}/>
 				<a className="next" {...next}/>

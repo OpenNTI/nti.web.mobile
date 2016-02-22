@@ -25,7 +25,7 @@ export default React.createClass({
 
 
 	onSave () {
-		const {refs: {newListName, userSearchField}, state: {store}} = this;
+		const {newListName, userSearchField, state: {store}} = this;
 
 		if (!store) {
 			return;
@@ -53,7 +53,7 @@ export default React.createClass({
 
 
 	validateTitle () {
-		const {refs: {newListName}} = this;
+		const {newListName} = this;
 
 		let {value} = newListName || {};
 
@@ -84,9 +84,9 @@ export default React.createClass({
 		return (
 			<Page title="Create List">
 				<div id="create-list">
-					<div><input ref="newListName" type="text" placeholder="Title" onChange={this.validateTitle}/></div>
+					<div><input ref={x => this.newListName = x} type="text" placeholder="Title" onChange={this.validateTitle}/></div>
 					<UserSearchField
-						ref="userSearchField"
+						ref={x => this.userSearchField = x}
 						onCancel={this.navigateToLists}
 						onSave={this.onSave}
 						saveDisabled={!this.state.validTitle}

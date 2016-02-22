@@ -135,7 +135,7 @@ export default React.createClass({
 		let {item} = this.props;
 		let {found, fragment, pageId, contextReady} = this.state;
 
-		const {refs: {root}} = this;
+		const {root} = this;
 		if (!root || found || !fragment || !contextReady) {
 			return !!found;
 		}
@@ -176,7 +176,7 @@ export default React.createClass({
 
 
 	focusApplicableRange () {
-		let {refs: {root: node}} = this;
+		let {root: node} = this;
 		if (node && this.findApplicableRange()) {
 
 
@@ -214,12 +214,12 @@ export default React.createClass({
 					: ( null )
 				)
 				: (typeof context === 'string')
-					? ( <div ref="root" {...props} dangerouslySetInnerHTML={{__html: context}}/> )
+					? ( <div ref={x => this.root = x} {...props} dangerouslySetInnerHTML={{__html: context}}/> )
 					: (
-						<div ref="root" {...props}>
+						<div ref={x => this.root = x} {...props}>
 						{
 							React.createElement(context.type,
-								Object.assign({}, context.props, {ref: 'widget'}))
+								Object.assign({}, context.props, {ref: x => this.widget = x}))
 						}
 						</div>
 					);

@@ -27,13 +27,13 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		this.refs.title.focus();
+		this.title.focus();
 	},
 
 	getValue () {
 		return {
-			title: this.refs.title.value,
-			body: this.refs.editor.getValue()
+			title: this.title.value,
+			body: this.editor.getValue()
 		};
 	},
 
@@ -44,12 +44,29 @@ export default React.createClass({
 	},
 
 	render () {
-		let {title, body} = this.props.item || {};
-		let buttons = <OkCancelButtons onOk={this.props.onSubmit} onCancel={this.props.onCancel} okEnabled={this.state.canSubmit} okText={t('editorOkButton')} />;
+		const {title, body} = this.props.item || {};
+		const buttons = (
+			<OkCancelButtons
+				onOk={this.props.onSubmit}
+				onCancel={this.props.onCancel}
+				okEnabled={this.state.canSubmit}
+				okText={t('editorOkButton')}
+				/>
+		);
 		return (
 			<PanelButton className="comment-form" button={buttons}>
-				<div><input ref="title" defaultValue={title} placeholder={t('topicTitlePlaceholder')} onChange={this.onEditorChange} /></div>
-				<div><Editor ref="editor" value={body} onChange={this.onEditorChange} allowInsertVideo/></div>
+				<div><input
+					ref={el => this.title = el}
+					defaultValue={title}
+					placeholder={t('topicTitlePlaceholder')}
+					onChange={this.onEditorChange} />
+				</div>
+				<div><Editor
+					ref={c => this.editor = c}
+					value={body}
+					onChange={this.onEditorChange}
+					allowInsertVideo/>
+				</div>
 			</PanelButton>
 		);
 	}

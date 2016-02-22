@@ -34,9 +34,7 @@ const CatalogBody = React.createClass({
 	shouldComponentUpdate (_, newState) {
 		let newCatalog = (this.state || {}).catalog !== (newState || {}).catalog;
 
-		let {router} = this.refs;
-		let r = router || {refs: {}};
-		let {enrollment} = r.refs;
+		let {enrollment} = this;
 
 		if (newCatalog && enrollment && enrollment.isMounted()) {
 			return false;
@@ -49,24 +47,24 @@ const CatalogBody = React.createClass({
 	render () {
 		let {catalog} = this.props;
 		return (
-			<Locations contextual ref="router">
+			<Locations contextual ref={x => this.router = x}>
 				<Location
-					ref="paymentcomplete"
+					ref={x => this.paymentcomplete = x}
 					path="/enroll/:enrollmentType/paymentcomplete/"
 					handler={PaymentComplete}
 				/>
 				<Location
-					ref="enroll"
+					ref={x => this.enroll = x}
 					path="/enroll/:enrollmentType/:entryId(/*)"
 					handler={Enrollment}
 				/>
 				<Location
-					ref="gift"
+					ref={x => this.gift = x}
 					path="/gift/purchase/:entryId(/*)"
 					handler={GiftPurchaseView}
 				/>
 				<Location
-					ref="enrollment"
+					ref={x => this.enrollment = x}
 					path="/item/:entryId/enrollment(/*)"
 					handler={Enroll}
 				/>

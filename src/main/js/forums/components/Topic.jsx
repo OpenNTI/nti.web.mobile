@@ -193,7 +193,7 @@ export default React.createClass({
 	},
 
 	saveEdit () {
-		let val = this.refs.headline.getValue();
+		let val = this.headline.getValue();
 		Actions.saveComment(this.getTopic().headline, val);
 	},
 
@@ -221,7 +221,7 @@ export default React.createClass({
 		let topic = this.getTopic();
 
 		let props = {
-			ref: 'headline',
+			ref: x => this.headline = x,
 			item: topic.headline,
 			onSubmit: this.saveEdit,
 			onCompletion: this.hideEditForm,

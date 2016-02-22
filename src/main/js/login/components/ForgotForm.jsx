@@ -20,7 +20,7 @@ export default React.createClass({
 
 
 	getFieldValues () {
-		let {email, username} = (this.refs.form || {}).elements || {};
+		let {email, username} = (this.form || {}).elements || {};
 
 		let fields = {email};
 
@@ -69,13 +69,13 @@ export default React.createClass({
 
 
 	render () {
-		let {param} = this.props;
-		let {submitEnabled, error, success} = this.state || {};
-		let buttonLabel = t(param === 'password' ? 'recoverpassword' : 'recoverusername');
+		const {param} = this.props;
+		const {submitEnabled, error, success} = this.state || {};
+		const buttonLabel = t(param === 'password' ? 'recoverpassword' : 'recoverusername');
 
 		return (
 			<div className="login-wrapper">
-				<form ref="form" className="login-form no-zoom" onSubmit={this.handleSubmit}>
+				<form ref={el => this.form = el} className="login-form no-zoom" onSubmit={this.handleSubmit}>
 					<div className="header">next thought</div>
 					<Conditional condition={!!error} className="message">{error}</Conditional>
 

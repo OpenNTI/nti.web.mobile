@@ -1,4 +1,3 @@
-
 const RECORD = Symbol('record');
 
 export const RENDERED = Symbol('elements');

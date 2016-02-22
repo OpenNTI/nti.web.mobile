@@ -73,7 +73,7 @@ export default React.createClass({
 					<div className="inner-wrap">
 
 
-							<aside className="right-off-canvas-menu" style={height} ref="rightMenu">
+							<aside className="right-off-canvas-menu" style={height} ref={x => this.rightMenu = x}> 
 								{this.getOverlayState() != null && ( <Session /> )}
 								{this.getOverlayState() != null && ( <Notifications/> )}
 							</aside>
@@ -112,7 +112,7 @@ export default React.createClass({
 			//We don't want to just kick the drawer off screen... wait for its animation to finish. (if it will)
 			this.waitForCloseAnimation = setTimeout(() => {
 				//get a reference to the dom node.
-				const {rightMenu: el} = this.refs;
+				const {rightMenu: el} = this;
 				if (el) {
 					CSS.addClass(el, 'kill-transitions');
 					setTimeout(()=> CSS.removeClass(el, 'kill-transitions'), 17/*one frame*/);

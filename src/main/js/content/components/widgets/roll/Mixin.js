@@ -27,7 +27,7 @@ export default {
 		let ref = 'thumbnail' + current;
 
 		if (last !== current) {
-			let node = this.refs[ref];
+			let node = this[ref];
 			if (node) {
 				//subtract the width to keep it centered when it can be.
 				node.parentNode.scrollLeft = (node.offsetLeft - node.offsetWidth);
@@ -69,7 +69,7 @@ export default {
 		let index = this.getActiveIndex();
 		let next = index + n;
 
-		let {refs: {stage, current}} = this;
+		let {stage, current} = this;
 
 		if (next >= 0 && next < total) {
 			index = next;
@@ -120,7 +120,7 @@ export default {
 
 			e.stopPropagation();
 
-			const {refs: {stage}} = this;
+			const {stage} = this;
 
 			// logger.debug('Touch Start...');
 

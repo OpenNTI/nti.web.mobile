@@ -1,10 +1,11 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 export default React.createClass({
 	displayName: 'SocialSecurityNumberField',
 
 	onKeyUp () {
-		let input = React.findDOMNode(this.refs.input);
+		let input = ReactDOM.findDOMNode(this.input);
 		let val = input.value.replace(/\D/g, ''); // strip non-digit characters
 		let newVal = '';
 		if(val.length > 4) {
@@ -25,7 +26,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<input ref="input" type="tel" pattern="\d*" onKeyUp={this.onKeyUp} />
+			<input ref={x => this.input = x} type="tel" pattern="\d*" onKeyUp={this.onKeyUp} />
 		);
 	}
 });

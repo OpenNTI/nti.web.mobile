@@ -163,7 +163,6 @@ export default React.createClass({
 				}
 				{topic &&
 					<CommentForm key="commentForm"
-						ref="commentForm"
 						id={COMMENT_FORM_ID}
 						onCancel={this.hideForm}
 						onCompletion={this.commentCompletion}

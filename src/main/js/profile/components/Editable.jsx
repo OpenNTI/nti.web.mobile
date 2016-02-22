@@ -10,7 +10,7 @@ export default React.createClass({
 
 	focus () {
 		let r = document.createRange();
-		r.selectNodeContents(this.refs.el);
+		r.selectNodeContents(this.el);
 		r.collapse();
 		let sel = window.getSelection();
 		sel.removeAllRanges();
@@ -21,11 +21,10 @@ export default React.createClass({
 	},
 
 	render () {
-
-		let Tag = this.props.tag || 'div';
+		const Tag = this.props.tag || 'div';
 
 		return (
-			<Tag ref="el" contentEditable="true" onTouchEnd={this.focus} onBlur={this.onBlur}>{this.props.children}</Tag>
+			<Tag ref={el => this.el = el} contentEditable="true" onTouchEnd={this.focus} onBlur={this.onBlur}>{this.props.children}</Tag>
 		);
 	}
 });

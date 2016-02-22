@@ -1,4 +1,3 @@
-
 export function filterContextPath (context, resourceId) {
 	let first = context[0],
 		last = context[context.length - 1];

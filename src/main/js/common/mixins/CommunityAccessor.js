@@ -1,4 +1,3 @@
-
 import {getAppUserCommunities} from '../utils';
 
 export default {

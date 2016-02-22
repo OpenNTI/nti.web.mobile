@@ -1,4 +1,3 @@
-
 import React from 'react';
 import NoteableMixin from '../mixins/Noteable';
 import Avatar from 'common/components/Avatar';

@@ -57,7 +57,7 @@ function isExternal (item) {
 function canSetState (cmp) {
 	let can = false;
 
-	try { can = !cmp.shouldHaveDOM || !!cmp.refs.anchor; }
+	try { can = !cmp.shouldHaveDOM || !!cmp.anchor; }
 	catch (e) {} //eslint-disable-line
 
 	return can;
@@ -302,7 +302,7 @@ export default React.createClass({
 
 
 	onClickDiscussion (e) {
-		const {refs: {anchor}, props: {disableLink, item, externalSlug = 'external'}} = this;
+		const {anchor, props: {disableLink, item, externalSlug = 'external'}} = this;
 
 		if (disableLink) { return; }
 		const subRef = e.target.getAttribute('href');
@@ -338,7 +338,7 @@ export default React.createClass({
 		return (
 			<a className={cx('content-link', 'related-work-ref', classes)}
 				href={ref} target={external ? '_blank' : null}
-				onClick={this.onClick} ref="anchor">
+				onClick={this.onClick} ref={x => this.anchor = x}>
 
 				{!iconSrc ? null :
 					<div className={cx('icon', iconCls)} style={{backgroundImage: `url(${iconSrc})`}}>

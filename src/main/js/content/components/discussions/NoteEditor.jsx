@@ -40,16 +40,16 @@ export default React.createClass({
 				<HideNavigation/>
 
 				<form onSubmit={x => x.preventDefault() && false}>
-					<ShareWith scope={scope} defaultValue={sharedWith} ref="shareWith" onBlur={this.ensureVisible}/>
+					<ShareWith scope={scope} defaultValue={sharedWith} ref={x => this.shareWith = x} onBlur={this.ensureVisible}/>
 
 					<div className={cx('title', {error})} data-error-message={errorMessage}>
-						<input type="text" name="title" ref="title" placeholder="Title"
+						<input type="text" name="title" ref={x => this.title = x} placeholder="Title"
 							defaultValue={title || ''}
 							onFocus={this.ensureVisible}
 							onChange={this.detectContent} />
 					</div>
 
-					<Editor ref="body" onChange={this.detectContent} onBlur={this.detectContent} value={body || []}>
+					<Editor ref={x => this.body = x} onChange={this.detectContent} onBlur={this.detectContent} value={body || []}>
 						<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
 						<button onClick={this.onSubmit} className={cx('save', {disabled})}><i className="icon-discuss"/>{t('BUTTONS.post')}</button>
 					</Editor>
@@ -78,7 +78,7 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
-		const {props: {item, onSubmit, onSave}, refs: {body, shareWith, title: {value: title}}} = this;
+		const {props: {item, onSubmit, onSave}, body, shareWith, title: {value: title}} = this;
 
 		if (typeof onSubmit === 'function') {
 			onSubmit(e);

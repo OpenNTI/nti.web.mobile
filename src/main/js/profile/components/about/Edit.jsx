@@ -86,8 +86,8 @@ export default React.createClass({
 	save (e) {
 		e.preventDefault();
 
-		let values = {};
-		let parts = Object.values(this.refs);
+		const values = {};
+		const parts = [this.about, this.education, this.positions, this.interests].filter(x => x);
 		for (let part of parts) {
 			if (part.getValue) {
 				Object.assign(values, part.getValue());
@@ -122,7 +122,7 @@ export default React.createClass({
 
 
 	render () {
-		let {busy, editObject, error, schema, loading} = this.state;
+		const {busy, editObject, error, schema, loading} = this.state;
 
 		return (
 			<div className="profile-edit">
@@ -135,19 +135,19 @@ export default React.createClass({
 							<ul className="profile-cards">
 
 								<Card className="about" title="About">
-									<BasicInfo item={editObject} ref="about" schema={schema} error={error}/>
+									<BasicInfo item={editObject} ref={c => this.about = c} schema={schema} error={error}/>
 								</Card>
 
 								<Card className="education" title="Education">
-									<Events schema={schema} items={editObject.education} ref="education" field="education" fieldNames={['school', 'degree']} mimeType={EDUCATION}/>
+									<Events schema={schema} items={editObject.education} ref={c => this.education = c} field="education" fieldNames={['school', 'degree']} mimeType={EDUCATION}/>
 								</Card>
 
 								<Card className="positions" title="Professional">
-									<Events schema={schema} items={editObject.positions} ref="positions" field="positions" fieldNames={['companyName', 'title']} mimeType={PROFESSIONAL}/>
+									<Events schema={schema} items={editObject.positions} ref={c => this.positions = c} field="positions" fieldNames={['companyName', 'title']} mimeType={PROFESSIONAL}/>
 								</Card>
 
 								<Card className="interests" title="Interests">
-									<Interests schema={schema} items={editObject.interests} ref="interests" field="interests"/>
+									<Interests schema={schema} items={editObject.interests} ref={c => this.interests = c} field="interests"/>
 								</Card>
 
 							</ul>

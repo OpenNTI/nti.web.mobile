@@ -76,7 +76,7 @@ export default React.createClass({
 		let widgetCount = Object.keys(widgets).length;
 		shouldUpdate = shouldUpdate || (widgetCount === 0 && !this.state.prestine);
 
-		if (widgets && this.refs.content) {
+		if (widgets && this.content) {
 			// logger.debug('Content View: Did Update... %o', widgets);
 
 			for(let id of Object.keys(widgets)) {
@@ -147,7 +147,7 @@ export default React.createClass({
 
 
 	getCurrent () {
-		return this.refs.content;
+		return this.content;
 	},
 
 
@@ -193,7 +193,7 @@ export default React.createClass({
 					<style scoped type="text/css" key={i} dangerouslySetInnerHTML={{__html: css}}/>
 				)}
 				{
-				// <nti:content ref="content"
+				// <nti:content ref={x => this.content = x}
 				// 	id="NTIContent"
 				// 	className="nti-content-panel"
 				// 	data-ntiid={pageId}
@@ -204,7 +204,7 @@ export default React.createClass({
 				// 	Since the above JSX blows up because of the "namespace", do it w/o JSX:
 					React.createElement('nti:content', Object.assign({}, this.props, {
 						id: 'NTIContent',
-						ref: 'content',
+						ref: x => this.content = x,
 						className: 'nti-content-panel',
 						'data-ntiid': pageId,
 						'data-page-ntiid': pageId,

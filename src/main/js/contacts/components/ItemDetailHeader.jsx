@@ -46,7 +46,7 @@ export default React.createClass({
 	},
 
 	toggleRename () {
-		const {refs: {newName}, state: {renaming}} = this;
+		const {newName, state: {renaming}} = this;
 		this.setState({
 			renaming: !renaming
 		}, () => {
@@ -58,7 +58,7 @@ export default React.createClass({
 	},
 
 	saveRename () {
-		const {props: {list}, refs: {newName}} = this;
+		const {props: {list}, newName} = this;
 
 		let alias = newName.value.trim();
 
@@ -76,7 +76,7 @@ export default React.createClass({
 
 		return (
 			<header className="item-detail-header">
-				<h1>{renaming ? <input type="text" ref="newName" defaultValue={list.displayName} onChange={this.nameInputChanged} /> : list.displayName}</h1>
+				<h1>{renaming ? <input type="text" ref={x => this.newName = x} defaultValue={list.displayName} onChange={this.nameInputChanged} /> : list.displayName}</h1>
 				{renaming
 					?
 					<div className="rename controls">

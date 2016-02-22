@@ -39,7 +39,7 @@ export default React.createClass({
 
 
 	getFieldValues () {
-		let {password, password2} = (this.refs.form || {}).elements || {};
+		let {password, password2} = (this.form || {}).elements || {};
 
 		let fields = {password, password2};
 
@@ -78,11 +78,11 @@ export default React.createClass({
 
 
 	render () {
-		let {busy, submitEnabled, success, error, valid = true} = this.state;
+		const {busy, submitEnabled, success, error, valid = true} = this.state;
 
 		return (
 			<div className="login-wrapper">
-				<form ref="form" className={cx('login-form', {'remove-animation': success})} onSubmit={this.handleSubmit}>
+				<form ref={el => this.form = el} className={cx('login-form', {'remove-animation': success})} onSubmit={this.handleSubmit}>
 					<div className="header">next thought</div>
 					<Conditional condition={!busy && !success}>
 						<Conditional condition={!!error} className="message">{error}</Conditional>

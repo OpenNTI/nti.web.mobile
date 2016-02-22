@@ -39,10 +39,10 @@ export default React.createClass({
 
 
 	getContext () {
-		let {router} = this.refs;
-		let href = router ? router.makeHref('') : '';
+		const {router} = this;
+		const href = router ? router.makeHref('') : '';
 
-		let enrollmentOptionsHref = this.makeHref( path.join('/item', this.props.entryId, 'enrollment/' ));
+		const enrollmentOptionsHref = this.makeHref( path.join('/item', this.props.entryId, 'enrollment/' ));
 
 		return Promise.resolve([
 			{ label: 'Enroll', href: enrollmentOptionsHref},
@@ -51,7 +51,7 @@ export default React.createClass({
 	},
 
 	onStoreChange (event) {
-		let {router} = this.refs;
+		const {router} = this;
 		if (event.type === CONCURRENT_ENROLLMENT_SUCCESS) {
 			router.navigate('/concurrent/');
 		}
@@ -71,7 +71,7 @@ export default React.createClass({
 		}
 
 		return (
-			<Router.Locations contextual ref="router">
+			<Router.Locations contextual ref={x => this.router = x}>
 
 				<Router.Location
 					path="/concurrent/*"

@@ -58,6 +58,8 @@ export default React.createClass({
 
 
 	componentWillMount () {
+		this.elements = {};
+
 		let defaultValues = Object.assign({}, Store.getPaymentFormData());
 
 		getAppUser().then(u => {
@@ -104,7 +106,7 @@ export default React.createClass({
 
 		// console.log(event);
 
-		for (let ref of Object.values(this.refs)) {
+		for (let ref of Object.values(this.elements)) {
 			if (ref.delegateError && ref.delegateError(errors)) {
 				return this.setState({busy: false, errors: {
 					general: {message: t('invalidForm')}
@@ -169,7 +171,7 @@ export default React.createClass({
 
 	validate () {
 		const errors = {};
-		const {recipient, from, card, billing} = this.refs;
+		const {recipient, from, card, billing} = this.elements;
 
 		//We let each composit field to validate itself...and show errors on
 		//their own fields. We just want to report that there were errors to
@@ -213,16 +215,16 @@ export default React.createClass({
 
 		return (
 			<div className="gift enrollment">
-				<Pricing ref="Pricing" purchasable={purchasable} />
+				<Pricing ref={x => this.elements.Pricing = x} purchasable={purchasable} />
 
 				<FormPanel title={tGift('PAYMENT.title')} subhead={tGift('PAYMENT.sub')} styled={false}>
-					<From ref="from" defaultValues={defaultValues} />
-					<CreditCardForm ref="card" defaultValues={defaultValues} className="payment-fields"/>
-					<BillingAddressForm ref="billing" defaultValues={defaultValues} className="payment-fields"/>
+					<From ref={x => this.elements.from = x} defaultValues={defaultValues} />
+					<CreditCardForm ref={x => this.elements.card = x} defaultValues={defaultValues} className="payment-fields"/>
+					<BillingAddressForm ref={x => this.elements.billing = x} defaultValues={defaultValues} className="payment-fields"/>
 				</FormPanel>
 
 				<Header />
-				<Recipient ref="recipient" />
+				<Recipient ref={x => this.elements.recipient = x} />
 
 				<FormErrors errors={errors}/>
 

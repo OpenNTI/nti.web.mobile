@@ -42,9 +42,6 @@ export default React.createClass( {
 	},
 
 
-
-
-
 	render () {
 		let {item} = this.props;
 		let {label = 'No Label', submissions = 0} = item;

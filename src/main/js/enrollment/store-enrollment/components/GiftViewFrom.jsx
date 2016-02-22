@@ -29,7 +29,7 @@ export default React.createClass({
 		const getValue = x => x && x.value && x.value.trim();
 		const values = {};
 
-		let {from} = this.refs;
+		const {from} = this;
 		values[from.name] = getValue(from);
 
 		return values;
@@ -38,7 +38,7 @@ export default React.createClass({
 
 	validate () {
 		const errors = {};
-		const {refs: {from}} = this;
+		const {from} = this;
 
 		let {value = ''} = from;
 		if (value.length === 0) {
@@ -89,7 +89,7 @@ export default React.createClass({
 				<div className="fromLabel">{t('fromLabel')}</div>
 				<div className="from">
 					<input name="from"
-						ref="from"
+						ref={x => this.form = x}
 						placeholder={t('from')}
 						className={cx('required', {error: errors.from})}
 						defaultValue={defaultValues.from}

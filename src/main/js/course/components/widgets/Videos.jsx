@@ -50,9 +50,8 @@ export default React.createClass({
 
 
 	componentDidUpdate () {
-		const {refs: {v}, state: {offsetWidth}} = this;
-
-		let renderedOffsetWidth = v && v.offsetWidth;
+		const {videos, state: {offsetWidth}} = this;
+		const renderedOffsetWidth = videos && videos.offsetWidth;
 		if (offsetWidth !== renderedOffsetWidth) {
 			this.setState({offsetWidth: renderedOffsetWidth});//eslint-disable-line react/no-did-update-set-state
 		}
@@ -86,11 +85,9 @@ export default React.createClass({
 
 
 	stopVideo () {
-		let refs = this.refs;
-		let key;
-		for(key in refs) {
-			if (key.indexOf('CourseOverviewVideo-') === 0) {
-				refs[key].stop();
+		for(let key of Object.keys(this)) {
+			if (key.indexOf('container-item-') === 0 && this[key].stop) {
+				this[key].stop();
 			}
 		}
 	},
@@ -140,7 +137,7 @@ export default React.createClass({
 		let touch = e.targetTouches[0];
 
 		let active = this.state.active;
-		let videos = this.refs.v;
+		let videos = this.videos;
 		let pixelOffset = 0;
 
 		if (videos) {
@@ -302,7 +299,7 @@ export default React.createClass({
 
 		let props = {
 			tabIndex: '0',
-			ref: 'v',
+			ref: x => this.videos = x,
 			style: {
 				WebkitTransform: translation,
 				MozTransform: translation,

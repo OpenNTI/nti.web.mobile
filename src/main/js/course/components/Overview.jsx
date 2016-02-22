@@ -157,7 +157,9 @@ export default React.createClass({
 				</div>
 			);
 		} catch (e) {
-			return (<ErrorWidget error={e}/>);
+			if (e.message !== 'No Items to render') {
+				return (<ErrorWidget error={e}/>);
+			}
 		}
 
 		return (

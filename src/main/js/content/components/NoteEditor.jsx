@@ -18,7 +18,7 @@ export default React.createClass({
 
 
 	ensureVisible () {
-		let {refs: {editor: el}} = this;
+		let {editor: el} = this;
 		let margin = parseInt(getComputedStyle(el)['margin-top'], 10);
 
 		let top = 0;
@@ -32,7 +32,7 @@ export default React.createClass({
 
 
 	onCancel () {
-		const {props: {onCancel}, refs: {el: {parentNode}}} = this;
+		const {props: {onCancel}, el: {parentNode}} = this;
 
 		CSS.removeClass(parentNode, 'saving');
 
@@ -48,9 +48,9 @@ export default React.createClass({
 
 	render () {
 		return (
-			<div ref="el">
+			<div ref={x => this.el = x}>
 				<DarkMode/>
-				<Editor ref="editor" {...this.props} onCancel={this.onCancel} onSubmit={this.onSubmit}/>
+				<Editor ref={x => this.editor = x} {...this.props} onCancel={this.onCancel} onSubmit={this.onSubmit}/>
 			</div>
 		);
 	}

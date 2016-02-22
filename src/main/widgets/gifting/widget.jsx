@@ -64,7 +64,7 @@ export default React.createClass({
 	},
 
 	onChange (event) {
-		let {router} = this.refs;
+		let {router} = this;
 
 		switch(event.type) {
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
@@ -123,7 +123,7 @@ export default React.createClass({
 		return (
 			<CaptureClicks environment={Router.environment.hashEnvironment}>
 				<ReactCSSTransitionGroup transitionName="fadeOutIn">
-					<Locations hash ref="router" onNavigation={this.onNavigation}>
+					<Locations hash ref={x => this.router = x} onNavigation={this.onNavigation}>
 						<Location path="/confirm/*" handler={Confirm} purchasable={purchasable}/>
 						<Location path="/success/*" handler={Success} purchasable={purchasable} onDone={this.onDone} />
 						<Location path="/error/*" handler={PaymentError} courseTitle={title} />

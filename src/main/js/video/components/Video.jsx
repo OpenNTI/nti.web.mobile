@@ -207,29 +207,29 @@ export default React.createClass({
 
 
 	play  () {
-		this.refs.activeVideo.play();
+		this.activeVideo.play();
 	},
 
 
 	pause  () {
-		this.refs.activeVideo.pause();
+		this.activeVideo.pause();
 	},
 
 
 	stop  () {
-		this.refs.activeVideo.stop();
+		this.activeVideo.stop();
 	},
 
 
 	setCurrentTime (time) {
-		this.refs.activeVideo.setCurrentTime(time);
+		this.activeVideo.setCurrentTime(time);
 	},
 
 
 	render () {
 		return (
 			<Video {...this.props}
-				ref="activeVideo"
+				ref={x => this.activeVideo = x}
 				onTimeUpdate={this.onTimeUpdate}
 				onSeeked={this.onSeeked}
 				onPlaying={this.onPlaying}

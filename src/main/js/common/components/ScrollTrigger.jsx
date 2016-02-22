@@ -19,7 +19,7 @@ export default React.createClass({
 
 
 	subscribeScroll () {
-		const scroller = getScrollParent(this.refs.self);
+		const scroller = getScrollParent(this.el);
 		const unsub = () => (scroller.removeEventListener('scroll', this.onScroll), this.unsubscribeScroll = EMPTY);
 		unsub.dom = scroller;
 
@@ -34,7 +34,7 @@ export default React.createClass({
 
 
 	scrollerChanged () {
-		const scroller = getScrollParent(this.refs.self);
+		const scroller = getScrollParent(this.el);
 		return scroller !== (this.unsubscribeScroll || {}).dom;
 	},
 
@@ -67,7 +67,7 @@ export default React.createClass({
 
 
 	inView () {
-		return this.isMounted() && isElementInView(this.refs.self);
+		return this.isMounted() && isElementInView(this.el);
 	},
 
 
@@ -110,7 +110,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<div className="scrollTrigger" ref="self" {...this.props}/>
+			<div className="scrollTrigger" ref={x => this.el = x} {...this.props}/>
 		);
 	}
 });

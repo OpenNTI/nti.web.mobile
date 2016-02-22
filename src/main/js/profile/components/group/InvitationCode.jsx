@@ -19,7 +19,7 @@ export default React.createClass({
 		const selection = window.getSelection();
 		const range = document.createRange();
 
-		range.selectNodeContents(this.refs.code);
+		range.selectNodeContents(this.code);
 		selection.removeAllRanges();
 		selection.addRange(range);
 	},
@@ -47,7 +47,7 @@ export default React.createClass({
 		return (
 			<div className="invitation-code" onClick={this.selectCode}>
 				<label>Invitation Code:</label>
-				<span ref="code" className="invitation-code-text">{code}</span>
+				<span ref={el => this.code = el} className="invitation-code-text">{code}</span>
 			</div>
 		);
 	}

@@ -69,7 +69,7 @@ export default React.createClass({
 		this.setState({
 			adding: true
 		}, () => {
-			this.refs.searchField.focus();
+			this.searchField.focus();
 		});
 	},
 
@@ -80,7 +80,7 @@ export default React.createClass({
 	},
 
 	saveSearch () {
-		let selections = this.refs.searchField.getSelections();
+		let selections = this.searchField.getSelections();
 		let {store} = this.state;
 		store.addContact(selections)
 			.then(() => {
@@ -109,7 +109,7 @@ export default React.createClass({
 				{adding ? (
 					<div className="list-user-search">
 						<UserSearchField
-							ref="searchField"
+							ref={x => this.searchField = x}
 							excludeContacts
 							selected={items}
 							onCancel={this.cancelSearch}

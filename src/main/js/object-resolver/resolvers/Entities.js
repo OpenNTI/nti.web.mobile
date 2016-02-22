@@ -1,4 +1,3 @@
-
 import {profileHref} from 'profile/mixins/ProfileLink';
 
 export default class EntityPathResolver {

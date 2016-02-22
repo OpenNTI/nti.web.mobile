@@ -25,7 +25,7 @@ function getVideo (object, index) {
 
 
 function listen (context, action) {
-	const p = scrollparent(context.refs.el);
+	const p = scrollparent(context.el);
 	p[action]('scroll', context.maybeRenderVideo, false);
 	if (p !== global) {
 		global[action]('scroll', context.maybeRenderVideo, false);
@@ -146,7 +146,7 @@ export default React.createClass({
 
 		this.setState({requestPlay: true}, () => {
 
-			const {refs: {video}} = this;
+			const {video} = this;
 			if (video) {
 				video.play();
 			}
@@ -156,7 +156,7 @@ export default React.createClass({
 
 
 	stop () {
-		const {video} = this.refs;
+		const {video} = this;
 		if (video) {
 			video.stop();
 		}
@@ -164,21 +164,21 @@ export default React.createClass({
 
 
 	onStop () {
-		if (this.refs.video) {
+		if (this.video) {
 			this.setState({playing: false});
 		}
 	},
 
 
 	onPlay  () {
-		if (this.refs.video) {
+		if (this.video) {
 			this.setState({playing: true});
 		}
 	},
 
 
 	maybeRenderVideo () {
-		const {refs: {el}, state: {requestPlay}} = this;
+		const {el, state: {requestPlay}} = this;
 		if (!el || requestPlay) { return; }
 
 		const {top, bottom} = el.getBoundingClientRect();
@@ -205,9 +205,9 @@ export default React.createClass({
 		const posterRule = poster && {backgroundImage: `url(${poster})`};
 
 		return (
-			<Tag ref="el" className="content-video video-wrap flex-video widescreen" data-ntiid={this.getVideoID()}>
+			<Tag ref={el => this.el = el} className="content-video video-wrap flex-video widescreen" data-ntiid={this.getVideoID()}>
 				{!video || !requestPlay ? null :
-					<Video ref="video" src={video}
+					<Video ref={x => this.video = x} src={video}
 						onEnded={this.onStop}
 						onPaused={this.onStop}
 						onPlaying={this.onPlay}

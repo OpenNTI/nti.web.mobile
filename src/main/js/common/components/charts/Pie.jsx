@@ -25,7 +25,7 @@ export default React.createClass({
 
 
 	getCanvas () {
-		return this.refs.canvas;
+		return this.canvas;
 	},
 
 
@@ -64,7 +64,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<canvas ref="canvas" style={style} width={width} height={height} />
+				<canvas ref={x => this.canvas = x} style={style} width={width} height={height} />
 				<div className="label title">{p.title}</div>
 				<ul className="legend">
 				{data.map((item, i) => {

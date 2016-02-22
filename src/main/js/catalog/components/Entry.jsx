@@ -121,7 +121,7 @@ export default React.createClass({
 		for(let opt of item.getEnrollmentOptions()) {
 			available = available || Boolean(opt.available);
 			enrolled = enrolled || Boolean(opt.enrolled);
-			if (Boolean(opt.enrolled)) { //only check droppable if we're enrolled in this way.
+			if (opt.enrolled) { //only check droppable if we're enrolled in this way.
 				droppable = droppable || droppableMime.test(opt.MimeType);
 			}
 		}

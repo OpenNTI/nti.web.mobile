@@ -29,7 +29,7 @@ export default React.createClass({
 	],
 
 	getContext () {
-		const {router} = this.refs;
+		const {router} = this;
 		return router && {
 			label: 'Discussions',
 			href: router.makeHref('/')
@@ -119,7 +119,7 @@ export default React.createClass({
 		return (!store || loading) ? (
 			<Loading/>
 		) : (
-			<Locations contextual ref="router">
+			<Locations contextual ref={x => this.router = x}>
 				<Location path="/:itemId/edit(/*)" handler={View} {...props} edit/>
 				<Location path="/:itemId(/*)" handler={View} {...props}/>
 

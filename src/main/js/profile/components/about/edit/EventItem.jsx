@@ -49,8 +49,7 @@ export default React.createClass({
 	},
 
 	onChange (event) {
-		let {target} = event;
-		let {name, value} = target;
+		const {target: {name, value}} = event;
 		this.valueChanged(name, value);
 	},
 
@@ -59,14 +58,13 @@ export default React.createClass({
 	},
 
 	render () {
-		let {schema} = this.props;
-		let {state = {}} = this;
-		let {startYear, endYear, description} = state;
-		let [primaryField, secondaryField] = this.props.fieldNames;
-		let maxYear = (new Date()).getFullYear();
+		const {props: {fieldNames: [primaryField, secondaryField], schema}, state = {}} = this;
+		const {startYear, endYear, description} = state;
+
+		const maxYear = (new Date()).getFullYear();
 
 		return (
-			<fieldset ref="form" className="profile-event-body">
+			<fieldset className="profile-event-body">
 				<div>
 					<label>{t(primaryField)}</label>
 					<input type="text" name={primaryField}
@@ -107,7 +105,7 @@ export default React.createClass({
 
 				<label>Description</label>
 				<Editor className={cx('description', {required: isRequired(schema, 'startYear')})}
-					ref="description"
+					ref={c => this.description = c}
 					required={isRequired(schema, 'startYear')}
 					allowInsertImage={false}
 					value={description}
@@ -122,7 +120,7 @@ export default React.createClass({
 		let {state} = this;
 		let value = {};
 		let input = Object.assign({}, item);
-		input.description = this.refs.description.getValue();
+		input.description = this.description.getValue();
 
 		for (let field of Object.keys(state)) {
 			let v = state[field];

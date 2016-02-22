@@ -42,7 +42,7 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
-		const {input} = this.refs;
+		const {input} = this;
 		if (input) {
 			input.focus();
 		}
@@ -66,7 +66,7 @@ export default React.createClass({
 				Insert Video
 				{!prompt ? null : (
 					<div className="dialog" onClick={this.focusInput} onFocus={this.onDialogFocus}>
-						<input type="url" placeholder="Video URL" ref="input" onChange={this.testURL}/>
+						<input type="url" placeholder="Video URL" ref={el => this.input = el} onChange={this.testURL}/>
 						<div className="buttons">
 							<a className="button link" onClick={this.closePrompt}>Cancel</a>
 							<a className={cx('button commit', {disabled: !canSubmit})} onClick={this.insert}>Insert</a>
@@ -76,8 +76,6 @@ export default React.createClass({
 			</div>
 		);
 	},
-
-
 
 
 

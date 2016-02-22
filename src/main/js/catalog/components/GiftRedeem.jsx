@@ -82,7 +82,7 @@ export default React.createClass({
 
 
 	updateKey () {
-		const {refs: {key: {value} = {}}} = this;
+		const {key: {value} = {}} = this;
 		this.setState({accessKey: value});
 	},
 
@@ -137,7 +137,7 @@ export default React.createClass({
 			<FormPanel title={title} onSubmit={this.handleSubmit}>
 
 				<div className="access-code">
-					<input name="accessKey" ref="key"
+					<input name="accessKey" ref={x => this.key = x}
 						placeholder={t('accessKey')}
 						className="required"
 						type="text"

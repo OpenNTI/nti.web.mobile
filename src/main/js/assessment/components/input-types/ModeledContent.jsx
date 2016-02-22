@@ -27,7 +27,7 @@ export default React.createClass({
 		return (
 			<form className="modeled content" onSubmit={stopEvent}>
 				{submitted && (<Panel body={value}/>)}
-				{!submitted && (<Editor ref="input" value={value}
+				{!submitted && (<Editor ref={x => this.input = x} value={value}
 					onChange={this.handleInteraction}
 					onBlur={this.onBlur}
 					allowInsertImage={false}
@@ -52,7 +52,7 @@ export default React.createClass({
 
 
 	getValue () {
-		let ref = this.refs.input;
+		let ref = this.input;
 		let value = ref && ref.getValue();
 
 		if (Array.isArray(value) && Editor.isEmpty(value.join(''))) {

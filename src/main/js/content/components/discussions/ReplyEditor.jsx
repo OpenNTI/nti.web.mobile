@@ -50,7 +50,7 @@ export default React.createClass({
 
 
 	onChange () {
-		let value = this.refs.editor.getValue();
+		let value = this.editor.getValue();
 		this.setState({value});
 	},
 
@@ -66,7 +66,7 @@ export default React.createClass({
 
 		const {item, replyTo, onSubmitted} = this.props;
 		const {context} = this.state;
-		const body = getBody(this.refs.editor.getValue());
+		const body = getBody(this.editor.getValue());
 
 		if ((!replyTo && !item) || !context || Editor.isEmpty(body)) {
 			return;
@@ -99,7 +99,7 @@ export default React.createClass({
 
 		return (
 			<div className={cx('discussion-reply-editor editor', {busy})}>
-				<Editor ref="editor" value={value} onChange={this.onChange} onBlur={this.onChange}>
+				<Editor ref={x => this.editor = x} value={value} onChange={this.onChange} onBlur={this.onChange}>
 					<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
 					<button onClick={this.onSubmit} className={cx('save', {disabled})}>{t('BUTTONS.save')}</button>
 				</Editor>

@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import {mimeTypes, TOPIC, POST} from '../../Constants';
 import Store from '../../Store';

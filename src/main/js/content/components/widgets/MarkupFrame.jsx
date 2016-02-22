@@ -30,7 +30,7 @@ export default React.createClass({
 
 
 	onZoom () {
-		let {refs: {image}} = this;
+		const {image} = this;
 		if(image && image.src) {
 			this.setState({
 				zoomed: true
@@ -47,7 +47,7 @@ export default React.createClass({
 
 
 	onLoad () {
-		const {refs: {image: i}} = this;
+		const {image: i} = this;
 		if (i) {
 			let w = i.naturalWidth || i.width;
 			if (w > i.offsetWidth) {//image width vs on-screen width
@@ -79,7 +79,7 @@ export default React.createClass({
 			<span itemProp={itemprop} className={cx('markupframe', {bare})}>
 
 				<span className="wrapper">
-					<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref="image" onLoad={this.onLoad}/>
+					<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref={x => this.image = x} onLoad={this.onLoad}/>
 					{!zoomable ? null : (
 						<a title="Zoom"
 						className="zoom icon-search"

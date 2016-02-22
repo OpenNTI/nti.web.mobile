@@ -27,8 +27,6 @@ import {
 const logger = Logger.get('enrollment:five-minute:components:FiveMinuteEnrollmentForm');
 const t = scoped('ENROLLMENT.forms.fiveminute');
 
-let ROOT_FORM_REF = 'rootForm';
-
 export default React.createClass({
 	displayName: 'FiveMinuteEnrollmentForm',
 
@@ -154,7 +152,7 @@ export default React.createClass({
 
 	isValid () {
 		let errors = [];
-		let fields = this.refs[ROOT_FORM_REF].getVisibleFields();
+		let fields = this.formPanel.getVisibleFields();
 		let values = FieldValuesStore.getValues();
 		fields.forEach(field => {
 			let value = values[field.ref];
@@ -195,7 +193,7 @@ export default React.createClass({
 						<FormErrors errors={errors} />
 						<RelatedFormPanel
 							inputFocus={this.inputFocused}
-							ref={ROOT_FORM_REF}
+							ref={x => this.formPanel = x}
 							title={title}
 							formConfig={_formConfig}
 							errorFieldRefs={errorRefs}

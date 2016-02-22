@@ -50,7 +50,7 @@ export default React.createClass({
 	},
 
 	nav () {
-		this.refs.router.navigate(...arguments);
+		this.router.navigate(...arguments);
 	},
 
 	componentWillMount () {
@@ -62,7 +62,7 @@ export default React.createClass({
 	},
 
 	storeChange (event) {
-		const {router} = this.refs;
+		const {router} = this;
 
 		if (!router && this.isMounted()) {
 			return setTimeout(()=> this.storeChange(event), 100);
@@ -110,12 +110,11 @@ export default React.createClass({
 
 
 	render () {
-
-		let giftDoneLink = this.getBasePath() + 'catalog/';
-		let courseTitle = (this.props.purchasable || {}).title || '';
+		const giftDoneLink = this.getBasePath() + 'catalog/';
+		const courseTitle = (this.props.purchasable || {}).title || '';
 
 		return (
-			<Locations contextual ref="router">
+			<Locations contextual ref={x => this.router = x}>
 				<Location path="/confirm/"
 					handler={PaymentConfirm}
 					{...this.props}

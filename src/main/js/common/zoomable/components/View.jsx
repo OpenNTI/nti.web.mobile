@@ -64,7 +64,7 @@ export default React.createClass({
 	},
 
 	constrainOffsets (offset = this.state.translate) {
-		const {refs: {container, img}} = this;
+		const {container, img} = this;
 		let containerRect = container.getBoundingClientRect();
 		let imgRect = img.getBoundingClientRect();
 
@@ -133,12 +133,12 @@ export default React.createClass({
 
 		return (
 				<div className="zoomable"
-					ref="container"
+					ref={x => this.container = x}
 					onTouchStart={this.touchStart}
 					onTouchMove={this.touchMove}
 					onTouchEnd={this.touchEnd}
 				>
-					<img src={src} style={style} ref="img" className="zoomable-img" />
+					<img src={src} style={style} ref={x => this.img = x} className="zoomable-img" />
 					<button className="zoomable-close" onClick={this.close}></button>
 				</div>
 		);

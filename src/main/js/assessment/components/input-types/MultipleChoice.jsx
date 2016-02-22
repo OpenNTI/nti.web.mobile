@@ -36,7 +36,7 @@ export default React.createClass({
 		let solution = submitted && this.getSolution();
 
 		return (
-			<form className="multiple-choice" ref="form" onSubmit={stopEvent}>
+			<form className="multiple-choice" ref={x => this.form = x} onSubmit={stopEvent}>
 				{choices.map((x, i) => {
 					return this.renderChoice(x, i, solution);
 				})}
@@ -87,7 +87,7 @@ export default React.createClass({
 
 
 	getValue () {
-		const {form} = this.refs;
+		const {form} = this;
 		let inputs = form && Array.from(form.elements);
 		let values = form && inputs
 							.map(valueIfChecked)

@@ -26,7 +26,7 @@ export default React.createClass({
 
 	clearFilter () {
 		this.setState({filter: undefined}, ()=> {
-			const {refs: {fitlter: target}} = this;
+			const {fitlter: target} = this;
 			target.focus();
 			this.updateFilter({target: {value: ''}});
 		});
@@ -50,7 +50,7 @@ export default React.createClass({
 				<input type="text"
 					defaultValue={this.props.defaultValue}
 					onChange={this.updateFilter}
-					ref="filter"
+					ref={x => this.filter = x}
 					required
 					value={value}
 					/>

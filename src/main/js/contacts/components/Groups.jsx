@@ -33,7 +33,7 @@ export default React.createClass({
 	},
 
 	addGroup () {
-		const {refs: {creationfield}, state: {store}} = this;
+		const {creationfield, state: {store}} = this;
 		if (!store) {
 			return;
 		}
@@ -61,7 +61,7 @@ export default React.createClass({
 	creationField () {
 		return (
 			<div className="inline-creation-form">
-				<input type="text" ref="creationfield" placeholder={t('newGroupPlaceholder')}/>
+				<input type="text" ref={x => this.creationfield = x} placeholder={t('newGroupPlaceholder')}/>
 				<button className="tiny add-button" onClick={this.addGroup}>Add</button>
 			</div>
 		);

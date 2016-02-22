@@ -1,5 +1,3 @@
-
-
 module.exports = {
 	groupTitles: {
 		Section: 'My Section',

@@ -82,7 +82,7 @@ export default React.createClass({
 	},
 
 	focus () {
-		this.refs.query.focus();
+		this.query.focus();
 	},
 
 	selectionChange (user) {
@@ -234,7 +234,7 @@ export default React.createClass({
 					<li key="input-field" className="input-field">
 						<input type="text"
 							className="search-input"
-							ref="query"
+							ref={x => this.query = x}
 							onChange={this.queryChanged}
 							onKeyDown={this.onKeyDown}
 							placeholder={placeholder}

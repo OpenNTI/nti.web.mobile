@@ -36,7 +36,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<form ref="form" className="fill-in-the-blank" onSubmit={stopEvent}>
+			<form ref={x => this.form = x} className="fill-in-the-blank" onSubmit={stopEvent}>
 				<Content
 					content={this.props.item.input}
 					strategies={strategies}
@@ -61,7 +61,7 @@ export default React.createClass({
 
 
 	getValue () {
-		let {form} = this.refs;
+		let {form} = this;
 		if (!form || !this.isMounted()) { return; }
 
 		let values = null;

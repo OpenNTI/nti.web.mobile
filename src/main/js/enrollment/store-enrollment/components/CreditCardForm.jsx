@@ -33,6 +33,7 @@ export default React.createClass({
 
 
 	componentWillMount () {
+		this.elements = {};
 		this.setState({loading: true});
 	},
 
@@ -44,7 +45,7 @@ export default React.createClass({
 
 
 	componentDidUpdate (_, prevState) {
-		const {state: {loading}, refs: {cvc, exp, number}} = this;
+		const {state: {loading}, elements: {cvc, exp, number}} = this;
 		if (loading !== prevState.loading && typeof jQuery !== 'undefined') {
 			jQuery(number).payment('formatCardNumber');
 			jQuery(exp).payment('formatCardExpiry');
@@ -54,7 +55,7 @@ export default React.createClass({
 
 
 	getValue () {
-		const {cvc: cvcEl, exp: expEl, number: numberEl, name: nameEl} = this.refs;
+		const {cvc: cvcEl, exp: expEl, number: numberEl, name: nameEl} = this.elements;
 		const getValue = x => x && x.value && x.value.trim();
 
 		const {month, year} =
@@ -163,7 +164,7 @@ export default React.createClass({
 			<fieldset className={cx('credit-card-form', className)}>
 				<legend>Credit Card</legend>
 				<div className="name">
-					<input name="name" ref="name"
+					<input name="name" ref={x => this.elements.name = x}
 						placeholder={t('name')}
 						className={cx('required', {error: errors.name})}
 						type="text"
@@ -175,7 +176,7 @@ export default React.createClass({
 				</div>
 				<div>
 					<span className="number" >
-						<input name="number" ref="number"
+						<input name="number" ref={x => this.elements.number = x}
 							placeholder={t('number')}
 							className={cx('required', {error: errors.number})}
 							type="text"
@@ -186,7 +187,7 @@ export default React.createClass({
 							/>
 					</span>
 					<span className="exp" >
-						<input name="exp" ref="exp"
+						<input name="exp" ref={x => this.elements.exp = x}
 							placeholder={t('exp_')}
 							className={cx('required', {error: errors.exp})}
 							type="text"
@@ -198,7 +199,7 @@ export default React.createClass({
 							/>
 					</span>
 					<span className="cvc" >
-						<input name="cvc" ref="cvc"
+						<input name="cvc" ref={x => this.elements.cvc = x}
 							placeholder={t('cvc')}
 							className={cx('required', {error: errors.cvc})}
 							type="text"

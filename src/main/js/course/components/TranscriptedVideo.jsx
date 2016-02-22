@@ -50,7 +50,7 @@ class Annotation {
 		let {applicableRange} = item;
 		let start = getStart(applicableRange);
 
-		root = root.refs.transcript;
+		root = root.transcript;
 
 		if (!root) {
 			return RETRY_AFTER_DOM_SETTLES;
@@ -326,7 +326,7 @@ export default React.createClass({
 
 
 	onJumpTo  (time) {
-		const {video} = this.refs;
+		const {video} = this;
 		if (video) {
 			video.setCurrentTime(parseFloat(time));
 			// the video may not jump to exactly the time we specify.
@@ -346,7 +346,7 @@ export default React.createClass({
 
 
 	redrawGutter () {
-		const {gutter} = this.refs;
+		const {gutter} = this;
 		if (gutter) {
 			gutter.handleResize();
 		}
@@ -375,7 +375,7 @@ export default React.createClass({
 			<div className="transcripted-video">
 				<DarkMode/>
 				{!video ? None : (
-				<Video ref="video"
+				<Video ref={x => this.video = x}
 						src={video}
 						onTimeUpdate={this.onVideoTimeTick}
 						newWatchEventFactory={this.onNewWatchEventFactory}
@@ -387,7 +387,7 @@ export default React.createClass({
 							Transcript not available
 						</div>
 					) : (
-						<Transcript ref="transcript"
+						<Transcript ref={x => this.transcript = x}
 							onSlideLoaded={this.redrawGutter}
 							onJumpTo={this.onJumpTo}
 							currentTime={currentTime}
@@ -396,7 +396,7 @@ export default React.createClass({
 							slides={slides}
 							/>
 					)}
-					<Gutter ref="gutter" items={annotations} selectFilter={this.setDiscussionFilter} prefix={videoId}/>
+					<Gutter ref={x => this.gutter = x} items={annotations} selectFilter={this.setDiscussionFilter} prefix={videoId}/>
 				</div>
 
 			</div>

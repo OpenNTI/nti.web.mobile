@@ -122,7 +122,7 @@ export default React.createClass({
 
 
 	maybeCloseDrawer (e) {
-		const {state: {focused}, refs: {el, entry}, props: {onBlur}} = this;
+		const {state: {focused}, el, entry, props: {onBlur}} = this;
 
 		if (!focused || !el) {
 			return;
@@ -155,8 +155,7 @@ export default React.createClass({
 
 
 	getSearchBoxEl () {
-		let {refs: {search}} = this;
-		return search;
+		return this.search;
 	},
 
 
@@ -172,7 +171,7 @@ export default React.createClass({
 
 
 	onListScroll () {
-		const {refs: {scroller}} = this;
+		const {scroller} = this;
 		const search = this.getSearchBoxEl();
 		if (search) {
 			search.blur();
@@ -263,16 +262,16 @@ export default React.createClass({
 
 
 		return (
-			<div ref="el" className={cx('share-with', {'active': focused})}>
+			<div ref={x => this.el = x} className={cx('share-with', {'active': focused})}>
 
-				<div ref="entry" className="share-with-entry" onClick={this.onFocus}>
+				<div ref={x => this.entry = x} className="share-with-entry" onClick={this.onFocus}>
 					{selection.getItems().map(e =>
 						<ShareTarget key={e.getID ? e.getID() : e} entity={e}
 							selected={pendingRemove === e}
 							onClick={()=>this.onTokenTap(e)}/>
 					)}
 					<span className="input-field" data-value={search}>
-						<input type="text" ref="search" value={search} placeholder={placeholder}
+						<input type="text" ref={x => this.search = x} value={search} placeholder={placeholder}
 							onBlur={this.onInputBlur}
 							onFocus={this.onInputFocus}
 							onChange={this.onInputChange}
@@ -284,7 +283,7 @@ export default React.createClass({
 				{focused && search ? (
 
 					<div className="search-results">
-						<div ref="scroller"
+						<div ref={x => this.scroller = x}
 							onTouchStart={this.onListScroll}
 							onScroll={this.onListScroll}
 							className={cx('scroller', 'visible', {'restrict': inputFocused})}>
@@ -304,7 +303,7 @@ export default React.createClass({
 						<Loading />
 					) : (
 
-						<div ref="scroller"
+						<div ref={x => this.scroller = x}
 							onTouchStart={this.onListScroll}
 							onScroll={this.onListScroll}
 							className={cx('scroller', 'visible', {'restrict': inputFocused})}>

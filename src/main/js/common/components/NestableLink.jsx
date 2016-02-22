@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 
 /*
@@ -11,9 +12,7 @@ export default React.createClass({
 	onClick (e) {
 		e.preventDefault();
 		e.stopPropagation();
-		let {link} = this.refs;
-		link = React.findDOMNode(link);
-
+		const link = ReactDOM.findDOMNode(this.link);
 		const href = link.getAttribute('href');
 		const target = link.getAttribute('target');
 
@@ -28,7 +27,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<span ref="link" {...this.props} onClick={this.onClick}/>
+			<span ref={x => this.link = x} {...this.props} onClick={this.onClick}/>
 		);
 	}
 });

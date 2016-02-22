@@ -44,7 +44,7 @@ export default React.createClass({
 
 
 	componentDidMount () {
-		const {refs: {canvas}} = this;
+		const {canvas} = this;
 		let context = canvas.getContext('2d');
 
 		canvas.width = this.props.width * this.props.pixelDensity;
@@ -103,7 +103,7 @@ export default React.createClass({
 		};
 
 		return (
-			<canvas ref="canvas" {...this.props} className="grade" style={style} width={width} height={height} />
+			<canvas ref={x => this.canvas = x} {...this.props} className="grade" style={style} width={width} height={height} />
 		);
 	},
 

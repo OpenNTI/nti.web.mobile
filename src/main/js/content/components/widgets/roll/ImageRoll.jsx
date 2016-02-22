@@ -166,7 +166,7 @@ export default React.createClass({
 		return (
 			<div className="media-roll image-roll">
 				<label>{title}</label>
-				<div ref="stage" className={stageClasses} {...handlers}>
+				<div ref={x => this.stage = x} className={stageClasses} {...handlers}>
 
 					{empty ? (
 
@@ -174,7 +174,7 @@ export default React.createClass({
 
 					) : (
 
-						<div ref="current" className="item image current" style={style}>
+						<div ref={x => this.current = x} className="item image current" style={style}>
 							<img src={current.src} alt={current.alt} title={current.title} />
 
 							{allowZoom && ( <a href="#zoom" className="zoom fi-magnifying-glass" onClick={this.onZoom}/> )}
@@ -212,7 +212,7 @@ export default React.createClass({
 
 		return (
 			<li className={cx('thumbnail', {active})}
-				ref={'thumbnail' + index}
+				ref={x=> this['thumbnail' + index] = x}
 				data-index={index}
 				style={thumb}>
 				<a href="#" onClick={this.onThumbnailClick} title="thumbnail"><div className="icon fi-eye"/></a>

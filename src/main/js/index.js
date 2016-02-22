@@ -53,10 +53,6 @@ global.onbeforeunload = () => APP.setState({mask: 'Reloading...'});
 
 
 
-
-
-
-
 /**
  * Login Store State Change listener.
  * This is only responsible for reloading the APP on the home url once logged in.

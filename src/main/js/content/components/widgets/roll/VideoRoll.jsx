@@ -155,7 +155,7 @@ export default React.createClass({
 		e.preventDefault();
 		e.stopPropagation();
 
-		let {video} = this.refs;
+		let {video} = this;
 		if (video) {
 			video.play();
 			this.setState({playing: true});
@@ -164,7 +164,7 @@ export default React.createClass({
 
 
 	stop () {
-		let {video} = this.refs;
+		let {video} = this;
 		if (video) {
 			video.stop();
 		}
@@ -211,7 +211,7 @@ export default React.createClass({
 		return (
 			<div className="media-roll video-roll">
 				<label>{title}</label>
-				<div ref="stage" className={stageClasses}>
+				<div ref={x => this.stage = x} className={stageClasses}>
 
 					{ loading ? (
 
@@ -227,10 +227,10 @@ export default React.createClass({
 
 					) : (
 
-						<div ref="current" className="item video current content-video" style={style}>
+						<div ref={x => this.current = x} className="item video current content-video" style={style}>
 
 							{!video ? null :
-								<Video ref="video" src={video}
+								<Video ref={x => this.video = x} src={video}
 									onEnded={this.onStop}
 									onPlaying={this.onPlay}
 									context={this.state.context}
@@ -282,7 +282,7 @@ export default React.createClass({
 
 		return (
 			<li className={cx('thumbnail video', {active})}
-				ref={'thumbnail' + index}
+				ref={x=> this['thumbnail' + index] = x}
 				data-index={index}
 				style={thumb}>
 				<a href="#" onClick={this.onThumbnailClick} title="thumbnail"><div className="icon fi-play-circle"/></a>
