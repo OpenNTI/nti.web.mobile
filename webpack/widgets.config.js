@@ -2,6 +2,7 @@
 var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
+var autoprefixer = require('autoprefixer');
 
 var CompressionPlugin = require('compression-webpack-plugin');
 
@@ -79,9 +80,13 @@ function includeWidgets () {
 
 			module: {
 				loaders: baseConfig.module.loaders.filter(css).concat([
-					{ test: /\.(s?)css$/, loader: 'style!css?-minimize!autoprefixer!sass' }
+					{ test: /\.(s?)css$/, loader: 'style!css?-minimize!postcss!sass' }
 				])
-			}
+			},
+
+			postcss: [
+				autoprefixer({ browsers: ['> 1%', 'last 2 versions'] })
+			]
 
 		});
 
