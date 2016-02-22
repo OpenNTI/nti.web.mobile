@@ -4,6 +4,7 @@
 var publicPath = '/mobile/';
 var outPath = './stage/';
 
+var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
@@ -73,11 +74,15 @@ exports = module.exports = [
 
 				{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
 					'style-loader',
-					'css?sourceMap&-minimize!autoprefixer!resolve-url!sass?sourceMap'
+					'css?sourceMap&-minimize!postcss-loader!resolve-url!sass?sourceMap'
 					)
 				}
 			]
 		},
+
+		postcss: [
+			autoprefixer({ browsers: ['> 1%', 'last 2 versions'] })
+		],
 
 
 		sassLoader: {
