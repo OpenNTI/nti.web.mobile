@@ -74,7 +74,7 @@ exports = module.exports = [
 
 				{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
 					'style-loader',
-					'css?sourceMap&-minimize!postcss-loader!resolve-url!sass?sourceMap'
+					'css?sourceMap&-minimize!postcss!resolve-url!sass?sourceMap'
 					)
 				}
 			]
