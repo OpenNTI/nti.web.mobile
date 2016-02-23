@@ -1,5 +1,5 @@
 import Idle from 'common/utils/idle';
-import {analyticsConfig} from 'common/utils';
+
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EVENT_STARTED, EVENT_ENDED} from './Constants';
 import {WATCH_VIDEO} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
@@ -12,8 +12,7 @@ let suspensionEventTypes = new Set([WATCH_VIDEO]);
 // end/resume analytics sesssion when user is idle/becomes active.
 export function startIdleTimer (idleFn, activeFn) {
 	if (idleTimeMs == null) {
-		let analytics = analyticsConfig();
-		idleTimeMs = (analytics.idleTimeoutSeconds || 1800) * 1000;//default to 30min
+		idleTimeMs = 1800000;//default to 30min
 	}
 
 	// console.debug('startIdleTimer');
