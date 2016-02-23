@@ -15,7 +15,6 @@ You'll need to have the following items installed before continuing.
           ```
           nvm alias default 0.12.7
           ```
-  * [Grunt](http://gruntjs.com): Run `npm install -g grunt-cli`
   * [Karma](http://karma-runner.github.io): Run `npm install -g karma-cli`
 
 Optional:
