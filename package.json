@@ -21,9 +21,6 @@
     "build": "make"
   },
   "main": "./dist/server/index.js",
-  "bin": {
-    "webapp-instance": "./dist/server/index.js"
-  },
   "dependencies": {
     "autoprefixer": "^6.3.3",
     "babel-core": "^6.1.0",
