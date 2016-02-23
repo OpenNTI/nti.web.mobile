@@ -26,10 +26,15 @@
 		}
 	}
 
-	img.default {
+	.icon {
+		background-size: cover;
+		background-position: center center;
 		width: 230px;
 		height: 115px;
-		background-image: url('./assets/discussion-icon.png');
+
+		&.default {
+			background-image: url('./assets/discussion-icon.png');
+		}
 	}
 
 	&.unavailable {

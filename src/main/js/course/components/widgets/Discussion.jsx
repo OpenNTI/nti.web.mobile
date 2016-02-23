@@ -5,7 +5,6 @@ import cx from 'classnames';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {getService} from 'common/utils';
-import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import LoadingMask from 'common/components/Loading';
@@ -144,11 +143,13 @@ export default React.createClass({
 
 		const disabled = this.state.disabled ? 'unavailable' : '';
 
+		const img = icon ? {backgroundImage: `url(${icon})`} : null;
+
 		return (
 			<LoadingMask loading={this.state.loading}
 				tag="a" href={this.state.href}
 				className={'overview-discussion ' + disabled}>
-				<img src={icon || BLANK_IMAGE} className={cx({'default': !icon})}></img>
+				<div style={img} className={cx('icon', {'default': !icon})} />
 				<div className="wrap">
 					<div className="title">{title}</div>
 					<div className="comments">{this.state.count + this.state.commentType}</div>
