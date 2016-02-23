@@ -6,14 +6,14 @@ You'll need to have the following items installed before continuing.
 
   * [Node.js](http://nodejs.org):
     * Use [nvm](https://github.com/creationix/nvm) to install NodeJS.
-        * `nvm install v0.12.7`
+        * `nvm install v5.5.0`
         * Setup default node:
           ```bash
-          echo v0.12.7 > ~/.nvmrc
+          echo v5.5.0 > ~/.nvmrc
           ```
           or
           ```
-          nvm alias default 0.12.7
+          nvm alias default 5.5.0
           ```
   * [Karma](http://karma-runner.github.io): Run `npm install -g karma-cli`
 
