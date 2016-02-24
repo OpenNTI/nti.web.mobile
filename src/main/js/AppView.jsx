@@ -1,3 +1,4 @@
+/*globals BUILD_SOURCE*/
 import React from 'react';
 import CaptureClicks from 'react-router-component/lib/CaptureClicks';
 
@@ -11,6 +12,8 @@ import Loading from 'common/components/Loading';
 import Navigatable from 'common/mixins/NavigatableMixin';
 
 import AppContainer from './AppFrame';
+
+export const revision = typeof BUILD_SOURCE === 'undefined' ? 'nah' : BUILD_SOURCE;
 
 export default React.createClass({
 	displayName: 'App',

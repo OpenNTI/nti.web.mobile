@@ -157,14 +157,14 @@ exports = module.exports = [
 	{
 		// The configuration for the server-side rendering
 		name: 'server-side rendering',
-		entry: './src/server/lib/page.js',
+		entry: './src/main/js/AppView.js',
 		target: 'node',
 		output: {
-			path: outPath + 'server/node_modules/page.generated/',
+			path: outPath + 'server/node_modules/app-renderer/',
 			filename: 'index.js',
 			chunkFilename: 'chunk-[id].js',
 			publicPath: publicPath,
-			library: 'page.generated',
+			library: 'app-renderer',
 			libraryTarget: 'commonjs2'
 		},
 		resolve: {

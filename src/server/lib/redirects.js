@@ -1,6 +1,8 @@
-import {encodeForURI} from 'nti-lib-ntiids';
-import logger from './logger';
-import path from 'path';
+/*eslint strict:0*/
+'use strict';
+const path = require('path');
+const encodeForURI = require('nti-lib-ntiids').encodeForURI;
+const logger = require('./logger');
 
 const SEGMENT_HANDLERS = {
 
@@ -20,7 +22,7 @@ const HANDLERS = {
 };
 
 
-export default {
+exports = module.exports = {
 
 	register (express, config) {
 		this.basepath = config.basepath;

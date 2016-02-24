@@ -1,58 +1,40 @@
-/*eslint no-var: 0 strict: 0*/
+/*eslint strict:0*/
 'use strict';
-require('./lib/babel-hook');
+const fs = require('fs');
+const path = require('path');
 
-global.SERVER = true;
+const devmode = require('./lib/devmode');
+const page = require('./lib/page');
 
-var http = require('http');
-var proxiedHttp = require('findhit-proxywrap').proxy(http);
-
-var express = require('express');
-var common = require('./lib/common');
-var server = require('./lib/app-server');
-
-var logger = require('./lib/logger').default;
-var setupErrorHandler = require('./lib/error-handler').default;
-
-function contextualize (root, app) {
-	var contextWapper = express();
-	contextWapper.use(root, app);
-	contextWapper.all('/', function (_, res) { res.redirect(root); });
-	return contextWapper;
+function exists (f) {
+	try {
+		return fs.accessSync(f);
+	} catch (e) {
+		return false;
+	}
 }
 
-common.loadConfig()
-	.then(function (config) {
-		common.showFlags(config);
-		logger.info('Source (revision): %s', config.revision);
+const distAssets = path.resolve(__dirname, '../client');
+const srcAssets = path.resolve(__dirname, '../main');
 
-		var protocol = config.protocol === 'proxy' ? proxiedHttp : http;
-		var address = config.address || '0.0.0.0';
-		var port = config.port || 9000;
+const assets = exists(distAssets) ? distAssets : srcAssets;
 
-		//WWW Server
-		var app = express();
+exports = module.exports = {
 
-		port = server.setupApplication(app, config);
+	register (expressApp, config) {
 
-		//Errors
-		setupErrorHandler(app, config);
+		const pageRenderer = page.getPage();
 
-		//re-root the app to /mobile/
-		if (config.basepath && config.basepath !== '') {
-			app = contextualize(config.basepath, app);
-		}
+		return {
+			devmode: (srcAssets === assets) ? devmode.setupDeveloperMode(config) : null,
 
-		app.set('trust proxy', 1); // trust first proxy
+			assets,
 
-		//Go!
-		protocol.createServer(app).listen(port, address, function () {
-			logger.info('Listening on port %d', port);
-		});
+			render (base, req, clientConfig) {
+				return pageRenderer(base, req, clientConfig);
+			}
+		};
 
-	}, function (error) { logger.error('Failed to load config: ', error); })
+	}
 
-	.catch(function (error) {
-		logger.error('Failed to start: ', error);
-		process.kill();//just in case dev server is already up.
-	});
+};

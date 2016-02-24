@@ -1,19 +1,8 @@
-import morgan from 'morgan';
-import responseTime from 'response-time';
-import cookieParser from 'cookie-parser';
+const Logger = require('nti-util-logger').default;
 
-import Logger from 'nti-util-logger';
+const logger = Logger.get('server-side:mobile');
 
-const logger = Logger.get('NodeService');
-
-export default Object.assign(morgan, {
-
-	attachToExpress: expressApp => {
-		expressApp.use(responseTime());
-		expressApp.use(cookieParser());
-		expressApp.use(morgan('- - [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'));
-	},
-
+module.exports = {
 
 	info () {
 		logger.info(...arguments);
@@ -34,4 +23,4 @@ export default Object.assign(morgan, {
 		logger.debug(...arguments);
 	}
 
-});
+};
