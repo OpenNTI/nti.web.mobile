@@ -21,7 +21,7 @@ CC=webpack --progress --cache --bail --config
 
 export NODE_ENV="production"
 
-all: build-all
+all: clean build-app
 
 
 setup:
