@@ -112,6 +112,8 @@ export default React.createClass({
 			pageSource: new PageSource(items)});
 	},
 
+	attachRef (ref) { this.router = ref; },
+
 	render () {
 		const {store, items, loading, pageSource} = this.state;
 		const props = Object.assign({}, this.props, { store, pageSource });
@@ -119,7 +121,7 @@ export default React.createClass({
 		return (!store || loading) ? (
 			<Loading/>
 		) : (
-			<Locations contextual ref={x => this.router = x}>
+			<Locations contextual ref={this.attachRef}>
 				<Location path="/:itemId/edit(/*)" handler={View} {...props} edit/>
 				<Location path="/:itemId(/*)" handler={View} {...props}/>
 

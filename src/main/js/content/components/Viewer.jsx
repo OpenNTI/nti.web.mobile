@@ -223,6 +223,11 @@ export default React.createClass({
 	},
 
 
+	attachContentRef (ref) {
+		this.content = ref;
+	},
+
+
 	verifyContentPackage (pageInfo) {
 		let {contentPackage} = this.props;
 		let packageId = pageInfo.getPackageID();
@@ -303,7 +308,7 @@ export default React.createClass({
 						<div className="content-body">
 							{this.renderAssessmentHeader()}
 							<div className="coordinate-root">
-								<BodyContent ref={x => this.content = x}
+								<BodyContent ref={this.attachContentRef}
 									onClick={this.onContentClick}
 									onUserSelectionChange={this.maybeOfferAnnotations}
 									contentPackage={contentPackage}

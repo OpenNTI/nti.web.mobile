@@ -94,6 +94,11 @@ export default React.createClass({
 	},
 
 
+	attachRef (el) {
+		this.el = el;
+	},
+
+
 	render () {
 		let {busy} = this.state;
 		let {item, onNewDiscussion, onSetHighlight, onRemoveHighlight} = this.props;
@@ -120,7 +125,7 @@ export default React.createClass({
 			// and fallback to onClick so we can read the selection before it goes away.
 
 		return (
-			<div className="add annotation toolbar" ref={el => this.el = el}>
+			<div className="add annotation toolbar" ref={this.attachRef}>
 				{hightlighters}
 
 				<C tag="button" condition={!!onRemoveHighlight}

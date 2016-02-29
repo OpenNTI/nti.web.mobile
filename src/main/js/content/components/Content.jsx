@@ -178,6 +178,11 @@ export default React.createClass({
 	},
 
 
+	attachContentRef (ref) {
+		this.content = ref;
+	},
+
+
 	render () {
 		let {pageId, page} = this.props;
 		let body = page.getBodyParts();
@@ -193,7 +198,7 @@ export default React.createClass({
 					<style scoped type="text/css" key={i} dangerouslySetInnerHTML={{__html: css}}/>
 				)}
 				{
-				// <nti:content ref={x => this.content = x}
+				// <nti:content ref={this.attachContentRef}
 				// 	id="NTIContent"
 				// 	className="nti-content-panel"
 				// 	data-ntiid={pageId}
@@ -204,7 +209,7 @@ export default React.createClass({
 				// 	Since the above JSX blows up because of the "namespace", do it w/o JSX:
 					React.createElement('nti:content', Object.assign({}, this.props, {
 						id: 'NTIContent',
-						ref: x => this.content = x,
+						ref: this.attachContentRef,
 						className: 'nti-content-panel',
 						'data-ntiid': pageId,
 						'data-page-ntiid': pageId,

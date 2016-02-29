@@ -200,6 +200,10 @@ export default React.createClass({
 	},
 
 
+	attachRef (ref) { this.root = ref; },
+	attachWRef (ref) { this.widget = ref; },
+
+
 	render () {
 		let {error, loading, scoped, fragment, context} = this.state;
 		let {item, className: cls} = this.props;
@@ -214,12 +218,12 @@ export default React.createClass({
 					: ( null )
 				)
 				: (typeof context === 'string')
-					? ( <div ref={x => this.root = x} {...props} dangerouslySetInnerHTML={{__html: context}}/> )
+					? ( <div ref={this.attachRef} {...props} dangerouslySetInnerHTML={{__html: context}}/> )
 					: (
-						<div ref={x => this.root = x} {...props}>
+						<div ref={this.attachRef} {...props}>
 						{
 							React.createElement(context.type,
-								Object.assign({}, context.props, {ref: x => this.widget = x}))
+								Object.assign({}, context.props, {ref: this.attachWRef}))
 						}
 						</div>
 					);
