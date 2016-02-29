@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const devmode = require('./lib/devmode');
+const dev = require('./lib/devmode');
 const page = require('./lib/page');
 
 function exists (f) {
@@ -24,9 +24,14 @@ exports = module.exports = {
 	register (expressApp, config) {
 
 		const pageRenderer = page.getPage();
+		const devmode = (srcAssets === assets) ? dev.setupDeveloperMode(config) : null;
+
+		if (devmode) {
+			expressApp.use(devmode.middleware); //serve in-memory compiled sources/assets
+		}
 
 		return {
-			devmode: (srcAssets === assets) ? devmode.setupDeveloperMode(config) : null,
+			devmode,
 
 			assets,
 
