@@ -289,7 +289,7 @@ export default React.createClass({
 							className={cx('scroller', 'visible', {'restrict': inputFocused})}>
 
 							<h3>Search Results:</h3>
-							<Search allowAny
+							<Search allowAny allowContacts
 								query={trim(search)}
 								selection={selection}
 								onChange={this.onSelectionChange}

@@ -13,6 +13,7 @@ export default React.createClass({
 
 	propTypes: {
 		allowAny: React.PropTypes.bool,
+		allowContacts: React.PropTypes.bool,
 
 		onChange: React.PropTypes.func,
 
@@ -47,12 +48,12 @@ export default React.createClass({
 
 
 	search (query) {
-		const {props: {allowAny}} = this;
+		const {props: {allowAny, allowContacts}} = this;
 		const stillValid = () => this.isMounted() && query === this.props.query;
 
 		this.setState({error: void 0, results: void 0, page: 1}, ()=>
 			getService()
-				.then(s => s.getContacts().search(query, allowAny))
+				.then(s => s.getContacts().search(query, allowAny, allowContacts))
 				.catch(er => (er.statusCode !== -1) ? Promise.reject(er) : [])
 				.then(results => {
 					if (!stillValid()) {
