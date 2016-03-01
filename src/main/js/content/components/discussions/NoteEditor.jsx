@@ -85,7 +85,7 @@ export default React.createClass({
 		}
 
 		const data = {
-			title: Editor.isEmpty(title) ? void 0 : title.trim(),
+			title: Editor.isEmpty(title) ? null : title.trim(),
 			body: body.getValue(),
 			sharedWith: shareWith.getValue()
 		};
