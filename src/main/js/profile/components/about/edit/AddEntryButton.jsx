@@ -16,7 +16,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<button className="add-entry-button tiny" onClick={this.onClick}>Add Entry</button>
+			<a className="add-entry-button button tiny" onClick={this.onClick}>Add Entry</a>
 		);
 	}
 });
