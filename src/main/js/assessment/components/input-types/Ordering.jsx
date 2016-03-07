@@ -62,11 +62,9 @@ export default React.createClass({
 
 
 	onDrop (drop) {
-		let value = Object.assign({}, this.getValue());
-		let valueArray = this.getValueAsArray();
+		let value = this.getValueAsArray();
 		let data = drop || {};
 		let {source, target} = data;
-		let swapFrom;
 
 		if (source) {
 			source = source.props['data-source'];
@@ -81,33 +79,17 @@ export default React.createClass({
 			throw new Error('Illegal State, there must be BOTH a source and a target');
 		}
 
-		swapFrom = valueArray.indexOf(source);
-		if (swapFrom < 0) {
-			logger.error('Nothing to swap');
+		let oldPosition = value.indexOf(source);
+		if (oldPosition < 0) {
 			throw new Error('Illegal State!');
 		}
 
-		logger.debug(`Drop: %s (%s)
-		onto %s (%s),
-		swappingWith: %s (%s)`,
-
-			this.getItemValue(source),
-			source,
-			target,
-			this.getItemLabel(target),
-			swapFrom,
-			this.getItemLabel(swapFrom),
-			value[swapFrom],
-			this.getItemValue(value[swapFrom])
-			);
-
-		value[swapFrom] = value[target];
-
-		value[target] = source;
+		value[oldPosition] = null;
+		value.splice(target, 0, source);
 
 
-
-		this[SetValueRaw](value);
+		const raw = {};
+		this[SetValueRaw](value.filter(x => x !== null).map((v,k) => raw[k] = v));
 	},
 
 
