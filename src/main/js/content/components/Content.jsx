@@ -184,37 +184,37 @@ export default React.createClass({
 
 
 	render () {
-		let {pageId, page} = this.props;
-		let body = page.getBodyParts();
-		let styles = (page && page.getPageStyles()) || [];
+		const {pageId, page} = this.props;
+		const body = page.getBodyParts();
+		const styles = (page && page.getPageStyles()) || [];
 
-		let props = {
+		const wrapperProps = {
 			[isTouchDevice ? 'onTouchEnd' : 'onMouseUp']: this.detectSelection
 		};
 
+		const props = Object.assign({}, this.props, {
+			ref: this.attachContentRef,
+			className: 'nti-content-panel',
+			'data-ntiid': pageId,
+			'data-page-ntiid': pageId
+		});
+
+		const content = {__html: body.map(this.buildBody).join('')};
+
 		return (
-			<div {...props}>
+			<div {...wrapperProps}>
 				{styles.map((css, i) =>
 					<style scoped type="text/css" key={i} dangerouslySetInnerHTML={{__html: css}}/>
 				)}
 				{
-				// <nti:content ref={this.attachContentRef}
-				// 	id="NTIContent"
-				// 	className="nti-content-panel"
-				// 	data-ntiid={pageId}
-				// 	data-page-ntiid={pageId}
-				// 	dangerouslySetInnerHTML={{__html: body.map(this.buildBody).join('')}}
-				// 	/>
+				// <nti:content {...props}>
+				// 	<div id="NTIContent" dangerouslySetInnerHTML={content} />
+				// </nti:content?>
 				//
 				// 	Since the above JSX blows up because of the "namespace", do it w/o JSX:
-					React.createElement('nti:content', Object.assign({}, this.props, {
-						id: 'NTIContent',
-						ref: this.attachContentRef,
-						className: 'nti-content-panel',
-						'data-ntiid': pageId,
-						'data-page-ntiid': pageId,
-						dangerouslySetInnerHTML: {__html: body.map(this.buildBody).join('')}
-					}))
+					React.createElement('nti:content', props,
+						<div id="NTIContent" dangerouslySetInnerHTML={content}/>
+					)
 				}
 			</div>
 		);
