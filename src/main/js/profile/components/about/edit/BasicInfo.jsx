@@ -43,7 +43,7 @@ export default React.createClass({
 
 
 	getInitialState () {
-		return {};
+		return {errors: {}};
 	},
 
 
@@ -81,6 +81,18 @@ export default React.createClass({
 		this.setState({about});
 	},
 
+	validate () {
+		const {schema} = this.props;
+		const errors = {};
+		for(const name of TEXT_FIELDS) {
+			const input = this[name];
+			if (!isReadOnly(schema, name) && isRequired(schema, name) && input && Editor.isEmpty(input.value)) {
+				errors[name] = true;
+			}
+		}
+		this.setState({errors});
+		return Object.keys(errors).length === 0;
+	},
 
 	render () {
 		const {state, props: {schema, error}} = this;
@@ -107,11 +119,12 @@ export default React.createClass({
 							<div>{state[name]}</div>
 						) : (
 							<input type={TYPE_OVERRIDE[name] || 'text'} name={name}
+								ref={r => this[name] = r}
 								value={state[name]}
 								onChange={this.onChange}
 								className={cx({
 									'required': isRequired(schema, name),
-									'error': error && error.field === name
+									'error': error && error.field === name || state.errors[name]
 								})}
 								required={isRequired(schema, name)}
 								/>

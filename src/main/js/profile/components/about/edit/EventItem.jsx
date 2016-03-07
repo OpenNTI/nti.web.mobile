@@ -54,12 +54,29 @@ export default React.createClass({
 	},
 
 	valueChanged (field, newValue) {
+		this.validate(); // refresh error state
 		this.setState({[field]: newValue});
+	},
+
+	validate () {
+		const {props: {fieldNames: [primaryField, secondaryField], schema}} = this;
+		const fields = [primaryField, secondaryField, 'startYear', 'endYear', 'description' ];
+		const errors = {};
+		for(name of fields) {
+			const field = this[name];
+			if (field && isRequired(schema, name) && Editor.isEmpty(field.value)) {
+				errors[name] = true;
+			}
+		}
+		this.setState({
+			errors
+		});
+		return Object.keys(errors).length === 0;
 	},
 
 	render () {
 		const {props: {fieldNames: [primaryField, secondaryField], schema}, state = {}} = this;
-		const {startYear, endYear, description} = state;
+		const {startYear, endYear, description, errors = {}} = state;
 
 		const maxYear = (new Date()).getFullYear();
 
@@ -68,7 +85,8 @@ export default React.createClass({
 				<div>
 					<label>{t(primaryField)}</label>
 					<input type="text" name={primaryField}
-						className={cx({required: isRequired(schema, primaryField)})}
+						ref={c => this[primaryField] = c}
+						className={cx({error: errors[primaryField], required: isRequired(schema, primaryField)})}
 						required={isRequired(schema, primaryField)}
 						value={state[primaryField]} onChange={this.onChange} />
 				</div>
@@ -77,7 +95,8 @@ export default React.createClass({
 					<div>
 						<label>{t(secondaryField)}</label>
 						<input type="text" name={secondaryField}
-							className={cx({required: isRequired(schema, secondaryField)})}
+							ref={c => this[secondaryField] = c}
+							className={cx({error: errors[secondaryField], required: isRequired(schema, secondaryField)})}
 							required={isRequired(schema, secondaryField)}
 							value={state[secondaryField]} onChange={this.onChange} />
 					</div>
@@ -86,7 +105,8 @@ export default React.createClass({
 						<div>
 							<label>Start Year</label>
 							<input type="number" name="startYear"
-								className={cx({required: isRequired(schema, 'startYear')})}
+								ref={c => this.startYear = c}
+								className={cx({error: errors.startYear, required: isRequired(schema, 'startYear')})}
 								required={isRequired(schema, 'startYear')}
 								min="1900" max={maxYear}
 								value={startYear} onChange={this.onChange}/>
@@ -95,7 +115,8 @@ export default React.createClass({
 						<div>
 							<label>End Year</label>
 							<input type="number" name="endYear"
-								className={cx({required: isRequired(schema, 'endYear')})}
+								ref={c => this.endYear = c}
+								className={cx({error: errors.endYear, required: isRequired(schema, 'endYear')})}
 								required={isRequired(schema, 'endYear')}
 								min="1900" max={maxYear}
 								value={endYear} onChange={this.onChange} />

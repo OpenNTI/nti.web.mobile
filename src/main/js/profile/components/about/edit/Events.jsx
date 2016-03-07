@@ -20,6 +20,18 @@ export default React.createClass({
 		fieldNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
 	},
 
+	validate () {
+		const errors = [];
+		const {items = []} = this.state || {};
+		for(let i = 0; i < items.length; i++) {
+			const item = this.refs[`item-${i}`];
+			if (item && item.validate && !item.validate() ) {
+				errors.push(item);
+			}
+		}
+		return errors.length === 0;
+	},
+
 	render () {
 		let {mimeType, fieldNames, field, schema} = this.props;
 		let {items} = this.state || {};

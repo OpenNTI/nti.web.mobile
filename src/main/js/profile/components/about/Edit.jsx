@@ -22,6 +22,7 @@ const EDUCATION = 'application/vnd.nextthought.profile.educationalexperience';
 const PROFESSIONAL = 'application/vnd.nextthought.profile.professionalposition';
 
 const ERROR_REQUIRED_MISSING = 'RequiredMissing';
+const ERROR_VALIDATION = 'ValidationErrors';
 
 export default React.createClass({
 	displayName: 'Edit',
@@ -82,9 +83,29 @@ export default React.createClass({
 			.then(schema => this.setState({editObject, loading: false, schema}));
 	},
 
+	validate () {
+		let result = true;
+		const parts = [this.about, this.education, this.positions, this.interests].filter(x => x);
+		for (let part of parts) {
+			if (part.validate && !part.validate()) {
+				result = false;
+			}
+		}
+		return result;
+	},
 
 	save (e) {
 		e.preventDefault();
+
+		if (!this.validate()) {
+			this.setState({
+				error: {
+					code: ERROR_VALIDATION,
+					message: 'Please correct the errors above.'
+				}
+			});
+			return;
+		}
 
 		const values = {};
 		const parts = [this.about, this.education, this.positions, this.interests].filter(x => x);
