@@ -88,12 +88,12 @@ export default React.createClass({
 		let isMounted = this.isMounted();
 		let lines = {};
 		let shouldRetry = false;
-		let {resolveRetyDelay} = this.state;
+		let {resolveRetryDelay} = this.state;
 
 
-		if (resolveRetyDelay != null) {
-			clearTimeout(resolveRetyDelay);
-			resolveRetyDelay = void 0;
+		if (resolveRetryDelay != null) {
+			clearTimeout(resolveRetryDelay);
+			resolveRetryDelay = void 0;
 		}
 
 		if (!items || !isMounted) { return; }
@@ -116,11 +116,11 @@ export default React.createClass({
 		}
 
 		if (shouldRetry && isMounted) {
-			resolveRetyDelay = setTimeout(()=> this.resolveBins(items), 200);
+			resolveRetryDelay = setTimeout(()=> this.resolveBins(items), 200);
 			lines = {};
 		}
 
-		this.setState({lines, resolveRetyDelay});
+		this.setState({lines, resolveRetryDelay});
 	},
 
 
