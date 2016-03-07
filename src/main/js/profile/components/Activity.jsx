@@ -102,7 +102,7 @@ export default React.createClass({
 	more () {
 		let {store} = this.state;
 
-		if (!store.loading) {
+		if (!store.loading && store.more) {
 			store.nextBatch();
 		}
 	},
