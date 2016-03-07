@@ -51,7 +51,9 @@ export default React.createClass({
 
 
 	componentWillReceiveProps (nextProps) {
-		this.resolveBins(nextProps.items);
+		if(nextProps.items !== this.props.items) {
+			this.resolveBins(nextProps.items);
+		}
 	},
 
 
