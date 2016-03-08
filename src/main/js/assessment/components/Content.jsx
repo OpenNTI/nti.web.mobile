@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import {processContent} from 'content/utils';
 
-import isFunction from 'nti-lib-interfaces/lib/utils/isfunction';
+import isFunction from 'is-function';
 import htmlToReact from 'nti-lib-interfaces/lib/utils/html-to-react';
 
 /**

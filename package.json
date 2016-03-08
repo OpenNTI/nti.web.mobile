@@ -105,6 +105,7 @@
     "zpad": "^0.5.0"
   },
   "devDependencies": {
+    "is-function": "^1.0.1",
     "isparta-instrumenter-loader": "^1.0.0",
     "jasmine-core": "^2.2.0",
     "karma": "^0.13.0",

@@ -1,6 +1,6 @@
 import {EventEmitter} from 'events';
 import {CHANGE_EVENT} from 'common/constants/Events';
-// import isFunction from 'nti-lib-interfaces/lib/utils/isfunction';
+// import isFunction from 'is-function';
 import * as Constants from './Constants';
 
 // store field values outside of component state
