@@ -5,7 +5,7 @@ import cx from 'classnames';
 import {processContent} from 'content/utils';
 
 import isFunction from 'is-function';
-import htmlToReact from 'nti-lib-interfaces/lib/utils/html-to-react';
+import htmlToReact from 'html-reactifier';
 
 /**
  * Common component to render question and part content alike.
