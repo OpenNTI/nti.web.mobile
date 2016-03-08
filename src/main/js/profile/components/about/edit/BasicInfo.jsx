@@ -84,7 +84,7 @@ export default React.createClass({
 	validate () {
 		const {schema} = this.props;
 		const errors = {};
-		for(const name of TEXT_FIELDS) {
+		for(let name of TEXT_FIELDS) {
 			const input = this[name];
 			if (!isReadOnly(schema, name) && isRequired(schema, name) && input && Editor.isEmpty(input.value)) {
 				errors[name] = true;
