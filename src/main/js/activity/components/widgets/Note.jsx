@@ -6,6 +6,7 @@ import {isFlag} from 'common/utils';
 import Detail from 'content/components/discussions/Detail';
 import Context from 'content/components/discussions/Context';
 
+import RecentReplies from './RecentReplies';
 import ContentIcon from './ContentIcon';
 
 export default React.createClass({
@@ -43,6 +44,7 @@ export default React.createClass({
 						</div>
 					)}
 					<Detail item={item} lite/>
+					<RecentReplies item={item} count={1} />
 					{/*<Actions item={item}/> -- Comment count, [edit] [delete]*/}
 				</div>
 			</div>
