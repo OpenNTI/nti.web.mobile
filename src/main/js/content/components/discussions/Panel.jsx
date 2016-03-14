@@ -28,6 +28,7 @@ const Panel = React.createClass({
 	propTypes: {
 		item: React.PropTypes.object.isRequired,
 
+		lite: React.PropTypes.bool,
 		rooted: React.PropTypes.bool
 	},
 
