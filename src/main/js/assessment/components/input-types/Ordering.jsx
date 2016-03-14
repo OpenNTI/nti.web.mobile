@@ -89,7 +89,8 @@ export default React.createClass({
 
 
 		const raw = {};
-		this[SetValueRaw](value.filter(x => x !== null).map((v,k) => raw[k] = v));
+		value.filter(x => x !== null).map((v,k) => raw[k] = v);
+		this[SetValueRaw](raw);
 	},
 
 
