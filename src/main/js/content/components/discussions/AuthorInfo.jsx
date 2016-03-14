@@ -29,7 +29,7 @@ export default React.createClass({
 					{isReply ? null : ( <h1 className="title">{title}</h1> )}
 					{isReply ? (
 						<div className="reply-name-wrapper">
-							<RepliedTo item={item}/>
+							{lite ? (<DisplayName entity={creator}/>) : (<RepliedTo item={item}/>)}
 							<DateTime date={date} relative/>
 						</div>
 					) : (

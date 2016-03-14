@@ -2,11 +2,7 @@ import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import Avatar from 'common/components/Avatar';
-import Conditional from 'common/components/Conditional';
 import DateTime from 'common/components/DateTime';
-import DisplayName from 'common/components/DisplayName';
-import LuckyCharms from 'common/components/LuckyCharms';
 
 import {scoped} from 'common/locale';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
@@ -15,6 +11,7 @@ import {Panel as Body} from 'modeled-content';
 
 import ItemActions from './ItemActions';
 import ReplyEditor from './ReplyEditor';
+import AuthorInfo from './AuthorInfo';
 
 import NotePanelBehavior from './NotePanelBehavior';
 
@@ -47,8 +44,8 @@ const Panel = React.createClass({
 
 
 	render () {
-		const {state: {replying}, props: {item, rooted}} = this;
-		const {body, creator, placeholder, replyCount = 0} = item;
+		const {state: {replying}, props: {item, rooted, lite}} = this;
+		const {body, placeholder, replyCount = 0} = item;
 		const date = item.getCreatedTime();
 
 		return (
@@ -56,15 +53,8 @@ const Panel = React.createClass({
 				{ placeholder ? (
 					<div className="placeholder">This message has been deleted.</div>
 				) : (
-					<div className="body">
-						<LuckyCharms item={item}/>
-						<Conditional condition={!item.placeholder} className="author-info">
-							<Avatar entity={creator}/>
-							<div className="meta">
-								<DisplayName entity={creator}/>
-								<div className="name-wrapper"/>
-							</div>
-						</Conditional>
+					<div className="note-body">
+						<AuthorInfo item={item} lite/>
 
 						<Body body={body}/>
 
@@ -73,11 +63,11 @@ const Panel = React.createClass({
 								<ReplyEditor replyTo={item} onCancel={this.hideReplyEditor} onSubmitted={this.hideReplyEditor}/>
 							</div>
 						) : (
-							<Conditional condition={!item.placeholder} className="footer">
+							<div className="footer">
 								<DateTime date={date} relative/>
 								{!rooted && ( <a className="comment-link" href={this.getHref()}>{t('comments', {count: replyCount})}</a> )}
-								<ItemActions item={item} onReply={this.showReplyEditor} onEdit={this.onEdit}/>
-							</Conditional>
+								{!lite && <ItemActions item={item} onReply={this.showReplyEditor} onEdit={this.onEdit}/>}
+							</div>
 						)}
 					</div>
 				)}

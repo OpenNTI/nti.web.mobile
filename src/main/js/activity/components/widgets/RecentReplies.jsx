@@ -2,7 +2,7 @@ import React from 'react';
 
 import Loading from 'common/components/TinyLoader';
 
-import Detail from 'content/components/discussions/Detail';
+import Panel from 'content/components/discussions/Panel';
 
 export default React.createClass({
 	displayName: 'RecentReplies',
@@ -45,7 +45,7 @@ export default React.createClass({
 
 		return (
 			<div className="recent-replies">
-				{replies.map(r => <Detail item={r} lite/>)}
+				{replies.map(r => <Panel item={r} lite/>)}
 			</div>
 		);
 	}

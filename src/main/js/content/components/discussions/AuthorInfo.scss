@@ -3,7 +3,6 @@
 
 .author-info {
 	position: relative;
-	overflow: hidden;
 
 	.charms {
 		position: relative;
@@ -11,25 +10,19 @@
 	}
 
 	.avatar {
-		float: left;
+		position: absolute;
+		top: 0;
+		left: 0;
 		width: 3.75rem;
 		height: 3.75rem;
 		border-radius: 6px;
-		margin-top: 0.625rem;
 	}
 
 	.meta {
-		// margin-top: 0;
-		// position: relative;
 		margin-left: 4.375rem;
 		font-size: 0.875rem;
 	}
 
-	.title {
-		.activity-item & {
-			padding-top: 1rem;
-		}
-	}
 
 	time {
 		color: $tertiary-grey;
@@ -42,6 +35,9 @@
 		position: relative;
 		.activity-item & {
 			font-size: 0.75rem;
+		}
+		.username + time {
+			margin-left: .5em;
 		}
 	}
 

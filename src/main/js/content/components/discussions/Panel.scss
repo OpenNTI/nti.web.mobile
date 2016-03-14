@@ -14,12 +14,12 @@
 
 	.discussion-reply {
 		.placeholder,
-		.body {
+		.note-body {
 			margin-left: 2rem;
 		}
 	}
 
-	.placeholder, .body {
+	.placeholder, .note-body {
 		margin-left: 1rem;
 	}
 
@@ -32,7 +32,7 @@
 		}
 	}
 
-	.body {
+	.note-body {
 		position: relative;
 
 		&::before {
@@ -96,6 +96,6 @@
 
 	.modeled-content {
 		clear: both;
-		@include clearfix;
+		// @include clearfix;
 	}
 }
