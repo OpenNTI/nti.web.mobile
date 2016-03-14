@@ -18,10 +18,12 @@
   "scripts": {
     "test": "karma start --single-run --reporters dots,html,junit,coverage",
     "start": "make check; node src/server",
-    "build": "make"
+    "prepublish": "not-in-install && make || in-install"
   },
   "main": "./dist/server/index.js",
-  "publishConfig":{"registry":"https://npm.nextthought.com"},
+  "publishConfig": {
+    "registry": "https://npm.nextthought.com"
+  },
   "dependencies": {
     "autoprefixer": "^6.3.3",
     "babel-core": "^6.1.0",
@@ -108,6 +110,7 @@
     "zpad": "^0.5.0"
   },
   "devDependencies": {
+    "in-publish": "^2.0.0",
     "isparta-instrumenter-loader": "^1.0.0",
     "jasmine-core": "^2.2.0",
     "karma": "^0.13.0",
