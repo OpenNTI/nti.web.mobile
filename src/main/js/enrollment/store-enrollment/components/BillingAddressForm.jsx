@@ -112,7 +112,7 @@ export default React.createClass({
 				{FIELDS.map(field => (
 					<div className={`address_${field}`} key={field}>
 						<input name={`address_${field}`}
-							ref={x => this.elememts[field] = x}
+							ref={x => this.elements[field] = x}
 							placeholder={t(`address_${field}`)}
 							className={cx({required: required[field], error: errors[field]})}
 							type="text"
