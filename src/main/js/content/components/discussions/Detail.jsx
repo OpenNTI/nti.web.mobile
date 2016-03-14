@@ -29,7 +29,7 @@ export default React.createClass({
 		item: React.PropTypes.object,
 
 		/**
-		 * Turns off alot of things for activity views.
+		 * Turns off a lot of things for activity views.
 		 *
 		 * @type {bool}
 		 */
