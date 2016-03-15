@@ -12,6 +12,7 @@ var path = require('path');
 var root = path.resolve(__dirname, '..', 'src', 'main', 'js');
 var sassRoot = path.resolve(__dirname, '..', 'src', 'main', 'resources', 'scss');
 var modules = path.resolve(__dirname, '..', 'node_modules');
+var eslintrc = path.resolve(__dirname, '..', '.eslintrc');
 
 var gitRevision = JSON.stringify(require('../src/server/lib/git-revision'));
 
@@ -56,6 +57,7 @@ exports = module.exports = [
 
 		module: {
 			preLoaders: [
+				{test: /\.jsx?$/, loader: 'eslint', exclude: /node_modules/},
 				{
 					test: /src.main.js.+jsx?$/,
 					loader: 'baggage?[file].scss'
@@ -78,6 +80,12 @@ exports = module.exports = [
 					)
 				}
 			]
+		},
+
+		eslint: {
+			configFile: eslintrc,
+			failOnError: true,
+			quiet: true
 		},
 
 		postcss: [
