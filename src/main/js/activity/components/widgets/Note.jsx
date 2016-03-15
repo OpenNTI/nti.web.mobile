@@ -44,7 +44,7 @@ export default React.createClass({
 						</div>
 					)}
 					<Detail item={item} lite/>
-					<RecentReplies item={item} count={1} />
+					{!item.isReply() && ( <RecentReplies item={item} count={1} /> )}
 					{/*<Actions item={item}/> -- Comment count, [edit] [delete]*/}
 				</div>
 			</div>
