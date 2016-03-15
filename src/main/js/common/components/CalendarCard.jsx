@@ -14,3 +14,7 @@ export default function CalendarCard (props) {
 		</div>
 	);
 }
+
+CalendarCard.propTypes = {
+	date: React.PropTypes.instanceOf(Date).isRequired
+};
