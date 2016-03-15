@@ -45,7 +45,7 @@ export default React.createClass({
 
 		return (
 			<div className="recent-replies">
-				{replies.map(r => <Panel item={r} lite/>)}
+				{replies.map(r => <Panel item={r} key={r.getID()} lite/>)}
 			</div>
 		);
 	}
