@@ -1,4 +1,4 @@
-/*eslint strict: 0*/
+/*eslint strict: 0, no-console: 0*/
 'use strict';
 
 const publicPath = '/mobile/';
@@ -7,9 +7,11 @@ const outPath = './stage/';
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const AppCachePlugin = require('./plugins/appcache');
-const StatsCollector = require('./plugins/stats-collector');
+
 const CompressionPlugin = require('compression-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..', 'src', 'main', 'js');
@@ -111,7 +113,18 @@ exports = module.exports = [
 		},
 
 		plugins: [
-			StatsCollector(path.resolve(__dirname, '..')),
+			function StatsCollector (/*compiler*/) {
+				this.plugin('done', stats => {
+					const file = path.resolve(__dirname, '..', 'stage', 'server', 'stats.json');
+					try {
+						fs.writeFileSync(file, JSON.stringify(stats.toJson()));
+					} catch (e) {
+						if (!/no such file or directory/.test(e.message)) {
+							console.warn('Could not write %s, because:\n%s', file, e.stack || e.message || e);
+						}
+					}
+				});
+			},
 			new AppCachePlugin({
 				cache: [
 					'page.html',
