@@ -39,10 +39,11 @@
 			@extend %icon-font;
 			content: $icon-reply;
 			position: absolute;
-			top: 0.5rem;
+			top: 0.25rem;
 			left: -0.625rem;
 			font-size: 10px;
 			color: $secondary-grey;
+			transform: rotateX(180deg) rotateZ(-90deg);
 		}
 	}
 
