@@ -1,20 +1,26 @@
-/*eslint no-var: 0 strict: 0*/
+/*eslint strict: 0*/
 'use strict';
 
-var publicPath = '/mobile/';
-var outPath = './stage/';
+const publicPath = '/mobile/';
+const outPath = './stage/';
 
-var autoprefixer = require('autoprefixer');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var path = require('path');
+const autoprefixer = require('autoprefixer');
+const webpack = require('webpack');
+const AppCachePlugin = require('./plugins/appcache');
+const StatsCollector = require('./plugins/stats-collector');
+const CompressionPlugin = require('compression-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 
-var root = path.resolve(__dirname, '..', 'src', 'main', 'js');
-var sassRoot = path.resolve(__dirname, '..', 'src', 'main', 'resources', 'scss');
-var modules = path.resolve(__dirname, '..', 'node_modules');
-var eslintrc = path.resolve(__dirname, '..', '.eslintrc');
+const root = path.resolve(__dirname, '..', 'src', 'main', 'js');
+const sassRoot = path.resolve(__dirname, '..', 'src', 'main', 'resources', 'scss');
+const modules = path.resolve(__dirname, '..', 'node_modules');
+const eslintrc = path.resolve(__dirname, '..', '.eslintrc');
 
-var gitRevision = JSON.stringify(require('../src/server/lib/git-revision'));
+const gitRevision = JSON.stringify(require('../src/server/lib/git-revision'));
+
+const ENV = process.env.NODE_ENV || 'development';
+const PROD = ENV === 'production';
 
 exports = module.exports = [
 	{
@@ -23,13 +29,11 @@ exports = module.exports = [
 			path: outPath + 'client/',
 			filename: 'js/[hash].js',
 			chunkFilename: 'js/[hash]-[id].js',
-			publicPath: publicPath//,
-			// devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
-			// devtoolFallbackModuleFilenameTemplate: 'webpack:///[absolute-resourcePath]?[hash]'
+			publicPath: publicPath
 		},
 
 		cache: true,
-		devtool: 'source-map',
+		devtool: PROD ? 'hidden-source-map' : 'source-map',
 
 		entry: './src/main/js/index.js',
 
@@ -44,6 +48,7 @@ exports = module.exports = [
 			tls: 'empty',
 			request: 'empty'
 		},
+
 		externals: [
 			{
 				request: true
@@ -91,6 +96,7 @@ exports = module.exports = [
 
 		eslint: {
 			configFile: eslintrc,
+			emitError: true,
 			failOnError: true,
 			quiet: true
 		},
@@ -99,14 +105,28 @@ exports = module.exports = [
 			autoprefixer({ browsers: ['> 1%', 'last 2 versions'] })
 		],
 
-
 		sassLoader: {
 			sourceMap: true,
 			includePaths: [sassRoot]
 		},
 
-
 		plugins: [
+			StatsCollector(path.resolve(__dirname, '..')),
+			new AppCachePlugin({
+				cache: [
+					'page.html',
+					'offline.json',
+					'resources/images/favicon.ico',
+					'resources/images/app-icon.png',
+					'resources/images/app-splash.png'
+				],
+				network: [
+					'/dataserver2/',
+					'/content/',
+					'*'
+				],
+				fallback: ['/dataserver2/ offline.json', '/ page.html']
+			}),
 			new webpack.optimize.DedupePlugin(),
 			new webpack.optimize.OccurenceOrderPlugin(),
 			new webpack.DefinePlugin({
@@ -115,14 +135,19 @@ exports = module.exports = [
 				'process.browser': true,
 				'process.env': {
 					// This has effect on the react lib size
-					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+					'NODE_ENV': JSON.stringify(ENV)
 				}
 			}),
 			new webpack.ProvidePlugin({
 				'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
 			}),
-			new ExtractTextPlugin('resources/styles.css', {allChunks: true})
-		]
+			new ExtractTextPlugin('resources/styles.css', {allChunks: true}),
+			PROD && new webpack.optimize.UglifyJsPlugin({
+				test: /\.js(x?)($|\?)/i,
+				compress: { warnings: false }
+			}),
+			PROD && new CompressionPlugin({ algorithm: 'gzip' })
+		].filter(x => x)
 	},
 	{
 		// The configuration for the server-side rendering
@@ -147,7 +172,7 @@ exports = module.exports = [
 				'BUILD_SOURCE': gitRevision,
 				'process.browser': false,
 				'process.env': {
-					'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+					'NODE_ENV': JSON.stringify(ENV)
 				}
 			})
 		],

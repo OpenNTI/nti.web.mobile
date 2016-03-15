@@ -51,7 +51,7 @@ compile-app: stage clean-stage-app $(STAGE)server
 	@(cd $(SRC)main; rsync -R *.* ../../$(STAGE)client)
 	@(cd $(SRC)main; rsync -R $(IMAGES)*.* ../../$(STAGE)client)
 ##compile
-	@$(CC) ./webpack/app.config.dist.js
+	@$(CC) ./webpack/app.config.js
 
 compile-widgets: $(STAGE) clean-stage-widgets
 	@(cd src/main; rsync -R widgets/**/*.html ../../stage/)

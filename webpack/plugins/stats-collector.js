@@ -1,14 +1,14 @@
-/*eslint no-var: 0 strict: 0, no-console: 0*/
+/*eslint strict: 0, no-console: 0*/
 'use strict';
-var path = require('path');
-var fs = require('fs');
+const path = require('path');
+const fs = require('fs');
 
 module.exports = exports = function (dirname) {
 
 	return function StatsCollector (/*compiler*/) {
 		this.plugin('done', function (stats) {
-			var p = path.join(dirname, 'stage', 'server');
-			var file = path.join(p, 'stats.generated.json');
+			const p = path.join(dirname, 'stage', 'server');
+			const file = path.join(p, 'stats.json');
 			try {
 				if (fs.existsSync(p)) {
 					fs.writeFileSync(file, JSON.stringify(stats.toJson()));
