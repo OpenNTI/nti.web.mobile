@@ -8,10 +8,10 @@ const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const AppCachePlugin = require('./plugins/appcache');
 
+const StatsPlugin = require('stats-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..', 'src', 'main', 'js');
@@ -113,18 +113,7 @@ exports = module.exports = [
 		},
 
 		plugins: [
-			function StatsCollector (/*compiler*/) {
-				this.plugin('done', stats => {
-					const file = path.resolve(__dirname, '..', 'stage', 'server', 'stats.json');
-					try {
-						fs.writeFileSync(file, JSON.stringify(stats.toJson()));
-					} catch (e) {
-						if (!/no such file or directory/.test(e.message)) {
-							console.warn('Could not write %s, because:\n%s', file, e.stack || e.message || e);
-						}
-					}
-				});
-			},
+			new StatsPlugin('stats.json'),
 			new AppCachePlugin({
 				cache: [
 					'page.html',
