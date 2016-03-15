@@ -57,12 +57,19 @@ exports = module.exports = [
 
 		module: {
 			preLoaders: [
-				{test: /\.jsx?$/, loader: 'eslint', exclude: /node_modules/},
+				{
+					test: /src.main.js.+jsx?$/,
+					loader: 'eslint',
+					exclude: /node_modules/
+				},
 				{
 					test: /src.main.js.+jsx?$/,
 					loader: 'baggage?[file].scss'
 				},
-				{ test: /\.js(x?)$/, loader: 'source-map' }
+				{
+					test: /\.js(x?)$/,
+					loader: 'source-map'
+				}
 			],
 			loaders: [
 				{ test: /\.async\.jsx$/i, loader: 'react-proxy!exports?exports.default' },
