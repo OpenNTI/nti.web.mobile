@@ -24,7 +24,7 @@ export default React.createClass({
 		const errors = [];
 		const {items = []} = this.state || {};
 		for(let i = 0; i < items.length; i++) {
-			const item = this.refs[`item-${i}`];
+			const item = this[`item-${i}`];
 			if (item && item.validate && !item.validate() ) {
 				errors.push(item);
 			}
@@ -44,7 +44,7 @@ export default React.createClass({
 					return (
 						<div className="entry" key={`item-${index}`}>
 							<div className="remove icon-bold-x" onClick={this.removeEntry.bind(this, index)}/>
-							<EventItem schema={itemSchema} item={item} ref={`item-${index}`} mimeType={mimeType} fieldNames={fieldNames}/>
+							<EventItem schema={itemSchema} item={item} ref={x => this[`item-${index}`] = x} mimeType={mimeType} fieldNames={fieldNames}/>
 						</div>
 					);
 				})}
