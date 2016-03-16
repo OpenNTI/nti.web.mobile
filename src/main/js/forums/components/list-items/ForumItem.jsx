@@ -76,6 +76,10 @@ export default React.createClass({
 		return this.getPath().concat(this.getHref());
 	},
 
+	toggleRecentActivity () {
+		this.toggleState('showRecentActivity');
+	},
+
 	renderRecentActivity () {
 		// List component is passed in as a prop to dodge a circular import of List.
 		let TopicsComponent = this.props.topicsComponent;
@@ -88,7 +92,7 @@ export default React.createClass({
 		}
 		return (
 			<section className="recent-activity">
-				<h1 onClick={this.toggleState.bind(this, 'showRecentActivity')} className={headingCss.join(' ')}>
+				<h1 onClick={this.toggleRecentActivity} className={headingCss.join(' ')}>
 					<a>{t('recentActivity')}</a>
 				</h1>
 				{this.state.showRecentActivity &&
