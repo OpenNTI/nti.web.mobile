@@ -3,6 +3,7 @@ import cx from 'classnames';
 
 import MenuTransitionGroup from './MenuTransitionGroup';
 import Accessor from './mixins/AssignmentSummaryAccessor';
+import FilterMenuOption from './FilterMenuOption';
 
 const OPTIONS = [
 	{label: 'Enrolled Students', value: 'ForCredit'},
@@ -85,11 +86,11 @@ export default React.createClass({
 							<ul key="filter-menu" className="filter-menu">
 								<li key="title" className="title">Display</li>
 								{OPTIONS.map(option => (
-									<li key={option.value}
+									<FilterMenuOption
+										key={option.value}
+										option={option}
 										className={cx({'selected': option === selectedOption})}
-										onClick={()=> this.optionClicked(option)}>
-										{option.label}
-									</li>
+										onClick={this.optionClicked} />
 								))}
 								<li key="search" className="search-item" onClick={killEvent}>
 									<input type="search"
