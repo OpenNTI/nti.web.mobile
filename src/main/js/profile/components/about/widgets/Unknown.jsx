@@ -1,15 +1,11 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'UnknownWidget',
+export default function UnknownWidget ({item}) {
+	return (
+		<div>UnknownWidget: {item.MimeType}</div>
+	);
+}
 
-	propTypes: {
-		item: React.PropTypes.any.isRequired
-	},
-
-	render () {
-		return (
-			<div>UnknownWidget: {this.props.item.MimeType}</div>
-		);
-	}
-});
+UnknownWidget.propTypes = {
+	item: React.PropTypes.any.isRequired
+};

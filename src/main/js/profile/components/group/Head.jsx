@@ -6,31 +6,23 @@ import Subhead from './Subhead';
 import Description from './Description';
 import InvitationCode from './InvitationCode';
 
-export default React.createClass({
-	displayName: 'Group:Head',
-
-	propTypes: {
-		children: React.PropTypes.any,
-
-		entity: React.PropTypes.object
-	},
-
-
-	render () {
-		let {children, entity} = this.props;
-
-		return (
-			<div className="profile-head">
-				<div className="group">
-					<div className="label">
-						<DisplayName entity={entity} />
-						<Subhead entity={entity} />
-						<InvitationCode entity={entity} />
-					</div>
-					<Description entity={entity} />
+export default function GroupHead ({children, entity}) {
+	return (
+		<div className="profile-head">
+			<div className="group">
+				<div className="label">
+					<DisplayName entity={entity} />
+					<Subhead entity={entity} />
+					<InvitationCode entity={entity} />
 				</div>
-				{children}
+				<Description entity={entity} />
 			</div>
-		);
-	}
-});
+			{children}
+		</div>
+	);
+}
+
+GroupHead.propTypes = {
+	children: React.PropTypes.any,
+	entity: React.PropTypes.object
+};

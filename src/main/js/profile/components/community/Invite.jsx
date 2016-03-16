@@ -1,11 +1,7 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'Invite',
-
-	render () {
-		return (
-			<div />
-		);
-	}
-});
+export default function Invite () {
+	return (
+		<div />
+	);
+}

@@ -14,30 +14,27 @@ const MEMBERS = 'members';
 const FACULTY = 'faculty';
 const PEOPLE_YOU_KNOW = 'pyk';
 
-const Breakdown = React.createClass({
-	displayName: 'Breakdown',
+const Breakdown = function Breakdown (props) {
 
-	propTypes: {
-		count: React.PropTypes.number,
-		href: React.PropTypes.string
-	},
+	let {count} = props;
 
-	render () {
-		let {count} = this.props;
-
-		if (!count) {
-			count = void 0;
-		}
-
-		if (count > 9999) {
-			count = '9999+';
-		}
-
-		return (
-			<li><Link data-count={count} {...this.props}/></li>
-		);
+	if (!count) {
+		count = void 0;
 	}
-});
+
+	if (count > 9999) {
+		count = '9999+';
+	}
+
+	return (
+		<li><Link data-count={count} {...this.props}/></li>
+	);
+};
+
+Breakdown.propTypes = {
+	count: React.PropTypes.number,
+	href: React.PropTypes.string
+};
 
 
 export default React.createClass({

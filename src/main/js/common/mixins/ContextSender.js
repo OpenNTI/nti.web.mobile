@@ -35,8 +35,8 @@ export default {
 	[notify]: function () {
 		let children = this[Children] || {size: 0};
 		logger.debug('Wants to Notify %d %s', children.size, this.constructor.displayName);
-		if (children.size === 0 && this.isMounted()) {
-			logger.debug('Notify %s %s', this.constructor.displayName, this.isMounted());
+		if (children.size === 0) {
+			logger.debug('Notify %s', this.constructor.displayName);
 			let context = this[CONTEXT_DATA];
 			if (context) {
 				Actions.setPageSource(...context);

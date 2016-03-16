@@ -1,6 +1,8 @@
 import React from 'react';
 import Mixin from './Mixin';
 
+import InterestListItem from './InterestListItem';
+
 const COMMA = 188;
 const RETURN = 13;
 
@@ -41,6 +43,10 @@ export default React.createClass({
 		}
 	},
 
+	remove (item) {
+		let {items = []} = this.state || {};
+		this.removeEntry(items.indexOf(item));
+	},
 
 	render () {
 
@@ -49,10 +55,7 @@ export default React.createClass({
 		return (
 			<div className="interests-edit">
 				{items.map((item, index) => (
-					<div key={`item-${index}`} className="string-item">
-						{item}
-						<b onClick={this.removeEntry.bind(this, index)} className="remove icon-bold-x" />
-					</div>
+					<InterestListItem key={`item-${index}`} onRemove={this.remove} item={item} />
 				))}
 
 				<div className="string-item input">

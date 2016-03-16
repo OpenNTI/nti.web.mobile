@@ -6,16 +6,11 @@ import ProfileBodyContainer from '../ProfileBodyContainer';
 import GroupMembers from './Members';
 
 
-export default React.createClass({
-	displayName: 'Group:Activity',
-
-	render () {
-		let {props} = this;
-		return (
-			<ProfileBodyContainer className="activity">
-				<Activity {...props}/>
-				<GroupMembers {...props} />
-			</ProfileBodyContainer>
-		);
-	}
-});
+export default function GroupActivity (props) {
+	return (
+		<ProfileBodyContainer className="activity">
+			<Activity {...props}/>
+			<GroupMembers {...props} />
+		</ProfileBodyContainer>
+	);
+}
