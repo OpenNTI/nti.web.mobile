@@ -64,7 +64,7 @@ export default React.createClass({
 	storeChange (event) {
 		const {router} = this;
 
-		if (!router && this.isMounted()) {
+		if (!router) {
 			return setTimeout(()=> this.storeChange(event), 100);
 		}
 

@@ -1,18 +1,14 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'AddPeopleButton',
+export default function AddPeopleButton ({onClick}) {
+	return (
+		<div className="add-people" onClick={onClick}>
+			<i className="icon-add-user" />
+			<span>Add People</span>
+		</div>
+	);
+}
 
-	propTypes: {
-		onClick: React.PropTypes.func.isRequired
-	},
-
-	render () {
-		return (
-			<div className="add-people" onClick={this.props.onClick}>
-				<i className="icon-add-user" />
-				<span>Add People</span>
-			</div>
-		);
-	}
-});
+AddPeopleButton.propTypes = {
+	onClick: React.PropTypes.func.isRequired
+};

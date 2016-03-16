@@ -71,6 +71,9 @@ export default React.createClass({
 	},
 
 	componentWillMount () { this.start(); },
+	componentDidMount () {
+		this.mounted = true;
+	},
 	componentWillReceiveProps (nextProps) {
 		if (this.props.src !== nextProps.src) {
 			this.start(nextProps);
@@ -82,7 +85,7 @@ export default React.createClass({
 		if (src) {
 			GOV.wait(this)
 				.then(()=> {
-					if (this.isMounted()) {
+					if (this.mounted) {
 						this.setState({icon: src});
 					}
 				})
@@ -92,6 +95,7 @@ export default React.createClass({
 	},
 
 	componentWillUnmount () {
+		this.mounted = false;
 		GOV.remove(this);
 	},
 

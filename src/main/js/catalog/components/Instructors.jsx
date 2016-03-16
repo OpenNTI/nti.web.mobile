@@ -2,28 +2,23 @@ import React from 'react';
 
 import Instructor from './Instructor';
 
-export default React.createClass({
-	displayName: 'Instructors',
+export default function Instructors ({entry}) {
+	let instructors = ((entry || {}).Instructors) || [];
+	let root = '/no-root/';
 
-	propTypes: {
-		entry: React.PropTypes.object.isRequired
-	},
-
-	render () {
-		let {entry} = this.props;
-		let instructors = ((entry || {}).Instructors) || [];
-		let root = '/no-root/';
-
-		if (entry) {
-			root = entry.getAssetRoot() || root;
-		}
-
-		return (
-			<div className="instructors">
-			{instructors.map((i, index) =>
-				<Instructor key={i.Name} index={index} assetRoot={root} instructor={i}/>
-			)}
-			</div>
-		);
+	if (entry) {
+		root = entry.getAssetRoot() || root;
 	}
-});
+
+	return (
+		<div className="instructors">
+		{instructors.map((i, index) =>
+			<Instructor key={i.Name} index={index} assetRoot={root} instructor={i}/>
+		)}
+		</div>
+	);
+}
+
+Instructors.propTypes = {
+	entry: React.PropTypes.object.isRequired
+};

@@ -3,16 +3,12 @@ import {scoped} from 'common/locale';
 
 let t = scoped('CONTACTS');
 
-export default React.createClass({
-	displayName: 'Contacts:ListMeta',
-	propTypes: {
-		entity: React.PropTypes.object.isRequired
-	},
+export default function ContactsListMeta ({entity}) {
+	return (
+		<div className="meta member-count">{t('listMembers', {count: (entity.friends || []).length})}</div>
+	);
+}
 
-	render () {
-		let {entity} = this.props;
-		return (
-			<div className="meta member-count">{t('listMembers', {count: (entity.friends || []).length})}</div>
-		);
-	}
-});
+ContactsListMeta.propTypes = {
+	entity: React.PropTypes.object.isRequired
+};

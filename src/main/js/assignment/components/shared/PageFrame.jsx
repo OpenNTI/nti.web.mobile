@@ -1,24 +1,19 @@
 import React from 'react';
 import Tabs from './Tabs';
 
-export default React.createClass({
-	displayName: 'Assignments:PageFrame',
+export default function AssignmentsPageFrame (props) {
+	let Content = props.pageContent;
 
-	propTypes: {
-		pageContent: React.PropTypes.any.isRequired
-	},
-
-	render () {
-
-		let Content = this.props.pageContent;
-
-		return (
-			<div className="assignments-page-frame">
-				<Tabs />
-				<div className="content-area">
-					<Content {...this.props} />
-				</div>
+	return (
+		<div className="assignments-page-frame">
+			<Tabs />
+			<div className="content-area">
+				<Content {...this.props} />
 			</div>
-		);
-	}
-});
+		</div>
+	);
+}
+
+AssignmentsPageFrame.propTypes = {
+	pageContent: React.PropTypes.any.isRequired
+};

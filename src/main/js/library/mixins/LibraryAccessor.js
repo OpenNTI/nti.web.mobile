@@ -9,7 +9,7 @@ export default {
 	backingStore: LibraryStore,
 	backingStoreEventHandlers: {
 		default () {
-			if (this.isMounted()) {
+			if (this.mounted) {
 				this.forceUpdate();
 			}
 		}
@@ -19,14 +19,22 @@ export default {
 		return { loading: true };
 	},
 
-	componentDidMount () { this.ensureLibraryLoaded(); },
+	componentDidMount () {
+		this.mounted = true;
+		this.ensureLibraryLoaded();
+	},
+
+	componentWillUnmount () {
+		this.mounted = false;
+	},
+
 	componentWillReceiveProps () { this.ensureLibraryLoaded(); },
 
 	ensureLibraryLoaded () {
 		let promise = load();//will return the same promise every time until reloaded.
 
 		promise.then(() => {
-			if (this.isMounted()) {
+			if (this.mounted) {
 				this.setState({loading: false});
 			}
 		});
