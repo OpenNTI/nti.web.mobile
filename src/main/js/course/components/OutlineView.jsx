@@ -134,7 +134,7 @@ export default React.createClass({
 			};
 
 			return (
-				<li>
+				<li key={title}>
 					<ActiveState hasChildren href={href} tag={tag}>
 						<CalendarCard date={date}/>
 						<E tag="a" {...props}/>
