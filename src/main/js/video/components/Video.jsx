@@ -84,6 +84,13 @@ export default React.createClass({
 		};
 	},
 
+	componentDidMount () {
+		this.mounted = true;
+	},
+
+	componentWillUnmount () {
+		this.mounted = false;
+	},
 
 	getAnalyticsEventData (event) {
 		return {
@@ -106,7 +113,7 @@ export default React.createClass({
 			emitEventEnded(e);
 		}
 
-		if (this.isMounted()) {
+		if (this.mounted) {
 			let analyticsEvent = this.newWatchVideoEvent(event);
 			if (analyticsEvent) {
 				emitEventStarted(analyticsEvent);
@@ -168,7 +175,7 @@ export default React.createClass({
 		playStartEvent.finish(event.target.currentTime);
 		emitEventEnded(playStartEvent);
 
-		if (this.isMounted()) {
+		if (this.mounted) {
 			this.setState({playStartEvent: null});
 		}
 	},
