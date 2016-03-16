@@ -1,17 +1,13 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'list-items:Unknown',
+export default function UnknownListItem ({item}) {
+	return (
+		<div>
+			{item.MimeType}
+		</div>
+	);
+}
 
-	propTypes: {
-		item: React.PropTypes.object
-	},
-
-	render () {
-		return (
-			<div>
-				{this.props.item.MimeType}
-			</div>
-		);
-	}
-});
+UnknownListItem.propTypes = {
+	item: React.PropTypes.object
+};

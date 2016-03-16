@@ -7,26 +7,22 @@ import Courses from './containers/Courses';
 import Books from './containers/Books';
 import Features from './containers/Features';
 
-export default React.createClass({
-	displayName: 'Root',
+export default function Root () {
+	return (
+		<div>
+			<NavigationBar>
+				<section position="left" className="branding">Logo</section>
+			</NavigationBar>
 
-	render () {
-		return (
-			<div>
-				<NavigationBar>
-					<section position="left" className="branding">Logo</section>
-				</NavigationBar>
+			<Features/>
 
-				<Features/>
+			<Communities/>
 
-				<Communities/>
+			<Courses/>
 
-				<Courses/>
+			<Courses admin/>
 
-				<Courses admin/>
-
-				<Books/>
-			</div>
-		);
-	}
-});
+			<Books/>
+		</div>
+	);
+}

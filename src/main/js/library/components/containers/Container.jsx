@@ -6,29 +6,23 @@ import Collection from './Collection';
 import AddButton from '../AddButton';
 import Heading from '../SectionHeading';
 
-export default React.createClass({
-	displayName: 'Container',
+export default function Container ({section, items}) {
+	return !items || items.length === 0 ?
+	(!AddButton.canSectionBeAddedTo(section) ? (
+		null
+	) : (
+		<div className="library-collection">
+			<Heading section={section}/>
+			<EmptyList type={`library-${section}`}/>
+		</div>
+	)) : (
+		<Collection list={items}>
+			<Heading section={section}/>
+		</Collection>
+	);
+}
 
-	propTypes: {
-		section: React.PropTypes.string,
-		items: React.PropTypes.array
-	},
-
-	render () {
-		const {props: {section, items}} = this;
-
-		return !items || items.length === 0 ?
-		(!AddButton.canSectionBeAddedTo(section) ? (
-			null
-		) : (
-			<div className="library-collection">
-				<Heading section={section}/>
-				<EmptyList type={`library-${section}`}/>
-			</div>
-		)) : (
-			<Collection list={items}>
-				<Heading section={section}/>
-			</Collection>
-		);
-	}
-});
+Container.propTypes = {
+	section: React.PropTypes.string,
+	items: React.PropTypes.array
+};

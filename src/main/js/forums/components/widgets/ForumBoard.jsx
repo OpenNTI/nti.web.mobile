@@ -6,27 +6,22 @@ import {scoped} from 'common/locale';
 
 const t = scoped('FORUMS.groupTitles');
 
-export default React.createClass({
-	displayName: 'ForumBoard',
+export default function ForumBoard ({title, board}) {
 
-	propTypes: {
-		board: React.PropTypes.object.isRequired,
-		title: React.PropTypes.string.isRequired
-	},
+	let forums = (board || {}).forums || [];
+	return (
+		<div className="board">
+			<h3>{t(title)}</h3>
+			<ul className="forum-list">
+				{forums.map(forum => {
+					return <li className="forum-li" key={keyFor(forum)}><ForumItem item={forum}/></li>;
+				})}
+			</ul>
+		</div>
+	);
+}
 
-	render () {
-
-		let {title, board} = this.props;
-		let forums = (board || {}).forums || [];
-		return (
-			<div className="board">
-				<h3>{t(title)}</h3>
-				<ul className="forum-list">
-					{forums.map(forum => {
-						return <li className="forum-li" key={keyFor(forum)}><ForumItem item={forum}/></li>;
-					})}
-				</ul>
-			</div>
-		);
-	}
-});
+ForumBoard.propTypes = {
+	board: React.PropTypes.object.isRequired,
+	title: React.PropTypes.string.isRequired
+};
