@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import StoreEvents from 'common/mixins/StoreEvents';
+import {rawContent} from 'common/utils/jsx';
 
 import Content from './Content';
 import WordBank from './WordBank';
@@ -45,17 +46,17 @@ export default React.createClass({
 
 	synchronizeFromStore () {
 		let {part} = this.props;
-		if (this.isMounted()) {
-			if (this.state.helpVisible && !Store.isSubmitted(part)) {
-				this.onCloseHelp();
-			}
-			this.forceUpdate();
+
+		if (this.state.helpVisible && !Store.isSubmitted(part)) {
+			this.onCloseHelp();
 		}
+		this.forceUpdate();
+
 	},
 
 
 	componentDidUpdate (prevProps, prevState) {
-		if (this.state.helpVisible !== prevState.helpVisible && this.isMounted()) {
+		if (this.state.helpVisible !== prevState.helpVisible) {
 			const {container: node} = this;
 			if (node.getBoundingClientRect().top < 0) {
 				node.scrollIntoView();
@@ -196,7 +197,7 @@ export default React.createClass({
 		return (
 			<div className="part-help hint">
 				<a href="#" className="close" onClick={this.onCloseHelp}>x</a>
-				<div className="hint" dangerouslySetInnerHTML={{__html: hint}}/>
+				<div className="hint" {...rawContent(hint)}/>
 				{this.renderHelpButton('Hide Hint')}
 			</div>
 		);

@@ -9,6 +9,7 @@ import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import Loading from 'common/components/TinyLoader';
 // import Err from 'common/components/Error';
+import {rawContent} from 'common/utils/jsx';
 
 import Content from '../Content';
 
@@ -218,7 +219,7 @@ export default React.createClass({
 					: ( null )
 				)
 				: (typeof context === 'string')
-					? ( <div ref={this.attachRef} {...props} dangerouslySetInnerHTML={{__html: context}}/> )
+					? ( <div ref={this.attachRef} {...props} {...rawContent(context)}/> )
 					: (
 						<div ref={this.attachRef} {...props}>
 						{

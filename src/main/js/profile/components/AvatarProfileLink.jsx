@@ -3,6 +3,8 @@ import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 import FollowButton from 'common/components/FollowButton';
 
+import {rawContent} from 'common/utils/jsx';
+
 import ProfileLink from './ProfileLink';
 
 export default function AvatarProfileLink (props) {
@@ -13,7 +15,7 @@ export default function AvatarProfileLink (props) {
 			<Avatar entity={e} suppressProfileLink />
 			<div className="body">
 				<DisplayName entity={e} suppressProfileLink />
-				{e.location && <span className="location" dangerouslySetInnerHTML={{__html: e.location}}/>}
+				{e.location && <span className="location" {...rawContent(e.location)}/>}
 				{this.props.children}
 			</div>
 			{e.follow && <FollowButton entity={e} />}

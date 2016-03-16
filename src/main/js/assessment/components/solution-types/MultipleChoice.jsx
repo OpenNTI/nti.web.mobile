@@ -1,4 +1,7 @@
 import React from 'react';
+
+import {rawContent} from 'common/utils/jsx';
+
 import Mixin from './Mixin';
 
 import ensureArray from 'nti-lib-interfaces/lib/utils/ensure-array';
@@ -29,7 +32,7 @@ export default React.createClass({
 		return (
 			<div className="multiple-choice solutions">
 				{this.renderSolution()}
-				<div className="explanation" dangerouslySetInnerHTML={{__html: ex}}/>
+				<div className="explanation" {...rawContent(ex)}/>
 			</div>
 		);
 	},
@@ -51,7 +54,7 @@ export default React.createClass({
 			return (
 				<div className="solution" key={x}>
 					<span className="numeral">{numeral}</span>
-					<span dangerouslySetInnerHTML={{__html: choices[x]}}/>
+					<span {...rawContent(choices[x])}/>
 				</div>
 			);
 		});

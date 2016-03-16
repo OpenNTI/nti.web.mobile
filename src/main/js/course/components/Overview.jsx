@@ -11,6 +11,8 @@ import EmptyList from 'common/components/EmptyList';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
+import {rawContent} from 'common/utils/jsx';
+
 import AnalyticsStore from 'analytics/Store';
 
 // This is an example of the correct way to aquire a reference to
@@ -152,7 +154,7 @@ export default React.createClass({
 			return (
 				<div className="course-overview row">
 					<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
-					<h1 dangerouslySetInnerHTML={{__html: title}}/>
+					<h1 {...rawContent(title)}/>
 					{items && this.renderItems(items, {node})}
 				</div>
 			);

@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
+import {rawContent} from 'common/utils/jsx';
+
 export default React.createClass({
 	displayName: 'Transcript',
 
@@ -53,12 +55,12 @@ export default React.createClass({
 		// use: "dangerouslySetInnerHTML={{__html: ''}}"
 		return [
 			divider, (
-			<a href="#"
+			<a href="#" key={cue.startTime}
 				data-start-time={cue.startTime.toFixed(3)}
 				data-end-time={cue.endTime.toFixed(3)}
 				className={cs}
 				onClick={this.onJumpToCue}
-				dangerouslySetInnerHTML={{__html: cue.text}}/>
+				{...rawContent(cue.text)}/>
 		)];
 	},
 
@@ -71,7 +73,7 @@ export default React.createClass({
 
 		return [
 			divider, (
-			<a href="#"
+			<a href="#" key={`slide-${slide.startTime.toFixed(3)}`}
 				data-start-time={slide.startTime.toFixed(3)}
 				data-end-time={slide.endTime.toFixed(3)}
 				className={cs}

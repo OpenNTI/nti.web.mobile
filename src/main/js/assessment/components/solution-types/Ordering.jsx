@@ -1,4 +1,7 @@
 import React from 'react';
+
+import {rawContent} from 'common/utils/jsx';
+
 import Mixin from './Mixin';
 
 import Content from '../Content';
@@ -36,7 +39,7 @@ export default React.createClass({
 						{values.map((x, i)=>this.renderRow(x, i, solution) )}
 					</div>
 				</form>
-				<div className="explanation" dangerouslySetInnerHTML={{__html: ex}}/>
+				<div className="explanation" {...rawContent(ex)}/>
 			</div>
 		);
 	},

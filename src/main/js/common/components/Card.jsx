@@ -32,6 +32,7 @@ import ContextAccessor from '../mixins/ContextAccessor';
 import NavigatableMixin from '../mixins/NavigatableMixin';
 
 import {scoped} from '../locale';
+import {rawContent} from '../utils/jsx';
 
 import {BLANK_IMAGE} from '../constants/DataURIs';
 
@@ -347,10 +348,10 @@ export default React.createClass({
 					</div>
 				}
 
-				<h5 dangerouslySetInnerHTML={{__html: label || title}}/>
+				<h5 {...rawContent(label || title)}/>
 				<hr className="break hide-for-medium-up"/>
-				{by && by.trim().length > 0 && <div className="label" dangerouslySetInnerHTML={{__html: 'By ' + by}/*TODO: localize*/}/>}
-				<div className="description" dangerouslySetInnerHTML={{__html: description || desc}}/>
+				{by && by.trim().length > 0 && <div className="label" {...rawContent('By ' + by)/*TODO: localize*/}/>}
+				<div className="description" {...rawContent(description || desc)}/>
 				<div className="comment-count" href="/discussions/" onClick={this.onClickDiscussion}>
 					{commentCount == null
 						? null

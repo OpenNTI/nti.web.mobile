@@ -112,7 +112,12 @@ export default React.createClass({
 
 		return (
 			<button className={css} onClick={this.go}>
-				<span className="sizer" dangerouslySetInnerHTML={{__html: sizer}}/>
+				{
+					/*eslint-disable*/
+					//We rendered the content to string, so we know "sizer" is safe.
+					( <span className="sizer" dangerouslySetInnerHTML={{__html: sizer}}/> )
+					/*eslint-enable*/
+				}
 				<ul>
 					<li><span>{children}</span></li>
 					<li className="processing"><TinyLoader /></li>

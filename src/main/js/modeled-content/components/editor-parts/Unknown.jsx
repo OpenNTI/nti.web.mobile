@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
+import {rawContent} from 'common/utils/jsx';
+
 const UnknownThumbnail = React.createClass({
 	displayName: 'UnknownThumbnail',
 
@@ -27,7 +29,7 @@ const UnknownThumbnail = React.createClass({
 			<object contentEditable={false} className="body-divider unknown" unselectable="on">
 				<div className="unknown-icon" unselectable="on">
 					<div className="fill" unselectable="on"/>
-					<script type="application/json" dangerouslySetInnerHTML={{__html: data}}/>
+					<script type="application/json" {...rawContent(data)}/>
 				</div>
 			</object>
 		);

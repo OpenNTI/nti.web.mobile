@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
+import {rawContent} from 'common/utils/jsx';
+
 const VideoThumbnail = React.createClass({
 	displayName: 'VideoThumbnail',
 
@@ -36,7 +38,7 @@ const VideoThumbnail = React.createClass({
 						<div className="edit" unselectable="no">Edit</div>
 					</div>
 					{*/}
-					<script type="application/json" dangerouslySetInnerHTML={{__html: data}}/>
+					<script type="application/json" {...rawContent(data)}/>
 				</div>
 			</object>
 		);

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {declareCustomElement} from 'common/utils/dom';
+import {rawContent} from 'common/utils/jsx';
 import {getEventTarget} from 'nti-lib-dom';
 import Logger from 'nti-util-logger';
 
@@ -204,7 +205,7 @@ export default React.createClass({
 		return (
 			<div {...wrapperProps}>
 				{styles.map((css, i) =>
-					<style scoped type="text/css" key={i} dangerouslySetInnerHTML={{__html: css}}/>
+					<style scoped type="text/css" key={i} {...rawContent(css)}/>
 				)}
 				{
 				// <nti:content {...props}>
@@ -213,7 +214,7 @@ export default React.createClass({
 				//
 				// 	Since the above JSX blows up because of the "namespace", do it w/o JSX:
 					React.createElement('nti:content', props,
-						<div id="NTIContent" dangerouslySetInnerHTML={content}/>
+						<div id="NTIContent" {...rawContent(content)}/>
 					)
 				}
 			</div>

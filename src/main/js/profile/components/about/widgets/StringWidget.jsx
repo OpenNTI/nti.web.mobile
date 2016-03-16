@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {rawContent} from 'common/utils/jsx';
+
 export default React.createClass({
 	displayName: 'StringWidget',
 
@@ -14,6 +16,6 @@ export default React.createClass({
 	},
 
 	render () {
-		return <div className="string-item" dangerouslySetInnerHTML={{__html: this.props.item}}/>;
+		return <div className="string-item" {...rawContent(this.props.item)}/>;
 	}
 });

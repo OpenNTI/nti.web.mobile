@@ -1,8 +1,12 @@
 import React from 'react';
-import {parseHTML} from 'content/utils';
+
 import {getService} from 'common/utils';
+import {rawContent} from 'common/utils/jsx';
+
 import Loading from 'common/components/Loading';
 import Error from 'common/components/Error';
+
+import {parseHTML} from '../utils';
 
 export default React.createClass({
 	displayName: 'PopUp',
@@ -55,7 +59,7 @@ export default React.createClass({
 				{error ? <Error error={error} /> :
 					loading ?
 						<Loading /> :
-							<div className="content" dangerouslySetInnerHTML={{__html: html}} />
+							<div className="content" {...rawContent(html)} />
 				}
 			</div>
 		);

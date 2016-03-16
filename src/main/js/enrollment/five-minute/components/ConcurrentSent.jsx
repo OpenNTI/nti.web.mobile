@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {scoped} from 'common/locale';
+import {rawContent} from 'common/utils/jsx';
 
 const t = scoped('ENROLLMENT');
 
@@ -13,7 +14,7 @@ export default React.createClass({
 				<figure className="notice">
 					<div>
 						<h2>{t('concurrentThanksHead')}</h2>
-						<span dangerouslySetInnerHTML={{__html: t('concurrentThanksBody')}} />
+						<span {...rawContent(t('concurrentThanksBody'))} />
 					</div>
 				</figure>
 				<a className="button tiny" href="../../../">Back</a>

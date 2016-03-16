@@ -3,6 +3,8 @@ import ReactDOMServer from 'react-dom/server';
 
 import WhiteboardRenderer from 'nti-lib-whiteboardjs/lib/Canvas';
 
+import {rawContent} from 'common/utils/jsx';
+
 const WhiteboardThumbnail = React.createClass({
 	displayName: 'WhiteboardThumbnail',
 
@@ -41,7 +43,7 @@ const WhiteboardThumbnail = React.createClass({
 						<div className="edit" unselectable="on">Edit</div>
 					</div>
 					{*/}
-					<script type="application/json" dangerouslySetInnerHTML={{__html: scene}}/>
+					<script type="application/json" {...rawContent(scene)}/>
 				</div>
 			</object>
 		);

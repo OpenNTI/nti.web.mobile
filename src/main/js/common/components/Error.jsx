@@ -1,6 +1,8 @@
 import React from 'react';
 import Logger from 'nti-util-logger';
 
+import {rawContent} from '../utils/jsx';
+
 const logger = Logger.get('common:components:Error');
 
 const isHTML = /<html|<([a-z]+)[^>]*>(.+)<\/\1>/i;
@@ -52,7 +54,7 @@ export default React.createClass({
 
 		if (isHTML.test(message)) {
 			message = (
-				<pre dangerouslySetInnerHTML={{__html: message}}/>
+				<pre {...rawContent(message)}/>
 			);
 		}
 

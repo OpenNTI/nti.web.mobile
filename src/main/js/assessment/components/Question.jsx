@@ -34,9 +34,7 @@ export default React.createClass({
 	},
 
 	synchronizeFromStore () {
-		if (this.isMounted()) {
-			this.forceUpdate();
-		}
+		this.forceUpdate();
 	},
 
 

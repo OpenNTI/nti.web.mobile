@@ -1,4 +1,7 @@
 import React from 'react';
+
+import {rawContent} from 'common/utils/jsx';
+
 import Mixin from './Mixin';
 
 import Content from '../Content';
@@ -37,7 +40,7 @@ export default React.createClass({
 					strategies={strategies}
 					renderCustomWidget={this.renderInput}
 					/>
-				<div className="explanation" dangerouslySetInnerHTML={{__html: ex}}/>
+				<div className="explanation" {...rawContent(ex)}/>
 			</div>
 		);
 	},

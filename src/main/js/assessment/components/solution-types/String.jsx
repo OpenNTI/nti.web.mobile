@@ -1,4 +1,7 @@
 import React from 'react';
+
+import {rawContent} from 'common/utils/jsx';
+
 import Mixin from './Mixin';
 
 /**
@@ -22,7 +25,7 @@ export default React.createClass({
 		return (
 			<div className="solutions">
 				{this.renderSolution()}
-				<div className="explanation" dangerouslySetInnerHTML={{__html: ex}}/>
+				<div className="explanation" {...rawContent(ex)}/>
 			</div>
 		);
 	},
@@ -36,7 +39,7 @@ export default React.createClass({
 		}
 
 		return (
-			<div className="solution" dangerouslySetInnerHTML={{__html: solution.value || solution}}/>
+			<div className="solution" {...rawContent(solution.value || solution)}/>
 		);
 	}
 });

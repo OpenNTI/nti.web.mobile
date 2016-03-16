@@ -5,6 +5,8 @@ import {getEventTarget} from 'nti-lib-dom';
 
 import emptyFunction from 'fbjs/lib/emptyFunction';
 
+import {rawContent} from 'common/utils/jsx';
+
 const isTruthy = emptyFunction.thatReturnsArgument;
 
 const valueIfChecked = (i)=> i.checked && i.value;
@@ -79,7 +81,7 @@ export default React.createClass({
 				<input type="radio" name={group} checked={checked} value={index} onChange={this.handleInteraction}/>
 				<div>
 					<span className="numeral">{numeral}.</span>
-					<span className="choice-content" dangerouslySetInnerHTML={{__html: choice}}/>
+					<span className="choice-content" {...rawContent(choice)}/>
 				</div>
 			</label>
 		);

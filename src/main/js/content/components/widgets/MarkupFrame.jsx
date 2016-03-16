@@ -6,6 +6,8 @@ import isEmpty from 'isempty';
 
 import Mixin from './Mixin';
 
+import {rawContent} from 'common/utils/jsx';
+
 import Zoomable from 'common/zoomable/components/View';
 
 export default React.createClass({
@@ -93,8 +95,8 @@ export default React.createClass({
 						{!isSlide ? null : ( <a href="#slide" className="bar-cell slide"/> )}
 						{noDetails && !markable ? null : (
 							<span className="bar-cell">
-								<span className="image-title" dangerouslySetInnerHTML={{__html: title}}/>
-								<span className="image-caption" dangerouslySetInnerHTML={{__html: caption}}/>
+								<span className="image-title" {...rawContent(title)}/>
+								<span className="image-caption" {...rawContent(caption)}/>
 								{markable && ( <a href="#mark" className="mark"/> )}
 							</span>
 						)}

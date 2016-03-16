@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import {scoped} from 'common/locale';
+import {rawContent} from 'common/utils/jsx';
 
 import StudentLink from './StudentLink';
 import StudentStatics from './StudentStaticsMixin';
@@ -46,7 +47,7 @@ export default React.createClass({
 
 		return (
 			<StudentLink item={item}>
-				<div className={classes} dangerouslySetInnerHTML={{__html: content }} />
+				<div className={classes} {...rawContent(content)} />
 			</StudentLink>
 		);
 	}

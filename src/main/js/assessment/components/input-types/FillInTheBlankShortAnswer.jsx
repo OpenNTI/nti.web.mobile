@@ -34,6 +34,11 @@ export default React.createClass({
 	},
 
 
+	componentWillUnmount () {
+		delete this.form;
+	},
+
+
 	render () {
 		return (
 			<form ref={x => this.form = x} className="fill-in-the-blank" onSubmit={stopEvent}>
@@ -54,7 +59,7 @@ export default React.createClass({
 
 		return (
 			<span className="blank">
-				<input ref={name} name={name} value={value} size={maxLength} onChange={this.handleInteraction} readOnly={submitted}/>
+				<input name={name} value={value} size={maxLength} onChange={this.handleInteraction} readOnly={submitted}/>
 			</span>
 		);
 	},
@@ -62,7 +67,7 @@ export default React.createClass({
 
 	getValue () {
 		let {form} = this;
-		if (!form || !this.isMounted()) { return; }
+		if (!form) { return; }
 
 		let values = null;
 

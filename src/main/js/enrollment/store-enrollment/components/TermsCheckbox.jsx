@@ -2,6 +2,7 @@ import React from 'react';
 
 import {scoped} from 'common/locale';
 import {getUserAgreementURI} from 'common/utils';
+import {rawContent} from 'common/utils/jsx';
 
 let t = scoped('ENROLLMENT');
 
@@ -30,7 +31,7 @@ export default React.createClass({
 			<div className="terms-checkbox">
 				<label className="terms-label">
 					<input type="checkbox" ref={x => this.checkbox = x} onChange={this.onChange} />
-					<span dangerouslySetInnerHTML={{__html: html}} />
+					<span {...rawContent(html)} />
 				</label>
 			</div>
 		);

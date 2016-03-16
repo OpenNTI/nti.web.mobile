@@ -6,6 +6,8 @@ import {Link} from 'react-router-component';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 
+import {rawContent} from 'common/utils/jsx';
+
 import {profileHref} from '../../mixins/ProfileLink';
 
 import Members from './Members';
@@ -77,7 +79,7 @@ export default React.createClass({
 			<div className="community-info">
 				<div className="heading">
 					<h3>Description</h3>
-					<div className="description" dangerouslySetInnerHTML={{__html: entity.about}}/>
+					<div className="description" {...rawContent(entity.about)}/>
 					{this.renderAdmins()}
 				</div>
 				<div className="inset-shadow">

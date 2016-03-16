@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {rawContent} from 'common/utils/jsx';
+
 export default React.createClass({
 	displayName: 'ProfessionalPositionWidget',
 
@@ -20,9 +22,9 @@ export default React.createClass({
 
 		return (
 			<div className="professional-position">
-				<div className="company" dangerouslySetInnerHTML={{__html: item.companyName}}/>
-				<div className="title" dangerouslySetInnerHTML={{__html: title}}/>
-				<div className="description" dangerouslySetInnerHTML={{__html: item.description}} />
+				<div className="company" {...rawContent(item.companyName)}/>
+				<div className="title" {...rawContent(title)}/>
+				<div className="description" {...rawContent(item.description)} />
 			</div>
 		);
 	}

@@ -8,6 +8,7 @@ import DisplayName from 'common/components/DisplayName';
 import LoadingInline from 'common/components/LoadingInline';
 
 import {getAppUsername} from 'common/utils';
+import {rawContent} from 'common/utils/jsx';
 
 import Editor from './FeedbackEditor';
 
@@ -64,7 +65,7 @@ export default React.createClass({
 						<Editor value={item.body} onSubmit={this.onEdit} onCancel={this.onToggleEditor}/>
 						:
 						<div className="message">
-							<div dangerouslySetInnerHTML={{__html: message}}/>
+							<div {...rawContent(message)}/>
 							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 						</div>
 					}

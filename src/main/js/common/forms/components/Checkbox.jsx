@@ -1,4 +1,5 @@
 import React from 'react';
+import {rawContent} from 'common/utils/jsx';
 
 export default React.createClass({
 
@@ -14,7 +15,7 @@ export default React.createClass({
 			<label>
 				<input {...this.props}/>
 				{config.htmlLabel ?
-					<span className="htmlLabel" dangerouslySetInnerHTML={{__html: config.label || ''}} />
+					<span className="htmlLabel" {...rawContent(config.label || '')} />
 					:
 					<span>{config.label}</span>
 				}

@@ -1,13 +1,12 @@
 import React from 'react';
 
 import {getServer} from 'common/utils';
+import {rawContent} from 'common/utils/jsx';
 
 import Conditional from 'common/components/Conditional';
 import ErrorWidget from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import BasePath from 'common/mixins/BasePath';
-
-const raw = x => ({__html: x});
 
 export default React.createClass({
 	displayName: 'UserAgreement',
@@ -69,8 +68,8 @@ export default React.createClass({
 					<ErrorWidget error={error} />
 				) : (
 					<Conditional condition={!loading && !!content} className="agreement">
-						<style type="text/css" scoped dangerouslySetInnerHTML={raw(styles)}/>
-						<div dangerouslySetInnerHTML={raw(content)}/>
+						<style type="text/css" scoped {...rawContent(styles)}/>
+						<div {...rawContent(content)}/>
 					</Conditional>
 				)}
 
