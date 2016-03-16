@@ -3,6 +3,7 @@ import React from 'react';
 import AddEntryButton from './AddEntryButton';
 import EventItem from './EventItem';
 import Mixin from './Mixin';
+import RemoveIcon from './RemoveIcon';
 
 export default React.createClass({
 	displayName: 'Events:Edit',
@@ -36,6 +37,10 @@ export default React.createClass({
 		return errors.length === 0;
 	},
 
+	remove (index) {
+		this.removeEntry(index);
+	},
+
 	render () {
 		let {mimeType, fieldNames, field, schema} = this.props;
 		let {items} = this.state || {};
@@ -47,7 +52,7 @@ export default React.createClass({
 				{(items || []).map((item, index) => {
 					return (
 						<div className="entry" key={`item-${index}`}>
-							<div className="remove icon-bold-x" onClick={this.removeEntry.bind(this, index)}/>
+							<RemoveIcon onClick={this.remove} index={index} />
 							<EventItem schema={itemSchema} item={item} ref={x => this.eventItems[`item-${index}`] = x} mimeType={mimeType} fieldNames={fieldNames}/>
 						</div>
 					);
