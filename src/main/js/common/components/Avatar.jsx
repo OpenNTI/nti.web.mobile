@@ -44,13 +44,9 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		this.mounted = true;
 		this.fillIn();
 	},
 
-	componentWillUnmount () {
-		this.mounted = false;
-	},
 	componentWillReceiveProps (nextProps) {
 		if (this.props.entity !== nextProps.entity) {
 			this.fillIn(nextProps);
@@ -64,7 +60,7 @@ export default React.createClass({
 
 		resolve(props)
 			.catch(() => DEFAULT)
-			.then(x => this.mounted && this.setState({
+			.then(x => this.setState({
 				entity: x,
 				color: this.getColorClass(x),
 				loading: false

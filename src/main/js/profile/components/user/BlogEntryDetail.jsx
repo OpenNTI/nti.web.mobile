@@ -1,18 +1,14 @@
 import React from 'react';
 import TopicView from 'forums/components/TopicView';
 
-export default React.createClass({
-	displayName: 'BlogEntryDetail',
+export default function BlogEntryDetail ({id}) {
+	return (
+		<div className="profile-forums forums-wrapper">
+			<TopicView topicId={id} />
+		</div>
+	);
+}
 
-	propTypes: {
-		id: React.PropTypes.string.isRequired
-	},
-
-	render () {
-		return (
-			<div className="profile-forums forums-wrapper">
-				<TopicView topicId={this.props.id} />
-			</div>
-		);
-	}
-});
+BlogEntryDetail.propTypes = {
+	id: React.PropTypes.string.isRequired
+};
