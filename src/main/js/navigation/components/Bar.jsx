@@ -281,8 +281,8 @@ export default React.createClass({
 		let sections = availableSections.map(sectionProps);
 
 		return menuOpen && React.createElement(Menu, props,
-				...sections.map(x=>
-					<li {...x}><a {...x}/></li>
+				...sections.map((x,i)=>
+					<li key={i} {...x}><a {...x}/></li>
 				));
 	}
 
