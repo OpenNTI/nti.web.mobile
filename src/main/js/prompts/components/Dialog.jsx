@@ -79,10 +79,12 @@ let Dialog = React.createClass({
 
 
 	componentDidMount () {
+		this.mounted = true;
 		window.addEventListener('popstate', this.dismiss);
 	},
 
 	componentWillUnmount () {
+		this.mounted = false;
 		window.removeEventListener('popstate', this.dismiss);
 	},
 
@@ -115,7 +117,7 @@ let Dialog = React.createClass({
 
 	componentDidUpdate () {
 		let focusNode;
-		if (this.isMounted()) {
+		if (this.mounted) {
 
 			focusNode = this.confirm || this.cancel || this.frame;
 

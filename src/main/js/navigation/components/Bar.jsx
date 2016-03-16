@@ -23,6 +23,7 @@ import NavStore from '../Store';
 const logger = Logger.get('NavigationBar');
 const menuOpenBodyClass = 'nav-menu-open';
 
+
 function ensureSlash (str) {
 	const split = /[?#]/.exec(str);
 	let args = '';
@@ -61,7 +62,7 @@ export default React.createClass({
 	backingStoreEventHandlers: {
 		default: buffer(100, function () {
 			let o = NavStore.getData();
-			if (this.isMounted()) {
+			if (this.mounted) {
 				logger.debug('Set Context: %o', o);
 				this.setState(Object.assign({resolving: true}, o),
 					()=> this.fillIn(o));
@@ -79,8 +80,13 @@ export default React.createClass({
 	},
 
 
-	componentDidMount () {},
+	componentDidMount () {
+		this.mounted = true;
+	},
 
+	componentWillUnmount () {
+		this.mounted = false;
+	},
 
 	componentWillReceiveProps () {
 		this.closeMenu();
@@ -122,15 +128,15 @@ export default React.createClass({
 		return this.getChildForSide('left');
 	},
 
-
-	getRight () {
+	userMenuClicked () {
 		let {triggerRightMenu} = this.context;
-		return this.getChildForSide('right') || <UserMenu onClick={()=> {
-			this.closeMenu();
-			triggerRightMenu();
-		}}/>;
+		this.closeMenu();
+		triggerRightMenu();
 	},
 
+	getRight () {
+		return this.getChildForSide('right') || <UserMenu onClick={this.userMenuClicked}/>;
+	},
 
 	getCenter () {
 		let css = cx({

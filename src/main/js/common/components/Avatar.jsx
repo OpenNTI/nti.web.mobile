@@ -43,7 +43,14 @@ export default React.createClass({
 		return {};
 	},
 
-	componentDidMount () { this.fillIn(); },
+	componentDidMount () {
+		this.mounted = true;
+		this.fillIn();
+	},
+
+	componentWillUnmount () {
+		this.mounted = false;
+	},
 	componentWillReceiveProps (nextProps) {
 		if (this.props.entity !== nextProps.entity) {
 			this.fillIn(nextProps);
@@ -57,7 +64,7 @@ export default React.createClass({
 
 		resolve(props)
 			.catch(() => DEFAULT)
-			.then(x => this.isMounted() && this.setState({
+			.then(x => this.mounted && this.setState({
 				entity: x,
 				color: this.getColorClass(x),
 				loading: false
@@ -101,7 +108,7 @@ export default React.createClass({
 
 
 	setUnknown () {
-		if (!this.isMounted()) {
+		if (!this.mounted) {
 			return;
 		}
 		this.setState(this.isGroup() ? DEFAULT_GROUP : DEFAULT);
