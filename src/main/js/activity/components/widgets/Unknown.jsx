@@ -1,16 +1,12 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'Unknown',
+export default function Unknown (props) {
+	let {MimeType} = props.item || {};
+	return (
+		<error><span>Unknown Type:<br/>{MimeType}</span></error>
+	);
+}
 
-	propTypes: {
-		item: React.PropTypes.any.isRequired
-	},
-
-	render () {
-		let {MimeType} = this.props.item || {};
-		return (
-			<error><span>Unknown Type:<br/>{MimeType}</span></error>
-		);
-	}
-});
+Unknown.propTypes = {
+	item: React.PropTypes.any.isRequired
+};
