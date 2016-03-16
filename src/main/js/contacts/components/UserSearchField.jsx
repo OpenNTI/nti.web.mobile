@@ -184,7 +184,7 @@ export default React.createClass({
 								key={'selectable-' + entity.getID()}
 								entity={entity}
 								selected={listContainsEntity(selectedUsers, entity) || listContainsEntity(selected, entity)}
-								onChange={this.selectionChange.bind(this, entity)}
+								onChange={this.selectionChange}
 							/>)
 						: <li className="no-results">{search.length > 2 ? 'No results' : 'Search too broad'}</li>
 					}
