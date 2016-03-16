@@ -40,10 +40,7 @@ export default React.createClass({
 
 
 	applyContext () {
-		if (this.isMounted()) {
-			// console.debug('Set Context: %o', o);
-			this.setState(NavStore.getData());
-		}
+		this.setState(NavStore.getData());
 	},
 
 
