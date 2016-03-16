@@ -7,29 +7,24 @@ import UnsupportedPlaceholder from './UnsupportedPlaceholder';
 
 import {isAssignment, isSurvey, areAssessmentsSupported} from '../utils';
 
-export default React.createClass({
-	displayName: 'SetHeader',
+export default function SetHeader ({assessment}) {
+	let Component = isAssignment(assessment)
+						? AssignmentHeader
+						: isSurvey(assessment)
+							? SurveyHeader
+							: ScoreboardHeader;
 
-	propTypes: {
-		assessment: React.PropTypes.object
-	},
-
-	render () {
-		let {assessment} = this.props;
-		let Component = isAssignment(assessment)
-							? AssignmentHeader
-							: isSurvey(assessment)
-								? SurveyHeader
-								: ScoreboardHeader;
-
-		if (!areAssessmentsSupported()) {
-			return (
-				<UnsupportedPlaceholder assignment={assessment}/>
-			);
-		}
-
+	if (!areAssessmentsSupported()) {
 		return (
-			<Component assessment={assessment}/>
+			<UnsupportedPlaceholder assignment={assessment}/>
 		);
 	}
-});
+
+	return (
+		<Component assessment={assessment}/>
+	);
+}
+
+SetHeader.propTypes = {
+	assessment: React.PropTypes.object
+};
