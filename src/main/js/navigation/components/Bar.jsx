@@ -62,11 +62,9 @@ export default React.createClass({
 	backingStoreEventHandlers: {
 		default: buffer(100, function () {
 			let o = NavStore.getData();
-			if (this.mounted) {
-				logger.debug('Set Context: %o', o);
-				this.setState(Object.assign({resolving: true}, o),
-					()=> this.fillIn(o));
-			}
+			logger.debug('Set Context: %o', o);
+			this.setState(Object.assign({resolving: true}, o),
+				()=> this.fillIn(o));
 		})
 	},
 
@@ -79,14 +77,6 @@ export default React.createClass({
 		};
 	},
 
-
-	componentDidMount () {
-		this.mounted = true;
-	},
-
-	componentWillUnmount () {
-		this.mounted = false;
-	},
 
 	componentWillReceiveProps () {
 		this.closeMenu();
