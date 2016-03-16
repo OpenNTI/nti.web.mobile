@@ -4,23 +4,17 @@ import OAuthButton from './OAuthButton';
 
 import Store from '../Store';
 
-export default React.createClass({
-	displayName: 'OAuthButtons',
+export default function OAuthButtons () {
+	let links = Store.getAvailableOAuthLinks();
+	let rels = Object.keys(links);
 
-	render () {
-		let links = Store.getAvailableOAuthLinks();
-		let rels = Object.keys(links);
+	return rels.length === 0 ? null : (
+		<div className="oauth-login">
+			{rels.map(rel =>
 
-		return rels.length === 0 ? null : (
-			<div className="oauth-login">
-				{rels.map(rel =>
+				<OAuthButton id={'login:rel:' + rel} key={rel} rel={rel} href={links[rel]} />
 
-					<OAuthButton id={'login:rel:' + rel} key={rel} rel={rel} href={links[rel]} />
-
-				)}
-			</div>
-		);
-
-	}
-
-});
+			)}
+		</div>
+	);
+}

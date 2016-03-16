@@ -3,26 +3,22 @@ import {Link} from 'react-router-component';
 
 import t from 'common/locale';
 
-export default React.createClass({
-	displayName: 'SectionTitle',
+export default function SectionTitle (props) {
+	const {section, href} = props;
+	let Component = href ? Link : 'h1';
 
-	propTypes: {
-		section: React.PropTypes.string.isRequired,
-		href: React.PropTypes.string
-	},
+	let p = {
+		className: 'library-section-title',
+		children: t(`LIBRARY.SECTIONS.${section}`),
+		href
+	};
 
-	render () {
-		const {props: {section, href}} = this;
-		let Component = href ? Link : 'h1';
+	return (
+		<Component {...p}/>
+	);
+}
 
-		let props = {
-			className: 'library-section-title',
-			children: t(`LIBRARY.SECTIONS.${section}`),
-			href
-		};
-
-		return (
-			<Component {...props}/>
-		);
-	}
-});
+SectionTitle.propTypes = {
+	section: React.PropTypes.string.isRequired,
+	href: React.PropTypes.string
+};

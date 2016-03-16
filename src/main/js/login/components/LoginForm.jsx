@@ -44,9 +44,7 @@ export default React.createClass({
 	backingStore: Store,
 	backingStoreEventHandlers: {
 		default () {
-			if (this.isMounted()) {
-				this.forceUpdate();
-			}
+			this.forceUpdate();
 		}
 	},
 
