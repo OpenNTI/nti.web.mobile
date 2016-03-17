@@ -5,9 +5,10 @@ import Loading from 'common/components/Loading';
 
 import Item from './Item';
 
-export default function DiscussionsList ({children, items}) {
+export default function DiscussionsList (props) {
+	const {children, items} = props;
 	return (
-		<div className="discussions" {...this.props}>
+		<div className="discussions" {...props}>
 			{children}
 			<div className="list">
 				{!items
