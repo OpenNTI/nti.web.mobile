@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
+import SelectBoxItem from './SelectBoxItem';
+
 export default React.createClass({
 	displayName: 'SelectBox',
 
@@ -75,7 +77,7 @@ export default React.createClass({
 				{isOpen && (
 					<ul>
 						{this.props.options.filter(item => item !== selectedOption).map((option, index) =>
-							<li key={index} onClick={this.onClick.bind(this, option.value || option.label)}>{optionLabel(option.label)}</li>
+							<SelectBoxItem key={index} option={option} onClick={this.onClick} />
 						)}
 					</ul>
 				)}
