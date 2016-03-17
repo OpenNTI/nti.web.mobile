@@ -80,9 +80,7 @@ export default React.createClass({
 		thenable
 			.catch(()=> {})
 			.then(()=> {
-				if (this.isMounted()) {
-					this.setState({busy: false});
-				}
+				this.setState({busy: false});
 			});
 	}
 });
