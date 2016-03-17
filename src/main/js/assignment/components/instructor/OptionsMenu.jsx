@@ -5,6 +5,7 @@ import Accessor from './mixins/AssignmentSummaryAccessor';
 import ShowAvatars from './mixins/ShowAvatarsChild';
 
 import MenuTransitionGroup from './MenuTransitionGroup';
+import PageSizeMenuOption from './PageSizeMenuOption';
 
 export default React.createClass({
 	displayName: 'OptionsMenu',
@@ -48,12 +49,12 @@ export default React.createClass({
 							<ul className="options-menu">
 								<li key="title" className="title">Display</li>
 								{values.map(value => (
-									<li key={value}
+									<PageSizeMenuOption
+										key={value}
+										value={value}
+										onClick={this.setPageSize}
 										className={cx({'selected': Store.getPageSize() === value})}
-										onClick={() => this.setPageSize(value)}
-										>
-										{`${value} students per page`}
-									</li>
+									/>
 								))}
 								<li onClick={this.toggleAvatars}>
 									<input type="checkbox" onChange={this.toggleAvatars} checked={this.getShowAvatars()} /> Show Avatars
