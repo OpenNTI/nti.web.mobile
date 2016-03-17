@@ -59,13 +59,11 @@ export default React.createClass({
 
 
 	onError (error) {
-		if (this.isMounted()) {
-			this.setState({
-				loading: false,
-				error: error,
-				data: null
-			});
-		}
+		this.setState({
+			loading: false,
+			error: error,
+			data: null
+		});
 	},
 
 

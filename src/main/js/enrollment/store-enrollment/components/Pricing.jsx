@@ -97,7 +97,7 @@ export default React.createClass({
 		let {pricing} = e;
 		let discount;
 
-		if (!this.isMounted() || this.props.locked) { return; }
+		if (this.props.locked) { return; }
 
 		if (e.type === Constants.VALID_COUPON) {
 			discount = this[getDiscountString](pricing.coupon);
