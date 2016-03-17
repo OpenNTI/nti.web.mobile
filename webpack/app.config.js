@@ -19,7 +19,7 @@ const sassRoot = path.resolve(__dirname, '..', 'src', 'main', 'resources', 'scss
 const modules = path.resolve(__dirname, '..', 'node_modules');
 const eslintrc = path.resolve(__dirname, '..', '.eslintrc');
 
-const gitRevision = JSON.stringify(require('../src/server/lib/git-revision'));
+const gitRevision = JSON.stringify(require('nti-util-git-rev'));
 
 const ENV = process.env.NODE_ENV || 'development';
 const PROD = ENV === 'production';
