@@ -49,7 +49,7 @@ export default React.createClass({
 
 	search (query) {
 		const {props: {allowAny, allowContacts}} = this;
-		const stillValid = () => this.isMounted() && query === this.props.query;
+		const stillValid = () => query === this.props.query;
 
 		this.setState({error: void 0, results: void 0, page: 1}, ()=>
 			getService()
