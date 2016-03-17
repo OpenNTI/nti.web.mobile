@@ -8,6 +8,8 @@ import Empty from './EmptyList';
 import {getService} from '../utils';
 import SelectionModel from '../utils/ListSelectionModel';
 
+import EntitySearchResultItem from './EntitySearchResultItem';
+
 export default React.createClass({
 	displayName: 'UserSearch',
 
@@ -109,14 +111,7 @@ export default React.createClass({
 					<Empty type="entity-search"/>
 
 				) : results.filter(limit).map(o =>
-
-					<SelectableEntity
-						key={o.getID()}
-						entity={o}
-						selected={selection.isSelected(o)}
-						onChange={this.onSelectionChange.bind(this, o)}
-						/>
-
+					<EntitySearchResultItem key={o.getID()} entity={o} selected={selection.isSelected(o)} onChange={this.onSelectionChange} />
 				)}
 
 				{!hasMore() ? null : (
