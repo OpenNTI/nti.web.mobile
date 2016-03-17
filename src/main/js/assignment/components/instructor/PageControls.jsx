@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import MenuTransitionGroup from './MenuTransitionGroup';
+import PageControlsMenuOption from './PageControlsMenuOption';
 
 export default React.createClass({
 	displayName: 'PageControls',
@@ -54,11 +55,9 @@ export default React.createClass({
 		);
 
 		const item = page => (
-			<li className={cx({'selected': page === currentPage})}
-				key={`page-${page}`}
-				onClick={() => this.setPage(page)}>
+			<PageControlsMenuOption page={page} onClick={this.setPage} className={cx({'selected': page === currentPage})}>
 				{itemContent(page)}
-			</li>
+			</PageControlsMenuOption>
 		);
 
 		const numPages = Math.ceil(total / pageSize);
