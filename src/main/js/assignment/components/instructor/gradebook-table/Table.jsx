@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
+import ColumnHeading from './ColumnHeading';
+
 import {SortOrder} from 'nti-lib-interfaces';
 
 export default React.createClass({
@@ -19,6 +21,10 @@ export default React.createClass({
 		if (typeof onSortChange === 'function') {
 			onSortChange(sort);
 		}
+	},
+
+	onHeadingClick (column) {
+		this.setSort(column.sort);
 	},
 
 	row (item) {
@@ -54,13 +60,12 @@ export default React.createClass({
 								}
 							);
 							return (
-								<div
+								<ColumnHeading
 									key={Col.label()}
-									onClick={()=> this.setSort(Col.sort)}
-									className={classes}>
-										<span className="heading">{Col.label()}</span>
-										<span className="sort-arrow" />
-								</div>
+									column={Col}
+									className={classes}
+									onClick={this.onHeadingClick}
+								/>
 							);
 						})
 					}
