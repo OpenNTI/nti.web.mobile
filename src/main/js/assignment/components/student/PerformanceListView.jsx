@@ -9,6 +9,7 @@ import ItemChanges from 'common/mixins/ItemChanges';
 
 import PerformanceHeader from './PerformanceHeader';
 import PerformanceItem from './PerformanceItem';
+import PerformanceListViewHeading from './PerformanceListViewHeading';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
@@ -86,9 +87,7 @@ export default React.createClass({
 							'asc': sorted && sortOrder === SortOrder.ASC
 						});
 						return (
-							<div key={index} className={classes} onClick={()=>this.changeSort(col.sortOn)}>
-								{col.label}
-							</div>
+							<PerformanceListViewHeading key={index} column={col} className={classes} onClick={this.changeSort} />
 						);
 					})}
 				</div>
