@@ -8,7 +8,7 @@ export default function OAuthButtons () {
 	let links = Store.getAvailableOAuthLinks();
 	let rels = Object.keys(links);
 
-	return rels.length === 0 ? null : (
+	return rels.length === 0 ? <div/> : (
 		<div className="oauth-login">
 			{rels.map(rel =>
 
