@@ -2,7 +2,6 @@ import React from 'react';
 
 import Err from './Error';
 import Loading from './TinyLoader';
-import SelectableEntity from './SelectableEntity';
 import Empty from './EmptyList';
 
 import {getService} from '../utils';
