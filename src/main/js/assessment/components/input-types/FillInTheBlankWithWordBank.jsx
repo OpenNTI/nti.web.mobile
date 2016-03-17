@@ -6,7 +6,7 @@ import InputType, {stopEvent} from './Mixin';
 import Content from '../Content';
 import Store from '../../Store';
 
-import WordBankEntry from '../WordBankEntry';
+import FillInTheBlankWithWordBankEntry from './FillInTheBlankWithWordBankEntry';
 
 import {Mixin, DropTarget} from 'common/dnd';
 
@@ -150,8 +150,13 @@ export default React.createClass({
 		}
 
 		return (
-			<WordBankEntry entry={entryItem} className={`dropped ${correct}`} data-dropped-on={input} locked={locked}
-				onReset={(entry, cmp)=>this.onReset(input, entry, cmp)}/>
+			<FillInTheBlankWithWordBankEntry
+				entry={entryItem}
+				className={`dropped ${correct}`}
+				data-dropped-on={input}
+				locked={locked}
+				onReset={this.onReset}
+			/>
 		);
 	},
 
