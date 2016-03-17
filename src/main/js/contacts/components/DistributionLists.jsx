@@ -1,12 +1,8 @@
 //node modules imports (react is always first), react components second, others after.
 import React from 'react';
 import {Link} from 'react-router-component';
-import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
-import cx from 'classnames';
 
 //intra-app module imports (ordered LocalName)
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
 import EmptyList from 'common/components/EmptyList';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
@@ -15,7 +11,6 @@ import Loading from 'common/components/Loading';
 import mixin from '../mixins/Mixin';
 import {LISTS} from '../Constants';
 
-import ListMeta from './ListMeta';
 import DistributionListItem from './DistributionListItem';
 
 
