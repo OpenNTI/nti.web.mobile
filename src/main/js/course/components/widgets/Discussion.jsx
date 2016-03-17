@@ -94,16 +94,13 @@ export default React.createClass({
 
 	fillInDataFrom (o) {
 		let isForum = o.hasOwnProperty('TopicCount');
-		if (this.isMounted()) {
-
-			this.setState({
-				loading: false,
-				title: o.title,
-				count: o.PostCount || o.TopicCount || 0,
-				commentType: isForum ? ' Discussions' : ' Comments',
-				href: isForum ? this.getForumHref(o) : this.getTopicHref(o)
-			});
-		}
+		this.setState({
+			loading: false,
+			title: o.title,
+			count: o.PostCount || o.TopicCount || 0,
+			commentType: isForum ? ' Discussions' : ' Comments',
+			href: isForum ? this.getForumHref(o) : this.getTopicHref(o)
+		});
 	},
 
 
@@ -124,17 +121,14 @@ export default React.createClass({
 	},
 
 	markDisabled () {
-		if (this.isMounted()) {
-			this.setState({
-				loading: false,
-				disabled: true,
-				href: null,
-				count: '',
-				commentType: ''
-			});
-		}
+		this.setState({
+			loading: false,
+			disabled: true,
+			href: null,
+			count: '',
+			commentType: ''
+		});
 	},
-
 
 	render () {
 		const {props: {item}, state: {icon}} = this;
