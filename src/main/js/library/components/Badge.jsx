@@ -27,7 +27,7 @@ export default function Badge ({item}) {
 		}
 	}
 
-	return !label ? null : (
+	return !label ? <div/> : (
 		<div className={cx('badge', flags)}>
 			{label}
 		</div>

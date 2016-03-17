@@ -9,7 +9,7 @@ import Heading from '../SectionHeading';
 export default function Container ({section, items}) {
 	return !items || items.length === 0 ?
 	(!AddButton.canSectionBeAddedTo(section) ? (
-		null
+		<div/>
 	) : (
 		<div className="library-collection">
 			<Heading section={section}/>
