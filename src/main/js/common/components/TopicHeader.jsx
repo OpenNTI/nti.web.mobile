@@ -1,18 +1,14 @@
 import React from 'react';
 import cx from 'classnames';
 
-export default React.createClass({
-	displayName: 'ListHeader',
+export default function ListHeader (props) {
+	const {className} = props;
 
-	propTypes: {
-		className: React.PropTypes.string
-	},
+	return (
+		<div className={cx('topic-header', className)} {...props}/>
+	);
+}
 
-	render () {
-		const {className} = this.props;
-
-		return (
-			<div className={cx('topic-header', className)} {...this.props}/>
-		);
-	}
-});
+ListHeader.propTypes = {
+	className: React.PropTypes.string
+};

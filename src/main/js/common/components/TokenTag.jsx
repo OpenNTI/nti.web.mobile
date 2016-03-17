@@ -1,26 +1,22 @@
 import React from 'react';
 import cx from 'classnames';
 
-export default React.createClass({
-	displayName: 'TokenTag',
+export default function TokenTag (props) {
+	let {className, selected, name, value} = props;
 
-	propTypes: {
-		className: React.PropTypes.string,
+	return (
+		<div data-value={value} className={cx('token pill', className, {selected})} {...props}>
+			{name || value}
+		</div>
+	);
+}
 
-		selected: React.PropTypes.bool,
+TokenTag.propTypes = {
+	className: React.PropTypes.string,
 
-		name: React.PropTypes.string,
+	selected: React.PropTypes.bool,
 
-		value: React.PropTypes.string.isRequired
-	},
+	name: React.PropTypes.string,
 
-	render () {
-		let {className, selected, name, value} = this.props;
-
-		return (
-			<div data-value={value} className={cx('token pill', className, {selected})} {...this.props}>
-				{name || value}
-			</div>
-		);
-	}
-});
+	value: React.PropTypes.string.isRequired
+};
