@@ -67,7 +67,7 @@ export default React.createClass({
 
 
 	setup (props = this.props) {
-		const stillValid = () => this.isMounted() && props[KEY] === this.props[KEY];
+		const stillValid = () => props[KEY] === this.props[KEY];
 		const {scope} = props;
 
 		function getSuggestions () {
