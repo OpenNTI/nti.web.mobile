@@ -90,7 +90,7 @@ export default React.createClass({
 		let task = Date.now();
 
 		let set = state => {
-			if (this.state.task === task && this.isMounted()) {
+			if (this.state.task === task) {
 				this.setState(state);
 			}
 		};
