@@ -8,7 +8,7 @@ export default function AssignmentsPageFrame (props) {
 		<div className="assignments-page-frame">
 			<Tabs />
 			<div className="content-area">
-				<Content {...this.props} />
+				<Content {...props} />
 			</div>
 		</div>
 	);

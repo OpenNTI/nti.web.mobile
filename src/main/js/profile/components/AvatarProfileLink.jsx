@@ -16,7 +16,7 @@ export default function AvatarProfileLink (props) {
 			<div className="body">
 				<DisplayName entity={e} suppressProfileLink />
 				{e.location && <span className="location" {...rawContent(e.location)}/>}
-				{this.props.children}
+				{props.children}
 			</div>
 			{e.follow && <FollowButton entity={e} />}
 		</ProfileLink>
