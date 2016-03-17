@@ -1,11 +1,7 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'Footer',
-
-	render () {
-		return (
-			<footer/>
-		);
-	}
-});
+export default function Footer () {
+	return (
+		<footer/>
+	);
+}
