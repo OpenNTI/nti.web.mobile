@@ -1,6 +1,4 @@
 import React from 'react';
-import cx from 'classnames';
-import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
 
 import Logger from 'nti-util-logger';
 
@@ -10,12 +8,9 @@ import EmptyList from 'common/components/EmptyList';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 
-import AvatarProfileLink from 'profile/components/AvatarProfileLink';
-
 import mixin from '../mixins/Mixin';
 import {GROUPS} from '../Constants';
 
-import ListMeta from './ListMeta';
 import GroupsListItem from './GroupsListItem';
 
 const logger = Logger.get('contacts:components:Groups');
