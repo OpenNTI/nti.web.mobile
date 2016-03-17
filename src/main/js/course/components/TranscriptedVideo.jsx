@@ -310,18 +310,17 @@ export default React.createClass({
 		let time = (event.target || {}).currentTime;
 		let {returnTime} = this.state;
 
-		if (this.isMounted()) {
-			if (returnTime != null) {
-				this.onJumpTo(returnTime);
-				returnTime = null;
-			}
-			if (!this.bookkeeping || this.bookkeeping.time < time) {
-				this.setState({currentTime: time, returnTime});
-			}
-			if (this.bookkeeping && this.bookkeeping.expires < Date.now()) {
-				delete this.bookkeeping;
-			}
+		if (returnTime != null) {
+			this.onJumpTo(returnTime);
+			returnTime = null;
 		}
+		if (!this.bookkeeping || this.bookkeeping.time < time) {
+			this.setState({currentTime: time, returnTime});
+		}
+		if (this.bookkeeping && this.bookkeeping.expires < Date.now()) {
+			delete this.bookkeeping;
+		}
+
 	},
 
 

@@ -87,7 +87,7 @@ export default React.createClass({
 				//is there a message to display?
 				logger.error(er);
 			})
-			.then(()=> this.isMounted() && this.setState({busy: false}));
+			.then(()=> this.setState({busy: false}));
 
 	},
 

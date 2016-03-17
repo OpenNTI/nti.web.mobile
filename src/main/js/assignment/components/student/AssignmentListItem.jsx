@@ -35,7 +35,7 @@ export default React.createClass({
 		const {assignment} = this.props;
 
 		this.getAssignments().getHistoryItem(assignment.getID())
-			.then(history => this.isMounted() && this.setState({history}));
+			.then(history => this.setState({history}));
 	},
 
 

@@ -62,14 +62,12 @@ export default React.createClass({
 
 
 	onError (error) {
-		if (this.isMounted()) {
-			this.setState({
-				loading: false,
-				playing: false,
-				video: null,
-				error
-			});
-		}
+		this.setState({
+			loading: false,
+			playing: false,
+			video: null,
+			error
+		});
 	},
 
 

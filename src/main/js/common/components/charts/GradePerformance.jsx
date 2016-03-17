@@ -123,7 +123,7 @@ export default React.createClass({
 
 	startAnimation () {
 		let canAnimate = this.testAnimationProperties();
-		if (canAnimate && this.isMounted()) {
+		if (canAnimate) {
 			this.animateTask.start();//safe to call repeatedly (will noop if already started)
 		}
 	},
