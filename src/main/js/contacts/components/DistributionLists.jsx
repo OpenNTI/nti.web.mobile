@@ -16,6 +16,7 @@ import mixin from '../mixins/Mixin';
 import {LISTS} from '../Constants';
 
 import ListMeta from './ListMeta';
+import DistributionListItem from './DistributionListItem';
 
 
 export default React.createClass({
@@ -42,35 +43,7 @@ export default React.createClass({
 	},
 
 	renderListItem (item) {
-
-		const rightOptions = [];
-		if(item.isModifiable) {
-			rightOptions.push({
-				label: 'Delete',
-				class: cx('tiny button caution', {
-					'disabled': !item.delete
-				})
-			});
-		}
-
-		return (
-			<li className="has-swipe-controls" key={item.getID()}>
-				<SwipeToRevealOptions
-					rightOptions={rightOptions}
-					callActionWhenSwipingFarRight={false}
-					onRightClick={this.deleteList.bind(null,item)}
-				>
-					<a href={encodeURIComponent(item.getID())}>
-						<Avatar entity={item} suppressProfileLink/>
-						<div className="body">
-							<DisplayName entity={item} suppressProfileLink/>
-							<ListMeta entity={item} />
-							{/*{item.delete && <div className="delete" onClick={this.deleteList.bind(this, item)}></div>}*/}
-						</div>
-					</a>
-				</SwipeToRevealOptions>
-			</li>
-		);
+		return <DistributionListItem item={item} onRightClick={this.deleteList} />;
 	},
 
 	render () {
