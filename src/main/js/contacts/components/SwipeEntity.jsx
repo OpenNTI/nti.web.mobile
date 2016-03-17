@@ -23,6 +23,11 @@ export default React.createClass({
 		return type; // || entity.association;
 	},
 
+	onChange () {
+		let {entity} = this.props;
+		this.props.onChange(entity);
+	},
+
 	render () {
 
 		let {entity, selection} = this.props;
@@ -44,7 +49,7 @@ export default React.createClass({
 				rightOptions={rightOptions}
 				callActionWhenSwipingFarRight={false}
 				className={classes}
-				onRightClick={this.props.onChange.bind(null,entity)}
+				onRightClick={this.onChange}
 			>
 				<ProfileLink entity={entity}>
 					<div className="avatar-spacer" entity={entity}>

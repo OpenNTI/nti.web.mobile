@@ -16,6 +16,7 @@ import mixin from '../mixins/Mixin';
 import {GROUPS} from '../Constants';
 
 import ListMeta from './ListMeta';
+import GroupsListItem from './GroupsListItem';
 
 const logger = Logger.get('contacts:components:Groups');
 const t = scoped('CONTACTS');
@@ -78,33 +79,7 @@ export default React.createClass({
 	},
 
 	renderListItem (item) {
-
-		const rightOptions = [];
-		if(item.isModifiable) {
-			rightOptions.push({
-				label: 'Delete',
-				class: cx('tiny button caution', {
-					'disabled': !(item.delete && (!item.friends || item.friends.length === 0))
-				})
-			});
-		}
-
-		return (
-			<li className="has-swipe-controls" key={item.getID()}>
-				<SwipeToRevealOptions
-					rightOptions={rightOptions}
-					callActionWhenSwipingFarRight={false}
-					onRightClick={() => this.deleteGroup(item)}
-				>
-					<AvatarProfileLink entity={item}>
-						<ListMeta entity={item} />
-					</AvatarProfileLink>
-					{/*{item.delete && (!item.friends || item.friends.length === 0) && (
-						<div className="delete" onClick={this.deleteGroup.bind(this, item)}/>
-					)}*/}
-				</SwipeToRevealOptions>
-			</li>
-		);
+		return <GroupsListItem item={item} onRightClick={this.deleteGroup} />;
 	},
 
 	render () {
