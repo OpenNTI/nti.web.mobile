@@ -151,6 +151,7 @@ export default React.createClass({
 
 		return (
 			<FillInTheBlankWithWordBankEntry
+				input={input}
 				entry={entryItem}
 				className={`dropped ${correct}`}
 				data-dropped-on={input}
