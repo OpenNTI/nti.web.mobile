@@ -6,8 +6,8 @@ const outPath = './stage/';
 
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
-const AppCachePlugin = require('./plugins/appcache');
 
+const AppCachePlugin = require('appcache-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -127,7 +127,10 @@ exports = module.exports = [
 					'/content/',
 					'*'
 				],
-				fallback: ['/dataserver2/ offline.json', '/ page.html']
+				fallback: ['/dataserver2/ offline.json', '/ page.html'],
+				settings: ['prefer-online'],
+				exclude: [],
+				output: 'manifest.appcache'
 			}),
 			new webpack.optimize.DedupePlugin(),
 			new webpack.optimize.OccurenceOrderPlugin(),
