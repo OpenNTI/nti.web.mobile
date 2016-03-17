@@ -35,7 +35,7 @@ export default React.createClass({
 						entity={entity}
 						selected={selection.isSelected(entity)}
 						labels={labels}
-						onChange={this.onChange.bind(this, entity)}
+						onChange={this.onChange}
 					/>
 				)}
 			</ul>
