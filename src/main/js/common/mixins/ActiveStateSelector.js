@@ -39,7 +39,7 @@ export default {
 
 	registerActiveStateGroupChild (cmp) {
 		const {items} = getPrivate(this);
-		if (this.isMounted() && items) {
+		if (items) {
 			if (!items.includes(cmp)) {
 				items.push(cmp);
 			}
@@ -52,7 +52,7 @@ export default {
 	unregisterActiveStateGroupChild (cmp) {
 		const {items} = getPrivate(this);
 
-		if (this.isMounted() && items) {
+		if (items) {
 
 			const idx = items.indexOf(cmp);
 			if (items && idx >= 0) {

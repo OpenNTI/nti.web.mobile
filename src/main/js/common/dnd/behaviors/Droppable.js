@@ -107,7 +107,7 @@ export default {
 
 	[onDraggableNotification] (dragData) {
 		let {x, y} = dragData;
-		if (!this.isMounted() || !this.context.currentDragItem) { return; }
+		if (!this.context.currentDragItem) { return; }
 
 		if (isPointWithIn(ReactDOM.findDOMNode(this), x, y)) {
 			if (!this.state.over) {
