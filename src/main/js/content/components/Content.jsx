@@ -200,7 +200,7 @@ export default React.createClass({
 			'data-page-ntiid': pageId
 		});
 
-		const content = {__html: body.map(this.buildBody).join('')};
+		const content = body.map(this.buildBody).join('');
 
 		return (
 			<div {...wrapperProps}>
