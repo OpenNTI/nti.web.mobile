@@ -12,31 +12,25 @@ import {Panel} from 'modeled-content';
 
 const t = scoped('UNITS');
 
-export default React.createClass({
-	displayName: 'content:discussions:Item',
+export default function DiscussionsItem ({item}) {
+	let {body, creator, title, replyCount = 0} = item;
+	let date = item.getCreatedTime();
+	let id = encodeForURI(item.getID());
 
-	propTypes: {
-		item: React.PropTypes.object
-	},
+	let preview = item.placeholder ? ['[Deleted]'] : ((title && [title]) || body);
 
+	return (
+		<a className="discussion-item" href={id}>
+			{!item.placeholder && ( <DisplayName entity={creator}/> )}
+			<Panel className="snippet" body={preview} previewMode/>
+			<div className="footer">
+				<span>{t('comments', {count: replyCount})}</span>
+				<DateTime date={date} relative/>
+			</div>
+		</a>
+	);
+}
 
-	render () {
-		let {item} = this.props;
-		let {body, creator, title, replyCount = 0} = item;
-		let date = item.getCreatedTime();
-		let id = encodeForURI(item.getID());
-
-		let preview = item.placeholder ? ['[Deleted]'] : ((title && [title]) || body);
-
-		return (
-			<a className="discussion-item" href={id}>
-				{!item.placeholder && ( <DisplayName entity={creator}/> )}
-				<Panel className="snippet" body={preview} previewMode/>
-				<div className="footer">
-					<span>{t('comments', {count: replyCount})}</span>
-					<DateTime date={date} relative/>
-				</div>
-			</a>
-		);
-	}
-});
+DiscussionsItem.propTypes = {
+	item: React.PropTypes.object
+};
