@@ -5,22 +5,18 @@ import Description from './Description';
 import Instructors from './Instructors';
 import Support from './CourseSupport';
 
-export default React.createClass({
-	displayName: 'Detail',
-	propTypes: {
-		entry: React.PropTypes.object
-	},
+export default function Detail ({entry}) {
+	return (
+		<div className="course-detail-view">
+			<Title entry={entry} />
+			<Description entry={entry} />
+			<Instructors entry={entry}/>
+			<Support entry={entry}/>
+			<div className="footer"/>
+		</div>
+	);
+}
 
-	render () {
-		let {entry} = this.props;
-		return (
-			<div className="course-detail-view">
-				<Title entry={entry} />
-				<Description entry={entry} />
-				<Instructors entry={entry}/>
-				<Support entry={entry}/>
-				<div className="footer"/>
-			</div>
-		);
-	}
-});
+Detail.propTypes = {
+	entry: React.PropTypes.object
+};
