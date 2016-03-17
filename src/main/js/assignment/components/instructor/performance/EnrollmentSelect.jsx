@@ -6,20 +6,13 @@ const OPTIONS = [
 	{ label: 'Enrolled Students', value: 'ForCredit'}
 ];
 
-export default React.createClass({
-	displayName: 'EnrollmentSelect',
+export default function EnrollmentSelect ({value = 'Open', onChange}) {
+	return (
+		<SelectBox options={OPTIONS} onChange={onChange} value={value} />
+	);
+}
 
-	propTypes: {
-		value: React.PropTypes.any,
-		onChange: React.PropTypes.func.isRequired
-	},
-
-	render () {
-
-		let filter = this.props.value || 'Open';
-
-		return (
-			<SelectBox options={OPTIONS} onChange={this.props.onChange} value={filter} />
-		);
-	}
-});
+EnrollmentSelect.propTypes = {
+	value: React.PropTypes.any,
+	onChange: React.PropTypes.func.isRequired
+};
