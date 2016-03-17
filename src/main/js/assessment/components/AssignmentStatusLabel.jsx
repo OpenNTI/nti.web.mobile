@@ -306,9 +306,9 @@ export default React.createClass({
 				) :
 
 				[over && (
-					<span className="part">{this.getNaturalDuration(dur, 1)} {over}</span>
+					<span key="over" className="part">{this.getNaturalDuration(dur, 1)} {over}</span>
 				), (
-					<span className="part"><DateTime date={date} format="[Submitted at] h:mm A MM/DD/YYYY"/></span>
+					<span key="datetime" className="part"><DateTime date={date} format="[Submitted at] h:mm A MM/DD/YYYY"/></span>
 				)]}
 			</div>
 			</div>
