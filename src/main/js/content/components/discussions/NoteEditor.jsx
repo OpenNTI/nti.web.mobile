@@ -27,6 +27,10 @@ export default React.createClass({
 		//set save button enabled or disabled.
 	},
 
+	stopFormSubmit (e) {
+		e.preventDefault();
+		return false;
+	},
 
 	render () {
 		const {scope, item} = this.props;
@@ -39,7 +43,7 @@ export default React.createClass({
 			<div className={cx('note-editor-frame editor', {busy})}>
 				<HideNavigation/>
 
-				<form onSubmit={x => x.preventDefault() && false}>
+				<form onSubmit={this.stopFormSubmit}>
 					<ShareWith scope={scope} defaultValue={sharedWith} ref={x => this.shareWith = x} onBlur={this.ensureVisible}/>
 
 					<div className={cx('title', {error})} data-error-message={errorMessage}>
