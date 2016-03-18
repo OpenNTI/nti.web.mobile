@@ -113,7 +113,7 @@ exports = module.exports = [
 		},
 
 		plugins: [
-			new StatsPlugin('stats.json'),
+			new StatsPlugin('../server/stats.json'),
 			new AppCachePlugin({
 				cache: [
 					'page.html',
