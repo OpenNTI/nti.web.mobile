@@ -56,7 +56,7 @@
 		height: auto;
 		background: {
 			// color: initial;
-			color: rgba(0,0,0,0.2);
+			color: rgba(0,0,0,0.2) !important;
 			size: 3rem;
 			repeat: no-repeat;
 		}
@@ -67,14 +67,18 @@
 		}
 
 		&.prev {
-			@extend %chevron-left-white;
+			&::after {
+				@extend %chevron-left-white;
+			}
 			left: 0;
 			border-radius: 0 0.6rem 0.6rem 0;
 			background-position: -10px 50%;
 		}
 
 		&.next {
-			@extend %chevron-right-white;
+			&::after {
+				@extend %chevron-right-white;
+			}
 			right: 0;
 			border-radius: 0.6rem 0 0 0.6rem;
 			background-position: 10px 50%;
