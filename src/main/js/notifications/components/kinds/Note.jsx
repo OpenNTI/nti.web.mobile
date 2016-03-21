@@ -44,7 +44,7 @@ export default React.createClass({
 		let node;
 
 		if (title) {
-			this.setState({preview: title});
+			this.setState({preview: title, note});
 			return;
 		}
 
@@ -56,7 +56,7 @@ export default React.createClass({
 
 			const preview = trunc(node.textContent, 140);
 
-			this.setState({preview});
+			this.setState({preview, note});
 		} catch (e) {
 			logger.error(e.stack);
 		}
@@ -64,14 +64,14 @@ export default React.createClass({
 
 
 	render () {
-		let {url, username, preview} = this.state;
+		let {url, username, preview, note} = this.state;
 		return (
 			<li className="notification-item">
 				<a href={url}>
 					<Avatar entity={username} width="32" height="32"/>
 					<div className="wrap">
 						<DisplayName entity={username}/>
-							{' shared a note: ' + preview}
+							{ note && note.isReply() ? ' commented on a note' : ' shared a note: ' + preview}
 						<DateTime date={this.getEventTime()} relative/>
 					</div>
 				</a>
