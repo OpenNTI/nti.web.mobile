@@ -33,8 +33,8 @@ export default React.createClass({
 		return (
 			<div className="gift-options-wrapper">
 				<ul className="gift-options">
-					{isGiftable && <li><Giftable href={giftHref} /></li>}
-					{isRedeemable && <li><RedeemButton catalogId={entryId} /></li>}
+					{isGiftable && <li className="give-gift"><Giftable href={giftHref} /></li>}
+					{isRedeemable && <li className="redeem-gift"><RedeemButton catalogId={entryId} /></li>}
 				</ul>
 			</div>
 		);
