@@ -1,7 +1,7 @@
 @import "utils/variables";
 @import "utils/placeholders";
 
-.header.assessment.assignment {
+.header.assessment.assignment, .header.assessment.survey {
 	color: $primary-grey;
 	position: relative;
 	padding: 0;

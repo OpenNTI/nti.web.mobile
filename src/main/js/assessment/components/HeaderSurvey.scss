@@ -5,7 +5,6 @@
 	@extend .header.assessment.assignment;
 	display: block;
 	padding-right: 0.625rem;
-	text-align: center;
 
 	&::before {
 		@extend %icon-survey;
