@@ -113,7 +113,7 @@
     "zpad": "^0.5.0"
   },
   "devDependencies": {
-    "nti-unittesting-clientside": "^1.0.0",
+    "nti-unittesting-clientside": "^1.0.1",
     "webpack-dev-server": "^1.8.2"
   }
 }
