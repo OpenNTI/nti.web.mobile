@@ -1,0 +1,96 @@
+{
+	"elements": [
+		{
+			"type": "select",
+			"name": "school",
+			"label": "Where do you teach?",
+			"options": [
+				{
+					"label": "School One"
+				},
+				{
+					"label": "School Two"
+				},
+				{
+					"label": "School Three"
+				}
+			]
+		},
+		{
+			"type": "radio",
+			"name": "grade",
+			"label": "What grade?",
+
+			"options": [
+				{
+					"label": "6th Grade",
+					"value": 6
+				},
+				{
+					"label": "7th Grade",
+					"value": 7
+				},
+				{
+					"label": "8th Grade",
+					"value": 8
+				}
+			]
+		},
+		{
+			"type": "select",
+			"name": "course",
+			"label": "Select your course",
+			"options": [
+				{
+					"label": "Course One",
+					"requirement": [
+						"grade=6",
+						"school=School One"
+					]
+				},
+				{
+					"label": "Course Two",
+					"requirement": [
+						"grade=7",
+						"grade=8"
+					]
+				},
+				{
+					"label": "Course Three",
+					"requirement": [
+						"grade"
+					]
+				}
+			]
+		},
+		{
+			"type": "radio",
+			"name": "research",
+			"label": "Do you want to participate in this research?",
+			"options": [
+				{
+					"label": "Yes"
+				},
+				{
+					"label": "No"
+				}
+			]
+		},
+		{
+			"type": "group",
+			"requirement": [
+				"research=Yes"
+			],
+			"elements": [
+				{
+					"type": "text",
+					"label": "Question 1"
+				},
+				{
+					"type": "text",
+					"label": "Question 2"
+				}
+			]
+		}
+	]
+}

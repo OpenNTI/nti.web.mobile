@@ -16,7 +16,7 @@ import {getServer, getReturnURL} from 'common/utils';
 
 import indexArrayByKey from 'nti-lib-interfaces/lib/utils/array-index-by-key';
 
-import UserAgreement from 'terms/components/UserAgreement';
+import UserAgreement from 'login/prompts/terms/components/UserAgreement';
 
 import Store from '../Store';
 import {clearErrors, preflightAndCreateAccount} from '../Actions';
