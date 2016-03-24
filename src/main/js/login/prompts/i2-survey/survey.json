@@ -24,7 +24,10 @@
 			"options": [
 				{
 					"label": "6th Grade",
-					"value": 6
+					"value": 6,
+					"requirement": [
+						"school=School One"
+					]
 				},
 				{
 					"label": "7th Grade",
@@ -60,6 +63,24 @@
 					"requirement": [
 						"grade"
 					]
+				}
+			]
+		},
+		{
+			"type":"select",
+			"name":"session",
+			"label": "Choose your session",
+			"options": [
+				{
+					"label": "Spring 2016",
+					"value": "sp2016",
+					"requirement": [
+						"course=Course One"
+					]
+				},
+				{
+					"label": "Summer 2016",
+					"value": "su2016"
 				}
 			]
 		},

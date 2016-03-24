@@ -26,7 +26,7 @@ export default React.createClass({
 				<div>{element.label}</div>
 				<ul className="radio-options">
 					{element.options.map((o, i) =>
-						<RadioOption key={i} option={o} name={element.name}/>
+						<RadioOption key={i} option={o} name={element.name} requirement={o.requirement}/>
 					).filter(x => x)}
 				</ul>
 			</div>

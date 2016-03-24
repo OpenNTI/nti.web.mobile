@@ -54,6 +54,10 @@ export default React.createClass({
 		return Promise.resolve(data);
 	},
 
+	formChange () {
+		console.log('form change');
+		this.forceUpdate();
+	},
 
 	render () {
 
@@ -65,13 +69,12 @@ export default React.createClass({
 
 		return (
 			<div className="onboarding-survey">
-				<form ref={this.attachFormRef}>
+				<form ref={this.attachFormRef} onChange={this.formChange}>
 					{survey.elements.map((e, i) => {
 						const Widget = widget(e.type);
 						return (<div key={i}><Widget element={e} requirement={e.requirement} /></div>);
 					})}
 				</form>
-				<button onClick={()=>this.forceUpdate()}>update</button>
 			</div>
 		);
 	}

@@ -35,13 +35,12 @@ export default {
 
 			outer:
 			for(let field of Object.keys(fieldMap)) {
-				let f = form[field];
+				let f = form.elements[field];
 				if(!f) {
 					return false; // required field is not in the form
 				}
 				for(let value of fieldMap[field]) {
-					// school: "school one"
-					const fieldValue = f.value;
+					const fieldValue = f.value || '';
 					if (fieldValue === value || value === true && fieldValue.trim().length > 0) {
 						continue outer;
 					}
@@ -53,6 +52,5 @@ export default {
 
 		return this.satisfied = evaluate();
 	}
-
 
 };
