@@ -55,7 +55,6 @@ export default React.createClass({
 	},
 
 	formChange () {
-		console.log('form change');
 		this.forceUpdate();
 	},
 

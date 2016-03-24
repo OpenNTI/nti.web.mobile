@@ -40,7 +40,10 @@ export default {
 					return false; // required field is not in the form
 				}
 				for(let value of fieldMap[field]) {
-					const fieldValue = f.value || '';
+					let fieldValue = f.value || '';
+					if(f.value == null) { // IE doesn't support field.value on a radio group
+						fieldValue = (form.querySelector(`input[name=${field}]:checked`) || {}).value || '';
+					}
 					if (fieldValue === value || value === true && fieldValue.trim().length > 0) {
 						continue outer;
 					}

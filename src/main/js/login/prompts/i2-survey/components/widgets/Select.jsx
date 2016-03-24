@@ -38,7 +38,7 @@ export default React.createClass({
 					<option />
 					{element.options.map((o, i) =>
 						<SelectOption key={i} option={o} requirement={o.requirement} />
-					).filter(x => x)}
+					)}
 				</select>
 			</div>
 		);
