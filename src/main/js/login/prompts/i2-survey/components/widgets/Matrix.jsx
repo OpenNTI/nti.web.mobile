@@ -20,24 +20,25 @@ export default React.createClass({
 		}
 
 		return (
-			<div>
+			<div className="widget">
 				<div>{element.label}</div>
-				<table>
-					<thead>
-						<tr>
-							<th></th>
-							{element.columns.map(c => <th key={c}>{c}</th>)}
-						</tr>
-					</thead>
-					<tbody>
-						{element.rows.map(r => (
-							<tr key={r}>
-								<td>{r}</td>
-								{element.columns.map(c => <td key={c}><input type="radio" name={`${element.name}-${r}`} /></td>)}
-							</tr>
-						))}
-					</tbody>
-				</table>
+				<div className="matrix">
+					<div className="headings">
+						<div/>
+						{element.columns.map(c => <div key={c}>{c}</div>)}
+					</div>
+					{element.rows.map(r => (
+						<div className="question" key={r}>
+							<div>{r}</div>
+							{element.columns.map(c => (
+								<label key={c}>
+									<input type="radio" name={`${element.name}-${r}`} />
+									<span>{c}</span>
+								</label>
+							))}
+						</div>
+					))}
+				</div>
 			</div>
 		);
 	}

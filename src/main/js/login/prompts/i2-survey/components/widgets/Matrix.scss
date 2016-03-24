@@ -1,0 +1,48 @@
+.matrix {
+	.headings {
+		display: none;
+	}
+}
+
+@media (min-width: 768px) {
+	.matrix {
+		display: table;
+
+		& > div {
+			display: table-row;
+		}
+
+		.headings {
+			display: table-row;
+			& > * {
+				display: table-cell;
+				vertical-align: bottom;
+				padding: 1rem;
+				text-align: center;
+			}
+		}
+
+		.question {
+			display: table-row;
+
+			& > * {
+				display: table-cell;
+				text-align: center;
+				vertical-align: middle;
+				padding: .5rem 0;
+				border-top:1px solid #eee;
+			}
+
+			label > span {
+				display: none;
+			}
+
+			input[type=radio] {
+				margin: 0;
+			}
+
+		}
+
+	}
+
+}
