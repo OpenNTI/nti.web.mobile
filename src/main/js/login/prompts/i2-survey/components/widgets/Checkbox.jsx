@@ -3,7 +3,7 @@ import React from 'react';
 import mixin from './mixin';
 
 export default React.createClass({
-	displayName: 'RadioOption',
+	displayName: 'Checkbox',
 
 	mixins: [mixin],
 
@@ -30,7 +30,7 @@ export default React.createClass({
 		return (
 			<li>
 				<label>
-					<input type="radio"
+					<input type="checkbox"
 						name={name}
 						value={option.value || option.label} />
 					<span>{option.label}</span>

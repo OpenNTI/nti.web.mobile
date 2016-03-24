@@ -3,7 +3,7 @@ import React from 'react';
 import mixin from './mixin';
 
 export default React.createClass({
-	displayName: 'Text',
+	displayName: 'Textarea',
 
 	mixins: [mixin],
 
@@ -16,10 +16,6 @@ export default React.createClass({
 		};
 	},
 
-	onChange (e) {
-		this.setState({ value: e.target.value });
-	},
-
 	render () {
 		const {element} = this.props;
 
@@ -28,9 +24,9 @@ export default React.createClass({
 		}
 
 		return (
-			<div className="text widget">
+			<div className="textarea widget">
 				<label>{element.label}</label>
-				<input type="text" name={element.name} onChange={this.onChange} value={this.state.value}/>
+				<textarea name={element.name}></textarea>
 			</div>
 		);
 	}

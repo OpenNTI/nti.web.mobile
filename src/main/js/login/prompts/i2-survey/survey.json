@@ -20,7 +20,7 @@
 			"type": "radio",
 			"name": "grade",
 			"label": "What grade?",
-
+			"requirement": ["school"],
 			"options": [
 				{
 					"label": "6th Grade",
@@ -105,11 +105,132 @@
 			"elements": [
 				{
 					"type": "text",
-					"label": "Question 1"
+					"name": "Text Response 1",
+					"label": "Text Response 1"
+				},
+				{
+					"type": "textarea",
+					"name": "Open Ended Text Response",
+					"label": "Open ended text response",
+					"requirement": ["Text Response 1"]
 				},
 				{
 					"type": "text",
-					"label": "Question 2"
+					"name": "Text Response 2",
+					"label": "Text Response 2",
+					"requirement": ["Open Ended Text Response"]
+				},
+				{
+					"type": "number",
+					"name": "numericInput",
+					"label": "Numeric Response"
+				},
+				{
+					"type": "select",
+					"name": "combo",
+					"label": "Combo Box",
+					"options": [
+						{
+							"label": "Option 1",
+							"value": 1
+						},
+						{
+							"label": "Option 2",
+							"value": 2
+						},
+						{
+							"label": "Option 3",
+							"value": 3
+						},
+						{
+							"label": "Option 4",
+							"value": 4
+						}
+					]
+				},
+				{
+					"type": "radio",
+					"name": "multi",
+					"label": "Multiple Choice",
+					"options": [
+						{
+							"label": "Option 1",
+							"value": 1
+						},
+						{
+							"label": "Option 2",
+							"value": 2
+						},
+						{
+							"label": "Option 3",
+							"value": 3
+						},
+						{
+							"label": "Option 4",
+							"value": 4
+						}
+					]
+				},
+				{
+					"type": "multiple",
+					"name": "multimulti",
+					"label": "Multiple Choice Multiple Answer",
+					"options": [
+						{
+							"label": "Option 1",
+							"value": 1
+						},
+						{
+							"label": "Option 2",
+							"value": 2
+						},
+						{
+							"label": "Option 3",
+							"value": 3
+						},
+						{
+							"label": "Option 4",
+							"value": 4
+						}
+					]
+				},
+				{
+					"type": "ordering",
+					"name": "ordering",
+					"label": "Ordering",
+					"options": [
+						{
+							"label": "Option 1"
+						},
+						{
+							"label": "Option 2"
+						},
+						{
+							"label": "Option 3"
+						},
+						{
+							"label": "Option 4"
+						}
+					]
+				},
+				{
+					"type": "matrix",
+					"name": "matrixInput",
+					"label": "How comfortable are you…?",
+					"columns": [
+						"Very Comfortable",
+						"Comfortable",
+						"Uncomfortable",
+						"Very Uncomfortable"
+					],
+					"rows": [
+						"Teaching science",
+						"Teaching mathematics",
+						"Teaching with technology or tools",
+						"Teaching an interdisciplinary unit",
+						"Planning an interdisciplinary unit",
+						"Engaging students in project-based learning"
+					]
 				}
 			]
 		}

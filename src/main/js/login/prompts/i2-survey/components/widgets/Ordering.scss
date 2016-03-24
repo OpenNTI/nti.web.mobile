@@ -1,0 +1,8 @@
+.ordering-options {
+	input[type] { // type attribute is just there for increased specificity, to override existing styles.
+		display: inline-block;
+		text-align: center;
+		width: 3em;
+		margin-right: .5em;
+	}
+}
