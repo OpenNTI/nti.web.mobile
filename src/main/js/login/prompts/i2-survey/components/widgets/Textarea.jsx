@@ -25,7 +25,7 @@ export default React.createClass({
 
 		return (
 			<div className="textarea widget">
-				<label>{element.label}</label>
+				<label className="question-label">{element.label}</label>
 				<textarea name={element.name}></textarea>
 			</div>
 		);

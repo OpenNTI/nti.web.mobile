@@ -29,7 +29,7 @@ export default React.createClass({
 
 		return (
 			<div className="text widget">
-				<label>{element.label}</label>
+				<label className="question-label">{element.label}</label>
 				<input type="text" name={element.name} onChange={this.onChange} value={this.state.value}/>
 			</div>
 		);

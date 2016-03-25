@@ -33,7 +33,7 @@ export default React.createClass({
 
 		return (
 			<div className="select widget">
-				<label>{element.label}</label>
+				<label className="question-label">{element.label}</label>
 				<select name={element.name} onChange={this.onChange} value={this.state.value}>
 					<option />
 					{element.options.map((o, i) =>

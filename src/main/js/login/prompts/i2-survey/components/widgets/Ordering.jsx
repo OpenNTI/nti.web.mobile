@@ -22,7 +22,7 @@ export default React.createClass({
 
 		return (
 			<div className="radio widget">
-				<div>{element.label}</div>
+				<div className="question-label">{element.label}</div>
 				<ul className="ordering-options">
 					{element.options.map((o, i) =>
 						<label key={i}>

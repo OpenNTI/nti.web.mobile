@@ -23,7 +23,7 @@ export default React.createClass({
 
 		return (
 			<div className="radio widget">
-				<div>{element.label}</div>
+				<div className="question-label">{element.label}</div>
 				<ul className="multiple-options">
 					{element.options.map((o, i) =>
 						<Checkbox key={i} option={o} name={element.name} requirement={o.requirement}/>
