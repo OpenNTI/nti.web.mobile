@@ -9,7 +9,7 @@ export default React.createClass( {
 	displayName: 'Markup',
 
 	propTypes: {
-		element: React.PropTypes.string
+		element: React.PropTypes.object
 	},
 
 	mixins: [mixin],
