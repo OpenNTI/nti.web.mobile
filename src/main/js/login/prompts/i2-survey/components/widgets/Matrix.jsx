@@ -1,5 +1,7 @@
 import React from 'react';
+import cx from 'classnames';
 
+import MatrixRow from './MatrixRow';
 import mixin from './mixin';
 
 export default React.createClass({
@@ -11,6 +13,25 @@ export default React.createClass({
 
 	mixins: [mixin],
 
+	getInitialState () {
+		return {};
+	},
+
+	componentWillMount () {
+		this.rows = [];
+	},
+
+	validate () {
+		let result = true;
+		for(let i = 0; i < this.rows.length; i++) {
+			result = this.rows[i].validate() && result;
+		}
+		this.setState({
+			error: !result
+		});
+		return result;
+	},
+
 	render () {
 
 		const {element} = this.props;
@@ -19,24 +40,29 @@ export default React.createClass({
 			return null;
 		}
 
+		const classes = cx('matrix', 'widget', {
+			error: this.state.error,
+			required: element.required
+		});
+
+
 		return (
-			<div className="widget">
+			<div className={classes}>
 				<div>{element.label}</div>
-				<div className="matrix">
+				<div className="questions">
 					<div className="headings">
 						<div/>
 						{element.columns.map(c => <div key={c}>{c}</div>)}
 					</div>
-					{element.rows.map(r => (
-						<div className="question" key={r}>
-							<div className="question-label">{r}</div>
-							{element.columns.map(c => (
-								<label key={c}>
-									<input type="radio" name={`${element.name}-${r}`} value={c}/>
-									<span>{c}</span>
-								</label>
-							))}
-						</div>
+					{element.rows.map((r, i) => (
+						<MatrixRow
+							required={element.required}
+							question={r}
+							columns={element.columns}
+							prefix={`${element.name}:`}
+							key={i}
+							ref={x => this.rows[i] = x}
+						/>
 					))}
 				</div>
 			</div>

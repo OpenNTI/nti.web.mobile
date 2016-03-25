@@ -4,6 +4,7 @@
 			"type": "select",
 			"name": "school",
 			"label": "Where do you teach?",
+			"required": true,
 			"options": [
 				{
 					"label": "School One"
@@ -20,6 +21,7 @@
 			"type": "radio",
 			"name": "grade",
 			"label": "What grade?",
+			"required": true,
 			"requirement": ["school"],
 			"options": [
 				{
@@ -43,6 +45,7 @@
 			"type": "select",
 			"name": "course",
 			"label": "Select your course",
+			"required": true,
 			"options": [
 				{
 					"label": "Course One",
@@ -70,6 +73,7 @@
 			"type":"select",
 			"name":"session",
 			"label": "Choose your session",
+			"required": true,
 			"options": [
 				{
 					"label": "Spring 2016",
@@ -92,6 +96,7 @@
 			"type": "radio",
 			"name": "research",
 			"label": "Do you want to participate in this research?",
+			"required": true,
 			"options": [
 				{
 					"label": "Yes"
@@ -110,29 +115,34 @@
 				{
 					"type": "text",
 					"name": "Text Response 1",
-					"label": "Text Response 1"
+					"label": "Text Response 1",
+					"required": true
 				},
 				{
 					"type": "textarea",
 					"name": "Open Ended Text Response",
 					"label": "Open ended text response",
+					"required": true,
 					"requirement": ["Text Response 1"]
 				},
 				{
 					"type": "text",
 					"name": "Text Response 2",
 					"label": "Text Response 2",
+					"required": true,
 					"requirement": ["Open Ended Text Response"]
 				},
 				{
 					"type": "number",
 					"name": "numericInput",
-					"label": "Numeric Response"
+					"label": "Numeric Response",
+					"required": true
 				},
 				{
 					"type": "select",
 					"name": "combo",
 					"label": "Combo Box",
+					"required": true,
 					"options": [
 						{
 							"label": "Option 1",
@@ -156,6 +166,7 @@
 					"type": "radio",
 					"name": "multi",
 					"label": "Multiple Choice",
+					"required": true,
 					"options": [
 						{
 							"label": "Option 1",
@@ -202,6 +213,7 @@
 					"type": "ordering",
 					"name": "ordering",
 					"label": "Please rank order the importance of the following items that may be used when designing a lesson (with 1 being most frequently used or most important to 7 being least frequently used or least important)",
+					"required": true,
 					"options": [
 						{
 							"label": "Option 1"
@@ -221,6 +233,7 @@
 					"type": "matrix",
 					"name": "matrixInput",
 					"label": "How comfortable are you…?",
+					"required": true,
 					"columns": [
 						"Very Comfortable",
 						"Comfortable",

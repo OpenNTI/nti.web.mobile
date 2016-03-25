@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 
 import SelectOption from './SelectOption';
 import mixin from './mixin';
@@ -18,8 +19,21 @@ export default React.createClass({
 
 	onChange (e) {
 		this.setState({
-			value: e.target.value
+			value: e.target.value,
+			error: false
 		});
+	},
+
+	validate () {
+		const {element} = this.props;
+		const {value = ''} = this.state;
+		if(element.required && value.length === 0) {
+			this.setState({
+				error: true
+			});
+			return false;
+		}
+		return true;
 	},
 
 
@@ -31,8 +45,13 @@ export default React.createClass({
 			return null;
 		}
 
+		const classes = cx('select', 'widget', {
+			error: this.state.error,
+			'required': element.required
+		});
+
 		return (
-			<div className="select widget">
+			<div className={classes}>
 				<label className="question-label">{element.label}</label>
 				<select name={element.name} onChange={this.onChange} value={this.state.value}>
 					<option />

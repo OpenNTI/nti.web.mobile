@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 
 import mixin from './mixin';
 
@@ -16,6 +17,26 @@ export default React.createClass({
 		};
 	},
 
+	validate () {
+		const {element} = this.props;
+		if(!element.required) {
+			return true;
+		}
+		let {value = ''} = this.state;
+		let error = value.length === 0;
+		this.setState({
+			error
+		});
+		return !error;
+	},
+
+	onChange (e) {
+		this.setState({
+			error: false,
+			value: e.target.value
+		});
+	},
+
 	render () {
 		const {element} = this.props;
 
@@ -23,10 +44,16 @@ export default React.createClass({
 			return null;
 		}
 
+		const classes = cx('textarea', 'widget', {
+			error: this.state.error,
+			required: element.required
+		});
+
+
 		return (
-			<div className="textarea widget">
+			<div className={classes}>
 				<label className="question-label">{element.label}</label>
-				<textarea name={element.name}></textarea>
+				<textarea name={element.name} onChange={this.onChange}>{this.state.value}</textarea>
 			</div>
 		);
 	}

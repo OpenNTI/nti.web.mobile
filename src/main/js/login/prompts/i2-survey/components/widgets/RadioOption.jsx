@@ -12,7 +12,8 @@ export default React.createClass({
 		option: React.PropTypes.shape({
 			value: React.PropTypes.any,
 			label: React.PropTypes.any
-		}).isRequired
+		}).isRequired,
+		onChange: React.PropTypes.func
 	},
 
 	getInitialState () {
@@ -21,7 +22,7 @@ export default React.createClass({
 
 	render () {
 
-		const {name, option} = this.props;
+		const {name, option, onChange} = this.props;
 
 		if (!option || !this.satisfiesRequirement()) {
 			return null;
@@ -31,6 +32,7 @@ export default React.createClass({
 			<li>
 				<label>
 					<input type="radio"
+						onChange={onChange}
 						name={name}
 						value={option.value || option.label} />
 					<span>{option.label}</span>

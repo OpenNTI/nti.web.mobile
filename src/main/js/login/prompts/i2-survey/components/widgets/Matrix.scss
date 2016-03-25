@@ -1,11 +1,11 @@
-.matrix {
+.questions {
 	.headings {
 		display: none;
 	}
 }
 
 @media (min-width: 768px) {
-	.matrix {
+	.questions {
 		display: table;
 
 		& > div {

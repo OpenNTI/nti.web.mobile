@@ -34,6 +34,10 @@ export default React.createClass({
 		};
 	},
 
+	componentWillMount () {
+		this.elements = [];
+	},
+
 
 	componentDidMount () {
 		this.load();
@@ -54,8 +58,29 @@ export default React.createClass({
 		return Promise.resolve(data);
 	},
 
+
 	formChange () {
 		this.forceUpdate();
+	},
+
+
+	validate () {
+		let result = true;
+		for(let i = 0; i < this.elements.length; i++) {
+			let e = this.elements[i];
+			if(e.validate && !e.validate()) {
+				result = false;
+			}
+		}
+		return result;
+	},
+
+
+	onSubmit (e) {
+		if(!this.validate() || true) {
+			e.preventDefault();
+			return false;
+		}
 	},
 
 	render () {
@@ -68,11 +93,16 @@ export default React.createClass({
 
 		return (
 			<div className="onboarding-survey">
-				<form ref={this.attachFormRef} onChange={this.formChange}>
+				<form method="post"
+					ref={this.attachFormRef}
+					onChange={this.formChange}
+					onSubmit={this.onSubmit}
+				>
 					{survey.elements.map((e, i) => {
 						const Widget = widget(e.type);
-						return (<div key={i}><Widget element={e} requirement={e.requirement} /></div>);
+						return (<div key={i}><Widget ref={x => this.elements[i] = x} element={e} requirement={e.requirement} /></div>);
 					})}
+					<button>Submit</button>
 				</form>
 			</div>
 		);
