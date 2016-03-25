@@ -1,0 +1,11 @@
+@import "utils/variables";
+
+.matrix.widget {
+	.question {
+		&.error {
+			.question-label {
+				color: $primary-red;
+			}
+		}
+	}
+}

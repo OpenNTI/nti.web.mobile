@@ -22,6 +22,10 @@ export default React.createClass({
 		});
 	},
 
+	onChange () {
+		this.validate();
+	},
+
 	render () {
 
 		const {question, columns, prefix, required} = this.props;
@@ -33,7 +37,7 @@ export default React.createClass({
 				<div className="question-label">{question}</div>
 				{columns.map(c => (
 					<label key={c}>
-						<input type="radio" name={`${prefix}${question}`} value={c}/>
+						<input type="radio" name={`${prefix}${question}`} value={c} onChange={this.onChange}/>
 						<span>{c}</span>
 					</label>
 				))}
