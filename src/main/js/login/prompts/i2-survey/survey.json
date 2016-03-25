@@ -201,7 +201,7 @@
 				{
 					"type": "ordering",
 					"name": "ordering",
-					"label": "Ordering",
+					"label": "Please rank order the importance of the following items that may be used when designing a lesson (with 1 being most frequently used or most important to 7 being least frequently used or least important)",
 					"options": [
 						{
 							"label": "Option 1"

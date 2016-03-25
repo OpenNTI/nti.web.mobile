@@ -29,7 +29,7 @@ export default React.createClass({
 					</div>
 					{element.rows.map(r => (
 						<div className="question" key={r}>
-							<div>{r}</div>
+							<div className="question-label">{r}</div>
 							{element.columns.map(c => (
 								<label key={c}>
 									<input type="radio" name={`${element.name}-${r}`} />
