@@ -89,7 +89,7 @@ export default React.createClass({
 				<div className="fromLabel">{t('fromLabel')}</div>
 				<div className="from">
 					<input name="from"
-						ref={x => this.form = x}
+						ref={x => this.from = x}
 						placeholder={t('from')}
 						className={cx('required', {error: errors.from})}
 						defaultValue={defaultValues.from}
