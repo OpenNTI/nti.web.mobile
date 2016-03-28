@@ -41,7 +41,6 @@ export default React.createClass({
 		}
 
 		const classes = cx('matrix', 'widget', {
-			error: this.state.error,
 			required: element.required
 		});
 

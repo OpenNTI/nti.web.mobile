@@ -1,10 +1,12 @@
 @import "utils/variables";
 
-.matrix.widget {
-	.question {
-		&.error {
-			.question-label {
-				color: $primary-red;
+@media (min-width: 768px) {
+	.matrix.widget {
+		.question {
+			&.error {
+				.question-label {
+					color: $primary-red;
+				}
 			}
 		}
 	}
