@@ -26,7 +26,7 @@ export default React.createClass({
 				<div className="question-label">{element.label}</div>
 				<ul className="multiple-options">
 					{element.options.map((o, i) =>
-						<Checkbox key={i} option={o} name={element.name} requirement={o.requirement}/>
+						<Checkbox key={i} option={o} name={`${element.name}[]`} requirement={o.requirement}/>
 					)}
 				</ul>
 			</div>

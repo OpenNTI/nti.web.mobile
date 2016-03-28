@@ -1,7 +1,9 @@
 import React from 'react';
+import serialize from 'form-serialize';
 
 import Loading from 'common/components/Loading';
 
+import {submitSurvey} from '../Actions';
 import widget from './widgets';
 
 import data from '../survey.json';
@@ -77,10 +79,16 @@ export default React.createClass({
 
 
 	onSubmit (e) {
-		if(!this.validate() || true) {
-			e.preventDefault();
+		e.preventDefault();
+		if(!this.validate()) {
+			this.setState({
+				error: 'Please correct the errors above'
+			});
 			return false;
 		}
+		const formData = serialize(this.form, {hash: true});
+		submitSurvey(formData);
+		return false;
 	},
 
 	render () {
@@ -102,7 +110,9 @@ export default React.createClass({
 						const Widget = widget(e.type);
 						return (<div key={i}><Widget ref={x => this.elements[i] = x} element={e} requirement={e.requirement} /></div>);
 					})}
-					<button>Submit</button>
+					<div className="controls">
+						<button>Submit</button>
+					</div>
 				</form>
 			</div>
 		);
