@@ -85,6 +85,7 @@ export default React.createClass({
 		}
 
 		value[oldPosition] = null;
+		if (target > oldPosition) {  target++; }
 		value.splice(target, 0, source);
 
 
