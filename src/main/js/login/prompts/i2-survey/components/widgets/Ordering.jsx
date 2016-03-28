@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
+import OrderingItem from './OrderingItem';
 import mixin from './mixin';
 
 export default React.createClass({
@@ -21,16 +22,17 @@ export default React.createClass({
 	},
 
 	validate () {
+		const {element} = this.props;
+		if(!element.required) {
+			return true;
+		}
 		let result = true;
 		for(let i = 0; i < this.elements.length; i++) {
 			let field = this.elements[i];
-			if(field.value.trim().length === 0) {
+			if (!field.validate()) {
 				result = false;
 			}
 		}
-		this.setState({
-			error: !result
-		});
 		return result;
 	},
 
@@ -43,7 +45,6 @@ export default React.createClass({
 		}
 
 		const classes = cx('ordering', 'widget', {
-			error: this.state.error,
 			required: element.required
 		});
 
@@ -52,18 +53,10 @@ export default React.createClass({
 				<div className="question-label">{element.label}</div>
 				<ul className="ordering-options">
 					{element.options.map((o, i) =>
-						<label key={i}>
-							<input type="text"
-								pattern="\d*"
-								size="3"
-								key={i}
-								name={`${element.name}-${o.label}`}
-								ref={x => this.elements[i] = x}
-								requirement={o.requirement}
-							/>
-							<span>{o.label}</span>
-						</label>
-
+						<OrderingItem key={i}
+							option={o}
+							prefix={`${element.name}:`}
+							ref={x => this.elements[i] = x} />
 					)}
 				</ul>
 			</div>
