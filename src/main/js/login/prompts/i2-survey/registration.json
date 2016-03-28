@@ -1,0 +1,85 @@
+{
+	"elements": [
+		{
+			"type": "select",
+			"name": "school",
+			"label": "Where do you teach?",
+			"required": true,
+			"options": [
+				{
+					"label": "School One",
+					"value": "schoolone"
+				},
+				{
+					"label": "School Two"
+				},
+				{
+					"label": "School Three"
+				}
+			]
+		},
+		{
+			"type": "radio",
+			"name": "grade",
+			"label": "What grade?",
+			"required": true,
+			"options": [
+				{
+					"label": "6th Grade",
+					"value": 6
+				},
+				{
+					"label": "7th Grade",
+					"value": 7
+				},
+				{
+					"label": "8th Grade",
+					"value": 8
+				}
+			]
+		},
+		{
+			"type": "select",
+			"name": "course",
+			"label": "Select your course",
+			"required": true,
+			"options": [
+				{
+					"label": "Course One",
+					"requirement": [
+						"school=schoolone"
+					]
+				},
+				{
+					"label": "Course Two"
+				},
+				{
+					"label": "Course Three",
+					"requirement": [
+						"grade"
+					]
+				}
+			]
+		},
+		{
+			"type":"select",
+			"name":"session",
+			"label": "Choose your session",
+			"required": true,
+			"options": [
+				{
+					"label": "Spring 2016",
+					"value": "sp2016",
+					"requirement": [
+						"course=Course One",
+						"school=schoolone"
+					]
+				},
+				{
+					"label": "Summer 2016",
+					"value": "su2016"
+				}
+			]
+		}
+	]
+}

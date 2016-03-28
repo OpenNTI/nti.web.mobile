@@ -3,10 +3,9 @@ import serialize from 'form-serialize';
 
 import Loading from 'common/components/Loading';
 
-import {submitSurvey} from '../Actions';
-import widget from './widgets';
+import {loadForm, submitSurvey} from '../Api';
 
-import data from '../survey.json';
+import widget from './widgets';
 
 
 export default React.createClass({
@@ -47,17 +46,12 @@ export default React.createClass({
 
 
 	load () {
-		this.loadData().then(
+		loadForm().then(
 			survey => this.setState({
 				survey,
 				loading: false
 			})
 		);
-	},
-
-
-	loadData () {
-		return Promise.resolve(data);
 	},
 
 
