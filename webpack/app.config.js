@@ -55,7 +55,7 @@ exports = module.exports = [
 
 		resolve: {
 			root: [root, modules],
-			extensions: ['', '.jsx', '.js', '.json', '.css', '.scss', '.html']
+			extensions: ['', '.jsx', '.async.jsx', '.js', '.json', '.css', '.scss', '.html']
 		},
 
 		module: {

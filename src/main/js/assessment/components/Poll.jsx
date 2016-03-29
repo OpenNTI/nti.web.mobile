@@ -7,7 +7,7 @@ import If from 'common/components/Conditional';
 import StoreEvents from 'common/mixins/StoreEvents';
 
 import Question from './Question';
-import Aggregated from './aggregated/Aggregated.async';
+import Aggregated from './aggregated/Aggregated';
 
 import Store from '../Store';
 import {toggleAggregatedView} from '../Actions';

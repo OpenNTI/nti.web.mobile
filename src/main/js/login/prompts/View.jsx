@@ -4,7 +4,7 @@ import { Locations, Location, NotFound as DefaultRoute } from 'react-router-comp
 import Redirect from 'navigation/components/Redirect';
 
 import Terms from './terms/components/View';
-import I2 from './i2-survey/components/View.async';
+import I2 from './i2-survey/components/View';
 import I2Survey from './i2-survey/components/Survey';
 
 export default function View () {
