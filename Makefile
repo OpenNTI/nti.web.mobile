@@ -19,8 +19,6 @@ IMAGES=resources/images/
 CC=webpack --progress --cache --bail --config
 
 
-export NODE_ENV="production"
-
 all: build-all
 
 
@@ -51,11 +49,11 @@ compile-app: stage clean-stage-app $(STAGE)server
 	@(cd $(SRC)main; rsync -R *.* ../../$(STAGE)client)
 	@(cd $(SRC)main; rsync -R $(IMAGES)*.* ../../$(STAGE)client)
 ##compile
-	@$(CC) ./webpack/app.config.js
+	@NODE_ENV="production" $(CC) ./webpack/app.config.js
 
 compile-widgets: $(STAGE) clean-stage-widgets
 	@(cd src/main; rsync -R widgets/**/*.html ../../stage/)
-	@$(CC) ./webpack/widgets.config.js
+	@NODE_ENV="production" $(CC) ./webpack/widgets.config.js
 
 
 $(STAGE)server:
