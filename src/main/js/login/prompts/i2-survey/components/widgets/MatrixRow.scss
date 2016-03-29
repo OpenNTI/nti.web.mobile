@@ -1,17 +1,15 @@
 @import "utils/variables";
 
-@media (min-width: 768px) {
-	.matrix.widget {
-		.question-label > span {
-			box-shadow: inset 4px 0 0 0 $border-grey;
-			padding-left: 1rem;
-			display: inline-block;
-		}
-		.question {
-			&.error {
-				.question-label > span {
-					box-shadow: inset 4px 0 0 0 $primary-red;
-				}
+.matrix.widget {
+	.question-label > span {
+		box-shadow: inset 4px 0 0 0 $border-grey;
+		padding-left: 1rem;
+		display: inline-block;
+	}
+	.question {
+		&.error {
+			.question-label > span {
+				box-shadow: inset 4px 0 0 0 $primary-red;
 			}
 		}
 	}
