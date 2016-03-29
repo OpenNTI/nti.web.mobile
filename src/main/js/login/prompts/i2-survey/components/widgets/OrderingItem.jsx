@@ -5,7 +5,8 @@ export default React.createClass({
 
 	propTypes: {
 		option: React.PropTypes.object,
-		prefix: React.PropTypes.string
+		prefix: React.PropTypes.string,
+		required: React.PropTypes.bool
 	},
 
 	getInitialState () {
@@ -22,16 +23,17 @@ export default React.createClass({
 
 	render () {
 
-		const {option, prefix} = this.props;
+		const {option, prefix, required} = this.props;
 		const {error} = this.state;
-		const classes = cx('odering-item', {
-			error
-		});
+		const classes = cx('odering-item');
+
+		const inputClasses = cx({required, error});
 
 		return (
 			<div className={classes}>
 				<label>
 					<input type="text"
+						className={inputClasses}
 						pattern="\d*"
 						size="3"
 						name={`${prefix}${option.label}`}

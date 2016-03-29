@@ -31,25 +31,37 @@ export default React.createClass({
 	},
 
 	onChange (e) {
-		this.setState({ value: e.target.value, error: false });
+		this.setState({
+			value: e.target.value,
+			error: false
+		});
 	},
 
 	render () {
 		const {element} = this.props;
+		const {error} = this.state;
 
 		if (!element || !this.satisfiesRequirement()) {
 			return null;
 		}
 
-		const classes = cx('number', 'widget', {
-			error: this.state.error,
-			required: element.required
+		const classes = cx('number', 'widget');
+
+		const inputClasses = cx({
+			required: element.required,
+			error
 		});
 
 		return (
 			<div className={classes}>
 				<label>{element.label}</label>
-				<input type="number" pattern="\d*" name={element.name} onChange={this.onChange} value={this.state.value}/>
+				<input type="number"
+					className={inputClasses}
+					pattern="\d*"
+					name={element.name}
+					onChange={this.onChange}
+					value={this.state.value}
+				/>
 			</div>
 		);
 	}

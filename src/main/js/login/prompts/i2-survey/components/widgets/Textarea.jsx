@@ -39,21 +39,23 @@ export default React.createClass({
 
 	render () {
 		const {element} = this.props;
+		const {error} = this.state;
 
 		if (!element || !this.satisfiesRequirement()) {
 			return null;
 		}
 
-		const classes = cx('textarea', 'widget', {
-			error: this.state.error,
-			required: element.required
-		});
+		const classes = cx('textarea', 'widget');
 
+		const inputClasses = cx({
+			required: element.required,
+			error
+		});
 
 		return (
 			<div className={classes}>
 				<label className="question-label">{element.label}</label>
-				<textarea name={element.name} onChange={this.onChange}>{this.state.value}</textarea>
+				<textarea className={inputClasses} name={element.name} onChange={this.onChange}>{this.state.value}</textarea>
 			</div>
 		);
 	}

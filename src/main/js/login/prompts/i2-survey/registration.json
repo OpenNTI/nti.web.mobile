@@ -45,18 +45,42 @@
 			"required": true,
 			"options": [
 				{
-					"label": "Course One",
+					"label": "Lunar Game Design (school one or two, grade 6)",
+					"value": "nti:lunar:game:design:1:6",
 					"requirement": [
+						"grade=6",
+						"school=schoolone",
+						"school=School Two"
+					]
+				},
+				{
+					"label": "Lunar Game Design (school one, grade 7)",
+					"value": "nti:lunar:game:design:1:7",
+					"requirement": [
+						"grade=7",
 						"school=schoolone"
 					]
 				},
 				{
-					"label": "Course Two"
+					"label": "Lunar Game Design (school one, grade 8)",
+					"value": "nti:lunar:game:design:1:8",
+					"requirement": [
+						"grade=8",
+						"school=schoolone"
+					]
 				},
 				{
-					"label": "Course Three",
+					"label": "Monster Kinetic Sculpture",
 					"requirement": [
-						"grade"
+						"grade=7",
+						"school=School Two"
+					]
+				},
+				{
+					"label": "Urban Surgical Tech",
+					"requirement": [
+						"grade=8",
+						"school=School Three"
 					]
 				}
 			]
@@ -68,16 +92,43 @@
 			"required": true,
 			"options": [
 				{
-					"label": "Spring 2016",
-					"value": "sp2016",
+					"label": "Spring 2016 (Lunar 1, 6)",
 					"requirement": [
-						"course=Course One",
-						"school=schoolone"
+						"course=nti:lunar:game:design:1:6"
+					]
+				},
+				{
+					"label": "Spring 2016 (Lunar 1, 7)",
+					"requirement": [
+						"course=nti:lunar:game:design:1:7"
+					]
+				},
+				{
+					"label": "Spring 2016 (Lunar 1, 8)",
+					"requirement": [
+						"course=nti:lunar:game:design:1:8"
+					]
+				},
+				{
+					"label": "Spring 2017",
+					"value": "sp2017",
+					"requirement": [
+						"course=Monster Kinetic Sculpture"
 					]
 				},
 				{
 					"label": "Summer 2016",
-					"value": "su2016"
+					"value": "su2016",
+					"requirement": [
+						"course=Monster Kinetic Sculpture"
+					]
+				},
+				{
+					"label": "Fall 2016 (Urban Surgical Tech)",
+					"value": "f2016",
+					"requirement": [
+						"course=Urban Surgical Tech"
+					]
 				}
 			]
 		}

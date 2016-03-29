@@ -48,7 +48,7 @@ export default React.createClass({
 			return null;
 		}
 
-		const classes = cx('radio', 'widget', {
+		const classes = cx('radiogroup', 'widget', {
 			error: this.state.error,
 			required: element.required
 		});
@@ -56,7 +56,7 @@ export default React.createClass({
 
 		return (
 			<div className={classes}>
-				<div className="question-label">{element.label}</div>
+				<p className="question-label">{element.label}</p>
 				<ul className="radio-options" ref={this.attachOptionsNode}>
 					{element.options.map((o, i) =>
 						<RadioOption

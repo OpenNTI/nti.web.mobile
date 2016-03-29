@@ -54,6 +54,7 @@ export default React.createClass({
 				<ul className="ordering-options">
 					{element.options.map((o, i) =>
 						<OrderingItem key={i}
+							required={element.required}
 							option={o}
 							prefix={`${element.name}:`}
 							ref={x => this.elements[i] = x} />

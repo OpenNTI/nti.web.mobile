@@ -2,6 +2,7 @@ import React from 'react';
 import serialize from 'form-serialize';
 
 import Loading from 'common/components/Loading';
+import PromiseButton from 'common/components/PromiseButton';
 
 import {loadForm, submitSurvey} from '../Api';
 
@@ -55,7 +56,15 @@ export default React.createClass({
 	},
 
 
+	clearError () {
+		this.setState({
+			error: null
+		});
+	},
+
+
 	formChange () {
+		this.clearError();
 		this.forceUpdate();
 	},
 
@@ -73,21 +82,23 @@ export default React.createClass({
 
 
 	onSubmit (e) {
-		e.preventDefault();
+		if(e && e.preventDefault) {
+			e.preventDefault();
+		}
 		if(!this.validate()) {
 			this.setState({
-				error: 'Please correct the errors above'
+				error: 'Please correct the errors above.'
 			});
-			return false;
+			return Promise.reject();
 		}
 		const formData = serialize(this.form, {hash: true});
-		submitSurvey(formData);
-		return false;
+		return submitSurvey(formData)
+			.catch(error => this.setState({error}));
 	},
 
 	render () {
 
-		const {loading, survey} = this.state;
+		const {loading, survey, error} = this.state;
 
 		if (loading) {
 			return <Loading />;
@@ -104,8 +115,9 @@ export default React.createClass({
 						const Widget = widget(e.type);
 						return (<div key={i}><Widget ref={x => this.elements[i] = x} element={e} requirement={e.requirement} /></div>);
 					})}
+					{error && <div className="errors"><small className="error">{error}</small></div>}
 					<div className="controls">
-						<button>Submit</button>
+						<PromiseButton onClick={this.onSubmit}>Submit</PromiseButton>
 					</div>
 				</form>
 			</div>

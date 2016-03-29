@@ -31,25 +31,38 @@ export default React.createClass({
 	},
 
 	onChange (e) {
-		this.setState({ value: e.target.value, error: false });
+		this.setState({
+			value: e.target.value,
+			error: false
+		});
 	},
 
 	render () {
 		const {element} = this.props;
+		const {error} = this.state;
 
 		if (!element || !this.satisfiesRequirement()) {
 			return null;
 		}
 
-		const classes = cx('text', 'widget', {
-			error: this.state.error,
-			required: element.required
+		const classes = cx('text', 'widget');
+
+		const inputClasses = cx({
+			required: element.required,
+			error
 		});
 
 		return (
 			<div className={classes}>
 				<label className="question-label">{element.label}</label>
-				<input type="text" name={element.name} onChange={this.onChange} value={this.state.value}/>
+				<input type="text"
+					className={inputClasses}
+					readOnly={!!element.readonly}
+					name={element.name}
+					onChange={this.onChange}
+					value={this.state.value}
+					defaultValue={element.value}
+				/>
 			</div>
 		);
 	}

@@ -40,20 +40,23 @@ export default React.createClass({
 	render () {
 
 		const {element} = this.props;
+		const {error} = this.state;
 
 		if (!element || !this.satisfiesRequirement()) {
 			return null;
 		}
 
-		const classes = cx('select', 'widget', {
-			error: this.state.error,
-			'required': element.required
+		const classes = cx('select', 'widget');
+
+		const inputClasses = cx({
+			required: element.required,
+			error
 		});
 
 		return (
 			<div className={classes}>
 				<label className="question-label">{element.label}</label>
-				<select name={element.name} onChange={this.onChange} value={this.state.value}>
+				<select className={inputClasses} name={element.name} onChange={this.onChange} value={this.state.value}>
 					<option />
 					{element.options.map((o, i) =>
 						<SelectOption key={i} option={o} requirement={o.requirement} />
