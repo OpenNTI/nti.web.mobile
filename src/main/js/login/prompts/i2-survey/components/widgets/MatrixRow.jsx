@@ -20,6 +20,7 @@ export default React.createClass({
 		this.setState({
 			error: !hasSelected
 		});
+		return hasSelected;
 	},
 
 	onChange () {
