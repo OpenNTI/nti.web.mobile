@@ -96,7 +96,7 @@ export default [
 		test: item => {
 			try {
 				let end = item.getEndDate();
-				return end < Date.now();
+				return end && end < Date.now();
 			}
 			catch(e) {
 				logger.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
