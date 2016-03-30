@@ -10,6 +10,10 @@
 		margin: .5rem 0;
 		padding: 1rem;
 		box-shadow: 0 0 0 1px #efefef;
+		.widget { // don't pad and border nested widgets
+			box-shadow: none;
+			padding: 0;
+		}
 	}
 	input[type=radio] {
 		margin-right: .5rem;

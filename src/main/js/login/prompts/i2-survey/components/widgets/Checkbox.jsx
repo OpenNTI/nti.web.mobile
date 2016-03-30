@@ -2,6 +2,8 @@ import React from 'react';
 
 import mixin from './mixin';
 
+import Text from './Text';
+
 export default React.createClass({
 	displayName: 'Checkbox',
 
@@ -19,6 +21,19 @@ export default React.createClass({
 		return {};
 	},
 
+	validate () {
+		if (this.otherInput && this.otherInput.validate) {
+			return this.otherInput.validate();
+		}
+		return true;
+	},
+
+	onChange (e) {
+		this.setState({
+			checked: e.target.checked
+		});
+	},
+
 	render () {
 
 		const {name, option} = this.props;
@@ -33,10 +48,12 @@ export default React.createClass({
 			<li>
 				<label>
 					<input type="checkbox"
+						onChange={this.onChange}
 						name={name}
 						value={opt.value || opt.label} />
 					<span>{opt.label}</span>
 				</label>
+				{option.includeTextInput && this.state.checked && <Text ref={x => this.otherInput = x} element={{name: `${name}-other`, required: true}} />}
 			</li>
 		);
 	}
