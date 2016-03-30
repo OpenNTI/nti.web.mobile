@@ -27,13 +27,15 @@ export default React.createClass({
 			return null;
 		}
 
+		const opt = typeof option === 'object' ? option : {label: option, value: option};
+
 		return (
 			<li>
 				<label>
 					<input type="checkbox"
 						name={name}
-						value={option.value || option.label} />
-					<span>{option.label}</span>
+						value={opt.value || opt.label} />
+					<span>{opt.label}</span>
 				</label>
 			</li>
 		);
