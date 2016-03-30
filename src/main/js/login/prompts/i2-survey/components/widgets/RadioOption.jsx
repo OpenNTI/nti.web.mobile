@@ -37,7 +37,7 @@ export default React.createClass({
 						onChange={onChange}
 						name={name}
 						value={opt.value || opt.label} />
-					<span>{opt.label}</span>
+					<span>{opt.label || opt.value}</span>
 				</label>
 			</li>
 		);
