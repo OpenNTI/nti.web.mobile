@@ -54,11 +54,13 @@ export default React.createClass({
 
 		return (
 			<div className={classes}>
-				<label>{element.label}</label>
+				{element.label && <p>{element.label}</p>}
 				<input type="number"
 					className={inputClasses}
 					pattern="\d*"
 					name={element.name}
+					min={element.min}
+					max={element.max}
 					onChange={this.onChange}
 					value={this.state.value}
 				/>
