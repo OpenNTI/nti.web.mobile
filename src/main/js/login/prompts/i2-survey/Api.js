@@ -2,8 +2,8 @@ import {getAppUser} from 'common/utils';
 
 // import r1 from './registration.json';
 import s1 from './survey.json';
-import sample from './sampledata.json';
-
+// import sample from './sampledata.json';
+const sample = {};
 const SUBMIT_REGISTRATION = 'SubmitRegistration';
 const REGISTRATION_RULES = 'RegistrationRules';
 
