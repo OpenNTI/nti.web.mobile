@@ -36,8 +36,8 @@ export default React.createClass({
 		return (
 			<div className={classes} ref={x => this.node = x}>
 				<div className="question-label"><span>{question}</span></div>
-				{columns.map(c => (
-					<label key={c}>
+				{columns.map((c, i) => (
+					<label key={i}>
 						<input type="radio" name={`${prefix}${question}`} value={c} onChange={this.onChange}/>
 						<span>{c}</span>
 					</label>
