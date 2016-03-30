@@ -165,7 +165,7 @@ exports = module.exports = [
 		},
 		resolve: {
 			root: [root, modules],
-			extensions: ['', '.jsx', '.js', '.css', '.scss', '.html']
+			extensions: ['', '.jsx', '.async.jsx', '.js', '.json', '.css', '.scss', '.html']
 		},
 		plugins: [
 			new webpack.DefinePlugin({
