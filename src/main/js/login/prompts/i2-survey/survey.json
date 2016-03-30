@@ -135,9 +135,8 @@
 					]
 				},
 				{
-					"type": "textarea",
+					"type": "multitext",
 					"name": "websites",
-					"required": true,
 					"label": "What websites do you currently visit to obtain instructional resources for your lessons during the regular school year?"
 				},
 				{
