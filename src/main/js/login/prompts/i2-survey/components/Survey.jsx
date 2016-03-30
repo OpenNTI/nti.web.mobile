@@ -1,6 +1,8 @@
 import React from 'react';
 import serialize from 'form-serialize';
 
+import {getReturnURL} from 'common/utils';
+
 import Loading from 'common/components/Loading';
 import PromiseButton from 'common/components/PromiseButton';
 
@@ -70,6 +72,9 @@ export default React.createClass({
 
 
 	validate () {
+		this.setState({
+			error: null
+		});
 		let result = true;
 		for(let i = 0; i < this.elements.length; i++) {
 			let e = this.elements[i];
@@ -93,6 +98,7 @@ export default React.createClass({
 		}
 		const formData = serialize(this.form, {hash: true});
 		return submitSurvey(formData)
+			.then(()=> location.replace(getReturnURL()))
 			.catch(error => this.setState({error}));
 	},
 
