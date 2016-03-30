@@ -22,7 +22,7 @@
  *
  */
 export default [
-	{handler: 'Terms',		path: '/tos(/*)'},
+	{handler: 'Welcome',	path: '/onboarding(/*)'},
 	{handler: 'Object',		path: '/object/:objectId(/*)'},
 	{handler: 'Login',		path: '/login/*'},
 	{handler: 'Catalog',	path: '/catalog/*'},

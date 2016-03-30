@@ -66,7 +66,7 @@ export default React.createClass({
 	render () {
 		let {mask} = this.state;
 		let {path} = this.props;
-		let isGated = /\/(login|tos)/i.test(path || location.href);
+		let isGated = /\/(login|onboarding)/i.test(path || location.href);
 
 		let Wrapper = isGated ? 'div' : AppContainer;
 

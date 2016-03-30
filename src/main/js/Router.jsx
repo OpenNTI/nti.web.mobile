@@ -12,7 +12,7 @@ const ENVIRONMENT = environment.defaultEnvironment;
 import Logger from 'nti-util-logger';
 
 //Main View Handlers
-import Catalog from 'catalog/components/View.async';
+import Catalog from 'catalog/components/View';
 import Contacts from 'contacts/components/View';
 import Content from 'content/components/View';
 import Course from 'course/components/View';
@@ -23,8 +23,7 @@ import Login from 'login/components/View';
 import Profile from 'profile/components/View';
 import NotFoundPage from 'notfound/components/View';
 import ObjectResolver from 'object-resolver/components/View';
-import Terms from 'terms/components/View';
-
+import Welcome from 'login/prompts/View';
 
 import NavStore from 'navigation/Store';
 import {areYouSure} from 'prompts';
@@ -46,7 +45,7 @@ const HANDLER_BY_NAME = {
 	Login,
 	Profile,
 	Object: ObjectResolver,
-	Terms
+	Welcome
 };
 
 const SendGAEvent = 'Router:SendGAEvent';

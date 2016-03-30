@@ -67,7 +67,7 @@ export default React.createClass({
 
 
 	setup (props = this.props) {
-		const stillValid = () => this.isMounted() && props[KEY] === this.props[KEY];
+		const stillValid = () => props[KEY] === this.props[KEY];
 		const {scope} = props;
 
 		function getSuggestions () {
@@ -268,7 +268,7 @@ export default React.createClass({
 					{selection.getItems().map(e =>
 						<ShareTarget key={e.getID ? e.getID() : e} entity={e}
 							selected={pendingRemove === e}
-							onClick={()=>this.onTokenTap(e)}/>
+							onClick={this.onTokenTap}/>
 					)}
 					<span className="input-field" data-value={search}>
 						<input type="text" ref={x => this.search = x} value={search} placeholder={placeholder}

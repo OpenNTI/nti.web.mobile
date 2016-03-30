@@ -26,7 +26,7 @@ try {
 
 
 try {
-	stats = require('./stats.json');
+	stats = require('../stats.json');
 	if (!ServerRender) {
 		throw new Error('Stats Extist, but could not load the compiled page!');
 	}

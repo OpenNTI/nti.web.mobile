@@ -4,21 +4,14 @@ import {load as doLoad} from './Api';
 import {LOADED_NOTIFICATIONS} from './Constants';
 
 
-/*
- * Actions available to views for notification-related functionality.
- */
-
-
-export function reload () {
-	load(true);
-}
-
-
 export function load (force) {
 	doLoad(force)
 		.then(store => dispatch(LOADED_NOTIFICATIONS, store));
 }
 
+export function reload () {
+	load(true);
+}
 
 export function loadMore (notifications) {
 	if (notifications) {

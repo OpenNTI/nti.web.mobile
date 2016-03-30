@@ -29,7 +29,7 @@ const Breakdown = function Breakdown (props) {
 	}
 
 	return (
-		<li><Link data-count={count} {...this.props}/></li>
+		<li><Link data-count={count} {...props}/></li>
 	);
 };
 

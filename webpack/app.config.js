@@ -35,15 +35,11 @@ exports = module.exports = [
 		},
 
 		cache: true,
-		devtool: PROD ? 'hidden-source-map' : 'source-map',
+		devtool: PROD ? 'hidden-source-map' : 'inline-source-map',
 
 		entry: './src/main/js/index.js',
 
 		target: 'web',
-		stats: {
-			colors: true,
-			reasons: true
-		},
 
 		node: {
 			net: 'empty',
@@ -59,7 +55,7 @@ exports = module.exports = [
 
 		resolve: {
 			root: [root, modules],
-			extensions: ['', '.jsx', '.js', '.json', '.css', '.scss', '.html']
+			extensions: ['', '.jsx', '.async.jsx', '.js', '.json', '.css', '.scss', '.html']
 		},
 
 		module: {
@@ -113,7 +109,7 @@ exports = module.exports = [
 		},
 
 		plugins: [
-			new StatsPlugin('stats.json'),
+			new StatsPlugin('../server/stats.json'),
 			new AppCachePlugin({
 				cache: [
 					'page.html',
@@ -169,7 +165,7 @@ exports = module.exports = [
 		},
 		resolve: {
 			root: [root, modules],
-			extensions: ['', '.jsx', '.js', '.css', '.scss', '.html']
+			extensions: ['', '.jsx', '.async.jsx', '.js', '.json', '.css', '.scss', '.html']
 		},
 		plugins: [
 			new webpack.DefinePlugin({

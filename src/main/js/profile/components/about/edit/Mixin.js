@@ -57,7 +57,7 @@ export default {
 			value = items || [];
 		}
 		else {
-			for (let item of Object.values(this.refs)) {
+			for (let item of Object.values(this.eventItems)) {
 				if (item.getValue) {
 					value.push(item.getValue());
 				}

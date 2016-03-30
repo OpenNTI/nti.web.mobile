@@ -18,6 +18,8 @@
 		border: 0;
 		border-radius: 40px;
 		box-shadow: 0 0 0 1px $secondary-green;
+		display: inline-block;
+		margin: 1px; // ensure room for the box shadow
 	}
 
 	.links {
