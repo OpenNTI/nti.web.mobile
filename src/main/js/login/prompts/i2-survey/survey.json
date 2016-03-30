@@ -10,13 +10,13 @@
 				{
 					"type": "multiple",
 					"name": "what-grades",
-					"label": "What grade levels are you teaching this school year? (please check all that apply)",
+					"label": "1. What grade levels are you teaching this school year? (please check all that apply)",
 					"options": [5, 6, 7, 8, 9]
 				},
 				{
 					"type": "multiple",
 					"name": "teaching-subjects",
-					"label": "What subjects are you teaching this school year? (please check all that apply)",
+					"label": "2. What subjects are you teaching this school year? (please check all that apply)",
 					"options": [
 						"Art",
 						"English/Language Arts/Writing",
@@ -38,7 +38,7 @@
 				{
 					"type": "multiple",
 					"name": "degree-subjects",
-					"label": "Do you have a college degree in any of the following subjects?",
+					"label": "3. Do you have a college degree in any of the following subjects?",
 					"options": [
 						"Mathematics",
 						"Science",
@@ -53,13 +53,13 @@
 				{
 					"type": "number",
 					"name": "years-teaching",
-					"label": "At the end of this school year how many years of school teaching experience will you have?",
+					"label": "4. At the end of this school year how many years of school teaching experience will you have?",
 					"min": 1
 				},
 				{
 					"type": "matrix",
 					"name": "matrixInput",
-					"label": "How well prepared do you currently feel to:",
+					"label": "5. How well prepared do you currently feel to:",
 					"required": true,
 					"columns": [
 						"Not at all",
@@ -78,7 +78,7 @@
 				{
 					"type": "matrix",
 					"name": "matrixInput",
-					"label": "How often do you currently engage in the following teaching practices with your class(es)?",
+					"label": "6. How often do you currently engage in the following teaching practices with your class(es)?",
 					"required": true,
 					"columns": [
 						"Never",
@@ -96,7 +96,7 @@
 				{
 					"type": "multiple",
 					"name": "recruited",
-					"label": "How were you recruited to participate in this program?  (select all that apply)",
+					"label": "7. How were you recruited to participate in this program?  (select all that apply)",
 					"options": [
 						"I heard about this program and wanted to sign up.",
 						"My principal told us to sign up if we wanted to do this program.",
@@ -111,7 +111,7 @@
 				{
 					"type": "radio",
 					"name": "pd-interest",
-					"label": "How interested are you in taking pd for the upcoming Boston STEM week course implementation?",
+					"label": "8. How interested are you in taking pd for the upcoming Boston STEM week course implementation?",
 					"required": true,
 					"options": [
 						"Not at all interested",
@@ -123,7 +123,7 @@
 				{
 					"type": "radio",
 					"name": "pd-interest",
-					"label": "How often do you go online to obtain instructional resources for your lessons during the regular school year?",
+					"label": "9. How often do you go online to obtain instructional resources for your lessons during the regular school year?",
 					"required": true,
 					"options": [
 						"Several times per day",
@@ -137,11 +137,11 @@
 				{
 					"type": "multitext",
 					"name": "websites",
-					"label": "What websites do you currently visit to obtain instructional resources for your lessons during the regular school year?"
+					"label": "10. What websites do you currently visit to obtain instructional resources for your lessons during the regular school year?"
 				},
 				{
 					"type": "multiinput",
-					"label": "About how many hours total per week do you use any of the following?",
+					"label": "11. About how many hours total per week do you use any of the following?",
 					"name": "hours-per-week",
 					"required": true,
 					"subtype": "number",
