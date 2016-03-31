@@ -6,14 +6,15 @@ import s1 from './survey.json';
 const sample = {};
 const SUBMIT_REGISTRATION = 'SubmitRegistration';
 const REGISTRATION_RULES = 'RegistrationRules';
+const COURSE_SESSIONS = 'CourseSessions';
 
-function getGrades (rules) {
+function gradeOptions (rules) {
 	let result = {};
 	// for each school in rules
 	Object.keys(rules).forEach(school => {
 		// for each grade in school
 		Object.keys(rules[school]).forEach(grade => {
-			// 		// add grade if it doesn't already exist in result
+			// add grade if it doesn't already exist in result
 			if (!result[grade]) {
 				result[grade] = {
 					value: grade,
@@ -26,6 +27,46 @@ function getGrades (rules) {
 	});
 
 	return Object.keys(result).map(k => result[k]);
+}
+
+function courseOptions (rules) {
+	let result = {};
+	Object.keys(rules).forEach(school => {
+		Object.keys(rules[school]).forEach(grade => {
+			(rules[school][grade]).forEach(course => {
+				if(!result[course]) {
+					result[course] = {
+						value: course,
+						requirement: []
+					};
+				}
+				result[course].requirement.push('school=' + school);
+				result[course].requirement.push('grade=' + grade);
+			});
+		});
+	});
+	return Object.keys(result).map(k => result[k]);
+}
+
+function sessionOptions (sessions) {
+	// "CourseSessions": {
+    //     "Surgical Techniques": [
+    //         "June 29-30 (W/Th)",
+    //         "August 8-9 (M/T)"
+    //     ],
+    //     "Urban Farming": [
+	//         "June 29-30 (W/Th)",
+
+	let result = [];
+	Object.keys(sessions).forEach(course => {
+		(sessions[course]).forEach(session => {
+			result.push({
+				value: session,
+				requirement: ['course=' + course]
+			});
+		});
+	});
+	return result;
 }
 
 function registrationViewToFormJson (input) {
@@ -44,15 +85,23 @@ function registrationViewToFormJson (input) {
 				name: 'grade',
 				label: 'What grade?',
 				required: true,
-				options: getGrades(input[REGISTRATION_RULES])
+				options: gradeOptions(input[REGISTRATION_RULES])
 			},
 			{
 				type: 'select',
 				name: 'course',
 				label: 'Select your course',
 				required: true,
-				options: []
-			}
+				options: courseOptions(input[REGISTRATION_RULES])
+			},
+			{
+				type: 'select',
+				name: 'session',
+				label: 'Select your session',
+				required: true,
+				options: sessionOptions(input[COURSE_SESSIONS])
+			},
+
 		]
 	};
 }
