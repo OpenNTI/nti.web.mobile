@@ -53,6 +53,9 @@ function splitBySemester (list) {
 }
 
 
+const isUpcoming = item => item.getStartDate() > Date.now();
+const isArchived = item => (item = item.getEndDate(), item && item < Date.now());
+const isCurrent = item => !isArchived(item) && !isUpcoming(item);
 
 export default [
 	{
@@ -61,8 +64,7 @@ export default [
 
 		test: item => {
 			try {
-				let start = item.getStartDate();
-				return start > Date.now();
+				return isUpcoming(item);
 			}
 			catch(e) {
 				logger.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
@@ -77,11 +79,7 @@ export default [
 		kind: CURRENT,
 		test: item => {
 			try {
-				let now = Date.now();
-				let start = item.getStartDate();
-				let end = item.getEndDate();
-
-				return start < now && end > now;
+				return isCurrent(item);
 			}
 			catch(e) {
 				logger.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
@@ -95,8 +93,7 @@ export default [
 		kind: ARCHIVED,
 		test: item => {
 			try {
-				let end = item.getEndDate();
-				return end && end < Date.now();
+				return isArchived(item.getEndDate());
 			}
 			catch(e) {
 				logger.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
