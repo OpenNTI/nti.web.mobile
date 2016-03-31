@@ -1,15 +1,16 @@
 import React from 'react';
 import serialize from 'form-serialize';
+import Logger from 'nti-util-logger';
 
 import {getReturnURL} from 'common/utils';
 
 import Loading from 'common/components/Loading';
-import PromiseButton from 'common/components/PromiseButton';
 
 import {loadForm, submitSurvey} from '../Api';
 
 import widget from './widgets';
 
+const logger = Logger.get('i2-survey:components:Survey');
 
 export default React.createClass({
 	displayName: 'Survey',
@@ -54,7 +55,14 @@ export default React.createClass({
 				survey,
 				loading: false
 			})
-		);
+		)
+		.catch(error => {
+			logger.error(error);
+			this.setState({
+				loading: false,
+				error: 'Unable to load form'
+			});
+		});
 	},
 
 
@@ -110,6 +118,13 @@ export default React.createClass({
 			return <Loading />;
 		}
 
+		if(error && !survey) {
+			return (
+				<div className="errors">
+					<small className="error">{error.statusText || error}</small>
+				</div>);
+		}
+
 		return (
 			<div className="onboarding-survey">
 				<form method="post"
@@ -121,9 +136,9 @@ export default React.createClass({
 						const Widget = widget(e.type);
 						return (<div key={i}><Widget ref={x => this.elements[i] = x} element={e} requirement={e.requirement} /></div>);
 					})}
-					{error && <div className="errors"><small className="error">{error}</small></div>}
+					{error && <div className="errors"><small className="error">{error.statusText || error}</small></div>}
 					<div className="controls">
-						<PromiseButton onClick={this.onSubmit}>Submit</PromiseButton>
+						<button onClick={this.onSubmit}>Submit</button>
 					</div>
 				</form>
 			</div>
