@@ -2,8 +2,6 @@ import {getAppUser} from 'common/utils';
 
 // import r1 from './registration.json';
 import s1 from './survey.json';
-import sample from './sampledata.json';
-// const sample = {};
 const SUBMIT_REGISTRATION = 'SubmitRegistration';
 const REGISTRATION_RULES = 'RegistrationRules';
 const COURSE_SESSIONS = 'CourseSessions';
@@ -112,11 +110,8 @@ function registrationViewToFormJson (input) {
 }
 
 function getRegistration () {
-
-	const form = registrationViewToFormJson(sample);
-
-
-	return Promise.resolve(form);
+	return getAppUser().then(user => user.fetchLink('RegistrationEnrollRules'))
+		.then(rules => registrationViewToFormJson(rules));
 }
 
 function getSurvey () {
