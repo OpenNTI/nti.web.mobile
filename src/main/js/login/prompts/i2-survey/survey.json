@@ -54,6 +54,7 @@
 					"type": "number",
 					"name": "years-teaching",
 					"label": "4. At the end of this school year how many years of school teaching experience will you have?",
+					"required": true,
 					"min": 1
 				},
 				{
