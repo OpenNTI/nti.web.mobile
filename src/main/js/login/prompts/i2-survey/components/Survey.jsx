@@ -39,6 +39,7 @@ export default React.createClass({
 		};
 	},
 
+
 	componentWillMount () {
 		this.elements = [];
 	},
@@ -109,6 +110,7 @@ export default React.createClass({
 			.then(() => location.replace(getReturnURL()))
 			.catch(error => this.setState({error}));
 	},
+
 
 	render () {
 

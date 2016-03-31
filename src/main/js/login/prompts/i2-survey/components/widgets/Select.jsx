@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import SelectOption from './SelectOption';
-import mixin from './mixin';
+import mixin, {evaluate} from './mixin';
 
 export default React.createClass({
 	displayName: 'Select',
@@ -58,7 +58,7 @@ export default React.createClass({
 				<label className="question-label">{element.label}</label>
 				<select className={inputClasses} name={element.name} onChange={this.onChange} value={this.state.value}>
 					<option />
-					{element.options.map((o, i) =>
+					{element.options.filter(i => evaluate(this.getForm(), i.requirement)).map((o, i) =>
 						<SelectOption key={i} option={o} requirement={o.requirement} />
 					)}
 				</select>
