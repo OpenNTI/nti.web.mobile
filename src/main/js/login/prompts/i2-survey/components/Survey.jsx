@@ -103,10 +103,9 @@ export default React.createClass({
 			this.setState({
 				error: 'Please correct the errors above.'
 			});
-			return Promise.reject();
 		}
 		const formData = serialize(this.form, {hash: true});
-		return submitSurvey(formData)
+		submitSurvey(formData)
 			.then(() => location.replace(getReturnURL()))
 			.catch(error => this.setState({error}));
 	},
