@@ -98,7 +98,7 @@ export default React.createClass({
 		}
 		const formData = serialize(this.form, {hash: true});
 		return submitSurvey(formData)
-			.then(()=> location.replace(getReturnURL()))
+			.then(() => location.replace(getReturnURL()))
 			.catch(error => this.setState({error}));
 	},
 

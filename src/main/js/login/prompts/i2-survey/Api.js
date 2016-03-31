@@ -2,13 +2,19 @@ import {getAppUser} from 'common/utils';
 
 // import r1 from './registration.json';
 import s1 from './survey.json';
-// import sample from './sampledata.json';
-const sample = {};
+import sample from './sampledata.json';
+// const sample = {};
 const SUBMIT_REGISTRATION = 'SubmitRegistration';
 const REGISTRATION_RULES = 'RegistrationRules';
 const COURSE_SESSIONS = 'CourseSessions';
 
 function gradeOptions (rules) {
+	// "RegistrationRules": {
+    //     "Federick, Lilla G. Middle": {
+    //         "6": [
+    //             "Building a Lunar Colony"
+    //         ]
+    //     },
 	let result = {};
 	// for each school in rules
 	Object.keys(rules).forEach(school => {
@@ -100,8 +106,7 @@ function registrationViewToFormJson (input) {
 				label: 'Select your session',
 				required: true,
 				options: sessionOptions(input[COURSE_SESSIONS])
-			},
-
+			}
 		]
 	};
 }
