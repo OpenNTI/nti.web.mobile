@@ -9,10 +9,14 @@ export default React.createClass({
 
 	propTypes: {
 		name: React.PropTypes.string,
-		option: React.PropTypes.shape({
-			value: React.PropTypes.any,
-			label: React.PropTypes.any
-		}).isRequired,
+		option: React.PropTypes.oneOfType([
+			React.PropTypes.shape({
+				value: React.PropTypes.any,
+				label: React.PropTypes.any
+			}),
+			React.PropTypes.number,
+			React.PropTypes.string
+		]).isRequired,
 		onChange: React.PropTypes.func
 	},
 
