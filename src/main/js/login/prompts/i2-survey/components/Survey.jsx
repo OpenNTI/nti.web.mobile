@@ -103,6 +103,7 @@ export default React.createClass({
 			this.setState({
 				error: 'Please correct the errors above.'
 			});
+			return;
 		}
 		const formData = serialize(this.form, {hash: true});
 		submitSurvey(formData)
