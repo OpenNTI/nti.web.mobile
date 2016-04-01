@@ -93,7 +93,7 @@ export default [
 		kind: ARCHIVED,
 		test: item => {
 			try {
-				return isArchived(item.getEndDate());
+				return isArchived(item);
 			}
 			catch(e) {
 				logger.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
