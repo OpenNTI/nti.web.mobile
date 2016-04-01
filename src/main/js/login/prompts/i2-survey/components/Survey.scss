@@ -23,8 +23,13 @@
 	}
 	.controls {
 		text-align: right;
+		.processing {
+			padding: 1rem 2rem;
+			text-align: right;
+			float: right;
+		}
 	}
 	.radio-options, .multiplechoice-options {
-    	padding-left: 1rem;
+		padding-left: 1rem;
 	}
 }

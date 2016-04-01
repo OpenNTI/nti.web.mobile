@@ -5,6 +5,7 @@ import Logger from 'nti-util-logger';
 import {getReturnURL} from 'common/utils';
 
 import Loading from 'common/components/Loading';
+import TinyLoader from 'common/components/TinyLoader';
 
 import {loadForm, submitSurvey} from '../Api';
 
@@ -99,8 +100,12 @@ export default React.createClass({
 		if(e && e.preventDefault) {
 			e.preventDefault();
 		}
+		this.setState({
+			processing: true
+		});
 		if(!this.validate()) {
 			this.setState({
+				processing: false,
 				error: 'Please correct the errors above.'
 			});
 			return;
@@ -114,7 +119,7 @@ export default React.createClass({
 
 	render () {
 
-		const {loading, survey, error} = this.state;
+		const {loading, survey, error, processing} = this.state;
 
 		if (loading) {
 			return <Loading />;
@@ -140,7 +145,7 @@ export default React.createClass({
 					})}
 					{error && <div className="errors"><small className="error">{error.statusText || error}</small></div>}
 					<div className="controls">
-						<button onClick={this.onSubmit}>Submit</button>
+						{processing ? <div className="processing"><TinyLoader /></div> : <button onClick={this.onSubmit}>Submit</button>}
 					</div>
 				</form>
 			</div>
