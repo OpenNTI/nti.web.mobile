@@ -77,7 +77,7 @@ export default React.createClass({
 
 	formChange () {
 		this.clearError();
-		this.forceUpdate();
+		// this.forceUpdate();
 	},
 
 
