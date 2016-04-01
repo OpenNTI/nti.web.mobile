@@ -67,7 +67,7 @@ export default [
 				return isUpcoming(item);
 			}
 			catch(e) {
-				logger.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
+				logger.error('Filtering out bad Item: %o, because: %s', item,  e.message || e);
 				return false;
 			}
 		},
@@ -82,7 +82,7 @@ export default [
 				return isCurrent(item);
 			}
 			catch(e) {
-				logger.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
+				logger.error('Filtering out bad Item: %o, because: %s', item,  e.message || e);
 				return false;
 			}
 		},
@@ -96,7 +96,7 @@ export default [
 				return isArchived(item);
 			}
 			catch(e) {
-				logger.error('Filtering out bad Item: %o, because: ', item,  e.message || e);
+				logger.error('Filtering out bad Item: %o, because: %s', item,  e.message || e);
 				return false;
 			}
 		},
