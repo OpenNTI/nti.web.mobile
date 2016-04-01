@@ -1,10 +1,12 @@
+/*
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Locations, Location} from 'react-router-component';
 
 import Viewer from '../Viewer';
 
-xdescribe('Content Viewer', ()=> {
+
+describe('Content Viewer', ()=> {
 	let container;
 
 	beforeEach(()=> {
@@ -46,3 +48,4 @@ xdescribe('Content Viewer', ()=> {
 	});
 
 });
+*/
