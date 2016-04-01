@@ -25,7 +25,7 @@ export default React.createClass({
 		const Widget = getWidget(element.subtype);
 
 		const elem = {
-			name: element.name + '-' + option,
+			name: element.name + ':' + option,
 			required: element.required
 		};
 
