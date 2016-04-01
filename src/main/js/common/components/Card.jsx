@@ -248,9 +248,12 @@ export default React.createClass({
 
 
 	resolveIconFallback (item) {
-		const ext = item.getFileExtentionFor();
-		const iconCls = cx('fallback', ext, {unknown: ext === 'bin'});
+		const ext = item.isContent ? '' : item.getFileExtentionFor();
 		const iconLabel = ext && !/^(www|bin)$/i.test(ext) ? ext : null;
+		const iconCls = cx('fallback', ext, {
+			'content-link': item.isContent,
+			'unknown': ext === 'bin'
+		});
 
 		this.setState({iconCls, iconLabel});
 		return BLANK_IMAGE;

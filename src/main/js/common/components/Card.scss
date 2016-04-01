@@ -4,6 +4,7 @@
 %icon-external-link {background-image: url(./assets/extern-link.png);}
 %icon-external-link-hover {background-image: url(./assets/extern-link_hover.png);}
 
+%icon-fallback-reading {background-image: url(./assets/file-types/required-reading.png) !important;}
 %icon-fallback-link {background-image: url(./assets/file-types/view-link-www.png) !important;}
 %icon-fallback-unknow {background-image: url(./assets/file-types/view-link-www.png) !important;}
 %icon-fallback-download {background-image: url(./assets/file-types/blank-download.png) !important;}
@@ -44,6 +45,10 @@
 			}
 			&.unknown {
 				@extend %icon-fallback-unknow;
+				label {display: none;}
+			}
+			&.content-link {
+				@extend %icon-fallback-reading;
 				label {display: none;}
 			}
 
