@@ -7,6 +7,7 @@ import CSS from 'fbjs/lib/CSSCore';
 
 import isTouch from 'nti-util-detection-touch';
 import OrientationHandler from 'common/utils/orientation';
+import {ensureTopFrame} from 'common/utils/iframe-buster';
 import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'common/utils';
 
 import AppView from './AppView';
@@ -25,12 +26,7 @@ CSS.addClass(RootNode, isTouch ? 'touch' : 'no-touch');
 const siteCSS = document.getElementById('site-override-styles');
 if (siteCSS) { siteCSS.parentNode.appendChild(siteCSS); }
 
-//temp until we design a better way:
-if (typeof window !== 'undefined' && window.top !== window) {
-	window.top.location.href = location.href;
-	//If the frame busting code is blocked, tell them embedding is not supported.
-	location.replace('iframe.html');
-}
+ensureTopFrame();
 
 overrideConfigAndForceCurrentHost();
 

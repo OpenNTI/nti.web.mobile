@@ -1,43 +1,141 @@
 import React from 'react';
-import cx from 'classnames';
-
+import serialize from 'form-serialize';
 import Logger from 'nti-util-logger';
 
-import {getAppUser, getReturnURL} from 'common/utils';
-import BasePathAware from 'common/mixins/BasePath';
+import {getReturnURL} from 'common/utils';
 
-const logger = Logger.get('i2-survey:components:View');
+import Loading from 'common/components/Loading';
+import TinyLoader from 'common/components/TinyLoader';
+
+import {loadForm, submitSurvey} from '../Api';
+
+import widget from './widgets';
+
+const logger = Logger.get('i2-survey:components:Survey');
 
 export default React.createClass({
-	displayName: 'i2-SurveyFrame',
+	displayName: 'Survey',
 
-	mixins: [BasePathAware],
+
+	attachFormRef (form) {
+		this.form = form;
+	},
+
 
 	getInitialState () {
 		return {
+			loading: true
 		};
 	},
 
-	render () {
-		let {state: {agree}} = this;
 
-		let disabled = !agree;
+	componentWillMount () {
+		this.elements = [];
+	},
+
+
+	componentDidMount () {
+		this.load();
+	},
+
+
+	load () {
+		loadForm().then(
+			survey => this.setState({
+				survey,
+				loading: false
+			})
+		)
+		.catch(error => {
+			logger.error(error);
+			this.setState({
+				loading: false,
+				error: 'Unable to load form'
+			});
+		});
+	},
+
+
+	clearError () {
+		this.setState({
+			error: null
+		});
+	},
+
+
+	formChange () {
+		this.clearError();
+		// this.forceUpdate();
+	},
+
+
+	validate () {
+		this.setState({
+			error: null
+		});
+		let result = true;
+		for(let i = 0; i < this.elements.length; i++) {
+			let e = this.elements[i];
+			if(e.validate && !e.validate()) {
+				result = false;
+			}
+		}
+		return result;
+	},
+
+
+	onSubmit (e) {
+		if(e && e.preventDefault) {
+			e.preventDefault();
+		}
+		this.setState({
+			processing: true
+		});
+		if(!this.validate()) {
+			this.setState({
+				processing: false,
+				error: 'Please correct the errors above.'
+			});
+			return;
+		}
+		const formData = serialize(this.form, {hash: true});
+		submitSurvey(formData)
+			.then(() => location.replace(getReturnURL()))
+			.catch(error => this.setState({error}));
+	},
+
+
+	render () {
+
+		const {loading, survey, error, processing} = this.state;
+
+		if (loading) {
+			return <Loading />;
+		}
+
+		if(error && !survey) {
+			return (
+				<div className="errors">
+					<small className="error">{error.statusText || error}</small>
+				</div>);
+		}
 
 		return (
-			<div className="terms-of-service-prompt">
-				<header className="tos-header">
-					<h3>We recently updated our Terms of Service and Privacy Policy.</h3>
-					<div className="you-should">Please take a moment to read them carefully.</div>
-				</header>
-
-				<iframe src={this.getBasePath() + 'onboarding/i2-survey/'} />
-
-				<footer>
-					<label>
-						<input type="checkbox" checked={agree} onChange={this.onCheckChanged}/> Yes, I agree to the Terms of Service and Privacy Policy.
-					</label>
-					<button className={cx({disabled})} disabled={disabled} onClick={this.acceptTermsOfService}>I Agree</button>
-				</footer>
+			<div className="onboarding-survey">
+				<form method="post"
+					ref={this.attachFormRef}
+					onChange={this.formChange}
+					onSubmit={this.onSubmit}
+				>
+					{survey.elements.map((e, i) => {
+						const Widget = widget(e.type);
+						return (<div key={i}><Widget ref={x => this.elements[i] = x} element={e} requirement={e.requirement} /></div>);
+					})}
+					{error && <div className="errors"><small className="error">{error.statusText || error}</small></div>}
+					<div className="controls">
+						{processing ? <div className="processing"><TinyLoader /></div> : <button onClick={this.onSubmit}>Submit</button>}
+					</div>
+				</form>
 			</div>
 		);
 	}
