@@ -22,18 +22,6 @@ export default React.createClass({
 	},
 
 
-	childContextTypes: {
-		getForm: React.PropTypes.func
-	},
-
-
-	getChildContext () {
-		return {
-			getForm: () => this.form
-		};
-	},
-
-
 	getInitialState () {
 		return {
 			loading: true
