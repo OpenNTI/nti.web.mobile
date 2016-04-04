@@ -100,7 +100,14 @@ export default React.createClass({
 		}
 		const formData = serialize(this.form, {hash: true});
 		submitSurvey(formData)
-			.then(() => location.replace(getReturnURL()))
+			.then(() => {
+				if (window.top !== window) {
+					window.top.postMessage('survey-complete', '*');
+				}
+				else {
+					location.replace(getReturnURL());
+				}
+			})
 			.catch(error => this.setState({error}));
 	},
 
