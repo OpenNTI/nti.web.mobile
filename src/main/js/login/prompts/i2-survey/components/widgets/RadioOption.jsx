@@ -9,10 +9,14 @@ export default React.createClass({
 
 	propTypes: {
 		name: React.PropTypes.string,
-		option: React.PropTypes.shape({
-			value: React.PropTypes.any,
-			label: React.PropTypes.any
-		}).isRequired,
+		option: React.PropTypes.oneOfType([
+			React.PropTypes.shape({
+				value: React.PropTypes.any,
+				label: React.PropTypes.any
+			}),
+			React.PropTypes.number,
+			React.PropTypes.string
+		]).isRequired,
 		onChange: React.PropTypes.func
 	},
 
@@ -28,14 +32,16 @@ export default React.createClass({
 			return null;
 		}
 
+		const opt = typeof option === 'object' ? option : {label: option, value: option};
+
 		return (
 			<li>
 				<label>
 					<input type="radio"
 						onChange={onChange}
 						name={name}
-						value={option.value || option.label} />
-					<span>{option.label}</span>
+						value={opt.value || opt.label} />
+					<span>{opt.label || opt.value}</span>
 				</label>
 			</li>
 		);

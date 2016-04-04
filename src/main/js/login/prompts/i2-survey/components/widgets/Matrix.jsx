@@ -51,7 +51,7 @@ export default React.createClass({
 				<div className="questions">
 					<div className="headings">
 						<div/>
-						{element.columns.map(c => <div key={c}>{c}</div>)}
+						{element.columns.map((c, i) => <div key={i}>{c}</div>)}
 					</div>
 					{element.rows.map((r, i) => (
 						<MatrixRow

@@ -1,13 +1,17 @@
 import React from 'react';
 import serialize from 'form-serialize';
+import Logger from 'nti-util-logger';
+
+import {getReturnURL} from 'common/utils';
 
 import Loading from 'common/components/Loading';
-import PromiseButton from 'common/components/PromiseButton';
+import TinyLoader from 'common/components/TinyLoader';
 
 import {loadForm, submitSurvey} from '../Api';
 
 import widget from './widgets';
 
+const logger = Logger.get('i2-survey:components:Survey');
 
 export default React.createClass({
 	displayName: 'Survey',
@@ -36,6 +40,7 @@ export default React.createClass({
 		};
 	},
 
+
 	componentWillMount () {
 		this.elements = [];
 	},
@@ -52,7 +57,14 @@ export default React.createClass({
 				survey,
 				loading: false
 			})
-		);
+		)
+		.catch(error => {
+			logger.error(error);
+			this.setState({
+				loading: false,
+				error: 'Unable to load form'
+			});
+		});
 	},
 
 
@@ -65,11 +77,14 @@ export default React.createClass({
 
 	formChange () {
 		this.clearError();
-		this.forceUpdate();
+		// this.forceUpdate();
 	},
 
 
 	validate () {
+		this.setState({
+			error: null
+		});
 		let result = true;
 		for(let i = 0; i < this.elements.length; i++) {
 			let e = this.elements[i];
@@ -85,23 +100,36 @@ export default React.createClass({
 		if(e && e.preventDefault) {
 			e.preventDefault();
 		}
+		this.setState({
+			processing: true
+		});
 		if(!this.validate()) {
 			this.setState({
+				processing: false,
 				error: 'Please correct the errors above.'
 			});
-			return Promise.reject();
+			return;
 		}
 		const formData = serialize(this.form, {hash: true});
-		return submitSurvey(formData)
+		submitSurvey(formData)
+			.then(() => location.replace(getReturnURL()))
 			.catch(error => this.setState({error}));
 	},
 
+
 	render () {
 
-		const {loading, survey, error} = this.state;
+		const {loading, survey, error, processing} = this.state;
 
 		if (loading) {
 			return <Loading />;
+		}
+
+		if(error && !survey) {
+			return (
+				<div className="errors">
+					<small className="error">{error.statusText || error}</small>
+				</div>);
 		}
 
 		return (
@@ -115,9 +143,9 @@ export default React.createClass({
 						const Widget = widget(e.type);
 						return (<div key={i}><Widget ref={x => this.elements[i] = x} element={e} requirement={e.requirement} /></div>);
 					})}
-					{error && <div className="errors"><small className="error">{error}</small></div>}
+					{error && <div className="errors"><small className="error">{error.statusText || error}</small></div>}
 					<div className="controls">
-						<PromiseButton onClick={this.onSubmit}>Submit</PromiseButton>
+						{processing ? <div className="processing"><TinyLoader /></div> : <button onClick={this.onSubmit}>Submit</button>}
 					</div>
 				</form>
 			</div>

@@ -1,0 +1,71 @@
+{
+    "MimeType": "application/vnd.nextthought.analytics.registrationrules",
+    "CourseSessions": {
+        "Surgical Techniques": [
+            "June 29-30 (W/Th)",
+            "July 18-19 (M/T)",
+            "July 20-21 (W/Th)",
+            "July 25-26 (M/T)",
+            "August 2-3 (T/W)",
+            "August 8-9 (M/T)"
+        ],
+        "Urban Farming": [
+            "June 29-300 (W/Th)",
+            "July 18-19 (M/T)",
+            "July 20-21 (W/Th)",
+            "July 25-26 (M/T)",
+            "August 2-3 (T/W)",
+            "August 8-9 (M/T)"
+        ],
+        "Building an Interactive Friendly Monster": [
+            "June 29-30 (W/Th)",
+            "July 18-19 (M/T)",
+            "July 20-21 (W/Th)",
+            "July 25-26 (M/T)",
+            "August 2-3 (T/W)",
+            "August 8-9 (M/T)"
+        ],
+        "Digital Game Design": [
+            "June 29-30 (W/Th)",
+            "July 18-19 (M/T)",
+            "July 20-21 (W/Th)",
+            "July 25-26 (M/T)",
+            "August 2-3 (T/W)",
+            "August 8-9 (M/T)"
+        ],
+        "Kinetic Sculpture": [
+            "June 29-30 (W/Th)",
+            "July 18-19 (M/T)",
+            "July 20-21 (W/Th)",
+            "July 25-26 (M/T)",
+            "August 2-3 (T/W)",
+            "August 8-9 (M/T)"
+        ],
+        "Building a Lunar Colony": [
+            "June 29-30 (W/Th)",
+            "July 18-19 (M/T)",
+            "July 20-21 (W/Th)",
+            "July 25-26 (M/T)",
+            "August 2-3 (T/W)",
+            "August 8-9 (M/T)"
+        ]
+    },
+    "href": "/dataserver2/users/sjohnson@nextthought.com/RegistrationEnrollRules?registration_id=ClockmakersLie",
+    "Class": "RegistrationRules",
+    "RegistrationRules": {
+        "Federick, Lilla G. Middle": {
+            "6": [
+                "Building a Lunar Colony"
+            ]
+        },
+        "Mayo, Middle": {
+            "7": [
+                "Kinetic Sculpture"
+            ],
+            "8": [
+                "Building a Lunar Colony",
+                "Urban Farming"
+            ]
+        }
+    }
+}

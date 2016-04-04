@@ -12,6 +12,24 @@ export default React.createClass({
 		element: React.PropTypes.object.isRequired
 	},
 
+	componentWillMount () {
+		this.elements = [];
+	},
+
+	attachRef (r) {
+		if (r) {
+			this.elements.push(r);
+		}
+	},
+
+	validate () {
+		let result = true;
+		for (let i = 0; i < this.elements.length; i++) {
+			let e = this.elements[i];
+			result = e.validate() && result;
+		}
+		return result;
+	},
 
 	render () {
 
@@ -26,7 +44,7 @@ export default React.createClass({
 				<p className="question-label">{element.label}</p>
 				<ul className="multiplechoice-options">
 					{element.options.map((o, i) =>
-						<Checkbox key={i} option={o} name={`${element.name}[]`} requirement={o.requirement}/>
+						<Checkbox ref={this.attachRef} key={i} option={o} name={`${element.name}[]`} requirement={o.requirement}/>
 					)}
 				</ul>
 			</div>

@@ -9,7 +9,8 @@ export default React.createClass({
 	mixins: [mixin],
 
 	propTypes: {
-		element: React.PropTypes.object.isRequired
+		element: React.PropTypes.object.isRequired,
+		onChange: React.PropTypes.func
 	},
 
 	getInitialState () {
@@ -35,6 +36,9 @@ export default React.createClass({
 			value: e.target.value,
 			error: false
 		});
+		if (this.props.onChange) {
+			this.props.onChange(e);
+		}
 	},
 
 	render () {
@@ -54,7 +58,7 @@ export default React.createClass({
 
 		return (
 			<div className={classes}>
-				<label className="question-label">{element.label}</label>
+				{element.label && <p className="question-label">{element.label}</p>}
 				<input type="text"
 					className={inputClasses}
 					readOnly={!!element.readonly}

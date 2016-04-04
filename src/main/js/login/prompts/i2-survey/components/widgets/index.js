@@ -1,6 +1,8 @@
 import Group from './Group';
 import Markup from './Markup';
 import Matrix from './Matrix';
+import MultiInput from './MultiInput';
+import MultiText from './MultiText';
 import MultipleChoice from './MultipleChoice';
 import Number from './Number';
 import Ordering from './Ordering';
@@ -14,6 +16,8 @@ const WIDGETS = {
 	'group': Group,
 	'markup': Markup,
 	'matrix': Matrix,
+	'multiinput': MultiInput,
+	'multitext': MultiText,
 	'multiple': MultipleChoice,
 	'number': Number,
 	'ordering': Ordering,
