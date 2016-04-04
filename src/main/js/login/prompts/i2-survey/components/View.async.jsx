@@ -6,6 +6,7 @@ import {getReturnURL} from 'common/utils';
 
 import Loading from 'common/components/Loading';
 import TinyLoader from 'common/components/TinyLoader';
+import BasePathAware from 'common/mixins/BasePath';
 
 import {loadForm, submitSurvey} from '../Api';
 
@@ -16,6 +17,7 @@ const logger = Logger.get('i2-survey:components:Survey');
 export default React.createClass({
 	displayName: 'Survey',
 
+	mixins: [BasePathAware],
 
 	attachFormRef (form) {
 		this.form = form;
@@ -48,6 +50,9 @@ export default React.createClass({
 		)
 		.catch(error => {
 			logger.error(error);
+			if(error === 'No Link') {
+				location.replace(getReturnURL() || this.getBasePath());
+			}
 			this.setState({
 				loading: false,
 				error: 'Unable to load form'
