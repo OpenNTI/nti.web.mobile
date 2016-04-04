@@ -78,10 +78,10 @@ export function setupApplication (app, config) {
 
 	registerEndPoints(app, config, dsi.interface);
 
-	app.use(/^\/login/i, session.anonymousMiddleware.bind(session));
+	app.use(/^\/login/i, (q,r,n) => session.anonymousMiddleware(basepath,q,r,n));
 
 	//Session manager...
-	app.use(/^(?!\/(api|login|resources)).*/i, session.middleware.bind(session));
+	app.use(/^(?!\/(api|login|resources)).*/i, (q,r,n) => session.middleware(basepath,q,r,n));
 
 	//HTML Renderer...
 	app.get('*', (req, res)=> {
