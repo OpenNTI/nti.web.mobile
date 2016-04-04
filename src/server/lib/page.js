@@ -33,6 +33,9 @@ exports.getPage = function getPage () {
 	try {
 		let app = require('app-renderer');
 		scriptFilename = require('../compile-data.json').assetsByChunkName.main;
+		if (Array.isArray(scriptFilename)) {
+			scriptFilename = scriptFilename[0];
+		}
 
 		Application = app.default;
 		revision = app.revision;
