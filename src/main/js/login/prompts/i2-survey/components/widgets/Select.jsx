@@ -77,7 +77,7 @@ export default React.createClass({
 			<div className={classes}>
 				<label className="question-label">{element.label}</label>
 				<select className={inputClasses} name={element.name} onChange={this.onChange} value={selectedValue}>
-					<option />
+					{filteredOptions.length > 1 && <option />}
 					{filteredOptions.map((o, i) =>
 						<SelectOption key={i} option={o} requirement={o.requirement} selected={element.options.length === 1}/>
 					)}
