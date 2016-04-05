@@ -153,7 +153,7 @@ exports = module.exports = [
 	{
 		// The configuration for the server-side rendering
 		name: 'server-side rendering',
-		entry: './src/main/js/AppView.js',
+		entry: './src/main/js/AppView',
 		target: 'node',
 		output: {
 			path: outPath + 'server/node_modules/app-renderer/',
