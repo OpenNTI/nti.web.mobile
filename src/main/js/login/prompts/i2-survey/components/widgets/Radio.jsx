@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
+import Store from '../../Store';
+
 import RadioOption from './RadioOption';
 import mixin from './mixin';
 
@@ -32,8 +34,9 @@ export default React.createClass({
 		return hasSelected;
 	},
 
-	onChange () {
+	onChange (e) {
 		this.validate();
+		Store.setValue(e.target.name, e.target.value);
 	},
 
 	attachOptionsNode (x) {

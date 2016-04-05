@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
+import Store from '../../Store';
+
 import mixin from './mixin';
 
 export default React.createClass({
@@ -32,8 +34,9 @@ export default React.createClass({
 	},
 
 	onChange (e) {
+		const {element} = this.props;
+		Store.setValue(element.name, e.target.value);
 		this.setState({
-			value: e.target.value,
 			error: false
 		});
 		if (this.props.onChange) {
@@ -64,7 +67,6 @@ export default React.createClass({
 					readOnly={!!element.readonly}
 					name={element.name}
 					onChange={this.onChange}
-					value={this.state.value}
 					defaultValue={element.value}
 				/>
 			</div>

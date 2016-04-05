@@ -1,11 +1,9 @@
 import React from 'react';
+import Store from '../../Store';
 
-export function evaluate (form, requirement = []) {
+export function evaluate (requirement = []) {
 	const fieldMap = {};
 
-	if (!form) {
-		return requirement.length === 0;
-	}
 
 	for(let r of requirement) {
 		let [field, value = true] = r.split('=');
@@ -16,17 +14,11 @@ export function evaluate (form, requirement = []) {
 		fieldMap[field] = values;
 	}
 
+
 	outer:
 	for(let field of Object.keys(fieldMap)) {
-		let f = form.elements[field];
-		if(!f) {
-			return false; // required field is not in the form
-		}
 		for(let value of fieldMap[field]) {
-			let fieldValue = f.value || '';
-			if(f.value == null) { // IE doesn't support field.value on a radio group
-				fieldValue = (form.querySelector(`input[name=${field}]:checked`) || {}).value || '';
-			}
+			let fieldValue = Store.getValue(field) || ''; // f.value || '';
 			if (fieldValue === value || value === true && fieldValue.trim().length > 0) {
 				continue outer;
 			}
@@ -37,9 +29,6 @@ export function evaluate (form, requirement = []) {
 }
 
 export default {
-	contextTypes: {
-		getForm: React.PropTypes.func
-	},
 
 	propTypes: {
 		requirement: React.PropTypes.arrayOf(React.PropTypes.string)
@@ -52,12 +41,10 @@ export default {
 		}
 	},
 
-	getForm () { return this.context.getForm(); },
-
 	satisfiesRequirement () {
 		const {requirement = []} = this.props;
 
-		return this.satisfied = evaluate(this.getForm(), requirement);
+		return this.satisfied = evaluate(requirement);
 	}
 
 };
