@@ -1,6 +1,5 @@
 import React from 'react';
 import Store from '../../Store';
-import StoreEvents from 'common/mixins/StoreEvents';
 
 export function evaluate (requirement = []) {
 	const fieldMap = {};
@@ -30,23 +29,6 @@ export function evaluate (requirement = []) {
 }
 
 export default {
-
-	mixins: [StoreEvents],
-
-	backingStore: Store,
-	backingStoreEventHandlers: {
-		default: 'onStoreChange'
-	},
-
-	// onStoreChange (e) {
-	// 	if (this.requirementFields().indexOf(e.field) > -1) {
-	// 	}
-	// },
-
-	// requirementFields () {
-	// 	const {requirement = []} = this.props;
-	// 	return requirement.map(r => r.split('=')[0]);
-	// },
 
 	propTypes: {
 		requirement: React.PropTypes.arrayOf(React.PropTypes.string)
