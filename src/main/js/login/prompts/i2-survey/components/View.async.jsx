@@ -40,6 +40,11 @@ export default React.createClass({
 		this.load();
 	},
 
+	componentDidUpdate () {
+		if (window.top !== window && !this.state.loading) {
+			window.top.postMessage('survey-updated', '*');
+		}
+	},
 
 	load () {
 		loadForm().then(
