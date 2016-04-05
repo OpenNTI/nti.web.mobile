@@ -17,6 +17,9 @@ class Store extends EventEmitter {
 	}
 
 	setValue (name, value) {
+		if (arguments.length < 2) {
+			throw new Error('name and value are required');
+		}
 		this.fieldValues[name] = value;
 		this.emitChange({field: name, type: CHANGE_EVENT});
 	}
