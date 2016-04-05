@@ -118,7 +118,7 @@ export default React.createClass({
 					location.replace(getReturnURL());
 				}
 			})
-			.catch(error => this.setState({error}));
+			.catch(error => this.setState({error, processing: false}));
 	},
 
 
