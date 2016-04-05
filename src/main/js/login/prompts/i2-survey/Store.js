@@ -20,12 +20,16 @@ class Store extends EventEmitter {
 		if (arguments.length < 2) {
 			throw new Error('name and value are required');
 		}
+		const previous = this.getValue(name);
 		this.fieldValues[name] = value;
-		this.emitChange({field: name, type: CHANGE_EVENT});
+		if(previous !== value) {
+			this.emitChange({field: name, type: CHANGE_EVENT});
+		}
 	}
 
 	clearValue (name) {
 		delete this.fieldValues[name];
+		this.emitChange({field: name, type: CHANGE_EVENT});
 	}
 
 	getValue (name) {
