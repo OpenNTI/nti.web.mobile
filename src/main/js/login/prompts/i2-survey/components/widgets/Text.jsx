@@ -25,7 +25,7 @@ export default React.createClass({
 		if(!element.required) {
 			return true;
 		}
-		let {value = ''} = this.state;
+		const value = Store.getValue(element.name) || '';
 		let error = value.length === 0;
 		this.setState({
 			error
