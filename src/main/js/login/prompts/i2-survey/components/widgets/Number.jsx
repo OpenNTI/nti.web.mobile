@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
+import Store from '../../Store';
+
 import mixin from './mixin';
 
 export default React.createClass({
@@ -22,7 +24,7 @@ export default React.createClass({
 		if(!element.required) {
 			return true;
 		}
-		let {value = ''} = this.state;
+		const value = Store.getValue(element.name) || '';
 		let error = value.length === 0;
 		this.setState({
 			error
@@ -31,8 +33,9 @@ export default React.createClass({
 	},
 
 	onChange (e) {
+		const {element} = this.props;
+		Store.setValue(element.name, e.target.value);
 		this.setState({
-			value: e.target.value,
 			error: false
 		});
 	},
@@ -62,7 +65,6 @@ export default React.createClass({
 					min={element.min}
 					max={element.max}
 					onChange={this.onChange}
-					value={this.state.value}
 				/>
 			</div>
 		);

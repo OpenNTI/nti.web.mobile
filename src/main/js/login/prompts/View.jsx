@@ -9,7 +9,7 @@ import Terms from './terms/components/View';
 import I2Survey from './i2-survey/components/View';
 
 //Tell the iframe-buster to stop if the location is on the i2-survey page.
-registerOptOutTestHandler(() => /i2\-survey/.test(location.href));
+registerOptOutTestHandler(() => !/i2\-survey/.test(location.href));
 
 export default function View () {
 	return (
