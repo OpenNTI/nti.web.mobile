@@ -24,6 +24,10 @@ class Store extends EventEmitter {
 		this.emitChange({field: name, type: CHANGE_EVENT});
 	}
 
+	clearValue (name) {
+		delete this.fieldValues[name];
+	}
+
 	getValue (name) {
 		return this.fieldValues[name];
 	}

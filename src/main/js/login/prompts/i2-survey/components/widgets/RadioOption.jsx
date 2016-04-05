@@ -17,7 +17,8 @@ export default React.createClass({
 			React.PropTypes.number,
 			React.PropTypes.string
 		]).isRequired,
-		onChange: React.PropTypes.func
+		onChange: React.PropTypes.func,
+		checked: React.PropTypes.bool
 	},
 
 	getInitialState () {
@@ -26,7 +27,7 @@ export default React.createClass({
 
 	render () {
 
-		const {name, option, onChange} = this.props;
+		const {name, option, onChange, checked} = this.props;
 
 		if (!option || !this.satisfiesRequirement()) {
 			return null;
@@ -39,6 +40,7 @@ export default React.createClass({
 				<label>
 					<input type="radio"
 						onChange={onChange}
+						checked={checked}
 						name={name}
 						value={opt.value || opt.label} />
 					<span>{opt.label || opt.value}</span>
