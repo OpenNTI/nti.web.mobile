@@ -78,7 +78,10 @@
 						"Teach a STEM subject",
 						"Facilitate project-based learning",
 						"Use technology in your classroom",
-						"Teach a one-week immersive STEM course to your students at school"
+						{
+							"label": "Teach a one-week immersive STEM course to your students at school",
+							"value": "teach one-week immersive STEM"
+						}
 					]
 				},
 				{
@@ -96,7 +99,11 @@
 					"rows": [
 						"Students work collaboratively in small groups",
 						"Students engage in hands-on activities",
-						"Students are given open-ended challenges with multiple \"correct\" answers"
+						{
+							"label": "Students are given open-ended challenges with multiple \"correct\" answers",
+							"value": "open-ended challenges"
+						}
+
 					]
 				},
 				{
@@ -157,7 +164,10 @@
 						"Twitter",
 						"Snapchat",
 						"Pinterest",
-						"A learning management system (LMS), e.g., Schoology, Blackboard, Moodle"
+						{
+							"label": "A learning management system (LMS), e.g., Schoology, Blackboard, Moodle",
+							"value": "a learning management system (LMS)"
+						}
 					]
 				}
 			]

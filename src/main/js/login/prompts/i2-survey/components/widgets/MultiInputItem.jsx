@@ -2,6 +2,8 @@ import React from 'react';
 
 import getWidget from './';
 
+import {optionLabel, optionValue} from './mixin';
+
 export default React.createClass({
 	displayName: 'MultiInputItem',
 
@@ -25,13 +27,13 @@ export default React.createClass({
 		const Widget = getWidget(element.subtype);
 
 		const elem = {
-			name: element.name + ':' + option,
+			name: element.name + ':' + optionValue(option),
 			required: element.required
 		};
 
 		return (
 			<div className="multiinputitem">
-				<p className="question-label">{option}</p>
+				<p className="question-label">{optionLabel(option)}</p>
 				<Widget element={elem} ref={x => this.widget = x} />
 			</div>
 		);

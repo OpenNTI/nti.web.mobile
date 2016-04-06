@@ -4,6 +4,7 @@ import StoreEvents from 'common/mixins/StoreEvents';
 
 import Store from '../../Store';
 
+export const optionLabel = (option) => typeof option === 'object' ? option.label : option;
 export const optionValue = (option) => typeof option === 'object' ? option.value : option;
 
 export function evaluate (requirement = []) {
