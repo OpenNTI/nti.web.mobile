@@ -71,7 +71,7 @@ export default React.createClass({
 			error
 		});
 
-		let selectedValue = Store.getValue(element.name);
+		let selectedValue = Store.getValue(element.name) || '';
 
 		return (
 			<div className={classes}>
