@@ -57,7 +57,7 @@ export default React.createClass({
 						value={opt.value || opt.label} />
 					<span>{opt.label}</span>
 				</label>
-				{option.includeTextInput && this.state.checked && <Text ref={x => this.otherInput = x} element={{name: `${name}-other`, required: true}} />}
+				{option.includeTextInput && this.state.checked && <Text ref={x => this.otherInput = x} element={{name: `${name}`, required: true}} />}
 			</li>
 		);
 	}
