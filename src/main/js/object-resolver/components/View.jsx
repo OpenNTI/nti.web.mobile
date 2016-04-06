@@ -57,11 +57,9 @@ export default React.createClass({
 		logger.debug('Looking up object: %s', id);
 
 		getService()
-			.then(s=> s.getParsedObject(id))
-			.then(o=> {
-				this.setState({object: filter(o)});
-				return o;
-			})
+			.then(service => service.getParsedObject(id))
+			.then(filter)
+			.then(object => (this.setState({object}), object))
 			.then(resolve)
 			.then(path => join(this.getBasePath(), path))
 			.then(location => this.setState({location}))
