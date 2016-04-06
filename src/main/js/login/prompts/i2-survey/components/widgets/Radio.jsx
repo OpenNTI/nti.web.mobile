@@ -4,7 +4,7 @@ import cx from 'classnames';
 import Store from '../../Store';
 
 import RadioOption from './RadioOption';
-import mixin, {optionValue} from './mixin';
+import mixin, {evaluate, optionValue} from './mixin';
 
 export default React.createClass({
 	displayName: 'Radio',
@@ -56,11 +56,17 @@ export default React.createClass({
 			required: element.required
 		});
 
+		const filteredOptions = element.options.filter(i => evaluate(i.requirement));
+
+		if (filteredOptions.length === 1) {
+			Store.setValue(element.name, optionValue(filteredOptions[0]));
+		}
+
 		return (
 			<div className={classes}>
 				<p className="question-label">{element.label}</p>
 				<ul className="radio-options" ref={this.attachOptionsNode}>
-					{element.options.map((o) => {
+					{filteredOptions.map((o) => {
 						const checked = Store.getValue(element.name) === optionValue(o);
 						return (<RadioOption
 									key={optionValue(o)}
