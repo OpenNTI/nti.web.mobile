@@ -79,7 +79,7 @@ export default React.createClass({
 				<select className={inputClasses} name={element.name} onChange={this.onChange} value={selectedValue}>
 					<option />
 					{filteredOptions.map((o, i) =>
-						<SelectOption key={i} option={o} requirement={o.requirement} selected={element.options.length === 1}/>
+						<SelectOption key={i} option={o} requirement={o.requirement} />
 					)}
 				</select>
 			</div>
