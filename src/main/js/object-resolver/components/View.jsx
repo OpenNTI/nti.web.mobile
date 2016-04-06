@@ -1,6 +1,6 @@
 import React from 'react';
 
-import path from 'path';
+import {join} from 'path';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
@@ -63,7 +63,7 @@ export default React.createClass({
 				return o;
 			})
 			.then(resolve)
-			.then(p=> path.join(this.getBasePath(), p))
+			.then(path => join(this.getBasePath(), path))
 			.then(location => this.setState({location}))
 			.catch(error => {
 
