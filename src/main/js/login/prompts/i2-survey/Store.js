@@ -5,6 +5,7 @@ const CHANGE_EVENT = 'change';
 class Store extends EventEmitter {
 	constructor (...args) {
 		super(...args);
+		this.setMaxListeners(100);
 		this.fieldValues = {};
 	}
 
