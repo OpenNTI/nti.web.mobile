@@ -81,10 +81,13 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
+		const {course} = this.state;
+		const currentId = course && course.getID();
 		let courseId = decodeFromURI(props.course);
-		this.setState({loading: true});
-
-		setCourse(courseId);
+		if (courseId !== currentId) {
+			this.setState({loading: true});
+			setCourse(courseId);
+		}
 	},
 
 
