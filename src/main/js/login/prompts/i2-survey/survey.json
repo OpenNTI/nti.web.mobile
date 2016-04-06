@@ -1,6 +1,11 @@
 {
 	"elements": [
 		{
+			"type": "hidden",
+			"name": "version",
+			"value": "1.0"
+		},
+		{
 			"type": "markup",
 			"content": "To help us prepare our trainers for your training, as well as to help us build the appropriate teacher support tools for Boston STEM week, please take a few minutes to respond to the following questions:"
 		},
