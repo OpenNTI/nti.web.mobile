@@ -172,6 +172,7 @@ export default React.createClass({
 	},
 
 	editTopic () {
+		Store.startEdit();
 		this.setState({
 			editing: true
 		});
@@ -198,6 +199,7 @@ export default React.createClass({
 	},
 
 	hideEditForm () {
+		Store.endEdit();
 		this.setState({
 			editing: false
 		});
