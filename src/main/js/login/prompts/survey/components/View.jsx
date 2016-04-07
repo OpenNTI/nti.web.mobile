@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Url from 'url';
 
 import Error from 'common/components/Error';
 import Loading from 'common/components/Loading';
@@ -32,9 +32,13 @@ export default React.createClass({
 
 		this.setState({busy: true});
 		Messages.add(this.onMessage);
+	},
 
+
+	componentDidMount () {
 		return getAppUser()
 			.then(u => u.getLink('RegistrationSurvey') || Promise.reject('No Link'))
+			.then(link => Url.resolve(location.href, link))
 			.then(src => this.setState({src}))
 			.catch(error => this.setState({error}))
 			.then(() => this.setState({busy: false}));
