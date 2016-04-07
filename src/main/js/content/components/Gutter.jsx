@@ -46,6 +46,7 @@ export default React.createClass({
 	},
 
 	componentWillUnmount () {
+		clearTimeout(this.state.resolveRetryDelay);
 		window.removeEventListener('resize', this.handleResize);
 	},
 
@@ -87,7 +88,6 @@ export default React.createClass({
 
 
 	resolveBins (items) {
-		let isMounted = this.isMounted();
 		let lines = {};
 		let shouldRetry = false;
 		let {resolveRetryDelay} = this.state;
@@ -98,7 +98,7 @@ export default React.createClass({
 			resolveRetryDelay = void 0;
 		}
 
-		if (!items || !isMounted) { return; }
+		if (!items) { return; }
 
 		// console.debug('Resolving Bins');
 		for (let item of Object.values(items)) {
@@ -117,7 +117,7 @@ export default React.createClass({
 			}
 		}
 
-		if (shouldRetry && isMounted) {
+		if (shouldRetry) {
 			resolveRetryDelay = setTimeout(()=> this.resolveBins(items), 200);
 			lines = {};
 		}
