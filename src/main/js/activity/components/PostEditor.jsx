@@ -116,6 +116,7 @@ export default React.createClass({
 				</div>
 
 				<Editor ref={x => this.editor = x}
+					allowInsertVideo
 					className={cx({'error': error && error.field === 'body'})}
 					onChange={this.onChange}
 					onBlur={this.onChange}

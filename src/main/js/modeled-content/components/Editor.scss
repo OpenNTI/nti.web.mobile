@@ -90,6 +90,10 @@
 
 			.buttons {
 				text-align: right;
+				.button {
+					height: auto;
+					line-height: 2.5rem;
+				}
 			}
 		}
 	}
