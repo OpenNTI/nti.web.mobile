@@ -35,7 +35,7 @@ exports = module.exports = [
 		},
 
 		cache: true,
-		devtool: PROD ? 'hidden-source-map' : 'inline-source-map',
+		devtool: PROD ? 'hidden-source-map' : 'source-map',
 
 		entry: './src/main/js/index.js',
 
