@@ -72,8 +72,8 @@ export default React.createClass({
 		) : (
 			<div className="logon-action-survey-wrapper">
 				<header>
-					<h3>Would you like to take a Survey?!</h3>
-					<div className="subtext">:)</div>
+					<h3>Registration Survey</h3>
+					<div className="subtext"/>
 				</header>
 				<iframe src={src} />
 			</div>
