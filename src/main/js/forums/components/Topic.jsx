@@ -196,6 +196,7 @@ export default React.createClass({
 	saveEdit () {
 		let val = this.headline.getValue();
 		Actions.saveComment(this.getTopic().headline, val);
+		Store.endEdit();
 	},
 
 	hideEditForm () {
