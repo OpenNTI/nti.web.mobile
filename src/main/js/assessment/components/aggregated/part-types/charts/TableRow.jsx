@@ -1,7 +1,5 @@
 import React from 'react';
 
-import If from 'common/components/Conditional';
-
 import TableCell from './TableCell';
 
 import unique from 'nti-lib-interfaces/lib/utils/array-unique';
@@ -21,9 +19,7 @@ export default function TableRow ({columns, label, labelPrefix, series}) {
 	return (
 		<tr>
 			<td className="axis-label">
-				<If tag="strong" condition={!!labelPrefix}>
-					{labelPrefix}
-				</If>
+				{!!labelPrefix && ( <strong>{labelPrefix}</strong> )}
 				{label}
 			</td>
 

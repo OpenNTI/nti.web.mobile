@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ContextSender from 'common/mixins/ContextSender';
-import C from 'common/components/Conditional';
 import EmptyList from 'common/components/EmptyList';
 import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';
@@ -119,7 +118,7 @@ export default React.createClass({
 				) : (
 					<div>
 						<AddPeopleButton onClick={this.addPeople} />
-						<C condition={items.length === 0} tag={EmptyList} type="contacts" />
+						{items.length === 0 && ( <EmptyList type="contacts" /> )}
 						<Selectables
 							linkToProfile
 							entities={items}

@@ -2,8 +2,6 @@ import React from 'react';
 import CSS from 'fbjs/lib/CSSCore';
 import cx from 'classnames';
 
-import C from 'common/components/Conditional';
-
 import Logger from 'nti-util-logger';
 import {encodeForURI} from 'nti-lib-ntiids';
 
@@ -128,20 +126,27 @@ export default React.createClass({
 			<div className="add annotation toolbar" ref={this.attachRef}>
 				{hightlighters}
 
-				<C tag="button" condition={!!onRemoveHighlight}
-					className={cx('ugd delete', {'busy': busy === 'delete'})}
-					onClick={this.onUnHighlight}>Remove Hightlight</C>
+				{!!onRemoveHighlight && (
+					<button className={cx('ugd delete', {'busy': busy === 'delete'})}
+						onClick={this.onUnHighlight}>
+						Remove Hightlight
+					</button>
+				)}
 
-				<C tag="span" condition={!!(onNewDiscussion || discussionLink)} className="spacer"/>
+				{!!(onNewDiscussion || discussionLink) && (
+					<span className="spacer"/>
+				)}
 
-				<C tag="button" condition={!!onNewDiscussion}
-					className="ugd note"
-					onTouchStart={this.onNote}
-					onClick={this.onNote}><i className="icon-discuss"/>Discuss</C>
+				{!!onNewDiscussion && (
+					<button className="ugd note"
+						onTouchStart={this.onNote}
+						onClick={this.onNote}><i className="icon-discuss"/>Discuss</button>
+				)}
 
-				<C tag={Link} condition={!!discussionLink}
-					className="ugd note icon-discuss"
-					href={discussionLink}>View Discussion</C>
+				{!!discussionLink && (
+					<Link className="ugd note icon-discuss"
+						href={discussionLink}>View Discussion</Link>
+				)}
 			</div>
 		);
 	}

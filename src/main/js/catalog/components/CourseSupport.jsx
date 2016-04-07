@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Conditional from 'common/components/Conditional';
-
 import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
 import {scoped} from 'common/locale';
@@ -30,8 +28,8 @@ export default React.createClass({
 
 
 	render () {
-		return (
-			<Conditional condition={this.shouldRender()} className="course-detail-view">
+		return this.shouldRender() && (
+			<div className="course-detail-view">
 
 				<div className="row support">
 					<div className="small-12 columns">
@@ -42,8 +40,10 @@ export default React.createClass({
 						</div>
 					</div>
 				</div>
+
 				<div className="footer"/>
-			</Conditional>
+
+			</div>
 		);
 	},
 

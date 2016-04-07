@@ -3,7 +3,6 @@ import cx from 'classnames';
 
 import {REPORT_LINK} from 'nti-lib-interfaces/lib/models/assessment/survey/Constants';
 
-import If from 'common/components/Conditional';
 import StoreEvents from 'common/mixins/StoreEvents';
 
 import Question from './Question';
@@ -56,10 +55,12 @@ export default React.createClass({
 				) : (
 					<Question {...props}/>
 				)}
-				<If condition={showLinks} className={cx('links', {'showing-results': showAggregation, 'individual': question.individual})}>
-					<If condition={question.hasAggregationData} tag="a" href="#" onClick={this.toggleAggregatedView}>{results}</If>
-					<If condition={showReport} tag="a" href={report} target="_blank"><span className="icon-report"/>View Report</If>
-				</If>
+				{showLinks && (
+					<div className={cx('links', {'showing-results': showAggregation, 'individual': question.individual})}>
+						{question.hasAggregationData && ( <a href="#" onClick={this.toggleAggregatedView}>{results}</a> )}
+						{showReport && ( <a href={report} target="_blank"><span className="icon-report"/>View Report</a> )}
+					</div>
+				)}
 			</div>
 		);
 	}

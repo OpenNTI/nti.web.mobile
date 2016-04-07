@@ -4,7 +4,6 @@ import Logger from 'nti-util-logger';
 import {getModel} from 'nti-lib-interfaces';
 import {getHandler} from 'nti-web-video';
 
-import If from 'common/components/Conditional';
 import {getService} from 'common/utils';
 
 import Video from './Video';
@@ -78,7 +77,7 @@ export default React.createClass({
 					<div className="wrapper">
 						<div className="buttons">
 							<span className="play" title="Play"/>
-							<If condition={!!title} tag="span" className="label" title={title}>{title}</If>
+							{!!title && ( <span className="label" title={title}>{title}</span> )}
 						</div>
 					</div>
 				</div>
