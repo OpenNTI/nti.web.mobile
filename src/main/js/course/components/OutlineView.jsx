@@ -6,7 +6,7 @@ import Logger from 'nti-util-logger';
 import ActiveState from 'common/components/ActiveState';
 import Banner from 'common/components/Banner';
 import CalendarCard from 'common/components/CalendarCard';
-import E from 'common/components/Ellipsed';
+import Ellipsed from 'common/components/Ellipsed';
 import Header from 'common/components/TopicHeader';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -137,7 +137,7 @@ export default React.createClass({
 				<li key={title}>
 					<ActiveState hasChildren href={href} tag={tag}>
 						<CalendarCard date={date}/>
-						<E tag="a" {...props}/>
+						<Ellipsed tag="a" {...props}/>
 					</ActiveState>
 					{renderTree(item.contents)}
 				</li>
