@@ -1,30 +1,42 @@
 import React from 'react';
 
-import Logger from 'nti-util-logger';
 
+import Error from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import Messages from 'common/utils/WindowMessageListener';
+import BasePathAware from 'common/mixins/BasePath';
 
 import {getAppUser, getReturnURL} from 'common/utils';
 
-const logger = Logger.get('onboarding:survey:components:View');
+
+function getData ({data}) {
+	try {
+		return JSON.parse(data);
+	} catch (e) {
+		//don't care
+	}
+	return {};
+}
+
 
 export default React.createClass({
 	displayName: 'RegistrationSurveyView',
+	mixins: [BasePathAware],
 
-	getInitialState () {
-		return {};
-	},
+	componentWillMount () { //constructor
+		this.METHODS = {
+			['survey-complete']: () => {
+				location.replace(getReturnURL() || this.getBasePath());
+			}
+		};
 
-
-	componentWillMount () {
 		this.setState({busy: true});
 		Messages.add(this.onMessage);
 
 		return getAppUser()
-			.then(u => u.getLink('i2SurveySource'))
+			.then(u => u.getLink('RegistrationSurvey') || Promise.reject('No Link'))
 			.then(src => this.setState({src}))
-			.catch(e => logger.error(e.stack || e.message || e))
+			.catch(error => this.setState({error}))
 			.then(() => this.setState({busy: false}));
 	},
 
@@ -34,16 +46,28 @@ export default React.createClass({
 	},
 
 
-	onMessage (...args) {
-		logger.debug('Window Message:',...args);
+	getInitialState () {
+		return {};
+	},
+
+
+	onMessage (e) {
+		const data = getData(e);
+		const {src} = this.state;
+		const method = this.METHODS[data.method];
+
+		if (data.id === src && typeof method === 'function') {
+			method();
+		}
 	},
 
 
 	render () {
-		const {state: {busy, src}} = this;
+		const {state: {error, busy, src}} = this;
 
-
-		return busy ? (
+		return error ? (
+			<Error error={error}/>
+		) : busy ? (
 			<Loading />
 		) : (
 			<div className="logon-action-survey-wrapper">

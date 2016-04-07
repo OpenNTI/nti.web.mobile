@@ -11,8 +11,13 @@
 	}
 
 	iframe {
-		width: 100%;
 		flex: 1 1 auto;
+		display: block;
+		appearance: none;
+		border: 0;
+		padding: 0;
+		margin: 0;
+		width: 100%;
 	}
 
 	header {
