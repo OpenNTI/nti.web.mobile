@@ -1,35 +1,39 @@
 @import "utils/variables";
 
 .logon-action-survey-wrapper {
-	display: flex;
+	// display: flex;
 	flex-direction: column;
-
-	header {
-		flex: 0 0 auto;
-	}
+	min-height: 100vh;
 
 	iframe {
-		flex: 1 1 auto;
+		// flex: 1 1 auto;
 		display: block;
 		appearance: none;
 		border: 0;
 		padding: 0;
 		margin: 0;
 		width: 100%;
-		min-height: 100vh;
 	}
 
 	header {
+		// flex: 0 0 auto;
 		padding: 0.625rem;
+
 		h3 {
 			font: normal normal 1.1rem/1.5 $body-font-family;
 			color: $primary-grey;
-			margin: 0;
 			padding: 0;
 		}
+
 		.subtext {
 			font-size: 0.75rem;
 			color: $tertiary-grey;
+		}
+
+		& > * {
+			margin: 0 auto;
+			max-width: 720px;
+			width: 100%;
 		}
 	}
 }

@@ -27,6 +27,10 @@ export default React.createClass({
 		this.METHODS = {
 			['survey-complete']: () => {
 				location.replace(getReturnURL() || this.getBasePath());
+			},
+
+			resize: ({value}) => {
+				this.setState({height: value});
 			}
 		};
 
@@ -61,13 +65,13 @@ export default React.createClass({
 		const method = this.METHODS[data.method];
 
 		if (data.id === src && typeof method === 'function') {
-			method();
+			method(data);
 		}
 	},
 
 
 	render () {
-		const {state: {error, busy, src}} = this;
+		const {state: {error, busy, src, height = 0}} = this;
 
 		return error ? (
 			<Error error={error}/>
@@ -75,7 +79,11 @@ export default React.createClass({
 			<Loading />
 		) : (
 			<div className="logon-action-survey-wrapper">
-				<iframe src={src} />
+				<header>
+					<h3>Registration Survey</h3>
+					<div className="subtext"/>
+				</header>
+				<iframe src={src} height={height} frameBorder="no" scrolling="no" allowTransparency="true" seamless/>
 			</div>
 		);
 	}
