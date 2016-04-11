@@ -48,7 +48,8 @@ export default React.createClass({
 				<UserAgreement />
 				<footer>
 					<label>
-						<input type="checkbox" checked={agree} onChange={this.onCheckChanged}/> Yes, I agree to the Terms of Service and Privacy Policy.
+						<input type="checkbox" checked={agree} onChange={this.onCheckChanged}/>
+						<span> Yes, I agree to the Terms of Service and Privacy Policy.</span>
 					</label>
 					<button className={cx({disabled})} disabled={disabled} onClick={this.acceptTermsOfService}>I Agree</button>
 				</footer>

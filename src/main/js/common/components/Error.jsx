@@ -67,7 +67,7 @@ export default React.createClass({
 			<figure className="error">
 				<div className="m glyph icon-alert"></div>
 				<figcaption>
-					{label}
+					<span>{label}</span>
 					<div>{message}</div>
 				</figcaption>
 			</figure>

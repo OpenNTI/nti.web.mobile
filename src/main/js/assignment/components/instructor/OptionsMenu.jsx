@@ -57,7 +57,8 @@ export default React.createClass({
 									/>
 								))}
 								<li onClick={this.toggleAvatars}>
-									<input type="checkbox" onChange={this.toggleAvatars} checked={this.getShowAvatars()} /> Show Avatars
+									<input type="checkbox" onChange={this.toggleAvatars} checked={this.getShowAvatars()} />
+									<span> Show Avatars</span>
 								</li>
 							</ul>
 					)}
