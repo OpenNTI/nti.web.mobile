@@ -35,11 +35,11 @@ export default React.createClass({
 		};
 
 		this.setState({busy: true});
-		Messages.add(this.onMessage);
 	},
 
 
 	componentDidMount () {
+		Messages.add(this.onMessage);
 		return getAppUser()
 			.then(u => u.getLink('RegistrationSurvey') || Promise.reject('No Link'))
 			.then(link => Url.resolve(location.href, link))
