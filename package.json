@@ -20,7 +20,7 @@
     "start": "make check; node src/server",
     "prepublish": "not-in-install && make || in-install",
     "bump": "npm version",
-    "postbump": "git push --all; npm publish"
+    "postbump": "git push --all && npm publish"
   },
   "main": "./dist/server/index.js",
   "publishConfig": {
