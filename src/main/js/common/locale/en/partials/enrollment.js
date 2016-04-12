@@ -164,6 +164,7 @@ export default {
 			stillAttending: 'I am still attending.',
 			obtainedDegree: 'I have obtained a Bachelor\'s degree or higher.',
 			goodAcademicStanding: 'I am in good academic standing.',
+			goodAcademicStandingRequired: 'The class you are attempting to enroll in is a For-Credit Janux course. Only students who are currently in good academic standing may enroll in for credit Janux courses.',
 			signature: 'Signature',
 			signatureAgreement: 'I affirm that I am not <a href="policy/">prohibited</a> from enrolling in any University of Oklahoma program. ' +
 				'I understand that submitting any false information to the University, including but not limited to, ' +
