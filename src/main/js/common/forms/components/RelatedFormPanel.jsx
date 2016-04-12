@@ -82,8 +82,8 @@ let RelatedFormPanel = React.createClass({
 		FieldValuesStore.removeChangeListener(this[fieldValueChange]);
 	},
 
-	[fieldValueChange] (event) {
-		if (event.target && event.target.type === 'radio') {
+	[fieldValueChange] (event = {}) {
+		if (event.target && (event.target.type === 'radio' || event.target.type === 'checkbox')) {
 			this.forceUpdate();
 		}
 	},
