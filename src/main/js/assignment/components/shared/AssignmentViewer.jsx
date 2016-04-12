@@ -39,16 +39,14 @@ export default React.createClass({
 		});
 	},
 
-	setup () {
-		const {rootId, userId} = this.props;
+	setup (props = this.props) {
+		const {rootId, userId} = props;
 		const id = decodeFromURI(rootId);
 		const collection = this.getAssignments();
 		const assignment = collection.getAssignment(id);
 
-		this.setState({assignment});
-
 		collection.getHistoryItem(id, userId)
-			.then(history => ({history}), error => ({error}))
+			.then(history => ({assignment, history}), error => ({error}))
 			.then(state => this.setState({loading: false, ...state}));
 
 	},
@@ -78,6 +76,14 @@ export default React.createClass({
 		};
 
 		this.setup();
+	},
+
+
+	componentWillReceiveProps (nextProps) {
+		if (this.unsubcribe && this.props.rootId !== nextProps.rootId) {
+			// this.setState({loading: true}, () => this.setup(nextProps));
+			this.setup(nextProps);
+		}
 	},
 
 
