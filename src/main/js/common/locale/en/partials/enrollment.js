@@ -178,7 +178,8 @@ export default {
 				'<a href="http://www.ou.edu/concurrent/admission.html">Concurrent Enrollment Process.</a></p>',
 			prohibitionPolicyHeading: 'Policy on Non-Academic Criteria in the Admission of Students',
 			prohibitionPolicy: 'In addition to the academic criteria used as the basis for the admission of students, the University shall consider the following non-academic criteria in deciding whether a student shall be granted admission: whether an applicant has been expelled, suspended, or denied admission or readmission by any other educational institution; whether an applicant has been convicted of a felony or lesser crime involving moral turpitude; whether an applicant\'s conduct would be grounds for expulsion, suspension, dismissal or denial of readmission, had the student been enrolled at the University of Oklahoma. An applicant may be denied admission to the University if the University determines that there is substantial evidence, based on any of the instances described above, to indicate the applicant\'s unfitness to be a student at the University of Oklahoma.',
-			contactMe: 'I want someone from the University of Oklahoma to contact me.'
+			contactMe: 'I want someone from the University of Oklahoma to contact me.',
+			under13: 'Persons under the age of 13 may not enroll in this course.'
 		}
 	},
 
