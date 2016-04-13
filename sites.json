@@ -2,6 +2,7 @@
 	"ou-alpha.nextthought.com": "platform.ou.edu",
 	"ou-test.nextthought.com": "platform.ou.edu",
 	"janux.ou.edu": "platform.ou.edu",
+	"janux.dev": "platform.ou.edu",
 	"platform.ou.edu": {
 		"name": "platform.ou.edu",
 		"title": "Janux"

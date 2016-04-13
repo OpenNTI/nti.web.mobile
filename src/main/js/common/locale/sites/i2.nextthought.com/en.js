@@ -9,6 +9,10 @@ export default {
 			LINK1: {
 				label: 'Tech Support',
 				link: 'mailto:support@nextthought.com'
+			},
+			LINK2: {
+				label: '',
+				link: ''
 			}
 		},
 
