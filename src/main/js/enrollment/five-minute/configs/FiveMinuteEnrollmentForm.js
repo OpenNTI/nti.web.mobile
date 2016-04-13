@@ -109,7 +109,7 @@ let highSchoolQuestion = [{
 const birthdateQuestion = [{
 	fields: [
 		{
-			ref: 'date-of-birth',
+			ref: 'date_of_birth',
 			type: 'date',
 			required: true,
 			label: t('date_of_birth'),
