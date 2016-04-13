@@ -10,6 +10,10 @@ export default {
 				label: 'Tech Support',
 				link: 'mailto:support@nextthought.com'
 			}
+		},
+
+		INFO: {
+			Instructor: 'Course Developer'
 		}
 	}
 };
