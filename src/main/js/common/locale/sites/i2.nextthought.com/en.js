@@ -17,7 +17,16 @@ export default {
 		},
 
 		INFO: {
-			Instructor: 'Course Developer'
+			Instructor: 'Course Developer',
+			CATALOG_ENTRY: {
+				ForCredit: 'Registered',
+				Open: 'Registered'
+			}
 		}
+	},
+
+	ENROLLMENT: {
+		fiveMinuteEnrollmentTitle: 'Register',
+		fiveMinuteEnrollmentButton: 'Register'
 	}
 };
