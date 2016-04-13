@@ -3,6 +3,7 @@ import ACTIVITY from './assignments-activity';
 
 export default {
 	CONTACTINFO: {
+		label: 'Tech Support',
 		LINK0: {
 			label: 'Support',
 			link: 'mailto:support@nextthought.com'
