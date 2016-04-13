@@ -3,6 +3,9 @@ import React from 'react';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import BasePathAware from 'common/mixins/BasePath';
+import {scoped} from 'common/locale';
+
+const t = scoped('COURSE.INFO.CATALOG_ENTRY');
 
 const OPEN = Symbol();
 const FOR_CREDIT = Symbol();
@@ -92,7 +95,7 @@ export default React.createClass({
 						<div>
 							<h5>{item.ProviderUniqueID}</h5>
 							{status && (
-								<h5>{status !== FOR_CREDIT && <span>Not</span>} For Credit</h5>
+								<h5>{t(status === FOR_CREDIT ? 'ForCredit' : 'Open')}</h5>
 							)}
 						</div>
 					</label>
