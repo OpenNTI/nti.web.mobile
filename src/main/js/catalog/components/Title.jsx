@@ -1,29 +1,51 @@
 import React from 'react';
+import cx from 'classnames';
 import {Component as Video} from 'video';
+
+import ItemChanges from 'common/mixins/ItemChanges';
 
 
 export default React.createClass({
 	displayName: 'Title',
+	mixins: [ItemChanges],
 
 	propTypes: {
 		entry: React.PropTypes.object
 	},
 
+	getItem (props) {
+		return props.entry;
+	},
+
 	render () {
-		let {entry} = this.props;
+		const {entry} = this.props;
 		if (!entry) { return; }
 
-		let videoSrc = entry.Video;
-		let context = [entry.getID()];
+		const {promoImage: promo, Video: video} = entry;
+		const context = [entry.getID()];
+
+		const cls = cx('catalog-entry-title header',{
+			'with-video' : video,
+			'with-promo': promo
+		});
 
 		return (
-			<div className={'header ' + (videoSrc ? 'with-video' : '')}>
-				{videoSrc ?
+			<div className={cls}>
+				{video ? (
+
 					<div className="row">
 						<div className="columns video-wrap">
-							<Video src={videoSrc} context={context}/>
+							<Video src={video} context={context}/>
 						</div>
-					</div> : null}
+					</div>
+
+				) : promo ? (
+
+					<div className="promo-image" style={{backgroundImage: `url(${promo})`}}/>
+
+				) :
+					null
+				}
 
 				<div className="title">
 					<div className="row">
