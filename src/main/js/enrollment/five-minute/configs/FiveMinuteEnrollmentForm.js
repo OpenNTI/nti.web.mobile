@@ -1,9 +1,9 @@
-/*eslint-disable*/
+import moment from 'moment';
 
-var t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
-var concurrentForm = require('./ConcurrentEnrollmentForm');
-var admissionForm = require('./AdmissionForm');
-var Constants = require('common/forms/Constants');
+const t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
+const concurrentForm = require('./ConcurrentEnrollmentForm');
+const admissionForm = require('./AdmissionForm');
+const Constants = require('common/forms/Constants');
 
 let attendingOU = [{
 	// title: 'Admission Status',
@@ -106,5 +106,30 @@ let highSchoolQuestion = [{
 	]
 }];
 
+const birthdateQuestion = [{
+	fields: [
+		{
+			ref: 'date_of_birth',
+			type: 'date',
+			required: true,
+			label: t('date_of_birth'),
+			predicateFunc: function is13 (value) {
+				return moment().subtract(13, 'years').isSameOrAfter(value);
+			},
+			ifTrue: [
+				{
+					type: Constants.FORM_CONFIG,
+					content: highSchoolQuestion
+				}
+			],
+			ifFalse: [
+				{
+					type: Constants.MESSAGE,
+					content: 'ENROLLMENT.forms.fiveminute.under13'
+				}
+			]
+		}
+	]
+}];
 
-export default Object.freeze(highSchoolQuestion);
+export default Object.freeze(birthdateQuestion);

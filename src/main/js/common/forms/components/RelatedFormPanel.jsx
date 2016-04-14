@@ -43,6 +43,7 @@ const fieldValueChange = 'RelatedFormPanel:fieldValueChange';
 const renderFormConfig = 'RelatedFormPanel:renderFormConfig';
 const getVisibleFieldRefs = 'RelatedFormPanel:getVisibleFieldRefs';
 
+const hasRelatedFields = new Set();
 
 let RelatedFormPanel = React.createClass({
 
@@ -83,7 +84,7 @@ let RelatedFormPanel = React.createClass({
 	},
 
 	[fieldValueChange] (event = {}) {
-		if (event.target && (event.target.type === 'radio' || event.target.type === 'checkbox')) {
+		if (hasRelatedFields.has(event.fieldName) || (event.target && event.target.type === 'checkbox')) {
 			this.forceUpdate();
 		}
 	},
@@ -180,7 +181,6 @@ let RelatedFormPanel = React.createClass({
 		case 'radiogroup':
 			input = RadioGroup;
 			props.onChange = this.radioChanged;
-			RelatedConfigsStash.concat(this.getRelatedConfigs(field));
 			break;
 
 
@@ -212,6 +212,8 @@ let RelatedFormPanel = React.createClass({
 		default:
 			input = 'input';
 		}
+
+		RelatedConfigsStash.concat(this.getRelatedConfigs(field));
 
 		if (typeof field.helptext === 'string' && field.helptext.trim().length > 0) {
 			help = React.createElement('div',
@@ -330,12 +332,27 @@ let RelatedFormPanel = React.createClass({
 		let currentValue = FieldValuesStore.getValue(fieldConfig.ref);
 		(fieldConfig.options || []).forEach(option => {
 			if(option.related) {
+				hasRelatedFields.add(fieldConfig.ref);
 				result.push({
 					isActive: currentValue && option.value === currentValue,
 					config: option.related
 				});
 			}
 		});
+		if(fieldConfig.predicateFunc) {
+			hasRelatedFields.add(fieldConfig.ref);
+			const predicate = fieldConfig.predicateFunc(currentValue);
+			Array.prototype.push.apply(result, [
+				{
+					isActive: predicate,
+					config: fieldConfig.ifTrue
+				},
+				{
+					isActive: !predicate,
+					config: fieldConfig.ifFalse
+				}
+			]);
+		}
 		return result;
 	},
 

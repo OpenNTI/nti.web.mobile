@@ -60,7 +60,7 @@ var mailingAddressFieldset = {
 	]
 };
 
-module.exports = Object.freeze([
+const admissionForm = [
 	{
 		fields: [
 			{
@@ -81,13 +81,6 @@ module.exports = Object.freeze([
 				ref: 'former_name',
 				label: t('former_name'),
 				// placeholder: t('former_name')
-			},
-			{
-				ref: 'date_of_birth',
-				label: t('date_of_birth'),
-				required: true,
-				type: 'date',
-				// placeholder: t('date_of_birth')
 			},
 			{
 				ref: 'gender',
@@ -283,7 +276,26 @@ module.exports = Object.freeze([
 						value: 'N'
 					}
 				]
-			},
+			}
+		]
+	},
+	{
+		title: t('signature'),
+		fields: [
+			{
+				ref: 'signature',
+				type: 'checkbox',
+				label: t('signatureAgreement'),
+				htmlLabel: true,
+				value: 'Y'
+			}
+		]
+	}
+];
+
+module.exports = Object.freeze([
+	{
+		fields: [
 			{
 				ref: 'attended_other_institution',
 				label: t('attendedAnotherUniversity'),
@@ -312,28 +324,41 @@ module.exports = Object.freeze([
 									ref: 'good_academic_standing',
 									type: 'radiogroup',
 									label: t('goodAcademicStanding'),
-									options: yesNoOptions
+									options: [
+										{
+											label: 'Yes',
+											value: 'Y',
+											related: [
+												{
+													type: Constants.FORM_CONFIG,
+													content: admissionForm
+												}
+											]
+										},
+										{
+											label: 'No',
+											value: 'N',
+											related: [
+												{
+													type: Constants.MESSAGE,
+													content: 'ENROLLMENT.forms.fiveminute.goodAcademicStandingRequired'
+												}
+											]
+										}
+									]
 								}
 							]
 						}]
 					},
 					{
 						label: 'No',
-						value: 'N'
+						value: 'N',
+						related: [{
+							type: Constants.FORM_CONFIG,
+							content: admissionForm
+						}]
 					}
 				]
-			}
-		]
-	},
-	{
-		title: t('signature'),
-		fields: [
-			{
-				ref: 'signature',
-				type: 'checkbox',
-				label: t('signatureAgreement'),
-				htmlLabel: true,
-				value: 'Y'
 			}
 		]
 	}
