@@ -42,7 +42,7 @@ export default React.createClass({
 
 	render () {
 		const {summary} = this.props;
-		const columns = [ColumnStudentActionItems]
+		const columns = [ColumnStudentActionItems];
 		const {sortOn, sortOrder} = summary.getSort();
 
 		if (summary.loading) {
