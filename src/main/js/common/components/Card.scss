@@ -99,8 +99,7 @@
 		font-size: .9375rem;
 		font-weight: 600;
 		margin: 0;
-		line-height: 1;
-		margin-bottom: -.25rem;
+		margin-top: -.25rem;
 	}
 
 	hr {
@@ -116,6 +115,9 @@
 		white-space: normal;
 		text-align: left;
 		color: $primary-color;
+		display: block;
+		line-height: 1.4;
+		margin-bottom: .25em;
 	}
 
 	.comment-count {
