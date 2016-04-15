@@ -50,7 +50,7 @@ export default React.createClass({
 
 
 	synchronizeFromStore () {
-		let {item, page, record} = this.props;
+		const {item, page, record} = this.props;
 
 		let question = record;
 
@@ -70,10 +70,15 @@ export default React.createClass({
 
 
 	render () {
-		let {question} = this.state;
-		if (!question) { return null; }
+		const {props: {item}, state: {question}} = this;
 
-		let Widget = question.isPoll ? PollWidget : QuestionWidget;
+		if (!question) {
+			return (
+				<span className="question-not-found" data-question-id={item && item.ntiid}/>
+			);
+		}
+
+		const Widget = question.isPoll ? PollWidget : QuestionWidget;
 
 		return  (
 			<Widget question={question}/>
