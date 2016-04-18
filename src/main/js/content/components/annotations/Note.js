@@ -1,7 +1,7 @@
 import Logger from 'nti-util-logger';
 
 import {safeBoundingBoxForRange, isZeroRect} from 'common/utils/rects';
-import iOSversion from 'common/utils/ios-version';
+import iOSversion from 'nti-util-ios-version';
 
 import {NOT_FOUND, HIDDEN, RETRY_AFTER_DOM_SETTLES} from './Annotation';
 import Highlight from './Highlight';
