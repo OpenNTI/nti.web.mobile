@@ -95,7 +95,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<input onChange={this.onChange} value={code} />
+				<input onChange={this.onChange} value={code} placeholder="Enter invitation code" />
 				{error && <FormErrors errors={{'code': error}} />}
 				<div className="button-row">
 					<input type="submit"
