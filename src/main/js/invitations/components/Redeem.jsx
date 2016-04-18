@@ -1,22 +1,41 @@
 import React from 'react';
 
-import Loading from 'common/components/Loading';
-import Error from 'common/components/Error';
 import BasePathAware from 'common/mixins/BasePath';
+import ContextSender from 'common/mixins/ContextSender';
+import FormPanel from 'common/forms/components/FormPanel';
+import FormErrors from 'common/forms/components/FormErrors';
+import Loading from 'common/components/Loading';
 
 import {redeem} from '../Api';
+
+import Success from './Success';
 
 export default React.createClass({
 	displayName: 'Invitations:Redeem',
 
-	mixins: [BasePathAware],
+	mixins: [BasePathAware, ContextSender],
 
 	propTypes: {
 		code: React.PropTypes.string
 	},
 
 	getInitialState () {
-		return {};
+		return {
+			code: ''
+		};
+	},
+
+	getContext () {
+		const path = this.getBasePath();
+		const href = '/redeem/';
+		return Promise.resolve([
+			{
+				href: path, label: 'Home'
+			}, {
+				href,
+				label: 'Invitation'
+			}
+		]);
 	},
 
 	componentDidMount () {
@@ -70,31 +89,38 @@ export default React.createClass({
 			.catch(this.onError);
 	},
 
+	form () {
+		const {error, code} = this.state;
+		const disabled = code.trim().length === 0;
+
+		return (
+			<div>
+				<input onChange={this.onChange} value={code} />
+				{error && <FormErrors errors={{'code': error}} />}
+				<div className="button-row">
+					<input type="submit"
+						key="submit"
+						disabled={disabled}
+						id="redeem:submit"
+						className="button"
+						value="Redeem" />
+				</div>
+			</div>
+		);
+	},
+
 	render () {
 
-		const {loading, error, code, success} = this.state;
-
-		if (success) {
-			let library = this.getBasePath() + 'library/';
-			return <div><a href={library}>Go to my courses</a></div>;
-		}
-
-		if (error) {
-			return (<Error error={error} />);
-		}
+		const {loading, success} = this.state;
 
 		if (loading) {
 			return <Loading/>;
 		}
 
 		return (
-			<div>
-				<form onSubmit={this.onSubmit}>
-					<input onChange={this.onChange} value={code} />
-					<button>Redeem</button>
-				</form>
-
-			</div>
+			<FormPanel title="Redeem Invitation" onSubmit={this.onSubmit}>
+				{success ? <Success /> : this.form()}
+			</FormPanel>
 		);
 	}
 });
