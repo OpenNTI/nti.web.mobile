@@ -1,6 +1,9 @@
 import React from 'react';
 
+import {scoped} from 'common/locale';
 import BasePathAware from 'common/mixins/BasePath';
+
+let t = scoped('INVITATIONS');
 
 export default React.createClass({
 	displayName: 'Invitations:Success',
@@ -12,10 +15,10 @@ export default React.createClass({
 		return (
 			<div className="invitation-success">
 				<div className="message">
-					<p>Success</p>
+					<p>{t('successMessage')}</p>
 				</div>
 				<div className="button-row">
-					<a href={library} className="button">Go to my courses</a>
+					<a href={library} className="button">{t('successLinkText')}</a>
 				</div>
 			</div>
 		);

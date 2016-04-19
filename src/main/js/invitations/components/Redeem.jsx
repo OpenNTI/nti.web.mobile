@@ -5,10 +5,13 @@ import ContextSender from 'common/mixins/ContextSender';
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
 import Loading from 'common/components/Loading';
+import {scoped} from 'common/locale';
 
 import {redeem} from '../Api';
 
 import Success from './Success';
+
+let t = scoped('INVITATIONS');
 
 export default React.createClass({
 	displayName: 'Invitations:Redeem',
@@ -33,7 +36,7 @@ export default React.createClass({
 				href: path, label: 'Home'
 			}, {
 				href,
-				label: 'Invitation'
+				label: t('title')
 			}
 		]);
 	},
@@ -90,12 +93,12 @@ export default React.createClass({
 	},
 
 	form () {
-		const {error, code} = this.state;
+		const {error, code = ''} = this.state;
 		const disabled = code.trim().length === 0;
 
 		return (
 			<div>
-				<input onChange={this.onChange} value={code} placeholder="Enter invitation code" />
+				<input onChange={this.onChange} value={code} placeholder={t('redeemInputPlaceholder')} />
 				{error && <FormErrors errors={{'code': error}} />}
 				<div className="button-row">
 					<input type="submit"
@@ -103,7 +106,7 @@ export default React.createClass({
 						disabled={disabled}
 						id="redeem:submit"
 						className="button"
-						value="Redeem" />
+						value={t('redeemButton')} />
 				</div>
 			</div>
 		);
@@ -118,7 +121,7 @@ export default React.createClass({
 		}
 
 		return (
-			<FormPanel title="Redeem Invitation" onSubmit={this.onSubmit}>
+			<FormPanel title={t('formHeading')} onSubmit={this.onSubmit}>
 				{success ? <Success /> : this.form()}
 			</FormPanel>
 		);
