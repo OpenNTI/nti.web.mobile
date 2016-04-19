@@ -4,7 +4,7 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import Router, {Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
 import CaptureClicks from 'react-router-component/lib/CaptureClicks';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 import Loading from 'common/components/Loading';
 import ErrorComponent from 'common/components/Error';

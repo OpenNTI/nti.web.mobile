@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import StoreEvents from 'common/mixins/StoreEvents';
-import {isFlag} from 'common/utils';
+import {isFlag} from 'nti-web-client';
 import {Mixin as DragDropOrchestrator} from 'common/dnd';
 
 import Content from './Content';

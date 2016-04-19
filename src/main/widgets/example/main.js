@@ -13,7 +13,7 @@ CSS.removeClass(RootNode, 'no-js');
 CSS.addClass(RootNode, 'js');
 CSS.addClass(RootNode, isTouch ? 'touch' : 'no-touch');
 
-import {overrideConfigAndForceCurrentHost} from 'common/utils';
+import {overrideConfigAndForceCurrentHost} from 'nti-web-client';
 
 import Widget from './widget';
 

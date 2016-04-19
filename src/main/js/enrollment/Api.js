@@ -1,4 +1,4 @@
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 export function getEnrollmentService () {
 	return getService().then(service => service.getEnrollment());

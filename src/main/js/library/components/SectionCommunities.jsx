@@ -5,7 +5,7 @@ import {Link} from 'react-router-component';
 import NavigationBar from 'navigation/components/Bar';
 
 import ItemChanges from 'common/mixins/ItemChanges';
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 import EmptyList from 'common/components/EmptyList';
 
 import Collection from './containers/Collection';

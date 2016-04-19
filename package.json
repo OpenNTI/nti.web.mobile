@@ -85,6 +85,7 @@
     "nti-util-git-rev": "^1.0.0",
     "nti-util-ios-version": "^1.0.0",
     "nti-util-logger": "^1.0.0",
+    "nti-web-client": "^1.0.0",
     "nti-web-video": "^1.0.0",
     "null-loader": "^0.1.0",
     "numeral": "^1.5.3",

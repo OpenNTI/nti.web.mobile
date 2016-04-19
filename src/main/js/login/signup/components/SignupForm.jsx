@@ -12,7 +12,7 @@ let t = scoped('LOGIN.CREATE_ACCOUNT');
 
 import {ERROR_EVENT} from 'common/constants/Events';
 
-import {getServer, getReturnURL} from 'common/utils';
+import {getServer, getReturnURL} from 'nti-web-client';
 
 import UserAgreement from 'login/prompts/terms/components/UserAgreement';
 

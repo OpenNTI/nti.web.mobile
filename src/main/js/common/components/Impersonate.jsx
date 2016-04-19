@@ -6,7 +6,7 @@ import Url from 'url';
 const isNextThoughtAccount = RegExp.prototype.test.bind(/@nextthought\.com$/);
 const LINK = 'logon.nti.impersonate';
 
-import {getAppUser} from '../utils';
+import {getAppUser} from 'nti-web-client';
 
 export default React.createClass({
 	displayName: 'Impersonate',

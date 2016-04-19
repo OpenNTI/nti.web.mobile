@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {scoped} from 'common/locale';
-import {getUserAgreementURI} from 'common/utils';
+import {getUserAgreementURI} from 'nti-web-client';
 import {rawContent} from 'common/utils/jsx';
 
 let t = scoped('ENROLLMENT');

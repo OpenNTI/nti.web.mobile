@@ -5,7 +5,7 @@ import * as Constants from './Constants';
 import * as Api from './Api';
 import {CHANGE_EVENT} from 'common/constants/Events';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 let enrollmentStatus = {};
 

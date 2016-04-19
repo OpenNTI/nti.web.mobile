@@ -1,4 +1,4 @@
-import {getSiteName} from '../utils';
+import {getSiteName} from 'nti-web-client';
 import counterpart from 'counterpart';
 import english from './en';
 

@@ -1,6 +1,6 @@
 import {decodeFromURI} from 'nti-lib-ntiids';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 const DEFAULT_BATCH_SIZE = 20;
 const DEFAULT_SORT_ORDER = 'descending';

@@ -6,7 +6,7 @@ import Loading from 'common/components/Loading';
 import Messages from 'common/utils/WindowMessageListener';
 import BasePathAware from 'common/mixins/BasePath';
 
-import {getAppUser, getReturnURL} from 'common/utils';
+import {getAppUser, getReturnURL} from 'nti-web-client';
 
 
 function getData ({data}) {

@@ -1,6 +1,6 @@
 import {Catalog} from 'nti-lib-interfaces';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 let catalog;
 

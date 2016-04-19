@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 import Entry from './Entry';
 

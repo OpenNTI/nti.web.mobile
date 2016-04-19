@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {getServer} from 'common/utils';
+import {getServer} from 'nti-web-client';
 import {rawContent} from 'common/utils/jsx';
 
 import ErrorWidget from 'common/components/Error';
