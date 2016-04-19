@@ -17,8 +17,6 @@ export default React.createClass({
 
 		const pp = instance.getPresentationProperties();
 
-		console.debug(instance);
-
 		const thumbStyle = {
 			backgroundImage: `url(${pp.icon})`
 		};
