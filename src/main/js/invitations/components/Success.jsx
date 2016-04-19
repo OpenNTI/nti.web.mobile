@@ -3,6 +3,8 @@ import React from 'react';
 import {scoped} from 'common/locale';
 import BasePathAware from 'common/mixins/BasePath';
 
+import CourseInfo from './CourseInfo';
+
 let t = scoped('INVITATIONS');
 
 export default React.createClass({
@@ -10,13 +12,18 @@ export default React.createClass({
 
 	mixins: [BasePathAware],
 
+	propTypes: {
+		instance: React.PropTypes.object.isRequired
+	},
+
 	render () {
+
+		const {instance} = this.props;
+
 		let library = this.getBasePath() + 'library/';
 		return (
 			<div className="invitation-success">
-				<div className="message">
-					<p>{t('successMessage')}</p>
-				</div>
+				<CourseInfo instance={instance} />
 				<div className="button-row">
 					<a href={library} className="button">{t('successLinkText')}</a>
 				</div>

@@ -62,25 +62,26 @@ export default React.createClass({
 		});
 	},
 
-	onSuccess () {
+	onSuccess (instance) {
 		this.setState({
 			loading: false,
-			success: true
+			success: true,
+			instance
 		});
 	},
 
 	onError (error) {
-		if ((error.responseText || '').indexOf('already enrolled') > -1) {
-			return this.onSuccess();
-		}
 		this.setState({
 			loading: false,
-			error
+			error: {
+				message: error.statusText || error.message || 'Unknown Error'
+			}
 		});
 	},
 
 	onSubmit (e) {
 		e.preventDefault();
+
 		const {code} = this.state;
 
 		this.setState({
@@ -114,15 +115,17 @@ export default React.createClass({
 
 	render () {
 
-		const {loading, success} = this.state;
+		const {loading, success, instance} = this.state;
 
 		if (loading) {
 			return <Loading/>;
 		}
 
+		const heading = success ? t('successMessage') : t('formHeading');
+
 		return (
-			<FormPanel title={t('formHeading')} onSubmit={this.onSubmit}>
-				{success ? <Success /> : this.form()}
+			<FormPanel title={heading} onSubmit={this.onSubmit}>
+				{success ? <Success instance={instance} /> : this.form()}
 			</FormPanel>
 		);
 	}

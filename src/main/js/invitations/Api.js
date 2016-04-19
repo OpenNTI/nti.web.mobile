@@ -9,6 +9,7 @@ export function redeem (code) {
 		const collection = service.getCollection('Invitations', 'Invitations');
 		const href = getLink(collection, 'accept-course-invitations');
 		return service.postParseResponse(href, {'invitation_codes': code})
+			.then(response => response && response.waitForPending ? response.waitForPending() : response)
 			.then(response => {
 				AppDispatcher.handleViewAction({type: RELOAD_LIBRARY});
 				return response;
