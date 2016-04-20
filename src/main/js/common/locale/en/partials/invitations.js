@@ -4,5 +4,10 @@ export default {
 	acceptInputPlaceholder: 'Enter invitation code',
 	acceptButton: 'Accept',
 	successMessage: 'Enrollment Complete',
-	successLinkText: 'Go to my courses'
+	successLinkText: 'Go to my courses',
+	sendHeading: 'Send Invitation',
+	sendButton: 'Send',
+	sendNamePlaceholder: 'Name',
+	sendEmailPlaceholder: 'Email',
+	sendSuccessMessage: 'Invitation sent.'
 };

@@ -16,3 +16,9 @@ export function accept (code) {
 			});
 	});
 }
+
+export function send (course, name, email) {
+	const href = course.getLink('SendCourseInvitations');
+	return getService()
+		.then(service => service.postParseResponse(href, { name, email }));
+}
