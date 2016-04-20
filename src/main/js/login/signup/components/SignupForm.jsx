@@ -20,7 +20,7 @@ import Store from '../Store';
 import {clearErrors, preflightAndCreateAccount} from '../Actions';
 
 
-const indexArrayByKey = (array, key) => array.reduce((a, i) => a[i[key]] = i, {});
+const indexArrayByKey = (array, key) => array.reduce((a, i) => (a[i[key]] = i, a), {});
 
 const FIELDS = [
 	{name: 'fname', type: 'text', required: true},

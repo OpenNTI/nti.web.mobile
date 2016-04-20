@@ -11,7 +11,7 @@ const DOCUMENT_NODE = 9;// Node.DOCUMENT_NODE
 
 const isReady = doc => doc.readyState !== 'loading';
 
-const indexArrayByKey = (array, key) => array.reduce((a, i) => a[i[key]] = i, {});
+const indexArrayByKey = (array, key) => array.reduce((a, i) => (a[i[key]] = i, a), {});
 
 function getContent (raw) {
 	const start = /<(!DOCTYPE|html)/i.exec(raw);
