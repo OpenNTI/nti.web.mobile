@@ -4,7 +4,7 @@ import {getService} from 'nti-web-client';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {RELOAD as RELOAD_LIBRARY} from 'library/Constants';
 
-export function redeem (code) {
+export function accept (code) {
 	return getService().then(service => {
 		const collection = service.getCollection('Invitations', 'Invitations');
 		const href = getLink(collection, 'accept-course-invitations');

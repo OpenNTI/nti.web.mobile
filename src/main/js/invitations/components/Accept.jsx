@@ -7,7 +7,7 @@ import FormErrors from 'common/forms/components/FormErrors';
 import Loading from 'common/components/Loading';
 import {scoped} from 'common/locale';
 
-import {redeem} from '../Api';
+import {accept} from '../Api';
 
 import Success from './Success';
 
@@ -88,7 +88,7 @@ export default React.createClass({
 			loading: true
 		});
 
-		redeem(code)
+		accept(code)
 			.then(this.onSuccess)
 			.catch(this.onError);
 	},
