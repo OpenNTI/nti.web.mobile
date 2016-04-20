@@ -2,7 +2,7 @@ import React from 'react';
 
 import Container from './Container';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 import ItemChanges from 'common/mixins/ItemChanges';
 
 export default React.createClass({

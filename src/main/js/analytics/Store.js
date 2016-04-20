@@ -4,7 +4,7 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 
 import TypedEventEmitter from 'common/TypedEventEmitter';
 import {CHANGE_EVENT} from 'common/constants/Events';
-import {getService}from 'common/utils';
+import {getService}from 'nti-web-client';
 
 import {getModel} from 'nti-lib-interfaces';
 import ensureArray from 'nti-lib-interfaces/lib/utils/ensure-array';

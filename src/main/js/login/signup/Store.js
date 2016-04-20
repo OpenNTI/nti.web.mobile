@@ -3,7 +3,7 @@ import Logger from 'nti-util-logger';
 import AppDispatcher from 'dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 
-import {getServer} from 'common/utils';
+import {getServer} from 'nti-web-client';
 
 import * as Constants from './Constants';
 

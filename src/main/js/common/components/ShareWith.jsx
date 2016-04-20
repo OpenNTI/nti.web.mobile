@@ -11,7 +11,7 @@ import Loading from './TinyLoader';
 
 import ListSelection from '../utils/ListSelectionModel';
 
-import {getService} from '../utils';
+import {getService} from 'nti-web-client';
 
 const logger = Logger.get('common:components:ShareWith');
 

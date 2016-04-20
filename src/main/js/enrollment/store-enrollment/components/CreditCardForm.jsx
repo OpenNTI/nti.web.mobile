@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import Loading from 'common/components/TinyLoader';
 
-import ExternalLibraryManager from 'common/mixins/ExternalLibraryManager';
+import ExternalLibraryManager from 'nti-web-client/lib/ExternalLibraryManagerMixin';
 import {clearLoadingFlag} from 'common/utils/react-state';
 import {scoped} from 'common/locale';
 

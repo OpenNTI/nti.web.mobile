@@ -1,7 +1,6 @@
 import {replaceNode, parent} from 'nti-lib-dom';
 
 import uuid from 'node-uuid';
-import indexArrayByKey from 'nti-lib-interfaces/lib/utils/array-index-by-key';
 
 import DEFAULT_STRATEGIES from './dom-parsers';
 
@@ -11,6 +10,8 @@ const WIDGET_MARKER_REGEX = /<!--(?:[^\]>]*)(nti:widget-marker\[(?:[^\]\>]+)\])(
 const DOCUMENT_NODE = 9;// Node.DOCUMENT_NODE
 
 const isReady = doc => doc.readyState !== 'loading';
+
+const indexArrayByKey = (array, key) => array.reduce((a, i) => a[i[key]] = i, {});
 
 function getContent (raw) {
 	const start = /<(!DOCTYPE|html)/i.exec(raw);

@@ -1,6 +1,6 @@
 import {Notifications} from 'nti-lib-interfaces';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 export function load (reload) {
 	return getService()

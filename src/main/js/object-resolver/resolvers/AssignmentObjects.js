@@ -1,6 +1,6 @@
 import {join} from 'path';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 

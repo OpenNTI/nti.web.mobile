@@ -15,7 +15,7 @@ import BasePathAware from 'common/mixins/BasePath';
 
 import Redirect from 'navigation/components/Redirect';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 import {resolve} from '../resolvers';
 

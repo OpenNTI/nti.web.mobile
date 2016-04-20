@@ -1,5 +1,5 @@
 import QueryString from 'query-string';
-import {discussionsConfig} from 'common/utils';
+import {getConfigFor} from 'nti-web-client';
 
 let pageSize;
 
@@ -12,7 +12,7 @@ export default {
 
 	getPageSize () {
 		if (pageSize == null) {
-			pageSize = discussionsConfig().pageSize || 20;
+			pageSize = getConfigFor('discussions').pageSize || 20;
 		}
 		return pageSize;
 	},

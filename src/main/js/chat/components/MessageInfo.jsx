@@ -9,7 +9,7 @@ import DisplayName from 'common/components/DisplayName';
 
 import {Panel as Body} from 'modeled-content';
 
-import {getAppUsername} from 'common/utils';
+import {getAppUsername} from 'nti-web-client';
 
 const logger = Logger.get('chat:components:MessageInfo');
 

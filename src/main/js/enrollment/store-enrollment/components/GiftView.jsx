@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {scoped} from 'common/locale';
-import {getAppUser, getUserAgreementURI} from 'common/utils';
+import {getAppUser, getUserAgreementURI} from 'nti-web-client';
 import {clearLoadingFlag} from 'common/utils/react-state';
 
 let t = scoped('ENROLLMENT');
@@ -14,7 +14,7 @@ import Localized from 'common/components/LocalizedHTML';
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
 
-import ExternalLibraryManager from 'common/mixins/ExternalLibraryManager';
+import ExternalLibraryManager from 'nti-web-client/lib/ExternalLibraryManagerMixin';
 import StoreEvents from 'common/mixins/StoreEvents';
 
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';

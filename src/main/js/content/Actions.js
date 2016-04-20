@@ -1,7 +1,7 @@
 import Logger from 'nti-util-logger';
 import {parseNTIID} from 'nti-lib-ntiids';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 import AppDispatcher from 'dispatcher/AppDispatcher';
 

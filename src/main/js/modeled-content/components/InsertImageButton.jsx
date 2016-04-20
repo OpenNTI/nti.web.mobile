@@ -6,7 +6,7 @@ import {ToolMixin, Constants} from 'react-editor-component';
 
 import WhiteboardIcon from './editor-parts/WhiteboardIcon';
 
-import iOSversion from 'common/utils/ios-version';
+import iOSversion from 'nti-util-ios-version';
 
 const logger = Logger.get('modeled-content:components:InsertImageButton');
 

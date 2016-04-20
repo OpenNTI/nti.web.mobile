@@ -8,7 +8,7 @@ import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 import LuckyCharms from 'common/components/LuckyCharms';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 import Mixin from './Mixin';
 

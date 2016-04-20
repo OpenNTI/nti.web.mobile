@@ -1,7 +1,7 @@
 import React from 'react';
 import {BLANK_AVATAR, BLANK_GROUP_AVATAR} from '../constants/DataURIs';
 
-import {resolve, getDebugUsernameString} from '../utils/user';
+import {resolve, getDebugUsernameString} from 'nti-web-client/lib/user';
 import ProfileLink from 'profile/mixins/ProfileLink';
 
 const DEFAULT = { entity: {avatarURL: BLANK_AVATAR }};

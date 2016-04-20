@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {scoped} from 'common/locale';
-import {isFlag} from 'common/utils';
+import {isFlag} from 'nti-web-client';
 
 import Page from 'common/components/Page';
 

@@ -4,7 +4,7 @@ import Logger from 'nti-util-logger';
 import {getModel} from 'nti-lib-interfaces';
 import {getHandler} from 'nti-web-video';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 import Video from './Video';
 

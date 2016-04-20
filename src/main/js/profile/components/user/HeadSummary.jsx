@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {resolve} from 'nti-web-client/lib/user';
 import ensureArray from 'nti-lib-interfaces/lib/utils/ensure-array';
 
 import Loader from 'common/components/TinyLoader';
@@ -7,7 +8,6 @@ import SocialLinks from './SocialLinks';
 
 import {default as DisplayName} from 'common/components/DisplayName';
 
-import {resolve} from 'common/utils/user';
 
 export default React.createClass({
 	displayName: 'HeadSummary',

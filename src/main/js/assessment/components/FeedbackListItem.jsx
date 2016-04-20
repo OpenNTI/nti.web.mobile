@@ -7,7 +7,7 @@ import DisplayName from 'common/components/DisplayName';
 
 import LoadingInline from 'common/components/LoadingInline';
 
-import {getAppUsername} from 'common/utils';
+import {getAppUsername} from 'nti-web-client';
 import {rawContent} from 'common/utils/jsx';
 
 import Editor from './FeedbackEditor';

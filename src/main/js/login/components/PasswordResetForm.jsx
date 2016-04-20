@@ -5,7 +5,7 @@ import cx from 'classnames';
 import Conditional from 'common/components/Conditional';
 import Loading from 'common/components/Loading';
 
-import {getServer} from 'common/utils';
+import {getServer} from 'nti-web-client';
 import {scoped} from 'common/locale';
 
 const t = scoped('LOGIN.forgot');

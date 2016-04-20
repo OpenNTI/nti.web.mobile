@@ -2,7 +2,7 @@ import React from 'react';
 
 import DisplayName from './DisplayName';
 
-import {getService} from '../utils';
+import {getService} from 'nti-web-client';
 
 export default React.createClass({
 	displayName: 'RepliedTo',

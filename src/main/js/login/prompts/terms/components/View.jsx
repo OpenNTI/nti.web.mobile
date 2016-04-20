@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import Logger from 'nti-util-logger';
 
-import {getAppUser, getReturnURL} from 'common/utils';
+import {getAppUser, getReturnURL} from 'nti-web-client';
 
 import UserAgreement from './UserAgreement';
 

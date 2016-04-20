@@ -12,15 +12,15 @@ let t = scoped('LOGIN.CREATE_ACCOUNT');
 
 import {ERROR_EVENT} from 'common/constants/Events';
 
-import {getServer, getReturnURL} from 'common/utils';
-
-import indexArrayByKey from 'nti-lib-interfaces/lib/utils/array-index-by-key';
+import {getServer, getReturnURL} from 'nti-web-client';
 
 import UserAgreement from 'login/prompts/terms/components/UserAgreement';
 
 import Store from '../Store';
 import {clearErrors, preflightAndCreateAccount} from '../Actions';
 
+
+const indexArrayByKey = (array, key) => array.reduce((a, i) => a[i[key]] = i, {});
 
 const FIELDS = [
 	{name: 'fname', type: 'text', required: true},

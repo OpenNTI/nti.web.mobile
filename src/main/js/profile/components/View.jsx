@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {resolve} from 'nti-web-client/lib/user';
 import {getModel} from 'nti-lib-interfaces';
 import Logger from 'nti-util-logger';
 
@@ -11,7 +12,6 @@ import CommunityView from './community/View';
 import GroupView from './group/View';
 import UserView from './user/View';
 
-import {resolve} from 'common/utils/user';
 
 const Community = getModel('community');
 const User = getModel('user');

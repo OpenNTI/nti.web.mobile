@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Breadcrumb from 'common/components/BreadcrumbPath';
-import {isFlag} from 'common/utils';
+import {isFlag} from 'nti-web-client';
 
 import Detail from 'content/components/discussions/Detail';
 import Context from 'content/components/discussions/Context';

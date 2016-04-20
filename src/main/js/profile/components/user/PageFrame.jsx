@@ -10,7 +10,7 @@ import Page from 'common/components/Page';
 
 import ContextSender from 'common/mixins/ContextSender';
 
-import {getAppUsername} from 'common/utils';
+import {getAppUsername} from 'nti-web-client';
 
 import Head from './Head';
 

@@ -2,7 +2,7 @@ import {getModel} from 'nti-lib-interfaces';
 
 import parseDomObject from './object';
 
-import {getServer} from 'common/utils';
+import {getServer} from 'nti-web-client';
 
 const Video = getModel('video');
 
