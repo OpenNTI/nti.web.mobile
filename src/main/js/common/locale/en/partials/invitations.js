@@ -1,8 +1,8 @@
 export default {
 	title: 'Invitation',
-	formHeading: 'Redeem Invitation',
-	redeemInputPlaceholder: 'Enter invitation code',
-	redeemButton: 'Redeem',
+	formHeading: 'Accept Invitation',
+	acceptInputPlaceholder: 'Enter invitation code',
+	acceptButton: 'Accept',
 	successMessage: 'Enrollment Complete',
 	successLinkText: 'Go to my courses'
 };

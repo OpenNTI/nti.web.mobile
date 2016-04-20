@@ -14,7 +14,7 @@ import Success from './Success';
 let t = scoped('INVITATIONS');
 
 export default React.createClass({
-	displayName: 'Invitations:Redeem',
+	displayName: 'Invitations:Accept',
 
 	mixins: [BasePathAware, ContextSender],
 
@@ -30,7 +30,7 @@ export default React.createClass({
 
 	getContext () {
 		const path = this.getBasePath();
-		const href = '/redeem/';
+		const href = '/accept/';
 		return Promise.resolve([
 			{
 				href: path, label: 'Home'
@@ -99,7 +99,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<input onChange={this.onChange} value={code} placeholder={t('redeemInputPlaceholder')} />
+				<input onChange={this.onChange} value={code} placeholder={t('acceptInputPlaceholder')} />
 				{error && <FormErrors errors={{'code': error}} />}
 				<div className="button-row">
 					<input type="submit"
@@ -107,7 +107,7 @@ export default React.createClass({
 						disabled={disabled}
 						id="redeem:submit"
 						className="button"
-						value={t('redeemButton')} />
+						value={t('acceptButton')} />
 				</div>
 			</div>
 		);
