@@ -2,9 +2,9 @@ import React from 'react';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
 import {load as getLibrary} from 'library/Actions';
+import CourseContentLink from 'library/mixins/CourseContentLink';
 import Banner from 'common/components/Banner';
 import Loading from 'common/components/Loading';
-import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 import {scoped} from 'common/locale';
 
@@ -15,7 +15,7 @@ const t = scoped('INVITATIONS');
 export default React.createClass({
 	displayName: 'Invitations:Send',
 
-	mixins: [BasePathAware, ContextSender],
+	mixins: [ContextSender, CourseContentLink],
 
 	propTypes: {
 		courseId: React.PropTypes.string.isRequired
@@ -42,10 +42,10 @@ export default React.createClass({
 
 
 	getContext () {
-		const path = this.getBasePath();
+		const path = this.courseHref(decodeFromURI(this.props.courseId), 'info');
 		return Promise.resolve([
 			{
-				href: path, label: 'Home'
+				href: path, label: 'Course Info'
 			}, {
 				label: t('title')
 			}
