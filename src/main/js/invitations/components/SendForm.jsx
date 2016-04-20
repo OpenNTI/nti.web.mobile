@@ -8,7 +8,7 @@ import FormErrors from 'common/forms/components/FormErrors';
 
 import {scoped} from 'common/locale';
 
-import {send} from '../Api';
+import {send, canSend} from '../Api';
 
 const t = scoped('INVITATIONS');
 
@@ -120,11 +120,15 @@ export default React.createClass({
 	},
 
 	render () {
-
+		const {course} = this.props;
 		const {loading, success} = this.state;
 
 		if (loading) {
 			return <Loading />;
+		}
+
+		if(!canSend(course)) {
+			return (<Notice>{t('cannotSend')}</Notice>);
 		}
 
 		return success ? this.successMessage() : this.form();

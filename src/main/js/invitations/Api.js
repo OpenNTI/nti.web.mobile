@@ -22,3 +22,7 @@ export function send (course, name, email) {
 	return getService()
 		.then(service => service.postParseResponse(href, { name, email }));
 }
+
+export function canSend (course) {
+	return course && course.hasLink && course.hasLink('SendCourseInvitations');
+}

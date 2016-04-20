@@ -28,7 +28,7 @@ export default React.createClass({
 	},
 
 	componentWillMount () {
-		this.setCourse ();
+		this.setCourse();
 	},
 
 	setCourse ({courseId} = this.props) {
