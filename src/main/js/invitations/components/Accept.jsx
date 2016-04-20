@@ -9,7 +9,7 @@ import {scoped} from 'common/locale';
 
 import {accept} from '../Api';
 
-import Success from './Success';
+import Success from './AcceptSuccess';
 
 let t = scoped('INVITATIONS');
 
