@@ -2,8 +2,8 @@
 
 .invitation-success {
 
-	$thumb-width: 160px;
-	$thumb-height: ($thumb-width * .5625); //16x9 allowing 2px for the top and bottom border
+	$thumb-width: 130px;
+	$thumb-height: ($thumb-width * .732);
 
 	.course-info {
 		position: relative;
