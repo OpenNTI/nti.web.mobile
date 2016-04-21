@@ -1,3 +1,8 @@
 .terms-checkbox {
 	margin-bottom: 2rem;
+	label.terms-label {
+		span {
+			pointer-events: all !important;
+		}
+	}
 }
