@@ -48,7 +48,7 @@ export default React.createClass({
 			return null;
 		}
 
-		const classNames = cx('header assessment survey', {submitted});
+		const classNames = cx('header assessment common survey', {submitted});
 
 		const results = Store.aggregationViewState(survey) ? 'Hide Results' : 'Show Results';
 

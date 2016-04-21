@@ -75,7 +75,7 @@ export default React.createClass({
 		let state = late ? 'late' : nonSubmit ? '' : 'ontime';
 
 		return (
-			<div className={'header assessment assignment ' + state}>
+			<div className={'header assessment common assignment ' + state}>
 				<div className="meta">
 					<h4>{assignment.title}</h4>
 					<AssignmentStatusLabel assignment={assignment} historyItem={item} showTimeWithDate/>
