@@ -10,7 +10,7 @@ import PageDescriptor from './PageDescriptor';
 import {getPageInfo} from './Api';
 import {PAGE_LOADED, PAGE_FAILED, PACKAGE_NOT_FOUND} from './Constants';
 
-import {processContent} from './utils';
+import {processContent} from 'nti-lib-content-processing';
 
 import {load as getLibrary} from 'library/Actions';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import nullRender from 'fbjs/lib/emptyFunction';
 
-import {getHTMLSnippet, filterContent, processContent} from 'content/utils';
+import {getHTMLSnippet, filterContent, processContent} from 'nti-lib-content-processing';
 
 import uuid from 'node-uuid';
 import htmlToReactRenderer from 'html-reactifier';
