@@ -11,6 +11,7 @@ import CONTACTS from './partials/contacts';
 import CONTENT from './partials/content';
 import ERROR_MESSAGES from './partials/error-messages';
 import FORUMS from './partials/forums';
+import INVITATIONS from './partials/invitations';
 import ENROLLMENT from './partials/enrollment';
 import LIBRARY from './partials/library';
 import LOGIN from './partials/login';
@@ -45,6 +46,8 @@ export default {
 	LOGIN,
 
 	ENROLLMENT,
+
+	INVITATIONS,
 
 	ERROR_MESSAGES,
 
