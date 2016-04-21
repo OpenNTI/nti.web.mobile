@@ -4,13 +4,13 @@ import Video from 'nti-web-video';
 import Logger from 'nti-util-logger';
 
 
-import {getModel} from 'nti-lib-interfaces';
+import {getModel} from 'nti-lib-interfaces'; //TODO: Once deprecations are taken care of, remove this.
 
-import {emitEventStarted, emitEventEnded} from 'analytics/Actions';
-import {toAnalyticsPath} from 'analytics/utils';
+import {emitEventStarted, emitEventEnded} from 'analytics/Actions'; //FIXME: Find a way to move analytics into its own package.
+import {toAnalyticsPath} from 'analytics/utils'; //TODO: Once deprecations are taken care of, remove this.
 
 const logger = Logger.get('video:component:VideoWrapper');
-const WatchVideoEvent = getModel('analytics.watchvideoevent');
+const WatchVideoEvent = getModel('analytics.watchvideoevent'); //TODO: Once deprecations are taken care of, remove this.
 
 const emptyFunction = () => {};
 
