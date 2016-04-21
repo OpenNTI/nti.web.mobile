@@ -3,7 +3,6 @@ import React from 'react';
 import Video from 'nti-web-video';
 import Logger from 'nti-util-logger';
 
-import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import {getModel} from 'nti-lib-interfaces';
 
@@ -12,6 +11,8 @@ import {toAnalyticsPath} from 'analytics/utils';
 
 const logger = Logger.get('video:component:VideoWrapper');
 const WatchVideoEvent = getModel('analytics.watchvideoevent');
+
+const emptyFunction = () => {};
 
 function deprecated (o, k) { if (o[k]) { return new Error(`Deprecated prop: \`${k}\`, use \`newWatchEventFactory\` callback prop.`); } }
 
