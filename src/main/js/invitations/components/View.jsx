@@ -12,7 +12,7 @@ export default function InvitationsView () {
 		<Locations contextual>
 			<Location path="/accept/(:code)(/*)" handler={PageFrame} pageContent={Accept} />
 			<Location path="/send/(:courseId)(/*)" handler={PageFrame} pageContent={Send} />
-			<NotFound handler={Redirect} location="/redeem/" />
+			<NotFound handler={Redirect} location="/accept/" />
 		</Locations>
 	);
 }
