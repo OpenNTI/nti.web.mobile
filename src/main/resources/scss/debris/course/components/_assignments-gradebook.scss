@@ -71,7 +71,7 @@
 			box-sizing: border-box;
 		}
 		&.selected {
-			background: $primary-color;
+			background: $primary-blue;
 			color: white;
 		}
 	}
@@ -172,7 +172,7 @@
 		li {
 			padding: .5rem .6rem;
 			&.selected {
-				background: $primary-color;
+				background: $primary-blue;
 				color: white;
 			}
 		}
@@ -197,7 +197,7 @@
 
 	.meta, .extras {
 		font-size: $metafontsize;
-		color: $primary-color;
+		color: $primary-blue;
 		text-transform: uppercase;
 		font-weight: 600;
 		line-height: 1.2rem;
