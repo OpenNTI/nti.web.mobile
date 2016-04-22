@@ -53,34 +53,28 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 
 });
 
-
-
-AppDispatcher.register(function (payload) {
-	let action = payload.action;
-	switch(action.type) {
-	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-	case Constants.ENROLL_OPEN:
+const handlers = {
+	[Constants.ENROLL_OPEN]: action => {
 		Api.enrollOpen(action.catalogId)
-			.then(result => {
-				Store.flushEnrollmentStatus();
-				Store.emitChange({
-					action: action,
-					result: result
-				});
-			});
-		break;
-	case Constants.DROP_COURSE:
-		Api.dropCourse(action.courseId)
-			.catch(error=>Object.assign(new Error(error.responseText), error))
 			.then(result => {
 				Store.flushEnrollmentStatus();
 				Store.emitChange({ action, result });
 			});
-		break;
-
-	default:
-		return true;
+	},
+	[Constants.DROP_COURSE]: action => {
+		Api.dropCourse(action.courseId)
+			.catch(error => Object.assign(new Error(error.responseText), error))
+			.then(result => {
+				Store.flushEnrollmentStatus();
+				Store.emitChange({ action, result });
+			});
 	}
+};
+
+AppDispatcher.register(function (payload) {
+	let action = payload.action;
+	const handler = handlers[action.type];
+	handler && handler(action);
 	return true;
 });
 
