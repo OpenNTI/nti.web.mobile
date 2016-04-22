@@ -5,9 +5,7 @@ import AppDispatcher from 'dispatcher/AppDispatcher';
 
 import {
 	DROP_COURSE,
-	ENROLL_5M,
-	ENROLL_OPEN,
-	ENROLL_STORE
+	ENROLL_OPEN
 } from 'enrollment/Constants';
 
 import {
@@ -30,9 +28,7 @@ import {RELOAD} from '../Constants';
 
 const INVALIDATION_EVENTS = {
 	[DROP_COURSE]: true,
-	[ENROLL_5M]: true,
 	[ENROLL_OPEN]: true,
-	[ENROLL_STORE]: true,
 	[STRIPE_PAYMENT_SUCCESS]: true,
 	[GIFT_CODE_REDEEMED]: true,
 	[RELOAD]: true
