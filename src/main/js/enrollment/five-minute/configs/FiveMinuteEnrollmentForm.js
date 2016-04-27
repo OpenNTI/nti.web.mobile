@@ -5,37 +5,6 @@ const concurrentForm = require('./ConcurrentEnrollmentForm');
 const admissionForm = require('./AdmissionForm');
 const Constants = require('common/forms/Constants');
 
-let attendingOU = [{
-	// title: 'Admission Status',
-	fields: [
-		{
-			ref: 'is_currently_attending_ou',
-			type: 'radiogroup',
-			required: true,
-			label: t('currentlyAttending'),
-			options: [
-				{
-					label: 'Yes',
-					value: 'Y',
-					related: [{
-						type: Constants.MESSAGE,
-						content: 'ENROLLMENT.forms.fiveminute.historyEnrollViaOzone'
-					}]
-				},
-				{
-					label: 'No',
-					value: 'N',
-					related: [{
-						type: Constants.FORM_CONFIG,
-						content: admissionForm
-					}]
-				}
-			]
-		}
-	]
-}];
-
-
 let okResidentQuestion = [{
 	fields: [
 		{
@@ -64,7 +33,7 @@ let okResidentQuestion = [{
 					related: [
 						{
 							type: Constants.FORM_CONFIG,
-							content: attendingOU
+							content: admissionForm
 						}
 					]
 				}
@@ -97,9 +66,108 @@ let highSchoolQuestion = [{
 					related: [
 						{
 							type: Constants.FORM_CONFIG,
-							content: attendingOU
+							content: admissionForm
 						}
 					]
+				}
+			]
+		}
+	]
+}];
+
+const otherUniversityQuestion = [{
+	fields: [
+		{
+			ref: 'attended_other_institution',
+			label: t('attendedAnotherUniversity'),
+			type: 'radiogroup',
+			required: true,
+			options: [
+				{
+					label: 'Yes',
+					value: 'Y',
+					related: [{
+						type: Constants.SUBFIELDS,
+						content: [
+							{
+								ref: 'still_attending',
+								label: t('stillAttending'),
+								type: 'checkbox',
+								value: 'Y'
+							},
+							{
+								ref: 'bachelors_or_higher',
+								label: t('obtainedDegree'),
+								type: 'checkbox',
+								value: 'Y'
+							},
+							{
+								ref: 'good_academic_standing',
+								type: 'radiogroup',
+								label: t('goodAcademicStanding'),
+								options: [
+									{
+										label: 'Yes',
+										value: 'Y',
+										related: [
+											{
+												type: Constants.FORM_CONFIG,
+												content: highSchoolQuestion
+											}
+										]
+									},
+									{
+										label: 'No',
+										value: 'N',
+										related: [
+											{
+												type: Constants.MESSAGE,
+												content: 'ENROLLMENT.forms.fiveminute.goodAcademicStandingRequired'
+											}
+										]
+									}
+								]
+							}
+						]
+					}]
+				},
+				{
+					label: 'No',
+					value: 'N',
+					related: [{
+						type: Constants.FORM_CONFIG,
+						content: highSchoolQuestion
+					}]
+				}
+			]
+		}
+	]
+}];
+
+let attendingOU = [{
+	// title: 'Admission Status',
+	fields: [
+		{
+			ref: 'is_currently_attending_ou',
+			type: 'radiogroup',
+			required: true,
+			label: t('currentlyAttending'),
+			options: [
+				{
+					label: 'Yes',
+					value: 'Y',
+					related: [{
+						type: Constants.MESSAGE,
+						content: 'ENROLLMENT.forms.fiveminute.historyEnrollViaOzone'
+					}]
+				},
+				{
+					label: 'No',
+					value: 'N',
+					related: [{
+						type: Constants.FORM_CONFIG,
+						content: otherUniversityQuestion
+					}]
 				}
 			]
 		}
@@ -119,7 +187,7 @@ const birthdateQuestion = [{
 			ifTrue: [
 				{
 					type: Constants.FORM_CONFIG,
-					content: highSchoolQuestion
+					content: attendingOU
 				}
 			],
 			ifFalse: [
