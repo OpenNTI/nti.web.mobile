@@ -28,27 +28,33 @@ export default React.createClass({
 	},
 
 	getInitialState () {
-		return {
-		};
+		return {};
 	},
 
 	componentWillMount () {
-		this.setState({
-			title: this.props.title,
-			value: this.props.value
-		});
+		const {busy, value, title} = this.props;
+		this.setState({ disabled: busy || Editor.isEmpty(value) || Editor.isEmpty(title) });
 	},
 
-	onTitleChange (event) {
-		this.setState({
-			title: event.target.value
-		});
+
+	componentWillReceiveProps (nextProps) {
+		if(['busy', 'value', 'title'].some(x => this.props[x] !== nextProps[x])) {
+			const {busy, value, title} = nextProps;
+			this.setState({ disabled: busy || Editor.isEmpty(value) || Editor.isEmpty(title) });
+		}
 	},
+
 
 	onChange () {
+		let {busy} = this.props;
 		let value = this.editor.getValue();
-		this.setState({value});
+		let title = (this.title || {}).value;
+
+		this.setState({
+			disabled: busy || Editor.isEmpty(value) || Editor.isEmpty(title)
+		});
 	},
+
 
 	onCancel (e) {
 		if (e) {
@@ -93,8 +99,8 @@ export default React.createClass({
 
 	render () {
 		let {error, busy, showSharing} = this.props;
-		let {value, title} = this.state;
-		let disabled = busy || Editor.isEmpty(value) || Editor.isEmpty(title);
+		let {disabled} = this.state;
+
 
 		return (
 			<div className="note-editor-frame editor">
@@ -111,7 +117,7 @@ export default React.createClass({
 					<input type="text"
 						ref={x => this.title = x} placeholder="Title"
 						className={cx({'error': error && error.field === 'title'})}
-						onChange={this.onTitleChange}
+						onChange={this.onChange}
 						defaultValue={this.props.title} />
 				</div>
 
@@ -120,7 +126,7 @@ export default React.createClass({
 					className={cx({'error': error && error.field === 'body'})}
 					onChange={this.onChange}
 					onBlur={this.onChange}
-					value={this.props.value}>
+					initialValue={this.props.value}>
 					<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
 					<button onClick={this.doSubmit} className={cx('save', {disabled})}>{busy ? (<Busy/>) : t('BUTTONS.save')}</button>
 				</Editor>

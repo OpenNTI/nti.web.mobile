@@ -22,20 +22,35 @@ export default React.createClass({
 
 
 	componentWillMount () {
-		this.setState({
-			value: this.props.value || null
-		});
+		this.updateDisabled(this.props.value || null);
+	},
+
+
+	componentWillReceiveProps (nextProps) {
+		if (nextProps.value !== this.props.value) {
+			this.updateDisabled(nextProps.value);
+		}
+	},
+
+
+	updateDisabled (value) {
+		let disabled = Editor.isEmpty(value);
+		this.setState({disabled});
 	},
 
 
 	render () {
-		let {value, busy} = this.state;
-		let disabled = Editor.isEmpty(value);
+		let {disabled, busy} = this.state;
 
 		return (
 			<div className={cx('feedback editor', {busy})}>
 
-				<Editor ref={x => this.editor = x} value={value} onChange={this.onChange} onBlur={this.onChange} allowInsertImage={false}>
+				<Editor ref={x => this.editor = x}
+					initialValue={this.props.value}
+					onChange={this.onChange}
+					onBlur={this.onChange}
+					allowInsertImage={false}
+					>
 					<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
 					<button onClick={this.onClick} className={cx('save', {disabled})}>{t('BUTTONS.save')}</button>
 				</Editor>
@@ -49,7 +64,7 @@ export default React.createClass({
 
 	onChange () {
 		let value = this.editor.getValue();
-		this.setState({value});
+		this.updateDisabled(value);
 	},
 
 

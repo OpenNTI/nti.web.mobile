@@ -44,14 +44,16 @@ export default React.createClass({
 	},
 
 
-	editorChange (_, newValue) {
-		this.valueChanged('description', newValue);
+	editorChange () {
+		this.validate(); // refresh error state
 	},
+
 
 	onChange (event) {
 		const {target: {name, value}} = event;
 		this.valueChanged(name, value);
 	},
+
 
 	valueChanged (field, newValue) {
 		this.validate(); // refresh error state
@@ -129,7 +131,7 @@ export default React.createClass({
 					ref={c => this.description = c}
 					required={isRequired(schema, 'startYear')}
 					allowInsertImage={false}
-					value={description}
+					initialValue={description}
 					onChange={this.editorChange} />
 			</fieldset>
 		);

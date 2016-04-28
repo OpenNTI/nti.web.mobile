@@ -7,7 +7,7 @@ import {scoped} from 'common/locale';
 const t = scoped('FORUMS');
 
 function isValid (topicValue) {
-	return topicValue.title.trim().length > 0 && (topicValue.body || []).length > 0;
+	return topicValue.title.trim().length > 0 && !Editor.isEmpty(topicValue.body);
 }
 
 
@@ -20,15 +20,18 @@ export default React.createClass({
 		onCancel: React.PropTypes.func.isRequired
 	},
 
+
 	getInitialState () {
 		return {
 			canSubmit: false
 		};
 	},
 
+
 	componentDidMount () {
 		this.title.focus();
 	},
+
 
 	getValue () {
 		return {
@@ -37,11 +40,13 @@ export default React.createClass({
 		};
 	},
 
+
 	onEditorChange () {
 		this.setState({
 			canSubmit: isValid(this.getValue())
 		});
 	},
+
 
 	render () {
 		const {title, body} = this.props.item || {};
@@ -55,17 +60,21 @@ export default React.createClass({
 		);
 		return (
 			<PanelButton className="comment-form" button={buttons}>
-				<div><input
-					ref={el => this.title = el}
-					defaultValue={title}
-					placeholder={t('topicTitlePlaceholder')}
-					onChange={this.onEditorChange} />
+				<div>
+					<input
+						ref={el => this.title = el}
+						defaultValue={title}
+						placeholder={t('topicTitlePlaceholder')}
+						onChange={this.onEditorChange}
+						/>
 				</div>
-				<div><Editor
-					ref={c => this.editor = c}
-					value={body}
-					onChange={this.onEditorChange}
-					allowInsertVideo/>
+				<div>
+					<Editor
+						ref={c => this.editor = c}
+						initialValue={body}
+						onChange={this.onEditorChange}
+						allowInsertVideo
+						/>
 				</div>
 			</PanelButton>
 		);
