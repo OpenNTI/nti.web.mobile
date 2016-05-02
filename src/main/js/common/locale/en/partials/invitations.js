@@ -9,6 +9,7 @@ export default {
 	sendButton: 'Send',
 	sendNamePlaceholder: 'Name',
 	sendEmailPlaceholder: 'Email',
+	sendMessagePlaceholder: 'Message',
 	sendSuccessMessage: 'Invitation sent.',
 	cannotSend: 'Can\'t send invitations for this course.',
 	inviteButton: 'Invite someone to this course'

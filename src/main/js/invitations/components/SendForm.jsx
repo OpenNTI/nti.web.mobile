@@ -31,6 +31,7 @@ export default React.createClass({
 		this.setState({
 			name: '',
 			email: '',
+			message: '',
 			loading: false,
 			success: true,
 			result
@@ -48,12 +49,12 @@ export default React.createClass({
 
 	onSubmit (e) {
 		e.preventDefault();
-		const {name, email} = this.state;
+		const {name, email, message} = this.state;
 		const {course} = this.props;
 		this.setState({
 			loading: true
 		});
-		send(course, name, email)
+		send(course, name, email, message)
 			.then(this.onSuccess)
 			.catch(this.onError);
 	},
@@ -70,9 +71,15 @@ export default React.createClass({
 		});
 	},
 
+	onMessageChange (e) {
+		this.setState({
+			message: e.target.value
+		});
+	},
+
 	validate () {
-		const {name, email} = this.state;
-		return name.trim().length > 0 && isEmail(email);
+		const {email} = this.state;
+		return isEmail(email);
 	},
 
 	form () {
@@ -82,7 +89,7 @@ export default React.createClass({
 
 		return (
 			<FormPanel title={heading} onSubmit={this.onSubmit}>
-				<input className="required" required
+				<input required
 					onChange={this.onNameChange}
 					value={this.state.name}
 					placeholder={t('sendNamePlaceholder')} />
@@ -91,6 +98,12 @@ export default React.createClass({
 					value={this.state.email}
 					onChange={this.onEmailChange}
 					placeholder={t('sendEmailPlaceholder')} />
+				<textarea
+					name="message"
+					placeholder={t('sendMessagePlaceholder')}
+					onChange={this.onMessageChange}
+					value={this.state.message}
+					></textarea>
 				{error && <FormErrors errors={{'code': error}} />}
 				<div className="button-row">
 					<input type="submit"
