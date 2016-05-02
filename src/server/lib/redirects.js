@@ -16,6 +16,7 @@ const SEGMENT_HANDLERS = {
 
 const HANDLERS = {
 	handleObjectRedirects: /^(object|ntiid)/i,
+	handleInvitationRedirects: /invitations\/accept/i,
 	handleLibraryRedirects: /^library/i
 };
 
@@ -40,6 +41,28 @@ export default {
 
 			return res.redirect(this.basepath);
 		});
+	},
+
+
+	handleInvitationRedirects (query, res, next) {
+		/*
+		 *	from:
+		 *	?q=library/courses/available/invitations/accept/<token>
+		 *
+		 *	to:
+		 *	<basepath>/catalog/code/<token>
+		 */
+
+		// [full match, token]
+		let parts = query.match(/accept\/([^\/]*)/);
+		if (parts) {
+			let url = path.join(this.basepath, 'catalog', 'code', parts[1]);
+			logger.info('redirecting to: %s', url);
+			res.redirect(url);
+			return;
+		}
+
+		next();
 	},
 
 
