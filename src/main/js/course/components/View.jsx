@@ -26,7 +26,7 @@ import Discussions from 'forums/components/View';
 import Lessons from './Lessons';
 import Activity from './Activity';
 import Media from './Media';
-
+import Invite from 'invitations/components/Send';
 import {setCourse} from '../Actions';
 import Store from '../Store';
 
@@ -38,6 +38,7 @@ const ROUTES = [
 	{path: '/info', handler: Page, pageContent: CourseInfo},
 	{path: '/activity(/*)', handler: Page, pageContent: Activity},
 	{path: '/assignments(/*)', handler: Page, pageContent: Assignments},
+	{path: '/invite(/*)', handler: Page, pageContent: Invite},
 	{}//not found
 ];
 

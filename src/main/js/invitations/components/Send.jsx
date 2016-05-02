@@ -18,7 +18,8 @@ export default React.createClass({
 	mixins: [ContextSender, CourseContentLink],
 
 	propTypes: {
-		courseId: React.PropTypes.string.isRequired
+		courseId: React.PropTypes.string,
+		course: React.PropTypes.object
 	},
 
 	getInitialState () {
@@ -31,13 +32,21 @@ export default React.createClass({
 		this.setCourse();
 	},
 
-	setCourse ({courseId} = this.props) {
-		getLibrary()
-			.then(library => library.getCourse(decodeFromURI(courseId)))
-			.then(course => this.setState({
-				course: (course || {}).CourseInstance,
+	setCourse ({courseId, course} = this.props) {
+		if (course) {
+			this.setState({
+				course,
 				loading: false
-			}));
+			});
+		}
+		else {
+			getLibrary()
+				.then(library => library.getCourse(decodeFromURI(courseId)))
+				.then(c => this.setState({
+					course: (c || {}).CourseInstance,
+					loading: false
+				}));
+		}
 	},
 
 

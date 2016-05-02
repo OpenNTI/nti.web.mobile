@@ -19,7 +19,7 @@ import Enroll from 'enrollment/components/Enroll';
 import GiftPurchaseView from 'enrollment/store-enrollment/components/GiftPurchaseView';
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 import GiftRedeem from './GiftRedeem';
-
+import AcceptInvitation from 'invitations/components/Accept';
 
 const CatalogBody = React.createClass({
 	displayName: 'CatalogBody',
@@ -75,6 +75,10 @@ const CatalogBody = React.createClass({
 				<Location
 					path="/redeem/:entryId/(:code)"
 					handler={GiftRedeem}
+				/>
+				<Location
+					path="/code/(:code)(/*)"
+					handler={AcceptInvitation}
 				/>
 				<Location
 					path="/enrollment/success/"
