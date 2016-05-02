@@ -18,7 +18,6 @@ import Content from 'content/components/View';
 import Course from 'course/components/View';
 import Enrollment from 'enrollment/components/View';
 import Home from 'home/components/View';
-import Invitations from 'invitations/components/View';
 import Library from 'library/components/View';
 import Login from 'login/components/View';
 import Profile from 'profile/components/View';
@@ -42,7 +41,6 @@ const HANDLER_BY_NAME = {
 	Course,
 	Enrollment,
 	Home,
-	Invitations,
 	Library,
 	Login,
 	Profile,

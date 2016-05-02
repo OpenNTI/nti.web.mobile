@@ -26,7 +26,6 @@ export default [
 	{handler: 'Object',			path: '/object/:objectId(/*)'},
 	{handler: 'Login',			path: '/login/*'},
 	{handler: 'Catalog',		path: '/catalog/*'},
-	{handler: 'Invitations',	path: '/invitations/*'},
 	{handler: 'Contacts',		path: '/contacts/*'},
 	{handler: 'Content',		path: '/content/:contentId/*'},
 	{handler: 'Course',			path: '/course/:course/*'},
