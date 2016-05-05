@@ -134,7 +134,7 @@ export default React.createClass({
 			};
 
 			return (
-				<li key={title}>
+				<li key={item.ntiid}>
 					<ActiveState hasChildren href={href} tag={tag}>
 						<CalendarCard date={date}/>
 						<Ellipsed tag="a" {...props}/>
