@@ -17,7 +17,8 @@ const SEGMENT_HANDLERS = {
 const HANDLERS = {
 	handleObjectRedirects: /^(object|ntiid)/i,
 	handleInvitationRedirects: /invitations\/accept/i,
-	handleLibraryRedirects: /^library/i
+	handleLibraryRedirects: /^library/i,
+	handleLibraryPathRedirects: /^\/*app\/library/i
 };
 
 
@@ -27,15 +28,15 @@ export default {
 		this.basepath = config.basepath;
 
 		express.use((req, res, next) => {
-			let redirectQuery = req.query.q;
-			if (!redirectQuery) {
+			let redirectParam = req.query.q || req.query.p;
+			if (!redirectParam) {
 				return next();
 			}
 
 			for (let handlerName of Object.keys(HANDLERS)) {
 				let test = HANDLERS[handlerName];
-				if (redirectQuery.match(test)) {
-					return this[handlerName](redirectQuery, res, next);
+				if (redirectParam.match(test)) {
+					return this[handlerName](redirectParam, res, next);
 				}
 			}
 
@@ -65,6 +66,24 @@ export default {
 		next();
 	},
 
+	handleLibraryPathRedirects (query, res, next) {
+		/* From:
+		 * ?p=/app/library/courses/available/NTI-CourseInfo-iLed_iLed_001/...
+		 *
+		 * To:
+		 * <basepath>/catalog/item/NTI-CourseInfo-iLed_iLed_001/...
+		 */
+
+		let pattern = /library\/courses\/available\/(.*)/;
+		let parts = query.match(pattern);
+		if (parts) {
+			let url = path.join(this.basepath, 'catalog', 'item', parts[1]);
+			logger.info('redirecting to: %s', url);
+			res.redirect(url);
+		}
+
+		next();
+	},
 
 	handleLibraryRedirects (query, res, next) {
 		let url = query;
