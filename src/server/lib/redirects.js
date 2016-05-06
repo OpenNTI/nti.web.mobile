@@ -28,7 +28,7 @@ export default {
 		this.basepath = config.basepath;
 
 		express.use((req, res, next) => {
-			let redirectParam = req.query.q || req.query.p;
+			let redirectParam = req.query.p || req.query.q;
 			if (!redirectParam) {
 				return next();
 			}
