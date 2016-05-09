@@ -21,7 +21,6 @@ export default React.createClass({
 
 	getInitialState () {
 		return {
-			name: '',
 			email: '',
 			success: false
 		};
@@ -29,7 +28,6 @@ export default React.createClass({
 
 	onSuccess (result) {
 		this.setState({
-			name: '',
 			email: '',
 			message: '',
 			loading: false,
@@ -49,20 +47,14 @@ export default React.createClass({
 
 	onSubmit (e) {
 		e.preventDefault();
-		const {name, email, message} = this.state;
+		const {email, message} = this.state;
 		const {course} = this.props;
 		this.setState({
 			loading: true
 		});
-		send(course, name, email, message)
+		send(course, email, message)
 			.then(this.onSuccess)
 			.catch(this.onError);
-	},
-
-	onNameChange (e) {
-		this.setState({
-			name: e.target.value
-		});
 	},
 
 	onEmailChange (e) {
@@ -89,10 +81,6 @@ export default React.createClass({
 
 		return (
 			<FormPanel title={heading} onSubmit={this.onSubmit}>
-				<input required
-					onChange={this.onNameChange}
-					value={this.state.name}
-					placeholder={t('sendNamePlaceholder')} />
 				<input className="required" required
 					type="email"
 					value={this.state.email}

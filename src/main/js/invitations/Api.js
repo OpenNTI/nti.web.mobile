@@ -20,13 +20,13 @@ export function accept (code) {
 	});
 }
 
-export function send (course, name, email, message) {
+export function send (course, email, message) {
 	const href = course.getLink(SEND_LINK);
 	if (!href) {
 		return Promise.reject('No link');
 	}
 	return getService()
-		.then(service => service.postParseResponse(href, { name, email, message }));
+		.then(service => service.postParseResponse(href, { email, message }));
 }
 
 export function canSend (course) {

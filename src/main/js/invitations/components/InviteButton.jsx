@@ -20,7 +20,7 @@ export default React.createClass({
 	href () {
 		const {course} = this.props;
 		const courseId = encodeForURI(course.getID());
-		return `${this.getBasePath()}invitations/send/${courseId}`;
+		return `${this.getBasePath()}course/${courseId}/invite/`;
 	},
 
 	render () {
