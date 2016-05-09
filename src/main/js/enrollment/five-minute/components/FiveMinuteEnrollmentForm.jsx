@@ -20,7 +20,6 @@ import {requestConcurrentEnrollment, preflightAndSubmit} from '../Actions';
 import Store from '../Store';
 
 import {
-	ADMISSION_SUCCESS,
 	IS_CONCURRENT_FORM
 } from '../Constants';
 
