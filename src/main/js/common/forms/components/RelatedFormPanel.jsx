@@ -10,6 +10,7 @@ import ToggleFieldset from './ToggleFieldset';
 import SocialSecurityNumberField from './SocialSecurityNumberField';
 import Select from 'common/forms/components/Select';
 import Checkbox from 'common/forms/components/Checkbox';
+import DateField from './DateField';
 
 import Notice from 'common/components/Notice';
 import LocalizedHTML from 'common/components/LocalizedHTML';
@@ -147,7 +148,7 @@ let RelatedFormPanel = React.createClass({
 		}
 
 		let props = {
-			ref: ref,
+			
 			name: ref,
 			onBlur: this.onBlur,
 			onChange: this.onBlur,
@@ -183,6 +184,9 @@ let RelatedFormPanel = React.createClass({
 			props.onChange = this.radioChanged;
 			break;
 
+		case 'date':
+			input = DateField;
+			break;
 
 		case 'ssn':
 			input = SocialSecurityNumberField;
