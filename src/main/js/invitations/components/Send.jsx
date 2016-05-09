@@ -1,7 +1,5 @@
 import React from 'react';
-import {decodeFromURI} from 'nti-lib-ntiids';
 
-import {load as getLibrary} from 'library/Actions';
 import CourseContentLink from 'library/mixins/CourseContentLink';
 import Banner from 'common/components/Banner';
 import Loading from 'common/components/Loading';
@@ -18,8 +16,7 @@ export default React.createClass({
 	mixins: [ContextSender, CourseContentLink],
 
 	propTypes: {
-		courseId: React.PropTypes.string,
-		course: React.PropTypes.object
+		course: React.PropTypes.object.isRequired
 	},
 
 	getInitialState () {
@@ -32,26 +29,18 @@ export default React.createClass({
 		this.setCourse();
 	},
 
-	setCourse ({courseId, course} = this.props) {
+	setCourse ({course} = this.props) {
 		if (course) {
 			this.setState({
 				course,
 				loading: false
 			});
 		}
-		else {
-			getLibrary()
-				.then(library => library.getCourse(decodeFromURI(courseId)))
-				.then(c => this.setState({
-					course: (c || {}).CourseInstance,
-					loading: false
-				}));
-		}
 	},
 
-
 	getContext () {
-		const path = this.courseHref(decodeFromURI(this.props.courseId), 'info');
+		const {course} = this.props;
+		const path = this.courseHref(course.getID(), 'info');
 		return Promise.resolve([
 			{
 				href: path, label: 'Course Info'
