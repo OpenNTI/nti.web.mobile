@@ -72,12 +72,6 @@ export default React.createClass({
 			// this.forceUpdate();
 			return;
 		}
-		switch(event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		case ADMISSION_SUCCESS:
-
-			break;
-		}
 
 		logger.debug('fiveminute store event: %o', event);
 	},
