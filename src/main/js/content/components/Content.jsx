@@ -93,7 +93,7 @@ export default React.createClass({
 						logger.error('A content widget blew up while rendering: %s', e.stack || e.message || e);
 					}
 				} else {
-					logger.warn('Skipping widget... because we did not have an element, or it had a mounted attribute: %o', el);
+					logger.debug('Skipping widget... because we did not have an element, or it had a mounted attribute: %o', el);
 				}
 			}
 		}
