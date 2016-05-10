@@ -1,7 +1,6 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 
-require('react-datepicker/dist/react-datepicker.css');
 
 export default React.createClass({
 
