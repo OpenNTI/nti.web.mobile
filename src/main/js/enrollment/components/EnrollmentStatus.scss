@@ -1,0 +1,52 @@
+@import "utils/variables";
+@import "utils/placeholders";
+
+.enrollment-status {
+	padding: 1rem;
+	font-size: .875rem;
+    line-height: 1.95;
+
+	& > div {
+		padding: 1rem;
+	    padding-bottom: 0;
+	    box-shadow: inset 0 1px 0 0 #f1f1f1;
+	}
+
+	.heading {
+		font-size: .7em;
+	    text-transform: uppercase;
+	    font-weight: 700;
+		color: $tertiary-grey;
+	}
+
+	.status {
+		position: relative;
+		box-shadow: inset 0 1px 0 0 #f1f1f1;
+		background: #fafafa;
+		line-height: 3.5em;
+		margin: .5rem -1rem;
+		padding: 0 1rem;
+
+		.edit {
+			float: right;
+		}
+
+	    .registered {
+			@extend %circle-green-check;
+			background-repeat: no-repeat;
+			padding-left: 1.8em;
+			color: $primary-green;
+		}
+	}
+
+	ul {
+		font-size: inherit;
+		font-weight: 600;
+		margin-top: .5em;
+	}
+
+}
+
+.enrollment-panels .enrollment-status {
+	padding: 0 1rem;
+}

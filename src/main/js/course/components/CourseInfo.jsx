@@ -1,8 +1,8 @@
 import React from 'react';
 import Detail from 'catalog/components/Detail';
-import EnrollButton from 'catalog/components/EnrollButton'; // drop course button
 import InviteButton from 'invitations/components/InviteButton';
-
+import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
+import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
 import ContextSender from 'common/mixins/ContextSender';
 
 export default React.createClass({
@@ -24,7 +24,8 @@ export default React.createClass({
 		return (
 			<div className="course-info">
 				<Detail {...this.props} entry={entry}/>
-				<EnrollButton catalogEntry={entry} dropOnly/>
+				<EnrollmentStatus catalogEntry={entry} />
+				<GiftOptions catalogEntry={entry} />
 				<InviteButton course={course} />
 			</div>
 		);

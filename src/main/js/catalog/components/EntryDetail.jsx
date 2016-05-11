@@ -12,7 +12,8 @@ import NavigationAware from 'common/mixins/NavigationAware';
 import Store from '../Store';
 
 import Detail from './Detail';
-import EnrollButton from './EnrollButton';
+import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
+import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
 
 const logger = Logger.get('catalog:EntryDetail');
 
@@ -114,7 +115,8 @@ export default React.createClass({
 		return (
 			<div>
 				<Detail {...this.props} entry={entry}/>
-				<EnrollButton catalogEntry={entry} />
+				<EnrollmentStatus catalogEntry={entry} />
+				<GiftOptions catalogEntry={entry} />
 			</div>
 		);
 	}

@@ -54,13 +54,6 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 });
 
 const handlers = {
-	[Constants.ENROLL_OPEN]: action => {
-		Api.enrollOpen(action.catalogId)
-			.then(result => {
-				Store.flushEnrollmentStatus();
-				Store.emitChange({ action, result });
-			});
-	},
 	[Constants.DROP_COURSE]: action => {
 		Api.dropCourse(action.courseId)
 			.catch(error => Object.assign(new Error(error.responseText), error))

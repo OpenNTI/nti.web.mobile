@@ -1,10 +1,9 @@
 import React from 'react';
 import Logger from 'nti-util-logger';
 
+import {rawContent} from 'common/utils/jsx';
 import Loading from 'common/components/LoadingInline';
-
 import {scoped} from 'common/locale';
-
 import BasePathAware from 'common/mixins/BasePath';
 
 const logger = Logger.get('enrollment:components:enrollment-option-widgets:FiveMinuteEnrollment');
@@ -59,7 +58,7 @@ export default React.createClass({
 			});
 		}
 		let {enrollmentOption} = props;
-		this.setState({loading: true});
+		this.setState({loading: true, enrolled: enrollmentOption.enrolled});
 
 		enrollmentOption.fetchLink(DETAILS)
 			.then(o=> {
@@ -70,9 +69,36 @@ export default React.createClass({
 	},
 
 
+	registered () {
+		return (
+			<div>
+				<div className="enrollment-status">
+					<div className="status">
+						<span className="registered">You are enrolled.</span>
+					</div>
+				</div>
+				{this.howToDrop()}
+			</div>
+		);
+	},
+
+	howToDrop () {
+		const dropHead = t('howToDropHead', {fallback: 'How do I drop?'});
+		const dropBody = t('howToDropBody', {fallback: ''});
+		if(dropBody.length > 0) {
+			return (
+				<div className="how-to-drop">
+					<div className="title">{dropHead}</div>
+					<div className="info" {...rawContent(dropBody)}/>
+				</div>
+			);
+		}
+		return null;
+	},
+
 	render () {
 		let {entryId} = this.props;
-		let {error, loading, archived, Course} = this.state;
+		let {error, loading, archived, Course, enrolled} = this.state;
 		let href = this.getBasePath() + 'catalog/enroll/apply/' + entryId + '/';
 		let count = Course && Course.SeatAvailable;
 
@@ -99,7 +125,7 @@ export default React.createClass({
 					) :
 						null
 					}
-					{actions}
+					{enrolled ? this.registered() : actions}
 				</div>
 			</div>
 		);

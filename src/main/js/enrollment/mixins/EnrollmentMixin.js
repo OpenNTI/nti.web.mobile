@@ -23,7 +23,6 @@ export default {
 	getInitialState () {
 		return {
 			enrollmentStatusLoaded: false,
-			loading: true,
 			entry: null
 		};
 	},
@@ -70,7 +69,8 @@ export default {
 				if(action.catalogId === entry.getID()) {
 					this.setState({
 						enrolled: event.result.success,
-						enrollmentStatusLoaded: true
+						enrollmentStatusLoaded: true,
+						loading: false
 					});
 				}
 			}
@@ -100,25 +100,28 @@ export default {
 		if (!this.state.enrollmentStatusLoaded) {
 			return 'Loading';
 		}
-		if (this.state.enrollmentStatusLoaded && !this.state.enrolled) {
 
-			let widgets = this.enrollmentOptions(catalogEntry).map((option, index) => {
-				let widget = getWidget(option);
-				return widget ? React.createElement(widget, {
-					catalogEntry: catalogEntry,
-					entryId: this.props.entryId,
-					enrollmentOption: option,
-					isGiftable: this.isGiftable(option),
-					className: 'enrollment-panel',
-					key: 'eno_' + index
-				}) : null;
-			});
-
-			widgets = widgets.filter(item => item !== null);
-			if (widgets.length > 0) {
-				return React.createElement('div', {className: 'enrollment-panels'}, widgets);
-			}
+		function showOption (option) {
+			return option && (option.enrolled || option.available);
 		}
+
+		let widgets = this.enrollmentOptions(catalogEntry, true).filter(showOption).map((option, index) => {
+			let widget = getWidget(option);
+			return widget ? React.createElement(widget, {
+				catalogEntry: catalogEntry,
+				entryId: this.props.entryId,
+				enrollmentOption: option,
+				isGiftable: this.isGiftable(option),
+				className: 'enrollment-panel',
+				key: 'eno_' + index
+			}) : null;
+		});
+
+		widgets = widgets.filter(item => item !== null);
+		if (widgets.length > 0) {
+			return React.createElement('div', {className: 'enrollment-panels'}, widgets);
+		}
+
 
 		return [React.createElement(NoOptions)];
 	},

@@ -24,7 +24,7 @@ export default React.createClass({
 		const basePath = this.getBasePath();
 		const giftHref = basePath + 'catalog/gift/purchase/' + encodeForURI(entryId) + '/';
 		let isGiftable = this.hasGiftableEnrollmentOption(catalogEntry);
-		let isRedeemable = isGiftable && !this.isEnrolled(catalogEntry.CourseNTIID);
+		let isRedeemable = isGiftable && !this.isEnrolled(catalogEntry);
 
 		if(!isGiftable && !isRedeemable) {
 			return null;

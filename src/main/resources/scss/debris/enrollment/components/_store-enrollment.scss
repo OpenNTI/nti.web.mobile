@@ -16,6 +16,7 @@
 
 .gift-options-wrapper {
 	margin-bottom: 2rem;
+	padding: 0 1rem;
 	.gift-options {
 		$border-color: rgba(0,0,0,.1);
 		list-style-type: none;
@@ -41,4 +42,8 @@
 			}
 		}
 	}
+}
+
+.enrollment-panels .gift-options-wrapper {
+	padding: 0;
 }

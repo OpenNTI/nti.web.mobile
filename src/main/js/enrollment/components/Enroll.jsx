@@ -1,12 +1,10 @@
 import React from 'react';
 
-import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';
 import ContextSender from 'common/mixins/ContextSender';
 import {scoped} from 'common/locale';
 
 import EnrollmentOptions from '../mixins/EnrollmentMixin';
-import EnrollmentSuccess from './EnrollmentSuccess';
 
 let t = scoped('ENROLLMENT');
 
@@ -33,14 +31,6 @@ export default React.createClass({
 
 		if (this.state.error) {
 			return <Err error={this.state.error} />;
-		}
-
-		if (!this.state.enrollmentStatusLoaded) {
-			return <Loading />;
-		}
-
-		if(this.state.enrolled) {
-			return <EnrollmentSuccess courseTitle={this.getCourseTitle()}/>;
 		}
 
 		const {icon} = this.getEntry() || {};
