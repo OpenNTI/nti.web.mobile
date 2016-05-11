@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import DatePicker from 'react-datepicker';
 
 
@@ -35,11 +36,24 @@ export default React.createClass({
 		}
 	},
 
+	/*
+	 * NTI-907 - Under iOS if the input remains focused after selecting a date then tapping the input again
+	 * doesn't bring the picker back. So we're forcing the input to blur.
+	 */
+	blurInput () {
+		if (this.datePicker) {
+			const node = ReactDOM.findDOMNode(this.datePicker);
+			const input = node.querySelector('input');
+			setTimeout(() => input.blur(), 10);
+		}
+	},
+
 	handleChange (date) {
 		const {onChange} = this.props;
 		this.setState({
 			startDate: date
 		});
+		this.blurInput();
 		if (onChange) {
 			onChange(this.fauxEvent(date));
 		}
@@ -52,6 +66,7 @@ export default React.createClass({
 		return (
 			<div className="datefield">
 				<DatePicker
+					ref={x => this.datePicker = x}
 					selected={startDate || defaultValue}
 					showYearDropdown
 					placeholderText="mm/dd/yyyy"
