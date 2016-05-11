@@ -1,5 +1,3 @@
-import EnrollmentStore from '../Store';
-
 export default {
 
 	isGiftable (option) {
@@ -10,8 +8,8 @@ export default {
 		return this.enrollmentOptions(catalogEntry, true).some(this.isGiftable);
 	},
 
-	isEnrolled (courseId) {
-		return EnrollmentStore.isEnrolled(courseId);
+	isEnrolled (catalogEntry) {
+		return this.enrollmentOptions(catalogEntry, true).some(entry => (entry || {}).enrolled);
 	},
 
 	enrollmentOptions (catalogEntry, includeUnavailable) {

@@ -215,6 +215,8 @@ export default {
 		other: '%(count)s Seats Available'
 	},
 	fiveMinuteEnrollmentDescription: 'Earn transcripted college credit from the University of Oklahoma.',
+	howToDropHead: 'How do I drop?',
+	howToDropBody: 'If you are currently enrolled as an OU student, visit <a href="https://ozone.ou.edu" target="_blank">oZone</a>. If not, please contact the <a href="http://www.ou.edu/admissions.html" target="_blank">admission office</a>.',
 	proceedToPayment: 'Proceed to payment',
 	concurrentThanksHead: 'Thank you for your interest in concurrent enrollment.',
 	concurrentThanksBody: 'We\'ve received your contact information and a Concurrent Enrollment Counselor will ' +
