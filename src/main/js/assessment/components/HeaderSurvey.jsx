@@ -3,7 +3,6 @@ import cx from 'classnames';
 
 import {REPORT_LINK} from 'nti-lib-interfaces/lib/models/assessment/survey/Constants';
 
-import If from 'common/components/Conditional';
 import StoreEvents from 'common/mixins/StoreEvents';
 
 import Store from '../Store';
@@ -49,23 +48,27 @@ export default React.createClass({
 			return null;
 		}
 
-		const classNames = cx('header assessment survey', {submitted});
+		const classNames = cx('header assessment common survey', {submitted});
 
 		const results = Store.aggregationViewState(survey) ? 'Hide Results' : 'Show Results';
 
 		return (
 			<div className={classNames}>
 				<div className="meta">
-					<If condition={!submitted} tag="h4">{survey.title}</If>
-					<If condition={submitted}>
-						<h4>Thank you!</h4>
-						{/*<h6>...some thankfull sounding words here...</h6>*/}
-					</If>
+					{!submitted && ( <h4>{survey.title}</h4> )}
+					{submitted && (
+						<div>
+							<h4>Thank you!</h4>
+							{/*<h6>...some thankfull sounding words here...</h6>*/}
+						</div>
+					)}
 				</div>
-				<If condition={!!report || survey.hasAggregationData} className="links">
-					<If condition={survey.hasAggregationData} tag="a" href="#" onClick={this.toggleAggregatedView}>{results}</If>
-					<If condition={!!report} tag="a" href={report} target="_blank"><span className="icon-report"/>View Report</If>
-				</If>
+				{(!!report || survey.hasAggregationData) && (
+					<div className="links">
+						{survey.hasAggregationData && ( <a href="#" onClick={this.toggleAggregatedView}>{results}</a> )}
+						{!!report && ( <a href={report} target="_blank"><span className="icon-report"/>View Report</a> )}
+					</div>
+				)}
 			</div>
 		);
 	}

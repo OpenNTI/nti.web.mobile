@@ -1,12 +1,7 @@
 import React from 'react';
 import Logger from 'nti-util-logger';
 
-import {
-	DROP_COURSE,
-	ENROLL_5M,
-	ENROLL_OPEN,
-	ENROLL_STORE
-} from 'enrollment/Constants';
+import AppDispatcher from 'dispatcher/AppDispatcher';
 
 import {
 	STRIPE_PAYMENT_SUCCESS
@@ -24,13 +19,12 @@ import {reload as reloadNotifications} from 'notifications/Actions';
 
 const logger = Logger.get('InvalidationListener');
 
+import {RELOAD} from '../Constants';
+
 const INVALIDATION_EVENTS = {
-	[DROP_COURSE]: true,
-	[ENROLL_5M]: true,
-	[ENROLL_OPEN]: true,
-	[ENROLL_STORE]: true,
 	[STRIPE_PAYMENT_SUCCESS]: true,
-	[GIFT_CODE_REDEEMED]: true
+	[GIFT_CODE_REDEEMED]: true,
+	[RELOAD]: true
 };
 
 function flush (event) {
@@ -48,18 +42,16 @@ function flush (event) {
 	}
 
 	logger.debug('reloading library and catalog in response to event: %s %o', type, event);
-	// [Data] go down the hoooOOolle...
-	// https://www.youtube.com/watch?v=pTsem5E6EeY#t=144
 	reloadLibrary();
 	reloadCatalog();
 	reloadNotifications();
 }
 
-
 export default React.createClass({
 	displayName: 'InvalidationListener',
 
 	componentDidMount () {
+		this.reloadToken = AppDispatcher.register(flush);
 		CatalogStore.addChangeListener(flush);
 		EnrollmentStore.addChangeListener(flush);
 		StoreEnrollmentStore.addChangeListener(flush);
@@ -67,6 +59,7 @@ export default React.createClass({
 
 
 	componentWillUnmount () {
+		AppDispatcher.unregister(this.reloadToken);
 		EnrollmentStore.removeChangeListener(flush);
 		StoreEnrollmentStore.removeChangeListener(flush);
 	},

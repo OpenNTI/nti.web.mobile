@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import LoadingMask from 'common/components/Loading';

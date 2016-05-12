@@ -12,6 +12,8 @@
 
 	& > * {
 		padding: 2rem 0;
+		position: relative;
+		min-height: 200px;
 
 		.panel-button {
 			padding: 1rem;

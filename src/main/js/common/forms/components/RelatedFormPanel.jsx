@@ -10,6 +10,7 @@ import ToggleFieldset from './ToggleFieldset';
 import SocialSecurityNumberField from './SocialSecurityNumberField';
 import Select from 'common/forms/components/Select';
 import Checkbox from 'common/forms/components/Checkbox';
+import DatePicker from './DatePicker';
 
 import Notice from 'common/components/Notice';
 import LocalizedHTML from 'common/components/LocalizedHTML';
@@ -43,6 +44,7 @@ const fieldValueChange = 'RelatedFormPanel:fieldValueChange';
 const renderFormConfig = 'RelatedFormPanel:renderFormConfig';
 const getVisibleFieldRefs = 'RelatedFormPanel:getVisibleFieldRefs';
 
+const hasRelatedFields = new Set();
 
 let RelatedFormPanel = React.createClass({
 
@@ -82,8 +84,8 @@ let RelatedFormPanel = React.createClass({
 		FieldValuesStore.removeChangeListener(this[fieldValueChange]);
 	},
 
-	[fieldValueChange] (event) {
-		if (event.target && event.target.type === 'radio') {
+	[fieldValueChange] (event = {}) {
+		if (hasRelatedFields.has(event.fieldName) || (event.target && event.target.type === 'checkbox')) {
 			this.forceUpdate();
 		}
 	},
@@ -146,7 +148,7 @@ let RelatedFormPanel = React.createClass({
 		}
 
 		let props = {
-			ref: ref,
+
 			name: ref,
 			onBlur: this.onBlur,
 			onChange: this.onBlur,
@@ -180,9 +182,11 @@ let RelatedFormPanel = React.createClass({
 		case 'radiogroup':
 			input = RadioGroup;
 			props.onChange = this.radioChanged;
-			RelatedConfigsStash.concat(this.getRelatedConfigs(field));
 			break;
 
+		case 'date':
+			input = DatePicker;
+			break;
 
 		case 'ssn':
 			input = SocialSecurityNumberField;
@@ -212,6 +216,8 @@ let RelatedFormPanel = React.createClass({
 		default:
 			input = 'input';
 		}
+
+		RelatedConfigsStash.concat(this.getRelatedConfigs(field));
 
 		if (typeof field.helptext === 'string' && field.helptext.trim().length > 0) {
 			help = React.createElement('div',
@@ -330,12 +336,27 @@ let RelatedFormPanel = React.createClass({
 		let currentValue = FieldValuesStore.getValue(fieldConfig.ref);
 		(fieldConfig.options || []).forEach(option => {
 			if(option.related) {
+				hasRelatedFields.add(fieldConfig.ref);
 				result.push({
 					isActive: currentValue && option.value === currentValue,
 					config: option.related
 				});
 			}
 		});
+		if(fieldConfig.predicateFunc) {
+			hasRelatedFields.add(fieldConfig.ref);
+			const predicate = fieldConfig.predicateFunc(currentValue);
+			Array.prototype.push.apply(result, [
+				{
+					isActive: predicate,
+					config: fieldConfig.ifTrue
+				},
+				{
+					isActive: !predicate,
+					config: fieldConfig.ifFalse
+				}
+			]);
+		}
 		return result;
 	},
 

@@ -8,7 +8,7 @@ import CSS from 'fbjs/lib/CSSCore';
 import isTouch from 'nti-util-detection-touch';
 import OrientationHandler from 'common/utils/orientation';
 import {ensureTopFrame} from 'common/utils/iframe-buster';
-import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'common/utils';
+import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'nti-web-client';
 
 import AppView from './AppView';
 //webpack magic

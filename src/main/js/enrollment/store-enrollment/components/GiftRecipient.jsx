@@ -153,7 +153,7 @@ export default React.createClass({
 								checked={enabled}
 								onChange={this.onCheckedChange}
 								/>
-							{t('enable')}
+							<span>{t('enable')}</span>
 						</label>
 						<div className="line">
 							<input name="toFirstName"

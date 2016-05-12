@@ -17,7 +17,7 @@
 		&:focus {
 			outline: 0;
 			&::before {
-				outline: 5px auto $primary-color;
+				outline: 5px auto $primary-blue;
 			}
 		}
 
@@ -71,7 +71,7 @@
 		background: $secondary-color;
 		border-radius: 100%;
 		&.active {
-			background: $primary-color;
+			background: $primary-blue;
 		}
 	}
 

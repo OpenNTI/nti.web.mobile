@@ -1,6 +1,6 @@
 import Logger from 'nti-util-logger';
-import {encode} from 'common/utils/user';
-import {getAppUsername} from 'common/utils';
+import {encode} from 'nti-web-client/lib/user';
+import {getAppUsername} from 'nti-web-client';
 
 import BasePathAware from 'common/mixins/BasePath';
 import Navigatable from 'common/mixins/NavigatableMixin';

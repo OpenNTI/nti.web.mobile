@@ -3,11 +3,11 @@ import ReactDOMServer from 'react-dom/server';
 
 import cx from 'classnames';
 
-import {resolve, getDebugUsernameString} from '../utils/user';
+import {resolve, getDebugUsernameString} from 'nti-web-client/lib/user';
 
 import t from 'common/locale';
 
-import {getAppUsername} from 'common/utils';
+import {getAppUsername} from 'nti-web-client';
 import ProfileLink from 'profile/mixins/ProfileLink';
 
 function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }

@@ -27,11 +27,15 @@ export default React.createClass({
 		return (
 			<form className="modeled content" onSubmit={stopEvent}>
 				{submitted && (<Panel body={value}/>)}
-				{!submitted && (<Editor ref={x => this.input = x} value={value}
-					onChange={this.handleInteraction}
-					onBlur={this.onBlur}
-					allowInsertImage={false}
-					/>)}
+				{!submitted && (
+					<Editor
+						ref={x => this.input = x}
+						initialValue={value}
+						onChange={this.handleInteraction}
+						onBlur={this.onBlur}
+						allowInsertImage={false}
+						/>
+				)}
 			</form>
 		);
 	},

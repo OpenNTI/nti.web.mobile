@@ -1,6 +1,6 @@
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
-import {getServer, getService} from 'common/utils';
+import {getServer, getService} from 'nti-web-client';
 
 import Store from './Store'; //ONLY READ from the store!!
 import {endSession as endAnalyticsSession} from 'analytics/Actions';

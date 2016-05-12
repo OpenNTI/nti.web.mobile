@@ -37,9 +37,21 @@ export function submit (assessment) {
 
 	return data.submit()
 		.then(response => {
+			const fallback = () =>
+					main.loadPreviousSubmission()
+						.catch(e=> e.statusCode === 404
+										? response
+										: Promise.reject(e));
+
 			if (isAssignment(assessment) && !isHistoryItem(response.Class)) {
-				return main.loadPreviousSubmission()
-					.catch(e=> e.statusCode === 404 ? response : Promise.reject(e));
+				const loadHistoryFromSubmission = response.getHistory
+						? response.getHistory()
+						: Promise.reject('No Link');
+
+				return loadHistoryFromSubmission
+					.catch(reason => reason === 'No Link'
+										? fallback()
+										: Promise.reject(reason));
 			}
 			return response;
 		})

@@ -37,6 +37,8 @@ export default React.createClass({
 
 	render () {
 
+		const {enrollmentOption: {enrolled}} = this.props;
+
 		let purchasable = this[getPurchasable](this.props.enrollmentOption);
 
 		if (!purchasable || !purchasable.currency || !purchasable.amount) {
@@ -55,9 +57,19 @@ export default React.createClass({
 					<p className="price">{formattedPrice}</p>
 					<p className="description">{t('storeEnrollmentGainAccess')}</p>
 					<small>{t('enrollmentNotRefundable')}</small>
-					<div className="actions">
-						<a href={href}>{t('enrollAsLifelongLearner')}</a>
-					</div>
+					{enrolled
+						?
+						(<div className="enrollment-status">
+							<div className="status">
+								<span className="registered">You are registered</span>
+							</div>
+						</div>)
+						:
+						(<div className="actions">
+							<a href={href}>{t('enrollAsLifelongLearner')}</a>
+						</div>)
+					}
+
 				</div>
 
 				{this.props.isGiftable &&

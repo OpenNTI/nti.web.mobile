@@ -1,7 +1,7 @@
 import React from 'react';
 import nullRender from 'fbjs/lib/emptyFunction';
 
-import {getHTMLSnippet, filterContent, processContent} from 'content/utils';
+import {getHTMLSnippet, filterContent, processContent} from 'nti-lib-content-processing';
 
 import uuid from 'node-uuid';
 import htmlToReactRenderer from 'html-reactifier';
@@ -78,7 +78,7 @@ export default React.createClass({
 
 
 	buildContent (props) {
-		const {body, strategies: propStrategies, previewLength, previewMode} = props;
+		const {body: input, strategies: propStrategies, previewLength, previewMode} = props;
 		const h = hash(props);
 		const widgets = {};
 
@@ -124,6 +124,7 @@ export default React.createClass({
 
 
 		new Promise((finish, error) => {
+			const body = input || [];
 			const {length} = body;
 			const processed = new Array(length);
 

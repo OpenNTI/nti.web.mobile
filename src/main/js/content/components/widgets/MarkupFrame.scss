@@ -76,7 +76,7 @@
 			line-height: 19px;
 			font-size: 12px;
 			font-weight: bold;
-			color: $tertiary-grey-alt;
+			color: $tertiary-grey;
 			padding-left: 24px;
 			display: block;
 			margin: 10px 0 -13px 0;
@@ -91,7 +91,7 @@
 			}
 
 			&:hover {
-				color: $secondary-grey-alt;
+				color: $secondary-grey;
 				&::after {
 					@include sprite($icons,'add-comment-19x17_hover',$dimensions:true);
 				}

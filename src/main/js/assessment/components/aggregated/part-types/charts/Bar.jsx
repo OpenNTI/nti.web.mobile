@@ -1,16 +1,11 @@
 import React from 'react';
-
-import If from 'common/components/Conditional';
-
 import Segment from './BarSegment';
 
 export default function Bar ({colors, label, labelPrefix, series}) {
 	return (
 		<div className="bar">
 			<div className="axis-label">
-				<If tag="strong" condition={!!labelPrefix}>
-					{labelPrefix}
-				</If>
+				{!!labelPrefix && ( <strong>{labelPrefix}</strong> )}
 				{label}
 			</div>
 			<div className="bar-series">

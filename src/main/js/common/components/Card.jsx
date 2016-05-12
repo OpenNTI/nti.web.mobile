@@ -352,7 +352,6 @@ export default React.createClass({
 				}
 
 				<h5 {...rawContent(label || title)}/>
-				<hr className="break hide-for-medium-up"/>
 				{by && by.trim().length > 0 && <div className="label" {...rawContent('By ' + by)/*TODO: localize*/}/>}
 				<div className="description" {...rawContent(description || desc)}/>
 				<div className="comment-count" href="/discussions/" onClick={this.onClickDiscussion}>

@@ -49,11 +49,13 @@ export default React.createClass({
 
 	componentWillMount () { this.setup(); },
 
+
 	componentWillReceiveProps (nextProps) {
 		if (this.props.item !== nextProps.item) {
 			this.setup(nextProps);
 		}
 	},
+
 
 	setup (props = this.props) {
 		let {item} = props;
@@ -75,11 +77,6 @@ export default React.createClass({
 		this.setState({[name]: value});
 	},
 
-
-	onEditorChange (_, value) {
-		let about = Editor.isEmpty(value) ? null : value;
-		this.setState({about});
-	},
 
 	validate () {
 		const {schema} = this.props;
@@ -107,8 +104,8 @@ export default React.createClass({
 						<Editor ref={c => this.about = c}
 							className={cx({required: isRequired(schema, 'about')})}
 							allowInsertImage={false}
-							value={state.about}
-							onChange={this.onEditorChange}/>
+							initialValue={state.about}
+							/>
 					)}
 				</div>
 

@@ -2,10 +2,13 @@ import React from 'react';
 
 import {scoped} from 'common/locale';
 
+import StoreEvents from 'common/mixins/StoreEvents';
 import Report from 'common/components/Report';
+
+import {COMMENT_FORM_ID, EDIT_STARTED, EDIT_ENDED} from '../Constants';
+import Store from '../Store';
 import ScrollLink from './ScrollLink';
 
-import {COMMENT_FORM_ID} from '../Constants';
 
 const t = scoped('FORUMS');
 
@@ -22,10 +25,37 @@ export default React.createClass({
 		onEdit: React.PropTypes.func
 	},
 
+	mixins: [StoreEvents],
+
+	backingStore: Store,
+	backingStoreEventHandlers: {
+		[EDIT_STARTED]: 'onEditStarted',
+		[EDIT_ENDED]: 'onEditEnded'
+	},
+
+	getInitialState () {
+		return {
+			editEnabled: true
+		};
+	},
+
+	onEditStarted () {
+		this.setState({
+			editEnabled: false
+		});
+	},
+
+	onEditEnded () {
+		this.setState({
+			editEnabled: true
+		});
+	},
+
 	render () {
 		const {props: {item, canReply, onEdit, onDelete}} = this;
+		const {editEnabled} = this.state;
 
-		const canEdit = item.hasLink('edit');
+		const canEdit = editEnabled && item.hasLink('edit');
 		const canDelete = item.hasLink('edit');
 		const canReport = item.hasLink('flag') || item.hasLink('flag.metoo');
 

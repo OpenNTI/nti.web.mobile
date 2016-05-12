@@ -43,6 +43,7 @@ export default React.createClass({
 		}
 	},
 
+
 	getInitialState () {
 		return {
 			busy: false,
@@ -70,6 +71,7 @@ export default React.createClass({
 		}
 	},
 
+
 	onAddComment () {
 		let val = this.getValue();
 		if (!val || val.length === 0) {
@@ -81,6 +83,7 @@ export default React.createClass({
 		Actions.addComment(this.props.topic, this.props.parent, val);
 	},
 
+
 	onSave (item) {
 		this.setState({
 			busy: true
@@ -90,9 +93,10 @@ export default React.createClass({
 		});
 	},
 
-	onBodyChange (oldValue, newValue) {
+
+	onBodyChange () {
 		this.setState({
-			canSubmit: (newValue && newValue.length > 0)
+			canSubmit: !Editor.isEmpty(this.editor.getValue())
 		});
 	},
 
@@ -116,7 +120,7 @@ export default React.createClass({
 				<div className="comment-form-heading">{t('addComment')}</div>
 				<Editor ref={x => this.editor = x}
 					onChange={this.onBodyChange}
-					value={value}
+					initialValue={value}
 					allowInsertVideo
 					>
 					<OkCancelButtons

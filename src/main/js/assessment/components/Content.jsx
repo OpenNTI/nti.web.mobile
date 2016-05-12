@@ -2,7 +2,7 @@ import React from 'react';
 import emptyFunction from 'fbjs/lib/emptyFunction';
 import cx from 'classnames';
 
-import {processContent} from 'content/utils';
+import {processContent} from 'nti-lib-content-processing';
 
 import isFunction from 'is-function';
 import htmlToReact from 'html-reactifier';

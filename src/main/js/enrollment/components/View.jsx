@@ -83,11 +83,6 @@ export default React.createClass({
 	},
 
 
-	// getContext () {
-	//
-	// 	return Promise.resolve([{ label: this.getCourseTitle(), href }]);
-	// },
-
 	render () {
 
 		let {enrollmentType} = this.props;

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Conditional from 'common/components/Conditional';
 import DisplayName from 'common/components/DisplayName';
 import DateTime from 'common/components/DateTime';
 import Loading from 'common/components/TinyLoader';
@@ -58,22 +57,28 @@ export default React.createClass({
 
 		return (
 			<div className="chat avatar-heading">
-				<Conditional condition={!loading && (!transcript || hideTranscript)} className="wrap" onClick={this.showTranscript}>
-					<h1><DisplayName entity={originator} usePronoun/> had a chat with {others.map(this.renderOthers)}</h1>
-					<ul className="meta">
-						<li><DateTime date={item.getCreatedTime()}/></li>
-						<li>Lasted <DateTime suffix={false} relativeTo={item.getLastModified()} date={item.getCreatedTime()} /></li>
-						<li>{ t('messages', {count: item.RoomInfo.messageCount}) }</li>
-					</ul>
-				</Conditional>
+				{(!loading && (!transcript || hideTranscript)) && (
+					<div className="wrap" onClick={this.showTranscript}>
+						<h1><DisplayName entity={originator} usePronoun/> had a chat with {others.map(this.renderOthers)}</h1>
+						<ul className="meta">
+							<li><DateTime date={item.getCreatedTime()}/></li>
+							<li>Lasted <DateTime suffix={false} relativeTo={item.getLastModified()} date={item.getCreatedTime()} /></li>
+							<li>{ t('messages', {count: item.RoomInfo.messageCount}) }</li>
+						</ul>
+					</div>
+				)}
 
-				<Conditional condition={loading} className="wrap">
-					<Loading />
-				</Conditional>
+				{loading && (
+					<div className="wrap">
+						<Loading />
+					</div>
+				)}
 
-				<Conditional condition={!loading && !!transcript && !hideTranscript} className="wrap" onClick={this.hideTranscript}>
-					<Transcript transcript={transcript} />
-				</Conditional>
+				{(!loading && !!transcript && !hideTranscript) && (
+					<div className="wrap" onClick={this.hideTranscript}>
+						<Transcript transcript={transcript} />
+					</div>
+				)}
 
 			</div>
 		);

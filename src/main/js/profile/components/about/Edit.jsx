@@ -2,7 +2,6 @@ import React from 'react';
 
 import {Link} from 'react-router-component';
 
-import Conditional from 'common/components/Conditional';
 import Loading from 'common/components/Loading';
 
 import NavigationGuard from 'navigation/components/NavigationGuard';
@@ -189,9 +188,12 @@ export default React.createClass({
 								</div>
 							</div>
 						</form>
-						<Conditional condition={busy} className="busy">
-							<Loading />
-						</Conditional>
+
+						{busy && (
+							<div className="busy">
+								<Loading />
+							</div>
+						)}
 					</div>
 				)}
 			</div>

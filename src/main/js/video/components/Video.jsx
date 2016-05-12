@@ -3,15 +3,16 @@ import React from 'react';
 import Video from 'nti-web-video';
 import Logger from 'nti-util-logger';
 
-import emptyFunction from 'fbjs/lib/emptyFunction';
 
-import {getModel} from 'nti-lib-interfaces';
+import {getModel} from 'nti-lib-interfaces'; //TODO: Once deprecations are taken care of, remove this.
 
-import {emitEventStarted, emitEventEnded} from 'analytics/Actions';
-import {toAnalyticsPath} from 'analytics/utils';
+import {emitEventStarted, emitEventEnded} from 'analytics/Actions'; //FIXME: Find a way to move analytics into its own package.
+import {toAnalyticsPath} from 'analytics/utils'; //TODO: Once deprecations are taken care of, remove this.
 
 const logger = Logger.get('video:component:VideoWrapper');
-const WatchVideoEvent = getModel('analytics.watchvideoevent');
+const WatchVideoEvent = getModel('analytics.watchvideoevent'); //TODO: Once deprecations are taken care of, remove this.
+
+const emptyFunction = () => {};
 
 function deprecated (o, k) { if (o[k]) { return new Error(`Deprecated prop: \`${k}\`, use \`newWatchEventFactory\` callback prop.`); } }
 
@@ -147,9 +148,6 @@ export default React.createClass({
 			logger.error('TODO: Move the rest of this method to be passed as an event factory');
 		}
 
-		//XXX: Do not fix this line of lint by adding these props to this elements PropTypes, nor making eslint ignore.
-		//To fix it, do the above mentioned "FIXME".
-		/*eslint "react/prop-types": 1*/ //Force this to be a warning for now.
 		let {context, courseId, transcript} = this.props;
 
 		let analyticsEvent = new WatchVideoEvent(

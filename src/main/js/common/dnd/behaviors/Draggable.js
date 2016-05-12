@@ -217,8 +217,7 @@ export default {
 		let {handle, cancel} = this.props;
 		let {scrollParent} = this;
 
-		if (!this.isMounted() ||
-			this.props.locked ||
+		if (this.props.locked ||
 			(handle && !matches(e.target, handle)) ||
 			(cancel && matches(e.target, cancel))) {
 			return;
@@ -259,37 +258,32 @@ export default {
 	handleDragEnd (e) {
 		let onDragEnd = this.context.onDragEnd || emptyFunction;
 
-		if (!this.state.dragging || !this.isMounted() || this.props.locked || e.type === 'mouseout') {
+		if (!this.state.dragging || this.props.locked || e.type === 'mouseout') {
 			return;
 		}
 
 		let dragStopResultedInDrop = !onDragEnd(this, e, this.getPosition());
 
-		// The drop handler may result in us no longer being mounted, so check
-		// that first (if we were unmounted, thats fine another instance of
-		// ourself is probably in our place)
-		if (this.isMounted()) {
-			this.setState(
-				Object.assign({
-					dragging: false,
-					startX: 0,
-					startY: 0
-				},
-				this.props.restoreOnStop ? {
-					restoring: dragStopResultedInDrop,
-					x: 0,
-					y: 0
-				} : {
-				}
-			));
-		}
+		this.setState(
+			Object.assign({
+				dragging: false,
+				startX: 0,
+				startY: 0
+			},
+			this.props.restoreOnStop ? {
+				restoring: dragStopResultedInDrop,
+				x: 0,
+				y: 0
+			} : {
+			}
+		));
 
 		this[removeListeners]();
 	},
 
 
 	handleDrag (e) {
-		if (!this.isMounted() || this.props.locked) { return; }
+		if (this.props.locked) { return; }
 
 		let s = this.state;
 		let onDrag = this.context.onDrag || emptyFunction;

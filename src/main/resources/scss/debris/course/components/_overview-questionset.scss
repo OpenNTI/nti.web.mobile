@@ -63,12 +63,11 @@
 	}
 
 	&.disabled .body {
-		@extend a.disabled;
 		@extend %not-available;
 	}
 
 	&.loading {
-		@extend a.disabled;
+		@extend .disabled;
 		.body {
 			@extend %not-available;
 			&:after {

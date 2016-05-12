@@ -37,6 +37,14 @@ export default {
 	},
 
 
+	componentWillUnmount () {
+		const assess = this.getAssessment();
+		if(assess) {
+			Store.teardownAssessment(assess);
+		}
+	},
+
+
 	setupAssessment (props = this.props, state = this.state) {
 		const assess = this.getAssessment(props, state);
 		const {contentPackage, assessmentHistory = true} = props;

@@ -27,7 +27,9 @@ export default React.createClass({
 	},
 
 	componentWillReceiveProps (nextProps) {
-		this.getData(nextProps);
+		if (this.props.course !== nextProps.course) {
+			this.getData(nextProps);
+		}
 	},
 
 	getContext () {

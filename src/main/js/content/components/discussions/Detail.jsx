@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Conditional from 'common/components/Conditional';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {Panel as Body} from 'modeled-content';
@@ -51,7 +50,7 @@ export default React.createClass({
 		return (
 			<div className={`discussion-${isReply ? 'reply' : 'detail'}`}>
 				<div className="root">
-					<Conditional condition={!item.placeholder} tag={AuthorInfo} item={item} lite={!isReply && lite} />
+					{!item.placeholder && ( <AuthorInfo item={item} lite={!isReply && lite} /> )}
 
 					{!lite && ( <Context item={item} contentPackage={contentPackage}/> )}
 

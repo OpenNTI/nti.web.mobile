@@ -6,6 +6,9 @@ import path from 'path';
 import PanelButton from 'common/components/PanelButton';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {scoped} from 'common/locale';
+
+const t = scoped('ENROLLMENT');
 
 import CourseContentLink from 'library/mixins/CourseContentLink';
 
@@ -46,7 +49,7 @@ export default React.createClass({
 
 		return Promise.resolve([
 			{ label: 'Enroll', href: enrollmentOptionsHref},
-			{ label: 'Enroll For Credit', href }
+			{ label: t('fiveMinuteEnrollmentTitle'), href }
 		]);
 	},
 

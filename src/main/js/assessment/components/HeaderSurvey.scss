@@ -1,8 +1,7 @@
 @import "utils/variables";
 @import "utils/placeholders";
 
-.header.assessment.survey {
-	@extend .header.assessment.assignment;
+.header.assessment.common.survey {
 	display: block;
 	padding-right: 0.625rem;
 

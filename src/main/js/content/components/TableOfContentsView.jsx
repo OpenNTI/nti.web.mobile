@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import ActiveState from 'common/components/ActiveState';
 import Banner from 'common/components/Banner';
-import E from 'common/components/Ellipsed';
+import Ellipsed from 'common/components/Ellipsed';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import Search from 'common/components/Search';
@@ -177,7 +177,7 @@ export default React.createClass({
 
 			return !prune && (
 				<li>
-					<ActiveState hasChildren href={href} tag={tag} className={cls}><E tag="a" {...props}/></ActiveState>
+					<ActiveState hasChildren href={href} tag={tag} className={cls}><Ellipsed tag="a" {...props}/></ActiveState>
 					{branch}
 				</li>
 			);

@@ -10,7 +10,7 @@ import Loading from 'common/components/Loading';
 import ContextContributor from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 import Discussions from 'content/components/discussions';
 import CourseLinker from 'library/mixins/CourseContentLink';

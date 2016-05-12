@@ -155,14 +155,12 @@ export default React.createClass({
 		let initial = this.props === props;
 
 		if (initial || newPage || newRoot) {
-			this.setState(
-				Object.assign(
-					{ currentPage: newPageId },
-					this.getResetState()
-				)
+			this.setState({
+				currentPage: newPageId,
+				...this.getResetState()
+			}, () =>
+				loadPage(newPageId)
 			);
-
-			loadPage(newPageId);
 		}
 	},
 

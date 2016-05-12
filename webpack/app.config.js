@@ -35,7 +35,8 @@ exports = module.exports = [
 		},
 
 		cache: true,
-		devtool: PROD ? 'hidden-source-map' : 'inline-source-map',
+		// devtool: PROD ? 'hidden-source-map' : 'source-map',
+		devtool: 'source-map',
 
 		entry: './src/main/js/index.js',
 
@@ -71,6 +72,7 @@ exports = module.exports = [
 				},
 				{
 					test: /\.js(x?)$/,
+					include: /node_modules.+nti\-/,
 					loader: 'source-map'
 				}
 			],
@@ -80,13 +82,13 @@ exports = module.exports = [
 				{ test: /\.js(x?)$/i, loader: 'babel', exclude: /node_modules/ },
 
 				{ test: /\.json$/, loader: 'json' },
-				{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url?limit=10000&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
+				{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url?limit=1&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
 
 				{ test: /\.(eot|ttf|woff)$/, loader: 'file?name=resources/fonts/[name].[ext]' },
 
 				{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
 					'style-loader',
-					'css?sourceMap&-minimize!postcss!resolve-url!sass?sourceMap'
+					'css?-minimize!postcss!resolve-url!sass'
 					)
 				}
 			]

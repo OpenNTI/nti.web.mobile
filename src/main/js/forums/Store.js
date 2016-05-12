@@ -91,6 +91,17 @@ class Store extends StorePrototype {
 		this.emitChange({ type: Constants.ITEM_CONTENTS_CHANGED, itemId });
 	}
 
+
+	// Allows the Actions component to enable/disable the edit link,
+	// preventing multiple editors from being opened simultaneously.
+	startEdit () {
+		this.emitChange({ type: Constants.EDIT_STARTED });
+	}
+
+	endEdit () {
+		this.emitChange({ type: Constants.EDIT_ENDED });
+	}
+
 	setPackageId (packageId) {
 		this.packageId = packageId;
 	}

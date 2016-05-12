@@ -19,7 +19,10 @@
 			padding: .9375rem;
 		}
 
-
+		#content {
+			width: 100%;
+			overflow: hidden;
+		}
 
 		div.loading {
 			overflow: visible;
@@ -90,7 +93,7 @@
 
 		//TODO: build this config and inject it at deployment time.
 		window.$AppConfig = {
-			basepath: location.pathname,
+			basepath: '/mobile/', //seems to only be needed for the ToS link in this widget.
 			server: location.protocol + '//' + location.host + '/dataserver2/',
 			siteName: 'platform.ou.edu',
 			"external-libraries": {

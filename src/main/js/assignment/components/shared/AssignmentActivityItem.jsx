@@ -5,7 +5,6 @@ import {encodeForURI} from 'nti-lib-ntiids';
 
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
-import If from 'common/components/Conditional';
 
 import {scoped} from 'common/locale';
 
@@ -42,9 +41,11 @@ export default function ActivityItem ({event}) {
 				<span className="type">{t(type)}</span>
 			)}
 			<a href={href}><span className="assignment-name">{title}</span></a>
-			<If condition={suffix}>
-				<span className="label suffix">{suffix}</span>
-			</If>
+			{suffix && (
+				<div>
+					<span className="label suffix">{suffix}</span>
+				</div>
+			)}
 		</div>
 	);
 }

@@ -1,4 +1,4 @@
-import {getAppUserCommunities} from '../utils';
+import {getAppUserCommunities} from 'nti-web-client';
 
 export default {
 

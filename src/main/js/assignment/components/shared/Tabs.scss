@@ -38,8 +38,8 @@
 			}
 
 			.active {
-				background: $primary-color;
-				box-shadow: inset 3px 0 0 0 darken($primary-color, 20%);
+				background: $primary-blue;
+				box-shadow: inset 3px 0 0 0 darken($primary-blue, 20%);
 				color: white;
 				font-weight: 700;
 				&::before {

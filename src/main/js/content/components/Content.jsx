@@ -78,13 +78,13 @@ export default React.createClass({
 		shouldUpdate = shouldUpdate || (widgetCount === 0 && !this.state.prestine);
 
 		if (widgets && this.content) {
-			// logger.debug('Content View: Did Update... %o', widgets);
+			logger.debug('mounting widgets: %o', widgets);
 
 			for(let id of Object.keys(widgets)) {
 				let el = document.getElementById(id);
 				let w = widgets[id];
 				if (el && !el.hasAttribute('mounted')) {
-					// logger.debug('Content View: Mounting Widget...');
+					logger.debug('Mounting Widget... %o', el);
 					try {
 						shouldUpdate = true;
 						w = ReactDOM.render(w, el);
@@ -92,6 +92,8 @@ export default React.createClass({
 					} catch (e) {
 						logger.error('A content widget blew up while rendering: %s', e.stack || e.message || e);
 					}
+				} else {
+					logger.debug('Skipping widget... because we did not have an element, or it had a mounted attribute: %o', el);
 				}
 			}
 		}
@@ -112,8 +114,11 @@ export default React.createClass({
 			if (el) {
 				if (!ReactDOM.unmountComponentAtNode(el)) {
 					logger.warn('Widget was not unmounted: %s', id);
+				} else {
+					logger.debug('Unmounted widget: %s', id);
 				}
 				el.removeAttribute('mounted');
+				delete widgets[id];
 			}
 			else {
 				logger.warn('Widget not found: %s', id);
@@ -139,11 +144,11 @@ export default React.createClass({
 		let {pageId} = this.props;
 
 		if (pageWidgets && !pageWidgets[pageId]) {
-			//logger.debug('Content View: Creating bin for PageWidgets for %s', pageId);
+			logger.debug('Creating bin for PageWidgets for %s', pageId);
 			pageWidgets[pageId] = {};
 		}
 
-		return pageWidgets && pageWidgets[pageId];
+		return pageWidgets[pageId];
 	},
 
 

@@ -3,6 +3,7 @@ import ACTIVITY from './assignments-activity';
 
 export default {
 	CONTACTINFO: {
+		label: 'Tech Support',
 		LINK0: {
 			label: 'Support',
 			link: 'mailto:support@nextthought.com'
@@ -31,7 +32,12 @@ export default {
 		DurationUnits: 'Weeks',
 		DaysAndTimes: 'Day & Time',
 		OnlyOnline: 'Fully Online',
-		Instructor: 'Course Instructor'
+		Instructor: 'Course Instructor',
+
+		CATALOG_ENTRY: {
+			ForCredit: 'For Credit',
+			Open: 'Not For Credit'
+		}
 	},
 
 	SECTIONS: {

@@ -2,7 +2,12 @@
 @import "utils/placeholders";
 
 @mixin choice-icon($type, $selector) {
-	input[type=#{$type}] + div::before { @extend #{$selector}; }
+	input[type=#{$type}] + div::before {
+		@extend #{$selector};
+		@if ($type== checkbox) {
+			background-size: 14px;
+		}
+	}
 	input[type=#{$type}]:checked + div::before { @extend #{$selector}-active; }
 
 	html:not(.touch) &:hover input[type=#{$type}],

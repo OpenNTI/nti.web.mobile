@@ -1,7 +1,7 @@
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 import {USERS, GROUPS, LISTS} from './Constants';
 import {decodeFromURI} from 'nti-lib-ntiids';
-import {getAppUser} from 'common/utils';
+import {getAppUser} from 'nti-web-client';
 
 const storeGetters = {
 	[USERS]: ()=> getService().then(service => service.getContacts()),

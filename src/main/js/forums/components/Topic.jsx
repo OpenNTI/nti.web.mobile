@@ -172,6 +172,7 @@ export default React.createClass({
 	},
 
 	editTopic () {
+		Store.startEdit();
 		this.setState({
 			editing: true
 		});
@@ -195,9 +196,11 @@ export default React.createClass({
 	saveEdit () {
 		let val = this.headline.getValue();
 		Actions.saveComment(this.getTopic().headline, val);
+		Store.endEdit();
 	},
 
 	hideEditForm () {
+		Store.endEdit();
 		this.setState({
 			editing: false
 		});

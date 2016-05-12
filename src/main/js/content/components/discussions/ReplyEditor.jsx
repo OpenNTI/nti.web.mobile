@@ -35,30 +35,36 @@ export default React.createClass({
 
 
 	componentWillMount () {
-		const {value} = this.props;
-		this.resolveContext().then(context => this.setState({context}));
-		this.setState({ value });
+		this.setState({disabled: true});
+		this.resolveContext()
+			.then(context => {
+				const {value} = this.props;
+				this.setState({context, disabled: !context || Editor.isEmpty(value) });
+			});
 	},
 
 
 	componentWillReceiveProps (nextProps) {
 		const {value} = nextProps;
 		if (this.props.value !== value) {
-			this.setState({ value });
+			this.setState({ disabled: !this.state.context || Editor.isEmpty(value) });
 		}
 	},
 
 
 	onChange () {
 		let value = this.editor.getValue();
-		this.setState({value});
+		let disabled = !this.state.context || Editor.isEmpty(value);
+		this.setState({disabled});
 	},
+
 
 	onCancel (e) {
 		e.preventDefault();
 		e.stopPropagation();
 		this.props.onCancel();
 	},
+
 
 	onSubmit (e) {
 		e.preventDefault();
@@ -93,13 +99,11 @@ export default React.createClass({
 
 
 	render () {
-		let {busy, context, value} = this.state;
-
-		let disabled = !context || Editor.isEmpty(value);
+		let {busy, disabled} = this.state;
 
 		return (
 			<div className={cx('discussion-reply-editor editor', {busy})}>
-				<Editor ref={x => this.editor = x} value={value} onChange={this.onChange} onBlur={this.onChange}>
+				<Editor ref={x => this.editor = x} initialValue={this.props.value} onChange={this.onChange}>
 					<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
 					<button onClick={this.onSubmit} className={cx('save', {disabled})}>{t('BUTTONS.save')}</button>
 				</Editor>

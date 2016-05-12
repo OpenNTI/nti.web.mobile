@@ -2,7 +2,7 @@ import React from 'react';
 
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
-import {getAppUsername} from 'common/utils';
+import {getAppUsername} from 'nti-web-client';
 
 import Avatar from 'common/components/Avatar';
 

@@ -96,12 +96,10 @@
 		}
 
 		.city {
-			span {
-				margin-right: 0.3em;
+			padding-right: 0.3em;
 
-				&:empty {
-					display: none;
-				}
+			&:empty {
+				display: none;
 			}
 		}
 	}

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {getAppUsername} from 'nti-web-client';
+import {encode} from 'nti-web-client/lib/user';
 
 import Avatar from './Avatar';
 import DisplayName from './DisplayName';
@@ -7,8 +9,6 @@ import Impersonate from './Impersonate';
 
 import BasePathAware from '../mixins/BasePath';
 
-import {getAppUsername} from '../utils';
-import {encode} from '../utils/user';
 import {logout} from 'login/Actions';
 import {join} from 'path';
 

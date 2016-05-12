@@ -60,7 +60,7 @@ var mailingAddressFieldset = {
 	]
 };
 
-module.exports = Object.freeze([
+const admissionForm = [
 	{
 		fields: [
 			{
@@ -81,13 +81,6 @@ module.exports = Object.freeze([
 				ref: 'former_name',
 				label: t('former_name'),
 				// placeholder: t('former_name')
-			},
-			{
-				ref: 'date_of_birth',
-				label: t('date_of_birth'),
-				required: true,
-				type: 'date',
-				// placeholder: t('date_of_birth')
 			},
 			{
 				ref: 'gender',
@@ -283,45 +276,6 @@ module.exports = Object.freeze([
 						value: 'N'
 					}
 				]
-			},
-			{
-				ref: 'attended_other_institution',
-				label: t('attendedAnotherUniversity'),
-				type: 'radiogroup',
-				required: true,
-				options: [
-					{
-						label: 'Yes',
-						value: 'Y',
-						related: [{
-							type: Constants.SUBFIELDS,
-							content: [
-								{
-									ref: 'still_attending',
-									label: t('stillAttending'),
-									type: 'checkbox',
-									value: 'Y'
-								},
-								{
-									ref: 'bachelors_or_higher',
-									label: t('obtainedDegree'),
-									type: 'checkbox',
-									value: 'Y'
-								},
-								{
-									ref: 'good_academic_standing',
-									type: 'radiogroup',
-									label: t('goodAcademicStanding'),
-									options: yesNoOptions
-								}
-							]
-						}]
-					},
-					{
-						label: 'No',
-						value: 'N'
-					}
-				]
 			}
 		]
 	},
@@ -337,4 +291,6 @@ module.exports = Object.freeze([
 			}
 		]
 	}
-]);
+];
+
+module.exports = admissionForm;

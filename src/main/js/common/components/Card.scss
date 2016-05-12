@@ -18,6 +18,7 @@
 	$yellow: #ffaf44;
 	$red: #da251c;
 	$gap: 0.625rem;
+	$icon-width: 80px;
 	position: relative;
 	overflow: hidden;
 	display: block;
@@ -25,15 +26,18 @@
 	border: 1px solid #e3f2fc;
 	margin: $gap 0;
 	padding: $gap;
+	padding-left: $icon-width + 10px;
 	line-height: 1.5;
+	min-height: $icon-width * 1.25;
 
 	.icon {
 		color: $grey;
-		position: relative;
-		width: 100px;
-		height: 125px;
-		margin: -$gap $gap 0 (-$gap);
-		float: left;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: $icon-width;
+		height: $icon-width * 1.25;
+		margin: 0;
 		background-size: cover;
 		background-position: center center;
 
@@ -92,8 +96,11 @@
 	}
 
 	h5 {
-		font-size: 1.6rem;
+		font-family: $body-font-family;
+		font-size: .9375rem;
+		font-weight: 600;
 		margin: 0;
+		margin-top: -.25rem;
 	}
 
 	hr {
@@ -108,12 +115,15 @@
 		text-transform: uppercase;
 		white-space: normal;
 		text-align: left;
-		color: $primary-color;
+		color: $primary-blue;
+		display: block;
+		line-height: 1.4;
+		margin-bottom: .25em;
 	}
 
 	.comment-count {
 		&:empty {display: none;}
-		font: normal 600 .625rem/1.6 "Open Sans", sans-serif;
+		font: normal 600 .6875rem/1.6 "Open Sans", sans-serif;
 		color: $tertiary-grey;
 		margin: $gap 0 0 0;
 

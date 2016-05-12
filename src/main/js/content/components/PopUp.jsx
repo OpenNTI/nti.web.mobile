@@ -1,12 +1,12 @@
 import React from 'react';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 import {rawContent} from 'common/utils/jsx';
 
 import Loading from 'common/components/Loading';
 import Error from 'common/components/Error';
 
-import {parseHTML} from '../utils';
+import {parseHTML} from 'nti-lib-content-processing';
 
 export default React.createClass({
 	displayName: 'PopUp',

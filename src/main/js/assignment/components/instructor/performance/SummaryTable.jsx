@@ -42,11 +42,17 @@ export default React.createClass({
 
 	render () {
 		const {summary} = this.props;
-		const columns = [ColumnStudentActionItems, ColumnGrade];
+		const columns = [ColumnStudentActionItems];
 		const {sortOn, sortOrder} = summary.getSort();
+
 		if (summary.loading) {
 			return <Loading />;
 		}
+
+		if (summary.hasFinalGrade) {
+			columns.push(ColumnGrade);
+		}
+
 		return (
 			<Table id="summary-table"
 				columns={columns}

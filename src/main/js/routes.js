@@ -22,16 +22,16 @@
  *
  */
 export default [
-	{handler: 'Welcome',	path: '/onboarding(/*)'},
-	{handler: 'Object',		path: '/object/:objectId(/*)'},
-	{handler: 'Login',		path: '/login/*'},
-	{handler: 'Catalog',	path: '/catalog/*'},
-	{handler: 'Contacts',	path: '/contacts/*'},
-	{handler: 'Content',	path: '/content/:contentId/*'},
-	{handler: 'Course',		path: '/course/:course/*'},
-	{handler: 'Enrollment',	path: '/enroll/:course/*'},
+	{handler: 'Welcome',		path: '/onboarding(/*)'},
+	{handler: 'Object',			path: '/object/:objectId(/*)'},
+	{handler: 'Login',			path: '/login/*'},
+	{handler: 'Catalog',		path: '/catalog/*'},
+	{handler: 'Contacts',		path: '/contacts/*'},
+	{handler: 'Content',		path: '/content/:contentId/*'},
+	{handler: 'Course',			path: '/course/:course/*'},
+	{handler: 'Enrollment',		path: '/enroll/:course/*'},
 	// {handler: 'Forums',		path: '/forums/*'},
-	{handler: 'Library',	path: '/library(/*)'},
-	{handler: 'Profile',	path: '/profile/:entityId(/*)'},
-	{handler: 'Home',		path: '/'}
+	{handler: 'Library',		path: '/library(/*)'},
+	{handler: 'Profile',		path: '/profile/:entityId(/*)'},
+	{handler: 'Home',			path: '/'}
 ];

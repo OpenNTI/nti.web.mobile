@@ -7,7 +7,7 @@
 	padding-top: .3125rem;
 	border: {
 		style: solid;
-		color: $border-grey-light;
+		color: $border-grey-alt;
 		width: 0 0 1px 0;
 	}
 
@@ -65,7 +65,7 @@
 			max-width: 200px;
 			margin: 0.1875rem;
 			margin-bottom: 0.5rem;
-			border: 1px solid $tertiary-grey-alt;
+			border: 1px solid $border-grey-alt;
 			box-shadow: 0.125rem 0.1875rem 0.0625rem 0 rgba(0,0,0,0.13);
 			border-radius: 1px;//iOS fix for box-shadow
 		}

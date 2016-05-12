@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Conditional from 'common/components/Conditional';
-
 import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
 import {scoped} from 'common/locale';
@@ -30,20 +28,22 @@ export default React.createClass({
 
 
 	render () {
-		return (
-			<Conditional condition={this.shouldRender()} className="course-detail-view">
+		return this.shouldRender() && (
+			<div className="course-detail-view">
 
 				<div className="row support">
 					<div className="small-12 columns">
 						<img src={BLANK_IMAGE} alt="Support"/>
 						<div className="meta">
-							<div className="label">Tech Support</div>
+							<div className="label">{t('label')}</div>
 							{[0,1,2].map(x => this.renderLink(x))}
 						</div>
 					</div>
 				</div>
+
 				<div className="footer"/>
-			</Conditional>
+
+			</div>
 		);
 	},
 

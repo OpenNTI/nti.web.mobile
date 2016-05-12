@@ -5,7 +5,7 @@ import * as Constants from './Constants';
 import * as Api from './Api';
 import {CHANGE_EVENT} from 'common/constants/Events';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 let enrollmentStatus = {};
 
@@ -53,34 +53,21 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 
 });
 
-
-
-AppDispatcher.register(function (payload) {
-	let action = payload.action;
-	switch(action.type) {
-	//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-	case Constants.ENROLL_OPEN:
-		Api.enrollOpen(action.catalogId)
-			.then(result => {
-				Store.flushEnrollmentStatus();
-				Store.emitChange({
-					action: action,
-					result: result
-				});
-			});
-		break;
-	case Constants.DROP_COURSE:
+const handlers = {
+	[Constants.DROP_COURSE]: action => {
 		Api.dropCourse(action.courseId)
-			.catch(error=>Object.assign(new Error(error.responseText), error))
+			.catch(error => Object.assign(new Error(error.responseText), error))
 			.then(result => {
 				Store.flushEnrollmentStatus();
 				Store.emitChange({ action, result });
 			});
-		break;
-
-	default:
-		return true;
 	}
+};
+
+AppDispatcher.register(function (payload) {
+	let action = payload.action;
+	const handler = handlers[action.type];
+	handler && handler(action);
 	return true;
 });
 

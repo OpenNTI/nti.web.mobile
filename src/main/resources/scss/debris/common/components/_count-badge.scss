@@ -6,11 +6,11 @@
 
 
 @mixin count-badge() {
-	@include metadata();		
+	@include metadata();
 	padding:.2em .5em;
 	margin-left:.25em;
 	display: inline-block;
-	font-family: $count-badge-font-family;
+	font-family: $body-font-family;
 	font-weight: bold;
 	margin-right:-.25em;
 }

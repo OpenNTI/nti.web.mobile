@@ -1,6 +1,6 @@
 import React from 'react';
 
-import E from 'common/components/Ellipsed';
+import Ellipsed from 'common/components/Ellipsed';
 
 import * as COURSE_SECTIONS from 'course/Sections';
 
@@ -148,8 +148,8 @@ export default React.createClass({
 					<Badge item={item}/>
 					<label>
 						<h5>{label}</h5>
-						<E tag="h3">{title}</E>
-						{author && ( <E tag="address" className="author" measureOverflow="parent">{`By ${author}`}</E> )}
+						<Ellipsed tag="h3">{title}</Ellipsed>
+						{author && ( <Ellipsed tag="address" className="author" measureOverflow="parent">{`By ${author}`}</Ellipsed> )}
 					</label>
 				</CourseContentLink>
 

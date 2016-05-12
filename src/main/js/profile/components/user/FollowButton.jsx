@@ -1,12 +1,11 @@
 import React from 'react';
-
 import cx from 'classnames';
 
-import PromiseButton from 'common/components/PromiseButton';
+import {resolve} from 'nti-web-client/lib/user';
 
+import PromiseButton from 'common/components/PromiseButton';
 import ItemChanges from 'common/mixins/ItemChanges';
 
-import {resolve} from 'common/utils/user';
 
 export default React.createClass({
 	displayName: 'FollowButton',

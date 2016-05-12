@@ -1,6 +1,6 @@
 import React from 'react';
 
-import path from 'path';
+import {join} from 'path';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
@@ -15,7 +15,7 @@ import BasePathAware from 'common/mixins/BasePath';
 
 import Redirect from 'navigation/components/Redirect';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 import {resolve} from '../resolvers';
 
@@ -57,13 +57,11 @@ export default React.createClass({
 		logger.debug('Looking up object: %s', id);
 
 		getService()
-			.then(s=> s.getParsedObject(id))
-			.then(o=> {
-				this.setState({object: filter(o)});
-				return o;
-			})
+			.then(service => service.getParsedObject(id))
+			.then(filter)
+			.then(object => (this.setState({object}), object))
 			.then(resolve)
-			.then(p=> path.join(this.getBasePath(), p))
+			.then(path => join(this.getBasePath(), path))
 			.then(location => this.setState({location}))
 			.catch(error => {
 

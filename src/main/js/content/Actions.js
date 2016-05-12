@@ -1,7 +1,7 @@
 import Logger from 'nti-util-logger';
 import {parseNTIID} from 'nti-lib-ntiids';
 
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 import AppDispatcher from 'dispatcher/AppDispatcher';
 
@@ -10,7 +10,7 @@ import PageDescriptor from './PageDescriptor';
 import {getPageInfo} from './Api';
 import {PAGE_LOADED, PAGE_FAILED, PACKAGE_NOT_FOUND} from './Constants';
 
-import {processContent} from './utils';
+import {processContent} from 'nti-lib-content-processing';
 
 import {load as getLibrary} from 'library/Actions';
 

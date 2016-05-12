@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ItemChanges from 'common/mixins/ItemChanges';
-import {getService} from 'common/utils';
+import {getService} from 'nti-web-client';
 
 import cx from 'classnames';
 

@@ -24,14 +24,16 @@ export default React.createClass({
 
 	render () {
 		//"Final_Grade" only
-		const {props: {item: {grade, user}}} = this;
+		const {props: {item: {grade, user, hasFinalGrade}}} = this;
 
 		const userId = user && user.getID();
 		const finalGradeId = this.getAssignments().getFinalGradeAssignmentId();
 
 		return (
 			<div className="grade">
-				{finalGradeId && ( <GradeBox assignmentId={finalGradeId} grade={grade} userId={userId}/> )}
+				{hasFinalGrade && finalGradeId && (
+					<GradeBox assignmentId={finalGradeId} grade={grade} userId={userId}/>
+				)}
 			</div>
 		);
 	}

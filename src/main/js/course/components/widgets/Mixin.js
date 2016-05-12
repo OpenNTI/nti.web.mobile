@@ -42,19 +42,12 @@ export default {
 		let assignments = this.context.assignments || s.assignments;
 
 		let node = s.node || p.node || (props && props.node);
-		let status = node && node.parent('isEnrollment').getStatus();
 
 		let toReturn = items && items.map((item, i, list) => {
 			let use = !!item;
 			let itemProps = Object.assign({}, props, p, {node: node});
 
-			if (use && node && !node.hasVisibility(item, status)) {
-				use = null;
-			}
-
-			use = use && select.call(this, item, i, list, itemProps, node, assignments);
-
-			return use;
+			return use && select.call(this, item, i, list, itemProps, node, assignments);
 
 		}).filter(x=>x);
 

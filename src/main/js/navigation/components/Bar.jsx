@@ -7,7 +7,6 @@ import cx from 'classnames';
 import Logger from 'nti-util-logger';
 import buffer from 'nti-lib-interfaces/lib/utils/function-buffer';
 
-import C from 'common/components/Conditional';
 import Pager from 'common/components/Pager';
 
 import BasePathAware from 'common/mixins/BasePath';
@@ -246,9 +245,11 @@ export default React.createClass({
 		return (
 			<nav className="nav-bar">
 				{this.getLeft()}
-				<C condition={!resolving} tag="section" className={cx('middle', {'has-pager': pageSource})}>
-					{this.getCenter()}
-				</C>
+				{!resolving && (
+					<section className={cx('middle', {'has-pager': pageSource})}>
+						{this.getCenter()}
+					</section>
+				)}
 				<section>
 					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}/>}
 					{this.getRight()}

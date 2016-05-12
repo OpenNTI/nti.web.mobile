@@ -53,7 +53,7 @@ export default React.createClass({
 							onChange={this.detectContent} />
 					</div>
 
-					<Editor ref={x => this.body = x} onChange={this.detectContent} onBlur={this.detectContent} value={body || []}>
+					<Editor ref={x => this.body = x} onChange={this.detectContent} initialValue={body || []}>
 						<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
 						<button onClick={this.onSubmit} className={cx('save', {disabled})}><i className="icon-discuss"/>{t('BUTTONS.post')}</button>
 					</Editor>
