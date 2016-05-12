@@ -111,7 +111,7 @@ exports = module.exports = [
 		},
 
 		plugins: [
-			new StatsPlugin('../server/stats.json'),
+			new StatsPlugin('../server/compile-data.json'),
 			new AppCachePlugin({
 				cache: [
 					'page.html',
@@ -155,14 +155,14 @@ exports = module.exports = [
 	{
 		// The configuration for the server-side rendering
 		name: 'server-side rendering',
-		entry: './src/server/lib/page.js',
+		entry: './src/main/js/AppView',
 		target: 'node',
 		output: {
-			path: outPath + 'server/node_modules/page.generated/',
+			path: outPath + 'server/node_modules/app-renderer/',
 			filename: 'index.js',
 			chunkFilename: 'chunk-[id].js',
 			publicPath: publicPath,
-			library: 'page.generated',
+			library: 'app-renderer',
 			libraryTarget: 'commonjs2'
 		},
 		resolve: {

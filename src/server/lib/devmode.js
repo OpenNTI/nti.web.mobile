@@ -1,12 +1,15 @@
-import webpack from 'webpack';
-import webpackConfigFile from '../../../webpack/app.config';
+/*eslint strict:0*/
+'use strict';
 
-import logger from './logger';
+const logger = require('./logger');
 
-export function setupDeveloperMode (config) {
+exports.setupDeveloperMode = function setupDeveloperMode (config) {
+	const webpack = require('webpack');
+	const webpackConfigFile = require('../../../webpack/app.config');
+
 	const WebpackServer = require('webpack-dev-server');
 
-	const {port} = config;
+	const port = config.port;
 	let devPort = config['webpack-dev-server'] || (port + 1);
 
 	const webpackConfig = Object.assign({}, webpackConfigFile[0]);
@@ -66,4 +69,4 @@ export function setupDeveloperMode (config) {
 			});
 		}
 	};
-}
+};

@@ -19,6 +19,7 @@ IMAGES=resources/images/
 CC=webpack --progress --cache --bail --config
 
 
+# all: clean build-app
 all: build-all
 
 

@@ -1,26 +1,18 @@
-/*globals BUILD_SOURCE*/
-import logger from './logger';
+/*eslint strict: 0*/
+'use strict';
+const logger = require('./logger');
 
-import url from 'url';
-import Path from 'path';
-import fs from 'fs';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
+const url = require('url');
+const Path = require('path');
+const fs = require('fs');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
 
 const isRootPath = /^\/(?!\/).*/;
 const basepathreplace = /(manifest|src|href)="(.*?)"/igm;
 const configValues = /<\[cfg\:([^\]]*)\]>/igm;
 
-export const revision = typeof BUILD_SOURCE === 'undefined' ? 'nah' : BUILD_SOURCE;
-
 function injectConfig (cfg, orginal, prop) {
-	try {
-		if (prop === 'revision') {
-			return BUILD_SOURCE;
-		}
-	} catch (e) {
-		//empty
-	}
 	return cfg[prop] || 'MissingConfigValue';
 }
 
@@ -32,35 +24,36 @@ function isFile (file) {
 	}
 }
 
-export default function getPage (render) {
+exports.getPage = function getPage () {
 	let Application;
 	let template;
+	let scriptFilename = 'js/main.js';
+	let revision = require('./git-revision');
 
-	if (render) {
-		try {
-			Application = require('../../main/js/AppView').default;
-		} catch (e) {
-			logger.error('No Server-side Rendering (Because: %s)',
-				/Cannot find module '\.\.\/main\/js\/AppView'/.test(e.message || e) ?
-					e.message : e.stack || e.message || e);
+	try {
+		let app = require('app-renderer');
+		scriptFilename = require('../compile-data.json').assetsByChunkName.main;
+		if (Array.isArray(scriptFilename)) {
+			scriptFilename = scriptFilename[0];
 		}
+
+		Application = app.default;
+		revision = app.revision;
+
+	} catch (e) {
+		Application = null;
+		logger.error('No Server-side Rendering (Because: %s)',
+			/Cannot find module \'app-renderer\'/.test(e.message || e) ?
+				e.message : e.stack || e.message || e);
 	}
 
 
 
-	//For Node... (dev)
 	try {
-		let cwd = process.argv[1];
-		if (isFile(cwd)) {
-			cwd = Path.dirname(cwd);
-		}
 
-		let file = Path.resolve(cwd, '../client/page.html'); //production
+		let file = Path.resolve(__dirname, '../../client/page.html'); //production
 		if (!isFile(file)) {
-			file = Path.resolve(cwd, '../main/page.html'); //dev
-			if (!isFile(file)) {
-				file = Path.resolve(cwd, 'src/main/page.html'); //dev (node .)
-			}
+			file = Path.resolve(__dirname, '../../main/page.html'); //dev
 		}
 
 		template = fs.readFileSync(file, 'utf8');
@@ -70,11 +63,11 @@ export default function getPage (render) {
 	}
 
 
-	return function (basePath, req, scriptFilename, clientConfig) {
+	return (basePath, req, clientConfig) => {
 		let u = url.parse(req.url);
 		let manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache"' : '<html';
 		let path = u.pathname;
-		let cfg = clientConfig.config || {};
+		let cfg = Object.assign({revision}, clientConfig.config || {});
 		let html = '';
 
 		let basePathFix = (original, attr, val) => attr + '="' +
@@ -108,4 +101,4 @@ export default function getPage (render) {
 
 		return out;
 	};
-}
+};
