@@ -10,7 +10,7 @@ import ToggleFieldset from './ToggleFieldset';
 import SocialSecurityNumberField from './SocialSecurityNumberField';
 import Select from 'common/forms/components/Select';
 import Checkbox from 'common/forms/components/Checkbox';
-import DatePicker from './DatePicker';
+import DateField from './DateField';
 
 import Notice from 'common/components/Notice';
 import LocalizedHTML from 'common/components/LocalizedHTML';
@@ -22,7 +22,7 @@ let labelIsRenderedByComponent = new Set();
 
 // safari doesn't support construction of a set from an array (!?)
 // so we'll create the Set empty and add each item.
-['radiogroup', 'select', 'checkbox', 'toggleFieldset'].forEach(comp => labelIsRenderedByComponent.add(comp));
+['radiogroup', 'select', 'checkbox', 'toggleFieldset', 'date'].forEach(comp => labelIsRenderedByComponent.add(comp));
 
 // just a dumb wrapper around an array to isolate the
 // accumulation of related configs during render.
@@ -185,7 +185,7 @@ let RelatedFormPanel = React.createClass({
 			break;
 
 		case 'date':
-			input = DatePicker;
+			input = DateField;
 			break;
 
 		case 'ssn':
