@@ -10,7 +10,7 @@ import ToggleFieldset from './ToggleFieldset';
 import SocialSecurityNumberField from './SocialSecurityNumberField';
 import Select from 'common/forms/components/Select';
 import Checkbox from 'common/forms/components/Checkbox';
-import DateField from './DateField';
+import DatePicker from './DatePicker';
 
 import Notice from 'common/components/Notice';
 import LocalizedHTML from 'common/components/LocalizedHTML';
@@ -148,7 +148,7 @@ let RelatedFormPanel = React.createClass({
 		}
 
 		let props = {
-			
+
 			name: ref,
 			onBlur: this.onBlur,
 			onChange: this.onBlur,
@@ -185,7 +185,7 @@ let RelatedFormPanel = React.createClass({
 			break;
 
 		case 'date':
-			input = DateField;
+			input = DatePicker;
 			break;
 
 		case 'ssn':

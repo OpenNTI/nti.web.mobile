@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 
 export default React.createClass({
 
-	displayName: 'DateField',
+	displayName: 'DatePicker',
 
 	propTypes: {
 		onChange: React.PropTypes.func,
