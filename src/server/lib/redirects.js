@@ -18,7 +18,8 @@ const HANDLERS = {
 	handleObjectRedirects: /^(object|ntiid)/i,
 	handleInvitationRedirects: /invitations\/accept/i,
 	handleLibraryRedirects: /^library/i,
-	handleLibraryPathRedirects: /^\/*app\/library/i
+	//the path may not always start with /app/ but it will always be have one path segment in front.
+	handleLibraryPathRedirects: /^\/[^\/]+\/library/i
 };
 
 
@@ -28,7 +29,9 @@ export default {
 		this.basepath = config.basepath;
 
 		express.use((req, res, next) => {
-			let redirectParam = req.query.p || req.query.q;
+			// the query (q) is deprecated, but
+			// if its present, it trumps the path (p)
+			let redirectParam = req.query.q || req.query.p;
 			if (!redirectParam) {
 				return next();
 			}
