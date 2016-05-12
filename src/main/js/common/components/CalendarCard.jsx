@@ -5,9 +5,7 @@ import DateTime from './DateTime';
 export default function CalendarCard (props) {
 	const {date} = props;
 
-	return !date ? (
-		<div/>
-	) : (
+	return date && (
 		<div className="calendar-card">
 			<DateTime date={date} className="month" format="MMM"/>
 			<DateTime date={date} className="day" format="DD"/>
@@ -16,5 +14,5 @@ export default function CalendarCard (props) {
 }
 
 CalendarCard.propTypes = {
-	date: React.PropTypes.instanceOf(Date).isRequired
+	date: React.PropTypes.instanceOf(Date)
 };
