@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
+const redirects = require('./lib/redirects');
 const dev = require('./lib/devmode');
 const page = require('./lib/page');
 
@@ -30,6 +31,8 @@ exports = module.exports = {
 		if (devmode) {
 			expressApp.use(devmode.middleware); //serve in-memory compiled sources/assets
 		}
+
+		redirects.register(expressApp, config);
 
 		return {
 			devmode,
