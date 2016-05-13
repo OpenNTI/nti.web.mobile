@@ -35,7 +35,7 @@ exports.getPage = function getPage () {
 	try {
 		const app = require('app-renderer');
 		const data = require('../compile-data.json');
-		const {assetsByChunkName: chunks} = data;
+		const chunks = data.assetsByChunkName;
 
 		for (let chunk of Object.keys(chunks)) {
 			ScriptFilenameMap[chunk] = unwrap(chunks[chunk]);
