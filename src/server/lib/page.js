@@ -51,7 +51,6 @@ exports.getPage = function getPage () {
 
 		for (let chunk of Object.keys(chunks)) {
 			ScriptFilenameMap[chunk] = unwrap(chunks[chunk]);
-			console.log(`${chunk} = ${ScriptFilenameMap[chunk]}`);
 		}
 	}
 	catch (e) {
