@@ -9,11 +9,13 @@ import Loading from 'common/components/Loading';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigationAware from 'common/mixins/NavigationAware';
 
+import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
+import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
+import AcceptInvitationLink from 'invitations/components/AcceptInvitationLink';
+
 import Store from '../Store';
 
 import Detail from './Detail';
-import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
-import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
 
 const logger = Logger.get('catalog:EntryDetail');
 
@@ -117,6 +119,7 @@ export default React.createClass({
 				<Detail {...this.props} entry={entry}/>
 				<EnrollmentStatus catalogEntry={entry} />
 				<GiftOptions catalogEntry={entry} />
+				<AcceptInvitationLink />
 			</div>
 		);
 	}

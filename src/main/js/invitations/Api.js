@@ -32,3 +32,14 @@ export function send (course, email, message) {
 export function canSend (course) {
 	return course && course.hasLink && course.hasLink(SEND_LINK);
 }
+
+export function canAccept () {
+	if (!canAccept.hasAcceptLink) {
+		canAccept.hasAcceptLink = getService().then(service => {
+			const collection = service.getCollection('Invitations', 'Invitations');
+			const href = getLink(collection, ACCEPT_LINK);
+			return !!href;
+		});
+	}
+	return canAccept.hasAcceptLink;
+}
