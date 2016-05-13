@@ -5,7 +5,7 @@ var path = require('path');
 const AppCachePlugin = require('appcache-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const SplitByPathPlugin = require('webpack-split-by-path');
 
 var baseConfig = require('./app.config')[0];
 
@@ -35,6 +35,7 @@ function blacklistedPluginsForWidgets (o) {
 		o instanceof AppCachePlugin
 		|| o instanceof StatsPlugin
 		|| o instanceof ExtractTextPlugin //so we can replace it.
+		|| o instanceof SplitByPathPlugin
 	);
 }
 

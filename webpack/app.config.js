@@ -11,6 +11,7 @@ const AppCachePlugin = require('appcache-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const SplitByPathPlugin = require('webpack-split-by-path');
 
 const path = require('path');
 
@@ -24,13 +25,29 @@ const gitRevision = JSON.stringify(require('nti-util-git-rev'));
 const ENV = process.env.NODE_ENV || 'development';
 const PROD = ENV === 'production';
 
+//fake out the plugin (it does an instanceof test)
+const NTI_PACKAGES = Object.assign(new RegExp(''), {
+	prefix: `${modules}/nti-`,
+	decendent: /node_modules/,
+
+	test (x) {
+		let str = x ? x.toString() : '';
+		if(str.startsWith(this.prefix)) {
+			str = str.substr(this.prefix.length);
+			return !this.decendent.test(str);
+		}
+	}
+});
+
+
+
 exports = module.exports = [
 	{
 		name: 'browser',
 		output: {
 			path: outPath + 'client/',
-			filename: 'js/[hash].js',
-			chunkFilename: 'js/[hash]-[id].js',
+			filename: 'js/[name]-[hash].js',
+			chunkFilename: 'js/[name]-[hash]-[id].js',
 			publicPath: publicPath
 		},
 
@@ -38,7 +55,9 @@ exports = module.exports = [
 		// devtool: PROD ? 'hidden-source-map' : 'source-map',
 		devtool: 'source-map',
 
-		entry: './src/main/js/index.js',
+		entry: {
+			main: './src/main/js/index.js'
+		},
 
 		target: 'web',
 
@@ -132,6 +151,16 @@ exports = module.exports = [
 			}),
 			new webpack.optimize.DedupePlugin(),
 			new webpack.optimize.OccurenceOrderPlugin(),
+			new SplitByPathPlugin([
+				{
+					name: 'vendor',
+					path: modules
+				}
+			], {
+				ignore: [
+					NTI_PACKAGES
+				]
+			}),
 			new webpack.DefinePlugin({
 				'SERVER': false,
 				'BUILD_SOURCE': gitRevision,

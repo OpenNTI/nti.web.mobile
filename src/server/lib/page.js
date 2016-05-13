@@ -24,27 +24,32 @@ function isFile (file) {
 	}
 }
 
+const unwrap = x => Array.isArray(x) ? x[0] : x;
+
 exports.getPage = function getPage () {
+	const ScriptFilenameMap = { main: 'js/main.js', vendor: 'js/vendor.js' };
+	let revision = require('./git-revision');
 	let Application;
 	let template;
-	let scriptFilename = 'js/main.js';
-	let revision = require('./git-revision');
 
 	try {
-		let app = require('app-renderer');
-		scriptFilename = require('../compile-data.json').assetsByChunkName.main;
-		if (Array.isArray(scriptFilename)) {
-			scriptFilename = scriptFilename[0];
+		const app = require('app-renderer');
+		const data = require('../compile-data.json');
+		const {assetsByChunkName: chunks} = data;
+
+		for (let chunk of Object.keys(chunks)) {
+			ScriptFilenameMap[chunk] = unwrap(chunks[chunk]);
 		}
 
 		Application = app.default;
 		revision = app.revision;
 
 	} catch (e) {
+		const isDevmode = /Cannot find module \'app-renderer\'/.test(e.message || e);
 		Application = null;
-		logger.error('No Server-side Rendering (Because: %s)',
-			/Cannot find module \'app-renderer\'/.test(e.message || e) ?
-				e.message : e.stack || e.message || e);
+
+		logger[isDevmode ? 'debug' : 'error']('No Server-side Rendering (Because: %s)',
+			isDevmode ? e.message : e.stack || e.message || e);
 	}
 
 
@@ -96,8 +101,11 @@ exports.getPage = function getPage () {
 				.replace(configValues, injectConfig.bind(this, cfg))
 				.replace(basepathreplace, basePathFix)
 				.replace(/<!--html:server-values-->/i, html)
-				.replace(/resources\/styles\.css/, 'resources/styles.css?rel=' + encodeURIComponent(scriptFilename))
-				.replace(/js\/main\.js/, scriptFilename);
+				.replace(/resources\/styles\.css/, 'resources/styles.css?rel=' + encodeURIComponent(ScriptFilenameMap.main));
+
+		for (let script of Object.keys(ScriptFilenameMap)) {
+			out = out.replace(new RegExp(`js\\/${script}\\.js`), ScriptFilenameMap[script]);
+		}
 
 		return out;
 	};

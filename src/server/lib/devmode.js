@@ -16,8 +16,9 @@ exports.setupDeveloperMode = function setupDeveloperMode (config) {
 
 	webpackConfig.output.path = '/';
 	webpackConfig.output.publicPath = '/mobile/';
-	webpackConfig.output.filename = 'js/main.js';
-	webpackConfig.entry = './src/main/js/index.js';
+	webpackConfig.output.filename = 'js/[name].js';
+	webpackConfig.output.chunkFilename = 'js/[name].js';
+	// webpackConfig.entry = './src/main/js/index.js';
 
 	let webpackServer = new WebpackServer(webpack(webpackConfig), {
 		contentBase: port,
