@@ -91,7 +91,7 @@ exports = module.exports = [
 				},
 				{
 					test: /\.js(x?)$/,
-					include: /node_modules.+nti\-/,
+					// include: /node_modules.+nti\-/,
 					loader: 'source-map'
 				}
 			],
