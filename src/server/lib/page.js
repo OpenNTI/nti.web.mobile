@@ -34,22 +34,28 @@ exports.getPage = function getPage () {
 
 	try {
 		const app = require('app-renderer');
-		const data = require('../compile-data.json');
-		const chunks = data.assetsByChunkName;
-
-		for (let chunk of Object.keys(chunks)) {
-			ScriptFilenameMap[chunk] = unwrap(chunks[chunk]);
-		}
-
 		Application = app.default;
 		revision = app.revision;
-
 	} catch (e) {
 		const isDevmode = /Cannot find module \'app-renderer\'/.test(e.message || e);
 		Application = null;
 
 		logger[isDevmode ? 'debug' : 'error']('No Server-side Rendering (Because: %s)',
 			isDevmode ? e.message : e.stack || e.message || e);
+	}
+
+
+	try {
+		const data = require('../compile-data.json');
+		const chunks = data.assetsByChunkName;
+
+		for (let chunk of Object.keys(chunks)) {
+			ScriptFilenameMap[chunk] = unwrap(chunks[chunk]);
+			console.log(`${chunk} = ${ScriptFilenameMap[chunk]}`);
+		}
+	}
+	catch (e) {
+		logger.error('Could not resolve chunk names!');
 	}
 
 
