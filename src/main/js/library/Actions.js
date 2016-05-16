@@ -1,4 +1,4 @@
-import AppDispatcher from 'nti-lib-dispatcher';
+import {dispatch} from 'nti-lib-dispatcher';
 
 import {getLibrary} from './Api';
 import {LOADED_LIBRARY} from './Constants';
@@ -20,10 +20,4 @@ export function load (forceLoad) {
 
 export function reload () {
 	return load(true);
-}
-
-
-function dispatch (type, response) {
-	AppDispatcher.handleRequestAction({ type, response });
-	return response;
 }
