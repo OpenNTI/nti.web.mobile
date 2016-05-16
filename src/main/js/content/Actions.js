@@ -3,7 +3,7 @@ import {parseNTIID} from 'nti-lib-ntiids';
 
 import {getService} from 'nti-web-client';
 
-import AppDispatcher from 'nti-lib-dispatcher';
+import {dispatch} from 'nti-lib-dispatcher';
 
 import PageDescriptor from './PageDescriptor';
 
@@ -16,9 +16,6 @@ import {load as getLibrary} from 'library/Actions';
 
 const logger = Logger.get('content:actions');
 
-function dispatch (type, response) {
-	AppDispatcher.handleRequestAction({type, response});
-}
 
 
 export function getPackage (id) {
