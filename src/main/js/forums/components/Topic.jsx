@@ -29,7 +29,7 @@ import KeepItemInState from '../mixins/KeepItemInState';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import Paging from '../mixins/Paging';
 import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 import ToggleState from '../mixins/ToggleState';
 
 import {scoped} from 'common/locale';
@@ -40,7 +40,7 @@ export default React.createClass({
 	displayName: 'Topic',
 
 	mixins: [
-		StoreEvents,
+		StoreEventsMixin,
 		ResourceLoaded,
 		NavigatableMixin,
 		KeepItemInState,

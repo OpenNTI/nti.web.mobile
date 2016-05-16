@@ -20,7 +20,7 @@ import {areYouSure} from 'prompts';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import Mixin from './Mixin';
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 import KeepItemInState from '../../mixins/KeepItemInState';
 import ToggleState from '../../mixins/ToggleState';
 import LuckyCharms from 'common/components/LuckyCharms';
@@ -46,7 +46,7 @@ export default React.createClass({
 	mixins: [
 		NavigatableMixin,
 		Mixin,
-		StoreEvents,
+		StoreEventsMixin,
 		KeepItemInState,
 		ToggleState
 	],

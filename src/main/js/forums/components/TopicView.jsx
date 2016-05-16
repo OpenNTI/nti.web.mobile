@@ -12,7 +12,7 @@ import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';
 
 // mixins
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import KeepItemInState from '../mixins/KeepItemInState';
 import ToggleState from '../mixins/ToggleState';
@@ -23,7 +23,7 @@ export default React.createClass({
 	displayName: 'TopicView',
 
 	mixins: [
-		StoreEvents,
+		StoreEventsMixin,
 		NavigatableMixin,
 		KeepItemInState,
 		ToggleState,

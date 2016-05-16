@@ -10,7 +10,7 @@ import {decodeFromURI} from 'nti-lib-ntiids';
 import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 import ContextSender from 'common/mixins/ContextSender';
 
 import Pager from 'common/components/Pager';
@@ -57,7 +57,7 @@ export default React.createClass({
 		PopUpFeature,
 		RouterLikeBehavior,
 		RouterMixin,
-		StoreEvents
+		StoreEventsMixin
 	],
 
 

@@ -11,7 +11,7 @@ import Pager from 'common/components/Pager';
 
 import BasePathAware from 'common/mixins/BasePath';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import Menu from './Menu';
 import UserMenu from './UserMenu';
@@ -39,7 +39,7 @@ function ensureSlash (str) {
 
 export default React.createClass({
 	displayName: 'NavigationBar',
-	mixins: [StoreEvents, BasePathAware, NavigatableMixin],
+	mixins: [StoreEventsMixin, BasePathAware, NavigatableMixin],
 
 	contextTypes: {
 		triggerRightMenu: React.PropTypes.func.isRequired

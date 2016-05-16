@@ -8,7 +8,7 @@ import Err from 'common/components/Error';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import ContextSender from 'common/mixins/ContextSender';
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import KeepItemInState from '../mixins/KeepItemInState';
 
@@ -30,7 +30,7 @@ export default React.createClass({
 
 	mixins: [
 		NavigatableMixin,
-		StoreEvents,
+		StoreEventsMixin,
 		KeepItemInState,
 		ContextSender
 	],

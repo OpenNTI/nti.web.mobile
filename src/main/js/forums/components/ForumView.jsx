@@ -5,7 +5,7 @@ import Loading from 'common/components/Loading';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import CreateTopic from './CreateTopic';
 import Topics from './Topics';
@@ -22,7 +22,7 @@ export default React.createClass({
 
 	mixins: [
 		NavigatableMixin,
-		StoreEvents,
+		StoreEventsMixin,
 		LoadForum,
 		ContextSender
 	],

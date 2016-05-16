@@ -1,10 +1,10 @@
 import CatalogStore from '../Store';
 import {load} from '../Actions';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 export default {
-	mixins: [StoreEvents],
+	mixins: [StoreEventsMixin],
 
 	backingStore: CatalogStore,
 	backingStoreEventHandlers: {

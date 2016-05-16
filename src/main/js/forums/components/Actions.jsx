@@ -2,7 +2,7 @@ import React from 'react';
 
 import {scoped} from 'common/locale';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 import Report from 'common/components/Report';
 
 import {COMMENT_FORM_ID, EDIT_STARTED, EDIT_ENDED} from '../Constants';
@@ -25,7 +25,7 @@ export default React.createClass({
 		onEdit: React.PropTypes.func
 	},
 
-	mixins: [StoreEvents],
+	mixins: [StoreEventsMixin],
 
 	backingStore: Store,
 	backingStoreEventHandlers: {

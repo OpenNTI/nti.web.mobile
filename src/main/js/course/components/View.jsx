@@ -13,7 +13,7 @@ import ErrorWidget from 'common/components/Error';
 
 import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';
-import StoreEventAware from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import Page from './Page';
 
@@ -45,7 +45,7 @@ const ROUTES = [
 
 export default React.createClass({
 	displayName: 'CourseView',
-	mixins: [BasePathAware, ContextContributor, StoreEventAware],
+	mixins: [BasePathAware, ContextContributor, StoreEventsMixin],
 
 	backingStore: Store,
 	backingStoreEventHandlers: {

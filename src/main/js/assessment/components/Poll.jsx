@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import {REPORT_LINK} from 'nti-lib-interfaces/lib/models/assessment/survey/Constants';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import Question from './Question';
 import Aggregated from './aggregated/Aggregated';
@@ -13,7 +13,7 @@ import {toggleAggregatedView} from '../Actions';
 
 export default React.createClass({
 	displayName: 'Poll',
-	mixins: [StoreEvents],
+	mixins: [StoreEventsMixin],
 
 	propTypes: {
 		question: React.PropTypes.object //Poll model

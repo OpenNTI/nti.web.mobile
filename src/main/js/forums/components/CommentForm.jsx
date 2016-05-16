@@ -5,7 +5,7 @@ import Notice from 'common/components/Notice';
 import OkCancelButtons from 'common/components/OkCancelButtons';
 import Loading from 'common/components/TinyLoader';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import * as Actions from '../Actions';
 import Store from '../Store';
@@ -18,7 +18,7 @@ let t = scoped('FORUMS');
 export default React.createClass({
 	displayName: 'CommentForm',
 
-	mixins: [StoreEvents],
+	mixins: [StoreEventsMixin],
 
 	propTypes: {
 		id: React.PropTypes.string,

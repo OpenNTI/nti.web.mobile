@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import * as Actions from '../Actions';
 import Store from '../Store';
@@ -15,7 +15,7 @@ import {
 export default React.createClass({
 	displayName: 'forums:Replies',
 
-	mixins: [StoreEvents],
+	mixins: [StoreEventsMixin],
 
 	propTypes: {
 		className: React.PropTypes.string,

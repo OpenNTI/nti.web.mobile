@@ -2,7 +2,7 @@ import React from 'react';
 
 import Logger from 'nti-util-logger';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import QuestionWidget from 'assessment/components/Question';
 import PollWidget from 'assessment/components/Poll';
@@ -16,7 +16,7 @@ const logger = Logger.get('assessment:NAQuestionWidget');
 
 export default React.createClass({
 	displayName: 'NAQuestion',
-	mixins: [Mixin, StoreEvents],
+	mixins: [Mixin, StoreEventsMixin],
 
 	backingStore: Store,
 	backingStoreEventHandlers: {

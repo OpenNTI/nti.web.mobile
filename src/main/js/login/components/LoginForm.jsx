@@ -8,7 +8,7 @@ import Logger from 'nti-util-logger';
 import Conditional from 'common/components/Conditional';
 import Loading from 'common/components/Loading';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import {scoped} from 'common/locale';
 
@@ -39,7 +39,7 @@ const signupLink = () => t(MESSAGE_SIGNUP_CONFIRMATION, {fallback: 'missing'}) =
 
 export default React.createClass({
 	displayName: 'LoginForm',
-	mixins: [StoreEvents],
+	mixins: [StoreEventsMixin],
 
 	backingStore: Store,
 	backingStoreEventHandlers: {

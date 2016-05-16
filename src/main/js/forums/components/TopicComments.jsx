@@ -6,7 +6,7 @@ import Transition from 'react-addons-css-transition-group';
 import Err from 'common/components/Error';
 import Loading from 'common/components/TinyLoader';
 import Notice from 'common/components/Notice';
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import Paging from '../mixins/Paging';
 
@@ -25,7 +25,7 @@ const showJumpToLastPage = 'TopicComments:showJumpToLastPage';
 export default React.createClass({
 	displayName: 'TopicComments',
 
-	mixins: [Paging, StoreEvents],
+	mixins: [Paging, StoreEventsMixin],
 
 	backingStore: Store,
 	backingStoreEventHandlers: {

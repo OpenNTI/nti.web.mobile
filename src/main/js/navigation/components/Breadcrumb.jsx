@@ -4,13 +4,13 @@ import buffer from 'nti-lib-interfaces/lib/utils/function-buffer';
 
 import ActiveState from 'common/components/ActiveState';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import NavStore from '../Store';
 
 export default React.createClass({
 	displayName: 'Breadcrumb',
-	mixins: [StoreEvents],
+	mixins: [StoreEventsMixin],
 
 	propTypes: {
 		children: React.PropTypes.any

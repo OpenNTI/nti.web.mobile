@@ -11,7 +11,7 @@ import Loading from 'common/components/Loading';
 import {scoped} from 'common/locale';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
 
@@ -32,7 +32,7 @@ const t = scoped('FORUMS');
 export default React.createClass({
 	displayName: 'Topics',
 
-	mixins: [NavigatableMixin, StoreEvents, LoadForum],
+	mixins: [NavigatableMixin, StoreEventsMixin, LoadForum],
 
 	propTypes: {
 		forumId: React.PropTypes.string

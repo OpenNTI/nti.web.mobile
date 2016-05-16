@@ -6,7 +6,7 @@ import getLinkFn from 'nti-lib-interfaces/lib/utils/getlink';
 import Loading from 'common/components/Loading';
 import Err from 'common/components/Error';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import Redirect from 'navigation/components/Redirect';
 
@@ -38,7 +38,7 @@ function getLink (o, k) {
 
 export default React.createClass({
 	displayName: 'Admission',
-	mixins: [StoreEvents],
+	mixins: [StoreEventsMixin],
 
 	backingStore: Store,
 	backingStoreEventHandlers: {

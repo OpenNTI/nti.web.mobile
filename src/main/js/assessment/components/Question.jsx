@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 import {isFlag} from 'nti-web-client';
 import {Mixin as DragDropOrchestrator} from 'common/dnd';
 
@@ -21,7 +21,7 @@ const STATUS_MAP = {
 
 export default React.createClass({
 	displayName: 'Question',
-	mixins: [DragDropOrchestrator, StoreEvents],
+	mixins: [DragDropOrchestrator, StoreEventsMixin],
 
 	propTypes: {
 		question: React.PropTypes.object.isRequired

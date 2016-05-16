@@ -3,7 +3,7 @@ import React from 'react';
 import Logger from 'nti-util-logger';
 
 import {scoped} from 'common/locale';
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import {submitFeedback, deleteFeedbackItem, updateFeedbackItem} from '../Api';
 import Store from '../Store';
@@ -18,7 +18,7 @@ const logError = error=>logger.warn(error.message || error);
 
 export default React.createClass({
 	displayName: 'Feedback',
-	mixins: [StoreEvents],
+	mixins: [StoreEventsMixin],
 
 	propTypes: {
 		assessment: React.PropTypes.object

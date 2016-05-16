@@ -1,7 +1,7 @@
 import React from 'react';
 import Loading from 'common/components/Loading';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import Store from '../Store';
 
@@ -14,7 +14,7 @@ import LoadMore from './LoadMore';
 
 export default React.createClass({
 	displayName: 'NotificationsView',
-	mixins: [StoreEvents],
+	mixins: [StoreEventsMixin],
 
 	getInitialState () { return {}; },
 

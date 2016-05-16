@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 import {rawContent} from 'common/utils/jsx';
 
 import Content from './Content';
@@ -19,7 +19,7 @@ import {getSolutionWidget} from './solution-types';
 
 export default React.createClass({
 	displayName: 'Part',
-	mixins: [StoreEvents],
+	mixins: [StoreEventsMixin],
 
 	propTypes: {
 		index: React.PropTypes.number.isRequired,

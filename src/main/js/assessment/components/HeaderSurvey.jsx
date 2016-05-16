@@ -3,14 +3,14 @@ import cx from 'classnames';
 
 import {REPORT_LINK} from 'nti-lib-interfaces/lib/models/assessment/survey/Constants';
 
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import Store from '../Store';
 import {toggleAggregatedView} from '../Actions';
 
 export default React.createClass({
 	displayName: 'HeaderSurvey',
-	mixins: [StoreEvents],
+	mixins: [StoreEventsMixin],
 
 	propTypes: {
 		assessment: React.PropTypes.object

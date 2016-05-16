@@ -17,7 +17,7 @@ import {clearLoadingFlag} from 'common/utils/react-state';
 
 
 import ExternalLibraryManager from 'nti-web-client/lib/ExternalLibraryManagerMixin';
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import BillingAddress from './BillingAddressForm';
 import CreditCardForm from './CreditCardForm';
@@ -32,7 +32,7 @@ const t = scoped('ENROLLMENT');
 
 export default React.createClass({
 	displayName: 'PaymentForm',
-	mixins: [StoreEvents, ExternalLibraryManager],
+	mixins: [StoreEventsMixin, ExternalLibraryManager],
 
 	backingStore: Store,
 	backingStoreEventHandlers: {

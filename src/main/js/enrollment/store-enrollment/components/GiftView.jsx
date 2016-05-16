@@ -15,7 +15,7 @@ import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
 
 import ExternalLibraryManager from 'nti-web-client/lib/ExternalLibraryManagerMixin';
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
@@ -33,7 +33,7 @@ import Pricing from './Pricing';
 
 export default React.createClass({
 	displayName: 'GiftView',
-	mixins: [StoreEvents, ExternalLibraryManager, FormattedPriceMixin],
+	mixins: [StoreEventsMixin, ExternalLibraryManager, FormattedPriceMixin],
 
 	backingStore: Store,
 	backingStoreEventHandlers: {

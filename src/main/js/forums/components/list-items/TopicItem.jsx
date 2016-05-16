@@ -9,7 +9,7 @@ import {Link} from 'react-router-component';
 import {isMimeType} from 'common/utils/mimetype';
 import Mixin from './Mixin';
 import KeepItemInState from '../../mixins/KeepItemInState';
-import StoreEvents from 'common/mixins/StoreEvents';
+import {StoreEventsMixin} from 'nti-lib-store';
 import {scoped} from 'common/locale';
 import LuckyCharms from 'common/components/LuckyCharms';
 
@@ -22,7 +22,7 @@ export default React.createClass({
 	displayName: 'TopicItem',
 	mixins: [
 		Mixin,
-		StoreEvents,
+		StoreEventsMixin,
 		KeepItemInState
 	],
 
