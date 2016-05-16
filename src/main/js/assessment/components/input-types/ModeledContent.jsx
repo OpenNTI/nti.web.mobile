@@ -17,6 +17,10 @@ export default React.createClass({
 		]
 	},
 
+	shouldComponentUpdate () {
+		return this.shouldUpdate;
+	},
+
 	render () {
 		let {value} = this.state;
 		let submitted = this.isSubmitted();

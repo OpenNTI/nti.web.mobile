@@ -67,7 +67,8 @@ export default {
 
 
 	[onStoreChange] (event) {
-		if (event && event.type === SYNC) {
+		this.shouldUpdate = event && event.type === SYNC;
+		if (this.shouldUpdate) {
 			let {item} = this.props;
 			this.setValue(Store.getPartValue(item));
 			this.setState({
