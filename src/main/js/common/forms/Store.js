@@ -1,8 +1,8 @@
 //TODO: Cleanup/Rewrite -- this was only translated to ES6, it is still in need of updating.
 
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
 import {EventEmitter} from 'events';
-import {CHANGE_EVENT} from 'common/constants/Events';
+import {CHANGE_EVENT} from 'nti-lib-store';
 import * as Constants from './Constants';
 import {getService} from 'nti-web-client';
 

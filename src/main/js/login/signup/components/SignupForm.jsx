@@ -10,13 +10,13 @@ import StoreEvents from 'common/mixins/StoreEvents';
 import {scoped} from 'common/locale';
 let t = scoped('LOGIN.CREATE_ACCOUNT');
 
-import {ERROR_EVENT} from 'common/constants/Events';
 
 import {getServer, getReturnURL} from 'nti-web-client';
 
 import UserAgreement from 'login/prompts/terms/components/UserAgreement';
 
 import Store from '../Store';
+import {ERROR_EVENT} from '../Constants';
 import {clearErrors, preflightAndCreateAccount} from '../Actions';
 
 

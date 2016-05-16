@@ -3,7 +3,7 @@ import {parseNTIID} from 'nti-lib-ntiids';
 
 import {getService} from 'nti-web-client';
 
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
 
 import PageDescriptor from './PageDescriptor';
 

@@ -1,5 +1,5 @@
 import {EventEmitter} from 'events';
-import {CHANGE_EVENT} from './constants/Events';
+import {CHANGE_EVENT} from 'nti-lib-store';
 
 /**
  * We frequently emit events with a type field specified via a constant.

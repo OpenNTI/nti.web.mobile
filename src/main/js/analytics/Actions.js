@@ -1,4 +1,4 @@
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
 import {EVENT_STARTED, EVENT_ENDED} from './Constants';
 import Store from './Store';
 import {getTypes} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';

@@ -1,4 +1,4 @@
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
 import {ENROLL_OPEN, DROP_COURSE} from './Constants';
 
 export function enrollOpen (catalogId) {

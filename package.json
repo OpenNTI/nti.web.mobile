@@ -30,8 +30,10 @@
   "dependencies": {
     "nti-web-client": "^1.0.0",
     "nti-web-service": "^1.1.0",
+    "nti-lib-dispatcher": "^1.0.0",
     "nti-lib-interfaces": "^1.0.0",
     "nti-lib-ntiids": "^1.0.0",
+    "nti-lib-store": "^1.0.0",
     "nti-util-logger": "^1.0.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
@@ -58,7 +60,6 @@
     "fbjs": "^0.7.1",
     "file-loader": "^0.8.1",
     "fixedqueue": "0.0.1",
-    "flux": "^2.0.1",
     "format-price": "0.0.2",
     "foundation-sites": "5.5.3",
     "html-loader": "^0.4.0",

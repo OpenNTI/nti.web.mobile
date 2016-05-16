@@ -1,5 +1,5 @@
 import {EventEmitter} from 'events';
-import {CHANGE_EVENT} from 'common/constants/Events';
+import {CHANGE_EVENT} from 'nti-lib-store';
 // import isFunction from 'is-function';
 import * as Constants from './Constants';
 

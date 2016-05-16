@@ -1,5 +1,5 @@
 import Logger from 'nti-util-logger';
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
 import TypedEventEmitter from './TypedEventEmitter';
 
 const logger = Logger.get('common:store:prototype');

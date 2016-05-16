@@ -1,4 +1,4 @@
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
 
 import {
 	GET_COMMENT_REPLIES,

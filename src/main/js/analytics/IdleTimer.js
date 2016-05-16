@@ -1,6 +1,6 @@
 import Idle from 'common/utils/idle';
 
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
 import {EVENT_STARTED, EVENT_ENDED} from './Constants';
 import {WATCH_VIDEO} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 

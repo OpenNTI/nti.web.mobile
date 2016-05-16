@@ -1,7 +1,7 @@
 import React from 'react';
 import Logger from 'nti-util-logger';
 
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
 
 import {
 	STRIPE_PAYMENT_SUCCESS

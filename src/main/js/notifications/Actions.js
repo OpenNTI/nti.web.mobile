@@ -1,4 +1,4 @@
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
 
 import {load as doLoad} from './Api';
 import {LOADED_NOTIFICATIONS} from './Constants';

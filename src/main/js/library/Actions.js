@@ -1,4 +1,4 @@
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
 
 import {getLibrary} from './Api';
 import {LOADED_LIBRARY} from './Constants';

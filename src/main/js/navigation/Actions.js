@@ -1,5 +1,5 @@
 import buffer from 'nti-lib-interfaces/lib/utils/function-buffer';
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
 
 import {
 	SET_CONTEXT,

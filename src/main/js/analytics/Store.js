@@ -1,9 +1,9 @@
 import {FixedQueue as fixedQueue} from 'fixedqueue';
 
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
 
 import TypedEventEmitter from 'common/TypedEventEmitter';
-import {CHANGE_EVENT} from 'common/constants/Events';
+import {CHANGE_EVENT} from 'nti-lib-store';
 import {getService}from 'nti-web-client';
 
 import {getModel} from 'nti-lib-interfaces';

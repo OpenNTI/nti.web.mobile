@@ -1,13 +1,12 @@
 import Logger from 'nti-util-logger';
 
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
+import {CHANGE_EVENT} from 'nti-lib-store';
 import {EventEmitter} from 'events';
 
 import {getServer} from 'nti-web-client';
 
 import * as Constants from './Constants';
-
-import {CHANGE_EVENT, ERROR_EVENT} from 'common/constants/Events';
 
 let errors = [];
 
@@ -40,7 +39,7 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 	[addError] (error) {
 		errors.push(error);
 		this.emitChange({
-			type: ERROR_EVENT,
+			type: Constants.ERROR_EVENT,
 			errors: errors
 		});
 	},
@@ -49,7 +48,7 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 		if (errors.length > 0) {
 			errors.length = 0;
 			this.emitChange({
-				type: ERROR_EVENT
+				type: Constants.ERROR_EVENT
 			});
 		}
 	},

@@ -1,6 +1,6 @@
 import Logger from 'nti-util-logger';
 
-import AppDispatcher from 'dispatcher/AppDispatcher';
+import AppDispatcher from 'nti-lib-dispatcher';
 import {getService} from 'nti-web-client';
 
 import {getCatalog} from './Api';
