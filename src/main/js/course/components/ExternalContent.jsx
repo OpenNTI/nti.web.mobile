@@ -81,7 +81,7 @@ export default React.createClass({
 
 		getService()
 			.then(service =>
-				service.getParsedObject(id)
+				service.getObject(id)
 					.then(
 						relatedWorkRef => {
 							this.setState({relatedWorkRef});

@@ -51,7 +51,7 @@ export default React.createClass({
 		const {containerId} = props.item;
 
 		getService()
-			.then(service => service.getObject(containerId))
+			.then(service => service.getObjectRaw(containerId))
 			.then(post => post.title)
 			.then(title => this.setState({title}));
 

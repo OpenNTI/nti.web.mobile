@@ -21,7 +21,7 @@ export default class CourseObjectPathResolver {
 		this.focusObject = o;
 		// this[Service] = o[Service];
 
-		// this.getObject = id => this[Service].getParsedObject(id);
+		// this.getObject = id => this[Service].getObject(id);
 		//
 		// this.get = url => this[Service].get(url);
 	}

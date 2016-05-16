@@ -51,7 +51,7 @@ export default React.createClass({
 		getService()
 			.then(service =>
 				Promise.all(items.map(x =>
-					service.getParsedObject(x))))
+					service.getObject(x))))
 			.then(o => this.setState({items: o}));
 	},
 

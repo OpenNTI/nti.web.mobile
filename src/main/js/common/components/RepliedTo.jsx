@@ -28,7 +28,7 @@ export default React.createClass({
 		let {item} = props;
 
 		getService()
-			.then(s => s.getParsedObject(item.inReplyTo, void 0, 'Creator'))
+			.then(s => s.getObject(item.inReplyTo, void 0, 'Creator'))
 			.catch(() => 'Unknown')
 			.then(o => this.setState({parentObjectsCreator: o}));
 	},

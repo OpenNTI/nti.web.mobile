@@ -73,7 +73,7 @@ export default React.createClass({
 		let id = this.getNTIID();
 
 		return getService()
-			.then(service => service.getObject(id))
+			.then(service => service.getObjectRaw(id))
 			.then(this.fillInDataFrom)
 			.catch(this.tryNextId)
 			.catch(this.markDisabled);

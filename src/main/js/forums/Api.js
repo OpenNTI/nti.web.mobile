@@ -76,9 +76,9 @@ export function getForumItemContents (ntiid, params) {
 }
 
 export function getForumItem (ntiid) {
-	return getService().then(s => s.getParsedObject(decodeFromURI(ntiid)));
+	return getService().then(s => s.getObject(decodeFromURI(ntiid)));
 }
 
 export function getForumItems (ntiids) {
-	return getService().then(s => s.getParsedObjects(ntiids.map(decodeFromURI)));
+	return getService().then(s => s.getObjects(ntiids.map(decodeFromURI)));
 }

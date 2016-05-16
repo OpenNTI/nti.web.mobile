@@ -5,7 +5,7 @@ const POLL_INTERVAL = 1000;
 
 const get = (...args) => getService().then(s=> s.get(...args));
 const post = (...args) => getService().then(s=> s.post(...args));
-const parse = (...args) => getService().then(s=> s.getParsedObject(...args));
+const parse = (...args) => getService().then(s=> s.getObject(...args));
 
 
 export function getPricing (purchasable) {

@@ -57,7 +57,7 @@ export default React.createClass({
 		logger.debug('Looking up object: %s', id);
 
 		getService()
-			.then(service => service.getParsedObject(id))
+			.then(service => service.getObject(id))
 			.then(filter)
 			.then(object => (this.setState({object}), object))
 			.then(resolve)

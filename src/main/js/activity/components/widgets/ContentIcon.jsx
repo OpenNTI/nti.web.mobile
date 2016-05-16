@@ -16,7 +16,7 @@ function getThumbnail (item) {
 			.then(service =>
 				item.getContextPath()
 					.catch(e => (e && e.statusCode === 403 && e.Items)
-						? service.getParsedObject(e.Items)
+						? service.getObject(e.Items)
 						: Promise.reject(e)))
 
 			.then(path => getIcon(path[0][0]))

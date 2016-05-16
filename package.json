@@ -31,7 +31,7 @@
     "nti-web-client": "^1.0.0",
     "nti-web-service": "^1.1.0",
     "nti-lib-dispatcher": "^1.0.0",
-    "nti-lib-interfaces": "^1.0.0",
+    "nti-lib-interfaces": "^1.5.0",
     "nti-lib-ntiids": "^1.0.0",
     "nti-lib-store": "^1.0.0",
     "nti-util-logger": "^1.0.0",
