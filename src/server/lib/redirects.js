@@ -1,7 +1,7 @@
 /*eslint strict:0*/
 'use strict';
 const path = require('path');
-const encodeForURI = require('nti-lib-ntiids').encodeForURI;
+const {encodeForURI, decodeFromURI} = require('nti-lib-ntiids');
 const logger = require('./logger');
 
 const SEGMENT_HANDLERS = {
@@ -17,7 +17,7 @@ const SEGMENT_HANDLERS = {
 };
 
 const HANDLERS = {
-	handleObjectRedirects: /^(object|ntiid)/i,
+	handleObjectRedirects: /(\/id|ntiid)\//i,
 	handleInvitationRedirects: /invitations\/accept/i,
 	handleLibraryRedirects: /^library/i,
 	//the path may not always start with /app/ but it will always be have one path segment in front.
@@ -53,7 +53,7 @@ exports = module.exports = {
 	handleInvitationRedirects (query, res, next) {
 		/*
 		 *	from:
-		 *	?q=library/courses/available/invitations/accept/<token>
+		 *	library/courses/available/invitations/accept/<token>
 		 *
 		 *	to:
 		 *	<basepath>/catalog/code/<token>
@@ -73,7 +73,7 @@ exports = module.exports = {
 
 	handleLibraryPathRedirects (query, res, next) {
 		/* From:
-		 * ?p=/app/library/courses/available/NTI-CourseInfo-iLed_iLed_001/...
+		 * /app/library/courses/available/NTI-CourseInfo-iLed_iLed_001/...
 		 *
 		 * To:
 		 * <basepath>/catalog/item/NTI-CourseInfo-iLed_iLed_001/...
@@ -121,7 +121,8 @@ exports = module.exports = {
 	handleObjectRedirects (query, res, next) {
 
 		/* From:
-		 *	?q=object/ntiid/tag:nextthought.com,2011-10:unknown-OID-0x021cae18:5573657273:V0wWNR9EBJd
+		 *	/app/id/unknown-OID-0x021cae18:5573657273:V0wWNR9EBJd
+		 *	object/ntiid/tag:nextthought.com,2011-10:unknown-OID-0x021cae18:5573657273:V0wWNR9EBJd
 		 *
 		 * To:
 		 * 	<basepath>/object/unknown-OID-0x021cae18:5573657273:V0wWNR9EBJd
@@ -129,13 +130,13 @@ exports = module.exports = {
 
 
 		logger.debug('\n\n\nTesting %s\n\n\n', query);
-		let object = /(?:(?:object|ntiid)\/)+([^\/]*)\/?(.*)/;
+		let object = /(?:(?:id|ntiid)\/)([^\/]*)\/?(.*)/;
 		let match = decodeURIComponent(query).match(object);
 
 		if (match) {
 			let [, ntiid] = match;
 
-			let url = path.join(this.basepath, 'object', encodeForURI(ntiid));
+			let url = path.join(this.basepath, 'object', encodeForURI(decodeFromURI(ntiid)));
 
 			logger.info('redirecting to: %s', url);
 			res.redirect(url);
