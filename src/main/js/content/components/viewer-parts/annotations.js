@@ -112,21 +112,23 @@ export default {
 		if (!store || !this.getContentNode()) { return; }
 		logger.debug('Render Pass');
 
-		let newObjects = 0, skipped = 0, dead = 0, rendered = 0;
-		let {annotations = {}} = this.state;
+		const {annotations : previousAnnotations = {}} = this.state;
+		const annotations = {};
+		const deadIDs = new Set(Object.keys(previousAnnotations));
 
-		let deadIDs = new Set(Object.keys(annotations));
+		let newObjects = 0, skipped = 0, dead = 0, rendered = 0;
 
 		this.preresolveLocators(store);
 
 		for (let i of store) {
 			let {applicableRange} = i;
 			let id = i.getID();
-			let annotation = annotations[id];
+			let annotation = previousAnnotations[id];
 
 			if (!applicableRange) { continue; }
 
 			deadIDs.delete(id);
+			annotations[id] = annotation;
 
 			let Annotation = select(i);
 
@@ -145,11 +147,7 @@ export default {
 			}
 		}
 
-		for (let i of deadIDs) {
-			dead++;
-			//annotations[i].cleanup();
-			delete annotations[i];
-		}
+		dead = deadIDs.size;
 
 		logger.debug('Render Complete: rendered: %s, new: %s, skipped: %s, removed: %s', rendered, newObjects, skipped, dead);
 
