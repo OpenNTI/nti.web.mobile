@@ -1,6 +1,6 @@
 import Logger from 'nti-util-logger';
 
-import StorePrototype from 'common/StorePrototype';
+import StorePrototype from 'nti-lib-store';
 
 import * as Constants from './Constants';
 import indexForums from './utils/index-forums';

@@ -1,6 +1,6 @@
 import {PAGE_LOADED, PAGE_FAILED} from './Constants';
 
-import StorePrototype from 'common/StorePrototype';
+import StorePrototype from 'nti-lib-store';
 
 const data = Symbol('data');
 const SetData = Symbol('set:data');

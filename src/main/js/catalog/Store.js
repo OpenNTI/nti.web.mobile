@@ -1,6 +1,6 @@
 import {LOAD_CATALOG, LOADED_CATALOG, GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from './Constants';
 
-import StorePrototype from 'common/StorePrototype';
+import StorePrototype from 'nti-lib-store';
 
 
 const data = Symbol('data');

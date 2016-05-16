@@ -21,7 +21,7 @@ import {
 	updatePartsWithAssessedParts
 } from './utils';
 
-import StorePrototype from 'common/StorePrototype';
+import StorePrototype from 'nti-lib-store';
 
 const logger = Logger.get('assessment:store');
 

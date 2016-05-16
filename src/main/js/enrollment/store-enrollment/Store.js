@@ -1,4 +1,4 @@
-import StorePrototype from 'common/StorePrototype';
+import StorePrototype from 'nti-lib-store';
 
 import {
 	EDIT,
