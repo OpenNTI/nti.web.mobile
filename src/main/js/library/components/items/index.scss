@@ -69,6 +69,8 @@
 		}
 
 		label {
+			backface-visibility: hidden;
+			transform: translate3d(0,0,0);
 			position: static;
 			background: #fff;
 			overflow: hidden;
