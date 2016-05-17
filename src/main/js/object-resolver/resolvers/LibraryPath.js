@@ -106,7 +106,7 @@ const MIME_TYPES = {
 export default class LibraryPathResolver {
 
 	static handles (o) {
-		return o.hasLink('LibraryPath');
+		return o.hasLink && o.hasLink('LibraryPath');
 	}
 
 
