@@ -1,1 +1,2 @@
-export * from './Zoomable';
+import Zoomable from './Zoomable';
+export default Zoomable;
