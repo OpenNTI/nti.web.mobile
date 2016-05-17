@@ -53,8 +53,11 @@ function getContentsForAssessment (assessment) {
 
 	for (let question of questions) {
 		const ntiid = question.getID();
-		console.log(question);
-		contents.push(`<object data="${ntiid}" data-ntiid="${ntiid}" type="${question.MimeType}"></object>`);
+		contents.push(`
+			<object type="${question.MimeType}">
+				<param name="ntiid" value="${ntiid}"/>
+			</object>
+		`);
 	}
 
 	return contents.join('');
