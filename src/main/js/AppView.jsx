@@ -1,5 +1,5 @@
 /*globals BUILD_SOURCE*/
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {environment, CaptureClicks} from 'react-router-component';
 
 import {
@@ -12,7 +12,12 @@ import Router from './Router';
 import Loading from 'common/components/Loading';
 import Navigatable from 'common/mixins/NavigatableMixin';
 
+import * as NavigationActions from 'navigation/Actions';
+
 import AppContainer from './AppFrame';
+
+const SET_PAGESOURCE = 'navigation:setPageSource';
+const SET_CONTEXT = 'navigation:setContext';
 
 export const revision = typeof BUILD_SOURCE === 'undefined' ? 'nah' : BUILD_SOURCE;
 
@@ -21,19 +26,23 @@ export default React.createClass({
 	mixins: [Navigatable],
 
 	propTypes: {
-		path: React.PropTypes.string,
-		basePath: React.PropTypes.string.isRequired
+		path: PropTypes.string,
+		basePath: PropTypes.string.isRequired
 	},
 
 	childContextTypes: {
-		basePath: React.PropTypes.string,
-		defaultEnvironment: React.PropTypes.object
+		basePath: PropTypes.string,
+		defaultEnvironment: PropTypes.object,
+		[SET_PAGESOURCE]: PropTypes.func,
+		[SET_CONTEXT]: PropTypes.func
 	},
 
 	getChildContext () {
 		return {
 			basePath: this.props.basePath,
-			defaultEnvironment: environment.defaultEnvironment
+			defaultEnvironment: environment.defaultEnvironment,
+			[SET_PAGESOURCE]: NavigationActions.setPageSource,
+			[SET_CONTEXT]: NavigationActions.setContext
 		};
 	},
 

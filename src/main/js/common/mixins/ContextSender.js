@@ -1,6 +1,5 @@
+import {PropTypes} from 'react';
 import Contributor, {ContextParent} from './ContextContributor';
-
-import * as Actions from 'navigation/Actions';
 
 import Logger from 'nti-util-logger';
 
@@ -13,8 +12,16 @@ const notify = 'context:notify';
 
 const CONTEXT_DATA = Symbol();
 
+const SET_PAGESOURCE = 'navigation:setPageSource';
+const SET_CONTEXT = 'navigation:setContext';
+
 export default {
 	mixins: [Contributor],
+
+	contextTypes: {
+		[SET_PAGESOURCE]: PropTypes.func.isRequired,
+		[SET_CONTEXT]: PropTypes.func.isRequired
+	},
 
 
 	[RegisterChild] (child) {
@@ -39,9 +46,9 @@ export default {
 			logger.debug('Notify %s', this.constructor.displayName);
 			let context = this[CONTEXT_DATA];
 			if (context) {
-				Actions.setPageSource(...context);
+				this.context[SET_PAGESOURCE](...context);
 			} else {
-				Actions.setContext(this);
+				this.context[SET_CONTEXT](this);
 			}
 		}
 	},
@@ -85,7 +92,7 @@ export default {
 		let context = [pageSource, currentPage, explicitContext || this];
 		this[CONTEXT_DATA] = context;
 		if (children.size === 0) {
-			Actions.setPageSource(...context);
+			this.context[SET_PAGESOURCE](...context);
 		}
 	}
 };
