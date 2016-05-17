@@ -4,7 +4,11 @@ import {getStore, getSuggestedContacts} from '../Api';
 import {USERS} from '../Constants';
 import cx from 'classnames';
 import Loading from 'common/components/TinyLoader';
-import listContainsEntity from 'common/utils/list-contains-entity';
+
+function listContainsEntity (list, entity) {
+	return (list || []).findIndex((user) => user.getID && user.getID() === entity.getID()) > -1;
+}
+
 
 export default React.createClass({
 	displayName: 'UserSearchField',
