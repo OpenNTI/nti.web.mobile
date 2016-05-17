@@ -1,19 +1,41 @@
-import React from 'react';
-import Router from 'react-router-component';
+import {PropTypes} from 'react';
+
+const ENVIRONMENT_TYPE = PropTypes.shape({
+	getPath: PropTypes.func.isRequired,
+	setPath: PropTypes.func.isRequired
+});
 
 export default {
 	contextTypes: {
-		router: React.PropTypes.any
+		defaultEnvironment: ENVIRONMENT_TYPE,
+		router: PropTypes.shape({
+			getEnvironment: PropTypes.func,
+			getNavigable: PropTypes.func,
+			getMatch: PropTypes.func,
+			getParentRouter: PropTypes.func,
+			getPath: PropTypes.func,
+			makeHref: PropTypes.func,
+			navigate: PropTypes.func
+		})
+	},
+
+	propTypes: {
+		environment: ENVIRONMENT_TYPE
 	},
 
 
 	getNavigable () {
-		let {environment} = this.props;
-		if (environment) {
-			return environment;
-		}
+		const {
+			context: {
+				router,
+				defaultEnvironment
+			},
+			props:{
+				environment
+			}
+		} = this;
 
-		return this.context.router || Router.environment.defaultEnvironment;
+		return environment || router || defaultEnvironment;
 	},
 
 

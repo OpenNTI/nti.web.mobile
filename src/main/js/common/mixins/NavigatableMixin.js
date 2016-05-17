@@ -27,40 +27,16 @@ export default {
 
 
 	buildHref (path) {
-		let parent = /^\.\.\//;
-		let n = this.getNavigable();
-		let p;
+		const {navigable, path: resolvedPath} = resolveParentReferences(this.getNavigable(), path);
 
-		//This feels like a hack :/
-		while (parent.test(path)) {
-			p = n.getParentRouter();
-			if (!p) { break; }
-			n = p;
-			path = path.replace(parent, '');
-		}
-
-		if (p) { path = '/' + path; }
-
-		return n.makeHref(path);
+		return navigable.makeHref(resolvedPath);
 	},
 
 
 	navigate (path, navigation, cb) {
-		let parent = /^\.\.\//;
-		let n = this.getNavigable();
-		let p;
+		const {navigable, path: resolvedPath} = resolveParentReferences(this.getNavigable(), path);
 
-		//This feels like a hack :/
-		while (parent.test(path)) {
-			p = n.getParentRouter();
-			if (!p) { break; }
-			n = p;
-			path = path.replace(parent, '');
-		}
-
-		if (p) { path = '/' + path; }
-
-		return n.navigate(path, navigation, cb);
+		return navigable.navigate(resolvedPath, navigation, cb);
 	},
 
 
@@ -70,3 +46,22 @@ export default {
 		return env.setPath(path, navigation, cb);
 	}
 };
+
+
+
+function resolveParentReferences (navigable, path) {
+	let parent = /^\.\.\//;
+	let p;
+
+	//This feels like a hack :/
+	while (parent.test(path)) {
+		p = navigable.getParentRouter();
+		if (!p) { break; }
+		navigable = p;
+		path = path.replace(parent, '');
+	}
+
+	if (p) { path = '/' + path; }
+
+	return { navigable, path };
+}

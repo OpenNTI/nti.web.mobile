@@ -1,6 +1,6 @@
 /*globals BUILD_SOURCE*/
 import React from 'react';
-import CaptureClicks from 'react-router-component/lib/CaptureClicks';
+import {environment, CaptureClicks} from 'react-router-component';
 
 import {
 	addChangeListener as addLocaleChangeListener,
@@ -26,12 +26,14 @@ export default React.createClass({
 	},
 
 	childContextTypes: {
-		basePath: React.PropTypes.string
+		basePath: React.PropTypes.string,
+		defaultEnvironment: React.PropTypes.object
 	},
 
 	getChildContext () {
 		return {
-			basePath: this.props.basePath
+			basePath: this.props.basePath,
+			defaultEnvironment: environment.defaultEnvironment
 		};
 	},
 
