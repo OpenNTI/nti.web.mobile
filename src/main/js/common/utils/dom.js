@@ -2,7 +2,15 @@ import Logger from 'nti-util-logger';
 
 import {getElementRect} from './rects';
 import scrollParent from 'scrollparent';
-import between from 'nti-lib-interfaces/lib/utils/between';
+
+function inRange (i, a, b, inclusive = false) {
+	const x = Math.min(a, b);
+	const y = Math.max(a, b);
+	return inclusive
+		? (i >= x && i <= y)
+		: (i > x && i < y);
+}
+
 
 const logger = Logger.get('common:utils:dom');
 
@@ -22,8 +30,8 @@ export function isPointWithIn (el, x, y) {
 	let rect = getElementRect(el);
 
 	return (
-		between(x, rect.left, rect.right) &&
-		between(y, rect.top, rect.bottom)
+		inRange(x, rect.left, rect.right) &&
+		inRange(y, rect.top, rect.bottom)
 	);
 }
 
@@ -205,9 +213,9 @@ export function enforceNumber (e) {
 		tooLong = (input.value || '').length + 1 > maxLength,
 
 		letter = e.charCode || 13,
-		isArrow = between.inclusive(letter, 37, 40),//left arrow, and down arrow
-		isNumber = between.inclusive(letter, 48, 57) || between.inclusive(letter, 95, 105),//numbers across the top and num pad
-		isAllowedCtrl = between.inclusive(letter, 8, 9) || letter === 13, //backspace, tab, or enter
+		isArrow = inRange(letter, 37, 40, true),//left arrow, and down arrow
+		isNumber = inRange(letter, 48, 57, true) || inRange(letter, 95, 105, true),//numbers across the top and num pad
+		isAllowedCtrl = inRange(letter, 8, 9, true) || letter === 13, //backspace, tab, or enter
 		hasSelection = Math.abs(input.selectionStart - input.selectionEnd) !== 0,
 		ctrlPressed = e.ctrlKey; //ext maps the metaKey to ctrlKey
 
