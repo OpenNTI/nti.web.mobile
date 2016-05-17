@@ -11,8 +11,6 @@ import Notifications from 'notifications/components/View';
 
 import {getHeight as getViewportHeight} from 'common/utils/viewport';
 
-// import preventOverscroll from 'common/thirdparty/prevent-overscroll';
-
 import Analytics from 'analytics/components/Tag';
 import LibraryInvalidationListener from 'library/components/InvalidationListener';
 
@@ -73,7 +71,7 @@ export default React.createClass({
 					<div className="inner-wrap">
 
 
-							<aside className="right-off-canvas-menu" style={height} ref={x => this.rightMenu = x}> 
+							<aside className="right-off-canvas-menu" style={height} ref={x => this.rightMenu = x}>
 								{this.getOverlayState() != null && ( <Session /> )}
 								{this.getOverlayState() != null && ( <Notifications/> )}
 							</aside>
