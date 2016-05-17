@@ -31,12 +31,6 @@ module.exports = Object.freeze([
 				type: 'tel',
 				// placeholder: t('telephone_number'),
 				label: t('telephone_number')
-			},
-			{
-				label: 'What is your date of birth?',
-				ref: 'date_of_birth',
-				type: 'date',
-				required: true
 			}
 		]
 	},
