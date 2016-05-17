@@ -1,5 +1,4 @@
 import React from 'react';
-// import wait from 'nti-lib-interfaces/lib/utils/wait';
 
 const GetContext = 'context:provider:get-local';
 
