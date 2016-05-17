@@ -26,6 +26,15 @@ import {
 const logger = Logger.get('enrollment:five-minute:components:FiveMinuteEnrollmentForm');
 const t = scoped('ENROLLMENT.forms.fiveminute');
 
+const arrayToMap = (arr, field) => {
+	let result = {};
+	for(let obj of arr) {
+		let key = obj[field];
+		result[key] = obj;
+	}
+	return result;
+};
+
 export default React.createClass({
 	displayName: 'FiveMinuteEnrollmentForm',
 
@@ -174,7 +183,8 @@ export default React.createClass({
 		}
 
 		let title = t('admissionTitle');
-		let errors = this.state.errors;
+		let {errors} = this.state;
+		let errorsByRef = arrayToMap(errors, 'field');
 		let errorRefs = new Set(errors.map(err => err.field));
 
 		return (
@@ -183,7 +193,7 @@ export default React.createClass({
 					<div className="medium-6 medium-centered columns">
 						<h2>{title}</h2>
 						<p>{t('admissionDescription')}</p>
-						<FormErrors errors={errors} />
+						<FormErrors errors={errorsByRef} />
 						<RelatedFormPanel
 							inputFocus={this.inputFocused}
 							ref={x => this.formPanel = x}
@@ -191,7 +201,7 @@ export default React.createClass({
 							formConfig={_formConfig}
 							errorFieldRefs={errorRefs}
 							translator={t} />
-						<FormErrors errors={errors} />
+						<FormErrors errors={errorsByRef} />
 						<Button className="columns"
 							enabled={this.submitEnabled()}
 							onClick={this.handleSubmit}>
