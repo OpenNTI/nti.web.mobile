@@ -12,6 +12,7 @@ import {getWidget} from '../components/enrollment-option-widgets';
 import NoOptions from '../components/enrollment-option-widgets/NoOptions';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import Loading from 'common/components/Loading';
 
 import GiftableUtils from './GiftableUtils';
 
@@ -98,7 +99,7 @@ export default {
 	enrollmentWidgets () {
 		let catalogEntry = this.getEntry();
 		if (!this.state.enrollmentStatusLoaded) {
-			return 'Loading';
+			return <Loading />;
 		}
 
 		function showOption (option) {
