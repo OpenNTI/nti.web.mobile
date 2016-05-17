@@ -2,7 +2,7 @@ import React from 'react';
 
 import scrollParent from 'scrollparent';
 
-import {getScreenWidth, getScreenHeight} from '../utils/viewport';
+import {getScreenWidth, getScreenHeight} from 'nti-lib-dom';
 
 const EMPTY = ()=>{};
 

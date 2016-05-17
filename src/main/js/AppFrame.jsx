@@ -9,7 +9,7 @@ import LockScroll from 'common/components/LockScroll';
 
 import Notifications from 'notifications/components/View';
 
-import {getHeight as getViewportHeight} from 'common/utils/viewport';
+import {getViewportHeight} from 'nti-lib-dom';
 
 import Analytics from 'analytics/components/Tag';
 import LibraryInvalidationListener from 'library/components/InvalidationListener';

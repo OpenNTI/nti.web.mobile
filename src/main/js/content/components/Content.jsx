@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {declareCustomElement} from 'common/utils/dom';
-import {rawContent} from 'common/utils/jsx';
-import {getEventTarget} from 'nti-lib-dom';
 import Logger from 'nti-util-logger';
+import {declareCustomElement, getEventTarget} from 'nti-lib-dom';
+import isTouchDevice from 'nti-util-detection-touch';
+
+import {rawContent} from 'common/utils/jsx';
 
 import {getWidget} from './widgets';
-import isTouchDevice from 'nti-util-detection-touch';
 
 function getComparable (o) {
 	return o && o.page;

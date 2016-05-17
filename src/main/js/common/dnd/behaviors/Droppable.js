@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import ensureArray from 'nti-lib-interfaces/lib/utils/ensure-array';
 
-import {isPointWithIn} from '../../utils/dom';
+import {isPointWithIn} from 'nti-lib-dom';
 import Base, {TYPE_SHAPE} from './Base';
 
 const getWrapperElementClassName = 'droppable:getWrapperElementClassName';

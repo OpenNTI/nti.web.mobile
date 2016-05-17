@@ -6,20 +6,18 @@ import Base, {TYPE_SHAPE} from './Base';
 
 import {PointerEvents} from 'nti-util-detection-touch';
 import emptyFunction from 'fbjs/lib/emptyFunction';
-import getScrollParent from 'scrollparent';
 
 import {
 	isMultiTouch,
 	addEventListener as _addEventListener,
 	removeEventListener as _removeEventListener,
 	scrollElementBy,
-	getScrollPosition
-} from '../../utils/dom';
-
-import {getElementRect} from '../../utils/rects';
-import {getHeight as getViewportHeight} from '../../utils/viewport';
-
-import {matches} from 'nti-lib-dom';
+	getScrollPosition,
+	getElementRect,
+	getViewportHeight,
+	matches,
+	getScrollParent
+} from 'nti-lib-dom';
 
 const addListeners = 'dnd:behaviours:draggable:addListeners';
 const removeListeners = 'dnd:behaviours:draggable:removeListeners';

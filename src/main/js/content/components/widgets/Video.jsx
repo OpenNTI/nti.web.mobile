@@ -3,10 +3,10 @@ import React from 'react';
 import scrollparent from 'scrollparent';
 
 import {Progress} from 'nti-lib-interfaces';
+import {getScreenHeight} from 'nti-lib-dom';
 
 import LoadingMask from 'common/components/Loading';
 import ContextAccessor from 'common/mixins/ContextAccessor';
-import {getScreenHeight} from 'common/utils/viewport';
 
 import {Component as Video} from 'video';
 

@@ -3,9 +3,7 @@ import scrollParent from 'scrollparent';
 
 import Logger from 'nti-util-logger';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
-import {hasClass, getEventTarget} from 'nti-lib-dom';
-
-import {getScrollPosition} from 'common/utils/dom';
+import {hasClass, getEventTarget, getScrollPosition} from 'nti-lib-dom';
 
 const logger = Logger.get('content:components:viewer-parts:interaction');
 const SCROLL = Symbol('Scroll-To-Target-Delay');
