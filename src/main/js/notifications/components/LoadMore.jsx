@@ -1,7 +1,7 @@
 import React from 'react';
 
 import InlineLoader from 'common/components/LoadingInline';
-import Button from 'common/forms/components/Button';
+import Button from 'forms/components/Button';
 
 export default function LoadMore ({store, onClick}) {
 	return (

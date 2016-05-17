@@ -3,8 +3,8 @@ import React from 'react';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
-import FormPanel from 'common/forms/components/FormPanel';
-import FormErrors from 'common/forms/components/FormErrors';
+import FormPanel from 'forms/components/FormPanel';
+import FormErrors from 'forms/components/FormErrors';
 import Loading from 'common/components/Loading';
 
 import ContextSender from 'common/mixins/ContextSender';

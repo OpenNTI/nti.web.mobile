@@ -6,7 +6,7 @@ import DateTime from 'common/components/DateTime';
 import Pricing from './Pricing';
 import {resetProcess} from '../Actions';
 
-import Button from 'common/forms/components/Button';
+import Button from 'forms/components/Button';
 
 import {scoped} from 'nti-lib-locale';
 

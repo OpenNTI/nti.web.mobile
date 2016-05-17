@@ -8,8 +8,8 @@ import FieldValuesStore from '../FieldValuesStore';
 import RadioGroup from './RadioGroup';
 import ToggleFieldset from './ToggleFieldset';
 import SocialSecurityNumberField from './SocialSecurityNumberField';
-import Select from 'common/forms/components/Select';
-import Checkbox from 'common/forms/components/Checkbox';
+import Select from 'forms/components/Select';
+import Checkbox from 'forms/components/Checkbox';
 import DateField from './DateField';
 
 import Notice from 'common/components/Notice';

@@ -3,7 +3,7 @@ import React from 'react';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import Loading from 'common/components/LoadingInline';
-import Button from 'common/forms/components/Button';
+import Button from 'forms/components/Button';
 import BasePathAware from 'common/mixins/BasePath';
 import {scoped} from 'nti-lib-locale';
 

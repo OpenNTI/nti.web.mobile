@@ -1,9 +1,9 @@
 /*eslint-disable*/
 
 var t = require('nti-lib-locale').scoped('ENROLLMENT.forms.fiveminute');
-var Constants = require('common/forms/Constants');
-var StateSelect = require('common/forms/fields').StateSelect;
-var CountrySelect = require('common/forms/fields').CountrySelect;
+var Constants = require('forms/Constants');
+var StateSelect = require('forms/fields').StateSelect;
+var CountrySelect = require('forms/fields').CountrySelect;
 
 
 var yesNoOptions = [

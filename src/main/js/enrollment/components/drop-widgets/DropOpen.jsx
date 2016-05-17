@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Notice from 'common/components/Notice';
-import Button from 'common/forms/components/Button';
+import Button from 'forms/components/Button';
 import Loading from 'common/components/Loading';
 
 import {dropCourse} from '../../Actions';

@@ -6,8 +6,8 @@
 import React from 'react';
 import {scoped} from 'nti-lib-locale';
 
-import FormPanel from 'common/forms/components/FormPanel';
-import FormErrors from 'common/forms/components/FormErrors';
+import FormPanel from 'forms/components/FormPanel';
+import FormErrors from 'forms/components/FormErrors';
 
 import Loading from 'common/components/Loading';
 import LoadingInline from 'common/components/TinyLoader';

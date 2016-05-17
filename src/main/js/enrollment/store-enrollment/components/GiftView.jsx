@@ -11,8 +11,8 @@ import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import Localized from 'common/components/LocalizedHTML';
 
-import FormPanel from 'common/forms/components/FormPanel';
-import FormErrors from 'common/forms/components/FormErrors';
+import FormPanel from 'forms/components/FormPanel';
+import FormErrors from 'forms/components/FormErrors';
 
 import ExternalLibraryManager from 'nti-web-client/lib/ExternalLibraryManagerMixin';
 import {StoreEventsMixin} from 'nti-lib-store';

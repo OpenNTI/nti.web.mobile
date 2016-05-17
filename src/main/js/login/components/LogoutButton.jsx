@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {logout} from '../Actions';
-import Button from 'common/forms/components/Button';
+import Button from 'forms/components/Button';
 
 export default function LogoutButton () {
 	return (

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Notice from 'common/components/Notice';
-import Button from 'common/forms/components/Button';
+import Button from 'forms/components/Button';
 
 export default React.createClass({
 	displayName: 'DropFive',

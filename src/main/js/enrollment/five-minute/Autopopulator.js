@@ -1,5 +1,5 @@
 import {getService} from 'nti-web-client';
-import FieldValuesStore from 'common/forms/FieldValuesStore';
+import FieldValuesStore from 'forms/FieldValuesStore';
 
 /*eslint-disable camelcase*/
 let valuesMap = {

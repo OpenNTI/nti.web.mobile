@@ -4,7 +4,7 @@ import Path from 'path';
 import Url from 'url';
 import QueryString from 'query-string';
 
-import Button from 'common/forms/components/Button';
+import Button from 'forms/components/Button';
 
 import {scoped} from 'nti-lib-locale';
 import {getReturnURL} from 'nti-web-client';

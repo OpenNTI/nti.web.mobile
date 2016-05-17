@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'common/forms/components/Button';
+import Button from 'forms/components/Button';
 
 export default function CommunityJoinButton () {
 	return (

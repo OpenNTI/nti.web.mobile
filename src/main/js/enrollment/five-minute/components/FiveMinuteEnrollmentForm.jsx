@@ -3,12 +3,12 @@ import update from 'react/lib/update';
 
 import Logger from 'nti-util-logger';
 
-import Button from 'common/forms/components/Button';
-import FieldRender from 'common/forms/mixins/RenderFormConfigMixin';
-import FieldValuesStore from 'common/forms/FieldValuesStore';
-import * as FormConstants from 'common/forms/Constants';
-import FormErrors from 'common/forms/components/FormErrors';
-import RelatedFormPanel from 'common/forms/components/RelatedFormPanel';
+import Button from 'forms/components/Button';
+import FieldRender from 'forms/mixins/RenderFormConfigMixin';
+import FieldValuesStore from 'forms/FieldValuesStore';
+import * as FormConstants from 'forms/Constants';
+import FormErrors from 'forms/components/FormErrors';
+import RelatedFormPanel from 'forms/components/RelatedFormPanel';
 
 import Loading from 'common/components/Loading';
 import {scoped} from 'nti-lib-locale';

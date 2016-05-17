@@ -1,8 +1,8 @@
 /*eslint-disable*/
 
 var t = require('nti-lib-locale').scoped('ENROLLMENT.forms.fiveminute');
-var StateSelect = require('common/forms/fields').StateSelect;
-var CountrySelect = require('common/forms/fields').CountrySelect;
+var StateSelect = require('forms/fields').StateSelect;
+var CountrySelect = require('forms/fields').CountrySelect;
 var Constants = require('../Constants');
 
 module.exports = Object.freeze([

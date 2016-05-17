@@ -5,7 +5,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Button from 'common/forms/components/Button';
+import Button from 'forms/components/Button';
 
 describe('FooBar', ()=> {
 	let container;

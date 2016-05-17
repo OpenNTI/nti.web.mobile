@@ -3,8 +3,8 @@ import isEmail from 'nti-lib-interfaces/lib/utils/isemail';
 
 import Loading from 'common/components/Loading';
 import Notice from 'common/components/Notice';
-import FormPanel from 'common/forms/components/FormPanel';
-import FormErrors from 'common/forms/components/FormErrors';
+import FormPanel from 'forms/components/FormPanel';
+import FormErrors from 'forms/components/FormErrors';
 
 import {scoped} from 'nti-lib-locale';
 

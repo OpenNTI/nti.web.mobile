@@ -5,7 +5,7 @@ import {join} from 'path';
 import BasePath from 'common/mixins/BasePath';
 import Navigable from 'common/mixins/NavigatableMixin';
 
-import Button from 'common/forms/components/Button';
+import Button from 'forms/components/Button';
 
 import {makeHref as profileLink} from 'profile/components/ProfileLink';
 

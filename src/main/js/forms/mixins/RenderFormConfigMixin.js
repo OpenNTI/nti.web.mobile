@@ -1,9 +1,9 @@
 import React from 'react';
 
 import isFunction from 'is-function';
-import radiogroup from 'common/forms/components/RadioGroup';
-import Select from 'common/forms/components/Select';
-import Checkbox from 'common/forms/components/Checkbox';
+import radiogroup from 'forms/components/RadioGroup';
+import Select from 'forms/components/Select';
+import Checkbox from 'forms/components/Checkbox';
 import ToggleFieldset from '../components/ToggleFieldset';
 
 import t from 'nti-lib-locale';
