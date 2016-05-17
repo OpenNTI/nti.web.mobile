@@ -1,3 +1,5 @@
+@import "utils/placeholders";
+
 .zoomable {
 	position:fixed !important;
 	background: rgba(255,255,255,.95);
@@ -25,15 +27,15 @@
 		position: absolute;
 		top: .5rem;
 		right: .5rem;
-		background: {
-			repeat: no-repeat;
-			position: center;
-			color: white;
-		}
 		padding: 0;
 		width: 50px;
 		height: 50px;
 		border-radius: 50%;
 		box-shadow: 0px 3px 5px rgba(128,128,128,0.4);
+		background: {
+			repeat: no-repeat;
+			position: center;
+			color: white;
+		}
 	}
 }

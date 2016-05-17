@@ -1,5 +1,5 @@
 import React from 'react';
-import Point from '../Point';
+import Point from './Point';
 
 const pointFromTouch = t => new Point(t.pageX, t.pageY, t.identifier);
 
